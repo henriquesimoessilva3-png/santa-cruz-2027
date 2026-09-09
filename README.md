@@ -6,6 +6,18 @@ do Botafogo (`:5555`), sem qualquer ligação com os portais de lá.
 
 ## Como abrir
 
+**Portal do clube** — uma página com um card por app, mostrando o que está no ar:
+
+```bash
+~/projetos/santa-cruz-2027/hub/iniciar_hub.sh
+```
+
+Sobe o portal em `http://localhost:5091` e o app de elenco em `:5090`. Para derrubar
+os dois: `hub/parar_hub.sh`. Para acrescentar um app novo ao portal, edite a lista
+`APPS` em `hub/hub_santacruz.py`.
+
+### Só o app de elenco
+
 ```bash
 ~/projetos/santa-cruz-2027/iniciar.sh
 ```

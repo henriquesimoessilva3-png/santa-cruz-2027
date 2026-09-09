@@ -134,6 +134,14 @@ function paraNumero(txt) {
 }
 function uid() { return Math.random().toString(36).slice(2, 10); }
 
+/* Quantos caracteres cabem no nome, dado o tamanho atual do card. */
+let larguraCardPx = 190;
+function limiteNome() {
+  const fz = parseFloat(($('#campo') && $('#campo').style.getPropertyValue('--fz')) || 1) || 1;
+  const util = larguraCardPx - (estado.denso ? 100 : 112);   /* salario + botoes + respiro */
+  return Math.max(10, Math.floor(util / (5.4 * fz)));
+}
+
 /* Nome curto para o card: abrevia o primeiro nome quando o inteiro nao cabe numa
    linha — "Matheus Trindade" vira "M. Trindade", como na sumula. */
 function nomeCurto(nome, limite) {
@@ -249,6 +257,7 @@ function alturaDisponivel() {
 
 /* Posiciona todos os cards e devolve a altura que o campo precisa ter. */
 const FOLGA_COLUNA = 22;   /* espaco livre garantido entre duas colunas vizinhas */
+let recalculandoNomes = false;
 
 function distribuir() {
   const campo = $('#campo');
@@ -264,6 +273,14 @@ function distribuir() {
     for (let i = 1; i < xs.length; i++) menor = Math.min(menor, xs[i] - xs[i - 1]);
     const maxPx = Math.max(120, Math.floor(menor / 100 * larg) - FOLGA_COLUNA);
     campo.style.setProperty('--pos-max', maxPx + 'px');
+    const antes = larguraCardPx;
+    const um = campo.querySelector('.pos');
+    if (um) larguraCardPx = um.offsetWidth;
+    /* card mudou muito de tamanho: os nomes precisam ser recalculados */
+    if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes) {
+      recalculandoNomes = true;
+      requestAnimationFrame(() => { recalculandoNomes = false; renderCampo(); });
+    }
   } else {
     campo.style.setProperty('--pos-max', Math.max(140, Math.floor(larg * 0.22)) + 'px');
   }
@@ -463,8 +480,9 @@ function cardJog(cod, j) {
       (j.titular ? '<span class="estrela">★</span>' : '') +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
+      /* o limite acompanha a largura real do card; a estrela e o selo comem espaco */
       '<span class="nm">' + esc(nomeCurto(j.nome,
-        (estado.denso ? 14 : 17) - (j.titular ? 2 : 0) - (j.estrangeiro ? 4 : 0))) + '</span>' + '</div>' +
+        limiteNome() - (j.titular ? 2 : 0) - (j.estrangeiro ? 4 : 0))) + '</span>' + '</div>' +
     '<div class="jog-meta">' + meta + '</div>' +
     '<div class="jog-sal">' +
       '<input value="' + milhar(j.salario) + '" class="' + (!j.salario ? 'zero' : (j.sugerido ? 'sugerido' : '')) +

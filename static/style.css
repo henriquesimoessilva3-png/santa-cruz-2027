@@ -1130,3 +1130,11 @@ body:not(.claro){
 }
 .jog-meta span + span::before{content:" · ";opacity:.5}
 .jog-nome .idade{display:none}
+
+/* ---------- cards aproveitam a largura livre entre as colunas ---------- */
+.pos{width:min(calc(310px * var(--fz)), var(--pos-max, 999px))}
+.campo.denso .pos{width:min(calc(280px * var(--fz)), var(--pos-max, 999px))}
+@media (max-width:1400px){
+  .pos{width:min(calc(250px * var(--fz)), var(--pos-max, 999px))}
+  .campo.denso .pos{width:min(calc(230px * var(--fz)), var(--pos-max, 999px))}
+}
