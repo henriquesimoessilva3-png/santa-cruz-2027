@@ -2765,8 +2765,10 @@ function fsRender() {
   if (linhasT.length && Object.keys(HIST.jogadores).length) {
     const mt = fsMediasTemporada(co, linhasT);
     const comHist = colunas.filter(c => c.h).length;
-    b += '<tr class="fs-grupo"><td><b>Temporadas</b><span>Minutagem, gols e bola parada — ' +
-      'Wyscout, ' + (HIST.temporadas || []).join('/') + '</span></td>' +
+    b += '<tr class="fs-grupo"><td title="Minutagem, gols e bola parada do Wyscout nas ' +
+      'temporadas ' + (HIST.temporadas || []).join(', ') + '"><b>Temporadas</b>' +
+      '<span>Wyscout · ' + (HIST.temporadas[0] || '') + '–' +
+      (HIST.temporadas[HIST.temporadas.length - 1] || '') + '</span></td>' +
       colunas.map(c => '<td>' + (c.h ? '' : '<span class="fs-sem">sem histórico</span>') + '</td>').join('') +
       tdVagas + medias.map(() => '<td></td>').join('') + '</tr>';
     linhasT.forEach(l => {
@@ -2806,7 +2808,8 @@ function fsRender() {
   }
 
   FS_GRUPOS.forEach((g, gi) => {
-    b += '<tr class="fs-grupo"><td><b>' + esc(g.t) + '</b><span>' + esc(g.d) + '</span></td>' +
+    b += '<tr class="fs-grupo"><td title="' + esc(g.t + ' — ' + g.d) + '"><b>' + esc(g.t) +
+      '</b><span>' + esc(g.d) + '</span></td>' +
       colunas.map(c => {
         const v = c.idx.grupos[gi];
         return '<td>' + (v == null ? '' : '<span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +

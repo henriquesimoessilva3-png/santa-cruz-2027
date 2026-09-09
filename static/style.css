@@ -1540,7 +1540,6 @@ body:not(.claro){
 .fc-ass.zero{color:var(--tinta3);font-weight:600}
 
 /* ---------- matriz na leitura do Montoro: faixas, nao grade ---------- */
-#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td{background:var(--veu0)}
 #fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td:first-child{background:var(--veu0)}
 #fsMatriz tbody tr:not(.fs-grupo):hover td{background:var(--veu2)}
 #fsMatriz tbody td{border-bottom:none}
@@ -1584,7 +1583,6 @@ body:not(.claro){
 /* fio vertical entre as colunas, como no painel do estudo */
 #fsMatriz tbody td:not(:first-child){border-left:1px solid var(--linha-tab)}
 #fsMatriz tbody td{border-bottom:1px solid var(--linha-tab)}
-#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td{background:transparent}
 #fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td:first-child{background:var(--fundo3)}
 #fsMatriz .fs-c.media{background:var(--veu0)}
 #fsMatriz tr.fs-grupo td{background:var(--fundo3)!important}
@@ -1644,3 +1642,40 @@ body:not(.claro){
   padding:3px 8px;border-radius:5px;color:var(--tinta3);border:1px dashed var(--borda2);
   background:transparent;cursor:pointer}
 .fs-add-bt:hover{color:var(--coral);border-color:var(--coral)}
+
+/* ---------- celula da matriz: fundo azulado ----------
+   O cinza do trilho ficava do mesmo tom do fundo da linha e a barra se perdia. Um
+   azul frio separa a celula da linha e faz o verde e o vermelho saltarem, sem
+   disputar com eles (azul nao e nenhuma das duas pontas da escala). */
+:root{ --fs-cel:#111c2e; --fs-cel-alt:#0e1826; --fs-trilho:#1e3050; }
+body.claro{ --fs-cel:#eef3fb; --fs-cel-alt:#e7eefa; --fs-trilho:#d3e0f2; }
+
+#fsMatriz tbody td.fs-c{background:var(--fs-cel)}
+#fsMatriz tbody tr:nth-of-type(even) td.fs-c{background:var(--fs-cel-alt)}
+#fsMatriz .fs-bar{background:var(--fs-trilho)}
+#fsMatriz tbody tr:hover td.fs-c{background:var(--veu2)}
+#fsMatriz .fs-c.media{background:transparent!important}
+#fsMatriz .fs-c.media .fs-bar{background:var(--trilho)}
+#fsMatriz .fs-c.vazio{background:transparent!important}
+/* o lider continua vencendo o fundo */
+#fsMatriz tbody td.fs-c.lider{background:#e2a51f1f!important}
+
+/* ---------- faixa do grupo numa linha so ----------
+   A descricao quebrava em tres linhas dentro dos 188px da coluna de rotulos e a faixa
+   ficava alta. Agora e uma linha que corta com reticencias; o texto inteiro esta no
+   balao da celula. */
+#fsMatriz tr.fs-grupo td{padding:4px 9px}
+#fsMatriz tr.fs-grupo td:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#fsMatriz tr.fs-grupo td:first-child b{font-size:9.5px;letter-spacing:1.1px;margin-right:7px}
+#fsMatriz tr.fs-grupo td:first-child span{font-size:9px}
+
+/* azul um pouco mais presente: no tom anterior a celula lia como preta */
+:root{ --fs-cel:#16243a; --fs-cel-alt:#131f31; --fs-trilho:#243a5e; }
+body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
+
+/* estas duas ganham das faixas alternadas antigas, que zeravam o fundo da celula */
+#fsMatriz tbody tr td.fs-c{background:var(--fs-cel)}
+#fsMatriz tbody tr:nth-of-type(even) td.fs-c{background:var(--fs-cel-alt)}
+#fsMatriz tbody tr td.fs-c.media{background:transparent}
+#fsMatriz tbody tr td.fs-c.vazio{background:var(--fs-cel-alt);opacity:.55}
+#fsMatriz tbody tr td.fs-c.lider{background:#e2a51f1f}
