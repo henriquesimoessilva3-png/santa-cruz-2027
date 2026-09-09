@@ -1482,6 +1482,12 @@ function aplicarTema() {
   document.body.classList.toggle('claro', claro);
   const b = $('#btTema');
   if (b) b.innerHTML = 'Tema: <b>' + (claro ? 'claro' : 'escuro') + '</b>';
+  /* o mesmo controle, a um clique na barra: o menu Visual escondia demais */
+  const bt = $('#btTemaTopo');
+  if (bt) {
+    bt.textContent = claro ? '☾' : '☀';
+    bt.title = claro ? 'Passar para o modo escuro' : 'Passar para o modo claro';
+  }
 }
 
 function sincronizarBotoes() {
@@ -2448,6 +2454,8 @@ const FS_GRUPOS = [
 const FS_TODAS = FS_GRUPOS.flatMap(g => g.m);
 const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7c', '#1aa3a3', '#e07a1a', '#6aa628', '#5a6ce0',
                   '#b8412f', '#2f9c8a'];
+const FS_ROTULO = 200;    /* largura da coluna dos rotulos das linhas */
+const FS_COL_MIN = 112;   /* abaixo disso o nome do jogador nao cabe */
 let fsPos = 'MEI';
 let fsExtras = [];             /* pks acrescentados a mao */
 let fsOcultos = new Set();     /* pks tirados das listas automaticas */
@@ -2521,8 +2529,10 @@ function fsCelula(co, k, v, casas, menor, lider, tit) {
 
 function fsCabecalho(c) {
   const j = c.j;
-  const tag = c.tipo === 'A' ? '<span class="fs-tag a">Top Série A</span>'
-            : c.tipo === 'B' ? '<span class="fs-tag b">Top Série B</span>' : '';
+  /* rotulo curto: com as colunas todas do mesmo tamanho, "Top Série A" por extenso
+     nao cabe ao lado do indice — e e ao lado dele que ele precisa ficar */
+  const tag = c.tipo === 'A' ? '<span class="fs-tag a" title="Um dos 5 melhores da Série A pelo índice físico">TOP A</span>'
+            : c.tipo === 'B' ? '<span class="fs-tag b" title="Um dos 5 melhores da Série B pelo índice físico">TOP B</span>' : '';
   /* Clube, liga e amostra saem do cabecalho e vao para o balao: com dez colunas,
      quatro linhas de texto por coluna empurravam a matriz inteira para fora da tela. */
   const ficha = [j.t, j.l + (j.p !== fsPos ? ' · ' + j.p : ''),
@@ -2532,10 +2542,12 @@ function fsCabecalho(c) {
     ' title="' + esc(j.n + ' — ' + ficha) + '">' +
     '<div class="fs-nome"><b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
-    '<div class="fs-hd-bts">' +
+    '<div class="fs-clube">' + esc(j.t) + (j.id_ ? ' · ' + j.id_ + 'a' : '') + '</div>' +
+    '<div class="fs-idx-linha">' +
       (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
         '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
-      tag +
+      tag + '</div>' +
+    '<div class="fs-hd-bts">' +
       '<button class="fs-ficha" title="Ver a ficha">+</button>' +
       '<button class="fs-levar" title="Levar para o campograma (' + esc(j.p) + ')">↗</button>' +
       '<button class="fs-x" title="Tirar da comparação">×</button>' +
@@ -2618,8 +2630,9 @@ function fsRender() {
     '<small>' + co.lista.length + ' com tracking na Série A + B' +
     (fsMinJogos() ? ' (≥ ' + fsMinJogos() + ' jogos)' : '') + '</small></th>' +
     colunas.map(fsCabecalho).join('') +
-    medias.map(m => '<th class="fs-media"><b>' + m.rot + '</b><small>' + m.d.n + ' ' + esc(fsPos) +
-      (m.d.n === 1 ? '' : 's') + ' · média da régua</small></th>').join('') + '</tr></thead>';
+    medias.map(m => '<th class="fs-media" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
+      (m.d.n === 1 ? '' : 's') + ' da ' + esc(m.rot.replace('Média ', '')) + ' que entram na régua">' +
+      '<b>' + esc(m.rot) + '</b><small>' + m.d.n + ' na régua</small></th>').join('') + '</tr></thead>';
 
   let b = '<tbody>';
 
@@ -2689,7 +2702,16 @@ function fsRender() {
     });
   });
   b += '</tbody>';
-  $('#fsMatriz').innerHTML = h + b;
+  const tab = $('#fsMatriz');
+  tab.innerHTML = h + b;
+  /* Todas as colunas com a MESMA largura: divide o espaco que sobra depois da coluna
+     dos rotulos. Com um minimo, para que muitas colunas encolham ate certo ponto e so
+     entao a matriz role para o lado. */
+  const nCols = colunas.length + medias.length;
+  if (nCols) {
+    const disp = ($('.fs-matriz-wrap').clientWidth || 1200) - FS_ROTULO;
+    tab.style.setProperty('--fs-col', Math.max(FS_COL_MIN, Math.floor(disp / nCols)) + 'px');
+  }
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
 
   $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
@@ -3005,10 +3027,12 @@ function ligar() {
     else if (e.key === 'Escape') { campoNome.value = estado.nome; campoNome.blur(); }
   };
 
-  $('#btTema').onclick = () => {
+  const trocarTema = () => {
     estado.tema = estado.tema === 'claro' ? 'escuro' : 'claro';
     aplicarTema(); salvarLocal();
   };
+  $('#btTema').onclick = trocarTema;
+  $('#btTemaTopo').onclick = trocarTema;
 
   $('#btAjustar').onclick = () => {
     estado.ajustar = !estado.ajustar;

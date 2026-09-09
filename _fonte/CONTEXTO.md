@@ -172,6 +172,16 @@ amostra saíram do cabeçalho da coluna e foram para o balão: com dez colunas, 
 linhas de texto por coluna empurravam a matriz para fora da tela (7 linhas visíveis
 contra 14 depois).
 
+## Duas armadilhas de CSS que já custaram tempo
+
+- **`.rk-legenda span{display:flex}` vence `.rk-prem-cx{display:none}`** por especificidade
+  (0,1,1 contra 0,1,0). O balão das premissas ficava aberto o tempo todo e achatado em
+  colunas pelo flex herdado. Qualquer coisa nova dentro da legenda precisa de dois
+  seletores: `.rk-legenda .minha-classe`.
+- **Texto por extenso na legenda empurra a tabela.** As premissas escritas ali comiam
+  quatro linhas e derrubavam de 11 para 9 as linhas visíveis. Ficaram atrás do marcador
+  `ⓘ premissas`, num balão absoluto — custo de altura zero.
+
 ## Painel de filtros no formato do Ranking
 
 A aba Fim de contrato usa o mesmo desenho do Ranking do hub (`:5555`): campinho

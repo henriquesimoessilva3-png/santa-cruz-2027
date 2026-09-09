@@ -1360,12 +1360,12 @@ body:not(.claro){
 .fs-bar-leg.lider{outline:2px solid #e2a51f;outline-offset:1px;border-radius:2px}
 .fc-tit .c-ouro{color:#e2a51f}
 .fs-matriz-wrap{flex:1;overflow:auto;min-height:0}
-#fsMatriz{border-collapse:separate;border-spacing:0;font-size:11px;min-width:100%}
+#fsMatriz{border-collapse:separate;border-spacing:0;font-size:11px;min-width:100%;table-layout:fixed}
 #fsMatriz th,#fsMatriz td{border-bottom:1px solid var(--linha-tab);padding:4px 8px;white-space:nowrap;vertical-align:middle}
 #fsMatriz thead th{position:sticky;top:0;background:var(--fundo3);z-index:3;vertical-align:top;text-align:left;
   min-width:104px;padding:8px 9px 6px;border-bottom:1px solid var(--borda2)}
 #fsMatriz thead th:first-child,#fsMatriz tbody td:first-child{position:sticky;left:0;background:var(--fundo3);z-index:2;
-  min-width:220px;max-width:260px;white-space:normal;border-right:1px solid var(--borda2)}
+  width:200px;white-space:normal;border-right:1px solid var(--borda2)}
 #fsMatriz thead th:first-child{z-index:4}
 #fsMatriz tbody tr:not(.fs-grupo) td:first-child{background:var(--fundo)}
 .fs-canto span{font-weight:800;font-size:12.5px;display:block}
@@ -1462,9 +1462,40 @@ body:not(.claro){
 .fc-gols{font-variant-numeric:tabular-nums;font-weight:800;font-size:12.5px;color:var(--tinta)}
 .fc-gols.zero{color:var(--tinta3);font-weight:600}
 
-/* premissas das colunas novas, na mesma legenda das outras */
-.rk-prem{display:block!important;text-transform:none;letter-spacing:0;line-height:1.45;
-  font-size:9.5px;color:var(--tinta3);max-width:300px}
-.rk-prem b{color:var(--tinta2);font-weight:700}
-.rk-prem .ex-rec{font-style:normal;font-weight:800;padding:0 3px;border-radius:3px;
+/* Premissas das colunas novas. Ficam atras de um marcador: escritas por extenso na
+   legenda, ocupavam quatro linhas e empurravam a tabela para baixo (9 linhas visiveis
+   contra 11). O balao e absoluto, entao nao custa altura nenhuma. */
+.rk-legenda .rk-prem-bt{position:relative;display:inline;cursor:help;color:var(--tinta2);
+  font-weight:700;border-bottom:1px dotted var(--tinta3);outline:none}
+.rk-prem-bt:hover,.rk-prem-bt:focus{color:var(--coral)}
+/* precisa vencer o `.rk-legenda span{display:flex}` — com so uma classe ele perdia
+   a disputa de especificidade e o balao ficava aberto o tempo todo, achatado em
+   colunas por causa do flex herdado */
+.rk-legenda .rk-prem-cx{display:none;position:absolute;top:calc(100% + 6px);left:0;width:330px;
+  background:var(--fundo3);border:1px solid var(--borda2);border-radius:6px;padding:9px 11px;
+  box-shadow:0 8px 24px #0006;z-index:70;text-transform:none;letter-spacing:0;
+  line-height:1.5;font-size:10px;color:var(--tinta2);font-weight:400}
+.rk-legenda .rk-prem-bt:hover .rk-prem-cx,
+.rk-legenda .rk-prem-bt:focus .rk-prem-cx{display:block}
+.rk-prem-cx b{color:var(--tinta);font-weight:700}
+.rk-prem-cx .ex-rec{font-style:normal;font-weight:800;padding:0 3px;border-radius:3px;
   background:#22c55e26;color:var(--txt-verde)}
+
+/* ---------- cabecalho da matriz: colunas iguais, tres linhas fixas ---------- */
+#fsMatriz th.fs-col,#fsMatriz th.fs-media{width:var(--fs-col,130px)}
+.fs-col .fs-nome{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs-clube{font-size:9.5px;color:var(--tinta3);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;margin-top:1px}
+.fs-idx-linha{display:flex;align-items:center;gap:4px;white-space:nowrap;margin-top:4px}
+.fs-hd-bts{margin-top:4px}
+.fs-media small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- Fim de contrato: tudo centralizado, menos o nome ---------- */
+#fcTabela thead th,#fcTabela tbody td{text-align:center}
+#fcTabela thead th.num-c,#fcTabela tbody td.num-c{text-align:center}
+#fcTabela thead th:first-child,#fcTabela tbody td:first-child{text-align:left}
+#fcTabela .fc-carr,#fcTabela .fc-bp{justify-content:center}
+#fcTabela .fc-consenso{display:inline-block}
+
+/* botao de tema na barra de cima, ao lado de Orcamento */
+.bt-tema{padding:4px 9px;font-size:13px;line-height:1.1;min-width:0}
