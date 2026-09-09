@@ -319,6 +319,7 @@
                 title="Quantos jogadores do filtro entram na comparação, do melhor índice para baixo"></label>
             <label class="rk-chk">Jogos rastreados ≥
               <input class="num" type="number" id="fsMin" value="5" min="0"></label>
+            <button class="bt mini" id="fsEstudo" title="Diferenças entre a Série A e a Série B em todos os indicadores físicos, posição por posição">Série A × Série B</button>
             <button class="bt mini" id="fsLimpar">Limpar comparação</button>
           </div>
         </div>
@@ -386,6 +387,18 @@
     </div>
   </section>
 </main>
+
+<!-- ============ modal do estudo Serie A x Serie B ============ -->
+<div class="modal" id="modalEstudo">
+  <div class="modal-cx grande">
+    <div class="modal-topo">
+      <h2>Série A × Série B <span class="fc-origem">físico · SkillCorner</span></h2>
+      <span class="sub">o que separa as duas séries, indicador por indicador, em cada posição</span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="es-rolagem"><div id="esCorpo"></div></div>
+  </div>
+</div>
 
 <!-- ============ modal de busca ============ -->
 <div class="modal" id="modalBusca">

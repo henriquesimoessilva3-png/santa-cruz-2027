@@ -1394,18 +1394,18 @@ body:not(.claro){
    vermelho e a moldura do lider sumia no meio. */
 .fs-c{text-align:right;font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace;
   font-size:11.5px;padding:3px 8px}
-.fs-c .v{display:inline-block;min-width:44px;color:var(--tinta)}
-/* barra deitada: o preenchimento cresce para a DIREITA, como uma regua. Em pe, com
-   8px de largura, os tres niveis viravam pontinhos indistinguiveis. */
-.fs-bar{display:inline-block;width:30px;height:7px;border-radius:4px;background:var(--trilho);
-  position:relative;vertical-align:middle;margin-right:8px;overflow:hidden}
-.fs-bar b{position:absolute;left:0;top:0;bottom:0;min-width:2px;background:var(--tinta3);
-  border-radius:4px}
+.fs-c .v{flex:none;width:44px;text-align:right;color:var(--tinta)}
+/* Celula no formato do painel "indicador por indicador" do estudo Montoro: o trilho
+   ESTICA para ocupar a celula e o numero fica fixo a direita. Barra de largura fixa
+   nao deixava comparar duas colunas de relance. */
+.fs-cl{display:flex;align-items:center;gap:7px;min-width:0}
+.fs-bar{flex:1;min-width:16px;height:13px;border-radius:3px;background:var(--trilho);
+  position:relative;overflow:hidden}
+.fs-bar b{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--tinta3)}
 .fs-c.alto .fs-bar b{background:var(--verde)}
 .fs-c.baixo .fs-bar b{background:var(--coral)}
-.fs-c.lider{box-shadow:inset 0 0 0 2px #e2a51f;border-radius:5px}
-.fs-c.lider .v{font-weight:800;color:#e2a51f}
-.fs-c.lider .fs-bar b{background:var(--verde)}
+.fs-c.lider{outline:2px solid #e2a51f;outline-offset:-2px;background:#e2a51f16;position:relative;z-index:2}
+.fs-c.lider .v{font-weight:700;color:#e2a51f}
 .fs-c.media .v{color:var(--tinta3)}
 .fs-c.vazio .v{color:var(--tinta3);opacity:.45}
 
@@ -1580,3 +1580,67 @@ body:not(.claro){
 /* a matriz cabe na largura da area; so rola quando o minimo da coluna obriga */
 .fs-matriz-wrap{overflow-x:auto;overflow-y:auto;scrollbar-gutter:stable}
 #fsMatriz{width:100%}
+
+/* fio vertical entre as colunas, como no painel do estudo */
+#fsMatriz tbody td:not(:first-child){border-left:1px solid var(--linha-tab)}
+#fsMatriz tbody td{border-bottom:1px solid var(--linha-tab)}
+#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td{background:transparent}
+#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td:first-child{background:var(--fundo3)}
+#fsMatriz .fs-c.media{background:var(--veu0)}
+#fsMatriz tr.fs-grupo td{background:var(--fundo3)!important}
+
+/* ---------- estudo Serie A x Serie B ---------- */
+.modal-cx.grande{width:min(1240px,96vw);max-height:92vh;display:flex;flex-direction:column}
+.es-rolagem{overflow:auto;flex:1;min-height:0;padding:0 0 14px}
+.es-intro{margin:12px 18px 14px;font-size:11.5px;color:var(--tinta2);line-height:1.6;max-width:900px}
+.c-a{color:var(--txt-verde)}
+.es-resumo{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:6px}
+.es-resumo th{background:var(--fundo3);padding:7px 12px;text-align:left;font-size:9.5px;
+  text-transform:uppercase;letter-spacing:.6px;color:var(--tinta2);font-weight:700;
+  position:sticky;top:0;z-index:2}
+.es-resumo td{padding:5px 12px;border-bottom:1px solid var(--linha-tab)}
+.es-resumo .num-c{text-align:right}
+.es-pos b{display:inline-block;min-width:34px;color:var(--coral)}
+.es-conta{display:inline-block;min-width:24px;padding:1px 6px;border-radius:4px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.es-conta.a{background:#22c55e26;color:var(--txt-verde)}
+.es-conta.b{background:#52a4eb26;color:#52a4eb}
+.es-dif{font-weight:800;font-variant-numeric:tabular-nums}
+.es-dif.a{color:var(--txt-verde)} .es-dif.b{color:#52a4eb}
+.es-blocos{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:14px;padding:14px 16px 0}
+.es-bloco h3{margin:0 0 6px;font-size:12px;font-weight:800;letter-spacing:.4px;
+  display:flex;align-items:baseline;gap:9px;color:var(--tinta)}
+.es-bloco h3 span{font-size:9.5px;font-weight:400;color:var(--tinta3);letter-spacing:0}
+.es-tab{width:100%;border-collapse:collapse;font-size:10.5px}
+.es-tab th{padding:4px 7px;font-size:8.5px;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--tinta3);border-bottom:1px solid var(--borda2);text-align:left;font-weight:700}
+.es-tab td{padding:3px 7px;border-bottom:1px solid var(--linha-tab)}
+.es-tab .num-c{text-align:right;font-variant-numeric:tabular-nums;
+  font-family:ui-monospace,Menlo,monospace;color:var(--tinta2)}
+.es-tab .num-c.forte{color:var(--tinta);font-weight:800}
+.es-rot{color:var(--tinta2);line-height:1.2}
+.es-rot small{display:block;font-size:8px;color:var(--tinta3);font-family:ui-monospace,Menlo,monospace}
+.es-pct.a{color:var(--txt-verde);font-weight:800}
+.es-pct.b{color:#52a4eb;font-weight:800}
+.es-barra{width:70px}
+.es-barra i{display:block;height:6px;border-radius:3px;background:var(--tinta3);min-width:2px}
+.es-barra i.a{background:var(--verde)} .es-barra i.b{background:#52a4eb}
+.es-grupo td{background:var(--fundo3);padding:5px 7px!important;border-top:1px solid var(--borda2)}
+.es-grupo b{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--tinta)}
+.es-grupo span{font-size:9px;color:var(--tinta3);margin-left:8px}
+
+/* ---------- colunas vazias, para encaixar mais jogadores ---------- */
+#fsMatriz th.fs-vaga{width:var(--fs-col,110px);vertical-align:middle;text-align:center;
+  border-top:3px dashed var(--borda2)}
+.fs-vaga small{display:block;font-size:8.5px;color:var(--tinta3);letter-spacing:.4px;
+  text-transform:uppercase;margin-top:3px}
+.fs-vaga-bt{font-size:15px;line-height:1;padding:2px 9px;border-radius:5px;color:var(--tinta3);
+  border:1px dashed var(--borda2);background:transparent;cursor:pointer}
+.fs-vaga-bt:hover{color:var(--coral);border-color:var(--coral)}
+#fsMatriz .fs-vaga-c{background:transparent!important;border-left:1px dashed var(--borda2)}
+
+/* botao unico de adicionar, no canto da matriz */
+.fs-add-bt{display:block;margin-top:6px;font-size:9.5px;font-weight:700;letter-spacing:.3px;
+  padding:3px 8px;border-radius:5px;color:var(--tinta3);border:1px dashed var(--borda2);
+  background:transparent;cursor:pointer}
+.fs-add-bt:hover{color:var(--coral);border-color:var(--coral)}

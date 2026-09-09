@@ -14,7 +14,13 @@ mostrar jogos onde nao houver minutos, marcado na tela, sem estimar nada.
 
 Duas etapas, as duas com cache em disco e retomaveis:
   1. achar o link do jogador (busca no zerozero.pt, mesmos ids do oGol)
-  2. baixar a pagina e ler a tabela de carreira
+  2. baixar a pagina, ler a tabela de carreira e **conferir se e mesmo ele**
+
+A conferencia nao e opcional. A busca por nome erra do mesmo jeito que o Wyscout
+errava: "A. Moreno / River Plate" trouxe um A. Moreno do Oriente Petrolero, com 5
+jogos e 6 gols que nao sao dele. Como a propria tabela de carreira diz em que clube
+o jogador esta na temporada corrente, da para conferir de graca: se o clube de 2026
+na pagina nao e o clube que a base diz, a pagina e de outra pessoa e vai fora.
 
 A busca reusa `buscar_ogol_links.py` do Portal Ranking em vez de reescrever a
 heuristica de casar nome e clube — que ja e delicada e ja foi ajustada la.
@@ -39,7 +45,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 BASE_RANKING = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/"
                 "fut/BOTA/Analytics/Portal Ranking")
 sys.path.insert(0, BASE_RANKING)
-from buscar_ogol_links import search_zerozero, slug_matches_name   # noqa: E402
+from buscar_ogol_links import search_zerozero, team_matches   # noqa: E402
 
 ARQ_LINKS = os.path.join(AQUI, "dados", "ogol_links.json")
 ARQ_CARREIRA = os.path.join(AQUI, "dados", "ogol_carreira.json")
@@ -51,6 +57,7 @@ LIGAS_SA = ["Argentina A", "Argentina B", "Argentina RESERVAS", "Uruguai", "Para
             "Colombia B", "Venezuela"]
 
 TEMPORADAS = {"2024", "2025", "2026"}
+CORRENTE = "2026"          # a temporada que serve de prova de identidade
 CABECA = {"User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")}
 
@@ -165,7 +172,7 @@ def main():
 
     ses = requests.Session()
     ses.headers.update(CABECA)
-    achados = semlink = semtab = erros = 0
+    achados = semlink = semtab = recusados = erros = 0
 
     for i, p in enumerate(pendentes, 1):
         chave = f"{p['nome']}|{p['time']}"
@@ -183,11 +190,19 @@ def main():
                 time.sleep(args.espera + random.uniform(0, 0.6))
                 r.raise_for_status()
                 temporadas = ler_carreira(r.text)
-                carreira[p["pk"]] = {"url": url, "temporadas": temporadas}
-                if temporadas:
-                    achados += 1
-                else:
+                atual = temporadas.get(CORRENTE)
+                if not temporadas:
+                    carreira[p["pk"]] = {"url": url, "temporadas": {}, "motivo": "sem tabela"}
                     semtab += 1
+                elif not atual or not team_matches(p["time"], atual["tm"]):
+                    # pagina de outra pessoa: o clube da temporada corrente nao bate
+                    carreira[p["pk"]] = {"url": url, "temporadas": {},
+                                         "motivo": "clube nao confere: pagina diz " +
+                                                   ((atual or {}).get("tm") or "nada")}
+                    recusados += 1
+                else:
+                    carreira[p["pk"]] = {"url": url, "temporadas": temporadas}
+                    achados += 1
         except Exception as e:                       # rede caiu, 403, pagina torta
             erros += 1
             print(f"    ! {p['nome']} ({p['time']}): {e}")
@@ -195,12 +210,13 @@ def main():
         if i % 25 == 0 or i == len(pendentes):
             gravar(ARQ_LINKS, links)
             gravar(ARQ_CARREIRA, carreira)
-            print(f"  {i}/{len(pendentes)} · {achados} com carreira · {semlink} sem link · "
-                  f"{semtab} sem tabela · {erros} erros", flush=True)
+            print(f"  {i}/{len(pendentes)} · {achados} conferidos · {semlink} sem link · "
+                  f"{recusados} recusados · {semtab} sem tabela · {erros} erros", flush=True)
 
     gravar(ARQ_LINKS, links)
     gravar(ARQ_CARREIRA, carreira)
-    print(f"ok: {achados} com carreira, {semlink} sem link, {semtab} sem tabela, {erros} erros")
+    print(f"ok: {achados} conferidos, {semlink} sem link, {recusados} recusados, "
+          f"{semtab} sem tabela, {erros} erros")
     print(f"    {ARQ_CARREIRA} tem {len(carreira)} jogadores")
     print("    agora rode: python3 preparar_historico.py  (ele mistura o oGol no historico)")
 

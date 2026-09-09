@@ -194,6 +194,27 @@ contra 14 depois).
   quatro linhas e derrubavam de 11 para 9 as linhas visíveis. Ficaram atrás do marcador
   `ⓘ premissas`, num balão absoluto — custo de altura zero.
 
+## Estudo Série A × Série B
+
+Link **Série A × Série B** no rodapé dos filtros da aba Físico. Para cada posição e cada
+indicador do SkillCorner, a média dos jogadores com tracking de cada série, a diferença
+em % sobre a Série B e quem lidera. **Nos tempos (`t_*`) liderar é ter o número menor** —
+sem essa inversão o estudo diria que a série mais lenta é a melhor. Só entram posições
+com pelo menos três de cada lado, o que exclui o goleiro (5 com tracking nas duas séries).
+
+## O coletor do oGol rende pouco, e o motivo não é o parser
+
+`preparar_ogol.py` funciona: acha o link, lê a tabela `TEMPORADA | EQUIPE | J | G | ASS`
+e **confere pelo clube da temporada corrente** — sem essa conferência ele trouxe um
+"A. Moreno" do Oriente Petrolero para o A. Moreno do River Plate. O problema é a busca:
+de 25 jogadores, 19 não acharam link e 4 foram recusados; sobraram 2. A busca do
+zerozero.pt não lida bem com nome abreviado ("S. Beltrán", "F. Cambeses").
+
+O caminho melhor, não implementado: buscar pela **página de elenco do clube** em vez de
+pelo nome do jogador. São ~300 clubes contra 11 mil jogadores, e dentro de um elenco o
+nome é único. O `elencos_ogol.py` do Portal-Botafogo já tem o parser dessa página
+(`<div id="team_squad">`, não é `<table>`).
+
 ## Painel de filtros no formato do Ranking
 
 A aba Fim de contrato usa o mesmo desenho do Ranking do hub (`:5555`): campinho

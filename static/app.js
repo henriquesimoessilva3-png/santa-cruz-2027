@@ -2544,6 +2544,12 @@ const FS_GRUPOS = [
 const FS_TODAS = FS_GRUPOS.flatMap(g => g.m);
 const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7c', '#1aa3a3', '#e07a1a', '#6aa628', '#5a6ce0',
                   '#b8412f', '#2f9c8a'];
+/* Nao ha colunas vazias de reserva. Tinha duas, com um "+" cada, mas o clique nao
+   podia preencher AQUELA coluna: a ordem das colunas e calculada (extras, depois os
+   tops, depois o filtro), entao o jogador escolhido aparecia no comeco e a vaga
+   continuava vazia — parecia quebrado. Um botao so, no canto, que leva ao campo de
+   busca; a coluna entra na frente. */
+const FS_VAGAS = 0;
 const FS_ROTULO = 188;    /* largura da coluna dos rotulos das linhas */
 const FS_COL_MIN = 92;    /* abaixo disso o nome do jogador nao cabe */
 let fsPos = 'MEI';
@@ -2608,13 +2614,13 @@ function fsIndices(co, j) {
 function fsFaixa(p) { return p >= 75 ? 'alto' : p <= 25 ? 'baixo' : 'medio'; }
 
 function fsCelula(co, k, v, casas, menor, lider, tit) {
-  if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><span class="v">–</span></td>';
+  if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const p = fsPct(co, k, v, menor);
   const cls = p == null ? 'medio' : fsFaixa(p);
   return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) +
-    (p != null ? ' · percentil ' + p : '') + '">' +
-    '<i class="fs-bar"><b style="width:' + (p == null ? 0 : p) + '%"></b></i>' +
-    '<span class="v">' + fsFmt(v, casas) + '</span></td>';
+    (p != null ? ' · percentil ' + p : '') + '"><div class="fs-cl">' +
+    '<i class="fs-bar"><b style="width:' + Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
+    '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
 }
 
 function fsCabecalho(c) {
@@ -2734,11 +2740,19 @@ function fsRender() {
                               c.h = hist(primaryKey(c.j)); });
   const medias = $('#fsMedias').checked
     ? [{ rot: 'Média Série A', d: co.A }, { rot: 'Média Série B', d: co.B }] : [];
+  /* colunas vazias no fim: dao onde encaixar mais um jogador sem ter que caçar o
+     campo de busca la em cima */
+  const vagas = Array.from({ length: FS_VAGAS });
+  const tdVagas = vagas.map(() => '<td class="fs-vaga-c"></td>').join('');
 
   let h = '<thead><tr><th class="fs-canto"><span>' + esc(nomePos(fsPos)) + '</span>' +
     '<small>' + co.lista.length + ' com tracking na Série A + B' +
-    (fsMinJogos() ? ' (≥ ' + fsMinJogos() + ' jogos)' : '') + '</small></th>' +
+    (fsMinJogos() ? ' (≥ ' + fsMinJogos() + ' jogos)' : '') + '</small>' +
+    '<button class="fs-add-bt" title="Escolher um jogador para entrar na comparação">' +
+      '+ adicionar jogador</button></th>' +
     colunas.map(fsCabecalho).join('') +
+    vagas.map(() => '<th class="fs-vaga" title="Clique para escolher um jogador">' +
+      '<button class="fs-vaga-bt">+</button><small>adicionar</small></th>').join('') +
     medias.map(m => '<th class="fs-media" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
       (m.d.n === 1 ? '' : 's') + ' da ' + esc(m.rot.replace('Média ', '')) + ' que entram na régua">' +
       '<b>' + esc(m.rot) + '</b><small>' + m.d.n + ' na régua</small></th>').join('') + '</tr></thead>';
@@ -2754,7 +2768,7 @@ function fsRender() {
     b += '<tr class="fs-grupo"><td><b>Temporadas</b><span>Minutagem, gols e bola parada — ' +
       'Wyscout, ' + (HIST.temporadas || []).join('/') + '</span></td>' +
       colunas.map(c => '<td>' + (c.h ? '' : '<span class="fs-sem">sem histórico</span>') + '</td>').join('') +
-      medias.map(() => '<td></td>').join('') + '</tr>';
+      tdVagas + medias.map(() => '<td></td>').join('') + '</tr>';
     linhasT.forEach(l => {
       const vals = colunas.map(c => l.val(c.h));
       const validos = vals.filter(v => v != null);
@@ -2765,25 +2779,26 @@ function fsRender() {
         '<small>' + esc(l.un) + '</small></td>' +
         colunas.map((c, i) => {
           const v = vals[i];
-          if (v == null) return '<td class="fs-c vazio"><span class="v">–</span></td>';
+          if (v == null) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
           const cls = med == null ? 'medio' : v >= med ? 'alto' : 'baixo';
           const lider = melhor != null && v === melhor && validos.length > 1 && v > 0;
           const tit = l.rot + ': ' + fsFmt(v, l.casas) +
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
-          return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) + '">' +
+          return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+            '"><div class="fs-cl">' +
             '<i class="fs-bar"><b style="width:' +
-              Math.max(0, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
-            '<span class="v">' + (l.casas ? fsFmt(v, l.casas) : milhar(v)) + '</span></td>';
+              Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
+            '<span class="v">' + (l.casas ? fsFmt(v, l.casas) : milhar(v)) + '</span></div></td>';
         }).join('') +
-        medias.map(m => {
+        tdVagas + medias.map(m => {
           const v = (m.rot.endsWith('A') ? mt.A : mt.B)[l.id];
-          return '<td class="fs-c media"><span class="v">' +
-            (v == null ? '–' : l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></td>';
+          return '<td class="fs-c media"><div class="fs-cl"><span class="v">' +
+            (v == null ? '–' : l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
         }).join('') + '</tr>';
     });
     if (comHist < colunas.length) {
-      b += '<tr class="fs-aviso"><td colspan="' + (1 + colunas.length + medias.length) + '">' +
+      b += '<tr class="fs-aviso"><td colspan="' + (1 + colunas.length + vagas.length + medias.length) + '">' +
         (colunas.length - comHist) + ' de ' + colunas.length + ' sem histórico do Wyscout: ' +
         'o cruzamento entre temporadas é por nome e idade, e nomes ambíguos ficam de fora ' +
         'em vez de mostrar a temporada de outra pessoa.</td></tr>';
@@ -2796,7 +2811,7 @@ function fsRender() {
         const v = c.idx.grupos[gi];
         return '<td>' + (v == null ? '' : '<span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +
           '" title="Índice do grupo: média dos percentis">' + v + '</span>') + '</td>';
-      }).join('') + medias.map(() => '<td></td>').join('') + '</tr>';
+      }).join('') + tdVagas + medias.map(() => '<td></td>').join('') + '</tr>';
     g.m.forEach(([k, rot, un, casas, menor]) => {
       const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));
       const validos = vals.filter(v => v != null);
@@ -2805,8 +2820,8 @@ function fsRender() {
         colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
           melhor != null && vals[i] === melhor && validos.length > 1,
           rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(co.A.m[k], casas) +
-          ' · média B ' + fsFmt(co.B.m[k], casas))).join('') +
-        medias.map(m => '<td class="fs-c media"><span class="v">' + fsFmt(m.d.m[k], casas) + '</span></td>').join('') +
+          ' · média B ' + fsFmt(co.B.m[k], casas))).join('') + tdVagas +
+        medias.map(m => '<td class="fs-c media"><div class="fs-cl"><span class="v">' + fsFmt(m.d.m[k], casas) + '</span></div></td>').join('') +
         '</tr>';
     });
   });
@@ -2816,12 +2831,27 @@ function fsRender() {
   /* Todas as colunas com a MESMA largura: divide o espaco que sobra depois da coluna
      dos rotulos. Com um minimo, para que muitas colunas encolham ate certo ponto e so
      entao a matriz role para o lado. */
-  const nCols = colunas.length + medias.length;
+  const nCols = colunas.length + medias.length + vagas.length;
   if (nCols) {
-    /* -4px de folga: sem ela a soma das colunas passava a area por um ou dois pixels
-       e o navegador desenhava a barra de rolagem horizontal a toa */
-    const disp = ($('.fs-matriz-wrap').clientWidth || 1200) - FS_ROTULO - 4;
-    tab.style.setProperty('--fs-col', Math.max(FS_COL_MIN, Math.floor(disp / nCols)) + 'px');
+    /* Folga: cada coluna tem um fio de 1px a esquerda, e com `border-collapse:separate`
+       esses fios SOMAM na largura. Sem descontar um pixel por coluna (mais uma folga
+       de 8), a soma passava a area por poucos pixels e o navegador desenhava a barra
+       de rolagem horizontal a toa. */
+    const wrap = $('.fs-matriz-wrap');
+    const disp = (wrap.clientWidth || 1200) - FS_ROTULO - nCols - 8;
+    let w = Math.max(FS_COL_MIN, Math.floor(disp / nCols));
+    tab.style.setProperty('--fs-col', w + 'px');
+    /* Uma correcao, nao um laco: a conta acima erra por poucos pixels (fios, sticky,
+       arredondamento do table-layout). Em vez de adivinhar a formula exata, mede o que
+       sobrou e desconta de uma vez. Passada unica de proposito — foi um laco desses
+       que fez o campograma tremer. */
+    /* mede a ROLAGEM, nao a largura da tabela: com width:100% a tabela relata a
+       largura da area mesmo quando o conteudo passa dela */
+    const sobra = wrap.scrollWidth - wrap.clientWidth;
+    if (sobra > 0 && w > FS_COL_MIN) {
+      w = Math.max(FS_COL_MIN, w - Math.ceil(sobra / nCols));
+      tab.style.setProperty('--fs-col', w + 'px');
+    }
   }
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
 
@@ -2830,6 +2860,8 @@ function fsRender() {
     co.lista.length + ' ' + esc(sig(fsPos)) + ' das Séries A e B (' + co.A.n + ' e ' + co.B.n + ')' +
     ' · jogadores de outras ligas entram na mesma régua';
 
+  const btAdd = $('#fsMatriz .fs-add-bt');
+  if (btAdd) btAdd.onclick = () => { const c = $('#fsBusca'); c.focus(); c.select(); };
   $$('#fsMatriz th.fs-col').forEach(th => {
     const id = parseInt(th.dataset.id), pk = th.dataset.pk;
     th.querySelector('.fs-ficha').onclick = () => { abrirFicha(id); irParaAba('campo'); };
@@ -2957,6 +2989,90 @@ function fsSetExterior(tipo) {
   fsRender();
 }
 
+/* ---------------- estudo: Serie A x Serie B, indicador por indicador ----------------
+   Para cada posicao e cada indicador do SkillCorner, a media dos jogadores com tracking
+   de cada serie, a diferenca e quem lidera. Nos tempos (`menor`), liderar e ter o
+   numero MENOR — sem essa inversao o estudo diria que a serie mais lenta e a melhor. */
+function estudoAB(minJogos) {
+  const base = fsBase().filter(j => (Number(j.sc_n) || 0) >= (minJogos || 0));
+  return POSICOES.map(p => {
+    const A = base.filter(j => j.p === p.c && j.l === 'Brasil A');
+    const B = base.filter(j => j.p === p.c && j.l === 'Brasil B');
+    const media = (lista, k) => {
+      const v = lista.map(j => j[k]).filter(x => typeof x === 'number' && !isNaN(x));
+      return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null;
+    };
+    const linhas = FS_TODAS.map(([k, rot, un, casas, menor]) => {
+      const a = media(A, k), b = media(B, k);
+      if (a == null || b == null) return null;
+      const dif = a - b;
+      const pct = b !== 0 ? dif / Math.abs(b) * 100 : 0;
+      /* quem esta melhor: nos tempos, o menor */
+      const lider = Math.abs(pct) < 0.5 ? '=' : ((dif > 0) !== !!menor ? 'A' : 'B');
+      return { k, rot, un, casas, menor, a, b, dif, pct, lider };
+    }).filter(Boolean);
+    return { pos: p, nA: A.length, nB: B.length, linhas };
+  }).filter(x => x.linhas.length && x.nA >= 3 && x.nB >= 3);
+}
+
+function estudoRender() {
+  const min = fsMinJogos();
+  const dados = estudoAB(min);
+  const fmt = (v, c) => fsFmt(v, c);
+
+  /* resumo: em quantos indicadores cada serie lidera, por posicao */
+  const resumo = '<table class="es-resumo"><thead><tr><th>Posição</th><th>Jogadores A</th>' +
+    '<th>Jogadores B</th><th>Indicadores em que a A lidera</th><th>B lidera</th>' +
+    '<th>Maior diferença</th></tr></thead><tbody>' +
+    dados.map(d => {
+      const a = d.linhas.filter(l => l.lider === 'A').length;
+      const b = d.linhas.filter(l => l.lider === 'B').length;
+      const maior = d.linhas.slice().sort((x, y) => Math.abs(y.pct) - Math.abs(x.pct))[0];
+      return '<tr><td class="es-pos"><b>' + p_sig(d.pos) + '</b> ' + esc(d.pos.nome) + '</td>' +
+        '<td class="num-c">' + d.nA + '</td><td class="num-c">' + d.nB + '</td>' +
+        '<td class="num-c"><span class="es-conta a">' + a + '</span></td>' +
+        '<td class="num-c"><span class="es-conta b">' + b + '</span></td>' +
+        '<td>' + esc(maior.rot) + ' <span class="es-dif ' + (maior.lider === 'A' ? 'a' : 'b') + '">' +
+          (maior.pct > 0 ? '+' : '') + fmt(maior.pct, 1) + '%</span></td></tr>';
+    }).join('') + '</tbody></table>';
+
+  const blocos = dados.map(d => {
+    let corpo = '';
+    FS_GRUPOS.forEach(g => {
+      const chaves = new Set(g.m.map(m => m[0]));
+      const linhas = d.linhas.filter(l => chaves.has(l.k));
+      if (!linhas.length) return;
+      corpo += '<tr class="es-grupo"><td colspan="5"><b>' + esc(g.t) + '</b>' +
+        '<span>' + esc(g.d) + '</span></td></tr>';
+      corpo += linhas.map(l => {
+        const larg = Math.min(100, Math.abs(l.pct) * 4);
+        return '<tr><td class="es-rot">' + esc(l.rot) + '<small>' + esc(l.un) +
+            (l.menor ? '' : '') + '</small></td>' +
+          '<td class="num-c' + (l.lider === 'A' ? ' forte' : '') + '">' + fmt(l.a, l.casas) + '</td>' +
+          '<td class="num-c' + (l.lider === 'B' ? ' forte' : '') + '">' + fmt(l.b, l.casas) + '</td>' +
+          '<td class="num-c es-pct ' + (l.lider === 'A' ? 'a' : l.lider === 'B' ? 'b' : '') + '">' +
+            (l.pct > 0 ? '+' : '') + fmt(l.pct, 1) + '%</td>' +
+          '<td class="es-barra"><i class="' + (l.lider === 'A' ? 'a' : l.lider === 'B' ? 'b' : '') +
+            '" style="width:' + larg.toFixed(0) + '%"></i></td></tr>';
+      }).join('');
+    });
+    return '<section class="es-bloco"><h3>' + p_sig(d.pos) + ' · ' + esc(d.pos.nome) +
+      '<span>' + d.nA + ' na Série A · ' + d.nB + ' na Série B</span></h3>' +
+      '<table class="es-tab"><thead><tr><th>Indicador</th><th class="num-c">Série A</th>' +
+      '<th class="num-c">Série B</th><th class="num-c">Dif.</th><th></th></tr></thead>' +
+      '<tbody>' + corpo + '</tbody></table></section>';
+  }).join('');
+
+  $('#esCorpo').innerHTML =
+    '<p class="es-intro">Média de cada indicador do SkillCorner entre os jogadores com ' +
+    'tracking de cada série, posição por posição. Só entram posições com pelo menos três ' +
+    'de cada lado' + (min ? ', e só quem tem ' + min + ' jogos rastreados ou mais' : '') +
+    '. A diferença é sobre a Série B: <b class="c-a">positiva</b> quando a Série A tem o ' +
+    'número maior. Nos tempos, quem lidera é quem tem o número <b>menor</b> — por isso a ' +
+    'cor não segue o sinal.</p>' + resumo + '<div class="es-blocos">' + blocos + '</div>';
+}
+function p_sig(p) { return p.sig || p.c; }
+
 function fsMontarFiltros() {
   campinhoInit('fsCampo', () => {
     const s = campinhoSelecao('fsCampo');
@@ -2984,6 +3100,7 @@ function fsMontarFiltros() {
     b.onclick = () => fsSetExterior(b.classList.contains('on') ? null : b.dataset.e);
   });
   $('#fsTopFiltro').oninput = debounce(fsRender, 200);
+  $('#fsEstudo').onclick = () => { estudoRender(); $('#modalEstudo').classList.add('aberto'); };
   fsAbasMarcar('fsLigaAbas', 'todos');
 
   $('#fsBusca').oninput = debounce(fsBuscar, 150);
