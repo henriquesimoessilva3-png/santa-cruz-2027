@@ -92,6 +92,12 @@ def main(periodo="ago26"):
             "ct": (f.get("contrato_consenso_data") or f.get("Contract expires") or "")[:10],
             "ctc": (f.get("contrato_confianca") or "")[:12],   # alta / baixa / conflito / sem_fonte
             "ctf": f.get("contrato_fontes") or [],
+            # data que cada fonte informa — e o que a aba de fim de contrato mostra
+            "src": {k: (f.get("src_" + k) or "")[:10] for k in
+                    ("wyscout", "transfermarkt", "transferroom", "sofascore",
+                     "capology", "fotmob", "footlink", "tff")
+                    if f.get("src_" + k)},
+            "tm": f.get("tm_id") or "",
             "mv": num(f.get("Market value")),
             "min": num(f.get("Minutes played")),
             "pe": f.get("Foot") or "",

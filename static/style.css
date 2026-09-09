@@ -1143,3 +1143,66 @@ body:not(.claro){
 /* todos os cards com a mesma largura */
 .pos,.pos.aberto{width:var(--pos-max, 240px)}
 .campo.denso .pos,.campo.denso .pos.aberto{width:var(--pos-max, 240px)}
+
+/* ---------- aba fim de contrato ---------- */
+.fc{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.fc-topo{display:flex;align-items:flex-start;gap:20px;padding:14px 16px 10px;
+  border-bottom:1px solid var(--borda);flex-wrap:wrap}
+.fc-tit h2{margin:0;font-size:15px;font-weight:700}
+.fc-tit p{margin:3px 0 0;font-size:11px;color:var(--tinta3);line-height:1.45;max-width:460px}
+.fc-filtros{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-left:auto}
+.fc-filtros input,.fc-filtros select{
+  background:var(--input-bg);border:1px solid var(--input-borda);border-radius:7px;
+  padding:5px 8px;font-size:12px;color:var(--tinta);
+}
+.fc-filtros input:focus,.fc-filtros select:focus{outline:none;border-color:var(--coral)}
+.fc-filtros .num{width:58px;text-align:center}
+.fc-filtros label{font-size:10.5px;color:var(--tinta3);display:flex;align-items:center;
+  gap:4px;font-weight:600}
+.fc-filtros select{max-width:190px}
+#fcChips{padding:9px 16px 6px}
+.fc-lista{flex:1;overflow:auto;min-height:0}
+#fcTabela{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11.5px}
+#fcTabela th{position:sticky;top:0;background:var(--fundo3);padding:6px 9px;text-align:left;
+  font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta2);
+  border-bottom:1px solid var(--borda2);cursor:pointer;z-index:2;font-weight:700}
+#fcTabela th:hover{color:var(--tinta)}
+#fcTabela td{padding:5px 9px;border-bottom:1px solid var(--linha-tab);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#fcTabela tbody tr{cursor:pointer}
+#fcTabela tbody tr:hover{background:var(--veu2)}
+#fcTabela tbody tr.ja{opacity:.45}
+#fcTabela .fraco{color:var(--tinta3)}
+.fc-duvida{display:inline-block;margin-left:4px;font-size:9px;font-weight:800;
+  color:var(--txt-ambar);cursor:help}
+.fc-add{
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;margin-right:5px;
+  background:var(--coral);color:#fff;border:none;cursor:pointer;
+}
+.fc-add:hover{background:#e11d3c}
+.fc-pe{padding:8px 16px;border-top:1px solid var(--borda);font-size:11px;color:var(--tinta3)}
+
+/* ---------- base de fontes: uma coluna por fonte ---------- */
+.fc-nome{line-height:1.3}
+.fc-nome .fc-clube{display:block;font-size:9.5px;color:var(--tinta3)}
+.fc-ovr{font-size:9.5px;font-weight:700;color:var(--txt-azul)}
+.fc-vazia{color:var(--tinta3);opacity:.5}
+.fc-fonte{
+  display:inline-block;padding:1px 5px;border-radius:4px;
+  font-size:10px;font-variant-numeric:tabular-nums;font-weight:600;
+}
+.fc-fonte.igual{background:#22c55e26;color:var(--txt-verde)}
+.fc-fonte.diverge{background:#f5a52430;color:var(--txt-ambar)}
+.fc-consenso{font-variant-numeric:tabular-nums;font-size:11px}
+.fc-luz{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:5px;
+  vertical-align:1px}
+.fc-luz.ok{background:var(--verde)}
+.fc-luz.duvida{background:var(--ambar)}
+.fc-luz.erro{background:var(--coral)}
+.fc-luz.nulo{background:var(--tinta3);opacity:.5}
+.fc-ast{color:var(--txt-ambar);font-weight:700;margin-left:1px}
+#fcTabela td{vertical-align:middle}
+#fcTabela th{white-space:nowrap}
+
+/* a area do campo nunca rola de lado; na vertical, so quando sobra conteudo de verdade */
+.campo-area{overflow-x:hidden;scrollbar-gutter:auto}

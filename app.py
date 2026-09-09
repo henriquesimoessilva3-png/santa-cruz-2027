@@ -73,6 +73,15 @@ def gravar_cenarios(dados):
     os.replace(tmp, ARQ_CENARIOS)
 
 
+def versao_dados():
+    """Assinatura das bases, para o navegador nao ficar com dados velhos."""
+    marcas = []
+    for nome in ("jogadores.json",):
+        caminho = os.path.join(AQUI, "dados", nome)
+        marcas.append(str(int(os.path.getmtime(caminho))) if os.path.exists(caminho) else "0")
+    return "-".join(marcas)
+
+
 def versao_estatica():
     """Assinatura dos arquivos de front, para o navegador nunca servir versao velha."""
     marcas = []
@@ -84,7 +93,8 @@ def versao_estatica():
 
 @app.route("/")
 def index():
-    resp = app.make_response(render_template("index.html", ver=versao_estatica()))
+    resp = app.make_response(render_template("index.html", ver=versao_estatica(),
+                                             verDados=versao_dados()))
     resp.headers["Cache-Control"] = "no-store"
     return resp
 

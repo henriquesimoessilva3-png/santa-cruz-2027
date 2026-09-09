@@ -119,6 +119,7 @@
 
 <nav class="abas">
   <button class="aba on" data-aba="campo">Campograma</button>
+  <button class="aba" data-aba="contrato">Fim de contrato</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
@@ -144,6 +145,40 @@
       <div class="ficha-rolagem"><div id="fiCorpo"></div></div>
       <div class="ficha-pe"><span id="fiRodape"></span></div>
     </section>
+  </section>
+
+  <section class="pagina oculta" id="pgContrato">
+    <div class="fc">
+      <div class="fc-topo">
+        <div class="fc-tit">
+          <h2>Fim de contrato</h2>
+          <p>Quem fica livre no período escolhido. Clique na linha para levar o jogador
+             direto para a posição dele no campograma.</p>
+        </div>
+        <div class="fc-filtros">
+          <label>Contrato até
+            <input type="month" id="fcAte" value="2026-12" min="2025-01" max="2032-12"></label>
+          <select id="fcPos"><option value="">Todas as posições</option></select>
+          <select id="fcLiga"><option value="">Todas as ligas do grupo</option></select>
+          <select id="fcNacao">
+            <option value="">Qualquer nacionalidade</option>
+            <option value="br">Só brasileiros</option>
+            <option value="sul">Só sul-americanos (com Brasil)</option>
+            <option value="sulex">Sul-americanos estrangeiros</option>
+            <option value="ex">Só estrangeiros</option>
+          </select>
+          <label>Idade até <input class="num" type="number" id="fcIdade" placeholder="max"></label>
+          <label>Overall ≥ <input class="num" type="number" id="fcOv" placeholder="0"></label>
+          <label class="chk"><input type="checkbox" id="fcSoConf" checked> só contrato confirmado</label>
+          <button class="bt mini" id="fcLimpar">Limpar</button>
+        </div>
+      </div>
+      <div class="chips" id="fcChips"></div>
+      <div class="fc-lista"><table id="fcTabela"><thead id="fcThead"></thead><tbody id="fcTbody"></tbody></table>
+        <div class="vazio" id="fcVazio" style="display:none">Nenhum jogador com esses filtros.</div>
+      </div>
+      <div class="fc-pe"><span id="fcContagem">—</span></div>
+    </div>
   </section>
 
   <section class="pagina oculta" id="pgAnalise">
@@ -339,6 +374,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="/static/html2canvas.min.js" onerror="window.__semPng=1"></script>
+<script>window.__verDados = "{{ verDados }}";</script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>

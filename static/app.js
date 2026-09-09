@@ -23,13 +23,16 @@ const LAYOUT = {
   /* Campo deitado: os laterais ficam a frente dos zagueiros e abertos nas pontas
      (espalhar), e os extremos a frente do meia, tambem abertos. */
   horizontal: [
-    { x: 10, pos: ['GOL'] },
-    { x: 27, pos: ['ZE', 'ZD'] },
-    { x: 38, pos: ['LE', 'LD'], espalhar: true },
-    { x: 52, pos: ['VOL', 'MED'] },
-    { x: 69, pos: ['MEI'] },
-    { x: 80, pos: ['EE', 'ED'], espalhar: true },
-    { x: 90, pos: ['CA'] },
+    /* as colunas centradas ficam igualmente espacadas de 10% a 90%: sao elas que
+       disputam a faixa do meio, e esse vao define o tamanho do card. As abertas
+       entram no meio do caminho, sem brigar por espaco (ficam no topo e na base). */
+    { x: 8,  pos: ['GOL'] },
+    { x: 29, pos: ['ZE', 'ZD'] },
+    { x: 40, pos: ['LE', 'LD'], espalhar: true },
+    { x: 50, pos: ['VOL', 'MED'] },
+    { x: 71, pos: ['MEI'] },
+    { x: 81, pos: ['EE', 'ED'], espalhar: true },
+    { x: 92, pos: ['CA'] },
   ],
   vertical: [
     { pos: ['EE', 'CA', 'ED'], xs: [14, 50, 86] },
@@ -258,7 +261,9 @@ const FONTE_MAX = 1.18;    /* teto do aumento compensatorio de fonte */
 /* Altura util da area do campograma (descontando o respiro). */
 function alturaDisponivel() {
   const area = $('.campo-area');
-  return area ? Math.max(0, area.clientHeight - 22) : 0;
+  /* 28px cobrem o padding da area mais uma folga: sem ela, o campo passa por
+     um ou dois pixels e o navegador desenha a barra de rolagem a toa */
+  return area ? Math.max(0, area.clientHeight - 28) : 0;
 }
 
 /* Posiciona todos os cards e devolve a altura que o campo precisa ter. */
@@ -285,9 +290,19 @@ function maiorLarguraQueCabe(campo, larg) {
       const gap = c.espalhar ? 46 : GAP_CARD;
       return { x: c.x, els, soma, h: soma + gap * (els.length - 1), espalhar: !!c.espalhar };
     });
+    let paraPontas = 0;
+    cols.forEach(c => {
+      if (!c.espalhar || c.els.length < 2) return;
+      const topo = alturas[c.els[0]] || 0;
+      const base = alturas[c.els[c.els.length - 1]] || 0;
+      const vizinha = Math.max.apply(null, cols
+        .filter(o => !o.espalhar && Math.abs(o.x - c.x) <= 12)
+        .map(o => o.h).concat([0]));
+      paraPontas = Math.max(paraPontas, topo + base + vizinha + MARGEM_CAMPO * 2 + GAP_CARD * 2);
+    });
     const alt = Math.max(
       Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2,
-      alturaDisponivel());
+      paraPontas, alturaDisponivel());
 
     const caixas = [];
     cols.forEach(c => {
@@ -315,7 +330,7 @@ function maiorLarguraQueCabe(campo, larg) {
     return true;
   };
 
-  const teto = Math.min(420, Math.floor(larg / 4.2));   /* nao passa de 1/4 do campo */
+  const teto = Math.min(460, Math.floor(larg / 3.9));   /* teto generoso; a simulacao e quem decide */
   for (let w = teto; w >= 150; w -= 6) if (simula(w)) return w;
   return 150;
 }
@@ -351,16 +366,33 @@ function distribuir() {
 
   if (estado.orientacao === 'horizontal') {
     const VAO_ABERTO = 46;   /* respiro entre os cards abertos nas pontas */
+    const alturas = {};
+    POSICOES.forEach(p => {
+      const el = carta[p.c];
+      alturas[p.c] = el ? el.offsetHeight : 0;
+    });
     const cols = LAYOUT.horizontal.map(c => {
-      const els = c.pos.map(k => carta[k]).filter(Boolean);
+      const codigos = c.pos.filter(k => carta[k]);
+      const els = codigos.map(k => carta[k]);
       const soma = els.reduce((s, e) => s + e.offsetHeight, 0);
       const h = soma + (c.espalhar ? VAO_ABERTO : GAP_CARD) * (els.length - 1);
-      return { x: c.x, els, h, soma, espalhar: !!c.espalhar };
+      return { x: c.x, codigos, els, h, soma, espalhar: !!c.espalhar };
     });
     const necessaria = Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2;
-    /* o gramado sempre ocupa a tela toda; sobrando espaco, as pontas (laterais e
-       extremos) abrem de verdade em vez de deixar um vazio embaixo */
-    const alt = Math.max(necessaria, alturaDisponivel());
+    /* Uma coluna aberta precisa caber acima e abaixo da coluna centrada vizinha,
+       senao elas se cruzam e o card teria de encolher muito. Essa e a altura minima
+       que mantem o card largo. */
+    let paraPontas = 0;
+    cols.forEach(c => {
+      if (!c.espalhar || c.codigos.length < 2) return;
+      const topo = alturas[c.codigos[0]] || 0;
+      const base = alturas[c.codigos[c.codigos.length - 1]] || 0;
+      const vizinha = Math.max.apply(null, cols
+        .filter(o => !o.espalhar && Math.abs(o.x - c.x) <= 12)
+        .map(o => o.h).concat([0]));
+      paraPontas = Math.max(paraPontas, topo + base + vizinha + MARGEM_CAMPO * 2 + GAP_CARD * 2);
+    });
+    const alt = Math.max(necessaria, paraPontas, alturaDisponivel());
     cols.forEach(c => {
       if (c.espalhar && c.els.length > 1) {
         /* abre nas pontas: o primeiro encosta em cima, o ultimo embaixo */
@@ -431,7 +463,7 @@ function ajustarCampo() {
     return;
   }
 
-  const disp = area.clientHeight - 20;
+  const disp = alturaDisponivel();
 
   /* 1a passada: de quanta altura o campo precisa com a fonte normal */
   campo.style.setProperty('--fz', 1);
@@ -1466,7 +1498,7 @@ const cachePosKpis = {};
 async function kpisDe(j) {
   if (!j || !j.p) return null;
   if (!cachePosKpis[j.p]) {
-    cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json')
+    cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json' + (window.__verDados ? '?v=' + window.__verDados : ''))
       .then(r => (r.ok ? r.json() : null))
       .catch(() => null);
   }
@@ -1635,6 +1667,195 @@ async function alternarDetalhe(tr, jid) {
       '<div class="det-pe">' + esc(f.rodape) + '</div></div>';
   const add = linha.querySelector('.det-add');
   if (add) add.onclick = e => { e.stopPropagation(); adicionarDaBase(jid); };
+}
+
+/* ---------------- aba: fim de contrato ---------------- */
+/* Mesma leitura da Base de Fontes do portal de fim de contrato: uma coluna por
+   fonte, celula = a data que aquela fonte informa. Verde = igual ao consenso,
+   ambar = diverge, vazia = a fonte nao tem o jogador. */
+const FC_FONTES = [
+  ['wyscout', 'Wyscout'], ['transfermarkt', 'TMarkt'], ['transferroom', 'TRoom'],
+  ['sofascore', 'SofaScore'], ['capology', 'Capology'], ['fotmob', 'FotMob'],
+];
+const FC_CONF = { alta: ['ok', 'confirmado por mais de uma fonte'],
+                  baixa: ['duvida', 'fonte única'],
+                  conflito: ['erro', 'fontes divergem'],
+                  contestada: ['erro', 'contestado'],
+                  sem_fonte: ['nulo', 'sem fonte'],
+                  manual: ['ok', 'ajustado à mão'] };
+
+function fcData(iso) {
+  if (!iso || iso.length < 10) return '';
+  return iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(2, 4);
+}
+
+const FC_COLUNAS = [
+  { c: 'n', r: 'Jogador', w: 17, cel: j =>
+      '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
+      (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
+      (j.ov ? ' <span class="fc-ovr">' + j.ov + '</span>' : '') +
+      '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },
+  { c: 'p',   r: 'Pos.',  w: 4,  cel: j => j.p },
+  { c: 'id_', r: 'Idade', w: 4,  num: 1, cel: j => j.id_ ?? '—' },
+];
+FC_FONTES.forEach(([k, rot]) => {
+  FC_COLUNAS.push({ c: 'src_' + k, r: rot, w: 7, num: 1, fonte: k, cel: j => {
+    const v = (j.src || {})[k];
+    if (!v) return '<span class="fc-vazia">–</span>';
+    const igual = j.ct && v.slice(0, 10) === j.ct.slice(0, 10);
+    return '<span class="fc-fonte ' + (igual ? 'igual' : 'diverge') + '">' + fcData(v) + '</span>';
+  } });
+});
+FC_COLUNAS.push(
+  { c: 'ct', r: 'Consenso', w: 9, num: 1, cel: j => {
+      const [cl, tit] = FC_CONF[j.ctc] || ['nulo', 'sem fonte'];
+      return '<b class="fc-consenso">' + (fcData(j.ct) || '—') + '</b>' +
+             '<span class="fc-luz ' + cl + '" title="' + tit +
+             (j.ctf && j.ctf.length ? ': ' + j.ctf.join(', ') : '') + '"></span>'; } },
+  { c: 'sal', r: 'Salário', w: 8, num: 1, cel: j => {
+      const f = faixaSalarioTR(j);
+      return f ? '<span title="TransferRoom: ' + esc(f.txt) + '/ano">' + brl(f.min, true) +
+                 '<span class="fc-ast">*</span></span>'
+               : '<span class="fc-vazia">–</span>'; } },
+  { c: '_', r: '', w: 11, cel: j => '<button class="fc-add">levar p/ ' + j.p + '</button>' +
+      '<button class="ver-ficha" title="Ver detalhe">+</button>' },
+);
+
+let fcOrdem = { campo: 'ct', desc: false };   /* vencendo primeiro */
+let fcGrupo = 'brasil';
+
+function fcFiltrar() {
+  const ate = $('#fcAte').value;
+  const pos = $('#fcPos').value;
+  const liga = $('#fcLiga').value;
+  const nacao = $('#fcNacao').value;
+  const idade = parseFloat($('#fcIdade').value) || 0;
+  const ov = parseFloat($('#fcOv').value) || 0;
+  const soConf = $('#fcSoConf').checked;
+  const ligas = liga ? null : (fcGrupo === 'todas' ? null : new Set(GRUPOS_LIGA[fcGrupo] || []));
+
+  return BASE.filter(j => {
+    if (!j.ct) return false;
+    if (ate && j.ct.slice(0, 7) > ate) return false;
+    if (soConf && j.ctc !== 'alta') return false;
+    if (pos && j.p !== pos) return false;
+    if (liga) { if (j.l !== liga) return false; }
+    else if (ligas && !ligas.has(j.l)) return false;
+    if (nacao && !passaNacao(j, nacao)) return false;
+    if (idade && (Number(j.id_) || 99) > idade) return false;
+    if (ov && (Number(j.ov) || 0) < ov) return false;
+    return true;
+  });
+}
+
+function fcRender() {
+  if (!BASE.length) return;
+  const th = $('#fcThead');
+  if (!th.dataset.pronto) {
+    th.innerHTML = '<tr>' + FC_COLUNAS.map(c =>
+      '<th data-ord="' + c.c + '"' + (c.num ? ' class="num-c"' : '') +
+      ' style="width:' + c.w + '%">' + c.r + '</th>').join('') + '</tr>';
+    th.dataset.pronto = '1';
+    th.querySelectorAll('th').forEach(el => {
+      el.onclick = () => {
+        const c = el.dataset.ord;
+        if (c === '_') return;
+        if (fcOrdem.campo === c) fcOrdem.desc = !fcOrdem.desc;
+        else {
+          fcOrdem.campo = c;
+          fcOrdem.desc = !(c === 'n' || c === 'p' || c === 'ct' || c.startsWith('src_'));
+        }
+        th.querySelectorAll('.set').forEach(x => x.remove());
+        el.insertAdjacentHTML('beforeend', '<span class="set">' + (fcOrdem.desc ? '▼' : '▲') + '</span>');
+        fcRender();
+      };
+    });
+  }
+
+  const lista = fcFiltrar();
+  const camp = fcOrdem.campo, desc = fcOrdem.desc;
+  const valor = (j) => camp === 'sal' ? (faixaSalarioTR(j) || {}).min
+                     : camp.startsWith('src_') ? ((j.src || {})[camp.slice(4)] || '')
+                     : j[camp];
+  lista.sort((a, b) => {
+    let x = valor(a), y = valor(b);
+    if (typeof x === 'string' || typeof y === 'string') {
+      x = String(x || ''); y = String(y || '');
+      return desc ? y.localeCompare(x) : x.localeCompare(y);
+    }
+    x = Number(x) || 0; y = Number(y) || 0;
+    return desc ? y - x : x - y;
+  });
+
+  const LIM = 300;
+  const jaNoElenco = new Set(todosJogadores().map(j => j.pk).filter(Boolean));
+  const linhas = lista.slice(0, LIM);
+  $('#fcTbody').innerHTML = linhas.map(j =>
+    '<tr data-id="' + j.id + '"' + (jaNoElenco.has(primaryKey(j)) ? ' class="ja"' : '') + '>' +
+    FC_COLUNAS.map(c => '<td' + (c.num ? ' class="num-c"' : '') + '>' + c.cel(j) + '</td>').join('') +
+    '</tr>').join('');
+  $('#fcVazio').style.display = linhas.length ? 'none' : 'block';
+  $('#fcContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com contrato ' +
+    'até ' + (mesAno($('#fcAte').value + '-01') || '—') +
+    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
+    ' · clique na linha para levar ao campograma';
+
+  $$('#fcTbody tr').forEach(tr => {
+    const id = parseInt(tr.dataset.id);
+    const levar = () => {
+      const j = BASE.find(x => x.id === id);
+      if (!j) return;
+      posAtual = j.p;
+      adicionarDaBase(id);
+      fcRender();
+    };
+    tr.onclick = levar;
+    tr.querySelector('.fc-add').onclick = e => { e.stopPropagation(); levar(); };
+    tr.querySelector('.ver-ficha').onclick = e => { e.stopPropagation(); abrirFicha(id); irParaAba('campo'); };
+  });
+}
+
+function fcMontarFiltros() {
+  $('#fcPos').innerHTML = '<option value="">Todas as posições</option>' +
+    POSICOES.map(p => '<option value="' + p.c + '">' + p.c + ' · ' + p.nome + '</option>').join('');
+  const cont = {};
+  BASE.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
+  $('#fcLiga').innerHTML = '<option value="">Todas as ligas do grupo</option>' +
+    Object.keys(cont).sort((a, b) => a.localeCompare(b)).map(l =>
+      '<option value="' + esc(l) + '">' + esc(l) + ' (' + cont[l] + ')</option>').join('');
+
+  const defs = [
+    { c: 'brasil', r: 'Brasil A/B/C' }, { c: 'brasilbc', r: 'Brasil B+C' },
+    { c: 'sulamerica', r: 'América do Sul' }, { c: 'europa', r: 'Europa' },
+    { c: 'todas', r: 'Todas as ligas' },
+  ];
+  $('#fcChips').innerHTML = defs.map(d =>
+    '<button class="chip' + (d.c === fcGrupo ? ' on' : '') + '" data-g="' + d.c + '">' + d.r + '</button>').join('');
+  $$('#fcChips .chip').forEach(b => {
+    b.onclick = () => {
+      fcGrupo = b.dataset.g;
+      $$('#fcChips .chip').forEach(x => x.classList.toggle('on', x.dataset.g === fcGrupo));
+      fcRender();
+    };
+  });
+
+  ['#fcAte', '#fcPos', '#fcLiga', '#fcNacao', '#fcSoConf'].forEach(sel => { $(sel).onchange = fcRender; });
+  ['#fcIdade', '#fcOv'].forEach(sel => { $(sel).oninput = debounce(fcRender, 200); });
+  $('#fcLimpar').onclick = () => {
+    $('#fcAte').value = '2026-12'; $('#fcPos').value = ''; $('#fcLiga').value = '';
+    $('#fcNacao').value = ''; $('#fcIdade').value = ''; $('#fcOv').value = '';
+    $('#fcSoConf').checked = true;
+    fcRender();
+  };
+}
+
+function irParaAba(nome) {
+  $$('.aba').forEach(b => b.classList.toggle('on', b.dataset.aba === nome));
+  $('#pgCampo').classList.toggle('oculta', nome !== 'campo');
+  $('#pgContrato').classList.toggle('oculta', nome !== 'contrato');
+  $('#pgAnalise').classList.toggle('oculta', nome !== 'analise');
+  if (nome === 'campo') requestAnimationFrame(ajustarCampo);
+  if (nome === 'contrato') fcRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -1822,14 +2043,7 @@ function ligar() {
     estado.denso = !estado.denso;
     sincronizarBotoes(); salvarLocal(); renderCampo();
   };
-  $$('.aba').forEach(b => {
-    b.onclick = () => {
-      $$('.aba').forEach(x => x.classList.toggle('on', x === b));
-      $('#pgCampo').classList.toggle('oculta', b.dataset.aba !== 'campo');
-      $('#pgAnalise').classList.toggle('oculta', b.dataset.aba !== 'analise');
-      if (b.dataset.aba === 'campo') requestAnimationFrame(ajustarCampo);
-    };
-  });
+  $$('.aba').forEach(b => { b.onclick = () => irParaAba(b.dataset.aba); });
 
   const menu = (btId, menuId) => {
     const bt = $(btId), mn = $(menuId);
@@ -1947,15 +2161,17 @@ async function iniciar() {
   montarChips();
   render();
   sincronizarBotoes();
+  observarArea();
   listarCenarios();
   try {
-    const r = await fetch('dados/jogadores.json');
+    const r = await fetch('dados/jogadores.json' + (window.__verDados ? '?v=' + window.__verDados : ''));
     const d = await r.json();
     BASE = d.jogadores || [];
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
     reancorar();
     const cont = {};
     BASE.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
+    fcMontarFiltros();
     $('#fLiga').innerHTML = '<option value="">Todas as ligas do grupo</option>' +
       Object.keys(cont).sort((a, b) => a.localeCompare(b)).map(l =>
         '<option value="' + esc(l) + '">' + esc(l) + ' (' + cont[l] + ')</option>').join('');
@@ -1963,8 +2179,35 @@ async function iniciar() {
     toast('Falha ao carregar a base de jogadores', 'ruim');
   }
 }
+/* Observa a area do campo em vez do evento de resize da janela: pega tambem
+   abrir/fechar a ficha, trocar de aba e mudanca de zoom. */
+let observandoArea = false;
+function observarArea() {
+  const area = $('.campo-area');
+  if (!area || observandoArea || typeof ResizeObserver === 'undefined') return;
+  observandoArea = true;
+  let ultimo = '';
+  new ResizeObserver(debounce(() => {
+    const agora = area.clientWidth + 'x' + area.clientHeight;
+    if (agora === ultimo) return;
+    ultimo = agora;
+    if (document.querySelector('.pos')) ajustarCampo();
+  }, 120)).observe(area);
+}
 window.addEventListener('resize', debounce(() => {
   if (document.querySelector('.pos')) ajustarCampo();
-}, 150));
+}, 120));
+
+/* Rede de seguranca: alguns navegadores nao disparam resize/ResizeObserver quando
+   a janela muda por fora (zoom, tela dividida). Uma conferida leve resolve. */
+setInterval(() => {
+  const area = $('.campo-area');
+  if (!area || !document.querySelector('.pos')) return;
+  const agora = area.clientWidth + 'x' + area.clientHeight;
+  if (agora === ultimaArea) return;
+  ultimaArea = agora;
+  ajustarCampo();
+}, 700);
+let ultimaArea = '';
 
 iniciar();
