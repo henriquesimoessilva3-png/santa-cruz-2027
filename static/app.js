@@ -2622,7 +2622,8 @@ function fsCabecalho(c) {
   /* rotulo curto: com as colunas todas do mesmo tamanho, "Top Série A" por extenso
      nao cabe ao lado do indice — e e ao lado dele que ele precisa ficar */
   const tag = c.tipo === 'A' ? '<span class="fs-tag a" title="Um dos 5 melhores da Série A pelo índice físico">TOP A</span>'
-            : c.tipo === 'B' ? '<span class="fs-tag b" title="Um dos 5 melhores da Série B pelo índice físico">TOP B</span>' : '';
+            : c.tipo === 'B' ? '<span class="fs-tag b" title="Um dos 5 melhores da Série B pelo índice físico">TOP B</span>'
+            : c.tipo === 'filtro' ? '<span class="fs-tag f" title="Veio do filtro, pelo índice físico">FILTRO</span>' : '';
   /* Clube, liga e amostra saem do cabecalho e vao para o balao: com dez colunas,
      quatro linhas de texto por coluna empurravam a matriz inteira para fora da tela. */
   const ficha = [j.t, j.l + (j.p !== fsPos ? ' · ' + sig(j.p) : ''),
@@ -2716,6 +2717,19 @@ function fsRender() {
   const colunas = extras.map(j => ({ j, tipo: 'extra' }));
   if ($('#fsTopA').checked) top('Brasil A').forEach(x => colunas.push({ j: x.j, tipo: 'A' }));
   if ($('#fsTopB').checked) top('Brasil B').forEach(x => colunas.push({ j: x.j, tipo: 'B' }));
+  /* os melhores do que o filtro deixou passar — e por aqui que entram jogadores de
+     qualquer liga, lidos na mesma regua das Series A e B */
+  const quantosFiltro = parseInt($('#fsTopFiltro').value) || 0;
+  const pool = fsPool();
+  if (quantosFiltro) {
+    const jaTem = new Set(colunas.map(c => primaryKey(c.j)));
+    pool.filter(j => !jaTem.has(primaryKey(j)) && !fsOcultos.has(primaryKey(j)))
+      .map(j => ({ j, idx: fsIndices(co, j) }))
+      .filter(x => x.idx.geral != null)
+      .sort((a, b) => b.idx.geral - a.idx.geral)
+      .slice(0, quantosFiltro)
+      .forEach(x => colunas.push({ j: x.j, tipo: 'filtro' }));
+  }
   colunas.forEach((c, i) => { c.idx = fsIndices(co, c.j); c.cor = FS_CORES[i % FS_CORES.length];
                               c.h = hist(primaryKey(c.j)); });
   const medias = $('#fsMedias').checked
@@ -2810,7 +2824,8 @@ function fsRender() {
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
 
   $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
-    ' na comparação · ' + co.A.n + ' na Série A e ' + co.B.n + ' na Série B com ' + esc(sig(fsPos)) +
+    ' na comparação · <b>' + milhar(pool.length) + '</b> passam no filtro · régua: ' +
+    co.lista.length + ' ' + esc(sig(fsPos)) + ' das Séries A e B (' + co.A.n + ' e ' + co.B.n + ')' +
     ' · jogadores de outras ligas entram na mesma régua';
 
   $$('#fsMatriz th.fs-col').forEach(th => {
@@ -2871,6 +2886,75 @@ function fsMontarElenco() {
       esc(x.b.p) + ' · ' + esc(x.b.n) + ' (' + esc(x.b.t) + ')</option>').join('');
 }
 
+/* Faixas do Fisico: as mesmas do Fim de contrato, sem as que nao fazem sentido aqui. */
+const RANGES_FS = [
+  { k: 'alt', r: 'Altura (cm)',   min: 150, max: 210,       passo: 1 },
+  { k: 'id_', r: 'Idade',         min: 15,  max: 45,        passo: 1 },
+  { k: 'mv',  r: 'Valor mercado', min: 0,   max: 120000000, passo: 500000, fmt: fmtMilhoes },
+  { k: 'ov',  r: 'Overall',       min: 0,   max: 100,       passo: 1 },
+  { k: 'min', r: 'Minutos',       min: 0,   max: 5000,      passo: 50 },
+  { k: 'sc_n', r: 'Jogos c/ tracking', min: 0, max: 60,     passo: 1 },
+];
+
+/* Quem o filtro deixa passar, dentro da posicao escolhida. E de onde saem os "melhores
+   do filtro" — a regua continua sendo a posicao nas Series A e B, sempre. */
+function fsPool() {
+  const ligas = mselSelecionados('fsLigaSel');
+  const paises = mselSelecionados('fsPaisSel');
+  const times = mselSelecionados('fsTimeSel');
+  const pes = mselSelecionados('fsPeSel');
+  const faixas = RANGES_FS.map(d => [d, rangeValor('fsRanges', d.k)]).filter(x => x[1]);
+  const min = fsMinJogos();
+  return fsBase().filter(j => {
+    if (j.p !== fsPos) return false;
+    if ((Number(j.sc_n) || 0) < min) return false;
+    if (ligas && !ligas.has(j.l)) return false;
+    if (paises && !paises.has(j.nac || '')) return false;
+    if (times && !times.has(j.t)) return false;
+    if (pes && !pes.has(rotuloPe(j.pe))) return false;
+    for (const [d, f] of faixas) {
+      const v = j[d.k];
+      if (typeof v !== 'number' || isNaN(v) || v < f.lo || v > f.hi) return false;
+    }
+    return true;
+  });
+}
+
+function fsAbasMarcar(idAbas, r) {
+  $$('#' + idAbas + ' button').forEach(b => b.classList.toggle('on', b.dataset.r === r));
+}
+function fsSetLiga(r, quieto) {
+  mselMarcar('fsLigaSel', r === 'todos' ? null : new Set(GRUPOS_LIGA[r] || []), true);
+  fsAbasMarcar('fsLigaAbas', r);
+  $$('#fsExt button').forEach(b => b.classList.remove('on'));
+  if (!quieto) fsRender();
+}
+function fsSetPais(r) {
+  const todos = MSELS.fsPaisSel ? MSELS.fsPaisSel.itens : [];
+  mselMarcar('fsPaisSel', r === 'todos' ? null : new Set(todos.filter(n => classPais(n) === r)), true);
+  fsAbasMarcar('fsPaisAbas', r);
+  $$('#fsExt button').forEach(b => b.classList.remove('on'));
+  fsRender();
+}
+function fsSetExterior(tipo) {
+  const paises = MSELS.fsPaisSel ? MSELS.fsPaisSel.itens : [];
+  const ligas = MSELS.fsLigaSel ? MSELS.fsLigaSel.itens : [];
+  if (!tipo) {
+    mselMarcar('fsPaisSel', null, true); mselMarcar('fsLigaSel', null, true);
+    fsAbasMarcar('fsPaisAbas', 'todos'); fsAbasMarcar('fsLigaAbas', 'todos');
+  } else if (tipo === 'br_ext') {
+    mselMarcar('fsPaisSel', new Set(['Brazil']), true);
+    mselMarcar('fsLigaSel', new Set(ligas.filter(l => classLiga(l) !== 'brasil')), true);
+    fsAbasMarcar('fsPaisAbas', null); fsAbasMarcar('fsLigaAbas', null);
+  } else {
+    mselMarcar('fsPaisSel', new Set(paises.filter(n => classPais(n) === 'sa')), true);
+    mselMarcar('fsLigaSel', new Set(ligas.filter(l => classLiga(l) !== 'brasil' && classLiga(l) !== 'sulamerica')), true);
+    fsAbasMarcar('fsPaisAbas', null); fsAbasMarcar('fsLigaAbas', null);
+  }
+  $$('#fsExt button').forEach(b => b.classList.toggle('on', b.dataset.e === tipo));
+  fsRender();
+}
+
 function fsMontarFiltros() {
   campinhoInit('fsCampo', () => {
     const s = campinhoSelecao('fsCampo');
@@ -2879,12 +2963,42 @@ function fsMontarFiltros() {
     fsRender();
   }, true);
   campinhoDefinir('fsCampo', [fsPos]);
+  const comTracking = fsBase();
+  const distintos = f => {
+    const c = {};
+    comTracking.forEach(j => { const v = f(j); if (v) c[v] = 1; });
+    return Object.keys(c).sort((a, b) => a.localeCompare(b));
+  };
+  mselInit('fsLigaSel', distintos(j => j.l), { rotuloTodos: 'Todas as ligas',
+    aoMudar: () => { fsAbasMarcar('fsLigaAbas', null); fsRender(); } });
+  mselInit('fsPaisSel', distintos(j => j.nac), { rotuloTodos: 'Todos os países', masc: true,
+    aoMudar: () => { fsAbasMarcar('fsPaisAbas', null); fsRender(); } });
+  mselInit('fsTimeSel', distintos(j => j.t), { rotuloTodos: 'Todos os times', masc: true, aoMudar: fsRender });
+  mselInit('fsPeSel', PES, { rotuloTodos: 'Todos os pés', masc: true, aoMudar: fsRender });
+  rangesInit('fsRanges', RANGES_FS, debounce(fsRender, 150));
+  $$('#fsLigaAbas button').forEach(b => { b.onclick = () => fsSetLiga(b.dataset.r); });
+  $$('#fsPaisAbas button').forEach(b => { b.onclick = () => fsSetPais(b.dataset.r); });
+  $$('#fsExt button').forEach(b => {
+    b.onclick = () => fsSetExterior(b.classList.contains('on') ? null : b.dataset.e);
+  });
+  $('#fsTopFiltro').oninput = debounce(fsRender, 200);
+  fsAbasMarcar('fsLigaAbas', 'todos');
+
   $('#fsBusca').oninput = debounce(fsBuscar, 150);
   $('#fsBusca').onclick = e => { e.stopPropagation(); if ($('#fsBusca').value.trim().length >= 2) fsBuscar(); };
   $('#fsElenco').onchange = () => { fsAdicionar($('#fsElenco').value); $('#fsElenco').value = ''; };
   $('#fsMin').oninput = debounce(fsRender, 200);
   ['#fsTopA', '#fsTopB', '#fsMedias'].forEach(id => { $(id).onchange = fsRender; });
-  $('#fsLimpar').onclick = () => { fsExtras = []; fsOcultos = new Set(); $('#fsMin').value = 5; fsRender(); };
+  $('#fsLimpar').onclick = () => {
+    fsExtras = []; fsOcultos = new Set();
+    $('#fsMin').value = 5; $('#fsTopFiltro').value = 0; $('#fsBusca').value = '';
+    mselMarcar('fsLigaSel', null, true); mselMarcar('fsPaisSel', null, true);
+    mselMarcar('fsTimeSel', null, true); mselMarcar('fsPeSel', null, true);
+    fsAbasMarcar('fsLigaAbas', 'todos'); fsAbasMarcar('fsPaisAbas', 'todos');
+    $$('#fsExt button').forEach(b => b.classList.remove('on'));
+    rangesReset('fsRanges');
+    fsRender();
+  };
 }
 
 function irParaAba(nome) {

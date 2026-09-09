@@ -247,41 +247,79 @@
         <div class="rk-campo-col">
           <span class="rk-rotulo">Posição</span>
           <div class="rk-campo" id="fsCampo" title="Clique escolhe a posição da régua"></div>
-        </div>
-        <div class="rk-col">
-          <div class="rk-linha1 fs-linha1">
-            <div class="rk-campo-f fs-busca">
-              <label>Adicionar jogador</label>
-              <input type="text" id="fsBusca" placeholder="Nome ou clube — qualquer liga com tracking…" autocomplete="off">
-              <div class="msel-drop" id="fsBuscaLista"></div>
-            </div>
-            <div class="rk-campo-f">
-              <label>Do campograma</label>
-              <select id="fsElenco"><option value="">＋ jogador do campograma…</option></select>
-            </div>
-            <div class="rk-campo-f fs-min">
-              <label>Jogos rastreados ≥</label>
-              <input type="number" id="fsMin" value="5" min="0" title="Mínimo de partidas com tracking para entrar na régua">
-            </div>
-            <div class="rk-campo-f">
-              <label>Referências</label>
-              <div class="fs-toggles">
-                <label class="chk"><input type="checkbox" id="fsTopA" checked> Top 5 Série A</label>
-                <label class="chk"><input type="checkbox" id="fsTopB" checked> Top 5 Série B</label>
-                <label class="chk"><input type="checkbox" id="fsMedias" checked> Médias A e B</label>
-              </div>
-            </div>
-            <div class="rk-campo-f fs-acoes">
-              <label>&nbsp;</label>
-              <button class="bt mini" id="fsLimpar" title="Tira os jogadores adicionados e volta os 5 de cada série">Limpar comparação</button>
-            </div>
-          </div>
           <div class="rk-legenda fs-legenda">
             <span><i class="fs-bar-leg alto"></i>percentil alto (≥ 75)</span>
             <span><i class="fs-bar-leg medio"></i>meio</span>
             <span><i class="fs-bar-leg baixo"></i>baixo (≤ 25)</span>
             <span><i class="fs-bar-leg lider"></i>líder da linha</span>
-            <span><b>+</b> ficha · <b>↗</b> levar ao campograma · <b>×</b> tirar</span>
+            <span class="rk-prem-bt" tabindex="0">ⓘ premissas<span class="rk-prem-cx">
+              A régua é sempre a <b>mesma posição nas Séries A e B</b> — jogadores de outras
+              ligas entram nela para poder comparar. O filtro escolhe <b>quem aparece</b>,
+              não a régua.<br><br>
+              <b>Temporadas</b>: números do Wyscout de 2024, 2025 e 2026, verdes acima da
+              média da coorte. O resto é percentil do SkillCorner.</span></span>
+          </div>
+        </div>
+        <div class="rk-col">
+          <div class="rk-linha1">
+            <div class="rk-campo-f">
+              <label>Liga</label>
+              <div class="msel" id="fsLigaSel"></div>
+              <div class="rk-abas" id="fsLigaAbas">
+                <button data-r="todos" title="Todas as ligas com tracking">Todos</button>
+                <button data-r="brasil" title="Brasil A, B e C">BR</button>
+                <button data-r="brasilbc" title="Brasil B e C">B+C</button>
+                <button data-r="sulamerica" title="América do Sul">SA</button>
+                <button data-r="europa" title="Europa">EU</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>País</label>
+              <div class="msel" id="fsPaisSel"></div>
+              <div class="rk-abas" id="fsPaisAbas">
+                <button data-r="todos" class="on">Todos</button>
+                <button data-r="br" title="Brasileiros">BR</button>
+                <button data-r="sa" title="Sul-americanos (sem Brasil)">SA</button>
+                <button data-r="demais" title="Demais países">Demais</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>No exterior</label>
+              <div class="rk-ext" id="fsExt">
+                <button class="ext-br" data-e="br_ext" title="Brasileiros no exterior">Brasileiros</button>
+                <button class="ext-sa" data-e="sa_ext" title="Sul-americanos no exterior">Sul-americanos</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Time</label>
+              <div class="msel" id="fsTimeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Pé preferido</label>
+              <div class="msel" id="fsPeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Adicionar jogador</label>
+              <div class="fs-busca"><input type="text" id="fsBusca"
+                placeholder="Nome ou clube…" autocomplete="off">
+                <div class="msel-drop" id="fsBuscaLista"></div></div>
+              <select id="fsElenco" class="rk-mini"><option value="">＋ do campograma…</option></select>
+            </div>
+            <div class="rk-campo-f">
+              <label>Quem aparece</label>
+              <label class="chk rk-chk"><input type="checkbox" id="fsTopA" checked> Top 5 Série A</label>
+              <label class="chk rk-chk"><input type="checkbox" id="fsTopB" checked> Top 5 Série B</label>
+              <label class="chk rk-chk"><input type="checkbox" id="fsMedias" checked> Médias A e B</label>
+            </div>
+          </div>
+          <div class="rk-linha2" id="fsRanges"></div>
+          <div class="rk-rodape">
+            <label class="rk-chk">Melhores do filtro
+              <input class="num" type="number" id="fsTopFiltro" value="0" min="0" max="20"
+                title="Quantos jogadores do filtro entram na comparação, do melhor índice para baixo"></label>
+            <label class="rk-chk">Jogos rastreados ≥
+              <input class="num" type="number" id="fsMin" value="5" min="0"></label>
+            <button class="bt mini" id="fsLimpar">Limpar comparação</button>
           </div>
         </div>
       </div>

@@ -124,12 +124,24 @@ Três armadilhas resolvidas ali, todas custosas se descobertas depois:
   a 100) e "Penalties taken" devolve escanteios. Quem conserta é o
   `normalizar_schema_wyscout` do próprio `ranking_engine`, **importado** em vez de
   reescrito — se o Wyscout mudar de novo, conserta-se num lugar só.
-- **O `primary_key` embute o clube**, então não atravessa temporadas. A ligação é por nome
-  normalizado + idade esperada (a idade do Wyscout é a da extração daquele ano, não a de
-  hoje), com reserva por sobrenome quando o nome muda de forma entre os anos
-  ("Arrascaeta" x "Giorgian de Arrascaeta"). Homônimo dentro da temporada é descartado:
-  melhor ficar sem histórico do que mostrar a temporada de outra pessoa. Cobertura:
-  11.720 dos 18.461 em 2025, 7.100 em 2024, 5.415 com as três.
+- **O `primary_key` embute o clube**, então não atravessa temporadas. A ligação é em
+  duas passadas: primeiro por **id** (`player_uid` do `multiseason_candidates.parquet`),
+  que é o único jeito seguro; depois **por nome**, e só quando o nome é único na
+  temporada de hoje e na de lá, ainda conferindo país de nascimento, altura e idade.
+
+  **Nome repetido não casa de jeito nenhum**, e isso custou caro para descobrir: o
+  "Luiz Henrique" do Avaí recebeu 35 jogos e 7 gols na Série A do Luiz Henrique do
+  Botafogo; o "Pedro" do Flamengo recebeu a temporada de um Pedro do Guabirá, na
+  Bolívia — com país, altura e idade todos dentro da tolerância. Dois brasileiros de
+  mesma idade e altura são indistinguíveis por esses campos. O usuário achou os dois
+  na tela. Ficar sem a temporada é melhor do que mostrar a de outra pessoa.
+
+  Contraprova de que a regra estreita não é exagerada: o Helton Leite, com Antalyaspor
+  2024 → Deportivo La Coruña 2025 → Vila Nova 2026, **passa e está certo** — nome único
+  nas três temporadas, 196 cm nas três, brasileiro nas três.
+
+  Cobertura: 2.209 (2024) e 4.414 (2025) por id, mais 3.957 e 6.783 por nome; 5.243 com
+  as três temporadas. O `preparar_ogol.py` existe para cobrir o resto por id de jogador.
 
 Onde aparece: as três barrinhas de minutagem no card do campograma (`barraMinutos`, com
 margem negativa para não engordar o card em 1px — a altura do card é o que decide a

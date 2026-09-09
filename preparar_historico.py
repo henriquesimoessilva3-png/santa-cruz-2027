@@ -17,13 +17,19 @@ porcentagem (chega a 100), "Penalties taken" devolve escanteios. Quem conserta e
 o `normalizar_schema_wyscout` do proprio ranking_engine, importado aqui em vez de
 reescrito: se o Wyscout mudar o template de novo, conserta-se num lugar so.
 
-Ligacao entre temporadas: o `primary_key` embute o CLUBE, entao muda quando o
-jogador se transfere e nao serve para atravessar os anos. A chave usada e o
-nome normalizado + a idade esperada. Cuidado documentado na skill dados-wyscout:
-a idade do Wyscout e a idade na hora da EXTRACAO, entao num Excel de 2024 o
-jogador aparece dois anos mais novo do que hoje. Nome ambiguo dentro de uma
-temporada (homonimos) e descartado — melhor ficar sem o historico do que
-mostrar a temporada de outra pessoa.
+Ligacao entre temporadas, em duas passadas — o `primary_key` embute o CLUBE, entao
+muda quando o jogador se transfere e nao serve para atravessar os anos:
+
+1. **Por id** (`player_uid` do `multiseason_candidates.parquet` da Base Unificada).
+   E o unico jeito seguro. Cobre so parte da base, mas o que cobre esta certo.
+2. **Por nome**, para o resto, e so quando o nome e UNICO na temporada de hoje e na
+   de la, ainda conferindo pais de nascimento, altura e idade. Nome repetido nao casa
+   de jeito nenhum: o "Pedro" do Flamengo recebeu a temporada de um Pedro do Guabira,
+   na Bolivia, com pais, altura e idade todos dentro da tolerancia. Em nome comum
+   brasileiro, ficar sem a temporada e melhor do que mostrar a de outra pessoa.
+
+Cuidado documentado na skill dados-wyscout: a idade do Wyscout e a idade na hora da
+EXTRACAO, entao num Excel de 2024 o jogador aparece dois anos mais novo do que hoje.
 
 Saida: dados/historico.json
 """
@@ -39,6 +45,8 @@ import pandas as pd
 AQUI = os.path.dirname(os.path.abspath(__file__))
 BASE_RANKING = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/"
                 "fut/BOTA/Analytics/Portal Ranking")
+PARQUET = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/fut/BOTA/"
+           "Analytics/Portal Base Unificada/dados/multiseason_candidates.parquet")
 
 sys.path.insert(0, BASE_RANKING)
 from ranking_engine import normalizar_schema_wyscout   # noqa: E402
@@ -194,6 +202,25 @@ def ler_temporada(pasta):
     return linhas, tortos
 
 
+def ligacao_por_id():
+    """uid -> {temporada: primary_key daquela temporada}, do parquet da Base Unificada.
+
+    O parquet sufixa a pk historica com '@@<ano>'; aqui interessa a pk limpa, que e a
+    mesma que o Excel daquela temporada produz.
+    """
+    if not os.path.exists(PARQUET):
+        print("    ! parquet multi-temporada nao encontrado — so o casamento por nome")
+        return {}
+    ms = pd.read_parquet(PARQUET, columns=["season", "primary_key", "player_uid"])
+    ms = ms.dropna(subset=["player_uid"])
+    fora = defaultdict(dict)
+    for temporada, _pasta in TEMPORADAS:
+        sub = ms[ms["season"] == temporada]
+        for uid, pk in zip(sub["player_uid"], sub["primary_key"]):
+            fora[uid][temporada] = re.sub(r"@@\d{4}$", "", str(pk))
+    return fora
+
+
 def main():
     saida = {"temporadas": [t for t, _ in TEMPORADAS], "jogadores": {}}
     por_temporada = {}
@@ -205,6 +232,12 @@ def main():
               f" · {len(tortos)} arquivos com o cabecalho de bola parada corrigido")
 
     atual = por_temporada[TEMPORADAS[-1][0]]
+
+    # indice das linhas de cada temporada pela pk daquela temporada
+    por_pk = {}
+    for temporada, _ in TEMPORADAS:
+        por_pk[temporada] = {f"{l['n']} - {l['tm']} - {l['l']}": l
+                             for l in por_temporada[temporada]}
 
     # indice das temporadas anteriores: por nome inteiro e por sobrenome
     indices, indices_sn = {}, {}
@@ -231,6 +264,31 @@ def main():
     outro, que era o caso do Luiz Henrique. Agora, para cada nome, os candidatos sao
     disputados: menor custo leva, e a linha sai do bolo.
     """
+    # ---- passada 1: por id ----
+    uid_temporadas = ligacao_por_id()
+    corrente = TEMPORADAS[-1][0]
+    pk_para_uid = {}
+    for uid, temps in uid_temporadas.items():
+        pk = temps.get(corrente)
+        if pk:
+            pk_para_uid[pk] = uid
+
+    por_id = {}                        # (indice do atual, temporada) -> linha antiga
+    achados_id = defaultdict(int)
+    for n, a in enumerate(atual):
+        uid = pk_para_uid.get(f"{a['n']} - {a['tm']} - {a['l']}")
+        if not uid:
+            continue
+        for temporada, _ in TEMPORADAS[:-1]:
+            pk = uid_temporadas[uid].get(temporada)
+            linha = por_pk[temporada].get(pk) if pk else None
+            if linha is not None:
+                por_id[(n, temporada)] = linha
+                achados_id[temporada] += 1
+    for temporada, _ in TEMPORADAS[:-1]:
+        print(f"    {temporada}: {achados_id[temporada]} casados por id")
+
+    # ---- passada 2: por nome, so o que o id nao resolveu ----
     # quantos jogadores levam cada nome, hoje e em cada temporada anterior
     quantos_hoje = defaultdict(int)
     for a in atual:
@@ -243,7 +301,11 @@ def main():
         for n, a in enumerate(atual):
             grupos[a["_nm"]].append(n)
 
-        tomadas = set()
+        tomadas = set(id(por_id[(n, temporada)]) for n in range(len(atual))
+                      if (n, temporada) in por_id)
+        for n in range(len(atual)):
+            if (n, temporada) in por_id:
+                escolha[(n, temporada)] = por_id[(n, temporada)]
         for chave, quais in grupos.items():
             pares = []
             candidatos = idx.get(chave, [])
