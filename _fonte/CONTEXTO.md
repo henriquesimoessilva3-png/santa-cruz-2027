@@ -26,7 +26,7 @@ migração `v<4` para os grupos gravados com o valor antigo).
 
 | Arquivo | Gerado por | Vem de |
 |---|---|---|
-| `dados/jogadores.json` (14,8 MB) | `preparar_base.py` | `fim_contrato_<per>.json` + `rankings_<per>.json` + `skillcorner_<per>.json` |
+| `dados/jogadores.json` (17,3 MB) | `preparar_base.py` | `fim_contrato_<per>.json` + `rankings_<per>.json` + `skillcorner_<per>.json` |
 | `dados/kpis.json` (16,6 MB) | `preparar_kpis.py` | `kpis_detail_<per>.json` |
 | `dados/kpis/<POS>.json` | `dividir_kpis.py` | quebra do anterior — **é o que a tela usa** |
 
@@ -78,6 +78,31 @@ do meia, a pedido.
   sobra espaço e aparece barra de rolagem à toa (`compensarEscala`).
 - No modo **caber na tela** (padrão) a área não rola. Em **tamanho real** ela rola —
   preferível a esconder parte do elenco atrás de `overflow:hidden`.
+- **O tremor era um ciclo de re-render por causa dos nomes.** `distribuir()` roda mais
+  de uma vez por ajuste (fonte 1, depois fonte compensada), com alturas diferentes e
+  larguras diferentes (294 e 265px no rastro capturado em `/api/diagnostico`), e
+  pedia `renderCampo()` sempre que a largura mudava mais de 12px — nove ajustes em
+  300ms com área, escala e fonte constantes. Guardas de "alternância" não seguram
+  porque as variáveis são sobrescritas entre as passadas. A regra que ficou:
+  **`distribuir()` nunca redesenha**; os nomes são abreviados por `atualizarNomes()`
+  ao fim de `ajustarCampo()`, trocando só o texto do span (o nome completo fica em
+  `data-nome`). Nada é reconstruído, a altura não muda, nenhum observador acorda.
+  O detector (`diagRegistrar`, >8 ajustes em 2s → POST) continua ligado e barato.
+- **O × do card tira do elenco na hora** (mesma coisa que "Tirar do elenco" no ⋯).
+  Ele ocupa uma coluna a mais do grid, então `NAO_NOME` subiu 19px e mais nomes
+  viram "C. Miguel".
+
+## Aba Físico (SkillCorner)
+
+Mesma estrutura da aba Fim de contrato (`FS_COLUNAS`/`fsRender`), com as 12 métricas
+de `FISICO` como colunas. Só entram os 9.091 com tracking. Cada célula é lida contra a
+**coorte** (mesma posição, no recorte do select: grupo de ligas dos chips, liga do
+jogador, Brasil A/B/C ou todas): verde acima da média, vermelho abaixo, azul líder —
+a leitura da ficha. O **Índice** é a média dos percentis do jogador na coorte
+(`FS_INDICE`, 11 métricas, sem a V.máx TOP3 para não contar velocidade duas vezes),
+como o "Índice Atlético" do dashboard Série A/B do hub. `sc_n`/`sc_min` (jogos com
+tracking e média de minutos por jogo) vieram do `minutes`/`n_perf_passed` do
+SkillCorner — o `minutes` de lá é média por jogo, não total.
 
 ## Publicação
 

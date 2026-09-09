@@ -122,6 +122,12 @@ def main(periodo="ago26"):
             v = num(met.get(campo), 2)
             if v is not None:
                 j[chave] = v
+        # tamanho da amostra do tracking: minutos e jogos que passaram no controle
+        sc = (fisico.get(pk) or {}) if pk else {}
+        if sc.get("minutes") is not None:
+            j["sc_min"] = num(sc.get("minutes"), 0)
+        if sc.get("n_perf_passed") is not None:
+            j["sc_n"] = num(sc.get("n_perf_passed"), 0)
 
         if r:   # tem indicadores no ranking
             j.update({

@@ -120,6 +120,7 @@
 <nav class="abas">
   <button class="aba on" data-aba="campo">Campograma</button>
   <button class="aba" data-aba="contrato">Fim de contrato</button>
+  <button class="aba" data-aba="fisico">Físico</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
@@ -178,6 +179,47 @@
         <div class="vazio" id="fcVazio" style="display:none">Nenhum jogador com esses filtros.</div>
       </div>
       <div class="fc-pe"><span id="fcContagem">—</span></div>
+    </div>
+  </section>
+
+  <section class="pagina oculta" id="pgFisico">
+    <div class="fc fisico">
+      <div class="fc-topo">
+        <div class="fc-tit">
+          <h2>Físico <span class="fc-origem">SkillCorner</span></h2>
+          <p>Rastreamento por 90 minutos. Cada número é lido contra a coorte (mesma posição, no recorte
+             escolhido): <b class="c-verde">verde</b> acima da média, <b class="c-verm">vermelho</b> abaixo,
+             <b class="c-azul">azul</b> quando lidera. O Índice é a média dos percentis do jogador na coorte.
+             Clique na linha para levar o jogador ao campograma.</p>
+        </div>
+        <div class="fc-filtros">
+          <input type="text" id="fsTexto" placeholder="Nome ou clube…" autocomplete="off">
+          <select id="fsPos"><option value="">Todas as posições</option></select>
+          <select id="fsLiga"><option value="">Todas as ligas do grupo</option></select>
+          <select id="fsNacao">
+            <option value="">Qualquer nacionalidade</option>
+            <option value="br">Só brasileiros</option>
+            <option value="sul">Só sul-americanos (com Brasil)</option>
+            <option value="sulex">Sul-americanos estrangeiros</option>
+            <option value="ex">Só estrangeiros</option>
+          </select>
+          <label>Idade até <input class="num" type="number" id="fsIdade" placeholder="max"></label>
+          <label>Jogos ≥ <input class="num" type="number" id="fsMin" placeholder="0" title="Partidas com tracking"></label>
+          <label>Contrato até <input type="month" id="fsAte" min="2025-01" max="2032-12"></label>
+          <select id="fsBase" title="Com quem comparar">
+            <option value="posgrupo" selected>vs. mesma posição no grupo de ligas</option>
+            <option value="posliga">vs. mesma posição na liga dele</option>
+            <option value="posbr">vs. mesma posição no Brasil A/B/C</option>
+            <option value="pos">vs. mesma posição (todas as ligas)</option>
+          </select>
+          <button class="bt mini" id="fsLimpar">Limpar</button>
+        </div>
+      </div>
+      <div class="chips" id="fsChips"></div>
+      <div class="fc-lista"><table id="fsTabela"><thead id="fsThead"></thead><tbody id="fsTbody"></tbody></table>
+        <div class="vazio" id="fsVazio" style="display:none">Nenhum jogador com esses filtros.</div>
+      </div>
+      <div class="fc-pe"><span id="fsContagem">—</span></div>
     </div>
   </section>
 

@@ -141,7 +141,7 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
    botoes e respiro) ocupa ~118px, e a estrela de titular e o selo de estrangeiro
    comem 9 e 29px. Antes a conta era por caractere e superestimava. */
 let larguraCardPx = 190, larguraCardAberto = 190;
-const NAO_NOME = 118, PX_ESTRELA = 9, PX_SELO = 29, PX_CHAR = 5.4;
+const NAO_NOME = 137, PX_ESTRELA = 9, PX_SELO = 29, PX_CHAR = 5.4;
 
 function limiteNome(j, cod) {
   const fz = parseFloat(($('#campo') && $('#campo').style.getPropertyValue('--fz')) || 1) || 1;
@@ -647,7 +647,7 @@ function cardJog(cod, j) {
   el.dataset.nome = j.nome;
   el.title = STATUS_ROT[j.status || 'alvo'] +
              (j.estrangeiro ? ' · ESTRANGEIRO (' + (j.nac || '?') + ')' : '') +
-             ' · arraste para reordenar · ⋯ abre as ações';
+             ' · arraste para reordenar · ⋯ abre as ações · × tira do elenco';
 
   const ano = (j.contrato || '').slice(0, 4);
   const meta =
@@ -673,7 +673,15 @@ function cardJog(cod, j) {
     '</div>' +
     (j.jid != null ? '<button class="jog-mais" title="Ver os detalhes do jogador">+</button>'
                    : '<span class="jog-mais vazio"></span>') +
-    '<button class="jog-menu" title="Ações do jogador">⋯</button>';
+    '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
+    '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
+
+  el.querySelector('.jog-x').onclick = e => {
+    e.stopPropagation();
+    estado.elenco[cod] = estado.elenco[cod].filter(x => x.uid !== j.uid);
+    salvarLocal(); render();
+    toast(j.nome + ' saiu de ' + cod);
+  };
 
   const nomeEl = el.querySelector('.jog-nome');
   if (j.jid != null) nomeEl.onclick = e => { if (!e.defaultPrevented) abrirFicha(j); };
@@ -1944,13 +1952,244 @@ function fcMontarFiltros() {
   };
 }
 
+/* ---------------- aba Físico (SkillCorner) ----------------
+   Mesma estrutura da aba Fim de contrato, com as metricas fisicas de FISICO.
+   Cada numero e lido contra a coorte (mesma posicao, no recorte escolhido):
+   verde acima da media, vermelho abaixo, azul quando lidera — a leitura da ficha.
+   O Indice atletico e a media dos percentis do jogador na coorte, como no
+   dashboard fisico Serie A/B. */
+const FS_INDICE = ['psv', 'vmax', 'mmin', 'dist', 'hi', 'hsr', 'spr_km', 'spr_n', 'acel', 'desa', 'cod'];
+const FS_CURTO = { psv: 'PSV-99', vmax: 'V.máx', vmax3: 'V.máx T3', mmin: 'M/min', dist: 'Dist/90',
+                   hi: 'AI/90', hsr: '15–20/90', spr_km: 'Sprint m', spr_n: 'Sprints', acel: 'Acel.',
+                   desa: 'Desac.', cod: 'COD' };
+let fsOrdem = { campo: 'idx', desc: true };
+let fsGrupo = 'brasil';
+let fsBaseCache = null;
+const fsCoortes = {};
+const fsEstats = {};
+
+function fsBase() {
+  if (!fsBaseCache) fsBaseCache = BASE.filter(j => FISICO.some(([c]) => typeof j[c] === 'number'));
+  return fsBaseCache;
+}
+function fsNorm(t) {
+  return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+function fsModo() { return ($('#fsBase') && $('#fsBase').value) || 'posgrupo'; }
+
+/* coorte do jogador para a comparacao: mesma posicao, no recorte do select */
+function fsCoorte(j) {
+  const modo = fsModo();
+  const ch = modo + '|' + j.p + '|' + (modo === 'posliga' ? j.l : modo === 'posgrupo' ? fsGrupo : '');
+  if (fsCoortes[ch]) return fsCoortes[ch];
+  let lista = fsBase().filter(x => x.p === j.p);
+  if (modo === 'posliga') lista = lista.filter(x => x.l === j.l);
+  else if (modo === 'posbr') lista = lista.filter(x => x.l.startsWith('Brasil'));
+  else if (modo === 'posgrupo' && fsGrupo !== 'todas') {
+    const ligas = new Set(GRUPOS_LIGA[fsGrupo] || []);
+    lista = lista.filter(x => ligas.has(x.l));
+  }
+  fsCoortes[ch] = { chave: ch, lista };
+  return fsCoortes[ch];
+}
+function fsEstat(co, campo) {
+  const ch = co.chave + '|' + campo;
+  if (fsEstats[ch]) return fsEstats[ch];
+  const vs = co.lista.map(x => x[campo]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
+  const e = vs.length ? { n: vs.length, media: vs.reduce((s, v) => s + v, 0) / vs.length,
+                          max: vs[vs.length - 1], ord: vs } : null;
+  fsEstats[ch] = e;
+  return e;
+}
+/* percentil (0-100): quantos da coorte ficam abaixo do valor */
+function fsPercentil(e, v) {
+  if (!e || e.n < 2) return null;
+  let lo = 0, hi = e.ord.length;
+  while (lo < hi) { const m = (lo + hi) >> 1; if (e.ord[m] < v) lo = m + 1; else hi = m; }
+  return Math.round(lo / (e.n - 1) * 100);
+}
+function fsIndice(j, co) {
+  const ps = [];
+  FS_INDICE.forEach(c => {
+    if (typeof j[c] !== 'number') return;
+    const pc = fsPercentil(fsEstat(co, c), j[c]);
+    if (pc != null) ps.push(pc);
+  });
+  return ps.length >= 4 ? Math.round(ps.reduce((s, v) => s + v, 0) / ps.length) : null;
+}
+function fsFmt(v, casas) {
+  return typeof v === 'number' ? v.toFixed(casas).replace('.', ',') : '—';
+}
+
+const FS_COLUNAS = [
+  { c: 'n', r: 'Jogador', cel: j =>
+      '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
+      (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
+      (j.ov ? ' <span class="fc-ovr">' + j.ov + '</span>' : '') +
+      '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },
+  { c: 'p',   r: 'Pos.',  cel: j => j.p },
+  { c: 'id_', r: 'Idade', num: 1, cel: j => j.id_ ?? '—' },
+  { c: 'sc_n', r: 'Jogos', t: 'Partidas com tracking do SkillCorner (média de minutos por jogo no balão)', num: 1, cel: j =>
+      typeof j.sc_n === 'number'
+        ? '<span class="fs-min" title="' + milhar(j.sc_n) + ' jogos · ' + fsFmt(j.sc_min, 0) + ' min por jogo">' + milhar(j.sc_n) + '</span>'
+        : '<span class="fc-vazia">–</span>' },
+  { c: 'idx', r: 'Índice', t: 'Índice atlético: média dos percentis do jogador na coorte (0–100)', num: 1, cel: (j, co) => {
+      const i = fsIndice(j, co);
+      if (i == null) return '<span class="fc-vazia">–</span>';
+      return '<span class="fs-idx ' + (i >= 67 ? 'a' : i >= 40 ? 'm' : 'b') + '">' + i + '</span>'; } },
+];
+FISICO.forEach(([campo, rot, casas]) => {
+  FS_COLUNAS.push({ c: campo, r: FS_CURTO[campo] || rot, t: rot, num: 1, fis: 1, cel: (j, co) => {
+    const v = j[campo];
+    if (typeof v !== 'number') return '<span class="fc-vazia">–</span>';
+    const e = fsEstat(co, campo);
+    const lider = e && e.max > 0 && v >= e.max - 1e-9;
+    const cl = !e || e.n < 2 ? 'neutro' : lider ? 'lider' : v >= e.media ? 'acima' : 'abaixo';
+    const pc = fsPercentil(e, v);
+    return '<span class="fs-v ' + cl + '" title="' + esc(rot) + ': ' + fsFmt(v, casas) +
+      (e ? ' · média ' + fsFmt(e.media, casas) + ' · melhor ' + fsFmt(e.max, casas) +
+           (pc != null ? ' · percentil ' + pc : '') + ' · coorte de ' + e.n : '') + '">' +
+      fsFmt(v, casas) + '</span>';
+  } });
+});
+FS_COLUNAS.push({ c: '_', r: '', cel: j =>
+  '<button class="fc-add">levar p/ ' + j.p + '</button>' +
+  '<button class="ver-ficha" title="Ver detalhe">+</button>' });
+
+function fsFiltrar() {
+  const txt = fsNorm($('#fsTexto').value.trim());
+  const pos = $('#fsPos').value;
+  const liga = $('#fsLiga').value;
+  const nacao = $('#fsNacao').value;
+  const idade = parseFloat($('#fsIdade').value) || 0;
+  const min = parseFloat($('#fsMin').value) || 0;
+  const ate = $('#fsAte').value;
+  const ligas = liga ? null : (fsGrupo === 'todas' ? null : new Set(GRUPOS_LIGA[fsGrupo] || []));
+  return fsBase().filter(j => {
+    if (pos && j.p !== pos) return false;
+    if (liga) { if (j.l !== liga) return false; }
+    else if (ligas && !ligas.has(j.l)) return false;
+    if (nacao && !passaNacao(j, nacao)) return false;
+    if (idade && (Number(j.id_) || 99) > idade) return false;
+    if (min && (Number(j.sc_n) || 0) < min) return false;
+    if (ate && (!j.ct || j.ct.slice(0, 7) > ate)) return false;
+    if (txt && !fsNorm(j.n + ' ' + j.t).includes(txt)) return false;
+    return true;
+  });
+}
+
+function fsRender() {
+  if (!BASE.length) return;
+  const th = $('#fsThead');
+  if (!th.dataset.pronto) {
+    th.innerHTML = '<tr>' + FS_COLUNAS.map(c =>
+      '<th data-ord="' + c.c + '"' + (c.num ? ' class="num-c"' : '') +
+      (c.t ? ' title="' + esc(c.t) + '"' : '') + '>' + c.r + '</th>').join('') + '</tr>';
+    th.dataset.pronto = '1';
+    th.querySelectorAll('th').forEach(el => {
+      el.onclick = () => {
+        const c = el.dataset.ord;
+        if (c === '_') return;
+        if (fsOrdem.campo === c) fsOrdem.desc = !fsOrdem.desc;
+        else { fsOrdem.campo = c; fsOrdem.desc = !(c === 'n' || c === 'p' || c === 'id_'); }
+        th.querySelectorAll('.set').forEach(x => x.remove());
+        el.insertAdjacentHTML('beforeend', '<span class="set">' + (fsOrdem.desc ? '▼' : '▲') + '</span>');
+        fsRender();
+      };
+    });
+  }
+
+  const lista = fsFiltrar();
+  const camp = fsOrdem.campo, desc = fsOrdem.desc;
+  const valor = j => camp === 'idx' ? fsIndice(j, fsCoorte(j)) : j[camp];
+  lista.sort((a, b) => {
+    let x = valor(a), y = valor(b);
+    if (typeof x === 'string' || typeof y === 'string') {
+      x = String(x || ''); y = String(y || '');
+      return desc ? y.localeCompare(x) : x.localeCompare(y);
+    }
+    /* quem nao tem o dado vai sempre para o fim */
+    const xv = typeof x === 'number' && !isNaN(x), yv = typeof y === 'number' && !isNaN(y);
+    if (xv !== yv) return xv ? -1 : 1;
+    if (!xv) return 0;
+    return desc ? y - x : x - y;
+  });
+
+  const LIM = 300;
+  const jaNoElenco = new Set(todosJogadores().map(j => j.pk).filter(Boolean));
+  const linhas = lista.slice(0, LIM);
+  $('#fsTbody').innerHTML = linhas.map(j => {
+    const co = fsCoorte(j);
+    return '<tr data-id="' + j.id + '"' + (jaNoElenco.has(primaryKey(j)) ? ' class="ja"' : '') + '>' +
+      FS_COLUNAS.map(c => '<td' + (c.num ? ' class="num-c"' : '') + '>' + c.cel(j, co) + '</td>').join('') +
+      '</tr>';
+  }).join('');
+  $('#fsVazio').style.display = linhas.length ? 'none' : 'block';
+  const modo = fsModo();
+  $('#fsContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com tracking' +
+    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
+    ' · comparados com a mesma posição ' +
+    (modo === 'posliga' ? 'na liga de cada um' : modo === 'posbr' ? 'no Brasil A/B/C'
+     : modo === 'pos' ? 'em todas as ligas' : 'no grupo de ligas escolhido') +
+    ' · clique na linha para levar ao campograma';
+
+  $$('#fsTbody tr').forEach(tr => {
+    const id = parseInt(tr.dataset.id);
+    const levar = () => {
+      const j = BASE.find(x => x.id === id);
+      if (!j) return;
+      posAtual = j.p;
+      adicionarDaBase(id);
+      fsRender();
+    };
+    tr.onclick = levar;
+    tr.querySelector('.fc-add').onclick = e => { e.stopPropagation(); levar(); };
+    tr.querySelector('.ver-ficha').onclick = e => { e.stopPropagation(); abrirFicha(id); irParaAba('campo'); };
+  });
+}
+
+function fsMontarFiltros() {
+  $('#fsPos').innerHTML = '<option value="">Todas as posições</option>' +
+    POSICOES.map(p => '<option value="' + p.c + '">' + p.c + ' · ' + p.nome + '</option>').join('');
+  const cont = {};
+  fsBase().forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
+  $('#fsLiga').innerHTML = '<option value="">Todas as ligas do grupo</option>' +
+    Object.keys(cont).sort((a, b) => a.localeCompare(b)).map(l =>
+      '<option value="' + esc(l) + '">' + esc(l) + ' (' + cont[l] + ')</option>').join('');
+
+  const defs = [
+    { c: 'brasil', r: 'Brasil A/B/C' }, { c: 'brasilbc', r: 'Brasil B+C' },
+    { c: 'sulamerica', r: 'América do Sul' }, { c: 'europa', r: 'Europa' },
+    { c: 'todas', r: 'Todas as ligas' },
+  ];
+  $('#fsChips').innerHTML = defs.map(d =>
+    '<button class="chip' + (d.c === fsGrupo ? ' on' : '') + '" data-g="' + d.c + '">' + d.r + '</button>').join('');
+  $$('#fsChips .chip').forEach(b => {
+    b.onclick = () => {
+      fsGrupo = b.dataset.g;
+      $$('#fsChips .chip').forEach(x => x.classList.toggle('on', x.dataset.g === fsGrupo));
+      fsRender();
+    };
+  });
+
+  ['#fsPos', '#fsLiga', '#fsNacao', '#fsBase', '#fsAte'].forEach(sel => { $(sel).onchange = fsRender; });
+  ['#fsTexto', '#fsIdade', '#fsMin'].forEach(sel => { $(sel).oninput = debounce(fsRender, 200); });
+  $('#fsLimpar').onclick = () => {
+    $('#fsTexto').value = ''; $('#fsPos').value = ''; $('#fsLiga').value = ''; $('#fsNacao').value = '';
+    $('#fsIdade').value = ''; $('#fsMin').value = ''; $('#fsAte').value = '';
+    fsRender();
+  };
+}
+
 function irParaAba(nome) {
   $$('.aba').forEach(b => b.classList.toggle('on', b.dataset.aba === nome));
   $('#pgCampo').classList.toggle('oculta', nome !== 'campo');
   $('#pgContrato').classList.toggle('oculta', nome !== 'contrato');
+  $('#pgFisico').classList.toggle('oculta', nome !== 'fisico');
   $('#pgAnalise').classList.toggle('oculta', nome !== 'analise');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
+  if (nome === 'fisico') fsRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -2267,6 +2506,7 @@ async function iniciar() {
     const cont = {};
     BASE.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
     fcMontarFiltros();
+    fsMontarFiltros();
     $('#fLiga').innerHTML = '<option value="">Todas as ligas do grupo</option>' +
       Object.keys(cont).sort((a, b) => a.localeCompare(b)).map(l =>
         '<option value="' + esc(l) + '">' + esc(l) + ' (' + cont[l] + ')</option>').join('');

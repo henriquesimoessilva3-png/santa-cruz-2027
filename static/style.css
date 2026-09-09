@@ -1162,17 +1162,17 @@ body:not(.claro){
 .fc-filtros select{max-width:190px}
 #fcChips{padding:9px 16px 6px}
 .fc-lista{flex:1;overflow:auto;min-height:0}
-#fcTabela{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11.5px}
-#fcTabela th{position:sticky;top:0;background:var(--fundo3);padding:6px 9px;text-align:left;
+#fcTabela,#fsTabela{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11.5px}
+#fcTabela th,#fsTabela th{position:sticky;top:0;background:var(--fundo3);padding:6px 9px;text-align:left;
   font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta2);
   border-bottom:1px solid var(--borda2);cursor:pointer;z-index:2;font-weight:700}
-#fcTabela th:hover{color:var(--tinta)}
-#fcTabela td{padding:5px 9px;border-bottom:1px solid var(--linha-tab);
+#fcTabela th:hover,#fsTabela th:hover{color:var(--tinta)}
+#fcTabela td,#fsTabela td{padding:5px 9px;border-bottom:1px solid var(--linha-tab);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#fcTabela tbody tr{cursor:pointer}
-#fcTabela tbody tr:hover{background:var(--veu2)}
-#fcTabela tbody tr.ja{opacity:.45}
-#fcTabela .fraco{color:var(--tinta3)}
+#fcTabela tbody tr,#fsTabela tbody tr{cursor:pointer}
+#fcTabela tbody tr:hover,#fsTabela tbody tr:hover{background:var(--veu2)}
+#fcTabela tbody tr.ja,#fsTabela tbody tr.ja{opacity:.45}
+#fcTabela .fraco,#fsTabela .fraco{color:var(--tinta3)}
 .fc-duvida{display:inline-block;margin-left:4px;font-size:9px;font-weight:800;
   color:var(--txt-ambar);cursor:help}
 .fc-add{
@@ -1201,8 +1201,8 @@ body:not(.claro){
 .fc-luz.erro{background:var(--coral)}
 .fc-luz.nulo{background:var(--tinta3);opacity:.5}
 .fc-ast{color:var(--txt-ambar);font-weight:700;margin-left:1px}
-#fcTabela td{vertical-align:middle}
-#fcTabela th{white-space:nowrap}
+#fcTabela td,#fsTabela td{vertical-align:middle}
+#fcTabela th,#fsTabela th{white-space:nowrap}
 
 /* a area do campo nunca rola de lado; na vertical, so quando sobra conteudo de verdade.
    A calha fica RESERVADA (stable): com `auto` a barra entrava e saia a cada passada
@@ -1214,3 +1214,39 @@ body:not(.claro){
    parte do elenco. */
 .campo-area{overflow:auto;overflow-x:hidden;scrollbar-gutter:stable}
 .campo-area.ajustado{overflow:hidden;scrollbar-gutter:stable}
+
+/* ---------- × para tirar do elenco, ao lado do ⋯ ---------- */
+.jog{grid-template-columns:1fr auto 15px 15px 15px}
+.jog-x{
+  grid-row:1/3;grid-column:5;width:15px;align-self:center;
+  font-size:14px;font-weight:800;line-height:1;color:var(--pilula-meta);opacity:.45;
+  border-radius:4px;padding:1px 0;transition:.12s;
+}
+.jog:hover .jog-x{opacity:1}
+.jog-x:hover{background:var(--perigo-bg);color:var(--txt-vermelho)}
+.campo.denso .jog{grid-template-columns:1fr auto 12px 12px 12px}
+.campo.denso .jog-x{width:12px;font-size:12px}
+@media print{ .jog-x,.jog-mais,.jog-menu{display:none!important} .jog{grid-template-columns:1fr auto} }
+
+/* ---------- aba Físico (SkillCorner) ---------- */
+.fc-origem{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--tinta3);margin-left:6px;vertical-align:middle}
+.fc-tit .c-verde{color:var(--txt-verde)} .fc-tit .c-verm{color:var(--txt-vermelho)} .fc-tit .c-azul{color:var(--txt-azul)}
+.fisico .fc-tit p{max-width:560px}
+.fisico .fc-filtros input[type=text]{width:150px}
+#fsTabela{table-layout:auto;font-size:11px;min-width:1180px}
+#fsTabela th{padding:6px 6px;white-space:nowrap}
+#fsTabela th.num-c,#fsTabela td.num-c{text-align:right}
+#fsTabela td{padding:4px 6px}
+#fsTabela td:first-child{min-width:170px;max-width:230px}
+.fs-v{font-variant-numeric:tabular-nums;font-weight:600}
+.fs-v.acima{color:var(--txt-verde)}
+.fs-v.abaixo{color:var(--txt-vermelho)}
+.fs-v.lider{color:var(--txt-azul);font-weight:800}
+.fs-v.neutro{color:var(--tinta2);font-weight:500}
+.fs-min{font-size:10px;color:var(--tinta3);font-variant-numeric:tabular-nums}
+.fs-idx{display:inline-block;min-width:26px;text-align:center;border-radius:4px;padding:1px 5px;
+  font-weight:800;font-size:10.5px;font-variant-numeric:tabular-nums}
+.fs-idx.a{background:#22c55e26;color:var(--txt-verde)}
+.fs-idx.m{background:#f5a52430;color:var(--txt-ambar)}
+.fs-idx.b{background:#ef444426;color:var(--txt-vermelho)}
