@@ -60,7 +60,7 @@ aparece com cadastro, contrato e salário estimado, e sem barras na ficha.
 ## Campograma — por que o código é o que é
 
 Sete colunas: goleiro, zagueiros, **laterais**, volante/médio, meia, **extremos**,
-centroavante. Laterais e extremos são colunas "abertas": ficam no topo e na base,
+atacante (CA — o rótulo é "Atacante", não "Centroavante", a pedido). Laterais e extremos são colunas "abertas": ficam no topo e na base,
 enquanto as vizinhas ficam centradas — foi assim que se descasaram dos zagueiros e
 do meia, a pedido.
 
@@ -117,7 +117,6 @@ chave `web`, hoje comentada).
 
 ## Pendências
 
-- **Rename do CA** — pedido em outra sessão, sem detalhe do que muda. Perguntar.
 - ~8 nomes de 44 ainda cortam com reticências em telas estreitas (o completo está no
   tooltip e na ficha).
 - A ficha compara com a coorte da liga; para ligas pequenas a amostra fica curta e
