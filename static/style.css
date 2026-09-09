@@ -1679,3 +1679,8 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 #fsMatriz tbody tr td.fs-c.media{background:transparent}
 #fsMatriz tbody tr td.fs-c.vazio{background:var(--fs-cel-alt);opacity:.55}
 #fsMatriz tbody tr td.fs-c.lider{background:#e2a51f1f}
+
+/* barra das colunas de media: neutra, e um pouco mais apagada que a dos jogadores */
+#fsMatriz .fs-c.media .fs-bar{background:var(--trilho)}
+#fsMatriz .fs-c.media .fs-bar b{background:var(--tinta3);opacity:.55}
+#fsMatriz tbody tr td.fs-c.media{background:var(--veu0)}

@@ -2795,8 +2795,13 @@ function fsRender() {
         }).join('') +
         tdVagas + medias.map(m => {
           const v = (m.rot.endsWith('A') ? mt.A : mt.B)[l.id];
-          return '<td class="fs-c media"><div class="fs-cl"><span class="v">' +
-            (v == null ? '–' : l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
+          if (v == null) return '<td class="fs-c media vazio"><div class="fs-cl">' +
+            '<span class="v">–</span></div></td>';
+          return '<td class="fs-c media"><div class="fs-cl">' +
+            '<i class="fs-bar"><b style="width:' +
+              Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
+            '<span class="v">' +
+            (l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
         }).join('') + '</tr>';
     });
     if (comHist < colunas.length) {
@@ -2824,7 +2829,16 @@ function fsRender() {
           melhor != null && vals[i] === melhor && validos.length > 1,
           rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(co.A.m[k], casas) +
           ' · média B ' + fsFmt(co.B.m[k], casas))).join('') + tdVagas +
-        medias.map(m => '<td class="fs-c media"><div class="fs-cl"><span class="v">' + fsFmt(m.d.m[k], casas) + '</span></div></td>').join('') +
+        medias.map(m => {
+          /* a media ganha a mesma barra, mas com preenchimento neutro: ela e a regua,
+             nao um competidor — pintar de verde ou vermelho diria que a media e boa
+             ou ruim, o que nao quer dizer nada */
+          const vm = m.d.m[k];
+          const pm = fsPct(co, k, vm, menor);
+          return '<td class="fs-c media"><div class="fs-cl">' +
+            '<i class="fs-bar"><b style="width:' + Math.max(2, pm == null ? 0 : pm) + '%"></b></i>' +
+            '<span class="v">' + fsFmt(vm, casas) + '</span></div></td>';
+        }).join('') +
         '</tr>';
     });
   });
