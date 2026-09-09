@@ -268,27 +268,56 @@ const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas
 const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
 let recalculandoNomes = false;
 
-/* Se algum par de cards se encostou, guarda uma largura menor e pede um redesenho.
-   Assim a largura fica sempre a maior que cabe, sem depender de chute. */
-let larguraSemColisao = 0, tentandoLargura = false;
-function conferirColisao(campo) {
-  const cards = Array.from(campo.querySelectorAll('.pos'));
-  const r = cards.map(c => c.getBoundingClientRect());
-  let encostou = false;
-  for (let i = 0; i < r.length && !encostou; i++) {
-    for (let j = i + 1; j < r.length; j++) {
-      if (r[i].left < r[j].right - 2 && r[i].right - 2 > r[j].left &&
-          r[i].top < r[j].bottom - 2 && r[i].bottom - 2 > r[j].top) { encostou = true; break; }
+/* Maior largura em que nenhum par de cards se encosta. A altura de cada card nao
+   depende da largura (o nome cabe sempre numa linha), entao da para simular. */
+function maiorLarguraQueCabe(campo, larg) {
+  const alturas = {};
+  POSICOES.forEach(p => {
+    const el = campo.querySelector('.pos[data-pos="' + p.c + '"]');
+    alturas[p.c] = el ? el.offsetHeight : 0;
+  });
+
+  const simula = (w) => {
+    /* monta as colunas do jeito que distribuir() vai montar */
+    const cols = LAYOUT.horizontal.map(c => {
+      const els = c.pos.filter(k => alturas[k]);
+      const soma = els.reduce((s, k) => s + alturas[k], 0);
+      const gap = c.espalhar ? 46 : GAP_CARD;
+      return { x: c.x, els, soma, h: soma + gap * (els.length - 1), espalhar: !!c.espalhar };
+    });
+    const alt = Math.max(
+      Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2,
+      alturaDisponivel());
+
+    const caixas = [];
+    cols.forEach(c => {
+      const meia = w / 2 + 10;
+      const cx = Math.min(larg - meia, Math.max(meia, c.x / 100 * larg));
+      let y;
+      if (c.espalhar && c.els.length > 1) {
+        const passo = (alt - MARGEM_CAMPO * 2 - c.soma) / (c.els.length - 1);
+        y = MARGEM_CAMPO;
+        c.els.forEach(k => { caixas.push([cx - w / 2, cx + w / 2, y, y + alturas[k]]);
+                             y += alturas[k] + passo; });
+      } else {
+        y = (alt - c.h) / 2;
+        c.els.forEach(k => { caixas.push([cx - w / 2, cx + w / 2, y, y + alturas[k]]);
+                             y += alturas[k] + GAP_CARD; });
+      }
+    });
+
+    for (let i = 0; i < caixas.length; i++) {
+      for (let j = i + 1; j < caixas.length; j++) {
+        const a = caixas[i], b = caixas[j];
+        if (a[0] < b[1] - 2 && a[1] - 2 > b[0] && a[2] < b[3] - 2 && a[3] - 2 > b[2]) return false;
+      }
     }
-  }
-  if (encostou && !tentandoLargura) {
-    const atual = cards[0] ? cards[0].offsetWidth : 200;
-    larguraSemColisao = Math.max(140, Math.round(atual * 0.92));
-    tentandoLargura = true;
-    requestAnimationFrame(() => { tentandoLargura = false; ajustarCampo(); });
-  } else if (!encostou && !tentandoLargura) {
-    larguraSemColisao = 0;   /* coube: da proxima vez tenta o tamanho cheio de novo */
-  }
+    return true;
+  };
+
+  const teto = Math.min(420, Math.floor(larg / 4.2));   /* nao passa de 1/4 do campo */
+  for (let w = teto; w >= 150; w -= 6) if (simula(w)) return w;
+  return 150;
 }
 
 function distribuir() {
@@ -297,26 +326,16 @@ function distribuir() {
   const carta = {};
   POSICOES.forEach(p => { carta[p.c] = campo.querySelector('.pos[data-pos="' + p.c + '"]'); });
 
-  /* Todos os cards com a mesma largura, a maior que o campo comporta. O gargalo
-     sao as colunas CENTRADAS vizinhas — as abertas ficam no topo e na base. Se
-     ainda assim algum par se encostar, a largura cai um degrau e tenta de novo. */
+  /* Largura unica para todos, escolhida por conta e nao por tentativa: a altura de
+     cada card ja e conhecida, entao da para simular as posicoes e ver qual e a maior
+     largura em que nenhum par se encosta. */
   if (estado.orientacao === 'horizontal') {
-    const centradas = LAYOUT.horizontal.filter(c => !c.espalhar)
-      .map(c => c.x).sort((a, b) => a - b);
-    let menor = 100;
-    for (let i = 1; i < centradas.length; i++) {
-      menor = Math.min(menor, centradas[i] - centradas[i - 1]);
-    }
-    const todas = LAYOUT.horizontal.map(c => c.x).sort((a, b) => a - b);
-    const beirada = Math.min(todas[0], 100 - todas[todas.length - 1]) * 2;
-    const alvo = Math.max(140, Math.floor(Math.min(menor, beirada) / 100 * larg) - FOLGA_COLUNA);
-    const maxPx = Math.min(alvo, larguraSemColisao || alvo);
+    const maxPx = maiorLarguraQueCabe(campo, larg);
     campo.style.setProperty('--pos-max', maxPx + 'px');
     campo.style.setProperty('--pos-max-aberto', maxPx + 'px');
     const antes = larguraCardPx;
     const um = campo.querySelector('.pos');
     if (um) { larguraCardPx = um.offsetWidth; larguraCardAberto = larguraCardPx; }
-    /* card mudou muito de tamanho: os nomes precisam ser recalculados */
     if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes) {
       recalculandoNomes = true;
       requestAnimationFrame(() => { recalculandoNomes = false; renderCampo(); });
@@ -361,7 +380,6 @@ function distribuir() {
         y += el.offsetHeight + GAP_CARD;
       });
     });
-    conferirColisao(campo);
     return Math.ceil(alt);
   }
 
