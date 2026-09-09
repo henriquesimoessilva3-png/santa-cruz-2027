@@ -54,6 +54,9 @@ aparece com cadastro, contrato e salário estimado, e sem barras na ficha.
   inteira (o `<main>` ficou dentro dele, e a área do campo caiu de 826 para 572px).
 - **O salário do TransferRoom é faixa ANUAL em euros** ("150K - 220K"). A tela
   converte para reais por mês com a cotação do modal Orçamento (padrão 6,30).
+- **Jogador entra com salário 0, sem sugestão.** Havia preenchimento com o piso da
+  faixa do TransferRoom (azul itálico, `sugerido`); o usuário pediu para não sugerir.
+  A faixa segue na ficha e na aba Fim de contrato.
 - **Capology não publica salário do futebol brasileiro** — o campo vem nulo. Todo
   salário é digitado, exceto a estimativa do TransferRoom (766 brasileiros).
 
@@ -64,6 +67,16 @@ atacante (CA — o rótulo é "Atacante", não "Centroavante", a pedido). Latera
 enquanto as vizinhas ficam centradas — foi assim que se descasaram dos zagueiros e
 do meia, a pedido.
 
+- **A largura do card vem da REFERÊNCIA, não do elenco real.** `medirAlturas()` monta
+  a altura que cada posição teria com exatamente as vagas previstas (`metaPos`) e o
+  card médio; `larguraReferencia()` simula o entrelaçado com isso. Assim o card não
+  encolhe quando entram mais jogadores do que as vagas — pedido literal: "mantenha
+  sempre o tamanho do card igual estava antes". Quando o elenco real não cabe mais
+  no entrelaçado sem encolher, `planejarHorizontal()` troca para o desenho **reto**
+  (`.campo.reto`): sete colunas lado a lado, espalhadas pela largura toda, sem
+  sobreposição horizontal — mesma largura de card em tela larga (268px a 2016px de
+  viewport, que é o zoom 75% que o usuário usa) e a maior que couber lado a lado em
+  tela estreita. O critério entre os dois é o tamanho VISUAL (largura × escala).
 - **A largura é única e calculada, nunca por tentativa.** Uma versão anterior reduzia
   ao detectar encosto, redesenhava, via que cabia, voltava ao tamanho cheio e colidia
   de novo — o vai-e-vem parava num valor pequeno e os nomes viravam "G...". Como a

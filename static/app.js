@@ -272,72 +272,133 @@ const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas
    vizinhas ficam centradas — entao esses cards podem ser mais largos sem encostar. */
 const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
 
-/* Maior largura em que nenhum par de cards se encosta. A altura de cada card nao
-   depende da largura (o nome cabe sempre numa linha), entao da para simular. */
-function maiorLarguraQueCabe(campo, larg) {
-  const alturas = {};
+/* Alturas das caixas de posicao: as reais e as de REFERENCIA. A referencia e cada
+   posicao com exatamente as vagas previstas (metaPos), com o card medio do campo.
+   E dela que sai a largura do card — por isso a largura nao muda quando entram mais
+   jogadores do que as vagas: o pedido foi "mantenha sempre o tamanho do card". */
+function medirAlturas(campo) {
+  const reais = {}, ref = {}, cromos = [];
+  let somaJog = 0, nJog = 0, gap = 4;
   POSICOES.forEach(p => {
     const el = campo.querySelector('.pos[data-pos="' + p.c + '"]');
-    alturas[p.c] = el ? el.offsetHeight : 0;
+    reais[p.c] = el ? el.offsetHeight : 0;
+    if (!el) return;
+    const jogs = el.querySelectorAll('.jog');
+    let soma = 0;
+    jogs.forEach(j => { soma += j.offsetHeight; });
+    somaJog += soma; nJog += jogs.length;
+    if (jogs.length >= 2) gap = Math.max(0, jogs[1].offsetTop - jogs[0].offsetTop - jogs[0].offsetHeight);
+    if (jogs.length) cromos.push(reais[p.c] - soma - (jogs.length - 1) * gap);
   });
+  const hJog = nJog ? somaJog / nJog : 44;
+  const cromoMedio = cromos.length ? cromos.reduce((a, v) => a + v, 0) / cromos.length : 0;
+  POSICOES.forEach(p => {
+    const el = campo.querySelector('.pos[data-pos="' + p.c + '"]');
+    if (!el) { ref[p.c] = 0; return; }
+    const n = el.querySelectorAll('.jog').length;
+    const cromo = n ? reais[p.c] - [...el.querySelectorAll('.jog')].reduce((a, j) => a + j.offsetHeight, 0) - (n - 1) * gap
+                    : (cromos.length ? cromoMedio : reais[p.c]);
+    const meta = Math.max(1, metaPos(p.c));
+    ref[p.c] = Math.round(cromo + meta * hJog + (meta - 1) * gap);
+  });
+  return { reais, ref };
+}
 
-  const simula = (w) => {
-    /* monta as colunas do jeito que distribuir() vai montar */
-    const cols = LAYOUT.horizontal.map(c => {
-      const els = c.pos.filter(k => alturas[k]);
-      const soma = els.reduce((s, k) => s + alturas[k], 0);
-      const gap = c.espalhar ? 46 : GAP_CARD;
-      return { x: c.x, els, soma, h: soma + gap * (els.length - 1), espalhar: !!c.espalhar };
-    });
-    let paraPontas = 0;
-    cols.forEach(c => {
-      if (!c.espalhar || c.els.length < 2) return;
-      const topo = alturas[c.els[0]] || 0;
-      const base = alturas[c.els[c.els.length - 1]] || 0;
-      const vizinha = Math.max.apply(null, cols
-        .filter(o => !o.espalhar && Math.abs(o.x - c.x) <= 12)
-        .map(o => o.h).concat([0]));
-      paraPontas = Math.max(paraPontas, topo + base + vizinha + MARGEM_CAMPO * 2 + GAP_CARD * 2);
-    });
-    const alt = Math.max(
-      Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2,
-      paraPontas, alturaDisponivel());
+/* Simula o desenho "entrelacado" (colunas nas posicoes fixas do LAYOUT, laterais e
+   extremos abertos nas pontas) com uma largura w e devolve se nenhum par de cards
+   se encosta e a altura que o campo precisa. A altura de cada card nao depende da
+   largura (o nome cabe sempre numa linha), entao da para simular sem desenhar. */
+function simulaEntrelacado(w, alturas, larg) {
+  const cols = LAYOUT.horizontal.map(c => {
+    const els = c.pos.filter(k => alturas[k]);
+    const soma = els.reduce((s, k) => s + alturas[k], 0);
+    const gap = c.espalhar ? 46 : GAP_CARD;
+    return { x: c.x, els, soma, h: soma + gap * (els.length - 1), espalhar: !!c.espalhar };
+  });
+  let paraPontas = 0;
+  cols.forEach(c => {
+    if (!c.espalhar || c.els.length < 2) return;
+    const topo = alturas[c.els[0]] || 0;
+    const base = alturas[c.els[c.els.length - 1]] || 0;
+    const vizinha = Math.max.apply(null, cols
+      .filter(o => !o.espalhar && Math.abs(o.x - c.x) <= 12)
+      .map(o => o.h).concat([0]));
+    paraPontas = Math.max(paraPontas, topo + base + vizinha + MARGEM_CAMPO * 2 + GAP_CARD * 2);
+  });
+  const alt = Math.max(
+    Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2,
+    paraPontas, alturaDisponivel());
 
-    const caixas = [];
-    cols.forEach(c => {
-      const meia = w / 2 + 10;
-      const cx = Math.min(larg - meia, Math.max(meia, c.x / 100 * larg));
-      let y;
-      if (c.espalhar && c.els.length > 1) {
-        const passo = (alt - MARGEM_CAMPO * 2 - c.soma) / (c.els.length - 1);
-        y = MARGEM_CAMPO;
-        c.els.forEach(k => { caixas.push([cx - w / 2, cx + w / 2, y, y + alturas[k]]);
-                             y += alturas[k] + passo; });
-      } else {
-        y = (alt - c.h) / 2;
-        c.els.forEach(k => { caixas.push([cx - w / 2, cx + w / 2, y, y + alturas[k]]);
-                             y += alturas[k] + GAP_CARD; });
-      }
-    });
-
-    for (let i = 0; i < caixas.length; i++) {
-      for (let j = i + 1; j < caixas.length; j++) {
-        const a = caixas[i], b = caixas[j];
-        /* Na horizontal exige FOLGA_COLUNA de respiro entre dois cards, nao apenas
-           que nao se toquem — era so uma tolerancia de 2px, e a constante estava
-           declarada sem uso nenhum. Na vertical continua 2px porque o empilhamento
-           dentro da coluna ja soma GAP_CARD ao posicionar; cobrar de novo aqui
-           reprovaria arranjos validos. */
-        if (a[0] < b[1] + FOLGA_COLUNA && a[1] + FOLGA_COLUNA > b[0] &&
-            a[2] < b[3] - 2 && a[3] - 2 > b[2]) return false;
-      }
+  const caixas = [];
+  cols.forEach(c => {
+    const meia = w / 2 + 10;
+    const cx = Math.min(larg - meia, Math.max(meia, c.x / 100 * larg));
+    let y;
+    if (c.espalhar && c.els.length > 1) {
+      const passo = (alt - MARGEM_CAMPO * 2 - c.soma) / (c.els.length - 1);
+      y = MARGEM_CAMPO;
+      c.els.forEach(k => { caixas.push([cx - w / 2, cx + w / 2, y, y + alturas[k]]);
+                           y += alturas[k] + passo; });
+    } else {
+      y = (alt - c.h) / 2;
+      c.els.forEach(k => { caixas.push([cx - w / 2, cx + w / 2, y, y + alturas[k]]);
+                           y += alturas[k] + GAP_CARD; });
     }
-    return true;
-  };
+  });
+  for (let i = 0; i < caixas.length; i++) {
+    for (let j = i + 1; j < caixas.length; j++) {
+      const a = caixas[i], b = caixas[j];
+      /* Na horizontal exige FOLGA_COLUNA de respiro entre dois cards, nao apenas
+         que nao se toquem. Na vertical continua 2px porque o empilhamento dentro
+         da coluna ja soma GAP_CARD ao posicionar. */
+      if (a[0] < b[1] + FOLGA_COLUNA && a[1] + FOLGA_COLUNA > b[0] &&
+          a[2] < b[3] - 2 && a[3] - 2 > b[2]) return { cabe: false, alt };
+    }
+  }
+  return { cabe: true, alt };
+}
 
-  const teto = Math.min(460, Math.floor(larg / 3.9));   /* teto generoso; a simulacao e quem decide */
-  for (let w = teto; w >= 150; w -= 6) if (simula(w)) return w;
+/* Desenho "reto": as sete colunas lado a lado, espalhadas pela largura toda, sem
+   nenhuma sobreposicao horizontal. Entra quando o elenco cresce alem das vagas e o
+   entrelacado so caberia encolhendo tudo — assim o card fica do mesmo tamanho e o
+   que cresce e a coluna. */
+function simulaReto(w, alturas, larg) {
+  const cols = LAYOUT.horizontal.map(c => {
+    const els = c.pos.filter(k => alturas[k]);
+    return { h: els.reduce((s, k) => s + alturas[k], 0) + GAP_CARD * (els.length - 1) };
+  });
+  const alt = Math.max(Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2, alturaDisponivel());
+  const n = cols.length;
+  const vao = Math.max(FOLGA_COLUNA, (larg - MARGEM_CAMPO * 2 - n * w) / (n - 1));
+  const cx = cols.map((c, i) => MARGEM_CAMPO + w / 2 + i * (w + vao));
+  return { alt, cx };
+}
+
+/* Maior largura em que a REFERENCIA (vagas previstas em cada posicao) cabe no
+   desenho entrelacado. Teto generoso; a simulacao e quem decide. */
+function larguraReferencia(larg, alturasRef) {
+  const teto = Math.min(460, Math.floor(larg / 3.9));
+  for (let w = teto; w >= 150; w -= 6) if (simulaEntrelacado(w, alturasRef, larg).cabe) return w;
   return 150;
+}
+
+/* Escolhe largura e desenho. A largura e sempre a da referencia. O desenho e o
+   entrelacado (o de sempre) enquanto ele couber sem encolher mais do que o reto
+   precisaria; senao, o reto — com a mesma largura quando a tela permite e, em tela
+   estreita, com a maior que couber lado a lado. O criterio e o tamanho VISUAL do
+   card (largura x escala), que e o que o usuario enxerga. */
+function planejarHorizontal(campo, larg) {
+  const { reais, ref } = medirAlturas(campo);
+  const w = larguraReferencia(larg, ref);
+  const disp = alturaDisponivel();
+  const escala = alt => (estado.ajustar && disp > 0 ? Math.min(1, disp / alt) : 1);
+  const A = simulaEntrelacado(w, reais, larg);
+  const wB = Math.max(150, Math.min(w, Math.floor((larg - MARGEM_CAMPO * 2 - FOLGA_COLUNA * 6) / 7)));
+  const B = simulaReto(wB, reais, larg);
+  const visualA = A.cabe ? w * escala(A.alt) : 0;
+  const visualB = wB * escala(B.alt);
+  if (A.cabe && visualA >= visualB - 4) return { w, reto: false };
+  return { w: wB, reto: true, cx: B.cx };
 }
 
 function distribuir() {
@@ -348,11 +409,13 @@ function distribuir() {
 
   /* Largura unica para todos, escolhida por conta e nao por tentativa: a altura de
      cada card ja e conhecida, entao da para simular as posicoes e ver qual e a maior
-     largura em que nenhum par se encosta. */
+     largura em que nenhum par se encosta — na referencia de vagas por posicao. */
+  let plano = null;
   if (estado.orientacao === 'horizontal') {
-    const maxPx = maiorLarguraQueCabe(campo, larg);
-    campo.style.setProperty('--pos-max', maxPx + 'px');
-    campo.style.setProperty('--pos-max-aberto', maxPx + 'px');
+    plano = planejarHorizontal(campo, larg);
+    campo.style.setProperty('--pos-max', plano.w + 'px');
+    campo.style.setProperty('--pos-max-aberto', plano.w + 'px');
+    campo.classList.toggle('reto', plano.reto);
     const um = campo.querySelector('.pos');
     if (um) { larguraCardPx = um.offsetWidth; larguraCardAberto = larguraCardPx; }
     /* Os nomes NAO sao refeitos daqui. distribuir() roda mais de uma vez por ajuste
@@ -361,6 +424,7 @@ function distribuir() {
        ciclo. Quem abrevia os nomes e atualizarNomes(), depois que o layout assentou,
        mexendo so no texto: nada de reconstruir card, nada de mudar altura. */
   } else {
+    campo.classList.remove('reto');
     campo.style.setProperty('--pos-max', Math.max(140, Math.floor(larg * 0.22)) + 'px');
   }
 
@@ -376,19 +440,19 @@ function distribuir() {
       const el = carta[p.c];
       alturas[p.c] = el ? el.offsetHeight : 0;
     });
-    const cols = LAYOUT.horizontal.map(c => {
+    const cols = LAYOUT.horizontal.map((c, i) => {
       const codigos = c.pos.filter(k => carta[k]);
       const els = codigos.map(k => carta[k]);
       const soma = els.reduce((s, e) => s + e.offsetHeight, 0);
       const h = soma + (c.espalhar ? VAO_ABERTO : GAP_CARD) * (els.length - 1);
-      return { x: c.x, codigos, els, h, soma, espalhar: !!c.espalhar };
+      const x = plano.reto ? plano.cx[i] / larg * 100 : c.x;
+      return { x, codigos, els, h, soma, espalhar: !!c.espalhar };
     });
     const necessaria = Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2;
-    /* Uma coluna aberta precisa caber acima e abaixo da coluna centrada vizinha,
-       senao elas se cruzam e o card teria de encolher muito. Essa e a altura minima
-       que mantem o card largo. */
+    /* No entrelacado, uma coluna aberta precisa caber acima e abaixo da coluna
+       centrada vizinha, senao elas se cruzam. No reto nao ha vizinha sobreposta. */
     let paraPontas = 0;
-    cols.forEach(c => {
+    if (!plano.reto) cols.forEach(c => {
       if (!c.espalhar || c.codigos.length < 2) return;
       const topo = alturas[c.codigos[0]] || 0;
       const base = alturas[c.codigos[c.codigos.length - 1]] || 0;
@@ -1273,21 +1337,22 @@ function adicionarDaBase(id) {
   if (!j) return;
   const lista = estado.elenco[posAtual];
   if (lista.some(x => x.jid === id)) { toast('Esse jogador já está em ' + posAtual, 'ruim'); return; }
-  const fx = faixaSalarioTR(j);
+  /* Sem salario sugerido: o jogador entra com 0 (ambar) e o usuario define. A faixa
+     do TransferRoom continua visivel na ficha e na aba Fim de contrato, so nao
+     preenche o card — foi pedido explicito. */
   lista.push({
     uid: uid(), jid: j.id, pk: primaryKey(j), nome: j.n, nomeCompleto: j.nc || '',
     clube: j.t, liga: j.l, idade: j.id_,
     ov: j.ov, contrato: j.ct, posOrig: j.p,
-    salario: fx ? Math.round(fx.min / 1000) * 1000 : 0,   /* sugestão: piso da faixa do TR */
-    sugerido: fx ? 1 : 0,
+    salario: 0,
+    sugerido: 0,
     nac: j.nac || '', psp: j.psp || '', estrangeiro: ehEstrangeiroBase(j),
     status: 'alvo', titular: lista.length === 0,
   });
   salvarLocal(); render();
   $('#mbSub').textContent = '(' + lista.length + ' de ' + metaPos(posAtual) + ' vagas preenchidas)';
   renderTabela();
-  toast(j.n + ' adicionado em ' + posAtual +
-    (fx ? ' — salário sugerido pelo TransferRoom, ajuste se precisar' : ' — defina o salário'), 'bom');
+  toast(j.n + ' adicionado em ' + posAtual + ' — defina o salário', 'bom');
 }
 
 /* ---------------- cenarios ---------------- */
