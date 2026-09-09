@@ -1684,3 +1684,27 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 #fsMatriz .fs-c.media .fs-bar{background:var(--trilho)}
 #fsMatriz .fs-c.media .fs-bar b{background:var(--tinta3);opacity:.55}
 #fsMatriz tbody tr td.fs-c.media{background:var(--veu0)}
+
+/* ---------- cabecalho: serie marcada e nome inteiro ----------
+   Nome e clube passam a QUEBRAR em vez de cortar com reticencias ("VICTOR H...",
+   "MATHEUS ..."), com a fonte menor — e o que o painel do estudo faz. A serie vai
+   na tarja do topo, que atravessa a coluna, e repetida no selo ao lado do indice. */
+#fsMatriz th.fs-col{border-top:4px solid var(--cor);padding:7px 7px 5px}
+#fsMatriz th.fs-col.serie-a{border-top-color:var(--verde)}
+#fsMatriz th.fs-col.serie-b{border-top-color:#52a4eb}
+#fsMatriz th.fs-col.serie-x{border-top-color:#e2a51f}
+.fs-col .fs-nome{white-space:normal;overflow:visible;line-height:1.12}
+.fs-col .fs-nome b{font-size:10px;letter-spacing:-.1px}
+.fs-clube{font-size:8px;white-space:normal;overflow:visible;line-height:1.3;margin-top:2px;
+  text-transform:uppercase;letter-spacing:.2px}
+.fs-clube b{color:var(--tinta2);font-weight:700}
+.fs-serie{font-size:7.5px;font-weight:800;letter-spacing:.4px;padding:1.5px 4px;border-radius:3px;
+  text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.fs-serie.a{background:#22c55e2b;color:var(--txt-verde)}
+.fs-serie.b{background:#52a4eb2b;color:#52a4eb}
+.fs-serie.x{background:#e2a51f2b;color:#e2a51f}
+.fs-idx-linha{margin-top:3px;gap:3px}
+.fs-idx{font-size:9.5px;padding:1px 4px;min-width:20px}
+.fs-hd-bts{margin-top:3px;gap:3px}
+.fs-hd-bts button{font-size:10px;padding:1px 4px}
+.fs-col .selo-ex{font-size:7.5px;padding:0 3px}

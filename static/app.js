@@ -2625,21 +2625,27 @@ function fsCelula(co, k, v, casas, menor, lider, tit) {
 
 function fsCabecalho(c) {
   const j = c.j;
-  /* rotulo curto: com as colunas todas do mesmo tamanho, "Top Série A" por extenso
-     nao cabe ao lado do indice — e e ao lado dele que ele precisa ficar */
-  const tag = c.tipo === 'A' ? '<span class="fs-tag a" title="Um dos 5 melhores da Série A pelo índice físico">TOP A</span>'
-            : c.tipo === 'B' ? '<span class="fs-tag b" title="Um dos 5 melhores da Série B pelo índice físico">TOP B</span>'
-            : c.tipo === 'filtro' ? '<span class="fs-tag f" title="Veio do filtro, pelo índice físico">FILTRO</span>' : '';
+  /* De que serie ele e: e a informacao que o olho precisa achar primeiro numa matriz
+     com dez colunas misturadas. Vai em dois lugares — o selo ao lado do indice e a
+     tarja no topo da coluna, que atravessa a largura toda. */
+  const serie = j.l === 'Brasil A' ? 'a' : j.l === 'Brasil B' ? 'b' : 'x';
+  const rotSerie = j.l === 'Brasil A' ? 'Série A' : j.l === 'Brasil B' ? 'Série B' : j.l;
+  const tag = '<span class="fs-serie ' + serie + '" title="' + esc(j.l) +
+    (c.tipo === 'A' || c.tipo === 'B'
+      ? ' · um dos 5 melhores da série pelo índice físico'
+      : c.tipo === 'filtro' ? ' · veio do filtro' : '') + '">' +
+    (c.tipo === 'A' || c.tipo === 'B' ? '★ ' : '') + esc(rotSerie) + '</span>';
   /* Clube, liga e amostra saem do cabecalho e vao para o balao: com dez colunas,
      quatro linhas de texto por coluna empurravam a matriz inteira para fora da tela. */
   const ficha = [j.t, j.l + (j.p !== fsPos ? ' · ' + sig(j.p) : ''),
                  j.sc_n ? j.sc_n + ' jogos rastreados · ' + fsFmt(j.sc_min, 0) + ' min por jogo' : '']
                 .filter(Boolean).join(' · ');
-  return '<th class="fs-col" style="--cor:' + c.cor + '" data-pk="' + esc(primaryKey(j)) + '" data-id="' + j.id + '"' +
+  return '<th class="fs-col serie-' + serie + '" style="--cor:' + c.cor + '" data-pk="' +
+    esc(primaryKey(j)) + '" data-id="' + j.id + '"' +
     ' title="' + esc(j.n + ' — ' + ficha) + '">' +
     '<div class="fs-nome"><b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
-    '<div class="fs-clube">' + esc(j.t) + (j.id_ ? ' · ' + j.id_ + 'a' : '') + '</div>' +
+    '<div class="fs-clube">' + esc(j.t) + (j.id_ ? ' <b>' + j.id_ + 'a</b>' : '') + '</div>' +
     '<div class="fs-idx-linha">' +
       (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
         '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
