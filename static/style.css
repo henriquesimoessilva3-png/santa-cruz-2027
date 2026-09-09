@@ -1140,5 +1140,6 @@ body:not(.claro){
 }
 
 /* laterais e extremos: cards mais largos, já que ficam nas pontas da coluna */
-.pos.aberto{width:min(calc(420px * var(--fz)), var(--pos-max-aberto, 999px))}
-.campo.denso .pos.aberto{width:min(calc(380px * var(--fz)), var(--pos-max-aberto, 999px))}
+/* todos os cards com a mesma largura */
+.pos,.pos.aberto{width:var(--pos-max, 240px)}
+.campo.denso .pos,.campo.denso .pos.aberto{width:var(--pos-max, 240px)}

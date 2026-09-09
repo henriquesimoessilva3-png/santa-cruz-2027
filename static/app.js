@@ -23,13 +23,13 @@ const LAYOUT = {
   /* Campo deitado: os laterais ficam a frente dos zagueiros e abertos nas pontas
      (espalhar), e os extremos a frente do meia, tambem abertos. */
   horizontal: [
-    { x: 7,  pos: ['GOL'] },
-    { x: 21, pos: ['ZE', 'ZD'] },
-    { x: 35, pos: ['LE', 'LD'], espalhar: true },
-    { x: 50, pos: ['VOL', 'MED'] },
-    { x: 64, pos: ['MEI'] },
-    { x: 78, pos: ['EE', 'ED'], espalhar: true },
-    { x: 92, pos: ['CA'] },
+    { x: 10, pos: ['GOL'] },
+    { x: 27, pos: ['ZE', 'ZD'] },
+    { x: 38, pos: ['LE', 'LD'], espalhar: true },
+    { x: 52, pos: ['VOL', 'MED'] },
+    { x: 69, pos: ['MEI'] },
+    { x: 80, pos: ['EE', 'ED'], espalhar: true },
+    { x: 90, pos: ['CA'] },
   ],
   vertical: [
     { pos: ['EE', 'CA', 'ED'], xs: [14, 50, 86] },
@@ -268,28 +268,54 @@ const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas
 const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
 let recalculandoNomes = false;
 
+/* Se algum par de cards se encostou, guarda uma largura menor e pede um redesenho.
+   Assim a largura fica sempre a maior que cabe, sem depender de chute. */
+let larguraSemColisao = 0, tentandoLargura = false;
+function conferirColisao(campo) {
+  const cards = Array.from(campo.querySelectorAll('.pos'));
+  const r = cards.map(c => c.getBoundingClientRect());
+  let encostou = false;
+  for (let i = 0; i < r.length && !encostou; i++) {
+    for (let j = i + 1; j < r.length; j++) {
+      if (r[i].left < r[j].right - 2 && r[i].right - 2 > r[j].left &&
+          r[i].top < r[j].bottom - 2 && r[i].bottom - 2 > r[j].top) { encostou = true; break; }
+    }
+  }
+  if (encostou && !tentandoLargura) {
+    const atual = cards[0] ? cards[0].offsetWidth : 200;
+    larguraSemColisao = Math.max(140, Math.round(atual * 0.92));
+    tentandoLargura = true;
+    requestAnimationFrame(() => { tentandoLargura = false; ajustarCampo(); });
+  } else if (!encostou && !tentandoLargura) {
+    larguraSemColisao = 0;   /* coube: da proxima vez tenta o tamanho cheio de novo */
+  }
+}
+
 function distribuir() {
   const campo = $('#campo');
   const larg = campo.clientWidth || 1;
   const carta = {};
   POSICOES.forEach(p => { carta[p.c] = campo.querySelector('.pos[data-pos="' + p.c + '"]'); });
 
-  /* Limita a largura do card ao espaco entre duas colunas, para nunca encostarem.
-     Sem isso, campo estreito + card largo = cards colados. */
+  /* Todos os cards com a mesma largura, a maior que o campo comporta. O gargalo
+     sao as colunas CENTRADAS vizinhas — as abertas ficam no topo e na base. Se
+     ainda assim algum par se encostar, a largura cai um degrau e tenta de novo. */
   if (estado.orientacao === 'horizontal') {
-    const xs = LAYOUT.horizontal.map(c => c.x).sort((a, b) => a - b);
+    const centradas = LAYOUT.horizontal.filter(c => !c.espalhar)
+      .map(c => c.x).sort((a, b) => a - b);
     let menor = 100;
-    for (let i = 1; i < xs.length; i++) menor = Math.min(menor, xs[i] - xs[i - 1]);
-    const maxPx = Math.max(120, Math.floor(menor / 100 * larg) - FOLGA_COLUNA);
+    for (let i = 1; i < centradas.length; i++) {
+      menor = Math.min(menor, centradas[i] - centradas[i - 1]);
+    }
+    const todas = LAYOUT.horizontal.map(c => c.x).sort((a, b) => a - b);
+    const beirada = Math.min(todas[0], 100 - todas[todas.length - 1]) * 2;
+    const alvo = Math.max(140, Math.floor(Math.min(menor, beirada) / 100 * larg) - FOLGA_COLUNA);
+    const maxPx = Math.min(alvo, larguraSemColisao || alvo);
     campo.style.setProperty('--pos-max', maxPx + 'px');
-    /* as colunas abertas ganham meia coluna a mais, porque nao dividem altura
-       com as vizinhas (elas ficam no meio, estas ficam nas pontas) */
-    campo.style.setProperty('--pos-max-aberto', Math.round(maxPx * 1.42) + 'px');
+    campo.style.setProperty('--pos-max-aberto', maxPx + 'px');
     const antes = larguraCardPx;
-    const um = campo.querySelector('.pos:not(.aberto)');
-    const ab = campo.querySelector('.pos.aberto');
-    if (um) larguraCardPx = um.offsetWidth;
-    if (ab) larguraCardAberto = ab.offsetWidth;
+    const um = campo.querySelector('.pos');
+    if (um) { larguraCardPx = um.offsetWidth; larguraCardAberto = larguraCardPx; }
     /* card mudou muito de tamanho: os nomes precisam ser recalculados */
     if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes) {
       recalculandoNomes = true;
@@ -335,6 +361,7 @@ function distribuir() {
         y += el.offsetHeight + GAP_CARD;
       });
     });
+    conferirColisao(campo);
     return Math.ceil(alt);
   }
 
