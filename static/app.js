@@ -82,7 +82,7 @@ const SIGLA_PAIS = {
 
 /* ---------------- estado ---------------- */
 const CHAVE_LOCAL = 'sc2027_estado';
-const VERSAO = 3;  /* v2: campo deitado · v3: compacto e cabendo na tela */
+const VERSAO = 4;  /* v2: campo deitado · v3: compacto · v4: limite de 9 estrangeiros */
 let BASE = [];
 let estado = novoEstado();
 let posAtual = null;
@@ -453,56 +453,52 @@ function ajustarCampo() {
   const info = $('#abasInfo');
   area.classList.toggle('ajustado', !!estado.ajustar);
 
-  if (!estado.ajustar) {
-    campo.style.setProperty('--fz', 1);
-    campo.style.transform = '';
-    campo.style.width = '';
-    compensarEscala(campo, 1, 0);
-    campo.style.minHeight = distribuir() + 'px';
-    if (info) info.textContent = '';
-    return;
-  }
-
+  /* Os dois modos cabem na tela; a diferenca e so a fonte. Em "caber na tela" ela
+     sobe para compensar a reducao; em "tamanho real" fica como esta. */
   const disp = alturaDisponivel();
+  const fzMax = estado.ajustar ? FONTE_MAX : 1;
 
-  /* 1a passada: de quanta altura o campo precisa com a fonte normal */
   campo.style.setProperty('--fz', 1);
   campo.style.transform = '';
   campo.style.width = '';
+  compensarEscala(campo, 1, 0);
   campo.style.minHeight = '0px';
+
   let alt = distribuir();
   let k = Math.min(1, disp / alt);
 
-  /* 2a passada: se encolheu, a fonte sobe na proporcao inversa e a conta e refeita */
-  const fz = Math.min(FONTE_MAX, 1 / Math.max(k, ESCALA_MIN));
-  if (fz > 1.02) {
-    campo.style.setProperty('--fz', fz.toFixed(3));
-    alt = distribuir();
-    k = Math.min(1, disp / alt);
+  if (fzMax > 1) {
+    const fz = Math.min(fzMax, 1 / Math.max(k, ESCALA_MIN));
+    if (fz > 1.02) {
+      campo.style.setProperty('--fz', fz.toFixed(3));
+      alt = distribuir();
+      k = Math.min(1, disp / alt);
+    }
   }
 
-  k = Math.max(ESCALA_MIN, k);
-  campo.style.minHeight = alt + 'px';
-  campo.style.width = k < 1 ? (100 / k).toFixed(3) + '%' : '';
-  campo.style.transform = k < 1 ? 'scale(' + k.toFixed(4) + ')' : '';
-  compensarEscala(campo, k, alt);
-  /* a largura util mudou com a escala: refaz a distribuicao uma vez */
+  /* sem piso aqui: o campo tem de caber, e no modo "caber na tela" a fonte ja
+     compensou a reducao. O piso vale so para decidir o quanto a fonte sobe. */
+  const aplicar = (altura, escala) => {
+    campo.style.minHeight = altura + 'px';
+    campo.style.width = escala < 1 ? (100 / escala).toFixed(3) + '%' : '';
+    campo.style.transform = escala < 1 ? 'scale(' + escala.toFixed(4) + ')' : '';
+    compensarEscala(campo, escala, altura);
+  };
+  aplicar(alt, k);
+
+  /* a largura util muda com a escala: remede e reaplica, agora com o valor certo */
   requestAnimationFrame(() => {
     const alt2 = distribuir();
-    campo.style.minHeight = alt2 + 'px';
-    compensarEscala(campo, k, alt2);
+    const k2 = Math.min(1, disp / alt2);
+    aplicar(alt2, k2);
+    if (info) {
+      const cabe = alt2 * k2 <= disp + 2;
+      info.textContent = k2 < 1
+        ? 'campo em ' + Math.round(k2 * 100) + '%' + (cabe ? ' — cabe tudo na tela' : '')
+        : '';
+    }
   });
-
-  if (info) {
-    const cabe = alt * k <= disp + 2;
-    info.textContent = k < 1
-      ? 'campo em ' + Math.round(k * 100) + '%' +
-        (cabe ? ' — cabe tudo na tela' : ' — no limite de leitura, role para ver o resto')
-      : '';
-  }
 }
-
-
 
 function cardPos(cod) {
   const p = POSICOES.find(x => x.c === cod);
@@ -1197,6 +1193,9 @@ function salvarLocal() {
 function migrar() {
   if ((estado.v || 1) < 2) { estado.orientacao = 'horizontal'; }
   if ((estado.v || 1) < 3) { estado.denso = true; estado.ajustar = true; }
+  /* o limite de estrangeiros nasceu 5 e passou a 9: corrige quem ficou com o antigo */
+  if ((estado.v || 1) < 4 && estado.limiteEstrangeiros === 5) estado.limiteEstrangeiros = 9;
+  if ((estado.v || 1) < 4) estado.ajustar = true;
   estado.v = VERSAO;
 }
 

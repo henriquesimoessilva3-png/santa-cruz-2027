@@ -1206,3 +1206,9 @@ body:not(.claro){
 
 /* a area do campo nunca rola de lado; na vertical, so quando sobra conteudo de verdade */
 .campo-area{overflow-x:hidden;scrollbar-gutter:auto}
+
+/* Em "caber na tela" (o padrao) o campo cabe inteiro e nao ha barra nenhuma.
+   Em "tamanho real" o campo pode passar da tela — ai ele rola, em vez de esconder
+   parte do elenco. */
+.campo-area{overflow:auto;overflow-x:hidden}
+.campo-area.ajustado{overflow:hidden}
