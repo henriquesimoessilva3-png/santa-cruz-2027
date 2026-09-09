@@ -29,6 +29,7 @@ migração `v<4` para os grupos gravados com o valor antigo).
 | `dados/jogadores.json` (17,3 MB) | `preparar_base.py` | `fim_contrato_<per>.json` + `rankings_<per>.json` + `skillcorner_<per>.json` |
 | `dados/kpis.json` (16,6 MB) | `preparar_kpis.py` | `kpis_detail_<per>.json` |
 | `dados/kpis/<POS>.json` | `dividir_kpis.py` | quebra do anterior — **é o que a tela usa** |
+| `dados/historico.json` (6,0 MB) | `preparar_historico.py` | os Excels do Wyscout de `dados/2024`, `dados/2025` e `dados/ago26` |
 
 Origem: `Portal Ranking/output/` do Botafogo Analytics. Período atual: **ago26**.
 
@@ -104,6 +105,42 @@ do meia, a pedido.
 - **O × do card tira do elenco na hora** (mesma coisa que "Tirar do elenco" no ⋯).
   Ele ocupa uma coluna a mais do grid, então `NAO_NOME` subiu 19px e mais nomes
   viram "C. Miguel".
+
+## Histórico de três temporadas
+
+`preparar_historico.py` lê os **mesmos Excels do Wyscout** que alimentam o ranking
+(`Portal Ranking/dados/<periodo>/*.xlsx`, aba BASE) para 2024, 2025 e ago26, e grava
+minutagem, jogos, gols, assistências, gols de cabeça e bola parada por temporada.
+
+Três armadilhas resolvidas ali, todas custosas se descobertas depois:
+
+- **O `multiseason_candidates.parquet` da Base Unificada não serve para bola parada.**
+  Ele já é multi-temporada e casa por `player_uid`, mas chega com o bloco embaralhado
+  (H. Kane com "Penalties taken" 0,03 e "Corners per 90" 25,00). Minutagem e gols batem
+  nos dois; bola parada, só no Excel.
+- **O cabeçalho do Wyscout está deslocado uma casa no bloco de bola parada.** No template
+  novo a coluna duplicada de duelos aéreos do goleiro perdeu o rótulo e os sete últimos
+  rótulos escorregam sobre os dados: "Corners per 90" passa a devolver porcentagem (chega
+  a 100) e "Penalties taken" devolve escanteios. Quem conserta é o
+  `normalizar_schema_wyscout` do próprio `ranking_engine`, **importado** em vez de
+  reescrito — se o Wyscout mudar de novo, conserta-se num lugar só.
+- **O `primary_key` embute o clube**, então não atravessa temporadas. A ligação é por nome
+  normalizado + idade esperada (a idade do Wyscout é a da extração daquele ano, não a de
+  hoje), com reserva por sobrenome quando o nome muda de forma entre os anos
+  ("Arrascaeta" x "Giorgian de Arrascaeta"). Homônimo dentro da temporada é descartado:
+  melhor ficar sem histórico do que mostrar a temporada de outra pessoa. Cobertura:
+  11.720 dos 18.461 em 2025, 7.100 em 2024, 5.415 com as três.
+
+Onde aparece: as três barrinhas de minutagem no card do campograma (`barraMinutos`, com
+margem negativa para não engordar o card em 1px — a altura do card é o que decide a
+largura de todos), o bloco **Temporadas** no topo da matriz do Físico, e as colunas
+**Gols · 3 temp.** e **Bola parada** no Fim de contrato, com os atalhos "Artilheiros
+recorrentes" (EE/ED/CA, 12+ gols, marcando em 2 das 3) e "Bola parada" (2+ cobranças/90).
+
+**O Wyscout não marca a origem do gol** — não existe "gol de bola parada" na base. O que
+existe são os dois lados: quem **cobra** (escanteios + faltas por 90, pênaltis) e quem
+**cabeceia** (gols de cabeça). A tela mostra os dois com esse nome, sem inventar o número
+que não existe.
 
 ## Aba Físico (SkillCorner) — leitura do estudo Montoro
 

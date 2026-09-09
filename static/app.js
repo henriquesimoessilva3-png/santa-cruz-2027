@@ -84,6 +84,41 @@ const SIGLA_PAIS = {
 const CHAVE_LOCAL = 'sc2027_estado';
 const VERSAO = 4;  /* v2: campo deitado · v3: compacto · v4: limite de 9 estrangeiros */
 let BASE = [];
+/* Historico de tres temporadas (dados/historico.json, gerado por preparar_historico.py),
+   indexado pela primary_key da temporada corrente. Vem em arquivo separado porque so
+   ~18 mil dos 40 mil jogadores da base tem passagem pelo Wyscout. */
+let HIST = { temporadas: [], jogadores: {} };
+const MIN_TEMPORADA = 3400;   /* ~38 jogos x 90: a referencia de "temporada inteira" */
+/* Quantos gols numa temporada ja a tornam "goleadora" para a conta de recorrencia.
+   Fica aqui em cima, e nao junto de RANGES_FC, porque FC_COLUNAS le esta constante
+   ao ser montada — `const` mais abaixo no arquivo daria erro de TDZ e derrubaria a
+   tela inteira (ja aconteceu com a VERSAO). */
+const GOLS_TEMPORADA = 5;
+
+/* As tres temporadas do jogador, sempre com o mesmo tamanho da lista de temporadas
+   (posicoes sem dado vem nulas), ou null quando ele nao tem historico nenhum. */
+function hist(pk) {
+  return (pk && HIST.jogadores[pk]) || null;
+}
+function histDoElenco(j) {
+  return hist(j && j.pk);
+}
+/* Somas e recorrencia. `golsMin` e o que conta como "temporada goleadora". */
+function histResumo(pk, golsMin) {
+  const h = hist(pk);
+  if (!h) return null;
+  const soma = k => h.reduce((s, x) => s + ((x && x[k]) || 0), 0);
+  const atual = h[h.length - 1] || null;
+  return {
+    temporadas: h.filter(Boolean).length,
+    min: soma('min'), jogos: soma('j'), gols: soma('g'), assist: soma('a'), cabeca: soma('gc'),
+    /* em quantas temporadas ele fez pelo menos `golsMin` gols */
+    goleadoras: h.filter(x => x && (x.g || 0) >= (golsMin || 5)).length,
+    /* cobrancas por 90 na temporada corrente: escanteio + falta, mesma escala */
+    cobrancas: atual ? Math.round(((atual.esc || 0) + (atual.fal || 0)) * 100) / 100 : null,
+    penaltis: soma('pen'),
+  };
+}
 let estado = novoEstado();
 let posAtual = null;
 let ordem = { campo:'ov', desc:true };
@@ -702,6 +737,21 @@ function cardPos(cod) {
   return el;
 }
 
+/* Tres barrinhas com a minutagem das ultimas temporadas, do tamanho de um texto.
+   Altura proporcional a uma temporada inteira; temporada sem dado fica vazia. Cabe
+   na linha de metadados do card sem mudar a altura dele — o que mudaria a altura
+   reabriria a conta de largura do campograma. */
+function barraMinutos(h) {
+  if (!h || !h.some(Boolean)) return '';
+  const txt = h.map((x, i) => (HIST.temporadas[i] || '?') + ': ' +
+    (x ? milhar(x.min || 0) + ' min em ' + (x.j || 0) + ' jogos · ' + x.l : 'sem dado')).join(' · ');
+  return '<span class="m-min" title="Minutos por temporada — ' + esc(txt) + '">' +
+    h.map(x => {
+      const pct = x ? Math.max(6, Math.min(100, (x.min || 0) / MIN_TEMPORADA * 100)) : 0;
+      return '<i class="' + (x ? '' : 'sem') + '" style="height:' + pct.toFixed(0) + '%"></i>';
+    }).join('') + '</span>';
+}
+
 function cardJog(cod, j) {
   const el = document.createElement('div');
   el.className = 'jog st-' + (j.status || 'alvo') + (j.titular ? ' titular' : '') +
@@ -720,6 +770,7 @@ function cardJog(cod, j) {
     (ano ? '<span class="m-ct" title="contrato até ' + esc(j.contrato) + '">até <b>' + ano + '</b></span>'
          : '<span class="m-ct sem" title="contrato não informado">sem contrato</span>') +
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
+    barraMinutos(histDoElenco(j)) +
     (j.posOrig && j.posOrig !== cod ? '<span class="m-pos">' + j.posOrig + '</span>' : '');
 
   el.innerHTML =
@@ -1865,6 +1916,30 @@ const FC_COLUNAS = [
       '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },
   { c: 'p',   r: 'Pos.',  w: 4,  cel: j => j.p },
   { c: 'id_', r: 'Idade', w: 4,  num: 1, cel: j => j.id_ ?? '—' },
+  { c: 'g3', r: 'Gols · 3 temp.', w: 9,
+    t: 'Minutagem e gols das últimas três temporadas (Wyscout). O selo mostra em quantas ' +
+       'delas fez ' + GOLS_TEMPORADA + ' gols ou mais.',
+    num: 1, cel: j => {
+      const pk = primaryKey(j), h = hist(pk), r = histResumo(pk, GOLS_TEMPORADA);
+      if (!r) return '<span class="fc-vazia">–</span>';
+      return '<div class="fc-carr">' + barraMinutos(h) +
+        '<b>' + r.gols + 'g</b>' +
+        (r.goleadoras >= 2 ? '<span class="fc-rec" title="' + r.goleadoras + ' temporadas com ' +
+          GOLS_TEMPORADA + '+ gols">' + r.goleadoras + '/3</span>' : '') +
+        '<span class="fc-carr-min">' + milhar(r.min) + ' min</span></div>'; } },
+  { c: 'cob', r: 'Bola parada', w: 8,
+    t: 'Cobranças por 90 na temporada atual (escanteios + faltas) e gols de cabeça nas três ' +
+       'temporadas. O Wyscout não marca a origem do gol: são os dois lados possíveis da ' +
+       'bola parada — quem cobra e quem cabeceia.',
+    num: 1, cel: j => {
+      const pk = primaryKey(j), r = histResumo(pk);
+      if (!r || (!r.cobrancas && !r.cabeca)) return '<span class="fc-vazia">–</span>';
+      return '<div class="fc-bp">' +
+        (r.cobrancas ? '<b title="escanteios + faltas por 90">' + fsFmt(r.cobrancas, 2) + '</b>' : '') +
+        (r.cabeca ? '<span class="fc-cab" title="' + r.cabeca + ' gols de cabeça nas três temporadas">' +
+          r.cabeca + ' cab.</span>' : '') +
+        (r.penaltis ? '<span class="fc-pen" title="pênaltis cobrados nas três temporadas">' +
+          r.penaltis + ' pên.</span>' : '') + '</div>'; } },
 ];
 FC_FONTES.forEach(([k, rot]) => {
   FC_COLUNAS.push({ c: 'src_' + k, r: rot, w: 7, num: 1, fonte: k, cel: j => {
@@ -2078,18 +2153,35 @@ function rangeValor(idCont, k) {
   const lo = +f.querySelector('input.lo').value, hi = +f.querySelector('input.hi').value;
   return (lo <= +f.dataset.min && hi >= +f.dataset.max) ? null : { lo, hi };
 }
+/* Move as pontas de um slider por codigo (atalhos). null = deixa a ponta onde esta. */
+function rangeDefinir(idCont, k, lo, hi) {
+  const f = $('#' + idCont + ' .rk-range[data-k="' + k + '"]');
+  if (!f) return;
+  const eLo = f.querySelector('input.lo'), eHi = f.querySelector('input.hi');
+  if (lo != null) eLo.value = lo;
+  if (hi != null) eHi.value = hi;
+  eLo.dispatchEvent(new Event('input'));
+}
+
 function rangesReset(idCont) { $$('#' + idCont + ' .rk-range').forEach(f => f._reset && f._reset()); }
 
 function fmtMilhoes(v) {
   return v >= 1e6 ? (v / 1e6).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'M'
        : v >= 1e3 ? Math.round(v / 1e3) + 'K' : String(v);
 }
+/* `val` le do historico de tres temporadas; sem `val`, le direto o campo da base.
+   Quem nao tem o dado sai da lista quando a faixa e mexida — e o que se espera de
+   um filtro por gols: sem numero, nao passa. */
 const RANGES_FC = [
   { k: 'alt', r: 'Altura (cm)',   min: 150, max: 210,       passo: 1 },
   { k: 'id_', r: 'Idade',         min: 15,  max: 45,        passo: 1 },
   { k: 'mv',  r: 'Valor mercado', min: 0,   max: 120000000, passo: 500000, fmt: fmtMilhoes },
   { k: 'ov',  r: 'Overall',       min: 0,   max: 100,       passo: 1 },
   { k: 'min', r: 'Minutos',       min: 0,   max: 5000,      passo: 50 },
+  { k: 'g3',  r: 'Gols · 3 temp.', min: 0, max: 60, passo: 1,
+    val: j => { const r = histResumo(primaryKey(j)); return r ? r.gols : null; } },
+  { k: 'cob', r: 'Bola parada /90', min: 0, max: 8, passo: 0.25,
+    val: j => { const r = histResumo(primaryKey(j)); return r ? r.cobrancas : null; } },
 ];
 const PES = ['Direito', 'Esquerdo', 'Ambos', 'Desconhecido'];
 function rotuloPe(v) {
@@ -2117,7 +2209,8 @@ function fcFiltrar() {
   const paises = mselSelecionados('fcPaisSel');
   const times = mselSelecionados('fcTimeSel');
   const pes = mselSelecionados('fcPeSel');
-  const faixas = RANGES_FC.map(d => [d.k, rangeValor('fcRanges', d.k)]).filter(x => x[1]);
+  const faixas = RANGES_FC.map(d => [d, rangeValor('fcRanges', d.k)]).filter(x => x[1]);
+  const recorrente = $('#fcRecorrente').checked;
 
   return BASE.filter(j => {
     if (!j.ct) return false;
@@ -2128,9 +2221,13 @@ function fcFiltrar() {
     if (paises && !paises.has(j.nac || '')) return false;
     if (times && !times.has(j.t)) return false;
     if (pes && !pes.has(rotuloPe(j.pe))) return false;
-    for (const [k, f] of faixas) {
-      const v = j[k];
-      if (typeof v !== 'number' || v < f.lo || v > f.hi) return false;
+    for (const [d, f] of faixas) {
+      const v = d.val ? d.val(j) : j[d.k];
+      if (typeof v !== 'number' || isNaN(v) || v < f.lo || v > f.hi) return false;
+    }
+    if (recorrente) {
+      const r = histResumo(primaryKey(j), GOLS_TEMPORADA);
+      if (!r || r.goleadoras < 2) return false;
     }
     if (txt && !fsNorm(j.n + ' ' + j.t).includes(txt)) return false;
     return true;
@@ -2165,6 +2262,8 @@ function fcRender() {
   const camp = fcOrdem.campo, desc = fcOrdem.desc;
   const valor = (j) => camp === 'sal' ? (faixaSalarioTR(j) || {}).min
                      : camp.startsWith('src_') ? ((j.src || {})[camp.slice(4)] || '')
+                     : camp === 'g3' ? ((histResumo(primaryKey(j), GOLS_TEMPORADA) || {}).gols)
+                     : camp === 'cob' ? ((histResumo(primaryKey(j)) || {}).cobrancas)
                      : j[camp];
   lista.sort((a, b) => {
     let x = valor(a), y = valor(b);
@@ -2243,8 +2342,26 @@ function fcSetExterior(tipo) {
   fcExtMarcar(tipo);
   fcRender();
 }
+/* Atalhos para os dois perfis que o usuario pediu por nome. Cada um so mexe no que
+   lhe diz respeito — o resto dos filtros fica como estava. */
+function fcAtalho(qual) {
+  if (qual === 'artilheiros') {
+    campinhoDefinir('fcCampo', ['EE', 'ED', 'CA']);
+    rangeDefinir('fcRanges', 'g3', 12, null);
+    $('#fcRecorrente').checked = true;
+    fcOrdem = { campo: 'g3', desc: true };
+  } else if (qual === 'bolaparada') {
+    rangeDefinir('fcRanges', 'cob', 2, null);
+    $('#fcRecorrente').checked = false;
+    fcOrdem = { campo: 'cob', desc: true };
+  }
+  fcRender();
+}
+
 function fcLimpar() {
   campinhoDefinir('fcCampo', []);
+  $('#fcRecorrente').checked = false;
+  fcOrdem = { campo: 'ct', desc: false };
   fcSetLiga('brasil', true);
   mselMarcar('fcPaisSel', null, true); fcAbasMarcar('fcPaisAbas', 'todos');
   mselMarcar('fcTimeSel', null, true); mselMarcar('fcPeSel', null, true);
@@ -2271,7 +2388,8 @@ function fcMontarFiltros() {
   $$('#fcLigaAbas button').forEach(b => { b.onclick = () => fcSetLiga(b.dataset.r); });
   $$('#fcPaisAbas button').forEach(b => { b.onclick = () => fcSetPais(b.dataset.r); });
   $$('#fcExt button').forEach(b => { b.onclick = () => fcSetExterior(b.classList.contains('on') ? null : b.dataset.e); });
-  ['#fcAte', '#fcSoConf'].forEach(sel => { $(sel).onchange = fcRender; });
+  ['#fcAte', '#fcSoConf', '#fcRecorrente'].forEach(sel => { $(sel).onchange = fcRender; });
+  $$('#fcAtalhos button').forEach(b => { b.onclick = () => fcAtalho(b.dataset.a); });
   $('#fcTexto').oninput = debounce(fcRender, 200);
   $('#fcLimpar').onclick = fcLimpar;
   fcSetLiga('brasil', true);
@@ -2410,6 +2528,60 @@ function fsCabecalho(c) {
     '</div></th>';
 }
 
+/* Linhas do bloco "Temporadas": minutagem, gols e bola parada das ultimas tres
+   temporadas (dados/historico.json). Nao sao percentis do SkillCorner — a leitura
+   aqui e contra a MEDIA da coorte (mesma posicao nas Series A e B), que e a mesma
+   regua do resto da matriz. `ref` e a escala da barrinha quando existe um teto
+   natural (uma temporada inteira = 3.400 min). */
+function fsLinhasTemporada() {
+  const T = HIST.temporadas || [];
+  const soma = k => h => (h ? h.reduce((s, x) => s + ((x && x[k]) || 0), 0) : null);
+  const linhas = [];
+  T.forEach((ano, i) => linhas.push({
+    id: 'min' + i, rot: 'Minutos ' + ano, un: 'minutos', casas: 0, ref: MIN_TEMPORADA,
+    val: h => (h && h[i] ? (h[i].min || 0) : null),
+    nota: h => (h && h[i] ? (h[i].j || 0) + ' jogos · ' + h[i].tm + ' · ' + h[i].l : 'sem dado'),
+  }));
+  linhas.push({ id: 'min3', rot: 'Minutos nas três', un: 'soma', casas: 0, forte: 1,
+                ref: MIN_TEMPORADA * 3, val: soma('min') });
+  T.forEach((ano, i) => linhas.push({
+    id: 'g' + i, rot: 'Gols ' + ano, un: 'gols', casas: 0,
+    val: h => (h && h[i] ? (h[i].g || 0) : null),
+    nota: h => (h && h[i] ? (h[i].a || 0) + ' assistências · ' + h[i].l : 'sem dado'),
+  }));
+  linhas.push({ id: 'g3', rot: 'Gols nas três', un: 'soma', casas: 0, forte: 1, val: soma('g') });
+  linhas.push({ id: 'gc3', rot: 'Gols de cabeça nas três', un: 'soma', casas: 0, val: soma('gc') });
+  linhas.push({
+    id: 'cob', rot: 'Cobranças de bola parada', un: 'escanteio + falta /90', casas: 2,
+    val: h => {
+      const a = h && h[h.length - 1];
+      return a ? Math.round((((a.esc || 0) + (a.fal || 0)) * 100)) / 100 : null;
+    },
+  });
+  return linhas;
+}
+
+/* Media de cada linha de temporada na coorte — geral (a regua da cor) e por serie. */
+function fsMediasTemporada(co, linhas) {
+  const hs = co.lista.map(j => hist(primaryKey(j)));
+  const media = (sel, fn) => {
+    const v = [];
+    co.lista.forEach((j, i) => {
+      if (!sel(j)) return;
+      const x = fn(hs[i]);
+      if (typeof x === 'number' && !isNaN(x)) v.push(x);
+    });
+    return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null;
+  };
+  const r = { todos: {}, A: {}, B: {} };
+  linhas.forEach(l => {
+    r.todos[l.id] = media(() => true, l.val);
+    r.A[l.id] = media(j => j.l === 'Brasil A', l.val);
+    r.B[l.id] = media(j => j.l === 'Brasil B', l.val);
+  });
+  return r;
+}
+
 function fsRender() {
   if (!BASE.length || !$('#fsMatriz')) return;
   const co = fsCoorteAB();
@@ -2423,7 +2595,8 @@ function fsRender() {
   const colunas = extras.map(j => ({ j, tipo: 'extra' }));
   if ($('#fsTopA').checked) top('Brasil A').forEach(x => colunas.push({ j: x.j, tipo: 'A' }));
   if ($('#fsTopB').checked) top('Brasil B').forEach(x => colunas.push({ j: x.j, tipo: 'B' }));
-  colunas.forEach((c, i) => { c.idx = fsIndices(co, c.j); c.cor = FS_CORES[i % FS_CORES.length]; });
+  colunas.forEach((c, i) => { c.idx = fsIndices(co, c.j); c.cor = FS_CORES[i % FS_CORES.length];
+                              c.h = hist(primaryKey(c.j)); });
   const medias = $('#fsMedias').checked
     ? [{ rot: 'Média Série A', d: co.A }, { rot: 'Média Série B', d: co.B }] : [];
 
@@ -2435,6 +2608,52 @@ function fsRender() {
       (m.d.n === 1 ? '' : 's') + ' · média da régua</small></th>').join('') + '</tr></thead>';
 
   let b = '<tbody>';
+
+  /* bloco das temporadas: vem antes do fisico porque e o retrato de carreira —
+     quanto jogou e quanto produziu — que contextualiza todo o resto */
+  const linhasT = fsLinhasTemporada();
+  if (linhasT.length && Object.keys(HIST.jogadores).length) {
+    const mt = fsMediasTemporada(co, linhasT);
+    const comHist = colunas.filter(c => c.h).length;
+    b += '<tr class="fs-grupo"><td><b>Temporadas</b><span>Minutagem, gols e bola parada — ' +
+      'Wyscout, ' + (HIST.temporadas || []).join('/') + '</span></td>' +
+      colunas.map(c => '<td>' + (c.h ? '' : '<span class="fs-sem">sem histórico</span>') + '</td>').join('') +
+      medias.map(() => '<td></td>').join('') + '</tr>';
+    linhasT.forEach(l => {
+      const vals = colunas.map(c => l.val(c.h));
+      const validos = vals.filter(v => v != null);
+      const melhor = validos.length ? Math.max.apply(null, validos) : null;
+      const alvo = Math.max(l.ref || 0, melhor || 0, 0.0001);
+      const med = mt.todos[l.id];
+      b += '<tr' + (l.forte ? ' class="fs-soma"' : '') + '><td class="fs-rot">' + esc(l.rot) +
+        '<small>' + esc(l.un) + '</small></td>' +
+        colunas.map((c, i) => {
+          const v = vals[i];
+          if (v == null) return '<td class="fs-c vazio"><span class="v">–</span></td>';
+          const cls = med == null ? 'medio' : v >= med ? 'alto' : 'baixo';
+          const lider = melhor != null && v === melhor && validos.length > 1 && v > 0;
+          const tit = l.rot + ': ' + fsFmt(v, l.casas) +
+            (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
+            (l.nota ? ' · ' + l.nota(c.h) : '');
+          return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) + '">' +
+            '<i class="fs-bar"><b style="height:' +
+              Math.max(0, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
+            '<span class="v">' + (l.casas ? fsFmt(v, l.casas) : milhar(v)) + '</span></td>';
+        }).join('') +
+        medias.map(m => {
+          const v = (m.rot.endsWith('A') ? mt.A : mt.B)[l.id];
+          return '<td class="fs-c media"><span class="v">' +
+            (v == null ? '–' : l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></td>';
+        }).join('') + '</tr>';
+    });
+    if (comHist < colunas.length) {
+      b += '<tr class="fs-aviso"><td colspan="' + (1 + colunas.length + medias.length) + '">' +
+        (colunas.length - comHist) + ' de ' + colunas.length + ' sem histórico do Wyscout: ' +
+        'o cruzamento entre temporadas é por nome e idade, e nomes ambíguos ficam de fora ' +
+        'em vez de mostrar a temporada de outra pessoa.</td></tr>';
+    }
+  }
+
   FS_GRUPOS.forEach((g, gi) => {
     b += '<tr class="fs-grupo"><td><b>' + esc(g.t) + '</b><span>' + esc(g.d) + '</span></td>' +
       colunas.map(c => {
@@ -2463,7 +2682,9 @@ function fsRender() {
     '</b> ' + esc(nomePos(fsPos).toLowerCase()) + (co.lista.length === 1 ? '' : 's') +
     ' com tracking nas Séries A e B — <b class="c-verde">verde</b> no topo, <b class="c-verm">vermelho</b> no fim; ' +
     '<b class="c-ouro">moldura dourada</b> = líder da linha. O índice de cada grupo é a média dos percentis; ' +
-    'o índice geral, a média dos grupos — é ele que escolhe os 5 melhores de cada série.';
+    'o índice geral, a média dos grupos — é ele que escolhe os 5 melhores de cada série. ' +
+    'O bloco <b>Temporadas</b> não é percentil: são os números do Wyscout das últimas três ' +
+    'temporadas, verdes acima da média da coorte e vermelhos abaixo.';
   $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
     ' na comparação · ' + co.A.n + ' na Série A e ' + co.B.n + ' na Série B com ' + esc(fsPos) +
     ' · jogadores de outras ligas entram na mesma régua';
@@ -2859,11 +3080,26 @@ async function iniciar() {
   observarArea();
   listarCenarios();
   try {
-    const r = await fetch('dados/jogadores.json' + (window.__verDados ? '?v=' + window.__verDados : ''));
+    const v = window.__verDados ? '?v=' + window.__verDados : '';
+    /* os dois em paralelo: o historico e opcional e nao pode atrasar a base */
+    const [r, rh] = await Promise.all([
+      fetch('dados/jogadores.json' + v),
+      fetch('dados/historico.json' + v).catch(() => null),
+    ]);
     const d = await r.json();
     BASE = d.jogadores || [];
+    if (rh && rh.ok) {
+      try {
+        HIST = await rh.json();
+        console.log('histórico:', Object.keys(HIST.jogadores).length, 'jogadores ·',
+                    (HIST.temporadas || []).join(', '));
+      } catch (e) { console.warn('histórico indisponível', e); }
+    }
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
     reancorar();
+    /* o primeiro render() acontece antes deste fetch — sem redesenhar, os cards
+       ficariam sem a minutagem ate a proxima mexida no elenco */
+    render();
     const cont = {};
     BASE.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
     fcMontarFiltros();

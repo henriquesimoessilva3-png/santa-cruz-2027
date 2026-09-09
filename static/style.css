@@ -1399,3 +1399,34 @@ body:not(.claro){
 .fs-c.lider{box-shadow:inset 0 0 0 2px #e2a51f;border-radius:3px} .fs-c.lider .v{font-weight:800}
 .fs-c.media .v{color:var(--tinta3)}
 .fs-c.vazio .v{color:var(--tinta3);opacity:.5}
+
+/* ---------- minutagem das tres temporadas, na linha de metadados do card ---------- */
+/* margem negativa de proposito: uma caixa inline mais alta que o texto empurraria a
+   linha e o card ficaria 1px mais alto — e a altura do card e o que decide a largura
+   de todos eles no campograma. Assim a barra fica visivel sem mexer no layout. */
+.m-min{display:inline-flex;align-items:flex-end;gap:1.5px;height:8px;vertical-align:middle;
+  margin:-3px 0;cursor:help}
+.m-min i{width:3px;min-height:1px;border-radius:1px;background:var(--pilula-meta);opacity:.75}
+.m-min i.sem{height:100%!important;background:transparent;border-bottom:1px solid var(--pilula-meta);opacity:.35}
+.jog.titular .m-min i{background:currentColor;opacity:.6}
+.campo.denso .m-min{height:8px}
+
+/* ---------- bloco de temporadas dentro da matriz do Fisico ---------- */
+#fsMatriz tr.fs-soma td{background:var(--veu0)}
+#fsMatriz tr.fs-soma .fs-rot{font-weight:700;color:var(--tinta)}
+#fsMatriz tr.fs-soma .v{font-weight:800}
+.fs-sem{font-size:8.5px;color:var(--tinta3);font-weight:600;letter-spacing:.3px}
+#fsMatriz tr.fs-aviso td{font-size:9.5px;color:var(--tinta3);padding:5px 9px;white-space:normal;
+  background:var(--fundo);line-height:1.4}
+
+/* ---------- colunas de carreira e bola parada no Fim de contrato ---------- */
+.fc-carr,.fc-bp{display:flex;align-items:center;justify-content:flex-end;gap:5px;line-height:1.3}
+.fc-carr .m-min{opacity:.85}
+.fc-carr b{font-variant-numeric:tabular-nums;font-weight:700}
+.fc-carr-min{font-size:9px;color:var(--tinta3);font-variant-numeric:tabular-nums}
+.fc-rec{font-size:9px;font-weight:800;padding:1px 4px;border-radius:3px;
+  background:#22c55e26;color:var(--txt-verde)}
+.fc-bp b{font-variant-numeric:tabular-nums;font-weight:700;color:var(--txt-azul)}
+.fc-cab,.fc-pen{font-size:9px;color:var(--tinta3);white-space:nowrap}
+.rk-atalhos-rot{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--tinta3);font-weight:700}
+#fcAtalhos{display:inline-flex;gap:5px}

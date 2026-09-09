@@ -212,6 +212,7 @@
               <label>Contrato até</label>
               <input type="month" id="fcAte" value="2026-12" min="2025-01" max="2032-12">
               <label class="chk rk-chk"><input type="checkbox" id="fcSoConf" checked> só contrato confirmado</label>
+              <label class="chk rk-chk" title="Gols em pelo menos duas das últimas três temporadas"><input type="checkbox" id="fcRecorrente"> goleador recorrente</label>
             </div>
             <div class="rk-campo-f">
               <label>Buscar jogador</label>
@@ -220,6 +221,15 @@
           </div>
           <div class="rk-linha2" id="fcRanges"></div>
           <div class="rk-rodape">
+            <span class="rk-atalhos-rot">Atalhos</span>
+            <span id="fcAtalhos">
+              <button class="chip" data-a="artilheiros"
+                title="Extremos e atacantes com 12+ gols nas três temporadas, marcando em pelo menos duas delas">
+                Artilheiros recorrentes</button>
+              <button class="chip" data-a="bolaparada"
+                title="Quem cobra bola parada: 2 ou mais cobranças por 90 (escanteios + faltas)">
+                Bola parada</button>
+            </span>
             <button class="bt mini" id="fcLimpar">Limpar filtros</button>
           </div>
         </div>
