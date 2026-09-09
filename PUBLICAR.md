@@ -45,7 +45,7 @@ Cloudflare Access — mas exige um domínio próprio apontado para o Cloudflare.
 ## Publicar uma alteração
 
 ```bash
-cd ~/projetos/santa-cruz-2027
+cd ~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz
 git add -A && git commit -m "o que mudou" && git push
 ```
 
@@ -56,7 +56,7 @@ O Render detecta o push e republica sozinho.
 Quando sair um período novo do ranking:
 
 ```bash
-cd ~/projetos/santa-cruz-2027
+cd ~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz
 PY=/Library/Frameworks/Python.framework/Versions/3.13/bin/python3
 $PY preparar_base.py set26     # cadastro + notas + físico
 $PY preparar_kpis.py set26     # indicadores da ficha

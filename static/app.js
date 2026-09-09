@@ -2544,8 +2544,8 @@ const FS_GRUPOS = [
 const FS_TODAS = FS_GRUPOS.flatMap(g => g.m);
 const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7c', '#1aa3a3', '#e07a1a', '#6aa628', '#5a6ce0',
                   '#b8412f', '#2f9c8a'];
-const FS_ROTULO = 200;    /* largura da coluna dos rotulos das linhas */
-const FS_COL_MIN = 112;   /* abaixo disso o nome do jogador nao cabe */
+const FS_ROTULO = 188;    /* largura da coluna dos rotulos das linhas */
+const FS_COL_MIN = 92;    /* abaixo disso o nome do jogador nao cabe */
 let fsPos = 'MEI';
 let fsExtras = [];             /* pks acrescentados a mao */
 let fsOcultos = new Set();     /* pks tirados das listas automaticas */
@@ -2613,7 +2613,7 @@ function fsCelula(co, k, v, casas, menor, lider, tit) {
   const cls = p == null ? 'medio' : fsFaixa(p);
   return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) +
     (p != null ? ' · percentil ' + p : '') + '">' +
-    '<i class="fs-bar"><b style="height:' + (p == null ? 0 : p) + '%"></b></i>' +
+    '<i class="fs-bar"><b style="width:' + (p == null ? 0 : p) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></td>';
 }
 
@@ -2772,7 +2772,7 @@ function fsRender() {
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
           return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) + '">' +
-            '<i class="fs-bar"><b style="height:' +
+            '<i class="fs-bar"><b style="width:' +
               Math.max(0, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
             '<span class="v">' + (l.casas ? fsFmt(v, l.casas) : milhar(v)) + '</span></td>';
         }).join('') +
@@ -2818,7 +2818,9 @@ function fsRender() {
      entao a matriz role para o lado. */
   const nCols = colunas.length + medias.length;
   if (nCols) {
-    const disp = ($('.fs-matriz-wrap').clientWidth || 1200) - FS_ROTULO;
+    /* -4px de folga: sem ela a soma das colunas passava a area por um ou dois pixels
+       e o navegador desenhava a barra de rolagem horizontal a toa */
+    const disp = ($('.fs-matriz-wrap').clientWidth || 1200) - FS_ROTULO - 4;
     tab.style.setProperty('--fs-col', Math.max(FS_COL_MIN, Math.floor(disp / nCols)) + 'px');
   }
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';

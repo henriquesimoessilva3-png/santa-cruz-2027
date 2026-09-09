@@ -148,7 +148,7 @@ PAGINA = """<!doctype html>
 </main>
 
 <footer>
-  Subir tudo: <code>~/projetos/santa-cruz-2027/hub/iniciar_hub.sh</code> ·
+  Subir tudo: <code>~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/hub/iniciar_hub.sh</code> ·
   esta página se atualiza sozinha a cada 20 s
 </footer>
 
@@ -156,7 +156,7 @@ PAGINA = """<!doctype html>
   function avisar(e) {
     e.preventDefault();
     alert('Este app está desligado.\n\nPara subir tudo, rode no terminal:\n' +
-          '~/projetos/santa-cruz-2027/hub/iniciar_hub.sh');
+          '~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/hub/iniciar_hub.sh');
     return false;
   }
   function aplicarTema() {

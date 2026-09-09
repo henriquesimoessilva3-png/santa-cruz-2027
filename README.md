@@ -9,7 +9,7 @@ do Botafogo (`:5555`), sem qualquer ligação com os portais de lá.
 **Portal do clube** — uma página com um card por app, mostrando o que está no ar:
 
 ```bash
-~/projetos/santa-cruz-2027/hub/iniciar_hub.sh
+~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/hub/iniciar_hub.sh
 ```
 
 Sobe o portal em `http://localhost:5091` e o app de elenco em `:5090`. Para derrubar
@@ -19,10 +19,10 @@ os dois: `hub/parar_hub.sh`. Para acrescentar um app novo ao portal, edite a lis
 ### Só o app de elenco
 
 ```bash
-~/projetos/santa-cruz-2027/iniciar.sh
+~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/iniciar.sh
 ```
 
-Sobe o servidor e abre o navegador. Para derrubar: `~/projetos/santa-cruz-2027/parar.sh`.
+Sobe o servidor e abre o navegador. Para derrubar: `~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/parar.sh`.
 
 ## A conta do orçamento
 
@@ -196,7 +196,7 @@ independentemente do tema da tela.
 ## Atualizar a base de jogadores
 
 ```bash
-cd ~/projetos/santa-cruz-2027
+cd ~/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz
 /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 preparar_base.py set26
 ```
 

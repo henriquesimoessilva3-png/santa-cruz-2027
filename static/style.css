@@ -1353,10 +1353,10 @@ body:not(.claro){
 .fs-toggles .chk{font-size:10.5px;color:var(--tinta2);display:flex;align-items:center;gap:4px;font-weight:600}
 .fs-toggles input{margin:0;accent-color:var(--coral)}
 .fs-legenda{max-width:none;margin-top:4px}
-.fs-bar-leg{display:inline-block;width:8px;height:12px;border-radius:2px;background:var(--trilho);position:relative;overflow:hidden}
-.fs-bar-leg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60%;background:var(--tinta3)}
-.fs-bar-leg.alto::after{background:var(--verde);height:85%}
-.fs-bar-leg.baixo::after{background:var(--coral);height:20%}
+.fs-bar-leg{display:inline-block;width:18px;height:7px;border-radius:4px;background:var(--trilho);position:relative;overflow:hidden}
+.fs-bar-leg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:60%;background:var(--tinta3);border-radius:4px}
+.fs-bar-leg.alto::after{background:var(--verde);width:85%}
+.fs-bar-leg.baixo::after{background:var(--coral);width:20%}
 .fs-bar-leg.lider{outline:2px solid #e2a51f;outline-offset:1px;border-radius:2px}
 .fc-tit .c-ouro{color:#e2a51f}
 .fs-matriz-wrap{flex:1;overflow:auto;min-height:0}
@@ -1365,7 +1365,7 @@ body:not(.claro){
 #fsMatriz thead th{position:sticky;top:0;background:var(--fundo3);z-index:3;vertical-align:top;text-align:left;
   min-width:104px;padding:8px 9px 6px;border-bottom:1px solid var(--borda2)}
 #fsMatriz thead th:first-child,#fsMatriz tbody td:first-child{position:sticky;left:0;background:var(--fundo3);z-index:2;
-  width:200px;white-space:normal;border-right:1px solid var(--borda2)}
+  width:188px;white-space:normal;border-right:1px solid var(--borda2)}
 #fsMatriz thead th:first-child{z-index:4}
 #fsMatriz tbody tr:not(.fs-grupo) td:first-child{background:var(--fundo)}
 .fs-canto span{font-weight:800;font-size:12.5px;display:block}
@@ -1395,9 +1395,12 @@ body:not(.claro){
 .fs-c{text-align:right;font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace;
   font-size:11.5px;padding:3px 8px}
 .fs-c .v{display:inline-block;min-width:44px;color:var(--tinta)}
-.fs-bar{display:inline-block;width:8px;height:15px;border-radius:3px;background:var(--trilho);
+/* barra deitada: o preenchimento cresce para a DIREITA, como uma regua. Em pe, com
+   8px de largura, os tres niveis viravam pontinhos indistinguiveis. */
+.fs-bar{display:inline-block;width:30px;height:7px;border-radius:4px;background:var(--trilho);
   position:relative;vertical-align:middle;margin-right:8px;overflow:hidden}
-.fs-bar b{position:absolute;left:0;right:0;bottom:0;background:var(--tinta3);border-radius:3px}
+.fs-bar b{position:absolute;left:0;top:0;bottom:0;min-width:2px;background:var(--tinta3);
+  border-radius:4px}
 .fs-c.alto .fs-bar b{background:var(--verde)}
 .fs-c.baixo .fs-bar b{background:var(--coral)}
 .fs-c.lider{box-shadow:inset 0 0 0 2px #e2a51f;border-radius:5px}
@@ -1573,3 +1576,7 @@ body:not(.claro){
 .fs-legenda .rk-prem-cx{width:340px}
 
 .fs-tag.f{background:#e2a51f26;color:#e2a51f}
+
+/* a matriz cabe na largura da area; so rola quando o minimo da coluna obriga */
+.fs-matriz-wrap{overflow-x:auto;overflow-y:auto;scrollbar-gutter:stable}
+#fsMatriz{width:100%}
