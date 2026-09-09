@@ -113,7 +113,6 @@ PAGINA = """<!doctype html>
   <div class="escudo"><img src="/escudo" alt="Santa Cruz"></div>
   <div>
     <h1>Santa Cruz · Portal</h1>
-    <p>Ambiente próprio do clube — separado do hub do Botafogo (:5555)</p>
   </div>
   <button class="tema" id="btTema" onclick="trocarTema()">☾ Escuro</button>
 </header>
