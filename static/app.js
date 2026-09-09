@@ -1825,28 +1825,249 @@ FC_COLUNAS.push(
 );
 
 let fcOrdem = { campo: 'ct', desc: false };   /* vencendo primeiro */
-let fcGrupo = 'brasil';
+
+/* ---------------- painel de filtros no formato do Ranking ----------------
+   Campinho clicavel para a posicao, combos de multi-selecao com abas de regiao,
+   botoes "no exterior" e sliders duplos — o mesmo desenho do Ranking do hub.
+   O "Contrato ate" fica como esta (seletor de mes): e o Ranking que vai migrar
+   para esse modelo, nao o contrario. */
+const MSELS = {};
+function mselInit(id, itens, op) {
+  const el = $('#' + id);
+  if (!el) return;
+  const rotuloTodos = op.rotuloTodos || 'Todas';
+  MSELS[id] = { itens, rotuloTodos, masc: !!op.masc, aoMudar: op.aoMudar || (() => {}) };
+  const busca = itens.length > 25;
+  el.innerHTML =
+    '<div class="msel-bt" title="Clique escolhe só um · Cmd/Ctrl/Shift+clique combina vários"></div>' +
+    '<div class="msel-drop">' +
+      (busca ? '<div class="msel-busca"><input type="text" placeholder="Filtrar…" autocomplete="off"></div>' : '') +
+      '<div class="msel-dica">clique = só este · Cmd/Ctrl/Shift = combina</div>' +
+      '<div class="msel-item todos"><input type="checkbox" tabindex="-1"> ' + esc(rotuloTodos) + '</div>' +
+      itens.map(it => '<div class="msel-item" data-v="' + esc(it) + '"><input type="checkbox" value="' +
+        esc(it) + '" checked tabindex="-1"> ' + esc(it) + '</div>').join('') +
+    '</div>';
+  el.querySelector('.msel-bt').onclick = e => { e.stopPropagation(); mselAbrir(id); };
+  el.querySelector('.msel-drop').onclick = e => e.stopPropagation();
+  el.querySelector('.msel-item.todos').onclick = () => mselMarcar(id, null);
+  el.querySelectorAll('.msel-item[data-v]').forEach(it => {
+    it.onclick = e => {
+      const v = it.dataset.v;
+      const cbs = [...el.querySelectorAll('.msel-drop input[value]')];
+      if (e.shiftKey || e.metaKey || e.ctrlKey) {
+        /* com todos marcados, o primeiro Cmd+clique comeca uma selecao nova */
+        if (cbs.every(c => c.checked)) cbs.forEach(c => { c.checked = c.value === v; });
+        else {
+          const cb = cbs.find(c => c.value === v);
+          cb.checked = !cb.checked;
+          if (!cbs.some(c => c.checked)) cbs.forEach(c => { c.checked = true; });
+        }
+      } else {
+        const marcados = cbs.filter(c => c.checked);
+        const soEste = marcados.length === 1 && marcados[0].value === v;
+        cbs.forEach(c => { c.checked = soEste ? true : c.value === v; });
+      }
+      mselAtualizar(id);
+      MSELS[id].aoMudar();
+    };
+  });
+  if (busca) {
+    const inp = el.querySelector('.msel-busca input');
+    inp.oninput = () => {
+      const t = fsNorm(inp.value);
+      el.querySelectorAll('.msel-item[data-v]').forEach(it => {
+        it.style.display = !t || fsNorm(it.dataset.v).includes(t) ? '' : 'none';
+      });
+    };
+    inp.onclick = e => e.stopPropagation();
+  }
+  mselAtualizar(id);
+}
+function mselAbrir(id) {
+  const drop = $('#' + id + ' .msel-drop');
+  if (!drop) return;
+  const aberto = drop.classList.contains('aberto');
+  $$('.msel-drop.aberto').forEach(d => d.classList.remove('aberto'));
+  if (aberto) return;
+  drop.classList.add('aberto');
+  const b = drop.querySelector('.msel-busca input');
+  if (b) { b.value = ''; b.oninput(); b.focus(); }
+}
+document.addEventListener('click', () => $$('.msel-drop.aberto').forEach(d => d.classList.remove('aberto')));
+/* marca um conjunto (null = todos). `quieto` nao dispara o aoMudar. */
+function mselMarcar(id, conjunto, quieto) {
+  const el = $('#' + id);
+  if (!el) return;
+  const cbs = [...el.querySelectorAll('.msel-drop input[value]')];
+  cbs.forEach(c => { c.checked = !conjunto || conjunto.has(c.value); });
+  if (!cbs.some(c => c.checked)) cbs.forEach(c => { c.checked = true; });
+  mselAtualizar(id);
+  if (!quieto) MSELS[id].aoMudar();
+}
+function mselAtualizar(id) {
+  const el = $('#' + id), m = MSELS[id];
+  if (!el || !m) return;
+  const cbs = [...el.querySelectorAll('.msel-drop input[value]')];
+  const sel = cbs.filter(c => c.checked);
+  const todos = el.querySelector('.msel-item.todos input');
+  if (todos) todos.checked = sel.length === cbs.length;
+  const bt = el.querySelector('.msel-bt');
+  const parcial = sel.length && sel.length !== cbs.length;
+  bt.textContent = !parcial ? m.rotuloTodos
+                 : sel.length <= 3 ? sel.map(c => c.value).join(', ')
+                 : sel.length + (m.masc ? ' selecionados' : ' selecionadas');
+  bt.title = parcial ? sel.map(c => c.value).join(', ') : 'Clique escolhe só um · Cmd/Ctrl/Shift+clique combina vários';
+  bt.classList.toggle('ativo', !!parcial);
+}
+/* null = todos marcados (sem filtro) */
+function mselSelecionados(id) {
+  const el = $('#' + id);
+  if (!el) return null;
+  const cbs = [...el.querySelectorAll('.msel-drop input[value]')];
+  const sel = cbs.filter(c => c.checked).map(c => c.value);
+  return (!sel.length || sel.length === cbs.length) ? null : new Set(sel);
+}
+
+/* campinho: zonas em % da caixa, mesmo desenho do Ranking (esquerda em cima) */
+const ZONAS_CAMPO = [
+  { c: 'GOL', x: 0,  y: 32, w: 8,  h: 36 },
+  { c: 'ZE',  x: 8,  y: 18, w: 14, h: 28 }, { c: 'ZD',  x: 8,  y: 54, w: 14, h: 28 },
+  { c: 'LE',  x: 20, y: 2,  w: 12, h: 22 }, { c: 'LD',  x: 20, y: 76, w: 12, h: 22 },
+  { c: 'VOL', x: 34, y: 28, w: 12, h: 44 },
+  { c: 'MED', x: 48, y: 20, w: 12, h: 26 }, { c: 'MEI', x: 48, y: 54, w: 12, h: 26 },
+  { c: 'EE',  x: 64, y: 2,  w: 14, h: 22 }, { c: 'ED',  x: 64, y: 76, w: 14, h: 22 },
+  { c: 'CA',  x: 80, y: 26, w: 16, h: 48 },
+];
+function nomePos(c) { const p = POSICOES.find(x => x.c === c); return p ? p.nome : c; }
+function campinhoInit(idCampo, aoMudar, unica) {
+  const campo = $('#' + idCampo);
+  if (!campo) return;
+  campo.innerHTML = '<div class="rk-area-esq"></div><div class="rk-area-dir"></div>' +
+    ZONAS_CAMPO.map(z => '<div class="rk-zona" data-pos="' + z.c + '" style="left:' + z.x + '%;top:' + z.y +
+      '%;width:' + z.w + '%;height:' + z.h + '%" title="' + esc(nomePos(z.c)) + '">' + z.c + '</div>').join('') +
+    '<span class="rk-pos-nome"></span>';
+  campo.querySelectorAll('.rk-zona').forEach(z => {
+    z.onclick = e => {
+      const ativas = [...campo.querySelectorAll('.rk-zona.on')];
+      if (!unica && (e.metaKey || e.ctrlKey || e.shiftKey)) z.classList.toggle('on');
+      else {
+        const eraUnica = ativas.length === 1 && ativas[0] === z;
+        ativas.forEach(a => a.classList.remove('on'));
+        if (!eraUnica || unica) z.classList.add('on');
+      }
+      campinhoRotulo(campo);
+      aoMudar();
+    };
+  });
+  campinhoRotulo(campo);
+}
+function campinhoRotulo(campo) {
+  const on = [...campo.querySelectorAll('.rk-zona.on')];
+  campo.querySelector('.rk-pos-nome').textContent =
+    !on.length ? 'Todas' : on.length === 1 ? nomePos(on[0].dataset.pos) : on.map(z => z.dataset.pos).join(' + ');
+}
+function campinhoSelecao(idCampo) {
+  return new Set($$('#' + idCampo + ' .rk-zona.on').map(z => z.dataset.pos));
+}
+function campinhoDefinir(idCampo, lista) {
+  const s = new Set(lista || []);
+  $$('#' + idCampo + ' .rk-zona').forEach(z => z.classList.toggle('on', s.has(z.dataset.pos)));
+  campinhoRotulo($('#' + idCampo));
+}
+
+/* sliders duplos: dois <input type=range> sobrepostos, com a faixa pintada entre eles */
+function rangesInit(idCont, defs, aoMudar) {
+  const cont = $('#' + idCont);
+  if (!cont) return;
+  cont.innerHTML = defs.map(d =>
+    '<div class="rk-range" data-k="' + d.k + '" data-min="' + d.min + '" data-max="' + d.max + '">' +
+      '<label>' + d.r + '</label>' +
+      '<div class="vals"><span class="lo"></span><span class="hi"></span></div>' +
+      '<div class="rk-range-wrap"><div class="rk-trilho"></div><div class="rk-cheio"></div>' +
+        '<input type="range" class="lo" min="' + d.min + '" max="' + d.max + '" step="' + d.passo + '" value="' + d.min + '">' +
+        '<input type="range" class="hi" min="' + d.min + '" max="' + d.max + '" step="' + d.passo + '" value="' + d.max + '">' +
+      '</div></div>').join('');
+  defs.forEach(d => {
+    const f = cont.querySelector('.rk-range[data-k="' + d.k + '"]');
+    const lo = f.querySelector('input.lo'), hi = f.querySelector('input.hi');
+    const fmt = d.fmt || (v => String(v));
+    const atualizar = (disparar) => {
+      if (+lo.value > +hi.value) { const t = lo.value; lo.value = hi.value; hi.value = t; }
+      f.querySelector('.vals .lo').textContent = fmt(+lo.value);
+      f.querySelector('.vals .hi').textContent = fmt(+hi.value);
+      const pLo = (lo.value - d.min) / (d.max - d.min) * 100, pHi = (hi.value - d.min) / (d.max - d.min) * 100;
+      const cheio = f.querySelector('.rk-cheio');
+      cheio.style.left = pLo + '%'; cheio.style.width = (pHi - pLo) + '%';
+      f.classList.toggle('ativo', +lo.value > d.min || +hi.value < d.max);
+      if (disparar) aoMudar();
+    };
+    lo.oninput = hi.oninput = () => atualizar(true);
+    f._reset = () => { lo.value = d.min; hi.value = d.max; atualizar(false); };
+    atualizar(false);
+  });
+}
+/* null quando o slider esta aberto de ponta a ponta (sem filtro) */
+function rangeValor(idCont, k) {
+  const f = $('#' + idCont + ' .rk-range[data-k="' + k + '"]');
+  if (!f) return null;
+  const lo = +f.querySelector('input.lo').value, hi = +f.querySelector('input.hi').value;
+  return (lo <= +f.dataset.min && hi >= +f.dataset.max) ? null : { lo, hi };
+}
+function rangesReset(idCont) { $$('#' + idCont + ' .rk-range').forEach(f => f._reset && f._reset()); }
+
+function fmtMilhoes(v) {
+  return v >= 1e6 ? (v / 1e6).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'M'
+       : v >= 1e3 ? Math.round(v / 1e3) + 'K' : String(v);
+}
+const RANGES_FC = [
+  { k: 'alt', r: 'Altura (cm)',   min: 150, max: 210,       passo: 1 },
+  { k: 'id_', r: 'Idade',         min: 15,  max: 45,        passo: 1 },
+  { k: 'mv',  r: 'Valor mercado', min: 0,   max: 120000000, passo: 500000, fmt: fmtMilhoes },
+  { k: 'ov',  r: 'Overall',       min: 0,   max: 100,       passo: 1 },
+  { k: 'min', r: 'Minutos',       min: 0,   max: 5000,      passo: 50 },
+];
+const PES = ['Direito', 'Esquerdo', 'Ambos', 'Desconhecido'];
+function rotuloPe(v) {
+  return v === 'direito' ? 'Direito' : v === 'esquerdo' ? 'Esquerdo' : v === 'ambos' ? 'Ambos' : 'Desconhecido';
+}
+function classLiga(l) {
+  if (!l) return 'demais';
+  if (l.startsWith('Brasil')) return 'brasil';
+  if (GRUPOS_LIGA.sulamerica.includes(l)) return 'sulamerica';
+  if (GRUPOS_LIGA.europa.includes(l)) return 'europa';
+  return 'demais';
+}
+function classPais(nac) {
+  if (nac === 'Brazil') return 'br';
+  if (PAISES_SUL.has(nac)) return 'sa';
+  return 'demais';
+}
 
 function fcFiltrar() {
   const ate = $('#fcAte').value;
-  const pos = $('#fcPos').value;
-  const liga = $('#fcLiga').value;
-  const nacao = $('#fcNacao').value;
-  const idade = parseFloat($('#fcIdade').value) || 0;
-  const ov = parseFloat($('#fcOv').value) || 0;
   const soConf = $('#fcSoConf').checked;
-  const ligas = liga ? null : (fcGrupo === 'todas' ? null : new Set(GRUPOS_LIGA[fcGrupo] || []));
+  const txt = fsNorm($('#fcTexto').value.trim());
+  const poss = campinhoSelecao('fcCampo');
+  const ligas = mselSelecionados('fcLigaSel');
+  const paises = mselSelecionados('fcPaisSel');
+  const times = mselSelecionados('fcTimeSel');
+  const pes = mselSelecionados('fcPeSel');
+  const faixas = RANGES_FC.map(d => [d.k, rangeValor('fcRanges', d.k)]).filter(x => x[1]);
 
   return BASE.filter(j => {
     if (!j.ct) return false;
     if (ate && j.ct.slice(0, 7) > ate) return false;
     if (soConf && j.ctc !== 'alta') return false;
-    if (pos && j.p !== pos) return false;
-    if (liga) { if (j.l !== liga) return false; }
-    else if (ligas && !ligas.has(j.l)) return false;
-    if (nacao && !passaNacao(j, nacao)) return false;
-    if (idade && (Number(j.id_) || 99) > idade) return false;
-    if (ov && (Number(j.ov) || 0) < ov) return false;
+    if (poss.size && !poss.has(j.p)) return false;
+    if (ligas && !ligas.has(j.l)) return false;
+    if (paises && !paises.has(j.nac || '')) return false;
+    if (times && !times.has(j.t)) return false;
+    if (pes && !pes.has(rotuloPe(j.pe))) return false;
+    for (const [k, f] of faixas) {
+      const v = j[k];
+      if (typeof v !== 'number' || v < f.lo || v > f.hi) return false;
+    }
+    if (txt && !fsNorm(j.n + ' ' + j.t).includes(txt)) return false;
     return true;
   });
 }
@@ -1918,267 +2139,342 @@ function fcRender() {
   });
 }
 
-function fcMontarFiltros() {
-  $('#fcPos').innerHTML = '<option value="">Todas as posições</option>' +
-    POSICOES.map(p => '<option value="' + p.c + '">' + p.c + ' · ' + p.nome + '</option>').join('');
-  const cont = {};
-  BASE.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
-  $('#fcLiga').innerHTML = '<option value="">Todas as ligas do grupo</option>' +
-    Object.keys(cont).sort((a, b) => a.localeCompare(b)).map(l =>
-      '<option value="' + esc(l) + '">' + esc(l) + ' (' + cont[l] + ')</option>').join('');
-
-  const defs = [
-    { c: 'brasil', r: 'Brasil A/B/C' }, { c: 'brasilbc', r: 'Brasil B+C' },
-    { c: 'sulamerica', r: 'América do Sul' }, { c: 'europa', r: 'Europa' },
-    { c: 'todas', r: 'Todas as ligas' },
-  ];
-  $('#fcChips').innerHTML = defs.map(d =>
-    '<button class="chip' + (d.c === fcGrupo ? ' on' : '') + '" data-g="' + d.c + '">' + d.r + '</button>').join('');
-  $$('#fcChips .chip').forEach(b => {
-    b.onclick = () => {
-      fcGrupo = b.dataset.g;
-      $$('#fcChips .chip').forEach(x => x.classList.toggle('on', x.dataset.g === fcGrupo));
-      fcRender();
-    };
-  });
-
-  ['#fcAte', '#fcPos', '#fcLiga', '#fcNacao', '#fcSoConf'].forEach(sel => { $(sel).onchange = fcRender; });
-  ['#fcIdade', '#fcOv'].forEach(sel => { $(sel).oninput = debounce(fcRender, 200); });
-  $('#fcLimpar').onclick = () => {
-    $('#fcAte').value = '2026-12'; $('#fcPos').value = ''; $('#fcLiga').value = '';
-    $('#fcNacao').value = ''; $('#fcIdade').value = ''; $('#fcOv').value = '';
-    $('#fcSoConf').checked = true;
-    fcRender();
-  };
+function fcAbasMarcar(idAbas, r) {
+  $$('#' + idAbas + ' button').forEach(b => b.classList.toggle('on', b.dataset.r === r));
+}
+function fcExtMarcar(tipo) {
+  $$('#fcExt button').forEach(b => b.classList.toggle('on', b.dataset.e === tipo));
+}
+function fcSetLiga(r, quieto) {
+  mselMarcar('fcLigaSel', r === 'todos' ? null : new Set(GRUPOS_LIGA[r] || []), true);
+  fcAbasMarcar('fcLigaAbas', r);
+  fcExtMarcar(null);
+  if (!quieto) fcRender();
+}
+function fcSetPais(r) {
+  const todos = MSELS.fcPaisSel ? MSELS.fcPaisSel.itens : [];
+  mselMarcar('fcPaisSel', r === 'todos' ? null : new Set(todos.filter(n => classPais(n) === r)), true);
+  fcAbasMarcar('fcPaisAbas', r);
+  fcExtMarcar(null);
+  fcRender();
+}
+/* "No exterior": brasileiros = pais Brasil + ligas nao brasileiras;
+   sul-americanos = paises SA (sem Brasil) + ligas fora da America do Sul */
+function fcSetExterior(tipo) {
+  const paises = MSELS.fcPaisSel ? MSELS.fcPaisSel.itens : [];
+  const ligas = MSELS.fcLigaSel ? MSELS.fcLigaSel.itens : [];
+  if (!tipo) {
+    mselMarcar('fcPaisSel', null, true); mselMarcar('fcLigaSel', null, true);
+    fcAbasMarcar('fcPaisAbas', 'todos'); fcAbasMarcar('fcLigaAbas', 'todos');
+  } else if (tipo === 'br_ext') {
+    mselMarcar('fcPaisSel', new Set(['Brazil']), true);
+    mselMarcar('fcLigaSel', new Set(ligas.filter(l => classLiga(l) !== 'brasil')), true);
+    fcAbasMarcar('fcPaisAbas', null); fcAbasMarcar('fcLigaAbas', null);
+  } else {
+    mselMarcar('fcPaisSel', new Set(paises.filter(n => classPais(n) === 'sa')), true);
+    mselMarcar('fcLigaSel', new Set(ligas.filter(l => classLiga(l) !== 'brasil' && classLiga(l) !== 'sulamerica')), true);
+    fcAbasMarcar('fcPaisAbas', null); fcAbasMarcar('fcLigaAbas', null);
+  }
+  fcExtMarcar(tipo);
+  fcRender();
+}
+function fcLimpar() {
+  campinhoDefinir('fcCampo', []);
+  fcSetLiga('brasil', true);
+  mselMarcar('fcPaisSel', null, true); fcAbasMarcar('fcPaisAbas', 'todos');
+  mselMarcar('fcTimeSel', null, true); mselMarcar('fcPeSel', null, true);
+  rangesReset('fcRanges');
+  $('#fcAte').value = '2026-12'; $('#fcSoConf').checked = true; $('#fcTexto').value = '';
+  fcRender();
 }
 
-/* ---------------- aba Físico (SkillCorner) ----------------
-   Mesma estrutura da aba Fim de contrato, com as metricas fisicas de FISICO.
-   Cada numero e lido contra a coorte (mesma posicao, no recorte escolhido):
-   verde acima da media, vermelho abaixo, azul quando lidera — a leitura da ficha.
-   O Indice atletico e a media dos percentis do jogador na coorte, como no
-   dashboard fisico Serie A/B. */
-const FS_INDICE = ['psv', 'vmax', 'mmin', 'dist', 'hi', 'hsr', 'spr_km', 'spr_n', 'acel', 'desa', 'cod'];
-const FS_CURTO = { psv: 'PSV-99', vmax: 'V.máx', vmax3: 'V.máx T3', mmin: 'M/min', dist: 'Dist/90',
-                   hi: 'AI/90', hsr: '15–20/90', spr_km: 'Sprint m', spr_n: 'Sprints', acel: 'Acel.',
-                   desa: 'Desac.', cod: 'COD' };
-let fsOrdem = { campo: 'idx', desc: true };
-let fsGrupo = 'brasil';
+function fcMontarFiltros() {
+  const comCt = BASE.filter(j => j.ct);
+  const distintos = f => {
+    const c = {};
+    comCt.forEach(j => { const v = f(j); if (v) c[v] = 1; });
+    return Object.keys(c).sort((a, b) => a.localeCompare(b));
+  };
+  campinhoInit('fcCampo', fcRender);
+  mselInit('fcLigaSel', distintos(j => j.l), { rotuloTodos: 'Todas as ligas',
+    aoMudar: () => { fcAbasMarcar('fcLigaAbas', null); fcExtMarcar(null); fcRender(); } });
+  mselInit('fcPaisSel', distintos(j => j.nac), { rotuloTodos: 'Todos os países', masc: true,
+    aoMudar: () => { fcAbasMarcar('fcPaisAbas', null); fcExtMarcar(null); fcRender(); } });
+  mselInit('fcTimeSel', distintos(j => j.t), { rotuloTodos: 'Todos os times', masc: true, aoMudar: fcRender });
+  mselInit('fcPeSel', PES, { rotuloTodos: 'Todos os pés', masc: true, aoMudar: fcRender });
+  rangesInit('fcRanges', RANGES_FC, debounce(fcRender, 150));
+  $$('#fcLigaAbas button').forEach(b => { b.onclick = () => fcSetLiga(b.dataset.r); });
+  $$('#fcPaisAbas button').forEach(b => { b.onclick = () => fcSetPais(b.dataset.r); });
+  $$('#fcExt button').forEach(b => { b.onclick = () => fcSetExterior(b.classList.contains('on') ? null : b.dataset.e); });
+  ['#fcAte', '#fcSoConf'].forEach(sel => { $(sel).onchange = fcRender; });
+  $('#fcTexto').oninput = debounce(fcRender, 200);
+  $('#fcLimpar').onclick = fcLimpar;
+  fcSetLiga('brasil', true);
+}
+
+/* ---------------- aba Físico (SkillCorner), na leitura do estudo Montoro ----------------
+   Uma matriz: linhas sao os indicadores, separados em cinco grupos (velocidade, uso da
+   velocidade, arranque e frenagem, giro e volume); colunas sao jogadores. A regua de
+   tudo e a coorte da posicao escolhida nas Series A e B: cada celula traz a barrinha
+   do percentil do jogador nessa coorte (verde no topo, vermelho no fim) e o valor.
+   Por padrao entram os 5 melhores de cada serie pelo indice fisico geral, mais as
+   medias da Serie A e da Serie B. Quem quiser compara qualquer um da base (ou do
+   campograma) contra essa regua. */
+const FS_GRUPOS = [
+  { t: 'Velocidade', d: 'O teto: quão rápido chega.', m: [
+    ['vmax3', 'Top 3 Peak Velocity',          'km/h',  2],
+    ['psv5',  'PSV-99, 5 melhores partidas',  'km/h',  2],
+    ['vmax',  'Peak Velocity',                'km/h',  2],
+    ['psv',   'PSV-99 por partida',           'km/h',  2] ] },
+  { t: 'Uso da velocidade', d: 'Quanto vai buscar essa faixa por 90 minutos.', m: [
+    ['spr_km', 'Metros em sprint',            'm/90',  0],
+    ['spr_n',  'Número de sprints',           'por 90', 1],
+    ['hsr',    'Metros em corrida rápida',    'm/90',  0],
+    ['hsr_n',  'Corridas rápidas',            'por 90', 1],
+    ['hi',     'Metros em alta intensidade',  'm/90',  0],
+    ['hi_n',   'Ações de alta intensidade',   'por 90', 1] ] },
+  { t: 'Arranque e frenagem', d: 'Explosão do parado e capacidade de frear.', m: [
+    ['expl',  'Arranques até o sprint',       'por 90', 2],
+    ['acel',  'Acelerações fortes',           'por 90', 1],
+    ['desa',  'Frenagens fortes',             'por 90', 1],
+    ['t_spr', 'Tempo até o sprint',           's · menor é melhor', 2, true],
+    ['t_hsr', 'Tempo até a corrida rápida',   's · menor é melhor', 2, true] ] },
+  { t: 'Giro e mudança de direção', d: 'Quanto muda de direção e quanto tempo perde nisso.', m: [
+    ['cod',       'Mudanças de direção',              'por 90', 1],
+    ['t505_90',   'Giro de 90° (teste 505)',          's · menor é melhor', 2, true],
+    ['t505_180',  'Giro de 180° (teste 505)',         's · menor é melhor', 2, true],
+    ['t_spr_cod', 'Tempo até o sprint após girar',    's · menor é melhor', 2, true],
+    ['t_hsr_cod', 'Tempo até a corrida rápida após girar', 's · menor é melhor', 2, true] ] },
+  { t: 'Volume', d: 'Quanto terreno cobre numa partida inteira.', m: [
+    ['dist',   'Distância percorrida',        'm/90',  0],
+    ['mmin',   'Metros por minuto',           'm/min', 1],
+    ['run',    'Distância em corrida',        'm/90',  0],
+    ['acel_m', 'Acelerações médias',          'por 90', 1],
+    ['desa_m', 'Desacelerações médias',       'por 90', 1] ] },
+];
+const FS_TODAS = FS_GRUPOS.flatMap(g => g.m);
+const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7c', '#1aa3a3', '#e07a1a', '#6aa628', '#5a6ce0',
+                  '#b8412f', '#2f9c8a'];
+let fsPos = 'MEI';
+let fsExtras = [];             /* pks acrescentados a mao */
+let fsOcultos = new Set();     /* pks tirados das listas automaticas */
 let fsBaseCache = null;
-const fsCoortes = {};
-const fsEstats = {};
+let fsMapaPk = null;
 
 function fsBase() {
-  if (!fsBaseCache) fsBaseCache = BASE.filter(j => FISICO.some(([c]) => typeof j[c] === 'number'));
+  if (!fsBaseCache) {
+    fsBaseCache = BASE.filter(j => FISICO.some(([c]) => typeof j[c] === 'number'));
+    fsMapaPk = new Map(fsBaseCache.map(j => [primaryKey(j), j]));
+  }
   return fsBaseCache;
 }
 function fsNorm(t) {
   return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
-function fsModo() { return ($('#fsBase') && $('#fsBase').value) || 'posgrupo'; }
-
-/* coorte do jogador para a comparacao: mesma posicao, no recorte do select */
-function fsCoorte(j) {
-  const modo = fsModo();
-  const ch = modo + '|' + j.p + '|' + (modo === 'posliga' ? j.l : modo === 'posgrupo' ? fsGrupo : '');
-  if (fsCoortes[ch]) return fsCoortes[ch];
-  let lista = fsBase().filter(x => x.p === j.p);
-  if (modo === 'posliga') lista = lista.filter(x => x.l === j.l);
-  else if (modo === 'posbr') lista = lista.filter(x => x.l.startsWith('Brasil'));
-  else if (modo === 'posgrupo' && fsGrupo !== 'todas') {
-    const ligas = new Set(GRUPOS_LIGA[fsGrupo] || []);
-    lista = lista.filter(x => ligas.has(x.l));
-  }
-  fsCoortes[ch] = { chave: ch, lista };
-  return fsCoortes[ch];
-}
-function fsEstat(co, campo) {
-  const ch = co.chave + '|' + campo;
-  if (fsEstats[ch]) return fsEstats[ch];
-  const vs = co.lista.map(x => x[campo]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
-  const e = vs.length ? { n: vs.length, media: vs.reduce((s, v) => s + v, 0) / vs.length,
-                          max: vs[vs.length - 1], ord: vs } : null;
-  fsEstats[ch] = e;
-  return e;
-}
-/* percentil (0-100): quantos da coorte ficam abaixo do valor */
-function fsPercentil(e, v) {
-  if (!e || e.n < 2) return null;
-  let lo = 0, hi = e.ord.length;
-  while (lo < hi) { const m = (lo + hi) >> 1; if (e.ord[m] < v) lo = m + 1; else hi = m; }
-  return Math.round(lo / (e.n - 1) * 100);
-}
-function fsIndice(j, co) {
-  const ps = [];
-  FS_INDICE.forEach(c => {
-    if (typeof j[c] !== 'number') return;
-    const pc = fsPercentil(fsEstat(co, c), j[c]);
-    if (pc != null) ps.push(pc);
-  });
-  return ps.length >= 4 ? Math.round(ps.reduce((s, v) => s + v, 0) / ps.length) : null;
-}
 function fsFmt(v, casas) {
   return typeof v === 'number' ? v.toFixed(casas).replace('.', ',') : '—';
 }
+function fsMinJogos() { return parseInt($('#fsMin').value) || 0; }
 
-const FS_COLUNAS = [
-  { c: 'n', r: 'Jogador', cel: j =>
-      '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
-      (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
-      (j.ov ? ' <span class="fc-ovr">' + j.ov + '</span>' : '') +
-      '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },
-  { c: 'p',   r: 'Pos.',  cel: j => j.p },
-  { c: 'id_', r: 'Idade', num: 1, cel: j => j.id_ ?? '—' },
-  { c: 'sc_n', r: 'Jogos', t: 'Partidas com tracking do SkillCorner (média de minutos por jogo no balão)', num: 1, cel: j =>
-      typeof j.sc_n === 'number'
-        ? '<span class="fs-min" title="' + milhar(j.sc_n) + ' jogos · ' + fsFmt(j.sc_min, 0) + ' min por jogo">' + milhar(j.sc_n) + '</span>'
-        : '<span class="fc-vazia">–</span>' },
-  { c: 'idx', r: 'Índice', t: 'Índice atlético: média dos percentis do jogador na coorte (0–100)', num: 1, cel: (j, co) => {
-      const i = fsIndice(j, co);
-      if (i == null) return '<span class="fc-vazia">–</span>';
-      return '<span class="fs-idx ' + (i >= 67 ? 'a' : i >= 40 ? 'm' : 'b') + '">' + i + '</span>'; } },
-];
-FISICO.forEach(([campo, rot, casas]) => {
-  FS_COLUNAS.push({ c: campo, r: FS_CURTO[campo] || rot, t: rot, num: 1, fis: 1, cel: (j, co) => {
-    const v = j[campo];
-    if (typeof v !== 'number') return '<span class="fc-vazia">–</span>';
-    const e = fsEstat(co, campo);
-    const lider = e && e.max > 0 && v >= e.max - 1e-9;
-    const cl = !e || e.n < 2 ? 'neutro' : lider ? 'lider' : v >= e.media ? 'acima' : 'abaixo';
-    const pc = fsPercentil(e, v);
-    return '<span class="fs-v ' + cl + '" title="' + esc(rot) + ': ' + fsFmt(v, casas) +
-      (e ? ' · média ' + fsFmt(e.media, casas) + ' · melhor ' + fsFmt(e.max, casas) +
-           (pc != null ? ' · percentil ' + pc : '') + ' · coorte de ' + e.n : '') + '">' +
-      fsFmt(v, casas) + '</span>';
-  } });
-});
-FS_COLUNAS.push({ c: '_', r: '', cel: j =>
-  '<button class="fc-add">levar p/ ' + j.p + '</button>' +
-  '<button class="ver-ficha" title="Ver detalhe">+</button>' });
-
-function fsFiltrar() {
-  const txt = fsNorm($('#fsTexto').value.trim());
-  const pos = $('#fsPos').value;
-  const liga = $('#fsLiga').value;
-  const nacao = $('#fsNacao').value;
-  const idade = parseFloat($('#fsIdade').value) || 0;
-  const min = parseFloat($('#fsMin').value) || 0;
-  const ate = $('#fsAte').value;
-  const ligas = liga ? null : (fsGrupo === 'todas' ? null : new Set(GRUPOS_LIGA[fsGrupo] || []));
-  return fsBase().filter(j => {
-    if (pos && j.p !== pos) return false;
-    if (liga) { if (j.l !== liga) return false; }
-    else if (ligas && !ligas.has(j.l)) return false;
-    if (nacao && !passaNacao(j, nacao)) return false;
-    if (idade && (Number(j.id_) || 99) > idade) return false;
-    if (min && (Number(j.sc_n) || 0) < min) return false;
-    if (ate && (!j.ct || j.ct.slice(0, 7) > ate)) return false;
-    if (txt && !fsNorm(j.n + ' ' + j.t).includes(txt)) return false;
-    return true;
+/* coorte da posicao nas Series A e B: a regua de todos os percentis */
+function fsCoorteAB() {
+  const min = fsMinJogos();
+  const lista = fsBase().filter(j => j.p === fsPos && (j.l === 'Brasil A' || j.l === 'Brasil B') &&
+                                     (Number(j.sc_n) || 0) >= min);
+  const ord = {};
+  FS_TODAS.forEach(([k]) => {
+    ord[k] = lista.map(j => j[k]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
   });
+  const media = liga => {
+    const sub = lista.filter(j => j.l === liga);
+    const m = {};
+    FS_TODAS.forEach(([k]) => {
+      const vs = sub.map(j => j[k]).filter(v => typeof v === 'number' && !isNaN(v));
+      m[k] = vs.length ? vs.reduce((a, v) => a + v, 0) / vs.length : null;
+    });
+    return { n: sub.length, m };
+  };
+  return { lista, ord, A: media('Brasil A'), B: media('Brasil B') };
+}
+/* percentil (0-100) do valor na coorte; nos tempos, menor e melhor */
+function fsPct(co, k, v, menor) {
+  const o = co.ord[k];
+  if (!o || o.length < 2 || typeof v !== 'number' || isNaN(v)) return null;
+  let lo = 0, hi = o.length;
+  while (lo < hi) { const m = (lo + hi) >> 1; if (o[m] < v) lo = m + 1; else hi = m; }
+  const p = lo / (o.length - 1) * 100;
+  return Math.round(Math.max(0, Math.min(100, menor ? 100 - p : p)));
+}
+/* indice por grupo = media dos percentis do grupo; geral = media dos grupos */
+function fsIndices(co, j) {
+  const grupos = FS_GRUPOS.map(g => {
+    const ps = g.m.map(([k, , , , menor]) => fsPct(co, k, j[k], menor)).filter(p => p != null);
+    return ps.length ? Math.round(ps.reduce((a, v) => a + v, 0) / ps.length) : null;
+  });
+  const ok = grupos.filter(v => v != null);
+  return { grupos, geral: ok.length >= 3 ? Math.round(ok.reduce((a, v) => a + v, 0) / ok.length) : null };
+}
+function fsFaixa(p) { return p >= 75 ? 'alto' : p <= 25 ? 'baixo' : 'medio'; }
+
+function fsCelula(co, k, v, casas, menor, lider, tit) {
+  if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><span class="v">–</span></td>';
+  const p = fsPct(co, k, v, menor);
+  const cls = p == null ? 'medio' : fsFaixa(p);
+  return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+    (p != null ? ' · percentil ' + p : '') + '">' +
+    '<i class="fs-bar"><b style="height:' + (p == null ? 0 : p) + '%"></b></i>' +
+    '<span class="v">' + fsFmt(v, casas) + '</span></td>';
+}
+
+function fsCabecalho(c) {
+  const j = c.j;
+  const tag = c.tipo === 'A' ? '<span class="fs-tag a">Top Série A</span>'
+            : c.tipo === 'B' ? '<span class="fs-tag b">Top Série B</span>' : '';
+  return '<th class="fs-col" style="--cor:' + c.cor + '" data-pk="' + esc(primaryKey(j)) + '" data-id="' + j.id + '">' +
+    '<div class="fs-nome"><b>' + esc(j.n) + '</b>' +
+      (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
+    '<small>' + esc(j.t) + '<br>' + esc(j.l) + (j.p !== fsPos ? ' · ' + esc(j.p) : '') +
+      (j.sc_n ? '<br>' + j.sc_n + ' j · ' + fsFmt(j.sc_min, 0) + ' min' : '') + '</small>' +
+    '<div class="fs-hd-bts">' +
+      (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
+        '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
+      tag +
+      '<button class="fs-ficha" title="Ver a ficha">+</button>' +
+      '<button class="fs-levar" title="Levar para o campograma (' + esc(j.p) + ')">↗</button>' +
+      '<button class="fs-x" title="Tirar da comparação">×</button>' +
+    '</div></th>';
 }
 
 function fsRender() {
-  if (!BASE.length) return;
-  const th = $('#fsThead');
-  if (!th.dataset.pronto) {
-    th.innerHTML = '<tr>' + FS_COLUNAS.map(c =>
-      '<th data-ord="' + c.c + '"' + (c.num ? ' class="num-c"' : '') +
-      (c.t ? ' title="' + esc(c.t) + '"' : '') + '>' + c.r + '</th>').join('') + '</tr>';
-    th.dataset.pronto = '1';
-    th.querySelectorAll('th').forEach(el => {
-      el.onclick = () => {
-        const c = el.dataset.ord;
-        if (c === '_') return;
-        if (fsOrdem.campo === c) fsOrdem.desc = !fsOrdem.desc;
-        else { fsOrdem.campo = c; fsOrdem.desc = !(c === 'n' || c === 'p' || c === 'id_'); }
-        th.querySelectorAll('.set').forEach(x => x.remove());
-        el.insertAdjacentHTML('beforeend', '<span class="set">' + (fsOrdem.desc ? '▼' : '▲') + '</span>');
-        fsRender();
-      };
+  if (!BASE.length || !$('#fsMatriz')) return;
+  const co = fsCoorteAB();
+  const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
+  const extraSet = new Set(fsExtras);
+  const top = liga => co.lista
+    .filter(j => j.l === liga && !fsOcultos.has(primaryKey(j)) && !extraSet.has(primaryKey(j)))
+    .map(j => ({ j, idx: fsIndices(co, j) })).filter(x => x.idx.geral != null)
+    .sort((a, b) => b.idx.geral - a.idx.geral).slice(0, 5);
+
+  const colunas = extras.map(j => ({ j, tipo: 'extra' }));
+  if ($('#fsTopA').checked) top('Brasil A').forEach(x => colunas.push({ j: x.j, tipo: 'A' }));
+  if ($('#fsTopB').checked) top('Brasil B').forEach(x => colunas.push({ j: x.j, tipo: 'B' }));
+  colunas.forEach((c, i) => { c.idx = fsIndices(co, c.j); c.cor = FS_CORES[i % FS_CORES.length]; });
+  const medias = $('#fsMedias').checked
+    ? [{ rot: 'Média Série A', d: co.A }, { rot: 'Média Série B', d: co.B }] : [];
+
+  let h = '<thead><tr><th class="fs-canto"><span>' + esc(nomePos(fsPos)) + '</span>' +
+    '<small>' + co.lista.length + ' com tracking na Série A + B' +
+    (fsMinJogos() ? ' (≥ ' + fsMinJogos() + ' jogos)' : '') + '</small></th>' +
+    colunas.map(fsCabecalho).join('') +
+    medias.map(m => '<th class="fs-media"><b>' + m.rot + '</b><small>' + m.d.n + ' ' + esc(fsPos) +
+      (m.d.n === 1 ? '' : 's') + ' · média da régua</small></th>').join('') + '</tr></thead>';
+
+  let b = '<tbody>';
+  FS_GRUPOS.forEach((g, gi) => {
+    b += '<tr class="fs-grupo"><td><b>' + esc(g.t) + '</b><span>' + esc(g.d) + '</span></td>' +
+      colunas.map(c => {
+        const v = c.idx.grupos[gi];
+        return '<td>' + (v == null ? '' : '<span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +
+          '" title="Índice do grupo: média dos percentis">' + v + '</span>') + '</td>';
+      }).join('') + medias.map(() => '<td></td>').join('') + '</tr>';
+    g.m.forEach(([k, rot, un, casas, menor]) => {
+      const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));
+      const validos = vals.filter(v => v != null);
+      const melhor = validos.length ? (menor ? Math.min.apply(null, validos) : Math.max.apply(null, validos)) : null;
+      b += '<tr><td class="fs-rot">' + esc(rot) + '<small>' + esc(un) + '</small></td>' +
+        colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
+          melhor != null && vals[i] === melhor && validos.length > 1,
+          rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(co.A.m[k], casas) +
+          ' · média B ' + fsFmt(co.B.m[k], casas))).join('') +
+        medias.map(m => '<td class="fs-c media"><span class="v">' + fsFmt(m.d.m[k], casas) + '</span></td>').join('') +
+        '</tr>';
     });
-  }
-
-  const lista = fsFiltrar();
-  const camp = fsOrdem.campo, desc = fsOrdem.desc;
-  const valor = j => camp === 'idx' ? fsIndice(j, fsCoorte(j)) : j[camp];
-  lista.sort((a, b) => {
-    let x = valor(a), y = valor(b);
-    if (typeof x === 'string' || typeof y === 'string') {
-      x = String(x || ''); y = String(y || '');
-      return desc ? y.localeCompare(x) : x.localeCompare(y);
-    }
-    /* quem nao tem o dado vai sempre para o fim */
-    const xv = typeof x === 'number' && !isNaN(x), yv = typeof y === 'number' && !isNaN(y);
-    if (xv !== yv) return xv ? -1 : 1;
-    if (!xv) return 0;
-    return desc ? y - x : x - y;
   });
+  b += '</tbody>';
+  $('#fsMatriz').innerHTML = h + b;
+  $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
 
-  const LIM = 300;
-  const jaNoElenco = new Set(todosJogadores().map(j => j.pk).filter(Boolean));
-  const linhas = lista.slice(0, LIM);
-  $('#fsTbody').innerHTML = linhas.map(j => {
-    const co = fsCoorte(j);
-    return '<tr data-id="' + j.id + '"' + (jaNoElenco.has(primaryKey(j)) ? ' class="ja"' : '') + '>' +
-      FS_COLUNAS.map(c => '<td' + (c.num ? ' class="num-c"' : '') + '>' + c.cel(j, co) + '</td>').join('') +
-      '</tr>';
-  }).join('');
-  $('#fsVazio').style.display = linhas.length ? 'none' : 'block';
-  const modo = fsModo();
-  $('#fsContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com tracking' +
-    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
-    ' · comparados com a mesma posição ' +
-    (modo === 'posliga' ? 'na liga de cada um' : modo === 'posbr' ? 'no Brasil A/B/C'
-     : modo === 'pos' ? 'em todas as ligas' : 'no grupo de ligas escolhido') +
-    ' · clique na linha para levar ao campograma';
+  $('#fsExplica').innerHTML = 'Cada barra é o <b>percentil</b> do jogador entre os <b>' + co.lista.length +
+    '</b> ' + esc(nomePos(fsPos).toLowerCase()) + (co.lista.length === 1 ? '' : 's') +
+    ' com tracking nas Séries A e B — <b class="c-verde">verde</b> no topo, <b class="c-verm">vermelho</b> no fim; ' +
+    '<b class="c-ouro">moldura dourada</b> = líder da linha. O índice de cada grupo é a média dos percentis; ' +
+    'o índice geral, a média dos grupos — é ele que escolhe os 5 melhores de cada série.';
+  $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
+    ' na comparação · ' + co.A.n + ' na Série A e ' + co.B.n + ' na Série B com ' + esc(fsPos) +
+    ' · jogadores de outras ligas entram na mesma régua';
 
-  $$('#fsTbody tr').forEach(tr => {
-    const id = parseInt(tr.dataset.id);
-    const levar = () => {
+  $$('#fsMatriz th.fs-col').forEach(th => {
+    const id = parseInt(th.dataset.id), pk = th.dataset.pk;
+    th.querySelector('.fs-ficha').onclick = () => { abrirFicha(id); irParaAba('campo'); };
+    th.querySelector('.fs-levar').onclick = () => {
       const j = BASE.find(x => x.id === id);
       if (!j) return;
       posAtual = j.p;
       adicionarDaBase(id);
+    };
+    th.querySelector('.fs-x').onclick = () => {
+      if (extraSet.has(pk)) fsExtras = fsExtras.filter(x => x !== pk);
+      else fsOcultos.add(pk);
       fsRender();
     };
-    tr.onclick = levar;
-    tr.querySelector('.fc-add').onclick = e => { e.stopPropagation(); levar(); };
-    tr.querySelector('.ver-ficha').onclick = e => { e.stopPropagation(); abrirFicha(id); irParaAba('campo'); };
   });
+  fsMontarElenco();
+}
+
+/* busca de qualquer jogador com tracking, em qualquer liga */
+function fsBuscar() {
+  const t = fsNorm($('#fsBusca').value.trim());
+  const lista = $('#fsBuscaLista');
+  if (t.length < 2) { lista.classList.remove('aberto'); return; }
+  const achados = fsBase().filter(j => fsNorm(j.n + ' ' + j.t).includes(t))
+    .sort((a, b) => (a.p === fsPos ? 0 : 1) - (b.p === fsPos ? 0 : 1) || a.n.localeCompare(b.n)).slice(0, 14);
+  lista.innerHTML = achados.length
+    ? achados.map(j => '<div class="msel-item" data-pk="' + esc(primaryKey(j)) + '"><b>' + esc(j.n) + '</b>' +
+        '<span class="fs-b-meta">' + esc(j.p) + ' · ' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>').join('')
+    : '<div class="msel-dica">ninguém com tracking com esse nome</div>';
+  lista.classList.add('aberto');
+  lista.querySelectorAll('.msel-item').forEach(it => {
+    it.onclick = e => {
+      e.stopPropagation();
+      fsAdicionar(it.dataset.pk);
+      $('#fsBusca').value = '';
+      lista.classList.remove('aberto');
+    };
+  });
+}
+function fsAdicionar(pk) {
+  if (!pk || !fsMapaPk.get(pk)) { toast('Esse jogador não tem tracking do SkillCorner', 'ruim'); return; }
+  if (!fsExtras.includes(pk)) fsExtras.push(pk);
+  fsOcultos.delete(pk);
+  fsRender();
+}
+/* jogadores do campograma que tem tracking, a posicao escolhida primeiro */
+function fsMontarElenco() {
+  const sel = $('#fsElenco');
+  if (!sel) return;
+  fsBase();
+  const itens = todosJogadores().map(j => ({ j, b: j.pk ? fsMapaPk.get(j.pk) : null })).filter(x => x.b)
+    .sort((a, b) => (a.b.p === fsPos ? 0 : 1) - (b.b.p === fsPos ? 0 : 1) || a.b.p.localeCompare(b.b.p));
+  sel.innerHTML = '<option value="">＋ jogador do campograma…</option>' +
+    itens.map(x => '<option value="' + esc(x.b ? primaryKey(x.b) : '') + '"' +
+      (fsExtras.includes(primaryKey(x.b)) ? ' disabled' : '') + '>' +
+      esc(x.b.p) + ' · ' + esc(x.b.n) + ' (' + esc(x.b.t) + ')</option>').join('');
 }
 
 function fsMontarFiltros() {
-  $('#fsPos').innerHTML = '<option value="">Todas as posições</option>' +
-    POSICOES.map(p => '<option value="' + p.c + '">' + p.c + ' · ' + p.nome + '</option>').join('');
-  const cont = {};
-  fsBase().forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
-  $('#fsLiga').innerHTML = '<option value="">Todas as ligas do grupo</option>' +
-    Object.keys(cont).sort((a, b) => a.localeCompare(b)).map(l =>
-      '<option value="' + esc(l) + '">' + esc(l) + ' (' + cont[l] + ')</option>').join('');
-
-  const defs = [
-    { c: 'brasil', r: 'Brasil A/B/C' }, { c: 'brasilbc', r: 'Brasil B+C' },
-    { c: 'sulamerica', r: 'América do Sul' }, { c: 'europa', r: 'Europa' },
-    { c: 'todas', r: 'Todas as ligas' },
-  ];
-  $('#fsChips').innerHTML = defs.map(d =>
-    '<button class="chip' + (d.c === fsGrupo ? ' on' : '') + '" data-g="' + d.c + '">' + d.r + '</button>').join('');
-  $$('#fsChips .chip').forEach(b => {
-    b.onclick = () => {
-      fsGrupo = b.dataset.g;
-      $$('#fsChips .chip').forEach(x => x.classList.toggle('on', x.dataset.g === fsGrupo));
-      fsRender();
-    };
-  });
-
-  ['#fsPos', '#fsLiga', '#fsNacao', '#fsBase', '#fsAte'].forEach(sel => { $(sel).onchange = fsRender; });
-  ['#fsTexto', '#fsIdade', '#fsMin'].forEach(sel => { $(sel).oninput = debounce(fsRender, 200); });
-  $('#fsLimpar').onclick = () => {
-    $('#fsTexto').value = ''; $('#fsPos').value = ''; $('#fsLiga').value = ''; $('#fsNacao').value = '';
-    $('#fsIdade').value = ''; $('#fsMin').value = ''; $('#fsAte').value = '';
+  campinhoInit('fsCampo', () => {
+    const s = campinhoSelecao('fsCampo');
+    if (s.size) fsPos = [...s][0];
+    campinhoDefinir('fsCampo', [fsPos]);
     fsRender();
-  };
+  }, true);
+  campinhoDefinir('fsCampo', [fsPos]);
+  $('#fsBusca').oninput = debounce(fsBuscar, 150);
+  $('#fsBusca').onclick = e => { e.stopPropagation(); if ($('#fsBusca').value.trim().length >= 2) fsBuscar(); };
+  $('#fsElenco').onchange = () => { fsAdicionar($('#fsElenco').value); $('#fsElenco').value = ''; };
+  $('#fsMin').oninput = debounce(fsRender, 200);
+  ['#fsTopA', '#fsTopB', '#fsMedias'].forEach(id => { $(id).onchange = fsRender; });
+  $('#fsLimpar').onclick = () => { fsExtras = []; fsOcultos = new Set(); $('#fsMin').value = 5; fsRender(); };
 }
 
 function irParaAba(nome) {

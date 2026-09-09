@@ -156,25 +156,74 @@
           <p>Quem fica livre no período escolhido. Clique na linha para levar o jogador
              direto para a posição dele no campograma.</p>
         </div>
-        <div class="fc-filtros">
-          <label>Contrato até
-            <input type="month" id="fcAte" value="2026-12" min="2025-01" max="2032-12"></label>
-          <select id="fcPos"><option value="">Todas as posições</option></select>
-          <select id="fcLiga"><option value="">Todas as ligas do grupo</option></select>
-          <select id="fcNacao">
-            <option value="">Qualquer nacionalidade</option>
-            <option value="br">Só brasileiros</option>
-            <option value="sul">Só sul-americanos (com Brasil)</option>
-            <option value="sulex">Sul-americanos estrangeiros</option>
-            <option value="ex">Só estrangeiros</option>
-          </select>
-          <label>Idade até <input class="num" type="number" id="fcIdade" placeholder="max"></label>
-          <label>Overall ≥ <input class="num" type="number" id="fcOv" placeholder="0"></label>
-          <label class="chk"><input type="checkbox" id="fcSoConf" checked> só contrato confirmado</label>
-          <button class="bt mini" id="fcLimpar">Limpar</button>
+      </div>
+      <div class="rk-filtros">
+        <div class="rk-campo-col">
+          <span class="rk-rotulo">Posição</span>
+          <div class="rk-campo" id="fcCampo"
+               title="Clique seleciona a posição · Cmd/Ctrl+clique combina várias (ex.: ZD + ZE + VOL)"></div>
+          <div class="rk-legenda">
+            <span>Consenso:</span>
+            <span><i class="ok"></i>confirmado</span>
+            <span><i class="duvida"></i>dúvida</span>
+            <span><i class="erro"></i>fontes divergem</span>
+            <span><b>*</b> salário estimado (TransferRoom)</span>
+          </div>
+        </div>
+        <div class="rk-col">
+          <div class="rk-linha1">
+            <div class="rk-campo-f">
+              <label>Liga</label>
+              <div class="msel" id="fcLigaSel"></div>
+              <div class="rk-abas" id="fcLigaAbas">
+                <button data-r="todos" title="Todas as ligas">Todos</button>
+                <button data-r="brasil" title="Brasil A, B e C">BR</button>
+                <button data-r="brasilbc" title="Brasil B e C">B+C</button>
+                <button data-r="sulamerica" title="América do Sul">SA</button>
+                <button data-r="europa" title="Europa">EU</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>País</label>
+              <div class="msel" id="fcPaisSel"></div>
+              <div class="rk-abas" id="fcPaisAbas">
+                <button data-r="todos" class="on">Todos</button>
+                <button data-r="br" title="Brasileiros">BR</button>
+                <button data-r="sa" title="Sul-americanos (sem Brasil)">SA</button>
+                <button data-r="demais" title="Demais países">Demais</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>No exterior</label>
+              <div class="rk-ext" id="fcExt">
+                <button class="ext-br" data-e="br_ext" title="Brasileiros no exterior: país Brasil + ligas não brasileiras">Brasileiros</button>
+                <button class="ext-sa" data-e="sa_ext" title="Sul-americanos no exterior: países SA (sem Brasil) + ligas fora da América do Sul">Sul-americanos</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Time</label>
+              <div class="msel" id="fcTimeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Pé preferido</label>
+              <div class="msel" id="fcPeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Contrato até</label>
+              <input type="month" id="fcAte" value="2026-12" min="2025-01" max="2032-12">
+              <label class="chk rk-chk"><input type="checkbox" id="fcSoConf" checked> só contrato confirmado</label>
+            </div>
+            <div class="rk-campo-f">
+              <label>Buscar jogador</label>
+              <input type="text" id="fcTexto" placeholder="Nome ou clube…" autocomplete="off">
+            </div>
+          </div>
+          <div class="rk-linha2" id="fcRanges"></div>
+          <div class="rk-rodape">
+            <button class="bt mini" id="fcLimpar">Limpar filtros</button>
+          </div>
         </div>
       </div>
-      <div class="chips" id="fcChips"></div>
       <div class="fc-lista"><table id="fcTabela"><thead id="fcThead"></thead><tbody id="fcTbody"></tbody></table>
         <div class="vazio" id="fcVazio" style="display:none">Nenhum jogador com esses filtros.</div>
       </div>
@@ -187,37 +236,54 @@
       <div class="fc-topo">
         <div class="fc-tit">
           <h2>Físico <span class="fc-origem">SkillCorner</span></h2>
-          <p>Rastreamento por 90 minutos. Cada número é lido contra a coorte (mesma posição, no recorte
-             escolhido): <b class="c-verde">verde</b> acima da média, <b class="c-verm">vermelho</b> abaixo,
-             <b class="c-azul">azul</b> quando lidera. O Índice é a média dos percentis do jogador na coorte.
-             Clique na linha para levar o jogador ao campograma.</p>
-        </div>
-        <div class="fc-filtros">
-          <input type="text" id="fsTexto" placeholder="Nome ou clube…" autocomplete="off">
-          <select id="fsPos"><option value="">Todas as posições</option></select>
-          <select id="fsLiga"><option value="">Todas as ligas do grupo</option></select>
-          <select id="fsNacao">
-            <option value="">Qualquer nacionalidade</option>
-            <option value="br">Só brasileiros</option>
-            <option value="sul">Só sul-americanos (com Brasil)</option>
-            <option value="sulex">Sul-americanos estrangeiros</option>
-            <option value="ex">Só estrangeiros</option>
-          </select>
-          <label>Idade até <input class="num" type="number" id="fsIdade" placeholder="max"></label>
-          <label>Jogos ≥ <input class="num" type="number" id="fsMin" placeholder="0" title="Partidas com tracking"></label>
-          <label>Contrato até <input type="month" id="fsAte" min="2025-01" max="2032-12"></label>
-          <select id="fsBase" title="Com quem comparar">
-            <option value="posgrupo" selected>vs. mesma posição no grupo de ligas</option>
-            <option value="posliga">vs. mesma posição na liga dele</option>
-            <option value="posbr">vs. mesma posição no Brasil A/B/C</option>
-            <option value="pos">vs. mesma posição (todas as ligas)</option>
-          </select>
-          <button class="bt mini" id="fsLimpar">Limpar</button>
+          <p id="fsExplica">Rastreamento por 90 minutos, na leitura do estudo Montoro.</p>
         </div>
       </div>
-      <div class="chips" id="fsChips"></div>
-      <div class="fc-lista"><table id="fsTabela"><thead id="fsThead"></thead><tbody id="fsTbody"></tbody></table>
-        <div class="vazio" id="fsVazio" style="display:none">Nenhum jogador com esses filtros.</div>
+      <div class="rk-filtros">
+        <div class="rk-campo-col">
+          <span class="rk-rotulo">Posição</span>
+          <div class="rk-campo" id="fsCampo" title="Clique escolhe a posição da régua"></div>
+        </div>
+        <div class="rk-col">
+          <div class="rk-linha1 fs-linha1">
+            <div class="rk-campo-f fs-busca">
+              <label>Adicionar jogador</label>
+              <input type="text" id="fsBusca" placeholder="Nome ou clube — qualquer liga com tracking…" autocomplete="off">
+              <div class="msel-drop" id="fsBuscaLista"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Do campograma</label>
+              <select id="fsElenco"><option value="">＋ jogador do campograma…</option></select>
+            </div>
+            <div class="rk-campo-f fs-min">
+              <label>Jogos rastreados ≥</label>
+              <input type="number" id="fsMin" value="5" min="0" title="Mínimo de partidas com tracking para entrar na régua">
+            </div>
+            <div class="rk-campo-f">
+              <label>Referências</label>
+              <div class="fs-toggles">
+                <label class="chk"><input type="checkbox" id="fsTopA" checked> Top 5 Série A</label>
+                <label class="chk"><input type="checkbox" id="fsTopB" checked> Top 5 Série B</label>
+                <label class="chk"><input type="checkbox" id="fsMedias" checked> Médias A e B</label>
+              </div>
+            </div>
+            <div class="rk-campo-f fs-acoes">
+              <label>&nbsp;</label>
+              <button class="bt mini" id="fsLimpar" title="Tira os jogadores adicionados e volta os 5 de cada série">Limpar comparação</button>
+            </div>
+          </div>
+          <div class="rk-legenda fs-legenda">
+            <span><i class="fs-bar-leg alto"></i>percentil alto (≥ 75)</span>
+            <span><i class="fs-bar-leg medio"></i>meio</span>
+            <span><i class="fs-bar-leg baixo"></i>baixo (≤ 25)</span>
+            <span><i class="fs-bar-leg lider"></i>líder da linha</span>
+            <span><b>+</b> ficha · <b>↗</b> levar ao campograma · <b>×</b> tirar</span>
+          </div>
+        </div>
+      </div>
+      <div class="fc-lista fs-matriz-wrap">
+        <table id="fsMatriz"></table>
+        <div class="vazio" id="fsVazio" style="display:none">Ninguém na comparação — ligue uma referência ou adicione um jogador.</div>
       </div>
       <div class="fc-pe"><span id="fsContagem">—</span></div>
     </div>

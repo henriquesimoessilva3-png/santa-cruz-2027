@@ -92,17 +92,39 @@ do meia, a pedido.
   Ele ocupa uma coluna a mais do grid, então `NAO_NOME` subiu 19px e mais nomes
   viram "C. Miguel".
 
-## Aba Físico (SkillCorner)
+## Aba Físico (SkillCorner) — leitura do estudo Montoro
 
-Mesma estrutura da aba Fim de contrato (`FS_COLUNAS`/`fsRender`), com as 12 métricas
-de `FISICO` como colunas. Só entram os 9.091 com tracking. Cada célula é lida contra a
-**coorte** (mesma posição, no recorte do select: grupo de ligas dos chips, liga do
-jogador, Brasil A/B/C ou todas): verde acima da média, vermelho abaixo, azul líder —
-a leitura da ficha. O **Índice** é a média dos percentis do jogador na coorte
-(`FS_INDICE`, 11 métricas, sem a V.máx TOP3 para não contar velocidade duas vezes),
-como o "Índice Atlético" do dashboard Série A/B do hub. `sc_n`/`sc_min` (jogos com
-tracking e média de minutos por jogo) vieram do `minutes`/`n_perf_passed` do
-SkillCorner — o `minutes` de lá é média por jogo, não total.
+Matriz, não tabela: **linhas são os indicadores**, em cinco grupos (Velocidade, Uso da
+velocidade, Arranque e frenagem, Giro e mudança de direção, Volume — `FS_GRUPOS`), e
+**colunas são jogadores**. A régua de tudo é a coorte da posição escolhida nas Séries
+A e B com ≥ N jogos rastreados (`fsCoorteAB`): cada célula mostra a barrinha do
+percentil do jogador nessa coorte e o valor; nos tempos (`t_*`, segundos) menor é
+melhor e o percentil é invertido. Índice do grupo = média dos percentis; índice geral
+= média dos grupos — é ele que escolhe os **5 melhores de cada série**, que entram por
+padrão junto com as **médias da Série A e da Série B**. Qualquer jogador com tracking
+(de qualquer liga, ou do campograma) pode ser acrescentado como coluna e é lido na
+mesma régua. Moldura dourada = líder da linha entre os exibidos. A primeira versão
+(tabela larga com 12 métricas e índice único) foi descartada a pedido: o usuário
+queria todos os indicadores, separados por grupo, com as médias A/B e os 5 de cada.
+
+Campos novos na base para isso (`preparar_base.py`): `psv5, hsr_n, hi_n, expl, run,
+acel_m, desa_m, t_spr, t_hsr, t_spr_cod, t_hsr_cod, t505_90, t505_180`, além de
+`sc_n`/`sc_min` (jogos com tracking e média de minutos por jogo — o `minutes` do
+SkillCorner é média por jogo, não total). Só 579 jogadores das Séries A e B têm
+tracking (GOL: 5), então a régua de goleiro não vale nada.
+
+## Painel de filtros no formato do Ranking
+
+A aba Fim de contrato usa o mesmo desenho do Ranking do hub (`:5555`): campinho
+clicável para a posição (`campinhoInit`, Cmd/Ctrl combina), combos de multi-seleção
+com abas de região (`mselInit`: Liga com Todos/BR/B+C/SA/EU, País com Todos/BR/SA/
+Demais), botões "No exterior" (brasileiros = país Brasil + ligas não brasileiras;
+sul-americanos = países SA sem Brasil + ligas fora da América do Sul), Time, Pé,
+busca e sliders duplos (`rangesInit`: altura, idade, valor de mercado, overall,
+minutos — só filtram quando saem de ponta a ponta, e aí excluem quem não tem o dado).
+**"Contrato até" ficou como seletor de mês de propósito**: o usuário quer levar esse
+modelo para o Ranking, não o contrário. Cores são as do app (coral), não o dourado
+do Botafogo. A aba Físico reaproveita o campinho em modo de seleção única.
 
 ## Publicação
 

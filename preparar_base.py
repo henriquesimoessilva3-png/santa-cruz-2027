@@ -118,7 +118,17 @@ def main(periodo="ago26"):
                              ("dist", "total_distance_p90"), ("hsr", "hsr_distance_p90"),
                              ("spr_km", "sprint_distance_p90"), ("spr_n", "n_sprints_p90"),
                              ("acel", "high_accel_p90"), ("desa", "high_decel_p90"),
-                             ("hi", "hi_distance_p90"), ("cod", "cod_count_p90")):
+                             ("hi", "hi_distance_p90"), ("cod", "cod_count_p90"),
+                             # grupos da leitura "Montoro": velocidade, uso, arranque/frenagem,
+                             # giro e volume — os tempos (t_*) sao em segundos, menor e melhor
+                             ("psv5", "top5_psv99"), ("hsr_n", "hsr_count_p90"),
+                             ("hi_n", "hi_actions_p90"), ("expl", "explosive_accel_to_sprint"),
+                             ("run", "running_distance_p90"), ("acel_m", "med_accel_p90"),
+                             ("desa_m", "med_decel_p90"), ("t_spr", "top3_time_to_sprint"),
+                             ("t_hsr", "top3_time_to_hsr"), ("t_spr_cod", "top3_time_to_sprint_post_cod"),
+                             ("t_hsr_cod", "top3_time_to_hsr_post_cod"),
+                             ("t505_90", "top3_time_505_around_90"),
+                             ("t505_180", "top3_time_505_around_180")):
             v = num(met.get(campo), 2)
             if v is not None:
                 j[chave] = v
