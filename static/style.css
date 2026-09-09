@@ -1430,3 +1430,11 @@ body:not(.claro){
 .fc-cab,.fc-pen{font-size:9px;color:var(--tinta3);white-space:nowrap}
 .rk-atalhos-rot{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--tinta3);font-weight:700}
 #fcAtalhos{display:inline-flex;gap:5px}
+
+/* ---------- sem cabecalho de texto nas duas abas: a lista comeca no topo ----------
+   O nome da aba ja esta na barra logo acima e o rodape ja diz que a linha leva ao
+   campograma; o titulo repetido so comia altura de tela. */
+.rk-filtros{padding-top:10px;padding-bottom:8px}
+#fsMatriz thead th{padding:6px 9px 5px}
+.fs-col .fs-nome b{font-size:12px}
+#fsMatriz thead th.fs-col{min-width:92px}

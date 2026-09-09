@@ -2513,11 +2513,15 @@ function fsCabecalho(c) {
   const j = c.j;
   const tag = c.tipo === 'A' ? '<span class="fs-tag a">Top Série A</span>'
             : c.tipo === 'B' ? '<span class="fs-tag b">Top Série B</span>' : '';
-  return '<th class="fs-col" style="--cor:' + c.cor + '" data-pk="' + esc(primaryKey(j)) + '" data-id="' + j.id + '">' +
+  /* Clube, liga e amostra saem do cabecalho e vao para o balao: com dez colunas,
+     quatro linhas de texto por coluna empurravam a matriz inteira para fora da tela. */
+  const ficha = [j.t, j.l + (j.p !== fsPos ? ' · ' + j.p : ''),
+                 j.sc_n ? j.sc_n + ' jogos rastreados · ' + fsFmt(j.sc_min, 0) + ' min por jogo' : '']
+                .filter(Boolean).join(' · ');
+  return '<th class="fs-col" style="--cor:' + c.cor + '" data-pk="' + esc(primaryKey(j)) + '" data-id="' + j.id + '"' +
+    ' title="' + esc(j.n + ' — ' + ficha) + '">' +
     '<div class="fs-nome"><b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
-    '<small>' + esc(j.t) + '<br>' + esc(j.l) + (j.p !== fsPos ? ' · ' + esc(j.p) : '') +
-      (j.sc_n ? '<br>' + j.sc_n + ' j · ' + fsFmt(j.sc_min, 0) + ' min' : '') + '</small>' +
     '<div class="fs-hd-bts">' +
       (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
         '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
@@ -2678,13 +2682,6 @@ function fsRender() {
   $('#fsMatriz').innerHTML = h + b;
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
 
-  $('#fsExplica').innerHTML = 'Cada barra é o <b>percentil</b> do jogador entre os <b>' + co.lista.length +
-    '</b> ' + esc(nomePos(fsPos).toLowerCase()) + (co.lista.length === 1 ? '' : 's') +
-    ' com tracking nas Séries A e B — <b class="c-verde">verde</b> no topo, <b class="c-verm">vermelho</b> no fim; ' +
-    '<b class="c-ouro">moldura dourada</b> = líder da linha. O índice de cada grupo é a média dos percentis; ' +
-    'o índice geral, a média dos grupos — é ele que escolhe os 5 melhores de cada série. ' +
-    'O bloco <b>Temporadas</b> não é percentil: são os números do Wyscout das últimas três ' +
-    'temporadas, verdes acima da média da coorte e vermelhos abaixo.';
   $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
     ' na comparação · ' + co.A.n + ' na Série A e ' + co.B.n + ' na Série B com ' + esc(fsPos) +
     ' · jogadores de outras ligas entram na mesma régua';

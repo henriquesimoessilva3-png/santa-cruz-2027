@@ -163,6 +163,15 @@ acel_m, desa_m, t_spr, t_hsr, t_spr_cod, t_hsr_cod, t505_90, t505_180`, além de
 SkillCorner é média por jogo, não total). Só 579 jogadores das Séries A e B têm
 tracking (GOL: 5), então a régua de goleiro não vale nada.
 
+## As abas de lista não têm cabeçalho de texto
+
+Fim de contrato e Físico começam direto no painel de filtros. O `<h2>` repetia o nome
+que já está na barra de abas e o parágrafo explicativo comia ~90px de altura; o rodapé
+já diz que clicar na linha leva ao campograma. Na matriz do Físico, clube, liga e
+amostra saíram do cabeçalho da coluna e foram para o balão: com dez colunas, quatro
+linhas de texto por coluna empurravam a matriz para fora da tela (7 linhas visíveis
+contra 14 depois).
+
 ## Painel de filtros no formato do Ranking
 
 A aba Fim de contrato usa o mesmo desenho do Ranking do hub (`:5555`): campinho
