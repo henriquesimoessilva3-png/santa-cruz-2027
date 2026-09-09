@@ -1779,6 +1779,76 @@ function linhaInd(rot, valor, media, melhor, casas) {
 
 /* Monta as tres partes da ficha (cabecalho, indicadores, rodape) para quem quiser
    exibir: o painel abaixo do campo ou a linha expandida dentro da busca. */
+/* ---------------- radar da ficha, na leitura do Ranking ----------------
+   Um eixo por grupo de indicadores. O valor do eixo e a media, dentro do grupo, da
+   posicao de cada indicador entre 0 e o melhor da coorte — a mesma conta que a
+   barrinha de `linhaInd` ja desenha, so que resumida. Dois poligonos: o jogador e a
+   media da coorte, como no radar do Ranking. */
+const RADAR_EIXOS = ['Defesa', 'Ataque', 'Passe', 'Decisão (DGP)', 'Físico'];
+const RADAR_ROT = { 'Decisão (DGP)': 'DGP', 'Físico': 'Físico' };
+
+function radarSVG(eixos, tam) {
+  const cx = tam / 2, cy = tam / 2, R = tam / 2 - 34, N = eixos.length;
+  const ang = i => -Math.PI / 2 + i * 2 * Math.PI / N;
+  const pt = (i, r) => [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))];
+  const pol = (f, extra) => '<polygon points="' + eixos.map((_, i) =>
+    pt(i, R * f).map(v => v.toFixed(1)).join(',')).join(' ') + '" ' + extra + '/>';
+
+  let g = '';
+  [0.25, 0.5, 0.75, 1].forEach(f => { g += pol(f, 'fill="none" class="rd-grade"'); });
+  eixos.forEach((e, i) => {
+    const [x, y] = pt(i, R);
+    g += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x.toFixed(1) + '" y2="' +
+         y.toFixed(1) + '" class="rd-grade"/>';
+    const [lx, ly] = pt(i, R + 15);
+    const anc = Math.abs(lx - cx) < 6 ? 'middle' : (lx < cx ? 'end' : 'start');
+    g += '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" text-anchor="' + anc +
+         '" dominant-baseline="middle" class="rd-rot">' + esc(e.rot) + '</text>';
+  });
+  const area = (chave, cls) => '<polygon points="' + eixos.map((e, i) =>
+    pt(i, R * Math.max(0, Math.min(100, e[chave] || 0)) / 100).map(v => v.toFixed(1)).join(',')
+    ).join(' ') + '" class="' + cls + '"/>';
+  return '<svg viewBox="0 0 ' + tam + ' ' + tam + '" class="rd-svg">' + g +
+    area('med', 'rd-coorte') + area('val', 'rd-jog') + '</svg>';
+}
+
+/* porGrupo: grupo -> [[rotulo, valor, media, melhor], ...] */
+function radarDaFicha(porGrupo, nomeJog) {
+  const eixos = [];
+  RADAR_EIXOS.forEach(g => {
+    const linhas = porGrupo[g];
+    if (!linhas || !linhas.length) return;
+    const rel = (k) => {
+      const vs = linhas.map(l => {
+        const mx = l[3];
+        if (typeof l[k] !== 'number' || typeof mx !== 'number' || mx <= 0) return null;
+        return Math.max(0, Math.min(100, l[k] / mx * 100));
+      }).filter(v => v != null);
+      return vs.length ? vs.reduce((a, v) => a + v, 0) / vs.length : null;
+    };
+    const val = rel(1), med = rel(2);
+    if (val == null) return;
+    eixos.push({ rot: RADAR_ROT[g] || g, val, med: med == null ? 0 : med, n: linhas.length });
+  });
+  if (eixos.length < 3) return '';
+  const tabela = eixos.map(e =>
+    '<div class="rd-linha"><span class="r">' + esc(e.rot) + '</span>' +
+    '<span class="a">' + Math.round(e.val) + '</span>' +
+    '<span class="b">' + Math.round(e.med) + '</span>' +
+    '<span class="d ' + (e.val >= e.med ? 'mais' : 'menos') + '">' +
+      (e.val >= e.med ? '+' : '') + Math.round(e.val - e.med) + '</span></div>').join('');
+  return '<div class="fi-grupo fi-radar"><h4>Radar</h4>' +
+    radarSVG(eixos, 230) +
+    '<div class="rd-leg">' +
+      '<span><i class="jog"></i>' + esc(nomeJog) + '</span>' +
+      '<span><i class="coorte"></i>média da coorte</span></div>' +
+    '<div class="rd-tab"><div class="rd-linha cab"><span class="r">eixo</span>' +
+      '<span class="a">ele</span><span class="b">média</span><span class="d">dif.</span></div>' +
+      tabela + '</div>' +
+    '<div class="rd-nota">Cada eixo é a média do grupo entre 0 e o melhor da coorte — ' +
+      'a mesma escala das barras ao lado.</div></div>';
+}
+
 async function montarFicha(j, modo) {
   const lista = coorte(j, modo);
   const ex = ehEstrangeiroBase(j);
@@ -1811,8 +1881,8 @@ async function montarFicha(j, modo) {
 
   const dados = await kpisDe(j);
   let colunas = '';
+  const porGrupo = {};
   if (dados && dados.ok) {
-    const porGrupo = {};
     dados.linhas.forEach(([id, v, med, mx]) => {
       const [grupo, rot] = dados.nomes[id];
       (porGrupo[grupo] = porGrupo[grupo] || []).push([rot, v, med, mx]);
@@ -1835,12 +1905,17 @@ async function montarFicha(j, modo) {
   FISICO.forEach(([campo, rot, casas]) => {
     if (typeof j[campo] !== 'number') return;
     const e = estat(lista, campo);
-    if (e) colFis += linhaInd(rot, j[campo], e.media, e.max, casas);
+    if (!e) return;
+    colFis += linhaInd(rot, j[campo], e.media, e.max, casas);
+    (porGrupo['Físico'] = porGrupo['Físico'] || []).push([rot, j[campo], e.media, e.max]);
   });
   colunas += '<div class="fi-grupo"><h4>Físico (SkillCorner)</h4>' +
     (colFis || '<div class="fi-sem">sem tracking para este jogador</div>') + '</div>';
 
-  const corpo = '<div class="fi-grid">' + colunas + '</div>' +
+  /* o radar entra na frente das colunas: e o resumo delas */
+  const radar = radarDaFicha(porGrupo, j.n);
+
+  const corpo = '<div class="fi-grid">' + radar + colunas + '</div>' +
     '<div class="fi-leg">' +
       '<span><i class="v"></i>acima da média</span>' +
       '<span><i class="r"></i>abaixo</span>' +
