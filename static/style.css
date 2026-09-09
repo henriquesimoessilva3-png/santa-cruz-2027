@@ -1320,7 +1320,8 @@ body:not(.claro){
 .msel-item:hover{background:var(--veu2)}
 .msel-item.todos{border-bottom:1px solid var(--borda);font-weight:700;color:var(--tinta)}
 .msel-item input{margin:0;pointer-events:none;accent-color:var(--coral)}
-.rk-linha2{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+/* os sete controles numa linha so: em duas linhas o painel comia 50px de tabela */
+.rk-linha2{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
 .rk-range{min-width:0}
 .rk-range + .rk-range{border-left:1px solid var(--borda);padding-left:12px}
 .rk-range .vals{display:flex;justify-content:space-between;font-size:10px;color:var(--tinta);
@@ -1336,10 +1337,8 @@ body:not(.claro){
 .rk-trilho{position:absolute;height:4px;background:var(--borda2);width:100%;border-radius:2px;top:50%;transform:translateY(-50%)}
 .rk-cheio{position:absolute;height:4px;background:var(--coral);border-radius:2px;top:50%;transform:translateY(-50%);opacity:.75}
 .rk-rodape{display:flex;align-items:center;gap:10px}
-@media (max-width:1280px){
-  .rk-linha1{grid-template-columns:repeat(4,1fr)}
-  .rk-linha2{grid-template-columns:repeat(5,1fr)}
-}
+@media (max-width:1380px){ .rk-linha2{grid-template-columns:repeat(4,1fr)} }
+@media (max-width:1280px){ .rk-linha1{grid-template-columns:repeat(4,1fr)} }
 
 /* ---------- aba Físico: matriz na leitura Montoro ---------- */
 .fs-linha1{grid-template-columns:minmax(220px,1.6fr) minmax(200px,1.3fr) minmax(92px,.6fr) minmax(150px,1fr) minmax(130px,.9fr)}
@@ -1406,10 +1405,13 @@ body:not(.claro){
    de todos eles no campograma. Assim a barra fica visivel sem mexer no layout. */
 .m-min{display:inline-flex;align-items:flex-end;gap:1.5px;height:8px;vertical-align:middle;
   margin:-3px 0;cursor:help}
-.m-min i{width:3px;min-height:1px;border-radius:1px;background:var(--pilula-meta);opacity:.75}
-.m-min i.sem{height:100%!important;background:transparent;border-bottom:1px solid var(--pilula-meta);opacity:.35}
-.jog.titular .m-min i{background:currentColor;opacity:.6}
-.campo.denso .m-min{height:8px}
+.m-min i{position:relative;width:3px;height:100%;border-radius:1px;
+  background:var(--pilula-meta);opacity:.18}
+.m-min i b{position:absolute;left:0;right:0;bottom:0;min-height:1px;border-radius:1px;
+  background:var(--pilula-meta);opacity:5}
+.m-min i.sem{opacity:.1}
+.m-min i.sem b{display:none}
+.jog.titular .m-min i,.jog.titular .m-min i b{background:currentColor}
 
 /* ---------- bloco de temporadas dentro da matriz do Fisico ---------- */
 #fsMatriz tr.fs-soma td{background:var(--veu0)}
@@ -1434,7 +1436,35 @@ body:not(.claro){
 /* ---------- sem cabecalho de texto nas duas abas: a lista comeca no topo ----------
    O nome da aba ja esta na barra logo acima e o rodape ja diz que a linha leva ao
    campograma; o titulo repetido so comia altura de tela. */
-.rk-filtros{padding-top:10px;padding-bottom:8px}
+.rk-filtros{padding:8px 16px 6px;gap:14px}
+.rk-col{gap:6px}
+.rk-campo{height:96px}
+.rk-legenda{padding-top:6px;gap:7px}
+.rk-rodape{gap:8px}
 #fsMatriz thead th{padding:6px 9px 5px}
 .fs-col .fs-nome b{font-size:12px}
 #fsMatriz thead th.fs-col{min-width:92px}
+
+/* ---------- tabelas de lista: grade, para o olho nao pular de linha ---------- */
+#fcTabela th,#fcTabela td,#fsTabela th,#fsTabela td{border-right:1px solid var(--linha-tab)}
+#fcTabela th:last-child,#fcTabela td:last-child{border-right:none}
+#fcTabela tbody td{border-bottom:1px solid var(--borda)}
+#fcTabela thead th{border-bottom:1px solid var(--borda2)}
+#fcTabela tbody tr:nth-child(even) td{background:var(--veu0)}
+#fcTabela tbody tr:hover td{background:var(--veu2)}
+#fsMatriz td,#fsMatriz th{border-right:1px solid var(--linha-tab)}
+#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-child(even) td:first-child{background:var(--veu0)}
+
+/* minutos e gols em colunas proprias: barra maior, numero em destaque */
+.fc-carr .m-min{height:13px;margin:0;gap:2px}
+.fc-carr .m-min i{width:4px}
+.fc-min{font-variant-numeric:tabular-nums;font-weight:700;color:var(--tinta)}
+.fc-gols{font-variant-numeric:tabular-nums;font-weight:800;font-size:12.5px;color:var(--tinta)}
+.fc-gols.zero{color:var(--tinta3);font-weight:600}
+
+/* premissas das colunas novas, na mesma legenda das outras */
+.rk-prem{display:block!important;text-transform:none;letter-spacing:0;line-height:1.45;
+  font-size:9.5px;color:var(--tinta3);max-width:300px}
+.rk-prem b{color:var(--tinta2);font-weight:700}
+.rk-prem .ex-rec{font-style:normal;font-weight:800;padding:0 3px;border-radius:3px;
+  background:#22c55e26;color:var(--txt-verde)}

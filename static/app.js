@@ -745,10 +745,12 @@ function barraMinutos(h) {
   if (!h || !h.some(Boolean)) return '';
   const txt = h.map((x, i) => (HIST.temporadas[i] || '?') + ': ' +
     (x ? milhar(x.min || 0) + ' min em ' + (x.j || 0) + ' jogos · ' + x.l : 'sem dado')).join(' · ');
+  /* trilho + preenchimento: sozinha, a barra so compara as tres entre si; com o
+     trilho da para ver quanto de uma temporada inteira cada ano representa */
   return '<span class="m-min" title="Minutos por temporada — ' + esc(txt) + '">' +
     h.map(x => {
       const pct = x ? Math.max(6, Math.min(100, (x.min || 0) / MIN_TEMPORADA * 100)) : 0;
-      return '<i class="' + (x ? '' : 'sem') + '" style="height:' + pct.toFixed(0) + '%"></i>';
+      return '<i' + (x ? '' : ' class="sem"') + '><b style="height:' + pct.toFixed(0) + '%"></b></i>';
     }).join('') + '</span>';
 }
 
@@ -1909,25 +1911,32 @@ function fcData(iso) {
 }
 
 const FC_COLUNAS = [
-  { c: 'n', r: 'Jogador', w: 17, cel: j =>
+  { c: 'n', r: 'Jogador', w: 15, cel: j =>
       '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
       (j.ov ? ' <span class="fc-ovr">' + j.ov + '</span>' : '') +
       '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },
   { c: 'p',   r: 'Pos.',  w: 4,  cel: j => j.p },
   { c: 'id_', r: 'Idade', w: 4,  num: 1, cel: j => j.id_ ?? '—' },
-  { c: 'g3', r: 'Gols · 3 temp.', w: 9,
-    t: 'Minutagem e gols das últimas três temporadas (Wyscout). O selo mostra em quantas ' +
-       'delas fez ' + GOLS_TEMPORADA + ' gols ou mais.',
+  { c: 'min3', r: 'Minutos · 3 temp.', w: 9,
+    t: 'Minutos das últimas três temporadas (Wyscout). Cada barra é um ano, cheia quando ' +
+       'ele jogou uma temporada inteira; o número é a soma das três.',
     num: 1, cel: j => {
-      const pk = primaryKey(j), h = hist(pk), r = histResumo(pk, GOLS_TEMPORADA);
+      const pk = primaryKey(j), r = histResumo(pk);
       if (!r) return '<span class="fc-vazia">–</span>';
-      return '<div class="fc-carr">' + barraMinutos(h) +
-        '<b>' + r.gols + 'g</b>' +
+      return '<div class="fc-carr">' + barraMinutos(hist(pk)) +
+        '<b class="fc-min">' + milhar(r.min) + '</b></div>'; } },
+  { c: 'g3', r: 'Gols · 3 temp.', w: 7,
+    t: 'Gols nas últimas três temporadas. O selo mostra em quantas delas fez ' +
+       GOLS_TEMPORADA + ' gols ou mais.',
+    num: 1, cel: j => {
+      const pk = primaryKey(j), r = histResumo(pk, GOLS_TEMPORADA);
+      if (!r) return '<span class="fc-vazia">–</span>';
+      return '<div class="fc-carr">' +
+        '<b class="fc-gols' + (r.gols ? '' : ' zero') + '">' + r.gols + '</b>' +
         (r.goleadoras >= 2 ? '<span class="fc-rec" title="' + r.goleadoras + ' temporadas com ' +
-          GOLS_TEMPORADA + '+ gols">' + r.goleadoras + '/3</span>' : '') +
-        '<span class="fc-carr-min">' + milhar(r.min) + ' min</span></div>'; } },
-  { c: 'cob', r: 'Bola parada', w: 8,
+          GOLS_TEMPORADA + '+ gols">' + r.goleadoras + '/3</span>' : '') + '</div>'; } },
+  { c: 'cob', r: 'Bola parada', w: 7,
     t: 'Cobranças por 90 na temporada atual (escanteios + faltas) e gols de cabeça nas três ' +
        'temporadas. O Wyscout não marca a origem do gol: são os dois lados possíveis da ' +
        'bola parada — quem cobra e quem cabeceia.',
@@ -2262,6 +2271,7 @@ function fcRender() {
   const camp = fcOrdem.campo, desc = fcOrdem.desc;
   const valor = (j) => camp === 'sal' ? (faixaSalarioTR(j) || {}).min
                      : camp.startsWith('src_') ? ((j.src || {})[camp.slice(4)] || '')
+                     : camp === 'min3' ? ((histResumo(primaryKey(j)) || {}).min)
                      : camp === 'g3' ? ((histResumo(primaryKey(j), GOLS_TEMPORADA) || {}).gols)
                      : camp === 'cob' ? ((histResumo(primaryKey(j)) || {}).cobrancas)
                      : j[camp];
