@@ -1,0 +1,20 @@
+# Deploy no Render — https://render.com
+# O disco guarda os grupos salvos, que sobrevivem a cada nova publicação.
+services:
+  - type: web
+    name: santa-cruz-2027
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+    envVars:
+      - key: SC_SENHA
+        sync: false            # a senha é digitada no painel do Render
+      - key: SC_CENARIOS
+        value: /var/dados/cenarios.json
+      - key: PYTHON_VERSION
+        value: "3.13.2"
+    disk:
+      name: dados
+      mountPath: /var/dados
+      sizeGB: 1
