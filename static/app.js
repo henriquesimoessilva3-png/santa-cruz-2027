@@ -271,12 +271,6 @@ const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas
 /* Laterais e extremos ficam no topo e na base da coluna, enquanto as colunas
    vizinhas ficam centradas — entao esses cards podem ser mais largos sem encostar. */
 const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
-let recalculandoNomes = false;
-/* Largura do card de DUAS medidas atras. O re-render abaixo so vale a pena quando a
-   largura esta convergindo; quando ela alterna entre dois valores (A -> B -> A -> B)
-   cada passada pede outra e a tela treme. Guardar so a anterior nao pega alternancia:
-   ela sempre "mudou". Comparando com a de duas atras, o ciclo se reconhece e para. */
-let larguraCardDuasAtras = 0;
 
 /* Maior largura em que nenhum par de cards se encosta. A altura de cada card nao
    depende da largura (o nome cabe sempre numa linha), entao da para simular. */
@@ -359,15 +353,13 @@ function distribuir() {
     const maxPx = maiorLarguraQueCabe(campo, larg);
     campo.style.setProperty('--pos-max', maxPx + 'px');
     campo.style.setProperty('--pos-max-aberto', maxPx + 'px');
-    const antes = larguraCardPx;
     const um = campo.querySelector('.pos');
     if (um) { larguraCardPx = um.offsetWidth; larguraCardAberto = larguraCardPx; }
-    const alternando = Math.abs(larguraCardPx - larguraCardDuasAtras) <= 2;
-    larguraCardDuasAtras = antes;
-    if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes && !alternando) {
-      recalculandoNomes = true;
-      requestAnimationFrame(() => { recalculandoNomes = false; renderCampo(); });
-    }
+    /* Os nomes NAO sao refeitos daqui. distribuir() roda mais de uma vez por ajuste
+       (fonte 1, depois fonte compensada), com alturas diferentes e larguras diferentes
+       — 294 e 265 no rastro do tremor. Refazer os cards a cada diferenca reabria o
+       ciclo. Quem abrevia os nomes e atualizarNomes(), depois que o layout assentou,
+       mexendo so no texto: nada de reconstruir card, nada de mudar altura. */
   } else {
     campo.style.setProperty('--pos-max', Math.max(140, Math.floor(larg * 0.22)) + 'px');
   }
@@ -471,7 +463,60 @@ function compensarEscala(campo, k, alt) {
    esse frame caia dentro do cadeado; o ajuste era engolido e os cards ficavam
    sem posicao. */
 let ajustando = false;
+
+/* Grava cada ajuste com as medidas do momento. Passando de 8 num intervalo de 2s,
+   manda o rastro para o servidor (dados/diagnostico.log) — e assim da para ver o
+   ciclo acontecendo na maquina de quem usa, sem depender de reproduzir aqui. */
+const diagHist = [];
+let diagEnviado = 0;
+function diagRegistrar(campo, area) {
+  const agora = Date.now();
+  const card = campo.querySelector('.pos');
+  diagHist.push({
+    t: agora,
+    areaW: area.clientWidth, areaH: area.clientHeight,
+    campoH: campo.offsetHeight, campoW: campo.offsetWidth,
+    card: card ? card.offsetWidth : 0,
+    escala: campo.style.transform || '',
+    fz: campo.style.getPropertyValue('--fz') || '',
+    modo: estado.ajustar ? 'caber' : 'real',
+    atletas: todosJogadores().length,
+  });
+  if (diagHist.length > 40) diagHist.shift();
+
+  const recentes = diagHist.filter(d => agora - d.t < 2000);
+  if (recentes.length > 8 && agora - diagEnviado > 20000) {
+    diagEnviado = agora;
+    console.warn('campograma tremendo — rastro enviado para dados/diagnostico.log');
+    try {
+      fetch('api/diagnostico', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tela: window.innerWidth + 'x' + window.innerHeight,
+          dpr: window.devicePixelRatio,
+          zoom: Math.round((window.outerWidth / window.innerWidth) * 100) / 100,
+          ua: navigator.userAgent.slice(0, 120),
+          eventos: recentes,
+        }),
+      });
+    } catch (e) {}
+  }
+}
 let soltarCadeado = 0;
+
+/* Abrevia (ou desabrevia) os nomes para a largura final do card, trocando apenas o
+   texto do <span>. Nao reconstroi nada, entao a altura nao muda e nenhum observador
+   e acordado. Chamada uma vez, ao fim do ajuste. */
+function atualizarNomes() {
+  $$('.jog').forEach(el => {
+    const nm = el.querySelector('.nm');
+    if (!nm || !el.dataset.nome) return;
+    const ref = { titular: el.classList.contains('titular'),
+                  estrangeiro: el.classList.contains('estrangeiro') };
+    const novo = nomeCurto(el.dataset.nome, limiteNome(ref, el.dataset.pos));
+    if (nm.textContent !== novo) nm.textContent = novo;
+  });
+}
 
 function ajustarCampo() {
   const campo = $('#campo'), area = $('.campo-area');
@@ -484,6 +529,9 @@ function ajustarCampo() {
      melhor nao mexer e esperar o proximo gatilho. */
   const disp = alturaDisponivel();
   if (!(disp > 0)) return;
+
+  /* --- rastro do tremor: so observa, nao muda nada --- */
+  diagRegistrar(campo, area);
 
   ajustando = true;
   /* Rede de seguranca do cadeado: em aba escondida o requestAnimationFrame nao
@@ -529,6 +577,7 @@ function ajustarCampo() {
     const alt2 = distribuir();
     const k2 = Math.min(1, disp / alt2);
     aplicar(alt2, k2);
+    atualizarNomes();
     if (info) {
       const cabe = alt2 * k2 <= disp + 2;
       info.textContent = k2 < 1
@@ -595,6 +644,7 @@ function cardJog(cod, j) {
                  (j.estrangeiro ? ' estrangeiro' : '');
   el.dataset.uid = j.uid;
   el.dataset.pos = cod;
+  el.dataset.nome = j.nome;
   el.title = STATUS_ROT[j.status || 'alvo'] +
              (j.estrangeiro ? ' · ESTRANGEIRO (' + (j.nac || '?') + ')' : '') +
              ' · arraste para reordenar · ⋯ abre as ações';

@@ -110,6 +110,17 @@ def escudo():
     abort(404)
 
 
+@app.route("/api/diagnostico", methods=["POST"])
+def api_diagnostico():
+    """Recebe o rastro de um tremor detectado na tela e grava para analise."""
+    dados = request.get_json(silent=True) or {}
+    caminho = os.path.join(AQUI, "dados", "diagnostico.log")
+    with open(caminho, "a", encoding="utf-8") as fh:
+        fh.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " " +
+                 json.dumps(dados, ensure_ascii=False) + "\n")
+    return jsonify({"ok": True})
+
+
 @app.route("/api/comparativo")
 def api_comparativo():
     """Resumo de cada grupo salvo, para a tela de comparacao."""
