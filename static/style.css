@@ -1388,16 +1388,23 @@ body:not(.claro){
 .fs-grupo td:first-child span{font-size:10px;color:var(--tinta3)}
 .fs-rot{color:var(--tinta2);line-height:1.2;font-size:11px}
 .fs-rot small{display:block;font-size:9px;color:var(--tinta3);font-family:ui-monospace,Menlo,monospace;letter-spacing:.2px}
-.fs-c{text-align:right;font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace;font-size:11.5px}
-.fs-c .v{display:inline-block;min-width:46px;color:var(--tinta2)}
-.fs-bar{display:inline-block;width:9px;height:15px;border-radius:2px;background:var(--trilho);position:relative;
-  vertical-align:middle;margin-right:7px;overflow:hidden}
-.fs-bar b{position:absolute;left:0;right:0;bottom:0;background:var(--tinta3);border-radius:2px}
-.fs-c.alto .fs-bar b{background:var(--verde)} .fs-c.alto .v{color:var(--txt-verde)}
-.fs-c.baixo .fs-bar b{background:var(--coral)} .fs-c.baixo .v{color:var(--txt-vermelho)}
-.fs-c.lider{box-shadow:inset 0 0 0 2px #e2a51f;border-radius:3px} .fs-c.lider .v{font-weight:800}
+/* Celula no desenho do estudo Montoro: pilula colorida a esquerda (verde no topo da
+   linha, vermelha no fim), numero em cor neutra e so o lider com moldura dourada.
+   Colorir tambem o numero, como estava, deixava a matriz inteira piscando de verde e
+   vermelho e a moldura do lider sumia no meio. */
+.fs-c{text-align:right;font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace;
+  font-size:11.5px;padding:3px 8px}
+.fs-c .v{display:inline-block;min-width:44px;color:var(--tinta)}
+.fs-bar{display:inline-block;width:8px;height:15px;border-radius:3px;background:var(--trilho);
+  position:relative;vertical-align:middle;margin-right:8px;overflow:hidden}
+.fs-bar b{position:absolute;left:0;right:0;bottom:0;background:var(--tinta3);border-radius:3px}
+.fs-c.alto .fs-bar b{background:var(--verde)}
+.fs-c.baixo .fs-bar b{background:var(--coral)}
+.fs-c.lider{box-shadow:inset 0 0 0 2px #e2a51f;border-radius:5px}
+.fs-c.lider .v{font-weight:800;color:#e2a51f}
+.fs-c.lider .fs-bar b{background:var(--verde)}
 .fs-c.media .v{color:var(--tinta3)}
-.fs-c.vazio .v{color:var(--tinta3);opacity:.5}
+.fs-c.vazio .v{color:var(--tinta3);opacity:.45}
 
 /* ---------- minutagem das tres temporadas, na linha de metadados do card ---------- */
 /* margem negativa de proposito: uma caixa inline mais alta que o texto empurraria a
@@ -1452,8 +1459,8 @@ body:not(.claro){
 #fcTabela thead th{border-bottom:1px solid var(--borda2)}
 #fcTabela tbody tr:nth-child(even) td{background:var(--veu0)}
 #fcTabela tbody tr:hover td{background:var(--veu2)}
-#fsMatriz td,#fsMatriz th{border-right:1px solid var(--linha-tab)}
-#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-child(even) td:first-child{background:var(--veu0)}
+#fsMatriz td{border-right:none}
+#fsMatriz th{border-right:none}
 
 /* minutos e gols em colunas proprias: barra maior, numero em destaque */
 .fc-carr .m-min{height:13px;margin:0;gap:2px}
@@ -1501,8 +1508,7 @@ body:not(.claro){
 .bt-tema{padding:4px 9px;font-size:13px;line-height:1.1;min-width:0}
 
 /* ---------- radar da ficha ---------- */
-.fi-radar{grid-row:span 2}
-.rd-svg{width:100%;max-width:236px;height:auto;display:block;margin:2px auto 4px}
+.rd-svg{width:100%;max-width:248px;height:auto;display:block;margin:0 auto 2px}
 .rd-grade{stroke:var(--borda2);stroke-width:1;fill:none}
 .rd-rot{fill:var(--tinta3);font-size:9.5px;font-weight:700}
 .rd-coorte{fill:var(--tinta3);fill-opacity:.14;stroke:var(--tinta3);stroke-width:1.5;
@@ -1526,3 +1532,34 @@ body:not(.claro){
 .rd-linha.cab span{color:var(--tinta3);font-weight:700;font-size:8.5px;text-transform:uppercase;
   letter-spacing:.6px}
 .rd-nota{font-size:9px;color:var(--tinta3);line-height:1.4;margin-top:6px}
+
+.fc-ass{font-size:10px;font-weight:700;color:var(--txt-azul);font-variant-numeric:tabular-nums}
+.fc-ass.zero{color:var(--tinta3);font-weight:600}
+
+/* ---------- matriz na leitura do Montoro: faixas, nao grade ---------- */
+#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td{background:var(--veu0)}
+#fsMatriz tbody tr:not(.fs-grupo):not(.fs-aviso):nth-of-type(even) td:first-child{background:var(--veu0)}
+#fsMatriz tbody tr:not(.fs-grupo):hover td{background:var(--veu2)}
+#fsMatriz tbody td{border-bottom:none}
+#fsMatriz .fs-rot{padding:3px 10px 3px 4px}
+/* faixa do grupo, como as barras VELOCIDAD / USO DE LA VELOCIDAD do estudo */
+#fsMatriz tr.fs-grupo td{background:var(--fundo3)!important;padding:7px 9px 6px;
+  border-top:1px solid var(--borda2);border-bottom:1px solid var(--borda2)}
+#fsMatriz tr.fs-grupo td:first-child b{font-size:10.5px;letter-spacing:1.4px}
+
+/* ---------- ficha numa linha so: radar + os cinco grupos ----------
+   Com `auto-fit minmax(310px)` o Fisico caia para uma segunda linha e obrigava a
+   rolar a ficha para ver a coluna que faltava. Larguras fixas para o radar e o resto
+   dividido em cinco, com a fonte um ponto menor. */
+.fi-grid{display:grid;grid-template-columns:212px repeat(5,minmax(0,1fr));gap:2px 16px;
+  padding:8px 14px;align-items:start}
+.fi-grid .fi-linha{grid-template-columns:minmax(0,1fr) 38px minmax(20px,52px) 30px 30px;
+  gap:5px;font-size:10px}
+.fi-grid .fi-linha .rot{font-size:9.5px}
+.fi-grid .fi-linha .med,.fi-grid .fi-linha .mx{font-size:8.5px}
+.fi-grupo h4{font-size:9px}
+.rd-tab{font-size:9.5px}
+.rd-linha{grid-template-columns:minmax(0,1fr) 30px 30px 30px;gap:5px}
+@media (max-width:1180px){
+  .fi-grid{grid-template-columns:200px repeat(3,minmax(0,1fr))}
+}

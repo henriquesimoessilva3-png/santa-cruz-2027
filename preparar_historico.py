@@ -81,6 +81,56 @@ def sobrenome(nm):
     return partes[-1] if partes else ""
 
 
+def combina(atual, cand, temporada, unico):
+    """Custo de casar `cand` (linha de uma temporada anterior) com `atual`, ou None
+    quando os dois nao podem ser a mesma pessoa.
+
+    Nome NAO basta, e o preco de errar e alto: o "Luiz Henrique" do Avai recebeu a
+    temporada do "Luiz Henrique" do Botafogo (35 jogos e 7 gols na Serie A que nao
+    eram dele) e o "Pedro" do Flamengo recebeu a de um Pedro do Guabira, na Bolivia.
+    Altura e pais de nascimento nao mudam entre temporadas e sao o que separa
+    homonimos; a idade tambem, lembrando que a do Wyscout e a da extracao daquele ano.
+
+    Por isso a regra depende de o nome ser unico:
+
+    - **nome unico dos dois lados** (um so jogador com aquele nome hoje e um so
+      candidato na temporada anterior): casa, ainda conferindo pais, altura e idade
+      quando existem.
+    - **nome repetido**: NAO casa. Corroborar com pais, altura e idade nao basta —
+      o Pedro do Flamengo recebeu a temporada de um Pedro do Guabira, na Bolivia,
+      com pais, altura e idade todos dentro da tolerancia. Dois brasileiros de mesma
+      idade e altura sao indistinguiveis por estes campos. Quem repoe a cobertura
+      desses e o oGol (`preparar_ogol.py`), que resolve por id de jogador e nao por
+      nome.
+    """
+    if not unico:
+        return None
+
+    custo = 0.0
+
+    if atual["_pais"] and cand["_pais"] and atual["_pais"] != cand["_pais"]:
+        return None
+
+    if atual["_alt"] and cand["_alt"]:
+        d = abs(atual["_alt"] - cand["_alt"])
+        if d > 2:
+            return None
+        custo += d
+    else:
+        custo += 1.5              # um dos lados sem altura: casa, mas perde para quem tem
+
+    if atual["_idade"] is not None and cand["_idade"] is not None:
+        esperada = atual["_idade"] - (ANO_ATUAL - int(temporada))
+        d = abs(cand["_idade"] - esperada)
+        if d > 1:
+            return None
+        custo += d * 2            # idade pesa mais que altura
+    else:
+        custo += 1.5
+
+    return custo
+
+
 def mesma_pessoa(a, b):
     """Vale casar por sobrenome? Exige inicial do primeiro nome igual quando os
     dois tem mais de um pedaco — 'G. Silva' e 'Lucas Silva' nao sao a mesma
@@ -134,7 +184,8 @@ def ler_temporada(pasta):
             if not isinstance(nome, str) or not nome.strip():
                 continue
             reg = {"n": nome.strip(), "tm": str(r.get(col_time) or "").strip(), "l": liga,
-                   "_nm": norm(nome), "_idade": num(r.get("Age"))}
+                   "_nm": norm(nome), "_idade": num(r.get("Age")),
+                   "_alt": num(r.get("Height")), "_pais": str(r.get("Birth country") or "").strip()}
             for col, chave, casas in CAMPOS:
                 v = num(r.get(col), casas) if col in df.columns else None
                 if v is not None:
@@ -172,47 +223,77 @@ def main():
     achados = defaultdict(int)
     por_sobrenome = defaultdict(int)
     ambiguos = defaultdict(int)
+
+    """Atribuicao um-para-um, por nome e por temporada.
+
+    Antes cada jogador da temporada corrente escolhia sozinho o seu candidato, e
+    dois homonimos podiam levar a MESMA linha antiga — ou o errado levar a linha do
+    outro, que era o caso do Luiz Henrique. Agora, para cada nome, os candidatos sao
+    disputados: menor custo leva, e a linha sai do bolo.
+    """
+    # quantos jogadores levam cada nome, hoje e em cada temporada anterior
+    quantos_hoje = defaultdict(int)
     for a in atual:
-        pk = f"{a['n']} - {a['tm']} - {a['l']}"
-        temps = []
-        for temporada, _ in TEMPORADAS:
-            if temporada == TEMPORADAS[-1][0]:
-                temps.append(a)
-                continue
-            # a idade do Excel e a da extracao daquele ano, nao a de hoje
-            esperada = (a["_idade"] - (ANO_ATUAL - int(temporada))
-                        if a["_idade"] is not None else None)
+        quantos_hoje[a["_nm"]] += 1
 
-            def compativel(cs):
-                if esperada is None:
-                    return cs
-                return [c for c in cs
-                        if c["_idade"] is None or abs(c["_idade"] - esperada) <= 1]
+    escolha = {}                       # (indice do atual, temporada) -> linha antiga
+    for temporada, _ in TEMPORADAS[:-1]:
+        idx, idx_sn = indices[temporada], indices_sn[temporada]
+        grupos = defaultdict(list)     # chave de busca -> indices dos atuais
+        for n, a in enumerate(atual):
+            grupos[a["_nm"]].append(n)
 
-            cands = compativel(indices[temporada].get(a["_nm"], []))
-            via_sn = False
-            if not cands:
-                # o Wyscout escreve o mesmo jogador de formas diferentes entre os
-                # anos ("Arrascaeta" x "Giorgian de Arrascaeta"): tenta o sobrenome
-                sn = sobrenome(a["_nm"])
-                if sn:
-                    cands = [c for c in compativel(indices_sn[temporada].get(sn, []))
-                             if mesma_pessoa(a["_nm"], c["_nm"])]
-                    via_sn = True
-
-            if len(cands) == 1:
-                temps.append(cands[0])
+        tomadas = set()
+        for chave, quais in grupos.items():
+            pares = []
+            candidatos = idx.get(chave, [])
+            unico = quantos_hoje[chave] == 1 and len(candidatos) == 1
+            for n in quais:
+                for cand in candidatos:
+                    c = combina(atual[n], cand, temporada, unico)
+                    if c is not None:
+                        pares.append((c, n, id(cand), cand, False))
+            pares.sort(key=lambda x: (x[0], x[1]))
+            for custo, n, cid, cand, _sn in pares:
+                if (n, temporada) in escolha or cid in tomadas:
+                    continue
+                escolha[(n, temporada)] = cand
+                tomadas.add(cid)
                 achados[temporada] += 1
-                if via_sn:
-                    por_sobrenome[temporada] += 1
-            elif len(cands) > 1:
-                ambiguos[temporada] += 1
-                temps.append(None)
-            else:
-                temps.append(None)
 
+        # reserva pelo sobrenome, so para quem ficou sem nada
+        grupos_sn = defaultdict(list)
+        for n, a in enumerate(atual):
+            if (n, temporada) in escolha:
+                continue
+            sn = sobrenome(a["_nm"])
+            if sn:
+                grupos_sn[sn].append(n)
+        for sn, quais in grupos_sn.items():
+            candidatos_sn = idx_sn.get(sn, [])
+            unico_sn = len(quais) == 1 and len(candidatos_sn) == 1
+            pares = []
+            for n in quais:
+                for cand in candidatos_sn:
+                    if id(cand) in tomadas or not mesma_pessoa(atual[n]["_nm"], cand["_nm"]):
+                        continue
+                    c = combina(atual[n], cand, temporada, unico_sn)
+                    if c is not None:
+                        pares.append((c, n, id(cand), cand))
+            pares.sort(key=lambda x: (x[0], x[1]))
+            for custo, n, cid, cand in pares:
+                if (n, temporada) in escolha or cid in tomadas:
+                    continue
+                escolha[(n, temporada)] = cand
+                tomadas.add(cid)
+                achados[temporada] += 1
+                por_sobrenome[temporada] += 1
+
+    for n, a in enumerate(atual):
+        pk = f"{a['n']} - {a['tm']} - {a['l']}"
         registro = []
-        for (temporada, _), t in zip(TEMPORADAS, temps):
+        for temporada, _ in TEMPORADAS:
+            t = a if temporada == TEMPORADAS[-1][0] else escolha.get((n, temporada))
             if t is None:
                 registro.append(None)
                 continue
@@ -226,8 +307,7 @@ def main():
 
     for temporada in indices:
         print(f"    {temporada}: {achados[temporada]} casados "
-              f"({por_sobrenome[temporada]} pelo sobrenome) · {ambiguos[temporada]} "
-              f"descartados por homonimo")
+              f"({por_sobrenome[temporada]} pelo sobrenome)")
 
     destino = os.path.join(AQUI, "dados", "historico.json")
     with open(destino, "w", encoding="utf-8") as fh:

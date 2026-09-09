@@ -3,19 +3,27 @@
 
 /* ---------------- configuracao das posicoes ---------------- */
 const VAGAS_PADRAO = 3;
+/* As siglas na TELA sao as internacionais (GK, RCB, LB, DM, CM, AM, LW, CF...).
+   O codigo interno segue o portugues (GOL, ZD, LE...) porque e a chave da base, dos
+   KPIs em dados/kpis/<POS>.json e dos cenarios ja gravados — trocar a chave exigiria
+   migrar tudo isso. `sig` e so a etiqueta; `c` continua sendo a chave. */
 const POSICOES = [
-  { c:'GOL', nome:'Goleiro',           setor:'gol',    faixa:'gol' },
-  { c:'LE',  nome:'Lateral Esquerdo',  setor:'defesa', faixa:'defesa' },
-  { c:'ZE',  nome:'Zagueiro Esquerdo', setor:'defesa', faixa:'defesa' },
-  { c:'ZD',  nome:'Zagueiro Direito',  setor:'defesa', faixa:'defesa' },
-  { c:'LD',  nome:'Lateral Direito',   setor:'defesa', faixa:'defesa' },
-  { c:'VOL', nome:'Volante',           setor:'meio',   faixa:'meio' },
-  { c:'MED', nome:'Médio',             setor:'meio',   faixa:'meio' },
-  { c:'MEI', nome:'Meia',              setor:'meio',   faixa:'meia' },
-  { c:'EE',  nome:'Extremo Esquerdo',  setor:'ataque', faixa:'ataque' },
-  { c:'CA',  nome:'Atacante',          setor:'ataque', faixa:'ataque' },
-  { c:'ED',  nome:'Extremo Direito',   setor:'ataque', faixa:'ataque' },
+  { c:'GOL', sig:'GK',  nome:'Goleiro',           setor:'gol',    faixa:'gol' },
+  { c:'LE',  sig:'LB',  nome:'Lateral Esquerdo',  setor:'defesa', faixa:'defesa' },
+  { c:'ZE',  sig:'LCB', nome:'Zagueiro Esquerdo', setor:'defesa', faixa:'defesa' },
+  { c:'ZD',  sig:'RCB', nome:'Zagueiro Direito',  setor:'defesa', faixa:'defesa' },
+  { c:'LD',  sig:'RB',  nome:'Lateral Direito',   setor:'defesa', faixa:'defesa' },
+  { c:'VOL', sig:'DM',  nome:'Volante',           setor:'meio',   faixa:'meio' },
+  { c:'MED', sig:'CM',  nome:'Médio',             setor:'meio',   faixa:'meio' },
+  { c:'MEI', sig:'AM',  nome:'Meia',              setor:'meio',   faixa:'meia' },
+  { c:'EE',  sig:'LW',  nome:'Extremo Esquerdo',  setor:'ataque', faixa:'ataque' },
+  { c:'CA',  sig:'CF',  nome:'Atacante',          setor:'ataque', faixa:'ataque' },
+  { c:'ED',  sig:'RW',  nome:'Extremo Direito',   setor:'ataque', faixa:'ataque' },
 ];
+/* codigo interno -> etiqueta de tela */
+const SIGLA_POS = {};
+POSICOES.forEach(p => { SIGLA_POS[p.c] = p.sig; });
+function sig(cod) { return SIGLA_POS[cod] || cod; }
 /* Layout do campograma. No campo deitado cada coluna empilha as suas posicoes e o
    conjunto fica centrado na vertical; no campo em pe cada linha distribui as posicoes
    na horizontal. As alturas saem dos cards de verdade — nao sobra vao nem falta espaco. */
@@ -711,7 +719,7 @@ function cardPos(cod) {
   const falta = lista.length < meta;
   el.innerHTML =
     '<div class="pos-topo">' +
-      '<span class="sigla">' + cod + '</span>' +
+      '<span class="sigla" title="' + esc(p.nome) + '">' + sig(cod) + '</span>' +
       '<span class="pos-nome">' + esc(p.nome) + '</span>' +
       (nEstr ? '<span class="pos-estr" title="' + nEstr + ' estrangeiro(s) nesta posição">' + nEstr + '⚑</span>' : '') +
       '<span class="pos-qtd' + (falta ? ' falta' : '') + '" title="atletas / vagas (clique para mudar)">' +
@@ -773,7 +781,8 @@ function cardJog(cod, j) {
          : '<span class="m-ct sem" title="contrato não informado">sem contrato</span>') +
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
     barraMinutos(histDoElenco(j)) +
-    (j.posOrig && j.posOrig !== cod ? '<span class="m-pos">' + j.posOrig + '</span>' : '');
+    (j.posOrig && j.posOrig !== cod ? '<span class="m-pos" title="posição de origem">' +
+      sig(j.posOrig) + '</span>' : '');
 
   el.innerHTML =
     '<div class="jog-nome' + (j.jid != null ? ' clicavel' : '') + '" title="' +
@@ -937,7 +946,7 @@ function abrirMenuJogador(botao, cod, j) {
       ((j.status || 'alvo') === st ? ' class="atual"' : '') + '>' + STATUS_ROT[st] + '</button>').join('') +
     '<div class="menu-sep">Mover para</div>' +
     '<div class="menu-pos">' + POSICOES.filter(p => p.c !== cod).map(p =>
-      '<button data-a="mv:' + p.c + '" title="' + esc(p.nome) + '">' + p.c + '</button>').join('') + '</div>' +
+      '<button data-a="mv:' + p.c + '" title="' + esc(p.nome) + '">' + p.sig + '</button>').join('') + '</div>' +
     '<button data-a="remover" class="perigo">Tirar do elenco</button>';
 
   document.body.appendChild(m);
@@ -1302,7 +1311,7 @@ const COLUNAS = [
       ' <button class="ver-ficha" title="Ver o detalhe do jogador">+</button>' },
   { c: 't',   r: 'Clube',    w: 14,  cel: j => esc(j.t) },
   { c: 'l',   r: 'Liga',     w: 11,  cel: j => '<span class="fraco">' + esc(j.l) + '</span>' },
-  { c: 'p',   r: 'Pos.',     w: 5,   cel: j => j.p, tit: j => 'Wyscout: ' + (j.pw || '—') },
+  { c: 'p',   r: 'Pos.',     w: 5,   cel: j => sig(j.p), tit: j => 'Wyscout: ' + (j.pw || '—') },
   { c: 'id_', r: 'Idade',    w: 5.5, num: 1, cel: j => j.id_ ?? '—' },
   { c: 'ov',  r: 'Overall',  w: 7.5, num: 1, cel: j => {
       const cl = !j.ov ? 'x' : j.ov >= 65 ? 'a' : j.ov >= 55 ? 'b' : j.ov >= 45 ? 'c' : 'd';
@@ -1374,7 +1383,7 @@ function renderTabela() {
   $('#mbContagem').innerHTML = '<b>' + milhar(resultado.length) + '</b> jogadores' +
     (nEx ? ' · <b>' + nEx + '</b> estrangeiros' : '') +
     (resultado.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
-    ' · clique para adicionar em <b>' + posAtual + '</b>';
+    ' · clique para adicionar em <b>' + sig(posAtual) + '</b>';
 
   $$('#tbody tr[data-id]').forEach(tr => {
     tr.onclick = () => adicionarDaBase(parseInt(tr.dataset.id));
@@ -1389,7 +1398,7 @@ function adicionarDaBase(id) {
   const j = BASE.find(x => x.id === id);
   if (!j) return;
   const lista = estado.elenco[posAtual];
-  if (lista.some(x => x.jid === id)) { toast('Esse jogador já está em ' + posAtual, 'ruim'); return; }
+  if (lista.some(x => x.jid === id)) { toast('Esse jogador já está em ' + sig(posAtual), 'ruim'); return; }
   /* Sem salario sugerido: o jogador entra com 0 (ambar) e o usuario define. A faixa
      do TransferRoom continua visivel na ficha e na aba Fim de contrato, so nao
      preenche o card — foi pedido explicito. */
@@ -1405,7 +1414,7 @@ function adicionarDaBase(id) {
   salvarLocal(); render();
   $('#mbSub').textContent = '(' + lista.length + ' de ' + metaPos(posAtual) + ' vagas preenchidas)';
   renderTabela();
-  toast(j.n + ' adicionado em ' + posAtual + ' — defina o salário', 'bom');
+  toast(j.n + ' adicionado em ' + sig(posAtual) + ' — defina o salário', 'bom');
 }
 
 /* ---------------- cenarios ---------------- */
@@ -1578,7 +1587,7 @@ async function abrirComparativo() {
 async function exportarExcel() {
   const f = estado.fator || 1;
   const linhas = todosJogadores().map(j => ({
-    posicao: j.pos + ' · ' + j.posNome, nome: j.nome, clube: j.clube, liga: j.liga,
+    posicao: sig(j.pos) + ' · ' + j.posNome, nome: j.nome, clube: j.clube, liga: j.liga,
     idade: j.idade, overall: j.ov, contrato: j.contrato,
     nacionalidade: j.nac || (j.estrangeiro ? 'estrangeiro' : 'Brazil'),
     estrangeiro: j.estrangeiro ? 'SIM' : 'não',
@@ -1788,7 +1797,11 @@ const RADAR_EIXOS = ['Defesa', 'Ataque', 'Passe', 'Decisão (DGP)', 'Físico'];
 const RADAR_ROT = { 'Decisão (DGP)': 'DGP', 'Físico': 'Físico' };
 
 function radarSVG(eixos, tam) {
-  const cx = tam / 2, cy = tam / 2, R = tam / 2 - 34, N = eixos.length;
+  /* a caixa e mais larga que alta de proposito: os rotulos laterais ("Físico",
+     "Passe") saem para fora do circulo e, num viewBox quadrado, o da esquerda
+     aparecia cortado como "ísico" */
+  const larg = tam + 76;
+  const cx = larg / 2, cy = tam / 2, R = tam / 2 - 26, N = eixos.length;
   const ang = i => -Math.PI / 2 + i * 2 * Math.PI / N;
   const pt = (i, r) => [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))];
   const pol = (f, extra) => '<polygon points="' + eixos.map((_, i) =>
@@ -1808,7 +1821,7 @@ function radarSVG(eixos, tam) {
   const area = (chave, cls) => '<polygon points="' + eixos.map((e, i) =>
     pt(i, R * Math.max(0, Math.min(100, e[chave] || 0)) / 100).map(v => v.toFixed(1)).join(',')
     ).join(' ') + '" class="' + cls + '"/>';
-  return '<svg viewBox="0 0 ' + tam + ' ' + tam + '" class="rd-svg">' + g +
+  return '<svg viewBox="0 0 ' + larg + ' ' + tam + '" class="rd-svg">' + g +
     area('med', 'rd-coorte') + area('val', 'rd-jog') + '</svg>';
 }
 
@@ -1838,7 +1851,7 @@ function radarDaFicha(porGrupo, nomeJog) {
     '<span class="d ' + (e.val >= e.med ? 'mais' : 'menos') + '">' +
       (e.val >= e.med ? '+' : '') + Math.round(e.val - e.med) + '</span></div>').join('');
   return '<div class="fi-grupo fi-radar"><h4>Radar</h4>' +
-    radarSVG(eixos, 230) +
+    radarSVG(eixos, 172) +
     '<div class="rd-leg">' +
       '<span><i class="jog"></i>' + esc(nomeJog) + '</span>' +
       '<span><i class="coorte"></i>média da coorte</span></div>' +
@@ -1860,7 +1873,7 @@ async function montarFicha(j, modo) {
     (j.nc && j.nc !== j.n ? ' <span class="apelido">' + esc(j.n) + '</span>' : '') +
     (ex ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
     (j.emp ? ' <span class="selo-emp" title="emprestado">emprestado</span>' : '');
-  const sub = j.t + ' · ' + j.l + ' · ' + j.p + (j.pw ? ' (' + j.pw + ')' : '') +
+  const sub = j.t + ' · ' + j.l + ' · ' + sig(j.p) + (j.pw ? ' (' + j.pw + ')' : '') +
     (j.rk ? ' · #' + j.rk + ' da liga na posição' : '') +
     (j.rk_ok ? '' : ' · sem indicadores (minutagem baixa)');
 
@@ -1925,7 +1938,7 @@ async function montarFicha(j, modo) {
       '<span class="num-leg forte">melhor</span>' +
     '</div>';
 
-  const rodape = 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + j.p +
+  const rodape = 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
     ' · período ' + (dados && dados.periodo ? dados.periodo : 'ago26');
 
@@ -1964,7 +1977,7 @@ async function alternarDetalhe(tr, jid) {
   linha.querySelector('td').innerHTML =
     '<div class="det"><div class="det-topo"><b>' + f.titulo + '</b>' +
       '<span class="sub">' + esc(f.sub) + '</span>' +
-      '<button class="bt mini det-add">+ adicionar em ' + posAtual + '</button></div>' +
+      '<button class="bt mini det-add">+ adicionar em ' + sig(posAtual) + '</button></div>' +
       '<div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo +
       '<div class="det-pe">' + esc(f.rodape) + '</div></div>';
   const add = linha.querySelector('.det-add');
@@ -1997,7 +2010,7 @@ const FC_COLUNAS = [
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
       (j.ov ? ' <span class="fc-ovr">' + j.ov + '</span>' : '') +
       '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },
-  { c: 'p',   r: 'Pos.',  w: 4,  cel: j => j.p },
+  { c: 'p',   r: 'Pos.',  w: 4,  cel: j => sig(j.p) },
   { c: 'id_', r: 'Idade', w: 4,  num: 1, cel: j => j.id_ ?? '—' },
   { c: 'min3', r: 'Minutos · 3 temp.', w: 9,
     t: 'Minutos das últimas três temporadas (Wyscout). Cada barra é um ano, cheia quando ' +
@@ -2007,14 +2020,16 @@ const FC_COLUNAS = [
       if (!r) return '<span class="fc-vazia">–</span>';
       return '<div class="fc-carr">' + barraMinutos(hist(pk)) +
         '<b class="fc-min">' + milhar(r.min) + '</b></div>'; } },
-  { c: 'g3', r: 'Gols · 3 temp.', w: 7,
-    t: 'Gols nas últimas três temporadas. O selo mostra em quantas delas fez ' +
-       GOLS_TEMPORADA + ' gols ou mais.',
+  { c: 'g3', r: 'Gols · assist.', w: 8,
+    t: 'Gols e assistências nas últimas três temporadas. O selo mostra em quantas delas ' +
+       'fez ' + GOLS_TEMPORADA + ' gols ou mais.',
     num: 1, cel: j => {
       const pk = primaryKey(j), r = histResumo(pk, GOLS_TEMPORADA);
       if (!r) return '<span class="fc-vazia">–</span>';
       return '<div class="fc-carr">' +
-        '<b class="fc-gols' + (r.gols ? '' : ' zero') + '">' + r.gols + '</b>' +
+        '<b class="fc-gols' + (r.gols ? '' : ' zero') + '" title="gols">' + r.gols + '</b>' +
+        '<span class="fc-ass' + (r.assist ? '' : ' zero') + '" title="assistências">' +
+          r.assist + 'a</span>' +
         (r.goleadoras >= 2 ? '<span class="fc-rec" title="' + r.goleadoras + ' temporadas com ' +
           GOLS_TEMPORADA + '+ gols">' + r.goleadoras + '/3</span>' : '') + '</div>'; } },
   { c: 'cob', r: 'Bola parada', w: 7,
@@ -2050,7 +2065,7 @@ FC_COLUNAS.push(
       return f ? '<span title="TransferRoom: ' + esc(f.txt) + '/ano">' + brl(f.min, true) +
                  '<span class="fc-ast">*</span></span>'
                : '<span class="fc-vazia">–</span>'; } },
-  { c: '_', r: '', w: 11, cel: j => '<button class="fc-add">levar p/ ' + j.p + '</button>' +
+  { c: '_', r: '', w: 11, cel: j => '<button class="fc-add">levar p/ ' + sig(j.p) + '</button>' +
       '<button class="ver-ficha" title="Ver detalhe">+</button>' },
 );
 
@@ -2174,7 +2189,7 @@ function campinhoInit(idCampo, aoMudar, unica) {
   if (!campo) return;
   campo.innerHTML = '<div class="rk-area-esq"></div><div class="rk-area-dir"></div>' +
     ZONAS_CAMPO.map(z => '<div class="rk-zona" data-pos="' + z.c + '" style="left:' + z.x + '%;top:' + z.y +
-      '%;width:' + z.w + '%;height:' + z.h + '%" title="' + esc(nomePos(z.c)) + '">' + z.c + '</div>').join('') +
+      '%;width:' + z.w + '%;height:' + z.h + '%" title="' + esc(nomePos(z.c)) + '">' + sig(z.c) + '</div>').join('') +
     '<span class="rk-pos-nome"></span>';
   campo.querySelectorAll('.rk-zona').forEach(z => {
     z.onclick = e => {
@@ -2194,7 +2209,7 @@ function campinhoInit(idCampo, aoMudar, unica) {
 function campinhoRotulo(campo) {
   const on = [...campo.querySelectorAll('.rk-zona.on')];
   campo.querySelector('.rk-pos-nome').textContent =
-    !on.length ? 'Todas' : on.length === 1 ? nomePos(on[0].dataset.pos) : on.map(z => z.dataset.pos).join(' + ');
+    !on.length ? 'Todas' : on.length === 1 ? nomePos(on[0].dataset.pos) : on.map(z => sig(z.dataset.pos)).join(' + ');
 }
 function campinhoSelecao(idCampo) {
   return new Set($$('#' + idCampo + ' .rk-zona.on').map(z => z.dataset.pos));
@@ -2610,7 +2625,7 @@ function fsCabecalho(c) {
             : c.tipo === 'B' ? '<span class="fs-tag b" title="Um dos 5 melhores da Série B pelo índice físico">TOP B</span>' : '';
   /* Clube, liga e amostra saem do cabecalho e vao para o balao: com dez colunas,
      quatro linhas de texto por coluna empurravam a matriz inteira para fora da tela. */
-  const ficha = [j.t, j.l + (j.p !== fsPos ? ' · ' + j.p : ''),
+  const ficha = [j.t, j.l + (j.p !== fsPos ? ' · ' + sig(j.p) : ''),
                  j.sc_n ? j.sc_n + ' jogos rastreados · ' + fsFmt(j.sc_min, 0) + ' min por jogo' : '']
                 .filter(Boolean).join(' · ');
   return '<th class="fs-col" style="--cor:' + c.cor + '" data-pk="' + esc(primaryKey(j)) + '" data-id="' + j.id + '"' +
@@ -2624,7 +2639,7 @@ function fsCabecalho(c) {
       tag + '</div>' +
     '<div class="fs-hd-bts">' +
       '<button class="fs-ficha" title="Ver a ficha">+</button>' +
-      '<button class="fs-levar" title="Levar para o campograma (' + esc(j.p) + ')">↗</button>' +
+      '<button class="fs-levar" title="Levar para o campograma (' + esc(sig(j.p)) + ')">↗</button>' +
       '<button class="fs-x" title="Tirar da comparação">×</button>' +
     '</div></th>';
 }
@@ -2651,6 +2666,11 @@ function fsLinhasTemporada() {
     nota: h => (h && h[i] ? (h[i].a || 0) + ' assistências · ' + h[i].l : 'sem dado'),
   }));
   linhas.push({ id: 'g3', rot: 'Gols nas três', un: 'soma', casas: 0, forte: 1, val: soma('g') });
+  T.forEach((ano, i) => linhas.push({
+    id: 'a' + i, rot: 'Assistências ' + ano, un: 'assistências', casas: 0,
+    val: h => (h && h[i] ? (h[i].a || 0) : null),
+  }));
+  linhas.push({ id: 'a3', rot: 'Assistências nas três', un: 'soma', casas: 0, forte: 1, val: soma('a') });
   linhas.push({ id: 'gc3', rot: 'Gols de cabeça nas três', un: 'soma', casas: 0, val: soma('gc') });
   linhas.push({
     id: 'cob', rot: 'Cobranças de bola parada', un: 'escanteio + falta /90', casas: 2,
@@ -2790,7 +2810,7 @@ function fsRender() {
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
 
   $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
-    ' na comparação · ' + co.A.n + ' na Série A e ' + co.B.n + ' na Série B com ' + esc(fsPos) +
+    ' na comparação · ' + co.A.n + ' na Série A e ' + co.B.n + ' na Série B com ' + esc(sig(fsPos)) +
     ' · jogadores de outras ligas entram na mesma régua';
 
   $$('#fsMatriz th.fs-col').forEach(th => {
@@ -2917,12 +2937,12 @@ function montarImpressao() {
   POSICOES.forEach(p => {
     const lista = estado.elenco[p.c] || [];
     if (!lista.length) return;
-    html += '<tr class="grupo"><td colspan="9">' + p.c + ' · ' + esc(p.nome) +
+    html += '<tr class="grupo"><td colspan="9">' + p.sig + ' · ' + esc(p.nome) +
       ' (' + lista.length + ')</td><td class="num">' + brl(totalPos(p.c)) +
       '</td><td class="num">' + brl(totalPos(p.c) * (estado.fator || 1)) + '</td></tr>';
     lista.forEach(j => {
       html += '<tr>' +
-        '<td>' + p.c + '</td>' +
+        '<td>' + p.sig + '</td>' +
         '<td>' + (j.titular ? '★ ' : '') + esc(j.nome) + '</td>' +
         '<td>' + esc(j.clube || '') + '</td>' +
         '<td>' + esc(j.liga || '') + '</td>' +
@@ -2987,7 +3007,7 @@ function debounce(fn, ms) {
 
 function ligar() {
   $('#fPos').innerHTML = '<option value="">Todas as posições</option>' +
-    POSICOES.map(p => '<option value="' + p.c + '">' + p.c + ' · ' + p.nome + '</option>').join('');
+    POSICOES.map(p => '<option value="' + p.c + '">' + p.sig + ' · ' + p.nome + '</option>').join('');
 
   ['#fTexto','#fIdadeMin','#fIdadeMax','#fOvMin','#fMinMin','#fContrato'].forEach(s => {
     $(s).oninput = debounce(renderTabela, 180);
@@ -3172,7 +3192,7 @@ function ligar() {
     });
     $('#modalManual').classList.remove('aberto');
     salvarLocal(); render();
-    toast(nome + ' adicionado em ' + posAtual, 'bom');
+    toast(nome + ' adicionado em ' + sig(posAtual), 'bom');
   };
 }
 
