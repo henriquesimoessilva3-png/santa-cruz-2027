@@ -13,7 +13,7 @@ const POSICOES = [
   { c:'MED', nome:'Médio',             setor:'meio',   faixa:'meio' },
   { c:'MEI', nome:'Meia',              setor:'meio',   faixa:'meia' },
   { c:'EE',  nome:'Extremo Esquerdo',  setor:'ataque', faixa:'ataque' },
-  { c:'CA',  nome:'Centroavante',      setor:'ataque', faixa:'ataque' },
+  { c:'CA',  nome:'Atacante',          setor:'ataque', faixa:'ataque' },
   { c:'ED',  nome:'Extremo Direito',   setor:'ataque', faixa:'ataque' },
 ];
 /* Layout do campograma. No campo deitado cada coluna empilha as suas posicoes e o
@@ -43,7 +43,7 @@ const LAYOUT = {
     { pos: ['GOL'], xs: [50] },
   ],
 };
-const GAP_CARD = 13;      /* respiro entre cards empilhados */
+const GAP_CARD = 18;      /* respiro entre cards empilhados */
 const MARGEM_CAMPO = 12;  /* respiro para as linhas do gramado */
 const SETORES = [
   { c:'gol',    nome:'Goleiros', cor:'#f5a524' },
@@ -272,6 +272,11 @@ const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas
    vizinhas ficam centradas — entao esses cards podem ser mais largos sem encostar. */
 const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
 let recalculandoNomes = false;
+/* Largura do card de DUAS medidas atras. O re-render abaixo so vale a pena quando a
+   largura esta convergindo; quando ela alterna entre dois valores (A -> B -> A -> B)
+   cada passada pede outra e a tela treme. Guardar so a anterior nao pega alternancia:
+   ela sempre "mudou". Comparando com a de duas atras, o ciclo se reconhece e para. */
+let larguraCardDuasAtras = 0;
 
 /* Maior largura em que nenhum par de cards se encosta. A altura de cada card nao
    depende da largura (o nome cabe sempre numa linha), entao da para simular. */
@@ -324,7 +329,13 @@ function maiorLarguraQueCabe(campo, larg) {
     for (let i = 0; i < caixas.length; i++) {
       for (let j = i + 1; j < caixas.length; j++) {
         const a = caixas[i], b = caixas[j];
-        if (a[0] < b[1] - 2 && a[1] - 2 > b[0] && a[2] < b[3] - 2 && a[3] - 2 > b[2]) return false;
+        /* Na horizontal exige FOLGA_COLUNA de respiro entre dois cards, nao apenas
+           que nao se toquem — era so uma tolerancia de 2px, e a constante estava
+           declarada sem uso nenhum. Na vertical continua 2px porque o empilhamento
+           dentro da coluna ja soma GAP_CARD ao posicionar; cobrar de novo aqui
+           reprovaria arranjos validos. */
+        if (a[0] < b[1] + FOLGA_COLUNA && a[1] + FOLGA_COLUNA > b[0] &&
+            a[2] < b[3] - 2 && a[3] - 2 > b[2]) return false;
       }
     }
     return true;
@@ -351,7 +362,9 @@ function distribuir() {
     const antes = larguraCardPx;
     const um = campo.querySelector('.pos');
     if (um) { larguraCardPx = um.offsetWidth; larguraCardAberto = larguraCardPx; }
-    if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes) {
+    const alternando = Math.abs(larguraCardPx - larguraCardDuasAtras) <= 2;
+    larguraCardDuasAtras = antes;
+    if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes && !alternando) {
       recalculandoNomes = true;
       requestAnimationFrame(() => { recalculandoNomes = false; renderCampo(); });
     }
@@ -447,15 +460,40 @@ function compensarEscala(campo, k, alt) {
   campo.style.marginRight = -Math.round(campo.offsetWidth * (1 - k)) + 'px';
 }
 
+/* Cadeado: enquanto o ajuste corre, os OBSERVADORES de tamanho ficam calados
+   (quem le a flag e o `talvezAjustar`). E o proprio ajuste que mexe na largura e
+   na altura do campo, entao sem isso eles se realimentavam e a tela tremia.
+
+   O ajustarCampo NAO se recusa a rodar por causa do cadeado: quem chama direto
+   — renderCampo, troca de aba, entrar/sair jogador — tem de ser sempre atendido.
+   Ja custou o campograma inteiro embolado num canto: o distribuir() reagenda um
+   renderCampo() no frame seguinte quando a largura do card muda mais de 12px, e
+   esse frame caia dentro do cadeado; o ajuste era engolido e os cards ficavam
+   sem posicao. */
+let ajustando = false;
+let soltarCadeado = 0;
+
 function ajustarCampo() {
   const campo = $('#campo'), area = $('.campo-area');
   if (!campo || !area) return;
   const info = $('#abasInfo');
   area.classList.toggle('ajustado', !!estado.ajustar);
 
+  /* Area sem altura util: a aba esta escondida, a janela colapsada ou o layout
+     ainda nao assentou. Medir aqui daria k=0 e o campo sumiria em scale(0) —
+     melhor nao mexer e esperar o proximo gatilho. */
+  const disp = alturaDisponivel();
+  if (!(disp > 0)) return;
+
+  ajustando = true;
+  /* Rede de seguranca do cadeado: em aba escondida o requestAnimationFrame nao
+     roda, e sem isto o cadeado ficaria preso para sempre — o campo congelaria na
+     ultima escala e nenhum resize voltaria a ajusta-lo. */
+  clearTimeout(soltarCadeado);
+  soltarCadeado = setTimeout(() => { ajustando = false; }, 400);
+
   /* Os dois modos cabem na tela; a diferenca e so a fonte. Em "caber na tela" ela
      sobe para compensar a reducao; em "tamanho real" fica como esta. */
-  const disp = alturaDisponivel();
   const fzMax = estado.ajustar ? FONTE_MAX : 1;
 
   campo.style.setProperty('--fz', 1);
@@ -497,6 +535,14 @@ function ajustarCampo() {
         ? 'campo em ' + Math.round(k2 * 100) + '%' + (cabe ? ' — cabe tudo na tela' : '')
         : '';
     }
+    /* Solta o cadeado so depois que o layout assentou, e ja registra a medida
+       resultante como base. Sem isso o proprio ajuste acorda os observadores
+       (mudou largura/altura do campo -> mudou a area) e o ciclo nao para. */
+    requestAnimationFrame(() => {
+      clearTimeout(soltarCadeado);
+      ultimaArea = area.clientWidth + 'x' + area.clientHeight;
+      ajustando = false;
+    });
   });
 }
 
@@ -2179,34 +2225,39 @@ async function iniciar() {
   }
 }
 /* Observa a area do campo em vez do evento de resize da janela: pega tambem
-   abrir/fechar a ficha, trocar de aba e mudanca de zoom. */
+   abrir/fechar a ficha, trocar de aba e mudanca de zoom.
+
+   Os TRES gatilhos (observador, resize da janela e a rede de seguranca) passam
+   pelo mesmo `talvezAjustar`, com uma unica medida de referencia e tolerancia de
+   2px. Antes cada um tinha a sua: o observador guardava `ultimo`, a rede guardava
+   `ultimaArea`, e como o ajustarCampo() reescreve o campo, a largura da area
+   alternava entre dois valores. Guarda de "e diferente do anterior" nao pega
+   alternancia A-B-A-B — so pega repeticao — entao os tres se realimentavam e a
+   tela tremia. */
+let ultimaArea = '';
+function areaMudou(area) {
+  const [w, h] = (ultimaArea || 'x').split('x').map(Number);
+  return !(Math.abs(area.clientWidth - w) <= 2 && Math.abs(area.clientHeight - h) <= 2);
+}
+function talvezAjustar() {
+  const area = $('.campo-area');
+  if (!area || ajustando || !document.querySelector('.pos')) return;
+  if (!areaMudou(area)) return;
+  ultimaArea = area.clientWidth + 'x' + area.clientHeight;
+  ajustarCampo();
+}
+
 let observandoArea = false;
 function observarArea() {
   const area = $('.campo-area');
   if (!area || observandoArea || typeof ResizeObserver === 'undefined') return;
   observandoArea = true;
-  let ultimo = '';
-  new ResizeObserver(debounce(() => {
-    const agora = area.clientWidth + 'x' + area.clientHeight;
-    if (agora === ultimo) return;
-    ultimo = agora;
-    if (document.querySelector('.pos')) ajustarCampo();
-  }, 120)).observe(area);
+  new ResizeObserver(debounce(talvezAjustar, 120)).observe(area);
 }
-window.addEventListener('resize', debounce(() => {
-  if (document.querySelector('.pos')) ajustarCampo();
-}, 120));
+window.addEventListener('resize', debounce(talvezAjustar, 120));
 
 /* Rede de seguranca: alguns navegadores nao disparam resize/ResizeObserver quando
    a janela muda por fora (zoom, tela dividida). Uma conferida leve resolve. */
-setInterval(() => {
-  const area = $('.campo-area');
-  if (!area || !document.querySelector('.pos')) return;
-  const agora = area.clientWidth + 'x' + area.clientHeight;
-  if (agora === ultimaArea) return;
-  ultimaArea = agora;
-  ajustarCampo();
-}, 700);
-let ultimaArea = '';
+setInterval(talvezAjustar, 700);
 
 iniciar();

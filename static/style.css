@@ -1204,8 +1204,10 @@ body:not(.claro){
 #fcTabela td{vertical-align:middle}
 #fcTabela th{white-space:nowrap}
 
-/* a area do campo nunca rola de lado; na vertical, so quando sobra conteudo de verdade */
-.campo-area{overflow-x:hidden;scrollbar-gutter:auto}
+/* a area do campo nunca rola de lado; na vertical, so quando sobra conteudo de verdade.
+   A calha fica RESERVADA (stable): com `auto` a barra entrava e saia a cada passada
+   do ajustarCampo(), a largura util alternava 9px pra la e pra ca e a tela tremia. */
+.campo-area{overflow-x:hidden;scrollbar-gutter:stable}
 
 /* Em "caber na tela" (o padrao) o campo cabe inteiro e nao ha barra nenhuma.
    Em "tamanho real" o campo pode passar da tela — ai ele rola, em vez de esconder
