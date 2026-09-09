@@ -15,7 +15,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 APPS = [
     {
         "id": "elenco",
-        "nome": "Montagem de Elenco 2027",
+        "nome": "Montagem de Elenco",
         "desc": "Campograma, folha salarial e grupos de opções para o acesso à Série B",
         "porta": 5090,
         "url": "http://localhost:5090",

@@ -1138,3 +1138,7 @@ body:not(.claro){
   .pos{width:min(calc(250px * var(--fz)), var(--pos-max, 999px))}
   .campo.denso .pos{width:min(calc(230px * var(--fz)), var(--pos-max, 999px))}
 }
+
+/* laterais e extremos: cards mais largos, já que ficam nas pontas da coluna */
+.pos.aberto{width:min(calc(420px * var(--fz)), var(--pos-max-aberto, 999px))}
+.campo.denso .pos.aberto{width:min(calc(380px * var(--fz)), var(--pos-max-aberto, 999px))}

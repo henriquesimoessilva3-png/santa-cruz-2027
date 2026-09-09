@@ -134,12 +134,18 @@ function paraNumero(txt) {
 }
 function uid() { return Math.random().toString(36).slice(2, 10); }
 
-/* Quantos caracteres cabem no nome, dado o tamanho atual do card. */
-let larguraCardPx = 190;
-function limiteNome() {
+/* Quantos caracteres cabem no nome. Medido em pixels: o que nao e nome (salario,
+   botoes e respiro) ocupa ~118px, e a estrela de titular e o selo de estrangeiro
+   comem 9 e 29px. Antes a conta era por caractere e superestimava. */
+let larguraCardPx = 190, larguraCardAberto = 190;
+const NAO_NOME = 118, PX_ESTRELA = 9, PX_SELO = 29, PX_CHAR = 5.4;
+
+function limiteNome(j, cod) {
   const fz = parseFloat(($('#campo') && $('#campo').style.getPropertyValue('--fz')) || 1) || 1;
-  const util = larguraCardPx - (estado.denso ? 100 : 112);   /* salario + botoes + respiro */
-  return Math.max(10, Math.floor(util / (5.4 * fz)));
+  const larg = COLUNA_ABERTA.has(cod) ? larguraCardAberto : larguraCardPx;
+  const util = larg - NAO_NOME * fz -
+               (j && j.titular ? PX_ESTRELA : 0) - (j && j.estrangeiro ? PX_SELO : 0);
+  return Math.max(6, Math.floor(util / (PX_CHAR * fz)));
 }
 
 /* Nome curto para o card: abrevia o primeiro nome quando o inteiro nao cabe numa
@@ -256,7 +262,10 @@ function alturaDisponivel() {
 }
 
 /* Posiciona todos os cards e devolve a altura que o campo precisa ter. */
-const FOLGA_COLUNA = 22;   /* espaco livre garantido entre duas colunas vizinhas */
+const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas */
+/* Laterais e extremos ficam no topo e na base da coluna, enquanto as colunas
+   vizinhas ficam centradas — entao esses cards podem ser mais largos sem encostar. */
+const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
 let recalculandoNomes = false;
 
 function distribuir() {
@@ -273,9 +282,14 @@ function distribuir() {
     for (let i = 1; i < xs.length; i++) menor = Math.min(menor, xs[i] - xs[i - 1]);
     const maxPx = Math.max(120, Math.floor(menor / 100 * larg) - FOLGA_COLUNA);
     campo.style.setProperty('--pos-max', maxPx + 'px');
+    /* as colunas abertas ganham meia coluna a mais, porque nao dividem altura
+       com as vizinhas (elas ficam no meio, estas ficam nas pontas) */
+    campo.style.setProperty('--pos-max-aberto', Math.round(maxPx * 1.42) + 'px');
     const antes = larguraCardPx;
-    const um = campo.querySelector('.pos');
+    const um = campo.querySelector('.pos:not(.aberto)');
+    const ab = campo.querySelector('.pos.aberto');
     if (um) larguraCardPx = um.offsetWidth;
+    if (ab) larguraCardAberto = ab.offsetWidth;
     /* card mudou muito de tamanho: os nomes precisam ser recalculados */
     if (Math.abs(larguraCardPx - antes) > 12 && !recalculandoNomes) {
       recalculandoNomes = true;
@@ -423,7 +437,8 @@ function cardPos(cod) {
   const nEstr = lista.filter(j => j.estrangeiro).length;
 
   const el = document.createElement('div');
-  el.className = 'pos' + (lista.length === 0 ? ' vazia' : '');
+  el.className = 'pos' + (lista.length === 0 ? ' vazia' : '') +
+                 (COLUNA_ABERTA.has(cod) ? ' aberto' : '');
   el.dataset.pos = cod;
 
   const falta = lista.length < meta;
@@ -480,9 +495,7 @@ function cardJog(cod, j) {
       (j.titular ? '<span class="estrela">★</span>' : '') +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
-      /* o limite acompanha a largura real do card; a estrela e o selo comem espaco */
-      '<span class="nm">' + esc(nomeCurto(j.nome,
-        limiteNome() - (j.titular ? 2 : 0) - (j.estrangeiro ? 4 : 0))) + '</span>' + '</div>' +
+      '<span class="nm">' + esc(nomeCurto(j.nome, limiteNome(j, cod))) + '</span>' + '</div>' +
     '<div class="jog-meta">' + meta + '</div>' +
     '<div class="jog-sal">' +
       '<input value="' + milhar(j.salario) + '" class="' + (!j.salario ? 'zero' : (j.sugerido ? 'sugerido' : '')) +
@@ -1586,7 +1599,7 @@ function montarImpressao() {
   const tot = totalGeral(), disp = dispSalarios(), ct = custoTotal();
   const nEstr = jg.filter(j => j.estrangeiro).length;
 
-  $('#impTitulo').textContent = 'Santa Cruz · Elenco 2027 — ' + estado.nome;
+  $('#impTitulo').textContent = 'Santa Cruz · Montagem de Elenco — ' + estado.nome;
   $('#impSub').textContent = jg.length + ' atletas · ' + nEstr + ' estrangeiro' +
     (nEstr === 1 ? '' : 's') + ' · ' + POSICOES.reduce((a, p) => a + metaPos(p.c), 0) +
     ' vagas · gerado em ' + hoje;
