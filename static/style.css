@@ -1212,5 +1212,5 @@ body:not(.claro){
 /* Em "caber na tela" (o padrao) o campo cabe inteiro e nao ha barra nenhuma.
    Em "tamanho real" o campo pode passar da tela — ai ele rola, em vez de esconder
    parte do elenco. */
-.campo-area{overflow:auto;overflow-x:hidden}
-.campo-area.ajustado{overflow:hidden}
+.campo-area{overflow:auto;overflow-x:hidden;scrollbar-gutter:stable}
+.campo-area.ajustado{overflow:hidden;scrollbar-gutter:stable}
