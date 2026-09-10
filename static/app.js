@@ -2637,6 +2637,27 @@ const FS_VAGAS = 0;
 const FS_ROTULO = 188;    /* largura da coluna dos rotulos das linhas */
 const FS_COL_MIN = 92;    /* abaixo disso o nome do jogador nao cabe */
 let fsPos = 'MEI';
+let fsLigaLista = '';     /* campeonato escolhido para a lista por liga */
+
+/* Bandeira por campeonato: a liga vem como "Argentina A", "Brasil B", "Espanha C" —
+   o pais e o prefixo. Serve so para o olho achar o campeonato mais rapido numa lista
+   de cinquenta. */
+const BANDEIRA = {
+  Brasil:'🇧🇷', Argentina:'🇦🇷', Uruguai:'🇺🇾', Paraguai:'🇵🇾', Chile:'🇨🇱', Bolivia:'🇧🇴',
+  Peru:'🇵🇪', Equador:'🇪🇨', Colombia:'🇨🇴', Venezuela:'🇻🇪',
+  Portugal:'🇵🇹', Espanha:'🇪🇸', Italia:'🇮🇹', Inglaterra:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', Alemanha:'🇩🇪', França:'🇫🇷',
+  Holanda:'🇳🇱', Belgica:'🇧🇪', Suiça:'🇨🇭', Austria:'🇦🇹', Grecia:'🇬🇷', Polonia:'🇵🇱',
+  Tcheca:'🇨🇿', Croacia:'🇭🇷', Servia:'🇷🇸', Romenia:'🇷🇴', Bulgaria:'🇧🇬', Hungria:'🇭🇺',
+  Eslovaquia:'🇸🇰', Dinamarca:'🇩🇰', Noruega:'🇳🇴', Suecia:'🇸🇪', Escocia:'🏴󠁧󠁢󠁳󠁣󠁴󠁿', Turquia:'🇹🇷',
+  Ucrania:'🇺🇦', Russia:'🇷🇺', EUA:'🇺🇸', Mexico:'🇲🇽', Japao:'🇯🇵', Coreia:'🇰🇷', China:'🇨🇳',
+  Israel:'🇮🇱', Marrocos:'🇲🇦', Catar:'🇶🇦', Emirados:'🇦🇪', Bahrain:'🇧🇭',
+  'Arabia Saudita':'🇸🇦',
+};
+function bandeira(liga) {
+  const nome = String(liga || '');
+  const chave = Object.keys(BANDEIRA).find(k => nome.startsWith(k));
+  return chave ? BANDEIRA[chave] + ' ' : '';
+}
 let fsExtras = [];             /* pks acrescentados a mao */
 let fsOcultos = new Set();     /* pks tirados das listas automaticas */
 let fsBaseCache = null;
@@ -3072,25 +3093,54 @@ function fsRender() {
    Sai da MESMA coorte que a matriz usa como regua — entao a ordem aqui e a mesma
    que decide os "top 5" — e quem ja esta na comparacao aparece marcado, para nao
    escolher duas vezes o mesmo. */
+/* Lista ordenada pelo indice fisico. `lista` ja vem filtrada; a regua e sempre a
+   coorte das Series A e B, mesmo para jogador de fora — e o que permite comparar
+   campeonatos diferentes com o mesmo metro. */
+function fsOpcoesLista(el, lista, rotulo, co, jaTem, comBandeira) {
+  if (!el) return;
+  const ord = lista.map(j => ({ j, idx: fsIndices(co, j).geral }))
+    .filter(x => x.idx != null).sort((a, b) => b.idx - a.idx);
+  el.innerHTML = '<option value="">＋ ' + esc(rotulo) + ' · ' + ord.length + '…</option>' +
+    ord.map((x, i) => {
+      const pk = primaryKey(x.j);
+      return '<option value="' + esc(pk) + '"' + (jaTem.has(pk) ? ' disabled' : '') + '>' +
+        (i + 1) + 'º · ' + x.idx + ' · ' + (comBandeira ? bandeira(x.j.l) : '') +
+        esc(x.j.n) + ' (' + esc(x.j.t) + ')' +
+        (jaTem.has(pk) ? ' — já está' : '') + '</option>';
+    }).join('');
+  el.value = '';
+}
+
 function fsMontarSeries(co, colunas) {
   const jaTem = new Set(colunas.map(c => primaryKey(c.j)));
-  [['#fsSerieA', 'Brasil A', 'Série A'], ['#fsSerieB', 'Brasil B', 'Série B']].forEach(
-    ([sel, liga, rot]) => {
-      const el = $(sel);
-      if (!el) return;
-      const lista = co.lista.filter(j => j.l === liga)
-        .map(j => ({ j, idx: fsIndices(co, j).geral }))
-        .filter(x => x.idx != null)
-        .sort((a, b) => b.idx - a.idx);
-      el.innerHTML = '<option value="">＋ ' + rot + ' · ' + lista.length + ' na régua…</option>' +
-        lista.map((x, i) => {
-          const pk = primaryKey(x.j);
-          return '<option value="' + esc(pk) + '"' + (jaTem.has(pk) ? ' disabled' : '') + '>' +
-            (i + 1) + 'º · ' + x.idx + ' · ' + esc(x.j.n) + ' (' + esc(x.j.t) + ')' +
-            (jaTem.has(pk) ? ' — já está' : '') + '</option>';
-        }).join('');
-      el.value = '';
-    });
+  fsOpcoesLista($('#fsSerieA'), co.lista.filter(j => j.l === 'Brasil A'), '🇧🇷 Série A', co, jaTem);
+  fsOpcoesLista($('#fsSerieB'), co.lista.filter(j => j.l === 'Brasil B'), '🇧🇷 Série B', co, jaTem);
+
+  /* Sul-americanos no exterior: nascidos na America do Sul (sem Brasil) jogando fora
+     dela. Mesma definicao do botao "No exterior" dos filtros — uma regra so. */
+  const minJ = fsMinJogos();
+  const fora = fsBase().filter(j => j.p === fsPos && (Number(j.sc_n) || 0) >= minJ &&
+    classPais(j.nac || '') === 'sa' && classLiga(j.l) !== 'sulamerica' && classLiga(j.l) !== 'brasil');
+  fsOpcoesLista($('#fsSulExt'), fora, '🌎 Sul-americanos no exterior', co, jaTem, true);
+
+  /* Terceira lista: qualquer campeonato com tracking na posicao escolhida. Sul-americanos
+     primeiro porque e de onde o Santa Cruz contrata. */
+  const doPosto = fsBase().filter(j => j.p === fsPos && (Number(j.sc_n) || 0) >= minJ);
+  const cont = {};
+  doPosto.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
+  const ordem = l => GRUPOS_LIGA.sulamerica.includes(l) ? 0
+                   : l.startsWith('Brasil') ? 1
+                   : GRUPOS_LIGA.europa.includes(l) ? 2 : 3;
+  const ligas = Object.keys(cont).sort((a, b) => ordem(a) - ordem(b) || a.localeCompare(b));
+  const selL = $('#fsLigaEscolha');
+  if (selL) {
+    if (!ligas.includes(fsLigaLista)) fsLigaLista = ligas.find(l => ordem(l) === 0) || ligas[0] || '';
+    selL.innerHTML = '<option value="">— campeonato —</option>' + ligas.map(l =>
+      '<option value="' + esc(l) + '"' + (l === fsLigaLista ? ' selected' : '') + '>' +
+      bandeira(l) + esc(l) + ' (' + cont[l] + ')</option>').join('');
+  }
+  fsOpcoesLista($('#fsListaLiga'), doPosto.filter(j => j.l === fsLigaLista),
+                bandeira(fsLigaLista) + (fsLigaLista || 'campeonato'), co, jaTem);
 }
 
 /* busca de qualquer jogador com tracking, em qualquer liga */
@@ -3444,9 +3494,10 @@ function fsMontarFiltros() {
   $('#fsBusca').oninput = debounce(fsBuscar, 150);
   $('#fsBusca').onclick = e => { e.stopPropagation(); if ($('#fsBusca').value.trim().length >= 2) fsBuscar(); };
   $('#fsElenco').onchange = () => { fsAdicionar($('#fsElenco').value); $('#fsElenco').value = ''; };
-  ['#fsSerieA', '#fsSerieB'].forEach(sel => {
+  ['#fsSerieA', '#fsSerieB', '#fsSulExt', '#fsListaLiga'].forEach(sel => {
     $(sel).onchange = () => { if ($(sel).value) fsAdicionar($(sel).value); $(sel).value = ''; };
   });
+  $('#fsLigaEscolha').onchange = () => { fsLigaLista = $('#fsLigaEscolha').value; fsRender(); };
   $('#fsMin').oninput = debounce(fsRender, 200);
   ['#fsTopA', '#fsTopB', '#fsMedias'].forEach(id => { $(id).onchange = fsRender; });
   $('#fsLimpar').onclick = () => {

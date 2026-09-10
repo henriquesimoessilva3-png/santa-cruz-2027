@@ -1876,7 +1876,17 @@ body.claro{ --fs-media-tinta:#22303f; }
 .jog-mais.editar:hover{background:var(--coral);color:#fff}
 
 /* as duas listas por serie, lado a lado dentro do campo de adicionar */
-.fs-combos{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px}
+/* As listas ocupam a fileira inteira: espremidas numa celula de 150px, o nome do
+   jogador nao cabia e a lista so servia para quem ja sabia quem procurar. */
+.fs-listas{display:grid;grid-template-columns:auto 1fr 1fr 1.2fr auto 1.2fr;gap:6px;
+  align-items:center;margin-top:2px}
+.fs-listas-rot{font-size:9px;letter-spacing:.9px;text-transform:uppercase;color:var(--tinta3);
+  font-weight:700;white-space:nowrap}
+.fs-listas select{min-width:0;font-size:10.5px;padding:4px 6px}
+#fsSerieA{border-color:#22c55e66}
+#fsSerieB{border-color:#52a4eb66}
+#fsSulExt{border-color:#e2a51f66}
+.fs-liga{max-width:190px}
 .fs-combos select{min-width:0;font-size:10.5px;padding:4px 5px}
 #fsSerieA{border-color:#22c55e55}
 #fsSerieB{border-color:#52a4eb55}
