@@ -501,3 +501,18 @@ arquivos que o app busca em `/dados`, e o `publicar_site.py` usa o maior mtime e
 Depois da recuperação, a lista Brasil tem 3 jogadores em quase todas as posições — **menos
 RW e LW, que seguem com um só (J. Arias)**, porque Estêvão e Lucas Moura são justamente os
 dois sem tracking. Média de um não é média: é o buraco que resta.
+
+**Pontas acrescentados pelo usuário (set/26)**: a lista curada tinha um grupo "EXT" só,
+sem separar ponta direita de esquerda, e depois do corte por falta de tracking sobrava
+**um jogador** nos dois lados. O usuário nomeou quatro, agora por lado (`EXTRA_BR` em
+`gerar_raio_ref.py`):
+
+- **LW**: Samuel Lino (Flamengo, 26a, 23 jogos) e Andrés Gómez — na base como `A. Gómez`
+  (Vasco, 23a, colombiano, 21 jogos)
+- **RW**: Gonzalo Plata (Flamengo, 25a, 14 jogos) e Canobbio — `A. Canobbio` (Fluminense,
+  27a, uruguaio, 18 jogos)
+
+O Plata tem uma segunda linha no Dynamo Moscow sem físico; o desempate por clube resolve.
+Agora **toda posição tem 3+ referências** e os dois lados deixaram de ser idênticos: RW
+subiu do percentil 43 para 66 e LW para 60 — os pontas ficaram uma régua séria, como já
+eram volante e lateral-direito.

@@ -31,6 +31,14 @@ MUNDO_POS = {'Zagueiro - Direita':'ZD','Zagueiro - Esquerda':'ZE','Lateral Direi
 BR_POS = {'ZAG':['ZD','ZE'],'LD':['LD'],'LE':['LE'],'VOL':['VOL'],'MED':['MED'],
           'MEI':['MEI'],'EXT':['ED','EE'],'ATA':['CA']}
 
+# Acrescimos do usuario, POR LADO — a lista curada tinha "EXT" sem separar ponta direita
+# de esquerda, e depois do corte por falta de tracking sobrava um jogador so nos dois
+# lados (J. Arias). Media de um nao e media.
+EXTRA_BR = {
+    'EE': ['Samuel Lino', 'A. Gómez'],       # Samuel Lino (Flamengo) e Andrés Gómez (Vasco)
+    'ED': ['Gonzalo Plata', 'A. Canobbio'],  # Plata (Flamengo) e Canobbio (Fluminense)
+}
+
 # Nomes que mudaram de grafia ou de clube entre a lista curada (mar/25) e esta base.
 # A causa mais comum e o Wyscout ABREVIAR o primeiro nome: "Gustavo Gómez" vira
 # "G. Gómez", "Aníbal Moreno" vira "A. Moreno". Sem o apelido eles somem da lista sem
@@ -43,13 +51,18 @@ APELIDOS = {
     'gustavo gomez': 'G. Gómez',        # Palmeiras, 33a, paraguaio, 185cm, ZD
     'anibal moreno': 'A. Moreno',       # saiu do Palmeiras para o River Plate: 27a, argentino, 178cm, VOL
     'wesley': 'Wesley',                 # Wesley Franca, saiu do Flamengo para a Roma: 22a, brasileiro, 178cm
+    'andres gomez': 'A. Gómez',         # Vasco, 23a, colombiano, ponta esquerda
+    'canobbio': 'A. Canobbio',          # Fluminense, 27a, uruguaio, ponta direita
 }
 # Quando o nome existe mais de uma vez, o clube decide. Sem isto o "A. Moreno" pegaria o
 # da Bolivia e o "Wesley" pegaria o do Catar — homonimo e o jeito mais silencioso de
 # botar o jogador errado na regua.
 CLUBE = {'J. Arias':'Palmeiras', 'Jean Lucas':'Bahia', 'R. Garro':'Corinthians',
          'R. Ríos':'Benfica', 'G. Gómez':'Palmeiras', 'A. Moreno':'River Plate',
-         'Wesley':'Roma'}
+         'Wesley':'Roma',
+         # o Plata tem uma linha no Dynamo Moscow sem fisico; a de valer e a do Flamengo
+         'Gonzalo Plata':'Flamengo', 'A. Gómez':'Vasco da Gama',
+         'A. Canobbio':'Fluminense', 'Samuel Lino':'Flamengo'}
 
 
 def norm(t):
@@ -116,7 +129,7 @@ def main():
         for cod in BR_POS.get(pos, []):
             refs.setdefault(cod, {})
             achados, fora = [], []
-            for n in nomes:
+            for n in nomes + EXTRA_BR.get(cod, []):
                 j = achar(n, so_br=True)
                 (achados.append(j) if j else fora.append(n))
             if achados:
