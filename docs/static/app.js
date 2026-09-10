@@ -335,6 +335,9 @@ function posZoom(cod) {
   POS_ZOOM = POS_ZOOM === cod ? null : cod;
   document.body.classList.toggle('com-zoom', !!POS_ZOOM);
   renderCampo();
+  /* rolagem de lado que tenha sobrado do campo deixaria o card fora da vista */
+  const area = $('.campo-area');
+  if (area) { area.scrollLeft = 0; area.scrollTop = 0; }
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && POS_ZOOM) posZoom(POS_ZOOM);

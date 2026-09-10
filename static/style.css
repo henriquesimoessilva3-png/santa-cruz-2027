@@ -2044,9 +2044,16 @@ body.claro{ --fs-media-tinta:#22303f; }
 .pos-topo{cursor:zoom-in}
 .pos.zoom .pos-topo{cursor:zoom-out}
 .zoom-fundo{display:none}
+/* O campo tem largura propria, calculada para distribuir as onze colunas — costuma ser
+   BEM maior que a tela, e o `ajustarCampo` compensa com transform:scale. Com o zoom o
+   scale sai, e se a largura ficasse, o card centralizaria dentro do CAMPO e nao da
+   TELA: aparecia colado na direita, cortado. Por isso os !important amarram largura,
+   altura e transform — assim o zoom fica certo mesmo com um app.js antigo em cache. */
 body.com-zoom .campo{display:flex;align-items:flex-start;justify-content:center;
-  padding:20px 14px;overflow:auto;height:auto!important;min-height:100%;
-  width:auto!important;transform:none!important}
+  padding:20px 14px;overflow:visible;box-sizing:border-box;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  height:auto!important;min-height:0!important;transform:none!important}
+body.com-zoom .campo-area{overflow:auto}
 body.com-zoom .campo .marcacoes{opacity:.25}
 body.com-zoom .pos:not(.zoom){display:none}
 .pos.zoom{

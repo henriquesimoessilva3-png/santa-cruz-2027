@@ -388,3 +388,12 @@ no líquido da imagem); não as reproduzi porque não tenho a tabela, só o resu
 fundo creme — dava amarelo sobre amarelo. Virou âmbar sólido com texto escuro, o mesmo
 tratamento do `.pos-qtd.falta`, que já resolvia isso. Contraste do texto: 7,1:1. O override
 de tema claro saiu junto, porque a regra agora serve aos dois.
+
+**Centralização do zoom (set/26)**: o campo tem largura própria, calculada para
+distribuir as onze colunas — costuma ser bem maior que a tela, e o `ajustarCampo`
+compensa com `transform:scale`. Com o zoom o scale sai; se a largura ficasse, o card
+centralizaria dentro do **campo** e não da **tela**, aparecendo colado à direita e
+cortado. Foi o que aconteceu com o `app.js` em cache. Os `!important` de
+`width/min-width/max-width/height/min-height/transform` em `body.com-zoom .campo`
+amarram isso pelo CSS, que vale mesmo com JS antigo; o `posZoom()` ainda zera a rolagem
+da área por garantia.
