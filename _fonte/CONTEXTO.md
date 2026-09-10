@@ -417,3 +417,29 @@ Esquerda). A correção fica escrita com a fonte e a data, e sobrevive à regera
 **Cuidado**: a chave é a primary_key (`Nome - Clube - Liga`), então ela quebra quando o
 jogador troca de clube — `aplicarOverridesPosicao()` avisa no console quais não casaram,
 em vez de falhar em silêncio.
+
+**Trocar de posição recomeça a comparação (set/26)**: os escolhidos a mão (`fsExtras`) e os
+tirados (`fsOcultos`) são de OUTRA posição — carregá-los adiante mostrava volantes na régua
+de médio. Pior: o `fsCongelar()` desliga os Top 5 quando se tira alguém da tela, então a
+lista ficava travada nos antigos e a nova posição abria vazia. Agora a troca limpa os dois
+e religa Top 5 A e B.
+
+**As referências do raio não são parelhas — e isso importa muito.** Percentil médio da
+referência na própria posição, e quanto verde sai:
+
+| pos | referência | pctl | % verde |
+|---|---|---|---|
+| CM | Cristian Medina | 91 | **2,9%** |
+| DM | Gregore — 2024 | 88 | 4,6% |
+| RB | Vitinho | 83 | 7,8% |
+| CB | Jemmes | 70 | 15% |
+| AM | J. Carrascal | 57 | 24,6% |
+| CF | Arthur Cabral | 39 | 45,8% |
+| RW/LW | Matheus Martins | 27 | ~59% |
+| LB | Alex Telles | 25 | **64,8%** |
+
+Um médio precisa estar entre os 3% melhores para ficar verde; um lateral esquerdo basta ser
+mediano. O raio **não compara posições entre si** — só o atleta contra a referência dele.
+Isso é herdado do :5053 (a config de lá diz "ref forte ⇒ verde raro; ref modesta ⇒ verde
+comum"), não foi introduzido aqui. O balão do raio passou a dizer o percentil da referência
+para que a leitura não engane.

@@ -3639,8 +3639,20 @@ function compApagar() {
 function fsMontarFiltros() {
   campinhoInit('fsCampo', () => {
     const s = campinhoSelecao('fsCampo');
+    const antes = fsPos;
     if (s.size) fsPos = [...s][0];
     campinhoDefinir('fsCampo', [fsPos]);
+    /* Trocar de posicao recomeca a comparacao. Os escolhidos a mao (fsExtras) e os
+       tirados (fsOcultos) sao de OUTRA posicao — carrega-los adiante mostrava volantes
+       na regua de medio. E o `fsCongelar()`, que desliga os Top 5 quando se tira alguem
+       da tela, deixava a lista travada nos antigos: sem religar, a nova posicao abria
+       vazia ou com os de antes. */
+    if (fsPos !== antes) {
+      fsExtras = [];
+      fsOcultos = new Set();
+      ['#fsTopA', '#fsTopB'].forEach(id => { if ($(id)) $(id).checked = true; });
+      if ($('#fsTopFiltro')) $('#fsTopFiltro').value = 0;
+    }
     compMontarLista();
     fsRender();
   }, true);
@@ -3878,9 +3890,11 @@ async function raioCarregar() {
   RAIO_MAPA = null;
 }
 
+let RAIO_PCTL = {};        /* posicao -> percentil medio da referencia na populacao */
 function raioMapa() {
   if (RAIO_MAPA) return RAIO_MAPA;
   RAIO_MAPA = new Map();
+  RAIO_PCTL = {};
   if (!RAIO || !BASE.length) return RAIO_MAPA;
   const P = RAIO.params, KP = RAIO.kpis;
   Object.keys(RAIO.refs).forEach(pos => {
@@ -3913,6 +3927,16 @@ function raioMapa() {
       const c = (mz >= P.banda || dom) ? 'sup' : (mz <= -P.banda || domneg) ? 'bax' : 'sim';
       RAIO_MAPA.set(primaryKey(j), { c, z: mz, med, w: ganhos, na: n, n: npp, dom, domneg, pos });
     });
+    /* Quao alta e a barra: o percentil medio da REFERENCIA na propria posicao. Importa
+       muito e nao e parelho entre posicoes — o Medina (medios) esta no percentil 91 e
+       so 3% ficam verdes; o Alex Telles (lateral esquerdo) esta no 25 e 65% ficam. Sem
+       isto no balao, o mesmo verde parece querer dizer a mesma coisa nas onze posicoes,
+       e nao quer. */
+    const ps = KP.map(k => {
+      const col = pop.map(j => j[k]).sort((a, b) => a - b);
+      return col.filter(v => v < rv[k]).length / col.length * 100;
+    });
+    RAIO_PCTL[pos] = Math.round(ps.reduce((a, v) => a + v, 0) / ps.length);
   });
   return RAIO_MAPA;
 }
@@ -3933,6 +3957,11 @@ function raioIcone(pk) {
   if (o.dom) t += ' · verde por DOMINÂNCIA (maioria dos eixos com margem)';
   if (o.domneg) t += ' · vermelho por DOMINÂNCIA NEGATIVA';
   if (curto) t += ' · AMOSTRA CURTA: só ' + o.n + ' jogos rastreados';
+  if (RAIO_PCTL[o.pos] != null) {
+    t += ' — a referência está no percentil ' + RAIO_PCTL[o.pos] + ' da posição' +
+         (RAIO_PCTL[o.pos] >= 75 ? ': barra alta, verde é raro aqui'
+          : RAIO_PCTL[o.pos] <= 35 ? ': barra baixa, verde é comum aqui' : '');
+  }
   return '<span class="raio raio-' + o.c + (curto ? ' raio-curto' : '') + '" title="' + esc(t) +
     '"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>';
 }
