@@ -3065,6 +3065,32 @@ function fsRender() {
     };
   });
   fsMontarElenco();
+  fsMontarSeries(co, colunas);
+}
+
+/* Uma lista por serie, na posicao escolhida, do melhor indice fisico para o pior.
+   Sai da MESMA coorte que a matriz usa como regua — entao a ordem aqui e a mesma
+   que decide os "top 5" — e quem ja esta na comparacao aparece marcado, para nao
+   escolher duas vezes o mesmo. */
+function fsMontarSeries(co, colunas) {
+  const jaTem = new Set(colunas.map(c => primaryKey(c.j)));
+  [['#fsSerieA', 'Brasil A', 'Série A'], ['#fsSerieB', 'Brasil B', 'Série B']].forEach(
+    ([sel, liga, rot]) => {
+      const el = $(sel);
+      if (!el) return;
+      const lista = co.lista.filter(j => j.l === liga)
+        .map(j => ({ j, idx: fsIndices(co, j).geral }))
+        .filter(x => x.idx != null)
+        .sort((a, b) => b.idx - a.idx);
+      el.innerHTML = '<option value="">＋ ' + rot + ' · ' + lista.length + ' na régua…</option>' +
+        lista.map((x, i) => {
+          const pk = primaryKey(x.j);
+          return '<option value="' + esc(pk) + '"' + (jaTem.has(pk) ? ' disabled' : '') + '>' +
+            (i + 1) + 'º · ' + x.idx + ' · ' + esc(x.j.n) + ' (' + esc(x.j.t) + ')' +
+            (jaTem.has(pk) ? ' — já está' : '') + '</option>';
+        }).join('');
+      el.value = '';
+    });
 }
 
 /* busca de qualquer jogador com tracking, em qualquer liga */
@@ -3418,6 +3444,9 @@ function fsMontarFiltros() {
   $('#fsBusca').oninput = debounce(fsBuscar, 150);
   $('#fsBusca').onclick = e => { e.stopPropagation(); if ($('#fsBusca').value.trim().length >= 2) fsBuscar(); };
   $('#fsElenco').onchange = () => { fsAdicionar($('#fsElenco').value); $('#fsElenco').value = ''; };
+  ['#fsSerieA', '#fsSerieB'].forEach(sel => {
+    $(sel).onchange = () => { if ($(sel).value) fsAdicionar($(sel).value); $(sel).value = ''; };
+  });
   $('#fsMin').oninput = debounce(fsRender, 200);
   ['#fsTopA', '#fsTopB', '#fsMedias'].forEach(id => { $(id).onchange = fsRender; });
   $('#fsLimpar').onclick = () => {

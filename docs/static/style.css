@@ -1874,3 +1874,10 @@ body.claro{ --fs-media-tinta:#22303f; }
 
 .jog-mais.editar{font-size:10px}
 .jog-mais.editar:hover{background:var(--coral);color:#fff}
+
+/* as duas listas por serie, lado a lado dentro do campo de adicionar */
+.fs-combos{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px}
+.fs-combos select{min-width:0;font-size:10.5px;padding:4px 5px}
+#fsSerieA{border-color:#22c55e55}
+#fsSerieB{border-color:#52a4eb55}
+.fs-combos option:disabled{color:var(--tinta3);font-style:italic}
