@@ -2652,14 +2652,51 @@ function fsIndices(co, j) {
 }
 function fsFaixa(p) { return p >= 75 ? 'alto' : p <= 25 ? 'baixo' : 'medio'; }
 
-function fsCelula(co, k, v, casas, menor, lider, tit) {
+/* Melhor e maior, MENOS nos tempos (`menor`), onde melhor e menor. Toda comparacao
+   com media tem de passar por aqui — foi errando isso que o estudo quase disse que a
+   serie mais lenta era a melhor. */
+function melhorQue(v, m, menor) { return menor ? v < m : v > m; }
+
+/* Contorno da celula: verde quando o jogador bate as DUAS medias (Serie A e B), ambar
+   quando bate so a mais fraca das duas. E a pergunta que se faz montando elenco —
+   "ele joga em que nivel?" — respondida sem precisar comparar numero a numero. */
+function fsGanho(v, mA, mB, menor) {
+  if (typeof v !== 'number' || isNaN(v) || typeof mA !== 'number' || typeof mB !== 'number') return '';
+  const forte = menor ? Math.min(mA, mB) : Math.max(mA, mB);
+  const fraca = menor ? Math.max(mA, mB) : Math.min(mA, mB);
+  if (melhorQue(v, forte, menor)) return ' bate-duas';
+  if (melhorQue(v, fraca, menor)) return ' bate-uma';
+  return '';
+}
+
+function fsCelula(co, k, v, casas, menor, lider, tit, mA, mB) {
   if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const p = fsPct(co, k, v, menor);
   const cls = p == null ? 'medio' : fsFaixa(p);
-  return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) +
-    (p != null ? ' · percentil ' + p : '') + '"><div class="fs-cl">' +
+  const ganho = fsGanho(v, mA, mB, menor);
+  const nota = ganho === ' bate-duas' ? ' · acima das duas médias'
+             : ganho === ' bate-uma' ? ' · acima da média mais fraca' : '';
+  return '<td class="fs-c ' + cls + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+    (p != null ? ' · percentil ' + p : '') + nota + '"><div class="fs-cl">' +
     '<i class="fs-bar"><b style="width:' + Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
+}
+
+/* Celula de media, agora na frente da matriz. `venc` marca qual das duas ganha. */
+function fsCelulaMedia(co, k, v, casas, menor, venc) {
+  if (typeof v !== 'number' || isNaN(v))
+    return '<td class="fs-c media vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
+  const p = fsPct(co, k, v, menor);
+  return '<td class="fs-c media' + (venc ? ' venceu' : '') + '"><div class="fs-cl">' +
+    '<i class="fs-bar"><b style="width:' + Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
+    '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
+}
+function fsQuemGanha(mA, mB, menor) {
+  if (typeof mA !== 'number' || typeof mB !== 'number' || mA === mB)
+    return '<td class="fs-ganha"><span class="e">=</span></td>';
+  const a = melhorQue(mA, mB, menor);
+  return '<td class="fs-ganha"><span class="' + (a ? 'a' : 'b') + '" title="Série ' +
+    (a ? 'A' : 'B') + ' leva vantagem neste indicador">' + (a ? 'A' : 'B') + '</span></td>';
 }
 
 /* Fim de contrato na coluna, com bolinha para quem vence ate dezembro de 2026 —
@@ -2808,12 +2845,16 @@ function fsRender() {
     (fsMinJogos() ? ' (≥ ' + fsMinJogos() + ' jogos)' : '') + '</small>' +
     '<button class="fs-add-bt" title="Escolher um jogador para entrar na comparação">' +
       '+ adicionar jogador</button></th>' +
+    medias.map(m => '<th class="fs-media ' + (m.rot.endsWith('A') ? 'sa' : 'sb') +
+      '" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
+      (m.d.n === 1 ? '' : 's') + ' da ' + esc(m.rot.replace('Média ', '')) + ' que entram na régua">' +
+      '<b>' + esc(m.rot) + '</b><small>' + m.d.n + ' na régua</small></th>').join('') +
+    (medias.length === 2 ? '<th class="fs-ganha-cab" title="Qual das duas séries leva ' +
+      'vantagem no indicador">ganha</th>' : '') +
     colunas.map(fsCabecalho).join('') +
     vagas.map(() => '<th class="fs-vaga" title="Clique para escolher um jogador">' +
       '<button class="fs-vaga-bt">+</button><small>adicionar</small></th>').join('') +
-    medias.map(m => '<th class="fs-media" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
-      (m.d.n === 1 ? '' : 's') + ' da ' + esc(m.rot.replace('Média ', '')) + ' que entram na régua">' +
-      '<b>' + esc(m.rot) + '</b><small>' + m.d.n + ' na régua</small></th>').join('') + '</tr></thead>';
+    '</tr></thead>';
 
   let b = '<tbody>';
 
@@ -2827,43 +2868,48 @@ function fsRender() {
       'temporadas ' + (HIST.temporadas || []).join(', ') + '"><b>Temporadas</b>' +
       '<span>Wyscout · ' + (HIST.temporadas[0] || '') + '–' +
       (HIST.temporadas[HIST.temporadas.length - 1] || '') + '</span></td>' +
+      medias.map(() => '<td></td>').join('') + (medias.length === 2 ? '<td></td>' : '') +
       colunas.map(c => '<td>' + (c.h ? '' : '<span class="fs-sem">sem histórico</span>') + '</td>').join('') +
-      tdVagas + medias.map(() => '<td></td>').join('') + '</tr>';
+      tdVagas + '</tr>';
     linhasT.forEach(l => {
       const vals = colunas.map(c => l.val(c.h));
       const validos = vals.filter(v => v != null);
       const melhor = validos.length ? Math.max.apply(null, validos) : null;
       const alvo = Math.max(l.ref || 0, melhor || 0, 0.0001);
       const med = mt.todos[l.id];
+      const mA = mt.A[l.id], mB = mt.B[l.id];
+      const medTd = medias.map(m => {
+        const v = (m.rot.endsWith('A') ? mt.A : mt.B)[l.id];
+        if (v == null) return '<td class="fs-c media vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
+        const venc = medias.length === 2 && mA != null && mB != null && mA !== mB &&
+                     ((m.rot.endsWith('A')) === (mA > mB));
+        return '<td class="fs-c media' + (venc ? ' venceu' : '') + '"><div class="fs-cl">' +
+          '<i class="fs-bar"><b style="width:' +
+            Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
+          '<span class="v">' +
+          (l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
+      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, false) : '');
+
       b += '<tr' + (l.forte ? ' class="fs-soma"' : '') + '><td class="fs-rot">' + esc(l.rot) +
-        '<small>' + esc(l.un) + '</small></td>' +
+        '<small>' + esc(l.un) + '</small></td>' + medTd +
         colunas.map((c, i) => {
           const v = vals[i];
           if (v == null) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
           const cls = med == null ? 'medio' : v >= med ? 'alto' : 'baixo';
           const lider = melhor != null && v === melhor && validos.length > 1 && v > 0;
+          const ganho = fsGanho(v, mA, mB, false);
           const tit = l.rot + ': ' + fsFmt(v, l.casas) +
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
-          return '<td class="fs-c ' + cls + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+          return '<td class="fs-c ' + cls + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
             '"><div class="fs-cl">' +
             '<i class="fs-bar"><b style="width:' +
               Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
             '<span class="v">' + (l.casas ? fsFmt(v, l.casas) : milhar(v)) + '</span></div></td>';
-        }).join('') +
-        tdVagas + medias.map(m => {
-          const v = (m.rot.endsWith('A') ? mt.A : mt.B)[l.id];
-          if (v == null) return '<td class="fs-c media vazio"><div class="fs-cl">' +
-            '<span class="v">–</span></div></td>';
-          return '<td class="fs-c media"><div class="fs-cl">' +
-            '<i class="fs-bar"><b style="width:' +
-              Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
-            '<span class="v">' +
-            (l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
-        }).join('') + '</tr>';
+        }).join('') + tdVagas + '</tr>';
     });
     if (comHist < colunas.length) {
-      b += '<tr class="fs-aviso"><td colspan="' + (1 + colunas.length + vagas.length + medias.length) + '">' +
+      b += '<tr class="fs-aviso"><td colspan="' + (2 + colunas.length + vagas.length + medias.length) + '">' +
         (colunas.length - comHist) + ' de ' + colunas.length + ' sem histórico do Wyscout: ' +
         'o cruzamento entre temporadas é por nome e idade, e nomes ambíguos ficam de fora ' +
         'em vez de mostrar a temporada de outra pessoa.</td></tr>';
@@ -2873,31 +2919,29 @@ function fsRender() {
   FS_GRUPOS.forEach((g, gi) => {
     b += '<tr class="fs-grupo"><td title="' + esc(g.t + ' — ' + g.d) + '"><b>' + esc(g.t) +
       '</b><span>' + esc(g.d) + '</span></td>' +
+      medias.map(() => '<td></td>').join('') + (medias.length === 2 ? '<td></td>' : '') +
       colunas.map(c => {
         const v = c.idx.grupos[gi];
         return '<td>' + (v == null ? '' : '<span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +
           '" title="Índice do grupo: média dos percentis">' + v + '</span>') + '</td>';
-      }).join('') + tdVagas + medias.map(() => '<td></td>').join('') + '</tr>';
+      }).join('') + tdVagas + '</tr>';
     g.m.forEach(([k, rot, un, casas, menor]) => {
       const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));
       const validos = vals.filter(v => v != null);
       const melhor = validos.length ? (menor ? Math.min.apply(null, validos) : Math.max.apply(null, validos)) : null;
-      b += '<tr><td class="fs-rot">' + esc(rot) + '<small>' + esc(un) + '</small></td>' +
+      const mA = co.A.m[k], mB = co.B.m[k];
+      const medTd = medias.map(m => {
+        const venc = medias.length === 2 && typeof mA === 'number' && typeof mB === 'number' &&
+                     mA !== mB && ((m.rot.endsWith('A')) === melhorQue(mA, mB, menor));
+        return fsCelulaMedia(co, k, m.d.m[k], casas, menor, venc);
+      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, menor) : '');
+
+      b += '<tr><td class="fs-rot">' + esc(rot) + '<small>' + esc(un) + '</small></td>' + medTd +
         colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
           melhor != null && vals[i] === melhor && validos.length > 1,
-          rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(co.A.m[k], casas) +
-          ' · média B ' + fsFmt(co.B.m[k], casas))).join('') + tdVagas +
-        medias.map(m => {
-          /* a media ganha a mesma barra, mas com preenchimento neutro: ela e a regua,
-             nao um competidor — pintar de verde ou vermelho diria que a media e boa
-             ou ruim, o que nao quer dizer nada */
-          const vm = m.d.m[k];
-          const pm = fsPct(co, k, vm, menor);
-          return '<td class="fs-c media"><div class="fs-cl">' +
-            '<i class="fs-bar"><b style="width:' + Math.max(2, pm == null ? 0 : pm) + '%"></b></i>' +
-            '<span class="v">' + fsFmt(vm, casas) + '</span></div></td>';
-        }).join('') +
-        '</tr>';
+          rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(mA, casas) +
+          ' · média B ' + fsFmt(mB, casas), mA, mB)).join('') +
+        tdVagas + '</tr>';
     });
   });
   b += '</tbody>';

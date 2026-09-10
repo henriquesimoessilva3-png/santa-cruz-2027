@@ -1756,3 +1756,44 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 .es-resumo td.c-dif{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .es-pos b{min-width:38px;margin-right:6px}
 .es-conta{min-width:30px}
+
+/* ---------- medias na frente, com quem ganha entre elas ----------
+   Elas deixam de ser rodape e viram a REGUA que se le antes de olhar jogador nenhum.
+   Por isso vao com barra e numero em branco: apagadas, exigiam esforco justamente
+   onde o olho precisa de referencia. */
+#fsMatriz th.fs-media{width:var(--fs-col,110px);border-top:4px solid var(--tinta3)}
+#fsMatriz th.fs-media.sa{border-top-color:var(--verde)}
+#fsMatriz th.fs-media.sb{border-top-color:#52a4eb}
+#fsMatriz tbody tr td.fs-c.media{background:var(--fs-cel-alt)}
+#fsMatriz .fs-c.media .v{color:#fff;font-weight:600}
+#fsMatriz .fs-c.media .fs-bar{background:var(--fs-trilho)}
+#fsMatriz .fs-c.media .fs-bar b{background:#fff;opacity:.92}
+#fsMatriz .fs-c.media.venceu .v{font-weight:800}
+#fsMatriz .fs-c.media.vazio .v{color:var(--tinta3);font-weight:400}
+
+/* coluna estreita entre as medias e os jogadores */
+#fsMatriz th.fs-ganha-cab{width:40px;text-align:center;font-size:8px;letter-spacing:.6px;
+  color:var(--tinta3);vertical-align:middle;border-top:4px solid var(--borda2)}
+#fsMatriz td.fs-ganha{width:40px;text-align:center;background:var(--fs-cel-alt)}
+.fs-ganha span{display:inline-block;min-width:17px;padding:1px 4px;border-radius:4px;
+  font-size:9px;font-weight:800}
+.fs-ganha span.a{background:#22c55e2b;color:var(--txt-verde)}
+.fs-ganha span.b{background:#52a4eb2b;color:#52a4eb}
+.fs-ganha span.e{background:var(--veu2);color:var(--tinta3)}
+
+/* ---------- contorno diz o nivel do jogador contra as medias ----------
+   Verde: bate as duas series. Ambar: bate so a mais fraca. Substitui o contorno
+   dourado de "lider da linha", que dizia menos — ser o melhor entre dez escolhidos
+   nao informa em que nivel o jogador joga. O lider fica so com o numero em negrito. */
+#fsMatriz td.fs-c.bate-duas{outline:2px solid var(--verde);outline-offset:-2px;
+  background:#22c55e1a;position:relative;z-index:2}
+#fsMatriz td.fs-c.bate-uma{outline:2px solid #e2a51f;outline-offset:-2px;
+  background:#e2a51f14;position:relative;z-index:1}
+#fsMatriz td.fs-c.lider{outline:none;background:inherit}
+#fsMatriz td.fs-c.lider .v{font-weight:800;color:#fff}
+#fsMatriz td.fs-c.bate-duas .v{color:#fff}
+#fsMatriz td.fs-c.bate-uma .v{color:#fff}
+
+.fs-leg-q{display:inline-block;width:14px;height:9px;border-radius:3px;background:var(--trilho)}
+.fs-leg-q.duas{outline:2px solid var(--verde);outline-offset:-2px;background:#22c55e1a}
+.fs-leg-q.uma{outline:2px solid #e2a51f;outline-offset:-2px;background:#e2a51f14}
