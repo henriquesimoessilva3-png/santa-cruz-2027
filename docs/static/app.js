@@ -2800,7 +2800,19 @@ function fsIndices(co, j) {
    duas coisas ao mesmo tempo — o Bruninho batia as duas medias (contorno azul) com a
    barra cinza, porque estava no percentil 73 e o verde comecava em 75. O COMPRIMENTO da
    barra continua sendo o percentil: quanto ele vale dentro da posicao. */
-/* a cor do preenchimento sai do proprio nivel, no CSS — uma classe, uma cor */
+/* O PREENCHIMENTO da barra do jogador volta a ser verde/ambar contra as medias da liga:
+   bonina e roxo sao as cores das COLUNAS de referencia, e usa-las tambem no miolo das
+   celulas dos jogadores fazia a matriz inteira parecer bonina e roxa — nao dava para
+   achar as colunas de referencia no meio. O CONTORNO segue com os quatro niveis. */
+function fsCorBarra(v, mA, mB, menor) {
+  if (typeof v !== 'number' || isNaN(v) ||
+      typeof mA !== 'number' || typeof mB !== 'number') return '';
+  const forte = menor ? Math.min(mA, mB) : Math.max(mA, mB);
+  const fraca = menor ? Math.max(mA, mB) : Math.min(mA, mB);
+  if (melhorQue(v, forte, menor)) return ' cor-duas';
+  if (melhorQue(v, fraca, menor)) return ' cor-uma';
+  return '';
+}
 
 /* Melhor e maior, MENOS nos tempos (`menor`), onde melhor e menor. Toda comparacao
    com media tem de passar por aqui — foi errando isso que o estudo quase disse que a
@@ -2853,7 +2865,8 @@ function fsCelula(co, k, v, casas, menor, lider, tit, mA, mB, rBR, rMU) {
   const p = fsPct(co, k, v, menor);
   const ganho = fsGanho(v, mA, mB, menor, rBR, rMU);
   const nota = FS_NOTA[ganho.trim()] || ' · abaixo das duas médias';
-  return '<td class="fs-c' + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+  return '<td class="fs-c' + ganho + fsCorBarra(v, mA, mB, menor) +
+    (lider ? ' lider' : '') + '" title="' + esc(tit) +
     (p != null ? ' · percentil ' + p : '') + nota + '"><div class="fs-cl">' +
     '<i class="fs-bar"><b style="width:' + fsLarg(v, menor).toFixed(1) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
@@ -3145,7 +3158,8 @@ function fsRender() {
           const tit = l.rot + ': ' + fsFmt(v, l.casas) +
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
-          return '<td class="fs-c' + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+          return '<td class="fs-c' + ganho + fsCorBarra(v, mA, mB, false) +
+            (lider ? ' lider' : '') + '" title="' + esc(tit) +
             '"><div class="fs-cl">' +
             '<i class="fs-bar"><b style="width:' +
               Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +

@@ -544,6 +544,12 @@ Vale o **maior** que o jogador alcança, e a mesma cor pinta contorno e preenchi
 As duas primeiras são as cores das próprias colunas de referência, para o olho ligar a
 célula marcada à barra que ela superou.
 
+**O contorno tem quatro cores; o preenchimento continua com duas.** Bonina e roxo no
+miolo das células dos jogadores faziam a matriz inteira parecer bonina e roxa, e as
+colunas de referência deixavam de saltar. A barra do jogador segue verde acima das duas
+médias da liga, âmbar acima só da mais fraca, cinza abaixo — `fsCorBarra()` compara com
+as médias, `fsGanho()` decide o contorno.
+
 **Barra de rolagem horizontal**: `nCols` não contava as colunas de referência nem a coluna
 "ganha", então a largura sobrava por quase três colunas. Além disso `FS_COL_MIN` (92px) era
 um piso rígido — com dez jogadores em tela de 1440px não cabia. Entrou `FS_COL_ABS = 70`:
@@ -553,3 +559,8 @@ espremer até 70 é melhor do que rolar de lado, e o nome cortado está inteiro 
 ganhava dos chips por especificidade (classe+elemento contra classe). As barrinhas viravam
 pontos e o card "dez/26" era espremido num círculo de 7px, com o texto vazando por cima da
 linha ao lado. Resolvido com `.fs-legenda i.<classe>`.
+
+**Cabeçalho embolando com a tabela (set/26)**: as células com contorno usam
+`position:relative` + `z-index` 1..4 para a moldura de uma não ser cortada pela vizinha.
+O cabeçalho sticky estava em `z-index:3` — as células roxas (4) passavam **por cima** dele
+ao rolar. Cabeçalho foi para 30, a primeira coluna para 20 e o canto para 40.

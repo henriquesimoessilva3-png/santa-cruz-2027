@@ -1415,19 +1415,23 @@ body:not(.claro){
   background:var(--trilho);position:relative;overflow:hidden;vertical-align:-1px}
 .fs-legenda i.fs-bar-leg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:45%;background:var(--tinta3);border-radius:3px}
 .fs-legenda i.fs-bar-leg.duas{outline:2px solid #3b9dff;outline-offset:-2px}
-.fs-legenda i.fs-bar-leg.duas::after{background:#3b9dff;width:62%}
+.fs-legenda i.fs-bar-leg.duas::after{background:var(--tinta3);width:62%}
 .fs-legenda i.fs-bar-leg.uma{outline:2px solid #e2a51f;outline-offset:-2px}
-.fs-legenda i.fs-bar-leg.uma::after{background:#e2a51f;width:45%}
+.fs-legenda i.fs-bar-leg.uma::after{background:var(--tinta3);width:45%}
 .fs-leg-nota{color:var(--tinta3)}
 .fc-tit .c-ouro{color:#e2a51f}
 .fs-matriz-wrap{flex:1;overflow:auto;min-height:0}
 #fsMatriz{border-collapse:separate;border-spacing:0;font-size:11px;min-width:100%;table-layout:fixed}
 #fsMatriz th,#fsMatriz td{border-bottom:1px solid var(--linha-tab);padding:4px 8px;white-space:nowrap;vertical-align:middle}
-#fsMatriz thead th{position:sticky;top:0;background:var(--fundo3);z-index:3;vertical-align:top;text-align:left;
+/* z-index alto de proposito: as celulas com contorno usam position:relative + z-index
+   1..4 para a moldura de uma nao ser cortada pela vizinha, e com o cabecalho em 3 as
+   marcadas de roxo (4) passavam POR CIMA dele ao rolar — nomes de jogador embolados no
+   meio da tabela. O cabecalho tem de ficar acima de qualquer celula. */
+#fsMatriz thead th{position:sticky;top:0;background:var(--fundo3);z-index:30;vertical-align:top;text-align:left;
   min-width:104px;padding:8px 9px 6px;border-bottom:1px solid var(--borda2)}
-#fsMatriz thead th:first-child,#fsMatriz tbody td:first-child{position:sticky;left:0;background:var(--fundo3);z-index:2;
+#fsMatriz thead th:first-child,#fsMatriz tbody td:first-child{position:sticky;left:0;background:var(--fundo3);z-index:20;
   width:188px;white-space:normal;border-right:1px solid var(--borda2)}
-#fsMatriz thead th:first-child{z-index:4}
+#fsMatriz thead th:first-child{z-index:40}   /* o canto fica acima dos dois */
 #fsMatriz tbody tr:not(.fs-grupo) td:first-child{background:var(--fundo)}
 .fs-canto span{font-weight:800;font-size:12.5px;display:block}
 .fs-canto small,.fs-col small,.fs-media small{display:block;font-size:9.5px;color:var(--tinta3);line-height:1.35;font-weight:400;white-space:normal}
@@ -1471,10 +1475,11 @@ body:not(.claro){
      ambar  bate so a mais fraca das duas
    As duas primeiras sao as cores das proprias colunas de referencia, para o olho ligar
    a celula marcada a barra que ela superou. */
-.fs-c.bate-mundo  .fs-bar b{background:#a855f7}
-.fs-c.bate-brasil .fs-bar b{background:#b0143c}
-.fs-c.bate-duas   .fs-bar b{background:#3b9dff}
-.fs-c.bate-uma    .fs-bar b{background:#e2a51f}
+/* Preenchimento: verde acima das DUAS medias da liga, ambar acima so da mais fraca,
+   cinza abaixo. Bonina e roxo ficam so nas colunas de referencia — no miolo das celulas
+   dos jogadores eles somem no meio da matriz e a referencia deixa de saltar. */
+.fs-c.cor-duas .fs-bar b{background:var(--verde)}
+.fs-c.cor-uma  .fs-bar b{background:#e2a51f}
 .fs-c.media .v{color:var(--tinta3)}
 .fs-c.vazio .v{color:var(--tinta3);opacity:.45}
 
@@ -2118,6 +2123,12 @@ body.com-zoom #abasInfo::after{content:" · Esc ou clique no gramado para voltar
 #fsMatriz td.fs-c.media.ref{background:#ffffff08}
 
 .fs-legenda i.fs-bar-leg.mundo{outline:2px solid #a855f7;outline-offset:-2px}
-.fs-legenda i.fs-bar-leg.mundo::after{background:#a855f7;width:92%}
+.fs-legenda i.fs-bar-leg.mundo::after{background:var(--tinta3);width:92%}
 .fs-legenda i.fs-bar-leg.brasil{outline:2px solid #b0143c;outline-offset:-2px}
-.fs-legenda i.fs-bar-leg.brasil::after{background:#b0143c;width:78%}
+.fs-legenda i.fs-bar-leg.brasil::after{background:var(--tinta3);width:78%}
+
+/* legenda: os quatro chips de contorno vao com o miolo cinza (a cor deles e a moldura);
+   os dois de barra vao sem moldura, so com a cor do preenchimento */
+.fs-legenda i.fs-bar-leg.cheia-verde::after{background:var(--verde);width:80%}
+.fs-legenda i.fs-bar-leg.cheia-ambar::after{background:#e2a51f;width:52%}
+.fs-leg-tit{font-weight:800;color:var(--tinta2);letter-spacing:.8px}
