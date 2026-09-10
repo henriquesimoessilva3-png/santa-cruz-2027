@@ -1396,8 +1396,10 @@ body:not(.claro){
   padding:2px 0;border-radius:4px;border:1px solid var(--borda2);background:var(--veu2);color:var(--tinta3)}
 .fsp-ct.livre{border-color:#e2a51f;background:#e2a51f26;color:#e2a51f}
 .fsp-ct.sem{border-style:dashed;color:var(--tinta3);opacity:.5}
-.fs-leg-ct{font-style:normal;font-size:8.5px;font-weight:800;padding:1px 4px;border-radius:3px;
-  border:1px solid #e2a51f;background:#e2a51f26;color:#e2a51f;vertical-align:1px}
+.fs-legenda i.fs-leg-ct{font-style:normal;font-size:8.5px;font-weight:800;padding:1px 4px;
+  width:auto;height:auto;border-radius:3px;border:1px solid #1f9d55;background:#1f9d55;
+  color:#fff;vertical-align:middle;line-height:1.4}
+.fs-legenda{line-height:1.6}
 .rk-campo-f select,.rk-campo-f input[type=number]{width:100%;box-sizing:border-box;background:var(--input-bg);
   border:1px solid var(--input-borda);border-radius:4px;padding:6px 8px;font-size:11.5px;color:var(--tinta);font-family:inherit}
 .fs-min input{text-align:center}
@@ -1405,13 +1407,17 @@ body:not(.claro){
 .fs-toggles .chk{font-size:10.5px;color:var(--tinta2);display:flex;align-items:center;gap:4px;font-weight:600}
 .fs-toggles input{margin:0;accent-color:var(--coral)}
 .fs-legenda{max-width:none;margin-top:4px}
-.fs-bar-leg{display:inline-block;width:20px;height:9px;border-radius:3px;background:var(--trilho);
-  position:relative;overflow:hidden;vertical-align:-1px}
-.fs-bar-leg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:45%;background:var(--tinta3);border-radius:3px}
-.fs-bar-leg.duas{outline:2px solid #3b9dff;outline-offset:-2px}
-.fs-bar-leg.duas::after{background:var(--verde);width:85%}
-.fs-bar-leg.uma{outline:2px solid #e2a51f;outline-offset:-2px}
-.fs-bar-leg.uma::after{background:#e2a51f;width:60%}
+/* `.rk-legenda i` e uma BOLINHA de 7x7 com border-radius 50%, e ganhava destes chips
+   por especificidade (classe+elemento contra classe): a barrinha virava ponto e o card
+   "dez/26" era espremido num circulo de 7px, com o texto vazando por cima da linha ao
+   lado. Daí o `.fs-legenda i` aqui — mesma forca, e ganha por vir depois. */
+.fs-legenda i.fs-bar-leg{display:inline-block;width:20px;height:9px;border-radius:3px;
+  background:var(--trilho);position:relative;overflow:hidden;vertical-align:-1px}
+.fs-legenda i.fs-bar-leg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:45%;background:var(--tinta3);border-radius:3px}
+.fs-legenda i.fs-bar-leg.duas{outline:2px solid #3b9dff;outline-offset:-2px}
+.fs-legenda i.fs-bar-leg.duas::after{background:#3b9dff;width:62%}
+.fs-legenda i.fs-bar-leg.uma{outline:2px solid #e2a51f;outline-offset:-2px}
+.fs-legenda i.fs-bar-leg.uma::after{background:#e2a51f;width:45%}
 .fs-leg-nota{color:var(--tinta3)}
 .fc-tit .c-ouro{color:#e2a51f}
 .fs-matriz-wrap{flex:1;overflow:auto;min-height:0}
@@ -1457,10 +1463,18 @@ body:not(.claro){
 .fs-bar{flex:1;min-width:16px;height:13px;border-radius:3px;background:var(--trilho);
   position:relative;overflow:hidden}
 .fs-bar b{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--tinta3)}
-/* Uma regua so na celula: a cor do preenchimento diz o mesmo que o contorno (bate as
-   duas medias / bate a mais fraca), e o comprimento continua sendo o percentil. */
-.fs-c.cor-duas .fs-bar b{background:var(--verde)}
-.fs-c.cor-uma .fs-bar b{background:#e2a51f}
+/* Quatro niveis, uma cor cada, valendo para o CONTORNO e para o PREENCHIMENTO — a
+   celula diz uma coisa so. Do mais forte para o mais fraco:
+     roxo   bate a media das referencias do MUNDO
+     bonina bate a media das referencias do BRASIL
+     azul   bate as medias da Serie A e da B
+     ambar  bate so a mais fraca das duas
+   As duas primeiras sao as cores das proprias colunas de referencia, para o olho ligar
+   a celula marcada a barra que ela superou. */
+.fs-c.bate-mundo  .fs-bar b{background:#a855f7}
+.fs-c.bate-brasil .fs-bar b{background:#b0143c}
+.fs-c.bate-duas   .fs-bar b{background:#3b9dff}
+.fs-c.bate-uma    .fs-bar b{background:#e2a51f}
 .fs-c.media .v{color:var(--tinta3)}
 .fs-c.vazio .v{color:var(--tinta3);opacity:.45}
 
@@ -1508,7 +1522,7 @@ body:not(.claro){
 .rk-rodape{gap:8px}
 #fsMatriz thead th{padding:6px 9px 5px}
 .fs-col .fs-nome b{font-size:12px}
-#fsMatriz thead th.fs-col{min-width:92px}
+#fsMatriz thead th.fs-col{min-width:70px}
 
 /* ---------- tabelas de lista: grade, para o olho nao pular de linha ---------- */
 #fcTabela th,#fcTabela td,#fsTabela th,#fsTabela td{border-right:1px solid var(--linha-tab)}
@@ -1858,6 +1872,10 @@ body.claro{ --fs-media-tinta:#22303f; }
 /* azul para quem bate as duas series, ambar para quem bate so a mais fraca. O
    preenchimento da barra segue a MESMA regua (verde/ambar/cinza) — contorno e cor
    reforcam um ao outro em vez de competir. */
+#fsMatriz td.fs-c.bate-mundo{outline:2px solid #a855f7;outline-offset:-2px;
+  background:#a855f722;position:relative;z-index:4}
+#fsMatriz td.fs-c.bate-brasil{outline:2px solid #b0143c;outline-offset:-2px;
+  background:#b0143c22;position:relative;z-index:3}
 #fsMatriz td.fs-c.bate-duas{outline:2px solid #3b9dff;outline-offset:-2px;
   background:#3b9dff1f;position:relative;z-index:2}
 #fsMatriz td.fs-c.bate-uma{outline:2px solid #e2a51f;outline-offset:-2px;
@@ -1866,8 +1884,8 @@ body.claro{ --fs-media-tinta:#22303f; }
    batia as medias — e o lider costuma ser justamente quem bate: o Hygor, com 1,14 no
    tempo ate o sprint contra 1,32 e 1,33 das medias, ficava sem marca nenhuma. */
 #fsMatriz td.fs-c.lider .v{font-weight:800;color:var(--fs-media-tinta)}
-#fsMatriz td.fs-c.bate-duas .v{color:var(--fs-media-tinta)}
-#fsMatriz td.fs-c.bate-uma .v{color:var(--fs-media-tinta)}
+#fsMatriz td.fs-c.bate-mundo .v,#fsMatriz td.fs-c.bate-brasil .v,
+#fsMatriz td.fs-c.bate-duas .v,#fsMatriz td.fs-c.bate-uma .v{color:var(--fs-media-tinta)}
 
 
 
@@ -2092,9 +2110,14 @@ body.com-zoom #abasInfo::after{content:" · Esc ou clique no gramado para voltar
 /* ---------- colunas de referência (Brasil e Mundo) ---------- */
 /* Verde para o Brasil e roxo para o mundo: sao BARRAS, nao series — a cor tem de
    dizer "isto e a régua", diferente do verde/azul das Séries A e B. */
-#fsMatriz th.fs-media.ref-br{border-top-color:#1f9d55}
+#fsMatriz th.fs-media.ref-br{border-top-color:#b0143c}
 #fsMatriz th.fs-media.ref-mu{border-top-color:#a855f7}
-#fsMatriz td.fs-c.media.ref-br .fs-bar b{background:#1f9d55}
+#fsMatriz td.fs-c.media.ref-br .fs-bar b{background:#b0143c}
 #fsMatriz td.fs-c.media.ref-mu .fs-bar b{background:#a855f7}
 #fsMatriz td.fs-c.media.ref .v{color:var(--tinta)}
 #fsMatriz td.fs-c.media.ref{background:#ffffff08}
+
+.fs-legenda i.fs-bar-leg.mundo{outline:2px solid #a855f7;outline-offset:-2px}
+.fs-legenda i.fs-bar-leg.mundo::after{background:#a855f7;width:92%}
+.fs-legenda i.fs-bar-leg.brasil{outline:2px solid #b0143c;outline-offset:-2px}
+.fs-legenda i.fs-bar-leg.brasil::after{background:#b0143c;width:78%}

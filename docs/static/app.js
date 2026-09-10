@@ -2708,7 +2708,12 @@ const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7
    busca; a coluna entra na frente. */
 const FS_VAGAS = 0;
 const FS_ROTULO = 188;    /* largura da coluna dos rotulos das linhas */
-const FS_COL_MIN = 92;    /* abaixo disso o nome do jogador nao cabe */
+const FS_COL_MIN = 92;    /* largura confortavel: o nome do jogador cabe inteiro */
+/* Piso de verdade. Com dez jogadores mais as duas medias e as duas referencias, em tela
+   de 1440px nao cabe todo mundo a 92px e o navegador desenhava a barra de rolagem
+   horizontal. Espremer ate 70 e melhor do que rolar de lado: o nome corta com
+   reticencias (esta inteiro no balao) e a matriz continua sendo lida de uma vez. */
+const FS_COL_ABS = 70;
 let fsPos = 'MEI';
 let fsLigaLista = '';     /* campeonato escolhido para a lista por liga */
 const TODOS_CAMP = '*';   /* opcao "todos os campeonatos" dessa mesma lista */
@@ -2795,9 +2800,7 @@ function fsIndices(co, j) {
    duas coisas ao mesmo tempo — o Bruninho batia as duas medias (contorno azul) com a
    barra cinza, porque estava no percentil 73 e o verde comecava em 75. O COMPRIMENTO da
    barra continua sendo o percentil: quanto ele vale dentro da posicao. */
-function fsCorBarra(ganho) {
-  return ganho === ' bate-duas' ? ' cor-duas' : ganho === ' bate-uma' ? ' cor-uma' : '';
-}
+/* a cor do preenchimento sai do proprio nivel, no CSS — uma classe, uma cor */
 
 /* Melhor e maior, MENOS nos tempos (`menor`), onde melhor e menor. Toda comparacao
    com media tem de passar por aqui — foi errando isso que o estudo quase disse que a
@@ -2807,8 +2810,15 @@ function melhorQue(v, m, menor) { return menor ? v < m : v > m; }
 /* Contorno da celula: verde quando o jogador bate as DUAS medias (Serie A e B), ambar
    quando bate so a mais fraca das duas. E a pergunta que se faz montando elenco —
    "ele joga em que nivel?" — respondida sem precisar comparar numero a numero. */
-function fsGanho(v, mA, mB, menor) {
-  if (typeof v !== 'number' || isNaN(v) || typeof mA !== 'number' || typeof mB !== 'number') return '';
+/* Quatro niveis, do mais forte para o mais fraco. Vale o MAIOR que o jogador alcanca:
+   roxo bate a media das referencias do MUNDO, bonina bate a das referencias do BRASIL,
+   azul bate as medias da Serie A e da B, ambar bate so a mais fraca das duas. Bater a
+   referencia e mais do que bater a media da liga, por isso vem antes. */
+function fsGanho(v, mA, mB, menor, rBR, rMU) {
+  if (typeof v !== 'number' || isNaN(v)) return '';
+  if (typeof rMU === 'number' && melhorQue(v, rMU, menor)) return ' bate-mundo';
+  if (typeof rBR === 'number' && melhorQue(v, rBR, menor)) return ' bate-brasil';
+  if (typeof mA !== 'number' || typeof mB !== 'number') return '';
   const forte = menor ? Math.min(mA, mB) : Math.max(mA, mB);
   const fraca = menor ? Math.max(mA, mB) : Math.min(mA, mB);
   if (melhorQue(v, forte, menor)) return ' bate-duas';
@@ -2816,26 +2826,54 @@ function fsGanho(v, mA, mB, menor) {
   return '';
 }
 
-function fsCelula(co, k, v, casas, menor, lider, tit, mA, mB) {
+/* ---------- a barra: uma escala so para a linha inteira ----------
+   Duas tentativas antes desta, as duas ruins por motivos opostos:
+   1) PERCENTIL na coorte — satura. Qualquer valor acima do melhor brasileiro virava
+      100%, e a Ref. Mundo (quase sempre fora da faixa daqui) ficava do tamanho de um
+      jogador bom qualquer.
+   2) PROPORCIONAL AO MAIOR (v ÷ máx) — nao discrimina. Velocidade de pico vai de 31 a
+      33 km/h: todas as barras davam 95%, porque a escala comecava no zero e o zero nao
+      diz nada aqui.
+   A que vale: a linha define o seu proprio intervalo (do pior ao melhor entre TUDO que
+   ela desenha — medias, referencias e jogadores) e a barra e a posicao dentro dele. Nos
+   tempos (`menor`) a leitura inverte. Um piso de 8% garante que o ultimo ainda apareca.
+   O percentil na coorte nao se perdeu: segue no balao de cada celula. */
+let FS_ESCALA = null;   /* { max, min } da linha que esta sendo desenhada */
+function fsLarg(v, menor) {
+  const e = FS_ESCALA;
+  if (!e || typeof v !== 'number' || isNaN(v)) return 8;
+  const faixa = e.max - e.min;
+  if (!(faixa > 0)) return 100;
+  const r = menor ? (e.max - v) / faixa : (v - e.min) / faixa;
+  return 8 + Math.max(0, Math.min(1, r)) * 92;
+}
+
+function fsCelula(co, k, v, casas, menor, lider, tit, mA, mB, rBR, rMU) {
   if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const p = fsPct(co, k, v, menor);
-  const ganho = fsGanho(v, mA, mB, menor);
-  const nota = ganho === ' bate-duas' ? ' · acima das duas médias'
-             : ganho === ' bate-uma' ? ' · acima da média mais fraca'
-             : ' · abaixo das duas médias';
-  return '<td class="fs-c' + ganho + fsCorBarra(ganho) + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+  const ganho = fsGanho(v, mA, mB, menor, rBR, rMU);
+  const nota = FS_NOTA[ganho.trim()] || ' · abaixo das duas médias';
+  return '<td class="fs-c' + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
     (p != null ? ' · percentil ' + p : '') + nota + '"><div class="fs-cl">' +
-    '<i class="fs-bar"><b style="width:' + Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
+    '<i class="fs-bar"><b style="width:' + fsLarg(v, menor).toFixed(1) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
 }
+const FS_NOTA = {
+  'bate-mundo':  ' · ACIMA da referência mundo',
+  'bate-brasil': ' · acima da referência Brasil',
+  'bate-duas':   ' · acima das médias da Série A e da B',
+  'bate-uma':    ' · acima da média mais fraca das duas',
+};
 
 /* Celula de media, agora na frente da matriz. `venc` marca qual das duas ganha. */
 function fsCelulaMedia(co, k, v, casas, menor, venc) {
   if (typeof v !== 'number' || isNaN(v))
     return '<td class="fs-c media vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const p = fsPct(co, k, v, menor);
-  return '<td class="fs-c media' + (venc ? ' venceu' : '') + '"><div class="fs-cl">' +
-    '<i class="fs-bar"><b style="width:' + Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
+  return '<td class="fs-c media' + (venc ? ' venceu' : '') + '" title="' +
+    esc(fsFmt(v, casas) + (p != null ? ' · percentil ' + p + ' na posição' : '')) +
+    '"><div class="fs-cl">' +
+    '<i class="fs-bar"><b style="width:' + fsLarg(v, menor).toFixed(1) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
 }
 function fsQuemGanha(mA, mB, menor) {
@@ -3030,9 +3068,10 @@ function fsRender() {
     if (typeof v !== 'number') return refVazio;
     const p = fsPct(co, k, v, menor);
     return '<td class="fs-c media ref ' + r.cls + '" title="' + esc(r.rot + ': ' +
-      fsFmt(v, casas) + ' — média de ' + r.d.n + ': ' + r.d.nomes.join(', ')) +
+      fsFmt(v, casas) + (p != null ? ' · percentil ' + p + ' na posição' : '') +
+      ' — média de ' + r.d.n + ': ' + r.d.nomes.join(', ')) +
       '"><div class="fs-cl"><i class="fs-bar"><b style="width:' +
-      Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
+      fsLarg(v, menor).toFixed(1) + '%"></b></i>' +
       '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
   }).join('');
   /* colunas vazias no fim: dao onde encaixar mais um jogador sem ter que caçar o
@@ -3102,11 +3141,11 @@ function fsRender() {
           const v = vals[i];
           if (v == null) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
           const lider = melhor != null && v === melhor && validos.length > 1 && v > 0;
-          const ganho = fsGanho(v, mA, mB, false);
+          const ganho = fsGanho(v, mA, mB, false);   /* temporadas nao tem referencia */
           const tit = l.rot + ': ' + fsFmt(v, l.casas) +
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
-          return '<td class="fs-c' + ganho + fsCorBarra(ganho) + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+          return '<td class="fs-c' + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
             '"><div class="fs-cl">' +
             '<i class="fs-bar"><b style="width:' +
               Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
@@ -3136,6 +3175,14 @@ function fsRender() {
       const validos = vals.filter(v => v != null);
       const melhor = validos.length ? (menor ? Math.min.apply(null, validos) : Math.max.apply(null, validos)) : null;
       const mA = co.A.m[k], mB = co.B.m[k];
+      const rBR = refPos.brasil && refPos.brasil.valores[k];
+      const rMU = refPos.mundo && refPos.mundo.valores[k];
+      /* a escala da linha inclui TUDO o que sera desenhado nela — medias, referencias e
+         jogadores —, senao cada bloco teria a sua regua e a comparacao visual mentiria */
+      const naLinha = validos.concat([mA, mB, rBR, rMU]
+        .filter(x => typeof x === 'number' && !isNaN(x)));
+      FS_ESCALA = naLinha.length
+        ? { max: Math.max.apply(null, naLinha), min: Math.min.apply(null, naLinha) } : null;
       const medTd = medias.map(m => {
         const venc = medias.length === 2 && typeof mA === 'number' && typeof mB === 'number' &&
                      mA !== mB && ((m.rot.endsWith('A')) === melhorQue(mA, mB, menor));
@@ -3148,7 +3195,10 @@ function fsRender() {
         colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
           melhor != null && vals[i] === melhor && validos.length > 1,
           rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(mA, casas) +
-          ' · média B ' + fsFmt(mB, casas), mA, mB)).join('') +
+          ' · média B ' + fsFmt(mB, casas) +
+          (typeof rBR === 'number' ? ' · ref. Brasil ' + fsFmt(rBR, casas) : '') +
+          (typeof rMU === 'number' ? ' · ref. Mundo ' + fsFmt(rMU, casas) : ''),
+          mA, mB, rBR, rMU)).join('') +
         tdVagas + '</tr>';
     });
   });
@@ -3158,15 +3208,21 @@ function fsRender() {
   /* Todas as colunas com a MESMA largura: divide o espaco que sobra depois da coluna
      dos rotulos. Com um minimo, para que muitas colunas encolham ate certo ponto e so
      entao a matriz role para o lado. */
-  const nCols = colunas.length + medias.length + vagas.length;
+  /* as colunas de referencia entram na conta: sem elas a largura sobrava por duas
+     colunas e o navegador desenhava a barra de rolagem horizontal */
+  const nCols = colunas.length + medias.length + refCols.length + vagas.length;
   if (nCols) {
     /* Folga: cada coluna tem um fio de 1px a esquerda, e com `border-collapse:separate`
        esses fios SOMAM na largura. Sem descontar um pixel por coluna (mais uma folga
        de 8), a soma passava a area por poucos pixels e o navegador desenhava a barra
        de rolagem horizontal a toa. */
     const wrap = $('.fs-matriz-wrap');
-    const disp = (wrap.clientWidth || 1200) - FS_ROTULO - nCols - 8;
-    let w = Math.max(FS_COL_MIN, Math.floor(disp / nCols));
+    /* a coluna "ganha" tem largura propria e tambem come espaco */
+    const ganha = medias.length === 2 ? 38 : 0;
+    const disp = (wrap.clientWidth || 1200) - FS_ROTULO - ganha - nCols - 8;
+    const cabe = Math.floor(disp / nCols);
+    let w = Math.max(FS_COL_ABS, Math.min(FS_COL_MIN, cabe));
+    if (cabe > FS_COL_MIN) w = cabe;
     tab.style.setProperty('--fs-col', w + 'px');
     /* Uma correcao, nao um laco: a conta acima erra por poucos pixels (fios, sticky,
        arredondamento do table-layout). Em vez de adivinhar a formula exata, mede o que
@@ -3175,8 +3231,8 @@ function fsRender() {
     /* mede a ROLAGEM, nao a largura da tabela: com width:100% a tabela relata a
        largura da area mesmo quando o conteudo passa dela */
     const sobra = wrap.scrollWidth - wrap.clientWidth;
-    if (sobra > 0 && w > FS_COL_MIN) {
-      w = Math.max(FS_COL_MIN, w - Math.ceil(sobra / nCols));
+    if (sobra > 0 && w > FS_COL_ABS) {
+      w = Math.max(FS_COL_ABS, w - Math.ceil(sobra / nCols));
       tab.style.setProperty('--fs-col', w + 'px');
     }
   }

@@ -516,3 +516,40 @@ O Plata tem uma segunda linha no Dynamo Moscow sem físico; o desempate por club
 Agora **toda posição tem 3+ referências** e os dois lados deixaram de ser idênticos: RW
 subiu do percentil 43 para 66 e LW para 60 — os pontas ficaram uma régua séria, como já
 eram volante e lateral-direito.
+
+## A barra da matriz: terceira tentativa, e a que presta (set/26)
+
+1. **Percentil na coorte** — satura. Qualquer valor acima do melhor brasileiro virava
+   100%, então a Ref. Mundo (quase sempre fora da faixa daqui) ficava do tamanho de um
+   jogador bom qualquer.
+2. **Proporcional ao maior (v ÷ máx)** — não discrimina. Velocidade de pico vai de 31 a
+   33 km/h: todas as barras davam 95%, porque a escala começava no zero e o zero não diz
+   nada nesse indicador.
+3. **A que vale**: cada linha define o próprio intervalo, do pior ao melhor entre TUDO que
+   ela desenha — médias, referências e jogadores — e a barra é a posição dentro dele. Nos
+   tempos (`menor`) inverte. Piso de 8% para o último ainda aparecer. O percentil na
+   coorte segue no balão.
+
+## Quatro níveis de contorno (set/26)
+
+Vale o **maior** que o jogador alcança, e a mesma cor pinta contorno e preenchimento:
+
+| cor | significa |
+|---|---|
+| roxo `#a855f7` | acima da média das referências do **mundo** |
+| bonina `#b0143c` | acima da média das referências do **Brasil** |
+| azul `#3b9dff` | acima das médias da Série A **e** da B |
+| âmbar `#e2a51f` | acima só da mais fraca das duas |
+
+As duas primeiras são as cores das próprias colunas de referência, para o olho ligar a
+célula marcada à barra que ela superou.
+
+**Barra de rolagem horizontal**: `nCols` não contava as colunas de referência nem a coluna
+"ganha", então a largura sobrava por quase três colunas. Além disso `FS_COL_MIN` (92px) era
+um piso rígido — com dez jogadores em tela de 1440px não cabia. Entrou `FS_COL_ABS = 70`:
+espremer até 70 é melhor do que rolar de lado, e o nome cortado está inteiro no balão.
+
+**Bug antigo na legenda**: `.rk-legenda i` é uma bolinha de 7×7 com `border-radius:50%` e
+ganhava dos chips por especificidade (classe+elemento contra classe). As barrinhas viravam
+pontos e o card "dez/26" era espremido num círculo de 7px, com o texto vazando por cima da
+linha ao lado. Resolvido com `.fs-legenda i.<classe>`.
