@@ -82,6 +82,26 @@ def montar():
     with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(html)
 
+    # --- elenco de partida ---
+    # Quem abre o site nao tem nada no navegador e veria o campo vazio. Vai junto o
+    # cenario com mais atletas (o que esta sendo trabalhado), como estado inicial. O
+    # app so o usa quando NAO ha nada gravado no navegador do visitante — quem ja
+    # mexeu no seu campograma nao o perde.
+    cen = os.path.join(AQUI, "dados", "cenarios.json")
+    if os.path.exists(cen):
+        with open(cen, encoding="utf-8") as fh:
+            todos = json.load(fh)
+        lista = list(todos.values()) if isinstance(todos, dict) else todos
+        def atletas(c):
+            return sum(len(v) for v in (c.get("elenco") or {}).values())
+        escolhido = max(lista, key=atletas, default=None)
+        if escolhido and atletas(escolhido) > 0:
+            with open(os.path.join(dados_dest, "elenco_inicial.json"), "w",
+                      encoding="utf-8") as fh:
+                json.dump(escolhido, fh, ensure_ascii=False, separators=(",", ":"))
+            print(f"elenco de partida: {escolhido.get('nome')!r} "
+                  f"({atletas(escolhido)} atletas)")
+
     # o Pages nao deve passar a pasta pelo Jekyll (nomes com _ sumiriam)
     open(os.path.join(DOCS, ".nojekyll"), "w").close()
 

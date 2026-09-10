@@ -3951,8 +3951,29 @@ function ligar() {
 }
 
 /* ---------------- inicio ---------------- */
+
+/* No site publicado, quem chega pela primeira vez veria o campo vazio. Carrega o
+   elenco que foi junto na publicacao — mas SO se o visitante ainda nao mexeu em
+   nada: quem ja montou o seu nao pode perde-lo por causa disto. */
+async function elencoDePartida() {
+  if (!ESTATICO) return;
+  if (localStorage.getItem(CHAVE_LOCAL)) return;
+  try {
+    const r = await fetch('dados/elenco_inicial.json');
+    if (!r.ok) return;
+    const c = await r.json();
+    if (!c || !c.elenco) return;
+    estado = Object.assign(novoEstado(), c, { id: null });
+    POSICOES.forEach(p => { if (!Array.isArray(estado.elenco[p.c])) estado.elenco[p.c] = []; });
+    estado.nome = c.nome || estado.nome;
+    migrar();
+    salvarLocal();
+    console.log('elenco de partida:', c.nome, todosJogadores().length, 'atletas');
+  } catch (e) {}
+}
 async function iniciar() {
   carregarLocal();
+  await elencoDePartida();
   if (ESTATICO) prepararEstatico();
   ligar();
   montarChips();
