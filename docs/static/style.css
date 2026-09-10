@@ -1878,15 +1878,22 @@ body.claro{ --fs-media-tinta:#22303f; }
 /* as duas listas por serie, lado a lado dentro do campo de adicionar */
 /* As listas ocupam a fileira inteira: espremidas numa celula de 150px, o nome do
    jogador nao cabia e a lista so servia para quem ja sabia quem procurar. */
-.fs-listas{display:grid;grid-template-columns:auto 1fr 1fr 1.2fr auto 1.2fr;gap:6px;
+.fs-listas{display:grid;grid-template-columns:auto repeat(3,1fr) 1.15fr 1.25fr;gap:6px;
   align-items:center;margin-top:2px}
 .fs-listas-rot{font-size:9px;letter-spacing:.9px;text-transform:uppercase;color:var(--tinta3);
-  font-weight:700;white-space:nowrap}
-.fs-listas select{min-width:0;font-size:10.5px;padding:4px 6px}
+  font-weight:700;white-space:nowrap;line-height:1.15;max-width:70px}
+/* o texto do combo fechado e um rotulo, nao um dado apagado: cor cheia e peso */
+.fs-listas select{min-width:0;font-size:10.5px;padding:5px 7px;color:var(--tinta);
+  font-weight:600;background:var(--input-bg)}
+.fs-listas select:hover{border-color:var(--coral)}
+/* o par campeonato + lista fica visivelmente ligado */
+#fsLigaEscolha{border-color:#e2a51f66;border-right-width:0;border-top-right-radius:0;
+  border-bottom-right-radius:0}
+#fsListaLiga{border-color:#e2a51f66;border-top-left-radius:0;border-bottom-left-radius:0}
 #fsSerieA{border-color:#22c55e66}
 #fsSerieB{border-color:#52a4eb66}
 #fsSulExt{border-color:#e2a51f66}
-.fs-liga{max-width:190px}
+
 .fs-combos select{min-width:0;font-size:10.5px;padding:4px 5px}
 #fsSerieA{border-color:#22c55e55}
 #fsSerieB{border-color:#52a4eb55}
@@ -1921,3 +1928,27 @@ body.claro{ --fs-media-tinta:#22303f; }
 .m-min i.ogol b{opacity:.4}
 .fc-min.jogos{color:var(--tinta2)}
 .fc-min.jogos i{font-style:normal;font-size:8.5px;color:var(--tinta3);margin-left:1px}
+
+/* ---------- a coluna da esquerda nao passa da largura do campinho ----------
+   A legenda do Fisico tinha `max-width:none` e esticava a coluna para 562px — 262px
+   de vazio ao lado de um campinho de 300. Presa em 300, ela quebra em duas linhas
+   dentro do espaco que ja sobrava embaixo do campo, e os 262px voltam para os
+   filtros: com mais largura, as abas de regiao cabem numa linha so e o painel encurta
+   em vez de descer a tela. */
+.rk-filtros .rk-campo-col{width:300px;max-width:300px}
+.rk-filtros .rk-legenda,.rk-filtros .fs-legenda{max-width:300px}
+.fs-legenda{gap:5px 9px}
+
+/* Liga e Pais levam mais largura porque carregam as abas de regiao (5 e 4 botoes).
+   Repartidas em sete partes iguais, as abas quebravam em duas linhas e a fileira
+   inteira ficava 22px mais alta sem necessidade. */
+.rk-linha1{grid-template-columns:1.28fr 1.18fr .82fr 1fr .85fr 1.05fr 1fr}
+@media (max-width:1280px){ .rk-linha1{grid-template-columns:repeat(4,1fr)} }
+
+/* As abas de regiao ficam numa linha so. Quebrando, o "EU" caia sozinho embaixo e
+   levava a fileira inteira junto — 13px a mais em toda a largura da tela por causa
+   de um botao. Sem quebra, elas se apertam um pouco e cabem; a folga vem da largura
+   que sobra no fim da fileira. */
+.rk-abas{flex-wrap:nowrap!important;gap:2px}
+.rk-abas button{flex:0 1 auto;min-width:0;padding:3px 5px;font-size:8.5px;
+  overflow:hidden;text-overflow:ellipsis}
