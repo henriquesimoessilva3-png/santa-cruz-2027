@@ -2845,20 +2845,35 @@ function melhorQue(v, m, menor) { return menor ? v < m : v > m; }
 /* Contorno da celula: verde quando o jogador bate as DUAS medias (Serie A e B), ambar
    quando bate so a mais fraca das duas. E a pergunta que se faz montando elenco —
    "ele joga em que nivel?" — respondida sem precisar comparar numero a numero. */
-/* Quatro niveis, do mais forte para o mais fraco. Vale o MAIOR que o jogador alcanca:
-   roxo bate a media das referencias do MUNDO, bonina bate a das referencias do BRASIL,
-   azul bate as medias da Serie A e da B, ambar bate so a mais fraca das duas. Bater a
-   referencia e mais do que bater a media da liga, por isso vem antes. */
-function fsGanho(v, mA, mB, menor, rBR, rMU) {
-  if (typeof v !== 'number' || isNaN(v)) return '';
-  if (typeof rMU === 'number' && melhorQue(v, rMU, menor)) return ' bate-mundo';
-  if (typeof rBR === 'number' && melhorQue(v, rBR, menor)) return ' bate-brasil';
-  if (typeof mA !== 'number' || typeof mB !== 'number') return '';
+/* Nivel contra as MEDIAS da liga — decide a cor do preenchimento da barra. */
+function fsGanho(v, mA, mB, menor) {
+  if (typeof v !== 'number' || isNaN(v) || typeof mA !== 'number' || typeof mB !== 'number') return '';
   const forte = menor ? Math.min(mA, mB) : Math.max(mA, mB);
   const fraca = menor ? Math.max(mA, mB) : Math.min(mA, mB);
   if (melhorQue(v, forte, menor)) return ' bate-duas';
   if (melhorQue(v, fraca, menor)) return ' bate-uma';
   return '';
+}
+
+/* Contra as REFERENCIAS: duas perguntas INDEPENDENTES, nao uma escada.
+   A versao anterior contornava a celula inteira com a cor do nivel mais alto — e como
+   quase todo mundo bate alguma coisa, quase toda celula ficava com moldura e nada
+   sobressaia. Pior: quem batia o mundo mostrava so roxo, e nao dava para ver que
+   tambem tinha batido o Brasil.
+   Agora e uma tarja fina na BORDA ESQUERDA da celula, partida ao meio: metade de cima
+   roxa quando esta acima da referencia do mundo, metade de baixo bonina quando esta
+   acima da referencia do Brasil. As duas acendem juntas quando as duas foram batidas, a
+   celula que nao bate nada fica limpa, e o custo de espaco e zero. */
+function fsMarcaRef(v, menor, rBR, rMU) {
+  if (typeof v !== 'number' || isNaN(v)) return { cls: '', nota: '' };
+  const br = typeof rBR === 'number' && melhorQue(v, rBR, menor);
+  const mu = typeof rMU === 'number' && melhorQue(v, rMU, menor);
+  return {
+    cls: (br ? ' acima-br' : '') + (mu ? ' acima-mu' : ''),
+    nota: br && mu ? ' · ACIMA das duas referências (Brasil e mundo)'
+        : mu ? ' · acima da referência do mundo'
+        : br ? ' · acima da referência do Brasil' : '',
+  };
 }
 
 /* ---------- a barra: uma escala so para a linha inteira ----------
@@ -2886,20 +2901,18 @@ function fsLarg(v, menor) {
 function fsCelula(co, k, v, casas, menor, lider, tit, mA, mB, rBR, rMU) {
   if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const p = fsPct(co, k, v, menor);
-  const ganho = fsGanho(v, mA, mB, menor, rBR, rMU);
-  const nota = FS_NOTA[ganho.trim()] || ' · abaixo das duas médias';
-  return '<td class="fs-c' + ganho + fsCorBarra(v, mA, mB, menor) +
+  const cor = fsCorBarra(v, mA, mB, menor);
+  const mk = fsMarcaRef(v, menor, rBR, rMU);
+  const nota = (cor === ' cor-duas' ? ' · acima das médias da Série A e da B'
+              : cor === ' cor-uma' ? ' · acima da média mais fraca das duas'
+              : ' · abaixo das duas médias') + mk.nota;
+  return '<td class="fs-c' + cor + mk.cls +
     (lider ? ' lider' : '') + '" title="' + esc(tit) +
     (p != null ? ' · percentil ' + p : '') + nota + '"><div class="fs-cl">' +
     '<i class="fs-bar"><b style="width:' + fsLarg(v, menor).toFixed(1) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
 }
-const FS_NOTA = {
-  'bate-mundo':  ' · ACIMA da referência mundo',
-  'bate-brasil': ' · acima da referência Brasil',
-  'bate-duas':   ' · acima das médias da Série A e da B',
-  'bate-uma':    ' · acima da média mais fraca das duas',
-};
+
 
 /* Celula de media, agora na frente da matriz. `venc` marca qual das duas ganha. */
 function fsCelulaMedia(co, k, v, casas, menor, venc) {
@@ -3189,7 +3202,7 @@ function fsRender() {
           const v = vals[i];
           if (v == null) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
           const lider = melhor != null && v === melhor && validos.length > 1 && v > 0;
-          const ganho = fsGanho(v, mA, mB, false);   /* temporadas nao tem referencia */
+          const ganho = '';   /* temporadas nao tem referencia: so a cor da barra */
           const tit = l.rot + ': ' + fsFmt(v, l.casas) +
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
@@ -3215,23 +3228,52 @@ function fsRender() {
   const idxDe = obj => (obj ? fsIndices(co, obj) : null);
   const idxMedias = medias.map(m => idxDe(m.d.m));
   const idxRefs = refCols.map(r => idxDe(r.d.valores));
-  const linhaResumo = (rot, sub, pegar, id) => {
+  const linhaResumo = (rot, sub, pegar, id, nota) => {
     const aberto = id != null && FS_ABERTOS.has(id);
+    const tit = (obj, base) => rot + ': ' + (base == null ? '—' : base) +
+      ' (média dos percentis na posição)' + (nota ? nota(obj) : '');
     return '<tr class="fs-grupo' + (id != null ? ' abrivel' : ' geral') +
       (aberto ? ' aberto' : '') + '"' + (id != null ? ' data-g="' + esc(id) + '"' : '') +
-      '><td title="' + esc(rot + (sub ? ' — ' + sub : '')) + '">' +
+      '><td title="' + esc(rot + (sub ? ' — ' + sub : '') +
+        (id != null ? ' · clique para abrir os indicadores' : '')) + '">' +
       (id != null ? '<i class="fs-seta">▸</i>' : '') +
       '<b>' + esc(rot) + '</b>' + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</td>' +
-      idxMedias.map(x => fsChip(pegar(x))).join('') +
+      idxMedias.map((x, i) => fsChip(pegar(x), tit(medias[i].d.m, pegar(x)))).join('') +
       (medias.length === 2 ? '<td></td>' : '') +
-      idxRefs.map(x => fsChip(pegar(x))).join('') +
-      colunas.map(c => fsChip(pegar(c.idx))).join('') + tdVagas + '</tr>';
+      idxRefs.map((x, i) => fsChip(pegar(x), tit(refCols[i].d.valores, pegar(x)))).join('') +
+      colunas.map(c => fsChip(pegar(c.idx), tit(c.j, pegar(c.idx)))).join('') +
+      tdVagas + '</tr>';
   };
 
-  b += linhaResumo('Índice físico geral', 'média dos cinco grupos', x => x && x.geral, null);
+  /* Em quantos indicadores do grupo o jogador passa de cada referencia. E a mesma
+     pergunta da tarja, respondida no nivel do grupo — sem abrir, ja da para ver quem
+     bate a referencia em quatro de seis e quem bate em um. */
+  const contaRef = (obj, ms) => {
+    if (!obj) return null;
+    let br = 0, mu = 0, n = 0;
+    ms.forEach(([k, , , , menor]) => {
+      const v = obj[k];
+      if (typeof v !== 'number' || isNaN(v)) return;
+      n++;
+      const rb = refPos.brasil && refPos.brasil.valores[k];
+      const rm = refPos.mundo && refPos.mundo.valores[k];
+      if (typeof rb === 'number' && melhorQue(v, rb, menor)) br++;
+      if (typeof rm === 'number' && melhorQue(v, rm, menor)) mu++;
+    });
+    return n ? { br, mu, n } : null;
+  };
+  const notaRef = c => {
+    if (!c) return '';
+    return ' · passa da ref. Brasil em ' + c.br + ' de ' + c.n +
+           ' e da ref. mundo em ' + c.mu + ' de ' + c.n;
+  };
+
+  b += linhaResumo('Índice físico geral', 'média dos cinco grupos', x => x && x.geral, null,
+                   o => notaRef(contaRef(o, FS_TODAS)));
 
   FS_GRUPOS.forEach((g, gi) => {
-    b += linhaResumo(g.t, g.d, x => x && x.grupos[gi], 'g' + gi);
+    b += linhaResumo(g.t, g.d, x => x && x.grupos[gi], 'g' + gi,
+                     o => notaRef(contaRef(o, g.m)));
     if (!FS_ABERTOS.has('g' + gi)) return;
     g.m.forEach(([k, rot, un, casas, menor]) => {
       const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));

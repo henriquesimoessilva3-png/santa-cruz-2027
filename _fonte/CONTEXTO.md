@@ -585,3 +585,22 @@ diferencia" escondendo indicadores sem dispersão, e ficha por jogador com radar
 usuário deixou a escolha comigo. Escolhi o resumo por grupo por cortar mais ruído sem
 tirar nada do alcance — os outros três seguem valendo como caminho, principalmente o
 "só o que diferencia", que resolveria o mesmo problema por outro ângulo.
+
+## Destaque das referências: tarja em vez de contorno (set/26)
+
+O contorno da célula inteira marcava quase tudo — e o que marca tudo não marca nada. Pior,
+era uma **escada**: quem batia o mundo mostrava só roxo, e não dava para ver que também
+tinha batido o Brasil.
+
+Agora são duas perguntas **independentes**, numa tarja fina na borda esquerda partida ao
+meio: metade de cima roxa quando está acima da referência do mundo, metade de baixo bonina
+quando está acima da do Brasil. As duas acendem juntas, a célula que não bate nada fica
+limpa, e o custo de espaço é zero (a tarja é absoluta). O preenchimento da barra continua
+dizendo outra coisa: verde acima das duas médias da liga, âmbar acima só da mais fraca.
+
+No resumo de cada grupo, o balão do chip diz **em quantos indicadores** o jogador passa de
+cada referência ("passa da ref. Brasil em 6 de 6 e da ref. mundo em 5 de 6") — a mesma
+pergunta da tarja, respondida sem precisar abrir o grupo.
+
+Um achado dos dados: nenhum jogador passa da referência do **mundo** sem passar também da
+do **Brasil**. A tarja roxa sozinha, na prática, não aparece.

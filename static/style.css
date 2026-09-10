@@ -1877,14 +1877,19 @@ body.claro{ --fs-media-tinta:#22303f; }
 /* azul para quem bate as duas series, ambar para quem bate so a mais fraca. O
    preenchimento da barra segue a MESMA regua (verde/ambar/cinza) — contorno e cor
    reforcam um ao outro em vez de competir. */
-#fsMatriz td.fs-c.bate-mundo{outline:2px solid #a855f7;outline-offset:-2px;
-  background:#a855f722;position:relative;z-index:4}
-#fsMatriz td.fs-c.bate-brasil{outline:2px solid #b0143c;outline-offset:-2px;
-  background:#b0143c22;position:relative;z-index:3}
-#fsMatriz td.fs-c.bate-duas{outline:2px solid #3b9dff;outline-offset:-2px;
-  background:#3b9dff1f;position:relative;z-index:2}
-#fsMatriz td.fs-c.bate-uma{outline:2px solid #e2a51f;outline-offset:-2px;
-  background:#e2a51f14;position:relative;z-index:1}
+/* Tarja fina na borda ESQUERDA, partida ao meio — metade de cima roxa (acima da
+   referencia do mundo), metade de baixo bonina (acima da referencia do Brasil). As duas
+   acendem juntas quando as duas foram batidas; a celula que nao bate nada fica limpa.
+   Substituiu o contorno da celula inteira, que marcava quase tudo e por isso nao
+   marcava nada — e que, sendo escada, escondia que quem bate o mundo tambem bate o
+   Brasil. Custo de espaco: zero, porque e absoluta. */
+#fsMatriz td.fs-c{position:relative}
+#fsMatriz td.fs-c.acima-mu::before,#fsMatriz td.fs-c.acima-br::after{
+  content:"";position:absolute;left:0;width:3px;border-radius:0 2px 2px 0}
+#fsMatriz td.fs-c.acima-mu::before{top:2px;height:calc(50% - 3px);background:#a855f7}
+#fsMatriz td.fs-c.acima-br::after{bottom:2px;height:calc(50% - 3px);background:#b0143c}
+/* fundo levissimo para a celula que bate as duas: o olho acha o bloco sem ler a tarja */
+#fsMatriz td.fs-c.acima-mu.acima-br{background:#a855f714}
 /* O lider da linha marca so o numero. `outline:none` aqui apagava o contorno de quem
    batia as medias — e o lider costuma ser justamente quem bate: o Hygor, com 1,14 no
    tempo ate o sprint contra 1,32 e 1,33 das medias, ficava sem marca nenhuma. */
@@ -2146,3 +2151,11 @@ body.com-zoom #abasInfo::after{content:" · Esc ou clique no gramado para voltar
 #fsMatriz tr.fs-grupo.geral .fs-idx{font-size:11.5px;padding:2px 6px;min-width:26px}
 /* fechado, o bloco de temporadas mostra os minutos somados */
 .fs-min3{font-size:10px;font-weight:700;color:var(--tinta2);font-variant-numeric:tabular-nums}
+
+/* chip da legenda: a mesma tarja partida, em miniatura */
+.fs-legenda i.fs-leg-tarja{display:inline-block;width:18px;height:13px;border-radius:3px;
+  background:var(--veu2);position:relative;vertical-align:middle}
+.fs-legenda i.fs-leg-tarja.mu::before{content:"";position:absolute;left:0;top:2px;
+  height:calc(50% - 3px);width:3px;background:#a855f7;border-radius:0 2px 2px 0}
+.fs-legenda i.fs-leg-tarja.br::after{content:"";position:absolute;left:0;bottom:2px;
+  height:calc(50% - 3px);width:3px;background:#b0143c;border-radius:0 2px 2px 0}
