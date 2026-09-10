@@ -2604,7 +2604,7 @@ function fcMontarFiltros() {
 
 /* ---------------- aba Físico (SkillCorner), na leitura do estudo Montoro ----------------
    Uma matriz: linhas sao os indicadores, separados em cinco grupos (velocidade, uso da
-   velocidade, arranque e frenagem, giro e volume); colunas sao jogadores. A regua de
+   velocidade, volume, arranque e frenagem, giro); colunas sao jogadores. A regua de
    tudo e a coorte da posicao escolhida nas Series A e B: cada celula traz a barrinha
    do percentil do jogador nessa coorte (verde no topo, vermelho no fim) e o valor.
    Por padrao entram os 5 melhores de cada serie pelo indice fisico geral, mais as
@@ -2623,6 +2623,12 @@ const FS_GRUPOS = [
     ['hsr_n',  'Corridas rápidas',            'por 90', 1],
     ['hi',     'Metros em alta intensidade',  'm/90',  0],
     ['hi_n',   'Ações de alta intensidade',   'por 90', 1] ] },
+  { t: 'Volume', d: 'Quanto terreno cobre numa partida inteira.', m: [
+    ['dist',   'Distância percorrida',        'm/90',  0],
+    ['mmin',   'Metros por minuto',           'm/min', 1],
+    ['run',    'Distância em corrida',        'm/90',  0],
+    ['acel_m', 'Acelerações médias',          'por 90', 1],
+    ['desa_m', 'Desacelerações médias',       'por 90', 1] ] },
   { t: 'Arranque e frenagem', d: 'Explosão do parado e capacidade de frear.', m: [
     ['expl',  'Arranques até o sprint',       'por 90', 2],
     ['acel',  'Acelerações fortes',           'por 90', 1],
@@ -2635,12 +2641,6 @@ const FS_GRUPOS = [
     ['t505_180',  'Giro de 180° (teste 505)',         's · menor é melhor', 2, true],
     ['t_spr_cod', 'Tempo até o sprint após girar',    's · menor é melhor', 2, true],
     ['t_hsr_cod', 'Tempo até a corrida rápida após girar', 's · menor é melhor', 2, true] ] },
-  { t: 'Volume', d: 'Quanto terreno cobre numa partida inteira.', m: [
-    ['dist',   'Distância percorrida',        'm/90',  0],
-    ['mmin',   'Metros por minuto',           'm/min', 1],
-    ['run',    'Distância em corrida',        'm/90',  0],
-    ['acel_m', 'Acelerações médias',          'por 90', 1],
-    ['desa_m', 'Desacelerações médias',       'por 90', 1] ] },
 ];
 const FS_TODAS = FS_GRUPOS.flatMap(g => g.m);
 const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7c', '#1aa3a3', '#e07a1a', '#6aa628', '#5a6ce0',
@@ -2733,7 +2733,14 @@ function fsIndices(co, j) {
   const ok = grupos.filter(v => v != null);
   return { grupos, geral: ok.length >= 3 ? Math.round(ok.reduce((a, v) => a + v, 0) / ok.length) : null };
 }
-function fsFaixa(p) { return p >= 75 ? 'alto' : p <= 25 ? 'baixo' : 'medio'; }
+/* A COR do preenchimento e a MESMA pergunta do contorno: em que nivel o jogador joga
+   contra as medias das duas series. Antes era a faixa de percentil, e a celula dizia
+   duas coisas ao mesmo tempo — o Bruninho batia as duas medias (contorno azul) com a
+   barra cinza, porque estava no percentil 73 e o verde comecava em 75. O COMPRIMENTO da
+   barra continua sendo o percentil: quanto ele vale dentro da posicao. */
+function fsCorBarra(ganho) {
+  return ganho === ' bate-duas' ? ' cor-duas' : ganho === ' bate-uma' ? ' cor-uma' : '';
+}
 
 /* Melhor e maior, MENOS nos tempos (`menor`), onde melhor e menor. Toda comparacao
    com media tem de passar por aqui — foi errando isso que o estudo quase disse que a
@@ -2755,11 +2762,11 @@ function fsGanho(v, mA, mB, menor) {
 function fsCelula(co, k, v, casas, menor, lider, tit, mA, mB) {
   if (typeof v !== 'number' || isNaN(v)) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const p = fsPct(co, k, v, menor);
-  const cls = p == null ? 'medio' : fsFaixa(p);
   const ganho = fsGanho(v, mA, mB, menor);
   const nota = ganho === ' bate-duas' ? ' · acima das duas médias'
-             : ganho === ' bate-uma' ? ' · acima da média mais fraca' : '';
-  return '<td class="fs-c ' + cls + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+             : ganho === ' bate-uma' ? ' · acima da média mais fraca'
+             : ' · abaixo das duas médias';
+  return '<td class="fs-c' + ganho + fsCorBarra(ganho) + (lider ? ' lider' : '') + '" title="' + esc(tit) +
     (p != null ? ' · percentil ' + p : '') + nota + '"><div class="fs-cl">' +
     '<i class="fs-bar"><b style="width:' + Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
@@ -2785,12 +2792,16 @@ function fsQuemGanha(mA, mB, menor) {
 /* Fim de contrato na coluna, com bolinha para quem vence ate dezembro de 2026 —
    sao esses que dao para levar sem pagar clube nenhum, e e a primeira coisa que se
    procura ao montar elenco. */
-const FS_LIVRE_ATE = '2026-12';
+/* Janeiro de 2027 e nao dezembro de 2026: a Serie B de 2027 comeca em abril, entao
+   quem vence em janeiro esta tao livre quanto quem vence em dezembro. Uma data so,
+   valendo para a bolinha da coluna e para o selo das listas. */
+const FS_LIVRE_ATE = '2027-01';
+function fsLivre(j) { return !!j.ct && j.ct.slice(0, 7) <= FS_LIVRE_ATE; }
 function fsContrato(j) {
   if (!j.ct) return '<div class="fs-ct sem" title="contrato não informado">sem contrato</div>';
-  const livre = j.ct.slice(0, 7) <= FS_LIVRE_ATE;
+  const livre = fsLivre(j);
   return '<div class="fs-ct' + (livre ? ' livre' : '') + '" title="contrato até ' + esc(j.ct) +
-    (livre ? ' — vence até dezembro de 2026' : '') + '">' +
+    (livre ? ' — vence até janeiro de 2027' : '') + '">' +
     (livre ? '<i></i>' : '') + esc(mesAno(j.ct) || '—') + '</div>';
 }
 
@@ -2995,13 +3006,12 @@ function fsRender() {
         colunas.map((c, i) => {
           const v = vals[i];
           if (v == null) return '<td class="fs-c vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
-          const cls = med == null ? 'medio' : v >= med ? 'alto' : 'baixo';
           const lider = melhor != null && v === melhor && validos.length > 1 && v > 0;
           const ganho = fsGanho(v, mA, mB, false);
           const tit = l.rot + ': ' + fsFmt(v, l.casas) +
             (med != null ? ' · média da coorte ' + fsFmt(med, l.casas) : '') +
             (l.nota ? ' · ' + l.nota(c.h) : '');
-          return '<td class="fs-c ' + cls + ganho + (lider ? ' lider' : '') + '" title="' + esc(tit) +
+          return '<td class="fs-c' + ganho + fsCorBarra(ganho) + (lider ? ' lider' : '') + '" title="' + esc(tit) +
             '"><div class="fs-cl">' +
             '<i class="fs-bar"><b style="width:' +
               Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
@@ -3109,26 +3119,91 @@ function fsRender() {
   fsMontarSeries(co, colunas);
 }
 
+/* ---------------- listas de escolha, desenhadas a mao ----------------
+   Eram <select> nativos, e num <option> nao entra HTML: o fim de contrato so cabia como
+   texto solto atras do nome (⏳ dez/26) e se perdia no meio da linha. Aqui cada item e
+   um div — colocacao, indice, nome, clube e o CARD da data — e as datas caem todas na
+   MESMA coluna, encostadas a direita. E o alinhamento que deixa varrer a lista de cima
+   a baixo atras de quem vence, sem ler nome nenhum. */
+function fspData(j) {
+  const ct = (j && (j.ct || j.contrato)) || '';
+  if (!ct) return '<span class="fsp-ct sem" title="contrato não informado">—</span>';
+  const M = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  const livre = ct.slice(0, 7) <= FS_LIVRE_ATE;
+  return '<span class="fsp-ct' + (livre ? ' livre' : '') + '" title="contrato até ' + esc(ct) +
+    (livre ? ' — vence a tempo da temporada 2027' : '') + '">' +
+    M[parseInt(ct.slice(5, 7), 10) - 1] + '/' + ct.slice(2, 4) + '</span>';
+}
+/* `itens`: { pk, j, idx, band, ja, motivo }. `pk` vazio = linha desabilitada. */
+function fspPreencher(el, rotulo, itens, aoEscolher) {
+  if (!el) return;
+  const busca = itens.length > 18;
+  el.innerHTML =
+    '<div class="fsp-bt" tabindex="0">' + rotulo + ' · ' + itens.length + '</div>' +
+    '<div class="msel-drop fsp-drop">' +
+      (busca ? '<div class="msel-busca"><input type="text" placeholder="Filtrar…" autocomplete="off"></div>' : '') +
+      (itens.length ? itens.map((x, i) =>
+        '<div class="msel-item fsp-item' + (x.pk && !x.ja ? '' : ' off') + '"' +
+          (x.pk && !x.ja ? ' data-pk="' + esc(x.pk) + '"' : '') +
+          ' data-b="' + esc(fsNorm(x.j.n + ' ' + x.j.t)) + '">' +
+        '<span class="fsp-p">' + (x.pos ? esc(x.pos) : (i + 1) + 'º') + '</span>' +
+        (x.idx == null ? '' : '<span class="fsp-i ' +
+          (x.idx >= 67 ? 'a' : x.idx >= 40 ? 'm' : 'b') +
+          '" title="índice físico geral">' + x.idx + '</span>') +
+        '<b class="fsp-nome">' + (x.band || '') + esc(x.j.n) + '</b>' +
+        '<span class="fsp-time">' + esc(x.j.t || '') + '</span>' +
+        (x.motivo ? '<span class="fsp-ja">' + esc(x.motivo) + '</span>' : '') +
+        fspData(x.j) + '</div>').join('')
+        : '<div class="msel-dica">ninguém nesta lista</div>') +
+    '</div>';
+  const bt = el.querySelector('.fsp-bt');
+  const drop = el.querySelector('.fsp-drop');
+  bt.onclick = e => { e.stopPropagation(); fspAbrir(el); };
+  bt.onkeydown = e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fspAbrir(el); }
+    if (e.key === 'Escape') drop.classList.remove('aberto');
+  };
+  drop.onclick = e => e.stopPropagation();
+  drop.querySelectorAll('.fsp-item[data-pk]').forEach(it => {
+    it.onclick = () => { drop.classList.remove('aberto'); aoEscolher(it.dataset.pk); };
+  });
+  if (busca) {
+    const inp = drop.querySelector('.msel-busca input');
+    inp.oninput = () => {
+      const t = fsNorm(inp.value);
+      drop.querySelectorAll('.fsp-item').forEach(it => {
+        it.style.display = !t || it.dataset.b.includes(t) ? '' : 'none';
+      });
+    };
+    inp.onclick = e => e.stopPropagation();
+  }
+}
+function fspAbrir(el) {
+  const drop = el.querySelector('.fsp-drop');
+  if (!drop) return;
+  const aberto = drop.classList.contains('aberto');
+  $$('.msel-drop.aberto').forEach(d => d.classList.remove('aberto'));
+  if (aberto) return;
+  drop.classList.add('aberto');
+  const b = drop.querySelector('.msel-busca input');
+  if (b) { b.value = ''; b.oninput(); b.focus(); }
+}
+
 /* Uma lista por serie, na posicao escolhida, do melhor indice fisico para o pior.
    Sai da MESMA coorte que a matriz usa como regua — entao a ordem aqui e a mesma
    que decide os "top 5" — e quem ja esta na comparacao aparece marcado, para nao
-   escolher duas vezes o mesmo. */
-/* Lista ordenada pelo indice fisico. `lista` ja vem filtrada; a regua e sempre a
-   coorte das Series A e B, mesmo para jogador de fora — e o que permite comparar
-   campeonatos diferentes com o mesmo metro. */
+   escolher duas vezes o mesmo. A regua e sempre a coorte das Series A e B, mesmo para
+   jogador de fora: e o que permite comparar campeonatos diferentes com o mesmo metro. */
 function fsOpcoesLista(el, lista, rotulo, co, jaTem, comBandeira) {
   if (!el) return;
   const ord = lista.map(j => ({ j, idx: fsIndices(co, j).geral }))
-    .filter(x => x.idx != null).sort((a, b) => b.idx - a.idx);
-  el.innerHTML = '<option value="">' + esc(rotulo) + ' · ' + ord.length + '</option>' +
-    ord.map((x, i) => {
+    .filter(x => x.idx != null).sort((a, b) => b.idx - a.idx)
+    .map(x => {
       const pk = primaryKey(x.j);
-      return '<option value="' + esc(pk) + '"' + (jaTem.has(pk) ? ' disabled' : '') + '>' +
-        (i + 1) + 'º · ' + x.idx + ' · ' + (comBandeira ? bandeira(x.j.l) : '') +
-        esc(x.j.n) + ' (' + esc(x.j.t) + ')' +
-        (jaTem.has(pk) ? ' — já está' : '') + '</option>';
-    }).join('');
-  el.value = '';
+      return { pk, j: x.j, idx: x.idx, band: comBandeira ? bandeira(x.j.l) : '',
+               ja: jaTem.has(pk), motivo: jaTem.has(pk) ? 'já está' : '' };
+    });
+  fspPreencher(el, rotulo, ord, fsAdicionar);
 }
 
 function fsMontarSeries(co, colunas) {
@@ -3172,8 +3247,11 @@ function fsBuscar() {
   const achados = fsBase().filter(j => fsNorm(j.n + ' ' + j.t).includes(t))
     .sort((a, b) => (a.p === fsPos ? 0 : 1) - (b.p === fsPos ? 0 : 1) || a.n.localeCompare(b.n)).slice(0, 14);
   lista.innerHTML = achados.length
-    ? achados.map(j => '<div class="msel-item" data-pk="' + esc(primaryKey(j)) + '"><b>' + esc(j.n) + '</b>' +
-        '<span class="fs-b-meta">' + esc(sig(j.p)) + ' · ' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>').join('')
+    ? achados.map(j => '<div class="msel-item fsp-item" data-pk="' + esc(primaryKey(j)) + '">' +
+        '<span class="fsp-p">' + esc(sig(j.p)) + '</span>' +
+        '<b class="fsp-nome">' + esc(j.n) + '</b>' +
+        '<span class="fsp-time">' + esc(j.t) + ' · ' + esc(j.l) + '</span>' +
+        fspData(j) + '</div>').join('')
     : '<div class="msel-dica">ninguém com tracking com esse nome</div>';
   lista.classList.add('aberto');
   lista.querySelectorAll('.msel-item').forEach(it => {
@@ -3205,19 +3283,22 @@ function fsMontarElenco() {
       return (!!b.b) - (!!a.b) || (pa === fsPos ? 0 : 1) - (pb === fsPos ? 0 : 1) ||
              String(pa).localeCompare(String(pb));
     });
-  sel.innerHTML = '<option value="">＋ jogador do campograma…</option>' +
-    itens.map(x => {
-      const pos = sig((x.b || {}).p || x.j.posOrig || '');
-      const nome = (x.b || {}).n || x.j.nome;
-      const time = (x.b || {}).t || x.j.clube || '';
-      if (!x.b) {
-        return '<option value="" disabled>' + esc(pos) + ' · ' + esc(nome) + ' (' +
-          esc(time) + ') — sem tracking</option>';
-      }
-      return '<option value="' + esc(primaryKey(x.b)) + '"' +
-        (fsExtras.includes(primaryKey(x.b)) ? ' disabled' : '') + '>' +
-        esc(pos) + ' · ' + esc(nome) + ' (' + esc(time) + ')</option>';
-    }).join('');
+  /* aqui a colocacao seria enganosa (o elenco nao esta ordenado por indice), entao o
+     lugar do numero fica com a posicao do jogador */
+  fspPreencher(sel, '＋ do campograma', itens.map(x => {
+    const pk = x.b ? primaryKey(x.b) : '';
+    const ja = !!pk && fsExtras.includes(pk);
+    return {
+      pk: ja ? '' : pk,
+      idx: null,
+      pos: sig((x.b || {}).p || x.j.posOrig || ''),
+      j: { n: (x.b || {}).n || x.j.nome,
+           t: (x.b || {}).t || x.j.clube || '',
+           ct: (x.b || {}).ct || x.j.contrato || '' },
+      ja,
+      motivo: !x.b ? 'sem tracking' : ja ? 'já está' : '',
+    };
+  }), fsAdicionar);
 }
 
 /* Faixas do Fisico: as mesmas do Fim de contrato, sem as que nao fazem sentido aqui. */
@@ -3514,10 +3595,7 @@ function fsMontarFiltros() {
 
   $('#fsBusca').oninput = debounce(fsBuscar, 150);
   $('#fsBusca').onclick = e => { e.stopPropagation(); if ($('#fsBusca').value.trim().length >= 2) fsBuscar(); };
-  $('#fsElenco').onchange = () => { fsAdicionar($('#fsElenco').value); $('#fsElenco').value = ''; };
-  ['#fsSerieA', '#fsSerieB', '#fsSulExt', '#fsListaLiga'].forEach(sel => {
-    $(sel).onchange = () => { if ($(sel).value) fsAdicionar($(sel).value); $(sel).value = ''; };
-  });
+  /* as listas de jogador sao fspPreencher(): ja saem com o clique ligado */
   $('#fsLigaEscolha').onchange = () => { fsLigaLista = $('#fsLigaEscolha').value; fsRender(); };
   $('#fsMin').oninput = debounce(fsRender, 200);
   ['#fsTopA', '#fsTopB', '#fsMedias'].forEach(id => { $(id).onchange = fsRender; });

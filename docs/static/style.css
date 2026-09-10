@@ -1346,6 +1346,37 @@ body:not(.claro){
 .fs-busca .msel-drop{max-width:420px}
 .fs-busca .msel-item{gap:8px}
 .fs-b-meta{font-size:9.5px;color:var(--tinta3)}
+
+/* ---------------- listas de escolha (fsp) ----------------
+   Botao com a cara do combo antigo; a lista por baixo e a do msel. O que muda e a
+   LINHA: a data encosta a direita em todas, entao os cards de contrato formam uma
+   coluna — da para varrer a lista atras de quem vence sem ler nome nenhum. */
+.fsp{position:relative;min-width:0}
+.fsp-bt{background:var(--input-bg);border:1px solid var(--input-borda);border-radius:4px;
+  color:var(--tinta);font-weight:600;font-size:10.5px;padding:5px 22px 5px 8px;cursor:pointer;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;user-select:none;line-height:1.35}
+.fsp-bt::after{content:"▾";position:absolute;right:7px;top:50%;transform:translateY(-50%);font-size:10px;opacity:.5}
+.fsp-bt:hover,.fsp-bt:focus{border-color:var(--coral);outline:none}
+.fsp-drop{max-width:none;min-width:330px}
+.fsp-item{gap:8px;padding:4px 10px}
+.fsp-item.off{opacity:.42;cursor:default}
+.fsp-item.off:hover{background:none}
+.fsp-p{flex:none;width:26px;text-align:right;color:var(--tinta3);font-size:9.5px;font-weight:700}
+.fsp-i{flex:none;min-width:22px;text-align:center;font-size:9.5px;font-weight:800;border-radius:3px;padding:1px 4px}
+.fsp-i.a{background:#22c55e2b;color:var(--txt-verde)}
+.fsp-i.m{background:var(--veu2);color:var(--tinta2)}
+.fsp-i.b{background:var(--veu2);color:var(--tinta3)}
+.fsp-nome{flex:none;color:var(--tinta);font-weight:700}
+.fsp-time{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:var(--tinta3)}
+.fsp-ja{flex:none;font-size:9px;letter-spacing:.4px;text-transform:uppercase;color:var(--tinta3)}
+/* o card da data: cinza discreto para contrato longo, ambar cheio para quem vence a
+   tempo de 2027 — que e o unico que precisa saltar */
+.fsp-ct{flex:none;width:44px;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:.2px;
+  padding:2px 0;border-radius:4px;border:1px solid var(--borda2);background:var(--veu2);color:var(--tinta3)}
+.fsp-ct.livre{border-color:#e2a51f;background:#e2a51f26;color:#e2a51f}
+.fsp-ct.sem{border-style:dashed;color:var(--tinta3);opacity:.5}
+.fs-leg-ct{font-style:normal;font-size:8.5px;font-weight:800;padding:1px 4px;border-radius:3px;
+  border:1px solid #e2a51f;background:#e2a51f26;color:#e2a51f;vertical-align:1px}
 .rk-campo-f select,.rk-campo-f input[type=number]{width:100%;box-sizing:border-box;background:var(--input-bg);
   border:1px solid var(--input-borda);border-radius:4px;padding:6px 8px;font-size:11.5px;color:var(--tinta);font-family:inherit}
 .fs-min input{text-align:center}
@@ -1353,11 +1384,14 @@ body:not(.claro){
 .fs-toggles .chk{font-size:10.5px;color:var(--tinta2);display:flex;align-items:center;gap:4px;font-weight:600}
 .fs-toggles input{margin:0;accent-color:var(--coral)}
 .fs-legenda{max-width:none;margin-top:4px}
-.fs-bar-leg{display:inline-block;width:18px;height:7px;border-radius:4px;background:var(--trilho);position:relative;overflow:hidden}
-.fs-bar-leg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:60%;background:var(--tinta3);border-radius:4px}
-.fs-bar-leg.alto::after{background:var(--verde);width:85%}
-.fs-bar-leg.baixo::after{background:var(--coral);width:20%}
-.fs-bar-leg.lider{outline:2px solid #e2a51f;outline-offset:1px;border-radius:2px}
+.fs-bar-leg{display:inline-block;width:20px;height:9px;border-radius:3px;background:var(--trilho);
+  position:relative;overflow:hidden;vertical-align:-1px}
+.fs-bar-leg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:45%;background:var(--tinta3);border-radius:3px}
+.fs-bar-leg.duas{outline:2px solid #3b9dff;outline-offset:-2px}
+.fs-bar-leg.duas::after{background:var(--verde);width:85%}
+.fs-bar-leg.uma{outline:2px solid #e2a51f;outline-offset:-2px}
+.fs-bar-leg.uma::after{background:#e2a51f;width:60%}
+.fs-leg-nota{color:var(--tinta3)}
 .fc-tit .c-ouro{color:#e2a51f}
 .fs-matriz-wrap{flex:1;overflow:auto;min-height:0}
 #fsMatriz{border-collapse:separate;border-spacing:0;font-size:11px;min-width:100%;table-layout:fixed}
@@ -1402,8 +1436,10 @@ body:not(.claro){
 .fs-bar{flex:1;min-width:16px;height:13px;border-radius:3px;background:var(--trilho);
   position:relative;overflow:hidden}
 .fs-bar b{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--tinta3)}
-.fs-c.alto .fs-bar b{background:var(--verde)}
-.fs-c.baixo .fs-bar b{background:var(--coral)}
+/* Uma regua so na celula: a cor do preenchimento diz o mesmo que o contorno (bate as
+   duas medias / bate a mais fraca), e o comprimento continua sendo o percentil. */
+.fs-c.cor-duas .fs-bar b{background:var(--verde)}
+.fs-c.cor-uma .fs-bar b{background:#e2a51f}
 .fs-c.media .v{color:var(--tinta3)}
 .fs-c.vazio .v{color:var(--tinta3);opacity:.45}
 
@@ -1785,9 +1821,9 @@ body.claro{ --fs-media-tinta:#22303f; }
    Verde: bate as duas series. Ambar: bate so a mais fraca. Substitui o contorno
    dourado de "lider da linha", que dizia menos — ser o melhor entre dez escolhidos
    nao informa em que nivel o jogador joga. O lider fica so com o numero em negrito. */
-/* azul para quem bate as duas series, ambar para quem bate so a mais fraca. O verde
-   saiu daqui porque ja e a cor do preenchimento da barra (percentil alto): dois
-   significados na mesma cor faziam a celula dizer duas coisas ao mesmo tempo. */
+/* azul para quem bate as duas series, ambar para quem bate so a mais fraca. O
+   preenchimento da barra segue a MESMA regua (verde/ambar/cinza) — contorno e cor
+   reforcam um ao outro em vez de competir. */
 #fsMatriz td.fs-c.bate-duas{outline:2px solid #3b9dff;outline-offset:-2px;
   background:#3b9dff1f;position:relative;z-index:2}
 #fsMatriz td.fs-c.bate-uma{outline:2px solid #e2a51f;outline-offset:-2px;
@@ -1799,9 +1835,6 @@ body.claro{ --fs-media-tinta:#22303f; }
 #fsMatriz td.fs-c.bate-duas .v{color:var(--fs-media-tinta)}
 #fsMatriz td.fs-c.bate-uma .v{color:var(--fs-media-tinta)}
 
-.fs-leg-q{display:inline-block;width:14px;height:9px;border-radius:3px;background:var(--trilho)}
-.fs-leg-q.duas{outline:2px solid #3b9dff;outline-offset:-2px;background:#3b9dff1f}
-.fs-leg-q.uma{outline:2px solid #e2a51f;outline-offset:-2px;background:#e2a51f14}
 
 /* ---------- aba de premissas ---------- */
 .pr{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
@@ -1889,7 +1922,9 @@ body.claro{ --fs-media-tinta:#22303f; }
 /* o par campeonato + lista fica visivelmente ligado */
 #fsLigaEscolha{border-color:#e2a51f66;border-right-width:0;border-top-right-radius:0;
   border-bottom-right-radius:0}
-#fsListaLiga{border-color:#e2a51f66;border-top-left-radius:0;border-bottom-left-radius:0}
+#fsListaLiga .fsp-bt{border-color:#e2a51f66;border-top-left-radius:0;border-bottom-left-radius:0}
+/* as duas ultimas listas abrem perto da borda direita da tela */
+#fsSulExt .fsp-drop,#fsListaLiga .fsp-drop{left:auto;right:0}
 #fsSerieA{border-color:#22c55e66}
 #fsSerieB{border-color:#52a4eb66}
 #fsSulExt{border-color:#e2a51f66}

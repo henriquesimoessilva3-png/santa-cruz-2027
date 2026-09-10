@@ -252,3 +252,62 @@ chave `web`, hoje comentada).
   tooltip e na ficha).
 - A ficha compara com a coorte da liga; para ligas pequenas a amostra fica curta e
   isso não aparece na tela.
+
+## Físico: a barra e o contorno passaram a dizer a mesma coisa (set/26)
+
+A célula tinha duas réguas ao mesmo tempo: a **cor** da barra era a faixa de percentil
+(verde ≥ 75) e o **contorno** era a comparação com as médias das Séries A e B. Elas não
+coincidem — a média cai perto do meio da distribuição, não no quarto superior. O caso que
+levantou isso: **Bruninho, 33,40 km/h de Top 3 Peak Velocity**, batia as duas médias
+(33,05 e 32,69) e ficava com contorno azul e barra cinza, porque estava no percentil 73 e
+o verde começava em 75 (33,47). Coerente, mas a célula parecia se contradizer.
+
+Agora a **cor** segue o contorno: verde bate as duas médias, âmbar bate só a mais fraca,
+cinza abaixo das duas (`fsCorBarra()`, classes `cor-duas`/`cor-uma`). O **comprimento** da
+barra continua sendo o percentil na posição — a informação de "quanto ele vale dentro do
+grupo" não se perdeu, mudou de canal. O bloco **Temporadas** seguia uma terceira régua
+("acima da média da coorte") e entrou na mesma.
+
+`fsFaixa()` saiu. A legenda passou a ter um chip por nível (contorno + preenchimento
+juntos) em vez de listar percentil e contorno separados.
+
+## Fim de contrato marcado nas listas de escolha (set/26)
+
+`FS_LIVRE_ATE` passou de `2026-12` para **`2027-01`**: a Série B de 2027 começa em abril,
+então quem vence em janeiro está tão livre quanto quem vence em dezembro. Uma data só,
+valendo para a bolinha da coluna e para o selo novo.
+
+Nas listas (Série A, Série B, SA no exterior, campeonato, elenco do campograma e busca) o
+jogador com contrato até jan/27 ganha **⏳ mês/ano**. Vai o mês, não só a marca, porque
+dezembro e janeiro não valem a mesma coisa na hora de negociar. São 6.530 na base (6.387
+até dez/26 + 143 só em jan/27); entre os 42 RW das Séries A e B com tracking, 11.
+
+**Ordem dos grupos**: Volume subiu para logo depois de Uso da velocidade. Os dois falam
+de terreno coberto — um na faixa alta, outro no total — e ler os dois juntos é o que
+responde "ele corre muito ou corre rápido?". Arranque, frenagem e giro são outra conversa
+e ficaram no fim. A ordem vale também para os eixos do radar.
+
+## As listas de escolha deixaram de ser `<select>` (set/26)
+
+O selo de fim de contrato entrou como texto (`⏳ dez/26`) atrás do nome e se perdia na
+leitura — num `<option>` nativo não entra HTML, então não havia como desenhar nada.
+Trocamos as cinco listas de jogador (Série A, Série B, SA no exterior, campeonato e
+elenco do campograma) por um componente próprio, `fspPreencher()`, reaproveitando a casca
+do `.msel-drop` dos filtros.
+
+Cada linha é: colocação (ou a posição, na lista do campograma), chip do índice físico,
+nome, clube e o **card da data de contrato**, encostado à direita. O alinhamento é o
+ponto: os cards caem todos na mesma coluna de 44px, e dá para varrer a lista atrás de
+quem vence sem ler nome nenhum. Cinza discreto para contrato longo, âmbar cheio para quem
+vence até jan/27, tracejado para quem não tem data. A busca livre usa a mesma linha.
+
+Lista com mais de 18 itens ganha campo de filtro. `fsSeloLivre()` saiu.
+
+## Sétima premissa de montagem (set/26)
+
+"Salário baixo, premiação alta por vitória e acesso" — contratar abaixo do mercado e
+pendurar o dinheiro grande na premiação: bicho por vitória ao longo do campeonato e um
+prêmio forte pelo acesso. Entrou em `PREMISSAS_INICIAIS`
+(app.py) e em `dados/premissas.json` como `m7`. O texto registra que a premiação é
+variável e **não entra no teto mensal de R$ 2,8 MM**, que é custo recorrente — se o
+modelo passar a prever provisão de premiação, é aqui que a decisão fica escrita.

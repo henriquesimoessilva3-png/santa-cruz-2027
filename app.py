@@ -37,6 +37,12 @@ PREMISSAS_INICIAIS = [
     ("Montagem do elenco", "Comissão técnica top — investir",
      "A comissão entra no teto de R$ 2,8 MM e é para ser boa, não barata. O que se g"
      "asta nela sai da massa salarial de propósito."),
+    ("Montagem do elenco", "Salário baixo, premiação alta por vitória e acesso",
+     "Contratar abaixo do que o mercado pagaria e pendurar o dinheiro grande na "
+     "premiação: bicho por vitória ao longo do campeonato e um prêmio forte pelo "
+     "acesso. O risco vai para o resultado — ganhando, paga-se muito; não ganhando, "
+     "o custo fixo não afunda o clube. A premiação é variável e não entra no teto "
+     "mensal de R$ 2,8 MM, que é custo recorrente."),
     ("Montagem do elenco", "Logística diferenciada para a Série B",
      "A Série B tem viagem longa e calendário apertado. Estrutura de deslocamento, d"
      "escanso e recuperação entra na conta da montagem, não é despesa à parte."),

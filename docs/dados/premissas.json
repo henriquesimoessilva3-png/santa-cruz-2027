@@ -42,6 +42,13 @@
   "fonte": "inicial"
  },
  {
+  "id": "m7",
+  "grupo": "Montagem do elenco",
+  "titulo": "Salário baixo, premiação alta por vitória e acesso",
+  "texto": "Contratar abaixo do que o mercado pagaria e pendurar o dinheiro grande na premiação: bicho por vitória ao longo do campeonato e um prêmio forte pelo acesso. O risco vai para o resultado — ganhando, paga-se muito; não ganhando, o custo fixo não afunda o clube. A premiação é variável e não entra no teto mensal de R$ 2,8 MM, que é custo recorrente.",
+  "fonte": "inicial"
+ },
+ {
   "id": "p1",
   "grupo": "Orçamento",
   "titulo": "Teto de custo total",
