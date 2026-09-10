@@ -1,0 +1,205 @@
+[
+ {
+  "id": "m1",
+  "grupo": "Montagem do elenco",
+  "titulo": "Time físico",
+  "texto": "Elenco montado para correr: a intensidade é critério de escolha, não detalhe. É por isso que a aba Físico compara todo candidato com a régua das Séries A e B.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m2",
+  "grupo": "Montagem do elenco",
+  "titulo": "Muitos minutos por temporada",
+  "texto": "Priorizar quem joga, e joga muito. Minutagem alta e repetida nas últimas três temporadas vale mais do que um pico isolado.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m3",
+  "grupo": "Montagem do elenco",
+  "titulo": "Titulares consolidados, reservas com potencial",
+  "texto": "Os onze são gente pronta, com rodagem comprovada. O banco é onde entra a aposta: jovem com potencial de crescer dentro da temporada.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m4",
+  "grupo": "Montagem do elenco",
+  "titulo": "Goleiro top — investir",
+  "texto": "Posição em que vale pagar acima da média do elenco. Goleiro decide pontos na Série B e o custo de errar aqui é alto.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m5",
+  "grupo": "Montagem do elenco",
+  "titulo": "Comissão técnica top — investir",
+  "texto": "A comissão entra no teto de R$ 2,8 MM e é para ser boa, não barata. O que se gasta nela sai da massa salarial de propósito.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m6",
+  "grupo": "Montagem do elenco",
+  "titulo": "Logística diferenciada para a Série B",
+  "texto": "A Série B tem viagem longa e calendário apertado. Estrutura de deslocamento, descanso e recuperação entra na conta da montagem, não é despesa à parte.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p1",
+  "grupo": "Orçamento",
+  "titulo": "Teto de custo total",
+  "texto": "R$ 2.800.000 por mês é o custo total máximo do elenco.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p2",
+  "grupo": "Orçamento",
+  "titulo": "O teto já inclui a comissão técnica",
+  "texto": "A comissão entra dentro dos R$ 2,8 MM, não por fora. Padrão de R$ 300.000, editável ou detalhada por cargo no modal Orçamento.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p3",
+  "grupo": "Orçamento",
+  "titulo": "Encargos de 1,25×",
+  "texto": "O custo real de um jogador é 1,25 vez o salário oferecido a ele. Massa salarial disponível = (teto − comissão) ÷ 1,25.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p4",
+  "grupo": "Orçamento",
+  "titulo": "O salário digitado é o do jogador",
+  "texto": "O número no card é o que o atleta recebe, sem encargos. Quem aplica o 1,25 é a conta.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p5",
+  "grupo": "Orçamento",
+  "titulo": "Sem salário sugerido",
+  "texto": "Jogador entra no campograma com salário 0. A faixa do TransferRoom aparece na ficha e no Fim de contrato, mas não preenche o card.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p6",
+  "grupo": "Orçamento",
+  "titulo": "Cotação do euro",
+  "texto": "A faixa salarial do TransferRoom é anual em euros; vira mensal em reais pela cotação do modal Orçamento (padrão 6,30).",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p7",
+  "grupo": "Elenco",
+  "titulo": "Objetivo",
+  "texto": "Montar o elenco de 2027 do Santa Cruz visando o acesso à Série B.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p8",
+  "grupo": "Elenco",
+  "titulo": "Onze posições, três opções",
+  "texto": "GK, LB, LCB, RCB, RB, DM, CM, AM, LW, CF, RW — com 3 vagas por posição, ajustáveis uma a uma.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p9",
+  "grupo": "Elenco",
+  "titulo": "Limite de estrangeiros",
+  "texto": "9 estrangeiros no elenco.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p10",
+  "grupo": "Elenco",
+  "titulo": "Siglas internacionais na tela",
+  "texto": "GK, LCB, RCB, LB, RB, DM, CM, AM, LW, RW, CF. A chave interna continua em português porque indexa a base, os KPIs e os cenários já gravados.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p11",
+  "grupo": "Dados",
+  "titulo": "O cadastro vem do fim de contrato",
+  "texto": "40.059 jogadores do levantamento de fim de contrato (Transfermarkt), não do ranking — o ranking só enxerga quem tem minutagem (18.281).",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p12",
+  "grupo": "Dados",
+  "titulo": "Capology não cobre o Brasil",
+  "texto": "Não publica salário do futebol brasileiro. Todo salário é digitado, exceto a estimativa do TransferRoom.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p13",
+  "grupo": "Dados",
+  "titulo": "Histórico de três temporadas",
+  "texto": "2024, 2025 e 2026, dos mesmos Excels do Wyscout que alimentam o ranking.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p14",
+  "grupo": "Dados",
+  "titulo": "Ligação entre temporadas",
+  "texto": "Primeiro por id (player_uid). Por nome só quando o nome é único na temporada de hoje e na de lá, conferindo país, altura e idade. Nome repetido não casa: o Pedro do Flamengo chegou a receber a temporada de um Pedro do Guabirá.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p15",
+  "grupo": "Dados",
+  "titulo": "O Wyscout não marca a origem do gol",
+  "texto": "Não existe \"gol de bola parada\" na base. O que existe são os dois lados: quem cobra (escanteios + faltas por 90, pênaltis) e quem cabeceia (gols de cabeça).",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p16",
+  "grupo": "Dados",
+  "titulo": "Goleador recorrente",
+  "texto": "Quem fez 5 gols ou mais em pelo menos 2 das 3 temporadas.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p17",
+  "grupo": "Dados",
+  "titulo": "O oGol tem jogos, não minutos",
+  "texto": "Onde não houver minutos, mostrar jogos, marcado na tela. Nada é estimado.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p18",
+  "grupo": "Físico",
+  "titulo": "A régua é a Série A + B",
+  "texto": "Todo percentil é calculado entre os jogadores da mesma posição com tracking nas Séries A e B. Jogadores de outras ligas entram nessa mesma régua para poder comparar.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p19",
+  "grupo": "Físico",
+  "titulo": "Nos tempos, menor é melhor",
+  "texto": "Nos indicadores de tempo (até o sprint, 505, após girar), liderar é ter o número menor. A cor não segue o sinal da diferença.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p20",
+  "grupo": "Físico",
+  "titulo": "Índice físico",
+  "texto": "Índice do grupo = média dos percentis do grupo. Índice geral = média dos cinco grupos. É ele que escolhe os 5 melhores de cada série.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p21",
+  "grupo": "Físico",
+  "titulo": "Contorno diz o nível",
+  "texto": "Verde quando o jogador bate as médias das duas séries; âmbar quando bate só a mais fraca das duas.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p22",
+  "grupo": "Físico",
+  "titulo": "Estudo Série A × Série B",
+  "texto": "Só entram posições com pelo menos três jogadores com tracking de cada lado — o que deixa o goleiro de fora.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "p23",
+  "grupo": "Físico",
+  "titulo": "Comparativo gravado é lista, não receita",
+  "texto": "O que se grava são os atletas que estavam na tela, com os incluídos e os excluídos. Guardar \"top 5 + filtro\" faria o comparativo mudar sozinho quando a base fosse regerada.",
+  "fonte": "inicial"
+ }
+]
