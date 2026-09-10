@@ -1432,19 +1432,46 @@ function migrar() {
 
 /* Os jogadores gravados antes da base ampliada guardaram so o id, que mudou.
    Reancora cada um pela primary_key assim que a base carrega. */
+/* Religa cada card do elenco ao registro da base. O `id` muda a cada regeração; a
+   `pk` ("Nome - Time - Liga") sobrevive, mas tambem quebra quando o jogador troca de
+   clube e a base e refeita.
+
+   Quem perdeu a ancora e reavaliado A CADA carregamento. Antes havia um
+   `if (j.jid == null) return;` logo na entrada: bastava uma regeração em que o
+   casamento falhasse para o jogador ficar sem `jid` PARA SEMPRE — sem o "+" da ficha,
+   sem historico, sem fisico, mesmo depois de a base voltar a te-lo. Foi o que
+   aconteceu com o Maurício e o Maykon. So os cards criados a mão (`manual`) ficam
+   de fora, porque esses nunca tiveram registro na base. */
 function reancorar() {
-  let ajustados = 0, perdidos = 0;
+  let ajustados = 0, perdidos = 0, recuperados = 0;
+  const chave = t => norma(t);
+  /* nome normalizado -> registros, para o ultimo recurso */
+  const porNome = {};
+  BASE.forEach(x => { (porNome[chave(x.n)] = porNome[chave(x.n)] || []).push(x); });
+
   POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(j => {
-    if (j.jid == null) return;
+    if (j.manual) return;
+    const tinha = j.jid != null;
     if (j.pk && BASE.some(x => primaryKey(x) === j.pk)) return;
-    const achado = BASE.find(x => x.n === j.nome && x.t === j.clube) ||
-                   BASE.find(x => x.n === j.nome && x.p === (j.posOrig || p.c));
-    if (achado) { j.jid = achado.id; j.pk = primaryKey(achado); ajustados++; }
-    else { j.jid = null; j.pk = null; perdidos++; }
+
+    const mesmos = porNome[chave(j.nome)] || [];
+    const achado =
+      mesmos.find(x => chave(x.t) === chave(j.clube)) ||
+      mesmos.find(x => x.p === (j.posOrig || p.c)) ||
+      (mesmos.length === 1 ? mesmos[0] : null);
+
+    if (achado) {
+      j.jid = achado.id;
+      j.pk = primaryKey(achado);
+      if (tinha) ajustados++; else recuperados++;
+    } else if (tinha) {
+      j.jid = null; j.pk = null; perdidos++;
+    }
   }));
-  if (ajustados || perdidos) {
+  if (ajustados || perdidos || recuperados) {
     salvarLocal(); render();
-    console.log('reancorados:', ajustados, '| sem correspondência:', perdidos);
+    console.log('reancorados:', ajustados, '| recuperados:', recuperados,
+                '| sem correspondência:', perdidos);
   }
 }
 
@@ -1646,6 +1673,12 @@ let fichaAtual = null;
 
 function primaryKey(j) { return j.n + ' - ' + j.t + ' - ' + j.l; }
 
+/* texto comparavel: sem acento, sem caixa, sem espaco sobrando */
+function norma(t) {
+  return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
 /* O TransferRoom da a faixa salarial ANUAL em euros, tipo "25K - 38K".
    Converte para uma faixa mensal em reais, com a cotacao que estiver no orçamento. */
 function faixaSalarioTR(j) {
@@ -1702,6 +1735,10 @@ async function abrirFicha(ref) {
   fichaAtual = j;
   marcarFichaAberta(jid);
   $('#ficha').classList.remove('oculta');
+  /* Enquanto a ficha esta aberta ela fica com a tela inteira: presa aos 56vh de
+     antes, sobrava metade da altura para o campo e a ficha rolava. O campo volta
+     ao fechar. */
+  $('#pgCampo').classList.add('com-ficha');
   $('#fiCorpo').innerHTML = '<div class="fi-sem" style="padding:14px">carregando indicadores…</div>';
   await renderFicha();
   ajustarCampo();
@@ -1710,6 +1747,8 @@ async function abrirFicha(ref) {
 
 function fecharFicha() {
   $('#ficha').classList.add('oculta');
+  $('#pgCampo').classList.remove('com-ficha');
+  requestAnimationFrame(ajustarCampo);
   fichaAtual = null;
   marcarFichaAberta(null);
   ajustarCampo();
@@ -3125,11 +3164,83 @@ function estudoRender() {
 }
 function p_sig(p) { return p.sig || p.c; }
 
+/* ---------------- comparativos gravados, por posicao ----------------
+   O que se grava e a LISTA RESOLVIDA de quem estava na tela, nao a receita que a
+   produziu. Guardar "top 5 da Serie A + filtro X" faria o comparativo mudar sozinho
+   quando a base fosse regerada — e a graca de gravar e justamente poder voltar ao
+   mesmo quadro depois. Os excluidos vao junto porque tirar alguem da comparacao e
+   uma decisao tao deliberada quanto incluir. */
+const CHAVE_COMP = 'sc2027_comparativos';
+
+function compCarregar() {
+  try { return JSON.parse(localStorage.getItem(CHAVE_COMP)) || []; } catch (e) { return []; }
+}
+function compGravarTodos(lista) {
+  try { localStorage.setItem(CHAVE_COMP, JSON.stringify(lista)); } catch (e) {}
+}
+
+function compMontarLista() {
+  const sel = $('#fsComp');
+  if (!sel) return;
+  const todos = compCarregar();
+  const daPos = todos.filter(c => c.pos === fsPos);
+  const outros = todos.filter(c => c.pos !== fsPos);
+  sel.innerHTML = '<option value="">— comparativo gravado —</option>' +
+    (daPos.length ? '<optgroup label="' + esc(nomePos(fsPos)) + '">' + daPos.map(c =>
+      '<option value="' + esc(c.id) + '">' + esc(c.nome) + ' · ' + c.incluidos.length +
+      ' atletas</option>').join('') + '</optgroup>' : '') +
+    (outros.length ? '<optgroup label="outras posições">' + outros.map(c =>
+      '<option value="' + esc(c.id) + '">' + esc(sig(c.pos)) + ' · ' + esc(c.nome) + ' · ' +
+      c.incluidos.length + ' atletas</option>').join('') + '</optgroup>' : '');
+  $('#fsCompApagar').style.display = sel.value ? '' : 'none';
+}
+
+function compGravar() {
+  const nome = prompt('Nome do comparativo:', nomePos(fsPos) + ' — ' +
+    new Date().toLocaleDateString('pt-BR'));
+  if (!nome) return;
+  const incluidos = $$('#fsMatriz th.fs-col').map(th => th.dataset.pk);
+  if (!incluidos.length) { toast('Não há ninguém na comparação', 'ruim'); return; }
+  const lista = compCarregar();
+  lista.unshift({ id: 'c' + Date.now(), nome: nome.trim(), pos: fsPos,
+                  incluidos, ocultos: [...fsOcultos] });
+  compGravarTodos(lista);
+  compMontarLista();
+  $('#fsComp').value = lista[0].id;
+  $('#fsCompApagar').style.display = '';
+  toast('Comparativo "' + nome.trim() + '" gravado', 'bom');
+}
+
+function compAbrir(id) {
+  const c = compCarregar().find(x => x.id === id);
+  if (!c) return;
+  fsPos = c.pos;
+  campinhoDefinir('fsCampo', [fsPos]);
+  fsExtras = c.incluidos.slice();
+  fsOcultos = new Set(c.ocultos || []);
+  /* desliga o que traria gente de fora: o comparativo gravado e exatamente aquele */
+  $('#fsTopA').checked = false;
+  $('#fsTopB').checked = false;
+  $('#fsTopFiltro').value = 0;
+  fsRender();
+  toast('Comparativo "' + c.nome + '" aberto', 'bom');
+}
+
+function compApagar() {
+  const id = $('#fsComp').value;
+  const c = compCarregar().find(x => x.id === id);
+  if (!c || !confirm('Apagar o comparativo "' + c.nome + '"?')) return;
+  compGravarTodos(compCarregar().filter(x => x.id !== id));
+  compMontarLista();
+  toast('Comparativo apagado');
+}
+
 function fsMontarFiltros() {
   campinhoInit('fsCampo', () => {
     const s = campinhoSelecao('fsCampo');
     if (s.size) fsPos = [...s][0];
     campinhoDefinir('fsCampo', [fsPos]);
+    compMontarLista();
     fsRender();
   }, true);
   campinhoDefinir('fsCampo', [fsPos]);
@@ -3153,6 +3264,13 @@ function fsMontarFiltros() {
   });
   $('#fsTopFiltro').oninput = debounce(fsRender, 200);
   $('#fsEstudo').onclick = () => { estudoRender(); $('#modalEstudo').classList.add('aberto'); };
+  $('#fsCompGravar').onclick = compGravar;
+  $('#fsCompApagar').onclick = compApagar;
+  $('#fsComp').onchange = () => {
+    $('#fsCompApagar').style.display = $('#fsComp').value ? '' : 'none';
+    if ($('#fsComp').value) compAbrir($('#fsComp').value);
+  };
+  compMontarLista();
   fsAbasMarcar('fsLigaAbas', 'todos');
 
   $('#fsBusca').oninput = debounce(fsBuscar, 150);
@@ -3469,7 +3587,7 @@ function ligar() {
     const lista = estado.elenco[posAtual];
     const ex = $('#mnEstrangeiro').checked;
     lista.push({
-      uid: uid(), jid: null, nome, clube: $('#mnClube').value.trim() || 'sem clube',
+      uid: uid(), jid: null, manual: 1, nome, clube: $('#mnClube').value.trim() || 'sem clube',
       liga: '', idade: parseInt($('#mnIdade').value) || null, ov: null, contrato: '',
       posOrig: posAtual, salario: paraNumero($('#mnSalario').value),
       nac: ex ? ($('#mnPais').value.trim() || '') : 'Brazil', psp: '', estrangeiro: ex,

@@ -1717,3 +1717,15 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 .fs-ct i{width:6px;height:6px;border-radius:50%;background:var(--ambar);flex:none;
   box-shadow:0 0 0 2px #f5a52433}
 #fsElenco option:disabled{color:var(--tinta3);font-style:italic}
+
+/* ---------- ficha aberta ocupa a tela toda ----------
+   O campo sai de cena enquanto a ficha esta aberta e volta ao fechar. Dividir a
+   altura entre os dois deixava a ficha com 56vh e ela rolava — que e justamente o
+   que se quer evitar em algo feito para bater o olho. */
+#pgCampo.com-ficha .campo-area{display:none}
+#pgCampo.com-ficha .ficha{flex:1;max-height:none;min-height:0;border-top:none}
+#pgCampo.com-ficha .ficha-rolagem{overflow:auto}
+
+.rk-sel{background:var(--input-bg);border:1px solid var(--input-borda);border-radius:5px;
+  padding:4px 7px;font-size:11px;color:var(--tinta);font-family:inherit;max-width:230px}
+.rk-sel:focus{outline:none;border-color:var(--coral)}
