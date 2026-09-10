@@ -3120,7 +3120,7 @@ function fsOpcoesLista(el, lista, rotulo, co, jaTem, comBandeira) {
   if (!el) return;
   const ord = lista.map(j => ({ j, idx: fsIndices(co, j).geral }))
     .filter(x => x.idx != null).sort((a, b) => b.idx - a.idx);
-  el.innerHTML = '<option value="">＋ ' + esc(rotulo) + ' · ' + ord.length + '…</option>' +
+  el.innerHTML = '<option value="">' + esc(rotulo) + ' · ' + ord.length + '</option>' +
     ord.map((x, i) => {
       const pk = primaryKey(x.j);
       return '<option value="' + esc(pk) + '"' + (jaTem.has(pk) ? ' disabled' : '') + '>' +
@@ -3135,13 +3135,14 @@ function fsMontarSeries(co, colunas) {
   const jaTem = new Set(colunas.map(c => primaryKey(c.j)));
   fsOpcoesLista($('#fsSerieA'), co.lista.filter(j => j.l === 'Brasil A'), '🇧🇷 Série A', co, jaTem);
   fsOpcoesLista($('#fsSerieB'), co.lista.filter(j => j.l === 'Brasil B'), '🇧🇷 Série B', co, jaTem);
+  /* rotulos curtos de proposito: o combo tem ~160px e o nome longo virava reticencias */
 
   /* Sul-americanos no exterior: nascidos na America do Sul (sem Brasil) jogando fora
      dela. Mesma definicao do botao "No exterior" dos filtros — uma regra so. */
   const minJ = fsMinJogos();
   const fora = fsBase().filter(j => j.p === fsPos && (Number(j.sc_n) || 0) >= minJ &&
     classPais(j.nac || '') === 'sa' && classLiga(j.l) !== 'sulamerica' && classLiga(j.l) !== 'brasil');
-  fsOpcoesLista($('#fsSulExt'), fora, '🌎 Sul-americanos no exterior', co, jaTem, true);
+  fsOpcoesLista($('#fsSulExt'), fora, '🌎 SA no exterior', co, jaTem, true);
 
   /* Terceira lista: qualquer campeonato com tracking na posicao escolhida. Sul-americanos
      primeiro porque e de onde o Santa Cruz contrata. */
@@ -3155,12 +3156,12 @@ function fsMontarSeries(co, colunas) {
   const selL = $('#fsLigaEscolha');
   if (selL) {
     if (!ligas.includes(fsLigaLista)) fsLigaLista = ligas.find(l => ordem(l) === 0) || ligas[0] || '';
-    selL.innerHTML = '<option value="">— campeonato —</option>' + ligas.map(l =>
+    selL.innerHTML = '<option value="">escolher campeonato…</option>' + ligas.map(l =>
       '<option value="' + esc(l) + '"' + (l === fsLigaLista ? ' selected' : '') + '>' +
       bandeira(l) + esc(l) + ' (' + cont[l] + ')</option>').join('');
   }
   fsOpcoesLista($('#fsListaLiga'), doPosto.filter(j => j.l === fsLigaLista),
-                bandeira(fsLigaLista) + (fsLigaLista || 'campeonato'), co, jaTem);
+                '＋ ' + bandeira(fsLigaLista) + (fsLigaLista || 'campeonato'), co, jaTem);
 }
 
 /* busca de qualquer jogador com tracking, em qualquer liga */
