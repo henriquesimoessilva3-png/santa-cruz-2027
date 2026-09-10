@@ -237,14 +237,18 @@ do Botafogo. A aba Físico reaproveita o campinho em modo de seleção única.
 
 ## Publicação
 
-Preparado para **Render** (`render.yaml`): Flask com senha (`SC_SENHA`, HTTP Basic),
-bases servidas como arquivo (nada na memória — o plano gratuito tem 512 MB) e disco
-de 1 GB para os grupos salvos. GitHub Pages não serve: é sempre público e não roda
-backend, e o usuário quis acesso restrito com grupos compartilhados.
+**No ar hoje: GitHub Pages**, em `henriquesimoessilva3-png.github.io/santa-cruz-2027`,
+gerado por `publicar_site.py` a partir de `docs/`. O endereço já está no card do portal
+(`hub/hub_santacruz.py`, chave `web`). É público — quem tem o link entra. O que fica de
+fora por não haver servidor: o comparativo entre grupos e o Excel; salvar, trocar,
+renomear e excluir grupos funcionam no navegador de quem abre (seção "Salvamento de
+grupos no site publicado", no fim deste arquivo).
 
-**Falta o usuário criar a conta no Render** — não é algo que eu faça por ele. Passo a
-passo em `PUBLICAR.md`. Depois, pôr o endereço no card do portal (`hub/hub_santacruz.py`,
-chave `web`, hoje comentada).
+**Render continua preparado, e não foi usado** (`render.yaml`): Flask com senha
+(`SC_SENHA`, HTTP Basic), bases servidas como arquivo (nada na memória — o plano gratuito
+tem 512 MB) e disco de 1 GB para os grupos salvos. É o caminho para o que o Pages não dá:
+acesso restrito e grupos compartilhados entre pessoas. Falta o usuário criar a conta —
+não é algo que eu faça por ele; passo a passo em `PUBLICAR.md`.
 
 ## Pendências
 
@@ -706,3 +710,9 @@ Testado no build servido localmente (`python -m http.server` em `docs/`): lista 
 três publicados, salvar cria a cópia e sobrevive ao recarregar, abrir o MODELO A carrega
 os 33, excluir remove só a cópia; o Flask segue igual. O `elenco_inicial.json` do site
 passou a ser o Cenário 1 2027 com 118 atletas (salvo hoje às 16:47).
+
+Conferido no ar em 10/set: seletor com os três publicados em `optgroup`, Salvar visível,
+o Cenário 1 2027 abre com 118 atletas, salvar por cima do publicado move o grupo para
+"Salvos neste navegador" (o publicado some da lista, porque a cópia vence), excluir
+devolve o publicado com o aviso "Sua cópia foi excluída; o publicado continua na lista".
+Zero erro de console no carregamento.
