@@ -22,6 +22,25 @@ ARQ_PREMISSAS = os.environ.get("SC_PREMISSAS") or os.path.join(AQUI, "dados", "p
 # nao no navegador de proposito: sao o combinado do trabalho, nao preferencia de tela.
 # Este e so o conteudo INICIAL — a partir da primeira gravacao vale o arquivo.
 PREMISSAS_INICIAIS = [
+    ("Montagem do elenco", "Time físico",
+     "Elenco montado para correr: a intensidade é critério de escolha, não detalhe. "
+     "É por isso que a aba Físico compara todo candidato com a régua das Séries A e B."),
+    ("Montagem do elenco", "Muitos minutos por temporada",
+     "Priorizar quem joga, e joga muito. Minutagem alta e repetida nas últimas três "
+     "temporadas vale mais do que um pico isolado."),
+    ("Montagem do elenco", "Titulares consolidados, reservas com potencial",
+     "Os onze são gente pronta, com rodagem comprovada. O banco é onde entra a apost"
+     "a: jovem com potencial de crescer dentro da temporada."),
+    ("Montagem do elenco", "Goleiro top — investir",
+     "Posição em que vale pagar acima da média do elenco. Goleiro decide pontos na S"
+     "érie B e o custo de errar aqui é alto."),
+    ("Montagem do elenco", "Comissão técnica top — investir",
+     "A comissão entra no teto de R$ 2,8 MM e é para ser boa, não barata. O que se g"
+     "asta nela sai da massa salarial de propósito."),
+    ("Montagem do elenco", "Logística diferenciada para a Série B",
+     "A Série B tem viagem longa e calendário apertado. Estrutura de deslocamento, d"
+     "escanso e recuperação entra na conta da montagem, não é despesa à parte."),
+
     ("Orçamento", "Teto de custo total",
      "R$ 2.800.000 por mês é o custo total máximo do elenco."),
     ("Orçamento", "O teto já inclui a comissão técnica",

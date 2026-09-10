@@ -1828,3 +1828,21 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 .pr-editar:hover{color:var(--coral);border-color:var(--coral)}
 .pr-apagar:hover{color:var(--txt-vermelho);border-color:var(--txt-vermelho)}
 .pr-item p{margin:5px 0 0;font-size:11px;color:var(--tinta2);line-height:1.55}
+
+/* ---------- premissas da montagem, no topo da Analise ---------- */
+.bloco-largo{grid-column:1/-1}
+#anPremissas h3{display:flex;align-items:center;gap:10px}
+#anPremissas h3 .bt{margin-left:auto;font-weight:600}
+.an-pr-estado{font-size:10px;color:var(--tinta3);font-weight:400}
+.an-pr{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:9px;margin-top:4px}
+.an-pr-item{display:flex;gap:9px;align-items:flex-start;background:var(--fundo2);
+  border:1px solid var(--borda);border-radius:8px;padding:9px 11px}
+.an-pr-item:hover{border-color:var(--borda2)}
+.an-pr-n{flex:none;width:20px;height:20px;border-radius:50%;background:var(--coral);color:#fff;
+  font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.an-pr-item b{font-size:12px;color:var(--tinta);line-height:1.3}
+.an-pr-item p{margin:3px 0 0;font-size:10.5px;color:var(--tinta3);line-height:1.5}
+.an-pr-x{margin-left:auto;font-size:13px;line-height:1;padding:1px 5px;border-radius:4px;
+  color:var(--tinta3);background:transparent;border:1px solid transparent;cursor:pointer;opacity:0}
+.an-pr-item:hover .an-pr-x{opacity:1}
+.an-pr-x:hover{color:var(--txt-vermelho);border-color:var(--txt-vermelho)}

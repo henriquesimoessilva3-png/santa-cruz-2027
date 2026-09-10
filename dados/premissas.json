@@ -1,5 +1,47 @@
 [
  {
+  "id": "m1",
+  "grupo": "Montagem do elenco",
+  "titulo": "Time físico",
+  "texto": "Elenco montado para correr: a intensidade é critério de escolha, não detalhe. É por isso que a aba Físico compara todo candidato com a régua das Séries A e B.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m2",
+  "grupo": "Montagem do elenco",
+  "titulo": "Muitos minutos por temporada",
+  "texto": "Priorizar quem joga, e joga muito. Minutagem alta e repetida nas últimas três temporadas vale mais do que um pico isolado.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m3",
+  "grupo": "Montagem do elenco",
+  "titulo": "Titulares consolidados, reservas com potencial",
+  "texto": "Os onze são gente pronta, com rodagem comprovada. O banco é onde entra a aposta: jovem com potencial de crescer dentro da temporada.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m4",
+  "grupo": "Montagem do elenco",
+  "titulo": "Goleiro top — investir",
+  "texto": "Posição em que vale pagar acima da média do elenco. Goleiro decide pontos na Série B e o custo de errar aqui é alto.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m5",
+  "grupo": "Montagem do elenco",
+  "titulo": "Comissão técnica top — investir",
+  "texto": "A comissão entra no teto de R$ 2,8 MM e é para ser boa, não barata. O que se gasta nela sai da massa salarial de propósito.",
+  "fonte": "inicial"
+ },
+ {
+  "id": "m6",
+  "grupo": "Montagem do elenco",
+  "titulo": "Logística diferenciada para a Série B",
+  "texto": "A Série B tem viagem longa e calendário apertado. Estrutura de deslocamento, descanso e recuperação entra na conta da montagem, não é despesa à parte.",
+  "fonte": "inicial"
+ },
+ {
   "id": "p1",
   "grupo": "Orçamento",
   "titulo": "Teto de custo total",

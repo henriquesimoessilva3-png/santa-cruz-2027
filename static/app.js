@@ -3448,7 +3448,7 @@ function prRender() {
       const p = PREMISSAS.find(x => x.id === id);
       if (!p || !confirm('Apagar a premissa "' + p.titulo + '"?')) return;
       PREMISSAS = PREMISSAS.filter(x => x.id !== id);
-      prRender(); prGravar();
+      prRender(); anPremissasRender(); prGravar();
     };
   });
 }
@@ -3478,6 +3478,53 @@ function prNova() {
   toast('Premissa acrescentada');
 }
 
+/* As premissas de MONTAGEM aparecem tambem no topo da Analise do elenco: e la que se
+   decide onde gastar, e a decisao tem de estar ao lado do norte que a orienta. Mesma
+   base da aba Premissas — um lugar so, dois pontos de leitura. */
+const GRUPO_MONTAGEM = 'Montagem do elenco';
+
+function anPremissasRender() {
+  const alvo = $('#anPrLista');
+  if (!alvo) return;
+  const itens = PREMISSAS.filter(p => p.grupo === GRUPO_MONTAGEM);
+  alvo.innerHTML = itens.length ? itens.map((p, i) =>
+    '<article class="an-pr-item" data-id="' + esc(p.id) + '">' +
+      '<span class="an-pr-n">' + (i + 1) + '</span>' +
+      '<div><b>' + esc(p.titulo) + '</b><p>' + esc(p.texto) + '</p></div>' +
+      '<button class="an-pr-x" title="Tirar esta premissa">×</button>' +
+    '</article>').join('')
+    : '<div class="dica">Nenhuma premissa de montagem ainda — use o ＋ acrescentar.</div>';
+
+  $$('#anPrLista .an-pr-x').forEach(b => {
+    b.onclick = () => {
+      const id = b.closest('.an-pr-item').dataset.id;
+      const p = PREMISSAS.find(x => x.id === id);
+      if (!p || !confirm('Tirar a premissa "' + p.titulo + '"?')) return;
+      PREMISSAS = PREMISSAS.filter(x => x.id !== id);
+      anPremissasRender(); prRender(); prGravar();
+    };
+  });
+}
+
+async function anPremissasCarregar() {
+  if (!PREMISSAS.length) {
+    try { PREMISSAS = await (await fetch('api/premissas')).json(); } catch (e) { PREMISSAS = []; }
+  }
+  anPremissasRender();
+}
+
+function anNovaPremissa() {
+  const titulo = prompt('Premissa da montagem (ex.: "Time físico"):');
+  if (!titulo || !titulo.trim()) return;
+  const texto = prompt('O que isso quer dizer na prática:') || '';
+  PREMISSAS.unshift({ id: 'u' + Date.now(), grupo: GRUPO_MONTAGEM,
+                      titulo: titulo.trim(), texto: texto.trim(), fonte: 'usuario' });
+  anPremissasRender(); prRender();
+  $('#anEstado').textContent = 'gravando…';
+  prGravar().then(() => { $('#anEstado').textContent = ''; });
+  toast('Premissa acrescentada');
+}
+
 function irParaAba(nome) {
   $$('.aba').forEach(b => b.classList.toggle('on', b.dataset.aba === nome));
   $('#pgCampo').classList.toggle('oculta', nome !== 'campo');
@@ -3489,6 +3536,7 @@ function irParaAba(nome) {
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
   if (nome === 'premissas' && !PREMISSAS.length) prCarregar();
+  if (nome === 'analise') anPremissasCarregar();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -3678,6 +3726,7 @@ function ligar() {
   };
   $$('.aba').forEach(b => { b.onclick = () => irParaAba(b.dataset.aba); });
   $('#prNova').onclick = prNova;
+  $('#anNova').onclick = anNovaPremissa;
   $('#prBusca').oninput = debounce(prRender, 150);
 
   const menu = (btId, menuId) => {
