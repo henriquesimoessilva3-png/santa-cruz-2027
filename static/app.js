@@ -2665,10 +2665,12 @@ function fcMontarFiltros() {
    medias da Serie A e da Serie B. Quem quiser compara qualquer um da base (ou do
    campograma) contra essa regua. */
 const FS_GRUPOS = [
+  /* os dois picos primeiro, depois as duas medias de pico: pico de 3 jogos, pico de
+     1 jogo, PSV-99 dos 5 melhores, PSV-99 por partida */
   { t: 'Velocidade', d: 'O teto: quão rápido chega.', m: [
     ['vmax3', 'Top 3 Peak Velocity',          'km/h',  2],
-    ['psv5',  'PSV-99, 5 melhores partidas',  'km/h',  2],
     ['vmax',  'Peak Velocity',                'km/h',  2],
+    ['psv5',  'PSV-99, 5 melhores partidas',  'km/h',  2],
     ['psv',   'PSV-99 por partida',           'km/h',  2] ] },
   { t: 'Uso da velocidade', d: 'Quanto vai buscar essa faixa por 90 minutos.', m: [
     ['spr_km', 'Metros em sprint',            'm/90',  0],
