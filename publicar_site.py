@@ -70,7 +70,12 @@ def montar():
     with open(os.path.join(AQUI, "templates", "index.html"), encoding="utf-8") as fh:
         html = fh.read()
     v = versao(os.path.join(AQUI, "static", "app.js"))
-    vd = versao(os.path.join(AQUI, "dados", "jogadores.json"))
+    # mesma razao do versao_dados() do app.py: o maior mtime entre as bases, para o
+    # navegador nao servir raio_ref.json velho com app.js novo
+    vd = str(max(int(versao(os.path.join(AQUI, "dados", n)))
+                 for n in ("jogadores.json", "historico.json", "premissas.json",
+                           "raio_ref.json", "posicao_overrides.json")
+                 if os.path.exists(os.path.join(AQUI, "dados", n))))
     html = (html.replace("{{ ver }}", v).replace("{{ verDados }}", vd)
                 .replace("{{ver}}", v).replace("{{verDados}}", vd))
     html = re.sub(r'\{\{\s*url_for\([^)]*\)\s*\}\}', lambda m: 'static/app.js', html)

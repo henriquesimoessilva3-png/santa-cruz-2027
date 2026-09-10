@@ -198,7 +198,10 @@ def gravar_cenarios(dados):
 def versao_dados():
     """Assinatura das bases, para o navegador nao ficar com dados velhos."""
     marcas = []
-    for nome in ("jogadores.json", "historico.json"):
+    # todos os arquivos que o app.js busca em /dados: faltar um aqui significa navegador
+    # servindo base velha em silencio — foi o que aconteceu com o raio_ref.json
+    for nome in ("jogadores.json", "historico.json", "premissas.json",
+                 "raio_ref.json", "posicao_overrides.json"):
         caminho = os.path.join(AQUI, "dados", nome)
         marcas.append(str(int(os.path.getmtime(caminho))) if os.path.exists(caminho) else "0")
     return "-".join(marcas)

@@ -443,3 +443,44 @@ mediano. O raio **não compara posições entre si** — só o atleta contra a r
 Isso é herdado do :5053 (a config de lá diz "ref forte ⇒ verde raro; ref modesta ⇒ verde
 comum"), não foi introduzido aqui. O balão do raio passou a dizer o percentil da referência
 para que a leitura não engane.
+
+## O raio passou a ser MÉDIA DE REFERÊNCIAS, não um jogador (set/26)
+
+Decisão do usuário, depois de eu mostrar que a régua de jogador único era desigual demais.
+`_fonte/gerar_raio_ref.py` monta `dados/raio_ref.json` com duas médias por posição:
+
+- **Referências Brasil** — lista curada de mar/25 (`config/refs_brasil.json` do Portal Ranking)
+- **Referências Mundo** — elite mundial (`config/fisico_refs.json`, as mesmas do Scanner/Carreira TOP)
+
+De cada grupo sai a média dos 25 indicadores, com os valores desta base. **O raio julga
+contra a média BRASIL**: abaixo vermelho, similar laranja, acima verde. As duas médias
+também viraram colunas na matriz do Físico (checkbox "Referências BR e mundo").
+
+Cobertura: Mundo casou 43/43. Brasil casou 12 de 29 — a lista é de mar/25 e vários mudaram
+de nome ou de clube. Um mapa de apelidos em `gerar_raio_ref.py` resolveu a maioria; ficaram
+de fora por não ter SkillCorner nesta base: Gustavo Gómez, Mayke, Wesley, Aníbal Moreno,
+Villasanti, N. de la Cruz, Estêvão e Lucas Moura. **RW e LW ficaram com um jogador só
+(J. Arias)** — média de um não é média, e é o buraco mais sério da lista.
+
+Ficou mais parelho, mas não parelho: o percentil médio da referência ia de 25 a 91 e agora
+vai de 25 a 83.
+
+| pos | refs | pctl | verde | laranja | vermelho |
+|---|---|---|---|---|---|
+| DM | 2 | 83 | 7,3% | 21,8% | 70,9% |
+| RB | 2 | 81 | 8,8% | 24,1% | 67,1% |
+| CM | 3 | 77 | 9,6% | 30,6% | 59,8% |
+| LB | 3 | 54 | 26,5% | 41,3% | 32,3% |
+| RCB/LCB | 2 | 49 | ~31% | ~45% | ~24% |
+| CF | 5 | 43 | 36,8% | 39,6% | 23,5% |
+| RW/LW | 1 | ~41 | 40,8% | ~39% | ~20% |
+| AM | 3 | 25 | 54,2% | 34,9% | 10,9% |
+
+A causa é real, não é defeito: as listas são curadas por qualidade de futebol, não por
+paridade física. Os volantes de referência (Gregore, Pulgar) são atletas; os meias
+(Alan Patrick, Savarino, Garro) são técnicos.
+
+**Cache-buster consertado de vez**: `versao_dados()` só olhava `jogadores.json` e
+`historico.json`, então o navegador servia `raio_ref.json` velho com `app.js` novo — as
+colunas simplesmente não apareciam, sem erro nenhum. Agora a assinatura cobre todos os
+arquivos que o app busca em `/dados`, e o `publicar_site.py` usa o maior mtime entre eles.

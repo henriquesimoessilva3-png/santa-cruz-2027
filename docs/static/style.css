@@ -2088,3 +2088,13 @@ body.com-zoom .pos:not(.zoom){display:none}
 .pos.zoom .pos-pe{font-size:11px;padding:7px 12px}
 /* dica de saida, no lugar do "campo em 65%" */
 body.com-zoom #abasInfo::after{content:" · Esc ou clique no gramado para voltar"}
+
+/* ---------- colunas de referência (Brasil e Mundo) ---------- */
+/* Verde para o Brasil e roxo para o mundo: sao BARRAS, nao series — a cor tem de
+   dizer "isto e a régua", diferente do verde/azul das Séries A e B. */
+#fsMatriz th.fs-media.ref-br{border-top-color:#1f9d55}
+#fsMatriz th.fs-media.ref-mu{border-top-color:#a855f7}
+#fsMatriz td.fs-c.media.ref-br .fs-bar b{background:#1f9d55}
+#fsMatriz td.fs-c.media.ref-mu .fs-bar b{background:#a855f7}
+#fsMatriz td.fs-c.media.ref .v{color:var(--tinta)}
+#fsMatriz td.fs-c.media.ref{background:#ffffff08}

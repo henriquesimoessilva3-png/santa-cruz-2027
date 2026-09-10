@@ -3015,6 +3015,26 @@ function fsRender() {
                               c.h = hist(primaryKey(c.j)); });
   const medias = $('#fsMedias').checked
     ? [{ rot: 'Média Série A', d: co.A }, { rot: 'Média Série B', d: co.B }] : [];
+  /* As duas MEDIAS DE REFERENCIA da posicao: Brasil (lista curada) e Mundo (elite
+     mundial). Sao a barra — e e contra a do BRASIL que o raio julga. Media de grupo, e
+     nao um jogador so: com um unico nome a regua virava refem do outlier. */
+  const refPos = (RAIO && RAIO.refs && RAIO.refs[fsPos]) || {};
+  const refCols = ($('#fsRefs') && $('#fsRefs').checked ? [
+    { k: 'brasil', rot: 'Ref. Brasil', cls: 'ref-br', d: refPos.brasil },
+    { k: 'mundo',  rot: 'Ref. Mundo',  cls: 'ref-mu', d: refPos.mundo },
+  ] : []).filter(r => r.d && r.d.valores);
+  const refVazio = '<td class="fs-c media ref vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
+  const refTdVazio = refCols.map(() => refVazio).join('');
+  const refTd = (k, casas, menor) => refCols.map(r => {
+    const v = r.d.valores[k];
+    if (typeof v !== 'number') return refVazio;
+    const p = fsPct(co, k, v, menor);
+    return '<td class="fs-c media ref ' + r.cls + '" title="' + esc(r.rot + ': ' +
+      fsFmt(v, casas) + ' — média de ' + r.d.n + ': ' + r.d.nomes.join(', ')) +
+      '"><div class="fs-cl"><i class="fs-bar"><b style="width:' +
+      Math.max(2, p == null ? 0 : p) + '%"></b></i>' +
+      '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
+  }).join('');
   /* colunas vazias no fim: dao onde encaixar mais um jogador sem ter que caçar o
      campo de busca la em cima */
   const vagas = Array.from({ length: FS_VAGAS });
@@ -3031,6 +3051,10 @@ function fsRender() {
       '<b>' + esc(m.rot) + '</b><small>' + m.d.n + ' na régua</small></th>').join('') +
     (medias.length === 2 ? '<th class="fs-ganha-cab" title="Qual das duas séries leva ' +
       'vantagem no indicador">ganha</th>' : '') +
+    refCols.map(r => '<th class="fs-media ' + r.cls + '" title="' + esc(r.rot +
+      ' — média de ' + r.d.n + ' jogadores referência: ' + r.d.nomes.join(', ')) +
+      '"><b>' + esc(r.rot) + '</b><small>' + r.d.n + (r.d.n === 1 ? ' jogador' : ' jogadores') +
+      '</small></th>').join('') +
     colunas.map(fsCabecalho).join('') +
     vagas.map(() => '<th class="fs-vaga" title="Clique para escolher um jogador">' +
       '<button class="fs-vaga-bt">+</button><small>adicionar</small></th>').join('') +
@@ -3049,6 +3073,7 @@ function fsRender() {
       '<span>Wyscout · ' + (HIST.temporadas[0] || '') + '–' +
       (HIST.temporadas[HIST.temporadas.length - 1] || '') + '</span></td>' +
       medias.map(() => '<td></td>').join('') + (medias.length === 2 ? '<td></td>' : '') +
+      refCols.map(() => '<td></td>').join('') +
       colunas.map(c => '<td>' + (c.h ? '' : '<span class="fs-sem">sem histórico</span>') + '</td>').join('') +
       tdVagas + '</tr>';
     linhasT.forEach(l => {
@@ -3068,7 +3093,7 @@ function fsRender() {
             Math.max(2, Math.min(100, v / alvo * 100)).toFixed(0) + '%"></b></i>' +
           '<span class="v">' +
           (l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
-      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, false) : '');
+      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, false) : '') + refTdVazio;
 
       b += '<tr' + (l.forte ? ' class="fs-soma"' : '') + '><td class="fs-rot" title="' +
         esc(l.rot + ' · ' + l.un) + '">' + esc(l.rot) +
@@ -3089,7 +3114,7 @@ function fsRender() {
         }).join('') + tdVagas + '</tr>';
     });
     if (comHist < colunas.length) {
-      b += '<tr class="fs-aviso"><td colspan="' + (2 + colunas.length + vagas.length + medias.length) + '">' +
+      b += '<tr class="fs-aviso"><td colspan="' + (2 + colunas.length + vagas.length + medias.length + refCols.length) + '">' +
         (colunas.length - comHist) + ' de ' + colunas.length + ' sem histórico do Wyscout: ' +
         'o cruzamento entre temporadas é por nome e idade, e nomes ambíguos ficam de fora ' +
         'em vez de mostrar a temporada de outra pessoa.</td></tr>';
@@ -3100,6 +3125,7 @@ function fsRender() {
     b += '<tr class="fs-grupo"><td title="' + esc(g.t + ' — ' + g.d) + '"><b>' + esc(g.t) +
       '</b><span>' + esc(g.d) + '</span></td>' +
       medias.map(() => '<td></td>').join('') + (medias.length === 2 ? '<td></td>' : '') +
+      refCols.map(() => '<td></td>').join('') +
       colunas.map(c => {
         const v = c.idx.grupos[gi];
         return '<td>' + (v == null ? '' : '<span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +
@@ -3114,7 +3140,8 @@ function fsRender() {
         const venc = medias.length === 2 && typeof mA === 'number' && typeof mB === 'number' &&
                      mA !== mB && ((m.rot.endsWith('A')) === melhorQue(mA, mB, menor));
         return fsCelulaMedia(co, k, m.d.m[k], casas, menor, venc);
-      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, menor) : '');
+      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, menor) : '') +
+        refTd(k, casas, menor);
 
       b += '<tr><td class="fs-rot" title="' + esc(rot + ' · ' + un) + '">' + esc(rot) +
         '<small>' + esc(un) + '</small></td>' + medTd +
@@ -3691,7 +3718,7 @@ function fsMontarFiltros() {
   /* as listas de jogador sao fspPreencher(): ja saem com o clique ligado */
   $('#fsLigaEscolha').onchange = () => { fsLigaLista = $('#fsLigaEscolha').value; fsRender(); };
   $('#fsMin').oninput = debounce(fsRender, 200);
-  ['#fsTopA', '#fsTopB', '#fsMedias'].forEach(id => { $(id).onchange = fsRender; });
+  ['#fsTopA', '#fsTopB', '#fsMedias', '#fsRefs'].forEach(id => { $(id).onchange = fsRender; });
   $('#fsLimpar').onclick = () => {
     fsExtras = []; fsOcultos = new Set();
     $('#fsMin').value = 5; $('#fsTopFiltro').value = 0; $('#fsBusca').value = '';
@@ -3898,7 +3925,14 @@ function raioMapa() {
   if (!RAIO || !BASE.length) return RAIO_MAPA;
   const P = RAIO.params, KP = RAIO.kpis;
   Object.keys(RAIO.refs).forEach(pos => {
-    const rv = RAIO.refs[pos].valores;
+    /* A barra e a MEDIA DOS JOGADORES REFERENCIA DO BRASIL — decisao do usuario. Um
+       jogador so deixava a regua refem do outlier: o Medina estava no percentil 91 dos
+       medios e so 2,9% ficavam verdes; o Alex Telles, no 25 dos laterais, deixava 65%.
+       Media de grupo achata isso. Cai para a media MUNDO quando nao ha lista Brasil. */
+    const grupo = RAIO.refs[pos].brasil || RAIO.refs[pos].mundo;
+    if (!grupo || !grupo.valores) return;
+    const rv = grupo.valores;
+    if (!KP.every(k => typeof rv[k] === 'number')) return;
     /* populacao da posicao: quem tem os 5 KPIs e jogos fisicos suficientes */
     const pop = BASE.filter(j => j.p === pos && (Number(j.sc_n) || 0) >= P.min_perf &&
       KP.every(k => typeof j[k] === 'number' && !isNaN(j[k])));
@@ -3947,7 +3981,10 @@ const RAIO_ROT = { sup: 'SUPERIOR', sim: 'SIMILAR', bax: 'ABAIXO' };
 function raioIcone(pk) {
   const o = raioMapa().get(pk);
   if (!o) return '';
-  const ref = ((RAIO.refs[o.pos] || {}).nome) || 'referência';
+  const g = (RAIO.refs[o.pos] || {}).brasil || (RAIO.refs[o.pos] || {}).mundo || {};
+  const ref = 'média de ' + (g.n || '?') + ' referências' +
+              ((RAIO.refs[o.pos] || {}).brasil ? ' do Brasil' : ' do mundo') +
+              (g.nomes ? ': ' + g.nomes.join(', ') : '');
   const sinal = o.z > 0 ? '+' : '';
   const curto = o.n < RAIO.params.dom_min_npp;
   let t = 'Físico ' + RAIO_ROT[o.c] + ' à referência da posição (' + ref + ')' +
