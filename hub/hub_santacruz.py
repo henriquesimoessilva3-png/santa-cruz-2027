@@ -21,13 +21,11 @@ APPS = [
         "url": "http://localhost:5090",
         "icone": "&#9917;",
         "detalhe": "11 posições · 40 mil jogadores · ficha técnica e física · PDF e Excel",
-        # Codigo no GitHub. NAO e o app rodando: o GitHub guarda arquivo, nao roda
-        # Python — abrir isto mostra o codigo-fonte, nao o campograma. Para um
-        # endereco que ABRA o app falta um servidor que rode Flask (o render.yaml
-        # ja esta pronto; falta a conta no Render).
-        "codigo": "https://github.com/henriquesimoessilva3-png/santa-cruz-2027",
-        # depois de publicar no Render, ponha aqui o endereco que ele devolver:
-        # "web": "https://santa-cruz-2027.onrender.com",
+        # O app publicado, no GitHub Pages — mesma solucao do Ranking. E a versao
+        # estatica (docs/, gerada por publicar_site.py): abre o campograma de verdade,
+        # so que grupos e premissas ficam no navegador de quem acessa, porque nao ha
+        # servidor do outro lado.
+        "web": "https://henriquesimoessilva3-png.github.io/santa-cruz-2027/",
     },
 ]
 
@@ -139,9 +137,9 @@ PAGINA = """<!doctype html>
         <span class="luz {{ 'on' if a.no_ar else 'off' }}"></span>
         <span class="estado {{ 'on' if a.no_ar else '' }}">{{ 'no ar' if a.no_ar else 'desligado' }}</span>
         <span class="porta">:{{ a.porta }}</span>
-        {% if a.web %}<span class="web" onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.web }}','_blank')">web ↗</span>
+        {% if a.web %}<span class="web" title="Abrir o app publicado (GitHub Pages)" onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.web }}','_blank')">web ↗</span>
         {% else %}<span class="so-local" title="ainda não publicado na web">só local</span>{% endif %}
-        {% if a.codigo %}<span class="codigo" title="Código-fonte no GitHub, repositório público. Não abre o app: o GitHub guarda arquivo, não roda Python."
+        {% if a.codigo %}<span class="codigo" title="Código-fonte no GitHub"
           onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.codigo }}','_blank')">código ↗</span>{% endif %}
       </div>
     </a>
