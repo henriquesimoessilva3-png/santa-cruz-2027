@@ -1761,9 +1761,13 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 #fsMatriz th.fs-media.sa{border-top-color:var(--verde)}
 #fsMatriz th.fs-media.sb{border-top-color:#52a4eb}
 #fsMatriz tbody tr td.fs-c.media{background:var(--fs-cel-alt)}
-#fsMatriz .fs-c.media .v{color:#fff;font-weight:600}
+/* "branco" e o que se ve no escuro; no claro, branco sobre fundo claro some. O que
+   vale e o CONTRASTE com o trilho, entao o tom vem do tema. */
+:root{ --fs-media-tinta:#ffffff; }
+body.claro{ --fs-media-tinta:#22303f; }
+#fsMatriz .fs-c.media .v{color:var(--fs-media-tinta);font-weight:600}
 #fsMatriz .fs-c.media .fs-bar{background:var(--fs-trilho)}
-#fsMatriz .fs-c.media .fs-bar b{background:#fff;opacity:.92}
+#fsMatriz .fs-c.media .fs-bar b{background:var(--fs-media-tinta);opacity:.92}
 #fsMatriz .fs-c.media.venceu .v{font-weight:800}
 #fsMatriz .fs-c.media.vazio .v{color:var(--tinta3);font-weight:400}
 
@@ -1781,19 +1785,22 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
    Verde: bate as duas series. Ambar: bate so a mais fraca. Substitui o contorno
    dourado de "lider da linha", que dizia menos — ser o melhor entre dez escolhidos
    nao informa em que nivel o jogador joga. O lider fica so com o numero em negrito. */
-#fsMatriz td.fs-c.bate-duas{outline:2px solid var(--verde);outline-offset:-2px;
-  background:#22c55e1a;position:relative;z-index:2}
+/* azul para quem bate as duas series, ambar para quem bate so a mais fraca. O verde
+   saiu daqui porque ja e a cor do preenchimento da barra (percentil alto): dois
+   significados na mesma cor faziam a celula dizer duas coisas ao mesmo tempo. */
+#fsMatriz td.fs-c.bate-duas{outline:2px solid #3b9dff;outline-offset:-2px;
+  background:#3b9dff1f;position:relative;z-index:2}
 #fsMatriz td.fs-c.bate-uma{outline:2px solid #e2a51f;outline-offset:-2px;
   background:#e2a51f14;position:relative;z-index:1}
 /* O lider da linha marca so o numero. `outline:none` aqui apagava o contorno de quem
    batia as medias — e o lider costuma ser justamente quem bate: o Hygor, com 1,14 no
    tempo ate o sprint contra 1,32 e 1,33 das medias, ficava sem marca nenhuma. */
-#fsMatriz td.fs-c.lider .v{font-weight:800;color:#fff}
-#fsMatriz td.fs-c.bate-duas .v{color:#fff}
-#fsMatriz td.fs-c.bate-uma .v{color:#fff}
+#fsMatriz td.fs-c.lider .v{font-weight:800;color:var(--fs-media-tinta)}
+#fsMatriz td.fs-c.bate-duas .v{color:var(--fs-media-tinta)}
+#fsMatriz td.fs-c.bate-uma .v{color:var(--fs-media-tinta)}
 
 .fs-leg-q{display:inline-block;width:14px;height:9px;border-radius:3px;background:var(--trilho)}
-.fs-leg-q.duas{outline:2px solid var(--verde);outline-offset:-2px;background:#22c55e1a}
+.fs-leg-q.duas{outline:2px solid #3b9dff;outline-offset:-2px;background:#3b9dff1f}
 .fs-leg-q.uma{outline:2px solid #e2a51f;outline-offset:-2px;background:#e2a51f14}
 
 /* ---------- aba de premissas ---------- */
@@ -1849,7 +1856,14 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
    Era um <small> em bloco: cada indicador ocupava duas linhas e a tabela ficava com o
    dobro da altura sem dizer mais nada. Agora vem ao lado, e o que nao couber corta com
    reticencias — o texto inteiro esta no balao da celula. */
-#fsMatriz .fs-rot,.es-tab .es-rot{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Precisa ser `td.fs-rot`: a regra da primeira coluna (`#fsMatriz tbody td:first-child`,
+   que a deixa grudada na rolagem) traz `white-space:normal` e tem mais especificidade.
+   Com ela vencendo, "Desacelerações médias · por 90" quebrava em duas linhas e a linha
+   ficava mais alta que as vizinhas. */
+#fsMatriz tbody td.fs-rot,.es-tab .es-rot{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* e uma altura unica, para nenhuma linha destoar */
+#fsMatriz tbody tr td{height:21px;box-sizing:border-box}
+#fsMatriz tbody tr.fs-grupo td{height:auto}
 #fsMatriz .fs-rot small,.es-tab .es-rot small{display:inline;margin-left:6px}
 #fsMatriz .fs-rot small::before,.es-tab .es-rot small::before{content:"· "}
 #fsMatriz tbody td{padding-top:2px;padding-bottom:2px}
