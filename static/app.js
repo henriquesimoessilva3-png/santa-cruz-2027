@@ -3114,9 +3114,13 @@ function estudoRender() {
   const fmt = (v, c) => fsFmt(v, c);
 
   /* resumo: em quantos indicadores cada serie lidera, por posicao */
-  const resumo = '<table class="es-resumo"><thead><tr><th>Posição</th><th>Jogadores A</th>' +
-    '<th>Jogadores B</th><th>Indicadores em que a A lidera</th><th>B lidera</th>' +
-    '<th>Maior diferença</th></tr></thead><tbody>' +
+  const resumo = '<table class="es-resumo"><thead><tr>' +
+    '<th class="c-pos">Posição</th>' +
+    '<th title="Jogadores da Série A com tracking nessa posição">Jogadores A</th>' +
+    '<th title="Jogadores da Série B com tracking nessa posição">Jogadores B</th>' +
+    '<th title="Em quantos indicadores a Série A leva vantagem">A lidera</th>' +
+    '<th title="Em quantos indicadores a Série B leva vantagem">B lidera</th>' +
+    '<th class="c-dif">Maior diferença</th></tr></thead><tbody>' +
     dados.map(d => {
       const a = d.linhas.filter(l => l.lider === 'A').length;
       const b = d.linhas.filter(l => l.lider === 'B').length;
@@ -3124,10 +3128,11 @@ function estudoRender() {
       return '<tr class="es-linha' + (estudoSel === d.pos.c ? ' on' : '') + '" data-pos="' +
         d.pos.c + '" title="Ver os indicadores de ' + esc(d.pos.nome) + '">' +
         '<td class="es-pos"><b>' + p_sig(d.pos) + '</b> ' + esc(d.pos.nome) + '</td>' +
-        '<td class="num-c">' + d.nA + '</td><td class="num-c">' + d.nB + '</td>' +
-        '<td class="num-c"><span class="es-conta a">' + a + '</span></td>' +
-        '<td class="num-c"><span class="es-conta b">' + b + '</span></td>' +
-        '<td>' + esc(maior.rot) + ' <span class="es-dif ' + (maior.lider === 'A' ? 'a' : 'b') + '">' +
+        '<td>' + d.nA + '</td><td>' + d.nB + '</td>' +
+        '<td><span class="es-conta a">' + a + '</span></td>' +
+        '<td><span class="es-conta b">' + b + '</span></td>' +
+        '<td class="c-dif">' + esc(maior.rot) + ' <span class="es-dif ' +
+          (maior.lider === 'A' ? 'a' : 'b') + '">' +
           (maior.pct > 0 ? '+' : '') + fmt(maior.pct, 1) + '%</span></td></tr>';
     }).join('') + '</tbody></table>';
 

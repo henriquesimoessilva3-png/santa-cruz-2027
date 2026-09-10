@@ -1744,3 +1744,15 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 .es-ganha.a{background:#22c55e26;color:var(--txt-verde)}
 .es-ganha.b{background:#52a4eb26;color:#52a4eb}
 .es-ganha.e{background:var(--veu2);color:var(--tinta3)}
+
+/* ---------- resumo do estudo: colunas do mesmo tamanho, tudo centrado ----------
+   O cabecalho vinha alinhado a esquerda e os numeros a direita, entao titulo e valor
+   nao se encontravam em coluna nenhuma. */
+.es-resumo{table-layout:fixed}
+.es-resumo th,.es-resumo td{text-align:center;vertical-align:middle}
+.es-resumo th.c-pos,.es-resumo td.es-pos{text-align:left;width:23%}
+.es-resumo th.c-dif,.es-resumo td.c-dif{text-align:left;width:27%}
+.es-resumo th:not(.c-pos):not(.c-dif){width:12.5%}
+.es-resumo td.c-dif{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.es-pos b{min-width:38px;margin-right:6px}
+.es-conta{min-width:30px}
