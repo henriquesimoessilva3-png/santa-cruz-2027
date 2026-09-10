@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Santa Cruz · Montagem de Elenco</title>
+<link rel="stylesheet" href="static/style.css?v=1789002140">
+<link rel="icon" href="static/escudo.svg">
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">
+    <div class="escudo">
+      <img id="escudoImg" src="static/escudo.svg" alt="Escudo do Santa Cruz"
+           onerror="this.style.display='none';document.getElementById('escudoSvg').style.display='block'">
+      <svg id="escudoSvg" viewBox="0 0 48 52" style="display:none" aria-label="Santa Cruz">
+        <defs><clipPath id="brasao">
+          <path d="M24 2 L45 8.5 v19.5 c0 12.5-9.5 19.5-21 22.5 C11.5 47.5 3 40.5 3 28 V8.5 Z"/>
+        </clipPath></defs>
+        <g clip-path="url(#brasao)">
+          <rect x="0" y="0" width="16" height="52" fill="#c8102e"/>
+          <rect x="16" y="0" width="16" height="52" fill="#111418"/>
+          <rect x="32" y="0" width="16" height="52" fill="#c8102e"/>
+          <path d="M21 9 h6 v10 h10 v6 h-10 v16 h-6 v-16 h-10 v-6 h10 z" fill="#fff"/>
+        </g>
+        <path d="M24 2 L45 8.5 v19.5 c0 12.5-9.5 19.5-21 22.5 C11.5 47.5 3 40.5 3 28 V8.5 Z"
+              fill="none" stroke="#fff" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <div class="marca-txt">
+      <h1>Montagem de Elenco</h1>
+      <input id="marcaSub" class="nome-grupo" value="montagem de elenco"
+             title="Nome do grupo — clique para editar" spellcheck="false">
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><span class="r">Disponível p/ salários</span><span class="v" id="kDisp">R$ 0</span></div>
+    <div class="kpi"><span class="r">Alocado</span><span class="v" id="kAlocado">R$ 0</span></div>
+    <div class="kpi"><span class="r">Saldo</span><span class="v ok" id="kSaldo">R$ 0</span></div>
+    <div class="kpi"><span class="r">Custo total <i id="kTeto"></i></span><span class="v" id="kCustoTotal">R$ 0</span></div>
+    <div class="kpi peq"><span class="r">Elenco</span><span class="v" id="kAtletas">0</span></div>
+    <div class="kpi peq"><span class="r">Estrang. <i id="kEstrLim"></i></span>
+      <span class="v" id="kEstr">0</span></div>
+    <div class="kpi peq"><span class="r">Médio</span><span class="v" id="kMedia">R$ 0</span></div>
+    <div class="kpi barra-wrap"><div class="barra" id="barra"></div>
+      <span class="r" id="barraInfo">massa salarial por setor</span></div>
+  </div>
+
+  <div class="acoes">
+    <select class="bt" id="selCenario" title="Grupo de opções salvo"></select>
+    <button class="bt primario" id="btSalvar" title="Salvar este grupo (Ctrl+S)">Salvar</button>
+    <div class="menu-wrap">
+      <button class="bt" id="btMenuGrupo" title="Mais ações do grupo">Grupo ▾</button>
+      <div class="menu" id="menuGrupo">
+        <button id="btDuplicar">Duplicar grupo</button>
+        <button id="btNovo">Novo grupo</button>
+        <button id="btComparar">Comparar grupos</button>
+        <button id="btRenomear">Renomear</button>
+        <button id="btExcluir" class="perigo">Excluir grupo</button>
+      </div>
+    </div>
+    <button class="bt" id="btOrcamento" title="Custo máximo, comissão técnica e encargos">Orçamento</button>
+    <button class="bt bt-tema" id="btTemaTopo" title="Alternar entre claro e escuro"></button>
+    <div class="menu-wrap">
+      <button class="bt" id="btMenuVis" title="Como o campograma é exibido">Visual ▾</button>
+      <div class="menu" id="menuVis">
+        <button id="btOrient">Campo: <b>deitado</b></button>
+        <button id="btDenso">Cards: <b>compactos</b></button>
+        <button id="btAjustar">Escala: <b>caber na tela</b></button>
+        <button id="btTema">Tema: <b>escuro</b></button>
+      </div>
+    </div>
+    <div class="menu-wrap">
+      <button class="bt" id="btMenuExp" title="Exportar">Exportar ▾</button>
+      <div class="menu" id="menuExp">
+        <button id="btExcel">Planilha Excel</button>
+        <button id="btPng">Imagem PNG</button>
+        <button id="btPdf">PDF / imprimir</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ modal orçamento ============ -->
+<div class="modal" id="modalOrc">
+  <div class="modal-cx" style="width:min(460px,100%)">
+    <div class="modal-topo">
+      <h2>Orçamento mensal</h2>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="orc-form">
+      <label>Custo total máximo (mês)
+        <input id="inTeto" inputmode="numeric" value="2.800.000"></label>
+      <label>Comissão técnica
+        <span class="linha-in">
+          <input id="inComissao" inputmode="numeric" value="300.000">
+          <button class="bt mini" id="btDetalharCT">detalhar cargos</button>
+        </span></label>
+      <label>Fator de encargos
+        <input id="inFator" class="curto" inputmode="decimal" value="1,25"></label>
+      <label>Cotação do euro <span style="text-transform:none;letter-spacing:0;font-weight:400">
+          — usada para converter a faixa salarial do TransferRoom</span>
+        <input id="inEuro" class="curto" inputmode="decimal" value="6,30"></label>
+      <div class="orc-conta" id="orcConta"></div>
+    </div>
+    <div class="modal-pe"><div class="dir"><button class="bt primario" data-fechar>Pronto</button></div></div>
+  </div>
+</div>
+
+<header class="imp-topo" id="impTopo" aria-hidden="true">
+  <img class="imp-escudo" src="static/escudo.svg" alt="">
+  <div>
+    <h1 id="impTitulo">Santa Cruz · Elenco 2027</h1>
+    <p id="impSub"></p>
+  </div>
+  <div class="imp-orc" id="impOrc"></div>
+</header>
+
+<nav class="abas">
+  <button class="aba on" data-aba="campo">Campograma</button>
+  <button class="aba" data-aba="contrato">Fim de contrato</button>
+  <button class="aba" data-aba="fisico">Físico</button>
+  <button class="aba" data-aba="analise">Análise do elenco</button>
+  <button class="aba" data-aba="premissas">Premissas</button>
+  <span class="abas-info" id="abasInfo"></span>
+</nav>
+
+<main>
+  <section class="pagina" id="pgCampo">
+    <div class="campo-area">
+      <div class="campo horizontal" id="campo"></div>
+    </div>
+
+    <section class="ficha oculta" id="ficha">
+      <div class="ficha-topo">
+        <h2 id="fiNome">—</h2>
+        <span class="sub" id="fiSub"></span>
+        <select class="bt mini" id="fiBase" title="Com quem comparar">
+          <option value="posliga" selected>vs. mesma posição na liga dele</option>
+          <option value="posbr">vs. mesma posição no Brasil A/B/C</option>
+          <option value="pos">vs. mesma posição (todas as ligas)</option>
+        </select>
+        <button class="fechar" id="fiFechar" title="Fechar ficha">×</button>
+      </div>
+      <div id="fiCabeca"></div>
+      <div class="ficha-rolagem"><div id="fiCorpo"></div></div>
+      <div class="ficha-pe"><span id="fiRodape"></span></div>
+    </section>
+  </section>
+
+  <section class="pagina oculta" id="pgContrato">
+    <div class="fc">
+      <div class="rk-filtros">
+        <div class="rk-campo-col">
+          <span class="rk-rotulo">Posição</span>
+          <div class="rk-campo" id="fcCampo"
+               title="Clique seleciona a posição · Cmd/Ctrl+clique combina várias (ex.: RCB + LCB + DM)"></div>
+          <div class="rk-legenda">
+            <span>Consenso:</span>
+            <span><i class="ok"></i>confirmado</span>
+            <span><i class="duvida"></i>dúvida</span>
+            <span><i class="erro"></i>fontes divergem</span>
+            <span><b>*</b> salário estimado (TransferRoom)</span>
+            <span class="rk-prem-bt" tabindex="0">ⓘ premissas<span class="rk-prem-cx">
+              <b>Minutos e gols</b>: soma de 2024, 2025 e 2026 (Wyscout). O selo
+              <i class="ex-rec">2/3</i> é em quantas dessas temporadas fez 5 gols ou mais.<br><br>
+              <b>Bola parada</b>: cobranças por 90 (escanteios + faltas), gols de cabeça e pênaltis
+              cobrados. O Wyscout não marca a origem do gol — não existe &ldquo;gol de bola
+              parada&rdquo; na base; estes são os dois lados possíveis.</span></span>
+          </div>
+        </div>
+        <div class="rk-col">
+          <div class="rk-linha1">
+            <div class="rk-campo-f">
+              <label>Liga</label>
+              <div class="msel" id="fcLigaSel"></div>
+              <div class="rk-abas" id="fcLigaAbas">
+                <button data-r="todos" title="Todas as ligas">Todos</button>
+                <button data-r="brasil" title="Brasil A, B e C">BR</button>
+                <button data-r="brasilbc" title="Brasil B e C">B+C</button>
+                <button data-r="sulamerica" title="América do Sul">SA</button>
+                <button data-r="europa" title="Europa">EU</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>País</label>
+              <div class="msel" id="fcPaisSel"></div>
+              <div class="rk-abas" id="fcPaisAbas">
+                <button data-r="todos" class="on">Todos</button>
+                <button data-r="br" title="Brasileiros">BR</button>
+                <button data-r="sa" title="Sul-americanos (sem Brasil)">SA</button>
+                <button data-r="demais" title="Demais países">Demais</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>No exterior</label>
+              <div class="rk-ext" id="fcExt">
+                <button class="ext-br" data-e="br_ext" title="Brasileiros no exterior: país Brasil + ligas não brasileiras">Brasileiros</button>
+                <button class="ext-sa" data-e="sa_ext" title="Sul-americanos no exterior: países SA (sem Brasil) + ligas fora da América do Sul">Sul-americanos</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Time</label>
+              <div class="msel" id="fcTimeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Pé preferido</label>
+              <div class="msel" id="fcPeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Contrato até</label>
+              <input type="month" id="fcAte" value="2026-12" min="2025-01" max="2032-12">
+              <label class="chk rk-chk"><input type="checkbox" id="fcSoConf" checked> só contrato confirmado</label>
+              <label class="chk rk-chk" title="Gols em pelo menos duas das últimas três temporadas"><input type="checkbox" id="fcRecorrente"> goleador recorrente</label>
+            </div>
+            <div class="rk-campo-f">
+              <label>Buscar jogador</label>
+              <input type="text" id="fcTexto" placeholder="Nome ou clube…" autocomplete="off">
+            </div>
+          </div>
+          <div class="rk-linha2" id="fcRanges"></div>
+          <div class="rk-rodape">
+            <span class="rk-atalhos-rot">Atalhos</span>
+            <span id="fcAtalhos">
+              <button class="chip" data-a="artilheiros"
+                title="Extremos e atacantes com 12+ gols nas três temporadas, marcando em pelo menos duas delas">
+                Artilheiros recorrentes</button>
+              <button class="chip" data-a="bolaparada"
+                title="Quem cobra bola parada: 2 ou mais cobranças por 90 (escanteios + faltas)">
+                Bola parada</button>
+            </span>
+            <button class="bt mini" id="fcLimpar">Limpar filtros</button>
+          </div>
+        </div>
+      </div>
+      <div class="fc-lista"><table id="fcTabela"><thead id="fcThead"></thead><tbody id="fcTbody"></tbody></table>
+        <div class="vazio" id="fcVazio" style="display:none">Nenhum jogador com esses filtros.</div>
+      </div>
+      <div class="fc-pe"><span id="fcContagem">—</span></div>
+    </div>
+  </section>
+
+  <section class="pagina oculta" id="pgFisico">
+    <div class="fc fisico">
+      <div class="rk-filtros">
+        <div class="rk-campo-col">
+          <span class="rk-rotulo">Posição</span>
+          <div class="rk-campo" id="fsCampo" title="Clique escolhe a posição da régua"></div>
+          <div class="rk-legenda fs-legenda">
+            <span><i class="fs-bar-leg alto"></i>percentil alto (≥ 75)</span>
+            <span><i class="fs-bar-leg medio"></i>meio</span>
+            <span><i class="fs-bar-leg baixo"></i>baixo (≤ 25)</span>
+            <span><i class="fs-leg-q duas"></i>bate as duas séries</span>
+            <span><i class="fs-leg-q uma"></i>bate a mais fraca</span>
+            <span class="rk-prem-bt" tabindex="0">ⓘ premissas<span class="rk-prem-cx">
+              A régua é sempre a <b>mesma posição nas Séries A e B</b> — jogadores de outras
+              ligas entram nela para poder comparar. O filtro escolhe <b>quem aparece</b>,
+              não a régua.<br><br>
+              <b>Temporadas</b>: números do Wyscout de 2024, 2025 e 2026, verdes acima da
+              média da coorte. O resto é percentil do SkillCorner.</span></span>
+          </div>
+        </div>
+        <div class="rk-col">
+          <div class="rk-linha1">
+            <div class="rk-campo-f">
+              <label>Liga</label>
+              <div class="msel" id="fsLigaSel"></div>
+              <div class="rk-abas" id="fsLigaAbas">
+                <button data-r="todos" title="Todas as ligas com tracking">Todos</button>
+                <button data-r="brasil" title="Brasil A, B e C">BR</button>
+                <button data-r="brasilbc" title="Brasil B e C">B+C</button>
+                <button data-r="sulamerica" title="América do Sul">SA</button>
+                <button data-r="europa" title="Europa">EU</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>País</label>
+              <div class="msel" id="fsPaisSel"></div>
+              <div class="rk-abas" id="fsPaisAbas">
+                <button data-r="todos" class="on">Todos</button>
+                <button data-r="br" title="Brasileiros">BR</button>
+                <button data-r="sa" title="Sul-americanos (sem Brasil)">SA</button>
+                <button data-r="demais" title="Demais países">Demais</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>No exterior</label>
+              <div class="rk-ext" id="fsExt">
+                <button class="ext-br" data-e="br_ext" title="Brasileiros no exterior">Brasileiros</button>
+                <button class="ext-sa" data-e="sa_ext" title="Sul-americanos no exterior">Sul-americanos</button>
+              </div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Time</label>
+              <div class="msel" id="fsTimeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Pé preferido</label>
+              <div class="msel" id="fsPeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <label>Adicionar jogador</label>
+              <div class="fs-busca"><input type="text" id="fsBusca"
+                placeholder="Nome ou clube…" autocomplete="off">
+                <div class="msel-drop" id="fsBuscaLista"></div></div>
+              <select id="fsElenco" class="rk-mini"><option value="">＋ do campograma…</option></select>
+            </div>
+            <div class="rk-campo-f">
+              <label>Quem aparece</label>
+              <label class="chk rk-chk"><input type="checkbox" id="fsTopA" checked> Top 5 Série A</label>
+              <label class="chk rk-chk"><input type="checkbox" id="fsTopB" checked> Top 5 Série B</label>
+              <label class="chk rk-chk"><input type="checkbox" id="fsMedias" checked> Médias A e B</label>
+            </div>
+          </div>
+          <div class="rk-linha2" id="fsRanges"></div>
+          <div class="rk-rodape">
+            <label class="rk-chk">Melhores do filtro
+              <input class="num" type="number" id="fsTopFiltro" value="0" min="0" max="20"
+                title="Quantos jogadores do filtro entram na comparação, do melhor índice para baixo"></label>
+            <label class="rk-chk">Jogos rastreados ≥
+              <input class="num" type="number" id="fsMin" value="5" min="0"></label>
+            <select id="fsComp" class="rk-sel" title="Abrir um comparativo gravado"></select>
+            <button class="bt mini" id="fsCompGravar" title="Gravar quem está na comparação agora, com os incluídos e os excluídos">Gravar</button>
+            <button class="bt mini perigo" id="fsCompApagar" style="display:none" title="Apagar o comparativo aberto">Apagar</button>
+            <button class="bt mini" id="fsEstudo" title="Diferenças entre a Série A e a Série B em todos os indicadores físicos, posição por posição">Série A × Série B</button>
+            <button class="bt mini" id="fsLimpar">Limpar comparação</button>
+          </div>
+        </div>
+      </div>
+      <div class="fc-lista fs-matriz-wrap">
+        <table id="fsMatriz"></table>
+        <div class="vazio" id="fsVazio" style="display:none">Ninguém na comparação — ligue uma referência ou adicione um jogador.</div>
+      </div>
+      <div class="fc-pe"><span id="fsContagem">—</span></div>
+    </div>
+  </section>
+
+  <section class="pagina oculta" id="pgPremissas">
+    <div class="pr">
+      <div class="pr-topo">
+        <div>
+          <h2>Premissas</h2>
+          <p>As regras deste trabalho, num lugar só. São elas que a tela obedece — mudar
+             uma aqui não muda o cálculo sozinho, mas registra o combinado e serve de
+             conferência.</p>
+        </div>
+        <div class="pr-bts">
+          <input type="text" id="prBusca" placeholder="Procurar…" autocomplete="off">
+          <button class="bt mini" id="prNova">＋ Nova premissa</button>
+          <span class="pr-estado" id="prEstado"></span>
+        </div>
+      </div>
+      <div class="pr-lista" id="prLista"></div>
+    </div>
+  </section>
+
+  <section class="pagina oculta" id="pgAnalise">
+    <div class="analise">
+      <div class="bloco bloco-largo" id="anPremissas">
+        <h3>Premissas da montagem
+          <button class="bt mini" id="anNova">＋ acrescentar</button>
+          <span class="an-pr-estado" id="anEstado"></span></h3>
+        <div class="an-pr" id="anPrLista"></div>
+        <div class="dica">O norte deste elenco. Elas não entram na conta sozinhas — servem
+          para decidir onde gastar e o que aceitar. Ficam gravadas junto das demais, na aba
+          Premissas.</div>
+      </div>
+      <div class="bloco">
+        <h3>Distribuição por setor</h3>
+        <div id="setores"></div>
+        <div class="dica">A linha branca é a meta de referência. Clique no % da meta para editar.</div>
+      </div>
+      <div class="bloco">
+        <h3>Estrangeiros nas escolhas</h3>
+        <div id="estrangeiros"></div>
+      </div>
+      <div class="bloco">
+        <h3>Situação</h3>
+        <div id="alertas"></div>
+      </div>
+      <div class="bloco">
+        <h3>Maiores salários</h3>
+        <div id="topSal"></div>
+      </div>
+      <div class="bloco">
+        <h3>Resumo</h3>
+        <div id="resumo"></div>
+      </div>
+      <div class="bloco">
+        <h3>Como ler os cards</h3>
+        <div class="leg">
+          <div class="leg-item"><span class="amostra tit"><i>★</i></span>
+            <span><b>Titular</b> da posição — fundo vermelho e estrela. Um por posição;
+              clique no <b>★</b> do jogador para trocar.</span></div>
+          <div class="leg-item"><span class="amostra st-alvo"></span><span><b>Alvo</b></span></div>
+          <div class="leg-item"><span class="amostra st-negociando"></span><span><b>Negociando</b></span></div>
+          <div class="leg-item"><span class="amostra st-fechado"></span><span><b>Fechado</b></span></div>
+          <div class="leg-item"><span class="amostra st-elenco"></span><span><b>Elenco atual</b> — a cor da
+            barra à esquerda é o status; clique no <b>●</b> para avançar.</span></div>
+          <div class="leg-item"><span class="amostra"><span class="selo-ex">ARG</span></span>
+            <span><b>Estrangeiro</b>, com o país. Clique no <b>⬤</b> para marcar ou desmarcar.</span></div>
+          <div class="leg-item"><span class="amostra"><b style="color:var(--txt-ambar);font-size:11px">0</b></span>
+            <span>Salário em âmbar = ainda <b>não definido</b>.</span></div>
+        </div>
+        <h3 style="margin-top:14px">Botões do jogador</h3>
+        <div class="leg">
+          <div class="leg-item"><span class="amostra bt-leg" style="color:var(--coral-cl)">★</span>
+            <span>Define quem é o <b>titular</b> da posição.</span></div>
+          <div class="leg-item"><span class="amostra bt-leg" style="color:var(--txt-ambar)">⚑</span>
+            <span>Marca ou desmarca <b>estrangeiro</b> (para naturalizado ou dupla cidadania).</span></div>
+          <div class="leg-item"><span class="amostra bt-leg" style="color:var(--roxo)">●</span>
+            <span>Avança o <b>status</b>: alvo → negociando → fechado → elenco atual. A bolinha
+              tem a cor do status atual.</span></div>
+          <div class="leg-item"><span class="amostra bt-leg" style="color:var(--txt-vermelho)">✕</span>
+            <span><b>Tira</b> o jogador da posição.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ modal do estudo Serie A x Serie B ============ -->
+<div class="modal" id="modalEstudo">
+  <div class="modal-cx grande">
+    <div class="modal-topo">
+      <h2>Série A × Série B <span class="fc-origem">físico · SkillCorner</span></h2>
+      <span class="sub">o que separa as duas séries, indicador por indicador, em cada posição</span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="es-rolagem"><div id="esCorpo"></div></div>
+  </div>
+</div>
+
+<!-- ============ modal de busca ============ -->
+<div class="modal" id="modalBusca">
+  <div class="modal-cx">
+    <div class="modal-topo">
+      <h2 id="mbTitulo">Escolher jogador</h2>
+      <span class="sub" id="mbSub"></span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+
+    <div class="filtros">
+      <input type="text" id="fTexto" placeholder="Nome ou clube…" autocomplete="off">
+      <select id="fPos">
+        <option value="">Todas as posições</option>
+      </select>
+      <label>Idade <input class="num" type="number" id="fIdadeMin" placeholder="min"></label>
+      <label>até <input class="num" type="number" id="fIdadeMax" placeholder="max"></label>
+      <label>Overall ≥ <input class="num" type="number" id="fOvMin" placeholder="0"></label>
+      <label>Min. jogados ≥ <input class="num" type="number" id="fMinMin" placeholder="0"></label>
+      <label>Contrato até <input type="month" id="fContrato" min="2025-01" max="2032-12" style="width:132px"></label>
+      <select id="fLiga" title="Escolher uma liga específica">
+        <option value="">Todas as ligas do grupo</option>
+      </select>
+      <select id="fNacao" title="Filtrar por nacionalidade do jogador">
+        <option value="">Qualquer nacionalidade</option>
+        <option value="br">Só brasileiros</option>
+        <option value="sul">Só sul-americanos (com Brasil)</option>
+        <option value="sulex">Sul-americanos estrangeiros</option>
+        <option value="ex">Só estrangeiros</option>
+      </select>
+      <button class="bt mini" id="fLimpar">Limpar</button>
+    </div>
+    <div class="chips" id="chipsLiga"></div>
+
+    <div class="tabela-wrap">
+      <table id="tabela">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="vazio" id="semResultado" style="display:none">Nenhum jogador com esses filtros.</div>
+    </div>
+
+    <div class="modal-pe">
+      <span id="mbContagem">—</span>
+      <div class="dir">
+        <button class="bt" id="btManual">+ Jogador fora da base</button>
+        <button class="bt" data-fechar>Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ modal jogador manual ============ -->
+<div class="modal" id="modalManual">
+  <div class="modal-cx" style="width:min(430px,100%)">
+    <div class="modal-topo">
+      <h2>Jogador fora da base</h2>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="filtros" style="flex-direction:column;align-items:stretch;gap:9px;border:none">
+      <label style="flex-direction:column;align-items:stretch;gap:3px">Nome
+        <input type="text" id="mnNome" placeholder="Ex.: João da Silva"></label>
+      <label style="flex-direction:column;align-items:stretch;gap:3px">Clube atual
+        <input type="text" id="mnClube" placeholder="Ex.: Náutico"></label>
+      <div style="display:flex;gap:9px">
+        <label style="flex-direction:column;align-items:stretch;gap:3px;flex:1">Idade
+          <input type="number" id="mnIdade" placeholder="26"></label>
+        <label style="flex-direction:column;align-items:stretch;gap:3px;flex:1">Salário mensal (R$)
+          <input type="text" id="mnSalario" inputmode="numeric" placeholder="45.000"></label>
+      </div>
+      <div style="display:flex;gap:9px;align-items:flex-end">
+        <label class="chk" style="flex:none"><input type="checkbox" id="mnEstrangeiro"> estrangeiro</label>
+        <label style="flex-direction:column;align-items:stretch;gap:3px;flex:1">País
+          <input type="text" id="mnPais" placeholder="Ex.: Argentina"></label>
+      </div>
+    </div>
+    <div class="modal-pe">
+      <div class="dir" style="margin-left:auto">
+        <button class="bt" data-fechar>Cancelar</button>
+        <button class="bt primario" id="btManualOk">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ modal comparar grupos ============ -->
+<div class="modal" id="modalComp">
+  <div class="modal-cx" style="width:min(1120px,100%)">
+    <div class="modal-topo">
+      <h2>Comparar grupos de opções</h2>
+      <span class="sub" id="compSub"></span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="tabela-wrap"><div id="compCorpo"></div></div>
+    <div class="modal-pe">
+      <span style="font-size:10.5px">Clique no nome de um grupo para abri-lo no campograma.</span>
+      <div class="dir"><button class="bt" data-fechar>Fechar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ modal comissão técnica ============ -->
+<div class="modal" id="modalCT">
+  <div class="modal-cx" style="width:min(560px,100%)">
+    <div class="modal-topo">
+      <h2>Comissão técnica</h2>
+      <span class="sub">o total entra no custo mensal do futebol</span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+
+    <div class="ct-topo">
+      <label class="chk"><input type="checkbox" id="ctDetalhar"> montar cargo a cargo</label>
+      <label class="chk" id="ctEncargosBox"><input type="checkbox" id="ctEncargos">
+        aplicar encargos sobre os salários da comissão</label>
+    </div>
+
+    <div class="ct-lista-wrap">
+      <div class="ct-lista" id="ctLista"></div>
+      <button class="bt mini" id="ctAdd" style="margin:8px 14px">+ adicionar cargo</button>
+    </div>
+
+    <div class="ct-pe" id="ctResumo"></div>
+    <div class="modal-pe">
+      <span style="font-size:10.5px;line-height:1.4">Com "montar cargo a cargo" desligado, o valor da
+        comissão continua sendo o que você digita direto na barra do topo.</span>
+      <div class="dir"><button class="bt primario" data-fechar>Pronto</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ conteúdo só para impressão / PDF ============ -->
+<div id="impressao" aria-hidden="true">
+  <div id="impTabela"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>window.__estatico = true;</script>
+<script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
+<script>window.__verDados = "1788979891";</script>
+<script src="static/app.js?v=1789002140"></script>
+</body>
+</html>
