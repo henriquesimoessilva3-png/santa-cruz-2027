@@ -1846,3 +1846,13 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
   color:var(--tinta3);background:transparent;border:1px solid transparent;cursor:pointer;opacity:0}
 .an-pr-item:hover .an-pr-x{opacity:1}
 .an-pr-x:hover{color:var(--txt-vermelho);border-color:var(--txt-vermelho)}
+
+/* ---------- unidade na MESMA linha do indicador ----------
+   Era um <small> em bloco: cada indicador ocupava duas linhas e a tabela ficava com o
+   dobro da altura sem dizer mais nada. Agora vem ao lado, e o que nao couber corta com
+   reticencias — o texto inteiro esta no balao da celula. */
+#fsMatriz .fs-rot,.es-tab .es-rot{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#fsMatriz .fs-rot small,.es-tab .es-rot small{display:inline;margin-left:6px}
+#fsMatriz .fs-rot small::before,.es-tab .es-rot small::before{content:"· "}
+#fsMatriz tbody td{padding-top:2px;padding-bottom:2px}
+.es-tab td{padding:2px 7px}

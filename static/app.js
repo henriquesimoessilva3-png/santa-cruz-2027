@@ -2903,7 +2903,8 @@ function fsRender() {
           (l.casas ? fsFmt(v, l.casas) : milhar(Math.round(v))) + '</span></div></td>';
       }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, false) : '');
 
-      b += '<tr' + (l.forte ? ' class="fs-soma"' : '') + '><td class="fs-rot">' + esc(l.rot) +
+      b += '<tr' + (l.forte ? ' class="fs-soma"' : '') + '><td class="fs-rot" title="' +
+        esc(l.rot + ' · ' + l.un) + '">' + esc(l.rot) +
         '<small>' + esc(l.un) + '</small></td>' + medTd +
         colunas.map((c, i) => {
           const v = vals[i];
@@ -2949,7 +2950,8 @@ function fsRender() {
         return fsCelulaMedia(co, k, m.d.m[k], casas, menor, venc);
       }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, menor) : '');
 
-      b += '<tr><td class="fs-rot">' + esc(rot) + '<small>' + esc(un) + '</small></td>' + medTd +
+      b += '<tr><td class="fs-rot" title="' + esc(rot + ' · ' + un) + '">' + esc(rot) +
+        '<small>' + esc(un) + '</small></td>' + medTd +
         colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
           melhor != null && vals[i] === melhor && validos.length > 1,
           rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(mA, casas) +
@@ -3215,7 +3217,8 @@ function estudoRender() {
            vencedor e o numero MENOR, e ler isso pelo sinal da diferenca engana */
         const ganha = l.lider === '=' ? '<span class="es-ganha e">=</span>'
           : '<span class="es-ganha ' + l.lider.toLowerCase() + '">' + l.lider + '</span>';
-        return '<tr><td class="es-rot">' + esc(l.rot) + '<small>' + esc(l.un) + '</small></td>' +
+        return '<tr><td class="es-rot" title="' + esc(l.rot + ' · ' + l.un) + '">' +
+          esc(l.rot) + '<small>' + esc(l.un) + '</small></td>' +
           '<td class="num-c' + (l.lider === 'A' ? ' forte' : '') + '">' + fmt(l.a, l.casas) + '</td>' +
           '<td class="num-c' + (l.lider === 'B' ? ' forte' : '') + '">' + fmt(l.b, l.casas) + '</td>' +
           '<td class="num-c es-pct ' + (l.lider === 'A' ? 'a' : l.lider === 'B' ? 'b' : '') + '">' +
