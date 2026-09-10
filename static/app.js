@@ -2805,6 +2805,19 @@ function fsMediasTemporada(co, linhas) {
   return r;
 }
 
+/* Materializa quem esta na tela como escolha explicita e desliga o que traria gente
+   nova. Devolve true se realmente havia alguma receita ligada. */
+function fsCongelar() {
+  const automatico = $('#fsTopA').checked || $('#fsTopB').checked ||
+                     (parseInt($('#fsTopFiltro').value) || 0) > 0;
+  if (!automatico) return false;
+  fsExtras = $$('#fsMatriz th.fs-col').map(th => th.dataset.pk);
+  $('#fsTopA').checked = false;
+  $('#fsTopB').checked = false;
+  $('#fsTopFiltro').value = 0;
+  return true;
+}
+
 function fsRender() {
   if (!BASE.length || !$('#fsMatriz')) return;
   const co = fsCoorteAB();
@@ -2991,9 +3004,17 @@ function fsRender() {
       adicionarDaBase(id);
     };
     th.querySelector('.fs-x').onclick = () => {
-      if (extraSet.has(pk)) fsExtras = fsExtras.filter(x => x !== pk);
-      else fsOcultos.add(pk);
+      /* Tirar alguem nao pode chamar o proximo da fila. "Top 5 da Serie A" e uma
+         receita que devolve 5 sempre: excluido um, o sexto entrava no lugar e a
+         coluna parecia so ter trocado de nome. No primeiro x a lista da tela vira
+         escolha explicita e as receitas se desligam; dai em diante tirar e tirar,
+         e a largura sobrando fica para quem voce quiser por no lugar. */
+      const congelou = fsCongelar();
+      fsExtras = fsExtras.filter(x => x !== pk);
+      fsOcultos.add(pk);
       fsRender();
+      if (congelou) toast('Comparação fixada nos que estavam na tela — ' +
+                          'agora tirar não chama o próximo da fila');
     };
   });
   fsMontarElenco();
