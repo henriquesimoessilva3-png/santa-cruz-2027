@@ -3106,6 +3106,8 @@ function estudoAB(minJogos) {
   }).filter(x => x.linhas.length && x.nA >= 3 && x.nB >= 3);
 }
 
+let estudoSel = null;      /* posicao aberta no estudo; null = todas */
+
 function estudoRender() {
   const min = fsMinJogos();
   const dados = estudoAB(min);
@@ -3119,7 +3121,9 @@ function estudoRender() {
       const a = d.linhas.filter(l => l.lider === 'A').length;
       const b = d.linhas.filter(l => l.lider === 'B').length;
       const maior = d.linhas.slice().sort((x, y) => Math.abs(y.pct) - Math.abs(x.pct))[0];
-      return '<tr><td class="es-pos"><b>' + p_sig(d.pos) + '</b> ' + esc(d.pos.nome) + '</td>' +
+      return '<tr class="es-linha' + (estudoSel === d.pos.c ? ' on' : '') + '" data-pos="' +
+        d.pos.c + '" title="Ver os indicadores de ' + esc(d.pos.nome) + '">' +
+        '<td class="es-pos"><b>' + p_sig(d.pos) + '</b> ' + esc(d.pos.nome) + '</td>' +
         '<td class="num-c">' + d.nA + '</td><td class="num-c">' + d.nB + '</td>' +
         '<td class="num-c"><span class="es-conta a">' + a + '</span></td>' +
         '<td class="num-c"><span class="es-conta b">' + b + '</span></td>' +
@@ -3127,40 +3131,60 @@ function estudoRender() {
           (maior.pct > 0 ? '+' : '') + fmt(maior.pct, 1) + '%</span></td></tr>';
     }).join('') + '</tbody></table>';
 
-  const blocos = dados.map(d => {
+  const blocos = dados.filter(d => !estudoSel || d.pos.c === estudoSel).map(d => {
     let corpo = '';
     FS_GRUPOS.forEach(g => {
       const chaves = new Set(g.m.map(m => m[0]));
       const linhas = d.linhas.filter(l => chaves.has(l.k));
       if (!linhas.length) return;
-      corpo += '<tr class="es-grupo"><td colspan="5"><b>' + esc(g.t) + '</b>' +
+      corpo += '<tr class="es-grupo"><td colspan="6"><b>' + esc(g.t) + '</b>' +
         '<span>' + esc(g.d) + '</span></td></tr>';
       corpo += linhas.map(l => {
         const larg = Math.min(100, Math.abs(l.pct) * 4);
-        return '<tr><td class="es-rot">' + esc(l.rot) + '<small>' + esc(l.un) +
-            (l.menor ? '' : '') + '</small></td>' +
+        /* quem ganha fica dito com todas as letras, e nao so pela cor: nos tempos o
+           vencedor e o numero MENOR, e ler isso pelo sinal da diferenca engana */
+        const ganha = l.lider === '=' ? '<span class="es-ganha e">=</span>'
+          : '<span class="es-ganha ' + l.lider.toLowerCase() + '">' + l.lider + '</span>';
+        return '<tr><td class="es-rot">' + esc(l.rot) + '<small>' + esc(l.un) + '</small></td>' +
           '<td class="num-c' + (l.lider === 'A' ? ' forte' : '') + '">' + fmt(l.a, l.casas) + '</td>' +
           '<td class="num-c' + (l.lider === 'B' ? ' forte' : '') + '">' + fmt(l.b, l.casas) + '</td>' +
           '<td class="num-c es-pct ' + (l.lider === 'A' ? 'a' : l.lider === 'B' ? 'b' : '') + '">' +
             (l.pct > 0 ? '+' : '') + fmt(l.pct, 1) + '%</td>' +
           '<td class="es-barra"><i class="' + (l.lider === 'A' ? 'a' : l.lider === 'B' ? 'b' : '') +
-            '" style="width:' + larg.toFixed(0) + '%"></i></td></tr>';
+            '" style="width:' + larg.toFixed(0) + '%"></i></td>' +
+          '<td class="es-ganha-c">' + ganha + '</td></tr>';
       }).join('');
     });
     return '<section class="es-bloco"><h3>' + p_sig(d.pos) + ' · ' + esc(d.pos.nome) +
       '<span>' + d.nA + ' na Série A · ' + d.nB + ' na Série B</span></h3>' +
       '<table class="es-tab"><thead><tr><th>Indicador</th><th class="num-c">Série A</th>' +
-      '<th class="num-c">Série B</th><th class="num-c">Dif.</th><th></th></tr></thead>' +
+      '<th class="num-c">Série B</th><th class="num-c">Dif.</th><th></th>' +
+      '<th class="es-ganha-c">Ganha</th></tr></thead>' +
       '<tbody>' + corpo + '</tbody></table></section>';
   }).join('');
 
+  const voltar = estudoSel
+    ? '<button class="bt mini" id="esTodas">← todas as posições</button>' : '';
   $('#esCorpo').innerHTML =
     '<p class="es-intro">Média de cada indicador do SkillCorner entre os jogadores com ' +
     'tracking de cada série, posição por posição. Só entram posições com pelo menos três ' +
     'de cada lado' + (min ? ', e só quem tem ' + min + ' jogos rastreados ou mais' : '') +
     '. A diferença é sobre a Série B: <b class="c-a">positiva</b> quando a Série A tem o ' +
     'número maior. Nos tempos, quem lidera é quem tem o número <b>menor</b> — por isso a ' +
-    'cor não segue o sinal.</p>' + resumo + '<div class="es-blocos">' + blocos + '</div>';
+    'cor não segue o sinal. <b>Clique numa posição</b> para ver só os indicadores dela.</p>' +
+    resumo + '<div class="es-acoes">' + voltar + '</div>' +
+    '<div class="es-blocos' + (estudoSel ? ' uma' : '') + '">' + blocos + '</div>';
+
+  $$('#esCorpo .es-linha').forEach(tr => {
+    tr.onclick = () => {
+      estudoSel = estudoSel === tr.dataset.pos ? null : tr.dataset.pos;
+      estudoRender();
+      const bloco = $('#esCorpo .es-bloco');
+      if (estudoSel && bloco) bloco.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+  });
+  const bt = $('#esTodas');
+  if (bt) bt.onclick = () => { estudoSel = null; estudoRender(); };
 }
 function p_sig(p) { return p.sig || p.c; }
 
