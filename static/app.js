@@ -3384,15 +3384,111 @@ function fsMontarFiltros() {
   };
 }
 
+/* ---------------- premissas ----------------
+   Ficam no servidor (dados/premissas.json, via /api/premissas) e nao no navegador:
+   sao o combinado do trabalho, nao preferencia de tela — precisam sobreviver a troca
+   de maquina e acompanhar o projeto. */
+let PREMISSAS = [];
+
+async function prCarregar() {
+  try {
+    const r = await fetch('api/premissas');
+    PREMISSAS = await r.json();
+  } catch (e) { PREMISSAS = []; }
+  prRender();
+}
+
+async function prGravar() {
+  $('#prEstado').textContent = 'gravando…';
+  try {
+    const r = await fetch('api/premissas', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(PREMISSAS),
+    });
+    if (!r.ok) throw new Error(r.status);
+    $('#prEstado').textContent = 'gravado';
+    setTimeout(() => { $('#prEstado').textContent = ''; }, 2000);
+  } catch (e) {
+    $('#prEstado').textContent = 'falhou ao gravar';
+    toast('Não consegui gravar as premissas', 'ruim');
+  }
+}
+
+function prRender() {
+  const alvo = $('#prLista');
+  if (!alvo) return;
+  const busca = fsNorm(($('#prBusca') && $('#prBusca').value) || '');
+  const vistas = PREMISSAS.filter(p => !busca ||
+    fsNorm(p.grupo + ' ' + p.titulo + ' ' + p.texto).includes(busca));
+  const grupos = [];
+  vistas.forEach(p => {
+    let g = grupos.find(x => x.nome === p.grupo);
+    if (!g) grupos.push(g = { nome: p.grupo, itens: [] });
+    g.itens.push(p);
+  });
+
+  alvo.innerHTML = grupos.length ? grupos.map(g =>
+    '<section class="pr-grupo"><h3>' + esc(g.nome) + '<span>' + g.itens.length + '</span></h3>' +
+    g.itens.map(p =>
+      '<article class="pr-item" data-id="' + esc(p.id) + '">' +
+        '<div class="pr-cab"><b>' + esc(p.titulo) + '</b>' +
+          (p.fonte === 'inicial' ? '' : '<span class="pr-nova">acrescentada</span>') +
+          '<button class="pr-editar" title="Editar">✎</button>' +
+          '<button class="pr-apagar" title="Apagar">×</button></div>' +
+        '<p>' + esc(p.texto) + '</p>' +
+      '</article>').join('') + '</section>').join('')
+    : '<div class="vazio">Nenhuma premissa com esse texto.</div>';
+
+  $$('#prLista .pr-editar').forEach(b => {
+    b.onclick = () => prEditar(b.closest('.pr-item').dataset.id);
+  });
+  $$('#prLista .pr-apagar').forEach(b => {
+    b.onclick = () => {
+      const id = b.closest('.pr-item').dataset.id;
+      const p = PREMISSAS.find(x => x.id === id);
+      if (!p || !confirm('Apagar a premissa "' + p.titulo + '"?')) return;
+      PREMISSAS = PREMISSAS.filter(x => x.id !== id);
+      prRender(); prGravar();
+    };
+  });
+}
+
+function prEditar(id) {
+  const p = PREMISSAS.find(x => x.id === id);
+  if (!p) return;
+  const titulo = prompt('Título da premissa:', p.titulo);
+  if (titulo === null) return;
+  const texto = prompt('Texto:', p.texto);
+  if (texto === null) return;
+  const grupo = prompt('Grupo (Orçamento, Elenco, Dados, Físico…):', p.grupo);
+  if (grupo === null) return;
+  Object.assign(p, { titulo: titulo.trim(), texto: texto.trim(), grupo: grupo.trim() || 'Geral' });
+  prRender(); prGravar();
+}
+
+function prNova() {
+  const titulo = prompt('Título da premissa:');
+  if (!titulo || !titulo.trim()) return;
+  const texto = prompt('Texto — o que fica combinado:') || '';
+  const grupos = [...new Set(PREMISSAS.map(p => p.grupo))];
+  const grupo = prompt('Grupo (' + grupos.join(', ') + '):', grupos[0] || 'Geral');
+  PREMISSAS.push({ id: 'u' + Date.now(), grupo: (grupo || 'Geral').trim(),
+                   titulo: titulo.trim(), texto: texto.trim(), fonte: 'usuario' });
+  prRender(); prGravar();
+  toast('Premissa acrescentada');
+}
+
 function irParaAba(nome) {
   $$('.aba').forEach(b => b.classList.toggle('on', b.dataset.aba === nome));
   $('#pgCampo').classList.toggle('oculta', nome !== 'campo');
   $('#pgContrato').classList.toggle('oculta', nome !== 'contrato');
   $('#pgFisico').classList.toggle('oculta', nome !== 'fisico');
   $('#pgAnalise').classList.toggle('oculta', nome !== 'analise');
+  $('#pgPremissas').classList.toggle('oculta', nome !== 'premissas');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
+  if (nome === 'premissas' && !PREMISSAS.length) prCarregar();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -3581,6 +3677,8 @@ function ligar() {
     sincronizarBotoes(); salvarLocal(); renderCampo();
   };
   $$('.aba').forEach(b => { b.onclick = () => irParaAba(b.dataset.aba); });
+  $('#prNova').onclick = prNova;
+  $('#prBusca').oninput = debounce(prRender, 150);
 
   const menu = (btId, menuId) => {
     const bt = $(btId), mn = $(menuId);

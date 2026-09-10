@@ -16,6 +16,103 @@ from flask import Flask, Response, jsonify, request, render_template, send_file,
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ARQ_JOGADORES = os.path.join(AQUI, "dados", "jogadores.json")
 ARQ_CENARIOS = os.environ.get("SC_CENARIOS") or os.path.join(AQUI, "dados", "cenarios.json")
+ARQ_PREMISSAS = os.environ.get("SC_PREMISSAS") or os.path.join(AQUI, "dados", "premissas.json")
+
+# As regras do projeto, ditas pelo usuario ao longo da montagem. Ficam no servidor e
+# nao no navegador de proposito: sao o combinado do trabalho, nao preferencia de tela.
+# Este e so o conteudo INICIAL — a partir da primeira gravacao vale o arquivo.
+PREMISSAS_INICIAIS = [
+    ("Orçamento", "Teto de custo total",
+     "R$ 2.800.000 por mês é o custo total máximo do elenco."),
+    ("Orçamento", "O teto já inclui a comissão técnica",
+     "A comissão entra dentro dos R$ 2,8 MM, não por fora. Padrão de R$ 300.000, "
+     "editável ou detalhada por cargo no modal Orçamento."),
+    ("Orçamento", "Encargos de 1,25×",
+     "O custo real de um jogador é 1,25 vez o salário oferecido a ele. "
+     "Massa salarial disponível = (teto − comissão) ÷ 1,25."),
+    ("Orçamento", "O salário digitado é o do jogador",
+     "O número no card é o que o atleta recebe, sem encargos. Quem aplica o 1,25 é a conta."),
+    ("Orçamento", "Sem salário sugerido",
+     "Jogador entra no campograma com salário 0. A faixa do TransferRoom aparece na "
+     "ficha e no Fim de contrato, mas não preenche o card."),
+    ("Orçamento", "Cotação do euro",
+     "A faixa salarial do TransferRoom é anual em euros; vira mensal em reais pela "
+     "cotação do modal Orçamento (padrão 6,30)."),
+
+    ("Elenco", "Objetivo",
+     "Montar o elenco de 2027 do Santa Cruz visando o acesso à Série B."),
+    ("Elenco", "Onze posições, três opções",
+     "GK, LB, LCB, RCB, RB, DM, CM, AM, LW, CF, RW — com 3 vagas por posição, "
+     "ajustáveis uma a uma."),
+    ("Elenco", "Limite de estrangeiros",
+     "9 estrangeiros no elenco."),
+    ("Elenco", "Siglas internacionais na tela",
+     "GK, LCB, RCB, LB, RB, DM, CM, AM, LW, RW, CF. A chave interna continua em "
+     "português porque indexa a base, os KPIs e os cenários já gravados."),
+
+    ("Dados", "O cadastro vem do fim de contrato",
+     "40.059 jogadores do levantamento de fim de contrato (Transfermarkt), não do "
+     "ranking — o ranking só enxerga quem tem minutagem (18.281)."),
+    ("Dados", "Capology não cobre o Brasil",
+     "Não publica salário do futebol brasileiro. Todo salário é digitado, exceto a "
+     "estimativa do TransferRoom."),
+    ("Dados", "Histórico de três temporadas",
+     "2024, 2025 e 2026, dos mesmos Excels do Wyscout que alimentam o ranking."),
+    ("Dados", "Ligação entre temporadas",
+     "Primeiro por id (player_uid). Por nome só quando o nome é único na temporada de "
+     "hoje e na de lá, conferindo país, altura e idade. Nome repetido não casa: o "
+     "Pedro do Flamengo chegou a receber a temporada de um Pedro do Guabirá."),
+    ("Dados", "O Wyscout não marca a origem do gol",
+     "Não existe \"gol de bola parada\" na base. O que existe são os dois lados: quem "
+     "cobra (escanteios + faltas por 90, pênaltis) e quem cabeceia (gols de cabeça)."),
+    ("Dados", "Goleador recorrente",
+     "Quem fez 5 gols ou mais em pelo menos 2 das 3 temporadas."),
+    ("Dados", "O oGol tem jogos, não minutos",
+     "Onde não houver minutos, mostrar jogos, marcado na tela. Nada é estimado."),
+
+    ("Físico", "A régua é a Série A + B",
+     "Todo percentil é calculado entre os jogadores da mesma posição com tracking nas "
+     "Séries A e B. Jogadores de outras ligas entram nessa mesma régua para poder comparar."),
+    ("Físico", "Nos tempos, menor é melhor",
+     "Nos indicadores de tempo (até o sprint, 505, após girar), liderar é ter o número "
+     "menor. A cor não segue o sinal da diferença."),
+    ("Físico", "Índice físico",
+     "Índice do grupo = média dos percentis do grupo. Índice geral = média dos cinco "
+     "grupos. É ele que escolhe os 5 melhores de cada série."),
+    ("Físico", "Contorno diz o nível",
+     "Verde quando o jogador bate as médias das duas séries; âmbar quando bate só a "
+     "mais fraca das duas."),
+    ("Físico", "Estudo Série A × Série B",
+     "Só entram posições com pelo menos três jogadores com tracking de cada lado — o "
+     "que deixa o goleiro de fora."),
+    ("Físico", "Comparativo gravado é lista, não receita",
+     "O que se grava são os atletas que estavam na tela, com os incluídos e os "
+     "excluídos. Guardar \"top 5 + filtro\" faria o comparativo mudar sozinho quando "
+     "a base fosse regerada."),
+]
+
+
+def _premissas_padrao():
+    return [{"id": f"p{i + 1}", "grupo": g, "titulo": t, "texto": x, "fonte": "inicial"}
+            for i, (g, t, x) in enumerate(PREMISSAS_INICIAIS)]
+
+
+def ler_premissas():
+    if not os.path.exists(ARQ_PREMISSAS):
+        return _premissas_padrao()
+    try:
+        with open(ARQ_PREMISSAS, encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return _premissas_padrao()
+
+
+def gravar_premissas(lista):
+    os.makedirs(os.path.dirname(ARQ_PREMISSAS), exist_ok=True)
+    tmp = ARQ_PREMISSAS + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(lista, fh, ensure_ascii=False, indent=1)
+    os.replace(tmp, ARQ_PREMISSAS)
 PORTA = 5090
 
 app = Flask(__name__)
@@ -156,6 +253,29 @@ def api_comparativo():
         })
     saida.sort(key=lambda x: x["atualizado"], reverse=True)
     return jsonify(saida)
+
+
+@app.route("/api/premissas", methods=["GET", "POST"])
+def api_premissas():
+    """As premissas do projeto. GET devolve a lista; POST grava a lista inteira."""
+    if request.method == "GET":
+        return jsonify(ler_premissas())
+    lista = request.get_json(silent=True)
+    if not isinstance(lista, list):
+        return jsonify({"erro": "esperava uma lista"}), 400
+    limpa = []
+    for p in lista[:400]:
+        if not isinstance(p, dict):
+            continue
+        limpa.append({
+            "id": str(p.get("id") or "")[:40],
+            "grupo": str(p.get("grupo") or "Geral")[:60],
+            "titulo": str(p.get("titulo") or "")[:140],
+            "texto": str(p.get("texto") or "")[:2000],
+            "fonte": str(p.get("fonte") or "usuario")[:20],
+        })
+    gravar_premissas(limpa)
+    return jsonify({"ok": True, "total": len(limpa)})
 
 
 @app.route("/api/cenarios", methods=["GET", "POST"])

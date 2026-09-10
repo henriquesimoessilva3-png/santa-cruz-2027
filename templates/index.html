@@ -123,6 +123,7 @@
   <button class="aba" data-aba="contrato">Fim de contrato</button>
   <button class="aba" data-aba="fisico">Físico</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
+  <button class="aba" data-aba="premissas">Premissas</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -333,6 +334,25 @@
         <div class="vazio" id="fsVazio" style="display:none">Ninguém na comparação — ligue uma referência ou adicione um jogador.</div>
       </div>
       <div class="fc-pe"><span id="fsContagem">—</span></div>
+    </div>
+  </section>
+
+  <section class="pagina oculta" id="pgPremissas">
+    <div class="pr">
+      <div class="pr-topo">
+        <div>
+          <h2>Premissas</h2>
+          <p>As regras deste trabalho, num lugar só. São elas que a tela obedece — mudar
+             uma aqui não muda o cálculo sozinho, mas registra o combinado e serve de
+             conferência.</p>
+        </div>
+        <div class="pr-bts">
+          <input type="text" id="prBusca" placeholder="Procurar…" autocomplete="off">
+          <button class="bt mini" id="prNova">＋ Nova premissa</button>
+          <span class="pr-estado" id="prEstado"></span>
+        </div>
+      </div>
+      <div class="pr-lista" id="prLista"></div>
     </div>
   </section>
 
