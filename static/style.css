@@ -1907,3 +1907,17 @@ body.claro{ --fs-media-tinta:#22303f; }
 
 #fsMatriz th.fs-ganha-cab{width:38px;padding:0 2px;font-size:7px;letter-spacing:.2px;
   line-height:1.1;overflow:hidden;text-overflow:clip}
+
+/* ---------- abas de regiao: cabem por inteiro ----------
+   Eram colunas de largura igual (`grid-auto-columns:1fr`), entao "Todos" e "Demais"
+   viravam "T…" e "De…" — um botao que nao diz o que faz. Agora cada um ocupa o que
+   precisa e a fila quebra se faltar espaco. */
+.rk-abas{display:flex!important;flex-wrap:wrap;gap:3px}
+.rk-abas button{flex:0 1 auto;padding:3px 6px;font-size:9px;overflow:visible;
+  text-overflow:clip;min-width:0}
+
+/* temporada vinda do oGol: barra vazada, porque sao JOGOS e nao minutos */
+.m-min i.ogol{border:1px solid var(--pilula-meta);opacity:.6}
+.m-min i.ogol b{opacity:.4}
+.fc-min.jogos{color:var(--tinta2)}
+.fc-min.jogos i{font-style:normal;font-size:8.5px;color:var(--tinta3);margin-left:1px}

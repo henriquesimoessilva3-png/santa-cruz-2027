@@ -31,6 +31,10 @@ muda quando o jogador se transfere e nao serve para atravessar os anos:
 Cuidado documentado na skill dados-wyscout: a idade do Wyscout e a idade na hora da
 EXTRACAO, entao num Excel de 2024 o jogador aparece dois anos mais novo do que hoje.
 
+O oGol (`preparar_ogol.py`) tapa os buracos: entra so onde o Wyscout nao chegou, com
+JOGOS em vez de minutos, marcado com fonte "ogol" para a tela poder dizer de onde
+aquele numero veio.
+
 Saida: dados/historico.json
 """
 import json
@@ -370,6 +374,36 @@ def main():
     for temporada in indices:
         print(f"    {temporada}: {achados[temporada]} casados "
               f"({por_sobrenome[temporada]} pelo sobrenome)")
+
+    # ---- tapa os buracos com o oGol ----
+    # O oGol tem JOGOS por temporada, nao minutos. Entra so onde o Wyscout nao chegou
+    # (o corte de 500 linhas por liga), marcado com fonte "ogol" para a tela poder
+    # dizer que aquela barra e de jogos e nao de minutos — o combinado foi nao estimar
+    # nada.
+    arq_ogol = os.path.join(AQUI, "dados", "ogol_carreira.json")
+    if os.path.exists(arq_ogol):
+        with open(arq_ogol, encoding="utf-8") as fh:
+            ogol = json.load(fh)
+        postos = {t: i for i, (t, _p) in enumerate(TEMPORADAS)}
+        somados = 0
+        for pk, reg in ogol.items():
+            temps = reg.get("temporadas") or {}
+            if not temps:
+                continue
+            linha = saida["jogadores"].get(pk)
+            if linha is None:
+                linha = [None] * len(TEMPORADAS)
+            for temporada, d in temps.items():
+                i = postos.get(temporada)
+                if i is None or linha[i] is not None:
+                    continue          # o Wyscout ganha: tem minutos, o oGol nao
+                linha[i] = {"t": temporada, "tm": d.get("tm", ""), "l": "",
+                            "j": d.get("j", 0), "g": d.get("g", 0), "a": d.get("a", 0),
+                            "fonte": "ogol"}
+                somados += 1
+            if any(linha):
+                saida["jogadores"][pk] = linha
+        print(f"    oGol: {somados} temporadas acrescentadas (jogos, sem minutos)")
 
     destino = os.path.join(AQUI, "dados", "historico.json")
     with open(destino, "w", encoding="utf-8") as fh:

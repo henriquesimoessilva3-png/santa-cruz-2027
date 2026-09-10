@@ -97,6 +97,7 @@ let BASE = [];
    ~18 mil dos 40 mil jogadores da base tem passagem pelo Wyscout. */
 let HIST = { temporadas: [], jogadores: {} };
 const MIN_TEMPORADA = 3400;   /* ~38 jogos x 90: a referencia de "temporada inteira" */
+const JOGOS_TEMPORADA = 38;   /* a mesma referencia, quando so ha jogos (oGol) */
 /* Quantos gols numa temporada ja a tornam "goleadora" para a conta de recorrencia.
    Fica aqui em cima, e nao junto de RANGES_FC, porque FC_COLUNAS le esta constante
    ao ser montada — `const` mais abaixo no arquivo daria erro de TDZ e derrubaria a
@@ -119,7 +120,9 @@ function histResumo(pk, golsMin) {
   const atual = h[h.length - 1] || null;
   return {
     temporadas: h.filter(Boolean).length,
+    /* minutos so do Wyscout; jogos das duas fontes */
     min: soma('min'), jogos: soma('j'), gols: soma('g'), assist: soma('a'), cabeca: soma('gc'),
+    soOgol: h.some(x => x && x.fonte === 'ogol'),
     /* em quantas temporadas ele fez pelo menos `golsMin` gols */
     goleadoras: h.filter(x => x && (x.g || 0) >= (golsMin || 5)).length,
     /* cobrancas por 90 na temporada corrente: escanteio + falta, mesma escala */
@@ -752,14 +755,23 @@ function cardPos(cod) {
    reabriria a conta de largura do campograma. */
 function barraMinutos(h) {
   if (!h || !h.some(Boolean)) return '';
+  /* Duas fontes na mesma barra: o Wyscout da MINUTOS, o oGol da JOGOS. Nao se converte
+     um no outro — seria inventar minutagem. A barra do oGol e vazada e o balao diz de
+     onde veio cada temporada. */
   const txt = h.map((x, i) => (HIST.temporadas[i] || '?') + ': ' +
-    (x ? milhar(x.min || 0) + ' min em ' + (x.j || 0) + ' jogos · ' + x.l : 'sem dado')).join(' · ');
+    (!x ? 'sem dado'
+     : x.fonte === 'ogol' ? (x.j || 0) + ' jogos (oGol, sem minutos) · ' + (x.tm || '')
+     : milhar(x.min || 0) + ' min em ' + (x.j || 0) + ' jogos · ' + x.l)).join(' · ');
   /* trilho + preenchimento: sozinha, a barra so compara as tres entre si; com o
      trilho da para ver quanto de uma temporada inteira cada ano representa */
-  return '<span class="m-min" title="Minutos por temporada — ' + esc(txt) + '">' +
+  return '<span class="m-min" title="Minutagem por temporada — ' + esc(txt) + '">' +
     h.map(x => {
-      const pct = x ? Math.max(6, Math.min(100, (x.min || 0) / MIN_TEMPORADA * 100)) : 0;
-      return '<i' + (x ? '' : ' class="sem"') + '><b style="height:' + pct.toFixed(0) + '%"></b></i>';
+      if (!x) return '<i class="sem"></i>';
+      const pct = x.fonte === 'ogol'
+        ? Math.max(6, Math.min(100, (x.j || 0) / JOGOS_TEMPORADA * 100))
+        : Math.max(6, Math.min(100, (x.min || 0) / MIN_TEMPORADA * 100));
+      return '<i' + (x.fonte === 'ogol' ? ' class="ogol"' : '') +
+        '><b style="height:' + pct.toFixed(0) + '%"></b></i>';
     }).join('') + '</span>';
 }
 
@@ -2102,8 +2114,13 @@ const FC_COLUNAS = [
     num: 1, cel: j => {
       const pk = primaryKey(j), r = histResumo(pk);
       if (!r) return '<span class="fc-vazia">–</span>';
-      return '<div class="fc-carr">' + barraMinutos(hist(pk)) +
-        '<b class="fc-min">' + milhar(r.min) + '</b></div>'; } },
+      /* sem minutos do Wyscout, o que ha sao os jogos do oGol — dito com todas as
+         letras, para ninguem ler o numero como minutagem */
+      const numero = r.min
+        ? '<b class="fc-min">' + milhar(r.min) + '</b>'
+        : '<b class="fc-min jogos" title="sem minutos; o oGol dá jogos">' +
+          milhar(r.jogos) + '<i>j</i></b>';
+      return '<div class="fc-carr">' + barraMinutos(hist(pk)) + numero + '</div>'; } },
   { c: 'g3', r: 'Gols · assist.', w: 8,
     t: 'Gols e assistências nas últimas três temporadas. O selo mostra em quantas delas ' +
        'fez ' + GOLS_TEMPORADA + ' gols ou mais.',
@@ -2823,8 +2840,11 @@ function fsLinhasTemporada() {
   const linhas = [];
   T.forEach((ano, i) => linhas.push({
     id: 'min' + i, rot: 'Minutos ' + ano, un: 'minutos', casas: 0, ref: MIN_TEMPORADA,
-    val: h => (h && h[i] ? (h[i].min || 0) : null),
-    nota: h => (h && h[i] ? (h[i].j || 0) + ' jogos · ' + h[i].tm + ' · ' + h[i].l : 'sem dado'),
+    val: h => (h && h[i] && h[i].fonte !== 'ogol' ? (h[i].min || 0) : null),
+    nota: h => (!h || !h[i] ? 'sem dado'
+                : h[i].fonte === 'ogol'
+                  ? (h[i].j || 0) + ' jogos pelo oGol, que não tem minutos · ' + (h[i].tm || '')
+                  : (h[i].j || 0) + ' jogos · ' + h[i].tm + ' · ' + h[i].l),
   }));
   linhas.push({ id: 'min3', rot: 'Minutos nas três', un: 'soma', casas: 0, forte: 1,
                 ref: MIN_TEMPORADA * 3, val: soma('min') });

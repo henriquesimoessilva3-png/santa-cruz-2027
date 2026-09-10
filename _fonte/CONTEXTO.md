@@ -143,6 +143,13 @@ Três armadilhas resolvidas ali, todas custosas se descobertas depois:
   Cobertura: 2.209 (2024) e 4.414 (2025) por id, mais 3.957 e 6.783 por nome; 5.243 com
   as três temporadas. O `preparar_ogol.py` existe para cobrir o resto por id de jogador.
 
+**O oGol tapou os buracos** (`preparar_ogol.py`, coleta de 09/09): 3.847 carreiras
+conferidas, 235 recusadas porque o clube da temporada corrente não batia — a conferência
+funcionando — e 7.235 temporadas acrescentadas. Cobertura das três temporadas: de 5.243
+para **8.006** jogadores. Ele dá **jogos**, não minutos: essas temporadas ficam marcadas
+com `fonte: "ogol"`, a barrinha do card é vazada e o número no Fim de contrato vem com
+"j". Nada é convertido em minutagem — seria inventar dado.
+
 Onde aparece: as três barrinhas de minutagem no card do campograma (`barraMinutos`, com
 margem negativa para não engordar o card em 1px — a altura do card é o que decide a
 largura de todos), o bloco **Temporadas** no topo da matriz do Físico, e as colunas
