@@ -123,7 +123,7 @@
   <button class="aba" data-aba="contrato">Fim de contrato</button>
   <button class="aba" data-aba="fisico">Físico</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
-  <button class="aba" data-aba="premissas">Premissas</button>
+  <button class="aba" data-aba="financeiro">Financeiro</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -350,22 +350,38 @@
     </div>
   </section>
 
-  <section class="pagina oculta" id="pgPremissas">
-    <div class="pr">
-      <div class="pr-topo">
+  <div class="zoom-fundo" id="zoomFundo"></div>
+
+  <section class="pagina oculta" id="pgFinanceiro">
+    <div class="fin">
+      <div class="fin-topo">
         <div>
-          <h2>Premissas</h2>
-          <p>As regras deste trabalho, num lugar só. São elas que a tela obedece — mudar
-             uma aqui não muda o cálculo sozinho, mas registra o combinado e serve de
-             conferência.</p>
+          <h2>Estrutura salarial <span>elenco 2027</span></h2>
+          <p>Custo efetivo do clube, pacote oferecido e remuneração líquida estimada por
+             atleta. O campograma diz <b>quem</b>; aqui está <b>quanto custa de verdade</b>
+             e <b>quanto o atleta leva para casa</b> — números diferentes, e é aí que mora
+             a confusão de toda negociação.</p>
         </div>
-        <div class="pr-bts">
-          <input type="text" id="prBusca" placeholder="Procurar…" autocomplete="off">
-          <button class="bt mini" id="prNova">＋ Nova premissa</button>
-          <span class="pr-estado" id="prEstado"></span>
-        </div>
+        <div class="fin-kpis" id="finKpis"></div>
       </div>
-      <div class="pr-lista" id="prLista"></div>
+      <div class="fin-params">
+        <label>Encargos sobre o pacote <input type="text" id="fin_encargos" size="4">%</label>
+        <label>Em carteira <input type="text" id="fin_carteira" size="4">%</label>
+        <label>IR + INSS na carteira <input type="text" id="fin_irCarteira" size="4">%</label>
+        <label>Alíquota da imagem (PJ) <input type="text" id="fin_aliqImagem" size="4">%</label>
+        <label>Meses de contrato <input type="text" id="fin_meses" size="4"></label>
+      </div>
+      <div class="fin-wrap"><table id="finTabela"></table></div>
+      <div class="fin-notas">
+        <div><b>Critério</b><p>Custo efetivo apropriado em <b>13 períodos</b> (12 meses
+          + 13º), proporcional quando o contrato não cobre o ano inteiro. O pacote é
+          dividido entre carteira e direito de imagem. O líquido total inclui 13º e o
+          adicional de 1/3 de férias sobre a parcela em carteira.</p></div>
+        <div><b>As duas alíquotas são chute educado</b><p>Elas decidem sozinhas as colunas
+          de líquido, e não têm resposta única: dependem do enquadramento da PJ do atleta
+          e da faixa de IR dele. Estão editáveis aí em cima e ficam gravadas com o
+          cenário — ajuste para o caso real antes de levar o número para uma mesa.</p></div>
+      </div>
     </div>
   </section>
 

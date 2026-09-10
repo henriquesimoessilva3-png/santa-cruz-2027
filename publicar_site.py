@@ -49,7 +49,7 @@ def montar():
     shutil.copytree(os.path.join(AQUI, "static"), os.path.join(DOCS, "static"))
     dados_dest = os.path.join(DOCS, "dados")
     os.makedirs(dados_dest)
-    for nome in ("jogadores.json", "historico.json", "premissas.json"):
+    for nome in ("jogadores.json", "historico.json", "premissas.json", "raio_ref.json"):
         origem = os.path.join(AQUI, "dados", nome)
         if os.path.exists(origem):
             shutil.copy2(origem, os.path.join(dados_dest, nome))

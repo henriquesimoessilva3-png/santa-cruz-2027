@@ -311,3 +311,65 @@ prêmio forte pelo acesso. Entrou em `PREMISSAS_INICIAIS`
 (app.py) e em `dados/premissas.json` como `m7`. O texto registra que a premiação é
 variável e **não entra no teto mensal de R$ 2,8 MM**, que é custo recorrente — se o
 modelo passar a prever provisão de premiação, é aqui que a decisão fica escrita.
+
+## A aba Premissas saiu (set/26)
+
+Por pedido. As 7 premissas de montagem continuam no topo da Análise do elenco, e ali
+ganharam o lápis de editar, que só existia na aba. Os outros grupos (Orçamento, Elenco,
+Dados) continuam gravados em `dados/premissas.json` e valendo como registro, mas **não têm
+mais tela**. Se um dia precisarem voltar, o caminho é um bloco recolhido embaixo da
+Análise, não uma aba nova.
+
+## Raio físico ⚡ (set/26)
+
+A mesma régua do Ranking (:5053). O raio responde uma pergunta só: contra o **jogador-
+referência da posição**, esse atleta é superior (verde), parecido (amarelo) ou abaixo
+(vermelho)?
+
+Referências e parâmetros vieram de `config/fisico_ref_posicao.json` do Portal Ranking para
+`dados/raio_ref.json` — Jemmes (ZD/ZE), Vitinho (LD), Alex Telles (LE), Gregore-2024 (DM),
+Cristian Medina (CM), J. Carrascal (AM), Matheus Martins (LW/RW), Arthur Cabral (CF).
+Vitinho não tem SkillCorner nesta base: os cinco KPIs dele vieram do `skillcorner_jun26`
+do Ranking. Gregore, Medina e Cabral usam os uploads manuais (56, 39 e 34 jogos), que é o
+que o Ranking usa. Goleiro fica fora — o raio é de jogador de linha.
+
+Conta: z de cada um dos 5 KPIs (PSV-99, metros em sprint, nº de sprints, metros e ações de
+alta intensidade) = (jogador − referência) ÷ desvio da posição, cada z limitado a ±1 antes
+da média. Média ≥ +0,75 verde, ≤ −0,75 vermelho, meio amarelo, mais os dois atalhos de
+dominância do original. **O que muda em relação ao :5053 é a população que dá o desvio-
+padrão** — aqui é esta base, lá é o ranking do período. Mesma pergunta, régua ligeiramente
+diferente.
+
+Aparece no card do campograma, no cabeçalho da matriz do Físico, nas listas de escolha e
+na busca. 58 cards do cenário: 21 verdes, 11 amarelos, 18 vermelhos, 8 sem (goleiros e
+quem não tem tracking).
+
+## Fim de contrato no card: verde cheio (set/26)
+
+Era texto ("até 2026"), passou a card âmbar e terminou em **verde cheio com fonte branca**,
+por pedido — num campo com cem cards, quem está acabando tem de saltar sem ser procurado.
+Mostra mês/ano (`dez/26`).
+
+## Zoom por posição (set/26)
+
+Clique na barra do topo da coluna (ou na lupa ⤢) e ela sai do campo para o meio da tela,
+grande. **O elemento é o mesmo** — nada é clonado —, então arrastar, editar salário, ⋯, ×,
++ e a ficha seguem funcionando. Esc ou o fundo fecham. Os `!important` do `.pos.zoom` são
+necessários porque `ajustarCampo()` escreve left/top/width inline em cada coluna.
+
+## Aba Financeiro (set/26)
+
+Estrutura salarial no formato do estudo que o usuário trouxe. O campograma diz *quem*; esta
+aba diz *quanto custa de verdade* e *quanto o atleta leva para casa* — números diferentes, e
+é aí que mora a confusão de toda negociação.
+
+Por faixa salarial do campograma: custo efetivo (o do card) → pacote bruto = custo ÷
+(1 + encargos) → divisão carteira/imagem → líquido mensal → custo do clube no período
+(13 períodos: 12 meses + 13º, proporcional a contrato parcial) → líquido total (com 13º e
+1/3 de férias sobre a carteira) → média líquida mensal.
+
+**As duas alíquotas — IR+INSS na carteira e alíquota da PJ — são chute educado meu**, não
+saem de lugar nenhum. Elas decidem sozinhas as colunas de líquido e dependem do
+enquadramento da PJ e da faixa de IR do atleta. Estão editáveis no topo da aba e gravam com
+o cenário. O estudo original tinha alíquotas progressivas por faixa (efetiva de 75% a 87%
+no líquido da imagem); não as reproduzi porque não tenho a tabela, só o resultado impresso.

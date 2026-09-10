@@ -1,0 +1,133 @@
+{
+ "_doc": "Referência física por posição para o raio ⚡ — as MESMAS do Ranking :5053 (config/fisico_ref_posicao.json), com os mesmos parâmetros. O jogador é comparado com UM jogador-referência da posição nos 5 KPIs do SkillCorner, padronizado (z) na população da posição desta base. Goleiro fica de fora: o raio é de jogador de linha.",
+ "kpis": [
+  "psv",
+  "spr_km",
+  "spr_n",
+  "hi",
+  "hi_n"
+ ],
+ "params": {
+  "min_perf": 4,
+  "banda": 0.75,
+  "zcap": 1.0,
+  "med_verde": 0.5,
+  "med_vermelho": -0.5,
+  "dom_max_perdas": 2,
+  "dom_max_ganhos": 1,
+  "dom_min_npp": 5,
+  "dom_elite_z": 2.8
+ },
+ "refs": {
+  "ZD": {
+   "nome": "Jemmes (Fluminense)",
+   "fonte": "base do projeto",
+   "valores": {
+    "psv": 30.55,
+    "spr_km": 136.37,
+    "spr_n": 7.29,
+    "hi": 454.53,
+    "hi_n": 41.82
+   }
+  },
+  "ZE": {
+   "nome": "Jemmes (Fluminense)",
+   "fonte": "base do projeto",
+   "valores": {
+    "psv": 30.55,
+    "spr_km": 136.37,
+    "spr_n": 7.29,
+    "hi": 454.53,
+    "hi_n": 41.82
+   }
+  },
+  "LD": {
+   "nome": "Vitinho (Botafogo)",
+   "fonte": "SkillCorner jun26 do Ranking",
+   "valores": {
+    "psv": 31.12,
+    "spr_km": 305.95,
+    "spr_n": 14.44,
+    "hi": 946.56,
+    "hi_n": 75.74
+   }
+  },
+  "LE": {
+   "nome": "Alex Telles (Botafogo)",
+   "fonte": "base do projeto",
+   "valores": {
+    "psv": 29.51,
+    "spr_km": 158.98,
+    "spr_n": 8.56,
+    "hi": 657.62,
+    "hi_n": 54.89
+   }
+  },
+  "VOL": {
+   "nome": "Gregore — 2024 (Botafogo)",
+   "fonte": "upload manual (56 jogos)",
+   "valores": {
+    "psv": 29.46,
+    "spr_km": 183.39,
+    "spr_n": 10.0,
+    "hi": 719.12,
+    "hi_n": 62.17
+   }
+  },
+  "MED": {
+   "nome": "Cristian Medina (Botafogo)",
+   "fonte": "upload manual (39 jogos)",
+   "valores": {
+    "psv": 29.81,
+    "spr_km": 239.57,
+    "spr_n": 12.24,
+    "hi": 852.79,
+    "hi_n": 72.19
+   }
+  },
+  "MEI": {
+   "nome": "J. Carrascal (Flamengo)",
+   "fonte": "base do projeto",
+   "valores": {
+    "psv": 28.81,
+    "spr_km": 197.31,
+    "spr_n": 10.27,
+    "hi": 744.53,
+    "hi_n": 63.85
+   }
+  },
+  "ED": {
+   "nome": "Matheus Martins (Botafogo)",
+   "fonte": "base do projeto",
+   "valores": {
+    "psv": 28.97,
+    "spr_km": 189.56,
+    "spr_n": 9.76,
+    "hi": 791.75,
+    "hi_n": 65.67
+   }
+  },
+  "EE": {
+   "nome": "Matheus Martins (Botafogo)",
+   "fonte": "base do projeto",
+   "valores": {
+    "psv": 28.97,
+    "spr_km": 189.56,
+    "spr_n": 9.76,
+    "hi": 791.75,
+    "hi_n": 65.67
+   }
+  },
+  "CA": {
+   "nome": "Arthur Cabral (Botafogo)",
+   "fonte": "upload manual (34 jogos)",
+   "valores": {
+    "psv": 29.42,
+    "spr_km": 179.76,
+    "spr_n": 9.94,
+    "hi": 704.02,
+    "hi_n": 59.06
+   }
+  }
+ }
+}

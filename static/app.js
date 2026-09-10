@@ -318,6 +318,25 @@ const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas
    vizinhas ficam centradas — entao esses cards podem ser mais largos sem encostar. */
 const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
 
+/* Zoom de uma posicao: a coluna sai do campo e vem para o meio da tela, grande. O DOM
+   e o MESMO — nada e clonado —, entao arrastar, editar salario, ⋯, ×, + e a ficha
+   continuam funcionando exatamente como no campo. O campograma inteiro cabe na tela ao
+   custo de cards minusculos; isto devolve o tamanho quando se quer trabalhar numa
+   posicao so. Clique na barra do topo abre e fecha; Esc e o fundo tambem fecham. */
+let POS_ZOOM = null;
+function posZoom(cod) {
+  POS_ZOOM = POS_ZOOM === cod ? null : cod;
+  document.body.classList.toggle('com-zoom', !!POS_ZOOM);
+  renderCampo();
+  requestAnimationFrame(ajustarCampo);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && POS_ZOOM) posZoom(POS_ZOOM);
+});
+document.addEventListener('click', e => {
+  if (POS_ZOOM && e.target.id === 'zoomFundo') posZoom(POS_ZOOM);
+});
+
 /* Alturas das caixas de posicao: as reais e as de REFERENCIA. A referencia e cada
    posicao com exatamente as vagas previstas (metaPos), com o card medio do campo.
    E dela que sai a largura do card — por isso a largura nao muda quando entram mais
@@ -717,7 +736,8 @@ function cardPos(cod) {
 
   const el = document.createElement('div');
   el.className = 'pos' + (lista.length === 0 ? ' vazia' : '') +
-                 (COLUNA_ABERTA.has(cod) ? ' aberto' : '');
+                 (COLUNA_ABERTA.has(cod) ? ' aberto' : '') +
+                 (POS_ZOOM === cod ? ' zoom' : '');
   el.dataset.pos = cod;
 
   const falta = lista.length < meta;
@@ -728,6 +748,8 @@ function cardPos(cod) {
       (nEstr ? '<span class="pos-estr" title="' + nEstr + ' estrangeiro(s) nesta posição">' + nEstr + '⚑</span>' : '') +
       '<span class="pos-qtd' + (falta ? ' falta' : '') + '" title="atletas / vagas (clique para mudar)">' +
         '<b>' + lista.length + '</b>/' + meta + '</span>' +
+      '<button class="pos-lupa" title="' + (POS_ZOOM === cod ? 'Voltar ao campo (Esc)' : 'Ampliar esta posição') +
+        '">' + (POS_ZOOM === cod ? '⤡' : '⤢') + '</button>' +
       '<button class="add-mini" title="Adicionar jogador">+</button>' +
     '</div>' +
     '<div class="jogs"></div>' +
@@ -742,6 +764,11 @@ function cardPos(cod) {
 
   el.querySelector('.pos-add').onclick = () => abrirBusca(cod);
   el.querySelector('.add-mini').onclick = () => abrirBusca(cod);
+  /* a barra inteira amplia, menos os controles que ja tem dono */
+  el.querySelector('.pos-topo').onclick = e => {
+    if (e.target.closest('.pos-qtd, .add-mini')) return;
+    posZoom(cod);
+  };
   el.querySelector('.pos-qtd').onclick = () => {
     const v = prompt('Quantas vagas em ' + p.nome + '?', meta);
     if (v !== null) { estado.alvoAtletas[cod] = Math.max(0, parseInt(v) || 0); salvarLocal(); render(); }
@@ -806,11 +833,16 @@ function cardJog(cod, j) {
              (j.estrangeiro ? ' · ESTRANGEIRO (' + (j.nac || '?') + ')' : '') +
              ' · arraste para reordenar · ⋯ abre as ações · × tira do elenco';
 
-  const ano = (j.contrato || '').slice(0, 4);
+  /* O contrato deixou de ser texto ("até 2026") e virou card, como nas listas de
+     escolha: ambar cheio para quem vence a tempo da temporada 2027, discreto para o
+     resto. Num campo com cem cards, quem esta acabando tem de saltar sem ser procurado. */
+  const ct = (j.contrato || '').slice(0, 7);
   const meta =
     (j.idade ? '<span class="m-idade" title="idade">' + j.idade + 'a</span>' : '') +
     (j.clube ? '<span class="m-clube">' + esc(j.clube) + '</span>' : '') +
-    (ano ? '<span class="m-ct" title="contrato até ' + esc(j.contrato) + '">até <b>' + ano + '</b></span>'
+    (ct ? '<span class="m-ct' + (ct <= FS_LIVRE_ATE ? ' livre' : '') + '" title="contrato até ' +
+            esc(j.contrato) + (ct <= FS_LIVRE_ATE ? ' — vence a tempo da temporada 2027' : '') +
+            '">' + esc(mesAnoCurto(j.contrato)) + '</span>'
          : '<span class="m-ct sem" title="contrato não informado">sem contrato</span>') +
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
     barraMinutos(histDoElenco(j)) +
@@ -821,6 +853,7 @@ function cardJog(cod, j) {
     '<div class="jog-nome' + (j.jid != null ? ' clicavel' : '') + '" title="' +
       esc(j.nomeCompleto || j.nome) + (j.jid != null ? ' — clique para ver a ficha' : '') + '">' +
       (j.titular ? '<span class="estrela">★</span>' : '') +
+      raioIcone(j.pk) +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
       '<span class="nm">' + esc(nomeCurto(j.nome, limiteNome(j, cod))) + '</span>' + '</div>' +
@@ -1755,6 +1788,12 @@ function faixaSalarioTR(j) {
   return { txt: j.sal, min: a / 12 * cot, max: (b || a) / 12 * cot };
 }
 
+/* 'dez/26' — a forma curta, para os cards apertados */
+function mesAnoCurto(iso) {
+  if (!iso || iso.length < 7) return '';
+  const M = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  return M[parseInt(iso.slice(5, 7), 10) - 1] + '/' + iso.slice(2, 4);
+}
 function mesAno(iso) {
   if (!iso || iso.length < 7) return '';
   const M = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
@@ -2825,7 +2864,7 @@ function fsCabecalho(c) {
   return '<th class="fs-col serie-' + serie + '" style="--cor:' + c.cor + '" data-pk="' +
     esc(primaryKey(j)) + '" data-id="' + j.id + '"' +
     ' title="' + esc(j.n + ' — ' + ficha) + '">' +
-    '<div class="fs-nome"><b>' + esc(j.n) + '</b>' +
+    '<div class="fs-nome">' + raioIcone(primaryKey(j)) + '<b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
     '<div class="fs-clube">' + esc(j.t) + (j.id_ ? ' <b>' + j.id_ + 'a</b>' : '') + '</div>' +
     fsContrato(j) +
@@ -3128,11 +3167,9 @@ function fsRender() {
 function fspData(j) {
   const ct = (j && (j.ct || j.contrato)) || '';
   if (!ct) return '<span class="fsp-ct sem" title="contrato não informado">—</span>';
-  const M = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   const livre = ct.slice(0, 7) <= FS_LIVRE_ATE;
   return '<span class="fsp-ct' + (livre ? ' livre' : '') + '" title="contrato até ' + esc(ct) +
-    (livre ? ' — vence a tempo da temporada 2027' : '') + '">' +
-    M[parseInt(ct.slice(5, 7), 10) - 1] + '/' + ct.slice(2, 4) + '</span>';
+    (livre ? ' — vence a tempo da temporada 2027' : '') + '">' + mesAnoCurto(ct) + '</span>';
 }
 /* `itens`: { pk, j, idx, band, ja, motivo }. `pk` vazio = linha desabilitada. */
 function fspPreencher(el, rotulo, itens, aoEscolher) {
@@ -3150,6 +3187,7 @@ function fspPreencher(el, rotulo, itens, aoEscolher) {
         (x.idx == null ? '' : '<span class="fsp-i ' +
           (x.idx >= 67 ? 'a' : x.idx >= 40 ? 'm' : 'b') +
           '" title="índice físico geral">' + x.idx + '</span>') +
+        raioIcone(x.pkRaio || x.pk) +
         '<b class="fsp-nome">' + (x.band || '') + esc(x.j.n) + '</b>' +
         '<span class="fsp-time">' + esc(x.j.t || '') + '</span>' +
         (x.motivo ? '<span class="fsp-ja">' + esc(x.motivo) + '</span>' : '') +
@@ -3248,7 +3286,7 @@ function fsBuscar() {
     .sort((a, b) => (a.p === fsPos ? 0 : 1) - (b.p === fsPos ? 0 : 1) || a.n.localeCompare(b.n)).slice(0, 14);
   lista.innerHTML = achados.length
     ? achados.map(j => '<div class="msel-item fsp-item" data-pk="' + esc(primaryKey(j)) + '">' +
-        '<span class="fsp-p">' + esc(sig(j.p)) + '</span>' +
+        '<span class="fsp-p">' + esc(sig(j.p)) + '</span>' + raioIcone(primaryKey(j)) +
         '<b class="fsp-nome">' + esc(j.n) + '</b>' +
         '<span class="fsp-time">' + esc(j.t) + ' · ' + esc(j.l) + '</span>' +
         fspData(j) + '</div>').join('')
@@ -3290,6 +3328,7 @@ function fsMontarElenco() {
     const ja = !!pk && fsExtras.includes(pk);
     return {
       pk: ja ? '' : pk,
+      pkRaio: pk,
       idx: null,
       pos: sig((x.b || {}).p || x.j.posOrig || ''),
       j: { n: (x.b || {}).n || x.j.nome,
@@ -3611,6 +3650,219 @@ function fsMontarFiltros() {
   };
 }
 
+/* ---------------- aba Financeiro: estrutura salarial ----------------
+   O campograma responde "quem"; esta aba responde "quanto custa de verdade, e quanto o
+   atleta leva para casa". Sao numeros diferentes e e ai que mora a confusao de todo
+   planejamento de elenco: o clube fala em CUSTO EFETIVO, o empresario fala em LIQUIDO.
+
+   A conta, por faixa salarial do campograma:
+     custo efetivo  = o que esta no card (o que o clube gasta por mes com o atleta)
+     pacote bruto   = custo efetivo ÷ (1 + encargos)      — encargos sobre a carteira
+     carteira/imagem= divisao do pacote bruto (padrao 60/40)
+     liquido no mes = carteira × (1 − IR/INSS) + imagem × (1 − alíquota da PJ)
+     custo no periodo = custo efetivo × 13 (12 meses + 13º), proporcional se o contrato
+                        comecar no meio do ano
+     liquido total  = liquido × meses + 13º e 1/3 de ferias sobre a parcela em carteira
+
+   As DUAS aliquotas sao editaveis e ficam gravadas com o cenario. Sao elas que decidem
+   as colunas de liquido, e nao ha uma resposta unica: depende do enquadramento da PJ e
+   da faixa de IR do atleta. Os padroes (28% e 15%) sao ponto de partida, nao verdade. */
+const FIN_PADRAO = { encargos: 6.95, carteira: 60, irCarteira: 28, aliqImagem: 15, meses: 12 };
+function fin() {
+  estado.fin = Object.assign({}, FIN_PADRAO, estado.fin || {});
+  return estado.fin;
+}
+function finPeriodos(meses) { return meses * 13 / 12; }   /* 12 meses = 13 periodos */
+
+function finFaixas() {
+  const f = fin(), mapa = new Map();
+  todosJogadores().forEach(j => {
+    const sal = Number(j.salario) || 0;
+    const k = String(sal);
+    if (!mapa.has(k)) mapa.set(k, { sal, n: 0, nomes: [] });
+    const g = mapa.get(k);
+    g.n++; g.nomes.push(j.nome);
+  });
+  return [...mapa.values()].sort((a, b) => b.sal - a.sal).map(g => {
+    const bruto = g.sal / (1 + f.encargos / 100);
+    const carteira = bruto * f.carteira / 100;
+    const imagem = bruto - carteira;
+    const liqMes = carteira * (1 - f.irCarteira / 100) + imagem * (1 - f.aliqImagem / 100);
+    const custoPer = g.sal * finPeriodos(f.meses);
+    /* 13º e 1/3 de ferias incidem so na parcela em carteira */
+    const extras = carteira * (1 - f.irCarteira / 100) * (1 + 1 / 3) * (f.meses / 12);
+    const liqTotal = liqMes * f.meses + extras;
+    return Object.assign(g, { bruto, carteira, imagem, liqMes, custoPer, liqTotal,
+                              liqMedia: f.meses ? liqTotal / f.meses : 0 });
+  });
+}
+
+function finRender() {
+  const alvo = $('#finTabela');
+  if (!alvo) return;
+  const f = fin();
+  const faixas = finFaixas();
+  const comSal = faixas.filter(g => g.sal > 0);
+  const semSal = faixas.find(g => g.sal === 0);
+  const atletas = comSal.reduce((a, g) => a + g.n, 0);
+  /* custoPer e POR ATLETA — o projetado tem de multiplicar pela quantidade da faixa */
+  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) +
+                   (estado.comissao || 0) * finPeriodos(f.meses);
+  const tetoAno = (estado.teto || 0) * finPeriodos(f.meses);
+
+  $('#finKpis').innerHTML =
+    finKpi('Orçamento anual', brl(tetoAno), 'teto de ' + brl(estado.teto) + ' × ' +
+           finPeriodos(f.meses).toFixed(2).replace('.', ',') + ' períodos') +
+    finKpi('Custo projetado', brl(custoAno),
+           (custoAno > tetoAno ? 'acima do teto em ' + brl(custoAno - tetoAno)
+                               : 'sobra ' + brl(tetoAno - custoAno)) +
+           ' · comissão inclusa', custoAno > tetoAno ? 'ruim' : 'bom') +
+    finKpi('Elenco com salário', atletas + (atletas === 1 ? ' atleta' : ' atletas'),
+           semSal ? semSal.n + ' ainda sem salário definido' : 'todos definidos');
+
+  const linha = (g, semSalario) =>
+    '<tr' + (semSalario ? ' class="fin-sem"' : '') + ' title="' +
+      esc(g.nomes.slice(0, 12).join(', ') + (g.nomes.length > 12 ? '…' : '')) + '">' +
+    '<td class="fin-faixa">' + (semSalario ? 'Sem salário' : brl(g.sal)) + '</td>' +
+    '<td class="fin-n">' + g.n + '</td>' +
+    '<td class="fin-per">' + f.meses + ' meses</td>' +
+    (semSalario
+      ? '<td colspan="6" class="fin-vazio">atletas no campograma sem valor definido — ' +
+        'não entram na conta</td>'
+      : '<td><b>' + brl(g.bruto) + '</b></td>' +
+        '<td class="fin-split">' + brl(g.carteira) + '<span>+ ' + brl(g.imagem) + '</span></td>' +
+        '<td>' + brl(g.liqMes) + '</td>' +
+        '<td>' + brl(g.custoPer) + '</td>' +
+        '<td>' + brl(g.liqTotal) + '</td>' +
+        '<td class="fin-media">' + brl(g.liqMedia) + '</td>') +
+    '</tr>';
+
+  const total = comSal.reduce((a, g) => ({
+    n: a.n + g.n, bruto: a.bruto + g.bruto * g.n, custo: a.custo + g.custoPer * g.n,
+    liq: a.liq + g.liqTotal * g.n,
+  }), { n: 0, bruto: 0, custo: 0, liq: 0 });
+
+  alvo.innerHTML =
+    '<thead><tr>' +
+      '<th>Custo<br>efetivo</th><th>Nº</th><th>Período</th>' +
+      '<th>Pacote bruto<br>mensal</th><th>Carteira ' + f.carteira + '%<br>+ imagem ' +
+        (100 - f.carteira) + '%</th><th>Líquido no<br>mês normal</th>' +
+      '<th>Custo do clube<br>por atleta</th><th>Líquido total<br>por atleta</th>' +
+      '<th>Média líquida<br>mensal</th>' +
+    '</tr></thead><tbody>' +
+    comSal.map(g => linha(g, false)).join('') +
+    (semSal ? linha(semSal, true) : '') +
+    '</tbody><tfoot><tr>' +
+      '<td class="fin-faixa">Total</td><td class="fin-n">' + total.n + '</td><td></td>' +
+      '<td><b>' + brl(total.bruto) + '</b></td><td></td><td></td>' +
+      '<td>' + brl(total.custo) + '</td><td>' + brl(total.liq) + '</td><td></td>' +
+    '</tr></tfoot>';
+
+  ['encargos', 'carteira', 'irCarteira', 'aliqImagem', 'meses'].forEach(k => {
+    const el = $('#fin_' + k);
+    if (el && document.activeElement !== el) el.value = String(f[k]).replace('.', ',');
+  });
+}
+function finKpi(rot, val, obs, cls) {
+  return '<div class="fin-kpi' + (cls ? ' ' + cls : '') + '"><span>' + esc(rot) + '</span>' +
+    '<b>' + val + '</b><i>' + esc(obs || '') + '</i></div>';
+}
+function finLigar() {
+  ['encargos', 'carteira', 'irCarteira', 'aliqImagem', 'meses'].forEach(k => {
+    const el = $('#fin_' + k);
+    if (!el) return;
+    el.oninput = () => {
+      const v = parseFloat(String(el.value).replace(',', '.'));
+      if (!isNaN(v)) { fin()[k] = v; salvarLocal(); finRender(); }
+    };
+  });
+}
+
+/* ---------------- raio físico ⚡, a mesma régua do Ranking (:5053) ----------------
+   O raio responde uma pergunta so: contra o JOGADOR-REFERENCIA da posicao, esse atleta
+   e superior (verde), parecido (amarelo) ou abaixo (vermelho)? As referencias e os
+   parametros sao os mesmos do Ranking (config/fisico_ref_posicao.json de la, copiados
+   para dados/raio_ref.json), entao um jogador lido nos dois lugares conta a mesma
+   historia — o que muda e a populacao que da o desvio-padrao, que aqui e a desta base.
+
+   Conta: z de cada um dos 5 KPIs = (jogador - referencia) / desvio da posicao. Cada z e
+   limitado a ±1 ANTES da media (um KPI extremo nao decide sozinho). Media >= +0,75 e
+   verde, <= -0,75 e vermelho, o meio e amarelo. Fora disso ha dois atalhos, iguais aos
+   de la: DOMINANCIA (mediana dos z >= 0,5, no maximo 2 eixos perdidos com folga e
+   maioria dos eixos ganhos) puxa para verde mesmo com a media segurada pelo limite, e o
+   espelho negativo puxa para vermelho. Goleiro fica de fora — o raio e de jogador de
+   linha. */
+let RAIO = null;          /* dados/raio_ref.json */
+let RAIO_MAPA = null;     /* primary_key -> classificacao */
+
+async function raioCarregar() {
+  try {
+    const v = window.__verDados ? '?v=' + window.__verDados : '';
+    const r = await fetch('dados/raio_ref.json' + v);
+    RAIO = await r.json();
+  } catch (e) { RAIO = null; }
+  RAIO_MAPA = null;
+}
+
+function raioMapa() {
+  if (RAIO_MAPA) return RAIO_MAPA;
+  RAIO_MAPA = new Map();
+  if (!RAIO || !BASE.length) return RAIO_MAPA;
+  const P = RAIO.params, KP = RAIO.kpis;
+  Object.keys(RAIO.refs).forEach(pos => {
+    const rv = RAIO.refs[pos].valores;
+    /* populacao da posicao: quem tem os 5 KPIs e jogos fisicos suficientes */
+    const pop = BASE.filter(j => j.p === pos && (Number(j.sc_n) || 0) >= P.min_perf &&
+      KP.every(k => typeof j[k] === 'number' && !isNaN(j[k])));
+    if (pop.length < 20) return;
+    const sd = {};
+    KP.forEach(k => {
+      const m = pop.reduce((a, j) => a + j[k], 0) / pop.length;
+      sd[k] = Math.sqrt(pop.reduce((a, j) => a + (j[k] - m) * (j[k] - m), 0) / pop.length) || 1;
+    });
+    pop.forEach(j => {
+      const zs = KP.map(k => (j[k] - rv[k]) / sd[k]);
+      const n = zs.length;
+      const mz = zs.reduce((a, z) => a + Math.max(-P.zcap, Math.min(P.zcap, z)), 0) / n;
+      const ord = zs.slice().sort((a, b) => a - b);
+      const med = n % 2 ? ord[(n - 1) / 2] : (ord[n / 2 - 1] + ord[n / 2]) / 2;
+      const perdas = zs.filter(z => z <= -0.5).length;
+      const ganhos = zs.filter(z => z > 0).length;
+      const npp = Number(j.sc_n) || 0;
+      let dom = med >= P.med_verde && perdas <= P.dom_max_perdas &&
+                ganhos > n / 2 && npp >= P.dom_min_npp;
+      if (!dom && P.dom_elite_z != null) {
+        dom = Math.max.apply(null, zs) >= P.dom_elite_z && med > 0 &&
+              perdas <= P.dom_max_perdas && ganhos > n / 2 && npp >= P.dom_min_npp;
+      }
+      const domneg = med <= P.med_vermelho && ganhos <= P.dom_max_ganhos && npp >= P.dom_min_npp;
+      const c = (mz >= P.banda || dom) ? 'sup' : (mz <= -P.banda || domneg) ? 'bax' : 'sim';
+      RAIO_MAPA.set(primaryKey(j), { c, z: mz, med, w: ganhos, na: n, n: npp, dom, domneg, pos });
+    });
+  });
+  return RAIO_MAPA;
+}
+
+const RAIO_ROT = { sup: 'SUPERIOR', sim: 'SIMILAR', bax: 'ABAIXO' };
+/* `pk` e a primary_key; devolve '' quando nao ha classificacao (goleiro, sem tracking,
+   posicao sem referencia ou populacao pequena demais para um desvio confiavel). */
+function raioIcone(pk) {
+  const o = raioMapa().get(pk);
+  if (!o) return '';
+  const ref = ((RAIO.refs[o.pos] || {}).nome) || 'referência';
+  const sinal = o.z > 0 ? '+' : '';
+  const curto = o.n < RAIO.params.dom_min_npp;
+  let t = 'Físico ' + RAIO_ROT[o.c] + ' à referência da posição (' + ref + ')' +
+          ' — Δz méd ' + sinal + o.z.toFixed(2) +
+          ' · mediana ' + (o.med > 0 ? '+' : '') + o.med.toFixed(2) +
+          ' · ganha em ' + o.w + ' de ' + o.na + ' eixos';
+  if (o.dom) t += ' · verde por DOMINÂNCIA (maioria dos eixos com margem)';
+  if (o.domneg) t += ' · vermelho por DOMINÂNCIA NEGATIVA';
+  if (curto) t += ' · AMOSTRA CURTA: só ' + o.n + ' jogos rastreados';
+  return '<span class="raio raio-' + o.c + (curto ? ' raio-curto' : '') + '" title="' + esc(t) +
+    '"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>';
+}
+
 /* ---------------- premissas ----------------
    Ficam no servidor (dados/premissas.json, via /api/premissas) e nao no navegador:
    sao o combinado do trabalho, nao preferencia de tela — precisam sobreviver a troca
@@ -3621,11 +3873,6 @@ let PREMISSAS = [];
    viver no navegador de quem abre. Cada visitante tem os seus. */
 const ESTATICO = !!window.__estatico;
 const CHAVE_PREM_LOCAL = 'sc2027_premissas';
-
-async function prCarregar() {
-  PREMISSAS = await prLer();
-  prRender();
-}
 
 async function prLer() {
   if (ESTATICO) {
@@ -3640,65 +3887,30 @@ async function prLer() {
   } catch (e) { return []; }
 }
 
+function prEstado(txt, apagarEm) {
+  const el = $('#anEstado');
+  if (!el) return;
+  el.textContent = txt;
+  if (apagarEm) setTimeout(() => { if (el.textContent === txt) el.textContent = ''; }, apagarEm);
+}
 async function prGravar() {
   if (ESTATICO) {
     try { localStorage.setItem(CHAVE_PREM_LOCAL, JSON.stringify(PREMISSAS)); } catch (e) {}
-    $('#prEstado').textContent = 'guardado neste navegador';
-    setTimeout(() => { $('#prEstado').textContent = ''; }, 2500);
+    prEstado('guardado neste navegador', 2500);
     return;
   }
-  $('#prEstado').textContent = 'gravando…';
+  prEstado('gravando…');
   try {
     const r = await fetch('api/premissas', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(PREMISSAS),
     });
     if (!r.ok) throw new Error(r.status);
-    $('#prEstado').textContent = 'gravado';
-    setTimeout(() => { $('#prEstado').textContent = ''; }, 2000);
+    prEstado('gravado', 2000);
   } catch (e) {
-    $('#prEstado').textContent = 'falhou ao gravar';
+    prEstado('falhou ao gravar');
     toast('Não consegui gravar as premissas', 'ruim');
   }
-}
-
-function prRender() {
-  const alvo = $('#prLista');
-  if (!alvo) return;
-  const busca = fsNorm(($('#prBusca') && $('#prBusca').value) || '');
-  const vistas = PREMISSAS.filter(p => !busca ||
-    fsNorm(p.grupo + ' ' + p.titulo + ' ' + p.texto).includes(busca));
-  const grupos = [];
-  vistas.forEach(p => {
-    let g = grupos.find(x => x.nome === p.grupo);
-    if (!g) grupos.push(g = { nome: p.grupo, itens: [] });
-    g.itens.push(p);
-  });
-
-  alvo.innerHTML = grupos.length ? grupos.map(g =>
-    '<section class="pr-grupo"><h3>' + esc(g.nome) + '<span>' + g.itens.length + '</span></h3>' +
-    g.itens.map(p =>
-      '<article class="pr-item" data-id="' + esc(p.id) + '">' +
-        '<div class="pr-cab"><b>' + esc(p.titulo) + '</b>' +
-          (p.fonte === 'inicial' ? '' : '<span class="pr-nova">acrescentada</span>') +
-          '<button class="pr-editar" title="Editar">✎</button>' +
-          '<button class="pr-apagar" title="Apagar">×</button></div>' +
-        '<p>' + esc(p.texto) + '</p>' +
-      '</article>').join('') + '</section>').join('')
-    : '<div class="vazio">Nenhuma premissa com esse texto.</div>';
-
-  $$('#prLista .pr-editar').forEach(b => {
-    b.onclick = () => prEditar(b.closest('.pr-item').dataset.id);
-  });
-  $$('#prLista .pr-apagar').forEach(b => {
-    b.onclick = () => {
-      const id = b.closest('.pr-item').dataset.id;
-      const p = PREMISSAS.find(x => x.id === id);
-      if (!p || !confirm('Apagar a premissa "' + p.titulo + '"?')) return;
-      PREMISSAS = PREMISSAS.filter(x => x.id !== id);
-      prRender(); anPremissasRender(); prGravar();
-    };
-  });
 }
 
 function prEditar(id) {
@@ -3706,29 +3918,17 @@ function prEditar(id) {
   if (!p) return;
   const titulo = prompt('Título da premissa:', p.titulo);
   if (titulo === null) return;
-  const texto = prompt('Texto:', p.texto);
+  const texto = prompt('O que isso quer dizer na prática:', p.texto);
   if (texto === null) return;
-  const grupo = prompt('Grupo (Orçamento, Elenco, Dados, Físico…):', p.grupo);
-  if (grupo === null) return;
-  Object.assign(p, { titulo: titulo.trim(), texto: texto.trim(), grupo: grupo.trim() || 'Geral' });
-  prRender(); prGravar();
+  Object.assign(p, { titulo: titulo.trim(), texto: texto.trim() });
+  anPremissasRender(); prGravar();
 }
 
-function prNova() {
-  const titulo = prompt('Título da premissa:');
-  if (!titulo || !titulo.trim()) return;
-  const texto = prompt('Texto — o que fica combinado:') || '';
-  const grupos = [...new Set(PREMISSAS.map(p => p.grupo))];
-  const grupo = prompt('Grupo (' + grupos.join(', ') + '):', grupos[0] || 'Geral');
-  PREMISSAS.push({ id: 'u' + Date.now(), grupo: (grupo || 'Geral').trim(),
-                   titulo: titulo.trim(), texto: texto.trim(), fonte: 'usuario' });
-  prRender(); prGravar();
-  toast('Premissa acrescentada');
-}
-
-/* As premissas de MONTAGEM aparecem tambem no topo da Analise do elenco: e la que se
-   decide onde gastar, e a decisao tem de estar ao lado do norte que a orienta. Mesma
-   base da aba Premissas — um lugar so, dois pontos de leitura. */
+/* As premissas da MONTAGEM ficam no topo da Analise do elenco: e la que se decide onde
+   gastar, e a decisao tem de estar ao lado do norte que a orienta. Havia tambem uma aba
+   Premissas listando TODOS os grupos (montagem, orcamento, elenco, dados); ela saiu, por
+   pedido — os grupos tecnicos continuam gravados em dados/premissas.json e valendo, so
+   nao tem mais tela. */
 const GRUPO_MONTAGEM = 'Montagem do elenco';
 
 function anPremissasRender() {
@@ -3739,17 +3939,21 @@ function anPremissasRender() {
     '<article class="an-pr-item" data-id="' + esc(p.id) + '">' +
       '<span class="an-pr-n">' + (i + 1) + '</span>' +
       '<div><b>' + esc(p.titulo) + '</b><p>' + esc(p.texto) + '</p></div>' +
+      '<button class="an-pr-ed" title="Editar">✎</button>' +
       '<button class="an-pr-x" title="Tirar esta premissa">×</button>' +
     '</article>').join('')
     : '<div class="dica">Nenhuma premissa de montagem ainda — use o ＋ acrescentar.</div>';
 
+  $$('#anPrLista .an-pr-ed').forEach(b => {
+    b.onclick = () => prEditar(b.closest('.an-pr-item').dataset.id);
+  });
   $$('#anPrLista .an-pr-x').forEach(b => {
     b.onclick = () => {
       const id = b.closest('.an-pr-item').dataset.id;
       const p = PREMISSAS.find(x => x.id === id);
       if (!p || !confirm('Tirar a premissa "' + p.titulo + '"?')) return;
       PREMISSAS = PREMISSAS.filter(x => x.id !== id);
-      anPremissasRender(); prRender(); prGravar();
+      anPremissasRender(); prGravar();
     };
   });
 }
@@ -3765,9 +3969,8 @@ function anNovaPremissa() {
   const texto = prompt('O que isso quer dizer na prática:') || '';
   PREMISSAS.unshift({ id: 'u' + Date.now(), grupo: GRUPO_MONTAGEM,
                       titulo: titulo.trim(), texto: texto.trim(), fonte: 'usuario' });
-  anPremissasRender(); prRender();
-  $('#anEstado').textContent = 'gravando…';
-  prGravar().then(() => { $('#anEstado').textContent = ''; });
+  anPremissasRender();
+  prGravar();
   toast('Premissa acrescentada');
 }
 
@@ -3777,12 +3980,12 @@ function irParaAba(nome) {
   $('#pgContrato').classList.toggle('oculta', nome !== 'contrato');
   $('#pgFisico').classList.toggle('oculta', nome !== 'fisico');
   $('#pgAnalise').classList.toggle('oculta', nome !== 'analise');
-  $('#pgPremissas').classList.toggle('oculta', nome !== 'premissas');
+  $('#pgFinanceiro').classList.toggle('oculta', nome !== 'financeiro');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
-  if (nome === 'premissas' && !PREMISSAS.length) prCarregar();
   if (nome === 'analise') anPremissasCarregar();
+  if (nome === 'financeiro') finRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -3971,9 +4174,8 @@ function ligar() {
     sincronizarBotoes(); salvarLocal(); renderCampo();
   };
   $$('.aba').forEach(b => { b.onclick = () => irParaAba(b.dataset.aba); });
-  $('#prNova').onclick = prNova;
   $('#anNova').onclick = anNovaPremissa;
-  $('#prBusca').oninput = debounce(prRender, 150);
+  finLigar();
 
   const menu = (btId, menuId) => {
     const bt = $(btId), mn = $(menuId);
@@ -4148,6 +4350,7 @@ async function iniciar() {
       } catch (e) { console.warn('histórico indisponível', e); }
     }
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
+    await raioCarregar();
     reancorar();
     /* o primeiro render() acontece antes deste fetch — sem redesenhar, os cards
        ficariam sem a minutagem ate a proxima mexida no elenco */
