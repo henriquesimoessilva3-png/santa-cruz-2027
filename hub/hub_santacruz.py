@@ -21,6 +21,11 @@ APPS = [
         "url": "http://localhost:5090",
         "icone": "&#9917;",
         "detalhe": "11 posições · 40 mil jogadores · ficha técnica e física · PDF e Excel",
+        # Codigo no GitHub. NAO e o app rodando: o GitHub guarda arquivo, nao roda
+        # Python — abrir isto mostra o codigo-fonte, nao o campograma. Para um
+        # endereco que ABRA o app falta um servidor que rode Flask (o render.yaml
+        # ja esta pronto; falta a conta no Render).
+        "codigo": "https://github.com/henriquesimoessilva3-png/santa-cruz-2027",
         # depois de publicar no Render, ponha aqui o endereco que ele devolver:
         # "web": "https://santa-cruz-2027.onrender.com",
     },
@@ -100,6 +105,8 @@ PAGINA = """<!doctype html>
   .estado{color:var(--tinta3)}
   .estado.on{color:var(--verde);font-weight:600}
   .web{margin-left:auto;color:var(--coral-cl);font-weight:700;cursor:pointer}
+  .codigo{margin-left:10px;color:var(--tinta3);font-weight:700;cursor:pointer}
+  .codigo:hover{text-decoration:underline;color:var(--tinta)}
   .so-local{margin-left:auto;color:var(--tinta3);font-size:10px}
   .web:hover{text-decoration:underline}
   .vazio{color:var(--tinta3);font-size:12.5px;padding:18px;border:1px dashed var(--borda2);
@@ -134,6 +141,8 @@ PAGINA = """<!doctype html>
         <span class="porta">:{{ a.porta }}</span>
         {% if a.web %}<span class="web" onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.web }}','_blank')">web ↗</span>
         {% else %}<span class="so-local" title="ainda não publicado na web">só local</span>{% endif %}
+        {% if a.codigo %}<span class="codigo" title="Código-fonte no GitHub (repositório privado). Não abre o app: o GitHub guarda arquivo, não roda Python."
+          onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.codigo }}','_blank')">código ↗</span>{% endif %}
       </div>
     </a>
     {% endfor %}
