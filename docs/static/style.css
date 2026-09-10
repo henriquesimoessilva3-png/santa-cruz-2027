@@ -1404,8 +1404,6 @@ body:not(.claro){
 .fs-bar b{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--tinta3)}
 .fs-c.alto .fs-bar b{background:var(--verde)}
 .fs-c.baixo .fs-bar b{background:var(--coral)}
-.fs-c.lider{outline:2px solid #e2a51f;outline-offset:-2px;background:#e2a51f16;position:relative;z-index:2}
-.fs-c.lider .v{font-weight:700;color:#e2a51f}
 .fs-c.media .v{color:var(--tinta3)}
 .fs-c.vazio .v{color:var(--tinta3);opacity:.45}
 
@@ -1658,7 +1656,6 @@ body.claro{ --fs-cel:#eef3fb; --fs-cel-alt:#e7eefa; --fs-trilho:#d3e0f2; }
 #fsMatriz .fs-c.media .fs-bar{background:var(--trilho)}
 #fsMatriz .fs-c.vazio{background:transparent!important}
 /* o lider continua vencendo o fundo */
-#fsMatriz tbody td.fs-c.lider{background:#e2a51f1f!important}
 
 /* ---------- faixa do grupo numa linha so ----------
    A descricao quebrava em tres linhas dentro dos 188px da coluna de rotulos e a faixa
@@ -1678,7 +1675,6 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 #fsMatriz tbody tr:nth-of-type(even) td.fs-c{background:var(--fs-cel-alt)}
 #fsMatriz tbody tr td.fs-c.media{background:transparent}
 #fsMatriz tbody tr td.fs-c.vazio{background:var(--fs-cel-alt);opacity:.55}
-#fsMatriz tbody tr td.fs-c.lider{background:#e2a51f1f}
 
 /* barra das colunas de media: neutra, e um pouco mais apagada que a dos jogadores */
 #fsMatriz .fs-c.media .fs-bar{background:var(--trilho)}
@@ -1789,7 +1785,9 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
   background:#22c55e1a;position:relative;z-index:2}
 #fsMatriz td.fs-c.bate-uma{outline:2px solid #e2a51f;outline-offset:-2px;
   background:#e2a51f14;position:relative;z-index:1}
-#fsMatriz td.fs-c.lider{outline:none;background:inherit}
+/* O lider da linha marca so o numero. `outline:none` aqui apagava o contorno de quem
+   batia as medias — e o lider costuma ser justamente quem bate: o Hygor, com 1,14 no
+   tempo ate o sprint contra 1,32 e 1,33 das medias, ficava sem marca nenhuma. */
 #fsMatriz td.fs-c.lider .v{font-weight:800;color:#fff}
 #fsMatriz td.fs-c.bate-duas .v{color:#fff}
 #fsMatriz td.fs-c.bate-uma .v{color:#fff}
