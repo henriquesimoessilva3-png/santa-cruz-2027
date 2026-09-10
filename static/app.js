@@ -2718,6 +2718,29 @@ let fsPos = 'MEI';
 let fsLigaLista = '';     /* campeonato escolhido para a lista por liga */
 const TODOS_CAMP = '*';   /* opcao "todos os campeonatos" dessa mesma lista */
 
+/* ---------------- resumo primeiro, detalhe ao clicar ----------------
+   Vinte e cinco indicadores por quinze colunas sao quase quatrocentas celulas, quase
+   todas marcadas — e quando tudo se destaca nada se destaca. A matriz abre com SEIS
+   linhas: o indice geral e o de cada grupo. Clicar num grupo abre os indicadores dele.
+   Nada se perdeu; o que mudou e quem decide o que aparece. O estado fica no navegador,
+   entao a tela volta como voce deixou. */
+let FS_ABERTOS = new Set();
+const CHAVE_FS_ABERTOS = 'sc2027_fs_abertos';
+try {
+  const g = JSON.parse(localStorage.getItem(CHAVE_FS_ABERTOS));
+  if (Array.isArray(g)) FS_ABERTOS = new Set(g);
+} catch (e) {}
+function fsAlternarGrupo(id) {
+  if (FS_ABERTOS.has(id)) FS_ABERTOS.delete(id); else FS_ABERTOS.add(id);
+  try { localStorage.setItem(CHAVE_FS_ABERTOS, JSON.stringify([...FS_ABERTOS])); } catch (e) {}
+  fsRender();
+}
+function fsChip(v, tit) {
+  if (v == null) return '<td></td>';
+  return '<td><span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +
+    '" title="' + esc(tit || 'Índice: média dos percentis na posição') + '">' + v + '</span></td>';
+}
+
 /* Bandeira por campeonato: a liga vem como "Argentina A", "Brasil B", "Espanha C" —
    o pais e o prefixo. Serve so para o olho achar o campeonato mais rapido numa lista
    de cinquenta. */
@@ -3120,15 +3143,27 @@ function fsRender() {
   if (linhasT.length && Object.keys(HIST.jogadores).length) {
     const mt = fsMediasTemporada(co, linhasT);
     const comHist = colunas.filter(c => c.h).length;
-    b += '<tr class="fs-grupo"><td title="Minutagem, gols e bola parada do Wyscout nas ' +
-      'temporadas ' + (HIST.temporadas || []).join(', ') + '"><b>Temporadas</b>' +
-      '<span>Wyscout · ' + (HIST.temporadas[0] || '') + '–' +
-      (HIST.temporadas[HIST.temporadas.length - 1] || '') + '</span></td>' +
-      medias.map(() => '<td></td>').join('') + (medias.length === 2 ? '<td></td>' : '') +
+    /* fechado, o bloco mostra o numero que resume os tres anos: minutos somados. E o
+       que se procura primeiro num jogador — quanto ele joga — e evita uma linha de
+       resumo vazia so por causa do triangulo. */
+    const lMin3 = linhasT.find(l => l.id === 'min3');
+    const abertoT = FS_ABERTOS.has('t');
+    const resumoT = c => {
+      if (!c.h) return '<td><span class="fs-sem">sem histórico</span></td>';
+      const v = lMin3 ? lMin3.val(c.h) : null;
+      return '<td>' + (v == null ? '' : '<span class="fs-min3" title="minutos somados nas ' +
+        'três temporadas">' + milhar(v) + '</span>') + '</td>';
+    };
+    b += '<tr class="fs-grupo abrivel' + (abertoT ? ' aberto' : '') + '" data-g="t"' +
+      ' title="Minutagem, gols e bola parada do Wyscout nas temporadas ' +
+      (HIST.temporadas || []).join(', ') + '"><td><i class="fs-seta">▸</i>' +
+      '<b>Temporadas</b><span>' + (abertoT ? 'Wyscout · ' + (HIST.temporadas[0] || '') + '–' +
+      (HIST.temporadas[HIST.temporadas.length - 1] || '') : 'minutos nas três') + '</span></td>' +
+      medias.map(m => '<td>' + (lMin3 && mt.todos ? '' : '') + '</td>').join('') +
+      (medias.length === 2 ? '<td></td>' : '') +
       refCols.map(() => '<td></td>').join('') +
-      colunas.map(c => '<td>' + (c.h ? '' : '<span class="fs-sem">sem histórico</span>') + '</td>').join('') +
-      tdVagas + '</tr>';
-    linhasT.forEach(l => {
+      colunas.map(resumoT).join('') + tdVagas + '</tr>';
+    if (abertoT) linhasT.forEach(l => {
       const vals = colunas.map(c => l.val(c.h));
       const validos = vals.filter(v => v != null);
       const melhor = validos.length ? Math.max.apply(null, validos) : null;
@@ -3166,7 +3201,7 @@ function fsRender() {
             '<span class="v">' + (l.casas ? fsFmt(v, l.casas) : milhar(v)) + '</span></div></td>';
         }).join('') + tdVagas + '</tr>';
     });
-    if (comHist < colunas.length) {
+    if (abertoT && comHist < colunas.length) {
       b += '<tr class="fs-aviso"><td colspan="' + (2 + colunas.length + vagas.length + medias.length + refCols.length) + '">' +
         (colunas.length - comHist) + ' de ' + colunas.length + ' sem histórico do Wyscout: ' +
         'o cruzamento entre temporadas é por nome e idade, e nomes ambíguos ficam de fora ' +
@@ -3174,16 +3209,30 @@ function fsRender() {
     }
   }
 
+  /* Medias e referencias tambem tem indice: sao mapas indicador->valor, que e
+     exatamente o que fsIndices() le. Sem isso a linha de resumo falaria so dos jogadores
+     e nao daria contra o que comparar. */
+  const idxDe = obj => (obj ? fsIndices(co, obj) : null);
+  const idxMedias = medias.map(m => idxDe(m.d.m));
+  const idxRefs = refCols.map(r => idxDe(r.d.valores));
+  const linhaResumo = (rot, sub, pegar, id) => {
+    const aberto = id != null && FS_ABERTOS.has(id);
+    return '<tr class="fs-grupo' + (id != null ? ' abrivel' : ' geral') +
+      (aberto ? ' aberto' : '') + '"' + (id != null ? ' data-g="' + esc(id) + '"' : '') +
+      '><td title="' + esc(rot + (sub ? ' — ' + sub : '')) + '">' +
+      (id != null ? '<i class="fs-seta">▸</i>' : '') +
+      '<b>' + esc(rot) + '</b>' + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</td>' +
+      idxMedias.map(x => fsChip(pegar(x))).join('') +
+      (medias.length === 2 ? '<td></td>' : '') +
+      idxRefs.map(x => fsChip(pegar(x))).join('') +
+      colunas.map(c => fsChip(pegar(c.idx))).join('') + tdVagas + '</tr>';
+  };
+
+  b += linhaResumo('Índice físico geral', 'média dos cinco grupos', x => x && x.geral, null);
+
   FS_GRUPOS.forEach((g, gi) => {
-    b += '<tr class="fs-grupo"><td title="' + esc(g.t + ' — ' + g.d) + '"><b>' + esc(g.t) +
-      '</b><span>' + esc(g.d) + '</span></td>' +
-      medias.map(() => '<td></td>').join('') + (medias.length === 2 ? '<td></td>' : '') +
-      refCols.map(() => '<td></td>').join('') +
-      colunas.map(c => {
-        const v = c.idx.grupos[gi];
-        return '<td>' + (v == null ? '' : '<span class="fs-idx ' + (v >= 67 ? 'a' : v >= 40 ? 'm' : 'b') +
-          '" title="Índice do grupo: média dos percentis">' + v + '</span>') + '</td>';
-      }).join('') + tdVagas + '</tr>';
+    b += linhaResumo(g.t, g.d, x => x && x.grupos[gi], 'g' + gi);
+    if (!FS_ABERTOS.has('g' + gi)) return;
     g.m.forEach(([k, rot, un, casas, menor]) => {
       const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));
       const validos = vals.filter(v => v != null);
@@ -3256,6 +3305,10 @@ function fsRender() {
     ' na comparação · <b>' + milhar(pool.length) + '</b> passam no filtro · régua: ' +
     co.lista.length + ' ' + esc(sig(fsPos)) + ' das Séries A e B (' + co.A.n + ' e ' + co.B.n + ')' +
     ' · jogadores de outras ligas entram na mesma régua';
+
+  $$('#fsMatriz tr.fs-grupo.abrivel').forEach(tr => {
+    tr.onclick = () => fsAlternarGrupo(tr.dataset.g);
+  });
 
   const btAdd = $('#fsMatriz .fs-add-bt');
   if (btAdd) btAdd.onclick = () => { const c = $('#fsBusca'); c.focus(); c.select(); };

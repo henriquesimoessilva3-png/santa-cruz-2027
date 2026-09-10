@@ -564,3 +564,24 @@ linha ao lado. Resolvido com `.fs-legenda i.<classe>`.
 `position:relative` + `z-index` 1..4 para a moldura de uma não ser cortada pela vizinha.
 O cabeçalho sticky estava em `z-index:3` — as células roxas (4) passavam **por cima** dele
 ao rolar. Cabeçalho foi para 30, a primeira coluna para 20 e o canto para 40.
+
+## Resumo primeiro, detalhe ao clicar (set/26)
+
+O usuário reclamou de excesso de informação — com razão: 25 indicadores × 15 colunas são
+quase 400 células, quase todas marcadas, e quando tudo se destaca nada se destaca.
+
+A matriz passou a abrir com **sete linhas**: Temporadas (fechado, mostrando os minutos
+somados das três), Índice físico geral e os cinco grupos. Cada grupo abre ao clique e
+mostra os indicadores dele. Nada foi removido — mudou quem decide o que aparece. O estado
+fica em `localStorage` (`sc2027_fs_abertos`), então a tela volta como foi deixada.
+
+**As médias e as referências ganharam índice**: `fsIndices()` lê um mapa
+indicador→valor, e `co.A.m`, `co.B.m` e `refs[pos].brasil.valores` são exatamente isso.
+Sem esses chips a linha de resumo falaria só dos jogadores e não daria contra o que
+comparar.
+
+Foram oferecidos quatro layouts (resumo por grupo, mapa de calor sem números, "só o que
+diferencia" escondendo indicadores sem dispersão, e ficha por jogador com radar). O
+usuário deixou a escolha comigo. Escolhi o resumo por grupo por cortar mais ruído sem
+tirar nada do alcance — os outros três seguem valendo como caminho, principalmente o
+"só o que diferencia", que resolveria o mesmo problema por outro ângulo.

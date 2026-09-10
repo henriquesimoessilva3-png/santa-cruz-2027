@@ -2132,3 +2132,17 @@ body.com-zoom #abasInfo::after{content:" · Esc ou clique no gramado para voltar
 .fs-legenda i.fs-bar-leg.cheia-verde::after{background:var(--verde);width:80%}
 .fs-legenda i.fs-bar-leg.cheia-ambar::after{background:#e2a51f;width:52%}
 .fs-leg-tit{font-weight:800;color:var(--tinta2);letter-spacing:.8px}
+
+/* ---------- resumo primeiro: grupos que abrem e fecham ---------- */
+#fsMatriz tr.fs-grupo.abrivel{cursor:pointer}
+#fsMatriz tr.fs-grupo.abrivel:hover td{background:var(--veu2)}
+#fsMatriz tr.fs-grupo td:first-child{display:flex;align-items:baseline;gap:5px}
+.fs-seta{font-style:normal;font-size:9px;color:var(--tinta3);flex:none;
+  transition:transform .12s;display:inline-block;transform-origin:45% 55%}
+#fsMatriz tr.fs-grupo.aberto .fs-seta{transform:rotate(90deg);color:var(--coral)}
+/* a linha do índice geral é o topo da leitura: um degrau acima das outras */
+#fsMatriz tr.fs-grupo.geral td{background:var(--veu2);border-bottom:1px solid var(--borda2)}
+#fsMatriz tr.fs-grupo.geral td:first-child b{font-size:11px;letter-spacing:.6px}
+#fsMatriz tr.fs-grupo.geral .fs-idx{font-size:11.5px;padding:2px 6px;min-width:26px}
+/* fechado, o bloco de temporadas mostra os minutos somados */
+.fs-min3{font-size:10px;font-weight:700;color:var(--tinta2);font-variant-numeric:tabular-nums}
