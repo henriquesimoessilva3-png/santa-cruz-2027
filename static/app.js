@@ -763,6 +763,26 @@ function barraMinutos(h) {
     }).join('') + '</span>';
 }
 
+/* uid do card sendo editado; null quando o modal esta criando um novo */
+let manualEditando = null;
+
+/* O mesmo modal cria e edita. Jogador de fora da base nao tem ficha para abrir —
+   editar e o que faz sentido no lugar dela. */
+function abrirManual(j) {
+  manualEditando = j ? j.uid : null;
+  $('#mnTitulo').textContent = j ? 'Editar ' + j.nome : 'Jogador fora da base';
+  $('#btManualOk').textContent = j ? 'Salvar' : 'Adicionar';
+  $('#mnNome').value = j ? j.nome : '';
+  $('#mnClube').value = j ? (j.clube === 'sem clube' ? '' : j.clube) : '';
+  $('#mnIdade').value = j && j.idade ? j.idade : '';
+  $('#mnSalario').value = j && j.salario ? milhar(j.salario) : '';
+  $('#mnContrato').value = j && j.contrato ? j.contrato.slice(0, 7) : '';
+  $('#mnEstrangeiro').checked = !!(j && j.estrangeiro);
+  $('#mnPais').value = j && j.estrangeiro ? (j.nac || '') : '';
+  $('#modalManual').classList.add('aberto');
+  setTimeout(() => $('#mnNome').focus(), 60);
+}
+
 function cardJog(cod, j) {
   const el = document.createElement('div');
   el.className = 'jog st-' + (j.status || 'alvo') + (j.titular ? ' titular' : '') +
@@ -799,7 +819,8 @@ function cardJog(cod, j) {
         (j.sugerido ? ' — sugerido pelo TransferRoom' : '') + '">' +
     '</div>' +
     (j.jid != null ? '<button class="jog-mais" title="Ver os detalhes do jogador">+</button>'
-                   : '<span class="jog-mais vazio"></span>') +
+     : j.manual ? '<button class="jog-mais editar" title="Editar este jogador">✎</button>'
+     : '<span class="jog-mais vazio"></span>') +
     '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
     '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
 
@@ -812,6 +833,11 @@ function cardJog(cod, j) {
 
   const nomeEl = el.querySelector('.jog-nome');
   if (j.jid != null) nomeEl.onclick = e => { if (!e.defaultPrevented) abrirFicha(j); };
+  else if (j.manual) {
+    nomeEl.classList.add('clicavel');
+    nomeEl.title = j.nome + ' — jogador fora da base; clique para editar';
+    nomeEl.onclick = e => { if (!e.defaultPrevented) abrirManual(j); };
+  }
 
   const inp = el.querySelector('input');
   inp.draggable = false;
@@ -832,7 +858,9 @@ function cardJog(cod, j) {
     e.stopPropagation();
     abrirMenuJogador(e.currentTarget, cod, j);
   };
-  const bMais = el.querySelector('button.jog-mais');
+  const bEditar = el.querySelector('button.jog-mais.editar');
+  if (bEditar) bEditar.onclick = e => { e.stopPropagation(); abrirManual(j); };
+  const bMais = el.querySelector('button.jog-mais:not(.editar)');
   if (bMais) bMais.onclick = e => { e.stopPropagation(); abrirFicha(j); };
 
   /* arrastar: ver iniciarArrasto(). Nao usamos o drag nativo porque o campo tem
@@ -940,6 +968,7 @@ function abrirMenuJogador(botao, cod, j) {
   m.className = 'menu menu-jog aberto';
   m.innerHTML =
     (j.jid != null ? '<button data-a="ficha">Ver ficha do jogador</button>' : '') +
+    (j.manual ? '<button data-a="editar">Editar dados do jogador</button>' : '') +
     '<button data-a="titular">' + (j.titular ? 'Deixar de ser titular' : 'Marcar como titular') + '</button>' +
     '<button data-a="estrangeiro">' + (j.estrangeiro ? 'Marcar como brasileiro' : 'Marcar como estrangeiro') + '</button>' +
     '<div class="menu-sep">Status</div>' +
@@ -976,6 +1005,8 @@ function abrirMenuJogador(botao, cod, j) {
       j.status = a.slice(3);
     } else if (a && a.startsWith('mv:')) {
       return moverJogador({ pos: cod, uid: j.uid }, a.slice(3), null, false);
+    } else if (a === 'editar') {
+      m.remove(); abrirManual(j); return;
     } else if (a === 'remover') {
       estado.elenco[cod] = estado.elenco[cod].filter(x => x.uid !== j.uid);
     }
@@ -3852,24 +3883,38 @@ function ligar() {
     toast('Grupo excluído');
   };
 
-  $('#btManual').onclick = () => {
-    ['#mnNome','#mnClube','#mnIdade','#mnSalario','#mnPais'].forEach(s => { $(s).value = ''; });
-    $('#mnEstrangeiro').checked = false;
-    $('#modalManual').classList.add('aberto');
-    setTimeout(() => $('#mnNome').focus(), 60);
-  };
+  $('#btManual').onclick = () => abrirManual(null);
   $('#btManualOk').onclick = () => {
     const nome = $('#mnNome').value.trim();
     if (!nome) { toast('Informe o nome', 'ruim'); return; }
-    const lista = estado.elenco[posAtual];
     const ex = $('#mnEstrangeiro').checked;
-    lista.push({
-      uid: uid(), jid: null, manual: 1, nome, clube: $('#mnClube').value.trim() || 'sem clube',
-      liga: '', idade: parseInt($('#mnIdade').value) || null, ov: null, contrato: '',
-      posOrig: posAtual, salario: paraNumero($('#mnSalario').value),
-      nac: ex ? ($('#mnPais').value.trim() || '') : 'Brazil', psp: '', estrangeiro: ex,
-      status: 'alvo', titular: lista.length === 0,
-    });
+    const mes = $('#mnContrato').value;                 // 'aaaa-mm' -> ultimo dia util do mes
+    const campos = {
+      nome, clube: $('#mnClube').value.trim() || 'sem clube',
+      idade: parseInt($('#mnIdade').value) || null,
+      contrato: mes ? mes + '-28' : '',
+      salario: paraNumero($('#mnSalario').value),
+      nac: ex ? ($('#mnPais').value.trim() || '') : 'Brazil', estrangeiro: ex,
+    };
+    if (manualEditando) {
+      /* tem de ser o objeto do estado. `todosJogadores()` devolve copias com a posicao
+         anexada — mexer nelas nao muda nada e o card volta igual. */
+      let j = null;
+      POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(x => {
+        if (x.uid === manualEditando) j = x;
+      }));
+      if (j) Object.assign(j, campos);
+      $('#modalManual').classList.remove('aberto');
+      manualEditando = null;
+      salvarLocal(); render();
+      toast(nome + ' atualizado', 'bom');
+      return;
+    }
+    const lista = estado.elenco[posAtual];
+    lista.push(Object.assign({
+      uid: uid(), jid: null, manual: 1, liga: '', ov: null, posOrig: posAtual,
+      psp: '', status: 'alvo', titular: lista.length === 0,
+    }, campos));
     $('#modalManual').classList.remove('aberto');
     salvarLocal(); render();
     toast(nome + ' adicionado em ' + sig(posAtual), 'bom');
