@@ -1,0 +1,11 @@
+{
+ "_doc": "Correções de posição sobre a base. A posição vem do Wyscout pela primeira sigla do campo Position, e às vezes ela não é a que o jogador realmente faz. Aqui a decisão fica escrita, com a fonte — a base pode ser regerada sem perder a correção. Chave = primary_key ('Nome - Clube - Liga'); troque também quando o jogador mudar de clube, porque a chave muda com ele.",
+ "overrides": {
+  "F. Nicola - Atlético Tucumán - Argentina A": {
+   "p": "CA",
+   "era": "MED",
+   "fonte": "oGol (ogol.com.br/jogador/franco-nicola/981690): Centroavante / Ponta Esquerda",
+   "quando": "2026-09-10"
+  }
+ }
+}

@@ -2709,6 +2709,7 @@ const FS_ROTULO = 188;    /* largura da coluna dos rotulos das linhas */
 const FS_COL_MIN = 92;    /* abaixo disso o nome do jogador nao cabe */
 let fsPos = 'MEI';
 let fsLigaLista = '';     /* campeonato escolhido para a lista por liga */
+const TODOS_CAMP = '*';   /* opcao "todos os campeonatos" dessa mesma lista */
 
 /* Bandeira por campeonato: a liga vem como "Argentina A", "Brasil B", "Espanha C" —
    o pais e o prefixo. Serve so para o olho achar o campeonato mais rapido numa lista
@@ -2851,11 +2852,20 @@ function fsQuemGanha(mA, mB, menor) {
    valendo para a bolinha da coluna e para o selo das listas. */
 const FS_LIVRE_ATE = '2027-01';
 function fsLivre(j) { return !!j.ct && j.ct.slice(0, 7) <= FS_LIVRE_ATE; }
-function fsContrato(j) {
-  if (!j.ct) return '<div class="fs-ct sem" title="contrato não informado">sem contrato</div>';
+/* `curto` e a versao de UMA linha, para o cabecalho da matriz: vira <span>, mes/ano
+   abreviado e sem a bolinha — o verde cheio ja e a marca. */
+function fsContrato(j, curto) {
+  if (!j.ct) {
+    return curto ? '<span class="fs-ct sem" title="contrato não informado">sem</span>'
+                 : '<div class="fs-ct sem" title="contrato não informado">sem contrato</div>';
+  }
   const livre = fsLivre(j);
-  return '<div class="fs-ct' + (livre ? ' livre' : '') + '" title="contrato até ' + esc(j.ct) +
-    (livre ? ' — vence até janeiro de 2027' : '') + '">' +
+  const tit = 'contrato até ' + j.ct + (livre ? ' — vence a tempo da temporada 2027' : '');
+  if (curto) {
+    return '<span class="fs-ct' + (livre ? ' livre' : '') + '" title="' + esc(tit) + '">' +
+      esc(mesAnoCurto(j.ct)) + '</span>';
+  }
+  return '<div class="fs-ct' + (livre ? ' livre' : '') + '" title="' + esc(tit) + '">' +
     (livre ? '<i></i>' : '') + esc(mesAno(j.ct) || '—') + '</div>';
 }
 
@@ -2881,8 +2891,12 @@ function fsCabecalho(c) {
     ' title="' + esc(j.n + ' — ' + ficha) + '">' +
     '<div class="fs-nome">' + raioIcone(primaryKey(j)) + '<b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
-    '<div class="fs-clube">' + esc(j.t) + (j.id_ ? ' <b>' + j.id_ + 'a</b>' : '') + '</div>' +
-    fsContrato(j) +
+    /* clube, idade e contrato numa LINHA so: em coluna de 130px cada um tomava uma
+       linha propria e o cabecalho comia meia tela. O clube corta com reticencias (o
+       nome inteiro esta no balao do <th>); idade e contrato nunca cortam. */
+    '<div class="fs-meta"><span class="fs-clube">' + esc(j.t) + '</span>' +
+      (j.id_ ? '<b class="fs-idade">' + j.id_ + 'a</b>' : '') +
+      fsContrato(j, true) + '</div>' +
     '<div class="fs-idx-linha">' +
       (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
         '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
@@ -3283,13 +3297,24 @@ function fsMontarSeries(co, colunas) {
   const ligas = Object.keys(cont).sort((a, b) => ordem(a) - ordem(b) || a.localeCompare(b));
   const selL = $('#fsLigaEscolha');
   if (selL) {
-    if (!ligas.includes(fsLigaLista)) fsLigaLista = ligas.find(l => ordem(l) === 0) || ligas[0] || '';
-    selL.innerHTML = '<option value="">escolher campeonato…</option>' + ligas.map(l =>
-      '<option value="' + esc(l) + '"' + (l === fsLigaLista ? ' selected' : '') + '>' +
-      bandeira(l) + esc(l) + ' (' + cont[l] + ')</option>').join('');
+    /* '*' = todos os campeonatos com tracking na posicao, numa lista so, ordenada pelo
+       indice fisico. E a pergunta "quem sao os melhores do mundo nesta posicao?", que
+       campeonato a campeonato nao da para responder. */
+    if (fsLigaLista !== TODOS_CAMP && !ligas.includes(fsLigaLista)) {
+      fsLigaLista = ligas.find(l => ordem(l) === 0) || ligas[0] || '';
+    }
+    selL.innerHTML = '<option value="">escolher campeonato…</option>' +
+      '<option value="' + TODOS_CAMP + '"' + (fsLigaLista === TODOS_CAMP ? ' selected' : '') +
+        '>🌐 todos os campeonatos (' + doPosto.length + ')</option>' +
+      ligas.map(l =>
+        '<option value="' + esc(l) + '"' + (l === fsLigaLista ? ' selected' : '') + '>' +
+        bandeira(l) + esc(l) + ' (' + cont[l] + ')</option>').join('');
   }
-  fsOpcoesLista($('#fsListaLiga'), doPosto.filter(j => j.l === fsLigaLista),
-                '＋ ' + bandeira(fsLigaLista) + (fsLigaLista || 'campeonato'), co, jaTem);
+  const todos = fsLigaLista === TODOS_CAMP;
+  fsOpcoesLista($('#fsListaLiga'), todos ? doPosto : doPosto.filter(j => j.l === fsLigaLista),
+                todos ? '＋ 🌐 todos os campeonatos'
+                      : '＋ ' + bandeira(fsLigaLista) + (fsLigaLista || 'campeonato'),
+                co, jaTem, true);
 }
 
 /* busca de qualquer jogador com tracking, em qualquer liga */
@@ -3791,6 +3816,38 @@ function finLigar() {
       if (!isNaN(v)) { fin()[k] = v; salvarLocal(); finRender(); }
     };
   });
+}
+
+/* ---------------- correções de posição ----------------
+   A posicao vem do Wyscout pela PRIMEIRA sigla do campo Position, e as vezes ela nao e
+   a que o jogador realmente faz — o F. Nicola do Atletico Tucuman entrava como Medio
+   sendo centroavante. Em vez de corrigir na mao a cada vez que a base e regerada, a
+   decisao fica escrita em dados/posicao_overrides.json, com a fonte.
+   ATENCAO: a chave e a primary_key ('Nome - Clube - Liga'), entao ela muda quando o
+   jogador troca de clube — e a correcao para de casar. O log avisa quando isso
+   acontece, em vez de falhar em silencio. */
+async function aplicarOverridesPosicao() {
+  let mapa;
+  try {
+    const v = window.__verDados ? '?v=' + window.__verDados : '';
+    const r = await fetch('dados/posicao_overrides.json' + v);
+    mapa = (await r.json()).overrides || {};
+  } catch (e) { return; }
+  const chaves = Object.keys(mapa);
+  if (!chaves.length) return;
+  const porPk = new Map(BASE.map(j => [primaryKey(j), j]));
+  let ok = 0;
+  const perdidos = [];
+  chaves.forEach(pk => {
+    const j = porPk.get(pk);
+    if (!j) { perdidos.push(pk); return; }
+    j.p = mapa[pk].p;
+    j.posOverride = true;
+    ok++;
+  });
+  fsBaseCache = null;
+  console.log('posições corrigidas:', ok, 'de', chaves.length,
+              perdidos.length ? '· sem match (jogador mudou de clube?): ' + perdidos.join(' | ') : '');
 }
 
 /* ---------------- raio físico ⚡, a mesma régua do Ranking (:5053) ----------------
@@ -4365,6 +4422,7 @@ async function iniciar() {
       } catch (e) { console.warn('histórico indisponível', e); }
     }
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
+    await aplicarOverridesPosicao();
     await raioCarregar();
     reancorar();
     /* o primeiro render() acontece antes deste fetch — sem redesenhar, os cards

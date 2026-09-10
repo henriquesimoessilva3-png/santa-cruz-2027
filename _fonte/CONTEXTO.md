@@ -397,3 +397,23 @@ cortado. Foi o que aconteceu com o `app.js` em cache. Os `!important` de
 `width/min-width/max-width/height/min-height/transform` em `body.com-zoom .campo`
 amarram isso pelo CSS, que vale mesmo com JS antigo; o `posZoom()` ainda zera a rolagem
 da área por garantia.
+
+**Cabeçalho do Físico em uma linha (set/26)**: clube, idade e contrato tinham uma linha
+cada — "Athletico Paranaense" sozinho quebrava em três — e com dez colunas o cabeçalho
+comia meia tela. Viraram uma linha só (`.fs-meta`): 93px de altura contra ~140px. Só o
+clube encolhe, com reticências e sem caixa alta (a caixa alta custava ~20% de largura); o
+nome inteiro fica no balão do `<th>`. O contrato virou badge curto (`dez/28`), verde cheio
+para quem vence até jan/27.
+
+**"Todos os campeonatos" na lista por liga (set/26)**: além de escolher um campeonato, dá
+para pedir os 511 da posição de uma vez, ordenados pelo índice físico, com bandeira por
+jogador. É a pergunta "quem são os melhores do mundo nesta posição?", que campeonato a
+campeonato não dá para responder.
+
+**Correções de posição (set/26)**: `dados/posicao_overrides.json`. A posição vem do Wyscout
+pela primeira sigla do campo `Position`, e nem sempre é o que o jogador faz — o F. Nicola
+do Atlético Tucumán entrava como Médio sendo centroavante (oGol: Centroavante / Ponta
+Esquerda). A correção fica escrita com a fonte e a data, e sobrevive à regeração da base.
+**Cuidado**: a chave é a primary_key (`Nome - Clube - Liga`), então ela quebra quando o
+jogador troca de clube — `aplicarOverridesPosicao()` avisa no console quais não casaram,
+em vez de falhar em silêncio.
