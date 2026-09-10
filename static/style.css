@@ -1891,3 +1891,19 @@ body.claro{ --fs-media-tinta:#22303f; }
 #fsSerieA{border-color:#22c55e55}
 #fsSerieB{border-color:#52a4eb55}
 .fs-combos option:disabled{color:var(--tinta3);font-style:italic}
+
+/* ---------- cabecalho das colunas: tudo centrado e dentro da propria celula ----------
+   A palavra "ganha" era mais larga que os 40px da coluna e, sem overflow:hidden,
+   invadia a celula vizinha. E o conteudo alinhado a esquerda numa coluna de 110px
+   deixava nome, clube e botoes em tres eixos diferentes. */
+#fsMatriz thead th{overflow:hidden}
+#fsMatriz th.fs-col,#fsMatriz th.fs-media{text-align:center;padding:7px 5px 6px}
+#fsMatriz th.fs-col .fs-nome,#fsMatriz th.fs-col .fs-clube,
+#fsMatriz th.fs-media b,#fsMatriz th.fs-media small{text-align:center}
+#fsMatriz th.fs-col .fs-ct,#fsMatriz th.fs-col .fs-idx-linha,
+#fsMatriz th.fs-col .fs-hd-bts{justify-content:center}
+#fsMatriz th.fs-media{vertical-align:top}
+#fsMatriz th.fs-media b{display:block;line-height:1.2}
+
+#fsMatriz th.fs-ganha-cab{width:38px;padding:0 2px;font-size:7px;letter-spacing:.2px;
+  line-height:1.1;overflow:hidden;text-overflow:clip}
