@@ -1,0 +1,699 @@
+<title>Dez marcações da referência</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Archivo+Narrow:wght@600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --fundo:#f2f5f9; --sup:#ffffff; --sup2:#e9eef5; --linha:#dce3ed; --linha2:#c3cddb;
+  --ink:#141b25; --ink2:#4b5768; --ink3:#7d8899;
+  --trilho:#dae1eb; --barra:#98a4b4;
+  --verde:#0f9b4c; --ambar:#b8820a; --bonina:#a8143c; --roxo:#7c3aed; --coral:#c8102e;
+  --verde-v:#0f9b4c22; --bonina-v:#a8143c1a; --roxo-v:#7c3aed1f;
+  --sombra:0 1px 2px #141b250d, 0 10px 30px #141b2512;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --fundo:#0d131b; --sup:#141c26; --sup2:#1a2431; --linha:#222e3d; --linha2:#31404f;
+    --ink:#e8eef6; --ink2:#a7b3c2; --ink3:#75818f;
+    --trilho:#202c3a; --barra:#5b6879;
+    --verde:#22c55e; --ambar:#e2a51f; --bonina:#e0466f; --roxo:#a855f7; --coral:#ef4358;
+    --verde-v:#22c55e1f; --bonina-v:#e0466f1f; --roxo-v:#a855f722;
+    --sombra:0 1px 2px #0006, 0 12px 34px #0007;
+  }
+}
+:root[data-theme="dark"]{
+  --fundo:#0d131b; --sup:#141c26; --sup2:#1a2431; --linha:#222e3d; --linha2:#31404f;
+  --ink:#e8eef6; --ink2:#a7b3c2; --ink3:#75818f;
+  --trilho:#202c3a; --barra:#5b6879;
+  --verde:#22c55e; --ambar:#e2a51f; --bonina:#e0466f; --roxo:#a855f7; --coral:#ef4358;
+  --verde-v:#22c55e1f; --bonina-v:#e0466f1f; --roxo-v:#a855f722;
+  --sombra:0 1px 2px #0006, 0 12px 34px #0007;
+}
+
+*{box-sizing:border-box}
+body{background:var(--fundo);color:var(--ink);
+  font-family:Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;padding:0 0 64px}
+.env{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* ---------- abertura ---------- */
+header{padding:44px 0 26px;border-bottom:1px solid var(--linha)}
+.eyebrow{font-family:"Archivo Narrow",Archivo,sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--coral)}
+h1{font-size:clamp(28px,4.2vw,42px);line-height:1.08;margin:10px 0 0;font-weight:700;
+  letter-spacing:-.02em;text-wrap:balance;max-width:18ch}
+header p{margin:14px 0 0;max-width:64ch;color:var(--ink2);font-size:15px}
+.contexto{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:22px;
+  font-size:12.5px;color:var(--ink3)}
+.contexto b{color:var(--ink2);font-weight:500}
+.contexto span{display:block}
+.contexto .rot{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block}
+
+/* ---------- proposta ---------- */
+.prop{padding:34px 0;border-bottom:1px solid var(--linha)}
+.prop-cab{display:flex;align-items:flex-start;gap:16px;margin-bottom:6px}
+.num{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px;
+  color:var(--coral);border:1px solid var(--coral);border-radius:50%;
+  width:28px;height:28px;flex:none;display:grid;place-items:center;margin-top:2px}
+.prop h2{font-size:21px;margin:0;font-weight:700;letter-spacing:-.01em}
+.prop .como{margin:2px 0 0;color:var(--ink2);font-size:14px;max-width:70ch}
+.custa{margin:12px 0 20px;padding-left:44px;font-size:13px;color:var(--ink3);max-width:76ch}
+.custa b{color:var(--bonina);font-weight:600}
+
+/* ---------- a matriz ---------- */
+.rolagem{overflow-x:auto;border:1px solid var(--linha);border-radius:10px;
+  background:var(--sup);box-shadow:var(--sombra)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:920px}
+th,td{padding:0;text-align:right}
+thead th{position:sticky;top:0;background:var(--sup2);z-index:2;
+  padding:9px 8px;border-bottom:1px solid var(--linha2);vertical-align:bottom}
+thead th .nome{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink);display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+thead th .sub{font-size:9.5px;color:var(--ink3);display:block;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;font-family:"IBM Plex Mono",monospace}
+thead th.rot{text-align:left;width:190px;min-width:190px}
+thead th.ref .nome{color:var(--bonina)}
+thead th.ref.mu .nome{color:var(--roxo)}
+tbody td{border-bottom:1px solid var(--linha);padding:3px 8px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+  font-variant-numeric:tabular-nums;color:var(--ink2)}
+tbody tr:last-child td{border-bottom:none}
+td.rot{text-align:left;color:var(--ink);font-family:Archivo,sans-serif;font-size:12px;
+  white-space:nowrap;padding-left:11px}
+td.rot small{color:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+  margin-left:6px}
+.cel{display:flex;align-items:center;gap:7px;min-width:0}
+.val{flex:none;width:46px;text-align:right;color:var(--ink)}
+.trilho{flex:1;min-width:20px;height:13px;border-radius:3px;background:var(--trilho);
+  position:relative;overflow:hidden}
+.trilho i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--barra)}
+.cor-duas i{background:var(--verde)} .cor-uma i{background:var(--ambar)}
+td.col-ref .trilho i{background:var(--bonina)}
+td.col-ref.mu .trilho i{background:var(--roxo)}
+td.col-ref{background:var(--sup2)}
+
+/* 1 — marca dentro do trilho */
+.trilho b{position:absolute;top:-1px;bottom:-1px;width:2px;border-radius:1px}
+.trilho b.br{background:var(--bonina);box-shadow:0 0 0 1px var(--sup)}
+.trilho b.mu{background:var(--roxo);box-shadow:0 0 0 1px var(--sup)}
+.p1 .trilho{overflow:visible}
+.p1 .trilho i{overflow:hidden}
+
+/* 2 — cor do número */
+.p2 .val.acima-br{color:var(--bonina);font-weight:600}
+.p2 .val.acima-mu{color:var(--roxo);font-weight:600}
+.p2 .val.media{color:var(--ink)}
+.p2 .trilho i{background:var(--barra)}
+
+/* 3 — fundo em degrau */
+.p3 td.dado{background:transparent}
+.p3 td.br{background:var(--bonina-v)}
+.p3 td.mu{background:var(--roxo-v)}
+.p3 .cel{justify-content:flex-end}
+.p3 .val{width:auto;min-width:46px}
+
+/* 4 — selo */
+.selo{flex:none;font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:8px;
+  letter-spacing:.08em;padding:1px 3px;border-radius:2px;line-height:1.3}
+.selo.br{background:var(--bonina);color:#fff}
+.selo.mu{background:var(--roxo);color:#fff}
+.p4 .val{width:44px}
+
+/* 5 — barra divergente a partir da ref. Brasil */
+.p5 .trilho{overflow:visible;background:var(--trilho)}
+.p5 .trilho i{left:auto;border-radius:2px}
+.p5 .trilho i.acima{background:var(--verde)}
+.p5 .trilho i.abaixo{background:var(--bonina);opacity:.55}
+.p5 .trilho .eixo{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);opacity:.8}
+.p5 .trilho b.mu{background:var(--roxo);box-shadow:0 0 0 1px var(--sup)}
+.p5 td.col-ref .trilho i{left:0;opacity:1}
+
+/* 6 — Barra em degraus */
+.p6 .trilho{height:15px;border-radius:0;background:var(--trilho);overflow:hidden}
+.p6 .trilho i{border-radius:0;top:0;bottom:0}
+.p6 td.col-ref .trilho{clip-path:none;border-radius:3px}
+.p6 td.col-ref .trilho i{border-radius:3px}
+.p6 .cel{align-items:flex-end}
+.p6 .val{line-height:15px}
+/* 7 — Barra em três trechos */
+.p7 .trilho{overflow:hidden;background:var(--trilho)}
+.p7 .trilho i{border-radius:0;z-index:1;background:var(--barra)}
+.p7 .trilho i.br{background:var(--bonina)}
+.p7 .trilho i.mu{background:var(--roxo)}
+.p7 .trilho b{top:0;bottom:0;border-radius:0;box-shadow:none}
+.p7 .trilho b.zona{width:auto;z-index:0}
+.p7 .trilho b.zona.br{background:var(--bonina-v)}
+.p7 .trilho b.zona.mu{background:var(--roxo-v)}
+.p7 .trilho b.corte{width:2px;background:var(--sup);z-index:2}
+.p7 td.col-ref .trilho i{left:0;border-radius:3px}
+.p7 .val{color:var(--ink)}
+/* 8 — Par de triângulos */
+.p8 .glifo{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:2px;width:22px;font-family:Archivo,-apple-system,"Segoe UI",sans-serif;font-size:8px;line-height:1;font-style:normal;cursor:default;user-select:none}
+.p8 .glifo b{font-weight:400;font-style:normal;color:var(--ink3);opacity:.4;transform:translateY(.5px)}
+.p8 .glifo b.br.sim{color:var(--bonina);opacity:1}
+.p8 .glifo b.mu.sim{color:var(--roxo);opacity:1}
+.p8 .val{width:44px}
+.p8 td.col-ref .cel{padding-right:22px}
+/* 9 — Saldo duplo */
+.p9 .cel{gap:8px;align-items:center;justify-content:flex-end}
+.p9 .val{width:46px;font-size:11.5px}
+.p9 .dif{flex:none;display:flex;flex-direction:column;gap:1px;line-height:1.1;font-size:9px;min-width:54px;text-align:right}
+.p9 .dif span{display:flex;justify-content:flex-end;align-items:baseline;gap:4px;white-space:nowrap;color:var(--ink3)}
+.p9 .dif small{font-family:"Archivo Narrow",Archivo,sans-serif;font-weight:700;font-size:7px;letter-spacing:.1em;color:var(--ink3);opacity:.75}
+.p9 .dif .n{font-variant-numeric:tabular-nums;min-width:34px;display:inline-block;text-align:right}
+.p9 .dif span.nao .n{color:var(--ink3)}
+.p9 .dif span.br.sim .n{color:var(--bonina);font-weight:600}
+.p9 .dif span.mu.sim .n{color:var(--roxo);font-weight:600}
+.p9 .dif span.br.sim small{color:var(--bonina);opacity:1}
+.p9 .dif span.mu.sim small{color:var(--roxo);opacity:1}
+.p9 tbody td{padding:4px 8px}
+.p9 td.col-ref .cel{justify-content:flex-start}
+.p9 td.col-ref .trilho{max-width:60px}
+/* 10 — Sublinhado em dois tons */
+.p10 tbody td{position:relative;padding-bottom:6px}
+.p10 .risco{display:flex;gap:4px;height:3px;margin-top:3px}
+.p10 .risco i{flex:1;min-width:0;background:var(--trilho);border-radius:2px;position:relative;overflow:hidden}
+.p10 .risco i b{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:2px;background:transparent}
+.p10 .risco i.br.on b{background:var(--bonina)}
+.p10 .risco i.mu.on b{background:var(--roxo)}
+.p10 .canto{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 8px 8px 0;border-color:transparent var(--roxo) transparent transparent}
+.p10 td.col-ref .risco{display:none}
+
+/* ---------- legendas e fecho ---------- */
+.leg{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;padding-left:44px;
+  font-size:11.5px;color:var(--ink3)}
+.leg span{display:flex;align-items:center;gap:6px}
+.amostra{width:20px;height:12px;border-radius:3px;background:var(--trilho);
+  position:relative;flex:none;overflow:hidden}
+.amostra i{position:absolute;left:0;top:0;bottom:0;width:60%}
+.amostra b{position:absolute;top:-1px;bottom:-1px;width:2px}
+.chip{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:8px;
+  padding:1px 3px;border-radius:2px;color:#fff;letter-spacing:.08em}
+
+.fecho{padding:38px 0 0}
+.fecho h2{font-size:19px;margin:0 0 4px;font-weight:700}
+.fecho > p{color:var(--ink2);font-size:14px;margin:0 0 22px;max-width:70ch}
+.quadro{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+.quadro th,.quadro td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linha)}
+.quadro thead th{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--linha2)}
+.quadro td:first-child{font-weight:500;color:var(--ink)}
+.quadro .sim{color:var(--verde);font-weight:600}
+.quadro .nao{color:var(--ink3)}
+.quadro .meio{color:var(--ambar);font-weight:600}
+.nota{margin-top:26px;padding:16px 18px;border-left:3px solid var(--coral);
+  background:var(--sup);border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink2);
+  max-width:74ch}
+.nota b{color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){
+  .prop{scroll-margin-top:16px}
+}
+</style>
+
+<div class="env">
+  <header>
+    <div class="eyebrow">Aba Física · Santa Cruz 2027</div>
+    <h1>Dez marcações da referência</h1>
+    <p>A mesma pergunta, dez desenhos: <b>como mostrar que um jogador passou da média
+    das referências do Brasil, da do mundo, ou das duas</b>, numa matriz onde quase toda
+    célula tem alguma coisa a dizer. Os números abaixo são reais — a régua é a Meia,
+    e são os mesmos dados nas quatro versões, então só o desenho muda.</p>
+    <div class="contexto">
+      <span><span class="rot">Régua</span><b>42 meias das Séries A e B</b> com ≥ 5 jogos rastreados</span>
+      <span><span class="rot">Ref. Brasil</span><b id="cBR"></b></span>
+      <span><span class="rot">Ref. Mundo</span><b id="cMU"></b></span>
+    </div>
+  </header>
+
+  <section class="prop" id="p1">
+    <div class="prop-cab">
+      <div class="num">1</div>
+      <div>
+        <h2>A referência vira uma marca dentro da barra</h2>
+        <p class="como">Duas linhas finas no trilho, na posição exata de cada referência.
+        A barra do jogador cruza ou não cruza cada uma — e você vê <b>por quanto</b>.
+        Como a referência é a mesma na linha inteira, as marcas ficam alinhadas e formam
+        uma coluna vertical que o olho lê de uma vez.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: precisa de trilho um pouco mais largo para as duas marcas
+      não se colarem, e em indicador onde Brasil e mundo estão perto as linhas quase
+      se encostam.</div>
+    <div class="rolagem"><table id="t1"></table></div>
+    <div class="leg">
+      <span><i class="amostra"><b class="br" style="left:55%;background:var(--bonina)"></b></i>linha bonina = ref. Brasil</span>
+      <span><i class="amostra"><b class="mu" style="left:80%;background:var(--roxo)"></b></i>linha roxa = ref. mundo</span>
+      <span><i class="amostra"><i style="background:var(--verde)"></i></i>barra verde = acima das médias A e B</span>
+      <span><i class="amostra"><i style="background:var(--ambar)"></i></i>âmbar = acima só da mais fraca</span>
+    </div>
+  </section>
+
+  <section class="prop" id="p2">
+    <div class="prop-cab">
+      <div class="num">2</div>
+      <div>
+        <h2>A cor do próprio número</h2>
+        <p class="como">Nenhuma tinta nova na célula: o valor muda de cor. Cinza abaixo de
+        tudo, branco acima das médias da liga, bonina acima da referência do Brasil, roxo
+        acima das duas. O número já é o elemento mais forte da célula — usar ele em vez
+        de acrescentar moldura.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: é uma escada, não duas respostas — o roxo diz "passou das
+      duas", mas <b>não dá para ver o Brasil e o mundo separados</b> quando alguém passa
+      só de um. E cor de texto tem menos força que cor de bloco à distância.</div>
+    <div class="rolagem"><table id="t2"></table></div>
+    <div class="leg">
+      <span><b style="color:var(--ink3);font-family:'IBM Plex Mono',monospace">30,40</b> abaixo das médias</span>
+      <span><b style="color:var(--ink);font-family:'IBM Plex Mono',monospace">32,03</b> acima das médias A e B</span>
+      <span><b style="color:var(--bonina);font-family:'IBM Plex Mono',monospace">32,80</b> acima da ref. Brasil</span>
+      <span><b style="color:var(--roxo);font-family:'IBM Plex Mono',monospace">33,50</b> acima das duas referências</span>
+    </div>
+  </section>
+
+  <section class="prop" id="p3">
+    <div class="prop-cab">
+      <div class="num">3</div>
+      <div>
+        <h2>Fundo da célula em degrau</h2>
+        <p class="como">Sem barra e sem moldura: só o número, sobre um fundo que escurece
+        conforme o nível. A matriz vira um mapa de calor — blocos que o olho varre em
+        coluna para achar quem é forte de cima a baixo e quem tem buraco.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: <b>perde a barra</b>, e com ela a noção de quanto o jogador
+      está acima ou abaixo. Sobra o número, que exige leitura. Em compensação cabem muito
+      mais linhas na tela.</div>
+    <div class="rolagem"><table id="t3"></table></div>
+    <div class="leg">
+      <span><i class="amostra" style="background:transparent;border:1px solid var(--linha)"></i>abaixo das referências</span>
+      <span><i class="amostra" style="background:var(--bonina-v)"></i>acima da ref. Brasil</span>
+      <span><i class="amostra" style="background:var(--roxo-v)"></i>acima das duas</span>
+    </div>
+  </section>
+
+  <section class="prop" id="p4">
+    <div class="prop-cab">
+      <div class="num">4</div>
+      <div>
+        <h2>Selo BR / MU ao lado do valor</h2>
+        <p class="como">Explicitíssimo: quem passa do Brasil ganha um selo <span class="chip br" style="background:var(--bonina)">BR</span>,
+        quem passa do mundo ganha <span class="chip mu" style="background:var(--roxo)">MU</span>,
+        quem passa dos dois ganha os dois. Não sobra dúvida sobre o que a marca significa,
+        nem precisa de legenda.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: <b>rouba largura da célula</b> — com dez jogadores na tela,
+      dois selos por célula empurram a barra para quase nada. É o mais claro de perto e
+      o mais poluído de longe.</div>
+    <div class="rolagem"><table id="t4"></table></div>
+  </section>
+
+  <section class="prop" id="p5">
+    <div class="prop-cab">
+      <div class="num">5</div>
+      <div>
+        <h2>Barra que parte da referência do Brasil</h2>
+        <p class="como">O eixo da barra é a própria referência do Brasil: quem está acima
+        cresce para a direita em verde, quem está abaixo cresce para a esquerda em
+        bonina. Uma linha roxa marca onde fica o mundo. A pergunta "passou do Brasil?"
+        vira "está do lado direito?" — não precisa ler número nem legenda.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: a barra deixa de ser "quanto ele tem" e passa a ser "quanto
+      ele está longe da referência" — <b>é outra leitura</b>, e as médias A e B deixam de
+      pintar a barra. Ganha-se decisão, perde-se a comparação com a liga na cor.</div>
+    <div class="rolagem"><table id="t5"></table></div>
+    <div class="leg">
+      <span><i class="amostra"><i style="background:var(--verde);left:50%;width:35%"></i><b style="left:50%;background:var(--ink)"></b></i>à direita do eixo = acima da ref. Brasil</span>
+      <span><i class="amostra"><i style="background:var(--bonina);opacity:.55;left:22%;width:28%"></i><b style="left:50%;background:var(--ink)"></b></i>à esquerda = abaixo</span>
+      <span><i class="amostra"><b style="left:78%;background:var(--roxo)"></b></i>linha roxa = ref. mundo</span>
+    </div>
+  </section>
+
+  <section class="prop" id="p6">
+    <div class="prop-cab">
+      <div class="num">6</div>
+      <div>
+        <h2>Barra em degraus</h2>
+        <p class="como">O trilho tem o perfil de uma escada de três patamares — rasteiro até a ref. Brasil, meia altura entre Brasil e mundo, altura cheia depois do mundo — e a barra do jogador, ao crescer, ganha altura em cada degrau que cruza: quem está abaixo dos dois é um fio rasteiro, quem passou só do Brasil sobe um degrau, quem passou dos dois chega ao topo, e o comprimento de cada patamar preenchido diz por quanto.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Cobra uns 2px a mais de altura por linha e deixa os valores fracos como um fio de 5px, que some de longe; e os degraus são contados, não nomeados — o primeiro é sempre a referência mais fraca (na prática o Brasil), então num indicador onde o Brasil superar o mundo a ordem inverte sem aviso na célula, só nas colunas de referência.</div>
+    <div class="rolagem"><table id="t6"></table></div>
+    <div class="leg"><span><i class="amostra" style="border-radius:0;clip-path:polygon(0 100%,0 67%,45% 67%,45% 33%,80% 33%,80% 0,100% 0,100% 100%)"><i style="background:var(--barra);width:32%"></i></i>fio rasteiro = abaixo das duas referências</span>
+<span><i class="amostra" style="border-radius:0;clip-path:polygon(0 100%,0 67%,45% 67%,45% 33%,80% 33%,80% 0,100% 0,100% 100%)"><i style="background:var(--barra);width:66%"></i></i>sobe um degrau = passou da ref. Brasil</span>
+<span><i class="amostra" style="border-radius:0;clip-path:polygon(0 100%,0 67%,45% 67%,45% 33%,80% 33%,80% 0,100% 0,100% 100%)"><i style="background:var(--barra);width:100%"></i></i>chega ao topo = passou também da ref. mundo</span>
+<span><i class="amostra" style="border-radius:0;clip-path:polygon(0 100%,0 67%,45% 67%,45% 33%,80% 33%,80% 0,100% 0,100% 100%)"><i style="background:var(--verde);width:70%"></i></i>verde / âmbar = acima das médias A e B / só da mais fraca</span></div>
+  </section>
+
+  <section class="prop" id="p7">
+    <div class="prop-cab">
+      <div class="num">7</div>
+      <div>
+        <h2>Barra em três trechos</h2>
+        <p class="como">O trilho é cortado em três zonas fixas — até a ref. Brasil, entre Brasil e mundo, além do mundo — e a barra do jogador atravessa cada zona com a cor daquela zona (cinza, bonina, roxo): onde a barra para diz quais referências ele passou, e o comprimento de cada trecho colorido diz por quanto; as zonas não alcançadas ficam apenas tingidas no fundo, então a linha inteira mostra as mesmas duas cortes alinhadas em coluna.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: A barra deixa de pintar as médias A e B (some o verde/âmbar da liga — só sobram três cores), e quando Brasil e mundo estão próximos o trecho do meio vira uma lasca de poucos pixels; os dois cortes pedem trilho de pelo menos uns 60px para não se colarem.</div>
+    <div class="rolagem"><table id="t7"></table></div>
+    <div class="leg"><span><i class="amostra"><i style="background:var(--barra);width:40%"></i><i style="background:var(--bonina);left:42%;width:28%"></i><i style="background:var(--roxo);left:72%;width:28%"></i></i>cinza · bonina · roxo = até o Brasil · entre Brasil e mundo · além do mundo</span>
+<span><i class="amostra"><i style="background:var(--barra);width:40%"></i><i style="background:var(--bonina);left:42%;width:18%"></i><b style="left:70%;width:30%;top:0;bottom:0;background:var(--roxo-v)"></b></i>barra que para no bonina = acima do Brasil, abaixo do mundo; o tamanho do trecho diz por quanto</span>
+<span><i class="amostra"><i style="background:var(--barra);width:30%"></i><b style="left:40%;width:30%;top:0;bottom:0;background:var(--bonina-v)"></b><b style="left:70%;width:30%;top:0;bottom:0;background:var(--roxo-v)"></b></i>só cinza = abaixo dos dois; o fundo tingido é a zona não alcançada</span>
+<span><i class="amostra"><i style="background:var(--barra);width:100%"></i><b style="left:40%;width:2px;top:0;bottom:0;background:var(--sup)"></b><b style="left:70%;width:2px;top:0;bottom:0;background:var(--sup)"></b></i>corte claro no trilho = posição exata de cada referência</span></div>
+  </section>
+
+  <section class="prop" id="p8">
+    <div class="prop-cab">
+      <div class="num">8</div>
+      <div>
+        <h2>Par de triângulos</h2>
+        <p class="como">Entre a barra e o número ficam dois triângulos minúsculos, sempre na mesma ordem — o primeiro é o Brasil, o segundo é o mundo — e cada um aponta para cima em cor (bonina ou roxo) se o jogador passou daquela referência, ou para baixo em cinza apagado se não passou: 34,43 lê ▲▲, 32,40 lê ▲▼, 30,40 lê ▼▼, e a coluna de triângulos alinhada de cima a baixo mostra de uma vez quem cruza o quê.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Não mostra por quanto à vista — a distância até cada referência só aparece ao passar o mouse (title com &quot;vs Brasil +1,16 · vs Mundo -1,02&quot;) — e cobra uns 22px de largura por célula, mais um segundo de legenda para fixar que o primeiro triângulo é o Brasil e o segundo é o mundo.</div>
+    <div class="rolagem"><table id="t8"></table></div>
+    <div class="leg"><span><i class="amostra" style="background:transparent;overflow:visible;width:auto;font-style:normal;font-size:9px;line-height:12px;letter-spacing:2px"><b style="position:static;width:auto;color:var(--bonina)">▲</b><b style="position:static;width:auto;color:var(--roxo)">▲</b></i>▲▲ = acima da ref. Brasil e da ref. mundo</span>
+<span><i class="amostra" style="background:transparent;overflow:visible;width:auto;font-style:normal;font-size:9px;line-height:12px;letter-spacing:2px"><b style="position:static;width:auto;color:var(--bonina)">▲</b><b style="position:static;width:auto;color:var(--ink3);opacity:.4">▼</b></i>▲▼ = acima só do Brasil (1º triângulo = Brasil, 2º = mundo)</span>
+<span><i class="amostra" style="background:transparent;overflow:visible;width:auto;font-style:normal;font-size:9px;line-height:12px;letter-spacing:2px"><b style="position:static;width:auto;color:var(--ink3);opacity:.4">▼</b><b style="position:static;width:auto;color:var(--ink3);opacity:.4">▼</b></i>▼▼ = abaixo das duas · passe o mouse para ver por quanto</span>
+<span><i class="amostra"><i style="background:var(--verde)"></i></i>barra segue a cor das médias A e B</span></div>
+  </section>
+
+  <section class="prop" id="p9">
+    <div class="prop-cab">
+      <div class="num">9</div>
+      <div>
+        <h2>Saldo duplo</h2>
+        <p class="como">Ao lado do valor, duas linhas miúdas empilhadas dizem o saldo do jogador contra cada referência na unidade do indicador — &quot;BR +1,16&quot; em cima, &quot;MU −1,02&quot; embaixo — e o sinal é a marcação: &quot;+&quot; em bonina é &quot;passou do Brasil&quot;, &quot;+&quot; em roxo é &quot;passou do mundo&quot;, &quot;−&quot; em cinza é &quot;ficou abaixo&quot;, e o tamanho do número diz por quanto (em indicador onde menor é melhor, o sinal continua significando &quot;melhor por&quot;).</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Custa a barra: some o trilho e com ele a comparação com as médias A e B na cor; a célula fica uns 20px mais larga e a linha uns 6px mais alta, e a resposta está em números de 9px que pedem leitura de perto — de longe só a mancha bonina/roxa dos &quot;+&quot; sobrevive.</div>
+    <div class="rolagem"><table id="t9"></table></div>
+    <div class="leg"><span><b style="color:var(--bonina);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600">BR +1,16</b>saldo em bonina com "+" = passou da ref. Brasil por esse tanto</span>
+<span><b style="color:var(--roxo);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600">MU +1,00</b>saldo em roxo com "+" = passou da ref. mundo</span>
+<span><b style="color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px">MU −1,02</b>cinza com "−" = ficou abaixo, por esse tanto</span>
+<span><b style="color:var(--ink3);font-family:'IBM Plex Mono',monospace;font-size:10px">s ↓</b>em indicador onde menor é melhor, "+" continua sendo "melhor por"</span></div>
+  </section>
+
+  <section class="prop" id="p10">
+    <div class="prop-cab">
+      <div class="num">10</div>
+      <div>
+        <h2>Sublinhado em dois tons</h2>
+        <p class="como">Sob cada célula corre um fio de 3px partido em duas vagas — a da esquerda é o Brasil (bonina), a da direita é o mundo (roxo) — e a vaga só se enche quando o jogador passa daquela referência, tanto mais quanto maior a folga; quem passa das duas ganha ainda um canto dobrado roxo no alto à direita, para ler de longe. O miolo (barra + número) fica exatamente como hoje.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Custa leitura de perto: um fio de 3px e uma vaga meio-cheia se enxergam a um braço de distância, não do outro lado da sala — de longe só o canto dobrado dos &quot;acima dos dois&quot; salta; e cada linha cresce uns 6px, o que tira duas ou três linhas da tela.</div>
+    <div class="rolagem"><table id="t10"></table></div>
+    <div class="leg"><span><i class="amostra" style="height:3px;border-radius:2px"><i style="background:var(--bonina);width:45%"></i></i>vaga esquerda cheia = acima da ref. Brasil (comprimento = folga)</span>
+<span><i class="amostra" style="height:3px;border-radius:2px"><i style="background:var(--roxo);width:45%"></i></i>vaga direita cheia = acima da ref. mundo</span>
+<span><i class="amostra" style="height:3px;border-radius:2px"></i>vaga vazia = abaixo daquela referência</span>
+<span><i class="amostra" style="background:transparent;border:1px solid var(--linha)"><b style="left:auto;right:0;top:0;bottom:auto;width:0;height:0;border-style:solid;border-width:0 7px 7px 0;border-color:transparent var(--roxo) transparent transparent"></b></i>canto dobrado = acima das duas</span></div>
+  </section>
+
+
+  <section class="fecho">
+    <h2>O que cada uma entrega</h2>
+    <p>As dez respondem "passou da referência?". Elas se separam no que dão além disso.</p>
+    <div class="rolagem" style="box-shadow:none;background:transparent;border:none">
+      <table class="quadro">
+        <thead><tr>
+          <th>&nbsp;</th><th>Brasil e mundo separados</th><th>Mostra por quanto</th>
+          <th>Custo de largura</th><th>Leitura de longe</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>1 · marca no trilho</td><td class="sim">sim</td><td class="sim">sim</td><td class="meio">trilho maior</td><td class="sim">boa</td></tr>
+          <tr><td>2 · cor do número</td><td class="nao">não</td><td class="nao">não</td><td class="sim">zero</td><td class="meio">média</td></tr>
+          <tr><td>3 · fundo em degrau</td><td class="meio">em parte</td><td class="nao">não</td><td class="sim">zero</td><td class="sim">ótima</td></tr>
+          <tr><td>4 · selo BR / MU</td><td class="sim">sim</td><td class="nao">não</td><td class="nao">alto</td><td class="meio">média</td></tr>
+          <tr><td>5 · barra a partir da ref. Brasil</td><td class="sim">sim</td><td class="sim">sim</td><td class="sim">zero</td><td class="sim">ótima</td></tr>
+          <tr><td>6 · Barra em degraus</td><td class="sim">sim</td><td class="sim">sim</td><td class="sim">zero</td><td class="meio">média</td></tr>
+          <tr><td>7 · Barra em três trechos</td><td class="sim">sim</td><td class="sim">sim</td><td class="meio">baixo</td><td class="sim">boa</td></tr>
+          <tr><td>8 · Par de triângulos</td><td class="sim">sim</td><td class="nao">não</td><td class="meio">médio</td><td class="meio">média</td></tr>
+          <tr><td>9 · Saldo duplo</td><td class="sim">sim</td><td class="sim">sim</td><td class="meio">médio</td><td class="nao">fraca</td></tr>
+          <tr><td>10 · Sublinhado em dois tons</td><td class="sim">sim</td><td class="sim">sim</td><td class="sim">zero</td><td class="nao">fraca</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="nota"><b>Se for pela minha cabeça, fica entre a 1 e a 5.</b> As duas
+    respondem as perguntas separadas e mostram a distância — dá para ver que o Bernard
+    passou da referência do Brasil com folga e ficou longe da do mundo, coisa que a 2, a 3
+    e a 4 só dizem com sim ou não.<br><br>
+    A <b>1</b> preserva a barra como ela é hoje (quanto o jogador tem, com a cor dizendo
+    como está contra a liga) e só acrescenta as duas marcas. A <b>5</b> é mais decisiva
+    — "está do lado direito?" — mas troca a leitura da barra: ela passa a medir distância
+    da referência, e as médias da liga saem da cor. Para montar elenco contra uma régua,
+    eu iria de <b>5</b>; para estudar o jogador, de <b>1</b>.<br><br>
+    A <b>3</b> é a que eu escolheria se a prioridade virasse caber mais indicador na tela.</div>
+  </section>
+</div>
+
+<script>
+const D = {"pos":"Meia (AM)","n":42,"indicadores":[{"k":"vmax3","rot":"Top 3 Peak Velocity","un":"km/h","casas":2,"menor":false},{"k":"vmax","rot":"Peak Velocity","un":"km/h","casas":2,"menor":false},{"k":"psv5","rot":"PSV-99, 5 melhores","un":"km/h","casas":2,"menor":false},{"k":"psv","rot":"PSV-99 por partida","un":"km/h","casas":2,"menor":false},{"k":"spr_km","rot":"Metros em sprint","un":"m/90","casas":0,"menor":false},{"k":"spr_n","rot":"Número de sprints","un":"por 90","casas":1,"menor":false},{"k":"hi","rot":"Metros em alta intensidade","un":"m/90","casas":0,"menor":false},{"k":"hi_n","rot":"Ações de alta intensidade","un":"por 90","casas":1,"menor":false},{"k":"t_spr","rot":"Tempo até o sprint","un":"s","casas":2,"menor":true}],"colunas":[{"n":"Diego Tavares","t":"Ponte Preta","l":"Brasil B","idade":35,"idx":94,"v":{"vmax3":34.43,"vmax":33.25,"psv5":33.4,"psv":32.18,"spr_km":312.9,"spr_n":13.6,"hi":847.97,"hi_n":71.06,"t_spr":1.18}},{"n":"Lucas Barbosa","t":"Red Bull Bragantino","l":"Brasil A","idade":25,"idx":89,"v":{"vmax3":33,"vmax":31.31,"psv5":31.28,"psv":29.73,"spr_km":252.03,"spr_n":12.77,"hi":868.97,"hi_n":72.77,"t_spr":1.27}},{"n":"Bernard","t":"Atlético Mineiro","l":"Brasil A","idade":33,"idx":83,"v":{"vmax3":32.4,"vmax":30.42,"psv5":31.02,"psv":29.1,"spr_km":234.36,"spr_n":11.75,"hi":808.3,"hi_n":73.34,"t_spr":1.22}},{"n":"Shaylon","t":"Mirassol","l":"Brasil A","idade":29,"idx":81,"v":{"vmax3":32.8,"vmax":30.45,"psv5":30.66,"psv":28.94,"spr_km":238.43,"spr_n":11.28,"hi":932.65,"hi_n":71.46,"t_spr":1.42}},{"n":"Dodô","t":"Náutico","l":"Brasil B","idade":25,"idx":78,"v":{"vmax3":32.9,"vmax":30.77,"psv5":30.12,"psv":28.69,"spr_km":214.36,"spr_n":11.59,"hi":886.7,"hi_n":70.56,"t_spr":1.32}},{"n":"João Cruz","t":"Athletico Paranaense","l":"Brasil A","idade":20,"idx":76,"v":{"vmax3":32.03,"vmax":29.27,"psv5":30.5,"psv":27.82,"spr_km":215.64,"spr_n":12.93,"hi":1018.87,"hi_n":83.97,"t_spr":1.23}},{"n":"Paulinho Moccelin","t":"Londrina","l":"Brasil B","idade":32,"idx":76,"v":{"vmax3":32.73,"vmax":29.45,"psv5":31.66,"psv":28.15,"spr_km":219.68,"spr_n":10.79,"hi":872.1,"hi_n":69.34,"t_spr":1.28}}],"mediaA":{"vmax3":31.7908,"vmax":29.514400000000002,"psv5":29.9192,"psv":27.956799999999998,"spr_km":160.84879999999998,"spr_n":8.4512,"hi":730.5260000000001,"hi_n":59.4008,"t_spr":1.3865217391304347},"mediaB":{"vmax3":31.74125,"vmax":29.58,"psv5":30.084705882352942,"psv":28.298823529411763,"spr_km":174.57941176470587,"spr_n":8.896470588235294,"hi":724.2323529411765,"hi_n":59.24529411764706,"t_spr":1.4400000000000002},"refBR":{"vmax3":31.243,"vmax":28.97,"psv5":28.92,"psv":27.097,"spr_km":128.23,"spr_n":7.397,"hi":680.673,"hi_n":55.843,"t_spr":1.453},"refMU":{"vmax3":33.425,"vmax":31.082,"psv5":31.335,"psv":29.21,"spr_km":230.248,"spr_n":11.96,"hi":840.997,"hi_n":70.778,"t_spr":1.188},"nomesBR":["Alan Patrick (Internacional)","Jefferson Savarino (Fluminense)","R. Garro (Corinthians)"],"nomesMU":["Nico Paz (Como)","C. Palmer (Chelsea)","D. Szoboszlai (Liverpool)","E. Fernández (Chelsea)"],"faixa":{"vmax3":{"min":28.97,"max":34.43},"vmax":{"min":27.05,"max":33.25},"psv5":{"min":27.6,"max":33.4},"psv":{"min":25.67,"max":32.18},"spr_km":{"min":64.04,"max":357.25},"spr_n":{"min":2.78,"max":17.31},"hi":{"min":383.09,"max":1018.87},"hi_n":{"min":29.57,"max":83.98},"t_spr":{"min":1.12,"max":2.1}}};
+
+const fmt = (v, c) => typeof v === 'number' ? v.toFixed(c).replace('.', ',') : '–';
+const melhor = (v, r, menor) => menor ? v < r : v > r;
+
+function faixa(ind) {
+  const vs = D.colunas.map(c => c.v[ind.k])
+    .concat([D.mediaA[ind.k], D.mediaB[ind.k], D.refBR[ind.k], D.refMU[ind.k]])
+    .filter(x => typeof x === 'number');
+  return { min: Math.min(...vs), max: Math.max(...vs) };
+}
+function larg(v, f, menor) {
+  if (typeof v !== 'number' || f.max === f.min) return 50;
+  const r = menor ? (f.max - v) / (f.max - f.min) : (v - f.min) / (f.max - f.min);
+  return 8 + Math.max(0, Math.min(1, r)) * 92;
+}
+function nivelMedias(v, ind) {
+  const a = D.mediaA[ind.k], b = D.mediaB[ind.k];
+  if (typeof v !== 'number' || a == null || b == null) return '';
+  const forte = ind.menor ? Math.min(a, b) : Math.max(a, b);
+  const fraca = ind.menor ? Math.max(a, b) : Math.min(a, b);
+  if (melhor(v, forte, ind.menor)) return 'cor-duas';
+  if (melhor(v, fraca, ind.menor)) return 'cor-uma';
+  return '';
+}
+const acimaBR = (v, ind) => typeof v === 'number' && typeof D.refBR[ind.k] === 'number'
+  && melhor(v, D.refBR[ind.k], ind.menor);
+const acimaMU = (v, ind) => typeof v === 'number' && typeof D.refMU[ind.k] === 'number'
+  && melhor(v, D.refMU[ind.k], ind.menor);
+
+function cabecalho() {
+  return '<thead><tr><th class="rot"><span class="nome">Meia</span>' +
+    '<span class="sub">' + D.n + ' na régua</span></th>' +
+    '<th><span class="nome">Média A</span><span class="sub">25 jog.</span></th>' +
+    '<th><span class="nome">Média B</span><span class="sub">17 jog.</span></th>' +
+    '<th class="ref"><span class="nome">Ref. Brasil</span><span class="sub">3 refs</span></th>' +
+    '<th class="ref mu"><span class="nome">Ref. Mundo</span><span class="sub">4 refs</span></th>' +
+    D.colunas.map(c => '<th><span class="nome">' + c.n + '</span>' +
+      '<span class="sub">' + c.t.slice(0, 14) + ' · ' + c.idade + 'a</span></th>').join('') +
+    '</tr></thead>';
+}
+
+/* renderizadores das propostas 6 em diante: RENDER[n] = function(v, ind, f, ehRef, refMu) */
+const RENDER = {};
+/* uma célula, no estilo pedido */
+function celula(v, ind, f, modo, ehRef, refMu) {
+  if (RENDER[modo]) return RENDER[modo](v, ind, f, ehRef, refMu);
+  if (typeof v !== 'number') return '<td>–</td>';
+  const w = larg(v, f, ind.menor).toFixed(1);
+  const nm = nivelMedias(v, ind);
+  const br = acimaBR(v, ind), mu = acimaMU(v, ind);
+  const num = fmt(v, ind.casas);
+  const cls = ehRef ? ' class="col-ref' + (refMu ? ' mu' : '') + '"' : '';
+
+  if (modo === 3) {
+    const bg = ehRef ? 'col-ref' + (refMu ? ' mu' : '') : (mu ? 'mu' : br ? 'br' : 'dado');
+    return '<td class="' + bg + '"><div class="cel"><span class="val">' + num + '</span></div></td>';
+  }
+
+  let trilho = '<i style="width:' + w + '%"></i>';
+  if (modo === 5 && !ehRef) {
+    const pBR = larg(D.refBR[ind.k], f, ind.menor);
+    const pV = larg(v, f, ind.menor);
+    const pMU = larg(D.refMU[ind.k], f, ind.menor).toFixed(1);
+    const esq = Math.min(pBR, pV).toFixed(1), lg = Math.abs(pV - pBR).toFixed(1);
+    trilho = '<i class="' + (pV >= pBR ? 'acima' : 'abaixo') + '" style="left:' + esq +
+      '%;width:' + lg + '%"></i>' +
+      '<span class="eixo" style="left:calc(' + pBR.toFixed(1) + '% - 1px)"></span>' +
+      '<b class="mu" style="left:calc(' + pMU + '% - 1px)"></b>';
+  }
+  if (modo === 1 && !ehRef) {
+    const pBR = larg(D.refBR[ind.k], f, ind.menor).toFixed(1);
+    const pMU = larg(D.refMU[ind.k], f, ind.menor).toFixed(1);
+    trilho += '<b class="br" style="left:calc(' + pBR + '% - 1px)"></b>' +
+              '<b class="mu" style="left:calc(' + pMU + '% - 1px)"></b>';
+  }
+  let valCls = 'val';
+  if (modo === 2 && !ehRef) {
+    valCls += mu ? ' acima-mu' : br ? ' acima-br' : nm ? ' media' : '';
+  }
+  let selos = '';
+  if (modo === 4 && !ehRef) {
+    if (br) selos += '<span class="selo br">BR</span>';
+    if (mu) selos += '<span class="selo mu">MU</span>';
+  }
+  const barraCls = ehRef ? '' : (modo === 2 || modo === 5 ? '' : nm);
+  return '<td' + cls + '><div class="cel ' + barraCls + '">' +
+    '<i class="trilho">' + trilho + '</i>' + selos +
+    '<span class="' + valCls + '">' + num + '</span></div></td>';
+}
+
+function montar(id, modo) {
+  const el = document.getElementById(id);
+  el.className = 'p' + modo;
+  let h = cabecalho() + '<tbody>';
+  D.indicadores.forEach(ind => {
+    const f = faixa(ind);
+    h += '<tr><td class="rot">' + ind.rot + '<small>' + ind.un +
+      (ind.menor ? ' ↓' : '') + '</small></td>' +
+      celula(D.mediaA[ind.k], ind, f, modo, false) +
+      celula(D.mediaB[ind.k], ind, f, modo, false) +
+      celula(D.refBR[ind.k], ind, f, modo, true, false) +
+      celula(D.refMU[ind.k], ind, f, modo, true, true) +
+      D.colunas.map(c => celula(c.v[ind.k], ind, f, modo, false)).join('') + '</tr>';
+  });
+  el.innerHTML = h + '</tbody>';
+}
+
+document.getElementById('cBR').textContent = D.nomesBR.join(' · ');
+document.getElementById('cMU').textContent = D.nomesMU.join(' · ');
+RENDER[6] = function (v, ind, f, ehRef, refMu) {
+if (typeof v !== 'number') return '<td>–</td>';
+var w = larg(v, f, ind.menor).toFixed(1);
+var num = fmt(v, ind.casas);
+if (ehRef) {
+  return '<td class="col-ref' + (refMu ? ' mu' : '') + '"><div class="cel">' +
+    '<i class="trilho"><i style="width:' + w + '%"></i></i>' +
+    '<span class="val">' + num + '</span></div></td>';
+}
+var rB = D.refBR[ind.k], rM = D.refMU[ind.k];
+var estilo = '';
+if (typeof rB === 'number' && typeof rM === 'number') {
+  var pB = larg(rB, f, ind.menor), pM = larg(rM, f, ind.menor);
+  var p1 = Math.min(pB, pM).toFixed(1), p2 = Math.max(pB, pM).toFixed(1);
+  estilo = ' style="clip-path:polygon(0 100%,0 67%,' + p1 + '% 67%,' + p1 + '% 33%,' +
+    p2 + '% 33%,' + p2 + '% 0,100% 0,100% 100%)"';
+}
+var nm = nivelMedias(v, ind);
+return '<td><div class="cel ' + nm + '">' +
+  '<i class="trilho"' + estilo + '><i style="width:' + w + '%"></i></i>' +
+  '<span class="val">' + num + '</span></div></td>';
+};
+RENDER[7] = function (v, ind, f, ehRef, refMu) {
+if (typeof v !== 'number') return '<td>–</td>';
+var num = fmt(v, ind.casas);
+var pV = larg(v, f, ind.menor);
+if (ehRef) {
+  return '<td class="col-ref' + (refMu ? ' mu' : '') + '"><div class="cel">' +
+    '<i class="trilho"><i style="width:' + pV.toFixed(1) + '%"></i></i>' +
+    '<span class="val">' + num + '</span></div></td>';
+}
+var rBR = D.refBR[ind.k], rMU = D.refMU[ind.k];
+var cortes = [];
+if (typeof rBR === 'number') cortes.push({ p: larg(rBR, f, ind.menor), c: 'br' });
+if (typeof rMU === 'number') cortes.push({ p: larg(rMU, f, ind.menor), c: 'mu' });
+cortes.sort(function (a, b) { return a.p - b.p; });
+var zonas = [], ini = 0, cor = 'z0';
+for (var i = 0; i < cortes.length; i++) {
+  zonas.push({ a: ini, b: cortes[i].p, c: cor });
+  ini = cortes[i].p; cor = cortes[i].c;
+}
+zonas.push({ a: ini, b: 100, c: cor });
+var fundo = '', seg = '';
+zonas.forEach(function (z) {
+  if (z.c !== 'z0') {
+    fundo += '<b class="zona ' + z.c + '" style="left:' + z.a.toFixed(1) + '%;width:' + (z.b - z.a).toFixed(1) + '%"></b>';
+  }
+  if (pV > z.a) {
+    seg += '<i class="' + z.c + '" style="left:' + z.a.toFixed(1) + '%;width:' + (Math.min(pV, z.b) - z.a).toFixed(1) + '%"></i>';
+  }
+});
+var seams = cortes.map(function (c) {
+  return '<b class="corte" style="left:calc(' + c.p.toFixed(1) + '% - 1px)"></b>';
+}).join('');
+return '<td><div class="cel"><i class="trilho">' + fundo + seg + seams + '</i>' +
+  '<span class="val">' + num + '</span></div></td>';
+};
+RENDER[8] = function (v, ind, f, ehRef, refMu) {
+if (typeof v !== 'number') return '<td>–</td>';
+var w = larg(v, f, ind.menor).toFixed(1);
+var num = fmt(v, ind.casas);
+var barra = '<i class="trilho"><i style="width:' + w + '%"></i></i>';
+if (ehRef) {
+  return '<td class="col-ref' + (refMu ? ' mu' : '') + '"><div class="cel">' + barra +
+    '<span class="val">' + num + '</span></div></td>';
+}
+var br = acimaBR(v, ind), mu = acimaMU(v, ind);
+var nm = nivelMedias(v, ind);
+var s = ind.menor ? -1 : 1;
+var rBR = D.refBR[ind.k], rMU = D.refMU[ind.k];
+var sinal = function (d) { return (d >= 0 ? '+' : '-') + fmt(Math.abs(d), ind.casas); };
+var tit = '';
+if (typeof rBR === 'number') tit += 'vs Brasil ' + sinal((v - rBR) * s);
+if (typeof rMU === 'number') tit += (tit ? ' · ' : '') + 'vs Mundo ' + sinal((v - rMU) * s);
+var g = '<span class="glifo" title="' + tit + '">' +
+  '<b class="br' + (br ? ' sim' : '') + '">' + (br ? '▲' : '▼') + '</b>' +
+  '<b class="mu' + (mu ? ' sim' : '') + '">' + (mu ? '▲' : '▼') + '</b></span>';
+return '<td><div class="cel ' + nm + '">' + barra + g +
+  '<span class="val">' + num + '</span></div></td>';
+};
+RENDER[9] = function (v, ind, f, ehRef, refMu) {
+if (typeof v !== 'number') return '<td>–</td>';
+var num = fmt(v, ind.casas);
+if (ehRef) {
+  var w = larg(v, f, ind.menor).toFixed(1);
+  return '<td class="col-ref' + (refMu ? ' mu' : '') + '"><div class="cel">' +
+    '<i class="trilho"><i style="width:' + w + '%"></i></i>' +
+    '<span class="val">' + num + '</span></div></td>';
+}
+function linha(ref, tag, cls) {
+  if (typeof ref !== 'number') {
+    return '<span class="' + cls + ' nao"><small>' + tag + '</small><span class="n">–</span></span>';
+  }
+  var d = ind.menor ? ref - v : v - ref;
+  var passo = Math.pow(10, -ind.casas) / 2;
+  var sinal = d > passo ? '+' : (d < -passo ? '−' : '');
+  var ok = melhor(v, ref, ind.menor);
+  return '<span class="' + cls + (ok ? ' sim' : ' nao') + '"><small>' + tag + '</small>' +
+    '<span class="n">' + sinal + fmt(Math.abs(d), ind.casas) + '</span></span>';
+}
+return '<td><div class="cel"><span class="val">' + num + '</span>' +
+  '<span class="dif">' + linha(D.refBR[ind.k], 'BR', 'br') + linha(D.refMU[ind.k], 'MU', 'mu') + '</span>' +
+  '</div></td>';
+};
+RENDER[10] = function (v, ind, f, ehRef, refMu) {
+if (typeof v !== 'number') return '<td>–</td>';
+var w = larg(v, f, ind.menor).toFixed(1);
+var num = fmt(v, ind.casas);
+var barra = '<i class="trilho"><i style="width:' + w + '%"></i></i>';
+if (ehRef) {
+  return '<td class="col-ref' + (refMu ? ' mu' : '') + '"><div class="cel">' + barra +
+    '<span class="val">' + num + '</span></div></td>';
+}
+var nm = nivelMedias(v, ind);
+var br = acimaBR(v, ind), mu = acimaMU(v, ind);
+function folga(ref) {
+  if (typeof ref !== 'number') return 0;
+  var teto = ind.menor ? (ref - f.min) : (f.max - ref);
+  if (!(teto > 0)) return 100;
+  var d = ind.menor ? (ref - v) : (v - ref);
+  return Math.max(0, Math.min(1, d / teto)) * 100;
+}
+var fBR = br ? Math.max(12, folga(D.refBR[ind.k])).toFixed(0) : '0';
+var fMU = mu ? Math.max(12, folga(D.refMU[ind.k])).toFixed(0) : '0';
+var duas = br && mu;
+return '<td class="dado' + (duas ? ' duas' : '') + '">' +
+  '<div class="cel ' + nm + '">' + barra + '<span class="val">' + num + '</span></div>' +
+  '<div class="risco">' +
+    '<i class="br' + (br ? ' on' : '') + '"><b style="width:' + fBR + '%"></b></i>' +
+    '<i class="mu' + (mu ? ' on' : '') + '"><b style="width:' + fMU + '%"></b></i>' +
+  '</div>' +
+  (duas ? '<span class="canto"></span>' : '') +
+  '</td>';
+};
+const MODOS = [1, 2, 3, 4, 5].concat(Object.keys(RENDER).map(Number));
+MODOS.forEach(m => montar('t' + m, m));
+</script>

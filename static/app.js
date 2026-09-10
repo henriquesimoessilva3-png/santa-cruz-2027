@@ -2724,6 +2724,286 @@ const TODOS_CAMP = '*';   /* opcao "todos os campeonatos" dessa mesma lista */
    linhas: o indice geral e o de cada grupo. Clicar num grupo abre os indicadores dele.
    Nada se perdeu; o que mudou e quem decide o que aparece. O estado fica no navegador,
    entao a tela volta como voce deixou. */
+/* ---------------- forma de ver ----------------
+   'matriz' e a tabela de sempre. As outras tres vem de static/fs_visoes.js e recebem o
+   pacote de fsPacote(). A escolha fica no navegador. */
+let FS_VISAO = 'matriz';
+try { FS_VISAO = localStorage.getItem('sc2027_fs_visao') || 'matriz'; } catch (e) {}
+const FS_VISAO_ROT = { matriz: 'Matriz', mapa: 'Mapa', reguas: 'Réguas', tiras: 'Tiras' };
+function fsTrocarVisao(v) {
+  FS_VISAO = FS_VISAO_ROT[v] ? v : 'matriz';
+  try { localStorage.setItem('sc2027_fs_visao', FS_VISAO); } catch (e) {}
+  $$('#fsVisao button').forEach(b => b.classList.toggle('on', b.dataset.v === FS_VISAO));
+  fsRender();
+}
+
+/* O pacote que os layouts alternativos leem. Mesmo formato do arquivo de propostas
+   (dados-meia.json), so que montado ao vivo a partir da aba: a coorte da posicao nas
+   Series A e B, os comparados (que podem vir de qualquer liga), as medias e as duas
+   referencias, tudo com percentil e indice na regua de sempre. */
+function fsPacote(co, colunas) {
+  const grupos = FS_GRUPOS.map(g => ({ t: g.t, d: g.d,
+    m: g.m.map(([k, rot, un, casas, menor]) => ({ k, rot, un, casas, menor: !!menor })) }));
+  const ind = grupos.flatMap(g => g.m);
+  const jogo = j => ({
+    pk: primaryKey(j),
+    n: j.n, t: j.t, l: j.l, idade: j.id_, nac: j.nac, ct: j.ct, sc_n: j.sc_n,
+    idx: fsIndices(co, j),
+    v: Object.fromEntries(ind.map(i => [i.k, typeof j[i.k] === 'number' ? j[i.k] : null])),
+    p: Object.fromEntries(ind.map(i => [i.k, fsPct(co, i.k, j[i.k], i.menor)])),
+  });
+  /* populacao = coorte + comparados de fora dela, sem repetir */
+  const vistos = new Set();
+  const jogadores = [];
+  co.lista.concat(colunas.map(c => c.j)).forEach(j => {
+    const pk = primaryKey(j);
+    if (vistos.has(pk)) return;
+    vistos.add(pk);
+    const x = jogo(j);
+    if (x.idx.geral != null) jogadores.push(x);
+  });
+  jogadores.sort((a, b) => b.idx.geral - a.idx.geral);
+  const refs = (RAIO && RAIO.refs && RAIO.refs[fsPos]) || {};
+  const ref = g => (g && g.valores) ? {
+    nomes: g.nomes, v: g.valores, idx: fsIndices(co, g.valores),
+    p: Object.fromEntries(ind.map(i => [i.k, fsPct(co, i.k, g.valores[i.k], i.menor)])),
+  } : null;
+  const naCoorte = new Set(co.lista.map(primaryKey));
+  return {
+    pos: nomePos(fsPos), sig: sig(fsPos), n: co.lista.length,
+    /* comparados de fora da coorte (outra liga): entram em `jogadores` mas nao sao
+       populacao — os layouts contam "42 + 1 de fora", nao "43" */
+    nFora: jogadores.filter(j => !naCoorte.has(j.pk)).length,
+    grupos, indicadores: ind, jogadores,
+    /* NOMES sao rotulo; a identidade e a chave. Casar destaque por nome destacava o
+       homonimo errado (dois Vitinho, dois Juninho na mesma posicao). */
+    destaque: colunas.map(c => c.j.n),
+    destaquePks: colunas.map(c => primaryKey(c.j)),
+    mediaA: co.A.m, mediaB: co.B.m,
+    refBR: ref(refs.brasil), refMU: ref(refs.mundo),
+  };
+}
+
+/* Tirar alguem nao pode chamar o proximo da fila. "Top 5 da Serie A" e uma receita que
+   devolve 5 sempre: excluido um, o sexto entrava no lugar e a coluna parecia so ter
+   trocado de nome. No primeiro x a lista da tela vira escolha explicita e as receitas
+   se desligam; dai em diante tirar e tirar. Devolve se congelou, para o aviso. */
+function fsTirar(pk) {
+  const congelou = fsCongelar();
+  fsExtras = fsExtras.filter(x => x !== pk);
+  fsOcultos.add(pk);
+  fsRender();
+  return congelou;
+}
+
+/* O pacote da ultima forma desenhada: o balao e o clique nos pontos leem daqui. */
+let FS_D = null;
+
+/* Chips dos comparados, acima do palco. Nas formas alternativas o cabecalho da matriz
+   (onde ficava o x de cada um) esta escondido — sem isto nao havia como tirar alguem. */
+function fsChips(colunas) {
+  const el = $('#fsChips');
+  if (!el) return;
+  el.innerHTML = colunas.length
+    ? '<span class="fs-chips-rot">Na comparação</span>' + colunas.map(c => {
+        const pk = primaryKey(c.j);
+        return '<span class="fs-chip" data-pk="' + esc(pk) + '" title="' + esc(c.j.t + ' · ' + c.j.l) +
+          '">' + raioIcone(pk) + esc(c.j.n) + '<b class="fs-chip-x" title="Tirar da comparação">×</b></span>';
+      }).join('') + '<span class="fs-chips-dica">clique num ponto cinza para trazer alguém</span>'
+    : '<span class="fs-chips-dica">Ninguém na comparação — clique num ponto cinza ou use "Adicionar jogador".</span>';
+  el.querySelectorAll('.fs-chip-x').forEach(x => {
+    x.onclick = e => {
+      e.stopPropagation();
+      const congelou = fsTirar(x.parentElement.dataset.pk);
+      if (congelou) toast('Comparação fixada nos que estavam na tela — agora tirar não chama o próximo da fila');
+    };
+  });
+}
+
+/* ---------------- foco: um jogador aberto no topo ----------------
+   Clicar num jogador no grafico (qualquer das tres formas) faz tres coisas: traz para a
+   comparacao se ainda nao esta, destaca o ponto dele no desenho e abre este painel
+   ACIMA do grafico com a analise miuda — os cinco grupos contra as duas referencias e
+   os 25 indicadores com valor, percentil e de quem ele passa. Fica aberto ate fechar
+   ou clicar em outro; muda de posicao, fecha. */
+let FS_FOCO_PK = null;
+function fsFocar(pk) {
+  FS_FOCO_PK = pk || null;
+  fsFocoRender();
+  fsMarcarFoco();
+}
+function fsMarcarFoco() {
+  const palco = $('#fsPalco');
+  if (!palco) return;
+  palco.querySelectorAll('[data-pk].foco').forEach(e => e.classList.remove('foco'));
+  if (FS_FOCO_PK) palco.querySelectorAll('[data-pk="' + CSS.escape(FS_FOCO_PK) + '"]')
+    .forEach(e => e.classList.add('foco'));
+}
+function fsFocoRender() {
+  const el = $('#fsFoco');
+  if (!el) return;
+  const j = FS_FOCO_PK && FS_D ? FS_D.jogadores.find(x => x.pk === FS_FOCO_PK) : null;
+  if (!j) { el.hidden = true; el.innerHTML = ''; return; }
+  const D = FS_D, BR = D.refBR, MU = D.refMU;
+  const fmt = (v, c) => typeof v === 'number' ? v.toFixed(c).replace('.', ',') : '–';
+  const acima = (v, r, menor) => typeof v === 'number' && typeof r === 'number' && (menor ? v < r : v > r);
+  /* contagens gerais */
+  let nBR = 0, nMU = 0, nTot = 0;
+  D.indicadores.forEach(i => {
+    const v = j.v[i.k]; if (typeof v !== 'number') return;
+    nTot++;
+    if (BR && acima(v, BR.v[i.k], i.menor)) nBR++;
+    if (MU && acima(v, MU.v[i.k], i.menor)) nMU++;
+  });
+  /* grupos: indice do jogador e das referencias numa regua 0-100 */
+  const grupos = D.grupos.map((g, gi) => {
+    const ij = j.idx.grupos[gi], ib = BR ? BR.idx.grupos[gi] : null, im = MU ? MU.idx.grupos[gi] : null;
+    let aB = 0, aM = 0, n = 0;
+    g.m.forEach(i => { const v = j.v[i.k]; if (typeof v !== 'number') return; n++;
+      if (BR && acima(v, BR.v[i.k], i.menor)) aB++; if (MU && acima(v, MU.v[i.k], i.menor)) aM++; });
+    const marca = (x, cls, tit) => x == null ? '' : '<i class="' + cls + '" style="left:' + x + '%" title="' + esc(tit + ' ' + x) + '"></i>';
+    return '<div class="fs-foco-g"><div class="fs-foco-g-cab"><b>' + esc(g.t) + '</b>' +
+      '<span class="fs-foco-g-idx">' + (ij == null ? '–' : ij) + '</span>' +
+      '<span class="fs-foco-g-cont"><em class="br">' + aB + '/' + n + '</em><em class="mu">' + aM + '/' + n + '</em></span></div>' +
+      '<div class="fs-foco-regua">' + marca(ib, 'br', 'ref. Brasil') + marca(im, 'mu', 'ref. mundo') +
+      (ij == null ? '' : '<b style="left:' + ij + '%"></b>') + '</div>' +
+      '<div class="fs-foco-ind">' + g.m.map(i => {
+        const v = j.v[i.k], p = j.p[i.k];
+        const b = BR ? acima(v, BR.v[i.k], i.menor) : false, m = MU ? acima(v, MU.v[i.k], i.menor) : false;
+        return '<div class="fs-foco-i' + (m ? ' mu' : b ? ' br' : '') + '" title="' + esc(i.rot + ' · ' + i.un +
+            (BR ? ' · ref. Brasil ' + fmt(BR.v[i.k], i.casas) : '') + (MU ? ' · ref. mundo ' + fmt(MU.v[i.k], i.casas) : '') +
+            (p != null ? ' · percentil ' + p : '')) + '">' +
+          '<span class="r">' + esc(i.rot) + '</span><span class="v">' + fmt(v, i.casas) + '</span>' +
+          '<span class="p">' + (p == null ? '' : 'p' + p) + '</span>' +
+          '<span class="t"><i class="' + (m ? 'on' : '') + ' mu"></i><i class="' + (b ? 'on' : '') + ' br"></i></span></div>';
+      }).join('') + '</div></div>';
+  }).join('');
+  const naComp = D.destaquePk.has(j.pk);
+  el.innerHTML =
+    '<div class="fs-foco-topo">' + raioIcone(j.pk) + '<b class="fs-foco-nome">' + esc(j.n) + '</b>' +
+      '<span class="fs-foco-sub">' + esc(j.t) + ' · ' + esc(j.l) + (j.idade ? ' · ' + j.idade + 'a' : '') +
+      (j.ct ? ' · até ' + esc(mesAnoCurto(j.ct)) : '') + (j.sc_n ? ' · ' + j.sc_n + ' jogos rastreados' : '') + '</span>' +
+      '<span class="fs-foco-geral">índice <b>' + (j.idx.geral == null ? '–' : j.idx.geral) + '</b></span>' +
+      '<span class="fs-foco-placar"><em class="br" title="indicadores acima da referência do Brasil">Brasil <b>' + nBR + '</b>/' + nTot + '</em>' +
+      '<em class="mu" title="indicadores acima da referência do mundo">mundo <b>' + nMU + '</b>/' + nTot + '</em></span>' +
+      (naComp ? '' : '<button class="fs-foco-bt" id="fsFocoAdd">+ comparar</button>') +
+      '<button class="fs-foco-x" id="fsFocoX" title="Fechar">×</button></div>' +
+    '<div class="fs-foco-grupos">' + grupos + '</div>';
+  el.hidden = false;
+  $('#fsFocoX').onclick = () => fsFocar(null);
+  const add = $('#fsFocoAdd'); if (add) add.onclick = () => fsAdicionar(j.pk);
+}
+
+/* Balao e clique, iguais nas tres formas. Os renderizadores marcam cada jogador com
+   data-pk; daqui a gente resolve quem e, mostra o balao e, no clique, traz para a
+   comparacao. Delegado no palco, entao vale para o que cada forma desenhar. */
+function fsLigarPalco() {
+  const palco = $('#fsPalco'), dica = $('#fsDica');
+  if (!palco || !dica || palco.dataset.ligado) return;
+  palco.dataset.ligado = '1';
+  const acha = t => { const e = t && t.closest ? t.closest('[data-pk]') : null; return e && e.dataset.pk ? e : null; };
+  const jog = pk => (FS_D && FS_D.jogadores.find(j => j.pk === pk)) || null;
+  /* Dois baloes para o mesmo ponto e ruido: se o layout ja abriu o dele (as reguas e
+     as tiras tem balao proprio, com o valor no ponto e a diferenca contra cada
+     referencia), o generico fica quieto. O do layout abre antes — ele escuta no
+     proprio elemento, este escuta no palco, e o evento sobe. */
+  const balaoProprio = () => [...palco.querySelectorAll('[class*="-tip"], [class*="-dica"]')]
+    .some(t => t.offsetParent !== null && getComputedStyle(t).display !== 'none' &&
+               getComputedStyle(t).visibility !== 'hidden' && t.textContent.trim());
+  /* O generico cede ao balao do layout SEMPRE que ele existir — nao importa quem abre
+     primeiro. Desligar por forma nao servia: nas reguas so os nomes tem balao proprio,
+     e os tracos da populacao ficavam mudos. Um observador no palco ve o balao do layout
+     aparecer (no mousemove, depois deste mouseover) e esconde o generico na hora. */
+  new MutationObserver(() => { if (!dica.hidden && balaoProprio()) dica.hidden = true; })
+    .observe(palco, { subtree: true, childList: true, attributes: true, attributeFilter: ['style', 'class'] });
+  /* fase de CAPTURA: as reguas chamam stopPropagation no hover do traco, e o listener
+     de borbulha no palco nunca chegava a rodar — a populacao ficava muda */
+  palco.addEventListener('mouseover', e => {
+    const el = acha(e.target); if (!el) return;
+    if (el.closest('[data-tirar]') || el.matches('.fs-chip')) return;   /* chips: sem balao */
+    const j = jog(el.dataset.pk); if (!j) return;
+    if (balaoProprio()) { dica.hidden = true; return; }
+    const naComp = FS_D.destaquePk.has(j.pk);
+    const gr = FS_D.grupos.map((g, i) => '<span>' + esc(g.t.split(' ')[0]) + ' <b>' +
+      (j.idx.grupos[i] == null ? '–' : j.idx.grupos[i]) + '</b></span>').join('');
+    dica.innerHTML = '<div class="fs-dica-nome">' + raioIcone(j.pk) + '<b>' + esc(j.n) + '</b>' +
+      (naComp ? '' : '<i class="fs-dica-add">clique para comparar</i>') + '</div>' +
+      '<div class="fs-dica-sub">' + esc(j.t) + ' · ' + esc(j.l) + (j.idade ? ' · ' + j.idade + 'a' : '') +
+      (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' +
+      '<div class="fs-dica-idx"><span>Índice <b>' + (j.idx.geral == null ? '–' : j.idx.geral) + '</b></span>' + gr + '</div>';
+    dica.hidden = false;
+  }, true);
+  palco.addEventListener('mousemove', e => {
+    if (dica.hidden) return;
+    if (balaoProprio()) { dica.hidden = true; return; }   /* o do layout chegou depois: cede */
+    const r = dica.offsetParent ? dica.offsetParent.getBoundingClientRect() : palco.getBoundingClientRect();
+    let x = e.clientX - r.left + 14, y = e.clientY - r.top + 14;
+    if (x + dica.offsetWidth > r.width - 8) x = e.clientX - r.left - dica.offsetWidth - 14;
+    dica.style.left = Math.max(0, x) + 'px'; dica.style.top = y + 'px';
+  });
+  palco.addEventListener('mouseout', e => { if (!acha(e.relatedTarget)) dica.hidden = true; }, true);
+  palco.addEventListener('click', e => {
+    /* x para tirar da comparacao: os layouts emitem <b data-tirar="pk">×</b> nos chips
+       dos comparados; o app resolve aqui, igual ao x da matriz */
+    const x = e.target.closest ? e.target.closest('[data-tirar]') : null;
+    if (x) {
+      e.stopPropagation(); e.preventDefault();
+      dica.hidden = true;
+      if (FS_FOCO_PK === x.dataset.tirar) FS_FOCO_PK = null;
+      const congelou = fsTirar(x.dataset.tirar);
+      if (congelou) toast('Comparação fixada nos que estavam na tela — agora tirar não chama o próximo da fila');
+      return;
+    }
+    const el = acha(e.target); if (!el) return;
+    const pk = el.dataset.pk;
+    dica.hidden = true;
+    FS_FOCO_PK = pk;
+    if (FS_D && FS_D.destaquePk.has(pk)) { fsFocar(pk); return; }   /* ja comparado: so abre */
+    fsAdicionar(pk);                                                 /* redesenha e o foco vem junto */
+  }, true);
+}
+
+/* Desenha a forma escolhida. A matriz ja foi montada (e o que alimenta a contagem do
+   rodape e os botoes das colunas); aqui so se decide o que fica visivel. */
+function fsDesenharVisao(co, colunas) {
+  const tab = $('#fsMatriz'), palco = $('#fsPalco'), chips = $('#fsChips');
+  if (!palco) return;
+  const alt = FS_VISAO !== 'matriz' && window.FS_VISOES && FS_VISOES[FS_VISAO];
+  tab.style.display = alt ? 'none' : '';
+  palco.hidden = !alt;
+  if (chips) chips.hidden = !alt;
+  palco.className = 'fs-palco' + (alt ? ' fs-vis-' + FS_VISAO : '');
+  const dica = $('#fsDica'); if (dica) dica.hidden = true;
+  const foco = $('#fsFoco'); if (foco) foco.hidden = true;
+  if (!alt) return;
+  fsChips(colunas);
+  fsLigarPalco();
+  if (!RAIO) {
+    /* o raio_ref.json chega logo depois da base; sem ele nao ha referencia. A mensagem
+       de "goleiro" aqui seria mentira — e o aviso some sozinho: iniciar() redesenha a
+       aba quando o arquivo chega. */
+    palco.innerHTML = '<div class="fs-palco-aviso">' + (RAIO_FALHOU
+      ? 'As referências físicas (dados/raio_ref.json) não carregaram — sem elas esta forma de ver não existe. Use a Matriz.'
+      : 'Carregando as referências físicas…') + '</div>';
+    return;
+  }
+  const D = fsPacote(co, colunas);
+  D.destaquePk = new Set(D.destaquePks);
+  FS_D = D;
+  if (!D.refBR || !D.refMU) {
+    palco.innerHTML = '<div class="fs-palco-aviso">Sem referência física para ' +
+      esc(nomePos(fsPos).toLowerCase()) + ' — a régua do raio é de jogador de linha. ' +
+      'Esta forma de ver precisa das duas referências; use a Matriz.</div>';
+    return;
+  }
+  try { FS_VISOES[FS_VISAO](D, palco); fsMarcarFoco(); fsFocoRender(); }
+  catch (e) {
+    console.error('visão ' + FS_VISAO + ' quebrou:', e);
+    palco.innerHTML = '<div class="fs-palco-aviso">Esta forma de ver quebrou ao desenhar: ' +
+      esc(String(e)) + '</div>';
+  }
+}
+
 let FS_ABERTOS = new Set();
 const CHAVE_FS_ABERTOS = 'sc2027_fs_abertos';
 try {
@@ -3133,10 +3413,16 @@ function fsRender() {
     (fsMinJogos() ? ' (≥ ' + fsMinJogos() + ' jogos)' : '') + '</small>' +
     '<button class="fs-add-bt" title="Escolher um jogador para entrar na comparação">' +
       '+ adicionar jogador</button></th>' +
-    medias.map(m => '<th class="fs-media ' + (m.rot.endsWith('A') ? 'sa' : 'sb') +
-      '" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
-      (m.d.n === 1 ? '' : 's') + ' da ' + esc(m.rot.replace('Média ', '')) + ' que entram na régua">' +
-      '<b>' + esc(m.rot) + '</b><small>' + m.d.n + ' na régua</small></th>').join('') +
+    /* "Média A" em vez de "Média Série A": em coluna de 90px o nome inteiro, em caixa
+       alta e com letter-spacing, cortava no "SÉRIE" e a serie sumia — justamente a
+       informacao. A serie vai para a linha de baixo, junto da amostra. */
+    medias.map(m => {
+      const serie = m.rot.replace('Média ', '');          /* 'Série A' */
+      return '<th class="fs-media ' + (serie.endsWith('A') ? 'sa' : 'sb') +
+        '" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
+        (m.d.n === 1 ? '' : 's') + ' da ' + esc(serie) + ' que entram na régua">' +
+        '<b>Média ' + esc(serie.slice(-1)) + '</b><small>' + esc(serie) + '<br>' + m.d.n + ' na régua</small></th>';
+    }).join('') +
     (medias.length === 2 ? '<th class="fs-ganha-cab" title="Qual das duas séries leva ' +
       'vantagem no indicador">ganha</th>' : '') +
     refCols.map(r => '<th class="fs-media ' + r.cls + '" title="' + esc(r.rot +
@@ -3342,6 +3628,8 @@ function fsRender() {
     }
   }
   $('#fsVazio').style.display = colunas.length || medias.length ? 'none' : 'block';
+  fsDesenharVisao(co, colunas);
+  if (FS_VISAO !== 'matriz') $('#fsVazio').style.display = 'none';
 
   $('#fsContagem').innerHTML = '<b>' + colunas.length + '</b> jogador' + (colunas.length === 1 ? '' : 'es') +
     ' na comparação · <b>' + milhar(pool.length) + '</b> passam no filtro · régua: ' +
@@ -3364,15 +3652,7 @@ function fsRender() {
       adicionarDaBase(id);
     };
     th.querySelector('.fs-x').onclick = () => {
-      /* Tirar alguem nao pode chamar o proximo da fila. "Top 5 da Serie A" e uma
-         receita que devolve 5 sempre: excluido um, o sexto entrava no lugar e a
-         coluna parecia so ter trocado de nome. No primeiro x a lista da tela vira
-         escolha explicita e as receitas se desligam; dai em diante tirar e tirar,
-         e a largura sobrando fica para quem voce quiser por no lugar. */
-      const congelou = fsCongelar();
-      fsExtras = fsExtras.filter(x => x !== pk);
-      fsOcultos.add(pk);
-      fsRender();
+      const congelou = fsTirar(pk);
       if (congelou) toast('Comparação fixada nos que estavam na tela — ' +
                           'agora tirar não chama o próximo da fila');
     };
@@ -3840,6 +4120,7 @@ function fsMontarFiltros() {
        da tela, deixava a lista travada nos antigos: sem religar, a nova posicao abria
        vazia ou com os de antes. */
     if (fsPos !== antes) {
+      FS_FOCO_PK = null;
       fsExtras = [];
       fsOcultos = new Set();
       ['#fsTopA', '#fsTopB'].forEach(id => { if ($(id)) $(id).checked = true; });
@@ -3884,6 +4165,10 @@ function fsMontarFiltros() {
   $('#fsLigaEscolha').onchange = () => { fsLigaLista = $('#fsLigaEscolha').value; fsRender(); };
   $('#fsMin').oninput = debounce(fsRender, 200);
   ['#fsTopA', '#fsTopB', '#fsMedias', '#fsRefs'].forEach(id => { $(id).onchange = fsRender; });
+  $$('#fsVisao button').forEach(b => {
+    b.classList.toggle('on', b.dataset.v === FS_VISAO);
+    b.onclick = () => fsTrocarVisao(b.dataset.v);
+  });
   $('#fsLimpar').onclick = () => {
     fsExtras = []; fsOcultos = new Set();
     $('#fsMin').value = 5; $('#fsTopFiltro').value = 0; $('#fsBusca').value = '';
@@ -4073,12 +4358,14 @@ async function aplicarOverridesPosicao() {
 let RAIO = null;          /* dados/raio_ref.json */
 let RAIO_MAPA = null;     /* primary_key -> classificacao */
 
+let RAIO_FALHOU = false;
 async function raioCarregar() {
   try {
     const v = window.__verDados ? '?v=' + window.__verDados : '';
     const r = await fetch('dados/raio_ref.json' + v);
+    if (!r.ok) throw new Error(r.status);
     RAIO = await r.json();
-  } catch (e) { RAIO = null; }
+  } catch (e) { RAIO = null; RAIO_FALHOU = true; console.warn('raio_ref.json indisponível', e); }
   RAIO_MAPA = null;
 }
 
@@ -4657,6 +4944,9 @@ async function iniciar() {
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
     await aplicarOverridesPosicao();
     await raioCarregar();
+    /* se a aba Fisico ja estava aberta numa forma alternativa, ela estava esperando
+       as referencias — redesenha agora, em vez de esperar o usuario mexer */
+    if ($('#pgFisico') && !$('#pgFisico').classList.contains('oculta')) fsRender();
     reancorar();
     /* o primeiro render() acontece antes deste fetch — sem redesenhar, os cards
        ficariam sem a minutagem ate a proxima mexida no elenco */

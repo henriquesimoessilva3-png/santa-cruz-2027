@@ -604,3 +604,76 @@ pergunta da tarja, respondida sem precisar abrir o grupo.
 
 Um achado dos dados: nenhum jogador passa da referência do **mundo** sem passar também da
 do **Brasil**. A tarja roxa sozinha, na prática, não aparece.
+
+## Físico: três formas de ver além da matriz (set/26)
+
+O usuário achou a matriz carregada, recusou o resumo por grupo como resposta única e pediu
+"lógica totalmente diferente". Foram gerados dez desenhos de marcação de célula e depois
+cinco layouts que abandonam a matriz (agentes sob paradigmas distintos, juízes rodando o
+código contra os dados reais; ver `_fonte/propostas-marcacao/`). Ele escolheu três para
+entrar no app como **formas de ver**, trocáveis num seletor ao lado de "Limpar comparação":
+
+- **Matriz** — a tabela de sempre (continua sendo o padrão)
+- **Mapa** — mapa de quadrantes: cada jogador é um ponto; direita = passa da ref. Brasil em
+  mais indicadores, cima = passa da do mundo; painel lateral abre os cinco grupos
+- **Réguas** — cinco réguas 0–100, uma por grupo; os 42 são traços, os comparados têm nome,
+  as referências são marcas grossas; à direita da roxa = acima do mundo
+- **Tiras** — por indicador, a coorte inteira como pontos, corredor sombreado entre as
+  referências; mostra onde o jogador cai *na população*
+
+**Como está montado.** `static/fs_visoes.js` traz os três renderizadores como vieram das
+propostas — cada um é `function(D, el)` — e injeta o CSS deles escopado por
+`.fs-vis-mapa/.fs-vis-reguas/.fs-vis-tiras`. `fsPacote(co, colunas)` em `app.js` monta o
+pacote `D` ao vivo (coorte + comparados de fora dela, sem repetir; médias; as duas
+referências com índice e percentil na régua de sempre). `fsDesenharVisao()` decide o que
+fica visível: a matriz continua sendo montada sempre (é ela que alimenta o rodapé e os
+botões das colunas), o palco `#fsPalco` só aparece nas outras três. A escolha fica em
+`localStorage` (`sc2027_fs_visao`).
+
+**Tokens.** Os layouts nasceram com uma paleta própria (`--ink`, `--sup`, `--bonina`...).
+Em vez de reescrever o CSS deles, `.fs-palco` define esses nomes como apelidos dos tokens
+do app — trocam com o tema claro sem regra duplicada.
+
+**Goleiro.** O raio não tem referência para goleiro (é régua de jogador de linha), então as
+três formas mostram um aviso e mandam para a Matriz — antes de descobrir isso com uma
+exceção.
+
+Testado por Playwright contra o servidor real: 3 posições × 4 formas, zero erro de
+console. Uma revisão adversarial (adaptador, Tiras, tema claro) roda depois.
+
+**Fechamento das três formas (set/26).** Revisão adversarial em dois fluxos de agentes,
+com verificador tentando refutar cada achado contra o servidor real:
+
+- **Destaque casava por nome** — grave. Com homônimos (4 pares reais na mesma posição: dois
+  Juninho, dois Vitinho, dois Marlon, dois Wallace) o gráfico destacava o errado ou
+  duplicava. Agora `fsPacote()` entrega `destaquePks` e os três layouts casam por chave;
+  o nome é só rótulo. Contra-prova: os dois Juninhos juntos na comparação aparecem como
+  dois, cada um no seu lugar.
+- **`data-pk` em todo elemento que representa um jogador** (pontos, traços, nomes, chips
+  das três formas). É o que liga o balão genérico, o clique-para-comparar, o painel de
+  foco e a classe `.foco`. Balão: o genérico cede ao do layout sempre que ele existir —
+  um `MutationObserver` no palco vê o balão do layout aparecer (abre no mousemove, depois
+  do mouseover) e esconde o genérico; listeners em fase de captura porque as réguas
+  interrompem a propagação no traço.
+- **Painel de foco** (`#fsFoco`, acima do gráfico): clicar num jogador abre os cinco grupos
+  com régua 0–100 e as marcas das duas referências, e os 25 indicadores com valor,
+  percentil e as tarjas Brasil/mundo. Fecha no ×, na troca de posição ou clicando outro.
+- **Tirar da comparação**: chips com × acima do palco (`#fsChips`) e um × genérico
+  (`data-tirar`) nos chips de cada gráfico — o app resolve os dois com `fsTirar()`, o mesmo
+  do × da matriz (congela as receitas do Top 5 no primeiro uso, como sempre).
+- **Mapa**: o painel lateral ganhou os valores dos indicadores sob cada grupo (com
+  percentil e as marcas Brasil/mundo); o rótulo do ponto mais à direita não corta mais.
+- **Tiras**: o cabeçalho embolado era o JS gerando classes `lN-*` que o CSS (escopado em
+  `.fs-vis-tiras-*`) nunca casava. Corrigido no JS.
+- **Tema claro**: `--ambar`/`--verde`/`--roxo` davam 1,8–3,4:1 sobre o palco claro. Dentro
+  do palco, no claro, apontam para `--txt-ambar`/`--txt-verde`/`#7e22ce`; halo dos pontos
+  virou `--halo` (fundo no escuro, tinta no claro).
+- **`raio_ref.json` ainda não carregado**: aviso próprio ("carregando…" / "indisponível")
+  em vez da mensagem de goleiro, e `iniciar()` redesenha a aba quando o arquivo chega.
+- **Comparado de fora da coorte** conta como "+1 de fora", não como 43º da população.
+  Ressalva conhecida: no mapa, a contagem por quadrante inclui o de fora se ele cair ali.
+- Cabeçalho da matriz: "Média A / Média B" com a série na linha de baixo — o "SÉRIE"
+  cortava e escondia justamente a série.
+
+Regressão final: 11 posições × 4 formas × 2 temas = 88 combinações, zero erro de
+console; homônimos certos nas três formas.

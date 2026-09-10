@@ -1,0 +1,1604 @@
+<title>Cinco lógicas fora da matriz</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Archivo+Narrow:wght@600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --fundo:#f2f5f9; --sup:#ffffff; --sup2:#e9eef5; --linha:#dce3ed; --linha2:#c3cddb;
+  --ink:#141b25; --ink2:#4b5768; --ink3:#7d8899;
+  --trilho:#dae1eb; --barra:#98a4b4;
+  --verde:#0f9b4c; --ambar:#b8820a; --bonina:#a8143c; --roxo:#7c3aed; --coral:#c8102e;
+  --verde-v:#0f9b4c22; --bonina-v:#a8143c1a; --roxo-v:#7c3aed1f;
+  --sombra:0 1px 2px #141b250d, 0 10px 30px #141b2512;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --fundo:#0d131b; --sup:#141c26; --sup2:#1a2431; --linha:#222e3d; --linha2:#31404f;
+    --ink:#e8eef6; --ink2:#a7b3c2; --ink3:#75818f;
+    --trilho:#202c3a; --barra:#5b6879;
+    --verde:#22c55e; --ambar:#e2a51f; --bonina:#e0466f; --roxo:#a855f7; --coral:#ef4358;
+    --verde-v:#22c55e1f; --bonina-v:#e0466f1f; --roxo-v:#a855f722;
+    --sombra:0 1px 2px #0006, 0 12px 34px #0007;
+  }
+}
+:root[data-theme="dark"]{
+  --fundo:#0d131b; --sup:#141c26; --sup2:#1a2431; --linha:#222e3d; --linha2:#31404f;
+  --ink:#e8eef6; --ink2:#a7b3c2; --ink3:#75818f;
+  --trilho:#202c3a; --barra:#5b6879;
+  --verde:#22c55e; --ambar:#e2a51f; --bonina:#e0466f; --roxo:#a855f7; --coral:#ef4358;
+  --verde-v:#22c55e1f; --bonina-v:#e0466f1f; --roxo-v:#a855f722;
+  --sombra:0 1px 2px #0006, 0 12px 34px #0007;
+}
+*{box-sizing:border-box}
+body{background:var(--fundo);color:var(--ink);
+  font-family:Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55;padding:0 0 64px}
+.env{max-width:1220px;margin:0 auto;padding:0 22px}
+header{padding:44px 0 26px;border-bottom:1px solid var(--linha)}
+.eyebrow{font-family:"Archivo Narrow",Archivo,sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--coral)}
+h1{font-size:clamp(28px,4.2vw,42px);line-height:1.08;margin:10px 0 0;font-weight:700;
+  letter-spacing:-.02em;text-wrap:balance;max-width:20ch}
+header p{margin:14px 0 0;max-width:66ch;color:var(--ink2);font-size:15px}
+.contexto{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:22px;font-size:12.5px;color:var(--ink3)}
+.contexto b{color:var(--ink2);font-weight:500}
+.contexto .rot{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block}
+.prop{padding:34px 0;border-bottom:1px solid var(--linha)}
+.prop-cab{display:flex;align-items:flex-start;gap:16px;margin-bottom:6px}
+.num{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px;color:var(--coral);
+  border:1px solid var(--coral);border-radius:50%;width:28px;height:28px;flex:none;
+  display:grid;place-items:center;margin-top:2px}
+.prop h2{font-size:21px;margin:0;font-weight:700;letter-spacing:-.01em}
+.prop .como{margin:2px 0 0;color:var(--ink2);font-size:14px;max-width:72ch}
+.custa{margin:12px 0 20px;padding-left:44px;font-size:13px;color:var(--ink3);max-width:76ch}
+.custa b{color:var(--bonina);font-weight:600}
+.palco{background:var(--sup);border:1px solid var(--linha);border-radius:10px;
+  box-shadow:var(--sombra);padding:18px;overflow-x:auto;min-height:120px;position:relative}
+.palco .erro{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--coral);
+  background:var(--sup2);padding:10px 12px;border-radius:6px;white-space:pre-wrap}
+.leg{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;padding-left:44px;
+  font-size:11.5px;color:var(--ink3)}
+.leg span{display:flex;align-items:center;gap:6px}
+.leg i{display:inline-block;width:14px;height:10px;border-radius:3px;flex:none}
+.fecho{padding:38px 0 0}
+.fecho h2{font-size:19px;margin:0 0 4px;font-weight:700}
+.fecho > p{color:var(--ink2);font-size:14px;margin:0 0 22px;max-width:70ch}
+.quadro{width:100%;border-collapse:collapse;font-size:13px}
+.quadro th,.quadro td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linha)}
+.quadro thead th{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--linha2)}
+.quadro td:first-child{font-weight:500;color:var(--ink)}
+.quadro .sim{color:var(--verde);font-weight:600} .quadro .nao{color:var(--ink3)}
+.nota{margin-top:26px;padding:16px 18px;border-left:3px solid var(--coral);background:var(--sup);
+  border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink2);max-width:76ch}
+.nota b{color:var(--ink)}
+/* 1 — Mapa de quadrantes */
+.l1 { font-family: Archivo, system-ui, sans-serif; color: var(--ink); }
+.l1 .qm-cab { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin:0 0 12px; flex-wrap:wrap; }
+.l1 .qm-tit { font-size:15px; font-weight:600; color:var(--ink); margin:0; }
+.l1 .qm-sub { font-size:12px; color:var(--ink2); margin:3px 0 0; }
+.l1 .qm-chips { display:flex; gap:8px; flex-wrap:wrap; }
+.l1 .qm-chip { display:flex; flex-direction:column; gap:2px; padding:7px 10px; border:1px solid var(--linha); border-radius:6px; background:var(--sup); min-width:132px; }
+.l1 .qm-chip-n { font-family:"Archivo Narrow", Archivo, sans-serif; text-transform:uppercase; letter-spacing:.04em; font-size:11px; color:var(--ink2); display:flex; align-items:center; gap:6px; }
+.l1 .qm-chip-v { font-family:"IBM Plex Mono", monospace; font-size:12px; color:var(--ink); }
+.l1 .qm-chip-v small { color:var(--ink3); font-size:11px; }
+.l1 .qm-gl { font-size:11px; letter-spacing:1px; white-space:nowrap; }
+.l1 .qm-gl .br { color:var(--bonina); }
+.l1 .qm-gl .mu { color:var(--roxo); }
+.l1 .qm-corpo { display:flex; gap:18px; align-items:flex-start; }
+.l1 .qm-mapa { flex:0 0 780px; max-width:780px; }
+.l1 .qm-mapa svg { display:block; width:100%; height:auto; }
+.l1 .qm-hit { cursor:pointer; }
+.l1 .qm-pt { transition:r .12s; }
+.l1 .qm-hit:hover + .qm-pt { r:7.5; }
+.l1 .qm-painel { flex:1 1 auto; min-width:320px; border:1px solid var(--linha); border-radius:8px; background:var(--sup); padding:14px 16px; }
+.l1 .qm-det-q { font-family:"Archivo Narrow", Archivo, sans-serif; text-transform:uppercase; letter-spacing:.05em; font-size:11px; color:var(--ink2); display:flex; align-items:center; gap:8px; }
+.l1 .qm-det-n { font-size:18px; font-weight:600; margin:4px 0 0; color:var(--ink); }
+.l1 .qm-det-m { font-size:12px; color:var(--ink2); margin:2px 0 12px; }
+.l1 .qm-det-m b { font-family:"IBM Plex Mono", monospace; font-weight:500; color:var(--ink); }
+.l1 .qm-saldos { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.l1 .qm-saldo { border-top:2px solid var(--linha2); padding-top:6px; }
+.l1 .qm-saldo.br { border-top-color:var(--bonina); }
+.l1 .qm-saldo.mu { border-top-color:var(--roxo); }
+.l1 .qm-saldo-t { font-family:"Archivo Narrow", Archivo, sans-serif; text-transform:uppercase; letter-spacing:.05em; font-size:11px; color:var(--ink2); }
+.l1 .qm-saldo-v { font-family:"IBM Plex Mono", monospace; font-size:26px; line-height:1.1; font-weight:500; }
+.l1 .qm-saldo.br .qm-saldo-v { color:var(--bonina); }
+.l1 .qm-saldo.mu .qm-saldo-v { color:var(--roxo); }
+.l1 .qm-saldo-d { font-size:11px; color:var(--ink3); margin-top:2px; }
+.l1 .qm-grupos { display:flex; flex-direction:column; gap:9px; }
+.l1 .qm-g { display:block; }
+.l1 .qm-gt { display:flex; justify-content:space-between; align-items:baseline; font-family:"Archivo Narrow", Archivo, sans-serif; text-transform:uppercase; letter-spacing:.05em; font-size:11px; color:var(--ink2); }
+.l1 .qm-gc { font-family:"IBM Plex Mono", monospace; text-transform:none; letter-spacing:0; font-size:11px; color:var(--ink3); }
+.l1 .qm-gc b { font-weight:500; }
+.l1 .qm-gc b.br { color:var(--bonina); }
+.l1 .qm-gc b.mu { color:var(--roxo); }
+.l1 .qm-trk { position:relative; height:16px; margin:4px 0 2px; background:var(--trilho); border-radius:3px; }
+.l1 .qm-trk i { position:absolute; top:0; display:block; }
+.l1 .qm-mbr { width:2px; height:16px; margin-left:-1px; background:var(--bonina); }
+.l1 .qm-mmu { width:2px; height:16px; margin-left:-1px; background:var(--roxo); }
+.l1 .qm-mj { width:10px; height:10px; top:3px !important; margin-left:-5px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 2px var(--sup); }
+.l1 .qm-gv { display:flex; gap:12px; font-size:11px; color:var(--ink3); }
+.l1 .qm-gv b { font-family:"IBM Plex Mono", monospace; font-weight:500; color:var(--ink); }
+.l1 .qm-gv .br b { color:var(--bonina); }
+.l1 .qm-gv .mu b { color:var(--roxo); }
+.l1 .qm-lista { margin-top:14px; border-top:1px solid var(--linha); padding-top:8px; }
+.l1 .qm-lista-t { font-family:"Archivo Narrow", Archivo, sans-serif; text-transform:uppercase; letter-spacing:.05em; font-size:11px; color:var(--ink3); margin-bottom:4px; display:flex; justify-content:space-between; }
+.l1 .qm-row { display:grid; grid-template-columns:1fr auto 40px 40px 34px; gap:8px; align-items:center; padding:4px 6px; margin:0 -6px; border-radius:4px; cursor:pointer; font-size:12px; }
+.l1 .qm-row:hover { background:var(--sup2); }
+.l1 .qm-row.sel { background:var(--sup2); box-shadow:inset 2px 0 0 var(--ambar); }
+.l1 .qm-row-n { color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.l1 .qm-row-v { font-family:"IBM Plex Mono", monospace; font-size:12px; text-align:right; }
+.l1 .qm-row-v.br { color:var(--bonina); }
+.l1 .qm-row-v.mu { color:var(--roxo); }
+.l1 .qm-row-v:not(.br):not(.mu) { color:var(--ink3); }
+.l1 .qm-nota { font-size:11px; color:var(--ink3); margin-top:10px; line-height:1.4; }
+/* 2 — Réguas por grupo */
+.l2{position:relative;font-family:Archivo,system-ui,sans-serif;color:var(--ink);background:var(--fundo)}
+.l2 .rg-cab{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:4px 16px 10px;flex-wrap:wrap}
+.l2 .rg-cab h3{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.l2 .rg-refs{font-size:11.5px;color:var(--ink3)}
+.l2 .rg-refs b,.l2 .rg-pt b{font-weight:600}
+.l2 .br{color:var(--bonina)}
+.l2 .mu{color:var(--roxo)}
+.l2 svg text{font-family:Archivo,system-ui,sans-serif;fill:var(--ink);font-size:11px}
+.l2 .rg-esc{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--ink3);letter-spacing:.04em}
+.l2 .rg-tit{font-family:"Archivo Narrow",Archivo,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink)}
+.l2 .rg-des{font-size:11px;fill:var(--ink3)}
+.l2 .rg-chip{font-size:11px;fill:var(--ink2)}
+.l2 .rg-chip .n{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:11.5px;fill:var(--ink)}
+.l2 .rg-pop{font-size:10.5px;fill:var(--ink3)}
+.l2 .rg-nome{font-size:11.5px;font-weight:600;cursor:default;paint-order:stroke;stroke:var(--fundo);stroke-width:3px;stroke-linejoin:round}
+.l2 .rg-nome .n{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:10.5px;fill:var(--ink3)}
+.l2 .rg-ref{font-family:"Archivo Narrow",Archivo,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.l2 .rg-ref .n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:0}
+.l2 .rg-tick{cursor:default}
+.l2 .rg-tick.pop{opacity:.7}
+.l2 .rg-tick.pop.ativo{opacity:1;fill:var(--ink)!important}
+.l2 .rg-tick.hi.ativo{stroke:var(--ink);stroke-width:2px}
+.l2 text.rg-nome.ativo{text-decoration:underline;text-underline-offset:2px}
+.l2 .rg-trace{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-dasharray:3 3;opacity:.7;pointer-events:none}
+.l2 .rg-placar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 16px 6px;margin-top:8px;border-top:1px solid var(--linha)}
+.l2 .rg-pl-t{flex:0 0 100%;font-family:"Archivo Narrow",Archivo,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:2px}
+.l2 .rg-pc{display:flex;align-items:center;gap:9px;padding:6px 10px;border:1px solid var(--linha);border-radius:6px;background:var(--sup);cursor:default}
+.l2 .rg-pc.ativo{border-color:var(--ink3);background:var(--sup2)}
+.l2 .rg-pn{font-size:11.5px;font-weight:600}
+.l2 .rg-sq{display:flex;gap:3px}
+.l2 .rg-sq i{display:block;width:10px;height:10px;border-radius:2px}
+.l2 .rg-pt{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink3)}
+.l2 .rg-tip{position:absolute;z-index:9;display:none;pointer-events:none;min-width:380px;max-width:480px;padding:10px 12px 8px;background:var(--sup);border:1px solid var(--linha2);border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,.5);font-size:11.5px;color:var(--ink)}
+.l2 .rg-tip h4{margin:0 0 2px;font-size:13px;font-weight:600}
+.l2 .rg-tip .sub{color:var(--ink3);font-size:11px}
+.l2 .rg-tip .sub b{color:var(--ink);font-weight:600}
+.l2 .rg-tip .idx{display:flex;gap:14px;margin:6px 0 8px;font-size:11px;color:var(--ink2)}
+.l2 .rg-tip .idx b{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600}
+.l2 .rg-tip table{border-collapse:collapse;width:100%}
+.l2 .rg-tip th{font-family:"Archivo Narrow",Archivo,sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:right;padding:0 0 4px 10px;border-bottom:1px solid var(--linha)}
+.l2 .rg-tip th.e{text-align:left;padding-left:0}
+.l2 .rg-tip td{padding:3px 0 3px 10px;border-bottom:1px solid var(--linha);vertical-align:baseline}
+.l2 .rg-tip td:first-child{padding-left:0}
+.l2 .rg-tip td.v{font-family:"IBM Plex Mono",monospace;text-align:right;white-space:nowrap}
+.l2 .rg-tip .un{color:var(--ink3);font-size:10px}
+.l2 .rg-tip .cima{color:var(--verde)}
+.l2 .rg-tip .baixo{color:var(--coral)}
+.l2 .rg-tip .igual,.l2 .rg-tip .nd{color:var(--ink3)}
+.l2 .rg-tip .nota{margin-top:6px;font-size:10px;color:var(--ink3)}
+/* 3 — Corredor das referências */
+.l3 { font-family: Archivo, system-ui, sans-serif; color: var(--ink); background: var(--fundo); }
+.l3 .refs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding: 4px 2px 10px; }
+.l3 .refc { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 5px 10px; border-radius: 6px; border: 1px solid transparent; transition: background .12s, border-color .12s; }
+.l3 .refc:hover, .l3 .refc.on { background: var(--sup); border-color: var(--linha2); }
+.l3 .refc b { font-family: "Archivo Narrow", Archivo, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.l3 .refc span { font-size: 11px; color: var(--ink2); }
+.l3 .refc em { font-family: "IBM Plex Mono", monospace; font-style: normal; font-size: 11px; color: var(--ink3); white-space: nowrap; }
+.l3 .dica { margin-left: auto; font-size: 10.5px; color: var(--ink3); }
+.l3 .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; flex: none; margin-top: 2px; }
+.l3 .refc .sw { width: 22px; height: 5px; border-radius: 2px; }
+.l3 .chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 0 8px; }
+.l3 .chip { flex: 1 1 138px; min-width: 138px; display: flex; align-items: flex-start; gap: 8px; padding: 7px 9px; border-radius: 7px; background: var(--sup); border: 1px solid var(--linha); cursor: pointer; transition: border-color .12s, background .12s; }
+.l3 .chip:hover, .l3 .chip.on { border-color: var(--ink3); background: var(--sup2); }
+.l3 .chip .ci { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.l3 .chip b { font-size: 12px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.l3 .chip small { font-size: 10px; color: var(--ink3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.l3 .chip .cn { display: flex; flex-direction: row; gap: 10px; align-items: center; margin-top: 3px; }
+.l3 .chip .cn span { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink); display: inline-flex; align-items: center; gap: 5px; line-height: 1.15; }
+.l3 .chip .cn span i { display: inline-block; width: 10px; height: 4px; border-radius: 2px; }
+.l3 .chip .cn em { font-style: normal; font-size: 9.5px; color: var(--ink3); }
+.l3 svg.pc { display: block; width: 100%; height: auto; }
+.l3 svg.pc text { font-family: Archivo, system-ui, sans-serif; }
+.l3 .tk { font-family: "IBM Plex Mono", monospace; font-size: 10px; fill: var(--ink3); }
+.l3 .tkl { font-family: "Archivo Narrow", Archivo, sans-serif; font-size: 10px; letter-spacing: .1em; fill: var(--ink3); }
+.l3 .gt { font-family: "Archivo Narrow", Archivo, sans-serif; font-size: 11px; letter-spacing: .09em; font-weight: 600; fill: var(--ink2); }
+.l3 .ax { font-family: "Archivo Narrow", Archivo, sans-serif; font-size: 10.5px; fill: var(--ink2); }
+.l3 path.pop { fill: none; stroke: var(--ink3); stroke-width: 1; opacity: .2; transition: opacity .12s, stroke-width .12s; pointer-events: none; }
+.l3 path.pop.on { opacity: .95; stroke: var(--ink); stroke-width: 2; }
+.l3 path.hit { fill: none; stroke: #000; stroke-opacity: 0; stroke-width: 9; cursor: pointer; }
+.l3 path.ref { fill: none; stroke-width: 3.5; stroke-linejoin: round; opacity: 1; transition: opacity .12s; }
+.l3 path.hl { fill: none; stroke-width: 2.2; stroke-linejoin: round; opacity: .92; transition: opacity .12s, stroke-width .12s; }
+.l3 svg.solo path.hl { opacity: .14; }
+.l3 svg.solo path.hl.on { opacity: 1; stroke-width: 3.4; }
+.l3 svg.solo path.ref { opacity: .5; }
+.l3 svg.solo path.ref.on { opacity: 1; stroke-width: 4.5; }
+.l3 svg.solo path.pop { opacity: .07; }
+.l3 svg.solo path.pop.on { opacity: .95; }
+.l3 .vals { display: none; pointer-events: none; }
+.l3 .vals.on { display: block; }
+.l3 .vv { font-family: "IBM Plex Mono", monospace; font-size: 10px; paint-order: stroke; stroke: var(--fundo); stroke-width: 3px; stroke-linejoin: round; }
+.l3 .gl { font-size: 10px; paint-order: stroke; stroke: var(--fundo); stroke-width: 2.5px; }
+.l3 .endlbl .en { font-size: 11px; font-weight: 600; paint-order: stroke; stroke: var(--fundo); stroke-width: 3px; stroke-linejoin: round; }
+.l3 .endlbl .er { font-family: "Archivo Narrow", Archivo, sans-serif; font-size: 10.5px; letter-spacing: .08em; }
+.l3 .endlbl { transition: opacity .12s; pointer-events: none; }
+.l3 svg.solo .endlbl { opacity: .3; }
+.l3 svg.solo .endlbl.on { opacity: 1; }
+.l3 .flut { font-size: 11px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--fundo); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+/* 4 — Tiras de população */
+.l4 { position: relative; font-family: Archivo, system-ui, sans-serif; color: var(--ink); background: var(--fundo); }
+.l4 * { box-sizing: border-box; }
+
+/* topo */
+.l4 .l4-topo { padding: 4px 0 14px; border-bottom: 1px solid var(--linha); margin-bottom: 8px; }
+.l4 .l4-titulo { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.l4 .l4-pos { font-family: "Archivo Narrow", Archivo, sans-serif; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; color: var(--ink2); }
+.l4 .l4-sub { font-size: 12px; color: var(--ink3); }
+.l4 .l4-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.l4 .l4-chip { display: flex; align-items: center; gap: 8px; padding: 6px 10px 6px 8px; border: 1px solid var(--linha); border-radius: 8px; background: var(--sup); color: var(--ink); cursor: pointer; font: inherit; text-align: left; transition: border-color .12s, background .12s; }
+.l4 .l4-chip:hover, .l4 .l4-chip.l4-chip-on { border-color: var(--c); background: var(--sup2); }
+.l4 .l4-chip.l4-chip-on { box-shadow: inset 0 0 0 1px var(--c); }
+.l4 .l4-chip-pt { width: 11px; height: 11px; border-radius: 50%; background: var(--c); flex: none; box-shadow: 0 0 0 1.5px var(--fundo); }
+.l4 .l4-chip-nome { display: flex; flex-direction: column; line-height: 1.15; font-size: 12px; font-weight: 600; }
+.l4 .l4-chip-nome small { font-weight: 400; font-size: 10px; color: var(--ink3); }
+.l4 .l4-chip-ct { display: flex; align-items: baseline; gap: 5px; margin-left: 4px; padding-left: 8px; border-left: 1px solid var(--linha); font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.l4 .l4-chip-ct b { font-weight: 600; }
+.l4 .l4-chip-ct i { font-style: normal; font-size: 10px; color: var(--ink3); }
+.l4 .l4-br { color: var(--bonina); }
+.l4 .l4-mu { color: var(--roxo); }
+.l4 .l4-refs { display: flex; gap: 22px; flex-wrap: wrap; font-size: 11px; color: var(--ink2); }
+.l4 .l4-ref { display: inline-flex; align-items: center; gap: 7px; }
+.l4 .l4-ref i { width: 2px; height: 14px; border-radius: 1px; display: inline-block; }
+.l4 .l4-ref-br i { background: var(--bonina); }
+.l4 .l4-ref-mu i { background: var(--roxo); }
+.l4 .l4-ref small { color: var(--ink3); font-size: 10px; }
+
+/* grade das tiras */
+.l4 .l4-cab, .l4 .l4-linha { display: grid; grid-template-columns: 230px 56px minmax(0, 1fr) 56px 120px; gap: 0 10px; align-items: center; }
+.l4 .l4-cab { font-family: "Archivo Narrow", Archivo, sans-serif; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; color: var(--ink3); padding: 4px 0 6px; position: sticky; top: 0; background: var(--fundo); z-index: 2; border-bottom: 1px solid var(--linha); }
+.l4 .l4-cab-pior { text-align: right; }
+.l4 .l4-cab-eixo { text-align: center; }
+.l4 .l4-cab-melhor { color: var(--ink2); }
+.l4 .l4-cab-placar { display: flex; gap: 10px; justify-content: flex-end; }
+.l4 .l4-cab-placar b { font-weight: 600; }
+.l4 .l4-grupo { display: flex; align-items: baseline; gap: 10px; padding: 16px 0 4px; }
+.l4 .l4-grupo h4 { margin: 0; font-family: "Archivo Narrow", Archivo, sans-serif; text-transform: uppercase; letter-spacing: .1em; font-size: 12px; color: var(--ink); font-weight: 600; }
+.l4 .l4-grupo p { margin: 0; font-size: 11px; color: var(--ink3); }
+.l4 .l4-linha { border-top: 1px solid var(--linha2); }
+.l4 .l4-linha:hover { background: var(--sup); }
+.l4 .l4-rot { display: flex; flex-direction: column; line-height: 1.15; padding: 2px 0; }
+.l4 .l4-rot-n { font-size: 12px; color: var(--ink); }
+.l4 .l4-rot-u { font-family: "Archivo Narrow", Archivo, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 10px; color: var(--ink3); }
+.l4 .l4-ext { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--ink3); white-space: nowrap; }
+.l4 .l4-ext-e { text-align: right; }
+.l4 .l4-tira { min-width: 0; }
+.l4 .l4-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.l4 .l4-pt { cursor: pointer; transition: opacity .12s; }
+.l4 .l4-pop:hover { opacity: 1 !important; }
+.l4 .l4-dest:hover { stroke-width: 2.5 !important; }
+.l4.l4-com-foco .l4-dest { opacity: .22; }
+.l4.l4-com-foco .l4-dest.l4-foco { opacity: 1; r: 7; stroke-width: 2.5 !important; }
+.l4.l4-com-foco .l4-pop { opacity: .35 !important; }
+.l4 .l4-placar { display: flex; justify-content: flex-end; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.l4 .l4-placar span { display: flex; gap: 10px; justify-content: flex-end; }
+.l4 .l4-placar b { font-weight: 600; min-width: 42px; text-align: right; white-space: nowrap; }
+.l4 .l4-placar b i { font-style: normal; font-size: 10px; color: var(--ink3); }
+.l4 .l4-placar-foco { display: none; }
+.l4.l4-com-foco .l4-placar-padrao { display: none; }
+.l4.l4-com-foco .l4-placar-foco { display: flex; }
+.l4 .l4-placar b.l4-dn { opacity: .55; }
+.l4 .l4-placar b.l4-nd { font-size: 10px; color: var(--ink3); opacity: .7; }
+
+/* tooltip */
+.l4 .l4-tip { position: absolute; z-index: 5; pointer-events: none; min-width: 200px; max-width: 280px; padding: 8px 10px; background: var(--sup2); border: 1px solid var(--linha2); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.45); font-size: 12px; color: var(--ink); }
+.l4 .l4-tip-n { display: flex; align-items: center; gap: 7px; font-weight: 600; flex-wrap: wrap; }
+.l4 .l4-tip-n i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.l4 .l4-tip-n small { width: 100%; font-weight: 400; font-size: 10px; color: var(--ink3); padding-left: 16px; }
+.l4 .l4-tip-v { margin-top: 6px; font-family: "IBM Plex Mono", monospace; display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap; }
+.l4 .l4-tip-v b { font-size: 15px; font-weight: 600; }
+.l4 .l4-tip-v span { font-size: 10px; color: var(--ink3); }
+.l4 .l4-tip-v em { font-style: normal; font-size: 10px; color: var(--ink2); margin-left: auto; }
+.l4 .l4-tip-d { margin-top: 6px; display: flex; gap: 12px; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.l4 .l4-tip-d small { font-family: Archivo, sans-serif; font-size: 10px; color: var(--ink3); }
+/* 5 — Ficha narrativa */
+.l5 .wrap{font-family:Archivo,system-ui,sans-serif;color:var(--ink);background:var(--fundo)}
+.l5 .kicker{font-family:"Archivo Narrow",Archivo,sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--ink3)}
+.l5 .topo{padding:0 0 16px;border-bottom:1px solid var(--linha);margin-bottom:16px}
+.l5 .coorte{font-size:14px;line-height:1.55;color:var(--ink2);max-width:1000px;margin:8px 0 0}
+.l5 .coorte b{font-weight:600}
+.l5 .c-br{color:var(--bonina)}
+.l5 .c-mu{color:var(--roxo)}
+.l5 .num{font-family:"IBM Plex Mono",monospace}
+.l5 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.l5 .card{background:var(--sup);border:1px solid var(--linha);border-radius:10px;padding:16px 18px 14px}
+.l5 .card header{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.l5 .card .rk{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink3);padding-top:5px;min-width:26px}
+.l5 .who{flex:1;min-width:0}
+.l5 .who h3{margin:0;font-size:17px;font-weight:600;color:var(--ink);line-height:1.2}
+.l5 .meta{font-size:11px;color:var(--ink3);margin-top:3px;font-family:"Archivo Narrow",Archivo,sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.l5 .placar{display:flex;gap:8px;flex-shrink:0}
+.l5 .pl{display:flex;flex-direction:column;align-items:flex-end;padding:6px 10px 5px;border-radius:8px;min-width:104px;background:var(--sup2);border-left:3px solid var(--linha2)}
+.l5 .pl.br{border-left-color:var(--bonina)}
+.l5 .pl.mu{border-left-color:var(--roxo)}
+.l5 .pl-n{font-family:"IBM Plex Mono",monospace;font-size:22px;line-height:1;font-weight:600;color:var(--ink)}
+.l5 .pl.br .pl-n{color:var(--bonina)}
+.l5 .pl.mu .pl-n{color:var(--roxo)}
+.l5 .pl-n small{font-size:12px;color:var(--ink3);font-weight:400}
+.l5 .pl-l{font-family:"Archivo Narrow",Archivo,sans-serif;text-transform:uppercase;font-size:10px;letter-spacing:.06em;color:var(--ink3);margin-top:4px}
+.l5 .pl-d{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink2);margin-top:1px}
+.l5 .res{font-size:15px;font-weight:600;line-height:1.4;margin:0 0 8px;color:var(--ink)}
+.l5 .txt{font-size:13.5px;line-height:1.62;color:var(--ink2);margin:0}
+.l5 .txt b{color:var(--ink);font-weight:600}
+.l5 .txt .num{color:var(--ink)}
+.l5 .ind{border-bottom:1px dotted var(--ink3);cursor:help;color:var(--ink)}
+.l5 .ind:hover{border-bottom-color:var(--ink);background:var(--sup2)}
+.l5 .tg{margin-top:12px;background:none;border:1px solid var(--linha2);color:var(--ink3);font:11px "Archivo Narrow",Archivo,sans-serif;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-radius:6px;cursor:pointer}
+.l5 .tg:hover{color:var(--ink);border-color:var(--ink3)}
+.l5 .lista{margin-top:10px;font-size:12px;line-height:1.7;color:var(--ink2)}
+.l5 .lg{font-family:"Archivo Narrow",Archivo,sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;color:var(--ink3);margin-top:8px;border-bottom:1px solid var(--linha);padding-bottom:2px}
+.l5 .li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l5 .li-r{color:var(--ink)}
+.l5 .li-p{color:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:11px}
+.l5 .dot{font-size:10px;vertical-align:1px;margin-left:6px}
+.l5 .dot.on-br{color:var(--bonina)}
+.l5 .dot.on-mu{color:var(--roxo)}
+.l5 .dot.off{color:var(--trilho)}
+.l5 .pop{margin-top:22px;border-top:1px solid var(--linha);padding-top:14px}
+.l5 .pop .kicker{margin-bottom:6px}
+.l5 .row{display:grid;grid-template-columns:34px 180px minmax(120px,1fr) 118px 118px 330px;gap:10px;align-items:baseline;padding:6px 8px;border-bottom:1px solid var(--linha);font-size:12.5px;cursor:pointer;color:var(--ink2)}
+.l5 .row:hover,.l5 .row.open{background:var(--sup)}
+.l5 .row .rk{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink3)}
+.l5 .row .nm{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l5 .row .tm{color:var(--ink3);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l5 .row .sc{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink3);white-space:nowrap}
+.l5 .row .sc .num{font-size:14px;font-weight:600}
+.l5 .row .sc.br .num{color:var(--bonina)}
+.l5 .row .sc.mu .num{color:var(--roxo)}
+.l5 .row .sc em{font-style:normal;color:var(--ink3);font-size:11px;margin-left:4px}
+.l5 .row .fr{color:var(--ink3);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l5 .row-card{padding:8px 0 14px}
+.l5 .row-card .card{border-color:var(--linha2)}
+</style>
+<div class="env">
+  <header>
+    <div class="eyebrow">Aba Física · Santa Cruz 2027</div>
+    <h1>Cinco lógicas fora da matriz</h1>
+    <p>Nenhuma delas é uma matriz de indicadores por jogadores. Cada uma responde de outro
+    jeito a mesma pergunta — <b>quem está acima da referência do Brasil, quem está acima da
+    do mundo, e por quanto</b>. Os dados são reais: os 42 meias das Séries A e B com
+    tracking, os sete que hoje estão na comparação em destaque, e as duas referências.</p>
+    <div class="contexto">
+      <span><span class="rot">Régua</span><b>42 meias das Séries A e B</b> com ≥ 5 jogos rastreados</span>
+      <span><span class="rot">Ref. Brasil</span><b id="cBR"></b></span>
+      <span><span class="rot">Ref. Mundo</span><b id="cMU"></b></span>
+    </div>
+  </header>
+  <section class="prop l1" id="l1">
+    <div class="prop-cab">
+      <div class="num">1</div>
+      <div>
+        <h2>Mapa de quadrantes</h2>
+        <p class="como">Um plano com os 42 meias como pontos: para a direita, o jogador vence a referência do Brasil em mais indicadores (saldo = nº acima menos nº abaixo, de 25); para cima, vence a do mundo. Os quatro quadrantes têm nome e contagem (hoje: 4 acima das duas, 22 só acima do Brasil, 0 só acima do mundo, 16 abaixo das duas), linhas tracejadas mostram onde a própria referência do mundo cai em relação à do Brasil (+19) e vice-versa (-19), os 7 destacados têm nome e ponto cheio, e o painel à direita mostra do jogador apontado o saldo contra cada referência e os cinco grupos numa régua 0-100 com as marcas de Brasil (bonina) e mundo (roxo). É outra lógica porque a resposta &quot;quem está acima de quem&quot; vira posição no espaço, lida de relance para os 42 de uma vez, em vez de 25 linhas de barras por jogador.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: A posição diz em QUANTOS indicadores o jogador está acima, não por quanta margem em cada um: dois jogadores com +19 podem ter vantagens de tamanhos muito diferentes, e a leitura indicador a indicador só aparece agregada por grupo no painel (contagem &quot;acima x/y&quot; mais o índice do grupo), nunca os 25 valores lado a lado.</div>
+    <div class="palco" id="palco1"></div>
+    <div class="leg"><span>Cada ponto é um meia; para a <b style="color:var(--bonina)">direita</b> ele vence a referência do Brasil em mais indicadores, para <b style="color:var(--roxo)">cima</b> vence a do mundo (saldo = acima menos abaixo, de 25).</span> <span>Ponto cheio com nome = os 7 em comparação; ponto pequeno = os outros 35 da população.</span> <span>Linhas tracejadas: onde a própria referência do mundo cai em relação à do Brasil, e vice-versa.</span> <span>Clique ou passe o mouse num ponto para ver os cinco grupos contra as duas referências.</span></div>
+  </section>
+
+  <section class="prop l2" id="l2">
+    <div class="prop-cab">
+      <div class="num">2</div>
+      <div>
+        <h2>Réguas por grupo</h2>
+        <p class="como">Cinco réguas horizontais de 0 a 100, uma por grupo físico: cada um dos 42 meias é um traço vertical, os 7 destacados têm nome e ganham cor pelo veredito (verde = à direita das duas referências, âmbar = de uma só, coral = de nenhuma), e as duas referências são marcas grossas com rótulo, bonina para o Brasil e roxo para o Mundo; o trecho da régua à direita da referência mais alta fica sombreado. A resposta se lê de relance por posição: quem está à direita da marca roxa está acima do Mundo, a distância na régua é o &quot;por quanto&quot;, e a coluna da esquerda já conta &quot;6/7 acima do Mundo, 7/7 acima do Brasil&quot; mais o que a população faz. Não é a matriz porque os 25 indicadores viram cinco linhas de posição relativa, o eixo comum é o índice do grupo e a comparação com os 35 da população é a nuvem de traços finos na mesma régua; ao passar o mouse num nome, um pontilhado liga o jogador nas cinco réguas e um cartão abre os indicadores daquele grupo com a diferença exata contra cada referência.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Perde-se o valor bruto de cada indicador na tela (30,5 km/h, 9.615 m/90): ele só aparece no hover, e um jogador pode estar à direita da marca no índice do grupo mesmo perdendo em um ou dois indicadores individuais. Quando vários destacados se aglomeram (Uso da velocidade, todos entre 80 e 96), os nomes empilham em até sete degraus e o olho precisa seguir a linha-guia até o traço.</div>
+    <div class="palco" id="palco2"></div>
+    <div class="leg"><span>Cada régua vai de 0 a 100 no índice do grupo; cada traço é um dos 42 meias, os finos são a população.</span> <span><b style="color:var(--bonina)">Marca bonina = Brasil</b>, <b style="color:var(--roxo)">marca roxa = Mundo</b>: quem está à direita da marca está acima daquela referência, e a distância é o quanto.</span> <span>Nome <b style="color:var(--verde)">verde</b> = acima das duas, <b style="color:var(--ambar)">âmbar</b> = acima de uma, <b style="color:var(--coral)">coral</b> = abaixo das duas; o trecho sombreado da régua é a zona acima das duas.</span> <span>Passe o mouse num nome para ligar o jogador nas cinco réguas e ver os indicadores do grupo contra cada referência.</span></div>
+  </section>
+
+  <section class="prop l3" id="l3">
+    <div class="prop-cab">
+      <div class="num">3</div>
+      <div>
+        <h2>Corredor das referências</h2>
+        <p class="como">Os 25 indicadores viram eixos verticais lado a lado (cinco blocos com respiro); cada meia é um fio que atravessa os eixos na altura do percentil, os 35 da população em cinza apagado e os 7 destacados coloridos. A linha roxa (mundo) e a bonina (Brasil) são grossas e ainda pintam o fundo: tudo acima da roxa é um céu roxo, tudo abaixo da bonina é um chão bonina — a resposta é forma, quem sobe no céu e quem afunda no chão, e em qual bloco. Cada chip já traz o placar &quot;eixos acima do Brasil / eixos acima do mundo&quot;; passar o mouse isola um fio e mostra, eixo a eixo, o valor e um glifo ▲ (acima das duas) ◆ (acima de uma) ▼ (abaixo das duas); clicar fixa.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Perde-se a leitura de célula da matriz: o número exato só aparece no foco de um jogador por vez, e com 42 fios cruzando 25 eixos a ordem de quem está logo acima de quem num eixo isolado exige hover. A altura é percentil na coorte, não a magnitude bruta — &quot;por quanto&quot; é distância vertical, não delta em km/h.</div>
+    <div class="palco" id="palco3"></div>
+    <div class="leg"><span>Cada eixo vertical é um indicador; a altura é o percentil entre os 42 meias das Séries A e B (tempos já invertidos: mais alto = mais rápido).</span> <span><b style="color:var(--roxo)">Linha roxa</b> = referência do mundo, e o céu roxo acima dela é onde só passa quem a supera; <b style="color:var(--bonina)">linha bonina</b> = referência do Brasil, e o chão bonina abaixo dela é ficar atrás do Brasil.</span> <span>Fios coloridos são os 7 comparados; cinza apagado, os outros 35. No chip: eixos acima do Brasil / eixos acima do mundo.</span> <span>No foco: ▲ acima das duas referências, ◆ acima de só uma, ▼ abaixo das duas.</span></div>
+  </section>
+
+  <section class="prop l4" id="l4">
+    <div class="prop-cab">
+      <div class="num">4</div>
+      <div>
+        <h2>Tiras de população</h2>
+        <p class="como">Cada um dos 25 indicadores vira uma tira horizontal com os 42 meias como pontos cinzas (jitter leve), os 7 destacados como pontos grandes e coloridos e as duas referências como linhas verticais (bonina = Brasil, roxo = mundo) com um corredor sombreado entre elas; &quot;melhor&quot; fica sempre à direita, inclusive nos tempos, então tudo o que está à direita da linha bonina está acima do Brasil e à direita da roxa está acima do mundo. A coluna final responde de relance quantos dos 7 estão acima de cada referência em cada indicador (ex.: &quot;7/7 · 2/7&quot;), e os chips do topo somam por jogador em quantos dos 25 ele bate cada referência; passar o mouse ou clicar num chip isola o jogador nas 25 tiras e troca a coluna final pela vantagem dele com sinal em cada referência (▲229 m/90 vs Brasil, ▼683 vs mundo). Não é a matriz de novo porque a célula deixa de existir: a unidade de leitura é a distribuição inteira da coorte, e o jogador é lido pela posição dentro dela, não por um número numa grade.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Perde-se a leitura vertical de um jogador linha a linha sem interação (só no hover ou com o chip fixado) e os valores exatos ficam no tooltip, não na tela; com 7 cores é preciso consultar a legenda de chips para nomear um ponto sem passar o mouse.</div>
+    <div class="palco" id="palco4"></div>
+    <div class="leg"><span>Cada tira é um indicador; cada ponto cinza é um dos 42 meias da coorte, e melhor fica sempre à direita (também nos tempos).</span> <span>Pontos coloridos são os 7 em comparação; à direita da linha bonina = acima da referência Brasil, à direita da roxa = acima da referência mundo.</span> <span>A coluna final conta quantos dos 7 batem cada referência; passe o mouse ou clique num nome para isolar o jogador e ver a vantagem dele, com sinal, em cada indicador.</span></div>
+  </section>
+
+  <section class="prop l5" id="l5">
+    <div class="prop-cab">
+      <div class="num">5</div>
+      <div>
+        <h2>Ficha narrativa</h2>
+        <p class="como">Cada um dos 7 destacados vira um cartão com dois placares no canto (em bonina, quantos dos 25 indicadores ele passa da referência do Brasil e a diferença típica em %; em roxo, o mesmo contra o mundo), uma frase-resumo em negrito e um parágrafo de quatro a seis frases gerado dos dados: contagem contra as duas referências e quantos rivais passam do mundo em mais indicadores, o grupo mais forte e o melhor número, o grupo mais fraco e o pior número (com a comparação contra as médias das Séries A e B), e a maior distância a cobrir para cada referência. No alto, um parágrafo da coorte diz quantos dos 42 passam de cada referência e situa as próprias referências (Brasil tem índice 41, mundo 83); embaixo, os outros 35 aparecem como uma linha de texto cada, com os mesmos dois placares, e um clique abre a ficha completa de qualquer um. Não há grade a varrer: a pessoa lê &quot;passa do Brasil em tudo e do mundo em mais da metade: força em volume, ponto fraco em velocidade&quot; e só desce ao número quando o texto aponta.</p>
+      </div>
+    </div>
+    <div class="custa">Custa: Perde-se a comparação simultânea indicador a indicador entre jogadores e a percepção de padrões na coorte inteira, que a matriz dava de graça; o texto escolhe o que contar (melhor, pior, maior distância) e o resto fica escondido atrás do botão &quot;os 25 indicadores, em texto&quot;. A diferença típica é a mediana das diferenças relativas, um resumo honesto mas grosseiro de 25 escalas diferentes.</div>
+    <div class="palco" id="palco5"></div>
+    <div class="leg"><span style="color:var(--bonina)">■ Brasil</span> e <span style="color:var(--roxo)">■ mundo</span>: em quantos dos 25 indicadores o jogador passa de cada referência (nos tempos, menor é melhor). <span>"Típico" é a mediana das diferenças relativas para essa referência.</span> <span>Nomes sublinhados mostram os valores no hover; o botão abre os 25 indicadores em texto, e cada linha dos outros 35 abre a ficha completa.</span></div>
+  </section>
+
+  <section class="fecho">
+    <h2>O que cada uma entrega</h2>
+    <p>Todas abandonam a matriz. Elas se separam no que fica fácil de ver e no que fica difícil.</p>
+    <table class="quadro">
+      <thead><tr><th>&nbsp;</th><th>Outra lógica de fato</th><th>Responde de relance</th><th>Juiz</th></tr></thead>
+      <tbody>
+          <tr><td>1 · Mapa de quadrantes</td><td class="sim">sim</td><td class="sim">sim</td><td>Rodei o JS contra dados-meia.json com um DOM stub: renderiza sem NaN/undefined, SVG com viewBox 0 0 780 600, 42 pontos, contagens de quadran</td></tr>
+          <tr><td>2 · Réguas por grupo</td><td class="sim">sim</td><td class="sim">sim</td><td>É outra lógica de fato: o eixo comum passa a ser o índice do grupo (0–100) e a comparação vira posição relativa às duas marcas de referência</td></tr>
+          <tr><td>3 · Corredor das referências</td><td class="sim">sim</td><td class="sim">sim</td><td>É outra lógica de fato: coordenadas paralelas com 25 eixos em 5 blocos, fios por jogador e as duas referências como linhas grossas que ainda</td></tr>
+          <tr><td>4 · Tiras de população</td><td class="sim">sim</td><td class="sim">sim</td><td>É outra lógica de fato: a unidade de leitura é a distribuição da coorte inteira em cada indicador (strip plot com 42 pontos, referências com</td></tr>
+          <tr><td>5 · Ficha narrativa</td><td class="sim">sim</td><td class="sim">sim</td><td>É outra lógica de verdade: sem grade nem gráfico, cada destacado vira texto gerado das regras (contagens, grupo forte/fraco pelo índice, mel</td></tr>
+      </tbody>
+    </table>
+    <div class="nota" id="notaFinal"><b>Se for pela minha cabeça, é a 2 — Réguas por grupo.</b>
+    É a única que cabe numa tela sem rolar, responde as duas perguntas por posição (à direita da
+    marca bonina passou do Brasil; da roxa, do mundo), mostra a população inteira como nuvem e
+    ainda diz por quanto. Perde o valor bruto, que fica no hover — para montar elenco, é troca boa.<br><br>
+    A <b>1</b> (Mapa de quadrantes) é a melhor para <i>varrer os 42</i> de uma vez e achar quem está
+    no canto certo; a <b>4</b> (Tiras) é a mais honesta sobre onde o jogador cai <i>na população</i>, mas
+    é longa. A <b>3</b> exige olho treinado. A <b>5</b> é para quem prefere ler a olhar — e as frases saem
+    dos números, sem invenção.</div>
+  </section>
+</div>
+<script>
+const D = {"pos":"Meia (AM)","sig":"AM","n":42,"grupos":[{"t":"Velocidade","d":"O teto: quão rápido chega.","m":[{"k":"vmax3","rot":"Top 3 Peak Velocity","un":"km/h","casas":2,"menor":false},{"k":"vmax","rot":"Peak Velocity","un":"km/h","casas":2,"menor":false},{"k":"psv5","rot":"PSV-99, 5 melhores partidas","un":"km/h","casas":2,"menor":false},{"k":"psv","rot":"PSV-99 por partida","un":"km/h","casas":2,"menor":false}]},{"t":"Uso da velocidade","d":"Quanto vai buscar essa faixa por 90 minutos.","m":[{"k":"spr_km","rot":"Metros em sprint","un":"m/90","casas":0,"menor":false},{"k":"spr_n","rot":"Número de sprints","un":"por 90","casas":1,"menor":false},{"k":"hsr","rot":"Metros em corrida rápida","un":"m/90","casas":0,"menor":false},{"k":"hsr_n","rot":"Corridas rápidas","un":"por 90","casas":1,"menor":false},{"k":"hi","rot":"Metros em alta intensidade","un":"m/90","casas":0,"menor":false},{"k":"hi_n","rot":"Ações de alta intensidade","un":"por 90","casas":1,"menor":false}]},{"t":"Volume","d":"Quanto terreno cobre numa partida inteira.","m":[{"k":"dist","rot":"Distância percorrida","un":"m/90","casas":0,"menor":false},{"k":"mmin","rot":"Metros por minuto","un":"m/min","casas":1,"menor":false},{"k":"run","rot":"Distância em corrida","un":"m/90","casas":0,"menor":false},{"k":"acel_m","rot":"Acelerações médias","un":"por 90","casas":1,"menor":false},{"k":"desa_m","rot":"Desacelerações médias","un":"por 90","casas":1,"menor":false}]},{"t":"Arranque e frenagem","d":"Explosão do parado e capacidade de frear.","m":[{"k":"expl","rot":"Arranques até o sprint","un":"por 90","casas":2,"menor":false},{"k":"acel","rot":"Acelerações fortes","un":"por 90","casas":1,"menor":false},{"k":"desa","rot":"Frenagens fortes","un":"por 90","casas":1,"menor":false},{"k":"t_spr","rot":"Tempo até o sprint","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t_hsr","rot":"Tempo até a corrida rápida","un":"s · menor é melhor","casas":2,"menor":true}]},{"t":"Giro e mudança de direção","d":"Quanto muda de direção e quanto tempo perde nisso.","m":[{"k":"cod","rot":"Mudanças de direção","un":"por 90","casas":1,"menor":false},{"k":"t505_90","rot":"Giro de 90° (teste 505)","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t505_180","rot":"Giro de 180° (teste 505)","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t_spr_cod","rot":"Tempo até o sprint após girar","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t_hsr_cod","rot":"Tempo até a corrida rápida após girar","un":"s · menor é melhor","casas":2,"menor":true}]}],"indicadores":[{"k":"vmax3","rot":"Top 3 Peak Velocity","un":"km/h","casas":2,"menor":false},{"k":"vmax","rot":"Peak Velocity","un":"km/h","casas":2,"menor":false},{"k":"psv5","rot":"PSV-99, 5 melhores partidas","un":"km/h","casas":2,"menor":false},{"k":"psv","rot":"PSV-99 por partida","un":"km/h","casas":2,"menor":false},{"k":"spr_km","rot":"Metros em sprint","un":"m/90","casas":0,"menor":false},{"k":"spr_n","rot":"Número de sprints","un":"por 90","casas":1,"menor":false},{"k":"hsr","rot":"Metros em corrida rápida","un":"m/90","casas":0,"menor":false},{"k":"hsr_n","rot":"Corridas rápidas","un":"por 90","casas":1,"menor":false},{"k":"hi","rot":"Metros em alta intensidade","un":"m/90","casas":0,"menor":false},{"k":"hi_n","rot":"Ações de alta intensidade","un":"por 90","casas":1,"menor":false},{"k":"dist","rot":"Distância percorrida","un":"m/90","casas":0,"menor":false},{"k":"mmin","rot":"Metros por minuto","un":"m/min","casas":1,"menor":false},{"k":"run","rot":"Distância em corrida","un":"m/90","casas":0,"menor":false},{"k":"acel_m","rot":"Acelerações médias","un":"por 90","casas":1,"menor":false},{"k":"desa_m","rot":"Desacelerações médias","un":"por 90","casas":1,"menor":false},{"k":"expl","rot":"Arranques até o sprint","un":"por 90","casas":2,"menor":false},{"k":"acel","rot":"Acelerações fortes","un":"por 90","casas":1,"menor":false},{"k":"desa","rot":"Frenagens fortes","un":"por 90","casas":1,"menor":false},{"k":"t_spr","rot":"Tempo até o sprint","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t_hsr","rot":"Tempo até a corrida rápida","un":"s · menor é melhor","casas":2,"menor":true},{"k":"cod","rot":"Mudanças de direção","un":"por 90","casas":1,"menor":false},{"k":"t505_90","rot":"Giro de 90° (teste 505)","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t505_180","rot":"Giro de 180° (teste 505)","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t_spr_cod","rot":"Tempo até o sprint após girar","un":"s · menor é melhor","casas":2,"menor":true},{"k":"t_hsr_cod","rot":"Tempo até a corrida rápida após girar","un":"s · menor é melhor","casas":2,"menor":true}],"jogadores":[{"n":"João Cruz","t":"Athletico Paranaense","l":"Brasil A","idade":20,"nac":"Brazil","ct":"2028-12-31","sc_n":19,"idx":{"grupos":[55,96,99,86,87],"geral":85},"v":{"vmax3":32.03,"vmax":29.27,"psv5":30.5,"psv":27.82,"spr_km":215.64,"spr_n":12.93,"hsr":803.23,"hsr_n":71.04,"hi":1018.87,"hi_n":83.97,"dist":10962.59,"mmin":121.81,"run":2003.48,"acel_m":126.92,"desa_m":106.71,"expl":1.62,"acel":6.77,"desa":15.76,"t_spr":1.23,"t_hsr":0.58,"cod":57.5,"t505_90":1.92,"t505_180":2.6,"t_spr_cod":1.4,"t_hsr_cod":0.58},"p":{"vmax3":57,"vmax":42,"psv5":76,"psv":44,"spr_km":85,"spr_n":95,"hsr":98,"hsr_n":100,"hi":100,"hi_n":98,"dist":98,"mmin":98,"run":98,"acel_m":100,"desa_m":100,"expl":90,"acel":83,"desa":73,"t_spr":84,"t_hsr":98,"cod":98,"t505_90":73,"t505_180":93,"t_spr_cod":70,"t_hsr_cod":100}},{"n":"Daniel Penha","t":"Avaí","l":"Brasil B","idade":27,"nac":"Brazil","ct":"2026-12-31","sc_n":15,"idx":{"grupos":[66,83,85,94,84],"geral":82},"v":{"vmax3":32.67,"vmax":30.15,"psv5":29.8,"psv":28.21,"spr_km":183.84,"spr_n":10.95,"hsr":680.96,"hsr_n":62.23,"hi":864.8,"hi_n":73.18,"dist":10606.84,"mmin":117.85,"run":1763.66,"acel_m":110.59,"desa_m":91.67,"expl":2.06,"acel":9.25,"desa":19.63,"t_spr":1.19,"t_hsr":0.61,"cod":44.31,"t505_90":1.94,"t505_180":2.61,"t_spr_cod":1.24,"t_hsr_cod":0.63},"p":{"vmax3":78,"vmax":78,"psv5":44,"psv":63,"spr_km":63,"spr_n":83,"hsr":88,"hsr_n":93,"hi":80,"hi_n":90,"dist":80,"mmin":80,"run":85,"acel_m":90,"desa_m":90,"expl":95,"acel":98,"desa":93,"t_spr":92,"t_hsr":90,"cod":80,"t505_90":54,"t505_180":90,"t_spr_cod":100,"t_hsr_cod":95}},{"n":"Bernard","t":"Atlético Mineiro","l":"Brasil A","idade":33,"nac":"Brazil","ct":"2027-12-31","sc_n":20,"idx":{"grupos":[81,81,71,88,84],"geral":81},"v":{"vmax3":32.4,"vmax":30.42,"psv5":31.02,"psv":29.1,"spr_km":234.36,"spr_n":11.75,"hsr":573.94,"hsr_n":61.59,"hi":808.3,"hi_n":73.34,"dist":10096.69,"mmin":112.19,"run":1490.45,"acel_m":115.42,"desa_m":97.24,"expl":1.88,"acel":9.09,"desa":23.51,"t_spr":1.22,"t_hsr":0.64,"cod":45.99,"t505_90":1.89,"t505_180":2.72,"t_spr_cod":1.24,"t_hsr_cod":0.66},"p":{"vmax3":68,"vmax":85,"psv5":83,"psv":88,"spr_km":90,"spr_n":90,"hsr":54,"hsr_n":90,"hi":68,"hi_n":93,"dist":54,"mmin":54,"run":56,"acel_m":98,"desa_m":95,"expl":93,"acel":95,"desa":98,"t_spr":86,"t_hsr":68,"cod":90,"t505_90":85,"t505_180":59,"t_spr_cod":100,"t_hsr_cod":85}},{"n":"Fábio Lima","t":"Juventude","l":"Brasil B","idade":29,"nac":"Brazil","ct":"2026-11-30","sc_n":12,"idx":{"grupos":[98,94,32,99,73],"geral":79},"v":{"vmax3":null,"vmax":null,"psv5":33.06,"psv":31.77,"spr_km":357.25,"spr_n":17.31,"hsr":618.45,"hsr_n":66.67,"hi":975.69,"hi_n":83.98,"dist":9615.15,"mmin":106.84,"run":1237.5,"acel_m":100.43,"desa_m":79.47,"expl":3.41,"acel":9.63,"desa":26.21,"t_spr":1.12,"t_hsr":0.59,"cod":34.25,"t505_90":1.95,"t505_180":2.56,"t_spr_cod":1.28,"t_hsr_cod":0.66},"p":{"vmax3":null,"vmax":null,"psv5":98,"psv":98,"spr_km":100,"spr_n":100,"hsr":73,"hsr_n":98,"hi":95,"hi_n":100,"dist":17,"mmin":17,"run":7,"acel_m":71,"desa_m":46,"expl":100,"acel":100,"desa":100,"t_spr":100,"t_hsr":95,"cod":39,"t505_90":49,"t505_180":100,"t_spr_cod":91,"t_hsr_cod":85}},{"n":"Shaylon","t":"Mirassol","l":"Brasil A","idade":29,"nac":"Brazil","ct":"2026-12-31","sc_n":17,"idx":{"grupos":[83,88,94,51,60],"geral":75},"v":{"vmax3":32.8,"vmax":30.45,"psv5":30.66,"psv":28.94,"spr_km":238.43,"spr_n":11.28,"hsr":694.22,"hsr_n":60.18,"hi":932.65,"hi_n":71.46,"dist":10826.85,"mmin":120.3,"run":1908.25,"acel_m":114.76,"desa_m":97.61,"expl":1.57,"acel":4.9,"desa":17.32,"t_spr":1.42,"t_hsr":0.72,"cod":40.5,"t505_90":1.86,"t505_180":2.59,"t_spr_cod":1.91,"t_hsr_cod":0.72},"p":{"vmax3":82,"vmax":88,"psv5":78,"psv":85,"spr_km":93,"spr_n":85,"hsr":90,"hsr_n":83,"hi":93,"hi_n":83,"dist":93,"mmin":93,"run":90,"acel_m":95,"desa_m":98,"expl":85,"acel":34,"desa":85,"t_spr":38,"t_hsr":15,"cod":66,"t505_90":93,"t505_180":95,"t_spr_cod":9,"t_hsr_cod":36}},{"n":"Dudu Kogitzki","t":"Athletico Paranaense","l":"Brasil A","idade":20,"nac":"Brazil","ct":"2029-12-31","sc_n":18,"idx":{"grupos":[34,83,90,62,92],"geral":72},"v":{"vmax3":32.3,"vmax":28.71,"psv5":29.56,"psv":27.18,"spr_km":160.01,"spr_n":9.12,"hsr":820.24,"hsr_n":65.89,"hi":980.26,"hi_n":75.02,"dist":11261.26,"mmin":125.13,"run":2188.25,"acel_m":103.35,"desa_m":85.96,"expl":0.75,"acel":6.33,"desa":15.56,"t_spr":1.46,"t_hsr":0.61,"cod":68.68,"t505_90":1.85,"t505_180":2.66,"t_spr_cod":null,"t_hsr_cod":0.61},"p":{"vmax3":65,"vmax":15,"psv5":37,"psv":17,"spr_km":51,"spr_n":61,"hsr":100,"hsr_n":95,"hi":98,"hi_n":95,"dist":100,"mmin":100,"run":100,"acel_m":76,"desa_m":76,"expl":46,"acel":73,"desa":71,"t_spr":32,"t_hsr":90,"cod":100,"t505_90":98,"t505_180":73,"t_spr_cod":null,"t_hsr_cod":97}},{"n":"Paulinho Moccelin","t":"Londrina","l":"Brasil B","idade":32,"nac":"Brazil","ct":"2026-11-30","sc_n":20,"idx":{"grupos":[72,80,71,70,55],"geral":70},"v":{"vmax3":32.73,"vmax":29.45,"psv5":31.66,"psv":28.15,"spr_km":219.68,"spr_n":10.79,"hsr":652.41,"hsr_n":58.55,"hi":872.1,"hi_n":69.34,"dist":10584.92,"mmin":117.61,"run":1671.06,"acel_m":97.99,"desa_m":81.45,"expl":1.24,"acel":6.63,"desa":14.42,"t_spr":1.28,"t_hsr":0.64,"cod":39,"t505_90":2.03,"t505_180":2.62,"t_spr_cod":1.52,"t_hsr_cod":0.69},"p":{"vmax3":80,"vmax":57,"psv5":93,"psv":56,"spr_km":88,"spr_n":78,"hsr":83,"hsr_n":76,"hi":85,"hi_n":73,"dist":78,"mmin":78,"run":80,"acel_m":63,"desa_m":54,"expl":73,"acel":80,"desa":61,"t_spr":70,"t_hsr":68,"cod":51,"t505_90":20,"t505_180":85,"t_spr_cod":52,"t_hsr_cod":67}},{"n":"B. Rollheiser","t":"Santos","l":"Brasil A","idade":26,"nac":"Argentina","ct":"2028-12-31","sc_n":19,"idx":{"grupos":[46,78,73,71,73],"geral":68},"v":{"vmax3":31.9,"vmax":29.11,"psv5":30.08,"psv":27.95,"spr_km":203.37,"spr_n":10.85,"hsr":638.53,"hsr_n":60.2,"hi":841.9,"hi_n":71.04,"dist":10125.24,"mmin":112.5,"run":1612.32,"acel_m":105.97,"desa_m":91.11,"expl":1.3,"acel":7.59,"desa":16.16,"t_spr":1.33,"t_hsr":0.65,"cod":50.22,"t505_90":1.92,"t505_180":2.72,"t_spr_cod":1.46,"t_hsr_cod":0.68},"p":{"vmax3":50,"vmax":32,"psv5":54,"psv":46,"spr_km":78,"spr_n":80,"hsr":76,"hsr_n":85,"hi":73,"hi_n":78,"dist":63,"mmin":63,"run":68,"acel_m":83,"desa_m":88,"expl":76,"acel":90,"desa":76,"t_spr":54,"t_hsr":59,"cod":95,"t505_90":73,"t505_180":59,"t_spr_cod":65,"t_hsr_cod":74}},{"n":"J. Carrascal","t":"Flamengo","l":"Brasil A","idade":28,"nac":"Colombia","ct":"2029-07-31","sc_n":17,"idx":{"grupos":[83,60,64,73,54],"geral":67},"v":{"vmax3":33.1,"vmax":30.25,"psv5":30.88,"psv":28.81,"spr_km":197.31,"spr_n":10.27,"hsr":547.22,"hsr_n":53.58,"hi":744.53,"hi_n":63.85,"dist":10074.69,"mmin":111.94,"run":1474.45,"acel_m":106.54,"desa_m":88.65,"expl":1.59,"acel":7.17,"desa":16.65,"t_spr":1.31,"t_hsr":0.67,"cod":42.15,"t505_90":2.04,"t505_180":2.74,"t_spr_cod":1.35,"t_hsr_cod":0.7},"p":{"vmax3":92,"vmax":80,"psv5":80,"psv":80,"spr_km":73,"spr_n":71,"hsr":41,"hsr_n":59,"hi":54,"hi_n":59,"dist":51,"mmin":51,"run":49,"acel_m":88,"desa_m":80,"expl":88,"acel":88,"desa":80,"t_spr":62,"t_hsr":46,"cod":73,"t505_90":15,"t505_180":49,"t_spr_cod":83,"t_hsr_cod":51}},{"n":"Lucas Barbosa","t":"Red Bull Bragantino","l":"Brasil A","idade":25,"nac":"Brazil","ct":"2029-12-31","sc_n":21,"idx":{"grupos":[92,85,29,68,54],"geral":66},"v":{"vmax3":33,"vmax":31.31,"psv5":31.28,"psv":29.73,"spr_km":252.03,"spr_n":12.77,"hsr":616.94,"hsr_n":60,"hi":868.97,"hi_n":72.77,"dist":9899.09,"mmin":109.99,"run":1373.73,"acel_m":91.45,"desa_m":75.29,"expl":1.56,"acel":5.17,"desa":15.12,"t_spr":1.27,"t_hsr":0.63,"cod":40.19,"t505_90":1.77,"t505_180":2.77,"t_spr_cod":1.52,"t_hsr_cod":0.78},"p":{"vmax3":88,"vmax":98,"psv5":88,"psv":95,"spr_km":95,"spr_n":93,"hsr":71,"hsr_n":80,"hi":83,"hi_n":88,"dist":39,"mmin":39,"run":29,"acel_m":24,"desa_m":15,"expl":83,"acel":41,"desa":68,"t_spr":73,"t_hsr":76,"cod":63,"t505_90":100,"t505_180":39,"t_spr_cod":52,"t_hsr_cod":15}},{"n":"Kauan","t":"Athletic Club","l":"Brasil B","idade":21,"nac":"Brazil","ct":"2028-05-12","sc_n":21,"idx":{"grupos":[60,48,67,72,68],"geral":63},"v":{"vmax3":32.07,"vmax":30.05,"psv5":30.08,"psv":27.99,"spr_km":147.71,"spr_n":8.18,"hsr":579.32,"hsr_n":50.16,"hi":727.03,"hi_n":58.34,"dist":10610.3,"mmin":117.89,"run":1621.81,"acel_m":93.82,"desa_m":83.11,"expl":0.81,"acel":5.83,"desa":13.2,"t_spr":1.15,"t_hsr":0.55,"cod":43.18,"t505_90":1.99,"t505_180":2.66,"t_spr_cod":null,"t_hsr_cod":0.65},"p":{"vmax3":62,"vmax":72,"psv5":54,"psv":54,"spr_km":41,"spr_n":44,"hsr":59,"hsr_n":46,"hi":49,"hi_n":49,"dist":83,"mmin":83,"run":73,"acel_m":34,"desa_m":63,"expl":51,"acel":61,"desa":49,"t_spr":97,"t_hsr":100,"cod":76,"t505_90":37,"t505_180":73,"t_spr_cod":null,"t_hsr_cod":87}},{"n":"Dodô","t":"Náutico","l":"Brasil B","idade":25,"nac":"Brazil","ct":"2026-11-30","sc_n":16,"idx":{"grupos":[78,83,44,63,49],"geral":63},"v":{"vmax3":32.9,"vmax":30.77,"psv5":30.12,"psv":28.69,"spr_km":214.36,"spr_n":11.59,"hsr":672.34,"hsr_n":58.97,"hi":886.7,"hi_n":70.56,"dist":9975.6,"mmin":110.84,"run":1499.24,"acel_m":94.4,"desa_m":78.83,"expl":0.77,"acel":6,"desa":14.62,"t_spr":1.32,"t_hsr":0.62,"cod":45.54,"t505_90":1.88,"t505_180":2.93,"t_spr_cod":1.89,"t_hsr_cod":0.7},"p":{"vmax3":85,"vmax":92,"psv5":59,"psv":76,"spr_km":83,"spr_n":88,"hsr":85,"hsr_n":78,"hi":90,"hi_n":76,"dist":44,"mmin":44,"run":59,"acel_m":41,"desa_m":34,"expl":49,"acel":66,"desa":66,"t_spr":57,"t_hsr":78,"cod":85,"t505_90":88,"t505_180":10,"t_spr_cod":13,"t_hsr_cod":51}},{"n":"Matheus Araújo","t":"Ceará","l":"Brasil B","idade":24,"nac":"Brazil","ct":"2027-12-31","sc_n":16,"idx":{"grupos":[64,82,64,45,62],"geral":63},"v":{"vmax3":32.03,"vmax":29.73,"psv5":30.44,"psv":28.42,"spr_km":182.01,"spr_n":10.68,"hsr":701.64,"hsr_n":61.07,"hi":883.66,"hi_n":71.76,"dist":10003.92,"mmin":111.15,"run":1618.86,"acel_m":104.01,"desa_m":85.46,"expl":0.5,"acel":5.95,"desa":17.94,"t_spr":1.72,"t_hsr":0.67,"cod":43.84,"t505_90":2.01,"t505_180":2.66,"t_spr_cod":null,"t_hsr_cod":0.69},"p":{"vmax3":57,"vmax":62,"psv5":73,"psv":66,"spr_km":61,"spr_n":76,"hsr":93,"hsr_n":88,"hi":88,"hi_n":85,"dist":49,"mmin":49,"run":71,"acel_m":78,"desa_m":73,"expl":20,"acel":63,"desa":90,"t_spr":8,"t_hsr":46,"cod":78,"t505_90":29,"t505_180":73,"t_spr_cod":null,"t_hsr_cod":67}},{"n":"Diego Tavares","t":"Ponte Preta","l":"Brasil B","idade":35,"nac":"Brazil","ct":"2026-11-30","sc_n":11,"idx":{"grupos":[100,77,14,81,37],"geral":62},"v":{"vmax3":34.43,"vmax":33.25,"psv5":33.4,"psv":32.18,"spr_km":312.9,"spr_n":13.6,"hsr":535.07,"hsr_n":57.45,"hi":847.97,"hi_n":71.06,"dist":9270.23,"mmin":103,"run":1098.68,"acel_m":95.23,"desa_m":74.7,"expl":2.79,"acel":7.77,"desa":20.89,"t_spr":1.18,"t_hsr":0.7,"cod":29.15,"t505_90":1.92,"t505_180":2.8,"t_spr_cod":null,"t_hsr_cod":0.73},"p":{"vmax3":100,"vmax":100,"psv5":100,"psv":100,"spr_km":98,"spr_n":98,"hsr":37,"hsr_n":73,"hi":76,"hi_n":80,"dist":7,"mmin":7,"run":2,"acel_m":46,"desa_m":10,"expl":98,"acel":93,"desa":95,"t_spr":95,"t_hsr":22,"cod":22,"t505_90":73,"t505_180":29,"t_spr_cod":null,"t_hsr_cod":23}},{"n":"Matheus Pereira","t":"Cruzeiro","l":"Brasil A","idade":30,"nac":"Brazil","ct":"2028-12-31","sc_n":22,"idx":{"grupos":[79,68,29,59,70],"geral":61},"v":{"vmax3":32.47,"vmax":30.85,"psv5":30.34,"psv":28.81,"spr_km":201.58,"spr_n":10.17,"hsr":585.66,"hsr_n":55.58,"hi":787.23,"hi_n":65.75,"dist":9715.75,"mmin":107.95,"run":1412.7,"acel_m":91.16,"desa_m":76.28,"expl":1.06,"acel":6.17,"desa":13.17,"t_spr":1.31,"t_hsr":0.66,"cod":40.74,"t505_90":1.93,"t505_180":2.61,"t_spr_cod":1.47,"t_hsr_cod":0.69},"p":{"vmax3":70,"vmax":95,"psv5":71,"psv":80,"spr_km":76,"spr_n":68,"hsr":61,"hsr_n":66,"hi":66,"hi_n":68,"dist":32,"mmin":32,"run":39,"acel_m":22,"desa_m":22,"expl":66,"acel":68,"desa":46,"t_spr":62,"t_hsr":51,"cod":68,"t505_90":63,"t505_180":90,"t_spr_cod":61,"t_hsr_cod":67}},{"n":"Victor Hugo","t":"Atlético Mineiro","l":"Brasil A","idade":22,"nac":"Brazil","ct":"2030-12-31","sc_n":19,"idx":{"grupos":[66,39,64,67,49],"geral":57},"v":{"vmax3":32.6,"vmax":29.97,"psv5":30.32,"psv":27.98,"spr_km":140.15,"spr_n":7.27,"hsr":562.33,"hsr_n":47.71,"hi":702.48,"hi_n":54.98,"dist":9987.21,"mmin":110.97,"run":1517.33,"acel_m":104.64,"desa_m":89.23,"expl":0.92,"acel":6.19,"desa":12.26,"t_spr":1.26,"t_hsr":0.61,"cod":32.47,"t505_90":1.93,"t505_180":2.77,"t_spr_cod":1.36,"t_hsr_cod":0.72},"p":{"vmax3":75,"vmax":70,"psv5":68,"psv":51,"spr_km":34,"spr_n":37,"hsr":49,"hsr_n":39,"hi":37,"hi_n":37,"dist":46,"mmin":46,"run":61,"acel_m":80,"desa_m":85,"expl":59,"acel":71,"desa":39,"t_spr":76,"t_hsr":90,"cod":29,"t505_90":63,"t505_180":39,"t_spr_cod":78,"t_hsr_cod":36}},{"n":"Cauly","t":"São Paulo","l":"Brasil A","idade":30,"nac":"Brazil","ct":"2028-12-31","sc_n":13,"idx":{"grupos":[32,60,89,58,45],"geral":57},"v":{"vmax3":31.13,"vmax":29.03,"psv5":29.4,"psv":27.64,"spr_km":140.31,"spr_n":9.08,"hsr":640.49,"hsr_n":55.44,"hi":780.8,"hi_n":64.52,"dist":10640.29,"mmin":118.23,"run":1767.67,"acel_m":110.74,"desa_m":94.51,"expl":1.1,"acel":5.5,"desa":14.44,"t_spr":1.28,"t_hsr":0.68,"cod":40.17,"t505_90":2.02,"t505_180":2.87,"t_spr_cod":1.33,"t_hsr_cod":0.72},"p":{"vmax3":28,"vmax":28,"psv5":32,"psv":39,"spr_km":37,"spr_n":59,"hsr":78,"hsr_n":61,"hi":61,"hi_n":61,"dist":85,"mmin":85,"run":88,"acel_m":93,"desa_m":93,"expl":68,"acel":54,"desa":63,"t_spr":70,"t_hsr":34,"cod":61,"t505_90":24,"t505_180":15,"t_spr_cod":87,"t_hsr_cod":36}},{"n":"Hyoran","t":"São Bernardo FC","l":"Brasil B","idade":33,"nac":"Brazil","ct":"2027-11-30","sc_n":19,"idx":{"grupos":[35,53,73,43,76],"geral":56},"v":{"vmax3":31.2,"vmax":28.94,"psv5":29.88,"psv":27.69,"spr_km":155.42,"spr_n":7.8,"hsr":614.9,"hsr_n":52.97,"hi":770.31,"hi_n":60.77,"dist":10661.31,"mmin":118.46,"run":1728.69,"acel_m":96.19,"desa_m":82.94,"expl":0.31,"acel":5.54,"desa":13.96,"t_spr":1.86,"t_hsr":0.61,"cod":45.78,"t505_90":1.89,"t505_180":2.64,"t_spr_cod":null,"t_hsr_cod":0.7},"p":{"vmax3":30,"vmax":20,"psv5":49,"psv":41,"spr_km":49,"spr_n":39,"hsr":68,"hsr_n":54,"hi":59,"hi_n":51,"dist":88,"mmin":88,"run":83,"acel_m":49,"desa_m":59,"expl":10,"acel":59,"desa":54,"t_spr":3,"t_hsr":90,"cod":88,"t505_90":85,"t505_180":80,"t_spr_cod":null,"t_hsr_cod":51}},{"n":"Jefferson Savarino","t":"Fluminense","l":"Brasil A","idade":29,"nac":"Venezuela","ct":"2029-12-31","sc_n":19,"idx":{"grupos":[47,40,53,73,59],"geral":54},"v":{"vmax3":32.53,"vmax":29.21,"psv5":29.96,"psv":27.42,"spr_km":153.55,"spr_n":9.05,"hsr":493.18,"hsr_n":47.51,"hi":646.73,"hi_n":56.56,"dist":9704.7,"mmin":107.83,"run":1402.47,"acel_m":106.12,"desa_m":88.94,"expl":1.48,"acel":6.79,"desa":16.47,"t_spr":1.3,"t_hsr":0.65,"cod":40.16,"t505_90":1.9,"t505_180":2.79,"t_spr_cod":1.52,"t_hsr_cod":0.68},"p":{"vmax3":72,"vmax":38,"psv5":51,"psv":27,"spr_km":46,"spr_n":56,"hsr":27,"hsr_n":37,"hi":29,"hi_n":44,"dist":29,"mmin":29,"run":37,"acel_m":85,"desa_m":83,"expl":80,"acel":85,"desa":78,"t_spr":65,"t_hsr":59,"cod":59,"t505_90":78,"t505_180":34,"t_spr_cod":52,"t_hsr_cod":74}},{"n":"J. Rojas","t":"Vasco da Gama","l":"Brasil A","idade":23,"nac":"Colombia","ct":"2028-06-30","sc_n":17,"idx":{"grupos":[64,68,59,22,54],"geral":53},"v":{"vmax3":31.93,"vmax":29.93,"psv5":30.16,"psv":28.55,"spr_km":190.48,"spr_n":9.76,"hsr":645.38,"hsr_n":55.57,"hi":835.86,"hi_n":65.33,"dist":10571.54,"mmin":117.46,"run":1653.36,"acel_m":94.23,"desa_m":78.28,"expl":0.39,"acel":4.93,"desa":9.86,"t_spr":1.53,"t_hsr":0.72,"cod":44.36,"t505_90":1.86,"t505_180":2.81,"t_spr_cod":null,"t_hsr_cod":0.76},"p":{"vmax3":52,"vmax":68,"psv5":61,"psv":73,"spr_km":66,"spr_n":63,"hsr":80,"hsr_n":63,"hi":71,"hi_n":66,"dist":76,"mmin":76,"run":76,"acel_m":37,"desa_m":32,"expl":17,"acel":37,"desa":15,"t_spr":24,"t_hsr":15,"cod":83,"t505_90":93,"t505_180":22,"t_spr_cod":null,"t_hsr_cod":18}},{"n":"T. Pochettino","t":"Fortaleza","l":"Brasil B","idade":30,"nac":"Argentina","ct":"2027-12-31","sc_n":12,"idx":{"grupos":[53,66,24,58,61],"geral":52},"v":{"vmax3":31.3,"vmax":29.87,"psv5":29.68,"psv":28.49,"spr_km":191.18,"spr_n":9.96,"hsr":595.01,"hsr_n":57.22,"hi":786.19,"hi_n":67.19,"dist":9687.95,"mmin":107.64,"run":1436.78,"acel_m":90.3,"desa_m":76.12,"expl":1.03,"acel":6.57,"desa":14.28,"t_spr":1.4,"t_hsr":0.66,"cod":46.13,"t505_90":1.97,"t505_180":2.71,"t_spr_cod":1.71,"t_hsr_cod":0.66},"p":{"vmax3":38,"vmax":65,"psv5":39,"psv":71,"spr_km":68,"spr_n":66,"hsr":63,"hsr_n":68,"hi":63,"hi_n":71,"dist":22,"mmin":22,"run":41,"acel_m":17,"desa_m":20,"expl":61,"acel":78,"desa":59,"t_spr":43,"t_hsr":51,"cod":93,"t505_90":41,"t505_180":61,"t_spr_cod":26,"t_hsr_cod":85}},{"n":"Vitor Bueno","t":"Remo","l":"Brasil A","idade":31,"nac":"Brazil","ct":"2026-12-31","sc_n":17,"idx":{"grupos":[54,42,37,60,49],"geral":48},"v":{"vmax3":31.47,"vmax":29.36,"psv5":30.18,"psv":28.18,"spr_km":160.34,"spr_n":8.63,"hsr":495.35,"hsr_n":47.87,"hi":655.69,"hi_n":56.5,"dist":9658.19,"mmin":107.31,"run":1325.61,"acel_m":96.6,"desa_m":85.22,"expl":1.04,"acel":5.43,"desa":11.56,"t_spr":1.25,"t_hsr":0.63,"cod":26.31,"t505_90":1.96,"t505_180":2.79,"t_spr_cod":1.38,"t_hsr_cod":0.68},"p":{"vmax3":45,"vmax":48,"psv5":63,"psv":59,"spr_km":54,"spr_n":49,"hsr":29,"hsr_n":44,"hi":32,"hi_n":41,"dist":20,"mmin":20,"run":20,"acel_m":54,"desa_m":71,"expl":63,"acel":51,"desa":34,"t_spr":78,"t_hsr":76,"cod":15,"t505_90":46,"t505_180":34,"t_spr_cod":74,"t_hsr_cod":74}},{"n":"Gabriel Mec","t":"Grêmio","l":"Brasil A","idade":18,"nac":"Brazil","ct":"2027-08-31","sc_n":13,"idx":{"grupos":[82,54,33,39,34],"geral":48},"v":{"vmax3":33.1,"vmax":30.08,"psv5":31.22,"psv":28.78,"spr_km":175.32,"spr_n":9.02,"hsr":562.32,"hsr_n":53.22,"hi":737.64,"hi_n":62.23,"dist":9697.83,"mmin":107.75,"run":1359.53,"acel_m":96.68,"desa_m":79.23,"expl":0.74,"acel":5.17,"desa":17.15,"t_spr":2.1,"t_hsr":0.69,"cod":40.06,"t505_90":2.07,"t505_180":2.97,"t_spr_cod":null,"t_hsr_cod":0.69},"p":{"vmax3":92,"vmax":75,"psv5":85,"psv":78,"spr_km":59,"spr_n":54,"hsr":46,"hsr_n":56,"hi":51,"hi_n":56,"dist":24,"mmin":24,"run":22,"acel_m":56,"desa_m":41,"expl":44,"acel":41,"desa":83,"t_spr":0,"t_hsr":29,"cod":56,"t505_90":7,"t505_180":7,"t_spr_cod":null,"t_hsr_cod":67}},{"n":"R. Garro","t":"Corinthians","l":"Brasil A","idade":28,"nac":"Argentina","ct":"2028-12-31","sc_n":23,"idx":{"grupos":[35,63,67,30,33],"geral":46},"v":{"vmax3":31.43,"vmax":29.43,"psv5":28.94,"psv":27.35,"spr_km":139.23,"spr_n":7.82,"hsr":714.86,"hsr_n":57.39,"hi":854.09,"hi_n":65.2,"dist":10717.05,"mmin":119.08,"run":1928.71,"acel_m":94.85,"desa_m":75.34,"expl":0.5,"acel":4.34,"desa":10.54,"t_spr":1.65,"t_hsr":0.64,"cod":39.13,"t505_90":1.93,"t505_180":2.89,"t_spr_cod":1.99,"t_hsr_cod":0.72},"p":{"vmax3":42,"vmax":55,"psv5":20,"psv":24,"spr_km":32,"spr_n":41,"hsr":95,"hsr_n":71,"hi":78,"hi_n":63,"dist":90,"mmin":90,"run":93,"acel_m":44,"desa_m":17,"expl":20,"acel":27,"desa":22,"t_spr":11,"t_hsr":68,"cod":54,"t505_90":63,"t505_180":12,"t_spr_cod":0,"t_hsr_cod":36}},{"n":"Jean Carlos","t":"Chapecoense","l":"Brasil A","idade":34,"nac":"Brazil","ct":"2027-12-31","sc_n":17,"idx":{"grupos":[52,44,70,41,18],"geral":45},"v":{"vmax3":31.4,"vmax":29.3,"psv5":30.2,"psv":28.18,"spr_km":170.99,"spr_n":8.4,"hsr":550.47,"hsr_n":47.75,"hi":721.46,"hi_n":56.15,"dist":10503.36,"mmin":116.7,"run":1655.79,"acel_m":97.92,"desa_m":83.65,"expl":0.81,"acel":4.95,"desa":9.32,"t_spr":1.23,"t_hsr":0.69,"cod":27.73,"t505_90":2,"t505_180":3.04,"t_spr_cod":null,"t_hsr_cod":0.73},"p":{"vmax3":40,"vmax":45,"psv5":66,"psv":59,"spr_km":56,"spr_n":46,"hsr":44,"hsr_n":41,"hi":41,"hi_n":39,"dist":73,"mmin":73,"run":78,"acel_m":61,"desa_m":66,"expl":51,"acel":39,"desa":2,"t_spr":84,"t_hsr":29,"cod":17,"t505_90":34,"t505_180":0,"t_spr_cod":null,"t_hsr_cod":23}},{"n":"Jean Lucas","t":"Avaí","l":"Brasil B","idade":31,"nac":"Brazil","ct":"2026-12-31","sc_n":22,"idx":{"grupos":[26,46,54,44,51],"geral":44},"v":{"vmax3":30.8,"vmax":29.12,"psv5":28.94,"psv":27.48,"spr_km":147.94,"spr_n":6.95,"hsr":574.13,"hsr_n":50.22,"hi":722.07,"hi_n":57.17,"dist":10155.29,"mmin":112.84,"run":1573.1,"acel_m":92.57,"desa_m":79,"expl":1.15,"acel":5.25,"desa":12.75,"t_spr":1.55,"t_hsr":0.67,"cod":34.47,"t505_90":1.89,"t505_180":2.63,"t_spr_cod":1.94,"t_hsr_cod":0.71},"p":{"vmax3":18,"vmax":35,"psv5":20,"psv":32,"spr_km":44,"spr_n":34,"hsr":56,"hsr_n":49,"hi":46,"hi_n":46,"dist":66,"mmin":66,"run":66,"acel_m":32,"desa_m":39,"expl":71,"acel":46,"desa":41,"t_spr":16,"t_hsr":46,"cod":41,"t505_90":85,"t505_180":83,"t_spr_cod":4,"t_hsr_cod":41}},{"n":"Edenílson","t":"Botafogo","l":"Brasil A","idade":36,"nac":"Brazil","ct":"2026-12-31","sc_n":18,"idx":{"grupos":[92,45,35,33,5],"geral":42},"v":{"vmax3":33.03,"vmax":30.58,"psv5":31.74,"psv":29.38,"spr_km":209.96,"spr_n":8.81,"hsr":511.67,"hsr_n":45,"hi":721.63,"hi_n":53.81,"dist":9786.3,"mmin":108.74,"run":1365.7,"acel_m":91.48,"desa_m":81.18,"expl":1.3,"acel":4.55,"desa":12.15,"t_spr":1.53,"t_hsr":0.79,"cod":20.5,"t505_90":2.06,"t505_180":3.03,"t_spr_cod":null,"t_hsr_cod":0.88},"p":{"vmax3":90,"vmax":90,"psv5":95,"psv":93,"spr_km":80,"spr_n":51,"hsr":34,"hsr_n":27,"hi":44,"hi_n":34,"dist":37,"mmin":37,"run":24,"acel_m":27,"desa_m":49,"expl":76,"acel":29,"desa":37,"t_spr":24,"t_hsr":0,"cod":2,"t505_90":10,"t505_180":2,"t_spr_cod":null,"t_hsr_cod":5}},{"n":"Lourenço","t":"Goiás","l":"Brasil B","idade":28,"nac":"Brazil","ct":"2027-12-31","sc_n":18,"idx":{"grupos":[90,13,33,30,38],"geral":41},"v":{"vmax3":33.13,"vmax":30.37,"psv5":31.56,"psv":29.28,"spr_km":147.09,"spr_n":5.89,"hsr":385.36,"hsr_n":35.84,"hi":532.45,"hi_n":41.73,"dist":10100.06,"mmin":112.22,"run":1313.89,"acel_m":89.29,"desa_m":76.31,"expl":0.63,"acel":4.21,"desa":9.33,"t_spr":1.37,"t_hsr":0.67,"cod":26.3,"t505_90":2.09,"t505_180":2.64,"t_spr_cod":1.85,"t_hsr_cod":0.67},"p":{"vmax3":98,"vmax":82,"psv5":90,"psv":90,"spr_km":39,"spr_n":20,"hsr":2,"hsr_n":2,"hi":12,"hi_n":5,"dist":56,"mmin":56,"run":17,"acel_m":12,"desa_m":24,"expl":32,"acel":22,"desa":5,"t_spr":46,"t_hsr":46,"cod":12,"t505_90":5,"t505_180":80,"t_spr_cod":17,"t_hsr_cod":77}},{"n":"C. de Pena","t":"Sport Recife","l":"Brasil B","idade":34,"nac":"Uruguay","ct":"2026-11-30","sc_n":15,"idx":{"grupos":[56,59,47,31,14],"geral":41},"v":{"vmax3":31.93,"vmax":29.63,"psv5":29.86,"psv":28.45,"spr_km":192.03,"spr_n":10.3,"hsr":566.97,"hsr_n":51.23,"hi":759.01,"hi_n":61.53,"dist":9904.37,"mmin":110.05,"run":1476.03,"acel_m":96.86,"desa_m":79.26,"expl":0.65,"acel":3.91,"desa":14.08,"t_spr":1.5,"t_hsr":0.7,"cod":24.38,"t505_90":2.21,"t505_180":2.75,"t_spr_cod":null,"t_hsr_cod":0.96},"p":{"vmax3":52,"vmax":60,"psv5":46,"psv":68,"spr_km":71,"spr_n":73,"hsr":51,"hsr_n":51,"hi":56,"hi_n":54,"dist":41,"mmin":41,"run":51,"acel_m":59,"desa_m":44,"expl":37,"acel":12,"desa":56,"t_spr":27,"t_hsr":22,"cod":10,"t505_90":0,"t505_180":41,"t_spr_cod":null,"t_hsr_cod":3}},{"n":"Eduardo","t":"Mirassol","l":"Brasil A","idade":36,"nac":"Brazil","ct":"2026-12-10","sc_n":17,"idx":{"grupos":[10,33,87,24,47],"geral":40},"v":{"vmax3":30.77,"vmax":28.39,"psv5":28.78,"psv":26.64,"spr_km":107,"spr_n":5.87,"hsr":613.38,"hsr_n":47.04,"hi":720.39,"hi_n":52.91,"dist":10897.43,"mmin":121.08,"run":1969.46,"acel_m":100.77,"desa_m":85.96,"expl":0.18,"acel":3.88,"desa":10.2,"t_spr":null,"t_hsr":0.64,"cod":40.99,"t505_90":1.97,"t505_180":2.8,"t_spr_cod":null,"t_hsr_cod":null},"p":{"vmax3":15,"vmax":10,"psv5":10,"psv":5,"spr_km":10,"spr_n":17,"hsr":66,"hsr_n":34,"hi":39,"hi_n":32,"dist":95,"mmin":95,"run":95,"acel_m":73,"desa_m":76,"expl":2,"acel":10,"desa":17,"t_spr":null,"t_hsr":68,"cod":71,"t505_90":41,"t505_180":29,"t_spr_cod":null,"t_hsr_cod":null}},{"n":"Luciano","t":"São Paulo","l":"Brasil A","idade":33,"nac":"Brazil","ct":"2028-12-31","sc_n":20,"idx":{"grupos":[16,32,60,33,23],"geral":33},"v":{"vmax3":30.67,"vmax":28.99,"psv5":28.82,"psv":27.27,"spr_km":126.38,"spr_n":6.62,"hsr":544.06,"hsr_n":45.94,"hi":670.44,"hi_n":52.56,"dist":10107.52,"mmin":112.31,"run":1565.25,"acel_m":99.17,"desa_m":81.39,"expl":0.56,"acel":5.39,"desa":13.29,"t_spr":1.46,"t_hsr":0.76,"cod":30.57,"t505_90":2.02,"t505_180":2.8,"t_spr_cod":1.66,"t_hsr_cod":0.81},"p":{"vmax3":10,"vmax":22,"psv5":12,"psv":20,"spr_km":29,"spr_n":32,"hsr":39,"hsr_n":32,"hi":34,"hi_n":29,"dist":59,"mmin":59,"run":63,"acel_m":68,"desa_m":51,"expl":29,"acel":49,"desa":51,"t_spr":32,"t_hsr":5,"cod":24,"t505_90":24,"t505_180":29,"t_spr_cod":30,"t_hsr_cod":10}},{"n":"Lucas Lima","t":"Goiás","l":"Brasil B","idade":36,"nac":"Brazil","ct":"2026-12-31","sc_n":23,"idx":{"grupos":[30,26,36,25,45],"geral":32},"v":{"vmax3":31.23,"vmax":29.07,"psv5":29.04,"psv":27.48,"spr_km":125.36,"spr_n":6.19,"hsr":499.25,"hsr_n":42.32,"hi":624.62,"hi_n":48.51,"dist":10112.85,"mmin":112.37,"run":1468.44,"acel_m":84.94,"desa_m":72.15,"expl":0.36,"acel":3.63,"desa":7.98,"t_spr":1.54,"t_hsr":0.61,"cod":33.52,"t505_90":2.01,"t505_180":2.69,"t_spr_cod":null,"t_hsr_cod":0.7},"p":{"vmax3":35,"vmax":30,"psv5":24,"psv":32,"spr_km":27,"spr_n":27,"hsr":32,"hsr_n":22,"hi":27,"hi_n":22,"dist":61,"mmin":61,"run":46,"acel_m":5,"desa_m":5,"expl":15,"acel":2,"desa":0,"t_spr":19,"t_hsr":90,"cod":37,"t505_90":29,"t505_180":63,"t_spr_cod":null,"t_hsr_cod":51}},{"n":"Josué","t":"Coritiba","l":"Brasil A","idade":35,"nac":"Portugal","ct":"2026-12-31","sc_n":21,"idx":{"grupos":[38,12,16,35,49],"geral":30},"v":{"vmax3":30.97,"vmax":29.36,"psv5":29.42,"psv":27.95,"spr_km":113.78,"spr_n":5.34,"hsr":409.39,"hsr_n":37.27,"hi":523.17,"hi_n":42.61,"dist":9542.33,"mmin":106.03,"run":1301.68,"acel_m":86.93,"desa_m":77.96,"expl":0.73,"acel":4.15,"desa":10.99,"t_spr":1.35,"t_hsr":0.69,"cod":23.58,"t505_90":2.03,"t505_180":2.58,"t_spr_cod":1.51,"t_hsr_cod":0.69},"p":{"vmax3":22,"vmax":48,"psv5":34,"psv":46,"spr_km":24,"spr_n":12,"hsr":10,"hsr_n":7,"hi":10,"hi_n":10,"dist":15,"mmin":15,"run":15,"acel_m":7,"desa_m":29,"expl":41,"acel":20,"desa":32,"t_spr":51,"t_hsr":29,"cod":5,"t505_90":20,"t505_180":98,"t_spr_cod":57,"t_hsr_cod":67}},{"n":"A. Montoro","t":"Botafogo","l":"Brasil A","idade":19,"nac":"Argentina","ct":"2029-12-31","sc_n":21,"idx":{"grupos":[42,8,12,41,47],"geral":30},"v":{"vmax3":31.6,"vmax":29.22,"psv5":29.72,"psv":27.54,"spr_km":111.82,"spr_n":5.3,"hsr":400.56,"hsr_n":36.01,"hi":512.38,"hi_n":41.31,"dist":9488.42,"mmin":105.43,"run":1258.38,"acel_m":89.97,"desa_m":75,"expl":0.52,"acel":4.66,"desa":10.55,"t_spr":1.21,"t_hsr":0.68,"cod":35.25,"t505_90":1.94,"t505_180":2.86,"t_spr_cod":1.52,"t_hsr_cod":0.69},"p":{"vmax3":48,"vmax":40,"psv5":41,"psv":37,"spr_km":22,"spr_n":7,"hsr":7,"hsr_n":5,"hi":5,"hi_n":2,"dist":12,"mmin":12,"run":10,"acel_m":15,"desa_m":12,"expl":24,"acel":32,"desa":24,"t_spr":89,"t_hsr":34,"cod":44,"t505_90":54,"t505_180":17,"t_spr_cod":52,"t_hsr_cod":67}},{"n":"L. Acosta","t":"Fluminense","l":"Brasil A","idade":32,"nac":"Argentina","ct":"2029-12-31","sc_n":19,"idx":{"grupos":[18,23,14,47,50],"geral":30},"v":{"vmax3":30.83,"vmax":28.64,"psv5":29.22,"psv":27.08,"spr_km":110.71,"spr_n":6.18,"hsr":475.64,"hsr_n":45.48,"hi":586.35,"hi_n":51.66,"dist":9129.01,"mmin":101.43,"run":1260.52,"acel_m":90.56,"desa_m":76.59,"expl":0.87,"acel":5.51,"desa":12.9,"t_spr":1.43,"t_hsr":0.67,"cod":36.48,"t505_90":1.9,"t505_180":2.74,"t_spr_cod":1.64,"t_hsr_cod":0.71},"p":{"vmax3":20,"vmax":12,"psv5":29,"psv":12,"spr_km":17,"spr_n":24,"hsr":20,"hsr_n":29,"hi":22,"hi_n":27,"dist":5,"mmin":5,"run":12,"acel_m":20,"desa_m":27,"expl":56,"acel":56,"desa":44,"t_spr":35,"t_hsr":46,"cod":49,"t505_90":78,"t505_180":49,"t_spr_cod":35,"t_hsr_cod":41}},{"n":"Éverton Ribeiro","t":"Bahia","l":"Brasil A","idade":37,"nac":"Brazil","ct":"2027-01-15","sc_n":17,"idx":{"grupos":[6,9,39,40,56],"geral":30},"v":{"vmax3":30.47,"vmax":28.37,"psv5":28.6,"psv":26.69,"spr_km":85.32,"spr_n":4.8,"hsr":467.09,"hsr_n":37.47,"hi":552.41,"hi_n":42.27,"dist":9779.1,"mmin":108.66,"run":1455.39,"acel_m":91.82,"desa_m":82.3,"expl":0.7,"acel":3.79,"desa":10.68,"t_spr":1.35,"t_hsr":0.63,"cod":24.16,"t505_90":1.85,"t505_180":2.73,"t_spr_cod":1.71,"t_hsr_cod":0.63},"p":{"vmax3":5,"vmax":8,"psv5":5,"psv":7,"spr_km":2,"spr_n":2,"hsr":17,"hsr_n":10,"hi":17,"hi_n":7,"dist":34,"mmin":34,"run":44,"acel_m":29,"desa_m":56,"expl":39,"acel":5,"desa":27,"t_spr":51,"t_hsr":76,"cod":7,"t505_90":98,"t505_180":54,"t_spr_cod":26,"t_hsr_cod":95}},{"n":"Alan Patrick","t":"Internacional","l":"Brasil A","idade":35,"nac":"Brazil","ct":"2027-04-09","sc_n":19,"idx":{"grupos":[3,14,66,24,40],"geral":29},"v":{"vmax3":29.77,"vmax":28.27,"psv5":27.86,"psv":26.52,"spr_km":91.91,"spr_n":5.32,"hsr":449.29,"hsr_n":40.44,"hi":541.2,"hi_n":45.77,"dist":10472.29,"mmin":116.36,"run":1478.01,"acel_m":99.01,"desa_m":83.99,"expl":0.63,"acel":4.31,"desa":10.4,"t_spr":1.41,"t_hsr":0.77,"cod":36.19,"t505_90":1.96,"t505_180":2.73,"t_spr_cod":null,"t_hsr_cod":0.8},"p":{"vmax3":2,"vmax":5,"psv5":2,"psv":2,"spr_km":7,"spr_n":10,"hsr":15,"hsr_n":17,"hi":15,"hi_n":17,"dist":71,"mmin":71,"run":54,"acel_m":66,"desa_m":68,"expl":32,"acel":24,"desa":20,"t_spr":41,"t_hsr":2,"cod":46,"t505_90":46,"t505_180":54,"t_spr_cod":null,"t_hsr_cod":13}},{"n":"Marcos Paulo (AMF)","t":"Juventude","l":"Brasil B","idade":25,"nac":"Brazil","ct":"2026-12-30","sc_n":20,"idx":{"grupos":[16,14,12,60,44],"geral":29},"v":{"vmax3":30.6,"vmax":28.82,"psv5":28.9,"psv":27.27,"spr_km":111.17,"spr_n":6.56,"hsr":385.65,"hsr_n":38.96,"hi":496.82,"hi_n":45.52,"dist":8919.38,"mmin":99.1,"run":997.35,"acel_m":96.4,"desa_m":74.15,"expl":0.55,"acel":6.38,"desa":17.44,"t_spr":1.57,"t_hsr":0.6,"cod":28.93,"t505_90":2.1,"t505_180":2.68,"t_spr_cod":null,"t_hsr_cod":0.64},"p":{"vmax3":8,"vmax":18,"psv5":17,"psv":20,"spr_km":20,"spr_n":29,"hsr":5,"hsr_n":15,"hi":2,"hi_n":15,"dist":2,"mmin":2,"run":0,"acel_m":51,"desa_m":7,"expl":27,"acel":76,"desa":88,"t_spr":14,"t_hsr":93,"cod":20,"t505_90":2,"t505_180":66,"t_spr_cod":null,"t_hsr_cod":90}},{"n":"Marquinhos Gabriel","t":"Vila Nova","l":"Brasil B","idade":36,"nac":"Brazil","ct":"2027-11-30","sc_n":21,"idx":{"grupos":[19,19,29,23,46],"geral":27},"v":{"vmax3":31.2,"vmax":28.99,"psv5":28.82,"psv":27.08,"spr_km":107.55,"spr_n":5.69,"hsr":485.69,"hsr_n":41.79,"hi":593.25,"hi_n":47.47,"dist":9442.75,"mmin":104.92,"run":1370.99,"acel_m":94.24,"desa_m":83.06,"expl":0.24,"acel":4.12,"desa":10.85,"t_spr":1.85,"t_hsr":0.65,"cod":32.98,"t505_90":2,"t505_180":2.64,"t_spr_cod":null,"t_hsr_cod":0.72},"p":{"vmax3":30,"vmax":22,"psv5":12,"psv":12,"spr_km":12,"spr_n":15,"hsr":24,"hsr_n":20,"hi":24,"hi_n":20,"dist":10,"mmin":10,"run":27,"acel_m":39,"desa_m":61,"expl":7,"acel":17,"desa":29,"t_spr":5,"t_hsr":59,"cod":32,"t505_90":34,"t505_180":80,"t_spr_cod":null,"t_hsr_cod":36}},{"n":"Giorgian de Arrascaeta","t":"Flamengo","l":"Brasil A","idade":32,"nac":"Uruguay","ct":"2028-12-31","sc_n":17,"idx":{"grupos":[32,9,43,4,39],"geral":25},"v":{"vmax3":31.07,"vmax":29.36,"psv5":29.12,"psv":27.43,"spr_km":91.24,"spr_n":4.87,"hsr":426.48,"hsr_n":38.58,"hi":517.72,"hi_n":43.45,"dist":10206.69,"mmin":113.41,"run":1384.31,"acel_m":88.7,"desa_m":78.88,"expl":0.07,"acel":3.07,"desa":9.51,"t_spr":null,"t_hsr":0.75,"cod":33.04,"t505_90":1.92,"t505_180":2.74,"t_spr_cod":null,"t_hsr_cod":1.07},"p":{"vmax3":25,"vmax":48,"psv5":27,"psv":29,"spr_km":5,"spr_n":5,"hsr":12,"hsr_n":12,"hi":7,"hi_n":12,"dist":68,"mmin":68,"run":32,"acel_m":10,"desa_m":37,"expl":0,"acel":0,"desa":7,"t_spr":null,"t_hsr":7,"cod":34,"t505_90":73,"t505_180":49,"t_spr_cod":null,"t_hsr_cod":0}},{"n":"Yago Felipe","t":"Sport Recife","l":"Brasil B","idade":31,"nac":"Brazil","ct":"2026-12-31","sc_n":16,"idx":{"grupos":[7,21,18,13,20],"geral":16},"v":{"vmax3":30.67,"vmax":28.02,"psv5":28.6,"psv":26.78,"spr_km":108.32,"spr_n":6.02,"hsr":477.87,"hsr_n":43.47,"hi":586.19,"hi_n":49.49,"dist":9698.07,"mmin":107.76,"run":1389.43,"acel_m":82.79,"desa_m":69.62,"expl":0.31,"acel":3.84,"desa":9.75,"t_spr":null,"t_hsr":0.7,"cod":30.71,"t505_90":2.05,"t505_180":2.81,"t_spr_cod":null,"t_hsr_cod":null},"p":{"vmax3":10,"vmax":2,"psv5":5,"psv":10,"spr_km":15,"spr_n":22,"hsr":22,"hsr_n":24,"hi":20,"hi_n":24,"dist":27,"mmin":27,"run":34,"acel_m":2,"desa_m":2,"expl":10,"acel":7,"desa":12,"t_spr":null,"t_hsr":22,"cod":27,"t505_90":12,"t505_180":22,"t_spr_cod":null,"t_hsr_cod":null}},{"n":"Élvis","t":"Ponte Preta","l":"Brasil B","idade":35,"nac":"Brazil","ct":"2028-12-30","sc_n":18,"idx":{"grupos":[0,0,1,11,20],"geral":6},"v":{"vmax3":28.97,"vmax":27.05,"psv5":27.6,"psv":25.67,"spr_km":64.04,"spr_n":2.78,"hsr":319.04,"hsr_n":26.79,"hi":383.09,"hi_n":29.57,"dist":8883.21,"mmin":98.7,"run":1112.72,"acel_m":75.86,"desa_m":62.62,"expl":0.19,"acel":3.94,"desa":9.68,"t_spr":null,"t_hsr":0.72,"cod":20.4,"t505_90":1.93,"t505_180":2.97,"t_spr_cod":null,"t_hsr_cod":0.83},"p":{"vmax3":0,"vmax":0,"psv5":0,"psv":0,"spr_km":0,"spr_n":0,"hsr":0,"hsr_n":0,"hi":0,"hi_n":0,"dist":0,"mmin":0,"run":5,"acel_m":0,"desa_m":0,"expl":5,"acel":15,"desa":10,"t_spr":null,"t_hsr":15,"cod":0,"t505_90":63,"t505_180":7,"t_spr_cod":null,"t_hsr_cod":8}}],"destaque":["João Cruz","Daniel Penha","Bernard","Fábio Lima","Shaylon","Dudu Kogitzki","Paulinho Moccelin"],"mediaA":{"vmax3":31.791,"vmax":29.514,"psv5":29.919,"psv":27.957,"spr_km":160.849,"spr_n":8.451,"hsr":569.677,"hsr_n":50.95,"hi":730.526,"hi_n":59.401,"dist":10154.057,"mmin":112.824,"run":1564.512,"acel_m":99.83,"desa_m":84.66,"expl":0.955,"acel":5.432,"desa":13.421,"t_spr":1.387,"t_hsr":0.674,"cod":38.285,"t505_90":1.94,"t505_180":2.774,"t_spr_cod":1.528,"t_hsr_cod":0.725},"mediaB":{"vmax3":31.741,"vmax":29.58,"psv5":30.085,"psv":28.299,"spr_km":174.579,"spr_n":8.896,"hsr":549.651,"hsr_n":50.348,"hi":724.232,"hi_n":59.245,"dist":9896.012,"mmin":109.955,"run":1434.014,"acel_m":93.877,"desa_m":78.231,"expl":1.0,"acel":5.791,"desa":14.53,"t_spr":1.44,"t_hsr":0.645,"cod":35.463,"t505_90":1.992,"t505_180":2.706,"t_spr_cod":1.633,"t_hsr_cod":0.709},"refBR":{"nomes":["Alan Patrick (Internacional)","Jefferson Savarino (Fluminense)","R. Garro (Corinthians)"],"v":{"vmax3":31.243,"vmax":28.97,"psv5":28.92,"psv":27.097,"spr_km":128.23,"spr_n":7.397,"hsr":552.443,"hsr_n":48.447,"hi":680.673,"hi_n":55.843,"dist":10298.013,"mmin":114.423,"run":1603.063,"acel_m":99.993,"desa_m":82.757,"expl":0.87,"acel":5.147,"desa":12.47,"t_spr":1.453,"t_hsr":0.687,"cod":38.493,"t505_90":1.93,"t505_180":2.803,"t_spr_cod":1.755,"t_hsr_cod":0.733},"idx":{"grupos":[24,40,68,40,34],"geral":41},"p":{"vmax3":38,"vmax":22,"psv5":20,"psv":17,"spr_km":32,"spr_n":39,"hsr":46,"hsr_n":46,"hi":37,"hi_n":39,"dist":71,"mmin":71,"run":68,"acel_m":71,"desa_m":59,"expl":56,"acel":41,"desa":41,"t_spr":32,"t_hsr":29,"cod":51,"t505_90":63,"t505_180":22,"t_spr_cod":17,"t_hsr_cod":18}},"refMU":{"nomes":["Nico Paz (Como)","C. Palmer (Chelsea)","D. Szoboszlai (Liverpool)","E. Fernández (Chelsea)"],"v":{"vmax3":33.425,"vmax":31.082,"psv5":31.335,"psv":29.21,"spr_km":230.248,"spr_n":11.96,"hsr":610.748,"hsr_n":58.812,"hi":840.997,"hi_n":70.778,"dist":9916.602,"mmin":110.185,"run":1464.485,"acel_m":108.5,"desa_m":89.58,"expl":1.833,"acel":6.83,"desa":17.17,"t_spr":1.188,"t_hsr":0.593,"cod":39.153,"t505_90":1.797,"t505_180":2.565,"t_spr_cod":1.312,"t_hsr_cod":0.61},"idx":{"grupos":[94,80,62,90,87],"geral":83},"p":{"vmax3":100,"vmax":98,"psv5":90,"psv":90,"spr_km":90,"spr_n":93,"hsr":66,"hsr_n":78,"hi":73,"hi_n":78,"dist":44,"mmin":44,"run":46,"acel_m":90,"desa_m":88,"expl":93,"acel":88,"desa":85,"t_spr":92,"t_hsr":93,"cod":56,"t505_90":98,"t505_180":98,"t_spr_cod":87,"t_hsr_cod":97}}};
+const RENDER = {};
+RENDER[1] = function (D, el) {
+var esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+var num = function (v) { return (v > 0 ? '+' : '') + v; };
+var ind = D.indicadores || [];
+var grupos = D.grupos || [];
+var J = D.jogadores || [];
+var vazio = { v: {}, idx: { grupos: [0, 0, 0, 0, 0], geral: 0 }, nomes: [] };
+var refBR = D.refBR || vazio, refMU = D.refMU || vazio;
+var vBR = refBR.v || {}, vMU = refMU.v || {};
+var iBR = (refBR.idx && refBR.idx.grupos) || [], iMU = (refMU.idx && refMU.idx.grupos) || [];
+var destOrd = D.destaque || [];
+var dest = {}; destOrd.forEach(function (n) { dest[n] = 1; });
+
+function melhor(a, b, menor) { return menor ? (a < b) : (a > b); }
+function cmp(v, ref, lista) {
+  var up = 0, dn = 0, eq = 0, n = 0, i, k, a, b;
+  for (i = 0; i < lista.length; i++) {
+    k = lista[i].k; a = v[k]; b = ref[k];
+    if (a == null || b == null || isNaN(a) || isNaN(b)) continue;
+    n++;
+    if (melhor(a, b, lista[i].menor)) up++; else if (melhor(b, a, lista[i].menor)) dn++; else eq++;
+  }
+  return { up: up, dn: dn, eq: eq, n: n, saldo: up - dn };
+}
+var QN = ['Abaixo das duas', 'Só acima do Brasil', 'Só acima do mundo', 'Acima das duas'];
+var P = J.map(function (j, i) {
+  var v = j.v || {};
+  var br = cmp(v, vBR, ind), mu = cmp(v, vMU, ind);
+  return {
+    i: i, j: j, br: br, mu: mu,
+    gb: grupos.map(function (g) { return cmp(v, vBR, g.m || []); }),
+    gm: grupos.map(function (g) { return cmp(v, vMU, g.m || []); }),
+    q: (br.saldo > 0 ? 1 : 0) + (mu.saldo > 0 ? 2 : 0),
+    dest: !!dest[j.n]
+  };
+});
+var refMUvsBR = cmp(vMU, vBR, ind).saldo, refBRvsMU = cmp(vBR, vMU, ind).saldo;
+var total = ind.length || 25;
+
+/* ---- geometria ---- */
+var W = 780, H = 600, ml = 58, mr = 18, mt = 30, mb = 56, pw = W - ml - mr, ph = H - mt - mb;
+var xmin = -(total + 2), xmax = total + 2, ymin = -(total + 2), ymax = 10;
+P.forEach(function (p) { if (p.mu.saldo + 3 > ymax) ymax = p.mu.saldo + 3; });
+var sx = pw / (xmax - xmin), sy = ph / (ymax - ymin);
+var X = function (v) { return ml + (v - xmin) * sx; };
+var Y = function (v) { return mt + (ymax - v) * sy; };
+
+/* anti-colisão de pontos com a mesma coordenada */
+var ocup = {};
+P.forEach(function (p) {
+  var ch = p.br.saldo + ',' + p.mu.saldo, n = ocup[ch] || 0; ocup[ch] = n + 1;
+  var dx = n === 0 ? 0 : (n % 2 ? 1 : -1) * Math.ceil(n / 2) * 6;
+  p.px = X(p.br.saldo) + dx; p.py = Y(p.mu.saldo);
+});
+
+var glifo = function (p) {
+  return '<span class="qm-gl"><span class="br">' + (p.br.saldo > 0 ? '●' : '○') + '</span><span class="mu">' + (p.mu.saldo > 0 ? '●' : '○') + '</span></span>';
+};
+var glifoQ = function (q) {
+  return '<span class="qm-gl"><span class="br">' + (q & 1 ? '●' : '○') + '</span><span class="mu">' + (q & 2 ? '●' : '○') + '</span></span>';
+};
+
+/* ---- SVG ---- */
+var s = '';
+var NARROW = 'font-family:\'Archivo Narrow\',Archivo,sans-serif;text-transform:uppercase;letter-spacing:.05em;';
+var MONO = 'font-family:\'IBM Plex Mono\',monospace;';
+s += '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" xmlns="http://www.w3.org/2000/svg">';
+s += '<rect x="' + ml + '" y="' + mt + '" width="' + pw + '" height="' + ph + '" style="fill:var(--sup);stroke:var(--linha)"/>';
+s += '<rect x="' + X(0) + '" y="' + mt + '" width="' + (X(xmax) - X(0)) + '" height="' + ph + '" style="fill:var(--bonina)" fill-opacity="0.07"/>';
+s += '<rect x="' + ml + '" y="' + mt + '" width="' + pw + '" height="' + (Y(0) - mt) + '" style="fill:var(--roxo)" fill-opacity="0.10"/>';
+var t;
+for (t = Math.ceil(xmin / 5) * 5; t <= xmax; t += 5) {
+  s += '<line x1="' + X(t) + '" y1="' + mt + '" x2="' + X(t) + '" y2="' + (mt + ph) + '" style="stroke:var(--linha)" stroke-opacity="0.6"/>';
+  s += '<text x="' + X(t) + '" y="' + (mt + ph + 16) + '" text-anchor="middle" font-size="10" style="' + MONO + 'fill:var(--ink3)">' + num(t) + '</text>';
+}
+for (t = Math.ceil(ymin / 5) * 5; t <= ymax; t += 5) {
+  s += '<line x1="' + ml + '" y1="' + Y(t) + '" x2="' + (ml + pw) + '" y2="' + Y(t) + '" style="stroke:var(--linha)" stroke-opacity="0.6"/>';
+  s += '<text x="' + (ml - 8) + '" y="' + (Y(t) + 3.5) + '" text-anchor="end" font-size="10" style="' + MONO + 'fill:var(--ink3)">' + num(t) + '</text>';
+}
+/* eixos no zero */
+s += '<line x1="' + X(0) + '" y1="' + mt + '" x2="' + X(0) + '" y2="' + (mt + ph) + '" style="stroke:var(--ink3)" stroke-width="1.2"/>';
+s += '<line x1="' + ml + '" y1="' + Y(0) + '" x2="' + (ml + pw) + '" y2="' + Y(0) + '" style="stroke:var(--ink3)" stroke-width="1.2"/>';
+/* onde cai a outra referência em cada eixo */
+s += '<line x1="' + X(refMUvsBR) + '" y1="' + mt + '" x2="' + X(refMUvsBR) + '" y2="' + (mt + ph) + '" style="stroke:var(--roxo)" stroke-width="1" stroke-dasharray="3 4" stroke-opacity="0.8"/>';
+s += '<text x="' + X(refMUvsBR) + '" y="' + (mt - 8) + '" text-anchor="middle" font-size="10.5" style="' + NARROW + 'fill:var(--roxo)">ref. mundo vs Brasil: ' + num(refMUvsBR) + '</text>';
+s += '<line x1="' + ml + '" y1="' + Y(refBRvsMU) + '" x2="' + (ml + pw) + '" y2="' + Y(refBRvsMU) + '" style="stroke:var(--bonina)" stroke-width="1" stroke-dasharray="3 4" stroke-opacity="0.8"/>';
+s += '<text x="' + (ml + 8) + '" y="' + (Y(refBRvsMU) - 5) + '" font-size="10.5" style="' + NARROW + 'fill:var(--bonina)">ref. Brasil vs mundo: ' + num(refBRvsMU) + '</text>';
+/* nomes dos quadrantes + contagens */
+var cont = [0, 0, 0, 0], contD = [0, 0, 0, 0];
+P.forEach(function (p) { cont[p.q]++; if (p.dest) contD[p.q]++; });
+var rotQ = function (q) { return QN[q] + ' · ' + cont[q] + ' de ' + P.length + (contD[q] ? ' · ' + contD[q] + ' dos ' + destOrd.length : ''); };
+var QS = NARROW + 'fill:var(--ink2)';
+s += '<text x="' + (X(xmax) - 8) + '" y="' + (mt + 16) + '" text-anchor="end" font-size="11" style="' + QS + '">' + esc(rotQ(3)) + '</text>';
+s += '<text x="' + (ml + 8) + '" y="' + (mt + 16) + '" font-size="11" style="' + QS + '">' + esc(rotQ(2)) + '</text>';
+s += '<text x="' + (X(xmax) - 8) + '" y="' + (mt + ph - 9) + '" text-anchor="end" font-size="11" style="' + QS + '">' + esc(rotQ(1)) + '</text>';
+s += '<text x="' + (ml + 8) + '" y="' + (mt + ph - 9) + '" font-size="11" style="' + QS + '">' + esc(rotQ(0)) + '</text>';
+/* títulos dos eixos */
+s += '<text x="' + (ml + pw / 2) + '" y="' + (H - 12) + '" text-anchor="middle" font-size="11" style="' + NARROW + 'fill:var(--bonina)">saldo vs referência do Brasil · indicadores acima menos abaixo, de ' + total + '</text>';
+s += '<text transform="translate(14 ' + (mt + ph / 2) + ') rotate(-90)" text-anchor="middle" font-size="11" style="' + NARROW + 'fill:var(--roxo)">saldo vs referência do mundo</text>';
+/* população */
+P.forEach(function (p) {
+  if (p.dest) return;
+  s += '<circle class="qm-hit" data-i="' + p.i + '" cx="' + p.px + '" cy="' + p.py + '" r="9" fill="transparent"/>';
+  s += '<circle class="qm-pt" cx="' + p.px + '" cy="' + p.py + '" r="4" style="fill:var(--ink3)" fill-opacity="0.85" pointer-events="none"/>';
+});
+/* anel do selecionado + rótulo de hover */
+s += '<circle class="qm-anel" cx="-50" cy="-50" r="11" fill="none" style="stroke:var(--ambar)" stroke-width="1.5"/>';
+/* destacados com rótulo sem sobreposição */
+var caixas = [], DP = P.filter(function (p) { return p.dest; });
+DP.forEach(function (p) { caixas.push({ x: p.px - 8, y: p.py - 8, w: 16, h: 16 }); });
+var colide = function (b) {
+  if (b.x < ml + 2 || b.x + b.w > ml + pw - 2 || b.y < mt + 20 || b.y + b.h > mt + ph - 18) return true;
+  for (var i = 0; i < caixas.length; i++) { var c = caixas[i]; if (b.x < c.x + c.w && b.x + b.w > c.x && b.y < c.y + c.h && b.y + b.h > c.y) return true; }
+  return false;
+};
+DP.forEach(function (p) {
+  var w = p.j.n.length * 6.4 + 4, h = 13;
+  var cand = [
+    { x: p.px + 10, y: p.py - 6, a: 'start' }, { x: p.px - 10 - w, y: p.py - 6, a: 'end' },
+    { x: p.px - w / 2, y: p.py - 22, a: 'middle' }, { x: p.px - w / 2, y: p.py + 10, a: 'middle' },
+    { x: p.px + 10, y: p.py - 18, a: 'start' }, { x: p.px + 10, y: p.py + 5, a: 'start' },
+    { x: p.px - 10 - w, y: p.py - 18, a: 'end' }, { x: p.px - 10 - w, y: p.py + 5, a: 'end' }
+  ], esc_ = null, i;
+  for (i = 0; i < cand.length; i++) { var b = { x: cand[i].x, y: cand[i].y, w: w, h: h }; if (!colide(b)) { esc_ = cand[i]; caixas.push(b); break; } }
+  if (!esc_) { esc_ = cand[0]; caixas.push({ x: esc_.x, y: esc_.y, w: w, h: h }); }
+  var tx = esc_.a === 'start' ? esc_.x : (esc_.a === 'end' ? esc_.x + w : esc_.x + w / 2);
+  s += '<circle class="qm-hit" data-i="' + p.i + '" cx="' + p.px + '" cy="' + p.py + '" r="11" fill="transparent"/>';
+  s += '<circle class="qm-pt" cx="' + p.px + '" cy="' + p.py + '" r="6.5" style="fill:var(--ink);stroke:var(--sup)" stroke-width="1.5" pointer-events="none"/>';
+  s += '<text x="' + tx + '" y="' + (esc_.y + 10) + '" text-anchor="' + esc_.a + '" font-size="11" font-weight="600" style="fill:var(--ink);stroke:var(--sup);paint-order:stroke" stroke-width="3" pointer-events="none">' + esc(p.j.n) + '</text>';
+});
+s += '<text class="qm-hov" x="-50" y="-50" font-size="11" style="fill:var(--ink);stroke:var(--sup);paint-order:stroke" stroke-width="3" pointer-events="none"></text>';
+s += '</svg>';
+
+/* ---- HTML ---- */
+var chips = '';
+[3, 1, 2, 0].forEach(function (q) {
+  chips += '<div class="qm-chip"><div class="qm-chip-n">' + glifoQ(q) + esc(QN[q]) + '</div><div class="qm-chip-v">' + cont[q] + ' <small>de ' + P.length + '</small> · ' + contD[q] + ' <small>dos ' + destOrd.length + '</small></div></div>';
+});
+var h = '';
+h += '<div class="qm-cab"><div><h3 class="qm-tit">Mapa de quadrantes · ' + esc(D.pos) + '</h3><p class="qm-sub">Cada ponto é um jogador. Direita = acima da referência do Brasil; em cima = acima da do mundo. Quanto mais longe do centro, em mais indicadores (de ' + total + ') ele está acima.</p></div><div class="qm-chips">' + chips + '</div></div>';
+h += '<div class="qm-corpo"><div class="qm-mapa">' + s + '</div><div class="qm-painel"><div class="qm-det"></div><div class="qm-lista"></div></div></div>';
+el.innerHTML = h;
+
+var det = el.querySelector('.qm-det'), lista = el.querySelector('.qm-lista');
+var anel = el.querySelector('.qm-anel'), hov = el.querySelector('.qm-hov');
+
+function fmtN(v) { return v == null || isNaN(v) ? '-' : Math.round(v); }
+function render(p) {
+  var j = p.j, ig = (j.idx && j.idx.grupos) || [], x = '';
+  x += '<div class="qm-det-q">' + glifo(p) + esc(QN[p.q]) + (p.dest ? ' · destacado' : ' · população') + '</div>';
+  x += '<div class="qm-det-n">' + esc(j.n) + '</div>';
+  x += '<div class="qm-det-m">' + esc(j.t) + ' · ' + esc(j.l) + ' · ' + esc(j.idade) + ' anos · índice geral <b>' + fmtN(j.idx && j.idx.geral) + '</b> (Brasil ' + fmtN(refBR.idx && refBR.idx.geral) + ' · mundo ' + fmtN(refMU.idx && refMU.idx.geral) + ')</div>';
+  x += '<div class="qm-saldos">';
+  x += '<div class="qm-saldo br"><div class="qm-saldo-t">vs referência do Brasil</div><div class="qm-saldo-v">' + num(p.br.saldo) + '</div><div class="qm-saldo-d">' + p.br.up + ' acima · ' + p.br.dn + ' abaixo' + (p.br.eq ? ' · ' + p.br.eq + ' igual' : '') + ' · de ' + p.br.n + '</div></div>';
+  x += '<div class="qm-saldo mu"><div class="qm-saldo-t">vs referência do mundo</div><div class="qm-saldo-v">' + num(p.mu.saldo) + '</div><div class="qm-saldo-d">' + p.mu.up + ' acima · ' + p.mu.dn + ' abaixo' + (p.mu.eq ? ' · ' + p.mu.eq + ' igual' : '') + ' · de ' + p.mu.n + '</div></div>';
+  x += '</div><div class="qm-grupos">';
+  grupos.forEach(function (g, gi) {
+    var vj = ig[gi], vb = iBR[gi], vm = iMU[gi];
+    var cl = function (v) { return Math.max(0, Math.min(100, v == null || isNaN(v) ? 0 : v)); };
+    x += '<div class="qm-g"><div class="qm-gt"><span>' + esc(g.t) + '</span><span class="qm-gc">acima <b class="br">' + p.gb[gi].up + '/' + p.gb[gi].n + '</b> · <b class="mu">' + p.gm[gi].up + '/' + p.gm[gi].n + '</b></span></div>';
+    x += '<div class="qm-trk"><i class="qm-mbr" style="left:' + cl(vb) + '%"></i><i class="qm-mmu" style="left:' + cl(vm) + '%"></i><i class="qm-mj" style="left:' + cl(vj) + '%"></i></div>';
+    x += '<div class="qm-gv"><span>jogador <b>' + fmtN(vj) + '</b></span><span class="br">Brasil <b>' + fmtN(vb) + '</b></span><span class="mu">mundo <b>' + fmtN(vm) + '</b></span></div></div>';
+  });
+  x += '</div>';
+  if (p.br.n < total || p.mu.n < total) x += '<div class="qm-nota">Faltam dados em ' + (total - Math.min(p.br.n, p.mu.n)) + ' indicador(es); o saldo usa só os comparáveis.</div>';
+  det.innerHTML = x;
+}
+var pinned = DP.filter(function (q) { return q.j.n === destOrd[0]; })[0] || DP[0] || P[0] || null;
+
+function pintaLista() {
+  var x = '<div class="qm-lista-t"><span>os ' + DP.length + ' em comparação</span><span>Brasil · mundo · geral</span></div>';
+  destOrd.forEach(function (n) {
+    var p = DP.filter(function (q) { return q.j.n === n; })[0]; if (!p) return;
+    x += '<div class="qm-row' + (pinned === p ? ' sel' : '') + '" data-i="' + p.i + '"><span class="qm-row-n">' + esc(p.j.n) + '</span>' + glifo(p) + '<span class="qm-row-v br">' + num(p.br.saldo) + '</span><span class="qm-row-v mu">' + num(p.mu.saldo) + '</span><span class="qm-row-v">' + fmtN(p.j.idx && p.j.idx.geral) + '</span></div>';
+  });
+  lista.innerHTML = x;
+  Array.prototype.forEach.call(lista.querySelectorAll('.qm-row'), function (r) {
+    r.addEventListener('click', function () { pinned = P[+r.getAttribute('data-i')]; mostra(pinned); pintaLista(); });
+    r.addEventListener('mouseenter', function () { render(P[+r.getAttribute('data-i')]); });
+    r.addEventListener('mouseleave', function () { render(pinned); });
+  });
+}
+function mostra(p) {
+  render(p);
+  anel.setAttribute('cx', p.px); anel.setAttribute('cy', p.py);
+}
+function hover(p) {
+  render(p);
+  if (p.dest) { hov.textContent = ''; return; }
+  var dir = p.px > ml + pw * 0.7;
+  hov.setAttribute('x', dir ? p.px - 9 : p.px + 9); hov.setAttribute('y', p.py + 4);
+  hov.setAttribute('text-anchor', dir ? 'end' : 'start');
+  hov.textContent = p.j.n;
+}
+Array.prototype.forEach.call(el.querySelectorAll('.qm-hit'), function (c) {
+  c.addEventListener('mouseenter', function () { hover(P[+c.getAttribute('data-i')]); });
+  c.addEventListener('mouseleave', function () { hov.textContent = ''; render(pinned); });
+  c.addEventListener('click', function () { pinned = P[+c.getAttribute('data-i')]; mostra(pinned); pintaLista(); });
+});
+if (pinned) { mostra(pinned); pintaLista(); }
+};
+RENDER[2] = function (D, el) {
+var esc=function(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+var num=function(v,c){if(v==null||isNaN(v))return '-';return Number(v).toFixed(c==null?1:c).replace('.',',');};
+var G=D.grupos||[],J=D.jogadores||[],dest={};(D.destaque||[]).forEach(function(n){dest[n]=true;});
+var br=D.refBR||{},mu=D.refMU||{};
+var refIdx=function(ref,g){var a=(ref.idx&&ref.idx.grupos)?ref.idx.grupos[g]:null;return(a==null||isNaN(a))?null:+a;};
+var jIdx=function(j,g){var a=(j.idx&&j.idx.grupos)?j.idx.grupos[g]:null;return(a==null||isNaN(a))?null:+a;};
+var W=1180,L=250,R=1150,RW=R-L,MAXL=8,LH=15,TOP=36,BASE=104;
+var gx=function(v){return L+RW*Math.max(0,Math.min(100,v))/100;};
+var COL=['var(--coral)','var(--ambar)','var(--verde)'];
+var st=function(idx,g){if(idx==null)return 0;var b=refIdx(br,g),m=refIdx(mu,g);return((b!=null&&idx>b)?1:0)+((m!=null&&idx>m)?1:0);};
+var wrap=function(t,n){var w=String(t||'').split(' '),ls=[],cur='';w.forEach(function(x){if(cur&&(cur+' '+x).length>n){ls.push(cur);cur=x;}else cur=cur?cur+' '+x:x;});if(cur)ls.push(cur);return ls;};
+var cmp=function(v,r,ind){if(v==null||r==null||isNaN(v)||isNaN(r))return '<span class="nd">-</span>';var d=ind.menor?(r-v):(v-r);var c=ind.casas==null?1:ind.casas;if(Math.abs(d)<Math.pow(10,-c)/2)return '<span class="igual">= '+num(0,c)+'</span>';var up=d>0;return '<span class="'+(up?'cima':'baixo')+'">'+(up?'&#9650; +':'&#9660; -')+num(Math.abs(d),c)+'</span>';};
+var tip=function(j,g){var gr=G[g]||{m:[]};var b=refIdx(br,g),m=refIdx(mu,g),v=jIdx(j,g);
+ var h='<h4>'+esc(j.n)+'</h4><div class="sub">'+esc(j.t)+(j.l?' · '+esc(j.l):'')+(j.idade?' · '+esc(j.idade)+' anos':'')+(j.idx&&j.idx.geral!=null?' · índice geral <b>'+esc(j.idx.geral)+'</b>':'')+'</div>';
+ h+='<div class="idx"><span>Índice de '+esc(gr.t)+' <b>'+(v==null?'-':v)+'</b></span><span class="br">Brasil <b>'+(b==null?'-':b)+'</b></span><span class="mu">Mundo <b>'+(m==null?'-':m)+'</b></span></div>';
+ h+='<table><tr><th class="e">indicador</th><th>jogador</th><th class="br">vs Brasil</th><th class="mu">vs Mundo</th></tr>';
+ (gr.m||[]).forEach(function(ind){var pv=j.v?j.v[ind.k]:null,vb=br.v?br.v[ind.k]:null,vm=mu.v?mu.v[ind.k]:null;
+  h+='<tr><td>'+esc(ind.rot)+' <span class="un">'+esc(ind.un)+'</span></td><td class="v">'+num(pv,ind.casas)+'</td><td class="v">'+cmp(pv,vb,ind)+'</td><td class="v">'+cmp(pv,vm,ind)+'</td></tr>';});
+ return h+'</table><div class="nota">&#9650; = melhor que a referência, na unidade do indicador (nos tempos, menor é melhor).</div>';};
+var pos={};J.forEach(function(j,i){pos[i]=[];});
+var rows=[],H=TOP;
+G.forEach(function(gr,g){var hs=[];J.forEach(function(j,i){if(!dest[j.n])return;var v=jIdx(j,g);if(v==null)return;hs.push({i:i,j:j,x:gx(v),v:v});});
+ hs.sort(function(a,c){return a.x-c.x;});var ends=[],k,used=0;
+ hs.forEach(function(h){var w=h.j.n.length*6.6+String(h.v).length*6.6+14;var left=h.x+5,anc='start',tx=h.x+5;if(left+w>W-8){anc='end';tx=h.x-5;left=h.x-5-w;}
+  var lane=-1;for(k=0;k<ends.length;k++){if(left>ends[k]+10){lane=k;break;}}
+  if(lane<0){if(ends.length<MAXL){lane=ends.length;ends.push(-1e9);}else{lane=0;for(k=1;k<ends.length;k++)if(ends[k]<ends[lane])lane=k;}}
+  ends[lane]=left+w;h.lane=lane;h.anc=anc;h.tx=tx;if(lane+1>used)used=lane+1;});
+ var lanes=Math.max(3,used),rt=H,rh=BASE+lanes*LH;rows.push({rt:rt,y0:rt+lanes*LH+30,hs:hs});H+=rh;});
+H+=6;
+var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="display:block;overflow:visible">';
+[0,25,50,75,100].forEach(function(t){var x=gx(t);s+='<line x1="'+x+'" y1="'+(TOP-6)+'" x2="'+x+'" y2="'+(H-6)+'" style="stroke:var(--linha);stroke-dasharray:2 5"/>';s+='<text x="'+x+'" y="'+(TOP-14)+'" text-anchor="middle" class="rg-esc">'+t+'</text>';});
+s+='<text x="16" y="'+(TOP-14)+'" class="rg-esc">ÍNDICE DO GRUPO, 0 A 100 ('+esc(D.n||J.length)+' '+esc(D.sig||'')+')</text>';
+G.forEach(function(gr,g){
+ var rt=rows[g].rt,y0=rows[g].y0,hs=rows[g].hs;
+ var b=refIdx(br,g),m=refIdx(mu,g);
+ var lo=(b!=null&&m!=null)?Math.min(b,m):(b!=null?b:m),hi=(b!=null&&m!=null)?Math.max(b,m):(b!=null?b:m);
+ if(g>0)s+='<line x1="0" y1="'+(rt-2)+'" x2="'+W+'" y2="'+(rt-2)+'" style="stroke:var(--linha)"/>';
+ s+='<text x="16" y="'+(rt+24)+'" class="rg-tit">'+esc(gr.t)+'</text>';
+ wrap(gr.d,38).slice(0,2).forEach(function(ln,k){s+='<text x="16" y="'+(rt+40+k*13)+'" class="rg-des">'+esc(ln)+'</text>';});
+ var dMU=0,dBR=0,dN=0,pMU=0,pBR=0,pN=0;
+ J.forEach(function(j){var v=jIdx(j,g);if(v==null)return;var aB=(b!=null&&v>b),aM=(m!=null&&v>m);if(dest[j.n]){dN++;if(aM)dMU++;if(aB)dBR++;}else{pN++;if(aM)pMU++;if(aB)pBR++;}});
+ s+='<circle cx="21" cy="'+(rt+78)+'" r="4" style="fill:var(--roxo)"/><text x="31" y="'+(rt+82)+'" class="rg-chip"><tspan class="n">'+dMU+'/'+dN+'</tspan> acima do Mundo</text>';
+ s+='<circle cx="21" cy="'+(rt+97)+'" r="4" style="fill:var(--bonina)"/><text x="31" y="'+(rt+101)+'" class="rg-chip"><tspan class="n">'+dBR+'/'+dN+'</tspan> acima do Brasil</text>';
+ s+='<text x="16" y="'+(rt+120)+'" class="rg-pop">população: '+pMU+' e '+pBR+' de '+pN+'</text>';
+ s+='<rect x="'+L+'" y="'+(y0-3)+'" width="'+RW+'" height="6" rx="3" style="fill:var(--trilho)"/>';
+ if(lo!=null&&hi!=null){s+='<rect x="'+gx(lo)+'" y="'+(y0-3)+'" width="'+Math.max(0,gx(hi)-gx(lo))+'" height="6" style="fill:var(--sup2)"/>';s+='<rect x="'+gx(hi)+'" y="'+(y0-3)+'" width="'+Math.max(0,R-gx(hi))+'" height="6" rx="3" style="fill:var(--verde-v)"/>';}
+ J.forEach(function(j,i){var v=jIdx(j,g);if(v==null)return;var x=gx(v);pos[i].push([x,y0]);
+  if(!dest[j.n])s+='<rect class="rg-tick pop" data-j="'+i+'" data-g="'+g+'" x="'+(x-0.75)+'" y="'+(y0-8)+'" width="1.5" height="16" style="fill:var(--ink3)"/>';});
+ hs.forEach(function(h){var c=COL[st(h.v,g)],ly=y0-26-h.lane*LH;
+  s+='<line x1="'+h.x+'" y1="'+(y0-16)+'" x2="'+h.x+'" y2="'+(ly+3)+'" style="stroke:'+c+';stroke-width:1;opacity:.55"/>';
+  s+='<rect class="rg-tick hi" data-j="'+h.i+'" data-g="'+g+'" x="'+(h.x-1.5)+'" y="'+(y0-15)+'" width="3" height="30" rx="1" style="fill:'+c+'"/>';
+  s+='<text class="rg-nome" data-j="'+h.i+'" data-g="'+g+'" x="'+h.tx+'" y="'+ly+'" text-anchor="'+h.anc+'" style="fill:'+c+'">'+esc(h.j.n)+' <tspan class="n">'+h.v+'</tspan></text>';});
+ var refs=[];if(b!=null)refs.push({x:gx(b),v:b,c:'var(--bonina)',t:'Brasil',n:br.nomes||[]});if(m!=null)refs.push({x:gx(m),v:m,c:'var(--roxo)',t:'Mundo',n:mu.nomes||[]});
+ refs.sort(function(a,c){return a.x-c.x;});
+ refs.forEach(function(r,q){var lane=(q===1&&refs[1].x-refs[0].x<120)?1:0;var lx=Math.max(L+34,Math.min(R-34,r.x));
+  s+='<rect x="'+(r.x-3)+'" y="'+(y0-21)+'" width="6" height="42" rx="2" style="fill:'+r.c+'"><title>'+esc(r.t+': '+r.n.join(', '))+'</title></rect>';
+  s+='<text x="'+lx+'" y="'+(y0+38+lane*13)+'" text-anchor="middle" class="rg-ref" style="fill:'+r.c+'">'+esc(r.t)+' <tspan class="n">'+r.v+'</tspan></text>';});
+});
+s+='<polyline class="rg-trace" points="" style="display:none"/></svg>';
+var head='<div class="rg-cab"><h3>Cinco réguas, uma por grupo físico</h3><div class="rg-refs"><b class="br">Brasil</b> = '+esc((br.nomes||[]).join(', '))+'&nbsp;&nbsp; <b class="mu">Mundo</b> = '+esc((mu.nomes||[]).join(', '))+'</div></div>';
+var pl='<div class="rg-placar"><div class="rg-pl-t">Placar dos destacados, por grupo</div>';
+J.forEach(function(j,i){if(!dest[j.n])return;var cm=0,cb=0,sq='';G.forEach(function(gr,g){var v=jIdx(j,g);var b=refIdx(br,g),m=refIdx(mu,g);if(v!=null&&m!=null&&v>m)cm++;if(v!=null&&b!=null&&v>b)cb++;sq+='<i title="'+esc(gr.t)+': '+(v==null?'-':v)+'" style="background:'+COL[st(v,g)]+'"></i>';});
+ pl+='<div class="rg-pc" data-j="'+i+'"><span class="rg-pn">'+esc(j.n)+'</span><span class="rg-sq">'+sq+'</span><span class="rg-pt"><span class="mu">Mundo <b>'+cm+'</b>/'+G.length+'</span> · <span class="br">Brasil <b>'+cb+'</b>/'+G.length+'</span></span></div>';});
+pl+='</div>';
+el.style.position='relative';
+el.innerHTML=head+s+pl+'<div class="rg-tip"></div>';
+var tipEl=el.querySelector('.rg-tip'),tr=el.querySelector('.rg-trace');
+var ativa=function(i,on){var ns=el.querySelectorAll('[data-j="'+i+'"]');for(var k=0;k<ns.length;k++){if(on)ns[k].classList.add('ativo');else ns[k].classList.remove('ativo');}
+ if(on&&pos[i]&&pos[i].length>1){var pts=[];pos[i].forEach(function(p){pts.push(p[0]+','+p[1]);});tr.setAttribute('points',pts.join(' '));tr.style.display='block';}else tr.style.display='none';};
+var alvo=function(e){var t=e.target;while(t&&t!==el){if(t.getAttribute&&t.getAttribute('data-j')!=null)return t;t=t.parentNode;}return null;};
+el.addEventListener('mouseover',function(e){var t=alvo(e);if(!t)return;var i=+t.getAttribute('data-j'),g=t.getAttribute('data-g');ativa(i,true);
+ if(g!=null&&g!==''&&J[i]){tipEl.innerHTML=tip(J[i],+g);tipEl.style.display='block';}});
+el.addEventListener('mousemove',function(e){if(tipEl.style.display!=='block')return;var rc=el.getBoundingClientRect();var x=e.clientX-rc.left+16,y=e.clientY-rc.top+16;var tw=tipEl.offsetWidth||420,th=tipEl.offsetHeight||220;if(x+tw>el.clientWidth-4)x=Math.max(4,e.clientX-rc.left-tw-16);if(y+th>el.clientHeight-4)y=Math.max(4,e.clientY-rc.top-th-16);tipEl.style.left=x+'px';tipEl.style.top=y+'px';});
+el.addEventListener('mouseout',function(e){var t=alvo(e);if(!t)return;ativa(+t.getAttribute('data-j'),false);tipEl.style.display='none';});
+};
+RENDER[3] = function (D, el) {
+var esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+var fmt = function (v, casas) { if (v == null || isNaN(v)) return '–'; return Number(v).toFixed(casas).replace('.', ','); };
+var melhor = function (v, r, menor) { if (v == null || r == null || isNaN(v) || isNaN(r)) return false; return menor ? (v < r) : (v > r); };
+
+var grupos = D.grupos || [];
+var jog = D.jogadores || [];
+var refBR = D.refBR || { v: {}, p: {}, nomes: [], idx: {} };
+var refMU = D.refMU || { v: {}, p: {}, nomes: [], idx: {} };
+var destaque = D.destaque || [];
+
+var curto = {
+  vmax3: 'Vel. máx. top 3', vmax: 'Vel. máx.', psv5: 'PSV-99 top 5', psv: 'PSV-99',
+  spr_km: 'm em sprint', spr_n: 'nº sprints', hsr: 'm corrida ráp.', hsr_n: 'nº corr. ráp.', hi: 'm alta int.', hi_n: 'nº alta int.',
+  dist: 'Distância', mmin: 'm/min', run: 'm em corrida', acel_m: 'Acel. médias', desa_m: 'Desac. médias',
+  expl: 'Arranques', acel: 'Acel. fortes', desa: 'Fren. fortes', t_spr: 't até sprint (s)', t_hsr: 't até corr. ráp. (s)',
+  cod: 'Mud. direção', t505_90: '505 giro 90° (s)', t505_180: '505 giro 180° (s)', t_spr_cod: 't sprint pós-giro (s)', t_hsr_cod: 't corr. pós-giro (s)'
+};
+
+/* geometria */
+var W = 1180, L = 44, S = 37, G = 26, TOP = 70, AX = 330, BOT = 124;
+var H = TOP + AX + BOT;
+var yt = TOP, yb = TOP + AX;
+var yP = function (p) { if (p == null || isNaN(p)) return null; var q = Math.max(0, Math.min(100, Number(p))); return yb - q / 100 * AX; };
+
+var eixos = [];
+var xcur = L;
+var gi, mi;
+for (gi = 0; gi < grupos.length; gi++) {
+  var ms = grupos[gi].m || [];
+  for (mi = 0; mi < ms.length; mi++) {
+    eixos.push({ k: ms[mi].k, rot: ms[mi].rot, un: ms[mi].un, casas: ms[mi].casas || 0, menor: !!ms[mi].menor, x: xcur, g: gi });
+    if (mi < ms.length - 1) xcur += S;
+  }
+  if (gi < grupos.length - 1) xcur += S + G;
+}
+var NX = eixos.length;
+var x0 = eixos.length ? eixos[0].x : L;
+var xN = eixos.length ? eixos[NX - 1].x : L;
+var xEnd = xN + 40;
+
+/* entidades: destaques + referencias */
+var cores = ['#5bc0eb', '#2ec4b6', '#c9e265', '#ffd166', '#ff9f1c', '#f0f0f0', '#c8a27a'];
+var ents = [];
+var i, j, k;
+for (i = 0; i < destaque.length; i++) {
+  var achado = null;
+  for (j = 0; j < jog.length; j++) { if (jog[j].n === destaque[i]) { achado = jog[j]; break; } }
+  if (achado) ents.push({ id: 'j' + i, n: achado.n, t: achado.t, idade: achado.idade, v: achado.v || {}, p: achado.p || {}, cor: cores[i % cores.length], tipo: 'jog', geral: (achado.idx || {}).geral });
+}
+var setDest = {};
+for (i = 0; i < ents.length; i++) setDest[ents[i].n] = true;
+var pop = [];
+for (j = 0; j < jog.length; j++) { if (!setDest[jog[j].n]) pop.push(jog[j]); }
+
+var entBR = { id: 'br', n: 'Referência Brasil', v: refBR.v || {}, p: refBR.p || {}, cor: 'var(--bonina)', tipo: 'ref', geral: (refBR.idx || {}).geral };
+var entMU = { id: 'mu', n: 'Referência Mundo', v: refMU.v || {}, p: refMU.p || {}, cor: 'var(--roxo)', tipo: 'ref', geral: (refMU.idx || {}).geral };
+
+/* contagens: eixos acima de cada referencia (por valor, respeitando menor=true) */
+var conta = function (e) {
+  var cb = 0, cm = 0, n = 0;
+  for (k = 0; k < NX; k++) {
+    var ax = eixos[k];
+    if (e.v[ax.k] == null) continue;
+    n++;
+    if (melhor(e.v[ax.k], entBR.v[ax.k], ax.menor)) cb++;
+    if (melhor(e.v[ax.k], entMU.v[ax.k], ax.menor)) cm++;
+  }
+  return { br: cb, mu: cm, n: n };
+};
+for (i = 0; i < ents.length; i++) ents[i].c = conta(ents[i]);
+
+/* caminho de um jogador (buraco onde falta dado) */
+var caminho = function (p) {
+  var d = '', pen = false;
+  for (k = 0; k < NX; k++) {
+    var y = yP(p[eixos[k].k]);
+    if (y == null) { pen = false; continue; }
+    d += (pen ? 'L' : 'M') + eixos[k].x + ',' + y.toFixed(1) + ' ';
+    pen = true;
+  }
+  return d;
+};
+var pontos = function (p) {
+  var arr = [];
+  for (k = 0; k < NX; k++) { var y = yP(p[eixos[k].k]); if (y != null) arr.push([eixos[k].x, y]); }
+  return arr;
+};
+
+var s = '';
+s += '<svg class="pc" viewBox="0 0 ' + W + ' ' + H + '" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coordenadas paralelas dos 25 indicadores físicos">';
+
+/* faixas de fundo: acima do mundo (roxo) e abaixo do Brasil (bonina) */
+var pBR = pontos(entBR.p), pMU = pontos(entMU.p);
+if (pMU.length > 1) {
+  var dA = 'M' + pMU[0][0] + ',' + yt + ' ';
+  for (i = 0; i < pMU.length; i++) dA += 'L' + pMU[i][0] + ',' + pMU[i][1].toFixed(1) + ' ';
+  dA += 'L' + pMU[pMU.length - 1][0] + ',' + yt + ' Z';
+  s += '<path d="' + dA + '" style="fill:var(--roxo);opacity:.09" />';
+}
+if (pBR.length > 1) {
+  var dB = 'M' + pBR[0][0] + ',' + yb + ' ';
+  for (i = 0; i < pBR.length; i++) dB += 'L' + pBR[i][0] + ',' + pBR[i][1].toFixed(1) + ' ';
+  dB += 'L' + pBR[pBR.length - 1][0] + ',' + yb + ' Z';
+  s += '<path d="' + dB + '" style="fill:var(--bonina);opacity:.07" />';
+}
+
+/* linhas-guia horizontais */
+var pp = [0, 25, 50, 75, 100];
+for (i = 0; i < pp.length; i++) {
+  var yy = yP(pp[i]);
+  s += '<line x1="' + x0 + '" x2="' + xN + '" y1="' + yy.toFixed(1) + '" y2="' + yy.toFixed(1) + '" style="stroke:var(--linha);stroke-width:1;' + (pp[i] === 50 ? 'stroke-dasharray:3 4;opacity:.9' : 'opacity:.45') + '" />';
+  s += '<text x="' + (x0 - 10) + '" y="' + (yy + 3.5).toFixed(1) + '" text-anchor="end" class="tk">' + pp[i] + '</text>';
+}
+s += '<text transform="translate(13 ' + (yt + AX / 2).toFixed(1) + ') rotate(-90)" text-anchor="middle" class="tkl">PERCENTIL NA COORTE · ' + esc(D.n || jog.length) + ' ' + esc(D.pos || '') + '</text>';
+
+/* eixos e cabecalhos de grupo */
+for (gi = 0; gi < grupos.length; gi++) {
+  var xa = null, xz = null;
+  for (k = 0; k < NX; k++) { if (eixos[k].g === gi) { if (xa == null) xa = eixos[k].x; xz = eixos[k].x; } }
+  if (xa == null) continue;
+  var xm = (xa + xz) / 2;
+  s += '<text x="' + xm.toFixed(1) + '" y="' + (yt - 36) + '" text-anchor="middle" class="gt"><title>' + esc(grupos[gi].d || '') + '</title>' + esc(String(grupos[gi].t || '').toUpperCase()) + '</text>';
+  s += '<line x1="' + (xa - 6) + '" x2="' + (xz + 6) + '" y1="' + (yt - 26) + '" y2="' + (yt - 26) + '" style="stroke:var(--linha2);stroke-width:1" />';
+  s += '<line x1="' + (xa - 6) + '" x2="' + (xa - 6) + '" y1="' + (yt - 26) + '" y2="' + (yt - 20) + '" style="stroke:var(--linha2);stroke-width:1" />';
+  s += '<line x1="' + (xz + 6) + '" x2="' + (xz + 6) + '" y1="' + (yt - 26) + '" y2="' + (yt - 20) + '" style="stroke:var(--linha2);stroke-width:1" />';
+}
+for (k = 0; k < NX; k++) {
+  s += '<line x1="' + eixos[k].x + '" x2="' + eixos[k].x + '" y1="' + yt + '" y2="' + yb + '" style="stroke:var(--linha2);stroke-width:1" />';
+  s += '<text transform="translate(' + (eixos[k].x + 3) + ' ' + (yb + 12) + ') rotate(-58)" text-anchor="end" class="ax"><title>' + esc(eixos[k].rot) + ' (' + esc(eixos[k].un) + ')</title>' + esc(curto[eixos[k].k] || eixos[k].rot) + '</text>';
+}
+
+/* populacao (linhas apagadas) */
+s += '<g class="popg">';
+for (j = 0; j < pop.length; j++) {
+  var dpop = caminho(pop[j].p || {});
+  if (!dpop) continue;
+  s += '<path class="pop" data-popv="' + j + '" d="' + dpop + '" />';
+  s += '<path class="hit" data-pop="' + j + '" d="' + dpop + '" />';
+}
+s += '</g>';
+
+/* referencias: linhas grossas com pontos */
+var refs = [entBR, entMU];
+for (i = 0; i < refs.length; i++) {
+  var dr = caminho(refs[i].p);
+  s += '<path class="ref" data-id="' + refs[i].id + '" d="' + dr + '" style="stroke:' + refs[i].cor + '" />';
+  var pr = pontos(refs[i].p);
+  for (k = 0; k < pr.length; k++) s += '<circle cx="' + pr[k][0] + '" cy="' + pr[k][1].toFixed(1) + '" r="3" style="fill:' + refs[i].cor + ';stroke:var(--fundo);stroke-width:1.2" />';
+  s += '<path class="hit" data-id="' + refs[i].id + '" d="' + dr + '" />';
+}
+
+/* destaques */
+for (i = 0; i < ents.length; i++) {
+  var de = caminho(ents[i].p);
+  s += '<path class="hl" data-id="' + ents[i].id + '" d="' + de + '" style="stroke:' + ents[i].cor + '" />';
+  s += '<path class="hit" data-id="' + ents[i].id + '" d="' + de + '" />';
+}
+
+/* valores por eixo (aparecem no foco) */
+var todos = ents.concat(refs);
+for (i = 0; i < todos.length; i++) {
+  var e = todos[i];
+  s += '<g class="vals" data-id="' + e.id + '">';
+  for (k = 0; k < NX; k++) {
+    var ax2 = eixos[k];
+    var yv = yP(e.p[ax2.k]);
+    if (yv == null) {
+      s += '<text x="' + (ax2.x + 5) + '" y="' + (yb - 4) + '" class="vv" style="fill:var(--ink3)">–</text>';
+      continue;
+    }
+    if (e.tipo === 'jog') {
+      var aB = melhor(e.v[ax2.k], entBR.v[ax2.k], ax2.menor), aM = melhor(e.v[ax2.k], entMU.v[ax2.k], ax2.menor);
+      var gl = (aB && aM) ? '▲' : ((aB || aM) ? '◆' : '▼');
+      var gc = (aB && aM) ? 'var(--verde)' : ((aB || aM) ? 'var(--ambar)' : 'var(--coral)');
+      s += '<text x="' + (ax2.x - 4) + '" y="' + (yv + 3.5).toFixed(1) + '" text-anchor="end" class="gl" style="fill:' + gc + '">' + gl + '</text>';
+    }
+    var dy = (k % 2 === 0) ? -5 : 12;
+    if (yv + dy < yt + 4) dy = 12;
+    if (yv + dy > yb - 2) dy = -5;
+    s += '<circle cx="' + ax2.x + '" cy="' + yv.toFixed(1) + '" r="3.2" style="fill:' + e.cor + ';stroke:var(--fundo);stroke-width:1.2" />';
+    s += '<text x="' + (ax2.x + 4) + '" y="' + (yv + dy).toFixed(1) + '" class="vv" style="fill:' + e.cor + '">' + fmt(e.v[ax2.k], ax2.casas) + '</text>';
+  }
+  s += '</g>';
+}
+
+/* rotulos na ponta direita, sem sobreposicao */
+var lab = [];
+for (i = 0; i < todos.length; i++) {
+  var yl = null, kk;
+  for (kk = NX - 1; kk >= 0; kk--) { yl = yP(todos[i].p[eixos[kk].k]); if (yl != null) break; }
+  if (yl == null) yl = yb;
+  lab.push({ e: todos[i], y0: yl, y: yl, x0: (kk >= 0 ? eixos[kk].x : xN) });
+}
+lab.sort(function (a, b) { return a.y - b.y; });
+var LH = 13;
+for (i = 1; i < lab.length; i++) { if (lab[i].y - lab[i - 1].y < LH) lab[i].y = lab[i - 1].y + LH; }
+var over = lab.length ? lab[lab.length - 1].y - (yb + 4) : 0;
+if (over > 0) { for (i = 0; i < lab.length; i++) lab[i].y -= over; for (i = lab.length - 2; i >= 0; i--) { if (lab[i + 1].y - lab[i].y < LH) lab[i].y = lab[i + 1].y - LH; } }
+for (i = 0; i < lab.length; i++) {
+  var le = lab[i].e;
+  var nomeCurto = le.tipo === 'ref' ? (le.id === 'br' ? 'REF. BRASIL' : 'REF. MUNDO') : le.n;
+  s += '<g class="endlbl" data-id="' + le.id + '">';
+  s += '<path d="M' + lab[i].x0 + ',' + lab[i].y0.toFixed(1) + ' L' + (xEnd - 2) + ',' + lab[i].y.toFixed(1) + '" style="stroke:' + le.cor + ';stroke-width:1;fill:none;opacity:.7" />';
+  s += '<text x="' + (xEnd + 2) + '" y="' + (lab[i].y + 3.5).toFixed(1) + '" class="' + (le.tipo === 'ref' ? 'en er' : 'en') + '" style="fill:' + le.cor + '">' + esc(nomeCurto) + '</text>';
+  s += '</g>';
+}
+
+/* rotulo flutuante para a populacao */
+s += '<text class="flut" x="0" y="0" style="display:none"></text>';
+s += '</svg>';
+
+/* cabecalho: referencias + chips dos destacados com o placar */
+var c = '';
+c += '<div class="refs">';
+c += '<div class="refc" data-id="br"><i class="sw" style="background:var(--bonina)"></i><b>Referência Brasil</b><span>' + esc((refBR.nomes || []).join(' · ')) + '</span><em>índice ' + esc(entBR.geral == null ? '–' : entBR.geral) + '</em></div>';
+c += '<div class="refc" data-id="mu"><i class="sw" style="background:var(--roxo)"></i><b>Referência Mundo</b><span>' + esc((refMU.nomes || []).join(' · ')) + '</span><em>índice ' + esc(entMU.geral == null ? '–' : entMU.geral) + '</em></div>';
+c += '<div class="dica">passe o mouse para ler os valores · clique para fixar</div>';
+c += '</div>';
+c += '<div class="chips">';
+for (i = 0; i < ents.length; i++) {
+  var ce = ents[i];
+  c += '<div class="chip" data-id="' + ce.id + '" title="' + esc(ce.n) + ' — acima da referência do Brasil em ' + ce.c.br + ' de ' + ce.c.n + ' eixos; acima da do mundo em ' + ce.c.mu + '">';
+  c += '<i class="sw" style="background:' + ce.cor + '"></i>';
+  c += '<div class="ci"><b>' + esc(ce.n) + '</b><small>' + esc(ce.t) + (ce.idade != null ? ' · ' + esc(ce.idade) : '') + '</small>';
+  c += '<div class="cn"><span title="eixos acima da referência do Brasil"><i style="background:var(--bonina)"></i>' + ce.c.br + '<em>/' + ce.c.n + '</em></span><span title="eixos acima da referência do mundo"><i style="background:var(--roxo)"></i>' + ce.c.mu + '<em>/' + ce.c.n + '</em></span></div></div>';
+  c += '</div>';
+}
+c += '</div>';
+
+el.innerHTML = c + s;
+
+/* interacao: hover isola, clique fixa */
+var svg = el.querySelector('svg.pc');
+var fixo = null, atual = null;
+var marc = el.querySelectorAll('[data-id]');
+var aplicar = function (id) {
+  var n;
+  for (n = 0; n < marc.length; n++) {
+    if (id && marc[n].getAttribute('data-id') === id) marc[n].classList.add('on'); else marc[n].classList.remove('on');
+  }
+  if (id) svg.classList.add('solo'); else svg.classList.remove('solo');
+};
+var setHover = function (id) { atual = id; aplicar(atual || fixo); };
+var setFixo = function (id) { fixo = (fixo === id) ? null : id; aplicar(atual || fixo); };
+
+var alvos = el.querySelectorAll('.chip, .refc, .hit[data-id]');
+var n2;
+for (n2 = 0; n2 < alvos.length; n2++) {
+  (function (t) {
+    var id = t.getAttribute('data-id');
+    t.addEventListener('mouseenter', function () { setHover(id); });
+    t.addEventListener('mouseleave', function () { setHover(null); });
+    t.addEventListener('click', function () { setFixo(id); });
+  })(alvos[n2]);
+}
+
+var flut = el.querySelector('.flut');
+var popHits = el.querySelectorAll('.hit[data-pop]');
+for (n2 = 0; n2 < popHits.length; n2++) {
+  (function (t) {
+    var idx = parseInt(t.getAttribute('data-pop'), 10);
+    var pj = pop[idx] || {};
+    var vis = el.querySelector('path.pop[data-popv="' + idx + '"]');
+    var mover = function (ev) {
+      var r = svg.getBoundingClientRect();
+      var sx = r.width ? W / r.width : 1;
+      var mx = (ev.clientX - r.left) * sx, my = (ev.clientY - r.top) * sx;
+      var anc = mx > W - 220 ? 'end' : 'start';
+      flut.setAttribute('x', (anc === 'end' ? mx - 10 : mx + 10).toFixed(1));
+      flut.setAttribute('y', (my - 10).toFixed(1));
+      flut.setAttribute('text-anchor', anc);
+    };
+    t.addEventListener('mouseenter', function (ev) {
+      if (vis) vis.classList.add('on');
+      flut.textContent = (pj.n || '') + ' · ' + (pj.t || '') + ' · índice ' + ((pj.idx || {}).geral == null ? '–' : (pj.idx || {}).geral);
+      flut.style.display = 'block';
+      mover(ev);
+    });
+    t.addEventListener('mousemove', mover);
+    t.addEventListener('mouseleave', function () { if (vis) vis.classList.remove('on'); flut.style.display = 'none'; });
+  })(popHits[n2]);
+}
+};
+RENDER[4] = function (D, el) {
+var esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+var num = function (v) { return (typeof v === 'number' && isFinite(v)) ? v : null; };
+var fmt = function (v, casas) {
+  if (num(v) === null) return '—';
+  var s = Math.abs(v).toFixed(casas);
+  var parts = s.split('.');
+  var int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return (v < 0 ? '-' : '') + int + (parts[1] ? ',' + parts[1] : '');
+};
+var hash = function (i, j) { var x = (i + 1) * 2654435761 + (j + 1) * 40503; x = (x ^ (x >>> 13)) >>> 0; return (x % 1000) / 1000; };
+
+var J = D.jogadores || [];
+var IND = D.indicadores || [];
+var GR = D.grupos || [];
+var refBR = (D.refBR && D.refBR.v) || {};
+var refMU = (D.refMU && D.refMU.v) || {};
+var destNomes = D.destaque || [];
+var CORES = ['#5cc8f2', '#f2b544', '#7bd88f', '#f27d6a', '#e9e36b', '#4fd1c5', '#c9a27e'];
+
+// índice dos destacados (na ordem de D.destaque) e cor de cada um
+var destIdx = [];
+var corDe = {};
+var di, dj;
+for (di = 0; di < destNomes.length; di++) {
+  for (dj = 0; dj < J.length; dj++) {
+    if (J[dj].n === destNomes[di]) { destIdx.push(dj); corDe[dj] = CORES[di % CORES.length]; break; }
+  }
+}
+var ehDest = {};
+for (di = 0; di < destIdx.length; di++) ehDest[destIdx[di]] = true;
+
+// acima da referência: maior é melhor, salvo quando menor=true
+var acima = function (v, ref, menor) {
+  if (num(v) === null || num(ref) === null) return null;
+  return menor ? v < ref : v > ref;
+};
+// vantagem com sinal (positivo = melhor que a referência), em unidades do indicador
+var delta = function (v, ref, menor) {
+  if (num(v) === null || num(ref) === null) return null;
+  return menor ? ref - v : v - ref;
+};
+
+// escala de cada indicador (melhor sempre à direita)
+var W = 680, H = 34, PAD = 10;
+var escalas = {};
+var ii, jj;
+for (ii = 0; ii < IND.length; ii++) {
+  var m = IND[ii], lo = Infinity, hi = -Infinity;
+  for (jj = 0; jj < J.length; jj++) { var vv = num(J[jj].v && J[jj].v[m.k]); if (vv !== null) { if (vv < lo) lo = vv; if (vv > hi) hi = vv; } }
+  var rb = num(refBR[m.k]), rm = num(refMU[m.k]);
+  if (rb !== null) { if (rb < lo) lo = rb; if (rb > hi) hi = rb; }
+  if (rm !== null) { if (rm < lo) lo = rm; if (rm > hi) hi = rm; }
+  if (!isFinite(lo) || !isFinite(hi)) { lo = 0; hi = 1; }
+  if (hi === lo) { hi = lo + 1; }
+  escalas[m.k] = { lo: lo, hi: hi };
+}
+var xDe = function (v, k, menor) {
+  var s = escalas[k]; var t = (v - s.lo) / (s.hi - s.lo); if (menor) t = 1 - t;
+  return PAD + t * (W - 2 * PAD);
+};
+
+// contagem por destacado: em quantos indicadores está acima do BR / do MU
+var totais = {};
+for (di = 0; di < destIdx.length; di++) {
+  var ji = destIdx[di], cBR = 0, cMU = 0, nOk = 0;
+  for (ii = 0; ii < IND.length; ii++) {
+    var mk = IND[ii]; var val = num(J[ji].v && J[ji].v[mk.k]);
+    if (val === null) continue;
+    nOk++;
+    if (acima(val, refBR[mk.k], mk.menor)) cBR++;
+    if (acima(val, refMU[mk.k], mk.menor)) cMU++;
+  }
+  totais[ji] = { br: cBR, mu: cMU, n: nOk };
+}
+
+// ---------- cabeçalho: chips dos 7 destacados ----------
+var h = '';
+h += '<div class="lN-topo">';
+h += '<div class="lN-titulo"><span class="lN-pos">' + esc(D.pos) + '</span><span class="lN-sub">' + esc(J.length) + ' meias das Séries A e B · cada tira é um indicador, cada ponto um jogador, melhor sempre à direita</span></div>';
+h += '<div class="lN-chips">';
+for (di = 0; di < destIdx.length; di++) {
+  var jd = J[destIdx[di]], tt = totais[destIdx[di]];
+  h += '<button type="button" class="lN-chip" data-j="' + destIdx[di] + '" style="--c:' + corDe[destIdx[di]] + '">';
+  h += '<span class="lN-chip-pt"></span>';
+  h += '<span class="lN-chip-nome">' + esc(jd.n) + '<small>' + esc(jd.t) + '</small></span>';
+  h += '<span class="lN-chip-ct"><b class="lN-br">' + tt.br + '</b><b class="lN-mu">' + tt.mu + '</b><i>de ' + tt.n + '</i></span>';
+  h += '</button>';
+}
+h += '</div>';
+h += '<div class="lN-refs">';
+h += '<span class="lN-ref lN-ref-br"><i></i>Referência Brasil <small>' + esc((D.refBR && D.refBR.nomes || []).join(' · ')) + '</small></span>';
+h += '<span class="lN-ref lN-ref-mu"><i></i>Referência mundo <small>' + esc((D.refMU && D.refMU.nomes || []).join(' · ')) + '</small></span>';
+h += '</div>';
+h += '</div>';
+
+// ---------- cabeçalho das colunas ----------
+h += '<div class="lN-cab"><span>Indicador</span><span class="lN-cab-pior">pior</span><span class="lN-cab-eixo">população inteira · melhor à direita</span><span class="lN-cab-melhor">melhor</span><span class="lN-cab-placar" title="Quantos dos destacados estão acima de cada referência"><b class="lN-br">▲ BR</b><b class="lN-mu">▲ MU</b></span></div>';
+
+// ---------- tiras ----------
+var gi, mi;
+for (gi = 0; gi < GR.length; gi++) {
+  var g = GR[gi];
+  h += '<div class="lN-grupo"><h4>' + esc(g.t) + '</h4><p>' + esc(g.d) + '</p></div>';
+  for (mi = 0; mi < (g.m || []).length; mi++) {
+    var md = g.m[mi], k = md.k, sc = escalas[k];
+    var rb2 = num(refBR[k]), rm2 = num(refMU[k]);
+    var xb = rb2 === null ? null : xDe(rb2, k, md.menor);
+    var xm = rm2 === null ? null : xDe(rm2, k, md.menor);
+    // placar padrão: destacados acima de cada referência
+    var nBR = 0, nMU = 0, nD = 0;
+    for (di = 0; di < destIdx.length; di++) {
+      var vd = num(J[destIdx[di]].v && J[destIdx[di]].v[k]);
+      if (vd === null) continue; nD++;
+      if (acima(vd, rb2, md.menor)) nBR++;
+      if (acima(vd, rm2, md.menor)) nMU++;
+    }
+    var esqV = md.menor ? sc.hi : sc.lo, dirV = md.menor ? sc.lo : sc.hi;
+
+    h += '<div class="lN-linha" data-k="' + esc(k) + '">';
+    h += '<div class="lN-rot"><span class="lN-rot-n">' + esc(md.rot) + '</span><span class="lN-rot-u">' + esc(md.un) + '</span></div>';
+    h += '<div class="lN-ext lN-ext-e">' + fmt(esqV, md.casas) + '</div>';
+    h += '<div class="lN-tira">';
+    h += '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" preserveAspectRatio="xMidYMid meet" class="lN-svg">';
+    h += '<defs><linearGradient id="lN-g-' + esc(k) + '" x1="0" x2="1" y1="0" y2="0">';
+    if (xb !== null && xm !== null && xb <= xm) {
+      h += '<stop offset="0" style="stop-color:var(--bonina)"/><stop offset="1" style="stop-color:var(--roxo)"/>';
+    } else {
+      h += '<stop offset="0" style="stop-color:var(--roxo)"/><stop offset="1" style="stop-color:var(--bonina)"/>';
+    }
+    h += '</linearGradient></defs>';
+    h += '<line x1="' + PAD + '" x2="' + (W - PAD) + '" y1="' + (H / 2) + '" y2="' + (H / 2) + '" style="stroke:var(--linha);stroke-width:1" vector-effect="non-scaling-stroke"/>';
+    if (xb !== null && xm !== null) {
+      var cx0 = Math.min(xb, xm), cx1 = Math.max(xb, xm);
+      h += '<rect x="' + cx0.toFixed(1) + '" y="3" width="' + Math.max(0.5, cx1 - cx0).toFixed(1) + '" height="' + (H - 6) + '" fill="url(#lN-g-' + esc(k) + ')" opacity="0.14"/>';
+    }
+    if (xb !== null) h += '<line class="lN-lref" x1="' + xb.toFixed(1) + '" x2="' + xb.toFixed(1) + '" y1="1" y2="' + (H - 1) + '" style="stroke:var(--bonina);stroke-width:2" vector-effect="non-scaling-stroke"/>';
+    if (xm !== null) h += '<line class="lN-lref" x1="' + xm.toFixed(1) + '" x2="' + xm.toFixed(1) + '" y1="1" y2="' + (H - 1) + '" style="stroke:var(--roxo);stroke-width:2" vector-effect="non-scaling-stroke"/>';
+    // população (35) — pontos pequenos com jitter determinístico
+    var pontosDest = '';
+    for (jj = 0; jj < J.length; jj++) {
+      var pv = num(J[jj].v && J[jj].v[k]);
+      if (pv === null) continue;
+      var px = xDe(pv, k, md.menor);
+      var py = H / 2 + (hash(jj, gi * 7 + mi) - 0.5) * 16;
+      if (ehDest[jj]) {
+        pontosDest += '<circle class="lN-pt lN-dest" data-j="' + jj + '" data-k="' + esc(k) + '" cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="5.5" style="fill:' + corDe[jj] + ';stroke:var(--fundo);stroke-width:1.5"/>';
+      } else {
+        h += '<circle class="lN-pt lN-pop" data-j="' + jj + '" data-k="' + esc(k) + '" cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="2.6" style="fill:var(--ink3);opacity:.65"/>';
+      }
+    }
+    h += pontosDest;
+    h += '</svg>';
+    h += '</div>';
+    h += '<div class="lN-ext lN-ext-d">' + fmt(dirV, md.casas) + '</div>';
+    h += '<div class="lN-placar" data-k="' + esc(k) + '">';
+    h += '<span class="lN-placar-padrao"><b class="lN-br">' + nBR + '<i>/' + nD + '</i></b><b class="lN-mu">' + nMU + '<i>/' + nD + '</i></b></span>';
+    h += '<span class="lN-placar-foco"></span>';
+    h += '</div>';
+    h += '</div>';
+  }
+}
+h += '<div class="lN-tip" hidden></div>';
+el.innerHTML = h;
+el.classList.add('lN');
+
+// ---------- interação ----------
+var tip = el.querySelector('.lN-tip');
+var indPorK = {};
+for (ii = 0; ii < IND.length; ii++) indPorK[IND[ii].k] = IND[ii];
+
+var mostraTip = function (alvo, jIdx, k) {
+  var jg = J[jIdx], md2 = indPorK[k]; if (!jg || !md2) return;
+  var v = num(jg.v && jg.v[k]); var p = num(jg.p && jg.p[k]);
+  var dB = delta(v, refBR[k], md2.menor), dM = delta(v, refMU[k], md2.menor);
+  var t = '';
+  t += '<div class="lN-tip-n"><i style="background:' + (corDe[jIdx] || 'var(--ink3)') + '"></i>' + esc(jg.n) + '<small>' + esc(jg.t) + ' · ' + esc(jg.l) + (jg.idade ? ' · ' + esc(jg.idade) + ' anos' : '') + '</small></div>';
+  t += '<div class="lN-tip-v"><b>' + fmt(v, md2.casas) + '</b> <span>' + esc(md2.un) + '</span>' + (p !== null ? '<em>P' + Math.round(p) + ' na coorte</em>' : '') + '</div>';
+  t += '<div class="lN-tip-d">';
+  t += '<span class="lN-br">' + (dB === null ? '—' : (dB >= 0 ? '▲ ' : '▼ ') + fmt(Math.abs(dB), md2.casas)) + ' <small>vs Brasil</small></span>';
+  t += '<span class="lN-mu">' + (dM === null ? '—' : (dM >= 0 ? '▲ ' : '▼ ') + fmt(Math.abs(dM), md2.casas)) + ' <small>vs mundo</small></span>';
+  t += '</div>';
+  tip.innerHTML = t;
+  tip.hidden = false;
+  var rb3 = alvo.getBoundingClientRect(), re = el.getBoundingClientRect();
+  var left = rb3.left - re.left + rb3.width / 2, top = rb3.top - re.top;
+  var tw = tip.offsetWidth || 220;
+  left = Math.max(8, Math.min(el.clientWidth - tw - 8, left - tw / 2));
+  tip.style.left = left + 'px';
+  tip.style.top = (top - tip.offsetHeight - 8) + 'px';
+};
+var escondeTip = function () { tip.hidden = true; };
+
+var focoAtual = null, fixo = null;
+var aplicaFoco = function (jIdx) {
+  focoAtual = jIdx;
+  var pts = el.querySelectorAll('.lN-pt'), i;
+  for (i = 0; i < pts.length; i++) {
+    pts[i].classList.toggle('lN-foco', jIdx !== null && +pts[i].getAttribute('data-j') === jIdx);
+  }
+  el.classList.toggle('lN-com-foco', jIdx !== null);
+  var chips = el.querySelectorAll('.lN-chip');
+  for (i = 0; i < chips.length; i++) chips[i].classList.toggle('lN-chip-on', jIdx !== null && +chips[i].getAttribute('data-j') === jIdx);
+  // placar por indicador: vantagem do jogador focado sobre cada referência
+  var placares = el.querySelectorAll('.lN-placar');
+  for (i = 0; i < placares.length; i++) {
+    var span = placares[i].querySelector('.lN-placar-foco');
+    if (jIdx === null) { span.innerHTML = ''; continue; }
+    var k2 = placares[i].getAttribute('data-k'), md3 = indPorK[k2];
+    var v2 = num(J[jIdx].v && J[jIdx].v[k2]);
+    var dB2 = delta(v2, refBR[k2], md3.menor), dM2 = delta(v2, refMU[k2], md3.menor);
+    var celula = function (d, cls) {
+      if (d === null) return '<b class="' + cls + ' lN-nd">sem dado</b>';
+      return '<b class="' + cls + (d >= 0 ? ' lN-up' : ' lN-dn') + '">' + (d >= 0 ? '▲' : '▼') + fmt(Math.abs(d), md3.casas) + '</b>';
+    };
+    span.innerHTML = celula(dB2, 'lN-br') + celula(dM2, 'lN-mu');
+  }
+};
+
+el.addEventListener('mouseover', function (ev) {
+  var t = ev.target;
+  if (t && t.classList && t.classList.contains('lN-pt')) {
+    mostraTip(t, +t.getAttribute('data-j'), t.getAttribute('data-k'));
+    return;
+  }
+  var chip = t && t.closest ? t.closest('.lN-chip') : null;
+  if (chip && fixo === null) aplicaFoco(+chip.getAttribute('data-j'));
+});
+el.addEventListener('mouseout', function (ev) {
+  var t = ev.target;
+  if (t && t.classList && t.classList.contains('lN-pt')) escondeTip();
+  var chip = t && t.closest ? t.closest('.lN-chip') : null;
+  if (chip && fixo === null && !(ev.relatedTarget && chip.contains(ev.relatedTarget))) aplicaFoco(null);
+});
+el.addEventListener('click', function (ev) {
+  var t = ev.target;
+  var chip = t && t.closest ? t.closest('.lN-chip') : null;
+  if (chip) {
+    var j = +chip.getAttribute('data-j');
+    fixo = (fixo === j) ? null : j;
+    aplicaFoco(fixo === null ? null : fixo);
+    return;
+  }
+  if (t && t.classList && t.classList.contains('lN-pt') && t.classList.contains('lN-dest')) {
+    var j2 = +t.getAttribute('data-j');
+    fixo = (fixo === j2) ? null : j2;
+    aplicaFoco(fixo === null ? null : fixo);
+  }
+});
+};
+RENDER[5] = function (D, el) {
+function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function fmt(v, casas) {
+  if (v == null || isNaN(v)) return '—';
+  var s = Number(v).toFixed(casas || 0);
+  var parts = s.split('.');
+  var neg = parts[0].charAt(0) === '-';
+  var ip = neg ? parts[0].slice(1) : parts[0];
+  ip = ip.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return (neg ? '-' : '') + ip + (parts.length > 1 ? ',' + parts[1] : '');
+}
+function sgn(d) { if (d == null) return '—'; return d === 0 ? '±0%' : (d > 0 ? '+' : '') + d + '%'; }
+function melhorQue(key, d, ref) { if (d === 0) return 'por um fio à frente do ' + ref + ' (menos de 0,5%)'; return META[key].menor ? d + '% mais rápido que o ' + ref : d + '% acima do ' + ref; }
+function atrasDe(d, ref) { return d === 0 ? 'praticamente empatado com o ' + ref + ' (menos de 0,5% atrás)' : Math.abs(d) + '% atrás do ' + ref; }
+function lower(s) { return String(s).toLowerCase(); }
+
+var IND = D.indicadores || [];
+var GR = D.grupos || [];
+var META = {};
+var i, k;
+for (i = 0; i < IND.length; i++) META[IND[i].k] = IND[i];
+var GKEYS = [];
+for (i = 0; i < GR.length; i++) { var ks = []; for (k = 0; k < GR[i].m.length; k++) ks.push(GR[i].m[k].k); GKEYS.push(ks); }
+var BR = (D.refBR && D.refBR.v) || {};
+var MU = (D.refMU && D.refMU.v) || {};
+var MA = D.mediaA || {};
+var MB = D.mediaB || {};
+var J = D.jogadores || [];
+var N = J.length;
+var POS = String(D.pos || 'jogador').split(' (')[0];
+var PLURAL = lower(/s$/.test(POS) ? POS : POS + 's');
+var DEST = {};
+for (i = 0; i < (D.destaque || []).length; i++) DEST[D.destaque[i]] = true;
+
+function num(x) { return (typeof x === 'number' && !isNaN(x)) ? x : null; }
+function above(v, r, key) {
+  if (v == null || r == null) return null;
+  if (v === r) return false;
+  return META[key].menor ? v < r : v > r;
+}
+function delta(v, r, key) {
+  if (v == null || r == null || r === 0) return null;
+  var d = (v - r) / Math.abs(r) * 100;
+  if (META[key].menor) d = -d;
+  return Math.round(d);
+}
+function median(arr) {
+  if (!arr.length) return null;
+  var a = arr.slice().sort(function (x, y) { return x - y; });
+  var m = a.length >> 1;
+  return a.length % 2 ? a[m] : Math.round((a[m - 1] + a[m]) / 2);
+}
+function unit(key) { return String(META[key].un || '').split(' · ')[0]; }
+function rot(key) { return META[key].rot; }
+
+function analisa(j, rank) {
+  var v = j.v || {}, p = j.p || {};
+  var A = { j: j, rank: rank, nv: 0, nb: 0, nm: 0, nA: 0, nB: 0, semDado: [], dB: [], dM: [], grp: [], porInd: {} };
+  var g, q, key, val;
+  for (g = 0; g < GKEYS.length; g++) {
+    var G = { i: g, t: GR[g].t, idx: num(j.idx && j.idx.grupos ? j.idx.grupos[g] : null), nv: 0, nb: 0, nm: 0 };
+    for (q = 0; q < GKEYS[g].length; q++) {
+      key = GKEYS[g][q]; val = num(v[key]);
+      if (val == null) { A.semDado.push(key); continue; }
+      var aB = above(val, num(BR[key]), key), aM = above(val, num(MU[key]), key);
+      var dBv = delta(val, num(BR[key]), key), dMv = delta(val, num(MU[key]), key);
+      A.nv++; G.nv++;
+      if (aB) { A.nb++; G.nb++; }
+      if (aM) { A.nm++; G.nm++; }
+      if (above(val, num(MA[key]), key)) A.nA++;
+      if (above(val, num(MB[key]), key)) A.nB++;
+      if (dBv != null) A.dB.push(dBv);
+      if (dMv != null) A.dM.push(dMv);
+      A.porInd[key] = { v: val, p: num(p[key]), aB: aB, aM: aM, dB: dBv, dM: dMv, g: g };
+    }
+    A.grp.push(G);
+  }
+  A.medB = median(A.dB); A.medM = median(A.dM);
+  var best = null, worst = null;
+  for (g = 0; g < A.grp.length; g++) {
+    if (A.grp[g].idx == null || A.grp[g].nv === 0) continue;
+    if (best == null || A.grp[g].idx > A.grp[best].idx) best = g;
+    if (worst == null || A.grp[g].idx < A.grp[worst].idx) worst = g;
+  }
+  A.best = best; A.worst = worst;
+  var bk = null, wk = null;
+  for (key in A.porInd) {
+    var o = A.porInd[key];
+    if (o.p == null) continue;
+    if (bk == null || o.p > A.porInd[bk].p || (o.p === A.porInd[bk].p && (o.dM || 0) > (A.porInd[bk].dM || 0))) bk = key;
+    if (wk == null || o.p < A.porInd[wk].p || (o.p === A.porInd[wk].p && (o.dM || 0) < (A.porInd[wk].dM || 0))) wk = key;
+  }
+  A.bestK = bk; A.worstK = wk;
+  var gapM = null, gapB = null;
+  for (key in A.porInd) {
+    var o2 = A.porInd[key];
+    if (o2.dM != null && o2.dM < 0 && (gapM == null || o2.dM < A.porInd[gapM].dM)) gapM = key;
+    if (o2.dB != null && o2.dB < 0 && (gapB == null || o2.dB < A.porInd[gapB].dB)) gapB = key;
+  }
+  A.gapM = gapM; A.gapB = gapB;
+  return A;
+}
+
+var AN = [];
+for (i = 0; i < N; i++) AN.push(analisa(J[i], i + 1));
+function quantosPassamMais(A) { var c = 0, t; for (t = 0; t < AN.length; t++) if (AN[t] !== A && AN[t].nm > A.nm) c++; return c; }
+
+function frase1(A) {
+  var s;
+  if (A.nv === 0) return 'Sem dados físicos suficientes para comparar.';
+  if (A.nb === A.nv) s = 'Passa da referência do Brasil em todos os ' + A.nv + ' indicadores';
+  else if (A.nb === 0) s = 'Não passa da referência do Brasil em nenhum dos ' + A.nv + ' indicadores';
+  else s = 'Passa da referência do Brasil em ' + A.nb + ' dos ' + A.nv + ' indicadores';
+  if (A.nm === A.nv) s += ' e também em todos da do mundo';
+  else if (A.nm === 0) s += ' e em nenhum da do mundo';
+  else s += ' e da do mundo em ' + A.nm;
+  if (A.nv < IND.length) {
+    var rs = [];
+    for (var t = 0; t < A.semDado.length; t++) rs.push(rot(A.semDado[t]));
+    s += ' (' + rs.join(', ') + ' sem dado)';
+  }
+  s += '. ';
+  var c = quantosPassamMais(A);
+  if (A.nm > 0 && c === 0) s += 'Nenhum outro dos ' + N + ' ' + PLURAL + ' passa do mundo em tantos indicadores';
+  else if (A.nm > 0) s += (c <= 5 ? 'Só ' : '') + c + ' dos outros ' + (N - 1) + ' ' + PLURAL + (c === 1 ? ' passa' : ' passam') + ' do mundo em mais indicadores';
+  else s += 'Fica entre os que não passam do mundo em nada';
+  s += '; é o ' + A.rank + 'º índice geral (' + fmt(A.j.idx && A.j.idx.geral, 0) + ') entre os ' + N + ' ' + PLURAL + ' das Séries A e B.';
+  return s;
+}
+function fraseGrupo(A, g, forte) {
+  var G = A.grp[g];
+  if (!G) return '';
+  var nome = lower(G.t);
+  var lab;
+  if (forte) lab = G.idx >= 85 ? 'A força é ' : (G.idx >= 60 ? 'O melhor lado é ' : 'O lado menos fraco é ');
+  else lab = G.idx < 40 ? 'O buraco é ' : (G.idx < 70 ? 'O lado fraco é ' : 'O ponto menos forte é ');
+  var s = lab + '<b>' + esc(nome) + '</b>: índice ' + fmt(G.idx, 0) + ' no grupo, ';
+  var n = G.nv, pl = n === 1 ? ' indicador' : ' indicadores';
+  if (G.nb === n && G.nm === n) s += 'acima das duas referências em todos os ' + n + pl;
+  else if (G.nb === 0 && G.nm === 0) s += 'abaixo das duas referências em todos os ' + n + pl;
+  else if (G.nb === n && G.nm === 0) s += 'acima do Brasil em todos os ' + n + pl + ', mas do mundo em nenhum';
+  else if (G.nb === 0) s += 'acima do Brasil em nenhum dos ' + n + pl + ', mas do mundo em ' + G.nm;
+  else s += 'acima do Brasil em ' + (G.nb === n ? 'todos os ' + n : G.nb + ' dos ' + n) + pl + ' e do mundo em ' + (G.nm === n ? 'todos' : (G.nm === 0 ? 'nenhum' : G.nm));
+  s += '. ';
+  return s;
+}
+function fraseInd(A, key, melhor) {
+  var o = A.porInd[key];
+  if (!o) return '';
+  var m = META[key];
+  var s = (melhor ? 'O melhor número é ' : 'O pior número é ') + indSpan(A, key) + ': <span class="num">' + fmt(o.v, m.casas) + '</span> ' + esc(unit(key));
+  if (o.p != null) s += ' (percentil ' + o.p + (melhor ? ' entre os ' + N : '') + ')';
+  if (o.aB && o.aM) s += ', ' + melhorQue(key, o.dB, 'Brasil') + ' e ' + melhorQue(key, o.dM, 'mundo');
+  else if (o.aB && !o.aM) s += ', ' + melhorQue(key, o.dB, 'Brasil') + ', mas ' + atrasDe(o.dM, 'mundo');
+  else if (!o.aB && o.aM) s += ', ' + atrasDe(o.dB, 'Brasil') + ' e mesmo assim ' + melhorQue(key, o.dM, 'mundo');
+  else s += ', ' + atrasDe(o.dB, 'Brasil') + ' e ' + atrasDe(o.dM, 'mundo');
+  if (!o.aB) {
+    var bA = above(o.v, num(MA[key]), key) === false, bB = above(o.v, num(MB[key]), key) === false;
+    if (bA && bB) s += ' — abaixo até das médias das Séries A e B';
+    else if (bA) s += ' — abaixo da média da Série A, acima da B';
+    else if (bB) s += ' — abaixo da média da Série B, acima da A';
+    else s += ' — ainda assim acima das médias das duas séries';
+  }
+  return s + '. ';
+}
+function frase4(A) {
+  if (A.nv === 0) return '';
+  var s = '';
+  var gM = A.gapM, gB = A.gapB;
+  var mTxt = gM ? indSpan(A, gM) + ' (<span class="num">' + fmt(A.porInd[gM].v, META[gM].casas) + '</span> contra <span class="num">' + fmt(MU[gM], META[gM].casas) + '</span>, ' + sgn(A.porInd[gM].dM) + ')' : null;
+  var bTxt = gB ? indSpan(A, gB) + ' (' + sgn(A.porInd[gB].dB) + ')' : null;
+  if (gM && gB && gM === gB) {
+    if (gM === A.worstK) s = 'Esse é também o ponto mais distante das duas referências (' + sgn(A.porInd[gM].dB) + ' para o Brasil, ' + sgn(A.porInd[gM].dM) + ' para o mundo).';
+    else s = 'O ponto mais distante das duas referências é ' + mTxt + '; para o Brasil, ' + sgn(A.porInd[gB].dB) + '.';
+    return s;
+  }
+  if (gM) s += (gM === A.worstK ? 'É aí também a maior distância para o mundo (' + sgn(A.porInd[gM].dM) + ')' : 'A maior distância para o mundo está em ' + mTxt);
+  else s += 'Não fica atrás da referência do mundo em nenhum indicador com dado';
+  if (gB) s += '; para o Brasil, ' + (gB === A.worstK ? 'é aí também a maior distância (' + sgn(A.porInd[gB].dB) + ')' : 'a maior está em ' + bTxt);
+  else s += '; para o Brasil não há distância a cobrir';
+  return s + '.';
+}
+function indSpan(A, key) {
+  var o = A.porInd[key], m = META[key];
+  var tip = rot(key) + ': ' + fmt(o.v, m.casas) + ' ' + unit(key) + ' | Brasil ' + fmt(BR[key], m.casas) + ' | mundo ' + fmt(MU[key], m.casas) + ' | Série A ' + fmt(MA[key], m.casas) + ' | Série B ' + fmt(MB[key], m.casas) + (m.menor ? ' (menor é melhor)' : '');
+  return '<span class="ind" title="' + esc(tip) + '">' + esc(rot(key)) + '</span>';
+}
+function resumo(A) {
+  if (A.nv === 0) return 'Sem dados para comparar.';
+  var rb = A.nb / A.nv, rm = A.nm / A.nv, s;
+  if (rb === 1) s = 'Passa do Brasil em tudo';
+  else if (rb >= 0.85) s = 'Passa do Brasil em quase tudo';
+  else if (rb >= 0.6) s = 'Passa do Brasil na maior parte';
+  else if (rb >= 0.4) s = 'Divide com o Brasil';
+  else if (rb > 0) s = 'Fica atrás do Brasil na maioria';
+  else s = 'Não passa do Brasil em nada';
+  if (rm === 1) s += ' e do mundo em tudo';
+  else if (rm >= 0.75) s += ' e do mundo em quase tudo';
+  else if (rm >= 0.5) s += ' e do mundo em mais da metade';
+  else if (rm >= 0.35) s += ', mas do mundo em menos da metade';
+  else if (rm > 0) s += ', mas do mundo só em poucos';
+  else s += ' e do mundo em nenhum';
+  if (A.best != null && A.worst != null && A.best !== A.worst) s += ': força em ' + lower(A.grp[A.best].t) + ', ponto fraco em ' + lower(A.grp[A.worst].t) + '.';
+  else s += '.';
+  return s;
+}
+function paragrafo(A) {
+  var s = frase1(A) + ' ';
+  if (A.best != null) s += fraseGrupo(A, A.best, true);
+  if (A.bestK) s += fraseInd(A, A.bestK, true);
+  if (A.worst != null && A.worst !== A.best) s += fraseGrupo(A, A.worst, false);
+  if (A.worstK && A.worstK !== A.bestK) s += fraseInd(A, A.worstK, false);
+  s += frase4(A);
+  return s;
+}
+function placar(A) {
+  var h = '<div class="placar">';
+  h += '<div class="pl br"><span class="pl-n">' + A.nb + '<small>/' + A.nv + '</small></span><span class="pl-l">acima do Brasil</span><span class="pl-d">' + (A.medB == null ? '—' : sgn(A.medB)) + ' típico</span></div>';
+  h += '<div class="pl mu"><span class="pl-n">' + A.nm + '<small>/' + A.nv + '</small></span><span class="pl-l">acima do mundo</span><span class="pl-d">' + (A.medM == null ? '—' : sgn(A.medM)) + ' típico</span></div>';
+  h += '</div>';
+  return h;
+}
+function listaTexto(A) {
+  var h = '<div class="lista">';
+  var g, q;
+  for (g = 0; g < GKEYS.length; g++) {
+    h += '<div class="lg">' + esc(GR[g].t) + '</div>';
+    for (q = 0; q < GKEYS[g].length; q++) {
+      var key = GKEYS[g][q], m = META[key], o = A.porInd[key];
+      if (!o) { h += '<div class="li"><span class="li-r">' + esc(m.rot) + '</span> sem dado</div>'; continue; }
+      h += '<div class="li"><span class="li-r">' + esc(m.rot) + '</span> <span class="num">' + fmt(o.v, m.casas) + '</span> ' + esc(unit(key)) + (o.p != null ? ' <span class="li-p">p' + o.p + '</span>' : '');
+      h += ' <span class="dot ' + (o.aB ? 'on-br' : 'off') + '">●</span> Brasil ' + fmt(BR[key], m.casas) + ' (' + sgn(o.dB) + ')';
+      h += ' <span class="dot ' + (o.aM ? 'on-mu' : 'off') + '">●</span> mundo ' + fmt(MU[key], m.casas) + ' (' + sgn(o.dM) + ')';
+      h += '</div>';
+    }
+  }
+  return h + '</div>';
+}
+function cartao(A, destaque) {
+  var j = A.j;
+  var meta = [esc(j.t), esc(j.l), j.idade != null ? j.idade + ' anos' : null, j.sc_n != null ? j.sc_n + ' jogos' : null];
+  var mm = [], t; for (t = 0; t < meta.length; t++) if (meta[t]) mm.push(meta[t]);
+  var h = '<article class="card' + (destaque ? ' dest' : '') + '" data-i="' + (A.rank - 1) + '">';
+  h += '<header><div class="rk">' + A.rank + 'º</div><div class="who"><h3>' + esc(j.n) + '</h3><div class="meta">' + mm.join(' · ') + '</div></div>' + placar(A) + '</header>';
+  h += '<p class="res">' + esc(resumo(A)) + '</p>';
+  h += '<p class="txt">' + paragrafo(A) + '</p>';
+  h += '<button type="button" class="tg" data-tg="' + (A.rank - 1) + '">Os 25 indicadores, em texto ▼</button>';
+  h += '<div class="lista-wrap" hidden>' + listaTexto(A) + '</div>';
+  h += '</article>';
+  return h;
+}
+
+function coorte() {
+  var s = '', t;
+  var rBR = D.refBR || {}, rMU = D.refMU || {};
+  var ranks = [], cnt20 = 0, cntMeio = 0;
+  for (t = 0; t < AN.length; t++) {
+    if (DEST[AN[t].j.n]) ranks.push(AN[t].rank);
+    if (AN[t].nv > 0 && AN[t].nb / AN[t].nv >= 0.8) cnt20++;
+    if (AN[t].nv > 0 && AN[t].nm / AN[t].nv > 0.5) cntMeio++;
+  }
+  s += 'Dos <span class="num">' + N + '</span> ' + esc(PLURAL) + (D.sig ? ' (' + esc(D.sig) + ')' : '') + ' das Séries A e B, <span class="num">' + cnt20 + '</span> passam da referência do Brasil em pelo menos 80% dos indicadores e ' + (cntMeio <= N / 4 ? 'só ' : '') + '<span class="num">' + cntMeio + '</span> passam da do mundo em mais da metade. ';
+  var contiguo = ranks.length > 0;
+  for (t = 0; t < ranks.length; t++) if (ranks[t] !== t + 1) contiguo = false;
+  if (ranks.length) s += 'Os ' + ranks.length + ' destacados ocupam ' + (contiguo ? 'as ' + ranks.length + ' primeiras posições' : 'as posições ' + ranks.join(', ')) + ' do índice geral. ';
+  s += 'A referência do Brasil (<b class="c-br">' + esc((rBR.nomes || []).join(', ')) + '</b>) tem índice geral <span class="num c-br">' + fmt(rBR.idx && rBR.idx.geral, 0) + '</span>; a do mundo (<b class="c-mu">' + esc((rMU.nomes || []).join(', ')) + '</b>) tem <span class="num c-mu">' + fmt(rMU.idx && rMU.idx.geral, 0) + '</span>';
+  var supB = 0, supM = 0;
+  for (t = 0; t < AN.length; t++) { var gg = num(AN[t].j.idx && AN[t].j.idx.geral); if (gg == null) continue; if (rBR.idx && gg > rBR.idx.geral) supB++; if (rMU.idx && gg > rMU.idx.geral) supM++; }
+  s += ' — ' + supB + ' ' + PLURAL + ' superam o índice da referência do Brasil e ' + supM + ' o da do mundo.';
+  return s;
+}
+
+var html = '<div class="wrap">';
+html += '<div class="topo"><div class="kicker">' + esc(D.pos || '') + ' · Ficha narrativa · ' + N + ' jogadores</div><p class="coorte">' + coorte() + '</p></div>';
+html += '<div class="grid">';
+var ordemDest = [];
+for (i = 0; i < AN.length; i++) if (DEST[AN[i].j.n]) ordemDest.push(AN[i]);
+for (i = 0; i < ordemDest.length; i++) html += cartao(ordemDest[i], true);
+html += '</div>';
+html += '<div class="pop"><div class="kicker">Os outros ' + (N - ordemDest.length) + ' · uma linha cada · clique para abrir a ficha</div>';
+for (i = 0; i < AN.length; i++) {
+  var A = AN[i];
+  if (DEST[A.j.n]) continue;
+  var lin = '<div class="row" data-row="' + i + '">';
+  lin += '<span class="rk">' + A.rank + 'º</span><span class="nm">' + esc(A.j.n) + '</span><span class="tm">' + esc(A.j.t) + ' · ' + esc(A.j.l) + '</span>';
+  lin += '<span class="sc br"><span class="num">' + A.nb + '</span>/' + A.nv + ' <em>' + (A.medB == null ? '' : sgn(A.medB)) + '</em></span>';
+  lin += '<span class="sc mu"><span class="num">' + A.nm + '</span>/' + A.nv + ' <em>' + (A.medM == null ? '' : sgn(A.medM)) + '</em></span>';
+  lin += '<span class="fr">' + (A.best != null ? 'força em ' + esc(lower(A.grp[A.best].t)) : '') + (A.worst != null && A.worst !== A.best ? ' · fraco em ' + esc(lower(A.grp[A.worst].t)) : '') + '</span>';
+  lin += '</div><div class="row-card" hidden data-rowcard="' + i + '"></div>';
+  html += lin;
+}
+html += '</div></div>';
+el.innerHTML = html;
+
+el.addEventListener('click', function (e) {
+  var t = e.target;
+  while (t && t !== el && !(t.getAttribute && (t.getAttribute('data-tg') != null || t.getAttribute('data-row') != null))) t = t.parentNode;
+  if (!t || t === el) return;
+  var tg = t.getAttribute('data-tg');
+  if (tg != null) {
+    var wrap = t.nextElementSibling;
+    if (wrap) { wrap.hidden = !wrap.hidden; t.textContent = wrap.hidden ? 'Os 25 indicadores, em texto ▼' : 'Fechar ▲'; }
+    return;
+  }
+  var r = parseInt(t.getAttribute('data-row'), 10);
+  var box = t.nextElementSibling;
+  if (!box) return;
+  if (box.hidden) { if (!box.innerHTML) box.innerHTML = cartao(AN[r], false); box.hidden = false; t.classList.add('open'); }
+  else { box.hidden = true; t.classList.remove('open'); }
+});
+};
+document.getElementById('cBR').textContent = D.refBR.nomes.join(' · ');
+document.getElementById('cMU').textContent = D.refMU.nomes.join(' · ');
+window.__erros = {};
+Object.keys(RENDER).forEach(function (n) {
+  var el = document.getElementById('palco' + n);
+  try { RENDER[n](D, el); }
+  catch (e) {
+    window.__erros[n] = String(e && e.stack || e);
+    el.innerHTML = '<div class="erro">este layout quebrou ao desenhar:\n' + String(e) + '</div>';
+  }
+});
+</script>

@@ -344,11 +344,18 @@
             <button class="bt mini perigo" id="fsCompApagar" style="display:none" title="Apagar o comparativo aberto">Apagar</button>
             <button class="bt mini" id="fsEstudo" title="Diferenças entre a Série A e a Série B em todos os indicadores físicos, posição por posição">Série A × Série B</button>
             <button class="bt mini" id="fsLimpar">Limpar comparação</button>
+            <span class="fs-visao" id="fsVisao" title="Trocar a forma de ver a comparação">
+              <button data-v="matriz">Matriz</button><button data-v="mapa">Mapa</button><button data-v="reguas">Réguas</button><button data-v="tiras">Tiras</button>
+            </span>
           </div>
         </div>
       </div>
       <div class="fc-lista fs-matriz-wrap">
         <table id="fsMatriz"></table>
+        <div id="fsChips" class="fs-chips" hidden></div>
+        <div id="fsFoco" class="fs-foco" hidden></div>
+        <div id="fsPalco" class="fs-palco" hidden></div>
+        <div id="fsDica" class="fs-dica" hidden></div>
         <div class="vazio" id="fsVazio" style="display:none">Ninguém na comparação — ligue uma referência ou adicione um jogador.</div>
       </div>
       <div class="fc-pe"><span id="fsContagem">—</span></div>
@@ -607,6 +614,7 @@
 
 <script src="/static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "{{ verDados }}";</script>
+<script src="/static/fs_visoes.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>
