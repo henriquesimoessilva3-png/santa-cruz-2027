@@ -1,21 +1,23 @@
-# Jogadores referência — Brasil
+# Jogadores referência — físico
 
-Lista curada de mar/25 do projeto do Botafogo (`config/refs_brasil.json`), cruzada com a base física do Santa Cruz.
+Duas listas do projeto do Botafogo, cruzadas com a base física do Santa Cruz. São elas que dão a régua do raio ⚡ (contra a **média Brasil**) e as colunas *Ref. Brasil* e *Ref. Mundo* na aba Físico.
 
-| Posição | Entraram na média | Ficaram de fora (sem dado físico nesta base) |
+## Brasil
+
+| Posição | Entraram na média | Fora, e por quê |
 |---|---|---|
-| **RCB** | Alexander Barboza (Palmeiras), Léo Ortiz (Flamengo) | Gustavo Gomez |
-| **LCB** | Alexander Barboza (Palmeiras), Léo Ortiz (Flamengo) | Gustavo Gomez |
-| **RB** | William (Cruzeiro), Paulo Henrique (Vasco da Gama) | Mayke, Wesley |
+| **RCB** | G. Gómez (Palmeiras), Alexander Barboza (Palmeiras), Léo Ortiz (Flamengo) | — |
+| **LCB** | G. Gómez (Palmeiras), Alexander Barboza (Palmeiras), Léo Ortiz (Flamengo) | — |
+| **RB** | William (Cruzeiro), Wesley (Roma), Paulo Henrique (Vasco da Gama) | Mayke — está na base (Santos) mas **sem tracking do SkillCorner** |
 | **LB** | Alexandro Bernabei (Internacional), Alex Telles (Botafogo), Guilherme Arana (Fluminense) | — |
-| **DM** | Gregore (Al Rayyan), Erick Pulgar (Flamengo) | Anibal Moreno, Villasanti |
-| **CM** | Gerson (Cruzeiro), R. Ríos (Benfica), Jean Lucas (Bahia) | N. de la Cruz |
+| **DM** | Gregore (Al Rayyan), Erick Pulgar (Flamengo), A. Moreno (River Plate) | Villasanti — está na base (Grêmio) mas **sem tracking do SkillCorner** |
+| **CM** | Gerson (Cruzeiro), R. Ríos (Benfica), Jean Lucas (Bahia) | N. de la Cruz — está na base (Flamengo) mas **sem tracking do SkillCorner** |
 | **AM** | Alan Patrick (Internacional), Jefferson Savarino (Fluminense), R. Garro (Corinthians) | — |
-| **RW** | J. Arias (Palmeiras) | Estevao, Lucas Moura |
-| **LW** | J. Arias (Palmeiras) | Estevao, Lucas Moura |
+| **RW** | J. Arias (Palmeiras) | Estevao — está na base (Chelsea) mas **sem tracking do SkillCorner**; Lucas Moura — está na base (São Paulo) mas **sem tracking do SkillCorner** |
+| **LW** | J. Arias (Palmeiras) | Estevao — está na base (Chelsea) mas **sem tracking do SkillCorner**; Lucas Moura — está na base (São Paulo) mas **sem tracking do SkillCorner** |
 | **CF** | Yuri Alberto (Corinthians), Enner Valencia (Pachuca), Hulk (Fluminense), Igor Jesus (Nottingham Forest), Pedro (Flamengo) | — |
 
-## Referências Mundo (para comparação)
+## Mundo
 
 | Posição | Jogadores |
 |---|---|
@@ -32,17 +34,17 @@ Lista curada de mar/25 do projeto do Botafogo (`config/refs_brasil.json`), cruza
 
 ## Médias resultantes nos 5 indicadores do raio
 
-| Posição | | PSV-99 | m sprint | nº sprints | m alta int. | ações alta int. |
+| Posição | Lista | PSV-99 | m em sprint | nº sprints | m alta int. | ações alta int. |
 |---|---|---|---|---|---|---|
-| RCB | Brasil | 28.50 | 117 | 5.9 | 458 | 37.7 |
+| RCB | Brasil | 28.58 | 112 | 5.5 | 437 | 36.2 |
 |  | Mundo | 29.73 | 152 | 8.2 | 569 | 48.4 |
-| LCB | Brasil | 28.50 | 117 | 5.9 | 458 | 37.7 |
+| LCB | Brasil | 28.58 | 112 | 5.5 | 437 | 36.2 |
 |  | Mundo | 29.47 | 138 | 7.4 | 539 | 45.6 |
-| RB | Brasil | 30.70 | 300 | 14.9 | 890 | 76.3 |
+| RB | Brasil | 30.72 | 321 | 16.1 | 965 | 82.9 |
 |  | Mundo | 30.31 | 255 | 12.7 | 818 | 69.4 |
 | LB | Brasil | 29.43 | 220 | 11.6 | 813 | 67.3 |
 |  | Mundo | 30.47 | 268 | 13.1 | 834 | 70.8 |
-| DM | Brasil | 29.03 | 168 | 8.9 | 699 | 59.0 |
+| DM | Brasil | 28.35 | 141 | 7.6 | 622 | 52.6 |
 |  | Mundo | 28.19 | 150 | 8.3 | 715 | 58.2 |
 | CM | Brasil | 28.82 | 181 | 9.9 | 741 | 60.8 |
 |  | Mundo | 28.17 | 174 | 9.8 | 844 | 67.2 |
@@ -54,3 +56,21 @@ Lista curada de mar/25 do projeto do Botafogo (`config/refs_brasil.json`), cruza
 |  | Mundo | 30.30 | 326 | 16.2 | 1009 | 86.9 |
 | CF | Brasil | 29.45 | 198 | 10.9 | 670 | 61.8 |
 |  | Mundo | 31.02 | 270 | 13.5 | 799 | 70.8 |
+
+## Como cada régua ficou (contra a média Brasil)
+
+| Posição | refs | percentil da referência | verde | laranja | vermelho |
+|---|---|---|---|---|---|
+| **RCB** | 3 | 43 | 35.6% | 45.3% | 19.0% |
+| **LCB** | 3 | 44 | 36.8% | 43.7% | 19.5% |
+| **RB** | 3 | 89 | 4.2% | 16.8% | 79.0% |
+| **LB** | 3 | 54 | 26.5% | 41.3% | 32.3% |
+| **DM** | 3 | 69 | 14.8% | 35.6% | 49.6% |
+| **CM** | 3 | 77 | 9.6% | 30.6% | 59.8% |
+| **AM** | 3 | 25 | 54.2% | 34.9% | 10.9% |
+| **RW** | 1 | 43 | 40.8% | 37.9% | 21.3% |
+| **LW** | 1 | 40 | 40.8% | 39.8% | 19.4% |
+| **CF** | 5 | 43 | 36.8% | 39.6% | 23.5% |
+
+> A régua não é parelha entre posições, e a causa é real: as listas foram curadas por qualidade de futebol, não por paridade física. Um lateral-direito precisa estar entre os 4% para ficar verde; um meia, entre os 54%.
+

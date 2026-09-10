@@ -484,3 +484,20 @@ paridade física. Os volantes de referência (Gregore, Pulgar) são atletas; os 
 `historico.json`, então o navegador servia `raio_ref.json` velho com `app.js` novo — as
 colunas simplesmente não apareciam, sem erro nenhum. Agora a assinatura cobre todos os
 arquivos que o app busca em `/dados`, e o `publicar_site.py` usa o maior mtime entre eles.
+
+**Por que jogadores da lista ficam de fora (set/26)** — duas causas, e só uma tem conserto:
+
+1. **Wyscout abrevia o primeiro nome.** "Gustavo Gómez" está na base como `G. Gómez`,
+   "Aníbal Moreno" como `A. Moreno`. Sem apelido eles somem da lista **sem aviso** e a
+   média da posição fica com um jogador a menos. Resolvido com o mapa `APELIDOS` em
+   `gerar_raio_ref.py` — recuperou 3 (Gustavo Gómez, Aníbal Moreno e o Wesley, que saiu
+   do Flamengo para a Roma). O `CLUBE` desempata homônimos: sem ele, "A. Moreno" pegava o
+   da Bolívia e "Wesley" o do Catar. Homônimo é o jeito mais silencioso de botar o
+   jogador errado na régua.
+2. **Sem tracking do SkillCorner nesta base** — não tem conserto do nosso lado. A
+   cobertura do Brasil A é de **18%** (297 de 1.669); a da Série B, 25%; a Espanha A tem
+   55%. Ficaram de fora por isso: Mayke, Villasanti, N. de la Cruz, Estêvão e Lucas Moura.
+
+Depois da recuperação, a lista Brasil tem 3 jogadores em quase todas as posições — **menos
+RW e LW, que seguem com um só (J. Arias)**, porque Estêvão e Lucas Moura são justamente os
+dois sem tracking. Média de um não é média: é o buraco que resta.

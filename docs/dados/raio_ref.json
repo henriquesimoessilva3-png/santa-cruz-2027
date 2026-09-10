@@ -84,36 +84,38 @@
     }
    },
    "brasil": {
-    "n": 2,
+    "n": 3,
     "nomes": [
+     "G. Gómez (Palmeiras)",
      "Alexander Barboza (Palmeiras)",
      "Léo Ortiz (Flamengo)"
     ],
     "valores": {
-     "vmax3": 33.215,
-     "vmax": 30.13,
-     "psv5": 31.13,
-     "psv": 28.5,
-     "spr_km": 117.39,
-     "spr_n": 5.855,
-     "hsr": 340.36,
-     "hsr_n": 31.885,
-     "hi": 457.75,
-     "hi_n": 37.74,
-     "dist": 8804.35,
-     "mmin": 97.825,
-     "run": 981.93,
-     "acel_m": 86.85,
-     "desa_m": 69.545,
-     "expl": 0.73,
-     "acel": 4.02,
-     "desa": 9.26,
-     "t_spr": 1.43,
-     "t_hsr": 0.77,
-     "cod": 16.275,
-     "t505_90": 1.99,
-     "t505_180": 2.88,
-     "t_hsr_cod": 0.91
+     "vmax3": 32.91,
+     "vmax": 30.163,
+     "psv5": 31.14,
+     "psv": 28.583,
+     "spr_km": 111.523,
+     "spr_n": 5.543,
+     "hsr": 325.167,
+     "hsr_n": 30.65,
+     "hi": 436.69,
+     "hi_n": 36.193,
+     "dist": 8680.993,
+     "mmin": 96.453,
+     "run": 954.277,
+     "acel_m": 87.747,
+     "desa_m": 69.503,
+     "expl": 0.733,
+     "acel": 3.96,
+     "desa": 8.847,
+     "t_spr": 1.487,
+     "t_hsr": 0.777,
+     "cod": 17.833,
+     "t505_90": 1.983,
+     "t505_180": 2.827,
+     "t_spr_cod": 1.6,
+     "t_hsr_cod": 0.873
     }
    }
   },
@@ -156,36 +158,38 @@
     }
    },
    "brasil": {
-    "n": 2,
+    "n": 3,
     "nomes": [
+     "G. Gómez (Palmeiras)",
      "Alexander Barboza (Palmeiras)",
      "Léo Ortiz (Flamengo)"
     ],
     "valores": {
-     "vmax3": 33.215,
-     "vmax": 30.13,
-     "psv5": 31.13,
-     "psv": 28.5,
-     "spr_km": 117.39,
-     "spr_n": 5.855,
-     "hsr": 340.36,
-     "hsr_n": 31.885,
-     "hi": 457.75,
-     "hi_n": 37.74,
-     "dist": 8804.35,
-     "mmin": 97.825,
-     "run": 981.93,
-     "acel_m": 86.85,
-     "desa_m": 69.545,
-     "expl": 0.73,
-     "acel": 4.02,
-     "desa": 9.26,
-     "t_spr": 1.43,
-     "t_hsr": 0.77,
-     "cod": 16.275,
-     "t505_90": 1.99,
-     "t505_180": 2.88,
-     "t_hsr_cod": 0.91
+     "vmax3": 32.91,
+     "vmax": 30.163,
+     "psv5": 31.14,
+     "psv": 28.583,
+     "spr_km": 111.523,
+     "spr_n": 5.543,
+     "hsr": 325.167,
+     "hsr_n": 30.65,
+     "hi": 436.69,
+     "hi_n": 36.193,
+     "dist": 8680.993,
+     "mmin": 96.453,
+     "run": 954.277,
+     "acel_m": 87.747,
+     "desa_m": 69.503,
+     "expl": 0.733,
+     "acel": 3.96,
+     "desa": 8.847,
+     "t_spr": 1.487,
+     "t_hsr": 0.777,
+     "cod": 17.833,
+     "t505_90": 1.983,
+     "t505_180": 2.827,
+     "t_spr_cod": 1.6,
+     "t_hsr_cod": 0.873
     }
    }
   },
@@ -226,37 +230,38 @@
     }
    },
    "brasil": {
-    "n": 2,
+    "n": 3,
     "nomes": [
      "William (Cruzeiro)",
+     "Wesley (Roma)",
      "Paulo Henrique (Vasco da Gama)"
     ],
     "valores": {
-     "vmax3": 33.55,
-     "vmax": 32.005,
-     "psv5": 31.9,
-     "psv": 30.7,
-     "spr_km": 299.895,
-     "spr_n": 14.855,
-     "hsr": 590.18,
-     "hsr_n": 61.48,
-     "hi": 890.08,
-     "hi_n": 76.335,
-     "dist": 9168.04,
-     "mmin": 101.865,
-     "run": 1120.545,
-     "acel_m": 102.085,
-     "desa_m": 84.7,
-     "expl": 3.43,
-     "acel": 9.705,
-     "desa": 20.325,
-     "t_spr": 1.23,
-     "t_hsr": 0.615,
-     "cod": 32.07,
-     "t505_90": 1.94,
-     "t505_180": 2.65,
-     "t_spr_cod": 1.385,
-     "t_hsr_cod": 0.62
+     "vmax3": 33.833,
+     "vmax": 32.14,
+     "psv5": 32.033,
+     "psv": 30.723,
+     "spr_km": 321.25,
+     "spr_n": 16.14,
+     "hsr": 643.907,
+     "hsr_n": 66.767,
+     "hi": 965.163,
+     "hi_n": 82.907,
+     "dist": 9517.003,
+     "mmin": 105.743,
+     "run": 1238.307,
+     "acel_m": 105.773,
+     "desa_m": 87.693,
+     "expl": 3.42,
+     "acel": 10.07,
+     "desa": 21.567,
+     "t_spr": 1.203,
+     "t_hsr": 0.593,
+     "cod": 37.68,
+     "t505_90": 1.95,
+     "t505_180": 2.613,
+     "t_spr_cod": 1.317,
+     "t_hsr_cod": 0.597
     }
    }
   },
@@ -373,37 +378,38 @@
     }
    },
    "brasil": {
-    "n": 2,
+    "n": 3,
     "nomes": [
      "Gregore (Al Rayyan)",
-     "Erick Pulgar (Flamengo)"
+     "Erick Pulgar (Flamengo)",
+     "A. Moreno (River Plate)"
     ],
     "valores": {
-     "vmax3": 32.45,
-     "vmax": 30.87,
-     "psv5": 30.67,
-     "psv": 29.03,
-     "spr_km": 168.215,
-     "spr_n": 8.94,
-     "hsr": 530.3,
-     "hsr_n": 50.045,
-     "hi": 698.515,
-     "hi_n": 58.985,
-     "dist": 10256.095,
-     "mmin": 113.955,
-     "run": 1545.175,
-     "acel_m": 103.89,
-     "desa_m": 88.475,
-     "expl": 0.9,
-     "acel": 4.905,
-     "desa": 13.49,
-     "t_spr": 1.325,
-     "t_hsr": 0.665,
-     "cod": 39.58,
-     "t505_90": 1.915,
-     "t505_180": 2.57,
-     "t_spr_cod": 1.4,
-     "t_hsr_cod": 0.675
+     "vmax3": 31.677,
+     "vmax": 30.17,
+     "psv5": 29.88,
+     "psv": 28.353,
+     "spr_km": 140.65,
+     "spr_n": 7.553,
+     "hsr": 481.037,
+     "hsr_n": 45.09,
+     "hi": 621.687,
+     "hi_n": 52.643,
+     "dist": 10144.713,
+     "mmin": 112.717,
+     "run": 1451.38,
+     "acel_m": 101.45,
+     "desa_m": 85.463,
+     "expl": 0.81,
+     "acel": 4.413,
+     "desa": 12.693,
+     "t_spr": 1.357,
+     "t_hsr": 0.667,
+     "cod": 39.563,
+     "t505_90": 1.913,
+     "t505_180": 2.593,
+     "t_spr_cod": 1.407,
+     "t_hsr_cod": 0.693
     }
    }
   },
@@ -773,25 +779,13 @@
   }
  },
  "_sem_match": {
-  "ZD": {
-   "brasil": [
-    "Gustavo Gomez"
-   ]
-  },
-  "ZE": {
-   "brasil": [
-    "Gustavo Gomez"
-   ]
-  },
   "LD": {
    "brasil": [
-    "Mayke",
-    "Wesley"
+    "Mayke"
    ]
   },
   "VOL": {
    "brasil": [
-    "Anibal Moreno",
     "Villasanti"
    ]
   },

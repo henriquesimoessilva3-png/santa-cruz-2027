@@ -31,16 +31,25 @@ MUNDO_POS = {'Zagueiro - Direita':'ZD','Zagueiro - Esquerda':'ZE','Lateral Direi
 BR_POS = {'ZAG':['ZD','ZE'],'LD':['LD'],'LE':['LE'],'VOL':['VOL'],'MED':['MED'],
           'MEI':['MEI'],'EXT':['ED','EE'],'ATA':['CA']}
 
-# nomes que mudaram de grafia ou de clube entre a lista curada e esta base
+# Nomes que mudaram de grafia ou de clube entre a lista curada (mar/25) e esta base.
+# A causa mais comum e o Wyscout ABREVIAR o primeiro nome: "Gustavo Gómez" vira
+# "G. Gómez", "Aníbal Moreno" vira "A. Moreno". Sem o apelido eles somem da lista sem
+# aviso, e a media da posicao fica com um jogador a menos.
 APELIDOS = {
     'a. barboza': 'Alexander Barboza', 'bernabei': 'Alexandro Bernabei',
     'arana': 'Guilherme Arana', 'richard rios': 'R. Ríos',
     'savarino': 'Jefferson Savarino', 'arias': 'J. Arias',
     'pulgar': 'Erick Pulgar', 'garro': 'R. Garro', 'jean lucas': 'Jean Lucas',
+    'gustavo gomez': 'G. Gómez',        # Palmeiras, 33a, paraguaio, 185cm, ZD
+    'anibal moreno': 'A. Moreno',       # saiu do Palmeiras para o River Plate: 27a, argentino, 178cm, VOL
+    'wesley': 'Wesley',                 # Wesley Franca, saiu do Flamengo para a Roma: 22a, brasileiro, 178cm
 }
-# quando o nome existe mais de uma vez, o clube decide
+# Quando o nome existe mais de uma vez, o clube decide. Sem isto o "A. Moreno" pegaria o
+# da Bolivia e o "Wesley" pegaria o do Catar — homonimo e o jeito mais silencioso de
+# botar o jogador errado na regua.
 CLUBE = {'J. Arias':'Palmeiras', 'Jean Lucas':'Bahia', 'R. Garro':'Corinthians',
-         'R. Ríos':'Benfica'}
+         'R. Ríos':'Benfica', 'G. Gómez':'Palmeiras', 'A. Moreno':'River Plate',
+         'Wesley':'Roma'}
 
 
 def norm(t):
@@ -67,7 +76,7 @@ def main():
         cands = [c for c in por_nome.get(norm(nome), []) if tem_fis(c)]
         if len(cands) > 1 and nome in CLUBE:
             cands = [c for c in cands if CLUBE[nome] in c['t']] or cands
-        if len(cands) > 1 and so_br:
+        if len(cands) > 1 and so_br and nome not in CLUBE:
             cands = [c for c in cands if str(c.get('l', '')).startswith('Brasil')] or cands
         return cands[0] if len(cands) == 1 else None
 
