@@ -141,7 +141,7 @@ PAGINA = """<!doctype html>
         <span class="porta">:{{ a.porta }}</span>
         {% if a.web %}<span class="web" onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.web }}','_blank')">web ↗</span>
         {% else %}<span class="so-local" title="ainda não publicado na web">só local</span>{% endif %}
-        {% if a.codigo %}<span class="codigo" title="Código-fonte no GitHub (repositório privado). Não abre o app: o GitHub guarda arquivo, não roda Python."
+        {% if a.codigo %}<span class="codigo" title="Código-fonte no GitHub, repositório público. Não abre o app: o GitHub guarda arquivo, não roda Python."
           onclick="event.preventDefault();event.stopPropagation();window.open('{{ a.codigo }}','_blank')">código ↗</span>{% endif %}
       </div>
     </a>
