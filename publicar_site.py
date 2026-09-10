@@ -74,7 +74,7 @@ def montar():
     # navegador nao servir raio_ref.json velho com app.js novo
     vd = str(max(int(versao(os.path.join(AQUI, "dados", n)))
                  for n in ("jogadores.json", "historico.json", "premissas.json",
-                           "raio_ref.json", "posicao_overrides.json")
+                           "raio_ref.json", "posicao_overrides.json", "cenarios.json")
                  if os.path.exists(os.path.join(AQUI, "dados", n))))
     html = (html.replace("{{ ver }}", v).replace("{{ verDados }}", vd)
                 .replace("{{ver}}", v).replace("{{verDados}}", vd))
@@ -107,6 +107,22 @@ def montar():
                 json.dump(escolhido, fh, ensure_ascii=False, separators=(",", ":"))
             print(f"elenco de partida: {escolhido.get('nome')!r} "
                   f"({atletas(escolhido)} atletas)")
+
+    # --- cenarios publicados: modelos de partida do site ---
+    # Vao todos os grupos gravados no app, menos os vazios (sem nome ou sem atleta), com o
+    # elenco completo: no site quem abre pode trocar entre eles e salvar variacoes no
+    # proprio navegador. So leitura — sobrescrever um publicado cria copia local.
+    if os.path.exists(cen):
+        with open(cen, encoding="utf-8") as fh:
+            todos = json.load(fh)
+        lista = list(todos.values()) if isinstance(todos, dict) else todos
+        uteis = [c for c in lista if (c.get("nome") or "").strip() and atletas(c) > 0]
+        for c in uteis:
+            c["total"] = c.get("total") or 0
+            c["atletas"] = atletas(c)
+        with open(os.path.join(dados_dest, "cenarios_publicados.json"), "w", encoding="utf-8") as fh:
+            json.dump(uteis, fh, ensure_ascii=False, separators=(",", ":"))
+        print(f"cenarios publicados: {len(uteis)} ({', '.join(c['nome'][:24] for c in uteis)})")
 
     # o Pages nao deve passar a pasta pelo Jekyll (nomes com _ sumiriam)
     open(os.path.join(DOCS, ".nojekyll"), "w").close()

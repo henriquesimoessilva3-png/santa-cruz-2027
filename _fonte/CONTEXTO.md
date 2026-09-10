@@ -677,3 +677,32 @@ com verificador tentando refutar cada achado contra o servidor real:
 
 Regressão final: 11 posições × 4 formas × 2 temas = 88 combinações, zero erro de
 console; homônimos certos nas três formas.
+
+## Salvamento de grupos no site publicado (set/26)
+
+O site do GitHub Pages não tem servidor, e até aqui `prepararEstatico()` simplesmente
+escondia o seletor de cenários, o Salvar, o Renomear e o Excluir — quem abria o site
+podia mexer no campograma mas não guardar nada com nome. O usuário pediu "essa visão de
+salvamento" na web.
+
+**Como ficou.** As quatro funções de cenário (`listarCenarios`, `salvarCenario`,
+`abrirCenario`, excluir) ganharam um segundo backend, escolhido por `ESTATICO`:
+
+- **Publicados** — `dados/cenarios_publicados.json`, gerado pelo `publicar_site.py` a partir
+  de `dados/cenarios.json` na hora de publicar, sem os vazios (sem nome ou sem atleta),
+  com o elenco completo. São **só leitura**: modelos de partida iguais para todo mundo.
+  Hoje: MODELO A (33), MODELO B (28) e Cenário 1 2027 (118).
+- **Salvos neste navegador** — `localStorage` (`sc2027_cenarios`). Salvar grava por cima
+  se o grupo já tem id — inclusive um publicado: a cópia do navegador passa a valer para
+  aquela pessoa, e o publicado continua para os outros. Excluir tira só a cópia local.
+- O seletor mostra os dois blocos em `optgroup`, e o rótulo "· publicado" no segundo.
+- O que continua fora no site: o comparativo entre grupos (`api/comparativo`) e o Excel.
+
+**O que isso não é**: sincronização. O que se salva no site fica naquele navegador,
+naquele aparelho. O jeito de "publicar" um grupo continua sendo salvar no app local
+(`:5090`) e rodar o `publicar_site.py`, que leva os cenários gravados junto.
+
+Testado no build servido localmente (`python -m http.server` em `docs/`): lista com os
+três publicados, salvar cria a cópia e sobrevive ao recarregar, abrir o MODELO A carrega
+os 33, excluir remove só a cópia; o Flask segue igual. O `elenco_inicial.json` do site
+passou a ser o Cenário 1 2027 com 118 atletas (salvo hoje às 16:47).

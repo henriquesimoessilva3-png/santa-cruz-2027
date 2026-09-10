@@ -1581,24 +1581,69 @@ function carregarLocal() {
 /* Sem servidor, esconde o que dependia dele e avisa — melhor do que o usuario
    descobrir que clicou em Salvar e nada foi guardado. */
 function prepararEstatico() {
-  ['#selCenario', '#btSalvar', '#btRenomear', '#btExcluir', '#btComparativo', '#btExcel']
+  /* So o que precisa de servidor sai de cena: o comparativo (api/comparativo) e o Excel.
+     Salvar, trocar, renomear e excluir grupos FUNCIONAM — no navegador de quem abre. */
+  ['#btComparativo', '#btExcel']
     .forEach(sel => { const e = $(sel); if (e) e.style.display = 'none'; });
   const info = $('#abasInfo');
   if (info) info.insertAdjacentHTML('beforebegin',
-    '<span class="aviso-estatico" title="Esta é a versão publicada. Sem servidor, ' +
-    'grupos e premissas ficam guardados no seu navegador e a exportação em Excel sai ' +
-    'de cena; PNG e PDF continuam.">versão publicada · salva no seu navegador</span>');
+    '<span class="aviso-estatico" title="Esta é a versão publicada. Sem servidor, os ' +
+    'grupos que você salvar ficam guardados neste navegador (só aqui, e só neste ' +
+    'aparelho); os cenários publicados vêm junto como ponto de partida. A exportação em ' +
+    'Excel sai de cena; PNG e PDF continuam.">versão publicada · salva no seu navegador</span>');
+}
+
+/* ---------------- cenarios sem servidor ----------------
+   No site publicado nao ha api/cenarios. Dois lugares fazem o papel dela:
+     - dados/cenarios_publicados.json: os grupos gravados no app na hora de publicar. Sao
+       so LEITURA — modelos de partida, iguais para todo mundo que abre o site.
+     - localStorage (CHAVE_CEN_LOCAL): o que a pessoa salva no navegador dela. Vence o
+       publicado quando tem o mesmo id (editou um modelo e salvou por cima).
+   Quem chama listar/salvar/abrir/excluir nao precisa saber qual dos dois respondeu. */
+const CHAVE_CEN_LOCAL = 'sc2027_cenarios';
+let CEN_PUBLICADOS = null;
+function cenLocalLer() {
+  try { const l = JSON.parse(localStorage.getItem(CHAVE_CEN_LOCAL)); return Array.isArray(l) ? l : []; }
+  catch (e) { return []; }
+}
+function cenLocalGravar(lista) {
+  try { localStorage.setItem(CHAVE_CEN_LOCAL, JSON.stringify(lista)); return true; }
+  catch (e) { toast('O navegador não deixou gravar (espaço cheio ou modo privado)', 'ruim'); return false; }
+}
+async function cenPublicados() {
+  if (CEN_PUBLICADOS) return CEN_PUBLICADOS;
+  try {
+    const v = window.__verDados ? '?v=' + window.__verDados : '';
+    const r = await fetch('dados/cenarios_publicados.json' + v);
+    CEN_PUBLICADOS = r.ok ? await r.json() : [];
+  } catch (e) { CEN_PUBLICADOS = []; }
+  return CEN_PUBLICADOS;
+}
+/* lista unida: os do navegador primeiro; um publicado so entra se nao foi sobrescrito */
+async function cenTodos() {
+  const locais = cenLocalLer();
+  const ids = new Set(locais.map(c => c.id));
+  const pub = (await cenPublicados()).filter(c => !ids.has(c.id));
+  return locais.map(c => Object.assign({ origem: 'navegador' }, c))
+    .concat(pub.map(c => Object.assign({ origem: 'publicado' }, c)));
 }
 
 async function listarCenarios() {
-  if (ESTATICO) return;
   try {
-    const r = await fetch('api/cenarios');
-    const lista = await r.json();
+    let lista;
+    if (ESTATICO) lista = await cenTodos();
+    else { const r = await fetch('api/cenarios'); lista = await r.json(); }
     const sel = $('#selCenario');
-    sel.innerHTML = '<option value="">— grupo não salvo —</option>' + lista.map(c =>
-      '<option value="' + c.id + '">' + esc(c.nome) + ' · ' + brl(c.total, true) + ' · ' + c.atletas + ' atl.</option>'
-    ).join('');
+    const opt = c => '<option value="' + esc(c.id) + '">' + esc(c.nome) + ' · ' + brl(c.total, true) +
+      ' · ' + c.atletas + ' atl.' + (c.origem === 'publicado' ? ' · publicado' : '') + '</option>';
+    if (ESTATICO) {
+      const meus = lista.filter(c => c.origem === 'navegador'), pub = lista.filter(c => c.origem === 'publicado');
+      sel.innerHTML = '<option value="">— grupo não salvo —</option>' +
+        (meus.length ? '<optgroup label="Salvos neste navegador">' + meus.map(opt).join('') + '</optgroup>' : '') +
+        (pub.length ? '<optgroup label="Publicados (ponto de partida)">' + pub.map(opt).join('') + '</optgroup>' : '');
+    } else {
+      sel.innerHTML = '<option value="">— grupo não salvo —</option>' + lista.map(opt).join('');
+    }
     if (estado.id) sel.value = estado.id;
   } catch (e) {}
 }
@@ -1606,16 +1651,29 @@ async function listarCenarios() {
 async function salvarCenario() {
   estado.total = totalGeral();
   estado.atletas = todosJogadores().length;
-  const r = await fetch('api/cenarios', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(estado),
-  });
-  const j = await r.json();
-  estado.id = j.id;
+  let id;
+  if (ESTATICO) {
+    /* no navegador: grava por cima se ja tem id (inclusive de um publicado — a copia
+       do navegador passa a valer para essa pessoa), senao cria */
+    id = estado.id || ('nav-' + Date.now().toString(36));
+    estado.id = id;
+    estado.atualizado = new Date().toISOString();
+    const lista = cenLocalLer().filter(c => c.id !== id);
+    lista.unshift(JSON.parse(JSON.stringify(estado)));
+    if (!cenLocalGravar(lista)) return;
+  } else {
+    const r = await fetch('api/cenarios', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(estado),
+    });
+    const j = await r.json();
+    id = j.id;
+    estado.id = id;
+  }
   salvarLocal();
   await listarCenarios();
-  $('#selCenario').value = j.id;
-  toast('Grupo "' + estado.nome + '" salvo', 'bom');
+  $('#selCenario').value = id;
+  toast('Grupo "' + estado.nome + '" salvo' + (ESTATICO ? ' neste navegador' : ''), 'bom');
 }
 
 function aplicarTema() {
@@ -1644,9 +1702,17 @@ function sincronizarBotoes() {
 
 async function abrirCenario(id) {
   if (!id) return;
-  const r = await fetch('api/cenario/' + id);
-  if (!r.ok) { toast('Grupo não encontrado', 'ruim'); return; }
-  estado = Object.assign(novoEstado(), await r.json());
+  let dados;
+  if (ESTATICO) {
+    dados = (await cenTodos()).find(c => c.id === id);
+    if (!dados) { toast('Grupo não encontrado', 'ruim'); return; }
+    dados = JSON.parse(JSON.stringify(dados)); delete dados.origem;
+  } else {
+    const r = await fetch('api/cenario/' + id);
+    if (!r.ok) { toast('Grupo não encontrado', 'ruim'); return; }
+    dados = await r.json();
+  }
+  estado = Object.assign(novoEstado(), dados);
   POSICOES.forEach(p => { if (!Array.isArray(estado.elenco[p.c])) estado.elenco[p.c] = []; });
   migrar();
   salvarLocal(); render(); sincronizarBotoes();
@@ -4851,6 +4917,17 @@ function ligar() {
   $('#btExcluir').onclick = async () => {
     if (!estado.id) { toast('Este grupo ainda não foi salvo', 'ruim'); return; }
     if (!confirm('Excluir o grupo "' + estado.nome + '"? Não dá para desfazer.')) return;
+    if (ESTATICO) {
+      const antes = cenLocalLer();
+      const depois = antes.filter(c => c.id !== estado.id);
+      const eraPublicado = (await cenPublicados()).some(c => c.id === estado.id);
+      cenLocalGravar(depois);
+      estado.id = null; salvarLocal(); listarCenarios();
+      toast(antes.length === depois.length && eraPublicado
+        ? 'Esse grupo é publicado: não dá para excluí-lo, só a sua cópia — e você não tinha uma'
+        : eraPublicado ? 'Sua cópia foi excluída; o publicado continua na lista' : 'Grupo excluído deste navegador');
+      return;
+    }
     await fetch('api/cenario/' + estado.id, { method: 'DELETE' });
     estado.id = null; salvarLocal(); listarCenarios();
     toast('Grupo excluído');
