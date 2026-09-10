@@ -838,8 +838,11 @@ body.claro .menu button b{color:var(--coral)}
 .jog-meta .m-ct.livre{border-color:#1f9d55;background:#1f9d55;color:#fff;opacity:1;
   padding:1px 5px;font-size:9.5px}
 .jog-meta .m-ct.sem{opacity:.6;font-style:italic}
-/* o separador " · " some antes e depois do card: com moldura ele vira ruido */
+/* O separador " · " some antes e depois do card — com moldura ele vira ruido —, mas ai
+   o card encostava no nome do time. A margem entra no lugar do ponto. */
 .jog-meta .m-ct.livre + span::before,.jog-meta span + .m-ct.livre::before{content:""}
+.jog-meta .m-ct.livre{margin:0 5px 0 6px}
+.pos.zoom .jog-meta .m-ct.livre{margin:0 6px 0 8px}
 
 /* ---------- raio físico ⚡ (mesma régua do Ranking) ---------- */
 .raio{display:inline-flex;vertical-align:middle;width:14px;height:14px;flex:none;margin-right:3px}
