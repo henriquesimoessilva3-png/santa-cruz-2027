@@ -323,18 +323,27 @@ const COLUNA_ABERTA = new Set(['LE', 'LD', 'EE', 'ED']);
    continuam funcionando exatamente como no campo. O campograma inteiro cabe na tela ao
    custo de cards minusculos; isto devolve o tamanho quando se quer trabalhar numa
    posicao so. Clique na barra do topo abre e fecha; Esc e o fundo tambem fecham. */
+/* NAO e um flutuante por cima do campo. A primeira tentativa foi assim e nao podia dar
+   certo: o #campo leva `transform:scale()` para caber na tela, e dentro de elemento
+   transformado o `position:fixed` se ancora NELE, nao na janela — a coluna saiu na
+   escala do campo, recortada pelo `overflow:hidden` e por baixo do veu.
+   Agora e mais simples e nao tem armadilha: as outras colunas somem, o campo para de
+   escalar e a escolhida fica sozinha no meio, em tamanho normal. Mesmo elemento, mesmo
+   lugar no DOM — arrastar, editar, ⋯, × e a ficha seguem funcionando. */
 let POS_ZOOM = null;
 function posZoom(cod) {
   POS_ZOOM = POS_ZOOM === cod ? null : cod;
   document.body.classList.toggle('com-zoom', !!POS_ZOOM);
   renderCampo();
-  requestAnimationFrame(ajustarCampo);
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && POS_ZOOM) posZoom(POS_ZOOM);
 });
+/* clicar no gramado vazio ao lado da coluna tambem fecha */
 document.addEventListener('click', e => {
-  if (POS_ZOOM && e.target.id === 'zoomFundo') posZoom(POS_ZOOM);
+  if (POS_ZOOM && (e.target.id === 'campo' || e.target.classList.contains('marcacoes'))) {
+    posZoom(POS_ZOOM);
+  }
 });
 
 /* Alturas das caixas de posicao: as reais e as de REFERENCIA. A referencia e cada
@@ -651,6 +660,9 @@ function atualizarNomes() {
 function ajustarCampo() {
   const campo = $('#campo'), area = $('.campo-area');
   if (!campo || !area) return;
+  /* com uma posicao ampliada nao ha o que distribuir nem o que escalar: as outras
+     colunas estao escondidas e a escolhida fica no fluxo, centralizada pelo CSS */
+  if (POS_ZOOM) { campo.style.transform = ''; campo.style.width = ''; return; }
   const info = $('#abasInfo');
   area.classList.toggle('ajustado', !!estado.ajustar);
 

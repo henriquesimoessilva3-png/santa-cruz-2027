@@ -2027,8 +2027,10 @@ body.claro{ --fs-media-tinta:#22303f; }
 .fin-notas p{margin:4px 0 0;font-size:10.5px;color:var(--tinta2);line-height:1.55}
 
 /* ---------------- zoom de uma posição ---------------- */
-/* O MESMO elemento da coluna sai do campo e vem para o meio da tela — nada e clonado,
-   entao arrastar, editar, ⋯, × e a ficha seguem funcionando. Os !important existem
+/* As outras colunas somem e a escolhida fica sozinha no meio, no fluxo normal. Sem
+   position:fixed de proposito: o #campo leva transform:scale() para caber na tela, e
+   dentro de elemento transformado o fixed se ancora nele — a coluna saía na escala do
+   campo, recortada pelo overflow:hidden e por baixo do véu. Os !important existem
    porque o ajustarCampo escreve left/top/width inline em cada coluna. */
 .pos-lupa{background:none;border:1px solid var(--borda2);color:var(--tinta3);border-radius:4px;
   font-size:10px;line-height:1;padding:2px 4px;cursor:pointer;flex:none}
@@ -2036,22 +2038,27 @@ body.claro{ --fs-media-tinta:#22303f; }
 .pos-topo{cursor:zoom-in}
 .pos.zoom .pos-topo{cursor:zoom-out}
 .zoom-fundo{display:none}
-body.com-zoom .zoom-fundo{display:block;position:fixed;inset:0;background:#000c;z-index:300;
-  backdrop-filter:blur(2px)}
+body.com-zoom .campo{display:flex;align-items:flex-start;justify-content:center;
+  padding:20px 14px;overflow:auto;height:auto!important;min-height:100%;
+  width:auto!important;transform:none!important}
+body.com-zoom .campo .marcacoes{opacity:.25}
+body.com-zoom .pos:not(.zoom){display:none}
 .pos.zoom{
-  position:fixed!important;left:50%!important;top:50%!important;
-  transform:translate(-50%,-50%)!important;
-  width:min(620px,94vw)!important;max-height:90vh;z-index:340!important;
-  --fz:1.55;box-shadow:0 24px 70px #000b;border-color:var(--coral);
+  position:relative!important;left:auto!important;top:auto!important;
+  transform:none!important;margin:0 auto;
+  width:min(620px,94%)!important;max-width:620px;
+  --fz:1.5;box-shadow:0 18px 50px #0009;border-color:var(--coral);
 }
-.pos.zoom .jogs{overflow:auto;max-height:calc(90vh - 96px)}
 .pos.zoom .jog{padding:7px 9px}
-.pos.zoom .jog-nome{font-size:calc(12px * var(--fz) / 1.55 * 1.25)}
 .pos.zoom .jog-meta{font-size:10.5px;white-space:normal}
-.pos.zoom .jog-sal input{font-size:13px}
+/* o salario cresce com a fonte e nao cabia mais na coluna `auto` do grid do card */
+.pos.zoom .jog-sal{width:auto}
+.pos.zoom .jog-sal input{font-size:14px;width:86px;min-width:86px}
 .pos.zoom .raio{width:17px;height:17px}
 .pos.zoom .jog-meta .m-ct{font-size:10.5px;padding:1px 6px}
 .pos.zoom .pos-topo{padding:10px 12px 8px}
 .pos.zoom .sigla{font-size:14px;padding:3px 9px}
 .pos.zoom .pos-nome{font-size:12px}
 .pos.zoom .pos-pe{font-size:11px;padding:7px 12px}
+/* dica de saida, no lugar do "campo em 65%" */
+body.com-zoom #abasInfo::after{content:" · Esc ou clique no gramado para voltar"}

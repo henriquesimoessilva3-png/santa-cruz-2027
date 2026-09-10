@@ -352,10 +352,19 @@ Mostra mês/ano (`dez/26`).
 
 ## Zoom por posição (set/26)
 
-Clique na barra do topo da coluna (ou na lupa ⤢) e ela sai do campo para o meio da tela,
-grande. **O elemento é o mesmo** — nada é clonado —, então arrastar, editar salário, ⋯, ×,
-+ e a ficha seguem funcionando. Esc ou o fundo fecham. Os `!important` do `.pos.zoom` são
-necessários porque `ajustarCampo()` escreve left/top/width inline em cada coluna.
+Clique na barra do topo da coluna (ou na lupa ⤢) e as **outras colunas somem**: a escolhida
+fica sozinha no meio do gramado, em tamanho de leitura. **O elemento é o mesmo e continua
+no mesmo lugar do DOM** — nada é clonado —, então arrastar, editar salário, ⋯, × e a ficha
+seguem funcionando, e a edição atualiza o rodapé da coluna e os KPIs do topo. Esc, a barra
+de novo ou um clique no gramado fecham.
+
+**A primeira tentativa foi um flutuante `position:fixed` por cima do campo, e não podia dar
+certo:** o `#campo` leva `transform:scale()` para caber na tela, e dentro de elemento
+transformado o `fixed` se ancora nele, não na janela. A coluna saía na escala do campo,
+recortada pelo `overflow:hidden` e por baixo do véu. A versão atual não usa `fixed` — a
+coluna fica no fluxo e o `ajustarCampo()` sai cedo enquanto há zoom, sem escalar nem
+distribuir. Os `!important` seguem necessários porque `ajustarCampo()` escreve
+left/top/width inline em cada coluna.
 
 ## Aba Financeiro (set/26)
 
