@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789004209">
+<link rel="stylesheet" href="static/style.css?v=1789048183">
 <link rel="icon" href="static/escudo.svg">
 </head>
 <body>
@@ -306,10 +306,7 @@
                 placeholder="Nome ou clube…" autocomplete="off">
                 <div class="msel-drop" id="fsBuscaLista"></div></div>
               <select id="fsElenco" class="rk-mini"><option value="">＋ do campograma…</option></select>
-              <div class="fs-combos">
-                <select id="fsSerieA" class="rk-mini" title="Jogadores da Série A na posição escolhida, do melhor índice físico para o pior"></select>
-                <select id="fsSerieB" class="rk-mini" title="Jogadores da Série B na posição escolhida, do melhor índice físico para o pior"></select>
-              </div>
+
             </div>
             <div class="rk-campo-f">
               <label>Quem aparece</label>
@@ -317,6 +314,14 @@
               <label class="chk rk-chk"><input type="checkbox" id="fsTopB" checked> Top 5 Série B</label>
               <label class="chk rk-chk"><input type="checkbox" id="fsMedias" checked> Médias A e B</label>
             </div>
+          </div>
+          <div class="fs-listas">
+            <span class="fs-listas-rot">Listas por índice físico</span>
+            <select id="fsSerieA" class="rk-mini" title="Série A na posição escolhida, do melhor índice físico para o pior"></select>
+            <select id="fsSerieB" class="rk-mini" title="Série B na posição escolhida, do melhor índice físico para o pior"></select>
+            <select id="fsSulExt" class="rk-mini" title="Sul-americanos jogando fora da América do Sul, na mesma régua"></select>
+            <select id="fsLigaEscolha" class="rk-mini fs-liga" title="Escolha um campeonato"></select>
+            <select id="fsListaLiga" class="rk-mini" title="Jogadores do campeonato escolhido, na mesma régua das Séries A e B"></select>
           </div>
           <div class="rk-linha2" id="fsRanges"></div>
           <div class="rk-rodape">
@@ -578,6 +583,6 @@
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1788979891";</script>
-<script src="static/app.js?v=1789004209"></script>
+<script src="static/app.js?v=1789048183"></script>
 </body>
 </html>
