@@ -381,7 +381,7 @@ tbody tr.ja{opacity:.4}
     width:46px!important;font-size:8.5px!important}
   .pos-pe{background:#f7f8fb!important;border-top:1px solid #e2e6ee!important;
     color:#333!important;font-size:8px!important;padding:2px 5px!important}
-  .selo-ex{background:#fdf1dd!important;color:#8a5a06!important;border-color:#e0c48c!important}
+  .selo-ex{background:#f5a524!important;color:#3a2500!important;border-color:#c98a1e!important}
 
   /* tabela do elenco, depois do campo */
   #impTabela{page-break-before:always}
@@ -444,10 +444,14 @@ tbody tr.ja{opacity:.4}
 .orc-kpi{min-width:78px}
 
 /* ---------- estrangeiros ---------- */
+/* Ambar SOLIDO com texto escuro, e nao ambar translucido com texto ambar claro: o
+   `--txt-ambar` foi feito para fundo escuro, e o card de estrangeiro tem fundo creme —
+   dava amarelo sobre amarelo, ilegivel. Mesmo tratamento do `.pos-qtd.falta`, que ja
+   resolvia isso, e que funciona nos dois temas. */
 .selo-ex{
   display:inline-block;flex:none;font-size:8.5px;font-weight:800;letter-spacing:.3px;
-  padding:1px 4px;border-radius:3px;background:#f5a52433;color:var(--txt-ambar);
-  border:1px solid #f5a52455;vertical-align:middle;line-height:1.35;
+  padding:1px 4px;border-radius:3px;background:var(--ambar);color:#3a2500;
+  border:1px solid #c98a1e;vertical-align:middle;line-height:1.35;
 }
 .jog.estrangeiro{background:#fdf4e4}
 .jog.estrangeiro:hover{background:#fefaf2}
@@ -573,7 +577,6 @@ body.claro .campo{box-shadow:inset 0 0 60px #00000014}
 body.claro .topo{box-shadow:0 1px 8px #0f172a14}
 body.claro .topo::after{background:linear-gradient(90deg,var(--coral),#d7dde6 45%,var(--coral))}
 body.claro .escudo{filter:none}
-body.claro .selo-ex{background:#f5a5242e;border-color:#c98a1e88}
 body.claro .pos-estr{background:#f5a5242e;border-color:#c98a1e88}
 body.claro .jog.estrangeiro{background:#fdf6e8}
 body.claro .jog.titular{background:#fdeef1;border-color:#f0bcc6}

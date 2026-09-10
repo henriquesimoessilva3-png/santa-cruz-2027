@@ -382,3 +382,9 @@ saem de lugar nenhum. Elas decidem sozinhas as colunas de líquido e dependem do
 enquadramento da PJ e da faixa de IR do atleta. Estão editáveis no topo da aba e gravam com
 o cenário. O estudo original tinha alíquotas progressivas por faixa (efetiva de 75% a 87%
 no líquido da imagem); não as reproduzi porque não tenho a tabela, só o resultado impresso.
+
+**Selo de país legível (set/26)**: o selo (ALE, COL, URU…) era âmbar translúcido com texto
+`--txt-ambar`, que é um âmbar CLARO feito para fundo escuro. O card de estrangeiro tem
+fundo creme — dava amarelo sobre amarelo. Virou âmbar sólido com texto escuro, o mesmo
+tratamento do `.pos-qtd.falta`, que já resolvia isso. Contraste do texto: 7,1:1. O override
+de tema claro saiu junto, porque a regra agora serve aos dois.
