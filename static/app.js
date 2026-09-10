@@ -2623,6 +2623,18 @@ function fsCelula(co, k, v, casas, menor, lider, tit) {
     '<span class="v">' + fsFmt(v, casas) + '</span></div></td>';
 }
 
+/* Fim de contrato na coluna, com bolinha para quem vence ate dezembro de 2026 —
+   sao esses que dao para levar sem pagar clube nenhum, e e a primeira coisa que se
+   procura ao montar elenco. */
+const FS_LIVRE_ATE = '2026-12';
+function fsContrato(j) {
+  if (!j.ct) return '<div class="fs-ct sem" title="contrato não informado">sem contrato</div>';
+  const livre = j.ct.slice(0, 7) <= FS_LIVRE_ATE;
+  return '<div class="fs-ct' + (livre ? ' livre' : '') + '" title="contrato até ' + esc(j.ct) +
+    (livre ? ' — vence até dezembro de 2026' : '') + '">' +
+    (livre ? '<i></i>' : '') + esc(mesAno(j.ct) || '—') + '</div>';
+}
+
 function fsCabecalho(c) {
   const j = c.j;
   /* De que serie ele e: e a informacao que o olho precisa achar primeiro numa matriz
@@ -2646,6 +2658,7 @@ function fsCabecalho(c) {
     '<div class="fs-nome"><b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') + '</div>' +
     '<div class="fs-clube">' + esc(j.t) + (j.id_ ? ' <b>' + j.id_ + 'a</b>' : '') + '</div>' +
+    fsContrato(j) +
     '<div class="fs-idx-linha">' +
       (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
         '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
@@ -2912,7 +2925,7 @@ function fsBuscar() {
     .sort((a, b) => (a.p === fsPos ? 0 : 1) - (b.p === fsPos ? 0 : 1) || a.n.localeCompare(b.n)).slice(0, 14);
   lista.innerHTML = achados.length
     ? achados.map(j => '<div class="msel-item" data-pk="' + esc(primaryKey(j)) + '"><b>' + esc(j.n) + '</b>' +
-        '<span class="fs-b-meta">' + esc(j.p) + ' · ' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>').join('')
+        '<span class="fs-b-meta">' + esc(sig(j.p)) + ' · ' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>').join('')
     : '<div class="msel-dica">ninguém com tracking com esse nome</div>';
   lista.classList.add('aberto');
   lista.querySelectorAll('.msel-item').forEach(it => {
@@ -2935,12 +2948,28 @@ function fsMontarElenco() {
   const sel = $('#fsElenco');
   if (!sel) return;
   fsBase();
-  const itens = todosJogadores().map(j => ({ j, b: j.pk ? fsMapaPk.get(j.pk) : null })).filter(x => x.b)
-    .sort((a, b) => (a.b.p === fsPos ? 0 : 1) - (b.b.p === fsPos ? 0 : 1) || a.b.p.localeCompare(b.b.p));
+  /* Todos entram na lista, inclusive quem NAO tem tracking — antes eles sumiam sem
+     explicacao e parecia defeito ("por que o Gustavo Medina esta no campograma e nao
+     aqui?"). Quem nao tem fica desabilitado, dizendo o motivo. */
+  const itens = todosJogadores().map(j => ({ j, b: j.pk ? fsMapaPk.get(j.pk) : null }))
+    .sort((a, b) => {
+      const pa = (a.b || a.j).p || a.j.posOrig || '', pb = (b.b || b.j).p || b.j.posOrig || '';
+      return (!!b.b) - (!!a.b) || (pa === fsPos ? 0 : 1) - (pb === fsPos ? 0 : 1) ||
+             String(pa).localeCompare(String(pb));
+    });
   sel.innerHTML = '<option value="">＋ jogador do campograma…</option>' +
-    itens.map(x => '<option value="' + esc(x.b ? primaryKey(x.b) : '') + '"' +
-      (fsExtras.includes(primaryKey(x.b)) ? ' disabled' : '') + '>' +
-      esc(x.b.p) + ' · ' + esc(x.b.n) + ' (' + esc(x.b.t) + ')</option>').join('');
+    itens.map(x => {
+      const pos = sig((x.b || {}).p || x.j.posOrig || '');
+      const nome = (x.b || {}).n || x.j.nome;
+      const time = (x.b || {}).t || x.j.clube || '';
+      if (!x.b) {
+        return '<option value="" disabled>' + esc(pos) + ' · ' + esc(nome) + ' (' +
+          esc(time) + ') — sem tracking</option>';
+      }
+      return '<option value="' + esc(primaryKey(x.b)) + '"' +
+        (fsExtras.includes(primaryKey(x.b)) ? ' disabled' : '') + '>' +
+        esc(pos) + ' · ' + esc(nome) + ' (' + esc(time) + ')</option>';
+    }).join('');
 }
 
 /* Faixas do Fisico: as mesmas do Fim de contrato, sem as que nao fazem sentido aqui. */

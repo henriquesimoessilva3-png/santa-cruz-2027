@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Carreira por temporada no oGol, para tapar os buracos do Wyscout.
+"""Carreira por temporada no oGol, chegando ao jogador PELA PAGINA DA EQUIPE.
 
 Por que existe: o export do Wyscout traz no maximo 500 linhas por liga, ordenadas
 por minutagem. Na Serie C de 2024 o corte ficou em 207 minutos; na Serie B, em 392.
@@ -8,27 +8,36 @@ Quem estava abaixo disso nao esta no arquivo — nao e problema de casar nome, e
 que nao existe. Dos 3.613 jogadores das ligas brasileiras na base, 3.361 nao tem a
 temporada 2024, e so 89 deles tem id do Transfermarkt.
 
-O oGol tem a carreira completa, inclusive divisoes de acesso, numa tabela
-`TEMPORADA | EQUIPE | J | G | ASS`. **Nao tem minutos** — tem jogos. E o combinado:
-mostrar jogos onde nao houver minutos, marcado na tela, sem estimar nada.
+Por que pela equipe, e nao buscando o nome do jogador
+-----------------------------------------------------
+A primeira versao buscava jogador por jogador e rendia 2 em 25. Dois motivos, e o
+segundo so apareceu medindo:
 
-Duas etapas, as duas com cache em disco e retomaveis:
-  1. achar o link do jogador (busca no zerozero.pt, mesmos ids do oGol)
-  2. baixar a pagina, ler a tabela de carreira e **conferir se e mesmo ele**
+1. **Homonimo.** Buscar "A. Moreno" trouxe um A. Moreno do Oriente Petrolero para o
+   A. Moreno do River Plate — 5 jogos e 6 gols que nao eram dele. Dentro do plantel
+   de um clube o nome e praticamente unico, entao o caminho pela equipe elimina isso
+   na origem.
+2. **O zerozero.pt passou a devolver 403.** A busca do `buscar_ogol_links.py` aponta
+   para la e engolia o erro como "sem resultado". O ogol.com.br responde normal, e e
+   nele que este script bate.
 
-A conferencia nao e opcional. A busca por nome erra do mesmo jeito que o Wyscout
-errava: "A. Moreno / River Plate" trouxe um A. Moreno do Oriente Petrolero, com 5
-jogos e 6 gols que nao sao dele. Como a propria tabela de carreira diz em que clube
-o jogador esta na temporada corrente, da para conferir de graca: se o clube de 2026
-na pagina nao e o clube que a base diz, a pagina e de outra pessoa e vai fora.
+Tres etapas, todas com cache em disco e retomaveis:
+  1. achar a pagina de cada CLUBE  (dados/ogol_clubes.json)
+  2. ler o plantel de cada clube   (dados/ogol_elencos.json)
+  3. ler a carreira de cada jogador e conferir (dados/ogol_carreira.json)
 
-A busca reusa `buscar_ogol_links.py` do Portal Ranking em vez de reescrever a
-heuristica de casar nome e clube — que ja e delicada e ja foi ajustada la.
+A conferencia da etapa 3 continua: a tabela de carreira diz em que clube o jogador
+esta na temporada corrente; se nao for o clube que a base diz, a pagina e de outra
+pessoa e vai fora.
+
+O oGol tem JOGOS por temporada, nao minutos. E o combinado: mostrar jogos onde nao
+houver minutos, marcado na tela, sem estimar nada.
 
 Uso:
-  python3 preparar_ogol.py --limite 50        # experimenta
-  python3 preparar_ogol.py                    # ate o fim, retomando de onde parou
-  python3 preparar_ogol.py --so-brasil        # so Brasil A/B/C
+  python3 preparar_ogol.py --etapa clubes      # so a etapa 1
+  python3 preparar_ogol.py --limite 40         # experimenta as tres
+  python3 preparar_ogol.py --so-brasil         # so Brasil A/B/C
+  python3 preparar_ogol.py                     # ate o fim, retomando
 """
 import argparse
 import json
@@ -44,12 +53,20 @@ import requests
 AQUI = os.path.dirname(os.path.abspath(__file__))
 BASE_RANKING = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/"
                 "fut/BOTA/Analytics/Portal Ranking")
+PORTAL_BOTAFOGO = "/Users/henriquesimoessilva/projetos/Portal-Botafogo"
 sys.path.insert(0, BASE_RANKING)
-from buscar_ogol_links import search_zerozero, team_matches   # noqa: E402
+sys.path.insert(0, PORTAL_BOTAFOGO)
+from buscar_ogol_links import team_matches          # noqa: E402
+from elencos_ogol import extrair_plantel            # noqa: E402  (parser do plantel)
 
-ARQ_LINKS = os.path.join(AQUI, "dados", "ogol_links.json")
+ARQ_CLUBES = os.path.join(AQUI, "dados", "ogol_clubes.json")
+ARQ_ELENCOS = os.path.join(AQUI, "dados", "ogol_elencos.json")
 ARQ_CARREIRA = os.path.join(AQUI, "dados", "ogol_carreira.json")
-IDS_PRONTOS = os.path.join(BASE_RANKING, "config", "ogol_ids.json")
+
+OGOL = "https://www.ogol.com.br"
+CABECA = {"User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+                         "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"),
+          "Accept-Language": "pt-BR,pt;q=0.9", "Referer": OGOL + "/"}
 
 LIGAS_BR = ["Brasil A", "Brasil B", "Brasil C"]
 LIGAS_SA = ["Argentina A", "Argentina B", "Argentina RESERVAS", "Uruguai", "Paraguai",
@@ -58,13 +75,32 @@ LIGAS_SA = ["Argentina A", "Argentina B", "Argentina RESERVAS", "Uruguai", "Para
 
 TEMPORADAS = {"2024", "2025", "2026"}
 CORRENTE = "2026"          # a temporada que serve de prova de identidade
-CABECA = {"User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")}
+
+PARTICULAS = {"de", "da", "do", "dos", "das", "del", "van", "von", "di", "du", "la", "le"}
 
 
 def norm(t):
     t = unicodedata.normalize("NFD", str(t or ""))
-    return "".join(c for c in t if unicodedata.category(c) != "Mn").lower().strip()
+    t = "".join(c for c in t if unicodedata.category(c) != "Mn")
+    return " ".join(t.lower().replace(".", " ").split())
+
+
+def sobrenome(nm):
+    partes = [p for p in norm(nm).split() if p not in PARTICULAS]
+    return partes[-1] if partes else ""
+
+
+def mesmo_jogador(a, b):
+    """Dentro de um plantel, o sobrenome ja resolve quase tudo. A inicial do primeiro
+    nome so e cobrada quando os dois lados tem mais de um pedaco — assim "S. Beltrán"
+    casa com "Santiago Beltrán" e nao casa com "Lucas Beltrán"."""
+    pa = [p for p in norm(a).split() if p not in PARTICULAS]
+    pb = [p for p in norm(b).split() if p not in PARTICULAS]
+    if not pa or not pb or pa[-1] != pb[-1]:
+        return False
+    if len(pa) < 2 or len(pb) < 2:
+        return True
+    return pa[0][0] == pb[0][0]
 
 
 def carregar(caminho, padrao):
@@ -110,25 +146,40 @@ def ler_carreira(html):
             jogos = int(limpo[3] or 0)
         except ValueError:
             continue
-        try:
-            gols = int(limpo[4] or 0)
-        except ValueError:
-            gols = 0
-        try:
-            assist = int(limpo[5] or 0)
-        except ValueError:
-            assist = 0
+        def inteiro(x):
+            try:
+                return int(x or 0)
+            except ValueError:
+                return 0
         clube = limpo[2]
         atual = fora.setdefault(temporada, {"tm": clube, "j": 0, "g": 0, "a": 0, "_maior": 0})
         atual["j"] += jogos
-        atual["g"] += gols
-        atual["a"] += assist
+        atual["g"] += inteiro(limpo[4])
+        atual["a"] += inteiro(limpo[5])
         if jogos > atual["_maior"]:
             atual["_maior"] = jogos
             atual["tm"] = clube
     for v in fora.values():
         v.pop("_maior", None)
     return fora
+
+
+def buscar_clube(ses, nome):
+    """Pagina do clube no oGol: /equipe/<slug>/<id>. Escolhe o primeiro resultado
+    cujo nome bate — a busca ja vem por relevancia."""
+    r = ses.get(OGOL + "/search", params={"search_txt": nome, "content_type": "team"}, timeout=25)
+    r.raise_for_status()
+    achados = []
+    for bloco in r.text.split("zz-search-item")[1:]:
+        m = re.search(r"/equipe/([a-z0-9-]+)/(\d+)", bloco)
+        if not m:
+            continue
+        rot = re.search(r'/equipe/[^"]*"[^>]*>\s*([^<]{2,60})', bloco)
+        achados.append((m.group(0), (rot.group(1).strip() if rot else "")))
+    for caminho, rot in achados:
+        if team_matches(nome, rot):
+            return OGOL + caminho, rot
+    return (OGOL + achados[0][0], achados[0][1]) if achados else (None, None)
 
 
 def alvos(so_brasil):
@@ -148,77 +199,115 @@ def alvos(so_brasil):
     return fora
 
 
+def esperar(args):
+    time.sleep(args.espera + random.uniform(0, 0.6))
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--limite", type=int, default=0, help="quantos jogadores nesta rodada")
-    ap.add_argument("--espera", type=float, default=1.4, help="segundos entre requisicoes")
+    ap.add_argument("--limite", type=int, default=0, help="quantos jogadores na etapa 3")
+    ap.add_argument("--espera", type=float, default=1.5, help="segundos entre requisicoes")
     ap.add_argument("--so-brasil", action="store_true")
+    ap.add_argument("--etapa", choices=["clubes", "elencos", "carreiras", "tudo"], default="tudo")
     args = ap.parse_args()
 
-    links = carregar(ARQ_LINKS, {})
-    if not links:
-        # aproveita o que o Portal Ranking ja resolveu ("Nome|Clube" -> url)
-        for chave, url in carregar(IDS_PRONTOS, {}).items():
-            if url and "|" in chave:
-                links[chave] = url
-        print(f"herdados {len(links)} links de config/ogol_ids.json")
-
-    carreira = carregar(ARQ_CARREIRA, {})
     lista = alvos(args.so_brasil)
-    pendentes = [p for p in lista if p["pk"] not in carreira]
-    print(f"{len(lista)} jogadores sem historico completo · {len(pendentes)} ainda nao buscados")
-    if args.limite:
-        pendentes = pendentes[:args.limite]
+    clubes_alvo = sorted({p["time"] for p in lista})
+    print(f"{len(lista)} jogadores sem histórico completo em {len(clubes_alvo)} clubes")
 
     ses = requests.Session()
     ses.headers.update(CABECA)
-    achados = semlink = semtab = recusados = erros = 0
 
-    for i, p in enumerate(pendentes, 1):
-        chave = f"{p['nome']}|{p['time']}"
-        url = links.get(chave)
-        try:
-            if not url:
-                url, _motivo = search_zerozero(ses, p["nome"], p["time"])
-                time.sleep(args.espera + random.uniform(0, 0.6))
-                links[chave] = url or ""
-            if not url:
-                semlink += 1
-                carreira[p["pk"]] = {"url": None, "temporadas": {}}
+    # ---- etapa 1: pagina de cada clube ----
+    clubes = carregar(ARQ_CLUBES, {})
+    if args.etapa in ("clubes", "tudo"):
+        faltam = [c for c in clubes_alvo if c not in clubes]
+        print(f"etapa 1 — clubes: {len(faltam)} a buscar")
+        for i, nome in enumerate(faltam, 1):
+            try:
+                url, rot = buscar_clube(ses, nome)
+                clubes[nome] = {"url": url, "ogol": rot}
+                esperar(args)
+            except Exception as e:
+                print(f"    ! {nome}: {e}")
+                clubes[nome] = {"url": None, "ogol": None, "erro": str(e)}
+            if i % 20 == 0 or i == len(faltam):
+                gravar(ARQ_CLUBES, clubes)
+                achou = sum(1 for v in clubes.values() if v.get("url"))
+                print(f"  {i}/{len(faltam)} · {achou} com página", flush=True)
+        gravar(ARQ_CLUBES, clubes)
+
+    # ---- etapa 2: plantel de cada clube ----
+    elencos = carregar(ARQ_ELENCOS, {})
+    if args.etapa in ("elencos", "tudo"):
+        faltam = [c for c in clubes_alvo if c not in elencos and (clubes.get(c) or {}).get("url")]
+        print(f"etapa 2 — plantéis: {len(faltam)} a baixar")
+        for i, nome in enumerate(faltam, 1):
+            try:
+                r = ses.get(clubes[nome]["url"], timeout=30)
+                r.raise_for_status()
+                plantel = extrair_plantel(r.text, CORRENTE)
+                elencos[nome] = [{"nome": p["nome"], "slug": p["ogol_slug"], "id": p["ogol_id"]}
+                                 for p in plantel]
+                esperar(args)
+            except Exception as e:
+                print(f"    ! {nome}: {e}")
+                elencos[nome] = []
+            if i % 15 == 0 or i == len(faltam):
+                gravar(ARQ_ELENCOS, elencos)
+                print(f"  {i}/{len(faltam)} · {sum(len(v) for v in elencos.values())} atletas",
+                      flush=True)
+        gravar(ARQ_ELENCOS, elencos)
+
+    # ---- etapa 3: carreira de cada jogador ----
+    carreira = carregar(ARQ_CARREIRA, {})
+    if args.etapa in ("carreiras", "tudo"):
+        pendentes = []
+        semvaga = 0
+        for p in lista:
+            if p["pk"] in carreira:
+                continue
+            plantel = elencos.get(p["time"]) or []
+            achado = [x for x in plantel if mesmo_jogador(p["nome"], x["nome"])]
+            if len(achado) == 1:
+                pendentes.append((p, achado[0]))
             else:
-                r = ses.get(url, timeout=25)
-                time.sleep(args.espera + random.uniform(0, 0.6))
+                semvaga += 1
+        print(f"etapa 3 — carreiras: {len(pendentes)} achados no plantel · "
+              f"{semvaga} sem achar (ou nome ambíguo dentro do clube)")
+        if args.limite:
+            pendentes = pendentes[:args.limite]
+
+        ok = recusados = semtab = erros = 0
+        for i, (p, atleta) in enumerate(pendentes, 1):
+            url = f"{OGOL}/jogador/{atleta['slug']}/{atleta['id']}"
+            try:
+                r = ses.get(url, timeout=30)
+                esperar(args)
                 r.raise_for_status()
                 temporadas = ler_carreira(r.text)
-                atual = temporadas.get(CORRENTE)
+                agora = temporadas.get(CORRENTE)
                 if not temporadas:
                     carreira[p["pk"]] = {"url": url, "temporadas": {}, "motivo": "sem tabela"}
                     semtab += 1
-                elif not atual or not team_matches(p["time"], atual["tm"]):
-                    # pagina de outra pessoa: o clube da temporada corrente nao bate
+                elif not agora or not team_matches(p["time"], agora["tm"]):
                     carreira[p["pk"]] = {"url": url, "temporadas": {},
-                                         "motivo": "clube nao confere: pagina diz " +
-                                                   ((atual or {}).get("tm") or "nada")}
+                                         "motivo": "clube não confere: página diz " +
+                                                   ((agora or {}).get("tm") or "nada")}
                     recusados += 1
                 else:
                     carreira[p["pk"]] = {"url": url, "temporadas": temporadas}
-                    achados += 1
-        except Exception as e:                       # rede caiu, 403, pagina torta
-            erros += 1
-            print(f"    ! {p['nome']} ({p['time']}): {e}")
-
-        if i % 25 == 0 or i == len(pendentes):
-            gravar(ARQ_LINKS, links)
-            gravar(ARQ_CARREIRA, carreira)
-            print(f"  {i}/{len(pendentes)} · {achados} conferidos · {semlink} sem link · "
-                  f"{recusados} recusados · {semtab} sem tabela · {erros} erros", flush=True)
-
-    gravar(ARQ_LINKS, links)
-    gravar(ARQ_CARREIRA, carreira)
-    print(f"ok: {achados} conferidos, {semlink} sem link, {recusados} recusados, "
-          f"{semtab} sem tabela, {erros} erros")
-    print(f"    {ARQ_CARREIRA} tem {len(carreira)} jogadores")
-    print("    agora rode: python3 preparar_historico.py  (ele mistura o oGol no historico)")
+                    ok += 1
+            except Exception as e:
+                erros += 1
+                print(f"    ! {p['nome']} ({p['time']}): {e}")
+            if i % 25 == 0 or i == len(pendentes):
+                gravar(ARQ_CARREIRA, carreira)
+                print(f"  {i}/{len(pendentes)} · {ok} conferidos · {recusados} recusados · "
+                      f"{semtab} sem tabela · {erros} erros", flush=True)
+        gravar(ARQ_CARREIRA, carreira)
+        print(f"ok: {ok} conferidos, {recusados} recusados, {semtab} sem tabela, {erros} erros")
+        print("    agora rode: python3 preparar_historico.py")
 
 
 if __name__ == "__main__":

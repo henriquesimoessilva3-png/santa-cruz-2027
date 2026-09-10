@@ -1708,3 +1708,12 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 .fs-hd-bts{margin-top:3px;gap:3px}
 .fs-hd-bts button{font-size:10px;padding:1px 4px}
 .fs-col .selo-ex{font-size:7.5px;padding:0 3px}
+
+/* fim de contrato na coluna do Fisico */
+.fs-ct{font-size:8px;color:var(--tinta3);margin-top:2px;letter-spacing:.2px;
+  display:flex;align-items:center;gap:3px;white-space:nowrap}
+.fs-ct.sem{font-style:italic;opacity:.7}
+.fs-ct.livre{color:var(--txt-ambar);font-weight:700}
+.fs-ct i{width:6px;height:6px;border-radius:50%;background:var(--ambar);flex:none;
+  box-shadow:0 0 0 2px #f5a52433}
+#fsElenco option:disabled{color:var(--tinta3);font-style:italic}
