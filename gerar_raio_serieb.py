@@ -80,6 +80,13 @@ DE_PARA_JSON = {
     "t_spr_cod": "timetosprintpostcod_top3", "t_hsr_cod": "timetohsrpostcod_top3",
 }
 
+# Os quatro setores do filtro de perfil. Ver o comentario longo em `fund` sobre por que
+# nao e por lado.
+SETOR_FUND = {"zaga": {"ZD", "ZE"}, "lateral": {"LD", "LE"},
+              "meio": {"VOL", "MED", "MEI"}, "ataque": {"ED", "EE", "CA"}}
+# Indicadores em que MENOS e melhor (sao todos tempos, em segundos).
+MENOR_MELHOR = {"t_spr", "t_hsr", "t_spr_cod", "t_hsr_cod", "t505_90", "t505_180"}
+
 POSICOES = {
     "RCB": ["ZD"], "LCB": ["ZE"], "CB": ["ZD", "ZE"],
     "RB": ["LD"], "RWB": ["LD"], "LB": ["LE"], "LWB": ["LE"],
@@ -201,6 +208,45 @@ def main():
             }
             feitas += 1
             print(f"  {codigo:<4} {nome}: {len(g):>3} atletas · {len(valores)} indicadores")
+
+    # ---------- os fundamentais de cada setor ----------
+    # Quais indicadores REALMENTE separam quem sobe de quem cai naquela posicao, e qual e a
+    # barra (a media de quem sobe). Alimenta o filtro "cumpre o perfil de quem sobe".
+    #
+    # POR SETOR E NAO POR LADO, e isso nao e preguica: partindo por lado a amostra cai pela
+    # metade e o resultado vira ruido — medido, o zagueiro DIREITO dava 3 fundamentais e o
+    # ESQUERDO 26, o lateral direito 13 e o esquerdo 3. Nao ha futebol que explique isso.
+    # Juntando os lados, os quatro setores ficam entre 10 e 15, com 56 a 140 atletas de cada
+    # lado da comparacao.
+    #
+    # O corte e t >= 1,96 (5% entre duas medias independentes), nao "a maior diferenca":
+    # sem ele, indicador de amostra pequena e variancia alta entra na lista por acaso.
+    fund = {}
+    for setor, codigos in SETOR_FUND.items():
+        wy = {w for w, cs in POSICOES.items() if any(c in codigos for c in cs)}
+        d = sc[sc.pos_wy.isin(wy)]
+        g_s, g_c = d[d.faixa == "sobe"], d[d.faixa == "cai"]
+        itens = []
+        for k in chaves:
+            col = DE_PARA.get(k) or DE_PARA_OBR.get(k) or k
+            a = pd.to_numeric(g_s[col], errors="coerce").dropna()
+            b = pd.to_numeric(g_c[col], errors="coerce").dropna()
+            if len(a) < len(g_s) * 0.6 or len(b) < len(g_c) * 0.6:
+                continue
+            ep = np.sqrt(a.var() / len(a) + b.var() / len(b))
+            if not ep or np.isnan(ep):
+                continue
+            t = (a.mean() - b.mean()) / ep
+            if k in MENOR_MELHOR:
+                t = -t                      # tempo: quem sobe e MAIS RAPIDO, entao menor
+            if t < 1.96:
+                continue
+            itens.append({"k": k, "barra": round(float(a.mean()), 3),
+                          "menor": k in MENOR_MELHOR, "t": round(float(t), 2)})
+        itens.sort(key=lambda x: -x["t"])
+        fund[setor] = {"n_sobe": int(len(g_s)), "n_cai": int(len(g_c)), "itens": itens}
+        print(f"  {setor:8} {len(itens):>2} fundamentais · sobe {len(g_s):>3} cai {len(g_c):>3}")
+    raio["fundamentais"] = fund
 
     raio["_doc_serieb"] = (
         "As referencias 'sobe' e 'cai' sao medias do SkillCorner das quatro temporadas "

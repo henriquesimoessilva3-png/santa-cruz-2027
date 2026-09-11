@@ -1709,6 +1709,40 @@ lê o `jogadores.json`) e `gerar_raio_serieb.py` (sobe e cai, lê o banco). No s
 entram os pares TIP/OTIP — a tabela `off_ball_runs` só tem Série B de 2026, e 2026 fica
 fora por ser temporada incompleta.
 
+### O filtro "cumpre o perfil de quem sobe"
+
+No painel de filtros do Físico. Responde: **este jogador bate, nos indicadores que de fato
+separam quem sobe de quem cai na posição dele, a média de quem subiu na Série B de
+2022 a 2025?** A barra vai de 50% a 100% dos fundamentais.
+
+A lista sai do `gerar_raio_serieb.py` (bloco `fundamentais` no `raio_ref.json`) e é
+**calculada, não escolhida a dedo**: entra o indicador com t ≥ 1,96 entre as duas médias.
+
+| setor | fundamentais | sobe | cai |
+|---|---|---|---|
+| Zaga | 15 | 56 | 75 |
+| Lateral | 10 | 68 | 90 |
+| Meio | 12 | 94 | 98 |
+| Ataque | 12 | 110 | 140 |
+
+**Por setor e não por lado, e isso foi medido antes de decidir.** Partindo por lado, o
+zagueiro direito dava 3 fundamentais e o esquerdo 26; o lateral direito 13 e o esquerdo 3.
+Não há futebol que explique — é a amostra cortada ao meio virando ruído. Juntando os lados,
+os quatro setores ficam entre 10 e 15, com 56 a 140 atletas de cada lado.
+
+Três detalhes que fazem o filtro valer:
+
+- **Tempo é ao contrário.** Nos seis indicadores de tempo (`menor: true`) cumprir é ser
+  MAIS RÁPIDO. Errar o sinal premiaria o mais lento, e passaria despercebido porque o
+  filtro continuaria "funcionando".
+- **Ausência de dado não reprova.** O placar conta só o que dá para medir, e o jogador só é
+  julgado se der para medir 60% da lista. Exigir cobertura cheia reprovaria por falta de
+  dado, que não é a mesma coisa que reprovar por desempenho.
+- **A nota embaixo do controle diz quantos passam agora.** Sem ela a barra é caixa preta: a
+  pessoa arrasta e não sabe o que mudou.
+
+Na posição MEI: 511 jogadores viram 393 (50%), 261 (70%), 141 (90%) e **68 (100%)**.
+
 ### Armadilha de publicação: o `--push` que não publica
 
 `publicar_site.py --push` faz `git add docs`, e **se o `docs/` já estiver commitado ele

@@ -2825,6 +2825,13 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-tab tbody td:first-child{color:var(--tinta)}
 .sb-tab td.s{color:var(--sb-sobe);font-weight:700}
 .sb-tab td.c{color:var(--sb-cai);font-weight:700}
+/* --- filtro "cumpre o perfil de quem sobe" --- */
+.fs-perfil-bar{display:flex;align-items:center;gap:7px;margin-top:3px}
+.fs-perfil-bar input[type=range]{flex:1;min-width:74px;accent-color:var(--sb-sobe)}
+.fs-perfil-bar input[type=range]:disabled{opacity:.4}
+.fs-perfil-bar span{font-size:10.5px;color:var(--tinta2);font-variant-numeric:tabular-nums;min-width:30px}
+/* a nota conta o que o filtro esta fazendo agora; sem ela a barra e caixa preta */
+.fs-perfil-nota{display:block;font-size:9.5px;line-height:1.35;color:var(--tinta3);margin-top:3px}
 /* --- a tabela do fisico por posicao --- */
 /* A 3a coluna e o NOME do indicador, nao numero: alinha a esquerda. Sem isto ela fica
    encostada no numero da relacao e as duas viram uma coisa so. */

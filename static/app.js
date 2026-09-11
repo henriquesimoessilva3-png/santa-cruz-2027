@@ -4011,6 +4011,7 @@ function fsCongelar() {
 }
 
 function fsRender() {
+  fsPerfilNota();
   if (!BASE.length || !$('#fsMatriz')) return;
   const co = fsCoorteAB();
   const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
@@ -4639,7 +4640,77 @@ const RANGES_FS = [
 
 /* Quem o filtro deixa passar, dentro da posicao escolhida. E de onde saem os "melhores
    do filtro" — a regua continua sendo a posicao nas Series A e B, sempre. */
-function fsPool() {
+/* ---------- o filtro "cumpre o perfil de quem sobe" ----------
+
+   A pergunta que ele responde: este jogador bate, nos indicadores que DE FATO separam
+   quem sobe de quem cai na posicao dele, a media de quem subiu na Serie B de 2022 a 2025?
+
+   Tres decisoes que fazem o filtro valer alguma coisa:
+
+   1. OS INDICADORES SAO POR SETOR, NAO POR LADO. Partir zagueiro direito de esquerdo corta
+      a amostra ao meio e o resultado vira ruido — medido, dava 3 fundamentais de um lado e
+      26 do outro, sem futebol que explicasse. Juntando, os quatro setores ficam entre 10 e
+      15 fundamentais com 56 a 140 atletas de cada lado.
+   2. A LISTA E CALCULADA, NAO ESCOLHIDA A DEDO. Entra o indicador com t >= 1,96 entre a
+      media de quem sobe e a de quem cai. "A maior diferenca" sem teste deixaria entrar
+      indicador de variancia alta por acaso.
+   3. TEMPO E AO CONTRARIO. Nos seis indicadores de tempo (`menor: true` no gerador) cumprir
+      e ser MAIS RAPIDO que a media, nao mais lento. Errar o sinal aqui premiaria justamente
+      o mais lento, e o erro passaria despercebido porque o filtro continuaria "funcionando".
+
+   Quem nao tem dado do indicador nao leva falta por isso: o placar conta so o que da para
+   medir, e o jogador so e julgado se der para medir 60% da lista. Exigir cobertura cheia
+   reprovaria por ausencia de dado, que e diferente de reprovar por desempenho. */
+const FS_SETOR = { ZD: 'zaga', ZE: 'zaga', LD: 'lateral', LE: 'lateral',
+                   VOL: 'meio', MED: 'meio', MEI: 'meio',
+                   ED: 'ataque', EE: 'ataque', CA: 'ataque' };
+
+function fsFundamentais() {
+  const setor = FS_SETOR[fsPos];
+  const f = RAIO && RAIO.fundamentais && RAIO.fundamentais[setor];
+  return (f && f.itens && f.itens.length) ? f : null;
+}
+
+/* Placar do jogador: quantos fundamentais ele cumpre, de quantos deu para medir. */
+function fsPlacarPerfil(j, f) {
+  let ok = 0, medidos = 0;
+  f.itens.forEach(it => {
+    const v = j[it.k];
+    if (typeof v !== 'number' || isNaN(v)) return;
+    medidos++;
+    if (it.menor ? v <= it.barra : v >= it.barra) ok++;
+  });
+  return { ok, medidos, total: f.itens.length,
+           pct: medidos ? ok / medidos * 100 : null,
+           /* sem 60% da lista medida nao da para julgar — nem a favor nem contra */
+           julgavel: medidos >= f.itens.length * 0.6 };
+}
+
+function fsPerfilLigado() {
+  const c = $('#fsPerfil');
+  return c && c.checked && fsFundamentais() ? (parseInt($('#fsPerfilPct').value) || 100) : null;
+}
+
+/* A nota embaixo do controle: diz quantos indicadores sao e quantos passam AGORA. Sem
+   isso o filtro e uma caixa preta — a pessoa mexe na barra e nao sabe o que mudou. */
+function fsPerfilNota() {
+  const el = $('#fsPerfilNota');
+  if (!el) return;
+  const f = fsFundamentais();
+  if (!f) { el.textContent = 'sem referência para esta posição'; return; }
+  const alvo = parseInt($('#fsPerfilPct').value) || 100;
+  const pool = fsPool(true);
+  const passam = pool.filter(j => {
+    const p = fsPlacarPerfil(j, f);
+    return p.julgavel && p.pct >= alvo;
+  }).length;
+  el.textContent = f.itens.length + ' indicadores · ' + passam + ' de ' + pool.length +
+    ' passam · barra de quem subiu (' + f.n_sobe + ' atletas)';
+}
+
+function fsPool(semPerfil) {
+  const perfil = semPerfil ? null : fsPerfilLigado();
+  const fund = perfil != null ? fsFundamentais() : null;
   const ligas = mselSelecionados('fsLigaSel');
   const paises = mselSelecionados('fsPaisSel');
   const times = mselSelecionados('fsTimeSel');
@@ -4656,6 +4727,10 @@ function fsPool() {
     for (const [d, f] of faixas) {
       const v = j[d.k];
       if (typeof v !== 'number' || isNaN(v) || v < f.lo || v > f.hi) return false;
+    }
+    if (fund) {
+      const p = fsPlacarPerfil(j, fund);
+      if (!p.julgavel || p.pct < perfil) return false;
     }
     return true;
   });
@@ -4922,6 +4997,16 @@ function fsMontarFiltros() {
     b.onclick = () => fsSetExterior(b.classList.contains('on') ? null : b.dataset.e);
   });
   $('#fsTopFiltro').oninput = debounce(fsRender, 200);
+  /* o filtro de perfil. A barra so fica ativa com a caixa marcada — barra viva com filtro
+     desligado convida a arrastar e nao ver nada acontecer. */
+  $('#fsPerfil').onchange = () => {
+    $('#fsPerfilPct').disabled = !$('#fsPerfil').checked;
+    fsRender();
+  };
+  $('#fsPerfilPct').oninput = () => {
+    $('#fsPerfilRot').textContent = $('#fsPerfilPct').value + '%';
+    fsRender();
+  };
   $('#fsEstudo').onclick = () => { estudoRender(); $('#modalEstudo').classList.add('aberto'); };
   $('#fsCompGravar').onclick = compGravar;
   $('#fsCompApagar').onclick = compApagar;
