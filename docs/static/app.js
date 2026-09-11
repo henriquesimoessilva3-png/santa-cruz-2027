@@ -2256,18 +2256,86 @@ async function exportarExcel() {
   toast('Planilha exportada', 'bom');
 }
 
+/* ---------------- PNG: pelo motor do navegador, não pelo html2canvas ----------------
+   O html2canvas redesenha o HTML por conta própria e **não implementa CSS Grid**. O card
+   do jogador É uma grade (`grid-template-columns: 1fr auto 20px…`), então a coluna do
+   nome colapsava: a imagem saía com os cards deslocados, só a parte da direita desenhada
+   e NENHUM nome — foi exatamente a queixa.
+
+   Aqui o desenho é feito pelo próprio navegador: o campo vai inteiro para dentro de um
+   `<foreignObject>` de SVG, com o CSS do app embutido, e o SVG é rasterizado. Grade,
+   flex, variáveis e tudo o mais saem idênticos ao que está na tela, porque é o mesmo
+   motor que desenha as duas coisas.
+
+   Três detalhes que o clone exige:
+     - a ESCALA da tela sai antes (o `transform` reduz o campo; a imagem tem de sair no
+       tamanho natural), e volta depois;
+     - `<input>` não leva o texto digitado no clone do HTML — o salário sumiria. O valor
+       é copiado para o atributo, um a um;
+     - o CSS precisa ser escapado para XML, senão um `&` ou um `<` dentro de uma regra
+       quebra o documento inteiro e a imagem não carrega. */
+async function campoComoCanvas(escala) {
+  const campo = $('#campo');
+  const guarda = {
+    transform: campo.style.transform,
+    marginBottom: campo.style.marginBottom,
+    marginRight: campo.style.marginRight,
+  };
+  /* Duas coisas saem antes de capturar, e as duas por motivos diferentes:
+       1. A ESCALA. O html2canvas desenha a caixa de layout e não entende `transform`;
+          com o campo reduzido, a imagem saía cortada e fora de lugar.
+       2. A GRADE. O card é `display:grid`, e o html2canvas NÃO implementa CSS Grid — a
+          coluna `1fr` do nome colapsava e a imagem saía sem nenhum nome, que foi a
+          queixa. A classe `exportando` troca o card para bloco com o salário posicionado
+          à direita: mesmo resultado visual, com caixas que ele sabe desenhar.
+     (Tentei antes desenhar via `<foreignObject>` de SVG, que usaria o próprio motor do
+      navegador e sairia idêntico. O Chrome "suja" o canvas nesse caso e proíbe exportar —
+      `Tainted canvases may not be exported` —, então não serve para gerar arquivo.) */
+  campo.classList.add('exportando');
+  campo.style.transform = '';
+  campo.style.marginBottom = '';
+  campo.style.marginRight = '';
+  /* Dois quadros para o layout assentar, MAS com saída por tempo: `requestAnimationFrame`
+     não dispara em aba escondida, e quem exportasse e trocasse de aba ficaria esperando
+     para sempre — a exportação travava sem erro e sem imagem. */
+  await new Promise(r => {
+    let feito = false;
+    const pronto = () => { if (!feito) { feito = true; r(); } };
+    requestAnimationFrame(() => requestAnimationFrame(pronto));
+    setTimeout(pronto, 150);
+  });
+  const larg = campo.offsetWidth, alt = campo.offsetHeight;
+  try {
+    return await html2canvas(campo, {
+      backgroundColor: '#0d0f13', scale: escala || 2, logging: false,
+      width: larg, height: alt, windowWidth: larg, windowHeight: alt,
+      scrollX: 0, scrollY: 0,
+    });
+  } finally {
+    campo.classList.remove('exportando');
+    Object.assign(campo.style, guarda);
+    ajustarCampo();
+  }
+}
+
+
 async function exportarPng() {
   if (window.__semPng || typeof html2canvas === 'undefined') {
     toast('Gerador de imagem indisponível — use o botão PDF', 'ruim'); return;
   }
   toast('Gerando imagem…');
-  const cv = await html2canvas($('#campo'), { backgroundColor: '#0d0f13', scale: 2, logging: false });
-  const a = document.createElement('a');
-  a.href = cv.toDataURL('image/png');
-  a.download = 'campograma-' + estado.nome.replace(/[^\w\s-]/g, '') + '.png';
-  a.click();
-  toast('Imagem salva', 'bom');
+  try {
+    const cv = await campoComoCanvas(2);
+    const a = document.createElement('a');
+    a.href = cv.toDataURL('image/png');      /* lança se o canvas tiver sido "sujo" */
+    a.download = 'campograma-' + (estado.nome || 'grupo').replace(/[^\w\s-]/g, '') + '.png';
+    a.click();
+    toast('Imagem salva', 'bom');
+  } catch (e) {
+    toast('Não deu para gerar a imagem: ' + ((e && e.message) || e) + ' — use o botão PDF', 'ruim');
+  }
 }
+
 
 /* ---------------- ficha do jogador (mesma leitura do Ranking) ---------------- */
 const GRUPOS_FICHA = ['Defesa', 'Ataque', 'Passe', 'Decisão (DGP)'];

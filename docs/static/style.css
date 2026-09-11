@@ -378,12 +378,18 @@ tbody tr.ja{opacity:.4}
   .sigla{background:#c8102e!important;color:#fff!important}
   .pos-nome,.pos-qtd{color:#555!important}
   .jog{background:#fff!important;border:1px solid #edf0f5!important;padding:1px 4px!important}
-  .jog.titular{background:#fdeef1!important;border-color:#f0c2cc!important}
-  .jog-nome{color:#111!important;font-size:8.5px!important}
-  .jog-meta{color:#666!important;font-size:7px!important;display:block!important}
+  /* O nível pinta o card no papel também — são as mesmas cores da tela, e é o que faz o
+     PDF "sair igual ao sistema". O rosa do titular saiu junto com a estrela. */
+  .jog.niv-main{background:#e9f8ee!important;border-color:#9ad9b0!important}
+  .jog.niv-squad{background:#fdf5e2!important;border-color:#e8c877!important}
+  .jog.niv-youth{background:#eaf3fd!important;border-color:#9cc4ec!important}
+  /* SEM encolher a fonte. O campo já é reduzido por `--k-print` (uns 50% com o elenco
+     cheio); reduzir a fonte POR CIMA disso levava o nome a ~1mm no papel, ilegível. As
+     proporções passam a ser as mesmas da tela, e quem manda no tamanho é só a escala. */
+  .jog-nome{color:#111!important}
+  .jog-meta{color:#666!important;display:block!important}
   .m-ovr,.m-pos{display:none!important}
-  .jog-sal input{color:#111!important;background:#0000!important;border:none!important;
-    width:46px!important;font-size:8.5px!important}
+  .jog-sal input{color:#111!important;background:#0000!important;border:none!important}
   .pos-pe{background:#f7f8fb!important;border-top:1px solid #e2e6ee!important;
     color:#333!important;font-size:8px!important;padding:2px 5px!important}
   .selo-ex{background:#f5a524!important;color:#3a2500!important;border-color:#c98a1e!important}
@@ -2607,3 +2613,22 @@ body.claro .jog.estrangeiro{background:var(--pilula)}
 .amostra.niv-main i{color:var(--verde);font-size:9px;font-style:normal}
 .amostra.niv-squad{background:#fdf3da;border-color:#e8c877;border-left-color:#e8c877}
 .amostra.niv-youth{background:#e4f0fd;border-color:#9cc4ec;border-left-color:#9cc4ec}
+
+/* ---------- CSS só da exportação em PNG ----------
+   O html2canvas não implementa CSS Grid, e o card do jogador é uma grade: a coluna `1fr`
+   do nome colapsava e a imagem saía SEM NENHUM NOME. Aqui o card vira bloco, com o
+   salário posicionado à direita — mesmo resultado visual, com caixas que ele sabe
+   desenhar. Vale só enquanto a classe está no campo, durante a captura. */
+.campo.exportando .jog{display:block;position:relative}
+.campo.exportando .jog-nome,
+.campo.exportando .jog-meta{display:block;padding-right:84px}
+.campo.exportando .jog-sal{position:absolute;right:8px;top:0;bottom:0;
+  display:flex;align-items:center;margin:0}
+.campo.exportando .jog-sal input{text-align:right}
+/* botões não fazem sentido numa imagem, e ocupam espaço do nome */
+.campo.exportando .jog-mais,
+.campo.exportando .jog-menu,
+.campo.exportando .jog-x,
+.campo.exportando .jog-emp,
+.campo.exportando .pos-add,
+.campo.exportando .pos-zoom{display:none}
