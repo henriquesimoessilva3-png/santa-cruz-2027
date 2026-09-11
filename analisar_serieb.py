@@ -227,9 +227,100 @@ def valor_por_setor():
     return v.reset_index()
 
 
+
+# ======================= a segunda camada de perguntas =======================
+
+def extras_profundos():
+    """O que as bases dizem alem da media: contra quem se pontua, quando se pontua, quem
+    faz o gol, quem defende, e quanto do elenco sobrou do ano passado.
+
+    Tudo aqui e por clube-temporada, e tudo sai das mesmas tres bases. Nenhuma destas
+    perguntas precisa de dado novo — precisava so de alguem olhar.
+    """
+    J = pd.read_csv(f"{RAIZ}/dados/serieb_jogos.csv")
+    s = J[(J["Competição"] == "Brazil. Serie B") & J["resultado"].notna()].copy()
+    s["clube"] = s["Equipa"].map(nfc)
+    s["pts"] = s["resultado"].map({"V": 3, "E": 1, "D": 0})
+    s["form"] = s["Sistema"].astype(str).str.replace(r"\s*\(.*", "", regex=True).str.strip()
+
+    tab = tabelas()
+    pos = dict(zip(zip(tab.ano, tab.clube), tab.pos))
+    s["posAdv"] = [pos.get((a, nfc(c))) for a, c in zip(s.ano, s.adversario)]
+    s = s[s.posAdv.notna()]
+    s = s.sort_values(["ano", "clube", "Data"])
+    s["rod"] = s.groupby(["ano", "clube"]).cumcount() + 1
+
+    linhas = []
+    for (ano, clube), d in s.groupby(["ano", "clube"]):
+        v, p, rod = d.resultado.tolist(), d.pts.tolist(), d.rod.tolist()
+        # aproveitamento contra cada terco da tabela — o adversario, nao o proprio clube
+        def aprov(f):
+            x = d[f]
+            return x.pts.sum() / (len(x) * 3) * 100 if len(x) else np.nan
+        # sequencias: a mais longa sem vencer e a mais longa vencendo
+        semV = maxSemV = seqV = maxV = 0
+        for r in v:
+            if r == "V":
+                seqV += 1; maxV = max(maxV, seqV); semV = 0
+            else:
+                semV += 1; maxSemV = max(maxSemV, semV); seqV = 0
+        apos = [p[i + 1] for i in range(len(v) - 1) if v[i] == "D"]
+        forms = d.form.value_counts()
+        linhas.append(dict(
+            ano=ano, clube=clube,
+            aprovG6=aprov(d.posAdv <= 6), aprovMeio=aprov((d.posAdv > 6) & (d.posAdv < 15)),
+            aprovZ6=aprov(d.posAdv >= 15),
+            pts1t=int(d[d.rod <= 19].pts.sum()), pts2t=int(d[d.rod > 19].pts.sum()),
+            pts10ini=int(d[d.rod <= 10].pts.sum()), pts10fim=int(d[d.rod > max(rod) - 10].pts.sum()),
+            maxSemVencer=maxSemV, maxVitorias=maxV,
+            ptsAposDerrota=float(np.mean(apos)) if apos else np.nan,
+            formacoes=int(d.form.nunique()),
+            formPrincipal=forms.index[0] if len(forms) else "",
+            formPrincipalPct=float(forms.iloc[0] / len(d) * 100) if len(forms) else np.nan,
+        ))
+    fora = pd.DataFrame(linhas)
+
+    # --- quem faz o gol, e quem defende ---
+    T = pd.read_csv(f"{RAIZ}/dados/serieb_tecnico.csv")
+    T["clube"] = T["Equipa dentro de um período de tempo seleccionado"].map(nfc)
+    gol = []
+    for (ano, clube), d in T.groupby(["ano", "clube"]):
+        g = d["Golos"].fillna(0)
+        tot = g.sum()
+        if tot <= 0:
+            gol.append(dict(ano=ano, clube=clube, pctArtilheiro=np.nan, marcadores=0, pctTop3=np.nan))
+            continue
+        gol.append(dict(ano=ano, clube=clube, pctArtilheiro=float(g.max() / tot * 100),
+                        marcadores=int((g > 0).sum()),
+                        pctTop3=float(g.sort_values(ascending=False).head(3).sum() / tot * 100)))
+    fora = fora.merge(pd.DataFrame(gol), on=["ano", "clube"], how="left")
+
+    # O goleiro do clube e o que mais jogou. Abaixo de 900 minutos nao ha titular claro e a
+    # media de defesas vira ruido, entao esses ficam vazios em vez de entrar errados.
+    gk = T[T.posicao_1 == "GK"].sort_values("Minutos jogados:", ascending=False)
+    gk = gk.groupby(["ano", "clube"]).head(1)
+    gk = gk[gk["Minutos jogados:"] >= 900]
+    gk = gk[["ano", "clube", "Defesas, %", "Golos expectáveis defendidos por 90´"]].rename(
+        columns={"Defesas, %": "gkDefesas", "Golos expectáveis defendidos por 90´": "gkEvitados"})
+    fora = fora.merge(gk, on=["ano", "clube"], how="left")
+
+    # --- quanto do elenco sobrou do ano anterior ---
+    E = pd.read_csv(f"{RAIZ}/dados/serieb_elencos.csv")
+    E["clube"] = E["clube"].map(lambda x: TM.get(nfc(x), nfc(x)))
+    elenco = {k: set(d.id_jogador.dropna().astype(int))
+              for k, d in E.groupby(["ano", "clube"])}
+    cont = []
+    for (ano, clube), atual in elenco.items():
+        ant = elenco.get((ano - 1, clube))
+        cont.append(dict(ano=ano, clube=clube,
+                         pctFicou=len(atual & ant) / len(ant) * 100 if ant else np.nan,
+                         novos=len(atual - ant) if ant else np.nan))
+    return fora.merge(pd.DataFrame(cont), on=["ano", "clube"], how="left")
+
+
 def base():
     t = montar()
-    for parte in (extras_de_jogo(), valor_por_setor()):
+    for parte in (extras_de_jogo(), valor_por_setor(), extras_profundos()):
         t = t.merge(parte, on=["ano", "clube"], how="left")
     setores = [c for c in t.columns if c.startswith("val_")]
     tot = t[setores].sum(axis=1)

@@ -46,7 +46,22 @@ CAMPOS = [
     ("idade", "idade_pond", 2), ("minEstr", "min_estrangeiros", 2),
     ("plantel", "plantel", 0), ("aereos", "duelos_aereos_pct", 2),
     ("cruzPct", "cruz_certos_pct", 2), ("faltas", "faltas", 2),
+    # --- a segunda camada de perguntas (analisar_serieb.extras_profundos) ---
+    ("aprovG6", "aprovG6", 2), ("aprovMeio", "aprovMeio", 2), ("aprovZ6", "aprovZ6", 2),
+    ("pts1t", "pts1t", 0), ("pts2t", "pts2t", 0),
+    ("pts10ini", "pts10ini", 0), ("pts10fim", "pts10fim", 0),
+    ("semVencer", "maxSemVencer", 0), ("vitSeguidas", "maxVitorias", 0),
+    ("ptsAposD", "ptsAposDerrota", 2),
+    ("formacoes", "formacoes", 0), ("formPct", "formPrincipalPct", 1),
+    ("pctArtilheiro", "pctArtilheiro", 1), ("marcadores", "marcadores", 0),
+    ("pctTop3", "pctTop3", 1),
+    ("gkDefesas", "gkDefesas", 2), ("gkEvitados", "gkEvitados", 3),
+    ("pctFicou", "pctFicou", 1), ("novos", "novos", 0),
 ]
+
+# Campos de TEXTO (a formacao mais usada). Ficam a parte porque nao passam pelo
+# arredondamento numerico.
+CAMPOS_TXT = [("formPrin", "formPrincipal")]
 
 # --- distribuicao por idade ---
 # As faixas sao fechadas a ESQUERDA: "20 a 23" e 20, 21 e 22. Sem essa convencao escrita,
@@ -128,15 +143,22 @@ t_base = None
 def main():
     global t_base
     t = t_base = base()
-    campos = [c for c, _, _ in CAMPOS]
+    campos = [c for c, _, _ in CAMPOS] + [c for c, _ in CAMPOS_TXT]
     linhas = []
     for _, r in t.sort_values(["ano", "pos"]).iterrows():
         v = []
         for _, col, casas in CAMPOS:
             x = r[col]
-            v.append(int(round(x)) if casas == 0 else round(float(x), casas))
+            # NaN vira null: 44 dos 100 clube-temporada nao tem ano anterior na Serie B, e
+            # `pctFicou` deles nao e zero — e ausente. Zero ali seria mentira.
+            if pd.isna(x):
+                v.append("null")
+            else:
+                v.append(repr(int(round(x)) if casas == 0 else round(float(x), casas)))
+        for _, col in CAMPOS_TXT:
+            v.append(json.dumps("" if pd.isna(r[col]) else str(r[col]), ensure_ascii=False))
         linhas.append(f"  [{int(r.ano)},{json.dumps(r.clube, ensure_ascii=False)},"
-                      + ",".join(repr(x) for x in v) + "],")
+                      + ",".join(v) + "],")
 
     with open(SAIDA, "w", encoding="utf-8") as f:
         f.write(CABECALHO)

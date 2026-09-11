@@ -6953,6 +6953,154 @@ function sbBlocoGolsParada() {
     '</div>';
 }
 
+/* ---------- a segunda camada de perguntas ----------
+   Nenhum destes blocos precisou de dado novo. Precisava so de alguem perguntar. */
+
+/* Media ignorando os vazios. Existe porque `pctFicou` e `novos` sao nulos em 44 dos 100
+   clube-temporada (o clube nao estava na Serie B no ano anterior) e zero ali seria mentira. */
+function sbMediaVal(xs) {
+  const v = xs.filter(x => x !== null && x !== undefined && !isNaN(x));
+  return v.length ? sbMedia(v) : NaN;
+}
+function sbPorFaixaVal(campo) {
+  const f = { sobe: [], meio: [], cai: [] };
+  sbComp().forEach(x => f[x.faixa].push(x[campo]));
+  return { sobe: sbMediaVal(f.sobe), meio: sbMediaVal(f.meio), cai: sbMediaVal(f.cai),
+           n: { sobe: f.sobe.filter(x => x != null && !isNaN(x)).length,
+                meio: f.meio.filter(x => x != null && !isNaN(x)).length,
+                cai: f.cai.filter(x => x != null && !isNaN(x)).length } };
+}
+
+/* Contra quem se fazem os pontos, e quando. */
+function sbBlocoAdversario() {
+  const g6 = sbPorFaixa('aprovG6'), me = sbPorFaixa('aprovMeio'), z6 = sbPorFaixa('aprovZ6');
+  const X = 180, ESC = 3.6;
+  const grupo = (rot, m, y) =>
+    '<text x="0" y="' + (y + 12) + '" class="sbx-rot forte">' + rot + '</text>' +
+    sbBarra('', m.sobe * ESC, sbN1(m.sobe) + '%', 'var(--sb-sobe)', y, X) +
+    sbBarra('', m.meio * ESC, sbN1(m.meio) + '%', 'var(--sb-neutro)', y + 19, X) +
+    sbBarra('', m.cai * ESC, sbN1(m.cai) + '%', 'var(--sb-cai)', y + 38, X);
+  /* quantos dos que subiram ja estavam no G4 no fim do primeiro turno */
+  let noG4 = 0;
+  SB_COMPLETAS.forEach(ano => {
+    const g = sbComp().filter(x => x.ano === ano).slice().sort((a, b) => b.pts1t - a.pts1t).slice(0, 4);
+    noG4 += g.filter(x => x.pos <= 4).length;
+  });
+  const t1 = sbPorFaixa('pts1t'), t2 = sbPorFaixa('pts2t');
+  const ini = sbPorFaixa('pts10ini'), fim = sbPorFaixa('pts10fim');
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">Contra quem se fazem os pontos · aproveitamento</span>' +
+    '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>sobe</span>' +
+    '<span><i class="q" style="background:var(--sb-neutro)"></i>meio</span>' +
+    '<span><i style="background:var(--sb-cai)"></i>cai</span></div>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 186" class="sb-svg">' +
+      grupo('contra o G6 (1º ao 6º)', g6, 6) +
+      grupo('contra o miolo (7º ao 14º)', me, 68) +
+      grupo('contra os últimos seis', z6, 130) +
+    '</svg></div>' +
+    '<p class="sb-nota"><b>Quem sobe não faz seus pontos batendo os fracos — bate os fortes.</b> ' +
+    'Contra os seis últimos todo mundo pontua: ' + sbN1(z6.sobe) + '% de aproveitamento para quem sobe e ' +
+    sbN1(z6.cai) + '% para quem cai, uma diferença de <b>' + sbN1(z6.sobe / z6.cai) + '×</b>. Contra o G6 ' +
+    'a distância dobra: ' + sbN1(g6.sobe) + '% contra ' + sbN1(g6.cai) + '%, <b>' + sbN1(g6.sobe / g6.cai) +
+    '×</b>. É nos jogos grandes que a temporada se separa.</p>' +
+    '<p class="sb-nota"><b>E o acesso não é decidido na largada.</b> Quem sobe faz ' + sbN1(t1.sobe) +
+    ' pontos no 1º turno e ' + sbN1(t2.sobe) + ' no 2º — o mesmo ritmo do começo ao fim. Quem cai piora (' +
+    sbN1(t1.cai) + ' e ' + sbN1(t2.cai) + '). Nas dez últimas rodadas a diferença é a maior do ano: <b>' +
+    sbN1(fim.sobe) + ' pontos contra ' + sbN1(fim.cai) + '</b>.</p>' +
+    '<p class="sb-nota">Dos 16 acessos, <b>' + noG4 + '</b> já estavam no G4 na metade do campeonato — ' +
+    'ou seja, <b>' + (16 - noG4) + ' entraram no segundo turno</b>. Estar fora na 19ª rodada não decide ' +
+    'nada; estar sem ritmo, sim.</p>' +
+    '</div>';
+}
+
+/* Regularidade: sequencias, reacao e troca de formacao. */
+function sbBlocoRegularidade() {
+  const sv = sbPorFaixa('semVencer'), vit = sbPorFaixa('vitSeguidas'), ap = sbPorFaixa('ptsAposD');
+  const fq = sbPorFaixa('formacoes'), fp = sbPorFaixa('formPct');
+  const cartao = (n, r) => '<div class="sbx-cartao"><b>' + n + '</b><span>' + r + '</span></div>';
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">Regularidade · o que a média esconde</span>' +
+    '<div class="sbx-cartoes">' +
+      cartao(sbN1(sv.sobe) + ' × ' + sbN1(sv.cai), 'maior sequência<br>SEM VENCER') +
+      cartao(sbN1(vit.sobe) + ' × ' + sbN1(vit.cai), 'maior sequência<br>DE VITÓRIAS') +
+      cartao(sbN2(ap.sobe) + ' × ' + sbN2(ap.cai), 'pontos no jogo<br>SEGUINTE A UMA DERROTA') +
+      cartao(sbN1(fq.sobe) + ' × ' + sbN1(fq.cai), 'formações diferentes<br>NA TEMPORADA') +
+    '</div>' +
+    '<p class="sb-nota"><b>A pior sequência de quem sobe dura ' + sbN1(sv.sobe) + ' jogos; a de quem cai, ' +
+    sbN1(sv.cai) + '.</b> Duas rodadas de diferença na média escondem isso: são <b>dois meses</b> de ' +
+    'campeonato sem vencer, contra pouco mais de um mês. E do outro lado, quem sobe emenda ' +
+    sbN1(vit.sobe) + ' vitórias na melhor fase; quem cai, ' + sbN1(vit.cai) + ' — ou seja, <b>quem cai ' +
+    'quase nunca ganha dois seguidos</b>.</p>' +
+    '<p class="sb-nota"><b>A reação é o número mais direto do estudo.</b> Depois de perder, quem sobe tira ' +
+    sbN2(ap.sobe) + ' ponto do jogo seguinte — mais que um empate. Quem cai tira ' + sbN2(ap.cai) + '. ' +
+    'Perder todo mundo perde; o que separa é o que vem na rodada seguinte.</p>' +
+    '<p class="sb-nota"><b>Nenhuma formação é fórmula.</b> O 4-2-3-1 é o mais usado nas três faixas, em ' +
+    'torno de um terço dos jogos. O que separa não é qual, é <b>quantas</b>: quem cai experimenta ' +
+    sbN1(fq.cai) + ' formações diferentes na temporada contra ' + sbN1(fq.sobe) + ' de quem sobe, e se ' +
+    'apoia menos na principal (' + sbN1(fp.cai) + '% dos jogos contra ' + sbN1(fp.sobe) + '%). É o mesmo ' +
+    'retrato da rotatividade de elenco, agora no quadro tático.</p>' +
+    '</div>';
+}
+
+/* Quem faz o gol, e quem evita. */
+function sbBlocoGolEGoleiro() {
+  const art = sbPorFaixa('pctArtilheiro'), mar = sbPorFaixa('marcadores'), t3 = sbPorFaixa('pctTop3');
+  const dg = sbPorFaixaVal('gkDefesas'), ev = sbPorFaixaVal('gkEvitados');
+  const X = 200, ESC = 14;
+  const barra = (rot, m, y, fmt, esc) =>
+    '<text x="0" y="' + (y + 12) + '" class="sbx-rot forte">' + rot + '</text>' +
+    sbBarra('', m.sobe * esc, fmt(m.sobe), 'var(--sb-sobe)', y, X) +
+    sbBarra('', m.meio * esc, fmt(m.meio), 'var(--sb-neutro)', y + 19, X) +
+    sbBarra('', m.cai * esc, fmt(m.cai), 'var(--sb-cai)', y + 38, X);
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">Quem faz o gol, e quem evita</span>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 124" class="sb-svg">' +
+      barra('atletas que marcaram', mar, 6, sbN1, ESC) +
+      barra('defesas do goleiro, %', dg, 68, x => sbN1(x) + '%', 3.4) +
+    '</svg></div>' +
+    '<p class="sb-nota"><b>Quem sobe espalha o gol.</b> São ' + sbN1(mar.sobe) + ' atletas diferentes ' +
+    'marcando na temporada contra ' + sbN1(mar.cai) + ' de quem cai, e o artilheiro responde por <b>' +
+    sbN1(art.sobe) + '%</b> dos gols do time contra <b>' + sbN1(art.cai) + '%</b>. Parece pouco, mas o ' +
+    'sentido importa: <b>o time que cai depende mais de um homem só</b> — e depende dele fazendo menos ' +
+    'gols no total.</p>' +
+    '<p class="sb-nota"><b>O goleiro é a exceção que confirma a regra do xG.</b> O estudo mostra que ' +
+    'defender acima do esperado não se repete de um ano para o outro no nível do TIME. No nível do ' +
+    'goleiro, a diferença é grande e consistente: ' + sbN1(dg.sobe) + '% de defesas em quem sobe contra ' +
+    sbN1(dg.cai) + '% em quem cai. E em gols evitados por 90 minutos, o goleiro de quem sobe salva ' +
+    sbN2(ev.sobe) + ' a mais que o esperado; o de quem cai, ' + sbN2(ev.cai) + ' — ou seja, <b>toma mais ' +
+    'gol do que os chutes que enfrentou justificavam</b>.</p>' +
+    '<p class="sb-nota">Só entram goleiros com 900 minutos ou mais, um por clube-temporada — abaixo ' +
+    'disso não há titular claro e a média de defesas vira ruído. São ' + dg.n.sobe + ' de quem subiu e ' +
+    dg.n.cai + ' de quem caiu.</p>' +
+    '</div>';
+}
+
+/* O elenco que sobrou do ano passado. */
+function sbBlocoContinuidade() {
+  const fi = sbPorFaixaVal('pctFicou'), nv = sbPorFaixaVal('novos');
+  const X = 200, ESC = 5.2;
+  const par = (rot, m, y, fmt, esc) =>
+    '<text x="0" y="' + (y + 12) + '" class="sbx-rot forte">' + rot + '</text>' +
+    sbBarra('', m.sobe * esc, fmt(m.sobe), 'var(--sb-sobe)', y, X) +
+    sbBarra('', m.meio * esc, fmt(m.meio), 'var(--sb-neutro)', y + 19, X) +
+    sbBarra('', m.cai * esc, fmt(m.cai), 'var(--sb-cai)', y + 38, X);
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">Quanto do elenco sobrou do ano passado</span>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 124" class="sb-svg">' +
+      par('% do elenco que ficou', fi, 6, x => sbN1(x) + '%', ESC) +
+      par('atletas novos no ano', nv, 68, sbN1, 6.4) +
+    '</svg></div>' +
+    '<p class="sb-nota">Quem subiu manteve <b>' + sbN1(fi.sobe) + '%</b> do elenco do ano anterior; quem ' +
+    'caiu, <b>' + sbN1(fi.cai) + '%</b>. Em gente: <b>' + sbN1(nv.sobe) + ' caras novos</b> contra <b>' +
+    sbN1(nv.cai) + '</b> — treze atletas de diferença para apresentar, entrosar e escolher.</p>' +
+    '<p class="sb-nota"><b>Aqui a ressalva é maior que o achado.</b> Só entram os clubes que estavam na ' +
+    'Série B <i>também no ano anterior</i>: são ' + (fi.n.sobe + fi.n.meio + fi.n.cai) + ' clube-temporada ' +
+    'dos 80, ' + fi.n.sobe + ' deles de quem subiu. Com essa amostra a relação com a posição final fica ' +
+    'fraca, e o número vale como indício, não como regra. Quem vem da Série A ou da Série C fica de fora ' +
+    'por construção — e é justamente quem mais troca.</p>' +
+    '</div>';
+}
+
 /* Metas: o retrato medio de quem subiu, ao lado do de quem caiu. */
 function sbBlocoRetrato() {
   const G = [
@@ -7469,6 +7617,8 @@ function sbRender() {
 
     sbBlocoGolsParada() +
 
+    sbBlocoGolEGoleiro() +
+
     sbBlocoDinheiro() +
 
     sbBlocoUso() +
@@ -7477,9 +7627,15 @@ function sbRender() {
 
     sbBlocoUsoSetor() +
 
+    sbBlocoContinuidade() +
+
     sbBlocoIdade() +
 
     sbBlocoMando() +
+
+    sbBlocoAdversario() +
+
+    sbBlocoRegularidade() +
 
     '<div class="sb-bloco">' +
       '<span class="sb-rot">Quem sobe contra quem fica no 5º ao 8º</span>' +
