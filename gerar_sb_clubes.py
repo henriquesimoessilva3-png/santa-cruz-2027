@@ -57,6 +57,14 @@ CAMPOS = [
     ("pctTop3", "pctTop3", 1),
     ("gkDefesas", "gkDefesas", 2), ("gkEvitados", "gkEvitados", 3),
     ("pctFicou", "pctFicou", 1), ("novos", "novos", 0),
+    # --- fisico, do SkillCorner (ponte de nome conferida em 98%) ---
+    ("psv99", "fis_psv99", 2), ("dist90", "fis_distance_p90", 0),
+    ("mPorMin", "fis_m_per_min", 1), ("corrida90", "fis_running_distance_p90", 0),
+    ("hsrDist", "fis_hsr_distance_p90", 0), ("hsrQtd", "fis_hsr_count_p90", 1),
+    ("sprintDist", "fis_sprint_distance_p90", 0), ("sprintQtd", "fis_sprint_count_p90", 2),
+    ("hiDist", "fis_hi_distance_p90", 0), ("acel", "fis_high_accel_p90", 2),
+    ("desacel", "fis_high_decel_p90", 2), ("mudDirecao", "fis_cod_count_p90", 1),
+    ("fisAtletas", "fis_atletas", 0),
 ]
 
 # Campos de TEXTO (a formacao mais usada). Ficam a parte porque nao passam pelo

@@ -38,7 +38,7 @@ Uso:
     python3 analisar_serieb.py            # imprime o relatorio inteiro
     python3 analisar_serieb.py --csv      # grava tambem dados/serieb_clube_temporada.csv
 """
-import re, unicodedata
+import re, sqlite3, unicodedata
 import numpy as np, pandas as pd
 
 import os
@@ -318,9 +318,78 @@ def extras_profundos():
     return fora.merge(pd.DataFrame(cont), on=["ano", "clube"], how="left")
 
 
+
+# ======================= o fisico, do SkillCorner =======================
+
+SKILLCORNER = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/fut/BOTA/"
+               "Analytics/Portal Skillcorner/dados/skillcorner.db")
+# As edicoes da Serie B no SkillCorner, uma por ano. Sao ids do proprio SkillCorner.
+SC_EDICOES = {335: 2022, 446: 2023, 773: 2024, 1061: 2025, 1399: 2026}
+SC_METRICAS = ["psv99", "distance_p90", "m_per_min", "running_distance_p90", "hsr_distance_p90",
+               "hsr_count_p90", "sprint_distance_p90", "sprint_count_p90", "hi_distance_p90",
+               "high_accel_p90", "high_decel_p90", "cod_count_p90"]
+
+
+def chave_nome(s):
+    s = unicodedata.normalize("NFD", str(s)).lower()
+    s = "".join(x for x in s if unicodedata.category(x) != "Mn")
+    return re.sub(r"[^a-z ]", "", s).strip()
+
+
+def fisico():
+    """Perfil fisico de cada clube-temporada, do SkillCorner, ponderado por minuto rastreado.
+
+    ## O clube vem por PONTE DE NOME, e ela foi conferida
+
+    A tabela `physical` do SkillCorner e por atleta x edicao e NAO traz o clube. A tabela
+    `physical_match`, que traz, so existe para 2025 e 2026. Entao o clube das cinco
+    temporadas vem de casar o `short_name` do SkillCorner com o nome do Wyscout dentro do
+    mesmo ano, onde o nome e unico (241 nomes de 3.560 aparecem em mais de um clube no mesmo
+    ano e ficam de fora).
+
+    A ponte foi CONFERIDA contra os dois anos em que o SkillCorner diz o clube: dos 1.122
+    atletas com clube dos dois lados, **98,0% concordam**. Nao e suposicao.
+
+    ## Duas ressalvas que mudam a leitura
+
+    1. **O SkillCorner nao cobre todos os jogos.** A media e de ~15 partidas rastreadas por
+       atleta por temporada, nao 38. O perfil e de uma AMOSTRA de jogos, e nao da para somar
+       distancia da temporada inteira a partir daqui.
+    2. **Entram so atletas com 300+ minutos rastreados.** Abaixo disso a media por 90 vira
+       ruido de quem entrou dez minutos.
+    """
+    if not os.path.exists(SKILLCORNER):
+        print("  (skillcorner.db nao encontrado — seguindo sem o fisico)")
+        return pd.DataFrame(columns=["ano", "clube"])
+    con = sqlite3.connect(SKILLCORNER)
+    sc = pd.read_sql(
+        "select p.sc_competition_edition_id ed, pl.short_name, p.minutes_played, p.matches, "
+        + ", ".join("p." + m for m in SC_METRICAS) +
+        " from physical p join players pl on pl.sc_player_id = p.sc_player_id"
+        f" where p.sc_competition_edition_id in ({','.join(map(str, SC_EDICOES))})", con)
+    sc["ano"] = sc.ed.map(SC_EDICOES)
+    sc["min_tot"] = sc.minutes_played * sc.matches
+
+    T = pd.read_csv(f"{RAIZ}/dados/serieb_tecnico.csv")
+    T["cl"] = T["Equipa dentro de um período de tempo seleccionado"].map(nfc)
+    T["k"] = T.Jogador.map(chave_nome)
+    ponte = {(a, k): g.cl.iloc[0] for (a, k), g in T.groupby(["ano", "k"]) if g.cl.nunique() == 1}
+    sc["clube"] = [ponte.get((a, chave_nome(n))) for a, n in zip(sc.ano, sc.short_name)]
+    sc = sc[sc.clube.notna() & (sc.min_tot >= 300)]
+
+    linhas = []
+    for (ano, clube), d in sc.groupby(["ano", "clube"]):
+        linha = {"ano": ano, "clube": clube, "fis_atletas": len(d),
+                 "fis_minutos": float(d.min_tot.sum())}
+        for m in SC_METRICAS:
+            linha["fis_" + m] = float(np.average(d[m], weights=d.min_tot))
+        linhas.append(linha)
+    return pd.DataFrame(linhas)
+
+
 def base():
     t = montar()
-    for parte in (extras_de_jogo(), valor_por_setor(), extras_profundos()):
+    for parte in (extras_de_jogo(), valor_por_setor(), extras_profundos(), fisico()):
         t = t.merge(parte, on=["ano", "clube"], how="left")
     setores = [c for c in t.columns if c.startswith("val_")]
     tot = t[setores].sum(axis=1)
