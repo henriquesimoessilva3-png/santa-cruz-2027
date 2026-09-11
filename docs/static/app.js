@@ -6463,6 +6463,8 @@ function sbLigado() {
     o.gpJogo = t.gp / t.j; o.gcJogo = t.gc / t.j;
     o.xgRem = o.xg / o.rem; o.xgRemCon = o.xgCon / o.remCon;
     o.bpConv = o.bpRem / o.bp * 100;
+    o.bpGols = o.cabeca + o.penCon;            /* teto para gol de bola parada — veja sbBlocoGolsParada */
+    o.bpPct = o.bpGols / t.gp * 100;
     o.xgSaldo = o.xg - o.xgCon;
     o.finaliza = (o.gpJogo - o.xg) * t.j;          /* gols acima do esperado, na temporada */
     o.defende = (o.xgCon - o.gcJogo) * t.j;        /* gols sofridos abaixo do esperado */
@@ -6528,7 +6530,7 @@ const SB_INDICADORES = [
   ['valor do elenco', 'valor'], ['bola parada vira remate', 'bpConv', 0, 1],
   ['gols de cabeça', 'cabeca'], ['toques na área', 'toques'],
   ['valor parado no meio', 'valMeio'], ['duelos aéreos ganhos', 'aereos'],
-  ['remates à baliza, %', 'remBal'], ['PPDA (pressão alta)', 'ppda', 1],
+  ['remates à baliza, %', 'remBal'], ['PPDA', 'ppda', 1],
   ['valor parado no ataque', 'valAtq'], ['fatia do valor no ataque', 'shAtq', 0, 1],
   ['cruzamentos certos, %', 'cruzPct'], ['posse de bola', 'posse'],
   ['minutos com estrangeiros', 'minEstr'], ['faltas cometidas', 'faltas', 1],
@@ -6716,15 +6718,22 @@ function sbBlocoQuadro() {
   const itens = SB_INDICADORES.map(([rot, campo, menor, forte]) =>
     ({ rot, v: sbRho(campo, !!menor), forte: !!forte, menor: !!menor }))
     .sort((a, b) => Math.abs(b.v) - Math.abs(a.v));
-  const ZERO = 268, ESC = 300, ALT = 18;
+  const ESQ = 268, ESC = 300, ALT = 18;
+
+  /* AS BARRAS CRESCEM TODAS PARA A DIREITA, e o sinal fica na cor e no numero.
+
+     A primeira versao tinha eixo divergente, com as negativas crescendo para a esquerda do
+     zero. Duas delas ("fatia do valor no ataque" e "idade do time") passavam por cima do
+     proprio rotulo, porque o rotulo tambem termina no zero — texto em cima de barra, sem
+     jeito de ler. Com barra so de um lado, o comprimento diz a FORCA da relacao e a cor diz
+     o sentido; o numero, que vem sempre escrito, resolve qualquer duvida. */
   const svg = itens.map((it, i) => {
-    const y = 4 + i * ALT, w = Math.abs(it.v) * ESC, x = it.v >= 0 ? ZERO : ZERO - w;
-    return '<text x="' + (ZERO - 8) + '" y="' + (y + 11) + '" text-anchor="end" class="sbx-rot' +
+    const y = 4 + i * ALT, w = Math.abs(it.v) * ESC;
+    return '<text x="' + (ESQ - 8) + '" y="' + (y + 11) + '" text-anchor="end" class="sbx-rot' +
         (it.forte ? ' forte' : '') + '">' + esc(it.rot + (it.menor ? ' (menos é melhor)' : '')) + '</text>' +
-      '<rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + Math.max(2, w).toFixed(1) +
+      '<rect x="' + ESQ + '" y="' + y + '" width="' + Math.max(2, w).toFixed(1) +
         '" height="13" rx="4" fill="var(--sb-' + (it.v >= 0 ? 'sobe' : 'cai') + ')"/>' +
-      '<text x="' + (it.v >= 0 ? x + w + 7 : x - 7).toFixed(1) + '" y="' + (y + 11) + '"' +
-        (it.v >= 0 ? '' : ' text-anchor="end"') + ' class="sbx-num">' +
+      '<text x="' + (ESQ + w + 7).toFixed(1) + '" y="' + (y + 11) + '" class="sbx-num">' +
         (it.v >= 0 ? '' : '−') + sbN2(Math.abs(it.v)) + '</text>';
   }).join('');
   const alt = 14 + itens.length * ALT + 22;
@@ -6732,19 +6741,178 @@ function sbBlocoQuadro() {
     '<span class="sb-rot">Tudo o que medimos, em ordem de importância</span>' +
     '<p class="sb-nota">Cada indicador virou o posto de 1 a 20 dentro da própria temporada — porque uma ' +
     'Série B de 1,01 gol por jogo e outra de 1,11 não são o mesmo campeonato — e foi comparado com o posto ' +
-    'na tabela final. <b>1,00 seria relação perfeita; 0, nenhuma.</b></p>' +
+    'na tabela final. <b>1,00 seria relação perfeita; 0, nenhuma.</b> A barra mostra a força; a cor, o ' +
+    'sentido.</p>' +
+    '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>mais do indicador, melhor posição</span>' +
+    '<span><i style="background:var(--sb-cai)"></i>mais do indicador, pior posição</span></div>' +
     '<div class="sb-tela"><svg viewBox="0 0 620 ' + alt + '" class="sb-svg">' +
-      '<line x1="' + ZERO + '" y1="0" x2="' + ZERO + '" y2="' + (alt - 22) + '" class="sbx-eixo"/>' +
-      '<line x1="' + (ZERO + ESC * 0.5) + '" y1="0" x2="' + (ZERO + ESC * 0.5) + '" y2="' + (alt - 22) +
+      '<line x1="' + ESQ + '" y1="0" x2="' + ESQ + '" y2="' + (alt - 22) + '" class="sbx-eixo"/>' +
+      '<line x1="' + (ESQ + ESC * 0.5) + '" y1="0" x2="' + (ESQ + ESC * 0.5) + '" y2="' + (alt - 22) +
         '" class="sbx-eixo" stroke-dasharray="3 4"/>' +
       svg +
-      '<text x="' + ZERO + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0</text>' +
-      '<text x="' + (ZERO + ESC * 0.5) + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0,50</text>' +
+      '<text x="' + ESQ + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0</text>' +
+      '<text x="' + (ESQ + ESC * 0.5) + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0,50</text>' +
     '</svg></div>' +
     '<p class="sb-nota"><b>Posse de bola (' + sbN2(sbRho('posse')) + ') e precisão de passe (' +
     sbN2(sbRho('passePct')) + ') quase não distinguem quem sobe de quem cai</b> — os dois números que mais ' +
     'abrem apresentação de análise de jogo. E <b>idade do time é zero</b> (' + sbN2(sbRho('idade', true)) +
-    '): não existe elenco jovem demais nem velho demais para subir.</p>' +
+    '): não existe elenco jovem demais nem velho demais para subir. O que existe, e a próxima seção mostra, ' +
+    'é idade concentrada no lugar errado.</p>' +
+    '</div>';
+}
+
+/* ---------- distribuicao de elenco por idade ----------
+
+   As faixas sao fechadas a ESQUERDA: "20 a 23" e 20, 21 e 22. Sem essa convencao, alguem
+   soma o atleta de 23 nas duas faixas vizinhas e o total passa de 100%.
+
+   A cor e um DEGRADE de um tom so, do mais claro (jovem) ao mais forte (veterano), porque
+   faixa etaria e ordem, nao categoria. Usar cinco cores diferentes aqui faria a tela
+   sugerir que 23-27 e tao distante de 27-30 quanto de ate-20, e nao e. Cada pedaco ainda
+   vem rotulado, entao a cor nunca e a unica pista. */
+function sbIdade(linhas) {
+  const fora = { total: {}, g: {} };
+  SB_GRUPOS.forEach(g => { fora.g[g] = {}; SB_FAIXAS.forEach(f => { fora.g[g][f] = { min: 0, n: 0 }; }); });
+  SB_FAIXAS.forEach(f => { fora.total[f] = { min: 0, n: 0 }; });
+  const alvo = new Set(linhas.map(x => x.ano + '|' + x.clube));
+  SB_IDADE_POR_CLUBE.forEach(c => {
+    if (!alvo.has(c.ano + '|' + c.clube)) return;
+    SB_GRUPOS.forEach(g => SB_FAIXAS.forEach(f => {
+      fora.g[g][f].min += c.g[g][f].min; fora.g[g][f].n += c.g[g][f].n;
+      fora.total[f].min += c.g[g][f].min; fora.total[f].n += c.g[g][f].n;
+    }));
+  });
+  return fora;
+}
+/* Percentuais de uma distribuicao {faixa:{min,n}}, na chave pedida (min ou n). */
+function sbIdadePct(d, chave) {
+  const tot = SB_FAIXAS.reduce((s, f) => s + d[f][chave], 0) || 1;
+  return SB_FAIXAS.map(f => d[f][chave] / tot * 100);
+}
+
+/* Uma barra empilhada de 100%, com o rotulo do percentual dentro do pedaco quando cabe. */
+function sbEmpilhada(rot, pcts, y, esq, larg, forte) {
+  let x = esq;
+  const partes = pcts.map((p, i) => {
+    const w = p / 100 * larg, cx = x;
+    x += w;
+    const dentro = w > 30
+      ? '<text x="' + (cx + w / 2).toFixed(1) + '" y="' + (y + 12) + '" text-anchor="middle" ' +
+        'class="sbx-emp t' + (i + 1) + '">' + sbN1(p) + '%</text>' : '';
+    return '<rect x="' + cx.toFixed(1) + '" y="' + y + '" width="' + Math.max(0, w - 1).toFixed(1) +
+      '" height="16" fill="var(--sb-i' + (i + 1) + ')"/>' + dentro;
+  }).join('');
+  return '<text x="' + (esq - 8) + '" y="' + (y + 12) + '" text-anchor="end" class="sbx-rot' +
+    (forte ? ' forte' : '') + '">' + esc(rot) + '</text>' + partes;
+}
+
+function sbLegendaIdade() {
+  return '<div class="sb-leg">' + SB_FAIXA_ROT.map((r, i) =>
+    '<span><i class="q" style="background:var(--sb-i' + (i + 1) + ')"></i>' + esc(r) + ' anos</span>').join('') +
+    '</div>';
+}
+
+function sbBlocoIdade() {
+  const L = sbComp();
+  const por = f => sbIdade(L.filter(x => x.faixa === f));
+  const s = por('sobe'), m = por('meio'), c = por('cai');
+  const ESQ = 168, LARG = 400;
+  const linha = (rot, d, y, forte) => sbEmpilhada(rot, sbIdadePct(d, 'min'), y, ESQ, LARG, forte);
+
+  const GRUPO_ROT = { goleiro: 'Goleiro', defesa: 'Defesa', meio: 'Meio-campo', ataque: 'Ataque' };
+  const setores = SB_GRUPOS.map((g, i) => {
+    const y = i * 62;
+    return '<text x="0" y="' + (y + 11) + '" class="sbx-tit">' + GRUPO_ROT[g].toUpperCase() + '</text>' +
+      sbEmpilhada('sobe', sbIdadePct(s.g[g], 'min'), y + 18, ESQ, LARG, true) +
+      sbEmpilhada('cai', sbIdadePct(c.g[g], 'min'), y + 37, ESQ, LARG, true);
+  }).join('');
+
+  /* o numero que mais separa: a fatia de minutos dos 30+ e a dos 20-23 */
+  const v30 = x => sbIdadePct(x.total, 'min')[4], v2023 = x => sbIdadePct(x.total, 'min')[1];
+  const m30 = g => sbIdadePct(s.g[g], 'min')[4], c30 = g => sbIdadePct(c.g[g], 'min')[4];
+
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">Distribuição de elenco por idade · % dos minutos</span>' +
+    sbLegendaIdade() +
+    '<div class="sb-tela"><svg viewBox="0 0 620 76" class="sb-svg">' +
+      linha('quem sobe (1º–4º)', s.total, 4, true) +
+      linha('meio (5º–16º)', m.total, 24) +
+      linha('quem cai (17º–20º)', c.total, 44, true) +
+    '</svg></div>' +
+    '<p class="sb-nota"><b>Quem cai é mais velho onde importa.</b> Os atletas de 30 anos ou mais levam <b>' +
+    sbN1(v30(c)) + '%</b> dos minutos de quem cai contra <b>' + sbN1(v30(s)) + '%</b> de quem sobe. E a faixa ' +
+    'de <b>20 a 23</b> — a idade em que o atleta já joga e ainda valoriza — é o espelho: ' + sbN1(v2023(s)) +
+    '% dos minutos de quem sobe contra ' + sbN1(v2023(c)) + '% de quem cai, quase metade.</p>' +
+
+    '<span class="sb-rot" style="margin-top:6px">Por grupo de posição · % dos minutos do setor</span>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (SB_GRUPOS.length * 62 + 4) + '" class="sb-svg">' +
+      setores + '</svg></div>' +
+    '<p class="sb-nota"><b>O meio-campo é onde a diferença de idade grita.</b> Quem cai dá <b>' +
+    sbN1(c30('meio')) + '%</b> dos minutos do meio a atletas de 30+; quem sobe, <b>' + sbN1(m30('meio')) +
+    '%</b>. São ' + sbN1(c30('meio') - m30('meio')) + ' pontos — de longe a maior distância entre os quatro ' +
+    'setores. Na defesa a diferença é de ' + sbN1(c30('defesa') - m30('defesa')) + ' pontos, e <b>no ataque ' +
+    'praticamente não existe</b> (' + sbN1(m30('ataque')) + '% contra ' + sbN1(c30('ataque')) + '%).</p>' +
+    '<p class="sb-nota">O goleiro é o setor velho de todo mundo — 30+ leva mais da metade dos minutos nas ' +
+    'três faixas. É o único em que a idade não separa nada, e faz sentido: goleiro joga até tarde.</p>' +
+    '<p class="sb-nota">Duas ressalvas. A idade é a do atleta em <b>setembro</b> daquele ano, conferida ' +
+    'contra 3.181 datas de nascimento do Transfermarkt (exata em 90%, um ano de diferença em 9% — e parte ' +
+    'desses 9% é homônimo casado errado). Serve para faixas de três e quatro anos; não serve para conta no ' +
+    'nível do atleta. E o grupo de posição sai da <b>posição principal do Wyscout</b>, a primeira da lista ' +
+    'dele: quem não é goleiro, zaga, lateral nem meio entra em "ataque".</p>' +
+    '</div>';
+}
+
+/* Gols de bola parada — o que dá para medir, e o que não dá.
+
+   ESTE NUMERO NAO EXISTE NA BASE. O Team Stats do Wyscout conta bolas paradas e quantas
+   viram remate, nunca quantas viram gol; a base por atleta conta gol de cabeca e penalti.
+   O que se monta aqui e "gol de cabeca + penalti convertido", que e um TETO: pega quase
+   todo gol de escanteio e falta cruzada, mas leva junto cabecada de cruzamento em jogada
+   corrida, e deixa de fora o gol de falta batida rasteiro e a sobra de escanteio chutada.
+   Esta escrito na tela porque um numero desses sem etiqueta vira verdade em duas semanas. */
+function sbBlocoGolsParada() {
+  const cab = sbPorFaixa('cabeca'), pen = sbPorFaixa('penCon'), gp = sbPorFaixa('gp');
+  const prox = f => cab[f] + pen[f], pct = f => prox(f) / gp[f] * 100;
+  const ESQ = 168, LARG = 380, ESC = LARG / Math.max(gp.sobe, gp.meio, gp.cai);
+  const linha = (rot, f, y, forte) => {
+    const a = cab[f] * ESC, b = pen[f] * ESC, c = (gp[f] - prox(f)) * ESC;
+    return '<text x="' + (ESQ - 8) + '" y="' + (y + 12) + '" text-anchor="end" class="sbx-rot' +
+        (forte ? ' forte' : '') + '">' + rot + '</text>' +
+      '<rect x="' + ESQ + '" y="' + y + '" width="' + (a - 1).toFixed(1) + '" height="16" fill="var(--sb-i5)"/>' +
+      '<rect x="' + (ESQ + a).toFixed(1) + '" y="' + y + '" width="' + (b - 1).toFixed(1) +
+        '" height="16" fill="var(--sb-i3)"/>' +
+      '<rect x="' + (ESQ + a + b).toFixed(1) + '" y="' + y + '" width="' + (c - 1).toFixed(1) +
+        '" height="16" fill="var(--sb-i1)"/>' +
+      '<text x="' + (ESQ + LARG * (gp[f] / Math.max(gp.sobe, gp.meio, gp.cai)) + 8).toFixed(1) + '" y="' +
+        (y + 12) + '" class="sbx-num">' + sbN1(gp[f]) + ' gols</text>';
+  };
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">Gols de bola parada — o que dá para medir</span>' +
+    '<div class="sb-leg"><span><i class="q" style="background:var(--sb-i5)"></i>de cabeça</span>' +
+    '<span><i class="q" style="background:var(--sb-i3)"></i>pênalti</span>' +
+    '<span><i class="q" style="background:var(--sb-i1)"></i>todo o resto</span></div>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 76" class="sb-svg">' +
+      linha('quem sobe', 'sobe', 4, true) + linha('meio', 'meio', 24) + linha('quem cai', 'cai', 44, true) +
+    '</svg></div>' +
+    '<p class="sb-nota"><b>Antes do número, o aviso: ele não existe na base.</b> O Wyscout conta quantas ' +
+    'bolas paradas viram remate, nunca quantas viram gol. O que dá para somar é <b>gol de cabeça + pênalti ' +
+    'convertido</b>, que é um <b>teto</b>: pega quase todo gol de escanteio e de falta cruzada, mas leva ' +
+    'junto a cabeçada de cruzamento em jogada corrida, e deixa de fora o gol de falta rasteira e a sobra de ' +
+    'escanteio chutada.</p>' +
+    '<p class="sb-nota">Com essa etiqueta: quem sobe faz <b>' + sbN1(prox('sobe')) + '</b> desses gols por ' +
+    'temporada e quem cai, <b>' + sbN1(prox('cai')) + '</b>. Mas <b>a proporção é igual</b> — ' +
+    sbN1(pct('sobe')) + '% dos gols de quem sobe contra ' + sbN1(pct('cai')) + '% de quem cai, e a relação ' +
+    'com a posição final é de apenas ' + sbN2(sbRho('bpPct')) + '.</p>' +
+    '<p class="sb-nota"><b>A conclusão que isso permite é específica.</b> Dos ' +
+    sbN1(gp.sobe - gp.cai) + ' gols que separam quem sobe de quem cai, só <b>' +
+    sbN1(prox('sobe') - prox('cai')) + '</b> vêm da bola parada; <b>' +
+    sbN1((gp.sobe - prox('sobe')) - (gp.cai - prox('cai'))) + '</b> vêm do resto. Bola parada acompanha ' +
+    'quem é bom, não fabrica quem sobe. O que separa de verdade, na bola parada, é outra coisa: ' +
+    '<b>transformar a cobrança em finalização</b> — esse sim anda com a posição final a ' +
+    sbN2(sbRho('bpConv')) + '.</p>' +
+    '<p class="sb-nota">Para ter o número de verdade seria preciso outra exportação do Wyscout: a de ' +
+    '<b>eventos por tipo de jogada</b> (ou a aba de bola parada do próprio site), que marca a origem de cada ' +
+    'gol. Com ela eu refaço este bloco sem proxy nenhum.</p>' +
     '</div>';
 }
 
@@ -7097,9 +7265,13 @@ function sbRender() {
        'Ressalva de método: a base não marca "gol de bola parada"; o que dá para medir é quanto da ' +
        'bola parada vira remate e quantos gols saíram de cabeça e de pênalti.') +
 
+    sbBlocoGolsParada() +
+
     sbBlocoDinheiro() +
 
     sbBlocoUso() +
+
+    sbBlocoIdade() +
 
     sbBlocoMando() +
 

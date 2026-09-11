@@ -2817,3 +2817,18 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-tab tr.sb-grupo td{padding-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--tinta3);font-weight:700;border-bottom:none}
 .sb-tab tr:last-child td{border-bottom:none}
+
+/* Faixas etárias: DEGRADÊ de um tom só, do jovem ao veterano — faixa de idade é ordem, não
+   categoria. Cinco cores diferentes fariam 23-27 parecer tão distante de 27-30 quanto de
+   até-20. Em cada tema a rampa cresce em contraste contra o próprio fundo, para o passo mais
+   claro não sumir no escuro nem o mais escuro sumir no claro. */
+#pgSerieB{--sb-i1:#24404f;--sb-i2:#2f6480;--sb-i3:#4189ad;--sb-i4:#62aed0;--sb-i5:#96cfe8}
+body.claro #pgSerieB{--sb-i1:#cfe3ee;--sb-i2:#9cc6dd;--sb-i3:#5fa2c6;--sb-i4:#2a7ba6;--sb-i5:#0f5478}
+.sbx-emp{font-size:10px;font-weight:700}
+/* O rotulo dentro do pedaco precisa de contraste contra AQUELE passo da rampa, nao contra o
+   fundo do bloco: tinta clara sobre os passos escuros, tinta escura sobre os claros. E o
+   lado escuro da rampa troca de ponta entre os dois temas, por isso as duas listas. */
+.sbx-emp.t1,.sbx-emp.t2,.sbx-emp.t3{fill:#eaf2f7}
+.sbx-emp.t4,.sbx-emp.t5{fill:#0d1b23}
+body.claro .sbx-emp.t1,body.claro .sbx-emp.t2,body.claro .sbx-emp.t3{fill:#0d2633}
+body.claro .sbx-emp.t4,body.claro .sbx-emp.t5{fill:#f4f9fc}

@@ -19,8 +19,12 @@ exportação não é do campeonato que se pensava.
    no mesmo dia (11/09/2026), e o Wyscout escreve a idade atual do jogador em todas as
    linhas. Adriano Martins aparece com 29 anos nas linhas de 2023, 2025 e 2026. Usar essa
    coluna como "idade na época" envelhece o elenco de 2022 em quatro anos. Por isso existe
-   `idade_na_temporada` = `Idade - (2026 - ano)`, que é aproximada em ±1 (depende de o
-   aniversário cair antes ou depois de setembro) e está marcada como aproximada.
+   `idade_na_temporada` = `Idade - (2026 - ano)`, que é a idade do atleta em **setembro
+   daquele ano** — os arquivos saíram em 11/09/2026, então subtrair a diferença de anos dá
+   a idade na mesma data de cada temporada. Conferido contra 3.181 datas de nascimento do
+   Transfermarkt: exato em 90% e um ano de diferença em 9%, e parte desses 9% é homônimo
+   casado errado, não idade errada. Serve para faixas etárias de três e quatro anos; não
+   serve para conta no nível do atleta.
 
 2. **Zero quer dizer "sem dado" em três colunas.** Altura, Peso e Valor de mercado. Não é
    detalhe: são 1.778 valores de mercado zerados, 46% da base. Uma média de valor de
@@ -97,7 +101,10 @@ def clubes_por_ano():
     esquecer de atualizar.
     """
     t = open(APP, encoding="utf-8").read()
-    bloco = t[t.index("const SB_TABELAS"): t.index("const SB_USO")]
+    # fim do bloco: `SB_COMPLETAS`, que vem logo depois. Era `SB_USO` ate set/26, e quando a
+    # SB_USO saiu do app.js os tres scripts que liam a tabela quebraram de uma vez. Ancora
+    # boa e a que nao tem motivo para sumir.
+    bloco = t[t.index("const SB_TABELAS"): t.index("const SB_COMPLETAS")]
     fora = {}
     for m in re.finditer(r"(\d{4}):\s*\[(.*?)\],\n(?=\s*\d{4}:|\};)", bloco, re.S):
         fora[int(m.group(1))] = {nfc(c) for _, c in re.findall(r"\[(\d+),'([^']+)'", m.group(2))}

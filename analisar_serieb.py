@@ -61,7 +61,9 @@ TM = {nfc(k): nfc(v) for k, v in TM.items()}
 
 def tabelas():
     t = open(f"{RAIZ}/static/app.js", encoding="utf-8").read()
-    b = t[t.index("const SB_TABELAS"): t.index("const SB_USO")]
+    # fim do bloco: `SB_COMPLETAS`, que vem logo depois. Era `SB_USO` ate set/26, e quando a
+    # SB_USO saiu do app.js os tres scripts que liam a tabela quebraram de uma vez.
+    b = t[t.index("const SB_TABELAS"): t.index("const SB_COMPLETAS")]
     linhas = []
     for m in re.finditer(r"(\d{4}):\s*\[(.*?)\],\n(?=\s*\d{4}:|\};)", b, re.S):
         ano = int(m.group(1))
