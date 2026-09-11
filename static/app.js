@@ -1736,11 +1736,24 @@ function fbBotao() {
                'que monta o arquivo); PNG, PDF e o comparativo entre grupos continuam.';
   if (FB.usuario) {
     const email = FB.usuario.email || 'você';
-    el.innerHTML = '<b class="fb-on" title="' + esc(email) +
-      ' — o que você salvar fica visível para todos">✓ ' + esc(email) + '</b>' +
+    /* SEM ACESSO e "salvando para todos" nao podem aparecer juntos — apareceram, numa
+       tela real, e as duas frases se contradizem: entrou, mas o e-mail nao esta nas
+       regras, entao nada vai para a nuvem. Dizer que esta salvando para todos nesse
+       estado e prometer o que nao acontece, e o pior tipo de erro de interface: o
+       usuario so descobre quando o outro nao ve o grupo. */
+    const semAcesso = !!FB.erro;
+    el.innerHTML = '<b class="fb-on' + (semAcesso ? ' bloq' : '') + '" title="' + esc(email) +
+      (semAcesso ? ' — entrou, mas este e-mail não está liberado nas regras do Firestore'
+                 : ' — o que você salvar fica visível para todos') + '">✓ ' + esc(email) + '</b>' +
       '<button class="fb-bt" id="fbSair">sair</button>';
     $('#fbSair').onclick = fbSair;
-    if (av) { av.textContent = 'salvando para todos'; av.title = base; }
+    if (av) {
+      av.textContent = semAcesso ? 'sem acesso — salva só neste navegador' : 'salvando para todos';
+      av.title = semAcesso
+        ? 'Seu e-mail não está na lista das regras do Firestore, então os grupos ' +
+          'compartilhados não carregam e o Salvar fica só neste navegador. ' + base
+        : base;
+    }
   } else if (FB.pronto) {
     el.innerHTML = '<button class="fb-bt entrar" id="fbEntrar" title="Entrar com o Google. ' +
       'Sem entrar, o que você salvar fica só neste navegador; entrando, fica visível para ' +
@@ -1756,7 +1769,8 @@ function fbBotao() {
   }
   if (FB.erro && FB.usuario) {
     el.insertAdjacentHTML('beforeend',
-      '<b class="fb-off" title="' + esc(FB.erro) + '">⚠ sem acesso</b>');
+      '<b class="fb-off" title="' + esc(FB.erro) +
+      ' — peça para incluírem seu e-mail nas regras do Firestore">⚠ sem acesso</b>');
   }
 }
 
@@ -1970,7 +1984,7 @@ async function salvarCenario() {
        falhar (regra, rede), NAO cai calado para o localStorage — isso seria o pior dos
        mundos, a pessoa acreditando que compartilhou quando so guardou no proprio
        aparelho. O cenNuvemGravar ja explicou o motivo num toast; aqui so paramos. */
-    if (FB.usuario) {
+    if (FB.usuario && !FB.erro) {
       if (!await cenNuvemGravar(estado)) return;
       ondeFoi = ' — todos veem';
     } else {

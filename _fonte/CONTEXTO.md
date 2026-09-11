@@ -1048,3 +1048,11 @@ para quem quiser o outro caminho. Grava no mesmo lugar — mesma informação, o
 temporadas, uma barra por ano: a altura do preenchimento é quanto de uma temporada inteira
 o atleta jogou. Barra vazada = o dado veio do oGol, que dá jogos e não minutos. O balão
 diz temporada por temporada.
+
+**"Sem acesso" e "salvando para todos" ao mesmo tempo (set/26).** Apareceu numa tela real,
+com um segundo e-mail logado antes de as regras serem publicadas. As duas frases se
+contradizem: entrou, mas o e-mail não está na lista, então **nada** vai para a nuvem.
+Dizer "salvando para todos" nesse estado promete o que não acontece, e é o pior tipo de
+erro de interface — o usuário só descobre quando o outro não vê o grupo. Agora, com
+`FB.erro`, o aviso diz *"sem acesso — salva só neste navegador"*, o e-mail perde o verde,
+e o `salvarCenario()` nem tenta a nuvem (`FB.usuario && !FB.erro`).

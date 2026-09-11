@@ -2512,3 +2512,8 @@ body.claro .ind-linha input[type=date]{color-scheme:light}
 .campo.denso .jog-mais,.campo.denso .jog-menu,.campo.denso .jog-x,.campo.denso .jog-emp{
   width:18px;font-size:14px}
 @media print{ .jog-emp{display:none!important} }
+
+/* e-mail entrou mas não está liberado: deixa de ser verde, senão a linha inteira parece
+   um estado bom quando não é */
+.fb-on.bloq{color:var(--coral-cl)}
+body.claro .fb-on.bloq{color:var(--coral)}
