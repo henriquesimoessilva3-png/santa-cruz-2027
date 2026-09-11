@@ -276,6 +276,11 @@ main{display:flex;flex:1;min-height:0;overflow:hidden}
 .top-sal .pos-tag{font-size:9px;font-weight:700;padding:1px 4px;border-radius:4px;background:var(--fundo3);color:var(--tinta2);flex:none;width:32px;text-align:center}
 .top-sal .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .top-sal .vl{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums;flex:none}
+/* as duas listas da Análise viraram clicaveis (abrem a grade de posicoes): o cursor e
+   o realce sao o unico aviso de que da para clicar — sem eles a linha parece so texto */
+.jog-mv{cursor:pointer;border-radius:5px;margin:0 -4px;padding-left:4px;padding-right:4px}
+.jog-mv:hover{background:var(--veu2)}
+.jog-mv:hover .pos-tag{background:var(--coral);color:#fff}
 
 /* ---------- modal ---------- */
 .modal{position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(3px);
