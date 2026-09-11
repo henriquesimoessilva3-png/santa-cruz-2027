@@ -2016,7 +2016,29 @@ async function listarCenarios() {
   } catch (e) {}
 }
 
-async function salvarCenario() {
+/* SALVAR GRAVA POR CIMA. Se o grupo já existe (tem `id`), o Salvar sobrescreve ele e
+   pronto — sem perguntar nada. Para criar outro existe o "Salvar como novo grupo".
+
+   Quando NÃO havia id o Salvar criava um grupo novo em silêncio, e isso mordia num caso
+   comum: o elenco de partida do site publicado entra com `id: null` de propósito (para
+   ninguém sobrescrever o modelo sem querer), então o primeiro Salvar de quem abria o site
+   criava um grupo novo em vez de atualizar o que estava na tela. Agora, sem id, o app
+   PERGUNTA o nome — fica explícito que está nascendo um grupo, em vez de aparecer um
+   duplicado na lista. */
+async function salvarCenario(comoNovo) {
+  if (comoNovo || !estado.id) {
+    const sugerido = comoNovo ? (estado.nome || 'Grupo') + ' (cópia)' : (estado.nome || 'Grupo 1');
+    const nome = prompt(comoNovo ? 'Nome do novo grupo:' : 'Este grupo ainda não foi salvo. Nome:', sugerido);
+    if (nome === null) return;                 /* cancelou: não salva nada */
+    if (nome.trim()) estado.nome = nome.trim();
+    estado.id = null;                          /* força id novo abaixo */
+  }
+  return gravarCenario();
+}
+
+/* A gravação em si, sem perguntar nada. Separada porque o "Duplicar grupo" já pediu o
+   nome antes de chamar — sem isto, ele perguntaria duas vezes seguidas. */
+async function gravarCenario() {
   estado.total = totalGeral();
   estado.atletas = todosJogadores().length;
   let id, ondeFoi = '';
@@ -2051,6 +2073,7 @@ async function salvarCenario() {
   salvarLocal();
   await listarCenarios();
   $('#selCenario').value = id;
+  sincronizarBotoes();
   toast('Grupo "' + estado.nome + '" salvo' + (ESTATICO ? ondeFoi : ''), 'bom');
 }
 
@@ -2069,6 +2092,13 @@ function aplicarTema() {
 
 function sincronizarBotoes() {
   aplicarTema();
+  /* O botão tem de dizer o que vai acontecer ANTES do clique: gravar por cima de um grupo
+     e criar um grupo novo são coisas diferentes, e a diferença não pode estar só no
+     resultado. */
+  const bS = $('#btSalvar');
+  if (bS) bS.title = estado.id
+    ? 'Grava por cima de "' + (estado.nome || 'este grupo') + '" (Ctrl+S)'
+    : 'Este grupo ainda não foi salvo — vai pedir um nome (Ctrl+S)';
   const bA = $('#btAjustar');
   if (bA) bA.innerHTML = 'Escala: <b>' + rotuloEscala() + '</b>';
   const det = !!(estado.ct && estado.ct.detalhar);
@@ -5478,7 +5508,9 @@ function ligar() {
     escalaProxima();
     sincronizarBotoes(); salvarLocal(); ajustarCampo();
   };
-  $('#btSalvar').onclick = salvarCenario;
+  $('#btSalvar').onclick = () => salvarCenario(false);
+  const bSC = $('#btSalvarComo');
+  if (bSC) bSC.onclick = () => salvarCenario(true);
   $('#btExcel').onclick = exportarExcel;
   $('#btPng').onclick = exportarPng;
   $('#btPdf').onclick = gerarPdf;
@@ -5502,7 +5534,7 @@ function ligar() {
     if (n === null) return;
     estado.id = null;
     estado.nome = n || estado.nome + ' (variação)';
-    await salvarCenario();
+    await gravarCenario();
   };
   $('#btRenomear').onclick = () => {
     const c = $('#marcaSub');
