@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789166462">
+<link rel="stylesheet" href="static/style.css?v=1789166694">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -316,6 +316,17 @@
             <div class="rk-campo-f">
               <label>Pé preferido</label>
               <div class="msel" id="fsPeSel"></div>
+            </div>
+            <div class="rk-campo-f">
+              <!-- Vazio = TODOS, ao contrario do mesmo campo na aba Fim de contrato, onde
+                   ele ja nasce em dez/26 e vale sempre. La a tela inteira e sobre contrato;
+                   aqui e sobre fisico, e um filtro ligado por padrao esconderia meia base
+                   sem a pessoa ter pedido. -->
+              <label>Contrato até</label>
+              <input type="month" id="fsAte" value="" min="2025-01" max="2032-12"
+                     title="Deixe vazio para todos. Com uma data, ficam só os contratos que terminam até ela.">
+              <label class="chk rk-chk" title="Só quem tem data de contrato confirmada pela fonte"><input type="checkbox" id="fsSoConf"> só contrato confirmado</label>
+              <small class="fs-perfil-nota" id="fsAteNota"></small>
             </div>
             <div class="rk-campo-f">
               <label>Adicionar jogador</label>
@@ -690,8 +701,8 @@
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1789166355";</script>
-<script src="static/fs_visoes.js?v=1789166462"></script>
-<script src="static/sb_clubes.js?v=1789166462"></script>
-<script src="static/app.js?v=1789166462"></script>
+<script src="static/fs_visoes.js?v=1789166694"></script>
+<script src="static/sb_clubes.js?v=1789166694"></script>
+<script src="static/app.js?v=1789166694"></script>
 </body>
 </html>

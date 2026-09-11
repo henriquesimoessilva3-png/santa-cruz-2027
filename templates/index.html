@@ -315,6 +315,17 @@
               <div class="msel" id="fsPeSel"></div>
             </div>
             <div class="rk-campo-f">
+              <!-- Vazio = TODOS, ao contrario do mesmo campo na aba Fim de contrato, onde
+                   ele ja nasce em dez/26 e vale sempre. La a tela inteira e sobre contrato;
+                   aqui e sobre fisico, e um filtro ligado por padrao esconderia meia base
+                   sem a pessoa ter pedido. -->
+              <label>Contrato até</label>
+              <input type="month" id="fsAte" value="" min="2025-01" max="2032-12"
+                     title="Deixe vazio para todos. Com uma data, ficam só os contratos que terminam até ela.">
+              <label class="chk rk-chk" title="Só quem tem data de contrato confirmada pela fonte"><input type="checkbox" id="fsSoConf"> só contrato confirmado</label>
+              <small class="fs-perfil-nota" id="fsAteNota"></small>
+            </div>
+            <div class="rk-campo-f">
               <label>Adicionar jogador</label>
               <div class="fs-busca"><input type="text" id="fsBusca"
                 placeholder="Nome ou clube…" autocomplete="off">

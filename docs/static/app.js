@@ -4012,6 +4012,7 @@ function fsCongelar() {
 
 function fsRender() {
   fsPerfilNota();
+  fsAteNota();
   if (!BASE.length || !$('#fsMatriz')) return;
   const co = fsCoorteAB();
   const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
@@ -4686,6 +4687,17 @@ function fsPlacarPerfil(j, f) {
            julgavel: medidos >= f.itens.length * 0.6 };
 }
 
+/* Diz em texto o que o campo de contrato esta fazendo. Vazio ele avisa que esta desligado
+   — sem isso, "todos" e indistinguivel de "o filtro nao funciona". */
+function fsAteNota() {
+  const el = $('#fsAteNota'), inp = $('#fsAte');
+  if (!el || !inp) return;
+  if (!inp.value) { el.textContent = 'vazio: todos os contratos'; return; }
+  const com = fsPool().length;
+  const sem = fsPool({ contrato: 1 }).length;
+  el.textContent = com + ' de ' + sem + ' na posição';
+}
+
 function fsPerfilLigado() {
   const c = $('#fsPerfil');
   return c && c.checked && fsFundamentais() ? (parseInt($('#fsPerfilPct').value) || 100) : null;
@@ -4699,7 +4711,7 @@ function fsPerfilNota() {
   const f = fsFundamentais();
   if (!f) { el.textContent = 'sem referência para esta posição'; return; }
   const alvo = parseInt($('#fsPerfilPct').value) || 100;
-  const pool = fsPool(true);
+  const pool = fsPool({ perfil: 1 });
   const passam = pool.filter(j => {
     const p = fsPlacarPerfil(j, f);
     return p.julgavel && p.pct >= alvo;
@@ -4708,8 +4720,15 @@ function fsPerfilNota() {
     ' passam · barra de quem subiu (' + f.n_sobe + ' atletas)';
 }
 
-function fsPool(semPerfil) {
-  const perfil = semPerfil ? null : fsPerfilLigado();
+/* `pular` desliga filtros por nome — `{perfil:1}` ou `{contrato:1}`. Era um booleano
+   `semPerfil`, e com dois filtros opcionais isso vira armadilha na hora: `fsPool(true)`
+   nao diz QUAL dos dois esta sendo pulado, e a nota do contrato acabou comparando a coisa
+   errada por causa disso. Nome explicito nao tem esse problema. */
+function fsPool(pular) {
+  pular = pular || {};
+  const perfil = pular.perfil ? null : fsPerfilLigado();
+  const ate = pular.contrato ? '' : (($('#fsAte') || {}).value || '');
+  const soConf = !!($('#fsSoConf') || {}).checked;
   const fund = perfil != null ? fsFundamentais() : null;
   const ligas = mselSelecionados('fsLigaSel');
   const paises = mselSelecionados('fsPaisSel');
@@ -4727,6 +4746,15 @@ function fsPool(semPerfil) {
     for (const [d, f] of faixas) {
       const v = j[d.k];
       if (typeof v !== 'number' || isNaN(v) || v < f.lo || v > f.hi) return false;
+    }
+    /* Contrato ate. VAZIO = TODOS — e essa e a diferenca proposital para o mesmo campo na
+       aba Fim de contrato, onde ele nasce em dez/26 e vale sempre. La a tela e sobre
+       contrato; aqui e sobre fisico, e filtro ligado por padrao esconderia meia base sem
+       ninguem ter pedido. Com data, a regra e a mesma de la: sem `ct` o jogador sai (nao
+       da para afirmar que o contrato termina ate a data se nao ha data). */
+    if (ate) {
+      if (!j.ct || j.ct.slice(0, 7) > ate) return false;
+      if (soConf && j.ctc !== 'alta') return false;
     }
     if (fund) {
       const p = fsPlacarPerfil(j, fund);
@@ -4999,6 +5027,7 @@ function fsMontarFiltros() {
   $('#fsTopFiltro').oninput = debounce(fsRender, 200);
   /* o filtro de perfil. A barra so fica ativa com a caixa marcada — barra viva com filtro
      desligado convida a arrastar e nao ver nada acontecer. */
+  ['#fsAte', '#fsSoConf'].forEach(sel => { $(sel).onchange = fsRender; });
   $('#fsPerfil').onchange = () => {
     $('#fsPerfilPct').disabled = !$('#fsPerfil').checked;
     fsRender();

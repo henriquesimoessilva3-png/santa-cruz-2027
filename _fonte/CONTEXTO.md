@@ -1743,6 +1743,24 @@ Três detalhes que fazem o filtro valer:
 
 Na posição MEI: 511 jogadores viram 393 (50%), 261 (70%), 141 (90%) e **68 (100%)**.
 
+### "Contrato até" também no painel do Físico
+
+O mesmo campo da aba Fim de contrato, com **uma diferença deliberada**: aqui ele nasce
+**vazio, e vazio quer dizer todos**. Na aba Fim de contrato ele nasce em dez/26 e vale
+sempre — lá a tela inteira é sobre contrato. Aqui a tela é sobre físico, e um filtro ligado
+por padrão esconderia meia base sem ninguém ter pedido. Com uma data preenchida, a regra é
+a mesma de lá: quem não tem `ct` sai (não dá para afirmar que o contrato acaba até a data
+se não há data).
+
+Compõe com o filtro de perfil, e é aí que fica útil: contrato até dez/26 **e** cumpre o
+perfil de quem sobe dá uma lista de alvos em dois cliques. Na posição MEI, 511 viram 89 por
+contrato, 53 exigindo confirmação, e 3 somando o perfil.
+
+> **`fsPool` recebe opções nomeadas, não um booleano.** Era `fsPool(semPerfil)`; com dois
+> filtros opcionais, `fsPool(true)` deixa de dizer QUAL está sendo pulado — e a nota do
+> contrato chegou a comparar a coisa errada por isso. Hoje é `fsPool({perfil:1})` ou
+> `{contrato:1}`.
+
 ### Armadilha de publicação: o `--push` que não publica
 
 `publicar_site.py --push` faz `git add docs`, e **se o `docs/` já estiver commitado ele
