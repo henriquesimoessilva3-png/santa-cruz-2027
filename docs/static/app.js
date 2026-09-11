@@ -8049,10 +8049,31 @@ function sbRender() {
       'das partidas e fecha em 90 dos 100 clube-temporada.</p>' +
     '</div>');
 
+  /* O indice rola A CAIXA DA ABA, nao a pagina.
+
+     Com `scrollIntoView` o navegador sobe TODOS os ancestrais roláveis até enquadrar o
+     elemento — inclusive o documento. Nesta tela o conteudo vive num `.emp-rolagem` de
+     altura fixa, mas se a janela da pessoa deixar o body um fio mais alto que a viewport,
+     o documento tambem rola, e a faixa do topo com o escudo e as abas some. Foi o que
+     aconteceu. Aqui a rolagem e explicita: acha a caixa que rola de verdade e move so ela.
+
+     O desconto da altura do indice existe porque ele e grudento: sem isso o titulo da
+     secao nasce escondido embaixo dos proprios botoes. */
   alvo.querySelectorAll('.sb-indice button').forEach(b => {
     b.onclick = () => {
-      const alvoSec = $('#sbSec-' + b.dataset.sec);
-      if (alvoSec) alvoSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const sec = $('#sbSec-' + b.dataset.sec);
+      if (!sec) return;
+      let caixa = sec.parentElement;
+      while (caixa && caixa !== document.body) {
+        const ov = getComputedStyle(caixa).overflowY;
+        if (/(auto|scroll)/.test(ov) && caixa.scrollHeight > caixa.clientHeight) break;
+        caixa = caixa.parentElement;
+      }
+      const indice = alvo.querySelector('.sb-indice');
+      const folga = (indice ? indice.getBoundingClientRect().height : 0) + 8;
+      if (!caixa || caixa === document.body) { sec.scrollIntoView({ block: 'start' }); return; }
+      const topo = sec.getBoundingClientRect().top - caixa.getBoundingClientRect().top;
+      caixa.scrollTo({ top: caixa.scrollTop + topo - folga, behavior: 'smooth' });
     };
   });
   alvo.querySelectorAll('.sb-bt').forEach(b => {

@@ -1614,6 +1614,11 @@ medido. Corrigir uma partida numa base e rodar a cadeia corrige a tela inteira.
 - **Casar SkillCorner com Wyscout por nome sozinho é o erro conhecido da casa.** A guarda de
   idade (2 anos abaixo, 3 acima) leva a conferência de 98,0% para 98,2% e corta uma classe
   inteira de homônimo.
+- **`scrollIntoView` rola TODOS os ancestrais roláveis, inclusive o documento.** O índice de
+  seções fazia a faixa do topo (escudo, KPIs e abas) sumir em janelas onde o body ficava um
+  fio mais alto que a viewport. A rolagem agora é explícita: acha a caixa que rola de
+  verdade (`.emp-rolagem`) e move só ela, descontando a altura do índice grudento para o
+  título da seção não nascer escondido embaixo dos próprios botões.
 
 ### Pendências
 
