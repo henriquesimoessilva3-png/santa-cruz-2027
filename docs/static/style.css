@@ -2542,3 +2542,34 @@ body.claro .fb-on.bloq{color:var(--coral)}
 .jog.st-alvo{border-left-color:var(--ambar)}
 .jog.st-negociando{border-left-color:var(--roxo)}
 .jog.st-fechado{border-left-color:var(--verde)}
+
+/* ---------- a ★ virou botão ----------
+   Antes era um <span> desenhado só para quem já era titular, embora a legenda dissesse
+   "clique no ★ para trocar" — não havia estrela em que clicar nos outros. Agora existe
+   em todos: cheia no titular, apagada nos demais, acendendo no hover. */
+.estrela{background:none;border:0;padding:0;cursor:pointer;line-height:1;
+  font-size:inherit;color:var(--coral-cl);transition:color .12s,opacity .12s}
+.estrela.vazia{color:var(--pilula-meta);opacity:.28}
+.jog:hover .estrela.vazia{opacity:.6}
+.estrela.vazia:hover{color:var(--coral-cl);opacity:1}
+/* "tirar o status" é ação de limpar, não de escolher: fica apagada, longe das três */
+.menu-jog button.apagar{font-size:10.5px;color:var(--tinta3)}
+@media print{ .estrela.vazia{display:none} }
+.menu-jog button .menu-nota{display:block;font-style:normal;font-size:9px;color:var(--tinta3);
+  font-weight:400;margin-top:1px}
+
+/* ---------- níveis do elenco: Main, Squad, Youth ----------
+   As MESMAS cores da aba Empresários e da coluna de avaliação dos Indicados: verde o
+   titular, âmbar o reserva, azul o jovem. Cor que muda de significado entre telas é pior
+   que não ter cor — a pessoa aprende uma vez e usa em todo lugar. */
+.m-niv{font-size:calc(8.5px * var(--fz));font-weight:800;letter-spacing:.4px;
+  padding:0 5px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.m-niv.niv-squad{color:var(--ambar);background:color-mix(in srgb,var(--ambar) 20%,transparent)}
+.m-niv.niv-youth{color:var(--azul);background:color-mix(in srgb,var(--azul) 20%,transparent)}
+body.claro .m-niv.niv-squad{color:#8a5a00}
+body.claro .m-niv.niv-youth{color:#1b4fa8}
+/* a estrela do Main fica verde como o nível, e não coral: ela É a marca do Main */
+.estrela{color:var(--verde)}
+body.claro .estrela{color:#0f7a3d}
+.estrela.vazia{color:var(--pilula-meta)}
+.estrela.vazia:hover{color:var(--verde)}
