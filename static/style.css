@@ -29,10 +29,19 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
+/* `overflow:hidden` esconde a barra e trava a RODA do usuario, mas nao trava scroll por
+   SCRIPT. Ha cinco `scrollIntoView` no app.js (ficha, estudo, jogador, linha) e qualquer
+   um deles rola a viewport, levando junto a faixa do topo — escudo, KPIs e abas. E ela
+   nao volta: a roda que a traria de volta e justamente a que esta bloqueada. Porta de
+   mao unica, e foi o que sumiu com a barra de links.
+   Tirar o body do fluxo fecha na raiz: sem conteudo no fluxo do html, ele nao tem o que
+   rolar (scrollHeight caiu de 15.847 para a altura da janela) e a viewport fica presa em
+   0 mesmo chamada por script. As caixas internas (.emp-rolagem) seguem rolando igual. */
 body{
   background:var(--fundo); color:var(--tinta); font-family:var(--fonte);
   font-size:13px; -webkit-font-smoothing:antialiased; overflow:hidden;
   display:flex; flex-direction:column; height:100vh;
+  position:fixed; inset:0;
 }
 button,input,select{font-family:inherit;font-size:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
@@ -348,6 +357,8 @@ tbody tr.ja{opacity:.4}
 
 @media print{
   html,body{overflow:visible;height:auto;display:block;background:#fff;color:#111;font-size:11px}
+  /* volta ao fluxo: body fixo imprime uma pagina so */
+  body{position:static;inset:auto}
   /* tudo que é de tela some */
   .topo,.orc,.abas,.painel,.modal,.toast,#pgAnalise,.pos-add,.jog-bts,.add-mini{display:none!important}
   main{display:block;height:auto;overflow:visible}
@@ -1886,8 +1897,8 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
    Por isso vao com barra e numero em branco: apagadas, exigiam esforco justamente
    onde o olho precisa de referencia. */
 #fsMatriz th.fs-media{width:var(--fs-col,110px);border-top:4px solid var(--tinta3)}
-#fsMatriz th.fs-media.sa{border-top-color:var(--verde)}
-#fsMatriz th.fs-media.sb{border-top-color:#52a4eb}
+#fsMatriz th.fs-media.fs-sa{border-top-color:var(--verde)}
+#fsMatriz th.fs-media.fs-sb{border-top-color:#52a4eb}
 #fsMatriz tbody tr td.fs-c.media{background:var(--fs-cel-alt)}
 /* "branco" e o que se ve no escuro; no claro, branco sobre fundo claro some. O que
    vale e o CONTRASTE com o trilho, entao o tom vem do tema. */

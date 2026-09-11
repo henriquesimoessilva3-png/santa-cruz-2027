@@ -4046,7 +4046,11 @@ function fsRender() {
        informacao. A serie vai para a linha de baixo, junto da amostra. */
     medias.map(m => {
       const serie = m.rot.replace('Média ', '');          /* 'Série A' */
-      return '<th class="fs-media ' + (serie.endsWith('A') ? 'sa' : 'sb') +
+      /* `fs-sa`/`fs-sb`, nao `sa`/`sb`: `.sb` e o container da aba Serie B na folha
+         global (max-width, display:flex, gap:30px, padding:22px 4px 60px) e pegava este
+         <th> de carona — so a coluna B, porque `.sa` global nao existe. As colunas de
+         referencia ao lado ja usavam nome hifenizado e por isso escaparam. */
+      return '<th class="fs-media ' + (serie.endsWith('A') ? 'fs-sa' : 'fs-sb') +
         '" title="Média dos ' + m.d.n + ' ' + esc(nomePos(fsPos)) +
         (m.d.n === 1 ? '' : 's') + ' da ' + esc(serie) + ' que entram na régua">' +
         '<b>Média ' + esc(serie.slice(-1)) + '</b><small>' + esc(serie) + '<br>' + m.d.n + ' na régua</small></th>';

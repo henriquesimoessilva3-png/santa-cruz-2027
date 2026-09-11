@@ -1592,9 +1592,15 @@ medido. Corrigir uma partida numa base e rodar a cadeia corrige a tela inteira.
 
 ### Armadilhas pagas nesta etapa (as anteriores estão nas seções acima)
 
-- **`.sb` é o container da aba Série B.** Um `<i class="cq sb">` de 8px no painel de
-  filtros da aba Físico herdou `max-width:1020px; display:flex; padding:22px 4px 60px` e
-  virou uma barra de 82px. Classe de duas letras em folha global pega quem passar perto.
+- **`.sb` é o container da aba Série B — e já mordeu duas vezes.** Primeiro um
+  `<i class="cq sb">` de 8px no painel de filtros da aba Físico, que herdou
+  `max-width:1020px; display:flex; padding:22px 4px 60px` e virou uma barra de 82px.
+  Depois o `<th class="fs-media sb">` da coluna **Média B** na matriz do Físico, que pelo
+  mesmo caminho virou `display:flex` com `gap:30px` e vazou por cima das linhas de cima —
+  só a coluna B, porque `.sa` global não existe. As colunas de referência ao lado
+  (`ref-br`, `ref-mu`, `ref-sb`) escaparam por já usarem nome hifenizado, e foi o que deu
+  a pista. Hoje a matriz usa `fs-sa`/`fs-sb`. **Regra: nome de duas letras não vira
+  modificador de classe.** Ao criar um, `grep -n "^\.xx[,{ ]" static/style.css` antes.
 - **`.rk-campo-f>label` é `display:block` e ganha do `.chk{display:flex}`** (0,2,1 contra
   0,1,0). Flex aninhado ali dentro não se comporta como flex.
 - **Âncora de parser some.** Três scripts liam a `SB_TABELAS` até `const SB_USO`; quando a
@@ -1614,6 +1620,19 @@ medido. Corrigir uma partida numa base e rodar a cadeia corrige a tela inteira.
 - **Casar SkillCorner com Wyscout por nome sozinho é o erro conhecido da casa.** A guarda de
   idade (2 anos abaixo, 3 acima) leva a conferência de 98,0% para 98,2% e corta uma classe
   inteira de homônimo.
+- **`overflow:hidden` trava a roda do usuário, mas NÃO o scroll por script.** Era esta a
+  causa de a barra de links do topo sumir. O `body` é `overflow:hidden; height:100vh`, o
+  que esconde a barra de rolagem e impede a pessoa de rolar a página — mas
+  `documentElement.scrollHeight` era **15.847** contra 700 de janela, e um
+  `window.scrollTo(0,400)` levava a viewport embora numerinho. E aí vem o pior: **a barra
+  não voltava**, porque a roda que a traria de volta é justamente a que está bloqueada.
+  Porta de mão única. Qualquer um dos **cinco `scrollIntoView` do app.js** (ficha, estudo,
+  jogador, linha — dois deles com `block:'center'`) abria essa porta; o índice de seções,
+  que levou a culpa, estava certo. O conserto é no `body`, não em cada chamada:
+  `position:fixed; inset:0` tira o conteúdo do fluxo do `html`, que passa a não ter o que
+  rolar (`scrollHeight` cai para a altura da janela) e prende a viewport em 0 mesmo
+  chamada por script. As caixas internas (`.emp-rolagem`) seguem rolando igual. O
+  `@media print` devolve `position:static`, senão sai uma página só.
 - **`scrollIntoView` rola TODOS os ancestrais roláveis, inclusive o documento.** O índice de
   seções fazia a faixa do topo (escudo, KPIs e abas) sumir em janelas onde o body ficava um
   fio mais alto que a viewport. A rolagem agora é explícita: acha a caixa que rola de
