@@ -64,6 +64,15 @@ DE_PARA = {
     "hi_c": "hi_distance_p30tip", "hi_s": "hi_distance_p30otip",
     "spn_c": "sprint_count_p30tip", "spn_s": "sprint_count_p30otip",
 }
+# As corridas sem bola moram em OUTRA TABELA (`off_ball_runs`), nao no `physical` — por
+# isso entram por LEFT JOIN e num mapa proprio. Ate 11/09/2026 estas quatro edicoes tinham
+# ZERO linha ali: era buraco de sincronizacao, nao limite da fonte (a API devolveu 800,
+# 776, 765 e 800 quando finalmente foi perguntada).
+DE_PARA_OBR = {
+    "obr": "runs_p30tip", "obr_hsr": "runs_above_hsr_p30tip",
+    "obr_area": "runs_penalty_area_p30tip", "obr_per": "runs_dangerous_p30tip",
+    "obr_rec": "runs_received_p30tip", "obr_rem": "runs_shot_within_10s_p30tip",
+}
 DE_PARA_JSON = {
     "vmax3": "peak_velocity_top3", "vmax": "peak_velocity",
     "t_spr": "timetosprint_top3", "t_hsr": "timetohsr_top3",
@@ -104,10 +113,16 @@ def carregar():
     """Atletas do SkillCorner com clube, posicao e faixa da tabela."""
     con = sqlite3.connect(SKILLCORNER)
     cols = sorted(set(DE_PARA.values()))
+    obr = sorted(set(DE_PARA_OBR.values()))
+    # LEFT JOIN e nao JOIN: quem nao tem corrida sem bola continua entrando com o resto do
+    # fisico. Um INNER aqui derrubaria a amostra inteira pelo indicador mais fraco.
     sc = pd.read_sql(
         "select p.sc_competition_edition_id ed, pl.short_name, pl.birthdate, "
         "p.minutes_played, p.matches, p.raw_json, " + ", ".join("p." + c for c in cols) +
+        ", " + ", ".join("o." + c for c in obr) +
         " from physical p join players pl on pl.sc_player_id = p.sc_player_id"
+        " left join off_ball_runs o on o.sc_player_id = p.sc_player_id"
+        " and o.sc_competition_edition_id = p.sc_competition_edition_id"
         f" where p.sc_competition_edition_id in ({','.join(map(str, SC_EDICOES))})", con)
     sc["ano"] = sc.ed.map(SC_EDICOES)
     sc["min_tot"] = sc.minutes_played * sc.matches
@@ -158,7 +173,7 @@ def main():
     sc = carregar()
     print(f"{len(sc)} atleta-temporada com clube, posição e 300+ minutos rastreados")
 
-    chaves = list(DE_PARA) + list(DE_PARA_JSON)
+    chaves = list(DE_PARA) + list(DE_PARA_JSON) + list(DE_PARA_OBR)
     feitas = 0
     for codigo in list(raio["refs"]):
         wy = [w for w, cs in POSICOES.items() if codigo in cs]
@@ -170,7 +185,7 @@ def main():
                 continue
             valores = {}
             for k in chaves:
-                col = DE_PARA.get(k, k)
+                col = DE_PARA.get(k) or DE_PARA_OBR.get(k) or k
                 serie = pd.to_numeric(g[col], errors="coerce")
                 ok = serie.notna()
                 # cobertura baixa = indicador ausente, nao indicador zero. O vmax e o

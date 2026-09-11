@@ -1718,6 +1718,19 @@ consertado nesta sessão. Enquanto o script não mudar: **conferir com
 - **`peak_velocity` e `peak_velocity_top3` têm 0% de cobertura na Série B de 2022 a 2024**
   neste banco. São as melhores medidas de velocidade máxima e ficam de fora por isso. O
   `Portal Skillcorner/backfill_peak_velocity.py` é quem fecharia esse buraco.
+- **As corridas sem bola de 2022 a 2025 foram destravadas em 11/09/2026.** Era buraco de
+  SINCRONIZAÇÃO, não limite da fonte: a tabela `off_ball_runs` tinha zero linha nas quatro
+  edições, mas a API devolveu 800, 776, 765 e 800 quando foi perguntada. Gravadas com o
+  `upsert_offball_row()` do próprio `db.py`. Rollback, se precisar:
+  `DELETE FROM off_ball_runs WHERE sc_competition_edition_id IN (335,446,773,1061);`
+  **Ainda não entraram no estudo da Série B** (`SC_METRICAS` do `analisar_serieb.py`), só
+  nas colunas Quem sobe / Quem cai da matriz do Físico. Entrar é uma linha de código e
+  abriria seis indicadores novos para o painel por posição.
+- **`t_spr_cod` (tempo até o sprint após girar) fica de fora de propósito.** Tem 41–43% de
+  cobertura contra os 60% que o `gerar_raio_serieb.py` exige — e a régua existe justamente
+  para não fabricar média de amostra fina. O vizinho `t_hsr_cod` tem 72% e passa. Não é
+  bug, e baixar a régua para preencher a célula seria trocar um traço honesto por um
+  número ruim.
 - **Gol de bola parada não existe em nenhuma base.** O que há é o teto "gol de cabeça +
   pênalti". A exportação de **eventos por tipo de jogada** do Wyscout resolveria.
 - A versão para circular (https://claude.ai/code/artifact/ea51c41a-489e-4abf-b394-e39118368d95)
