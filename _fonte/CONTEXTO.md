@@ -1086,3 +1086,35 @@ O defeito era **antigo e discreto**. Aumentar a fonte do card deixou os cards ma
 `k` menor, e a folga cresceu o bastante para saltar aos olhos. A origem passou a ser o
 canto em TODOS os modos, no JS, em vez de depender de uma classe que só um deles tem.
 Conferido: 10px de folga nos cinco modos, e nas idas e voltas entre eles.
+
+## Dois status no menu do card, e Main = titular (set/26)
+
+O menu do ⋯ tinha "Marcar como titular" e uma seção "Status" com Alvo/Negociando/Fechado/
+Elenco atual. Agora tem **duas seções**, porque são duas perguntas diferentes e um jogador
+responde as duas ao mesmo tempo:
+
+- **Status** — o nível no elenco: **Main** (titular da posição), **Squad** (reserva),
+  **Youth** (jovem).
+- **Status negociação** — onde a conversa está: Alvo, Negociando, Fechado, Elenco atual.
+
+**Main É o titular**, decisão do usuário, e isso resolveu um problema em vez de criar um:
+havia `j.titular` (a estrela) e o status Main/Squad/Youth da aba Empresários dizendo a
+mesma coisa em lugares diferentes — dois campos com o mesmo significado é como garantir
+que um dia se contradigam. `definirNivel()` é o **único** lugar que mexe em qualquer um
+dos dois. Regras, todas escolhidas: só um Main por posição (titular é um por posição);
+quem perde o posto **vira Squad**, que é o que ele passou a ser (deixar em branco perderia
+a informação de que segue no elenco principal); tirar o Main tira a estrela e vice-versa.
+
+**A ★ virou botão.** A legenda do app sempre disse "clique no ★ para trocar", mas a
+estrela só era desenhada para quem JÁ era titular — não havia onde clicar para promover
+outro, e o único caminho era o item do menu que agora saiu. Agora existe em todos: verde
+e cheia no Main, apagada nos demais, acendendo no hover.
+
+**Cores, as mesmas de sempre.** Verde o Main, âmbar o Squad, azul o Youth — idênticas às
+da aba Empresários e às da avaliação dos Indicados. Cor que muda de significado entre
+telas é pior que não ter cor. No card, só Squad e Youth ganham etiqueta: o Main já tem a
+estrela e o fundo rosa, e repetir três vezes a mesma coisa num card denso é ruído.
+
+**Migração v5:** quem já era titular ficaria com a estrela de Main e o Status em branco —
+exatamente a contradição que a unificação veio evitar. A migração marca os existentes como
+Main (conferido: 10 titulares, 10 Main, nenhum sem nível).

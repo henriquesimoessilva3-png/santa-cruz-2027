@@ -90,7 +90,8 @@ const SIGLA_PAIS = {
 
 /* ---------------- estado ---------------- */
 const CHAVE_LOCAL = 'sc2027_estado';
-const VERSAO = 4;  /* v2: campo deitado · v3: compacto · v4: limite de 9 estrangeiros */
+const VERSAO = 5;  /* v2: campo deitado · v3: compacto · v4: limite de 9 estrangeiros
+                      · v5: Main = titular, nível gravado para quem já era titular */
 let BASE = [];
 /* Historico de tres temporadas (dados/historico.json, gerado por preparar_historico.py),
    indexado pela primary_key da temporada corrente. Vem em arquivo separado porque so
@@ -953,6 +954,15 @@ function cardJog(cod, j) {
             esc(j.contrato) + (ct <= FS_LIVRE_ATE ? ' — vence a tempo da temporada 2027' : '') +
             '">' + esc(mesAnoCurto(j.contrato)) + '</span>'
          : '<span class="m-ct sem" title="contrato não informado">sem contrato</span>') +
+    (() => {
+      /* Main nao ganha marca: ele ja tem a estrela e o fundo rosa, e repetir a mesma
+         informacao tres vezes num card denso e ruido. Squad e Youth nao tinham NENHUM
+         sinal — e o que esta marca resolve. */
+      const n = empDados(empChave(j)).status;
+      return (n && n !== 'Main')
+        ? '<span class="m-niv niv-' + n.toLowerCase() + '" title="' + esc(n + ' — ' + (EMP_STATUS_NOTA[n] || '')) +
+          '">' + esc(n) + '</span>' : '';
+    })() +
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
     barraMinutos(histDoElenco(j)) +
     (j.posOrig && j.posOrig !== cod ? '<span class="m-pos" title="posição de origem">' +
@@ -961,7 +971,9 @@ function cardJog(cod, j) {
   el.innerHTML =
     '<div class="jog-nome' + (j.jid != null ? ' clicavel' : '') + '" title="' +
       esc(j.nomeCompleto || j.nome) + (j.jid != null ? ' — clique para ver a ficha' : '') + '">' +
-      (j.titular ? '<span class="estrela">★</span>' : '') +
+      '<button class="estrela' + (j.titular ? '' : ' vazia') + '" title="' +
+        (j.titular ? 'Main — titular da posição. Clique para passar a Squad'
+                   : 'Clique para tornar Main, o titular da posição') + '">★</button>' +
       raioIcone(j.pk) +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
@@ -989,6 +1001,14 @@ function cardJog(cod, j) {
     '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
     '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
 
+  el.querySelector('.estrela').onclick = e => {
+    /* a legenda do app sempre disse "clique no ★ para trocar", mas a estrela so era
+       desenhada para QUEM JA ERA titular — nao havia onde clicar para promover outro.
+       Com o item saindo do menu, isto deixou de ser detalhe e virou o unico caminho. */
+    e.stopPropagation();
+    definirNivel(cod, j, j.titular ? 'Squad' : 'Main');
+    render();
+  };
   el.querySelector('.jog-emp').onclick = e => {
     e.stopPropagation();
     empFicha(empChave(j), j.nome,
@@ -1142,9 +1162,19 @@ function abrirMenuJogador(botao, cod, j) {
     (j.jid != null ? '<button data-a="ficha">Ver ficha do jogador</button>' : '') +
     (j.manual ? '<button data-a="editar">Editar dados do jogador</button>' : '') +
     '<button data-a="empresario">Empresário e contato</button>' +
-    '<button data-a="titular">' + (j.titular ? 'Deixar de ser titular' : 'Marcar como titular') + '</button>' +
     '<button data-a="estrangeiro">' + (j.estrangeiro ? 'Marcar como brasileiro' : 'Marcar como estrangeiro') + '</button>' +
+    /* DOIS status, e os nomes precisam separa-los: "Status" e o nivel do atleta no elenco
+       (Main/Squad/Youth) e "Status negociacao" e onde a conversa esta (Alvo, Negociando…).
+       Sao perguntas diferentes e um jogador tem as duas ao mesmo tempo. O nivel e o MESMO
+       campo da aba Empresarios — mesma pergunta nao pode ter duas respostas guardadas em
+       lugares diferentes. */
     '<div class="menu-sep">Status</div>' +
+    EMP_STATUS.filter(Boolean).map(st => '<button data-a="niv:' + st + '"' +
+      (empDados(empChave(j)).status === st ? ' class="atual"' : '') + '>' + st +
+      '<i class="menu-nota">' + EMP_STATUS_NOTA[st] + '</i></button>').join('') +
+    (empDados(empChave(j)).status
+      ? '<button data-a="niv:" class="apagar">tirar o status</button>' : '') +
+    '<div class="menu-sep">Status negociação</div>' +
     STATUS.map(st => '<button data-a="st:' + st + '"' +
       ((j.status || 'alvo') === st ? ' class="atual"' : '') + '>' + STATUS_ROT[st] + '</button>').join('') +
     '<div class="menu-sep">Mover para</div>' +
@@ -1165,10 +1195,8 @@ function abrirMenuJogador(botao, cod, j) {
     m.remove();
     if (a === 'ficha') return abrirFicha(j);
     if (a === 'empresario') return empIrPara(empChave(j));
-    if (a === 'titular') {
-      const era = j.titular;
-      estado.elenco[cod].forEach(x => { x.titular = false; });
-      j.titular = !era;
+    if (a && a.startsWith('niv:')) {
+      definirNivel(cod, j, a.slice(4));
     } else if (a === 'estrangeiro') {
       j.estrangeiro = !j.estrangeiro;
       if (j.estrangeiro && !j.nac) {
@@ -1651,6 +1679,16 @@ function migrar() {
   /* o limite de estrangeiros nasceu 5 e passou a 9: corrige quem ficou com o antigo */
   if ((estado.v || 1) < 4 && estado.limiteEstrangeiros === 5) estado.limiteEstrangeiros = 9;
   if ((estado.v || 1) < 4) estado.ajustar = true;
+  /* Main passou a SER o titular. Quem já era titular antes disso tem a estrela mas
+     nenhum nível gravado — a tela mostraria estrela de Main com o Status em branco, que
+     é a contradição que a unificação veio evitar. Marca os existentes como Main. */
+  if ((estado.v || 1) < 5) {
+    POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(j => {
+      if (!j.titular) return;
+      const ch = empChave(j);
+      if (!empDados(ch).status) empGravar(ch).status = 'Main';
+    }));
+  }
   estado.v = VERSAO;
 }
 
@@ -5663,6 +5701,10 @@ iniciar();
    importa — pk e estavel entre grupos, entao anotar o empresario do Fulano no Cenario 1
    aproveita no Cenario 2; uid e por linha do elenco e morreria na primeira troca. */
 const EMP_STATUS = ['', 'Main', 'Squad', 'Youth'];
+/* O que cada nível quer dizer, nas palavras do usuário. Vale escrever: "Squad" e "Youth"
+   não se explicam sozinhos para quem abre a tela pela primeira vez, e a decisão de que
+   Main É o titular só existe aqui. */
+const EMP_STATUS_NOTA = { Main: 'titular da posição', Squad: 'reserva', Youth: 'jovem' };
 const EMP_CAMPOS = [
   /* Status vem PRIMEIRO: e a leitura que se faz varrendo a coluna de cima a baixo
      ("quem e Main nesta posicao?"), e nao um detalhe do contato. Fica colorido para
@@ -5685,6 +5727,39 @@ let empSoFalta = false;
 let empFiltro = '';
 
 function empChave(j) { return j.pk ? 'pk:' + j.pk : 'uid:' + j.uid; }
+
+/* MAIN É O TITULAR. Os dois conceitos existiam separados — `j.titular` (a estrela, um por
+   posição) e o status Main/Squad/Youth da aba Empresários — e o usuário disse que são a
+   mesma coisa. Manter dois campos dizendo o mesmo é como garantir que um dia eles se
+   contradigam, então esta função é o ÚNICO lugar que muda qualquer um dos dois.
+
+   Consequências, todas escolhidas:
+     - só um Main por posição, porque titular é um por posição;
+     - quem era Main e perdeu o posto vira Squad, que é o que ele passou a ser — deixar
+       em branco perderia a informação de que o jogador está no elenco principal;
+     - tirar o Main tira a estrela, e vice-versa. */
+function definirNivel(cod, j, nivel) {
+  const lista = estado.elenco[cod] || [];
+  if (nivel === 'Main') {
+    lista.forEach(x => {
+      if (x.uid === j.uid) return;
+      if (x.titular) {
+        x.titular = false;
+        const c = empChave(x);
+        if (empDados(c).status === 'Main') { empGravar(c).status = 'Squad'; }
+      }
+    });
+    j.titular = true;
+    empGravar(empChave(j)).status = 'Main';
+  } else {
+    j.titular = false;
+    const ch = empChave(j);
+    if (nivel) { empGravar(ch).status = nivel; }
+    else if (estado.emp && estado.emp[ch]) { delete estado.emp[ch].status; }
+    empLimpar(ch);
+  }
+  salvarLocal();
+}
 /* LER nao cria. A versao anterior fazia `estado.emp[ch] = {}` aqui, e como a tela chama
    isto uma vez por jogador para desenhar, so ABRIR a aba enchia o cenario com 118
    objetos vazios — que iam para o Salvar, para a nuvem e para o cenarios.json, sem
