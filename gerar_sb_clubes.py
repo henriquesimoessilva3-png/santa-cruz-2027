@@ -57,13 +57,22 @@ CAMPOS = [
     ("pctTop3", "pctTop3", 1),
     ("gkDefesas", "gkDefesas", 2), ("gkEvitados", "gkEvitados", 3),
     ("pctFicou", "pctFicou", 1), ("novos", "novos", 0),
-    # --- fisico, do SkillCorner (ponte de nome conferida em 98%) ---
-    ("psv99", "fis_psv99", 2), ("dist90", "fis_distance_p90", 0),
-    ("mPorMin", "fis_m_per_min", 1), ("corrida90", "fis_running_distance_p90", 0),
-    ("hsrDist", "fis_hsr_distance_p90", 0), ("hsrQtd", "fis_hsr_count_p90", 1),
-    ("sprintDist", "fis_sprint_distance_p90", 0), ("sprintQtd", "fis_sprint_count_p90", 2),
-    ("hiDist", "fis_hi_distance_p90", 0), ("acel", "fis_high_accel_p90", 2),
-    ("desacel", "fis_high_decel_p90", 2), ("mudDirecao", "fis_cod_count_p90", 1),
+    # --- fisico, do SkillCorner (ponte de nome + idade, conferida em 98,2%) ---
+    ("psv99", "fis_psv99", 2), ("psv99Top5", "fis_psv99_top5", 2),
+    ("sprintDist", "fis_sprint_distance_p90", 1), ("sprintQtd", "fis_sprint_count_p90", 2),
+    ("hsrDist", "fis_hsr_distance_p90", 1), ("hsrQtd", "fis_hsr_count_p90", 2),
+    ("hiDist", "fis_hi_distance_p90", 1), ("hiQtd", "fis_hi_count_p90", 2),
+    ("dist90", "fis_distance_p90", 0), ("mPorMin", "fis_m_per_min", 2),
+    ("corrida90", "fis_running_distance_p90", 0),
+    ("acel", "fis_high_accel_p90", 2), ("desacel", "fis_high_decel_p90", 2),
+    ("acelMed", "fis_medium_accel_p90", 1), ("desacelMed", "fis_medium_decel_p90", 1),
+    ("explSprint", "fis_expl_accel_sprint_p90", 2), ("explHsr", "fis_expl_accel_hsr_p90", 2),
+    ("mudDirecao", "fis_cod_count_p90", 2),
+    # com a bola / sem a bola — por 30 min de cada fase
+    ("mpmCom", "fis_m_per_min_tip", 2), ("mpmSem", "fis_m_per_min_otip", 2),
+    ("distCom", "fis_distance_p30tip", 0), ("distSem", "fis_distance_p30otip", 0),
+    ("sprintCom", "fis_sprint_distance_p30tip", 1), ("sprintSem", "fis_sprint_distance_p30otip", 1),
+    ("hsrCom", "fis_hsr_distance_p30tip", 1), ("hsrSem", "fis_hsr_distance_p30otip", 1),
     ("fisAtletas", "fis_atletas", 0),
 ]
 

@@ -326,9 +326,31 @@ SKILLCORNER = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henriq
                "Analytics/Portal Skillcorner/dados/skillcorner.db")
 # As edicoes da Serie B no SkillCorner, uma por ano. Sao ids do proprio SkillCorner.
 SC_EDICOES = {335: 2022, 446: 2023, 773: 2024, 1061: 2025, 1399: 2026}
-SC_METRICAS = ["psv99", "distance_p90", "m_per_min", "running_distance_p90", "hsr_distance_p90",
-               "hsr_count_p90", "sprint_distance_p90", "sprint_count_p90", "hi_distance_p90",
-               "high_accel_p90", "high_decel_p90", "cod_count_p90"]
+# Todas as metricas com cobertura boa na Serie B das cinco temporadas — conferido coluna a
+# coluna: as `_p90` batem 100% em todos os anos e as `_p30tip`/`_p30otip`, 98% a 100%.
+#
+# FICAM DE FORA `peak_velocity` e `peak_velocity_top3`, que a skill dados-skillcorner marca
+# como as melhores para "velocidade maxima do atleta": elas tem 0% de cobertura em 2022,
+# 2023 e 2024 (o backfill_peak_velocity.py nunca rodou nesses periodos) e 79-98% em 2025 e
+# 2026. Entrar com elas seria comparar tres anos vazios com dois cheios.
+SC_METRICAS = [
+    # velocidade
+    "psv99", "psv99_top5",
+    # uso da velocidade
+    "sprint_distance_p90", "sprint_count_p90", "hsr_distance_p90", "hsr_count_p90",
+    "hi_distance_p90", "hi_count_p90",
+    # volume
+    "distance_p90", "m_per_min", "running_distance_p90",
+    # arranque e frenagem
+    "high_accel_p90", "high_decel_p90", "medium_accel_p90", "medium_decel_p90",
+    "expl_accel_sprint_p90", "expl_accel_hsr_p90", "cod_count_p90",
+    # com a bola (TIP) e sem a bola (OTIP) — por 30 minutos de cada fase, NUNCA comparaveis
+    # com as `_p90` acima: sao reguas diferentes (30 minutos contra 90).
+    "m_per_min_tip", "m_per_min_otip",
+    "distance_p30tip", "distance_p30otip",
+    "sprint_distance_p30tip", "sprint_distance_p30otip",
+    "hsr_distance_p30tip", "hsr_distance_p30otip",
+]
 
 
 def chave_nome(s):

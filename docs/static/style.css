@@ -2848,3 +2848,6 @@ body.claro .sbx-emp.t4,body.claro .sbx-emp.t5{fill:#f4f9fc}
   border-top:2px solid var(--tinta);padding-top:12px;margin-bottom:-8px}
 .sb-sec-cab h3{margin:0;font-size:21px;letter-spacing:-.02em;font-weight:800}
 .sb-sec-cab span{font-size:12px;color:var(--tinta3)}
+.sbx-fam{display:flex;flex-direction:column;gap:7px}
+.sbx-fam .sb-rot i{font-style:normal;font-weight:600;text-transform:none;letter-spacing:0;
+  color:var(--tinta3);font-size:10.5px}

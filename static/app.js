@@ -7123,71 +7123,156 @@ function sbBlocoContinuidade() {
 
 /* ---------- o fisico, do SkillCorner ----------
 
-   As metricas sao por 90 minutos e vem ponderadas por minuto rastreado. O clube de cada
-   atleta veio de uma ponte de nome entre SkillCorner e Wyscout, conferida contra os dois
-   anos em que o proprio SkillCorner diz o clube: 98,0% de concordancia em 1.122 atletas.
+   As metricas vem ponderadas por minuto rastreado e agrupadas nas mesmas familias do
+   portal fisico do Botafogo (:5054), para quem olha os dois nao ter de reaprender a leitura.
 
-   A ressalva que muda a leitura: **o SkillCorner nao cobre todos os jogos** — sao ~15
-   partidas rastreadas por atleta por temporada, nao 38. O perfil e de uma amostra. */
+   O clube de cada atleta veio de uma ponte SkillCorner-Wyscout por NOME + IDADE, conferida
+   contra os dois anos em que o proprio SkillCorner diz o clube: 98,2% de concordancia em
+   1.117 atletas. Nome sozinho nao basta — no Portal Ranking isso ja fez o Pedro do Flamengo
+   receber o fisico do Pedro Rodriguez ex-Barcelona.
+
+   FICAM DE FORA `peak_velocity` e `peak_velocity_top3`, que seriam as melhores para
+   "velocidade maxima": tem 0% de cobertura em 2022, 2023 e 2024 neste banco. */
+const SB_FIS_GRUPOS = [
+  ['Velocidade', 'o teto: quão rápido o time chega', [
+    ['PSV-99 por partida', 'psv99', sbN1, ' km/h'],
+    ['PSV-99, 5 melhores partidas', 'psv99Top5', sbN1, ' km/h'],
+  ]],
+  ['Uso da velocidade', 'quanto do jogo é feito em alta velocidade', [
+    ['Metros em sprint', 'sprintDist', sbN0, ' m'],
+    ['Número de sprints', 'sprintQtd', sbN1, ''],
+    ['Metros em corrida rápida', 'hsrDist', sbN0, ' m'],
+    ['Corridas rápidas', 'hsrQtd', sbN1, ''],
+    ['Metros em alta intensidade', 'hiDist', sbN0, ' m'],
+    ['Ações de alta intensidade', 'hiQtd', sbN1, ''],
+  ]],
+  ['Volume', 'quanto terreno se cobre, sem olhar a velocidade', [
+    ['Distância percorrida', 'dist90', sbN0, ' m'],
+    ['Metros por minuto', 'mPorMin', sbN1, ''],
+    ['Distância em corrida', 'corrida90', sbN0, ' m'],
+  ]],
+  ['Arranque e frenagem', 'o desgaste — acelerar, parar e mudar de direção', [
+    ['Arranques até o sprint', 'explSprint', sbN2, ''],
+    ['Arranques até a corrida rápida', 'explHsr', sbN2, ''],
+    ['Acelerações fortes', 'acel', sbN2, ''],
+    ['Desacelerações fortes', 'desacel', sbN2, ''],
+    ['Acelerações médias', 'acelMed', sbN1, ''],
+    ['Desacelerações médias', 'desacelMed', sbN1, ''],
+    ['Mudanças de direção', 'mudDirecao', sbN1, ''],
+  ]],
+];
+/* Com e sem a bola. A regua aqui e por 30 MINUTOS de cada fase, e por isso estes numeros
+   NAO sao comparaveis com os de cima (que sao por 90). Comparaveis entre si, que e o que
+   interessa: o time corre mais com a bola ou sem ela? */
+const SB_FIS_BOLA = [
+  ['Metros por minuto', 'mpmCom', 'mpmSem', sbN1],
+  ['Distância percorrida', 'distCom', 'distSem', sbN0],
+  ['Metros em corrida rápida', 'hsrCom', 'hsrSem', sbN0],
+  ['Metros em sprint', 'sprintCom', 'sprintSem', sbN0],
+];
+
+/* Uma linha do painel fisico: rotulo, tres barras e a forca da relacao com a posicao. */
+function sbFisLinha(rot, campo, fmt, un, y) {
+  const m = sbPorFaixa(campo), r = sbRho(campo);
+  const max = Math.max(m.sobe, m.meio, m.cai), min = Math.min(m.sobe, m.meio, m.cai);
+  /* A ESCALA NAO COMECA EM ZERO, e isso e declarado: entre 9.531 e 9.612 metros, tres
+     barras desde o zero sairiam identicas. O numero escrito e o de verdade. */
+  const base = min - (max - min) * 0.8;
+  const L = 150, X = 258;
+  const w = v => Math.max(3, (v - base) / (max - base || 1) * L);
+  const cor = { sobe: 'var(--sb-sobe)', meio: 'var(--sb-neutro)', cai: 'var(--sb-cai)' };
+  const barra = (f, i) =>
+    '<rect x="' + X + '" y="' + (y + i * 13) + '" width="' + w(m[f]).toFixed(1) +
+      '" height="11" rx="3" fill="' + cor[f] + '"/>' +
+    '<text x="' + (X + L + 8) + '" y="' + (y + i * 13 + 9) + '" text-anchor="end" class="sbx-num">' +
+      fmt(m[f]) + '</text>';
+  return '<text x="' + (X - 8) + '" y="' + (y + 17) + '" text-anchor="end" class="sbx-rot forte">' +
+      esc(rot) + (un ? '<tspan class="sbx-pq">' + un + '</tspan>' : '') + '</text>' +
+    ['sobe', 'meio', 'cai'].map(barra).join('') +
+    '<rect x="' + (X + L + 28) + '" y="' + (y + 10) + '" width="' + (Math.abs(r) * 150).toFixed(1) +
+      '" height="11" rx="3" fill="var(--sb-' + (r >= 0 ? 'i3' : 'cai') + ')"/>' +
+    '<text x="' + (X + L + 32 + Math.abs(r) * 150).toFixed(1) + '" y="' + (y + 19) + '" class="sbx-num">' +
+      (r >= 0 ? '' : '−') + sbN2(Math.abs(r)) + '</text>';
+}
+
 function sbBlocoFisico() {
-  const M = [
-    ['Distância por 90 (m)', 'dist90', sbN0, 0],
-    ['Metros por minuto', 'mPorMin', sbN1, 0],
-    ['Distância em alta velocidade (m)', 'hsrDist', sbN0, 0],
-    ['Distância em sprint (m)', 'sprintDist', sbN0, 0],
-    ['Sprints por 90', 'sprintQtd', sbN2, 0],
-    ['Pico de velocidade médio (km/h)', 'psv99', sbN1, 0],
-    ['Acelerações fortes por 90', 'acel', sbN2, 0],
-  ];
-  const X = 244, LARG = 300;
-  const svg = M.map(([rot, campo], i) => {
-    const m = sbPorFaixa(campo), y = 6 + i * 58;
-    const max = Math.max(m.sobe, m.meio, m.cai), min = Math.min(m.sobe, m.meio, m.cai);
-    /* A ESCALA NAO COMECA EM ZERO, e isso e uma escolha declarada: entre 9.531 e 9.612
-       metros a barra desde o zero mostraria tres barras iguais. O eixo comeca um pouco
-       abaixo do menor dos tres e a nota diz de quanto e a diferenca de verdade. */
-    const base = min - (max - min) * 0.6 || min * 0.98;
-    const w = v => Math.max(4, (v - base) / (max - base || 1) * LARG);
-    const fmt = M[i][2];
-    return '<text x="0" y="' + (y + 12) + '" class="sbx-rot forte">' + esc(rot) + '</text>' +
-      sbBarra('', w(m.sobe), fmt(m.sobe), 'var(--sb-sobe)', y, X) +
-      sbBarra('', w(m.meio), fmt(m.meio), 'var(--sb-neutro)', y + 17, X) +
-      sbBarra('', w(m.cai), fmt(m.cai), 'var(--sb-cai)', y + 34, X);
+  const painel = SB_FIS_GRUPOS.map(([tit, sub, linhas]) => {
+    const alt = 22 + linhas.length * 42;
+    return '<div class="sbx-fam"><span class="sb-rot">' + esc(tit) +
+      '<i> · ' + esc(sub) + '</i></span>' +
+      '<div class="sb-tela"><svg viewBox="0 0 620 ' + alt + '" class="sb-svg">' +
+        '<text x="416" y="9" text-anchor="middle" class="sbx-pq">FORÇA DA RELAÇÃO COM A POSIÇÃO</text>' +
+        linhas.map((l, i) => sbFisLinha(l[0], l[1], l[2], l[3], 16 + i * 42)).join('') +
+      '</svg></div></div>';
   }).join('');
-  const d = sbPorFaixa('dist90'), sp = sbPorFaixa('sprintQtd'), sd = sbPorFaixa('sprintDist');
-  const hs = sbPorFaixa('hsrDist'), pv = sbPorFaixa('psv99');
+
+  const X = 250, L = 120, COL2 = 190;   /* dois grupos lado a lado, sem estourar os 620 */
+  const bola = SB_FIS_BOLA.map(([rot, com, sem, fmt], i) => {
+    const c = sbPorFaixa(com), s = sbPorFaixa(sem);
+    const max = Math.max(c.sobe, c.cai, s.sobe, s.cai), base = Math.min(c.sobe, c.cai, s.sobe, s.cai) * 0.9;
+    const w = v => Math.max(3, (v - base) / (max - base || 1) * L);
+    const y = 20 + i * 44;
+    const par = (m, dy, rot2) =>
+      '<text x="' + (X - 8) + '" y="' + (y + dy + 9) + '" text-anchor="end" class="sbx-pq">' + rot2 + '</text>' +
+      '<rect x="' + X + '" y="' + (y + dy) + '" width="' + w(m.sobe).toFixed(1) +
+        '" height="11" rx="3" fill="var(--sb-sobe)"/>' +
+      /* numero ancorado a DIREITA numa coluna fixa: assim ele nunca cresce para fora do
+         quadro quando a barra e longa */
+      '<text x="' + (X + L + 34) + '" y="' + (y + dy + 9) + '" text-anchor="end" class="sbx-num">' +
+        fmt(m.sobe) + '</text>' +
+      '<rect x="' + (X + COL2) + '" y="' + (y + dy) + '" width="' + w(m.cai).toFixed(1) +
+        '" height="11" rx="3" fill="var(--sb-cai)"/>' +
+      '<text x="' + (X + COL2 + L + 34) + '" y="' + (y + dy + 9) + '" text-anchor="end" class="sbx-num">' +
+        fmt(m.cai) + '</text>';
+    return '<text x="0" y="' + (y + 9) + '" class="sbx-rot forte">' + esc(rot) + '</text>' +
+      par(c, 0, 'com a bola') + par(s, 15, 'sem a bola');
+  }).join('');
+
+  const d = sbPorFaixa('dist90'), sp = sbPorFaixa('sprintQtd');
   const pct = (a, b) => sbN1((a / b - 1) * 100);
+  const forte = SB_FIS_GRUPOS.flatMap(g => g[2]).map(l => [l[0], sbRho(l[1])])
+    .sort((a, b) => b[1] - a[1]);
   return '<div class="sb-bloco">' +
-    '<span class="sb-rot">Físico · SkillCorner, por 90 minutos</span>' +
+    '<span class="sb-rot">Físico · SkillCorner · por 90 minutos, ponderado por minuto rastreado</span>' +
     '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>sobe</span>' +
     '<span><i class="q" style="background:var(--sb-neutro)"></i>meio</span>' +
-    '<span><i style="background:var(--sb-cai)"></i>cai</span></div>' +
-    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (6 + M.length * 58) + '" class="sb-svg">' + svg +
+    '<span><i style="background:var(--sb-cai)"></i>cai</span>' +
+    '<span><i class="q" style="background:var(--sb-i3)"></i>força da relação com a posição</span></div>' +
+    painel +
+    '<p class="sb-nota"><b>Na Série B não se corre mais para subir — corre-se mais rápido.</b> A distância ' +
+    'por 90 minutos é praticamente a mesma (' + pct(d.sobe, d.cai) + '% entre quem sobe e quem cai, relação ' +
+    sbN2(sbRho('dist90')) + '); os sprints, ' + pct(sp.sobe, sp.cai) + '% (relação ' + sbN2(sbRho('sprintQtd')) +
+    '). O indicador físico mais forte de todos é <b>' + esc(forte[0][0]) + '</b> (' + sbN2(forte[0][1]) +
+    ') — o teto de velocidade do time, não o quanto ele anda.</p>' +
+    '<p class="sb-nota"><b>E acelerar não é a mesma coisa que arrancar.</b> Acelerações e desacelerações ' +
+    'fortes ficam em ' + sbN2(sbRho('acel')) + ' e ' + sbN2(sbRho('desacel')) + ' — nada. Mas os ' +
+    '<b>arranques que terminam em sprint</b> dão ' + sbN2(sbRho('explSprint')) + '. O que conta não é ' +
+    'acelerar muito: é acelerar até virar velocidade de verdade.</p>' +
+
+    '<span class="sb-rot" style="margin-top:6px">Com a bola e sem a bola · por 30 minutos de cada fase</span>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (20 + SB_FIS_BOLA.length * 44) + '" class="sb-svg">' +
+      '<text x="' + X + '" y="10" class="sbx-pq">QUEM SUBIU</text>' +
+      '<text x="' + (X + COL2) + '" y="10" class="sbx-pq">QUEM CAIU</text>' + bola +
     '</svg></div>' +
-    '<p class="sb-nota"><b>Na Série B não se corre mais para subir — corre-se mais rápido.</b> ' +
-    'A distância por 90 minutos é praticamente a mesma: ' + sbN0(d.sobe) + ' metros em quem sobe contra ' +
-    sbN0(d.cai) + ' em quem cai, <b>' + pct(d.sobe, d.cai) + '%</b> de diferença. Já os sprints: <b>' +
-    pct(sd.sobe, sd.cai) + '%</b> de distância em sprint e <b>' + pct(sp.sobe, sp.cai) + '%</b> de ' +
-    'sprints por jogo. Alta velocidade, ' + pct(hs.sobe, hs.cai) + '%.</p>' +
-    '<p class="sb-nota">O sprint por 90 é o indicador físico que mais anda com a posição final (' +
-    sbN2(sbRho('sprintQtd')) + '), seguido da velocidade de pico (' + sbN2(sbRho('psv99')) + ') e da alta ' +
-    'velocidade (' + sbN2(sbRho('hsrQtd')) + '). <b>A distância total fica em ' + sbN2(sbRho('dist90')) +
-    '</b>, e as acelerações fortes em ' + sbN2(sbRho('acel')) + ' — ou seja, nada. É a mesma forma do que ' +
-    'os dados técnicos já diziam: <b>volume não separa, intensidade separa</b>.</p>' +
-    '<p class="sb-nota">Duas ressalvas de método. A escala das barras <b>não começa em zero</b> — entre ' +
-    sbN0(d.cai) + ' e ' + sbN0(d.sobe) + ' metros, começar do zero mostraria três barras idênticas; os ' +
-    'números escritos são os de verdade. E o SkillCorner <b>não rastreia todos os jogos</b>: são cerca de ' +
-    '15 partidas por atleta por temporada, não 38, então isto é o perfil de uma amostra. Entram só ' +
-    'atletas com 300+ minutos rastreados — ' + sbN1(sbPorFaixa('fisAtletas').sobe) + ' por clube em quem ' +
-    'sobe e ' + sbN1(sbPorFaixa('fisAtletas').cai) + ' em quem cai.</p>' +
-    '<p class="sb-nota">E o <b>pico de velocidade não é recorde</b>: o SkillCorner entrega, na ' +
-    'temporada, a <i>média</i> do pico de cada jogo. O recorde de um jogo isolado é sempre maior. ' +
-    'Serve para comparar clubes entre si, que é o uso aqui; não serve para dizer "o atleta X chegou a ' +
-    'tantos km/h".</p>' +
-    '<p class="sb-nota">O clube de cada atleta vem de uma ponte entre SkillCorner e Wyscout por <b>nome ' +
-    'mais idade</b> — nome sozinho não basta, e isso já custou caro nesta casa (no Portal Ranking o ' +
-    'Pedro do Flamengo chegou a receber o físico do Pedro Rodríguez ex-Barcelona). Conferida contra os ' +
-    'dois anos em que o próprio SkillCorner diz o clube: <b>98,2% de concordância</b> em 1.117 atletas.</p>' +
+    '<p class="sb-nota"><b>Este é o achado mais nítido do painel físico.</b> Com a bola no pé, quem sobe e ' +
+    'quem cai correm igual: metros por minuto dá ' + sbN2(sbRho('mpmCom')) + ' de relação com a posição e ' +
+    'distância, ' + sbN2(sbRho('distCom')) + ' — <b>zero</b>. Sem a bola, tudo muda: ' + sbN2(sbRho('mpmSem')) +
+    ' e ' + sbN2(sbRho('distSem')) + ', e os metros em sprint sem a bola vão a ' + sbN2(sbRho('sprintSem')) +
+    '. <b>O que separa não é o que o time faz com a bola — é o que ele faz quando não a tem.</b></p>' +
+    '<p class="sb-nota">A régua desta segunda tela é por <b>30 minutos de cada fase</b>, não por 90 — por ' +
+    'isso os números não podem ser comparados com os do painel de cima. Entre si, podem.</p>' +
+
+    '<p class="sb-nota">Três ressalvas de método. As escalas das barras <b>não começam em zero</b> (entre ' +
+    sbN0(d.cai) + ' e ' + sbN0(d.sobe) + ' metros, começar do zero daria três barras idênticas); os números ' +
+    'escritos são os de verdade. O SkillCorner <b>não rastreia todos os jogos</b> — cerca de 15 partidas por ' +
+    'atleta por temporada, não 38 —, então isto é o perfil de uma amostra, e entram só atletas com 300+ ' +
+    'minutos rastreados (' + sbN1(sbPorFaixa('fisAtletas').sobe) + ' por clube em quem sobe, ' +
+    sbN1(sbPorFaixa('fisAtletas').cai) + ' em quem cai). E o <b>PSV-99 não é recorde</b>: é a média do pico ' +
+    'de cada jogo — o pico de um jogo isolado é sempre maior.</p>' +
+    '<p class="sb-nota">Ficam de fora o <b>Peak Velocity</b> e o <b>Top 3 Peak Velocity</b>, que seriam as ' +
+    'melhores medidas de velocidade máxima: neste banco eles têm <b>0% de cobertura em 2022, 2023 e 2024</b> ' +
+    '(o backfill nunca rodou nesses períodos). Entrar com eles seria comparar três anos vazios com dois ' +
+    'cheios.</p>' +
     '</div>';
 }
 
