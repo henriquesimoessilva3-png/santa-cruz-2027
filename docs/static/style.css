@@ -2517,3 +2517,28 @@ body.claro .ind-linha input[type=date]{color-scheme:light}
    um estado bom quando não é */
 .fb-on.bloq{color:var(--coral-cl)}
 body.claro .fb-on.bloq{color:var(--coral)}
+
+/* ---------- faixa de status mais larga ----------
+   Eram 3px, e num card que cresceu de texto a faixa virou um fio: o status é a
+   informação que se varre a coluna inteira para ler (quem está Negociando, quem já é
+   Fechado), então ela tem de aparecer sem procurar. Vai para 7px.
+
+   A LEGENDA acompanha na mesma medida. Legenda que não bate com o card é pior que não
+   ter legenda — a pessoa compara as duas e conclui que são coisas diferentes. */
+.jog{border-left-width:7px}
+.campo.denso .jog{border-left-width:6px}
+.amostra{border-left-width:7px}
+/* sem status definido o fio cinza continua fino: faixa larga e apagada chama atenção
+   para o que ainda não foi decidido, que é o contrário do que se quer */
+.jog:not(.st-alvo):not(.st-negociando):not(.st-fechado):not(.st-elenco){border-left-width:3px}
+
+/* O `.jog.titular` usa o atalho `border-color`, que pinta os QUATRO lados — inclusive o
+   esquerdo, onde mora a faixa de status. Resultado: um titular marcado como Alvo exibia
+   a faixa rosa do titular no lugar do âmbar do status. Com 3px ninguém via; com 7px vira
+   informação errada bem visível. Estas quatro linhas vêm depois e devolvem a faixa ao
+   status, que é o que ela existe para dizer. O titular continua com o fundo rosa e a
+   estrela, que já o identificam. */
+.jog.st-elenco{border-left-color:var(--azul)}
+.jog.st-alvo{border-left-color:var(--ambar)}
+.jog.st-negociando{border-left-color:var(--roxo)}
+.jog.st-fechado{border-left-color:var(--verde)}

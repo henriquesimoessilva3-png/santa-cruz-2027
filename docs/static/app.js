@@ -5666,7 +5666,11 @@ const EMP_CAMPOS = [
   { k: 'empresa',    r: 'Empresa',         w: 120 },
   { k: 'igEmpresa',  r: 'IG da empresa',   w: 110, ig: 1 },
   { k: 'igJogador',  r: 'IG do jogador',   w: 110, ig: 1 },
-  { k: 'tel',        r: 'Telefone',        w: 110 },
+  /* DOIS telefones, e o rótulo tem de dizer de quem é cada um: falar com o jogador
+     direto e falar com quem o representa são conversas diferentes, e trocar um pelo
+     outro numa negociação é o tipo de erro que custa caro. */
+  { k: 'tel',        r: 'Telefone empresário', w: 122 },
+  { k: 'telJogador', r: 'Telefone jogador',    w: 118 },
   { k: 'salAtual',   r: 'Salário atual',   w: 92,  num: 1 },
   { k: 'pedida',     r: 'Pedida',          w: 92,  num: 1 },
   { k: 'faixa',      r: 'Faixa p/ clube',  w: 92,  num: 1 },
