@@ -7083,6 +7083,8 @@ function sbBlocoUsoAno() {
     '</svg></div>' +
     '<p class="sb-nota">A cor da primeira camada marca a zona da tabela naquele ano pela regra de 2026: ' +
     '<b>1º e 2º sobem direto</b>, do 3º ao 6º vão ao playoff.</p>' +
+    '<span class="sb-rot" style="margin-top:4px">Os mesmos ' + sbAno + ', abertos por posição</span>' +
+    sbTabelaUsoSetor() +
     '<p class="sb-nota"><b>O time de verdade tem o mesmo tamanho para todo mundo.</b> Nas quatro ' +
     'temporadas fechadas, quem subiu teve <b>' + sbN1(n1.sobe) + '</b> atletas acima de 1000 minutos e quem ' +
     'caiu, <b>' + sbN1(n1.cai) + '</b> — praticamente idêntico, e a relação com a posição final é de ' +
@@ -7095,6 +7097,103 @@ function sbBlocoUsoAno() {
       'números ainda vão subir — a comparação justa é com o ritmo, não com o total fechado dos outros ' +
       'anos.</p>' : '') +
     '</div>';
+}
+
+/* ---------- uso de elenco aberto por posicao ---------- */
+
+const SB_GRUPO_ROT = { goleiro: 'Goleiro', defesa: 'Defesa', meio: 'Meio-campo', ataque: 'Ataque' };
+
+/* Media por clube-temporada de [usados, n300, n1000] em cada setor, para uma faixa da tabela. */
+function sbUsoSetor(faixaAlvo) {
+  const alvo = new Set(sbComp().filter(x => x.faixa === faixaAlvo).map(x => x.ano + '|' + x.clube));
+  const soma = {}, n = alvo.size || 1;
+  SB_GRUPOS.forEach(g => { soma[g] = { usados: 0, n300: 0, n1000: 0 }; });
+  SB_USO_POR_CLUBE.forEach(c => {
+    if (!alvo.has(c.ano + '|' + c.clube)) return;
+    SB_GRUPOS.forEach(g => {
+      soma[g].usados += c.g[g].usados; soma[g].n300 += c.g[g].n300; soma[g].n1000 += c.g[g].n1000;
+    });
+  });
+  SB_GRUPOS.forEach(g => { soma[g].usados /= n; soma[g].n300 /= n; soma[g].n1000 /= n; });
+  return soma;
+}
+
+function sbBlocoUsoSetor() {
+  const s = sbUsoSetor('sobe'), c = sbUsoSetor('cai');
+  const maxU = Math.max(...SB_GRUPOS.map(g => Math.max(s[g].usados, c[g].usados)));
+  const X = 150, ESC = 300 / maxU, PASSO = 84;
+
+  /* Uma barra por faixa da tabela, com as tres camadas de minutos. A camada de cima leva a
+     cor da faixa (azul sobe, laranja cai); as duas de baixo usam a rampa neutra, porque o
+     que se quer comparar ali e o TAMANHO da cauda, nao de quem ela e. */
+  const barra = (rot, d, y, cor) => {
+    const w1 = d.n1000 * ESC, w2 = (d.n300 - d.n1000) * ESC, w3 = (d.usados - d.n300) * ESC;
+    const peca = (xx, w, f) => w <= 0.5 ? '' :
+      '<rect x="' + xx.toFixed(1) + '" y="' + y + '" width="' + Math.max(1, w - 1.5).toFixed(1) +
+      '" height="15" rx="3" fill="' + f + '"/>';
+    const num = (xx, w, v) => w < 20 ? '' :
+      '<text x="' + (xx + w / 2).toFixed(1) + '" y="' + (y + 12) + '" text-anchor="middle" ' +
+      'class="sbx-emp t1">' + sbN1(v) + '</text>';
+    return '<text x="' + (X - 8) + '" y="' + (y + 12) + '" text-anchor="end" class="sbx-rot forte">' +
+        rot + '</text>' +
+      peca(X, w1, cor) + num(X, w1, d.n1000) +
+      peca(X + w1, w2, 'var(--sb-i3)') + num(X + w1, w2, d.n300 - d.n1000) +
+      peca(X + w1 + w2, w3, 'var(--sb-i1)') + num(X + w1 + w2, w3, d.usados - d.n300) +
+      '<text x="' + (X + w1 + w2 + w3 + 9).toFixed(1) + '" y="' + (y + 12) + '" class="sbx-num">' +
+        sbN1(d.usados) + ' usados</text>';
+  };
+  const svg = SB_GRUPOS.map((g, i) => {
+    const y = i * PASSO;
+    const dif = c[g].usados - s[g].usados;
+    return '<text x="0" y="' + (y + 11) + '" class="sbx-tit">' + SB_GRUPO_ROT[g].toUpperCase() + '</text>' +
+      '<text x="' + (X + 330) + '" y="' + (y + 11) + '" class="sbx-pq">quem cai usa ' +
+        (dif >= 0 ? '+' : '−') + sbN1(Math.abs(dif)) + '</text>' +
+      barra('sobe', s[g], y + 18, 'var(--sb-sobe)') +
+      barra('cai', c[g], y + 44, 'var(--sb-cai)');
+  }).join('');
+
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">O mesmo, aberto por posição · média por clube-temporada</span>' +
+    '<div class="sb-leg"><span><i class="q" style="background:var(--sb-sobe)"></i>time de verdade — passou de 1000 min</span>' +
+    '<span><i class="q" style="background:var(--sb-i3)"></i>rodízio — 300 a 1000 min</span>' +
+    '<span><i class="q" style="background:var(--sb-i1)"></i>passou pelo elenco — menos de 300</span></div>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (SB_GRUPOS.length * PASSO) + '" class="sb-svg">' +
+      svg + '</svg></div>' +
+    '<p class="sb-nota"><b>A primeira camada é idêntica nos quatro setores.</b> Quem sobe e quem cai ' +
+    'colocam praticamente os mesmos ' + sbN1(s.defesa.n1000) + ' defensores, ' + sbN1(s.meio.n1000) +
+    ' meias e ' + sbN1(s.ataque.n1000) + ' atacantes acima de 1000 minutos. Não existe um setor em que ' +
+    'quem sobe tenha mais gente jogando de verdade — existe setor em que quem cai <b>procurou mais</b>.</p>' +
+    '<p class="sb-nota"><b>E procurou mais no ataque e na defesa.</b> Quem cai usa <b>' +
+    sbN1(c.ataque.usados - s.ataque.usados) + '</b> atacantes a mais e <b>' +
+    sbN1(c.defesa.usados - s.defesa.usados) + '</b> defensores a mais por temporada; no meio a diferença ' +
+    'cai para ' + sbN1(c.meio.usados - s.meio.usados) + '. O ataque casa com o outro achado do estudo: ' +
+    'quem cai também <b>concentra o dinheiro no ataque</b> (43,8% do valor do elenco contra 30,8%). ' +
+    'Compra atacante, troca de atacante, e o problema não estava ali.</p>' +
+    '<p class="sb-nota"><b>O goleiro é o sinal mais cru.</b> Quem sobe usa ' + sbN1(s.goleiro.usados) +
+    ' goleiros na temporada; quem cai, ' + sbN1(c.goleiro.usados) + ' — quase um goleiro inteiro a mais. ' +
+    'Numa posição em que o normal é usar dois, isso é muita coisa, e é o tipo de troca que quase sempre ' +
+    'vem depois de uma sequência ruim, não antes. Acima de 1000 minutos os dois grupos têm o mesmo ' +
+    sbN1(s.goleiro.n1000) + ': há um titular em todo lugar; o que muda é quantos passaram por ele.</p>' +
+    '</div>';
+}
+
+/* A mesma abertura, mas da temporada escolhida, clube a clube. Serve para achar o setor em
+   que um clube especifico esta rodando demais — inclusive o ano em curso. */
+function sbTabelaUsoSetor() {
+  const L = sbLigado().filter(x => x.ano === sbAno).sort((a, b) => a.pos - b.pos);
+  if (!L.length) return '';
+  const por = {};
+  SB_USO_POR_CLUBE.forEach(c => { if (c.ano === sbAno) por[c.clube] = c.g; });
+  const linhas = L.map(x => {
+    const g = por[x.clube];
+    if (!g) return '';
+    return '<tr><td>' + x.pos + '. ' + esc(x.clube) + '</td>' +
+      SB_GRUPOS.map(k => '<td>' + g[k].usados + '</td>').join('') +
+      '<td class="s">' + x.usados + '</td></tr>';
+  }).join('');
+  return '<div class="sb-rolo"><table class="sb-tab"><thead><tr><th>' + sbAno + '</th>' +
+    SB_GRUPOS.map(k => '<th>' + SB_GRUPO_ROT[k] + '</th>').join('') + '<th>Total</th></tr></thead>' +
+    '<tbody>' + linhas + '</tbody></table></div>';
 }
 
 /* Casa e fora. O numero que interessa nao e a correlacao (as duas sao altas), e a razao. */
@@ -7375,6 +7474,8 @@ function sbRender() {
     sbBlocoUso() +
 
     sbBlocoUsoAno() +
+
+    sbBlocoUsoSetor() +
 
     sbBlocoIdade() +
 

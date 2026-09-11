@@ -86,6 +86,24 @@ def por_idade():
     return minutos, atletas
 
 
+def uso_por_setor():
+    """Quantos atletas cada clube usou em cada setor, e quantos de fato jogaram.
+
+    Tres camadas por setor: quem passou de 1000 minutos (o time de verdade, uns onze jogos
+    inteiros), quem passou de 300 (foi opcao, nao so entrou uma vez) e o total de usados.
+    E o mesmo corte do bloco geral, agora aberto por posicao — que e onde se ve QUAL setor
+    o clube passou o ano procurando.
+    """
+    T = pd.read_csv(os.path.join(AQUI, "dados", "serieb_tecnico.csv"))
+    T["clube"] = T["Equipa dentro de um período de tempo seleccionado"].map(nfc)
+    T["grupo"] = T["posicao_1"].map(lambda p: SETORES.get(str(p), "ataque"))
+    fora = {}
+    for (ano, clube, g), d in T.groupby(["ano", "clube", "grupo"]):
+        m = d["Minutos jogados:"]
+        fora[(ano, clube, g)] = (len(d), int((m >= 300).sum()), int((m >= 1000).sum()))
+    return fora
+
+
 CABECALHO = '''/* GERADO POR gerar_sb_clubes.py — NAO EDITE A MAO.
 
    Os 100 clube-temporada da Serie B de 2022 a 2026, com o que as tres bases mediram em
@@ -170,6 +188,28 @@ const SB_IDADE_POR_CLUBE = SB_IDADE.map(l => {
     o.g[g] = {};
     SB_FAIXAS.forEach(f => { o.g[g][f] = { min: l[i++], n: l[i++] }; });
   });
+  return o;
+});
+
+""")
+        # --- uso de elenco por setor ---
+        uso = uso_por_setor()
+        f.write("""/* Atletas usados por SETOR, em tres camadas: total, quem passou de 300 minutos e quem
+   passou de 1000. Mesmos cortes do bloco geral, abertos por posicao — e onde se ve QUAL
+   setor o clube passou o ano procurando. */
+/* ano, clube, [usados, n300, n1000] por grupo, na ordem de SB_GRUPOS */
+""")
+        f.write("const SB_USO_SETOR = [\n")
+        for _, r in t_base.sort_values(["ano", "pos"]).iterrows():
+            v = []
+            for g in GRUPOS:
+                v.extend(uso.get((int(r.ano), r.clube, g), (0, 0, 0)))
+            f.write(f"  [{int(r.ano)},{json.dumps(r.clube, ensure_ascii=False)}," + ",".join(map(str, v)) + "],\n")
+        f.write("];\n\n")
+        f.write("""const SB_USO_POR_CLUBE = SB_USO_SETOR.map(l => {
+  const o = { ano: l[0], clube: l[1], g: {} };
+  let i = 2;
+  SB_GRUPOS.forEach(g => { o.g[g] = { usados: l[i++], n300: l[i++], n1000: l[i++] }; });
   return o;
 });
 """)
