@@ -2832,3 +2832,5 @@ body.claro #pgSerieB{--sb-i1:#cfe3ee;--sb-i2:#9cc6dd;--sb-i3:#5fa2c6;--sb-i4:#2a
 .sbx-emp.t4,.sbx-emp.t5{fill:#0d1b23}
 body.claro .sbx-emp.t1,body.claro .sbx-emp.t2,body.claro .sbx-emp.t3{fill:#0d2633}
 body.claro .sbx-emp.t4,body.claro .sbx-emp.t5{fill:#f4f9fc}
+.sbx-fora{font-size:10px;font-weight:700;fill:var(--tinta2)}
+.sbx-fio{stroke:var(--borda2);stroke-width:1}

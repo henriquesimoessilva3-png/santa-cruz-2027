@@ -6790,20 +6790,37 @@ function sbIdadePct(d, chave) {
   return SB_FAIXAS.map(f => d[f][chave] / tot * 100);
 }
 
-/* Uma barra empilhada de 100%, com o rotulo do percentual dentro do pedaco quando cabe. */
+/* Uma barra empilhada de 100% em que TODO pedaco mostra o seu numero.
+
+   O pedaco estreito nao tem como levar o rotulo dentro — "até 20" chega a 0,7%, que sao tres
+   pixels. Entao o numero desce para baixo da barra, ligado por um tracinho ao pedaco de onde
+   saiu. E como dois estreitos podem ser vizinhos (goleiro de quem cai tem 4,3% e 1,0% um ao
+   lado do outro), cada rotulo de fora empurra o proximo para a direita se estiverem perto
+   demais: e melhor o tracinho sair torto do que dois numeros se sobreporem. */
 function sbEmpilhada(rot, pcts, y, esq, larg, forte) {
-  let x = esq;
-  const partes = pcts.map((p, i) => {
-    const w = p / 100 * larg, cx = x;
+  const DENTRO = 30, LARG_ROT = 27;
+  let x = esq, ultimoFora = -1e9;
+  const dentro = [], fora = [];
+  pcts.forEach((p, i) => {
+    const w = p / 100 * larg, cx = x, meio = cx + w / 2;
     x += w;
-    const dentro = w > 30
-      ? '<text x="' + (cx + w / 2).toFixed(1) + '" y="' + (y + 12) + '" text-anchor="middle" ' +
-        'class="sbx-emp t' + (i + 1) + '">' + sbN1(p) + '%</text>' : '';
-    return '<rect x="' + cx.toFixed(1) + '" y="' + y + '" width="' + Math.max(0, w - 1).toFixed(1) +
-      '" height="16" fill="var(--sb-i' + (i + 1) + ')"/>' + dentro;
-  }).join('');
+    dentro.push('<rect x="' + cx.toFixed(1) + '" y="' + y + '" width="' + Math.max(0, w - 1).toFixed(1) +
+      '" height="16" fill="var(--sb-i' + (i + 1) + ')"/>');
+    const txt = sbN1(p) + '%';
+    if (w >= DENTRO) {
+      dentro.push('<text x="' + meio.toFixed(1) + '" y="' + (y + 12) + '" text-anchor="middle" ' +
+        'class="sbx-emp t' + (i + 1) + '">' + txt + '</text>');
+    } else {
+      const px = Math.max(meio, ultimoFora + LARG_ROT);
+      ultimoFora = px;
+      fora.push('<line x1="' + meio.toFixed(1) + '" y1="' + (y + 16) + '" x2="' + px.toFixed(1) +
+          '" y2="' + (y + 21) + '" class="sbx-fio"/>' +
+        '<text x="' + px.toFixed(1) + '" y="' + (y + 30) + '" text-anchor="middle" class="sbx-fora">' +
+          txt + '</text>');
+    }
+  });
   return '<text x="' + (esq - 8) + '" y="' + (y + 12) + '" text-anchor="end" class="sbx-rot' +
-    (forte ? ' forte' : '') + '">' + esc(rot) + '</text>' + partes;
+    (forte ? ' forte' : '') + '">' + esc(rot) + '</text>' + dentro.join('') + fora.join('');
 }
 
 function sbLegendaIdade() {
@@ -6817,14 +6834,15 @@ function sbBlocoIdade() {
   const por = f => sbIdade(L.filter(x => x.faixa === f));
   const s = por('sobe'), m = por('meio'), c = por('cai');
   const ESQ = 168, LARG = 400;
+  const PASSO = 36;   /* 16 da barra + espaco para o numero que desce */
   const linha = (rot, d, y, forte) => sbEmpilhada(rot, sbIdadePct(d, 'min'), y, ESQ, LARG, forte);
 
   const GRUPO_ROT = { goleiro: 'Goleiro', defesa: 'Defesa', meio: 'Meio-campo', ataque: 'Ataque' };
   const setores = SB_GRUPOS.map((g, i) => {
-    const y = i * 62;
+    const y = i * 96;
     return '<text x="0" y="' + (y + 11) + '" class="sbx-tit">' + GRUPO_ROT[g].toUpperCase() + '</text>' +
       sbEmpilhada('sobe', sbIdadePct(s.g[g], 'min'), y + 18, ESQ, LARG, true) +
-      sbEmpilhada('cai', sbIdadePct(c.g[g], 'min'), y + 37, ESQ, LARG, true);
+      sbEmpilhada('cai', sbIdadePct(c.g[g], 'min'), y + 54, ESQ, LARG, true);
   }).join('');
 
   /* o numero que mais separa: a fatia de minutos dos 30+ e a dos 20-23 */
@@ -6834,10 +6852,10 @@ function sbBlocoIdade() {
   return '<div class="sb-bloco">' +
     '<span class="sb-rot">Distribuição de elenco por idade · % dos minutos</span>' +
     sbLegendaIdade() +
-    '<div class="sb-tela"><svg viewBox="0 0 620 76" class="sb-svg">' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (PASSO * 3 + 4) + '" class="sb-svg">' +
       linha('quem sobe (1º–4º)', s.total, 4, true) +
-      linha('meio (5º–16º)', m.total, 24) +
-      linha('quem cai (17º–20º)', c.total, 44, true) +
+      linha('meio (5º–16º)', m.total, 4 + PASSO) +
+      linha('quem cai (17º–20º)', c.total, 4 + PASSO * 2, true) +
     '</svg></div>' +
     '<p class="sb-nota"><b>Quem cai é mais velho onde importa.</b> Os atletas de 30 anos ou mais levam <b>' +
     sbN1(v30(c)) + '%</b> dos minutos de quem cai contra <b>' + sbN1(v30(s)) + '%</b> de quem sobe. E a faixa ' +
@@ -6845,7 +6863,7 @@ function sbBlocoIdade() {
     '% dos minutos de quem sobe contra ' + sbN1(v2023(c)) + '% de quem cai, quase metade.</p>' +
 
     '<span class="sb-rot" style="margin-top:6px">Por grupo de posição · % dos minutos do setor</span>' +
-    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (SB_GRUPOS.length * 62 + 4) + '" class="sb-svg">' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (SB_GRUPOS.length * 96 + 4) + '" class="sb-svg">' +
       setores + '</svg></div>' +
     '<p class="sb-nota"><b>O meio-campo é onde a diferença de idade grita.</b> Quem cai dá <b>' +
     sbN1(c30('meio')) + '%</b> dos minutos do meio a atletas de 30+; quem sobe, <b>' + sbN1(m30('meio')) +
