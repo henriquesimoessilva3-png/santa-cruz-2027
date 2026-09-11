@@ -1139,3 +1139,27 @@ nunca o do meu teste. Testar pela porta dos fundos não testa a porta da frente.
 Conserto: `empDados()` devolve `{}` novo em vez da constante compartilhada. E a reprodução
 passou a ser feita como o usuário faz — forçando `estado.v = 4` no `localStorage` e
 recarregando a página do build estático, não chamando função no console.
+
+## Salvar grava por cima; criar grupo virou ato explícito (set/26)
+
+O Salvar **já** sobrescrevia quando havia `id` — a queixa vinha de outro lugar: o elenco de
+partida do site publicado entra com `id: null` de propósito (para ninguém sobrescrever o
+modelo sem querer), então o primeiro Salvar de quem abria o site **criava um grupo novo em
+silêncio** em vez de atualizar o que estava na tela. Daí a sensação de que não dava para
+gravar por cima.
+
+Agora:
+
+- **Salvar** sobrescreve o grupo aberto, sem perguntar nada. O balão do botão diz de quem:
+  *"Grava por cima de «Cenário 1 2027»"*. O que vai acontecer tem de estar claro ANTES do
+  clique, não só no resultado.
+- **Sem `id`**, o Salvar PERGUNTA o nome. Fica explícito que um grupo está nascendo, em vez
+  de aparecer um duplicado na lista sem ninguém ter pedido.
+- **Salvar como novo grupo…**, no menu Grupo, cria outro e mantém o atual intacto.
+
+`gravarCenario()` foi separada de `salvarCenario()` porque o "Duplicar grupo" já pede o
+nome antes de chamar — sem a separação, ele perguntaria duas vezes seguidas.
+
+**Cuidado que este trabalho ensinou:** testar o Salvar com o cenário REAL aberto grava por
+cima do cenário real. Aconteceu — o `dados/cenarios.json` foi reescrito durante o teste.
+Teste de gravação tem de nascer e morrer num grupo descartável.
