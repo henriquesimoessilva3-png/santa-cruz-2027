@@ -1193,3 +1193,35 @@ Vale registrar a sequência, porque ela se explica sozinha ao contrário: a estr
 botão quando o item "Marcar como titular" saiu do menu e ela era o único caminho; depois o
 nível passou a pintar o card; e aí a estrela deixou de ter função. Cada passo foi certo no
 momento, e o último tornou o primeiro desnecessário.
+
+## Exportar PNG: o html2canvas não dá conta deste campograma (set/26)
+
+A imagem saía **sem nenhum nome**, com os cards deslocados e cortados. Investiguei até o
+fim e a conclusão é que a ferramenta não serve para este layout:
+
+1. **Escala.** O campo está com `transform: scale(k)` na tela. O html2canvas desenha a
+   caixa de LAYOUT e ignora a transformação: media pelo retângulo reduzido e desenhava em
+   tamanho natural. Resolvido tirando o transform antes de capturar.
+2. **CSS Grid.** O card é `display:grid` com `1fr auto 20px…`, e o **html2canvas não
+   implementa Grid**. A coluna `1fr` do nome colapsa — daí a imagem sem nomes. Uma classe
+   `exportando` troca o card por bloco + posicionamento absoluto e melhora, mas não
+   resolve.
+3. **Variáveis CSS.** A largura do card é `width: var(--pos-max)`, posta pelo
+   `distribuir()`. O html2canvas não propaga a variável para os descendentes no clone, e
+   os cards saem estreitos. Congelar as medidas em px antes de capturar também não
+   resolveu.
+
+**A via fiel existe e está bloqueada.** Pôr o campo dentro de um `<foreignObject>` de SVG
+faz o PRÓPRIO navegador desenhar — grade, variáveis, tudo idêntico à tela. Testei e
+funciona: a imagem carrega em 2066×1091. Mas o Chrome marca o canvas como "sujo" ao
+desenhar SVG com foreignObject e proíbe exportar (`Tainted canvases may not be exported`).
+Serve para mostrar na tela, não para gerar arquivo.
+
+**O que ficou:** os itens 1 e 2 acima (imagem melhor que antes, ainda não fiel) e uma
+saída por tempo em todos os `await` — `requestAnimationFrame` não dispara em aba
+escondida, e exportar trocando de aba travava sem erro e sem imagem.
+
+**O caminho fiel é o PDF**, que usa o motor de impressão do navegador. Lá o campograma sai
+com a grade, as variáveis e as cores certas. Ajustado junto: o nível pinta o card no papel
+com as mesmas cores da tela, e as fontes **pararam de encolher** — o campo já é reduzido a
+~50% pelo `--k-print`, e reduzir a fonte por cima disso levava o nome a ~1mm.
