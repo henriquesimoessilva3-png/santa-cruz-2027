@@ -1601,7 +1601,14 @@ function carregarLocal() {
 function prepararEstatico() {
   /* So o EXCEL sai de cena agora: e o servidor que monta o xlsx (openpyxl). O comparativo
      voltou, porque a conta dele e pura e os grupos ja estao no navegador — ver
-     `comparativoLocal()`. Salvar, trocar, renomear e excluir tambem funcionam aqui. */
+     `comparativoLocal()`. Salvar, trocar, renomear e excluir tambem funcionam aqui.
+
+     ATENCAO ao mexer nesta lista: ela esconde por ID, e ID errado nao da erro nenhum.
+     Aqui havia '#btComparativo', que NUNCA existiu — o botao real e '#btComparar', e
+     mora dentro do menu Grupo. Resultado: durante todo o tempo em que o comparativo
+     "estava fora" do site, o botao continuou la, visivel e clicavel, so que buscando um
+     `api/comparativo` que no Pages e 404 — clicar nao fazia absolutamente nada, sem aviso.
+     Se acrescentar um seletor aqui, confira que ele casa com algo. */
   ['#btExcel'].forEach(sel => { const e = $(sel); if (e) e.style.display = 'none'; });
   const info = $('#abasInfo');
   if (info) info.insertAdjacentHTML('beforebegin',

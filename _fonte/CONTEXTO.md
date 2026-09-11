@@ -801,6 +801,15 @@ grupos já estão no navegador (publicados + `localStorage`). `comparativoLocal(
 mesma conta do lado de cá; `abrirComparativo()` escolhe a fonte pelo `ESTATICO`. Só o
 **Excel** continua de fora, porque é o servidor que monta o xlsx com openpyxl.
 
+**E o comparativo nunca esteve escondido de verdade.** O `prepararEstatico()` escondia
+`#btComparativo` — um id que **não existe**. O botão real é `#btComparar` e mora dentro do
+menu Grupo. Como `$()` devolve null e o guarda `if (e)` pula em silêncio, esconder por id
+errado não dá erro nenhum: durante todo o tempo em que o comparativo "estava fora" do site,
+o botão continuou lá, visível e clicável, buscando um `api/comparativo` que no Pages é 404.
+Clicar não fazia nada, sem aviso. Quem mexer naquela lista tem que conferir se o seletor
+casa com algo — é o tipo de engano que não aparece em teste que pergunta "escondeu?", só em
+teste que pergunta "esse seletor acha alguma coisa?".
+
 Os dois lados **têm que dar o mesmo número**, então os campos e a ordem são os do endpoint,
 um a um. Conferido plantando os três grupos reais no `localStorage` e rodando as duas
 contas: **3 grupos × 18 campos = 54 comparações, zero divergência**, incluindo `idadeMedia`
