@@ -126,6 +126,7 @@
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <button class="aba" data-aba="financeiro">Financeiro</button>
   <button class="aba" data-aba="empresarios">Empresários</button>
+  <button class="aba" data-aba="indicados">Indicados</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -463,6 +464,22 @@
       </div>
     </div>
   </section>
+
+    <section class="pagina oculta" id="pgIndicados">
+      <div class="emp-topo">
+        <div class="emp-tit">
+          <h3>Indicados</h3>
+          <span class="emp-sub" id="indSub">Jogadores indicados por empresários</span>
+        </div>
+        <div class="emp-bts">
+          <select id="indFiltroAval" class="ind-filtro" title="Filtrar pela avaliação"></select>
+          <input id="indBusca" class="emp-busca" placeholder="Buscar atleta, clube, indicação…">
+          <button class="bt mini" id="indNovo">＋ novo indicado</button>
+          <button class="bt mini" id="indCsv" title="Baixar tudo em CSV">baixar CSV</button>
+        </div>
+      </div>
+      <div class="emp-rolagem"><div id="indCorpo"></div></div>
+    </section>
 
     <section class="pagina oculta" id="pgEmpresarios">
       <div class="emp-topo">

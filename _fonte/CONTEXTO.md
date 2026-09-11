@@ -986,3 +986,32 @@ acento, espaço e hífen. Montar `input[data-ch="…"]` com ela e passar por `CS
 **não casa** — `CSS.escape` serve para IDENT, não para o miolo de um valor entre aspas.
 O foco simplesmente não acontecia, sem erro nenhum no console. Comparar `dataset.ch` num
 `find` é exato e imune.
+
+## Aba Indicados, e dois defeitos que ela destapou (set/26)
+
+Mesma ideia do Indicados do Scout System: a fila do que chega de fora. Empresário liga,
+manda nome, e aquilo precisa de um lugar antes de virar (ou não virar) alvo. Dez colunas
+— Atleta, Posição, Geração, País, Clube, Data, Responsável, Recepção, Indicação,
+Avaliação — com inclusão dentro da própria aba, filtro por avaliação **com a contagem de
+cada uma** (é o resumo da fila) e CSV.
+
+Sete avaliações: Aprovado Main · Squad · Youth · sub20 · Em avaliação · Monitorar ·
+Descartado. Coloridas de propósito: verde cheio no Main, verde nos outros aprovados,
+âmbar no que segue em aberto, coral no descartado — a coluna tem de se ler de relance.
+
+É **lista própria**, não visão do elenco: o indicado normalmente não está no campograma,
+é justamente o candidato a entrar. Por isso cada linha é registro solto com `uid`, e não
+chaveada por jogador como na aba Empresários.
+
+**1. ID ganha de duas classes, e a página nunca escondia.** `#pgEmpresarios{display:flex}`
+tem peso 100; `.pagina.oculta{display:none}` tem 20. O ID ganhava, então as duas abas
+novas ficavam SEMPRE visíveis — e como o `<main>` é flex-row, elas dividiam a largura com
+a aba aberta. O campograma aparecia espremido com a tabela de empresários ao lado, em
+todas as abas. O sintoma não parece de CSS, parece de JS: dá vontade de procurar no
+`irParaAba()`, que estava certo o tempo todo. `#pg…:not(.oculta)` resolve.
+
+**2. Ler criava registro.** `empDados()` fazia `estado.emp[ch] = {}` para devolver algo, e
+a tela chama isso uma vez por jogador para desenhar. Só ABRIR a aba enchia o cenário com
+118 objetos vazios, que iam para o Salvar, para a nuvem e para o `cenarios.json` sem nada
+dentro. Separado em `empDados()` (lê, nunca cria) e `empGravar()` (cria só quando há o quê),
+com `empLimpar()` sumindo com o registro que ficou vazio depois de apagar o texto.
