@@ -745,7 +745,9 @@ body.claro .pos-nome,body.claro .pos-pe .tot{color:#16202e}
 .kpi.barra-wrap{flex:1;min-width:90px;max-width:230px;gap:3px}
 .kpi.barra-wrap .barra{height:11px;border-radius:4px}
 
-.acoes{gap:4px}
+/* `flex:0 0 auto` e o que impede o bloco de botoes de ser esmagado quando o resto da faixa
+   nao cabe: sem ele o "Grupo ▾" aparecia cortado pela metade. */
+.acoes{gap:4px;flex:0 0 auto}
 .acoes .bt{padding:5px 9px;font-size:11px}
 .acoes select.bt{max-width:150px;font-size:11px}
 .sep{width:1px;height:20px;background:var(--borda2);margin:0 2px}
@@ -792,14 +794,19 @@ body.claro .pos-nome,body.claro .pos-pe .tot{color:#16202e}
 .aba{padding:6px 13px;font-size:11.5px}
 .campo-area{padding:10px}
 
-@media (max-width:1300px){ .kpi.peq{display:none} }
+/* Os KPIs saem em ordem de importancia conforme a tela aperta. O corte dos tres pequenos
+   subiu de 1300 para 1400 porque entre essas duas larguras a barra de massa salarial ficava
+   espremida a 80px, com a legenda cortada no meio da palavra. */
+@media (max-width:1400px){ .kpi.peq{display:none} }
 @media (max-width:1120px){ .kpis .kpi:nth-child(4){display:none} }
+@media (max-width:980px){ .kpi.barra-wrap{display:none} }
 
 .pos-topo{gap:5px}
 .campo.denso .pos-nome{display:block;font-size:9px}
 .kpis{gap:15px}
 .kpis .kpi{flex:none}
-.kpi.barra-wrap{flex:1 1 auto;min-width:80px}
+.kpi.barra-wrap{flex:1 1 auto;min-width:120px}
+#barraInfo{overflow:hidden;text-overflow:ellipsis}
 .acoes .bt{padding:4px 8px;font-size:10.5px}
 .acoes select.bt{max-width:132px}
 .menu button b{font-weight:700;color:var(--coral-cl)}
@@ -2773,3 +2780,40 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-emp-n span{font-size:11.5px;color:var(--tinta2)}
 .sb-emp ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:3px;
   font-size:11.5px;color:var(--tinta2)}
+
+/* ============ Análise Série B — os blocos que vieram das três bases (set/26) ============
+   `--sb-cai` é o mesmo laranja do `--sb-fica`: nos blocos novos a terceira faixa é "quem
+   caiu", não "quem ficou", e ler `--sb-fica` num gráfico de rebaixamento confunde. Apelido
+   em vez de cor nova, senão um dia as duas divergem e o gráfico fica bicolor sem motivo. */
+#pgSerieB{--sb-cai:var(--sb-fica)}
+
+/* textos dentro dos SVGs novos — mesma regra dos antigos: cor de TEXTO, nunca a da série */
+.sbx-rot{font-size:11px;fill:var(--tinta2)}
+.sbx-rot.forte{fill:var(--tinta);font-weight:700}
+.sbx-num{font-size:11px;font-weight:700;fill:var(--tinta);font-variant-numeric:tabular-nums}
+.sbx-tit{font-size:10.5px;font-weight:700;fill:var(--tinta);letter-spacing:.06em}
+.sbx-pq{font-size:9.5px;fill:var(--tinta3);letter-spacing:.05em}
+.sbx-eixo{stroke:var(--borda);stroke-width:1;fill:none}
+
+/* números soltos do bloco de uso de elenco */
+.sbx-cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  background:var(--borda);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.sbx-cartao{background:var(--fundo2);padding:14px 15px 13px;display:flex;flex-direction:column;gap:7px}
+.sbx-cartao b{font-size:27px;line-height:1;font-weight:800;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums}
+.sbx-cartao span{font-size:10.5px;line-height:1.4;color:var(--tinta2)}
+
+/* o retrato de quem sobe */
+.sb-rolo{overflow-x:auto;background:var(--fundo2);border:1px solid var(--borda);border-radius:8px}
+.sb-tab{border-collapse:collapse;width:100%;min-width:420px;font-size:12.5px}
+.sb-tab th,.sb-tab td{text-align:right;padding:7px 14px;border-bottom:1px solid var(--borda)}
+.sb-tab th:first-child,.sb-tab td:first-child{text-align:left}
+.sb-tab thead th{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta3);
+  font-weight:700}
+.sb-tab tbody td{font-variant-numeric:tabular-nums;color:var(--tinta2)}
+.sb-tab tbody td:first-child{color:var(--tinta)}
+.sb-tab td.s{color:var(--sb-sobe);font-weight:700}
+.sb-tab td.c{color:var(--sb-cai);font-weight:700}
+.sb-tab tr.sb-grupo td{padding-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tinta3);font-weight:700;border-bottom:none}
+.sb-tab tr:last-child td{border-bottom:none}
