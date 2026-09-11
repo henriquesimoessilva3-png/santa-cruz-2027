@@ -151,6 +151,7 @@ function novoEstado() {
     metas: { gol:8, defesa:27, meio:30, ataque:35 },
     alvoAtletas: {}, elenco: el,
     emp: {}, empExtra: [],   /* aba Empresários: dados por jogador e nomes de fora */
+    indicados: [],           /* aba Indicados: a fila do que chega de fora */
   };
 }
 
@@ -973,8 +974,21 @@ function cardJog(cod, j) {
     (j.jid != null ? '<button class="jog-mais" title="Ver os detalhes do jogador">+</button>'
      : j.manual ? '<button class="jog-mais editar" title="Editar este jogador">✎</button>'
      : '<span class="jog-mais vazio"></span>') +
+    (() => {
+      /* Atalho para a linha do jogador na aba Empresários. O botao muda de cor quando
+         ja ha empresario anotado: e a diferenca entre "ainda tenho de descobrir quem
+         cuida dele" e "ja sei", visivel no proprio campograma, sem trocar de aba. */
+      const d = (estado.emp || {})[empChave(j)] || {};
+      const tem = !!d.empresario;
+      return '<button class="jog-emp' + (tem ? ' tem' : '') + '" title="' +
+        (tem ? esc('Empresário: ' + d.empresario + (d.empresa ? ' · ' + d.empresa : '')) +
+               ' — abrir na aba Empresários'
+             : 'Sem empresário anotado — abrir na aba Empresários') + '">☎</button>';
+    })() +
     '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
     '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
+
+  el.querySelector('.jog-emp').onclick = e => { e.stopPropagation(); empIrPara(empChave(j)); };
 
   el.querySelector('.jog-x').onclick = e => {
     e.stopPropagation();
@@ -1121,6 +1135,7 @@ function abrirMenuJogador(botao, cod, j) {
   m.innerHTML =
     (j.jid != null ? '<button data-a="ficha">Ver ficha do jogador</button>' : '') +
     (j.manual ? '<button data-a="editar">Editar dados do jogador</button>' : '') +
+    '<button data-a="empresario">Empresário e contato</button>' +
     '<button data-a="titular">' + (j.titular ? 'Deixar de ser titular' : 'Marcar como titular') + '</button>' +
     '<button data-a="estrangeiro">' + (j.estrangeiro ? 'Marcar como brasileiro' : 'Marcar como estrangeiro') + '</button>' +
     '<div class="menu-sep">Status</div>' +
@@ -1143,6 +1158,7 @@ function abrirMenuJogador(botao, cod, j) {
     const a = bt.dataset.a;
     m.remove();
     if (a === 'ficha') return abrirFicha(j);
+    if (a === 'empresario') return empIrPara(empChave(j));
     if (a === 'titular') {
       const era = j.titular;
       estado.elenco[cod].forEach(x => { x.titular = false; });
@@ -5120,12 +5136,14 @@ function irParaAba(nome) {
   $('#pgAnalise').classList.toggle('oculta', nome !== 'analise');
   $('#pgFinanceiro').classList.toggle('oculta', nome !== 'financeiro');
   $('#pgEmpresarios').classList.toggle('oculta', nome !== 'empresarios');
+  $('#pgIndicados').classList.toggle('oculta', nome !== 'indicados');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
   if (nome === 'analise') anPremissasCarregar();
   if (nome === 'financeiro') finRender();
   if (nome === 'empresarios') empRender();
+  if (nome === 'indicados') indRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -5391,6 +5409,13 @@ function ligar() {
   const bc = $('#empCsv');
   if (bc) bc.onclick = empCsv;
 
+  const ib = $('#indBusca');
+  if (ib) ib.oninput = () => { indBusca = ib.value; indRender(); };
+  const ia = $('#indFiltroAval');
+  if (ia) ia.onchange = () => { indFiltroAval = ia.value; indRender(); };
+  const iN = $('#indNovo'); if (iN) iN.onclick = indNovo;
+  const iC = $('#indCsv');  if (iC) iC.onclick = indCsv;
+
   $('#btAjustar').onclick = () => {
     escalaProxima();
     sincronizarBotoes(); salvarLocal(); ajustarCampo();
@@ -5636,10 +5661,21 @@ let empSoFalta = false;
 let empFiltro = '';
 
 function empChave(j) { return j.pk ? 'pk:' + j.pk : 'uid:' + j.uid; }
-function empDados(ch) {
+/* LER nao cria. A versao anterior fazia `estado.emp[ch] = {}` aqui, e como a tela chama
+   isto uma vez por jogador para desenhar, so ABRIR a aba enchia o cenario com 118
+   objetos vazios — que iam para o Salvar, para a nuvem e para o cenarios.json, sem
+   nada dentro. Quem grava e `empGravar()`, e so quando ha o que gravar. */
+const EMP_VAZIO = {};
+function empDados(ch) { return (estado.emp && estado.emp[ch]) || EMP_VAZIO; }
+function empGravar(ch) {
   if (!estado.emp) estado.emp = {};
   if (!estado.emp[ch]) estado.emp[ch] = {};
   return estado.emp[ch];
+}
+/* some com o registro que ficou sem nada: senao, digitar e apagar deixaria o entulho */
+function empLimpar(ch) {
+  const d = estado.emp && estado.emp[ch];
+  if (d && !Object.values(d).some(v => v)) delete estado.emp[ch];
 }
 function empVazio(d) { return !EMP_CAMPOS.some(c => d[c.k]); }
 
@@ -5724,8 +5760,9 @@ function empRender() {
   alvo.querySelectorAll('input[data-ch]').forEach(inp => {
     inp.oninput = () => {
       const c = EMP_CAMPOS.find(x => x.k === inp.dataset.k);
-      const d = empDados(inp.dataset.ch);
+      const d = empGravar(inp.dataset.ch);
       d[inp.dataset.k] = c && c.num ? paraNumero(inp.value) : inp.value;
+      empLimpar(inp.dataset.ch);
       salvarLocal();
       /* o link do IG acompanha o que foi digitado, sem refazer a tela: reconstruir a
          linha a cada tecla tiraria o foco do campo no meio da digitacao */
@@ -5746,8 +5783,9 @@ function empRender() {
   });
   alvo.querySelectorAll('select.emp-st').forEach(sel => {
     sel.onchange = () => {
-      const d = empDados(sel.dataset.ch);
+      const d = empGravar(sel.dataset.ch);
       d[sel.dataset.k] = sel.value;
+      empLimpar(sel.dataset.ch);
       sel.className = 'emp-st st-' + String(sel.value || 'sem').toLowerCase();
       const linha = sel.closest('.emp-linha');
       if (linha) linha.classList.toggle('falta', empVazio(d));
@@ -5854,6 +5892,32 @@ function empLinhaHtml(l) {
     '</span></div>';
 }
 
+/* Leva para a aba e DEIXA O JOGADOR NA MAO: limpa os filtros (senao a linha pode estar
+   escondida por um filtro esquecido de antes), rola ate ela, acende por um instante e
+   poe o cursor no campo do empresario — que e o que se vai digitar em 9 de 10 vezes. */
+function empIrPara(ch) {
+  empFiltro = '';
+  empSoFalta = false;
+  const bq = $('#empBusca'); if (bq) bq.value = '';
+  const bf = $('#empSoFalta'); if (bf) bf.classList.remove('on');
+  irParaAba('empresarios');
+  requestAnimationFrame(() => {
+    /* Nada de montar seletor com a chave dentro: ela e "pk:Paulo Vitor - Atletico GO -
+       Brasil B", com acento, espaco e hifen. `CSS.escape` serve para IDENT, nao para o
+       miolo de um valor entre aspas — escapando ali, o seletor deixa de casar e o foco
+       simplesmente nao acontece, sem erro nenhum. Comparar o dataset e exato e imune. */
+    const inp = $$('#empCorpo input[data-k="empresario"]').find(i => i.dataset.ch === ch);
+    if (!inp) { toast('Esse jogador não está na lista', 'ruim'); return; }
+    const linha = inp.closest('.emp-linha');
+    if (linha) {
+      linha.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      linha.classList.add('acende');
+      setTimeout(() => linha.classList.remove('acende'), 1600);
+    }
+    inp.focus();
+  });
+}
+
 function empCsv() {
   const linhas = empLinhas();
   if (!linhas.length) { toast('Nada para baixar', 'ruim'); return; }
@@ -5874,4 +5938,170 @@ function empCsv() {
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   toast(linhas.length + ' linhas baixadas', 'bom');
+}
+
+/* ================= aba Indicados =================
+   Mesma ideia do Indicados do Scout System: a fila do que chega de fora — empresario
+   liga, manda nome, e aquilo precisa de um lugar antes de virar (ou nao virar) alvo.
+   Sem isso a indicacao mora no WhatsApp e some.
+
+   E uma LISTA PROPRIA, nao uma visao do elenco: o indicado normalmente nao esta no
+   campograma — e justamente o candidato a entrar. Por isso cada linha e um registro
+   solto, com uid, e nao uma chave de jogador como na aba Empresarios. */
+const IND_AVALIACOES = [
+  '', 'Aprovado Main', 'Aprovado Squad', 'Aprovado Youth', 'Aprovado sub20',
+  'Em avaliação', 'Monitorar', 'Descartado',
+];
+/* classe CSS por avaliacao: verde para os aprovados, ambar para o que segue em aberto,
+   coral para o descartado — a coluna tem de se ler de relance */
+const IND_CLASSE = {
+  'Aprovado Main': 'ok forte', 'Aprovado Squad': 'ok', 'Aprovado Youth': 'ok',
+  'Aprovado sub20': 'ok', 'Em avaliação': 'meio', 'Monitorar': 'meio',
+  'Descartado': 'nao',
+};
+const IND_COLUNAS = [
+  { k: 'atleta',      r: 'Atleta',      w: 170, forte: 1 },
+  { k: 'pos',         r: 'Posição',     w: 74,  opcoes: () => [''].concat(POSICOES.map(p => p.c)),
+    rotulo: v => (v ? sig(v) : '—') },
+  { k: 'geracao',     r: 'Geração',     w: 64,  ph: '2004' },
+  { k: 'pais',        r: 'País',        w: 96,  ph: 'Brasil' },
+  { k: 'clube',       r: 'Clube',       w: 140, ph: 'Flamengo' },
+  { k: 'data',        r: 'Data',        w: 96,  tipo: 'date' },
+  { k: 'responsavel', r: 'Responsável', w: 110, ph: 'quem avalia' },
+  { k: 'recepcao',    r: 'Recepção',    w: 120, ph: 'quem recebeu' },
+  { k: 'indicacao',   r: 'Indicação',   w: 130, ph: 'quem indicou' },
+  { k: 'avaliacao',   r: 'Avaliação',   w: 132, opcoes: () => IND_AVALIACOES },
+];
+let indBusca = '', indFiltroAval = '';
+
+function indLista() {
+  if (!Array.isArray(estado.indicados)) estado.indicados = [];
+  return estado.indicados;
+}
+
+function indRender() {
+  const alvo = $('#indCorpo');
+  if (!alvo) return;
+  const todos = indLista();
+  const termo = indBusca.trim().toLowerCase();
+  const lista = todos.filter(i => {
+    if (indFiltroAval && (i.avaliacao || '') !== indFiltroAval) return false;
+    if (!termo) return true;
+    return ['atleta', 'clube', 'indicacao', 'pais', 'responsavel', 'recepcao']
+      .some(k => String(i[k] || '').toLowerCase().includes(termo));
+  });
+
+  /* o seletor de avaliação mostra a contagem de cada uma: é o resumo da fila */
+  const sel = $('#indFiltroAval');
+  if (sel) {
+    const cont = v => todos.filter(i => (i.avaliacao || '') === v).length;
+    sel.innerHTML = '<option value="">Todas as avaliações (' + todos.length + ')</option>' +
+      IND_AVALIACOES.filter(v => v).map(v =>
+        '<option value="' + esc(v) + '"' + (indFiltroAval === v ? ' selected' : '') + '>' +
+        esc(v) + ' (' + cont(v) + ')</option>').join('') +
+      (cont('') ? '<option value="__sem"' + (indFiltroAval === '__sem' ? ' selected' : '') +
+        '>sem avaliação (' + cont('') + ')</option>' : '');
+    sel.value = indFiltroAval;
+  }
+
+  const resumo = $('#indSub');
+  if (resumo) {
+    const aprov = todos.filter(i => /^Aprovado/.test(i.avaliacao || '')).length;
+    resumo.innerHTML = todos.length
+      ? '<b>' + todos.length + '</b> indicado' + (todos.length === 1 ? '' : 's') +
+        (aprov ? ' · <b>' + aprov + '</b> aprovado' + (aprov === 1 ? '' : 's') : '') +
+        (lista.length !== todos.length ? ' · mostrando ' + lista.length : '')
+      : 'Jogadores indicados por empresários';
+  }
+
+  if (!lista.length) {
+    alvo.innerHTML = '<div class="emp-vazio">' + (todos.length
+      ? 'Nada com esse filtro.'
+      : 'Nenhum indicado ainda. Use "＋ novo indicado" para começar a fila.') + '</div>';
+    return;
+  }
+
+  const cab = '<div class="emp-cab ind-cab">' +
+    IND_COLUNAS.map(c => '<span style="width:' + c.w + 'px">' + esc(c.r) + '</span>').join('') +
+    '<span class="emp-c-x"></span></div>';
+
+  alvo.innerHTML = cab + lista.map(i => {
+    const cel = c => {
+      const v = i[c.k] || '';
+      if (c.opcoes) {
+        const cl = c.k === 'avaliacao' ? ' ind-aval ' + (IND_CLASSE[v] || 'sem') : '';
+        return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+          '<select class="ind-sel' + cl + '" data-uid="' + i.uid + '" data-k="' + c.k + '">' +
+          c.opcoes().map(o => '<option value="' + esc(o) + '"' + (v === o ? ' selected' : '') +
+            '>' + esc(c.rotulo ? c.rotulo(o) : (o || '—')) + '</option>').join('') +
+          '</select></span>';
+      }
+      return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+        '<input data-uid="' + i.uid + '" data-k="' + c.k + '" value="' + esc(v) + '"' +
+        (c.tipo === 'date' ? ' type="date"' : '') +
+        (c.forte ? ' class="ind-forte"' : '') +
+        ' placeholder="' + esc(c.ph || '') + '"></span>';
+    };
+    return '<div class="emp-linha ind-linha" data-uid="' + i.uid + '">' +
+      IND_COLUNAS.map(cel).join('') +
+      '<span class="emp-c-x"><button class="emp-x" data-uid="' + i.uid + '" title="Tirar da lista">×</button></span>' +
+      '</div>';
+  }).join('');
+
+  alvo.querySelectorAll('input[data-uid],select[data-uid]').forEach(el => {
+    const ev = el.tagName === 'SELECT' ? 'onchange' : 'oninput';
+    el[ev] = () => {
+      const r = indLista().find(x => x.uid === el.dataset.uid);
+      if (!r) return;
+      r[el.dataset.k] = el.value;
+      if (el.dataset.k === 'avaliacao') {
+        el.className = 'ind-sel ind-aval ' + (IND_CLASSE[el.value] || 'sem');
+        indRender();   /* a contagem do filtro muda: vale refazer */
+        return;
+      }
+      salvarLocal();
+    };
+    if (el.tagName === 'SELECT') {
+      const antes = el.onchange;
+      el.onchange = () => { antes(); salvarLocal(); };
+    }
+  });
+  alvo.querySelectorAll('.emp-x[data-uid]').forEach(b => {
+    b.onclick = () => {
+      const r = indLista().find(x => x.uid === b.dataset.uid);
+      if (!confirm('Tirar "' + ((r && r.atleta) || 'sem nome') + '" da lista de indicados?')) return;
+      estado.indicados = indLista().filter(x => x.uid !== b.dataset.uid);
+      salvarLocal(); indRender();
+    };
+  });
+}
+
+function indNovo() {
+  /* data de hoje ja preenchida: indicacao quase sempre se cadastra no dia em que chega,
+     e digitar a data e o tipo de atrito que faz a pessoa deixar para depois */
+  const hoje = new Date();
+  const iso = hoje.getFullYear() + '-' + String(hoje.getMonth() + 1).padStart(2, '0') +
+              '-' + String(hoje.getDate()).padStart(2, '0');
+  indLista().unshift({ uid: uid(), atleta: '', pos: '', geracao: '', pais: '', clube: '',
+                       data: iso, responsavel: '', recepcao: '', indicacao: '', avaliacao: '' });
+  indBusca = ''; indFiltroAval = '';
+  const b = $('#indBusca'); if (b) b.value = '';
+  salvarLocal(); indRender();
+  const p = $('#indCorpo .ind-forte');
+  if (p) { p.focus(); p.scrollIntoView({ block: 'center' }); }
+}
+
+function indCsv() {
+  const lista = indLista();
+  if (!lista.length) { toast('Nenhum indicado para baixar', 'ruim'); return; }
+  const escapa = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+  const txt = '﻿' + IND_COLUNAS.map(c => escapa(c.r)).join(';') + '\n' +
+    lista.map(i => IND_COLUNAS.map(c =>
+      escapa(c.k === 'pos' ? (i.pos ? sig(i.pos) : '') : (i[c.k] || ''))).join(';')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'indicados-' + String(estado.nome || 'grupo').replace(/[^\w\s-]/g, '') + '.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast(lista.length + ' indicados baixados', 'bom');
 }

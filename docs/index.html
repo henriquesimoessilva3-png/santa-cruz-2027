@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789136780">
+<link rel="stylesheet" href="static/style.css?v=1789137263">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -129,6 +129,7 @@
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <button class="aba" data-aba="financeiro">Financeiro</button>
   <button class="aba" data-aba="empresarios">Empresários</button>
+  <button class="aba" data-aba="indicados">Indicados</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -467,6 +468,22 @@
     </div>
   </section>
 
+    <section class="pagina oculta" id="pgIndicados">
+      <div class="emp-topo">
+        <div class="emp-tit">
+          <h3>Indicados</h3>
+          <span class="emp-sub" id="indSub">Jogadores indicados por empresários</span>
+        </div>
+        <div class="emp-bts">
+          <select id="indFiltroAval" class="ind-filtro" title="Filtrar pela avaliação"></select>
+          <input id="indBusca" class="emp-busca" placeholder="Buscar atleta, clube, indicação…">
+          <button class="bt mini" id="indNovo">＋ novo indicado</button>
+          <button class="bt mini" id="indCsv" title="Baixar tudo em CSV">baixar CSV</button>
+        </div>
+      </div>
+      <div class="emp-rolagem"><div id="indCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgEmpresarios">
       <div class="emp-topo">
         <div class="emp-tit">
@@ -637,7 +654,7 @@
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1789085162";</script>
-<script src="static/fs_visoes.js?v=1789136780"></script>
-<script src="static/app.js?v=1789136780"></script>
+<script src="static/fs_visoes.js?v=1789137263"></script>
+<script src="static/app.js?v=1789137263"></script>
 </body>
 </html>
