@@ -1781,32 +1781,49 @@ contrato, 53 exigindo confirmação, e 3 somando o perfil.
 > contrato chegou a comparar a coisa errada por isso. Hoje é `fsPool({perfil:1})` ou
 > `{contrato:1}`.
 
-### A segunda fileira do painel do Físico espicha
+### O painel do Físico: menos filtro à vista, mais indicador
 
-O painel tem **nove** campos numa grade de **sete** colunas (`.rk-linha1`), então dois caem
-para a fileira de baixo. Cada um ocupava uma coluna estreita e sobravam **1.050px de preto**
-à direita, com "Quem aparece" empilhando cinco caixas em 126px de altura e ainda cortando
-"Referências BR e mundo" no meio.
+Três mudanças no mesmo lugar, todas medidas antes e depois.
 
-Agora os dois esticam: `Quem aparece` toma quatro colunas com as caixas na horizontal,
-`Perfil de quem sobe` toma as três restantes. A fileira fecha em x=1884, igual à de cima.
+**1. As listas obedecem aos filtros.** Marcar "cumpre o perfil", ler "68 de 511 passam" na
+tela e a lista da Série A continuar oferecendo os mesmos 25 nomes era incoerente. Agora as
+quatro listas (Série A, Série B, SA no exterior, liga escolhida) passam pelo mesmo teste —
+menos o filtro de liga, porque cada lista **já é** de um campeonato e aplicá-lo por cima ou
+seria redundante ou zeraria a lista. Com o perfil em 100%: Série A 25 → **1**, Série B
+17 → **1**, SA no exterior 16 → **3**.
 
-| | antes | depois |
-|---|---|---|
-| Largura de "Quem aparece" | 268px | 922px |
-| Altura | 126px | **38px** |
-| Fim da fileira | x=854 | x=1884 |
-| Rótulo cortado | sim | não |
+> **A COORTE não é filtrada.** `co` é a régua de todos os percentis; filtrá-la mudaria o
+> significado de cada número da tela — o percentil viraria "entre os que sobraram do
+> filtro". A lista encolhe, a régua fica. O teste virou `fsPassaFiltros(j, ctx, pular)`,
+> separado do laço, justamente para as listas usarem o mesmo sem tocar em `co`.
 
-Os 88px de altura que sobraram vão para a matriz, que é o conteúdo.
+**2. O painel encolheu.** A fileira de baixo virou grade de **oito** colunas (4 faixas +
+"Quem aparece" em 3 + "Perfil" em 1). Com sete, o "Quem aparece" cabia em duas colunas, as
+caixas empilhavam em três fileiras e o bloco ia a **137px** — era ele, sozinho, que definia
+a altura do painel. Deitado em três colunas caiu para **57px**.
 
-> **`.rk-linha1` é compartilhada** com o painel da aba Fim de contrato — mexer nela direto
-> mudaria as duas telas. Por isso a do Físico ganhou `fs-linha1`, e as regras novas são
-> todas escopadas nela.
->
-> E o separador do "quem sobe e quem cai" era uma **linha tracejada em cima**, que só faz
-> sentido numa pilha. Deitado, virou barra à esquerda — e volta a ser em cima abaixo de
-> 1280px, onde o bloco empilha de novo.
+Saíram duas faixas: `sc_n` ("Jogos c/ tracking") era **duplicata** do "Jogos rastreados ≥"
+do rodapé; `ov` ("Overall") saiu por **espaço**, não por ser ruim — tinha 99,7% de
+cobertura, e devolver é uma linha em `RANGES_FS`.
+
+**3. Dá para recolher.** O botão `filtros` no rodapé esconde os filtros e a legenda, e
+grava a escolha. Recolhido ele **conta** quantos passam (`filtros 511`), senão a pessoa
+esquece que deixou filtro ligado e lê a matriz achando que é a base inteira.
+
+| | matriz começa em |
+|---|---|
+| Antes | 397px |
+| Compactado | 336px |
+| Recolhido | **216px** — 7 linhas de indicador a mais |
+
+> **A classe do recolhido vai em `.rk-filtros`, não em `.rk-col`.** A legenda da TARJA vive
+> na coluna IRMÃ (a do campinho) e sozinha tem **99px**, quase o tamanho do campinho. Com a
+> classe no `.rk-col` o painel sumia e a linha continuava alta, porque quem mandava na
+> altura era a esquerda: recolher ganhava 25px de 254. O campinho fica — é como se escolhe
+> a posição.
+
+**"Quem sobe e quem cai" agora vem ligado** por padrão, junto dos dois Top 5. Não há
+persistência dessas caixas: é o atributo `checked` do HTML e ponto.
 
 ### Armadilha de publicação: o `--push` que não publica
 

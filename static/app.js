@@ -4010,9 +4010,11 @@ function fsCongelar() {
   return true;
 }
 
+let fsPintarRecolher = null;
 function fsRender() {
   fsPerfilNota();
   fsAteNota();
+  if (fsPintarRecolher) fsPintarRecolher();
   if (!BASE.length || !$('#fsMatriz')) return;
   const co = fsCoorteAB();
   const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
@@ -4419,20 +4421,27 @@ function fsOpcoesLista(el, lista, rotulo, co, jaTem, comBandeira) {
 
 function fsMontarSeries(co, colunas) {
   const jaTem = new Set(colunas.map(c => primaryKey(c.j)));
-  fsOpcoesLista($('#fsSerieA'), co.lista.filter(j => j.l === 'Brasil A'), '🇧🇷 Série A', co, jaTem);
-  fsOpcoesLista($('#fsSerieB'), co.lista.filter(j => j.l === 'Brasil B'), '🇧🇷 Série B', co, jaTem);
+  /* AS LISTAS OBEDECEM AOS FILTROS DO PAINEL (menos o de liga — cada lista ja e de um
+     campeonato). Antes nao obedeciam: dava para marcar "cumpre o perfil", ver "68 de 511
+     passam" escrito na tela e a lista da Serie A continuar oferecendo os mesmos 25 nomes,
+     sem dizer quais deles passavam. O numero no rotulo ("Serie A · 25") e o tamanho da
+     lista, entao ele encolhe junto e vira o aviso de que o filtro esta pegando.
+     A COORTE `co` NAO e filtrada: ela e a regua dos percentis. */
+  const ctx = fsCtxFiltros();
+  const passa = j => fsPassaFiltros(j, ctx, { liga: 1 });
+  fsOpcoesLista($('#fsSerieA'), co.lista.filter(j => j.l === 'Brasil A' && passa(j)), '🇧🇷 Série A', co, jaTem);
+  fsOpcoesLista($('#fsSerieB'), co.lista.filter(j => j.l === 'Brasil B' && passa(j)), '🇧🇷 Série B', co, jaTem);
   /* rotulos curtos de proposito: o combo tem ~160px e o nome longo virava reticencias */
 
   /* Sul-americanos no exterior: nascidos na America do Sul (sem Brasil) jogando fora
      dela. Mesma definicao do botao "No exterior" dos filtros — uma regra so. */
-  const minJ = fsMinJogos();
-  const fora = fsBase().filter(j => j.p === fsPos && (Number(j.sc_n) || 0) >= minJ &&
+  const fora = fsBase().filter(j => j.p === fsPos && passa(j) &&
     classPais(j.nac || '') === 'sa' && classLiga(j.l) !== 'sulamerica' && classLiga(j.l) !== 'brasil');
   fsOpcoesLista($('#fsSulExt'), fora, '🌎 SA no exterior', co, jaTem, true);
 
   /* Terceira lista: qualquer campeonato com tracking na posicao escolhida. Sul-americanos
      primeiro porque e de onde o Santa Cruz contrata. */
-  const doPosto = fsBase().filter(j => j.p === fsPos && (Number(j.sc_n) || 0) >= minJ);
+  const doPosto = fsBase().filter(j => j.p === fsPos && passa(j));
   const cont = {};
   doPosto.forEach(j => { cont[j.l] = (cont[j.l] || 0) + 1; });
   const ordem = l => GRUPOS_LIGA.sulamerica.includes(l) ? 0
@@ -4634,10 +4643,14 @@ const RANGES_FS = [
   { k: 'alt', r: 'Altura (cm)',   min: 150, max: 210,       passo: 1 },
   { k: 'id_', r: 'Idade',         min: 15,  max: 45,        passo: 1 },
   { k: 'mv',  r: 'Valor mercado', min: 0,   max: 120000000, passo: 500000, fmt: fmtMilhoes },
-  { k: 'ov',  r: 'Overall',       min: 0,   max: 100,       passo: 1 },
   { k: 'min', r: 'Minutos',       min: 0,   max: 5000,      passo: 50 },
-  { k: 'sc_n', r: 'Jogos c/ tracking', min: 0, max: 60,     passo: 1 },
 ];
+/* SAIRAM DAQUI, e por motivos diferentes:
+   - `sc_n` (Jogos c/ tracking) era DUPLICATA: o "Jogos rastreados >=" do rodape filtra o
+     mesmo campo, e dois controles para o mesmo filtro so criam a duvida de qual manda.
+   - `ov` (Overall) saiu por ESPACO, nao por ser ruim — tem 99,7% de cobertura e funcionava.
+     Foi troca consciente: o lugar dele virou o "Quem aparece". Devolver e acrescentar uma
+     linha aqui, mas ai algo tem de sair da fileira, que tem sete colunas. */
 
 /* Quem o filtro deixa passar, dentro da posicao escolhida. E de onde saem os "melhores
    do filtro" — a regua continua sendo a posicao nas Series A e B, sempre. */
@@ -4724,44 +4737,63 @@ function fsPerfilNota() {
    `semPerfil`, e com dois filtros opcionais isso vira armadilha na hora: `fsPool(true)`
    nao diz QUAL dos dois esta sendo pulado, e a nota do contrato acabou comparando a coisa
    errada por causa disso. Nome explicito nao tem esse problema. */
-function fsPool(pular) {
+/* O TESTE DE UM JOGADOR, separado do laco que monta o pool. Existe separado porque as
+   LISTAS de campeonato (Serie A, Serie B, SA no exterior, a liga escolhida) precisam do
+   mesmo teste: marcar "cumpre o perfil" e ver a lista da Serie A continuar com os mesmos 25
+   nomes e incoerente — o painel inteiro diz uma coisa e a lista diz outra.
+
+   `pular.liga` existe para elas: cada lista JA e de um campeonato, entao aplicar por cima o
+   filtro de liga do painel ou seria redundante ou esvaziaria a lista inteira ("Serie A"
+   filtrada por "so Argentina" da zero, e o zero nao ensina nada).
+
+   O QUE ELE NAO TOCA e a COORTE (`co`), que e a regua de todos os percentis. Filtrar a
+   regua mudaria o significado de cada numero da tela: o percentil passaria a ser "entre os
+   que sobraram do filtro", nao "entre os da posicao nas Series A e B". A lista encolhe, a
+   regua fica. */
+function fsPassaFiltros(j, ctx, pular) {
+  pular = pular || {};
+  if ((Number(j.sc_n) || 0) < ctx.min) return false;
+  if (!pular.liga && ctx.ligas && !ctx.ligas.has(j.l)) return false;
+  if (ctx.paises && !ctx.paises.has(j.nac || '')) return false;
+  if (ctx.times && !ctx.times.has(j.t)) return false;
+  if (ctx.pes && !ctx.pes.has(rotuloPe(j.pe))) return false;
+  for (const [d, f] of ctx.faixas) {
+    const v = j[d.k];
+    if (typeof v !== 'number' || isNaN(v) || v < f.lo || v > f.hi) return false;
+  }
+  if (ctx.ate) {
+    if (!j.ct || j.ct.slice(0, 7) > ctx.ate) return false;
+    if (ctx.soConf && j.ctc !== 'alta') return false;
+  }
+  if (ctx.fund) {
+    const p = fsPlacarPerfil(j, ctx.fund);
+    if (!p.julgavel || p.pct < ctx.perfil) return false;
+  }
+  return true;
+}
+
+/* Le os controles uma vez so. Chamar `mselSelecionados` dentro do filtro de cada jogador
+   custaria caro nas listas, que rodam sobre a base inteira. */
+function fsCtxFiltros(pular) {
   pular = pular || {};
   const perfil = pular.perfil ? null : fsPerfilLigado();
-  const ate = pular.contrato ? '' : (($('#fsAte') || {}).value || '');
-  const soConf = !!($('#fsSoConf') || {}).checked;
-  const fund = perfil != null ? fsFundamentais() : null;
-  const ligas = mselSelecionados('fsLigaSel');
-  const paises = mselSelecionados('fsPaisSel');
-  const times = mselSelecionados('fsTimeSel');
-  const pes = mselSelecionados('fsPeSel');
-  const faixas = RANGES_FS.map(d => [d, rangeValor('fsRanges', d.k)]).filter(x => x[1]);
-  const min = fsMinJogos();
-  return fsBase().filter(j => {
-    if (j.p !== fsPos) return false;
-    if ((Number(j.sc_n) || 0) < min) return false;
-    if (ligas && !ligas.has(j.l)) return false;
-    if (paises && !paises.has(j.nac || '')) return false;
-    if (times && !times.has(j.t)) return false;
-    if (pes && !pes.has(rotuloPe(j.pe))) return false;
-    for (const [d, f] of faixas) {
-      const v = j[d.k];
-      if (typeof v !== 'number' || isNaN(v) || v < f.lo || v > f.hi) return false;
-    }
-    /* Contrato ate. VAZIO = TODOS — e essa e a diferenca proposital para o mesmo campo na
-       aba Fim de contrato, onde ele nasce em dez/26 e vale sempre. La a tela e sobre
-       contrato; aqui e sobre fisico, e filtro ligado por padrao esconderia meia base sem
-       ninguem ter pedido. Com data, a regra e a mesma de la: sem `ct` o jogador sai (nao
-       da para afirmar que o contrato termina ate a data se nao ha data). */
-    if (ate) {
-      if (!j.ct || j.ct.slice(0, 7) > ate) return false;
-      if (soConf && j.ctc !== 'alta') return false;
-    }
-    if (fund) {
-      const p = fsPlacarPerfil(j, fund);
-      if (!p.julgavel || p.pct < perfil) return false;
-    }
-    return true;
-  });
+  return {
+    min: fsMinJogos(),
+    ligas: mselSelecionados('fsLigaSel'),
+    paises: mselSelecionados('fsPaisSel'),
+    times: mselSelecionados('fsTimeSel'),
+    pes: mselSelecionados('fsPeSel'),
+    faixas: RANGES_FS.map(d => [d, rangeValor('fsRanges', d.k)]).filter(x => x[1]),
+    ate: pular.contrato ? '' : (($('#fsAte') || {}).value || ''),
+    soConf: !!($('#fsSoConf') || {}).checked,
+    perfil,
+    fund: perfil != null ? fsFundamentais() : null,
+  };
+}
+
+function fsPool(pular) {
+  const ctx = fsCtxFiltros(pular);
+  return fsBase().filter(j => j.p === fsPos && fsPassaFiltros(j, ctx, pular));
 }
 
 function fsAbasMarcar(idAbas, r) {
@@ -5055,6 +5087,34 @@ function fsMontarFiltros() {
     const el = $(id);
     if (el) el.onchange = fsRender;     /* o `if` protege quem abrir uma versao antiga do HTML */
   });
+  /* Recolher o painel. Fica gravado porque e preferencia de como olhar, nao filtro: quem
+     gosta da matriz cheia quer ela cheia sempre, e ter de recolher a cada carregamento
+     seria o tipo de atrito que faz o botao nao ser usado. */
+  const rec = $('#fsRecolher');
+  if (rec) {
+    /* `.rk-filtros` e nao `.rk-col`: a legenda da TARJA vive na COLUNA IRMA (a do campinho),
+       e sozinha ela tem 99px — quase o tamanho do campinho. Com a classe no `.rk-col` o
+       painel encolhia e a linha continuava alta, porque quem mandava na altura era a coluna
+       da esquerda. Foi exatamente o que aconteceu: recolher ganhava 25px de 254. */
+    const col = rec.closest('.rk-filtros') || rec.closest('.rk-col');
+    const pintar = () => {
+      const on = col.classList.contains('fs-recolhido');
+      /* recolhido, o botao CONTA o que os filtros estao fazendo. Sem isso a pessoa esquece
+         que deixou filtro ligado e le a matriz achando que e a base inteira. */
+      const n = on ? fsPool().length : 0;
+      rec.innerHTML = on ? 'filtros <b>' + n + '</b>' : 'filtros';
+      rec.title = on ? 'Mostrar os filtros de novo · ' + n + ' jogadores passam agora'
+                     : 'Esconder os filtros e devolver a altura para a matriz';
+    };
+    if (localStorage.getItem('fsRecolhido') === '1') col.classList.add('fs-recolhido');
+    pintar();
+    rec.onclick = () => {
+      const on = col.classList.toggle('fs-recolhido');
+      localStorage.setItem('fsRecolhido', on ? '1' : '0');
+      pintar();
+    };
+    fsPintarRecolher = pintar;
+  }
   $$('#fsVisao button').forEach(b => {
     b.classList.toggle('on', b.dataset.v === FS_VISAO);
     b.onclick = () => fsTrocarVisao(b.dataset.v);

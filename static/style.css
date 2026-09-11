@@ -2081,29 +2081,64 @@ body.claro .fb-on{color:#0f7a3d}
 .rk-linha1{grid-template-columns:1.28fr 1.18fr .82fr 1fr .85fr 1.05fr 1fr}
 @media (max-width:1280px){ .rk-linha1{grid-template-columns:repeat(4,1fr)} }
 
-/* ---------- a segunda fileira do painel do Fisico ----------
-   O painel tem NOVE campos numa grade de sete colunas, entao dois sobram para a fileira de
-   baixo — e sobrava com eles 1.050px de preto a direita, porque cada um ocupava uma coluna
-   estreita. Os dois passam a ESPICHAR: "Quem aparece" toma quatro colunas e espalha as
-   caixas na horizontal (empilhadas, elas comiam 126px de altura e ainda cortavam
-   "Referencias BR e mundo" no meio), e "Perfil de quem sobe" toma as tres restantes.
-   A fileira de baixo fica cheia e 40px mais baixa. */
-.fs-linha1 .fs-quem{grid-column:span 4}
-.fs-linha1 .fs-perfil-campo{grid-column:span 3}
-.fs-quem .chk{display:inline-flex}
-/* as caixas em linha, quebrando so quando precisa */
-.fs-quem > .chk{margin-right:14px}
+/* ---------- as duas fileiras do painel do Fisico ----------
+
+   A de CIMA tem sete campos em sete colunas — fecha certinho.
+
+   A de BAIXO e uma grade de OITO colunas: as quatro faixas ocupam quatro, "Quem aparece"
+   ocupa tres e "Perfil de quem sobe" a ultima. Oito e nao sete porque com sete o "Quem
+   aparece" cabia em duas colunas so, as caixas empilhavam em tres fileiras e o bloco ia a
+   137px — era ele, sozinho, que definia a altura do painel inteiro. Em tres colunas elas
+   deitam em duas fileiras e o bloco cai para ~60px.
+
+   Sairam duas faixas para isso caber, por motivos diferentes: "Jogos c/ tracking" era
+   DUPLICATA do "Jogos rastreados >=" do rodape; "Overall" saiu por ESPACO, nao por ser
+   ruim — tinha 99,7% de cobertura. */
+.fs-linha-baixo{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;align-items:start}
+.fs-faixas{grid-column:span 4;grid-template-columns:repeat(4,1fr)}
+.fs-linha-baixo .fs-quem{grid-column:span 3}
+.fs-linha-baixo .fs-perfil-campo{grid-column:span 1}
+/* as caixas deitadas, com largura natural — todas a vista, que era a vantagem do formato */
 .fs-quem{display:block}
 .fs-quem > label:first-child{display:block}
-/* o separador do "quem sobe e quem cai" era uma linha tracejada EM CIMA, que so faz
-   sentido numa pilha. Deitado, ele vira uma barra a ESQUERDA. */
-.fs-quem .rk-chk-sb{border-top:none;margin-top:0;padding-top:0;
-  border-left:1px dashed var(--borda2);padding-left:12px;margin-left:2px}
-@media (max-width:1280px){
-  .fs-linha1 .fs-quem,.fs-linha1 .fs-perfil-campo{grid-column:span 2}
-  .fs-quem .rk-chk-sb{border-left:none;padding-left:0;margin-left:0;
-    border-top:1px dashed var(--borda2);margin-top:7px;padding-top:6px}
+.fs-quem .chk{display:inline-flex}
+.fs-quem > .chk{margin-right:13px;vertical-align:top}
+/* o "quem sobe e quem cai" e o unico que nao e "top 5 / media / referencia": separa-lo
+   ajuda a ler. Deitado, o tracejado vai a ESQUERDA. */
+.fs-quem > .rk-chk-sb{border-top:none;margin-top:0;padding-top:0;
+  border-left:1px dashed var(--borda2);padding-left:11px}
+/* o perfil apertado: o % ao lado da barra, a nota em duas linhas curtas */
+.fs-perfil-campo .fs-perfil-bar{margin-top:2px}
+.fs-perfil-campo .fs-perfil-nota{margin-top:2px}
+@media (max-width:1380px){
+  .fs-linha-baixo{grid-template-columns:repeat(4,1fr)}
+  .fs-faixas{grid-column:span 2;grid-template-columns:repeat(2,1fr)}
+  .fs-linha-baixo .fs-quem{grid-column:span 2}
+  .fs-linha-baixo .fs-perfil-campo{grid-column:span 2}
+  .fs-quem > .rk-chk-sb{border-left:none;padding-left:0;
+    border-top:1px dashed var(--borda2);margin-top:6px;padding-top:5px;display:flex}
 }
+
+/* ---------- recolher o painel ----------
+   O painel come 293px de altura, que sao ~12 linhas de indicador. Depois de escolher os
+   filtros ele nao precisa mais estar a vista, e a pergunta da tela e a matriz, nao o
+   painel. Recolhido, sobra a fileira do rodape — que e onde estao os controles que se mexem
+   com frequencia (melhores do filtro, jogos rastreados, a troca de visao). */
+.fs-recolhido .fs-linha1,
+.fs-recolhido .fs-listas,
+.fs-recolhido .fs-linha-baixo{display:none}
+/* A LEGENDA TAMBEM SOME, e ela e metade do ganho: sozinha tem 99px contra 96px do
+   campinho. Explica a cor e a barra da matriz — coisa que se le uma vez. O campinho FICA:
+   e como se escolhe a posicao, nao da para esconder. */
+.fs-recolhido .fs-legenda{display:none}
+.fs-recolher{border:1px solid var(--borda);background:var(--fundo3);color:var(--tinta2);
+  border-radius:5px;padding:3px 9px;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.fs-recolher:hover{color:var(--tinta);border-color:var(--borda2)}
+/* recolhido, o botao conta o que os filtros estao fazendo — senao a pessoa esquece que ha
+   filtro ligado e le a matriz achando que e a base inteira */
+.fs-recolher b{color:var(--sb-sobe);font-weight:700}
+
+
 
 /* As abas de regiao ficam numa linha so. Quebrando, o "EU" caia sozinho embaixo e
    levava a fileira inteira junto — 13px a mais em toda a largura da tela por causa
@@ -2850,8 +2885,18 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-tab td.s{color:var(--sb-sobe);font-weight:700}
 .sb-tab td.c{color:var(--sb-cai);font-weight:700}
 /* --- filtro "cumpre o perfil de quem sobe" --- */
-.fs-perfil-bar{display:flex;align-items:center;gap:7px;margin-top:3px}
-.fs-perfil-bar input[type=range]{flex:1;min-width:74px;accent-color:var(--sb-sobe)}
+.fs-perfil-bar{display:flex;align-items:center;gap:6px;margin-top:3px}
+/* A barra e um ajuste fino, nao o controle principal do painel — quem liga o filtro e a
+   caixa acima dela. Por isso ela vem FINA (4px de trilho contra os ~14px do padrao do
+   sistema) e curta: grossa e larga, ela puxava o olho para si e parecia o assunto da
+   secao. `appearance:none` e o que permite mexer na altura; sem isso o navegador ignora. */
+.fs-perfil-bar input[type=range]{flex:1;min-width:60px;height:4px;padding:0;
+  -webkit-appearance:none;appearance:none;background:var(--borda2);border-radius:3px}
+.fs-perfil-bar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:11px;height:11px;border-radius:50%;background:var(--sb-sobe);cursor:pointer;border:none}
+.fs-perfil-bar input[type=range]::-moz-range-thumb{width:11px;height:11px;border:none;
+  border-radius:50%;background:var(--sb-sobe);cursor:pointer}
+.fs-perfil-bar input[type=range]::-moz-range-track{height:4px;background:var(--borda2);border-radius:3px}
 .fs-perfil-bar input[type=range]:disabled{opacity:.4}
 .fs-perfil-bar span{font-size:10.5px;color:var(--tinta2);font-variant-numeric:tabular-nums;min-width:30px}
 /* a nota conta o que o filtro esta fazendo agora; sem ela a barra e caixa preta */
