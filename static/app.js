@@ -1109,7 +1109,21 @@ function renderOrc() {
   kE.className = 'v ' + (lim && nE > lim ? 'estouro' : lim && nE === lim ? 'alerta' : '');
   kE.title = lim ? nE + ' de ' + lim + ' vagas de estrangeiro usadas' : nE + ' estrangeiros';
   $('#kEstrLim').textContent = lim ? 'de ' + lim : '';
-  $('#kMedia').textContent = brl(n ? tot / n : 0, true);
+  /* Salario medio e a media de QUEM TEM SALARIO, nao da folha dividida pelo elenco.
+     Dividir por todos mistura zeros de quem ainda nao foi precificado: com 97 de 118 sem
+     valor lancado, o tile dizia R$ 16,2k quando a media de quem tem era R$ 91,2k — 5,6
+     vezes menor, e e um numero que alguem repete numa reuniao. O rotulo mostra a base
+     ("de 21") quando nem todos tem salario, no mesmo molde do "de 9" dos estrangeiros. */
+  const comSal = todosJogadores().filter(j => j.salario).length;
+  $('#kMedia').textContent = brl(comSal ? tot / comSal : 0, true);
+  const kmb = $('#kMediaBase');
+  if (kmb) {
+    kmb.textContent = comSal && comSal < n ? 'de ' + comSal : '';
+    kmb.parentElement.parentElement.title = comSal
+      ? 'Média dos ' + comSal + ' com salário lançado' +
+        (comSal < n ? ' — os outros ' + (n - comSal) + ' ainda não entram na conta' : '')
+      : 'Nenhum salário lançado ainda';
+  }
   if (document.activeElement !== $('#marcaSub')) $('#marcaSub').value = estado.nome;
 
   const barra = $('#barra');
@@ -1585,16 +1599,17 @@ function carregarLocal() {
 /* Sem servidor, esconde o que dependia dele e avisa — melhor do que o usuario
    descobrir que clicou em Salvar e nada foi guardado. */
 function prepararEstatico() {
-  /* So o que precisa de servidor sai de cena: o comparativo (api/comparativo) e o Excel.
-     Salvar, trocar, renomear e excluir grupos FUNCIONAM — no navegador de quem abre. */
-  ['#btComparativo', '#btExcel']
-    .forEach(sel => { const e = $(sel); if (e) e.style.display = 'none'; });
+  /* So o EXCEL sai de cena agora: e o servidor que monta o xlsx (openpyxl). O comparativo
+     voltou, porque a conta dele e pura e os grupos ja estao no navegador — ver
+     `comparativoLocal()`. Salvar, trocar, renomear e excluir tambem funcionam aqui. */
+  ['#btExcel'].forEach(sel => { const e = $(sel); if (e) e.style.display = 'none'; });
   const info = $('#abasInfo');
   if (info) info.insertAdjacentHTML('beforebegin',
     '<span class="aviso-estatico" title="Esta é a versão publicada. Sem servidor, os ' +
     'grupos que você salvar ficam guardados neste navegador (só aqui, e só neste ' +
     'aparelho); os cenários publicados vêm junto como ponto de partida. A exportação em ' +
-    'Excel sai de cena; PNG e PDF continuam.">versão publicada · salva no seu navegador</span>');
+    'Excel sai de cena; PNG e PDF continuam, e o comparativo entre grupos também.">' +
+    'versão publicada · salva no seu navegador</span>');
 }
 
 /* ---------------- cenarios sem servidor ----------------
@@ -1723,10 +1738,56 @@ async function abrirCenario(id) {
   toast('Grupo "' + estado.nome + '" carregado');
 }
 
-/* ---------------- comparar grupos ---------------- */
+/* ---------------- comparar grupos ----------------
+   O resumo de cada grupo era conta do servidor (`api/comparativo`) e por isso a tela
+   ficava de fora do site publicado. Mas a conta e pura — soma salario, aplica o fator,
+   junta por setor — e no site os grupos JA estao no navegador (publicados + localStorage).
+   Entao a mesma conta roda dos dois lados: o Flask continua respondendo para o app local,
+   e `comparativoLocal()` responde no site. Tem que dar o MESMO resultado, entao os campos
+   e a ordem sao os do endpoint, um a um; mexer num lado sem o outro e o jeito de fazer
+   dois numeros diferentes para a mesma pergunta. */
+const COMP_SETOR = { gol: ['GOL'], defesa: ['LD', 'LE', 'ZD', 'ZE'],
+                     meio: ['VOL', 'MED', 'MEI'], ataque: ['EE', 'ED', 'CA'] };
+async function comparativoLocal() {
+  const num = v => Number(v) || 0;
+  const saida = (await cenTodos()).map(c => {
+    const elenco = c.elenco || {};
+    const atletas = Object.values(elenco).flat();
+    const folha = atletas.reduce((t, j) => t + num(j.salario), 0);
+    const fator = num(c.fator) || 1;
+    const comissao = num(c.comissao), teto = num(c.teto);
+    const idades = atletas.map(j => Number(j.idade)).filter(x => x);
+    const setores = {};
+    Object.entries(COMP_SETOR).forEach(([se, poss]) => {
+      setores[se] = poss.reduce((t, p) =>
+        t + (elenco[p] || []).reduce((u, j) => u + num(j.salario), 0), 0);
+    });
+    return {
+      id: c.id, nome: c.nome || 'sem nome', atualizado: c.atualizado || '',
+      origem: c.origem,
+      atletas: atletas.length,
+      estrangeiros: atletas.filter(j => j.estrangeiro).length,
+      folha, fator, comissao, teto,
+      custoElenco: folha * fator,
+      custoTotal: folha * fator + comissao,
+      sobra: teto - (folha * fator + comissao),
+      /* mesma definicao do tile do cabecalho: media de quem TEM salario */
+      media: atletas.filter(j => j.salario).length
+        ? folha / atletas.filter(j => j.salario).length : 0,
+      maior: atletas.length ? Math.max(...atletas.map(j => num(j.salario))) : 0,
+      idadeMedia: idades.length ? idades.reduce((t, x) => t + x, 0) / idades.length : 0,
+      semSalario: atletas.filter(j => !j.salario).length,
+      setores,
+    };
+  });
+  saida.sort((a, b) => String(b.atualizado).localeCompare(String(a.atualizado)));
+  return saida;
+}
+
 async function abrirComparativo() {
-  const r = await fetch('api/comparativo');
-  const gs = await r.json();
+  let gs;
+  if (ESTATICO) gs = await comparativoLocal();
+  else { const r = await fetch('api/comparativo'); gs = await r.json(); }
   $('#compSub').textContent = gs.length + (gs.length === 1 ? ' grupo salvo' : ' grupos salvos');
 
   if (!gs.length) {
@@ -1756,7 +1817,8 @@ async function abrirComparativo() {
 
   let html = '<table class="comp"><thead><tr><th>Indicador</th>' +
     gs.map(g => '<th class="num-c grupo-col" data-id="' + g.id + '">' + esc(g.nome) +
-      '<span class="quando">' + esc(g.atualizado) + '</span></th>').join('') +
+      '<span class="quando">' + esc(g.atualizado) +
+      (g.origem === 'publicado' ? ' · publicado' : '') + '</span></th>').join('') +
     '</tr></thead><tbody>';
 
   linhas.forEach(([rot, fmt, val]) => {
@@ -2162,7 +2224,23 @@ async function montarFicha(j, modo) {
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
     ' · período ' + (dados && dados.periodo ? dados.periodo : 'ago26');
 
-  return { titulo, sub, cabeca, corpo, rodape };
+  /* AMOSTRA CURTA. A ficha inteira — barra, média, melhor, radar — e lida contra a coorte
+     da posicao na liga do jogador. Em liga pequena essa coorte encolhe: das 724 combinacoes
+     liga×posicao da base, 39 tem 20 jogadores ou menos e uma tem 4. Ai "acima da media" quer
+     dizer "acima de outros seis", e um unico nome puxa o "melhor" da regua para onde quiser.
+     O numero sempre esteve no rodape, mas em letra miuda, no pe, depois de toda a leitura —
+     tarde demais para mudar a conclusao de quem ja leu. O aviso sobe para o topo, junto do
+     seletor de com-quem-comparar, que e justamente o que resolve: trocar para Brasil A/B/C
+     ou para todas as ligas devolve uma regua com gente suficiente. */
+  const nCo = lista.length;
+  const aviso = nCo >= 30 ? '' :
+    '<span class="fi-amostra ' + (nCo < 12 ? 'grave' : '') + '"' +
+    ' title="' + esc('Toda a leitura desta ficha (barra, média, melhor e radar) sai desta coorte. ' +
+      'Com ' + nCo + ' jogador' + (nCo === 1 ? '' : 'es') + ', um nome sozinho move a média e o melhor. ' +
+      'Troque o comparativo acima para Brasil A/B/C ou para todas as ligas.') + '">' +
+    (nCo < 12 ? '⚠ amostra de ' + nCo : 'amostra curta · ' + nCo) + '</span>';
+
+  return { titulo, sub, cabeca, corpo, rodape, aviso };
 }
 
 async function renderFicha() {
@@ -2175,6 +2253,7 @@ async function renderFicha() {
   $('#fiCabeca').innerHTML = f.cabeca;
   $('#fiCorpo').innerHTML = f.corpo;
   $('#fiRodape').textContent = f.rodape;
+  const av = $('#fiAviso'); if (av) av.innerHTML = f.aviso;
 }
 
 /* ---- detalhe aberto dentro da lista de busca, na própria linha ---- */
@@ -2196,7 +2275,7 @@ async function alternarDetalhe(tr, jid) {
   const f = await montarFicha(j, ($('#fiBase') && $('#fiBase').value) || 'posliga');
   linha.querySelector('td').innerHTML =
     '<div class="det"><div class="det-topo"><b>' + f.titulo + '</b>' +
-      '<span class="sub">' + esc(f.sub) + '</span>' +
+      '<span class="sub">' + esc(f.sub) + '</span>' + f.aviso +
       '<button class="bt mini det-add">+ adicionar em ' + sig(posAtual) + '</button></div>' +
       '<div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo +
       '<div class="det-pe">' + esc(f.rodape) + '</div></div>';

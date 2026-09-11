@@ -260,6 +260,7 @@ def api_comparativo():
         comissao = float(c.get("comissao") or 0)
         teto = float(c.get("teto") or 0)
         idades = [float(j["idade"]) for j in atletas if j.get("idade")]
+        com_salario = sum(1 for j in atletas if j.get("salario"))
         setores = {}
         for s, poss in SETOR.items():
             setores[s] = sum(float(j.get("salario") or 0)
@@ -273,7 +274,11 @@ def api_comparativo():
             "custoElenco": folha * fator,
             "custoTotal": folha * fator + comissao,
             "sobra": teto - (folha * fator + comissao),
-            "media": (folha / len(atletas)) if atletas else 0,
+            # media de QUEM TEM salario. Dividir pelo elenco inteiro mistura os zeros
+            # de quem ainda nao foi precificado e devolve um numero varias vezes menor
+            # que o real. Tem que bater com o tile "Medio" do cabecalho e com o
+            # comparativoLocal() do site — os tres sao a mesma pergunta.
+            "media": (folha / com_salario) if com_salario else 0,
             "maior": max((float(j.get("salario") or 0) for j in atletas), default=0),
             "idadeMedia": (sum(idades) / len(idades)) if idades else 0,
             "semSalario": sum(1 for j in atletas if not j.get("salario")),

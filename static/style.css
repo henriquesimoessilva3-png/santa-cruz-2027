@@ -2287,3 +2287,15 @@ body.claro .fs-palco{--ambar:var(--txt-ambar);--verde:var(--txt-verde);--roxo:#7
 .fs-palco [data-tirar]{display:inline-block;margin-left:6px;padding:0 5px;border-radius:50%;font-weight:800;
   color:var(--tinta3);cursor:pointer;line-height:1.3;font-size:12px}
 .fs-palco [data-tirar]:hover{color:#fff;background:var(--coral)}
+
+/* Aviso de amostra curta na ficha: âmbar quando a coorte é fina, coral quando é curta
+   demais para a leitura significar alguma coisa. Fica ao lado do seletor de com-quem-
+   comparar de propósito — o aviso e a saída encostados um no outro. */
+.fi-amostra{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.5px;padding:2px 7px;border-radius:999px;
+  background:color-mix(in srgb,var(--ambar) 18%,transparent);color:var(--ambar);
+  border:1px solid color-mix(in srgb,var(--ambar) 45%,transparent);cursor:help;white-space:nowrap}
+.fi-amostra.grave{background:color-mix(in srgb,var(--coral-cl) 18%,transparent);
+  color:var(--coral-cl);border-color:color-mix(in srgb,var(--coral-cl) 50%,transparent)}
+body.claro .fi-amostra{color:#8a5a00}
+body.claro .fi-amostra.grave{color:var(--coral)}

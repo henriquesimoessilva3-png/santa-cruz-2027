@@ -252,10 +252,8 @@ não é algo que eu faça por ele; passo a passo em `PUBLICAR.md`.
 
 ## Pendências
 
-- ~8 nomes de 44 ainda cortam com reticências em telas estreitas (o completo está no
-  tooltip e na ficha).
-- A ficha compara com a coorte da liga; para ligas pequenas a amostra fica curta e
-  isso não aparece na tela.
+Vazio por ora. As duas que estavam aqui saíram em set/26 — ver "Comparativo no site,
+salário médio e as duas pendências".
 
 ## Físico: a barra e o contorno passaram a dizer a mesma coisa (set/26)
 
@@ -793,3 +791,47 @@ Regressão dos **sete pontos de entrada** — Análise (dois blocos), Fim de con
 e botão), Físico (matriz, chip, painel de foco): menu visível, dentro da tela e com o
 verbo certo nos sete, zero erro de console. Mover um meia para goleiro tirou um de MEI,
 pôs um em GOL e manteve o total em 118, com o card aparecendo no campograma.
+
+## Comparativo no site, salário médio e as duas pendências (set/26)
+
+**1. O comparativo entre grupos voltou para o site.** Era a última tela que faltava lá, e
+a razão de faltar tinha prazo de validade: a conta vivia no `api/comparativo`, mas é
+**pura** — soma salário, aplica o fator, junta por setor — e desde o salvamento na web os
+grupos já estão no navegador (publicados + `localStorage`). `comparativoLocal()` faz a
+mesma conta do lado de cá; `abrirComparativo()` escolhe a fonte pelo `ESTATICO`. Só o
+**Excel** continua de fora, porque é o servidor que monta o xlsx com openpyxl.
+
+Os dois lados **têm que dar o mesmo número**, então os campos e a ordem são os do endpoint,
+um a um. Conferido plantando os três grupos reais no `localStorage` e rodando as duas
+contas: **3 grupos × 18 campos = 54 comparações, zero divergência**, incluindo `idadeMedia`
+até a última casa decimal. Quatro casos de borda (grupo vazio, listas vazias, atletas sem
+salário nem idade, um atleta só) sem NaN nem Infinity.
+
+**2. O "Médio" do cabeçalho dividia pelo elenco inteiro.** Com 97 de 118 ainda sem salário
+lançado, o tile dizia **R$ 16,2 mil** quando a média de quem tem salário era **R$ 91,2 mil**
+— 5,6 vezes menor, e é o tipo de número que alguém repete numa reunião. Passou a ser a
+média de **quem tem salário**, com a base no rótulo (`Médio de 21`) no mesmo molde do
+`de 9` dos estrangeiros, e o balão dizendo quantos ficam de fora.
+
+A mesma definição foi para os **três** lugares que respondem essa pergunta — o tile, o
+`api/comparativo` e o `comparativoLocal()` — porque "salário médio" não pode querer dizer
+duas coisas no mesmo app. Nos grupos onde todo mundo tem salário (MODELO A e B) o número
+não mudou; só mudou onde estava errado.
+
+**3. A pendência da ficha virou aviso de amostra curta.** Toda a leitura da ficha — barra,
+média, melhor, radar — sai da coorte da posição na liga do jogador. Das **724 combinações
+liga×posição** da base, **39 têm 20 jogadores ou menos** e uma tem **4**; são 566 jogadores
+em coorte de até 20. Aí "acima da média" quer dizer "acima de outros seis", e um único nome
+puxa o "melhor" da régua. O número sempre esteve no rodapé, mas em letra miúda, no pé,
+depois de toda a leitura — tarde demais para mudar a conclusão de quem já leu. Agora há uma
+tarja no **topo**, colada no seletor de com-quem-comparar, que é justamente a saída: âmbar
+abaixo de 30, coral abaixo de 12. Trocar para Brasil A/B/C ou todas as ligas apaga o aviso
+(conferido: 4 → 248 → 3.026 num ED do Footlink).
+
+**4. A pendência dos nomes não reproduz mais.** Ela dizia que ~8 de 44 cortavam com
+reticências em telas estreitas. Medi `scrollWidth` contra `clientWidth` nos 118 nomes, em
+900, 1180 e 1512px, nas quatro combinações de orientação × denso: **zero reticências em
+todas**. O `limiteNome()` + `nomeCurto()` abreviam ANTES de o CSS precisar cortar — em
+900px, 67 dos 118 aparecem como "P. Vítor", e **todos** têm o nome inteiro no balão. O
+sintoma descrito acabou junto com o trabalho de layout do campograma; a pendência era
+registro velho, não bug vivo.
