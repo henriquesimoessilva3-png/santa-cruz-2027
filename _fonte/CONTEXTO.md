@@ -1163,3 +1163,22 @@ nome antes de chamar — sem a separação, ele perguntaria duas vezes seguidas.
 **Cuidado que este trabalho ensinou:** testar o Salvar com o cenário REAL aberto grava por
 cima do cenário real. Aconteceu — o `dados/cenarios.json` foi reescrito durante o teste.
 Teste de gravação tem de nascer e morrer num grupo descartável.
+
+## O nível pinta o card (set/26)
+
+A etiqueta SQUAD/YOUTH na linha do meta saiu: num campo com cem cards a cor se lê de longe
+e a etiqueta exige parar e ler cada um. Agora o **fundo do card** é o nível —
+**verde** o Main, **amarelo** o Squad, **azul claro** o Youth.
+
+O rosa do titular acabou junto, e é coerente: Main É o titular, então a cor do Main é a
+cor do titular. Verde no lugar do vermelho foi escolha do usuário.
+
+**O estrangeiro parou de pintar o fundo.** Tinha um creme próprio (`#fdf4e4`), e com o
+nível pintando também, duas cores disputavam o mesmo card — o resultado é que o nível
+sumia justamente nos estrangeiros. O selo do país já diz o que precisa ser dito; o fundo
+ficou reservado para uma informação só. É a mesma regra da faixa de status: um canal
+visual, um significado.
+
+As regras do nível vêm DEPOIS de `.jog.titular` e `.jog.estrangeiro` no arquivo, para
+ganhar das duas. E a legenda ("Como ler os cards") foi reescrita junto: ela dizia "fundo
+vermelho" para o titular, e legenda que ensina a cor errada é pior que não ter legenda.

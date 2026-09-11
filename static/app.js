@@ -934,7 +934,15 @@ function abrirManual(j) {
 
 function cardJog(cod, j) {
   const el = document.createElement('div');
-  el.className = 'jog st-' + (j.status || 'alvo') + (j.titular ? ' titular' : '') +
+  /* O NÍVEL pinta o card: verde o Main, amarelo o Squad, azul claro o Youth. Era a
+     etiqueta SQUAD/YOUTH na linha do meta, e o usuário preferiu a cor — num campo com
+     cem cards a cor se lê de longe e a etiqueta exige parar e ler.
+     A classe `estrangeiro` NÃO pinta mais nada: o selo do país já diz isso, e duas cores
+     de fundo disputando o mesmo card faziam o nível sumir no estrangeiro. */
+  const nivel = empDados(empChave(j)).status;
+  el.className = 'jog st-' + (j.status || 'alvo') +
+                 (j.titular ? ' titular' : '') +
+                 (nivel ? ' niv-' + nivel.toLowerCase() : '') +
                  (j.estrangeiro ? ' estrangeiro' : '');
   el.dataset.uid = j.uid;
   el.dataset.pos = cod;
@@ -954,15 +962,6 @@ function cardJog(cod, j) {
             esc(j.contrato) + (ct <= FS_LIVRE_ATE ? ' — vence a tempo da temporada 2027' : '') +
             '">' + esc(mesAnoCurto(j.contrato)) + '</span>'
          : '<span class="m-ct sem" title="contrato não informado">sem contrato</span>') +
-    (() => {
-      /* Main nao ganha marca: ele ja tem a estrela e o fundo rosa, e repetir a mesma
-         informacao tres vezes num card denso e ruido. Squad e Youth nao tinham NENHUM
-         sinal — e o que esta marca resolve. */
-      const n = empDados(empChave(j)).status;
-      return (n && n !== 'Main')
-        ? '<span class="m-niv niv-' + n.toLowerCase() + '" title="' + esc(n + ' — ' + (EMP_STATUS_NOTA[n] || '')) +
-          '">' + esc(n) + '</span>' : '';
-    })() +
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
     barraMinutos(histDoElenco(j)) +
     (j.posOrig && j.posOrig !== cod ? '<span class="m-pos" title="posição de origem">' +
