@@ -145,23 +145,36 @@ def limpar(txt):
 
 
 def valor_em_euros(txt):
-    """'€ 3,00 mi.' -> 3000000 · '€ 900 mil' -> 900000 · '-' -> None.
+    """'€ 3,00 mi.' e '€ 5.40 mi.' -> 3000000 e 5400000 · '€ 900 mil' -> 900000 · '-' -> None.
 
-    O separador decimal do site em português é a VÍRGULA. Trocar por ponto antes de
-    converter não é firula: sem isso '€ 3,00 mi.' viraria 300 em vez de 3 milhões.
+    O SEPARADOR DECIMAL MUDA DE PÁGINA PARA PÁGINA. A mesma versão em português do site
+    escreve '€ 3,00 mi.' com vírgula num lugar e '€ 5.40 mi.' com ponto em outro. Tratar o
+    ponto como separador de milhar — o reflexo natural em texto em português — transforma
+    5,40 milhões em 540 milhões: foi assim que o Lincoln do Cruzeiro de 2022 apareceu
+    valendo € 540 mi. e o elenco inteiro saiu mil vezes maior.
+
+    A regra que resolve: quando existe sufixo de escala (mil/mi/bi), o número antes dele é
+    sempre menor que 1000, então qualquer separador ali é DECIMAL. Só quando os dois
+    aparecem juntos é que o último manda e o outro é milhar.
     """
     t = limpar(txt).replace("€", "").replace("\xa0", " ").strip()
-    if not t or t in {"-", "?"}:
+    if not t or t in {"-", "?", "s.i."}:
         return None
     m = re.match(r"^([\d.,]+)\s*(mil|mi\.?|bi\.?)?", t)
     if not m:
         return None
-    num = m.group(1).replace(".", "").replace(",", ".")
+    num, escala = m.group(1), (m.group(2) or "").rstrip(".")
+    if "." in num and "," in num:
+        decimal = max(num.rfind("."), num.rfind(","))
+        num = num[:decimal].replace(".", "").replace(",", "") + "." + num[decimal + 1:]
+    elif escala:
+        num = num.replace(",", ".")                 # separador único + escala = decimal
+    else:
+        num = num.replace(".", "").replace(",", "")  # sem escala, é número inteiro
     try:
         v = float(num)
     except ValueError:
         return None
-    escala = (m.group(2) or "").rstrip(".")
     return int(round(v * {"mil": 1e3, "mi": 1e6, "bi": 1e9}.get(escala, 1)))
 
 

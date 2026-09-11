@@ -1,6 +1,6 @@
 {
  "_leia": "Elencos da Série B por temporada, do Transfermarkt. saison_id = ano-1 (conferido pelo título da página). Uma linha por atleta-temporada.",
- "atualizado": "2026-09-11 13:51",
+ "atualizado": "2026-09-11 14:30",
  "temporadas": {
   "2022": "Campeonato Brasileiro Série B 2022 | Transfermarkt",
   "2023": "Campeonato Brasileiro Série B 2023 | Transfermarkt",
@@ -129,7 +129,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio FBPA",
    "valor_texto": "€ 4.80 mi.",
-   "valor_eur": 480000000
+   "valor_eur": 4800000
   },
   {
    "ano": 2022,
@@ -154,7 +154,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2022,
@@ -178,7 +178,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 1.60 mi.",
-   "valor_eur": 160000000
+   "valor_eur": 1600000
   },
   {
    "ano": 2022,
@@ -202,7 +202,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -394,7 +394,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Juventude",
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2022,
@@ -515,7 +515,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 2.40 mi.",
-   "valor_eur": 240000000
+   "valor_eur": 2400000
   },
   {
    "ano": 2022,
@@ -539,7 +539,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2022,
@@ -708,7 +708,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2022,
@@ -732,7 +732,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio FBPA",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2022,
@@ -756,7 +756,7 @@
    "contrato_ate": null,
    "clube_atual": "Cruzeiro EC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2022,
@@ -780,7 +780,7 @@
    "contrato_ate": null,
    "clube_atual": "Araranguá EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -974,7 +974,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Atlético Tucumán",
    "valor_texto": "€ 3.50 mi.",
-   "valor_eur": 350000000
+   "valor_eur": 3500000
   },
   {
    "ano": 2022,
@@ -1142,7 +1142,7 @@
    "contrato_ate": null,
    "clube_atual": "CA Rosario Central",
    "valor_texto": "€ 3.20 mi.",
-   "valor_eur": 320000000
+   "valor_eur": 3200000
   },
   {
    "ano": 2022,
@@ -1286,7 +1286,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 2.30 mi.",
-   "valor_eur": 230000000
+   "valor_eur": 2300000
   },
   {
    "ano": 2022,
@@ -1359,7 +1359,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2022,
@@ -1383,7 +1383,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2022,
@@ -1503,7 +1503,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Água Santa",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -2225,7 +2225,7 @@
    "contrato_ate": null,
    "clube_atual": "Panserraikos",
    "valor_texto": "€ 12.00 mi.",
-   "valor_eur": 1200000000
+   "valor_eur": 12000000
   },
   {
    "ano": 2022,
@@ -2249,7 +2249,7 @@
    "contrato_ate": null,
    "clube_atual": "Guarani FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2022,
@@ -2659,7 +2659,7 @@
    "contrato_ate": null,
    "clube_atual": "BG Pathum United",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2022,
@@ -2925,7 +2925,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 5.00 mi.",
-   "valor_eur": 500000000
+   "valor_eur": 5000000
   },
   {
    "ano": 2022,
@@ -2950,7 +2950,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 3.90 mi.",
-   "valor_eur": 390000000
+   "valor_eur": 3900000
   },
   {
    "ano": 2022,
@@ -3215,7 +3215,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Sion",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2022,
@@ -3600,7 +3600,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -3769,7 +3769,7 @@
    "contrato_ate": null,
    "clube_atual": "Ituano FC",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2022,
@@ -4106,7 +4106,7 @@
    "contrato_ate": null,
    "clube_atual": "FK Spartak Subotica",
    "valor_texto": "€ 5.40 mi.",
-   "valor_eur": 540000000
+   "valor_eur": 5400000
   },
   {
    "ano": 2022,
@@ -4130,7 +4130,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2022,
@@ -4155,7 +4155,7 @@
    "contrato_ate": null,
    "clube_atual": "Al-Jabalain FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -4807,7 +4807,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 2.80 mi.",
-   "valor_eur": 280000000
+   "valor_eur": 2800000
   },
   {
    "ano": 2022,
@@ -5191,7 +5191,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 1.60 mi.",
-   "valor_eur": 160000000
+   "valor_eur": 1600000
   },
   {
    "ano": 2022,
@@ -5410,7 +5410,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.60 mi.",
-   "valor_eur": 160000000
+   "valor_eur": 1600000
   },
   {
    "ano": 2022,
@@ -5508,7 +5508,7 @@
    "contrato_ate": null,
    "clube_atual": "Brasiliense FC",
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2022,
@@ -5677,7 +5677,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 6.00 mi.",
-   "valor_eur": 600000000
+   "valor_eur": 6000000
   },
   {
    "ano": 2022,
@@ -5965,7 +5965,7 @@
    "contrato_ate": null,
    "clube_atual": "CD Nacional",
    "valor_texto": "€ 3.50 mi.",
-   "valor_eur": 350000000
+   "valor_eur": 3500000
   },
   {
    "ano": 2022,
@@ -5989,7 +5989,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2022,
@@ -6397,7 +6397,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -6661,7 +6661,7 @@
    "contrato_ate": null,
    "clube_atual": "V-Varen Nagasaki",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2022,
@@ -6973,7 +6973,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2022,
@@ -7670,7 +7670,7 @@
    "contrato_ate": null,
    "clube_atual": "CA Peñarol",
    "valor_texto": "€ 1.60 mi.",
-   "valor_eur": 160000000
+   "valor_eur": 1600000
   },
   {
    "ano": 2022,
@@ -8417,7 +8417,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -8513,7 +8513,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -10893,7 +10893,7 @@
    "contrato_ate": null,
    "clube_atual": "América FC",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2022,
@@ -11037,7 +11037,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -11493,7 +11493,7 @@
    "contrato_ate": null,
    "clube_atual": "Amazonas FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2022,
@@ -11685,7 +11685,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -11976,7 +11976,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2022,
@@ -12313,7 +12313,7 @@
    "contrato_ate": null,
    "clube_atual": "Fortaleza EC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2022,
@@ -12601,7 +12601,7 @@
    "contrato_ate": null,
    "clube_atual": "Buriram United",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2022,
@@ -13974,7 +13974,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -14358,7 +14358,7 @@
    "contrato_ate": null,
    "clube_atual": "Nacional FC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2022,
@@ -15439,7 +15439,7 @@
    "contrato_ate": null,
    "clube_atual": "Suwon Samsung Bluewings",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2022,
@@ -15655,7 +15655,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2022,
@@ -15944,7 +15944,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2022,
@@ -16472,7 +16472,7 @@
    "contrato_ate": null,
    "clube_atual": "Guarani FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2022,
@@ -16953,7 +16953,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Água Santa",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -17458,7 +17458,7 @@
    "contrato_ate": null,
    "clube_atual": "Araranguá EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -18904,7 +18904,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2022,
@@ -20657,7 +20657,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -20945,7 +20945,7 @@
    "contrato_ate": null,
    "clube_atual": "Oratório RC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -22099,7 +22099,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2022,
@@ -25345,7 +25345,7 @@
    "contrato_ate": null,
    "clube_atual": "Hong Linh Ha Tinh FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2022,
@@ -27318,7 +27318,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2023,
@@ -27343,7 +27343,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2023,
@@ -27367,7 +27367,7 @@
    "contrato_ate": null,
    "clube_atual": "CD Nacional",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -27560,7 +27560,7 @@
    "contrato_ate": null,
    "clube_atual": "Querétaro FC",
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2023,
@@ -27656,7 +27656,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -27681,7 +27681,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -27777,7 +27777,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2023,
@@ -27801,7 +27801,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2023,
@@ -27825,7 +27825,7 @@
    "contrato_ate": null,
    "clube_atual": "Figueirense FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -27897,7 +27897,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Juárez",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -28017,7 +28017,7 @@
    "contrato_ate": null,
    "clube_atual": "Nova Iguaçu FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -28041,7 +28041,7 @@
    "contrato_ate": null,
    "clube_atual": "Ceará SC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -28065,7 +28065,7 @@
    "contrato_ate": null,
    "clube_atual": "Náutico",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2023,
@@ -28089,7 +28089,7 @@
    "contrato_ate": null,
    "clube_atual": "Niteroiense",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -28233,7 +28233,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2023,
@@ -28377,7 +28377,7 @@
    "contrato_ate": null,
    "clube_atual": "Buriram United",
    "valor_texto": "€ 2.30 mi.",
-   "valor_eur": 230000000
+   "valor_eur": 2300000
   },
   {
    "ano": 2023,
@@ -28401,7 +28401,7 @@
    "contrato_ate": null,
    "clube_atual": "Yunnan Yukun",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -28690,7 +28690,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -28714,7 +28714,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -29099,7 +29099,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -29123,7 +29123,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -29219,7 +29219,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -29508,7 +29508,7 @@
    "contrato_ate": null,
    "clube_atual": "Unión Española",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2023,
@@ -29532,7 +29532,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Internacional de Limeira",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -29604,7 +29604,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2023,
@@ -29628,7 +29628,7 @@
    "contrato_ate": null,
    "clube_atual": "CSKA Sofia",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -29796,7 +29796,7 @@
    "contrato_ate": null,
    "clube_atual": "Júbilo Iwata",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -29820,7 +29820,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -29844,7 +29844,7 @@
    "contrato_ate": null,
    "clube_atual": "Portuguesa",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -30398,7 +30398,7 @@
    "contrato_ate": null,
    "clube_atual": "Joinville EC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2023,
@@ -30422,7 +30422,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Sion",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -30591,7 +30591,7 @@
    "contrato_ate": null,
    "clube_atual": "Portimonense SAD",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -31266,7 +31266,7 @@
    "contrato_ate": null,
    "clube_atual": "Londrina EC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2023,
@@ -31652,7 +31652,7 @@
    "contrato_ate": null,
    "clube_atual": "São Paulo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -32037,7 +32037,7 @@
    "contrato_ate": null,
    "clube_atual": "Liaoning Tieren",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -32157,7 +32157,7 @@
    "contrato_ate": null,
    "clube_atual": "Paysandu SC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -32277,7 +32277,7 @@
    "contrato_ate": null,
    "clube_atual": "Figueirense FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -32375,7 +32375,7 @@
    "contrato_ate": null,
    "clube_atual": "D.C. United",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2023,
@@ -32784,7 +32784,7 @@
    "contrato_ate": null,
    "clube_atual": "Ypiranga FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -33002,7 +33002,7 @@
    "contrato_ate": null,
    "clube_atual": "Dynamo Brest",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -33363,7 +33363,7 @@
    "contrato_ate": null,
    "clube_atual": "Paysandu SC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -33630,7 +33630,7 @@
    "contrato_ate": null,
    "clube_atual": "Amazonas FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -33703,7 +33703,7 @@
    "contrato_ate": null,
    "clube_atual": "Cuiabá EC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -34306,7 +34306,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Sporting Cristal",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2023,
@@ -34667,7 +34667,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Internacional de Limeira",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -34883,7 +34883,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -35051,7 +35051,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -35555,7 +35555,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2023,
@@ -36132,7 +36132,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -36276,7 +36276,7 @@
    "contrato_ate": null,
    "clube_atual": "Mirassol FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -37071,7 +37071,7 @@
    "contrato_ate": null,
    "clube_atual": "Santa Cruz FC",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2023,
@@ -37095,7 +37095,7 @@
    "contrato_ate": null,
    "clube_atual": "Guarani FC",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2023,
@@ -37696,7 +37696,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio FBPA",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -39210,7 +39210,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -40051,7 +40051,7 @@
    "contrato_ate": null,
    "clube_atual": "Suwon Samsung Bluewings",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2023,
@@ -40075,7 +40075,7 @@
    "contrato_ate": null,
    "clube_atual": "CSKA Sofia",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -40268,7 +40268,7 @@
    "contrato_ate": null,
    "clube_atual": "Joinville EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -40773,7 +40773,7 @@
    "contrato_ate": null,
    "clube_atual": "Ceará SC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -41159,7 +41159,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -41183,7 +41183,7 @@
    "contrato_ate": null,
    "clube_atual": "Suwon Samsung Bluewings",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2023,
@@ -41303,7 +41303,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -42002,7 +42002,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -42027,7 +42027,7 @@
    "contrato_ate": null,
    "clube_atual": "Ituano FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -42245,7 +42245,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -42341,7 +42341,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -42750,7 +42750,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -42942,7 +42942,7 @@
    "contrato_ate": null,
    "clube_atual": "América FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2023,
@@ -43519,7 +43519,7 @@
    "contrato_ate": null,
    "clube_atual": "Portuguesa",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -44432,7 +44432,7 @@
    "contrato_ate": null,
    "clube_atual": "Atlético Goianiense",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2023,
@@ -45898,7 +45898,7 @@
    "contrato_ate": null,
    "clube_atual": "Tokushima Vortis",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -47513,7 +47513,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -49195,7 +49195,7 @@
    "contrato_ate": null,
    "clube_atual": "Joinville EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2023,
@@ -52804,7 +52804,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2023,
@@ -53646,7 +53646,7 @@
    "contrato_ate": null,
    "clube_atual": "Santos FC",
    "valor_texto": "€ 7.00 mi.",
-   "valor_eur": 700000000
+   "valor_eur": 7000000
   },
   {
    "ano": 2024,
@@ -53840,7 +53840,7 @@
    "contrato_ate": null,
    "clube_atual": "Santos FC",
    "valor_texto": "€ 6.00 mi.",
-   "valor_eur": 600000000
+   "valor_eur": 6000000
   },
   {
    "ano": 2024,
@@ -53864,7 +53864,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -54057,7 +54057,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2024,
@@ -54274,7 +54274,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 3.50 mi.",
-   "valor_eur": 350000000
+   "valor_eur": 3500000
   },
   {
    "ano": 2024,
@@ -54298,7 +54298,7 @@
    "contrato_ate": null,
    "clube_atual": "Ceará SC",
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2024,
@@ -54322,7 +54322,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -54418,7 +54418,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2024,
@@ -54443,7 +54443,7 @@
    "contrato_ate": null,
    "clube_atual": "Fluminense FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -54467,7 +54467,7 @@
    "contrato_ate": null,
    "clube_atual": "V-Varen Nagasaki",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -54515,7 +54515,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -54539,7 +54539,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -54563,7 +54563,7 @@
    "contrato_ate": null,
    "clube_atual": "Independiente del Valle",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -54660,7 +54660,7 @@
    "contrato_ate": null,
    "clube_atual": "São Bernardo FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -54780,7 +54780,7 @@
    "contrato_ate": null,
    "clube_atual": "RB Bragantino",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -54877,7 +54877,7 @@
    "contrato_ate": null,
    "clube_atual": "Atlético Nacional",
    "valor_texto": "€ 10.00 mi.",
-   "valor_eur": 1000000000
+   "valor_eur": 10000000
   },
   {
    "ano": 2024,
@@ -54901,7 +54901,7 @@
    "contrato_ate": null,
    "clube_atual": "CSD Winifreda",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -55094,7 +55094,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -55287,7 +55287,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2024,
@@ -55311,7 +55311,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -55528,7 +55528,7 @@
    "contrato_ate": null,
    "clube_atual": "Atlético Mineiro",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -55624,7 +55624,7 @@
    "contrato_ate": null,
    "clube_atual": "Santa Cruz FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2024,
@@ -55648,7 +55648,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -55792,7 +55792,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2024,
@@ -55817,7 +55817,7 @@
    "contrato_ate": null,
    "clube_atual": "CS Sinop",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -55913,7 +55913,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -56033,7 +56033,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -56057,7 +56057,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Alverca",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -56081,7 +56081,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Ponte Preta",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -56153,7 +56153,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio Novorizontino",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -56273,7 +56273,7 @@
    "contrato_ate": null,
    "clube_atual": "Rio Branco AC",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2024,
@@ -56297,7 +56297,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.60 mi.",
-   "valor_eur": 160000000
+   "valor_eur": 1600000
   },
   {
    "ano": 2024,
@@ -56321,7 +56321,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Midtjylland",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -56417,7 +56417,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -56513,7 +56513,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -56537,7 +56537,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -56777,7 +56777,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Sporting Cristal",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2024,
@@ -57258,7 +57258,7 @@
    "contrato_ate": null,
    "clube_atual": "Santa Cruz FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -57282,7 +57282,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -57306,7 +57306,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -57330,7 +57330,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio Novorizontino",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -57403,7 +57403,7 @@
    "contrato_ate": null,
    "clube_atual": "Náutico",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -57499,7 +57499,7 @@
    "contrato_ate": null,
    "clube_atual": "Llaneros FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -57667,7 +57667,7 @@
    "contrato_ate": null,
    "clube_atual": "Rio Branco AC",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2024,
@@ -57692,7 +57692,7 @@
    "contrato_ate": null,
    "clube_atual": "Feira FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -57716,7 +57716,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Internacional de Limeira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -57957,7 +57957,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -57981,7 +57981,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -58197,7 +58197,7 @@
    "contrato_ate": null,
    "clube_atual": "Querétaro FC",
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2024,
@@ -58221,7 +58221,7 @@
    "contrato_ate": null,
    "clube_atual": "SC Internacional",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -58341,7 +58341,7 @@
    "contrato_ate": null,
    "clube_atual": "Santa Cruz FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2024,
@@ -58365,7 +58365,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2024,
@@ -58485,7 +58485,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Juárez",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -58774,7 +58774,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -58895,7 +58895,7 @@
    "contrato_ate": null,
    "clube_atual": "Yunnan Yukun",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -59160,7 +59160,7 @@
    "contrato_ate": null,
    "clube_atual": "Ceará SC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -59329,7 +59329,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2024,
@@ -59595,7 +59595,7 @@
    "contrato_ate": null,
    "clube_atual": "Nantong Zhiyun",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -59619,7 +59619,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -59691,7 +59691,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Atlético Tucumán",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -59715,7 +59715,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Vitória",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -59859,7 +59859,7 @@
    "contrato_ate": null,
    "clube_atual": "Náutico",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -59980,7 +59980,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -60052,7 +60052,7 @@
    "contrato_ate": null,
    "clube_atual": "Maccabi Netanya",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -60462,7 +60462,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -60486,7 +60486,7 @@
    "contrato_ate": null,
    "clube_atual": "CR Vasco da Gama",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -60582,7 +60582,7 @@
    "contrato_ate": null,
    "clube_atual": "Independiente Santa Fe",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -60607,7 +60607,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Cerro Porteño",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -60729,7 +60729,7 @@
    "contrato_ate": null,
    "clube_atual": "Liaoning Tieren",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -60945,7 +60945,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -60969,7 +60969,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio Novorizontino",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -61043,7 +61043,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -61092,7 +61092,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2024,
@@ -61213,7 +61213,7 @@
    "contrato_ate": null,
    "clube_atual": "Mirassol FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -61479,7 +61479,7 @@
    "contrato_ate": null,
    "clube_atual": "CD Nacional",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -61888,7 +61888,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -61984,7 +61984,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -62248,7 +62248,7 @@
    "contrato_ate": null,
    "clube_atual": "Santa Cruz FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -62537,7 +62537,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2024,
@@ -63091,7 +63091,7 @@
    "contrato_ate": null,
    "clube_atual": "Joinville EC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2024,
@@ -63284,7 +63284,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -63308,7 +63308,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2024,
@@ -63476,7 +63476,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -63670,7 +63670,7 @@
    "contrato_ate": null,
    "clube_atual": "Londrina EC",
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2024,
@@ -63766,7 +63766,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -64007,7 +64007,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -64704,7 +64704,7 @@
    "contrato_ate": null,
    "clube_atual": "Widzew Lodz",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -65185,7 +65185,7 @@
    "contrato_ate": null,
    "clube_atual": "Henan FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -65788,7 +65788,7 @@
    "contrato_ate": null,
    "clube_atual": "Independiente del Valle",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -65932,7 +65932,7 @@
    "contrato_ate": null,
    "clube_atual": "Widzew Lodz",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -66342,7 +66342,7 @@
    "contrato_ate": null,
    "clube_atual": "LDU Quito",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -66558,7 +66558,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -67112,7 +67112,7 @@
    "contrato_ate": null,
    "clube_atual": "CSKA Sofia",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -67328,7 +67328,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Internacional de Limeira",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -68219,7 +68219,7 @@
    "contrato_ate": null,
    "clube_atual": "Operário FEC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2024,
@@ -68243,7 +68243,7 @@
    "contrato_ate": null,
    "clube_atual": "Nova Iguaçu FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -68483,7 +68483,7 @@
    "contrato_ate": null,
    "clube_atual": "Brasiliense FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -69543,7 +69543,7 @@
    "contrato_ate": null,
    "clube_atual": "Fim de carreira",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2024,
@@ -69567,7 +69567,7 @@
    "contrato_ate": null,
    "clube_atual": "FK Oleksandriya",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -70287,7 +70287,7 @@
    "contrato_ate": null,
    "clube_atual": "Portuguesa",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -71663,7 +71663,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2024,
@@ -72288,7 +72288,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -72384,7 +72384,7 @@
    "contrato_ate": null,
    "clube_atual": "Portimonense SAD",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -72576,7 +72576,7 @@
    "contrato_ate": null,
    "clube_atual": "Brasiliense FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2024,
@@ -72600,7 +72600,7 @@
    "contrato_ate": null,
    "clube_atual": "Tokushima Vortis",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -73587,7 +73587,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2024,
@@ -74717,7 +74717,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2024,
@@ -76572,7 +76572,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2024,
@@ -78061,7 +78061,7 @@
    "contrato_ate": null,
    "clube_atual": "RB Bragantino",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2024,
@@ -79311,7 +79311,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2025,
@@ -79335,7 +79335,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -79359,7 +79359,7 @@
    "contrato_ate": null,
    "clube_atual": "CF Estrela Amadora",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -79455,7 +79455,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 3.20 mi.",
-   "valor_eur": 320000000
+   "valor_eur": 3200000
   },
   {
    "ano": 2025,
@@ -79479,7 +79479,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -79503,7 +79503,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Olimpia",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -79527,7 +79527,7 @@
    "contrato_ate": null,
    "clube_atual": "Jeju SK",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -79551,7 +79551,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -79697,7 +79697,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -79769,7 +79769,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -79793,7 +79793,7 @@
    "contrato_ate": null,
    "clube_atual": "Guarani FC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2025,
@@ -79937,7 +79937,7 @@
    "contrato_ate": null,
    "clube_atual": "Cuiabá EC",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2025,
@@ -80009,7 +80009,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2025,
@@ -80130,7 +80130,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 5.50 mi.",
-   "valor_eur": 550000000
+   "valor_eur": 5500000
   },
   {
    "ano": 2025,
@@ -80154,7 +80154,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -80178,7 +80178,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -80227,7 +80227,7 @@
    "contrato_ate": null,
    "clube_atual": "Atlético Mineiro",
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2025,
@@ -80251,7 +80251,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -80275,7 +80275,7 @@
    "contrato_ate": null,
    "clube_atual": "Fortaleza EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -80299,7 +80299,7 @@
    "contrato_ate": null,
    "clube_atual": "Athletico Paranaense",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -80371,7 +80371,7 @@
    "contrato_ate": null,
    "clube_atual": "Puebla FC",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2025,
@@ -80492,7 +80492,7 @@
    "contrato_ate": null,
    "clube_atual": "Santos Laguna",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2025,
@@ -80517,7 +80517,7 @@
    "contrato_ate": null,
    "clube_atual": "América Mineiro",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -80541,7 +80541,7 @@
    "contrato_ate": null,
    "clube_atual": "Suwon FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -80565,7 +80565,7 @@
    "contrato_ate": null,
    "clube_atual": "CD Huachipato",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -80853,7 +80853,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -80877,7 +80877,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -80901,7 +80901,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -81262,7 +81262,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -81286,7 +81286,7 @@
    "contrato_ate": null,
    "clube_atual": "Guarani FC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2025,
@@ -81407,7 +81407,7 @@
    "contrato_ate": null,
    "clube_atual": "Fortaleza EC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -81431,7 +81431,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2025,
@@ -81745,7 +81745,7 @@
    "contrato_ate": null,
    "clube_atual": "Mirassol FC",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2025,
@@ -81938,7 +81938,7 @@
    "contrato_ate": null,
    "clube_atual": "Liverpool FC Montevideo",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -82010,7 +82010,7 @@
    "contrato_ate": null,
    "clube_atual": "Londrina EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -82034,7 +82034,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -82154,7 +82154,7 @@
    "contrato_ate": null,
    "clube_atual": "Pafos FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -82418,7 +82418,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -82659,7 +82659,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Olimpia",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2025,
@@ -82683,7 +82683,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.10 mi.",
-   "valor_eur": 110000000
+   "valor_eur": 1100000
   },
   {
    "ano": 2025,
@@ -82779,7 +82779,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Juventude",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -82923,7 +82923,7 @@
    "contrato_ate": null,
    "clube_atual": "Yunnan Yukun",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -83211,7 +83211,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -83332,7 +83332,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -83476,7 +83476,7 @@
    "contrato_ate": null,
    "clube_atual": "Atlético Goianiense",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -83500,7 +83500,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -83572,7 +83572,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -83596,7 +83596,7 @@
    "contrato_ate": null,
    "clube_atual": "Maccabi Netanya",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2025,
@@ -84153,7 +84153,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Vitória",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -84490,7 +84490,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -84731,7 +84731,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -84972,7 +84972,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2025,
@@ -84996,7 +84996,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -85020,7 +85020,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -85164,7 +85164,7 @@
    "contrato_ate": null,
    "clube_atual": "Atlético Goianiense",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -85188,7 +85188,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Midtjylland",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -85693,7 +85693,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -86151,7 +86151,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Atlético Tucumán",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -86295,7 +86295,7 @@
    "contrato_ate": null,
    "clube_atual": "FC Alverca",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2025,
@@ -86319,7 +86319,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Ponte Preta",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -86343,7 +86343,7 @@
    "contrato_ate": null,
    "clube_atual": "Kalba FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -86439,7 +86439,7 @@
    "contrato_ate": null,
    "clube_atual": "Coritiba FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -86463,7 +86463,7 @@
    "contrato_ate": null,
    "clube_atual": "Londrina EC",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -86487,7 +86487,7 @@
    "contrato_ate": null,
    "clube_atual": "Modena FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -86607,7 +86607,7 @@
    "contrato_ate": null,
    "clube_atual": "Brusque FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -86921,7 +86921,7 @@
    "contrato_ate": null,
    "clube_atual": "Buriram United",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -87235,7 +87235,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Vitória",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -87379,7 +87379,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2025,
@@ -87403,7 +87403,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Juventude",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -87499,7 +87499,7 @@
    "contrato_ate": null,
    "clube_atual": "Mirassol FC",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -87715,7 +87715,7 @@
    "contrato_ate": null,
    "clube_atual": "Kalba FC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2025,
@@ -87739,7 +87739,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Nacional",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -88052,7 +88052,7 @@
    "contrato_ate": null,
    "clube_atual": "Rio Branco AC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -88318,7 +88318,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -88342,7 +88342,7 @@
    "contrato_ate": null,
    "clube_atual": "LDU Quito",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -88751,7 +88751,7 @@
    "contrato_ate": null,
    "clube_atual": "Vila Nova FC",
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2025,
@@ -88775,7 +88775,7 @@
    "contrato_ate": null,
    "clube_atual": "FK Oleksandriya",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -88991,7 +88991,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -89088,7 +89088,7 @@
    "contrato_ate": null,
    "clube_atual": "AA Ponte Preta",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -89112,7 +89112,7 @@
    "contrato_ate": null,
    "clube_atual": "CSKA Sofia",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -89160,7 +89160,7 @@
    "contrato_ate": null,
    "clube_atual": "Londrina EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -89328,7 +89328,7 @@
    "contrato_ate": null,
    "clube_atual": "CRB",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -89666,7 +89666,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2025,
@@ -90196,7 +90196,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -90556,7 +90556,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio Novorizontino",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -90772,7 +90772,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -90892,7 +90892,7 @@
    "contrato_ate": null,
    "clube_atual": "RB Bragantino",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -91951,7 +91951,7 @@
    "contrato_ate": null,
    "clube_atual": "Ningbo FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -92121,7 +92121,7 @@
    "contrato_ate": null,
    "clube_atual": "Operário FEC",
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2025,
@@ -92145,7 +92145,7 @@
    "contrato_ate": null,
    "clube_atual": "Nova Iguaçu FC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -92266,7 +92266,7 @@
    "contrato_ate": null,
    "clube_atual": "EC Juventude",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2025,
@@ -92507,7 +92507,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -92700,7 +92700,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2025,
@@ -92820,7 +92820,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -93375,7 +93375,7 @@
    "contrato_ate": null,
    "clube_atual": "Club Atlético Tucumán",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -93520,7 +93520,7 @@
    "contrato_ate": null,
    "clube_atual": "Náutico",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -93544,7 +93544,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -93640,7 +93640,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -93760,7 +93760,7 @@
    "contrato_ate": null,
    "clube_atual": "Rio Branco AC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -93881,7 +93881,7 @@
    "contrato_ate": null,
    "clube_atual": "SC União Torreense",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -94433,7 +94433,7 @@
    "contrato_ate": null,
    "clube_atual": "CD Nacional",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -94481,7 +94481,7 @@
    "contrato_ate": null,
    "clube_atual": "Criciúma EC",
    "valor_texto": "€ 4.00 mi.",
-   "valor_eur": 400000000
+   "valor_eur": 4000000
   },
   {
    "ano": 2025,
@@ -94505,7 +94505,7 @@
    "contrato_ate": null,
    "clube_atual": "Santa Cruz FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2025,
@@ -94817,7 +94817,7 @@
    "contrato_ate": null,
    "clube_atual": "Chungbuk Cheongju FC",
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2025,
@@ -95154,7 +95154,7 @@
    "contrato_ate": null,
    "clube_atual": "FK Spartak Subotica",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -95832,7 +95832,7 @@
    "contrato_ate": null,
    "clube_atual": "Johor Darul Ta'zim",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -96410,7 +96410,7 @@
    "contrato_ate": null,
    "clube_atual": "Borneo FC Samarinda",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -96434,7 +96434,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -96580,7 +96580,7 @@
    "contrato_ate": null,
    "clube_atual": "Vardar Skopje",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -96604,7 +96604,7 @@
    "contrato_ate": null,
    "clube_atual": "Liverpool FC Montevideo",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -96796,7 +96796,7 @@
    "contrato_ate": null,
    "clube_atual": "RB Bragantino",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -97759,7 +97759,7 @@
    "contrato_ate": null,
    "clube_atual": "Paysandu SC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -97952,7 +97952,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -98144,7 +98144,7 @@
    "contrato_ate": null,
    "clube_atual": "Sem clube",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -98241,7 +98241,7 @@
    "contrato_ate": null,
    "clube_atual": "Daejeon Hana Citizen",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -98747,7 +98747,7 @@
    "contrato_ate": null,
    "clube_atual": "Goiás EC",
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2025,
@@ -99181,7 +99181,7 @@
    "contrato_ate": null,
    "clube_atual": "Grêmio Novorizontino",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -99686,7 +99686,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -99878,7 +99878,7 @@
    "contrato_ate": null,
    "clube_atual": "Avaí FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -100264,7 +100264,7 @@
    "contrato_ate": null,
    "clube_atual": "Clube do Remo",
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2025,
@@ -100288,7 +100288,7 @@
    "contrato_ate": null,
    "clube_atual": "Chapecoense",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -100505,7 +100505,7 @@
    "contrato_ate": null,
    "clube_atual": "Yunnan Yukun",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -101564,7 +101564,7 @@
    "contrato_ate": null,
    "clube_atual": "Sporting Club Jacksonville",
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2025,
@@ -102741,7 +102741,7 @@
    "contrato_ate": null,
    "clube_atual": "Botafogo FC",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -104668,7 +104668,7 @@
    "contrato_ate": null,
    "clube_atual": "Sport Recife",
    "valor_texto": "€ 1.40 mi.",
-   "valor_eur": 140000000
+   "valor_eur": 1400000
   },
   {
    "ano": 2025,
@@ -104788,7 +104788,7 @@
    "contrato_ate": null,
    "clube_atual": "Ferroviária",
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2025,
@@ -107481,7 +107481,7 @@
    "contrato_ate": "31/12/2028",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -107603,7 +107603,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2026,
@@ -107627,7 +107627,7 @@
    "contrato_ate": "30/06/2028",
    "clube_atual": null,
    "valor_texto": "€ 1.30 mi.",
-   "valor_eur": 130000000
+   "valor_eur": 1300000
   },
   {
    "ano": 2026,
@@ -107675,7 +107675,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.30 mi.",
-   "valor_eur": 230000000
+   "valor_eur": 2300000
   },
   {
    "ano": 2026,
@@ -107723,7 +107723,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2026,
@@ -107748,7 +107748,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2026,
@@ -107821,7 +107821,7 @@
    "contrato_ate": "31/12/2029",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -107917,7 +107917,7 @@
    "contrato_ate": "31/12/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.80 mi.",
-   "valor_eur": 180000000
+   "valor_eur": 1800000
   },
   {
    "ano": 2026,
@@ -107989,7 +107989,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 3.00 mi.",
-   "valor_eur": 300000000
+   "valor_eur": 3000000
   },
   {
    "ano": 2026,
@@ -108061,7 +108061,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.30 mi.",
-   "valor_eur": 230000000
+   "valor_eur": 2300000
   },
   {
    "ano": 2026,
@@ -108085,7 +108085,7 @@
    "contrato_ate": "31/12/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -108398,7 +108398,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.70 mi.",
-   "valor_eur": 170000000
+   "valor_eur": 1700000
   },
   {
    "ano": 2026,
@@ -108446,7 +108446,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2026,
@@ -108566,7 +108566,7 @@
    "contrato_ate": "31/12/2028",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -108662,7 +108662,7 @@
    "contrato_ate": "31/12/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -108759,7 +108759,7 @@
    "contrato_ate": "31/07/2029",
    "clube_atual": null,
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2026,
@@ -108783,7 +108783,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -109050,7 +109050,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -109146,7 +109146,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -109339,7 +109339,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.20 mi.",
-   "valor_eur": 220000000
+   "valor_eur": 2200000
   },
   {
    "ano": 2026,
@@ -109532,7 +109532,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -110036,7 +110036,7 @@
    "contrato_ate": "31/12/2028",
    "clube_atual": null,
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2026,
@@ -110132,7 +110132,7 @@
    "contrato_ate": "31/12/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -110326,7 +110326,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2026,
@@ -110350,7 +110350,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -110711,7 +110711,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -111071,7 +111071,7 @@
    "contrato_ate": "31/12/2027",
    "clube_atual": null,
    "valor_texto": "€ 2.00 mi.",
-   "valor_eur": 200000000
+   "valor_eur": 2000000
   },
   {
    "ano": 2026,
@@ -111528,7 +111528,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -111624,7 +111624,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2026,
@@ -112058,7 +112058,7 @@
    "contrato_ate": "30/11/2028",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -112346,7 +112346,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -112394,7 +112394,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -112658,7 +112658,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -113381,7 +113381,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 2.50 mi.",
-   "valor_eur": 250000000
+   "valor_eur": 2500000
   },
   {
    "ano": 2026,
@@ -113405,7 +113405,7 @@
    "contrato_ate": "31/12/2028",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -113767,7 +113767,7 @@
    "contrato_ate": "31/12/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -114176,7 +114176,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -115043,7 +115043,7 @@
    "contrato_ate": "30/06/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -115551,7 +115551,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -115696,7 +115696,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -115864,7 +115864,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -116513,7 +116513,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
@@ -116681,7 +116681,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -117259,7 +117259,7 @@
    "contrato_ate": "30/11/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.50 mi.",
-   "valor_eur": 150000000
+   "valor_eur": 1500000
   },
   {
    "ano": 2026,
@@ -118053,7 +118053,7 @@
    "contrato_ate": "30/06/2027",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -119520,7 +119520,7 @@
    "contrato_ate": "31/12/2028",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -121542,7 +121542,7 @@
    "contrato_ate": "30/11/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.00 mi.",
-   "valor_eur": 100000000
+   "valor_eur": 1000000
   },
   {
    "ano": 2026,
@@ -121639,7 +121639,7 @@
    "contrato_ate": "31/12/2026",
    "clube_atual": null,
    "valor_texto": "€ 1.20 mi.",
-   "valor_eur": 120000000
+   "valor_eur": 1200000
   },
   {
    "ano": 2026,
