@@ -1,0 +1,49 @@
+rules_version = '2';
+
+/* Regras do projeto Firebase do SANTA CRUZ — projeto próprio, separado do
+   `ranking-botafogo`. A separação é de propósito e vale a pena dizer por quê:
+
+     1. São clubes diferentes. O projeto do Botafogo guarda material de scout do
+        Botafogo; este guarda o planejamento do Santa Cruz. Misturar os dois numa
+        base só é o tipo de coisa que ninguém consegue desfazer depois.
+     2. O `ranking-botafogo` grava SEM login (não há uma chamada de autenticação em
+        todo o Portal Ranking), então as regras de lá são abertas. Aqui as regras
+        nascem fechadas, e fechá-las não corre o risco de derrubar o Ranking.
+     3. Raio de explosão. Um erro de regra aqui não toca o Botafogo, e vice-versa.
+
+   Por que fechado importa NESTE caso: o site do Santa Cruz é PÚBLICO
+   (henriquesimoessilva3-png.github.io/santa-cruz-2027) e os grupos carregam a FOLHA
+   SALARIAL do clube. Com regra aberta, qualquer pessoa que achasse o endereço leria
+   os salários e poderia apagar ou reescrever o planejamento inteiro. */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* Quem pode: e-mail na lista, e verificado pelo Google. O `email_verified` não é
+       zelo excessivo — sem ele, um provedor que deixe declarar e-mail sem confirmar
+       viraria a porta dos fundos da lista. */
+    function liberado() {
+      return request.auth != null
+             && request.auth.token.email_verified == true
+             && request.auth.token.email in [
+                  'henriquesimoessilva3@gmail.com'
+                  /* uma linha por pessoa, com vírgula:
+                     , 'preparador@exemplo.com' */
+                ];
+    }
+
+    /* Os grupos do Santa Cruz. Quem está na lista lê e grava todos — é uma equipe
+       pequena trabalhando no mesmo planejamento, não um sistema multiusuário: o
+       objetivo declarado é justamente "toda vez que salvar, fica disponível para
+       todos". Não há dono por documento de propósito. */
+    match /cenarios/{cenario} {
+      allow read, write: if liberado();
+    }
+
+    /* Coleção nova nasce trancada. Se um dia algo mais precisar de acesso, vem aqui
+       pedir explicitamente, em vez de herdar permissão por descuido. */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

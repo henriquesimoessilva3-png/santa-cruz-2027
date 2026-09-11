@@ -1612,11 +1612,44 @@ function prepararEstatico() {
   ['#btExcel'].forEach(sel => { const e = $(sel); if (e) e.style.display = 'none'; });
   const info = $('#abasInfo');
   if (info) info.insertAdjacentHTML('beforebegin',
-    '<span class="aviso-estatico" title="Esta é a versão publicada. Sem servidor, os ' +
-    'grupos que você salvar ficam guardados neste navegador (só aqui, e só neste ' +
-    'aparelho); os cenários publicados vêm junto como ponto de partida. A exportação em ' +
-    'Excel sai de cena; PNG e PDF continuam, e o comparativo entre grupos também.">' +
-    'versão publicada · salva no seu navegador</span>');
+    '<span class="fb-conta" id="fbConta"></span>' +
+    '<span class="aviso-estatico" id="avisoEstatico"></span>');
+  fbBotao();
+}
+
+/* O botao e o aviso dizem a MESMA coisa por caminhos diferentes: onde o Salvar vai
+   parar. Foi justamente isso que faltou — o usuario salvou na web esperando que todos
+   vissem, e o texto de antes ("salva no seu navegador") estava no balao, escondido.
+   Agora o estado fica na barra, escrito, sem precisar passar o mouse. */
+function fbBotao() {
+  const el = $('#fbConta'), av = $('#avisoEstatico');
+  if (!el) return;
+  const base = 'Esta é a versão publicada. A exportação em Excel sai de cena (é o servidor ' +
+               'que monta o arquivo); PNG, PDF e o comparativo entre grupos continuam.';
+  if (FB.usuario) {
+    const email = FB.usuario.email || 'você';
+    el.innerHTML = '<b class="fb-on" title="' + esc(email) +
+      ' — o que você salvar fica visível para todos">✓ ' + esc(email) + '</b>' +
+      '<button class="fb-bt" id="fbSair">sair</button>';
+    $('#fbSair').onclick = fbSair;
+    if (av) { av.textContent = 'salvando para todos'; av.title = base; }
+  } else if (FB.pronto) {
+    el.innerHTML = '<button class="fb-bt entrar" id="fbEntrar" title="Entrar com o Google. ' +
+      'Sem entrar, o que você salvar fica só neste navegador; entrando, fica visível para ' +
+      'todos que têm acesso.">Entrar para compartilhar</button>';
+    $('#fbEntrar').onclick = fbEntrar;
+    if (av) { av.textContent = 'salva só neste navegador'; av.title = base; }
+  } else {
+    /* nuvem desligada (config vazia) ou biblioteca fora do ar: e o site de sempre, e o
+       aviso tem de continuar dizendo a verdade antiga, nao prometer compartilhamento */
+    el.innerHTML = FB.erro
+      ? '<b class="fb-off" title="' + esc(FB.erro) + '">nuvem fora do ar</b>' : '';
+    if (av) { av.textContent = 'salva só neste navegador'; av.title = base; }
+  }
+  if (FB.erro && FB.usuario) {
+    el.insertAdjacentHTML('beforeend',
+      '<b class="fb-off" title="' + esc(FB.erro) + '">⚠ sem acesso</b>');
+  }
 }
 
 /* ---------------- cenarios sem servidor ----------------
@@ -1628,6 +1661,124 @@ function prepararEstatico() {
    Quem chama listar/salvar/abrir/excluir nao precisa saber qual dos dois respondeu. */
 const CHAVE_CEN_LOCAL = 'sc2027_cenarios';
 let CEN_PUBLICADOS = null;
+
+/* ---------------- terceiro backend: a NUVEM (Firestore) ----------------
+   O localStorage resolve "guardar", nao resolve "compartilhar": o que a pessoa salva no
+   site fica no aparelho dela e mais ninguem ve. Para um grupo salvo na web valer para
+   TODOS e preciso um lugar fora do navegador, e o GitHub Pages nao tem servidor. O
+   Firestore entra exatamente nesse buraco — o navegador fala direto com ele.
+
+   Projeto PROPRIO do Santa Cruz, separado do `ranking-botafogo`: sao clubes diferentes,
+   e o do Botafogo grava sem login nenhum (regras abertas), o que aqui seria inaceitavel.
+   O motivo do login nao e cerimonia: este site e PUBLICO e os grupos carregam a folha
+   salarial. Sem login, quem achasse o endereco leria os salarios e reescreveria o
+   planejamento. Quem autoriza sao as regras do servidor (`firestore.rules`), nunca o
+   codigo daqui — a config e publica por desenho e so identifica o projeto.
+
+   Quatro estados, e a tela diz em qual esta:
+     - sem config preenchida -> a nuvem nem carrega; o site e o de hoje;
+     - com config, sem SDK ou sem rede -> idem, e o botao avisa;
+     - com SDK e sem login -> navegador + publicados, com o botao "Entrar";
+     - com login -> aparece o bloco "Compartilhados", e Salvar grava la. */
+const FB_COLECAO = 'cenarios';
+let FB = { cfg: null, pronto: false, db: null, auth: null, usuario: null, erro: '' };
+
+async function fbConfig() {
+  if (FB.cfg !== null) return FB.cfg;
+  try {
+    const v = window.__verDados ? '?v=' + window.__verDados : '';
+    const r = await fetch('dados/firebase.json' + v);
+    const c = r.ok ? await r.json() : null;
+    /* `projectId` vazio = nuvem desligada de proposito. E o estado em que o arquivo
+       nasce, para o site nunca depender de algo que ainda nao existe. */
+    FB.cfg = (c && c.projectId) ? c : false;
+  } catch (e) { FB.cfg = false; }
+  return FB.cfg;
+}
+
+async function fbIniciar() {
+  if (!ESTATICO || FB.pronto) return false;
+  const cfg = await fbConfig();
+  if (!cfg) return false;
+  if (typeof firebase === 'undefined' || !firebase.initializeApp) {
+    FB.erro = 'a biblioteca do Firebase não carregou';
+    return false;
+  }
+  try {
+    if (!firebase.apps || !firebase.apps.length) firebase.initializeApp(cfg);
+    FB.db = firebase.firestore();
+    FB.auth = firebase.auth();
+    FB.pronto = true;
+    /* dispara tambem na volta de um login antigo: e o que faz a pessoa continuar
+       logada ao reabrir o site, sem precisar clicar em Entrar de novo */
+    FB.auth.onAuthStateChanged(u => {
+      FB.usuario = u || null;
+      FB.erro = '';
+      fbBotao();
+      listarCenarios();
+    });
+    return true;
+  } catch (e) { FB.erro = String((e && e.message) || e); return false; }
+}
+
+async function fbEntrar() {
+  if (!FB.pronto) { toast('A nuvem não está ligada neste site', 'ruim'); return; }
+  try {
+    await FB.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  } catch (e) {
+    /* fechar a janelinha do Google e desistencia, nao erro: nao merece toast vermelho */
+    const c = (e && e.code) || '';
+    if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request') return;
+    toast('Não deu para entrar: ' + ((e && e.message) || c), 'ruim');
+  }
+}
+
+async function fbSair() {
+  if (!FB.pronto) return;
+  await FB.auth.signOut();
+  toast('Saiu — os grupos compartilhados saíram da lista');
+}
+
+/* Estes tres sao os unicos que tocam o Firestore. Todos devolvem "vazio" quando nao ha
+   login, para quem chama nao ter de perguntar antes. */
+async function cenNuvemLer() {
+  if (!FB.pronto || !FB.usuario) return [];
+  try {
+    const q = await FB.db.collection(FB_COLECAO).get();
+    return q.docs.map(d => Object.assign({}, d.data(), { id: d.id }));
+  } catch (e) {
+    /* `permission-denied` aqui quer dizer "entrou, mas o e-mail nao esta na lista das
+       regras" — o erro mais provavel de todos, e o que mais confunde se ficar mudo */
+    FB.erro = ((e && e.code) === 'permission-denied')
+      ? 'seu e-mail não está liberado nas regras' : String((e && e.message) || e);
+    fbBotao();
+    return [];
+  }
+}
+
+async function cenNuvemGravar(cen) {
+  if (!FB.pronto || !FB.usuario) return false;
+  try {
+    const doc = JSON.parse(JSON.stringify(cen));
+    delete doc.origem;
+    doc.id = cen.id;
+    doc.porEmail = (FB.usuario && FB.usuario.email) || '';
+    await FB.db.collection(FB_COLECAO).doc(cen.id).set(doc);
+    return true;
+  } catch (e) {
+    toast(((e && e.code) === 'permission-denied')
+      ? 'Seu e-mail não está liberado para gravar — veja firestore.rules'
+      : 'Não deu para gravar na nuvem: ' + ((e && e.message) || e), 'ruim');
+    return false;
+  }
+}
+
+async function cenNuvemApagar(id) {
+  if (!FB.pronto || !FB.usuario) return false;
+  try { await FB.db.collection(FB_COLECAO).doc(id).delete(); return true; }
+  catch (e) { toast('Não deu para excluir na nuvem: ' + ((e && e.message) || e), 'ruim'); return false; }
+}
+
 function cenLocalLer() {
   try { const l = JSON.parse(localStorage.getItem(CHAVE_CEN_LOCAL)); return Array.isArray(l) ? l : []; }
   catch (e) { return []; }
@@ -1645,12 +1796,20 @@ async function cenPublicados() {
   } catch (e) { CEN_PUBLICADOS = []; }
   return CEN_PUBLICADOS;
 }
-/* lista unida: os do navegador primeiro; um publicado so entra se nao foi sobrescrito */
+/* Lista unida das tres origens, e a ORDEM DE PRECEDENCIA importa:
+     nuvem > navegador > publicado.
+   A nuvem vem primeiro porque e a unica compartilhada — se um grupo existe la, e ele que
+   todo mundo tem que ver, senao duas pessoas olhariam numeros diferentes com o mesmo
+   nome na tela. O navegador vence o publicado pelo mesmo motivo de sempre (editou um
+   modelo e salvou por cima). Um id so aparece uma vez, na origem de maior precedencia. */
 async function cenTodos() {
-  const locais = cenLocalLer();
-  const ids = new Set(locais.map(c => c.id));
-  const pub = (await cenPublicados()).filter(c => !ids.has(c.id));
-  return locais.map(c => Object.assign({ origem: 'navegador' }, c))
+  const nuvem = await cenNuvemLer();
+  const vistos = new Set(nuvem.map(c => c.id));
+  const locais = cenLocalLer().filter(c => !vistos.has(c.id));
+  locais.forEach(c => vistos.add(c.id));
+  const pub = (await cenPublicados()).filter(c => !vistos.has(c.id));
+  return nuvem.map(c => Object.assign({ origem: 'nuvem' }, c))
+    .concat(locais.map(c => Object.assign({ origem: 'navegador' }, c)))
     .concat(pub.map(c => Object.assign({ origem: 'publicado' }, c)));
 }
 
@@ -1663,9 +1822,12 @@ async function listarCenarios() {
     const opt = c => '<option value="' + esc(c.id) + '">' + esc(c.nome) + ' · ' + brl(c.total, true) +
       ' · ' + c.atletas + ' atl.' + (c.origem === 'publicado' ? ' · publicado' : '') + '</option>';
     if (ESTATICO) {
-      const meus = lista.filter(c => c.origem === 'navegador'), pub = lista.filter(c => c.origem === 'publicado');
+      const nuv = lista.filter(c => c.origem === 'nuvem');
+      const meus = lista.filter(c => c.origem === 'navegador');
+      const pub = lista.filter(c => c.origem === 'publicado');
       sel.innerHTML = '<option value="">— grupo não salvo —</option>' +
-        (meus.length ? '<optgroup label="Salvos neste navegador">' + meus.map(opt).join('') + '</optgroup>' : '') +
+        (nuv.length ? '<optgroup label="Compartilhados (todos veem)">' + nuv.map(opt).join('') + '</optgroup>' : '') +
+        (meus.length ? '<optgroup label="Salvos só neste navegador">' + meus.map(opt).join('') + '</optgroup>' : '') +
         (pub.length ? '<optgroup label="Publicados (ponto de partida)">' + pub.map(opt).join('') + '</optgroup>' : '');
     } else {
       sel.innerHTML = '<option value="">— grupo não salvo —</option>' + lista.map(opt).join('');
@@ -1677,16 +1839,26 @@ async function listarCenarios() {
 async function salvarCenario() {
   estado.total = totalGeral();
   estado.atletas = todosJogadores().length;
-  let id;
+  let id, ondeFoi = '';
   if (ESTATICO) {
-    /* no navegador: grava por cima se ja tem id (inclusive de um publicado — a copia
-       do navegador passa a valer para essa pessoa), senao cria */
-    id = estado.id || ('nav-' + Date.now().toString(36));
+    id = estado.id || ((FB.usuario ? 'nuv-' : 'nav-') + Date.now().toString(36));
     estado.id = id;
     estado.atualizado = new Date().toISOString();
-    const lista = cenLocalLer().filter(c => c.id !== id);
-    lista.unshift(JSON.parse(JSON.stringify(estado)));
-    if (!cenLocalGravar(lista)) return;
+    /* COM LOGIN a nuvem manda: e o unico jeito de "salvou, todos veem". Se a gravacao
+       falhar (regra, rede), NAO cai calado para o localStorage — isso seria o pior dos
+       mundos, a pessoa acreditando que compartilhou quando so guardou no proprio
+       aparelho. O cenNuvemGravar ja explicou o motivo num toast; aqui so paramos. */
+    if (FB.usuario) {
+      if (!await cenNuvemGravar(estado)) return;
+      ondeFoi = ' — todos veem';
+    } else {
+      /* sem login: como sempre foi, no navegador de quem salvou. Grava por cima se ja
+         tem id (inclusive de um publicado: a copia local passa a valer para essa pessoa) */
+      const lista = cenLocalLer().filter(c => c.id !== id);
+      lista.unshift(JSON.parse(JSON.stringify(estado)));
+      if (!cenLocalGravar(lista)) return;
+      ondeFoi = ' neste navegador';
+    }
   } else {
     const r = await fetch('api/cenarios', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -1699,7 +1871,7 @@ async function salvarCenario() {
   salvarLocal();
   await listarCenarios();
   $('#selCenario').value = id;
-  toast('Grupo "' + estado.nome + '" salvo' + (ESTATICO ? ' neste navegador' : ''), 'bom');
+  toast('Grupo "' + estado.nome + '" salvo' + (ESTATICO ? ondeFoi : ''), 'bom');
 }
 
 function aplicarTema() {
@@ -5129,6 +5301,21 @@ function ligar() {
   };
   $('#btExcluir').onclick = async () => {
     if (!estado.id) { toast('Este grupo ainda não foi salvo', 'ruim'); return; }
+    if (ESTATICO && FB.usuario) {
+      /* Aviso diferente de proposito: excluir um grupo compartilhado tira ele de TODO
+         MUNDO, nao so da tela de quem clicou. A pergunta tem que dizer isso antes, nao
+         depois. So chega aqui o que esta mesmo na nuvem — um grupo local, mesmo com a
+         pessoa logada, cai no fluxo de baixo. */
+      const naNuvem = (await cenNuvemLer()).some(c => c.id === estado.id);
+      if (naNuvem) {
+        if (!confirm('Excluir "' + estado.nome + '" para TODOS?\n\nEste grupo é compartilhado: ' +
+                     'ele some para todo mundo que abre o site. Não dá para desfazer.')) return;
+        if (!await cenNuvemApagar(estado.id)) return;
+        estado.id = null; salvarLocal(); listarCenarios();
+        toast('Grupo excluído para todos');
+        return;
+      }
+    }
     if (!confirm('Excluir o grupo "' + estado.nome + '"? Não dá para desfazer.')) return;
     if (ESTATICO) {
       const antes = cenLocalLer();
@@ -5209,6 +5396,10 @@ async function iniciar() {
   carregarLocal();
   await elencoDePartida();
   if (ESTATICO) prepararEstatico();
+  /* sem `await`: a nuvem nao pode segurar a abertura da tela. Quando ela responder, o
+     onAuthStateChanged chama fbBotao() e listarCenarios() de novo — se houver login
+     guardado, os compartilhados entram na lista alguns instantes depois. */
+  if (ESTATICO) fbIniciar().then(ok => { if (!ok) fbBotao(); });
   ligar();
   montarChips();
   render();

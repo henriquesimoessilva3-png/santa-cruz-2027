@@ -1958,8 +1958,24 @@ body.claro{ --fs-media-tinta:#22303f; }
 #fsMatriz tbody td{padding-top:2px;padding-bottom:2px}
 .es-tab td{padding:2px 7px}
 
-.aviso-estatico{margin-left:auto;margin-right:12px;font-size:10px;color:var(--txt-ambar);
+.aviso-estatico{margin-right:12px;font-size:10px;color:var(--txt-ambar);
   font-weight:700;letter-spacing:.3px;cursor:help}
+
+/* Conta da nuvem, na barra das abas. O `margin-left:auto` mudou de dono: era do aviso,
+   agora é deste bloco, para os dois viajarem juntos encostados à direita. */
+.fb-conta{margin-left:auto;display:inline-flex;align-items:center;gap:6px;margin-right:10px}
+.fb-bt{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;cursor:pointer;
+  background:var(--fundo3);border:1px solid var(--borda2);color:var(--tinta2)}
+.fb-bt:hover{color:#fff;background:var(--coral);border-color:var(--coral)}
+/* "Entrar para compartilhar" é o convite, não um aviso: verde, e é o caminho feliz. */
+.fb-bt.entrar{background:color-mix(in srgb,var(--verde) 16%,transparent);
+  color:var(--verde);border-color:color-mix(in srgb,var(--verde) 45%,transparent)}
+.fb-bt.entrar:hover{background:var(--verde);color:#0b2416;border-color:var(--verde)}
+.fb-on{font-size:10px;font-weight:700;color:var(--verde);cursor:help;
+  max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fb-off{font-size:10px;font-weight:700;color:var(--coral-cl);cursor:help}
+body.claro .fb-bt.entrar{color:#0f7a3d}
+body.claro .fb-on{color:#0f7a3d}
 
 .jog-mais.editar{font-size:10px}
 .jog-mais.editar:hover{background:var(--coral);color:#fff}

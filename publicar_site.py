@@ -50,7 +50,7 @@ def montar():
     dados_dest = os.path.join(DOCS, "dados")
     os.makedirs(dados_dest)
     for nome in ("jogadores.json", "historico.json", "premissas.json", "raio_ref.json",
-                 "posicao_overrides.json"):
+                 "posicao_overrides.json", "firebase.json"):
         origem = os.path.join(AQUI, "dados", nome)
         if os.path.exists(origem):
             shutil.copy2(origem, os.path.join(dados_dest, nome))
@@ -85,6 +85,17 @@ def montar():
     html = html.replace('href="/static/', 'href="static/').replace('src="/static/', 'src="static/')
     # a pagina se declara estatica; o app.js le isto e desliga o que precisa de servidor
     html = html.replace("<script", "<script>window.__estatico = true;</script>\n<script", 1)
+    # Firebase: so na versao publicada. O app local tem servidor e nao precisa de nuvem,
+    # entao carregar o SDK la seria peso morto. Compat (nao modular) para casar com o
+    # jeito ja usado no Portal Ranking. Se dados/firebase.json estiver com projectId
+    # vazio, o app.js nem inicializa — o site fica exatamente como era.
+    html = html.replace("</head>",
+                        '  <script src="https://www.gstatic.com/firebasejs/10.12.0/'
+                        'firebase-app-compat.js"></script>\n'
+                        '  <script src="https://www.gstatic.com/firebasejs/10.12.0/'
+                        'firebase-auth-compat.js"></script>\n'
+                        '  <script src="https://www.gstatic.com/firebasejs/10.12.0/'
+                        'firebase-firestore-compat.js"></script>\n</head>', 1)
     with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(html)
 

@@ -1,0 +1,9 @@
+{
+  "_leia": "Config do projeto Firebase do Santa Cruz. Cole aqui os valores que o console mostra em Configurações do projeto > Seus apps > App da Web. Enquanto 'projectId' estiver vazio, o app ignora a nuvem por completo e funciona como hoje (navegador + publicados). Estes valores são PÚBLICOS por desenho do Firebase: eles identificam o projeto, não autorizam nada. Quem autoriza são as regras em firestore.rules.",
+  "apiKey": "",
+  "authDomain": "",
+  "projectId": "",
+  "storageBucket": "",
+  "messagingSenderId": "",
+  "appId": ""
+}

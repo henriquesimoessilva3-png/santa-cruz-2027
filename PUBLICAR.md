@@ -1,14 +1,64 @@
 # Publicar na web
 
-Há **dois caminhos**, e hoje só o primeiro está ligado.
+Há **três caminhos**. Hoje o primeiro está ligado, o segundo está pronto no código e
+esperando você criar o projeto, e o terceiro nunca foi usado.
 
-| | No ar hoje | Preparado, nunca usado |
-|---|---|---|
-| Onde | GitHub Pages | Render |
-| Endereço | `henriquesimoessilva3-png.github.io/santa-cruz-2027` | `render.yaml`, falta criar a conta |
-| Acesso | **público**, sem senha | senha única (`SC_SENHA`) |
-| Grupos salvos | no navegador de cada pessoa | no disco do servidor, iguais para todos |
-| Comparativo e Excel | fora (precisam de servidor) | funcionam |
+| | No ar hoje | Pages + Firebase | Render |
+|---|---|---|---|
+| Onde | GitHub Pages | o mesmo Pages | Render |
+| Acesso ao site | **público** | público | senha única (`SC_SENHA`) |
+| Grupos salvos | no navegador de cada um | **na nuvem, todos veem** | no disco, todos veem |
+| Quem mexe nos grupos | quem abrir | só os e-mails liberados | quem tem a senha |
+| O servidor dorme? | não há servidor | não há servidor | sim, ~50 s para acordar |
+| Excel | fora | fora | funciona |
+| Falta | — | criar o projeto e colar a config | criar a conta |
+
+**Por que Firebase e não Render, para o que você pediu.** O pedido era "toda vez que
+salvar na web, ficar disponível para todos". Os dois resolvem isso. O Firebase ganha em
+dois pontos: o site continua onde está, e nada dorme — no plano gratuito do Render a
+primeira abertura do dia leva quase um minuto. O Render ganha num ponto só: o Excel volta,
+porque é o Python que monta o arquivo.
+
+## Ligar o Firebase (o que falta para "salvar = todos veem")
+
+**Projeto separado, de propósito.** Não use o `ranking-botafogo`: é outro clube, e aquele
+projeto grava **sem login nenhum** (não há uma chamada de autenticação em todo o Portal
+Ranking), o que só funciona com as regras abertas. Fechar as regras de lá derrubaria as
+estrelas do Ranking na hora, sem erro na tela. Projeto novo nasce trancado e não encosta
+no Botafogo.
+
+1. **Criar o projeto** em https://console.firebase.google.com — "Adicionar projeto",
+   nome à sua escolha (ex.: `santa-cruz-2027`). Pode recusar o Google Analytics.
+2. **Criar o banco**: Build → Firestore Database → Criar banco de dados. Escolha
+   **produção** (começa fechado, que é o que queremos) e a região `southamerica-east1`.
+3. **Ligar o login**: Build → Authentication → Começar → **Google** → ativar → Salvar.
+4. **Publicar as regras**: Firestore Database → Regras. Apague o que estiver lá, cole o
+   conteúdo de [`firestore.rules`](firestore.rules) e publique. **Antes de publicar**,
+   acrescente na lista o e-mail de cada pessoa que vai poder ver e mexer nos grupos.
+5. **Pegar a config**: ⚙ Configurações do projeto → Seus apps → ícone `</>` (Web) →
+   registrar o app (sem Hosting) → o console mostra um bloco `firebaseConfig`.
+6. **Colar a config** em [`dados/firebase.json`](dados/firebase.json), nos campos que já
+   estão lá vazios. Depois rode `python3 publicar_site.py --push`.
+
+Enquanto o `projectId` desse arquivo estiver vazio, **o site funciona como hoje** e a
+nuvem nem é carregada — não há risco de ligar pela metade.
+
+**A config não é segredo.** Aqueles valores (`apiKey` e companhia) identificam o projeto e
+vão no código de qualquer site que use Firebase; é assim por desenho. Quem autoriza são as
+regras do passo 4 — é lá que está a segurança, e é por isso que aquele arquivo importa
+tanto. Nunca coloque neste repositório, que é **público**, uma chave de serviço (o JSON de
+`service account`): essa sim é segredo, e não é necessária aqui.
+
+### Como fica na tela
+
+Na barra das abas aparece **Entrar para compartilhar**. Sem entrar, o site é o de hoje e
+o aviso diz "salva só neste navegador". Entrando com o Google, o aviso vira "salvando para
+todos", surge no seletor o bloco **Compartilhados (todos veem)**, e o Salvar grava na
+nuvem. Excluir um grupo compartilhado pergunta com todas as letras que ele some **para
+todos**.
+
+Se o seu e-mail não estiver nas regras, o login funciona mas aparece **⚠ sem acesso** — é
+o passo 4 que faltou.
 
 ## O que está no ar: GitHub Pages
 

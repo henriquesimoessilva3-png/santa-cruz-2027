@@ -844,3 +844,50 @@ todas**. O `limiteNome()` + `nomeCurto()` abreviam ANTES de o CSS precisar corta
 900px, 67 dos 118 aparecem como "P. Vítor", e **todos** têm o nome inteiro no balão. O
 sintoma descrito acabou junto com o trabalho de layout do campograma; a pendência era
 registro velho, não bug vivo.
+
+## "Salvar na web tem que valer para todos" — Firebase (set/26)
+
+O usuário salvou um grupo no site, viu aparecer em "Salvos neste navegador" e perguntou
+por que não estava publicando. **Não era defeito**: o Pages não tem servidor, então o
+`localStorage` é o único lugar possível, e ele é por aparelho. O pedido — *toda vez que
+salvar na web deve ficar disponível para todos* — exige um lugar fora do navegador.
+
+**Firebase, não Render.** Os dois resolvem. O Firestore ganha em dois pontos: o site
+continua no Pages, e nada dorme (no Render gratuito a primeira abertura leva ~50 s). O
+Render ganharia só no Excel, que precisa do Python. Plano gratuito do Firestore: 1 GiB,
+50 mil leituras e 20 mil gravações por dia, sem cartão — um grupo ocupa ~19 KB.
+
+**Projeto SEPARADO do `ranking-botafogo`, e a razão não é organização.** O Portal Ranking
+grava no Firestore **sem nenhuma autenticação** — `grep firebase.auth` no
+`portal_ranking_botafogo.py` dá **zero**. Isso só funciona com regra aberta. Se o Santa
+Cruz entrasse no mesmo projeto: ou herdava a regra aberta, e aí a **folha salarial** ficava
+world-writable num site **público**; ou as regras eram fechadas e **as estrelas do Ranking
+paravam de salvar na hora, sem erro na tela**. Projeto novo evita os dois. Foi o usuário
+quem propôs a separação, pelo argumento certo: é outro clube.
+
+**Config fora do código.** `dados/firebase.json`, buscado em tempo de execução. Motivo
+técnico: `projectId` vazio = nuvem desligada, e o site é exatamente o de antes — dá para
+subir a canalização inteira sem ligar nada. Motivo prático: ligar depois é colar seis
+valores num JSON, sem tocar em `app.js`. (Ao escrever a config direto no código, o
+classificador de segurança do Claude Code bloqueou a ação, lendo a `apiKey` como
+credencial; ela é pública por desenho do Firebase, mas o arquivo separado é melhor de
+qualquer jeito.)
+
+**Precedência das três origens: nuvem > navegador > publicado.** A nuvem vem primeiro
+porque é a única compartilhada — se um grupo existe lá, é ele que todos têm de ver, senão
+duas pessoas olhariam números diferentes sob o mesmo nome.
+
+**Salvar logado NÃO cai para o `localStorage` se a nuvem recusar.** Seria o pior dos
+mundos: a pessoa acreditando que compartilhou quando só guardou no próprio aparelho. Falhou,
+para, e o toast diz o motivo. O erro mais provável é `permission-denied`, que quer dizer
+"entrou, mas o e-mail não está na lista das regras" — por isso ele tem texto próprio.
+
+**O aviso saiu do balão para a barra.** Antes o "salva no seu navegador" vivia só no
+`title`, escondido atrás do mouse — foi exatamente por isso que a expectativa quebrou.
+Agora o estado está escrito na barra das abas: `salva só neste navegador` ou
+`salvando para todos`.
+
+Testado com a nuvem **desligada** (o estado em que o arquivo nasce): site idêntico ao de
+hoje, salvar grava em `nav-…` no navegador, comparativo com as 4 colunas, zero erro; e o
+app local do `:5090` sem SDK, sem botão, Excel visível, zero erro. O caminho **com** nuvem
+só dá para testar depois que o projeto existir.
