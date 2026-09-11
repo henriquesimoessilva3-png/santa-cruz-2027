@@ -5948,7 +5948,15 @@ function empRender() {
   const cab = '<div class="emp-cab">' +
     '<span class="emp-c-jog">Jogador</span>' +
     '<span class="emp-c-ct">Fim de contrato</span>' +
-    EMP_CAMPOS.map(c => '<span style="width:' + c.w + 'px">' + esc(c.r) + '</span>').join('') +
+    /* `flex: peso 1 0` em vez de `width: Npx`: somadas, as larguras fixas passavam de
+       1700px e a aba só cabia rolando de lado. Agora as colunas DIVIDEM o que há, com o
+       peso mantendo a proporção de antes. */
+    /* `title` no cabeçalho porque agora ele CORTA: com as colunas dividindo a largura,
+       "Telefone empresário" vira "Telefone empre…" e sem o balão não há como saber de
+       quem é o telefone — que é justamente a distinção que os dois campos existem para
+       fazer. */
+    EMP_CAMPOS.map(c => '<span title="' + esc(c.r) + '" style="flex:' + c.w +
+      ' 1 0;min-width:0">' + esc(c.r) + '</span>').join('') +
     '<span class="emp-c-x"></span></div>';
 
   alvo.innerHTML = cab + ordem.map(cod => {
@@ -6048,7 +6056,7 @@ function empLinhaHtml(l) {
   const campo = c => {
     const v = d[c.k];
     if (c.opcoes) {
-      return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+      return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
         '<select class="emp-st st-' + esc(String(v || 'sem').toLowerCase()) + '"' +
         ' data-ch="' + esc(l.ch) + '" data-k="' + c.k + '">' +
         c.opcoes.map(o => '<option value="' + esc(o) + '"' +
@@ -6056,7 +6064,7 @@ function empLinhaHtml(l) {
         '</select></span>';
     }
     const val = c.num ? (v ? milhar(v) : '') : (v || '');
-    return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+    return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
       '<input data-ch="' + esc(l.ch) + '" data-k="' + c.k + '" value="' + esc(val) + '"' +
       (c.num ? ' inputmode="numeric" class="num"' : '') +
       ' placeholder="' + (c.ig ? '@perfil' : c.num ? '0' : '') + '">' +
@@ -6279,13 +6287,13 @@ function indRender() {
       const v = i[c.k] || '';
       if (c.opcoes) {
         const cl = c.k === 'avaliacao' ? ' ind-aval ' + (IND_CLASSE[v] || 'sem') : '';
-        return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+        return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
           '<select class="ind-sel' + cl + '" data-uid="' + i.uid + '" data-k="' + c.k + '">' +
           c.opcoes().map(o => '<option value="' + esc(o) + '"' + (v === o ? ' selected' : '') +
             '>' + esc(c.rotulo ? c.rotulo(o) : (o || '—')) + '</option>').join('') +
           '</select></span>';
       }
-      return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+      return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
         '<input data-uid="' + i.uid + '" data-k="' + c.k + '" value="' + esc(v) + '"' +
         (c.tipo === 'date' ? ' type="date"' : '') +
         (c.forte ? ' class="ind-forte"' : '') +

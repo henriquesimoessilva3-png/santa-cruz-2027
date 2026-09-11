@@ -1237,3 +1237,14 @@ inteiro num só registro.
 
 Como `EMP_CAMPOS` alimenta a tabela, a ficha e o CSV, acrescentar uma linha ali apareceu
 nos três sem mais nada.
+
+**A aba Empresários deixou de rolar de lado (set/26).** Somadas, as larguras fixas das 14
+colunas passavam de 1700px, e `min-width:max-content` na linha obrigava a barra horizontal.
+As colunas passaram a DIVIDIR a largura disponível (`flex: peso 1 0`), com o peso mantendo
+a proporção que tinham. Em 1512px elas somam 1405 e cabem inteiras.
+
+O cabeçalho ganhou `title`, porque agora ele corta: "Telefone empresário" vira "Telefone
+empre…", e sem o balão não dá para saber de quem é o telefone — que é exatamente a
+distinção que os dois campos existem para fazer.
+
+A aba Indicados usa as mesmas classes e foi conferida junto: 1158px, sem rolagem.
