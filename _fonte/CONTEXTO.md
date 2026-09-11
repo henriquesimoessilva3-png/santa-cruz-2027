@@ -716,3 +716,38 @@ o Cenário 1 2027 abre com 118 atletas, salvar por cima do publicado move o grup
 "Salvos neste navegador" (o publicado some da lista, porque a cópia vence), excluir
 devolve o publicado com o aviso "Sua cópia foi excluída; o publicado continua na lista".
 Zero erro de console no carregamento.
+
+## Levar para o campograma, escolhendo a posição (set/26)
+
+O ↗ que sobe um jogador para o campograma existia **só no cabeçalho da matriz** — e
+Mapa, Réguas e Tiras escondem esse cabeçalho. Nessas três formas dava para comparar e
+analisar, mas não para trazer ninguém: era preciso voltar à matriz, achar a coluna e
+clicar lá. O ↗ agora está em **três lugares**, todos chamando o mesmo código:
+
+- no **chip** de cada comparado (acima do palco), que é o que vale nas três formas novas;
+- no **cabeçalho da matriz**, onde já estava;
+- no **painel de foco**, como `↗ campograma` ao lado do `+ comparar`.
+
+**A posição virou escolha.** O ↗ jogava direto na posição que o jogador tem na base: um
+CF que você quer experimentar de EE ia para o lugar errado e só dava para arrumar
+depois, no menu do card. Agora ele abre uma grade com as onze posições — a dele com
+contorno verde, a que ele já ocupa apagada, e o balão de cada uma dizendo quantos já
+estão ali. Mesmo desenho do "Mover para" do card, para não existirem dois jeitos de
+fazer a mesma coisa. O `posOrig` continua guardando a posição de origem.
+
+**Dois detalhes que custariam tempo depois:**
+
+1. O `.menu` nasceu ancorado a um botão do cabeçalho e traz `right:0`. Somado ao `left`
+   que o JS calcula para menus soltos, o menu **estica de ponta a ponta**: medi 1582px
+   numa tela de 1512. Valia para o menu do card **desde sempre** — `right:auto` nos dois.
+2. O `.menu-jog` põe `" ✓"` no item marcado. Num botão de sigla de 10px em grade de
+   cinco colunas isso empurra o texto e desalinha a grade; na grade o marcador é o
+   contorno verde, e o ✓ fica suprimido.
+
+A busca do jogador passou de `id` para **chave** (as duas identificam sem ambiguidade —
+conferi que as 40.059 chaves da base são únicas), com varredura na BASE de rede porque
+o mapa da aba só tem os ~9 mil com tracking.
+
+Regressão: 4 posições × 2 formas, menu abrindo com a posição certa marcada nas oito,
+zero erro de console; tema claro conferido; e levar um AM para LW pôs o jogador em LW
+com `posOrig` MEI, com a segunda tentativa recusada.
