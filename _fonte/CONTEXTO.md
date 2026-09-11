@@ -901,3 +901,37 @@ Regras conferidas **contra o banco real**, sem login: leitura da coleção `cena
 recusada, leitura de `selecionados`, `usuarios` e de um nome inventado recusadas, e
 escrita anônima recusada — todas com `permission-denied`. É a prova de que a regra
 final fechada (`match /{document=**}`) está pegando, e não só a específica.
+
+## Escala do campo: cards maiores, com rolagem (set/26)
+
+Pedido: "cards maiores, mesmo que tenha scroll vertical e horizontal". Os dois modos que
+existiam **não davam isso** — `k = Math.min(1, disp / alt)` nunca passa de 1, então os
+dois ENCOLHIAM e a diferença entre eles era só a fonte. Medindo: "caber na tela" dava
+card de 141px e **"tamanho real" dava 194px em scale(0,77)** — ou seja, o rótulo dizia
+"tamanho real" mostrando 77%. Com 118 atletas o card virava carimbo.
+
+Virou uma roda de cinco, no mesmo botão: `caber na tela · tamanho real · 125% · 150% ·
+200%`. Da segunda em diante a escala é FIXA e quem rola é a área. Card medido: 141 → 194
+→ 243 → 291 → 388px.
+
+**Por que `transform: scale` e não card mais largo**: `--fz` mexe só nas fontes (a largura
+de `.pos` é fixa em 224px) e `distribuir()` calcula as posições das medidas reais.
+Escalar por transform deixa a conta de layout intacta — é o mesmo caminho já usado para
+encolher, do outro lado. `transform-origin: top left`, senão metade do campo cresce para
+fora à esquerda e acima, onde não há rolagem que alcance. Em 100% não se aplica transform
+nenhum: `scale(1)` cria camada de composição à toa e borra texto de graça.
+
+**Dois defeitos que só apareceram medindo:**
+
+1. **rAF atropelando modo.** O caminho "caber" reaplica a escala dentro de um
+   `requestAnimationFrame`. Trocando para 150% antes dele rodar, ele punha o `scale(0,77)`
+   por cima do `scale(1,5)` recém-aplicado: o campo voltava ao tamanho antigo e o botão
+   dizia 150%. Cada rAF agora confere se o modo ainda é o dele (`escalaAtual() !== zoom`)
+   antes de tocar em qualquer coisa.
+2. **Rodapé preso no modo anterior.** O texto só era escrito dentro do rAF; quando o
+   guarda acima barrava, ficava a frase velha — dizia "campo em 200%" com o campo em 72%.
+   Agora `escreverInfo()` roda síncrono logo após aplicar, e o rAF só refina.
+
+`estado.zoom` é novo; grupo salvo sem ele cai no antigo `estado.ajustar` (booleano), que
+continua sendo gravado porque a impressão ainda o lê. No papel a escala fixa é ignorada —
+a folha tem tamanho fixo e ampliar só cortaria o campo.

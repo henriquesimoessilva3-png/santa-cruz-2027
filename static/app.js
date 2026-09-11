@@ -147,7 +147,7 @@ function novoEstado() {
     limiteEstrangeiros: 9,
     cotacaoEuro: 6.3,
     ct: { detalhar: false, encargos: true, itens: [] },
-    orientacao: 'horizontal', denso: true, tema: 'escuro', ajustar: true, v: VERSAO,
+    orientacao: 'horizontal', denso: true, tema: 'escuro', ajustar: true, zoom: 1, v: VERSAO,
     metas: { gol:8, defesa:27, meio:30, ataque:35 },
     alvoAtletas: {}, elenco: el,
   };
@@ -660,6 +660,49 @@ function atualizarNomes() {
   });
 }
 
+/* ---------------- escala do campo: tres modos numa volta só ----------------
+   Os dois modos antigos CABIAM na tela por definição — `k = Math.min(1, disp/alt)` nunca
+   deixa passar de 1, então o campo só encolhia. Com 118 atletas, cada card virava um
+   carimbo ilegível. O terceiro modo inverte a regra: o campo fica MAIOR que a tela e
+   quem rola é a área, nos dois sentidos.
+
+   Por que `transform: scale` e não aumentar a largura do card: `--fz` mexe só nas fontes
+   (a largura de `.pos` é fixa em 224px), e `distribuir()` calcula as posições a partir
+   das medidas reais. Escalar por transform mantém a conta de layout intacta — é o mesmo
+   caminho já usado para encolher, só que para o outro lado. */
+const ESCALAS = [
+  { z: 'caber', rot: 'caber na tela' },
+  { z: 1,       rot: 'tamanho real' },
+  { z: 1.25,    rot: 'ampliado 125%' },
+  { z: 1.5,     rot: 'ampliado 150%' },
+  { z: 2,       rot: 'ampliado 200%' },
+];
+function escalaAtual() {
+  /* grupos salvos antes disto só têm `ajustar`: booleano vira o modo equivalente */
+  if (estado.zoom == null) return estado.ajustar ? 'caber' : 1;
+  return estado.zoom;
+}
+function rotuloEscala() {
+  const z = escalaAtual();
+  const e = ESCALAS.find(x => x.z === z);
+  return e ? e.rot : 'ampliado ' + Math.round(Number(z) * 100) + '%';
+}
+function escalaProxima() {
+  const z = escalaAtual();
+  const i = ESCALAS.findIndex(x => x.z === z);
+  const prox = ESCALAS[(i + 1) % ESCALAS.length];
+  estado.zoom = prox.z;
+  estado.ajustar = prox.z === 'caber';   /* mantido: o PDF e a impressão ainda leem */
+}
+
+function escreverInfo(info, k, alt, disp) {
+  if (!info) return;
+  const cabe = alt * k <= disp + 2;
+  info.textContent = k < 1
+    ? 'campo em ' + Math.round(k * 100) + '%' + (cabe ? ' — cabe tudo na tela' : '')
+    : '';
+}
+
 function ajustarCampo() {
   const campo = $('#campo'), area = $('.campo-area');
   if (!campo || !area) return;
@@ -667,7 +710,48 @@ function ajustarCampo() {
      colunas estao escondidas e a escolhida fica no fluxo, centralizada pelo CSS */
   if (POS_ZOOM) { campo.style.transform = ''; campo.style.width = ''; return; }
   const info = $('#abasInfo');
-  area.classList.toggle('ajustado', !!estado.ajustar);
+  const zoom = escalaAtual();
+
+  /* --- escala FIXA (100% ou mais): não tem o que caber, tem o que rolar ---
+     Inclui o 100% de propósito. Antes, "tamanho real" também passava pela conta de
+     caber (`k = Math.min(1, disp/alt)`) e saía em 77% — os dois modos antigos
+     encolhiam, e a diferença entre eles era só a fonte. O rótulo dizia "tamanho real"
+     mostrando 77%, o que é justamente a queixa de que os cards são pequenos. Agora
+     100% é 100%, e quem não couber na tela rola. */
+  if (zoom !== 'caber' && Number(zoom) >= 1) {
+    const z = Number(zoom);
+    area.classList.remove('ajustado');
+    area.classList.add('ampliado');
+    ajustando = true;
+    clearTimeout(soltarCadeado);
+    campo.style.setProperty('--fz', 1);
+    campo.style.transform = '';
+    campo.style.width = '';
+    compensarEscala(campo, 1, 0);
+    campo.style.minHeight = '0px';
+    const alt = distribuir();
+    campo.style.minHeight = alt + 'px';
+    /* origem no canto: crescer a partir do centro jogaria metade do campo para fora,
+       à esquerda e acima, onde não há rolagem que alcance */
+    campo.style.transformOrigin = 'top left';
+    /* em 100% nao ha transform nenhum: `scale(1)` cria camada de composicao a toa e
+       e o caminho mais curto para o texto sair borrado sem motivo */
+    campo.style.transform = z === 1 ? '' : 'scale(' + z + ')';
+    atualizarNomes();
+    if (info) {
+      const rolando = area.scrollWidth > area.clientWidth + 1 || area.scrollHeight > area.clientHeight + 1;
+      info.textContent = 'campo em ' + Math.round(z * 100) + '%' +
+        (rolando ? ' — role para ver o resto' : ' — cabe tudo na tela');
+    }
+    requestAnimationFrame(() => {
+      ultimaArea = area.clientWidth + 'x' + area.clientHeight;
+      ajustando = false;
+    });
+    return;
+  }
+  area.classList.remove('ampliado');
+  campo.style.transformOrigin = '';
+  area.classList.toggle('ajustado', zoom === 'caber');
 
   /* Area sem altura util: a aba esta escondida, a janela colapsada ou o layout
      ainda nao assentou. Medir aqui daria k=0 e o campo sumiria em scale(0) —
@@ -685,9 +769,9 @@ function ajustarCampo() {
   clearTimeout(soltarCadeado);
   soltarCadeado = setTimeout(() => { ajustando = false; }, 400);
 
-  /* Os dois modos cabem na tela; a diferenca e so a fonte. Em "caber na tela" ela
-     sobe para compensar a reducao; em "tamanho real" fica como esta. */
-  const fzMax = estado.ajustar ? FONTE_MAX : 1;
+  /* So o "caber na tela" chega aqui. A fonte sobe para compensar a reducao — sem isso,
+     encolher o campo deixaria o nome ilegivel. As escalas fixas saem antes, la em cima. */
+  const fzMax = FONTE_MAX;
 
   campo.style.setProperty('--fz', 1);
   campo.style.transform = '';
@@ -716,23 +800,30 @@ function ajustarCampo() {
     compensarEscala(campo, escala, altura);
   };
   aplicar(alt, k);
+  /* Texto do rodape JA, sem esperar o rAF. Ele so era escrito la dentro, e quando o rAF
+     nao roda (aba escondida, ou um rAF de outro modo chegou antes e o guarda barrou) o
+     rodape ficava com a frase do modo ANTERIOR: dizia "campo em 200%" com o campo em 72%.
+     O rAF continua refinando com a medida assentada; aqui so garante que nunca minta. */
+  escreverInfo(info, k, alt, disp);
 
-  /* a largura util muda com a escala: remede e reaplica, agora com o valor certo */
+  /* A largura util muda com a escala: remede e reaplica, agora com o valor certo.
+     O `escalaAtual() !== zoom` nao e zelo: este rAF ficou agendado no modo "caber", e se
+     a pessoa trocar para 150% antes de ele rodar, ele reaplica o scale(0,77) por cima do
+     scale(1,5) que acabou de ser posto — o campo volta ao tamanho antigo e o rotulo do
+     botao diz 150%, uma discordancia que so aparece se alguem medir. Cada rAF confere
+     se o modo ainda e o dele antes de tocar em qualquer coisa. */
   requestAnimationFrame(() => {
+    if (escalaAtual() !== zoom) return;
     const alt2 = distribuir();
     const k2 = Math.min(1, disp / alt2);
     aplicar(alt2, k2);
     atualizarNomes();
-    if (info) {
-      const cabe = alt2 * k2 <= disp + 2;
-      info.textContent = k2 < 1
-        ? 'campo em ' + Math.round(k2 * 100) + '%' + (cabe ? ' — cabe tudo na tela' : '')
-        : '';
-    }
+    escreverInfo(info, k2, alt2, disp);
     /* Solta o cadeado so depois que o layout assentou, e ja registra a medida
        resultante como base. Sem isso o proprio ajuste acorda os observadores
        (mudou largura/altura do campo -> mudou a area) e o ciclo nao para. */
     requestAnimationFrame(() => {
+      if (escalaAtual() !== zoom) return;
       clearTimeout(soltarCadeado);
       ultimaArea = area.clientWidth + 'x' + area.clientHeight;
       ajustando = false;
@@ -1904,7 +1995,7 @@ function aplicarTema() {
 function sincronizarBotoes() {
   aplicarTema();
   const bA = $('#btAjustar');
-  if (bA) bA.innerHTML = 'Escala: <b>' + (estado.ajustar ? 'caber na tela' : 'tamanho real') + '</b>';
+  if (bA) bA.innerHTML = 'Escala: <b>' + rotuloEscala() + '</b>';
   const det = !!(estado.ct && estado.ct.detalhar);
   $('#inComissao').readOnly = det;
   $('#inComissao').classList.toggle('travado', det);
@@ -5279,7 +5370,7 @@ function ligar() {
   $('#btTemaTopo').onclick = trocarTema;
 
   $('#btAjustar').onclick = () => {
-    estado.ajustar = !estado.ajustar;
+    escalaProxima();
     sincronizarBotoes(); salvarLocal(); ajustarCampo();
   };
   $('#btSalvar').onclick = salvarCenario;

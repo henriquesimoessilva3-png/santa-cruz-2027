@@ -2315,3 +2315,19 @@ body.claro .fs-palco{--ambar:var(--txt-ambar);--verde:var(--txt-verde);--roxo:#7
   color:var(--coral-cl);border-color:color-mix(in srgb,var(--coral-cl) 50%,transparent)}
 body.claro .fi-amostra{color:#8a5a00}
 body.claro .fi-amostra.grave{color:var(--coral)}
+
+/* ---------- escala fixa (100%, 125%, 150%, 200%): o campo passa da tela e a área rola ----------
+   `.campo-area` força `overflow-x:hidden` em duas regras, para a tela não tremer quando a
+   barra entra e sai durante o ajuste. No ampliado não há ajuste nenhum — a escala é fixa,
+   escolhida por quem clicou — então a barra pode aparecer sem risco de oscilar. Duas
+   classes ganham da regra de uma, independente da ordem no arquivo. */
+.campo-area.ampliado{overflow:auto;overflow-x:auto}
+/* a transformação não é herdada pelo veu do zoom de posição; sem isto, ampliar e depois
+   clicar numa posição deixaria o veu fora de lugar */
+.campo-area.ampliado .campo{transform-origin:top left}
+body.com-zoom .campo-area.ampliado .campo{transform:none}
+@media print{
+  /* no papel a folha tem tamanho fixo: ampliar só cortaria o campo */
+  .campo-area.ampliado{overflow:visible}
+  .campo-area.ampliado .campo{transform:none}
+}
