@@ -2081,6 +2081,30 @@ body.claro .fb-on{color:#0f7a3d}
 .rk-linha1{grid-template-columns:1.28fr 1.18fr .82fr 1fr .85fr 1.05fr 1fr}
 @media (max-width:1280px){ .rk-linha1{grid-template-columns:repeat(4,1fr)} }
 
+/* ---------- a segunda fileira do painel do Fisico ----------
+   O painel tem NOVE campos numa grade de sete colunas, entao dois sobram para a fileira de
+   baixo — e sobrava com eles 1.050px de preto a direita, porque cada um ocupava uma coluna
+   estreita. Os dois passam a ESPICHAR: "Quem aparece" toma quatro colunas e espalha as
+   caixas na horizontal (empilhadas, elas comiam 126px de altura e ainda cortavam
+   "Referencias BR e mundo" no meio), e "Perfil de quem sobe" toma as tres restantes.
+   A fileira de baixo fica cheia e 40px mais baixa. */
+.fs-linha1 .fs-quem{grid-column:span 4}
+.fs-linha1 .fs-perfil-campo{grid-column:span 3}
+.fs-quem .chk{display:inline-flex}
+/* as caixas em linha, quebrando so quando precisa */
+.fs-quem > .chk{margin-right:14px}
+.fs-quem{display:block}
+.fs-quem > label:first-child{display:block}
+/* o separador do "quem sobe e quem cai" era uma linha tracejada EM CIMA, que so faz
+   sentido numa pilha. Deitado, ele vira uma barra a ESQUERDA. */
+.fs-quem .rk-chk-sb{border-top:none;margin-top:0;padding-top:0;
+  border-left:1px dashed var(--borda2);padding-left:12px;margin-left:2px}
+@media (max-width:1280px){
+  .fs-linha1 .fs-quem,.fs-linha1 .fs-perfil-campo{grid-column:span 2}
+  .fs-quem .rk-chk-sb{border-left:none;padding-left:0;margin-left:0;
+    border-top:1px dashed var(--borda2);margin-top:7px;padding-top:6px}
+}
+
 /* As abas de regiao ficam numa linha so. Quebrando, o "EU" caia sozinho embaixo e
    levava a fileira inteira junto — 13px a mais em toda a largura da tela por causa
    de um botao. Sem quebra, elas se apertam um pouco e cabem; a folga vem da largura

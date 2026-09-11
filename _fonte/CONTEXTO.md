@@ -1761,6 +1761,33 @@ contrato, 53 exigindo confirmação, e 3 somando o perfil.
 > contrato chegou a comparar a coisa errada por isso. Hoje é `fsPool({perfil:1})` ou
 > `{contrato:1}`.
 
+### A segunda fileira do painel do Físico espicha
+
+O painel tem **nove** campos numa grade de **sete** colunas (`.rk-linha1`), então dois caem
+para a fileira de baixo. Cada um ocupava uma coluna estreita e sobravam **1.050px de preto**
+à direita, com "Quem aparece" empilhando cinco caixas em 126px de altura e ainda cortando
+"Referências BR e mundo" no meio.
+
+Agora os dois esticam: `Quem aparece` toma quatro colunas com as caixas na horizontal,
+`Perfil de quem sobe` toma as três restantes. A fileira fecha em x=1884, igual à de cima.
+
+| | antes | depois |
+|---|---|---|
+| Largura de "Quem aparece" | 268px | 922px |
+| Altura | 126px | **38px** |
+| Fim da fileira | x=854 | x=1884 |
+| Rótulo cortado | sim | não |
+
+Os 88px de altura que sobraram vão para a matriz, que é o conteúdo.
+
+> **`.rk-linha1` é compartilhada** com o painel da aba Fim de contrato — mexer nela direto
+> mudaria as duas telas. Por isso a do Físico ganhou `fs-linha1`, e as regras novas são
+> todas escopadas nela.
+>
+> E o separador do "quem sobe e quem cai" era uma **linha tracejada em cima**, que só faz
+> sentido numa pilha. Deitado, virou barra à esquerda — e volta a ser em cima abaixo de
+> 1280px, onde o bloco empilha de novo.
+
 ### Armadilha de publicação: o `--push` que não publica
 
 `publicar_site.py --push` faz `git add docs`, e **se o `docs/` já estiver commitado ele
