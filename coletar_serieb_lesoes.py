@@ -95,9 +95,22 @@ def data(txt):
 
 
 def ler(html):
-    """Uma linha por lesao. Sem tabela = atleta sem lesao registrada, que tambem e dado."""
+    """Uma linha por lesao. Sem tabela = atleta sem lesao registrada, que tambem e dado.
+
+    A pagina tem DUAS tabelas com a mesma classe: a de lesoes (Temporada, Lesao, de, ate,
+    Dias, Jogos perdidos) e um resumo por temporada (Temporada, Dias, Lesoes, Jogos
+    perdidos). Pegar "a primeira" funciona hoje e e exatamente o tipo de coisa que quebra em
+    silencio se o site inverter a ordem: o resumo tem 4 colunas, todas as linhas cairiam no
+    `len(td) < 6` e o atleta sairia como se nao tivesse lesao nenhuma. Entao a escolha e
+    pelo CABECALHO, nao pela ordem.
+    """
     sp = BeautifulSoup(html, "html.parser")
-    tabela = sp.select_one("div.responsive-table table.items")
+    tabela = None
+    for t in sp.select("div.responsive-table table.items"):
+        cab = [th.get_text(" ", strip=True).lower() for th in t.select("th")]
+        if len(cab) >= 6 and cab[1].startswith("lesã"):
+            tabela = t
+            break
     if not tabela:
         return []
     fora = []
@@ -127,12 +140,25 @@ def dias_na_temporada(de, ate, ano):
 
 def main():
     refazer = "--refazer" in sys.argv
+    # `--reparsar` refaz a LEITURA de todo o HTML ja guardado, sem tocar no site. E o que se
+    # roda depois de consertar o `ler()` — a coleta custa duas horas e meia, a leitura custa
+    # segundos, e nao faz sentido as duas andarem juntas.
+    reparsar = "--reparsar" in sys.argv
     E = pd.read_csv(ELENCOS)
     ids = E[["id_jogador", "jogador"]].dropna(subset=["id_jogador"]).drop_duplicates("id_jogador")
     ids["id_jogador"] = ids["id_jogador"].astype(int).astype(str)
     print(f"{len(ids)} atletas distintos nos 100 elencos")
 
     prog = {} if refazer or not os.path.exists(PROGRESSO) else json.load(open(PROGRESSO, encoding="utf-8"))
+    if reparsar:
+        n = 0
+        for pid in list(prog):
+            caminho = os.path.join(CACHE, f"{pid}.html")
+            if os.path.exists(caminho):
+                with open(caminho, encoding="utf-8") as f:
+                    antes, prog[pid] = len(prog[pid]), ler(f.read())
+                n += antes != len(prog[pid])
+        print(f"  releitura: {n} atletas mudaram de resultado")
     feitos = 0
     for i, (pid, nome) in enumerate(zip(ids["id_jogador"], ids["jogador"]), 1):
         if pid in prog:
