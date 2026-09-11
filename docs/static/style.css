@@ -2573,3 +2573,37 @@ body.claro .m-niv.niv-youth{color:#1b4fa8}
 body.claro .estrela{color:#0f7a3d}
 .estrela.vazia{color:var(--pilula-meta)}
 .estrela.vazia:hover{color:var(--verde)}
+
+/* ================= o NÍVEL pinta o card =================
+   Verde o Main, amarelo o Squad, azul claro o Youth. Substitui a etiqueta SQUAD/YOUTH que
+   ficava na linha do meta: num campo com cem cards a cor se lê de longe, e a etiqueta
+   exigia parar e ler cada um.
+
+   Vêm DEPOIS de `.jog.titular` e `.jog.estrangeiro` de propósito, para ganhar dos dois:
+   o Main é o titular, então o rosa antigo do titular dá lugar ao verde, e o estrangeiro
+   deixa de pintar o fundo (o selo do país já diz isso, e duas cores brigando pelo mesmo
+   card faziam o nível sumir justamente nos estrangeiros). */
+.jog.estrangeiro{background:var(--pilula)}
+.jog.estrangeiro:hover{background:var(--pilula-hover)}
+body.claro .jog.estrangeiro{background:var(--pilula)}
+
+.jog.niv-main{background:#e4f7ea;border-color:#9ad9b0}
+.jog.niv-main:hover{background:#eefaf2}
+.jog.niv-squad{background:#fdf3da;border-color:#e8c877}
+.jog.niv-squad:hover{background:#fef8ea}
+.jog.niv-youth{background:#e4f0fd;border-color:#9cc4ec}
+.jog.niv-youth:hover{background:#eff6fe}
+/* titular sem nível ainda (grupo antigo que não passou pela migração) mantém o rosa */
+.jog.titular.niv-main{background:#e4f7ea;border-color:#9ad9b0}
+
+@media print{
+  .jog.niv-main{background:#e9f8ee!important;border-color:#9ad9b0!important}
+  .jog.niv-squad{background:#fdf5e2!important;border-color:#e8c877!important}
+  .jog.niv-youth{background:#eaf3fd!important;border-color:#9cc4ec!important}
+  .jog.estrangeiro{background:#fff!important}
+}
+/* amostras da legenda: as mesmas cores dos cards, senão a legenda ensina errado */
+.amostra.niv-main{background:#e4f7ea;border-color:#9ad9b0;border-left-color:#9ad9b0}
+.amostra.niv-main i{color:var(--verde);font-size:9px;font-style:normal}
+.amostra.niv-squad{background:#fdf3da;border-color:#e8c877;border-left-color:#e8c877}
+.amostra.niv-youth{background:#e4f0fd;border-color:#9cc4ec;border-left-color:#9cc4ec}
