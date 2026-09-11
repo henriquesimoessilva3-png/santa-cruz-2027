@@ -6519,22 +6519,33 @@ function sbPorFaixa(campo) {
   return { sobe: sbMedia(f.sobe), meio: sbMedia(f.meio), cai: sbMedia(f.cai) };
 }
 
-/* Os indicadores do quadro geral. `menor` marca os que sao melhores quando sao menores. */
+/* Os indicadores do quadro geral.
+
+   O ROTULO E UMA FRASE JA NA DIRECAO CERTA, e isso nao e estilo: e o que faz o grafico ser
+   legivel. Antes estava escrito "gols sofridos (menos e melhor)", e quem le tinha de virar o
+   sinal na cabeca a cada linha para saber se a barra grande era coisa boa. Agora esta
+   "sofrer menos gols", e toda barra azul quer dizer a mesma coisa — mais disto, melhor
+   posicao. As laranjas sao as poucas em que e o contrario.
+
+   O terceiro item do par diz que o indicador e melhor quando e MENOR (o posto se inverte);
+   o quarto marca as linhas que mudam o que se faz na pratica. */
 const SB_INDICADORES = [
   ['pontos em casa', 'ptsCasa'], ['pontos fora', 'ptsFora'],
-  ['gols sofridos', 'gcJogo', 1], ['gols marcados', 'gpJogo'],
-  ['jogos sem marcar', 'branco', 1], ['clean sheets', 'cs'],
-  ['valor parado na defesa', 'valDef', 0, 1], ['xG sofrido', 'xgCon', 1],
-  ['distância do remate', 'dist', 1], ['minutos nos 11 mais usados', 'share11', 0, 1],
-  ['xG criado', 'xg'], ['atletas usados', 'usados', 1],
-  ['valor do elenco', 'valor'], ['bola parada vira remate', 'bpConv', 0, 1],
-  ['gols de cabeça', 'cabeca'], ['toques na área', 'toques'],
-  ['valor parado no meio', 'valMeio'], ['duelos aéreos ganhos', 'aereos'],
-  ['remates à baliza, %', 'remBal'], ['PPDA', 'ppda', 1],
-  ['valor parado no ataque', 'valAtq'], ['fatia do valor no ataque', 'shAtq', 0, 1],
-  ['cruzamentos certos, %', 'cruzPct'], ['posse de bola', 'posse'],
-  ['minutos com estrangeiros', 'minEstr'], ['faltas cometidas', 'faltas', 1],
-  ['passe certo, %', 'passePct'], ['idade do time', 'idade', 1],
+  ['sofrer menos gols', 'gcJogo', 1], ['marcar mais gols', 'gpJogo'],
+  ['passar em branco menos vezes', 'branco', 1], ['jogos sem sofrer gol', 'cs'],
+  ['elenco caro na DEFESA', 'valDef', 0, 1], ['conceder menos xG', 'xgCon', 1],
+  ['chutar de mais perto', 'dist', 1],
+  ['concentrar minutos nos 11 de sempre', 'share11', 0, 1],
+  ['criar mais xG', 'xg'], ['usar menos atletas', 'usados', 1],
+  ['elenco caro no total', 'valor'], ['bola parada virar remate', 'bpConv', 0, 1],
+  ['fazer gol de cabeça', 'cabeca'], ['tocar mais na área', 'toques'],
+  ['elenco caro no MEIO', 'valMeio'], ['ganhar duelo aéreo', 'aereos'],
+  ['acertar o alvo no chute', 'remBal'], ['pressionar mais alto (PPDA)', 'ppda', 1],
+  ['elenco caro no ATAQUE', 'valAtq'],
+  ['concentrar o valor no ATAQUE', 'shAtq', 0, 1],
+  ['acertar cruzamentos', 'cruzPct'], ['ter mais posse de bola', 'posse'],
+  ['dar minutos a estrangeiros', 'minEstr'], ['cometer menos faltas', 'faltas', 1],
+  ['acertar mais passes', 'passePct'], ['ter um time mais jovem', 'idade', 1],
 ];
 
 /* Quantos dos 16 que subiram estavam no top-4 daquele indicador. Serve para nao confundir
@@ -6730,7 +6741,7 @@ function sbBlocoQuadro() {
   const svg = itens.map((it, i) => {
     const y = 4 + i * ALT, w = Math.abs(it.v) * ESC;
     return '<text x="' + (ESQ - 8) + '" y="' + (y + 11) + '" text-anchor="end" class="sbx-rot' +
-        (it.forte ? ' forte' : '') + '">' + esc(it.rot + (it.menor ? ' (menos é melhor)' : '')) + '</text>' +
+        (it.forte ? ' forte' : '') + '">' + esc(it.rot) + '</text>' +
       '<rect x="' + ESQ + '" y="' + y + '" width="' + Math.max(2, w).toFixed(1) +
         '" height="13" rx="4" fill="var(--sb-' + (it.v >= 0 ? 'sobe' : 'cai') + ')"/>' +
       '<text x="' + (ESQ + w + 7).toFixed(1) + '" y="' + (y + 11) + '" class="sbx-num">' +
@@ -6739,19 +6750,27 @@ function sbBlocoQuadro() {
   const alt = 14 + itens.length * ALT + 22;
   return '<div class="sb-bloco">' +
     '<span class="sb-rot">Tudo o que medimos, em ordem de importância</span>' +
-    '<p class="sb-nota">Cada indicador virou o posto de 1 a 20 dentro da própria temporada — porque uma ' +
-    'Série B de 1,01 gol por jogo e outra de 1,11 não são o mesmo campeonato — e foi comparado com o posto ' +
-    'na tabela final. <b>1,00 seria relação perfeita; 0, nenhuma.</b> A barra mostra a força; a cor, o ' +
-    'sentido.</p>' +
-    '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>mais do indicador, melhor posição</span>' +
-    '<span><i style="background:var(--sb-cai)"></i>mais do indicador, pior posição</span></div>' +
+    '<p class="sb-nota"><b>Como ler.</b> Para cada indicador eu enfileirei os 20 clubes da temporada, do ' +
+    'melhor ao pior <i>naquele número</i>, e comparei essa fila com a ordem final da tabela. <b>Quanto mais ' +
+    'parecidas as duas filas, maior a barra.</b> Se o melhor da liga num indicador fosse sempre o campeão, ' +
+    'o segundo melhor o vice e assim por diante, a barra bateria em 1,00. Se as duas filas não tivessem ' +
+    'nada a ver, ficaria em 0.</p>' +
+    '<p class="sb-nota">Para dar escala: <b>' + sbN2(sbRho('ptsCasa')) + ' de "pontos em casa"</b> quer ' +
+    'dizer que a fila de quem pontua em casa é quase a fila final. <b>' + sbN2(sbRho('passePct')) +
+    ' de "acertar mais passes"</b> quer dizer que saber quem acerta mais passe quase não ajuda a adivinhar ' +
+    'a tabela. Cada rótulo já está escrito na direção certa, então <b>barra azul é sempre coisa boa</b>; ' +
+    'as laranjas são as poucas em que é o contrário. Todos os 20 clubes das quatro temporadas entram na ' +
+    'conta — comparar a fila inteira é mais confiável que olhar só os primeiros.</p>' +
+    '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>mais disto, melhor posição</span>' +
+    '<span><i style="background:var(--sb-cai)"></i>mais disto, pior posição</span></div>' +
     '<div class="sb-tela"><svg viewBox="0 0 620 ' + alt + '" class="sb-svg">' +
       '<line x1="' + ESQ + '" y1="0" x2="' + ESQ + '" y2="' + (alt - 22) + '" class="sbx-eixo"/>' +
       '<line x1="' + (ESQ + ESC * 0.5) + '" y1="0" x2="' + (ESQ + ESC * 0.5) + '" y2="' + (alt - 22) +
         '" class="sbx-eixo" stroke-dasharray="3 4"/>' +
       svg +
-      '<text x="' + ESQ + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0</text>' +
+      '<text x="' + ESQ + '" y="' + (alt - 8) + '" class="sbx-pq">0 · as duas filas não têm nada a ver</text>' +
       '<text x="' + (ESQ + ESC * 0.5) + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0,50</text>' +
+      '<text x="' + (ESQ + ESC) + '" y="' + (alt - 8) + '" text-anchor="end" class="sbx-pq">1,00 · filas iguais</text>' +
     '</svg></div>' +
     '<p class="sb-nota"><b>Posse de bola (' + sbN2(sbRho('posse')) + ') e precisão de passe (' +
     sbN2(sbRho('passePct')) + ') quase não distinguem quem sobe de quem cai</b> — os dois números que mais ' +
@@ -7009,6 +7028,72 @@ function sbBlocoUso() {
     '<p class="sb-nota">E um detalhe que surpreende: <b>o tamanho do plantel registrado não importa</b> (' +
     sbN2(sbRho('plantel', true)) + '). Quem sobe e quem cai registram quase o mesmo — ' + sbN1(pl.sobe) +
     ' e ' + sbN1(pl.cai) + ' atletas. A diferença não é quantos você tem, é em quantos você confia.</p>' +
+    '</div>';
+}
+
+/* Quantos atletas cada clube usou na temporada escolhida, repartidos em TRES camadas.
+
+   E aqui que mora o achado: a camada de cima — quem passou de 1000 minutos, o time de
+   verdade — tem praticamente o mesmo tamanho em quem sobe e em quem cai (16,1 contra 16,6).
+   O que muda e tudo o que vem depois dela. Mostrar as tres camadas separadas faz esse fato
+   aparecer no desenho; com duas, ele so daria para ler no texto.
+
+   Os cortes: 1000 minutos sao cerca de onze jogos inteiros, o time titular de fato; 300 sao
+   pouco mais de tres, o minimo para alguem ter sido opcao e nao so ter entrado uma vez.
+
+   Segue o seletor de ano, de proposito: ver a temporada em curso ao lado das fechadas e
+   exatamente o uso pratico disto. */
+function sbBlocoUsoAno() {
+  const L = sbLigado().filter(x => x.ano === sbAno).sort((a, b) => a.pos - b.pos);
+  if (!L.length) return '';
+  const maxU = Math.max(...L.map(x => x.usados));
+  const X = 172, ESC = 290 / maxU, ALT = 22;
+  const emAndamento = L[0].j < 38;
+  const barras = L.map((x, i) => {
+    const y = 6 + i * ALT;
+    const w1 = x.nucleo1000 * ESC, w2 = (x.nucleo300 - x.nucleo1000) * ESC, w3 = (x.usados - x.nucleo300) * ESC;
+    const zona = x.pos <= 2 ? 'sobe' : (x.pos <= 6 ? 'play' : (x.pos >= 17 ? 'cai' : 'neutro'));
+    const peca = (xx, w, cor) => w <= 0 ? '' :
+      '<rect x="' + xx.toFixed(1) + '" y="' + y + '" width="' + Math.max(1, w - 1.5).toFixed(1) +
+      '" height="15" rx="3" fill="' + cor + '"/>';
+    const dentro = (xx, w, v) => w < 16 ? '' :
+      '<text x="' + (xx + w / 2).toFixed(1) + '" y="' + (y + 12) + '" text-anchor="middle" class="sbx-emp t1">' +
+      v + '</text>';
+    return '<text x="' + (X - 10) + '" y="' + (y + 12) + '" text-anchor="end" class="sbx-rot' +
+        (x.pos <= 6 ? ' forte' : '') + '">' + x.pos + '. ' + esc(x.clube) + '</text>' +
+      peca(X, w1, 'var(--sb-' + zona + ')') + dentro(X, w1, x.nucleo1000) +
+      peca(X + w1, w2, 'var(--sb-i3)') + dentro(X + w1, w2, x.nucleo300 - x.nucleo1000) +
+      peca(X + w1 + w2, w3, 'var(--sb-i1)') + dentro(X + w1 + w2, w3, x.usados - x.nucleo300) +
+      '<text x="' + (X + w1 + w2 + w3 + 9).toFixed(1) + '" y="' + (y + 12) + '" class="sbx-num">' +
+        x.usados + '</text>' +
+      '<text x="' + (X + w1 + w2 + w3 + 34).toFixed(1) + '" y="' + (y + 12) + '" class="sbx-pq">usados · ' +
+        x.pts + ' pts</text>';
+  }).join('');
+  const u = sbPorFaixa('usados'), n3 = sbPorFaixa('nucleo300'), n1 = sbPorFaixa('nucleo1000');
+  return '<div class="sb-bloco">' +
+    '<div class="sb-cab-ano"><span class="sb-rot">Atletas utilizados · ' + sbAno +
+      (emAndamento ? ' · ' + L[0].j + ' de 38 rodadas' : '') + '</span>' +
+      '<div class="sb-anos">' + Object.keys(SB_TABELAS).map(Number).sort().reverse().map(a =>
+        '<button class="sb-bt' + (a === sbAno ? ' on' : '') + '" data-ano="' + a + '">' + a +
+        '</button>').join('') + '</div></div>' +
+    '<div class="sb-leg"><span><i class="q" style="background:var(--sb-sobe)"></i>time de verdade — passou de 1000 min</span>' +
+    '<span><i class="q" style="background:var(--sb-i3)"></i>rodízio — 300 a 1000 min</span>' +
+    '<span><i class="q" style="background:var(--sb-i1)"></i>passou pelo elenco — menos de 300</span></div>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (12 + L.length * ALT) + '" class="sb-svg">' + barras +
+    '</svg></div>' +
+    '<p class="sb-nota">A cor da primeira camada marca a zona da tabela naquele ano pela regra de 2026: ' +
+    '<b>1º e 2º sobem direto</b>, do 3º ao 6º vão ao playoff.</p>' +
+    '<p class="sb-nota"><b>O time de verdade tem o mesmo tamanho para todo mundo.</b> Nas quatro ' +
+    'temporadas fechadas, quem subiu teve <b>' + sbN1(n1.sobe) + '</b> atletas acima de 1000 minutos e quem ' +
+    'caiu, <b>' + sbN1(n1.cai) + '</b> — praticamente idêntico, e a relação com a posição final é de ' +
+    sbN2(sbRho('nucleo1000')) + ', ou seja nenhuma. A diferença aparece toda <b>abaixo</b> dessa linha: ' +
+    'quem subiu usou ' + sbN1(u.sobe) + ' atletas no total e quem caiu, ' + sbN1(u.cai) + '.</p>' +
+    '<p class="sb-nota">Dito de outro jeito: <b>subir não é ter um elenco curto, é não precisar do resto ' +
+    'dele</b>. Os dois grupos montam um time de dezesseis; um deles passa o ano inteiro procurando os ' +
+    'outros trinta.</p>' +
+    (emAndamento ? '<p class="sb-nota">O ano corrente está com ' + L[0].j + ' rodadas jogadas, então os ' +
+      'números ainda vão subir — a comparação justa é com o ritmo, não com o total fechado dos outros ' +
+      'anos.</p>' : '') +
     '</div>';
 }
 
@@ -7288,6 +7373,8 @@ function sbRender() {
     sbBlocoDinheiro() +
 
     sbBlocoUso() +
+
+    sbBlocoUsoAno() +
 
     sbBlocoIdade() +
 
