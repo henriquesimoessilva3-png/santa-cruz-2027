@@ -2644,3 +2644,85 @@ body.claro .jog.estrangeiro{background:var(--pilula)}
 
 /* a aba não rola de lado: o que sobra de conteúdo encolhe, não transborda */
 .emp-rolagem{overflow-x:hidden}
+
+/* ================= aba Análise Série B =================
+   Azul e laranja em vez de verde e vermelho: verde/vermelho é o par que some para quem
+   tem daltonismo de eixo vermelho-verde, e aqui a cor carrega o dado (subiu / não subiu).
+   Os dois pontos também vêm rotulados, então a cor nunca é a única pista. */
+#pgSerieB:not(.oculta){display:flex;flex-direction:column;min-height:0}
+#pgSerieB{--sb-sobe:#3f9fcc;--sb-fica:#c08420;--sb-neutro:#4a4550}
+body.claro #pgSerieB{--sb-sobe:#0f6f9e;--sb-fica:#c2650d;--sb-neutro:#c3c8d2}
+.sb{max-width:1020px;margin:0 auto;padding:22px 4px 60px;display:flex;flex-direction:column;gap:30px}
+.sb-rot{font-size:9.5px;text-transform:uppercase;letter-spacing:.14px;letter-spacing:.14em;
+  color:var(--tinta3);font-weight:700;display:block}
+.sb-h1{margin:7px 0 0;font-size:30px;letter-spacing:-.02em;line-height:1.05}
+.sb-sub{margin:9px 0 0;font-size:13.5px;color:var(--tinta2);line-height:1.55;max-width:64ch}
+
+.sb-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
+  background:var(--borda);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.sb-kpi{background:var(--fundo2);padding:16px 18px 15px;display:flex;flex-direction:column;gap:4px}
+.sb-kpi b{font-size:38px;line-height:1;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sb-kpi p{margin:3px 0 0;font-size:11.5px;line-height:1.45;color:var(--tinta2)}
+.sb-kpi p b{font-size:inherit;font-weight:700;color:var(--tinta)}
+
+.sb-bloco{display:flex;flex-direction:column;gap:9px}
+.sb-tela{background:var(--fundo2);border:1px solid var(--borda);border-radius:8px;padding:14px 16px 10px;
+  overflow-x:auto}
+.sb-svg{display:block;width:100%;height:auto;min-width:520px}
+.sb-nota{margin:0;font-size:12.5px;line-height:1.55;color:var(--tinta2);max-width:70ch}
+.sb-nota b{color:var(--tinta);font-weight:700}
+.sb-leg{display:flex;gap:16px;font-size:11.5px;color:var(--tinta2)}
+.sb-leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* textos dentro do SVG: tokens de texto, nunca a cor da série */
+.sb-ano{font-size:12px;font-weight:700;fill:var(--tinta)}
+.sb-lab{font-size:11px;fill:var(--tinta2)}
+.sb-lab.forte{fill:var(--tinta);font-weight:700}
+.sb-lab.menor{font-size:9.5px;fill:var(--tinta3)}
+.sb-eixo{font-size:9.5px;fill:var(--tinta3);letter-spacing:.06em}
+.sb-clube{font-size:11px;fill:var(--tinta2)}
+.sb-clube.forte{fill:var(--tinta);font-weight:700}
+.sb-valor{font-size:10.5px;font-weight:700;fill:var(--fundo2)}
+.sb-meta{font-size:9.5px;fill:var(--coral-cl)}
+body.claro .sb-meta{fill:var(--coral)}
+
+/* correlações */
+.sb-corr{background:var(--fundo2);border:1px solid var(--borda);border-radius:8px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:9px}
+.sb-c{display:grid;grid-template-columns:96px 1fr 58px;align-items:center;gap:12px;font-size:12px}
+.sb-c>span{color:var(--tinta2)}
+.sb-c-reg{height:9px;background:var(--veu2);border-radius:5px;position:relative;overflow:hidden}
+/* o zero fica no MEIO: correlação negativa cresce para a esquerda, e é isso que mostra
+   que empate anda para o lado contrário do resto */
+.sb-c-reg i{position:absolute;top:0;height:100%;border-radius:5px}
+.sb-c-reg i.pos{left:50%;background:var(--sb-sobe)}
+.sb-c-reg i.neg{right:50%;background:var(--sb-fica)}
+.sb-c b{text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
+.sb-c b.pos{color:var(--sb-sobe)} .sb-c b.neg{color:var(--sb-fica)}
+
+/* perfil lado a lado */
+.sb-perfil{background:var(--fundo2);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.sb-p{display:grid;grid-template-columns:1fr 74px 74px 74px;align-items:center;gap:8px;
+  padding:8px 16px;border-bottom:1px solid var(--borda);font-size:12.5px;font-variant-numeric:tabular-nums}
+.sb-p:last-child{border-bottom:none}
+.sb-p-rot{color:var(--tinta2)}
+.sb-p-a,.sb-p-b,.sb-p-d{text-align:right}
+.sb-p-a{font-weight:700;color:var(--sb-sobe)}
+.sb-p-b{color:var(--tinta3)}
+.sb-p-d{font-weight:700}
+.sb-p-d.pos{color:var(--sb-sobe)} .sb-p-d.neg{color:var(--sb-fica)} .sb-p-d.nulo{color:var(--tinta3)}
+
+.sb-cab-ano{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.sb-anos{margin-left:auto;display:flex;gap:4px}
+.sb-bt{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;cursor:pointer;
+  background:var(--fundo3);border:1px solid var(--borda2);color:var(--tinta2)}
+.sb-bt:hover{color:var(--tinta)}
+.sb-bt.on{background:var(--coral);border-color:var(--coral);color:#fff}
+
+.sb-falta{border-left:3px solid var(--coral);padding-left:16px}
+.sb-falta h3{margin:0;font-size:14px;color:var(--coral-cl)}
+body.claro .sb-falta h3{color:var(--coral)}
+.sb-falta p{margin:8px 0 0;font-size:12.5px;line-height:1.55;color:var(--tinta2);max-width:70ch}
+.sb-falta ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;
+  font-size:12.5px;line-height:1.5;color:var(--tinta2);max-width:70ch}
+.sb-falta b{color:var(--tinta)}
