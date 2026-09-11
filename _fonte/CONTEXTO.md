@@ -1440,3 +1440,39 @@ então não é download incompleto: é buraco do Wyscout.
 `Jogo` vem como texto ("Vila Nova - Goiás 2:0") e dele saem `casa`, `visitante`, `mando`,
 `adversario`, `golos_pro`, `golos_contra` e `resultado` — perguntar "ganha mais em casa?"
 não deveria exigir fórmula de texto em cada análise.
+
+## Análise ofensiva e defensiva da Série B (set/26)
+
+`analisar_serieb.py` cruza as três bases num clube-temporada só e responde o que separa quem
+sobe de quem cai. Versão para circular: https://claude.ai/code/artifact/ea51c41a-489e-4abf-b394-e39118368d95
+
+**O achado central, e ele é desconfortável.** Decompondo a cadeia finalização → qualidade da
+chance → xG → gol, quem sobe supera quem cai em **+3,1% de remates**, **+12,6% de xG por
+remate**, **+16,4% de xG** — e **+54% de gols**. Ou seja: **dois terços da vantagem ofensiva
+é finalização, não criação.** Na defesa a mesma forma: −9,7% de remates sofridos, −19,9% de xG
+sofrido, −34,4% de gols sofridos.
+
+**E aí vem o teste que muda a conclusão.** Em 36 pares de temporadas consecutivas do mesmo
+clube, a finalização (gols − xG) tem correlação de **−0,17** com a do ano seguinte, e a defesa
+além do xG, **−0,02**. O saldo de xG, **+0,37**. A parte que mais pesou na tabela é justamente
+a que não se pode contratar para o ano seguinte. O que resta como plano é ser tão melhor nas
+chances que um ano ruim de pontaria ainda termine no G6.
+
+**Onde o dinheiro rende.** Valor parado na defesa correlaciona **+0,56** com a posição final;
+no ataque, **+0,29**. E a FATIA do valor no ataque correlaciona **−0,29**: quem cai coloca
+43,8% do elenco no ataque, quem sobe 30,8%. A leitura provável não é que atacante caro seja
+ruim — é que time ameaçado compra atacante, e o gasto aparece onde o problema não estava.
+
+**Correção de uma leitura anterior desta mesma aba.** Com dez clubes de 2026 até a 25ª rodada,
+a utilização de atletas não mostrava relação com pontos. Com 80 clube-temporada completas,
+mostra: **+0,54** para a concentração de minutos nos onze mais usados, mais forte que valor do
+elenco (0,50). Quem sobe usa 36,6 atletas; quem cai, 45,6. O tamanho do plantel registrado,
+esse sim, não importa (0,11).
+
+**O que não vale.** Posse de bola 0,26 e precisão de passe 0,14 — os dois números que mais
+abrem apresentação de análise. Idade do time, −0,04.
+
+**Armadilha paga no caminho:** o Transfermarkt escreve valor com vírgula decimal numa página e
+com ponto em outra (`€ 3,00 mi.` e `€ 5.40 mi.`). Tratar o ponto como milhar fazia 5,4 milhões
+virarem 540 milhões. Só apareceu porque a mediana de valor de um elenco saiu em € 14 milhões —
+número absurdo o bastante para não passar. Conferir ordem de grandeza depois de todo parser.
