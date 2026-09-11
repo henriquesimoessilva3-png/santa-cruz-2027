@@ -1015,3 +1015,36 @@ a tela chama isso uma vez por jogador para desenhar. Só ABRIR a aba enchia o ce
 118 objetos vazios, que iam para o Salvar, para a nuvem e para o `cenarios.json` sem nada
 dentro. Separado em `empDados()` (lê, nunca cria) e `empGravar()` (cria só quando há o quê),
 com `empLimpar()` sumindo com o registro que ficou vazio depois de apagar o texto.
+
+## Ampliar é acrescentar, não trocar (set/26)
+
+O usuário reclamou: *"vc mexeu na visualização do campograma que estava ótima. não era
+para substituir a que dava pra ver todos em um campo só"*. Estava certo, e a lição vale
+mais que o conserto: **modo que já existe não muda de comportamento porque um novo
+chegou.** Eu tinha transformado "tamanho real" (que cabia na tela) em 100% com rolagem —
+isso é troca disfarçada de acréscimo.
+
+Os dois modos originais voltaram idênticos: os dois CABEM na tela e a diferença entre eles
+é só a fonte. As escalas 125/150/200% são entradas NOVAS na mesma roda.
+
+**E ampliar estava comendo o conteúdo do card.** A primeira versão replanejava o layout do
+zero com a escala fixa, e sem a largura compensada que o modo normal usa o planejador caía
+em cards de **194px em vez de 343px**: 61 nomes abreviados contra 12. Ampliar piorava a
+leitura, que é o oposto do pedido. Agora a ampliação é um **fator sobre a mesma conta de
+sempre** — layout idêntico ao de "tamanho real", só a escala final multiplicada.
+
+**Texto e botões do card cresceram.** O card tinha espaço sobrando com letra pequena
+dentro. Nome e salário de 11,5 para 13; clube, idade e contrato de 8,5 para 10,5. Os
+botões (+ ⋯ × ☎) foram de 15/16px para 20px e **deixaram de depender do hover** — botão
+que só aparece no hover não se descobre. Como `--fz` controla a largura de `.pos` junto
+com a fonte, o card acompanha e nada fica apertado.
+
+**O ☎ virou ficha, não salto.** Mandar para a aba com 118 linhas só para anotar um contato
+era desproporcional: a aba serve para varrer a lista, a ficha serve para preencher um.
+Clicar abre um modal com os nove campos daquele jogador, com "ver todos na aba" no rodapé
+para quem quiser o outro caminho. Grava no mesmo lugar — mesma informação, outra porta.
+
+**As três barrinhas do card** (pergunta que apareceu) são a minutagem das três últimas
+temporadas, uma barra por ano: a altura do preenchimento é quanto de uma temporada inteira
+o atleta jogou. Barra vazada = o dado veio do oGol, que dá jogos e não minutos. O balão
+diz temporada por temporada.
