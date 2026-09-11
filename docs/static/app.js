@@ -147,7 +147,7 @@ function novoEstado() {
     limiteEstrangeiros: 9,
     cotacaoEuro: 6.3,
     ct: { detalhar: false, encargos: true, itens: [] },
-    orientacao: 'horizontal', denso: true, tema: 'escuro', ajustar: true, zoom: 1, v: VERSAO,
+    orientacao: 'horizontal', denso: true, tema: 'escuro', ajustar: true, zoom: 'caber', v: VERSAO,
     metas: { gol:8, defesa:27, meio:30, ataque:35 },
     alvoAtletas: {}, elenco: el,
     emp: {}, empExtra: [],   /* aba Empresários: dados por jogador e nomes de fora */
@@ -672,16 +672,24 @@ function atualizarNomes() {
    (a largura de `.pos` é fixa em 224px), e `distribuir()` calcula as posições a partir
    das medidas reais. Escalar por transform mantém a conta de layout intacta — é o mesmo
    caminho já usado para encolher, só que para o outro lado. */
+/* Os DOIS PRIMEIROS sao os modos ORIGINAIS e ficam como sempre foram: os dois CABEM na
+   tela, e a diferenca entre eles e so a fonte. Ver o elenco inteiro num campo so e a
+   leitura principal do app — nao se troca isso por outra coisa. Os de baixo foram
+   ACRESCENTADOS, para quando a queixa e o tamanho do card e nao faz mal rolar.
+   (Houve uma versao em que "tamanho real" virou 100% com rolagem. Era troca, nao
+   acrescimo, e quebrou a visao que o usuario usava. Fica o registro: modo que ja existe
+   nao muda de comportamento porque um novo chegou.) */
 const ESCALAS = [
-  { z: 'caber', rot: 'caber na tela' },
-  { z: 1,       rot: 'tamanho real' },
+  { z: 'caber', rot: 'caber na tela' },   /* original: cabe, fonte compensada */
+  { z: 'real',  rot: 'tamanho real' },    /* original: cabe, fonte normal */
   { z: 1.25,    rot: 'ampliado 125%' },
   { z: 1.5,     rot: 'ampliado 150%' },
   { z: 2,       rot: 'ampliado 200%' },
 ];
 function escalaAtual() {
   /* grupos salvos antes disto só têm `ajustar`: booleano vira o modo equivalente */
-  if (estado.zoom == null) return estado.ajustar ? 'caber' : 1;
+  if (estado.zoom == null) return estado.ajustar ? 'caber' : 'real';
+  if (estado.zoom === 1) return 'real';   /* veio da versão que trocou o significado */
   return estado.zoom;
 }
 function rotuloEscala() {
@@ -697,8 +705,13 @@ function escalaProxima() {
   estado.ajustar = prox.z === 'caber';   /* mantido: o PDF e a impressão ainda leem */
 }
 
-function escreverInfo(info, k, alt, disp) {
+function escreverInfo(info, k, alt, disp, zFator) {
   if (!info) return;
+  const z = zFator || 1;
+  if (z > 1) {
+    info.textContent = 'ampliado ' + Math.round(z * 100) + '% — role para ver o resto';
+    return;
+  }
   const cabe = alt * k <= disp + 2;
   info.textContent = k < 1
     ? 'campo em ' + Math.round(k * 100) + '%' + (cabe ? ' — cabe tudo na tela' : '')
@@ -714,46 +727,23 @@ function ajustarCampo() {
   const info = $('#abasInfo');
   const zoom = escalaAtual();
 
-  /* --- escala FIXA (100% ou mais): não tem o que caber, tem o que rolar ---
-     Inclui o 100% de propósito. Antes, "tamanho real" também passava pela conta de
-     caber (`k = Math.min(1, disp/alt)`) e saía em 77% — os dois modos antigos
-     encolhiam, e a diferença entre eles era só a fonte. O rótulo dizia "tamanho real"
-     mostrando 77%, o que é justamente a queixa de que os cards são pequenos. Agora
-     100% é 100%, e quem não couber na tela rola. */
-  if (zoom !== 'caber' && Number(zoom) >= 1) {
-    const z = Number(zoom);
-    area.classList.remove('ajustado');
-    area.classList.add('ampliado');
-    ajustando = true;
-    clearTimeout(soltarCadeado);
-    campo.style.setProperty('--fz', 1);
-    campo.style.transform = '';
-    campo.style.width = '';
-    compensarEscala(campo, 1, 0);
-    campo.style.minHeight = '0px';
-    const alt = distribuir();
-    campo.style.minHeight = alt + 'px';
-    /* origem no canto: crescer a partir do centro jogaria metade do campo para fora,
-       à esquerda e acima, onde não há rolagem que alcance */
-    campo.style.transformOrigin = 'top left';
-    /* em 100% nao ha transform nenhum: `scale(1)` cria camada de composicao a toa e
-       e o caminho mais curto para o texto sair borrado sem motivo */
-    campo.style.transform = z === 1 ? '' : 'scale(' + z + ')';
-    atualizarNomes();
-    if (info) {
-      const rolando = area.scrollWidth > area.clientWidth + 1 || area.scrollHeight > area.clientHeight + 1;
-      info.textContent = 'campo em ' + Math.round(z * 100) + '%' +
-        (rolando ? ' — role para ver o resto' : ' — cabe tudo na tela');
-    }
-    requestAnimationFrame(() => {
-      ultimaArea = area.clientWidth + 'x' + area.clientHeight;
-      ajustando = false;
-    });
-    return;
-  }
-  area.classList.remove('ampliado');
-  campo.style.transformOrigin = '';
-  area.classList.toggle('ajustado', zoom === 'caber');
+  /* AMPLIAR = pegar a visão boa e magnificar, NÃO replanejar o campo.
+     A primeira tentativa refazia o layout do zero com a escala fixa, e o resultado foi o
+     oposto do pedido: o planejador, sem a largura compensada que o modo normal usa, caía
+     nos cards de 194px em vez de 343px, e 61 nomes passavam a aparecer abreviados contra
+     12. Ampliar comia o conteúdo do card.
+
+     Agora a ampliação é um FATOR aplicado por cima da mesma conta de sempre: o layout é
+     idêntico ao de "tamanho real" — mesma largura de card, mesmos nomes inteiros — e só
+     a escala final é multiplicada. Quem não couber na tela rola. */
+  const zFator = (zoom !== 'caber' && zoom !== 'real') ? (Number(zoom) || 1) : 1;
+  const ampliado = zFator > 1;
+  area.classList.toggle('ampliado', ampliado);
+  /* origem no canto: crescer a partir do centro jogaria metade do campo para fora, à
+     esquerda e acima, onde não há rolagem que alcance */
+  campo.style.transformOrigin = ampliado ? 'top left' : '';
+  /* `ajustado` esconde a rolagem; ampliado precisa dela, então nunca os dois juntos */
+  area.classList.toggle('ajustado', zoom === 'caber' && !ampliado);
 
   /* Area sem altura util: a aba esta escondida, a janela colapsada ou o layout
      ainda nao assentou. Medir aqui daria k=0 e o campo sumiria em scale(0) —
@@ -771,9 +761,9 @@ function ajustarCampo() {
   clearTimeout(soltarCadeado);
   soltarCadeado = setTimeout(() => { ajustando = false; }, 400);
 
-  /* So o "caber na tela" chega aqui. A fonte sobe para compensar a reducao — sem isso,
-     encolher o campo deixaria o nome ilegivel. As escalas fixas saem antes, la em cima. */
-  const fzMax = FONTE_MAX;
+  /* Os dois modos originais cabem na tela; a diferenca e so a fonte. Em "caber na tela"
+     ela sobe para compensar a reducao; em "tamanho real" fica como esta. */
+  const fzMax = zoom === 'caber' ? FONTE_MAX : 1;
 
   campo.style.setProperty('--fz', 1);
   campo.style.transform = '';
@@ -796,17 +786,22 @@ function ajustarCampo() {
   /* sem piso aqui: o campo tem de caber, e no modo "caber na tela" a fonte ja
      compensou a reducao. O piso vale so para decidir o quanto a fonte sobe. */
   const aplicar = (altura, escala) => {
+    const efetiva = escala * zFator;
     campo.style.minHeight = altura + 'px';
+    /* a LARGURA continua saindo da escala de caber: é ela que dá ao layout o espaço para
+       o card largo. A ampliação entra só no transform, e o excedente vira rolagem. */
     campo.style.width = escala < 1 ? (100 / escala).toFixed(3) + '%' : '';
-    campo.style.transform = escala < 1 ? 'scale(' + escala.toFixed(4) + ')' : '';
-    compensarEscala(campo, escala, altura);
+    campo.style.transform = efetiva !== 1 ? 'scale(' + efetiva.toFixed(4) + ')' : '';
+    /* no ampliado não se compensa nada: a margem negativa existe para o campo encolhido
+       não deixar buraco, e aqui o transbordo é justamente o que se quer */
+    compensarEscala(campo, ampliado ? 1 : escala, altura);
   };
   aplicar(alt, k);
   /* Texto do rodape JA, sem esperar o rAF. Ele so era escrito la dentro, e quando o rAF
      nao roda (aba escondida, ou um rAF de outro modo chegou antes e o guarda barrou) o
      rodape ficava com a frase do modo ANTERIOR: dizia "campo em 200%" com o campo em 72%.
      O rAF continua refinando com a medida assentada; aqui so garante que nunca minta. */
-  escreverInfo(info, k, alt, disp);
+  escreverInfo(info, k, alt, disp, zFator);
 
   /* A largura util muda com a escala: remede e reaplica, agora com o valor certo.
      O `escalaAtual() !== zoom` nao e zelo: este rAF ficou agendado no modo "caber", e se
@@ -820,7 +815,7 @@ function ajustarCampo() {
     const k2 = Math.min(1, disp / alt2);
     aplicar(alt2, k2);
     atualizarNomes();
-    escreverInfo(info, k2, alt2, disp);
+    escreverInfo(info, k2, alt2, disp, zFator);
     /* Solta o cadeado so depois que o layout assentou, e ja registra a medida
        resultante como base. Sem isso o proprio ajuste acorda os observadores
        (mudou largura/altura do campo -> mudou a area) e o ciclo nao para. */
@@ -988,7 +983,12 @@ function cardJog(cod, j) {
     '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
     '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
 
-  el.querySelector('.jog-emp').onclick = e => { e.stopPropagation(); empIrPara(empChave(j)); };
+  el.querySelector('.jog-emp').onclick = e => {
+    e.stopPropagation();
+    empFicha(empChave(j), j.nome,
+      [j.clube, j.idade ? j.idade + ' anos' : '', j.contrato ? 'até ' + mesAnoCurto(j.contrato) : '']
+        .filter(Boolean).join(' · '));
+  };
 
   el.querySelector('.jog-x').onclick = e => {
     e.stopPropagation();
@@ -5890,6 +5890,48 @@ function empLinhaHtml(l) {
     '<span class="emp-c-x">' + (l.deFora
       ? '<button class="emp-x" data-ext="' + l.uid + '" title="Tirar da lista">×</button>' : '') +
     '</span></div>';
+}
+
+/* Ficha de UM jogador, aberta pelo ☎ do card. Mandar para a aba com 118 linhas para
+   preencher um contato era desproporcional: a aba serve para varrer a lista, a ficha
+   serve para preencher um. O botao "ver todos na aba" fica no rodape, para quem quiser
+   o outro caminho. Grava no mesmo lugar — e a mesma informacao, so outra porta. */
+function empFicha(ch, rotulo, sub) {
+  const alvo = $('#meCampos');
+  if (!alvo) return;
+  $('#meTitulo').textContent = rotulo || 'Empresário';
+  $('#meSub').textContent = sub || '';
+  const d = empDados(ch);
+  alvo.innerHTML = EMP_CAMPOS.map(c => {
+    const v = d[c.k] || '';
+    if (c.opcoes) {
+      return '<label class="me-l"><span>' + esc(c.r) + '</span>' +
+        '<select class="emp-st st-' + esc(String(v || 'sem').toLowerCase()) + '" data-k="' + c.k + '">' +
+        c.opcoes.map(o => '<option value="' + esc(o) + '"' + (v === o ? ' selected' : '') +
+          '>' + (o || '—') + '</option>').join('') + '</select></label>';
+    }
+    return '<label class="me-l"><span>' + esc(c.r) + '</span>' +
+      '<input data-k="' + c.k + '" value="' + esc(c.num ? (v ? milhar(v) : '') : v) + '"' +
+      (c.num ? ' inputmode="numeric" class="num"' : '') +
+      ' placeholder="' + (c.ig ? '@perfil' : c.num ? '0' : '') + '"></label>';
+  }).join('');
+  alvo.querySelectorAll('input[data-k],select[data-k]').forEach(el => {
+    const ev = el.tagName === 'SELECT' ? 'onchange' : 'oninput';
+    el[ev] = () => {
+      const c = EMP_CAMPOS.find(x => x.k === el.dataset.k);
+      const reg = empGravar(ch);
+      reg[el.dataset.k] = c && c.num ? paraNumero(el.value) : el.value;
+      if (el.tagName === 'SELECT') el.className = 'emp-st st-' + String(el.value || 'sem').toLowerCase();
+      empLimpar(ch);
+      salvarLocal();
+      /* o ☎ do card acende na hora, sem fechar a ficha: o retorno tem de ser imediato */
+      render();
+    };
+  });
+  $('#meVerTudo').onclick = () => { $('#modalEmp').classList.remove('aberto'); empIrPara(ch); };
+  $('#modalEmp').classList.add('aberto');
+  const p = alvo.querySelector('input[data-k="empresario"]');
+  if (p) p.focus();
 }
 
 /* Leva para a aba e DEIXA O JOGADOR NA MAO: limpa os filtros (senao a linha pode estar

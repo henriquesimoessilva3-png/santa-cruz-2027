@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789137263">
+<link rel="stylesheet" href="static/style.css?v=1789137721">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -565,6 +565,21 @@
 </div>
 
 <!-- ============ modal jogador manual ============ -->
+<div class="modal" id="modalEmp">
+  <div class="modal-cx" style="width:min(470px,100%)">
+    <div class="modal-topo">
+      <h2 id="meTitulo">Empresário</h2>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="me-sub" id="meSub"></div>
+    <div class="me-campos" id="meCampos"></div>
+    <div class="modal-pe">
+      <button class="bt mini" id="meVerTudo" title="Abrir a aba com todos os jogadores">ver todos na aba</button>
+      <button class="bt primario" data-fechar>Pronto</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal" id="modalManual">
   <div class="modal-cx" style="width:min(430px,100%)">
     <div class="modal-topo">
@@ -654,7 +669,7 @@
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1789085162";</script>
-<script src="static/fs_visoes.js?v=1789137263"></script>
-<script src="static/app.js?v=1789137263"></script>
+<script src="static/fs_visoes.js?v=1789137721"></script>
+<script src="static/app.js?v=1789137721"></script>
 </body>
 </html>

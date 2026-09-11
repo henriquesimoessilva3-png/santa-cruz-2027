@@ -411,7 +411,7 @@ tbody tr.ja{opacity:.4}
 /* ---------- modo compacto ---------- */
 .campo.denso .jog-meta{display:none}
 .campo.denso .jog{padding:2px 6px;border-radius:5px}
-.campo.denso .jog-nome{font-size:11px}
+.campo.denso .jog-nome{font-size:12px}
 .campo.denso .jog-sal input{padding:0 4px;font-size:11px}
 .campo.denso .pos-topo{padding:4px 8px}
 .campo.denso .pos-nome{display:none}
@@ -700,8 +700,8 @@ body.claro .ov.c{background:#f5a52433}
 /* ---------- proporções do modelo de referência ---------- */
 .pos-nome{flex:1;min-width:0;font-size:9.5px;letter-spacing:.1px}
 .jogs{padding:0 7px 3px;gap:5px}
-.jog-nome{font-size:11.5px}
-.jog-meta{font-size:8.5px}
+.jog-nome{font-size:13px}
+.jog-meta{font-size:10.5px}
 .jog-sal input{width:64px;font-size:11.5px}
 .pos-pe .pct{color:var(--tinta3)}
 .pos-pe .tot{color:var(--tinta)}
@@ -713,7 +713,7 @@ body.claro .pos-nome,body.claro .pos-pe .tot{color:#16202e}
 .campo.denso .jogs{padding:0 6px 3px;gap:3px}
 .campo.denso .jog{padding:3px 7px;border-radius:6px}
 .campo.denso .jog-nome{line-height:1.25}
-.campo.denso .jog-meta{font-size:8px;line-height:1.2}
+.campo.denso .jog-meta{font-size:9.5px;line-height:1.2}
 .campo.denso .jog-sal input{width:58px;font-size:10.5px}
 .campo.denso .pos-pe{padding:2px 8px 5px;font-size:9.5px}
 .campo.denso .sigla{font-size:10.5px;padding:1px 6px}
@@ -806,10 +806,14 @@ body.claro .menu button b{color:var(--coral)}
 .pos .pos-nome{font-size:calc(9.5px * var(--fz))}
 .pos .pos-qtd{font-size:calc(10px * var(--fz))}
 .pos .pos-estr{font-size:calc(8.5px * var(--fz))}
-.pos .jog-nome{font-size:calc(11.5px * var(--fz))}
-.pos .jog-meta{font-size:calc(8.5px * var(--fz))}
-.pos .jog-sal input{font-size:calc(11.5px * var(--fz));width:calc(64px * var(--fz))}
-.pos .selo-ex{font-size:calc(8.5px * var(--fz))}
+/* Texto maior no card. A largura vem de `--fz` junto com a fonte, entao o card nao fica
+   apertado — o que havia era espaco sobrando com letra pequena dentro. Nome e salario
+   subiram de 11,5 para 13; clube, idade e contrato, de 8,5 para 10,5, que e a leitura
+   que mais custava. */
+.pos .jog-nome{font-size:calc(13px * var(--fz))}
+.pos .jog-meta{font-size:calc(10.5px * var(--fz))}
+.pos .jog-sal input{font-size:calc(13px * var(--fz));width:calc(70px * var(--fz))}
+.pos .selo-ex{font-size:calc(9.5px * var(--fz))}
 .pos .pos-add{font-size:calc(11px * var(--fz))}
 .pos .pos-pe{font-size:calc(11px * var(--fz))}
 .pos .pos-pe .pct{font-size:calc(9.5px * var(--fz))}
@@ -819,8 +823,8 @@ body.claro .menu button b{color:var(--coral)}
 .campo.denso .pos .sigla{font-size:calc(10.5px * var(--fz))}
 .campo.denso .pos .pos-nome{font-size:calc(9px * var(--fz))}
 .campo.denso .pos .pos-qtd{font-size:calc(9px * var(--fz))}
-.campo.denso .pos .jog-nome{font-size:calc(10.5px * var(--fz))}
-.campo.denso .pos .jog-meta{font-size:calc(8px * var(--fz))}
+.campo.denso .pos .jog-nome{font-size:calc(12px * var(--fz))}
+.campo.denso .pos .jog-meta{font-size:calc(9.5px * var(--fz))}
 .campo.denso .pos .jog-sal input{font-size:calc(10.5px * var(--fz));width:calc(58px * var(--fz))}
 .campo.denso .pos .pos-pe{font-size:calc(9.5px * var(--fz))}
 
@@ -2431,10 +2435,10 @@ body.claro .emp-st.st-squad,body.claro .emp-chip.st-squad{color:#8a5a00}
 /* ---------- ☎ do card: atalho para a linha do jogador na aba Empresários ----------
    Apagado enquanto não há empresário anotado (é ruído até alguém preencher) e verde
    quando há — dá para varrer o campograma e ver de quem já se sabe o contato. */
-.jog-emp{background:none;border:0;padding:0;cursor:pointer;font-size:9px;line-height:1;
-  color:var(--tinta3);opacity:.45;transition:opacity .12s,color .12s}
-.jog-emp:hover{opacity:1;color:var(--coral-cl)}
-.jog-emp.tem{opacity:1;color:var(--verde)}
+.jog-emp{background:none;border:0;padding:0;cursor:pointer;font-size:12px;line-height:1;
+  color:var(--tinta2);opacity:1;transition:color .12s,transform .1s}
+.jog-emp:hover{color:var(--coral-cl);transform:scale(1.18)}
+.jog-emp.tem{color:var(--verde)}
 body.claro .jog-emp.tem{color:#0f7a3d}
 
 /* piscada ao chegar pelo ☎: sem isso a aba abre em 119 linhas iguais e não se acha
@@ -2475,3 +2479,36 @@ body.claro .ind-aval.meio{color:#8a5a00}
 body.claro .ind-aval.nao{color:var(--coral)}
 .ind-linha input[type=date]{font-size:10px;color-scheme:dark}
 body.claro .ind-linha input[type=date]{color-scheme:light}
+
+/* ---------- ficha de empresário de um jogador só ---------- */
+.me-sub{padding:0 15px 2px;font-size:11px;color:var(--tinta3)}
+.me-campos{padding:10px 15px 4px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.me-l{display:flex;flex-direction:column;align-items:stretch;gap:3px;font-size:10px;
+  text-transform:uppercase;letter-spacing:.5px;color:var(--tinta3);font-weight:700}
+.me-l input,.me-l select{padding:6px 8px;border-radius:6px;font:inherit;font-size:12px;
+  font-weight:400;text-transform:none;letter-spacing:0;
+  background:var(--input-bg);border:1px solid var(--borda2);color:var(--tinta)}
+.me-l input:focus,.me-l select:focus{outline:none;border-color:var(--coral)}
+.me-l input.num{text-align:right;font-variant-numeric:tabular-nums}
+/* status e empresário ocupam a linha toda: um é a decisão, o outro é o campo mais usado */
+.me-campos .me-l:nth-child(1),.me-campos .me-l:nth-child(2){grid-column:1 / -1}
+
+/* ---------- os botões do card: maiores e sempre visíveis ----------
+   Eram 15/16px com `opacity:.45`, aparecendo só no hover. Num card que cresceu de texto
+   eles ficaram pequenos demais para o dedo e para o olho, e um botão que só existe no
+   hover não se descobre. Sobem para 20px e ficam legíveis parados; o hover passa a ser
+   realce, não revelação. As larguras da grade acompanham, senão o botão maior não cabe
+   na coluna e o texto do nome perde espaço. */
+.jog{grid-template-columns:1fr auto 20px 20px 20px 20px;gap:0 5px}
+.jog-mais,.jog-menu,.jog-x,.jog-emp{width:20px;opacity:.75}
+.jog-mais{font-size:15px}
+.jog-menu{font-size:16px}
+.jog-x{font-size:17px}
+.jog-emp{font-size:15px}
+.jog:hover .jog-mais,.jog:hover .jog-menu,.jog:hover .jog-x{opacity:1}
+.jog-mais:hover,.jog-menu:hover{color:var(--coral-cl)}
+.jog-x:hover{color:var(--coral-cl)}
+.campo.denso .jog{grid-template-columns:1fr auto 18px 18px 18px 18px;gap:0 4px}
+.campo.denso .jog-mais,.campo.denso .jog-menu,.campo.denso .jog-x,.campo.denso .jog-emp{
+  width:18px;font-size:14px}
+@media print{ .jog-emp{display:none!important} }
