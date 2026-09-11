@@ -1402,3 +1402,41 @@ de clubes que não estão na B de 2026, e o que falta é justamente quem subiu: 
 campeões (Cruzeiro 2022, Vitória 2023, Santos 2024, Coritiba 2025) e mais Grêmio e Bahia
 2022, Mirassol 2024 e Athletico-PR 2025. Enquanto isso não for puxado, comparação "quem
 sobe × quem fica" com essa fonte tem quase só o lado de baixo.
+
+### Jogo a jogo, do Wyscout — `preparar_serieb_jogos.py` (set/26)
+
+Os 136 "Team Stats" viram uma base de partidas: 9.318 linhas, 119 colunas, uma linha por
+(jogo, equipe). Com a segunda leva de 36 arquivos, os **100 clube-temporada fecharam**.
+
+**Cada jogo da Série B vinha quatro vezes.** O Cruzeiro × Grêmio está no arquivo do
+Cruzeiro e no do Grêmio, e dentro de cada um ocupa duas linhas. Quem somar os 136 sem
+tratar isso dobra o campeonato inteiro. A chave é (Data, Jogo, Competição, Equipa).
+
+**As colunas sem nome ganharam nome.** O Wyscout escreve `Remates / à baliza` e deixa as
+duas seguintes em branco; o pandas batiza de `Unnamed: 9`. Agora saem `Remates`,
+`Remates à baliza`, `Remates à baliza, %`. Duas fogem do padrão e estão tratadas à mão
+(`Perdas / curto/ médio / longo` tem três termos e nenhuma porcentagem; `Entradas na
+grande área (corridas/cruzamentos)` tem a barra dentro do parêntese).
+
+**O marcador de mata-mata muda de lugar.** "Azuriz - Bahia 1:1 (P)" e "Cruzeiro - Remo (P)
+1:0" — e vem em duas letras, `(P)` e `(E)`. Sem prever os dois lugares e as duas letras,
+174 jogos de copa saíam sem adversário nem resultado. Sobram 8 linhas sem casar, todas
+fora da Série B, porque o Wyscout usa nomes diferentes para o mesmo clube dentro e fora do
+texto (`Tolima` × `Deportes Tolima`, `Galo Maringá` × `Aruko Sports`).
+
+**A conferência que prova a base.** `conferir()` recalcula J, V, E, D, GP e GC de cada
+clube a partir das partidas e compara com a classificação de `SB_TABELAS`: **90 dos 100
+clube-temporada fecham exatamente**. Os 10 restantes são cinco jogos que o Wyscout não
+tem, e dá para saber que é isso porque a diferença sai coerente dos dois lados:
+
+- **2022:** Londrina × Tombense (os dois com um empate a menos, 1-1)
+- **2024:** Operário-PR × Chapecoense (um com vitória a menos, outro com derrota, 3-2)
+- **2026:** três jogos da 27ª rodada — Criciúma 2-0 Vila Nova, Londrina 2-1 São Bernardo e
+  Atlético-GO 2-1 Ceará
+
+São 5 partidas em 1.785. Estão nos dois lados da fonte (falta no arquivo dos dois clubes),
+então não é download incompleto: é buraco do Wyscout.
+
+`Jogo` vem como texto ("Vila Nova - Goiás 2:0") e dele saem `casa`, `visitante`, `mando`,
+`adversario`, `golos_pro`, `golos_contra` e `resultado` — perguntar "ganha mais em casa?"
+não deveria exigir fórmula de texto em cada análise.
