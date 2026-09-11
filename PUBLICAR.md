@@ -31,13 +31,19 @@ no Botafogo.
    nome à sua escolha (ex.: `santa-cruz-2027`). Pode recusar o Google Analytics.
 2. **Criar o banco**: Build → Firestore Database → Criar banco de dados. Escolha
    **produção** (começa fechado, que é o que queremos) e a região `southamerica-east1`.
-3. **Ligar o login**: Build → Authentication → Começar → **Google** → ativar → Salvar.
-4. **Publicar as regras**: Firestore Database → Regras. Apague o que estiver lá, cole o
+3. **Ligar o login**: Build → Authentication → Começar → **Google** → ativar → escolher um
+   e-mail de suporte → Salvar.
+4. **Autorizar o domínio do site** — o passo que todo mundo esquece. Authentication →
+   Settings → **Authorized domains** → Add domain →
+   `henriquesimoessilva3-png.github.io`. Por padrão só valem `localhost` e os domínios
+   `*.firebaseapp.com` / `*.web.app`; sem este passo o login falha com
+   `auth/unauthorized-domain` e nada mais funciona.
+5. **Publicar as regras**: Firestore Database → Regras. Apague o que estiver lá, cole o
    conteúdo de [`firestore.rules`](firestore.rules) e publique. **Antes de publicar**,
    acrescente na lista o e-mail de cada pessoa que vai poder ver e mexer nos grupos.
-5. **Pegar a config**: ⚙ Configurações do projeto → Seus apps → ícone `</>` (Web) →
+6. **Pegar a config**: ⚙ Configurações do projeto → Seus apps → ícone `</>` (Web) →
    registrar o app (sem Hosting) → o console mostra um bloco `firebaseConfig`.
-6. **Colar a config** em [`dados/firebase.json`](dados/firebase.json), nos campos que já
+7. **Colar a config** em [`dados/firebase.json`](dados/firebase.json), nos campos que já
    estão lá vazios. Depois rode `python3 publicar_site.py --push`.
 
 Enquanto o `projectId` desse arquivo estiver vazio, **o site funciona como hoje** e a
