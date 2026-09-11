@@ -770,3 +770,26 @@ pegou porque perguntava `!!menu`, que dá verdadeiro para um elemento `display:n
 **existir não é aparecer**. O `menuLevar` passou a receber o EVENTO em vez do botão e
 barra a propagação ele mesmo, que é o que impede o quarto ponto de entrada de repetir
 o erro. Daí em diante a regressão passou a medir `display` e largura, não existência.
+
+**A mesma grade na aba Análise do elenco (set/26).** Ali o pedido não cabia como estava:
+os dois blocos com jogadores — Maiores salários e Estrangeiros nas escolhas — listam
+quem **já está no elenco**, então "levar ao campograma" não quer dizer nada. O que faz
+sentido é **mover de posição**, que é a ação equivalente. As linhas viraram clicáveis e
+abrem a mesma grade, com o cabeçalho dizendo `Mover Fulano para` em vez de `Levar`, e a
+posição atual apagada — mover para onde já está é um clique que não faz nada.
+
+Para não haver duas grades, o menu virou `menuPosicao(ev, cfg)`, e `menuLevar` e
+`menuMover` são dois usos dela: mudam o verbo, o que bloqueia cada botão e o que o
+clique faz (`adicionarDaBase` contra `moverJogador`). O desenho é um só de propósito —
+quem aprende a grade numa aba a usa nas outras.
+
+Os handlers são **delegados no `#pgAnalise`**: os dois blocos se redesenham a cada
+`render()`, e handler preso ao elemento morreria no primeiro redesenho.
+
+O balão da posição atual saía com `é a posição dele · já é a posição dele`. O motivo do
+bloqueio passou a mandar no texto quando existe.
+
+Regressão dos **sete pontos de entrada** — Análise (dois blocos), Fim de contrato (linha
+e botão), Físico (matriz, chip, painel de foco): menu visível, dentro da tela e com o
+verbo certo nos sete, zero erro de console. Mover um meia para goleiro tirou um de MEI,
+pôs um em GOL e manteve o total em 118, com o card aparecendo no campograma.

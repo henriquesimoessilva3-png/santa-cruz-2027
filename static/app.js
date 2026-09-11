@@ -1191,7 +1191,9 @@ function renderPainel() {
     '</div>' +
     (nE ? '<div class="estr-lista">' + estrangeiros
         .sort((a, b) => (b.salario || 0) - (a.salario || 0))
-        .map(j => '<div class="estr-item"><span class="pos-tag">' + j.pos + '</span>' +
+        .map(j => '<div class="estr-item jog-mv" data-pos="' + j.pos + '" data-uid="' + j.uid + '"' +
+          ' title="' + esc(j.nome + ' · ' + nomePos(j.pos) + ' — clique para mover de posição') + '">' +
+          '<span class="pos-tag">' + j.pos + '</span>' +
           '<span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' +
           '<span class="nm">' + esc(nomeCurto(j.nome, estado.denso ? 14 : 17)) + '</span>' +
           '<span class="vl">' + brl(j.salario, true) + '</span></div>').join('') + '</div>'
@@ -1239,7 +1241,9 @@ function renderPainel() {
   /* ---- maiores salarios ---- */
   const top = jg.filter(j => j.salario).sort((a, b) => b.salario - a.salario).slice(0, 8);
   $('#topSal').innerHTML = top.length ? top.map(j =>
-    '<div class="top-sal"><span class="pos-tag">' + j.pos + '</span>' +
+    '<div class="top-sal jog-mv" data-pos="' + j.pos + '" data-uid="' + j.uid + '"' +
+    ' title="' + esc(j.nome + ' · ' + nomePos(j.pos) + ' — clique para mover de posição') + '">' +
+    '<span class="pos-tag">' + j.pos + '</span>' +
     (j.estrangeiro ? '<span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
     '<span class="nm">' + esc(j.nome) + '</span>' +
     '<span class="vl">' + brl(j.salario, true) + '</span></div>').join('')
@@ -3927,31 +3931,35 @@ function levarAoCampograma(pk, cod) {
    marcada com ✓, e cada uma das outras dez diz quantas vagas ja estao tomadas. Mesmo
    desenho do "Mover para" do card, para nao inventar um segundo jeito de fazer a
    mesma coisa. */
-function menuLevar(ev, pk, depois, ancora) {
+/* A grade em si. Dois usos, porque as abas fazem coisas diferentes com ela:
+     - LEVAR (Físico, Fim de contrato): o jogador esta na base e entra no campograma;
+     - MOVER (Análise do elenco): o jogador JA esta no elenco e troca de posicao.
+   O desenho e um so de proposito — quem aprende a grade numa aba a usa nas outras.
+   `cfg`: { verbo, nome, pos, bloqueada(cod), escolher(cod), ancora, depois }. */
+function menuPosicao(ev, cfg) {
   /* Recebe o EVENTO, nao o botao, de proposito: existe um fechador global de menus no
      clique do documento (linha `$$('.menu').forEach(m => m.classList.remove('aberto'))`).
      Quem abrisse sem barrar a propagacao veria o proprio clique apagar o `aberto` do
      menu recem-criado — ele nasce montado, com os 11 botoes, e INVISIVEL. Ja aconteceu
-     em tres dos quatro pontos de entrada; barrar aqui dentro e o que impede o quarto. */
+     em tres dos quatro pontos de entrada; barrar aqui dentro e o que impede o quinto. */
   if (ev && ev.stopPropagation) ev.stopPropagation();
-  const botao = ancora || (ev && ev.currentTarget) || document.body;
-  const j = basePorPk(pk);
-  if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
+  const botao = cfg.ancora || (ev && ev.currentTarget) || document.body;
   $$('.menu-jog').forEach(m => m.remove());
-  const pkJ = primaryKey(j);
-  const jaEsta = c => (estado.elenco[c] || []).some(x => (x.pk ? x.pk === pkJ : x.jid === j.id));
   const m = document.createElement('div');
   m.className = 'menu menu-jog menu-levar aberto';
   m.innerHTML =
-    '<div class="menu-sep">Levar ' + esc(j.n) + ' para</div>' +
+    '<div class="menu-sep">' + esc(cfg.verbo + ' ' + cfg.nome) + ' para</div>' +
     '<div class="menu-pos">' + POSICOES.map(p => {
       /* quantos JA estao na posicao, nao "n de m vagas": o alvo por posicao costuma
          estar vazio (cai no padrao 3) e num grupo de 118 sairia "19 de 3 vagas". */
-      const n = (estado.elenco[p.c] || []).length, tem = jaEsta(p.c);
+      const n = (estado.elenco[p.c] || []).length;
+      const bloq = cfg.bloqueada ? cfg.bloqueada(p.c) : '';
       return '<button data-p="' + p.c + '"' +
-        (p.c === j.p ? ' class="atual"' : '') + (tem ? ' disabled' : '') +
+        (p.c === cfg.pos ? ' class="atual"' : '') + (bloq ? ' disabled' : '') +
+        /* o motivo do bloqueio manda no texto: senao a posicao atual, no modo Mover,
+           saia com "é a posição dele · já é a posição dele" */
         ' title="' + esc(p.nome + ' · ' + n + ' no campograma' +
-          (p.c === j.p ? ' · é a posição dele' : '') + (tem ? ' · ele já está aqui' : '')) + '">' +
+          (bloq ? ' · ' + bloq : p.c === cfg.pos ? ' · é a posição dele' : '')) + '">' +
         p.sig + '</button>';
     }).join('') + '</div>';
   document.body.appendChild(m);
@@ -3963,12 +3971,37 @@ function menuLevar(ev, pk, depois, ancora) {
     const bt = e.target.closest('button[data-p]');
     if (!bt || bt.disabled) return;
     m.remove();
-    levarAoCampograma(pk, bt.dataset.p);
-    if (depois) depois();
+    cfg.escolher(bt.dataset.p);
+    if (cfg.depois) cfg.depois();
   };
   setTimeout(() => document.addEventListener('click', function fecha() {
     m.remove(); document.removeEventListener('click', fecha);
   }, { once: true }), 0);
+}
+
+/* LEVAR: da base para o campograma (aba Física e aba Fim de contrato). */
+function menuLevar(ev, pk, depois, ancora) {
+  const j = basePorPk(pk);
+  if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
+  const pkJ = primaryKey(j);
+  menuPosicao(ev, {
+    verbo: 'Levar', nome: j.n, pos: j.p, ancora, depois,
+    bloqueada: c => (estado.elenco[c] || []).some(x => (x.pk ? x.pk === pkJ : x.jid === j.id))
+      ? 'ele já está aqui' : '',
+    escolher: cod => levarAoCampograma(pk, cod),
+  });
+}
+
+/* MOVER: troca de posicao quem JA esta no elenco (aba Análise do elenco). A posicao
+   atual fica apagada — mover para onde ja esta e um clique que nao faz nada. */
+function menuMover(ev, pos, uid, ancora, depois) {
+  const j = (estado.elenco[pos] || []).find(x => x.uid === uid);
+  if (!j) { toast('Esse jogador saiu do elenco', 'ruim'); return; }
+  menuPosicao(ev, {
+    verbo: 'Mover', nome: j.nome, pos, ancora, depois,
+    bloqueada: c => c === pos ? 'já é a posição dele' : '',
+    escolher: cod => moverJogador({ pos, uid }, cod, null, false),
+  });
 }
 /* jogadores do campograma que tem tracking, a posicao escolhida primeiro */
 function fsMontarElenco() {
@@ -4934,6 +4967,17 @@ function ligar() {
   /* o menu Visual fica aberto para trocar várias opções seguidas */
   $('#menuVis').onclick = e => e.stopPropagation();
   document.addEventListener('click', () => $$('.menu').forEach(m => m.classList.remove('aberto')));
+
+  /* Análise do elenco: as duas listas de jogadores (Maiores salários e Estrangeiros)
+     abrem a mesma grade de posições das outras abas. Aqui o jogador JA esta no elenco,
+     entao a acao e MOVER, nao levar. Delegado no `#pgAnalise` porque os dois blocos se
+     redesenham a cada render — handler preso ao elemento morreria no primeiro redesenho.
+     `render()` no fim para as listas (e o campograma) refletirem a troca. */
+  $('#pgAnalise').addEventListener('click', e => {
+    const el = e.target.closest('.jog-mv');
+    if (!el) return;
+    menuMover(e, el.dataset.pos, el.dataset.uid, el, render);
+  });
 
   $('#btOrcamento').onclick = () => { renderOrc(); $('#modalOrc').classList.add('aberto'); };
 
