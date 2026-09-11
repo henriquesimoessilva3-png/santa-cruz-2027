@@ -2825,6 +2825,19 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-tab tbody td:first-child{color:var(--tinta)}
 .sb-tab td.s{color:var(--sb-sobe);font-weight:700}
 .sb-tab td.c{color:var(--sb-cai);font-weight:700}
+/* --- a tabela do fisico por posicao --- */
+/* A 3a coluna e o NOME do indicador, nao numero: alinha a esquerda. Sem isto ela fica
+   encostada no numero da relacao e as duas viram uma coisa so. */
+.sb-tab-pos td:nth-child(3),.sb-tab-pos th:nth-child(3){text-align:left;color:var(--tinta)}
+.sb-tab-pos tbody td{vertical-align:baseline}
+.sb-tab-pos td small{display:block;font-size:10px;color:var(--tinta3);font-weight:400;
+  letter-spacing:0;text-transform:none;margin-top:2px}
+.sb-tab-pos td:first-child b{font-weight:700}
+/* a contagem e o numero que se le primeiro na tabela; `forte` marca o grupo que destoa */
+.sb-conta{font-size:19px;font-weight:800;line-height:1;color:var(--tinta2)}
+.sb-conta.forte{color:var(--sb-sobe)}
+/* relacao que NAO passa no limiar sai apagada, para nao ser lida como achado */
+.sb-tab-pos td.fraco{color:var(--tinta3);font-weight:400}
 .sb-tab tr.sb-grupo td{padding-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--tinta3);font-weight:700;border-bottom:none}
 .sb-tab tr:last-child td{border-bottom:none}

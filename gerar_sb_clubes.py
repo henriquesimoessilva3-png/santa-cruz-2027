@@ -80,6 +80,18 @@ CAMPOS = [
 # arredondamento numerico.
 CAMPOS_TXT = [("formPrin", "formPrincipal")]
 
+# --- o mesmo fisico, agora dentro de cada grupo de posicao ---
+# Derivado da parte fisica do CAMPOS acima em vez de escrito a mao: sao os mesmos 27
+# indicadores com os mesmos arredondamentos, vezes quatro grupos = 108 campos. Digitar
+# isso na mao e onde um `hsrSem` acaba no lugar de um `hsrCom` e ninguem descobre.
+# Goleiro nao esta na lista porque o SkillCorner nao rastreia goleiro (ver
+# `analisar_serieb.GRUPOS_FIS`).
+GRUPOS_FIS = ["zaga", "lateral", "meio", "ataque"]
+_FIS = [(js, col, casas) for js, col, casas in CAMPOS if col.startswith("fis_")]
+CAMPOS += [(f"{g}_atletas" if js == "fisAtletas" else f"{g}_{js}",
+            col.replace("fis_", f"fis_{g}_", 1), casas)
+           for g in GRUPOS_FIS for js, col, casas in _FIS]
+
 # --- distribuicao por idade ---
 # As faixas sao fechadas a ESQUERDA: "20 a 23" e 20, 21 e 22. Sem essa convencao escrita,
 # alguem um dia soma 23 nas duas faixas vizinhas e o total passa de 100%.

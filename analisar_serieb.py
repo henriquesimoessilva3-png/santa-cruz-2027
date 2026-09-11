@@ -39,6 +39,7 @@ Uso:
     python3 analisar_serieb.py --csv      # grava tambem dados/serieb_clube_temporada.csv
 """
 import datetime as dt
+import functools
 import re, sqlite3, unicodedata
 import numpy as np, pandas as pd
 
@@ -389,9 +390,79 @@ def fisico():
     2. **Entram so atletas com 300+ minutos rastreados.** Abaixo disso a media por 90 vira
        ruido de quem entrou dez minutos.
     """
+    sc = _sc_atletas()
+    if sc is None:
+        return pd.DataFrame(columns=["ano", "clube"])
+
+    linhas = []
+    for (ano, clube), d in sc.groupby(["ano", "clube"]):
+        linha = {"ano": ano, "clube": clube, "fis_atletas": len(d),
+                 "fis_minutos": float(d.min_tot.sum())}
+        for m in SC_METRICAS:
+            linha["fis_" + m] = float(np.average(d[m], weights=d.min_tot))
+        linhas.append(linha)
+    return pd.DataFrame(linhas)
+
+
+# Os quatro grupos de posicao do painel fisico. GOLEIRO NAO ENTRA: o SkillCorner nao
+# rastreia goleiro, e os poucos nomes de GK que aparecem no `physical` sao homonimos de
+# jogador de linha — conferido, 44 linhas de 3.610 e nenhuma delas confiavel.
+#
+# Zaga e lateral vao SEPARADOS, ao contrario do `SETORES` do valor por setor, que junta os
+# dois em "defesa". Para dinheiro juntar faz sentido; para fisico apaga a maior diferenca
+# que existe no campo — o lateral corre muito mais que o zagueiro, e misturar os dois dilui
+# justamente o que a tabela quer mostrar.
+GRUPOS_FIS = {**{p: "zaga" for p in ("CB", "LCB", "RCB")},
+              **{p: "lateral" for p in ("LB", "RB", "LWB", "RWB")},
+              **{p: "meio" for p in ("DMF", "LDMF", "RDMF", "LCMF", "RCMF", "AMF")}}
+ORDEM_GRUPOS = ["zaga", "lateral", "meio", "ataque"]
+
+
+def grupo_fis(p):
+    """Quem nao e zaga, lateral nem meio entra em 'ataque' — pontas e centroavantes."""
+    return GRUPOS_FIS.get(str(p), "ataque")
+
+
+def fisico_por_posicao():
+    """O mesmo perfil fisico, mas quebrado por grupo de posicao.
+
+    Existe porque a media do clube inteiro esconde de quem vem a diferenca. Rodando a
+    correlacao com a posicao final DENTRO de cada grupo, o resultado e desigual de um jeito
+    que a media nao deixa ver: no MEIO, 16 dos 26 indicadores separam quem sobe de quem cai;
+    na zaga e no lateral, exatamente UM (o teto de velocidade, `psv99_top5`); no ATAQUE,
+    nenhum. Ou seja, o fisico que decide esta no meio-campo.
+
+    A regra de amostra e a mesma do `fisico()` (300+ minutos rastreados) e a ponderacao
+    tambem (minuto rastreado). Cada grupo cobre os 100 clube-temporada; a mediana e de 4
+    atletas por grupo na zaga e no lateral, 6 no meio e 7 no ataque — por isso o painel
+    mostra quantos atletas ha atras de cada numero.
+    """
+    sc = _sc_atletas()
+    if sc is None:
+        return pd.DataFrame(columns=["ano", "clube"])
+    linhas = []
+    for (ano, clube), d in sc.groupby(["ano", "clube"]):
+        linha = {"ano": ano, "clube": clube}
+        for g in ORDEM_GRUPOS:
+            dg = d[d.grupo == g]
+            linha[f"fis_{g}_atletas"] = len(dg)
+            for m in SC_METRICAS:
+                linha[f"fis_{g}_{m}"] = (float(np.average(dg[m], weights=dg.min_tot))
+                                         if len(dg) else np.nan)
+        linhas.append(linha)
+    return pd.DataFrame(linhas)
+
+
+@functools.lru_cache(maxsize=1)
+def _sc_atletas():
+    """A ponte SkillCorner -> Wyscout, atleta a atleta, com clube E grupo de posicao.
+
+    Fica em cache porque `fisico()` e `fisico_por_posicao()` pedem a mesma coisa e a ponte
+    custa uma leitura do banco de 341 MB mais o cruzamento dos 3.866 jogador-temporada.
+    """
     if not os.path.exists(SKILLCORNER):
         print("  (skillcorner.db nao encontrado — seguindo sem o fisico)")
-        return pd.DataFrame(columns=["ano", "clube"])
+        return None
     con = sqlite3.connect(SKILLCORNER)
     sc = pd.read_sql(
         "select p.sc_competition_edition_id ed, pl.short_name, pl.birthdate, "
@@ -410,7 +481,8 @@ def fisico():
         if g.cl.nunique() != 1:
             continue
         idades = g.idade_na_temporada.dropna()
-        ponte[(a, k)] = (g.cl.iloc[0], float(idades.iloc[0]) if len(idades) else None)
+        ponte[(a, k)] = (g.cl.iloc[0], float(idades.iloc[0]) if len(idades) else None,
+                         grupo_fis(g.posicao_1.iloc[0]))
 
     def idade_sc(nasc, ano):
         """Idade em 11 de setembro daquele ano — a mesma referencia da idade do Wyscout."""
@@ -420,35 +492,27 @@ def fisico():
         r = dt.date(ano, 9, 11)
         return r.year - n.year - ((r.month, r.day) < (n.month, n.day))
 
-    clubes = []
+    clubes, grupos = [], []
     for ano, nome, nasc in zip(sc.ano, sc.short_name, sc.birthdate):
         v = ponte.get((ano, chave_nome(nome)))
         if not v:
-            clubes.append(None)
+            clubes.append(None); grupos.append(None)
             continue
-        clube, iw = v
+        clube, iw, g = v
         i = idade_sc(nasc, ano)
         # guarda de idade: 2 anos abaixo, 3 acima. Fora disso e homonimo, nao a mesma pessoa.
         if i is not None and iw is not None and not (-2 <= i - iw <= 3):
-            clubes.append(None)
+            clubes.append(None); grupos.append(None)
             continue
-        clubes.append(clube)
-    sc["clube"] = clubes
-    sc = sc[sc.clube.notna() & (sc.min_tot >= 300)]
-
-    linhas = []
-    for (ano, clube), d in sc.groupby(["ano", "clube"]):
-        linha = {"ano": ano, "clube": clube, "fis_atletas": len(d),
-                 "fis_minutos": float(d.min_tot.sum())}
-        for m in SC_METRICAS:
-            linha["fis_" + m] = float(np.average(d[m], weights=d.min_tot))
-        linhas.append(linha)
-    return pd.DataFrame(linhas)
+        clubes.append(clube); grupos.append(g)
+    sc["clube"], sc["grupo"] = clubes, grupos
+    return sc[sc.clube.notna() & (sc.min_tot >= 300)].copy()
 
 
 def base():
     t = montar()
-    for parte in (extras_de_jogo(), valor_por_setor(), extras_profundos(), fisico()):
+    for parte in (extras_de_jogo(), valor_por_setor(), extras_profundos(), fisico(),
+                  fisico_por_posicao()):
         t = t.merge(parte, on=["ano", "clube"], how="left")
     setores = [c for c in t.columns if c.startswith("val_")]
     tot = t[setores].sum(axis=1)

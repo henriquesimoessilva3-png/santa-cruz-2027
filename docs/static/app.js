@@ -7214,6 +7214,108 @@ function sbFisLinha(rot, campo, fmt, un, y) {
       (r >= 0 ? '' : '−') + sbN2(Math.abs(r)) + '</text>';
 }
 
+/* ---------- o fisico por grupo de posicao ----------
+
+   Por que este bloco existe: a media do clube inteiro esconde DE QUEM vem a diferenca.
+   Rodando a mesma correlacao dentro de cada grupo de posicao, o resultado e desigual de um
+   jeito que a media nao deixa ver — e a leitura muda de "o time corre" para "quem corre".
+
+   GOLEIRO NAO ENTRA. O SkillCorner nao rastreia goleiro; os poucos GK que aparecem no
+   `physical` sao homonimo de jogador de linha (44 linhas de 3.610, nenhuma confiavel).
+
+   ZAGA E LATERAL VAO SEPARADOS, ao contrario do setor do dinheiro, que junta os dois em
+   "defesa". Para valor de elenco juntar faz sentido; para fisico apaga a maior diferenca
+   que existe em campo — o lateral corre muito mais que o zagueiro.
+
+   O LIMIAR NAO E CHUTADO nem fixo: sai do proprio tamanho da amostra, por Fisher
+   (tanh(1,96/raiz(n-3))), que com os 80 clube-temporada das temporadas completas da 0,22.
+   Sem essa regua, uma tabela de 104 correlacoes tem sempre algum 0,15 parecendo achado. */
+const SB_FIS_POS = [
+  ['zaga', 'Zaga', 'os dois centrais'],
+  ['lateral', 'Lateral', 'os dois lados'],
+  ['meio', 'Meio', 'volantes, médios e meias'],
+  ['ataque', 'Ataque', 'pontas e centroavantes'],
+];
+
+/* Os 26 indicadores fisicos com rotulo e formato, montados das MESMAS listas que o painel
+   de clube usa. Assim as duas telas nao podem discordar: mexeu numa, mexeu na outra. */
+function sbFisIndicadores() {
+  const m = SB_FIS_GRUPOS.flatMap(g => g[2].map(l => [l[1], l[0], l[2], l[3]]));
+  SB_FIS_BOLA.forEach(l => {
+    m.push([l[1], l[0] + ', com a bola', l[3], ''], [l[2], l[0] + ', sem a bola', l[3], '']);
+  });
+  return m;
+}
+
+function sbBlocoFisicoPosicao() {
+  const IND = sbFisIndicadores();
+  const n = sbComp().length;
+  /* limiar de 5% pela transformacao de Fisher — acompanha o n em vez de ser numero fixo */
+  const lim = Math.tanh(1.96 / Math.sqrt(n - 3));
+
+  const dados = SB_FIS_POS.map(([g, rot, sub]) => {
+    const rs = IND.map(([campo, rotI, fmt, un]) =>
+      ({ campo: g + '_' + campo, rot: rotI, fmt, un, r: sbRho(g + '_' + campo) }))
+      .filter(x => isFinite(x.r))
+      .sort((a, b) => Math.abs(b.r) - Math.abs(a.r));
+    return { g, rot, sub, rs, separam: rs.filter(x => Math.abs(x.r) >= lim).length,
+             atletas: sbPorFaixa(g + '_atletas') };
+  });
+
+  const linhas = dados.map(d => {
+    const t = d.rs[0], m = sbPorFaixa(t.campo);
+    const forca = Math.abs(t.r) >= lim ? '' : ' fraco';
+    return '<tr><td><b>' + esc(d.rot) + '</b><small>' + esc(d.sub) + ' · ' +
+        sbN1(d.atletas.sobe) + ' por clube</small></td>' +
+      '<td class="num-c"><b class="sb-conta' + (d.separam >= 10 ? ' forte' : '') + '">' +
+        d.separam + '</b><small>de ' + d.rs.length + '</small></td>' +
+      '<td>' + esc(t.rot) + '</td>' +
+      '<td class="num-c' + forca + '">' + sbN2(t.r) + '</td>' +
+      '<td class="num-c s">' + t.fmt(m.sobe) + '</td>' +
+      '<td class="num-c c">' + t.fmt(m.cai) + '</td></tr>';
+  }).join('');
+
+  const meio = dados.find(d => d.g === 'meio'), zaga = dados.find(d => d.g === 'zaga');
+  const lat = dados.find(d => d.g === 'lateral'), atq = dados.find(d => d.g === 'ataque');
+
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot" style="margin-top:6px">Onde o físico separa · por grupo de posição · ' +
+      n + ' clube-temporada</span>' +
+    '<div class="sb-rolo"><table class="sb-tab sb-tab-pos"><thead><tr>' +
+      '<th>Posição</th><th class="num-c">Indicadores que separam</th>' +
+      '<th>O mais forte</th><th class="num-c">Relação</th>' +
+      '<th class="num-c">Sobe</th><th class="num-c">Cai</th>' +
+    '</tr></thead><tbody>' + linhas + '</tbody></table></div>' +
+
+    '<p class="sb-nota"><b>A média do clube escondia de quem vinha a diferença.</b> No ' +
+    '<b>meio</b>, ' + meio.separam + ' dos ' + meio.rs.length + ' indicadores separam quem ' +
+    'sobe de quem cai. Na <b>zaga</b> e no <b>lateral</b>, ' + zaga.separam + '. É o mesmo ' +
+    'campeonato, a mesma régua e a mesma amostra — o que muda é a posição.</p>' +
+
+    '<p class="sb-nota"><b>E o que separa não é a mesma coisa nos dois lados do campo.</b> ' +
+    'Atrás é <b>teto</b>: o único indicador que passa na zaga e no lateral é o ' +
+    '<b>PSV-99 das 5 melhores partidas</b> (' + sbN2(zaga.rs[0].r) + ' e ' + sbN2(lat.rs[0].r) +
+    ') — quão rápido o defensor consegue ser quando precisa, não quanto ele corre. Do meio ' +
+    'para a frente é <b>volume</b>: ' + esc(meio.rs[0].rot.toLowerCase()) + ' (' +
+    sbN2(meio.rs[0].r) + ') no meio e ' + esc(atq.rs[0].rot.toLowerCase()) + ' (' +
+    sbN2(atq.rs[0].r) + ') no ataque. Um zagueiro que corre muito não ajuda a subir; um ' +
+    'zagueiro lento atrapalha.</p>' +
+
+    '<p class="sb-nota"><b>A régua desta tabela.</b> "Separar" aqui quer dizer relação com a ' +
+    'posição final acima de <b>' + sbN2(lim) + '</b>, que é o limiar de 5% para uma amostra ' +
+    'de ' + n + ' — sai do tamanho da amostra, não de um número escolhido a dedo. Abaixo ' +
+    'disso o indicador não se distingue de zero, e numa tabela de ' +
+    (SB_FIS_POS.length * IND.length) + ' correlações sempre há algum 0,15 com cara de achado. ' +
+    'Os valores de Sobe e Cai são do indicador mais forte de cada linha, ponderados por ' +
+    'minuto rastreado como no painel de cima.</p>' +
+
+    '<p class="sb-nota"><b>Goleiro não entra:</b> o SkillCorner não rastreia goleiro. E a ' +
+    'amostra por grupo é pequena — mediana de ' + sbN1(zaga.atletas.sobe) + ' atletas por ' +
+    'clube na zaga contra ' + sbN1(atq.atletas.sobe) + ' no ataque —, então um clube com um ' +
+    'lateral só rastreado pesa tanto quanto um com quatro. Vale a direção, não a casa decimal.</p>' +
+    '</div>';
+}
+
 function sbBlocoFisico() {
   const painel = SB_FIS_GRUPOS.map(([tit, sub, linhas]) => {
     const alt = 22 + linhas.length * 42;
@@ -7976,7 +8078,7 @@ function sbRender() {
     sbSecao('elenco', sbBlocoDinheiro() + sbBlocoUso() + sbBlocoUsoAno() + sbBlocoUsoSetor() +
       sbBlocoContinuidade() + sbBlocoIdade()) +
 
-    sbSecao('fisico', sbBlocoFisico()) +
+    sbSecao('fisico', sbBlocoFisico() + sbBlocoFisicoPosicao()) +
 
     sbSecao('jogo', sbBlocoMando() + sbBlocoAdversario() + sbBlocoRegularidade() +
 

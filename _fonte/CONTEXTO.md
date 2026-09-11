@@ -1575,8 +1575,8 @@ Fora dessa cadeia, e sem dependentes: `coletar_serieb_lesoes.py` → `dados/seri
 | `serieb_tecnico` (Wyscout, por atleta) | 3.866 jogador-temporada | o que cada um fez em campo |
 | `serieb_jogos` (Wyscout, por clube) | 9.318 linhas, 3.570 de Série B | como o time jogou, partida a partida |
 | `skillcorner.db` (fora do repo) | 100 clube-temporada | o físico |
-| `serieb_clube_temporada.csv` | 100 × 136 colunas | **as quatro anteriores cruzadas** |
-| `static/sb_clubes.js` | 100 × 83 campos, 66 KB | o recorte que a aba carrega |
+| `serieb_clube_temporada.csv` | 100 × 258 colunas | **as quatro anteriores cruzadas** |
+| `static/sb_clubes.js` | 100 × 191 campos, 127 KB | o recorte que a aba carrega |
 
 As três primeiras cobrem **100 de 100 clube-temporada** de 2022 a 2026.
 
@@ -1638,6 +1638,38 @@ medido. Corrigir uma partida numa base e rodar a cadeia corrige a tela inteira.
   fio mais alto que a viewport. A rolagem agora é explícita: acha a caixa que rola de
   verdade (`.emp-rolagem`) e move só ela, descontando a altura do índice grudento para o
   título da seção não nascer escondido embaixo dos próprios botões.
+
+### O físico por posição: onde ele separa, e onde não separa
+
+A média do clube inteiro escondia **de quem** vinha a diferença. Rodando a mesma
+correlação dentro de cada grupo de posição (`fisico_por_posicao()` no `analisar_serieb.py`,
+`sbBlocoFisicoPosicao()` no `app.js`), o resultado é desigual:
+
+| Posição | Indicadores que separam, de 26 | O mais forte | Relação |
+|---|---|---|---|
+| Zaga | **1** | PSV-99, 5 melhores partidas | 0,41 |
+| Lateral | **1** | PSV-99, 5 melhores partidas | 0,23 |
+| Meio | **13** | Arranques até o sprint | 0,39 |
+| Ataque | **8** | Metros em alta intensidade | 0,30 |
+
+**Atrás é teto, da frente é volume.** O único indicador que passa na zaga e no lateral é a
+velocidade máxima — quão rápido o defensor consegue ser quando precisa, não quanto ele
+corre. Do meio para a frente inverte: o que separa é volume de alta intensidade. Um
+zagueiro que corre muito não ajuda a subir; um zagueiro lento atrapalha.
+
+Três decisões de método que sustentam a tabela:
+
+- **Goleiro não entra.** O SkillCorner não rastreia goleiro; os 44 GK que aparecem no
+  `physical` (de 3.610) são homônimo de jogador de linha.
+- **Zaga e lateral vão separados**, ao contrário do `SETORES` do valor por setor, que junta
+  os dois em "defesa". Para dinheiro juntar faz sentido; para físico apaga a maior
+  diferença que existe em campo.
+- **O limiar sai da amostra, não do dedo.** `tanh(1,96/√(n−3))` dá 0,22 para os 80
+  clube-temporada completos. Sem régua, numa tabela de 104 correlações sempre há algum 0,15
+  com cara de achado.
+
+A amostra por grupo é pequena — mediana de 3,5 atletas por clube na zaga contra 6,9 no
+ataque —, então vale a direção, não a casa decimal.
 
 ### Pendências
 
