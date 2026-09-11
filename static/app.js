@@ -6546,6 +6546,10 @@ const SB_INDICADORES = [
   ['acertar cruzamentos', 'cruzPct'], ['ter mais posse de bola', 'posse'],
   ['dar minutos a estrangeiros', 'minEstr'], ['cometer menos faltas', 'faltas', 1],
   ['acertar mais passes', 'passePct'], ['ter um time mais jovem', 'idade', 1],
+  /* fisico, do SkillCorner — entra na mesma regua que o resto, senao fica num bloco
+     isolado e ninguem compara "correr" com "ter goleiro bom" */
+  ['dar mais sprints por 90', 'sprintQtd', 0, 1], ['correr mais metros por 90', 'dist90'],
+  ['ter pico de velocidade maior', 'psv99'],
 ];
 
 /* Quantos dos 16 que subiram estavam no top-4 daquele indicador. Serve para nao confundir
@@ -7116,7 +7120,7 @@ function sbBlocoFisico() {
     ['Distância em alta velocidade (m)', 'hsrDist', sbN0, 0],
     ['Distância em sprint (m)', 'sprintDist', sbN0, 0],
     ['Sprints por 90', 'sprintQtd', sbN2, 0],
-    ['Velocidade de pico (km/h)', 'psv99', sbN1, 0],
+    ['Pico de velocidade médio (km/h)', 'psv99', sbN1, 0],
     ['Acelerações fortes por 90', 'acel', sbN2, 0],
   ];
   const X = 244, LARG = 300;
@@ -7160,6 +7164,14 @@ function sbBlocoFisico() {
     '15 partidas por atleta por temporada, não 38, então isto é o perfil de uma amostra. Entram só ' +
     'atletas com 300+ minutos rastreados — ' + sbN1(sbPorFaixa('fisAtletas').sobe) + ' por clube em quem ' +
     'sobe e ' + sbN1(sbPorFaixa('fisAtletas').cai) + ' em quem cai.</p>' +
+    '<p class="sb-nota">E o <b>pico de velocidade não é recorde</b>: o SkillCorner entrega, na ' +
+    'temporada, a <i>média</i> do pico de cada jogo. O recorde de um jogo isolado é sempre maior. ' +
+    'Serve para comparar clubes entre si, que é o uso aqui; não serve para dizer "o atleta X chegou a ' +
+    'tantos km/h".</p>' +
+    '<p class="sb-nota">O clube de cada atleta vem de uma ponte entre SkillCorner e Wyscout por <b>nome ' +
+    'mais idade</b> — nome sozinho não basta, e isso já custou caro nesta casa (no Portal Ranking o ' +
+    'Pedro do Flamengo chegou a receber o físico do Pedro Rodríguez ex-Barcelona). Conferida contra os ' +
+    'dois anos em que o próprio SkillCorner diz o clube: <b>98,2% de concordância</b> em 1.117 atletas.</p>' +
     '</div>';
 }
 

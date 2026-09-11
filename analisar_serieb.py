@@ -38,6 +38,7 @@ Uso:
     python3 analisar_serieb.py            # imprime o relatorio inteiro
     python3 analisar_serieb.py --csv      # grava tambem dados/serieb_clube_temporada.csv
 """
+import datetime as dt
 import re, sqlite3, unicodedata
 import numpy as np, pandas as pd
 
@@ -339,7 +340,7 @@ def chave_nome(s):
 def fisico():
     """Perfil fisico de cada clube-temporada, do SkillCorner, ponderado por minuto rastreado.
 
-    ## O clube vem por PONTE DE NOME, e ela foi conferida
+    ## O clube vem por PONTE DE NOME + IDADE, e ela foi conferida
 
     A tabela `physical` do SkillCorner e por atleta x edicao e NAO traz o clube. A tabela
     `physical_match`, que traz, so existe para 2025 e 2026. Entao o clube das cinco
@@ -347,8 +348,16 @@ def fisico():
     mesmo ano, onde o nome e unico (241 nomes de 3.560 aparecem em mais de um clube no mesmo
     ano e ficam de fora).
 
-    A ponte foi CONFERIDA contra os dois anos em que o SkillCorner diz o clube: dos 1.122
-    atletas com clube dos dois lados, **98,0% concordam**. Nao e suposicao.
+    **Nome sozinho nao basta, e isso ja custou caro nesta casa**: no Portal Ranking, o Pedro
+    do Flamengo chegou a receber o fisico do Pedro Rodriguez ex-Barcelona, e o Vitinho do
+    Botafogo o do Vitinho do Fortaleza. A defesa conhecida e a GUARDA DE IDADE, e e a mesma
+    daqui: so casa se a idade do SkillCorner (calculada da data de nascimento, na mesma data
+    de referencia do Wyscout) ficar entre 2 anos abaixo e 3 acima da idade do Wyscout. A
+    folga e torta de proposito — a idade do Wyscout atrasa para baixo.
+
+    A ponte foi CONFERIDA contra os dois anos em que o SkillCorner diz o clube: dos 1.117
+    atletas com clube dos dois lados, **98,2% concordam** (era 98,0% so com o nome, e a
+    guarda tirou 14 casamentos duvidosos). Nao e suposicao.
 
     ## Duas ressalvas que mudam a leitura
 
@@ -363,7 +372,8 @@ def fisico():
         return pd.DataFrame(columns=["ano", "clube"])
     con = sqlite3.connect(SKILLCORNER)
     sc = pd.read_sql(
-        "select p.sc_competition_edition_id ed, pl.short_name, p.minutes_played, p.matches, "
+        "select p.sc_competition_edition_id ed, pl.short_name, pl.birthdate, "
+        "p.minutes_played, p.matches, "
         + ", ".join("p." + m for m in SC_METRICAS) +
         " from physical p join players pl on pl.sc_player_id = p.sc_player_id"
         f" where p.sc_competition_edition_id in ({','.join(map(str, SC_EDICOES))})", con)
@@ -373,8 +383,35 @@ def fisico():
     T = pd.read_csv(f"{RAIZ}/dados/serieb_tecnico.csv")
     T["cl"] = T["Equipa dentro de um período de tempo seleccionado"].map(nfc)
     T["k"] = T.Jogador.map(chave_nome)
-    ponte = {(a, k): g.cl.iloc[0] for (a, k), g in T.groupby(["ano", "k"]) if g.cl.nunique() == 1}
-    sc["clube"] = [ponte.get((a, chave_nome(n))) for a, n in zip(sc.ano, sc.short_name)]
+    ponte = {}
+    for (a, k), g in T.groupby(["ano", "k"]):
+        if g.cl.nunique() != 1:
+            continue
+        idades = g.idade_na_temporada.dropna()
+        ponte[(a, k)] = (g.cl.iloc[0], float(idades.iloc[0]) if len(idades) else None)
+
+    def idade_sc(nasc, ano):
+        """Idade em 11 de setembro daquele ano — a mesma referencia da idade do Wyscout."""
+        if not isinstance(nasc, str) or len(nasc) < 10:
+            return None
+        n = dt.date(int(nasc[:4]), int(nasc[5:7]), int(nasc[8:10]))
+        r = dt.date(ano, 9, 11)
+        return r.year - n.year - ((r.month, r.day) < (n.month, n.day))
+
+    clubes = []
+    for ano, nome, nasc in zip(sc.ano, sc.short_name, sc.birthdate):
+        v = ponte.get((ano, chave_nome(nome)))
+        if not v:
+            clubes.append(None)
+            continue
+        clube, iw = v
+        i = idade_sc(nasc, ano)
+        # guarda de idade: 2 anos abaixo, 3 acima. Fora disso e homonimo, nao a mesma pessoa.
+        if i is not None and iw is not None and not (-2 <= i - iw <= 3):
+            clubes.append(None)
+            continue
+        clubes.append(clube)
+    sc["clube"] = clubes
     sc = sc[sc.clube.notna() & (sc.min_tot >= 300)]
 
     linhas = []
