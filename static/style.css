@@ -2869,6 +2869,15 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-conta.forte{color:var(--sb-sobe)}
 /* relacao que NAO passa no limiar sai apagada, para nao ser lida como achado */
 .sb-tab-pos td.fraco{color:var(--tinta3);font-weight:400}
+/* --- a tabela detalhada: 32 indicadores x 4 posicoes --- */
+.sb-tab-det{font-size:12px}
+.sb-tab-det td:first-child,.sb-tab-det th:first-child{text-align:left;white-space:nowrap;padding-right:20px}
+.sb-tab-det td{padding:4px 14px}
+/* aceso = passa do limiar. Apagado NAO some: "medimos e nao separa" e uma resposta. */
+.sb-tab-det td.sb-forte{color:var(--sb-sobe);font-weight:700}
+.sb-tab-det td.fraco{color:var(--tinta3);font-weight:400}
+.sb-tab-det tr.sb-grupo td{font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tinta3);padding:11px 14px 3px;border-bottom:none}
 .sb-tab tr.sb-grupo td{padding-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--tinta3);font-weight:700;border-bottom:none}
 .sb-tab tr:last-child td{border-bottom:none}

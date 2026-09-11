@@ -7409,11 +7409,43 @@ const SB_FIS_POS = [
 /* Os 26 indicadores fisicos com rotulo e formato, montados das MESMAS listas que o painel
    de clube usa. Assim as duas telas nao podem discordar: mexeu numa, mexeu na outra. */
 function sbFisIndicadores() {
-  const m = SB_FIS_GRUPOS.flatMap(g => g[2].map(l => [l[1], l[0], l[2], l[3]]));
+  /* [campo, rotulo, formato, unidade, GRUPO]. O grupo so serve a tabela detalhada, que
+     separa as faixas — sem ele, 32 linhas seguidas viram parede. */
+  const m = SB_FIS_GRUPOS.flatMap(g => g[2].map(l => [l[1], l[0], l[2], l[3], g[0]]));
   SB_FIS_BOLA.forEach(l => {
-    m.push([l[1], l[0] + ', com a bola', l[3], ''], [l[2], l[0] + ', sem a bola', l[3], '']);
+    m.push([l[1], l[0] + ', com a bola', l[3], '', 'Com a bola e sem a bola'],
+           [l[2], l[0] + ', sem a bola', l[3], '', 'Com a bola e sem a bola']);
   });
   return m;
+}
+
+/* ---------- a tabela detalhada: 32 indicadores x 4 posicoes ----------
+
+   A tabela de cima responde "qual e o mais forte de cada posicao". Esta responde a
+   pergunta inversa, que e a que se faz na hora de montar elenco: DESTE indicador, em que
+   posicao ele importa? Sao as mesmas contas — muda so a direcao da leitura.
+
+   A celula traz a relacao com a posicao final. Quem passa do limiar fica acesa; quem nao
+   passa fica apagada e NAO some, porque "medimos e nao separa" e uma resposta, diferente
+   de "nao medimos". Some so o indicador que nao separa em NENHUMA das quatro, senao a
+   tabela vira uma parede de cinza onde o que interessa se perde. */
+function sbFisDetalhe(dados, IND, lim) {
+  const linhas = [];
+  let grupoAtual = null;
+  IND.forEach(([campo, rot, fmt, un, grupo]) => {
+    const rs = dados.map(d => d.rs.find(x => x.campo === d.g + '_' + campo));
+    if (!rs.some(r => r && Math.abs(r.r) >= lim)) return;   /* nao separa em lugar nenhum */
+    if (grupo !== grupoAtual) {
+      grupoAtual = grupo;
+      linhas.push('<tr class="sb-grupo"><td colspan="5">' + esc(grupo) + '</td></tr>');
+    }
+    linhas.push('<tr><td>' + esc(rot) + '</td>' + rs.map(r => {
+      if (!r || !isFinite(r.r)) return '<td class="num-c fraco">—</td>';
+      const forte = Math.abs(r.r) >= lim;
+      return '<td class="num-c' + (forte ? ' sb-forte' : ' fraco') + '">' + sbN2(r.r) + '</td>';
+    }).join('') + '</tr>');
+  });
+  return linhas.join('');
 }
 
 function sbBlocoFisicoPosicao() {
@@ -7482,6 +7514,34 @@ function sbBlocoFisicoPosicao() {
       'Repare que <b>corridas sem bola</b> lidera em ' + obrTop.length + ' de ' +
       dados.length + ': é o atleta atacando o espaço enquanto o time tem a bola, e não o ' +
       'quanto ele corre no total.' : '') + '</p>' +
+
+    '<span class="sb-rot" style="margin-top:10px">Indicador por indicador · a relação de ' +
+      'cada um dentro de cada posição · aceso = passa de ' + sbN2(lim) + '</span>' +
+    '<div class="sb-rolo"><table class="sb-tab sb-tab-det"><thead><tr><th>Indicador</th>' +
+      dados.map(d => '<th class="num-c">' + esc(d.rot) + '</th>').join('') +
+    '</tr></thead><tbody>' + sbFisDetalhe(dados, IND, lim) + '</tbody></table></div>' +
+    /* O achado que so a tabela detalhada deixa ver: o VOLUME de corrida sem bola nao
+       separa, e a QUALIDADE dela separa. Derivado, nao escrito — se um dia o volume passar
+       a separar, a frase desaparece sozinha em vez de virar mentira na tela. */
+    (() => {
+      const q = c => dados.map(d => (d.rs.find(x => x.campo === d.g + '_' + c) || {}).r)
+        .filter(r => isFinite(r));
+      const vol = q('obrQtd'), area = q('obrArea');
+      if (!vol.length || !area.length) return '';
+      const volPassa = vol.filter(r => Math.abs(r) >= lim).length;
+      const areaPassa = area.filter(r => Math.abs(r) >= lim).length;
+      if (areaPassa <= volPassa) return '';
+      return '<p class="sb-nota"><b>E aqui aparece o que a tabela de cima escondia: não é ' +
+        'o quanto se corre sem a bola, é para onde.</b> O <b>volume</b> de corridas sem bola ' +
+        'passa da régua em ' + volPassa + ' das ' + dados.length + ' posições (' +
+        vol.map(r => sbN2(r)).join(', ') + '), mas as <b>que entram na área</b> passam em ' +
+        areaPassa + ' (' + area.map(r => sbN2(r)).join(', ') + '). Correr muito sem a bola não ' +
+        'separa ninguém; correr para o lugar certo, sim.</p>';
+    })() +
+    '<p class="sb-nota">Os indicadores que não separam em <b>nenhuma</b> das quatro ' +
+    'posições ficam de fora desta tabela — sem isso ela vira uma parede de cinza onde o que ' +
+    'interessa se perde. Os que aparecem apagados numa coluna foram medidos ali e <b>não</b> ' +
+    'separaram, que é uma resposta diferente de não ter sido medido (esse aparece como —).</p>' +
 
     '<p class="sb-nota"><b>A régua desta tabela.</b> "Separar" aqui quer dizer relação com a ' +
     'posição final acima de <b>' + sbN2(lim) + '</b>, que é o limiar de 5% para uma amostra ' +

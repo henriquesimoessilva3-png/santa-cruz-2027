@@ -1709,6 +1709,26 @@ lê o `jogadores.json`) e `gerar_raio_serieb.py` (sobe e cai, lê o banco). No s
 entram os pares TIP/OTIP — a tabela `off_ball_runs` só tem Série B de 2026, e 2026 fica
 fora por ser temporada incompleta.
 
+### A tabela detalhada: 32 indicadores × 4 posições
+
+A tabela resumida responde "qual é o mais forte de cada posição". A detalhada responde a
+pergunta inversa, que é a que se faz montando elenco: **deste indicador, em que posição ele
+importa?** Mesmas contas, direção de leitura diferente.
+
+Duas regras de exibição que fazem ela ser lida:
+
+- **Sai da tabela o indicador que não separa em nenhuma das quatro.** Sem isso são 32 linhas
+  e a maioria cinza — o que interessa se perde na parede.
+- **Apagado não é ausente.** Célula apagada quer dizer "medimos aqui e não separa", que é
+  uma resposta; ausente aparece como `—`. Misturar os dois faria falta de dado parecer
+  desempenho ruim.
+
+**O achado que só ela deixa ver:** o *volume* de corridas sem bola não separa (0,21, −0,01,
+0,22, −0,03 — passa em 1 das 4), mas as *que entram na área* passam em **4 de 4** (0,25,
+0,25, 0,30, 0,30). Correr muito sem a bola não separa ninguém; correr para o lugar certo,
+sim. O parágrafo que diz isso na tela também é derivado — se um dia o volume passar a
+separar, ele **desaparece sozinho** em vez de virar mentira.
+
 ### O filtro "cumpre o perfil de quem sobe"
 
 No painel de filtros do Físico. Responde: **este jogador bate, nos indicadores que de fato
