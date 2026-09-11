@@ -937,7 +937,10 @@ body.claro .menu button b{color:var(--coral)}
 .campo.denso .jog{grid-template-columns:1fr auto 16px}
 .campo.denso .jog-sal{grid-row:1/3;grid-column:2}
 
-.menu-jog{max-height:70vh;overflow-y:auto;min-width:186px}
+/* `right:auto` junto com o `left` que o JS calcula: sem isso o `right:0` herdado do
+   .menu deixa o menu esticado de ponta a ponta (media de 1580px numa tela de 1512).
+   Valia para o menu do card desde sempre — so nao doia porque ninguem mediu. */
+.menu-jog{max-height:70vh;overflow-y:auto;min-width:186px;right:auto;width:max-content}
 .menu-jog .menu-sep{
   font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--tinta3);
   font-weight:700;padding:7px 10px 3px;
@@ -950,6 +953,19 @@ body.claro .menu button b{color:var(--coral)}
   border-radius:5px;background:var(--veu2);
 }
 .menu-pos button:hover{background:var(--coral);color:#fff}
+/* Menu do ↗ da aba Fisico: so o cabecalho e a grade das 11 posicoes. A posicao do
+   jogador ganha contorno verde, NAO o " ✓" que o .menu-jog poe nos itens de lista —
+   num botao de 10px com 5 colunas o ✓ empurra a sigla e desalinha a grade inteira.
+   A posicao que ele ja ocupa fica apagada: clicar la so renderia um toast de recusa. */
+/* `right:0` vem do .menu (que nasceu ancorado a um botao do cabecalho). Somado ao
+   `left` que o JS calcula, o menu estica de ponta a ponta da tela — 1350px de largura
+   com 11 botoes de sigla dentro. `right:auto` devolve a largura ao conteudo. */
+.menu-levar{right:auto;width:max-content;min-width:174px}
+.menu-levar .menu-pos{padding:4px 6px 6px}
+.menu-levar .menu-pos button.atual{outline:1px solid var(--verde);font-weight:800}
+.menu-levar .menu-pos button.atual::after{content:none}
+.menu-pos button[disabled]{opacity:.35;cursor:not-allowed}
+.menu-pos button[disabled]:hover{background:var(--veu2);color:inherit}
 
 /* ============ arrastar e soltar ============ */
 .jog{cursor:grab}
@@ -2194,6 +2210,11 @@ body.claro .fs-palco{--ambar:var(--txt-ambar);--verde:var(--txt-verde);--roxo:#7
 .fs-chip .raio{width:11px;height:11px;margin:0}
 .fs-chip-x{font-weight:800;color:var(--tinta3);cursor:pointer;padding:0 3px;border-radius:50%;line-height:1}
 .fs-chip-x:hover{color:#fff;background:var(--coral)}
+/* ↗ leva para o campograma. Verde porque ACRESCENTA, ao lado do x coral que TIRA —
+   duas acoes opostas coladas uma na outra precisam de cor diferente, senao o dedo erra. */
+.fs-chip-levar{font-weight:800;color:var(--tinta3);cursor:pointer;padding:0 3px;border-radius:50%;line-height:1;
+  margin-left:1px}
+.fs-chip-levar:hover{color:#111;background:var(--verde)}
 .fs-chips-dica{font-size:10.5px;color:var(--tinta3);margin-left:6px}
 /* balao unico das tres formas; os pontos com data-pk viram alvo de clique */
 .fs-palco{position:relative}
@@ -2228,6 +2249,7 @@ body.claro .fs-palco{--ambar:var(--txt-ambar);--verde:var(--txt-verde);--roxo:#7
 .fs-foco-placar b{font-family:ui-monospace,Menlo,monospace;font-size:13px}
 .fs-foco-placar .br b{color:#e0466f} .fs-foco-placar .mu b{color:#a855f7}
 .fs-foco-bt{background:var(--coral);color:#fff;border:0;border-radius:5px;padding:4px 10px;font:inherit;font-size:11px;font-weight:700;cursor:pointer}
+.fs-foco-bt.levar{background:var(--verde);color:#0b2416}
 .fs-foco-x{background:none;border:1px solid var(--borda2);color:var(--tinta3);border-radius:4px;width:24px;height:24px;font-size:14px;line-height:1;cursor:pointer}
 .fs-foco-x:hover{color:#fff;background:var(--coral);border-color:var(--coral)}
 .fs-foco-grupos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:10px}

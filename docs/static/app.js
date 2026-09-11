@@ -2874,8 +2874,10 @@ function fsChips(colunas) {
     ? '<span class="fs-chips-rot">Na comparação</span>' + colunas.map(c => {
         const pk = primaryKey(c.j);
         return '<span class="fs-chip" data-pk="' + esc(pk) + '" title="' + esc(c.j.t + ' · ' + c.j.l) +
-          '">' + raioIcone(pk) + esc(c.j.n) + '<b class="fs-chip-x" title="Tirar da comparação">×</b></span>';
-      }).join('') + '<span class="fs-chips-dica">clique num ponto cinza para trazer alguém</span>'
+          '">' + raioIcone(pk) + esc(c.j.n) +
+          '<b class="fs-chip-levar" title="Levar para o campograma — escolha a posição (dele: ' + esc(sig(c.j.p)) + ')">↗</b>' +
+          '<b class="fs-chip-x" title="Tirar da comparação">×</b></span>';
+      }).join('') + '<span class="fs-chips-dica">↗ leva para o campograma · clique num ponto cinza para trazer alguém</span>'
     : '<span class="fs-chips-dica">Ninguém na comparação — clique num ponto cinza ou use "Adicionar jogador".</span>';
   el.querySelectorAll('.fs-chip-x').forEach(x => {
     x.onclick = e => {
@@ -2883,6 +2885,9 @@ function fsChips(colunas) {
       const congelou = fsTirar(x.parentElement.dataset.pk);
       if (congelou) toast('Comparação fixada nos que estavam na tela — agora tirar não chama o próximo da fila');
     };
+  });
+  el.querySelectorAll('.fs-chip-levar').forEach(b => {
+    b.onclick = e => { e.stopPropagation(); fsMenuLevar(b, b.parentElement.dataset.pk); };
   });
 }
 
@@ -2953,11 +2958,13 @@ function fsFocoRender() {
       '<span class="fs-foco-placar"><em class="br" title="indicadores acima da referência do Brasil">Brasil <b>' + nBR + '</b>/' + nTot + '</em>' +
       '<em class="mu" title="indicadores acima da referência do mundo">mundo <b>' + nMU + '</b>/' + nTot + '</em></span>' +
       (naComp ? '' : '<button class="fs-foco-bt" id="fsFocoAdd">+ comparar</button>') +
+      '<button class="fs-foco-bt levar" id="fsFocoLevar" title="Levar para o campograma — escolha a posição">↗ campograma</button>' +
       '<button class="fs-foco-x" id="fsFocoX" title="Fechar">×</button></div>' +
     '<div class="fs-foco-grupos">' + grupos + '</div>';
   el.hidden = false;
   $('#fsFocoX').onclick = () => fsFocar(null);
   const add = $('#fsFocoAdd'); if (add) add.onclick = () => fsAdicionar(j.pk);
+  $('#fsFocoLevar').onclick = e => fsMenuLevar(e.currentTarget, j.pk);
 }
 
 /* Balao e clique, iguais nas tres formas. Os renderizadores marcam cada jogador com
@@ -3338,7 +3345,7 @@ function fsCabecalho(c) {
       tag + '</div>' +
     '<div class="fs-hd-bts">' +
       '<button class="fs-ficha" title="Ver a ficha">+</button>' +
-      '<button class="fs-levar" title="Levar para o campograma (' + esc(sig(j.p)) + ')">↗</button>' +
+      '<button class="fs-levar" title="Levar para o campograma — escolha a posição (dele: ' + esc(sig(j.p)) + ')">↗</button>' +
       '<button class="fs-x" title="Tirar da comparação">×</button>' +
     '</div></th>';
 }
@@ -3711,12 +3718,7 @@ function fsRender() {
   $$('#fsMatriz th.fs-col').forEach(th => {
     const id = parseInt(th.dataset.id), pk = th.dataset.pk;
     th.querySelector('.fs-ficha').onclick = () => { abrirFicha(id); irParaAba('campo'); };
-    th.querySelector('.fs-levar').onclick = () => {
-      const j = BASE.find(x => x.id === id);
-      if (!j) return;
-      posAtual = j.p;
-      adicionarDaBase(id);
-    };
+    th.querySelector('.fs-levar').onclick = e => fsMenuLevar(e.currentTarget, pk);
     th.querySelector('.fs-x').onclick = () => {
       const congelou = fsTirar(pk);
       if (congelou) toast('Comparação fixada nos que estavam na tela — ' +
@@ -3886,6 +3888,70 @@ function fsAdicionar(pk) {
   if (!fsExtras.includes(pk)) fsExtras.push(pk);
   fsOcultos.delete(pk);
   fsRender();
+}
+
+/* Levar para o campograma — o MESMO gesto em tres lugares: o ↗ do cabecalho da matriz,
+   o ↗ de cada chip da comparacao e o do painel de foco. Estava so no cabecalho da
+   matriz, que Mapa, Reguas e Tiras escondem: nessas tres formas nao havia como subir
+   alguem sem voltar para a matriz. Casa por CHAVE, nao por nome — homonimo na mesma
+   posicao subiria o jogador errado, que e o jeito mais silencioso de errar.
+   A posicao entra pela do jogador na base (as 11 da base sao as 11 do campograma) e o
+   adicionarDaBase() e quem recusa repetido e avisa. */
+function fsBasePorPk(pk) {
+  /* fsMapaPk so tem os ~9 mil COM tracking; a matriz antes procurava na BASE inteira.
+     Quem aparece nesta aba esta sempre no mapa, mas a varredura na base fica de rede
+     para nao estreitar o que ja funcionava. */
+  return pk ? ((fsMapaPk && fsMapaPk.get(pk)) || BASE.find(x => primaryKey(x) === pk)) : null;
+}
+
+/* Leva DIRETO para uma posicao escolhida. `cod` vazio = a posicao do jogador na base. */
+function fsLevar(pk, cod) {
+  const j = fsBasePorPk(pk);
+  if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
+  posAtual = cod || j.p;
+  adicionarDaBase(j.id);
+}
+
+/* Menu de posicao, aberto pelo ↗. Antes o ↗ jogava direto na posicao que o jogador tem
+   na base — e um CF que voce quer experimentar de EE ia para o lugar errado e so dava
+   para arrumar depois, no menu do card. Aqui a escolha e na hora: a posicao dele vem
+   marcada com ✓, e cada uma das outras dez diz quantas vagas ja estao tomadas. Mesmo
+   desenho do "Mover para" do card, para nao inventar um segundo jeito de fazer a
+   mesma coisa. */
+function fsMenuLevar(botao, pk) {
+  const j = fsBasePorPk(pk);
+  if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
+  $$('.menu-jog').forEach(m => m.remove());
+  const pkJ = primaryKey(j);
+  const jaEsta = c => (estado.elenco[c] || []).some(x => (x.pk ? x.pk === pkJ : x.jid === j.id));
+  const m = document.createElement('div');
+  m.className = 'menu menu-jog menu-levar aberto';
+  m.innerHTML =
+    '<div class="menu-sep">Levar ' + esc(j.n) + ' para</div>' +
+    '<div class="menu-pos">' + POSICOES.map(p => {
+      /* quantos JA estao na posicao, nao "n de m vagas": o alvo por posicao costuma
+         estar vazio (cai no padrao 3) e num grupo de 118 sairia "19 de 3 vagas". */
+      const n = (estado.elenco[p.c] || []).length, tem = jaEsta(p.c);
+      return '<button data-p="' + p.c + '"' +
+        (p.c === j.p ? ' class="atual"' : '') + (tem ? ' disabled' : '') +
+        ' title="' + esc(p.nome + ' · ' + n + ' no campograma' +
+          (p.c === j.p ? ' · é a posição dele' : '') + (tem ? ' · ele já está aqui' : '')) + '">' +
+        p.sig + '</button>';
+    }).join('') + '</div>';
+  document.body.appendChild(m);
+  const r = botao.getBoundingClientRect();
+  m.style.position = 'fixed';
+  m.style.top = Math.min(window.innerHeight - m.offsetHeight - 8, r.bottom + 4) + 'px';
+  m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.left - 60)) + 'px';
+  m.onclick = e => {
+    const bt = e.target.closest('button[data-p]');
+    if (!bt || bt.disabled) return;
+    m.remove();
+    fsLevar(pk, bt.dataset.p);
+  };
+  setTimeout(() => document.addEventListener('click', function fecha() {
+    m.remove(); document.removeEventListener('click', fecha);
+  }, { once: true }), 0);
 }
 /* jogadores do campograma que tem tracking, a posicao escolhida primeiro */
 function fsMontarElenco() {
