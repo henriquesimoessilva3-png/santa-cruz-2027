@@ -1265,23 +1265,57 @@ solto no meio do texto para esquecer de atualizar.
 A transcrição foi conferida antes de entrar: nos 100 clubes, V+E+D fecha com os jogos e
 3V+E fecha com os pontos.
 
-**O que os números dizem:**
+### A regra mudou em 2026 — e a primeira versão desta aba estava errada
 
-- A linha do acesso é **estável**: 62, 64, 64, 62 — média 63, ou 55% dos pontos.
-- A folga entre subir e ficar é **1,5 ponto**: 4, 1, 0 e 1. Em 2024 o Ceará e o
-  Novorizontino terminaram com 64 e o acesso saiu no desempate por vitórias (19 a 18).
-- **Vitória correlaciona +0,98 com pontos; empate, −0,24.** O Novorizontino é o caso vivo:
-  empatou mais que todo mundo em 2024 e 2025 e não subiu em nenhum.
+A aba nasceu ensinando o G4. **Em 2026 não há G4.** Sobem direto o 1º e o 2º; do 3º ao 6º
+entram num playoff de ida e volta (21 e 28 de novembro de 2026), com o time melhor
+colocado jogando a volta em casa e avançando no empate do placar agregado — **não há
+pênaltis**. Ou seja, são duas linhas em vez de uma, e a de baixo é bem mais barata:
+
+- **Subir direto (2º):** 65, 65, 67, 65 nos quatro anos completos — média **66**.
+- **Entrar no playoff (6º):** 57, 63, 63, 61 — média **61**.
+- A distância entre as duas é de **4,5 pontos**, cerca de um jogo e meio.
+
+O histórico de 2022-2025 foi jogado sob a regra velha, então ele **não** diz quem teria
+subido pelo playoff. O que ele diz, e é o que a aba usa, é quantos pontos custava chegar
+em 2º e em 6º. Isso vale, porque a classificação não mudou — só o que acontece depois.
+
+### O que os números dizem
+
+- **Empatar é o jeito mais caro de não perder.** Dos 20 clubes que menos empataram nos
+  quatro anos, **8 subiram**; dos 20 que mais empataram, **2**. É a mesma coisa que a
+  correlação dizia, contada em clubes em vez de em coeficiente — a versão anterior mostrava
+  uma régua de correlações e o próprio pedido foi "isso ficou confuso, não entendi".
 - Nenhum dos 16 que subiram perdeu mais de **12** jogos em 38.
-- **A defesa não separa**: 33,3 gols sofridos por quem sobe contra 33,8 por quem fica em
-  5º-8º. A separação inteira está no ataque, 50,1 contra 45,5.
+- **Ataque e defesa não pesam igual em cima e embaixo.** Em cima empatam: o melhor ataque
+  subiu 3 vezes em 4, a melhor defesa também 3 em 4. Embaixo, não: o pior ataque caiu 3 em
+  4, a **pior defesa caiu 4 em 4**. E nenhum clube foi rebaixado tendo defesa entre as dez
+  melhores. Nos postos médios dentro de cada temporada (1 = melhor da liga): quem sobe é
+  **4,1º de ataque e 5,4º de defesa**; quem cai é **16,1º e 16,9º**.
+- **Utilização de atletas não explica nada** — e isso está dito na tela. Nos dez primeiros
+  de 2026 até a 25ª rodada, a correlação entre pontos e total de atletas usados é **+0,15**,
+  e entre pontos e tamanho do núcleo (quem passou de 300 min), **−0,16**. A ressalva é do
+  tamanho da amostra: são só os dez primeiros, sem os dez de baixo, então a faixa de
+  resultados é estreita por construção e uma relação real poderia não aparecer.
 
-**Decisões de desenho que valem registro.** A cor carrega o dado (subiu / não subiu), e
-verde-vermelho é justamente o par que some no daltonismo mais comum — ficou **azul e
-laranja**, validados nos dois temas, e os dois pontos vêm rotulados, então a cor nunca é a
-única pista. A régua das correlações tem o **zero no meio**: é o que mostra que empate anda
-para o lado contrário de todo o resto. E a escala do gráfico começa em 54, não no mínimo
-dos dados, porque o rótulo do 5º é escrito à esquerda do ponto e encostava no ano.
+### Decisões de desenho que valem registro
 
-Versão para circular, com o mesmo conteúdo:
+A cor carrega o dado (subiu / playoff / resto), e verde-vermelho é justamente o par que
+some no daltonismo mais comum — ficou **azul e laranja**, validados nos dois temas, e os
+pontos vêm rotulados, então a cor nunca é a única pista. O gráfico da faixa que decide
+desenha uma **barra do 6º ao 2º** em cada ano, em vez de um ponto só: é a forma de a regra
+nova aparecer no desenho, não só no texto. A escala começa em 54, não no mínimo dos dados,
+porque o rótulo do 6º é escrito à esquerda da barra e encostava no ano. O ano parcial
+(2026) sai com opacidade menor e um asterisco, e fica fora de todas as médias
+(`SB_COMPLETAS`).
+
+**Armadilha que custou tempo:** ao reescrever o `sbRender` por script, o `b.onclick` dos
+botões de ano foi perdido no meio da emenda e a tela entrou em recursão infinita
+(`Maximum call stack size exceeded`). O handler é uma linha só —
+`b.onclick = () => { sbAno = +b.dataset.ano; sbRender(); };` — e é fácil de não notar
+sumindo. Emendar arquivo grande por script pede conferir o resultado no navegador, não só
+o Python rodar sem erro.
+
+Versão para circular (ESTÁ DESATUALIZADA — foi escrita sob a regra velha do G4 e com a
+régua de correlações que confundiu):
 https://claude.ai/code/artifact/a2472cc1-565c-49cf-a7a8-8a615ffa6046
