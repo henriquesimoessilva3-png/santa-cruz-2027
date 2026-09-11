@@ -2286,7 +2286,8 @@ FC_COLUNAS.push(
       return f ? '<span title="TransferRoom: ' + esc(f.txt) + '/ano">' + brl(f.min, true) +
                  '<span class="fc-ast">*</span></span>'
                : '<span class="fc-vazia">–</span>'; } },
-  { c: '_', r: '', w: 11, cel: j => '<button class="fc-add">levar p/ ' + sig(j.p) + '</button>' +
+  { c: '_', r: '', w: 11, cel: j => '<button class="fc-add" title="Escolher a posição — a dele é ' +
+      esc(sig(j.p)) + '">levar p/ ' + sig(j.p) + ' ▾</button>' +
       '<button class="ver-ficha" title="Ver detalhe">+</button>' },
 );
 
@@ -2613,19 +2614,23 @@ function fcRender() {
   $('#fcContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com contrato ' +
     'até ' + (mesAno($('#fcAte').value + '-01') || '—') +
     (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
-    ' · clique na linha para levar ao campograma';
+    ' · clique na linha para levar ao campograma, escolhendo a posição';
 
   $$('#fcTbody tr').forEach(tr => {
     const id = parseInt(tr.dataset.id);
-    const levar = () => {
+    /* Mesmo menu da aba Fisico: a posicao do jogador vem marcada, mas da para mandar
+       para outra sem ter que mover o card depois. Ancorado no que foi clicado — a
+       linha inteira ou o botao. `fcRender` depois, para a linha ganhar a marca de
+       "ja esta no elenco". */
+    const levar = (e, ancora) => {
       const j = BASE.find(x => x.id === id);
       if (!j) return;
-      posAtual = j.p;
-      adicionarDaBase(id);
-      fcRender();
+      menuLevar(e, primaryKey(j), fcRender, ancora);
     };
-    tr.onclick = levar;
-    tr.querySelector('.fc-add').onclick = e => { e.stopPropagation(); levar(); };
+    /* a linha inteira abre o menu, ancorado na celula clicada (fica perto do ponteiro,
+       em vez de na ponta esquerda de uma linha que ocupa a tela toda) */
+    tr.onclick = e => levar(e, e.target.closest('td') || tr);
+    tr.querySelector('.fc-add').onclick = e => levar(e);
     tr.querySelector('.ver-ficha').onclick = e => { e.stopPropagation(); abrirFicha(id); irParaAba('campo'); };
   });
 }
@@ -2887,7 +2892,7 @@ function fsChips(colunas) {
     };
   });
   el.querySelectorAll('.fs-chip-levar').forEach(b => {
-    b.onclick = e => { e.stopPropagation(); fsMenuLevar(b, b.parentElement.dataset.pk); };
+    b.onclick = e => menuLevar(e, b.parentElement.dataset.pk);
   });
 }
 
@@ -2964,7 +2969,7 @@ function fsFocoRender() {
   el.hidden = false;
   $('#fsFocoX').onclick = () => fsFocar(null);
   const add = $('#fsFocoAdd'); if (add) add.onclick = () => fsAdicionar(j.pk);
-  $('#fsFocoLevar').onclick = e => fsMenuLevar(e.currentTarget, j.pk);
+  $('#fsFocoLevar').onclick = e => menuLevar(e, j.pk);
 }
 
 /* Balao e clique, iguais nas tres formas. Os renderizadores marcam cada jogador com
@@ -3718,7 +3723,7 @@ function fsRender() {
   $$('#fsMatriz th.fs-col').forEach(th => {
     const id = parseInt(th.dataset.id), pk = th.dataset.pk;
     th.querySelector('.fs-ficha').onclick = () => { abrirFicha(id); irParaAba('campo'); };
-    th.querySelector('.fs-levar').onclick = e => fsMenuLevar(e.currentTarget, pk);
+    th.querySelector('.fs-levar').onclick = e => menuLevar(e, pk);
     th.querySelector('.fs-x').onclick = () => {
       const congelou = fsTirar(pk);
       if (congelou) toast('Comparação fixada nos que estavam na tela — ' +
@@ -3897,16 +3902,20 @@ function fsAdicionar(pk) {
    posicao subiria o jogador errado, que e o jeito mais silencioso de errar.
    A posicao entra pela do jogador na base (as 11 da base sao as 11 do campograma) e o
    adicionarDaBase() e quem recusa repetido e avisa. */
-function fsBasePorPk(pk) {
-  /* fsMapaPk so tem os ~9 mil COM tracking; a matriz antes procurava na BASE inteira.
-     Quem aparece nesta aba esta sempre no mapa, mas a varredura na base fica de rede
-     para nao estreitar o que ja funcionava. */
+/* ---------------- levar ao campograma, de qualquer aba ----------------
+   Servem a aba Fisico (chip, cabecalho da matriz, painel de foco) E a Fim de contrato
+   (a linha e o botao "levar p/"). Nao sao mais "fs": o prefixo errado e o comeco de
+   alguem duplicar a funcao na outra aba. */
+function basePorPk(pk) {
+  /* fsMapaPk so tem os ~9 mil COM tracking, e a Fim de contrato lista a base inteira
+     (contrato nao depende de tracking): a varredura na BASE nao e enfeite, e o unico
+     caminho para a maioria dos jogadores daquela aba. */
   return pk ? ((fsMapaPk && fsMapaPk.get(pk)) || BASE.find(x => primaryKey(x) === pk)) : null;
 }
 
 /* Leva DIRETO para uma posicao escolhida. `cod` vazio = a posicao do jogador na base. */
-function fsLevar(pk, cod) {
-  const j = fsBasePorPk(pk);
+function levarAoCampograma(pk, cod) {
+  const j = basePorPk(pk);
   if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
   posAtual = cod || j.p;
   adicionarDaBase(j.id);
@@ -3918,8 +3927,15 @@ function fsLevar(pk, cod) {
    marcada com ✓, e cada uma das outras dez diz quantas vagas ja estao tomadas. Mesmo
    desenho do "Mover para" do card, para nao inventar um segundo jeito de fazer a
    mesma coisa. */
-function fsMenuLevar(botao, pk) {
-  const j = fsBasePorPk(pk);
+function menuLevar(ev, pk, depois, ancora) {
+  /* Recebe o EVENTO, nao o botao, de proposito: existe um fechador global de menus no
+     clique do documento (linha `$$('.menu').forEach(m => m.classList.remove('aberto'))`).
+     Quem abrisse sem barrar a propagacao veria o proprio clique apagar o `aberto` do
+     menu recem-criado — ele nasce montado, com os 11 botoes, e INVISIVEL. Ja aconteceu
+     em tres dos quatro pontos de entrada; barrar aqui dentro e o que impede o quarto. */
+  if (ev && ev.stopPropagation) ev.stopPropagation();
+  const botao = ancora || (ev && ev.currentTarget) || document.body;
+  const j = basePorPk(pk);
   if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
   $$('.menu-jog').forEach(m => m.remove());
   const pkJ = primaryKey(j);
@@ -3947,7 +3963,8 @@ function fsMenuLevar(botao, pk) {
     const bt = e.target.closest('button[data-p]');
     if (!bt || bt.disabled) return;
     m.remove();
-    fsLevar(pk, bt.dataset.p);
+    levarAoCampograma(pk, bt.dataset.p);
+    if (depois) depois();
   };
   setTimeout(() => document.addEventListener('click', function fecha() {
     m.remove(); document.removeEventListener('click', fecha);

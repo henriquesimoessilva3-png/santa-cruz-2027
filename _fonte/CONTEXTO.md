@@ -751,3 +751,22 @@ o mapa da aba só tem os ~9 mil com tracking.
 Regressão: 4 posições × 2 formas, menu abrindo com a posição certa marcada nas oito,
 zero erro de console; tema claro conferido; e levar um AM para LW pôs o jogador em LW
 com `posOrig` MEI, com a segunda tentativa recusada.
+
+**O mesmo menu na aba Fim de contrato (set/26).** Ali a linha já levava ao campograma,
+mas sempre na posição da base. Agora a linha **e** o botão (`levar p/ RCB ▾`) abrem a
+mesma grade, ancorada na célula clicada, com `fcRender` depois para a linha ganhar a
+marca de "já está no elenco". As três funções perderam o prefixo `fs` — `basePorPk`,
+`levarAoCampograma`, `menuLevar` — porque servem duas abas, e prefixo errado é o começo
+de alguém duplicar a função na outra aba. A varredura na BASE deixou de ser rede e
+virou o caminho principal: a Fim de contrato lista a base inteira, e o mapa da aba
+Físico só tem os ~9 mil com tracking.
+
+**O defeito que quase passou, e como quase passou.** Existe um fechador global de menus
+no clique do documento (`$$('.menu').forEach(m => m.classList.remove('aberto'))`). Quem
+abre um menu sem barrar a propagação vê o **próprio clique** apagar o `aberto` do menu
+recém-criado: ele nasce montado, com os onze botões, e **invisível**. Três dos quatro
+pontos de entrada tinham isso — só o chip barrava, por acaso. E o primeiro teste não
+pegou porque perguntava `!!menu`, que dá verdadeiro para um elemento `display:none`:
+**existir não é aparecer**. O `menuLevar` passou a receber o EVENTO em vez do botão e
+barra a propagação ele mesmo, que é o que impede o quarto ponto de entrada de repetir
+o erro. Daí em diante a regressão passou a medir `display` e largura, não existência.
