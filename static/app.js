@@ -6752,12 +6752,16 @@ function sbBlocoQuadro() {
 function sbBlocoRetrato() {
   const G = [
     ['Resultado', [['Pontos', 'pts', sbN0], ['Gols marcados', 'gp', sbN0], ['Gols sofridos', 'gc', sbN0],
+      ['Saldo de xG por jogo', 'xgSaldo', x => (x >= 0 ? '+' : '−') + sbN2(Math.abs(x))],
       ['Pontos em casa (19 jogos)', 'ptsCasa', sbN0], ['Pontos fora (19 jogos)', 'ptsFora', sbN0]]],
     ['Ataque', [['Remates por jogo', 'rem', sbN1], ['Remates à baliza', 'remBal', x => sbN1(x) + '%'],
+      ['xG criado por jogo', 'xg', sbN2], ['xG por remate (qualidade da chance)', 'xgRem', x => x.toFixed(3).replace('.', ',')],
       ['Distância média do remate', 'dist', x => sbN1(x) + ' m'], ['Jogos sem marcar', 'branco', sbN0],
       ['Vitórias por 3+ de diferença', 'goleadaPro', sbN1]]],
     ['Defesa', [['Clean sheets', 'cs', sbN0], ['Remates sofridos por jogo', 'remCon', sbN1],
-      ['xG sofrido por jogo', 'xgCon', sbN2], ['PPDA (menor = pressão mais alta)', 'ppda', sbN1],
+      ['xG sofrido por jogo (xGA)', 'xgCon', sbN2],
+      ['xG por remate sofrido', 'xgRemCon', x => x.toFixed(3).replace('.', ',')],
+      ['PPDA (menor = pressão mais alta)', 'ppda', sbN1],
       ['Derrotas por 3+ de diferença', 'goleadaCon', sbN1]]],
     ['Bola parada', [['Bolas paradas por jogo', 'bp', sbN1], ['… que viram remate', 'bpConv', x => sbN1(x) + '%'],
       ['Escanteios por jogo', 'cantos', sbN1], ['Gols de cabeça na temporada', 'cabeca', sbN1],
@@ -6779,6 +6783,12 @@ function sbBlocoRetrato() {
     '<span class="sb-rot">O retrato de quem sobe · média dos 16, em 38 jogos</span>' +
     '<div class="sb-rolo"><table class="sb-tab"><thead><tr><th></th><th>Sobe</th><th>Cai</th></tr></thead>' +
     '<tbody>' + linhas + '</tbody></table></div>' +
+    '<p class="sb-nota"><b>Repare no xG ao lado do gol.</b> Quem sobe cria ' +
+    sbN2(sbPorFaixa('xg').sobe) + ' de xG por jogo e faz ' + sbN2(sbPorFaixa('gpJogo').sobe) +
+    ' gol; quem cai cria ' + sbN2(sbPorFaixa('xg').cai) + ' e faz ' + sbN2(sbPorFaixa('gpJogo').cai) +
+    '. A distância entre as duas colunas de xG é muito menor que a entre as de gol — é a mesma coisa que ' +
+    'o gráfico da cadeia mostra, aqui em número absoluto. O xG do Wyscout supera o gol real da Série B em ' +
+    '9% a 14% todo ano, então <b>compare as colunas entre si</b>, não o xG com o gol.</p>' +
     '<p class="sb-nota">Referência do que a Série B vem exigindo, não promessa. E lembrando que a régua ' +
     'mudou: este retrato é do grupo que passava pelo G4. Na regra de 2026 a linha do 2º é mais alta e a ' +
     'do 6º é mais baixa.</p></div>';
