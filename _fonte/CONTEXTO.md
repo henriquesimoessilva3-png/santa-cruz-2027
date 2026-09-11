@@ -1539,3 +1539,93 @@ intensidade separa, e isso vale dentro de cada posição.
 
 A exceção é o **MEI**, a menor amostra (17 e 14): ali quem cai aparece à frente em alguns
 indicadores. Com essa amostra, não é achado.
+
+## O estudo da Série B — mapa de tudo (set/26)
+
+Esta seção existe para quem abrir o projeto sem ter visto nada do que veio antes. As
+seções acima contam **por que** cada peça é como é; esta conta **o que existe e em que
+ordem roda**.
+
+### A ordem importa
+
+```
+1. coletar_serieb_transfermarkt.py   → dados/serieb_elencos.{json,csv,xlsx}
+2. preparar_serieb_tecnico.py        → dados/serieb_tecnico.{csv,xlsx}     (lê _fonte/serie_b_tecnico/)
+3. preparar_serieb_jogos.py          → dados/serieb_jogos.{csv,xlsx}       (lê _fonte/serie_b_jogos/)
+4. analisar_serieb.py --csv          → dados/serieb_clube_temporada.csv    (cruza os três + SkillCorner)
+5. gerar_sb_clubes.py                → static/sb_clubes.js                 (importa o base() do passo 4)
+6. _fonte/gerar_raio_ref.py          → dados/raio_ref.json                 (refs Brasil e Mundo)
+7. gerar_raio_serieb.py              → ACRESCENTA sobe/cai ao raio_ref.json
+8. publicar_site.py                  → docs/
+```
+
+**O 7 depois do 6, sempre.** O `gerar_raio_serieb.py` acrescenta, não gera; na ordem
+inversa apaga as refs de Brasil e Mundo.
+
+Os passos 2 e 3 leem a `SB_TABELAS` do `static/app.js` para descobrir de que ano é cada
+planilha. Se as tabelas forem corrigidas lá, refazer do passo 2 em diante.
+
+Fora dessa cadeia, e sem dependentes: `coletar_serieb_lesoes.py` → `dados/serieb_lesoes.csv`.
+
+### O que cada base sabe
+
+| Base | Linhas | Responde |
+|---|---|---|
+| `serieb_elencos` (Transfermarkt) | 5.098 atleta-temporada | quem estava no clube, quanto valia |
+| `serieb_tecnico` (Wyscout, por atleta) | 3.866 jogador-temporada | o que cada um fez em campo |
+| `serieb_jogos` (Wyscout, por clube) | 9.318 linhas, 3.570 de Série B | como o time jogou, partida a partida |
+| `skillcorner.db` (fora do repo) | 100 clube-temporada | o físico |
+| `serieb_clube_temporada.csv` | 100 × 136 colunas | **as quatro anteriores cruzadas** |
+| `static/sb_clubes.js` | 100 × 83 campos, 66 KB | o recorte que a aba carrega |
+
+As três primeiras cobrem **100 de 100 clube-temporada** de 2022 a 2026.
+
+### A aba, por dentro
+
+`sbRender()` monta dez seções (`SB_SECOES`), com índice grudento no topo montado da mesma
+lista. Os blocos são funções `sbBloco*()` independentes — acrescentar um é escrever a
+função e pôr o nome dentro da `sbSecao()` certa.
+
+O princípio que rege tudo: **o dado é a fonte, o texto é consequência.** Nenhuma média,
+correlação ou percentual da tela vem pronto do `sb_clubes.js` — ele traz só o que foi
+medido. Corrigir uma partida numa base e rodar a cadeia corrige a tela inteira.
+
+### Armadilhas pagas nesta etapa (as anteriores estão nas seções acima)
+
+- **`.sb` é o container da aba Série B.** Um `<i class="cq sb">` de 8px no painel de
+  filtros da aba Físico herdou `max-width:1020px; display:flex; padding:22px 4px 60px` e
+  virou uma barra de 82px. Classe de duas letras em folha global pega quem passar perto.
+- **`.rk-campo-f>label` é `display:block` e ganha do `.chk{display:flex}`** (0,2,1 contra
+  0,1,0). Flex aninhado ali dentro não se comporta como flex.
+- **Âncora de parser some.** Três scripts liam a `SB_TABELAS` até `const SB_USO`; quando a
+  `SB_USO` saiu do app.js, os três quebraram juntos. Hoje a âncora é `SB_COMPLETAS`.
+- **Empate em posto tem de virar média**, como o `rank()` do pandas faz. Numerar 1,2,3 por
+  ordem de chegada mete o desempate na correlação: dava 0,79 onde o Python dava 0,77.
+- **`valor` e `valTot` são duas contas do mesmo elenco** — Transfermarkt (€ 27,3 mi na
+  média de quem sobe) e soma dos setores do Wyscout (€ 17,3 mi, só quem entrou em campo).
+  `valTot` serve só para as **fatias** por setor.
+- **Relação e explicação são réguas diferentes**, e uma é a outra ao quadrado: 0,54 de
+  relação = 0,29 de explicação. Dois gráficos lado a lado com a mesma cara e escalas
+  diferentes confundem — está escrito na tela.
+- **Euro e porcentagem não são a mesma medida.** "€ parados no ataque" dá +0,29 e "% do
+  orçamento no ataque" dá −0,29: a primeira anda a 0,53 com o valor total (é só "clube rico
+  tem atacante caro"), a segunda a −0,28 (é o clube pobre que concentra no ataque). Os
+  rótulos passaram a dizer a unidade.
+- **Casar SkillCorner com Wyscout por nome sozinho é o erro conhecido da casa.** A guarda de
+  idade (2 anos abaixo, 3 acima) leva a conferência de 98,0% para 98,2% e corta uma classe
+  inteira de homônimo.
+
+### Pendências
+
+- **Coleta de lesões rodando** (`coletar_serieb_lesoes.py`), 2.850 atletas, ~2,5 h. Ao
+  terminar: rodar `python3 coletar_serieb_lesoes.py --reparsar` para reler o HTML em cache
+  com o leitor corrigido, e então cruzar com quem subiu e quem caiu — por setor, que é onde
+  deve ficar interessante, já que defesa e ataque são onde quem cai mais rodou gente.
+- **`peak_velocity` e `peak_velocity_top3` têm 0% de cobertura na Série B de 2022 a 2024**
+  neste banco. São as melhores medidas de velocidade máxima e ficam de fora por isso. O
+  `Portal Skillcorner/backfill_peak_velocity.py` é quem fecharia esse buraco.
+- **Gol de bola parada não existe em nenhuma base.** O que há é o teto "gol de cabeça +
+  pênalti". A exportação de **eventos por tipo de jogada** do Wyscout resolveria.
+- A versão para circular (https://claude.ai/code/artifact/ea51c41a-489e-4abf-b394-e39118368d95)
+  cobre até a análise ofensiva/defensiva, idade e bola parada. **Não tem** o painel físico
+  completo, as seções novas nem o bloco de relação entre indicadores.
