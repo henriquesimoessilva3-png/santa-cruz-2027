@@ -1319,3 +1319,86 @@ o Python rodar sem erro.
 Versão para circular (ESTÁ DESATUALIZADA — foi escrita sob a regra velha do G4 e com a
 régua de correlações que confundiu):
 https://claude.ai/code/artifact/a2472cc1-565c-49cf-a7a8-8a615ffa6046
+
+## Bases da Série B 2022-2026 — elencos e dados técnicos (set/26)
+
+Duas coletas independentes, para duas perguntas diferentes. **Elenco** é quem estava no
+clube; **técnico** é o que cada um fez em campo. Vieram de fontes distintas e têm
+armadilhas distintas.
+
+### Elencos, do Transfermarkt — `coletar_serieb_transfermarkt.py`
+
+5.098 atletas-temporada, os 100 clube-temporada das tabelas, com data de nascimento,
+altura, pé, clube anterior, contrato e valor de mercado.
+
+**Por que NÃO reaproveitamos a base do `Portal Transfermarkt` (:5062).** Ela tem 80 mil
+jogadores e cobre a Série B, mas nasceu da lista "os jogadores mais valiosos do mundo",
+fatiada por confederação × posição × ano de nascimento. Duas consequências que a
+inviabilizam: é um **retrato só**, do dia da coleta, sem coluna de temporada; e **não é
+elenco, é ranking** — na Série B ela tem 490 jogadores em 20 clubes, com a Ponte Preta
+aparecendo com 13 e o Náutico com 17. Quem ficou abaixo do corte de valor da fatia não
+entrou.
+
+**`saison_id = ano − 1`.** O `saison_id` do Transfermarkt é o ano de início da temporada
+europeia; no Brasil, de ano civil, isso desloca tudo em um ano. Conferido de dois jeitos
+antes da coleta: pelo `<title>` da página (`saison_id=2021` → "Série B 2022") e pelos 20
+clubes, que batem com `SB_TABELAS`. O script grava o título em `_titulo` e **para** se ele
+não falar do ano esperado.
+
+**As colunas MUDAM entre a temporada corrente e as passadas.** A página antiga tem uma
+coluna "Clube atual" que entra ANTES da altura, e não tem "Contrato". A primeira versão
+lia por índice fixo e o estrago passou despercebido porque nada quebrou: a altura ia para
+o campo do pé, o pé ia para "no clube desde", e os três saíam preenchidos com a coisa
+errada. Agora a leitura é pelo **cabeçalho**. Lição: coluna fora de lugar não dá erro, dá
+número plausível.
+
+**A idade impressa é de outro ano.** Na página de temporada passada, a idade é a de 1º de
+janeiro do `saison_id` — um ano inteiro antes da temporada brasileira. Brenno, nascido em
+01/04/1999, aparece com 21 na página do Grêmio de 2022 (tinha 23). Conferido em dez
+jogadores da mesma página. Por isso `idade` é calculada da data de nascimento, em 1º de
+julho do ano; a do site fica em `idade_site` só para conferência.
+
+O HTML cru fica em `dados/_serieb_html/` (fora do git). Consertar a leitura da tabela não
+pode custar outra volta de 7 minutos no Transfermarkt — que foi o que a primeira versão
+custou.
+
+### Dados técnicos, do Wyscout — `preparar_serieb_tecnico.py`
+
+3.866 jogador-temporada, 118 colunas, de dez exportações (duas por ano, porque a
+exportação do Wyscout para em 500 linhas).
+
+**O ano sai dos clubes.** As planilhas não dizem a que temporada pertencem. O script
+compara os 20 clubes de cada arquivo com `SB_TABELAS` e só aceita 20 de 20 — as dez
+bateram cheio, e o segundo palpite de cada uma ficou em 12 de 20. Se um dia bater 19, ele
+para.
+
+**Não sobrou buraco no meio.** Um arquivo é dos que mais jogaram para baixo, o outro dos
+que menos jogaram para cima. Se as duas faixas de minutos não se tocassem, gente do meio
+da tabela teria ficado de fora sem sintoma nenhum. O script confere em `cobertura()`: nos
+cinco anos elas se sobrepõem.
+
+**Três defeitos do material, tratados e escritos:**
+
+- **`Idade` é a idade de HOJE.** Os dez arquivos saíram no mesmo dia, então Adriano
+  Martins aparece com 29 anos nas linhas de 2023, 2025 e 2026. Usar isso como idade de
+  época envelhece o elenco de 2022 em quatro anos. Entra `idade_na_temporada`, aproximada
+  em ±1 — dá média de 26,4 a 27,0 por temporada, que é o número plausível.
+- **Zero quer dizer "sem dado"** em Altura, Peso e Valor de mercado — e são **1.778
+  valores de mercado zerados, 46% da base**. Uma média calculada sem tratar isso sai pela
+  metade. Viram vazio.
+- **`Emprestado` vem 'sim' em 100% das linhas.** Fica na base, marcada como inutilizável.
+
+**Repetida é linha INTEIRA, não ano+jogador+clube.** Em 24 casos o mesmo nome aparece
+duas vezes no mesmo clube e ano sendo gente diferente — dois Bruno Silva no Novorizontino
+de 2022, de 26 e de 38 anos; dois Robinho no Sampaio Corrêa de 2023. Com a chave curta,
+24 pessoas sumiriam sem deixar rastro. Pelo mesmo motivo os 232 que trocaram de clube no
+meio do ano ficam com duas linhas: as duas passagens são coisas diferentes de se medir.
+
+### O que o material do Wyscout por CLUBE (Team Stats) ainda não cobre
+
+O zip de Team Stats (estatística de jogo, linha por partida) traz os 20 clubes da Série B
+de **2026** nos cinco anos — 64 dos 100 clube-temporada das tabelas. **Faltam 36**, todos
+de clubes que não estão na B de 2026, e o que falta é justamente quem subiu: os quatro
+campeões (Cruzeiro 2022, Vitória 2023, Santos 2024, Coritiba 2025) e mais Grêmio e Bahia
+2022, Mirassol 2024 e Athletico-PR 2025. Enquanto isso não for puxado, comparação "quem
+sobe × quem fica" com essa fonte tem quase só o lado de baixo.
