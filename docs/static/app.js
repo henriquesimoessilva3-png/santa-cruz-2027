@@ -1729,6 +1729,20 @@ async function fbEntrar() {
     /* fechar a janelinha do Google e desistencia, nao erro: nao merece toast vermelho */
     const c = (e && e.code) || '';
     if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request') return;
+    /* `unauthorized-domain` e o tropeco numero 1 de quem liga o Firebase num site que nao
+       e do proprio Firebase: por padrao so `localhost` e os dominios `*.firebaseapp.com` /
+       `*.web.app` valem, e o github.io NAO esta na lista. A mensagem crua nao diz onde
+       resolver, entao ela e trocada pela instrucao. */
+    if (c === 'auth/unauthorized-domain') {
+      toast('Falta autorizar o domínio ' + location.hostname + ' no Firebase ' +
+            '(Authentication → Settings → Authorized domains)', 'ruim');
+      return;
+    }
+    if (c === 'auth/operation-not-allowed') {
+      toast('O login com Google não está ligado no Firebase ' +
+            '(Authentication → Sign-in method → Google)', 'ruim');
+      return;
+    }
     toast('Não deu para entrar: ' + ((e && e.message) || c), 'ruim');
   }
 }
