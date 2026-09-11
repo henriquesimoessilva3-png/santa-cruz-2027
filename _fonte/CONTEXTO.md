@@ -1248,3 +1248,40 @@ empre…", e sem o balão não dá para saber de quem é o telefone — que é e
 distinção que os dois campos existem para fazer.
 
 A aba Indicados usa as mesmas classes e foi conferida junto: 1158px, sem rolagem.
+
+## Aba Análise Série B — o estudo do acesso (set/26)
+
+Pedido: entender o que é preciso para subir, a partir das tabelas. O estudo vive numa aba
+do app, ao lado do campograma, porque "quantos pontos precisamos" e "que elenco montamos"
+são a mesma conversa — trocar de janela no meio dela é o jeito mais rápido de uma das duas
+ser esquecida.
+
+**As tabelas são o dado; o texto é consequência.** `SB_TABELAS` guarda as classificações
+transcritas (2022 a 2025 completas, 2026 parcial após 27 rodadas) como `pos, clube, J, V,
+E, D, GP, GC`. **Pontos e saldo são calculados**, nunca digitados — e tudo o que a tela
+afirma sai de `sbResumo()`. Corrigir uma tabela corrige o estudo inteiro; não há número
+solto no meio do texto para esquecer de atualizar.
+
+A transcrição foi conferida antes de entrar: nos 100 clubes, V+E+D fecha com os jogos e
+3V+E fecha com os pontos.
+
+**O que os números dizem:**
+
+- A linha do acesso é **estável**: 62, 64, 64, 62 — média 63, ou 55% dos pontos.
+- A folga entre subir e ficar é **1,5 ponto**: 4, 1, 0 e 1. Em 2024 o Ceará e o
+  Novorizontino terminaram com 64 e o acesso saiu no desempate por vitórias (19 a 18).
+- **Vitória correlaciona +0,98 com pontos; empate, −0,24.** O Novorizontino é o caso vivo:
+  empatou mais que todo mundo em 2024 e 2025 e não subiu em nenhum.
+- Nenhum dos 16 que subiram perdeu mais de **12** jogos em 38.
+- **A defesa não separa**: 33,3 gols sofridos por quem sobe contra 33,8 por quem fica em
+  5º-8º. A separação inteira está no ataque, 50,1 contra 45,5.
+
+**Decisões de desenho que valem registro.** A cor carrega o dado (subiu / não subiu), e
+verde-vermelho é justamente o par que some no daltonismo mais comum — ficou **azul e
+laranja**, validados nos dois temas, e os dois pontos vêm rotulados, então a cor nunca é a
+única pista. A régua das correlações tem o **zero no meio**: é o que mostra que empate anda
+para o lado contrário de todo o resto. E a escala do gráfico começa em 54, não no mínimo
+dos dados, porque o rótulo do 5º é escrito à esquerda do ponto e encostava no ano.
+
+Versão para circular, com o mesmo conteúdo:
+https://claude.ai/code/artifact/a2472cc1-565c-49cf-a7a8-8a615ffa6046

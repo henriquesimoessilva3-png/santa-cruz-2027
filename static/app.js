@@ -5285,6 +5285,7 @@ function irParaAba(nome) {
   $('#pgFinanceiro').classList.toggle('oculta', nome !== 'financeiro');
   $('#pgEmpresarios').classList.toggle('oculta', nome !== 'empresarios');
   $('#pgIndicados').classList.toggle('oculta', nome !== 'indicados');
+  $('#pgSerieB').classList.toggle('oculta', nome !== 'serieb');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
@@ -5292,6 +5293,7 @@ function irParaAba(nome) {
   if (nome === 'financeiro') finRender();
   if (nome === 'empresarios') empRender();
   if (nome === 'indicados') indRender();
+  if (nome === 'serieb') sbRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -6361,4 +6363,248 @@ function indCsv() {
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   toast(lista.length + ' indicados baixados', 'bom');
+}
+
+/* ================= aba Análise Série B =================
+   O estudo do acesso morando dentro do app, ao lado do campograma. A razão de ficar aqui
+   e nao num documento a parte: a pergunta "quantos pontos precisamos" e a pergunta "que
+   elenco montamos" sao a mesma conversa, e trocar de janela no meio dela e o jeito mais
+   rapido de uma das duas ser esquecida.
+
+   As TABELAS sao dado bruto transcrito das classificacoes finais, e ficam aqui em cima,
+   onde da para conferir. Tudo o que o estudo afirma sai delas por conta, nada e numero
+   digitado a mao no meio do texto — se uma tabela for corrigida, o estudo se corrige. */
+const SB_TABELAS = {
+  2022: [[1,'Cruzeiro',38,23,9,6,57,26],[2,'Grêmio',38,17,14,7,50,26],[3,'Bahia',38,17,11,10,43,29],
+    [4,'Vasco',38,17,11,10,48,36],[5,'Sampaio Corrêa',38,16,10,12,48,42],[6,'Ituano',38,15,12,11,42,34],
+    [7,'Sport',38,15,12,11,37,31],[8,'Criciúma',38,14,14,10,43,31],[9,'Londrina',38,14,11,13,36,37],
+    [10,'Guarani',38,13,12,13,33,36],[11,'CRB',38,13,11,14,35,43],[12,'Ponte Preta',38,12,13,13,34,36],
+    [13,'Vila Nova',38,9,20,9,28,31],[14,'Chapecoense',38,11,12,15,37,39],[15,'Tombense',38,10,15,13,38,47],
+    [16,'Novorizontino',38,11,11,16,44,49],[17,'CSA',38,9,15,14,29,37],[18,'Brusque',38,8,10,20,21,38],
+    [19,'Operário-PR',38,7,13,18,31,53],[20,'Náutico',38,8,6,24,32,65]],
+  2023: [[1,'Vitória',38,22,6,10,50,31],[2,'Juventude',38,18,11,9,42,31],[3,'Criciúma',38,19,7,12,45,33],
+    [4,'Atlético-GO',38,17,13,8,56,45],[5,'Novorizontino',38,19,6,13,48,30],[6,'Mirassol',38,18,9,11,42,31],
+    [7,'Sport',38,17,12,9,59,40],[8,'Vila Nova',38,17,10,11,49,30],[9,'CRB',38,16,9,13,45,39],
+    [10,'Guarani',38,15,12,11,42,33],[11,'Ceará',38,13,11,14,40,45],[12,'Botafogo-SP',38,12,11,15,25,42],
+    [13,'Avaí',38,10,14,14,31,48],[14,'Ituano',38,9,15,14,33,38],[15,'Ponte Preta',38,9,15,14,24,35],
+    [16,'Chapecoense',38,9,13,16,38,43],[17,'Sampaio Corrêa',38,8,15,15,31,43],[18,'Tombense',38,9,10,19,37,50],
+    [19,'Londrina',38,7,10,21,31,58],[20,'ABC',38,5,13,20,28,51]],
+  2024: [[1,'Santos',38,20,8,10,57,32],[2,'Mirassol',38,19,10,9,42,26],[3,'Sport',38,19,9,10,57,37],
+    [4,'Ceará',38,19,7,12,59,41],[5,'Novorizontino',38,18,10,10,43,31],[6,'Goiás',38,18,9,11,56,32],
+    [7,'Operário-PR',38,16,10,12,34,32],[8,'América-MG',38,15,13,10,50,35],[9,'Vila Nova',38,16,7,15,42,54],
+    [10,'Avaí',38,14,11,13,34,32],[11,'Amazonas',38,14,10,14,31,37],[12,'Coritiba',38,14,8,16,41,44],
+    [13,'Paysandu',38,12,14,12,41,43],[14,'Botafogo-SP',38,11,12,15,36,51],[15,'Chapecoense',38,11,11,16,34,45],
+    [16,'CRB',38,11,10,17,38,45],[17,'Ponte Preta',38,10,8,20,37,55],[18,'Ituano',38,11,4,23,43,63],
+    [19,'Brusque',38,8,12,18,24,44],[20,'Guarani',38,8,9,21,33,53]],
+  2025: [[1,'Coritiba',38,19,11,8,39,23],[2,'Athletico-PR',38,19,8,11,53,43],[3,'Chapecoense',38,18,8,12,52,35],
+    [4,'Remo',38,16,14,8,51,39],[5,'Criciúma',38,17,10,11,47,33],[6,'Goiás',38,17,10,11,42,37],
+    [7,'Novorizontino',38,15,15,8,43,32],[8,'CRB',38,16,8,14,45,40],[9,'Avaí',38,14,14,10,50,40],
+    [10,'Cuiabá',38,14,12,12,43,44],[11,'Atlético-GO',38,13,13,12,39,38],[12,'Operário-PR',38,12,12,14,40,44],
+    [13,'Vila Nova',38,11,14,13,40,44],[14,'América-MG',38,12,10,16,41,44],[15,'Athletic',38,12,8,18,43,53],
+    [16,'Botafogo-SP',38,10,12,16,32,52],[17,'Ferroviária',38,8,16,14,43,52],[18,'Amazonas',38,8,12,18,38,55],
+    [19,'Volta Redonda',38,8,12,18,26,43],[20,'Paysandu',38,5,13,20,36,52]],
+  2026: [[1,'Juventude',27,14,8,5,30,15],[2,'Novorizontino',27,14,7,6,47,24],[3,'Vila Nova',27,14,5,8,39,30],
+    [4,'Fortaleza',27,13,8,6,30,22],[5,'Criciúma',27,13,8,6,28,21],[6,'Operário-PR',27,12,7,8,36,33],
+    [7,'Atlético-GO',27,11,10,6,32,26],[8,'CRB',27,12,6,9,40,39],[9,'Sport',27,10,11,6,36,26],
+    [10,'Cuiabá',27,9,12,6,26,21],[11,'Náutico',27,10,7,10,32,30],[12,'Athletic',27,9,10,8,31,30],
+    [13,'Goiás',27,10,6,11,25,33],[14,'São Bernardo',27,9,8,10,37,31],[15,'Botafogo-SP',27,8,7,12,30,32],
+    [16,'Ceará',27,8,7,12,28,35],[17,'Avaí',27,8,5,14,28,35],[18,'Londrina',27,6,7,14,32,39],
+    [19,'América-MG',27,4,5,18,21,46],[20,'Ponte Preta',27,2,4,21,16,56]],
+};
+const SB_COMPLETAS = [2022, 2023, 2024, 2025];   /* 2026 está em andamento: fica fora das médias */
+let sbAno = 2026;
+
+/* pos, clube, J, V, E, D, GP, GC  ->  objeto com pontos e saldo calculados */
+function sbLinha(r) {
+  const [pos, clube, j, v, e, d, gp, gc] = r;
+  return { pos, clube, j, v, e, d, gp, gc, sg: gp - gc, pts: v * 3 + e };
+}
+function sbAnoDados(ano) { return SB_TABELAS[ano].map(sbLinha); }
+const sbMedia = xs => xs.reduce((a, b) => a + b, 0) / (xs.length || 1);
+
+/* Correlação de Pearson. Existe aqui para responder "empate ajuda ou atrapalha?" com um
+   número, em vez de com opinião. */
+function sbCorr(xs, ys) {
+  const mx = sbMedia(xs), my = sbMedia(ys);
+  let num = 0, dx = 0, dy = 0;
+  xs.forEach((x, i) => { const a = x - mx, b = ys[i] - my; num += a * b; dx += a * a; dy += b * b; });
+  return (dx && dy) ? num / Math.sqrt(dx * dy) : 0;
+}
+
+function sbResumo() {
+  const linha = [], quinto = [], sobem = [], quase = [], todos = [];
+  SB_COMPLETAS.forEach(ano => {
+    const t = sbAnoDados(ano);
+    linha.push(t[3].pts); quinto.push(t[4].pts);
+    sobem.push(...t.slice(0, 4)); quase.push(...t.slice(4, 8)); todos.push(...t);
+  });
+  const perfil = g => ({
+    pts: sbMedia(g.map(x => x.pts)), v: sbMedia(g.map(x => x.v)), e: sbMedia(g.map(x => x.e)),
+    d: sbMedia(g.map(x => x.d)), gp: sbMedia(g.map(x => x.gp)), gc: sbMedia(g.map(x => x.gc)),
+    sg: sbMedia(g.map(x => x.sg)),
+  });
+  const pts = todos.map(x => x.pts);
+  return {
+    linha, quinto, folgas: linha.map((x, i) => x - quinto[i]),
+    mediaLinha: sbMedia(linha), mediaFolga: sbMedia(linha.map((x, i) => x - quinto[i])),
+    sobe: perfil(sobem), quase: perfil(quase),
+    maxDerrotas: Math.max(...sobem.map(x => x.d)),
+    corr: {
+      v: sbCorr(todos.map(x => x.v), pts), e: sbCorr(todos.map(x => x.e), pts),
+      d: sbCorr(todos.map(x => x.d), pts), gp: sbCorr(todos.map(x => x.gp), pts),
+      gc: sbCorr(todos.map(x => x.gc), pts),
+    },
+  };
+}
+
+function sbRender() {
+  const alvo = $('#sbCorpo');
+  if (!alvo) return;
+  const R = sbResumo();
+  const n1 = x => x.toFixed(1).replace('.', ',');
+  const tab = sbAnoDados(sbAno);
+  const emAndamento = sbAno === 2026;
+  const RESTAM = 38 - tab[0].j, EM_JOGO = RESTAM * 3, META = Math.round(R.mediaLinha);
+
+  const kpi = (rot, val, txt) =>
+    '<div class="sb-kpi"><span class="sb-rot">' + rot + '</span><b>' + val + '</b><p>' + txt + '</p></div>';
+
+  /* --- gráfico: 4º contra 5º, ano a ano --- */
+  /* A escala começa em 54, e não no mínimo dos dados: o rótulo do 5º colocado é escrito à
+     ESQUERDA do ponto, e com a escala apertada ele encostava no ano. Um pouco de folga no
+     começo do eixo é mais barato que abreviar nome de clube. */
+  const X0 = 54, X1 = 67, ESQ = 46, LARG = 430;
+  const px = p => ESQ + (p - X0) / (X1 - X0) * LARG;
+  const linhas = SB_COMPLETAS.map((ano, i) => {
+    const t = sbAnoDados(ano), q = t[3], c = t[4], y = 30 + i * 42;
+    const igual = q.pts === c.pts;
+    return '<line x1="' + px(c.pts).toFixed(1) + '" y1="' + y + '" x2="' + px(q.pts).toFixed(1) + '" y2="' + y +
+        '" stroke="var(--borda2)" stroke-width="2"/>' +
+      (igual
+        ? '<circle cx="' + px(q.pts).toFixed(1) + '" cy="' + y + '" r="8" fill="var(--sb-sobe)"/>' +
+          '<circle cx="' + px(q.pts).toFixed(1) + '" cy="' + y + '" r="5.5" fill="none" stroke="var(--fundo2)" stroke-width="2"/>' +
+          '<circle cx="' + px(q.pts).toFixed(1) + '" cy="' + y + '" r="4" fill="var(--sb-fica)"/>'
+        : '<circle cx="' + px(c.pts).toFixed(1) + '" cy="' + y + '" r="6" fill="var(--sb-fica)"/>' +
+          '<circle cx="' + px(q.pts).toFixed(1) + '" cy="' + y + '" r="6" fill="var(--sb-sobe)"/>') +
+      '<text x="32" y="' + (y + 4) + '" text-anchor="end" class="sb-ano">' + ano + '</text>' +
+      '<text x="' + (px(q.pts) + 12).toFixed(1) + '" y="' + (y + 4) + '" class="sb-lab forte">' +
+        esc(q.clube) + ' · ' + q.pts + '</text>' +
+      (igual ? '<text x="' + (px(q.pts) - 14).toFixed(1) + '" y="' + (y + 4) +
+                 '" text-anchor="end" class="sb-lab menor">empatado com ' + esc(c.clube) + '</text>'
+             : '<text x="' + (px(c.pts) - 12).toFixed(1) + '" y="' + (y + 4) +
+                 '" text-anchor="end" class="sb-lab">' + c.pts + ' · ' + esc(c.clube) + '</text>');
+  }).join('');
+  const eixo = [56, 58, 60, 62, 64, 66].map(p =>
+    '<line x1="' + px(p).toFixed(1) + '" y1="14" x2="' + px(p).toFixed(1) + '" y2="186" stroke="var(--borda)"/>' +
+    '<text x="' + px(p).toFixed(1) + '" y="202" text-anchor="middle" class="sb-eixo">' + p + '</text>').join('');
+
+  /* --- gráfico: a temporada escolhida --- */
+  const maxPts = Math.max(...tab.map(x => x.pts));
+  const BARRA = 460, ROT = 108;
+  const bw = p => (p / maxPts * BARRA);
+  const metaX = emAndamento ? ROT + bw(META * tab[0].j / 38) : ROT + bw(META);
+  const barras = tab.map((x, i) => {
+    const y = 8 + i * 21, dentro = x.pos <= 4;
+    return '<rect x="' + ROT + '" y="' + y + '" width="' + bw(x.pts).toFixed(1) + '" height="14" rx="4" fill="var(--' +
+        (dentro ? 'sb-sobe' : x.pos <= 8 ? 'sb-fica' : 'sb-neutro') + ')"/>' +
+      '<text x="' + (ROT - 8) + '" y="' + (y + 11) + '" text-anchor="end" class="sb-clube' + (dentro ? ' forte' : '') + '">' +
+        x.pos + '. ' + esc(x.clube) + '</text>' +
+      '<text x="' + (ROT + bw(x.pts) - 7).toFixed(1) + '" y="' + (y + 11) + '" text-anchor="end" class="sb-valor">' +
+        x.pts + '</text>';
+  }).join('');
+
+  alvo.innerHTML =
+    '<div class="sb-topo">' +
+      '<div><span class="sb-rot">Série B · estudo de acesso</span>' +
+      '<h2 class="sb-h1">A linha do acesso</h2>' +
+      '<p class="sb-sub">Quantos pontos levam ao G4, que campanha os produz, e a margem entre subir e ficar. ' +
+      'Tabelas finais de 2022 a 2025 e a parcial de 2026.</p></div>' +
+    '</div>' +
+
+    '<div class="sb-kpis">' +
+      kpi('A linha, em média', META, 'pontos do 4º colocado. Variou pouco: <b>' + R.linha.join(', ') + '</b>.') +
+      kpi('A folga', n1(R.mediaFolga), 'ponto separando quem subiu de quem ficou em 5º: <b>' + R.folgas.join(', ') + '</b>.') +
+      kpi('Aproveitamento', Math.round(R.mediaLinha / 114 * 100) + '%', 'dos pontos disputados, ou <b>' +
+        (R.mediaLinha / 38).toFixed(2).replace('.', ',') + ' por jogo</b>.') +
+    '</div>' +
+
+    '<div class="sb-bloco">' +
+      '<span class="sb-rot">4º contra 5º, ano a ano</span>' +
+      '<div class="sb-tela"><svg viewBox="0 0 640 212" class="sb-svg">' + eixo + linhas +
+        '<text x="' + (ESQ + LARG / 2) + '" y="212" text-anchor="middle" class="sb-eixo">PONTOS EM 38 JOGOS</text>' +
+      '</svg></div>' +
+      '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>4º — subiu</span>' +
+      '<span><i style="background:var(--sb-fica)"></i>5º — ficou</span></div>' +
+      '<p class="sb-nota">Em 2024 os dois terminaram com 64. O acesso saiu no primeiro critério de desempate, ' +
+      'o número de vitórias: 19 do Ceará contra 18 do Novorizontino.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco">' +
+      '<span class="sb-rot">Vitória vale, empate quase não</span>' +
+      '<div class="sb-corr">' +
+        [['Vitórias', R.corr.v], ['Gols pró', R.corr.gp], ['Empates', R.corr.e],
+         ['Gols contra', R.corr.gc], ['Derrotas', R.corr.d]].map(([rot, c]) =>
+          '<div class="sb-c"><span>' + rot + '</span>' +
+          '<div class="sb-c-reg"><i class="' + (c >= 0 ? 'pos' : 'neg') + '" style="width:' +
+            (Math.abs(c) * 50).toFixed(1) + '%"></i></div>' +
+          '<b class="' + (c >= 0 ? 'pos' : 'neg') + '">' + (c >= 0 ? '+' : '−') +
+            Math.abs(c).toFixed(2).replace('.', ',') + '</b></div>').join('') +
+      '</div>' +
+      '<p class="sb-nota">Correlação de cada item com a pontuação final, nos 80 clubes das quatro temporadas ' +
+      'completas. Vitória explica quase tudo; empate anda para o lado errado. Nenhum dos 16 que subiram ' +
+      'perdeu mais de <b>' + R.maxDerrotas + '</b> jogos em 38.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco">' +
+      '<span class="sb-rot">Quem sobe contra quem fica no 5º ao 8º</span>' +
+      '<div class="sb-perfil">' +
+        ['pts:Pontos', 'v:Vitórias', 'e:Empates', 'd:Derrotas', 'gp:Gols pró', 'gc:Gols contra', 'sg:Saldo']
+        .map(par => { const [k, rot] = par.split(':');
+          const a = R.sobe[k], b = R.quase[k], dif = a - b;
+          return '<div class="sb-p"><span class="sb-p-rot">' + rot + '</span>' +
+            '<b class="sb-p-a">' + n1(a) + '</b><span class="sb-p-b">' + n1(b) + '</span>' +
+            '<span class="sb-p-d ' + (Math.abs(dif) < 1 ? 'nulo' : dif > 0 ? 'pos' : 'neg') + '">' +
+              (dif > 0 ? '+' : '−') + n1(Math.abs(dif)) + '</span></div>'; }).join('') +
+      '</div>' +
+      '<p class="sb-nota">Médias dos 16 clubes de cada faixa. A coluna cheia é quem sobe, a apagada é quem fica. ' +
+      '<b>A defesa é igual</b> — meio gol de diferença em 38 jogos. A separação inteira está no ataque, ' +
+      'quase cinco gols. Numa liga em que todos defendem parecido, é o ataque que compra vitória.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco">' +
+      '<div class="sb-cab-ano"><span class="sb-rot">A temporada de ' + sbAno +
+        (emAndamento ? ' · ' + tab[0].j + ' de 38 rodadas' : '') + '</span>' +
+        '<div class="sb-anos">' + Object.keys(SB_TABELAS).sort().reverse().map(a =>
+          '<button class="sb-bt' + (+a === sbAno ? ' on' : '') + '" data-ano="' + a + '">' + a + '</button>').join('') +
+        '</div></div>' +
+      '<div class="sb-tela"><svg viewBox="0 0 640 ' + (8 + tab.length * 21 + 22) + '" class="sb-svg">' +
+        '<line x1="' + metaX.toFixed(1) + '" y1="2" x2="' + metaX.toFixed(1) + '" y2="' + (8 + tab.length * 21) +
+          '" stroke="var(--coral)" stroke-width="2" stroke-dasharray="5 4"/>' +
+        '<text x="' + (metaX + 6).toFixed(1) + '" y="' + (8 + tab.length * 21 + 14) + '" class="sb-meta">' +
+          (emAndamento ? 'ritmo do acesso' : 'linha do acesso · ' + META) + '</text>' +
+        barras +
+      '</svg></div>' +
+      (emAndamento
+        ? '<p class="sb-nota">Faltam <b>' + RESTAM + ' rodadas</b>, ' + EM_JOGO + ' pontos em jogo. Para chegar aos ' +
+          META + ' da média histórica, o 4º precisa de <b>' + (META - tab[3].pts) + '</b> deles e o 8º de <b>' +
+          (META - tab[7].pts) + '</b>. O ritmo atual do 4º projeta <b>' +
+          Math.round(tab[3].pts / tab[0].j * 38) + ' pontos</b> em 38 jogos.</p>'
+        : '<p class="sb-nota">Linha tracejada: os ' + META + ' pontos da média histórica do 4º colocado.</p>') +
+    '</div>' +
+
+    '<div class="sb-bloco sb-falta">' +
+      '<h3>O que este estudo ainda não responde</h3>' +
+      '<p>Tabela mostra resultado, não causa. Para ligar isto ao planejamento do elenco faltam três dados, ' +
+      'em ordem de importância:</p>' +
+      '<ol><li><b>Folha salarial dos clubes que subiram.</b> Sem custo, toda conclusão vira “contrate melhor”.</li>' +
+      '<li><b>Quantos jogadores cada um usou</b>, e como os minutos se concentraram.</li>' +
+      '<li><b>Trocas de treinador</b> durante a temporada.</li></ol>' +
+      '<p>E a ressalva do tamanho: quatro temporadas são 16 clubes que subiram. Basta para afirmar que a linha ' +
+      'fica entre ' + Math.min(...R.linha) + ' e ' + Math.max(...R.linha) + ' e que empate custa caro, porque os ' +
+      'dois padrões se repetem todo ano. Não basta para virar meta de contratação. É direção, não receita.</p>' +
+    '</div>';
+
+  alvo.querySelectorAll('.sb-bt').forEach(b => {
+    b.onclick = () => { sbAno = +b.dataset.ano; sbRender(); };
+  });
 }
