@@ -1476,3 +1476,38 @@ abrem apresentação de análise. Idade do time, −0,04.
 com ponto em outra (`€ 3,00 mi.` e `€ 5.40 mi.`). Tratar o ponto como milhar fazia 5,4 milhões
 virarem 540 milhões. Só apareceu porque a mediana de valor de um elenco saiu em € 14 milhões —
 número absurdo o bastante para não passar. Conferir ordem de grandeza depois de todo parser.
+
+### A análise entrou na aba — `static/sb_clubes.js` (set/26)
+
+O estudo inteiro passou a morar na **Análise Série B**, não num documento à parte.
+
+**Como o dado chega lá sem levar 10 MB junto.** `gerar_sb_clubes.py` escreve
+`static/sb_clubes.js` — 20 KB, 100 clube-temporada, 34 campos cada, só o que foi **medido**
+em cada um. As três bases somam quase 10 MB e não têm por que viajar até o navegador de
+quem só quer ver a aba. E o princípio da aba continua valendo: **nenhuma média, correlação
+ou percentual da tela vem pronto do arquivo** — tudo é calculado em `sbResumo()` e nos
+`sbBloco*()`. Se uma partida for corrigida numa base, roda-se o gerador e a tela se corrige.
+
+O arquivo entra por `<script>` em `templates/index.html`, antes do `app.js`, do mesmo jeito
+que o `fs_visoes.js`. O `publicar_site.py` copia `static/` inteiro, então o site estático
+pega de graça.
+
+**Duas armadilhas pagas na integração:**
+
+- **Empate em posto tem de virar média, não ordem de chegada.** A primeira versão ordenava
+  e numerava 1, 2, 3…: dois clubes com os mesmos gols sofridos recebiam 7 e 8 por sorteio, e
+  o sorteio entrava na correlação como se fosse dado. As correlações davam 0,79 onde o
+  Python dava 0,77. Com média nos empates (o que o `rank()` do pandas faz), as onze
+  correlações conferidas batem na segunda casa.
+- **`valor` e `valTot` são duas contas diferentes do mesmo elenco.** `valor` é o total do
+  Transfermarkt (€ 27,3 mi na média de quem sobe); `valTot` é a soma dos setores medida no
+  Wyscout (€ 17,3 mi), que só cobre quem entrou em campo. A primeira versão usou `valTot`
+  como "valor do elenco" e a aba passou a discordar do relatório. `valTot` existe só para as
+  **fatias** por setor, onde o que importa é a proporção dentro da mesma medida.
+
+**E uma correção que a aba precisou engolir sobre si mesma.** O bloco de utilização de
+atletas dizia, com todas as letras, que não havia relação com pontos. Estava errado: a
+amostra eram dez clubes de 2026 até a 25ª rodada, truncada no topo da tabela — e é embaixo
+que a rotatividade aparece. Com 80 clube-temporada a relação é forte (+0,54 para a
+concentração de minutos nos onze mais usados). A `SB_USO` foi removida e o bloco agora diz o
+que mudou e por quê, em vez de trocar o texto em silêncio.
