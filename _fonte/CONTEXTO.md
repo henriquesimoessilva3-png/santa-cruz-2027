@@ -1825,6 +1825,25 @@ esquece que deixou filtro ligado e lê a matriz achando que é a base inteira.
 **"Quem sobe e quem cai" agora vem ligado** por padrão, junto dos dois Top 5. Não há
 persistência dessas caixas: é o atributo `checked` do HTML e ponto.
 
+### Gravar comparativo: por cima é o caminho normal
+
+Antes, todo `Gravar` criava entrada nova. Ajustar o mesmo comparativo três vezes num dia
+deixava três linhas com **o mesmo nome e a mesma data** ("Volante — 11/09/2026 · 6 atletas"),
+impossíveis de distinguir, e limpar as velhas virava faxina manual. Agora:
+
+- com um comparativo **aberto**, o botão vira **"Regravar"** e o nome já vem preenchido com
+  o dele — confirmar escreve por cima **mantendo o mesmo id**;
+- **mudar o nome** no prompt cria um novo, que é o jeito natural de dizer "salvar como";
+- nome digitado que bata com outro **da mesma posição** pergunta antes de sobrescrever, em
+  vez de criar o homônimo em silêncio;
+- o rótulo na lista leva **hora**, não só data, então duas gravações do mesmo dia se
+  distinguem.
+
+> **`compMontarLista(selecionar)` recebe o id a selecionar.** Atribuir `sel.value` a um id
+> cuja `<option>` ainda não foi criada **não faz nada e não avisa** — o combo voltava para
+> vazio e o botão continuava dizendo "Gravar" logo depois de gravar. Quem monta as opções
+> tem de ser quem escolhe.
+
 ### Armadilha de publicação: o `--push` que não publica
 
 `publicar_site.py --push` faz `git add docs`, e **se o `docs/` já estiver commitado ele

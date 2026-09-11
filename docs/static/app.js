@@ -4960,36 +4960,88 @@ function compGravarTodos(lista) {
   try { localStorage.setItem(CHAVE_COMP, JSON.stringify(lista)); } catch (e) {}
 }
 
-function compMontarLista() {
+/* O rotulo de um comparativo na lista. Leva a HORA, nao so a data: gravar duas vezes no
+   mesmo dia dava duas linhas identicas ("Volante — 11/09/2026 · 6 atletas") e nem
+   manualmente dava para saber qual era qual. */
+function compRotulo(c) {
+  const t = c.atualizado || c.criado;
+  const q = t ? new Date(t) : null;
+  const quando = q ? q.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) +
+    ' ' + q.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
+  return c.nome + ' · ' + c.incluidos.length + ' atletas' + (quando ? ' · ' + quando : '');
+}
+
+/* `selecionar` existe por uma ordem que da errado silenciosamente: atribuir `sel.value` a
+   um id cuja <option> AINDA NAO FOI CRIADA nao faz nada e nao avisa — o combo fica vazio e
+   o botao continua dizendo "Gravar" logo depois de gravar. Quem monta as opcoes tem de ser
+   quem escolhe. */
+function compMontarLista(selecionar) {
   const sel = $('#fsComp');
   if (!sel) return;
+  const antes = selecionar !== undefined ? selecionar : sel.value;
   const todos = compCarregar();
   const daPos = todos.filter(c => c.pos === fsPos);
   const outros = todos.filter(c => c.pos !== fsPos);
   sel.innerHTML = '<option value="">— comparativo gravado —</option>' +
     (daPos.length ? '<optgroup label="' + esc(nomePos(fsPos)) + '">' + daPos.map(c =>
-      '<option value="' + esc(c.id) + '">' + esc(c.nome) + ' · ' + c.incluidos.length +
-      ' atletas</option>').join('') + '</optgroup>' : '') +
+      '<option value="' + esc(c.id) + '">' + esc(compRotulo(c)) + '</option>').join('') +
+      '</optgroup>' : '') +
     (outros.length ? '<optgroup label="outras posições">' + outros.map(c =>
-      '<option value="' + esc(c.id) + '">' + esc(sig(c.pos)) + ' · ' + esc(c.nome) + ' · ' +
-      c.incluidos.length + ' atletas</option>').join('') + '</optgroup>' : '');
+      '<option value="' + esc(c.id) + '">' + esc(sig(c.pos)) + ' · ' + esc(compRotulo(c)) +
+      '</option>').join('') + '</optgroup>' : '');
+  /* devolve a selecao: sem isso, gravar por cima deixava o combo voltando para o vazio e
+     parecia que a gravacao tinha se perdido */
+  if (antes && todos.some(c => c.id === antes)) sel.value = antes;
   $('#fsCompApagar').style.display = sel.value ? '' : 'none';
+  const g = $('#fsCompGravar');
+  if (g) {
+    const aberto = todos.find(c => c.id === sel.value);
+    /* o botao DIZ o que vai fazer. "Gravar" com um comparativo aberto e ambiguo: cria outro
+       ou escreve por cima? Agora ele avisa antes do clique. */
+    g.textContent = aberto ? 'Regravar' : 'Gravar';
+    g.title = aberto ? 'Escrever por cima de "' + aberto.nome + '" com quem está na tela agora'
+                     : 'Gravar quem está na comparação agora, com os incluídos e os excluídos';
+  }
 }
 
+/* GRAVAR POR CIMA E O CAMINHO NORMAL, nao o excepcional. Antes todo `Gravar` criava uma
+   entrada nova, e ajustar um comparativo tres vezes num dia deixava tres linhas com o mesmo
+   nome e a mesma data na lista — impossivel saber qual era a boa, e apagar as velhas virava
+   faxina manual. Agora:
+
+   - com um comparativo ABERTO, o botao vira "Regravar" e o nome ja vem preenchido com o
+     dele: confirmar escreve por cima, mantendo o mesmo id (quem abriu por link nao perde
+     a referencia);
+   - mudar o nome no meio do caminho cria um novo, que e o jeito de dizer "salvar como";
+   - e se o nome digitado bater com outro JA existente da mesma posicao, pergunta antes de
+     sobrescrever, em vez de criar o homonimo silenciosamente. */
 function compGravar() {
-  const nome = prompt('Nome do comparativo:', nomePos(fsPos) + ' — ' +
-    new Date().toLocaleDateString('pt-BR'));
-  if (!nome) return;
   const incluidos = $$('#fsMatriz th.fs-col').map(th => th.dataset.pk);
   if (!incluidos.length) { toast('Não há ninguém na comparação', 'ruim'); return; }
   const lista = compCarregar();
-  lista.unshift({ id: 'c' + Date.now(), nome: nome.trim(), pos: fsPos,
-                  incluidos, ocultos: [...fsOcultos] });
+  const aberto = lista.find(c => c.id === $('#fsComp').value);
+  const sugerido = aberto ? aberto.nome
+    : nomePos(fsPos) + ' — ' + new Date().toLocaleDateString('pt-BR');
+  const nome = (prompt(aberto ? 'Regravar por cima de:' : 'Nome do comparativo:', sugerido) || '').trim();
+  if (!nome) return;
+
+  /* Alvo: o aberto, se o nome nao mudou; senao um homonimo da mesma posicao; senao nada. */
+  let alvo = aberto && aberto.nome === nome ? aberto
+           : lista.find(c => c.pos === fsPos && c.nome === nome);
+  if (alvo && alvo !== aberto &&
+      !confirm('Já existe "' + nome + '" nesta posição. Escrever por cima?')) return;
+
+  if (alvo) {
+    alvo.nome = nome; alvo.incluidos = incluidos; alvo.ocultos = [...fsOcultos];
+    alvo.atualizado = Date.now();
+  } else {
+    alvo = { id: 'c' + Date.now(), nome, pos: fsPos, incluidos, ocultos: [...fsOcultos],
+             criado: Date.now(), atualizado: Date.now() };
+    lista.unshift(alvo);
+  }
   compGravarTodos(lista);
-  compMontarLista();
-  $('#fsComp').value = lista[0].id;
-  $('#fsCompApagar').style.display = '';
-  toast('Comparativo "' + nome.trim() + '" gravado', 'bom');
+  compMontarLista(alvo.id);
+  toast('Comparativo "' + nome + '" ' + (alvo === aberto ? 'regravado' : 'gravado'), 'bom');
 }
 
 function compAbrir(id) {
@@ -5072,8 +5124,10 @@ function fsMontarFiltros() {
   $('#fsCompGravar').onclick = compGravar;
   $('#fsCompApagar').onclick = compApagar;
   $('#fsComp').onchange = () => {
-    $('#fsCompApagar').style.display = $('#fsComp').value ? '' : 'none';
     if ($('#fsComp').value) compAbrir($('#fsComp').value);
+    /* remonta para o botao virar "Regravar" JA na selecao, nao so depois de gravar —
+       senao a pessoa so descobre o que o botao faz depois de aperta-lo */
+    compMontarLista();
   };
   compMontarLista();
   fsAbasMarcar('fsLigaAbas', 'todos');
