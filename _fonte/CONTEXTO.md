@@ -1056,3 +1056,20 @@ Dizer "salvando para todos" nesse estado promete o que não acontece, e é o pio
 erro de interface — o usuário só descobre quando o outro não vê o grupo. Agora, com
 `FB.erro`, o aviso diz *"sem acesso — salva só neste navegador"*, o e-mail perde o verde,
 e o `salvarCenario()` nem tenta a nuvem (`FB.usuario && !FB.erro`).
+
+**Faixa de status mais larga, e um conflito que ela revelou (set/26).** A tarja de status
+à esquerda do card tinha 3px e, num card que cresceu de texto, virou um fio. Foi para 7px
+(6 no denso), e a legenda acompanhou na mesma medida — legenda que não bate com o card é
+pior que não ter legenda. Quem ainda não tem status continua com o fio fino: faixa larga e
+apagada chamaria atenção para o que ainda não foi decidido.
+
+**O conflito:** `.jog.titular` usa o atalho `border-color`, que pinta os QUATRO lados,
+inclusive o esquerdo. Um titular marcado como Alvo exibia a tarja ROSA do titular no lugar
+do âmbar do status. Com 3px ninguém via; com 7px vira informação errada bem visível. As
+quatro regras de status foram reafirmadas depois, e o titular segue identificado pelo
+fundo rosa e pela estrela.
+
+**Dois telefones na aba Empresários.** `Telefone empresário` e `Telefone jogador`, campos
+separados: falar com o jogador direto e falar com quem o representa são conversas
+diferentes, e trocar uma pela outra numa negociação custa caro. Como a tabela, a ficha do
+☎ e o CSV leem todos o mesmo `EMP_CAMPOS`, acrescentar uma linha ali apareceu nos três.
