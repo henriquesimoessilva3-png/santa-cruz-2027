@@ -1,9 +1,9 @@
 {
-  "_leia": "Config do projeto Firebase do Santa Cruz. Cole aqui os valores que o console mostra em Configurações do projeto > Seus apps > App da Web. Enquanto 'projectId' estiver vazio, o app ignora a nuvem por completo e funciona como hoje (navegador + publicados). Estes valores são PÚBLICOS por desenho do Firebase: eles identificam o projeto, não autorizam nada. Quem autoriza são as regras em firestore.rules.",
-  "apiKey": "",
-  "authDomain": "",
-  "projectId": "",
-  "storageBucket": "",
-  "messagingSenderId": "",
-  "appId": ""
+  "_leia": "Config do projeto Firebase do Santa Cruz (Santa Cruz - Data Scout). Estes valores são PÚBLICOS por desenho do Firebase: identificam o projeto, não autorizam nada. Quem autoriza são as regras em firestore.rules, que liberam a coleção 'cenarios' só para os e-mails da lista. Se 'projectId' ficar vazio, o app ignora a nuvem e funciona como antes.",
+  "apiKey": "AIzaSyDzE6E0M1K6vS3GmSSyqNglJLK22jiPZnM",
+  "authDomain": "santa-cruz-data-scout.firebaseapp.com",
+  "projectId": "santa-cruz-data-scout",
+  "storageBucket": "santa-cruz-data-scout.firebasestorage.app",
+  "messagingSenderId": "337325122780",
+  "appId": "1:337325122780:web:2cdea1cbe560411ee30019"
 }

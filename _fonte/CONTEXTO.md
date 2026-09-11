@@ -891,3 +891,13 @@ Testado com a nuvem **desligada** (o estado em que o arquivo nasce): site idênt
 hoje, salvar grava em `nav-…` no navegador, comparativo com as 4 colunas, zero erro; e o
 app local do `:5090` sem SDK, sem botão, Excel visível, zero erro. O caminho **com** nuvem
 só dá para testar depois que o projeto existir.
+
+**Projeto criado e nuvem ligada (11/set/26).** `Santa Cruz - Data Scout`, id
+`santa-cruz-data-scout`, plano Spark, Firestore `(default)` em `southamerica-east1`,
+login do Google ativo e `henriquesimoessilva3-png.github.io` na lista de domínios
+autorizados. A config foi para `dados/firebase.json`.
+
+Regras conferidas **contra o banco real**, sem login: leitura da coleção `cenarios`
+recusada, leitura de `selecionados`, `usuarios` e de um nome inventado recusadas, e
+escrita anônima recusada — todas com `permission-denied`. É a prova de que a regra
+final fechada (`match /{document=**}`) está pegando, e não só a específica.
