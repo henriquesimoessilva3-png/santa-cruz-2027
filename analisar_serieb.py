@@ -334,6 +334,36 @@ SC_EDICOES = {335: 2022, 446: 2023, 773: 2024, 1061: 2025, 1399: 2026}
 # como as melhores para "velocidade maxima do atleta": elas tem 0% de cobertura em 2022,
 # 2023 e 2024 (o backfill_peak_velocity.py nunca rodou nesses periodos) e 79-98% em 2025 e
 # 2026. Entrar com elas seria comparar tres anos vazios com dois cheios.
+# As corridas sem bola (Off Ball Runs) moram em OUTRA TABELA, `off_ball_runs`, e por isso
+# tem lista propria e entram por LEFT JOIN. Ate 11/09/2026 nao davam para usar aqui: as
+# edicoes de 2022 a 2025 tinham zero linha. Era buraco de sincronizacao, nao limite da
+# fonte — a API devolveu 800, 776, 765 e 800 quando foi perguntada, e depois de gravadas a
+# cobertura ficou em 97,3% a 99,1% contra o `physical`, no mesmo patamar das `_p30tip`.
+#
+# Sao medidas COM O TIME EM POSSE (`p30tip`) e isso nao e contradicao com o nome: a corrida
+# sem bola e o que o atleta faz quando o TIME tem a bola e ELE nao — ataque da profundidade,
+# apoio, sobreposicao. Nao confundir com as `_p30otip`, que sao o time sem a posse.
+SC_OBR = [
+    "runs_p30tip", "runs_above_hsr_p30tip", "runs_penalty_area_p30tip",
+    "runs_dangerous_p30tip", "runs_received_p30tip", "runs_shot_within_10s_p30tip",
+]
+
+
+def media_pond(valores, pesos, minimo=0.6):
+    """Media ponderada por minuto rastreado que IGNORA o ausente — e desiste se faltar demais.
+
+    Duas coisas, e a segunda e a que importa. `np.average` devolve NaN se UM valor faltar,
+    o que derrubaria o clube inteiro por causa de um atleta; ignorar o ausente resolve isso.
+    Mas ignorar sozinho cria o problema oposto: um clube em que so 1 dos 8 atletas tem
+    corrida sem bola nao tem "a media do clube", tem o numero de um atleta com cara de
+    media. O piso de 60% e o mesmo do `gerar_raio_serieb.py`, pela mesma razao.
+    """
+    ok = valores.notna()
+    if ok.sum() < max(1, len(valores) * minimo):
+        return np.nan
+    return float(np.average(valores[ok], weights=pesos[ok]))
+
+
 SC_METRICAS = [
     # velocidade
     "psv99", "psv99_top5",
@@ -398,8 +428,8 @@ def fisico():
     for (ano, clube), d in sc.groupby(["ano", "clube"]):
         linha = {"ano": ano, "clube": clube, "fis_atletas": len(d),
                  "fis_minutos": float(d.min_tot.sum())}
-        for m in SC_METRICAS:
-            linha["fis_" + m] = float(np.average(d[m], weights=d.min_tot))
+        for m in SC_METRICAS + SC_OBR:
+            linha["fis_" + m] = media_pond(d[m], d.min_tot)
         linhas.append(linha)
     return pd.DataFrame(linhas)
 
@@ -446,8 +476,8 @@ def fisico_por_posicao():
         for g in ORDEM_GRUPOS:
             dg = d[d.grupo == g]
             linha[f"fis_{g}_atletas"] = len(dg)
-            for m in SC_METRICAS:
-                linha[f"fis_{g}_{m}"] = (float(np.average(dg[m], weights=dg.min_tot))
+            for m in SC_METRICAS + SC_OBR:
+                linha[f"fis_{g}_{m}"] = (media_pond(dg[m], dg.min_tot)
                                          if len(dg) else np.nan)
         linhas.append(linha)
     return pd.DataFrame(linhas)
@@ -467,8 +497,13 @@ def _sc_atletas():
     sc = pd.read_sql(
         "select p.sc_competition_edition_id ed, pl.short_name, pl.birthdate, "
         "p.minutes_played, p.matches, "
-        + ", ".join("p." + m for m in SC_METRICAS) +
+        + ", ".join("p." + m for m in SC_METRICAS)
+        + ", " + ", ".join("o." + m for m in SC_OBR) +
         " from physical p join players pl on pl.sc_player_id = p.sc_player_id"
+        # LEFT e nao INNER: quem nao tem corrida sem bola continua entrando com o resto do
+        # fisico. Um INNER derrubaria a amostra inteira pelo indicador mais fraco.
+        " left join off_ball_runs o on o.sc_player_id = p.sc_player_id"
+        " and o.sc_competition_edition_id = p.sc_competition_edition_id"
         f" where p.sc_competition_edition_id in ({','.join(map(str, SC_EDICOES))})", con)
     sc["ano"] = sc.ed.map(SC_EDICOES)
     sc["min_tot"] = sc.minutes_played * sc.matches

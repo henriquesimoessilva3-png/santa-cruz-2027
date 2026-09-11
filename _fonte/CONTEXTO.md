@@ -1645,17 +1645,25 @@ A média do clube inteiro escondia **de quem** vinha a diferença. Rodando a mes
 correlação dentro de cada grupo de posição (`fisico_por_posicao()` no `analisar_serieb.py`,
 `sbBlocoFisicoPosicao()` no `app.js`), o resultado é desigual:
 
-| Posição | Indicadores que separam, de 26 | O mais forte | Relação |
+| Posição | Indicadores que separam, de 32 | O mais forte | Relação |
 |---|---|---|---|
-| Zaga | **1** | PSV-99, 5 melhores partidas | 0,41 |
-| Lateral | **1** | PSV-99, 5 melhores partidas | 0,23 |
-| Meio | **13** | Arranques até o sprint | 0,39 |
-| Ataque | **8** | Metros em alta intensidade | 0,30 |
+| Zaga | **4** | PSV-99, 5 melhores partidas | 0,41 |
+| Lateral | **3** | Corridas sem bola que quebram linha | 0,27 |
+| Meio | **17** | Arranques até o sprint | 0,39 |
+| Ataque | **10** | Corridas sem bola que entram na área | 0,30 |
 
-**Atrás é teto, da frente é volume.** O único indicador que passa na zaga e no lateral é a
-velocidade máxima — quão rápido o defensor consegue ser quando precisa, não quanto ele
-corre. Do meio para a frente inverte: o que separa é volume de alta intensidade. Um
-zagueiro que corre muito não ajuda a subir; um zagueiro lento atrapalha.
+**O meio é onde o físico separa** — 17 de 32 indicadores, contra 3 e 4 na defesa.
+
+E as **corridas sem bola** entraram em 11/09/2026 e reescreveram a tabela: lideram no
+lateral e no ataque, e passam da régua nas quatro posições. Antes delas a leitura era
+"atrás é teto, da frente é volume", com o PSV-99 como único indicador da defesa. Ficou
+errado no mesmo dia.
+
+> **Por isso o texto do bloco é DERIVADO, não escrito.** O parágrafo que dizia "o único
+> indicador que passa na zaga e no lateral é o PSV-99" era verdade quando foi escrito e
+> mentira duas horas depois. Hoje a frase monta do próprio ranking (`rotFrase`, `obrTop`):
+> mudou o dado, muda o texto. É a mesma regra da aba — o dado é a fonte, o texto é
+> consequência — aplicada à prosa, não só aos números.
 
 Três decisões de método que sustentam a tabela:
 

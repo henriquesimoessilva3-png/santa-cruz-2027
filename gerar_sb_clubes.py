@@ -73,6 +73,12 @@ CAMPOS = [
     ("distCom", "fis_distance_p30tip", 0), ("distSem", "fis_distance_p30otip", 0),
     ("sprintCom", "fis_sprint_distance_p30tip", 1), ("sprintSem", "fis_sprint_distance_p30otip", 1),
     ("hsrCom", "fis_hsr_distance_p30tip", 1), ("hsrSem", "fis_hsr_distance_p30otip", 1),
+    # corridas sem bola (Off Ball Runs). Medidas por 30 min COM o time em posse — o atleta
+    # corre sem a bola enquanto o TIME a tem. Nao confundir com os `*Sem` acima, que sao o
+    # time fora de posse. Cobertura de 97% a 99% depois do backfill de 11/09/2026.
+    ("obrQtd", "fis_runs_p30tip", 2), ("obrHsr", "fis_runs_above_hsr_p30tip", 2),
+    ("obrArea", "fis_runs_penalty_area_p30tip", 2), ("obrPerigo", "fis_runs_dangerous_p30tip", 2),
+    ("obrRecebeu", "fis_runs_received_p30tip", 2), ("obrRemate", "fis_runs_shot_within_10s_p30tip", 2),
     ("fisAtletas", "fis_atletas", 0),
 ]
 

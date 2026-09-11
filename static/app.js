@@ -7220,6 +7220,20 @@ const SB_FIS_GRUPOS = [
     ['Desacelerações médias', 'desacelMed', sbN1, ''],
     ['Mudanças de direção', 'mudDirecao', sbN1, ''],
   ]],
+  /* CORRIDA SEM BOLA NAO E O MESMO QUE "sem a bola" das telas abaixo. Ali o time esta sem
+     a posse; aqui o TIME TEM a bola e o JOGADOR nao — ataque da profundidade, apoio,
+     sobreposicao. Por isso sao medidas por 30 min COM posse.
+     So existem aqui desde 11/09/2026: as edicoes de 2022 a 2025 tinham zero linha na
+     tabela `off_ball_runs`, e era buraco de sincronizacao, nao limite da fonte. Depois de
+     preenchidas, a cobertura ficou em 97% a 99%, no mesmo patamar do resto. */
+  ['Corridas sem bola', 'o time com a bola e o jogador sem ela', [
+    ['Corridas sem bola', 'obrQtd', sbN1, ''],
+    ['...acima da corrida rápida', 'obrHsr', sbN2, ''],
+    ['...que entram na área', 'obrArea', sbN2, ''],
+    ['...que quebram linha', 'obrPerigo', sbN2, ''],
+    ['...que receberam a bola', 'obrRecebeu', sbN2, ''],
+    ['...que viraram remate em 10s', 'obrRemate', sbN2, ''],
+  ]],
 ];
 /* Com e sem a bola. A regua aqui e por 30 MINUTOS de cada fase, e por isso estes numeros
    NAO sao comparaveis com os de cima (que sao por 90). Comparaveis entre si, que e o que
@@ -7316,8 +7330,16 @@ function sbBlocoFisicoPosicao() {
       '<td class="num-c c">' + t.fmt(m.cai) + '</td></tr>';
   }).join('');
 
-  const meio = dados.find(d => d.g === 'meio'), zaga = dados.find(d => d.g === 'zaga');
-  const lat = dados.find(d => d.g === 'lateral'), atq = dados.find(d => d.g === 'ataque');
+  const zaga = dados.find(d => d.g === 'zaga'), atq = dados.find(d => d.g === 'ataque');
+  /* em quantas posicoes uma corrida sem bola e o indicador mais forte */
+  const obrTop = dados.filter(d => /^Corridas sem bola|^\.\.\./.test(d.rs[0].rot));
+  /* O rotulo da tabela nao serve para frase corrida. "...que entram na área" so se entende
+     debaixo do "Corridas sem bola" que vem acima dele; solto numa frase vira truncagem.
+     E `toLowerCase()` cru estragava a sigla: "PSV-99" virava "psv-99". */
+  const rotFrase = r => {
+    const t = r.startsWith('...') ? 'corridas sem bola ' + r.slice(3) : r;
+    return t.replace(/^[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-zà-ÿ]/, c => c.toLowerCase());
+  };
 
   return '<div class="sb-bloco">' +
     '<span class="sb-rot" style="margin-top:6px">Onde o físico separa · por grupo de posição · ' +
@@ -7328,19 +7350,24 @@ function sbBlocoFisicoPosicao() {
       '<th class="num-c">Sobe</th><th class="num-c">Cai</th>' +
     '</tr></thead><tbody>' + linhas + '</tbody></table></div>' +
 
-    '<p class="sb-nota"><b>A média do clube escondia de quem vinha a diferença.</b> No ' +
-    '<b>meio</b>, ' + meio.separam + ' dos ' + meio.rs.length + ' indicadores separam quem ' +
-    'sobe de quem cai. Na <b>zaga</b> e no <b>lateral</b>, ' + zaga.separam + '. É o mesmo ' +
-    'campeonato, a mesma régua e a mesma amostra — o que muda é a posição.</p>' +
+    /* O TEXTO E DERIVADO, NAO ESCRITO. Isto aqui ja foi um paragrafo fixo dizendo "atras e
+       teto: o unico indicador que passa na zaga e no lateral e o PSV-99" — verdade no dia
+       em que foi escrito e mentira duas horas depois, quando as corridas sem bola entraram
+       e viraram o indicador mais forte do lateral. Agora a frase monta do proprio ranking:
+       se o dado mudar de novo, o texto muda junto. */
+    '<p class="sb-nota"><b>A média do clube escondia de quem vinha a diferença.</b> ' +
+    dados.map(d => '<b>' + esc(d.rot.toLowerCase()) + '</b> ' + d.separam).join(', ') +
+    ' — de ' + IND.length + ' indicadores, é quantos separam quem sobe de quem cai em cada ' +
+    'posição. Mesmo campeonato, mesma régua, mesma amostra; o que muda é a posição. ' +
+    'É <b>' + esc(dados.slice().sort((a, b) => b.separam - a.separam)[0].rot.toLowerCase()) +
+    '</b> que carrega o físico deste campeonato.</p>' +
 
-    '<p class="sb-nota"><b>E o que separa não é a mesma coisa nos dois lados do campo.</b> ' +
-    'Atrás é <b>teto</b>: o único indicador que passa na zaga e no lateral é o ' +
-    '<b>PSV-99 das 5 melhores partidas</b> (' + sbN2(zaga.rs[0].r) + ' e ' + sbN2(lat.rs[0].r) +
-    ') — quão rápido o defensor consegue ser quando precisa, não quanto ele corre. Do meio ' +
-    'para a frente é <b>volume</b>: ' + esc(meio.rs[0].rot.toLowerCase()) + ' (' +
-    sbN2(meio.rs[0].r) + ') no meio e ' + esc(atq.rs[0].rot.toLowerCase()) + ' (' +
-    sbN2(atq.rs[0].r) + ') no ataque. Um zagueiro que corre muito não ajuda a subir; um ' +
-    'zagueiro lento atrapalha.</p>' +
+    '<p class="sb-nota"><b>E o mais forte de cada posição não é a mesma coisa.</b> ' +
+    dados.map(d => '<b>' + esc(d.rot) + '</b>, ' + esc(rotFrase(d.rs[0].rot)) +
+      ' (' + sbN2(d.rs[0].r) + ')').join('; ') + '. ' + (obrTop.length ?
+      'Repare que <b>corridas sem bola</b> lidera em ' + obrTop.length + ' de ' +
+      dados.length + ': é o atleta atacando o espaço enquanto o time tem a bola, e não o ' +
+      'quanto ele corre no total.' : '') + '</p>' +
 
     '<p class="sb-nota"><b>A régua desta tabela.</b> "Separar" aqui quer dizer relação com a ' +
     'posição final acima de <b>' + sbN2(lim) + '</b>, que é o limiar de 5% para uma amostra ' +
