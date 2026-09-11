@@ -2726,3 +2726,50 @@ body.claro .sb-falta h3{color:var(--coral)}
 .sb-falta ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;
   font-size:12.5px;line-height:1.5;color:var(--tinta2);max-width:70ch}
 .sb-falta b{color:var(--tinta)}
+
+/* ---- Série B: regra nova, ataque × defesa, utilização ---- */
+#pgSerieB{--sb-play:#8b6fc4}
+body.claro #pgSerieB{--sb-play:#6b4fa8}
+.sb-topo{display:flex;flex-direction:column}
+.sb-leg i.q{border-radius:3px;width:12px;height:9px}
+.sb-pe{color:var(--tinta3)}
+
+.sb-regra{background:var(--fundo2);border:1px solid var(--borda);border-radius:8px;padding:16px 18px}
+.sb-regra h3{margin:0 0 12px;font-size:14px}
+.sb-degraus{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.sb-deg{border-radius:7px;padding:11px 13px;background:var(--veu2);border-left:4px solid var(--tinta3)}
+.sb-deg.d1{border-left-color:var(--sb-sobe)}
+.sb-deg.d2{border-left-color:var(--sb-play)}
+.sb-deg.d3{border-left-color:var(--sb-neutro)}
+.sb-pos{display:block;font-size:9.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--tinta3);font-weight:700}
+.sb-deg b{display:block;font-size:14px;margin:3px 0 5px}
+.sb-deg p{margin:0;font-size:11.5px;line-height:1.45;color:var(--tinta2)}
+.sb-regra .sb-nota{margin-top:12px}
+
+/* ataque × defesa */
+.sb-ad{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--borda);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.sb-ad-c{background:var(--fundo2);padding:13px 15px;display:flex;flex-direction:column;gap:6px}
+.sb-ad-c>span{font-size:11.5px;color:var(--tinta2);line-height:1.35}
+.sb-ad-c b{font-size:30px;line-height:1;font-weight:800;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px}
+.sb-ad-c b i{font-style:normal;font-size:11px;font-weight:600;color:var(--tinta3)}
+.sb-pontinhos{display:flex;gap:4px}
+.sb-pontinhos i{width:100%;height:4px;border-radius:2px;background:var(--veu2)}
+.sb-ad-c.cheio{box-shadow:inset 0 0 0 1px var(--borda2)}
+
+.sb-postos{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;
+  background:var(--borda);border:1px solid var(--borda);border-radius:8px;overflow:hidden;margin-top:4px}
+.sb-posto{background:var(--fundo2);padding:12px 15px;display:flex;flex-direction:column;gap:7px}
+.sb-posto>div{display:flex;align-items:baseline;gap:7px}
+.sb-posto b{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;min-width:46px}
+.sb-posto span{font-size:11px;color:var(--tinta2)}
+
+/* utilização */
+.sb-empate{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
+  background:var(--borda);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.sb-emp{background:var(--fundo2);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.sb-emp-n{display:flex;align-items:baseline;gap:8px}
+.sb-emp-n b{font-size:34px;line-height:1;font-weight:800;letter-spacing:-.02em}
+.sb-emp-n span{font-size:11.5px;color:var(--tinta2)}
+.sb-emp ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:3px;
+  font-size:11.5px;color:var(--tinta2)}
