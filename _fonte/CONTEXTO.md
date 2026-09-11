@@ -1671,6 +1671,44 @@ Três decisões de método que sustentam a tabela:
 A amostra por grupo é pequena — mediana de 3,5 atletas por clube na zaga contra 6,9 no
 ataque —, então vale a direção, não a casa decimal.
 
+### A matriz do Físico ganhou "com a bola / sem a bola"
+
+Dois grupos novos no `FS_GRUPOS` do `app.js`, e eles são coisas **diferentes** apesar do
+nome parecido:
+
+- **"Com a bola e sem a bola"** — TIP/OTIP, o time COM ou SEM a posse. Três pares
+  (metros por minuto, alta intensidade, sprints), régua por 30 min de cada fase.
+  Cobertura de 98,1% de quem tem tracking.
+- **"Corridas sem bola"** — Off Ball Runs: o time TEM a bola e o **jogador** não (ataque
+  da profundidade, apoio, sobreposição). Por isso são todas `p30tip`. Seis métricas,
+  cobertura de 27%; fora do Brasil, Argentina e copas sul-americanas a célula vem vazia.
+
+**A armadilha que isso quase criou, e como está barrada.** O `fsIndices()` fazia a média
+de TODOS os grupos do `FS_GRUPOS` — então acrescentar grupo mudava o índice físico geral
+sem ninguém pedir. Estaria errado por dois motivos independentes: régua diferente (média
+de percentil de `p30tip` com `p90` não quer dizer nada) e cobertura desigual (o índice de
+quem tem Off Ball Runs seria média de 7 grupos e o dos outros, de 5 — dois números com o
+mesmo nome na mesma coluna). Hoje os dois grupos levam `fora: true` e o `fsIndices()` os
+ignora no geral. **Conferido**: os índices batem número a número com os da versão
+anterior (85, 81, 75, 72, 68, 82...). O `KP` do `gerar_raio_ref.py`, que decide o raio,
+também ficou intocado.
+
+O rótulo "média dos cinco grupos" estava escrito à mão em dois lugares e continuaria
+dizendo cinco com sete grupos na tela. Virou `FS_ROT_IDX`, contado do próprio `FS_GRUPOS`.
+
+As colunas de referência precisam dos dois geradores: `gerar_raio_ref.py` (Brasil e Mundo,
+lê o `jogadores.json`) e `gerar_raio_serieb.py` (sobe e cai, lê o banco). No segundo só
+entram os pares TIP/OTIP — a tabela `off_ball_runs` só tem Série B de 2026, e 2026 fica
+fora por ser temporada incompleta.
+
+### Armadilha de publicação: o `--push` que não publica
+
+`publicar_site.py --push` faz `git add docs`, e **se o `docs/` já estiver commitado ele
+imprime "nada mudou em docs/" e sai sem dar push**. Quem commitou o código com `git add -A`
+(que leva o `docs/` junto) acha que publicou e não publicou. Custou três relatos de bug já
+consertado nesta sessão. Enquanto o script não mudar: **conferir com
+`git log --oneline origin/main..HEAD`** — se listar commit, falta `git push origin main`.
+
 ### Pendências
 
 - **Coleta de lesões rodando** (`coletar_serieb_lesoes.py`), 2.850 atletas, ~2,5 h. Ao

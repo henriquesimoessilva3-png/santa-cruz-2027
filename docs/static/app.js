@@ -3306,6 +3306,29 @@ const FS_GRUPOS = [
     ['t505_180',  'Giro de 180° (teste 505)',         's · menor é melhor', 2, true],
     ['t_spr_cod', 'Tempo até o sprint após girar',    's · menor é melhor', 2, true],
     ['t_hsr_cod', 'Tempo até a corrida rápida após girar', 's · menor é melhor', 2, true] ] },
+  /* REGUA DIFERENTE DOS GRUPOS DE CIMA. Tudo acima e por 90 minutos de jogo; estes dois
+     grupos sao por 30 MINUTOS DE CADA FASE, que e como a API entrega (ela nao divide a
+     fase por 90). Comparar um `p30tip` com um `p90` direto e o erro classico da casa —
+     por isso a regua esta escrita no subtitulo de cada grupo, e nao so aqui. */
+  { fora: true, t: 'Com a bola e sem a bola', d: 'Por 30 min de cada fase — não compare com os grupos acima, só entre si.', m: [
+    ['mm_c',  'Metros por minuto, com a bola',        'm/min · 30 TIP',  1],
+    ['mm_s',  'Metros por minuto, sem a bola',        'm/min · 30 OTIP', 1],
+    ['hi_c',  'Alta intensidade, com a bola',         'm · 30 TIP',      0],
+    ['hi_s',  'Alta intensidade, sem a bola',         'm · 30 OTIP',     0],
+    ['spn_c', 'Sprints, com a bola',                  'por 30 TIP',      2],
+    ['spn_s', 'Sprints, sem a bola',                  'por 30 OTIP',     2] ] },
+  /* "Corridas sem bola" NAO e o mesmo que o "sem a bola" do grupo de cima. Ali o time esta
+     sem a posse (fase defensiva); aqui o TIME TEM a bola e o JOGADOR nao — ataque da
+     profundidade, apoio, sobreposicao. Por isso sao todas medidas por 30 min COM posse.
+     Cobertura menor que o resto (28,8% no ago26): fora do Brasil, Argentina e das copas
+     sul-americanas, a celula vem vazia. Vazia, nao zero. */
+  { fora: true, t: 'Corridas sem bola', d: 'Off Ball Runs · o time com a bola e o jogador sem ela. Nem toda liga tem.', m: [
+    ['obr',      'Corridas sem bola',                 'por 30 TIP', 2],
+    ['obr_hsr',  '...acima da corrida rápida',        'por 30 TIP', 2],
+    ['obr_area', '...que entram na área',             'por 30 TIP', 2],
+    ['obr_per',  '...que quebram linha',              'por 30 TIP', 2],
+    ['obr_rec',  '...que receberam a bola',           'por 30 TIP', 2],
+    ['obr_rem',  '...que viraram remate em 10s',      'por 30 TIP', 2] ] },
 ];
 const FS_TODAS = FS_GRUPOS.flatMap(g => g.m);
 const FS_CORES = ['#2f7fe0', '#e5562a', '#22a558', '#c9971a', '#8d5be0', '#d63e7c', '#1aa3a3', '#e07a1a', '#6aa628', '#5a6ce0',
@@ -3712,9 +3735,27 @@ function fsIndices(co, j) {
     const ps = g.m.map(([k, , , , menor]) => fsPct(co, k, j[k], menor)).filter(p => p != null);
     return ps.length ? Math.round(ps.reduce((a, v) => a + v, 0) / ps.length) : null;
   });
-  const ok = grupos.filter(v => v != null);
+  /* GRUPO `fora` NAO ENTRA NO INDICE GERAL, e por dois motivos independentes:
+
+     1. REGUA DIFERENTE. "Com a bola e sem a bola" e por 30 min de cada fase, nao por 90.
+        Media de percentil de reguas diferentes nao quer dizer nada — e a mesma razao pela
+        qual o TIP/OTIP nunca entrou em score nenhum nos portais.
+     2. COBERTURA DESIGUAL. "Corridas sem bola" existe para ~27% dos jogadores. Se entrasse,
+        o indice de quem TEM o dado seria a media de 7 grupos e o de quem NAO tem, de 5 —
+        dois numeros com o mesmo nome medindo coisas diferentes, lado a lado na mesma
+        coluna. Pior que faltar: parece comparavel e nao e.
+
+     Os dois grupos seguem aparecendo na matriz com seu proprio percentil por linha. O que
+     nao acontece e virarem media com o resto. */
+  const ok = grupos.filter((v, i) => v != null && !FS_GRUPOS[i].fora);
   return { grupos, geral: ok.length >= 3 ? Math.round(ok.reduce((a, v) => a + v, 0) / ok.length) : null };
 }
+/* Quantos grupos entram de fato no indice. Existe para o rotulo nao mentir: estava escrito
+   "media dos cinco grupos" em dois lugares e, no dia em que o sexto grupo entrou, os dois
+   continuaram dizendo cinco. */
+const FS_N_IDX = FS_GRUPOS.filter(g => !g.fora).length;
+const FS_ROT_IDX = 'média dos ' + ['zero','um','dois','três','quatro','cinco','seis','sete','oito']
+  [FS_N_IDX] + ' grupos da régua por 90';
 /* A COR do preenchimento e a MESMA pergunta do contorno: em que nivel o jogador joga
    contra as medias das duas series. Antes era a faixa de percentil, e a celula dizia
    duas coisas ao mesmo tempo — o Bruninho batia as duas medias (contorno azul) com a
@@ -3885,7 +3926,7 @@ function fsCabecalho(c) {
       fsContrato(j, true) + '</div>' +
     '<div class="fs-idx-linha">' +
       (c.idx.geral != null ? '<span class="fs-idx ' + (c.idx.geral >= 67 ? 'a' : c.idx.geral >= 40 ? 'm' : 'b') +
-        '" title="Índice físico geral: média dos cinco grupos">' + c.idx.geral + '</span>' : '') +
+        '" title="Índice físico geral: ' + FS_ROT_IDX + '">' + c.idx.geral + '</span>' : '') +
       tag + '</div>' +
     '<div class="fs-hd-bts">' +
       '<button class="fs-ficha" title="Ver a ficha">+</button>' +
@@ -4186,7 +4227,7 @@ function fsRender() {
            ' e da ref. mundo em ' + c.mu + ' de ' + c.n;
   };
 
-  b += linhaResumo('Índice físico geral', 'média dos cinco grupos', x => x && x.geral, null,
+  b += linhaResumo('Índice físico geral', FS_ROT_IDX, x => x && x.geral, null,
                    o => notaRef(contaRef(o, FS_TODAS)));
 
   FS_GRUPOS.forEach((g, gi) => {

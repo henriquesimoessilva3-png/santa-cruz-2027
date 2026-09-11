@@ -22,7 +22,13 @@ RK = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/"
 
 IND = ['vmax3','vmax','psv5','psv','spr_km','spr_n','hsr','hsr_n','hi','hi_n',
        'dist','mmin','run','acel_m','desa_m','expl','acel','desa','t_spr','t_hsr',
-       'cod','t505_90','t505_180','t_spr_cod','t_hsr_cod']
+       'cod','t505_90','t505_180','t_spr_cod','t_hsr_cod',
+       # com a bola / sem a bola (regua por 30 min de cada fase) e corridas sem bola.
+       # Entram aqui so para PREENCHER as colunas de referencia da matriz; nao entram no
+       # KP, que e o que decide o raio — misturar regua num score e o erro que a propria
+       # skill do SkillCorner manda evitar.
+       'mm_c','mm_s','hi_c','hi_s','spn_c','spn_s',
+       'obr','obr_hsr','obr_area','obr_per','obr_rec','obr_rem']
 KP = ['psv','spr_km','spr_n','hi','hi_n']          # os 5 que decidem o raio
 
 MUNDO_POS = {'Zagueiro - Direita':'ZD','Zagueiro - Esquerda':'ZE','Lateral Direito':'LD',

@@ -57,6 +57,12 @@ DE_PARA = {
     "acel_m": "medium_accel_p90", "desa_m": "medium_decel_p90",
     "expl": "expl_accel_sprint_p90", "acel": "high_accel_p90", "desa": "high_decel_p90",
     "cod": "cod_count_p90",
+    # com a bola / sem a bola. NAO ha equivalente das "corridas sem bola" (Off Ball Runs)
+    # aqui: a tabela `off_ball_runs` so tem Serie B de 2026, e 2026 esta fora destas
+    # edicoes por ser temporada incompleta. Pedir seria trazer coluna vazia.
+    "mm_c": "m_per_min_tip", "mm_s": "m_per_min_otip",
+    "hi_c": "hi_distance_p30tip", "hi_s": "hi_distance_p30otip",
+    "spn_c": "sprint_count_p30tip", "spn_s": "sprint_count_p30otip",
 }
 DE_PARA_JSON = {
     "vmax3": "peak_velocity_top3", "vmax": "peak_velocity",

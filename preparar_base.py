@@ -128,7 +128,26 @@ def main(periodo="ago26"):
                              ("t_hsr", "top3_time_to_hsr"), ("t_spr_cod", "top3_time_to_sprint_post_cod"),
                              ("t_hsr_cod", "top3_time_to_hsr_post_cod"),
                              ("t505_90", "top3_time_505_around_90"),
-                             ("t505_180", "top3_time_505_around_180")):
+                             ("t505_180", "top3_time_505_around_180"),
+                             # --- com a bola e sem a bola ---
+                             # REGUA DIFERENTE: estes sao por 30 MINUTOS DE CADA FASE, nao
+                             # por 90. Nao podem ser comparados com as linhas de cima; entre
+                             # si, podem. A tela declara isso no nome do grupo.
+                             # Cobertura no ago26: 96,0% dos 9.439 jogadores com tracking.
+                             ("mm_c", "m_min_tip"), ("mm_s", "m_min_otip"),
+                             ("hi_c", "hi_distance_p30tip"), ("hi_s", "hi_distance_p30otip"),
+                             ("spn_c", "sprint_count_p30tip"), ("spn_s", "sprint_count_p30otip"),
+                             # --- corridas sem bola (Off Ball Runs) ---
+                             # Outra coisa que "sem a bola" acima: aqui o TIME TEM a bola e o
+                             # jogador nao — ataque da profundidade, apoio, sobreposicao. Por
+                             # isso sao todas `p30tip`. Cobertura bem menor, 28,8%, e a tela
+                             # mostra celula vazia onde nao ha (nao zero, que seria mentira).
+                             ("obr", "runs_p30tip"),
+                             ("obr_hsr", "runs_above_hsr_p30tip"),
+                             ("obr_area", "runs_penalty_area_p30tip"),
+                             ("obr_per", "runs_dangerous_p30tip"),
+                             ("obr_rec", "runs_received_p30tip"),
+                             ("obr_rem", "runs_shot_within_10s_p30tip")):
             v = num(met.get(campo), 2)
             if v is not None:
                 j[chave] = v
