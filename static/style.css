@@ -2863,12 +2863,24 @@ body.claro #pgFisico{--fs-sb:#0f6f9e;--fs-cai:#c2650d}
 .fs-media.ref-sb b,.fs-media.ref-cai b{color:var(--ref-cor)}
 .fs-c.ref-sb .fs-bar b,.fs-c.ref-cai .fs-bar b{background:var(--ref-cor)}
 .fs-media.ref-sb,.fs-media.ref-cai{border-bottom:2px solid var(--ref-cor)}
-/* A linha das referências da Série B é a única do bloco com duas cores próprias, então ela
-   leva os quadradinhos: quem marca a caixa já sabe de que cor as colunas vão chegar. */
-.rk-chk-sb{align-items:flex-start;padding-top:3px;border-top:1px dashed var(--borda2);margin-top:7px}
-.rk-chk-sb span{display:flex;align-items:center;gap:4px;flex-wrap:wrap;line-height:1.35}
-.rk-chk-sb small{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--tinta3);
-  border:1px solid var(--borda2);border-radius:3px;padding:0 4px}
-.rk-chk-sb .cq{width:8px;height:8px;border-radius:2px;display:inline-block}
-.rk-chk-sb .cq.sb{background:#3f9fcc} .rk-chk-sb .cq.cai{background:#c08420}
-body.claro .rk-chk-sb .cq.sb{background:#0f6f9e} body.claro .rk-chk-sb .cq.cai{background:#c2650d}
+/* A linha das referências da Série B leva os quadradinhos nas cores exatas das colunas que
+   ela liga — quem marca a caixa já sabe o que vai chegar.
+
+   TUDO AQUI E INLINE, de proposito. `.rk-campo-f>label` e `display:block` e ganha do
+   `.chk{display:flex}` por especificidade (0,2,1 contra 0,1,0), entao a linha nunca e um
+   flex container de verdade. A primeira versao punha um `<span>` flex dentro dela e o
+   quadradinho esticou para 82px de altura — flex aninhado dentro de um bloco que se
+   comporta como bloco. Os quatro vizinhos sao inline e funcionam; este tambem e. */
+.rk-chk-sb{border-top:1px dashed var(--borda2);margin-top:7px;padding-top:6px;line-height:1.5}
+.rk-chk-sb b{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--tinta3);border:1px solid var(--borda2);border-radius:3px;padding:0 4px;
+  margin-left:3px;white-space:nowrap}
+/* OS NOMES SAO `cq-sobe`/`cq-cai` E NAO `sb`/`cai` POR UM MOTIVO CARO: existe um
+   `.sb{max-width:1020px;display:flex;flex-direction:column;padding:22px 4px 60px}` neste
+   mesmo arquivo — e o container da aba Analise Serie B. Um quadradinho de 8px com
+   `class="cq sb"` herdava aquilo e virava uma barra de 82px de altura no meio do painel de
+   filtros. Classe de duas letras em folha global pega quem passar por perto. */
+.rk-chk-sb .cq{width:8px;height:8px;border-radius:2px;display:inline-block;vertical-align:middle;
+  margin-right:2px}
+.rk-chk-sb .cq-sobe{background:#3f9fcc} .rk-chk-sb .cq-cai{background:#c08420}
+body.claro .rk-chk-sb .cq-sobe{background:#0f6f9e} body.claro .rk-chk-sb .cq-cai{background:#c2650d}
