@@ -2366,11 +2366,13 @@ body.com-zoom .campo-area.ampliado .campo{transform:none}
 .emp-rolagem{flex:1;overflow:auto;padding:10px 16px 20px}
 .emp-vazio{padding:28px;text-align:center;font-size:12px;color:var(--tinta3)}
 
-.emp-cab,.emp-linha{display:flex;align-items:center;gap:6px;min-width:max-content}
+/* sem `min-width:max-content`: era ele que obrigava a linha a ter a soma das larguras e
+   punha a aba inteira na rolagem lateral */
+.emp-cab,.emp-linha{display:flex;align-items:center;gap:5px;min-width:0}
 .emp-cab{position:sticky;top:0;z-index:3;background:var(--fundo);padding:6px 0;
   font-size:8.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--tinta3);
   font-weight:700;border-bottom:1px solid var(--borda)}
-.emp-cab span{flex:none}
+.emp-cab span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .emp-linha{padding:3px 0;border-bottom:1px solid var(--borda)}
 .emp-linha:hover{background:var(--veu2)}
 /* quem ainda não tem nada anotado ganha uma tarja discreta à esquerda: é a fila de
@@ -2380,16 +2382,17 @@ body.com-zoom .campo-area.ampliado .campo{transform:none}
 /* `align-items:flex-start` nao e enfeite: em flex-column o padrao e `stretch`, e sem
    isto o botao "+" da ficha e o selo de estrangeiro esticavam pela largura inteira da
    coluna — uma barra cinza (ou ambar, no estrangeiro) atravessando a linha. */
-.emp-c-jog{flex:none;width:210px;display:flex;flex-direction:column;align-items:flex-start;
-  gap:1px;padding-left:7px;min-width:0}
+.emp-c-jog{flex:200 1 0;min-width:120px;display:flex;flex-direction:column;align-items:flex-start;
+  gap:1px;padding-left:7px}
 .emp-c-jog>*{max-width:100%}
 .emp-nome-l{display:flex;align-items:center;gap:4px;max-width:100%}
 .emp-c-jog b{font-size:11.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .emp-meta{font-size:9px;color:var(--tinta3);display:flex;align-items:center;gap:4px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-.emp-c-ct{flex:none;width:96px;font-size:10px;color:var(--tinta2);font-variant-numeric:tabular-nums}
+.emp-c-ct{flex:90 1 0;min-width:62px;font-size:10px;color:var(--tinta2);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
 .emp-c-x{flex:none;width:26px;text-align:center}
-.emp-campo{flex:none;position:relative;display:block}
+.emp-campo{position:relative;display:block}
 .emp-campo input,.emp-nome-ed,.emp-min{
   width:100%;padding:4px 6px;border-radius:5px;font:inherit;font-size:10.5px;
   background:var(--input-bg);border:1px solid var(--borda2);color:var(--tinta)}
@@ -2638,3 +2641,6 @@ body.claro .jog.estrangeiro{background:var(--pilula)}
   text-transform:none;letter-spacing:0;resize:vertical;min-height:58px;
   background:var(--input-bg);border:1px solid var(--borda2);color:var(--tinta)}
 .me-l textarea:focus{outline:none;border-color:var(--coral)}
+
+/* a aba não rola de lado: o que sobra de conteúdo encolhe, não transborda */
+.emp-rolagem{overflow-x:hidden}
