@@ -1118,3 +1118,24 @@ estrela e o fundo rosa, e repetir três vezes a mesma coisa num card denso é ru
 **Migração v5:** quem já era titular ficaria com a estrela de Main e o Status em branco —
 exatamente a contradição que a unificação veio evitar. A migração marca os existentes como
 Main (conferido: 10 titulares, 10 Main, nenhum sem nível).
+
+## `const` não sobe como função sobe — e o site abriu vazio (set/26)
+
+Publiquei a migração v5 e o site abriu com o **campo vazio e tudo zerado**. Console:
+`Cannot access 'EMP_VAZIO' before initialization`, dentro de uma promise.
+
+`empDados()` devolvia `… || EMP_VAZIO`, uma `const` declarada lá no fim do arquivo, na
+seção da aba Empresários. A `migrar()` roda na CARGA e chama `empDados()` — antes de o fim
+do arquivo ter sido avaliado. Declaração de função sobe; `const` não: fica na zona morta
+temporal e **lança**. A exceção derrubou a carga inteira, e o que sobrou na tela foi o
+estado zerado.
+
+**Por que os meus testes não pegaram, e é a parte que importa.** Eu testava chamando
+`abrirCenario()` à mão no console, depois de o arquivo já ter sido todo avaliado — nesse
+momento a `const` já existe e tudo funciona. O erro só acontece no **caminho de
+inicialização, com algo já gravado no navegador**, que é exatamente o caminho do usuário e
+nunca o do meu teste. Testar pela porta dos fundos não testa a porta da frente.
+
+Conserto: `empDados()` devolve `{}` novo em vez da constante compartilhada. E a reprodução
+passou a ser feita como o usuário faz — forçando `estado.v = 4` no `localStorage` e
+recarregando a página do build estático, não chamando função no console.

@@ -5764,8 +5764,15 @@ function definirNivel(cod, j, nivel) {
    isto uma vez por jogador para desenhar, so ABRIR a aba enchia o cenario com 118
    objetos vazios — que iam para o Salvar, para a nuvem e para o cenarios.json, sem
    nada dentro. Quem grava e `empGravar()`, e so quando ha o que gravar. */
-const EMP_VAZIO = {};
-function empDados(ch) { return (estado.emp && estado.emp[ch]) || EMP_VAZIO; }
+/* Devolve um objeto NOVO em vez de uma constante compartilhada, e o motivo é uma
+   armadilha real: `const` não sobe como função sobe. A `migrar()` roda na carga, ANTES de
+   o fim do arquivo ser avaliado, e chamava `empDados()` — que lia uma `const EMP_VAZIO`
+   ainda na zona morta temporal. Resultado: `Cannot access 'EMP_VAZIO' before
+   initialization` dentro de uma promise, a carga inteira abortava e o site abria com o
+   campo VAZIO e tudo zerado. Não deu erro nos meus testes porque eu chamava `abrirCenario`
+   à mão, depois de o arquivo já ter sido todo avaliado; só quebrava no caminho de
+   inicialização com algo já gravado no navegador — o caminho do usuário. */
+function empDados(ch) { return (estado.emp && estado.emp[ch]) || {}; }
 function empGravar(ch) {
   if (!estado.emp) estado.emp = {};
   if (!estado.emp[ch]) estado.emp[ch] = {};
