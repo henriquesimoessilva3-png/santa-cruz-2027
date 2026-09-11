@@ -1511,3 +1511,31 @@ amostra eram dez clubes de 2026 até a 25ª rodada, truncada no topo da tabela �
 que a rotatividade aparece. Com 80 clube-temporada a relação é forte (+0,54 para a
 concentração de minutos nos onze mais usados). A `SB_USO` foi removida e o bloco agora diz o
 que mudou e por quê, em vez de trocar o texto em silêncio.
+
+### Aba Físico ganha "Quem sobe" e "Quem cai" (set/26)
+
+Duas colunas de referência novas ao lado de Brasil e Mundo, desligadas por padrão
+(`Quem sobe e quem cai (Série B)` no bloco **Quem aparece**). Elas respondem uma pergunta
+diferente das outras duas: não "ele é bom no padrão da elite", e sim **"ele está no nível
+físico de quem sobe desta divisão, ou no de quem cai?"** — que é a pergunta do planejamento.
+
+`gerar_raio_serieb.py` acrescenta `refs[POSIÇÃO].sobe` e `.cai` ao `dados/raio_ref.json`,
+médias do SkillCorner das quatro temporadas completas (2022-2025) ponderadas por minuto
+rastreado, por posição. **Roda DEPOIS do `_fonte/gerar_raio_ref.py`** — ele acrescenta, não
+gera; na ordem inversa apaga o trabalho do outro.
+
+Dez posições, 14 a 68 atletas em cada, 22 a 23 dos 25 indicadores. Faltam de propósito
+`vmax` e `vmax3`: neste banco eles só têm cobertura de 2025 em diante.
+
+**Duas escolhas de mapeamento que valem registro.** `CB` (zagueiro sem lado) entra nos
+**dois** lados — deixar de fora tiraria 36 atletas-temporada da conta de zaga, e escolher
+um lado seria cara ou coroa. E `LAMF`/`RAMF` vão para **ED/EE**, não para MEI: no Wyscout
+são a mesma função dos pontas.
+
+O que as colunas mostram bate com o estudo do clube inteiro, agora posição a posição — o
+centroavante de quem sobe dá **11,3 sprints** contra 9,3 e corre **207 m em sprint** contra
+170, com **distância praticamente igual** (9.519 contra 9.458). Volume não separa,
+intensidade separa, e isso vale dentro de cada posição.
+
+A exceção é o **MEI**, a menor amostra (17 e 14): ali quem cai aparece à frente em alguns
+indicadores. Com essa amostra, não é achado.

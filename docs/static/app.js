@@ -3390,6 +3390,7 @@ function fsPacote(co, colunas) {
     destaquePks: colunas.map(c => primaryKey(c.j)),
     mediaA: co.A.m, mediaB: co.B.m,
     refBR: ref(refs.brasil), refMU: ref(refs.mundo),
+    refSobe: ref(refs.sobe), refCai: ref(refs.cai),
   };
 }
 
@@ -4002,10 +4003,21 @@ function fsRender() {
      mundial). Sao a barra — e e contra a do BRASIL que o raio julga. Media de grupo, e
      nao um jogador so: com um unico nome a regua virava refem do outlier. */
   const refPos = (RAIO && RAIO.refs && RAIO.refs[fsPos]) || {};
-  const refCols = ($('#fsRefs') && $('#fsRefs').checked ? [
-    { k: 'brasil', rot: 'Ref. Brasil', cls: 'ref-br', d: refPos.brasil },
-    { k: 'mundo',  rot: 'Ref. Mundo',  cls: 'ref-mu', d: refPos.mundo },
-  ] : []).filter(r => r.d && r.d.valores);
+  /* As duas referencias da Serie B respondem outra pergunta que as de Brasil e Mundo: nao
+     "ele e bom no padrao da elite", e sim "ele esta no nivel fisico de quem SOBE da Serie
+     B, ou no de quem CAI". Sao medias do SkillCorner das quatro temporadas completas,
+     por posicao, geradas por gerar_raio_serieb.py. Vem desligadas: sao quatro colunas de
+     referencia com as outras duas, e a tela ja e larga. */
+  const refCols = [
+    ...($('#fsRefs') && $('#fsRefs').checked ? [
+      { k: 'brasil', rot: 'Ref. Brasil', cls: 'ref-br', d: refPos.brasil },
+      { k: 'mundo',  rot: 'Ref. Mundo',  cls: 'ref-mu', d: refPos.mundo },
+    ] : []),
+    ...($('#fsRefSB') && $('#fsRefSB').checked ? [
+      { k: 'sobe', rot: 'Quem SOBE', cls: 'ref-sb', d: refPos.sobe },
+      { k: 'cai',  rot: 'Quem CAI',  cls: 'ref-cai', d: refPos.cai },
+    ] : []),
+  ].filter(r => r.d && r.d.valores);
   const refVazio = '<td class="fs-c media ref vazio"><div class="fs-cl"><span class="v">–</span></div></td>';
   const refTdVazio = refCols.map(() => refVazio).join('');
   const refTd = (k, casas, menor) => refCols.map(r => {
@@ -4880,7 +4892,10 @@ function fsMontarFiltros() {
   /* as listas de jogador sao fspPreencher(): ja saem com o clique ligado */
   $('#fsLigaEscolha').onchange = () => { fsLigaLista = $('#fsLigaEscolha').value; fsRender(); };
   $('#fsMin').oninput = debounce(fsRender, 200);
-  ['#fsTopA', '#fsTopB', '#fsMedias', '#fsRefs'].forEach(id => { $(id).onchange = fsRender; });
+  ['#fsTopA', '#fsTopB', '#fsMedias', '#fsRefs', '#fsRefSB'].forEach(id => {
+    const el = $(id);
+    if (el) el.onchange = fsRender;     /* o `if` protege quem abrir uma versao antiga do HTML */
+  });
   $$('#fsVisao button').forEach(b => {
     b.classList.toggle('on', b.dataset.v === FS_VISAO);
     b.onclick = () => fsTrocarVisao(b.dataset.v);
