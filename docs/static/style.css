@@ -2834,3 +2834,17 @@ body.claro .sbx-emp.t1,body.claro .sbx-emp.t2,body.claro .sbx-emp.t3{fill:#0d263
 body.claro .sbx-emp.t4,body.claro .sbx-emp.t5{fill:#f4f9fc}
 .sbx-fora{font-size:10px;font-weight:700;fill:var(--tinta2)}
 .sbx-fio{stroke:var(--borda2);stroke-width:1}
+
+/* ============ Série B — as seções (set/26) ============
+   A aba passou de quatro blocos para vinte e seis, e lista corrida de vinte e seis não é
+   estudo, é depósito. O índice é grudento no topo do conteúdo e leva direto. */
+.sb-indice{position:sticky;top:0;z-index:8;display:flex;flex-wrap:wrap;gap:5px;
+  background:var(--fundo);padding:8px 0 10px;margin:-4px 0 0;border-bottom:1px solid var(--borda)}
+.sb-indice button{font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;
+  border:1px solid var(--borda2);color:var(--tinta2);background:var(--fundo2);white-space:nowrap}
+.sb-indice button:hover{color:var(--tinta);border-color:var(--sb-sobe)}
+.sb-sec{display:flex;flex-direction:column;gap:30px;scroll-margin-top:56px}
+.sb-sec-cab{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-top:2px solid var(--tinta);padding-top:12px;margin-bottom:-8px}
+.sb-sec-cab h3{margin:0;font-size:21px;letter-spacing:-.02em;font-weight:800}
+.sb-sec-cab span{font-size:12px;color:var(--tinta3)}

@@ -6533,16 +6533,17 @@ const SB_INDICADORES = [
   ['pontos em casa', 'ptsCasa'], ['pontos fora', 'ptsFora'],
   ['sofrer menos gols', 'gcJogo', 1], ['marcar mais gols', 'gpJogo'],
   ['passar em branco menos vezes', 'branco', 1], ['jogos sem sofrer gol', 'cs'],
-  ['elenco caro na DEFESA', 'valDef', 0, 1], ['conceder menos xG', 'xgCon', 1],
+  ['€ parados na DEFESA', 'valDef', 0, 1], ['conceder menos xG', 'xgCon', 1],
   ['chutar de mais perto', 'dist', 1],
   ['concentrar minutos nos 11 de sempre', 'share11', 0, 1],
   ['criar mais xG', 'xg'], ['usar menos atletas', 'usados', 1],
-  ['elenco caro no total', 'valor'], ['bola parada virar remate', 'bpConv', 0, 1],
+  ['€ do elenco inteiro', 'valor'], ['bola parada virar remate', 'bpConv', 0, 1],
   ['fazer gol de cabeça', 'cabeca'], ['tocar mais na área', 'toques'],
-  ['elenco caro no MEIO', 'valMeio'], ['ganhar duelo aéreo', 'aereos'],
+  ['€ parados no MEIO', 'valMeio'], ['ganhar duelo aéreo', 'aereos'],
   ['acertar o alvo no chute', 'remBal'], ['pressionar mais alto (PPDA)', 'ppda', 1],
-  ['elenco caro no ATAQUE', 'valAtq'],
-  ['concentrar o valor no ATAQUE', 'shAtq', 0, 1],
+  ['€ parados no ATAQUE', 'valAtq'],
+  ['% do orçamento na DEFESA', 'shDef'],
+  ['% do orçamento no ATAQUE', 'shAtq', 0, 1],
   ['acertar cruzamentos', 'cruzPct'], ['ter mais posse de bola', 'posse'],
   ['dar minutos a estrangeiros', 'minEstr'], ['cometer menos faltas', 'faltas', 1],
   ['acertar mais passes', 'passePct'], ['ter um time mais jovem', 'idade', 1],
@@ -6724,6 +6725,10 @@ function sbBlocoDinheiro() {
     'e o gasto aparece onde o problema não estava.</p>' +
     '<p class="sb-nota">Dinheiro ajuda e não decide: dos 16 acessos, <b>' + sbTop4('valor') +
     '</b> vinham do top-4 de valor.</p>' +
+    '<p class="sb-nota"><b>Cuidado com a leitura de euros.</b> Em valor absoluto quem sobe tem mais ' +
+    'atacante caro que quem cai (€ ' + sbMi(sbPorFaixa('valAtq').sobe) + ' mi contra € ' +
+    sbMi(sbPorFaixa('valAtq').cai) + ' mi) — mas tem mais de tudo, porque o elenco inteiro é mais caro. ' +
+    'A pergunta que importa não é quanto, é <b>que fatia</b>: e aí a ordem se inverte.</p>' +
     '</div>';
 }
 
@@ -6776,6 +6781,17 @@ function sbBlocoQuadro() {
       '<text x="' + (ESQ + ESC * 0.5) + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0,50</text>' +
       '<text x="' + (ESQ + ESC) + '" y="' + (alt - 8) + '" text-anchor="end" class="sbx-pq">1,00 · filas iguais</text>' +
     '</svg></div>' +
+    '<p class="sb-nota"><b>Duas linhas do ataque, sinais opostos, e não é erro.</b> "€ parados no ATAQUE" ' +
+    'dá ' + sbN2(sbRho('valAtq')) + ' e "% do orçamento no ATAQUE" dá ' + sbN2(sbRho('shAtq')) +
+    ' — uma está em <b>euros</b> e a outra em <b>porcentagem do próprio elenco</b>, e elas medem coisas ' +
+    'diferentes. A de euros anda a ' + sbN2(sbRhoEntre('valAtq', 0, 'valor', 0)) + ' com o valor total do ' +
+    'elenco: boa parte dela é só "clube rico tem atacante caro, e clube rico sobe mais". A de porcentagem ' +
+    'anda a ' + sbN2(sbRhoEntre('shAtq', 0, 'valor', 0)) + ' com o valor total — <b>é o clube pobre que ' +
+    'concentra no ataque</b>. Entre si, as duas ficam em ' + sbN2(sbRhoEntre('valAtq', 0, 'shAtq', 0)) +
+    ': longe de serem a mesma medida. Lendo junto: quem sobe tem € ' + sbMi(sbPorFaixa('valAtq').sobe) +
+    ' mi em atacantes contra € ' + sbMi(sbPorFaixa('valAtq').cai) + ' mi de quem cai — <b>mais dinheiro, ' +
+    'menos fatia</b> (' + sbN1(sbPorFaixa('shAtq').sobe) + '% contra ' + sbN1(sbPorFaixa('shAtq').cai) +
+    '%). Os dois 0,29 são coincidência de tamanho, não sinal de que é a mesma conta.</p>' +
     '<p class="sb-nota"><b>Posse de bola (' + sbN2(sbRho('posse')) + ') e precisão de passe (' +
     sbN2(sbRho('passePct')) + ') quase não distinguem quem sobe de quem cai</b> — os dois números que mais ' +
     'abrem apresentação de análise de jogo. E <b>idade do time é zero</b> (' + sbN2(sbRho('idade', true)) +
@@ -7222,7 +7238,7 @@ function sbR2(campos) {
    toda peca passa de 0,40 com a posicao final. */
 const SB_ALAVANCAS = [
   ['concentrar os minutos nos 11 de sempre', 'share11', 0],
-  ['elenco caro no total', 'valor', 0],
+  ['€ do elenco inteiro', 'valor', 0],
   ['defesas do goleiro', 'gkDefesas', 0],
   ['fazer gol de cabeça', 'cabeca', 0],
 ];
@@ -7231,7 +7247,7 @@ function sbBlocoEntreIndicadores() {
   const A = SB_ALAVANCAS;
   const juntas = sbR2(A.map(x => [x[1], x[2]]));
   const sozinhas = A.map(x => sbR2([[x[1], x[2]]]));
-  const X = 268, ESC = 560;
+  const X = 268, ESC = 300;
   const linhas = A.map((x, i) => {
     const y = 8 + i * 26, r2 = sozinhas[i];
     return '<text x="' + (X - 8) + '" y="' + (y + 12) + '" text-anchor="end" class="sbx-rot forte">' +
@@ -7268,10 +7284,25 @@ function sbBlocoEntreIndicadores() {
     (maior ? ' (o mais parecido é "' + esc(maior[1]) + '" com "' + esc(maior[2]) + '", ' +
       sbN2(maior[0]) + ')' : '') + '. Quase nada é repetição.</p>' +
     '<p class="sb-nota">E isso tem uma consequência prática: como não se explicam uma pela outra, elas ' +
-    '<b>se somam</b>. Abaixo, quanto cada uma explica da posição final sozinha, e quanto explicam juntas ' +
-    '— o eixo vai de 0 (nada) a 1 (tudo).</p>' +
-    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (8 + A.length * 26 + 38) + '" class="sb-svg">' +
-      linhas + '</svg></div>' +
+    '<b>se somam</b>. Abaixo, quanto cada uma explica da posição final sozinha, e quanto explicam juntas.</p>' +
+    '<p class="sb-nota"><b>Atenção: esta régua não é a do gráfico de cima.</b> Lá a barra é a semelhança ' +
+    'entre duas filas; aqui é <b>quanto da tabela a medida explica</b>. Uma vira a outra ao quadrado — ' +
+    '"concentrar os minutos" aparece com ' + sbN2(sbRho('share11')) + ' lá em cima e com ' +
+    sbN2(sbR2([['share11', 0]])) + ' aqui, e ' + sbN2(sbRho('share11')) + ' × ' + sbN2(sbRho('share11')) +
+    ' = ' + sbN2(sbRho('share11') ** 2) + '. Os dois gráficos dizem a mesma coisa em unidades diferentes; ' +
+    'o de cima ordena, este soma.</p>' +
+    '<div class="sb-tela"><svg viewBox="0 0 620 ' + (8 + A.length * 26 + 54) + '" class="sb-svg">' +
+      '<line x1="' + (X + ESC * 0.5) + '" y1="4" x2="' + (X + ESC * 0.5) + '" y2="' +
+        (8 + A.length * 26 + 16) + '" class="sbx-eixo" stroke-dasharray="3 4"/>' +
+      '<line x1="' + (X + ESC) + '" y1="4" x2="' + (X + ESC) + '" y2="' + (8 + A.length * 26 + 16) +
+        '" class="sbx-eixo" stroke-dasharray="3 4"/>' +
+      linhas +
+      '<text x="' + X + '" y="' + (8 + A.length * 26 + 48) + '" class="sbx-pq">0 · não explica nada</text>' +
+      '<text x="' + (X + ESC * 0.5) + '" y="' + (8 + A.length * 26 + 48) + '" text-anchor="middle" ' +
+        'class="sbx-pq">0,50</text>' +
+      '<text x="' + (X + ESC) + '" y="' + (8 + A.length * 26 + 48) + '" text-anchor="end" ' +
+        'class="sbx-pq">1 · explica a tabela inteira</text>' +
+      '</svg></div>' +
     '<p class="sb-nota"><b>Quatro alavancas separadas, e nenhuma delas é gol.</b> A melhor sozinha explica ' +
     sbN2(Math.max(...sozinhas)) + ' da tabela; as quatro juntas, <b>' + sbN2(juntas) + '</b>. São: confiar ' +
     'em um grupo curto, ter elenco caro, ter goleiro que defende e marcar de cabeça — e a maior correlação ' +
@@ -7614,6 +7645,35 @@ function sbResumo() {
   };
 }
 
+/* ---------- as secoes da aba ----------
+
+   A aba passou de quatro blocos para quase trinta, e uma lista corrida de trinta blocos
+   nao e um estudo — e um deposito. Agora eles vivem em SECOES nomeadas, com um indice no
+   topo que leva direto. O indice e montado da mesma lista que monta as secoes, entao nao ha
+   como um existir sem o outro. */
+const SB_SECOES = [
+  ['linha', 'A linha do acesso', 'quantos pontos, e sob a regra nova'],
+  ['vantagem', 'De onde vem a vantagem', 'a cadeia do gol, e o que dela se repete'],
+  ['ataque', 'Ataque e defesa', 'o que separa de cada lado'],
+  ['parada', 'Bola parada', 'o canal em que eficiência bate volume'],
+  ['elenco', 'Elenco, dinheiro e idade', 'quem você contrata e em quem confia'],
+  ['fisico', 'Físico', 'SkillCorner — correr, e correr rápido'],
+  ['jogo', 'O jogo', 'contra quem, onde e com que regularidade'],
+  ['quadro', 'O quadro geral', 'tudo junto, e o que se soma'],
+  ['ano', 'A temporada', 'ano a ano, clube a clube'],
+  ['metodo', 'Método e ressalvas', 'onde isto pode estar errado'],
+];
+function sbSecao(id, conteudo) {
+  const s = SB_SECOES.find(x => x[0] === id);
+  return '<section class="sb-sec" id="sbSec-' + id + '">' +
+    '<div class="sb-sec-cab"><h3>' + esc(s[1]) + '</h3><span>' + esc(s[2]) + '</span></div>' +
+    conteudo + '</section>';
+}
+function sbIndice() {
+  return '<nav class="sb-indice">' + SB_SECOES.map(s =>
+    '<button data-sec="' + s[0] + '">' + esc(s[1]) + '</button>').join('') + '</nav>';
+}
+
 function sbRender() {
   const alvo = $('#sbCorpo');
   if (!alvo) return;
@@ -7699,6 +7759,9 @@ function sbRender() {
         'apenas ter o direito de disputá-lo.') +
     '</div>' +
 
+    sbIndice() +
+
+    sbSecao('linha',
     '<div class="sb-bloco">' +
       '<span class="sb-rot">A faixa que decide, ano a ano</span>' +
       '<div class="sb-tela"><svg viewBox="0 0 620 ' + (26 + anos.length * 34 + 16) + '" class="sb-svg">' +
@@ -7730,13 +7793,14 @@ function sbRender() {
       'trocar <b>três</b> empates por vitórias dá 6 pontos, que é a distância do 4º ao 8º em três das quatro ' +
       'temporadas. Do outro lado há um teto: nenhum dos 16 que subiram perdeu mais de <b>' + R.maxDerrotas +
       '</b> jogos em 38.</p>' +
-    '</div>' +
+    '</div>'
+    ) +
 
     /* ---- ataque e defesa: as quatro perguntas, respondidas uma a uma ---- */
-    sbBlocoCadeia() +
+    sbSecao('vantagem', sbBlocoCadeia() + sbBlocoRepete()) +
 
-    sbBlocoRepete() +
 
+    sbSecao('ataque',
     '<div class="sb-bloco">' +
       '<span class="sb-rot">Ataque sobe, defesa segura</span>' +
       '<div class="sb-ad">' +
@@ -7787,6 +7851,10 @@ function sbRender() {
        'concede finalizações piores, e <b>pressiona mais alto</b> — o que vem antes na cadeia: ' +
        'pressionar alto é parte de por que o adversário chuta menos e de pior lugar.') +
 
+    sbBlocoGolEGoleiro()
+    ) +
+
+    sbSecao('parada',
     sbBlocoTrios('Bola parada · onde eficiência bate volume', [
       ['Bolas paradas por jogo', 'bp', sbN1],
       ['… que viram remate, %', 'bpConv', sbN1],
@@ -7798,30 +7866,19 @@ function sbRender() {
        'Ressalva de método: a base não marca "gol de bola parada"; o que dá para medir é quanto da ' +
        'bola parada vira remate e quantos gols saíram de cabeça e de pênalti.') +
 
-    sbBlocoGolsParada() +
+    sbBlocoGolsParada()
+    ) +
 
-    sbBlocoGolEGoleiro() +
+    sbSecao('elenco', sbBlocoDinheiro() + sbBlocoUso() + sbBlocoUsoAno() + sbBlocoUsoSetor() +
+      sbBlocoContinuidade() + sbBlocoIdade()) +
 
-    sbBlocoDinheiro() +
+    sbSecao('fisico', sbBlocoFisico()) +
 
-    sbBlocoUso() +
+    sbSecao('jogo', sbBlocoMando() + sbBlocoAdversario() + sbBlocoRegularidade() +
 
-    sbBlocoUsoAno() +
+    '') +
 
-    sbBlocoUsoSetor() +
-
-    sbBlocoContinuidade() +
-
-    sbBlocoIdade() +
-
-    sbBlocoFisico() +
-
-    sbBlocoMando() +
-
-    sbBlocoAdversario() +
-
-    sbBlocoRegularidade() +
-
+    sbSecao('quadro',
     '<div class="sb-bloco">' +
       '<span class="sb-rot">Quem sobe contra quem fica no 5º ao 8º</span>' +
       '<div class="sb-perfil">' +
@@ -7838,11 +7895,10 @@ function sbRender() {
       'quase cinco gols. Numa liga em que todos defendem parecido, é o ataque que compra vitória.</p>' +
     '</div>' +
 
-    sbBlocoQuadro() +
+    sbBlocoQuadro() + sbBlocoEntreIndicadores() + sbBlocoRetrato()
+    ) +
 
-    sbBlocoEntreIndicadores() +
-
-    sbBlocoRetrato() +
+    sbSecao('ano',
 
     '<div class="sb-bloco">' +
       '<div class="sb-cab-ano"><span class="sb-rot">A temporada de ' + sbAno +
@@ -7863,6 +7919,9 @@ function sbRender() {
           'ainda foi disputada no formato antigo — serve para ver onde o corte teria caído.</p>') +
     '</div>' +
 
+    '') +
+
+    sbSecao('metodo',
     '<div class="sb-bloco sb-falta">' +
       '<h3>O que muda no planejamento, e o que ainda não sei</h3>' +
       '<p>A regra nova <b>baixa o piso e sobe o teto</b>. Entrar na disputa ficou mais barato: o 6º fez em ' +
@@ -7888,8 +7947,14 @@ function sbRender() {
       '2022, Operário-PR × Chapecoense em 2024 e três da 27ª rodada de 2026. Faltam nos dois lados da fonte, ' +
       'então não é download incompleto — e quem detectou foi a conferência que recalcula a tabela a partir ' +
       'das partidas e fecha em 90 dos 100 clube-temporada.</p>' +
-    '</div>';
+    '</div>');
 
+  alvo.querySelectorAll('.sb-indice button').forEach(b => {
+    b.onclick = () => {
+      const alvoSec = $('#sbSec-' + b.dataset.sec);
+      if (alvoSec) alvoSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  });
   alvo.querySelectorAll('.sb-bt').forEach(b => {
     b.onclick = () => { sbAno = +b.dataset.ano; sbRender(); };
   });
