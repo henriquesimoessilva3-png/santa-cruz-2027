@@ -125,6 +125,7 @@
   <button class="aba" data-aba="fisico">Físico</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <button class="aba" data-aba="financeiro">Financeiro</button>
+  <button class="aba" data-aba="empresarios">Empresários</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -462,6 +463,22 @@
       </div>
     </div>
   </section>
+
+    <section class="pagina oculta" id="pgEmpresarios">
+      <div class="emp-topo">
+        <div class="emp-tit">
+          <h3>Empresários</h3>
+          <span class="emp-sub" id="empSub"></span>
+        </div>
+        <div class="emp-bts">
+          <input id="empBusca" class="emp-busca" placeholder="Filtrar por jogador, empresário ou empresa…">
+          <button class="bt mini" id="empSoFalta" title="Mostrar só quem ainda não tem empresário anotado">só o que falta</button>
+          <button class="bt mini" id="empNovo">＋ jogador de fora</button>
+          <button class="bt mini" id="empCsv" title="Baixar tudo em CSV, para abrir no Excel">baixar CSV</button>
+        </div>
+      </div>
+      <div class="emp-rolagem"><div id="empCorpo"></div></div>
+    </section>
 </main>
 
 <!-- ============ modal do estudo Serie A x Serie B ============ -->

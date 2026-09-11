@@ -150,6 +150,7 @@ function novoEstado() {
     orientacao: 'horizontal', denso: true, tema: 'escuro', ajustar: true, zoom: 1, v: VERSAO,
     metas: { gol:8, defesa:27, meio:30, ataque:35 },
     alvoAtletas: {}, elenco: el,
+    emp: {}, empExtra: [],   /* aba Empresários: dados por jogador e nomes de fora */
   };
 }
 
@@ -5118,11 +5119,13 @@ function irParaAba(nome) {
   $('#pgFisico').classList.toggle('oculta', nome !== 'fisico');
   $('#pgAnalise').classList.toggle('oculta', nome !== 'analise');
   $('#pgFinanceiro').classList.toggle('oculta', nome !== 'financeiro');
+  $('#pgEmpresarios').classList.toggle('oculta', nome !== 'empresarios');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
   if (nome === 'analise') anPremissasCarregar();
   if (nome === 'financeiro') finRender();
+  if (nome === 'empresarios') empRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */
@@ -5369,6 +5372,25 @@ function ligar() {
   $('#btTema').onclick = trocarTema;
   $('#btTemaTopo').onclick = trocarTema;
 
+  const bq = $('#empBusca');
+  if (bq) bq.oninput = () => { empFiltro = bq.value; empRender(); };
+  const bf = $('#empSoFalta');
+  if (bf) bf.onclick = () => {
+    empSoFalta = !empSoFalta;
+    bf.classList.toggle('on', empSoFalta);
+    empRender();
+  };
+  const bn = $('#empNovo');
+  if (bn) bn.onclick = () => {
+    empExtras().unshift({ uid: uid(), nome: '', clube: '', idade: '', contrato: '', pos: 'CA' });
+    salvarLocal(); empRender();
+    /* foco no nome do que acabou de nascer: a linha vazia sem foco parece que nao criou */
+    const p = $('#empCorpo .emp-nome-ed');
+    if (p) { p.focus(); p.scrollIntoView({ block: 'center' }); }
+  };
+  const bc = $('#empCsv');
+  if (bc) bc.onclick = empCsv;
+
   $('#btAjustar').onclick = () => {
     escalaProxima();
     sincronizarBotoes(); salvarLocal(); ajustarCampo();
@@ -5585,3 +5607,271 @@ window.addEventListener('resize', debounce(talvezAjustar, 120));
 setInterval(talvezAjustar, 700);
 
 iniciar();
+
+/* ================= aba Empresários =================
+   Quem negocia nao e o jogador, e quem cuida dele. Toda essa informacao vivia em
+   conversa de WhatsApp e caderno: telefone do empresario, quanto ele ganha hoje, quanto
+   esta pedindo. Aqui ela fica ao lado do elenco, na mesma tela, e acompanha o grupo —
+   e gravada dentro do cenario, entao viaja junto no Salvar e no comparativo.
+
+   CHAVE: `pk` (nome-clube-liga) quando existe, `uid:` + uid como reserva. A escolha
+   importa — pk e estavel entre grupos, entao anotar o empresario do Fulano no Cenario 1
+   aproveita no Cenario 2; uid e por linha do elenco e morreria na primeira troca. */
+const EMP_STATUS = ['', 'Main', 'Squad', 'Youth'];
+const EMP_CAMPOS = [
+  /* Status vem PRIMEIRO: e a leitura que se faz varrendo a coluna de cima a baixo
+     ("quem e Main nesta posicao?"), e nao um detalhe do contato. Fica colorido para
+     dar para ler sem ler — verde Main, ambar Squad, azul Youth. */
+  { k: 'status',     r: 'Status',          w: 84,  opcoes: EMP_STATUS },
+  { k: 'empresario', r: 'Empresário',      w: 130 },
+  { k: 'empresa',    r: 'Empresa',         w: 120 },
+  { k: 'igEmpresa',  r: 'IG da empresa',   w: 110, ig: 1 },
+  { k: 'igJogador',  r: 'IG do jogador',   w: 110, ig: 1 },
+  { k: 'tel',        r: 'Telefone',        w: 110 },
+  { k: 'salAtual',   r: 'Salário atual',   w: 92,  num: 1 },
+  { k: 'pedida',     r: 'Pedida',          w: 92,  num: 1 },
+  { k: 'faixa',      r: 'Faixa p/ clube',  w: 92,  num: 1 },
+];
+let empSoFalta = false;
+let empFiltro = '';
+
+function empChave(j) { return j.pk ? 'pk:' + j.pk : 'uid:' + j.uid; }
+function empDados(ch) {
+  if (!estado.emp) estado.emp = {};
+  if (!estado.emp[ch]) estado.emp[ch] = {};
+  return estado.emp[ch];
+}
+function empVazio(d) { return !EMP_CAMPOS.some(c => d[c.k]); }
+
+/* Jogadores de FORA do campograma. Entram aqui porque a conversa com um empresario
+   quase sempre traz nomes que ainda nao estao no elenco — e perder isso obrigaria a
+   anotar num outro lugar, que e exatamente o que esta aba veio resolver. */
+function empExtras() {
+  if (!Array.isArray(estado.empExtra)) estado.empExtra = [];
+  return estado.empExtra;
+}
+
+/* `@fulano` -> link do Instagram. Guarda-se o texto como a pessoa digitou; o link e so
+   leitura, para dar um clique em vez de copiar e colar no navegador. */
+function empIgUrl(v) {
+  const t = String(v || '').trim().replace(/^@/, '');
+  if (!t) return '';
+  if (/^https?:\/\//i.test(t)) return t;
+  return 'https://instagram.com/' + t.replace(/^instagram\.com\//i, '').replace(/\/+$/, '');
+}
+
+function empLinhas() {
+  const linhas = [];
+  POSICOES.forEach(p => {
+    (estado.elenco[p.c] || []).forEach(j => linhas.push({
+      pos: p.c, posNome: p.nome, ch: empChave(j),
+      nome: j.nome, idade: j.idade, clube: j.clube, contrato: j.contrato,
+      estrangeiro: j.estrangeiro, nac: j.nac, jid: j.jid, deFora: false,
+    }));
+  });
+  empExtras().forEach(e => linhas.push({
+    pos: e.pos || 'CA', posNome: nomePos(e.pos || 'CA'), ch: 'ext:' + e.uid,
+    nome: e.nome, idade: e.idade, clube: e.clube, contrato: e.contrato,
+    deFora: true, uid: e.uid,
+  }));
+  return linhas;
+}
+
+function empRender() {
+  const alvo = $('#empCorpo');
+  if (!alvo) return;
+  const todas = empLinhas();
+  const termo = empFiltro.trim().toLowerCase();
+  const passa = l => {
+    const d = empDados(l.ch);
+    if (empSoFalta && !empVazio(d)) return false;
+    if (!termo) return true;
+    return [l.nome, l.clube, d.empresario, d.empresa].some(
+      v => String(v || '').toLowerCase().includes(termo));
+  };
+  const lista = todas.filter(passa);
+
+  $('#empSub').innerHTML = empResumoHtml(todas, lista.length);
+
+  if (!lista.length) {
+    alvo.innerHTML = '<div class="emp-vazio">' +
+      (todas.length ? 'Nada com esse filtro.' :
+       'Nenhum jogador no campograma ainda. Monte o elenco, ou use "＋ jogador de fora".') +
+      '</div>';
+    return;
+  }
+
+  /* agrupado pela posicao do campograma, na ordem do campo: e como o usuario pensa o
+     elenco, e evita procurar o zagueiro no meio dos atacantes */
+  const porPos = {};
+  lista.forEach(l => { (porPos[l.pos] = porPos[l.pos] || []).push(l); });
+  const ordem = POSICOES.map(p => p.c).filter(c => porPos[c]);
+
+  const cab = '<div class="emp-cab">' +
+    '<span class="emp-c-jog">Jogador</span>' +
+    '<span class="emp-c-ct">Fim de contrato</span>' +
+    EMP_CAMPOS.map(c => '<span style="width:' + c.w + 'px">' + esc(c.r) + '</span>').join('') +
+    '<span class="emp-c-x"></span></div>';
+
+  alvo.innerHTML = cab + ordem.map(cod => {
+    const p = POSICOES.find(x => x.c === cod);
+    return '<div class="emp-grupo"><div class="emp-grupo-cab">' +
+      '<b>' + esc(p.sig) + '</b><span>' + esc(p.nome) + '</span>' +
+      '<i>' + porPos[cod].length + '</i></div>' +
+      porPos[cod].map(l => empLinhaHtml(l)).join('') + '</div>';
+  }).join('');
+
+  alvo.querySelectorAll('input[data-ch]').forEach(inp => {
+    inp.oninput = () => {
+      const c = EMP_CAMPOS.find(x => x.k === inp.dataset.k);
+      const d = empDados(inp.dataset.ch);
+      d[inp.dataset.k] = c && c.num ? paraNumero(inp.value) : inp.value;
+      salvarLocal();
+      /* o link do IG acompanha o que foi digitado, sem refazer a tela: reconstruir a
+         linha a cada tecla tiraria o foco do campo no meio da digitacao */
+      const a = inp.parentElement.querySelector('a.emp-ig');
+      if (a) {
+        const u = empIgUrl(inp.value);
+        a.href = u; a.style.visibility = u ? 'visible' : 'hidden';
+      }
+      /* a tarja ambar de "ainda nao preenchi" tem de apagar na hora: ela e a fila de
+         trabalho, e fila que nao anda enquanto se digita deixa de ser util */
+      const linha = inp.closest('.emp-linha');
+      if (linha) linha.classList.toggle('falta', empVazio(d));
+      empAtualizarResumo();
+    };
+    if (EMP_CAMPOS.find(x => x.k === inp.dataset.k && x.num)) {
+      inp.onblur = () => { inp.value = milhar(empDados(inp.dataset.ch)[inp.dataset.k] || 0); };
+    }
+  });
+  alvo.querySelectorAll('select.emp-st').forEach(sel => {
+    sel.onchange = () => {
+      const d = empDados(sel.dataset.ch);
+      d[sel.dataset.k] = sel.value;
+      sel.className = 'emp-st st-' + String(sel.value || 'sem').toLowerCase();
+      const linha = sel.closest('.emp-linha');
+      if (linha) linha.classList.toggle('falta', empVazio(d));
+      salvarLocal();
+      empAtualizarResumo();
+    };
+  });
+  alvo.querySelectorAll('input[data-ext]').forEach(inp => {
+    inp.oninput = () => {
+      const e = empExtras().find(x => x.uid === inp.dataset.ext);
+      if (!e) return;
+      e[inp.dataset.campo] = inp.value;
+      salvarLocal();
+    };
+  });
+  alvo.querySelectorAll('select[data-ext]').forEach(sel => {
+    sel.onchange = () => {
+      const e = empExtras().find(x => x.uid === sel.dataset.ext);
+      if (!e) return;
+      e.pos = sel.value; salvarLocal(); empRender();
+    };
+  });
+  alvo.querySelectorAll('.emp-x').forEach(b => {
+    b.onclick = () => {
+      const e = empExtras().find(x => x.uid === b.dataset.ext);
+      if (!e) return;
+      if (!confirm('Tirar "' + (e.nome || 'sem nome') + '" da lista?')) return;
+      estado.empExtra = empExtras().filter(x => x.uid !== b.dataset.ext);
+      delete (estado.emp || {})['ext:' + b.dataset.ext];
+      salvarLocal(); empRender();
+    };
+  });
+  alvo.querySelectorAll('.emp-ficha').forEach(b => {
+    b.onclick = () => { abrirFicha(parseInt(b.dataset.jid)); irParaAba('campo'); };
+  });
+}
+
+/* só o cabeçalho, sem refazer a tabela — chamado a cada tecla */
+function empResumoHtml(todas, mostrando) {
+  const comEmp = todas.filter(l => empDados(l.ch).empresario).length;
+  const cont = st => todas.filter(l => empDados(l.ch).status === st).length;
+  const chips = ['Main', 'Squad', 'Youth']
+    .map(st => ({ st, n: cont(st) })).filter(x => x.n)
+    .map(x => '<i class="emp-chip st-' + x.st.toLowerCase() + '">' + x.st + ' ' + x.n + '</i>').join('');
+  return '<b>' + todas.length + '</b> jogador' + (todas.length === 1 ? '' : 'es') +
+    ' · <b>' + comEmp + '</b> com empresário anotado' +
+    (todas.length > comEmp ? ' · faltam <b>' + (todas.length - comEmp) + '</b>' : '') +
+    (chips ? ' ' + chips : '') +
+    (mostrando != null && mostrando !== todas.length ? ' · mostrando ' + mostrando : '');
+}
+function empAtualizarResumo() {
+  const el = $('#empSub');
+  if (el) el.innerHTML = empResumoHtml(empLinhas(), null);
+}
+
+function empLinhaHtml(l) {
+  const d = empDados(l.ch);
+  const campo = c => {
+    const v = d[c.k];
+    if (c.opcoes) {
+      return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+        '<select class="emp-st st-' + esc(String(v || 'sem').toLowerCase()) + '"' +
+        ' data-ch="' + esc(l.ch) + '" data-k="' + c.k + '">' +
+        c.opcoes.map(o => '<option value="' + esc(o) + '"' +
+          (String(v || '') === o ? ' selected' : '') + '>' + (o || '—') + '</option>').join('') +
+        '</select></span>';
+    }
+    const val = c.num ? (v ? milhar(v) : '') : (v || '');
+    return '<span class="emp-campo" style="width:' + c.w + 'px">' +
+      '<input data-ch="' + esc(l.ch) + '" data-k="' + c.k + '" value="' + esc(val) + '"' +
+      (c.num ? ' inputmode="numeric" class="num"' : '') +
+      ' placeholder="' + (c.ig ? '@perfil' : c.num ? '0' : '') + '">' +
+      (c.ig ? '<a class="emp-ig" target="_blank" rel="noopener" title="Abrir no Instagram"' +
+              ' href="' + esc(empIgUrl(v)) + '"' +
+              (empIgUrl(v) ? '' : ' style="visibility:hidden"') + '>↗</a>' : '') +
+      '</span>';
+  };
+  const jog = l.deFora
+    ? '<span class="emp-c-jog de-fora">' +
+        '<input data-ext="' + l.uid + '" data-campo="nome" value="' + esc(l.nome || '') + '" placeholder="nome do jogador" class="emp-nome-ed">' +
+        '<span class="emp-meta">' +
+          '<input data-ext="' + l.uid + '" data-campo="clube" value="' + esc(l.clube || '') + '" placeholder="clube" class="emp-min">' +
+          '<input data-ext="' + l.uid + '" data-campo="idade" value="' + esc(l.idade || '') + '" placeholder="idade" class="emp-min idade">' +
+          '<select data-ext="' + l.uid + '">' + POSICOES.map(p =>
+            '<option value="' + p.c + '"' + (p.c === l.pos ? ' selected' : '') + '>' + p.sig + '</option>').join('') +
+          '</select>' +
+        '</span></span>'
+    : '<span class="emp-c-jog">' +
+        '<span class="emp-nome-l">' +
+          '<b title="' + esc(l.nome) + '">' + esc(l.nome) + '</b>' +
+          (l.estrangeiro ? '<span class="selo-ex">' + esc(sigla(l.nac)) + '</span>' : '') +
+          (l.jid != null ? '<button class="emp-ficha" data-jid="' + l.jid + '" title="Ver a ficha">+</button>' : '') +
+        '</span>' +
+        '<span class="emp-meta">' + esc(l.clube || '—') +
+          (l.idade ? ' · ' + l.idade + 'a' : '') + '</span></span>';
+  const ct = l.deFora
+    ? '<span class="emp-c-ct"><input data-ext="' + l.uid + '" data-campo="contrato" value="' +
+      esc(l.contrato || '') + '" placeholder="aaaa-mm" class="emp-min"></span>'
+    : '<span class="emp-c-ct">' + (l.contrato ? fcData(l.contrato) : '—') + '</span>';
+  return '<div class="emp-linha' + (empVazio(d) ? ' falta' : '') + '">' + jog + ct +
+    EMP_CAMPOS.map(campo).join('') +
+    '<span class="emp-c-x">' + (l.deFora
+      ? '<button class="emp-x" data-ext="' + l.uid + '" title="Tirar da lista">×</button>' : '') +
+    '</span></div>';
+}
+
+function empCsv() {
+  const linhas = empLinhas();
+  if (!linhas.length) { toast('Nada para baixar', 'ruim'); return; }
+  const cab = ['Posição', 'Jogador', 'Idade', 'Clube', 'Fim de contrato']
+    .concat(EMP_CAMPOS.map(c => c.r));
+  /* ; e BOM: e o que faz o Excel em portugues abrir o arquivo em colunas e nao
+     embaralhar os acentos */
+  const escapa = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+  const corpo = linhas.map(l => {
+    const d = empDados(l.ch);
+    return [sig(l.pos), l.nome, l.idade, l.clube, l.contrato]
+      .concat(EMP_CAMPOS.map(c => d[c.k] || '')).map(escapa).join(';');
+  });
+  const txt = '﻿' + cab.map(escapa).join(';') + '\n' + corpo.join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'empresarios-' + String(estado.nome || 'grupo').replace(/[^\w\s-]/g, '') + '.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast(linhas.length + ' linhas baixadas', 'bom');
+}

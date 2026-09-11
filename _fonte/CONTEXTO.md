@@ -935,3 +935,41 @@ nenhum: `scale(1)` cria camada de composição à toa e borra texto de graça.
 `estado.zoom` é novo; grupo salvo sem ele cai no antigo `estado.ajustar` (booleano), que
 continua sendo gravado porque a impressão ainda o lê. No papel a escala fixa é ignorada —
 a folha tem tamanho fixo e ampliar só cortaria o campo.
+
+## Aba Empresários (set/26)
+
+Quem negocia não é o jogador, é quem cuida dele. Telefone do empresário, quanto o atleta
+ganha hoje, quanto está pedindo — isso vivia em conversa de WhatsApp e caderno. Agora fica
+ao lado do elenco, e **gravado dentro do cenário**, então viaja junto no Salvar.
+
+Uma linha por jogador do campograma, **agrupada pela posição** e na ordem do campo, com
+nome, clube, idade e fim de contrato vindos do elenco. Campos editáveis: **Status**
+(Main · Squad · Youth), empresário, empresa, IG da empresa, IG do jogador, telefone,
+salário atual, pedida e faixa para o clube.
+
+**A chave é `pk`, não `uid`.** Isso decide se o trabalho se perde: `pk` (nome-clube-liga)
+é estável entre grupos, então anotar o empresário do Fulano no Cenário 1 aproveita no
+Cenário 2; `uid` é por linha do elenco e morreria na primeira troca de grupo.
+
+**Jogadores de fora** entram pelo "＋ jogador de fora", com nome, clube, idade, contrato e
+posição editáveis — porque conversa com empresário quase sempre traz nome que ainda não
+está no elenco, e perder isso obrigaria a anotar noutro lugar, que é o que a aba veio
+resolver.
+
+Detalhes que valem: os campos de dinheiro passam pelo `paraNumero()`, então "150 mil" e
+"130k" viram 150000 e 130000. O `@perfil` do Instagram vira link clicável dentro do próprio
+campo, e o ↗ some quando não há perfil. A tarja âmbar à esquerda marca quem ainda não tem
+nada anotado — é a fila de trabalho — e apaga **na hora** em que se digita, não no próximo
+render. O CSV sai com `;` e BOM, que é o que faz o Excel em português abrir em colunas sem
+embaralhar acento.
+
+**Dois erros de layout que só a tela mostrou:**
+
+1. **Seção no pai errado.** Colei o `<section>` antes do `#ficha`, que é filho do
+   `#pgCampo` — então a aba nova nascia dentro do Campograma e ficava com **0×0 px**
+   quando o Campograma era escondido. O DOM tinha as 119 linhas e a tela estava em branco:
+   medir `querySelectorAll` dizia que estava tudo certo. O `getBoundingClientRect` é que
+   denunciou.
+2. **Flex-column estica os filhos.** `.emp-c-jog` é coluna, e o padrão `align-items` é
+   `stretch`: o botão "+" da ficha e o selo de estrangeiro viravam uma barra atravessando
+   a linha inteira. `align-items:flex-start` e o nome numa linha própria.
