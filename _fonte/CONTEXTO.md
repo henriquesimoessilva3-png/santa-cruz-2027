@@ -1225,3 +1225,15 @@ escondida, e exportar trocando de aba travava sem erro e sem imagem.
 com a grade, as variáveis e as cores certas. Ajustado junto: o nível pinta o card no papel
 com as mesmas cores da tela, e as fontes **pararam de encolher** — o campo já é reduzido a
 ~50% pelo `--k-print`, e reduzir a fonte por cima disso levava o nome a ~1mm.
+
+**Campo livre na aba Empresários (set/26).** Uma coluna `Descrição`, texto solto, para o
+que não cabe em campo nenhum: *"pai é o empresário"*, *"só sai por empréstimo com opção"*,
+*"falei em janeiro e pediu 200"*. Fica por último e é a mais larga.
+
+Na tabela é um campo de uma linha; na **ficha do ☎** vira caixa de três linhas ocupando a
+largura inteira, porque ali há espaço e é onde se escreve de verdade. Os dois gravam no
+mesmo lugar — conferido escrevendo pela tabela e completando pela ficha, com o texto
+inteiro num só registro.
+
+Como `EMP_CAMPOS` alimenta a tabela, a ficha e o CSV, acrescentar uma linha ali apareceu
+nos três sem mais nada.

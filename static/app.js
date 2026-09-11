@@ -5814,6 +5814,10 @@ const EMP_CAMPOS = [
   { k: 'salAtual',   r: 'Salário atual',   w: 92,  num: 1 },
   { k: 'pedida',     r: 'Pedida',          w: 92,  num: 1 },
   { k: 'faixa',      r: 'Faixa p/ clube',  w: 92,  num: 1 },
+  /* Texto livre, por último e largo: é onde cabe o que não cabe em campo nenhum — "pai
+     empresário", "só sai por empréstimo", "falei em jan e pediu 200". Na ficha do ☎ vira
+     caixa de várias linhas, porque ali há espaço e é onde se escreve de verdade. */
+  { k: 'obs',        r: 'Descrição',       w: 260, livre: 1 },
 ];
 let empSoFalta = false;
 let empFiltro = '';
@@ -6108,12 +6112,17 @@ function empFicha(ch, rotulo, sub) {
         c.opcoes.map(o => '<option value="' + esc(o) + '"' + (v === o ? ' selected' : '') +
           '>' + (o || '—') + '</option>').join('') + '</select></label>';
     }
+    if (c.livre) {
+      return '<label class="me-l me-largo"><span>' + esc(c.r) + '</span>' +
+        '<textarea data-k="' + c.k + '" rows="3" placeholder="anotações livres sobre o ' +
+        'jogador ou a negociação">' + esc(v) + '</textarea></label>';
+    }
     return '<label class="me-l"><span>' + esc(c.r) + '</span>' +
       '<input data-k="' + c.k + '" value="' + esc(c.num ? (v ? milhar(v) : '') : v) + '"' +
       (c.num ? ' inputmode="numeric" class="num"' : '') +
       ' placeholder="' + (c.ig ? '@perfil' : c.num ? '0' : '') + '"></label>';
   }).join('');
-  alvo.querySelectorAll('input[data-k],select[data-k]').forEach(el => {
+  alvo.querySelectorAll('input[data-k],select[data-k],textarea[data-k]').forEach(el => {
     const ev = el.tagName === 'SELECT' ? 'onchange' : 'oninput';
     el[ev] = () => {
       const c = EMP_CAMPOS.find(x => x.k === el.dataset.k);

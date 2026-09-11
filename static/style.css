@@ -2632,3 +2632,9 @@ body.claro .jog.estrangeiro{background:var(--pilula)}
 .campo.exportando .jog-emp,
 .campo.exportando .pos-add,
 .campo.exportando .pos-zoom{display:none}
+/* campo livre: ocupa a linha inteira na ficha e é o único que cresce */
+.me-campos .me-l.me-largo{grid-column:1 / -1}
+.me-l textarea{padding:6px 8px;border-radius:6px;font:inherit;font-size:12px;font-weight:400;
+  text-transform:none;letter-spacing:0;resize:vertical;min-height:58px;
+  background:var(--input-bg);border:1px solid var(--borda2);color:var(--tinta)}
+.me-l textarea:focus{outline:none;border-color:var(--coral)}
