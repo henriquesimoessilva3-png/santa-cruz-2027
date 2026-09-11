@@ -190,13 +190,13 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
    botoes e respiro) ocupa ~118px, e a estrela de titular e o selo de estrangeiro
    comem 9 e 29px. Antes a conta era por caractere e superestimava. */
 let larguraCardPx = 190, larguraCardAberto = 190;
-const NAO_NOME = 137, PX_ESTRELA = 9, PX_SELO = 29, PX_CHAR = 5.4;
+const NAO_NOME = 137, PX_SELO = 29, PX_CHAR = 5.4;
 
 function limiteNome(j, cod) {
   const fz = parseFloat(($('#campo') && $('#campo').style.getPropertyValue('--fz')) || 1) || 1;
   const larg = COLUNA_ABERTA.has(cod) ? larguraCardAberto : larguraCardPx;
   const util = larg - NAO_NOME * fz -
-               (j && j.titular ? PX_ESTRELA : 0) - (j && j.estrangeiro ? PX_SELO : 0);
+               (j && j.estrangeiro ? PX_SELO : 0);   /* a estrela saiu: o nome ganhou a folga */
   return Math.max(6, Math.floor(util / (PX_CHAR * fz)));
 }
 
@@ -970,9 +970,10 @@ function cardJog(cod, j) {
   el.innerHTML =
     '<div class="jog-nome' + (j.jid != null ? ' clicavel' : '') + '" title="' +
       esc(j.nomeCompleto || j.nome) + (j.jid != null ? ' — clique para ver a ficha' : '') + '">' +
-      '<button class="estrela' + (j.titular ? '' : ' vazia') + '" title="' +
-        (j.titular ? 'Main — titular da posição. Clique para passar a Squad'
-                   : 'Clique para tornar Main, o titular da posição') + '">★</button>' +
+      /* A estrela saiu. Ela dizia "este é o Main", e desde que o NÍVEL passou a pintar o
+         card inteiro isso virou repetição — a mesma informação em dois lugares, gastando
+         espaço do nome no card mais disputado da tela. Quem define o nível é o menu ⋯,
+         em Status. */
       raioIcone(j.pk) +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
@@ -1000,14 +1001,6 @@ function cardJog(cod, j) {
     '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
     '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
 
-  el.querySelector('.estrela').onclick = e => {
-    /* a legenda do app sempre disse "clique no ★ para trocar", mas a estrela so era
-       desenhada para QUEM JA ERA titular — nao havia onde clicar para promover outro.
-       Com o item saindo do menu, isto deixou de ser detalhe e virou o unico caminho. */
-    e.stopPropagation();
-    definirNivel(cod, j, j.titular ? 'Squad' : 'Main');
-    render();
-  };
   el.querySelector('.jog-emp').onclick = e => {
     e.stopPropagation();
     empFicha(empChave(j), j.nome,

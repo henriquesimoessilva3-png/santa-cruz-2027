@@ -1182,3 +1182,14 @@ visual, um significado.
 As regras do nível vêm DEPOIS de `.jog.titular` e `.jog.estrangeiro` no arquivo, para
 ganhar das duas. E a legenda ("Como ler os cards") foi reescrita junto: ela dizia "fundo
 vermelho" para o titular, e legenda que ensina a cor errada é pior que não ter legenda.
+
+**A estrela saiu do card (set/26).** Ela dizia "este é o Main" — a mesma coisa que o fundo
+verde passou a dizer. Duas marcas para uma informação, gastando espaço do nome no card
+mais disputado da tela. Quem define o nível é o menu ⋯, em Status, então nada ficou sem
+caminho. O `PX_ESTRELA` saiu junto da conta do `limiteNome()`: o nome ganhou os 9px de
+volta.
+
+Vale registrar a sequência, porque ela se explica sozinha ao contrário: a estrela virou
+botão quando o item "Marcar como titular" saiu do menu e ela era o único caminho; depois o
+nível passou a pintar o card; e aí a estrela deixou de ter função. Cada passo foi certo no
+momento, e o último tornou o primeiro desnecessário.
