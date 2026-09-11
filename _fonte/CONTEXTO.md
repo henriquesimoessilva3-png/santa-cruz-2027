@@ -1073,3 +1073,16 @@ fundo rosa e pela estrela.
 separados: falar com o jogador direto e falar com quem o representa são conversas
 diferentes, e trocar uma pela outra numa negociação custa caro. Como a tabela, a ficha do
 ☎ e o CSV leem todos o mesmo `EMP_CAMPOS`, acrescentar uma linha ali apareceu nos três.
+
+**"Tamanho real saindo todo torto" (set/26).** O campo aparecia jogado para baixo e para a
+direita, com um vazio enorme em cima e à esquerda. Causa: o CSS punha
+`transform-origin:top left` só em `.campo-area.ajustado` — ou seja, só no modo "caber na
+tela". Em "tamanho real" a escala partia do **centro**, e a compensação (`compensarEscala`)
+usa margem negativa à DIREITA e EMBAIXO, que só fecha a conta se o encolhimento andar para
+o canto superior esquerdo. Com origem central sobra folga de todos os lados: medi **250px
+à esquerda e 136px acima**, contra os 10px normais.
+
+O defeito era **antigo e discreto**. Aumentar a fonte do card deixou os cards mais altos,
+`k` menor, e a folga cresceu o bastante para saltar aos olhos. A origem passou a ser o
+canto em TODOS os modos, no JS, em vez de depender de uma classe que só um deles tem.
+Conferido: 10px de folga nos cinco modos, e nas idas e voltas entre eles.

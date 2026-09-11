@@ -739,9 +739,15 @@ function ajustarCampo() {
   const zFator = (zoom !== 'caber' && zoom !== 'real') ? (Number(zoom) || 1) : 1;
   const ampliado = zFator > 1;
   area.classList.toggle('ampliado', ampliado);
-  /* origem no canto: crescer a partir do centro jogaria metade do campo para fora, à
-     esquerda e acima, onde não há rolagem que alcance */
-  campo.style.transformOrigin = ampliado ? 'top left' : '';
+  /* ORIGEM NO CANTO, SEMPRE. O CSS só punha `transform-origin:top left` em
+     `.campo-area.ajustado`, isto é, no modo "caber na tela" — "tamanho real" escalava a
+     partir do CENTRO. E a compensação (`compensarEscala`) usa margem negativa à direita
+     e embaixo, que só fecha a conta se o encolhimento andar para o canto superior
+     esquerdo. Com origem central o campo encolhe para dentro e sobra folga de todos os
+     lados: medi 250px à esquerda e 136px acima, com o campo jogado para baixo e para a
+     direita. O defeito era antigo e discreto; aumentar a fonte do card deixou `k` menor
+     e a folga grande o bastante para saltar aos olhos. */
+  campo.style.transformOrigin = 'top left';
   /* `ajustado` esconde a rolagem; ampliado precisa dela, então nunca os dois juntos */
   area.classList.toggle('ajustado', zoom === 'caber' && !ampliado);
 
