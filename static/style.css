@@ -1257,7 +1257,8 @@ body:not(.claro){
 .campo-area.ajustado{overflow:hidden;scrollbar-gutter:stable}
 
 /* ---------- × para tirar do elenco, ao lado do ⋯ ---------- */
-.jog{grid-template-columns:1fr auto 15px 15px 15px}
+/* mais uma coluna de 15px: o ☎ que leva para a aba Empresários */
+.jog{grid-template-columns:1fr auto 15px 15px 15px 15px}
 .jog-x{
   grid-row:1/3;grid-column:5;width:15px;align-self:center;
   font-size:14px;font-weight:800;line-height:1;color:var(--pilula-meta);opacity:.45;
@@ -2421,3 +2422,20 @@ body.com-zoom .campo-area.ampliado .campo{transform:none}
 body.claro .emp-st.st-main,body.claro .emp-chip.st-main{color:#0f7a3d}
 body.claro .emp-st.st-youth,body.claro .emp-chip.st-youth{color:#1b4fa8}
 body.claro .emp-st.st-squad,body.claro .emp-chip.st-squad{color:#8a5a00}
+
+/* ---------- ☎ do card: atalho para a linha do jogador na aba Empresários ----------
+   Apagado enquanto não há empresário anotado (é ruído até alguém preencher) e verde
+   quando há — dá para varrer o campograma e ver de quem já se sabe o contato. */
+.jog-emp{background:none;border:0;padding:0;cursor:pointer;font-size:9px;line-height:1;
+  color:var(--tinta3);opacity:.45;transition:opacity .12s,color .12s}
+.jog-emp:hover{opacity:1;color:var(--coral-cl)}
+.jog-emp.tem{opacity:1;color:var(--verde)}
+body.claro .jog-emp.tem{color:#0f7a3d}
+
+/* piscada ao chegar pelo ☎: sem isso a aba abre em 119 linhas iguais e não se acha
+   aquela em que se clicou */
+.emp-linha.acende{animation:empAcende 1.6s ease-out}
+@keyframes empAcende{
+  0%,55%{background:color-mix(in srgb,var(--ambar) 26%,transparent)}
+  100%{background:transparent}
+}

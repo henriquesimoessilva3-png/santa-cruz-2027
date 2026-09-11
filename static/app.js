@@ -973,8 +973,21 @@ function cardJog(cod, j) {
     (j.jid != null ? '<button class="jog-mais" title="Ver os detalhes do jogador">+</button>'
      : j.manual ? '<button class="jog-mais editar" title="Editar este jogador">✎</button>'
      : '<span class="jog-mais vazio"></span>') +
+    (() => {
+      /* Atalho para a linha do jogador na aba Empresários. O botao muda de cor quando
+         ja ha empresario anotado: e a diferenca entre "ainda tenho de descobrir quem
+         cuida dele" e "ja sei", visivel no proprio campograma, sem trocar de aba. */
+      const d = (estado.emp || {})[empChave(j)] || {};
+      const tem = !!d.empresario;
+      return '<button class="jog-emp' + (tem ? ' tem' : '') + '" title="' +
+        (tem ? esc('Empresário: ' + d.empresario + (d.empresa ? ' · ' + d.empresa : '')) +
+               ' — abrir na aba Empresários'
+             : 'Sem empresário anotado — abrir na aba Empresários') + '">☎</button>';
+    })() +
     '<button class="jog-menu" title="Ações do jogador">⋯</button>' +
     '<button class="jog-x" title="Tirar ' + esc(j.nome) + ' do elenco">×</button>';
+
+  el.querySelector('.jog-emp').onclick = e => { e.stopPropagation(); empIrPara(empChave(j)); };
 
   el.querySelector('.jog-x').onclick = e => {
     e.stopPropagation();
@@ -1121,6 +1134,7 @@ function abrirMenuJogador(botao, cod, j) {
   m.innerHTML =
     (j.jid != null ? '<button data-a="ficha">Ver ficha do jogador</button>' : '') +
     (j.manual ? '<button data-a="editar">Editar dados do jogador</button>' : '') +
+    '<button data-a="empresario">Empresário e contato</button>' +
     '<button data-a="titular">' + (j.titular ? 'Deixar de ser titular' : 'Marcar como titular') + '</button>' +
     '<button data-a="estrangeiro">' + (j.estrangeiro ? 'Marcar como brasileiro' : 'Marcar como estrangeiro') + '</button>' +
     '<div class="menu-sep">Status</div>' +
@@ -1143,6 +1157,7 @@ function abrirMenuJogador(botao, cod, j) {
     const a = bt.dataset.a;
     m.remove();
     if (a === 'ficha') return abrirFicha(j);
+    if (a === 'empresario') return empIrPara(empChave(j));
     if (a === 'titular') {
       const era = j.titular;
       estado.elenco[cod].forEach(x => { x.titular = false; });
@@ -5852,6 +5867,32 @@ function empLinhaHtml(l) {
     '<span class="emp-c-x">' + (l.deFora
       ? '<button class="emp-x" data-ext="' + l.uid + '" title="Tirar da lista">×</button>' : '') +
     '</span></div>';
+}
+
+/* Leva para a aba e DEIXA O JOGADOR NA MAO: limpa os filtros (senao a linha pode estar
+   escondida por um filtro esquecido de antes), rola ate ela, acende por um instante e
+   poe o cursor no campo do empresario — que e o que se vai digitar em 9 de 10 vezes. */
+function empIrPara(ch) {
+  empFiltro = '';
+  empSoFalta = false;
+  const bq = $('#empBusca'); if (bq) bq.value = '';
+  const bf = $('#empSoFalta'); if (bf) bf.classList.remove('on');
+  irParaAba('empresarios');
+  requestAnimationFrame(() => {
+    /* Nada de montar seletor com a chave dentro: ela e "pk:Paulo Vitor - Atletico GO -
+       Brasil B", com acento, espaco e hifen. `CSS.escape` serve para IDENT, nao para o
+       miolo de um valor entre aspas — escapando ali, o seletor deixa de casar e o foco
+       simplesmente nao acontece, sem erro nenhum. Comparar o dataset e exato e imune. */
+    const inp = $$('#empCorpo input[data-k="empresario"]').find(i => i.dataset.ch === ch);
+    if (!inp) { toast('Esse jogador não está na lista', 'ruim'); return; }
+    const linha = inp.closest('.emp-linha');
+    if (linha) {
+      linha.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      linha.classList.add('acende');
+      setTimeout(() => linha.classList.remove('acende'), 1600);
+    }
+    inp.focus();
+  });
 }
 
 function empCsv() {

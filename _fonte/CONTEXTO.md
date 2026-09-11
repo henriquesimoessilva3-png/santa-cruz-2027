@@ -973,3 +973,16 @@ embaralhar acento.
 2. **Flex-column estica os filhos.** `.emp-c-jog` é coluna, e o padrão `align-items` é
    `stretch`: o botão "+" da ficha e o selo de estrangeiro viravam uma barra atravessando
    a linha inteira. `align-items:flex-start` e o nome numa linha própria.
+
+**Atalho do card para a aba (set/26).** Cada card do campograma ganhou um ☎ que abre a
+aba Empresários **na linha daquele jogador**: limpa os filtros (senão a linha pode estar
+escondida por um filtro esquecido), rola até ela, acende por um instante e põe o cursor
+no campo do empresário. O botão fica verde quando já há empresário anotado — dá para
+varrer o campograma e ver de quem já se sabe o contato, sem trocar de aba. A mesma ação
+está no menu ⋯, para quem procurar por lá.
+
+**A armadilha do seletor:** a chave é `pk:Paulo Vítor - Atlético GO - Brasil B`, com
+acento, espaço e hífen. Montar `input[data-ch="…"]` com ela e passar por `CSS.escape`
+**não casa** — `CSS.escape` serve para IDENT, não para o miolo de um valor entre aspas.
+O foco simplesmente não acontecia, sem erro nenhum no console. Comparar `dataset.ch` num
+`find` é exato e imune.
