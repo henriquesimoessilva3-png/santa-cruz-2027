@@ -248,6 +248,81 @@ def main():
         print(f"  {setor:8} {len(itens):>2} fundamentais · sobe {len(g_s):>3} cai {len(g_c):>3}")
     raio["fundamentais"] = fund
 
+    # ---------- o quadro completo sobe x cai, para o modal da aba Fisico ----------
+    # O `fundamentais` acima guarda SO quem passou de t=1,96, porque e uma lista de
+    # aprovacao: alimenta o filtro "cumpre o perfil". Aqui e outra pergunta — "quais
+    # indicadores separam quem sobe de quem cai, por posicao?" — e ela precisa do quadro
+    # INTEIRO, inclusive o que nao separa. "Medimos e nao separa" e uma resposta, e some
+    # da tela se so os aprovados forem gravados.
+    #
+    # Tres coisas que a lista de aprovacao nao precisava ter e esta precisa:
+    #
+    # 1. TAMANHO DE EFEITO, e nao so o t. O t cresce com a amostra: com 140 atletas de um
+    #    lado e 120 do outro, uma diferenca minuscula passa de 1,96 sem querer dizer nada
+    #    em campo. O d de Cohen nao cresce com n, e e ele que ordena a tela.
+    # 2. A FAMILIA DE TESTES. Sao 4 setores x ~32 indicadores ~= 128 testes contra o mesmo
+    #    alvo. A 5%, ~6 passam por puro acaso. Sem Benjamini-Hochberg a tela repetiria o
+    #    erro que a Onda 1 acabou de corrigir no painel fisico da aba Serie B.
+    # 3. AS MEDIAS DOS DOIS LADOS, nao so a barra de quem sobe: sem o valor de quem cai
+    #    nao da para ver o tamanho da diferenca, que e a pergunta.
+    from scipy import stats as _st
+
+    sc_itens, familia = {}, []
+    for setor, codigos in SETOR_FUND.items():
+        wy = {w for w, cs in POSICOES.items() if any(c in codigos for c in cs)}
+        d = sc[sc.pos_wy.isin(wy)]
+        g_s, g_c = d[d.faixa == "sobe"], d[d.faixa == "cai"]
+        itens = []
+        for k in chaves:
+            col = DE_PARA.get(k) or DE_PARA_OBR.get(k) or k
+            a = pd.to_numeric(g_s[col], errors="coerce").dropna()
+            b = pd.to_numeric(g_c[col], errors="coerce").dropna()
+            if len(a) < len(g_s) * 0.6 or len(b) < len(g_c) * 0.6:
+                continue            # cobertura baixa = indicador ausente, nao indicador zero
+            va, vb = a.var(ddof=1), b.var(ddof=1)
+            ep = np.sqrt(va / len(a) + vb / len(b))
+            if not ep or np.isnan(ep):
+                continue
+            t = float((a.mean() - b.mean()) / ep)
+            # Welch-Satterthwaite: os dois grupos nao tem a mesma dispersao nem o mesmo n
+            gl = float((va / len(a) + vb / len(b)) ** 2 /
+                       ((va / len(a)) ** 2 / (len(a) - 1) + (vb / len(b)) ** 2 / (len(b) - 1)))
+            pval = float(2 * _st.t.sf(abs(t), gl))
+            sd = np.sqrt(((len(a) - 1) * va + (len(b) - 1) * vb) / (len(a) + len(b) - 2))
+            dcohen = float((a.mean() - b.mean()) / sd) if sd else 0.0
+            if k in MENOR_MELHOR:       # tempo: quem sobe e MAIS RAPIDO, entao menor e melhor
+                t, dcohen = -t, -dcohen
+            it = {"k": k, "m_sobe": round(float(a.mean()), 3), "m_cai": round(float(b.mean()), 3),
+                  "n_sobe": int(len(a)), "n_cai": int(len(b)),
+                  "d": round(dcohen, 3), "t": round(t, 2), "p": pval,
+                  "menor": k in MENOR_MELHOR}
+            itens.append(it)
+            familia.append(it)
+        itens.sort(key=lambda x: -abs(x["d"]))
+        sc_itens[setor] = {"n_sobe": int(len(g_s)), "n_cai": int(len(g_c)), "itens": itens}
+
+    # Benjamini-Hochberg a 5% sobre a familia INTEIRA (os 4 setores de uma vez): a pergunta
+    # que se faz aqui e "quantos destes eu posso levar para a reuniao?", e nao "qual a
+    # chance de eu errar uma vez em 128" — que seria Bonferroni.
+    m = len(familia)
+    ordenada = sorted(familia, key=lambda x: x["p"])
+    corte = 0
+    for i, it in enumerate(ordenada, 1):
+        if it["p"] <= 0.05 * i / m:
+            corte = i
+    for i, it in enumerate(ordenada, 1):
+        it["bh"] = i <= corte
+        it["p"] = round(it["p"], 5)
+    raio["sobecai"] = {
+        "familia": {"testes": m, "esperados_5pct": round(m * 0.05, 1),
+                    "passam5": sum(1 for x in familia if x["p"] <= 0.05),
+                    "passam1": sum(1 for x in familia if x["p"] <= 0.01),
+                    "bh5": corte},
+        "setores": sc_itens,
+    }
+    print(f"\n  sobe x cai: {m} testes · {raio['sobecai']['familia']['passam5']} passam a 5% "
+          f"· {raio['sobecai']['familia']['passam1']} a 1% · {corte} sobrevivem ao BH")
+
     raio["_doc_serieb"] = (
         "As referencias 'sobe' e 'cai' sao medias do SkillCorner das quatro temporadas "
         "completas da Serie B (2022-2025), ponderadas por minuto rastreado: 'sobe' sao os "

@@ -4916,6 +4916,134 @@ function estudoAB(minJogos) {
 
 let estudoSel = null;      /* posicao aberta no estudo; null = todas */
 
+/* ---------- modal "Quem sobe x quem cai", por posicao ----------
+
+   A pergunta: dos ~34 indicadores fisicos, quais REALMENTE separam o atleta de um clube que
+   subiu do de um clube que caiu, na posicao dele? O dado sai do `sobecai` do raio_ref.json,
+   escrito por gerar_raio_serieb.py sobre o SkillCorner das quatro temporadas completas.
+
+   Tres decisoes que esta tela toma, e o motivo de cada uma:
+
+   1. ORDENA POR TAMANHO DE EFEITO (d de Cohen), NAO POR t NEM POR p. O t cresce com a
+      amostra: com 110 atletas de um lado e 140 do outro, diferenca minuscula passa de 1,96
+      sem querer dizer nada em campo. O d responde "de que tamanho e a diferenca", que e a
+      pergunta de quem vai contratar.
+   2. MOSTRA O QUE NAO SEPARA. Sao ~34 linhas por setor e a maioria nao separa nada — e isso
+      e resposta, nao sobra. Some da tela e o leitor conclui que tudo o que foi medido
+      importa. Apagado, mas presente.
+   3. DIZ A FAMILIA INTEIRA NO TOPO. Sao 137 testes contra o mesmo alvo; a 5%, ~7 passam por
+      acaso. Sem Benjamini-Hochberg esta tela repetiria exatamente o erro que a revisao
+      encontrou no painel fisico da aba Serie B.
+
+   Por SETOR e nao por lado (zagueiro esquerdo junto com o direito): partir por lado corta a
+   amostra ao meio e o resultado vira ruido — medido, dava 3 fundamentais de um lado e 26 do
+   outro, sem futebol que explicasse. O motivo esta escrito na tela, nao so aqui. */
+const SC_SETORES = [
+  { k: 'zaga',    nome: 'Zagueiros',  pos: 'LCB · RCB' },
+  { k: 'lateral', nome: 'Laterais',   pos: 'LB · RB' },
+  { k: 'meio',    nome: 'Meio-campo', pos: 'DM · CM · AM' },
+  { k: 'ataque',  nome: 'Ataque',     pos: 'LW · RW · CF' },
+];
+const SC_ROT = {};
+FS_GRUPOS.forEach(g => g.m.forEach(m => {
+  SC_ROT[m[0]] = { rot: m[1], un: m[2], casas: m[3], menor: !!m[4], grupo: g.t };
+}));
+
+function scFmt(v, casas) { return fsFmt(v, casas == null ? 2 : casas); }
+
+function sobeCaiRender() {
+  const el = $('#scCorpo');
+  const D = RAIO && RAIO.sobecai;
+  if (!D || !D.setores) {
+    el.innerHTML = '<p class="sc-aviso">Esta versão do <code>raio_ref.json</code> não traz o ' +
+      'bloco <code>sobecai</code>. Rode <code>python3 gerar_raio_serieb.py</code> e recarregue.</p>';
+    return;
+  }
+  const F = D.familia;
+
+  /* a moldura primeiro: sem ela, 47 linhas acesas parecem 47 achados */
+  let html = '<div class="sc-topo">' +
+    '<p class="sc-lead">Cada indicador compara a <b>média dos atletas</b> dos clubes que ' +
+    'terminaram entre 1º e 4º com a dos que terminaram entre 17º e 20º, nas quatro temporadas ' +
+    'completas. A ordem é por <b>tamanho do efeito</b>, não por significância: com essas ' +
+    'amostras, diferença minúscula passa no teste sem querer dizer nada em campo.</p>' +
+    '<div class="sc-familia">' +
+      '<div><b>' + F.testes + '</b><span>testes ao todo<br>(4 setores × ~34 indicadores)</span></div>' +
+      '<div><b>' + scFmt(F.esperados_5pct, 1) + '</b><span>passariam a 5%<br>ainda que nada separasse</span></div>' +
+      '<div><b>' + F.passam5 + '</b><span>passam a 5%<br>de fato</span></div>' +
+      '<div class="forte"><b>' + F.bh5 + '</b><span>sobrevivem à correção<br>Benjamini-Hochberg a 5%</span></div>' +
+    '</div>' +
+    '<p class="sc-nota">Só as <b>' + F.bh5 + '</b> da última coluna são achado. As outras ' +
+    (F.passam5 - F.bh5) + ' que acendem a 5% são pista de onde olhar — nessa quantidade de ' +
+    'testes, é esperado que várias acendam sozinhas.</p></div>';
+
+  SC_SETORES.forEach(S => {
+    const v = D.setores[S.k];
+    if (!v) return;
+    const passam = v.itens.filter(i => i.p <= 0.05).length;
+    const bh = v.itens.filter(i => i.bh).length;
+    html += '<div class="sc-setor">' +
+      '<div class="sc-cab"><h3>' + esc(S.nome) + ' <span class="sc-pos">' + esc(S.pos) + '</span></h3>' +
+      '<span class="sc-n"><b>' + v.n_sobe + '</b> atletas de quem subiu · <b>' + v.n_cai +
+        '</b> de quem caiu · <b>' + bh + '</b> de ' + v.itens.length + ' sobrevivem à correção</span></div>';
+    html += '<div class="sc-rolo"><table class="sc-tab"><thead><tr>' +
+      '<th>Indicador</th><th>Quem sobe</th><th>Quem cai</th><th>Diferença</th>' +
+      '<th title="d de Cohen: de que tamanho é a diferença, em desvios-padrão. Não cresce com a amostra.">Tamanho</th>' +
+      '<th>Separa?</th></tr></thead><tbody>';
+    v.itens.forEach(it => {
+      const r = SC_ROT[it.k] || { rot: it.k, un: '', casas: 2 };
+      /* Seis rotulos comecam com "..." porque no painel eles vivem sob o cabecalho do
+         grupo ("Corridas sem bola" > "...que entram na area"). Aqui nao ha cabecalho de
+         grupo, e sozinho o rotulo fica sem referente: "...que receberam a bola" o que? */
+      const rot = r.rot.startsWith('...') ? r.grupo + ' · ' + r.rot.slice(3) : r.rot;
+      const dif = it.m_sobe - it.m_cai;
+      const pct = it.m_cai ? dif / Math.abs(it.m_cai) * 100 : 0;
+      /* o sinal do que e MELHOR, e nao o da subtracao: nos tempos o bom e o menor, e ler
+         pelo sinal da diferenca premiaria o mais lento */
+      const favor = it.d > 0 ? 'sobe' : 'cai';
+      const cls = it.bh ? 'sc-bh' : (it.p <= 0.05 ? 'sc-5' : 'sc-nao');
+      const larg = Math.min(100, Math.abs(it.d) / 0.65 * 100);
+      html += '<tr class="' + cls + '">' +
+        '<td class="sc-ind"><b>' + esc(rot) + '</b><small>' + esc(r.un || '') + '</small></td>' +
+        '<td class="sc-v">' + scFmt(it.m_sobe, r.casas) + '</td>' +
+        '<td class="sc-v">' + scFmt(it.m_cai, r.casas) + '</td>' +
+        '<td class="sc-v sc-dif ' + favor + '">' + (dif > 0 ? '+' : '') + scFmt(dif, r.casas) +
+          '<small>' + (pct > 0 ? '+' : '') + scFmt(pct, 1) + '%</small></td>' +
+        '<td class="sc-d"><span class="sc-barra ' + favor + '" style="width:' + larg.toFixed(0) + '%"></span>' +
+          '<i>' + scFmt(Math.abs(it.d), 2) + '</i></td>' +
+        '<td class="sc-ver">' + (it.bh ? '<b>sim</b>' : it.p <= 0.05 ? 'acende a 5%' : '—') + '</td></tr>';
+    });
+    html += '</tbody></table></div></div>';
+  });
+
+  html += '<div class="sc-pe">' +
+    '<h4>O que ler nisto</h4>' +
+    '<p><b>Sem a bola é o que mais separa.</b> Nos quatro setores, os indicadores de fase ' +
+    'defensiva (alta intensidade e sprints sem a posse) estão no topo. Isso é a assinatura ' +
+    'física de pressionar alto — e pressão é escolha do time, não qualidade do atleta: o ' +
+    'mesmo jogador num time que pressiona menos corre menos sem a bola. <b>Leia como retrato ' +
+    'de onde ele jogou, não como teto do que ele é.</b></p>' +
+    '<p><b>Velocidade de pico separa onde o campo é aberto.</b> O PSV-99 aparece na zaga e ' +
+    'no lateral, e não no ataque — onde todo mundo já é rápido e a diferença se dá no volume ' +
+    'sem a bola.</p>' +
+    '<h4>As ressalvas, que valem para cada linha acima</h4>' +
+    '<ul>' +
+    '<li><b>É por setor, não por lado.</b> Zagueiro esquerdo entra junto com o direito, e ' +
+    'lateral idem. Partir por lado corta a amostra ao meio: medido, dava 3 indicadores de um ' +
+    'lado e 26 do outro, sem futebol que explicasse.</li>' +
+    '<li><b>Goleiro não entra:</b> o SkillCorner não rastreia goleiro.</li>' +
+    '<li><b>É amostra dentro de amostra.</b> O SkillCorner cobre cerca de 15 partidas por ' +
+    'atleta na temporada, não as 38.</li>' +
+    '<li><b>As corridas sem bola (Off Ball Runs) têm cobertura menor</b> que o resto: fora do ' +
+    'Brasil, da Argentina e das copas sul-americanas a célula vem vazia — e vazia não é zero. ' +
+    'Entram só os indicadores medidos em pelo menos 60% de cada grupo.</li>' +
+    '<li><b>Isto descreve quem subiu, não uma receita.</b> São médias de quem subiu contra ' +
+    'médias de quem caiu, e nenhuma delas foi testada como causa.</li>' +
+    '</ul></div>';
+
+  el.innerHTML = html;
+}
+
 function estudoRender() {
   const min = fsMinJogos();
   const dados = estudoAB(min);
@@ -5187,6 +5315,7 @@ function fsMontarFiltros() {
     fsRender();
   };
   $('#fsEstudo').onclick = () => { estudoRender(); $('#modalEstudo').classList.add('aberto'); };
+  $('#fsSobeCai').onclick = () => { sobeCaiRender(); $('#modalSobeCai').classList.add('aberto'); };
   $('#fsCompGravar').onclick = compGravar;
   $('#fsCompApagar').onclick = compApagar;
   $('#fsComp').onchange = () => {

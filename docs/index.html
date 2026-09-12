@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789189153">
+<link rel="stylesheet" href="static/style.css?v=1789189975">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -379,6 +379,7 @@
             <button class="bt mini" id="fsCompGravar" title="Gravar quem está na comparação agora, com os incluídos e os excluídos">Gravar</button>
             <button class="bt mini perigo" id="fsCompApagar" style="display:none" title="Apagar o comparativo aberto">Apagar</button>
             <button class="bt mini" id="fsEstudo" title="Diferenças entre a Série A e a Série B em todos os indicadores físicos, posição por posição">Série A × Série B</button>
+            <button class="bt mini" id="fsSobeCai" title="Quais indicadores físicos separam quem sobe de quem cai na Série B, posição por posição">Sobe × Cai</button>
             <button class="bt mini" id="fsLimpar">Limpar comparação</button>
             <button class="fs-recolher" id="fsRecolher"
                     title="Esconder os filtros e devolver a altura para a matriz">filtros</button>
@@ -553,6 +554,18 @@
   </div>
 </div>
 
+<!-- ============ modal "quem sobe x quem cai", por posicao ============ -->
+<div class="modal" id="modalSobeCai">
+  <div class="modal-cx grande">
+    <div class="modal-topo">
+      <h2>Quem sobe × quem cai <span class="fc-origem">físico · SkillCorner · Série B 2022-2025</span></h2>
+      <span class="sub">quais indicadores físicos separam de verdade, posição por posição — e quantos sobrevivem ao acaso</span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="es-rolagem"><div id="scCorpo"></div></div>
+  </div>
+</div>
+
 <!-- ============ modal de busca ============ -->
 <div class="modal" id="modalBusca">
   <div class="modal-cx">
@@ -708,9 +721,9 @@
 
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
-<script>window.__verDados = "1789166355";</script>
-<script src="static/fs_visoes.js?v=1789189153"></script>
-<script src="static/sb_clubes.js?v=1789189153"></script>
-<script src="static/app.js?v=1789189153"></script>
+<script>window.__verDados = "1789189783";</script>
+<script src="static/fs_visoes.js?v=1789189975"></script>
+<script src="static/sb_clubes.js?v=1789189975"></script>
+<script src="static/app.js?v=1789189975"></script>
 </body>
 </html>

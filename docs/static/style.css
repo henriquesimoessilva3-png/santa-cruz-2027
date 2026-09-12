@@ -3025,3 +3025,59 @@ body.claro #pgFisico{--fs-sb:#0f6f9e;--fs-cai:#c2650d}
   margin-right:2px}
 .rk-chk-sb .cq-sobe{background:#3f9fcc} .rk-chk-sb .cq-cai{background:#c08420}
 body.claro .rk-chk-sb .cq-sobe{background:#0f6f9e} body.claro .rk-chk-sb .cq-cai{background:#c2650d}
+
+/* ============ modal "Quem sobe × quem cai", por posição ============
+   A tabela e a irmã da do estudo Série A × Série B e usa a mesma rolagem (.es-rolagem).
+   O que ela tem de diferente é a MOLDURA: a família de testes vem antes das linhas, porque
+   sem ela 47 linhas acesas parecem 47 achados. */
+.sc-topo{margin:0 0 22px}
+.sc-lead{font-size:13px;color:var(--tinta2);line-height:1.6;margin:0 0 14px;max-width:78ch}
+.sc-familia{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 12px}
+.sc-familia > div{background:var(--veu2);border-radius:6px;padding:11px 13px}
+.sc-familia b{display:block;font-size:23px;font-weight:800;line-height:1;color:var(--tinta);
+  font-variant-numeric:tabular-nums}
+.sc-familia span{display:block;font-size:10px;color:var(--tinta3);line-height:1.4;margin-top:5px}
+.sc-familia .forte{background:color-mix(in srgb,var(--verde) 14%,var(--veu2))}
+.sc-familia .forte b{color:var(--verde)}
+.sc-nota{font-size:11.5px;color:var(--tinta3);line-height:1.55;margin:0;max-width:78ch}
+.sc-aviso{font-size:13px;color:var(--tinta2)}
+
+.sc-setor{margin:0 0 26px}
+.sc-cab{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:6px;
+  border-bottom:1px solid var(--borda2);margin-bottom:8px}
+.sc-cab h3{margin:0;font-size:15px;font-weight:700}
+.sc-pos{font-size:10px;font-weight:600;color:var(--tinta3);letter-spacing:.06em}
+.sc-n{font-size:10.5px;color:var(--tinta3)}
+.sc-rolo{overflow-x:auto}
+.sc-tab{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums}
+.sc-tab th{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta3);
+  font-weight:700;text-align:right;padding:0 10px 5px;white-space:nowrap}
+.sc-tab th:first-child{text-align:left}
+.sc-tab td{padding:5px 10px;text-align:right;border-top:1px solid var(--borda2)}
+.sc-ind{text-align:left!important;min-width:190px}
+.sc-ind b{font-weight:600}
+.sc-ind small{display:block;font-size:9px;color:var(--tinta3);margin-top:1px}
+.sc-v{white-space:nowrap}
+.sc-dif small{display:block;font-size:9px;opacity:.75;margin-top:1px}
+.sc-dif.sobe{color:var(--verde)} .sc-dif.cai{color:var(--coral)}
+.sc-d{position:relative;min-width:92px;padding-right:40px!important}
+.sc-barra{position:absolute;left:10px;top:50%;transform:translateY(-50%);height:7px;
+  border-radius:2px;background:var(--verde);opacity:.5;max-width:calc(100% - 48px)}
+.sc-barra.cai{background:var(--coral)}
+.sc-d i{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-style:normal;
+  font-size:10.5px;color:var(--tinta2)}
+.sc-ver{white-space:nowrap;font-size:10px;color:var(--tinta3);min-width:86px}
+/* a rampa: sobrevive à correção > acende a 5% > não separa. O "não separa" NÃO some —
+   "medimos e não separa" é resposta, e sem ela o leitor conclui que tudo importa. */
+.sc-bh .sc-ind b{font-weight:800}
+.sc-bh .sc-ver b{color:var(--verde);font-weight:700}
+.sc-5{opacity:.88}
+.sc-nao{opacity:.45}
+.sc-nao .sc-barra{opacity:.28}
+
+.sc-pe{margin:26px 0 0;padding-top:16px;border-top:1px solid var(--borda2);max-width:82ch}
+.sc-pe h4{margin:0 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta3)}
+.sc-pe h4 + p, .sc-pe h4 + ul{margin-top:0}
+.sc-pe p{font-size:12.5px;color:var(--tinta2);line-height:1.65;margin:0 0 12px}
+.sc-pe ul{margin:0;padding-left:18px}
+.sc-pe li{font-size:12px;color:var(--tinta2);line-height:1.6;margin:0 0 6px}

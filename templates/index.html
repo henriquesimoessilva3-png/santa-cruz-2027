@@ -376,6 +376,7 @@
             <button class="bt mini" id="fsCompGravar" title="Gravar quem está na comparação agora, com os incluídos e os excluídos">Gravar</button>
             <button class="bt mini perigo" id="fsCompApagar" style="display:none" title="Apagar o comparativo aberto">Apagar</button>
             <button class="bt mini" id="fsEstudo" title="Diferenças entre a Série A e a Série B em todos os indicadores físicos, posição por posição">Série A × Série B</button>
+            <button class="bt mini" id="fsSobeCai" title="Quais indicadores físicos separam quem sobe de quem cai na Série B, posição por posição">Sobe × Cai</button>
             <button class="bt mini" id="fsLimpar">Limpar comparação</button>
             <button class="fs-recolher" id="fsRecolher"
                     title="Esconder os filtros e devolver a altura para a matriz">filtros</button>
@@ -547,6 +548,18 @@
       <button class="fechar" data-fechar>×</button>
     </div>
     <div class="es-rolagem"><div id="esCorpo"></div></div>
+  </div>
+</div>
+
+<!-- ============ modal "quem sobe x quem cai", por posicao ============ -->
+<div class="modal" id="modalSobeCai">
+  <div class="modal-cx grande">
+    <div class="modal-topo">
+      <h2>Quem sobe × quem cai <span class="fc-origem">físico · SkillCorner · Série B 2022-2025</span></h2>
+      <span class="sub">quais indicadores físicos separam de verdade, posição por posição — e quantos sobrevivem ao acaso</span>
+      <button class="fechar" data-fechar>×</button>
+    </div>
+    <div class="es-rolagem"><div id="scCorpo"></div></div>
   </div>
 </div>
 
