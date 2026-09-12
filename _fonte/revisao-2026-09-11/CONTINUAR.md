@@ -1,5 +1,23 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **VERIFICAÇÃO COMPLETA — 12/09/2026.** As 34 propostas passaram pelas duas lentes (dado e
+> rigor): **68 verificadores, nenhum erro, e o veredito foi `ajustar` nas 68**. Nenhuma proposta
+> foi rejeitada e nenhuma passou intacta — o ajuste faz parte da proposta.
+>
+> **Armadilha que custou uma síntese inteira, registre:** o script mandava os vereditos para o
+> prompt como `JSON.stringify(aprovadas).slice(0, 90000)`. O JSON cru dos 68 dá **562 mil
+> caracteres** — o corte entregou 5 propostas de 34, e o autor do relatório escreveu, com toda
+> razão, que "as outras 29 chegaram sem crivo adversarial". A primeira tentativa está em
+> `sintese_1a_tentativa.json` (as seções 1 a 4 dela são boas; a 5 e o roteiro, não).
+> **Conserto:** um resumo por proposta em vez do JSON cru (função `verd`/`aprovadasTxt` no
+> `workflow_continuar.js`) — 34 propostas completas em ~130k caracteres. **Antes de mandar
+> qualquer coisa grande para um prompt, meça o tamanho: `slice()` silencioso é pior que erro.**
+>
+> A síntese refeita também recebe o que a Onda 1 já mudou, para não recomendar o que já está no
+> ar — e para responder a pergunta que só agora dá para fazer: **quais das 34 propostas ficaram
+> desnecessárias ou mudaram de sentido depois que o valor por setor foi corrigido?**
+
+
 > **ONDA 1 FEITA — 12/09/2026, commit `ddc5bff`.** Os oito erros que estavam no ar foram
 > corrigidos, verificados no navegador e sincronizados em `docs/`. **Falta só dar push.**
 >

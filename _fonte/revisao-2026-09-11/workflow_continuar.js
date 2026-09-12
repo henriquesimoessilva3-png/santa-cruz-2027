@@ -1240,6 +1240,35 @@ const verificadasOk = verificadas.filter(Boolean)
 const aprovadas = verificadasOk.filter(v => v.dado && v.rigor && v.dado.veredito !== 'rejeitar' && v.rigor.veredito !== 'rejeitar')
 const rejeitadas = verificadasOk.filter(v => !aprovadas.includes(v))
 log(`Verificacao: ${aprovadas.length} propostas sobrevivem (aprovar/ajustar), ${rejeitadas.length} rejeitadas por pelo menos uma lente`)
+/* O JSON cru dos 68 vereditos da ~562 mil caracteres. Truncar isso em 90.000 (como a versao
+   anterior fazia) entrega ao autor do relatorio 5 propostas de 34, e o faz escrever, com razao,
+   que "as outras 29 chegaram sem crivo adversarial". Entao: um resumo por proposta, com o que o
+   relatorio precisa de cada lente e nada mais. */
+const corta = (x, n) => !x ? '' : String(x).replace(/\s+/g, ' ').slice(0, n)
+const verd = (v, lente) => !v ? ('  ' + lente + ': (sem retorno)') :
+  '  ' + lente + ': ' + v.veredito + ' | profundidade ' + v.profundidade + '/5 | clareza ' + v.clareza_esperada + '/5\n' +
+  (lente === 'DADO'
+    ? '    viavel: ' + v.viavel + ' — ' + corta(v.viabilidade_motivo, 700) + '\n' +
+      '    colunas conferidas (' + (v.colunas_conferidas || []).length + '): ' + corta((v.colunas_conferidas || []).join(', '), 400) + '\n' +
+      '    redundante com: ' + (corta(v.redundante_com, 400) || '(nada)') + '\n'
+    : '    rigor_ok: ' + v.rigor_ok + ' — problemas: ' + corta((v.rigor_problemas || []).join(' | '), 1100) + '\n') +
+  '    AJUSTE PEDIDO: ' + corta(v.ajuste_recomendado, 1100)
+
+const aprovadasTxt = aprovadas.map((v, i) => {
+  const p = v.proposta
+  return '### ' + (i + 1) + '. ' + p.titulo + '\n' +
+    '  angulo: ' + p.angulo + ' | destino: ' + p.secao_destino + ' | esforco: ' + p.esforco + '\n' +
+    '  pergunta: ' + corta(p.pergunta, 400) + '\n' +
+    '  por que importa: ' + corta(p.por_que_importa, 400) + '\n' +
+    '  hipotese: ' + corta(p.hipotese, 300) + '\n' +
+    '  dados: ' + (p.dados || []).map(d => d.base + ':' + d.coluna_ou_derivacao + '(' + d.existe + ')').join('; ').slice(0, 700) + '\n' +
+    '  metodo: ' + corta(p.metodo, 700) + '\n' +
+    '  saida na tela: ' + corta(p.saida_na_tela, 400) + '\n' +
+    '  risco metodologico: ' + corta(p.risco_metodologico, 400) + '\n' +
+    '  referencia: ' + corta(p.referencia_literatura, 250) + '\n' +
+    verd(v.dado, 'DADO') + '\n' + verd(v.rigor, 'RIGOR')
+}).join('\n\n')
+log('Material da sintese: ' + Math.round(aprovadasTxt.length / 1000) + 'k caracteres para ' + aprovadas.length + ' propostas (o JSON cru daria ' + Math.round(JSON.stringify(aprovadas).length / 1000) + 'k)')
 
 // ---------------- fase 6: sintetizar ----------------
 phase('Sintetizar')
@@ -1260,6 +1289,50 @@ ESTRUTURA OBRIGATORIA:
 ## 9. Cruzamento com o relatorio JA PUBLICADO (obrigatorio) — leia ${PASTA}/relatorio.html antes de escrever esta secao. Ele ja propoe 11 analises novas, escritas FORA deste workflow. Para CADA uma das 11: a verificacao deste run CONFIRMA, AJUSTA (diga o ajuste concreto) ou DERRUBA (diga por que)? E quais das propostas aprovadas aqui sao NOVAS em relacao a ele? Termine com a lista unica e final de analises a implementar, sem duplicata, na ordem de implementacao.
 ## 10. Referencias (titulo + URL, agrupadas por tema)
 
+IMPORTANTE — A ONDA 1 JA FOI IMPLEMENTADA HOJE (12/09/2026, commit ddc5bff), DEPOIS que o mapa da aba
+e as 10 revisoes abaixo foram escritos. O MAPA E AS REVISOES DESCREVEM O ESTADO ANTIGO. Oito correcoes
+ja estao no codigo (static/app.js, analisar_serieb.py, gerar_sb_clubes.py, static/style.css) e no espelho
+docs/. NAO recomende nada disto como se estivesse pendente; trate como FEITO e diga o que mudou:
+
+1. VALOR POR SETOR — RECONSTRUIDO, nao apenas ressalvado. A coluna 'Valor de mercado' do Wyscout e
+   snapshot (489 dos 558 atletas que aparecem em 2+ temporadas repetem o mesmo valor em todas). O
+   valor_eur do serieb_elencos.csv (Transfermarkt) E por temporada (591 de 709 mudam entre anos), com
+   'posicao' mapeada para setor. val_defesa/val_meio/val_ataque/val_goleiro e sh_* agora saem dali.
+   Efeitos MEDIDOS na tela: EUR na defesa 0,562 -> 0,497 (saiu das linhas destacadas do quadro geral,
+   caiu da 7a para a 13a posicao e ficou abaixo do 'EUR do elenco inteiro', 0,4997); EUR no ataque
+   0,286 -> 0,414; EUR no meio 0,396 -> 0,356; % do orcamento na defesa 0,288 -> 0,220; % no ataque
+   -0,289 -> -0,133. A CONCLUSAO 'time ameacado compra atacante' MORREU: a diferenca de fatia no ataque
+   entre sobe e cai caiu de 13 pontos (30,8% x 43,8%) para 2,0 (32,8% x 34,8%), e no meio e 3,5. So a
+   defesa sobra, com 5,0. Os tres euros por setor andam com o valor total do elenco a 0,86/0,85/0,88 —
+   somar euro por setor e, quase inteiro, medir de novo o tamanho do elenco. Ressalva que ficou na tela,
+   calculada: o Transfermarkt cobre 54,4% dos atletas do plantel e quem nao tem valor entra como zero,
+   entao o valor de elenco da aba e PISO. Consequencia colateral: o quadro geral passou de 28 para 26
+   indicadores que passam sozinhos.
+2. O grafico da Secao 1 mostra 2026 (ritmo projetado para 38 jogos, tracejado, com os pontos reais
+   'hoje 43 e 49' no rotulo e '27 de 38 rodadas').
+3. As tres razoes da Secao 7 viraram DIFERENCA DE PONTOS: mando 0,88 x 0,75 ponto por jogo (16,6 x 14,3
+   na temporada); contra fortes/meio/fracos 0,74 / 0,89 / 0,80 (as tres cabem em 0,15 uma da outra, e a
+   dos jogos grandes nao e a maior); e a 'reacao', descontado o ritmo do proprio clube, virou +0,06 x
+   +0,16 — quem cai NAO reage menos, e o posto acompanha a tabela a -0,05, ou seja, nao acompanha. Os
+   titulos em negrito foram reescritos para nao afirmar o inverso.
+4. O corte dos empates nao cai mais em cima de um empate (criterio por valor), e a tese passou a ser o
+   DESEMPATE POR VITORIAS: 17 pares terminaram empatados em pontos, em 12 as vitorias eram diferentes e
+   nos 12 ficou a frente quem venceu mais; em 3 o desempate caiu em cima de uma linha de acesso.
+5. Os numeros da Secao 3 sao calculados, nao escritos a mao (4,1 / 5,4 / 16,1 / 16,9 saem do dado), e o
+   'apenas' so sai quando o caso e mesmo unico.
+6. A tabela fisica tem DUAS faixas de aceso e troca '17 de 32' por quantos passam a 5% e a 1%: 34 de 128
+   acesas, 6,4 esperadas por acaso, e 2 sobrevivem a Benjamini-Hochberg (Zaga/PSV-99 5 melhores partidas
+   0,41; Meio/arranques ate o sprint 0,39).
+7. 'O achado mais nitido do painel fisico' foi rebaixado a confirmacao fisica do PPDA.
+8. A Secao 10 foi reescrita e agora descreve o metodo de fato: definicoes, comparacoes multiplas com BH,
+   a regua de ruido por WELCH (t variavel, nao fixo em 2,04) sobre 20 indicadores de porcentagem (menor
+   +-0,9, maior +-9,4, mediana +-5,0), a ressalva do snapshot (agora contando a CORRECAO), e as lacunas.
+
+O QUE ISSO EXIGE DE VOCE: na secao 3 (revisao secao por secao), marque explicitamente cada problema que
+a Onda 1 ja resolveu como RESOLVIDO EM 12/09/2026, com o numero novo — sem apagar o registro do que
+estava errado. No roteiro (secao 8), a Onda 1 sai da lista de pendencias e vira 'feito'; comece pela
+Onda 2. E onde uma proposta das 34 tiver virado desnecessaria (ou mudado de sentido) por causa da
+correcao do valor por setor, DIGA — e a pergunta mais importante deste cruzamento.
 MATERIAL (JSON):
 MAPA DA ABA: ${mapaJson.slice(0, 25000)}
 DADOS: ${dadosJson.slice(0, 20000)}
@@ -1268,7 +1341,14 @@ METODOS: ${metodosJson.slice(0, 10000)}
 BRIEF DA LITERATURA: ${briefTxt}
 PRINCIPIOS: ${JSON.stringify(principios)}
 REVISOES: ${revisoesTxt}
-PROPOSTAS APROVADAS (com os dois vereditos): ${JSON.stringify(aprovadas, null, 1).slice(0, 90000)}
+A VERIFICACAO TERMINOU E ESTA COMPLETA: as ${aprovadas.length} propostas passaram pelas DUAS lentes
+(viabilidade/redundancia conferida no dado real, e rigor estatistico) — 68 verificadores, nenhum erro.
+NENHUMA foi rejeitada e NENHUMA passou intacta: as ${aprovadas.length} vieram com veredito 'ajustar'.
+Ou seja, o ajuste faz PARTE da proposta: na secao 5, descreva cada uma JA COM o ajuste incorporado e
+diga o que o verificador mudou. NAO escreva que faltou crivo adversarial — nao faltou.
+
+PROPOSTAS VERIFICADAS (as ${aprovadas.length}, com as duas lentes e o ajuste de cada uma):
+${aprovadasTxt}
 PROPOSTAS REJEITADAS: ${JSON.stringify(rejeitadas.map(v => ({ titulo: v.proposta.titulo, angulo: v.proposta.angulo, dado: v.dado && v.dado.veredito + ': ' + v.dado.viabilidade_motivo, rigor: v.rigor && v.rigor.veredito + ': ' + v.rigor.rigor_problemas.join('; ') })), null, 1).slice(0, 20000)}
 REORGANIZACAO: ${reorgTxt}
 REFERENCIAS: ${referenciasTxt}
