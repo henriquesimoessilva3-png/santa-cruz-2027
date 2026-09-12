@@ -1,5 +1,37 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **ONDA 1 FEITA — 12/09/2026, commit `ddc5bff`.** Os oito erros que estavam no ar foram
+> corrigidos, verificados no navegador e sincronizados em `docs/`. **Falta só dar push.**
+>
+> O que mudou de fundo: o valor por setor não foi ressalvado, foi **reconstruído**. O
+> `valor_eur` do Transfermarkt é mesmo por temporada (591 de 709 atletas mudam de valor entre
+> anos), enquanto a coluna do Wyscout é snapshot (489 de 558 repetem o mesmo valor em todos os
+> anos). Consequência medida: `€ na defesa` caiu de 0,56 para 0,50 e saiu das linhas
+> destacadas, `€ no ataque` subiu de 0,29 para 0,41, e **a conclusão de que quem cai concentra
+> o orçamento no ataque morreu** — a diferença de fatia caiu de 13 pontos para 2,0.
+>
+> Material: `onda1_diagnostico.json` (os 8 diagnósticos + as 8 conferências, com os patches),
+> `onda1_aplicar.py` (o aplicador, com os 26 ajustes dos céticos e a fusão euros × método) e
+> `workflow_onda1.js` (o workflow que gerou tudo).
+>
+> **Três defeitos só apareceram no render real** — registre, porque vale para as próximas ondas:
+> 1. `sbBH` acabou **definida duas vezes** (painel físico e Seção 10) com retornos diferentes;
+>    a segunda vencia e a tela imprimia `sobrevivem [object Object]`. Virou `sbBHconta` no
+>    painel físico. Nenhum cético podia pegar: cada um conferiu contra o arquivo **original**,
+>    onde a colisão ainda não existia. **Dois agentes que inserem função no mesmo arquivo
+>    precisam de um passe de colisão de nomes depois de aplicados.**
+> 2. O item `metodo` reescreve a Seção 10 inteira e **apagaria** a ressalva que o item `euros`
+>    inseriu lá — e descrevia como defeito vivo justamente o que o `euros` conserta. Fundidos
+>    à mão.
+> 3. O `metodo` ia publicar **99,5%** onde a medição dá **87,6%** (conferido à mão, direto no
+>    `serieb_tecnico.csv`).
+>
+> **O que a Onda 1 NÃO fez:** reconstruir o valor por setor mudou o quadro geral de 28 para 26
+> indicadores que passam sozinhos — consequência esperada da correção, não defeito. E o
+> relatório publicado ainda descreve o valor por setor como erro **não corrigido**: ao
+> republicar a URL, atualizar isso.
+
+
 > **ONDA 1 EM PARALELO — 12/09/2026 00:20.** Run `wf_bb85bd22-484`, script
 > `workflow_onda1.js` nesta pasta. Oito agentes diagnosticam os oito erros que estão no ar
 > (um por item), cada um conferido por um cético, e devolvem o **patch exato** (`old_string` →
