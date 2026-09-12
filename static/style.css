@@ -2022,8 +2022,12 @@ body.claro .fb-on{color:#0f7a3d}
    jogador nao cabia e a lista so servia para quem ja sabia quem procurar. */
 .fs-listas{display:grid;grid-template-columns:auto repeat(3,1fr) 1.15fr 1.25fr;gap:6px;
   align-items:center;margin-top:2px}
+/* QUEBRA em duas ou tres linhas, e nao pode voltar a `nowrap`: com nowrap dentro de um
+   max-width de 70px o rotulo nao cabia, transbordava para a direita e passava POR BAIXO
+   do combo vizinho — na tela lia-se "LISTAS POR ÍN" e o resto sumia atras da caixa. O
+   line-height curto ja estava aqui justamente porque a quebra era a intencao. */
 .fs-listas-rot{font-size:9px;letter-spacing:.9px;text-transform:uppercase;color:var(--tinta3);
-  font-weight:700;white-space:nowrap;line-height:1.15;max-width:70px}
+  font-weight:700;line-height:1.15;max-width:74px}
 /* o texto do combo fechado e um rotulo, nao um dado apagado: cor cheia e peso */
 .fs-listas select{min-width:0;font-size:10.5px;padding:5px 7px;color:var(--tinta);
   font-weight:600;background:var(--input-bg)}
