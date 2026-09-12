@@ -5775,6 +5775,7 @@ function irParaAba(nome) {
   $('#pgEmpresarios').classList.toggle('oculta', nome !== 'empresarios');
   $('#pgIndicados').classList.toggle('oculta', nome !== 'indicados');
   $('#pgSerieB').classList.toggle('oculta', nome !== 'serieb');
+  $('#pgProto').classList.toggle('oculta', nome !== 'prototipo');
   if (nome === 'campo') requestAnimationFrame(ajustarCampo);
   if (nome === 'contrato') fcRender();
   if (nome === 'fisico') fsRender();
@@ -5783,6 +5784,7 @@ function irParaAba(nome) {
   if (nome === 'empresarios') empRender();
   if (nome === 'indicados') indRender();
   if (nome === 'serieb') sbRender();
+  if (nome === 'prototipo') ptRender();
 }
 
 /* ---------------- impressao / PDF ---------------- */

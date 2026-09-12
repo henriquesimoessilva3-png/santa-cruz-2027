@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789221567">
+<link rel="stylesheet" href="static/style.css?v=1789231672">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -132,6 +132,7 @@
   <button class="aba" data-aba="empresarios">Empresários</button>
   <button class="aba" data-aba="indicados">Indicados</button>
   <button class="aba" data-aba="serieb">Análise Série B</button>
+  <button class="aba" data-aba="prototipo">Protótipo</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -509,6 +510,13 @@
       <div class="emp-rolagem"><div class="sb" id="sbCorpo"></div></div>
     </section>
 
+    <!-- A aba Protótipo: dezesseis etapas, todas desenhadas por ptRender() (static/proto.js)
+         dentro deste container. O HTML fica vazio de propósito — qualquer número escrito
+         aqui seria número que o JSON não mandou. -->
+    <section class="pagina oculta" id="pgProto">
+      <div class="emp-rolagem"><div class="pt" id="ptCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgIndicados">
       <div class="emp-topo">
         <div class="emp-tit">
@@ -722,8 +730,17 @@
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1789189783";</script>
-<script src="static/fs_visoes.js?v=1789221567"></script>
-<script src="static/sb_clubes.js?v=1789221567"></script>
-<script src="static/app.js?v=1789221567"></script>
+<script src="static/fs_visoes.js?v=1789231672"></script>
+<script src="static/sb_clubes.js?v=1789231672"></script>
+<!-- Protótipo: o dado primeiro (prototipo.js = cópia do dados/prototipo.json), depois a
+     casca com os helpers, depois os três arquivos de etapa. A ordem importa: proto_a/b/c
+     chamam helpers definidos em proto.js, e todos precisam existir antes do app.js chamar
+     ptRender() pelo irParaAba(). -->
+<script src="static/prototipo.js?v=1789231672"></script>
+<script src="static/proto.js?v=1789231672"></script>
+<script src="static/proto_a.js?v=1789231672"></script>
+<script src="static/proto_b.js?v=1789231672"></script>
+<script src="static/proto_c.js?v=1789231672"></script>
+<script src="static/app.js?v=1789231672"></script>
 </body>
 </html>
