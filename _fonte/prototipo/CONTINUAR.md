@@ -15,11 +15,61 @@
 | `gerar_prototipo.py` | **o gerador, escrito e RODADO** (135 KB) |
 | `dados/prototipo.json` | **1,08 MB, 24 chaves — etapas 0 a 15 completas** |
 
-## 2. O que estava rodando quando a sessão acabou
+## 2. A CONFERÊNCIA DO JSON TERMINOU — e reprovou. NÃO PUBLIQUE A TELA.
 
-**Workflow `wf_d046db62-f21`** — três céticos recalculando blocos diferentes do
-`prototipo.json` por caminho próprio (dinheiro-e-catálogo · pilares-e-tipologia ·
-livres-e-elencos). O gerador já devolveu; **os três céticos ficaram no meio**.
+Os três céticos do `wf_d046db62-f21` fecharam depois deste pacote ser escrito. **Os três
+disseram `ajustar`: 28 divergências e 40 buracos.** Os vereditos completos estão em
+`_fonte/prototipo/conferencia_do_json.json` (chave `confs`). O `dados/prototipo.json` como
+está **não pode virar tela** — e o que reprova não é detalhe de formatação.
+
+### O que reprova de verdade, em ordem de gravidade
+
+1. **São TRÊS pilares, não quatro.** A etapa 5 se chama "os quatro pilares" e os painéis são
+   só `tecnico_col`, `tecnico_ind` e `fisico_col`. **O físico individual não tem painel.** É
+   exatamente o que o dono pediu, e não está lá.
+2. **A nota de encaixe tem a orientação INVERTIDA nos indicadores de tempo.** O candidato é
+   medido em percentil invertido (100−p) e o alvo em percentil cru de segundos. Quem sobe é
+   MAIS RÁPIDO, então a nota está premiando o mais lento nesses indicadores. Isso recomenda o
+   jogador errado — é o defeito mais caro do arquivo.
+3. **O portão de persistência (ρ ≥ 0,30) não é aplicado**, e `t505_90` reprova nele (0,205).
+   Ou seja, entra no score um indicador que a própria regra manda excluir.
+4. **O backtest não testou a nota publicada** — esqueceu o filtro `campos_fis`. E **169 das
+   716 chegadas pontuadas são de 2026** (24%), violando a regra da casa de que 2026 não entra
+   em média nenhuma.
+5. **`coluna_csv` dos 92 indicadores técnicos individuais não existe em arquivo nenhum.**
+   Conferido nas 346 colunas do painel e nas 118 do técnico. São referências quebradas.
+6. **151 dos 603 candidatos (25%) carregam um critério que a própria tabela do JSON
+   contradiz** ("nenhum indicador do bloco sobreviveu", quando `psv5` na zaga sobrevive com
+   p=0,0074).
+7. **Elenco sul-americano: 4 a 6 das 15 vagas voltam vazias** — nenhum nome chega a 10% nas
+   200 réplicas.
+8. **Imputação escondida de zero** no contrafactual do dinheiro (7 a 10 dos 15 nomes do núcleo
+   entram sem valor), e o contrafactual **compara duas réguas diferentes** (`mv` do
+   jogadores.json ago26 contra `valor_eur` do Transfermarkt 2025).
+9. **A largura da faixa do elenco é uma constante inventada e não publicada**
+   (`erro = max(0,02; 0,30/√sc_n)`), e vale 65% do desvio-padrão real da nota.
+10. **`remates_baliza_pct` tem confiabilidade −0,021** e mesmo assim sobrevive ao BH e ganha
+    selo de Porta B. Medida sem sinal nenhum passando por achado.
+
+### O que a conferência APROVOU, e não precisa refazer
+
+- **Os painéis da etapa 5** (4.688 células) — reimplementados do zero e batem: "este é o bloco
+  mais sólido do arquivo".
+- **A tipologia da etapa 8** — filiação e cortes reproduzem sem exceção.
+- E dois achados a favor: o `TIPOLOGIA.md` tem as **médias de eixo erradas nos quatro grupos**
+  (o JSON está certo, o documento é que está errado), e a **ESPECIFICACAO erra** em pelo menos
+  dois pontos (a tabela da §6.5 sobre `min_estrangeiros` e a promessa da §11.2 sobre o caliper).
+
+### Por onde continuar
+
+Use a mesma máquina das Ondas 1 e 2, que funcionou duas vezes: **um agente por bloco corrige,
+um cético confere, e só então o JSON é regerado.** Os dez itens acima são a lista de trabalho.
+Depois disso, e só depois, a tela.
+
+## 2b. O que estava rodando quando a sessão acabou
+
+**Workflow `wf_d046db62-f21` — TERMINOU** (4 de 4 agentes, nenhum erro). O resultado está na
+seção 2 acima e o arquivo completo em `_fonte/prototipo/conferencia_do_json.json`.
 
 Os retornos de quem terminou estão em:
 `~/.claude/projects/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-Santa-Cruz/d04c10c6-3785-4e71-a494-989fd871831f/subagents/workflows/wf_d046db62-f21/journal.jsonl`
@@ -34,7 +84,8 @@ produz o mesmo JSON — ou, se preferir economizar, edite o script deixando só 
 
 ## 3. O que FALTA, em ordem
 
-1. **Conferir o `prototipo.json`** (os três céticos acima).
+1. **Corrigir os dez defeitos da seção 2** e regerar o `prototipo.json`. A conferência já foi
+   feita e reprovou; não é preciso conferir de novo antes de corrigir.
 2. **Construir a tela.** Aba no `templates/index.html`, renderer no `static/app.js`, CSS no
    `static/style.css`. O desenho etapa por etapa está na **seção 10 da ESPECIFICACAO** — o
    dono pediu a construção explícita, não só o fim. Siga o padrão da casa: botão + modal como

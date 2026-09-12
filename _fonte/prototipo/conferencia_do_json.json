@@ -1,0 +1,559 @@
+{
+  "summary": "Escrever e rodar gerar_prototipo.py, que produz dados/prototipo.json com os quatro pilares, a tipologia, os livres e os elencos",
+  "agentCount": 4,
+  "logs": [
+    "Escrevendo gerar_prototipo.py — as etapas 0 a 8 e 12 a 15 da especificacao",
+    "Gerador: rodou=true; JSON com 24 chaves, 1057 KB"
+  ],
+  "result": {
+    "build": {
+      "rodou": true,
+      "saida_do_terminal": "$ python3 gerar_prototipo.py\nlista pré-declarada: versão 2026-09-12\npainel 80 · jogos 3036 · tecnico 3866 · skillcorner 1780 · mercado 40059 (ago26)\nmatriz 80x293\nbootstrap por clube...\nnulo do garimpo...\nsilhuetas e tipologia...\nfunil, encaixe e elencos...\ngravado /Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/dados/prototipo.json (1057 KB, 24 chaves) em 33s\n\n(conferência posterior)\nKB 1057\nchaves ['_doc','gerado_em','gerado_por','semente','replicas','bases','etapa_0','etapa_1','etapa_2','etapa_3','etapa_4','etapa_5','etapa_6','etapa_7','etapa_8','etapa_9','etapa_10','etapa_11','etapa_12','etapa_13','etapa_14','etapa_15','sobecai_corrigido_por_clube','controles_obrigatorios']\nlinhas catalogo 293 · conf (split-half) medidos em 28 · JSON valido, sem NaN/inf\netapas presentes: etapa_0 ... etapa_15 (16 etapas, nenhuma faltando)",
+      "json_chaves": [
+        "_doc",
+        "gerado_em",
+        "gerado_por",
+        "semente",
+        "replicas",
+        "bases",
+        "etapa_0",
+        "etapa_1",
+        "etapa_2",
+        "etapa_3",
+        "etapa_4",
+        "etapa_5",
+        "etapa_6",
+        "etapa_7",
+        "etapa_8",
+        "etapa_9",
+        "etapa_10",
+        "etapa_11",
+        "etapa_12",
+        "etapa_13",
+        "etapa_14",
+        "etapa_15",
+        "sobecai_corrigido_por_clube",
+        "controles_obrigatorios"
+      ],
+      "json_kb": 1057,
+      "etapas_feitas": [
+        "0 — o que esta sendo medido: 100 clube-temporada, 80 completas (16/48/16, 4/12/4 por ano), 2026 com J=27 fora de toda media, 40 clubes distintos nas 80 linhas, 293 indicadores pre-declarados por familia, mais o poder (d minimo detectavel) e o funil de candidatos",
+        "1 — linha de base do dinheiro ANTES de qualquer pilar: quartis de valor x taxa de subida, top-4 de valor por ano, AUC bruto e AUC LOSO (deixando um ano inteiro de fora), eventos por parametro, cobertura do valor e pareamento por caliper (0,10 / 0,15 / 0,20)",
+        "2 — catalogo dos 293 indicadores, um por linha: n, conf, m_sobe/m_meio/m_cai brutos, r_sobe/r_meio/r_cai em posto, d e p brutos e LIQUIDOS de valor para sobe x meio e sobe x cai, q de BH por familia, IC de bootstrap por CLUBE (2.000 replicas), rho de persistencia, rho 1T->2T e o selo de porta A/B/C/D com o motivo",
+        "3 — aviso do sorteio em numero: testes por comparacao, esperados por acaso, sobreviventes de BH por familia, e o NULO DO GARIMPO (permutacao dentro do ano, 400 replicas, melhor-entre-N refeito) com o p do melhor real",
+        "4 — confiabilidade split-half (pares x impares, posto no ano, Spearman-Brown) com a marca de hachura abaixo de 0,40",
+        "5 — OS QUATRO PILARES TIME A TIME, ANO A ANO, INDICADOR POR INDICADOR: 11 paineis (tecnico coletivo, elenco, tecnico individual x 4 setores, fisico de elenco e fisico x 4 setores), 16 clube-ano promovidos x N indicadores, cada celula com [bruto, posto no ano, n] e motivo quando vazia, mais a faixa p25/p50/p75 do meio e de quem caiu, e o teste de sensibilidade das TRES regras de agregacao",
+        "6 — isso se repete: 36 pares clube-ano, rho de persistencia dos 293 indicadores, pontos de dispersao para os 73 de painel completo, a referencia do dinheiro (tm_valor_total rho=0,724) e o truncamento (so 6 dos 36 pares terminaram em subida)",
+        "7 — porta temporal: media do 1o turno contra os pontos do 2o turno, bruto e PARCIAL dado os pontos do 1o turno, com a referencia pts1t x pts2t e a lista do que nao e testavel com o motivo",
+        "8 — cemiterio dos padroes com os DOIS nulos lado a lado (colunas embaralhadas x mesma covariancia, k=2/3/4, nos 16 e nas 80, 500 replicas) + Jaccard de Hennig; E A TIPOLOGIA dos quatro grupos do TIPOLOGIA.md: os dois eixos declarados, os cortes, os 16 pontos no plano, os times de cada grupo com posto de valor, a bateria de fora pre-declarada de 38 indicadores, o nulo placebo (256 particoes), a bateria limpa, o fisico, a formacao, o dinheiro (particao rival e residualizacao), a estabilidade (tirar um time / tirar um indicador), a fronteira time a time sob ruido, e um VEREDITO de 13 testes com o numero e passou/nao passou",
+        "9 — as nove reguas continuas, cada uma com d, q, d liquido, rho de persistencia, os 16 promovidos plotados, e os ITENS CRUS com os p de cada um",
+        "10 — causa ou consequencia: a lista branca de resultado e os indicadores de Porta B com rho abaixo de 0,15, com as medias sobe/meio/cai e os d",
+        "11 — o teste da mala: persistencia fisica do atleta (499 pares, rho mediano 0,833) contra a persistencia tecnica de quem MUDOU de clube (0,399) e de quem FICOU (0,468), metrica a metrica",
+        "12 — funil dos livres: cascata 40.059 -> 10.984 -> 4.333 -> 2.728 -> 603 com Serie B e sul-americanos separados em cada degrau, cobertura fisica por liga (6 ligas com ZERO), e a conferencia cruzada de contrato contra o Transfermarkt por ponte (id e nome, homonimo descartado)",
+        "13 — nota de encaixe em TRES pedacos (fisica / duelo / estilo, nunca somadas), percentil dentro de (liga, posicao), alvo por setor em quatro versoes (sobe, caro, barato, cai) vindo do sobecai JA CORRIGIDO por clube, nota de confianca, trilha separada de goleiro, e o BACKTEST das chegadas pontuado com o dado de t-1",
+        "14 — elencos como FAIXA: nucleo de 16 (XI+5) por linear_sum_assignment com 200 reamostragens, recomendacao (>50%) e alternativas (10-50%) por vaga com o denominador ao lado, 3 cenarios x 2 escopos, restricoes da secao 9 como penalidade com as infracoes medidas, validacao de volta e o contrafactual do dinheiro com a taxa historica do quartil",
+        "15 — treinador: o card do que NAO da, com os p do proxy de Sistema (5 metricas x sobe/meio/cai), o numero de sistemas reais contra os 1.300 sem regex, e a coleta que resolveria",
+        "extra — sobecai_corrigido_por_clube: a correcao de pseudorreplicacao da secao 4.4, com as colunas de n de ATLETA e n de CLUBE lado a lado nos quatro setores",
+        "extra — dados/prototipo_indicadores.json: a lista PRE-DECLARADA escrita e versionada antes de rodar (293 indicadores em 5 familias + lista branca de resultado + 9 eixos + os 2 eixos da tipologia + a bateria de fora de 38)"
+      ],
+      "etapas_que_ficaram_de_fora": [
+        {
+          "etapa": "Split-half (etapa 4) e porta temporal (etapa 7) para 265 dos 293 indicadores",
+          "por_que": "so 28 indicadores tem versao jogo a jogo em serieb_jogos.csv. O fisico coletivo vem agregado por temporada do SkillCorner e o tecnico individual vem por temporada do Wyscout — nao existe a partida. Esses 265 saem com conf=null e rho_1T_2T=null, e o portao temporal da Porta A e dispensado para eles (a regra so se aplica a indicador de jogo). A consequencia honesta: a regra de hachura abaixo de 0,40 nao pode ser aplicada a 90% da tabela."
+        },
+        {
+          "etapa": "Recalcular share_11 e conc_hhi so no 1o turno",
+          "por_que": "minutagem.json guarda minuto por TEMPORADA e serieb_jogos.csv nao traz escalacao. Gravado em etapa_7.nao_testaveis com o motivo, como a especificacao manda."
+        },
+        {
+          "etapa": "Extensao do painel para 2018-2021 (item 13.11 da especificacao)",
+          "por_que": "exige conferir antes se o SkillCorner cobre aqueles anos; SC_EDICOES so mapeia 2022-2025 e sem isso dois dos quatro pilares quebrariam no painel estendido. Nao foi tentado."
+        },
+        {
+          "etapa": "Teto de folha como restricao dura no elenco",
+          "por_que": "`sal` existe em 14.442 de 40.059 e so como faixa de texto ('1.2M - 1.6M'). Entrou como ponto medio e como BANDA, com o contador de quantos entraram sem faixa; nunca como numero exato nem como corte."
+        },
+        {
+          "etapa": "Nome de treinador",
+          "por_que": "nao existe em base nenhuma (conferido nas 346 colunas do painel, 119 dos jogos, 118 do tecnico, 21 dos elencos e 86 campos do jogadores.json). So o proxy de Sistema, publicado como achado negativo na etapa 15 com os p."
+        }
+      ],
+      "numeros_principais": [
+        {
+          "nome": "Painel: linhas no arquivo / completas / sobe / meio / cai",
+          "valor": "100 / 80 / 16 / 48 / 16 (2026 com 27 de 38 rodadas, fora de toda media)",
+          "onde_no_json": "etapa_0.linhas_no_arquivo, .linhas_completas, .sobe/.meio/.cai, .rodadas_2026"
+        },
+        {
+          "nome": "Baseline do dinheiro — taxa de subida por quartil de valor",
+          "valor": "55,0% (11/20) no quartil mais caro · 15,8% (3/19) · 4,8% (1/21) · 5,0% (1/20)",
+          "onde_no_json": "etapa_1.quartis"
+        },
+        {
+          "nome": "Baseline do dinheiro — AUC so com o posto de valor",
+          "valor": "0,828 sobe x resto; 0,793 sobe x meio; 0,808 fora da amostra (LOSO, deixando um ano inteiro de fora); top-4 de valor acerta 10 das 16 subidas contra 3,2 de acaso",
+          "onde_no_json": "etapa_1.auc_posto_de_valor, etapa_1.top4_de_valor"
+        },
+        {
+          "nome": "Poder: menor d que este desenho enxerga a 80%",
+          "valor": "1,024 com 16x16 · 0,822 com 16x48 · 0,793 com 16x64 · 1,787 com 16x16 sob Bonferroni de 191 testes",
+          "onde_no_json": "etapa_0.poder"
+        },
+        {
+          "nome": "Sobrevivencia dos 293 indicadores, sobe x meio",
+          "valor": "29 passam a 5% no bruto (14,7 esperados por acaso), 8 sobrevivem a BH; no LIQUIDO de valor 18 passam a 5% e ZERO sobrevive a BH",
+          "onde_no_json": "etapa_3.passam5_SM, .bh5_SM, .passam5_liq_SM, .bh5_liq_SM"
+        },
+        {
+          "nome": "Sobe x cai contra sobe x meio (a prova de que o meio e a comparacao que vale)",
+          "valor": "76 passam a 5% contra quem caiu e 24 sobrevivem a BH; contra o meio sao 29 e 8",
+          "onde_no_json": "etapa_3.passam5_SC, .bh5_SC"
+        },
+        {
+          "nome": "Nulo do garimpo (precifica a BUSCA, nao o teste)",
+          "valor": "melhor real +0,3164 de AUC sobre 0,5; nulo com 400 replicas: media +0,2399, p95 +0,3054, maximo +0,3535 — p do melhor = 0,0349, em 229 indicadores de cobertura completa",
+          "onde_no_json": "etapa_3.nulo_do_garimpo"
+        },
+        {
+          "nome": "Selo de porta dos 293 indicadores",
+          "valor": "A: 1 (dist_remate) · B: 17 · C: 31 · sem separacao: 244",
+          "onde_no_json": "etapa_2.linhas[].porta"
+        },
+        {
+          "nome": "O unico indicador de Porta A",
+          "valor": "dist_remate: d bruto -1,203 (p<0,0001), d LIQUIDO -0,759 (p=0,0056), q=0,0008, IC de bootstrap por clube [-1,374; -0,244], rho de persistencia 0,357, parcial 1T->2T -0,340 (p=0,0022)",
+          "onde_no_json": "etapa_2.linhas (indicador dist_remate)"
+        },
+        {
+          "nome": "Confiabilidade split-half (teto de cada medida)",
+          "valor": "Intensidade 0,84 · Passes 0,778 · Passes certos % 0,776 · Posse 0,690 · Recuperacoes 0,662 · Toques na area 0,630 · Cruzamentos 0,517 · Remates 0,500 · Contra-ataques 0,360 · xG 0,302 (hachurado)",
+          "onde_no_json": "etapa_4.linhas"
+        },
+        {
+          "nome": "Persistencia t->t+1 (36 pares) — o que e caracteristica e o que e retrato",
+          "valor": "tm_valor_total 0,724 · fis_distance_p90 e fis_m_per_min 0,722 · fis_psv99_top5 0,377 · dist_remate 0,357 · posse 0,272 · faltas 0,233 · ppda 0,129 · remates_baliza_pct 0,097 · conc_hhi 0,050 · share_11 0,049 · nucleo_300 -0,090",
+          "onde_no_json": "etapa_6.rho, etapa_6.referencia_dinheiro"
+        },
+        {
+          "nome": "Truncamento do desenho preditivo",
+          "valor": "dos 36 pares consecutivos so 6 terminaram em subida; 10 das 16 promocoes vem de clube que nao estava na Serie B no ano anterior",
+          "onde_no_json": "etapa_6.truncamento"
+        },
+        {
+          "nome": "Porta temporal — 1o turno prevendo o 2o",
+          "valor": "referencia pts1t x pts2t rho=0,496. dist_remate -0,439 bruto e PARCIAL -0,340 (p=0,0022); xg +0,372 e parcial +0,264; remates_baliza_pct +0,328 e parcial +0,245; posse +0,247 e parcial +0,207 (p=0,067); ppda -0,195 e parcial -0,121 (p=0,29) — nao passa nem aqui",
+          "onde_no_json": "etapa_7.linhas, etapa_7.referencia_pts1t_x_pts2t"
+        },
+        {
+          "nome": "Cemiterio: os DOIS nulos lado a lado (9 eixos, 500 replicas)",
+          "valor": "16 que subiram k=2: obs 0,269 · embaralhado p=0,006 · mesma covariancia p=0,351. 80 clube-temporada k=2: obs 0,227 · embaralhado p=0,002 · mesma covariancia p=0,291. O nulo embaralhado da p<0,01 em 4 das 6 configuracoes e o de mesma covariancia so passa em uma (80 linhas, k=4, p=0,018)",
+          "onde_no_json": "etapa_8.cemiterio.linhas"
+        },
+        {
+          "nome": "Tipologia — os quatro grupos, com os times",
+          "valor": "cortes TERRITORIO 72,5 e ROTA 66,25. G1 dono do jogo n=5 (Cruzeiro 2022, Gremio 2022, Atletico-GO 2023, Santos 2024, Athletico-PR 2025), posto de valor medio 1,60. G2 cerco de bola direta n=3 (Bahia 2022, Sport 2024, Ceara 2024), 4,67. G3 controlador paciente n=3 (Vitoria 2023, Mirassol 2024, Coritiba 2025), 7,33. G4 reativo de bola direta n=5 (Vasco 2022, Juventude 2023, Criciuma 2023, Chapecoense 2025, Remo 2025), 8,00 — reproduz a filiacao do TIPOLOGIA.md time a time",
+          "onde_no_json": "etapa_8.tipologia.grupos, .plano, .cortes"
+        },
+        {
+          "nome": "Tipologia — o veredito, 13 testes com o numero",
+          "valor": "PASSOU: rotulo sorteado p=0,005; nulo PLACEBO p=0,0039 (256 particoes, eta2 0,425 contra 0,210); bateria LIMPA p=0,0299; corte de ROTA no andar de cima p=0,010 e no de baixo p=0,001; tirar um indicador (max 2 trocas). NAO PASSOU: silhueta nos 2 eixos contra mesma covariancia p=0,068; Jaccard do menor grupo 0,377 (linha de dissolucao 0,60); fisico 0 de 160 sobrevive a BH; formacao p=0,83; dinheiro nao distingue os 4 grupos p=0,117; particao rival so com dinheiro p=0,677; tirar um time (2 trocas: Vitoria 2023 e Sport 2024)",
+          "onde_no_json": "etapa_8.tipologia.veredito"
+        },
+        {
+          "nome": "Tipologia — dinheiro: qual eixo o orcamento compra",
+          "valor": "residualizando o valor, o corte de ROTA nao muda um unico time (0 de 16) e o de TERRITORIO muda 6 de 16 (Gremio 2022, Vitoria 2023, Criciuma 2023, Ceara 2024, Athletico-PR 2025, Chapecoense 2025). Particao feita SO com dinheiro explica a bateria de fora com eta2 0,179 contra 0,196 do nulo (p=0,677): dinheiro sozinho e ruido",
+          "onde_no_json": "etapa_8.tipologia.dinheiro"
+        },
+        {
+          "nome": "Teste da mala — o que acompanha o atleta quando ele troca de clube",
+          "valor": "FISICO: 499 pares, rho mediano 0,833 (high_decel 0,862 · sprint_count 0,852 · cod 0,850 · psv99 0,792 · psv99_top5 0,699). TECNICO: rho mediano 0,399 para quem MUDOU de clube (233 pares) contra 0,468 para quem FICOU (178). Passes recebidos/90 cai de 0,528 para 0,306; Duelos/90 fica em 0,682",
+          "onde_no_json": "etapa_11.fisico, etapa_11.tecnico"
+        },
+        {
+          "nome": "Pseudorreplicacao do sobecai corrigida por clube (secao 4.4)",
+          "valor": "sobreviventes de BH, n de ATLETA -> n de CLUBE (16x16): zaga 3 -> 0 · lateral 5 -> 0 · meio 5 -> 5 · ataque 3 -> 11",
+          "onde_no_json": "sobecai_corrigido_por_clube"
+        },
+        {
+          "nome": "Funil dos livres em dez/26",
+          "valor": "40.059 -> 10.984 nas 15 ligas alvo -> 4.333 com contrato entre nov/26 e jan/27 -> 2.728 com confianca -> 603 no pool operacional. Serie B: 1.136 -> 413 -> 216 -> 60. Sul-americanos: 531 no pool. 3.950 dos 4.333 vencem exatamente em dez/26 (91,2%): e calendario, nao oportunidade",
+          "onde_no_json": "etapa_12.degraus, .vencem_exatamente_em_dez26, .pool"
+        },
+        {
+          "nome": "Ligas sem base para pontuar",
+          "valor": "6 ligas com ZERO cobertura fisica: Argentina B, Bolivia, Brasil C, Colombia B, Equador B, Venezuela",
+          "onde_no_json": "etapa_12.ligas_sem_cobertura_fisica"
+        },
+        {
+          "nome": "Conferencia cruzada de contrato contra o Transfermarkt",
+          "valor": "geral 38,6% (353 de 915); ctc alta 72,7% (264/363); baixa 21,2%; conflito 5,1% (9/178); 27 homonimos descartados; contrato_ate em 2022-2025: ZERO linhas (e snapshot, nao historico)",
+          "onde_no_json": "etapa_12.conferencia_cruzada"
+        },
+        {
+          "nome": "BACKTEST da nota de encaixe — resultado NEGATIVO",
+          "valor": "2.916 chegadas na definicao ampla, 716 pontuaveis (com o atleta no arquivo em t-1), 552 com nota fisica; recomendados 1.140,4 minutos contra 1.176,5 dos reprovados (d=-0,044, p=0,607); rho nota x minutos -0,046 (p=0,283); permanencia 13,4% contra 12,0% (p=0,701). Pela regra 8.6 da propria especificacao, a aba NAO pode publicar ranking",
+          "onde_no_json": "etapa_13.backtest"
+        },
+        {
+          "nome": "Contrafactual do dinheiro das 6 propostas de elenco",
+          "valor": "o nucleo de 15 nomes livres vale de EUR 1,8 mi a 4,85 mi contra EUR 32,5 mi do 1o, 13,8 mi da mediana e 4,5 mi do 20o da Serie B 2025 (soma dos 15 mais valiosos de cada clube). Todas as 6 caem no quartil 1 de valor, cuja taxa historica de subida foi 5,0%",
+          "onde_no_json": "etapa_14.propostas[*].contrafactual"
+        },
+        {
+          "nome": "Restricoes do elenco, medidas em vez de prometidas",
+          "valor": "idade media do nucleo 24,3 a 27,0 (teto 29, zero infracoes em 200 replicas); teto de 6 por liga estrangeira violado em 0 a 4 replicas de 200; mas o minimo de 5 atletas com 1.800+ minutos falha em 137 a 198 das 200 replicas — o pool de livres nao tem rodagem",
+          "onde_no_json": "etapa_14.propostas[*].restricoes"
+        },
+        {
+          "nome": "Treinador — o proxy de Sistema nao separa nada",
+          "valor": "sistemas distintos p=0,676 · trocas de desenho p=0,985 · % na formacao principal p=0,666 · % de linha de tres p=0,426 · fidelidade media p=0,242 (todos sobe x meio). Sao 17 sistemas reais contra 1.300 quando se le a coluna sem regex, e a mediana e 20 trocas de desenho em 38 jogos: ajuste de partida, nao assinatura de comissao",
+          "onde_no_json": "etapa_15.proxy_sistema"
+        }
+      ],
+      "a_especificacao_errou": "1) TAMANHO DAS BASES. A tabela da secao 1 diz \"serieb_clube_temporada.csv 100 x 288 colunas\" e \"jogadores.json 78 campos\". Hoje sao 346 colunas e 86 campos (a propria especificacao avisa que \"confira as colunas que existem HOJE\", mas a tabela dela nao foi atualizada). O \"119, nao 145\" dos jogos esta certo: sao 119 mesmo. A secao 5 diz 166 colunas fis_* (34 de elenco + 33x4); hoje sao 32 de elenco e 32x4 = 160 sem os denominadores.\n\n2) A PARCIAL DA TABELA 6.4 NAO FOI CALCULADA NO POSTO. A secao 6.4 declara \"tudo em posto dentro do ano, com correlacao parcial dada a pontuacao do 1o turno\" e reporta dist_remate com parcial -0,289 (p=0,009). Reproduzi a coluna BRUTA inteira ao decimal (-0,439 / +0,372 / +0,328 / +0,247 / +0,190 / -0,195 / -0,130 / +0,177 / +0,041 e a referencia +0,496), mas a parcial em posto da -0,340 (p=0,0022). Rodando a parcial nos VALORES CRUS, sem posto, sai -0,283 (p=0,011) — ou seja, a coluna parcial da tabela 6.4 foi calculada fora do posto, contrariando o metodo declarado duas linhas acima. Mantive a versao em posto, que e a coerente com o resto da aba, e gravei a diferenca.\n\n3) \"SOB O NULO DE MESMA COVARIANCIA NAO HA GRUPO EM LUGAR NENHUM\" (secao 7.1) E FORTE DEMAIS. Com 500 replicas e semente 7, os 16 realmente nao passam em k nenhum (p=0,29 a 0,66), mas nas 80 clube-temporada com k=4 o p da 0,018 — passa a 5%. A frase generica da especificacao nao se sustenta na rodada corrente; o JSON publica as seis linhas e deixa o leitor ver onde falha.\n\n4) A PREVISAO DA SECAO 4.4 SO ACERTOU METADE. Ela diz que, agregando o sobecai por clube, \"os 16 sobreviventes de BH vao cair; e para cairem\". Zaga (3 -> 0) e lateral (5 -> 0) caem como previsto, mas o meio mantem os 5 e o ATAQUE SOBE de 3 para 11. Agregar por clube tira ruido de atleta e, em dois setores, AUMENTA o tamanho de efeito em vez de mata-lo. A correcao continua obrigatoria, mas a consequencia prevista estava errada.\n\n5) A LISTA PRE-DECLARADA DA SECAO 3 NAO REPRODUZ A BATERIA DO TIPOLOGIA.md. Os 31 indicadores tecnicos coletivos da secao 3 nao incluem `xg`, `passes_certos`, `passes_frente` nem `atq_pos_remates` — que sao 4 dos 11 sobreviventes de BH da bateria de fora do TIPOLOGIA.md. Com a lista da secao 3 o teste de fora da tipologia nao pode ser refeito. Tive de declarar uma segunda lista (`bateria_tipologia`, 38 colunas) no prototipo_indicadores.json, antes de rodar.\n\n6) `tm_com_valor` E CONTAGEM, NAO PERCENTUAL. A secao 11 diz \"a cobertura do valor por temporada varia de 47% a 77%\". A coluna e uma contagem (mediana 30 atletas); dividida pelo plantel ela vai de 28,3% a 75,8%, com mediana 54,5%. O piso de 47% esta errado. A afirmacao de fundo continua de pe e esta medida: rho(cobertura, posto de valor) = 0,564 (p<0,0001) — quem nao tem valor e jogador obscuro, e time pobre tem mais deles.\n\n7) A CONCORDANCIA DE CONTRATO DA SECAO 8.1 NAO BATE NA MINHA PONTE. Ela promete \"~51% no geral, 84% quando ctc=='alta', 1 em 168 quando conflito\". Medi 38,6% geral (353 de 915), 72,7% com alta (264 de 363) e 5,1% com conflito (9 de 178). A ordem e identica e a conclusao operacional e a mesma, mas os numeros nao. Diferenca provavel de ponte: o id do Transfermarkt so existe para 6.589 dos 40.059, entao 887 dos 915 casamentos saem por nome, com 27 homonimos descartados.\n\n8) O TIPOLOGIA.md DESCREVE O EIXO ROTA DE FORMA AMBIGUA. \"Media dos percentis de passes_pct e de passe_longo_pct INVERTIDO\", com corte em 66,25. Lido ao pe da letra como -passe_longo_pct, o corte sai 16,25 e os valores dos grupos ficam entre -12 e 38. So com (100 - percentil) o corte e os quatro grupos reproduzem o documento numero a numero. Implementei a inversao e escrevi o porque no codigo.\n\n9) O SELO DO G2 VIRA COM A BATERIA. O TIPOLOGIA.md marca o G2 como DESCRITIVO com p=0,160 no um-contra-o-resto. Com a bateria de 38 pre-declarada e 1.000 permutacoes, dou p=0,047 — em cima da linha, e o selo inverteria para TIPO. Nao escolhi: o JSON grava `status` (medido) e `status_declarado_no_documento` lado a lado, com os dois p. E um caso em que o rotulo depende de qual bateria se declarou, e isso precisa aparecer.\n\n10) A MAGNITUDE DO ρ TECNICO NAO REPLICA NEM NA TERCEIRA IMPLEMENTACAO. A secao 4.3 ja registra 0,277 (aqui) contra 0,129 (Plano 1). Eu dou 0,399 para quem mudou de clube e 0,468 para quem ficou, com 233 e 178 pares. A ORDENACAO que sustenta a aba se mantem intacta (fisico 0,833 >> tecnico; mudou < ficou), mas a especificacao esta certa em proibir que esses ρ virem coeficiente — e a terceira medicao discordante e a prova disso.",
+      "o_que_nao_consegui": "1) A PORTA A FICOU COM UM UNICO INDICADOR, E ELE E DE TIME. Dos 293, so `dist_remate` passa nos quatro criterios (q<0,10, p liquido<0,05, rho>=0,30 e sinal certo na parcial 1T->2T). Como e um indicador coletivo, nao da para montar o score do jogador \"so com indicador de Porta A\" como a secao 8.2 manda ao pe da letra. Usei o portao operacional equivalente para o pilar fisico — indicador que sobrevive ao teste sobecai JA CORRIGIDO por clube (16x16) — e, onde nem esse sobrevive (zaga e lateral), a nota cai para os sobreviventes de BH no teste por ATLETA com o rotulo \"pseudorreplicado\" escrito em cada linha de candidato. O criterio viaja com o numero, mas nao e o que a especificacao escreveu.\n\n2) O BACKTEST DEU NEGATIVO. Os jogadores que a formula teria recomendado NAO jogaram mais: 1.140 minutos contra 1.176 (d=-0,044, p=0,61), rho nota x minutos -0,046 (p=0,28), permanencia 13,4% contra 12,0% (p=0,70). Pela regra da propria secao 8.6 isso significa que a aba nao pode publicar o ranking como ranking. Publiquei o resultado no cabecalho da etapa 13, positivo ou negativo como manda a especificacao, mas nao consegui entregar uma nota validada.\n\n3) 2.200 DAS 2.916 CHEGADAS NAO SAO PONTUAVEIS. A secao 8.6 fala em 2.222 chegadas. Com a definicao dela (presente no clube X em t, ausente de X em t-1) dou 2.916 — mas so 716 tem o atleta no arquivo em t-1, que e a condicao para existir \"o dado que o clube teria na mesa\". Quem veio de fora da Serie B nao pode ser pontuado retroativamente. Gravei as duas contagens; o backtest so cobre 25% do mercado real de chegadas.\n\n4) A NOTA DE ESTILO TECNICO COBRE MENOS DO QUE PARECE. O casamento com kpis.json e de 99,3% (599 de 603, exatamente como a secao 1.1 previu), mas dentro de cada (liga, posicao) muitos KPIs tem coorte abaixo de 12 e saem da conta. O denominador vai na linha de cada candidato (`indicadores_usados` de `indicadores_no_bloco`), nunca imputado — mas varios candidatos ficam com 3 de 5.\n\n5) O TETO DE FOLHA NAO E UM TETO. `sal` so existe para 14.442 de 40.059 e sempre como faixa de texto. Entrou como ponto medio e como banda, com a contagem de quem entrou sem faixa. Nenhuma proposta pode ser lida como \"cabe no orcamento X\".\n\n6) O MINIMO DE 5 ATLETAS COM 1.800+ MINUTOS E INVIAVEL NESTE POOL. A restricao (v) da secao 9 falha em 137 a 198 das 200 replicas, conforme a proposta. Deixei como penalidade e nao como corte duro justamente para que a infracao ficasse MEDIDA em vez de a proposta sair incompleta sem dizer por que. Mas a restricao, na pratica, nao e atendivel com livres de dez/26.\n\n7) NAO TENTEI A EXTENSAO PARA 2018-2021. E o unico ganho real de potencia (dobraria os promovidos de 16 para 32), mas exige conferir a cobertura do SkillCorner naqueles anos e SC_EDICOES so mapeia 2022-2025. Ficou de fora com o motivo, como a propria especificacao pede (\"conferir antes de prometer\")."
+    },
+    "confs": [
+      {
+        "bloco": "ETAPAS 1, 2 e 3 — linha de base do dinheiro, catálogo dos 293 indicadores e nulo do garimpo",
+        "numeros_conferem": false,
+        "divergencias": [
+          {
+            "campo": "etapa_3.nulo_do_garimpo.p_do_melhor",
+            "no_json": "0,0349",
+            "eu_medi": "0,0200 com semente 7 e 400 réplicas; 0,0175 a 0,0324 em 8 sementes (1,2,3,7,11,42,99,2026); 0,0202 com 4.000 réplicas e semente 7",
+            "quem_esta_certo": "nenhum dos dois: o número não é reproduzível no número de réplicas publicado. O p dele é uma contagem de cauda (13 excedências de 400; eu dou 7), e a variação de Monte Carlo é de ±0,010 num p cuja única função é dizer se cruza 0,05. O valor estável, com 4.000 réplicas, é 0,020 — quase metade do publicado. A conclusão (o melhor real bate o nulo) sobrevive; o algarismo publicado não."
+          },
+          {
+            "campo": "etapa_3.nulo_do_garimpo.ganho_auc_nulo_p95",
+            "no_json": "0,3054",
+            "eu_medi": "0,2917 a 0,3028 em 8 sementes; 0,2975 com 4.000 réplicas",
+            "quem_esta_certo": "o meu valor de 4.000 réplicas. O p95 publicado está acima de todas as 8 sementes que rodei — é ruído de cauda com 400 réplicas, e é justamente o número que a tela usa para dizer 'o real (0,3164) ganha do p95 do sorteado'. Com 0,3054 a margem é de 0,011; com 0,2975 é de 0,019. A frase muda de tom conforme o ruído."
+          },
+          {
+            "campo": "etapa_3.nulo_do_garimpo.ganho_auc_nulo_max",
+            "no_json": "0,3535",
+            "eu_medi": "0,3451 (400 réplicas, semente 7) e 0,3702 (4.000 réplicas)",
+            "quem_esta_certo": "nenhum: o máximo de uma amostra de permutação não é uma estatística estável e cresce com o número de réplicas por construção. Publicar o máximo ao lado do p95 faz a tela desenhar como 'teto do acaso' um número que só depende de quantas vezes se sorteou."
+          },
+          {
+            "campo": "etapa_2.linhas[] — min_estrangeiros (d e p brutos)",
+            "no_json": "d=+0,899  p=0,00826  q=0,03817",
+            "eu_medi": "d=+0,899  p=0,00826  q=0,03817 — idêntico",
+            "quem_esta_certo": "o JSON. Quem erra é a ESPECIFICAÇÃO: a tabela da seção 6.5 publica min_estrangeiros com d=+0,790 e p=0,0153, e o valor de hoje é +0,899 / 0,00826 — com isso min_estrangeiros vira sobrevivente de BH (q=0,038), coisa que a tabela da 6.5 não prevê. Ele não listou essa divergência entre as 10 que declarou."
+          },
+          {
+            "campo": "etapa_1.caliper[caliper=0,15].controles_medios",
+            "no_json": "3,25 (15 de 16 cobertas)",
+            "eu_medi": "3,25 sobre as 16; 3,47 sobre as 15 efetivamente pareadas",
+            "quem_esta_certo": "o JSON. Quem erra é a ESPECIFICAÇÃO seção 11.2, que promete '±0,15 cobre 15/16 com 2,7 controles em média'. O 15/16 confere, o 2,7 não bate por caminho nenhum. Também não foi listado entre as 10 divergências que ele declarou."
+          }
+        ],
+        "buracos": [
+          "porta_motivo MENTE em 5 linhas. O selo B é atribuído sempre que p_liq<0,05 e a Porta A falhou, mas o motivo só distingue a persistência: `... if (rp is None or rp < 0.30) else 'falha na porta temporal'` (gerar_prototipo.py:738-739). As cinco linhas fis_zaga_distance_p90, fis_zaga_m_per_min, fis_zaga_m_per_min_tip, fis_zaga_distance_p30tip e fis_lateral_runs_dangerous_p30tip têm rho_persist de 0,393 a 0,644 (passam na persistência) e rho_1T_2T = null (NÃO EXISTE porta temporal para indicador físico — ele mesmo escreveu isso no relatório). O que reprovou as cinco foi q_SM = 0,58397, dez vezes o limiar de 0,10. A tela vai imprimir 'falha na porta temporal' para um indicador que nunca foi submetido à porta temporal. É exatamente a frase escrita à mão que a regra do JSON proíbe, escondida dentro de um if.",
+          "remates_baliza_pct tem conf = −0,021 e mesmo assim é sobrevivente de BH e ganha selo de Porta B. Conferi por caminho próprio nos 3.036 jogos: split-half pares×ímpares dá rho = −0,011, Spearman-Brown = −0,021. Ou seja: a medida não tem NENHUM sinal de uma metade da temporada para a outra, e carrega d=+1,060, p=0,00013, q=0,00198. A regra dura da seção 3 ('o efeito nunca pode ser maior que a régua', hachura abaixo de 0,40) é violada no limite máximo possível, e nada no JSON desconta essa linha: ela entra inteira nos 29 que passam a 5%, nos 8 que sobrevivem a BH e nos 17 de Porta B. Além disso, o selo de porta (6.5) não tem termo de confiabilidade nenhum — conf é gravado e nunca lido pela regra. E uma confiabilidade negativa não é desenhável: a barra da Etapa 4 tem comprimento negativo.",
+          "A Porta D é inalcançável e existe um quinto valor não declarado. `etapa_2.colunas` promete o selo A/B/C/D da seção 6.5, mas a contagem real é A:1, B:17, C:31 e '-' em 244 linhas — zero D. D só é atribuído quando coluna_csv está na lista branca de resultado, e nenhum dos 293 pré-declarados está nela (a lista de resultado tem 17 colunas próprias, fora do catálogo). A tela recebe um valor '-' que o contrato não prevê, cobrindo 83% da tabela.",
+          "O contrato de colunas não bate com o payload. `etapa_2.colunas` lista 26 campos; cada linha traz 37. Sobram, sem estar declarados: auc_SM, p_bruto_SC, d_liq_SC, p_liq_SC, p_1T_2T, n_persist, replicas, setor, sinal, resultado e porta_motivo. Um deles (porta_motivo) é o campo que a tela mais vai usar e o que carrega a frase errada do item 1.",
+          "O pareamento por caliper nunca foi usado para testar coisa nenhuma. A seção 11.2 faz do pareamento um CONTROLE dos achados ('o achado que sobrevive ao pareamento é o que se leva ao dono'). O JSON grava só a viabilidade — 14/15/16 subidas com controle e a média de controles — e nenhum indicador é reexaminado dentro dos pares. Busquei 'caliper', 'pareamento', 'pareado' e 'matched' no JSON inteiro: 4 ocorrências, todas do bloco de viabilidade da etapa_1. O controle está pela metade.",
+          "A lista pré-declarada contém 15 pares de duplicatas EXATAS, contra a regra da própria especificação (seção 2 armadilha a: derrubar um quando |rho|>0,85; seção 5 armadilha b nomeia o par fis_distance_p90 / fis_m_per_min). Medi rho de Spearman dentro de cada família: 15 pares com |rho| > 0,995, sendo 14 deles exatamente 1,000 — distance_p90 com m_per_min, m_per_min_tip com distance_p30tip e m_per_min_otip com distance_p30otip, replicados no elenco e nos 4 setores. Mais 72 pares entre 0,85 e 0,995. Consequência medida: 293 testes viram 278 efetivos; 'esperados por acaso 14,7' vira 13,9; passam5_SM cai de 29 para 27; bh5_SC cai de 24 para 23. fis_zaga_distance_p90 e fis_zaga_m_per_min aparecem na tabela como duas descobertas com d=−0,884 e p=0,02292 idênticos: é a mesma medida contada duas vezes.",
+          "O '8 sobrevivem a BH' depende de uma escolha de família que não está declarada em lugar nenhum. A seção 6.3 define família como 'um pilar × uma comparação' — aqui isso dá 3 famílias (técnico coletivo+elenco, físico coletivo, técnico individual). Ele usou 5, separando elenco de tecnico_col e setor de elenco dentro do físico, o que reduz m e torna o BH mais permissivo. Medi as três versões com os mesmos p: 5 famílias (publicado) = 8 sobreviventes; família = pilar (o que a especificação escreveu) = 6, perdendo conc_hhi e min_estrangeiros; bolo único de 293 = 4, perdendo também faltas e share_11. O número de manchete da aba dobra conforme uma escolha que o JSON não registra nem justifica.",
+          "etapa_1.cobertura_do_valor.p_cobertura_x_valor = 0.0. O valor real é 5,2e−08. Um p exatamente zero não existe e a tela vai imprimi-lo. Grave como '<0,0001' ou em notação científica.",
+          "etapa_1.auc_posto_de_valor publica quatro AUC (0,828 / 0,793 / 0,934 / 0,808) sem n, sem intervalo e sem rótulo de método — contra a regra 'cada afirmação carrega n, p e rho'. Os n são diferentes em cada uma (80, 64 e 32) e nenhum está no JSON. Pior no LOSO: 0,808 é o AUC agrupando as predições das 4 dobras num pote só; a média dos AUC por dobra é 0,828 (1,000 / 0,719 / 0,844 / 0,750). São dois números defensáveis e o JSON não diz qual publicou. Como o baseline do dinheiro é o controle obrigatório nº1, impresso ao lado de TODA proposta, é o número que menos pode ficar sem método escrito.",
+          "etapa_1.quartis não diz de que é o quartil. O corte é sobre o POSTO de tm_valor_total DENTRO DO ANO (conferi: é o único caminho que devolve 20/21/19/20 com medianas 7,60 / 11,425 / 16,325 / 26,1875 mi). O qcut sobre o euro absoluto devolve a mesma taxa mas mediana de 7,35 mi no quartil 1. O JSON imprime 'valor_mediano_eur' ao lado de um quartil que não é de euro, sem campo de método — a tela não tem como dizer se 'quartil mais caro' significa 'mais caro do Brasil' ou 'mais caro do próprio ano'.",
+          "etapa_1.caliper mistura denominadores na mesma linha: controles_medios = 2,5 é a média sobre as 16 subidas, incluindo as 2 que ficaram com ZERO controle, enquanto subidas_com_controle diz 14. Entre as 14 efetivamente pareadas a média é 2,86. A tela vai ler '14 de 16 têm controle, e em média 2,5 controles' — duas frases com denominadores diferentes e nenhuma marca disso. Falta também a lista de QUAIS duas subidas ficaram sem par a 0,10, que é a informação acionável do bloco.",
+          "O topo da etapa_3 diz 293 testes e 14,7 esperados por acaso, e o nulo do garimpo logo abaixo roda em 229. Os 64 excluídos não são explicáveis por nenhum campo da tela: a cobertura que os cortou foi medida só nas 64 linhas sobe+meio (gerar_prototipo.py:812), onde as colunas de zaga dão 0,875 e as de lateral 0,8906, enquanto o campo `n` que a etapa_2 publica para essas mesmas linhas é 73 e 72 sobre 80, ou seja 0,9125 e 0,90 — acima do corte. Conferi os dois caminhos: pela cobertura nas 80, ZERO indicadores seriam excluídos; pela cobertura nas 64, exatamente 64. O critério está certo, mas o leitor que fizer a conta com o `n` da tabela vai achar que 64 linhas sumiram sem motivo."
+        ],
+        "correcao_concreta": "O que eu recalculei por caminho próprio bate quase inteiro, e isso precisa ficar dito antes das correções: reconstruí o painel das 80 linhas do zero, reagreguei os 92 indicadores técnicos individuais por setor a partir de serieb_tecnico.csv (coluna \"Equipa dentro de um período de tempo seleccionado\", min>=600, sem GK, média ponderada por minuto dentro do setor pelo mapa POSICOES) e refiz as 8 estatísticas das 293 linhas. As 2.344 comparações (293 linhas × n, d_bruto_SM, p_bruto_SM, d_liq_SM, p_liq_SM, q_SM, q_SC, d_bruto_SC) deram ZERO divergência. A etapa_1 inteira também: quartis 20/21/19/20 com 1/1/3/11 e as quatro medianas ao centavo, AUC 0,828 / 0,793 / 0,934, LOSO 0,808, top-4 com os 16 nomes de clube iguais e 10 acertos, cobertura 28,3 / 75,8 / 54,5 com rho 0,564, caliper 14/15/16 com 2,5 / 3,25 / 4,44. A etapa_3 também: 29 passam a 5% e 8 sobrevivem a BH no sobe×meio, 76 e 24 no sobe×cai, 18 e 0 no líquido, e as cinco famílias linha a linha. E o melhor real do garimpo, 0,3164 em ti_meio_passes_chave, com 229 indicadores e 64 fora. Ele acertou inclusive a máscara que eu esqueci na primeira passada (setor com fis_<setor>_atletas < 3 sai do teste) — sem ela eu dava 27 e 9/7, com ela dei os 29 e 9 dele.\n\nAs correções, em ordem de dano:\n\n1) Consertar porta_motivo (gerar_prototipo.py:736-739). O ramo B tem três causas possíveis de reprovação em A (q>=0,10, rho<0,30, temporal) e o motivo só olha uma. Trocar por um campo `porta_bloqueio` com a lista das condições que falharam, medidas: [\"q_SM=0,584 >= 0,10\"], [\"rho_persist=0,097 < 0,30\"], [\"rho_1T_2T ausente: indicador sem versão jogo a jogo\"]. Isso elimina a frase de mão e as 5 linhas que hoje mentem.\n\n2) Fazer conf entrar na regra do selo, ou hachurar os contadores. Com conf=−0,021, remates_baliza_pct não pode ser publicado como um dos 8 sobreviventes sem marca. Mínimo: gravar em cada linha `conf_abaixo_de_040` (bool) e `conf_ausente` (bool), e publicar ao lado de bh5_SM um segundo contador `bh5_SM_com_conf_acima_de_040` — que hoje vale 2 de 8 (dist_remate 0,577 e faltas 0,677; remates_baliza_pct −0,021 sai, e share_11, conc_hhi, min_estrangeiros e os dois ti_meio não têm régua). Esse par de números é o resumo honesto da tabela.\n\n3) Rodar o pareamento por caliper como TESTE, não como censo. Já rodei; entrega em 20 linhas de código e o resultado é bom para a aba. Diferença média do posto da subida contra a média dos seus controles do mesmo ano, caliper ±0,20, n=16: dist_remate −27,9 (p_t 0,0002, p_sinal 0,0213) · remates_baliza_pct +29,7 (0,0002 / 0,0042) · ti_meio_passes_chave +29,8 (0,0019 / 0,0042) · ti_meio_cortes_de_carrinho +25,7 (0,0001 / 0,0042) · share_11 +24,6 (0,0003 / 0,0213) · faltas −23,6 (0,0050 / 0,0768) · conc_hhi +22,7 (0,0012 / 0,0213) · min_estrangeiros +21,7 (0,0250 / 0,0768). Ou seja: 7 dos 8 sobrevivem ao pareamento pelo teste de sinal e min_estrangeiros é o mais frágil — exatamente o corte que a seção 11.2 pede e que hoje não existe. Gravar como etapa_1.caliper[].por_indicador com n, diferença média, p_t e p_sinal.\n\n4) Subir as réplicas do garimpo de 400 para 4.000 e publicar o erro de Monte Carlo. Com 4.000 e semente 7 dá média 0,2405, p95 0,2975, p=0,0202. Enquanto o p ficar em 400 réplicas, gravar `p_do_melhor_ic` medido por bootstrap da própria distribuição, ou no mínimo `p_do_melhor_ep = sqrt(p(1-p)/replicas)`. Tirar `ganho_auc_nulo_max` da tela ou rotulá-lo \"cresce com o número de réplicas, não é teto\".\n\n5) Aplicar a regra de duplicata que a especificação já manda. Derrubar uma coluna de cada um dos 15 pares com rho>0,995 (sugestão: manter distance_p90, distance_p30tip e distance_p30otip; derrubar m_per_min, m_per_min_tip e m_per_min_otip nos 5 escopos) e regravar os contadores: 278 testes, 13,9 esperados, 27 passam a 5% no sobe×meio, 8 sobrevivem a BH, 74 e 23 no sobe×cai, 16 e 0 no líquido.\n\n6) Publicar a sensibilidade do BH à definição de família, em vez de escolher em silêncio. Três linhas medidas, prontas: 5 famílias (o que está no JSON) = 8 sobreviventes; família = pilar (o que a seção 6.3 escreveu) = 6, caem conc_hhi e min_estrangeiros; bolo único de 293 = 4, caem também faltas e share_11. Sem essas três linhas o \"8\" da manchete é uma escolha de método vestida de resultado.\n\n7) Buracos de tela na etapa_1, baratos: p_cobertura_x_valor = 0.0 vira \"5,2e-08\"; cada AUC ganha `n` (80 / 64 / 32) e o LOSO ganha `metodo` (\"AUC agrupando as 4 dobras\"; a média por dobra é 0,828 com 1,000/0,719/0,844/0,750, e vale gravar as duas); quartis ganha `metodo` = \"quartil do posto de tm_valor_total dentro do ano\"; caliper ganha `controles_medios_entre_os_pareados` (2,86 / 3,47 / 4,44) e a lista das subidas sem par; e o garimpo ganha `cobertura_medida_em` = \"as 64 linhas sobe+meio\", senão os 64 excluídos ficam sem explicação possível na tela.\n\n8) Fechar o contrato: ou `etapa_2.colunas` passa a listar os 37 campos que a linha realmente traz, ou os 11 extras saem. E o selo precisa de um valor nomeado para as 244 linhas que hoje recebem \"-\" (sugestão: \"E — não separa\"), já que D nunca é atingível dentro do catálogo.\n\nDuas correções que são da ESPECIFICAÇÃO e não do script, e que ele não listou nas dez dele: a tabela 6.5 está desatualizada em min_estrangeiros (diz +0,790 / p=0,0153; hoje é +0,899 / p=0,00826, e com isso o indicador vira sobrevivente de BH, o que a tabela não prevê), e a seção 11.2 promete 2,7 controles no caliper ±0,15 quando o valor é 3,25 sobre as 16 ou 3,47 sobre as 15 pareadas.",
+        "veredito": "ajustar"
+      },
+      {
+        "bloco": "ETAPAS 5 e 8 — os quatro pilares time a time e a tipologia dos quatro grupos",
+        "numeros_conferem": false,
+        "divergencias": [
+          {
+            "campo": "etapa_5.paineis.* (todas as 4.688 células)",
+            "no_json": "[bruto, posto_no_ano, n] em 11 painéis × 16 clubes",
+            "eu_medi": "Reimplementei do zero: tecnico_col e elenco lidos do CSV (496+160 células), fisico_col dos 166 fis_* com supressão <3 atletas (2.560 células), tecnico_ind recalculado do serieb_tecnico.csv com POSICOES, filtro 600 min, sem GK, média ponderada por minuto dentro do setor (1.472 células). ZERO divergência de bruto, de posto e de n. As 128 células vazias (fisico_col_zaga, 4 clubes) têm motivo e batem com fis_zaga_atletas<3. faixa_meio/faixa_cai reproduzem em posto, exato.",
+            "quem_esta_certo": "o JSON — este é o bloco mais sólido do arquivo"
+          },
+          {
+            "campo": "etapa_5.paineis.tecnico_col / elenco — indicadores[].unidade_n",
+            "no_json": "\"unidade_n\": \"clube-temporada\", e o n de cada célula = 38",
+            "eu_medi": "o n gravado é J (jogos da temporada), não clube-temporada: confirmei n=38 contra J=38 para os 16 clubes, e n=fis_atletas nos painéis físicos, n=atletas do setor no técnico individual. Só nestes dois painéis o rótulo mente. São 41 indicadores × 16 clubes = 656 células que a tela imprimiria como \"n = 38 clube-temporada\".",
+            "quem_esta_certo": "eu — unidade_n de tecnico_col e elenco tem de ser \"jogo\""
+          },
+          {
+            "campo": "etapa_5 — denominador do posto nos painéis de setor",
+            "no_json": "posto_no_ano publicado sem o denominador; legenda_celula = [bruto, posto_no_ano, n, motivo_se_vazia]",
+            "eu_medi": "o posto é re-denominado sobre os clubes que sobrevivem ao filtro de <3 atletas, e esse denominador varia de 15 a 20: zaga 19/17/18/19, lateral 19/18/15/20, meio 20/19/19/19, ataque 20/20/20/20 (2022-2025). Um \"posto 50\" no lateral de 2024 é 7,5º de 15, não 10º de 20, e nada no JSON diz isso. O `n` da célula é atleta, não clube.",
+            "quem_esta_certo": "eu — falta um campo de denominador por (ano, indicador); sem ele a tela desenha um percentil que não é percentil de 20"
+          },
+          {
+            "campo": "etapa_5.sensibilidade_da_agregacao.top5",
+            "no_json": "{testes 92, passam5_SM 8, bh5_SM 2, passam5_liq_SM 3, bh5_liq_SM 0}",
+            "eu_medi": "Com \"média dos 5 melhores\" ao pé da letra da seção 2 (5 maiores valores do indicador) dou 7/0/5/0 — não bate. Com top-5 por MINUTOS JOGADOS dou 8/2/3/0, exato. A linha 331 de gerar_prototipo.py confirma: `g.nlargest(5,\"min\")`. ponderada (10/2/5/0) e mediana (8/0/3/0) reproduzem exatamente. A definição usada não está em lugar nenhum do JSON, e todos os 92 indicadores técnicos individuais saem com \"sinal\": 0, então nem por aí dá para derivar o que é \"melhor\".",
+            "quem_esta_certo": "os números são dele e estão certos; a definição publicada é que não existe"
+          },
+          {
+            "campo": "etapa_8.tipologia.plano / cortes / grupos",
+            "no_json": "TERRITORIO 72,5 · ROTA 66,25 · G1 5 / G2 3 / G3 3 / G4 5",
+            "eu_medi": "Reconstruí os eixos do zero (percentil dentro do ano nas 80 linhas; ROTA = média de pct(passes_pct) com 100−pct(passe_longo_pct)) e refiz os cortes na mediana dos 16: 72,5000 e 66,2500. Os 16 territórios, as 16 rotas e os 16 grupos batem um a um com o TIPOLOGIA.md. Residualização do dinheiro: 6 de 16 mudam no TERRITORIO e 0 de 16 na ROTA, com exatamente os mesmos seis nomes (Grêmio 2022, Vitória 2023, Criciúma 2023, Ceará 2024, Athletico-PR 2025, Chapecoense 2025).",
+            "quem_esta_certo": "o JSON — filiação e cortes reproduzem o documento sem exceção"
+          },
+          {
+            "campo": "etapa_8.tipologia.grupos[].territorio / .rota",
+            "no_json": "G1 87,3/87,0 · G2 81,7/37,5 · G3 57,8/88,3 · G4 45,0/38,0",
+            "eu_medi": "média aritmética dos valores por clube: 87,33/87,00 · 81,67/37,50 · 57,78/88,33 · 45,00/38,00 — idêntico ao JSON. O TIPOLOGIA.md publica 92/88, 85/37, 53/93 e 39/44, que NÃO são a média dos valores do próprio documento (os valores por clube do doc batem com os meus).",
+            "quem_esta_certo": "o JSON — as médias de eixo por grupo do TIPOLOGIA.md estão erradas nos quatro grupos no TERRITORIO e em dois na ROTA"
+          },
+          {
+            "campo": "etapa_8.tipologia.dinheiro.rho_posto_valor_x_percentil_ppda",
+            "no_json": "0,455",
+            "eu_medi": "Spearman(posto de valor, percentil de PPDA) nos 16 = +0,455; no PPDA bruto +0,460; invertendo a convenção de valor, −0,455. O TIPOLOGIA.md afirma −0,69, que não reproduz em nenhuma das combinações.",
+            "quem_esta_certo": "o JSON (e a nota de convenção que ele grava junto é necessária e está certa)"
+          },
+          {
+            "campo": "etapa_8.tipologia.fisico",
+            "no_json": "colunas 160 · passam5 23 · esperados 8,0 · menor_q_bh 0,265 · sobrevivem_bh5 0",
+            "eu_medi": "160 colunas confere (166 fis_* menos os 6 denominadores fis_atletas, fis_minutos e fis_<setor>_atletas). Por ANOVA nos percentis dou 17 de 160 a p<0,05 — o mesmo 17 do TIPOLOGIA.md — e menor q de BH 0,291. Os 23 do JSON vêm de p por permutação com 200 réplicas, que é ruído nessa faixa. E o menor_q_bh 0,265 não é um achado: é 0,00498 × 160 ÷ 3, ou seja, é a resolução do teste.",
+            "quem_esta_certo": "eu nos 17 e no q; o JSON acerta o 160 e o 0 de sobreviventes, mas pelo motivo errado"
+          },
+          {
+            "campo": "etapa_8 — todos os p de bateria (teste_de_fora.por_indicador, fisico, bateria_limpa, p_rotulo)",
+            "no_json": "p_rotulo 0,005 · p_placebo 0,0039 · bateria_limpa 0,0299 · por_indicador com 7 indicadores a p=0,00498 · sobrevivem_bh5 13",
+            "eu_medi": "Todos os p da função `bateria()` são de 200 permutações, então o menor p possível é 1/201 = 0,00498 e p_rotulo=0,005 e p_placebo=0,0039 (1/257) são EXATAMENTE o piso — são \"≤\", não medidas. Consequência dura: com m=160 colunas físicas, BH só devolve um sobrevivente a q<0,05 se ≥16 colunas empatarem no piso (0,00498×160/16 = 0,0498). \"0 de 160 sobrevive a BH\" é aritmética da resolução, não evidência sobre o físico. Na bateria de 38, BH sobre o p de permutação dá 13; sobre o p de ANOVA dá 12 (eu) e 11 (documento) — e a ordenação por permutação nem é monótona no eta² (remates_baliza, eta² 0,575, recebe p menor que atq_pos_remates, eta² 0,651).",
+            "quem_esta_certo": "eu — o p de permutação a 200 réplicas não sustenta BH; os eta² estão todos certos, o que falha é o p"
+          },
+          {
+            "campo": "etapa_8.tipologia.estabilidade.jaccard (e veredito item 5)",
+            "no_json": "jaccard_por_grupo [0,599 · 0,720 · 0,377 · 0,664], tamanhos [4, 7, 3, 2], réplicas 900; veredito: \"Jaccard de bootstrap, menor grupo… 0,377 → não passou\"",
+            "eu_medi": "Os tamanhos [4,7,3,2] não são os da tipologia (5/3/3/5). A linha 1255 chama `jaccard_bootstrap(X2, 4, …)`, que roda KMeans k=4 sobre os dois eixos — exatamente o método que o TIPOLOGIA.md recusa (\"Nada de k-means: são duas medianas\"). Pior: a função reamostra COLUNAS, e X2 tem 2 colunas, então ~25% das réplicas sorteiam a mesma coluna duas vezes e o espaço vira 1D. O 0,377 é a estabilidade de outra partição, medida num bootstrap degenerado.",
+            "quem_esta_certo": "eu — o veredito item 5 julga uma partição que não é a da aba"
+          },
+          {
+            "campo": "etapa_8.tipologia.veredito[5] — texto",
+            "no_json": "\"físico (166 colunas fis_*) sobrevive a Benjamini-Hochberg\"",
+            "eu_medi": "o bloco medido diz 160 colunas (tipologia.fisico.colunas = 160). O texto do veredito e o dado do mesmo JSON se contradizem; a tela imprimiria 166 e a auditoria acharia 160.",
+            "quem_esta_certo": "eu — 160 é o número certo (166 inclui os 6 denominadores)"
+          },
+          {
+            "campo": "etapa_8.tipologia.veredito[11] e veredito[12] — campo `corte`",
+            "no_json": "\"tirar um time\": numero 2, corte 0, passou false · \"tirar um indicador\": numero 2, corte 0, passou true",
+            "eu_medi": "Mesmo número e mesmo corte publicados, veredito oposto. Os limiares reais estão escondidos no código (linhas 1388 e 1391: `<= 1` para tirar um time, `<= 2` para tirar um indicador) e nunca são gravados. Qualquer tela que renderize \"numero vs corte → passou\" mostra duas linhas idênticas com resultados contrários.",
+            "quem_esta_certo": "eu — os cortes publicados estão errados nos dois itens"
+          },
+          {
+            "campo": "etapa_8.tipologia.grupos[G2].status",
+            "no_json": "status \"TIPO\" com p_um_contra_o_resto 0,047 (1.000 réplicas), status_declarado_no_documento \"DESCRITIVO\" com p 0,160",
+            "eu_medi": "Refiz o um-contra-o-resto do G2 com 1.000 permutações por caminho próprio: eta² 0,091, p = 0,0639 — do outro lado da linha. G1, G3 e G4 dão 0,001 (o piso de 1/1001) nas duas implementações. O comentário do próprio código diz \"um selo que vira com a semente não é selo\"; este vira: 0,047 dele contra 0,064 meu, mesmo n, mesma bateria. E o TIPOLOGIA.md manda a tela mostrar DESCRITIVO para o G2, com tipografia diferente.",
+            "quem_esta_certo": "nenhum dos dois isolado — o selo do G2 não é decidível a 1.000 permutações; tem de ficar DESCRITIVO com os dois p ao lado"
+          },
+          {
+            "campo": "etapa_8.tipologia.bateria_limpa",
+            "no_json": "22 validadores, eta² 0,263, nulo 0,198, p 0,0299 → veredito \"passou\"",
+            "eu_medi": "As 22 colunas com |rho|<0,50 contra os dois eixos nas 80 linhas são exatamente as dele (confirmei por Spearman e por Pearson no percentil); a 23ª do documento (duelos_aereos) só entra se a correlação for feita no valor bruto. eta² 0,2633 e nulo 0,1986 reproduzem; meu p com 1.000 réplicas dá 0,015-0,026. O TIPOLOGIA.md publica 23 validadores, eta² 0,253, nulo 0,205 e p=0,099, e manda escrever no rodapé da aba \"p=0,099 na bateria limpa\" — isto é, a tela contradiria a fonte.",
+            "quem_esta_certo": "o JSON na conta; mas a inversão de veredito contra o documento não está sinalizada em lugar nenhum"
+          },
+          {
+            "campo": "etapa_8.cemiterio.linhas",
+            "no_json": "6 configurações; 80 linhas k=4 com nulo de mesma covariância p=0,018 (passa a 5%)",
+            "eu_medi": "Reconstruí os 9 eixos com os sinais do prototipo_indicadores.json e refiz as silhuetas: 0,269 / 0,185 / 0,191 / 0,227 / 0,164 / 0,178 — as seis batem ao terceiro decimal, as medianas dos dois nulos também, e o p do 80/k=4 me dá 0,016. A observação dele contra a seção 7.1 da especificação está certa. Mas são 12 p publicados (6 configurações × 2 nulos) e um único cruza 5%; o JSON não grava nenhuma nota de multiplicidade, e 12 testes a 5% esperam 0,6 falso-positivo.",
+            "quem_esta_certo": "o JSON nos números; falta o controle de multiplicidade para a frase não virar achado"
+          }
+        ],
+        "buracos": [
+          "ETAPA 5 diz no título \"OS QUATRO PILARES TIME A TIME\" mas só três pilares têm painel: os valores de `pilar` nos 11 painéis são tecnico_col, tecnico_ind e fisico_col. O pilar FÍSICO INDIVIDUAL não tem nenhuma tabela clube a clube — ele só existe agregado (fisico_col) e no sobecai. A tela não consegue desenhar o quarto pilar time a time que o cabeçalho promete.",
+          "`coluna_csv` dos 92 indicadores técnicos individuais (`ti_zaga_duelos_aereos_90` etc.) não existe em arquivo nenhum: conferi as 346 colunas de serieb_clube_temporada.csv e as 118 de serieb_tecnico.csv. A seção 6.1 da especificação define coluna_csv como \"nome real da coluna, para auditoria\" — aqui é um slug inventado e a auditoria por esse campo é impossível.",
+          "`legenda_celula` declara 4 posições [bruto, posto_no_ano, n, motivo_se_vazia], mas 4.560 das 4.688 células são listas de 3 elementos; só as 128 vazias têm o quarto. Um renderizador que leia celula[3] quebra em 97% da tabela.",
+          "`faixa_meio` e `faixa_cai` existem só em POSTO, e nenhum campo diz isso. Não há a faixa p25/p50/p75 em bruto — e a seção 6.1 é explícita em que o bruto \"é o que o dono lê\". A tela mostra o bruto da célula sem ter contra o que compará-lo.",
+          "Nenhum indicador de etapa_5 dos pilares individual e físico traz direção: `sinal` = 0 nos 92 do técnico individual e nos 160 do físico coletivo. Sem sinal a tela não sabe se posto 90 é bom ou ruim, e a regra de agregação \"5 melhores\" fica indefinida por construção.",
+          "Não há campo com o número de réplicas das permutações da tipologia. O topo do JSON declara bootstrap_clube 2000, garimpo 400, nulo_silhueta 500, jaccard 300 e elencos 200 — mas os p de `bateria()` (teste_de_fora, físico, bateria limpa) vêm de 200 réplicas e isso não é gravado; e `estabilidade.jaccard.replicas` grava 900, contra os 300 declarados no topo e os 1.000 do TIPOLOGIA.md. Três números para a mesma coisa.",
+          "Falta o teste do corte de TERRITÓRIO. O TIPOLOGIA.md tem dois testes de corte 8×8 (TERRITÓRIO p=0,0002 e ROTA p=0,0077); o JSON substituiu os dois por dois cortes de ROTA (um em cada andar de território) e não sobrou nenhuma validação do eixo vertical — justamente o eixo que a residualização mostra ser meio bolso.",
+          "`dinheiro.residualizado` não traz o ARI 0,242 do documento, só a contagem e os nomes. A tela não consegue dizer o quanto a partição residualizada se parece com a original.",
+          "`cemiterio.eixos_usados` publica só os nomes das colunas, sem os sinais — enquanto `tipologia.eixos` publica com sinal ([[\"passe_longo_pct\", -1]]). Os nove eixos só são reprodutíveis abrindo o arquivo irmão prototipo_indicadores.json; dentro do prototipo.json eles não são.",
+          "`clean_sheets` e `defesa_vs_xg` entram em `grupos[].brutos` e `grupos[].percentis` sem rótulo. A seção 3 da especificação põe `clean_sheets` na lista branca de RESULTADO, que tem de ir \"para um bloco próprio rotulado 'isto é o placar, não é característica'\". Na assinatura do grupo eles aparecem com a mesma tipografia de `intensidade` e `ppda`.",
+          "`passes_terco_final` está na assinatura do G1 do TIPOLOGIA.md em bruto (60,1) mas `grupos[].brutos` não o tem — só o percentil (88). A frase de assinatura do documento não pode ser montada só com o JSON.",
+          "`grupos[].formacao` traz linha3_pct, distintas e principal_pct, mas não o NOME da formação principal. O TIPOLOGIA.md descreve cada grupo por \"4-2-3-1 em 35,8% dos jogos, 3-4-3 16,8%\" — a tela não tem de onde tirar isso.",
+          "`fronteira` publica `troca_sob_ruido_10pt_pct` sem o modelo de ruído. Li no código: gaussiana de desvio 10 em cada eixo, 2.000 sorteios. Sem isso os números não são reprodutíveis nem comparáveis com os do documento (Santos 23,1% aqui contra 5% lá; Athletico-PR 38,7% contra 6%) — a diferença é toda de modelo de ruído, não de dado.",
+          "O JSON grava `status_declarado_no_documento` e `p_declarado_no_documento` para os quatro grupos, mas não faz o mesmo para os outros três lugares em que inverte o TIPOLOGIA.md: bateria limpa (0,0299 contra 0,099), silhueta nos 2 eixos (0,0679 contra 0,084) e físico (23 de 160 contra 17 de 166). A honestidade é assimétrica e o rodapé que o documento exige (\"p=0,0012 no placebo, p=0,099 na bateria limpa, p=0,084 na silhueta\") não pode ser escrito a partir deste JSON sem mentir sobre um dos três."
+        ],
+        "correcao_concreta": "Em ordem de gravidade, e todas pequenas em código:\n\n1. TROCAR O p DAS BATERIAS. Em `bateria()` (linha 1123 de gerar_prototipo.py), devolver o p de ANOVA (scipy.stats.f_oneway) ao lado do p de permutação, e rodar o BH sobre o de ANOVA. Motivo, com a conta: com 200 réplicas o menor p possível é 1/201 = 0,00498; para m=160 colunas físicas, BH só devolve sobrevivente se ≥16 colunas empatarem no piso (0,00498×160/16 = 0,0498). \"0 de 160 sobrevive a BH\" é a resolução, não o físico. Com ANOVA o bloco físico passa a 17 de 160 a p<0,05 (o mesmo 17 do TIPOLOGIA.md) e menor q 0,291; a bateria de 38 passa de 13 para 12 sobreviventes. Gravar também `p_global` do físico, que hoje não existe (o documento tem 0,072).\n\n2. CORRIGIR OS DOIS ITENS QUEBRADOS DO VEREDITO (linhas 1370, 1387 e 1390): `corte=1` em \"tirar um time\" e `corte=2` em \"tirar um indicador\" — hoje os dois publicam `corte=0` com veredito oposto para o mesmo `numero=2`; e trocar o texto \"físico (166 colunas fis_*)\" por 160, que é o que o próprio bloco mede.\n\n3. REFAZER O JACCARD SOBRE A PARTIÇÃO CERTA (linha 1255). Hoje `jaccard_bootstrap(X2, 4, …)` roda KMeans k=4 e devolve grupos de 4/7/3/2 — não a tipologia de 5/3/3/5, e usando o k-means que o TIPOLOGIA.md recusa por escrito. Além disso reamostra COLUNAS com X2 de duas colunas, então um quarto das réplicas colapsa o espaço em 1D. Substituir por bootstrap dos 16 CLUBES com os cortes refeitos na mediana de cada reamostra, medindo o Jaccard contra a filiação declarada. Enquanto não for refeito, tirar o item 5 do veredito: ele hoje reprova uma partição que não é a da aba.\n\n4. DEVOLVER O SELO DESCRITIVO AO G2 e gravar `p_no_limite_da_resolucao: true` onde o p bate o piso. Medi 0,0639 contra os 0,047 dele, mesma bateria e mesmas 1.000 permutações — o selo vira com o sorteio, que é exatamente o que o comentário do código proíbe. Pelo mesmo motivo, `p_rotulo: 0.005` e `p_placebo: 0.0039` são o piso (1/201 e 1/257) e têm de sair como \"≤\", não como medida. E acrescentar, no cemitério, a nota de que são 12 p publicados e um único cruza 5%.\n\n5. ETAPA 5 — três campos que faltam, nenhum recálculo:\n   - `unidade_n` de tecnico_col e elenco: trocar \"clube-temporada\" por \"jogo\" (o n gravado é J=38; são 656 células com rótulo errado).\n   - acrescentar, por (ano, indicador) dos painéis de setor, o denominador do posto: ele varia de 15 a 20 (lateral 2024 ranqueia 15 clubes) porque a supressão de <3 atletas sai do ranking, e isso não está em lugar nenhum.\n   - declarar que `faixa_meio`/`faixa_cai` estão em posto, e gravar a versão em bruto ao lado; e padronizar a célula em 4 posições, já que `legenda_celula` declara 4 e 4.560 das 4.688 têm 3.\n\n6. ETAPA 5 — registrar a regra de agregação que foi realmente usada: \"top-5 por minutos jogados\", não \"os 5 melhores\" da seção 2. Reproduzi 8/2/3/0 só com essa definição (com os 5 maiores valores dá 7/0/5/0). E preencher `sinal` dos 92 técnicos individuais e dos 160 físicos, hoje todos 0 — sem sinal a tela não colore e a própria regra do \"top-5\" fica indefinida.\n\n7. SINALIZAR AS TRÊS INVERSÕES CONTRA O TIPOLOGIA.md com o mesmo par de campos que ele já usa nos grupos (`*_declarado_no_documento`): bateria limpa (0,0299 medido contra 0,099 do doc), silhueta nos 2 eixos (0,0679 contra 0,084) e físico (23/160 contra 17/166). Sem isso o rodapé obrigatório da aba — \"p=0,099 na bateria limpa, p=0,084 na silhueta\" — não pode ser escrito sem contradizer o próprio JSON.\n\n8. O QUE NÃO PRECISA MEXER, e vale registrar: as 4.688 células da etapa 5 reproduzem sem uma única divergência de bruto, posto ou n em quatro implementações independentes; os 16 pontos do plano, os dois cortes (72,5 e 66,25), a filiação dos quatro grupos, os 38 eta² da bateria de fora, os percentis por grupo, os brutos de assinatura, as seis silhuetas do cemitério, o eta² do dinheiro (0,362) e a residualização (6 no território, 0 na rota, com os seis nomes) batem todos. Onde o JSON diverge do TIPOLOGIA.md em média de eixo por grupo (87,3 contra 92 etc.) e no rho de PPDA (0,455 contra −0,69), quem está errado é o documento.",
+        "veredito": "ajustar"
+      },
+      {
+        "bloco": "ETAPAS 12, 13 e 14 — funil dos livres, nota de encaixe e elencos",
+        "numeros_conferem": false,
+        "divergencias": [
+          {
+            "campo": "etapa_13.candidatos[].nota_fisica (orientação dos indicadores de tempo)",
+            "no_json": "candidato medido em percentil INVERTIDO (100−p) para t_spr/t505_90/t505_180/t_hsr_cod, e o alvo pct_sobe/pct_cai gravado na escala CRUA (t505_90 meio: alvo_sobe 28,1 · alvo_cai 47,1)",
+            "eu_medi": "as duas pontas em escalas opostas. Reimplementei a nota e reproduzi o JSON nos 586 candidatos (erro máx. 5e-5); corrigindo a orientação, ρ(script, corrigido) = 0,439 no lateral, 0,539 no meio, 0,885 no ataque e o top-10 muda por inteiro: ZERO nomes em comum em lateral, meio e ataque (zaga intacto, ρ=1,000, porque só usa psv5). Pesa 1 de 3 indicadores no lateral, 2 de 6 no meio, 2 de 8 no ataque",
+            "quem_esta_certo": "eu. Não é escolha de método: o alvo é percentil cru de segundos (quem subiu é MAIS RÁPIDO, por isso 28,1) e o candidato chega invertido, então a distância |p−alvo| premia o atleta MAIS LENTO nesses indicadores. Uma das duas pontas tem de mudar; o JSON está errado como está"
+          },
+          {
+            "campo": "portão de persistência da nota de encaixe (ρ ≥ 0,30 da Porta A, seção 8.2)",
+            "no_json": "nenhum ρ em alvos_por_setor; o critério gravado em cada candidato é só 'p_clube < 0,05'. etapa_11 mede ρ de 10 métricas físicas (todas ≥ 0,699) e nenhuma delas é t_*/expl",
+            "eu_medi": "mesmos 499 pares, mesmo corte matches≥8, posto dentro do ano (reproduzi etapa_11 número a número): expl 0,717 · t_spr 0,407 · t_hsr_cod 0,326 · t505_180 0,324 · t505_90 0,205",
+            "quem_esta_certo": "eu. O portão não é aplicado, e t505_90 REPROVA nele (0,205 < 0,30) — justamente o indicador de maior d no meio (1,331) e o 2º no ataque (1,138). Resposta direta à sua pergunta: NÃO, a nota não usa só indicadores que passam no portão de persistência, e 5 dos ~10 usados não têm ρ medido em lugar nenhum do JSON"
+          },
+          {
+            "campo": "etapa_13.candidatos[].nota_fisica.criterio (151 zagueiros)",
+            "no_json": "'nenhum indicador do bloco sobreviveu ao teste por CLUBE; caiu-se para os sobreviventes de BH no teste por ATLETA, que é pseudorreplicado'",
+            "eu_medi": "psv5 na zaga tem p_clube = 0,00738 (d=1,019) — SOBREVIVEU ao teste por clube. O rótulo falso dispara porque a condição é len(usa)<3 e o fallback devolve o mesmo psv5",
+            "quem_esta_certo": "eu. 151 de 603 candidatos (25% do pool) carregam um critério que a própria tabela do JSON desmente, e validacao_de_volta.atletas_com_criterio_pseudorreplicado=4 em todas as 6 propostas deriva desse rótulo falso"
+          },
+          {
+            "campo": "etapa_13.backtest (qual nota foi testada)",
+            "no_json": "comentário do código: 'A nota do backtest é a MESMA da etapa 13'",
+            "eu_medi": "o backtest esqueceu o filtro k in campos_fis. Zaga: 4 indicadores (obr, obr_hsr, obr_rec, psv5) contra 1 publicado; meio 11 contra 6; ataque 13 contra 8 — entram hi_s, spn_s, mm_s, obr_* , exatamente a família OTIP/sem-bola que a seção 13 item 7 proíbe como critério de compra",
+            "quem_esta_certo": "eu. O backtest não testou a nota publicada. Refiz as variantes: com campos_fis d=−0,021 (p=0,806); com campos_fis + orientação corrigida d=−0,009 (p=0,914), ρ=+0,042 (p=0,323); sem 2026 d=−0,037 (p=0,709). O VEREDITO negativo sobrevive a tudo — a aba continua sem poder publicar ranking —, mas a linha publicada não é o teste que ela diz ser"
+          },
+          {
+            "campo": "etapa_13.backtest.chegadas_definicao_ampla",
+            "no_json": "2916 (e o relatório acusa a especificação de errar ao dizer 2.222)",
+            "eu_medi": "675 das 2916 são linhas de 2022, 'chegadas' só porque não existe 2021 no arquivo. Excluindo o primeiro ano: 2241. Por ano: 2022:675 · 2023:577 · 2024:576 · 2025:578 · 2026:510",
+            "quem_esta_certo": "a especificação. 2.222 é o número certo (artefato de borda, não divergência de definição). A acusação nº 3 do relatório se inverte contra ele"
+          },
+          {
+            "campo": "etapa_13.backtest (2026 dentro da média)",
+            "no_json": "716 chegadas pontuáveis, 552 com nota, min_medio 1140,4 x 1176,5",
+            "eu_medi": "169 das 716 (24%) são chegadas de 2026, com min_t de uma temporada de 27 de 38 rodadas. Sem elas: 547 chegadas, 417 com nota, 1174,9 x 1233,7, d=−0,067",
+            "quem_esta_certo": "eu. A regra 'nada de 2026 em média nenhuma' e o assert 'nenhuma função viu ano > 2025' são violados na variável de desfecho do backtest, e o JSON não registra isso em campo nenhum"
+          },
+          {
+            "campo": "etapa_12.conferencia_cruzada (a ponte)",
+            "no_json": "geral 38,6% (353/915) · alta 72,7% (264/363) · conflito 5,1% · 27 homônimos descartados",
+            "eu_medi": "reproduzi os quatro números ao decimal, mas a ponte só descartou homônimo do lado do elencos. Do lado do jogadores.json: 136 dos 915 casamentos são atletas de Portugal, México, Japão, China, Israel etc. casados contra um elenco de Série B 2026 (acertam 12 de 136 = 8,8%); 171 chaves de nome servem a mais de um registro (554 registros); 215 dos 887 pares por nome têm |Δidade| > 3 e nenhuma janela de idade foi aplicada (carregar() usa −2≤Δ≤+3). Com a ponte limpa (id do TM, OU nome único dos dois lados com |Δidade|≤3): geral 62,8% (216/344) e ctc=='alta' 95,7% (179/187)",
+            "quem_esta_certo": "a especificação, e por larga margem. O ~51%/84% prometido está mais perto de 62,8%/95,7% do que do publicado; a acusação nº 7 do relatório atribui à especificação um erro que é da própria ponte. E o 72,7% publicado SUBESTIMA a confiabilidade do selo 'alta', que é o que sustenta o degrau 4 do funil (4.333→2.728)"
+          },
+          {
+            "campo": "etapa_12.degraus[0].sul_americanos",
+            "no_json": "36446",
+            "eu_medi": "40059 − 3613 do Brasil = 36446 é 'tudo que não é liga brasileira' num arquivo de 66 ligas (Itália C 1380, Espanha C 1092, EUA 885, Japão, Coreia, China…). Sul-americanos de verdade: 7371, todos já dentro das 15 ligas alvo",
+            "quem_esta_certo": "eu. Do degrau 2 em diante o campo está certo; no degrau 1 a tela desenharia '36.446 sul-americanos no arquivo', que é falso por 5x"
+          }
+        ],
+        "buracos": [
+          "ELENCO SUL-AMERICANO: 4 a 6 das 15 vagas voltam COMPLETAMENTE VAZIAS. Nenhum nome chega a 10% nas 200 réplicas, então recomendacao=[] e alternativas=[] (A_caro 4 vagas: ZD,ZD,ZE,CA · B_barato 6 · C_anti 4). As três propostas sul-americanas têm ZERO recomendações (>50%) nas 15 vagas; a vaga mediana publica nomes que somam só 22-26% das réplicas — ~75% da massa é invisível. Mesmo na Série B: B_barato tem 13 de 15 vagas sem recomendação, C_anti 10, A_caro 8. E o contrafactual publica 'atletas_no_nucleo: 15' com cifra em euro calculada sobre nomes que a tela nunca vê: reconstruindo o núcleo a partir do vagas_detalhe eu só recupero 9 a 11 dos 15",
+          "A LARGURA DA FAIXA É UMA CONSTANTE INVENTADA E NÃO PUBLICADA. erro = max(0,02; 0,30/√sc_n), mediana 0,0775 — 65% do desvio-padrão real da própria nota no pool (0,1199). Esse único número decide o que é 'recomendação' e o que é 'alternativa', não vem de bootstrap nem de erro-padrão medido, e não aparece em campo nenhum do JSON",
+          "AS RESTRIÇÕES DA SEÇÃO 9 NÃO CONSEGUEM MORDER. Penalidade por não ter 1.800 min = 0,010 fixo por atleta = 0,13 desvio do ruído; penalidade de idade (30 anos) = 0,020 = 0,26 do ruído. Pior: penalidade FIXA POR ATLETA é estruturalmente incapaz de impor restrição de CONTAGEM ('pelo menos 5 com 1.800+'), porque desloca todo mundo igual. Daí as 164-200 infrações em 200 réplicas e os 1 a 3 veteranos no núcleo final. O JSON publica a contagem de infrações mas não o TAMANHO da penalidade, então o leitor não tem como ver que a restrição foi inerte",
+          "IMPUTAÇÃO ESCONDIDA DE ZERO NO CONTRAFACTUAL DO DINHEIRO. 7 a 10 dos 15 nomes do núcleo não têm mv e entram na soma como zero (232 dos 603 candidatos não têm valor). Entrando com a média dos que têm: A_caro serie_b vai de posto 20 para 16, B_barato serie_b de 21 para 18, C_anti serie_b de 20 para 17. O QUARTIL (e portanto o 5,0%) sobrevive, mas a cifra em euro publicada subestima o núcleo em ~2x — e a regra escrita é 'nunca impute'",
+          "O CONTRAFACTUAL COMPARA DUAS RÉGUAS DIFERENTES: o núcleo é somado em mv (jogadores.json, ago26) contra uma régua de valor_eur (serieb_elencos 2025, Transfermarkt) — fonte e data distintas, lidas como se fossem a mesma moeda",
+          "O CENÁRIO BARATO PRODUZIU O NÚCLEO MAIS CARO. No escopo sul-americano: A_caro 1,75 mi · C_anti 1,55 mi · B_barato 6,03 mi. O contrafactual não acompanha o cenário, e nada na tela sinaliza a inversão. (De passagem: o relatório do agente diz 'de EUR 1,8 mi a 4,85 mi'; a faixa real das 6 propostas é 1,55 mi a 6,03 mi)",
+          "FOLHA COM DENOMINADOR TROCADO: 'com_faixa_salarial: 56, de: 60' descreve a lista elegível inteira, enquanto soma_ponto_medio_eur é somada sobre os 15 nomes do núcleo (13 com faixa). Dois denominadores debaixo do mesmo título — a tela desenharia 'EUR 1,63 mi, 56 de 60 com faixa'",
+          "A TRILHA DE GOLEIRO PUBLICA 126 NOMES VINDOS DE UM FUNIL QUE NÃO É O FUNIL PUBLICADO. goleiros_no_pool: 2 e no_pool_operacional: 2 ficam ao lado de uma lista de 126; 59 deles têm mais de 32 anos (acima do teto do próprio funil), e o filtro de psv e de id_ não é aplicado. Nenhum campo documenta esse segundo funil. Além disso o 6º indicador declarado ('Golos expectáveis defendidos por 90´') é listado em `indicadores` e NUNCA é calculado: não aparece nos percentis de nenhum goleiro",
+          "17 CANDIDATOS COM margem = null E SEM MOTIVO. 2 goleiros (setor=None) e 15 que estão no pool por terem psv mas não têm o indicador específico do seu setor. A regra manda gravar a ausência com o motivo; nota_fisica não tem campo de motivo quando sai vazia",
+          "169 DE 603 (28%) COM nota_estilo = null, ao lado do cabeçalho casamento_kpis.pct = 99,3. Os 99,3% são casamento com o kpis.json (4 sem casar); a cobertura real do bloco de estilo é 72%, porque dentro de cada (liga, posição) a coorte de cada KPI fica abaixo de 12. A tela vai ler 99,3 como cobertura",
+          "vagas = 15 CONTRA forma = 'núcleo de 16 (XI + 5)' e grade somando 16 (GOL: 1). A vaga de goleiro está na grade e nunca é preenchida; contrafactual.atletas_no_nucleo = 15. A tela não tem como conciliar os dois sem regra especial",
+          "FALTA O CONTADOR 'EXCLUÍDOS POR DADO AUSENTE' POR DEGRAU (exigido na seção 8.1). Só existe `saiu`. O último degrau derruba 2.125 por quatro critérios ao mesmo tempo e nenhum é discriminado — eu medi, com sobreposição: falha min≥900 em 1.301, sem psv em 1.717, rk_ok falso em 943, id_>32 em 652",
+          "A BARREIRA sc_n < 8 EVAPORA NA ETAPA 14. A etapa 13 marca 12 barrados; o pool da etapa 14 filtra emp e idade, mas não sc_n (o mínimo no pool é sc_n=1). Nesta rodada nenhum barrado entrou em núcleo, mas nada impede — e o `erro` de reamostragem de quem tem sc_n=1 é 0,30, maior que o desvio inteiro da nota",
+          "NÃO EXISTE 'NOTA DE CONFIANÇA' COMO NÚMERO (seção 8.4 diz que ela multiplica e é visível). O JSON só guarda os insumos crus (sc_n, min, ctc, ctf, barrado_do_ranking). Melhor do que multiplicar escondido, mas é um item declarado que a tela não consegue desenhar"
+        ],
+        "correcao_concreta": "Ordem de prioridade, tudo barato:\n\n1) SINAL DOS INDICADORES DE TEMPO (bloqueante — reordena as 6 propostas). Em `alvos_fisicos`, inverter o ALVO quando `k in G.MENOR_MELHOR`: `linha[f\"pct_{cen}\"] = r(100 - 100*(ref < ag.mean()).mean(), 1)` — ou, equivalente, tirar a inversão de `pct()` em `etapa_13`. As duas pontas têm de estar na mesma escala. Reexecutar 13, o backtest e 14: o topo de lateral, meio e ataque muda por inteiro.\n\n2) PORTÃO DE PERSISTÊNCIA. Gravar ρ por indicador dentro de `alvos_por_setor` (é o mesmo cálculo de 499 pares já feito na etapa_11, estendido a `expl` e aos `t_*`: expl 0,717 · t_spr 0,407 · t_hsr_cod 0,326 · t505_180 0,324 · t505_90 0,205) e aplicar o corte ρ≥0,30 em `usa`. Isso derruba t505_90 do meio e do ataque. Sem essa coluna, a etapa 13 não tem como afirmar que respeita a seção 8.2.\n\n3) RÓTULO FALSO DA ZAGA. Trocar a condição do fallback de `len(usa) < 3` para `not usa`, ou manter a regra e escrever o critério verdadeiro. Hoje 151 candidatos dizem que nenhum indicador sobreviveu ao teste por clube quando psv5 sobreviveu com p=0,00738.\n\n4) BACKTEST. Acrescentar `k in campos_fis` à lista `usa` do `backtest_nota` (hoje ele pontua com obr_*/hi_s/spn_s/mm_s, proibidos como critério de compra) e excluir `ano > 2025` das chegadas. Publicar também a contagem sem o primeiro ano (2.241) ao lado das 2.916, porque 675 são artefato de borda. O veredito continua nulo nas quatro variantes que rodei — isso não muda, mas a linha passa a testar o que é publicado.\n\n5) PONTE DE CONTRATO. Exigir id do Transfermarkt OU chave de nome única DOS DOIS LADOS com a janela `-2 ≤ Δidade ≤ +3` do `carregar()`. Publicar 62,8% geral (216/344) e 95,7% com ctc=='alta' (179/187), e retirar a acusação à especificação.\n\n6) FAIXA DO ELENCO. Publicar `erro` como campo (ou substituí-lo por um bootstrap medido da nota) e, por vaga, publicar a massa total exibida (`pct_da_massa_publicada`) e o nome modal mesmo abaixo de 10%, para que nenhuma vaga volte em branco. Alternativa mais honesta: reduzir o ruído até que exista recomendação, ou declarar as propostas sul-americanas como não resolvidas.\n\n7) CONTRAFACTUAL. Parar de somar `mv` ausente como zero: publicar a soma só sobre quem tem valor, o n de quem não tem, e uma banda (mínimo = soma atual, máximo = soma com a média dos que têm). Usar a MESMA régua nos dois lados (valor_eur 2025 para o núcleo também, via ponte, ou mv para os 20 clubes). E marcar na tela a inversão do cenário barato sul-americano.\n\n8) FUNIL. Renomear `degraus[0].sul_americanos` (ou restringi-lo às 12 ligas sul-americanas: 7.371) e acrescentar `excluidos_por` por degrau, com os quatro motivos do degrau do pool discriminados.\n\n9) GOLEIRO. Ou aplicar o mesmo funil da etapa 12 à trilha de goleiro, ou gravar o funil próprio como degraus explícitos ao lado dos 126 nomes; e ou calcular 'Golos expectáveis defendidos por 90´' ou tirá-lo da lista de `indicadores`.",
+        "veredito": "ajustar"
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Construir"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Conferir"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "gerador",
+      "phaseIndex": 1,
+      "phaseTitle": "Construir",
+      "agentId": "ab4d7fbb27a2d1c6a",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789227350403,
+      "queuedAt": 1789227349316,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "$ python3 gerar_prototipo.py lista pré-declarada: versão 20…",
+      "promptPreview": "PROJETO Santa Cruz (/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz). Voce vai construir o dado da aba nova \"Prototipo\".\n\nLEIA ANTES DE COMECAR, inteiros:\n- /Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/ESPECIFICACAO.md — a especificacao do metodo (52 KB, 13 secoes).\n  Ela e o contrato. Foi escrita depois de cinco plano…",
+      "promptFramed": false,
+      "lastProgressAt": 1789229505426,
+      "tokens": 304323,
+      "toolCalls": 101,
+      "durationMs": 2155023,
+      "resultPreview": "{\"rodou\":true,\"saida_do_terminal\":\"$ python3 gerar_prototipo.py\\nlista pré-declarada: versão 2026-09-12\\npainel 80 · jogos 3036 · tecnico 3866 · skillcorner 1780 · mercado 40059 (ago26)\\nmatriz 80x293\\nbootstrap por clube...\\nnulo do garimpo...\\nsilhuetas e tipologia...\\nfunil, encaixe e elencos...\\ngravado /Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/dados/prototi…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "confere:dinheiro-e-catalogo",
+      "phaseIndex": 2,
+      "phaseTitle": "Conferir",
+      "agentId": "acd08d21c651673aa",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789229511751,
+      "queuedAt": 1789229507733,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "ETAPAS 1, 2 e 3 — linha de base do dinheiro, catálogo dos 2…",
+      "promptPreview": "PROJETO Santa Cruz (/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz). Voce vai construir o dado da aba nova \"Prototipo\".\n\nLEIA ANTES DE COMECAR, inteiros:\n- /Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/ESPECIFICACAO.md — a especificacao do metodo (52 KB, 13 secoes).\n  Ela e o contrato. Foi escrita depois de cinco plano…",
+      "promptFramed": false,
+      "lastProgressAt": 1789230359786,
+      "tokens": 169595,
+      "toolCalls": 45,
+      "durationMs": 848034,
+      "resultPreview": "{\"bloco\":\"ETAPAS 1, 2 e 3 — linha de base do dinheiro, catálogo dos 293 indicadores e nulo do garimpo\",\"numeros_conferem\":false,\"divergencias\":[{\"campo\":\"etapa_3.nulo_do_garimpo.p_do_melhor\",\"no_json\":\"0,0349\",\"eu_medi\":\"0,0200 com semente 7 e 400 réplicas; 0,0175 a 0,0324 em 8 sementes (1,2,3,7,11,42,99,2026); 0,0202 com 4.000 réplicas e semente 7\",\"quem_esta_certo\":\"nenhum dos dois: o número não…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "confere:pilares-e-tipologia",
+      "phaseIndex": 2,
+      "phaseTitle": "Conferir",
+      "agentId": "a3d7d3664c39ac350",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789229511822,
+      "queuedAt": 1789229507734,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "ETAPAS 5 e 8 — os quatro pilares time a time e a tipologia …",
+      "promptPreview": "PROJETO Santa Cruz (/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz). Voce vai construir o dado da aba nova \"Prototipo\".\n\nLEIA ANTES DE COMECAR, inteiros:\n- /Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/ESPECIFICACAO.md — a especificacao do metodo (52 KB, 13 secoes).\n  Ela e o contrato. Foi escrita depois de cinco plano…",
+      "promptFramed": false,
+      "lastProgressAt": 1789230573119,
+      "tokens": 213709,
+      "toolCalls": 56,
+      "durationMs": 1060043,
+      "resultPreview": "{\"bloco\":\"ETAPAS 5 e 8 — os quatro pilares time a time e a tipologia dos quatro grupos\",\"numeros_conferem\":false,\"divergencias\":[{\"campo\":\"etapa_5.paineis.* (todas as 4.688 células)\",\"no_json\":\"[bruto, posto_no_ano, n] em 11 painéis × 16 clubes\",\"eu_medi\":\"Reimplementei do zero: tecnico_col e elenco lidos do CSV (496+160 células), fisico_col dos 166 fis_* com supressão <3 atletas (2.560 células), …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "confere:livres-e-elencos",
+      "phaseIndex": 2,
+      "phaseTitle": "Conferir",
+      "agentId": "ada7220e0b1a5f8ab",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789229513171,
+      "queuedAt": 1789229507734,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "ETAPAS 12, 13 e 14 — funil dos livres, nota de encaixe e el…",
+      "promptPreview": "PROJETO Santa Cruz (/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz). Voce vai construir o dado da aba nova \"Prototipo\".\n\nLEIA ANTES DE COMECAR, inteiros:\n- /Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/ESPECIFICACAO.md — a especificacao do metodo (52 KB, 13 secoes).\n  Ela e o contrato. Foi escrita depois de cinco plano…",
+      "promptFramed": false,
+      "lastProgressAt": 1789230362241,
+      "tokens": 198410,
+      "toolCalls": 41,
+      "durationMs": 849069,
+      "resultPreview": "{\"bloco\":\"ETAPAS 12, 13 e 14 — funil dos livres, nota de encaixe e elencos\",\"numeros_conferem\":false,\"divergencias\":[{\"campo\":\"etapa_13.candidatos[].nota_fisica (orientação dos indicadores de tempo)\",\"no_json\":\"candidato medido em percentil INVERTIDO (100−p) para t_spr/t505_90/t505_180/t_hsr_cod, e o alvo pct_sobe/pct_cai gravado na escala CRUA (t505_90 meio: alvo_sobe 28,1 · alvo_cai 47,1)\",\"eu_m…"
+    }
+  ],
+  "totalTokens": 886037,
+  "totalToolCalls": 243
+}

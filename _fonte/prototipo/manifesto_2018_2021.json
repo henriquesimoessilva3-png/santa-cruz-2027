@@ -1,0 +1,1049 @@
+[
+ {
+  "arquivo":"Team Stats América Mineiro (6).xlsx",
+  "clube":"América-MG",
+  "clube_raw":"América Mineiro",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats América Mineiro (7).xlsx",
+  "clube":"América-MG",
+  "clube_raw":"América Mineiro",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Atlético GO (6).xlsx",
+  "clube":"Atlético-GO",
+  "clube_raw":"Atlético GO",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Atlético GO (7).xlsx",
+  "clube":"Atlético-GO",
+  "clube_raw":"Atlético GO",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Avaí (6).xlsx",
+  "clube":"Avaí",
+  "clube_raw":"Avaí",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Avaí (7).xlsx",
+  "clube":"Avaí",
+  "clube_raw":"Avaí",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Avaí (8).xlsx",
+  "clube":"Avaí",
+  "clube_raw":"Avaí",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Boa.xlsx",
+  "clube":"Boa",
+  "clube_raw":"Boa",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Botafogo - 2026-09-12T131514.147.xlsx",
+  "clube":"Botafogo",
+  "clube_raw":"Botafogo",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Botafogo SP (6).xlsx",
+  "clube":"Botafogo-SP",
+  "clube_raw":"Botafogo SP",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-29",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Botafogo SP (7).xlsx",
+  "clube":"Botafogo-SP",
+  "clube_raw":"Botafogo SP",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Brasil de Pelotas (1).xlsx",
+  "clube":"Brasil de Pelotas",
+  "clube_raw":"Brasil de Pelotas",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-26",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Brasil de Pelotas (2).xlsx",
+  "clube":"Brasil de Pelotas",
+  "clube_raw":"Brasil de Pelotas",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Brasil de Pelotas (3).xlsx",
+  "clube":"Brasil de Pelotas",
+  "clube_raw":"Brasil de Pelotas",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-28",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Brasil de Pelotas.xlsx",
+  "clube":"Brasil de Pelotas",
+  "clube_raw":"Brasil de Pelotas",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Brusque (3).xlsx",
+  "clube":"Brusque",
+  "clube_raw":"Brusque",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-30",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats CRB (6).xlsx",
+  "clube":"CRB",
+  "clube_raw":"CRB",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats CRB (7).xlsx",
+  "clube":"CRB",
+  "clube_raw":"CRB",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-28",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats CRB (8).xlsx",
+  "clube":"CRB",
+  "clube_raw":"CRB",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats CRB (9).xlsx",
+  "clube":"CRB",
+  "clube_raw":"CRB",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats CSA (1).xlsx",
+  "clube":"CSA",
+  "clube_raw":"CSA",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats CSA (2).xlsx",
+  "clube":"CSA",
+  "clube_raw":"CSA",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats CSA (3).xlsx",
+  "clube":"CSA",
+  "clube_raw":"CSA",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Chapecoense (12).xlsx",
+  "clube":"Chapecoense",
+  "clube_raw":"Chapecoense",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Confiança (1).xlsx",
+  "clube":"Confiança",
+  "clube_raw":"Confiança",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Confiança (2).xlsx",
+  "clube":"Confiança",
+  "clube_raw":"Confiança",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Coritiba (13).xlsx",
+  "clube":"Coritiba",
+  "clube_raw":"Coritiba",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-15",
+  "ultimo":"2018-11-23",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Coritiba (14).xlsx",
+  "clube":"Coritiba",
+  "clube_raw":"Coritiba",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-30",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Coritiba (15).xlsx",
+  "clube":"Coritiba",
+  "clube_raw":"Coritiba",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-26",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Criciúma (6).xlsx",
+  "clube":"Criciúma",
+  "clube_raw":"Criciúma",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Criciúma (7).xlsx",
+  "clube":"Criciúma",
+  "clube_raw":"Criciúma",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Cruzeiro (17).xlsx",
+  "clube":"Cruzeiro",
+  "clube_raw":"Cruzeiro",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Cruzeiro (18).xlsx",
+  "clube":"Cruzeiro",
+  "clube_raw":"Cruzeiro",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-26",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Cuiabá (6).xlsx",
+  "clube":"Cuiabá",
+  "clube_raw":"Cuiabá",
+  "temporada":2019,
+  "jogos":37,
+  "n_serieb":74,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Cuiabá (7).xlsx",
+  "clube":"Cuiabá",
+  "clube_raw":"Cuiabá",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Figueirense (1).xlsx",
+  "clube":"Figueirense",
+  "clube_raw":"Figueirense",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Figueirense (2).xlsx",
+  "clube":"Figueirense",
+  "clube_raw":"Figueirense",
+  "temporada":2019,
+  "jogos":37,
+  "n_serieb":74,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Figueirense (3).xlsx",
+  "clube":"Figueirense",
+  "clube_raw":"Figueirense",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Fortaleza (13).xlsx",
+  "clube":"Fortaleza",
+  "clube_raw":"Fortaleza",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-23",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Goiás (6).xlsx",
+  "clube":"Goiás",
+  "clube_raw":"Goiás",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Goiás (7).xlsx",
+  "clube":"Goiás",
+  "clube_raw":"Goiás",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-06-01",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Guarani (4).xlsx",
+  "clube":"Guarani",
+  "clube_raw":"Guarani",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Guarani (5).xlsx",
+  "clube":"Guarani",
+  "clube_raw":"Guarani",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Guarani (6).xlsx",
+  "clube":"Guarani",
+  "clube_raw":"Guarani",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Guarani (7).xlsx",
+  "clube":"Guarani",
+  "clube_raw":"Guarani",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Juventude (10).xlsx",
+  "clube":"Juventude",
+  "clube_raw":"Juventude",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Juventude (11).xlsx",
+  "clube":"Juventude",
+  "clube_raw":"Juventude",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Londrina (6).xlsx",
+  "clube":"Londrina",
+  "clube_raw":"Londrina",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Londrina (7).xlsx",
+  "clube":"Londrina",
+  "clube_raw":"Londrina",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-28",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Londrina (8).xlsx",
+  "clube":"Londrina",
+  "clube_raw":"Londrina",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-28",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Náutico (6).xlsx",
+  "clube":"Náutico",
+  "clube_raw":"Náutico",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Náutico (7).xlsx",
+  "clube":"Náutico",
+  "clube_raw":"Náutico",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-26",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Oeste (1).xlsx",
+  "clube":"Oeste",
+  "clube_raw":"Oeste",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Oeste (2).xlsx",
+  "clube":"Oeste",
+  "clube_raw":"Oeste",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Oeste.xlsx",
+  "clube":"Oeste",
+  "clube_raw":"Oeste",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Operário PR (6).xlsx",
+  "clube":"Operário-PR",
+  "clube_raw":"Operário PR",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Operário PR (7).xlsx",
+  "clube":"Operário-PR",
+  "clube_raw":"Operário PR",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Operário PR (8).xlsx",
+  "clube":"Operário-PR",
+  "clube_raw":"Operário PR",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Paraná (1).xlsx",
+  "clube":"Paraná",
+  "clube_raw":"Paraná",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-08",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Paraná.xlsx",
+  "clube":"Paraná",
+  "clube_raw":"Paraná",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-28",
+  "ultimo":"2019-11-29",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Paysandu (3).xlsx",
+  "clube":"Paysandu",
+  "clube_raw":"Paysandu",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-15",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Ponte Preta (10).xlsx",
+  "clube":"Ponte Preta",
+  "clube_raw":"Ponte Preta",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-30",
+  "ultimo":"2021-11-26",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Ponte Preta (7).xlsx",
+  "clube":"Ponte Preta",
+  "clube_raw":"Ponte Preta",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-15",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Ponte Preta (8).xlsx",
+  "clube":"Ponte Preta",
+  "clube_raw":"Ponte Preta",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-30",
+  "ultimo":"2019-11-26",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Ponte Preta (9).xlsx",
+  "clube":"Ponte Preta",
+  "clube_raw":"Ponte Preta",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Red Bull Bragantino (19).xlsx",
+  "clube":"Bragantino",
+  "clube_raw":"Red Bull Bragantino",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Remo (9).xlsx",
+  "clube":"Remo",
+  "clube_raw":"Remo",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Sampaio Corrêa (2).xlsx",
+  "clube":"Sampaio Corrêa",
+  "clube_raw":"Sampaio Corrêa",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-15",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Sampaio Corrêa (3).xlsx",
+  "clube":"Sampaio Corrêa",
+  "clube_raw":"Sampaio Corrêa",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-29",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Sampaio Corrêa (4).xlsx",
+  "clube":"Sampaio Corrêa",
+  "clube_raw":"Sampaio Corrêa",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-06-01",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats São Bento (1).xlsx",
+  "clube":"São Bento",
+  "clube_raw":"São Bento",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats São Bento.xlsx",
+  "clube":"São Bento",
+  "clube_raw":"São Bento",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Sport Recife (9).xlsx",
+  "clube":"Sport",
+  "clube_raw":"Sport Recife",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Vasco da Gama (15).xlsx",
+  "clube":"Vasco",
+  "clube_raw":"Vasco da Gama",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Vila Nova (6).xlsx",
+  "clube":"Vila Nova",
+  "clube_raw":"Vila Nova",
+  "temporada":2018,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2018-04-14",
+  "ultimo":"2018-11-24",
+  "anos_civis":[
+   2018
+  ]
+ },
+ {
+  "arquivo":"Team Stats Vila Nova (8).xlsx",
+  "clube":"Vila Nova",
+  "clube_raw":"Vila Nova",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Vitória (17).xlsx",
+  "clube":"Vitória",
+  "clube_raw":"Vitória",
+  "temporada":2019,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2019-04-27",
+  "ultimo":"2019-11-30",
+  "anos_civis":[
+   2019
+  ]
+ },
+ {
+  "arquivo":"Team Stats Vitória (18).xlsx",
+  "clube":"Vitória",
+  "clube_raw":"Vitória",
+  "temporada":2020,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2020-08-09",
+  "ultimo":"2021-01-30",
+  "anos_civis":[
+   2020,
+   2021
+  ]
+ },
+ {
+  "arquivo":"Team Stats Vitória (19).xlsx",
+  "clube":"Vitória",
+  "clube_raw":"Vitória",
+  "temporada":2021,
+  "jogos":38,
+  "n_serieb":76,
+  "primeiro":"2021-05-29",
+  "ultimo":"2021-11-28",
+  "anos_civis":[
+   2021
+  ]
+ }
+]
