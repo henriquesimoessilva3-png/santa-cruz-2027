@@ -1,5 +1,18 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **FECHAMENTO EM 11/09/2026 23:42 — o dono avisou que o uso semanal do modelo bateu 99%.**
+> A sessão original pode ter morrido com o workflow INCOMPLETO. Leia `ESTADO_DO_WORKFLOW.md`
+> (nesta pasta) para saber exatamente quais agentes terminaram; o retorno de cada um está em
+> `journal_snapshot.jsonl`. **Receita curta para o Opus:**
+> 1. `ESTADO_DO_WORKFLOW.md` → veja o que existe. 2. Extraia do journal os JSONs prontos
+> (mapa, dados, conhecimento, métodos, 8 pesquisas, brief, revisões concluídas). 3. Copie
+> `workflow_revisao_serieb.js`, cole esses JSONs como constantes no lugar das fases prontas e
+> rode `Workflow({scriptPath})` só com Propor → Verificar → Sintetizar (se as revisões
+> estiverem incompletas, rode Revisar só para as seções que faltam). 4. Cruze o relatório com
+> os `achado_*.md` desta pasta (feitos fora do workflow). 5. Monte o artefato pelo
+> `plano_design.md` e publique. Tudo isto está detalhado abaixo.
+
+
 Este arquivo existe para uma sessão NOVA — em qualquer modelo, sem memória desta conversa —
 retomar o trabalho de onde parou. Leia inteiro antes de agir. Leia também
 `_fonte/CONTEXTO.md` (o mapa do projeto) — a seção "O estudo da Série B — mapa de tudo".
