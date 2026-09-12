@@ -3349,6 +3349,7 @@ const FS_COL_ABS = 70;
 let fsPos = 'MEI';
 let fsLigaLista = '';     /* campeonato escolhido para a lista por liga */
 const TODOS_CAMP = '*';   /* opcao "todos os campeonatos" dessa mesma lista */
+const SUL_CAMP = '@sul';  /* opcao "sul-americanos, sem o Brasil" — GRUPOS_LIGA.sulamerica */
 
 /* ---------------- resumo primeiro, detalhe ao clicar ----------------
    Vinte e cinco indicadores por quinze colunas sao quase quatrocentas celulas, quase
@@ -4448,24 +4449,39 @@ function fsMontarSeries(co, colunas) {
                    : l.startsWith('Brasil') ? 1
                    : GRUPOS_LIGA.europa.includes(l) ? 2 : 3;
   const ligas = Object.keys(cont).sort((a, b) => ordem(a) - ordem(b) || a.localeCompare(b));
+  /* Os sul-americanos numa opcao so. O Brasil fica de fora porque e a base de comparacao,
+     nao mercado de fora — quem olha esta lista quer ver quem esta na Argentina, no Uruguai,
+     no Chile, no Equador e na Colombia ao mesmo tempo, que campeonato a campeonato da duas
+     ou tres linhas cada e nao deixa comparar. So aparece com dois ou mais campeonatos na
+     posicao: com um so, seria a mesma coisa que a linha dele. */
+  const ligasSul = ligas.filter(l => GRUPOS_LIGA.sulamerica.includes(l));
+  const nSul = ligasSul.reduce((a, l) => a + cont[l], 0);
   const selL = $('#fsLigaEscolha');
   if (selL) {
     /* '*' = todos os campeonatos com tracking na posicao, numa lista so, ordenada pelo
        indice fisico. E a pergunta "quem sao os melhores do mundo nesta posicao?", que
        campeonato a campeonato nao da para responder. */
-    if (fsLigaLista !== TODOS_CAMP && !ligas.includes(fsLigaLista)) {
+    if (fsLigaLista !== TODOS_CAMP && !(fsLigaLista === SUL_CAMP && ligasSul.length > 1) &&
+        !ligas.includes(fsLigaLista)) {
       fsLigaLista = ligas.find(l => ordem(l) === 0) || ligas[0] || '';
     }
     selL.innerHTML = '<option value="">escolher campeonato…</option>' +
       '<option value="' + TODOS_CAMP + '"' + (fsLigaLista === TODOS_CAMP ? ' selected' : '') +
         '>🌐 todos os campeonatos (' + doPosto.length + ')</option>' +
+      (ligasSul.length > 1
+        ? '<option value="' + SUL_CAMP + '"' + (fsLigaLista === SUL_CAMP ? ' selected' : '') +
+          '>🌎 Sul-américa, sem Brasil (' + nSul + ')</option>'
+        : '') +
       ligas.map(l =>
         '<option value="' + esc(l) + '"' + (l === fsLigaLista ? ' selected' : '') + '>' +
         bandeira(l) + esc(l) + ' (' + cont[l] + ')</option>').join('');
   }
   const todos = fsLigaLista === TODOS_CAMP;
-  fsOpcoesLista($('#fsListaLiga'), todos ? doPosto : doPosto.filter(j => j.l === fsLigaLista),
+  const sul = fsLigaLista === SUL_CAMP && ligasSul.length > 1;
+  const dentro = j => todos ? true : sul ? ligasSul.includes(j.l) : j.l === fsLigaLista;
+  fsOpcoesLista($('#fsListaLiga'), todos ? doPosto : doPosto.filter(dentro),
                 todos ? '＋ 🌐 todos os campeonatos'
+                      : sul ? '＋ 🌎 Sul-américa, sem Brasil'
                       : '＋ ' + bandeira(fsLigaLista) + (fsLigaLista || 'campeonato'),
                 co, jaTem, true);
 }
