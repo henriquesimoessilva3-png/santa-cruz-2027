@@ -3430,6 +3430,20 @@ function fsTirar(pk) {
   return congelou;
 }
 
+/* Tirar + o aviso do congelamento. Existia so no × do cabecalho da matriz; agora que o
+   mesmo gesto aparece no menu do ↗ (e nas formas que escondem o cabecalho), o aviso
+   precisa vir junto em todos — senao a lista para de repor e o usuario nao sabe por que. */
+function fsTirarAviso(pk) {
+  const congelou = fsTirar(pk);
+  if (congelou) toast('Comparação fixada nos que estavam na tela — ' +
+                      'agora tirar não chama o próximo da fila');
+}
+
+/* O que o menu do ↗ recebe para poder tirar da comparacao. */
+function fsTirarCfg(pk) {
+  return { rotulo: 'tirar da comparação', acao: () => fsTirarAviso(pk) };
+}
+
 /* O pacote da ultima forma desenhada: o balao e o clique nos pontos leem daqui. */
 let FS_D = null;
 
@@ -3455,7 +3469,8 @@ function fsChips(colunas) {
     };
   });
   el.querySelectorAll('.fs-chip-levar').forEach(b => {
-    b.onclick = e => menuLevar(e, b.parentElement.dataset.pk);
+    const pkC = b.parentElement.dataset.pk;
+    b.onclick = e => menuLevar(e, pkC, null, null, fsTirarCfg(pkC));
   });
 }
 
@@ -3532,7 +3547,8 @@ function fsFocoRender() {
   el.hidden = false;
   $('#fsFocoX').onclick = () => fsFocar(null);
   const add = $('#fsFocoAdd'); if (add) add.onclick = () => fsAdicionar(j.pk);
-  $('#fsFocoLevar').onclick = e => menuLevar(e, j.pk);
+  $('#fsFocoLevar').onclick = e => menuLevar(e, j.pk, null, null,
+    { rotulo: 'tirar da comparação', acao: () => { fsTirarAviso(j.pk); fsFocar(null); } });
 }
 
 /* Balao e clique, iguais nas tres formas. Os renderizadores marcam cada jogador com
@@ -4323,12 +4339,8 @@ function fsRender() {
   $$('#fsMatriz th.fs-col').forEach(th => {
     const id = parseInt(th.dataset.id), pk = th.dataset.pk;
     th.querySelector('.fs-ficha').onclick = () => { abrirFicha(id); irParaAba('campo'); };
-    th.querySelector('.fs-levar').onclick = e => menuLevar(e, pk);
-    th.querySelector('.fs-x').onclick = () => {
-      const congelou = fsTirar(pk);
-      if (congelou) toast('Comparação fixada nos que estavam na tela — ' +
-                          'agora tirar não chama o próximo da fila');
-    };
+    th.querySelector('.fs-levar').onclick = e => menuLevar(e, pk, null, null, fsTirarCfg(pk));
+    th.querySelector('.fs-x').onclick = () => fsTirarAviso(pk);
   });
   fsMontarElenco();
   fsMontarSeries(co, colunas);
@@ -4579,13 +4591,21 @@ function menuPosicao(ev, cfg) {
         ' title="' + esc(p.nome + ' · ' + n + ' no campograma' +
           (bloq ? ' · ' + bloq : p.c === cfg.pos ? ' · é a posição dele' : '')) + '">' +
         p.sig + '</button>';
-    }).join('') + '</div>';
+    }).join('') + '</div>' +
+    /* Tirar da comparacao no MESMO menu do ↗. O × do cabecalho da matriz continua onde
+       estava, mas Mapa, Reguas e Tiras escondem esse cabecalho — e ali o ↗ do chip era o
+       unico gesto que sobrava. Vem separado da grade e em tinta apagada: e a unica acao
+       destrutiva do menu, e nao pode competir com as 11 posicoes. */
+    (cfg.tirar ? '<div class="menu-tirar-sep"></div>' +
+      '<button class="menu-tirar" data-tirar="1">× ' + esc(cfg.tirar.rotulo) + '</button>' : '');
   document.body.appendChild(m);
   const r = botao.getBoundingClientRect();
   m.style.position = 'fixed';
   m.style.top = Math.min(window.innerHeight - m.offsetHeight - 8, r.bottom + 4) + 'px';
   m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.left - 60)) + 'px';
   m.onclick = e => {
+    const btT = e.target.closest('button[data-tirar]');
+    if (btT) { m.remove(); cfg.tirar.acao(); return; }
     const bt = e.target.closest('button[data-p]');
     if (!bt || bt.disabled) return;
     m.remove();
@@ -4598,12 +4618,14 @@ function menuPosicao(ev, cfg) {
 }
 
 /* LEVAR: da base para o campograma (aba Física e aba Fim de contrato). */
-function menuLevar(ev, pk, depois, ancora) {
+/* `tirar` e opcional: so as tres entradas da aba Fisico mandam (la o jogador ESTA na
+   comparacao). A Fim de contrato chama sem ele — nao ha lista de onde tirar. */
+function menuLevar(ev, pk, depois, ancora, tirar) {
   const j = basePorPk(pk);
   if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
   const pkJ = primaryKey(j);
   menuPosicao(ev, {
-    verbo: 'Levar', nome: j.n, pos: j.p, ancora, depois,
+    verbo: 'Levar', nome: j.n, pos: j.p, ancora, depois, tirar,
     bloqueada: c => (estado.elenco[c] || []).some(x => (x.pk ? x.pk === pkJ : x.jid === j.id))
       ? 'ele já está aqui' : '',
     escolher: cod => levarAoCampograma(pk, cod),

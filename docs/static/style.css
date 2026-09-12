@@ -997,6 +997,14 @@ body.claro .menu button b{color:var(--coral)}
 .menu-levar .menu-pos{padding:4px 6px 6px}
 .menu-levar .menu-pos button.atual{outline:1px solid var(--verde);font-weight:800}
 .menu-levar .menu-pos button.atual::after{content:none}
+/* Tirar da comparacao, no pe do menu do ↗. Separada da grade por um filete e em tinta
+   apagada de proposito: e a unica acao destrutiva do menu e nao pode disputar o olho
+   com as 11 posicoes, que sao o assunto dele. So acende no hover, e em coral. */
+.menu-tirar-sep{height:1px;background:var(--borda2);margin:2px 6px 0}
+.menu-tirar{display:block;width:calc(100% - 12px);margin:4px 6px 6px;padding:5px 0;
+  text-align:center;font-size:10px;font-weight:600;border-radius:5px;
+  background:transparent;color:var(--tinta3)}
+.menu-tirar:hover{background:var(--coral);color:#fff}
 .menu-pos button[disabled]{opacity:.35;cursor:not-allowed}
 .menu-pos button[disabled]:hover{background:var(--veu2);color:inherit}
 
@@ -2885,7 +2893,13 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-tab td.s{color:var(--sb-sobe);font-weight:700}
 .sb-tab td.c{color:var(--sb-cai);font-weight:700}
 /* --- filtro "cumpre o perfil de quem sobe" --- */
-.fs-perfil-bar{display:flex;align-items:center;gap:6px;margin-top:3px}
+/* `--sb-sobe` e declarada em #pgSerieB (a aba Serie B) e esta barra mora na aba Fisico,
+   FORA dela: sem redeclarar aqui, o var() da bolinha nao resolve, a declaracao inteira cai
+   e o thumb fica sem fundo — invisivel. O trilho continua aparecendo, entao o filtro parece
+   quebrado em vez de desligado. Mesmo azul dos dois temas, para a bolinha continuar querendo
+   dizer "quem sobe". */
+.fs-perfil-bar{display:flex;align-items:center;gap:6px;margin-top:3px;--sb-sobe:#3f9fcc}
+body.claro .fs-perfil-bar{--sb-sobe:#0f6f9e}
 /* A barra e um ajuste fino, nao o controle principal do painel — quem liga o filtro e a
    caixa acima dela. Por isso ela vem FINA (4px de trilho contra os ~14px do padrao do
    sistema) e curta: grossa e larga, ela puxava o olho para si e parecia o assunto da
