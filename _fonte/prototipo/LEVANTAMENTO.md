@@ -35,6 +35,17 @@ e nos arquivos do ogol. O que existe é `Sistema` (a formação de cada jogo) em
 `serieb_jogos.csv`, que a revisão da Série B já apontou como **proxy da troca de treinador**,
 não como o treinador.
 
+### Decisão do dono (12/09/2026)
+
+> "dá para pesquisarmos o treinador na web, de cada time em cada ano. pode ser até que tenhamos
+> alguns durante o período do time no campeonato. mas vamos focar primeiro na análise dos times,
+> seus padrões e formas de jogar. a parte do treinador a gente ajusta depois."
+
+Ou seja: **a coleta por web está aprovada, mas é uma etapa POSTERIOR.** A análise dos times não
+espera por ela, e não deve ser desenhada assumindo que o treinador vai existir — quando ele
+chegar, entra como uma camada a mais sobre os padrões já construídos. Aceita-se mais de um
+treinador por clube-temporada (com o intervalo de jogos de cada um), que é o caso real.
+
 Então, do pedido do dono, "quais treinadores mais sobem" e "qual treinador contratar"
 **exigem coleta nova**. O que dá para entregar sem coletar:
 - padrão de formação de cada clube que subiu (qual `Sistema`, quantas trocas no ano);
