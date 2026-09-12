@@ -1,0 +1,551 @@
+[
+ {
+  "clube": "Brasil de Pelotas",
+  "anos": [
+   2018,
+   2019,
+   2020,
+   2021
+  ],
+  "n": 4,
+  "posicoes": {
+   "2018": 11,
+   "2019": 14,
+   "2020": 12,
+   "2021": 20
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "CRB",
+  "anos": [
+   2018,
+   2019,
+   2020,
+   2021
+  ],
+  "n": 4,
+  "posicoes": {
+   "2018": 12,
+   "2019": 7,
+   "2020": 10,
+   "2021": 7
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Guarani",
+  "anos": [
+   2018,
+   2019,
+   2020,
+   2021
+  ],
+  "n": 4,
+  "posicoes": {
+   "2018": 9,
+   "2019": 13,
+   "2020": 13,
+   "2021": 6
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Ponte Preta",
+  "anos": [
+   2018,
+   2019,
+   2020,
+   2021
+  ],
+  "n": 4,
+  "posicoes": {
+   "2018": 5,
+   "2019": 11,
+   "2020": 7,
+   "2021": 11
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Avaí",
+  "anos": [
+   2018,
+   2020,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 3,
+   "2020": 9,
+   "2021": 4
+  },
+  "subiu": [
+   2018,
+   2021
+  ],
+  "novo": false
+ },
+ {
+  "clube": "CSA",
+  "anos": [
+   2018,
+   2020,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 2,
+   "2020": 5,
+   "2021": 5
+  },
+  "subiu": [
+   2018
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Coritiba",
+  "anos": [
+   2018,
+   2019,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 10,
+   "2019": 3,
+   "2021": 3
+  },
+  "subiu": [
+   2019,
+   2021
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Figueirense",
+  "anos": [
+   2018,
+   2019,
+   2020
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 15,
+   "2019": 16,
+   "2020": 17
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "Londrina",
+  "anos": [
+   2018,
+   2019,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 8,
+   "2019": 17,
+   "2021": 16
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Oeste",
+  "anos": [
+   2018,
+   2019,
+   2020
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 16,
+   "2019": 15,
+   "2020": 20
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "Operário-PR",
+  "anos": [
+   2019,
+   2020,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2019": 10,
+   "2020": 8,
+   "2021": 12
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Sampaio Corrêa",
+  "anos": [
+   2018,
+   2020,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 18,
+   "2020": 6,
+   "2021": 15
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Vila Nova",
+  "anos": [
+   2018,
+   2019,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2018": 7,
+   "2019": 20,
+   "2021": 9
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Vitória",
+  "anos": [
+   2019,
+   2020,
+   2021
+  ],
+  "n": 3,
+  "posicoes": {
+   "2019": 12,
+   "2020": 14,
+   "2021": 18
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "América-MG",
+  "anos": [
+   2019,
+   2020
+  ],
+  "n": 2,
+  "posicoes": {
+   "2019": 5,
+   "2020": 2
+  },
+  "subiu": [
+   2020
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Atlético-GO",
+  "anos": [
+   2018,
+   2019
+  ],
+  "n": 2,
+  "posicoes": {
+   "2018": 6,
+   "2019": 4
+  },
+  "subiu": [
+   2019
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Botafogo-SP",
+  "anos": [
+   2019,
+   2020
+  ],
+  "n": 2,
+  "posicoes": {
+   "2019": 9,
+   "2020": 19
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Confiança",
+  "anos": [
+   2020,
+   2021
+  ],
+  "n": 2,
+  "posicoes": {
+   "2020": 15,
+   "2021": 19
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "Criciúma",
+  "anos": [
+   2018,
+   2019
+  ],
+  "n": 2,
+  "posicoes": {
+   "2018": 14,
+   "2019": 19
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Cruzeiro",
+  "anos": [
+   2020,
+   2021
+  ],
+  "n": 2,
+  "posicoes": {
+   "2020": 11,
+   "2021": 14
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Cuiabá",
+  "anos": [
+   2019,
+   2020
+  ],
+  "n": 2,
+  "posicoes": {
+   "2019": 8,
+   "2020": 4
+  },
+  "subiu": [
+   2020
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Goiás",
+  "anos": [
+   2018,
+   2021
+  ],
+  "n": 2,
+  "posicoes": {
+   "2018": 4,
+   "2021": 2
+  },
+  "subiu": [
+   2018,
+   2021
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Juventude",
+  "anos": [
+   2018,
+   2020
+  ],
+  "n": 2,
+  "posicoes": {
+   "2018": 19,
+   "2020": 3
+  },
+  "subiu": [
+   2020
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Náutico",
+  "anos": [
+   2020,
+   2021
+  ],
+  "n": 2,
+  "posicoes": {
+   "2020": 16,
+   "2021": 8
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Paraná",
+  "anos": [
+   2019,
+   2020
+  ],
+  "n": 2,
+  "posicoes": {
+   "2019": 6,
+   "2020": 18
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "São Bento",
+  "anos": [
+   2018,
+   2019
+  ],
+  "n": 2,
+  "posicoes": {
+   "2018": 13,
+   "2019": 18
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "Boa",
+  "anos": [
+   2018
+  ],
+  "n": 1,
+  "posicoes": {
+   "2018": 20
+  },
+  "subiu": [],
+  "novo": true
+ },
+ {
+  "clube": "Botafogo",
+  "anos": [
+   2021
+  ],
+  "n": 1,
+  "posicoes": {
+   "2021": 1
+  },
+  "subiu": [
+   2021
+  ],
+  "novo": true
+ },
+ {
+  "clube": "Bragantino",
+  "anos": [
+   2019
+  ],
+  "n": 1,
+  "posicoes": {
+   "2019": 1
+  },
+  "subiu": [
+   2019
+  ],
+  "novo": true
+ },
+ {
+  "clube": "Brusque",
+  "anos": [
+   2021
+  ],
+  "n": 1,
+  "posicoes": {
+   "2021": 13
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Chapecoense",
+  "anos": [
+   2020
+  ],
+  "n": 1,
+  "posicoes": {
+   "2020": 1
+  },
+  "subiu": [
+   2020
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Fortaleza",
+  "anos": [
+   2018
+  ],
+  "n": 1,
+  "posicoes": {
+   "2018": 1
+  },
+  "subiu": [
+   2018
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Paysandu",
+  "anos": [
+   2018
+  ],
+  "n": 1,
+  "posicoes": {
+   "2018": 17
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Remo",
+  "anos": [
+   2021
+  ],
+  "n": 1,
+  "posicoes": {
+   "2021": 17
+  },
+  "subiu": [],
+  "novo": false
+ },
+ {
+  "clube": "Sport",
+  "anos": [
+   2019
+  ],
+  "n": 1,
+  "posicoes": {
+   "2019": 2
+  },
+  "subiu": [
+   2019
+  ],
+  "novo": false
+ },
+ {
+  "clube": "Vasco",
+  "anos": [
+   2021
+  ],
+  "n": 1,
+  "posicoes": {
+   "2021": 10
+  },
+  "subiu": [],
+  "novo": false
+ }
+]

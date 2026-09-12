@@ -1888,3 +1888,229 @@ o plano de design do relatório, o script do workflow e como retomar se a sessã
 - A versão para circular (https://claude.ai/code/artifact/ea51c41a-489e-4abf-b394-e39118368d95)
   cobre até a análise ofensiva/defensiva, idade e bola parada. **Não tem** o painel físico
   completo, as seções novas nem o bloco de relação entre indicadores.
+
+## A revisão saiu do papel: Ondas 1 e 2 no ar (12/09/2026)
+
+A revisão especialista de 11/09 produziu um relatório de 34 propostas e **não mudou uma linha
+do app**. O dono cobrou, com razão. As duas ondas do roteiro foram implementadas em 12/09,
+e o método que funcionou foi sempre o mesmo: **um agente constrói o patch, um cético tenta
+derrubá-lo, um terceiro passe aplica as correções, e só então eu aplico em série**. Nas duas
+ondas, os céticos pediram ajuste em 100% dos itens — nenhum patch passou intacto.
+
+### Os dois bugs de dado que a revisão destapou
+
+São os achados que valem mais que qualquer bloco novo, porque estavam contaminando número
+publicado:
+
+1. **O ranking de ataque e defesa da §3 desempatava pela tabela.** Usava `i+1` sobre um sort
+   estável, então entre dois clubes com os mesmos gols o mais bem colocado levava o posto
+   melhor — o ranking que deveria *explicar* a posição usava a posição para se desempatar.
+   Trocado por `sbPostos` (empate vira média). **56 dos 80 clube-temporada mudam de posto**;
+   57 dos 80 estão empatados em gols com algum rival do mesmo ano, 13 deles entre os que
+   subiram. Os postos publicados viraram 4,3/5,7 (sobe) e 15,9/16,7 (cai).
+2. **A conta de estrangeiro era `!= "Brazil"`.** O Wyscout escreve nacionalidade como LISTA,
+   então "Brazil, Italy" virava estrangeiro — e linha sem nacionalidade também, porque
+   `nfc(NaN)` devolve a string `"nan"`. São **215 de 454 atleta-temporada, 47%**. Minutos com
+   estrangeiros de quem sobe caem de 17,5% para 10,4%, o rho vai de 0,24 para 0,15 e o
+   indicador deixa de passar no corte de 5%: o quadro geral foi de 26 para 25 sobreviventes.
+
+E o **valor por setor** foi reconstruído do Transfermarkt por temporada (o do Wyscout é
+snapshot: 489 de 558 atletas repetem o mesmo valor em todos os anos). Consequência de
+conteúdo, não de forma: **a tese "time ameaçado compra atacante" morreu** — a diferença de
+fatia no ataque entre sobe e cai caiu de 13,0 pontos para 2,0. O `valor_11` seguiu o mesmo
+caminho: 0,45 contra o 0,58 do snapshot, e o 0,58 **nunca esteve na tela** (morria no
+relatório de terminal), então foi preciso criar a coluna para o número certo poder ser citado.
+
+### Três classes de colisão, quando muitos agentes editam o mesmo arquivo
+
+A Onda 1 (64 patches) e a Onda 2 (82 patches) bateram em três problemas diferentes. Valem
+para a Onda 3, que tem 21 itens:
+
+1. **Nome duplicado.** Na Onda 1, dois agentes criaram `sbBH` com retornos diferentes; a
+   segunda definição venceu e a tela imprimiu `sobrevivem [object Object]`. Nenhum cético
+   podia ver — cada um conferiu contra o arquivo ORIGINAL, onde a colisão ainda não existia.
+   **Guarda:** cada agente declara todo identificador global que cria, e o workflow cruza as
+   listas antes de aplicar. Funcionou: zero colisões de nome na Onda 2.
+2. **Âncora disputada.** Na Onda 2, 9 dos 82 patches ancoravam em trechos que outro item já
+   tinha mudado. Cada um correto sozinho. **Guarda:** aplicar num sandbox, coletar as falhas,
+   e reancorar contra o estado já modificado — com a regra de **fundir, nunca sobrescrever**.
+   Um dos nove era idêntico a outro (dois itens acrescentando o mesmo `import`) e virou
+   duplicata descartada.
+3. **Coluna duplicada na fonte.** `lesoes()` e `estabilidade_e_lesao()` emitiam ambas
+   `les_dias`; o merge do pandas renomeia para `_x`/`_y` e o `CAMPOS` não acha mais a coluna.
+   Dar a posse a um dos itens no `CAMPOS` não basta — **o outro tem de parar de calcular**.
+
+### O que a Onda 2 acrescentou
+
+A régua de repetibilidade dentro da temporada, sequência e "reação" contra o nulo de
+permutação, game state, o físico depois dos controles, disponibilidade e estabilidade da
+escalação, o veredito das lesões com IC e controle positivo, amplitude entre anos, contra
+fortes sem autoexclusão, e os dois elos depois do chute.
+
+`serieb_clube_temporada.csv`: 288 → **346 colunas**. `static/sb_clubes.js`: 226 → **272
+campos**. A aba passou de ~40 mil para **93 mil caracteres** de texto renderizado.
+
+## Modal "Sobe × Cai" na aba Físico (12/09/2026)
+
+Botão ao lado do "Série A × Série B". Responde "quais indicadores físicos separam quem sobe
+de quem cai, na minha posição?" comparando a média dos atletas dos clubes que terminaram em
+1º-4º com a dos que terminaram em 17º-20º.
+
+O dado vem do bloco `sobecai` do `raio_ref.json`, escrito pelo `gerar_raio_serieb.py`. O
+`fundamentais` que já existia guarda SÓ quem passou de t=1,96, porque é lista de aprovação
+para o filtro "cumpre o perfil"; o `sobecai` guarda o quadro INTEIRO, inclusive o que não
+separa — "medimos e não separa" é resposta, e some da tela se só os aprovados forem gravados.
+
+Três decisões que a tela toma, e o motivo:
+
+- **Ordena por tamanho de efeito (d de Cohen), não por t.** O t cresce com a amostra: com 110
+  atletas de um lado e 140 do outro, diferença minúscula passa de 1,96 sem querer dizer nada
+  em campo.
+- **Diz a família de testes antes das linhas:** 137 testes, ~7 passariam a 5% ainda que nada
+  separasse, 47 passam de fato, **16 sobrevivem a Benjamini-Hochberg**. Sem isso, 47 linhas
+  acesas parecem 47 achados.
+- **Mostra as 90 que não separam**, apagadas mas presentes.
+
+O que o dado diz: **"sem a bola" lidera os quatro setores**. É a assinatura física de
+pressionar alto — escolha do time, não qualidade do atleta —, e a tela diz isso. PSV-99
+separa na zaga e no lateral, e não no ataque.
+
+## Aba Protótipo — a especificação, e por que ela não tem "grupos descobertos" (12/09/2026)
+
+Pedido do dono: nova aba com os times que subiram × os demais, ano a ano, em quatro pilares
+(técnico individual, técnico coletivo, físico individual, físico coletivo), agrupando os que
+subiram em padrões, e depois casando os jogadores livres em dez/26 com cada padrão.
+
+Tudo está em `_fonte/prototipo/`: `LEVANTAMENTO.md` (o terreno), `ESPECIFICACAO.md` (o método,
+escrito por 5 planos independentes + 3 juízes) e `TIPOLOGIA.md` (os quatro grupos).
+
+### O terreno, medido antes de projetar
+
+Os quatro pilares são viáveis — inclusive o físico coletivo, que era o duvidoso: **mediana de
+22 atletas rastreados por clube-temporada, mínimo 16**, e cobertura parelha entre sobe (20-22),
+meio (21-22) e cai (24-27), então não enviesa a comparação.
+
+Universo de livres em dez/26 (`jogadores.json`, período ago26): **356 na Série B** (202 de
+alta confiança, 108 com 900+ minutos) e **3.597 sul-americanos** (só 1.194 de alta confiança).
+
+### A decisão dura: agrupamento cego não existe, tipologia declarada existe
+
+Três dos cinco planos disseram "não há grupos" com um nulo INVÁLIDO, e um disse o contrário
+com o mesmo erro. **Embaralhar coluna destrói a correlação entre indicadores — qualquer dado
+correlacionado bate esse nulo.** Sob o nulo certo (gaussiana multivariada de mesma
+covariância, 200 réplicas): k=2 nos 16 dá **p=0,555**; nos 80, p=0,195. Jaccard de bootstrap
+0,48-0,67 (Hennig pede 0,75). Não há ilhas.
+
+Mas o dono esclareceu que queria **similaridade entre os 16**, não "o padrão de quem sobe" —
+e isso é outra coisa, e é testável. A diferença: uma tipologia em EIXOS DECLARADOS pode ser
+validada em indicadores que NÃO a construíram. O cluster cego não oferece isso.
+
+**Dois eixos, cinco colunas, dois cortes na mediana dos 16. Nada de k-means:**
+- `TERRITÓRIO` = posse + entradas_area + toques_area
+- `ROTA` = passes_pct + passe_longo_pct invertido
+
+**Quatro grupos (5/3/3/5):**
+- **G1 Dono do jogo** — Cruzeiro 2022, Grêmio 2022, Atlético-GO 2023, Santos 2024, Athletico-PR 2025
+- **G2 Cerco de bola direta** — Bahia 2022, Sport 2024, Ceará 2024 — **DESCRITIVO**, não passa no teste de fora (p=0,160)
+- **G3 Controlador paciente** — Vitória 2023, Mirassol 2024, Coritiba 2025
+- **G4 Reativo de bola direta** — Vasco 2022, Juventude 2023, Criciúma 2023, Chapecoense 2025, Remo 2025
+
+Teste de fora, 38 indicadores que não entraram na construção: eta² **0,410** contra 0,196 de
+rótulo sorteado (p=0,0002) e contra **0,238 do nulo placebo** (p=0,0012) — partições feitas
+cortando qualquer outro indicador real nos mesmos tamanhos. Esse é o nulo que reprovou o
+cluster cego; a tipologia passa. Onze indicadores sobrevivem a BH.
+
+**O que ela NÃO autoriza, e está escrito nela:** não há quatro ilhas (silhueta p=0,084 no
+espaço reduzido) — é um plano contínuo cortado em quatro por duas medianas declaradas;
+formação não separa nada (p=0,82 a 0,84, o 4-2-3-1 é de todo mundo); e o físico é quase
+silêncio (17 de 166 colunas no p bruto contra 8,3 esperadas, nenhuma sobrevive à correção) —
+**são tipos táticos, não atléticos**.
+
+**Dinheiro:** dos dois eixos, um é meio bolso e o outro não é nenhum. O G1 é o grupo dos
+ricos sem exceção (posto médio de valor **1,60**; corr entre posto de valor e PPDA = **−0,69**).
+Mas residualizando o valor, **o corte de ROTA não muda um único time dos 16**. Escolher se a
+bola chega lá pelo chão ou pelo alto não custa dinheiro — e é o que separa G1 de G2 e G3 de G4.
+Para um clube que não vai ser o mais rico da liga, os grupos que importam são G3 e G4.
+
+### Times de fronteira, que precisam estar na tela
+
+**Vitória 2023 está a 0,8 ponto de percentil do corte** e vira G1 em 57% dos sorteios;
+**Ceará 2024 está a 0,8 do outro lado**. Oito dos dezesseis não se movem em teste nenhum.
+Trocando os dois fronteiriços de uma vez, o teste de fora continua passando (eta² 0,376).
+
+## Série B 2018-2021: o que dá para trazer, e o que não existe (12/09/2026)
+
+O dono tem dados de 2018 a 2021 e perguntou se vale trazer. Vale — **n=16 é a restrição que
+limita tudo**. Com 2018-2021 são 32 acessos e 160 clube-temporada.
+
+**O que a amostra dobrada compra**, medido:
+
+| | hoje (16) | com 2018-2021 (32) |
+|---|---|---|
+| menor efeito detectável, sobe × meio | d 0,82 | d **0,58** |
+| menor d que sobrevive a Bonferroni | 1,23 | **0,85** |
+| IC de uma persistência ρ=0,30 | [−0,03; 0,57] | **[0,08; 0,49]** |
+
+A linha do Bonferroni muda o caráter do estudo: hoje um indicador precisa de 1,23
+desvios-padrão para sobreviver à correção, o que quase nada em futebol alcança.
+
+**O físico é impossível, e isso foi confirmado na API — não no banco local.** Primeira
+resposta minha foi errada de método: olhei o `skillcorner.db` e concluí sobre a API. O dono
+cobrou. Indo à API: a conta acessa 126 edições e a Série B só de 2022 a 2027; o catálogo
+inteiro (`user=false`) tem 1.542 edições de 1966 a 2027 e traz **BRA - Série B - 2019
+(id=120)** — que volta com **0 jogadores com físico**. Não é falta de acesso: é casca de
+edição. Testadas as 12 edições mais recentes de todo o catálogo com ano ≤ 2021 (LaLiga, Serie
+A, MLS, Libertadores): **todas zero**. O rastreamento que o SkillCorner vende começa em 2022.
+
+**Consequência de desenho:** quando 2018-2021 entrar, a aba terá **dois universos** —
+técnico de 2018 a 2025, físico de 2022 a 2025. Cada número na tela precisa dizer de qual dos
+dois veio, senão alguém compara uma média de oito anos com uma de quatro sem perceber.
+
+**O melhor uso dos anos novos não é juntar, é testar:** congelar os dois eixos e os dois
+cortes da tipologia nos times de 2022-2025 e aplicá-los **cegamente** nos de 2018-2021. Os
+dois eixos são técnicos coletivos, então o teste cego roda sem físico nenhum. Isso converte a
+tipologia de descrição em modelo — e nenhuma esperteza estatística em 16 pontos entrega isso.
+
+**Antes de juntar, testar regime:** 2020 foi sem torcida e com calendário comprimido (mando é
+um dos eixos), e as SAFs chegaram por volta de 2021-22 mexendo na distribuição de dinheiro.
+Se a linha do acesso, o AUC do posto de valor e o perfil dos indicadores se comportarem igual
+nos dois períodos, junta-se; se não, os anos antigos ficam como conjunto de teste.
+
+### O que está sendo extraído
+
+Já chegou: **técnico por jogador 2018-2021** (8 Excels do Wyscout, 500 linhas × 115 colunas
+cada). **Atenção: não têm coluna de temporada** — o ano sai do cruzamento do conjunto de
+clubes de cada arquivo (coluna `Equipa dentro de um período de tempo seleccionado`) com as
+tabelas de classificação.
+
+As quatro tabelas estão em `_fonte/prototipo/tabelas_2018_2021.json` e a lista de extração por
+clube em `_fonte/prototipo/extrair_2018_2021.json`: **36 clubes distintos, 80 clube-temporada,
+16 acessos**. Nove clubes o projeto nunca viu (Boa, Botafogo, Bragantino, Brasil de Pelotas,
+Confiança, Figueirense, Oeste, Paraná, São Bento) — e dois pedem de-para: o Flashscore chama o
+Oeste de "Osasco Sporting" e o Botafogo de "Botafogo RJ".
+
+Falta extrair: **o técnico de EQUIPE**, de preferência por partida (o equivalente ao
+`serieb_jogos.csv`, 119 colunas, com `Sistema`). Se vier só o agregado por clube-temporada,
+perdem-se a repetibilidade (metade da temporada contra a outra) e a porta temporal (1º turno
+contra o desfecho do 2º) — que os juízes apontaram como a espinha do método.
+
+### Pendências em 12/09/2026
+
+- **Onda 3 da revisão: 21 itens, nenhum começado.** A ordem está no `relatorio_v2.md` §8. Use
+  a mesma máquina das Ondas 1 e 2 (construir → cético → corrigir → reancorar) e as três
+  guardas de colisão descritas acima — com 21 itens no mesmo arquivo, as três vão aparecer.
+- **A aba Protótipo está sendo construída.** `gerar_prototipo.py` existe e está sendo
+  escrito/rodado por um workflow; o JSON (`dados/prototipo.json`) ainda não foi conferido.
+  Depois dele falta a tela: aba no `templates/index.html`, renderer no `app.js` e o CSS.
+- **Técnico de equipe 2018-2021 em extração pelo dono.** Ao chegar: de-para dos nove clubes
+  novos, inferir o ano dos Excels de jogador, testar regime antes de juntar, e rodar o teste
+  cego da tipologia.
+- **Treinador continua não existindo em base nenhuma.** O dono aprovou coleta por web (time a
+  time, ano a ano, aceitando mais de um por temporada), como etapa POSTERIOR à análise dos
+  times. Não desenhe nada assumindo que ele vai existir.
+- **O `valor_11` entrou na tela valendo 0,45**, mas o `tm_valor_total` (0,50) segue explicando
+  mais que o onze sozinho. Vale um bloco explicando isso, que hoje não existe.
+- Seguem valendo as pendências antigas: gol de bola parada não existe em base nenhuma
+  (precisa da exportação de eventos por tipo de jogada do Wyscout); `peak_velocity` com 0% de
+  cobertura na Série B de 2022 a 2024; e as corridas sem bola destravadas em 11/09 ainda não
+  entraram no `SC_METRICAS` do `analisar_serieb.py`.
