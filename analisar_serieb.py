@@ -109,15 +109,35 @@ def do_jogo():
         "passes_terco_final": "Passes para terço final",
         "passes_progressivos": "Passes progressivos",
         "xg_contra": "xg_contra", "remates_contra": "remates_contra",
+        # Chute no alvo SOFRIDO. Sai do "Remates à baliza" da linha do ADVERSARIO, e nao da
+        # coluna "Remates contra no alvo" da propria linha do clube. As duas medem a mesma
+        # coisa e discordam: concordam em 81,8% dos 3.570 jogos, e a da propria linha conta
+        # 0,19 chute a mais por jogo. `remates_contra` ja vinha do adversario e bate em
+        # 100% — misturar as duas faria a conversao sofrida ter numerador de uma regua e
+        # denominador de outra. A outra viaja junto como `remates_contra_alvo` so para a
+        # tela poder MOSTRAR o tamanho da divergencia em vez de afirma-la.
+        "remates_baliza_contra": "remates_baliza_contra",
+        "remates_contra_alvo": "Remates contra no alvo",
     }
     med = {k: v for k, v in med.items() if v in s.columns}
     som = {"penaltis": "Penaltis", "penaltis_conv": "Penaltis convertidos"}
     som = {k: v for k, v in som.items() if v in s.columns}
 
+    # Desvio-padrao JOGO A JOGO das quatro contagens da cadeia do chute. Nao e enfeite: e
+    # com ele que o navegador calcula quanto da diferenca entre clubes num numero de
+    # temporada e ruido amostral (dp**2 / jogos) e quanto e time. Sem isso, a unica saida
+    # para medir confiabilidade seria mandar o jogo a jogo inteiro para o navegador.
+    dpv = {"dp_remates": "Remates", "dp_remates_baliza": "Remates à baliza",
+           "dp_remates_contra": "remates_contra",
+           "dp_remates_baliza_contra": "remates_baliza_contra"}
+    dpv = {k: v for k, v in dpv.items() if v in s.columns}
+
     g = s.groupby(["ano", "clube"])
     f = pd.DataFrame({k: g[v].mean() for k, v in med.items()})
     for k, v in som.items():
         f[k] = g[v].sum()
+    for k, v in dpv.items():
+        f[k] = g[v].std(ddof=1)
     f["pontos_casa"] = s[s["mando"] == "casa"].groupby(["ano", "clube"])["resultado"].apply(
         lambda x: (x == "V").sum()*3 + (x == "E").sum())
     f["pontos_fora"] = s[s["mando"] == "fora"].groupby(["ano", "clube"])["resultado"].apply(
@@ -126,10 +146,52 @@ def do_jogo():
     return f.reset_index()
 
 
+def valor_tm_por_atleta():
+    """Valor do Transfermarkt por (ano, clube, nome normalizado) — a ponte para o onze.
+
+    O `valor_11` somava a coluna "Valor de mercado" do Wyscout, o MESMO SNAPSHOT que a
+    Onda 1 aposentou no valor por setor (veja `valor_por_setor`): o retrato do dia da
+    exportacao colado em toda temporada. Aqui ele passa a sair do `valor_eur`, que e por
+    temporada de verdade.
+
+    A ponte e por NOME, dentro do mesmo clube e do mesmo ano, com a mesma normalizacao do
+    `chave_nome` que a ponte do SkillCorner usa. Das 5.080 chaves do Transfermarkt, 18
+    aparecem duas vezes no mesmo elenco (homonimo) e ficam DE FORA: casar errado e pior do
+    que nao casar. O que sobra: dos 11 mais usados de cada clube-temporada, 9,9 em media
+    encontram ficha e 7,3 tem valor publicado (nas 80 temporadas completas; 9,7 e 7,6 nas
+    cinco). Quem nao tem entra como ZERO, exatamente como ja acontece no `tm_valor_total` e
+    no valor por setor: `valor_11` e PISO, nao retrato.
+    """
+    E = pd.read_csv(f"{RAIZ}/dados/serieb_elencos.csv")
+    E["clube"] = E["clube"].map(lambda x: TM.get(nfc(x), nfc(x)))
+    E["k"] = E["jogador"].map(chave_nome)
+    g = E.groupby(["ano", "clube", "k"])["valor_eur"]
+    quantos, soma = g.size(), g.sum(min_count=1)
+    return {k: soma[k] for k in quantos.index if quantos[k] == 1}
+
+
+def eh_estrangeiro(nac):
+    """Estrangeiro e quem NAO tem o Brasil na lista de nacionalidades.
+
+    O Wyscout escreve "Pais de nacionalidade" como LISTA, e a conta era `!= "Brazil"`:
+    "Brazil, Italy" nao batia com "Brazil" e o atleta virava estrangeiro. Sao 215 dos 454
+    atleta-temporada contados como estrangeiros — 47% —, dos quais 210 com o Brasil na
+    lista (118 so de "Brazil, Italy") e 5 sem nacionalidade preenchida. Nem e so questao de
+    rotulo: quem tem passaporte brasileiro NAO ocupa vaga de estrangeiro na inscricao, que
+    e a regra que a aba de elenco deste mesmo app ja aplica.
+
+    Sem nacionalidade (5 linhas) entra como brasileiro: a base e 88% brasileira, e chutar
+    estrangeiro no vazio inventa minuto de estrangeiro onde nao ha dado.
+    """
+    return ~nac.fillna("Brazil").map(nfc).str.split(",").map(
+        lambda L: any(x.strip() == "Brazil" for x in L))
+
+
 def do_tecnico():
     T = pd.read_csv(f"{RAIZ}/dados/serieb_tecnico.csv")
     T["clube"] = T["Equipa dentro de um período de tempo seleccionado"].map(nfc)
     T["min"] = T["Minutos jogados:"]
+    VAL_TM = valor_tm_por_atleta()
     linhas = []
     for (ano, clube), d in T.groupby(["ano", "clube"]):
         d = d.sort_values("min", ascending=False)
@@ -137,6 +199,9 @@ def do_tecnico():
         p = d["min"] / tot
         onze = d.head(11)
         val = d["Valor de mercado"]
+        estr = eh_estrangeiro(d["País de nacionalidade"])
+        v11 = [VAL_TM[(ano, clube, chave_nome(j))] for j in onze["Jogador"]
+               if (ano, clube, chave_nome(j)) in VAL_TM]
         linhas.append(dict(
             ano=ano, clube=clube,
             atletas_usados=len(d),
@@ -144,18 +209,26 @@ def do_tecnico():
             nucleo_300=int((d["min"] >= 300).sum()),
             conc_hhi=float((p**2).sum()*1000),
             share_11=float(onze["min"].sum()/tot*100),
+            # A MESMA concentracao contada em PARTIDAS, e nao em minutos: media de
+            # "Partidas jogadas" dos 11 mais usados. A coluna estava na base desde o comeco
+            # e nunca tinha sido usada em lugar nenhum do projeto (0 nulos nas 3.866
+            # linhas). O percentual NAO sai daqui: quem divide por `jogos_base` e o
+            # navegador, que e onde mora todo numero que vai a tela.
+            pj_11=float(onze["Partidas jogadas"].mean()),
             idade_pond=float((d["idade_na_temporada"]*d["min"]).sum()/tot),
             idade_11=float((onze["idade_na_temporada"]*onze["min"]).sum()/onze["min"].sum()),
             valor_total=float(val.sum()),
             valor_mediana=float(val.median()) if val.notna().any() else np.nan,
-            valor_11=float(onze["Valor de mercado"].sum()),
+            valor_11=float(np.nansum(v11)),
+            valor_11_casados=len(v11),
+            valor_11_com=int(sum(x == x for x in v11)),
             valor_com_dado=int(val.notna().sum()),
             golos_cabeca=float(d["Golos de cabeça"].sum()),
             penaltis_marcados=float(d["Penaltis marcados"].sum()),
             golos_sem_penalti=float(d["Golos sem ser por penálti"].sum()),
             golos_tec=float(d["Golos"].sum()),
-            estrangeiros=int((d["País de nacionalidade"].map(nfc) != "Brazil").sum()),
-            min_estrangeiros=float(d.loc[d["País de nacionalidade"].map(nfc) != "Brazil", "min"].sum()/tot*100),
+            estrangeiros=int(estr.sum()),
+            min_estrangeiros=float(d.loc[estr, "min"].sum()/tot*100),
         ))
     return pd.DataFrame(linhas)
 
@@ -269,6 +342,17 @@ def extras_profundos():
     s["pts"] = s["resultado"].map({"V": 3, "E": 1, "D": 0})
     s["form"] = s["Sistema"].astype(str).str.replace(r"\s*\(.*", "", regex=True).str.strip()
 
+    # SALDO DE xG DA PARTIDA, sem merge e sem perder linha. O arquivo traz as DUAS equipes
+    # de cada jogo, entao o xG do adversario e (soma do par) menos o proprio, e o saldo vale
+    # 2*xG - soma. E de proposito que isto NAO e o merge do `do_jogo()`: aqui `s` ainda vai
+    # ser usado por todas as outras colunas deste bloco (sequencias, turnos, formacoes) e um
+    # merge que devolvesse outro numero de linhas mudaria todas elas de uma vez.
+    # A guarda do tamanho do par existe para o dia em que uma metade faltar: sem ela o saldo
+    # viraria o xG inteiro do clube, calado. Hoje os 3.570 pares estao completos.
+    _par = s.groupby(["Data", "Jogo"])["Golos esperados"]
+    s["xgd"] = np.where(_par.transform("size") == 2,
+                        2 * s["Golos esperados"] - _par.transform("sum"), np.nan)
+
     tab = tabelas()
     pos = dict(zip(zip(tab.ano, tab.clube), tab.pos))
     s["posAdv"] = [pos.get((a, nfc(c))) for a, c in zip(s.ano, s.adversario)]
@@ -300,6 +384,22 @@ def extras_profundos():
         # mundo numa temporada completa.
         ordem = sorted(d.posAdv.unique())
         top6, mio7, bot6 = set(ordem[:6]), set(ordem[6:-6]), set(ordem[-6:])
+        # O corte por adversario acima iguala a CONTAGEM e nao iguala o NIVEL. Os seis
+        # melhores adversarios de quem terminou no G4 valem 63,3 pontos e os de quem caiu,
+        # 64,3: quem sobe se tira do topo da lista e ganha um adversario mais fraco no lugar
+        # da propria vaga. Sobra 1 ponto de calendario dentro da faixa que deveria ser limpa.
+        #
+        # O recorte que zera isso e o jogo contra o 5o e o 6o COLOCADOS. Eles nao estao em
+        # nenhuma das duas faixas do estudo (top 4 e 17o ou pior), entao todo clube que subiu
+        # e todo clube que caiu enfrentou os MESMOS dois adversarios duas vezes: 4 jogos de
+        # cada lado, adversario de 61,25 pontos para os dois, diferenca de calendario zero.
+        # `jG6` viaja junto porque e a contagem que revela a armadilha (10 contra 12, exato
+        # nas quatro temporadas) — e uma afirmacao da tela, entao tem de ser medida, nao
+        # deduzida do formato da competicao.
+        # O `notna().all()` do xgd56 e a segunda metade da guarda de cima: se um jogo do
+        # recorte ficar sem xG, o .mean() do pandas PULA o NaN e devolveria a media de 3
+        # jogos enquanto jogos56 continua dizendo 4. Melhor null, que o navegador descarta.
+        q56 = d[d.posAdv.isin([5, 6])]
         forms = d.form.value_counts()
         linhas.append(dict(
             ano=ano, clube=clube,
@@ -307,6 +407,9 @@ def extras_profundos():
             aprovZ6=aprov(d.posAdv >= 15),
             aprovTop6=aprov(d.posAdv.isin(top6)), aprovMio7=aprov(d.posAdv.isin(mio7)),
             aprovBot6=aprov(d.posAdv.isin(bot6)),
+            jG6=int((d.posAdv <= 6).sum()),
+            jogos56=int(len(q56)), pts56=int(q56.pts.sum()),
+            xgd56=float(q56.xgd.mean()) if len(q56) and q56.xgd.notna().all() else np.nan,
             pts1t=int(d[d.rod <= 19].pts.sum()), pts2t=int(d[d.rod > 19].pts.sum()),
             pts10ini=int(d[d.rod <= 10].pts.sum()), pts10fim=int(d[d.rod > max(rod) - 10].pts.sum()),
             maxSemVencer=maxSemV, maxVitorias=maxV,
@@ -582,10 +685,136 @@ def _sc_atletas():
     return sc[sc.clube.notna() & (sc.min_tot >= 300)].copy()
 
 
+# ======================= o que o ACASO previa =======================
+
+PERM_R = 10000            # replicas por clube-temporada e por nulo
+PERM_SEMENTE = 20260912   # semente fixa: numero que vai a tela nao muda a cada geracao
+
+
+def _maior_seq(B):
+    """Maior sequencia de True em cada LINHA de B (replicas x jogos)."""
+    cur = np.zeros(B.shape[0], dtype=np.int32)
+    mx = np.zeros(B.shape[0], dtype=np.int32)
+    for j in range(B.shape[1]):
+        cur = np.where(B[:, j], cur + 1, 0)
+        np.maximum(mx, cur, out=mx)
+    return mx
+
+
+def _embaralha(n, grupos, R, rng):
+    """R permutacoes de 0..n-1, cada uma embaralhando so DENTRO de cada grupo."""
+    fora = np.empty((R, n), dtype=np.int64)
+    for g in np.unique(grupos):
+        idx = np.where(grupos == g)[0]
+        if len(idx) == 1:
+            fora[:, idx] = idx
+        else:
+            fora[:, idx] = idx[np.argsort(rng.random((R, len(idx))), axis=1)]
+    return fora
+
+
+def permutacao_sequencias():
+    """O que o acaso previa para as sequencias e para a "reacao" de cada clube-temporada.
+
+    A pergunta do bloco de Regularidade da aba: "maior sequencia sem vencer" e "pontos no
+    jogo seguinte a uma derrota" dizem alguma coisa alem de quantas vitorias o time teve?
+    Comparar quem sobe com quem cai nao responde: um time que vence 20 vezes tem, por
+    aritmetica, sequencias sem vencer mais curtas. O teste e embaralhar os RESULTADOS DO
+    PROPRIO CLUBE — os mesmos V, E e D, em outra ordem — PERM_R vezes, e ver o que sai.
+
+    TRES NULOS EMPILHADOS, do mais cego ao mais conservador:
+
+        ""    livre        qualquer ordem dos 38 resultados.
+        "M"   mando        embaralha so dentro de casa e dentro de fora. Preserva o
+                           calendario e a diferenca de mando do clube, que nas quatro
+                           temporadas completas e de 1,75 ponto por jogo em casa contra
+                           0,96 fora. E o nulo que desmonta a "reacao": o jogo seguinte a
+                           uma derrota FORA e quase sempre em casa.
+        "MT"  mando x terco  embaralha dentro de mando x terco de forca do adversario
+                           (posicao final 1-7, 8-13, 14-20). Preserva tambem CONTRA QUEM
+                           cada resultado aconteceu.
+
+    Esta e a unica parte do estudo que nao roda no navegador — sao 100 clube-temporada x
+    3 nulos x PERM_R replicas, uns 7 s aqui. O que viaja para o `sb_clubes.js` sao os
+    esperados e os p, um numero por clube-temporada; a comparacao continua sendo feita na
+    tela, como tudo o mais.
+
+    O p de cada clube e BICAUDAL E DE PERMUTACAO: a fatia das replicas tao ou mais extremas
+    que o observado, truncada em 1. O truncamento nao e cosmetico: `2 * min(cauda, cauda)`
+    passa de 1 quando a estatistica e discreta e ha muito empate no observado (aqui o
+    maximo bruto chega a 1,79), e "p = 1,79" gravado no sb_clubes.js seria invalido.
+
+    Colunas por clube-temporada: `semVencer`, `vitSeguidas`, `ptsAposD`, `ptsAposV`,
+    `ptsAposDcasa`, `ptsAposDfora`, `jCasa` e `jFora` (o observado), mais `esp*` e `p*` com
+    o sufixo do nulo. `jCasa` e `jFora` saem os dois do MESMO jogo a jogo — quem quiser
+    pontos por jogo fora divide por `jFora`, nunca por `J da tabela menos jCasa`, porque
+    quatro clube-temporada tem 37 jogos na base contra 38 na tabela.
+    `ptsAposDcasa` e nulo em quem nao perdeu nenhuma em casa (o América-MG de 2024), e
+    `espAposDcasaM` tambem: no nulo de mando, quem so perdeu fora continua so perdendo fora.
+    """
+    rng = np.random.default_rng(PERM_SEMENTE)
+    J = pd.read_csv(f"{RAIZ}/dados/serieb_jogos.csv")
+    s = J[(J["Competição"] == "Brazil. Serie B") & J["resultado"].notna()].copy()
+    s["clube"] = s["Equipa"].map(nfc)
+    s["pts"] = s["resultado"].map({"V": 3, "E": 1, "D": 0})
+    tab = tabelas()
+    pos = dict(zip(zip(tab.ano, tab.clube), tab.pos))
+    s["posAdv"] = [pos.get((a, nfc(c))) for a, c in zip(s.ano, s.adversario)]
+    s = s[s.posAdv.notna()].sort_values(["ano", "clube", "Data"])
+
+    linhas = []
+    for (ano, clube), d in s.groupby(["ano", "clube"]):
+        res, pts = d.resultado.to_numpy(), d.pts.to_numpy(float)
+        casa = (d.mando.to_numpy() == "casa").astype(int)
+        terco = np.where(d.posAdv <= 7, 0, np.where(d.posAdv <= 13, 1, 2))
+        n = len(res)
+        # os recortes do jogo SEGUINTE: depois de derrota, de derrota em casa, de derrota
+        # fora, e de vitoria (o controle)
+        antes = {"": res[:-1] == "D",
+                 "casa": (res[:-1] == "D") & (casa[:-1] == 1),
+                 "fora": (res[:-1] == "D") & (casa[:-1] == 0)}
+        antesV = res[:-1] == "V"
+        obs = dict(semVencer=int(_maior_seq((res != "V")[None, :])[0]),
+                   vitSeguidas=int(_maior_seq((res == "V")[None, :])[0]))
+        for suf, m in antes.items():
+            obs["ptsAposD" + suf] = float(pts[1:][m].mean()) if m.sum() else np.nan
+        obs["ptsAposV"] = float(pts[1:][antesV].mean()) if antesV.sum() else np.nan
+        reg = dict(ano=ano, clube=clube, jCasa=int(casa.sum()),
+                   jFora=int(n - casa.sum()), **obs)
+        for nome, g in (("", np.zeros(n, int)), ("M", casa), ("MT", casa * 3 + terco)):
+            i = _embaralha(n, g, PERM_R, rng)
+            pr, pp = res[i], pts[i][:, 1:]
+            e_sem, e_vit = _maior_seq(pr != "V"), _maior_seq(pr == "V")
+            reg["espSemVencer" + nome] = float(e_sem.mean())
+            reg["espVitSeguidas" + nome] = float(e_vit.mean())
+            reg["pSemVencer" + nome] = float(min(1.0, 2 * min(
+                (e_sem >= obs["semVencer"]).mean(), (e_sem <= obs["semVencer"]).mean())))
+            reg["pVitSeguidas" + nome] = float(min(1.0, 2 * min(
+                (e_vit >= obs["vitSeguidas"]).mean(), (e_vit <= obs["vitSeguidas"]).mean())))
+            MV = pr[:, :-1] == "V"
+            cv = MV.sum(1)
+            reg["espAposV" + nome] = float(np.nanmean(
+                np.where(cv > 0, (pp * MV).sum(1) / np.maximum(cv, 1), np.nan)))
+            MD = pr[:, :-1] == "D"
+            for suf, filtro in (("", np.ones(n - 1, bool)), ("casa", casa[:-1] == 1),
+                                ("fora", casa[:-1] == 0)):
+                M = MD & filtro[None, :]
+                c = M.sum(1)
+                e = np.where(c > 0, (pp * M).sum(1) / np.maximum(c, 1), np.nan)
+                reg["espAposD" + suf + nome] = (float(np.nanmean(e))
+                                                if np.isfinite(e).any() else np.nan)
+                o = obs["ptsAposD" + suf]
+                reg["pAposD" + suf + nome] = (
+                    float(min(1.0, 2 * min(np.nanmean(e >= o), np.nanmean(e <= o))))
+                    if not np.isnan(o) else np.nan)
+        linhas.append(reg)
+    return pd.DataFrame(linhas)
+
+
 def base():
     t = montar()
     for parte in (extras_de_jogo(), valor_por_setor(), extras_profundos(), fisico(),
-                  fisico_por_posicao()):
+                  fisico_por_posicao(), permutacao_sequencias()):
         t = t.merge(parte, on=["ano", "clube"], how="left")
     setores = [c for c in t.columns if c.startswith("val_")]
     tot = t[setores].sum(axis=1)

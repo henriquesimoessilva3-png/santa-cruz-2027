@@ -2953,6 +2953,18 @@ body.claro .fs-perfil-bar{--sb-sobe:#0f6f9e}
    .sb-rot e 9,5px em caixa alta com letter-spacing, e ali so o peso separa sem apagar. */
 .sb-leg-5{color:var(--sb-sobe);font-weight:500}
 .sb-leg-1{color:var(--sb-sobe);font-weight:800}
+/* --- o traco de minimo-maximo entre os anos, dentro da celula acesa ---
+   O numero da celula e de quatro temporadas somadas, e duas casas decimais sugerem um
+   numero conhecido que ele nao e. O traco mostra o menor e o maior rho dos quatro anos na
+   MESMA escala em toda a tabela (declarada na legenda), com o zero marcado e o risquinho
+   alto no rho agregado. Segmento e risquinho herdam a tinta da celula por `currentColor`,
+   entao a rampa apagado -> 5% -> 1% vale dentro do traco tambem; trilho e zero ficam na
+   tinta neutra, que e o que os mantem sendo regua e nao dado. */
+.sb-fxa{display:block;margin:3px 0 0 auto}
+.sb-fxa-t{fill:var(--tinta3);opacity:.28}
+.sb-fxa-z{fill:var(--tinta3);opacity:.55}
+.sb-fxa-s{fill:currentColor;opacity:.45}
+.sb-fxa-r{fill:currentColor}
 .sb-tab-det tr.sb-grupo td{font-size:9px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--tinta3);padding:11px 14px 3px;border-bottom:none}
 .sb-tab tr.sb-grupo td{padding-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
