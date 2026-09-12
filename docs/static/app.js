@@ -6749,6 +6749,13 @@ function sbLigado() {
     if (!t) return null;
     const o = Object.assign({}, m, t);
     o.gpJogo = t.gp / t.j; o.gcJogo = t.gc / t.j;
+    o.ptsJogo = t.pts / t.j;
+    /* REACAO = o que sobra DEPOIS de descontar o ritmo do proprio clube. Sem o desconto,
+       "pontos no jogo seguinte a uma derrota" so repete que quem ganha mais tambem ganha
+       mais depois de perder. `reacaoV` e o controle: se o excedente depois de VENCER for
+       negativo na mesma medida, o que se mede e reversao a media, nao carater. */
+    o.reacaoD = o.ptsAposD - o.ptsJogo;
+    o.reacaoV = o.ptsAposV - o.ptsJogo;
     o.xgRem = o.xg / o.rem; o.xgRemCon = o.xgCon / o.remCon;
     o.bpConv = o.bpRem / o.bp * 100;
     o.bpGols = o.cabeca + o.penCon;            /* teto para gol de bola parada — veja sbBlocoGolsParada */
@@ -6756,10 +6763,12 @@ function sbLigado() {
     o.xgSaldo = o.xg - o.xgCon;
     o.finaliza = (o.gpJogo - o.xg) * t.j;          /* gols acima do esperado, na temporada */
     o.defende = (o.xgCon - o.gcJogo) * t.j;        /* gols sofridos abaixo do esperado */
-    /* `valor` e o total do Transfermarkt; `valTot` e a soma dos setores medida no Wyscout.
-       Sao duas contas diferentes do mesmo elenco e nao batem (27 mi contra 17 mi na media de
-       quem sobe): a do Wyscout so cobre quem entrou em campo. `valTot` existe SO para as
-       fatias por setor, onde o que importa e a proporcao dentro da mesma medida. */
+    /* `valTot` e a soma dos quatro setores e FECHA com `valor`: desde 12/09/2026 os dois
+       saem do mesmo `valor_eur` do Transfermarkt, que tem valor POR TEMPORADA. Ate ali os
+       setores vinham da coluna "Valor de mercado" do Wyscout, que e um snapshot do dia da
+       exportacao — 489 dos 558 atletas com duas temporadas ou mais carregavam la o mesmo
+       valor em todas, ou seja o retrato de 2026 colado no elenco de 2022. A soma continua
+       escrita aqui so para deixar a conta das fatias explicita. */
     o.valTot = o.valDef + o.valMeio + o.valAtq + o.valGol;
     o.shDef = o.valDef / o.valTot * 100; o.shAtq = o.valAtq / o.valTot * 100;
     o.shMeio = o.valMeio / o.valTot * 100;
@@ -6807,6 +6816,14 @@ function sbPorFaixa(campo) {
   return { sobe: sbMedia(f.sobe), meio: sbMedia(f.meio), cai: sbMedia(f.cai) };
 }
 
+/* Que fatia do plantel tem valor publicado no Transfermarkt. E a ressalva de todo numero de
+   dinheiro desta aba: quem nao tem valor entra como ZERO na soma, entao o valor do elenco —
+   o total e o de cada setor — e piso, nao retrato completo. */
+function sbCobValor() {
+  const L = sbComp(), soma = f => L.reduce((a, x) => a + x[f], 0);
+  return soma('comValor') / soma('plantel') * 100;
+}
+
 /* Os indicadores do quadro geral.
 
    O ROTULO E UMA FRASE JA NA DIRECAO CERTA, e isso nao e estilo: e o que faz o grafico ser
@@ -6821,7 +6838,7 @@ const SB_INDICADORES = [
   ['pontos em casa', 'ptsCasa'], ['pontos fora', 'ptsFora'],
   ['sofrer menos gols', 'gcJogo', 1], ['marcar mais gols', 'gpJogo'],
   ['passar em branco menos vezes', 'branco', 1], ['jogos sem sofrer gol', 'cs'],
-  ['€ parados na DEFESA', 'valDef', 0, 1], ['conceder menos xG', 'xgCon', 1],
+  ['€ parados na DEFESA', 'valDef'], ['conceder menos xG', 'xgCon', 1],
   ['chutar de mais perto', 'dist', 1],
   ['concentrar minutos nos 11 de sempre', 'share11', 0, 1],
   ['criar mais xG', 'xg'], ['usar menos atletas', 'usados', 1],
@@ -6831,7 +6848,7 @@ const SB_INDICADORES = [
   ['acertar o alvo no chute', 'remBal'], ['pressionar mais alto (PPDA)', 'ppda', 1],
   ['€ parados no ATAQUE', 'valAtq'],
   ['% do orçamento na DEFESA', 'shDef'],
-  ['% do orçamento no ATAQUE', 'shAtq', 0, 1],
+  ['% do orçamento no ATAQUE', 'shAtq'],
   ['acertar cruzamentos', 'cruzPct'], ['ter mais posse de bola', 'posse'],
   ['dar minutos a estrangeiros', 'minEstr'], ['cometer menos faltas', 'faltas', 1],
   ['acertar mais passes', 'passePct'], ['ter um time mais jovem', 'idade', 1],
@@ -6895,6 +6912,7 @@ function sbTrio(rot, campo, fmt, y) {
 const sbPc = (a, b) => (a / b - 1) * 100;                 /* quanto A supera B, em % */
 const sbN1 = x => x.toFixed(1).replace('.', ',');
 const sbN2 = x => x.toFixed(2).replace('.', ',');
+const sbN2s = x => (x < 0 ? '−' : '+') + sbN2(Math.abs(x));   /* com sinal: para residuo */
 const sbN0 = x => Math.round(x).toLocaleString('pt-BR');
 const sbMi = x => (x / 1e6).toFixed(1).replace('.', ',');
 
@@ -6986,7 +7004,9 @@ function sbBlocoTrios(rot, itens, nota) {
     '<p class="sb-nota">' + nota + '</p></div>';
 }
 
-/* Onde o dinheiro esta — e a unica linha em que quem cai investe mais. */
+/* Onde o dinheiro esta. A "unica linha em que quem cai investe mais" era o ataque, e era
+   artefato do snapshot do Wyscout: com o valor por temporada do Transfermarkt a diferenca
+   de fatia no ataque caiu de 13 pontos para 2. So a defesa sobra, com 5. */
 function sbBlocoDinheiro() {
   const def = sbPorFaixa('shDef'), meio = sbPorFaixa('shMeio'), atq = sbPorFaixa('shAtq');
   const tot = sbPorFaixa('valor');
@@ -6996,7 +7016,7 @@ function sbBlocoDinheiro() {
     sbBarra('', m.sobe * ESC, sbN1(m.sobe) + '%', 'var(--sb-sobe)', y, ESQ) +
     sbBarra('', m.cai * ESC, sbN1(m.cai) + '%', 'var(--sb-cai)', y + 19, ESQ);
   return '<div class="sb-bloco">' +
-    '<span class="sb-rot">Onde o dinheiro rende, e onde ele se perde</span>' +
+    '<span class="sb-rot">Onde o dinheiro está — e o quanto isso explica</span>' +
     '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>quem subiu</span>' +
     '<span><i style="background:var(--sb-cai)"></i>quem caiu</span></div>' +
     '<div class="sb-tela"><svg viewBox="0 0 620 152" class="sb-svg">' +
@@ -7004,19 +7024,34 @@ function sbBlocoDinheiro() {
       par('Defesa', def, 18) + par('Meio', meio, 64) + par('Ataque', atq, 110) +
     '</svg></div>' +
     '<p class="sb-nota">O elenco de quem sobe vale <b>€ ' + sbMi(tot.sobe) + ' mi</b> em média; o de quem cai, ' +
-    '<b>€ ' + sbMi(tot.cai) + ' mi</b>. Mas o total explica menos que o <b>endereço</b> do dinheiro: valor ' +
-    'parado na defesa anda com a posição final a <b>' + sbN2(sbRho('valDef')) + '</b>; no ataque, <b>' +
-    sbN2(sbRho('valAtq')) + '</b> — cerca da metade.</p>' +
-    '<p class="sb-nota"><b>A única linha em que quem cai investe mais é o ataque</b> — e é a única em que ' +
-    'investir mais anda junto com terminar pior (a fatia do valor no ataque dá ' + sbN2(sbRho('shAtq')) +
-    '). A leitura provável não é que atacante caro seja ruim: é que <b>time ameaçado compra atacante</b>, ' +
-    'e o gasto aparece onde o problema não estava.</p>' +
+    '<b>€ ' + sbMi(tot.cai) + ' mi</b>. O <b>endereço</b> do dinheiro explica menos que o tamanho dele: euro ' +
+    'parado na defesa anda com a posição final a <b>' + sbN2(sbRho('valDef')) + '</b>, no meio a <b>' +
+    sbN2(sbRho('valMeio')) + '</b> e no ataque a <b>' + sbN2(sbRho('valAtq')) + '</b> — nenhum acima do ' +
+    '<b>' + sbN2(sbRho('valor')) + '</b> do elenco inteiro, e cada um andando com ele a ' +
+    sbN2(sbRhoEntre('valDef', 0, 'valor', 0)) + ' (defesa), ' + sbN2(sbRhoEntre('valMeio', 0, 'valor', 0)) +
+    ' (meio) e ' + sbN2(sbRhoEntre('valAtq', 0, 'valor', 0)) + ' (ataque). Somar euros por setor é, quase ' +
+    'inteiro, medir de novo o tamanho do elenco.</p>' +
+    '<p class="sb-nota"><b>A diferença que sobra é a defesa.</b> Quem sobe põe ' + sbN1(def.sobe) +
+    '% do valor do elenco na defesa contra ' + sbN1(def.cai) + '% de quem cai — ' + sbN1(def.sobe - def.cai) +
+    ' pontos. No meio (' + sbN1(meio.sobe) + '% contra ' + sbN1(meio.cai) + '%) e no ataque (' +
+    sbN1(atq.sobe) + '% contra ' + sbN1(atq.cai) + '%) quem cai concentra um pouco mais, mas só ' +
+    sbN1(Math.abs(meio.sobe - meio.cai)) + ' e ' + sbN1(Math.abs(atq.sobe - atq.cai)) + ' pontos: <b>na ' +
+    'borda do que esta aba chama de ruído</b>, porque entre 16 clubes e 16 dois ou três pontos ' +
+    'percentuais não são achado. A fatia da defesa anda com a tabela a ' + sbN2(sbRho('shDef')) + '; a do ataque, a ' +
+    sbN2(sbRho('shAtq')) + '.</p>' +
     '<p class="sb-nota">Dinheiro ajuda e não decide: dos 16 acessos, <b>' + sbTop4('valor') +
     '</b> vinham do top-4 de valor.</p>' +
-    '<p class="sb-nota"><b>Cuidado com a leitura de euros.</b> Em valor absoluto quem sobe tem mais ' +
-    'atacante caro que quem cai (€ ' + sbMi(sbPorFaixa('valAtq').sobe) + ' mi contra € ' +
-    sbMi(sbPorFaixa('valAtq').cai) + ' mi) — mas tem mais de tudo, porque o elenco inteiro é mais caro. ' +
-    'A pergunta que importa não é quanto, é <b>que fatia</b>: e aí a ordem se inverte.</p>' +
+    '<p class="sb-nota"><b>Esta seção dizia o contrário até 12/09/2026, e o erro era de fonte.</b> O valor ' +
+    'por setor vinha da coluna "Valor de mercado" do Wyscout, que é um <b>retrato do dia da exportação</b> ' +
+    '(2026) colado em toda temporada: 489 dos 558 atletas presentes em duas temporadas ou mais carregam lá ' +
+    'o mesmo valor em todas. Com o retrato de 2026 sobre o elenco de 2022, quem caiu aparecia com 43,8% do ' +
+    'valor no ataque contra 30,8% de quem subiu, e a aba concluía daí que <b>time ameaçado compra ' +
+    'atacante</b>. Não sobrou nada disso. Agora o setor sai do <b>Transfermarkt, que tem valor por ' +
+    'temporada</b> — 591 dos 709 atletas com valor em dois anos mudam de valor entre eles — e a soma dos ' +
+    'quatro setores fecha com o valor total do elenco. <b>A ressalva que fica é de cobertura:</b> o ' +
+    'Transfermarkt só publica valor para <b>' + sbN1(sbCobValor()) + '%</b> dos atletas do plantel, e quem ' +
+    'não tem valor entra como zero nos quatro setores por igual — este é o <b>piso</b> do elenco, não o ' +
+    'retrato completo.</p>' +
     '</div>';
 }
 
@@ -7069,17 +7104,19 @@ function sbBlocoQuadro() {
       '<text x="' + (ESQ + ESC * 0.5) + '" y="' + (alt - 8) + '" text-anchor="middle" class="sbx-pq">0,50</text>' +
       '<text x="' + (ESQ + ESC) + '" y="' + (alt - 8) + '" text-anchor="end" class="sbx-pq">1,00 · filas iguais</text>' +
     '</svg></div>' +
-    '<p class="sb-nota"><b>Duas linhas do ataque, sinais opostos, e não é erro.</b> "€ parados no ATAQUE" ' +
-    'dá ' + sbN2(sbRho('valAtq')) + ' e "% do orçamento no ATAQUE" dá ' + sbN2(sbRho('shAtq')) +
-    ' — uma está em <b>euros</b> e a outra em <b>porcentagem do próprio elenco</b>, e elas medem coisas ' +
-    'diferentes. A de euros anda a ' + sbN2(sbRhoEntre('valAtq', 0, 'valor', 0)) + ' com o valor total do ' +
-    'elenco: boa parte dela é só "clube rico tem atacante caro, e clube rico sobe mais". A de porcentagem ' +
-    'anda a ' + sbN2(sbRhoEntre('shAtq', 0, 'valor', 0)) + ' com o valor total — <b>é o clube pobre que ' +
-    'concentra no ataque</b>. Entre si, as duas ficam em ' + sbN2(sbRhoEntre('valAtq', 0, 'shAtq', 0)) +
-    ': longe de serem a mesma medida. Lendo junto: quem sobe tem € ' + sbMi(sbPorFaixa('valAtq').sobe) +
-    ' mi em atacantes contra € ' + sbMi(sbPorFaixa('valAtq').cai) + ' mi de quem cai — <b>mais dinheiro, ' +
-    'menos fatia</b> (' + sbN1(sbPorFaixa('shAtq').sobe) + '% contra ' + sbN1(sbPorFaixa('shAtq').cai) +
-    '%). Os dois 0,29 são coincidência de tamanho, não sinal de que é a mesma conta.</p>' +
+    '<p class="sb-nota"><b>As cinco linhas de dinheiro dizem menos do que parecem.</b> "€ parados no ' +
+    'ATAQUE" dá ' + sbN2(sbRho('valAtq')) + ', "€ parados na DEFESA" dá ' + sbN2(sbRho('valDef')) +
+    ' e "€ do elenco inteiro" dá ' + sbN2(sbRho('valor')) + ' — e as duas primeiras andam com a terceira a ' +
+    sbN2(sbRhoEntre('valAtq', 0, 'valor', 0)) + ' e ' + sbN2(sbRhoEntre('valDef', 0, 'valor', 0)) +
+    '. Somar euros por setor é quase só repetir <b>"clube rico sobe mais"</b>, e é por isso que nenhuma ' +
+    'delas está marcada aqui como linha que muda o que se faz. As duas de porcentagem ficam mais perto de ' +
+    'zero ainda: a do ataque dá ' + sbN2(sbRho('shAtq')) + ' com a tabela e ' +
+    sbN2(sbRhoEntre('shAtq', 0, 'valor', 0)) + ' com o valor total do elenco. Quem sobe tem € ' +
+    sbMi(sbPorFaixa('valAtq').sobe) + ' mi em atacantes contra € ' + sbMi(sbPorFaixa('valAtq').cai) +
+    ' mi de quem cai, e a <b>fatia é praticamente a mesma</b> (' + sbN1(sbPorFaixa('shAtq').sobe) +
+    '% contra ' + sbN1(sbPorFaixa('shAtq').cai) + '%). <b>Até 12/09/2026 estas cinco linhas estavam ' +
+    'erradas</b>: somavam o "Valor de mercado" do Wyscout, que é um snapshot de 2026 aplicado a toda ' +
+    'temporada. A Seção 10 conta o tamanho do estrago.</p>' +
     '<p class="sb-nota"><b>Posse de bola (' + sbN2(sbRho('posse')) + ') e precisão de passe (' +
     sbN2(sbRho('passePct')) + ') quase não distinguem quem sobe de quem cai</b> — os dois números que mais ' +
     'abrem apresentação de análise de jogo. E <b>idade do time é zero</b> (' + sbN2(sbRho('idade', true)) +
@@ -7281,7 +7318,14 @@ function sbPorFaixaVal(campo) {
 
 /* Contra quem se fazem os pontos, e quando. */
 function sbBlocoAdversario() {
-  const g6 = sbPorFaixa('aprovG6'), me = sbPorFaixa('aprovMeio'), z6 = sbPorFaixa('aprovZ6');
+  /* As faixas sao os seis melhores, os sete do meio e os seis piores ADVERSARIOS de cada
+     clube — nao as posicoes 1 a 6 da tabela. Ninguem joga contra si mesmo: pelo corte da
+     tabela, quem terminou no G4 tinha 10 jogos contra o G6 e quem caiu tinha 12. */
+  const top = sbPorFaixa('aprovTop6'), mio = sbPorFaixa('aprovMio7'), bot = sbPorFaixa('aprovBot6');
+  /* Aproveitamento vira ponto por jogo, que e a unidade da tabela: 100% = 3 pontos. */
+  const ppj = m => (m.sobe - m.cai) * 3 / 100;
+  const difs = [ppj(top), ppj(mio), ppj(bot)];
+  const vao = Math.max(...difs) - Math.min(...difs);
   const X = 180, ESC = 3.6;
   const grupo = (rot, m, y) =>
     '<text x="0" y="' + (y + 12) + '" class="sbx-rot forte">' + rot + '</text>' +
@@ -7302,15 +7346,28 @@ function sbBlocoAdversario() {
     '<span><i class="q" style="background:var(--sb-neutro)"></i>meio</span>' +
     '<span><i style="background:var(--sb-cai)"></i>cai</span></div>' +
     '<div class="sb-tela"><svg viewBox="0 0 620 186" class="sb-svg">' +
-      grupo('contra o G6 (1º ao 6º)', g6, 6) +
-      grupo('contra o miolo (7º ao 14º)', me, 68) +
-      grupo('contra os últimos seis', z6, 130) +
+      grupo('os 6 melhores adversários', top, 6) +
+      grupo('os 7 do meio', mio, 68) +
+      grupo('os 6 piores adversários', bot, 130) +
     '</svg></div>' +
-    '<p class="sb-nota"><b>Quem sobe não faz seus pontos batendo os fracos — bate os fortes.</b> ' +
-    'Contra os seis últimos todo mundo pontua: ' + sbN1(z6.sobe) + '% de aproveitamento para quem sobe e ' +
-    sbN1(z6.cai) + '% para quem cai, uma diferença de <b>' + sbN1(z6.sobe / z6.cai) + '×</b>. Contra o G6 ' +
-    'a distância dobra: ' + sbN1(g6.sobe) + '% contra ' + sbN1(g6.cai) + '%, <b>' + sbN1(g6.sobe / g6.cai) +
-    '×</b>. É nos jogos grandes que a temporada se separa.</p>' +
+    '<p class="sb-nota"><b>A vantagem de quem sobe não é maior contra os fortes.</b> ' +
+    'Em ponto por jogo — a unidade da tabela —, quem sobe faz <b>' + sbN2(ppj(top)) + '</b> a mais que ' +
+    'quem cai contra os seis melhores adversários, <b>' + sbN2(ppj(mio)) + '</b> contra os sete do meio ' +
+    'e <b>' + sbN2(ppj(bot)) + '</b> contra os seis piores. As três diferenças cabem em ' + sbN2(vao) +
+    ' ponto por jogo uma da outra, e a dos jogos grandes não é a maior. <b>Não existe ' +
+    'time que sobe por bater os fortes</b>: sobe quem ganha mais em todo lugar.</p>' +
+    '<p class="sb-nota"><b>A leitura anterior vinha de uma razão, e a razão estava inflada.</b> Em ' +
+    'aproveitamento, quem sobe tira ' + sbN1(top.sobe) + '% contra os seis melhores e quem cai, ' +
+    sbN1(top.cai) + '% — <b>' + sbN1(top.sobe / top.cai) + '×</b>; contra os seis piores é ' +
+    sbN1(bot.sobe) + '% contra ' + sbN1(bot.cai) + '%, <b>' + sbN1(bot.sobe / bot.cai) + '×</b>. O ' +
+    'múltiplo quase dobra porque o denominador de cima é pequeno — quem cai quase não pontua contra os ' +
+    'melhores —, não porque a diferença seja maior ali. E em posto, quem mais acompanha a posição final ' +
+    'é o aproveitamento contra <b>o meio</b> da tabela (' + sbN2(sbRho('aprovMio7')) + '), não contra os ' +
+    'melhores (' + sbN2(sbRho('aprovTop6')) + ') nem contra os piores (' + sbN2(sbRho('aprovBot6')) +
+    ').</p>' +
+    '<p class="sb-nota">Ressalva: são 16 clubes de cada lado em quatro temporadas, e ' + sbN2(vao) +
+    ' ponto por jogo de vão entre as três faixas é pouco para essa amostra. O que o dado sustenta é ' +
+    'que a distância aparece <b>nas três</b>, com tamanho parecido; não sustenta ordená-las.</p>' +
     '<p class="sb-nota"><b>E o acesso não é decidido na largada.</b> Quem sobe faz ' + sbN1(t1.sobe) +
     ' pontos no 1º turno e ' + sbN1(t2.sobe) + ' no 2º — o mesmo ritmo do começo ao fim. Quem cai piora (' +
     sbN1(t1.cai) + ' e ' + sbN1(t2.cai) + '). Nas dez últimas rodadas a diferença é a maior do ano: <b>' +
@@ -7324,6 +7381,16 @@ function sbBlocoAdversario() {
 /* Regularidade: sequencias, reacao e troca de formacao. */
 function sbBlocoRegularidade() {
   const sv = sbPorFaixa('semVencer'), vit = sbPorFaixa('vitSeguidas'), ap = sbPorFaixa('ptsAposD');
+  /* O ritmo do proprio clube, e o que sobra em cima dele depois de perder e depois de vencer. */
+  const ritmo = sbPorFaixa('ptsJogo'), reD = sbPorFaixa('reacaoD'), reV = sbPorFaixa('reacaoV');
+  const medD = sbMedia(sbComp().map(x => x.reacaoD)), medV = sbMedia(sbComp().map(x => x.reacaoV));
+  /* Em quantas temporadas o residuo de quem sobe foi o maior dos dois. Se o sinal virasse
+     sempre para o mesmo lado haveria o que explicar; ele nao vira. */
+  const reacaoSobeMais = SB_COMPLETAS.filter(ano => {
+    const g = sbComp().filter(x => x.ano === ano);
+    const md = f => sbMedia(g.filter(x => x.faixa === f).map(x => x.reacaoD));
+    return md('sobe') > md('cai');
+  }).length;
   const fq = sbPorFaixa('formacoes'), fp = sbPorFaixa('formPct');
   const cartao = (n, r) => '<div class="sbx-cartao"><b>' + n + '</b><span>' + r + '</span></div>';
   return '<div class="sb-bloco">' +
@@ -7331,7 +7398,7 @@ function sbBlocoRegularidade() {
     '<div class="sbx-cartoes">' +
       cartao(sbN1(sv.sobe) + ' × ' + sbN1(sv.cai), 'maior sequência<br>SEM VENCER') +
       cartao(sbN1(vit.sobe) + ' × ' + sbN1(vit.cai), 'maior sequência<br>DE VITÓRIAS') +
-      cartao(sbN2(ap.sobe) + ' × ' + sbN2(ap.cai), 'pontos no jogo<br>SEGUINTE A UMA DERROTA') +
+      cartao(sbN2s(reD.sobe) + ' × ' + sbN2s(reD.cai), 'reação depois de derrota<br>ACIMA DO PRÓPRIO RITMO') +
       cartao(sbN1(fq.sobe) + ' × ' + sbN1(fq.cai), 'formações diferentes<br>NA TEMPORADA') +
     '</div>' +
     '<p class="sb-nota"><b>A pior sequência de quem sobe dura ' + sbN1(sv.sobe) + ' jogos; a de quem cai, ' +
@@ -7339,9 +7406,23 @@ function sbBlocoRegularidade() {
     'campeonato sem vencer, contra pouco mais de um mês. E do outro lado, quem sobe emenda ' +
     sbN1(vit.sobe) + ' vitórias na melhor fase; quem cai, ' + sbN1(vit.cai) + ' — ou seja, <b>quem cai ' +
     'quase nunca ganha dois seguidos</b>.</p>' +
-    '<p class="sb-nota"><b>A reação é o número mais direto do estudo.</b> Depois de perder, quem sobe tira ' +
-    sbN2(ap.sobe) + ' ponto do jogo seguinte — mais que um empate. Quem cai tira ' + sbN2(ap.cai) + '. ' +
-    'Perder todo mundo perde; o que separa é o que vem na rodada seguinte.</p>' +
+    '<p class="sb-nota"><b>A reação era o ritmo base disfarçado.</b> Depois de perder, quem sobe tira ' +
+    sbN2(ap.sobe) + ' ponto do jogo seguinte e quem cai tira ' + sbN2(ap.cai) + ' — parecia o número ' +
+    'mais direto do estudo. Só que quem sobe tira ' + sbN2(ritmo.sobe) + ' ponto de <b>qualquer</b> jogo ' +
+    'e quem cai, ' + sbN2(ritmo.cai) + '. Descontado o ritmo do próprio clube, a reação vira <b>' +
+    sbN2s(reD.sobe) + '</b> para quem sobe e <b>' + sbN2s(reD.cai) + '</b> para quem cai: <b>quem cai ' +
+    'não reage menos</b> que quem sobe. E o posto da reação com desconto acompanha a posição final a ' +
+    sbN2s(sbRho('reacaoD')) + ' — ou seja, não acompanha.</p>' +
+    '<p class="sb-nota"><b>O pouco que sobra é reversão à média, não caráter.</b> Os ' +
+    sbComp().length + ' clube-temporada ganham ' + sbN2s(medD) + ' ponto sobre o próprio ritmo no jogo ' +
+    'seguinte a uma derrota e ' + sbN2s(medV) + ' no jogo seguinte a uma vitória. O resultado anterior ' +
+    'puxa o seguinte para a média nos dois sentidos, e puxa em quem sobe (' + sbN2s(reV.sobe) +
+    ' depois de vencer) tanto quanto em quem cai (' + sbN2s(reV.cai) + ').</p>' +
+    '<p class="sb-nota">Ressalva: ' + sbN2(Math.abs(reD.sobe - reD.cai)) + ' ponto por jogo de ' +
+    'resíduo entre os dois grupos é pouco, e o sinal não se sustenta — em ' + reacaoSobeMais +
+    ' das ' + SB_COMPLETAS.length + ' temporadas completas o resíduo maior foi o de quem sobe, em ' +
+    (SB_COMPLETAS.length - reacaoSobeMais) + ' foi o de quem cai. O que o dado sustenta é que <b>não há ' +
+    'reação a medir aqui</b>, não que quem cai reaja melhor.</p>' +
     '<p class="sb-nota"><b>Nenhuma formação é fórmula.</b> O 4-2-3-1 é o mais usado nas três faixas, em ' +
     'torno de um terço dos jogos. O que separa não é qual, é <b>quantas</b>: quem cai experimenta ' +
     sbN1(fq.cai) + ' formações diferentes na temporada contra ' + sbN1(fq.sobe) + ' de quem sobe, e se ' +
@@ -7454,7 +7535,7 @@ const SB_FIS_GRUPOS = [
      So existem aqui desde 11/09/2026: as edicoes de 2022 a 2025 tinham zero linha na
      tabela `off_ball_runs`, e era buraco de sincronizacao, nao limite da fonte. Depois de
      preenchidas, a cobertura ficou em 97% a 99%, no mesmo patamar do resto. */
-  ['Corridas sem bola', 'o time com a bola e o jogador sem ela', [
+  ['Corridas sem bola', 'o time com a bola e o jogador sem ela · por 30 min de posse, não por 90', [
     ['Corridas sem bola', 'obrQtd', sbN1, ''],
     ['...acima da corrida rápida', 'obrHsr', sbN2, ''],
     ['...que entram na área', 'obrArea', sbN2, ''],
@@ -7512,7 +7593,13 @@ function sbFisLinha(rot, campo, fmt, un, y) {
 
    O LIMIAR NAO E CHUTADO nem fixo: sai do proprio tamanho da amostra, por Fisher
    (tanh(1,96/raiz(n-3))), que com os 80 clube-temporada das temporadas completas da 0,22.
-   Sem essa regua, uma tabela de 104 correlacoes tem sempre algum 0,15 parecendo achado. */
+   Sem essa regua, uma tabela de 128 correlacoes tem sempre algum 0,15 parecendo achado.
+
+   E SAO DUAS REGUAS, nao uma. tanh(1,96/raiz(n-3)) = 0,22 e o aceso a 5%; tanh(2,576/raiz(n-3))
+   = 0,29 e o aceso a 1%. Uma faixa so obrigava a tabela a tratar um 0,22 e um 0,41 como a
+   mesma coisa. Acima das duas ainda vem a correcao para comparacoes multiplas (Benjamini-
+   Hochberg em sbBlocoFisicoPosicao): 128 testes de uma vez, e a 5% o acaso sozinho acende
+   6,4 celulas. Sem BH a tela dizia "34 achados" onde o dado da 2. */
 const SB_FIS_POS = [
   ['zaga', 'Zaga', 'os dois centrais'],
   ['lateral', 'Lateral', 'os dois lados'],
@@ -7520,8 +7607,9 @@ const SB_FIS_POS = [
   ['ataque', 'Ataque', 'pontas e centroavantes'],
 ];
 
-/* Os 26 indicadores fisicos com rotulo e formato, montados das MESMAS listas que o painel
-   de clube usa. Assim as duas telas nao podem discordar: mexeu numa, mexeu na outra. */
+/* Os 32 indicadores fisicos com rotulo e formato, montados das MESMAS listas que o painel
+   de clube usa. Assim as duas telas nao podem discordar: mexeu numa, mexeu na outra.
+   Sao 24 das familias de SB_FIS_GRUPOS mais 8 de SB_FIS_BOLA (4 pares com/sem bola). */
 function sbFisIndicadores() {
   /* [campo, rotulo, formato, unidade, GRUPO]. O grupo so serve a tabela detalhada, que
      separa as faixas — sem ele, 32 linhas seguidas viram parede. */
@@ -7533,17 +7621,45 @@ function sbFisIndicadores() {
   return m;
 }
 
+/* p BILATERAL de uma correlacao, pela MESMA transformacao de Fisher que da os limiares —
+   duas reguas diferentes na mesma tela seria o jeito mais rapido de a tabela discordar da
+   nota abaixo dela. z = |atanh(r)|*raiz(n-3), e o p e erfc(z/raiz2), pela aproximacao de
+   Abramowitz-Stegun 7.1.26 (erro < 1,5e-7 — muito abaixo do que qualquer corte daqui
+   enxerga). Fisher em vez do t exato: a diferenca no dado atual e na quarta casa do p e em
+   nenhuma celula da tabela. */
+function sbFisP(r, n) {
+  if (!isFinite(r) || n <= 3) return 1;
+  const x = Math.abs(Math.atanh(r)) * Math.sqrt(n - 3) / Math.SQRT2, t = 1 / (1 + 0.5 * x);
+  return t * Math.exp(-x * x - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 +
+    t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 + t * (-0.82215223 +
+    t * 0.17087277)))))))));
+}
+
+/* Benjamini-Hochberg, versao CONTAGEM: quantas das `ps` sobrevivem a taxa de falsa
+   descoberta `q`. Chama-se `sbBHconta` e nao `sbBH` porque a Secao 10 tem um `sbBH` que
+   recebe {rot, r} e devolve um objeto; dois nomes iguais e o ultimo a ser definido vence. Sobe a
+   lista ordenada e guarda o MAIOR k com p(k) <= q*k/m — todos ate ele entram, inclusive
+   algum p que sozinho nao passaria. E o passo que Bonferroni nao tem e que faz a diferenca
+   quando os testes sao correlacionados, que e o caso desta tabela. */
+function sbBHconta(ps, q) {
+  const s = ps.slice().sort((a, b) => a - b);
+  let k = 0;
+  s.forEach((p, i) => { if (p <= q * (i + 1) / s.length) k = i + 1; });
+  return k;
+}
+
 /* ---------- a tabela detalhada: 32 indicadores x 4 posicoes ----------
 
    A tabela de cima responde "qual e o mais forte de cada posicao". Esta responde a
    pergunta inversa, que e a que se faz na hora de montar elenco: DESTE indicador, em que
    posicao ele importa? Sao as mesmas contas — muda so a direcao da leitura.
 
-   A celula traz a relacao com a posicao final. Quem passa do limiar fica acesa; quem nao
-   passa fica apagada e NAO some, porque "medimos e nao separa" e uma resposta, diferente
-   de "nao medimos". Some so o indicador que nao separa em NENHUMA das quatro, senao a
-   tabela vira uma parede de cinza onde o que interessa se perde. */
-function sbFisDetalhe(dados, IND, lim) {
+   A celula traz a relacao com a posicao final, em DUAS faixas de aceso: passou de `lim`
+   (5%) acende fraco, passou de `lim1` (1%) acende forte. Quem nao passa fica apagada e NAO
+   some, porque "medimos e nao separa" e uma resposta, diferente de "nao medimos". Some so o
+   indicador que nao separa em NENHUMA das quatro, senao a tabela vira uma parede de cinza
+   onde o que interessa se perde. */
+function sbFisDetalhe(dados, IND, lim, lim1) {
   const linhas = [];
   let grupoAtual = null;
   IND.forEach(([campo, rot, fmt, un, grupo]) => {
@@ -7555,8 +7671,10 @@ function sbFisDetalhe(dados, IND, lim) {
     }
     linhas.push('<tr><td>' + esc(rot) + '</td>' + rs.map(r => {
       if (!r || !isFinite(r.r)) return '<td class="num-c fraco">—</td>';
-      const forte = Math.abs(r.r) >= lim;
-      return '<td class="num-c' + (forte ? ' sb-forte' : ' fraco') + '">' + sbN2(r.r) + '</td>';
+      const a = Math.abs(r.r);
+      /* tres estados, nao dois: apagado, aceso a 5%, aceso a 1%. */
+      const cls = a >= lim1 ? ' sb-forte' : (a >= lim ? ' sb-meia' : ' fraco');
+      return '<td class="num-c' + cls + '">' + sbN2(r.r) + '</td>';
     }).join('') + '</tr>');
   });
   return linhas.join('');
@@ -7565,25 +7683,30 @@ function sbFisDetalhe(dados, IND, lim) {
 function sbBlocoFisicoPosicao() {
   const IND = sbFisIndicadores();
   const n = sbComp().length;
-  /* limiar de 5% pela transformacao de Fisher — acompanha o n em vez de ser numero fixo */
+  /* DUAS reguas, as duas pela transformacao de Fisher e as duas saindo do proprio n em vez
+     de serem numero fixo: 5% para "acendeu", 1% para "acendeu forte". */
   const lim = Math.tanh(1.96 / Math.sqrt(n - 3));
+  const lim1 = Math.tanh(2.576 / Math.sqrt(n - 3));
 
   const dados = SB_FIS_POS.map(([g, rot, sub]) => {
     const rs = IND.map(([campo, rotI, fmt, un]) =>
       ({ campo: g + '_' + campo, rot: rotI, fmt, un, r: sbRho(g + '_' + campo) }))
       .filter(x => isFinite(x.r))
       .sort((a, b) => Math.abs(b.r) - Math.abs(a.r));
-    return { g, rot, sub, rs, separam: rs.filter(x => Math.abs(x.r) >= lim).length,
+    return { g, rot, sub, rs,
+             sep5: rs.filter(x => Math.abs(x.r) >= lim).length,
+             sep1: rs.filter(x => Math.abs(x.r) >= lim1).length,
              atletas: sbPorFaixa(g + '_atletas') };
   });
 
   const linhas = dados.map(d => {
     const t = d.rs[0], m = sbPorFaixa(t.campo);
-    const forca = Math.abs(t.r) >= lim ? '' : ' fraco';
+    const forca = Math.abs(t.r) >= lim1 ? ' sb-forte' : (Math.abs(t.r) >= lim ? '' : ' fraco');
     return '<tr><td><b>' + esc(d.rot) + '</b><small>' + esc(d.sub) + ' · ' +
         sbN1(d.atletas.sobe) + ' por clube</small></td>' +
-      '<td class="num-c"><b class="sb-conta' + (d.separam >= 10 ? ' forte' : '') + '">' +
-        d.separam + '</b><small>de ' + d.rs.length + '</small></td>' +
+      '<td class="num-c"><b class="sb-conta' + (d.sep5 >= 10 ? ' forte' : '') + '">' +
+        d.sep5 + '<i>/</i>' + d.sep1 + '</b>' +
+        '<small>de ' + d.rs.length + ' · a 5% e a 1%</small></td>' +
       '<td>' + esc(t.rot) + '</td>' +
       '<td class="num-c' + forca + '">' + sbN2(t.r) + '</td>' +
       '<td class="num-c s">' + t.fmt(m.sobe) + '</td>' +
@@ -7601,11 +7724,33 @@ function sbBlocoFisicoPosicao() {
     return t.replace(/^[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-zà-ÿ]/, c => c.toLowerCase());
   };
 
+  /* COMPARACOES MULTIPLAS — a conta que faltava. As duas faixas acima sao por celula; a
+     tabela inteira sao `celulas` testes de uma vez, e a 5% o acaso sozinho acende
+     `celulas` x 0,05. Dizer "17 de 32" sem isso e vender ruido como achado.
+
+     BENJAMINI-HOCHBERG, e nao Bonferroni. Bonferroni supoe testes independentes, e estes
+     nao sao nem de longe: metros em sprint e numero de sprints medem a mesma corrida, e a
+     mesma metrica reaparece nas quatro posicoes do mesmo elenco. Sobre testes tao
+     correlacionados Bonferroni fica conservador demais e apaga achado bom junto com ruido.
+     BH controla a PROPORCAO DE FALSOS entre os que a tela lista — que e exatamente a
+     pergunta de quem le esta tabela para decidir onde mexer no elenco. E o `bonf` fica
+     calculado do lado para a tela poder dizer, quando for o caso, que a escolha da regua
+     nem mudou o resultado. */
+  const todos = dados.flatMap(d => d.rs.map(x =>
+      ({ pos: d.rot, rot: x.rot, r: x.r, p: sbFisP(x.r, n) })))
+    .sort((a, b) => a.p - b.p);
+  const celulas = todos.length;
+  const sobrevivem = sbBHconta(todos.map(x => x.p), 0.05);
+  const bonf = todos.filter(x => x.p <= 0.05 / celulas).length;
+  const acaso = celulas * 0.05;
+  const sep5Tot = dados.reduce((a, d) => a + d.sep5, 0);
+  const sep1Tot = dados.reduce((a, d) => a + d.sep1, 0);
+
   return '<div class="sb-bloco">' +
     '<span class="sb-rot" style="margin-top:6px">Onde o físico separa · por grupo de posição · ' +
       n + ' clube-temporada</span>' +
     '<div class="sb-rolo"><table class="sb-tab sb-tab-pos"><thead><tr>' +
-      '<th>Posição</th><th class="num-c">Indicadores que separam</th>' +
+      '<th>Posição</th><th class="num-c">Passam a 5% / a 1%</th>' +
       '<th>O mais forte</th><th class="num-c">Relação</th>' +
       '<th class="num-c">Sobe</th><th class="num-c">Cai</th>' +
     '</tr></thead><tbody>' + linhas + '</tbody></table></div>' +
@@ -7616,10 +7761,10 @@ function sbBlocoFisicoPosicao() {
        e viraram o indicador mais forte do lateral. Agora a frase monta do proprio ranking:
        se o dado mudar de novo, o texto muda junto. */
     '<p class="sb-nota"><b>A média do clube escondia de quem vinha a diferença.</b> ' +
-    dados.map(d => '<b>' + esc(d.rot.toLowerCase()) + '</b> ' + d.separam).join(', ') +
-    ' — de ' + IND.length + ' indicadores, é quantos separam quem sobe de quem cai em cada ' +
-    'posição. Mesmo campeonato, mesma régua, mesma amostra; o que muda é a posição. ' +
-    'É <b>' + esc(dados.slice().sort((a, b) => b.separam - a.separam)[0].rot.toLowerCase()) +
+    dados.map(d => '<b>' + esc(d.rot.toLowerCase()) + '</b> ' + d.sep5 + '/' + d.sep1).join(', ') +
+    ' — de ' + IND.length + ' indicadores, é quantos passam a 5% e quantos passam a 1% em ' +
+    'cada posição. Mesmo campeonato, mesma régua, mesma amostra; o que muda é a posição. ' +
+    'É <b>' + esc(dados.slice().sort((a, b) => b.sep5 - a.sep5)[0].rot.toLowerCase()) +
     '</b> que carrega o físico deste campeonato.</p>' +
 
     '<p class="sb-nota"><b>E o mais forte de cada posição não é a mesma coisa.</b> ' +
@@ -7630,10 +7775,12 @@ function sbBlocoFisicoPosicao() {
       'quanto ele corre no total.' : '') + '</p>' +
 
     '<span class="sb-rot" style="margin-top:10px">Indicador por indicador · a relação de ' +
-      'cada um dentro de cada posição · aceso = passa de ' + sbN2(lim) + '</span>' +
+      'cada um dentro de cada posição · <span class="sb-leg-5">aceso</span> = passa de ' +
+      sbN2(lim) + ' (5%) · <span class="sb-leg-1">aceso forte</span> = passa de ' +
+      sbN2(lim1) + ' (1%)</span>' +
     '<div class="sb-rolo"><table class="sb-tab sb-tab-det"><thead><tr><th>Indicador</th>' +
       dados.map(d => '<th class="num-c">' + esc(d.rot) + '</th>').join('') +
-    '</tr></thead><tbody>' + sbFisDetalhe(dados, IND, lim) + '</tbody></table></div>' +
+    '</tr></thead><tbody>' + sbFisDetalhe(dados, IND, lim, lim1) + '</tbody></table></div>' +
     /* O achado que so a tabela detalhada deixa ver: o VOLUME de corrida sem bola nao
        separa, e a QUALIDADE dela separa. Derivado, nao escrito — se um dia o volume passar
        a separar, a frase desaparece sozinha em vez de virar mentira na tela. */
@@ -7657,16 +7804,39 @@ function sbBlocoFisicoPosicao() {
     'interessa se perde. Os que aparecem apagados numa coluna foram medidos ali e <b>não</b> ' +
     'separaram, que é uma resposta diferente de não ter sido medido (esse aparece como —).</p>' +
 
-    '<p class="sb-nota"><b>A régua desta tabela.</b> "Separar" aqui quer dizer relação com a ' +
-    'posição final acima de <b>' + sbN2(lim) + '</b>, que é o limiar de 5% para uma amostra ' +
-    'de ' + n + ' — sai do tamanho da amostra, não de um número escolhido a dedo. Abaixo ' +
-    'disso o indicador não se distingue de zero, e numa tabela de ' +
-    (SB_FIS_POS.length * IND.length) + ' correlações sempre há algum 0,15 com cara de achado. ' +
-    'Os valores de Sobe e Cai são do indicador mais forte de cada linha, ponderados por ' +
-    'minuto rastreado como no painel de cima.</p>' +
+    '<p class="sb-nota"><b>As duas réguas desta tabela.</b> Aceso é relação com a posição ' +
+    'final acima de <b>' + sbN2(lim) + '</b>, o limiar de 5% para uma amostra de ' + n + '; ' +
+    'aceso forte, acima de <b>' + sbN2(lim1) + '</b>, o de 1%. As duas saem do tamanho da ' +
+    'amostra (Fisher), não de um número escolhido a dedo. São <b>' + sep5Tot + '</b> células ' +
+    'a 5% e <b>' + sep1Tot + '</b> a 1%, de ' + celulas + '. Os valores de Sobe e Cai são do ' +
+    'indicador mais forte de cada linha, ponderados por minuto rastreado como no painel de ' +
+    'cima.</p>' +
 
-    '<p class="sb-nota"><b>Goleiro não entra:</b> o SkillCorner não rastreia goleiro. E a ' +
-    'amostra por grupo é pequena — mediana de ' + sbN1(zaga.atletas.sobe) + ' atletas por ' +
+    /* A RESSALVA QUE NAO PODE SAIR DA TELA. Esta tabela ja disse "meio 17 de 32" como se
+       fossem 17 achados. Sao 128 testes de uma vez: a 5% o acaso entrega ~6 acesos sozinho.
+       Numero nenhum daqui e escrito a mao — `sobrevivem`, `bonf` e `acaso` saem do dado. */
+    '<p class="sb-nota"><b>E a ressalva que mais muda a leitura: são ' + celulas + ' testes ' +
+    'de uma vez.</b> A 5%, o acaso sozinho acende <b>' + sbN1(acaso) + '</b> células — ' +
+    sbN0(acaso / sep5Tot * 100) + '% das ' + sep5Tot + ' que aparecem acesas. Corrigindo para ' +
+    'comparações múltiplas por <b>Benjamini-Hochberg</b> (q = 0,05, sobre as ' + celulas + ' ' +
+    'de uma vez), sobrevive' + (sobrevivem === 1 ? '' : 'm') + ' <b>' + sobrevivem + '</b>' +
+    (sobrevivem ? ': ' + todos.slice(0, sobrevivem).map(x => '<b>' + esc(x.pos) + '</b>, ' +
+      esc(rotFrase(x.rot)) + ' (' + sbN2(x.r) + ')').join('; ') : '') + '. BH e não ' +
+    'Bonferroni porque os testes não são independentes — metros em sprint e número de ' +
+    'sprints medem a mesma corrida, e a mesma métrica volta nas quatro posições do mesmo ' +
+    'elenco —, e Bonferroni, que supõe independência, apagaria achado bom junto com o ruído; ' +
+    'BH controla a proporção de falsos entre os que esta tela lista, que é a pergunta de ' +
+    'quem vai montar elenco com ela. ' + (bonf === sobrevivem ?
+      'Aqui a escolha nem muda o resultado: Bonferroni a 0,05/' + celulas + ' deixaria ' +
+      'exatamente ' + (sobrevivem === 1 ? 'o mesmo' : 'os mesmos') + '. ' :
+      'Bonferroni a 0,05/' + celulas + ' deixaria ' + bonf + '. ') +
+    '<b>Aceso a 5% é pista de onde olhar, não achado</b>: quem quiser afirmar que o ' +
+    'indicador separa tem <b>' + sobrevivem + '</b> células para isso, não ' + sep5Tot + '.</p>' +
+
+    '<p class="sb-nota"><b>Goleiro não entra:</b> o SkillCorner não rastreia goleiro, e o ' +
+    'que está aqui é amostra dentro de amostra — o SkillCorner cobre cerca de <b>15 partidas ' +
+    'por atleta na temporada, não as 38</b>. E a ' +
+    'amostra por grupo é pequena — média de ' + sbN1(zaga.atletas.sobe) + ' atletas por ' +
     'clube na zaga contra ' + sbN1(atq.atletas.sobe) + ' no ataque —, então um clube com um ' +
     'lateral só rastreado pesa tanto quanto um com quatro. Vale a direção, não a casa decimal.</p>' +
     '</div>';
@@ -7706,11 +7876,16 @@ function sbBlocoFisico() {
   }).join('');
 
   const d = sbPorFaixa('dist90'), sp = sbPorFaixa('sprintQtd');
+  /* A MESMA regua de 5% da tabela por posicao (veja sbBlocoFisicoPos): sai do tamanho da
+     amostra, nao de um numero escolhido a dedo. Fica aqui porque o texto do painel de
+     "com a bola e sem a bola" precisa dela para dizer qual medida passa e qual nao. */
+  const nComp = sbComp().length, limiar = Math.tanh(1.96 / Math.sqrt(nComp - 3));
   const pct = (a, b) => sbN1((a / b - 1) * 100);
   const forte = SB_FIS_GRUPOS.flatMap(g => g[2]).map(l => [l[0], sbRho(l[1])])
     .sort((a, b) => b[1] - a[1]);
   return '<div class="sb-bloco">' +
-    '<span class="sb-rot">Físico · SkillCorner · por 90 minutos, ponderado por minuto rastreado</span>' +
+    '<span class="sb-rot">Físico · SkillCorner · por 90 minutos, ponderado por minuto rastreado' +
+      '<i> · exceto as corridas sem bola, que são por 30 minutos com posse</i></span>' +
     '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>sobe</span>' +
     '<span><i class="q" style="background:var(--sb-neutro)"></i>meio</span>' +
     '<span><i style="background:var(--sb-cai)"></i>cai</span>' +
@@ -7731,11 +7906,32 @@ function sbBlocoFisico() {
       '<text x="' + X + '" y="10" class="sbx-pq">QUEM SUBIU</text>' +
       '<text x="' + (X + COL2) + '" y="10" class="sbx-pq">QUEM CAIU</text>' + bola +
     '</svg></div>' +
-    '<p class="sb-nota"><b>Este é o achado mais nítido do painel físico.</b> Com a bola no pé, quem sobe e ' +
-    'quem cai correm igual: metros por minuto dá ' + sbN2(sbRho('mpmCom')) + ' de relação com a posição e ' +
-    'distância, ' + sbN2(sbRho('distCom')) + ' — <b>zero</b>. Sem a bola, tudo muda: ' + sbN2(sbRho('mpmSem')) +
-    ' e ' + sbN2(sbRho('distSem')) + ', e os metros em sprint sem a bola vão a ' + sbN2(sbRho('sprintSem')) +
-    '. <b>O que separa não é o que o time faz com a bola — é o que ele faz quando não a tem.</b></p>' +
+    '<p class="sb-nota"><b>Esta é a confirmação física do PPDA, não um achado independente.</b> Com a bola ' +
+    'no pé, quem sobe e quem cai correm igual: metros por minuto dá ' + sbN2(sbRho('mpmCom')) + ' de relação ' +
+    'com a posição e distância, ' + sbN2(sbRho('distCom')) + ' — <b>zero</b>. Sem a bola sobe para ' +
+    sbN2(sbRho('mpmSem')) + ', e os metros em sprint sem a bola vão a ' + sbN2(sbRho('sprintSem')) +
+    '. Só que correr sem a bola <b>é</b> pressionar: os metros por minuto fora de posse andam a ' +
+    sbN2(sbRhoEntre('mpmSem', 0, 'ppda', 1)) + ' com o PPDA e a ' + sbN2(sbRhoEntre('mpmSem', 0, 'posse', 0)) +
+    ' com a posse; os metros em sprint, a ' + sbN2(sbRhoEntre('sprintSem', 0, 'ppda', 1)) + ' e ' +
+    sbN2(sbRhoEntre('sprintSem', 0, 'posse', 0)) + '. Do lado com a bola não há nada disso (' +
+    sbN2(sbRhoEntre('mpmCom', 0, 'ppda', 1)) + ' e ' + sbN2(sbRhoEntre('sprintCom', 0, 'ppda', 1)) +
+    ' com o PPDA). É o time de sempre, visto pelo rastreamento.</p>' +
+
+    '<p class="sb-nota"><b>E a conta fecha contra o bloco.</b> PPDA e posse juntos explicam ' +
+    sbN1(sbR2([['ppda', 1], ['posse', 0]]) * 100) + '% da posição final; somar os metros por minuto e os ' +
+    'metros em sprint sem a bola leva isso a ' +
+    sbN1(sbR2([['ppda', 1], ['posse', 0], ['mpmSem', 0], ['sprintSem', 0]]) * 100) + '% — nada. E os ' +
+    sbN2(sbRho('mpmSem')) + ' de metros por minuto e os ' + sbN2(sbRho('distSem')) + ' de distância não são ' +
+    'duas confirmações: distância por 30 minutos <b>é</b> metros por minuto × 30, o mesmo número escrito ' +
+    'duas vezes.</p>' +
+
+    '<p class="sb-nota"><b>O que este painel acrescenta, então.</b> Primeiro, que a pressão da Série B tem ' +
+    'perna, e não só posicionamento: dá para vê-la no rastreamento sem contar um passe. Segundo, onde ela ' +
+    'aparece — a régua de 5% para ' + nComp + ' temporadas é ' + sbN2(limiar) + ', e das três medidas ' +
+    'distintas fora de posse (metros por minuto e distância são a mesma) só os <b>metros em sprint</b> (' + sbN2(sbRho('sprintSem')) + ') a passam com folga; metros por ' +
+    'minuto e distância (' + sbN2(sbRho('mpmSem')) + ') ficam encostados nela e a corrida rápida (' +
+    sbN2(sbRho('hsrSem')) + ') fica abaixo. <b>Correr mais sem a bola não separa; esprintar sem a bola, ' +
+    'sim.</b></p>' +
     '<p class="sb-nota">A régua desta segunda tela é por <b>30 minutos de cada fase</b>, não por 90 — por ' +
     'isso os números não podem ser comparados com os do painel de cima. Entre si, podem.</p>' +
 
@@ -7917,7 +8113,8 @@ function sbBlocoRetrato() {
     ' gol; quem cai cria ' + sbN2(sbPorFaixa('xg').cai) + ' e faz ' + sbN2(sbPorFaixa('gpJogo').cai) +
     '. A distância entre as duas colunas de xG é muito menor que a entre as de gol — é a mesma coisa que ' +
     'o gráfico da cadeia mostra, aqui em número absoluto. O xG do Wyscout supera o gol real da Série B em ' +
-    '9% a 14% todo ano, então <b>compare as colunas entre si</b>, não o xG com o gol.</p>' +
+    sbN1(sbXgInflacao().min) + '% a ' + sbN1(sbXgInflacao().max) + '% nas temporadas completas, então ' +
+    '<b>compare as colunas entre si</b>, não o xG com o gol.</p>' +
     '<p class="sb-nota">Referência do que a Série B vem exigindo, não promessa. E lembrando que a régua ' +
     'mudou: este retrato é do grupo que passava pelo G4. Na regra de 2026 a linha do 2º é mais alta e a ' +
     'do 6º é mais baixa.</p></div>';
@@ -8090,9 +8287,12 @@ function sbBlocoUsoSetor() {
     '<p class="sb-nota"><b>E procurou mais no ataque e na defesa.</b> Quem cai usa <b>' +
     sbN1(c.ataque.usados - s.ataque.usados) + '</b> atacantes a mais e <b>' +
     sbN1(c.defesa.usados - s.defesa.usados) + '</b> defensores a mais por temporada; no meio a diferença ' +
-    'cai para ' + sbN1(c.meio.usados - s.meio.usados) + '. O ataque casa com o outro achado do estudo: ' +
-    'quem cai também <b>concentra o dinheiro no ataque</b> (43,8% do valor do elenco contra 30,8%). ' +
-    'Compra atacante, troca de atacante, e o problema não estava ali.</p>' +
+    'cai para ' + sbN1(c.meio.usados - s.meio.usados) + '. Esta aba já disse que o ataque casava com o ' +
+    'dinheiro — que quem cai <b>concentra o orçamento no ataque</b>. <b>Não casa</b>: aquele número vinha ' +
+    'do valor por setor errado, corrigido em 12/09/2026, e hoje a fatia do ataque é ' +
+    sbN1(sbPorFaixa('shAtq').cai) + '% para quem cai contra ' + sbN1(sbPorFaixa('shAtq').sobe) +
+    '% para quem sobe — dentro do ruído. O que sobrou é o que está nesta barra: quem cai não gasta mais ' +
+    'no ataque, <b>troca mais de atacante</b>.</p>' +
     '<p class="sb-nota"><b>O goleiro é o sinal mais cru.</b> Quem sobe usa ' + sbN1(s.goleiro.usados) +
     ' goleiros na temporada; quem cai, ' + sbN1(c.goleiro.usados) + ' — quase um goleiro inteiro a mais. ' +
     'Numa posição em que o normal é usar dois, isso é muita coisa, e é o tipo de troca que quase sempre ' +
@@ -8120,10 +8320,19 @@ function sbTabelaUsoSetor() {
     '<tbody>' + linhas + '</tbody></table></div>';
 }
 
-/* Casa e fora. O numero que interessa nao e a correlacao (as duas sao altas), e a razao. */
+/* Casa e fora. O numero que interessa nao e a correlacao (as duas sao altas) NEM a razao
+   (fora ela infla, porque quem cai quase nao pontua fora): e a DIFERENCA em pontos. */
 function sbBlocoMando() {
   const casa = sbPorFaixa('ptsCasa'), fora = sbPorFaixa('ptsFora');
   const dep = f => casa[f] / (casa[f] + fora[f]) * 100;
+  /* Numa temporada completa sao 19 jogos de cada mando. */
+  const porJogo = m => (m.sobe - m.cai) / 19;
+  /* Em quantas das temporadas completas a vantagem de mandante foi a maior das duas. */
+  const maisCasa = SB_COMPLETAS.filter(ano => {
+    const g = sbComp().filter(x => x.ano === ano);
+    const md = (f, k) => sbMedia(g.filter(x => x.faixa === f).map(x => x[k]));
+    return md('sobe', 'ptsCasa') - md('cai', 'ptsCasa') > md('sobe', 'ptsFora') - md('cai', 'ptsFora');
+  }).length;
   const ESQ = 210, ESC = 6.6;
   const par = (rot, m, y) =>
     '<text x="0" y="' + (y + 12) + '" class="sbx-rot forte">' + rot + '</text>' +
@@ -8131,14 +8340,30 @@ function sbBlocoMando() {
     sbBarra('', m.meio * ESC, sbN1(m.meio), 'var(--sb-neutro)', y + 19, ESQ) +
     sbBarra('', m.cai * ESC, sbN1(m.cai), 'var(--sb-cai)', y + 38, ESQ);
   return '<div class="sb-bloco">' +
-    '<span class="sb-rot">Fora de casa é onde o acesso se decide</span>' +
+    '<span class="sb-rot">Casa e fora · a distância se abre nos dois mandos</span>' +
     '<div class="sb-tela"><svg viewBox="0 0 620 132" class="sb-svg">' +
       par('Pontos em casa · 19 jogos', casa, 8) + par('Pontos fora · 19 jogos', fora, 74) +
     '</svg></div>' +
-    '<p class="sb-nota">Quem sobe faz <b>' + sbN1(fora.sobe / fora.cai) + '×</b> os pontos de quem cai fora ' +
-    'de casa, contra <b>' + sbN1(casa.sobe / casa.cai) + '×</b> em casa. E quem cai depende do mando para <b>' +
-    sbN1(dep('cai')) + '%</b> do que pontua, contra ' + sbN1(dep('sobe')) + '% de quem sobe. Em casa quase ' +
-    'todo mundo pontua alguma coisa; <b>a distância se abre nos visitantes</b>.</p>' +
+    '<p class="sb-nota"><b>A vantagem de quem sobe não é maior fora de casa.</b> São <b>' +
+    sbN2(porJogo(casa)) + '</b> ponto por jogo a mais que quem cai como mandante e <b>' +
+    sbN2(porJogo(fora)) + '</b> como visitante, o que dá ' + sbN1(casa.sobe - casa.cai) + ' pontos de ' +
+    'vantagem em casa na temporada contra ' + sbN1(fora.sobe - fora.cai) + ' fora. Em ' + maisCasa +
+    ' das ' + SB_COMPLETAS.length + ' temporadas completas o mando foi o lado mais largo, e o posto de ' +
+    'pontos em casa acompanha a posição final a ' + sbN2(sbRho('ptsCasa')) + ' contra ' +
+    sbN2(sbRho('ptsFora')) + ' do de pontos fora.</p>' +
+    '<p class="sb-nota"><b>A razão dizia o contrário porque a razão estava inflada.</b> Quem sobe faz ' +
+    sbN1(fora.sobe / fora.cai) + '× os pontos de quem cai fora de casa contra ' +
+    sbN1(casa.sobe / casa.cai) + '× em casa — mas quem cai tira ' + sbN2(fora.cai / 19) + ' ponto por ' +
+    'jogo fora, e qualquer diferença sobre uma base dessas vira múltiplo grande. O acesso se decide na ' +
+    'tabela, e a tabela soma pontos, não múltiplos.</p>' +
+    '<p class="sb-nota"><b>O que fora de casa mostra é dependência.</b> Quem cai tira <b>' +
+    sbN1(dep('cai')) + '%</b> do que pontua do próprio mando, contra ' + sbN1(dep('sobe')) +
+    '% de quem sobe. Não é que o acesso se decida fora; é que <b>quem cai só existe em casa</b>.</p>' +
+    '<p class="sb-nota">Ressalva: ' + sbN2(porJogo(casa)) + ' contra ' + sbN2(porJogo(fora)) + ' ponto ' +
+    'por jogo é pouca diferença para 16 clubes de cada lado em quatro temporadas — em ' +
+    (SB_COMPLETAS.length - maisCasa) + ' das ' + SB_COMPLETAS.length + ' o lado mais largo foi o de ' +
+    'visitante. O que o dado sustenta é que a distância se abre nos <b>dois</b> mandos; não sustenta ' +
+    'que ela se abra mais fora.</p>' +
     '</div>';
 }
 
@@ -8156,14 +8381,53 @@ function sbResumo() {
     d: sbMedia(g.map(x => x.d)), gp: sbMedia(g.map(x => x.gp)), gc: sbMedia(g.map(x => x.gc)),
     sg: sbMedia(g.map(x => x.sg)),
   });
-  /* Empates contados do jeito que se lê sem estatística: divide os 80 clubes em quem
-     empatou menos e quem empatou mais, e conta quantos subiram de cada lado. É o mesmo
-     que a correlação dizia, só que em pessoas em vez de em coeficiente. */
+  /* Empates. O corte das pontas é POR VALOR, não por índice: pega o 20º de cada lado e leva
+     junto todo mundo que empatou o mesmo tanto que ele. Um slice(-20) caia em cima de um
+     empate — 23 clube-temporada têm 13 empates ou mais — e descartava três deles só pela
+     ordem do array, um dos quais tinha SUBIDO. O grupo mudava de tamanho conforme a ordem
+     do array, não conforme o dado.
+
+     A tese mudou junto. Empates não são monotônicos com a posição (veja empateFaixa: o Z4
+     empata menos que o meio da tabela), então contrastar as duas pontas fabrica uma relação
+     que o dado não tem. O que o dado tem é o regulamento: na Série B o primeiro critério de
+     desempate é o número de vitórias, e por isso empatar custa mais do que a coluna de
+     pontos sugere. É o que `desempate` mede, abaixo. */
   const porEmpate = todos.slice().sort((a, b) => a.e - b.e);
-  const n = 20, menos = porEmpate.slice(0, n), mais = porEmpate.slice(-n);
+  const corteBaixo = porEmpate[19].e, corteAlto = porEmpate[porEmpate.length - 20].e;
+  const menos = todos.filter(x => x.e <= corteBaixo), mais = todos.filter(x => x.e >= corteAlto);
   const grupo = g => ({
     e: sbMedia(g.map(x => x.e)), pts: sbMedia(g.map(x => x.pts)),
     pos: sbMedia(g.map(x => x.pos)), subiram: g.filter(x => x.pos <= 4).length, n: g.length,
+  });
+  const mediaE = f => sbMedia(todos.filter(f).map(x => x.e));
+  const empateFaixa = {
+    sobe: mediaE(x => x.pos <= 4), quase: mediaE(x => x.pos >= 5 && x.pos <= 8),
+    meio: mediaE(x => x.pos >= 9 && x.pos <= 16), cai: mediaE(x => x.pos >= 17),
+  };
+  /* O desempate por vitórias, medido: quantos clube-temporada terminaram empatados em pontos
+     com um rival do mesmo ano, em quantos desses pares as vitórias eram diferentes, em
+     quantos ficou à frente quem venceu mais — e quais caíram em cima de uma linha de acesso
+     (o 4º, que valia nas temporadas medidas; o 6º, que só vira corte sob a regra nova). */
+  const desempate = { clubes: 0, pares: 0, porVit: 0, acertos: 0, linha: [] };
+  SB_COMPLETAS.forEach(ano => {
+    const porPts = {};
+    sbAnoDados(ano).forEach(x => { (porPts[x.pts] = porPts[x.pts] || []).push(x); });
+    Object.keys(porPts).forEach(p => {
+      const g = porPts[p].slice().sort((a, b) => a.pos - b.pos);
+      if (g.length < 2) return;
+      desempate.clubes += g.length;
+      g.forEach((frente, i) => g.slice(i + 1).forEach(atras => {
+        desempate.pares++;
+        if (frente.v === atras.v) return;
+        desempate.porVit++;
+        if (frente.v <= atras.v) return;
+        desempate.acertos++;
+        const corte = (frente.pos <= 2 && atras.pos > 2) ? 2
+                    : (frente.pos <= 4 && atras.pos > 4) ? 4
+                    : (frente.pos <= 6 && atras.pos > 6) ? 6 : 0;
+        if (corte) desempate.linha.push({ ano, pts: +p, corte, frente, atras });
+      }));
+    });
   });
   /* Ataque e defesa por POSTO dentro de cada temporada (1 = melhor da liga), porque
      comparar gols brutos entre anos é comparar campeonatos diferentes. */
@@ -8191,9 +8455,10 @@ function sbResumo() {
 
   return {
     postos: {
-      sobe: { ra: sbMedia(psobe.map(x => x.ra)), rd: sbMedia(psobe.map(x => x.rd)) },
-      meio: { ra: sbMedia(pmeio.map(x => x.ra)), rd: sbMedia(pmeio.map(x => x.rd)) },
-      cai: { ra: sbMedia(pcai.map(x => x.ra)), rd: sbMedia(pcai.map(x => x.rd)) },
+      anos: SB_COMPLETAS.length, times: Math.round(postos.length / SB_COMPLETAS.length),
+      sobe: { ra: sbMedia(psobe.map(x => x.ra)), rd: sbMedia(psobe.map(x => x.rd)), n: psobe.length },
+      meio: { ra: sbMedia(pmeio.map(x => x.ra)), rd: sbMedia(pmeio.map(x => x.rd)), n: pmeio.length },
+      cai: { ra: sbMedia(pcai.map(x => x.ra)), rd: sbMedia(pcai.map(x => x.rd)), n: pcai.length },
       melhorAtqSubiu: conta('atq+', sobeu), melhorDefSubiu: conta('def+', sobeu),
       piorAtqCaiu: conta('atq-', caiu), piorDefCaiu: conta('def-', caiu),
       subiuSemAtaque: psobe.filter(x => x.ra > 10), subiuSemDefesa: psobe.filter(x => x.rd > 10),
@@ -8204,7 +8469,283 @@ function sbResumo() {
     sobe: perfil(sobem), quase: perfil(quase),
     maxDerrotas: Math.max(...sobem.map(x => x.d)),
     empateMenos: grupo(menos), empateMais: grupo(mais),
+    empateCorte: { baixo: corteBaixo, alto: corteAlto }, empateFaixa, desempate, nTodos: todos.length,
   };
+}
+
+/* ---------- a regua do proprio estudo ----------
+
+   A Secao 10 fala do metodo, e metodo tem numero: quantos indicadores a aba testa, quantos
+   sobrevivem a terem sido testados juntos, e de que tamanho precisa ser uma diferenca de
+   porcentagem para nao ser ruido. Nenhum deles pode ser escrito a mao — se amanha entrar um
+   indicador novo, a Secao 10 tem de mudar sozinha.
+
+   O QUE ESTA AQUI NAO E ESTATISTICA DECORATIVA. A aba testa 32 indicadores no quadro geral
+   e 128 celulas no painel fisico contra o MESMO alvo (a posicao final). Com 128 testes, seis
+   passam no corte de 5% mesmo que nada tenha relacao com nada. Sem a correcao, metade do
+   painel fisico e sorteio bem apresentado. */
+
+/* Cauda da normal padrao. O navegador nao tem Math.erfc; esta e a aproximacao de Chebyshev
+   do Numerical Recipes, com erro relativo abaixo de 1,2e-7 — sobra para separar 0,0003 de
+   0,05. */
+function sbErfc(x) {
+  const z = Math.abs(x), t = 1 / (1 + z / 2);
+  const r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 +
+    t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 +
+    t * (-0.82215223 + t * 0.17087277)))))))));
+  return x >= 0 ? r : 2 - r;
+}
+/* p bicaudal de uma correlacao, pela transformacao de Fisher — a MESMA regua que o painel
+   fisico ja usa para o seu limiar de 0,22, agora dando o numero em vez do corte. */
+function sbPval(r, n) {
+  if (!isFinite(r)) return 1;
+  if (Math.abs(r) >= 1) return 0;
+  return sbErfc(Math.abs(Math.atanh(r)) * Math.sqrt(n - 3) / Math.SQRT2);
+}
+/* Benjamini-Hochberg a 5% sobre uma lista de {rot, r}.
+
+   BH e nao Bonferroni por dois motivos. Ele controla a PROPORCAO de falsos achados entre os
+   que passam, que e a pergunta que se faz aqui ("quantos destes eu posso levar para a
+   reuniao?"), e nao a chance de errar uma vez em 128. E Bonferroni, nestes dados, cai em
+   cima de um indicador de fronteira: dependendo de a conta do p usar Fisher ou t de Student,
+   o quadro geral fica com 19 ou com 20. Conta que muda de resultado pela terceira casa do
+   metodo nao entra numa tela. */
+function sbBH(itens, n, q) {
+  const a = q || 0.05;
+  const l = itens.filter(x => isFinite(x.r))
+    .map(x => ({ rot: x.rot, r: x.r, p: sbPval(x.r, n) })).sort((x, y) => x.p - y.p);
+  let k = 0;
+  l.forEach((x, i) => { if (x.p <= (i + 1) / l.length * a) k = i + 1; });
+  return { m: l.length, sozinhos: l.filter(x => x.p < a).length, passam: k, lista: l.slice(0, k) };
+}
+function sbTesteQuadro() {
+  return sbBH(SB_INDICADORES.map(l => ({ rot: l[0], r: sbRho(l[1], !!l[2]) })), sbComp().length);
+}
+function sbTesteFisico() {
+  const itens = [];
+  SB_FIS_POS.forEach(p => sbFisIndicadores().forEach(i =>
+    itens.push({ rot: i[1] + ' (' + p[1].toLowerCase() + ')', r: sbRho(p[0] + '_' + i[0]) })));
+  return sbBH(itens, sbComp().length);
+}
+
+/* Os indicadores da aba que sao PORCENTAGEM, que e onde a leitura escorrega: "3% a mais"
+   parece pouco em qualquer linha, e nao e a mesma coisa em todas. */
+const SB_PCT = [
+  ['posse de bola', 'posse'], ['acerto de passe', 'passePct'], ['acerto de cruzamento', 'cruzPct'],
+  ['aproveitamento contra o G6', 'aprovG6'], ['aproveitamento contra o miolo', 'aprovMeio'],
+  ['aproveitamento contra os seis últimos', 'aprovZ6'], ['jogos na formação principal', 'formPct'],
+  ['gols do artilheiro', 'pctArtilheiro'], ['gols dos três primeiros', 'pctTop3'],
+  ['defesas do goleiro', 'gkDefesas'], ['elenco que ficou do ano anterior', 'pctFicou'],
+  ['minutos nos 11 de sempre', 'share11'], ['fatia do orçamento na defesa', 'shDef'],
+  ['fatia do orçamento no ataque', 'shAtq'], ['fatia do orçamento no meio', 'shMeio'],
+  ['cobrança que vira remate', 'bpConv'], ['gols de bola parada', 'bpPct'],
+  ['minutos de estrangeiros', 'minEstr'],
+  ['acertar o alvo no chute', 'remBal'], ['ganhar duelo aéreo', 'aereos'],
+];
+/* Margem de 95% da diferenca sobe x cai, em pontos percentuais, por Welch — que e o certo
+   quando as duas faixas tem dispersoes diferentes, e tem. O t NAO pode ser fixo em 2,04:
+   `pctFicou` so existe em 6 clubes que subiram e 8 que cairam (44 dos 100 clube-temporada
+   nao estavam na Serie B no ano anterior), ali o df de Welch e 8 e o t e 2,31. Com 2,04 a
+   margem sai um ponto menor e a linha passa por achado sem ser. */
+function sbT95(df) {
+  const T = [[1, 12.71], [2, 4.30], [3, 3.18], [4, 2.78], [5, 2.57], [6, 2.45], [7, 2.36], [8, 2.31],
+             [9, 2.26], [10, 2.23], [12, 2.18], [14, 2.14], [16, 2.12], [18, 2.10], [20, 2.09],
+             [25, 2.06], [30, 2.04], [40, 2.02], [60, 2.00]];
+  for (let i = 0; i < T.length; i++) if (df <= T[i][0]) return T[i][1];
+  return 1.96;
+}
+function sbMargem(campo) {
+  const gr = { sobe: [], meio: [], cai: [] };
+  sbComp().forEach(x => {
+    const v = x[campo];
+    if (v !== null && v !== undefined && !isNaN(v)) gr[x.faixa].push(v);
+  });
+  if (gr.sobe.length < 3 || gr.cai.length < 3) return NaN;
+  const va = a => { const m = sbMedia(a); return a.reduce((s, x) => s + (x - m) * (x - m), 0) / (a.length - 1); };
+  const a = va(gr.sobe) / gr.sobe.length, b = va(gr.cai) / gr.cai.length;
+  const df = (a + b) * (a + b) / (a * a / (gr.sobe.length - 1) + b * b / (gr.cai.length - 1));
+  return sbT95(df) * Math.sqrt(a + b);
+}
+function sbDif(campo) { const f = sbPorFaixaVal(campo); return f.sobe - f.cai; }
+function sbRegua() {
+  const l = SB_PCT.map(p => ({ rot: p[0], campo: p[1], m: sbMargem(p[1]) }))
+    .filter(x => isFinite(x.m)).sort((a, b) => a.m - b.m);
+  const meio = l.length % 2 ? l[(l.length - 1) / 2].m : (l[l.length / 2 - 1].m + l[l.length / 2].m) / 2;
+  /* onde a regua velha ("dois ou tres pontos percentuais e ruido") errava, nos dois sentidos */
+  let falso = 0, perdido = 0;
+  l.forEach(x => {
+    const d = Math.abs(sbDif(x.campo));
+    if (!isFinite(d)) return;
+    if (d > 3 && d < x.m) falso++;
+    if (d <= 3 && d > x.m) perdido++;
+  });
+  return { n: l.length, menor: l[0], maior: l[l.length - 1], mediana: meio, falso, perdido };
+}
+
+/* Quanto o xG do Wyscout supera o gol que a Serie B fez de verdade, nas temporadas
+   completas. E o numero que autoriza ler a ORDEM do xG e proibe ler o NIVEL. */
+function sbXgInflacao() {
+  const v = SB_COMPLETAS.map(ano => {
+    let g = 0, x = 0;
+    sbComp().filter(c => c.ano === ano).forEach(c => { g += c.gp; x += c.xg * c.j; });
+    return (x / g - 1) * 100;
+  });
+  return { min: Math.min.apply(null, v), max: Math.max.apply(null, v) };
+}
+/* Gols por jogo por temporada — a razao de tudo virar posto DENTRO do ano. */
+function sbGolsAno() {
+  const v = SB_COMPLETAS.map(a => sbMedia(sbAnoDados(a).map(x => x.gp / x.j)));
+  return { min: Math.min.apply(null, v), max: Math.max.apply(null, v) };
+}
+/* Os anos que ainda nao fecharam. Sai da propria SB_TABELAS, entao quando 2026 acabar esta
+   frase some sozinha. */
+function sbEmCurso() {
+  return Object.keys(SB_TABELAS).map(Number).filter(a => SB_COMPLETAS.indexOf(a) < 0)
+    .map(a => ({ ano: a, j: sbAnoDados(a)[0].j }));
+}
+
+/* ---------- a Secao 10: o metodo, e onde ele pode estar errado ----------
+
+   Esta secao existe para ser lida por quem vai DISCORDAR da aba. Por isso ela vem inteira
+   derivada: quantos indicadores a aba testa, quantos sobrevivem, de que tamanho e a margem
+   de uma diferenca de porcentagem. O unico numero escrito a mao aqui e sobre a FONTE (a
+   base de lesoes, a foto do Wyscout), que nao viaja ate o navegador e foi conferida do lado
+   de Python — a mesma licenca que o bloco do fisico ja usa para os 98,2% da ponte. */
+function sbBlocoMetodo() {
+  const F = { sobe: 0, meio: 0, cai: 0 };
+  sbComp().forEach(x => { F[x.faixa]++; });
+  const N = sbComp().length;
+  const GJ = sbGolsAno(), XG = sbXgInflacao(), RG = sbRegua();
+  const TQ = sbTesteQuadro(), TF = sbTesteFisico();
+  const LIM = Math.tanh(1.96 / Math.sqrt(N - 3));
+  const emCurso = sbEmCurso().map(x => x.ano + ' está em ' + x.j + ' das 38 rodadas').join(', ');
+  const M_PLAY = Math.round(sbMedia(SB_COMPLETAS.map(a => sbAnoDados(a)[5].pts)));
+  const M_DIR = Math.round(sbMedia(SB_COMPLETAS.map(a => sbAnoDados(a)[1].pts)));
+  const M_G4 = Math.round(sbMedia(SB_COMPLETAS.map(a => sbAnoDados(a)[3].pts)));
+
+  return '<div class="sb-bloco">' +
+    '<span class="sb-rot">O método · o que a aba inteira assume, antes de qualquer ressalva</span>' +
+    '<p class="sb-nota"><b>Sobe é 1º ao 4º; cai é 17º ou pior.</b> São as faixas do formato antigo, ' +
+    'porque é o único que já produziu temporada terminada: dão <b>' + F.sobe + ' acessos</b>, <b>' +
+    F.cai + ' quedas</b> e ' + F.meio + ' clube-temporada no meio. A regra de 2026 é o alvo do ' +
+    'planejamento e está no alto desta aba — ela não é o corte do estudo, porque ainda não tem um ano ' +
+    'inteiro de dado.</p>' +
+    '<p class="sb-nota"><b>Toda relação com a tabela é posto contra posto.</b> O indicador vira posto ' +
+    'DENTRO da própria temporada, a posição final vira posto, e o número na tela é o Pearson entre os ' +
+    'dois — o que se costuma chamar de correlação de Spearman. Empate vira média, não ordem de chegada. ' +
+    'A ordenação é por ano porque uma Série B de ' + sbN2(GJ.min) + ' gol por jogo e outra de ' +
+    sbN2(GJ.max) + ' não são o mesmo campeonato: comparar número bruto entre anos mistura o clube com o ' +
+    'ano dele.</p>' +
+    '<p class="sb-nota"><b>Só temporada completa entra em média e em correlação:</b> 2022 a 2025, <b>' +
+    N + ' clube-temporada</b>. ' + emCurso + ', e fica fora de todas elas. Onde o ano em curso aparece — ' +
+    'a faixa do acesso, a tabela da temporada, os cartões do topo — está marcado como parcial.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco sb-falta">' +
+      '<h3>Perguntar muito à mesma tabela</h3>' +
+      '<p>O quadro geral testa <b>' + TQ.m + ' indicadores</b> contra a posição final, e o painel físico ' +
+      'por posição testa <b>' + TF.m + '</b> — ' + sbFisIndicadores().length + ' medidas do SkillCorner × ' +
+      SB_FIS_POS.length + ' grupos de posição. Testar tanta coisa contra o mesmo alvo fabrica acerto: com ' +
+      TF.m + ' testes, cerca de <b>' + Math.round(TF.m * 0.05) + '</b> passariam no corte de 5% ainda que ' +
+      'nada tivesse relação com nada. Por isso <b>esta seção</b> passa os dois quadros por ' +
+      '<b>Benjamini-Hochberg a 5%</b>, que controla a proporção de falsos achados no conjunto em vez de ' +
+      'julgar cada linha como se fosse a única pergunta do dia. A correção mora aqui, não nas tabelas: ' +
+      'lá elas continuam mostrando tudo o que foi medido, e é aqui que se lê quanto disso resiste.</p>' +
+      '<p><b>A correção separa os dois quadros, e é esse o recado.</b> No quadro geral, ' + TQ.sozinhos +
+      ' dos ' + TQ.m + ' indicadores passam sozinhos e <b>' + TQ.passam + ' continuam passando</b> depois ' +
+      'da correção — não cai nenhum. No painel físico, ' +
+      TF.sozinhos + ' das ' + TF.m + ' células passam sozinhas e <b>só ' + TF.passam + ' sobrevivem</b>: ' +
+      TF.lista.map(x => esc(x.rot) + ', ' + sbN2(x.r)).join('; e ') + '. O limiar de ' + sbN2(LIM) +
+      ' que acende as células daquela tabela é o corte de 5% de um teste só e não corrige nada disso. ' +
+      '<b>O físico por posição serve para levantar hipótese, não para fechar conclusão.</b></p>' +
+    '</div>' +
+
+    '<div class="sb-bloco sb-falta">' +
+      '<h3>Quanto é ruído numa diferença de porcentagem</h3>' +
+      '<p>Esta seção dizia que "dois ou três pontos percentuais é ruído". A frase errava nos dois ' +
+      'sentidos. São ' + F.sobe + ' clubes de cada lado na maioria das linhas — e menos onde a base não ' +
+      'cobre o ano anterior —, e a margem de 95% da diferença entre eles sai da ' +
+      'dispersão de CADA indicador — que varia dez vezes de um para o outro: <b>±' + sbN1(RG.menor.m) +
+      ' ponto percentual</b> em ' + esc(RG.menor.rot) + ', <b>±' + sbN1(RG.maior.m) + '</b> em ' +
+      esc(RG.maior.rot) + ', mediana <b>±' + sbN1(RG.mediana) + '</b> nos ' + RG.n + ' indicadores de ' +
+      'porcentagem da aba.</p>' +
+      '<p>Pela régua velha, <b>' + RG.falso + '</b> diferenças passariam por achado sem serem — são ' +
+      'maiores que três pontos e menores que a margem do próprio indicador — e <b>' + RG.perdido +
+      '</b> seriam jogadas fora sendo reais: em ' + esc(RG.menor.rot) + ', ' +
+      sbN1(Math.abs(sbDif(RG.menor.campo))) + ' ponto percentual já está fora da margem de ' +
+      sbN1(RG.menor.m) + '. <b>A régua certa é a de cada indicador.</b> A de bolso, para quem só quer ler ' +
+      'a tela sem abrir a conta, é ' + sbN1(RG.mediana) + ' pontos percentuais.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco sb-falta">' +
+      '<h3>As três ressalvas que mudam o que dá para afirmar</h3>' +
+      '<p><b>1. O valor por setor estava errado até 12/09/2026, e a correção derrubou uma ' +
+      'conclusão.</b> As cinco linhas de dinheiro por setor — € parados na defesa, no meio e no ' +
+      'ataque, e as duas fatias — somavam a coluna "Valor de mercado" do <b>Wyscout</b>, que traz o ' +
+      'valor do dia da exportação e não o da temporada: dos 558 atletas que aparecem em duas ' +
+      'temporadas ou mais, <b>489 carregam lá o mesmo valor em todas</b>. O retrato de 2026 estava ' +
+      'sendo aplicado ao elenco de 2022. Agora as cinco saem do <b>Transfermarkt</b>, que tem valor ' +
+      'por temporada (dos 709 atletas com valor em dois anos ou mais, 591 mudam de valor entre eles). ' +
+      'O que mudou na tela: "€ parados na DEFESA" caiu de 0,56 para ' + sbN2(sbRho('valDef')) + ' e ' +
+      'deixou de ser uma das linhas destacadas do quadro geral; "€ parados no ATAQUE" subiu de 0,29 ' +
+      'para ' + sbN2(sbRho('valAtq')) + '; e a conclusão de que <b>quem cai concentra o orçamento no ' +
+      'ataque não sobreviveu</b> — a diferença de fatia entre os dois grupos caiu de 13 pontos para ' +
+      sbN1(Math.abs(sbPorFaixa('shAtq').sobe - sbPorFaixa('shAtq').cai)) + '. A ressalva que fica é de ' +
+      '<b>cobertura</b>: o Transfermarkt publica valor para ' + sbN1(sbCobValor()) + '% dos atletas do ' +
+      'plantel, e quem não tem valor entra como zero — o valor de elenco desta aba, total e por setor, ' +
+      'é <b>piso</b>, não retrato completo.</p>' +
+      '<p><b>2. Não é verdade que aqui só se use a ordem.</b> Esta seção dizia "aqui se usa a ordem, ' +
+      'nunca o nível", e "De onde vem a vantagem" desmente: ali a cadeia do gol compara o nível médio ' +
+      'de xG de quem sobe com o de quem cai, e o teste de repetição correlaciona <b>gols menos xG</b> em ' +
+      'gols inteiros. A regra ' +
+      'de verdade é mais estreita. O xG do Wyscout supera o gol que a Série B fez de fato em <b>' +
+      sbN1(XG.min) + '% a ' + sbN1(XG.max) + '%</b> nas quatro temporadas completas, então "gols menos ' +
+      'xG" é negativo para quase todo mundo e o zero não quer dizer "finalizou na média". O que sobrevive ' +
+      'a esse deslocamento é a <b>comparação</b> — entre clubes do mesmo ano, ou entre as duas colunas de ' +
+      'uma mesma tabela — o saldo de xG do retrato é xG contra xG, e o viés estica os dois juntos. O que ' +
+      'não sobrevive é o valor absoluto, e por isso nenhuma tela escreve "este time finalizou +5 acima ' +
+      'do esperado". Fica ainda o aviso de que o deslocamento não é igual todo ano: o teste de repetição ' +
+      'entre temporadas seguidas carrega um pedaço dessa variação da fonte junto com a do clube.</p>' +
+      '<p><b>3. Causa e efeito andam nos dois sentidos.</b> Time perdendo troca jogador, compra atacante ' +
+      'e comete mais falta — parte do retrato de quem cai é <b>consequência</b> de estar caindo, não ' +
+      'explicação dela. Não há como corrigir isso com o dado que existe aqui; é limite de desenho, e vale ' +
+      'para a aba inteira.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco sb-falta">' +
+      '<h3>O que falta medir, e o que ficou de fora de propósito</h3>' +
+      '<p><b>Troca de treinador é a lacuna que mais incomoda</b>, e continua faltando. É a explicação ' +
+      'mais provável de metade do que aparece aqui como "característica de quem cai": o clube que troca ' +
+      'de técnico troca de formação, troca de titular e usa mais atletas — e a aba lê os três como traço ' +
+      'do time, quando podem ser sintoma da troca.</p>' +
+      '<p><b>Gol de bola parada por tipo de jogada</b> é a segunda. A base não marca a origem do gol; o ' +
+      'que "Bola parada" usa é um teto (gols de cabeça mais pênaltis), e está dito lá. Resolve-se com ' +
+      'outra exportação do Wyscout, a de eventos por tipo de jogada.</p>' +
+      '<p><b>Folha salarial não existe em base pública</b>, e o valor de mercado entra no lugar dela como ' +
+      'proxy. Não é a mesma coisa: mede o que o mercado acha que o atleta vale, não o que o clube paga a ' +
+      'ele — e um elenco caro de emprestados custa pouco.</p>' +
+      '<p><b>A base de lesões existe, está coletada e fica fora — de propósito.</b> São 2.850 atletas ' +
+      'raspados do Transfermarkt e só 975 deles (34%) têm alguma lesão registrada em cinco temporadas; ' +
+      'dez dos ' + N + ' clube-temporada completos aparecem com <b>zero dia de desfalque no ano ' +
+      'inteiro</b>, o que não acontece no futebol. Aquela base não mede quem se machucou: mede <b>quem ' +
+      'tem ficha preenchida</b> — e ficha preenchida anda com o dinheiro do elenco (0,34 entre dias de ' +
+      'lesão e valor do plantel), que é exatamente o viés que estragaria a leitura. Entrar assim seria ' +
+      'pior do que não entrar.</p>' +
+      '<p><b>E a base de jogos tem cinco partidas a menos</b> que o campeonato em 1.785: Londrina × ' +
+      'Tombense em 2022, Operário-PR × Chapecoense em 2024 e três da 27ª rodada de 2026. Faltam nos dois ' +
+      'lados da fonte, então não é download incompleto — e quem detectou foi a conferência que recalcula ' +
+      'a tabela a partir das partidas e fecha em 90 dos 100 clube-temporada.</p>' +
+    '</div>' +
+
+    '<div class="sb-bloco sb-falta">' +
+      '<h3>O que isto muda no planejamento</h3>' +
+      '<p>A regra nova <b>baixa o piso e sobe o teto</b>. Entrar na disputa ficou mais barato: o 6º fez ' +
+      'em média ' + M_PLAY + ' pontos contra os ' + M_G4 + ' que o antigo 4º precisava. Mas garantir o ' +
+      'acesso sem depender de mata-mata ficou mais caro: ' + M_DIR + ' pontos. E há um detalhe que o ' +
+      'número não mostra: no playoff, <b>terminar em 3º ou 4º vale muito mais que em 5º ou 6º</b>, porque ' +
+      'o melhor colocado decide em casa e passa no empate. Duas posições na tabela viram meio confronto ' +
+      'de vantagem.</p>' +
+    '</div>';
 }
 
 /* ---------- as secoes da aba ----------
@@ -8241,6 +8782,11 @@ function sbRender() {
   if (!alvo) return;
   const R = sbResumo();
   const n1 = x => x.toFixed(1).replace('.', ',');
+  /* Lista de clube-temporada para citar na prosa: "Coritiba em 2025, Fulano em 2024". */
+  const cita = L => L.length ? L.map(x => esc(x.clube) + ' em ' + x.ano).join(', ') : '—';
+  /* 'apenas' so pode sair quando o caso for mesmo unico — senao a prosa mente sozinha. */
+  const casos = L => !L.length ? '<b>nenhum</b>'
+    : (L.length === 1 ? 'apenas <b>' : '<b>') + cita(L) + '</b>';
   const tab = sbAnoDados(sbAno);
   const emAndamento = tab[0].j < 38;
   const RESTAM = 38 - tab[0].j, EM_JOGO = RESTAM * 3;
@@ -8251,25 +8797,51 @@ function sbRender() {
     '<div class="sb-kpi"><span class="sb-rot">' + rot + '</span>' +
     '<b' + (cor ? ' style="color:var(--' + cor + ')"' : '') + '>' + val + '</b><p>' + txt + '</p></div>';
 
-  /* --- a faixa que decide, ano a ano: do 6º (entra no playoff) ao 2º (sobe direto) --- */
-  const X0 = 54, X1 = 69, ESQ = 128, LARG = 400;
-  const px = p => ESQ + (p - X0) / (X1 - X0) * LARG;
+  /* --- a faixa que decide, ano a ano: do 6º (entra no playoff) ao 2º (sobe direto) ---
+
+     Temporada em andamento não cabe neste eixo em pontos absolutos: em 2026, na 27ª rodada,
+     o 6º tem 43 pontos e o 2º tem 49 — abaixo de onde começa a faixa de qualquer ano completo.
+     Com o eixo cravado em 54–69 a linha de 2026 era desenhada fora da tela e sumia. Agora o ano
+     parcial entra pelo RITMO projetado para 38 jogos — traço vazado e número com til, para não
+     se confundir com resultado — e o eixo é calculado do que está no gráfico, para não estourar
+     de novo quando a tabela mudar. */
   const anos = Object.keys(SB_TABELAS).map(Number).sort();
-  const faixas = anos.map((ano, i) => {
-    const t = sbAnoDados(ano), dois = t[1], seis = t[5], y = 26 + i * 34;
-    const parcial = t[0].j < 38;
-    return '<rect x="' + px(seis.pts).toFixed(1) + '" y="' + (y - 7) + '" width="' +
-        Math.max(2, px(dois.pts) - px(seis.pts)).toFixed(1) + '" height="14" rx="4" fill="var(--sb-play)"' +
-        (parcial ? ' opacity=".55"' : '') + '/>' +
-      '<circle cx="' + px(dois.pts).toFixed(1) + '" cy="' + y + '" r="6" fill="var(--sb-sobe)"/>' +
-      '<text x="118" y="' + (y + 4) + '" text-anchor="end" class="sb-ano">' + ano +
-        (parcial ? ' *' : '') + '</text>' +
-      '<text x="' + (px(seis.pts) - 9).toFixed(1) + '" y="' + (y + 4) + '" text-anchor="end" class="sb-lab">' +
-        seis.pts + '</text>' +
-      '<text x="' + (px(dois.pts) + 12).toFixed(1) + '" y="' + (y + 4) + '" class="sb-lab forte">' +
-        dois.pts + '</text>';
+  const linhas = anos.map(ano => {
+    const t = sbAnoDados(ano), j = t[0].j, parcial = j < 38;
+    const p38 = x => parcial ? x.pts / x.j * 38 : x.pts;   /* cada clube pelos SEUS jogos */
+    return { ano, j, parcial, seis: t[5].pts, dois: t[1].pts,
+             xSeis: p38(t[5]), xDois: p38(t[1]) };
+  });
+  const parciais = linhas.filter(l => l.parcial);
+  const escala = linhas.flatMap(l => [l.xSeis, l.xDois]);
+  const X0 = Math.floor(Math.min(...escala) / 2) * 2 - 2, X1 = Math.ceil(Math.max(...escala) / 2) * 2 + 2;
+  const ESQ = 128, LARG = 400;
+  const px = p => ESQ + (p - X0) / (X1 - X0) * LARG;
+  const faixas = linhas.map((l, i) => {
+    const y = 26 + i * 34, x6 = px(l.xSeis), x2 = px(l.xDois);
+    const rot = (real, proj) => l.parcial ? '~' + Math.round(proj) : '' + real;
+    return '<rect x="' + x6.toFixed(1) + '" y="' + (y - 7) + '" width="' +
+        Math.max(2, x2 - x6).toFixed(1) + '" height="14" rx="4"' + (l.parcial
+          ? ' fill="none" stroke="var(--sb-play)" stroke-width="1.5" stroke-dasharray="4 3"'
+          : ' fill="var(--sb-play)"') + '/>' +
+      '<circle cx="' + x2.toFixed(1) + '" cy="' + y + '" r="6"' + (l.parcial
+        ? ' fill="none" stroke="var(--sb-sobe)" stroke-width="1.5" stroke-dasharray="3 2.5"'
+        : ' fill="var(--sb-sobe)"') + '/>' +
+      '<text x="118" y="' + (y + 4) + '" text-anchor="end" class="sb-ano">' + l.ano + '</text>' +
+      (l.parcial ? '<text x="118" y="' + (y + 15) + '" text-anchor="end" class="sb-lab menor">' +
+        l.j + ' de 38 rodadas</text>' +
+        /* os pontos REAIS de hoje, ao lado do ritmo projetado: sem isto o olho le o
+           tracejado como se 2026 ja estivesse na faixa de 61 a 69. */
+        '<text x="118" y="' + (y + 26) + '" text-anchor="end" class="sb-lab menor">hoje ' +
+        l.seis + ' e ' + l.dois + '</text>' : '') +
+      '<text x="' + (x6 - 9).toFixed(1) + '" y="' + (y + 4) + '" text-anchor="end" class="sb-lab">' +
+        rot(l.seis, l.xSeis) + '</text>' +
+      '<text x="' + (x2 + 12).toFixed(1) + '" y="' + (y + 4) + '" class="sb-lab forte">' +
+        rot(l.dois, l.xDois) + '</text>';
   }).join('');
-  const eixo = [56, 60, 64, 68].map(p =>
+  const marcas = [];
+  for (let p = Math.ceil((X0 + 2) / 4) * 4; p < X1; p += 4) marcas.push(p);
+  const eixo = marcas.map(p =>
     '<line x1="' + px(p).toFixed(1) + '" y1="8" x2="' + px(p).toFixed(1) + '" y2="' + (26 + anos.length * 34 - 16) +
       '" stroke="var(--borda)"/>' +
     '<text x="' + px(p).toFixed(1) + '" y="' + (26 + anos.length * 34 + 2) + '" text-anchor="middle" class="sb-eixo">' +
@@ -8329,32 +8901,59 @@ function sbRender() {
       '<div class="sb-tela"><svg viewBox="0 0 620 ' + (26 + anos.length * 34 + 16) + '" class="sb-svg">' +
         eixo + faixas +
       '</svg></div>' +
-      '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>2º — sobe direto</span>' +
-      '<span><i class="q" style="background:var(--sb-play)"></i>faixa do playoff, do 6º ao 2º</span>' +
-      '<span class="sb-pe">* 2026 ainda em andamento</span></div>' +
-      '<p class="sb-nota">O piso do playoff variou bem mais que a antiga linha do G4: de <b>' +
+      '<div class="sb-leg"><span><i style="background:var(--sb-sobe)"></i>2º — sobe direto (1º e 2º)</span>' +
+      '<span><i class="q" style="background:var(--sb-play)"></i>faixa do playoff — do 6º, último a entrar, ao 2º</span>' +
+      (parciais.length ? '<span><i class="q" style="background:transparent;box-sizing:border-box;' +
+        'border:1.5px dashed var(--sb-play)"></i>vazado — ritmo projetado para 38 jogos</span>' : '') +
+      '</div>' +
+      '<p class="sb-nota">Nas quatro temporadas completas o piso do playoff variou bem mais que a antiga ' +
+      'linha do G4: de <b>' +
       Math.min(...R.playoff) + '</b> a <b>' + Math.max(...R.playoff) + '</b> pontos. Já o acesso direto é ' +
       'firme, entre <b>' + Math.min(...R.direto) + '</b> e <b>' + Math.max(...R.direto) + '</b>.</p>' +
+      parciais.map(l => '<p class="sb-nota"><b>' + l.ano + ' está no gráfico pelo ritmo, não pelo placar.</b> ' +
+        'Na ' + l.j + 'ª rodada o 6º tem <b>' + l.seis + '</b> pontos e o 2º tem <b>' + l.dois + '</b> — números ' +
+        'que não se comparam com os de cima, porque são ' + l.j + ' jogos e não 38. Mantido o ritmo, dariam <b>~' +
+        Math.round(l.xSeis) + '</b> e <b>~' + Math.round(l.xDois) + '</b> em 38 jogos, e é aí que está desenhada a ' +
+        'linha vazada. É projeção, não resultado: faltam <b>' + (38 - l.j) + '</b> jogos e <b>' + (38 - l.j) * 3 +
+        '</b> pontos em disputa.</p>').join('') +
     '</div>' +
 
     '<div class="sb-bloco">' +
-      '<span class="sb-rot">Empatar é o jeito mais caro de não perder</span>' +
+      '<span class="sb-rot">O empate custa a vitória que desempata</span>' +
       '<div class="sb-empate">' +
-        ['menos:Os 20 que MENOS empataram:sb-sobe', 'mais:Os 20 que MAIS empataram:sb-fica'].map(par => {
-          const [k, rot, cor] = par.split(':');
-          const g = k === 'menos' ? R.empateMenos : R.empateMais;
+        [['Os ' + R.empateMenos.n + ' que MENOS empataram', R.empateMenos, R.empateCorte.baixo + ' ou menos', 'sb-sobe'],
+         ['Os ' + R.empateMais.n + ' que MAIS empataram', R.empateMais, R.empateCorte.alto + ' ou mais', 'sb-fica']].map(par => {
+          const [rot, g, corte, cor] = par;
           return '<div class="sb-emp"><span class="sb-rot">' + rot + '</span>' +
             '<div class="sb-emp-n"><b style="color:var(--' + cor + ')">' + g.subiram + '</b>' +
-            '<span>de ' + g.n + ' subiram</span></div>' +
+            '<span>de ' + g.n + ' subiram — ' + corte + ' empates</span></div>' +
             '<ul><li>' + n1(g.e) + ' empates em média</li><li>' + n1(g.pts) + ' pontos</li>' +
             '<li>terminaram em ' + n1(g.pos) + 'º, em média</li></ul></div>';
         }).join('') +
       '</div>' +
-      '<p class="sb-nota">Os 80 clubes das quatro temporadas completas, partidos ao meio pelo número de ' +
-      'empates. <b>Oito contra dois.</b> E a conta é simples: um empate vale 1 ponto, uma vitória vale 3 — ' +
-      'trocar <b>três</b> empates por vitórias dá 6 pontos, que é a distância do 4º ao 8º em três das quatro ' +
-      'temporadas. Do outro lado há um teto: nenhum dos 16 que subiram perdeu mais de <b>' + R.maxDerrotas +
-      '</b> jogos em 38.</p>' +
+      '<p class="sb-nota">As pontas são cortadas por <b>valor</b>, não por posição no array: entra todo mundo ' +
+      'que empatou o mesmo tanto que o 20º de cada lado — por isso um grupo tem ' + R.empateMenos.n +
+      ' clube-temporada e o outro ' + R.empateMais.n + '. E é aqui que a leitura fácil quebra: empatar não ' +
+      'cresce junto com a tabela. A média é de <b>' + n1(R.empateFaixa.sobe) + '</b> empates entre os que ' +
+      'sobem, <b>' + n1(R.empateFaixa.quase) + '</b> do 5º ao 8º, <b>' + n1(R.empateFaixa.meio) +
+      '</b> no meio e <b>' + n1(R.empateFaixa.cai) + '</b> entre os que caem — <b>o Z4 empata menos que o ' +
+      'meio da tabela</b>. O contraste das duas pontas é das pontas, não da relação.</p>' +
+      '<p class="sb-nota">O que cobra o empate não é a média, é o regulamento: <b>o primeiro critério de ' +
+      'desempate da Série B é o número de vitórias</b>. Nas quatro temporadas completas, <b>' +
+      R.desempate.clubes + ' dos ' + R.nTodos + '</b> clube-temporada terminaram empatados em pontos com um ' +
+      'rival do mesmo ' +
+      'ano; em <b>' + R.desempate.porVit + '</b> dos ' + R.desempate.pares + ' pares as vitórias eram ' +
+      'diferentes, e em <b>' + R.desempate.acertos + '</b> desses ficou à frente quem venceu mais. O ' +
+      'desempate caiu em cima de uma linha de acesso em <b>' + R.desempate.linha.length + '</b> deles: ' +
+      R.desempate.linha.map(c => '<b>' + esc(c.frente.clube) + '</b> ' + c.frente.v + 'V/' + c.frente.e +
+        'E à frente de <b>' + esc(c.atras.clube) + '</b> ' + c.atras.v + 'V/' + c.atras.e + 'E (' + c.ano +
+        ', ' + c.pts + ' pontos, linha do ' + c.corte + 'º)').join('; ') + '. Um empate vale 1 ponto e uma ' +
+      'vitória vale 3, mas trocar <b>três</b> empates por uma vitória e duas derrotas não mexe uma vírgula ' +
+      'na coluna de pontos — e ganha o desempate. Do outro lado há um teto: nenhum dos 16 que subiram ' +
+      'perdeu mais de <b>' + R.maxDerrotas + '</b> jogos em 38.</p>' +
+      '<p class="sb-nota sb-pe">* O playoff do 3º ao 6º só vale a partir de 2026: nas temporadas medidas a ' +
+      'linha de acesso era o 4º, e os pares na altura do 6º só viram corte sob a regra nova. Os empates ' +
+      'de pontos do ano corrente não entram — 2026 ainda está em andamento.</p>' +
     '</div>'
     ) +
 
@@ -8370,29 +8969,40 @@ function sbRender() {
          ['A melhor DEFESA subiu?', P.melhorDefSubiu, 'sb-sobe'],
          ['O pior ATAQUE caiu?',    P.piorAtqCaiu,    'sb-fica'],
          ['A pior DEFESA caiu?',    P.piorDefCaiu,    'sb-fica']].map(([rot, n, cor]) =>
-          '<div class="sb-ad-c' + (n === 4 ? ' cheio' : '') + '"><span>' + rot + '</span>' +
-          '<b style="color:var(--' + cor + ')">' + n + '<i>de 4</i></b>' +
-          '<div class="sb-pontinhos">' + [0,1,2,3].map(k =>
+          '<div class="sb-ad-c' + (n === P.anos ? ' cheio' : '') + '"><span>' + rot + '</span>' +
+          '<b style="color:var(--' + cor + ')">' + n + '<i>de ' + P.anos + '</i></b>' +
+          '<div class="sb-pontinhos">' + Array.from({ length: P.anos }, (_, k) => k).map(k =>
             '<i class="' + (k < n ? 'on' : '') + '" style="' + (k < n ? 'background:var(--' + cor + ')' : '') +
             '"></i>').join('') + '</div></div>').join('') +
       '</div>' +
-      '<p class="sb-nota"><b>A assimetria é o achado.</b> Em cima, ataque e defesa pesam igual: o melhor ' +
-      'ataque e a melhor defesa subiram três vezes em quatro. Embaixo é diferente — a <b>pior defesa caiu ' +
-      'nas quatro temporadas, sem exceção</b>, enquanto o pior ataque escapou uma vez. Defesa ruim é ' +
-      'sentença; ataque ruim ainda tem recurso.</p>' +
+      '<p class="sb-nota"><b>A assimetria é o achado.</b> Em cima, ataque e defesa pesam quase igual: nas ' +
+      P.anos + ' temporadas completas o melhor ataque subiu <b>' + P.melhorAtqSubiu + '</b> ' +
+      (P.melhorAtqSubiu === 1 ? 'vez' : 'vezes') + '; a melhor defesa, <b>' + P.melhorDefSubiu + '</b>. Embaixo é diferente — a <b>pior defesa caiu ' +
+      (P.piorDefCaiu === P.anos ? 'nas ' + P.anos + ' temporadas, sem exceção'
+                                : 'em ' + P.piorDefCaiu + ' das ' + P.anos) + '</b>, enquanto o pior ' +
+      'ataque escapou <b>' + (P.anos - P.piorAtqCaiu) + '</b> ' +
+      (P.anos - P.piorAtqCaiu === 1 ? 'vez' : 'vezes') + '. Defesa ruim é sentença; ataque ruim ainda ' +
+      'tem recurso.</p>' +
       '<div class="sb-postos">' +
-        [['os 16 que subiram', P.sobe], ['os 48 do meio', P.meio], ['os 16 que caíram', P.cai]]
+        [['os ' + P.sobe.n + ' que subiram', P.sobe], ['os ' + P.meio.n + ' do meio', P.meio],
+         ['os ' + P.cai.n + ' que caíram', P.cai]]
         .map(([rot, g]) => '<div class="sb-posto"><span class="sb-rot">' + rot + '</span>' +
           '<div><b>' + n1(g.ra) + 'º</b><span>em ataque</span></div>' +
           '<div><b>' + n1(g.rd) + 'º</b><span>em defesa</span></div></div>').join('') +
       '</div>' +
-      '<p class="sb-nota">Posto médio dentro da própria temporada, de 1º (melhor da liga) a 20º. Quem sobe ' +
-      'é, em média, <b>4,1º ataque e 5,4º defesa</b> — o ataque um degrau à frente. Quem cai é 16,1º e ' +
-      '16,9º. Os casos fora da curva são poucos e vale citá-los: subiram com ataque fora do top 10 apenas ' +
-      'o <b>' + (P.subiuSemAtaque[0] ? esc(P.subiuSemAtaque[0].clube) + ' em ' + P.subiuSemAtaque[0].ano : '—') +
-      '</b>, e com defesa fora do top 10 apenas o <b>' +
-      (P.subiuSemDefesa[0] ? esc(P.subiuSemDefesa[0].clube) + ' em ' + P.subiuSemDefesa[0].ano : '—') +
-      '</b>. Para baixo: <b>nenhum clube caiu tendo defesa no top 10</b> — caíram dois com ataque no top 10.</p>' +
+      '<p class="sb-nota">Posto médio dentro da própria temporada, de 1º (melhor da liga) a ' + P.times +
+      'º. Quem sobe é, em média, <b>' + n1(P.sobe.ra) + 'º ataque e ' + n1(P.sobe.rd) + 'º defesa</b> — ' +
+      (P.sobe.ra <= P.sobe.rd ? 'o ataque ' + n1(P.sobe.rd - P.sobe.ra) + ' postos à frente'
+                              : 'a defesa ' + n1(P.sobe.ra - P.sobe.rd) + ' postos à frente') +
+      '. Quem cai é ' + n1(P.cai.ra) + 'º e ' + n1(P.cai.rd) + 'º. Os casos fora da curva são poucos e ' +
+      'vale citá-los: subiram com ataque fora do top 10 ' + casos(P.subiuSemAtaque) +
+      ', e com defesa fora do top 10 ' + casos(P.subiuSemDefesa) + '. Para baixo: ' +
+      (P.caiuComDefesa.length ? 'caíram <b>' + P.caiuComDefesa.length + '</b> com defesa no top 10'
+                              : '<b>nenhum clube caiu tendo defesa no top 10</b>') +
+      ' — caíram <b>' + P.caiuComAtaque.length + '</b> com ataque no top 10.</p>' +
+      '<p class="sb-nota">A ressalva do posto: quando dois clubes fazem o mesmo número de gols, o posto ' +
+      'sai pela ordem da tabela — o mais bem colocado leva o posto melhor. Há gols empatados em todas as ' +
+      'temporadas, então estas médias favorecem um pouco a leitura acima.</p>' +
     '</div>' +
 
     sbBlocoTrios('Ataque · chutar de perto, não chutar mais', [
@@ -8483,33 +9093,7 @@ function sbRender() {
 
     '') +
 
-    sbSecao('metodo',
-    '<div class="sb-bloco sb-falta">' +
-      '<h3>O que muda no planejamento, e o que ainda não sei</h3>' +
-      '<p>A regra nova <b>baixa o piso e sobe o teto</b>. Entrar na disputa ficou mais barato: o 6º fez em ' +
-      'média ' + M_PLAY + ' pontos contra os ' + Math.round(sbMedia(SB_COMPLETAS.map(a => sbAnoDados(a)[3].pts))) +
-      ' que o antigo 4º precisava. Mas garantir o acesso sem depender de mata-mata ficou mais caro: ' + M_DIR +
-      ' pontos. E há um detalhe que o número não mostra: no playoff, <b>terminar em 3º ou 4º vale muito mais ' +
-      'que em 5º ou 6º</b>, porque o melhor colocado decide em casa e passa no empate. Duas posições na ' +
-      'tabela viram meio confronto de vantagem.</p>' +
-      '<p><b>Duas das três lacunas antigas foram preenchidas.</b> Eu dizia aqui que faltavam folha salarial, ' +
-      'quantos jogadores cada um usou e trocas de treinador. O uso de elenco entrou (e derrubou a conclusão ' +
-      'anterior). O valor de mercado do Transfermarkt entrou como <b>proxy da folha</b> — não é a mesma ' +
-      'coisa: mede o que o mercado acha que o atleta vale, não o que o clube paga a ele, e um elenco caro ' +
-      'de jogadores emprestados custa pouco. <b>Trocas de treinador continuam faltando</b>, e é a lacuna que ' +
-      'mais incomoda, porque é a explicação mais provável de metade do que aparece como "característica de ' +
-      'quem cai".</p>' +
-      '<p><b>Onde isto pode estar errado.</b> São 16 clubes que subiram e 16 que caíram: diferença de dois ' +
-      'ou três pontos percentuais é ruído, não achado. Causa e efeito andam nos dois sentidos — time ' +
-      'perdendo troca jogador, compra atacante e comete mais falta, então parte do retrato de quem cai é ' +
-      '<b>consequência</b> de estar caindo. E o xG do Wyscout supera o gol real da Série B em 9% a 14% todo ' +
-      'ano, ou seja é um modelo calibrado para outro futebol: aqui se usa a <b>ordem</b> (quem cria mais que ' +
-      'quem), nunca o nível.</p>' +
-      '<p>Por fim, a base tem <b>cinco jogos a menos</b> que o campeonato em 1.785: Londrina × Tombense em ' +
-      '2022, Operário-PR × Chapecoense em 2024 e três da 27ª rodada de 2026. Faltam nos dois lados da fonte, ' +
-      'então não é download incompleto — e quem detectou foi a conferência que recalcula a tabela a partir ' +
-      'das partidas e fecha em 90 dos 100 clube-temporada.</p>' +
-    '</div>');
+    sbSecao('metodo', sbBlocoMetodo());
 
   /* O indice rola A CAIXA DA ABA, nao a pagina.
 

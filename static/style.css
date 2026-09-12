@@ -2909,18 +2909,32 @@ body.claro #pgSerieB{--sb-play:#6b4fa8}
 .sb-tab-pos td small{display:block;font-size:10px;color:var(--tinta3);font-weight:400;
   letter-spacing:0;text-transform:none;margin-top:2px}
 .sb-tab-pos td:first-child b{font-weight:700}
-/* a contagem e o numero que se le primeiro na tabela; `forte` marca o grupo que destoa */
+/* a contagem e o numero que se le primeiro na tabela; `forte` marca o grupo que destoa.
+   Sao DOIS numeros agora — quantos passam a 5% e quantos a 1% —, e a barra entre eles e
+   fina de proposito: separa sem competir com os numeros. */
 .sb-conta{font-size:19px;font-weight:800;line-height:1;color:var(--tinta2)}
 .sb-conta.forte{color:var(--sb-sobe)}
-/* relacao que NAO passa no limiar sai apagada, para nao ser lida como achado */
+.sb-conta i{font-style:normal;font-weight:400;font-size:15px;color:var(--tinta3);padding:0 4px}
+/* relacao que NAO passa no limiar sai apagada, para nao ser lida como achado; a que passa
+   no limiar de 1% acende, na mesma tinta da tabela detalhada */
 .sb-tab-pos td.fraco{color:var(--tinta3);font-weight:400}
+.sb-tab-pos td.sb-forte{color:var(--sb-sobe);font-weight:700}
 /* --- a tabela detalhada: 32 indicadores x 4 posicoes --- */
 .sb-tab-det{font-size:12px}
 .sb-tab-det td:first-child,.sb-tab-det th:first-child{text-align:left;white-space:nowrap;padding-right:20px}
 .sb-tab-det td{padding:4px 14px}
-/* aceso = passa do limiar. Apagado NAO some: "medimos e nao separa" e uma resposta. */
+/* DUAS faixas de aceso, nao uma: `sb-meia` passou a 5%, `sb-forte` passou a 1%. Mesma cor
+   nas duas — e a mesma familia de afirmacao —, mudando peso e um toque de opacidade, para
+   a rampa apagado -> 5% -> 1% ser lida de relance sem inventar uma terceira tinta. A
+   opacidade e .85 e nao menos porque abaixo disso a celula ACESA fica com menos contraste
+   que a APAGADA e a rampa se inverte. Apagado NAO some: "medimos e nao separa" e uma resposta. */
 .sb-tab-det td.sb-forte{color:var(--sb-sobe);font-weight:700}
+.sb-tab-det td.sb-meia{color:var(--sb-sobe);font-weight:500;opacity:.85}
 .sb-tab-det td.fraco{color:var(--tinta3);font-weight:400}
+/* a legenda do cabecalho usa a mesma tinta das celulas que ela explica. Sem opacidade: a
+   .sb-rot e 9,5px em caixa alta com letter-spacing, e ali so o peso separa sem apagar. */
+.sb-leg-5{color:var(--sb-sobe);font-weight:500}
+.sb-leg-1{color:var(--sb-sobe);font-weight:800}
 .sb-tab-det tr.sb-grupo td{font-size:9px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--tinta3);padding:11px 14px 3px;border-bottom:none}
 .sb-tab tr.sb-grupo td{padding-top:16px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
@@ -2958,7 +2972,7 @@ body.claro .sbx-emp.t4,body.claro .sbx-emp.t5{fill:#f4f9fc}
 .sb-sec-cab h3{margin:0;font-size:21px;letter-spacing:-.02em;font-weight:800}
 .sb-sec-cab span{font-size:12px;color:var(--tinta3)}
 .sbx-fam{display:flex;flex-direction:column;gap:7px}
-.sbx-fam .sb-rot i{font-style:normal;font-weight:600;text-transform:none;letter-spacing:0;
+.sb-rot i{font-style:normal;font-weight:600;text-transform:none;letter-spacing:0;
   color:var(--tinta3);font-size:10.5px}
 
 /* ============ Físico — referências da Série B (set/26) ============

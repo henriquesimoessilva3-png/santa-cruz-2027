@@ -208,23 +208,47 @@ def extras_de_jogo():
     return f
 
 
+# Os quatro setores pela posicao principal do Wyscout (`posicao_1`). O valor por setor NAO
+# usa mais isto: quem usa e o fisico e o uso de elenco do gerar_sb_clubes.py, que dependem
+# de MINUTO — e minuto nao e snapshot.
 SETORES = {"GK": "goleiro",
            **{p: "defesa" for p in ("LCB", "RCB", "CB", "LB", "RB", "LWB", "RWB")},
            **{p: "meio" for p in ("DMF", "LDMF", "RDMF", "LCMF", "RCMF", "AMF")}}
 
+# O mesmo agrupamento sobre o texto de `posicao` do Transfermarkt. As 16 grafias que a base
+# tem estao cobertas: as cinco que faltam aqui (Ponta Esquerda, Ponta Direita, Centroavante,
+# Atacante, Seg. Atacante) caem no default "ataque".
+SETORES_TM = {"Goleiro": "goleiro",
+              **{p: "defesa" for p in ("Zagueiro", "Lateral Dir.", "Lateral Esq.", "Defensores")},
+              **{p: "meio" for p in ("Volante", "Meia Central", "Meia Ofensivo",
+                                     "Meia Direita", "Meia Esquerda", "Meio-Campo")}}
+
 
 def valor_por_setor():
-    """Quanto de valor cada clube tinha em cada setor, pela posicao principal do Wyscout.
+    """Quanto de valor cada clube tinha em cada setor — do Transfermarkt, POR TEMPORADA.
 
-    O setor sai de `posicao_1` (a primeira da lista do Wyscout). Quem nao e goleiro, zaga,
-    lateral nem meio cai em 'ataque' — pontas e centroavantes. E uma simplificacao, e ela
-    basta para a pergunta que se faz aqui: o dinheiro rende mais atras ou na frente?
+    ISTO JA SAIU DO serieb_tecnico.csv, E ESTAVA ERRADO. A coluna "Valor de mercado" do
+    Wyscout e um SNAPSHOT do dia da exportacao (11/09/2026): dos 558 atletas que aparecem em
+    duas temporadas ou mais, 489 carregam la o MESMO valor em todas. Somar aquilo por setor
+    era aplicar o retrato de 2026 ao elenco de 2022, e o efeito nao era pequeno — a fatia do
+    valor no ataque separava quem cai (43,8%) de quem sobe (30,8%) por 13 pontos, e com o
+    valor certo a distancia cai para 2.
+
+    O `valor_eur` do Transfermarkt e por temporada de verdade: dos 709 atletas com valor em
+    duas temporadas ou mais, 591 (83%) mudam de valor entre elas. Anselmo Ramon vale
+    450 mil em 2022 e 25 mil em 2026; o Wyscout diz 150 mil nas duas pontas.
+
+    Duas consequencias para quem le a aba. O Transfermarkt so publica valor para 54% dos
+    atletas do plantel nas quatro temporadas completas — o resto e "-" e entra como zero,
+    nos quatro setores por igual, exatamente como ja acontecia no `tm_valor_total`. E a soma
+    dos quatro setores agora FECHA com o `tm_valor_total`: sao a mesma base, e nao mais duas
+    contas diferentes do mesmo elenco.
     """
-    T = pd.read_csv(f"{RAIZ}/dados/serieb_tecnico.csv")
-    T["clube"] = T["Equipa dentro de um período de tempo seleccionado"].map(nfc)
-    T["setor"] = T["posicao_1"].map(lambda p: SETORES.get(str(p), "ataque"))
-    v = T.pivot_table(index=["ano", "clube"], columns="setor",
-                      values="Valor de mercado", aggfunc="sum").fillna(0)
+    E = pd.read_csv(f"{RAIZ}/dados/serieb_elencos.csv")
+    E["clube"] = E["clube"].map(lambda x: TM.get(nfc(x), nfc(x)))
+    E["setor"] = E["posicao"].map(lambda p: SETORES_TM.get(str(p), "ataque"))
+    v = E.pivot_table(index=["ano", "clube"], columns="setor",
+                      values="valor_eur", aggfunc="sum").fillna(0)
     v.columns = ["val_" + c for c in v.columns]
     return v.reset_index()
 
@@ -267,15 +291,29 @@ def extras_profundos():
             else:
                 semV += 1; maxSemV = max(maxSemV, semV); seqV = 0
         apos = [p[i + 1] for i in range(len(v) - 1) if v[i] == "D"]
+        aposV = [p[i + 1] for i in range(len(v) - 1) if v[i] == "V"]
+        # NINGUEM JOGA CONTRA SI MESMO. Cortar a tabela em 1-6 / 7-14 / 15-20 dava 10 jogos
+        # contra o G6 a quem terminou no G4 (que so enfrenta os outros cinco) e 12 a quem
+        # caiu — dois grupos comparados como se fossem o mesmo, e a diferenca que sobrava
+        # era em parte a do calendario. As tres faixas abaixo sao os seis melhores, os sete
+        # do meio e os seis piores ADVERSARIOS de cada clube: 12, 14 e 12 jogos para todo
+        # mundo numa temporada completa.
+        ordem = sorted(d.posAdv.unique())
+        top6, mio7, bot6 = set(ordem[:6]), set(ordem[6:-6]), set(ordem[-6:])
         forms = d.form.value_counts()
         linhas.append(dict(
             ano=ano, clube=clube,
             aprovG6=aprov(d.posAdv <= 6), aprovMeio=aprov((d.posAdv > 6) & (d.posAdv < 15)),
             aprovZ6=aprov(d.posAdv >= 15),
+            aprovTop6=aprov(d.posAdv.isin(top6)), aprovMio7=aprov(d.posAdv.isin(mio7)),
+            aprovBot6=aprov(d.posAdv.isin(bot6)),
             pts1t=int(d[d.rod <= 19].pts.sum()), pts2t=int(d[d.rod > 19].pts.sum()),
             pts10ini=int(d[d.rod <= 10].pts.sum()), pts10fim=int(d[d.rod > max(rod) - 10].pts.sum()),
             maxSemVencer=maxSemV, maxVitorias=maxV,
             ptsAposDerrota=float(np.mean(apos)) if apos else np.nan,
+            # o controle da reacao: se o excedente depois de VENCER for negativo na mesma
+            # medida em que o depois de perder e positivo, o que se mede e reversao a media
+            ptsAposVitoria=float(np.mean(aposV)) if aposV else np.nan,
             formacoes=int(d.form.nunique()),
             formPrincipal=forms.index[0] if len(forms) else "",
             formPrincipalPct=float(forms.iloc[0] / len(d) * 100) if len(forms) else np.nan,
@@ -438,7 +476,7 @@ def fisico():
 # rastreia goleiro, e os poucos nomes de GK que aparecem no `physical` sao homonimos de
 # jogador de linha — conferido, 44 linhas de 3.610 e nenhuma delas confiavel.
 #
-# Zaga e lateral vao SEPARADOS, ao contrario do `SETORES` do valor por setor, que junta os
+# Zaga e lateral vao SEPARADOS, ao contrario do `SETORES` e do `SETORES_TM`, que juntam os
 # dois em "defesa". Para dinheiro juntar faz sentido; para fisico apaga a maior diferenca
 # que existe no campo — o lateral corre muito mais que o zagueiro, e misturar os dois dilui
 # justamente o que a tabela quer mostrar.

@@ -44,14 +44,18 @@ CAMPOS = [
     ("usados", "atletas_usados", 0), ("nucleo300", "nucleo_300", 0),
     ("nucleo1000", "nucleo_1000", 0), ("share11", "share_11", 2),
     ("idade", "idade_pond", 2), ("minEstr", "min_estrangeiros", 2),
-    ("plantel", "plantel", 0), ("aereos", "duelos_aereos_pct", 2),
+    ("plantel", "plantel", 0), ("comValor", "tm_com_valor", 0),
+    ("aereos", "duelos_aereos_pct", 2),
     ("cruzPct", "cruz_certos_pct", 2), ("faltas", "faltas", 2),
     # --- a segunda camada de perguntas (analisar_serieb.extras_profundos) ---
     ("aprovG6", "aprovG6", 2), ("aprovMeio", "aprovMeio", 2), ("aprovZ6", "aprovZ6", 2),
+    # as mesmas tres faixas sem a armadilha de ninguem jogar contra si mesmo: os seis
+    # melhores, os sete do meio e os seis piores ADVERSARIOS de cada clube
+    ("aprovTop6", "aprovTop6", 2), ("aprovMio7", "aprovMio7", 2), ("aprovBot6", "aprovBot6", 2),
     ("pts1t", "pts1t", 0), ("pts2t", "pts2t", 0),
     ("pts10ini", "pts10ini", 0), ("pts10fim", "pts10fim", 0),
     ("semVencer", "maxSemVencer", 0), ("vitSeguidas", "maxVitorias", 0),
-    ("ptsAposD", "ptsAposDerrota", 2),
+    ("ptsAposD", "ptsAposDerrota", 2), ("ptsAposV", "ptsAposVitoria", 2),
     ("formacoes", "formacoes", 0), ("formPct", "formPrincipalPct", 1),
     ("pctArtilheiro", "pctArtilheiro", 1), ("marcadores", "marcadores", 0),
     ("pctTop3", "pctTop3", 1),
