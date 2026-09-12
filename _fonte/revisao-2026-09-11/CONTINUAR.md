@@ -1,5 +1,23 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **ATUALIZAÇÃO 12/09/2026 00:14 — a continuação foi LANÇADA e está rodando.**
+> Run novo: `wf_5cddde65-e45` (sessão `d04c10c6`). Script: **`workflow_continuar.js`** nesta
+> pasta — ele já traz os 30 resultados do run antigo COLADOS como constantes e roda **só**
+> Verificar (68 agentes, duas lentes por proposta) → Sintetizar. **Nenhuma pesquisa na web é
+> refeita.**
+>
+> **Se esta sessão morrer:** em outra sessão, basta relançar `workflow_continuar.js` do zero —
+> ele não depende de cache nenhum. (`resumeFromRunId` continua preso à sessão de origem.)
+> Duas armadilhas descobertas ao montar: o `scriptPath` tem **limite de 524288 bytes** (por isso
+> as constantes vêm pré-recortadas no tamanho que cada prompt consome) e o arquivo precisa estar
+> no **scratchpad** — a ferramenta recusou o caminho dentro da pasta do projeto.
+>
+> A síntese ganhou uma seção nova e obrigatória: **§9, o cruzamento com o relatório já
+> publicado** — para cada uma das 11 análises que já estão lá, se a verificação confirma, ajusta
+> ou derruba; e quais das 34 são novas. Termina com a lista única, sem duplicata.
+> **Ao publicar, republique a MESMA URL** (passe `url:` para a ferramenta Artifact).
+
+
 > **PARADO A PEDIDO DO DONO EM 12/09/2026 — ele continua em outra sessão.**
 > O workflow foi interrompido durante a fase Verificar. Tudo que terminou está salvo:
 > **30 resultados** em `resultados_agentes.json`, incluindo as 34 propostas completas
