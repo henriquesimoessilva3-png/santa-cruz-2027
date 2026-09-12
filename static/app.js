@@ -4573,6 +4573,9 @@ function menuPosicao(ev, cfg) {
      menu recem-criado — ele nasce montado, com os 11 botoes, e INVISIVEL. Ja aconteceu
      em tres dos quatro pontos de entrada; barrar aqui dentro e o que impede o quinto. */
   if (ev && ev.stopPropagation) ev.stopPropagation();
+  /* `tirar` aceita uma acao ou varias: o ↗ da aba Fisica manda duas (tirar da comparacao e
+     tirar do campograma) e o da Fim de contrato pode mandar so a segunda. */
+  const acoes = [].concat(cfg.tirar || []).filter(Boolean);
   const botao = cfg.ancora || (ev && ev.currentTarget) || document.body;
   $$('.menu-jog').forEach(m => m.remove());
   const m = document.createElement('div');
@@ -4596,8 +4599,8 @@ function menuPosicao(ev, cfg) {
        estava, mas Mapa, Reguas e Tiras escondem esse cabecalho — e ali o ↗ do chip era o
        unico gesto que sobrava. Vem separado da grade e em tinta apagada: e a unica acao
        destrutiva do menu, e nao pode competir com as 11 posicoes. */
-    (cfg.tirar ? '<div class="menu-tirar-sep"></div>' +
-      '<button class="menu-tirar" data-tirar="1">× ' + esc(cfg.tirar.rotulo) + '</button>' : '');
+    (acoes.length ? '<div class="menu-tirar-sep"></div>' + acoes.map((a, i) =>
+      '<button class="menu-tirar" data-tirar="' + i + '">× ' + esc(a.rotulo) + '</button>').join('') : '');
   document.body.appendChild(m);
   const r = botao.getBoundingClientRect();
   m.style.position = 'fixed';
@@ -4605,7 +4608,7 @@ function menuPosicao(ev, cfg) {
   m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.left - 60)) + 'px';
   m.onclick = e => {
     const btT = e.target.closest('button[data-tirar]');
-    if (btT) { m.remove(); cfg.tirar.acao(); return; }
+    if (btT) { m.remove(); acoes[+btT.dataset.tirar].acao(); return; }
     const bt = e.target.closest('button[data-p]');
     if (!bt || bt.disabled) return;
     m.remove();
@@ -4624,8 +4627,24 @@ function menuLevar(ev, pk, depois, ancora, tirar) {
   const j = basePorPk(pk);
   if (!j) { toast('Esse jogador não está na base', 'ruim'); return; }
   const pkJ = primaryKey(j);
+  const mesmo = x => x.pk ? x.pk === pkJ : x.jid === j.id;
+  /* Em que posicoes do campograma ele ja esta. E lista, nao posicao unica: o mesmo atleta
+     pode ocupar duas (um volante escalado tambem como zagueiro, por exemplo), e tirar so de
+     uma deixaria a outra para tras sem avisar. */
+  const noCampo = POSICOES.filter(pp => (estado.elenco[pp.c] || []).some(mesmo));
+  const tirarDoCampo = noCampo.length ? {
+    rotulo: 'tirar do campograma (' + noCampo.map(pp => pp.sig).join(', ') + ')',
+    acao: () => {
+      noCampo.forEach(pp => {
+        estado.elenco[pp.c] = (estado.elenco[pp.c] || []).filter(x => !mesmo(x));
+      });
+      salvarLocal(); render();
+      toast(j.n + ' saiu de ' + noCampo.map(pp => pp.sig).join(' e '));
+    },
+  } : null;
   menuPosicao(ev, {
-    verbo: 'Levar', nome: j.n, pos: j.p, ancora, depois, tirar,
+    verbo: 'Levar', nome: j.n, pos: j.p, ancora, depois,
+    tirar: [].concat(tirar || []).concat(tirarDoCampo || []),
     bloqueada: c => (estado.elenco[c] || []).some(x => (x.pk ? x.pk === pkJ : x.jid === j.id))
       ? 'ele já está aqui' : '',
     escolher: cod => levarAoCampograma(pk, cod),
