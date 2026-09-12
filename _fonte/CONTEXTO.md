@@ -2114,3 +2114,20 @@ contra o desfecho do 2º) — que os juízes apontaram como a espinha do método
   (precisa da exportação de eventos por tipo de jogada do Wyscout); `peak_velocity` com 0% de
   cobertura na Série B de 2022 a 2024; e as corridas sem bola destravadas em 11/09 ainda não
   entraram no `SC_METRICAS` do `analisar_serieb.py`.
+
+### Onde parou em 12/09/2026, e por onde continuar
+
+**`_fonte/prototipo/CONTINUAR.md`** é o pacote de continuação: o que está pronto, o que ficou
+rodando, o que falta e as armadilhas dos dados novos. Em resumo:
+
+- `gerar_prototipo.py` foi escrito e **rodado**; `dados/prototipo.json` tem **1,08 MB e as 15
+  etapas**. Os três céticos que conferem o JSON **ficaram no meio** — o run é
+  `wf_d046db62-f21` e o script está em `_fonte/prototipo/workflow_gerador.js`. **Não publique
+  a tela antes da conferência.**
+- O técnico de EQUIPE de 2018-2021 chegou: 76 dos 80 arquivos, uma linha por partida, 109
+  colunas, com `Data` (o ano sai daí) e `Sistema`. **Faltam 4, e três subiram:** Atlético-GO
+  2018 e 2019, Chapecoense 2020, Paysandu 2018.
+- O técnico por JOGADOR de 2018-2021 chegou (8 Excels), **sem coluna de temporada**.
+- **Normalize Unicode antes de comparar nome de clube.** O macOS grava nome de arquivo em NFD
+  e os JSON do projeto estão em NFC — `"Avaí" != "Avaí"`, e 12 clubes somem em silêncio.
+  Custou um diagnóstico errado nesta sessão.
