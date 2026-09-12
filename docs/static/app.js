@@ -5028,8 +5028,15 @@ function compMontarLista(selecionar) {
       '<option value="' + esc(c.id) + '">' + esc(sig(c.pos)) + ' · ' + esc(compRotulo(c)) +
       '</option>').join('') + '</optgroup>' : '');
   /* devolve a selecao: sem isso, gravar por cima deixava o combo voltando para o vazio e
-     parecia que a gravacao tinha se perdido */
-  if (antes && todos.some(c => c.id === antes)) sel.value = antes;
+     parecia que a gravacao tinha se perdido.
+     MAS so quando o comparativo e DESTA posicao. Um comparativo de outra posicao aparece na
+     lista para poder ser ABERTO (abrir troca a posicao junto), e nao para ficar aberto aqui:
+     com ele selecionado o botao virava "Regravar" e gravava a selecao da posicao ATUAL por
+     cima dele, mantendo o `pos` antigo — o trabalho sumia da posicao em que foi feito e
+     reaparecia em "outras posicoes", por cima de um comparativo que ninguem pediu para
+     mexer. Fora de posicao, o combo volta ao vazio e o botao volta a dizer "Gravar". */
+  const volta = antes && todos.find(c => c.id === antes);
+  if (volta && volta.pos === fsPos) sel.value = antes;
   $('#fsCompApagar').style.display = sel.value ? '' : 'none';
   const g = $('#fsCompGravar');
   if (g) {
@@ -5057,7 +5064,9 @@ function compGravar() {
   const incluidos = $$('#fsMatriz th.fs-col').map(th => th.dataset.pk);
   if (!incluidos.length) { toast('Não há ninguém na comparação', 'ruim'); return; }
   const lista = compCarregar();
-  const aberto = lista.find(c => c.id === $('#fsComp').value);
+  /* `pos === fsPos` de novo aqui, e nao so na montagem da lista: este e o ponto em que o
+     dado e escrito, e nenhum caminho ate ele pode acabar gravando numa posicao alheia. */
+  const aberto = lista.find(c => c.id === $('#fsComp').value && c.pos === fsPos);
   const sugerido = aberto ? aberto.nome
     : nomePos(fsPos) + ' — ' + new Date().toLocaleDateString('pt-BR');
   const nome = (prompt(aberto ? 'Regravar por cima de:' : 'Nome do comparativo:', sugerido) || '').trim();
@@ -5070,7 +5079,7 @@ function compGravar() {
       !confirm('Já existe "' + nome + '" nesta posição. Escrever por cima?')) return;
 
   if (alvo) {
-    alvo.nome = nome; alvo.incluidos = incluidos; alvo.ocultos = [...fsOcultos];
+    alvo.nome = nome; alvo.pos = fsPos; alvo.incluidos = incluidos; alvo.ocultos = [...fsOcultos];
     alvo.atualizado = Date.now();
   } else {
     alvo = { id: 'c' + Date.now(), nome, pos: fsPos, incluidos, ocultos: [...fsOcultos],
