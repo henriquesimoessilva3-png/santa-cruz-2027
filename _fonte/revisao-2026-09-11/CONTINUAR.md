@@ -1,5 +1,23 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **PARADO A PEDIDO DO DONO EM 12/09/2026 — ele continua em outra sessão.**
+> O workflow foi interrompido durante a fase Verificar. Tudo que terminou está salvo:
+> **30 resultados** em `resultados_agentes.json`, incluindo as 34 propostas completas
+> e 1 verificações.
+>
+> **Comece por aqui, nesta ordem:**
+> 1. `ESTADO_DO_WORKFLOW.md` — o que existe, os títulos das 34 propostas, o que falta.
+> 2. O relatório já publicado (link abaixo) — a entrega está feita e não depende do resto.
+> 3. `resultados_agentes.json` — os retornos JSON de tudo.
+>
+> **`resumeFromRunId` NÃO vai funcionar na sua sessão** (é preso à sessão original). Para
+> terminar Verificar → Sintetizar, edite `workflow_revisao_serieb.js` colando os JSONs de
+> `resultados_agentes.json` nas constantes iniciais, deixando só as duas últimas fases vivas.
+> Nada de pesquisa na web precisa ser refeito.
+>
+> **Ao terminar, republique a MESMA URL do artefato** (passe `url:` para a ferramenta
+> Artifact), não crie uma página nova.
+
 > **ATUALIZAÇÃO 12/09/2026 00:07 — o workflow foi RETOMADO e está rodando.**
 > O `resumeFromRunId` funcionou na mesma sessão: 23 agentes vieram do cache e as fases que
 > tinham falhado por limite do Fable rodaram no Opus. **Propor terminou: 34 propostas.**
