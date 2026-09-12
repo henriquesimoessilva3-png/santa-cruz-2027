@@ -1852,6 +1852,15 @@ imprime "nada mudou em docs/" e sai sem dar push**. Quem commitou o código com 
 consertado nesta sessão. Enquanto o script não mudar: **conferir com
 `git log --oneline origin/main..HEAD`** — se listar commit, falta `git push origin main`.
 
+### Revisão especialista em andamento (11/09/2026) — como continuar
+
+Uma revisão geral da aba, com pesquisa na web (Sumpter, Liverpool, físico, elenco, bola
+parada, método) e um workflow de ~100 agentes, está em andamento. **Tudo que uma sessão nova
+precisa está em `_fonte/revisao-2026-09-11/CONTINUAR.md`**: o pedido, as decisões já
+tomadas (lesão descartada), os cinco achados já testados (quarteto fora da amostra 0,77;
+minutos do núcleo; quando o acesso se decide — top-8 na rodada 19; casa × fora por processo),
+o plano de design do relatório, o script do workflow e como retomar se a sessão morrer.
+
 ### Pendências
 
 - **Coleta de lesões rodando** (`coletar_serieb_lesoes.py`), 2.850 atletas, ~2,5 h. Ao

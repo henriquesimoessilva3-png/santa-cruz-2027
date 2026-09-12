@@ -1,0 +1,214 @@
+TEXTO RENDERIZADO DA ABA "ANÁLISE SÉRIE B" — capturado do site publicado em 11/09/2026
+(https://henriquesimoessilva3-png.github.io/santa-cruz-2027/). "[GRÁFICO]" marca onde há um SVG.
+As dez seções, na ordem em que aparecem na tela.
+
+==================================================================================================
+TOPO (antes das seções)
+==================================================================================================
+Série B · estudo de acesso
+Duas linhas, não uma
+A partir de 2026 só o campeão e o vice sobem direto. Do 3º ao 6º há playoff. Isso muda o alvo do planejamento, e muda para os dois lados.
+Como funciona a regra nova: 1º e 2º sobem direto (acabou a fase de pontos corridos, estão na Série A). 3º ao 6º: playoff, cruzamento olímpico 3º×6º e 4º×5º, ida e volta, os dois vencedores sobem. 7º em diante: fora.
+A vantagem de quem termina melhor é dupla: decide em casa no jogo de volta e passa no empate do placar agregado. Não há pênaltis — se empatar no agregado, avança quem fez a melhor campanha. Ou seja, terminar em 3º ou 4º não é só mando de campo: é começar o mata-mata já classificado.
+KPIs: Para subir direto — 2º: 66 pontos em média (65, 65, 67, 65). Para entrar no playoff — 6º: 61 pontos em média (57, 63, 63, 61). É o novo piso. A distância entre as duas: 4,5 pontos separam garantir o acesso de apenas ter o direito de disputá-lo.
+
+==================================================================================================
+SEÇÃO 1 — A linha do acesso (quantos pontos, e sob a regra nova)
+==================================================================================================
+A faixa que decide, ano a ano [GRÁFICO: 2º — sobe direto; faixa do playoff, do 6º ao 2º; * 2026 ainda em andamento]
+O piso do playoff variou bem mais que a antiga linha do G4: de 57 a 63 pontos. Já o acesso direto é firme, entre 65 e 67.
+
+Empatar é o jeito mais caro de não perder
+Os 20 que MENOS empataram: 8 de 20 subiram · 7,7 empates em média · 56,4 pontos · terminaram em 8,2º, em média
+Os 20 que MAIS empataram: 2 de 20 subiram · 14,4 empates em média · 47,1 pontos · terminaram em 12,6º, em média
+Os 80 clubes das quatro temporadas completas, partidos ao meio pelo número de empates. Oito contra dois. E a conta é simples: um empate vale 1 ponto, uma vitória vale 3 — trocar três empates por vitórias dá 6 pontos, que é a distância do 4º ao 8º em três das quatro temporadas. Do outro lado há um teto: nenhum dos 16 que subiram perdeu mais de 12 jogos em 38.
+
+==================================================================================================
+SEÇÃO 2 — De onde vem a vantagem (a cadeia do gol, e o que dela se repete)
+==================================================================================================
+De onde vem a vantagem de quem sobe [GRÁFICO: cadeia ataque — remates por jogo +3,2%, qualidade da chance +12,6%, = chances criadas (xG) +16,4%, GOLS +54,0%; cadeia defesa — remates sofridos −9,7%, qualidade concedida −11,5%, = chances concedidas (xG) −19,9%, GOLS SOFRIDOS −34,4%]
+Dois terços do vão estão no último elo. Do +54,0% de gols, só +16,4 vêm de criar mais — o resto é finalização. Na defesa, dos -34,4% de gols sofridos, -19,9 vêm de conceder menos e menos perigoso; o resto acontece depois do chute.
+
+Finalizar bem se repete no ano seguinte? [GRÁFICO]
+A parte que mais pesou na tabela é a que não se contrata. Nos 36 pares de temporadas seguidas do mesmo clube, finalizar acima do esperado num ano não diz nada sobre o ano seguinte (-0,17), e defender acima do esperado diz menos ainda (-0,02). Criar e conceder, sim (+0,37). O que sobra como plano é ser tão melhor nas chances que um ano ruim de pontaria ainda termine no G6.
+A contraprova honesta: o saldo de xG sozinho também não elege quem sobe. Dos 16 acessos, o top-4 de saldo de xG acertou 7 — melhor que o acaso (3,2), longe de ser destino. O top-4 de saldo de gols real acertou 11.
+
+==================================================================================================
+SEÇÃO 3 — Ataque e defesa (o que separa de cada lado)
+==================================================================================================
+Ataque sobe, defesa segura
+O melhor ATAQUE subiu? 3 de 4 · A melhor DEFESA subiu? 3 de 4 · O pior ATAQUE caiu? 3 de 4 · A pior DEFESA caiu? 4 de 4
+A assimetria é o achado. Em cima, ataque e defesa pesam igual: o melhor ataque e a melhor defesa subiram três vezes em quatro. Embaixo é diferente — a pior defesa caiu nas quatro temporadas, sem exceção, enquanto o pior ataque escapou uma vez. Defesa ruim é sentença; ataque ruim ainda tem recurso.
+os 16 que subiram: 4,1º em ataque · 5,4º em defesa | os 48 do meio: 10,8º em ataque · 10,1º em defesa | os 16 que caíram: 16,1º em ataque · 16,9º em defesa
+Posto médio dentro da própria temporada, de 1º (melhor da liga) a 20º. Quem sobe é, em média, 4,1º ataque e 5,4º defesa — o ataque um degrau à frente. Quem cai é 16,1º e 16,9º. Os casos fora da curva são poucos e vale citá-los: subiram com ataque fora do top 10 apenas o Coritiba em 2025, e com defesa fora do top 10 apenas o Atlético-GO em 2023. Para baixo: nenhum clube caiu tendo defesa no top 10 — caíram dois com ataque no top 10.
+
+Ataque · chutar de perto, não chutar mais [GRÁFICO sobe/meio/cai]
+Nas três primeiras a barra maior é melhor; na última é pior, e é a única em que a ordem se inverte por completo. A estatística ofensiva mais brutal é a de não marcar: quem cai passa em branco em quase metade da temporada.
+Defesa · o lado que decide o rebaixamento [GRÁFICO sobe/meio/cai]
+Nas três últimas a barra menor é melhor. Quem sobe não só concede menos finalizações como concede finalizações piores, e pressiona mais alto — o que vem antes na cadeia: pressionar alto é parte de por que o adversário chuta menos e de pior lugar.
+
+Quem faz o gol, e quem evita [GRÁFICO]
+Quem sobe espalha o gol. São 16,0 atletas diferentes marcando na temporada contra 13,8 de quem cai, e o artilheiro responde por 20,6% dos gols do time contra 23,3%. Parece pouco, mas o sentido importa: o time que cai depende mais de um homem só — e depende dele fazendo menos gols no total.
+O goleiro é a exceção que confirma a regra do xG. O estudo mostra que defender acima do esperado não se repete de um ano para o outro no nível do TIME. No nível do goleiro, a diferença é grande e consistente: 77,5% de defesas em quem sobe contra 71,2% em quem cai. E em gols evitados por 90 minutos, o goleiro de quem sobe salva 0,10 a mais que o esperado; o de quem cai, -0,02 — ou seja, toma mais gol do que os chutes que enfrentou justificavam.
+Só entram goleiros com 900 minutos ou mais, um por clube-temporada — abaixo disso não há titular claro e a média de defesas vira ruído. São 16 de quem subiu e 16 de quem caiu.
+
+==================================================================================================
+SEÇÃO 4 — Bola parada (o canal em que eficiência bate volume)
+==================================================================================================
+Bola parada · onde eficiência bate volume [GRÁFICO sobe/meio/cai]
+Quem cai tem MAIS bola parada por jogo e faz menos com ela. A taxa de conversão em finalização é um dos indicadores mais fortes do estudo, e o gol de cabeça também — três gols de diferença por temporada, numa liga em que a folga do 4º para o 5º foi de 4, 1, 0 e 1 ponto. Ressalva de método: a base não marca "gol de bola parada"; o que dá para medir é quanto da bola parada vira remate e quantos gols saíram de cabeça e de pênalti.
+
+Gols de bola parada — o que dá para medir [GRÁFICO: de cabeça / pênalti / todo o resto]
+Antes do número, o aviso: ele não existe na base. O Wyscout conta quantas bolas paradas viram remate, nunca quantas viram gol. O que dá para somar é gol de cabeça + pênalti convertido, que é um teto: pega quase todo gol de escanteio e de falta cruzada, mas leva junto a cabeçada de cruzamento em jogada corrida, e deixa de fora o gol de falta rasteira e a sobra de escanteio chutada.
+Com essa etiqueta: quem sobe faz 13,9 desses gols por temporada e quem cai, 9,3. Mas a proporção é igual — 27,7% dos gols de quem sobe contra 28,7% de quem cai, e a relação com a posição final é de apenas -0,11.
+A conclusão que isso permite é específica. Dos 17,6 gols que separam quem sobe de quem cai, só 4,6 vêm da bola parada; 13,0 vêm do resto. Bola parada acompanha quem é bom, não fabrica quem sobe. O que separa de verdade, na bola parada, é outra coisa: transformar a cobrança em finalização — esse sim anda com a posição final a 0,49.
+Para ter o número de verdade seria preciso outra exportação do Wyscout: a de eventos por tipo de jogada (ou a aba de bola parada do próprio site), que marca a origem de cada gol. Com ela eu refaço este bloco sem proxy nenhum.
+
+==================================================================================================
+SEÇÃO 5 — Elenco, dinheiro e idade (quem você contrata e em quem confia)
+==================================================================================================
+Onde o dinheiro rende, e onde ele se perde [GRÁFICO quem subiu / quem caiu, por setor]
+O elenco de quem sobe vale € 27,3 mi em média; o de quem cai, € 10,3 mi. Mas o total explica menos que o endereço do dinheiro: valor parado na defesa anda com a posição final a 0,56; no ataque, 0,29 — cerca da metade.
+A única linha em que quem cai investe mais é o ataque — e é a única em que investir mais anda junto com terminar pior (a fatia do valor no ataque dá -0,29). A leitura provável não é que atacante caro seja ruim: é que time ameaçado compra atacante, e o gasto aparece onde o problema não estava.
+Dinheiro ajuda e não decide: dos 16 acessos, 10 vinham do top-4 de valor.
+Cuidado com a leitura de euros. Em valor absoluto quem sobe tem mais atacante caro que quem cai (€ 5,3 mi contra € 2,4 mi) — mas tem mais de tudo, porque o elenco inteiro é mais caro. A pergunta que importa não é quanto, é que fatia: e aí a ordem se inverte.
+
+Time que sobe é time que se repete
+36,6 atletas usados por quem sobe · 45,6 atletas usados por quem cai · 66,6% dos minutos nos 11 mais usados (sobe) · 58,2% (cai)
+Isto corrige o que esta aba dizia antes. Com os dez primeiros de 2026 até a 25ª rodada, a utilização de atletas não mostrava relação nenhuma com os pontos, e era isso que estava escrito aqui. Com 80 clube-temporada completas, a relação existe e é forte: 0,54 para a concentração de minutos nos onze mais usados — acima do valor do elenco (0,50), da posse (0,26) e da precisão de passe (0,14). A amostra antiga era truncada no topo, e é embaixo que a rotatividade aparece.
+A causalidade anda nos dois sentidos, e vale dizer: time que está perdendo troca mais, muda treinador, testa gente. Parte dos 45,6 atletas de quem cai é consequência do mau ano, não causa. Mas serve de termômetro — se em outubro o número passar de 40, o ano fugiu do controle.
+E um detalhe que surpreende: o tamanho do plantel registrado não importa (0,11). Quem sobe e quem cai registram quase o mesmo — 56,2 e 58,1 atletas. A diferença não é quantos você tem, é em quantos você confia.
+
+Atletas utilizados · 2026 · 27 de 38 rodadas [GRÁFICO por ano; camadas: time de verdade — passou de 1000 min / rodízio — 300 a 1000 min / passou pelo elenco — menos de 300]
+Os mesmos 2026, abertos por posição [TABELA: clube × Goleiro/Defesa/Meio/Ataque/Total, 20 clubes de 2026]
+O time de verdade tem o mesmo tamanho para todo mundo. Nas quatro temporadas fechadas, quem subiu teve 16,1 atletas acima de 1000 minutos e quem caiu, 16,6 — praticamente idêntico, e a relação com a posição final é de -0,15, ou seja nenhuma. A diferença aparece toda abaixo dessa linha: quem subiu usou 36,6 atletas no total e quem caiu, 45,6.
+Dito de outro jeito: subir não é ter um elenco curto, é não precisar do resto dele. Os dois grupos montam um time de dezesseis; um deles passa o ano inteiro procurando os outros trinta.
+
+O mesmo, aberto por posição · média por clube-temporada [GRÁFICO]
+A primeira camada é idêntica nos quatro setores. Quem sobe e quem cai colocam praticamente os mesmos 6,4 defensores, 4,0 meias e 4,3 atacantes acima de 1000 minutos. Não existe um setor em que quem sobe tenha mais gente jogando de verdade — existe setor em que quem cai procurou mais.
+E procurou mais no ataque e na defesa. Quem cai usa 3,6 atacantes a mais e 3,1 defensores a mais por temporada; no meio a diferença cai para 1,6. O ataque casa com o outro achado do estudo: quem cai também concentra o dinheiro no ataque (43,8% do valor do elenco contra 30,8%). Compra atacante, troca de atacante, e o problema não estava ali.
+O goleiro é o sinal mais cru. Quem sobe usa 2,3 goleiros na temporada; quem cai, 3,0 — quase um goleiro inteiro a mais. Numa posição em que o normal é usar dois, isso é muita coisa, e é o tipo de troca que quase sempre vem depois de uma sequência ruim, não antes. Acima de 1000 minutos os dois grupos têm o mesmo 1,3: há um titular em todo lugar; o que muda é quantos passaram por ele.
+
+Quanto do elenco sobrou do ano passado [GRÁFICO]
+Quem subiu manteve 42,1% do elenco do ano anterior; quem caiu, 32,9%. Em gente: 29,8 caras novos contra 42,9 — treze atletas de diferença para apresentar, entrosar e escolher.
+Aqui a ressalva é maior que o achado. Só entram os clubes que estavam na Série B também no ano anterior: são 36 clube-temporada dos 80, 6 deles de quem subiu. Com essa amostra a relação com a posição final fica fraca, e o número vale como indício, não como regra. Quem vem da Série A ou da Série C fica de fora por construção — e é justamente quem mais troca.
+
+Distribuição de elenco por idade · % dos minutos [GRÁFICO: até 20 / 20 a 23 / 23 a 27 / 27 a 30 / 30+]
+Quem cai é mais velho onde importa. Os atletas de 30 anos ou mais levam 42,8% dos minutos de quem cai contra 35,2% de quem sobe. E a faixa de 20 a 23 — a idade em que o atleta já joga e ainda valoriza — é o espelho: 10,6% dos minutos de quem sobe contra 7,1% de quem cai, quase metade.
+Por grupo de posição · % dos minutos do setor [GRÁFICO]
+O meio-campo é onde a diferença de idade grita. Quem cai dá 46,0% dos minutos do meio a atletas de 30+; quem sobe, 31,0%. São 14,9 pontos — de longe a maior distância entre os quatro setores. Na defesa a diferença é de 8,1 pontos, e no ataque praticamente não existe (34,8% contra 34,6%).
+O goleiro é o setor velho de todo mundo — 30+ leva mais da metade dos minutos nas três faixas. É o único em que a idade não separa nada, e faz sentido: goleiro joga até tarde.
+Duas ressalvas. A idade é a do atleta em setembro daquele ano, conferida contra 3.181 datas de nascimento do Transfermarkt (exata em 90%, um ano de diferença em 9% — e parte desses 9% é homônimo casado errado). Serve para faixas de três e quatro anos; não serve para conta no nível do atleta. E o grupo de posição sai da posição principal do Wyscout, a primeira da lista dele: quem não é goleiro, zaga, lateral nem meio entra em "ataque".
+
+==================================================================================================
+SEÇÃO 6 — Físico (SkillCorner — correr, e correr rápido)
+==================================================================================================
+Físico · SkillCorner · por 90 minutos, ponderado por minuto rastreado. Legenda: sobe / meio / cai / força da relação com a posição.
+[GRÁFICO Velocidade · o teto: quão rápido o time chega — PSV-99 por partida (sobe 28,8 / meio 28,7 / cai 28,5; relação 0,29), PSV-99 5 melhores partidas (31,0/30,8/30,5; 0,42)]
+[GRÁFICO Uso da velocidade — Metros em sprint (167/167/156; 0,29), Número de sprints (8,9/8,7/8,2; 0,34), Metros em corrida rápida (499/489/471; 0,27), Corridas rápidas (47,2/46,6/45,1; 0,28), Metros em alta intensidade, Ações de alta intensidade]
+[GRÁFICO Volume — Distância percorrida, Metros por minuto, Distância em corrida]
+[GRÁFICO Arranque e frenagem — Arranques até o sprint, Arranques até a corrida rápida, Acelerações fortes, Desacelerações fortes, Acelerações médias, Desacelerações médias, Mudanças de direção]
+[GRÁFICO Corridas sem bola — o time com a bola e o jogador sem ela: Corridas sem bola, ...acima da corrida rápida, ...que entram na área, ...que quebram linha, ...que receberam a bola, ...que viraram remate em 10s]
+Na Série B não se corre mais para subir — corre-se mais rápido. A distância por 90 minutos é praticamente a mesma (0,9% entre quem sobe e quem cai, relação 0,11); os sprints, 8,4% (relação 0,34). O indicador físico mais forte de todos é PSV-99, 5 melhores partidas (0,42) — o teto de velocidade do time, não o quanto ele anda.
+E acelerar não é a mesma coisa que arrancar. Acelerações e desacelerações fortes ficam em -0,01 e 0,04 — nada. Mas os arranques que terminam em sprint dão 0,28. O que conta não é acelerar muito: é acelerar até virar velocidade de verdade.
+
+Com a bola e sem a bola · por 30 minutos de cada fase [GRÁFICO: Metros por minuto, Distância percorrida, Metros em corrida rápida, Metros em sprint — cada um com a bola / sem a bola, quem subiu × quem caiu]
+Este é o achado mais nítido do painel físico. Com a bola no pé, quem sobe e quem cai correm igual: metros por minuto dá 0,02 de relação com a posição e distância, 0,02 — zero. Sem a bola, tudo muda: 0,22 e 0,22, e os metros em sprint sem a bola vão a 0,29. O que separa não é o que o time faz com a bola — é o que ele faz quando não a tem.
+A régua desta segunda tela é por 30 minutos de cada fase, não por 90 — por isso os números não podem ser comparados com os do painel de cima. Entre si, podem.
+Três ressalvas de método. As escalas das barras não começam em zero (entre 9.531 e 9.613 metros, começar do zero daria três barras idênticas); os números escritos são os de verdade. O SkillCorner não rastreia todos os jogos — cerca de 15 partidas por atleta por temporada, não 38 —, então isto é o perfil de uma amostra, e entram só atletas com 300+ minutos rastreados (20,5 por clube em quem sobe, 25,3 em quem cai). E o PSV-99 não é recorde: é a média do pico de cada jogo — o pico de um jogo isolado é sempre maior.
+Ficam de fora o Peak Velocity e o Top 3 Peak Velocity, que seriam as melhores medidas de velocidade máxima: neste banco eles têm 0% de cobertura em 2022, 2023 e 2024 (o backfill nunca rodou nesses períodos). Entrar com eles seria comparar três anos vazios com dois cheios.
+
+Onde o físico separa · por grupo de posição · 80 clube-temporada [TABELA]
+Posição | Indicadores que separam (de 32) | O mais forte | Relação | Sobe | Cai
+Zaga (os dois centrais · 3,5 por clube) | 4 | PSV-99, 5 melhores partidas | 0,41 | 31,1 | 30,4
+Lateral (os dois lados · 4,3 por clube) | 3 | ...que quebram linha | 0,27 | 4,81 | 4,02
+Meio (volantes, médios e meias · 5,9 por clube) | 17 | Arranques até o sprint | 0,39 | 0,85 | 0,64
+Ataque (pontas e centroavantes · 6,9 por clube) | 10 | ...que entram na área | 0,30 | 7,54 | 6,44
+A média do clube escondia de quem vinha a diferença. zaga 4, lateral 3, meio 17, ataque 10 — de 32 indicadores, é quantos separam quem sobe de quem cai em cada posição. Mesmo campeonato, mesma régua, mesma amostra; o que muda é a posição. É meio que carrega o físico deste campeonato.
+E o mais forte de cada posição não é a mesma coisa. Zaga, PSV-99, 5 melhores partidas (0,41); Lateral, corridas sem bola que quebram linha (0,27); Meio, arranques até o sprint (0,39); Ataque, corridas sem bola que entram na área (0,30). Repare que corridas sem bola lidera em 2 de 4: é o atleta atacando o espaço enquanto o time tem a bola, e não o quanto ele corre no total.
+
+Indicador por indicador · a relação de cada um dentro de cada posição · aceso = passa de 0,22 [TABELA 18 linhas × 4 posições]
+Indicador | Zaga | Lateral | Meio | Ataque
+PSV-99 por partida | 0,17 | 0,15 | 0,26 | 0,19
+PSV-99, 5 melhores partidas | 0,41 | 0,23 | 0,23 | 0,19
+Metros em sprint | 0,07 | 0,16 | 0,28 | 0,25
+Número de sprints | 0,09 | 0,19 | 0,30 | 0,28
+Metros em corrida rápida | 0,08 | 0,13 | 0,26 | 0,27
+Corridas rápidas | 0,08 | 0,15 | 0,27 | 0,29
+Metros em alta intensidade | 0,10 | 0,14 | 0,27 | 0,30
+Ações de alta intensidade | 0,09 | 0,16 | 0,29 | 0,27
+Arranques até o sprint | 0,15 | 0,20 | 0,39 | 0,15
+Arranques até a corrida rápida | 0,12 | 0,20 | 0,26 | 0,11
+Corridas sem bola (volume) | 0,21 | -0,01 | 0,22 | -0,03
+...acima da corrida rápida | 0,23 | 0,12 | 0,21 | 0,11
+...que entram na área | 0,25 | 0,25 | 0,30 | 0,30
+...que quebram linha | 0,25 | 0,27 | 0,25 | 0,25
+...que viraram remate em 10s | 0,14 | 0,13 | 0,24 | 0,22
+Metros em corrida rápida, com a bola | 0,05 | 0,14 | 0,28 | 0,02
+Metros em corrida rápida, sem a bola | 0,10 | 0,09 | 0,24 | 0,29
+Metros em sprint, sem a bola | 0,08 | 0,15 | 0,24 | 0,24
+E aqui aparece o que a tabela de cima escondia: não é o quanto se corre sem a bola, é para onde. O volume de corridas sem bola passa da régua em 1 das 4 posições, mas as que entram na área passam em 4. Correr muito sem a bola não separa ninguém; correr para o lugar certo, sim.
+Os indicadores que não separam em nenhuma das quatro posições ficam de fora desta tabela. Os que aparecem apagados numa coluna foram medidos ali e não separaram, que é uma resposta diferente de não ter sido medido.
+A régua desta tabela. "Separar" quer dizer relação com a posição final acima de 0,22, que é o limiar de 5% para uma amostra de 80 — sai do tamanho da amostra, não de um número escolhido a dedo. Numa tabela de 128 correlações sempre há algum 0,15 com cara de achado. Goleiro não entra: o SkillCorner não rastreia goleiro. E a amostra por grupo é pequena — mediana de 3,5 atletas por clube na zaga contra 6,9 no ataque. Vale a direção, não a casa decimal.
+
+==================================================================================================
+SEÇÃO 7 — O jogo (contra quem, onde e com que regularidade)
+==================================================================================================
+Fora de casa é onde o acesso se decide [GRÁFICO]
+Quem sobe faz 2,3× os pontos de quem cai fora de casa, contra 1,7× em casa. E quem cai depende do mando para 68,3% do que pontua, contra 61,5% de quem sobe. Em casa quase todo mundo pontua alguma coisa; a distância se abre nos visitantes.
+
+Contra quem se fazem os pontos · aproveitamento [GRÁFICO sobe/meio/cai: contra o G6, contra o meio, contra os 6 últimos]
+Quem sobe não faz seus pontos batendo os fracos — bate os fortes. Contra os seis últimos todo mundo pontua: 68,4% de aproveitamento para quem sobe e 43,1% para quem cai, uma diferença de 1,6×. Contra o G6 a distância dobra: 44,4% contra 21,0%, 2,1×. É nos jogos grandes que a temporada se separa.
+E o acesso não é decidido na largada. Quem sobe faz 32,4 pontos no 1º turno e 33,4 no 2º — o mesmo ritmo do começo ao fim. Quem cai piora (18,3 e 16,6). Nas dez últimas rodadas a diferença é a maior do ano: 19,1 pontos contra 7,8.
+Dos 16 acessos, 10 já estavam no G4 na metade do campeonato — ou seja, 6 entraram no segundo turno. Estar fora na 19ª rodada não decide nada; estar sem ritmo, sim.
+
+Regularidade · o que a média esconde
+4,2 × 9,1 maior sequência SEM VENCER · 4,5 × 1,8 maior sequência DE VITÓRIAS · 1,80 × 1,08 pontos no jogo SEGUINTE A UMA DERROTA · 6,9 × 8,1 formações diferentes NA TEMPORADA
+A pior sequência de quem sobe dura 4,2 jogos; a de quem cai, 9,1. Duas rodadas de diferença na média escondem isso: são dois meses de campeonato sem vencer, contra pouco mais de um mês. E do outro lado, quem sobe emenda 4,5 vitórias na melhor fase; quem cai, 1,8 — ou seja, quem cai quase nunca ganha dois seguidos.
+A reação é o número mais direto do estudo. Depois de perder, quem sobe tira 1,80 ponto do jogo seguinte — mais que um empate. Quem cai tira 1,08. Perder todo mundo perde; o que separa é o que vem na rodada seguinte.
+Nenhuma formação é fórmula. O 4-2-3-1 é o mais usado nas três faixas, em torno de um terço dos jogos. O que separa não é qual, é quantas: quem cai experimenta 8,1 formações diferentes na temporada contra 6,9 de quem sobe, e se apoia menos na principal (41,1% dos jogos contra 44,7%). É o mesmo retrato da rotatividade de elenco, agora no quadro tático.
+
+==================================================================================================
+SEÇÃO 8 — O quadro geral (tudo junto, e o que se soma)
+==================================================================================================
+Quem sobe contra quem fica no 5º ao 8º [TABELA]
+Pontos 65,9 × 59,9 (+5,9) · Vitórias 18,7 × 16,4 (+2,3) · Empates 9,8 × 10,6 (−0,8) · Derrotas 9,5 × 10,9 (−1,4) · Gols pró 50,1 × 45,5 (+4,6) · Gols contra 33,3 × 33,8 (−0,5) · Saldo 16,8 × 11,7 (+5,1)
+Médias dos 16 clubes de cada faixa. A defesa é igual — meio gol de diferença em 38 jogos. A separação inteira está no ataque, quase cinco gols. Numa liga em que todos defendem parecido, é o ataque que compra vitória.
+
+Tudo o que medimos, em ordem de importância
+Como ler. Para cada indicador eu enfileirei os 20 clubes da temporada, do melhor ao pior naquele número, e comparei essa fila com a ordem final da tabela. Quanto mais parecidas as duas filas, maior a barra. (0,84 de "pontos em casa" quer dizer que a fila de quem pontua em casa é quase a fila final. 0,14 de "acertar mais passes" quer dizer que saber quem acerta mais passe quase não ajuda a adivinhar a tabela.) Cada rótulo já está escrito na direção certa, então barra azul é sempre coisa boa; as laranjas são as poucas em que é o contrário. Todos os 20 clubes das quatro temporadas entram na conta.
+[GRÁFICO: ~30 indicadores ordenados por |rho|]
+Duas linhas do ataque, sinais opostos, e não é erro. "€ parados no ATAQUE" dá 0,29 e "% do orçamento no ATAQUE" dá -0,29 — uma está em euros e a outra em porcentagem do próprio elenco. A de euros anda a 0,53 com o valor total do elenco: boa parte dela é só "clube rico tem atacante caro, e clube rico sobe mais". A de porcentagem anda a -0,28 com o valor total — é o clube pobre que concentra no ataque. Entre si, as duas ficam em 0,34.
+Posse de bola (0,26) e precisão de passe (0,14) quase não distinguem quem sobe de quem cai — os dois números que mais abrem apresentação de análise de jogo. E idade do time é zero (-0,04): não existe elenco jovem demais nem velho demais para subir. O que existe é idade concentrada no lugar errado.
+
+Como os indicadores conversam entre si
+Um painel de trinta indicadores pode ser trinta histórias ou uma história contada trinta vezes. Aqui são trinta histórias: de 351 pares possíveis entre os indicadores que contam alguma coisa, só 6 passam de 0,70 entre si (o mais parecido é "marcar mais gols" com "passar em branco menos vezes", 0,83). Quase nada é repetição.
+E isso tem uma consequência prática: como não se explicam uma pela outra, elas se somam. Abaixo, quanto cada uma explica da posição final sozinha, e quanto explicam juntas.
+Atenção: esta régua não é a do gráfico de cima. Lá a barra é a semelhança entre duas filas; aqui é quanto da tabela a medida explica. Uma vira a outra ao quadrado — "concentrar os minutos" aparece com 0,54 lá em cima e com 0,29 aqui.
+[GRÁFICO]
+Quatro alavancas separadas, e nenhuma delas é gol. A melhor sozinha explica 0,29 da tabela; as quatro juntas, 0,65. São: confiar em um grupo curto, ter elenco caro, ter goleiro que defende e marcar de cabeça — e a maior correlação entre qualquer par delas é 0,23. Mexer numa não mexe nas outras.
+Duas ressalvas. Explicar não é causar: elenco caro e goleiro bom também são consequência de ser um clube grande. E o conjunto foi escolhido por busca dentro destes 80 clube-temporada — com outras quatro temporadas o quarteto provavelmente muda de composição.
+
+O retrato de quem sobe · média dos 16, em 38 jogos [TABELA Sobe × Cai]
+Resultado: Pontos 66×35 · Gols marcados 50×33 · Gols sofridos 33×51 · Saldo de xG por jogo +0,20×−0,25 · Pontos em casa 41×24 · Pontos fora 25×11
+Ataque: Remates por jogo 12,4×12,0 · Remates à baliza 35,0%×30,7% · xG criado por jogo 1,28×1,10 · xG por remate 0,103×0,092 · Distância média do remate 19,6 m×21,1 m · Jogos sem marcar 9×16 · Vitórias por 3+ 2,8×0,7
+Defesa: Clean sheets 16×9 · Remates sofridos por jogo 11,9×13,2 · xGA por jogo 1,08×1,35 · xG por remate sofrido 0,091×0,102 · PPDA 9,8×11,1 · Derrotas por 3+ 0,8×2,4
+Bola parada: Bolas paradas por jogo 27,5×28,3 · … que viram remate 13,6%×12,4% · Escanteios por jogo 5,4×5,0 · Gols de cabeça 8,9×5,9 · Pênaltis convertidos 4,9×3,4
+Elenco: Valor total € 27,3 mi×€ 10,3 mi · Fatia do valor na defesa 33,9%×26,2% · Atletas usados 37×46 · Minutos nos 11 mais usados 66,6%×58,2% · Idade média por minuto 27,6×28,4 · Minutos com estrangeiros 17,5%×8,5%
+Repare no xG ao lado do gol. Quem sobe cria 1,28 de xG por jogo e faz 1,32 gol; quem cai cria 1,10 e faz 0,86. O xG do Wyscout supera o gol real da Série B em 9% a 14% todo ano, então compare as colunas entre si, não o xG com o gol.
+Referência do que a Série B vem exigindo, não promessa. E lembrando que a régua mudou: este retrato é do grupo que passava pelo G4.
+
+==================================================================================================
+SEÇÃO 9 — A temporada (ano a ano, clube a clube)
+==================================================================================================
+A temporada de 2026 · 27 de 38 rodadas [GRÁFICO com botões 2026/2025/2024/2023/2022; legenda: sobe direto / playoff / fora]
+Faltam 11 rodadas, 33 pontos em jogo. Para o acesso direto pela média histórica (66) o 2º precisa de 17; para entrar no playoff (61) o 6º precisa de 18 e o 10º de 22.
+
+==================================================================================================
+SEÇÃO 10 — Método e ressalvas (onde isto pode estar errado)
+==================================================================================================
+O que muda no planejamento, e o que ainda não sei
+A regra nova baixa o piso e sobe o teto. Entrar na disputa ficou mais barato: o 6º fez em média 61 pontos contra os 63 que o antigo 4º precisava. Mas garantir o acesso sem depender de mata-mata ficou mais caro: 66 pontos. No playoff, terminar em 3º ou 4º vale muito mais que em 5º ou 6º, porque o melhor colocado decide em casa e passa no empate. Duas posições na tabela viram meio confronto de vantagem.
+Duas das três lacunas antigas foram preenchidas. Eu dizia aqui que faltavam folha salarial, quantos jogadores cada um usou e trocas de treinador. O uso de elenco entrou (e derrubou a conclusão anterior). O valor de mercado do Transfermarkt entrou como proxy da folha — não é a mesma coisa. Trocas de treinador continuam faltando, e é a lacuna que mais incomoda, porque é a explicação mais provável de metade do que aparece como "característica de quem cai".
+Onde isto pode estar errado. São 16 clubes que subiram e 16 que caíram: diferença de dois ou três pontos percentuais é ruído, não achado. Causa e efeito andam nos dois sentidos — time perdendo troca jogador, compra atacante e comete mais falta, então parte do retrato de quem cai é consequência de estar caindo. E o xG do Wyscout supera o gol real da Série B em 9% a 14% todo ano, ou seja é um modelo calibrado para outro futebol: aqui se usa a ordem (quem cria mais que quem), nunca o nível.
+Por fim, a base tem cinco jogos a menos que o campeonato em 1.785: Londrina × Tombense em 2022, Operário-PR × Chapecoense em 2024 e três da 27ª rodada de 2026. Faltam nos dois lados da fonte, então não é download incompleto — e quem detectou foi a conferência que recalcula a tabela a partir das partidas e fecha em 90 dos 100 clube-temporada.
