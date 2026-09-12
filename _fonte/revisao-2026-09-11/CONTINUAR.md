@@ -1,5 +1,16 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **ONDA 1 EM PARALELO — 12/09/2026 00:20.** Run `wf_bb85bd22-484`, script
+> `workflow_onda1.js` nesta pasta. Oito agentes diagnosticam os oito erros que estão no ar
+> (um por item), cada um conferido por um cético, e devolvem o **patch exato** (`old_string` →
+> `new_string`) — **nenhum agente edita arquivo**; quem aplica é a sessão principal, em série,
+> em `static/app.js`, e depois sincroniza `docs/static/`.
+>
+> A pergunta que decide o item mais grave: o `valor_eur` do `dados/serieb_elencos.csv`
+> (Transfermarkt, tem `ano` e `posicao`) varia por temporada? Se variar, o valor por setor não
+> é só ressalvado — é **reconstruído**, e as cinco barras de euros voltam com o número certo.
+
+
 > **ATUALIZAÇÃO 12/09/2026 00:14 — a continuação foi LANÇADA e está rodando.**
 > Run novo: `wf_5cddde65-e45` (sessão `d04c10c6`). Script: **`workflow_continuar.js`** nesta
 > pasta — ele já traz os 30 resultados do run antigo COLADOS como constantes e roda **só**
