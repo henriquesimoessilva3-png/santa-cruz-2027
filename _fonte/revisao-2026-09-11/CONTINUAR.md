@@ -1,5 +1,21 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **CONCLUÍDO EM 11/09/2026 pelo Opus.** O workflow terminou com as fases finais falhando por
+> limite de gastos do Fable (7 propostas + síntese). As 23 que terminaram — mapa, 8 pesquisas,
+> brief e **as 10 revisões** — sobreviveram e estão em `resultados_agentes.json`. As propostas e
+> a síntese foram feitas à mão a partir delas.
+>
+> **O relatório final está publicado:**
+> https://claude.ai/code/artifact/9efe03c4-69e9-49f9-b3c1-016c285865c6
+> (cópia local em `relatorio.html` nesta pasta)
+>
+> **Resultado:** 24 problemas de gravidade alta; rigor 2/5 em oito das dez seções; 7 erros que
+> mudam conclusões publicadas; 11 análises novas propostas (3 já calculadas). Ver
+> `ESTADO_DO_WORKFLOW.md` para o estado do workflow e o relatório para tudo o mais.
+>
+> **O que falta:** implementar. A Onda 1 do roteiro (o que está errado no ar) não depende de
+> dado novo.
+
 > **FECHAMENTO EM 11/09/2026 23:42 — o dono avisou que o uso semanal do modelo bateu 99%.**
 > A sessão original pode ter morrido com o workflow INCOMPLETO. Leia `ESTADO_DO_WORKFLOW.md`
 > (nesta pasta) para saber exatamente quais agentes terminaram; o retorno de cada um está em

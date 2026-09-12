@@ -1,0 +1,760 @@
+<title>Revisão do estudo de acesso</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#f4f5f7; --surface:#ffffff; --surface2:#eceef2;
+  --ink:#171c26; --ink2:#39424f; --muted:#5b6473; --rule:#dfe3ea;
+  --sobe:#0f6f9e; --cai:#b0640c; --alerta:#b8302a; --ok:#2f7d4f;
+  --disp:"Barlow Condensed","Arial Narrow",sans-serif;
+  --corpo:"Source Serif 4",Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0f1218; --surface:#161b24; --surface2:#1d2430;
+  --ink:#e6e9ee; --ink2:#c3cad6; --muted:#8b94a5; --rule:#262d39;
+  --sobe:#3f9fcc; --cai:#c08420; --alerta:#d24a43; --ok:#4fa873;
+}}
+:root[data-theme="dark"]{
+  --ground:#0f1218; --surface:#161b24; --surface2:#1d2430;
+  --ink:#e6e9ee; --ink2:#c3cad6; --muted:#8b94a5; --rule:#262d39;
+  --sobe:#3f9fcc; --cai:#c08420; --alerta:#d24a43; --ok:#4fa873;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--corpo);
+  font-size:16px;line-height:1.62;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:1080px){.wrap{grid-template-columns:232px minmax(0,1fr);gap:44px;
+  max-width:1180px;margin:0 auto;padding:0 28px}}
+nav.idx{display:none}
+@media(min-width:1080px){nav.idx{display:block;position:sticky;top:0;align-self:start;
+  max-height:100vh;overflow-y:auto;padding:46px 0 40px}}
+nav.idx b{display:block;font-family:var(--disp);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 12px;font-weight:600}
+nav.idx a{display:block;font-family:var(--disp);font-size:15px;color:var(--ink2);
+  text-decoration:none;padding:4px 0 4px 11px;border-left:2px solid var(--rule);line-height:1.3}
+nav.idx a:hover{color:var(--sobe);border-left-color:var(--sobe)}
+nav.idx a .n{font-family:var(--mono);font-size:10px;color:var(--muted);margin-right:6px}
+main{max-width:none;padding:46px 20px 90px;min-width:0}
+@media(min-width:1080px){main{padding:46px 0 110px}}
+.col{max-width:68ch}
+.eyebrow{font-family:var(--disp);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cai);font-weight:600;margin:0 0 10px}
+h1{font-family:var(--disp);font-size:clamp(38px,6vw,58px);line-height:.98;font-weight:700;
+  margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance;max-width:16ch}
+.sub{font-size:18px;color:var(--ink2);margin:0 0 8px;max-width:60ch;line-height:1.5}
+.meta{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin:22px 0 0;
+  padding-top:16px;border-top:1px solid var(--rule);max-width:68ch}
+h2{font-family:var(--disp);font-size:31px;font-weight:700;line-height:1.08;
+  margin:62px 0 6px;letter-spacing:-.005em;text-wrap:balance;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:13px;color:var(--cai);font-weight:600;
+  display:block;margin-bottom:5px;letter-spacing:.04em}
+h3{font-family:var(--disp);font-size:21px;font-weight:600;margin:36px 0 5px;line-height:1.2;text-wrap:balance}
+h4{font-family:var(--disp);font-size:16px;font-weight:600;margin:24px 0 4px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+p{margin:0 0 15px;max-width:68ch}
+.lead{font-size:17.5px;color:var(--ink2)}
+ul,ol{margin:0 0 16px;padding-left:21px;max-width:68ch}
+li{margin:0 0 7px}
+b,strong{font-weight:700;color:var(--ink)}
+code{font-family:var(--mono);font-size:.855em;background:var(--surface2);
+  padding:1px 5px;border-radius:3px;color:var(--ink2)}
+a{color:var(--sobe)}
+.rule{border:0;border-top:1px solid var(--rule);margin:52px 0 0;max-width:68ch}
+/* tabelas */
+.scroll{overflow-x:auto;margin:0 0 20px;max-width:100%}
+table{border-collapse:collapse;font-family:var(--mono);font-size:12.5px;
+  font-variant-numeric:tabular-nums;min-width:min(100%,420px)}
+th,td{padding:6px 13px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:130px}
+thead th{font-family:var(--disp);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;border-bottom:1px solid var(--ink2);padding-bottom:5px}
+tbody tr:last-child td{border-bottom:none}
+td.s{color:var(--sobe);font-weight:600}
+td.c{color:var(--cai);font-weight:600}
+td.al{color:var(--alerta);font-weight:600}
+/* notas das seções */
+.n{display:inline-block;font-family:var(--mono);font-size:11px;width:19px;height:19px;
+  line-height:19px;text-align:center;border-radius:3px;font-weight:600}
+.n2{background:color-mix(in srgb,var(--alerta) 20%,transparent);color:var(--alerta)}
+.n3{background:color-mix(in srgb,var(--cai) 22%,transparent);color:var(--cai)}
+.n4{background:color-mix(in srgb,var(--ok) 20%,transparent);color:var(--ok)}
+/* achado: o bloco que carrega o peso */
+.achado{background:var(--surface);border-left:3px solid var(--alerta);
+  padding:18px 22px 4px;margin:0 0 20px;max-width:68ch;border-radius:0 4px 4px 0}
+.achado.ok{border-left-color:var(--ok)}
+.achado.med{border-left-color:var(--cai)}
+.achado .tag{font-family:var(--disp);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--alerta);font-weight:600;display:block;margin-bottom:6px}
+.achado.ok .tag{color:var(--ok)} .achado.med .tag{color:var(--cai)}
+.achado h4{margin-top:0;font-family:var(--disp);font-size:19px;text-transform:none;
+  letter-spacing:0;color:var(--ink);font-weight:600}
+.achado p{font-size:15px;margin-bottom:13px}
+.achado p:last-child{margin-bottom:16px}
+.fix{font-family:var(--mono);font-size:12px;color:var(--ink2);background:var(--surface2);
+  padding:9px 12px;border-radius:3px;margin:0 0 16px;line-height:1.55}
+.fix b{font-family:var(--disp);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:3px;font-weight:600}
+/* mapa de calor */
+.heat td{text-align:center;font-weight:600;min-width:58px}
+.heat td:first-child{text-align:left;font-weight:400}
+.heat .h0{color:var(--muted)}
+.heat .h1{background:color-mix(in srgb,var(--sobe) 12%,transparent);color:var(--ink2)}
+.heat .h2{background:color-mix(in srgb,var(--sobe) 26%,transparent);color:var(--ink)}
+.heat .h3{background:color-mix(in srgb,var(--sobe) 45%,transparent);color:var(--ink)}
+.heat .h4{background:color-mix(in srgb,var(--sobe) 66%,transparent);color:var(--ink)}
+.heat tr.marca td{border-top:2px solid var(--cai)}
+.leg{font-family:var(--mono);font-size:11px;color:var(--muted);margin:-10px 0 22px;max-width:68ch}
+/* lista de propostas */
+.prop{border-top:1px solid var(--rule);padding:19px 0 3px;max-width:68ch}
+.prop:first-of-type{border-top:1px solid var(--ink2)}
+.prop .cab{display:flex;gap:11px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.prop .id{font-family:var(--mono);font-size:12px;color:var(--cai);font-weight:600}
+.prop .tit{font-family:var(--disp);font-size:20px;font-weight:600;line-height:1.15}
+.prop .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 10px}
+.chip{font-family:var(--mono);font-size:10.5px;padding:2px 7px;border-radius:3px;
+  background:var(--surface2);color:var(--muted);white-space:nowrap}
+.chip.a{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.chip.b{background:color-mix(in srgb,var(--cai) 20%,transparent);color:var(--cai)}
+.prop p{font-size:15px;margin-bottom:10px}
+.cut{color:var(--muted)}
+.cut .tit{text-decoration:line-through;text-decoration-thickness:1px}
+@media(prefers-reduced-motion:no-preference){nav.idx a{transition:color .12s,border-color .12s}}
+</style>
+
+<div class="wrap">
+<nav class="idx">
+  <b>Partes</b>
+  <a href="#r1"><span class="n">01</span>O veredito</a>
+  <a href="#r2"><span class="n">02</span>Sete erros que mudam conclusões</a>
+  <a href="#r3"><span class="n">03</span>O que eu conferi</a>
+  <a href="#r4"><span class="n">04</span>Seção por seção</a>
+  <a href="#r5"><span class="n">05</span>As análises novas</a>
+  <a href="#r6"><span class="n">06</span>A narrativa reorganizada</a>
+  <a href="#r7"><span class="n">07</span>Roteiro</a>
+  <a href="#r8"><span class="n">08</span>Referências</a>
+</nav>
+
+<main>
+<p class="eyebrow">Santa Cruz · aba Análise Série B · 11 de setembro de 2026</p>
+<h1>Revisão do estudo de acesso</h1>
+<p class="sub lead">Dez seções auditadas por revisores que não opinaram — recalcularam. O estudo
+está certo no rumo e frágil na prova: <b>vinte e quatro problemas graves</b>, sete deles
+mudando uma conclusão já publicada.</p>
+<p class="meta">23 agentes · 3,3 milhões de tokens · 8 pesquisas na web (Sumpter, Ian Graham/Liverpool,
+promoção em segundas divisões, físico, elenco, bola parada, método, pressão) · 10 revisões por seção ·
+5 análises rodadas à mão sobre as bases · 80 clube-temporada, 2022&#8209;2025</p>
+
+<hr class="rule">
+
+<h2 id="r1"><span class="num">01</span>O veredito</h2>
+<p class="lead">A aba faz a pergunta certa e a responde com dado de verdade — isso é raro e
+é o que a sustenta. O problema não é o que ela conclui; é <b>quanto do que ela conclui
+aguenta ser conferido</b>. Em oito das dez seções o rigor ficou em 2 de 5.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Seção</th><th>Rigor</th><th>Clareza</th><th>Organização</th></tr></thead>
+<tbody>
+<tr><td>A linha do acesso</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>De onde vem a vantagem</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n4">4</span></td></tr>
+<tr><td>Ataque e defesa</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>Bola parada</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>Elenco, dinheiro e idade</td><td><span class="n n2">2</span></td><td><span class="n n4">4</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>Físico</td><td><span class="n n3">3</span></td><td><span class="n n4">4</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>O jogo</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>O quadro geral</td><td><span class="n n3">3</span></td><td><span class="n n4">4</span></td><td><span class="n n3">3</span></td></tr>
+<tr><td>A temporada</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n2">2</span></td></tr>
+<tr><td>Método e ressalvas</td><td><span class="n n2">2</span></td><td><span class="n n3">3</span></td><td><span class="n n2">2</span></td></tr>
+</tbody></table>
+</div>
+
+<h3>O padrão por trás dos vinte e quatro</h3>
+<p>Os problemas não são vinte e quatro acidentes. São <b>quatro hábitos</b>, repetidos:</p>
+<ol>
+<li><b>Razão no lugar de diferença.</b> «2,3× os pontos fora de casa», «a distância dobra
+contra o G6», «reage com 1,80 contra 1,08» — todos verdadeiros como razão e enganosos como
+achado, porque razão infla quando o denominador é pequeno. Em pontos, três deles
+<i>invertem</i>.</li>
+<li><b>Extremo no lugar da relação.</b> Comparar os 16 que sobem com os 16 que caem produz
+contraste mesmo onde não há tendência. Empates: sobe 9,8 · 5º&#8209;8º 10,6 · meio 12,0 ·
+cai 11,1 — <b>quem cai empata menos que o meio</b>. O contraste dos extremos escondeu isso.</li>
+<li><b>Muitos testes, nenhuma proteção.</b> São ~190 correlações na aba. A 5%, nove são
+falsas por construção. A tabela física de 128 células acende 34; com correção de
+comparações múltiplas sobrevivem <b>duas</b>.</li>
+<li><b>Repetição confundida com alavanca.</b> A aba chama quatro coisas de «alavancas» e
+escreve «mexer numa não mexe nas outras». Mas alavanca é o que se repete de um ano para o
+outro — e três das quatro não se repetem.</li>
+</ol>
+
+<h3>O que preservar sem discussão</h3>
+<p>A revisão foi dura, e é honesto dizer o que ela <i>não</i> derrubou. Estes são
+pontos fortes citados pelos próprios revisores:</p>
+<ul>
+<li><b>A cadeia do gol</b> (volume → qualidade → conversão) é a estrutura analítica mais
+forte da aba e está correta. O achado «dois terços do vão estão no último elo» resiste.</li>
+<li><b>A honestidade declarada.</b> A seção de bola parada avisa que o gol de bola parada
+não existe na base antes de dar o número; a de elenco corrige em público uma conclusão
+anterior. Isso é raro e vale mais que qualquer gráfico.</li>
+<li><b>A pedagogia do «Como ler»</b> na seção 8 é a melhor da aba — explica correlação a um
+diretor de futebol sem usar a palavra.</li>
+<li><b>O painel físico por posição</b> é a análise mais original do estudo, e o achado
+«corre-se mais rápido, não mais» sobrevive ao controle por valor de elenco e por idade.</li>
+</ul>
+
+<hr class="rule">
+
+<h2 id="r2"><span class="num">02</span>Sete erros que mudam uma conclusão publicada</h2>
+<p class="lead">Dos vinte e quatro, estes sete não são «poderia estar melhor». São afirmações
+hoje no ar que o próprio dado desmente.</p>
+
+<div class="achado">
+<span class="tag">Erro de dado · atinge 6 números publicados</span>
+<h4>O valor por setor é um retrato de 2026 aplicado a 2022</h4>
+<p>«€ parados na defesa» (0,56 — a barra mais forte do dinheiro), «€ no meio» (0,40), «€ no
+ataque» (0,29), as duas fatias (±0,29) e a linha «Fatia do valor na defesa 33,9% × 26,2%»
+saem do <code>Valor de mercado</code> do Wyscout. <b>Esse campo é o valor em 11/09/2026, repetido
+em todas as temporadas.</b></p>
+<p>Conferi pessoalmente: dos 558 atletas com duas ou mais temporadas na base, <b>489 (87,6%)
+têm valor idêntico em todos os anos</b>. Alex Sandro aparece com € 0,70 mi em 2022, 2023, 2024
+e 2025. Alex Silva, € 0,25 mi nos cinco anos. E a cobertura é de apenas 54% — o
+<code>valor_por_setor()</code> soma metade do elenco.</p>
+<p>Há um agravante: isso é <b>viés de futuro</b>. O valor de hoje já embute ter subido em 2023.
+A correlação de 0,56 mede, em parte, o desfecho explicando a si mesmo.</p>
+<p class="fix"><b>Correção</b>Reconstruir <code>val_*</code> e <code>sh_*</code> a partir de
+<code>serieb_elencos.csv</code> (Transfermarkt, valor por temporada). Conferi que a alternativa
+é boa: lá só <b>20,5%</b> dos atletas repetem o valor entre anos — contra 87,6% do Wyscout —
+e a cobertura é de 57%. Até lá, retirar as cinco barras de euros por setor do gráfico.</p>
+</div>
+
+<div class="achado">
+<span class="tag">Erro estatístico · derruba a tese da seção 2</span>
+<h4>O teste de persistência exclui, por construção, todos os que subiram</h4>
+<p>«Finalizar bem se repete no ano seguinte? Não (−0,17)» é o achado que sustenta a tese
+central: <i>a parte que mais pesou na tabela é a que não se contrata</i>. O teste usa 36
+pares de temporadas seguidas do mesmo clube.</p>
+<p>Mas quem sobe vai para a Série A e quem cai vai para a C. <b>Os 36 pares têm zero clubes
+que subiram e zero que caíram</b> — são todos do 5º ao 16º. O teste mede persistência no
+miolo e a conclusão é aplicada aos extremos.</p>
+<p>Feito <i>dentro</i> da temporada (1º turno contra 2º, com os 80), o revisor obteve
+finalização <b>+0,20</b> e saldo de xG +0,57. A direção continua favorecendo a tese, mas o
+«não diz nada» vira «diz pouco».</p>
+<p class="fix"><b>Correção</b>Antecipar o teste dentro da temporada (1º × 2º turno, n=80, os
+jogos estão em <code>serieb_jogos.csv</code>) e manter o ano&#8209;a&#8209;ano como confirmação,
+declarando quem ele cobre. E trocar «a parte que não se contrata» por «não se repete no nível
+do time — se existe, mora no atleta, e isto ainda não foi testado».</p>
+</div>
+
+<div class="achado">
+<span class="tag">Erro estatístico · inverte três conclusões da seção 7</span>
+<h4>As razões da seção «O jogo» invertem quando viram pontos</h4>
+<p>Três manchetes vêm de razões, e as três mudam de sentido em pontos:</p>
+<ul>
+<li><b>«Fora de casa é onde o acesso se decide»</b> (2,3× fora contra 1,7× em casa). Em
+pontos, a vantagem de quem sobe é <i>maior em casa</i>: 16,6 pontos em casa contra 14,3
+fora. A razão infla porque quem cai quase não pontua como visitante.</li>
+<li><b>«Bate os fortes, não os fracos»</b> (2,1× contra o G6 contra 1,6× contra os últimos).
+Em pontos, contra o miolo quem sobe faz 28 e quem cai 14 — <b>14 pontos</b>; contra o G6 a
+diferença é de <b>6</b>. A temporada se separa no miolo.</li>
+<li><b>«A reação é o número mais direto do estudo»</b> (1,80 × 1,08 após derrota).
+Descontado o ritmo normal de cada clube, a «reação» é +0,06 para quem sobe e <b>+0,16 para
+quem cai</b>. Não existe time que reage; existe time bom.</li>
+</ul>
+<p class="fix"><b>Correção</b>Reescrever os três a partir de pontos, mostrando a razão só como
+contexto. O título vira «Quem cai não pontua fora» — que os pontos sustentam.</p>
+</div>
+
+<div class="achado">
+<span class="tag">Erro estatístico · 34 achados viram 2</span>
+<h4>A tabela física testa 128 correlações e trata 34 como achados</h4>
+<p>«Zaga 4, lateral 3, meio 17, ataque 10» conta quantas células passam de 0,22 numa tabela
+de 18 × 4 mais o painel geral. A 5%, <b>6,4 células passariam por puro acaso</b>.</p>
+<p>Com correção para comparações múltiplas (Bonferroni a 0,05/128 → limiar 0,383), sobrevivem
+<b>duas</b>: PSV&#8209;99 das 5 melhores na zaga (0,41) e arranques até o sprint no meio (0,39).
+Por Benjamini&#8209;Hochberg a q=0,10, as mesmas duas.</p>
+<p>Isso não anula o painel — as duas que sobrevivem são exatamente as manchetes da seção. Mas
+«17 de 32 no meio» não é 17 achados.</p>
+<p class="fix"><b>Correção</b>Duas faixas de aceso na tabela: 0,22 (5%) e 0,29 (1%), com
+destaque para as que passam 0,38. Na tabela&#8209;resumo, trocar «indicadores que separam» por
+duas colunas: «passam a 5%» e «passam a 1%».</p>
+</div>
+
+<div class="achado">
+<span class="tag">Confusão causal · rebaixa «o achado mais nítido»</span>
+<h4>«Sem a bola» é o retrato físico do PPDA, não um achado próprio</h4>
+<p>O bloco «com a bola e sem a bola» é chamado de «o achado mais nítido do painel físico»:
+0,02 com a bola contra 0,22 sem. Mas correr sem a bola é o que pressionar alto <i>custa</i>.</p>
+<p>O revisor mediu: metros por minuto sem a bola correlaciona <b>+0,50 com o PPDA</b> e +0,46
+com a posse. Descontado o PPDA, sobra <b>0,05</b>. É a mesma história da seção 3, contada em
+metros.</p>
+<p class="fix"><b>Correção</b>Rebaixar de «achado mais nítido» para «a confirmação física da
+seção 3», e escrever a ligação: pressionar alto aparece no PPDA, no chute que o adversário
+concede e nos metros sem a bola — é um fenômeno, não três.</p>
+</div>
+
+<div class="achado">
+<span class="tag">Erro de amostra · o corte descarta um clube que subiu</span>
+<h4>O corte dos empates cai em cima de um empate</h4>
+<p>«Os 20 que mais empataram: 2 de 20 subiram» usa os 20 últimos de uma lista ordenada. Mas
+<b>23 clubes têm 13 ou mais empates</b>, e o corte em 20 descarta três pela ordem do array —
+entre eles o <b>Atlético&#8209;GO de 2023, que subiu</b>. Com os 23, o cartão diria 3 de 23.</p>
+<p>E a tese em si é fraca: a correlação de empates com a posição é <b>0,29</b>, contra −0,98
+de vitórias. Empate separa pouco; o que separa é ganhar.</p>
+<p class="fix"><b>Correção</b>Cortar por valor, não por contagem («até 9 empates» × «13 ou
+mais»), escrever o n em cada cartão, e mostrar as quatro faixas. O mecanismo legítimo é
+outro e é mais interessante: o <b>critério de desempate da CBF é número de vitórias</b> — em
+2022 e 2023 o 6º e o 7º terminaram com os mesmos pontos e a vaga foi decidida ali.</p>
+</div>
+
+<div class="achado">
+<span class="tag">Erro de renderização · o gráfico está vazio</span>
+<h4>A linha de 2026 não aparece no gráfico da seção 1</h4>
+<p>O eixo do gráfico «a faixa que decide, ano a ano» vai de 54 a 69 pontos. Em 2026, com 27
+rodadas, o 6º tem 43 e o 2º tem 49 — <b>fora do quadro</b>. O revisor calculou as posições:
+x = −165 e x = −5, contra um viewBox que começa em 0. No site publicado a linha «2026 *»
+aparece com um «49» solto na margem.</p>
+<p class="fix"><b>Correção</b>Projetar 2026 para 38 rodadas (pontos por jogo × 38 → 2º: 69,
+6º: 61) e desenhar tracejado com a nota «ritmo atual, projetado»; ou tirar 2026 do gráfico.
+Barra invisível com asterisco é pior que ausência.</p>
+</div>
+
+<hr class="rule">
+
+<h2 id="r3"><span class="num">03</span>O que eu conferi pessoalmente</h2>
+<p class="lead">Cinco análises rodadas direto sobre as bases, fora do circuito de revisão.
+Duas confirmam o estudo, duas o corrigem e uma fecha uma porta.</p>
+
+<div class="achado ok">
+<span class="tag">Confirmado · e mais forte do que a aba diz</span>
+<h4>O quarteto de alavancas sobrevive fora da amostra</h4>
+<p>A aba diz que as quatro alavancas explicam 0,65 da posição — mas esse é o número
+<i>dentro</i> da amostra, que sempre favorece quem garimpou. Testei treinando em três
+temporadas e prevendo a quarta:</p>
+<div class="scroll"><table>
+<thead><tr><th>Conjunto</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>Fora</th></tr></thead>
+<tbody>
+<tr><td><b>As quatro juntas</b></td><td>+0,71</td><td>+0,88</td><td>+0,79</td><td>+0,69</td><td class="s">+0,77</td></tr>
+<tr><td>só valor do elenco</td><td>+0,51</td><td>+0,65</td><td>+0,65</td><td>+0,29</td><td>+0,52</td></tr>
+<tr><td>só concentração</td><td>+0,55</td><td>+0,65</td><td>+0,57</td><td>+0,40</td><td>+0,54</td></tr>
+<tr><td>só goleiro</td><td>+0,27</td><td>+0,53</td><td>+0,51</td><td>+0,63</td><td>+0,49</td></tr>
+<tr><td>só gols de cabeça</td><td>+0,31</td><td>+0,62</td><td>+0,49</td><td>+0,36</td><td>+0,45</td></tr>
+</tbody></table></div>
+<p>Cai de 0,80 dentro para <b>0,77 fora</b>. Não está sobreajustado, e prevê a temporada que
+não viu muito melhor que qualquer alavanca sozinha. <b>Esse número deveria estar na tela</b> —
+é o que responde «isto é achado ou garimpo?».</p>
+</div>
+
+<div class="achado med">
+<span class="tag">Corrige · a composição não é estável</span>
+<h4>São três conceitos estáveis e uma quarta vaga que a amostra escolhe</h4>
+<p>Re-garimpando o melhor quarteto em cada subconjunto de três temporadas, com a regra da
+própria aba (sem gol, xG, remates): o goleiro entra <b>4 vezes em 4</b>; o grupo curto,
+<b>6 das 8 vagas</b>; o elenco caro, <b>4 das 8</b>; a quarta vaga varia (corridas na área,
+conversão de bola parada).</p>
+<p>Somado ao que os revisores acharam sobre persistência — <code>share11</code> repete a 0,06,
+goleiro a 0,12, cabeça a 0,15 e só o valor a 0,73 —, a palavra «alavanca» não se sustenta
+para três das quatro. São <b>sintomas</b> de quem sobe, não botões para apertar.</p>
+</div>
+
+<div class="achado ok">
+<span class="tag">Novo · responde à sua hipótese</span>
+<h4>Quem sobe contrata quem já jogava</h4>
+<p>Você levantou a hipótese de que os times que sobem têm atletas com mais minutagem, no ano
+e historicamente. Testei as duas metades.</p>
+<p><b>No ano, é verdade e é forte</b> — mas é a mesma coisa que a aba já mostra. O titular de
+quem sobe joga 2.545 minutos contra 2.219 de quem cai (quase quatro jogos a mais), e quem
+sobe tem seis atletas acima de 2.500 minutos contra três. Só que isso correlaciona <b>0,94</b>
+com a concentração de minutos que já está na tela: é a mesma alavanca em unidade melhor.
+<i>Vale trocar a unidade</i> — «2.545 minutos por titular» diz mais a um diretor que
+«66,6% dos minutos nos onze».</p>
+<p><b>No histórico, é achado novo.</b> O núcleo de 16 atletas de quem sobe tinha 1.569 minutos
+na Série B do ano anterior; o de quem cai, 1.327 — e a relação com a posição é <b>+0,28</b>,
+acima do limiar. A cobertura é igual nos dois grupos (42% contra 40%), então não é viés de
+quem veio de outra divisão.</p>
+</div>
+
+<div class="achado med">
+<span class="tag">Corrige · e liga duas seções</span>
+<h4>Fora de casa o processo cai igual; a conversão é que não</h4>
+<p>Abrindo os 3.036 jogos por mando: a queda de casa para fora é <b>a mesma</b> nos dois
+grupos — xG criado cai 30% em quem sobe e 27% em quem cai; gols pró caem 32% nos dois.</p>
+<p>O que difere é a conversão, e ela é <b>constante</b>: quem sobe faz 1,00 gol por xG em casa
+e 1,00 fora; quem cai, 0,80 e 0,74. Um déficit de ~25% que existe em qualquer mando. Fora,
+com menos xG para trabalhar, é ele que transforma empate em derrota.</p>
+<p>Isso liga «fora de casa» diretamente a «dois terços do vão estão no último elo» — são o
+mesmo fenômeno visto de dois ângulos.</p>
+</div>
+
+<div class="achado">
+<span class="tag">Porta fechada · por sua decisão</span>
+<h4>A base de lesões mede cobertura, não lesão</h4>
+<p>O cruzamento dava um resultado limpo demais: quem sobe com 450 dias de lesão contra 134 de
+quem cai, relação +0,27 a +0,35 em cinco indicadores. Três testes mostraram o que era:</p>
+<ul>
+<li>Número de lesionados correlaciona <b>+0,38 com o valor do elenco</b>.</li>
+<li>Por quartil de valor do atleta, a fração com lesão registrada vai de 18,5% (mais baratos)
+a <b>43,3%</b> (mais caros). Não há fisiologia para isso.</li>
+<li>Entre os atletas caros de quem caiu, <b>zero lesões registradas em 2023 e em 2024
+inteiros</b>. Isso não é saúde; é ausência de registro.</li>
+</ul>
+<p>Você decidiu deixar fora, e é a decisão certa. Registro aqui para ninguém repropor — e
+registro também que a saída honesta (inferir disponibilidade dos minutos rodada a rodada)
+<b>não é derivável hoje</b>: a base técnica só tem o total da temporada e a de partidas é por
+clube, sem escalação.</p>
+</div>
+
+<hr class="rule">
+
+<h2 id="r4"><span class="num">04</span>Seção por seção</h2>
+<p class="lead">O que preservar, o que corrigir e o que falta em cada uma. Os sete erros da
+parte 02 não se repetem aqui.</p>
+
+<h3>1 · A linha do acesso</h3>
+<p><b>Preservar:</b> a conta de pontos está certa e bem desenhada; a distinção entre o piso do
+playoff (61) e o acesso direto (66) é a informação mais acionável da aba.</p>
+<p><b>Corrigir:</b> além do gráfico vazio e do corte dos empates, falta a <b>garantia</b>: nenhum
+7º passou de 63 e nenhum 3º de 66, então <b>64 pontos entraram no playoff nos quatro anos e 67
+subiram direto nos quatro</b>. Média é o que costuma bastar; garantia é o que o planejamento
+precisa. E em 2022 e 2023 o 6º e o 7º <i>empataram</i> em pontos — a vaga saiu no desempate.</p>
+<p><b>Falta:</b> a meta traduzida em ritmo (1,72 ponto por rodada para o 2º; 1,61 para o 6º) e
+o aviso de que o histórico foi jogado <i>sem</i> o incentivo do playoff — sob a regra velha o 5º
+e o 6º não tinham o que disputar no fim, então a linha do 6º pode subir em 2026.</p>
+
+<h3>2 · De onde vem a vantagem</h3>
+<p><b>Preservar:</b> a cadeia do gol é a melhor estrutura da aba.</p>
+<p><b>Corrigir:</b> a amostra do teste de persistência (parte 02) e a frase «a parte que mais
+pesou é a que não se contrata», que contradiz a própria aba — o goleiro é contratável e está
+listado como alavanca.</p>
+<p><b>Falta</b>, e é a maior lacuna do estudo inteiro: <b>a cadeia contra o 5º&#8209;8º</b>. Contra
+quem cai, um terço do vão é criar e dois terços converter. Contra o quase&#8209;sobe, criar não
+separa <i>nada</i> — o quase&#8209;sobe até cria mais (1,35 de xG contra 1,28) — e o vão é
+<b>todo</b> conversão. É o achado mais desconfortável possível, e é exatamente a pergunta do
+Santa Cruz: não «como não cair», e sim «como passar de quase».</p>
+
+<h3>3 · Ataque e defesa</h3>
+<p><b>Preservar:</b> a assimetria (a pior defesa caiu nas quatro temporadas; o pior ataque
+escapou uma vez) é real e bem contada.</p>
+<p><b>Corrigir:</b> os postos médios da prosa estão <b>escritos à mão no código</b>, enquanto os
+cartões ao lado são calculados — quebra do princípio «o dado é a fonte». E «quem sobe espalha
+o gol» é mecânico: por gol marcado, quem cai até espalha mais (0,44 marcadores por gol contra
+0,32).</p>
+<p><b>Falta:</b> o goleiro no nível do atleta. «Defesas %» não ajusta pela qualidade do chute
+(correlaciona −0,49 com xG por remate sofrido). Há <b>25 goleiros titulares com duas ou mais
+temporadas</b> na base — o teste que sustentaria ou derrubaria o achado está a um cruzamento.</p>
+
+<h3>4 · Bola parada</h3>
+<p><b>Preservar:</b> a honestidade sobre o proxy, e a conclusão «bola parada acompanha quem é
+bom, não fabrica quem sobe».</p>
+<p><b>Corrigir:</b> o título contradiz o segundo bloco — a seção se chama «o canal em que
+eficiência bate volume» e conclui que o canal não explica. E o indicador mais forte da seção
+(0,49) tem um denominador onde <b>~70% são laterais</b>: das ~28 bolas paradas por jogo, só ~8
+são escanteios, faltas e pênaltis.</p>
+<p><b>Falta:</b> o lado <i>defensivo</i>, que a literatura aponta como o que mais separa
+(escanteios cedidos é o terceiro maior separador entre top&#8209;3 e bottom&#8209;3 num estudo de
+2019); e o mecanismo do gol de cabeça — duelos aéreos ganhos correlacionam 0,39 e as alturas
+estão no Transfermarkt.</p>
+
+<h3>5 · Elenco, dinheiro e idade</h3>
+<p><b>Preservar:</b> «subir não é ter um elenco curto, é não precisar do resto dele» é a melhor
+frase da aba, e o dado a sustenta.</p>
+<p><b>Corrigir:</b> o valor por setor (parte 02). E o bloco de idade afirma «quem cai é mais
+velho <i>onde importa</i>» com médias de 16 × 16 e <b>sem a correlação</b> que todos os outros
+blocos mostram — ela é <b>−0,04</b>, e em 2022 o sinal foi o contrário. É indício, não regra.</p>
+<p><b>Falta:</b> <code>valor_11</code> — a soma do valor dos onze mais usados — que já é calculado
+no script, dá <b>0,58</b> com a posição (mais forte que qualquer outro indicador de dinheiro) e
+<b>não está na tela</b>. E a lista de quem subiu barato: Criciúma 2023, Mirassol 2024, Vitória
+2023, Chapecoense 2025 — três dos quatro com concentração de minutos no topo da liga.</p>
+
+<h3>6 · Físico</h3>
+<p><b>Preservar:</b> o painel por posição é a análise mais original do estudo, e «corre-se mais
+rápido, não mais» sobrevive ao controle por valor e por idade — controlando idade a relação
+até <i>sobe</i> (0,45).</p>
+<p><b>Corrigir:</b> as 128 correlações (parte 02); o «sem a bola» como face do PPDA (parte 02);
+e o grupo «corridas sem bola» está sob um cabeçalho que diz «por 90 minutos» quando ele é
+<b>por 30 minutos com posse</b> — régua diferente na mesma tela.</p>
+<p><b>Falta:</b> a fração da distância em sprint (0,27) em vez dos metros absolutos — é o que a
+literatura pede e é a leitura mais limpa da própria manchete da seção.</p>
+
+<h3>7 · O jogo</h3>
+<p><b>Corrigir:</b> as três razões (parte 02). E «regularidade» não é característica: embaralhando
+os resultados de cada clube, a maior sequência sem vencer <i>esperada</i> é 4,7 para quem sobe
+(observado 4,2) e 10,5 para quem cai (observado 9,1). Sequência longa é consequência de ganhar
+pouco.</p>
+<p><b>Falta:</b> a pergunta operacional — «na rodada k, com X pontos, qual a chance de subir?».
+Está calculada e é a proposta P1 abaixo.</p>
+
+<h3>8 · O quadro geral</h3>
+<p><b>Preservar:</b> a pedagogia do «Como ler» e a demonstração de que os indicadores não são
+redundantes (só 6 de 351 pares passam de 0,70).</p>
+<p><b>Corrigir:</b> «numa liga em que todos defendem parecido» contradiz a seção 3 — o certo é
+«do 1º ao 8º defende-se parecido». E a palavra «alavanca» (parte 03).</p>
+<p><b>Falta:</b> o recorte pela regra nova. Medido: 1º&#8209;2º fazem 68,5 pontos, 3º&#8209;6º fazem
+62,3, 7º&#8209;10º fazem 56,6; e o acesso direto se separa do playoff <b>sofrendo 5,5 gols a
+menos com o mesmo ataque</b>. É a pergunta que o Santa Cruz vai fazer.</p>
+
+<h3>9 · A temporada</h3>
+<p>É a única seção que <b>não usa o estudo</b> — um placar com três subtrações. A aba acabou de
+apresentar quatro alavancas e o saldo de xG, e o gráfico da temporada não mostra nenhum deles,
+embora os dados de 2026 estejam no arquivo. E a frase «o 2º precisa de 17 pontos» é uma
+subtração de média: o Juventude subiu em 2º <i>saindo do 8º na 27ª rodada</i>.</p>
+
+<h3>10 · Método e ressalvas</h3>
+<p>A seção se chama Método e <b>não descreve o método</b>: não diz que sobe = top 4, que a
+correlação é por posto dentro do ano, nem que só temporadas completas entram. Gasta metade do
+espaço repetindo a regra nova (que já está no topo da aba) e dá uma régua de ruído — «dois ou
+três pontos percentuais» — que os dados desmentem nas duas direções.</p>
+<p>E deixa de fora as três ressalvas mais graves: o viés de futuro no valor, as ~190
+correlações sem proteção, e o fato de que <b>80 observações são 40 clubes</b> vistos duas vezes.</p>
+
+<hr class="rule">
+
+<h2 id="r5"><span class="num">05</span>As análises novas</h2>
+<p class="lead">Onze propostas, ordenadas por impacto sobre esforço. As três primeiras já
+estão calculadas — falta só desenhá-las.</p>
+
+<div class="prop">
+<div class="cab"><span class="id">P1</span><span class="tit">Quando o acesso se decide</span></div>
+<div class="chips"><span class="chip a">já calculado</span><span class="chip">serieb_jogos.csv</span><span class="chip">→ seção 7</span><span class="chip b">esforço baixo</span></div>
+<p>A aba diz «10 dos 16 já estavam no G4 na metade». Isso é um número; a curva é uma
+ferramenta. Reconstruí a classificação após cada jogo nas quatro temporadas:</p>
+<div class="scroll"><table class="heat">
+<thead><tr><th>Na rodada</th><th>1º&#8209;4º</th><th>5º&#8209;8º</th><th>9º&#8209;12º</th><th>13º+</th></tr></thead>
+<tbody>
+<tr><td>5</td><td class="h2">41%</td><td class="h2">36%</td><td class="h1">6%</td><td class="h0">4%</td></tr>
+<tr><td>10</td><td class="h2">37%</td><td class="h2">33%</td><td class="h1">22%</td><td class="h0">0%</td></tr>
+<tr><td>15</td><td class="h3">50%</td><td class="h1">29%</td><td class="h1">13%</td><td class="h0">0%</td></tr>
+<tr class="marca"><td><b>19 (metade)</b></td><td class="h4">65%</td><td class="h1">19%</td><td class="h1">10%</td><td class="h0">0%</td></tr>
+<tr><td>23</td><td class="h3">59%</td><td class="h1">25%</td><td class="h1">12%</td><td class="h0">0%</td></tr>
+<tr><td>27</td><td class="h3">50%</td><td class="h3">47%</td><td class="h0">0%</td><td class="h0">0%</td></tr>
+<tr><td>30</td><td class="h4">69%</td><td class="h1">26%</td><td class="h0">0%</td><td class="h0">0%</td></tr>
+<tr><td>34</td><td class="h4">78%</td><td class="h1">12%</td><td class="h0">0%</td><td class="h0">0%</td></tr>
+</tbody></table></div>
+<p class="leg">Chance de terminar no G4 dada a faixa de posição na rodada k. 80 clube-temporada,
+2022&#8209;2025. Rodada = k&#8209;ésimo jogo do clube, não a rodada oficial.</p>
+<p>Três leituras que a frase atual não dá: <b>até a rodada 10 a tabela é quase ruído</b> (G4 dá
+37%, 5º&#8209;8º dá 33%); <b>o corte é top&#8209;8, não G4</b> — da 19ª em diante, do 9º para baixo
+é 0&#8209;12%; e <b>dentro do top&#8209;8 fica aberto até tarde</b> — na 27ª, G4 50% contra
+5º&#8209;8º 47%.</p>
+<p>Para a regra nova: estando no G6 na 27ª, a chance de ficar é 64%; do 7º ao 10º, de entrar,
+29%. Um terço do G6 ainda será trocado.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P2</span><span class="tit">O ritmo, contra a régua histórica</span></div>
+<div class="chips"><span class="chip a">já calculado</span><span class="chip">→ seção 9</span><span class="chip b">esforço baixo</span></div>
+<p>Substitui a subtração de média da seção 9. Pontos acumulados por faixa final, na rodada k:</p>
+<div class="scroll"><table>
+<thead><tr><th>Faixa final</th><th>rod 10</th><th>rod 19</th><th>rod 27</th><th>rod 34</th><th>rod 38</th></tr></thead>
+<tbody>
+<tr><td>1º&#8209;2º (direto)</td><td>17,6</td><td>33,5</td><td class="s">47,0</td><td>60,6</td><td>68,5</td></tr>
+<tr><td>3º&#8209;4º</td><td>17,5</td><td>31,5</td><td>43,4</td><td>56,9</td><td>63,4</td></tr>
+<tr><td>5º&#8209;6º (playoff)</td><td>15,6</td><td>29,9</td><td>42,2</td><td>53,8</td><td>61,2</td></tr>
+<tr><td>7º&#8209;8º</td><td>18,5</td><td>29,9</td><td>41,1</td><td>52,8</td><td>58,7</td></tr>
+<tr><td>9º+</td><td>11,3</td><td>21,9</td><td>31,7</td><td>39,4</td><td>43,6</td></tr>
+</tbody></table></div>
+<p>O mínimo que alguém que subiu tinha na 27ª foi <b>39 pontos</b>. Em 2026, sete clubes estão
+nesse ritmo: Juventude 50, Novorizontino 49, Fortaleza 47, Operário&#8209;PR 43, CRB 42, Sport 41,
+Cuiabá 39. E repare: <b>7º&#8209;8º e 5º&#8209;6º têm o mesmo ritmo até a rodada 30</b> — o playoff
+se decide nas últimas oito.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P3</span><span class="tit">Casa e fora, por processo</span></div>
+<div class="chips"><span class="chip a">já calculado</span><span class="chip">→ seção 7</span><span class="chip b">esforço baixo</span></div>
+<p>A tabela da parte 03: xG criado, xG concedido e conversão por mando, nas três faixas. Mostra
+que o processo cai igual e a conversão é constante — e liga a seção 7 à cadeia do gol.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P4</span><span class="tit">A cadeia contra o quase&#8209;sobe</span></div>
+<div class="chips"><span class="chip">serieb_clube_temporada.csv</span><span class="chip">→ seção 2</span><span class="chip b">esforço médio</span></div>
+<p>A mesma cadeia de oito elos, mas com o 5º&#8209;8º no lugar de quem cai. Contra o quase&#8209;sobe,
+criar não separa nada e o vão é todo conversão. <b>É a análise mais importante desta lista</b>,
+porque é a única que responde à pergunta real do clube.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P5</span><span class="tit">Persistência: o que se repete de um ano para o outro</span></div>
+<div class="chips"><span class="chip">36 pares</span><span class="chip">→ seção 8</span><span class="chip b">esforço baixo</span></div>
+<p>Uma coluna ao lado de cada indicador do quadro geral: quanto ele se repete no mesmo clube no
+ano seguinte. Já medido para as quatro alavancas — concentração 0,06, goleiro 0,12, cabeça 0,15,
+valor 0,73. Separa <b>o que dá para planejar</b> do que é retrato de um ano.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P6</span><span class="tit">O alvo&#8209;sombra: a tabela por xG</span></div>
+<div class="chips"><span class="chip">serieb_jogos.csv</span><span class="chip">→ seção 8</span><span class="chip b">esforço médio</span></div>
+<p>É o que Ian Graham e Sumpter fazem: cada indicador ganha duas barras — correlação com a
+tabela real e com a tabela por saldo de xG. O que anda só com a real é suspeito de ser sorte.
+E a coluna «sorte» (posto real menos posto por xG) mostra quem subiu merecendo.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P7</span><span class="tit">Quem sobe contrata quem já jogava</span></div>
+<div class="chips"><span class="chip a">já calculado</span><span class="chip">serieb_tecnico.csv</span><span class="chip">→ seção 5</span><span class="chip b">esforço baixo</span></div>
+<p>Sua hipótese, confirmada na metade histórica: o núcleo de quem sobe vinha de 1.569 minutos
+no ano anterior contra 1.327 (+0,28). Com a ressalva da cobertura de 42% escrita na tela.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P8</span><span class="tit">Validação fora da amostra, na tela</span></div>
+<div class="chips"><span class="chip a">já calculado</span><span class="chip">→ seção 8</span><span class="chip b">esforço baixo</span></div>
+<p>O 0,77 da parte 03, ao lado do 0,65. É o único número que separa achado de garimpo, e é a
+regra que Sumpter e Graham repetem: previsão registrada antes do fato.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P9</span><span class="tit">O teto de previsibilidade</span></div>
+<div class="chips"><span class="chip">serieb_jogos.csv</span><span class="chip">→ seção 10</span><span class="chip b">esforço médio</span></div>
+<p>Simulando cada temporada a partir do xG por jogo (Poisson, 10 mil vezes), quanto da tabela
+final é acaso? Sem isso não dá para saber se 0,65 é metade ou <i>quase tudo o que a realidade
+permite</i>. Sumpter mostra que um jogo é ~57% acaso; a pergunta é o que sobra em 38.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P10</span><span class="tit">O goleiro no nível do atleta</span></div>
+<div class="chips"><span class="chip">serieb_tecnico.csv</span><span class="chip">→ seção 3</span><span class="chip b">esforço médio</span></div>
+<p>25 goleiros titulares com duas ou mais temporadas. Se «gols evitados» se repete no mesmo
+goleiro, o achado da seção 3 vira contratável — e é a única exceção à tese de que defender
+acima do esperado não persiste.</p>
+</div>
+
+<div class="prop">
+<div class="cab"><span class="id">P11</span><span class="tit">Bola parada por tipo, e o lado defensivo</span></div>
+<div class="chips"><span class="chip">→ seção 4</span><span class="chip b">esforço médio</span></div>
+<p>Separar escanteio, falta e «laterais e outros» — as colunas já existem — e acrescentar o que
+falta inteiro: escanteios cedidos e remates sofridos de bola parada, que a literatura aponta
+como o lado que mais separa.</p>
+</div>
+
+<h4>Descartadas</h4>
+<div class="prop cut">
+<div class="cab"><span class="id">—</span><span class="tit">Lesões e disponibilidade</span></div>
+<p>A base mede cobertura, não lesão (parte 03). Decisão sua, e a certa.</p>
+</div>
+<div class="prop cut">
+<div class="cab"><span class="id">—</span><span class="tit">Minutagem do núcleo no ano como achado novo</span></div>
+<p>Correlaciona 0,94 com a concentração de minutos: é a mesma alavanca. Entra como
+<i>reformulação da unidade</i>, não como análise nova.</p>
+</div>
+
+<hr class="rule">
+
+<h2 id="r6"><span class="num">06</span>A narrativa reorganizada</h2>
+<p class="lead">Dez seções que cresceram por acumulação podem virar cinco que contam uma história.</p>
+
+<div class="scroll"><table>
+<thead><tr><th>Seção nova</th><th>Responde</th><th>Vem de</th></tr></thead>
+<tbody>
+<tr><td><b>1. O alvo</b></td><td>Quantos pontos, e quando se decide</td><td>1 + a curva P1 + o ritmo P2</td></tr>
+<tr><td><b>2. O que separa</b></td><td>A cadeia do gol, contra quem cai <i>e</i> contra o quase-sobe</td><td>2 + 3 + P4</td></tr>
+<tr><td><b>3. Quem joga</b></td><td>Elenco, minutos, idade, dinheiro</td><td>5 + P7</td></tr>
+<tr><td><b>4. Como se corre</b></td><td>O físico, por posição</td><td>6</td></tr>
+<tr><td><b>5. O que disso dá para planejar</b></td><td>O que se repete, o que é sorte, o que é sintoma</td><td>8 + P5 + P6 + P8 + 10</td></tr>
+</tbody></table></div>
+
+<p><b>Some:</b> a seção 4 (bola parada) vira um bloco dentro de «O que separa» — a própria aba
+conclui que o canal não explica o acesso, então não sustenta uma seção. A seção 7 se reparte
+entre «O alvo» (quando se decide) e «O que separa» (casa/fora por processo). A seção 9 vira o
+topo de «O alvo», usando as alavancas em vez de um placar.</p>
+
+<h3>A história em cinco frases</h3>
+<ol>
+<li>Subir custa 66 pontos; disputar o playoff, 61 — e a garantia é 67 e 64.</li>
+<li>Na metade do campeonato, estar no top&#8209;8 é condição; estar no G4 não é garantia.</li>
+<li>Contra quem cai, um terço da vantagem é criar mais. Contra o quase&#8209;sobe, criar não
+separa nada — o vão é todo conversão, e conversão não se repete.</li>
+<li>O que se repete é o elenco: confiar num grupo curto, ter um goleiro que defende, e ter
+dezesseis atletas que já jogavam.</li>
+<li>Correr mais não sobe; correr mais rápido, sim — e no meio&#8209;campo é onde o físico decide.</li>
+</ol>
+
+<h3>Os cinco números que abrem a aba</h3>
+<div class="scroll"><table>
+<thead><tr><th>Número</th><th>O que é</th></tr></thead>
+<tbody>
+<tr><td class="s">66 · 61</td><td>a linha do acesso direto e a do playoff</td></tr>
+<tr><td class="s">top&#8209;8</td><td>onde é preciso estar na 19ª rodada — do 9º para baixo, 0 a 12%</td></tr>
+<tr><td class="s">2/3</td><td>da vantagem está no último elo da cadeia: converter</td></tr>
+<tr><td class="s">2.545 × 2.219</td><td>minutos do titular de quem sobe e de quem cai</td></tr>
+<tr><td class="s">0,77</td><td>o quanto o modelo acerta na temporada que ele não viu</td></tr>
+</tbody></table></div>
+
+<hr class="rule">
+
+<h2 id="r7"><span class="num">07</span>Roteiro</h2>
+
+<h3>Onda 1 — o que está errado no ar</h3>
+<p>Não depende de dado novo e corrige o que hoje engana.</p>
+<ul>
+<li>Retirar as cinco barras de euros por setor, ou marcá-las com a ressalva do snapshot.</li>
+<li>Consertar o gráfico de 2026 na seção 1.</li>
+<li>Reescrever as três razões da seção 7 em pontos.</li>
+<li>Corrigir o corte dos empates e trocar a tese pelo desempate por vitórias.</li>
+<li>Tirar os números escritos à mão do código da seção 3.</li>
+<li>Duas faixas de aceso na tabela física; trocar «17 de 32» por «passam a 5% / a 1%».</li>
+<li>Rebaixar «o achado mais nítido» para a confirmação física do PPDA.</li>
+<li>Reescrever a seção 10 com o método que a aba realmente usa.</li>
+</ul>
+
+<h3>Onda 2 — o que já está calculado</h3>
+<p>P1, P2, P3, P7 e P8. Tudo nos arquivos <code>achado_*.md</code> do pacote — falta desenhar.</p>
+
+<h3>Onda 3 — as que exigem trabalho novo</h3>
+<p>P4 (a cadeia contra o quase&#8209;sobe) primeiro, porque é a que responde à pergunta do clube.
+Depois P5, P6, P10, P11 e P9.</p>
+
+<h4>Dependências de coleta</h4>
+<ul>
+<li><b>Reconstruir o valor por setor</b> a partir do Transfermarkt — é a correção de fundo do
+erro mais grave, e a base já está no repositório.</li>
+<li><b>Gol de bola parada</b>: continua exigindo a exportação de eventos por tipo de jogada do
+Wyscout.</li>
+<li><b>Troca de treinador</b>: segue sendo a lacuna que mais incomoda, e é a explicação mais
+provável de metade do que aparece como «característica de quem cai».</li>
+</ul>
+
+<hr class="rule">
+
+<h2 id="r8"><span class="num">08</span>Referências</h2>
+<p>Oito pesquisas na web sustentam esta revisão. As fontes primárias, por tema:</p>
+
+<h4>Sumpter</h4>
+<ul>
+<li>David Sumpter, <i>Soccermatics</i> e o curso online — «um jogo é ~57% acaso»; a re-simulação
+da Premier League 2013&#8209;14 dá ao vice-campeão 11,5% das rodadas.</li>
+<li><i>Should you write about real goals or expected goals?</i> — xG tem menos ruído que gols só
+até ~16 jogos.</li>
+<li><i>How important is it to have the ball?</i> — posse não prevê resultado; a correlação é
+artefato de estado de jogo.</li>
+<li><i>Football's magical equation?</i> — um modelo humano de «Big Chance» explica quase o mesmo
+que o xG (R² 0,159 contra 0,167).</li>
+</ul>
+
+<h4>Liverpool / Ian Graham</h4>
+<ul>
+<li>Ian Graham, <i>How to Win the Premier League</i> (2024) — <i>outcome bias</i>; possession value;
+«alguns dos melhores passadores têm os piores índices de acerto»; ~46&#8209;50% das contratações
+caras falham; bolas paradas são eixo independente do jogo aberto; o goleiro exige modelo próprio.</li>
+<li>William Spearman, <i>pitch control</i>.</li>
+</ul>
+
+<h4>Promoção, físico, elenco, bola parada, método, pressão</h4>
+<ul>
+<li>Estudos de promoção em EFL Championship, 2. Bundesliga, Serie B e Segunda División.</li>
+<li>SkillCorner — <i>physical benchmarks</i>, <i>off&#8209;ball runs</i>, PSV&#8209;99.</li>
+<li>Konefał et al. (2020) sobre fração da distância em alta intensidade.</li>
+<li>CIES Football Observatory — <i>squad stability</i> e pontos.</li>
+<li>Kuper &amp; Szymanski, <i>Soccernomics</i> — folha salarial e posição.</li>
+<li>StatsBomb / Ted Knutson; Brentford, Midtjylland e Arsenal em bola parada.</li>
+<li>Front. Psychol. (2019) — escanteios cedidos como separador entre top&#8209;3 e bottom&#8209;3.</li>
+</ul>
+
+<p class="meta">Relatório gerado a partir de 23 agentes de revisão e pesquisa, mais cinco análises
+rodadas diretamente sobre <code>serieb_clube_temporada.csv</code>, <code>serieb_jogos.csv</code>,
+<code>serieb_tecnico.csv</code> e <code>serieb_elencos.csv</code>. Os retornos brutos estão em
+<code>_fonte/revisao-2026-09-11/</code> no repositório do projeto. Todo número desta página foi
+calculado; nenhum foi estimado.</p>
+
+</main>
+</div>
