@@ -1,5 +1,13 @@
 # CONTINUAR — revisão especialista da aba Análise Série B (11/09/2026)
 
+> **ATUALIZAÇÃO 12/09/2026 00:07 — o workflow foi RETOMADO e está rodando.**
+> O `resumeFromRunId` funcionou na mesma sessão: 23 agentes vieram do cache e as fases que
+> tinham falhado por limite do Fable rodaram no Opus. **Propor terminou: 34 propostas.**
+> Verificar está rodando. Veja `ESTADO_DO_WORKFLOW.md` para os títulos das 34 (para não
+> repropor) e para o que fazer se esta sessão morrer.
+>
+> **O relatório publicado NÃO depende disso** — está pronto, no ar e commitado.
+
 > **CONCLUÍDO EM 11/09/2026 pelo Opus.** O workflow terminou com as fases finais falhando por
 > limite de gastos do Fable (7 propostas + síntese). As 23 que terminaram — mapa, 8 pesquisas,
 > brief e **as 10 revisões** — sobreviveram e estão em `resultados_agentes.json`. As propostas e
