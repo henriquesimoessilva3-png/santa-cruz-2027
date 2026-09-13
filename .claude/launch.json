@@ -4,8 +4,23 @@
     {
       "name": "santa-cruz-docs",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8077", "--directory", "docs"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8077",
+        "--directory",
+        "docs"
+      ],
       "port": 8077
+    },
+    {
+      "name": "santa-cruz-app",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "app.py"
+      ],
+      "port": 5090,
+      "autoPort": true
     }
   ]
 }

@@ -129,6 +129,7 @@
   <button class="aba" data-aba="empresarios">Empresários</button>
   <button class="aba" data-aba="indicados">Indicados</button>
   <button class="aba" data-aba="serieb">Análise Série B</button>
+  <button class="aba" data-aba="prototipo">Protótipo</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -506,6 +507,13 @@
       <div class="emp-rolagem"><div class="sb" id="sbCorpo"></div></div>
     </section>
 
+    <!-- A aba Protótipo: dezesseis etapas, todas desenhadas por ptRender() (static/proto.js)
+         dentro deste container. O HTML fica vazio de propósito — qualquer número escrito
+         aqui seria número que o JSON não mandou. -->
+    <section class="pagina oculta" id="pgProto">
+      <div class="emp-rolagem"><div class="pt" id="ptCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgIndicados">
       <div class="emp-topo">
         <div class="emp-tit">
@@ -720,6 +728,15 @@
 <script>window.__verDados = "{{ verDados }}";</script>
 <script src="/static/fs_visoes.js?v={{ ver }}"></script>
 <script src="/static/sb_clubes.js?v={{ ver }}"></script>
+<!-- Protótipo: o dado primeiro (prototipo.js = cópia do dados/prototipo.json), depois a
+     casca com os helpers, depois os três arquivos de etapa. A ordem importa: proto_a/b/c
+     chamam helpers definidos em proto.js, e todos precisam existir antes do app.js chamar
+     ptRender() pelo irParaAba(). -->
+<script src="/static/prototipo.js?v={{ ver }}"></script>
+<script src="/static/proto.js?v={{ ver }}"></script>
+<script src="/static/proto_a.js?v={{ ver }}"></script>
+<script src="/static/proto_b.js?v={{ ver }}"></script>
+<script src="/static/proto_c.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>

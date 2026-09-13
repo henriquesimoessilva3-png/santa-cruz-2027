@@ -210,7 +210,8 @@ def versao_dados():
 def versao_estatica():
     """Assinatura dos arquivos de front, para o navegador nunca servir versao velha."""
     marcas = []
-    for nome in ("app.js", "style.css", "fs_visoes.js"):
+    for nome in ("app.js", "style.css", "fs_visoes.js",
+                 "prototipo.js", "proto.js", "proto_a.js", "proto_b.js", "proto_c.js"):
         caminho = os.path.join(AQUI, "static", nome)
         marcas.append(str(int(os.path.getmtime(caminho))) if os.path.exists(caminho) else "0")
     return "-".join(marcas)
