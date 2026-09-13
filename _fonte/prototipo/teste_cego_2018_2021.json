@@ -1,0 +1,1015 @@
+{
+ "_doc": "TESTE CEGO: os dois eixos e os dois cortes congelados em 2022-2025 (ver CONGELADO_2022_2025.md) aplicados sem reajuste em 2018-2021. Nenhum limiar foi tocado depois de ver o resultado.",
+ "congelado": "_fonte/prototipo/CONGELADO_2022_2025.md",
+ "semente": 7,
+ "cortes": {
+  "TERRITORIO": 72.5,
+  "ROTA": 66.25
+ },
+ "regime": [
+  {
+   "ano": 2018,
+   "jogos": 380,
+   "pct_pts_casa": 58.37,
+   "sg_casa_menos_fora": 0.221,
+   "pct_vit_mandante": 41.84,
+   "pct_emp": 31.32,
+   "pct_vit_visitante": 26.84
+  },
+  {
+   "ano": 2019,
+   "jogos": 379,
+   "pct_pts_casa": 58.02,
+   "sg_casa_menos_fora": 0.232,
+   "pct_vit_mandante": 40.37,
+   "pct_emp": 33.51,
+   "pct_vit_visitante": 26.12
+  },
+  {
+   "ano": 2020,
+   "jogos": 380,
+   "pct_pts_casa": 61.18,
+   "sg_casa_menos_fora": 0.384,
+   "pct_vit_mandante": 46.05,
+   "pct_emp": 28.16,
+   "pct_vit_visitante": 25.79
+  },
+  {
+   "ano": 2021,
+   "jogos": 380,
+   "pct_pts_casa": 59.51,
+   "sg_casa_menos_fora": 0.321,
+   "pct_vit_mandante": 43.42,
+   "pct_emp": 30.26,
+   "pct_vit_visitante": 26.32
+  },
+  {
+   "ano": 2022,
+   "jogos": 379,
+   "pct_pts_casa": 67.55,
+   "sg_casa_menos_fora": 0.549,
+   "pct_vit_mandante": 49.87,
+   "pct_emp": 31.66,
+   "pct_vit_visitante": 18.47
+  },
+  {
+   "ano": 2023,
+   "jogos": 380,
+   "pct_pts_casa": 61.81,
+   "sg_casa_menos_fora": 0.416,
+   "pct_vit_mandante": 46.05,
+   "pct_emp": 29.21,
+   "pct_vit_visitante": 24.74
+  },
+  {
+   "ano": 2024,
+   "jogos": 379,
+   "pct_pts_casa": 66.28,
+   "sg_casa_menos_fora": 0.456,
+   "pct_vit_mandante": 52.24,
+   "pct_emp": 25.33,
+   "pct_vit_visitante": 22.43
+  },
+  {
+   "ano": 2025,
+   "jogos": 380,
+   "pct_pts_casa": 62.3,
+   "sg_casa_menos_fora": 0.366,
+   "pct_vit_mandante": 45.79,
+   "pct_emp": 30.53,
+   "pct_vit_visitante": 23.68
+  },
+  {
+   "ano": 2026,
+   "jogos": 267,
+   "pct_pts_casa": 58.87,
+   "sg_casa_menos_fora": 0.3,
+   "pct_vit_mandante": 44.19,
+   "pct_emp": 27.72,
+   "pct_vit_visitante": 28.09
+  }
+ ],
+ "regime_veredito": {
+  "criterio_pre_declarado": "2020 fora do intervalo dos outros sete anos em pct_pts_casa e pct_vit_mandante",
+  "disparou": false,
+  "pct_pts_casa_2020": 61.18,
+  "intervalo_outros": [
+   58.02,
+   67.55
+  ],
+  "achado_real": "a quebra e de BLOCO, nao de 2020: vitoria do mandante 42.92% (2018-2021, n=1519) x 48.48% (2022-2025, n=1518), chi2=9.242 p=0.00237; saldo do mandante 0.290 x 0.447 (Welch p=0.0015); tendencia monotona 2018-2025 rho=0.786 p=0.0208",
+  "consequencia": "tudo roda em percentil DENTRO do ano, o que neutraliza o degrau de nivel; mas qualquer conta sensivel a mando em valor bruto nao pode juntar os oito anos"
+ },
+ "plano_16": [
+  {
+   "clube": "Fortaleza",
+   "ano": 2018,
+   "pos": 1,
+   "territorio": 96.7,
+   "rota": 97.5,
+   "grupo": "G1"
+  },
+  {
+   "clube": "CSA",
+   "ano": 2018,
+   "pos": 2,
+   "territorio": 22.5,
+   "rota": 37.5,
+   "grupo": "G4"
+  },
+  {
+   "clube": "Avaí",
+   "ano": 2018,
+   "pos": 3,
+   "territorio": 66.7,
+   "rota": 2.5,
+   "grupo": "G4"
+  },
+  {
+   "clube": "Goiás",
+   "ano": 2018,
+   "pos": 4,
+   "territorio": 86.7,
+   "rota": 92.5,
+   "grupo": "G1"
+  },
+  {
+   "clube": "Bragantino",
+   "ano": 2019,
+   "pos": 1,
+   "territorio": 100.0,
+   "rota": 97.5,
+   "grupo": "G1"
+  },
+  {
+   "clube": "Sport",
+   "ano": 2019,
+   "pos": 2,
+   "territorio": 83.3,
+   "rota": 82.5,
+   "grupo": "G1"
+  },
+  {
+   "clube": "Coritiba",
+   "ano": 2019,
+   "pos": 3,
+   "territorio": 61.7,
+   "rota": 62.5,
+   "grupo": "G4"
+  },
+  {
+   "clube": "Atlético-GO",
+   "ano": 2019,
+   "pos": 4,
+   "territorio": 75.0,
+   "rota": 27.5,
+   "grupo": "G2"
+  },
+  {
+   "clube": "Chapecoense",
+   "ano": 2020,
+   "pos": 1,
+   "territorio": 30.0,
+   "rota": 57.5,
+   "grupo": "G4"
+  },
+  {
+   "clube": "América-MG",
+   "ano": 2020,
+   "pos": 2,
+   "territorio": 81.7,
+   "rota": 15.0,
+   "grupo": "G2"
+  },
+  {
+   "clube": "Juventude",
+   "ano": 2020,
+   "pos": 3,
+   "territorio": 66.7,
+   "rota": 42.5,
+   "grupo": "G4"
+  },
+  {
+   "clube": "Cuiabá",
+   "ano": 2020,
+   "pos": 4,
+   "territorio": 81.7,
+   "rota": 80.0,
+   "grupo": "G1"
+  },
+  {
+   "clube": "Botafogo",
+   "ano": 2021,
+   "pos": 1,
+   "territorio": 58.3,
+   "rota": 50.0,
+   "grupo": "G4"
+  },
+  {
+   "clube": "Goiás",
+   "ano": 2021,
+   "pos": 2,
+   "territorio": 58.3,
+   "rota": 12.5,
+   "grupo": "G4"
+  },
+  {
+   "clube": "Coritiba",
+   "ano": 2021,
+   "pos": 3,
+   "territorio": 81.7,
+   "rota": 90.0,
+   "grupo": "G1"
+  },
+  {
+   "clube": "Avaí",
+   "ano": 2021,
+   "pos": 4,
+   "territorio": 88.3,
+   "rota": 75.0,
+   "grupo": "G1"
+  }
+ ],
+ "tipologia": {
+  "observado": {
+   "G1": 7,
+   "G2": 2,
+   "G3": 0,
+   "G4": 7
+  },
+  "referencia": {
+   "G1": 5,
+   "G2": 3,
+   "G3": 3,
+   "G4": 5
+  },
+  "p_multinomial_MC_10000": 0.1314,
+  "chi2": 4.933,
+  "sem_2020": {
+   "G1": 6,
+   "G2": 1,
+   "G3": 0,
+   "G4": 5
+  },
+  "G3_vazio": {
+   "p_binomial_uma_celula": 0.0361,
+   "p_bonferroni_4_celulas": 0.1443,
+   "ocupacao_do_quadrante_no_painel": {
+    "a_2022_2025": 14,
+    "a_2018_2021": 12
+   },
+   "taxa_de_acesso": {
+    "a_2022_2025": "3/14",
+    "a_2018_2021": "0/12",
+    "fisher_p": 0.2246
+   },
+   "leitura": "o quadrante existe e esta igualmente povoado nos dois blocos; o que nao aconteceu em 2018-2021 e alguem SUBIR de dentro dele. Com n=16 isso nao se distingue do acaso."
+  },
+  "ocupacao_e_acesso_por_quadrante": {
+   "2022-2025": {
+    "G1": "5/12",
+    "G2": "3/9",
+    "G3": "3/14",
+    "G4": "5/45"
+   },
+   "2018-2021": {
+    "G1": "7/12",
+    "G2": "2/7",
+    "G3": "0/12",
+    "G4": "7/49"
+   }
+  }
+ },
+ "eixos_como_marcador_de_acesso": {
+  "2022-2025": {
+   "TERRITORIO": {
+    "d_SM": 0.63,
+    "p_SM": 0.0282,
+    "d_SC": 1.292,
+    "p_SC": 0.001
+   },
+   "ROTA": {
+    "d_SM": 0.52,
+    "p_SM": 0.0763,
+    "d_SC": 0.755,
+    "p_SC": 0.0411
+   },
+   "rho_TERRITORIO_pos": -0.393,
+   "p": 0.0003,
+   "rho_ROTA_pos": -0.131,
+   "p_rota": 0.2463
+  },
+  "2018-2021": {
+   "TERRITORIO": {
+    "d_SM": 0.914,
+    "p_SM": 0.003,
+    "d_SC": 1.353,
+    "p_SC": 0.0006
+   },
+   "ROTA": {
+    "d_SM": 0.242,
+    "p_SM": 0.4642,
+    "d_SC": 0.636,
+    "p_SC": 0.0826
+   },
+   "rho_TERRITORIO_pos": -0.416,
+   "p": 0.0001,
+   "rho_ROTA_pos": -0.265,
+   "p_rota": 0.0175
+  }
+ },
+ "bateria_de_fora": [
+  {
+   "rot": "2022-2025 (confere)",
+   "obs": 0.425,
+   "p_rot": 0.005,
+   "p_pla": 0.003,
+   "nulo_pla": 0.207,
+   "passam": 18,
+   "bh": 10,
+   "n_bat": 38
+  },
+  {
+   "rot": "2018-2021 CEGO",
+   "obs": 0.263,
+   "p_rot": 0.01,
+   "p_pla": 0.0238,
+   "nulo_pla": 0.158,
+   "passam": 9,
+   "bh": 4,
+   "n_bat": 37
+  },
+  {
+   "rot": "2018-2021 SEM 2020",
+   "obs": 0.31,
+   "p_rot": 0.0199,
+   "p_pla": 0.0317,
+   "nulo_pla": 0.196,
+   "passam": 8,
+   "bh": 0,
+   "n_bat": 37
+  }
+ ],
+ "bateria_de_fora_nota": "golos_cabeca nao existe no painel 2018-2021: a bateria roda com 37 de 38, ausencia com motivo, sem imputacao.",
+ "bateria_limpa": {
+  "2022-2025": {
+   "n_validadores": 22,
+   "eta2": 0.263,
+   "p_rotulo": 0.0299,
+   "p_placebo": 0.0627
+  },
+  "2018-2021": {
+   "n_validadores": 21,
+   "eta2": 0.17,
+   "p_rotulo": 0.1621,
+   "p_placebo": 0.3492
+  },
+  "2018-2021_sem_2020": {
+   "n_validadores": 20,
+   "eta2": 0.201,
+   "p_rotulo": 0.2818,
+   "p_placebo": 0.4603
+  }
+ },
+ "corte_de_rota_por_andar": {
+  "2022-2025": {
+   "territorio_alto_G1xG2": {
+    "n": 8,
+    "eta2": 0.21,
+    "p": 0.0589
+   },
+   "territorio_baixo_G3xG4": {
+    "n": 8,
+    "eta2": 0.25,
+    "p": 0.029
+   }
+  },
+  "2018-2021": {
+   "territorio_alto_G1xG2": {
+    "n": 9,
+    "reparticao": "7 x 2",
+    "eta2": 0.231,
+    "p": 0.03
+   },
+   "territorio_baixo_G3xG4": "NAO RODOU: G3 vazio (0 x 7)"
+  }
+ },
+ "porta": {
+  "novo": [
+   {
+    "porta": "A",
+    "ind": "dist_remate",
+    "sinal": -1,
+    "d_SM": -1.203,
+    "p_SM": 3e-05,
+    "d_SC": -2.022,
+    "p_SC": 1e-05,
+    "auc_SM": 0.188,
+    "r_sobe": 25.6,
+    "r_meio": 54.2,
+    "r_cai": 74.4,
+    "q_SM": 0.00036,
+    "q_SC": 0.00012,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "B",
+    "ind": "remates_baliza_pct",
+    "sinal": 1,
+    "d_SM": 1.06,
+    "p_SM": 0.00013,
+    "d_SC": 1.791,
+    "p_SC": 3e-05,
+    "auc_SM": 0.781,
+    "r_sobe": 77.2,
+    "r_meio": 50.3,
+    "r_cai": 34.4,
+    "q_SM": 0.00078,
+    "q_SC": 0.00018,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "B",
+    "ind": "duelos_pct",
+    "sinal": 1,
+    "d_SM": 0.643,
+    "p_SM": 0.0208,
+    "d_SC": 0.539,
+    "p_SC": 0.13861,
+    "auc_SM": 0.678,
+    "r_sobe": 66.2,
+    "r_meio": 48.3,
+    "r_cai": 51.2,
+    "q_SM": 0.04992,
+    "q_SC": 0.13861,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "B",
+    "ind": "faltas",
+    "sinal": -1,
+    "d_SM": -0.937,
+    "p_SM": 0.00169,
+    "d_SC": -0.739,
+    "p_SC": 0.0453,
+    "auc_SM": 0.242,
+    "r_sobe": 33.1,
+    "r_meio": 59.0,
+    "r_cai": 52.5,
+    "q_SM": 0.00676,
+    "q_SC": 0.05347,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "B",
+    "ind": "xg_por_remate_contra",
+    "sinal": -1,
+    "d_SM": -0.805,
+    "p_SM": 0.01038,
+    "d_SC": -1.249,
+    "p_SC": 0.00137,
+    "auc_SM": 0.274,
+    "r_sobe": 32.5,
+    "r_meio": 54.7,
+    "r_cai": 65.9,
+    "q_SM": 0.03114,
+    "q_SC": 0.00274,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "posse",
+    "sinal": 1,
+    "d_SM": 0.521,
+    "p_SM": 0.05612,
+    "d_SC": 1.005,
+    "p_SC": 0.00798,
+    "auc_SM": 0.649,
+    "r_sobe": 66.6,
+    "r_meio": 51.7,
+    "r_cai": 40.9,
+    "q_SM": 0.08043,
+    "q_SC": 0.01344,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "passes",
+    "sinal": 1,
+    "d_SM": 0.52,
+    "p_SM": 0.08018,
+    "d_SC": 0.867,
+    "p_SC": 0.02032,
+    "auc_SM": 0.651,
+    "r_sobe": 66.2,
+    "r_meio": 51.1,
+    "r_cai": 42.8,
+    "q_SM": 0.08747,
+    "q_SC": 0.02709,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "passes_pct",
+    "sinal": 1,
+    "d_SM": 0.526,
+    "p_SM": 0.07065,
+    "d_SC": 0.726,
+    "p_SC": 0.04901,
+    "auc_SM": 0.65,
+    "r_sobe": 65.6,
+    "r_meio": 50.1,
+    "r_cai": 46.6,
+    "q_SM": 0.08478,
+    "q_SC": 0.05347,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "xg_por_remate",
+    "sinal": 1,
+    "d_SM": 0.584,
+    "p_SM": 0.06032,
+    "d_SC": 1.364,
+    "p_SC": 0.00057,
+    "auc_SM": 0.667,
+    "r_sobe": 69.4,
+    "r_meio": 53.4,
+    "r_cai": 32.8,
+    "q_SM": 0.08043,
+    "q_SC": 0.00171,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "toques_area",
+    "sinal": 1,
+    "d_SM": 0.587,
+    "p_SM": 0.04385,
+    "d_SC": 1.319,
+    "p_SC": 0.00083,
+    "auc_SM": 0.669,
+    "r_sobe": 69.1,
+    "r_meio": 52.3,
+    "r_cai": 36.6,
+    "q_SM": 0.08043,
+    "q_SC": 0.00199,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "entradas_area",
+    "sinal": 1,
+    "d_SM": 0.517,
+    "p_SM": 0.09396,
+    "d_SC": 0.991,
+    "p_SC": 0.00896,
+    "auc_SM": 0.648,
+    "r_sobe": 66.9,
+    "r_meio": 51.9,
+    "r_cai": 39.8,
+    "q_SM": 0.09396,
+    "q_SC": 0.01344,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "xg_contra",
+    "sinal": -1,
+    "d_SM": -0.623,
+    "p_SM": 0.04878,
+    "d_SC": -1.531,
+    "p_SC": 0.00017,
+    "auc_SM": 0.315,
+    "r_sobe": 34.4,
+    "r_meio": 51.4,
+    "r_cai": 74.1,
+    "q_SM": 0.08043,
+    "q_SC": 0.00068,
+    "veredito": "REPLICA"
+   }
+  ],
+  "velho": [
+   {
+    "porta": "A",
+    "ind": "dist_remate",
+    "sinal": -1,
+    "d_SM": -0.559,
+    "p_SM": 0.0788,
+    "d_SC": -0.852,
+    "p_SC": 0.02237,
+    "auc_SM": 0.335,
+    "r_sobe": 38.1,
+    "r_meio": 53.5,
+    "r_cai": 63.8,
+    "q_SM": 0.1576,
+    "q_SC": 0.03835,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "B",
+    "ind": "remates_baliza_pct",
+    "sinal": 1,
+    "d_SM": 0.352,
+    "p_SM": 0.25262,
+    "d_SC": 1.314,
+    "p_SC": 0.00085,
+    "auc_SM": 0.607,
+    "r_sobe": 65.3,
+    "r_meio": 55.7,
+    "r_cai": 30.0,
+    "q_SM": 0.30314,
+    "q_SC": 0.0034,
+    "veredito": "mesmo sinal, nulo"
+   },
+   {
+    "porta": "B",
+    "ind": "duelos_pct",
+    "sinal": 1,
+    "d_SM": 1.085,
+    "p_SM": 0.00102,
+    "d_SC": 1.149,
+    "p_SC": 0.00287,
+    "auc_SM": 0.797,
+    "r_sobe": 76.2,
+    "r_meio": 46.8,
+    "r_cai": 45.9,
+    "q_SM": 0.00612,
+    "q_SC": 0.00689,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "B",
+    "ind": "faltas",
+    "sinal": -1,
+    "d_SM": -0.457,
+    "p_SM": 0.11791,
+    "d_SC": -0.878,
+    "p_SC": 0.01991,
+    "auc_SM": 0.37,
+    "r_sobe": 39.8,
+    "r_meio": 53.7,
+    "r_cai": 61.6,
+    "q_SM": 0.17686,
+    "q_SC": 0.03835,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "B",
+    "ind": "xg_por_remate_contra",
+    "sinal": -1,
+    "d_SM": -0.426,
+    "p_SM": 0.1134,
+    "d_SC": -0.54,
+    "p_SC": 0.137,
+    "auc_SM": 0.376,
+    "r_sobe": 42.2,
+    "r_meio": 54.7,
+    "r_cai": 56.2,
+    "q_SM": 0.17686,
+    "q_SC": 0.14945,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "posse",
+    "sinal": 1,
+    "d_SM": 0.176,
+    "p_SM": 0.5549,
+    "d_SC": 0.488,
+    "p_SC": 0.17783,
+    "auc_SM": 0.55,
+    "r_sobe": 58.4,
+    "r_meio": 53.3,
+    "r_cai": 44.1,
+    "q_SM": 0.5549,
+    "q_SC": 0.17783,
+    "veredito": "mesmo sinal, nulo"
+   },
+   {
+    "porta": "C",
+    "ind": "passes",
+    "sinal": 1,
+    "d_SM": 0.403,
+    "p_SM": 0.19355,
+    "d_SC": 0.68,
+    "p_SC": 0.0638,
+    "auc_SM": 0.618,
+    "r_sobe": 63.4,
+    "r_meio": 52.0,
+    "r_cai": 43.1,
+    "q_SM": 0.25807,
+    "q_SC": 0.07656,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "passes_pct",
+    "sinal": 1,
+    "d_SM": 0.279,
+    "p_SM": 0.39747,
+    "d_SC": 0.689,
+    "p_SC": 0.06119,
+    "auc_SM": 0.585,
+    "r_sobe": 61.6,
+    "r_meio": 53.5,
+    "r_cai": 40.3,
+    "q_SM": 0.4336,
+    "q_SC": 0.07656,
+    "veredito": "mesmo sinal, nulo"
+   },
+   {
+    "porta": "C",
+    "ind": "xg_por_remate",
+    "sinal": 1,
+    "d_SM": 0.72,
+    "p_SM": 0.0244,
+    "d_SC": 1.234,
+    "p_SC": 0.00156,
+    "auc_SM": 0.708,
+    "r_sobe": 71.2,
+    "r_meio": 51.1,
+    "r_cai": 37.8,
+    "q_SM": 0.05856,
+    "q_SC": 0.00468,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "toques_area",
+    "sinal": 1,
+    "d_SM": 0.93,
+    "p_SM": 0.00202,
+    "d_SC": 1.55,
+    "p_SC": 0.00013,
+    "auc_SM": 0.759,
+    "r_sobe": 75.2,
+    "r_meio": 50.3,
+    "r_cai": 36.6,
+    "q_SM": 0.00808,
+    "q_SC": 0.00078,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "entradas_area",
+    "sinal": 1,
+    "d_SM": 1.259,
+    "p_SM": 0.00012,
+    "d_SC": 1.645,
+    "p_SC": 6e-05,
+    "auc_SM": 0.833,
+    "r_sobe": 80.0,
+    "r_meio": 48.0,
+    "r_cai": 38.6,
+    "q_SM": 0.00144,
+    "q_SC": 0.00072,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "xg_contra",
+    "sinal": -1,
+    "d_SM": -0.934,
+    "p_SM": 0.00345,
+    "d_SC": -0.774,
+    "p_SC": 0.03658,
+    "auc_SM": 0.248,
+    "r_sobe": 33.0,
+    "r_meio": 58.1,
+    "r_cai": 55.3,
+    "q_SM": 0.01035,
+    "q_SC": 0.05487,
+    "veredito": "REPLICA"
+   }
+  ],
+  "velho_sem2020": [
+   {
+    "porta": "A",
+    "ind": "dist_remate",
+    "sinal": -1,
+    "d_SM": -0.56,
+    "p_SM": 0.16609,
+    "d_SC": -0.611,
+    "p_SC": 0.1487,
+    "auc_SM": 0.334,
+    "r_sobe": 39.2,
+    "r_meio": 54.6,
+    "r_cai": 59.6,
+    "q_SM": 0.22268,
+    "q_SC": 0.20828,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "B",
+    "ind": "remates_baliza_pct",
+    "sinal": 1,
+    "d_SM": 0.5,
+    "p_SM": 0.16701,
+    "d_SC": 1.434,
+    "p_SC": 0.00202,
+    "auc_SM": 0.652,
+    "r_sobe": 68.3,
+    "r_meio": 54.7,
+    "r_cai": 30.0,
+    "q_SM": 0.22268,
+    "q_SC": 0.0102,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "B",
+    "ind": "duelos_pct",
+    "sinal": 1,
+    "d_SM": 0.856,
+    "p_SM": 0.0237,
+    "d_SC": 0.888,
+    "p_SC": 0.04133,
+    "auc_SM": 0.748,
+    "r_sobe": 72.1,
+    "r_meio": 47.5,
+    "r_cai": 47.9,
+    "q_SM": 0.0711,
+    "q_SC": 0.08266,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "B",
+    "ind": "faltas",
+    "sinal": -1,
+    "d_SM": -0.454,
+    "p_SM": 0.16522,
+    "d_SC": -0.821,
+    "p_SC": 0.05991,
+    "auc_SM": 0.38,
+    "r_sobe": 40.2,
+    "r_meio": 54.3,
+    "r_cai": 59.4,
+    "q_SM": 0.22268,
+    "q_SC": 0.1027,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "B",
+    "ind": "xg_por_remate_contra",
+    "sinal": -1,
+    "d_SM": -0.406,
+    "p_SM": 0.14997,
+    "d_SC": -0.575,
+    "p_SC": 0.17432,
+    "auc_SM": 0.382,
+    "r_sobe": 42.5,
+    "r_meio": 54.3,
+    "r_cai": 57.1,
+    "q_SM": 0.22268,
+    "q_SC": 0.20918,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "posse",
+    "sinal": 1,
+    "d_SM": 0.348,
+    "p_SM": 0.35237,
+    "d_SC": 0.432,
+    "p_SC": 0.30141,
+    "auc_SM": 0.598,
+    "r_sobe": 61.2,
+    "r_meio": 51.2,
+    "r_cai": 47.5,
+    "q_SM": 0.39741,
+    "q_SC": 0.30141,
+    "veredito": "mesmo sinal, nulo"
+   },
+   {
+    "porta": "C",
+    "ind": "passes",
+    "sinal": 1,
+    "d_SM": 0.325,
+    "p_SM": 0.39741,
+    "d_SC": 0.55,
+    "p_SC": 0.19258,
+    "auc_SM": 0.597,
+    "r_sobe": 61.7,
+    "r_meio": 52.1,
+    "r_cai": 44.6,
+    "q_SM": 0.39741,
+    "q_SC": 0.21009,
+    "veredito": "mesmo sinal, nulo"
+   },
+   {
+    "porta": "C",
+    "ind": "passes_pct",
+    "sinal": 1,
+    "d_SM": 0.352,
+    "p_SM": 0.36974,
+    "d_SC": 0.601,
+    "p_SC": 0.15621,
+    "auc_SM": 0.606,
+    "r_sobe": 62.5,
+    "r_meio": 52.1,
+    "r_cai": 43.8,
+    "q_SM": 0.39741,
+    "q_SC": 0.20828,
+    "veredito": "mesmo sinal, nulo"
+   },
+   {
+    "porta": "C",
+    "ind": "xg_por_remate",
+    "sinal": 1,
+    "d_SM": 0.688,
+    "p_SM": 0.07561,
+    "d_SC": 0.975,
+    "p_SC": 0.02675,
+    "auc_SM": 0.704,
+    "r_sobe": 70.0,
+    "r_meio": 50.1,
+    "r_cai": 42.1,
+    "q_SM": 0.18146,
+    "q_SC": 0.0642,
+    "veredito": "direcao, sem p"
+   },
+   {
+    "porta": "C",
+    "ind": "toques_area",
+    "sinal": 1,
+    "d_SM": 1.106,
+    "p_SM": 0.00251,
+    "d_SC": 1.39,
+    "p_SC": 0.00255,
+    "auc_SM": 0.801,
+    "r_sobe": 77.3,
+    "r_meio": 48.0,
+    "r_cai": 41.2,
+    "q_SM": 0.01004,
+    "q_SC": 0.0102,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "entradas_area",
+    "sinal": 1,
+    "d_SM": 1.409,
+    "p_SM": 6e-05,
+    "d_SC": 1.549,
+    "p_SC": 0.00112,
+    "auc_SM": 0.858,
+    "r_sobe": 81.2,
+    "r_meio": 45.8,
+    "r_cai": 44.0,
+    "q_SM": 0.00072,
+    "q_SC": 0.0102,
+    "veredito": "REPLICA"
+   },
+   {
+    "porta": "C",
+    "ind": "xg_contra",
+    "sinal": -1,
+    "d_SM": -1.22,
+    "p_SM": 0.00059,
+    "d_SC": -0.99,
+    "p_SC": 0.02488,
+    "auc_SM": 0.185,
+    "r_sobe": 28.3,
+    "r_meio": 59.7,
+    "r_cai": 55.0,
+    "q_SM": 0.00354,
+    "q_SC": 0.0642,
+    "veredito": "REPLICA"
+   }
+  ]
+ },
+ "porta_concordancia": {
+  "mesmo_sinal_SM": "12/12",
+  "spearman_d_SM": 0.657,
+  "p": 0.0202,
+  "pearson_d_SM": 0.812,
+  "p_pearson": 0.0013,
+  "mesmo_sinal_SC": "12/12",
+  "spearman_d_SC": 0.776,
+  "p_SC": 0.003,
+  "replicam_p05_SM": 6,
+  "replicam_p05_SC": 8
+ },
+ "ausencias_com_motivo": [
+  {
+   "o_que": "AUC do posto de valor de mercado",
+   "motivo": "tm_valor_total so existe de 2022 em diante (serieb_clube_temporada.csv) e serieb_elencos.csv tambem comeca em 2022; o painel 2018-2021 tem 141 colunas e nenhuma tm_* nem valor_*. NAO FOI IMPUTADO."
+  },
+  {
+   "o_que": "coluna liquida de valor (d_liq, p_liq) em 2018-2021",
+   "motivo": "mesma ausencia: sem valor de mercado nao ha residualizacao. Todo resultado de porta em 2018-2021 e BRUTO."
+  },
+  {
+   "o_que": "53 dos 65 indicadores de porta A/B/C",
+   "motivo": "fis_* (nao existem antes de 2022, confirmado na API SkillCorner), ti_* (tecnico individual) e os de elenco (share_11, conc_hhi, nucleo_300, nucleo_1000, min_estrangeiros) nao existem no painel 2018-2021."
+  },
+  {
+   "o_que": "golos_cabeca na bateria de fora",
+   "motivo": "coluna ausente no painel 2018-2021."
+  },
+  {
+   "o_que": "teste de formacao",
+   "motivo": "nao repetido: em 2022-2025 nao separou nada (p entre 0,82 e 0,84); nao ha hipotese a testar."
+  }
+ ]
+}
