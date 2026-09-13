@@ -149,7 +149,7 @@ Uma linha por indicador. Colunas, nesta ordem:
 
 1. **Benjamini-Hochberg a 5% dentro de cada família** (uma família = um pilar × uma comparação). Nunca no bolo, nunca por indicador isolado.
 2. **Lista de indicadores pré-declarada e versionada no repositório antes de rodar** (`dados/prototipo_indicadores.json`). Varrendo as 258 colunas numéricas passam 104 a 5% onde o acaso previa 12,9; se a lista for escolhida depois de ver o resultado, todo p exibido é decorativo.
-3. **Nulo do garimpo** (enxerto do Plano 3, a melhor ideia isolada do conjunto e a única que precifica a *busca* em vez do teste): permutar o indicador dentro do ano mantendo a base de valor intacta, refazer a seleção do melhor entre N, e medir quanto o **melhor de N** ganha de AUC por puro sorteio. Medido pelo Plano 3 em 243 indicadores: **+0,043 em média, +0,059 no p95, +0,078 no máximo**, contra +0,066 do melhor real. **Bloco fixo no topo da tabela**, com os números da rodada corrente.
+3. **Nulo do garimpo** (enxerto do Plano 3, a melhor ideia isolada do conjunto e a única que precifica a *busca* em vez do teste): permutar as LINHAS dentro do ano — o clube-temporada leva todos os indicadores juntos, então a correlação entre colunas fica intacta e só o vínculo com a faixa é quebrado —, refazer a seleção do melhor entre N, e medir quanto o **melhor de N** ganha de AUC por puro sorteio. Medido pelo Plano 3 em 243 indicadores: **+0,043 em média, +0,059 no p95, +0,078 no máximo**, contra +0,066 do melhor real. **Bloco fixo no topo da tabela**, com os números da rodada corrente.
 
 Texto obrigatório no topo: *"foram feitos N testes por comparação; a 5%, cerca de N/20 passariam por acaso."*
 
@@ -178,8 +178,8 @@ Leitura: **`dist_remate` é o único indicador de estilo que sobrevive a tudo** 
 
 Cada indicador recebe um selo:
 
-- **Porta A — critério de contratação.** Passa em: `q_SM < 0,10` **e** `p_liq_SM < 0,05` **e** `rho_persist ≥ 0,30` **e** (se for jogo a jogo) parcial do 1º→2º turno com o sinal certo. Só quem tem selo A entra no score de encaixe.
-- **Porta B — característica descritiva.** Passa no líquido de valor mas falha na persistência. Vai à tela, com o rótulo *"não se repete de um ano para o outro"*.
+- **Porta A — critério de contratação.** Passa em: `q_SM < 0,10` **e** `p_liq_SM < 0,05` **e** `rho_persist ≥ 0,30` **e** parcial do 1º→2º turno **medida e com o sinal certo**. A porta temporal não é dispensável para quem não tem versão por jogo: escrita como *"ou não é de jogo, ou passou na parcial"* ela era verdadeira por omissão em **265 das 293 linhas**, e um físico de setor podia sair na tela com o selo que promete prever o 2º turno sem nunca ter sido testado contra o 2º turno. Quem não tem `rho_1T_2T` fica vedado da porta A, e a linha diz que foi vedada. Só quem tem selo A entra no score de encaixe.
+- **Porta B — característica descritiva.** Passa no líquido de valor e falha em algum portão seguinte. O `porta_motivo` é montado com o número que produziu a falha, em quatro casos e nesta ordem: `rho_persist < 0,30` → *"não se repete de um ano para o outro (rho=X em N pares)"*; senão `q_SM ≥ 0,10` → *"sobrevive ao dinheiro mas não sobrevive à família (q=X em N testes)"*; senão, e só para indicador de jogo, *"falha na porta temporal"*; senão *"porta A vedada: não foi testado contra o 2º turno"*. Nenhum desses rótulos é digitado: todos carregam a medida.
 - **Porta C — dinheiro.** Passa no bruto e morre no líquido. Vai à tela, com o rótulo *"explicado pelo valor do elenco"*.
 - **Porta D — placar.** Lista branca de resultado. Vai à tela, desqualificado.
 
@@ -193,7 +193,7 @@ Cada indicador recebe um selo:
 | `share_11` | +0,827 | 0,0045 | **+0,687** | **0,0171** | **0,049** | B |
 | `xg_por_remate_contra` | −0,805 | 0,0104 | **−0,677** | **0,0292** | 0,214 | B |
 | `conc_hhi` | +0,724 | 0,0115 | **+0,597** | **0,0349** | **0,050** | B |
-| `min_estrangeiros` | +0,790 | 0,0153 | +0,450 | 0,133 | — | C |
+| `min_estrangeiros` | +0,899 | 0,0083 | +0,565 | 0,0765 | 0,279 | C |
 | `toques_area` | +0,587 | 0,0439 | +0,118 | 0,693 | — | C |
 | `posse` | +0,521 | 0,0561 | +0,007 | 0,980 | 0,272 | C |
 | `entradas_area` | +0,517 | 0,0940 | +0,075 | 0,813 | — | C |
@@ -314,7 +314,7 @@ Por posição: ZD 87 · MED 82 · LE 74 · LD 71 · ZE 64 · CA 62 · VOL 56 · 
 **Ressalvas obrigatórias na tela:**
 - **Dezembro de 2026 não é filtro seletivo** — 3.950 dos 4.333 livres vencem exatamente ali; é o calendário brasileiro. **A seletividade da lista vem da nota, não do contrato.**
 - Aceitar fonte única de contrato é aceitar ~14,5 mil registros sem confirmação; o filtro `ctc alta ou 2+ fontes` derruba 4.333 → 2.728, e **essa diferença de 1.605 nomes é exatamente onde um erro de contrato vira uma proposta errada**.
-- **Conferência cruzada obrigatória, uma vez e versionada** (enxerto do Plano 3): `serieb_elencos.csv` ano 2026 é a única fonte independente (`contrato_ate` 99,8% preenchido só ali). Concordância de data medida pelos planos: ~51% no geral, **84% quando `ctc=='alta'`, 1 em 168 quando `ctc=='conflito'`**. Publicar o número da rodada corrente.
+- **Conferência cruzada obrigatória, uma vez e versionada** (enxerto do Plano 3): `serieb_elencos.csv` ano 2026 é a única fonte independente (`contrato_ate` 99,8% preenchido só ali). Concordância de data medida pelos planos: ~51% no geral, **84% quando `ctc=='alta'`, 1 em 168 quando `ctc=='conflito'`**. Publicar o número da rodada corrente — **e publicá-lo só onde a fonte cobre**: `serieb_elencos` 2026 é a Série B, então a conferência vale dentro da Brasil B e o casamento por nome fora dela é homônimo por construção. Medido nesta rodada: **56,2% (315 de 560) dentro da Brasil B**, com **91,5% (249/272) em `ctc=='alta'`**, 45,0% em `baixa` e **4,4% (7/158) em `conflito`**; fora da Brasil B a mesma ponte dá **10,7% (38 de 355)**, que é a medida do tamanho da colisão de nomes e não uma taxa de acerto. A ponte por id do Transfermarkt, a única sem risco de homônimo, cobre **31 dos 1.136** da Brasil B (19 com data do outro lado).
 - Contador **"excluídos por dado ausente"** ao lado de cada degrau do funil.
 
 ### 8.2 Como pontua — três notas, nunca uma só
@@ -339,6 +339,8 @@ Nota_b(j,c) = Σ_i w_i · (1 − |posto_i(j) − alvo_i(c)|) / Σ_i w_i     (só
 
 - `posto_i(j)` = percentil **dentro de (liga, posição)** — nunca valor bruto, nunca percentil entre ligas. Justificativa medida: o `m_por_min` mediano vai de 99,2 (Peru) a 110,0 (Uruguai), 11% que é da liga, não do atleta.
 - `alvo_i(c)` = percentil que o cenário pede, vindo de `raio_ref.json['sobecai']['setores'][setor]` **na versão corrigida por clube** (4.4), na forma `(distância ao vetor cai − distância ao vetor sobe)`: o que interessa é estar do lado certo da fronteira, e a fronteira precisa dos dois lados.
+- **As duas pontas na MESMA escala, e o "menor é melhor" entra uma vez só.** `posto_i(j)` é percentil **cru**; a inversão de quem tem `menor é melhor` já está dentro de `alvo_i(c)` (para `t_spr`, que é tempo, o alvo de quem sobe é o percentil 40,1 justamente porque quem sobe é mais rápido). Inverter também o candidato media a distância entre duas escalas opostas e punia o atleta rápido por ser rápido — **era isso que mudava 422 das 586 notas**.
+- **Margem de setores diferentes não é comparável, e por isso a lista ordena pela normalizada.** O teto de um setor é |pct_cai − pct_sobe| médio dos seus indicadores: 0,185 na zaga (um indicador) contra 0,150 no ataque (oito). Cada linha traz `teto_do_setor` e `margem_normalizada`, e é por ela que o ranking ordena.
 - **Distância ao alvo, não "quanto mais melhor"**: se o cenário pede percentil 40 de `m_per_min` e 90 de `psv5`, quem tem 95 nos dois não encaixa melhor, encaixa diferente.
 - **Nunca imputar zero nem média.** Indicador ausente sai da conta e a tela mostra o denominador: *"7 de 9 indicadores tinham dado"*.
 
@@ -360,10 +362,11 @@ Usar o campo `p` de `jogadores.json` (11 códigos: GOL, ZD, ZE, LD, LE, VOL, MED
 
 Os cinco planos validaram o modelo de time à exaustão e entregaram a **nota do jogador sem validação nenhuma**. O único número que o clube vai usar para assinar contrato é o único que ninguém testou. **Ele é testável com o que existe:**
 
-1. Em `serieb_tecnico.csv`, identificar quem **chegou** a cada clube em cada ano: jogador presente no clube X no ano t e ausente de X no ano t−1. **Conferido: 2.222 chegadas e 389 permanências em 2023-2025** (aplicando antes a regra de descarte de homônimo de 1.1 — o merge ingênuo infla 3.866 para 4.216 linhas).
+1. Em `serieb_tecnico.csv`, identificar quem **chegou** a cada clube em cada ano: jogador presente no clube X no ano t e ausente de X no ano t−1. **Conferido: 2.222 chegadas e 389 permanências em 2023-2025** (aplicando antes a regra de descarte de homônimo de 1.1 — o merge ingênuo infla 3.866 para 4.216 linhas). **Duas janelas saem da conta e as duas têm motivo:** 2022 é o primeiro ano do arquivo e sem 2021 todo atleta de 2022 conta como chegada; 2026 tem 27 de 38 rodadas e o desfecho medido (minutos no ano da chegada) ainda não terminou de acontecer. Com as duas fora, o gerador mede **1.731 chegadas na definição ampla em 2023-2025** (2.406 incluindo 2022, e era 2.916 antes do corte de 2026), **547 pontuáveis** e **300 permanências**.
 2. Pontuar cada chegada **com o dado do ano anterior** (o dado que o clube teria na mesa).
 3. Medir o que aconteceu: minutos no ano da chegada, permanência no ano seguinte, posto do clube.
 4. Pergunta: **os jogadores que a fórmula teria recomendado jogaram mais que os que ela teria reprovado?**
+5. **A nota do backtest é a MESMA da etapa 13, pela mesma função.** O backtest não filtrava pelo bloco físico declarado de 8.2 e só caía para o teste por atleta quando a lista ficava vazia: entravam `obr_*` (condicionados à posse, que 8.2 expulsa), `spn_s`, `hi`, `hi_s`, `hi_n` e `hsr_n`. Um backtest de outro score não diz nada sobre o ranking publicado, seja qual for o p.
 
 Sem essa resposta, a aba publica um ranking cuja **ordenação nunca foi conferida**, protegido por uma parede de estatística que é toda sobre outra coisa. O resultado do backtest vai para a tela, positivo ou negativo.
 
@@ -371,18 +374,18 @@ Sem essa resposta, a aba publica um ranking cuja **ordenação nunca foi conferi
 
 ## 9. As propostas de elenco
 
-**Forma.** **Núcleo de 16 (XI + 5)**, não plantel de 56 nem grade de 25. Justificativa no dado: quem subiu usou 36,6 atletas contra 45,6 de quem caiu e concentrou 66,6% dos minutos no XI contra 58,2% — **com a ressalva escrita de que isso é Porta B (ρ≈0,05) e portanto uma aposta declarada, não uma característica comprável**. Completar com preenchimento de plantel explicitamente rotulado *"não é para jogar"*.
+**Forma.** **Núcleo de 15 de campo (XI + 4)**, não plantel de 56 nem grade de 25. A grade de 16 continua sendo a referência tática, mas a vaga de goleiro **não é preenchida por esta esteira, por regra**: o SkillCorner não rastreia goleiro, e o goleiro sai na trilha técnica separada de 8.3. Justificativa no dado: quem subiu usou 36,6 atletas contra 45,6 de quem caiu e concentrou 66,6% dos minutos no XI contra 58,2% — **com a ressalva escrita de que isso é Porta B (ρ≈0,05) e portanto uma aposta declarada, não uma característica comprável**. Completar com preenchimento de plantel explicitamente rotulado *"não é para jogar"*.
 
 **Esqueleto tático.** 4-2-3-1 é o sistema principal de 47 dos 80 clube-temporada — e também de quem caiu; **a formação não distingue nada**. O elenco é listado por **função com dupla cobertura**, capaz de jogar dois desenhos (4-2-3-1 e 4-4-2), nunca como um 11 fixo.
 
 **Otimização, e ela roda hoje.** `pulp` e `ortools` **não estão instalados** — programação inteira está fora. Usar **`scipy.optimize.linear_sum_assignment`** (Hungarian) para a alocação ótima jogador×vaga sob a grade de posição, com as restrições aplicadas como pré-filtro e como penalidade na matriz de custo:
 - (i) mínimo por posição da grade;
-- (ii) teto de folha somando `sal` (faixa; os sem faixa entram com o valor imputado da liga **e marcados**) — **como banda, nunca como número exato**;
+- (ii) teto de folha somando `sal` (faixa; os sem faixa entram com o valor imputado da liga **e marcados**) — **como banda, nunca como número exato**. **NÃO IMPLEMENTADA**, e declarada como tal em `restricoes.nao_implementadas`: não existe valor de teto declarado em lugar nenhum do projeto, e inventar um seria número escrito à mão. O que o JSON traz é a soma do ponto médio da banda, medida;
 - (iii) teto de idade média via `id_`;
 - (iv) no máximo 6 atletas da mesma liga estrangeira;
-- (v) pelo menos 5 atletas com `min >= 1.800`, porque elenco novo inteiro é risco de integração que o dado não mede.
+- (v) pelo menos 5 atletas com `min >= 1.800`, porque elenco novo inteiro é risco de integração que o dado não mede. **NÃO IMPLEMENTADA**, e declarada como tal: é restrição de CONJUNTO e o Húngaro otimiza custo célula a célula — a penalidade de 0,01 por atleta sem rodagem não obriga o conjunto a ter cinco, e o JSON publica em quantas das 200 réplicas o mínimo foi violado. Implementá-la exigiria reservar k vagas para veteranos antes da alocação, o que muda a natureza da faixa.
 
-**Entrega como FAIXA, não como time.** 200 elencos por reamostragem das notas dentro do erro-padrão de cada atleta; por vaga, os nomes que aparecem em **mais de 50%** das soluções (recomendação) e os de **10% a 50%** (alternativas equivalentes dentro do ruído). Um XI único calibrado em n=16 seria precisão falsa.
+**Entrega como FAIXA, não como time.** 200 elencos por reamostragem das notas dentro do erro-padrão de cada atleta — e o erro-padrão é **medido**, por bootstrap pareado dos indicadores presentes do próprio atleta (400 réplicas), não uma constante; onde o setor pontua com um indicador só não há discordância entre indicadores para medir e o atleta cai num **piso declarado** de 0,02, com a contagem de quantos caíram nele ao lado; por vaga, os nomes que aparecem em **mais de 50%** das soluções (recomendação) e os de **10% a 50%** (alternativas equivalentes dentro do ruído). Um XI único calibrado em n=16 seria precisão falsa.
 
 **Quantas propostas — e o dimensionamento honesto, antes de montar.** Com **60 candidatos completos só da Série B** e 603 no pool sul-americano, a promessa de "mais de uma proposta" só é honesta na versão sul-americana ou aceitando a lista ampliada. **Imprimir o denominador ao lado de cada vaga** (na Série B sobram poucos ED/EE e **zero goleiro com dado completo**). Três propostas, deliberadamente contrastadas:
 - **(A) Cenário Caro** — replica o perfil dos 12 promovidos do top-8 de valor, honesto sobre custar o patamar de €24-27 mi de elenco.
@@ -399,15 +402,15 @@ O dono pediu a construção explícita, não só o fim. Quinze etapas é obra; *
 
 **ETAPA 0 — O que está sendo medido.** 100 clube-temporada; 80 completos (16/48/16); 2026 em cinza com *"27 de 38 rodadas — não entra em média nenhuma"*. Ao lado: o que 16 permite (comparar médias) e o que não permite (recortar subgrupos). Mais o funil dos candidatos.
 
-**ETAPA 1 — A linha de base do dinheiro, ANTES de qualquer pilar.** Quartil de valor × taxa de subida: **55,0% (11 de 20) no quartil mais caro, 15,8% (3/19), 4,8% (1/21), 5,0% (1/20)** (conferido). O top-4 de valor de cada ano **acerta 10 das 16 subidas** (acaso 3,2) e o **AUC usando só o posto de valor é 0,828** (conferido). Quem lê a aba encontra o dinheiro no primeiro parágrafo, não no rodapé.
+**ETAPA 1 — A linha de base do dinheiro, ANTES de qualquer pilar.** Quartil de valor × taxa de subida: **55,0% (11 de 20) no quartil mais caro, 15,8% (3/19), 4,8% (1/21), 5,0% (1/20)** (conferido). O top-4 de valor de cada ano **acerta 10 das 16 subidas** (acaso 3,2) e o **AUC usando só o posto de valor é 0,828** (conferido). Quem lê a aba encontra o dinheiro no primeiro parágrafo, não no rodapé. Ao lado, duas coisas que o LOSO não dá: **`fora_da_amostra_2026`** — ajustado em 2022-2025 e aplicado a uma temporada que o modelo nunca viu, o posto de valor dá **AUC 0,812 sobe×resto** e o top-4 de valor acerta **2 dos 4** do G4, com **J=27 de 38** e *faixa provisória* impressos ao lado porque 2026 não fecha temporada e não entra em média nenhuma — e **`controle_n_atletas`**, o segundo confundidor: `fis_atletas` vai de **20,50 (sobe) a 21,90 (meio) a 25,25 (cai)**, ρ **+0,486** com a posição final (p=4,8e-06), e é quase ortogonal ao dinheiro (ρ dos postos −0,099, p=0,380). Ele entra como **controle**, nunca como indicador.
 
-**ETAPA 2 — O catálogo dos indicadores, um por linha.** A tabela da seção 6.1, ordenável por qualquer coluna. É aqui que "indicador por indicador" fica auditável, e é aqui que se vê que 40 passam contra quem caiu e 8 contra o meio.
+**ETAPA 2 — O catálogo dos indicadores, um por linha.** A tabela da seção 6.1, ordenável por qualquer coluna. É aqui que "indicador por indicador" fica auditável, e é aqui que se vê que, dos 293, **24 sobrevivem ao BH contra quem caiu e 8 contra o meio** (76 e 29 antes da correção de multiplicidade).
 
 **ETAPA 3 — O aviso do sorteio, em número.** Bloco fixo no topo da Etapa 2 com a contagem de testes, o esperado por acaso, os sobreviventes de BH e o **nulo do garimpo**.
 
 **ETAPA 4 — Confiabilidade de cada medida.** Barra por indicador com o split-half corrigido, de 0,78 (Passes) a 0,30 (xG). Hachura abaixo de 0,40.
 
-**ETAPA 5 — Os quatro pilares, time a time, ano a ano.** Quatro painéis; em cada um, matriz de 16 linhas (clube-ano promovido) × N colunas (indicadores), célula colorida pelo percentil dentro do ano, faixa do meio e de quem caiu ao fundo. Clique abre valor bruto, posto, n de atletas ou de jogos, e o ano. **Setor com menos de 3 atletas sai vazio com o motivo escrito.**
+**ETAPA 5 — Os quatro pilares, time a time, ano a ano.** Quatro painéis; em cada um, matriz de 16 linhas (clube-ano promovido) × N colunas (indicadores), célula colorida pelo percentil dentro do ano, faixa do meio e de quem caiu ao fundo. Clique abre valor bruto, posto, n e o ano. **O `n` da célula é o da unidade do indicador, e a unidade vai escrita ao lado:** jogos (J) no técnico coletivo, atletas rastreados no físico, atletas com 600+ min no técnico individual e **atletas do plantel** nos oito indicadores de elenco que se contam sobre o elenco — só `formacoes` e `formPrincipalPct`, que se contam sobre jogos, seguem com n = J. Nos indicadores `ti_*` o campo do cabeçalho chama-se **`origem`** e não `coluna_csv`: nenhum deles é coluna do painel, todos são agregação por setor de `serieb_tecnico.csv`. **Setor com menos de 3 atletas sai vazio com o motivo escrito.**
 
 **ETAPA 6 — Isso se repete?** Dispersão do posto em t contra t+1, 36 pares, com o ρ no canto e seletor por indicador. Visível de imediato: `fis_distance_p90` em 0,722 e `ppda` em 0,129 na mesma escala. Legenda: *"característica que não se repete de um ano para o outro é retrato de um ano, não modelo de jogo"*.
 
@@ -436,7 +439,7 @@ O dono pediu a construção explícita, não só o fim. Quinze etapas é obra; *
 Três, e nenhum é opcional:
 
 1. **Baseline de dinheiro impresso ao lado de TODA proposta**, não em rodapé: **AUC 0,828 e 10 de 16 acertos só com o posto de valor** (conferido). *Qualquer eixo, índice ou elenco que não bata isso fora da amostra é descrição, não recomendação.*
-2. **Coluna líquida de valor em toda linha de indicador** (seção 6.1), mais o **pareamento por caliper** como checagem que não impõe linearidade: controles do mesmo ano dentro de ±0,20 de posto de valor cobrem 16/16 das subidas; ±0,15 cobre 15/16 com 2,7 controles em média. **O achado que sobrevive ao pareamento é o que se leva ao dono.** Exibir também `tm_com_valor`, porque a cobertura do valor por temporada varia de 47% a 77% e **não falta ao acaso** (quem não tem valor é jogador obscuro, e time pobre tem mais deles).
+2. **Coluna líquida de valor em toda linha de indicador** (seção 6.1), mais o **pareamento por caliper** como checagem que não impõe linearidade: controles do mesmo ano dentro de ±0,20 de posto de valor cobrem 16/16 das subidas; ±0,15 cobre 15/16 com 3,25 controles em média. **O achado que sobrevive ao pareamento é o que se leva ao dono.** E, **só nas 160 linhas físicas**, um segundo nível de resíduo — valor **e** nº de atletas rastreados (`fis_atletas` no elenco, `fis_<setor>_atletas` no setor) — nas colunas novas `d_liq2_*`/`p_liq2_*`, porque toda média física é média POR ATLETA e quem sobe usa menos gente: sem esse controle o denominador menor levanta a média sem que ninguém tenha corrido mais. As colunas `d_liq` continuam ao lado, intactas; o técnico coletivo não recebe `liq2` e a linha grava o motivo. Exibir também `tm_com_valor`, porque a cobertura do valor por temporada varia de 47% a 77% e **não falta ao acaso** (quem não tem valor é jogador obscuro, e time pobre tem mais deles).
 3. **Contrafactual da proposta de elenco:** a folha implícita e o valor somado do elenco proposto, colocados no **posto de valor** que ocupariam na Série B, com a taxa histórica de subida daquele quartil escrita em voz alta. Se a proposta cai no segundo quartil, a tela diz que a taxa histórica foi **4,8%**.
 
 Mais dois controles de integridade que rodam a cada execução e **quebram o pipeline se falharem**:

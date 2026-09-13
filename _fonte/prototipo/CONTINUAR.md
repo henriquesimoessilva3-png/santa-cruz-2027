@@ -97,30 +97,39 @@ produz o mesmo JSON — ou, se preferir economizar, edite o script deixando só 
 
 ### 4.1 Técnico de EQUIPE — `bases wyscout - serie B/bases times serie B - 2021 a 2018.zip`
 
-**76 arquivos de 80.** Um por clube-temporada, no formato `Team Stats <Clube> (N).xlsx` —
-o `(N)` é contador de download, **não o ano**.
+**80 de 80 — completo em 12/09, com os quatro que o dono mandou no fim da sessão.**
+Os arquivos estão EXTRAÍDOS em `_fonte/serie_b_jogos_2018_2021/` (80 `.xlsx`) e o manifesto
+conferido, em `_fonte/prototipo/manifesto_2018_2021.json`.
 
-Estrutura (conferida no Fortaleza 2018): **uma linha por partida**, 109 colunas, com
-`Data`, `Jogo`, `Competição`, `Duração`, `Equipa`, `Sistema` e o resto dos indicadores.
-É o mesmo formato do `serieb_jogos.csv` (que tem 119 colunas — confira o de-para).
+Formato `Team Stats <Clube> (N).xlsx` — o `(N)` é contador de download, **não o ano**.
+Estrutura: **uma linha por (partida, equipe)**, 109 colunas, com `Data`, `Jogo`, `Competição`,
+`Duração`, `Equipa`, `Sistema`. É o mesmo formato do `serieb_jogos.csv` (119 colunas —
+o de-para é parte do trabalho).
 
-Três coisas que o processador precisa saber:
-- **O ano sai da coluna `Data`** (formato `2018-11-23`). Não precisa inferir por elenco.
-- **Filtrar `Competição == 'Brazil. Serie B'`** — os arquivos trazem estadual junto
-  (o Fortaleza 2018 tem 112 linhas, das quais 76 são Série B).
-- **Cada partida aparece DUAS vezes**: a linha do próprio clube e a do adversário. A coluna
-  `Equipa` distingue. São 38 jogos × 2 = 76 linhas. O `serieb_jogos.csv` guarda as duas,
-  então provavelmente é só concatenar — mas confira antes de assumir.
+#### O que o processador precisa saber
 
-**FALTAM 4 CLUBE-TEMPORADA, e três subiram:**
+- **A TEMPORADA NÃO SAI DO ANO DA DATA.** Esta linha dizia o contrário e estava errada.
+  Os **20 clubes de 2020** atravessam o ano civil: a Série B 2020 foi de 08/08/2020 a
+  30/01/2021, por causa da covid. O Chapecoense tem 62 jogos datados em 2020 e **14 em 2021**.
+  Quem filtrar por `Data.year` racha a temporada 2020 inteira — e justo o campeão daquele ano,
+  que é o caso que o teste cego mais precisa. **A temporada sai do arquivo** (ano do primeiro
+  jogo de Série B naquele arquivo), nunca da data da linha.
+- **Filtrar `Competição == 'Brazil. Serie B'`** — os arquivos trazem estadual, Copa do Brasil,
+  Copa Verde e amistoso junto.
+- **Cada partida aparece DUAS vezes**: a linha do próprio clube e a do adversário, distinguidas
+  pela coluna `Equipa`. São 38 × 2 = 76 linhas de Série B por arquivo. Depois da dedup por
+  (temporada, Data, Jogo, Equipa): **3.038 linhas, 80 equipe-temporada** — contra 3.036 das 80
+  temporadas completas de 2022-2025.
 
-| clube | anos que faltam |
-|---|---|
-| **Atlético-GO** | 2018 (6º) e **2019 (4º — subiu)** |
-| **Chapecoense** | **2020 (1º — subiu)** |
-| **Paysandu** | 2018 (17º) |
+#### Dois buracos, um que custa e outro que não
 
-Sem esses três acessos a amostra nova fica em 13, não 16. **Peça ao dono antes de rodar.**
+- **`Team Stats Vila Nova (7).xlsx` saiu VAZIO** — duas linhas de rótulo ("Vila Nova" /
+  "Adversários") e nenhuma partida. Era o Vila Nova 2019. **Não custa nada:** como cada jogo
+  está no arquivo dos dois clubes, os 38 jogos do Vila Nova estão inteiros nos arquivos dos
+  outros 19. Reconstruindo pela união, fecha 80 de 80. Já conferido.
+- **Falta uma partida no Wyscout inteiro: Cuiabá × Figueirense de 2019.** Por isso esses dois
+  têm 37 jogos naquele ano, e 2019 tem 379 partidas contra 380 dos outros três. É buraco da
+  fonte. Registre, não conserte.
 
 ### 4.2 Técnico por JOGADOR — `~/Downloads/serie B - indicadores tecnicos wyscout - jogadores - 2018 a 2021.zip`
 

@@ -1,0 +1,752 @@
+{
+ "_doc": "Lista PRE-DECLARADA de indicadores da aba Prototipo (especificacao 6.3). Escrita e versionada ANTES de rodar qualquer teste: se a lista for escolhida depois de ver o resultado, todo p exibido e decorativo. gerar_prototipo.py so le.",
+ "versao": "2026-09-12",
+ "familias": {
+  "tecnico_col": "pilar tecnico coletivo, 31 indicadores de jogo",
+  "elenco": "bloco de elenco, rotulo proprio, 10 indicadores",
+  "fisico_col_elenco": "pilar fisico coletivo, media do elenco",
+  "fisico_col_setor": "pilar fisico coletivo, por setor (zaga/lateral/meio/ataque)",
+  "tecnico_ind": "pilar tecnico individual agregado por setor"
+ },
+ "tecnico_col": [
+  {
+   "col": "posse",
+   "nome": "Posse, %",
+   "sinal": 1,
+   "jogo": "Posse, %"
+  },
+  {
+   "col": "ppda",
+   "nome": "PPDA (passes do adversario por acao defensiva)",
+   "sinal": -1,
+   "jogo": "PPDA"
+  },
+  {
+   "col": "intensidade",
+   "nome": "Intensidade de jogo",
+   "sinal": 1,
+   "jogo": "Intensidade de jogo"
+  },
+  {
+   "col": "passes",
+   "nome": "Passes por jogo",
+   "sinal": 1,
+   "jogo": "Passes"
+  },
+  {
+   "col": "passes_pct",
+   "nome": "Passes certos, %",
+   "sinal": 1,
+   "jogo": "Passes certos, %"
+  },
+  {
+   "col": "passe_longo_pct",
+   "nome": "% de passe longo",
+   "sinal": -1,
+   "jogo": "% de passe longo"
+  },
+  {
+   "col": "compr_passe",
+   "nome": "Comprimento medio de passes, m",
+   "sinal": -1,
+   "jogo": "Comprimento médio de passes"
+  },
+  {
+   "col": "passes_frente_pct",
+   "nome": "Passes para a frente certos, %",
+   "sinal": 1,
+   "jogo": "Passes para a frente certos, %"
+  },
+  {
+   "col": "passes_terco_final",
+   "nome": "Passes para o terco final",
+   "sinal": 1,
+   "jogo": "Passes para terço final"
+  },
+  {
+   "col": "passes_progressivos",
+   "nome": "Passes progressivos",
+   "sinal": 1,
+   "jogo": "Passes progressivos"
+  },
+  {
+   "col": "dist_remate",
+   "nome": "Distancia media do remate, m",
+   "sinal": -1,
+   "jogo": "Distância média do remate"
+  },
+  {
+   "col": "remates",
+   "nome": "Remates por jogo",
+   "sinal": 1,
+   "jogo": "Remates"
+  },
+  {
+   "col": "remates_baliza_pct",
+   "nome": "Remates a baliza, %",
+   "sinal": 1,
+   "jogo": "Remates à baliza, %"
+  },
+  {
+   "col": "xg_por_remate",
+   "nome": "xG por remate",
+   "sinal": 1,
+   "jogo": null
+  },
+  {
+   "col": "toques_area",
+   "nome": "Toques na area",
+   "sinal": 1,
+   "jogo": "Toques na área"
+  },
+  {
+   "col": "entradas_area",
+   "nome": "Entradas na grande area",
+   "sinal": 1,
+   "jogo": "Entradas na grande área"
+  },
+  {
+   "col": "atq_posicional",
+   "nome": "Ataques posicionais",
+   "sinal": 1,
+   "jogo": "Ataques posicionais"
+  },
+  {
+   "col": "contra_ataques",
+   "nome": "Contra-ataques",
+   "sinal": 1,
+   "jogo": "Contra-ataques"
+  },
+  {
+   "col": "cruzamentos",
+   "nome": "Cruzamentos",
+   "sinal": 1,
+   "jogo": "Cruzamentos"
+  },
+  {
+   "col": "cruz_certos_pct",
+   "nome": "Cruzamentos certos, %",
+   "sinal": 1,
+   "jogo": "Cruzamentos certos, %"
+  },
+  {
+   "col": "bolas_paradas",
+   "nome": "Bolas paradas",
+   "sinal": 1,
+   "jogo": "Bolas paradas"
+  },
+  {
+   "col": "cantos",
+   "nome": "Cantos",
+   "sinal": 1,
+   "jogo": "Cantos"
+  },
+  {
+   "col": "duelos_pct",
+   "nome": "Duelos ganhos, %",
+   "sinal": 1,
+   "jogo": "Duelos ganhos, %"
+  },
+  {
+   "col": "duelos_aereos_pct",
+   "nome": "Duelos aereos ganhos, %",
+   "sinal": 1,
+   "jogo": "Duelos aéreos ganhos, %"
+  },
+  {
+   "col": "recuperacoes",
+   "nome": "Recuperacoes",
+   "sinal": 1,
+   "jogo": "Recuperações"
+  },
+  {
+   "col": "perdas",
+   "nome": "Perdas",
+   "sinal": -1,
+   "jogo": "Perdas"
+  },
+  {
+   "col": "faltas",
+   "nome": "Faltas",
+   "sinal": -1,
+   "jogo": "Faltas"
+  },
+  {
+   "col": "amarelos",
+   "nome": "Cartoes amarelos",
+   "sinal": -1,
+   "jogo": "Cartões amarelos"
+  },
+  {
+   "col": "xg_contra",
+   "nome": "xG contra",
+   "sinal": -1,
+   "jogo": null
+  },
+  {
+   "col": "remates_contra",
+   "nome": "Remates contra",
+   "sinal": -1,
+   "jogo": "Remates contra"
+  },
+  {
+   "col": "xg_por_remate_contra",
+   "nome": "xG por remate contra",
+   "sinal": -1,
+   "jogo": null
+  }
+ ],
+ "elenco": [
+  {
+   "col": "atletas_usados",
+   "nome": "Atletas usados no ano",
+   "sinal": -1
+  },
+  {
+   "col": "share_11",
+   "nome": "% dos minutos no XI mais usado",
+   "sinal": 1
+  },
+  {
+   "col": "conc_hhi",
+   "nome": "Concentracao de minutos (HHI)",
+   "sinal": 1
+  },
+  {
+   "col": "nucleo_300",
+   "nome": "Atletas com 300+ minutos",
+   "sinal": -1
+  },
+  {
+   "col": "nucleo_1000",
+   "nome": "Atletas com 1.000+ minutos",
+   "sinal": 1
+  },
+  {
+   "col": "plantel",
+   "nome": "Tamanho do plantel",
+   "sinal": -1
+  },
+  {
+   "col": "min_estrangeiros",
+   "nome": "% de minutos de estrangeiros",
+   "sinal": 1
+  },
+  {
+   "col": "idade_11",
+   "nome": "Idade media do XI",
+   "sinal": 0
+  },
+  {
+   "col": "formacoes",
+   "nome": "Formacoes distintas usadas",
+   "sinal": -1
+  },
+  {
+   "col": "formPrincipalPct",
+   "nome": "% de jogos na formacao principal",
+   "sinal": 1
+  }
+ ],
+ "resultado": [
+  "gp_jogo",
+  "gc_jogo",
+  "golos_sem_penalti",
+  "golos_tec",
+  "clean_sheets",
+  "brancos",
+  "xg_saldo",
+  "finalizacao",
+  "goleadas_pro",
+  "maxVitorias",
+  "maxSemVencer",
+  "pontos_casa",
+  "pontos_fora",
+  "pts1t",
+  "pts2t",
+  "aprovZ6",
+  "aprovG6"
+ ],
+ "fisico_col_elenco": [
+  "fis_psv99",
+  "fis_psv99_top5",
+  "fis_sprint_distance_p90",
+  "fis_sprint_count_p90",
+  "fis_hsr_distance_p90",
+  "fis_hsr_count_p90",
+  "fis_hi_distance_p90",
+  "fis_hi_count_p90",
+  "fis_distance_p90",
+  "fis_m_per_min",
+  "fis_running_distance_p90",
+  "fis_high_accel_p90",
+  "fis_high_decel_p90",
+  "fis_medium_accel_p90",
+  "fis_medium_decel_p90",
+  "fis_expl_accel_sprint_p90",
+  "fis_expl_accel_hsr_p90",
+  "fis_cod_count_p90",
+  "fis_m_per_min_tip",
+  "fis_m_per_min_otip",
+  "fis_distance_p30tip",
+  "fis_distance_p30otip",
+  "fis_sprint_distance_p30tip",
+  "fis_sprint_distance_p30otip",
+  "fis_hsr_distance_p30tip",
+  "fis_hsr_distance_p30otip",
+  "fis_runs_p30tip",
+  "fis_runs_above_hsr_p30tip",
+  "fis_runs_penalty_area_p30tip",
+  "fis_runs_dangerous_p30tip",
+  "fis_runs_received_p30tip",
+  "fis_runs_shot_within_10s_p30tip"
+ ],
+ "fisico_col_setor": {
+  "zaga": [
+   "fis_zaga_psv99",
+   "fis_zaga_psv99_top5",
+   "fis_zaga_sprint_distance_p90",
+   "fis_zaga_sprint_count_p90",
+   "fis_zaga_hsr_distance_p90",
+   "fis_zaga_hsr_count_p90",
+   "fis_zaga_hi_distance_p90",
+   "fis_zaga_hi_count_p90",
+   "fis_zaga_distance_p90",
+   "fis_zaga_m_per_min",
+   "fis_zaga_running_distance_p90",
+   "fis_zaga_high_accel_p90",
+   "fis_zaga_high_decel_p90",
+   "fis_zaga_medium_accel_p90",
+   "fis_zaga_medium_decel_p90",
+   "fis_zaga_expl_accel_sprint_p90",
+   "fis_zaga_expl_accel_hsr_p90",
+   "fis_zaga_cod_count_p90",
+   "fis_zaga_m_per_min_tip",
+   "fis_zaga_m_per_min_otip",
+   "fis_zaga_distance_p30tip",
+   "fis_zaga_distance_p30otip",
+   "fis_zaga_sprint_distance_p30tip",
+   "fis_zaga_sprint_distance_p30otip",
+   "fis_zaga_hsr_distance_p30tip",
+   "fis_zaga_hsr_distance_p30otip",
+   "fis_zaga_runs_p30tip",
+   "fis_zaga_runs_above_hsr_p30tip",
+   "fis_zaga_runs_penalty_area_p30tip",
+   "fis_zaga_runs_dangerous_p30tip",
+   "fis_zaga_runs_received_p30tip",
+   "fis_zaga_runs_shot_within_10s_p30tip"
+  ],
+  "lateral": [
+   "fis_lateral_psv99",
+   "fis_lateral_psv99_top5",
+   "fis_lateral_sprint_distance_p90",
+   "fis_lateral_sprint_count_p90",
+   "fis_lateral_hsr_distance_p90",
+   "fis_lateral_hsr_count_p90",
+   "fis_lateral_hi_distance_p90",
+   "fis_lateral_hi_count_p90",
+   "fis_lateral_distance_p90",
+   "fis_lateral_m_per_min",
+   "fis_lateral_running_distance_p90",
+   "fis_lateral_high_accel_p90",
+   "fis_lateral_high_decel_p90",
+   "fis_lateral_medium_accel_p90",
+   "fis_lateral_medium_decel_p90",
+   "fis_lateral_expl_accel_sprint_p90",
+   "fis_lateral_expl_accel_hsr_p90",
+   "fis_lateral_cod_count_p90",
+   "fis_lateral_m_per_min_tip",
+   "fis_lateral_m_per_min_otip",
+   "fis_lateral_distance_p30tip",
+   "fis_lateral_distance_p30otip",
+   "fis_lateral_sprint_distance_p30tip",
+   "fis_lateral_sprint_distance_p30otip",
+   "fis_lateral_hsr_distance_p30tip",
+   "fis_lateral_hsr_distance_p30otip",
+   "fis_lateral_runs_p30tip",
+   "fis_lateral_runs_above_hsr_p30tip",
+   "fis_lateral_runs_penalty_area_p30tip",
+   "fis_lateral_runs_dangerous_p30tip",
+   "fis_lateral_runs_received_p30tip",
+   "fis_lateral_runs_shot_within_10s_p30tip"
+  ],
+  "meio": [
+   "fis_meio_psv99",
+   "fis_meio_psv99_top5",
+   "fis_meio_sprint_distance_p90",
+   "fis_meio_sprint_count_p90",
+   "fis_meio_hsr_distance_p90",
+   "fis_meio_hsr_count_p90",
+   "fis_meio_hi_distance_p90",
+   "fis_meio_hi_count_p90",
+   "fis_meio_distance_p90",
+   "fis_meio_m_per_min",
+   "fis_meio_running_distance_p90",
+   "fis_meio_high_accel_p90",
+   "fis_meio_high_decel_p90",
+   "fis_meio_medium_accel_p90",
+   "fis_meio_medium_decel_p90",
+   "fis_meio_expl_accel_sprint_p90",
+   "fis_meio_expl_accel_hsr_p90",
+   "fis_meio_cod_count_p90",
+   "fis_meio_m_per_min_tip",
+   "fis_meio_m_per_min_otip",
+   "fis_meio_distance_p30tip",
+   "fis_meio_distance_p30otip",
+   "fis_meio_sprint_distance_p30tip",
+   "fis_meio_sprint_distance_p30otip",
+   "fis_meio_hsr_distance_p30tip",
+   "fis_meio_hsr_distance_p30otip",
+   "fis_meio_runs_p30tip",
+   "fis_meio_runs_above_hsr_p30tip",
+   "fis_meio_runs_penalty_area_p30tip",
+   "fis_meio_runs_dangerous_p30tip",
+   "fis_meio_runs_received_p30tip",
+   "fis_meio_runs_shot_within_10s_p30tip"
+  ],
+  "ataque": [
+   "fis_ataque_psv99",
+   "fis_ataque_psv99_top5",
+   "fis_ataque_sprint_distance_p90",
+   "fis_ataque_sprint_count_p90",
+   "fis_ataque_hsr_distance_p90",
+   "fis_ataque_hsr_count_p90",
+   "fis_ataque_hi_distance_p90",
+   "fis_ataque_hi_count_p90",
+   "fis_ataque_distance_p90",
+   "fis_ataque_m_per_min",
+   "fis_ataque_running_distance_p90",
+   "fis_ataque_high_accel_p90",
+   "fis_ataque_high_decel_p90",
+   "fis_ataque_medium_accel_p90",
+   "fis_ataque_medium_decel_p90",
+   "fis_ataque_expl_accel_sprint_p90",
+   "fis_ataque_expl_accel_hsr_p90",
+   "fis_ataque_cod_count_p90",
+   "fis_ataque_m_per_min_tip",
+   "fis_ataque_m_per_min_otip",
+   "fis_ataque_distance_p30tip",
+   "fis_ataque_distance_p30otip",
+   "fis_ataque_sprint_distance_p30tip",
+   "fis_ataque_sprint_distance_p30otip",
+   "fis_ataque_hsr_distance_p30tip",
+   "fis_ataque_hsr_distance_p30otip",
+   "fis_ataque_runs_p30tip",
+   "fis_ataque_runs_above_hsr_p30tip",
+   "fis_ataque_runs_penalty_area_p30tip",
+   "fis_ataque_runs_dangerous_p30tip",
+   "fis_ataque_runs_received_p30tip",
+   "fis_ataque_runs_shot_within_10s_p30tip"
+  ]
+ },
+ "tecnico_ind": [
+  "Duelos aéreos/90",
+  "Duelos/90",
+  "Duelos aéreos ganhos, %",
+  "Duelos defensivos ganhos, %",
+  "Duelos ofensivos ganhos, %",
+  "Ações defensivas com êxito/90",
+  "Interceções ajust. à posse",
+  "Cortes de carrinho ajust. à posse",
+  "Passes certos, %",
+  "Passes progressivos/90",
+  "Passes progressivos certos, %",
+  "Passes para terço final/90",
+  "Passes chave/90",
+  "Dribles/90",
+  "Dribles com sucesso, %",
+  "Corridas progressivas/90",
+  "Acelerações/90",
+  "Toques na área/90",
+  "Remates/90",
+  "Golos esperados/90",
+  "Assistências esperadas/90",
+  "Comprimento médio de passes, m",
+  "Faltas/90"
+ ],
+ "eixos": {
+  "A_posse_construcao": [
+   [
+    "posse",
+    1
+   ],
+   [
+    "passes",
+    1
+   ],
+   [
+    "passes_pct",
+    1
+   ],
+   [
+    "passe_longo_pct",
+    -1
+   ],
+   [
+    "atq_posicional",
+    1
+   ],
+   [
+    "compr_passe",
+    -1
+   ]
+  ],
+  "B_pressao_ritmo": [
+   [
+    "ppda",
+    -1
+   ],
+   [
+    "intensidade",
+    1
+   ],
+   [
+    "recuperacoes",
+    1
+   ],
+   [
+    "fis_m_per_min_otip",
+    1
+   ],
+   [
+    "fis_hi_distance_p90",
+    1
+   ]
+  ],
+  "C_volume_fisico": [
+   [
+    "fis_distance_p90",
+    1
+   ],
+   [
+    "fis_running_distance_p90",
+    1
+   ]
+  ],
+  "D_explosao": [
+   [
+    "fis_psv99_top5",
+    1
+   ],
+   [
+    "fis_sprint_distance_p90",
+    1
+   ],
+   [
+    "fis_sprint_count_p90",
+    1
+   ],
+   [
+    "fis_high_accel_p90",
+    1
+   ]
+  ],
+  "E_qualidade_chance": [
+   [
+    "dist_remate",
+    -1
+   ],
+   [
+    "xg_por_remate",
+    1
+   ],
+   [
+    "toques_area",
+    1
+   ],
+   [
+    "entradas_area",
+    1
+   ]
+  ],
+  "F_solidez": [
+   [
+    "xg_contra",
+    -1
+   ],
+   [
+    "remates_contra",
+    -1
+   ],
+   [
+    "xg_por_remate_contra",
+    -1
+   ]
+  ],
+  "G_bola_aerea_parada": [
+   [
+    "duelos_aereos_pct",
+    1
+   ],
+   [
+    "cruzamentos",
+    1
+   ],
+   [
+    "bolas_paradas",
+    1
+   ],
+   [
+    "tm_altura",
+    1
+   ]
+  ],
+  "H_dinheiro": [
+   [
+    "tm_valor_total",
+    1
+   ],
+   [
+    "tm_valor_mediana",
+    1
+   ]
+  ],
+  "I_estabilidade_11": [
+   [
+    "share_11",
+    1
+   ],
+   [
+    "conc_hhi",
+    1
+   ],
+   [
+    "atletas_usados",
+    -1
+   ],
+   [
+    "nucleo_300",
+    -1
+   ]
+  ]
+ },
+ "tipologia": {
+  "TERRITORIO": [
+   [
+    "posse",
+    1
+   ],
+   [
+    "entradas_area",
+    1
+   ],
+   [
+    "toques_area",
+    1
+   ]
+  ],
+  "ROTA": [
+   [
+    "passes_pct",
+    1
+   ],
+   [
+    "passe_longo_pct",
+    -1
+   ]
+  ]
+ },
+ "blocos_encaixe": {
+  "fisica": [
+   "psv5",
+   "psv",
+   "spr_n",
+   "spr_km",
+   "hsr",
+   "acel",
+   "desa",
+   "cod",
+   "mmin",
+   "expl",
+   "t_spr",
+   "t_hsr_cod",
+   "t505_90",
+   "t505_180"
+  ],
+  "duelo": [
+   0,
+   37,
+   18,
+   50,
+   3
+  ],
+  "estilo": [
+   21,
+   67,
+   16,
+   9,
+   59
+  ]
+ },
+ "menor_melhor": [
+  "t_spr",
+  "t_hsr",
+  "t_spr_cod",
+  "t_hsr_cod",
+  "t505_90",
+  "t505_180"
+ ],
+ "ligas_alvo": [
+  "Brasil A",
+  "Brasil B",
+  "Brasil C",
+  "Argentina A",
+  "Argentina B",
+  "Bolivia",
+  "Chile",
+  "Colombia A",
+  "Colombia B",
+  "Equador A",
+  "Equador B",
+  "Paraguai",
+  "Peru",
+  "Uruguai",
+  "Venezuela"
+ ],
+ "bateria_tipologia": [
+  "passes",
+  "passes_certos",
+  "xg",
+  "remates",
+  "remates_baliza",
+  "remates_baliza_pct",
+  "dist_remate",
+  "ppda",
+  "intensidade",
+  "compr_passe",
+  "duelos_pct",
+  "duelos_aereos_pct",
+  "duelos_aereos",
+  "cruzamentos",
+  "cruz_certos_pct",
+  "bolas_paradas",
+  "bp_remates",
+  "cantos",
+  "cantos_remates",
+  "livres",
+  "livres_remates",
+  "atq_posicional",
+  "atq_pos_remates",
+  "contra_ataques",
+  "ca_remates",
+  "faltas",
+  "amarelos",
+  "recuperacoes",
+  "perdas",
+  "passes_frente_pct",
+  "passes_frente",
+  "passes_terco_final",
+  "passes_progressivos",
+  "xg_contra",
+  "remates_contra",
+  "xg_por_remate",
+  "xg_por_remate_contra",
+  "golos_cabeca"
+ ],
+ "tipologia_leitura": [
+  "clean_sheets",
+  "defesa_vs_xg",
+  "pts",
+  "pos"
+ ]
+}
