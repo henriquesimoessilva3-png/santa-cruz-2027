@@ -13,7 +13,8 @@
 
   const D = (typeof BOLA_PARADA !== 'undefined') ? BOLA_PARADA : null;
   const TIPOS = [['esc', 'Escanteio'], ['fd', 'Falta direta'], ['fi', 'Falta indireta ou jogada ensaiada'], ['lat', 'Lateral']];
-  const st = { serie: 'todas', ano: 'todas', min: 10, busca: '', vis: 'treinador', ord: 'saldo', dir: -1, sel: null, abertos: new Set() };
+  const st = { serie: 'todas', ano: 'todas', min: 10, busca: '', vis: 'treinador', ord: 'saldo', dir: -1, sel: null,
+               abertos: new Set(), destaque: new Set() };
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -82,6 +83,8 @@
       if (vazio(y[k])) return -1;
       return d * (x[k] - y[k]) || x.rotulo.localeCompare(y.rotulo, 'pt-BR');
     });
+    /* destacados sobem para o topo, mantendo a ordem escolhida entre eles (o sort e estavel) */
+    if (st.destaque.size) out.sort((x, y) => st.destaque.has(y.nome) - st.destaque.has(x.nome));
     return out;
   }
 
@@ -102,6 +105,8 @@
     const opt = (v, r) => '<option value="' + esc(v) + '">' + esc(r) + '</option>';
     const optSerie = opt('todas', 'Séries A e B') + series.map(s => opt(s, 'Só ' + s)).join('');
     const optAno = opt('todas', anos[0] + ' a ' + anos[anos.length - 1]) + anos.map(a => opt(a, 'Só ' + a)).join('');
+    const nomesOpt = [...new Set(D.trabalhos.map(t => t.tec))].sort((a, b) => a.localeCompare(b, 'pt-BR'))
+      .map(n => '<option value="' + esc(n) + '">').join('');
     const minimos = [1, 10, 20, 38].map(n =>
       '<option value="' + n + '"' + (n === st.min ? ' selected' : '') + '>' + n + '</option>').join('');
     return '' +
@@ -117,18 +122,24 @@
         '<label class="bp-rot">mínimo de jogos <select id="bpMin">' + minimos + '</select></label>' +
         '<span class="bp-seg" id="bpVis"><button data-v="treinador" class="on">por treinador</button>' +
         '<button data-v="trabalho">por trabalho</button></span>' +
-        '<input id="bpBusca" type="search" placeholder="Buscar treinador ou time…">' +
+        '<input id="bpBusca" type="search" placeholder="Filtrar por treinador ou time…" ' +
+        'title="Mostra só quem bate com o texto, no gráfico e na tabela">' +
+        '<input id="bpDestaque" list="bpNomes" autocomplete="off" placeholder="★ Destacar treinador…" ' +
+        'title="Escolha um nome: ele fica marcado no gráfico e no topo da tabela, sem esconder os outros">' +
+        '<datalist id="bpNomes">' + nomesOpt + '</datalist>' +
+        '<span class="bp-chips" id="bpChips"></span>' +
         '<span class="bp-cont" id="bpCont"></span>' +
       '</div>' +
       '<div class="sb-bloco"><span class="sb-rot">Quem faz e quem sofre gols de bola parada acima da média da liga</span>' +
         '<div class="sb-tela bp-tela" id="bpTela">' +
-          '<svg class="sb-svg" id="bpSvg" viewBox="0 0 960 440" role="img" ' +
+          '<svg class="sb-svg" id="bpSvg" viewBox="0 0 960 540" role="img" ' +
           'aria-label="Dispersão: gols de bola parada a favor e sofridos por jogo, em relação à média da liga"></svg>' +
           '<div class="bp-dica" id="bpDica" hidden></div>' +
         '</div>' +
         '<p class="sb-nota">Cada ponto é um ' + '<span id="bpUnid">treinador</span>. <b>Mais à direita</b>, mais gols de ' +
         'bola parada a favor por jogo que a média da liga; <b>mais acima</b>, menos gols sofridos. O cruzamento das ' +
-        'duas linhas é a média. Passe o mouse para ver os números; clique para abrir o detalhe na tabela.</p>' +
+        'duas linhas é a média. Ponto vazado na borda: o valor passa da escala do gráfico (o número real está na ' +
+        'dica). Passe o mouse para ver os números; clique para abrir o detalhe na tabela.</p>' +
       '</div>' +
       '<div class="sb-bloco"><span class="sb-rot">Tabela</span><div class="bp-tabwrap" id="bpTab"></div>' +
         '<p class="sb-nota">Clique numa linha para ver como saíram os gols e cada trabalho. Clique no título de uma ' +
@@ -181,6 +192,26 @@
     q('#bpAno').onchange = e => { st.ano = e.target.value; render(); };
     q('#bpMin').onchange = e => { st.min = +e.target.value; render(); };
     q('#bpBusca').oninput = e => { st.busca = e.target.value; render(); };
+    /* destaque: so aceita nome que existe na base (sem acento e sem caixa), vindo da lista de sugestoes,
+       do Enter ou de sair do campo */
+    const nomes = [...new Set(D.trabalhos.map(t => t.tec))];
+    const acharNome = v => nomes.find(n => semAcento(n) === semAcento(String(v || '').trim()));
+    const destacar = () => {
+      const n = acharNome(q('#bpDestaque').value);
+      if (!n) return;
+      st.destaque.add(n);
+      q('#bpDestaque').value = '';
+      render();
+    };
+    q('#bpDestaque').onchange = destacar;
+    q('#bpDestaque').oninput = e => { if (e.inputType === 'insertReplacementText' || e.inputType === undefined) destacar(); };
+    q('#bpDestaque').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); destacar(); } };
+    q('#bpChips').onclick = e => {
+      const b = e.target.closest('button[data-n]');
+      if (!b) return;
+      if (b.dataset.n === '*') st.destaque.clear(); else st.destaque.delete(b.dataset.n);
+      render();
+    };
     q('#bpVis').onclick = e => {
       const b = e.target.closest('button');
       if (!b || b.dataset.v === st.vis) return;
@@ -195,28 +226,40 @@
   function desenharGrafico(linhas) {
     const svg = document.getElementById('bpSvg');
     const dica = document.getElementById('bpDica');
-    const W = 960, H = 440, M = { e: 62, d: 22, t: 30, b: 50 };
+    const W = 960, H = 540, M = { e: 62, d: 22, t: 30, b: 50 };
     const pw = W - M.e - M.d, ph = H - M.t - M.b;
     dica.hidden = true;
     if (!linhas.length) {
       svg.innerHTML = '<text class="sb-lab" x="480" y="220" text-anchor="middle">Nenhum resultado com esses filtros.</text>';
       return;
     }
-    const lim = v => Math.max(0.1, Math.ceil(Math.max(...v.map(Math.abs)) * 20) / 20);
-    const LX = lim(linhas.map(a => a.acima)), LY = lim(linhas.map(a => a.acima_s));
-    const px = v => M.e + (v + LX) / (2 * LX) * pw;
-    const py = v => M.t + (v + LY) / (2 * LY) * ph;  /* sofrer MENOS fica em cima */
-    const passo = L => (L <= 0.2 ? 0.05 : L <= 0.5 ? 0.1 : 0.2);
+    /* Escala ROBUSTA: do 2% ao 98% de cada eixo (sempre com o zero dentro), e nao do maior valor absoluto.
+       Com a escala antiga um treinador de amostra curta num canto (+0,47) espremia todo mundo no meio.
+       Quem passa da escala fica cravado na borda com o ponto vazado, e a dica mostra o valor real. */
+    const faixa = vals => {
+      const s = vals.slice().sort((a, b) => a - b);
+      const q = p => { const i = (s.length - 1) * p, lo = Math.floor(i), hi = Math.ceil(i); return s[lo] + (s[hi] - s[lo]) * (i - lo); };
+      const corte = s.length >= 20 ? 0.02 : 0;
+      let lo = Math.min(0, q(corte)), hi = Math.max(0, q(1 - corte));
+      const folga = Math.max(0.02, (hi - lo) * 0.08);
+      lo -= folga; hi += folga;
+      const passo = [0.02, 0.05, 0.1, 0.2, 0.5].find(p => (hi - lo) / p <= 10) || 1;
+      return { lo: Math.floor(lo / passo) * passo, hi: Math.ceil(hi / passo) * passo, passo };
+    };
+    const FX = faixa(linhas.map(a => a.acima)), FY = faixa(linhas.map(a => a.acima_s));
+    const trava = (v, f) => Math.min(f.hi, Math.max(f.lo, v));
+    const px = v => M.e + (trava(v, FX) - FX.lo) / (FX.hi - FX.lo) * pw;
+    const py = v => M.t + (trava(v, FY) - FY.lo) / (FY.hi - FY.lo) * ph;  /* sofrer MENOS fica em cima */
+    const fora = a => a.acima < FX.lo || a.acima > FX.hi || a.acima_s < FY.lo || a.acima_s > FY.hi;
     let g = '';
-    const nx = Math.round(LX / passo(LX)), ny = Math.round(LY / passo(LY));
-    for (let i = -nx; i <= nx; i++) {
-      const v = i * passo(LX), x = px(v).toFixed(1);
+    for (let i = Math.round(FX.lo / FX.passo); i <= Math.round(FX.hi / FX.passo); i++) {
+      const v = i * FX.passo, x = px(v).toFixed(1);
       g += '<line x1="' + x + '" x2="' + x + '" y1="' + M.t + '" y2="' + (H - M.b) + '" stroke="' +
         (i === 0 ? 'var(--tracejado2)' : 'var(--linha1)') + '" stroke-width="1"/>' +
         '<text class="sb-eixo" x="' + x + '" y="' + (H - M.b + 16) + '" text-anchor="middle">' + sinal(v) + '</text>';
     }
-    for (let i = -ny; i <= ny; i++) {
-      const v = i * passo(LY), y = py(v).toFixed(1);
+    for (let i = Math.round(FY.lo / FY.passo); i <= Math.round(FY.hi / FY.passo); i++) {
+      const v = i * FY.passo, y = py(v).toFixed(1);
       g += '<line x1="' + M.e + '" x2="' + (W - M.d) + '" y1="' + y + '" y2="' + y + '" stroke="' +
         (i === 0 ? 'var(--tracejado2)' : 'var(--linha1)') + '" stroke-width="1"/>' +
         '<text class="sb-eixo" x="' + (M.e - 8) + '" y="' + (+y + 3) + '" text-anchor="end">' + sinal(v) + '</text>';
@@ -231,17 +274,20 @@
 
     /* rotulo so nos extremos do saldo (e no selecionado): numero em todo ponto vira ruido */
     const porSaldo = linhas.slice().sort((a, b) => b.saldo - a.saldo);
+    const destacado = a => a.k === st.sel || st.destaque.has(a.nome);
     const marcar = new Set(linhas.length > 8 ? porSaldo.slice(0, 3).concat(porSaldo.slice(-3)).map(a => a.k) : linhas.map(a => a.k));
-    if (st.sel) marcar.add(st.sel);
+    linhas.forEach(a => { a._fora = fora(a); if (destacado(a)) marcar.add(a.k); });
     const caixas = [];
     let pontos = '', rotulos = '';
-    const ordem = linhas.map((a, i) => i).sort((i, j) => (linhas[i].k === st.sel) - (linhas[j].k === st.sel));
+    const ordem = linhas.map((a, i) => i).sort((i, j) => destacado(linhas[i]) - destacado(linhas[j]));
     for (const i of ordem) {
-      const a = linhas[i], x = px(a.acima), y = py(a.acima_s), sel = a.k === st.sel;
+      const a = linhas[i], x = px(a.acima), y = py(a.acima_s), sel = destacado(a);
+      const cor = sel ? 'var(--coral)' : 'var(--bp-ponto)';
+      const xy = 'cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (sel ? 6 : 4.5) + '"';
       pontos += '<g class="bp-p" data-i="' + i + '" tabindex="0">' +
         '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="12" fill="transparent"/>' +
-        '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (sel ? 6 : 4.5) + '" fill="' +
-        (sel ? 'var(--coral)' : 'var(--bp-ponto)') + '" stroke="var(--fundo2)" stroke-width="2"/></g>';
+        (a._fora ? '<circle ' + xy + ' fill="var(--fundo2)" stroke="' + cor + '" stroke-width="2"/>'
+                 : '<circle ' + xy + ' fill="' + cor + '" stroke="var(--fundo2)" stroke-width="2"/>') + '</g>';
       if (!marcar.has(a.k)) continue;
       const txt = st.vis === 'treinador' ? a.nome : a.nome + ' · ' + a.trabs[0].time;
       const w = txt.length * 6.1, dir = x > W - M.d - w - 20;
@@ -281,6 +327,7 @@
     linha('span', n2(a.bp_j) + ' gols de bola parada a favor por jogo (' + sinal(a.acima) + ' vs média)');
     linha('span', n2(a.bs_j) + ' sofridos por jogo (' + sinal(a.acima_s) + ' vs média)');
     if (a.xgp != null) linha('span', 'xG de bola parada: ' + n2(a.xgp) + ' a favor · ' + n2(a.xgs) + ' contra, por jogo');
+    if (a._fora) linha('span', 'Passa da escala do gráfico: o ponto fica na borda, e estes números são os reais.');
     dica.hidden = false;
     const r = tela.getBoundingClientRect();
     let x = cx - r.left + tela.scrollLeft + 14, y = cy - r.top + 14;
@@ -362,7 +409,7 @@
         if (c.div) return '<td>' + divCel(a[c.k], c.div, max) + '</td>';
         return '<td>' + c.f(a[c.k]) + '</td>';
       }).join('');
-      return '<tr class="linha' + (st.sel === a.k ? ' bp-sel' : '') + '" data-k="' + esc(a.k) + '">' + tds + '</tr>' +
+      return '<tr class="linha' + (st.sel === a.k || st.destaque.has(a.nome) ? ' bp-sel' : '') + '" data-k="' + esc(a.k) + '">' + tds + '</tr>' +
         (st.abertos.has(a.k) ? '<tr class="bp-det"><td colspan="' + COLS.length + '">' + detalhe(a) + '</td></tr>' : '');
     }).join('');
     box.innerHTML = '<table class="sb-tab bp-tab"><thead><tr class="grupo">' + h1 + '</tr><tr>' + h2 + '</tr></thead><tbody>' +
@@ -398,8 +445,18 @@
       alvo.dataset.montado = '1';
     }
     const linhas = agregar();
+    desenharChips(linhas);
     desenharGrafico(linhas);
     desenharTabela(linhas);
+  }
+
+  /* etiquetas dos destacados; quem o filtro esconde fica avisado, em vez de sumir sem explicacao */
+  function desenharChips(linhas) {
+    const box = document.getElementById('bpChips');
+    const presentes = new Set(linhas.map(a => a.nome));
+    box.innerHTML = [...st.destaque].map(n => '<button data-n="' + esc(n) + '" title="Tirar o destaque">' + esc(n) +
+      (presentes.has(n) ? '' : ' <i>fora do filtro</i>') + ' ×</button>').join('') +
+      (st.destaque.size > 1 ? '<button data-n="*" class="limpar">limpar</button>' : '');
   }
 
   function ligar() {

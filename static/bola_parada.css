@@ -18,7 +18,13 @@ body.claro #pgBolaParada{--bp-bom:#0f6f9e;--bp-ruim:#c2650d;--bp-ponto:#6b7482}
 .bp-filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .bp-filtros select,.bp-filtros input{background:var(--input-bg);border:1px solid var(--input-borda);
   color:var(--tinta);border-radius:6px;padding:6px 8px;font:inherit;font-size:12.5px}
-.bp-filtros input{min-width:220px}
+.bp-filtros input{min-width:200px}
+.bp-chips{display:inline-flex;flex-wrap:wrap;gap:6px}
+.bp-chips:empty{display:none}
+.bp-chips button{background:var(--veu2);border:1px solid var(--coral);color:var(--tinta);border-radius:999px;
+  padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}
+.bp-chips button i{font-style:normal;color:var(--tinta3);font-size:11px}
+.bp-chips button.limpar{border-color:var(--borda2);color:var(--tinta2)}
 .bp-rot{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--tinta2)}
 .bp-seg{display:inline-flex;border:1px solid var(--borda2);border-radius:6px;overflow:hidden}
 .bp-seg button{background:transparent;border:0;color:var(--tinta2);padding:6px 11px;font:inherit;
