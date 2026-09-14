@@ -379,9 +379,49 @@ function pb5Q(v, rot) {
    monta os grupos a partir do que existe e escreve, no lugar onde faltaria o quarto, o que
    falta e onde o que sobrou dele está.
 
-   A matriz é montada à mão em vez de sair do `ptTabela` porque ela tem duas linhas de rodapé
-   (a faixa do meio e a de quem caiu) que precisam ficar coladas em cada coluna de indicador.
-   O preço é conhecido e está dito na tela: esta tabela não ordena por clique. */
+   A matriz é montada à mão em vez de sair do `ptTabela` porque ela tem três linhas de rodapé
+   (a faixa de quem subiu, a do meio e a de quem caiu) que precisam ficar coladas em cada coluna
+   de indicador. O preço é conhecido e está dito na tela: esta tabela não ordena por clique.
+
+   A ORDEM das colunas (pedido do dono, 14/09) é a que o gerador gravou em `ordem_por_diferenca`:
+   da maior para a menor diferença, em módulo, entre o time típico que subiu e o típico que caiu.
+   A tela não calcula a diferença nem a ordem — só as lê. Com dado sem essas chaves (a aba por
+   pontos antes de ser regerada, um prototipo.js antigo), a ordem é a do arquivo e a tela diz isso. */
+
+/* A ordem de leitura das colunas de um painel, lida do dado. Devolve os índices de `indicadores`
+   na ordem de desenho e, quando não há ordem gravada (ou ela não é uma permutação dos índices), a
+   ordem original com o motivo. Uma permutação torta aplicada em silêncio trocaria a célula de
+   coluna — o pior erro possível numa matriz —, então ela é recusada inteira, não remendada. */
+function pb5Ordem(p, nInd) {
+  const kOrdem = 'ordem_por_diferenca';
+  const kDif = ptK('diferenca_{sobe}_{cai}');
+  const orig = Array.from({ length: nInd }, (_, i) => i);
+  const ordem = p[kOrdem], dif = p[kDif];
+  const semValor = p[kDif + '_sem_valor'] || {};
+  if (!Array.isArray(ordem) || !Array.isArray(dif)) {
+    return { idx: orig, dif: null, semValor: semValor, kOrdem: kOrdem, kDif: kDif,
+      motivo: 'o ' + ptArquivoDado() + ' não traz a ordem por diferença neste painel (chaves ' + kOrdem +
+        ' e ' + kDif + '); as colunas seguem a ordem do arquivo' };
+  }
+  const visto = {};
+  const ok = ordem.length === nInd && dif.length === nInd &&
+    ordem.every(i => Number.isInteger(i) && i >= 0 && i < nInd && !visto[i] && (visto[i] = true));
+  if (!ok) {
+    return { idx: orig, dif: null, semValor: semValor, kOrdem: kOrdem, kDif: kDif,
+      motivo: 'a ordem gravada em ' + kOrdem + ' não casa com as ' + nInd + ' colunas deste painel; as ' +
+        'colunas seguem a ordem do arquivo, para nenhuma célula mudar de coluna' };
+  }
+  return { idx: ordem.slice(), dif: dif, semValor: semValor, kOrdem: kOrdem, kDif: kDif, motivo: null };
+}
+
+/* A diferença no cabeçalho: número pequeno com sinal e o lado dito em português. "Acima" e
+   "abaixo" são na escala das células (posição no ranking do ano), não "melhor" e "pior": o lado
+   bom de cada número é outra informação, que já está na dica da coluna. */
+function pb5DifTexto(v) {
+  const quem = ptFxRot('sobe', { forma: 'verbo' }), outro = ptFxRot('cai', { forma: 'quem' });
+  if (Number(v) === 0) return quem + ' empatado com ' + outro;
+  return quem + ' ' + (v > 0 ? '+' : '') + ptNum(v, 0) + ' ' + (v > 0 ? 'acima' : 'abaixo') + ' de ' + outro;
+}
 
 function ptEtapa5(alvo, d) {
   const chaves = Object.keys(d.paineis || {});
@@ -440,7 +480,8 @@ function ptEtapa5(alvo, d) {
       'ranking daquele ano</b>: ele foi comparado só com os outros clubes da mesma Série B, nunca com outra ' +
       'temporada. Cor forte numa ponta: estava entre os primeiros do ano. Na outra ponta: entre os últimos. ' +
       'Cor apagada: no meio do ranking, nem bem nem mal. Embaixo de cada coluna ficam os ' +
-      esc(ptFxRot('meio', { forma: 'times' })) + ' e os ' + esc(ptFxRot('cai', { forma: 'times' })) +
+      esc(ptFxRot('sobe', { forma: 'times' })) + ', os ' + esc(ptFxRot('meio', { forma: 'times' })) +
+      ' e os ' + esc(ptFxRot('cai', { forma: 'times' })) +
       ' — é a comparação que interessa.' + ptTecnico('percentil dentro do ano') + '</p>' +
     (semLado
       ? '<p class="pt-nota">Em <b>' + ptInt(semLado) + '</b> das ' + ptInt(totalInd) + ' colunas o estudo ' +
@@ -451,7 +492,7 @@ function ptEtapa5(alvo, d) {
     '<p class="pt-nota">Passe o mouse no nome de uma coluna para ver o que ela mede, em que unidade e de ' +
       'onde vem. Clique num quadradinho para abrir, logo abaixo daquela tabela, o número medido, a posição, ' +
       'de quantos jogadores ou jogos ele saiu e a temporada. As tabelas <b>não se reordenam com clique</b>: ' +
-      'as duas linhas de baixo precisam ficar embaixo de cada coluna, e reordenar as descolaria. Para ordenar ' +
+      'as três linhas de baixo precisam ficar embaixo de cada coluna, e reordenar as descolaria. Para ordenar ' +
       'por qualquer número, use a etapa 2, onde cada número é uma linha.</p>' +
     falta4 +
     paineis +
@@ -519,16 +560,32 @@ function pb5Matriz(d, chave) {
   let suspeitasJ = 0;               /* destas, as em que o n e exatamente o J (rodadas) do ano */
   let naoMarcadas = 0;              /* celulas na faixa que a marca nao alcancou (ptCel mudou) */
   const maxN = pb5MaxN(d, unid);    /* maior n na mesma unidade, para dar tamanho ao contraste */
+  /* A ordem das colunas vem do gerador; tudo o que é "por coluna" (cabeçalho, célula, faixas)
+     passa por `ord.idx`, para nada se descolar da sua coluna. */
+  const ord = pb5Ordem(p, inds.length);
 
   const cab = '<thead><tr><th class="txt pt-col-fixa">time e ano</th>' +
     /* `white-space:normal` no deitado: a classe da casca não quebra linha e corta o nome na altura
        máxima ("pico de velocidade (" sumia no meio). Deitado, o nome quebra em duas ou três linhas
        dentro da largura que a coluna já tem por causa dos números. */
-    inds.map(i => '<th class="num' + (deitado ? ' pt-th-vertical" style="white-space:normal' : '') + '" title="' +
-      esc(ptDicaMedida(i.id || i.nome) + ' · nome na base ' + (i.origem || i.coluna_csv || i.id) +
-        ' · medido sobre ' + pbUnid(i.unidade_n) + (i.sinal === 1 ? ' · ter mais é melhor' : i.sinal === -1
-          ? ' · ter menos é melhor' : ' · o estudo não disse se ter mais é bom ou ruim')) + '">' +
-      esc(i.id ? pbCurto(i.id, setor) : pbPopular(i.nome)) + '</th>').join('') + '</tr></thead>';
+    ord.idx.map(j => {
+      const i = inds[j] || {};
+      const v = ord.dif ? ord.dif[j] : undefined;
+      const motivoDif = ord.dif && (v === null || v === undefined)
+        ? (ord.semValor[i.id] || 'sem motivo declarado no arquivo') : null;
+      const difDica = !ord.dif ? ''
+        : motivoDif ? ' · sem diferença entre ' + ptFxRot('sobe', { forma: 'quem' }) + ' e ' +
+            ptFxRot('cai', { forma: 'quem' }) + ': ' + motivoDif
+        : ' · ' + pb5DifTexto(v) + ' (típico contra típico, em posição no ranking do ano: ' + pbCheio(v) + ')';
+      const difHtml = !ord.dif ? ''
+        : '<small style="display:block;font-weight:400;color:var(--tinta3);font-size:9px;margin-top:2px">' +
+          (motivoDif ? esc('sem diferença') : esc(pb5DifTexto(v))) + '</small>';
+      return '<th class="num' + (deitado ? ' pt-th-vertical" style="white-space:normal' : '') + '" title="' +
+        esc(ptDicaMedida(i.id || i.nome) + ' · nome na base ' + (i.origem || i.coluna_csv || i.id) +
+          ' · medido sobre ' + pbUnid(i.unidade_n) + (i.sinal === 1 ? ' · ter mais é melhor' : i.sinal === -1
+            ? ' · ter menos é melhor' : ' · o estudo não disse se ter mais é bom ou ruim') + difDica) + '">' +
+        esc(i.id ? pbCurto(i.id, setor) : pbPopular(i.nome)) + difHtml + '</th>';
+    }).join('') + '</tr></thead>';
 
   const corpo = clubes.map(c => {
     const cels = c.celulas || [];
@@ -545,8 +602,9 @@ function pb5Matriz(d, chave) {
           ? '<i>' + esc(motivoLinha) + '</i>'
           : pb5RotN(nLinha, unid, c.ano)) +
       '</small></td>' +
-      cels.map((cel, j) => {
+      ord.idx.map(j => {
         const ind = inds[j] || {};
+        const cel = cels[j] || [];
         const bruto = cel[0], pct = cel[1], n = cel[2], motivo = cel.length > 3 ? cel[3] : null;
         if (pct === null || pct === undefined) motivos.push(motivo || 'sem motivo declarado no JSON');
         /* O title e o bloco do clique levavam o mesmo rotulo cru que a linha levava; os tres
@@ -572,33 +630,53 @@ function pb5Matriz(d, chave) {
       }).join('') + '</tr>';
   }).join('');
 
-  /* As duas faixas ao pé. Elas são o que transforma a matriz de "lista de postos" em
-     comparação: sem a faixa de quem caiu, um posto acima do meio parece bom sozinho. Os três
-     números vão EMPILHADOS na célula: lado a lado eles alargavam cada coluna para o triplo, e a
-     matriz voltava a rolar para o lado. */
-  const faixa = (arr, rot, dica) => '<tr><td class="txt pt-col-fixa" style="background:var(--fundo3)" title="' +
-    esc(dica) + '"><b>' + esc(rot) + '</b>' +
-    '<small style="display:block;color:var(--tinta3);font-size:10px;line-height:1.3">de cima para baixo: ' +
-      '1º número · típico · 3º número</small></td>' +
-    (arr || []).map(f => '<td class="num" style="color:var(--tinta3);font-size:10px;line-height:1.25;' +
-      'background:var(--fundo3)">' +
-      (!f ? ptFalta('faixa ausente no arquivo')
-          : pb5Q(f[0], 'q1') + '<br><b style="color:var(--tinta2)">' + pb5Q(f[1], 'mediana') +
-            '</b><br>' + pb5Q(f[2], 'q3')) +
-      '</td>').join('') + '</tr>';
+  /* As três faixas ao pé, na ordem subiram · meio · caíram (pedido do dono, 14/09: a de quem
+     subiu no mesmo formato das outras duas). Elas são o que transforma a matriz de "lista de
+     postos" em comparação: sem a faixa de quem caiu, um posto acima do meio parece bom sozinho.
+     Os três números vão EMPILHADOS na célula: lado a lado eles alargavam cada coluna para o
+     triplo, e a matriz voltava a rolar para o lado. Faixa que não veio no dado não some: a linha
+     fica, com a ausência escrita numa célula só, para o leitor não achar que o grupo foi esquecido. */
+  const estiloFx = 'color:var(--tinta3);font-size:10px;line-height:1.25;background:var(--fundo3)';
+  const faixa = fx => {
+    const k = ptK('faixa_', fx), arr = p[k], times = ptFxRot(fx, { forma: 'times' });
+    const cabLinha = '<tr><td class="txt pt-col-fixa" style="background:var(--fundo3)" title="' +
+      esc('metade dos ' + times + ' ficou entre o primeiro e o terceiro número; o do meio, em negrito, é o ' +
+        'time típico — tudo em posição no ranking daquele ano (q1 · mediana · q3) · chave ' + k) + '"><b>' +
+      esc(times) + '</b>';
+    if (!Array.isArray(arr)) {
+      return cabLinha + '</td><td class="txt" colspan="' + Math.max(ord.idx.length, 1) + '" style="' + estiloFx + '">' +
+        pbMiudo(esc('o ' + ptArquivoDado() + ' não traz a faixa dos ' + times + ' neste painel (chave ' + k + ')')) +
+        '</td></tr>';
+    }
+    return cabLinha +
+      '<small style="display:block;color:var(--tinta3);font-size:10px;line-height:1.3">de cima para baixo: ' +
+        '1º número · típico · 3º número</small></td>' +
+      ord.idx.map(j => {
+        const f = arr[j];
+        return '<td class="num" style="' + estiloFx + '">' +
+          (!f ? ptFalta('faixa ausente no arquivo')
+              : pb5Q(f[0], 'q1') + '<br><b style="color:var(--tinta2)">' + pb5Q(f[1], 'mediana') +
+                '</b><br>' + pb5Q(f[2], 'q3')) +
+          '</td>';
+      }).join('') + '</tr>';
+  };
+  const rodape = '<tfoot>' + ['sobe', 'meio', 'cai'].map(faixa).join('') + '</tfoot>';
 
-  const kMeio = ptK('faixa_', 'meio'), kCai = ptK('faixa_', 'cai');
-  const rodape = '<tfoot>' +
-    (p[kMeio] ? faixa(p[kMeio], ptFxRot('meio', { forma: 'times' }),
-      'metade dos ' + ptFxRot('meio', { forma: 'times' }) + ' ficou entre o primeiro e o terceiro número; o do ' +
-      'meio, em negrito, é o time típico — tudo em posição no ranking daquele ano (q1 · mediana · q3)') : '') +
-    (p[kCai] ? faixa(p[kCai], ptFxRot('cai', { forma: 'times' }),
-      'metade dos ' + ptFxRot('cai', { forma: 'times' }) + ' ficou entre o primeiro e o terceiro número; o do ' +
-      'meio, em negrito, é o time típico — tudo em posição no ranking daquele ano (q1 · mediana · q3)') : '') +
-    '</tfoot>';
-  const faltaFaixa = [[kMeio, 'meio'], [kCai, 'cai']].filter(x => !p[x[0]])
-    .map(x => ptFalta('o ' + ptArquivoDado() + ' não traz a faixa dos ' + ptFxRot(x[1], { forma: 'times' }) +
-      ' neste painel (chave ' + x[0] + ')'));
+  /* A regra da ordem numa linha acima da matriz, com as palavras da tela; a regra inteira do
+     gerador (`etapa_5.regra_da_ordem`) vai no title, para quem quiser conferir. Sem ordem gravada,
+     a mesma linha diz que a ordem é a do arquivo, discreta, com o motivo. */
+  const regraOrdem = d.regra_da_ordem || {};
+  const linhaOrdem = '<p class="pt-nota" style="margin:0 0 6px">' + (ord.motivo
+    ? pbMiudo(esc('colunas na ordem do arquivo — ' + ord.motivo))
+    : '<span title="' + esc(['o_que_e', 'diferenca', 'ordem', 'sem_diferenca', 'sem_teste']
+        .filter(x => regraOrdem[x]).map(x => regraOrdem[x]).join(' · ') ||
+        'o arquivo não traz etapa_5.regra_da_ordem') + '">Colunas da maior para a menor diferença entre o ' +
+      'time típico que ' + esc(ptFxRot('sobe', { forma: 'verbo' })) + ' e o que ' +
+      esc(ptFxRot('cai', { forma: 'verbo' })) + ', em posição no ranking do ano; o número pequeno embaixo ' +
+      'do nome diz de que lado ficou quem ' + esc(ptFxRot('sobe', { forma: 'verbo' })) + '.</span>' +
+      ptTecnico('ordem por |mediana ' + esc(ptFx('sobe')) + ' − mediana ' + esc(ptFx('cai')) + '|') +
+      (regraOrdem.sem_teste ? pbMiudo(' É ordem de leitura, não teste: se a diferença passa da sorte está na etapa 2.') : '')) +
+    '</p>';
 
   return '<div class="pt-card-cab" style="margin-bottom:8px">' +
       '<h4>' + esc(pbRotPilar(chave)) + '</h4>' +
@@ -607,11 +685,11 @@ function pb5Matriz(d, chave) {
       esc(unid ? pbUnid(unid) : 'unidade não declarada') +
       (suspeitas ? ' · ' + pbCinza('essa unidade não fecha com a etapa 0 — ver o aviso embaixo',
         'comparado com etapa_0.por_ano') : '') + '</span></div>' +
+    linhaOrdem +
     '<div class="pt-tab-rola"><table class="pt-tab pt-matriz" id="' + esc(ptId('5-mat-' + chave)) + '">' +
       cab + '<tbody>' + corpo + '</tbody>' + rodape + '</table></div>' +
     ptLegendaPosto() +
-    (faltaFaixa.length ? '<p class="pt-nota">' + faltaFaixa.join(' · ') + '</p>' : '') +
-    '<p class="pt-nota">Nas duas linhas de baixo, cada coluna traz três números. <b>Não são o pior e o ' +
+    '<p class="pt-nota">Nas três linhas de baixo, cada coluna traz três números. <b>Não são o pior e o ' +
       'melhor do grupo:</b> metade dos times do grupo fica entre o primeiro e o terceiro número; o do meio, ' +
       'em negrito, é o time típico.' + ptTecnico('quartis: q1 · mediana · q3') + '</p>' +
     (leg.length
@@ -785,10 +863,39 @@ function pb5Vazios(d) {
    indicador faria a nuvem do ppda ocupar o quadro inteiro e parecer tão organizada quanto a
    do físico, que é exatamente o engano que esta etapa existe para impedir.
 
-   Os pontos NÃO têm cor de desfecho. O dono leu três nuvens como "se repete" porque a cor era
-   o que o clube fez no ano seguinte e o eixo vertical também era o ano seguinte: a separação
-   por cor era a relação com o resultado no mesmo ano, outra pergunta. A desta etapa é a
-   diagonal, e ela não precisa de cor. */
+   COR DOS PONTOS (pedido do dono, 14/09, substitui a cor neutra do item 10 de PENDENTE_RODADA):
+   azul claro = no ano seguinte subiu; laranja = no ano seguinte caiu; cinza = meio. Na aba de
+   pontos, as mesmas três cores leem a faixa de pontos do ano seguinte (ptFx/ptFxRot).
+   A cor é o desfecho do ANO SEGUINTE (`pares[i].faixa_t1`), não do primeiro ano, porque quem
+   subiu ou caiu no primeiro ano não tem par: no ano seguinte estava na A ou na C. O ano seguinte
+   é o do eixo vertical — então cor separada em cima/embaixo quer dizer que o número daquele ano
+   anda junto com o resultado daquele MESMO ano, e não que o número se repete. A pergunta da
+   etapa continua sendo a diagonal; a tela diz as duas coisas com todas as letras. */
+
+/* Cores novas (não há variável de "subiu/caiu" na casca nem no style.css que seja azul claro e
+   laranja nos dois temas). Miolo claro + contorno escuro do mesmo tom: lê no fundo claro e no
+   escuro, e o contorno separa pontos sobrepostos. As MESMAS no ponto e na legenda. */
+const PB6_CORES = {
+  sobe: { miolo: '#5cb8ee', contorno: '#1f6ea3' },   /* azul claro */
+  cai:  { miolo: '#f39a3e', contorno: '#a3530f' },   /* laranja */
+  meio: { miolo: 'var(--tinta3)', contorno: 'var(--tinta2)' },
+};
+/* A faixa interna (sobe/meio/cai) do ano seguinte de um par, lida pelo vocabulário da casca. */
+function pb6Faixa(par, campo) {
+  const v = par && par[campo || 'faixa_t1'];
+  if (v === null || v === undefined) return null;
+  const k = ptFx('sobe') === v ? 'sobe' : ptFx('cai') === v ? 'cai' : ptFx('meio') === v ? 'meio' : null;
+  return k;
+}
+/* A bolinha da legenda é um <span>, não <svg>: `.pt-mini svg{width:100%}` esticaria um svg
+   dentro da miniatura até a largura inteira. */
+function pb6Bola(k, lado) {
+  const c = PB6_CORES[k];
+  const l = lado || 9;
+  return '<span class="pb6-leg-bola" aria-hidden="true" style="display:inline-block;width:' + l + 'px;height:' + l +
+    'px;border-radius:50%;box-sizing:border-box;vertical-align:-1px;background:' + c.miolo +
+    ';border:1.5px solid ' + c.contorno + '"></span>';
+}
 
 function ptEtapa6(alvo, d) {
   const disp = d.dispersao || {};
@@ -844,7 +951,36 @@ function ptEtapa6(alvo, d) {
   const semPontos = linhas.filter(l => !l.pontos).length;
   const acimaDoDinheiro = ref.rho === undefined || ref.rho === null ? null
     : ordenados.filter(k => rhoDe(k) !== null && rhoDe(k) >= Number(ref.rho)).length;
-  const faixasNomes = ptFxLista().map(f => f.nome).join(', ');
+  /* A legenda com o total de pares de cada cor, contado do dado (cada par é um ponto em cada
+     quadradinho que tem os dois valores; a contagem de cada quadradinho vai embaixo dele). */
+  const contaPares = { sobe: 0, cai: 0, meio: 0, sem: 0 };
+  (d.pares || []).forEach(par => { contaPares[pb6Faixa(par) || 'sem']++; });
+  /* Por que a cor é o ano seguinte. "O primeiro ano não separaria ninguém" só é verdade quando
+     todos os pares têm a MESMA faixa no primeiro ano (por posição: todos no meio, porque quem subiu
+     ou caiu não tem par). Na aba de pontos a faixa do primeiro ano varia, e a frase não entra. */
+  const fxPrimeiro = {};
+  (d.pares || []).forEach(par => { const f = pb6Faixa(par, 'faixa_t'); fxPrimeiro[f || 'sem'] = 1; });
+  const unicaPrimeiro = Object.keys(fxPrimeiro).length === 1 && !fxPrimeiro.sem ? Object.keys(fxPrimeiro)[0] : null;
+  const porQueCor = unicaPrimeiro
+    ? ' Ela vem desse ano porque o primeiro não separaria ninguém: nos ' + ptInt((d.pares || []).length) +
+      ' pares, no primeiro ano, todos ' + esc(ptFxRot(unicaPrimeiro, { forma: 'verbos' })) +
+      (unicaPrimeiro === 'meio' && !d.faixas
+        ? ' — quem subiu ou caiu naquele ano não tem par, porque no ano seguinte já não estava na Série B.'
+        : '.')
+    : ' Aqui o primeiro ano também tem faixa; a cor fica com o ano seguinte por escolha, para ler junto com ' +
+      'o eixo vertical.';
+  const legenda = '<div class="pt-controle pb6-legenda"><span class="pt-rot">As cores</span>' +
+    '<p class="pt-nota">' +
+    ['sobe', 'cai', 'meio'].map(k => '<span style="display:block">' + pb6Bola(k) + ' ' +
+      (k === 'sobe' ? '<b>azul claro</b>' : k === 'cai' ? '<b>laranja</b>' : '<b>cinza</b>') + ': no ano seguinte, ' +
+      esc(ptFxRot(k, { forma: 'verbo' })) + ' — <b>' + ptInt(contaPares[k]) + '</b> ' +
+      pbPl(contaPares[k], 'par', 'pares') + '</span>').join(' ') +
+    (contaPares.sem
+      ? ' ' + ptFalta(ptInt(contaPares.sem) + ' ' + pbPl(contaPares.sem, 'par sem', 'pares sem') +
+          ' a faixa do ano seguinte no arquivo: ' + pbPl(contaPares.sem, 'fica', 'ficam') + ' fora da contagem de cor')
+      : '') +
+    ' São ' + ptInt((d.pares || []).length) + ' pares ao todo. Embaixo de cada quadradinho, quantos pontos de cada cor ' +
+    'ele desenha (quadradinho sem um dos dois valores de um par tem menos pontos).</p></div>';
 
   const minis = '<div class="pt-minis">' +
     ordenados.map(k => pb6Mini(d, k, lo, hi, e10)).join('') + '</div>';
@@ -877,10 +1013,12 @@ function ptEtapa6(alvo, d) {
         ptNum(lo, 0) + ' a ' + ptNum(hi, 0) + ' em todos os quadradinhos. <b>A pergunta desta etapa é a ' +
         'diagonal</b> (a linha tracejada): se o time que estava alto num ano continua alto no outro, os pontos ' +
         'sobem por ela; se não continua, viram uma mancha sem direção.</p>' +
-      '<p class="pt-nota"><b>Os pontos não têm cor, de propósito. A cor não responde esta pergunta.</b> ' +
-        'Pintar cada clube pelo que ele fez no ano seguinte (' + esc(faixasNomes) + ') mostra outra coisa: se ' +
-        'o número anda junto com o resultado <b>no mesmo ano</b>. Pontos de uma cor em cima e de outra embaixo ' +
-        'parecem "isto se repete" e não são — a repetição está só na diagonal.</p>' +
+      '<p class="pt-nota"><b>A cor mostra outra coisa: o que o time fez no ano seguinte</b> — o ano do eixo ' +
+        'vertical: ' + ['sobe', 'cai', 'meio'].map(k => esc(ptFxRot(k, { forma: 'quem' }))).join(', ') + '.' +
+        porQueCor + ' <b>Pontos de uma cor em cima e de outra embaixo querem ' +
+        'dizer que o número daquele ano anda junto com o resultado daquele mesmo ano — não que o número se ' +
+        'repete.</b> Se o número se repete, quem diz é só a diagonal.</p>' +
+      legenda +
       minis,
       (acimaDoDinheiro === null
         ? ptFalta('sem o valor do elenco para comparar, a tela não diz quantos se repetem tanto quanto ele')
@@ -1022,17 +1160,32 @@ function pb6Mini(d, id, lo, hi, e10) {
   const LADO = 100, M = 4, W = LADO + 2 * M;
   const px = v => M + (v - lo) / (hi - lo) * LADO;
   const py = v => M + LADO - (v - lo) / (hi - lo) * LADO;
-  /* Conferido antes de desenhar: a ordem de `dispersao[ind]` é a ordem de `pares`. O title do
-     ponto diz clube e anos, e NÃO diz o desfecho do ano seguinte — é a leitura que esta etapa
-     quer tirar da frente da pergunta da diagonal. */
-  const bolas = pontos.map((pp, i) => {
-    if (!pp || pp[0] === null || pp[0] === undefined || pp[1] === null || pp[1] === undefined) return '';
+  /* Conferido antes de desenhar: a ordem de `dispersao[ind]` é a ordem de `pares`. A cor é a
+     faixa do ano seguinte do par (pb6Faixa). Os cinzas vão por baixo e os coloridos por cima,
+     para a cor não sumir atrás de um cinza no mesmo lugar. */
+  const conta = { sobe: 0, cai: 0, meio: 0, sem: 0 };
+  const camadas = { meio: [], sem: [], sobe: [], cai: [] };
+  pontos.forEach((pp, i) => {
+    if (!pp || pp[0] === null || pp[0] === undefined || pp[1] === null || pp[1] === undefined) return;
     const par = pares[i] || {};
-    return '<circle cx="' + px(pp[0]).toFixed(1) + '" cy="' + py(pp[1]).toFixed(1) + '" r="2.3" ' +
-      'fill="var(--tinta2)" fill-opacity="0.5"><title>' +
+    const fx = pb6Faixa(par);
+    const k = fx || 'sem';
+    conta[k]++;
+    const c = PB6_CORES[fx || 'meio'];
+    camadas[k].push('<circle class="pb6-ponto" data-faixa="' + k + '" cx="' + px(pp[0]).toFixed(1) +
+      '" cy="' + py(pp[1]).toFixed(1) + '" r="' + (fx === 'sobe' || fx === 'cai' ? '2.6' : '2.2') + '" ' +
+      'fill="' + c.miolo + '" fill-opacity="' + (fx === 'sobe' || fx === 'cai' ? '0.85' : '0.45') + '" ' +
+      'stroke="' + c.contorno + '" stroke-width="0.7"><title>' +
       esc((par.clube || 'clube não identificado') + ' · ' + ptAno(par.ano_t) + ' → ' + ptAno(par.ano_t1) +
-        ' · posição no ranking ' + ptNum(pp[0], 0) + ' → ' + ptNum(pp[1], 0)) + '</title></circle>';
-  }).join('');
+        ' · posição no ranking ' + ptNum(pp[0], 0) + ' → ' + ptNum(pp[1], 0) + ' · no ano seguinte, ' +
+        (fx ? ptFxRot(fx, { forma: 'verbo' }) : 'sem faixa no arquivo')) + '</title></circle>');
+  });
+  const bolas = camadas.meio.join('') + camadas.sem.join('') + camadas.sobe.join('') + camadas.cai.join('');
+  const linhaCores = '<div class="pt-mini-num pb6-conta">' +
+    ['sobe', 'cai', 'meio'].map(k => '<span data-faixa="' + k + '" title="' +
+      esc('pontos de quem, no ano seguinte, ' + ptFxRot(k, { forma: 'verbo' })) + '">' + pb6Bola(k, 8) + ' ' +
+      ptInt(conta[k]) + '</span>').join(' · ') +
+    (conta.sem ? ' · ' + ptFalta(ptInt(conta.sem) + ' sem faixa') : '') + '</div>';
   const svg = '<svg viewBox="0 0 ' + W + ' ' + W + '" role="img" aria-label="' +
       esc(pbNome(id) + ': posição num ano contra a do ano seguinte') + '">' +
     '<rect x="' + M + '" y="' + M + '" width="' + LADO + '" height="' + LADO + '" fill="none" stroke="var(--borda)"/>' +
@@ -1040,9 +1193,9 @@ function pb6Mini(d, id, lo, hi, e10) {
       '" stroke="var(--tinta3)" stroke-dasharray="3 3" stroke-width="1"/>' +
     bolas + '</svg>';
   const temRho = r.rho !== null && r.rho !== undefined;
-  return '<div class="pt-mini" title="' + esc(ptDicaMedida(id)) + '">' +
+  return '<div class="pt-mini" data-ind="' + esc(id) + '" title="' + esc(ptDicaMedida(id)) + '">' +
     '<div class="pt-mini-tit">' + esc(pbNome(id)) + '</div>' +
-    svg +
+    svg + linhaCores +
     '<div class="pt-mini-num">' +
       (temRho
         ? '<b style="color:var(--tinta)">' + esc(ptJunto(r.rho)) + '</b> · ' + esc(ptSorte(r.p)) +

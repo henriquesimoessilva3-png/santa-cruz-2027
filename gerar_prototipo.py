@@ -698,6 +698,376 @@ def curva_top_k(d):
 SETORES_VALOR = (("goleiro", "val_goleiro"), ("defesa", "val_defesa"),
                  ("meio", "val_meio"), ("ataque", "val_ataque"))
 
+# A data em que o dono pediu a leitura por jogador (etapa 1, "Onde está o dinheiro"). Vai ao JSON
+# como data da declaração, não entra em conta nenhuma.
+PONDERADO_PEDIDO_EM = "2026-09-14"
+
+
+def _elenco_por_setor(d):
+    """Quantos jogadores cada clube-temporada listou em cada setor, quantos têm preço, e a prova de
+    que é o MESMO conjunto de jogadores que soma `val_*`.
+
+    Sai do mesmo arquivo, do mesmo de-para de posição e do mesmo nome de clube que montam `val_*`
+    em `analisar_serieb.valor_por_setor` — importados de lá (`A.SETORES_TM`, `A.TM`, `A.nfc`) e
+    não copiados, porque uma cópia do de-para envelheceria em silêncio no dia em que o
+    Transfermarkt ganhasse uma grafia nova de posição. Por isso a conferência pode exigir
+    igualdade, e exige: se o euro somado aqui não fechar com `val_*`, ou a contagem não fechar com
+    `plantel` e `tm_com_valor`, a leitura por jogador estaria dividindo o valor de um conjunto de
+    jogadores pela contagem de outro. Nesse caso a rodada PARA, em vez de gravar a razão errada.
+    """
+    assert int(d.ano.max()) <= 2025, "2026 entrou no valor por jogador"
+    arquivo = os.path.join(RAIZ, "dados", "serieb_elencos.csv")
+    E = pd.read_csv(arquivo, low_memory=False)
+    linhas_no_arquivo, anos_no_arquivo = len(E), sorted(int(a) for a in E.ano.unique())
+    E["clube"] = E["clube"].map(lambda x: A.TM.get(A.nfc(x), A.nfc(x)))
+    E["setor"] = E["posicao"].map(lambda p: A.SETORES_TM.get(str(p), "ataque"))
+    nomes = [s for s, _ in SETORES_VALOR]
+    assert set(E.setor.unique()) <= set(nomes), sorted(E.setor.unique())
+    chave = pd.MultiIndex.from_arrays([d.ano.astype(int).values, d.clube.values], names=["ano", "clube"])
+    g = E.groupby(["ano", "clube", "setor"])
+    listados = g.size().unstack(fill_value=0).reindex(index=chave, columns=nomes, fill_value=0)
+    com_preco = g["valor_eur"].count().unstack(fill_value=0).reindex(index=chave, columns=nomes, fill_value=0)
+    soma = g["valor_eur"].sum().unstack(fill_value=0.0).reindex(index=chave, columns=nomes, fill_value=0.0)
+    listados, com_preco, soma = listados.fillna(0), com_preco.fillna(0), soma.fillna(0.0)
+
+    soma_por_setor = []
+    for s, col in SETORES_VALOR:
+        dif = np.abs(soma[s].values.astype(float) - d[col].astype(float).values)
+        soma_por_setor.append(dict(setor=s, coluna=col, maior_diferenca_eur=r(dif.max(), 2),
+                                   temporadas_que_nao_batem=int((dif > 0.5).sum())))
+    n_elenco = listados.sum(axis=1).values.astype(int)
+    n_preco = com_preco.sum(axis=1).values.astype(int)
+    bate_plantel = n_elenco == d.plantel.astype(int).values
+    bate_preco = n_preco == d.tm_com_valor.astype(int).values
+    bate = bool(all(x["temporadas_que_nao_batem"] == 0 for x in soma_por_setor)
+                and bate_plantel.all() and bate_preco.all())
+    assert bate, ("a contagem por jogador não é do mesmo conjunto que soma val_*",
+                  soma_por_setor, int((~bate_plantel).sum()), int((~bate_preco).sum()))
+
+    de_para = {s: sorted(p for p, x in A.SETORES_TM.items() if x == s) for s in nomes}
+    no_padrao = sorted(p for p in E.posicao.dropna().astype(str).unique() if p not in A.SETORES_TM)
+    de_para["ataque"] = sorted(set(de_para["ataque"]) | set(no_padrao))
+    E80 = E[E.ano <= 2025]
+    # Jogador que o Transfermarkt lista em DOIS clubes na mesma temporada (troca no meio do ano)
+    # conta como jogador inteiro, com o preço inteiro, nos dois elencos. Não é erro de conta: é
+    # como `val_*` e `plantel` já somam, e a conferência acima exige que a conta por jogador feche
+    # com eles. Ele fez parte dos dois elencos (decisão do dono de 14/09: manter). O que não pode é
+    # ficar calado — quem lê "4.461 jogadores" pensaria em pessoas, e são passagens por clube. Por
+    # isso o tamanho da dupla contagem é MEDIDO aqui, pela identidade do jogador no Transfermarkt
+    # (`id_jogador`), e vai à regra do bloco com os números. Só as temporadas conferidas entram.
+    na_chave = pd.MultiIndex.from_arrays([E80.ano.astype(int).values, E80.clube.values]).isin(chave)
+    Ec = E80[na_chave]
+    n_clubes = Ec.groupby(["ano", "id_jogador"])["clube"].transform("nunique")
+    Dup = Ec[n_clubes > 1]
+    por_pessoa = Dup.groupby(["ano", "id_jogador"])["valor_eur"]
+    valor_linhas = float(Dup.valor_eur.fillna(0).sum())
+    valor_uma_vez = float(por_pessoa.max().fillna(0).sum())
+    dois_clubes = dict(
+        identidade="id_jogador do Transfermarkt, dentro do mesmo ano",
+        linhas=int(len(Dup)),
+        linhas_com_preco=int(Dup.valor_eur.notna().sum()),
+        jogadores_ano=int(Dup[["ano", "id_jogador"]].drop_duplicates().shape[0]),
+        passagens_por_jogador={str(k): int(v) for k, v in
+                               sorted(por_pessoa.size().value_counts().items())},
+        valor_das_linhas_eur=r(valor_linhas, 0),
+        valor_a_mais_eur=r(valor_linhas - valor_uma_vez, 0),
+        definicao_valor_a_mais=("soma do preço nas passagens menos o preço contado uma vez só por "
+                                "jogador no ano (o maior dos preços listados)"),
+        linhas_usadas=int(len(Ec)),
+        jogadores_ano_distintos=int(Ec[["ano", "id_jogador"]].drop_duplicates().shape[0]),
+        tratamento=("conta nos dois elencos, com o preço inteiro em cada um, como val_* e plantel "
+                    "contam (decisão do dono de 14/09: ele fez parte dos dois elencos)"))
+    conferencia = dict(
+        arquivo="dados/serieb_elencos.csv", linhas_no_arquivo=linhas_no_arquivo,
+        anos_no_arquivo=anos_no_arquivo,
+        linhas_de_2026_no_arquivo=int((E.ano == 2026).sum()), ano_2026_entra=False,
+        linhas_usadas=int(len(E80)),
+        pct_sem_preco_no_arquivo_todos_os_anos=r(100 * E.valor_eur.isna().mean(), 1),
+        pct_sem_preco_nas_temporadas_usadas=r(100 * E80.valor_eur.isna().mean(), 1),
+        mesmo_de_para_de="analisar_serieb.SETORES_TM (posição fora da tabela cai em 'ataque'), importado",
+        mesmo_nome_de_clube_de="analisar_serieb.TM, importado",
+        de_para_da_posicao=de_para, posicoes_que_caem_no_padrao_ataque=no_padrao,
+        temporadas_conferidas=int(len(d)),
+        soma_do_euro_por_setor_igual_val=soma_por_setor,
+        jogadores_listados_igual_plantel=dict(temporadas_que_batem=int(bate_plantel.sum()), de=int(len(d))),
+        jogadores_com_preco_igual_tm_com_valor=dict(temporadas_que_batem=int(bate_preco.sum()), de=int(len(d))),
+        bate=bate,
+        se_nao_bater="a rodada para (assert): valor e contagem teriam de ser do mesmo conjunto de jogadores")
+    # `dois_clubes` NÃO vai à conferência gravada nesta rodada (o diff pedido só abre a regra do
+    # bloco): os números entram na regra, montados daqui, e o dicionário fica pronto para virar
+    # chave quando o dono quiser a contagem na tela.
+    return dict(listados={s: listados[s].values.astype(int) for s in nomes},
+                com_preco={s: com_preco[s].values.astype(int) for s in nomes},
+                conferencia=conferencia, dois_clubes=dois_clubes)
+
+
+def _mw_p(a, b):
+    """p do Mann-Whitney bilateral só com o que é número; sem os dois lados, NaN (vira null)."""
+    a, b = np.asarray(a, float), np.asarray(b, float)
+    a, b = a[np.isfinite(a)], b[np.isfinite(b)]
+    if not len(a) or not len(b):
+        return np.nan
+    return float(stats.mannwhitneyu(a, b).pvalue)
+
+
+def _mediana(v):
+    """Mediana só com o que é número: setor sem jogador fica fora dela, e não entra como zero."""
+    v = np.asarray(v, float)
+    v = v[np.isfinite(v)]
+    return np.nan if not len(v) else float(np.median(v))
+
+
+def ponderado_por_jogador(d, linhas_valor):
+    """O valor do setor dividido pela gente do setor — o pedido do dono de 14/09 na etapa 1.
+
+    A leitura por euro (`valor_por_setor.setores`) diz onde está o cheque; ela não diz se o setor
+    é caro porque tem MAIS jogadores ou porque cada um VALE mais. A defesa, por exemplo, lista
+    zagueiros e laterais, e é natural que tenha fatia grande do valor só por ter fatia grande do
+    elenco. Por isso a fatia do valor vai ao lado da fatia de jogadores, e o índice é a razão das
+    duas: igual a um, o setor tem o valor proporcional à sua gente.
+
+    A regra é gravada ANTES dos números, no próprio bloco, e vem da decisão 3 do dono: jogador sem
+    preço no Transfermarkt é jogador de valor baixo ou nenhum, não dado faltando. Então ele CONTA
+    no denominador, com valor zero — o que já é como `val_*` soma. Contar só quem tem preço faria
+    o contrário do que o dono sabe: trataria o reserva sem preço como se não existisse, e o valor
+    por jogador do time barato subiria artificialmente.
+
+    Nada aqui desconta o valor do elenco (decisão 4 do dono, cuja forma ainda está em conversa) e
+    nada sorteia: são postos, AUC e Mann-Whitney, contas fechadas, que não mexem no `rng` de
+    ninguém.
+    """
+    el = _elenco_por_setor(d)
+    faixa = d.faixa.values
+    mascaras = (("sobe", faixa == "sobe"), ("meio", faixa == "meio"), ("cai", faixa == "cai"))
+    m_sobe, m_meio, m_cai = (m for _, m in mascaras)
+    ano = d.ano.astype(int).values
+    total = d.tm_valor_total.astype(float).values
+    plantel = d.plantel.astype(int).values
+    com_preco_el = d.tm_com_valor.astype(int).values
+    assert (total > 0).all() and (plantel > 0).all(), "elenco sem valor ou sem jogador listado"
+    nomes = [s for s, _ in SETORES_VALOR]
+
+    def posto_no_ano(v):
+        t = pd.DataFrame({"ano": ano, "v": np.asarray(v, float)})
+        pp = (t.groupby("ano")["v"].rank(pct=True) * 100).values
+        pos = t.groupby("ano")["v"].rank(ascending=False, method="average").values
+        return pp, pos
+
+    # Uma leitura por clube-temporada, por setor. Setor sem jogador listado: não há por quem
+    # dividir, então o valor por jogador e o índice ficam NaN (null no JSON, com o motivo).
+    por = {}
+    for s, col in SETORES_VALOR:
+        eur = d[col].astype(float).values
+        n = el["listados"][s]
+        vazio = n == 0
+        base = np.where(vazio, 1, n)
+        pv = 100 * eur / total
+        pj = 100 * n / plantel
+        por[s] = dict(eur=eur, n=n, ncp=el["com_preco"][s], nsp=n - el["com_preco"][s],
+                      epj=np.where(vazio, np.nan, eur / base),
+                      pv=pv, pj=pj, ind=np.where(vazio, np.nan, pv / np.where(vazio, 1, pj)),
+                      vazio=vazio)
+    por["elenco"] = dict(eur=total, n=plantel, ncp=com_preco_el, nsp=plantel - com_preco_el,
+                         epj=total / plantel, pv=None, pj=None, ind=None,
+                         vazio=np.zeros(len(d), bool))
+
+    # A família do BH é declarada aqui, antes de olhar p nenhum: os setores, um BH por
+    # comparação. O elenco inteiro fica fora dela porque é a referência contra a qual o leitor
+    # compara os setores, e não mais um candidato.
+    sep = {}
+    for s in nomes + ["elenco"]:
+        pp, pos = posto_no_ano(por[s]["epj"])
+        sep[s] = dict(pp=pp, pos=pos,
+                      p_sm=_mw_p(pp[m_sobe], pp[m_meio]), p_sc=_mw_p(pp[m_sobe], pp[m_cai]))
+    q_sm = dict(zip(nomes, bh([sep[s]["p_sm"] for s in nomes])))
+    q_sc = dict(zip(nomes, bh([sep[s]["p_sc"] for s in nomes])))
+
+    linhas = []
+    for s in nomes + ["elenco"]:
+        x, t = por[s], sep[s]
+        L = dict(setor=s, temporadas_sem_jogador_no_setor=int(x["vazio"].sum()))
+        if x["vazio"].any():
+            L["motivo_sem_jogador"] = ("temporada sem jogador listado neste setor: não há por quem "
+                                       "dividir, e ela fica fora das medianas e dos testes deste setor")
+        for fx, m in mascaras:
+            L[f"temporadas_{fx}"] = int(m.sum())
+            L[f"n_listados_mediano_{fx}"] = r(_mediana(x["n"][m]), 1)
+            L[f"n_com_preco_mediano_{fx}"] = r(_mediana(x["ncp"][m]), 1)
+            L[f"n_sem_preco_mediano_{fx}"] = r(_mediana(x["nsp"][m]), 1)
+            L[f"eur_mediano_{fx}"] = r(_mediana(x["eur"][m]), 0)
+            L[f"eur_por_jogador_mediano_{fx}"] = r(_mediana(x["epj"][m]), 0)
+            if s == "elenco":
+                L[f"pct_do_valor_mediano_{fx}"] = None
+                L[f"pct_dos_jogadores_mediano_{fx}"] = None
+                L[f"indice_mediano_{fx}"] = None
+            else:
+                L[f"pct_do_valor_mediano_{fx}"] = r(_mediana(x["pv"][m]), 1)
+                L[f"pct_dos_jogadores_mediano_{fx}"] = r(_mediana(x["pj"][m]), 1)
+                L[f"indice_mediano_{fx}"] = r(_mediana(x["ind"][m]), 3)
+            L[f"posicao_media_no_ano_{fx}"] = r(np.nanmean(t["pos"][m]), 2)
+        if s == "elenco":
+            L["motivo_sem_fatia"] = ("o elenco inteiro é todo o valor e todos os jogadores: fatia e "
+                                     "índice só existem para um setor")
+        pp = t["pp"]
+        L["auc_sobe_x_resto"] = r(auc(pp[m_sobe], pp[~m_sobe]), 3)
+        L["auc_sobe_x_meio"] = r(auc(pp[m_sobe], pp[m_meio]), 3)
+        L["auc_sobe_x_cai"] = r(auc(pp[m_sobe], pp[m_cai]), 3)
+        L["p_sobe_x_meio"] = r_sig(t["p_sm"], 3)
+        L["p_sobe_x_cai"] = r_sig(t["p_sc"], 3)
+        L["p_sobe_x_meio_rotulo"] = rotulo_p(t["p_sm"])
+        L["p_sobe_x_cai_rotulo"] = rotulo_p(t["p_sc"])
+        if s == "elenco":
+            L["q_bh_sobe_x_meio"] = None
+            L["q_bh_sobe_x_cai"] = None
+            L["motivo_sem_q"] = "o elenco inteiro é a referência e não entra na família do BH dos setores"
+        else:
+            L["q_bh_sobe_x_meio"] = r_sig(q_sm[s], 3)
+            L["q_bh_sobe_x_cai"] = r_sig(q_sc[s], 3)
+            L["sobrevive_bh_5pct_sobe_x_meio"] = bool(abaixo(q_sm[s], 0.05))
+            L["sobrevive_bh_5pct_sobe_x_cai"] = bool(abaixo(q_sc[s], 0.05))
+        linhas.append(L)
+
+    # O euro mediano e a fatia do valor deste bloco são os MESMOS números da leitura por euro,
+    # repetidos aqui só para a tela pôr a fatia do valor ao lado da fatia de jogadores sem
+    # misturar dois blocos. A igualdade é conferida, não suposta.
+    por_nome = {L["setor"]: L for L in linhas_valor}
+    for L in linhas:
+        ref = por_nome["total" if L["setor"] == "elenco" else L["setor"]]
+        for fx, _ in mascaras:
+            assert L[f"eur_mediano_{fx}"] == ref[f"eur_mediano_{fx}"], (L["setor"], fx)
+            if L["setor"] != "elenco":
+                assert L[f"pct_do_valor_mediano_{fx}"] == ref[f"pct_do_elenco_mediano_{fx}"], (L["setor"], fx)
+
+    # A partição por jogador: posto no ano do índice. É a mesma pergunta da `particao` por euro,
+    # com a gente do setor no denominador; os índices dos setores não somam um número fixo como os
+    # percentuais, mas continuam amarrados entre si pelo mesmo elenco, e por isso o BH vai junto.
+    part = []
+    for s in nomes:
+        pp, _ = posto_no_ano(por[s]["ind"])
+        part.append(dict(setor=s, posto_medio_sobe=r(np.nanmean(pp[m_sobe]), 1),
+                         posto_medio_meio=r(np.nanmean(pp[m_meio]), 1),
+                         posto_medio_cai=r(np.nanmean(pp[m_cai]), 1),
+                         auc_sobe_x_meio=r(auc(pp[m_sobe], pp[m_meio]), 3),
+                         p_bruto=_mw_p(pp[m_sobe], pp[m_meio])))
+    qs = bh([x["p_bruto"] for x in part])
+    for x, q in zip(part, qs):
+        x["q_bh"] = r_sig(q, 3)
+        x["sobrevive_bh_5pct"] = bool(abaixo(q, 0.05))
+        x["p_bruto_rotulo"] = rotulo_p(x["p_bruto"])
+        x["p_bruto"] = r_sig(x["p_bruto"], 3)
+    menor = min(part, key=lambda x: (x["p_bruto"] is None, x["p_bruto"] or 0.0))
+
+    def _soma(s, k):
+        return int(np.sum(por[s][k]))
+    sem_preco = dict(
+        descricao_apenas=True,
+        entra_na_conta_como="jogador do elenco com valor zero (decisão 3 do dono)",
+        motivo=("jogador sem preço no Transfermarkt é jogador de valor baixo ou nenhum, não dado "
+                "faltando: a contagem vai aqui só para descrever o elenco, e não muda regra nem teste"),
+        temporadas=int(len(d)),
+        por_setor=[dict(setor=s, listados=_soma(s, "n"), com_preco=_soma(s, "ncp"),
+                        sem_preco=_soma(s, "nsp"),
+                        pct_sem_preco=r(100 * _soma(s, "nsp") / _soma(s, "n"), 1) if _soma(s, "n") else None)
+                   for s in nomes + ["elenco"]])
+
+    n_set = len(nomes)
+    regra = (
+        "Análise pedida pelo dono em %s e declarada aqui antes de medir. Pela decisão do dono, "
+        "jogador sem preço no Transfermarkt é jogador de valor baixo ou nenhum, e não dado "
+        "faltando: contam TODOS os jogadores listados pelo Transfermarkt na temporada do clube, e o "
+        "sem preço entra como jogador do setor com valor zero, que é como o valor do setor já soma; "
+        "a soma do setor não é tratada como piso nem como subestimada por causa dele. Valor por "
+        "jogador do setor = valor do setor dividido pelos jogadores listados no setor. Fatia do "
+        "valor = valor do setor dividido pelo valor do elenco. Fatia de jogadores = jogadores "
+        "listados no setor divididos pelos jogadores listados no elenco. Índice = fatia do valor "
+        "dividida pela fatia de jogadores (é o mesmo que o valor por jogador do setor dividido pelo "
+        "valor por jogador do elenco; igual a um, o setor tem valor proporcional à sua gente). "
+        "Setor sem jogador listado: valor por jogador e índice nulos, com motivo. O que separa: "
+        "posto dentro do ano do valor por jogador, AUC e Mann-Whitney bilateral, BH nos %d setores "
+        "(uma família por comparação); a partição usa o posto no ano do índice. Sem desconto pelo "
+        "valor do elenco e sem sorteio."
+        % (dt.date.fromisoformat(PONDERADO_PEDIDO_EM).strftime("%d/%m/%Y"), n_set))
+    # A dupla contagem de quem trocou de clube no meio do ano, dita na regra com os números
+    # medidos em `_elenco_por_setor` (decisão do dono de 14/09: ele fez parte dos dois elencos,
+    # e a conta fica igual à de val_*). Frase montada do dado, nunca digitada.
+    dc = el["dois_clubes"]
+    mil = lambda n: f"{int(n):,}".replace(",", ".")
+    regra += (
+        " Jogador listado pelo Transfermarkt em dois clubes na mesma temporada (mesmo id_jogador no "
+        "ano) conta nos dois elencos, como jogador inteiro e com o preço inteiro em cada um, que é "
+        "como val_* e o plantel já contam: ele fez parte dos dois. São %s linhas de %s jogadores "
+        "(%s com preço), € %s mi somados nessas linhas, dos quais € %s mi são a segunda contagem; "
+        "por isso as %s linhas usadas são passagens por clube, e jogadores distintos por ano são %s."
+        % (mil(dc["linhas"]), mil(dc["jogadores_ano"]), mil(dc["linhas_com_preco"]),
+           num_br(dc["valor_das_linhas_eur"] / 1e6, 1), num_br(dc["valor_a_mais_eur"] / 1e6, 1),
+           mil(dc["linhas_usadas"]), mil(dc["jogadores_ano_distintos"])))
+    anos = sorted(int(a) for a in np.unique(ano))
+    return dict(
+        regra=regra,
+        declarada_antes_de_medir=True,
+        pedido_do_dono_em=PONDERADO_PEDIDO_EM,
+        universo=dict(temporadas=int(len(d)), anos=anos,
+                      faixas={fx: int(m.sum()) for fx, m in mascaras},
+                      jogadores="todos os listados pelo Transfermarkt na temporada do clube, com ou sem preço"),
+        definicoes=dict(
+            eur_por_jogador="valor do setor ÷ jogadores listados no setor (sem preço conta, com valor zero)",
+            pct_do_valor="100 × valor do setor ÷ valor do elenco",
+            pct_dos_jogadores="100 × jogadores listados no setor ÷ jogadores listados no elenco",
+            indice="pct_do_valor ÷ pct_dos_jogadores = valor por jogador do setor ÷ valor por jogador do elenco",
+            n_listados="jogadores do setor na lista da temporada",
+            n_com_preco="jogadores do setor com valor publicado",
+            n_sem_preco="jogadores do setor sem valor publicado (entram com valor zero)",
+            mediana="mediana entre as temporadas da faixa; a mediana do índice não é a razão das medianas das fatias"),
+        desconto_pelo_valor_do_elenco=None,
+        motivo_sem_desconto=("não aplicado neste bloco: o dinheiro como critério está em decisão com o "
+                             "dono, e esta rodada não acrescenta desconto"),
+        conferencia=el["conferencia"],
+        sem_preco=sem_preco,
+        regra_da_posicao="posição no ranking do ano pelo valor por jogador (1 = maior), média por faixa; empate pela média",
+        regra_do_auc="posto percentual dentro do ano do valor por jogador; p = Mann-Whitney bilateral no mesmo posto",
+        familia_do_bh=dict(setores=nomes, comparacoes=["sobe x meio", "sobe x cai"],
+                           correcao="Benjamini-Hochberg nos %d setores, separado em cada comparação" % n_set,
+                           fora_da_familia="elenco (a referência)"),
+        setores=linhas,
+        particao=dict(
+            o_que_e=("índice de cada setor (fatia do valor ÷ fatia de jogadores); posto no ano do "
+                     "índice, Mann-Whitney sobe x meio"),
+            testes=len(part), correcao="Benjamini-Hochberg nos %d setores" % len(part),
+            setores=part,
+            menor_p=dict(setor=menor["setor"], p_bruto=menor["p_bruto"], q_bh=menor["q_bh"],
+                         sobrevive_bh_5pct=menor["sobrevive_bh_5pct"])),
+    ), por
+
+
+def tabela_por_time(d, por):
+    """As temporadas de clube uma a uma, abertas: o que o dono pediu para ver sem clicar.
+
+    Sai das MESMAS contas de `ponderado_por_jogador` (o dicionário `por` é passado, não
+    recalculado), para que a linha de um time e a mediana da faixa dele nunca discordem por
+    arredondamento de dois caminhos. Ordem: ano, depois posição final — a ordem em que a tabela do
+    campeonato é lida.
+    """
+    nomes = [s for s, _ in SETORES_VALOR]
+    idx = sorted(range(len(d)), key=lambda i: (int(d.ano.values[i]), int(d.pos.values[i])))
+    out = []
+    for i in idx:
+        setores = {}
+        for s in nomes:
+            x = por[s]
+            reg = dict(eur=r(x["eur"][i], 0), n_listados=int(x["n"][i]), n_com_preco=int(x["ncp"][i]),
+                       eur_por_jogador=r(x["epj"][i], 0), pct_do_valor=r(x["pv"][i], 1),
+                       pct_dos_jogadores=r(x["pj"][i], 1), indice=r(x["ind"][i], 3))
+            if x["vazio"][i]:
+                reg["motivo_null"] = "nenhum jogador listado neste setor: não há por quem dividir"
+            setores[s] = reg
+        e = por["elenco"]
+        out.append(dict(ano=int(d.ano.values[i]), clube=d.clube.values[i], faixa=d.faixa.values[i],
+                        posicao_final=int(d.pos.values[i]), valor_elenco_eur=r(e["eur"][i], 0),
+                        jogadores_listados=int(e["n"][i]), jogadores_com_preco=int(e["ncp"][i]),
+                        jogadores_sem_preco=int(e["nsp"][i]), eur_por_jogador_elenco=r(e["epj"][i], 0),
+                        setores=setores))
+    return out
+
 
 def valor_por_setor(d):
     """O valor do elenco partido em goleiro, defesa, meio e ataque — e o que dá para dizer disso.
@@ -721,6 +1091,12 @@ def valor_por_setor(d):
        e o posto continue sendo o do ano). O gerador é PRÓPRIO, `[SEMENTE, 11]`: usar o
        `rng` global deslocaria o sorteio de todas as etapas que rodam depois desta e
        mudaria números que nada têm a ver com setor.
+
+    Duas chaves foram acrescentadas no fim, a pedido do dono em 14/09, sem mexer nas de cima:
+    `ponderado_por_jogador` (o valor dividido pela gente do setor, com a regra declarada no
+    próprio bloco antes dos números — ver `ponderado_por_jogador`) e `times` (as temporadas de
+    clube abertas, uma linha cada — ver `tabela_por_time`). Elas vêm por último e não sorteiam,
+    então nenhum número antigo deste bloco nem das etapas seguintes se desloca.
     """
     d = d.copy()
     faixa = d.faixa.values
@@ -790,6 +1166,12 @@ def valor_por_setor(d):
     lo, hi = np.percentile(difs, [2.5, 97.5])
     cruza = bool(lo <= 0 <= hi)
 
+    # A leitura por jogador (pedido do dono de 14/09) roda DEPOIS do bootstrap acima e não sorteia:
+    # acrescentá-la não muda uma réplica do intervalo da defesa contra o total. Ela vai em duas
+    # chaves NOVAS no fim do bloco; nenhuma chave antiga muda de nome nem de número.
+    ponderado, por = ponderado_por_jogador(d, linhas)
+    times = tabela_por_time(d, por)
+
     return dict(
         n=len(d), faixas=dict(sobe=int(m_sobe.sum()), meio=int(m_meio.sum()), cai=int(m_cai.sum())),
         fonte="Transfermarkt por temporada: val_goleiro + val_defesa + val_meio + val_ataque",
@@ -819,6 +1201,8 @@ def valor_por_setor(d):
                       "afirmar que o setor supera o total") if cruza else
                      ("o intervalo da diferença vai de %s a %s e não cruza zero"))
                     % (num_br(lo, 3), num_br(hi, 3))),
+        ponderado_por_jogador=ponderado,
+        times=times,
     )
 
 
@@ -1599,9 +1983,35 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                     # as duas escalas dariam a mesma fila — é empate, não inversão
                     if list(np.argsort(m_p, kind="stable")) == list(np.argsort(m_b, kind="stable")):
                         ids_empate.append(ind)
+            # A ordem das colunas pedida pelo dono em 14/09: quem mais separa o time típico que
+            # subiu do típico que caiu vem primeiro. A escala é a da célula (posição no ranking do
+            # ano, 0-100), e a conta é feita sobre as MESMAS medianas arredondadas que o JSON grava
+            # em faixa_sobe/faixa_cai — assim o número do cabeçalho é a subtração dos dois números
+            # que a tela mostra, e nunca discorda deles por uma casa. O sinal fica: positivo = quem
+            # subiu está acima de quem caiu no ranking do ano. A ordem é pelo MÓDULO (separar para
+            # baixo também é separar); empate fica na ordem original (sort estável pelo índice).
+            # A tela não calcula nada disso: lê `ordem_por_diferenca`. Indicador sem as duas
+            # medianas (faixa com menos de 4 valores) não tem diferença: null, com motivo, no fim.
+            diferenca, motivo_dif = [], {}
+            for k, ind in enumerate(cols):
+                s_, c_ = faixa_sobe[k][1], faixa_cai[k][1]
+                if s_ is None or c_ is None:
+                    diferenca.append(None)
+                    falta = [nm for nm, v in (("subiram", s_), ("caíram", c_)) if v is None]
+                    motivo_dif[ind] = ("sem a mediana dos times que %s (a faixa tem menos de 4 "
+                                       "valores)" % " e dos que ".join(falta))
+                else:
+                    diferenca.append(r(s_ - c_, 1))
+            ordem_dif = sorted(range(len(cols)),
+                               key=lambda k: (diferenca[k] is None,
+                                              -abs(diferenca[k]) if diferenca[k] is not None else 0.0,
+                                              k))
             saida[nome_g] = dict(
                 pilar=pilar,
                 indicadores=[rotulo_ind(i) for i in cols],
+                diferenca_sobe_cai=diferenca,
+                ordem_por_diferenca=ordem_dif,
+                diferenca_sobe_cai_sem_valor=motivo_dif,
                 clubes=clubes, faixa_sobe=faixa_sobe, faixa_meio=faixa_meio, faixa_cai=faixa_cai,
                 faixa_sobe_bruto=faixa_sobe_bruto, faixa_meio_bruto=faixa_meio_bruto,
                 faixa_cai_bruto=faixa_cai_bruto,
@@ -1635,6 +2045,24 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                            bh5_liq_SM=int(np.nansum(bh(pl) < 0.05)))
     marcas = [v for pn in saida.values() for v in pn["ordem_das_medianas_difere_no_cru"]]
     return dict(titulo_chave="etapa_5", paineis=saida, vazios_por_setor=vazios,
+                regra_da_ordem=dict(
+                    pedido_do_dono_em="2026-09-14",
+                    o_que_e=("as colunas de cada painel em ordem da diferença entre o time típico que "
+                             "subiu e o típico que caiu, na escala das células (posição no ranking do "
+                             "ano, 0 a 100)"),
+                    diferenca=("`diferenca_sobe_cai[k]` = 2º número de faixa_sobe[k] menos 2º número de "
+                               "faixa_cai[k] (as medianas, já arredondadas a 1 casa como o JSON grava), "
+                               "alinhada a `indicadores`; positivo = quem subiu acima de quem caiu"),
+                    ordem=("`ordem_por_diferenca` = índices de `indicadores` do maior módulo da "
+                           "diferença para o menor; empate na ordem original; sem diferença no fim, na "
+                           "ordem original"),
+                    sem_diferenca=("null quando a faixa dos que subiram ou dos que caíram tem menos de "
+                                   "4 valores; o motivo por indicador está em "
+                                   "`diferenca_sobe_cai_sem_valor`"),
+                    sem_teste=("é ordem de leitura, não teste: a diferença das medianas não diz se "
+                               "passa da sorte — isso está na etapa 2"),
+                    na_aba_por_pontos=("a mesma regra com alta contra baixa, quando gerar_pontos.py "
+                                       "for regerado")),
                 marca_ordem_no_cru=dict(
                     regra=("por painel, `ordem_das_medianas_difere_no_cru[k]` compara a mediana "
                            "(2º número de faixa_sobe, faixa_meio e faixa_cai) no posto e no cru, com os "

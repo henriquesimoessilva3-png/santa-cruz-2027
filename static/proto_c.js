@@ -1035,6 +1035,69 @@ function ptEtapa11(alvo, dados) {
   const nomeMet = s => '<span title="' + esc(s) + '">' + esc(ptNomeMedida(s)) + '</span>';
   const nomeMetTxt = s => esc(ptNomeMedida(s));
 
+  /* "Atravessa a troca sem perder nada" é uma propriedade do jogador, e até 14/09 a tela a
+     afirmava pela simples comparação ρ de quem mudou >= ρ de quem ficou, sem margem nenhuma. Há
+     medida na lista com diferença de milésimos, e só tirar 2026 do técnico já trocou medidas de
+     lado — as diferenças estão dentro do ruído. Enquanto o gerador não gravar a margem da diferença,
+     a tela diz só o que foi medido (não caíram nestes números) e que não dá para afirmar mais.
+     Quando a margem existir (`dif_ic95` = [baixo, alto] de ρ mudou − ρ ficou em cada medida, e
+     `tecnico.perda_relevante`, a queda que o estudo declara relevante — chaves ainda não gravadas),
+     só entram na lista as medidas cujo intervalo não chega a uma perda relevante. */
+  const ef26 = dados.efeito_de_retirar_2026 || null;
+  const comMargem = mets.length > 0 && typeof t.perda_relevante === 'number' &&
+    mets.every(m => Array.isArray(m.dif_ic95) && m.dif_ic95.length === 2);
+  const listaMet = ms => ms.map(m => nomeMet(m.metrica) + ptTecnico('ρ ' + ptNum(m.rho_mudou, 3) + ' contra ' +
+    ptNum(m.rho_ficou, 3))).join('; ');
+  let fraseViajam;
+  if (comMargem) {
+    const seguram = mets.filter(m => m.dif_ic95[0] > -t.perda_relevante);
+    fraseViajam = seguram.length
+      ? '<b>' + ptInt(seguram.length) + ' ' + (seguram.length === 1 ? 'medida técnica atravessa' : 'medidas técnicas atravessam') +
+        ' a troca de clube sem perda relevante</b>, mesmo no pior caso da margem: ' + listaMet(seguram) +
+        ptTecnico('perda relevante declarada: ' + ptNum(t.perda_relevante, 3)) + '. '
+      : '<b>Nenhuma medida técnica atravessa a troca de clube com a margem inteira longe de uma perda relevante.</b> ';
+  } else if (viajam.length) {
+    const difs = viajam.map(m => m.rho_mudou - m.rho_ficou);
+    fraseViajam =
+      'Nos números medidos, <b>' + ptInt(viajam.length) + ' ' +
+        (viajam.length === 1 ? 'medida técnica não caiu' : 'medidas técnicas não caíram') +
+        '</b> em quem mudou de clube — ' + (viajam.length === 1 ? 'ela se repetiu' : 'elas se repetiram') +
+        ' tanto ou mais do que em quem ficou: ' + listaMet(viajam) + '. ' +
+      'Mas isso <b>não basta para dizer que atravessam a troca sem perder</b>: as diferenças são pequenas' +
+        ptTecnico('de ' + ptNum(pcMin(difs), 3) + ' a ' + ptNum(pcMax(difs), 3) + ' em ρ') +
+        ', e o estudo ainda não grava a margem delas — sem margem, não dá para separar diferença de ruído. ' +
+      (ef26
+        ? 'A conta também é sensível ao recorte: só por tirar 2026 do técnico, os pares de quem mudou de clube ' +
+          'foram de ' + ptInt((ef26.pares_mudou || {}).com_2026) + ' para ' + ptInt((ef26.pares_mudou || {}).sem_2026) +
+          ', e o dado não guarda a lista de cada versão para mostrar quais medidas trocaram de lado. '
+        : '');
+  } else {
+    fraseViajam = '<b>Neste dado, nenhuma medida técnica se repetiu tanto em quem mudou de clube quanto em quem ficou.</b> ';
+  }
+
+  /* O site publicado antes de 14/09 mostra outros pares e outra lista porque o técnico ia até 2026,
+     que tem só parte das rodadas. Sem esta nota, quem compara vê o número mudar sem motivo escrito. */
+  const nota2026 = ef26
+    ? '<div class="pt-controle" style="margin-top:10px">' +
+        '<span class="pt-rot">' + ((ef26.anos_usados_no_tecnico || []).length
+          ? 'o técnico agora vai só até ' + ptAno(pcMax(ef26.anos_usados_no_tecnico.map(Number)))
+          : 'o técnico agora fica sem o ano em andamento') + '</span>' +
+        '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)">' +
+          '<b>Os números desta etapa não se comparam com os de versões anteriores.</b> O ano em andamento saiu ' +
+          'da conta porque ainda não fechou. Com ele, eram ' +
+          pcQtd((ef26.pares_mudou || {}).com_2026, 'pares de quem mudou de clube') + ' e ' +
+          pcQtd((ef26.pares_ficou || {}).com_2026, 'de quem ficou') + ', com o jogador típico em ' +
+          ptNum((ef26.rho_mediano_mudou || {}).com_2026, 3) + ' e ' + ptNum((ef26.rho_mediano_ficou || {}).com_2026, 3) +
+          '; sem ele, ' + ptInt((ef26.pares_mudou || {}).sem_2026) + ' e ' + ptInt((ef26.pares_ficou || {}).sem_2026) +
+          ', em ' + ptNum((ef26.rho_mediano_mudou || {}).sem_2026, 3) + ' e ' + ptNum((ef26.rho_mediano_ficou || {}).sem_2026, 3) +
+          ptTecnico('ρ mediano, mudou e ficou') + '.' +
+          (ef26.fisico
+            ? ' O físico não muda: ' + pcQtd((ef26.fisico.pares || {}).sem_2026, 'pares') + ' com e sem o corte.'
+            : '') +
+          ptTecnico(esc(ef26.motivo || '') + (ef26.fisico && ef26.fisico.motivo ? ' · ' + esc(ef26.fisico.motivo) : '')) +
+        '</p></div>'
+    : '';
+
   const frase =
     (fisicoAcima
       ? '<b>O físico vai junto com o atleta.</b> Medido em dois anos seguidos, o físico de um ano e o do ' +
@@ -1045,13 +1108,7 @@ function ptEtapa11(alvo, dados) {
         ptJunto(f.rho_mediano) + '; no técnico de quem mudou de clube, ' + ptJunto(t.rho_mediano_mudou) +
         ptTecnico('ρ mediano ' + ptNum(f.rho_mediano, 3) + ' contra ' + ptNum(t.rho_mediano_mudou, 3)) +
         ' — a primeira parte da frase do estudo não se sustenta aqui. ') +
-    (viajam.length
-      ? '<b>' + ptInt(viajam.length) + ' ' + (viajam.length === 1 ? 'medida técnica atravessa' : 'medidas técnicas atravessam') +
-        ' a troca de clube sem perder nada</b> — em quem mudou, ' + (viajam.length === 1 ? 'ela se repete' : 'elas se repetem') +
-        ' tanto ou mais do que em quem ficou: ' +
-        viajam.map(m => nomeMet(m.metrica) + ptTecnico('ρ ' + ptNum(m.rho_mudou, 3) + ' contra ' +
-          ptNum(m.rho_ficou, 3))).join('; ') + '. '
-      : '<b>Neste dado, nenhuma medida técnica atravessa a troca de clube sem perder.</b> ') +
+    fraseViajam +
     (maiorQueda
       ? 'A que mais perde é ' + nomeMet(maiorQueda.metrica) + ': em quem ficou no clube, os dois anos ' +
         ptJunto(maiorQueda.rho_ficou) + '; em quem mudou, ' + ptJunto(maiorQueda.rho_mudou) +
@@ -1089,6 +1146,7 @@ function ptEtapa11(alvo, dados) {
       '<span class="pt-rot">o que a tela afirma — cada parte conferida no dado antes de ser escrita</span>' +
       '<p class="pt-nota" style="font-size:13.5px;color:var(--tinta);margin-top:6px">' + frase + '</p>' +
     '</div>' +
+    nota2026 +
 
     ptCard('Técnico: quem mudou de clube contra quem ficou',
       pcQtd(t.pares_mudou, 'atletas mudaram de clube') + ' · ' + pcQtd(t.pares_ficou, 'ficaram no mesmo clube') +
@@ -1619,6 +1677,7 @@ function ptEtapa13(alvo, d) {
 
   alvo.innerHTML =
     cabecalhoBacktest +
+    pcEt13MudancaDoGerador(d) +
     baseline +
     cardPesos +
     pcEt13Alvos(d, setores, nClube) +
@@ -1642,6 +1701,48 @@ function ptEtapa13(alvo, d) {
   });
   pcLigarSaltos(alvo);
   ptLigarTabelas(alvo);
+}
+
+/* A frase que compara as duas contas de cada setor. Até 14/09 ela era fixa e dizia nos quatro
+   setores que a conta por atleta infla — mas no dado gravado há setor em que as duas contas
+   empatam e setor em que o clube inteiro deixa MAIS medidas de pé que a conta por atleta. Ali a
+   frase fixa afirmava o contrário do número ao lado. "Ilusão de quantidade" só é dita quando a
+   conta por atleta de fato deixa mais de pé; nos outros casos a frase diz o que o número mostra. */
+function pcEt13LeituraDasContas(porClube, porAtleta, maxAtletas) {
+  if (porAtleta > porClube) {
+    return 'A conta por atleta deixa mais de pé, e essa sobra é ilusão de quantidade: até ' + ptInt(maxAtletas) +
+      ' atletas dentro de poucos clubes dão resultado com cara de forte sem trazer informação nova.';
+  }
+  if (porAtleta === porClube) {
+    return 'Aqui as duas contas concordam no número de medidas que ficam de pé; vale a de clubes inteiros, ' +
+      'que é a que não conta o mesmo clube várias vezes.';
+  }
+  return 'Aqui o clube inteiro deixa <b>mais</b> medidas de pé que a conta por atleta — neste setor a conta ' +
+    'por atleta não inflou nada. Vale a de clubes inteiros.';
+}
+
+/* Os números da etapa 13 mudaram em 14/09 porque o sorteio do erro da margem ganhou gerador próprio
+   por atleta. O site anterior mostra outras margens; sem esta nota, quem compara acha erro onde houve
+   decisão. Sai do bloco gravado (`erro_padrao_da_margem.mudanca_do_gerador`) e só aparece com ele. */
+function pcEt13MudancaDoGerador(d) {
+  const ep = d.erro_padrao_da_margem || null;
+  const mg = ep ? ep.mudanca_do_gerador : null;
+  if (!mg) return '';
+  return '<div class="pt-controle" style="margin-top:10px">' +
+    '<span class="pt-rot">' + (mg.os_numeros_mudam ? 'as margens mudaram em ' : 'o sorteio mudou em ') +
+      pcEt14DataBr(mg.data) + '</span>' +
+    '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)">' +
+      (mg.os_numeros_mudam
+        ? '<b>As margens e o ruído de cada candidato não se comparam com os de versões anteriores.</b> '
+        : '') +
+      'O ruído da margem de cada jogador sai de um sorteio refeito várias vezes. Antes, esse sorteio era ' +
+      'o mesmo usado por outras etapas do estudo, então mexer numa etapa anterior mudava as margens daqui ' +
+      'sem ninguém ter mudado o método. Agora cada jogador tem o seu próprio sorteio, e acrescentar um ' +
+      'candidato à lista não mexe no dos outros.' +
+      ptTecnico(esc(mg.antes || '') + (mg.por_que ? ' · ' + esc(mg.por_que) : '') +
+        (mg.por_que_um_por_atleta ? ' · ' + esc(mg.por_que_um_por_atleta) : '') +
+        (ep.gerador ? ' · ' + esc(ep.gerador) : '')) + '</p>' +
+    '</div>';
 }
 
 /* O nome da medida física da etapa 13 (os apelidos `spn_s`, `obr_area`, `psv5`…): nome simples e
@@ -1775,9 +1876,7 @@ function pcEt13Alvos(d, setores, nClube) {
       tab +
       '<p class="pt-nota">Descontada a sorte de testar muita coisa, sobram <b>' + ptInt(sobrevivemBH) + '</b> das ' +
         ptInt(chaves.length) + ' medidas deste setor quando se comparam clubes inteiros; contando atleta por ' +
-        'atleta, sobram <b>' + ptInt(sobrevivemAtleta) + '</b>. A diferença entre os dois números é ilusão de ' +
-        'quantidade: até ' + ptInt(maxAtletas) + ' atletas dentro de poucos clubes dão resultado com cara de forte ' +
-        'sem trazer informação nova.</p>' +
+        'atleta, sobram <b>' + ptInt(sobrevivemAtleta) + '</b>. ' + pcEt13LeituraDasContas(sobrevivemBH, sobrevivemAtleta, maxAtletas) + '</p>' +
       '</div>';
   }).join('');
 
@@ -2201,7 +2300,10 @@ function pcCtx14(d) {
   const distintos = {};
   const props = d.propostas || {};
   Object.keys(props).forEach(k => ((props[k] || {}).vagas_detalhe || []).forEach(v => {
-    (v.recomendacao || []).concat(v.alternativas || []).forEach(x => { distintos[String(x.nome)] = x; });
+    /* O empate técnico (desde 14/09) é uma terceira lista de nomes: fora daqui, o filtro não o
+       alcançaria e a contagem de "nomes diferentes" deixaria de fora justamente os mais disputados. */
+    (v.recomendacao || []).concat(v.empate_tecnico || [], v.alternativas || [])
+      .forEach(x => { distintos[String(x.nome)] = x; });
     if (v.primeiro_colocado) distintos[String(v.primeiro_colocado)] = { nome: v.primeiro_colocado, id: v.primeiro_colocado_id };
   }));
   const nomes = Object.keys(distintos);
@@ -2247,6 +2349,126 @@ function pcAvisoBacktest14() {
         'com quem já tinha chegado a clubes da Série B, não separou quem rendeu depois de chegar: nos minutos ' +
         'jogados, ' + ptSorte(bt.p_minutos) + '; em ficar no clube no ano seguinte, ' + ptSorte(bt.p_permanencia) + '.') +
     tec + link + '</p></div>';
+}
+
+/* O dado de 14/09 conta por POSIÇÃO e separa três categorias de nome pelo intervalo de 95% da
+   fatia. Quem abre a etapa precisa saber disso ANTES de ler um nome, e precisa saber que os nomes
+   mudaram de propósito — senão compara com a versão anterior e acha que o estudo oscila. Tudo
+   sai do bloco gravado pelo gerador (`regra_do_empate`, `mudanca_de_metodo`); com o dado antigo,
+   que conta por vaga e não tem essas chaves, o card não aparece e a etapa fica como era. */
+function pcEt14Regra(d) {
+  return (d && d.regra_do_empate) || null;
+}
+function pcEt14PctDa(texto) {
+  const m = /(\d+(?:[.,]\d+)?)\s*%/.exec(String(texto || ''));
+  return m ? m[1] + '%' : null;
+}
+function pcEt14DataBr(s) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ''));
+  return m ? m[3] + '/' + m[2] + '/' + m[1] : esc(String(s || ''));
+}
+function pcEt14ComoLer(d) {
+  const rg = pcEt14Regra(d);
+  const mm = d.mudanca_de_metodo || null;
+  if (!rg && !mm) return '';
+  /* Os itens gravados em `mudanca_de_metodo` são anotação de método ("[SEMENTE, 14, i]", "rng
+     global", "Húngaro", "vaga -> posição") e saíam crus, no corpo do texto — justamente na parte
+     que explica ao dono por que os nomes mudaram. Cada item é reconhecido pelo assunto e dito em
+     português de reunião; o texto gravado vai inteiro ao lado, em número pequeno, para conferência.
+     Os números da frase (quantas vezes a conta foi refeita) saem do próprio item, nunca digitados.
+     Item que nenhum padrão reconhece não some: aparece como "outro ajuste", com o texto ao lado. */
+  const dizer = x => {
+    const s = String(x || '');
+    let m;
+    if (/h[úu]ngaro|vagas g[êe]meas/i.test(s)) {
+      return 'contando por vaga, o método dividia o mesmo jogador entre as duas vagas da mesma posição: quem ' +
+        'estava no time aparecia com pouco mais de metade em cada vaga, e as duas vagas podiam ficar sem recomendação';
+    }
+    if ((m = /r[ée]plicas:\s*de\s*(\d+)\s*para\s*(\d+)/i.exec(s))) {
+      return 'a conta passa a ser refeita ' + ptInt(Number(m[2])) + ' vezes, e não mais ' + ptInt(Number(m[1]));
+    }
+    if ((m = /com\s*(\d+)\s*r[ée]plicas/i.exec(s))) {
+      return 'refazendo a conta só ' + ptInt(Number(m[1])) + ' vezes, um nome perto da metade fica dentro do ' +
+        'vaivém do próprio sorteio';
+    }
+    if (/gerador pr[óo]prio por proposta/i.test(s)) {
+      return 'cada proposta tem o seu próprio sorteio, e o sorteio de uma não mexe no da outra';
+    }
+    if (/gerador pr[óo]prio por atleta/i.test(s)) {
+      return 'o ruído de cada jogador, que vem da etapa 13, também ganhou sorteio próprio, um por jogador';
+    }
+    if (/rng global/i.test(s)) {
+      return 'com um sorteio só para o estudo inteiro, mexer num sorteio de uma etapa anterior, ou acrescentar ' +
+        'uma proposta, mudava os nomes sem ninguém ter mudado o método — e isso só fecha com sorteio próprio ' +
+        'por proposta e por jogador';
+    }
+    if (/empate t[ée]cnico/i.test(s)) {
+      return 'nasce a marca de empate técnico, e "recomendado" passa a exigir que até o pior caso do intervalo ' +
+        'fique acima da metade das vezes';
+    }
+    if (/contrafactual/i.test(s)) {
+      return 'a conta do dinheiro ao pé de cada proposta passa a usar o núcleo contado por posição';
+    }
+    if (/posi[çc][ãa]o/i.test(s) && /vaga/i.test(s)) {
+      return 'os nomes passam a ser contados por posição — quantas vezes o jogador entrou em qualquer vaga ' +
+        'daquela posição — e não mais vaga por vaga';
+    }
+    if (/claramente/i.test(s)) {
+      return '"recomendado" tem de querer dizer claramente acima da metade das vezes';
+    }
+    return 'outro ajuste de método, descrito ao lado';
+  };
+  const lista = itens => '<ul class="pt-nota" style="margin:4px 0 8px 18px;padding:0">' +
+    (itens || []).map(x => '<li>' + esc(dizer(x)) + ptTecnico(esc(x)) + '</li>').join('') + '</ul>';
+  const corte = rg ? pcEt14PctDa(rg.recomendacao) : null;
+  const nivel = rg ? pcEt14PctDa(rg.intervalo) : null;
+  const intervaloTxt = nivel ? 'o intervalo de ' + esc(nivel) : 'o intervalo';
+  const porQue = d.contagem_por ? 'por ' + esc(d.contagem_por) : ptFalta('o dado não diz se a conta é por vaga ou por posição');
+
+  const corpo = rg
+    ? '<p class="pt-nota" style="margin-top:0">A conta das vagas foi refeita ' +
+        (d.replicas !== undefined && d.replicas !== null ? ptInt(d.replicas) + ' vezes' : ptFalta('o número de vezes não está no dado')) +
+        ', contando ' + porQue + '. Ao lado de cada nome vão duas coisas: <b>em quantas dessas vezes ele entrou</b> ' +
+        'e, em número pequeno, ' + intervaloTxt + ' — até onde essa porcentagem pode ir só por causa do sorteio.' +
+        ptTecnico(esc(rg.fatia || '') + (rg.intervalo ? ' · ' + esc(rg.intervalo) : '')) + '</p>' +
+      '<p class="pt-nota"><b>Recomendado</b>: só quando ' + intervaloTxt + ' fica todo acima de ' +
+        (corte ? esc(corte) : 'metade das vezes') + ' — claramente mais da metade das vezes.' +
+        ptTecnico(esc(rg.recomendacao || '')) + '</p>' +
+      '<p class="pt-nota"><span class="pt-empate">empate técnico</span> quando o intervalo passa pela metade: não dá ' +
+        'para dizer se o nome entra em mais ou em menos da metade das vezes. <b>A tela não desempata</b> — escolher um ' +
+        'deles seria tomar a decisão que a conta não tomou.' + ptTecnico(esc(rg.empate_tecnico || '')) + '</p>' +
+      '<p class="pt-nota"><b>Alternativa</b>: fica claramente abaixo da metade, mas aparece com frequência.' +
+        ptTecnico(esc(rg.alternativa || '')) + '</p>' +
+      (rg.o_que_o_intervalo_mede
+        ? '<p class="pt-nota"><b>O que o intervalo não mede:</b> ele cobre só o sorteio das vezes em que a conta foi ' +
+          'refeita; não diz se a nota do jogador está certa, nem se o alvo do cenário está certo.' +
+          ptTecnico(esc(rg.o_que_o_intervalo_mede)) + '</p>'
+        : '') +
+      (rg.na_borda_de_50 || rg.chance_a_priori
+        ? '<p class="pt-nota">Duas marcas podem aparecer ao lado de um nome: <span class="pt-marca alerta">na borda</span> ' +
+          '(a categoria vale, mas por uma ou duas vezes a mais ou a menos) e <span class="pt-marca alerta">abaixo do sorteio</span> ' +
+          '(o nome entrou menos do que entraria se as notas não dissessem nada — com poucos candidatos na posição, é quase sorteio).' +
+          ptTecnico(esc(rg.na_borda_de_50 || '') + (rg.chance_a_priori ? ' · ' + esc(rg.chance_a_priori) : '')) + '</p>'
+        : '')
+    : ptFalta('o dado registra a mudança de método, mas não a regra de cada categoria de nome');
+
+  const mudou = mm
+    ? '<div class="pt-controle" style="margin-top:10px">' +
+        '<span class="pt-rot">os nomes mudaram em ' + pcEt14DataBr(mm.data) +
+          (mm.decidido_por ? ', por decisão do ' + esc(mm.decidido_por) : '') + '</span>' +
+        (mm.comparar_com_versoes_anteriores
+          ? '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)"><b>' + esc(mm.comparar_com_versoes_anteriores) + '.</b></p>'
+          : '') +
+        ((mm.o_que_mudou || []).length ? '<span class="pt-rot">o que mudou</span>' + lista(mm.o_que_mudou) : '') +
+        ((mm.por_que || []).length ? '<span class="pt-rot">por quê</span>' + lista(mm.por_que)
+          : ptFalta('o dado registra a mudança, mas não o motivo')) +
+        (d.geradores ? ptTecnico(esc(d.geradores)) : '') +
+      '</div>'
+    : '';
+
+  return ptCard('Como ler os nomes: recomendado, empate técnico e alternativa',
+    'a regra que decide a categoria de cada nome, e por que os nomes de hoje não se comparam com os de antes',
+    corpo + mudou, '');
 }
 
 function ptEtapa14(alvo, d) {
@@ -2372,7 +2594,7 @@ function ptEtapa14(alvo, d) {
       pcContaExtras(ctx);
   };
 
-  alvo.innerHTML = cabeca + cardTaxa +
+  alvo.innerHTML = cabeca + cardTaxa + pcEt14ComoLer(d) +
     '<div style="margin-top:16px"><span class="pt-rot">as ' + ptInt(chaves.length) +
       ' propostas, todas abertas — o cenário, e onde se procura</span>' + saltos + '</div>' +
     pcFiltrosHtml(ctx) +
@@ -2397,11 +2619,23 @@ function pcEt14Proposta(p, chave, f, c14) {
       'sobre o mercado, não sobre o método.');
   }
   const vagas = p.vagas_detalhe || [];
-  const semRecomendacao = vagas.filter(v => !v.recomendacao || !v.recomendacao.length);
-  const semNenhumNome = vagas.filter(v => (!v.recomendacao || !v.recomendacao.length) &&
-    (!v.alternativas || !v.alternativas.length));
+  /* Dado de 14/09: uma linha por POSIÇÃO (com `vagas` e `vagas_sem_recomendacao`) e uma terceira
+     lista, `empate_tecnico`. O dado antigo tem uma linha por vaga e nenhuma dessas chaves. A tela
+     reconhece o novo pela presença da lista de empate em alguma linha, não por data ou versão. */
+  const novo = vagas.some(v => Object.prototype.hasOwnProperty.call(v, 'empate_tecnico'));
+  const rg = p.regra_do_empate || null;
+  const vazia = l => !l || !l.length;
+  const semRecomendacao = novo
+    ? vagas.filter(v => Number(v.vagas_sem_recomendacao) > 0)
+    : vagas.filter(v => vazia(v.recomendacao));
+  /* Posição sem nome é a que não tem NENHUMA das três listas. Até 14/09 a condição olhava só a
+     recomendação e as alternativas, e com a lista de empate as posições que só têm empatados (as
+     duas vagas de zaga do cenário caro da Série B, por exemplo) apareceriam como vazias. */
+  const semNenhumNome = vagas.filter(v => vazia(v.recomendacao) && vazia(v.empate_tecnico) && vazia(v.alternativas));
+  const comEmpate = vagas.filter(v => !vazia(v.empate_tecnico));
   const denomMin = vagas.length ? pcMin(vagas.map(v => v.denominador)) : null;
   const refeitas = p.replicas;
+  const rotPos = novo && /posi/.test(String(p.contagem_por || vagas[0].contagem_por || '')) ? 'posição' : 'vaga';
 
   /* O filtro age nome a nome. O que ele esconde é contado e escrito na célula — uma vaga que
      "perdeu" a recomendação por causa do filtro não pode parecer vaga sem recomendação. */
@@ -2414,51 +2648,101 @@ function pcEt14Proposta(p, chave, f, c14) {
     nomesFora += fora.length;
     return { vis: vis, fora: fora };
   };
-  const nomes = lista => (lista || []).map(x =>
-    '<span style="display:block">' + esc(x.nome) + ' <span class="pt-n">em ' + ptPct(x.freq_pct) +
-    ' das vezes</span></span>').join('');
+  /* Cada nome leva a marca da lista em que está (`data-pc14`), para a conferência contar na tela o
+     que o dado diz. No dado novo, o intervalo vai ao lado em número pequeno, e as duas marcas de
+     cuidado (na borda da metade; abaixo do que o sorteio daria) só aparecem quando o gerador as grava. */
+  const nivelIc = rg ? pcEt14PctDa(rg.intervalo) : null;
+  const nomes = (lista, tipo) => (lista || []).map(x => {
+    const ic = Array.isArray(x.ic95_pct) && x.ic95_pct.length === 2 ? x.ic95_pct : null;
+    return '<span style="display:block" data-pc14="' + tipo + '">' + esc(x.nome) +
+      (tipo === 'emp' ? ' <span class="pt-empate" title="' + esc((rg && rg.empate_tecnico) || 'empate técnico') + '">empate técnico</span>' : '') +
+      ' <span class="pt-n">em ' + ptPct(x.freq_pct) + ' das vezes</span>' +
+      (ic ? ' <span class="pt-n" title="' + esc((rg && rg.intervalo) || '') + '">' +
+        (nivelIc ? 'intervalo de ' + esc(nivelIc) + ': ' : 'intervalo: ') + ptPct(ic[0]) + ' a ' + ptPct(ic[1]) + '</span>' : '') +
+      (x.na_borda_de_50 === true ? ' <span class="pt-marca alerta" title="' + esc((rg && rg.na_borda_de_50) || '') + '">na borda</span>' : '') +
+      (tipo === 'rec' && x.fatia_acima_da_chance_a_priori === false
+        ? ' <span class="pt-marca alerta" title="' + esc((rg && rg.chance_a_priori) || '') + '">abaixo do sorteio</span>' : '') +
+      '</span>';
+  }).join('');
   const escondidosTxt = n => n ? '<small style="display:block;color:var(--tinta3)">' + ptInt(n) + ' ' +
     (n === 1 ? 'nome escondido' : 'nomes escondidos') + ' pelos filtros</small>' : '';
+  const apagado = s => '<span style="color:var(--tinta3)">' + s + '</span>';
 
   const linhas = vagas.map(v => {
-    const r = separa(v.recomendacao), a = separa(v.alternativas);
+    const r = separa(v.recomendacao), e = separa(v.empate_tecnico), a = separa(v.alternativas);
     const primeiroFora = v.primeiro_colocado ? !passa(v.primeiro_colocado) : false;
-    return Object.assign({ _rec: r, _alt: a, _primeiroFora: primeiroFora }, v);
+    return Object.assign({ _rec: r, _emp: e, _alt: a, _primeiroFora: primeiroFora }, v);
   });
+
+  const colunasNovas = novo ? [
+    { k: 'vagas', rot: 'vagas na posição', casas: 0,
+      dica: 'quantas vagas do desenho esta posição tem: um nome conta se entrou em alguma delas' },
+  ] : [];
+  const colunaSorteio = novo ? [
+    { k: 'chance_a_priori_pct', rot: 'se fosse sorteio', casas: 1,
+      fmt: v => v === null || v === undefined ? ptFalta('sem a chance de sorteio no dado') : ptPct(v),
+      dica: (rg && rg.chance_a_priori) || 'em quantas das vezes cada nome entraria se as notas não dissessem nada' },
+  ] : [];
+  const colunaEmpate = novo ? [
+    { k: '_emp', rot: 'empate técnico (não dá para dizer se passa da metade)', tipo: 'texto', ordenavel: false,
+      motivoFixa: 'nomes não se ordenam por número',
+      fmt: (v, l) => {
+        if (vazia(l.empate_tecnico)) return apagado('nenhum');
+        if (!v.vis.length) {
+          return apagado(ptInt(v.fora.length) + ' ' + (v.fora.length === 1 ? 'empatado escondido' : 'empatados escondidos') + ' pelos filtros');
+        }
+        return nomes(v.vis, 'emp') + escondidosTxt(v.fora.length);
+      } },
+  ] : [];
 
   const idTab = ptId('14-vagas-' + chave);
   const tab = ptTabela({
     id: idTab,
     ordem: pcOrdemGuardada(idTab, null),
-    vazio: 'esta proposta não trouxe o detalhe de cada vaga',
+    vazio: 'esta proposta não trouxe o detalhe de cada ' + rotPos,
     colunas: [
-      { k: 'vaga', rot: 'vaga', tipo: 'texto' },
-      { k: 'denominador', rot: 'candidatos para a vaga', casas: 0,
-        dica: 'quantos nomes disputavam esta vaga, na lista inteira — vaga com poucos candidatos produz recomendação que é quase sorteio' },
-      { k: '_rec', rot: 'recomendação (aparece em mais da metade das vezes)', tipo: 'texto', ordenavel: false,
+      { k: 'vaga', rot: rotPos, tipo: 'texto' },
+    ].concat(colunasNovas, [
+      { k: 'denominador', rot: 'candidatos para a ' + rotPos, casas: 0,
+        dica: 'quantos nomes disputavam esta ' + rotPos + ', na lista inteira — com poucos candidatos, recomendação é quase sorteio' },
+    ], colunaSorteio, [
+      { k: '_rec', rot: novo ? 'recomendado (claramente mais da metade das vezes)' : 'recomendação (aparece em mais da metade das vezes)',
+        tipo: 'texto', ordenavel: false,
         motivoFixa: 'nomes não se ordenam por número',
         fmt: (v, l) => {
           if (!l.recomendacao || !l.recomendacao.length) {
+            if (novo) {
+              return apagado('nenhum nome ficou claramente acima da metade das vezes' +
+                (!vazia(l.empate_tecnico) ? ' — ver o empate técnico ao lado' : ''));
+            }
             return ptFalta('nenhum nome apareceu em mais da metade das vezes nesta vaga — a escolha ficou dentro do ruído');
           }
+          const faltam = novo && Number(l.vagas_sem_recomendacao) > 0
+            ? '<small style="display:block;color:var(--tinta3)">' + ptInt(l.vagas_sem_recomendacao) + ' de ' + ptInt(l.vagas) +
+              (Number(l.vagas) === 1 ? ' vaga' : ' vagas') + ' sem recomendado</small>'
+            : '';
           if (!v.vis.length) {
             return '<span style="color:var(--tinta3)">' + (v.fora.length === 1 ? 'o nome recomendado' : 'os nomes recomendados') +
-              ' nesta vaga ' + (v.fora.length === 1 ? 'está escondido' : 'estão escondidos') + ' pelos filtros</span>';
+              ' nesta ' + rotPos + ' ' + (v.fora.length === 1 ? 'está escondido' : 'estão escondidos') + ' pelos filtros</span>' + faltam;
           }
-          return nomes(v.vis) + escondidosTxt(v.fora.length);
+          return nomes(v.vis, 'rec') + escondidosTxt(v.fora.length) + faltam;
         } },
-      { k: '_alt', rot: 'alternativas equivalentes', tipo: 'texto', ordenavel: false,
+    ], colunaEmpate, [
+      { k: '_alt', rot: novo ? 'alternativas' : 'alternativas equivalentes', tipo: 'texto', ordenavel: false,
         motivoFixa: 'nomes não se ordenam por número',
         fmt: (v, l) => {
           if (l.alternativas && l.alternativas.length) {
-            return v.vis.length ? nomes(v.vis) + escondidosTxt(v.fora.length)
+            return v.vis.length ? nomes(v.vis, 'alt') + escondidosTxt(v.fora.length)
               : '<span style="color:var(--tinta3)">' + ptInt(v.fora.length) + ' ' +
                 (v.fora.length === 1 ? 'alternativa escondida' : 'alternativas escondidas') + ' pelos filtros</span>';
           }
+          const semNome = vazia(l.recomendacao) && vazia(l.empate_tecnico);
+          /* Alternativa vazia numa posição que tem recomendado ou empatado não é posição sem nome. */
+          if (novo && !semNome) return apagado('nenhuma');
           /* Vaga sem nome nenhum. O registro traz o espalhamento (quantos candidatos apareceram
              em alguma rodada e quem apareceu mais) — é isso que a célula escreve, e não "vazio". */
-          if (l.candidatos_com_alguma_replica !== undefined || l.primeiro_colocado) {
-            return '<b style="color:var(--coral)">vaga sem nome</b>: nenhum candidato chegou nem à faixa de ' +
+          if (semNome && (l.candidatos_com_alguma_replica !== undefined || l.primeiro_colocado)) {
+            return '<b style="color:var(--coral)" data-pc14="semnome">' + rotPos + ' sem nome</b>: nenhum candidato chegou nem à faixa de ' +
               'alternativa' +
               (l.candidatos_com_alguma_replica !== undefined
                 ? '; a escolha se espalhou entre ' + ptInt(l.candidatos_com_alguma_replica) + ' candidatos' : '') +
@@ -2470,9 +2754,16 @@ function pcEt14Proposta(p, chave, f, c14) {
                 : '') + '.' +
               (l.motivo ? ptTecnico(esc(l.motivo)) : '');
           }
-          return ptFalta('nenhum nome chegou à faixa de alternativa nesta vaga');
+          return semNome
+            ? '<span data-pc14="semnome">' + ptFalta('nenhum nome chegou à faixa de alternativa nesta ' + rotPos) + '</span>'
+            : ptFalta('nenhum nome chegou à faixa de alternativa nesta ' + rotPos);
         } },
-    ],
+    /* Com sete colunas, a 400 px as três de nomes encolhiam a duas letras por linha. A largura
+       mínima de frase (contrato, §10) faz a tabela rolar dentro da própria caixa em vez disso. Só no
+       dado novo: o antigo tem quatro colunas e continua desenhando como antes. */
+    ]).map(c => novo && /^_(rec|emp|alt)$/.test(c.k)
+      ? Object.assign({}, c, { fmt: (v, l) => '<div class="pt-td-frase">' + c.fmt(v, l) + '</div>' })
+      : c),
     linhas: linhas,
   });
 
@@ -2602,8 +2893,12 @@ function pcEt14Proposta(p, chave, f, c14) {
       'sorteadas de novo, e não uma previsão de quem sobe. O que a compara com o dinheiro é o quadro logo abaixo',
   });
 
-  /* "top-N de valor" e "(n=N)" são jeito de planilha; o número continua saindo da frase do estudo. */
+  /* "top-N de valor" e "(n=N)" são jeito de planilha; o número continua saindo da frase do estudo.
+     A troca leva a preposição junto ("no top-8", "do top-8"): trocar só a expressão deixava
+     "estavam no entre os 8 elencos mais caros" em todas as propostas A e B. */
   const alvoTxt = s => String(s)
+    .replace(/\bfora do top-(\d+) de valor/g, 'fora dos $1 elencos mais caros')
+    .replace(/\b(?:no|do|ao) top-(\d+) de valor/g, 'entre os $1 elencos mais caros')
     .replace(/top-(\d+) de valor/g, 'entre os $1 elencos mais caros')
     .replace(/\s*\(n=\d+\)/g, '')
     .replace(/(\d+) contra (\d+)/g, '$1 times contra $2');
@@ -2619,11 +2914,21 @@ function pcEt14Proposta(p, chave, f, c14) {
 
     (p.sem_goleiro ? '<p class="pt-nota"><b>Sem goleiro:</b> ' + esc(p.sem_goleiro) + '</p>' : '') +
 
+    pcEt14Filtro(p) +
+
     pcAvisoBacktest14() +
 
-    '<div style="margin-top:10px"><span class="pt-rot">por vaga: quem aparece em mais da metade das ' +
-      ptInt(refeitas) + ' vezes em que a conta foi refeita</span>' + tab + '</div>' +
+    /* Com o dado de 14/09 a contagem é por posição e "recomendado" exige o intervalo inteiro acima da
+       metade: o rótulo antigo ("mais da metade das vezes") contradizia a regra do card acima e fazia
+       51% parecer suficiente. A unidade sai de `contagem_por`; o texto antigo fica só para o dado antigo. */
+    '<div style="margin-top:10px"><span class="pt-rot">' +
+      (novo
+        ? 'por ' + esc(rotPos) + ': recomendado, empate técnico e alternativa, nas ' + ptInt(refeitas) +
+          ' vezes em que a conta foi refeita'
+        : 'por vaga: quem aparece em mais da metade das ' + ptInt(refeitas) + ' vezes em que a conta foi refeita') +
+      '</span>' + tab + '</div>' +
 
+    (novo ? pcEt14Resumo(p, vagas, semRecomendacao, semNenhumNome, comEmpate, denomMin) :
     '<p class="pt-nota">' +
       (semRecomendacao.length
         ? '<b>' + ptInt(semRecomendacao.length) + ' das ' + ptInt(vagas.length) + ' vagas ficaram sem ' +
@@ -2640,7 +2945,7 @@ function pcEt14Proposta(p, chave, f, c14) {
         ? 'A vaga com menos opções tem <b>' + ptInt(denomMin) + '</b> candidatos — e com tão poucos a palavra ' +
           '"recomendação" vale menos do que parece. '
         : '') +
-      'Estas contagens são da proposta inteira: o filtro não as muda.</p>' +
+      'Estas contagens são da proposta inteira: o filtro não as muda.</p>') +
 
     (vv
       ? '<div style="margin-top:12px"><span class="pt-rot">conferência de volta: o perfil do elenco proposto, medido de novo ' +
@@ -2664,8 +2969,114 @@ function pcEt14Proposta(p, chave, f, c14) {
 
     cardRestricoes +
     baseline +
-    ptContrafactual(p.contrafactual),
+    ptContrafactual(p.contrafactual) +
+    pcEt14FaixaEmpate(p.contrafactual),
     '');
+}
+
+/* O resumo de uma proposta no dado de 14/09. Os totais de nomes vêm do que o gerador gravou; as
+   posições são contadas aqui a partir das linhas, e as duas contagens aparecem juntas — se um dia
+   discordarem, a diferença fica à vista em vez de uma delas sumir. */
+function pcEt14Resumo(p, vagas, semRecomendacao, semNenhumNome, comEmpate, denomMin) {
+  const n = v => v === null || v === undefined ? ptFalta('não gravado no dado') : ptInt(v);
+  const totVagas = vagas.reduce((s, v) => s + (Number(v.vagas) || 0), 0);
+  const totSemRec = vagas.reduce((s, v) => s + (Number(v.vagas_sem_recomendacao) || 0), 0);
+  const lista = l => esc(l.map(v => v.vaga).join(' · '));
+  return pcGrade(150,
+      pcNumeroSolto('nomes recomendados', n(p.nomes_recomendados), 'claramente mais da metade das vezes') +
+      pcNumeroSolto('nomes em empate técnico', n(p.nomes_em_empate_tecnico), 'perto demais da metade para dizer') +
+      pcNumeroSolto('posições sem nenhum nome', n(p.posicoes_sem_nenhum_nome),
+        'de ' + n(p.posicoes !== undefined ? p.posicoes : vagas.length) + ' posições') +
+      pcNumeroSolto('vagas sem recomendado', ptInt(totSemRec), 'de ' + ptInt(totVagas) + ' vagas') +
+      (p.nomes_na_borda_de_50 !== undefined
+        ? pcNumeroSolto('nomes na borda da metade', n(p.nomes_na_borda_de_50), 'categoria vale, por pouco') : '') +
+      (p.posicoes_com_mais_recomendados_que_vagas !== undefined
+        ? pcNumeroSolto('posições com mais recomendados que vagas', n(p.posicoes_com_mais_recomendados_que_vagas), '') : '')) +
+    '<p class="pt-nota">' +
+      (totSemRec
+        ? '<b>' + ptInt(totSemRec) + ' das ' + ptInt(totVagas) + ' vagas ficaram sem recomendado</b>, em ' +
+          ptInt(semRecomendacao.length) + ' das ' + ptInt(vagas.length) + ' posições (' + lista(semRecomendacao) + '). ' +
+          'A tela não preenche essas vagas com o primeiro das alternativas: se a conta refeita ' + ptInt(p.replicas) +
+          ' vezes não decidiu, quem decide é o clube, sabendo que decide no escuro. '
+        : 'Todas as ' + ptInt(totVagas) + ' vagas tiveram recomendado. ') +
+      (comEmpate.length
+        ? '<b>Há empate técnico em ' + ptInt(comEmpate.length) + ' ' + (comEmpate.length === 1 ? 'posição' : 'posições') +
+          '</b> (' + lista(comEmpate) + '): os nomes ficaram perto demais da metade das vezes para dizer se passam dela, ' +
+          'e a tela não escolhe entre eles. '
+        : 'Nenhuma posição tem empate técnico. ') +
+      (semNenhumNome.length
+        ? '<b>Em ' + ptInt(semNenhumNome.length) + ' ' + (semNenhumNome.length === 1 ? 'posição' : 'posições') +
+          ' não sobrou nome nenhum</b> (' + lista(semNenhumNome) + '): nem recomendado, nem empatado, nem alternativa; ' +
+          'a tabela diz como a escolha se espalhou. '
+        : '') +
+      (denomMin !== null
+        ? 'A posição com menos opções tem <b>' + ptInt(denomMin) + '</b> candidatos — e com tão poucos a palavra ' +
+          '"recomendado" vale menos do que parece. '
+        : '') +
+      'Estas contagens são da proposta inteira: o filtro não as muda.' +
+      ptTecnico('gravado: ' + esc(String(p.nomes_recomendados)) + ' recomendados · ' + esc(String(p.nomes_em_empate_tecnico)) +
+        ' em empate · ' + esc(String(p.posicoes_sem_nenhum_nome)) + ' posições sem nome · contado nas linhas: ' +
+        ptInt(vagas.length - semNenhumNome.length) + ' posições com algum nome') +
+    '</p>';
+}
+
+/* Quem pode entrar no cenário. O dono ainda vai decidir se o cenário barato exige valor de
+   mercado; até lá a tela mostra a regra gravada e se ela admite atleta sem valor no Transfermarkt,
+   lado a lado, sem dizer qual das duas é a certa. Atleta sem valor no Transfermarkt é atleta de
+   valor baixo ou nenhum (conhecimento do dono), e é assim que o texto o trata. */
+function pcEt14Filtro(p) {
+  const fc = p.filtro_do_cenario;
+  if (!fc) return '';
+  const admite = fc.admite_sem_valor === true ? 'entra'
+    : fc.admite_sem_valor === false ? 'não entra'
+    : null;
+  return '<div class="pt-controle" style="margin:10px 0">' +
+    '<span class="pt-rot">quem pode entrar neste cenário</span>' +
+    '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)">' +
+      'Regra gravada: <b>' + (fc.regra ? esc(fc.regra) : ptFalta('a regra não está no dado')) + '</b> · ' +
+      'atleta sem valor de mercado no Transfermarkt: ' +
+      (admite ? '<b>' + admite + '</b>' : ptFalta('o dado não diz se ele entra')) +
+      ptTecnico('admite_sem_valor: ' + esc(String(fc.admite_sem_valor)) + (fc.como ? ' · ' + esc(fc.como) : '')) +
+      (p.candidatos_sem_valor_de_mercado !== undefined
+        ? '<br>Sem valor de mercado no Transfermarkt: ' + ptInt(p.candidatos_sem_valor_de_mercado) + ' dos ' +
+          ptInt(p.candidatos) + ' candidatos' +
+          (p.nomes_sem_valor_de_mercado !== undefined
+            ? ', e ' + ptInt(p.nomes_sem_valor_de_mercado) + ' dos nomes que aparecem nas posições desta proposta' : '') + '.'
+        : '') +
+      (fc.decisao_pendente ? '<br><b>Decisão pendente do dono:</b> ' + esc(fc.decisao_pendente) + '.' : '') +
+    '</p></div>';
+}
+
+/* O núcleo que o Controle 3 soma é feito dos nomes mais frequentes de cada posição; quando algum
+   deles está em empate técnico, a soma poderia ser outra com o outro empatado. O gerador grava a
+   faixa dessa troca, e ela vai logo abaixo do Controle 3 (que é da casca e não a desenha). */
+function pcEt14FaixaEmpate(cf) {
+  if (!cf || !Array.isArray(cf.nomes_do_nucleo_em_empate_tecnico)) return '';
+  const nomes = cf.nomes_do_nucleo_em_empate_tecnico;
+  const fx = cf.faixa_trocando_os_empatados || null;
+  if (!nomes.length) {
+    return '<p class="pt-nota">Nenhum nome do núcleo somado acima está em empate técnico: a soma não depende de desempate.</p>';
+  }
+  const quem = esc(nomes.map(x => x.nome + ' (' + x.vaga + ')').join(' · '));
+  const temDe = cf.de !== null && cf.de !== undefined;
+  const posto = v => v === null || v === undefined ? ptFalta('posição não gravada')
+    : temDe && Number(v) > Number(cf.de) ? 'abaixo de todos os ' + ptInt(cf.de) + ' elencos'
+    : ptInt(v) + 'º mais caro';
+  let faixa;
+  if (!fx) {
+    faixa = ptFalta('o dado não traz quanto a soma muda trocando os empatados');
+  } else if (Number(fx.combinacoes) <= 1) {
+    faixa = 'Não há outro empatado da mesma posição fora do núcleo para trocar: a soma fica em ' +
+      ptEur(fx.nucleo_valor_eur_min) + ', ' + posto(fx.posto_mais_barato) + '.';
+  } else {
+    faixa = 'Trocando cada um por outro empatado da mesma posição (' + ptInt(fx.combinacoes) + ' combinações), a soma vai de ' +
+      ptEur(fx.nucleo_valor_eur_min) + ' a ' + ptEur(fx.nucleo_valor_eur_max) +
+      (fx.posto_mais_caro === fx.posto_mais_barato
+        ? ', e a posição no ranking de valor não muda (' + posto(fx.posto_mais_caro) + ').'
+        : ', e a posição no ranking de valor vai de ' + posto(fx.posto_mais_barato) + ' a ' + posto(fx.posto_mais_caro) + '.');
+  }
+  return '<p class="pt-nota"><b>' + ptInt(nomes.length) + ' ' + (nomes.length === 1 ? 'nome do núcleo somado acima está' : 'nomes do núcleo somado acima estão') +
+    ' em empate técnico</b>: ' + quem + '. ' + faixa + (fx && fx.regra ? ptTecnico(esc(fx.regra)) : '') + '</p>';
 }
 
 /* ================================================================================

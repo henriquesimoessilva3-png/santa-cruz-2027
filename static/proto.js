@@ -1342,15 +1342,30 @@ function ptContrafactual(cf) {
             : '<span class="pt-cf-taxa">' + ptPct(taxaReal) + '</span>')
         : '') +
     '</div>' +
+    /* Até 14/09 esta nota abria com "A soma está por baixo" e fechava com "o total é um piso".
+       O dono decidiu em 14/09 que jogador sem preço no Transfermarkt é, na prática, jogador de
+       valor baixo ou sem mercado — não um preço que faltou. Então a soma não fica por baixo por
+       causa deles: eles entram como zero, que é o que a soma já faz. A contagem continua na tela
+       porque diz de quantos nomes a soma é feita. A faixa salarial é outra coisa: ali é dado que
+       falta de verdade, e a nota diz isso separado. */
     ((cf.atletas_sem_valor_de_mercado || cf.sem_faixa_salarial)
-      ? '<p class="pt-nota">A soma está por baixo: <b>' + ptInt(cf.atletas_sem_valor_de_mercado) +
-        '</b> dos <b>' + ptInt(cf.atletas_no_nucleo) + '</b> jogadores do núcleo não têm valor de mercado na base' +
-        (cf.sem_faixa_salarial ? ', e <b>' + ptInt(cf.sem_faixa_salarial) + '</b> não ' +
-          (Number(cf.sem_faixa_salarial) === 1 ? 'tem' : 'têm') + ' faixa salarial' : '') +
-        /* Antes: "Quem fica sem preço costuma ser jogador pouco conhecido — a falta não é por acaso".
-           Nenhum campo mede quem são os jogadores sem preço; o teste de cobertura do Controle 2 é
-           por TIME, não por jogador. Fica só o que é conta: preço que falta não entra na soma. */
-        '. O preço de quem não tem valor não entra na soma — por isso o total é um piso, não o valor do núcleo.</p>'
+      ? '<p class="pt-nota">' +
+        (cf.atletas_sem_valor_de_mercado
+          ? '<b>' + ptInt(cf.atletas_sem_valor_de_mercado) + '</b> dos <b>' + ptInt(cf.atletas_no_nucleo) +
+            /* "na base", não "no Transfermarkt": o `mv` dos candidatos vem da coluna Market value do
+               cadastro (preparar_base.py), montado do Transfermarkt e de outras fontes */
+            '</b> jogadores do núcleo não têm preço de mercado na base. Jogador sem preço é, na prática, jogador ' +
+            'de valor baixo ou sem mercado (leitura do clube, registrada como decisão do dono em 14/09): ' +
+            (Number(cf.atletas_sem_valor_de_mercado) === 1 ? 'ele entra' : 'eles entram') +
+            ' na soma com valor zero, e a soma não fica por baixo por causa ' +
+            (Number(cf.atletas_sem_valor_de_mercado) === 1 ? 'dele' : 'deles') + '.'
+          : '') +
+        (cf.sem_faixa_salarial
+          ? (cf.atletas_sem_valor_de_mercado ? ' ' : '') + '<b>' + ptInt(cf.sem_faixa_salarial) + '</b> ' +
+            (Number(cf.sem_faixa_salarial) === 1 ? 'não tem' : 'não têm') + ' faixa salarial na base — isso sim é ' +
+            'dado que falta, e a folha fica sem ' + (Number(cf.sem_faixa_salarial) === 1 ? 'esse nome' : 'esses nomes') + '.'
+          : '') +
+        '</p>'
       : '') +
     (cf.regua ? '<p class="pt-nota"><i>' + esc(cf.regua) + '</i></p>' : '') +
     '</div>';
@@ -1604,18 +1619,30 @@ function ptControles() {
           '. <b>Só o que continua de pé nessa comparação entre iguais merece ir para a reunião.</b></p>'
         : '<p class="pt-nota"><b>Só o que continua de pé depois do desconto merece ir para a reunião.</b></p>') +
       (cob.pct_do_plantel_mediana !== undefined
-        ? '<p class="pt-nota">Um cuidado com o próprio desconto: o valor de mercado não existe para todo jogador. ' +
-          'O Transfermarkt dá preço a algo entre <b>' + ptPct(cob.pct_do_plantel_min) + '</b> e <b>' +
+        /* Até 14/09 este parágrafo tratava o jogador sem preço como dado faltando ("um cuidado com o
+           próprio desconto"). O dono decidiu em 14/09 que jogador sem preço no Transfermarkt é, na
+           prática, jogador de valor baixo ou sem mercado. A medida continua na tela — a parte do
+           plantel com preço, temporada a temporada, e se ela anda junto com o valor —, mas a
+           leitura mudou: time barato ter mais jogador sem preço é o esperado, não um defeito da
+           soma. A conclusão continua saindo só quando o dado a sustenta (p abaixo do corte de sorte
+           do estudo), e o lado dela sai do sinal do ρ, nunca fixo. */
+        ? '<p class="pt-nota">Sobre o valor de mercado: o Transfermarkt não dá preço a todo jogador. ' +
+          'Ele dá preço a algo entre <b>' + ptPct(cob.pct_do_plantel_min) + '</b> e <b>' +
           ptPct(cob.pct_do_plantel_max) + '</b> do plantel, conforme a temporada (em metade das temporadas, mais de ' +
           ptPct(cob.pct_do_plantel_mediana) + ' — uns ' + ptInt(cob.tm_com_valor_mediana) + ' jogadores). ' +
-          /* A frase de conclusão ("time pobre tem mais jogador sem preço") estava fixa: saía igual com
-             qualquer ρ e qualquer p. Agora só é dita quando o dado a sustenta — ρ positivo e abaixo do
-             corte de sorte do estudo; fora disso, a tela diz que não se viu. */
-          'Cobertura e valor do elenco ' + ptJunto(cob.rho_cobertura_x_valor) + ', e ' + ptSorte(cob.p_cobertura_x_valor) +
+          'Jogador sem preço lá é, na prática, jogador de valor baixo ou sem mercado (leitura do clube, registrada ' +
+          'como decisão do dono em 14/09): ele conta como jogador do elenco, com valor zero, e a soma do elenco não ' +
+          'fica por baixo por causa dele. ' +
+          'A parte do plantel com preço e o valor do elenco ' + ptJunto(cob.rho_cobertura_x_valor) + ', e ' +
+          ptSorte(cob.p_cobertura_x_valor) +
           ' ' + ptTecnico('ρ ' + ptNum(cob.rho_cobertura_x_valor, 3) + ' · ' + ptP(cob.p_cobertura_x_valor)) + '. ' +
-          (Number(cob.rho_cobertura_x_valor) > 0 && ptAlfa() !== null && cob.p_cobertura_x_valor !== undefined &&
-            cob.p_cobertura_x_valor !== null && cob.p_cobertura_x_valor < ptAlfa()
-            ? '<b>Quanto mais barato o elenco, mais jogador sem preço.</b></p>'
+          (ptAlfa() !== null && cob.p_cobertura_x_valor !== undefined && cob.p_cobertura_x_valor !== null &&
+            cob.p_cobertura_x_valor < ptAlfa() && Number(cob.rho_cobertura_x_valor) !== 0
+            ? (Number(cob.rho_cobertura_x_valor) > 0
+                ? '<b>Quanto mais barato o elenco, mais jogador sem preço</b> — coerente com essa leitura: time ' +
+                  'barato tem mais jogador de pouco mercado.</p>'
+                : '<b>Quanto mais caro o elenco, mais jogador sem preço</b> — o contrário do que essa leitura ' +
+                  'faria esperar.</p>')
             : 'Não se viu, com segurança, se elenco mais barato tem mais jogador sem preço.</p>')
         : '') +
     '</div>' +
@@ -2078,8 +2105,58 @@ function ptIrParaEtapa(n, prefixo) {
     caixa = caixa.parentElement;
   }
   if (!caixa || caixa === document.body) { sec.scrollIntoView({ block: 'start' }); return; }
-  const topo = sec.getBoundingClientRect().top - caixa.getBoundingClientRect().top;
-  caixa.scrollTo({ top: caixa.scrollTop + topo - 12, behavior: 'smooth' });
+  const destino = () => caixa.scrollTop + (sec.getBoundingClientRect().top - caixa.getBoundingClientRect().top) -
+    12 - ptAlturaGrudada(sec, pre);
+  caixa.scrollTo({ top: destino(), behavior: 'smooth' });
+  ptReajustarSalto(caixa, destino);
+}
+
+/* O primeiro salto depois de abrir a aba caía no meio de outra etapa (título a ~800 px do topo),
+   e só os seguintes acertavam. Motivo: a conta do destino é feita ANTES de a rolagem passar pelas
+   etapas do caminho, e algumas delas só montam o conteúdo quando chegam perto da tela (as matrizes
+   da etapa 2, por exemplo) — a página cresce acima da etapa durante a viagem e o destino já calculado
+   fica velho. No segundo clique tudo já está montado, por isso acertava.
+   Conserto: esperar a rolagem assentar, medir de novo e, se a etapa não está onde deveria, pular
+   direto (sem animação) para a posição nova. Repete enquanto a montagem continuar mexendo na página,
+   com teto de tentativas. Um salto novo cancela o anterior, e a pessoa mexendo na rolagem também —
+   o reajuste não pode arrancar a tela da mão de quem já está lendo. */
+let PT_SALTO_VEZ = 0;
+function ptReajustarSalto(caixa, destino) {
+  const vez = ++PT_SALTO_VEZ;
+  let largou = false;
+  const soltar = () => { largou = true; };
+  const eventos = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+  eventos.forEach(ev => caixa.addEventListener(ev, soltar, { passive: true, once: true }));
+  const fim = () => eventos.forEach(ev => caixa.removeEventListener(ev, soltar));
+  let ultimo = -1, parado = 0, correcoes = 0;
+  const inicio = Date.now();
+  const passo = () => {
+    if (vez !== PT_SALTO_VEZ || largou || Date.now() - inicio > 8000) { fim(); return; }
+    const agora = caixa.scrollTop;
+    parado = Math.abs(agora - ultimo) < 1 ? parado + 1 : 0;
+    ultimo = agora;
+    /* ~10 quadros sem mexer = a rolagem suave terminou (ou bateu no fim da caixa) */
+    if (parado < 10) { requestAnimationFrame(passo); return; }
+    const alvo = Math.max(0, Math.min(destino(), caixa.scrollHeight - caixa.clientHeight));
+    if (Math.abs(alvo - agora) <= 2 || correcoes >= 6) { fim(); return; }
+    correcoes++;
+    caixa.scrollTo({ top: alvo, behavior: 'auto' });
+    parado = 0;
+    requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+}
+
+/* Em tela estreita o sumário deixa de ser coluna ao lado e gruda EM CIMA das etapas; saltar só
+   12 px acima da etapa deixava o título dela atrás dele. Mede-se o que de fato está grudado e
+   sobreposto na horizontal (em tela larga ele fica ao lado e a conta dá zero), em vez de um número
+   fixo que muda com a largura e com quantas linhas os botões ocupam. */
+function ptAlturaGrudada(sec, pre) {
+  const sum = document.getElementById(pre === 'ptEt' ? 'ptSumario' : pre + '-sumario');
+  if (!sum || getComputedStyle(sum).position !== 'sticky') return 0;
+  const rs = sum.getBoundingClientRect(), re = sec.getBoundingClientRect();
+  const sobrepoe = rs.left < re.right && re.left < rs.right;
+  return sobrepoe ? Math.ceil(rs.height) : 0;
 }
 
 function ptLigarSumario(alvo, estado) {
@@ -2102,6 +2179,14 @@ function ptLigarSumario(alvo, estado) {
       if (!en.isIntersecting) return;
       const n = en.target.id.slice(pre.length + 1);
       botoes.forEach(b => b.classList.toggle('on', b.dataset.etapa === n));
+      /* no celular o sumário é uma linha que rola de lado: o botão aceso pode estar fora da vista.
+         Move-se só a própria linha (scrollIntoView levaria junto a caixa da aba e o topo) */
+      const on = botoes.find(b => b.dataset.etapa === n);
+      const lin = on && on.parentElement;
+      if (lin && lin.scrollWidth > lin.clientWidth + 1) {
+        const dx = on.getBoundingClientRect().left - lin.getBoundingClientRect().left;
+        if (dx < 0 || dx + on.offsetWidth > lin.clientWidth) lin.scrollLeft += dx - 24;
+      }
     });
   }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
   ((a && a.etapas) || PT_ETAPAS).forEach(e => {

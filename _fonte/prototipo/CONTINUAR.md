@@ -150,6 +150,43 @@ nacionalidade e idade** · **sem rolagem lateral** · **aba de conclusões no fi
   2018-2021" escrito; A4 (vantagem de casa entre períodos) e os zagueiros seguem FRACOS.
 - **J10: segue a régua escrita — SEM SINAL**, com a frase "não se viu" e o grupo "dono do jogo"
   nomeado (os 5 entre os 3 elencos mais caros do ano).
+- **Jogador sem preço no Transfermarkt = valor baixo ou nenhum, não dado faltando** (conhecimento
+  do dono, 14/09). A soma do elenco não fica "por baixo" por causa deles; na conta por jogador eles
+  contam como jogadores do elenco. A frase antiga do Controle 2 ("o valor do time barato está por
+  baixo... esta conta não sabe dizer") sai.
+- **Etapa 1, "Onde está o dinheiro" (14/09):** tabela por time aberta (as 80 temporadas, com valor,
+  número de jogadores e valor por jogador em cada setor, filtro por grupo) e ponderação pela
+  quantidade de jogadores (valor por jogador do setor + fatia do valor ao lado da fatia de
+  jogadores, com os testes refeitos por jogador). Publicar depois de conferido.
+- **Etapa 6 (14/09): pintar nas miniaturas quem subiu (azul claro) e quem caiu (laranja)** — substitui a
+  cor neutra do item 10 do PENDENTE. A cor é o desfecho do ANO SEGUINTE (o do eixo vertical: quem sobe
+  ou cai no primeiro ano não tem par), e a frase da etapa diz que a cor mostra o número andando junto
+  com o resultado do mesmo ano, não a repetição.
+- **Etapa 5: a linha da faixa de quem subiu** tem de aparecer em todas as matrizes, no mesmo formato
+  das outras duas (pedido reiterado em 14/09); entra com a regravação do `prototipo.json`.
+- **Etapa 5: colunas das 11 matrizes ordenadas pela diferença entre quem subiu e quem caiu** (pedido
+  de 14/09). Regra: diferença entre o time típico que subiu e o típico que caiu, em posição no ranking
+  do ano, maior diferença primeiro (em módulo), com o sinal e o número no cabeçalho. O gerador grava a
+  diferença e a ordem por painel (a tela não calcula); na aba por pontos, alta contra baixa.
+- **Ideia do dono para o estudo (14/09, ainda não desenhada):** caracterizar os TIMES por um conjunto de
+  indicadores (modelo de jogo, forma de jogar) e achar padrão entre os de aproveitamento alto, em vez de
+  indicador isolado. A etapa 8 já fez parte disso nos 16 que subiram (4 estilos, descritivos; todos os
+  estilos subiram). Próximo passo: desenhar o estudo com as 80 (ou 160) temporadas, perfis declarados
+  antes de medir e teste contra a sorte.
+- **Desconto pelo valor do elenco ("descontado o dinheiro"): SAI DE VEZ** (decisão do dono em 14/09:
+  "dá para montar elenco valioso gastando pouco"). Sai dos selos, das portas do catálogo e da tela.
+  **Quando:** logo depois de publicar a rodada da etapa 1 (setores por jogador, elencos por time, etapa
+  14, cores da etapa 6), como rodada própria, medida e conferida: régua reescrita, os selos das 56
+  conclusões e as cinco mais firmes recalculados, o spec, o gerador (portas e marcas do ranking_gaps)
+  e os textos de todas as etapas. As conclusões sobre o próprio valor do elenco (DIN-*) continuam: o
+  que sai é o valor do elenco usado como desconto de OUTROS números.
+- **Aba Físico do app: arrastar os jogadores entre as colunas para reorganizar** (pedido de 14/09).
+  Mouse e toque, colunas "quem sobe / quem cai" fixas, teclado como alternativa, a ordem valendo nas
+  quatro visões e gravada pelo mesmo caminho das outras mudanças da lista (app local e site).
+  **ESPERANDO:** mexe no `static/app.js`, que outra sessão ("Gols de bola parada por treinador") estava
+  editando e commitando em 14/09; decisão do dono: fazer só quando ela terminar, partindo da versão
+  dela. O script pronto está em `_fonte/prototipo/workflows/` (fisico-arrastar-jogadores-*.js); a
+  primeira tentativa foi interrompida sem gravar nada no projeto.
 - **"As cinco que você precisa ler" = as cinco MAIS FIRMES**, de qualquer tema (selo mais forte,
   desempate pelo número mais firme). Fracas e sem sinal continuam no documento e na aba, por tema.
 - **FIS-07 continua FORTE, apoiada no teste declarado de cada par de anos**; o corte de 0,5 fica só

@@ -3490,4 +3490,15 @@ td.pt-td-frase{text-align:left;white-space:normal}
   .pt-concls-lista{grid-template-columns:minmax(0,1fr)}
   .pt-faixas{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
   .pt-etapa-cab h3{overflow-wrap:anywhere}
+  /* celular: as 16 etapas quebradas em linhas ocupavam ~300 px grudados no topo e, somadas ao
+     cabeçalho do app, comiam 40% da tela; o salto para uma etapa caía com o começo dela escondido.
+     Aqui o índice vira UMA linha que rola de lado dentro de si mesma (a página não rola de lado) e
+     continua grudado, porque a escolha da escala mora nele e precisa ficar ao alcance.
+     O salto do sumário desconta a altura medida (proto.js); o scroll-margin cobre quem salta por
+     âncora sem passar por ele. */
+  .pt-sumario{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding:5px 0 6px;
+    scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  .pt-sumario button,.pt-sumario .pt-escala{flex:none;white-space:nowrap}
+  .pt-sumario .pt-escala{flex-wrap:nowrap}
+  .pt-etapa{scroll-margin-top:60px}
 }
