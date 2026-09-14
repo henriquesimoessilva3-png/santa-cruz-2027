@@ -5450,7 +5450,8 @@ function fsMontarFiltros() {
      pacote bruto   = custo efetivo ÷ (1 + encargos)      — encargos sobre a carteira
      carteira/imagem= divisao do pacote bruto (padrao 60/40)
      liquido no mes = carteira × (1 − IR/INSS) + imagem × (1 − alíquota da PJ)
-     custo no periodo = custo efetivo × 13 (12 meses + 13º), proporcional se o contrato
+     custo no periodo = custo efetivo × fator de encargos do Orcamento × 13 (12 meses +
+                        13º), proporcional se o contrato
                         comecar no meio do ano
      liquido total  = liquido × meses + 13º e 1/3 de ferias sobre a parcela em carteira
 
@@ -5478,7 +5479,9 @@ function finFaixas() {
     const carteira = bruto * f.carteira / 100;
     const imagem = bruto - carteira;
     const liqMes = carteira * (1 - f.irCarteira / 100) + imagem * (1 - f.aliqImagem / 100);
-    const custoPer = g.sal * finPeriodos(f.meses);
+    /* o card e o salario do jogador; o custo do clube leva o fator do modal Orcamento,
+       o mesmo do "Custo total" do topo (14/09/2026) */
+    const custoPer = g.sal * (estado.fator || 1) * finPeriodos(f.meses);
     /* 13º e 1/3 de ferias incidem so na parcela em carteira */
     const extras = carteira * (1 - f.irCarteira / 100) * (1 + 1 / 3) * (f.meses / 12);
     const liqTotal = liqMes * f.meses + extras;
@@ -5495,11 +5498,10 @@ function finRender() {
   const comSal = faixas.filter(g => g.sal > 0);
   const semSal = faixas.find(g => g.sal === 0);
   const atletas = comSal.reduce((a, g) => a + g.n, 0);
-  /* custoPer e POR ATLETA — o projetado tem de multiplicar pela quantidade da faixa.
-     E leva o fator de encargos do modal Orcamento, o mesmo do "Custo total" do topo: o
-     card e o salario do jogador, e sem o fator o projetado mostrava sobra enquanto o topo
-     ja mostrava estouro (14/09/2026). A tabela abaixo segue sem o fator. */
-  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) * (estado.fator || 1) +
+  /* custoPer e POR ATLETA (ja com o fator) — o projetado tem de multiplicar pela
+     quantidade da faixa. Sem o fator o projetado mostrava sobra enquanto o topo ja
+     mostrava estouro; com ele, projetado = "Custo total" do topo × 13. */
+  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) +
                    (estado.comissao || 0) * finPeriodos(f.meses);
   const tetoAno = (estado.teto || 0) * finPeriodos(f.meses);
 
@@ -5541,7 +5543,8 @@ function finRender() {
       '<th>Custo<br>efetivo</th><th>Nº</th><th>Período</th>' +
       '<th>Pacote bruto<br>mensal</th><th>Carteira ' + f.carteira + '%<br>+ imagem ' +
         (100 - f.carteira) + '%</th><th>Líquido no<br>mês normal</th>' +
-      '<th>Custo do clube<br>por atleta</th><th>Líquido total<br>por atleta</th>' +
+      '<th>Custo do clube<br>por atleta · ×' + fmtFator(estado.fator) + '</th>' +
+      '<th>Líquido total<br>por atleta</th>' +
       '<th>Média líquida<br>mensal</th>' +
     '</tr></thead><tbody>' +
     comSal.map(g => linha(g, false)).join('') +
