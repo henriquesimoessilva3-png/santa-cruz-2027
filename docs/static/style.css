@@ -3109,14 +3109,18 @@ body.claro .rk-chk-sb .cq-sobe{background:#0f6f9e} body.claro .rk-chk-sb .cq-cai
 #pgProto:not(.oculta){display:flex;flex-direction:column;min-height:0}
 #pgProto{--pt-alto:#3f9fcc;--pt-baixo:#c08420;--pt-ok:var(--verde);--pt-nao:var(--tinta3)}
 body.claro #pgProto{--pt-alto:#0f6f9e;--pt-baixo:#c2650d}
-.pt{max-width:1240px;margin:0 auto;padding:22px 6px 80px;display:flex;flex-direction:column;gap:24px}
+/* Largura (pedido de 13/09, tela de ~1.785 px): a aba toma a largura disponível, com respiro
+   lateral. O teto de 1.240 px deixava mais de 500 px vazios enquanto 31 de 44 tabelas rolavam
+   para o lado. Quem ganha a largura é a TABELA; a prosa continua com largura de leitura
+   (.pt-sub, .pt-nota em ~75 caracteres), porque linha de texto muito comprida cansa. */
+.pt{max-width:none;margin:0;padding:22px clamp(10px,1.4vw,28px) 80px;display:flex;flex-direction:column;gap:24px}
 
 .pt-rot{font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--tinta3);
   font-weight:700;display:block}
 .pt-h1{margin:7px 0 0;font-size:30px;letter-spacing:-.02em;line-height:1.05}
-.pt-sub{margin:9px 0 0;font-size:13.5px;color:var(--tinta2);line-height:1.55;max-width:72ch}
+.pt-sub{margin:9px 0 0;font-size:13.5px;color:var(--tinta2);line-height:1.55;max-width:75ch}
 .pt-sub b,.pt-nota b{color:var(--tinta);font-weight:700}
-.pt-nota{margin:10px 0 0;font-size:12.5px;line-height:1.55;color:var(--tinta2);max-width:74ch}
+.pt-nota{margin:10px 0 0;font-size:12.5px;line-height:1.55;color:var(--tinta2);max-width:75ch}
 .pt-n{font-size:10.5px;color:var(--tinta3);font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* a tarja de conferência: fica no topo, e nunca colapsada num ícone — o estado da auditoria é
@@ -3165,17 +3169,22 @@ body.claro .pt-tarja>b{color:var(--coral-esc)}
 .pt-cf-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:9px}
 .pt-cf-l span{display:block;font-size:11px;color:var(--tinta3);line-height:1.35}
 .pt-cf-l b{font-size:15px;font-variant-numeric:tabular-nums}
+/* o valor (ptEur, a taxa) chega embrulhado em span, e `.pt-cf-l span` o encolheria ao tamanho
+   do rótulo: o valor de uma linha tem de ser lido no tamanho do valor */
+.pt-cf-l b span{display:inline;font-size:inherit;color:inherit;line-height:inherit}
 .pt-cf-taxa{color:var(--coral-cl);font-weight:800}
 body.claro .pt-cf-taxa{color:var(--coral)}
 
 /* sumário lateral: dezesseis etapas não cabem em rolagem cega. Em tela estreita ele vira
    uma faixa grudenta no topo, como o índice da aba Série B. */
-.pt-quadro{display:grid;grid-template-columns:216px minmax(0,1fr);gap:28px;align-items:start}
+.pt-quadro{display:grid;grid-template-columns:172px minmax(0,1fr);gap:20px;align-items:start}
+/* estreito e fixo: o sumário é índice, não conteúdo. max-height + rolagem própria para as 16
+   etapas e o botão da escala caberem em tela baixa sem sair do alcance */
 .pt-sumario{position:sticky;top:0;display:flex;flex-direction:column;gap:2px;
-  background:var(--fundo);padding:6px 0 10px;z-index:8}
+  background:var(--fundo);padding:6px 0 10px;z-index:8;max-height:100vh;overflow-y:auto}
 .pt-sumario .pt-rot{margin:0 0 6px 8px}
-.pt-sumario button{display:flex;align-items:baseline;gap:8px;text-align:left;padding:5px 9px;
-  border-radius:6px;font-size:11.5px;line-height:1.3;color:var(--tinta2);border:1px solid transparent}
+.pt-sumario button{display:flex;align-items:baseline;gap:7px;text-align:left;padding:4px 7px;
+  border-radius:6px;font-size:11px;line-height:1.3;color:var(--tinta2);border:1px solid transparent}
 .pt-sumario button:hover{background:var(--veu2);color:var(--tinta)}
 .pt-sumario button.on{background:var(--veu3);color:var(--tinta);border-color:var(--borda2)}
 .pt-sumario button i{font-style:normal;font-weight:800;font-size:10.5px;color:var(--tinta3);
@@ -3227,7 +3236,9 @@ body.claro .pt-erro b{color:var(--coral-esc)}
 .pt-cel-vazio i{font-style:italic;font-size:10.5px}
 .pt-cel-vazio small{display:none}
 
-.pt-barra-linha{display:grid;grid-template-columns:190px minmax(60px,1fr) 58px auto;align-items:center;
+/* a coluna do valor cresce até o texto dele: com o valor dito em palavras ("a conta só vê diferença
+   grande"), 58 px fixos empilhavam uma palavra por linha */
+.pt-barra-linha{display:grid;grid-template-columns:190px minmax(60px,1fr) minmax(58px,auto) auto;align-items:center;
   gap:10px;font-size:12px}
 .pt-barra-rot{color:var(--tinta2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pt-barra{height:9px;background:var(--veu2);border-radius:5px;overflow:hidden}
@@ -3243,13 +3254,17 @@ body.claro .pt-erro b{color:var(--coral-esc)}
 
 .pt-tab-rola{overflow-x:auto;border:1px solid var(--borda);border-radius:8px;background:var(--fundo2)}
 .pt-tab{border-collapse:collapse;width:100%;font-size:12px}
-.pt-tab th,.pt-tab td{padding:6px 11px;border-bottom:1px solid var(--borda);text-align:right;white-space:nowrap}
+/* O cabeçalho QUEBRA LINHA e o texto da célula também: `nowrap` em tudo travava cada coluna
+   na largura da sua frase mais comprida (etapa 9 com 2.891 px de puro texto). Só o NÚMERO
+   continua sem quebrar — "−0,512" partido em duas linhas não se lê. */
+.pt-tab th,.pt-tab td{padding:5px 9px;border-bottom:1px solid var(--borda);text-align:right;white-space:normal}
 .pt-tab th.txt,.pt-tab td.txt{text-align:left}
-.pt-tab td.num{font-variant-numeric:tabular-nums;color:var(--tinta2)}
+.pt-tab td.num{font-variant-numeric:tabular-nums;color:var(--tinta2);white-space:nowrap}
 .pt-tab td.txt{color:var(--tinta)}
+.pt-tab td.txt .pt-tec{white-space:normal}
 .pt-tab thead th{position:sticky;top:0;z-index:2;background:var(--fundo3);cursor:pointer;
-  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta3);font-weight:700;
-  border-bottom:1px solid var(--borda2);user-select:none}
+  font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta3);font-weight:700;
+  border-bottom:1px solid var(--borda2);user-select:none;vertical-align:bottom;line-height:1.25;min-width:3.2em}
 .pt-tab thead th:hover{color:var(--tinta)}
 .pt-tab thead th.on{color:var(--pt-alto)}
 .pt-tab thead th i{font-style:normal;font-size:8px;margin-left:4px}
@@ -3261,8 +3276,8 @@ body.claro .pt-erro b{color:var(--coral-esc)}
 .pt-motivos span{display:block;margin-top:3px}
 
 /* a procedência, logo abaixo da tarja: uma linha por base de PROTO.bases, montada iterando
-   as chaves. O rótulo de cada campo é a chave crua do JSON de propósito — é o que deixa
-   visível que a linha não foi escrita à mão e que base nova entra aqui sozinha. */
+   as chaves. O rótulo é o nome legível quando a chave é conhecida e a chave crua quando não é;
+   a crua fica sempre no title, e base nova continua entrando aqui sozinha. */
 .pt-bases{background:var(--fundo2);border:1px solid var(--borda);border-radius:8px;padding:13px 16px}
 .pt-bases ul{list-style:none;margin:9px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
 .pt-bases li{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 14px;font-size:12px;
@@ -3285,3 +3300,194 @@ body.claro .pt-erro b{color:var(--coral-esc)}
   display:inline;font-weight:600}
 .pt-cf-ref i{font-style:normal;font-size:10px;color:var(--tinta3);text-transform:uppercase;
   letter-spacing:.07em;margin-right:5px;font-weight:700}
+
+/* o número técnico ao lado da frase simples: presente para quem confere, discreto para quem lê */
+/* quebra entre palavras (um número como "−0,512" não tem espaço e continua inteiro): com nowrap, um
+   técnico comprido passava da borda da tela e o .emp-rolagem o cortava calado; na célula de número
+   ele continua numa linha só */
+.pt-tec{font-size:10.5px;color:var(--tinta3);font-variant-numeric:tabular-nums;margin-left:5px;white-space:normal}
+.pt-tab td.num .pt-tec{white-space:nowrap}
+.pt-tarja-pe .pt-tec{white-space:normal;margin-left:0}
+
+/* a frase de reunião vem antes do número, em corpo de leitura: é ela que o diretor leva */
+.pt-baseline-frase,.pt-controle-frase{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--tinta);max-width:74ch}
+.pt-baseline-frase b,.pt-controle-frase b{font-weight:800}
+.pt-baseline-cel{flex-direction:column;align-items:flex-start;gap:5px}
+.pt-baseline-cel b{font-size:18px;letter-spacing:-.01em;white-space:normal;line-height:1.2}
+.pt-baseline-cel span.pt-baseline-quem{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--tinta3);font-weight:700}
+
+/* as faixas de orçamento do controle 3, da mais cara para a mais barata */
+.pt-faixas{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;
+  margin:10px 0 0;padding:0}
+.pt-faixas li{background:var(--fundo3);border:1px solid var(--borda);border-radius:7px;padding:9px 11px;
+  display:flex;flex-direction:column;gap:2px}
+.pt-faixas span{font-size:11px;color:var(--tinta3)}
+.pt-faixas b{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--tinta)}
+.pt-faixas small{font-size:11px;color:var(--tinta2)}
+
+/* "sem descontar → descontado o dinheiro": as palavras são mais longas que o d e o p que
+   substituem, então o par pode quebrar em duas linhas dentro da célula, e o técnico vai embaixo */
+.pt-liq{flex-wrap:wrap;gap:3px 6px}
+.pt-liq-par{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap}
+/* dentro de célula de tabela o par quebra: com nowrap a coluna do catálogo não descia de ~360 px */
+.pt-tab td .pt-liq-par{white-space:normal;flex-wrap:wrap}
+.pt-liq i{text-transform:none;letter-spacing:0;font-size:10.5px}
+.pt-liq b{font-weight:700}
+.pt-liq .pt-tec{flex-basis:100%;margin-left:0;font-size:10px}
+
+/* ================= casca de 14/09: classes publicadas no static/proto_contrato.md =================
+   Quem escreve as etapas NÃO cria CSS: usa estas. Cada uma existe para um pedido do dono. */
+
+/* matriz compacta (etapa 5 e qualquer matriz de posição): 32 indicadores precisam caber sem
+   rolar para o lado. Célula estreita, cabeçalho em 2-3 linhas com o nome simples, sem caixa alta. */
+.pt-tab.pt-matriz th,.pt-tab.pt-matriz td{padding:3px 4px}
+.pt-tab.pt-matriz .pt-cel{padding:3px 5px;font-size:11px}
+.pt-tab.pt-matriz thead th{font-size:9.5px;letter-spacing:0;text-transform:none;font-weight:600;
+  line-height:1.2;min-width:0;max-width:7.5em;overflow-wrap:break-word;hyphens:auto}
+/* cabeçalho de lado, para quando nem 3 linhas cabem */
+/* Quebra linha e não tem teto de altura: com `nowrap` + `max-height:11em` o nome comprido passava do
+   teto e ficava cortado ("pico de velocidade (" sumia no meio). Deitado, a quebra vira uma segunda ou
+   terceira coluna de texto dentro da largura que os números já dão à coluna; o teto em `em` só limita
+   o comprimento de cada linha deitada, para o cabeçalho não ficar mais alto que a tabela. */
+.pt-tab thead th.pt-th-vertical{writing-mode:vertical-rl;transform:rotate(180deg);text-align:left;
+  vertical-align:bottom;max-height:none;max-width:none;white-space:normal;overflow-wrap:break-word;
+  padding:6px 3px;line-height:1.15}
+.pt-tab thead th.pt-th-vertical{height:auto;inline-size:auto;max-inline-size:12em}
+/* caixa de tabela longa que rola PARA BAIXO dentro de si (listas de candidatos, goleiros): a página não
+   vira um paredão de linhas, e o cabeçalho continua à vista. Só a altura; a largura segue a da .pt-tab-rola. */
+.pt-tab-rola.pt-rola-vertical{max-height:34em;overflow-y:auto}
+.pt-tab-rola.pt-rola-vertical thead th{position:sticky;top:0;z-index:2;background:var(--fundo3)}
+/* célula de frase: sem largura mínima, a coluna encolhe até uma letra por linha a 400 px */
+.pt-tab td.pt-td-frase,.pt-tab td.txt .pt-td-frase{min-width:9em}
+td.pt-td-frase{text-align:left;white-space:normal}
+
+/* primeira coluna grudada ao rolar (time e ano) */
+.pt-tab .pt-col-fixa{position:sticky;left:0;z-index:1;background:var(--fundo2);text-align:left}
+.pt-tab thead th.pt-col-fixa{z-index:3;background:var(--fundo3)}
+
+/* miniaturas da etapa 6: todas as dispersões abertas, em grade, cada uma pequena */
+.pt-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.pt-mini{background:var(--fundo3);border:1px solid var(--borda);border-radius:6px;padding:6px 7px 5px;
+  min-width:0;display:flex;flex-direction:column;gap:3px}
+.pt-mini-tit{font-size:10.5px;line-height:1.25;color:var(--tinta);font-weight:600}
+.pt-mini svg{display:block;width:100%;height:auto}
+.pt-mini-num{font-size:10px;color:var(--tinta3);font-variant-numeric:tabular-nums;line-height:1.3}
+
+/* barra de filtros (liga, nacionalidade, idade) — fica FORA da área que se redesenha, senão o
+   campo de idade perde o foco a cada tecla */
+.pt-filtros{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--fundo2);
+  border:1px solid var(--borda);border-radius:8px;padding:8px 10px;font-size:12px}
+.pt-filtros select,.pt-filtros input{font:inherit;font-size:12px;color:var(--tinta);background:var(--fundo3);
+  border:1px solid var(--borda2);border-radius:6px;padding:4px 7px;min-width:0}
+.pt-filtros input[type=number]{width:4.6em}
+.pt-filtros label{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px;color:var(--tinta2);max-width:100%}
+/* a opção de liga leva a contagem de cada lista e passava da borda a 400 px: o select encolhe */
+.pt-filtros select{max-width:100%;text-overflow:ellipsis}
+.pt-filtro-grupo{display:inline-flex;flex-wrap:wrap;gap:4px}
+.pt-chip{font:inherit;font-size:11.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--borda2);
+  background:var(--fundo3);color:var(--tinta2);cursor:pointer;white-space:nowrap}
+.pt-chip:hover{color:var(--tinta)}
+.pt-chip.on{background:var(--veu3);color:var(--tinta);border-color:var(--pt-alto)}
+.pt-chip .pt-chip-n{font-variant-numeric:tabular-nums;color:var(--tinta3);margin-left:4px}
+/* botão com 0 continua na tela, apagado, com o motivo no title — não some */
+.pt-chip.zero{opacity:.55;cursor:default}
+.pt-filtros-conta{font-size:11.5px;color:var(--tinta3);flex-basis:100%}
+
+/* a linha da sorte na tabela de gaps: faixa de largura inteira antes da primeira linha abaixo
+   dela (ptTabela, campo `_separadorAntes` da linha) */
+.pt-tab tr.pt-linha-sorte td{border-top:3px solid var(--coral)}
+.pt-tab tr.pt-linha-sorte-rot td{background:var(--veu2);color:var(--tinta);text-align:left;
+  font-size:11.5px;line-height:1.45;white-space:normal;padding:7px 10px;border-bottom:none}
+.pt-tab tr.pt-linha-sorte-rot td b{font-weight:800}
+
+/* marcas curtas numa célula: empate técnico, "consequência do resultado", "descontado o dinheiro",
+   "se repete em 2018-2021". O texto é a informação; a borda só separa do nome ao lado. */
+.pt-marca,.pt-empate{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;
+  padding:1px 5px;border-radius:4px;border:1px solid var(--borda2);color:var(--tinta2);
+  margin:1px 0 1px 5px;white-space:nowrap;vertical-align:baseline;line-height:1.35}
+.pt-empate{border-style:dashed;text-transform:uppercase}
+.pt-marca.alerta{border-color:var(--pt-baixo);color:var(--pt-baixo)}
+
+/* a legenda obrigatória das matrizes de posição (ptLegendaPosto) */
+.pt-legenda-posto{border-left:3px solid var(--pt-alto);padding-left:9px}
+.pt-legenda-posto.cru{border-left-color:var(--pt-baixo)}
+
+/* o botão da escala, no alto do sumário: um por aba, só quando alguma etapa usa */
+.pt-escala{display:flex;flex-direction:column;gap:4px;padding:0 4px 10px;margin-bottom:8px;
+  border-bottom:1px solid var(--borda)}
+.pt-escala .pt-rot{margin:0 0 2px 4px}
+.pt-escala-bts{display:flex;border:1px solid var(--borda2);border-radius:7px;overflow:hidden}
+.pt-sumario .pt-escala-bts button{flex:1;display:block;text-align:center;border:none;border-radius:0;
+  padding:5px 4px;font-size:10.5px;line-height:1.2;background:var(--fundo2);color:var(--tinta2)}
+.pt-sumario .pt-escala-bts button+button{border-left:1px solid var(--borda2)}
+.pt-sumario .pt-escala-bts button.on{background:var(--veu3);color:var(--tinta);font-weight:700}
+.pt-escala small{font-size:10px;color:var(--tinta3);margin-left:4px}
+
+/* as conclusões: o MESMO bloco no topo, no começo de cada etapa e na aba de conclusões.
+   O selo vem antes da frase, em letra, e a cor só repete o que a letra já diz. */
+.pt-concls{display:flex;flex-direction:column;gap:10px}
+.pt-concls>h3{margin:0;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.pt-concls-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.pt-concls-etapa{gap:8px}
+.pt-concl{background:var(--fundo2);border:1px solid var(--borda);border-left:3px solid var(--borda2);
+  border-radius:0 8px 8px 0;padding:11px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.pt-concl h5{margin:0;font-size:14px;font-weight:700;line-height:1.3}
+.pt-concl-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px}
+.pt-concl-selo{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--tinta2)}
+.pt-concl-selo.forte{color:var(--pt-ok)}
+.pt-concl-selo.moderado{color:var(--pt-alto)}
+.pt-concl-selo.fraco{color:var(--pt-baixo)}
+.pt-concl-selo.sem_sinal,.pt-concl-selo.nao_da_para_afirmar,.pt-concl-selo.sem{color:var(--tinta3)}
+.pt-concl-selo-txt{font-size:11px;color:var(--tinta3);line-height:1.4}
+.pt-concl-frase{margin:0;font-size:13.5px;line-height:1.5;color:var(--tinta);max-width:75ch}
+.pt-concl-numero{margin:0;font-size:12.5px;line-height:1.5;color:var(--tinta2);max-width:75ch}
+.pt-concl-ressalva{margin:0;font-size:12px;line-height:1.5;color:var(--tinta2);max-width:75ch}
+.pt-concl-ressalva b{color:var(--tinta)}
+.pt-concl-pe{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-size:11px}
+.pt-concl-pe .pt-tec{margin-left:0;white-space:normal}
+.pt-concl-link{color:var(--pt-alto);text-decoration:none;font-weight:600}
+.pt-concl-link:hover{text-decoration:underline}
+/* sem o bloco no dado: uma linha discreta, com o motivo — nunca some, nunca grita */
+.pt-concl-ausente{margin:0;font-size:11px;line-height:1.45;color:var(--tinta3);max-width:75ch}
+.pt-concl-ausente b{color:var(--tinta2);font-weight:700}
+.pt-concl-ausente .pt-tec{white-space:normal}
+.pt-etapa-concl:empty{display:none}
+/* o tema da conclusão ("Dinheiro e elenco"), e o aviso quando a régua deu força diferente do documento */
+.pt-concl-tema{font-size:10px;color:var(--tinta3);border:1px solid var(--borda2);border-radius:4px;padding:0 5px}
+.pt-concl-diverge{margin:0;font-size:11.5px;line-height:1.45;color:var(--pt-baixo);max-width:75ch}
+/* o atributo hidden precisa vencer o display:flex, senão sobra uma caixa vazia no alto do sumário */
+/* hidden tem de ganhar do display:flex acima E do bloco estreito (que troca a direção): sem o
+   !important, qualquer regra de .pt-escala mais específica deixa uma caixa vazia no sumário */
+.pt-escala[hidden],.pt-sumario .pt-escala[hidden]{display:none!important}
+/* coluna que não se reordena (ptTabela, `ordenavel:false`) */
+.pt-tab thead th.pt-th-fixa{cursor:default}
+.pt-tab thead th.pt-th-fixa:hover{color:var(--tinta3)}
+
+/* de que universo vem cada número (aba de pontos: etapa_N.universo / estado_nesta_aba / o_que_mudou) */
+.pt-etapa-universo{border-left:3px solid var(--borda2);padding:2px 0 2px 10px;display:flex;flex-direction:column;gap:3px}
+.pt-etapa-universo p{margin:0;font-size:11.5px;line-height:1.45;color:var(--tinta2);max-width:75ch}
+.pt-etapa-universo b{color:var(--tinta);font-weight:700}
+.pt-etapa-universo code,.pt-universo code{font-size:10.5px;background:var(--veu2);padding:0 4px;border-radius:3px}
+.pt-universo{font-size:10.5px;color:var(--tinta3);margin-left:5px}
+
+@media (max-width:1080px){
+  .pt-sumario{max-height:none;overflow:visible}
+  .pt-escala{flex-direction:row;flex-wrap:wrap;align-items:center;border-bottom:none;margin:0;padding:0 6px 0 0}
+  /* celular: o número técnico e o complemento da barra QUEBRAM linha. Com nowrap eles passavam da
+     borda e o `.emp-rolagem` (overflow-x:hidden) os cortava calado — a prova sumia sem aviso. */
+  .pt-barra-extra,.pt-tec,.pt-n,.pt-liq-par,.pt-bases li>span{white-space:normal}
+  .pt-marca,.pt-empate,.pt-chip{white-space:normal}
+  .pt-card-cab,.pt-controle,.pt-baseline,.pt-cf,.pt-bases,.pt-tarja{min-width:0;overflow-wrap:anywhere}
+}
+@media (max-width:720px){
+  /* a linha da barra vira coluna única: rótulo, barra e número empilhados */
+  .pt-barra-linha{grid-template-columns:minmax(0,1fr) auto;gap:3px 8px}
+  .pt-barra-rot{grid-column:1/-1;white-space:normal}
+  .pt-barra-extra{grid-column:1/-1}
+  .pt-baseline-par{grid-template-columns:minmax(0,1fr)}
+  .pt-cf-grade{grid-template-columns:minmax(0,1fr)}
+  .pt-concls-lista{grid-template-columns:minmax(0,1fr)}
+  .pt-faixas{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+  .pt-etapa-cab h3{overflow-wrap:anywhere}
+}
