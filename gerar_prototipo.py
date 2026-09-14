@@ -77,6 +77,7 @@ from sklearn.metrics import silhouette_score
 
 import analisar_serieb as A          # media_pond, chave_nome — piso de 60% já resolvido
 import gerar_raio_serieb as G        # POSICOES, chave_nome, carregar, DE_PARA
+import ranking_gaps as RG            # a tabela de todas as diferenças, compartilhada com a aba por pontos
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 SAIDA = os.path.join(RAIZ, "dados", "prototipo.json")
@@ -88,7 +89,7 @@ N_BOOT = 200 if RAPIDO else 2000       # bootstrap por clube (seção 6.6)
 N_GARIMPO = 50 if RAPIDO else 5000     # nulo do garimpo (seção 6.3)
 N_NULO = 100 if RAPIDO else 500        # silhueta contra nulo (seção 7.1)
 N_JACCARD = 60 if RAPIDO else 300      # Jaccard de bootstrap (seção 7.3)
-N_ELENCO = 40 if RAPIDO else 200       # reamostragem de elencos (seção 9)
+N_ELENCO = 40 if RAPIDO else 2000      # reamostragem de elencos (seção 9); 200 até 14/09, ver etapa_14
 
 FAIXAS = ("sobe", "meio", "cai")
 SETORES = ("zaga", "lateral", "meio", "ataque")
@@ -128,6 +129,66 @@ def r_sig(x, sig=3):
     if not np.isfinite(v):
         return None
     return 0.0 if v == 0 else float(f"{v:.{max(sig - 1, 0)}e}")
+
+
+def cru_para_a_tela(x):
+    """Valor CRU de um indicador para a tela: o mais preciso entre 4 algarismos significativos e 3
+    casas decimais — a regra por valor de `ranking_gaps._medianas_para_a_tela`.
+
+    Três casas fixas apagavam os por-90 pequenos (xG por finalização 0,1045 saía 0,105, e a MESMA
+    mediana aparecia 0,1045 na tabela de gaps): o leitor via dois números para uma coisa só,
+    conforme a aba. A representação é limpa a 12 significativos antes, como no módulo, para ruído de
+    ponto flutuante não virar dígito.
+    """
+    if x is None:
+        return None
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    if not np.isfinite(v):
+        return None
+    v = float(f"{v:.12g}")
+    a, b = r_sig(v, 4), round(v, 3)
+    return b if abs(b - v) < abs(a - v) else a
+
+
+def r_p(x, casas=4):
+    """p (ou q) para o JSON: as mesmas casas decimais de sempre, mas NUNCA zero.
+
+    `r(p, 4)` devolve 0,0 para qualquer p abaixo de 0,00005, e zero é a única coisa que um p não
+    é (regra da casa). Medido em 14/09/2026: seis p saíam 0,0 no JSON — etapa_6.rho de três
+    físicos, etapa_6.referencia_dinheiro, etapa_7.referencia_pts1t_x_pts2t e um p_bruto da
+    etapa 7. Aqui só o que SAIRIA zero troca de forma (vai por algarismo significativo, como
+    `r_sig`); todo p que já saía diferente de zero sai idêntico, byte a byte — por isso o
+    conserto não mexe em número nenhum que a tela já mostrava certo.
+    """
+    v = r(x, casas)
+    if v == 0:
+        try:
+            f = float(x)
+        except (TypeError, ValueError):
+            return v
+        if np.isfinite(f) and f != 0:
+            return r_sig(f, 3)
+    return v
+
+
+def abaixo(x, limite):
+    """`x < limite` que trata None/NaN como 'não passou' — e 0,0 como passou.
+
+    Substitui o idioma `(p or 1) < 0,05`, que trocava um p arredondado para 0,0 por 1: o teste
+    mais forte da tabela sumia da contagem sem aviso (na aba por pontos, 5 de 86). É a mesma
+    regra de `ranking_gaps.abaixo`. Onde o p cru está à mão, é ele que entra aqui, e não o
+    arredondado.
+    """
+    if x is None:
+        return False
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return False
+    return bool(np.isfinite(v) and v < limite)
 
 
 def rotulo_p(p, piso=1e-4):
@@ -246,7 +307,10 @@ def parcial_spearman(x, y, z):
         return np.nan, np.nan
     rho = (rxy - rxz * ryz) / den
     if abs(rho) >= 1:
-        return float(rho), 0.0
+        # |ρ| = 1 deixa o t indefinido (divisão por zero). Devolver p = 0,0 aqui era gravar o único
+        # valor que um p nunca é, e ele passaria em qualquer corte. Sai NaN, que o JSON grava como
+        # null; quem chama escreve o motivo (`etapa_7.linhas[].motivo_p_parcial`).
+        return float(rho), np.nan
     t = rho * np.sqrt((n - 3) / (1 - rho ** 2))
     return float(rho), float(2 * stats.t.sf(abs(t), n - 3))
 
@@ -260,27 +324,43 @@ def auc(pos, neg):
     return float(stats.mannwhitneyu(pos, neg).statistic / (len(pos) * len(neg)))
 
 
+FORMULA_DO_PODER = (
+    "poder do t de duas amostras por integração: P(|T| > c), T = (Z + nc) / sqrt(V/gl), "
+    "V ~ qui-quadrado(gl), c = t(1 - alfa/2, gl), nc = d*sqrt(n1*n2/(n1+n2)); d mínimo por "
+    "bissecção em [0, 4], 50 passos, até poder >= 0,80 — a mesma conta para alfa = 0,05 e para "
+    "o alfa de Bonferroni")
+
+
+def potencia_t(d, n1, n2, alfa):
+    """Poder do t de duas amostras para efeito d, integrando na distribuição do desvio.
+
+    Não usa `scipy.stats.nct`: com alfa pequeno (o de Bonferroni) e não-centralidade grande ele
+    devolve NaN, e o guarda antigo trocava o NaN por 0 ou 1 conforme `nc > crit` — o d mínimo
+    com Bonferroni saía errado em silêncio (24 x 56: 1,144 onde o poder de 80% está em 1,176,
+    conferido por simulação na obra da aba por pontos). A mesma fórmula, com a mesma bissecção,
+    mora em gerar_pontos.py; ela não é importada de lá porque aquele arquivo importa este.
+    """
+    from scipy import integrate
+    gl = n1 + n2 - 2
+    c = stats.t.ppf(1 - alfa / 2, gl)
+    nc = d * np.sqrt(n1 * n2 / (n1 + n2))
+
+    def f(v):
+        s = c * np.sqrt(v / gl)
+        return (stats.norm.cdf(nc - s) + stats.norm.cdf(-nc - s)) * stats.chi2.pdf(v, gl)
+    return integrate.quad(f, 0, np.inf, limit=200)[0]
+
+
 def d_minimo_detectavel(n1, n2, alfa=0.05, poder=0.80):
     """Menor `d` que este desenho enxerga — para que "não separa" não vire "não existe".
 
-    Busca numérica no t não-central: com 16×16 o piso é alto, e a tela precisa dizer isso
-    em número, não em ressalva.
-
-    O `if not np.isfinite` não é paranoia: `scipy.stats.nct.sf` devolve NaN quando a
-    não-centralidade fica grande (16×64 com d=2,5 já basta), e sem o guarda a bissecção
-    interpreta o NaN como "poder insuficiente" e sobe até o teto do intervalo — devolvendo
-    d=4,28 onde o certo é 0,79. Erro silencioso e plausível, que é o pior tipo.
+    Com 16×16 o piso é alto, e a tela precisa dizer isso em número, não em ressalva. A conta
+    está em `FORMULA_DO_PODER`, gravada no JSON ao lado dos números.
     """
-    gl = n1 + n2 - 2
-    crit = stats.t.ppf(1 - alfa / 2, gl)
-    lo, hi = 0.0, 3.0
-    for _ in range(60):
+    lo, hi = 0.0, 4.0
+    for _ in range(50):
         meio = (lo + hi) / 2
-        nc = meio * np.sqrt(n1 * n2 / (n1 + n2))
-        pot = stats.nct.sf(crit, gl, nc) + stats.nct.cdf(-crit, gl, nc)
-        if not np.isfinite(pot):
-            pot = 1.0 if nc > crit else 0.0
-        lo, hi = (lo, meio) if pot >= poder else (meio, hi)
+        lo, hi = (lo, meio) if potencia_t(meio, n1, n2, alfa) >= poder else (meio, hi)
     return (lo + hi) / 2
 
 
@@ -469,6 +549,13 @@ def etapa_0(d100, d80, meta, funil):
                             cai=int((g.faixa == "cai").sum()),
                             entra_nas_medias=bool(ano <= 2025)))
     clubes = d80.clube.value_counts()
+    # Os nomes das chaves de poder (16x16, 16x48, 16x64) são contrato com a tela e carregam o
+    # tamanho no nome: se a faixa mudar de tamanho, o nome mentiria. Quebra aqui em vez disso.
+    n_sobe, n_meio = int((d80.faixa == "sobe").sum()), int((d80.faixa == "meio").sum())
+    assert (n_sobe, n_meio, len(d80) - n_sobe) == (16, 48, 64), (n_sobe, n_meio, len(d80))
+    # Bonferroni divide pelo número de testes do CATÁLOGO, contado aqui: estava digitado 191,
+    # de uma versão antiga da lista, com 293 indicadores declarados hoje.
+    testes = len(meta)
     return dict(
         titulo_chave="etapa_0",
         linhas_no_arquivo=len(d100), linhas_completas=len(d80),
@@ -483,8 +570,10 @@ def etapa_0(d100, d80, meta, funil):
             d_minimo_16x16=r(d_minimo_detectavel(16, 16), 3),
             d_minimo_16x48=r(d_minimo_detectavel(16, 48), 3),
             d_minimo_16x64=r(d_minimo_detectavel(16, 64), 3),
-            d_minimo_16x16_bonferroni=r(d_minimo_detectavel(16, 16, alfa=0.05 / 191), 3),
-            testes_na_correcao_bonferroni=191, alfa=0.05, poder=0.80),
+            d_minimo_16x16_bonferroni=r(d_minimo_detectavel(16, 16, alfa=0.05 / testes), 3),
+            testes_na_correcao_bonferroni=testes, alfa=0.05, poder=0.80,
+            formula=FORMULA_DO_PODER,
+            testes_de_onde="len(catálogo pré-declarado) = indicadores_pre_declarados"),
         indicadores_pre_declarados=len(meta),
         indicadores_por_familia={f: sum(1 for m in meta.values() if m["familia"] == f)
                                  for f in sorted({m["familia"] for m in meta.values()})},
@@ -813,17 +902,17 @@ def etapa_1(d80, d100):
         coluna="fis_atletas", n=int(np.isfinite(at).sum()),
         media_sobe=r(np.nanmean(a_sobe), 2), media_meio=r(np.nanmean(a_meio), 2),
         media_cai=r(np.nanmean(a_cai), 2),
-        d_SM=r(d_cohen(a_sobe, a_meio), 3), p_SM=r(welch_p(a_sobe, a_meio), 5),
+        d_SM=r(d_cohen(a_sobe, a_meio), 3), p_SM=r_p(welch_p(a_sobe, a_meio), 5),
         d_SC=r(d_cohen(a_sobe, a_cai), 3), p_SC=r_sig(welch_p(a_sobe, a_cai), 3),
         rho_com_posicao_final=r(rho_pos, 3), p_com_posicao_final=r_sig(p_pos, 3),
-        rho_posto_atletas_x_posto_valor=r(rho_dim, 3), p_atletas_x_valor=r(p_dim, 4),
+        rho_posto_atletas_x_posto_valor=r(rho_dim, 3), p_atletas_x_valor=r_p(p_dim, 4),
         por_setor=[dict(setor=s, coluna=f"fis_{s}_atletas",
                         media_sobe=r(np.nanmean(d[f"fis_{s}_atletas"].values[d.y.values == 1]), 2),
                         media_meio=r(np.nanmean(d[f"fis_{s}_atletas"].values[(d.faixa == "meio").values]), 2),
                         media_cai=r(np.nanmean(d[f"fis_{s}_atletas"].values[(d.faixa == "cai").values]), 2),
                         d_SM=r(d_cohen(d[f"fis_{s}_atletas"].values[d.y.values == 1],
                                        d[f"fis_{s}_atletas"].values[(d.faixa == "meio").values]), 3),
-                        p_SM=r(welch_p(d[f"fis_{s}_atletas"].values[d.y.values == 1],
+                        p_SM=r_p(welch_p(d[f"fis_{s}_atletas"].values[d.y.values == 1],
                                        d[f"fis_{s}_atletas"].values[(d.faixa == "meio").values]), 5))
                    for s in SETORES],
         entra_como="controle na coluna d_liq2 das 160 linhas físicas da etapa 2",
@@ -944,14 +1033,22 @@ def etapa_7(jog, meta):
         t["rv"] = posto_ano(t, "v1")
         rho, p = stats.spearmanr(t.rv, t.r2)
         pr, pp = parcial_spearman(t.rv, t.r2, t.r1)
-        linhas.append(dict(indicador=ind, n=len(t), rho_bruto=r(rho, 3), p_bruto=r(p, 4),
-                           rho_parcial=r(pr, 3), p_parcial=r(pp, 4), sinal=m["sinal"],
-                           sinal_certo=bool(m["sinal"] and np.isfinite(pr)
-                                            and np.sign(pr) == np.sign(m["sinal"]))))
+        linha = dict(indicador=ind, n=len(t), rho_bruto=r(rho, 3), p_bruto=r_p(p, 4),
+                     rho_parcial=r(pr, 3), p_parcial=r_p(pp, 4), sinal=m["sinal"],
+                     sinal_certo=bool(m["sinal"] and np.isfinite(pr)
+                                      and np.sign(pr) == np.sign(m["sinal"])))
+        # p parcial null nunca vai sem motivo: ou a parcial é perfeita (t indefinido), ou não
+        # houve como calculá-la. Nenhuma linha cai aqui hoje; a chave só aparece quando cair.
+        if not np.isfinite(pp):
+            linha["motivo_p_parcial"] = (
+                "correlação parcial perfeita (|ρ| = 1): o t do teste fica indefinido"
+                if np.isfinite(pr) else
+                "menos de 6 times com os três números, ou ρ perfeito com o controle: parcial indefinida")
+        linhas.append(linha)
     linhas.sort(key=lambda x: -abs(x["rho_parcial"] or 0))
     ref = stats.spearmanr(base.r1, base.r2)
     return dict(titulo_chave="etapa_7", n=len(base), rodadas_1t=19, rodadas_2t=19,
-                referencia_pts1t_x_pts2t=dict(rho=r(ref.statistic, 3), p=r(ref.pvalue, 5)),
+                referencia_pts1t_x_pts2t=dict(rho=r(ref.statistic, 3), p=r_p(ref.pvalue, 5)),
                 linhas=linhas,
                 nao_testaveis=["share_11", "conc_hhi", "atletas_usados", "nucleo_300"],
                 motivo_nao_testaveis=("minutagem.json guarda minuto por TEMPORADA e "
@@ -990,7 +1087,7 @@ def etapa_6(d80, postos, meta, pares):
                              motivo="menos de 8 pares com valor nos dois anos")
             continue
         rho, p = stats.spearmanr(x[ok], y[ok])
-        rhos[ind] = dict(rho=r(rho, 3), p=r(p, 4), n=int(ok.sum()))
+        rhos[ind] = dict(rho=r(rho, 3), p=r_p(p, 4), n=int(ok.sum()))
         if meta[ind]["familia"] in ("tecnico_col", "elenco", "fisico_col_elenco"):
             disp[ind] = [[r(xx, 1), r(yy, 1)] for xx, yy in zip(x, y)]
 
@@ -1002,7 +1099,7 @@ def etapa_6(d80, postos, meta, pares):
     ref = stats.spearmanr(rv[a], rv[b])
     return dict(titulo_chave="etapa_6", n_pares=len(pares),
                 referencia_dinheiro=dict(indicador="tm_valor_total", rho=r(ref.statistic, 3),
-                                         p=r(ref.pvalue, 5), n=len(pares)),
+                                         p=r_p(ref.pvalue, 5), n=len(pares)),
                 pares=[dict(clube=c, ano_t=an, ano_t1=an + 1,
                             faixa_t=d.faixa.values[i], faixa_t1=d.faixa.values[j])
                        for i, j, c, an in pares],
@@ -1062,9 +1159,9 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
         p2 = residualiza_multi(postos[ind].values, [r_val, ctrl])
         return dict(
             d_liq2_SM=r(d_cohen(p2[m_sobe], p2[m_meio]), 3),
-            p_liq2_SM=r(welch_p(p2[m_sobe], p2[m_meio]), 5),
+            p_liq2_SM=r_p(welch_p(p2[m_sobe], p2[m_meio]), 5),
             d_liq2_SC=r(d_cohen(p2[m_sobe], p2[m_cai]), 3),
-            p_liq2_SC=r(welch_p(p2[m_sobe], p2[m_cai]), 5),
+            p_liq2_SC=r_p(welch_p(p2[m_sobe], p2[m_cai]), 5),
             liq2_controle=f"posto de tm_valor_total + posto de {nome}", liq2_motivo=None)
 
     linhas, fam_p = [], {}
@@ -1085,10 +1182,10 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
             m_cai=r(np.nanmean(bb[m_cai]), 3),
             r_sobe=r(np.nanmean(pb[m_sobe]), 1), r_meio=r(np.nanmean(pb[m_meio]), 1),
             r_cai=r(np.nanmean(pb[m_cai]), 1),
-            d_bruto_SM=r(d_sm, 3), p_bruto_SM=r(p_sm, 5),
-            d_liq_SM=r(d_sl, 3), p_liq_SM=r(p_sl, 5),
-            d_bruto_SC=r(d_sc, 3), p_bruto_SC=r(p_sc, 5),
-            d_liq_SC=r(d_cl, 3), p_liq_SC=r(p_cl, 5),
+            d_bruto_SM=r(d_sm, 3), p_bruto_SM=r_p(p_sm, 5),
+            d_liq_SM=r(d_sl, 3), p_liq_SM=r_p(p_sl, 5),
+            d_bruto_SC=r(d_sc, 3), p_bruto_SC=r_p(p_sc, 5),
+            d_liq_SC=r(d_cl, 3), p_liq_SC=r_p(p_cl, 5),
             rho_persist=persist[ind].get("rho"), n_persist=persist[ind].get("n"),
             rho_1T_2T=temporal.get(ind, {}).get("rho_parcial"),
             p_1T_2T=temporal.get(ind, {}).get("p_parcial"),
@@ -1098,6 +1195,13 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
         linhas.append(linha)
         fam_p.setdefault(mt["familia"], []).append((len(linhas) - 1, p_sm, p_sc, p_sl))
 
+    # Toda DECISÃO (contagem, porta) é tomada no p e no q CRUS, guardados aqui por linha; o
+    # arredondado é só o que vai ao JSON. Com `(q or 1) < 0,05` sobre o arredondado, um q que
+    # saía 0,0 contava como 1 e sumia da contagem; e `np.isfinite(p or np.nan)` fazia o mesmo
+    # com um p cru exatamente zero.
+    cru = {i: dict(p_SM=p_sm_, p_SC=p_sc_, p_liq_SM=p_sl_) for itens in fam_p.values()
+           for i, p_sm_, p_sc_, p_sl_ in itens}
+
     # BH DENTRO de cada família — nunca no bolo (ver docstring de bh())
     resumo_fam = {}
     for fam, itens in fam_p.items():
@@ -1105,19 +1209,17 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
         for chave, col in (("q_SM", 1), ("q_SC", 2), ("q_liq_SM", 3)):
             qs = bh([itens[k][col] for k in range(len(itens))])
             for k, i in enumerate(pos):
-                linhas[i][chave] = r(qs[k], 5)
+                linhas[i][chave] = r_p(qs[k], 5)
+                cru[i][chave] = qs[k]
         resumo_fam[fam] = dict(
             testes=len(itens),
             esperados_por_acaso_5pct=r(len(itens) * 0.05, 2),
-            passam5_SM=int(sum(1 for k in range(len(itens))
-                               if np.isfinite(itens[k][1] or np.nan) and itens[k][1] < 0.05)),
-            bh5_SM=int(sum(1 for i in pos if (linhas[i]["q_SM"] or 1) < 0.05)),
-            passam5_SC=int(sum(1 for k in range(len(itens))
-                               if np.isfinite(itens[k][2] or np.nan) and itens[k][2] < 0.05)),
-            bh5_SC=int(sum(1 for i in pos if (linhas[i]["q_SC"] or 1) < 0.05)),
-            passam5_liq_SM=int(sum(1 for k in range(len(itens))
-                                   if np.isfinite(itens[k][3] or np.nan) and itens[k][3] < 0.05)),
-            bh5_liq_SM=int(sum(1 for i in pos if (linhas[i]["q_liq_SM"] or 1) < 0.05)))
+            passam5_SM=int(sum(1 for i in pos if abaixo(cru[i]["p_SM"], 0.05))),
+            bh5_SM=int(sum(1 for i in pos if abaixo(cru[i]["q_SM"], 0.05))),
+            passam5_SC=int(sum(1 for i in pos if abaixo(cru[i]["p_SC"], 0.05))),
+            bh5_SC=int(sum(1 for i in pos if abaixo(cru[i]["q_SC"], 0.05))),
+            passam5_liq_SM=int(sum(1 for i in pos if abaixo(cru[i]["p_liq_SM"], 0.05))),
+            bh5_liq_SM=int(sum(1 for i in pos if abaixo(cru[i]["q_liq_SM"], 0.05))))
 
     # ---------- o selo de porta (seção 6.5) ----------
     # A porta A é deliberadamente difícil: q<0,10 E p líquido<0,05 E ρ>=0,30 E, se for
@@ -1130,12 +1232,13 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
     # o selo que promete prever o 2º turno sem nunca ter sido testado contra o 2º turno —
     # e `fis_zaga_distance_p90`, com p líquido 0,021, passou a um q de fazer isso. Agora
     # quem não tem ρ do 1º→2º turno não chega à porta A, e a linha diz que foi vedada.
-    for L in linhas:
+    for i_linha, L in enumerate(linhas):
         if L["resultado"]:
             L["porta"] = "D"; L["porta_motivo"] = "lista branca de resultado: é o placar redescrito"
             continue
-        q = L["q_SM"] if L["q_SM"] is not None else 1
-        pl = L["p_liq_SM"] if L["p_liq_SM"] is not None else 1
+        # decisão no cru; o texto do motivo continua saindo do arredondado que a tela mostra
+        q = cru[i_linha]["q_SM"] if np.isfinite(cru[i_linha]["q_SM"]) else 1
+        pl = cru[i_linha]["p_liq_SM"] if np.isfinite(cru[i_linha]["p_liq_SM"]) else 1
         rp = L["rho_persist"]
         n_fam = resumo_fam[L["familia"]]["testes"]
         tem_jogo = meta[L["indicador"]].get("jogo") is not None
@@ -1155,7 +1258,7 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
                                      f"(rho={num_br(rp)} em {L['n_persist']} pares)")
             elif q >= 0.10:
                 L["porta_motivo"] = ("sobrevive ao dinheiro mas não sobrevive à família "
-                                     f"(q={num_br(q)} em {n_fam} testes)")
+                                     f"(q={num_br(L['q_SM'])} em {n_fam} testes)")
             elif tem_temporal:
                 esperado = "+" if (L["sinal"] or 0) > 0 else ("−" if (L["sinal"] or 0) < 0
                                                               else "não declarado")
@@ -1165,7 +1268,7 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
                 L["porta_motivo"] = ("porta A vedada: sem versão por jogo em "
                                      "serieb_jogos.csv, o indicador não foi testado contra "
                                      "o 2º turno e não pode receber o selo que promete prevê-lo")
-        elif (L["p_bruto_SM"] or 1) < 0.10:
+        elif abaixo(cru[i_linha]["p_SM"], 0.10):
             L["porta"], L["porta_motivo"] = "C", "passa no bruto e morre no líquido: é o valor do elenco"
         else:
             L["porta"], L["porta_motivo"] = "-", "não separa sobe de meio nem no bruto"
@@ -1276,7 +1379,7 @@ def etapa_3(d80, postos, meta, linhas_cat, resumo_fam):
     melhores = np.empty(N_GARIMPO)
     for it in range(N_GARIMPO):
         Q = P.copy()
-        for b in blocos:        # embaralha as LINHAS do ano, as 229 colunas juntas
+        for b in blocos:        # embaralha as LINHAS do ano, todas as colunas juntas
             Q[b] = Q[b][rng_garimpo.permutation(len(b))]
         melhores[it] = np.nanmax(np.abs(aucs(Q) - 0.5))
 
@@ -1294,12 +1397,12 @@ def etapa_3(d80, postos, meta, linhas_cat, resumo_fam):
         testes_por_comparacao=total,
         esperados_por_acaso_5pct=r(total * 0.05, 1),
         por_familia=resumo_fam,
-        passam5_SM=sum(1 for L in linhas_cat if (L["p_bruto_SM"] or 1) < 0.05),
-        bh5_SM=sum(1 for L in linhas_cat if (L["q_SM"] or 1) < 0.05),
-        passam5_SC=sum(1 for L in linhas_cat if (L["p_bruto_SC"] or 1) < 0.05),
-        bh5_SC=sum(1 for L in linhas_cat if (L["q_SC"] or 1) < 0.05),
-        passam5_liq_SM=sum(1 for L in linhas_cat if (L["p_liq_SM"] or 1) < 0.05),
-        bh5_liq_SM=sum(1 for L in linhas_cat if (L["q_liq_SM"] or 1) < 0.05),
+        # As contagens do catálogo inteiro são a SOMA das contagens por família, que a etapa 2
+        # já faz no p e no q crus. Contar de novo aqui sobre `linhas_cat` obrigava a ler o p
+        # arredondado, e era isso que o idioma `(p or 1) < 0,05` estragava (0,0 virava 1).
+        # Cada linha pertence a exatamente uma família, então a soma é a mesma contagem.
+        **{k: int(sum(rf[k] for rf in resumo_fam.values()))
+           for k in ("passam5_SM", "bh5_SM", "passam5_SC", "bh5_SC", "passam5_liq_SM", "bh5_liq_SM")},
         nulo_do_garimpo=dict(
             replicas=N_GARIMPO, indicadores=len(inds), indicadores_no_catalogo=total,
             semente=SEMENTE,
@@ -1310,19 +1413,21 @@ def etapa_3(d80, postos, meta, linhas_cat, resumo_fam):
                      motivo=("setor com menos de 3 atletas rastreados vira buraco "
                              "(regra de exibição da seção 5) e derruba a cobertura"))
                 for fam, v in sorted(fora_por_familia.items())],
-            metodo=("embaralha as LINHAS dentro de cada ano — o clube-temporada leva os 229 "
+            # o número de indicadores da frase sai da contagem: estava digitado 229, que só
+            # batia enquanto a regra de cobertura e o catálogo não mudassem
+            metodo=("embaralha as LINHAS dentro de cada ano — o clube-temporada leva os %d "
                     "indicadores juntos, então a correlação ENTRE indicadores fica intacta e "
                     "só o vínculo com a faixa é quebrado; a seleção do melhor entre N é "
                     "refeita em cada réplica. É o nulo certo para precificar busca em colunas "
                     "correlacionadas: embaralhar cada coluna por si inventaria independência "
-                    "que o painel não tem e devolveria um p otimista"),
+                    "que o painel não tem e devolveria um p otimista") % len(inds),
             ganho_auc_real_melhor=r(reais_ganho[k_best], 4),
             indicador_real_melhor=inds[k_best],
             ganho_auc_nulo_media=r(melhores.mean(), 4),
             ganho_auc_nulo_p95=r(np.percentile(melhores, 95), 4),
             ganho_auc_nulo_max=r(melhores.max(), 4),
             replicas_acima_do_real=acertos_nulo,
-            p_do_melhor=r(p_melhor, 3),
+            p_do_melhor=r_p(p_melhor, 3),
             p_do_melhor_ic95_monte_carlo=[r(lo, 4), r(hi, 4)],
             p_do_melhor_formula="(1 + réplicas >= real) / (réplicas + 1)"),
     )
@@ -1441,9 +1546,8 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
             # continua sendo o do percentil, e o cru é leitura de tamanho.
             faixa_sobe_bruto, faixa_meio_bruto, faixa_cai_bruto = [], [], []
             for ind in cols:
-                for alvo, lst, lstb in (("sobe", faixa_sobe, faixa_sobe_bruto),
-                                        ("meio", faixa_meio, faixa_meio_bruto),
-                                        ("cai", faixa_cai, faixa_cai_bruto)):
+                quartis_crus, n_cru = {}, {}
+                for alvo, lst in (("sobe", faixa_sobe), ("meio", faixa_meio), ("cai", faixa_cai)):
                     mask = (d.faixa == alvo).values
                     v = postos[ind].values[mask]
                     v = v[np.isfinite(v)]
@@ -1451,14 +1555,59 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                                 r(np.percentile(v, 75), 1)] if len(v) >= 4 else [None, None, None])
                     vb = bruto[ind].values[mask].astype(float)
                     vb = vb[np.isfinite(vb)]
-                    lstb.append([r(np.percentile(vb, 25), 3), r(np.percentile(vb, 50), 3),
-                                 r(np.percentile(vb, 75), 3)] if len(vb) >= 4 else [None, None, None])
+                    quartis_crus[alvo] = np.percentile(vb, [25, 50, 75]) if len(vb) else None
+                    n_cru[alvo] = len(vb)
+                # O arredondamento do cru é o da tabela de gaps, e a MEDIANA sai da própria função do
+                # módulo: com 3 casas fixas, 40 dos 293 indicadores mostravam aqui uma mediana e em
+                # `ranking_gaps.linhas[].mediana_crua` outra (xG por finalização 0,105 contra 0,1045).
+                # A função também sobe os significativos quando duas medianas diferentes sairiam
+                # iguais, então empate no cru passa a querer dizer valor igual, não arredondamento.
+                # Os quartis 25 e 75 vão pela mesma regra por valor (`cru_para_a_tela`).
+                med = RG._medianas_para_a_tela(
+                    {a: (float(q[1]) if q is not None else np.nan) for a, q in quartis_crus.items()}, ind)
+                for alvo, lstb in (("sobe", faixa_sobe_bruto), ("meio", faixa_meio_bruto),
+                                   ("cai", faixa_cai_bruto)):
+                    q = quartis_crus[alvo]
+                    lstb.append([cru_para_a_tela(q[0]), med[alvo], cru_para_a_tela(q[2])]
+                                if q is not None and n_cru[alvo] >= 4 else [None, None, None])
+            # A marca que viaja com o botão cru. Trocar de escala não pode trocar a leitura de
+            # quem está na frente sem aviso: a ordem das medianas das três faixas no valor cru
+            # nem sempre é a do percentil (faltas, na medição de 14/09/2026: posto 25 / 55 / 57,5
+            # e cru 13,67 / 14,35 / 13,82), porque o cru mistura anos e o percentil não. Sem a
+            # marca, o dono lê no cru "quem cai faz menos falta que o meio", que o teste nunca
+            # disse. A comparação é feita sobre os MESMOS números arredondados que o JSON grava
+            # (os que a tela mostra), relação por relação — sobe x meio, sobe x cai, meio x
+            # cai —, e empate conta como relação própria: "sobe = meio" numa escala e "sobe <
+            # meio" na outra é ordem diferente, e fica separado em `..._so_por_empate`. É isso
+            # que separa a contagem daqui da do mapa da rodada, que desfazia o empate pela ordem
+            # das faixas: as duas contagens só divergem em indicadores com empate numa escala.
+            def _relacoes(t):
+                return [int(np.sign(t[0] - t[1])), int(np.sign(t[0] - t[2])), int(np.sign(t[1] - t[2]))]
+            ordem_difere, ids_difere, ids_empate = [], [], []
+            for k, ind in enumerate(cols):
+                m_p = [faixa_sobe[k][1], faixa_meio[k][1], faixa_cai[k][1]]
+                m_b = [faixa_sobe_bruto[k][1], faixa_meio_bruto[k][1], faixa_cai_bruto[k][1]]
+                if None in m_p or None in m_b:
+                    ordem_difere.append(None)
+                    continue
+                rp, rb = _relacoes(m_p), _relacoes(m_b)
+                difere = rp != rb
+                ordem_difere.append(bool(difere))
+                if difere:
+                    ids_difere.append(ind)
+                    # "só por empate": desfeito o empate pela ordem das faixas (sobe, meio, cai),
+                    # as duas escalas dariam a mesma fila — é empate, não inversão
+                    if list(np.argsort(m_p, kind="stable")) == list(np.argsort(m_b, kind="stable")):
+                        ids_empate.append(ind)
             saida[nome_g] = dict(
                 pilar=pilar,
                 indicadores=[rotulo_ind(i) for i in cols],
                 clubes=clubes, faixa_sobe=faixa_sobe, faixa_meio=faixa_meio, faixa_cai=faixa_cai,
                 faixa_sobe_bruto=faixa_sobe_bruto, faixa_meio_bruto=faixa_meio_bruto,
                 faixa_cai_bruto=faixa_cai_bruto,
+                ordem_das_medianas_difere_no_cru=ordem_difere,
+                ordem_das_medianas_difere_no_cru_ids=ids_difere,
+                ordem_das_medianas_difere_no_cru_so_por_empate=ids_empate,
                 legenda_celula=["bruto", "posto_no_ano", "n", "motivo_se_vazia"])
             if pilar == "tecnico_ind":
                 saida[nome_g]["origem_das_colunas"] = (
@@ -1484,7 +1633,29 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                            bh5_SM=int(np.nansum(bh(ps) < 0.05)),
                            passam5_liq_SM=int(np.nansum(np.array(pl, float) < 0.05)),
                            bh5_liq_SM=int(np.nansum(bh(pl) < 0.05)))
+    marcas = [v for pn in saida.values() for v in pn["ordem_das_medianas_difere_no_cru"]]
     return dict(titulo_chave="etapa_5", paineis=saida, vazios_por_setor=vazios,
+                marca_ordem_no_cru=dict(
+                    regra=("por painel, `ordem_das_medianas_difere_no_cru[k]` compara a mediana "
+                           "(2º número de faixa_sobe, faixa_meio e faixa_cai) no posto e no cru, com os "
+                           "valores arredondados que o JSON grava, relação por relação (1ª x 2ª, 1ª x "
+                           "3ª, 2ª x 3ª faixa); empate numa escala e não na outra conta como diferente "
+                           "`..._so_por_empate` = desfeito o empate pela ordem das faixas, a ordem seria a mesma; null = alguma faixa sem 4 valores"),
+                    indicadores=len(marcas),
+                    ordem_difere=int(sum(1 for v in marcas if v)),
+                    ordem_igual=int(sum(1 for v in marcas if v is False)),
+                    sem_as_seis_medianas=int(sum(1 for v in marcas if v is None)),
+                    difere_so_por_empate=int(sum(len(pn["ordem_das_medianas_difere_no_cru_so_por_empate"])
+                                                 for pn in saida.values())),
+                    leitura=("no cru a ORDEM entre as faixas pode não ser a do percentil, porque o cru "
+                             "mistura anos; a ordem que o teste vê é a do percentil")),
+                arredondamento_do_cru=dict(
+                    mediana=("ranking_gaps._medianas_para_a_tela: por valor, o mais preciso entre 4 "
+                             "significativos e 3 casas, subindo os significativos até medianas "
+                             "diferentes saírem diferentes — as mesmas de ranking_gaps.linhas[].mediana_crua"),
+                    quartis_25_e_75="a mesma regra por valor, sem a subida de significativos",
+                    celulas=("`clubes[].celulas[][0]` continua com 3 casas: é o valor de um clube, não a "
+                             "mediana que a tabela de gaps também mostra")),
                 sensibilidade_da_agregacao=sens,
                 fis_atletas=dict(mediana=r(d80.fis_atletas.median(), 1),
                                  minimo=r(d80.fis_atletas.min(), 0),
@@ -1815,12 +1986,14 @@ def tipologia(d80, postos, bruto, jog):
     form_idx = {(a, c): i for i, (a, c) in enumerate(zip(form.ano, form.Equipa))}
     linhas_form = np.array([form_idx[(int(d.ano[i]), d.clube[i])] for i in sobe])
     n_jogos_form = sis.groupby(["ano", "Equipa"]).size().reset_index(name="n")
-    testes_form = {}
+    testes_form, p_form_cru = {}, {}
     for col in ("linha3", "distintas", "principal_pct"):
         v = form[col].values[linhas_form]
         e = eta2(v, grupo)
         nulo = [eta2(v, gen.permutation(grupo)) for _ in range(500)]
-        testes_form[col] = dict(eta2=r(e, 3), p=r((1 + sum(x >= e for x in nulo)) / 501, 4))
+        # decisão do veredito no cru; o divisor é o tamanho do nulo, nunca um 501 digitado
+        p_form_cru[col] = (1 + sum(x >= e for x in nulo)) / (len(nulo) + 1)
+        testes_form[col] = dict(eta2=r(e, 3), p=r_p(p_form_cru[col], 4))
     # O n deste bloco não é 16: cada clube-temporada traz os seus jogos, e é sobre eles que
     # a formação foi contada. Sem o número escrito, "a formação não separa" é uma frase sem
     # unidade — 16 o quê?
@@ -1832,10 +2005,13 @@ def tipologia(d80, postos, bruto, jog):
 
     # dinheiro
     rv = posto_ano(d, "tm_valor_total").values
-    posto_val = d.groupby("ano").tm_valor_total.rank(ascending=False).values
+    # Empate pelo MENOR posto, a regra de `curva_top_k`: o rank médio padrão devolvia x,5 no
+    # empate (2023, Novorizontino e CRB) e o `int()` abaixo o truncava — um posto que nenhuma
+    # regra escrita produz.
+    posto_val = d.groupby("ano").tm_valor_total.rank(ascending=False, method="min").values
     e_din = eta2(rv[sobe], grupo)
     nulo_din = [eta2(rv[sobe], gen.permutation(grupo)) for _ in range(2000)]
-    p_din = (1 + sum(x >= e_din for x in nulo_din)) / 2001
+    p_din = (1 + sum(x >= e_din for x in nulo_din)) / (len(nulo_din) + 1)
     kw = stats.kruskal(*[rv[sobe][grupo == g] for g in ("G1", "G2", "G3", "G4")])
     # partição rival feita SÓ com dinheiro
     ordem = np.argsort(-rv[sobe])
@@ -1847,6 +2023,9 @@ def tipologia(d80, postos, bruto, jog):
     e_rival = np.nanmean([eta2(Pt[c][sobe], g_din) for c in fora_tec])
     nulo_rival = np.array([np.nanmean([eta2(Pt[c][sobe], g2) for c in fora_tec])
                            for g2 in (gen.permutation(g_din) for _ in range(200))])
+    # O divisor sai do tamanho do nulo, e não de um 201 digitado em três lugares: mudar o número
+    # de partições sem mudar o divisor dava um p errado sem erro nenhum.
+    p_rival = (1 + (nulo_rival >= e_rival).sum()) / (len(nulo_rival) + 1)
 
     # residualizar o dinheiro e refazer os cortes: regride cada coluna de construção no
     # percentil de valor nas 80 linhas, re-ranqueia o resíduo dentro do ano e refaz os
@@ -1917,11 +2096,12 @@ def tipologia(d80, postos, bruto, jog):
         MM = M_fora if M is None else M
         return float(np.nanmean([eta2(MM[:, j], rot) for j in range(MM.shape[1])]))
 
-    um_contra = {}
+    um_contra, p_um_cru = {}, {}
     for g in ("G1", "G2", "G3", "G4"):
         e, acima, total, p = p_exato_binario(eta2_medio_fora, grupo == g, len(sobe))
+        p_um_cru[g] = p                        # o selo TIPO/DESCRITIVO decide no cru
         um_contra[g] = dict(eta2_medio=r(e, 3), replicas=f"exato ({total} partições)",
-                            particoes=total, particoes_acima_ou_iguais=acima, p=r(p, 5))
+                            particoes=total, particoes_acima_ou_iguais=acima, p=r_p(p, 5))
 
     # fronteira: distância ao corte e troca sob ruído de +-10 pontos
     fronteira = []
@@ -1945,7 +2125,7 @@ def tipologia(d80, postos, bruto, jog):
     # O corte que separa os dois grupos de cada andar — é ele que diz se a ROTA é uma
     # fronteira ou uma linha desenhada no meio de uma nuvem. No TIPOLOGIA.md o andar de
     # cima (G1 x G2) é o mais frouxo da tipologia; aqui o número é recalculado.
-    andares = {}
+    andares, p_andar_cru = {}, {}
     for rot, mask in (("territorio_alto_G1_x_G2", V[terr][sobe] >= cortes[terr]),
                       ("territorio_baixo_G3_x_G4", V[terr][sobe] < cortes[terr])):
         sub = sobe[mask]
@@ -1956,9 +2136,10 @@ def tipologia(d80, postos, bruto, jog):
         Ms = np.column_stack([Pt[c][sub] for c in fora_tec])
         e, acima, total, p = p_exato_binario(lambda x: eta2_medio_fora(x, Ms),
                                              alto_rota, len(sub))
+        p_andar_cru[rot] = p
         andares[rot] = dict(n=int(len(sub)), eta2_medio=r(e, 3),
                             replicas=f"exato ({total} partições)", particoes=total,
-                            particoes_acima_ou_iguais=acima, p=r(p, 5))
+                            particoes_acima_ou_iguais=acima, p=r_p(p, 5))
 
     # o status declarado no TIPOLOGIA.md, ao lado do medido aqui: quando os dois
     # discordarem, a tela mostra os dois e o p de cada um. O documento é entrada declarada,
@@ -1973,8 +2154,7 @@ def tipologia(d80, postos, bruto, jog):
         grupos.append(dict(
             grupo=g, n=int(len(sel)),
             territorio=r(np.mean(V[terr][sel]), 1), rota=r(np.mean(V[rota][sel]), 1),
-            status="TIPO" if um_contra[g]["p"] is not None and um_contra[g]["p"] < 0.05
-                   else "DESCRITIVO",
+            status="TIPO" if abaixo(p_um_cru[g], 0.05) else "DESCRITIVO",
             corte_do_status=0.05,
             status_declarado_no_documento=STATUS_DECLARADO[g],
             p_declarado_no_documento=P_DECLARADO[g],
@@ -2035,18 +2215,17 @@ def tipologia(d80, postos, bruto, jog):
              passou=bool(np.nansum(q_fis < 0.05) >= 1)),
         dict(teste="formação separa os grupos (% de linha de três)",
              numero=testes_form["linha3"]["p"], corte=0.05,
-             passou=bool((testes_form["linha3"]["p"] or 1) < 0.05)),
+             passou=abaixo(p_form_cru["linha3"], 0.05)),
         dict(teste="o dinheiro distingue os quatro grupos (permutação)",
              numero=r(p_din, 4), corte=0.05, passou=bool(p_din < 0.05)),
         dict(teste="partição rival feita SÓ com dinheiro explica a bateria de fora",
-             numero=r((1 + (nulo_rival >= e_rival).sum()) / 201, 4), corte=0.05,
-             passou=bool((1 + (nulo_rival >= e_rival).sum()) / 201 < 0.05)),
+             numero=r(p_rival, 4), corte=0.05, passou=bool(p_rival < 0.05)),
         dict(teste="corte de ROTA dentro do território alto (G1 x G2)",
              numero=andares["territorio_alto_G1_x_G2"].get("p"), corte=0.05,
-             passou=bool((andares["territorio_alto_G1_x_G2"].get("p") or 1) < 0.05)),
+             passou=abaixo(p_andar_cru.get("territorio_alto_G1_x_G2"), 0.05)),
         dict(teste="corte de ROTA dentro do território baixo (G3 x G4)",
              numero=andares["territorio_baixo_G3_x_G4"].get("p"), corte=0.05,
-             passou=bool((andares["territorio_baixo_G3_x_G4"].get("p") or 1) < 0.05)),
+             passou=abaixo(p_andar_cru.get("territorio_baixo_G3_x_G4"), 0.05)),
         dict(teste="estabilidade: trocas ao tirar um time (máximo em 16)",
              numero=max(t["trocas"] for t in trocas_time), corte=0,
              passou=bool(max(t["trocas"] for t in trocas_time) <= 1)),
@@ -2075,7 +2254,7 @@ def tipologia(d80, postos, bruto, jog):
             sobrevivem_bh5=int(np.nansum(q_tec < 0.05)),
             sobrevivem_bh10=int(np.nansum(q_tec < 0.10)),
             por_indicador=sorted(
-                [dict(col=c, eta2=r(e, 3), p=r(p, 5), q=r(q, 5),
+                [dict(col=c, eta2=r(e, 3), p=r_p(p, 5), q=r_p(q, 5),
                       percentil_por_grupo={g: r(np.nanmean(Pt[c][sobe][grupo == g]), 0)
                                            for g in ("G1", "G2", "G3", "G4")})
                  for c, e, p, q in zip(fora_tec, e_obs, p_obs, q_tec)],
@@ -2131,10 +2310,10 @@ def tipologia(d80, postos, bruto, jog):
                                         and c not in set(fora_fis))]),
         formacao=testes_form,
         dinheiro=dict(eta2_posto_valor=r(e_din, 3), p_permutacao=r(p_din, 4),
-                      p_kruskal=r(kw.pvalue, 4),
+                      p_kruskal=r_p(kw.pvalue, 4),
                       particao_rival_so_dinheiro=dict(
                           eta2_medio=r(e_rival, 3), eta2_medio_nulo=r(np.mean(nulo_rival), 3),
-                          p=r((1 + (nulo_rival >= e_rival).sum()) / 201, 4)),
+                          p=r(p_rival, 4)),
                       residualizado=dict(muda_territorio=muda_terr, muda_rota=muda_rota,
                                          de=len(sobe),
                                          trocaram=[f"{d.clube[sobe[k]]} {int(d.ano[sobe[k]])}"
@@ -2174,7 +2353,10 @@ def etapa_8(d80, postos, bruto, jog, Z, itens_eixo):
                              for k in (2, 3, 4)],
                     eixos_usados=itens_eixo,
                     kmeans_no_plano_da_tipologia=km,
-                    observacoes_por_dimensao=dict(n=16, dimensoes=Z.shape[1])),
+                    # n contado (estava digitado 16): são as linhas de quem subiu que entram
+                    # na primeira silhueta do cemitério
+                    observacoes_por_dimensao=dict(n=int((d80.faixa == "sobe").sum()),
+                                                  dimensoes=Z.shape[1])),
                 tipologia=tip)
 
 
@@ -2197,9 +2379,9 @@ def etapa_9(d80, E, itens_eixo, postos, linhas_cat):
         rho = stats.spearmanr(v[a], v[b], nan_policy="omit").statistic
         reg.append(dict(eixo=nome, itens=itens_eixo[nome],
                         d_SM=r(d_cohen(v[faixa == "sobe"], v[faixa == "meio"]), 3),
-                        p_SM=r(ps[-1], 5),
+                        p_SM=r_p(ps[-1], 5),
                         d_liq_SM=r(d_cohen(res[faixa == "sobe"], res[faixa == "meio"]), 3),
-                        p_liq_SM=r(welch_p(res[faixa == "sobe"], res[faixa == "meio"]), 5),
+                        p_liq_SM=r_p(welch_p(res[faixa == "sobe"], res[faixa == "meio"]), 5),
                         rho_persist=r(rho, 3), esmaecido=bool(np.isfinite(rho) and rho < 0.30),
                         sobe=[r(x, 1) for x in v[faixa == "sobe"]],
                         itens_crus=[dict(col=c, d_SM=cat[c]["d_bruto_SM"] if c in cat else None,
@@ -2210,7 +2392,7 @@ def etapa_9(d80, E, itens_eixo, postos, linhas_cat):
                                     for c in itens_eixo[nome]]))
     qs = bh(ps)
     for k, x in enumerate(reg):
-        x["q_SM"] = r(qs[k], 5)
+        x["q_SM"] = r_p(qs[k], 5)
     return dict(titulo_chave="etapa_9", reguas=reg,
                 aviso_composicao="a unidade de teste é o indicador cru; o eixo é régua de tela")
 
@@ -2219,8 +2401,20 @@ def etapa_10(d80, bruto, postos, linhas_cat):
     """"Não contrate para isto": o que separa forte e é o resultado redescrito."""
     faixa = d80.faixa.values
     linhas = []
+    # `(rho_persist or 0) < 0,15` punha a porta B SEM medida de persistência (rho null: menos de 8
+    # pares) nesta lista, como se não se repetisse — ausência decidindo como número. Ela sai daqui
+    # e vai para `porta_B_sem_persistencia_medida`, com o motivo. A comparação usa o rho de 3 casas
+    # que a etapa 2 recebeu (o cru não viaja até aqui); ela só pode discordar da do cru quando o
+    # arredondado cai exatamente em 0,150, e essas linhas ficam contadas em
+    # `no_limiar_do_arredondamento`.
+    sem_medida, no_limiar = [], []
     for L in linhas_cat:
-        if L["porta"] == "D" or (L["porta"] == "B" and (L["rho_persist"] or 0) < 0.15):
+        if L["porta"] == "B" and L["rho_persist"] is None:
+            sem_medida.append(L["indicador"])
+            continue
+        if L["porta"] == "B" and L["rho_persist"] == 0.15:
+            no_limiar.append(L["indicador"])
+        if L["porta"] == "D" or (L["porta"] == "B" and abaixo(L["rho_persist"], 0.15)):
             c = L["coluna_csv"]
             if c not in bruto.columns:
                 continue
@@ -2242,7 +2436,15 @@ def etapa_10(d80, bruto, postos, linhas_cat):
                                d_bruto_SC=r(d_cohen(v[faixa == "sobe"], v[faixa == "cai"]), 3),
                                rho_persist=None))
     linhas.sort(key=lambda x: -abs(x["d_bruto_SC"] or 0))
-    return dict(titulo_chave="etapa_10", linhas=linhas)
+    return dict(titulo_chave="etapa_10", linhas=linhas,
+                porta_B_sem_persistencia_medida=dict(
+                    n=len(sem_medida), indicadores=sem_medida,
+                    motivo=("porta B sem rho de persistência (menos de 8 pares com valor nos dois "
+                            "anos): não se sabe se se repete, então não entra como 'não se repete'")),
+                no_limiar_do_arredondamento=dict(
+                    n=len(no_limiar), indicadores=no_limiar, limiar=0.15,
+                    motivo=("rho gravado com 3 casas exatamente no corte: só nessas linhas a decisão "
+                            "sobre o arredondado pode diferir da decisão sobre o cru")))
 
 
 def etapa_11(tec, sc):
@@ -2360,7 +2562,11 @@ def sobecai_corrigido(sc, raio):
             linhas.append(dict(k=k, menor=k in G.MENOR_MELHOR,
                                n_clube_sobe=int(len(a)), n_clube_cai=int(len(b)),
                                m_sobe_clube=r(a.mean(), 3), m_cai_clube=r(b.mean(), 3),
-                               d_clube=r(dd, 3), p_clube=r(pp, 5),
+                               d_clube=r(dd, 3), p_clube=r_p(pp, 5),
+                               # o p cru vai junto porque decide quem pontua o setor na etapa 13
+                               # (`indicadores_do_setor`): decidir no arredondado era o idioma
+                               # `(p or 1)`, em que 0,0 virava 1
+                               p_clube_cru=(float(pp) if np.isfinite(pp) else None),
                                n_atleta_sobe=ref.get("n_sobe"), n_atleta_cai=ref.get("n_cai"),
                                d_atleta=ref.get("d"), p_atleta=ref.get("p"),
                                bh_atleta=ref.get("bh")))
@@ -2377,7 +2583,7 @@ def sobecai_corrigido(sc, raio):
             testes=len(linhas),
             bh5_atleta=sum(1 for x in linhas if x["bh_atleta"]),
             bh5_clube=sum(1 for x in linhas if x["bh_clube"]),
-            p5_clube=sum(1 for x in linhas if (x["p_clube"] or 1) < 0.05),
+            p5_clube=sum(1 for x in linhas if abaixo(x["p_clube_cru"], 0.05)),
             itens=linhas)
     return saida
 
@@ -2596,7 +2802,8 @@ def alvos_fisicos(sc, corrigido, posto_val):
             ref = v_todos.dropna().values
             if len(ref) < 30:
                 continue
-            linha = dict(d_clube=it["d_clube"], p_clube=it["p_clube"], q_clube=it["q_clube"],
+            linha = dict(d_clube=it["d_clube"], p_clube=it["p_clube"],
+                         p_clube_cru=it.get("p_clube_cru"), q_clube=it["q_clube"],
                          bh_clube=it["bh_clube"], bh_atleta=it["bh_atleta"],
                          menor=it["menor"], n_atletas_serie_b=int(len(ref)))
             falta = False
@@ -2629,6 +2836,41 @@ SETOR_DE_POS = {"ZD": "zaga", "ZE": "zaga", "LD": "lateral", "LE": "lateral",
 N_ERRO = 50 if RAPIDO else 400     # bootstrap do erro-padrão da margem, por atleta
 
 
+def _identidade(j):
+    """id, nacionalidade e passaportes do atleta, lidos do MESMO dict de `jogadores.json`.
+
+    Os filtros de nacionalidade da tela reusam a regra do app (`ehEstrangeiroBase`, static/app.js):
+    quem tem passaporte brasileiro não ocupa vaga de estrangeiro. Essa regra lê `psp`, e não só
+    `nac`; gravar só `nac` faria a dupla com o Brasil passar por estrangeira em silêncio. O pool
+    da etapa 12 e a trilha do goleiro já nascem destes dicts, então não há casamento por nome e
+    não há risco de homônimo. O `id` vai junto porque é por ele que a tela acha a ficha de um
+    nome das propostas da etapa 14 sem depender do texto "Nome (Clube)".
+    """
+    out = dict(id=j.get("id"), nac=j.get("nac"), psp=j.get("psp"))
+    if out["nac"] is None:
+        out["motivo_nac"] = "campo `nac` nulo em dados/jogadores.json"
+    if out["psp"] is None:
+        out["motivo_psp"] = "campo `psp` nulo em dados/jogadores.json"
+    return out
+
+
+def _psp_brasil(x):
+    """A mesma leitura de `ehEstrangeiroBase`: 'Brazil' em qualquer lugar da lista de passaportes."""
+    return bool(x.get("psp")) and re.search("brazil", x["psp"], re.I) is not None
+
+
+def _resumo_nacionalidade(lista):
+    return dict(
+        n=len(lista),
+        sem_nac=int(sum(1 for x in lista if x.get("nac") is None)),
+        sem_psp=int(sum(1 for x in lista if x.get("psp") is None)),
+        nac_brasil=int(sum(1 for x in lista if x.get("nac") == "Brazil")),
+        psp_com_brasil_e_nac_diferente=int(sum(1 for x in lista
+                                               if _psp_brasil(x) and x.get("nac") != "Brazil")),
+        quem_tem_psp_com_brasil_e_nac_diferente=[f"{x['nome']} ({x['clube']})" for x in lista
+                                                 if _psp_brasil(x) and x.get("nac") != "Brazil"])
+
+
 def indicadores_do_setor(alvo):
     """Quais indicadores pontuam um setor — em UM lugar só, porque a nota e o backtest dela
     precisam ser a mesma coisa.
@@ -2644,7 +2886,7 @@ def indicadores_do_setor(alvo):
     """
     campos_fis = DECL["blocos_encaixe"]["fisica"]
     do_clube = [k for k, a in alvo.items()
-                if k in campos_fis and (a["p_clube"] or 1) < 0.05]
+                if k in campos_fis and abaixo(a.get("p_clube_cru", a["p_clube"]), 0.05)]
     if len(do_clube) >= 3:
         usa, pseudo = do_clube, False
         crit = "p_clube < 0,05 (teste corrigido por clube, 16x16)"
@@ -2671,7 +2913,7 @@ def indicadores_do_setor(alvo):
                 sobreviventes_por_clube=len(do_clube), tetos=tetos)
 
 
-def erro_da_margem(prox, n_rep):
+def erro_da_margem(prox, n_rep, gen):
     """O erro-padrão da margem de um atleta, MEDIDO — e medido no que de fato o produz.
 
     A margem é a média, sobre os indicadores presentes, da diferença entre a proximidade ao
@@ -2684,6 +2926,13 @@ def erro_da_margem(prox, n_rep):
     Com um indicador só não há o que medir, e é isso que fica gravado: `null` com motivo, e
     quem usa o número decide o que fazer com a ausência. A constante que estava aqui antes —
     0,30 dividido pela raiz do número de partidas rastreadas — não vinha de medida nenhuma.
+
+    `gen` é o gerador PRÓPRIO do atleta, `default_rng([SEMENTE, 13, id])`, criado em `etapa_13`.
+    Até 14/09/2026 este sorteio vinha do `rng` global, já consumido antes pelo bootstrap por clube
+    e pelo cemitério da etapa 8: mudar N_BOOT, N_NULO ou N_JACCARD, ou acrescentar um sorteio em
+    qualquer etapa anterior, mudava o erro-padrão dos atletas e, por ele, os nomes da etapa 14 —
+    que se dizia independente do resto. Um gerador por atleta, e não um para a etapa: com um só,
+    um candidato a mais no pool deslocaria o sorteio de todos os que vêm depois dele.
     """
     saida = dict(replicas=n_rep,
                  origem=("bootstrap pareado dos indicadores presentes do próprio atleta: "
@@ -2700,7 +2949,7 @@ def erro_da_margem(prox, n_rep):
             continue
         a = np.array([prox[c][k] for k in ks], float)
         b = np.array([prox["cai"][k] for k in ks], float)
-        idx = rng.integers(0, m, size=(n_rep, m))
+        idx = gen.integers(0, m, size=(n_rep, m))
         saida[f"margem_{c}"] = r(float((a[idx].mean(1) - b[idx].mean(1)).std(ddof=1)), 4)
     return saida
 
@@ -2766,6 +3015,12 @@ def etapa_13(pool, jogs, kpis, alvos, backtest):
     # e é a MESMA função que o backtest chama, para que os dois pontuem a mesma coisa.
     criterio_setor = {s: indicadores_do_setor(alvos.get(s, {})) for s in SETORES}
 
+    # O id semeia o gerador do erro-padrão de cada atleta: tem de existir e não se repetir no pool,
+    # senão dois atletas dividiriam o mesmo sorteio. Quebra alto em vez de cair num sorteio comum.
+    ids_pool = [j.get("id") for j in pool]
+    assert (all(isinstance(i, int) and i >= 0 for i in ids_pool)
+            and len(set(ids_pool)) == len(ids_pool)), \
+        "id ausente, negativo ou repetido no pool: o gerador por atleta da etapa 13 depende dele"
     linhas = []
     sem_kpi = 0
     for j in pool:
@@ -2810,7 +3065,9 @@ def etapa_13(pool, jogs, kpis, alvos, backtest):
             nota_fis[f"margem_{c}_normalizada"] = (r(m / t, 4) if m is not None and t
                                                    and t >= 0.01 else None)
         nota_fis["margem_normalizada"] = nota_fis["margem_sobe_normalizada"]
-        nota_fis["erro_padrao"] = erro_da_margem(prox, N_ERRO)
+        # gerador próprio POR ATLETA, semeado pelo id de jogadores.json (ver `erro_da_margem`)
+        nota_fis["erro_padrao"] = erro_da_margem(
+            prox, N_ERRO, np.random.default_rng([SEMENTE, 13, int(j["id"])]))
         # blocos técnicos, do kpis.json
         regs = kj.get(f"{j['n']} - {j['t']} - {j['l']}")
         blocos_tec = {}
@@ -2834,6 +3091,7 @@ def etapa_13(pool, jogs, kpis, alvos, backtest):
                           for rot, ids in (("duelo", ids_duelo), ("estilo", ids_estilo))}
         linhas.append(dict(
             nome=j["n"], clube=j["t"], liga=j["l"], pos=j["p"], setor=setor,
+            **_identidade(j),
             idade=j.get("id_"), min=j.get("min"), sc_n=j.get("sc_n"), sc_min=j.get("sc_min"),
             ctc=j.get("ctc"), ctf=len(j.get("ctf") or []), ct=j.get("ct"),
             mv=j.get("mv"), sal=j.get("sal"), emp=j.get("emp"),
@@ -2875,6 +3133,7 @@ def etapa_13(pool, jogs, kpis, alvos, backtest):
             p, n = pct(j, c, v)
             pcts[c] = dict(percentil=r(p, 1), n_na_coorte=n) if p is not None else None
         gks.append(dict(nome=j["n"], clube=j["t"], liga=j["l"], idade=j.get("id_"),
+                        **_identidade(j),
                         min=j.get("min"), ctc=j.get("ctc"), mv=j.get("mv"),
                         percentis=pcts,
                         indicadores_com_dado=sum(1 for v in pcts.values() if v)))
@@ -2887,7 +3146,14 @@ def etapa_13(pool, jogs, kpis, alvos, backtest):
             no_pool_operacional=sum(1 for j in pool if j["p"] == "GOL"),
             referencia_ZD_no_pool=sum(1 for j in pool if j["p"] == "ZD"),
             indicadores=gk_campos + ["Golos expectáveis defendidos por 90´ (kpis.json)"],
+            nacionalidade=_resumo_nacionalidade(gks),
             candidatos=gks),
+        nacionalidade=dict(
+            fonte=("dados/jogadores.json, campos `nac` (nacionalidade) e `psp` (passaportes, lista "
+                   "separada por vírgula), lidos do mesmo dict que monta o pool"),
+            regra_da_tela=("static/app.js::ehEstrangeiroBase — estrangeiro = `nac` diferente de "
+                           "Brazil e sem Brazil em `psp`"),
+            candidatos=_resumo_nacionalidade(linhas)),
         pesos=dict(fisica=dict(rho_ao_trocar_de_clube=[0.72, 0.90], peso="alto"),
                    duelo=dict(rho_ao_trocar_de_clube=[0.34, 0.46], peso="medio"),
                    estilo=dict(rho_ao_trocar_de_clube=[0.16, 0.30], peso="baixo")),
@@ -2909,6 +3175,17 @@ def etapa_13(pool, jogs, kpis, alvos, backtest):
             origem=("bootstrap pareado dos indicadores presentes de cada atleta (campo "
                     "`erro_padrao` de cada candidato)"),
             replicas=N_ERRO,
+            gerador=(f"np.random.default_rng([{SEMENTE}, 13, id]), um por atleta, id de "
+                     "dados/jogadores.json"),
+            mudanca_do_gerador=dict(
+                data="2026-09-14", os_numeros_mudam=True,
+                antes=("rng global, já consumido antes pelo bootstrap por clube (etapa 2) e pelo "
+                       "cemitério da etapa 8"),
+                por_que=("o erro-padrão é o ruído da reamostragem da etapa 14; com o rng global, "
+                         "qualquer sorteio acrescentado ou mudado numa etapa anterior movia os nomes "
+                         "da etapa 14 sem mudança de método"),
+                por_que_um_por_atleta=("com um gerador só para a etapa, um candidato a mais no pool "
+                                       "deslocaria o sorteio de todos os que vêm depois dele")),
             motivo=("substitui a constante 0,30/sqrt(sc_n) que estava digitada e não vinha de "
                     "medida nenhuma; setor de um indicador só fica com null e motivo")),
         alvos_por_setor=alvos,
@@ -3041,11 +3318,11 @@ def backtest_nota(tec, sc, alvos):
         min_medio_recomendados=r(alto.min_t.mean(), 1), n_recomendados=int(len(alto)),
         min_medio_reprovados=r(baixo.min_t.mean(), 1), n_reprovados=int(len(baixo)),
         d_minutos=r(d_cohen(alto.min_t.dropna(), baixo.min_t.dropna()), 3),
-        p_minutos=r(welch_p(alto.min_t.dropna(), baixo.min_t.dropna()), 5),
-        rho_nota_x_minutos=r(rho_min, 3), p_rho=r(p_min, 5),
+        p_minutos=r_p(welch_p(alto.min_t.dropna(), baixo.min_t.dropna()), 5),
+        rho_nota_x_minutos=r(rho_min, 3), p_rho=r_p(p_min, 5),
         permanencia_recomendados_pct=r(100 * alto.ficou_em_t1.mean(), 1),
         permanencia_reprovados_pct=r(100 * baixo.ficou_em_t1.mean(), 1),
-        p_permanencia=r(stats.fisher_exact([[int(alto.ficou_em_t1.sum()),
+        p_permanencia=r_p(stats.fisher_exact([[int(alto.ficou_em_t1.sum()),
                                              int((1 - alto.ficou_em_t1).sum())],
                                             [int(baixo.ficou_em_t1.sum()),
                                              int((1 - baixo.ficou_em_t1).sum())]])[1], 5),
@@ -3061,9 +3338,71 @@ GRADE = [("GOL", 1), ("ZD", 2), ("ZE", 2), ("LD", 1), ("LE", 1), ("VOL", 2),
 
 # Piso do erro-padrão: valor DECLARADO, não medido. Ele só é usado onde a medida não existe
 # (atleta cujo setor pontua com um indicador só) e serve para que um atleta sem incerteza
-# medível não entre na reamostragem como se fosse a certeza absoluta e trave a vaga nas 200
+# medível não entre na reamostragem como se fosse a certeza absoluta e trave a vaga em todas as
 # réplicas. Vai ao JSON com esse rótulo, e a contagem de quem caiu nele vai junto.
 PISO_ERRO = 0.02
+
+# O índice de cada proposta no gerador próprio dela, `np.random.default_rng([SEMENTE, 14, i])`.
+# DECLARADO aqui e não tirado da ordem do laço: com um gerador por proposta, uma proposta que
+# fica impossível, ou uma proposta nova com outro escopo, não desloca o sorteio de nenhuma outra;
+# e reordenar o laço também não, porque o i não depende dele.
+INDICE_PROPOSTA_14 = {
+    "A_caro__serie_b": 0, "A_caro__sul_americano": 1,
+    "B_barato_transicao__serie_b": 2, "B_barato_transicao__sul_americano": 3,
+    "C_anti_queda__serie_b": 4, "C_anti_queda__sul_americano": 5,
+}
+
+# A regra do empate técnico, declarada ANTES de rodar (decisão do dono em 14/09/2026).
+REGRA_EMPATE_14 = dict(
+    fatia="réplicas em que o atleta ocupou ALGUMA vaga da posição, sobre o total de réplicas",
+    intervalo="Clopper-Pearson de 95% sobre essa fatia (exato, binomial)",
+    recomendacao="limite inferior do intervalo acima de 50%: claramente mais da metade das vezes",
+    empate_tecnico="o intervalo contém 50%: não dá para dizer se é mais ou menos da metade",
+    alternativa="limite superior abaixo de 50% e fatia de pelo menos 10%",
+    o_que_o_intervalo_mede=("só o ruído do sorteio das réplicas, dado o erro-padrão de cada nota; "
+                            "não mede a incerteza da própria nota nem a do alvo"),
+    # As duas marcas abaixo NÃO mudam a categoria de nome nenhum: existem para a tela explicar o que
+    # a regra acima já decidiu. Foram acrescentadas depois da primeira rodada com a regra.
+    na_borda_de_50=("algum limite do intervalo a menos de 0,1 ponto de 50%: a categoria vale, mas "
+                    "com a fatia a uma ou duas réplicas da outra categoria"),
+    chance_a_priori=("vagas da posição sobre candidatos elegíveis para ela (teto 100%): a fatia que "
+                     "cada nome teria se as notas não dissessem nada; um recomendado abaixo dela, "
+                     "numa posição de poucos candidatos, é quase sorteio"))
+
+# Distância a 50%, em fração, abaixo da qual o nome leva `na_borda_de_50`. Com 2.000 réplicas, uma
+# réplica a mais ou a menos move os limites do intervalo em uns 0,05 ponto: 0,1 ponto é essa ordem.
+BORDA_14 = 0.001
+
+# Teto do cenário B, em euros, DECLARADO na especificação da seção 9 (elenco de transição barato).
+TETO_BARATO_14 = 3_000_000
+
+# O que cada cenário filtra, gravado junto de cada proposta. O B admite `mv` 0 (atleta sem valor de
+# mercado no Transfermarkt) como barato: é ausência passando no teto. Os nomes do B não mudam aqui,
+# porque excluir essa gente muda a proposta e é decisão do dono; o que muda é que isso fica escrito
+# na proposta e em cada nome (`sem_valor_de_mercado`).
+FILTRO_DO_CENARIO_14 = dict(
+    A_caro=dict(regra="sem filtro de valor de mercado", admite_sem_valor=True,
+                decisao_pendente=None),
+    B_barato_transicao=dict(
+        regra=f"valor de mercado até € {TETO_BARATO_14:,}".replace(",", "."),
+        admite_sem_valor=True,
+        como=("`(mv or 0) <= teto`: quem tem mv 0 (sem valor de mercado no Transfermarkt) passa "
+              "como barato"),
+        decisao_pendente=("exigir valor de mercado maior que zero no cenário barato muda os nomes "
+                          "desta proposta; decisão do dono")),
+    C_anti_queda=dict(regra="sem filtro de valor de mercado", admite_sem_valor=True,
+                      decisao_pendente=None))
+
+# Teto de combinações para medir a faixa de valor do núcleo trocando os nomes em empate técnico.
+# Acima dele a faixa sai null com o motivo, em vez de uma enumeração que trava a rodada.
+LIMITE_COMBINACOES_14 = 5000
+
+
+def ic95_clopper_pearson(k, n):
+    """Intervalo exato de 95% para a fatia k/n — o mesmo que a etapa 3 usa no p de Monte Carlo."""
+    lo = 0.0 if k == 0 else float(stats.beta.ppf(0.025, k, n - k + 1))
+    hi = 1.0 if k == n else float(stats.beta.ppf(0.975, k + 1, n - k))
+    return lo, hi
 
 
 def etapa_14(cand, d80, elencos):
@@ -3071,10 +3410,24 @@ def etapa_14(cand, d80, elencos):
 
     Duas decisões, e as duas são sobre honestidade de precisão:
 
-    **Faixa, não escalação.** 200 elencos por reamostragem das notas dentro do erro-padrão
-    de cada atleta; por vaga, quem aparece em mais de 50% das soluções é recomendação e
-    quem aparece em 10% a 50% é alternativa equivalente DENTRO DO RUÍDO. Um XI único
-    calibrado em n=16 seria precisão falsa.
+    **Faixa, não escalação.** N_ELENCO elencos por reamostragem das notas dentro do
+    erro-padrão de cada atleta; por POSIÇÃO, quem aparece claramente em mais de metade das
+    soluções é recomendação, quem fica com o intervalo em cima de 50% é empate técnico e quem
+    aparece em 10% ou mais, abaixo disso, é alternativa (regra em `REGRA_EMPATE_14`). Um XI
+    único calibrado em n=16 seria precisão falsa.
+
+    **O que mudou em 14/09/2026, por decisão do dono** (e fica gravado no JSON):
+    - contagem por POSIÇÃO e não por vaga. As posições com duas vagas (ZD, ZE, VOL, MED, CA)
+      são colunas gêmeas no Húngaro, que DIVIDE o mesmo atleta entre elas conforme o sorteio:
+      um volante que está no time em quase todas as réplicas aparecia com pouco mais de
+      metade em cada vaga, e as duas vagas podiam sair sem recomendação;
+    - 2.000 réplicas e não 200: com 200, um nome em 52% está dentro do ruído do próprio sorteio;
+    - um gerador por proposta, `[SEMENTE, 14, i]`, e não o `rng` global: antes, qualquer
+      sorteio acrescentado antes desta etapa — ou uma proposta a mais — movia os nomes. Isso só
+      vale junto com o gerador por atleta do erro-padrão da etapa 13 (`erro_da_margem`): o ruído
+      daqui é aquele erro-padrão, e enquanto ele saía do `rng` global um sorteio a mais em
+      qualquer etapa anterior ainda trocava nomes;
+    - a marca de empate técnico, para "recomendado" querer dizer claramente acima de metade.
 
     **`linear_sum_assignment` e não programação inteira.** `pulp` e `ortools` não estão
     instalados; o Húngaro resolve a alocação ótima jogador×vaga com as restrições como
@@ -3105,7 +3458,8 @@ def etapa_14(cand, d80, elencos):
     propostas = {}
     for cen, alvo_key, filtro in (
         ("A_caro", "margem_caro", lambda c: True),
-        ("B_barato_transicao", "margem_barato", lambda c: (c.get("mv") or 0) <= 3_000_000),
+        # mv 0 passa como barato — ver FILTRO_DO_CENARIO_14 e `sem_valor_de_mercado` em cada nome
+        ("B_barato_transicao", "margem_barato", lambda c: (c.get("mv") or 0) <= TETO_BARATO_14),
         ("C_anti_queda", "margem_sobe", lambda c: True),
     ):
         def nota(c, _k=alvo_key):
@@ -3113,6 +3467,7 @@ def etapa_14(cand, d80, elencos):
         base = [c for c in cand if nota(c) is not None]
         for escopo, pred in (("serie_b", lambda c: c["liga"] == "Brasil B"),
                              ("sul_americano", lambda c: True)):
+            i_prop = INDICE_PROPOSTA_14[f"{cen}__{escopo}"]
             pool = [c for c in base if filtro(c) and pred(c) and not c["emp"]
                     and (c["idade"] or 99) <= 32]
             vagas = [p for p, n in GRADE for _ in range(n)]
@@ -3123,7 +3478,7 @@ def etapa_14(cand, d80, elencos):
                 pos_pool.setdefault(c["pos"], []).append(c)
             # `dict.fromkeys(vagas)` e não `set(vagas)`: a ordem do set de strings muda a cada
             # execução (PYTHONHASHSEED), e com ela a ordem de `lista` — que é a ordem em que o
-            # `rng.normal` distribui o ruído entre os atletas. O mesmo código, rodado duas
+            # sorteio distribui o ruído entre os atletas. O mesmo código, rodado duas
             # vezes sobre a mesma base, devolvia elencos diferentes (386 campos da etapa 14
             # mudaram entre duas rodadas do gerador intacto em 13/09/2026). A ordem agora é a
             # da GRADE, que é declarada e não sorteada.
@@ -3134,7 +3489,8 @@ def etapa_14(cand, d80, elencos):
             if len(lista) < len(vagas):
                 propostas[f"{cen}__{escopo}"] = dict(
                     possivel=False, motivo="candidatos elegíveis abaixo do número de vagas",
-                    candidatos=len(lista), vagas=len(vagas), denominador_por_vaga=denom)
+                    candidatos=len(lista), vagas=len(vagas), denominador_por_vaga=denom,
+                    indice_da_proposta=i_prop)
                 continue
             notas = np.array([nota(c) for c in lista], float)
             # O erro-padrão é o MEDIDO na etapa 13 (bootstrap pareado dos indicadores do
@@ -3166,26 +3522,36 @@ def etapa_14(cand, d80, elencos):
             sal_meio = np.array(sal_meio, float)
             teto_idade, teto_liga, min_veteranos = 29.0, 6, 5
 
-            contagem = [{} for _ in vagas]
+            # Gerador PRÓPRIO desta proposta (ver INDICE_PROPOSTA_14): o `rng` global deslocava
+            # os nomes a cada sorteio acrescentado antes, e uma proposta a mais movia as seguintes.
+            gen = np.random.default_rng([SEMENTE, 14, i_prop])
+            n_vagas_da_pos = {v: vagas.count(v) for v in ordem_vagas}
+            # A contagem é por POSIÇÃO: réplicas em que o atleta ocupou ALGUMA vaga daquela
+            # posição. Por vaga, o Húngaro dividia o mesmo atleta entre as duas vagas gêmeas (ZD,
+            # ZE, VOL, MED, CA) conforme o sorteio, e quem estava no time quase sempre aparecia
+            # com pouco mais de metade em cada uma. Como cada atleta ocupa no máximo uma vaga por
+            # réplica, a contagem por posição é 0 ou 1 por réplica e a fatia é uma binomial.
+            # A chave é o ÍNDICE do atleta em `lista`, nunca o texto "Nome (Clube)".
+            contagem = {v: {} for v in ordem_vagas}
             infracoes = dict(idade_media_acima_do_teto=0, liga_estrangeira_acima_de_6=0,
                              menos_de_5_com_1800_min=0, replicas=N_ELENCO)
+            # penalidade de idade e de pouca rodagem: elenco novo inteiro é risco de
+            # integração que o dado não mede, e a nota física premia o jovem sozinha. Ela não
+            # depende da réplica, então sai do laço; e a matriz de custo é montada de uma vez
+            # pela máscara posição x vaga, com os mesmos valores do laço duplo que existia —
+            # com 2.000 réplicas o laço em Python custava minutos.
+            pen = np.where(idade > teto_idade, 0.02 * (idade - teto_idade), 0.0)
+            pen += np.where(veterano, 0.0, 0.01)
+            cabe = np.array([[c["pos"] == v for v in vagas] for c in lista], bool)
             for _ in range(N_ELENCO):
-                ruido = notas + rng.normal(0, erro)
-                # penalidade de idade e de pouca rodagem: elenco novo inteiro é risco de
-                # integração que o dado não mede, e a nota física premia o jovem sozinha.
-                pen = np.where(idade > teto_idade, 0.02 * (idade - teto_idade), 0.0)
-                pen += np.where(veterano, 0.0, 0.01)
-                custo = np.full((len(lista), len(vagas)), 1e3)
-                for jv, v in enumerate(vagas):
-                    for ic, c in enumerate(lista):
-                        if c["pos"] == v:
-                            custo[ic, jv] = -(ruido[ic] - pen[ic])
+                ruido = notas + gen.normal(0, erro)
+                custo = np.where(cabe, -(ruido - pen)[:, None], 1e3)
                 li, co = linear_sum_assignment(custo)
                 sel_ic = [ic for ic, jv in zip(li, co) if custo[ic, jv] < 1e2]
                 for ic, jv in zip(li, co):
                     if custo[ic, jv] < 1e2:
-                        nm = f"{lista[ic]['nome']} ({lista[ic]['clube']})"
-                        contagem[jv][nm] = contagem[jv].get(nm, 0) + 1
+                        v = vagas[jv]
+                        contagem[v][ic] = contagem[v].get(ic, 0) + 1
                 if sel_ic:
                     infracoes["idade_media_acima_do_teto"] += idade[sel_ic].mean() > teto_idade
                     por_liga = {}
@@ -3195,54 +3561,173 @@ def etapa_14(cand, d80, elencos):
                     infracoes["liga_estrangeira_acima_de_6"] += any(v > teto_liga
                                                                     for v in por_liga.values())
                     infracoes["menos_de_5_com_1800_min"] += veterano[sel_ic].sum() < min_veteranos
+            # A fatia que cada nome teria se as notas não dissessem nada: vagas sobre candidatos da
+            # posição. Numa posição de 2 vagas e 3 candidatos isso é 66,7%, e um "recomendado" em
+            # 64,5% está abaixo do acaso — sem o número ao lado, a tela lê escolha onde há sorteio.
+            chance = {v: (min(1.0, n_vagas_da_pos[v] / denom[v]) if denom.get(v) else None)
+                      for v in ordem_vagas}
+
+            def texto(ic):
+                return f"{lista[ic]['nome']} ({lista[ic]['clube']})"
+
+            def ficha(ic, k):
+                """Uma entrada de nome da proposta, com o que os filtros da tela precisam.
+
+                A contagem crua (`replicas_com_o_nome`) vai junto porque a fatia com uma casa não
+                identifica k: com 2.000 réplicas a fatia anda de 0,05 em 0,05 ponto, e 52,2% podia ser
+                1.044 (empate técnico) ou 1.045 (recomendado). Por isso a fatia e o intervalo saem
+                com 2 casas — exatas para a fatia —, e o arredondamento de meio para o par em ponto
+                flutuante (87,15 virava 87,2 e 35,55 virava 35,5) deixa de decidir o que se lê.
+                """
+                c = lista[ic]
+                lo, hi = ic95_clopper_pearson(k, N_ELENCO)
+                ch = chance.get(c["pos"])
+                out = dict(nome=texto(ic), replicas_com_o_nome=int(k), de=N_ELENCO,
+                           freq_pct=r(100 * k / N_ELENCO, 2),
+                           ic95_pct=[r(100 * lo, 2), r(100 * hi, 2)],
+                           na_borda_de_50=bool(min(abs(lo - 0.5), abs(hi - 0.5)) < BORDA_14),
+                           fatia_acima_da_chance_a_priori=(bool(k / N_ELENCO > ch)
+                                                           if ch is not None else None),
+                           id=c.get("id"),
+                           liga=c["liga"], idade=c["idade"], nac=c.get("nac"), psp=c.get("psp"),
+                           mv=c.get("mv"), sem_valor_de_mercado=not c.get("mv"))
+                for campo in ("motivo_nac", "motivo_psp"):
+                    if campo in c:
+                        out[campo] = c[campo]
+                if out["idade"] is None:
+                    out["motivo_idade"] = "campo `id_` nulo em dados/jogadores.json"
+                return out
+
             vagas_out = []
-            vazias = 0
-            for jv, v in enumerate(vagas):
-                itens = sorted(contagem[jv].items(), key=lambda x: -x[1])
-                rec = [dict(nome=n, freq_pct=r(100 * k / N_ELENCO, 1))
-                       for n, k in itens if k / N_ELENCO > 0.50]
-                alt = [dict(nome=n, freq_pct=r(100 * k / N_ELENCO, 1))
-                       for n, k in itens if 0.10 <= k / N_ELENCO <= 0.50]
-                linha_v = dict(vaga=v, denominador=denom.get(v, 0),
-                               recomendacao=rec, alternativas=alt)
-                # Vaga vazia não é vaga sem candidato: é vaga em que a massa se espalhou tanto
-                # que ninguém chegou a 10% das réplicas. Sem o motivo escrito, a tela mostra
-                # um buraco e o leitor conclui que não há quem jogue ali — quando o que houve
-                # foi o oposto, gente demais empatada dentro do ruído.
-                if not rec and not alt:
-                    vazias += 1
-                    lider = itens[0] if itens else None
-                    linha_v["motivo"] = (
-                        f"nenhum nome passou de 10% das {N_ELENCO} réplicas; a massa ficou "
-                        f"espalhada entre {len(itens)} candidatos"
-                        if itens else
-                        f"nenhum candidato desta posição foi alocado em nenhuma das "
-                        f"{N_ELENCO} réplicas")
-                    linha_v["candidatos_com_alguma_replica"] = len(itens)
-                    linha_v["primeiro_colocado"] = lider[0] if lider else None
-                    linha_v["freq_pct_do_primeiro"] = (r(100 * lider[1] / N_ELENCO, 1)
-                                                       if lider else None)
+            vazias = posicoes_vazias = posicoes_acima_das_vagas = 0
+            emp_por_pos = {}
+            for v in ordem_vagas:
+                nv = n_vagas_da_pos[v]
+                # desempate pelo índice em `lista`, que segue a ordem da GRADE e do pool: nada
+                # na ordem dos nomes depende de hash nem da ordem em que o dict foi preenchido
+                itens = sorted(contagem[v].items(), key=lambda x: (-x[1], x[0]))
+                rec, emp, alt = [], [], []
+                emp_por_pos[v] = []
+                for ic, k in itens:
+                    lo, hi = ic95_clopper_pearson(k, N_ELENCO)
+                    if lo > 0.50:
+                        rec.append(ficha(ic, k))
+                    elif hi >= 0.50:
+                        emp.append(ficha(ic, k))
+                        emp_por_pos[v].append(ic)
+                    elif k / N_ELENCO >= 0.10:
+                        alt.append(ficha(ic, k))
+                linha_v = dict(vaga=v, vagas=nv, contagem_por="posição",
+                               denominador=denom.get(v, 0),
+                               chance_a_priori_pct=(r(100 * chance[v], 2)
+                                                    if chance[v] is not None else None),
+                               recomendacao=rec, empate_tecnico=emp, alternativas=alt)
+                if chance[v] is None:
+                    linha_v["motivo_chance_a_priori"] = "posição sem candidato elegível nesta proposta"
+                if len(rec) > nv:
+                    posicoes_acima_das_vagas += 1
+                    linha_v["mais_recomendados_que_vagas"] = dict(
+                        recomendados=len(rec), vagas=nv,
+                        motivo=("mais nomes que vagas ficaram claramente acima de metade das "
+                                "réplicas: eles se revezam nas vagas desta posição"))
+                if not rec and not alt and not emp:
+                    posicoes_vazias += 1
+                    vazias += nv
+                # As chaves do espalhamento vão em TODA posição, e o motivo sempre que faltar
+                # recomendação para alguma vaga. Antes elas só eram escritas quando a posição não
+                # tinha recomendação nem alternativa: 30 das 60 posições ficavam com vaga sem nome
+                # e sem motivo (posição com empate e alternativas, ou uma de duas vagas preenchida),
+                # e o CONJUNTO de chaves dependia do resultado — um nome que cruzasse a borda criava
+                # ou apagava chaves, e o contrato com a aba por pontos quebrava junto.
+                lider = itens[0] if itens else None
+                linha_v["vagas_sem_recomendacao"] = max(0, nv - len(rec))
+                linha_v["candidatos_com_alguma_replica"] = len(itens)
+                linha_v["primeiro_colocado"] = texto(lider[0]) if lider else None
+                linha_v["primeiro_colocado_id"] = lista[lider[0]].get("id") if lider else None
+                linha_v["freq_pct_do_primeiro"] = (r(100 * lider[1] / N_ELENCO, 2)
+                                                   if lider else None)
+                if len(rec) >= nv:
+                    linha_v["motivo"] = None          # nada falta: `vagas_sem_recomendacao` é 0
+                elif not itens:
+                    linha_v["motivo"] = (f"nenhum candidato desta posição foi alocado em nenhuma das "
+                                         f"{N_ELENCO} réplicas")
+                else:
+                    # Vaga sem recomendação não é vaga sem candidato: é vaga em que ninguém ficou
+                    # CLARAMENTE acima de metade. O motivo diz quantos ficaram em cima de 50%, quantos
+                    # abaixo e por quantos a escolha se espalhou — tudo contado aqui.
+                    linha_v["motivo"] = "; ".join([
+                        f"{len(rec)} de {nv} {'vaga' if nv == 1 else 'vagas'} com nome claramente acima "
+                        f"de metade das {N_ELENCO} réplicas (limite inferior do intervalo de 95% "
+                        f"acima de 50%)",
+                        (f"{len(emp)} em empate técnico (o intervalo de 95% contém 50%)" if emp
+                         else "nenhum em empate técnico"),
+                        (f"{len(alt)} {'alternativa' if len(alt) == 1 else 'alternativas'} (fatia "
+                         f"abaixo de 50% e de pelo menos 10%)" if alt else "nenhuma alternativa"),
+                        (f"a escolha se espalhou entre {len(itens)} candidatos com alguma réplica; o "
+                         f"mais frequente, {texto(lider[0])}, em {num_br(100 * lider[1] / N_ELENCO, 2)}%")])
                 vagas_out.append(linha_v)
-            # contrafactual do dinheiro: soma dos mv dos nomes mais frequentes
-            escolhidos, vistos = [], set()
-            for jv, v in enumerate(vagas):
-                itens = sorted(contagem[jv].items(), key=lambda x: -x[1])
-                for n, _ in itens:
-                    if n not in vistos:
-                        vistos.add(n)
-                        escolhidos.append(next(c for c in lista
-                                               if f"{c['nome']} ({c['clube']})" == n))
-                        break
-            # `sum(c["mv"] or 0 ...)` somava ZERO para quem não tem valor de mercado: o
-            # atleta sem dado entrava como atleta de graça e barateava o elenco proposto sem
-            # que nada na tela dissesse isso. Soma-se só quem tem, e a régua encolhe junto.
-            com_valor = [c for c in escolhidos if c.get("mv")]
-            soma = float(sum(c["mv"] for c in com_valor))
+            # contrafactual do dinheiro: soma dos mv dos nomes mais frequentes — pela MESMA
+            # contagem por posição: os `vagas` nomes mais frequentes de cada posição, na ordem
+            # da GRADE (antes, o primeiro nome de cada vaga, que dividia o atleta entre as gêmeas)
+            escolhidos, vistos, escolha_por_pos = [], set(), {}
+            for v in ordem_vagas:
+                itens = sorted(contagem[v].items(), key=lambda x: (-x[1], x[0]))
+                escolha_por_pos[v] = [ic for ic, _ in itens[:n_vagas_da_pos[v]]]
+                for ic in escolha_por_pos[v]:
+                    if ic not in vistos:
+                        vistos.add(ic)
+                        escolhidos.append(lista[ic])
+            reguas = {}
+
+            def valor_do_nucleo(nucleo):
+                # `sum(c["mv"] or 0 ...)` somava ZERO para quem não tem valor de mercado: o
+                # atleta sem dado entrava como atleta de graça e barateava o elenco proposto sem
+                # que nada na tela dissesse isso. Soma-se só quem tem, e a régua encolhe junto.
+                cv = [c for c in nucleo if c.get("mv")]
+                n_ref = max(1, len(cv))
+                if n_ref not in reguas:
+                    reguas[n_ref] = regua_topo(n_ref)
+                s = float(sum(c["mv"] for c in cv))
+                return s, cv, reguas[n_ref], int((reguas[n_ref] > s).sum() + 1)
+
+            soma, com_valor, referencia, posto = valor_do_nucleo(escolhidos)
             sem_mv = len(escolhidos) - len(com_valor)
-            referencia = regua_topo(max(1, len(com_valor)))
-            posto = int((referencia > soma).sum() + 1)
             quartil = min(4, max(1, int(np.ceil(posto / (len(referencia) / 4)))))
             quartil = 5 - quartil            # quartil 4 = o mais caro, como na etapa 1
+            # Parte do núcleo pode ter sido escolhida DENTRO de um empate técnico (no ZE da Série B,
+            # os dois primeiros de quatro nomes separados por 1 a 2 pontos). O valor do núcleo é um
+            # número só, mas a escolha desses nomes é ruído que a própria etapa declarou: a faixa
+            # abaixo refaz valor e posto trocando cada nome do núcleo que está em empate por
+            # qualquer outro do empate da mesma posição, com os demais fixos.
+            nucleo_em_empate = [dict(vaga=v, nome=texto(ic), id=lista[ic].get("id"))
+                                for v in ordem_vagas for ic in escolha_por_pos[v]
+                                if ic in emp_por_pos[v]]
+            opcoes = []
+            for v in ordem_vagas:
+                fixos = [ic for ic in escolha_por_pos[v] if ic not in emp_por_pos[v]]
+                n_emp = len(escolha_por_pos[v]) - len(fixos)
+                opcoes.append([fixos + list(cmb) for cmb in
+                               itertools.combinations(emp_por_pos[v], n_emp)] if n_emp else [fixos])
+            n_comb = int(np.prod([len(o) for o in opcoes]))
+            faixa_empate = dict(
+                regra=("cada nome do núcleo que está em empate técnico trocado por qualquer outro do "
+                       "empate técnico da mesma posição, os demais fixos; valor e posto refeitos em "
+                       "cada combinação, com a régua do mesmo tamanho da soma"),
+                combinacoes=n_comb)
+            if n_comb <= LIMITE_COMBINACOES_14:
+                somas, postos_c = [], []
+                for escolha in itertools.product(*opcoes):
+                    s, _, _, pst = valor_do_nucleo([lista[ic] for grupo in escolha for ic in grupo])
+                    somas.append(s)
+                    postos_c.append(pst)
+                faixa_empate.update(nucleo_valor_eur_min=r(min(somas), 0),
+                                    nucleo_valor_eur_max=r(max(somas), 0),
+                                    posto_mais_caro=int(min(postos_c)),
+                                    posto_mais_barato=int(max(postos_c)))
+            else:
+                faixa_empate.update(nucleo_valor_eur_min=None, nucleo_valor_eur_max=None,
+                                    posto_mais_caro=None, posto_mais_barato=None,
+                                    motivo=f"mais de {LIMITE_COMBINACOES_14} combinações")
             # Validação de volta (seção 9): recalcular do elenco proposto a mesma medida do
             # cenário e mostrar a distância ao alvo. Se não bate, o problema é o MERCADO e
             # não o método — e a tela precisa poder dizer qual eixo ficou de fora.
@@ -3265,6 +3750,22 @@ def etapa_14(cand, d80, elencos):
 
             propostas[f"{cen}__{escopo}"] = dict(
                 possivel=True, cenario=cen, escopo=escopo, replicas=N_ELENCO,
+                indice_da_proposta=i_prop,
+                gerador=f"np.random.default_rng([{SEMENTE}, 14, {i_prop}])",
+                contagem_por="posição", regra_do_empate=REGRA_EMPATE_14,
+                posicoes=len(ordem_vagas), posicoes_sem_nenhum_nome=posicoes_vazias,
+                posicoes_com_mais_recomendados_que_vagas=posicoes_acima_das_vagas,
+                nomes_recomendados=int(sum(len(x["recomendacao"]) for x in vagas_out)),
+                nomes_em_empate_tecnico=int(sum(len(x["empate_tecnico"]) for x in vagas_out)),
+                nomes_na_borda_de_50=int(sum(1 for x in vagas_out
+                                             for cat in ("recomendacao", "empate_tecnico", "alternativas")
+                                             for f in x[cat] if f["na_borda_de_50"])),
+                filtro_do_cenario=FILTRO_DO_CENARIO_14[cen],
+                candidatos_sem_valor_de_mercado=int(sum(1 for c in lista if not c.get("mv"))),
+                nomes_sem_valor_de_mercado=int(sum(1 for x in vagas_out
+                                                   for cat in ("recomendacao", "empate_tecnico",
+                                                               "alternativas")
+                                                   for f in x[cat] if f["sem_valor_de_mercado"])),
                 alvo=alvo_key,
                 alvo_significa=dict(
                     A_caro="perfil FÍSICO dos 12 promovidos que estavam no top-8 de valor",
@@ -3319,15 +3820,18 @@ def etapa_14(cand, d80, elencos):
                         com_faixa_salarial=int(np.isfinite(sal_meio).sum()),
                         de=len(lista),
                         soma_ponto_medio_eur=r(float(np.nansum(
-                            [s for c, s in zip(lista, sal_meio)
-                             if f"{c['nome']} ({c['clube']})" in vistos])), 0),
+                            [s for ic, s in enumerate(sal_meio) if ic in vistos])), 0),
                         motivo_banda=("`sal` vem como faixa de texto ('1.2M - 1.6M'); o "
                                       "ponto médio é banda, nunca número exato"))),
                 sem_goleiro="SkillCorner não rastreia goleiro: trilha técnica separada",
                 contrafactual=dict(
+                    regra_dos_nomes=("os nomes mais frequentes de cada posição, tantos quantas "
+                                     "são as vagas dela na GRADE, pela contagem por posição"),
                     nucleo_valor_eur=r(soma, 0), atletas_no_nucleo=len(escolhidos),
                     atletas_com_valor_de_mercado=len(com_valor),
                     atletas_sem_valor_de_mercado=sem_mv,
+                    nomes_do_nucleo_em_empate_tecnico=nucleo_em_empate,
+                    faixa_trocando_os_empatados=faixa_empate,
                     regua=(f"soma dos {max(1, len(com_valor))} atletas mais valiosos de cada "
                            f"clube da Série B 2025 — o MESMO número de nomes que entrou na "
                            f"soma do núcleo"),
@@ -3343,6 +3847,38 @@ def etapa_14(cand, d80, elencos):
                     quartil=quartil, taxa_historica_de_subida_do_quartil_pct=taxa_q.get(quartil),
                     sem_faixa_salarial=sum(1 for c in escolhidos if not c["sal"])))
     return dict(titulo_chave="etapa_14", grade=[list(x) for x in GRADE],
+                replicas=N_ELENCO, contagem_por="posição", regra_do_empate=REGRA_EMPATE_14,
+                indice_das_propostas=INDICE_PROPOSTA_14,
+                geradores=f"np.random.default_rng([{SEMENTE}, 14, i]), um por proposta, i em "
+                          f"indice_das_propostas",
+                mudanca_de_metodo=dict(
+                    data="2026-09-14", decidido_por="dono do estudo",
+                    os_nomes_mudam=True,
+                    o_que_mudou=[
+                        "contagem por POSIÇÃO (réplicas em que o atleta ocupou alguma vaga da "
+                        "posição), no lugar da contagem por vaga",
+                        f"réplicas: de 200 para {N_ELENCO}",
+                        "gerador próprio por proposta, [SEMENTE, 14, i], no lugar do rng global",
+                        "o erro-padrão que a etapa 14 usa como ruído (etapa 13) com gerador próprio "
+                        "por atleta, [SEMENTE, 13, id], no lugar do rng global",
+                        "marca de empate técnico pelo intervalo de 95% da fatia de réplicas; "
+                        "recomendação só com o intervalo inteiro acima de 50%",
+                        "o núcleo do contrafactual passa a sair da contagem por posição"],
+                    por_que=[
+                        "por vaga, o Húngaro dividia o mesmo atleta entre as vagas gêmeas (ZD, ZE, "
+                        "VOL, MED, CA): quem estava no time quase sempre aparecia com pouco mais "
+                        "de metade em cada vaga, e as duas vagas podiam sair sem recomendação",
+                        "com 200 réplicas, um nome perto de 50% está dentro do ruído do próprio "
+                        "sorteio",
+                        "com o rng global, qualquer sorteio acrescentado antes desta etapa, ou uma "
+                        "proposta a mais, movia os nomes sem mudança de método; o gerador por "
+                        "proposta só fecha isso junto com o gerador por atleta do erro-padrão da "
+                        "etapa 13, que na primeira versão deste conserto ainda vinha do rng global "
+                        "(um sorteio a mais antes da etapa 13 ainda trocava nomes)",
+                        "'recomendado' tem de querer dizer claramente acima de metade"],
+                    comparar_com_versoes_anteriores=(
+                        "nomes e percentuais das versões até 13/09 não se comparam com os de "
+                        "agora: a unidade da fatia mudou (vaga -> posição)")),
                 forma=("núcleo de 15 de campo (XI + 4); o goleiro sai por regra — SkillCorner "
                        "não rastreia goleiro"),
                 grade_e_referencia_tatica=("a grade de 16 abaixo é referência tática (dupla "
@@ -3388,8 +3924,8 @@ def etapa_15(jog, d80, formas):
     for col in ("sistemas_distintos", "trocas", "principal_pct", "linha3_pct", "fidelidade_media"):
         a = ag[col][ag.faixa == "sobe"]; b = ag[col][ag.faixa == "meio"]; c = ag[col][ag.faixa == "cai"]
         testes[col] = dict(m_sobe=r(a.mean(), 2), m_meio=r(b.mean(), 2), m_cai=r(c.mean(), 2),
-                           d_SM=r(d_cohen(a, b), 3), p_SM=r(welch_p(a, b), 4),
-                           d_SC=r(d_cohen(a, c), 3), p_SC=r(welch_p(a, c), 4))
+                           d_SM=r(d_cohen(a, b), 3), p_SM=r_p(welch_p(a, b), 4),
+                           d_SC=r(d_cohen(a, c), 3), p_SC=r_p(welch_p(a, c), 4))
     return dict(titulo_chave="etapa_15",
                 tem_nome_de_treinador=False,
                 bases_conferidas=formas,
@@ -3456,17 +3992,93 @@ def main():
     e3 = etapa_3(d80, postos, meta, linhas_cat, resumo_fam)
     e1 = etapa_1(d80, d100)   # d100 entra só pelo fora-da-amostra de 2026; médias são d80
     e5 = etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec)
+
+    # ---------- a tabela de todas as diferenças, do maior gap para o menor ----------
+    # Pedido do dono (PENDENTE_RODADA item 6). O cálculo NÃO mora aqui: mora em ranking_gaps.py,
+    # o mesmo módulo que a aba por pontos usa, para que as duas abas publiquem a mesma linha da
+    # sorte com a mesma régua. Esta é a chamada declarada no próprio módulo (docstring de
+    # `tabela_de_gaps`). Três escolhas que mudam número, e por quê:
+    # - todo vetor por linha vai como Series indexada por (ano, clube): o módulo recusa vetor
+    #   solto, porque um vetor em outra ordem trocava as faixas sem erro nenhum;
+    # - o outro período é 2018-2021, lido do CSV próprio, e a coluna "se repete?" só existe onde a
+    #   coluna do catálogo existe lá — quantas são vai em `bases.painel_2018_2021`;
+    # - gerador próprio (SEMENTE, 23) e `ano_maximo=2025`: não consome o `rng` global (nada
+    #   depois dele se desloca) e quebra se 2026 entrar.
+    dv = pd.read_csv(os.path.join(RAIZ, "dados", "serieb_clube_temporada_2018_2021.csv"))
+    dv_linhas_no_arquivo = len(dv)
+    dv = dv[dv.ano <= 2025].reset_index(drop=True)
+    cols_outro = [c for c in postos.columns if meta[c]["coluna_csv"] in dv.columns]
+    dvp = pd.DataFrame({c: dv.groupby("ano")[meta[c]["coluna_csv"]].rank(pct=True).values * 100
+                        for c in cols_outro},
+                       index=pd.MultiIndex.from_frame(dv[["ano", "clube"]]))
+    r_val_chave = (d80.set_index(["ano", "clube"]).groupby(level="ano")["tm_valor_total"]
+                   .rank(pct=True) * 100)
+    print("tabela de gaps...")
+    rk_gaps = RG.tabela_de_gaps(
+        RG.pela_chave(d80, "ano"), postos, bruto, RG.pela_chave(d80, "faixa"), list(postos.columns),
+        FAIXAS,
+        r_val=r_val_chave,
+        controles=RG.controles_de_atletas_rastreados(meta, d80),
+        meta=meta,
+        outro=dict(postos=dvp, rotulos=RG.pela_chave(dv, "faixa"), anos=RG.pela_chave(dv, "ano"),
+                   rotulo="2018-2021"),
+        rotulo_universo="80 clube-temporada de 2022-2025, faixas por POSIÇÃO",
+        nomes_das_faixas={"sobe": "quem subiu", "meio": "meio da tabela", "cai": "quem caiu"},
+        semente=(SEMENTE, 23), ano_maximo=2025)
     E, Z, itens_eixo = eixos_matriz(d80, postos)
     print("silhuetas e tipologia...")
     e8 = etapa_8(d80, postos, bruto, jog, Z, itens_eixo)
     e9 = etapa_9(d80, E, itens_eixo, postos, linhas_cat)
     e10 = etapa_10(d80, bruto, postos, linhas_cat)
-    e11 = etapa_11(tec, sc)
+    # ---------- etapa 11 SEM 2026 ----------
+    # `carregar_tecnico` traz o arquivo técnico inteiro, 2026 incluída, e `etapa_11` não corta:
+    # pares 2025→2026 entravam na persistência técnica do atleta, com 2026 medida sobre 27 de 38
+    # rodadas — a regra do cabeçalho ("2026 não entra em média nenhuma") quebrada em silêncio.
+    # O corte fica AQUI, no chamador, e não dentro da função, por um motivo concreto: a aba por
+    # pontos (gerar_pontos.py) chama `etapa_11` duas vezes, com e sem 2026, justamente para
+    # medir este efeito; um corte interno faria as duas chamadas dela iguais e o efeito gravado
+    # lá viraria zero sem aviso. A rodada com 2026 é feita aqui também, só para MEDIR, e o
+    # efeito vai ao JSON no mesmo formato da aba por pontos.
+    # O físico entra no mesmo corte por construção, mas hoje não há o que cortar: o SkillCorner
+    # é carregado só das edições completas (`gerar_raio_serieb.SC_EDICOES`), e isso é conferido
+    # e gravado, não suposto.
+    tec25 = tec[tec.ano <= 2025].copy()
+    sc25 = sc[sc.ano <= 2025].copy()
+    assert int(tec25.ano.max()) <= 2025 and int(sc25.ano.max()) <= 2025
+    e11_com_2026 = etapa_11(tec, sc)
+    e11 = etapa_11(tec25, sc25)
+    e11["efeito_de_retirar_2026"] = dict(
+        motivo=("o técnico do atleta vinha com pares 2025→2026, e 2026 tem %d de 38 rodadas; a "
+                "etapa agora roda só até 2025 e a rodada com 2026 fica aqui só como medida"
+                % int(d100[d100.ano == 2026].J.median())),
+        linhas_de_2026_no_arquivo_tecnico=int((tec.ano == 2026).sum()),
+        anos_do_arquivo_tecnico=sorted(int(a) for a in tec.ano.unique()),
+        anos_usados_no_tecnico=sorted(int(a) for a in tec25.ano.unique()),
+        pares_mudou=dict(com_2026=e11_com_2026["tecnico"]["pares_mudou"],
+                         sem_2026=e11["tecnico"]["pares_mudou"]),
+        pares_ficou=dict(com_2026=e11_com_2026["tecnico"]["pares_ficou"],
+                         sem_2026=e11["tecnico"]["pares_ficou"]),
+        rho_mediano_mudou=dict(com_2026=e11_com_2026["tecnico"]["rho_mediano_mudou"],
+                               sem_2026=e11["tecnico"]["rho_mediano_mudou"]),
+        rho_mediano_ficou=dict(com_2026=e11_com_2026["tecnico"]["rho_mediano_ficou"],
+                               sem_2026=e11["tecnico"]["rho_mediano_ficou"]),
+        fisico=dict(
+            anos_no_skillcorner=sorted(int(a) for a in sc.ano.unique()),
+            linhas_de_2026=int((sc.ano == 2026).sum()),
+            pares=dict(com_2026=e11_com_2026["fisico"]["pares"], sem_2026=e11["fisico"]["pares"]),
+            rho_mediano=dict(com_2026=e11_com_2026["fisico"]["rho_mediano"],
+                             sem_2026=e11["fisico"]["rho_mediano"]),
+            motivo=("o SkillCorner é carregado só das edições de temporada completa "
+                    "(gerar_raio_serieb.SC_EDICOES); o corte de 2026 é aplicado mesmo assim")))
+    assert e11["tecnico"]["pares_mudou"] == e11["efeito_de_retirar_2026"]["pares_mudou"]["sem_2026"]
     print("funil, encaixe e elencos...")
     e12, pool = etapa_12(jogs, elencos)
     corrigido = sobecai_corrigido(sc, raio)
+    # Empate pelo MENOR posto, como em `curva_top_k` e na aba por pontos: o rank médio padrão
+    # dava x,5 no único empate das 80 (2023, Novorizontino e CRB) e o `int()` o truncava.
     posto_val = {(int(a), c): int(p) for a, c, p in
-                 zip(d80.ano, d80.clube, d80.groupby("ano").tm_valor_total.rank(ascending=False))}
+                 zip(d80.ano, d80.clube,
+                     d80.groupby("ano").tm_valor_total.rank(ascending=False, method="min"))}
     alvos = alvos_fisicos(sc, corrigido, posto_val)
     bt = backtest_nota(tec, sc, alvos)
     e13 = etapa_13(pool, jogs, kpis, alvos, bt)
@@ -3499,7 +4111,14 @@ def main():
             skillcorner=dict(atleta_temporada=len(sc), corte="min_tot >= 300"),
             mercado=dict(arquivo="dados/jogadores.json", periodo=PERIODO, jogadores=len(jogs)),
             kpis=dict(arquivo="dados/kpis.json", kpis=len(kpis["kpis"]),
-                      jogadores=len(kpis["jogadores"]))),
+                      jogadores=len(kpis["jogadores"])),
+            painel_2018_2021=dict(arquivo="dados/serieb_clube_temporada_2018_2021.csv",
+                                  linhas=dv_linhas_no_arquivo, usadas=len(dv),
+                                  anos=sorted(int(a) for a in dv.ano.unique()),
+                                  usado_em="ranking_gaps, coluna 'se repete em 2018-2021?'",
+                                  colunas_do_catalogo_presentes=len(cols_outro),
+                                  colunas_do_catalogo=len(postos.columns))),
+        "ranking_gaps": rk_gaps,
         "etapa_0": etapa_0(d100, d80, meta, e12["degraus"]),
         "etapa_1": e1,
         "etapa_2": dict(titulo_chave="etapa_2", comparacao_primaria="sobe x meio",
@@ -3525,11 +4144,40 @@ def main():
         "sobecai_corrigido_por_clube": corrigido,
         "controles_obrigatorios": dict(
             baseline_de_dinheiro=dict(auc=e1["auc_posto_de_valor"]["sobe_x_resto"],
-                                      acertos_top4=e1["top4_de_valor"]["acertos"], de=16),
+                                      acertos_top4=e1["top4_de_valor"]["acertos"],
+                                      de=e1["top4_de_valor"]["de"]),
             coluna_liquida_em_toda_linha=True,
             assert_ano_max=int(d80.ano.max()),
             assert_filtro_competicao=COMP_SERIE_B),
     }
+    # As duas guardas que ranking_gaps.py oferece para o JSON inteiro: coluna de resultado
+    # apresentada como achado, e coluna de consequência sem a marca. Na aba por pontos elas
+    # QUEBRAM a rodada, porque lá cada etapa foi remarcada para passar. Aqui as etapas 0-15 são
+    # anteriores ao módulo e nunca foram marcadas; quebrar agora impediria gravar qualquer coisa,
+    # e marcar as etapas é trabalho de outro degrau. Então a guarda roda, e o que ela acha vai ao
+    # JSON com o caminho — pendência medida, visível, e não um silêncio.
+    circ = RG.referencias_circulares(saida, blocos_de_exposicao=(r"^\.etapa_10\.linhas\[\d+\]$",))
+    cons = RG.referencias_de_consequencia_sem_marca(saida)
+
+    def _por_bloco(achados):
+        cont = {}
+        for cam, _ in achados:
+            b = re.match(r"^\.?([^.\[]+)", cam)
+            cont[b.group(1) if b else cam] = cont.get(b.group(1) if b else cam, 0) + 1
+        return dict(sorted(cont.items()))
+    saida["ranking_gaps"]["guardas_no_json_inteiro"] = dict(
+        o_que_e=("RG.referencias_circulares (bloco de exposição: etapa_10.linhas) e "
+                 "RG.referencias_de_consequencia_sem_marca, rodadas no JSON inteiro antes de gravar"),
+        quebra_a_rodada=False,
+        motivo=("as etapas 0-15 do Protótipo são anteriores ao módulo e não trazem as marcas; o "
+                "que a guarda achou fica registrado aqui, por bloco e com os primeiros caminhos"),
+        resultado_como_achado=dict(n=len(circ), por_bloco=_por_bloco(circ),
+                                   primeiros=[[c, str(x)] for c, x in circ[:25]]),
+        consequencia_sem_marca=dict(n=len(cons), por_bloco=_por_bloco(cons),
+                                    primeiros=[[c, str(x)] for c, x in cons[:25]]),
+        dentro_do_proprio_ranking_gaps=dict(
+            resultado_como_achado=int(sum(1 for c, _ in circ if c.startswith(".ranking_gaps"))),
+            consequencia_sem_marca=int(sum(1 for c, _ in cons if c.startswith(".ranking_gaps")))))
     json.dump(saida, open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False,
               separators=(",", ":"), allow_nan=False)
     kb = os.path.getsize(SAIDA) / 1024
