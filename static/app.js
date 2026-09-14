@@ -110,8 +110,20 @@ const SIGLA_PAIS = {
 
 /* ---------------- estado ---------------- */
 const CHAVE_LOCAL = 'sc2027_estado';
-const VERSAO = 5;  /* v2: campo deitado · v3: compacto · v4: limite de 9 estrangeiros
-                      · v5: Main = titular, nível gravado para quem já era titular */
+const VERSAO = 6;  /* v2: campo deitado · v3: compacto · v4: limite de 9 estrangeiros
+                      · v5: Main = titular, nível gravado para quem já era titular
+                      · v6: orçamento de R$ 31,9 MM no ano (saem teto 2,8 MM e fator 1,25) */
+/* Orcamento (decisao do Henrique, 14/09/2026), a mesma conta da planilha
+   "Squad and Budget.xlsx": o custo anual dos JOGADORES e R$ 31.900.000 (soma por status:
+   6,4 + 16 + 5,5 + 2,4 + 1,6 MM), apropriado em 13 periodos => teto mensal de
+   R$ 2.453.846. A massa salarial e R$ 26.000.000 / 13 = R$ 2.000.000, e o fator e o
+   da celula M17 da planilha: 31,9 / 26 = 1,2269. A comissao tecnica NAO esta nos 31,9 MM,
+   entao parte de zero no teto; o que for lancado no modal Orcamento sai da massa salarial.
+   Guardados como FRACAO, e nao arredondados, para o disponivel dar 2.000.000 e o ano dar
+   31.900.000 cravados — o 1,2269 digitado a mao da R$ 2.000.038. */
+const TETO_PADRAO = 31900000 / 13;
+const FATOR_PADRAO = 31900000 / 26000000;
+const COMISSAO_PADRAO = 0;
 let BASE = [];
 /* Historico de tres temporadas (dados/historico.json, gerado por preparar_historico.py),
    indexado pela primary_key da temporada corrente. Vem em arquivo separado porque so
@@ -162,9 +174,9 @@ function novoEstado() {
   POSICOES.forEach(p => { el[p.c] = []; });
   return {
     id: null, nome: 'Grupo 1',
-    teto: 2800000,      // custo total mensal maximo (ja com encargos e comissao)
-    comissao: 300000,   // custo mensal da comissao tecnica
-    fator: 1.25,        // custo do clube = salario do jogador x fator
+    teto: TETO_PADRAO,  // custo total mensal maximo (ja com encargos e comissao)
+    comissao: COMISSAO_PADRAO, // custo mensal da comissao tecnica (fora dos 31,9 MM)
+    fator: FATOR_PADRAO, // custo do clube = salario do jogador x fator
     limiteEstrangeiros: 9,
     cotacaoEuro: 6.3,
     ct: { detalhar: false, encargos: true, itens: [] },
@@ -188,6 +200,8 @@ function brl(n, curto) {
   return 'R$ ' + n.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
 }
 function milhar(n) { return (Number(n) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 0 }); }
+/* o fator e 31,9/26: sem o corte, a tela escreveria 1,226923076923077 */
+function fmtFator(f) { return (Number(f) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 4 }); }
 
 function paraDecimal(txt) {
   const n = parseFloat(String(txt == null ? '' : txt).replace(',', '.').replace(/[^\d.]/g, ''));
@@ -286,6 +300,19 @@ function ctCusto() {
 }
 function aplicarCT() {
   if (estado.ct && estado.ct.detalhar) estado.comissao = Math.round(ctCusto());
+}
+
+/* Grupo gravado com o orcamento antigo (teto 2,8 MM + fator 1,25 + comissao 300 mil, os
+   padroes de antes) passa para o de 14/09/2026. So troca quando teto e fator ainda sao os
+   antigos: quem ja tinha mexido no orcamento na mao fica com o que escolheu. A comissao
+   so zera se ainda for a padrao e nao estiver detalhada por cargo. */
+function orcAtualizar(c) {
+  if (Number(c.teto) === 2800000 && Number(c.fator) === 1.25) {
+    c.teto = TETO_PADRAO;
+    c.fator = FATOR_PADRAO;
+    if (Number(c.comissao) === 300000 && !(c.ct && c.ct.detalhar)) c.comissao = COMISSAO_PADRAO;
+  }
+  return c;
 }
 
 function dispSalarios() {
@@ -1239,7 +1266,7 @@ function renderOrc() {
 
   if ($('#inTeto') && foco !== $('#inTeto')) $('#inTeto').value = milhar(estado.teto);
   if ($('#inComissao') && foco !== $('#inComissao')) $('#inComissao').value = milhar(estado.comissao);
-  if ($('#inFator') && foco !== $('#inFator')) $('#inFator').value = String(estado.fator).replace('.', ',');
+  if ($('#inFator') && foco !== $('#inFator')) $('#inFator').value = fmtFator(estado.fator);
   if ($('#inEuro') && foco !== $('#inEuro')) $('#inEuro').value = String(estado.cotacaoEuro).replace('.', ',');
 
   $('#kDisp').textContent = brl(disp);
@@ -1313,7 +1340,7 @@ function renderOrc() {
     conta.innerHTML =
       '<div class="l"><span>custo total máximo</span><b>' + brl(estado.teto) + '</b></div>' +
       '<div class="l"><span>− comissão técnica</span><b>' + brl(estado.comissao) + '</b></div>' +
-      '<div class="l"><span>÷ encargos ×' + String(estado.fator).replace('.', ',') + '</span><b></b></div>' +
+      '<div class="l"><span>÷ encargos ×' + fmtFator(estado.fator) + '</span><b></b></div>' +
       '<div class="l tot"><span>massa salarial para os jogadores</span><b>' + brl(disp) + '</b></div>';
   }
 }
@@ -1500,7 +1527,7 @@ function renderCT() {
     '<div class="ct-linha"><span>' + ctItens().length + ' profissionais · salários</span>' +
       '<b>' + brl(sal) + '</b></div>' +
     (estado.ct.encargos
-      ? '<div class="ct-linha"><span>encargos ×' + String(estado.fator).replace('.', ',') + '</span>' +
+      ? '<div class="ct-linha"><span>encargos ×' + fmtFator(estado.fator) + '</span>' +
         '<b>' + brl(custo - sal) + '</b></div>' : '') +
     '<div class="ct-linha total"><span>custo mensal da comissão</span><b>' + brl(custo) + '</b></div>' +
     (det ? '<div class="ct-obs">Este valor está sendo usado no custo total. Sobra para os jogadores: <b>' +
@@ -1717,6 +1744,7 @@ function migrar() {
       if (!empDados(ch).status) empGravar(ch).status = 'Main';
     }));
   }
+  if ((estado.v || 1) < 6) { orcAtualizar(estado); aplicarCT(); }
   estado.v = VERSAO;
 }
 
@@ -2167,7 +2195,9 @@ const COMP_SETOR = { gol: ['GOL'], defesa: ['LD', 'LE', 'ZD', 'ZE'],
                      meio: ['VOL', 'MED', 'MEI'], ataque: ['EE', 'ED', 'CA'] };
 async function comparativoLocal() {
   const num = v => Number(v) || 0;
-  const saida = (await cenTodos()).map(c => {
+  const saida = (await cenTodos()).map(c0 => {
+    /* grupo que ainda nao foi aberto desde a v6 vem com o orcamento antigo gravado */
+    const c = (Number(c0.v) || 1) < 6 ? orcAtualizar(Object.assign({}, c0)) : c0;
     const elenco = c.elenco || {};
     const atletas = Object.values(elenco).flat();
     const folha = atletas.reduce((t, j) => t + num(j.salario), 0);
@@ -5465,8 +5495,11 @@ function finRender() {
   const comSal = faixas.filter(g => g.sal > 0);
   const semSal = faixas.find(g => g.sal === 0);
   const atletas = comSal.reduce((a, g) => a + g.n, 0);
-  /* custoPer e POR ATLETA — o projetado tem de multiplicar pela quantidade da faixa */
-  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) +
+  /* custoPer e POR ATLETA — o projetado tem de multiplicar pela quantidade da faixa.
+     E leva o fator de encargos do modal Orcamento, o mesmo do "Custo total" do topo: o
+     card e o salario do jogador, e sem o fator o projetado mostrava sobra enquanto o topo
+     ja mostrava estouro (14/09/2026). A tabela abaixo segue sem o fator. */
+  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) * (estado.fator || 1) +
                    (estado.comissao || 0) * finPeriodos(f.meses);
   const tetoAno = (estado.teto || 0) * finPeriodos(f.meses);
 
@@ -5476,7 +5509,8 @@ function finRender() {
     finKpi('Custo projetado', brl(custoAno),
            (custoAno > tetoAno ? 'acima do teto em ' + brl(custoAno - tetoAno)
                                : 'sobra ' + brl(tetoAno - custoAno)) +
-           ' · comissão inclusa', custoAno > tetoAno ? 'ruim' : 'bom') +
+           ' · encargos ×' + fmtFator(estado.fator) + ' e comissão inclusos',
+           custoAno > tetoAno ? 'ruim' : 'bom') +
     finKpi('Elenco com salário', atletas + (atletas === 1 ? ' atleta' : ' atletas'),
            semSal ? semSal.n + ' ainda sem salário definido' : 'todos definidos');
 
@@ -5966,7 +6000,8 @@ function ligar() {
       renderOrc(); renderPainel(); salvarLocal();
     };
     $(sel).onblur = () => {
-      $(sel).value = decimal ? String(estado[chave]).replace('.', ',') : milhar(estado[chave]);
+      $(sel).value = chave === 'fator' ? fmtFator(estado.fator)
+                   : decimal ? String(estado[chave]).replace('.', ',') : milhar(estado[chave]);
       render();
     };
   };

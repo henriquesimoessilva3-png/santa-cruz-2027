@@ -31,7 +31,7 @@
   "id": "m5",
   "grupo": "Montagem do elenco",
   "titulo": "Comissão técnica top — investir",
-  "texto": "A comissão entra no teto de R$ 2,8 MM e é para ser boa, não barata. O que se gasta nela sai da massa salarial de propósito.",
+  "texto": "A comissão é para ser boa, não barata. Ela fica fora dos R$ 31,9 MM do elenco, que são só jogadores; o que for lançado dela no modal Orçamento sai da massa salarial.",
   "fonte": "inicial"
  },
  {
@@ -45,35 +45,35 @@
   "id": "m7",
   "grupo": "Montagem do elenco",
   "titulo": "Salário baixo, premiação alta por vitória e acesso",
-  "texto": "Contratar abaixo do que o mercado pagaria e pendurar o dinheiro grande na premiação: bicho por vitória ao longo do campeonato e um prêmio forte pelo acesso. O risco vai para o resultado — ganhando, paga-se muito; não ganhando, o custo fixo não afunda o clube. A premiação é variável e não entra no teto mensal de R$ 2,8 MM, que é custo recorrente.",
+  "texto": "Contratar abaixo do que o mercado pagaria e pendurar o dinheiro grande na premiação: bicho por vitória ao longo do campeonato e um prêmio forte pelo acesso. O risco vai para o resultado — ganhando, paga-se muito; não ganhando, o custo fixo não afunda o clube. A premiação é variável e não entra no teto de R$ 31,9 MM no ano (R$ 2.453.846 por mês), que é custo recorrente.",
   "fonte": "inicial"
  },
  {
   "id": "p1",
   "grupo": "Orçamento",
   "titulo": "Teto de custo total",
-  "texto": "R$ 2.800.000 por mês é o custo total máximo do elenco.",
+  "texto": "R$ 31.900.000 no ano, em 13 períodos (12 meses + 13º): R$ 2.453.846 por mês é o custo total máximo do elenco.",
   "fonte": "inicial"
  },
  {
   "id": "p2",
   "grupo": "Orçamento",
-  "titulo": "O teto já inclui a comissão técnica",
-  "texto": "A comissão entra dentro dos R$ 2,8 MM, não por fora. Padrão de R$ 300.000, editável ou detalhada por cargo no modal Orçamento.",
+  "titulo": "A comissão técnica fica fora do teto",
+  "texto": "Os R$ 31,9 MM são só jogadores, como na planilha Squad and Budget. A comissão parte de R$ 0 no modal Orçamento; o que for digitado ou detalhado por cargo ali sai da massa salarial.",
   "fonte": "inicial"
  },
  {
   "id": "p3",
   "grupo": "Orçamento",
-  "titulo": "Encargos de 1,25×",
-  "texto": "O custo real de um jogador é 1,25 vez o salário oferecido a ele. Massa salarial disponível = (teto − comissão) ÷ 1,25.",
+  "titulo": "Encargos de 1,2269×",
+  "texto": "O custo real de um jogador é 1,2269 vez o salário oferecido a ele: R$ 31,9 MM de custo no ano ÷ R$ 26 MM de salário (R$ 2 MM × 13), a mesma conta da planilha Squad and Budget. Massa salarial disponível = (teto − comissão) ÷ 1,2269.",
   "fonte": "inicial"
  },
  {
   "id": "p4",
   "grupo": "Orçamento",
   "titulo": "O salário digitado é o do jogador",
-  "texto": "O número no card é o que o atleta recebe, sem encargos. Quem aplica o 1,25 é a conta.",
+  "texto": "O número no card é o que o atleta recebe, sem encargos. Quem aplica o 1,2269 é a conta.",
   "fonte": "inicial"
  },
  {

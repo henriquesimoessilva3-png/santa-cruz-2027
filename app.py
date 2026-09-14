@@ -35,28 +35,31 @@ PREMISSAS_INICIAIS = [
      "Posição em que vale pagar acima da média do elenco. Goleiro decide pontos na S"
      "érie B e o custo de errar aqui é alto."),
     ("Montagem do elenco", "Comissão técnica top — investir",
-     "A comissão entra no teto de R$ 2,8 MM e é para ser boa, não barata. O que se g"
-     "asta nela sai da massa salarial de propósito."),
+     "A comissão é para ser boa, não barata. Ela fica fora dos R$ 31,9 MM do elenco, que "
+     "são só jogadores; o que for lançado dela no modal Orçamento sai da massa salarial."),
     ("Montagem do elenco", "Salário baixo, premiação alta por vitória e acesso",
      "Contratar abaixo do que o mercado pagaria e pendurar o dinheiro grande na "
      "premiação: bicho por vitória ao longo do campeonato e um prêmio forte pelo "
      "acesso. O risco vai para o resultado — ganhando, paga-se muito; não ganhando, "
      "o custo fixo não afunda o clube. A premiação é variável e não entra no teto "
-     "mensal de R$ 2,8 MM, que é custo recorrente."),
+     "de R$ 31,9 MM no ano (R$ 2.453.846 por mês), que é custo recorrente."),
     ("Montagem do elenco", "Logística diferenciada para a Série B",
      "A Série B tem viagem longa e calendário apertado. Estrutura de deslocamento, d"
      "escanso e recuperação entra na conta da montagem, não é despesa à parte."),
 
     ("Orçamento", "Teto de custo total",
-     "R$ 2.800.000 por mês é o custo total máximo do elenco."),
-    ("Orçamento", "O teto já inclui a comissão técnica",
-     "A comissão entra dentro dos R$ 2,8 MM, não por fora. Padrão de R$ 300.000, "
-     "editável ou detalhada por cargo no modal Orçamento."),
-    ("Orçamento", "Encargos de 1,25×",
-     "O custo real de um jogador é 1,25 vez o salário oferecido a ele. "
-     "Massa salarial disponível = (teto − comissão) ÷ 1,25."),
+     "R$ 31.900.000 no ano, em 13 períodos (12 meses + 13º): R$ 2.453.846 por mês é o "
+     "custo total máximo do elenco."),
+    ("Orçamento", "A comissão técnica fica fora do teto",
+     "Os R$ 31,9 MM são só jogadores, como na planilha Squad and Budget. A comissão parte "
+     "de R$ 0 no modal Orçamento; o que for digitado ou detalhado por cargo ali sai da "
+     "massa salarial."),
+    ("Orçamento", "Encargos de 1,2269×",
+     "O custo real de um jogador é 1,2269 vez o salário oferecido a ele: R$ 31,9 MM de "
+     "custo no ano ÷ R$ 26 MM de salário (R$ 2 MM × 13), a mesma conta da planilha "
+     "Squad and Budget. Massa salarial disponível = (teto − comissão) ÷ 1,2269."),
     ("Orçamento", "O salário digitado é o do jogador",
-     "O número no card é o que o atleta recebe, sem encargos. Quem aplica o 1,25 é a conta."),
+     "O número no card é o que o atleta recebe, sem encargos. Quem aplica o 1,2269 é a conta."),
     ("Orçamento", "Sem salário sugerido",
      "Jogador entra no campograma com salário 0. A faixa do TransferRoom aparece na "
      "ficha e no Fim de contrato, mas não preenche o card."),

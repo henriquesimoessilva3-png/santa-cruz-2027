@@ -200,7 +200,7 @@ function brl(n, curto) {
   return 'R$ ' + n.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
 }
 function milhar(n) { return (Number(n) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 0 }); }
-/* o fator e 14/13: sem o corte, a tela escreveria 1,0769230769230769 */
+/* o fator e 31,9/26: sem o corte, a tela escreveria 1,226923076923077 */
 function fmtFator(f) { return (Number(f) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 4 }); }
 
 function paraDecimal(txt) {
@@ -5495,8 +5495,11 @@ function finRender() {
   const comSal = faixas.filter(g => g.sal > 0);
   const semSal = faixas.find(g => g.sal === 0);
   const atletas = comSal.reduce((a, g) => a + g.n, 0);
-  /* custoPer e POR ATLETA — o projetado tem de multiplicar pela quantidade da faixa */
-  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) +
+  /* custoPer e POR ATLETA — o projetado tem de multiplicar pela quantidade da faixa.
+     E leva o fator de encargos do modal Orcamento, o mesmo do "Custo total" do topo: o
+     card e o salario do jogador, e sem o fator o projetado mostrava sobra enquanto o topo
+     ja mostrava estouro (14/09/2026). A tabela abaixo segue sem o fator. */
+  const custoAno = comSal.reduce((a, g) => a + g.custoPer * g.n, 0) * (estado.fator || 1) +
                    (estado.comissao || 0) * finPeriodos(f.meses);
   const tetoAno = (estado.teto || 0) * finPeriodos(f.meses);
 
@@ -5506,7 +5509,8 @@ function finRender() {
     finKpi('Custo projetado', brl(custoAno),
            (custoAno > tetoAno ? 'acima do teto em ' + brl(custoAno - tetoAno)
                                : 'sobra ' + brl(tetoAno - custoAno)) +
-           ' · comissão inclusa', custoAno > tetoAno ? 'ruim' : 'bom') +
+           ' · encargos ×' + fmtFator(estado.fator) + ' e comissão inclusos',
+           custoAno > tetoAno ? 'ruim' : 'bom') +
     finKpi('Elenco com salário', atletas + (atletas === 1 ? ' atleta' : ' atletas'),
            semSal ? semSal.n + ' ainda sem salário definido' : 'todos definidos');
 
