@@ -496,6 +496,243 @@ def etapa_0(d100, d80, meta, funil):
 #  ETAPA 1 — a linha de base do dinheiro, ANTES de qualquer pilar
 # ══════════════════════════════════════════════════════════════════════════════
 
+# ---------- etapa 1, pergunta do dono: quantos dos que subiram estavam perto do topo ----------
+
+def _pmf_hiper_convoluida(tamanhos, promovidos_por_ano, k):
+    """Distribuição exata do nº de promovidos no top-k somado nos anos, sob o acaso.
+
+    Em cada ano o top-k é uma amostra SEM reposição de `k` clubes entre `N`, dos quais `K`
+    subiram: hipergeométrica. Os anos são independentes entre si, então a soma é a
+    convolução das quatro. Não se usa binomial nos 80 juntos porque ela ignora que cada ano
+    tem exatamente quatro vagas — e, com k perto de 20, a binomial dá probabilidade
+    positiva a mais de 4 promovidos num ano, o que não pode acontecer.
+    """
+    pmf = np.array([1.0])
+    for N, K in zip(tamanhos, promovidos_por_ano):
+        kk = min(k, N)
+        x = np.arange(0, min(K, kk) + 1)
+        pmf = np.convolve(pmf, stats.hypergeom.pmf(x, N, K, kk))
+    return pmf
+
+
+def curva_top_k(d):
+    """Para k = 1..20: quantos dos 16 promovidos estavam entre os k mais caros do próprio ano.
+
+    Nasceu de um palpite do dono ("dos 16, 14 ou mais estão entre os 8 mais caros"), e o
+    palpite fica gravado como PERGUNTA, com a resposta ao lado, medida — não como afirmação
+    que a tela repete. A curva inteira vai junto porque o k=8 é um corte escolhido de
+    cabeça; mostrar só ele convidaria a trocar de k até o número agradar.
+
+    O posto é o do ano (1 = elenco mais caro), com empate resolvido pelo MENOR posto: o
+    único empate das 80 (2023, Novorizontino e CRB) é entre dois clubes do meio e não
+    mexe em nenhum promovido, mas a regra fica escrita para quando mexer.
+
+    O aviso de amostra é MEDIDO e não redigido: grava-se quantos promovidos há em cada
+    posto. Na medição de 13/09/2026 os postos 7 e 8 tinham zero e o 9 tinha dois: o salto
+    entre k=8 e k=9 é de dois times em quatro anos — não é fronteira, é granulação, e a
+    tela tem de poder mostrar isso lendo o dado, não uma frase escrita aqui.
+    """
+    d = d.copy()
+    d["posto_valor"] = d.groupby("ano").tm_valor_total.rank(ascending=False, method="min")
+    anos = sorted(d.ano.unique())
+    tamanhos = [int((d.ano == a).sum()) for a in anos]
+    k_por_ano = [int(d[(d.ano == a)].y.sum()) for a in anos]
+    total = int(d.y.sum())
+    sobe = d[d.y == 1]
+    postos_sobe = sobe.posto_valor.astype(int).values
+    n_max = max(tamanhos)
+
+    curva = []
+    anterior = 0
+    for k in range(1, n_max + 1):
+        acum = int((postos_sobe <= k).sum())
+        no_k = int((postos_sobe == k).sum())
+        dentro = d[d.posto_valor <= k]
+        pmf = _pmf_hiper_convoluida(tamanhos, k_por_ano, k)
+        esperado = float(np.dot(np.arange(len(pmf)), pmf))
+        p_maior_igual = float(pmf[acum:].sum()) if acum < len(pmf) else 0.0
+        curva.append(dict(
+            k=k, promovidos_no_posto_k=no_k, promovidos_acumulados=acum,
+            ganho_sobre_k_anterior=acum - anterior,
+            pct_dos_promovidos=r(100 * acum / total, 1),
+            esperado_por_acaso=r(esperado, 2),
+            clubes_no_top_k=int(len(dentro)),
+            taxa_de_subida_no_top_k_pct=r(100 * dentro.y.mean(), 1),
+            p_exato_maior_igual=r_sig(min(p_maior_igual, 1.0), 3),
+            p_exato_maior_igual_rotulo=rotulo_p(min(p_maior_igual, 1.0))))
+        anterior = acum
+
+    promovidos = [dict(ano=int(a), clube=c, posto_valor=int(p), valor_eur=r(v, 0))
+                  for a, c, p, v in sorted(zip(sobe.ano, sobe.clube, sobe.posto_valor,
+                                               sobe.tm_valor_total),
+                                           key=lambda t: (t[0], t[2]))]
+    por_posto = [dict(posto=k, promovidos=int((postos_sobe == k).sum()))
+                 for k in range(1, n_max + 1)]
+
+    K_PALPITE, AFIRMADO = 8, 14
+    medido = next(L["promovidos_acumulados"] for L in curva if L["k"] == K_PALPITE)
+    menor_k = next((L["k"] for L in curva if L["promovidos_acumulados"] >= AFIRMADO), None)
+    L8, L9 = curva[K_PALPITE - 1], curva[K_PALPITE]
+    postos_vazios_antes = [x["posto"] for x in por_posto
+                           if x["posto"] <= K_PALPITE and x["promovidos"] == 0]
+    return dict(
+        n=len(d), promovidos_total=total, anos=[int(a) for a in anos],
+        clubes_por_ano=tamanhos, promovidos_por_ano=k_por_ano,
+        regra_do_posto="posto dentro do ano pelo tm_valor_total, 1 = mais caro, empate "
+                       "pelo menor posto (rank method='min')",
+        modelo_do_acaso=("hipergeométrica por ano (N clubes, K promovidos, k sorteados), "
+                         "convoluída nos anos; p = P(soma >= acumulado medido)"),
+        curva=curva,
+        promovidos=promovidos,
+        promovidos_por_posto=por_posto,
+        palpite_do_dono=dict(
+            pergunta=("dos %d que subiram, %d ou mais estavam entre os %d mais caros do ano?"
+                      % (total, AFIRMADO, K_PALPITE)),
+            k=K_PALPITE, afirmado=f">= {AFIRMADO}", medido=medido,
+            confirma=bool(medido >= AFIRMADO), menor_k_com_14=menor_k,
+            esperado_por_acaso_no_k=L8["esperado_por_acaso"],
+            p_exato_do_medido=L8["p_exato_maior_igual"]),
+        aviso_de_amostra=dict(
+            promovidos_no_posto=[dict(posto=x["posto"], promovidos=x["promovidos"])
+                                 for x in por_posto if K_PALPITE - 1 <= x["posto"] <= K_PALPITE + 1],
+            postos_ate_k_sem_promovido=postos_vazios_antes,
+            degrau_k8_para_k9=L9["promovidos_acumulados"] - L8["promovidos_acumulados"],
+            anos_na_amostra=len(anos),
+            leitura=("o degrau entre k=%d e k=%d é de %d time(s) em %d anos: granulação de "
+                     "amostra, não fronteira de valor" % (K_PALPITE, K_PALPITE + 1,
+                     L9["promovidos_acumulados"] - L8["promovidos_acumulados"], len(anos)))),
+    )
+
+
+# ---------- etapa 1, pergunta do dono: onde está o dinheiro do elenco ----------
+
+SETORES_VALOR = (("goleiro", "val_goleiro"), ("defesa", "val_defesa"),
+                 ("meio", "val_meio"), ("ataque", "val_ataque"))
+
+
+def valor_por_setor(d):
+    """O valor do elenco partido em goleiro, defesa, meio e ataque — e o que dá para dizer disso.
+
+    `val_*` é Transfermarkt por temporada e soma EXATAMENTE `tm_valor_total` (a razão é
+    gravada, para que ninguém precise acreditar): é a mesma régua da etapa 1, só que
+    fatiada. Por isso cada setor sai em três leituras que não se confundem: o euro (tamanho
+    do cheque), o % do elenco (onde o clube pôs o cheque, com o total fixo) e o posto no
+    ano (o euro sem a inflação de um ano para outro).
+
+    Duas armadilhas ficam escritas em número, não em ressalva:
+
+    1. A PARTIÇÃO. "% na defesa" separa sobe de meio com p pequeno, mas são quatro
+       percentuais que somam 100 — quatro testes da mesma pergunta. O BH dos quatro vai
+       ao lado e é ele que diz se o achado se sustenta sozinho.
+    2. DEFESA CONTRA TOTAL. O AUC da defesa sai maior que o do total, e o leitor vai
+       querer ler "a defesa prevê melhor que o dinheiro todo". Mas a defesa é o maior de
+       quatro setores, escolhido DEPOIS de olhar. A diferença vai com intervalo de
+       bootstrap pareado (mesma reamostra para os dois AUC, temporadas de clube sorteadas
+       dentro do ano, para que cada réplica continue tendo 4 promovidos em média por ano
+       e o posto continue sendo o do ano). O gerador é PRÓPRIO, `[SEMENTE, 11]`: usar o
+       `rng` global deslocaria o sorteio de todas as etapas que rodam depois desta e
+       mudaria números que nada têm a ver com setor.
+    """
+    d = d.copy()
+    faixa = d.faixa.values
+    m_sobe, m_meio, m_cai = faixa == "sobe", faixa == "meio", faixa == "cai"
+    soma = d[[c for _, c in SETORES_VALOR]].sum(axis=1)
+    razao = (soma / d.tm_valor_total).values
+
+    colunas = list(SETORES_VALOR) + [("total", "tm_valor_total")]
+    postos_pct = {}
+    linhas = []
+    for nome, col in colunas:
+        v = d[col].astype(float).values
+        pp = posto_ano(d, col).values                      # 0-100, maior = mais caro
+        postos_pct[nome] = pp
+        pos = d.groupby("ano")[col].rank(ascending=False, method="average").values  # 1 = mais caro
+        pct = 100 * v / d.tm_valor_total.values
+        L = dict(setor=nome, coluna=col, n_nan=int((~np.isfinite(v)).sum()))
+        for fx, m in (("sobe", m_sobe), ("meio", m_meio), ("cai", m_cai)):
+            L[f"eur_mediano_{fx}"] = r(np.median(v[m]), 0)
+            L[f"pct_do_elenco_mediano_{fx}"] = None if nome == "total" else r(np.median(pct[m]), 1)
+            L[f"posicao_media_no_ano_{fx}"] = r(pos[m].mean(), 2)
+        L["auc_sobe_x_resto"] = r(auc(pp[m_sobe], pp[~m_sobe]), 3)
+        L["auc_sobe_x_meio"] = r(auc(pp[m_sobe], pp[m_meio]), 3)
+        L["auc_sobe_x_cai"] = r(auc(pp[m_sobe], pp[m_cai]), 3)
+        L["p_sobe_x_meio"] = r_sig(stats.mannwhitneyu(pp[m_sobe], pp[m_meio]).pvalue, 3)
+        L["p_sobe_x_cai"] = r_sig(stats.mannwhitneyu(pp[m_sobe], pp[m_cai]).pvalue, 3)
+        L["p_sobe_x_meio_rotulo"] = rotulo_p(stats.mannwhitneyu(pp[m_sobe], pp[m_meio]).pvalue)
+        L["p_sobe_x_cai_rotulo"] = rotulo_p(stats.mannwhitneyu(pp[m_sobe], pp[m_cai]).pvalue)
+        linhas.append(L)
+
+    # A partição: % do elenco em cada setor, com o total fixo. Posto no ano do % para que
+    # a comparação seja a mesma régua das outras; Mann-Whitney é invariante a isso.
+    part = []
+    for nome, col in SETORES_VALOR:
+        d["_pct"] = d[col] / d.tm_valor_total
+        pp = posto_ano(d, "_pct").values
+        part.append(dict(setor=nome, posto_medio_sobe=r(pp[m_sobe].mean(), 1),
+                         posto_medio_meio=r(pp[m_meio].mean(), 1),
+                         posto_medio_cai=r(pp[m_cai].mean(), 1),
+                         auc_sobe_x_meio=r(auc(pp[m_sobe], pp[m_meio]), 3),
+                         p_bruto=stats.mannwhitneyu(pp[m_sobe], pp[m_meio]).pvalue))
+    qs = bh([x["p_bruto"] for x in part])
+    for x, q in zip(part, qs):
+        x["q_bh"] = r_sig(q, 3)
+        x["sobrevive_bh_5pct"] = bool(q < 0.05)
+        x["p_bruto_rotulo"] = rotulo_p(x["p_bruto"])
+        x["p_bruto"] = r_sig(x["p_bruto"], 3)
+    menor = min(part, key=lambda x: x["p_bruto"])
+
+    # Defesa contra total, pareado.
+    rng_setor = np.random.default_rng([SEMENTE, 11])
+    ano = d.ano.values
+    idx_ano = [np.where(ano == a)[0] for a in sorted(np.unique(ano))]
+    y = m_sobe
+    melhor = max((L for L in linhas if L["setor"] != "total"), key=lambda L: L["auc_sobe_x_resto"])
+    a_set, a_tot = postos_pct[melhor["setor"]], postos_pct["total"]
+    obs = auc(a_set[y], a_set[~y]) - auc(a_tot[y], a_tot[~y])
+    difs = []
+    for _ in range(N_BOOT):
+        amostra = np.concatenate([rng_setor.choice(ix, size=len(ix), replace=True) for ix in idx_ano])
+        yy = y[amostra]
+        if yy.all() or not yy.any():
+            continue
+        s, t = a_set[amostra], a_tot[amostra]
+        difs.append(auc(s[yy], s[~yy]) - auc(t[yy], t[~yy]))
+    difs = np.array(difs)
+    lo, hi = np.percentile(difs, [2.5, 97.5])
+    cruza = bool(lo <= 0 <= hi)
+
+    return dict(
+        n=len(d), faixas=dict(sobe=int(m_sobe.sum()), meio=int(m_meio.sum()), cai=int(m_cai.sum())),
+        fonte="Transfermarkt por temporada: val_goleiro + val_defesa + val_meio + val_ataque",
+        soma_dos_setores_sobre_total=dict(min=r(razao.min(), 4), max=r(razao.max(), 4),
+                                          nan=int((~np.isfinite(razao)).sum())),
+        regra_da_posicao="posição no ranking do ano (1 = mais caro), média por faixa; empate pela média",
+        regra_do_auc="posto percentual dentro do ano; p = Mann-Whitney bilateral no mesmo posto",
+        setores=linhas,
+        particao=dict(
+            o_que_e=("% do elenco em cada setor, com o total fixo; posto no ano do %, "
+                     "Mann-Whitney sobe x meio"),
+            testes=len(part), correcao="Benjamini-Hochberg nos %d setores" % len(part),
+            setores=part,
+            menor_p=dict(setor=menor["setor"], p_bruto=menor["p_bruto"], q_bh=menor["q_bh"],
+                         sobrevive_bh_5pct=menor["sobrevive_bh_5pct"])),
+        melhor_setor_contra_total=dict(
+            setor=melhor["setor"], escolhido_depois_de_olhar=True, entre=len(SETORES_VALOR),
+            auc_setor=melhor["auc_sobe_x_resto"],
+            auc_total=next(L["auc_sobe_x_resto"] for L in linhas if L["setor"] == "total"),
+            diferenca=r(obs, 3), ic95_lo=r(lo, 3), ic95_hi=r(hi, 3),
+            replicas=int(len(difs)), replicas_pedidas=N_BOOT,
+            reamostragem="temporadas de clube com reposição dentro do ano, pareada",
+            gerador="np.random.default_rng([SEMENTE, 11]) — próprio, fora do rng global",
+            ic_cruza_zero=cruza,
+            pode_afirmar_que_supera_o_total=bool(lo > 0),
+            leitura=(("o intervalo da diferença vai de %s a %s e cruza zero: não dá para "
+                      "afirmar que o setor supera o total") if cruza else
+                     ("o intervalo da diferença vai de %s a %s e não cruza zero"))
+                    % (num_br(lo, 3), num_br(hi, 3))),
+    )
+
+
 def etapa_1(d80, d100):
     """O dinheiro no primeiro parágrafo e não no rodapé.
 
@@ -596,6 +833,11 @@ def etapa_1(d80, d100):
     return dict(
         titulo_chave="etapa_1", n=len(d),
         quartis=quartis,
+        # As duas perguntas que o dono fez olhando esta etapa. Nenhuma das duas sorteia pelo
+        # `rng` global (a curva é conta exata; o bootstrap do setor tem gerador próprio), e
+        # por isso acrescentá-las não mexe em um único número das etapas seguintes.
+        curva_top_k=curva_top_k(d),
+        valor_por_setor=valor_por_setor(d),
         top4_de_valor=dict(acertos=int(acertos), de=int(d.y.sum()),
                            esperado_por_acaso=r(d.y.sum() * 4 / 20, 2), por_ano=por_ano),
         auc_posto_de_valor=dict(
@@ -1186,17 +1428,37 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                         cel.append([r(b, 3), r(p, 1), n_celula(i, ind)])
                 clubes.append(dict(clube=d.clube[i], ano=int(d.ano[i]), pos=int(d.pos[i]),
                                    pts=int(d.pts[i]), celulas=cel))
-            faixa_meio, faixa_cai = [], []
+            # A faixa de quem SUBIU entra pelo mesmo cálculo das outras duas, a pedido do dono:
+            # as 16 linhas mostram cada time, mas o olho compara forma com forma — quartil contra
+            # quartil. Sem a terceira faixa, o leitor compara um time contra um grupo e acha
+            # padrão onde há só um caso. Mesma função, mesmo corte de 4 valores, mesmo arredondamento.
+            faixa_sobe, faixa_meio, faixa_cai = [], [], []
+            # As mesmas faixas no valor CRU, a pedido do dono: o percentil diz quem está na
+            # frente, mas não diz quanto — e a pergunta de quem monta elenco é "quanto a mais
+            # isto precisa ser" (a elasticidade). A tela troca de escala por um botão. A ressalva
+            # que viaja junto: o valor cru mistura anos (calendário, bola, arbitragem mudam de
+            # uma temporada para outra), e o percentil dentro do ano não; por isso o ORDENAMENTO
+            # continua sendo o do percentil, e o cru é leitura de tamanho.
+            faixa_sobe_bruto, faixa_meio_bruto, faixa_cai_bruto = [], [], []
             for ind in cols:
-                for alvo, lst in (("meio", faixa_meio), ("cai", faixa_cai)):
-                    v = postos[ind].values[(d.faixa == alvo).values]
+                for alvo, lst, lstb in (("sobe", faixa_sobe, faixa_sobe_bruto),
+                                        ("meio", faixa_meio, faixa_meio_bruto),
+                                        ("cai", faixa_cai, faixa_cai_bruto)):
+                    mask = (d.faixa == alvo).values
+                    v = postos[ind].values[mask]
                     v = v[np.isfinite(v)]
                     lst.append([r(np.percentile(v, 25), 1), r(np.percentile(v, 50), 1),
                                 r(np.percentile(v, 75), 1)] if len(v) >= 4 else [None, None, None])
+                    vb = bruto[ind].values[mask].astype(float)
+                    vb = vb[np.isfinite(vb)]
+                    lstb.append([r(np.percentile(vb, 25), 3), r(np.percentile(vb, 50), 3),
+                                 r(np.percentile(vb, 75), 3)] if len(vb) >= 4 else [None, None, None])
             saida[nome_g] = dict(
                 pilar=pilar,
                 indicadores=[rotulo_ind(i) for i in cols],
-                clubes=clubes, faixa_meio=faixa_meio, faixa_cai=faixa_cai,
+                clubes=clubes, faixa_sobe=faixa_sobe, faixa_meio=faixa_meio, faixa_cai=faixa_cai,
+                faixa_sobe_bruto=faixa_sobe_bruto, faixa_meio_bruto=faixa_meio_bruto,
+                faixa_cai_bruto=faixa_cai_bruto,
                 legenda_celula=["bruto", "posto_no_ano", "n", "motivo_se_vazia"])
             if pilar == "tecnico_ind":
                 saida[nome_g]["origem_das_colunas"] = (
@@ -1368,7 +1630,13 @@ def eta2(valores, rotulos):
     total = ((v - v.mean()) ** 2).sum()
     if total == 0:
         return np.nan
-    entre = sum(len(v[g == c]) * (v[g == c].mean() - v.mean()) ** 2 for c in set(g))
+    # `sorted` e não `set` puro: a ordem de um set de strings muda a cada execução do Python
+    # (PYTHONHASHSEED), a soma em ponto flutuante muda na 16ª casa com a ordem, e no nulo
+    # por permutação o `x >= e` do empate exato — a permutação que reproduz o rótulo
+    # observado — passava a cair de um lado ou de outro. Resultado: os p da bateria de fora
+    # da tipologia mudavam de uma rodada para a outra sem nada ter mudado. Medido em
+    # 13/09/2026, rodando o gerador intacto duas vezes.
+    entre = sum(len(v[g == c]) * (v[g == c].mean() - v.mean()) ** 2 for c in sorted(set(g)))
     return entre / total
 
 
@@ -2853,8 +3121,15 @@ def etapa_14(cand, d80, elencos):
             pos_pool = {}
             for c in pool:
                 pos_pool.setdefault(c["pos"], []).append(c)
-            denom = {v: len(pos_pool.get(v, [])) for v in set(vagas)}
-            lista = [c for v in set(vagas) for c in pos_pool.get(v, [])]
+            # `dict.fromkeys(vagas)` e não `set(vagas)`: a ordem do set de strings muda a cada
+            # execução (PYTHONHASHSEED), e com ela a ordem de `lista` — que é a ordem em que o
+            # `rng.normal` distribui o ruído entre os atletas. O mesmo código, rodado duas
+            # vezes sobre a mesma base, devolvia elencos diferentes (386 campos da etapa 14
+            # mudaram entre duas rodadas do gerador intacto em 13/09/2026). A ordem agora é a
+            # da GRADE, que é declarada e não sorteada.
+            ordem_vagas = list(dict.fromkeys(vagas))
+            denom = {v: len(pos_pool.get(v, [])) for v in ordem_vagas}
+            lista = [c for v in ordem_vagas for c in pos_pool.get(v, [])]
             lista = list({id(c): c for c in lista}.values())
             if len(lista) < len(vagas):
                 propostas[f"{cen}__{escopo}"] = dict(

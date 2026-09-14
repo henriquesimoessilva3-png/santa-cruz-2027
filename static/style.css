@@ -3165,6 +3165,9 @@ body.claro .pt-tarja>b{color:var(--coral-esc)}
 .pt-cf-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:9px}
 .pt-cf-l span{display:block;font-size:11px;color:var(--tinta3);line-height:1.35}
 .pt-cf-l b{font-size:15px;font-variant-numeric:tabular-nums}
+/* o valor (ptEur, a taxa) chega embrulhado em span, e `.pt-cf-l span` o encolheria ao tamanho
+   do rótulo: o valor de uma linha tem de ser lido no tamanho do valor */
+.pt-cf-l b span{display:inline;font-size:inherit;color:inherit;line-height:inherit}
 .pt-cf-taxa{color:var(--coral-cl);font-weight:800}
 body.claro .pt-cf-taxa{color:var(--coral)}
 
@@ -3261,8 +3264,8 @@ body.claro .pt-erro b{color:var(--coral-esc)}
 .pt-motivos span{display:block;margin-top:3px}
 
 /* a procedência, logo abaixo da tarja: uma linha por base de PROTO.bases, montada iterando
-   as chaves. O rótulo de cada campo é a chave crua do JSON de propósito — é o que deixa
-   visível que a linha não foi escrita à mão e que base nova entra aqui sozinha. */
+   as chaves. O rótulo é o nome legível quando a chave é conhecida e a chave crua quando não é;
+   a crua fica sempre no title, e base nova continua entrando aqui sozinha. */
 .pt-bases{background:var(--fundo2);border:1px solid var(--borda);border-radius:8px;padding:13px 16px}
 .pt-bases ul{list-style:none;margin:9px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
 .pt-bases li{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 14px;font-size:12px;
@@ -3285,3 +3288,32 @@ body.claro .pt-erro b{color:var(--coral-esc)}
   display:inline;font-weight:600}
 .pt-cf-ref i{font-style:normal;font-size:10px;color:var(--tinta3);text-transform:uppercase;
   letter-spacing:.07em;margin-right:5px;font-weight:700}
+
+/* o número técnico ao lado da frase simples: presente para quem confere, discreto para quem lê */
+.pt-tec{font-size:10.5px;color:var(--tinta3);font-variant-numeric:tabular-nums;margin-left:5px;white-space:nowrap}
+.pt-tarja-pe .pt-tec{white-space:normal;margin-left:0}
+
+/* a frase de reunião vem antes do número, em corpo de leitura: é ela que o diretor leva */
+.pt-baseline-frase,.pt-controle-frase{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--tinta);max-width:74ch}
+.pt-baseline-frase b,.pt-controle-frase b{font-weight:800}
+.pt-baseline-cel{flex-direction:column;align-items:flex-start;gap:5px}
+.pt-baseline-cel b{font-size:18px;letter-spacing:-.01em;white-space:normal;line-height:1.2}
+.pt-baseline-cel span.pt-baseline-quem{font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--tinta3);font-weight:700}
+
+/* as faixas de orçamento do controle 3, da mais cara para a mais barata */
+.pt-faixas{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;
+  margin:10px 0 0;padding:0}
+.pt-faixas li{background:var(--fundo3);border:1px solid var(--borda);border-radius:7px;padding:9px 11px;
+  display:flex;flex-direction:column;gap:2px}
+.pt-faixas span{font-size:11px;color:var(--tinta3)}
+.pt-faixas b{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--tinta)}
+.pt-faixas small{font-size:11px;color:var(--tinta2)}
+
+/* "sem descontar → descontado o dinheiro": as palavras são mais longas que o d e o p que
+   substituem, então o par pode quebrar em duas linhas dentro da célula, e o técnico vai embaixo */
+.pt-liq{flex-wrap:wrap;gap:3px 6px}
+.pt-liq-par{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap}
+.pt-liq i{text-transform:none;letter-spacing:0;font-size:10.5px}
+.pt-liq b{font-weight:700}
+.pt-liq .pt-tec{flex-basis:100%;margin-left:0;font-size:10px}

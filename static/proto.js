@@ -32,22 +32,22 @@
    apontando para etapa que não existe. Os títulos vêm da seção 10 da ESPECIFICACAO.md;
    nenhum deles carrega número, porque número em título seria número escrito à mão. */
 const PT_ETAPAS = [
-  [0,  'O que está sendo medido',          'o tamanho da amostra, e o que esse tamanho permite', 'proto_a.js'],
-  [1,  'A linha de base do dinheiro',      'antes de qualquer pilar: o quanto o valor do elenco já explica', 'proto_a.js'],
-  [2,  'O catálogo dos indicadores',       'um por linha, ordenável por qualquer coluna', 'proto_a.js'],
-  [3,  'O aviso do sorteio, em número',    'quantos testes, quantos por acaso, quantos sobrevivem à correção', 'proto_a.js'],
-  [4,  'Confiabilidade de cada medida',    'o que a própria medida repete dentro do mesmo ano', 'proto_a.js'],
-  [5,  'Os pilares, time a time, ano a ano', 'matriz de percentis — e o vazio escrito onde falta atleta', 'proto_b.js'],
-  [6,  'Isso se repete?',                  'o posto de um ano contra o posto do ano seguinte', 'proto_b.js'],
-  [7,  'A porta temporal',                 'o que eles fizeram, ou o que aconteceu com quem estava subindo?', 'proto_b.js'],
-  [8,  'O cemitério dos padrões',          'por que esta aba não tem grupos de times — e o que sobrou de tipologia', 'proto_b.js'],
-  [9,  'As réguas',                        'os eixos de tela, e os itens crus com os seus próprios p', 'proto_c.js'],
-  [10, 'Causa ou consequência',            'o que separa forte e é o resultado redescrito: não contrate para isto', 'proto_c.js'],
-  [11, 'O teste da mala',                  'o que o atleta leva quando muda de clube, e o que era do time anterior', 'proto_c.js'],
-  [12, 'O funil dos livres',               'do arquivo inteiro ao pool que dá para pontuar, degrau por degrau', 'proto_c.js'],
-  [13, 'Nota de encaixe em três pedaços',  'os pesos, o sc_n ao lado do físico, e o backtest no cabeçalho', 'proto_c.js'],
-  [14, 'Elenco como faixa',                'nomes por frequência nas réplicas, com o contrafactual do dinheiro ao pé', 'proto_c.js'],
-  [15, 'Treinador: o que não dá',          'o motivo, os p do proxy de sistema e a coleta que resolveria', 'proto_c.js'],
+  [0,  'O que está sendo medido',          'quantos times entram no estudo, e o que dá para concluir com esse tanto', 'proto_a.js'],
+  [1,  'Quanto o dinheiro já explica',     'antes de olhar o jogo: o valor do elenco, sozinho, já separa quem sobe?', 'proto_a.js'],
+  [2,  'Tudo o que foi medido',            'um indicador por linha — clique no nome da coluna para ordenar', 'proto_a.js'],
+  [3,  'Quanto disso pode ser sorte',      'quando se testa muita coisa, alguma dá certo por acaso: quantas sobram descontada essa sorte', 'proto_a.js'],
+  [4,  'Dá para confiar na medida?',       'a medida dá o mesmo resultado se for medida duas vezes no mesmo ano?', 'proto_a.js'],
+  [5,  'Cada time, cada ano',              'a posição de cada time no ranking daquele ano — e o aviso escrito onde falta dado de jogador', 'proto_b.js'],
+  [6,  'Isso se repete?',                  'a posição no ranking de um ano contra a posição no ano seguinte', 'proto_b.js'],
+  [7,  'Veio antes ou veio depois?',       'foi o que o time fez, ou é o que acontece com quem já está subindo?', 'proto_b.js'],
+  [8,  'Os padrões que não pararam de pé', 'por que esta aba não separa os times em grupos — e o pouco que sobrou', 'proto_b.js'],
+  [9,  'As réguas',                        'as medidas que resumem o jogo, e cada item com a sua própria chance de ser sorte', 'proto_c.js'],
+  [10, 'Causa ou consequência',            'o que separa muito, mas é o próprio resultado dito de outro jeito: não contrate para isto', 'proto_c.js'],
+  [11, 'O que o jogador leva na mala',     'o que o jogador leva quando muda de clube, e o que era do time anterior', 'proto_c.js'],
+  [12, 'O funil dos jogadores livres',     'do arquivo inteiro até os jogadores que dá para avaliar, degrau por degrau', 'proto_c.js'],
+  [13, 'A nota de encaixe',                'os três pedaços da nota, quanto dado físico cada jogador tem, e como a nota teria ido no passado', 'proto_c.js'],
+  [14, 'O elenco como faixa',              'os nomes que mais aparecem quando a conta é refeita muitas vezes, e quanto o elenco custaria', 'proto_c.js'],
+  [15, 'Treinador: o que não dá',          'por que não dá, o que se tentou medir no lugar e que coleta resolveria', 'proto_c.js'],
 ];
 
 /* ---------------- helpers de número ----------------
@@ -101,6 +101,219 @@ function ptD(d) {
    ano nenhum. Vale para `ano`, `assert_ano_max`, `ano_t`, `ano_t1` e para qualquer coisa
    que seja identificador numérico em vez de quantidade. */
 function ptAno(v) { return v === null || v === undefined ? '—' : String(v); }
+
+/* ---------------- o vocabulário simples ----------------
+
+   O dono pediu a aba em português de quem não estudou estatística. A tentação é trocar cada
+   termo técnico por uma palavra bonita em cada etapa — e aí a etapa 2 diz "sólido" para o que a
+   etapa 9 chama de "provável", e o leitor aprende que as palavras não querem dizer nada. Por
+   isso a tradução mora AQUI, uma vez só, e toda etapa usa estas funções. Os cortes abaixo não
+   são medida deste estudo: são convenção de leitura, declarada num lugar onde se pode discordar
+   dela. O número técnico nunca some — vai ao lado, menor, em ptTecnico(), para quem quer conferir.
+
+   E a regra que não se negocia: simplificar não é afirmar mais. "Pode ser sorte" continua
+   aparecendo onde o dado diz que pode ser sorte. */
+
+/* Tamanho da diferença (d de Cohen), nas faixas usuais 0,2 · 0,5 · 0,8. */
+const PT_FAIXAS_D = [[0.8, 'grande'], [0.5, 'média'], [0.2, 'pequena'], [0, 'quase nenhuma']];
+function ptTamanho(d) {
+  if (d === null || d === undefined || isNaN(Number(d))) return 'sem medida';
+  const a = Math.abs(Number(d));
+  return PT_FAIXAS_D.find(f => a >= f[0])[1];
+}
+
+/* O p-valor dito do jeito certo. A versão popular errada é "3% de chance de ser sorte" — o p
+   não é isso. O que ele diz é: se não houvesse diferença nenhuma, o acaso produziria uma
+   diferença deste tamanho em tantas de cada cem tentativas. É mais comprido e é verdade. */
+function ptAcaso(p) {
+  if (p === null || p === undefined || isNaN(Number(p))) return 'sem medida de acaso';
+  const v = Number(p);
+  if (v < 0.001) return 'o acaso quase nunca produziria isso (menos de 1 vez em 1.000)';
+  if (v < 0.01) return 'o acaso produziria isso em menos de 1 de cada 100 tentativas';
+  return 'o acaso produziria isso em ' + ptInt(Math.round(v * 100)) + ' de cada 100 tentativas';
+}
+
+/* O veredito curto sobre sorte, amarrado ao alfa do próprio estudo (etapa 0) e não a um 0,05
+   digitado. "No limite" existe porque o leitor leigo lê 0,049 e 0,051 como coisas opostas. */
+function ptSorte(p) {
+  if (p === null || p === undefined || isNaN(Number(p))) return 'sem medida';
+  const alfa = (((PROTO || {}).etapa_0 || {}).poder || {}).alfa || 0.05;
+  const v = Number(p);
+  return v < alfa ? 'dificilmente é sorte' : v < 2 * alfa ? 'no limite' : 'pode ser sorte';
+}
+
+/* Correlação (ρ) em palavras, com o sentido junto: "quando um sobe, o outro cai" é metade da
+   informação e o sinal sozinho ninguém lê. */
+function ptJunto(rho) {
+  if (rho === null || rho === undefined || isNaN(Number(rho))) return 'sem medida';
+  const v = Number(rho), a = Math.abs(v);
+  const forca = a >= 0.5 ? 'com força' : a >= 0.3 ? 'de forma moderada' : a >= 0.1 ? 'pouco' : 'quase nada';
+  if (a < 0.1) return 'não andam juntos';
+  return (v > 0 ? 'andam juntos ' : 'andam em sentido contrário ') + forca;
+}
+
+/* AUC como pares: pegue um time que subiu e um que não subiu, ao acaso — em quantos de cada
+   cem pares a medida põe o que subiu na frente? 50 é moeda; 100 é acerto sempre. É a leitura
+   exata do AUC, não uma aproximação. */
+function ptAcerto(auc) {
+  if (auc === null || auc === undefined || isNaN(Number(auc))) return 'sem medida';
+  return 'acerta em ' + ptInt(Math.round(Number(auc) * 100)) + ' de cada 100 pares';
+}
+
+/* O número técnico continua na tela, menor e apagado, para quem quer conferir. Esconder de vez
+   seria trocar auditável por bonito — e esta aba existe para ser auditável. */
+function ptTecnico(html) {
+  return html ? '<span class="pt-tec">' + html + '</span>' : '';
+}
+
+/* ---------------- o nome de cada medida, um só para a aba inteira ----------------
+
+   A revisão de linguagem achou a mesma medida com três nomes: "velocidade máxima" na etapa 6,
+   "psv99" na 9 e na 11, "hsr distance" na 11 — e uma terceira língua no meio ("corrida em alta
+   velocidade distance"). Por isso o nome popular mora AQUI, e as etapas 5 a 15 passam por
+   ptNomeMedida / ptNomeIndicador. A chave crua nunca some: quem chama põe no `title`.
+
+   A tradução é por pedaço, e na ordem: primeiro a chave inteira que tem nome próprio
+   (`pts2t`, `aprovG6`), depois as expressões compostas do rastreamento físico (`sprint count`
+   antes de `sprint`), por último as grafias sem acento do arquivo técnico. Pedaço que o mapa
+   não conhece continua como veio — feio na tela, mas presente. */
+const PT_MEDIDA_CHAVE = {
+  pts2t: 'pontos no 2º turno', pts1t: 'pontos no 1º turno', pontos_casa: 'pontos em casa',
+  pontos_fora: 'pontos fora de casa', gp_jogo: 'gols marcados por jogo', gc_jogo: 'gols sofridos por jogo',
+  aprovG6: 'aproveitamento contra o G6', aprovZ6: 'aproveitamento contra o Z4-Z6',
+  maxSemVencer: 'maior sequência sem vencer', maxVitorias: 'maior sequência de vitórias',
+  golos_tec: 'gols marcados', golos_sem_penalti: 'gols sem contar pênalti', brancos: 'jogos sem marcar gol',
+  xg_saldo: 'saldo de gols esperados (xG)', finalizacao: 'aproveitamento das finalizações',
+  goleadas_pro: 'goleadas a favor', clean_sheets: 'jogos sem sofrer gol', cs: 'jogos sem sofrer gol',
+  defesa_vs_xg: 'gols evitados pelo goleiro (contra o xG)', tm_valor_total: 'valor do elenco',
+  tm_valor_mediana: 'valor do jogador típico do elenco', tm_altura: 'altura média',
+  gk_def: 'defesas', gk_evi: 'gols evitados', gk_sai: 'saídas do gol', gk_pas: 'passe do goleiro',
+  dist_remate: 'distância média do chute (m)', share_11: '% dos minutos no time-base mais usado',
+  conc_hhi: 'concentração dos minutos em poucos jogadores', nucleo_300: 'jogadores com 300 minutos ou mais',
+  atletas_usados: 'jogadores usados no ano', ppda: 'pressão (passes do adversário por desarme)',
+  psv: 'velocidade máxima', psv5: 'velocidade máxima (média das 5 maiores)', hsr: 'distância em alta velocidade',
+  hsr_n: 'corridas em alta velocidade', spr_n: 'número de piques', spr_km: 'distância em piques',
+  dist: 'distância percorrida', mmin: 'metros por minuto', acel: 'acelerações fortes', desa: 'frenagens fortes',
+  cod: 'mudanças de direção', hi: 'distância em alta intensidade', hi_n: 'ações de alta intensidade',
+  expl: 'acelerações explosivas',
+  sistemas_distintos: 'esquemas táticos diferentes usados', trocas: 'trocas de esquema tático',
+  principal_pct: '% de jogos no esquema principal', linha3_pct: '% de jogos com três zagueiros',
+  fidelidade_media: 'fidelidade ao esquema principal', linha3: 'jogos com três zagueiros',
+  distintas: 'formações diferentes', formacoes: 'formações diferentes usadas',
+};
+const PT_MEDIDA_PEDACOS = [
+  [/\bpsv99 top5\b/gi, 'velocidade máxima (média das 5 maiores)'],
+  [/\bpsv99\b/gi, 'velocidade máxima'],
+  [/\bexpl accel sprint\b/gi, 'arrancadas explosivas até o pique'],
+  [/\bexpl accel hsr\b/gi, 'arrancadas explosivas até alta velocidade'],
+  [/\bruns above hsr\b/gi, 'desmarques em alta velocidade'],
+  [/\bruns penalty area\b/gi, 'desmarques para a área'],
+  [/\bruns dangerous\b/gi, 'desmarques perigosos'],
+  [/\bruns received\b/gi, 'desmarques que receberam a bola'],
+  [/\bruns shot within 10s\b/gi, 'desmarques que viraram chute em 10 s'],
+  [/\bruns\b/gi, 'desmarques'],
+  [/\bsprint distance\b/gi, 'distância em piques'],
+  [/\bsprint count\b/gi, 'número de piques'],
+  [/\bhsr distance\b/gi, 'distância em alta velocidade'],
+  [/\bhsr count\b/gi, 'corridas em alta velocidade'],
+  [/\bhi distance\b/gi, 'distância em alta intensidade'],
+  [/\bhi count\b/gi, 'ações de alta intensidade'],
+  [/\brunning distance\b/gi, 'distância correndo'],
+  [/\bdistance\b/gi, 'distância percorrida'],
+  [/\bm per min\b/gi, 'metros por minuto'],
+  [/\bhigh accel\b/gi, 'acelerações fortes'],
+  [/\bhigh decel\b/gi, 'frenagens fortes'],
+  [/\bmedium accel\b/gi, 'acelerações médias'],
+  [/\bmedium decel\b/gi, 'frenagens médias'],
+  [/\bcod count\b/gi, 'mudanças de direção'],
+  [/\bp(\d+)otip\b/gi, 'a cada $1 min sem a bola'],
+  [/\bp(\d+)tip\b/gi, 'a cada $1 min com a bola'],
+  [/\botip\b/gi, 'sem a bola'],
+  [/\btip\b/gi, 'com a bola'],
+  [/\btop(\d+)\b/gi, '(média das $1 maiores)'],
+  [/\bp(\d+)\b/gi, 'por $1 min'],
+  [/\bhsr\b/gi, 'alta velocidade'],
+  [/\bpsv\b/gi, 'velocidade máxima'],
+  [/\/(\d+)$/, ' por $1 min'],
+  [/\s(\d+)$/, ' por $1 min'],
+  [/\bPPDA \(passes do adversario por acao defensiva\)/g, 'Pressão (passes do adversário por desarme)'],
+  [/\bRemates a baliza\b/g, 'Chutes no gol'], [/\bRemates à baliza\b/g, 'Chutes no gol'],
+  [/\bRemates\b/g, 'Chutes'], [/\bremates\b/g, 'chutes'], [/\bremate\b/g, 'chute'], [/\bRemate\b/g, 'Chute'],
+  [/\bGolos\b/g, 'Gols'], [/\bgolos\b/g, 'gols'], [/\bexpectáveis\b/g, 'esperados'],
+  [/\bDistancia\b/g, 'Distância'], [/\bmedia\b/g, 'média'], [/\bmedio\b/g, 'médio'], [/\bIdade media\b/g, 'Idade média'],
+  [/\barea\b/g, 'área'], [/\bterco\b/g, 'terço'], [/\bRecuperacoes\b/g, 'Recuperações'], [/\bCartoes\b/g, 'Cartões'],
+  [/\baereos\b/g, 'aéreos'], [/\bintercecoes\b/g, 'interceptações'], [/\bacoes\b/g, 'ações'], [/\bexito\b/g, 'êxito'],
+  [/\baceleracoes\b/g, 'acelerações'], [/\bAceleracoes\b/g, 'Acelerações'], [/\bassistencias\b/g, 'assistências'],
+  [/\bFormacoes\b/g, 'Formações'], [/\bformacao\b/g, 'formação'], [/\bConcentracao\b/g, 'Concentração'],
+  [/\bajust a posse\b/g, 'ajustado à posse'], [/\bpasses chave\b/gi, 'passes-chave'],
+  [/\bXI mais usado\b/g, 'time-base mais usado'],
+  [/\bpor por\b/g, 'por'],
+];
+function ptNomeMedida(s) {
+  if (s === null || s === undefined || s === '') return 'medida sem nome';
+  const cru = String(s);
+  if (Object.prototype.hasOwnProperty.call(PT_MEDIDA_CHAVE, cru)) return PT_MEDIDA_CHAVE[cru];
+  let t = cru.replace(/\s*\((kpis|skillcorner)\.json\)\s*$/i, '').replace(/´/g, '')
+    .replace(/^fis_/, '').replace(/^ti_/, '');
+  if (Object.prototype.hasOwnProperty.call(PT_MEDIDA_CHAVE, t)) return PT_MEDIDA_CHAVE[t];
+  t = t.replace(/_+/g, ' ').trim();
+  PT_MEDIDA_PEDACOS.forEach(par => { t = t.replace(par[0], par[1]); });
+  return t;
+}
+/* O nome de um indicador pela chave: o nome do catálogo da etapa 2 quando existe, traduzido;
+   senão a própria chave, traduzida. Indicador de um setor (`ti_meio_…`, `fis_zaga_…`) leva o
+   setor junto — "passes-chave" do meio-campo e do ataque não são a mesma medida. */
+const PT_SETOR_NOME = { zaga: 'zaga', lateral: 'laterais', meio: 'meio-campo', ataque: 'ataque' };
+function ptNomeIndicador(id) {
+  const k = String(id === null || id === undefined ? '' : id);
+  const linhas = (typeof PROTO !== 'undefined' && PROTO.etapa_2 && PROTO.etapa_2.linhas) || [];
+  const l = linhas.find(x => x && x.indicador === k);
+  const m = /^(?:ti|fis)_(zaga|lateral|meio|ataque)_(.+)$/.exec(k);
+  const base = l && l.nome ? ptNomeMedida(l.nome) : ptNomeMedida(m ? m[2] : k);
+  const setor = (l && l.setor) || (m ? m[1] : null);
+  return setor && PT_SETOR_NOME[setor] ? base + ' (' + PT_SETOR_NOME[setor] + ')' : base;
+}
+
+/* As réguas da etapa 9 (e os olhares da etapa 8) chegam como chave sem acento: `F_solidez`.
+   O nome em português mora aqui, uma vez; régua nova sem nome aparece pela chave legível. */
+const PT_REGUAS = {
+  posse_construcao: 'Posse e construção', pressao_ritmo: 'Pressão e ritmo', volume_fisico: 'Volume físico',
+  explosao: 'Explosão', qualidade_chance: 'Qualidade da chance', solidez: 'Solidez defensiva',
+  bola_aerea_parada: 'Bola aérea e bola parada', dinheiro: 'Dinheiro', estabilidade_11: 'Estabilidade do time-base',
+};
+function ptNomeRegua(k) {
+  const s = String(k === null || k === undefined ? '' : k).replace(/^[A-Z]_/, '');
+  return PT_REGUAS[s] || s.replace(/_+/g, ' ');
+}
+
+/* O selo de cada indicador da etapa 2 — e das portas da etapa 10 —, dito pelo que ele significa.
+   Um só texto para as duas etapas. A porta A NÃO é "serve para contratar": o motivo gravado
+   pelo estudo é "sobrevive ao dinheiro, se repete e prevê o 2º turno", e o único indicador com
+   esse selo não sobra quando se desconta a sorte de testar muita coisa. */
+const PT_PORTAS_TXT = {
+  A: 'resiste ao dinheiro e se repete, mas ainda não está aprovado',
+  B: 'separa, mas não se repete no ano seguinte',
+  C: 'era só o dinheiro',
+  D: 'é o placar contado de outro jeito',
+};
+function ptPortaTxt(letra) {
+  return PT_PORTAS_TXT[letra] || null;
+}
+
+/* A ressalva do tamanho da própria régua do dinheiro. Estava escrita de dois jeitos (no topo e
+   na etapa 1), e nenhum dizia o que ela significa na prática. Uma redação, lida do dado. */
+function ptPoucaBase(auc) {
+  const a = auc || {};
+  if (a.eventos_por_parametro === undefined || a.eventos_por_parametro === null ||
+      a.regra_pratica === undefined || a.regra_pratica === null) return '';
+  const ev = ptNum(a.eventos_por_parametro, Number.isInteger(Number(a.eventos_por_parametro)) ? 0 : 1);
+  return Number(a.eventos_por_parametro) < Number(a.regra_pratica)
+    ? 'Até essa conta do dinheiro tem pouca base: o costume pede ' + ptInt(a.regra_pratica) +
+      ' subidas para cada coisa que a conta leva em conta, e aqui há ' + ev + '. O número pode mudar com mais anos.' +
+      ptTecnico('eventos por parâmetro')
+    : 'A conta do dinheiro tem a base que o costume pede: ' + ev + ' subidas para cada coisa que ela leva em conta, ' +
+      'contra ' + ptInt(a.regra_pratica) + ' pedidas.' + ptTecnico('eventos por parâmetro');
+}
 /* Concordância de número. "há 1 horas" é o tipo de erro que faz o leitor desconfiar do
    resto da tela, e ele nasce sempre do mesmo lugar: um rótulo fixo grudado num contador.
    O nome leva `Casca` de propósito — proto_a/b/c têm os seus próprios casos de plural e
@@ -114,8 +327,13 @@ function ptCascaConcorda(n, singular, plural) {
 /* O n nunca é enfeite: 16 clube-temporada e 603 candidatos aguentam frases diferentes.
    Por isso o rótulo carrega a UNIDADE junto — "n = 16" sozinho já enganou muita gente. */
 function ptN(n, unidade) {
-  if (n === null || n === undefined) return ptFalta('n não registrado no JSON');
-  return '<span class="pt-n">n = ' + ptInt(n) + (unidade ? ' ' + esc(unidade) : '') + '</span>';
+  if (n === null || n === undefined) return ptFalta('a quantidade não foi registrada no arquivo de dados');
+  /* "clube-temporada" é jargão de planilha; na tela é "temporadas de clube". A troca mora aqui
+     para que as três etapas que passam essa unidade digam a mesma coisa sem combinar entre si. */
+  const u = unidade ? String(unidade)
+    .replace(/^clube-temporada completos\b/, 'temporadas de clube completas')
+    .replace(/^clube-temporada\b/, Math.abs(Number(n)) === 1 ? 'temporada de clube' : 'temporadas de clube') : '';
+  return '<span class="pt-n" title="quantidade">' + ptInt(n) + (u ? ' ' + esc(u) : '') + '</span>';
 }
 
 /* ---------------- a ausência, escrita ----------------
@@ -154,11 +372,11 @@ function ptCel(percentil, opts) {
   const alto = o.sinal === -1 ? p < 50 : p > 50;
   const forca = (dist * 0.62).toFixed(3);
   const dica = [
-    o.bruto !== undefined && o.bruto !== null ? 'bruto ' + ptNum(o.bruto, o.casas === undefined ? 3 : o.casas) : '',
-    'percentil ' + ptNum(p, 1),
-    o.n !== undefined && o.n !== null ? 'n = ' + ptInt(o.n) + (o.unidade ? ' ' + o.unidade : '') : '',
+    o.bruto !== undefined && o.bruto !== null ? 'valor medido ' + ptNum(o.bruto, o.casas === undefined ? 3 : o.casas) : '',
+    'posição no ranking daquele ano: ' + ptNum(p, 1) + ' (quanto maior, mais alto no ranking)',
+    o.n !== undefined && o.n !== null ? 'base: ' + ptInt(o.n) + (o.unidade ? ' ' + o.unidade : '') : '',
     o.ano ? String(o.ano) : '',
-    o.sinal === 0 ? 'sem lado bom declarado' : '',
+    o.sinal === 0 ? 'o estudo não diz se ter mais disto é melhor ou pior' : '',
   ].filter(Boolean).join(' · ');
   return '<td class="pt-cel" title="' + esc(dica) + '"' +
     (o.dados ? ' data-pt="' + esc(o.dados) + '"' : '') + '>' +
@@ -223,7 +441,7 @@ function ptTabela(cfg) {
     colunas: cfg.colunas,
     linhas: cfg.linhas || [],
     ordem: cfg.ordem || null,
-    vazio: cfg.vazio || 'nenhuma linha — e isto é o dado, não um erro de tela',
+    vazio: cfg.vazio || 'nenhuma linha — a tabela está vazia porque o dado está vazio, não por erro da tela',
   };
   return '<div class="pt-tab-rola"><table class="pt-tab' + (cfg.classe ? ' ' + esc(cfg.classe) : '') +
     '" id="' + esc(cfg.id) + '">' + ptTabCabeca(cfg.id) + ptTabCorpo(cfg.id) + '</table></div>';
@@ -320,29 +538,48 @@ function ptBaseline(compara) {
   const e1 = PROTO.etapa_1 || {};
   const auc = e1.auc_posto_de_valor || {};
   const c = compara || {};
+  /* Quantos elencos mais caros contam como "top": sai do tamanho da lista por ano que o próprio
+     gerador gravou (`etapa_1.top4_de_valor.por_ano[].top4`), não do 4 que está no nome da chave. */
+  const t4 = e1.top4_de_valor || {};
+  const topK = ((t4.por_ano || [])[0] || {}).top4;
+  const kTop = Array.isArray(topK) ? topK.length : null;
+  const temLoso = auc.loso_sobe_x_resto !== undefined && auc.loso_sobe_x_resto !== null;
   const alvo = c.auc !== null && c.auc !== undefined
-    ? '<b>' + ptNum(c.auc, 3) + '</b><span>AUC de ' + esc(c.rotulo || 'esta proposta') +
-      (c.acertos !== undefined && c.acertos !== null
-        ? ' · acerta ' + ptInt(c.acertos) + ' de ' + ptInt(c.de) : '') + '</span>'
-    : '<b class="pt-sem">—</b><span>' +
+    ? '<span class="pt-baseline-quem">' + esc(c.rotulo || 'esta proposta') + '</span>' +
+      '<b>' + ptAcerto(c.auc) + '</b>' +
+      '<span>' + (c.acertos !== undefined && c.acertos !== null
+        ? 'na prática, acertou ' + ptInt(c.acertos) + ' de ' + ptInt(c.de) + ' ' : '') +
+        ptTecnico('AUC ' + ptNum(c.auc, 3)) + '</span>'
+    : '<span class="pt-baseline-quem">' + esc(c.rotulo || 'o que esta etapa propõe') + '</span>' +
+      '<b class="pt-sem">não dá para pôr lado a lado</b><span>' +
       esc(c.motivo || 'quem chamou ptBaseline() não disse se esta proposta tem AUC fora da amostra') +
       '</span>';
   return '<div class="pt-baseline">' +
-    '<span class="pt-rot">Controle 1 · a baseline do dinheiro</span>' +
+    '<span class="pt-rot">Controle 1 · quanto o dinheiro sozinho já acerta</span>' +
+    '<p class="pt-baseline-frase">' +
+      (b.acertos_top4 !== undefined && b.de !== undefined && kTop
+        ? 'Dos <b>' + ptInt(b.de) + '</b> times que subiram, <b>' + ptInt(b.acertos_top4) + '</b> estavam entre os ' +
+          ptInt(kTop) + ' elencos mais caros do seu ano' +
+          (t4.esperado_por_acaso !== undefined && t4.esperado_por_acaso !== null
+            ? ' — no chute, seriam uns ' + ptNum(t4.esperado_por_acaso, 1) : '') + '.'
+        : 'Quantos dos que subiram estavam entre os elencos mais caros: ' +
+          ptFalta('o arquivo de dados não traz a contagem por ano dos elencos mais caros')) +
+    '</p>' +
     '<div class="pt-baseline-par">' +
-      '<div class="pt-baseline-cel dinheiro"><b>' + ptNum(b.auc, 3) + '</b>' +
-        '<span>AUC usando <b>só o posto de valor do elenco</b> · o top-4 de valor acerta ' +
-        ptInt(b.acertos_top4) + ' de ' + ptInt(b.de) +
-        ((auc.loso_sobe_x_resto !== undefined && auc.loso_sobe_x_resto !== null)
-          ? ' · deixando um ano de fora, ' + ptNum(auc.loso_sobe_x_resto, 3) : '') + '</span></div>' +
+      '<div class="pt-baseline-cel dinheiro">' +
+        '<span class="pt-baseline-quem">só o valor do elenco</span>' +
+        '<b>' + ptAcerto(b.auc) + '</b>' +
+        '<span>Pegue ao acaso um time que subiu e um que não subiu, e aposte no elenco mais caro: é assim ' +
+          'que se lê o número acima (no chute puro, acertaria metade dos pares).' +
+          (temLoso ? ' Testado em cada ano sem que a conta tivesse visto aquele ano, ' +
+            ptAcerto(auc.loso_sobe_x_resto) + '.' : '') +
+          ' ' + ptTecnico('AUC ' + ptNum(b.auc, 3) + (temLoso ? ' · fora da amostra (LOSO) ' +
+            ptNum(auc.loso_sobe_x_resto, 3) : '')) + '</span></div>' +
       '<div class="pt-baseline-cel">' + alvo + '</div>' +
     '</div>' +
-    '<p class="pt-nota">Qualquer eixo, índice ou elenco que não bata isso fora da amostra é ' +
-      '<b>descrição, não recomendação</b>.' +
-      ((auc.eventos_por_parametro !== undefined && auc.regra_pratica !== undefined)
-        ? ' E a própria baseline é frágil: ' + ptNum(auc.eventos_por_parametro, 1) +
-          ' eventos por parâmetro, contra os ' + ptInt(auc.regra_pratica) + ' da regra prática.'
-        : '') + '</p>' +
+    '<p class="pt-nota">A regra desta aba: medida, nota ou elenco que não acerte mais do que o dinheiro sozinho, ' +
+      'testado num ano que a conta não viu, <b>descreve o passado, mas não serve para recomendar</b>.' +
+      (ptPoucaBase(auc) ? ' ' + ptPoucaBase(auc) : '') + '</p>' +
     '</div>';
 }
 
@@ -367,12 +604,22 @@ function ptLiquida(x) {
   const alfa = ptLiquidaAlfa();
   const sobrevive = alfa !== null && x.p_liq !== null && x.p_liq !== undefined && x.p_liq < alfa;
   const dica = alfa === null
-    ? ' title="α não declarado em etapa_0.poder.alfa — sem corte do estudo nenhuma linha é marcada como sobrevivente"'
-    : '';
-  return '<span class="pt-liq' + (sobrevive ? ' vive' : '') + '"' + dica + '>' +
-    '<i>bruto</i> ' + ptD(x.d_bruto) + ' <small>(' + ptP(x.p_bruto) + ')</small>' +
+    ? 'O corte de sorte do estudo não está declarado no arquivo de dados — sem ele, nenhuma linha é marcada como de pé depois do desconto.'
+    : 'Sem descontar: a comparação direta. Descontado o dinheiro: o que sobra quando se compara time de ' +
+      'orçamento parecido. Em destaque: a diferença continua de pé depois do desconto e dificilmente é sorte.';
+  /* tamanho + sentido + sorte, nesta ordem. O sentido vai junto porque "média" sozinha não diz
+     se quem sobe tem mais ou menos disto — e é o sinal do d que decide a leitura da linha. */
+  const lado = (d, p) => {
+    const tam = ptTamanho(d);
+    const sentido = d === null || d === undefined || isNaN(Number(d)) || tam === 'quase nenhuma' ? ''
+      : Number(d) > 0 ? ', para mais' : ', para menos';
+    return '<b>' + tam + sentido + '</b> <small>' + ptSorte(p) + '</small>';
+  };
+  return '<span class="pt-liq' + (sobrevive ? ' vive' : '') + '" title="' + esc(dica) + '">' +
+    '<span class="pt-liq-par"><i>sem descontar</i> ' + lado(x.d_bruto, x.p_bruto) + '</span>' +
     '<em>→</em>' +
-    '<i>líquido</i> ' + ptD(x.d_liq) + ' <small>(' + ptP(x.p_liq) + ')</small>' +
+    '<span class="pt-liq-par"><i>descontado o dinheiro</i> ' + lado(x.d_liq, x.p_liq) + '</span>' +
+    ptTecnico('d ' + ptD(x.d_bruto) + ' (' + ptP(x.p_bruto) + ') → ' + ptD(x.d_liq) + ' (' + ptP(x.p_liq) + ')') +
     '</span>';
 }
 
@@ -389,9 +636,23 @@ function ptCfPosto(cf) {
   const k = Object.keys(cf).find(c => /^posto_de_valor_em_\d{4}$/.test(c));
   return { valor: k ? cf[k] : undefined, ano: k ? k.slice(-4) : null };
 }
+/* O quartil de valor dito como faixa de orçamento. Qual quartil é o caro NÃO é suposto pelo número
+   (1 poderia ser o mais caro ou o mais barato, conforme quem ordenou): a ordem sai do valor
+   mediano de cada quartil em `etapa_1.quartis`. Sem esse dado a tela diz que não sabe a ordem. */
+const PT_ORDINAL_FEM = ['', 'segunda', 'terceira', 'quarta', 'quinta', 'sexta', 'sétima', 'oitava', 'nona'];
+function ptCascaFaixa(q) {
+  const qs = (((typeof PROTO !== 'undefined' && PROTO.etapa_1) || {}).quartis || [])
+    .filter(x => x && x.valor_mediano_eur !== null && x.valor_mediano_eur !== undefined)
+    .slice().sort((a, b) => b.valor_mediano_eur - a.valor_mediano_eur);
+  const i = qs.findIndex(x => String(x.quartil) === String(q));
+  if (i < 0) return 'faixa ' + ptInt(q) + ' ' + ptFalta('o arquivo de dados não diz qual faixa é a mais cara');
+  if (i === 0) return 'a mais cara';
+  if (i === qs.length - 1) return 'a mais barata';
+  return 'a ' + (PT_ORDINAL_FEM[i] || ptInt(i + 1) + 'ª') + ' mais cara';
+}
 function ptContrafactual(cf) {
-  if (!cf) return ptFaltaBloco('Contrafactual do dinheiro',
-    'esta proposta não trouxe o bloco `contrafactual` no JSON');
+  if (!cf) return ptFaltaBloco('Quanto custa esta proposta',
+    'esta proposta não trouxe no arquivo de dados a conta do dinheiro (bloco `contrafactual`)');
   const linha = (rot, valor, cls) => '<div class="pt-cf-l' + (cls ? ' ' + cls : '') +
     '"><span>' + rot + '</span><b>' + valor + '</b></div>';
   const po = ptCfPosto(cf);
@@ -405,14 +666,14 @@ function ptContrafactual(cf) {
   let posto;
   if (cf.abaixo_de_todos === true) {
     posto = temDe
-      ? 'abaixo de todos os ' + ptInt(cf.de) + ' elencos da ' + temporada
-      : 'abaixo de todos os elencos da ' + temporada + ' — ' +
-        ptFalta('o JSON não diz quantos elencos entram na régua (chave `de`)');
+      ? 'mais barato que todos os ' + ptInt(cf.de) + ' elencos da ' + temporada
+      : 'mais barato que todos os elencos da ' + temporada + ' — ' +
+        ptFalta('o arquivo de dados não diz quantos elencos entram na comparação');
   } else if (po.valor === null || po.valor === undefined) {
-    posto = ptFalta('sem posto no JSON');
+    posto = ptFalta('a posição no ranking não está no arquivo de dados');
   } else {
-    posto = ptInt(po.valor) + 'º de ' +
-      (temDe ? ptInt(cf.de) : ptFalta('sem o total de elencos no JSON'));
+    posto = ptInt(po.valor) + 'º mais caro de ' +
+      (temDe ? ptInt(cf.de) : ptFalta('o total de elencos não está no arquivo de dados'));
   }
 
   /* A escala. "€ 1,6 mi" sozinho não diz se é muito ou pouco; ao lado do 1º, da mediana e
@@ -422,33 +683,41 @@ function ptContrafactual(cf) {
   const refChaves = Object.keys(cf).filter(c => /^referencia_.+_eur$/.test(c));
   const refs = refChaves.length
     ? refChaves.map(c => {
-        const rot = c.replace(/^referencia_/, '').replace(/_eur$/, '').replace(/^(\d+)o$/, '$1º');
+        const cru = c.replace(/^referencia_/, '').replace(/_eur$/, '');
+        /* "20º mais caro" é o mais barato dito do avesso: a ponta de baixo ganha o nome dela,
+           reconhecida pelo total `de` do próprio bloco, não por um 20 escrito aqui */
+        const ord = /^\d+o$/.test(cru) ? Number(cru.slice(0, -1)) : null;
+        const rot = cru === 'mediana' ? 'o do meio'
+          : ord === 1 ? 'o mais caro'
+          : ord !== null && temDe && ord === Number(cf.de) ? 'o mais barato'
+          : ord !== null ? 'o ' + ptInt(ord) + 'º' : cru.replace(/_/g, ' ');
         return '<span class="pt-cf-ref"><i>' + esc(rot) + '</i>' +
-          (cf[c] === null || cf[c] === undefined ? ptFalta('sem valor no JSON') : ptEur(cf[c])) +
+          (cf[c] === null || cf[c] === undefined ? ptFalta('valor ausente no arquivo de dados') : ptEur(cf[c])) +
           '</span>';
       }).join('')
-    : ptFalta('o JSON não trouxe nenhuma chave `referencia_*_eur` — sem elas o valor do ' +
-        'núcleo fica sem escala nenhuma');
+    : ptFalta('o arquivo de dados não trouxe os elencos de referência — sem eles o valor do ' +
+        'núcleo fica sem termo de comparação');
+  const taxa = cf.taxa_historica_de_subida_do_quartil_pct;
 
   return '<div class="pt-cf">' +
-    '<span class="pt-rot">Controle 3 · o contrafactual do dinheiro</span>' +
+    '<span class="pt-rot">Controle 3 · quanto custa, e quanto sobe quem custa isso</span>' +
     '<div class="pt-cf-grade">' +
-      linha('valor somado do núcleo', cf.nucleo_valor_eur === null || cf.nucleo_valor_eur === undefined
-        ? ptFalta('sem valor somado no JSON') : ptEur(cf.nucleo_valor_eur)) +
-      linha('a mesma régua, na ' + temporada, refs, 'pt-cf-regua') +
-      linha('posto de valor que ocuparia', posto) +
-      linha('quartil em que cai', cf.quartil === null || cf.quartil === undefined
-        ? ptFalta('sem quartil no JSON') : ptInt(cf.quartil) + 'º') +
-      linha('taxa histórica de subida desse quartil',
-        cf.taxa_historica_de_subida_do_quartil_pct === null || cf.taxa_historica_de_subida_do_quartil_pct === undefined
-          ? ptFalta('sem taxa no JSON')
-          : '<span class="pt-cf-taxa">' + ptPct(cf.taxa_historica_de_subida_do_quartil_pct) + '</span>') +
+      linha('quanto vale, somado, o núcleo proposto', cf.nucleo_valor_eur === null || cf.nucleo_valor_eur === undefined
+        ? ptFalta('a soma não está no arquivo de dados') : ptEur(cf.nucleo_valor_eur)) +
+      linha('para comparar, na ' + temporada, refs, 'pt-cf-regua') +
+      linha('posição no ranking de valor', posto) +
+      linha('faixa de orçamento', cf.quartil === null || cf.quartil === undefined
+        ? ptFalta('a faixa não está no arquivo de dados') : ptCascaFaixa(cf.quartil)) +
+      linha('dos times dessa faixa, quantos subiram',
+        taxa === null || taxa === undefined
+          ? ptFalta('a taxa não está no arquivo de dados')
+          : '<span class="pt-cf-taxa">' + ptPct(taxa) + '</span>') +
     '</div>' +
     ((cf.atletas_sem_valor_de_mercado || cf.sem_faixa_salarial)
-      ? '<p class="pt-nota">A soma é por baixo: <b>' + ptInt(cf.atletas_sem_valor_de_mercado) +
-        '</b> dos <b>' + ptInt(cf.atletas_no_nucleo) + '</b> atletas do núcleo não têm valor de mercado na base' +
-        (cf.sem_faixa_salarial ? ' e <b>' + ptInt(cf.sem_faixa_salarial) + '</b> não têm faixa salarial' : '') +
-        '. Quem não tem valor é jogador obscuro — a falta não é ao acaso, e empurra o total para baixo.</p>'
+      ? '<p class="pt-nota">A soma está por baixo: <b>' + ptInt(cf.atletas_sem_valor_de_mercado) +
+        '</b> dos <b>' + ptInt(cf.atletas_no_nucleo) + '</b> jogadores do núcleo não têm valor de mercado na base' +
+        (cf.sem_faixa_salarial ? ', e <b>' + ptInt(cf.sem_faixa_salarial) + '</b> não têm faixa salarial' : '') +
+        '. Quem fica sem preço costuma ser jogador pouco conhecido — a falta não é por acaso, e puxa o total para baixo.</p>'
       : '') +
     (cf.regua ? '<p class="pt-nota"><i>' + esc(cf.regua) + '</i></p>' : '') +
     '</div>';
@@ -487,34 +756,42 @@ function ptTarja() {
   const nFis = (((PROTO.etapa_2 || {}).linhas) || [])
     .filter(l => l.d_liq2_SM !== null && l.d_liq2_SM !== undefined).length;
   const ctrl = ((PROTO.etapa_1 || {}).controle_n_atletas) || null;
+  /* Sem números digitados: o que era "422 das 586" e "três céticos" vem do laudo, não do JSON,
+     e virou palavra; a contagem exata continua no laudo, cujo caminho a tarja cita. */
   return '<div class="pt-tarja pt-tarja-ok">' +
-    '<b>Os números desta aba foram recalculados por caminho independente, e as correções já entraram.</b>' +
-    '<p>Saíram de <code>' + esc(PROTO.gerado_por || 'gerar_prototipo.py') + '</code> em <b>' + quando + '</b>' + desde +
-      '. Três céticos refizeram a conta sem usar o gerador: o catálogo bateu campo a campo, ' +
-      'com zero divergências, e as etapas 1 e 3 fecharam número a número. O que eles acharam foi ' +
-      '<b>bug de código, não número trocado</b> — um erro de sinal na nota de encaixe da <b>etapa 13</b> ' +
-      'e um erro de permutação no nulo da <b>etapa 8</b>. Os dois foram corrigidos e o gerador rodou de ' +
-      'novo: o que está na tela é o depois. O laudo está em ' +
-      '<code>_fonte/prototipo/CONFERENCIA.md</code>.</p>' +
-    '<p>Duas consequências que mudam o que se lê aqui. A nota de encaixe mudou em 422 das 586, e com ' +
-      'ela os nomes que a <b>etapa 14</b> propõe — a lista de antes estava errada. E o nulo da ' +
-      '<b>etapa 8</b> deixou de ser sorteio: com dezesseis, as partições cabem todas, então os p da ' +
-      'tipologia são exatos e não dependem mais de semente.</p>' +
+    '<b>Estes números foram refeitos do zero por outras mãos, e os erros encontrados já foram corrigidos.</b>' +
+    '<p>O programa que faz a conta rodou em <b>' + quando + '</b>' + desde +
+      ptTecnico(esc(PROTO.gerado_por || 'gerar_prototipo.py')) +
+      '. Revisores refizeram tudo sem usar esse programa: a lista de indicadores bateu item a item, ' +
+      'sem nenhuma diferença, e as etapas 1 e 3 bateram número a número. O que eles acharam foram ' +
+      '<b>erros no programa, não números copiados errado</b>: um sinal trocado na nota de encaixe (<b>etapa 13</b>) ' +
+      'e um defeito no sorteio de comparação da <b>etapa 8</b>. Os dois foram corrigidos e a conta rodou de ' +
+      'novo — o que está na tela já é o resultado corrigido. Tudo isso está no relatório da revisão.' +
+      ptTecnico('_fonte/prototipo/CONFERENCIA.md') + '</p>' +
+    '<p>Isso muda duas coisas para quem lê. A nota de encaixe mudou para a maior parte dos jogadores ' +
+      '(a contagem exata está no relatório), e com ela mudaram os nomes que a <b>etapa 14</b> sugere: ' +
+      '<b>a lista de antes estava errada</b>. E na <b>etapa 8</b> o sorteio de comparação deixou de ser sorteio: ' +
+      'com tão poucos times, dá para testar todas as divisões possíveis, então a chance de ser sorte ali é ' +
+      'calculada exata e não depende mais da sorte do sorteio.</p>' +
     (ctrl
-      ? '<p>A refutação do físico achou um confundidor que ninguém controlava: <b>quem sobe usa menos ' +
-        'gente</b>. A média de atletas rastreados vai de ' + ptNum(ctrl.media_sobe, 2) + ' em quem subiu a ' +
-        ptNum(ctrl.media_cai, 2) + ' em quem caiu (' + ptP(ctrl.p_SC) + '), e ela não é dinheiro ' +
-        'disfarçado — contra o valor do elenco o ρ dos postos é ' + ptNum(ctrl.rho_posto_atletas_x_posto_valor, 3) +
-        ' (' + ptP(ctrl.p_atletas_x_valor) + '). Como toda média física é por atleta, o catálogo ganhou um ' +
-        '<b>segundo líquido</b> — de valor <i>e</i> de número de atletas — em ' + ptInt(nFis) + ' linhas. ' +
-        'O primeiro líquido, já conferido, ficou como estava, ao lado.</p>'
+      ? '<p>Os revisores acharam ainda uma coisa que ninguém estava descontando: <b>quem sobe usa menos ' +
+        'jogadores</b>. Em média, quem subiu teve ' + ptNum(ctrl.media_sobe, 2) + ' jogadores com dado físico na ' +
+        'temporada; quem caiu, ' + ptNum(ctrl.media_cai, 2) + ' — diferença ' + ptTamanho(ctrl.d_SC) + ', e ' +
+        ptSorte(ctrl.p_SC) + ' ' + ptTecnico('d ' + ptD(ctrl.d_SC) + ' · ' + ptP(ctrl.p_SC)) + '. ' +
+        'E isso não é o dinheiro disfarçado: número de jogadores e valor do elenco ' +
+        ptJunto(ctrl.rho_posto_atletas_x_posto_valor) + ' ' +
+        ptTecnico('ρ ' + ptNum(ctrl.rho_posto_atletas_x_posto_valor, 3) + ' · ' + ptP(ctrl.p_atletas_x_valor)) + '. ' +
+        'Como os números físicos são médias por jogador, a lista de indicadores ganhou uma segunda coluna — ' +
+        '<b>descontado o dinheiro e o tamanho do elenco</b> — em ' + ptInt(nFis) + ' linhas. ' +
+        'A primeira, descontado só o dinheiro, já tinha sido conferida e ficou como estava, ao lado.</p>'
       : '') +
-    '<p class="pt-tarja-pe">Semente <b>' + ptInt(PROTO.semente) + '</b>' +
-      (reps.length ? ' · réplicas: ' + reps.map(k => esc(k) + ' ' + ptInt(r[k])).join(', ') : '') +
-      (co.assert_ano_max ? ' · o pipeline quebra se alguma função enxergar ano acima de <b>' +
-        ptAno(co.assert_ano_max) + '</b>' : '') +
-      (co.assert_filtro_competicao ? ' ou se o jogo a jogo não estiver filtrado por <b>' +
-        esc(co.assert_filtro_competicao) + '</b>' : '') + '.</p>' +
+    '<p class="pt-tarja-pe">' +
+      (co.assert_ano_max ? 'O programa para sozinho se alguma conta enxergar dado de depois de <b>' +
+        ptAno(co.assert_ano_max) + '</b>' +
+        (co.assert_filtro_competicao ? ', ou jogo que não seja da <b>' +
+          esc(co.assert_filtro_competicao) + '</b>' : '') + '. ' : '') +
+      ptTecnico('para refazer a conta e chegar no mesmo lugar: semente ' + ptInt(PROTO.semente) +
+        (reps.length ? ' · réplicas: ' + reps.map(k => esc(k) + ' ' + ptInt(r[k])).join(', ') : '')) + '</p>' +
     '</div>';
 }
 
@@ -527,14 +804,14 @@ function ptTarja() {
    auditada.
 
    O bloco é montado ITERANDO as chaves, nunca listando-as: base nova acrescentada ao
-   gerador aparece aqui sozinha, e base removida some sozinha. É por isso que o rótulo de
-   cada campo é a chave CRUA do JSON (`linhas_serie_b_2022_2025`, e não um nome bonito):
-   nome bonito teria de ser escrito à mão, campo a campo, e no dia seguinte estaria velho.
+   gerador aparece aqui sozinha, e base removida some sozinha. As chaves conhecidas ganham
+   nome legível (revisão de linguagem de 13/09); chave nova sem tradução aparece CRUA, e a
+   crua vai sempre no `title` — o nome bonito nunca é condição para a linha aparecer.
 
    A ordem dentro da linha é arquivo → contagens → filtro/corte, porque é a ordem em que se
    confere: abro o arquivo, conto as linhas, checo sob que recorte elas foram contadas. */
 function ptBaseVal(chave, valor) {
-  if (valor === null || valor === undefined) return ptFalta('nulo no JSON, sem motivo declarado');
+  if (valor === null || valor === undefined) return ptFalta('vazio no arquivo de dados, sem motivo declarado');
   if (typeof valor === 'boolean') return valor ? 'sim' : 'não';
   if (typeof valor === 'number') {
     /* ano é identificador, não quantidade: ptInt faria "2.025" de 2025. Mas o nome da chave
@@ -562,31 +839,50 @@ function ptBases() {
   const b = (typeof PROTO !== 'undefined' && PROTO.bases) || null;
   if (!b || typeof b !== 'object' || !Object.keys(b).length) {
     return ptFaltaBloco('De onde vêm estes números',
-      'o prototipo.json não trouxe a chave `bases`. Sem ela a aba afirma sem dizer de qual ' +
-      'arquivo, com quantas linhas e sob qual filtro — e a tela prefere dizer que não sabe.');
+      'o arquivo de dados não diz de onde vieram os números (chave `bases`). Sem isso a aba afirmaria ' +
+      'sem dizer de qual planilha, com quantas linhas e com qual recorte — e a tela prefere dizer que não sabe.');
   }
+  /* Nome legível para as chaves que existem hoje; chave nova, sem tradução, aparece crua — é o
+     preço de a lista continuar se montando sozinha. A chave crua vai sempre no `title`. */
+  const NOME_BASE = { painel: 'os times, temporada a temporada', jogos: 'os jogos', tecnico: 'os números técnicos',
+    elencos: 'os elencos', skillcorner: 'o físico (SkillCorner)', mercado: 'o mercado de jogadores', kpis: 'os indicadores de jogador' };
+  const NOME_CAMPO = { arquivo: 'arquivo', linhas: 'linhas', colunas: 'colunas', usadas: 'colunas usadas',
+    filtro: 'recorte', corte: 'recorte', coluna_de_clube: 'coluna que diz o clube', periodo: 'período',
+    jogadores: 'jogadores', kpis: 'indicadores', atleta_temporada: 'temporadas de jogador' };
+  const nomeCampo = k => NOME_CAMPO[k] ||
+    k.replace(/^linhas_serie_b_(\d{4})_(\d{4})$/, 'linhas da Série B, $1 a $2').replace(/_/g, ' ');
   const linhas = Object.keys(b).map(nome => {
     const campos = ptBaseCampos(b[nome]);
     const arq = campos.filter(c => /(^|\.)arquivo$/.test(c[0]));
     const contagens = campos.filter(c => arq.indexOf(c) < 0 && typeof c[1] === 'number');
     const resto = campos.filter(c => arq.indexOf(c) < 0 && contagens.indexOf(c) < 0);
-    const cel = (c, cls) => '<span' + (cls ? ' class="' + cls + '"' : '') + '><i>' + esc(c[0]) + '</i>' +
-      ptBaseVal(c[0], c[1]) + '</span>';
-    return '<li><b>' + esc(nome) + '</b>' +
+    /* O rótulo e o valor iam colados ("linhas100"): o `<i>` tem margem só no CSS, e em cópia de
+       texto a margem some. Os dois-pontos e o espaço vão no texto. Recorte no formato
+       "min_tot >= 300" é dito em português; outro recorte vai como veio, em letra de código. */
+    const valTxt = (c) => {
+      const m = /^min_tot\s*>=\s*(\d+)$/.exec(String(c[1]));
+      if (m) return 'jogadores com pelo menos ' + ptInt(Number(m[1])) + ' minutos' + ptTecnico(esc(c[1]));
+      if (c[0] === 'coluna_de_clube') return ptTecnico(esc(c[1]));
+      return ptBaseVal(c[0], c[1]);
+    };
+    const cel = (c, cls) => '<span' + (cls ? ' class="' + cls + '"' : '') + ' title="' + esc(c[0]) + '"><i>' +
+      esc(nomeCampo(c[0])) + ':</i> ' + valTxt(c) + '</span>';
+    return '<li><b title="' + esc(nome) + '">' + esc(NOME_BASE[nome] || nome.replace(/_/g, ' ')) + '</b>' +
       (arq.length
         ? arq.map(c => '<code>' + esc(String(c[1])) + '</code>').join('')
-        : '<span class="txt"><i>arquivo</i>' + ptFalta('esta base não declara arquivo no JSON') + '</span>') +
+        : '<span class="txt"><i>arquivo:</i> ' + ptFalta('esta fonte não diz de qual arquivo veio') + '</span>') +
       contagens.map(c => cel(c)).join('') +
       resto.map(c => cel(c, 'txt')).join('') +
       '</li>';
   }).join('');
-  return '<div class="pt-bases">' +
-    '<span class="pt-rot">A procedência · de onde vem cada número desta aba</span>' +
+  /* Fechada por padrão: é o primeiro bloco depois da abertura, e quem vai decidir contratação
+     travava aqui antes de chegar ao dinheiro. Quem vai conferir abre com um clique. */
+  return '<details class="pt-bases">' +
+    '<summary class="pt-rot" style="cursor:pointer">Para quem vai conferir: de onde vem cada número</summary>' +
     '<ul>' + linhas + '</ul>' +
-    '<p class="pt-nota">Lido de <code>PROTO.bases</code> chave a chave, não escrito aqui: base nova ' +
-      'no gerador aparece nesta lista sozinha, com o nome de campo que o gerador deu a ela. ' +
-      'Toda contagem da aba se refere a uma destas linhas.</p>' +
-    '</div>';
+    '<p class="pt-nota">Esta lista é lida direto do arquivo de dados, não escrita à mão: se uma fonte nova ' +
+      'entrar no estudo, ela aparece aqui sozinha. Toda contagem da aba vem de uma destas linhas.</p>' +
+    '</details>';
 }
 
 /* Os três controles no topo, antes de qualquer etapa. Aqui eles aparecem como declaração
@@ -597,39 +893,56 @@ function ptControles() {
   const cal = (e1.caliper || []).slice().sort((a, b) => b.caliper - a.caliper);
   const cob = e1.cobertura_do_valor || {};
   const taxas = (PROTO.etapa_14 || {}).taxa_de_subida_por_quartil_pct || {};
-  const quartis = Object.keys(taxas).sort();
+  /* da faixa mais cara para a mais barata — a ordem em que um diretor pergunta */
+  const qInfo = {};
+  (e1.quartis || []).forEach(q => { qInfo[String(q.quartil)] = q; });
+  const quartis = Object.keys(taxas).sort((a, b) =>
+    ((qInfo[b] || {}).valor_mediano_eur || 0) - ((qInfo[a] || {}).valor_mediano_eur || 0));
+  /* a margem mais apertada primeiro: é a comparação mais exigente, e a que se lê primeiro */
+  const calAsc = cal.slice().reverse();
   return '<div class="pt-controles">' +
-    ptBaseline({ motivo: 'a comparação com o dinheiro é feita etapa a etapa, ao lado de cada afirmação' }) +
+    ptBaseline({ rotulo: 'aqui no topo', motivo: 'a comparação com o dinheiro aparece dentro de cada etapa, ao lado de cada proposta' }) +
 
     '<div class="pt-controle">' +
-      '<span class="pt-rot">Controle 2 · a coluna líquida, em toda linha</span>' +
-      '<p class="pt-nota">Nenhum indicador aparece nesta aba só no bruto: ao lado vai sempre o mesmo ' +
-      'indicador depois de descontado o posto de valor do elenco. ' +
-      (cal.length
-        ? 'E, porque descontar por regressão impõe linearidade, a checagem paralela é o pareamento por ' +
-          'caliper: ' + cal.map(c => 'com ±' + ptNum(c.caliper, 2) + ' de posto, <b>' +
-            ptInt(c.subidas_com_controle) + ' de ' + ptInt(c.de) + '</b> subidas acham controle do mesmo ano (' +
-            ptNum(c.controles_medios, 1) + ' em média)').join('; ') + '. '
-        : '') +
-      '<b>O achado que sobrevive ao pareamento é o que se leva ao dono.</b></p>' +
+      '<span class="pt-rot">Controle 2 · descontado o dinheiro</span>' +
+      '<p class="pt-controle-frase">Time mais caro tende a ter mais de quase tudo. Por isso nenhum indicador ' +
+      'aparece nesta aba sozinho: ao lado dele vai sempre a mesma medida <b>descontado o dinheiro</b> — o que ' +
+      'sobra quando se compara time de orçamento parecido. Se a diferença some no desconto, quem estava falando ' +
+      'era o dinheiro.</p>' +
+      (calAsc.length
+        ? '<p class="pt-nota">Para conferir o desconto por outro caminho, cada time que subiu foi colocado lado a lado ' +
+          'com times do mesmo ano e de valor de elenco parecido. ' +
+          calAsc.map((c, i) => (i === 0 ? 'Com a margem mais apertada' : i === calAsc.length - 1 ? 'com a mais folgada' : 'com uma margem maior') +
+            ', <b>' + ptInt(c.subidas_com_controle) + ' dos ' + ptInt(c.de) + '</b> acharam com quem ser comparados (' +
+            ptNum(c.controles_medios, 1) + ' times em média) ' + ptTecnico('caliper ±' + ptNum(c.caliper, 2) + ' de posto')).join('; ') +
+          '. <b>Só o que continua de pé nessa comparação entre iguais merece ir para a reunião.</b></p>'
+        : '<p class="pt-nota"><b>Só o que continua de pé depois do desconto merece ir para a reunião.</b></p>') +
       (cob.pct_do_plantel_mediana !== undefined
-        ? '<p class="pt-nota">A cobertura do valor não é total nem sorteada: o Transfermarkt precifica de <b>' +
-          ptPct(cob.pct_do_plantel_min) + '</b> a <b>' + ptPct(cob.pct_do_plantel_max) + '</b> do plantel conforme a ' +
-          'temporada (mediana ' + ptPct(cob.pct_do_plantel_mediana) + ', ' + ptInt(cob.tm_com_valor_mediana) +
-          ' atletas), e quem fica de fora é jogador obscuro — ' +
-          'a correlação entre cobertura e valor do elenco é <b>' + ptNum(cob.rho_cobertura_x_valor, 3) + '</b> (' +
-          ptP(cob.p_cobertura_x_valor) + '). Time pobre tem mais atleta sem preço.</p>'
+        ? '<p class="pt-nota">Um cuidado com o próprio desconto: o valor de mercado não existe para todo jogador. ' +
+          'O Transfermarkt dá preço a algo entre <b>' + ptPct(cob.pct_do_plantel_min) + '</b> e <b>' +
+          ptPct(cob.pct_do_plantel_max) + '</b> do plantel, conforme a temporada (em metade das temporadas, mais de ' +
+          ptPct(cob.pct_do_plantel_mediana) + ' — uns ' + ptInt(cob.tm_com_valor_mediana) + ' jogadores). E quem ' +
+          'fica sem preço é o jogador pouco conhecido: quanto mais barato o elenco, menos jogadores com preço — ' +
+          'cobertura e valor do elenco ' + ptJunto(cob.rho_cobertura_x_valor) + ', e ' + ptSorte(cob.p_cobertura_x_valor) +
+          ' ' + ptTecnico('ρ ' + ptNum(cob.rho_cobertura_x_valor, 3) + ' · ' + ptP(cob.p_cobertura_x_valor)) +
+          '. <b>Time pobre tem mais jogador sem preço.</b></p>'
         : '') +
     '</div>' +
 
     '<div class="pt-controle">' +
-      '<span class="pt-rot">Controle 3 · o contrafactual de cada proposta</span>' +
-      '<p class="pt-nota">Toda proposta de elenco chega com a folha implícita e o valor somado colocados no ' +
-      '<b>posto de valor que ocupariam na Série B</b>, e com a taxa histórica de subida daquele quartil dita em ' +
-      'voz alta' +
+      '<span class="pt-rot">Controle 3 · quanto custa, e quanto sobe quem custa isso</span>' +
+      '<p class="pt-controle-frase">Toda proposta de elenco vem com a conta do dinheiro ao pé: quanto valem os ' +
+      'jogadores somados (e a folha, quando se sabe), em que <b>posição do ranking de valor da Série B</b> isso ' +
+      'ficaria, e quantos times dessa faixa de orçamento subiram no passado.</p>' +
       (quartis.length
-        ? ': ' + quartis.map(q => ptInt(q) + 'º quartil <b>' + ptPct(taxas[q]) + '</b>').join(' · ')
-        : '') + '.</p>' +
+        ? '<ul class="pt-faixas">' + quartis.map(q => {
+            const qi = qInfo[q];
+            return '<li><span>' + ptCascaFaixa(q) + '</span><b>' + ptPct(taxas[q]) + '</b>' +
+              (qi && qi.subiram !== undefined && qi.n !== undefined
+                ? '<small>subiram ' + ptInt(qi.subiram) + ' de ' + ptInt(qi.n) + '</small>' : '') +
+              '</li>';
+          }).join('') + '</ul>'
+        : '<p class="pt-nota">' + ptFalta('o arquivo de dados não traz a taxa de subida por faixa de orçamento') + '</p>') +
     '</div>' +
     '</div>';
 }
@@ -750,18 +1063,18 @@ function ptRender() {
 
   alvo.innerHTML =
     '<div class="pt-topo">' +
-      '<span class="pt-rot">Protótipo · como isto foi construído</span>' +
-      '<h2 class="pt-h1">Dezesseis etapas, e o que cada uma reprovou</h2>' +
+      '<span class="pt-rot">Protótipo · o caminho até a conclusão</span>' +
+      '<h2 class="pt-h1">Passo a passo: o que foi testado, e o que não passou</h2>' +
       '<p class="pt-sub">' +
         (e0.linhas_completas !== undefined
-          ? 'O estudo parte de <b>' + ptInt(e0.linhas_completas) + '</b> clube-temporada completos (' +
-            ptInt(e0.sobe) + ' que subiram, ' + ptInt(e0.meio) + ' do meio, ' + ptInt(e0.cai) +
-            ' que caíram) e de <b>' + ptInt(e0.indicadores_pre_declarados) + '</b> indicadores declarados ' +
-            'ANTES do primeiro teste. '
+          ? 'O estudo olha <b>' + ptInt(e0.linhas_completas) + '</b> temporadas completas de clubes da Série B — ' +
+            ptInt(e0.sobe) + ' de quem subiu, ' + ptInt(e0.meio) + ' de quem ficou no meio e ' + ptInt(e0.cai) +
+            ' de quem caiu — e <b>' + ptInt(e0.indicadores_pre_declarados) + '</b> indicadores escolhidos ' +
+            '<b>antes</b> do primeiro teste, para ninguém escolher depois só o que deu certo. '
           : '') +
-        'A maior parte deles não passou — e continua na tela, com o número que a reprovou ao lado. ' +
-        'As etapas estão na ordem em que foram feitas, porque é a ordem que permite auditar: cada uma ' +
-        'só pode usar o que a anterior deixou de pé.</p>' +
+        'A maior parte não passou — e continua na tela, com o número que a reprovou ao lado. ' +
+        'Os passos estão na ordem em que foram feitos, porque é assim que dá para conferir: cada um ' +
+        'só usa o que o anterior deixou de pé.</p>' +
     '</div>' +
 
     ptTarja() +
