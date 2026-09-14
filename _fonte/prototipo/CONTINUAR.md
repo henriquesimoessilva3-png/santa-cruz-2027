@@ -7,13 +7,17 @@
 
 ## 1. O que está no ar, o que está só no disco
 
-- **Site publicado** (GitHub Pages, commit `f9bf866`): o Protótipo ANTES de tudo o que veio depois.
+- **Site publicado em 14/09** (GitHub Pages, commit `c738109`, a pedido do dono): o Protótipo em
+  linguagem simples, sem rolagem lateral, com glossário e filtros de liga e idade. Conferido antes
+  de enviar (16 etapas, zero erro, zero arquivo faltando) e no ar em
+  https://henriquesimoessilva3-png.github.io/santa-cruz-2027/. Ainda SEM a aba por pontos, a aba de
+  conclusões e a etapa 14 com empate técnico.
 - **Local, porta 5090** (servidor do dono — não derrube, não use a 5090 nem a 5091).
-- **Git: tudo local, nada empurrado** (`origin/main` fica 10+ commits atrás). Commits de 14/09:
-  `d491147` base da aba por pontos · `6ebdf5a` tela do Protótipo · `e960a74` origem dos clubes ·
-  o commit do primeiro bloco do gerador · e o das conclusões, se o fecho terminou aprovado (ver §2).
-  O `40fc8d7` (empurrado por um agente em 12/09) espera a decisão do dono de reverter ou não.
-- **Publicar está AUTORIZADO** pelo dono (14/09) "depois de tudo pronto" — ver §3, passo 8.
+- **Git: tudo empurrado** (`origin/main` = `main`). Commits de 14/09: `d491147` base da aba por
+  pontos · `6ebdf5a` tela do Protótipo · `e960a74` origem dos clubes · `d5856fc` primeiro bloco do
+  gerador · `e2b12b7` pacote · `4563c56` conclusões · `c738109` site. O `40fc8d7` (empurrado por um
+  agente em 12/09) espera a decisão do dono de reverter ou não.
+- **Publicar de novo está AUTORIZADO** pelo dono "depois de tudo pronto" — ver §3, passo 8.
 
 ## 2. O que ficou pronto nesta sessão, e o que não
 
