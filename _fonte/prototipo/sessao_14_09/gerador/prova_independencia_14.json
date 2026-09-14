@@ -1,0 +1,48 @@
+{
+ "perturbado": "Vinícius Paiva (Grêmio Novorizontino)",
+ "propostas": {
+  "A_caro__serie_b": {
+   "indice": 0,
+   "candidatos_antes": 60,
+   "candidatos_depois": 60,
+   "codigo_novo_identica": true,
+   "codigo_velho_identica": true
+  },
+  "A_caro__sul_americano": {
+   "indice": 1,
+   "candidatos_antes": 586,
+   "candidatos_depois": 586,
+   "codigo_novo_identica": true,
+   "codigo_velho_identica": true
+  },
+  "B_barato_transicao__serie_b": {
+   "indice": 2,
+   "candidatos_antes": 60,
+   "candidatos_depois": 59,
+   "codigo_novo_identica": false,
+   "codigo_velho_identica": false
+  },
+  "B_barato_transicao__sul_americano": {
+   "indice": 3,
+   "candidatos_antes": 575,
+   "candidatos_depois": 574,
+   "codigo_novo_identica": false,
+   "codigo_velho_identica": false
+  },
+  "C_anti_queda__serie_b": {
+   "indice": 4,
+   "candidatos_antes": 60,
+   "candidatos_depois": 60,
+   "codigo_novo_identica": true,
+   "codigo_velho_identica": false
+  },
+  "C_anti_queda__sul_americano": {
+   "indice": 5,
+   "candidatos_antes": 586,
+   "candidatos_depois": 586,
+   "codigo_novo_identica": true,
+   "codigo_velho_identica": false
+  }
+ },
+ "novo_reproduz_b6": true
+}

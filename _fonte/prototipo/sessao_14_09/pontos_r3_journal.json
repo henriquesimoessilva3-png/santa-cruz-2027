@@ -1,0 +1,546 @@
+[
+ [
+  "conserta-3",
+  {
+   "consertados": [
+    {
+     "problema": "Guarda de circularidade: a chave era lida por uma lista fixa de prefixos e sufixos. Medido antes do conserto nos scripts das lentes: SG_gap, SG_medio, delta_SG, diff_GP_alta_baixa, SG_q90, rho_SG_faixa e d_aproveitamento_1t davam 0 achados cada.",
+     "o_que_fiz": "_coluna_da_chave agora parte a chave em '_' e procura, da esquerda para a direita, o maior trecho de pedacos vizinhos que seja coluna da lista, sem lista de afixos. Os tres falsos positivos que isso criaria no JSON real foram medidos e tratados pelo papel. (1) 'resultado' e coluna do jogo a jogo e tambem palavra comum: aparece 666 vezes em consequencia_do_resultado e como 'resultado': false nas 293 linhas do catalogo. Ela nunca conta como pedaco, e como chave inteira so conta com estatistica no valor. (2) Uma coluna ambigua (a regua e V/E/D) so conta como pedaco se a chave tiver um pedaco de conta (d, p, rho, gap, delta, diff...) e se nao vier logo depois de 'com', 'contra' ou 'x'. Com isso passam D_explosao, porta_D e faixa_posicao_t, e rho_com_aproveitamento continua valendo como regua no papel de desfecho. (3) ti_*_golos_esperados_90 nao casa mais por trecho. Os casos de todas as lentes e 7 falsos positivos reais entraram no autoteste.",
+     "arquivo_linha": "ranking_gaps.py: bloco 'Leitura de CHAVE por token', _coluna_da_chave, _TOKENS_ESTATISTICOS, PALAVRAS_COMUNS; referencias_circulares (chave inteira de palavra comum); autoteste_da_guarda (casos r3)",
+     "numero_antes_e_depois": "Casos das lentes: 0 achados cada -> 1 cada (rho_SG_faixa -> 2). Autoteste: 57+8 -> 93 casos, todos passam. JSON real: 0 -> 0 achados. Retiradas conferidas: 272 -> 277 (entraram as 5 marcas do placar do jogo a jogo)."
+    },
+    {
+     "problema": "As duas marcas funcionavam como salvo-conduto. Medido: referencia_SG_x_faixa com a marca de referencia dava 0. Uma frase de achado ('golos_cabeca separa as faixas') num registro marcado 'sem teste' tambem dava 0.",
+     "o_que_fiz": "_referencia_declarada recusa um par em que alguma coluna seja da regua ou ambigua. referencia_de_resultado() tem um assert com a mesma regra, e por isso o script da lente, que montava essa marca pelo construtor, agora quebra ali. Para medir montei a marca a mao. A marca 'sem teste' passou a isentar so a CITACAO: a mencao em texto volta com um sinal de 'veio de frase de achado', e esse caso nunca e isento. Um registro com marca de retirada ja era barrado com teste em qualquer descendente; ficou provado no autoteste com um q em dois niveis de profundidade.",
+     "arquivo_linha": "ranking_gaps.py _referencia_declarada, referencia_de_resultado, referencias_circulares (ramo de texto), _mencoes_em_texto",
+     "numero_antes_e_depois": "referencia SG x faixa: 0 -> 1; frase de achado sob sem_teste: 0 -> 1; retirada com q num descendente fundo: 1 (caso novo no autoteste). JSON real: sem mudanca (a unica marca de referencia e ap1t x ap2t, fora da regua)."
+    },
+    {
+     "problema": "Registro com marca de retirada: numero escrito como texto ('44,3', 'gap 44,3 q 0,001') e numero em campo que a retirada aceitava (vira=44.2, troca=0.001) davam 0. {'nome':'V','valor':40} tambem dava 0.",
+     "o_que_fiz": "_registro_apresenta: num registro marcado, qualquer numero ou decimal escrito como texto conta, fora de 'motivo' e do texto dos campos de rotulo. A lista CAMPOS_DA_RETIRADA saiu. Antes medi o JSON real: dos 90 registros marcados que tem numero, os 89 da etapa 10 sao bloco de exposicao e o outro e um motivo com '1,000'. Um valor ambiguo (V/E/D/regua/resultado) num campo de rotulo agora conta tambem quando o registro traz numero, nao so estatistica.",
+     "arquivo_linha": "ranking_gaps.py _registro_apresenta, _tem_numero(texto=True), _numero_fora_da_identidade, referencias_circulares (ramo de valor)",
+     "numero_antes_e_depois": "4 casos: 0 -> 1 cada; JSON real 0 -> 0"
+    },
+    {
+     "problema": "Texto: campo de regra sem verbo da lista ('o GP e o indicador que mais afasta a alta da baixa', 'o SG lidera o ranking de gaps'), sinonimos fora da lista (gols, golos marcados, pontos) e contexto de retirada anulando frase de achado ('o SG, pedaco do placar, separa') davam 0.",
+     "o_que_fiz": "Nova _conta_na_frase. Verbo negado ('nao separam') deixa de ser verbo. Uma coluna forte (SG/GP/GC maiusculas ou nome com mais de 2 letras) fora de campo de regra conta sempre, como ja contava. Em campo de regra, com verbo, conta se o contexto de retirada nao vier ANTES da coluna. Sem verbo, conta se a frase nao falar de retirada em lugar nenhum; assim o falso positivo antigo 'golos_cabeca e clean_sheets retirados: nao separam' continua 0. Regua e sinonimos (agora tambem gols/golos, sem 'esperados/expectaveis/sofridos', e 'pontos') so contam como sujeito, antes do verbo: assim 'o 1o turno preve os pontos' nao conta. 'afasta', 'lidera' e 'maior gap' entraram no verbo de achado. 'saldo de gols' nao conta tambem como 'gols'.",
+     "arquivo_linha": "ranking_gaps.py _verbos, _NEGACAO_ANTES, _conta_na_frase, _SINONIMOS, _mencoes_em_texto",
+     "numero_antes_e_depois": "7 casos: 0 -> 1 cada; JSON real 0 -> 0"
+    },
+    {
+     "problema": "motivo_resultado nao consultava PLACAR_JOGO. Medido: golos_pro e resultado davam None, e {'indicador':'golos_pro','gap':30} dava 0.",
+     "o_que_fiz": "motivo_resultado passou a olhar PLACAR_JOGO (motivo 'placar do jogo a jogo'), depois do regex individual, para Golos e Golos sofridos continuarem 'placar individual'. 'resultado' entrou em AMBIGUAS: 'tipo': 'resultado' na etapa 10 aparece 85 vezes e nao e coluna. listas_declaradas marca todas as colunas do placar do jogo a jogo, com assert.",
+     "arquivo_linha": "ranking_gaps.py motivo_resultado, MOTIVO_PLACAR_JOGO, PALAVRAS_COMUNS, listas_declaradas",
+     "numero_antes_e_depois": "golos_pro/resultado como indicador: 0 -> 1. JSON: 5 motivos 'coluna de placar do jogo a jogo' -> 'placar do jogo a jogo', e 5 marcas novas (retiradas 272 -> 277)."
+    },
+    {
+     "problema": "Guarda de consequencia: share_11_gap e 'conc_hhi e o maior gap da tabela' em campo de regra davam 0.",
+     "o_que_fiz": "A guarda agora usa a mesma leitura por token (novos: so com pedaco de conta) e a mesma regra de frase, com 'consequencia' contando como contexto que explica.",
+     "arquivo_linha": "ranking_gaps.py referencias_de_consequencia_sem_marca",
+     "numero_antes_e_depois": "2 casos: 0 -> 1; mais 2 falsos positivos no autoteste em 0; JSON real 0 -> 0"
+    },
+    {
+     "problema": "Resumo: 27 sobrevivem ao q e 18 ao dinheiro, sem dizer quantos deles sao consequencia do resultado. As contagens misturavam q cru com q arredondado.",
+     "o_que_fiz": "As contagens do resumo guardam os p descontados crus numa lista paralela e contam tudo com valores crus. Entraram sobrevivem_q_5pct_sem_consequencia, sobrevivem_q_e_dinheiro_sem_consequencia e regra_das_contagens; as contagens antigas ficam para conferir contra a previa.",
+     "arquivo_linha": "ranking_gaps.py tabela_de_gaps (crus, passa_q, passa_forte, resumo)",
+     "numero_antes_e_depois": "Pontos: 27/18 iguais; sem consequencia 23 e 14 (a lente previa 23 e 14). Por posicao: 24/19 iguais; sem consequencia 20 e 15. Tecnico 160: 24 e 24, dinheiro null com motivo. Nenhuma contagem antiga mudou."
+    },
+    {
+     "problema": "Mediana crua com 3 casas decimais apagava a diferenca entre faixas (xA/90 da zaga saia 0,007 nas tres faixas).",
+     "o_que_fiz": "_r_sig com 4 algarismos significativos, na unidade do indicador.",
+     "arquivo_linha": "ranking_gaps.py tabela_de_gaps (mediana_crua)",
+     "numero_antes_e_depois": "ti_zaga_assistencias_esperadas_90: 0.007/0.007/0.007 -> 0.007259/0.006587/0.007079; ti_lateral_golos_esperados_90: 0.04/0.033/0.033 -> 0.03992/0.03261/0.03292; fis_distance_p90: 9644.0/9614.0/9582.0; ao todo 616 medianas em ranking_gaps e 148 em por_bloco mudaram so de arredondamento"
+    },
+    {
+     "problema": "r_val e controles alinhados por posicao. Medido pela lente e refeito: posto_ano em Series quebrava em falso, .values desligava a checagem e um r_val invertido passava calado (20 -> 24). controles_de_atletas_rastreados devolvia ndarray.",
+     "o_que_fiz": "tabela_de_gaps exige r_val e cada controle como Series com indice igual ao dos postos (ano, clube), com a chave sem repeticao e as mesmas linhas, e reindexa pela chave. Um vetor sem indice e recusado com mensagem. Anos sao conferidos contra o nivel 'ano' do indice. controles_de_atletas_rastreados devolve Series indexada pela chave do proprio painel. gerar_pontos passa r_val = d80.set_index([ano, clube]).groupby(level=ano).rank(pct)*100, com assert de igualdade ao posto_ano do Prototipo.",
+     "arquivo_linha": "ranking_gaps.py tabela_de_gaps (alinhar), controles_de_atletas_rastreados; gerar_pontos.py main (r_val)",
+     "numero_antes_e_depois": "scratchpad/r3_alinhamento.py, faixas por posicao com 20 sorteios: ordem certa OK (19/15); Series e painel EMBARALHADOS OK com o mesmo 19/15 (antes: embaralhado calado); posto_ano com RangeIndex, .values, .values invertido e clube trocado: RECUSADOS. Nenhum p do JSON mudou."
+    },
+    {
+     "problema": "etapa_0: linhas_completas 160 ao lado de alta/media/baixa das 80 (24+35+21); dividir uma pela outra dava 15% em vez de 30%.",
+     "o_que_fiz": "O topo foi separado por universo: universo_80_2022_2025 {linhas_completas 80, anos, fontes, alta 24, media 35, baixa 21}, universo_2018_2021 {80, alta 17, media 45, baixa 18}, linhas_no_arquivo_por_painel {2022-2026: 100, 2018-2021: 80} e linhas_completas_dos_dois_periodos {n 160, uso}. Assert de que a particao fecha em cada universo. No mapa_de_caminhos, os caminhos etapa_0.linhas_no_arquivo, linhas_completas e sobe/meio/cai do Prototipo apontam para os novos, por caminho.",
+     "arquivo_linha": "gerar_pontos.py etapa_0 (universo_do_topo), CAMINHOS_MANUAIS",
+     "numero_antes_e_depois": "Topo: linhas_no_arquivo 180 e linhas_completas 160 soltos -> 100+80 por painel e 80 por universo; 24/35/21 e 17/45/18 ao lado das suas 80"
+    },
+    {
+     "problema": "Impedimentos do renderer incompletos: faltavam proto_a.js 253/268/283/291 (entra_nas_medias=false lido como ano incompleto) e proto_b.js 1291/1463/1520/1541 (status_declarado ausente, Number(null), ptNum(null)).",
+     "o_que_fiz": "Dois impedimentos novos, e o da etapa 0 ampliado para d.linhas_completas. O 'onde' e medido por padrao no .js, e onde() agora quebra se o padrao nao casar. Antes de gravar, o texto confere no JSON o que afirma: anos completos fora = [2018..2021]; nenhum grupo com status_declarado; corte_do_status null.",
+     "arquivo_linha": "gerar_pontos.py bloco_tela (onde, impedimentos)",
+     "numero_antes_e_depois": "Impedimentos com onde: 4 -> 6. Etapa 0: proto_a.js 253, 268, 283, 285, 286, 290, 291, 929. Tipologia: proto_b.js 1291-1293, 1299, 1463-1465, 1520, 1541, 1544, 1545, 1552, 1553, 1555. Etapa 0 ampliado: 255, 262-264, 305, 343, 387, 389."
+    },
+    {
+     "problema": "aviso_de_amostra: o mapa dava a leitura como saida sem destino, e o bloco listava anos_na_amostra e leitura como 'nao reaplicadas' ao lado delas mesmas.",
+     "o_que_fiz": "nao_reaplicadas passou a ser medida (chaves do aviso do Prototipo ausentes aqui), com mais duas listas: mesmo nome e mesmo valor, mesmo nome e outro conteudo. A leitura virou troca manual por caminho, com nota. Um caminho trocado manualmente e com nota sempre ganha entrada no mapa. bloco_tela quebra se uma saida sem destino apontar para um caminho que existe aqui.",
+     "arquivo_linha": "gerar_pontos.py etapa_1 (aviso), CAMINHOS_MANUAIS, bloco_tela (nulo_que_existe)",
+     "numero_antes_e_depois": "nao_reaplicadas 5 -> 3; mesmo_valor ['anos_na_amostra']; outro_conteudo ['leitura']; mapa: entradas 891 -> 893, saidas sem destino 25 -> 24, sem par 0"
+    },
+    {
+     "problema": "Docstring sem a chamada que o gerador do Prototipo deve fazer",
+     "o_que_fiz": "A docstring de tabela_de_gaps ganhou a regra de alinhamento e a chamada completa: sobe/meio/cai, ano_maximo=2025, outro periodo 2018-2021 lido do CSV (a coluna faixa por posicao ja vem nele, conferido: cai/meio/sobe) e controles por controles_de_atletas_rastreados.",
+     "arquivo_linha": "ranking_gaps.py tabela_de_gaps (docstring)",
+     "numero_antes_e_depois": "sem chamada -> chamada documentada; a mesma forma (sem o outro periodo) rodou em r3_alinhamento.py"
+    }
+   ],
+   "nao_consertados": [
+    {
+     "problema": "Linha de clube com a regua e numero de nome livre ({clube, ano, pts:61, diferenca:40} e {..., posicao_no_ranking:1}) continua dando 0",
+     "motivo": "Medi no pontos.json real a regra proposta ('qualquer campo numerico fora de identidade e regua conta'): ela acusaria mais de 900 linhas legitimas, entre elas os 603 candidatos da etapa 13 (idade, min, notas), membros_da_alta e tipologia.times (valor_eur, posto_valor), perto_do_corte (J_painel, pts_a_mais_para_subir_de_faixa) e os paineis da etapa 5 (celulas). Numa linha de clube o numero nao tem papel que o separe de um achado sem uma lista de nomes, que e justamente o que esta rodada tirou. Linha de clube com campo de TESTE (gap, q, rho...) em qualquer profundidade continua acusada."
+    },
+    {
+     "problema": "Casos que continuam 0: 'SGalta' (sem separador), 'gp e bem maior na faixa alta' (minusculo, sem verbo, fora de regra), 'repetir o XI titular separa' (parafrase de share_11), {indicador:'xg', rho_com:'pts', rho:0.9}",
+     "motivo": "Os tres primeiros exigiriam ler dentro de palavra ou parafrase; sg/gp/gc minusculos sem verbo colidem com texto comum, e por isso ficam fracos. O ultimo nao e circular: e o rho de um indicador com a regua no papel de desfecho, o mesmo que etapa_1.controle_n_atletas.rho_com_aproveitamento, que a propria guarda aceita pela regra da palavra de relacao."
+    }
+   ],
+   "api_para_o_gerador_do_prototipo": "No main do gerar_prototipo.py, depois de `bruto, postos, meta, ... = montar_matriz(d80, tec)`. postos e bruto ja chegam com indice (ano, clube); d80.faixa e sobe/meio/cai.\n\n    import ranking_gaps as RG\n    dv = pd.read_csv(os.path.join(RAIZ, \"dados\", \"serieb_clube_temporada_2018_2021.csv\"))\n    dv = dv[dv.ano <= 2025].reset_index(drop=True)           # a coluna `faixa` (posicao) ja vem no CSV\n    cols_outro = [c for c in postos.columns if meta[c][\"coluna_csv\"] in dv.columns]\n    dvp = pd.DataFrame({c: dv.groupby(\"ano\")[meta[c][\"coluna_csv\"]].rank(pct=True).values * 100\n                        for c in cols_outro})\n    r_val = d80.set_index([\"ano\", \"clube\"]).groupby(level=\"ano\")[\"tm_valor_total\"].rank(pct=True) * 100\n    ranking_gaps = RG.tabela_de_gaps(\n        d80.ano.values, postos, bruto, d80.faixa.values, list(postos.columns), (\"sobe\", \"meio\", \"cai\"),\n        r_val=r_val,\n        controles=RG.controles_de_atletas_rastreados(meta, d80),\n        meta=meta,\n        outro=dict(postos=dvp, rotulos=dv.faixa.values, anos=dv.ano.values, rotulo=\"2018-2021\"),\n        rotulo_universo=\"80 clube-temporada de 2022-2025, faixas por POSIÇÃO\",\n        nomes_das_faixas={\"sobe\": \"quem subiu\", \"meio\": \"meio da tabela\", \"cai\": \"quem caiu\"},\n        semente=(G.SEMENTE, 23), ano_maximo=2025)\n\nRegras: r_val e cada controle TEM de ser Series indexada por (ano, clube), em qualquer ordem; `.values` ou uma Series com RangeIndex (o posto_ano cru) sao recusados. anos e rotulos vao na ordem dos postos. Uma coluna da lista de resultado quebra a funcao. Antes de gravar o JSON, passe-o por RG.referencias_circulares(saida, blocos_de_exposicao=...) e RG.referencias_de_consequencia_sem_marca(saida). O resumo traz sobrevivem_q_5pct(_sem_consequencia) e sobrevivem_q_e_dinheiro(_sem_consequencia). Sem o outro periodo, esta chamada e a que o pontos.json roda em ranking_gaps.mesma_tabela_com_as_faixas_por_posicao: 24 / 20 sem consequencia no q, 19 / 15 no dinheiro.",
+   "rodou": true,
+   "saida_do_terminal": "python3 gerar_pontos.py (completo), saida 0, 1min49: 'painel 80+80 · jogos 3036+3038 · tecnico 3866 · skillcorner 1780 · mercado 40059 (ago26) · matriz 80x293 ... guarda de circularidade: autoteste ok, 277 retiradas declaradas conferidas, 0 achados circulares, 0 consequências sem marca · gravado dados/pontos.json (2335 KB, 31 chaves) em 107s'. python3 gerar_pontos_js.py, saida 0: 'escrito static/pontos.js — 2336 KB, 16 etapas (adaptada: 14, completa: 2)'.\nDiff contra scratchpad/pontos_antes_r3.json, sem gerado_em e sem tela (script scratchpad/r3_diff.py). MUDARAM 770 folhas, todas pedidas: 616 mediana_crua em ranking_gaps e 148 em ranking_gaps_tecnico_2018_2025.por_bloco (so arredondamento, 3 casas -> 4 algarismos significativos); 5 motivos do placar do jogo a jogo ('coluna de placar do jogo a jogo' -> 'placar do jogo a jogo'); 1 lista aviso_de_amostra.chaves_..._nao_reaplicadas (5 -> 3). SAIRAM 5: etapa_0.linhas_no_arquivo/linhas_completas/alta/media/baixa (foram para os blocos por universo). ENTRARAM 20: 5 marcas retirada_por_ser_resultado no placar do jogo a jogo, 4 chaves do topo da etapa_0, 2 listas do aviso, e nas 3 tabelas sobrevivem_q_5pct_sem_consequencia, sobrevivem_q_e_dinheiro_sem_consequencia e regra_das_contagens. Nenhum p, q, gap, tamanho, contagem antiga do resumo ou linha da sorte mudou. Tela: mapa 891 -> 893 entradas, saidas sem destino 25 -> 24, impedimentos com onde 4 -> 6.",
+   "deterministico": "Sim. Rodei a versao COMPLETA duas vezes com o wrapper scratchpad/rodar_gp.py: PYTHONHASHSEED=1 -> scratchpad/r3_h1.json e PYTHONHASHSEED=2 -> scratchpad/r3_h2.json, as duas com saida 0 (113 s cada). Comparando sem gerado_em: h1 == h2 True, e h1 == dados/pontos.json da rodada real (hash aleatorio) True."
+  }
+ ],
+ [
+  "confere-r3:espelho-completo",
+  {
+   "lente": "O espelho e a etapa 0: o topo separado por universo e a conta fechando, os impedimentos do renderer com arquivo:linha completos, o aviso_de_amostra no mapa de caminhos, nada novo sem par, e o diff do pontos.json contra pontos_antes_r3.json para garantir que nenhum numero aprovado mudou.",
+   "conferidos": 14,
+   "problemas": [
+    {
+     "onde": "gerar_pontos.py, bloco_tela: impedimento das 'contagens da etapa 0', onde=onde(r\"ptInt\\(d\\.meio\\)|d\\.linhas_completas\")",
+     "no_json": "tela.renderer_do_prototipo.impedimentos[4].onde = proto_a.js 255, 262, 263, 264, 305, 343, 387, 389",
+     "eu_medi": "Listei todo 'd.<campo>' que ptEtapa0 le (proto_a.js 251-420). Leem do topo da etapa 0 e ficaram fora da lista: (1) proto_a.js:261 'd.linhas_no_arquivo', que nao existe mais solto e sai como 'O estudo olha — temporadas'. (2) proto_a.js:344 'ptInt(d.sobe) times que subiram'. (3) proto_a.js:363 'Dividir os ptInt(d.sobe) que subiram'. (4) proto_a.js:306 'ptInt(d.meio + d.cai)', que da undefined+undefined = NaN; o padrao so pega a forma exata 'ptInt(d.meio)'. (5) proto.js:1696-1697 'e0.linhas_completas', em OUTRO arquivo do renderer, que tambem le o topo da etapa 0 e cai no ramo alternativo em silencio. d.sobe aparece em 262 e 264 so porque a linha casa por outro trecho. O padrao nao procura d.sobe, d.cai nem d.linhas_no_arquivo.",
+     "por_que_importa": "O pedido era a lista completa de arquivo:linha. Quem for escrever o renderer proprio da aba Pontos vai usar essa lista como checklist, e 5 pontos de leitura do topo antigo (um deles com NaN na tela e um em proto.js) nao aparecem nela.",
+     "conserto": "Trocar o padrao por algo como r\"\\b(d|e0)\\.(sobe|meio|cai|linhas_completas|linhas_no_arquivo)\\b\" e acrescentar ao 'o_que' que linhas_no_arquivo tambem saiu do topo (virou linhas_no_arquivo_por_painel). Esperado: entram proto_a.js:261, 306, 344, 363 e proto.js:1696, 1697.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "gerar_pontos.py, bloco_tela: impedimento do 'd minimo', onde=onde(r\"d_minimo_16x16\")",
+     "no_json": "impedimentos[3]: 'd mínimo lido como NÚMERO em poder.d_minimo_16x16 e subtraído', onde = proto_a.js:304, 307",
+     "eu_medi": "O vetor 'recortes' (proto_a.js 304-307) le quatro chaves: d_minimo_16x16, d_minimo_16x48 (305), d_minimo_16x64 (306) e d_minimo_16x16_bonferroni. O padrao so pega a primeira e a quarta. E como aqui d.poder e um dicionario por universo, pod['d_minimo_16x16'] e undefined: o filtro da linha 309 descarta os quatro recortes, a subtracao do sort (310) nunca roda e o cartao cai em ptFalta('o JSON não traz nenhum limite...') (351). Nada e subtraido: o cartao do poder some calado.",
+     "por_que_importa": "O impedimento aponta metade das linhas e descreve uma consequencia (subtracao de dicionario) que nao acontece. A que acontece e o cartao de poder dizer que o JSON nao tem limite nenhum, quando ele tem tres universos.",
+     "conserto": "Padrao r\"d_minimo_16x\" (casa 304-307) e texto: 'as quatro chaves d_minimo_16x* nao existem no topo de poder (aqui e poder.<universo>.<comparacao>.d_minimo); o filtro descarta todas e o cartao diz que o JSON nao traz limite'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "onde": "ranking_gaps.py tabela_de_gaps, mediana_crua = _r_sig(..., 4)",
+     "no_json": "ranking_gaps.linhas[283] ti_lateral_duelos_ofensivos_ganhos mediana_crua {alta 46.55, media 46.77, baixa 46.55}; linhas[167] fis_meio_distance_p90 {alta 10190.0, media 10080.0, baixa 9981.0}",
+     "eu_medi": "Diff por indicador: antes {alta 46.554, media 46.772, baixa 46.552}, e alta e baixa eram distintas. Com 4 algarismos significativos as duas viraram 46.55: e o mesmo defeito que o conserto queria tirar (faixas apagadas pelo arredondamento), agora do outro lado da escala. fis_meio_distance_p90 antes era 10191.186/10076.902/9981.346 e perdeu duas casas inteiras (10190, 10080). Nos 1065 valores de mediana nao ha outro colapso: 0 conjuntos com as tres faixas iguais. Os 764 valores que mudaram sao todos compativeis com arredondamento do valor antigo; nenhum numero mudou fora de mediana_crua.",
+     "por_que_importa": "Pelo formato do arredondamento, a tela vai mostrar alta = baixa num indicador em que as faixas diferem, e 10190 no lugar de 10191 numa distancia. E pequeno, mas e exatamente a classe de defeito que o item 8 do conserto dizia fechar.",
+     "conserto": "Usar a precisao que preserva a diferenca: por exemplo max(4 significativos, 3 casas decimais), ou aumentar os algarismos ate que as medianas distintas cruas continuem distintas depois de arredondadas, com assert.",
+     "gravidade": "detalhe"
+    },
+    {
+     "onde": "gerar_pontos.py etapa_0, linhas_no_arquivo_por_painel",
+     "no_json": "linhas_no_arquivo_por_painel = {painel_2022_2026: 100, painel_2018_2021: 80, regra: 'linhas lidas de cada arquivo'}",
+     "eu_medi": "O valor sai de len(d80)+len(d26) e len(dv), ou seja, dos quadros ja filtrados, nao do arquivo. Hoje bate: serieb_clube_temporada.csv tem 100 linhas (20 por ano de 2022 a 2026) e serieb_clube_temporada_2018_2021.csv tem 80.",
+     "por_que_importa": "A regra promete 'linhas lidas de cada arquivo'. Se um dia uma linha sair no filtro, o numero continua batendo com a soma dos universos e deixa de dizer quantas linhas o arquivo tinha, que era o sentido do 'linhas_no_arquivo' do Prototipo (daria 0 no 'naoEntram').",
+     "conserto": "Contar as linhas do CSV lido, ou mudar a regra para 'linhas usadas de cada painel' e deixar isso claro na nota do mapa.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere-r3:modulo-de-gaps",
+  {
+   "lente": "O módulo ranking_gaps.py visto como API: o resumo com e sem as linhas de consequência, a mediana crua por algarismos significativos, o r_val e os controles alinhados pela chave (ano, clube), e se a chamada da doc funciona no gerador do Protótipo. Scripts do teste: scratchpad/lente_api_r3.py e lente_api_r3b.py, rodados com python3 -B. G.SAIDA foi trocado por /dev/null e nada foi gravado no repositório.",
+   "conferidos": 16,
+   "problemas": [
+    {
+     "onde": "ranking_gaps.py tabela_de_gaps: a conferência de alinhamento (alinhar e o assert de anos, linhas 1230-1250) vale para r_val e controles, mas não para rotulos",
+     "no_json": "O relato do conserto diz que r_val e controles são exigidos como Series e reindexados pela chave, e que 'anos são conferidos contra o nível ano do índice'. Os rotulos continuam como vetor na ordem das linhas, sem nenhuma conferência de clube.",
+     "eu_medi": "Chamei com postos.sort_index() e bruto.sort_index() (o d80 NÃO vem ordenado por (ano, clube), conferido), mantendo d80.ano.values e d80.faixa.values. A função aceitou calada: sobrevivem_q_5pct caiu de 24 para 0 e sobrevivem_q_e_dinheiro de 19 para 0. Os anos passam porque sort_index mantém os anos juntos, e o r_val é reindexado para a ordem NOVA dos postos, então fica certo enquanto as faixas ficam trocadas. Com as faixas realinhadas pela chave, a mesma chamada volta a 24/19. Embaralhar a faixa dentro do ano com os postos certos também passa calado (0 no q).",
+     "por_que_importa": "O conserto protegeu o dinheiro e deixou sem proteção o vetor mais importante, o que diz quem subiu e quem caiu. Ao reindexar o r_val pela ordem dos postos, a função passa a aceitar um caso em que dinheiro e postos concordam entre si e só as faixas estão erradas. O Protótipo vai chamar com o painel d80 e a matriz, e um sort_index ou um merge no meio do caminho zera a tabela sem erro nenhum.",
+     "conserto": "Tratar os rotulos (e os anos) como o r_val: aceitar Series indexada por (ano, clube) e reindexar pela chave dos postos, recusando vetor sem índice. Outra opção é receber a chave junto, por exemplo um parâmetro `chave=d80[['ano','clube']]`, e conferir se ela é igual a postos.index linha a linha, e não só o nível ano. Colocar no autoteste o caso postos.sort_index() com d80.faixa.values, que precisa ser RECUSADO.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.py tabela_de_gaps, ramo `outro` (linhas 1343-1379), e a chamada da doc (dvp com .values, rotulos=dv.faixa.values)",
+     "no_json": "O outro período entra por posição: dvp tem RangeIndex e rotulos/anos são .values. O único teste que existe é _conferir_entrada (os anos só até o máximo, as faixas presentes, as contagens).",
+     "eu_medi": "Embaralhei dv.faixa dentro do ano e passei como rotulos do outro período. A função aceitou calada: se_repete foi de {sim 11, não 22} para {sim 2, não 31}.",
+     "por_que_importa": "'Se repete?' é a coluna que dá credibilidade a um achado. Na chamada da doc os dois vetores vêm do mesmo dv, então hoje o resultado está certo. É o mesmo buraco do item anterior, só que no outro período.",
+     "conserto": "Mesma regra: postos do outro período com índice (ano, clube), vindo de dv.set_index, e rotulos como Series com essa chave, reindexados. Ou pelo menos um assert de igualdade de chave quando os dois lados tiverem índice.",
+     "gravidade": "detalhe"
+    },
+    {
+     "onde": "ranking_gaps.py docstring de tabela_de_gaps (a 'CHAMADA QUE O GERADOR DO PROTÓTIPO DEVE FAZER') e _r_sig",
+     "no_json": "A chamada usa `G.SEMENTE` e `RAIZ`, e a docstring de _r_sig diz 'p por algarismo significativo'.",
+     "eu_medi": "Dentro do gerar_prototipo.py a semente se chama SEMENTE e não G.SEMENTE (o módulo não se importa como G), e RAIZ precisa existir lá. Rodei a chamada literal no scratch com G importado e ela funciona. Sobre _r_sig: com 4 algarismos, 10165,27 vira 10170 (fis_meio_distance_p90, 2 casos com valor acima de 10 mil). Nenhuma mediana das 293x3 que era diferente ficou igual, e o maior erro relativo foi 0,048%.",
+     "por_que_importa": "Colado ao pé da letra no main do Protótipo, `G.SEMENTE` dá NameError. Pouco, mas a promessa da doc é que ela basta. O arredondamento das distâncias é aceitável, e o comentário do código já justifica.",
+     "conserto": "Trocar para `semente=(SEMENTE, 23)` com uma nota ('dentro do gerar_prototipo.py; de fora, G.SEMENTE'). Atualizar a docstring de _r_sig para dizer que ela também serve à mediana.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere-r3:faixas-e-circularidade",
+  {
+   "lente": "A guarda de circularidade e de consequência (ranking_gaps.py: _coluna_da_chave, _referencia_declarada, _registro_apresenta, _sem_teste_declarado, _conta_na_frase, _mencoes_em_texto, referencias_circulares, referencias_de_consequencia_sem_marca). Montei 49 casos novos, sem repetir nenhum do autoteste: 35 de vazamento de resultado, 6 de consequência e 8 de falso positivo. Também rodei a guarda no dados/pontos.json real, com e sem as marcas. Scripts: scratchpad/r4_guarda_adv.py e scratchpad/r4_real.py. Não escrevi em nenhum arquivo do projeto.",
+   "conferidos": 49,
+   "problemas": [
+    {
+     "onde": "ranking_gaps.py _coluna_da_chave (linhas 459-465) e referencias_circulares (linhas 611-630)",
+     "no_json": "Nada hoje (JSON real dá 0 achados), mas a leitura por token decide se uma coluna ambígua conta olhando só a CHAVE, e ignora a estatística que vem no VALOR.",
+     "eu_medi": "{'V_x_faixa': {'rho':0.95,'p':1e-9}} -> 0; {'aproveitamento_1t': {'gap':30,'q':0.001}} -> 0; {'D_por_faixa': {'gap':12,'q':0.001}} -> 0; {'V_alta':20,'V_baixa':8} -> 0. Para comparar: SG_alta/SG_baixa -> 2 e d_aproveitamento_1t -> 1. {'gap_x_V': 12} -> 0, porque a exceção da palavra de relação ('x', 'com') vale também para V/E/D, e ela só se justifica para a régua usada como desfecho.",
+     "por_que_importa": "Vitórias por faixa e o aproveitamento de um turno testado contra a faixa são exatamente o achado circular. Basta pôr o gap e o q no valor, em vez de escrever o token na chave, que a guarda aprova.",
+     "conserto": "Em _coluna_da_chave, contar a coluna ambígua como pedaço quando o token estatístico estiver na chave OU quando _contem_estatistica(valor) for verdadeiro; para isso quem chama passa o valor. A exceção de 'com/contra/x' fica restrita às colunas de REGUA e deixa de valer para V/E/D.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py _referencia_declarada e o ramo 'pass' de referencias_circulares (linhas 615-617)",
+     "no_json": "A única marca de referência real é ap1t x ap2t, que está certa. O salvo-conduto, porém, continua aberto.",
+     "eu_medi": "{'referencia_SG_x_GP_por_faixa': {rho:{'alta':0.9,'media':0.5,'baixa':0.1}, p, +marca SG/GP}} -> 0: 'faixa' não tem token estatístico e cai fora das colunas, então o par vira [SG, GP] e é isentado mesmo com o rho partido por faixa. {'SG_x_GP': {rho, p, n:{'gap':40,'q':0.001}, +marca}} -> 0: a checagem só tira rho/p/n do primeiro nível e não olha o que existe dentro deles.",
+     "por_que_importa": "A marca foi feita para uma estatística ENTRE colunas de resultado. Se o registro reparte essa estatística por faixa, ou esconde gap/q dentro de 'n', ele deixa de ser referência e vira achado sobre a faixa, que é justamente o que a rodada 3 prometeu fechar.",
+     "conserto": "Recusar a referência quando a chave tiver algum token de faixa (faixa, alta, media, baixa, sobe, meio, cai, por_faixa), quando rho ou p não forem escalares, ou quando n não for inteiro. Na checagem de estatística, tirar só os ESCALARES rho/p/n.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py referencias_circulares, isenção por _sem_teste_declarado (linhas 627-628 e 650); _registro_apresenta só olha a marca de retirada",
+     "no_json": "No JSON real, 2 registros com a marca 'sem teste' carregam número: .etapa_8.tipologia.conferencia_do_motor_exato (particoes, acima_*, bate) e .etapa_13.trilha_goleiro (no_pool_operacional, referencia_ZD_no_pool, candidatos).",
+     "eu_medi": "Registro sem teste de golos_cabeca com valor_na_alta=3.1 e valor_na_baixa=1.2 -> 0; {'golos_cabeca': {'alta':3.1,'baixa':1.2}} com a mesma marca -> 0; resumo_txt='alta 3,1 x baixa 1,2' -> 0. O conserto r3 do 'número com nome livre' só valeu para a marca de retirada.",
+     "por_que_importa": "Um registro 'fora de teste de faixa' que traz a média de cada faixa É o teste de faixa, só sem o p. A marca continua servindo de capa.",
+     "conserto": "Com a marca sem teste, contar como apresentação qualquer número cuja chave seja faixa (alta/media/baixa/sobe/meio/cai) ou qualquer dicionário com a coluna marcada como chave e número dentro, inclusive decimal escrito como texto com nome de faixa. Não usar a regra ampla 'qualquer número', que acusaria os 2 registros reais citados (medido).",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py _registro_apresenta (linha 410: pula 'motivo' e as strings de rótulo) e _retirada_declarada (confere a marca, não o campo motivo)",
+     "no_json": "Os 3 registros marcados que têm verbo de achado repetem o texto da própria lista ('saldo de gols explica quase toda a variância de pontos') e por isso já são isentos. Nada vaza hoje.",
+     "eu_medi": "Retirada de SG com nome='gap 44,3 · q 0,001' -> 0; {'col':'SG', 'motivo':'saldo; gap 44,3 q 0,001', marca certa} -> 0; retirada de SG com nota='é o que mais separa alta de baixa' (a frase não repete o nome da coluna) -> 0.",
+     "por_que_importa": "O conserto r3 garantiu que a marca não esconde número 'com o nome que o campo tiver', mas 'nome' e 'motivo' continuam de fora. E uma frase de achado dentro do próprio registro retirado não nomeia a coluna porque não precisa: o registro já é dela.",
+     "conserto": "Num registro com marca de retirada: (a) o campo motivo tem de ser igual a motivo_resultado(col), ou os decimais dele contam; (b) string de rótulo com decimal conta, salvo quando for a própria coluna; (c) qualquer texto com _frase_de_achado conta como achado da coluna do registro, fora os textos de _MOTIVOS_DA_LISTA.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py _coluna_da_chave (split só por '_' e comparação sensível a maiúsculas); ramo de valor em referencias_circulares (linha 637: string sem espaço precisa ser a coluna exata)",
+     "no_json": "Medido no JSON real: 0 chaves com sg/gp/gc minúsculo, 0 chaves com espaço, hífen ou barra contendo SG/GP/GC/V/E/D/pts. Endurecer não cria falso positivo hoje.",
+     "eu_medi": "Chaves: sg_gap, gp_alta/gp_baixa, 'SG alta', 'SG (gap)', 'SG-gap' -> 0 cada. Valores: {'indicador':'SG/J','gap':40}, 'GP-GC' e 'golos_pro/90', todos com gap -> 0. O valor solto 'sg' conta (autoteste) e a chave sg_gap não, uma incoerência entre chave e valor.",
+     "por_que_importa": "'GP/J' e 'SG (média)' são rótulos naturais de tela e de catálogo. Chave em minúscula é o que qualquer script gera.",
+     "conserto": "Partir a chave por [_\\s\\-/()%] e comparar sem diferenciar maiúsculas para nomes com 2 letras ou mais (SG/GP/GC já são fortes no texto). No ramo de valor sem espaço, partir pelo mesmo conjunto e, se algum pedaço for coluna, tratar como se a coluna estivesse no campo.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.py _conta_na_frase (antes = qualquer contexto de retirada antes da coluna) e _CONTEXTO_DE_RETIRADA",
+     "no_json": "Medido: nenhuma frase real de campo de regra hoje é calada por esse contexto, então apertar a regra não custa nada.",
+     "eu_medi": "{'decisao': 'Sem risco circular aqui, o GP separa alta de baixa.'} -> 0; {'teste': 'A regua nao entra no teste cego, e o SG separa as faixas.'} -> 0. Palavras genéricas ('circular', 'não entra', 'fora da tabela', 'pedaço') em qualquer ponto antes da coluna anulam o achado.",
+     "por_que_importa": "Para desligar a guarda, um texto de regra só precisa de uma dessas palavras no começo da frase.",
+     "conserto": "O contexto só anula quando estiver amarrado à coluna: na mesma oração, sem vírgula entre os dois, ou com a coluna como sujeito de 'retirad/pedaço/fora'. Outra saída é exigir que o contexto venha entre a coluna e o verbo, e não em qualquer lugar antes.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.py _conta_na_frase (fraca só como sujeito ANTES do verbo), _frases (corta no travessão), _SINONIMOS",
+     "no_json": "Nada no real (0 achados).",
+     "eu_medi": "'O que mais separa as faixas sao os gols marcados.' -> 0; 'quem separa a alta da baixa e o aproveitamento do 1o turno' -> 0; 'Gols marcados — o indicador que mais separa as faixas' -> 0 (o travessão divide a frase); 'V e E separam as faixas' -> 0; 'quem sofre menos gol separa' -> 0; 'clean sheets separam' -> 0; 'o saldo separa as faixas' -> 0. Controle: 'os gols não só separam...' -> 1 (esse caso está certo).",
+     "por_que_importa": "Sujeito depois do verbo ('o que mais separa são os gols') é a forma natural de escrever uma conclusão em português, e o travessão de título é o formato das leituras da tela.",
+     "conserto": "Aceitar o sinônimo fraco depois do verbo quando vier após 'é/são/foi' ('o que mais separa ... são os X'). Não cortar a frase no travessão para a leitura de sujeito. Incluir gol/golo no singular, 'clean sheets', 'saldo' seguido de verbo de achado e V/E/D maiúsculos soltos como sujeito de verbo de achado.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.py referencias_de_consequencia_sem_marca (_marcada_em sobre todos os ancestrais; _coluna_da_chave com split só por '_'; mesma regra de frase)",
+     "no_json": "As marcas reais ficam no nível da ETAPA: .etapa_6.marca_consequencia e .etapa_7.marca_consequencia cobrem a etapa inteira (o_que_mudou, linhas, estado_nesta_aba...). Sem as marcas, só 1 texto real seria acusado, então hoje nada está escondido.",
+     "eu_medi": "Marca na raiz + etapa_9.leitura='share_11 e o melhor preditor da faixa: repita o XI' -> 0; share11_gap -> 0; 'atletas usados separam as faixas' -> 0; {'decisao':'Sem ser circular, share_11 separa as faixas.'} -> 0; gap_x_novos -> 0; 'o que separa as faixas sao os novos' -> 0.",
+     "por_que_importa": "A marca diz 'isto é consequência', mas uma leitura debaixo dela que apresente a coluna como receita ('repita o XI') passa, porque a marca num ancestral isenta até frase de achado.",
+     "conserto": "A marca de ancestral isenta a citação, nunca a frase de achado: mesma regra que a rodada 3 aplicou ao 'sem teste', usando o de_achado de _conta_na_frase. Reaproveitar os consertos de chave e frase dos itens anteriores.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.py _coluna_da_chave (V/E/D como pedaço com token estatístico), _SINONIMOS (pontos/aproveitamento fracos) e PLACAR_INDIVIDUAL (lookahead só com espaço)",
+     "no_json": "0 achados no real, mas o JSON tem os eixos D_explosao e E_qualidade_chance: um gap ou rho por eixo acusaria em falso.",
+     "eu_medi": "Falsos positivos: p_cramer_V -> 1 (V); p_ks_D -> 1 (D); E_qualidade_chance_gap -> 1 (E); rho_D_explosao -> 1 (D); 'Os pontos de corte separam a alta da media.' -> 1 (pts); 'o corte de aproveitamento de 53,5% separa a alta da media' -> 1 (aproveitamento); Golos_esperados_gap -> 1 (a regex usa '(?! esperados)' com espaço e não pega '_esperados').",
+     "por_que_importa": "A guarda quebra a geração inteira (assert). Uma estatística legítima por eixo, ou a frase que explica a própria régua, derrubaria a publicação e empurraria alguém a afrouxar a guarda às pressas.",
+     "conserto": "V/E/D como pedaço: não contar quando o pedaço vizinho for um nome de eixo conhecido (explosao, qualidade...) ou um nome de estatística (cramer, ks). Pontos/aproveitamento seguidos de 'de corte' ou precedidos de 'corte de' contam como descrição da régua. Em PLACAR_INDIVIDUAL, trocar o lookahead para [ _]esperad / [ _]expect.",
+     "gravidade": "detalhe"
+    },
+    {
+     "onde": "ranking_gaps.py _coluna_da_chave: PALAVRAS_COMUNS nunca conta como pedaço",
+     "no_json": "Nada no real. 'consequencia_do_resultado' não tem token estatístico e continuaria isenta.",
+     "eu_medi": "{'resultado_gap': 30} -> 0; {'d_resultado': 1.4} -> 0. {'resultado': {'gap':30}} conta.",
+     "por_que_importa": "'resultado' é coluna do placar do jogo a jogo, e o conserto r3 a cobriu como indicador, mas não como pedaço de chave com estatística.",
+     "conserto": "Tratar 'resultado' como as ambíguas: conta como pedaço quando houver token estatístico na chave ou estatística no valor. Antes, medir no JSON real quantas chaves têm 'resultado' junto de um token estatístico.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "conserta-4",
+  {
+   "consertados": [
+    {
+     "problema": "Guarda de circularidade: uma coluna ambígua (V/E/D, régua, 'resultado') só contava se o token estatístico estivesse na CHAVE. Bastava pôr o gap ou o rho no valor para passar: V_x_faixa:{rho,p}, aproveitamento_1t:{gap,q}, D_por_faixa:{gap,q}, V_alta/V_baixa, gap_x_V. A exceção da palavra de relação ('x', 'com') valia também para V/E/D.",
+     "o_que_fiz": "_coluna_da_chave passou a receber o valor. A coluna ambígua conta com estatística na chave OU no valor. A exceção de 'com/contra/x' ficou só para a régua. V/E/D ao lado de nome de faixa, com número no valor, contam. 'resultado' como pedaço conta só com token estatístico na própria chave, porque resultado_do_teste:{gap} é a palavra comum; isso foi medido no autoteste antigo. Os falsos positivos do item de detalhe também saíram: p_cramer_V, p_ks_D, E_qualidade_chance_gap e rho_D_explosao (lista explícita de vizinhos: cramer, ks, explosao, qualidade...), 'pontos de corte', 'corte de aproveitamento' e Golos_esperados_gap (o lookahead do PLACAR_INDIVIDUAL agora aceita espaço ou _).",
+     "arquivo_linha": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/ranking_gaps.py: _coluna_da_chave, _VIZINHOS_QUE_NAO_SAO_VED, PLACAR_INDIVIDUAL",
+     "numero_antes_e_depois": "Antes do conserto, 45 dos 46 casos da conferência davam o número errado (medido rodando casos.py contra a cópia antiga): os vazamentos davam 0 e os 7 falsos positivos davam 1. Depois, 46 de 46 corretos. JSON real: 0 achados antes e 0 depois."
+    },
+    {
+     "problema": "O salvo-conduto de referência entre resultados continuava aberto: aceitava rho partido por faixa (referencia_SG_x_GP_por_faixa) e gap/q escondidos dentro de 'n'.",
+     "o_que_fiz": "Nova _referencia_valida. Recusa a referência quando a chave tem pedaço de faixa, quando rho ou p não são escalares, ou quando n não é inteiro. Na checagem de estatística, só os rho/p/n ESCALARES saem do registro. As 4 referências reais (ap1t x ap2t, rho e p escalares) continuam isentas.",
+     "arquivo_linha": "ranking_gaps.py _referencia_valida; ramo de chave de referencias_circulares",
+     "numero_antes_e_depois": "referencia partida por faixa: 0 -> 3 (SG, GP e faixa). Referência com teste dentro de n: 0 -> 2. JSON real: 0 -> 0."
+    },
+    {
+     "problema": "A marca 'sem teste de faixa' isentava um registro que trazia a média de cada faixa (valor_na_alta, {golos_cabeca:{alta,baixa}}, 'alta 3,1 x baixa 1,2').",
+     "o_que_fiz": "Nova _numero_por_faixa, aplicada nos três ramos (chave, valor e texto). Com a marca sem teste, conta como apresentação: número sob chave com pedaço de faixa; dicionário ou lista com número sob a chave da própria coluna; texto com nome de faixa colado a um número. Não usei a regra ampla. Os 2 registros reais (etapa_8 conferencia_do_motor_exato e etapa_13 trilha_goleiro) seguem isentos, conferido.",
+     "arquivo_linha": "ranking_gaps.py _numero_por_faixa, _FAIXA_COM_NUMERO",
+     "numero_antes_e_depois": "valor_na_alta: 0 -> 1. Dict por faixa: 0 -> 2 (chave e lista). Resumo em texto: 0 -> 1. JSON real: 0 -> 0."
+    },
+    {
+     "problema": "Registro com marca de retirada: nome, motivo e rótulo ficavam de fora sem condição, e uma nota com frase de achado que não repetia o nome da coluna passava.",
+     "o_que_fiz": "_registro_apresenta: (a) o motivo só é pulado se for exatamente motivo_resultado da coluna do registro; senão os decimais dele contam. (b) Rótulo com decimal conta, salvo quando é a própria coluna. (c) Frase de achado em qualquer texto do registro conta, fora os textos de _MOTIVOS_DA_LISTA. _frase_de_achado, que existia mas não era chamada em lugar nenhum, passou a ser usada.",
+     "arquivo_linha": "ranking_gaps.py _registro_apresenta, _textos, _coluna_do_registro, _motivos_da_lista",
+     "numero_antes_e_depois": "nome 'gap 44,3 · q 0,001': 0 -> 1. Motivo com número: 0 -> 1. Nota 'é o que mais separa alta de baixa': 0 -> 1. Retiradas conferidas no JSON real: 277 -> 277."
+    },
+    {
+     "problema": "A chave só era partida por '_' e a comparação diferenciava maiúsculas. Valor sem espaço só contava se fosse a coluna exata (SG/J, GP-GC, golos_pro/90 passavam).",
+     "o_que_fiz": "A chave agora é partida por [_ espaço - / ( ) %]. A comparação ignora maiúsculas para nomes de 2 letras ou mais, exceto 'Golos', porque 'golos' minúsculo começa 'golos_esperados'. Também casa sem separador (share11 = share_11). O valor sem espaço é lido pelos mesmos pedaços, com duas exceções medidas no JSON real: string com ponto é endereço de caminho (etapa_7.referencia_ap1t_x_ap2t no mapa da tela), e a ambígua num valor decide pela própria string, não pelo registro (sem isso, atq_pos_remates virava a régua 'pos').",
+     "arquivo_linha": "ranking_gaps.py _SEPARADORES, _indices_de_nome, ramo de valor de referencias_circulares",
+     "numero_antes_e_depois": "sg_gap, 'SG alta', 'SG (gap)', 'SG-gap': 0 -> 1 cada. gp_alta/gp_baixa: 0 -> 2. SG/J: 0 -> 1. GP-GC: 0 -> 2. golos_pro/90: 0 -> 1. Os 7 falsos positivos que a primeira versão criou no JSON real foram medidos e tirados: real 7 -> 0."
+    },
+    {
+     "problema": "Contexto de retirada ('circular', 'não entra'...) em qualquer ponto antes da coluna anulava o achado.",
+     "o_que_fiz": "O contexto só anula quando está preso à coluna: antes dela sem vírgula, ponto e vírgula ou travessão no meio, ou entre a coluna e o verbo seguinte na mesma oração. O caso sem verbo ('golos_cabeca e clean_sheets retirados') não mudou.",
+     "arquivo_linha": "ranking_gaps.py _QUEBRA_DE_ORACAO, _amarrado, _contexto_amarrado, _conta_na_frase, _frase_de_achado",
+     "numero_antes_e_depois": "'Sem risco circular aqui, o GP separa': 0 -> 1. 'A regua nao entra no teste cego, e o SG separa': 0 -> 1. Os casos antigos continuam certos: 'o SG, pedaço do placar, separa' dá 1 e as negações em campo de regra dão 0."
+    },
+    {
+     "problema": "Sinônimo fraco só contava como sujeito ANTES do verbo, a frase era cortada no travessão, e faltavam gol/golo no singular, clean sheets, 'saldo' e V/E/D soltos.",
+     "o_que_fiz": "Novo _sujeito_posposto: o sinônimo conta depois do verbo quando o verbo está numa oração relativa (que/quem) e há verbo de ligação antes da coluna ('o que mais separa ... são os X'). _frases não corta mais no travessão; o travessão continua quebrando o laço com o contexto. Entraram gol/golo no singular, clean sheets, saldo, e V/E/D maiúsculos só em enumeração ou colados a verbo de achado, para que 'E o xG separa' e 'porta D' não contem. Entraram também 'preditor/preditiv' como verbo de achado.",
+     "arquivo_linha": "ranking_gaps.py _SINONIMOS, _VED_SOLTO, _RELATIVA_ANTES_DO_VERBO, _LIGACAO, _VERBO_DE_ACHADO",
+     "numero_antes_e_depois": "Os 7 casos ('são os gols marcados', 'é o aproveitamento', travessão, 'V e E', 'gol', 'clean sheets', 'o saldo'): 0 -> 1 cada ('V e E' -> 2). JSON real: 0 -> 0."
+    },
+    {
+     "problema": "Na guarda de consequência, a marca num ancestral isentava até frase de achado ('share_11 e o melhor preditor da faixa: repita o XI'), e share11_gap, gap_x_novos, 'atletas usados separam' e 'são os novos' passavam.",
+     "o_que_fiz": "A marca no PRÓPRIO registro do texto isenta tudo (isso mantém o caso r2 do autoteste). A marca num registro ACIMA isenta só a citação, nunca a frase de achado. Leitura de chave com valor e sem separador. 'atletas usados' virou sinônimo fraco. 'novos' conta como sujeito posposto. Reaproveitei a regra de contexto preso.",
+     "arquivo_linha": "ranking_gaps.py referencias_de_consequencia_sem_marca, _SINONIMOS_CONSEQUENCIA",
+     "numero_antes_e_depois": "Os 6 casos: 0 -> 1 cada. JSON real (marcas no nível das etapas 6 e 7): 0 -> 0. Autoteste: 93 -> 142 casos, todos passando; os r4 entraram como permanentes."
+    },
+    {
+     "problema": "tabela_de_gaps: rótulos e anos continuavam vetores na ordem das linhas. postos.sort_index() com d80.faixa.values passava calado e zerava os sobreviventes.",
+     "o_que_fiz": "Anos, rótulos, r_val, controles, e postos/rótulos/anos do 'outro', agora TÊM de ser Series indexadas por (ano, clube). São reindexados pela chave dos postos, e vetor sem índice é recusado. Postos e bruto sem índice (ano, clube) também são recusados. Helper novo RG.pela_chave(painel, coluna). Novo RG.autoteste_do_alinhamento, chamado no main: painel sintético embaralhado, resultado igual com os postos em qualquer ordem, e 5 recusas obrigatórias, entre elas 'postos.sort_index() com rótulos .values' e 'outro período com rótulos .values'. As 5 chamadas do gerar_pontos.py (rk, rk_pos, rk160, os 2 por_bloco) passaram a usar a chave; base160 ganhou a coluna clube.",
+     "arquivo_linha": "ranking_gaps.py pela_chave, _chave_dos_postos, _alinhar_pela_chave, tabela_de_gaps, autoteste_do_alinhamento; gerar_pontos.py chamadas de RG.tabela_de_gaps",
+     "numero_antes_e_depois": "Medido nos dados reais (os postos do montar_matriz NÃO vêm em ordem (ano, clube)): chamada certa (27, 18); sort_index com Series (27, 18); sort_index com .values -> recusado com AssertionError (antes aceitava calado). Nenhum número do JSON mudou com o realinhamento."
+    },
+    {
+     "problema": "mediana_crua com 4 algarismos significativos apagava a diferença entre faixas (lateral duelos ofensivos: alta = baixa = 46,55) e cortava casas nas distâncias (10191 -> 10190).",
+     "o_que_fiz": "Nova _medianas_para_a_tela. Para cada valor, usa o mais preciso entre 4 significativos e 3 casas decimais. Se duas medianas cruas diferentes ainda saírem iguais, os significativos sobem até separarem, com assert. A docstring de _r_sig agora diz que ela também serve à mediana.",
+     "arquivo_linha": "ranking_gaps.py _medianas_para_a_tela, _r_sig",
+     "numero_antes_e_depois": "ti_lateral_duelos_ofensivos_ganhos: {46.55, 46.77, 46.55} -> {46.554, 46.772, 46.552}. fis_meio_distance_p90: {10190.0, 10080.0, 9981.0} -> {10191.186, 10076.902, 9981.346}. 640 valores de mediana_crua mudaram (ranking_gaps e por_bloco). A única linha com medianas iguais que sobrou é nucleo_1000 {16, 17, 17}: empate inteiro no dado cru."
+    },
+    {
+     "problema": "Espelho da tela: a lista 'onde' das contagens da etapa 0 deixava de fora d.linhas_no_arquivo, d.sobe, d.meio + d.cai (que dá NaN) e e0.linhas_completas em proto.js. O impedimento do d mínimo pegava 2 das 4 chaves e descrevia uma subtração que não acontece.",
+     "o_que_fiz": "O padrão das contagens virou \\b(d|e0)\\.(sobe|meio|cai|linhas_completas|linhas_no_arquivo)\\b, sem linhas de comentário (proto_a.js:16 é prosa do cabeçalho; os comentários de bloco saem preservando a numeração). O texto agora cita linhas_no_arquivo_por_painel e o NaN. O d mínimo usa o padrão d_minimo_16x, e o texto diz que o filtro descarta os 4 recortes e que o cartão afirma 'sem limite'.",
+     "arquivo_linha": "gerar_pontos.py bloco_tela: onde(padrao, sem_comentario), impedimentos[3] e [4]",
+     "numero_antes_e_depois": "Contagens: 8 linhas -> 16 (entraram proto_a.js 255/261/304-307/343/344/363 e proto.js 2094/2095; proto_a.js:16 fica fora). d mínimo: 2 linhas -> 4 (304-307; hoje 351-354, porque proto_a.js foi editado durante a rodada)."
+    },
+    {
+     "problema": "linhas_no_arquivo_por_painel dizia 'linhas lidas de cada arquivo', mas somava os quadros já filtrados.",
+     "o_que_fiz": "carregar_paineis grava as linhas de cada CSV antes de qualquer filtro em LINHAS_LIDAS. O campo mostra essas e, ao lado, 'usadas' (depois do filtro de ano), com a regra reescrita.",
+     "arquivo_linha": "gerar_pontos.py LINHAS_LIDAS, carregar_paineis, etapa_0",
+     "numero_antes_e_depois": "100/80 -> 100/80 (lidas) + usadas 100/80. A chave nova é etapa_0.linhas_no_arquivo_por_painel.usadas."
+    },
+    {
+     "problema": "Docstring de tabela_de_gaps: a chamada sugerida para o Protótipo usava G.SEMENTE (NameError dentro do gerar_prototipo.py) e vetores .values.",
+     "o_que_fiz": "A chamada agora usa semente=(SEMENTE, 23), com nota ('dentro do gerar_prototipo.py; de fora, G.SEMENTE e G.RAIZ'), RG.pela_chave para anos e rótulos, e dvp com índice (ano, clube). O parágrafo de ALINHAMENTO foi reescrito.",
+     "arquivo_linha": "ranking_gaps.py docstring de tabela_de_gaps",
+     "numero_antes_e_depois": "Só texto."
+    },
+    {
+     "problema": "Surgiu durante a rodada, fora da lista: outra rodada tirou 'const passaGrupo' do proto_b.js (agora pb8Firme lê o status). O gerador quebrava no assert 'impedimento sem linha no renderer' (run6, exit 1, não gravou nada).",
+     "o_que_fiz": "Novo impedimento_da_firmeza(), montado a partir do código que está no disco. Se passaGrupo existir, sai o texto antigo. Se existir pb8Firme, o texto diz que o renderer lê o status, que corte_do_status null esconde a discordância e quais status esta aba tem (hoje só DESCRITIVO, que o renderer lê), com impede=false. Se nenhum dos dois existir, quebra.",
+     "arquivo_linha": "gerar_pontos.py bloco_tela, impedimento_da_firmeza",
+     "numero_antes_e_depois": "run6: exit 1 -> run7 e run8: exit 0."
+    }
+   ],
+   "nao_consertados": [
+    {
+     "problema": "Os números de linha de 'onde' (mapa do renderer) e as contagens de tela.renderer_do_prototipo (referencias_ao_global_PROTO, linhas_de_texto_fixo..., nomes_lidos...) mudam de uma geração para outra.",
+     "motivo": "Não é defeito desta obra. Outras rodadas estão editando static/proto.js, proto_a.js, proto_b.js e proto_glossario.js agora: o md5 dos arquivos mudou durante run5, run6, run7 e run8. O bloco tela é uma foto do renderer no momento em que o gerador roda. Quem for usar a lista como checklist deve regerar depois que o renderer parar de mudar. Se outra função citada num impedimento sumir, o assert de onde() quebra a geração em voz alta, como aconteceu com passaGrupo."
+    },
+    {
+     "problema": "Heurísticas de frase (V/E/D soltos, sujeito posposto) continuam sendo leitura de padrão, não análise sintática.",
+     "motivo": "Fechei todos os casos medidos e os falsos positivos citados, e deixei os controles no autoteste. Frases com outra construção podem escapar, e por isso cada rodada adiciona os casos novos ao autoteste. Os eixos com letra V/E/D estão numa lista explícita (explosao, qualidade): um eixo novo com essas letras gera falso positivo e quebra a geração, em vez de abrir brecha calada."
+    }
+   ],
+   "api_para_o_gerador_do_prototipo": "Mudou em ranking_gaps.tabela_de_gaps: TODO vetor por linha tem de ser pandas Series indexada por (ano, clube), e postos e bruto têm de ter esse índice. Vetor .values, ndarray ou lista agora é RECUSADO com AssertionError. Chamada para o gerar_prototipo.py, dentro do main, depois do montar_matriz:\n\n    import ranking_gaps as RG\n    dv = pd.read_csv(os.path.join(RAIZ, \"dados\", \"serieb_clube_temporada_2018_2021.csv\"))\n    dv = dv[dv.ano <= 2025].reset_index(drop=True)\n    cols_outro = [c for c in postos.columns if meta[c][\"coluna_csv\"] in dv.columns]\n    dvp = pd.DataFrame({c: dv.groupby(\"ano\")[meta[c][\"coluna_csv\"]].rank(pct=True).values * 100 for c in cols_outro},\n                       index=pd.MultiIndex.from_frame(dv[[\"ano\", \"clube\"]]))\n    r_val = d80.set_index([\"ano\", \"clube\"]).groupby(level=\"ano\")[\"tm_valor_total\"].rank(pct=True) * 100\n    ranking_gaps = RG.tabela_de_gaps(\n        RG.pela_chave(d80, \"ano\"), postos, bruto, RG.pela_chave(d80, \"faixa\"), list(postos.columns), (\"sobe\", \"meio\", \"cai\"),\n        r_val=r_val, controles=RG.controles_de_atletas_rastreados(meta, d80), meta=meta,\n        outro=dict(postos=dvp, rotulos=RG.pela_chave(dv, \"faixa\"), anos=RG.pela_chave(dv, \"ano\"), rotulo=\"2018-2021\"),\n        rotulo_universo=\"80 clube-temporada de 2022-2025, faixas por POSIÇÃO\",\n        nomes_das_faixas={\"sobe\": \"quem subiu\", \"meio\": \"meio da tabela\", \"cai\": \"quem caiu\"},\n        semente=(SEMENTE, 23), ano_maximo=2025)\n\nDentro do gerar_prototipo.py os nomes são SEMENTE e RAIZ; de fora, G.SEMENTE e G.RAIZ. Novos: RG.pela_chave(painel, coluna, chave=(\"ano\",\"clube\")) e RG.autoteste_do_alinhamento(). Antes de gravar, chamar RG.autoteste_da_guarda() (142 casos), RG.autoteste_do_alinhamento(), RG.referencias_circulares(saida, blocos_de_exposicao=..., zonas_da_regua=...) e RG.referencias_de_consequencia_sem_marca(saida). A mediana_crua agora sai com o mais preciso entre 4 significativos e 3 casas decimais, e quebra se o arredondamento apagar a diferença entre faixas.",
+   "rodou": true,
+   "saida_do_terminal": "Casos da conferência (scratchpad/pts4/casos.py), 46 casos: módulo antigo 45 errados; módulo novo 0 errados.\nautoteste_da_guarda: 142 casos ok. autoteste_do_alinhamento: 5 recusas ok.\nAlinhamento nos dados reais (scratchpad/pts4/alinh_real.py): postos em ordem (ano, clube)? False · chamada certa (27, 18) · sort_index + Series (27, 18) · sort_index + .values: recusado.\n\ngerar_pontos.py, run7 e run8 (código final): exit 0 nas duas.\n  guarda de circularidade: autoteste ok, 277 retiradas declaradas conferidas, 0 achados circulares, 0 consequências sem marca\n  gravado .../Santa Cruz/dados/pontos.json (2336 KB, 31 chaves) em 113s / 111s\ngerar_pontos_js.py: escrito .../static/pontos.js — 2337 KB, 16 etapas (adaptada: 14, completa: 2); gerado_em do JS = 2026-09-14 10:20, igual ao do JSON.\n(run6 com o código intermediário: exit 1, AssertionError 'impedimento sem linha no renderer: const passaGrupo', porque outra rodada editou proto_b.js. Consertado em run7.)\n\nDiff contra o JSON de antes desta rodada (fora a chave tela): 640 valores de mediana_crua (ranking_gaps e por_bloco do técnico), etapa_0.linhas_no_arquivo_por_painel.regra, circulares.listas_declaradas.placar_individual (o padrão), mais a chave nova etapa_0.linhas_no_arquivo_por_painel.usadas. Nenhum outro número mudou.\nDiff contra scratchpad/pontos_antes_r3.json (fora tela): 133 mudaram (mediana_crua + placar_do_jogo_a_jogo[].motivo x5 + placar_individual + aviso_de_amostra da etapa 1). Só antes: etapa_0.linhas_no_arquivo/linhas_completas/alta/media/baixa. Só depois: 20 chaves (universos da etapa 0, as marcas do placar do jogo a jogo, contagens _sem_consequencia, regra_das_contagens). Tudo isso, fora a mediana e o placar_individual, veio das rodadas 2 e 3.\nCópias: scratchpad/pts4/ (código e JSON de antes desta rodada; run1..run8.json; logs).",
+   "deterministico": "Sim. run7 x run8 com o código final: 0 diferenças no JSON inteiro, tela incluída. Com código anterior: run1 x run2 deu 0 no JSON inteiro; run3 x run4 e run1 x run3 deram 0 fora da chave tela. Nesses pares, a chave tela mudou só em linhas de 'onde' e contagens do renderer, porque o md5 de static/proto*.js mudou entre as gerações (proto_b.js 10:11, proto.js 10:13, proto_a.js 10:17): outras rodadas estavam editando esses arquivos. Com o código final, run5 x run8 (fora tela) também dá 0."
+  }
+ ],
+ [
+  "confere-r4:espelho-completo",
+  {
+   "lente": "O espelho e a etapa 0: o topo separado por universo e a conta fechando, os impedimentos do renderer com arquivo:linha completos, o aviso_de_amostra no mapa de caminhos, nada novo sem par, e o diff para ver se algum número já aprovado mudou.",
+   "conferidos": 14,
+   "problemas": [
+    {
+     "onde": "gerar_pontos.py:2232-2239 (impedimento da tipologia) -> pontos.json tela.renderer_do_prototipo.impedimentos[6]",
+     "no_json": "\"o 'firme' da comparação Number(p) < Number(corte_do_status) vira p < 0 com corte null (falso hoje por acidente, sem a proteção contra null que o passaGrupo tem)\", com onde proto_b.js:1409",
+     "eu_medi": "No proto_b.js de agora não existe passaGrupo. A linha 1409 fica dentro de pb8ContaDiscorda, e as linhas 1407-1408 já saem com return false quando corte_do_status é null ou undefined. Então a comparação não vira p < 0, e a proteção contra null está justamente ali. O impedimento anterior (impedimentos[1], montado a partir do código no disco) diz o contrário e está certo: 'a discordância nunca aparece'. O texto deste é fixo, foi escrito para o renderer antigo e o conserto da firmeza não o alcançou.",
+     "por_que_importa": "O JSON afirma duas coisas opostas sobre as mesmas linhas de proto_b.js, e a errada cita uma função que o próprio gerador sabe que sumiu. Quem usar a lista como checklist vai procurar uma falha que não existe.",
+     "conserto": "Tirar do texto fixo a frase do 'firme'/passaGrupo, que a impedimento_da_firmeza() já cobre, ou montar essa frase também a partir do código no disco. Tirar Number(g.corte_do_status) do padrão desse item.",
+     "gravidade": "mente"
+    },
+    {
+     "onde": "gerar_pontos.py:2219-2224 (contagens da etapa 0) -> impedimentos[4].onde",
+     "no_json": "16 linhas: proto.js:2094,2095 e proto_a.js 303, 309-312, 354-357, 393, 394, 413, 437, 439",
+     "eu_medi": "O padrão \\b(d|e0)\\.(sobe|...)\\b só pega leitura com ponto. Em proto.js:2028-2035 (ptCascaContagemFaixas), o renderer lê a contagem do topo por colchete: e0[f.chave] nas linhas 2031-2033 quando o dado tem faixas, e e0[k] com k de ['sobe','meio','cai'] na 2035. Com este JSON, e0['alta'] não existe no topo (mudou para universo_80_2022_2025.alta), então a tela escreve 'a etapa 0 não traz a contagem desta faixa no topo'. Nenhuma dessas linhas está na lista.",
+     "por_que_importa": "É exatamente a leitura que a separação por universo quebrou, e é a primeira que a casca faz. A lista promete estar completa e deixa de fora o caminho principal quando o dado tem faixas.",
+     "conserto": "Acrescentar ao padrão a leitura por colchete da etapa 0, por exemplo e0\\[(f\\.chave|k)\\] dentro de ptCascaContagemFaixas, e conferir que proto.js:2031-2035 entram.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "gerar_pontos.py:2209-2213 (valores de faixa por LITERAL) -> impedimentos[2]",
+     "no_json": "\"cor e texto das faixas dos pares\" e onde = proto_c.js:1772, proto_c.js:1776; padrão function pbCorFaixa|function pbFaixaTxt|replace\\('margem_'|prox_sobe",
+     "eu_medi": "Hoje pbCorFaixa e pbFaixaTxt não existem em nenhum proto*.js (grep vazio). O padrão só se sustenta com os ramos prox_sobe e replace('margem_'), que agora estão em proto_c.js:2307 e 2311; as linhas 1772 e 1776 do JSON são prosa ('é daí que vem o pouco...'), porque o proto_c.js mudou às 10:24, depois do run8. O assert de onde() só confere se o padrão INTEIRO casa em algum lugar, então dois dos quatro ramos sumiram sem nada quebrar. Os literais que existem de verdade não entram: proto_c.js:838 ['sobe','meio','cai'], proto_c.js:1498-1499 (grupos sobe/caro/barato/cai, a etapa 14 citada no texto), proto_a.js:823, 890 e 1195, proto.js:138 e 2035.",
+     "por_que_importa": "O texto descreve a cor das faixas por funções que não existem mais, e a lista de linhas não aponta os pontos que comparam o literal. A guarda feita para 'quebrar em voz alta' não quebra quando só parte do padrão morre.",
+     "conserto": "Em onde(), exigir que cada ramo da alternância case, ou partir o padrão em vários. Trocar os nomes de função por um padrão do literal (\\['sobe', ?'meio', ?'cai'\\]|'sobe', ?'caro') e regerar quando o renderer parar de mudar.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "impedimentos[3] (d mínimo) -> onde",
+     "no_json": "\"o cartão do poder diz que o JSON não traz limite nenhum\", com onde proto_a.js:351, 354-357",
+     "eu_medi": "A frase que a tela mostra ('o JSON não traz nenhum limite do que a amostra consegue ver') está em proto_a.js:403, e essa linha não entra na lista. A lista só tem as linhas com d_minimo_16x.",
+     "por_que_importa": "O impedimento cita um sintoma na tela sem dizer onde ele fica, e a regra da lente é arquivo:linha completo.",
+     "conserto": "Incluir no padrão desse item a linha do ptFalta do limite (por exemplo 'nenhum limite do que a amostra').",
+     "gravidade": "detalhe"
+    },
+    {
+     "onde": "gerar_pontos.py:594-595 -> etapa_0.clubes_distintos e etapa_0.aparicoes_por_clube",
+     "no_json": "clubes_distintos: 40, aparicoes_por_clube {1:16, 2:12, 3:8, 4:4}, soltos no topo e sem dizer o universo",
+     "eu_medi": "As duas contagens saem só de d80. Medi nos CSVs: 2022-2025 dá 40 clubes {1:16, 2:12, 3:8, 4:4}, que é o que está no JSON; 2018-2021 dá 36 clubes {1:10, 2:12, 3:10, 4:4}, e isso não aparece em lugar nenhum. O comentário da linha 572 diz que 'o topo é separado POR UNIVERSO', mas estas duas continuam fora de universo_80_2022_2025, que foi exatamente o erro corrigido para linhas_completas.",
+     "por_que_importa": "É o mesmo tipo de armadilha que motivou o conserto: um número do universo das 80 fica ao lado de linhas_completas_dos_dois_periodos (160), e a aba 2018-2021 fica sem a contagem dela.",
+     "conserto": "Pôr clubes_distintos e aparicoes_por_clube dentro de universo_do_topo (as duas saem de cada d) e registrar no mapa a troca etapa_0.clubes_distintos -> universo_80_2022_2025.clubes_distintos, ou dizer o universo na chave.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "tela.mapa_de_caminhos, aviso_de_amostra",
+     "no_json": "entradas para degrau_k8_para_k9, postos_ate_k_sem_promovido e promovidos_no_posto (aqui null, com nota) e para leitura (mesmo nome, outro conteúdo); anos_na_amostra fica igual",
+     "eu_medi": "Os filhos promovidos_no_posto[].posto e promovidos_no_posto[].promovidos do Protótipo não têm entrada própria no mapa; a do pai (null com nota) só os cobre implicitamente. As chaves novas do aviso (reaplicado_do_prototipo, motivo_de_nao_reaplicar, postos_sem_nenhum_da_alta, maior_degrau.k/times, maximo_possivel_por_posto) e as novas da etapa 0 (universo_2018_2021.*, universo_80_2022_2025.anos/fontes, linhas_completas_dos_dois_periodos.*, poder.tecnico_coletivo_2018_2021.*, por_ano[].universos...) não têm registro de 'novo sem par': o mapa só vai do Protótipo para esta aba. Pelo mesmo critério, 1406 caminhos generalizados daqui não existem no Protótipo e não são destino de ninguém.",
+     "por_que_importa": "'Nada novo sem par' não é conferido pelo gerador. Uma chave nova com número pode entrar sem motivo declarado, e a regra do mapa (sobra quebra o gerador) só vale num sentido.",
+     "conserto": "Gerar a lista inversa (caminhos daqui sem origem no Protótipo), cada um com uma nota curta por prefixo, e dar assert de que não sobra nada sem nota. Ou declarar no campo regra que a conferência é só num sentido.",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.linhas[].mediana_crua (diff contra scratchpad/pts4/pontos.json)",
+     "no_json": "640 medianas mudaram; o relato diz que todas só ganharam casas",
+     "eu_medi": "Nenhum outro número mudou contra pts4 (fora mediana_crua, a regra, o placar_individual e a chave nova usadas), e contra pontos_antes_r3 só mudaram as chaves da etapa 0 e do aviso já descritas. Das 640 medianas, 627 arredondam de volta para o valor antigo. As outras 13 são empates de meio (54.655 antes 54.65, 57.625 antes 57.63, 42.105 antes 42.11...), então a quarta significativa antiga saía para um lado ou para o outro por causa do float. A grandeza não mudou. A única linha com medianas iguais entre faixas é a linhas[103] {16, 17, 17}, empate inteiro, como o relato diz.",
+     "por_que_importa": "Nenhum número aprovado mudou de verdade. Registro só para quem comparar as medianas com 4 significativas não achar 13 'mudanças'.",
+     "conserto": "Nada a consertar no dado; cabe uma linha na regra da mediana dizendo que o empate de meio na 4ª casa pode arredondar diferente da versão antiga.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere-r4:faixas-e-circularidade",
+  {
+   "lente": "Guarda de circularidade e de consequência (ranking_gaps.referencias_circulares e referencias_de_consequencia_sem_marca), com casos adversariais novos que não estão no autoteste nem nas rodadas anteriores. Script: /private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/lente_guarda/casos5.py. Também rodei as duas guardas no dados/pontos.json real (0 e 0) e testei os 312 ids legítimos do JSON como chave `<id>_gap`, `d_<id>`, `<id>_alta` e como indicador de linha com gap, para achar falsos positivos.",
+   "conferidos": 46,
+   "problemas": [
+    {
+     "onde": "ranking_gaps.py referencias_circulares, ramo de string, linha 872 (`if \" \" not in x`) e _mencoes_em_texto linha 742 (tira da busca os nomes com espaço)",
+     "no_json": "Hoje não aparece. 'Golos sofridos' só está em circulares.listas_declaradas.placar_do_jogo_a_jogo[1].coluna",
+     "eu_medi": "{\"linhas\":[{\"indicador\":\"Golos sofridos\",\"gap\":30,\"q\":0.001}]} dá 0 achados. 'Golos sofridos/90' e 'golos pro' (com espaço) também dão 0. É o nome exato de uma coluna de PLACAR_JOGO. Toda string com espaço vai direto para a leitura de frase. Lá o nome com espaço não é buscado, e o sinônimo 'golos sofridos' é fraco: sem verbo de achado, não conta.",
+     "por_que_importa": "Uma linha do ranking com a coluna de placar escrita do jeito que está na própria lista passa como achado sem aviso. É o vazamento mais direto possível.",
+     "conserto": "No ramo de string, antes de tratar como frase, testar motivo_resultado(x) e PLACAR_INDIVIDUAL no valor inteiro. Testar também _coluna_da_chave(x), que já parte em espaço e barra, quando a string está num campo de identidade ou numa lista de indicadores. Pôr os três casos no autoteste.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py referencias_circulares, linha 883: `_coluna_da_chave(x)` chamado sem `valor` (o comentário diz que a estatística que decide é 'a da PRÓPRIA string')",
+     "no_json": "Hoje não aparece.",
+     "eu_medi": "Indicador de linha com gap=30 e q=0.001: 'aproveitamento_1t' dá 0, 'V_casa' dá 0, 'Pts/J' dá 0, 'resultado_final' dá 0. Como CHAVE, o equivalente já é acusado ('aproveitamento_1t': {gap,q} dá 1, caso r4).",
+     "por_que_importa": "O conserto da rodada 4 fechou a porta na chave e deixou a mesma aberta no valor. Aproveitamento do 1º turno, vitórias em casa e pontos por jogo são os indicadores circulares clássicos, e basta escrevê-los no campo 'indicador' de uma linha com teste.",
+     "conserto": "Quando a string está em CAMPOS_DE_IDENTIDADE e o registro pai traz estatística (_contem_estatistica(pai)), a coluna ambígua como pedaço conta. Para não reabrir o falso positivo de atq_pos_remates, exigir que a ambígua seja o PRIMEIRO pedaço, ou manter uma lista explícita de vizinhos, como já existe para V/E/D.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py _referencia_valida, linhas 812-822",
+     "no_json": "As 4 referências reais (ap1t x ap2t) não têm isso. É uma brecha, não um achado no dado.",
+     "eu_medi": "referencia_SG_x_GP com a marca certa e rho/p escalares, mais: por_clube={alta:0.9, baixa:0.1} dá 0; correlacao_alta=0.95 dá 0; diferenca_entre_faixas=44.0 dá 0; desfecho='faixa' dá 0. Só a CHAVE é conferida por pedaço de faixa, e o resto só é conferido por nome de campo de teste.",
+     "por_que_importa": "O salvo-conduto continua servindo para partir por faixa, que é justamente o que a rodada 4 disse ter fechado. Basta pôr a faixa numa subchave ou num nome de campo que não seja de teste.",
+     "conserto": "Na referência, aceitar só rho, p, n (escalares), a marca e textos. Qualquer outro número, qualquer chave descendente com pedaço de faixa (reusar _numero_por_faixa) ou qualquer string da régua no valor recusa a isenção.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py referencias_de_consequencia_sem_marca: linha 988 (valor só casa se for a coluna exata) e linhas 981/989 (`_marcada_em(anc, c)` olha todos os ancestrais)",
+     "no_json": "As marcas reais ficam no nível das etapas 6 e 7. Por isso qualquer chave `share_11_gap` ou linha {indicador:share_11, gap} dentro dessas etapas passaria.",
+     "eu_medi": "{\"linhas\":[{\"indicador\":\"share_11/90\",\"gap\":3,\"q\":0.01}]} dá 0; 'conc_hhi_minutos' dá 0. Com marca_consequencia(['share_11']) na raiz: etapa_9={share_11_gap:3, q_share_11:0.001} dá 0, e etapa_9.linhas=[{indicador:share_11, gap:3}] dá 0. Pelo relato da rodada 4, a marca num ancestral já não isenta frase de achado, mas continua isentando chave e valor com estatística.",
+     "por_que_importa": "A regra 'marca acima isenta a citação, nunca o achado' só vale para texto. Chave com gap e linha de ranking, que são a forma mais comum de apresentar achado, seguem isentas por uma marca posta lá em cima.",
+     "conserto": "Ler os valores pelos mesmos pedaços da chave (como a guarda de resultado já faz). No ramo de chave e no de valor, aplicar a mesma divisão do texto: a marca no próprio registro isenta; a marca acima só isenta se não houver estatística na chave, no valor ou no registro.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py _contexto_amarrado / _CONTEXTO_DE_RETIRADA (linhas 365 e 663) e _NEGACAO_ANTES (linha 364)",
+     "no_json": "Hoje não aparece.",
+     "eu_medi": "Contexto de retirada NEGADO funciona como retirada: decisao='O GP que nunca foi circular separa as faixas' dá 0; 'O SG longe de ser pedaço mecânico separa as faixas' dá 0; regra='golos_pro que nao e circular separa as faixas' dá 0; leitura='os gols sem nada de circular separam as faixas' dá 0. Negação que não nega: 'Os gols marcados não apenas separam a alta da baixa: são o melhor sinal.' dá 0, porque 'não apenas' conta como negação do verbo.",
+     "por_que_importa": "A frase diz o contrário de uma retirada e a guarda lê como retirada. É o mesmo tipo de brecha que a rodada 4 fechou para o contexto solto ('Sem risco circular aqui, o GP separa'), agora com a palavra de regra dentro da oração.",
+     "conserto": "O contexto de retirada não vale quando vem negado ('não é', 'nunca foi', 'sem nada de', 'longe de ser' antes da palavra). 'não apenas', 'não só' e 'nem só' não negam o verbo. Pôr os cinco casos no autoteste.",
+     "gravidade": "quebra"
+    },
+    {
+     "onde": "ranking_gaps.py _VERBO_DE_ACHADO (linha 352), _SINONIMOS (linha 379), _SINONIMOS_CONSEQUENCIA (linha 395)",
+     "no_json": "Hoje não aparece.",
+     "eu_medi": "Sinônimo fraco com verbo fora da lista, ou sem verbo, dá 0 em leitura: 'os gols marcados decidem a faixa', 'o saldo ordena as faixas', 'a vitória em casa separa as faixas' (singular), 'gols marcados: alta 58,2 x baixa 39,1.' (achado com número e sem verbo) e 'o S.G. separa as faixas' (em decisao). Consequência: 'o share 11 separa', 'SHARE-11 separa', 'a concentração de minutos separa' e 'os novos sem consequência nenhuma separam' dão 0.",
+     "por_que_importa": "O caso 'gols marcados: alta 58,2 x baixa 39,1' é o resumo típico de tela, e a guarda não o vê. Os outros são leitura de padrão, como o próprio relato admite.",
+     "conserto": "Contar sinônimo fraco colado a um nome de faixa com número (reusar _FAIXA_COM_NUMERO na frase). Incluir vitória/derrota/empate no singular, 'decide', 'ordena', 'determina'. Na consequência, partir o texto pelos mesmos separadores da chave (share 11, SHARE-11).",
+     "gravidade": "falta"
+    },
+    {
+     "onde": "ranking_gaps.py _SEPARADORES (linha 341) e _coluna_da_chave",
+     "no_json": "Hoje não aparece.",
+     "eu_medi": "Chaves que dão 0: 'SG.gap', 'SGgap', 'gapSG', 'GPxGC_rho', 'saldo_gols_gap', 'gols_pro_gap' (grafia brasileira), 'vitorias_alta'/'vitorias_baixa' e 'mean_V': {alta:20, baixa:8}. O ponto não parte a chave de propósito (endereço de caminho), mas isso vale para valor e está sendo aplicado também à chave.",
+     "por_que_importa": "Nenhum desses nomes está no gerador hoje. A lista, porém, promete ler a chave 'pelo que contém', e o sinônimo por extenso só é reconhecido em frase, nunca em chave.",
+     "conserto": "Na CHAVE, partir também em ponto e em fronteira de maiúscula (camelCase). Aplicar os sinônimos (saldo_gols, gols_pro, vitorias, derrotas) aos pedaços. V/E/D com valor dicionário por faixa contam mesmo sem pedaço de faixa na chave.",
+     "gravidade": "detalhe"
+    },
+    {
+     "onde": "ranking_gaps.py _coluna_da_chave, ramo da régua (linhas 626-628)",
+     "no_json": "atq_pos_remates é id real do JSON (1 dos 312 ids legítimos que testei).",
+     "eu_medi": "{\"x\":{\"atq_pos_remates_gap\":1}} e {\"x\":{\"d_atq_pos_remates\":1}} acusam 'pos'. {\"l\":[{\"indicador\":\"xg\",\"rho_pts\":-0.5}]} acusa 'pts', embora seja a régua como desfecho, igual a rho_com_aproveitamento, só que sem a palavra 'com'. Os outros 311 ids, nas 4 formas, dão 0.",
+     "por_que_importa": "Não abre brecha: quebra a geração em voz alta. Mas a exceção de atq_pos_remates foi feita só para o valor, e a primeira chave `<indicador>_gap` que alguém gravar para esse indicador derruba o gerador.",
+     "conserto": "Levar para a chave a mesma exceção medida no valor (pos no meio de um id como atq_pos_remates não é a régua), de preferência por lista explícita de ids. Decidir se rho_<régua> sem 'com' é desfecho ou achado e registrar essa decisão num caso do autoteste.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere-r4:modulo-de-gaps",
+  {
+   "lente": "O módulo ranking_gaps.py visto como API, depois da rodada 4: (1) resumo com e sem as linhas de consequência, contado pelos valores crus; (2) mediana crua por algarismos significativos; (3) r_val e controles como Series, reindexados por (ano, clube), testados com os dados reais do G e com as linhas embaralhadas; (4) se a assinatura e a doc bastam para o gerador do Protótipo chamar com sobe/meio/cai, ano_maximo=2025 e o período 2018-2021. Tudo rodado no scratch (scratchpad/api5/chamada.py, testes.py, ordem.py), com python3 -B e G.SAIDA=/dev/null. Nada foi gravado no projeto.",
+   "conferidos": 22,
+   "problemas": [
+    {
+     "gravidade": "detalhe",
+     "onde": "ranking_gaps.py:1416-1466 (linha_da_sorte) chamada em tabela_de_gaps:1616; autoteste_do_alinhamento:1834-1836; docstring de tabela_de_gaps:1584 ('ela reproduz o bloco ...')",
+     "no_json": "pontos.json ranking_gaps.mesma_tabela_com_as_faixas_por_posicao.linha_da_sorte: linha 37.58, acima_da_linha 7, gerador np.random.default_rng([7, 23]). O relato do conserto diz: 'resultado igual com os postos em qualquer ordem'.",
+     "eu_medi": "Fiz a mesma chamada, com a mesma semente (7, 23) e as mesmas Series, mudando só a ordem das linhas de postos e bruto. A linha da sorte muda: 37.58 na ordem do montar_matriz, 37.78 com sort_index, 37.82 e 37.19 em duas permutações. O p de contagem_por_limiar vai de [0.002, 0.001, 0.002] para [0.003, 0.002, 0.002], [0.002, 0.001, 0.007] e [0.001, 0.001, 0.001]. Fora do bloco da sorte, o JSON sai idêntico: p, q, p descontado, medianas e resumo. Hoje, por sorte, nenhuma marca acima_da_linha_da_sorte troca de linha (7 nas quatro ordens). O sorteio é feito sobre posições (np.where(anos == a) e gen.permutation na ordem das linhas), e o autoteste_do_alinhamento compara só gap/p/q/destoa/tamanho/mediana_crua. Por isso não pega a mudança.",
+     "por_que_importa": "Semente fixa só vale se a ordem das linhas também for fixa, e o módulo não impõe essa ordem. Se o Protótipo montar o painel em outra ordem (um sort, um merge), vai publicar outra 'linha da sorte' com a mesma semente declarada, e a docstring promete que ela reproduz o pontos.json. A frase do relato, 'resultado igual em qualquer ordem', é falsa para esse bloco.",
+     "conserto": "Dentro de tabela_de_gaps, antes do sorteio, pôr P, rótulos e anos numa ordem canônica: postos.index.sort_values(), aplicada também a bruto e aos vetores já alinhados. Ou sortear sobre essa ordem e devolver na original. Levar ao autoteste_do_alinhamento a comparação de linha_da_sorte e acima_da_linha_da_sorte entre postos e postos.sort_index(). Se a ordem canônica mudar o 37.58 publicado, regerar e declarar a mudança."
+    },
+    {
+     "gravidade": "detalhe",
+     "onde": "ranking_gaps.py:1538-1547 (docstring de tabela_de_gaps, seção Parâmetros)",
+     "no_json": "'`anos`: vetor do ano de cada linha' · '`rotulos`: faixa de cada linha' · '`r_val`: posto de valor do elenco por linha' · '`controles`: {indicador: (nome, vetor)}'",
+     "eu_medi": "A seção Parâmetros ainda chama anos, rótulos, r_val e controles de 'vetor'. O parágrafo ALINHAMENTO, logo abaixo, diz que vetor (.values, ndarray, lista) é RECUSADO. Confirmei a recusa: r_val.values, controle em ndarray e G.posto_ano(d80,'tm_valor_total') (RangeIndex) dão AssertionError. Quem lê só a lista de parâmetros, que é o que se consulta primeiro, é levado à chamada que quebra.",
+     "por_que_importa": "Pergunta 4 da lente: a doc precisa bastar sozinha. As mensagens de erro são claras e apontam pela_chave, então o dano é pequeno. Mas a doc se contradiz.",
+     "conserto": "Trocar 'vetor' por 'Series indexada por (ano, clube) (ver ALINHAMENTO)' nos quatro parâmetros e no `outro` (postos com índice, rótulos e anos em Series)."
+    },
+    {
+     "gravidade": "detalhe",
+     "onde": "ranking_gaps.py:1269-1291 (_medianas_para_a_tela)",
+     "no_json": "Docstring: 'se ainda assim duas medianas cruas diferentes saírem iguais, sobem os significativos até separarem'",
+     "eu_medi": "No dado real, 293 linhas × 3 faixas: nenhuma diferença apagada, nenhuma inversão de ordem, erro dentro de max(0,0005; 0,05% do valor), nenhum None e nenhuma representação longa. Com entradas sintéticas: {0.1+0.2, 0.3} sai {0.30000000000000004, 0.3}. O ruído de ponto flutuante conta como diferença, e o laço sobe até 17 significativos e publica os 17 dígitos. {123456.78949, 123456.78951} sai {123456.789, 123456.79}, com precisões diferentes lado a lado. Faixa sem valor vira None sem motivo na linha (hoje 0 casos). Na prática, para valores maiores ou iguais a 1 a regra é '3 casas decimais', não algarismos significativos. A docstring explica isso, então não é mentira.",
+     "por_que_importa": "Hoje não aparece. Uma mediana de n par, que é média de dois valores, pode ficar a um ulp de outra, e a tela passaria a mostrar 17 dígitos ou precisões misturadas na mesma linha.",
+     "conserto": "Considerar iguais as medianas com abs(a-b) <= 1e-9*max(|a|,|b|) antes de contar 'distintos'. Arredondar as três faixas da linha com a mesma precisão, a maior que o laço exigir. Pôr motivo_mediana_crua quando uma faixa sair None."
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ]
+]

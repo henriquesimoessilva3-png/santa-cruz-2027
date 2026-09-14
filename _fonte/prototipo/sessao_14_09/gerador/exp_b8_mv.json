@@ -1,0 +1,218 @@
+{
+ "codigo": "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/gerador/b8_gerar_prototipo.py",
+ "modo": "mv",
+ "candidatos_com_mv": 371,
+ "trocas_no_B_exigindo_mv": [
+  {
+   "proposta": "B_barato_transicao__serie_b",
+   "vaga": "ZD",
+   "categoria": "recomendacao",
+   "antes": [
+    [
+     "Vilar (Botafogo SP)",
+     99.95
+    ],
+    [
+     "Éder (Ceará)",
+     95.5
+    ]
+   ],
+   "depois": [
+    [
+     "Éder (Ceará)",
+     100.0
+    ],
+    [
+     "J. Cuenú (Operário PR)",
+     100.0
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__serie_b",
+   "vaga": "ZE",
+   "categoria": "recomendacao",
+   "antes": [],
+   "depois": [
+    [
+     "Vitor Mendes (Cuiabá)",
+     100.0
+    ],
+    [
+     "Fabio Alemão (CRB)",
+     99.55
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__serie_b",
+   "vaga": "LD",
+   "categoria": "recomendacao",
+   "antes": [],
+   "depois": [
+    [
+     "Ewerthon (Atlético GO)",
+     58.35
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__serie_b",
+   "vaga": "VOL",
+   "categoria": "recomendacao",
+   "antes": [
+    [
+     "Dudu (Vila Nova)",
+     93.75
+    ],
+    [
+     "Luiz Felipe (Náutico)",
+     93.6
+    ]
+   ],
+   "depois": [
+    [
+     "Luiz Felipe (Náutico)",
+     100.0
+    ],
+    [
+     "Zé Ricardo (Avaí)",
+     71.6
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__serie_b",
+   "vaga": "MED",
+   "categoria": "recomendacao",
+   "antes": [
+    [
+     "Matheus Bianqui (Grêmio Novorizontino)",
+     99.95
+    ],
+    [
+     "Raí (Juventude)",
+     55.55
+    ]
+   ],
+   "depois": [
+    [
+     "Matheus Bianqui (Grêmio Novorizontino)",
+     100.0
+    ],
+    [
+     "Luiz Henrique (Avaí)",
+     93.35
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__serie_b",
+   "vaga": "ED",
+   "categoria": "recomendacao",
+   "antes": [
+    [
+     "M. Segovia (América Mineiro)",
+     92.7
+    ]
+   ],
+   "depois": [
+    [
+     "Hildeberto Pereira (Operário PR)",
+     100.0
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__sul_americano",
+   "vaga": "VOL",
+   "categoria": "recomendacao",
+   "antes": [],
+   "depois": [
+    [
+     "Luiz Felipe (Náutico)",
+     59.95
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__sul_americano",
+   "vaga": "VOL",
+   "categoria": "empate_tecnico",
+   "antes": [
+    [
+     "M. Arrasco (FC Cajamarca)",
+     50.65
+    ],
+    [
+     "Sebastián Galani (Coquimbo Unido)",
+     48.65
+    ]
+   ],
+   "depois": []
+  },
+  {
+   "proposta": "B_barato_transicao__sul_americano",
+   "vaga": "MED",
+   "categoria": "recomendacao",
+   "antes": [],
+   "depois": [
+    [
+     "M. Acosta (Rubio Ñú)",
+     77.5
+    ]
+   ]
+  },
+  {
+   "proposta": "B_barato_transicao__sul_americano",
+   "vaga": "MEI",
+   "categoria": "recomendacao",
+   "antes": [],
+   "depois": [
+    [
+     "B. Palacios (FC Cajamarca)",
+     55.65
+    ]
+   ]
+  }
+ ],
+ "B_com_mv": {
+  "B_barato_transicao__serie_b": {
+   "nomes_recomendados": 15,
+   "nomes_em_empate_tecnico": 0,
+   "candidatos": 36,
+   "nucleo_valor_eur": 8750000.0,
+   "posto": 17,
+   "sem_mv": 0,
+   "possivel": true
+  },
+  "B_barato_transicao__sul_americano": {
+   "nomes_recomendados": 3,
+   "nomes_em_empate_tecnico": 0,
+   "candidatos": 352,
+   "nucleo_valor_eur": 4725000.0,
+   "posto": 20,
+   "sem_mv": 0,
+   "possivel": true
+  }
+ },
+ "B_como_esta": {
+  "B_barato_transicao__serie_b": {
+   "nomes_recomendados": 12,
+   "nomes_em_empate_tecnico": 0,
+   "candidatos": 60,
+   "nucleo_valor_eur": 5400000.0,
+   "posto": 18,
+   "sem_mv": 7
+  },
+  "B_barato_transicao__sul_americano": {
+   "nomes_recomendados": 0,
+   "nomes_em_empate_tecnico": 2,
+   "candidatos": 575,
+   "nucleo_valor_eur": 950000.0,
+   "posto": 21,
+   "sem_mv": 12
+  }
+ },
+ "tempo_s": 2.7
+}

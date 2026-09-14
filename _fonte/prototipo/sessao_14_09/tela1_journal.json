@@ -1,0 +1,686 @@
+[
+ [
+  "dono:app-index",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/app.js",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/templates/index.html"
+   ],
+   "o_que_fiz": [
+    {
+     "pedido": "Tirar os rótulos dos grupos de liga de dentro de montarChips para uma constante global GRUPOS_LIGA_ROTULOS",
+     "onde": "static/app.js, logo depois de GRUPOS_LIGA (por volta da linha 78), e montarChips",
+     "como": "Criei `const GRUPOS_LIGA_ROTULOS` com os mesmos 5 itens {c, r}, na mesma ordem e com os mesmos textos (brasil 'Brasil A/B/C', brasilbc 'Brasil B+C', sulamerica 'América do Sul', europa 'Europa', todas 'Todas as ligas'). O montarChips agora faz `GRUPOS_LIGA_ROTULOS.map(...)` no lugar do `defs` local. Um comentário avisa que 'todas' fica fora de GRUPOS_LIGA de propósito e que outro script só pode ler essas const dentro de uma função chamada depois que o app.js carregou."
+    },
+    {
+     "pedido": "Expor os modos de nacionalidade como NACAO_MODOS",
+     "onde": "static/app.js, ao lado de GRUPOS_LIGA_ROTULOS; e ligar()",
+     "como": "Criei `const NACAO_MODOS = [{v:'',r:'Qualquer nacionalidade'},{v:'br',r:'Só brasileiros'},{v:'sul',r:'Só sul-americanos (com Brasil)'},{v:'sulex',r:'Sul-americanos estrangeiros'},{v:'ex',r:'Só estrangeiros'}]`, com os mesmos valores e textos do select de hoje. Para não ficarem duas cópias que envelhecem separadas, o ligar() passou a montar as opções do #fNacao a partir dessa constante. As opções escritas no index.html ficaram como estavam e são substituídas na carga. O resultado na tela é idêntico: só muda o espaço em branco entre as tags."
+    },
+    {
+     "pedido": "Se existir filtro de idade reutilizável, expor (passaIdade) sem mudar a janela de busca",
+     "onde": "static/app.js: função nova passaIdade logo antes de PAISES_SUL; filtrar() passa a chamá-la",
+     "como": "`passaIdade(idade, min, max)`: quem não tem idade (vazio ou 0) passa em qualquer faixa. Mínimo e máximo vazios valem 0 e 99, igual aos campos da janela. O filtrar() trocou as duas linhas `const id = Number(j.id_)||0; if (id && (id<idMin||id>idMax)) return false;` por `if (!passaIdade(j.id_, idMin, idMax)) return false;`. É a mesma regra, agora numa função só."
+    },
+    {
+     "pedido": "Acrescentar a tag de proto_glossario.js antes do proto.js",
+     "onde": "templates/index.html, linha 736 (entre prototipo.js e proto.js)",
+     "como": "Pus `<script src=\"/static/proto_glossario.js?v={{ ver }}\"></script>`, no mesmo formato das tags vizinhas (caminho fixo com ?v={{ ver }}). Não mudei mais nada no HTML e não registrei aba nova."
+    }
+   ],
+   "api_publicada": [
+    "GRUPOS_LIGA_ROTULOS: const global, array de {c, r}. c é a chave de GRUPOS_LIGA ou 'todas' (sem lista: não filtra por liga); r é o texto do botão. A ordem do array é a ordem dos botões.",
+    "NACAO_MODOS: const global, array de {v, r}. v é o modo que passaNacao(j, modo) entende ('', 'br', 'sul', 'sulex', 'ex'); r é o texto da opção.",
+    "passaIdade(idade, min, max) -> boolean: função global. Sem idade, passa. min e max vazios valem 0 e 99.",
+    "Já existiam e seguem iguais: GRUPOS_LIGA, PAISES_SUL, ehEstrangeiroBase(j), ehSulAmericano(j), passaNacao(j, modo). O registro precisa ter nac e psp.",
+    "Aviso para o proto_c.js: const de nível de cima do app.js não existe enquanto o proto_c.js carrega (ele vem antes na página). Leia essas constantes só dentro de funções pc* chamadas por ptRender."
+   ],
+   "o_que_ficou_para_outro_dono": [
+    "static/proto_glossario.js ainda NÃO existe (Dono 2). Enquanto não existir, a tag nova gera um 404 e UMA mensagem de erro no console ('Failed to load resource ... 404'). As 16 etapas continuam desenhando, com zero erro de etapa. Com o arquivo no lugar, o console fica limpo: conferi com um arquivo vazio de teste só no scratchpad. O Dono 2 precisa publicar esse arquivo antes da conferência final de 'zero erro no console'.",
+    "Filtros na tela das etapas 13 e 14 e da aba de pontos (PC.filtros, pcPassaFiltro, recontagem): dono do proto_c.js.",
+    "Gravar id, nac e psp nos candidatos da etapa 13, na trilha do goleiro e nos nomes da etapa 14: dono do gerar_prototipo.py. Sem psp, a regra 'dupla com o Brasil conta como brasileiro' não tem como ser aplicada.",
+    "Registrar as abas novas (pontos e conclusões) no index.html e no app.js: último degrau, não foi feito agora."
+   ],
+   "como_testei": "1) `node --check static/app.js`: passou. 2) Comparação headless com Playwright do Python, sem tocar nas portas 5090 e 5091. Montei duas cópias no scratchpad: sc_antes, com app.js e index.html tirados de `git show HEAD:`, e sc_depois, com os arquivos alterados. As duas usam o mesmo app.py e o mesmo static, com link simbólico para dados/ e cenários e premissas apontados para o scratchpad. Subi uma em 127.0.0.1:5095 e a outra em :5096. Em cada uma, o teste esperou a base carregar, abriu a janela 'Escolher jogador' com abrirBusca e clicou nos 5 botões de grupo de liga. Em cada grupo passou pelos 5 modos de nacionalidade e por 3 faixas de idade (vazia, 20-26, 30+), com e sem posição: 150 combinações. Anotei em todas o total filtrado (resultado.length) e as linhas no tbody (limite de 400). As 150 deram igual antes e depois. Exemplo: Brasil A/B/C, qualquer nacionalidade, sem idade, 3.613 jogadores; com idade 20-26, 1.348. O HTML dos botões saiu idêntico. As opções de nacionalidade têm os mesmos valores e textos, só sem o espaço em branco entre as tags. O botão Limpar também foi testado. Depois abri a aba Protótipo nas duas versões: 16 etapas, 0 .pt-erro, 0 .pt-espera e o mesmo tamanho de HTML (2.255.262 caracteres). O console da versão antiga ficou limpo. Na nova, o único erro é o 404 do proto_glossario.js; com um arquivo vazio de teste no scratchpad, também limpo. As constantes aparecem como globais só na versão nova. No fim derrubei as duas instâncias de teste (5095 e 5096); 5090 e 5091 continuaram no ar. Nenhum git que escreva foi usado (só `git show` e `git diff`).",
+   "riscos": [
+    "Até o Dono 2 criar static/proto_glossario.js, a página carrega com um 404 e um erro de rede no console. Isso não quebra nenhuma etapa, mas descumpre 'zero erro no console' se a conferência rodar antes do arquivo existir.",
+    "O #fNacao agora é montado pelo JS a partir de NACAO_MODOS. As opções que continuam no index.html só valem até o ligar() rodar. Quem mudar um texto no HTML não vê efeito: o lugar certo é NACAO_MODOS.",
+    "Existe outra regra de nacionalidade na aba de contratos (classPais, que olha só nac, e o SA de lá exclui o Brasil). Não mexi nela. O proto_c.js deve reusar passaNacao, não a de lá.",
+    "versao_estatica() do app.py não inclui proto_glossario.js no ?v=. O navegador pode guardar a versão velha desse arquivo em cache. Não mexi porque app.py não é meu arquivo; o dono do app.py ou do glossário pode acrescentar o nome à lista."
+   ]
+  }
+ ],
+ [
+  "dono:casca",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/style.css",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_contrato.md"
+   ],
+   "o_que_fiz": [
+    {
+     "pedido": "1. Dado ativo",
+     "onde": "static/proto.js: PT_ABAS/PT_ATIVA, ptDado, ptPrefixo, ptId, ptArquivoDado, ptAtivarAba, ptRender(cfg); contrato §8.1 e §9",
+     "como": "ptRender(cfg) recebe {dado, alvo, prefixo, rotulos, etapas, conferida, escala}. ptRender() sem argumento é a aba Protótipo, igual a antes (é o que o app.js chama). Tirei toda leitura direta de PROTO da casca (ptSorte, ptNomeIndicador, ptBaseline, ptLiquidaAlfa, ptCascaFaixa, ptTarja, ptBases, ptControles, ptPreencherEtapa). Um gancho de pointerdown/focusin/keydown (fase de captura) ativa a aba do elemento antes do handler da etapa rodar. O contrato lista, com arquivo:linha, as 16 leituras de PROTO que ainda existem em proto_a/b/c e as 4 frases de tela que citam 'PROTO'. A tarja de uma aba com conferida:false diz que os números dela ainda não foram refeitos por outras mãos, porque o laudo cobre só o prototipo.json."
+    },
+    {
+     "pedido": "2. Estado por aba e prefixo de id",
+     "onde": "static/proto.js: ptTabId/ptTabela, ptEsqueletoEtapa, ptSumario, ptPreencherEtapa, ptIrParaEtapa(n, prefixo), ptLigarSumario, ptAoTrocarDado",
+     "como": "Todo id da casca leva o prefixo da aba. ptTabela troca 'ptEt-' pelo prefixo da aba sozinho. A cada render, o estado da aba é refeito: tabelas registradas, observador do sumário, etapas com escala e ouvintes. Criei o gancho ptAoTrocarDado(fn), que roda quando o dado ativo muda de objeto. O contrato lista os caches que cada dono precisa zerar, com a linha pronta: PB_NOMES (proto_b:27-30), PC.catalogo (proto_c:40-44), PC.clubes e clubesMotivo (proto_c:57-78), PC.et12/13/14 (proto_c:30) e PA_ET2 (proto_a:1031). Lista também os 11 ids fixos fora de tabela que se repetem entre abas."
+    },
+    {
+     "pedido": "3. Vocabulário de faixa",
+     "onde": "static/proto.js: ptFx, ptK, ptFxRot, ptFxLista, ptCaminho, ptLer; contrato §8.3",
+     "como": "A regra sai de faixas.chave_interna e faixas.rotulos. Na Protótipo: sobe/meio/cai, 'quem subiu / meio da tabela / quem caiu'. Com PONTOS: alta/media/baixa e os rótulos de lá. Os códigos de comparação se formam pelas iniciais (SM vira AM, SC vira AB), que conferem com PONTOS.tela.mapa_de_caminhos. ptCaminho/ptLer seguem as renomeações feitas à mão (top4_de_valor vira top_k_de_valor). Fiz só o mecanismo; o mapeamento das ~200 chaves fica com os donos."
+    },
+    {
+     "pedido": "4. Legenda das matrizes",
+     "onde": "static/proto.js: ptLegendaPosto(opts); style.css .pt-legenda-posto",
+     "como": "No percentil, diz com todas as letras que o número da célula não é o valor medido: é a posição do time no ranking daquele ano, de 0 a 100. No cru, avisa que o valor mistura anos e que a cor e a ordem continuam as do percentil. Quando a aba tem o botão, aponta para ele."
+    },
+    {
+     "pedido": "5. Escala percentil / valor cru",
+     "onde": "static/proto.js: ptEscala, ptRegistrarEtapaComEscala, ptAoMudarEscala, ptMudarEscala, ptAtualizarBotaoEscala; botão no alto do sumário (#<prefixo>-escala); style.css .pt-escala",
+     "como": "O estado fica por aba e se mantém quando a mesma aba é redesenhada. O botão é um por aba e fica escondido enquanto nenhuma etapa se registrar; hoje nenhuma se registra, então ele não aparece. Ao trocar, a casca redesenha inteiras só as etapas registradas e depois chama os ouvintes."
+    },
+    {
+     "pedido": "6. Conclusões",
+     "onde": "static/proto.js: ptConclusao, ptConclusoesTopo, ptConclusaoDaEtapa, PT_SELOS; slot no topo (entre a procedência e os controles) e em cada etapa, fora do alvo; style.css .pt-concl*",
+     "como": "Um componente só. Mostra o selo por extenso antes da frase, com o que ele quer dizer, e depois título, frase, número, 'O que isto não quer dizer:', a nota técnica e o link para a etapa (data-pt-ir/data-pt-prefixo, funciona também de fora da aba). Aceita os dois formatos (cinco|cinco_que_precisa_ler, itens|conclusoes). Nunca lê forca_esperada_hoje nem monta molde. Sem o bloco no dado, o topo e cada etapa escrevem uma linha discreta com o motivo."
+    },
+    {
+     "pedido": "7. Glossário",
+     "onde": "static/proto.js: ptInfoMedida, ptDicaMedida, ptNomeCurto, ptNomeMedida, ptNomeIndicador, PT_MEDIDA_CHAVE",
+     "como": "A busca segue esta ordem: campo do gerador (nome_simples, nome_curto, unidade, definicao...), depois ptGlossario(id) (nome_longo para a frase, nome para cabeçalho; se o arquivo não existir, pula sem erro) e por fim o nome antigo. Medida de setor sempre sai com o setor no nome. Corrigi dois nomes conferindo o código: finalizacao passa a ser 'gols acima do esperado por jogo (gols menos xG)', porque a conta é GP/J - xG; aprovZ6 passa a ser 'aproveitamento contra quem terminou do 15º para baixo', porque a conta é aprov(posAdv >= 15), com posAdv = posição final do adversário."
+    },
+    {
+     "pedido": "8. Largura",
+     "onde": "static/style.css (bloco .pt*, e classes novas no fim)",
+     "como": "Tirei o teto de 1.240 px e deixei um respiro lateral por clamp. O sumário ficou com 172 px, fixo. Cabeçalho e célula de texto quebram linha; célula .num não quebra. .pt-sub e .pt-nota ficaram em 75ch. A coluna do valor da barra agora cresce com o texto. Classes novas publicadas no contrato §10: pt-matriz, pt-th-vertical, pt-col-fixa, pt-minis/pt-mini, pt-filtros/pt-chip(.zero), _separadorAntes com pt-linha-sorte (inclui o botão 'voltar à ordem original'), pt-empate, pt-marca, pt-legenda-posto, pt-concl*, pt-escala. Também cabClasse nas colunas do ptTabela."
+    }
+   ],
+   "api_publicada": [
+    "ptRender(cfg?) — cfg {dado, alvo, prefixo, rotulos{aba,titulo,sub,arquivo,global,script,gerador,nomeAba}, etapas, conferida, escala}; sem argumento = aba Protótipo",
+    "ptDado(el?), ptPrefixo(el?), ptId(sufixo, el?), ptArquivoDado(el?), ptAtivarAba(prefixo), ptAba(el?)",
+    "ptAoTrocarDado(fn(dadoNovo, dadoAnterior))",
+    "ptFx(chave, dado?), ptK(base, faixa|{...}), ptFxRot(faixa, {curto}?), ptFxLista(), ptCaminho(caminho), ptLer(caminho)",
+    "ptLegendaPosto({escala?, unidade?, el?})",
+    "ptEscala(el?), ptRegistrarEtapaComEscala(n), ptAoMudarEscala(fn, chave?), ptMudarEscala(valor, prefixo?)",
+    "ptConclusao(c, {prefixo?, dado?, semLink?}), ptConclusoesTopo(dado, opts?), ptConclusaoDaEtapa(dado, n, opts?)",
+    "ptInfoMedida(id) -> {nome, curto, mede, unidade, fonte, lado, escala, fase, compara_com_por_90, origem_nome}, ptDicaMedida(id), ptNomeCurto(id)",
+    "ptTabela: colunas[].cabClasse, linhas[]._separadorAntes, cfg.separadorFora; o id ganha o prefixo da aba sozinho",
+    "ptIrParaEtapa(n, prefixo?)",
+    "ptSeguro(fn, rotulo)",
+    "CSS: pt-matriz, pt-th-vertical, pt-col-fixa, pt-minis/pt-mini/pt-mini-tit/pt-mini-num, pt-filtros/pt-filtro-grupo/pt-chip(.on,.zero)/pt-chip-n/pt-filtros-conta, pt-linha-sorte/pt-linha-sorte-rot, pt-empate, pt-marca(.alerta), pt-legenda-posto(.cru), pt-concls/pt-concl/pt-concl-selo(.forte .moderado .fraco .sem_sinal .nao_da_para_afirmar .sem)/pt-concl-frase/-numero/-ressalva/-link/-ausente, pt-escala"
+   ],
+   "o_que_ficou_para_outro_dono": [
+    "proto_a.js: trocar as leituras de PROTO (l.164, 218, 338, 929, 1277, 1528) por ptDado(); frases que citam PROTO (l.367, 580, 716, 1279) por ptArquivoDado(); ids fixos ptEt-2-busca/pilar/familia/setor/porta/limpar/caixa (l.1239, 1300, 1311-1333, inclusive o <style> inline) por ptId(); PA_ET2 (l.1031) por aba; tirar max-width:none das .pt-nota (~l.605, 729, 895); catálogo da etapa 2 ainda com 31 colunas (5.586 px numa caixa de 1.509)",
+    "proto_b.js: PROTO em l.31, 62, 275, 315; registrar reset de PB_NOMES em ptAoTrocarDado; ids ptEt-5-painel/lupa e ptEt-6-sel/graf; matriz da etapa 5 usar classe pt-matriz + ptNomeCurto + ptLegendaPosto + ptRegistrarEtapaComEscala (ainda 2.673 px); PB_FAIXA_COR/PB_FAIXA_TXT por ptFxRot",
+    "proto_c.js: PROTO em l.42, 48, 58-59, 85, 1235-1236, 1485-1486; reset de PC.catalogo/PC.clubes/PC.clubesMotivo em ptAoTrocarDado; PC_GRUPOS por ptFxRot; tabelas ptEt-9-crus-3/6/7 com frase em coluna sem tipo:'texto' (ainda rolam para o lado); ptEtapa9 quebra quando desenhada com PONTOS (Cannot read properties of undefined 'length', proto_c.js:279) — é o mapeamento de chaves que ainda falta",
+    "Mapeamento das ~200 chaves sobe/meio/cai/SM/SC e das ~198 frases de faixa em proto_a/b/c, quando o pontos.json fechar a conferência",
+    "Gerador: bloco conclusoes, indicadores[].unidade/definicao/nome_simples dos derivados, faixas.rotulos_curtos (opcional), faixa_*_bruto no Protótipo",
+    "Dono de index.html/app.js: registrar a aba de pontos com ptRender({dado: PONTOS, alvo: '#poCorpo', prefixo: 'poEt', rotulos: {arquivo: 'pontos.json', global: 'PONTOS', ...}}) e a aba de conclusões usando ptConclusao; o link para uma etapa precisa chamar irParaAba antes",
+    "Glossário: nomes que o proto_glossario.js marca com aviso_nome (ex.: 'velocidade máxima', que é média de picos) — decidir se a casca troca; não troquei porque não estava pedido"
+   ],
+   "como_testei": "node --check em static/proto.js. Teste headless com o Playwright do Python (script em scratchpad/casca/teste.py): sobe o Flask em 127.0.0.1:5095, abre a aba Protótipo a 1.785 px e derruba o servidor no fim (conferido: nada escutando na 5095 depois). Antes da mudança: 16 etapas desenhadas, 0 erro no console, 31 de 44 caixas de tabela rolando para o lado, aba com 1.240 px. Depois, na rodada final: 16 de 16 etapas desenhadas, nenhuma com pt-erro ou pt-espera, 0 erro no console, 5 de 44 caixas rolando, aba com 1.753 px, o documento não rola para o lado, nenhum id pt* repetido. Um teste extra, no navegador: o botão da escala fica escondido sem registro; com a etapa 5 registrada à mão, ele aparece, o clique troca para cru, a etapa 5 é redesenhada e o botão some de novo (ela não se registra de volta), e a legenda cru avisa que o valor mistura anos. Desenhei ptConclusao com um bloco falso: selo por extenso, 'não dá para afirmar', 'não calculada' quando falta selo. Desenhei uma segunda aba com PONTOS e prefixo poEt na mesma página: 16 etapas; ptFx dá alta/AM/AB; ptCaminho dá top_k_de_valor; a tarja diz 'ainda não foram refeitos'; clicar dentro de cada aba troca ptDado entre PROTO e PONTOS; as tabelas ficam registradas separadas (28 poEt, 39 ptEt). Nesse teste de duas abas o console teve dois erros, os dois só do extra: um recurso com 404 que não identifiquei e o ptEtapa9 quebrando com PONTOS (proto_c.js:279, a casca conteve). A rodada só com a Protótipo teve zero. Conferi também os nomes do glossário (ti_zaga_duelos_aereos_ganhos sai como 'duelos aéreos ganhos (zaga)'; spn_s como 'número de piques a cada 30 min sem a bola'). Os dois arquivos foram gravados com cat > para manter o mesmo inode (hardlink, contagem de links 2).",
+   "riscos": [
+    "A aba Protótipo NÃO ficou visualmente idêntica. Houve três mudanças visíveis, todas pedidas: o layout agora ocupa a largura toda; aparecem 17 linhas discretas de 'conclusão ainda fora da tela' (topo + 16 etapas); e, como o proto_glossario.js de outro dono já está carregado no index.html, os nomes das medidas passaram a sair do glossário (nome_longo). O nome muda na tela conforme o glossário mudar.",
+    "ptNomeMedida também recebe nomes de coluna (ex.: 'Posse, %'), não só ids; se o glossário tiver uma chave igual a um desses textos, o nome muda sem aviso.",
+    "O dado ativo depois do render depende do gancho de pointerdown/focusin/keydown. Um redesenho de etapa disparado fora de evento de usuário (timer) com duas abas na página lê a última aba ativa; o contrato manda passar o elemento: ptDado(alvo).",
+    "Os códigos CM/CR viram BM/BR pela regra das iniciais, mas o gerador dos pontos ainda não conhece esses sufixos.",
+    "O contrato §5 deixou de repetir o mapa de chaves etapa a etapa (aponta para a versão anterior no git e para a ESPECIFICACAO.md), para não manter duas cópias.",
+    "Enquanto proto_a/b/c não trocarem PROTO por ptDado(), uma aba com outro dado mostra números do Protótipo sem erro (as linhas estão listadas no contrato §9).",
+    "Outros donos estavam editando em paralelo (git status mostrou app.js, index.html e proto_glossario.js alterados); os testes rodaram com o estado deles do momento."
+   ]
+  }
+ ],
+ [
+  "dono:glossario",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_glossario.js"
+   ],
+   "o_que_fiz": [
+    {
+     "pedido": "Transformar o rascunho (564 entradas) em const PT_GLOSSARIO + function ptGlossario(id) que devolve null sem entrada (itens 11, 13 e 17)",
+     "onde": "static/proto_glossario.js",
+     "como": "São 473 entradas de indicador, régua ou regra em PT_GLOSSARIO e 143 de coluna de tabela em PT_GLOSSARIO_COLUNAS. Ficam em mapas separados porque 'porta' e 'consequencia_do_resultado' eram duplicadas no rascunho e colunas como 'p' e 'tipo' colidiriam com indicadores. As duas funções usam hasOwnProperty, então 'constructor' e 'toString' também devolvem null. Tudo sai de um conversor no scratchpad (gerar_glossario_js.py): primeiro ele roda de novo o montador do rascunho numa cópia, para as linhas de origem saírem dos arquivos de hoje (ranking_gaps.py mudou depois do rascunho), e depois aplica as correções."
+    },
+    {
+     "pedido": "Campos de cada entrada: nome, nome_longo, mede, unidade, fonte, lado, fase, por, compara_com_por_90, origem; nunca inventar; o que não tem fonte fica 'nao_achei_fonte'",
+     "onde": "static/proto_glossario.js (PT_GLOSSARIO e PT_GLOSSARIO_COLUNAS)",
+     "como": "Além dos campos pedidos, cada entrada leva fonte_detalhe, lado_quem_declara, universo, setor, nota, aviso_nome e a lista nao_achei_fonte com os campos sem fonte. Os campos sem fonte são: unidade (9 entradas: intensidade e as 8 'ajust. à posse'), por (8) e fase (6, os tempos t_*). compara_com_por_90 só é true quando por = 'por 90'. Todo o físico e todo o técnico individual ficam 'sem lado bom declarado', porque o catálogo grava sinal 0. Nos alvos físicos da etapa 13 tirei o 'mais é melhor' que o rascunho impunha; só os tempos ficam 'menos é melhor', que é o que o projeto declara. Também tirei do texto os números medidos (160, 31, 36 pares, 10.000 réplicas etc.); ficaram só as regras do código (600+ min, 300+, piso de 60%)."
+    },
+    {
+     "pedido": "Reabrir a fonte de uma amostra grande (60+ entradas, todos os grupos) e consertar o que não bater",
+     "onde": "Fontes relidas: analisar_serieb.py, gerar_prototipo.py, gerar_raio_serieb.py, ranking_gaps.py, gerar_pontos.py, preparar_base.py, dados/prototipo_indicadores.json, dados/kpis.json, static/app.js e as skills dados-skillcorner e dados-wyscout",
+     "como": "Conferi uns 75 casos em todos os grupos pedidos. Confirmados sem mudança: técnico coletivo (média por jogo, xG sofrido lido da linha do adversário, xg_por_remate = xG ÷ chutes), elenco (share_11, conc_hhi, nucleo_*, estrangeiro com dupla nacionalidade brasileira, idade_11, plantel, formações), físico (psv99 e top5 pela skill, runs com o time em posse, corte de 300 min, setor com menos de 3 atletas), goleiro (os campos gk_*), blocos kpi (rótulos batem com kpis.json), resultado (pts1t/pts2t, aprovG6/Z6, pctFicou, gkEvitados, finalizacao), sistemas da etapa 15, confiabilidade da etapa 4, mínimo de 8 pares na etapa 6, 1º turno da etapa 7 e o teste por clube.\n\nConsertos feitos:\n(1) o p da tabela de gaps e os dois p descontados saem de Mann-Whitney, não de Welch;\n(2) a média ponderada tem piso de 60% (media_pond, minimo=0.6), que o rascunho omitia; entrou no físico, no técnico individual e na regra 'ponderada';\n(3) os 9 eixos das etapas 8 e 9 NÃO são escala de 0 a 100: item invertido entra com o sinal trocado (s*v), não como 100 menos a posição;\n(4) m_per_min_tip e m_per_min_otip são por minuto da fase, não por 30 min;\n(5) pct_sobe é o percentil da média dos clubes (cada clube pela média dos seus atletas pesada pelo minuto) entre os atletas do setor;\n(6) d_clube troca o sinal nos tempos;\n(7) em tm_valor_mediana, quem não tem valor fica fora da mediana (na soma do valor total entra como zero);\n(8) fidelidade_media é a média do percentual que o Wyscout escreve entre parênteses na coluna Sistema; o que esse número mede continua sem fonte;\n(9) acrescentei 'penaltis', que a etapa 10 da aba por pontos usa e estava vazio;\n(10) acrescentei as colunas pct_/n_clubes_ de caro, barato, cai, alta e baixa, lado_bom, n_descontado_*, as variantes SC/AM/AB, m_/r_ de cada faixa, porta_motivo, n_persist, p_1T_2T, liq2_controle, liq2_motivo, replicas e universo."
+    },
+    {
+     "pedido": "Regras de juntar jogadores (ponderada, mediana, top5) com a frase tirada do código que agrega",
+     "onde": "PT_GLOSSARIO.ponderada, .mediana, .top5",
+     "como": "Frases conferidas em gerar_prototipo.py::agrega_tecnico_individual e analisar_serieb.py::media_pond. A nota de cada regra traz a linha literal do código que agrega (media_pond com o piso de 60%; v.median(); média dos 5 com mais minutos)."
+    },
+    {
+     "pedido": "Nomes no vocabulário da casa, sem criar um segundo nome",
+     "onde": "campos nome, nome_longo e aviso_nome",
+     "como": "nome_longo é o que ptNomeIndicador escreve hoje: tirei o nome executando o proto.js atual em node, sem o glossário carregado. Só onde a casca mostrava a chave crua ('spn s', 'obr área', 't spr', 'espAposDMT') montei o nome com as palavras da casa: ptNomeMedida aplicado à coluna do SkillCorner ('número de piques a cada 30 min sem a bola'). nome é a forma curta desse mesmo nome. A versão por fase ganha 'c/ bola' ou 's/ bola' para não repetir o nome da versão por 90, e as colunas de comparação levam '(subiu×meio)' etc. para dois cabeçalhos da mesma tabela não saírem iguais. aviso_nome só aparece onde a tela ainda escreve um nome que diz mais do que o dado; os de finalizacao e aprovZ6 saem sozinhos porque proto.js já os corrigiu hoje."
+    },
+    {
+     "pedido": "Comentário em prosa no topo: de onde vem, nada inventado, as de fase não se comparam com as de 90",
+     "onde": "cabeçalho de static/proto_glossario.js",
+     "como": "O comentário diz de onde vem cada grupo, a regra do nao_achei_fonte e do lado bom, de onde saem os nomes e as réguas de 'por' (por jogo, por 90, por 30 min da fase ou por minuto da fase, pico, %). Deixa escrito que as de fase NÃO se comparam com as de 90 e que ids terminados em 'ganhos', 'certos' ou 'com_sucesso' são %. Também documenta a ordem de busca decidida: gerador, glossário, ptNomeMedida."
+    },
+    {
+     "pedido": "Teste: node --check e script que confere todo id das matrizes, catálogo da etapa 2, etapa 13 e tabelas de gaps nos dois JSONs; dizer quantos ficaram sem",
+     "onde": "scratchpad/testar_glossario.js",
+     "como": "Resultado: 0 id sem entrada.\n• Matrizes (etapa 5): 293 + 293.\n• Catálogo da etapa 2: 293 + 293, e as colunas dele (43 + 45).\n• Etapa 13: alvos 35 + 35, colunas dos alvos 15 + 15, trilha do goleiro 6 + 6.\n• Tabela de gaps (só no pontos.json; o prototipo.json ainda não a tem): 293 linhas e 25 colunas.\n• Tabela de gaps do técnico 2018-2025: 31 linhas e 20 colunas.\n\nO teste também confere a forma das entradas: 0 erro de campo obrigatório, de vocabulário de lado ou fase, de coerência de compara_com_por_90 e de origem sem arquivo:linha. Nenhum nome curto se repete dentro de uma mesma matriz da etapa 5."
+    }
+   ],
+   "api_publicada": [
+    "const PT_GLOSSARIO = { <id>: {nome, nome_longo, nome_simples, mede, unidade, fonte, fonte_detalhe?, lado, lado_quem_declara?, fase, por, escala, compara_com_por_90, universo?, setor?, nota?, aviso_nome?, nao_achei_fonte?: [campos], origem, grupo} } — 473 entradas: indicadores (técnico coletivo, elenco, físico do elenco e por setor, técnico individual, apelidos físicos da etapa 13, goleiro, kpi_* dos blocos duelo e estilo, resultado da etapa 10, dinheiro, sistemas da etapa 15, etapa 11), as réguas A_…I_ e TERRITORIO/ROTA, e as regras ponderada/mediana/top5",
+    "function ptGlossario(id) -> entrada ou null (hasOwnProperty; null/undefined/'constructor' devolvem null)",
+    "const PT_GLOSSARIO_COLUNAS = { <chave de coluna>: {nome, nome_longo, nome_simples, mede, unidade, fonte, lado, fase, por, escala, compara_com_por_90, usada_em, origem, nota?} } — 143 colunas: catálogo da etapa 2 com as variantes SM/SC/AM/AB e m_/r_ de cada faixa; etapas 6, 7 e 10; as duas tabelas de gaps; técnico 2018-2025; colunas dos alvos e candidatos da etapa 13",
+    "function ptGlossarioColuna(k) -> entrada ou null",
+    "Vocabulário fechado dos campos: lado ∈ {'mais é melhor','menos é melhor','sem lado bom declarado','não se aplica' (só colunas e regras)}; fase ∈ {'jogo inteiro','com a bola do time','sem a bola','nao_achei_fonte','não se aplica (…motivo)'}; por ∈ {'por jogo','por 90','por 30 min daquela fase','por minuto','pico','%','na temporada','segundos','média do atleta, em metros','não se aplica (…)','nao_achei_fonte'}; fonte ∈ {'Wyscout time','Wyscout jogador com 600+ min','Wyscout jogador','SkillCorner','Transfermarkt','calculado no projeto','tabela oficial da Série B'}",
+    "nome_simples (= nome_longo) e escala (= por) existem só porque ptInfoMedida, no proto.js de hoje, lê esses dois nomes de campo: são cópias, não nomes novos",
+    "O arquivo carrega ANTES de proto.js (templates/index.html:736) e não chama helper pt… no topo"
+   ],
+   "o_que_ficou_para_outro_dono": [
+    "proto.js (Dono 1), nomes da tela que dizem mais do que o dado; todos ficam em aviso_nome e eu mantive o nome da casa:\n• psv/psv5/fis_*psv99 = 'velocidade máxima', mas pela skill dados-skillcorner é a MÉDIA entre os jogos do pico de cada jogo (percentil 99), não o recorde;\n• ppda = 'por desarme', mas é por ação defensiva;\n• gk_def = 'defesas', mas é a porcentagem de defesas;\n• defesa_vs_xg = 'gols evitados pelo goleiro', mas a conta é do time inteiro (xG sofrido por jogo menos gols sofridos por jogo);\n• a coluna expl_accel_sprint_p90 tem dois nomes na tela ('acelerações explosivas' pela chave expl e 'arrancadas explosivas até o pique' pelo fis_*);\n• os ti_*_ganhos/_certos/_com_sucesso não dizem na tela que são %.",
+    "proto.js (Dono 1): ptInfoMedida lê glo.nome_simples/nome, glo.escala e glo.lado_bom/lado. O glossário entrega nome (curto, sem setor), nome_longo e nome_simples (com setor) e escala = por. Se a casca passar a usar 'nome' em vez de 'nome_simples', o setor some do nome nos lugares que misturam setores (catálogo e tabela de gaps). O cabeçalho curto deve ler 'nome'; frase e dica devem ler 'nome_longo'.",
+    "proto_c.js (Dono 5), etapa 9: os eixos A_…I_ NÃO estão em escala de 0 a 100. eixos_matriz faz nanmean de s*posto, então item invertido entra negativo. Isso provavelmente explica por que o contrato não conseguia reconstruir 'sobe'. A tela não pode rotular esse número como posição de 0 a 100.",
+    "Quem escrever a tabela de gaps na tela (proto_a.js e aba por pontos): o p, o p_descontado_dinheiro e o p_descontado_dinheiro_e_elenco saem de Mann-Whitney bilateral (ranking_gaps.py::_mw), e o rascunho dizia Welch. As linhas também trazem lado_bom ('melhor'/'pior'/'sem lado bom declarado') e sinal.",
+    "Gerador (próxima rodada): gravar indicadores[].unidade e .definicao dos derivados (share_11, conc_hhi, nucleo_*, ti_* agregados, eixos). Ficaram sem fonte no projeto:\n• a fórmula dos ti_*_intercecoes_ajust_a_posse e _cortes_de_carrinho_ajust_a_posse;\n• a unidade e a definição da 'Intensidade de jogo' do Wyscout;\n• o que o '_top3' agrega nos tempos t_*;\n• o que o percentual da coluna Sistema mede (fidelidade_media);\n• se 'penaltis' é pênalti a favor ou contra.",
+    "Outra sessão (base de pontos): quando gerar_pontos.py, ranking_gaps.py ou pontos.json mudarem de novo, rodar scratchpad/montar_glossario_v2.py, gerar_glossario_js.py e testar_glossario.js: as linhas de origem e a cobertura dependem desses arquivos.",
+    "Dono do app.js / aba Físico (fora desta rodada): o comentário de gerar_raio_serieb.py:60-62 ainda diz que off_ball_runs só tem 2026, mas analisar_serieb.py:478-482 registra que 2022-2025 foram sincronizados em 11/09. Não mexi: é arquivo de gerador."
+   ],
+   "como_testei": "1) `node --check static/proto_glossario.js` passou.\n2) Rodei scratchpad/testar_glossario.js (node, vm isolado, dados/*.json só leitura) e ele saiu com código 0.\n   - Funções: devolvem null para id inexistente, null, undefined, 'constructor' e 'toString'.\n   - Forma: todas as 616 entradas têm os campos obrigatórios, lado e fase no vocabulário, compara_com_por_90 booleano e igual a (por === 'por 90'), nenhuma medida de fase marcada como comparável, e origem com arquivo:linha ou skill.\n   - Cobertura, 0 sem entrada em tudo: etapa_5 293/293 nos dois JSONs; etapa_2 293/293 nos dois, e as colunas dele 43 e 45; etapa_13 alvos 35/35, colunas dos alvos 15/15 e trilha do goleiro 6/6 nos dois; ranking_gaps (só existe no pontos.json) 293 linhas e 25 colunas; ranking_gaps_tecnico_2018_2025 31 linhas e 20 colunas.\n   - Nenhum nome curto se repete dentro de uma mesma matriz da etapa 5.\n   - Carreguei prototipo.js, depois proto_glossario.js, depois o proto.js atual (a ordem do index.html) e chamei ptNomeIndicador e ptDicaMedida numa amostra (posse, ppda, fis_zaga_psv99, ti_meio_duelos_aereos_ganhos, spn_s, obr_area, t_spr, espAposDMT, a chave do goleiro e um id inexistente): nenhuma exceção, setor presente no nome e 'spn s' virou 'número de piques a cada 30 min sem a bola'.\n3) Conferência na fonte de uns 75 casos espalhados pelos grupos (lista e consertos em o_que_fiz).\n4) Revisei à mão os textos com dígito e tirei os números medidos. Ficaram só as regras do código.\n5) git status (só leitura): o único arquivo meu no projeto é static/proto_glossario.js (untracked).\nNão abri o navegador: as portas 5090/5091 são do dono e a regra da casa proíbe subir servidor.",
+   "riscos": [
+    "proto.js está sendo editado agora por outro dono (mudou às 09:22 durante esta tarefa). nome_longo e nome_simples são a foto do que ptNomeIndicador escrevia sem o glossário nesse horário. Se a casca trocar mais nomes, o glossário fica com o nome antigo até rodar de novo gerar_glossario_js.py.",
+    "A casca de hoje prefere glo.nome_simples ao nome que ela mesma calcula: com o glossário carregado, TODO nome de medida da aba passa a vir daqui. Nos casos comuns o texto é idêntico, porque nome_simples foi tirado da própria casca, mas as chaves cruas ('spn s', 'espAposDMT', 'A posse construcao') mudam de texto na tela.",
+    "75 nomes curtos passam de 22 caracteres: as 22 versões de fase de distância em piques, alta velocidade e alta intensidade (até 26), os 38 esperado/sorte do sorteio de sequências (até 42) e as variantes de comparação das colunas (até 38). Encurtar mais faria dois cabeçalhos da mesma tabela ficarem iguais.",
+    "O arquivo tem ~695 KB e carrega para todo visitante do app, mesmo fora da aba Protótipo.",
+    "Os dois primeiros eixos (lado 'mais é melhor') e o lado de tecnico_col/elenco vêm do sinal pré-declarado do catálogo. Para share_11, conc_hhi, atletas_usados e nucleo_* esse lado vem com a nota de consequência do resultado, mas a tela pode ler o lado sem a nota e tomar como receita.",
+    "Em 25 das 616 entradas algum campo ficou nao_achei_fonte, sem preencher de propósito; quem desenha tem de escrever essa ausência com motivo.",
+    "As linhas de origem de ranking_gaps.py e gerar_pontos.py valem para os arquivos de hoje, que a outra sessão ainda está mudando."
+   ]
+  }
+ ],
+ [
+  "confere:contrato-e-api",
+  {
+   "lente": "O contrato e a API da casca (proto.js, style.css, proto_contrato.md). Pergunta: os donos de proto_a/b/c conseguem fazer tudo o que os mapas pedem sem mexer na casca?",
+   "conferidos": 15,
+   "medidas": "Li inteiros proto.js (1.720 linhas) e proto_contrato.md, o CONTINUAR, o PENDENTE_RODADA, as chaves \"mapa:tela\", \"mapa:filtros\", \"mapa:glossario\" e \"critico-do-plano\" do mapa, e ainda o \"mapa:gerador\" (a parte das conclusões) e a estrutura do conclusoes_spec.json. Tudo só leitura; nenhum arquivo do projeto foi alterado.\n\nTeste em node (script em scratchpad/conf_api.js): carrega prototipo.js, pontos.js, proto_glossario.js e proto.js, nesta ordem, e ativa uma aba 'poEt' com PONTOS.\n\n**O que confere**\n- **Dado ativo:** fora dos comentários, `PROTO` só aparece na reserva de ptDado (l.69) e no atalho de ptRender (l.1660-1681). A casca não lê PROTO direto em nenhum outro lugar.\n- **Lista de leituras de PROTO (§9 do contrato):** as 16 linhas batem com o grep — proto_a 164/218/338/929/1277/1528; proto_b 31/62/275/315; proto_c 42/48/58-59/85/1235-1236/1485-1486. As 4 frases que citam PROTO também batem (proto_a 367/580/716/1279).\n- **Ids fixos:** são mesmo 11 fora de tabela: ptEt-2-busca/pilar/familia/setor/porta/limpar/caixa, ptEt-5-painel/lupa e ptEt-6-sel/graf. Os demais ids ptEt- dos donos são de ptTabela, e ptTabId troca o prefixo deles sozinho. Nenhum getElementById nem $('#...') nos donos.\n- **Caches:** PB_NOMES (proto_b:27), PC.catalogo (proto_c:44, a única atribuição `PC.x =`), PC.clubes, PC.et12/13/14 (proto_c:30) e PA_ET2 (proto_a:1031) estão todos listados. Não achei outro cache de módulo mutável.\n- **Troca de faixa:** ptFx acerta as 775 trocas automáticas de peça do tela.mapa_de_caminhos (cai→baixa 316, sobe→alta 327, meio→media 31, SM→AM 69, SC→AB 32), com zero falha. CM→BM e CR→BR vêm da regra, mas o pontos.json de hoje não tem nenhuma chave com esses códigos.\n- **Classes de CSS:** as 31 do §10 existem no style.css.\n- **PT_MEDIDA_CHAVE:** finalizacao = GP/J − xg (analisar_serieb.py:256) e aprovZ6 = aprov(posAdv >= 15) (l.407). Os dois nomes novos estão certos, e o glossário devolve o mesmo nome_longo.\n\n**O que falha, medido com PONTOS**\n- **Controles 1 e 3:** o Controle 1 (ptBaseline) escreve \"não traz a contagem por ano dos elencos mais caros\" e o Controle 3 (ptControles) \"não traz a taxa de subida por faixa\". Os dois dados existem, com nome trocado.\n- **Escala de sorte:** ptSorte(0,03) só responde \"dificilmente é sorte\" porque cai no 0,05 digitado: o alfa em PONTOS mora em etapa_0.poder.<universo>.alfa.\n- **Caminho aninhado:** ptCaminho('etapa_1.top4_de_valor.por_ano') volta sem tradução e ptLer devolve undefined.\n- **Rótulos de faixa:** o texto de contagem sai \"24 na faixa “aproveitamento ≥ média do 6º colocado (53,5%)”, …\", e ptFxRot com {curto:true} devolve o mesmo rótulo longo.\n- **Desfecho real ainda em PONTOS:** `faixa_posicao_t1` aparece 36 vezes e `subiu_de_fato` 405, com sobe/cai no sentido de subida real.\n- **Conclusão falsa:** um item com selo 'sem sinal' sai com o selo por extenso, \"O que isto não quer dizer\" e o link \"ver a prova na etapa 1 · …\". O componente funciona, mas só com o formato que a própria casca inventou.",
+   "problemas": [
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptConclusoesDo / ptConclusao (l.1409-1452); contrato §8.6",
+     "o_que_vi": "A casca só aceita itens com os campos `selo`, `titulo`, `frase`, `numero`, `ressalva` e `tecnico` já prontos, e se recusa a preencher molde. O plano do gerador (mapa:gerador, pedido 'Grava `conclusoes` no topo') grava outra coisa: `itens: [{id, tema, etapa, selo_calculado, criterios_do_selo, lacunas:{nome:{valor, formatado, caminho, motivo_se_null}}, forca_do_documento, divergencia_com_o_documento}]`, sem frase montada e sem campo `selo`. O molde fica no conclusoes_spec.json.",
+     "por_que_importa": "Quando o gerador rodar, as 41 conclusões vão aparecer no topo e nas 16 etapas como 'Força da conclusão: não calculada', com 'a frase ainda não foi montada' e 'não traz a ressalva'. Nada quebra no console, então o defeito passa calado. E a aba de conclusões vai herdar o mesmo componente.",
+     "conserto": "Fechar o formato ANTES do gerador rodar, num lugar só (contrato §8.6 e ordem do gerador). Caminho 1: o gerador grava também `selo` e os textos montados (titulo, frase, numero, ressalva, tecnico) com lacunas[].formatado. Caminho 2: ptConclusao aceita `selo_calculado` e troca cada {lacuna} do molde pelo `formatado` gravado. Isso não é calcular, mas precisa de decisão explícita, porque hoje o contrato proíbe. Nos dois caminhos, lacuna com `motivo_se_null` vira ptFalta(motivo).",
+     "gravidade": "quebra"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptBaseline l.851-872 e l.854; ptControles l.1220-1227 e l.1243; ptContrafactual l.1009; ptTarja l.1067-1069 e l.1110-1112",
+     "o_que_vi": "A própria casca lê chaves que só existem no Protótipo, direto e sem ptCaminho/ptK: top4_de_valor, por_ano[].top4, baseline_de_dinheiro.acertos_top4, loso_sobe_x_resto, taxa_de_subida_por_quartil_pct, quartis[].subiram, caliper[].subidas_com_controle, taxa_historica_de_subida_do_quartil_pct, controle_n_atletas.media_sobe/cai e d_liq2_SM. Em PONTOS elas viraram top_k_de_valor, acertos_top_k, loso_alta_x_resto, taxa_de_alta_por_quartil_pct, quartis[].na_alta, alta_com_controle, taxa_historica_de_alta_do_quartil_pct, media_alta/baixa e AM. Medido: com PONTOS, o Controle 1 escreve 'não traz a contagem por ano dos elencos mais caros' e o Controle 3 'não traz a taxa de subida por faixa de orçamento'. As frases também dizem 'subiram' e 'times que subiram'.",
+     "por_que_importa": "Na aba de pontos, a tela afirma que falta um dado que existe. É 'mente' pela regra da casa. E os donos de proto_a/b/c não podem consertar, porque ptBaseline e ptContrafactual são obrigatórios nas etapas 9, 13 e 14 e moram em proto.js.",
+     "conserto": "No proto.js, trocar cada leitura por ptLer(caminho) ou ptK: por exemplo ptLer('etapa_1.top4_de_valor') e ptLer('controles_obrigatorios.baseline_de_dinheiro.acertos_top4'), mais uma forma de ler campo de item de lista renomeado (ver o problema de ptCaminho). Trocar também o texto 'subiram / times que subiram' por ptFxRot. Depois, rodar ptBaseline/ptControles/ptContrafactual com PONTOS e exigir zero ptFalta onde a chave renomeada existe.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptSorte l.311; ptLiquidaAlfa l.907-911",
+     "o_que_vi": "ptSorte faz `.alfa || 0.05`: um número digitado de reserva. ptLiquidaAlfa lê etapa_0.poder.alfa. Em PONTOS, o poder foi dividido por universo: o mapa leva 'etapa_0.poder.alfa' para 'etapa_0.poder.fisico_tecnico_individual_valor_2022_2025.alfa'. Medido: com PONTOS, ptSorte só funciona pela reserva de 0,05, e ptLiquidaAlfa devolve null. Com isso, nenhuma linha acende 'vive', e o title diz que o corte de sorte não está declarado.",
+     "por_que_importa": "Viola 'nenhum número digitado'. Na aba de pontos, a coluna líquida (obrigatória nas etapas 2, 9 e 10) passa a dizer uma coisa falsa: que o estudo não declarou o corte. Se um universo tiver outro alfa, a tela nem percebe.",
+     "conserto": "Criar um helper de alfa na casca, ptAlfa(universo?), que leia ptLer('etapa_0.poder.alfa'); em dado com poder por universo, pedir o universo explícito ou exigir que todos os alfas sejam iguais (e escrever isso). Tirar o `|| 0.05`: sem alfa, ptSorte devolve ptFalta com motivo. Documentar no contrato §3.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptCaminho / ptLer l.189-199; contrato §8.3",
+     "o_que_vi": "ptCaminho só troca quando o caminho é IGUAL, por inteiro, a uma entrada do mapa. (1) Um caminho abaixo de um prefixo renomeado não é traduzido: medido, ptCaminho('etapa_1.top4_de_valor.por_ano') volta igual e ptLer dá undefined. (2) As entradas com lista usam '[]' (ex.: 'etapa_1.top4_de_valor.por_ano[].top4 => ...top_k_de_valor.por_ano[].top_k', 'etapa_1.quartis[].subiram => quartis[].na_alta', 'etapa_1.curva_top_k.curva[].promovidos_acumulados => alta_acumulados'), e ptLer divide só por '.'. Não há como ler campo de item de lista. (3) Onze entradas do mapa têm `aqui: null` (chave que não existe mais, ex.: palpite_do_dono.*, etapa_10.linhas[].nome). Nesses casos ptCaminho devolve o caminho original sem aviso, e a ausência fica sem motivo.",
+     "por_que_importa": "Sem isso, os donos não mapeiam as leituras mais pesadas da etapa 1 (curva, quartis, top-k por ano) nem da etapa 10, e vão inventar cada um a sua tradução, que é exatamente o que a casca devia evitar. Um null sem motivo viola 'ausência sempre escrita com motivo'.",
+     "conserto": "Na casca: (a) ptCaminho tenta o prefixo mais longo que case e anexa o resto; (b) um ptCampo(caminhoDaLista, campo), ou ptK para campo de item, que traduza 'lista[].campo' pelo mapa; (c) ptCaminho(caminho) informa quando a chave foi removida (ex.: ptRemovida(caminho) -> {motivo:'não existe na aba de pontos: <troca>'}), para o dono escrever ptFalta com esse motivo. Documentar no §8.3 com um exemplo de lista.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptFxMapa / ptFx / ptFxRot / ptCascaContagemFaixas l.132-184 e l.1633-1640; contrato §8.3",
+     "o__que_vi": "",
+     "o_que_vi": "(1) Em PONTOS, 'sobe/cai' continua existindo no sentido de DESFECHO REAL: pares[].faixa_posicao_t1 (36 ocorrências) e subiu_de_fato (405). ptFxRot('sobe') nesse dado devolve o rótulo da faixa ALTA. A única saída é passar dado=null (ptFxRot('sobe', null, null)), e o contrato não documenta isso. (2) PONTOS.faixas.rotulos são DEFINIÇÕES, não nomes: 'aproveitamento ≥ média do 6º colocado (53,5%)'. Não há rotulos_curtos, e {curto:true} cai no rótulo longo. Medido: a contagem do topo sai '24 na faixa “aproveitamento ≥ média do 6º colocado (53,5%)”, 35 na faixa …'. (3) ptFxRot só dá UMA forma. Os mapas de texto que o contrato manda trocar precisam de outras: PB_FAIXA_TXT usa verbo ('subiu', 'caiu', 'ficou no meio', proto_b:122) e PC_GRUPOS inclui caro/barato (proto_c:248), que ptFxRot devolve crus.",
+     "por_que_importa": "Um cabeçalho de coluna ou uma frase como 'no ano seguinte, subiu' vira uma definição de 50 caracteres com número de corte, ou 'quem subiu' no lugar do verbo. E onde o dado é desfecho real, a tela troca 'subiu de fato' por 'faixa alta', que é outra coisa.",
+     "conserto": "Na casca: ptFxRot(f, {forma:'quem'|'verbo'|'nome'|'curto'|'definicao'}), com as formas da Protótipo escritas na casca e as dos pontos lidas do dado. Enquanto o gerador não gravar nomes curtos ('alta', 'média', 'baixa' ou 'ritmo de acesso'...), escrever a ausência com motivo, sem cair na definição. E um ptDesfechoRot('sobe') que ignora faixas (sempre 'quem subiu'), documentado no §8.3 para faixa_posicao_t1 e subiu_de_fato.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptEsqueletoEtapa l.1516-1529 / ptRender l.1691-1714 (não existe ptUniverso)",
+     "o_que_vi": "As 16 etapas de PONTOS trazem `estado_nesta_aba` ('adaptada'/'completa'), `o_que_mudou` e `universo` (ex.: etapa_5 '24 clube-temporada da faixa alta…'). A casca não tem slot nem helper para isso. O mapa:tela (DONO 1) pedia ptUniverso, e a decisão do dono (PENDENTE §8) é 'cada número diz de que universo veio'.",
+     "por_que_importa": "Sem um lugar único, cada dono de etapa vai desenhar o seu aviso de universo e o seu 'o que mudou' (três formatos), ou ninguém desenha. E a aba de pontos mostra números de 24, 59 ou 80 casos sem dizer qual.",
+     "conserto": "Na casca: um slot no cabeçalho de cada etapa, ao lado da conclusão, que desenha etapa_N.universo, estado_nesta_aba e o_que_mudou quando existirem, e nada na Protótipo, onde as chaves não existem. Mais ptUniverso(texto) público para ir ao lado de um número dentro da etapa. Publicar no §8.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "PT_MEDIDA_CHAVE l.363-369 e PT_MEDIDA_PEDACOS l.380-381, 411, 414; ptInfoMedida l.465-491",
+     "o_que_vi": "finalizacao e aprovZ6 estão certos (conferido em analisar_serieb.py:256 e :407). Mas continuam na casca quatro nomes que dizem mais do que a conta. (1) defesa_vs_xg = 'gols evitados pelo goleiro', mas a conta é do TIME: xg_contra − GC/J (analisar_serieb.py:257). (2) ppda = 'por desarme', e o pedaço da l.414 REESCREVE 'por acao defensiva' para 'por desarme'. (3) psv/psv99 = 'velocidade máxima', mas é a média, entre os jogos, do pico de cada jogo (skill dados-skillcorner; CLAUDE.md da raiz, correção de 28/08). (4) gk_def = 'defesas', mas é porcentagem. O glossário copiou esses nomes para nome_longo e marca o erro só em aviso_nome, e ptInfoMedida nem devolve aviso_nome. Medido: ptNomeIndicador('defesa_vs_xg') devolve 'gols evitados pelo goleiro (contra o xG)'.",
+     "por_que_importa": "'Simplificar nunca é afirmar mais.' Os donos não conseguem corrigir sem editar proto.js ou o glossário, e a tela das etapas 5, 6 e 13 continua atribuindo ao goleiro e ao desarme o que é do time e da ação defensiva.",
+     "conserto": "Dono da casca e dono do glossário, juntos: trocar para 'gols sofridos abaixo do esperado (xG), por jogo', 'pressão (passes do adversário por ação defensiva)', 'pico de velocidade (média dos jogos)' e '% de defesas'. Apagar o pedaço da l.414. Regerar o nome_longo do glossário. Expor aviso_nome em ptInfoMedida, para a dica mostrar o aviso enquanto houver.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptConclusoesDo l.1409-1415; gancho de clique data-pt-ir l.109-114; contrato §8.6",
+     "o_que_vi": "(1) ptConclusoesDo devolve só {itens, cinco, regua}. `temas` e `descartadas`, que estão no spec e no plano do gerador, ficam de fora, e ptConclusao não mostra `tema`. (2) O clique em [data-pt-ir] é tratado no documento: chama preventDefault e rola até a etapa. Não existe gancho para a aba de destino aparecer antes. O contrato diz que 'a aba de conclusões precisa mostrar a aba de destino ANTES, pelo irParaAba', mas não diz como fazer isso sem editar proto.js.",
+     "por_que_importa": "O item 18 (por tema, recusadas no fim, link que leva à etapa em outra aba) não se monta só com a API publicada. Clicado de dentro da aba de conclusões, o link rola uma seção escondida e não acontece nada.",
+     "conserto": "Na casca: ptConclusoesDo público e documentado, devolvendo também temas e descartadas; e ptAoIrParaEtapa(fn(prefixo, n)), que roda antes da rolagem para o app.js chamar irParaAba. Ou então ptIrParaEtapa emite um evento 'pt-ir'. Documentar no §8.6.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptTabCabeca / ptLigarTabelas l.735-816",
+     "o_que_vi": "Toda coluna de ptTabela é ordenável por clique; não há `ordenavel:false` por coluna nem por tabela. O PENDENTE §9 manda que, no valor cru, a tabela de gaps continue ordenada pelo gap, porque unidades diferentes não se ordenam. O mapa:tela (item 6) sugere desligar o clique nessa tabela.",
+     "por_que_importa": "O dono da etapa 2 não consegue impedir que o diretor ordene a coluna de mediana crua, que mistura m/min, % e contagem, sem editar a casca.",
+     "conserto": "Aceitar colunas[].ordenavel === false (th sem data-col e sem onclick) e cfg.ordenavel === false. Documentar no §3, com a tabela de gaps em modo cru como exemplo.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_contrato.md",
+     "onde": "§8.1 (como a aba ativa é decidida); proto.js ptTabId l.717-721, ptRegistrarEtapaComEscala l.1302, ptAoMudarEscala l.1310, ptNomeIndicador l.543",
+     "o_que_vi": "O contrato manda passar o elemento só em ptDado(alvo). Mas ptTabela (prefixo do id), ptNomeIndicador, ptSorte, ptBaseline, ptRegistrarEtapaComEscala e ptAoMudarEscala não aceitam elemento e usam PT_ATIVA. Hoje nenhum dono usa timer (grep sem setTimeout, requestAnimationFrame ou IntersectionObserver), mas o 'tudo aberto' do item 4 convida a montar sob demanda.",
+     "por_que_importa": "Um redesenho fora de evento, com duas abas na página, registraria a tabela e a escala na aba errada e leria nomes do outro dado, mesmo com ptDado(alvo) certo.",
+     "conserto": "Documentar no §8.1: 'todo redesenho assíncrono começa com ptAtivarAba(ptPrefixo(alvo))'. Ou criar ptComAba(alvo, fn), que ativa, roda e restaura.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "ptLegendaPosto l.1357-1375; ptMudarEscala l.1343",
+     "o_que_vi": "(1) A frase 'use o botão «Números das matrizes»' só aparece se a etapa já se registrou ANTES de desenhar a legenda. E ptMudarEscala apaga o registro antes de redesenhar: com uma etapa só registrada, a legenda redesenhada perde a indicação do botão. (2) No cru, sem unidade, a legenda diz 'na unidade dele', como se a unidade fosse conhecida. O §8.5 manda dizer que não se sabe.",
+     "por_que_importa": "A legenda muda conforme a ordem das chamadas dentro da etapa, e a unidade desconhecida passa como conhecida.",
+     "conserto": "Contrato: 'chame ptRegistrarEtapaComEscala no começo de ptEtapaN'. Ou ptLegendaPosto recebe {comBotao:true}. Sem unidade: 'na unidade dele, que o arquivo de dados não declara' (ou ptFalta).",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+     "onde": "PT_SELOS l.1392-1398",
+     "o_que_vi": "As cinco palavras da régua estão certas (forte, moderado, fraco, sem sinal, não dá para afirmar), e ptSeloChave normaliza as duas grafias. Mas a explicação de cada selo é texto digitado na casca, e a régua do dado (regua.selos, técnica) só vai no title. A explicação do 'moderado' não inclui a regra de 14/09 ('olhar a lista inteira': a família precisa ter mais achados do que a sorte produz), nem a zona cinzenta (0,05 ≤ p < 0,10) do 'fraco'.",
+     "por_que_importa": "Se a régua mudar de novo, o selo na tela passa a explicar um critério que não é mais o usado, e duas descrições da mesma régua envelhecem separadas.",
+     "conserto": "O gerador grava regua.selos_simples {selo: frase de reunião}, e a casca lê de lá, com PT_SELOS só como reserva marcada. Até lá, acrescentar ao texto do moderado a condição da lista inteira.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere:regressao-e-largura",
+  {
+   "lente": "Regressão e largura, no navegador headless (Playwright, portas 5097 e 5098, as duas derrubadas no fim; 5090 e 5091 não foram tocadas). Comparei duas cópias no scratchpad: `rg_head`, com app.py, static e templates tirados do git HEAD 893158c, e `rg_now`, com os arquivos de hoje. As duas usam o mesmo dados/. Scripts: scratchpad/rg_teste.py, rg_teste2.py e rg_teste3.py; resultados em rg_head.json, rg_now.json, rg2_*.json e rg3_now.json.",
+   "conferidos": 212,
+   "medidas": "(1) ABA PROTÓTIPO, 1.785 px. Console: 0 erro e 0 aviso nas duas versões, e nenhuma resposta HTTP 400+ (o proto_glossario.js já existe, então o 404 que o dono do app.js citou sumiu). As 16 etapas desenham nas duas, sem nenhum pt-erro nem pt-espera.\n\nEtapa por etapa, HEAD contra hoje: tabelas, svg, canvas, details (e quantos fechados), linhas tr, parágrafos, filhos e botões saem IGUAIS nas 16. O tamanho do HTML só muda nas etapas 8 (+3 caracteres), 10 (+80) e 13 (+597). O texto é idêntico em 13 etapas. Nas outras três, só nomes mudaram:\n- etapa 8: 'gols cabeca' virou 'gols de cabeça';\n- etapa 10: 'aproveitamento contra o Z4-Z6' virou 'contra quem terminou do 15º para baixo', e 'aproveitamento das finalizações' virou 'gols acima do esperado por jogo (gols menos xG)'. Conferi a conta em analisar_serieb.py:256, GP/J - xg, e o nome novo está certo;\n- etapa 13: os apelidos físicos viraram nome (spn s → 'número de piques a cada 30 min sem a bola', t505 por 90 min → 'giro de 90° (teste 505)', t spr → 'tempo até o pique' etc.), que é o pedido dos itens 13 e 17.\n\nFora das etapas entraram 17 linhas de 'conclusão ainda fora da tela' (o topo mais 16 etapas), sem nenhum dígito.\n\n(2) JANELA 'ESCOLHER JOGADOR'. Rodei 150 combinações: 5 grupos de liga × 5 nacionalidades × 3 faixas de idade, com e sem posição. As 150 dão o mesmo total filtrado e o mesmo número de linhas nas duas versões. Exemplo: Brasil A/B/C, sem filtro, 3.613; com idade de 20 a 26, 1.348. O HTML dos botões é idêntico, e as 5 opções de nacionalidade têm os mesmos valores e textos.\n\n(3) LARGURA A 1.785 px.\n- A aba passou de 1.240 para 1.753 px, o sumário de 216 para 172 px e a caixa de conteúdo de 984 para 1.511 px. O documento não rola para o lado.\n- Caixas com rolagem: 44 nas duas versões. Estouram 31 no HEAD e 5 hoje.\n- As 5 que ainda estouram: ptEt-2-tab (31 colunas, 5.586 px numa caixa de 1.509), a matriz da etapa 5 (32 colunas, 2.673 px), ptEt-9-crus-3 (1.530 px), ptEt-9-crus-6 (2.347 px) e ptEt-9-crus-7 (2.221 px), as três com 6 colunas numa caixa de 1.475.\n- Prosa: .pt-sub com 638 px. Nas 173 .pt-nota a mediana é 590 px, então ficou com largura de leitura. As exceções são 3 notas da etapa 1 com max-width:none escrito dentro do proto_a.js, que chegam a 1.477 e 1.511 px, e as linhas de conclusão ausente, que vão de 1.511 a 1.703 px.\n\n(4) 400 px. O documento não rola para o lado (scrollWidth 400 nas duas versões), mas o #ptCorpo tem 2.283 px de conteúdo numa caixa de 368 px, e o .emp-rolagem (overflow-x:hidden) CORTA o que passa. São 145 elementos que passam da borda direita fora de qualquer tabela rolável. Por etapa: 0: 9, 1: 24, 3: 1, 4: 59, 8: 10, 9: 1, 10: 1, 11: 23, 12: 2, 13: 3, 14: 9, 15: 3. O HEAD tem os mesmos 145, então não é regressão, mas o critério falha.\n\n(5) CONCLUSÕES E BOTÃO DA ESCALA. As conclusões aparecem só como ausência com motivo (a chave conclusoes ainda não existe), nenhum número digitado.\n\nO botão da escala não aparece sem registro, mas por acaso: o atributo hidden fica true e mesmo assim o display calculado continua flex, deixando uma caixa vazia de 11 px. Registrando a etapa 5 à mão, ele aparece (81 px, 'Números das matrizes · posição no ano · valor medido · troca a etapa 5'). O clique em 'valor medido' deixa ptEscala() em 'cru', a etapa 5 não muda (o texto continua com 10.694 caracteres, porque o proto_b ainda não lê a escala) e o botão some, sem caminho de volta.",
+   "problemas": [
+    {
+     "arquivo": "static/style.css",
+     "onde": "`.pt-barra-extra{white-space:nowrap}` (l.3253); `.pt-tec` e as linhas `.pt-barra-linha`/`.pt-card-cab`/`.pt-controle` sem quebra; o recorte vem de `.emp-rolagem` com overflow-x:hidden",
+     "o_que_vi": "A 400 px, 145 elementos da aba passam da borda direita e ficam CORTADOS, sem rolagem: #ptCorpo tem 2.283 px de conteúdo numa caixa de 368. O pior caso é a etapa 4, com 59. Na captura (scratchpad/rg3_400_barra.png), o número técnico da etapa 0 ('d mínimo 0,79') some na borda. O HEAD tem os mesmos 145.",
+     "por_que_importa": "Não é regressão desta rodada, mas o critério '400 px sem nada rolando de lado' só passa porque o conteúdo é escondido. O número técnico, que é a prova ao lado da frase, desaparece em silêncio no celular: pior que uma barra de rolagem.",
+     "conserto": "No bloco `@media (max-width:1080px)` do .pt: `.pt-barra-extra,.pt-tec{white-space:normal}` e a linha da barra em coluna única (rótulo, barra e número empilhados). Conferir de novo contando os elementos com right > largura da tela fora de caixa overflow-x:auto; a meta é 0.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/proto_a.js, static/proto_b.js, static/proto_c.js",
+     "onde": "ptEt-2-tab (proto_a, etapa 2); matriz da etapa 5 (proto_b, pb5Matriz); ptEt-9-crus-3, ptEt-9-crus-6, ptEt-9-crus-7 (proto_c, etapa 9)",
+     "o_que_vi": "A 1.785 px ainda estouram 5 de 44 caixas: 5.586 px (31 colunas), 2.673 px (32 colunas) e, nas três da etapa 9 (6 colunas), 1.530, 2.347 e 2.221 px. Nas outras 39 a casca resolveu, contra 31 estourando no HEAD.",
+     "por_que_importa": "O item 14 pede nenhuma caixa rolando para o lado, ou dizer quantas restam e por quê. Restam 5, e todas dependem de redesenho dos donos das etapas, não da casca.",
+     "conserto": "Etapa 2: juntar pares de colunas e mandar o técnico para ptTecnico (meta de ~12 colunas). Etapa 5: usar a classe pt-matriz com pt-th-vertical e ptNomeCurto. Etapa 9: marcar com tipo:'texto' as colunas de frase, para quebrar linha.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/style.css",
+     "onde": "`.pt-escala{display:flex;...;padding:0 4px 10px;margin-bottom:8px}` (l.3395); não há regra `[hidden]` para ela",
+     "o_que_vi": "Sem etapa registrada, #ptEt-escala fica com hidden=true e mesmo assim o display calculado é flex: aparece uma caixa vazia de 11 px (mais 8 px de margem) no alto do sumário. Hoje ela só não mostra nada porque ptAtualizarBotaoEscala apaga o innerHTML.",
+     "por_que_importa": "O atributo hidden não faz efeito nenhum. O botão 'fica escondido' só enquanto o conteúdo estiver vazio, e sobra um vão no sumário das duas abas.",
+     "conserto": "Acrescentar `.pt-escala[hidden]{display:none}`.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto.js",
+     "onde": "PT_CONCL_AUSENTE (l.1453-1455), usado por ptConclusoesTopo e ptConclusaoDaEtapa; estilo em `.pt-concl-ausente{max-width:none}` (style.css l.3430)",
+     "o_que_vi": "A frase de ausência aparece 17 vezes, igual, com '(chave `conclusoes`)' e as crases literais na tela. Ela ocupa de 1.511 a 1.703 px de largura, em 11 px de fonte.",
+     "por_que_importa": "'chave `conclusoes`' é jargão de programador no texto principal, e a regra da casa é português de reunião, com o técnico só ao lado e em letra menor. A linha também foge da largura de leitura de 75ch que a própria casca fixou para a prosa.",
+     "conserto": "Tirar '(chave `conclusoes`)' do texto e, se precisar, passar para ptTecnico. Dar `max-width:75ch` a .pt-concl-ausente. Nas etapas, trocar a frase repetida por uma mais curta ('conclusão desta etapa: ainda não gravada — ver o aviso no topo').",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto_a.js",
+     "onde": "três `<p class=\"pt-nota\" style=\"...max-width:none\">` na etapa 1 (l.605, 729, 895)",
+     "o_que_vi": "Com a aba larga, essas três notas ficam com 1.477 e 1.511 px: uma delas tem 310 caracteres numa linha só. As outras 170 notas ficam em ~590 px.",
+     "por_que_importa": "A largura nova da casca faz esse estilo inline (que já existia) virar linha de texto de tela inteira, justo o que o item 14 queria evitar.",
+     "conserto": "Remover `max-width:none` desses três estilos inline (o dono do proto_a.js já tem isso anotado como pendente).",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto.js",
+     "onde": "ptMudarEscala (l.1335-1352), com ptAtualizarBotaoEscala",
+     "o_que_vi": "Com a etapa 5 registrada à mão, o clique em 'valor medido' deixa a escala da aba em 'cru', tira o registro e redesenha. Como a etapa não se registra de volta, o botão some e ptEscala() continua 'cru', sem nenhum controle para voltar à posição.",
+     "por_que_importa": "Se um dono de etapa esquecer de chamar ptRegistrarEtapaComEscala dentro do próprio desenho, o diretor fica preso no valor cru, que mistura anos, sem botão para voltar. Hoje não acontece porque nenhuma etapa se registra.",
+     "conserto": "Em ptMudarEscala, manter o registro das etapas que já estavam registradas (não apagar antes de redesenhar), ou esconder o botão só quando a escala for 'percentil'. E escrever no contrato §8 que a etapa registrada TEM de se registrar de novo a cada desenho.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere:glossario-contra-fonte",
+  {
+   "lente": "O glossário comparado com a fonte. Sorteei entradas de static/proto_glossario.js com semente 20260914 (gerador mulberry32, script em scratchpad/conf_glo_load.js), separadas pelos 22 grupos, com no mínimo 2 por grupo. Saíram 56 entradas, não 50: o mínimo por grupo empurrou o total para cima. Somei 12 colunas de PT_GLOSSARIO_COLUNAS escolhidas a dedo. Para cada uma reabri o código citado (analisar_serieb.py, gerar_prototipo.py, gerar_raio_serieb.py, ranking_gaps.py, gerar_pontos.py, preparar_kpis.py, preparar_base.py, dados/prototipo_indicadores.json, dados/kpis.json) e as skills dados-wyscout e dados-skillcorner. Depois conferi a cobertura sozinho: percorri as duas bases e comparei com o que proto_b.js desenha.",
+   "conferidos": 68,
+   "medidas": "Batem com a fonte, sem conserto:\n• Técnico coletivo (remates, entradas_area, passes_frente_pct, cruzamentos, bolas_paradas, duelos_aereos_pct): média por jogo, como em analisar_serieb.py:92; o lado segue o sinal do catálogo.\n• Elenco: nucleo_300 (>=300, sinal −1, com a nota de consequência do resultado) e plantel (g.size() do Transfermarkt, sinal −1).\n• Físico por elenco e por setor, amostra de 13: 300+ min rastreados (_sc_atletas: min_tot >= 300), média pesada por min_tot com piso de 60% (media_pond), setor com menos de 3 atletas vira NaN, \"sem lado\" (sinal 0).\n• Réguas do físico: _p90 é por 90; _p30tip e _p30otip são por 30 min da fase; m_per_min_tip é por minuto da fase. Batem com a skill dados-skillcorner §4. O psv99 é descrito como média dos picos de cada jogo (skill §4) e leva aviso_nome.\n• Os runs_* são o time com a bola e o jogador sem ela, como em analisar_serieb.py:487.\n• Técnico individual, amostra de 8: 600+ min, goleiro fora, média pesada pelo minuto (gerar_prototipo.py:381-390). Os ids em ganhos/certos/com_sucesso saem de colunas '..., %' (slug) e o glossário diz que são porcentagem.\n• Regras de juntar: mediana e ponderada conferem com o código; a ponderada é a regra das matrizes (origem_das_colunas).\n• Etapa 13: os apelidos obr_area, hsr e t_hsr_cod conferem com DE_PARA, DE_PARA_OBR e DE_PARA_JSON. O alvo é \"percentil, entre os atletas do setor, da média pesada dos clubes do cenário\", como em gerar_prototipo.py:2600-2615. t_* é \"menos é melhor\" pela lista menor_melhor.\n• Goleiro: gk_sai = gk_exits_per_90; cs = Clean sheets (preparar_base.py:185-189).\n• kpi_3, kpi_16 e kpi_21: os índices batem com kpis.json.\n• Etapa 10:\n  – ptsAposD, vitSeguidas e jogos56 conferem com analisar_serieb.py:411 e :760-790;\n  – espSemVencer é o sorteio livre;\n  – espAposDMT mantém mando e terço do adversário (casa*3+terco);\n  – espAposDforaM mantém o mando.\n• Dinheiro: tm_valor_total soma com os ausentes valendo zero; tm_altura é média.\n• Réguas das etapas 8 e 9: A_posse_construcao e G_bola_aerea_parada fazem nanmean(s*posto), então o item invertido entra negativo e o número sai de 0 a 100 (gerar_prototipo.py:1499-1514). TERRITORIO e ROTA usam 100 − p (eixo_tip). As duas descrições estão certas.\n• Etapa 15: linha3_pct usa startswith('3','5'); fidelidade_media é a média do % entre parênteses (sistema_limpo).\n• Etapa 11: Dribles/90 e Passes chave/90 usam o corte de 900+ min nos dois anos.\n• Colunas: gap, destoa (_destoa), tamanho e p de Mann-Whitney (ranking_gaps.py:1241-1243), q de BH, lado_bom (ranking_gaps.py:1233-1237), rho_persist (menos de 8 pares, gerar_prototipo.py:984), d_clube com sinal trocado nos tempos e p_clube de Welch (gerar_prototipo.py:2352-2356), pct_sobe e sinal_certo.\n\nCobertura: fora do que o autor testou, sobram 21 chaves sem entrada no prototipo.json e 43 no pontos.json. A maioria não vira nome de indicador na tela: fis_*_atletas e val_* têm texto próprio; as colunas de régua e as circulares do pontos.json não aparecem em proto_*.js. A exceção está no problema de cobertura abaixo.",
+   "problemas": [
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.C_volume_fisico, D_explosao e B_pressao_ritmo (campo lado)",
+     "o_que_vi": "Estas réguas têm lado 'mais é melhor', com lado_quem_declara 'os sinais dos itens no eixo'. Os itens de C (fis_distance_p90, fis_running_distance_p90) e de D (fis_psv99_top5, fis_sprint_*, fis_high_accel_p90) têm sinal 0 no catálogo. ranking_gaps grava lado_bom 'sem lado bom declarado' para fis_distance_p90 e fis_psv99_top5. O +1 dentro de eixos só alinha os itens para a média (eixos_matriz, gerar_prototipo.py:1499); não declara nada. O próprio cabeçalho do glossário diz que todo o físico fica sem lado bom.",
+     "por_que_importa": "É lado imposto sem declaração, e contradiz o arquivo por dentro. ptInfoMedida lê glo.lado e ptDicaMedida escreve 'lado bom: mais é melhor' na dica da régua Explosão ou Volume físico. Para o diretor, isso vira receita: correr mais é melhor. O estudo nunca afirmou isso.",
+     "conserto": "Em réguas cujos itens não têm todos um sinal declarado no catálogo, o lado deve ser 'sem lado bom declarado'. Uma nota deve dizer que o sinal dentro do eixo só orienta a média. Na prática: C e D ficam sem lado; B mistura itens declarados e físicos, então também fica sem lado ou ganha uma nota.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.tm_altura, tm_valor_total, tm_valor_mediana (campo lado)",
+     "o_que_vi": "As três têm lado 'mais é melhor', com lado_quem_declara 'sinal +1 do item no eixo'. Elas não estão em tecnico_col nem em elenco no catálogo. Em pontos.json, ranking_gaps.linhas não tem nenhuma das três com sinal. A única origem é a orientação dos eixos G_bola_aerea_parada e H_dinheiro.",
+     "por_que_importa": "'Altura média do elenco: mais é melhor' é afirmação que nenhum arquivo do projeto faz; o eixo só diz para que lado a régua 'bola aérea' cresce. O estudo trata o valor como controle (resíduo), não como indicador com lado.",
+     "conserto": "Pôr lado 'sem lado bom declarado' e nota 'o sinal +1 no eixo G/H só orienta a régua; o catálogo não declara lado para esta medida'.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO_COLUNAS.d_clube (e p_clube, q_clube, pelo mesmo texto), usada_em inclui 'pontos.etapa_13'",
+     "o_que_vi": "A frase diz 'd de Cohen entre quem subiu e quem caiu'. Em gerar_pontos.py:1454-1470 (alvos_fisicos, docstring 'com a alta no lugar de quem subiu'), a faixa interna 'sobe' e 'cai' é a ALTA e a BAIXA de pontos. As chaves irmãs de pontos.json provam isso: pct_alta, n_clubes_alta, pct_baixa. O glossário tem entradas separadas para pct_alta e pct_baixa, mas d_clube serve às duas abas com o texto do Protótipo.",
+     "por_que_importa": "Na aba por pontos, a dica da coluna diria 'quem subiu contra quem caiu' sobre uma conta feita com outra partição. Isso troca o universo do número sem aviso.",
+     "conserto": "Montar a frase com ptFxRot (ou escrever 'entre a faixa de cima e a de baixo'), ou separar em entradas por aba. O mesmo vale para toda coluna com usada_em nas duas abas e texto de sobe/cai.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "cobertura: etapa_8.tipologia.teste_de_fora.por_indicador[].col, desenhada em static/proto_b.js:1651 (pb8TesteDeFora -> pbNome -> ptNomeMedida)",
+     "o_que_vi": "São 11 colunas sem entrada nas DUAS bases: xg, passes_certos, passes_frente, remates_baliza, duelos_aereos, livres, livres_remates, bp_remates, cantos_remates, ca_remates, atq_pos_remates. Há também fis_minutos em colunas_fis_de_fora. Todas vêm do dicionário med de analisar_serieb.py:92 (média por jogo) ou de fisico(). O teste do autor (testar_glossario.js) cobriu as etapas 2, 5 e 13 e os gaps, mas não a etapa 8. pbNome manda para ptNomeMedida, que acha ptGlossario nulo e cai na chave traduzida: sem unidade, sem 'por jogo', sem motivo da ausência.",
+     "por_que_importa": "A tabela 'O teste de fora' mostra esses números com nome de chave e sem a régua. 'xg' do time é média por jogo e 'passes_certos' é contagem, não %: o leitor não tem como saber. Isso fura a regra 'ausência sempre escrita com motivo' e o 'zero sem entrada' do relato.",
+     "conserto": "Acrescentar as 12 entradas, geradas do mesmo molde do técnico coletivo: fonte Wyscout time, por jogo, lado 'sem lado bom declarado' porque não estão em tecnico_col. Estender testar_glossario.js para varrer etapa_8 (teste_de_fora e colunas_fis_de_fora) nas duas bases.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.GP x golos_tec (nome 'Gols marcados'); PT_GLOSSARIO.cs x clean_sheets (nome 'Jogos sem sofrer gol')",
+     "o_que_vi": "GP é o gol da tabela oficial; golos_tec é a soma dos gols dos atletas no arquivo técnico do Wyscout (analisar_serieb.py:220). Os dois têm o mesmo nome e o mesmo nome_longo, e os dois estão em pontos.json etapa_10.linhas com nome None do gerador. Pela ordem de ptInfoMedida, os dois saem 'gols marcados' na mesma tabela. cs é o Clean sheets do GOLEIRO na janela do Portal Ranking (preparar_base.py:189); clean_sheets é o do TIME na Série B. Mesmo nome também.",
+     "por_que_importa": "É um nome que duplica outro já usado na tela para outra coisa. Na etapa 10 da aba por pontos saem duas linhas 'gols marcados' com números diferentes; o motivo gravado de golos_tec é 'pedaço de GP'. A tela não mostra a diferença.",
+     "conserto": "Distinguir no nome: 'gols marcados (tabela oficial)' e 'gols dos atletas no arquivo do Wyscout'; 'jogos sem sofrer gol do goleiro (janela do ranking)' e 'jogos sem sofrer gol do time'. Acrescentar ao teste uma checagem de nome_longo repetido entre ids que não são a mesma coluna do SkillCorner.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.kpi_37 (e todos os kpi_* com rótulo '/90')",
+     "o_que_vi": "O nome saiu como 'Aéreos ganhos ' (espaço no fim) e o nome_longo como 'Aéreos ganhos  por 90 min' (dois espaços). O mesmo defeito aparece em kpi_0 ('Duelos '), kpi_16 e kpi_21: é o '/90' cortado de ROTULO em preparar_kpis.py. kpi_37 é CONTAGEM por 90 ('Aerial duels won per 90'), e o nome fica quase igual ao de duelos_aereos_pct ('Duelos aéreos ganhos') e de ti_*_duelos_aereos_ganhos, que são %. A fonte diz 'Wyscout jogador', mas pela skill dados-wyscout §5 o acerto absoluto de duelo aéreo é CALCULADO pelo engine do Portal Ranking (por 90 × %).",
+     "por_que_importa": "Na nota de duelo da etapa 13, 'aéreos ganhos' em quantidade fica ao lado de 'duelos aéreos ganhos' em %, com as mesmas palavras. A fonte afirma que é coluna do Wyscout quando é derivada. O espaço duplo aparece no cabeçalho.",
+     "conserto": "Aparar os espaços. Nomear kpi_37 'duelos aéreos ganhos por 90 min (quantidade)'. Fonte: 'calculado no Portal Ranking a partir do Wyscout jogador (duelos aéreos por 90 × % ganho)'.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.fis_ataque_* (frase 'atacantes (pontas e centroavantes)')",
+     "o_que_vi": "No físico, grupo_fis (analisar_serieb.py:592-594) manda para 'ataque' TODO código fora de GRUPOS_FIS: posição vazia, GK homônimo (o comentário de :581 admite 44 linhas de GK falsas no physical) e códigos que não estão no mapa. Não é só ponta e centroavante. No técnico individual (ti_ataque_*) o setor sai de POSICOES/SETOR_FUND e fica certo.",
+     "por_que_importa": "No físico a frase afirma mais do que o código garante: o grupo 'ataque' é 'todo o resto'.",
+     "conserto": "Nas fis_ataque_*, escrever 'atacantes (pontas, centroavantes e quem não tem posição de zaga, lateral ou meio no Wyscout)'. As ti_ataque_* podem ficar como estão.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.t_hsr_cod (e os demais t_* com '_top3')",
+     "o_que_vi": "O mede diz 'coluna de 3 melhores do SkillCorner', mas a nota da mesma entrada diz que o que o top3 agrega nesta coluna não está documentado (nao_achei_fonte). A skill só define top3 para peak_velocity (3 melhores jogos).",
+     "por_que_importa": "A frase afirma o que a nota diz não saber.",
+     "conserto": "Trocar no mede por 'coluna _top3 do SkillCorner (o que ela agrega não está documentado)'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO_COLUNAS.se_repete",
+     "o_que_vi": "A frase diz 'não dá para testar: ausente'. No código (ranking_gaps.py:1289 e :1300) há dois casos: o indicador não existe no outro período, OU nenhum grupo destoou neste período (L.destoa None).",
+     "por_que_importa": "Uma linha presente nos dois períodos pode sair 'não dá para testar', e a dica diz que é porque o indicador falta.",
+     "conserto": "Acrescentar à frase: 'ou neste período nenhuma faixa destoou'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto_glossario.js",
+     "onde": "PT_GLOSSARIO.jogos56, nucleo_300, entradas_area (frase)",
+     "o_que_vi": "• jogos56: 'contra o 5º e o 6º colocados'. O código usa posAdv, que é a posição FINAL do adversário (analisar_serieb.py:405). O mesmo conserto já foi feito em aprovZ6, mas não aqui.\n• nucleo_300: 'passaram de 300 minutos', mas o código é >= 300.\n• entradas_area: 'o Wyscout soma corridas e cruzamentos'. O cabeçalho só lista as partes; a soma é dedução.",
+     "por_que_importa": "São detalhes de precisão: a frase diz um pouco mais, ou um pouco diferente, do que a conta.",
+     "conserto": "• jogos56: 'contra quem terminou em 5º ou 6º'.\n• nucleo_300: 'com 300 minutos ou mais'.\n• entradas_area: 'a planilha separa as entradas em corridas e cruzamentos'.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "conserta:glossario",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_glossario.js"
+   ],
+   "o_que_fiz": [
+    {
+     "pedido": "Lado imposto nas réguas C_volume_fisico, D_explosao e B_pressao_ritmo (CONFIRMADO)",
+     "onde": "PT_GLOSSARIO: os 9 eixos A_ a I_",
+     "como": "Conferi no catálogo: os itens físicos dos eixos B, C e D não têm sinal em tecnico_col, elenco ou resultado, e tm_altura, no eixo G, também não. O +1 só entra na média (eixos_matriz, gerar_prototipo.py:1499). Agora o lado de cada régua é calculado a partir do catálogo. Só fica 'mais é melhor' quando todos os itens têm lado declarado no mesmo sentido do sinal da régua. Resultado: A, E, F e I ficam com lado; B, C, D, G e H ficam 'sem lado bom declarado'. O G também cai porque tem tm_altura, e o H porque só tem valores de mercado. Em lado_quem_declara está a lista dos itens sem declaração. A nota diz que o sinal só orienta a média, e acrescentei um parágrafo sobre isso no comentário do topo."
+    },
+    {
+     "pedido": "tm_altura, tm_valor_total e tm_valor_mediana com lado vindo do eixo (CONFIRMADO)",
+     "onde": "PT_GLOSSARIO.tm_*",
+     "como": "As três aparecem só na lista de eixos do catálogo. Agora estão 'sem lado bom declarado', com a nota de que o +1 no eixo G/H só orienta a régua. Nas duas de valor de mercado, a nota diz também que o estudo usa o valor como controle."
+    },
+    {
+     "pedido": "d_clube, p_clube e q_clube com texto 'quem subiu e quem caiu' também na aba por pontos (CONFIRMADO)",
+     "onde": "PT_GLOSSARIO_COLUNAS: d_clube, p_clube, q_clube, margem_normalizada, pct_sobe, n_clubes_sobe, pct_barato, pct_caro, n_clubes_barato, n_clubes_caro",
+     "como": "Em gerar_pontos.py:2276, a faixa interna 'sobe' e 'cai' recebe a alta e a baixa de pontos. As 10 colunas usadas nas duas abas agora dizem 'a faixa de cima (quem subiu, no Protótipo; a faixa alta de pontos, na aba por pontos)' e o equivalente para a faixa de baixo. A origem cita gerar_pontos.py:2276. Além das 3 citadas pelo conferente, consertei as outras 7 que tinham o mesmo defeito."
+    },
+    {
+     "pedido": "Etapa 8: 11 colunas do teste de fora e colunas_fis_de_fora sem entrada (CONFIRMADO)",
+     "onde": "PT_GLOSSARIO: 17 entradas novas",
+     "como": "Acrescentei 11 entradas: passes_certos, passes_frente, xg, remates_baliza, duelos_aereos, livres, livres_remates, bp_remates, cantos_remates, ca_remates e atq_pos_remates. Todas são Wyscout time, média por jogo, 'sem lado bom declarado' (nenhuma está em tecnico_col). A origem é a linha do dicionário med em analisar_serieb.py:93-108, e fonte_detalhe traz o nome da coluna na planilha. Acrescentei também fis_minutos e os cinco fis_*_atletas (o geral e um por setor), com lado 'não se aplica' e o motivo copiado de gerar_prototipo.py:2124-2129. O conferente só citou fis_minutos, mas os fis_*_atletas também faltavam."
+    },
+    {
+     "pedido": "GP x golos_tec e cs x clean_sheets com o mesmo nome (CONFIRMADO)",
+     "onde": "PT_GLOSSARIO: GP, golos_tec, cs, clean_sheets",
+     "como": "Os nomes ficaram assim: GP = 'Gols (tabela oficial)' / 'gols marcados (tabela oficial)'; golos_tec = 'Gols dos atletas' / 'gols dos atletas no arquivo do Wyscout', e o texto avisa que pode não bater com a tabela; cs = 'Sem sofrer gol (GK)' / 'jogos sem sofrer gol do goleiro (período do ranking)'; clean_sheets = 'Sem sofrer gol (time)' / 'jogos sem sofrer gol do time'. nome_simples acompanha o nome longo."
+    },
+    {
+     "pedido": "kpi_37 e demais kpi_* com espaço sobrando e rótulo cortado; fonte errada no kpi_37 (CONFIRMADO)",
+     "onde": "PT_GLOSSARIO.kpi_*",
+     "como": "Os 10 nomes agora saem do rótulo do kpis.json, sem espaço duplo nem espaço no fim. Achei mais 3 rótulos em inglês cortados que o conferente não citou: 'Dribbles per', 'Progressive passes per' e 'Key passes per'. Viraram Dribles, Passes progressivos e Passes-chave, e 'XG' virou 'xG'. Com os espaços limpos, 7 nomes longos passaram a repetir os da etapa 11 (Duelos/90 etc.). Não é o mesmo número: lá é a Série B com 900+ min em dois anos, aqui é a ficha do candidato no Portal Ranking. Por isso o nome longo dos kpi_* termina em '(atleta candidato)'. kpi_37: 'Aéreos ganhos (qtd.)' / 'duelos aéreos ganhos por 90 min (quantidade, atleta candidato)'. A fonte passou a ser 'calculado no Portal Ranking a partir do Wyscout jogador', com a conta (por 90 × % ÷ 100) e a origem na skill dados-wyscout §5, que conferi."
+    },
+    {
+     "pedido": "Detalhes: fis_ataque_*, t_* _top3, se_repete, jogos56/nucleo_300/entradas_area (todos CONFIRMADOS)",
+     "onde": "PT_GLOSSARIO.fis_ataque_* (32), t505_180, t505_90, t_hsr, t_hsr_cod, t_spr, t_spr_cod, jogos56, pts56, xgd56, nucleo_300, entradas_area; PT_GLOSSARIO_COLUNAS.se_repete",
+     "como": "fis_ataque_*: o grupo passou a ser 'pontas, centroavantes e quem não tem posição de zaga, lateral ou meio no Wyscout', como em analisar_serieb.py:592; as ti_ataque_* ficaram como estavam. t_*: agora dizem 'coluna _top3 do SkillCorner; o que ela agrega não está documentado'. se_repete ganhou o segundo caso ('ou neste período nenhuma faixa destoou'); as linhas certas são ranking_gaps.py:1356 e :1368 (as 1289/1300 citadas são do lado_bom). jogos56, pts56 e xgd56 viraram 'quem terminou em 5º ou 6º (posição final na tabela)', porque posAdv vem de tabelas(), em analisar_serieb.py:358; o pts56 e o xgd56 tinham o mesmo erro. nucleo_300 agora diz '300 minutos ou mais' (o código usa >=). entradas_area agora diz 'a planilha separa as entradas em corridas e cruzamentos'."
+    }
+   ],
+   "api_publicada": [
+    "const PT_GLOSSARIO = {...}: 490 entradas (eram 473; 17 novas, nenhuma removida)",
+    "const PT_GLOSSARIO_COLUNAS = {...}: 143 entradas",
+    "function ptGlossario(id): devolve a entrada ou null (sem cair em propriedade herdada)",
+    "function ptGlossarioColuna(k): devolve a entrada da coluna ou null"
+   ],
+   "o_que_ficou_para_outro_dono": [
+    "proto.js (PT_MEDIDA_CHAVE, linhas 358 e 362): golos_tec continua 'gols marcados', e clean_sheets e cs continuam os dois 'jogos sem sofrer gol'. ptInfoMedida lê o glossário primeiro, então a dica e o nome dela já saem distintos. Quem chama ptNomeMedida direto (pbNome em proto_b.js, por exemplo) ainda mostra nomes iguais para números diferentes.",
+    "Nomes com mais de 22 caracteres: são 75, todos de rodadas anteriores (físicos 'c/ bola' e 's/ bola', esp*/p* com mando, colunas d_liq2_* etc.). Nenhum veio deste conserto.",
+    "O teste está em scratchpad/testar_glossario.js e o conserto em scratchpad/conserto_r4.py. O gerador antigo (scratchpad/gerar_glossario_js.py) não tem estas correções: se alguém regerar o arquivo por ele, precisa rodar o conserto_r4.py em seguida."
+   ],
+   "como_testei": "Antes de mexer, reabri a fonte de cada achado: o catálogo dados/prototipo_indicadores.json (sinais e eixos), gerar_prototipo.py:1499 e :2124, gerar_pontos.py:1480-1515 e :2276, ranking_gaps.py:1284-1300 e :1340-1378, analisar_serieb.py:64-77, :92-108, :200-250, :358, :402-411, :570-594 e :619, preparar_base.py:185-189, preparar_kpis.py (ROTULO) e a skill dados-wyscout §5. Nas duas bases, conferi também o que de fato está gravado em etapa_8.tipologia e etapa_10. Os 6 problemas e os 4 detalhes estavam certos. Só as linhas citadas para se_repete estavam erradas.\n\nAmpliei o testar_glossario.js para cobrir também:\n- a etapa 8 (teste de fora e colunas_fis_de_fora) nas duas bases;\n- espaço sobrando em nome e nome_longo;\n- nome_longo repetido (só pode repetir entre apelidos da mesma coluna do SkillCorner);\n- o lado de cada eixo, calculado do catálogo, e item sem declaração com lado;\n- coluna usada na aba por pontos com texto só de subiu/caiu.\n\nRodei esse teste no arquivo antigo: deu 28 erros, cobrindo todos os achados. Apliquei o conserto e rodei de novo o mesmo script: o arquivo saiu idêntico byte a byte (cmp). node --check passou.\n\nTeste final: 0 erros e exit 0. Cobertura: 0 ids sem entrada nos 20 blocos que existem (etapas 2, 5, 8 e 13, trilha do goleiro, ranking_gaps e ranking_gaps_tecnico_2018_2025, com linhas e colunas). As duas tabelas de gaps não existem em prototipo.json, e o teste registra isso como motivo. O mesmo teste carrega prototipo.js, proto_glossario.js e proto.js juntos, em node, e chama ptNomeIndicador e ptDicaMedida sem erro. Não abri a aba no navegador.",
+   "riscos": [
+    "A aba Protótipo não foi aberta no navegador. As portas 5090 e 5091 são do dono e não subi outro servidor; o teste de 'zero erro no console' foi só em node, com proto.js. Mudança de estrutura no arquivo: nenhuma. As funções continuam iguais, só há entradas novas e textos trocados.",
+    "A dica das réguas B, C, D, G e H, que antes dizia 'lado bom: mais é melhor', agora diz 'sem lado bom declarado'. Se alguma tela pintava cor a partir de glo.lado nesses eixos, a cor muda.",
+    "O nome curto de cs ficou 'Sem sofrer gol (GK)', com a sigla GK, porque 'Sem sofrer gol (goleiro)' passa de 22 caracteres.",
+    "A fonte do kpi_37 ('calculado no Portal Ranking a partir do Wyscout jogador') não é um dos cinco rótulos da lista original. A lista não tinha um que servisse sem afirmar coisa errada."
+   ]
+  }
+ ],
+ [
+  "conserta:casca",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/style.css",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_contrato.md"
+   ],
+   "o_que_fiz": [
+    {
+     "pedido": "400 px: 145 elementos cortados sem aviso, entre eles o número técnico (CONFIRMADO)",
+     "onde": "style.css: .pt-tec e os blocos @media 1080/720",
+     "como": "O .pt-tec agora quebra linha entre palavras em qualquer largura. Só na célula de número (td.num) ele continua numa linha. Abaixo de 1.080 px também quebram .pt-barra-extra, .pt-n, .pt-liq-par, .pt-bases li>span, as marcas e os chips. Abaixo de 720 px, a linha de ptBarra empilha rótulo, barra e número, e as grades de controle, contrafactual e conclusões viram uma coluna só. Medido: 0 elementos fora da borda a 400 px (eram 145) e 0 a 1.785 px (antes da troca ainda havia 2 .pt-tec). Na captura, 'd mínimo 0,79' aparece inteiro."
+    },
+    {
+     "pedido": "5 caixas ainda estouram a 1.785 px (conferido: são das etapas 2, 5 e 9)",
+     "onde": "proto_a.js, proto_b.js e proto_c.js, que têm outros donos",
+     "como": "Não mexi, porque não são arquivos meus. Medi de novo e deu o mesmo: ptEt-2-tab 5.586/1.509, a matriz da etapa 5 com 2.673, e ptEt-9-crus-3/-6/-7 com 1.530, 2.347 e 2.221. As 5 já estão listadas no contrato §10, com o conserto de cada uma."
+    },
+    {
+     "pedido": "Conclusões: a casca não aceitava o formato que o gerador vai gravar (CONFIRMADO, gravidade quebra)",
+     "onde": "proto.js: ptConclusaoTexto (novo), ptConclusao, ptConclusoesDo; contrato §8.6",
+     "como": "Deixei o formato fechado no contrato e implementei os dois caminhos. Caminho 1: textos prontos. Caminho 2: `molde` com {lacuna} mais `lacunas[nome].formatado`. A tela só troca a lacuna pelo texto que o gerador já formatou: não formata nem calcula. Lacuna com `formatado` null vira ptFalta(motivo_se_null). Lacuna que falta vira ptFalta com esse motivo. O selo sai de `selo` ou `selo_calculado`, com `criterios_do_selo` no title. Aparecem também o tema e o aviso de divergência com o documento (forca_do_documento). Testado com um item sintético nos dois caminhos."
+    },
+    {
+     "pedido": "ptBaseline, ptControles, ptContrafactual e a tarja liam chaves que só existem na Protótipo (CONFIRMADO, gravidade mente)",
+     "onde": "proto.js: ptBaseline, ptControles, ptContrafactual, ptTarja, ptPoucaBase",
+     "como": "Troquei todas as leituras por ptLer/ptCampo e todos os textos 'subiram / times que subiram' por ptFxRot. Na aba de pontos, o tamanho do top-k muda a cada ano (de 4 a 8), e a frase agora diz isso, com a regra do dado no técnico. O Controle 3 mostra a taxa da faixa alta e também a taxa de subida real (subiram_de_fato, taxa_de_subida_real_*), com rótulos diferentes. Rodado com o PONTOS: zero ptFalta no Controle 1, nos controles e no contrafactual. Antes eram 2 falsos."
+    },
+    {
+     "pedido": "ptSorte com um 0,05 digitado de reserva, e ptLiquidaAlfa null na aba de pontos (CONFIRMADO, gravidade mente)",
+     "onde": "proto.js: ptAlfaInfo, ptAlfa (novos), ptSorte, ptLiquidaAlfa, ptLiquida; contrato §3",
+     "como": "Tirei a reserva digitada. ptAlfa(universo?) lê etapa_0.poder.alfa ou, no dado dividido por universo, o alfa do universo pedido. Sem universo, só devolve um valor se todos os universos tiverem o mesmo alfa; se forem diferentes, devolve null, e o motivo diz por quê. ptSorte continua devolvendo texto simples, porque os donos fazem esc() no resultado: por isso a ausência de alfa é uma frase, não um ptFalta. Com PONTOS: alfa 0,05 nos 3 universos, e a coluna líquida acende 'vive'."
+    },
+    {
+     "pedido": "ptCaminho só casava o caminho inteiro, não lia campo de lista e não avisava chave removida (CONFIRMADO)",
+     "onde": "proto.js: ptMapaEntrada, ptCaminho, ptLer, ptCampo e ptRemovida (novos); contrato §8.3",
+     "como": "Agora casa pelo prefixo mais longo e anexa o resto. Aceita índice de lista: 'quartis[2].subiram' vira 'quartis[2].na_alta', e ptLer lê o valor (deu 6). ptCampo(lista, campo) devolve o nome do campo no dado; com '*', procura em todos os caminhos. ptRemovida devolve {motivo} com a nota do mapa para as 24 entradas com aqui:null. Medido: ptCampo('etapa_1.curva_top_k.curva','promovidos_acumulados') dá 'alta_acumulados', e etapa_10.linhas[].nome dá o motivo."
+    },
+    {
+     "pedido": "Faixa: definição em vez de nome, sem formas diferentes, e desfecho real confundido com faixa (CONFIRMADO)",
+     "onde": "proto.js: ptFxRot com {forma}, ptDesfechoRot, ptFxLista, ptCascaContagemFaixas; contrato §8.3",
+     "como": "Criei as formas padrao, quem, verbo, verbos, times, nome e definicao. Na Protótipo, sem forma, a saída continua a mesma: 'quem subiu / meio da tabela / quem caiu'. Na aba de pontos, o nome sai de rotulos_formas, depois de rotulos_curtos e, por último, da própria chave do gerador ('faixa alta', 'faixa média', 'faixa baixa'). A definição com o corte só aparece na forma 'definicao' ou no title. ptDesfechoRot ignora as faixas e serve para subiu_de_fato e faixa_posicao_t1. Diferença em relação ao conserto pedido: não escrevi a ausência do nome curto, porque a chave já é um nome gravado pelo gerador."
+    },
+    {
+     "pedido": "Faltava lugar para universo, estado_nesta_aba e o_que_mudou (CONFIRMADO)",
+     "onde": "proto.js: ptUniversoEtapa e ptUniverso (novos), chamados no cabeçalho de cada etapa; contrato §8.8",
+     "como": "A casca desenha .pt-etapa-universo antes da conclusão da etapa. Na Protótipo não aparece nada, porque essas chaves não existem lá. ptUniverso(texto) é público, para usar ao lado de um número."
+    },
+    {
+     "pedido": "Nomes que afirmam mais do que a conta: defesa_vs_xg, ppda, psv/psv99, gk_def (CONFIRMADO no analisar_serieb.py:257 e no glossário)",
+     "onde": "proto.js: PT_MEDIDA_CHAVE, PT_MEDIDA_PEDACOS, PT_NOME_CORRIGIDO, ptNomeCorrigidoCasca, ptInfoMedida, ptDicaMedida; contrato §8.7",
+     "como": "Os nomes novos: 'gols sofridos abaixo do esperado (xG), por jogo', 'pressão (passes do adversário por ação defensiva)', 'pico de velocidade (média dos jogos)', 'pico de velocidade (média dos 5 jogos mais rápidos)' e '% de defesas'. O pedaço que reescrevia para 'por desarme' agora só põe os acentos. Nessas chaves, incluindo fis_<setor>_psv99, o nome corrigido da casca passa na frente do nome_longo do glossário. Nas outras chaves, ptInfoMedida devolve aviso_nome e a dica mostra 'atenção ao nome'. Conferido: ptNomeIndicador('defesa_vs_xg') devolve o nome novo."
+    },
+    {
+     "pedido": "ptConclusoesDo sem temas e descartadas, e sem gancho para ir à aba de destino (CONFIRMADO)",
+     "onde": "proto.js: ptConclusoesDo, ptAoIrParaEtapa (novo), evento 'pt-ir', ptIrParaEtapa",
+     "como": "ptConclusoesDo devolve também temas e descartadas. ptIrParaEtapa roda os ganchos (prefixo, n) e dispara o evento `pt-ir` antes de procurar a seção e rolar. Testado: o gancho e o evento recebem ['ptEt', 7]."
+    },
+    {
+     "pedido": "ptTabela sem ordenavel:false (CONFIRMADO)",
+     "onde": "proto.js: ptTabela e ptTabCabeca; style.css .pt-th-fixa; contrato §3",
+     "como": "ordenavel:false funciona na tabela inteira ou numa coluna. O th sai sem data-col e o motivo vai no title (motivoFixa). O exemplo documentado é a tabela de gaps em valor cru. Testado: 0 e 1 th clicáveis nos dois casos."
+    },
+    {
+     "pedido": "Detalhes: caixa da escala com hidden visível, frase de ausência com jargão, botão da escala que prende no cru, legenda que depende da ordem, redesenho assíncrono, texto do selo",
+     "onde": "style.css e proto.js: ptAtualizarBotaoEscala, ptMudarEscala, ptLegendaPosto, PT_CONCL_AUSENTE, ptComAba (novo), PT_SELOS",
+     "como": "(1) Criei .pt-escala[hidden]{display:none}: o display calculado agora é none. (2) A chave `conclusoes` saiu da frase e foi para o ptTecnico. A linha tem max-width de 75ch (mede 520 px) e cada etapa diz só 'ainda não gravada — ver o aviso no topo da aba'. (3) ptMudarEscala não apaga mais o registro, e o botão nunca some no valor cru. Testado: sem nenhuma etapa registrada e no cru, o botão continua na tela. (4) ptLegendaPosto aceita {comBotao}. Sem unidade, diz que o arquivo de dados não declara a unidade. O contrato manda registrar a escala na primeira linha de ptEtapaN. (5) ptComAba(alvo, fn) está documentado no §8.1. (6) O moderado ganhou a condição da 'lista inteira' e o fraco ganhou o 'no limite'. A casca lê regua.selos_simples, se o gerador gravar. (7) Corrigi o plural: '1 não tem faixa salarial'."
+    }
+   ],
+   "api_publicada": [
+    "ptAlfa(universo?, dado?) / ptAlfaInfo(universo?, dado?) -> {alfa, universos?, motivo?}",
+    "ptSorte(p, universo?) — sem alfa: 'sem corte de sorte declarado no arquivo de dados'",
+    "ptFxRot(faixa, {forma: 'padrao'|'quem'|'verbo'|'verbos'|'times'|'nome'|'definicao'}, dado?)",
+    "ptDesfechoRot(faixa, forma?) — desfecho real, ignora faixas",
+    "ptFxLista(dado?) -> [{interna, chave, rot, nome, definicao}]",
+    "ptCaminho(caminho) — prefixo mais longo, aceita lista[n]",
+    "ptLer(caminho) — lê lista[n]; undefined para chave removida",
+    "ptCampo(lista|'*', campo, dado?) -> nome do campo no dado ativo",
+    "ptRemovida(caminho) -> null | {motivo, caminho}",
+    "ptTabela({ordenavel:false, motivoFixa}) e colunas[].ordenavel:false / motivoFixa",
+    "ptComAba(elemento, fn)",
+    "ptAoIrParaEtapa(fn(prefixo, n)) + evento 'pt-ir' no document (detail {prefixo, n})",
+    "ptConclusoesDo(dado) -> {itens, cinco, regua, temas, descartadas}",
+    "ptConclusao(c): aceita selo|selo_calculado, textos prontos OU molde+lacunas[].formatado/motivo_se_null, criterios_do_selo, tema, forca_do_documento/divergencia_com_o_documento; lê regua.selos_simples",
+    "ptLegendaPosto({escala, unidade, el, comBotao})",
+    "ptUniverso(texto) / ptUniversoEtapa(dado, n) (a casca já desenha no cabeçalho de cada etapa)",
+    "ptInfoMedida(id).aviso_nome; PT_NOME_CORRIGIDO",
+    "CSS: .pt-concl-tema, .pt-concl-diverge, .pt-etapa-universo, .pt-universo, .pt-th-fixa, .pt-escala[hidden]"
+   ],
+   "o_que_ficou_para_outro_dono": [
+    "proto_a.js: ptEt-2-tab estoura (5.586 px, 31 colunas). Juntar pares de colunas e passar o técnico para ptTecnico (meta de ~12 colunas). Tirar o max-width:none dos 3 .pt-nota (l.~605, 729, 895).",
+    "proto_b.js: a matriz da etapa 5 estoura (2.673 px). Usar classe pt-matriz, pt-th-vertical e ptNomeCurto. Trocar PB_FAIXA_TXT por ptFxRot({forma:'verbo'}).",
+    "proto_c.js: ptEt-9-crus-3/-6/-7 estouram. Marcar as colunas de frase com tipo:'texto'. Trocar PC_GRUPOS por ptFxRot/ptDesfechoRot.",
+    "proto_a/b/c: onde contam sobreviventes com alfa próprio (paAlfa, pbPassa...), usar ptAlfa(). Registrar a escala com ptRegistrarEtapaComEscala na primeira linha de ptEtapaN. Usar ptComAba em redesenho assíncrono. Ler chaves renomeadas com ptLer/ptCampo e escrever ptFalta(ptRemovida(c).motivo).",
+    "proto_glossario.js: regravar nome_longo/nome_simples de defesa_vs_xg, ppda, psv, psv5, psv99(_top5) e gk_def com os nomes corrigidos (hoje a casca passa na frente deles).",
+    "gerador: gravar o bloco `conclusoes` num dos dois caminhos do contrato §8.6. No caminho 2, `lacunas[].formatado` precisa vir já formatado. Se quiser, gravar também regua.selos_simples e faixas.rotulos_formas ou rotulos_curtos.",
+    "app.js: registrar ptAoIrParaEtapa((prefixo) => irParaAba(<aba do prefixo>)) quando a aba de conclusões existir."
+   ],
+   "como_testei": "Rodei `node --check static/proto.js`: OK. Depois rodei um teste headless (scratchpad/casca_r2/teste_r2.py) com Playwright do Python. Ele sobe o Flask na porta 5096 e derruba no fim, sem tocar nas portas 5090 e 5091. A 1.785 px: 16 etapas desenhadas, nenhuma com pt-erro ou pt-espera, zero erro ou aviso no console (antes e depois dos testes da API), nenhum id pt repetido, 0 elementos além da borda. Das 44 caixas de tabela, 5 rolam para o lado, as mesmas 5 dos donos das etapas. A caixa .pt-escala escondida tem display:none. A 400 px: 16 etapas, zero erro, 0 elementos além da borda fora de caixa com rolagem (eram 145), e a captura shot_400.png mostra o técnico 'd mínimo 0,79' inteiro. Com o PONTOS carregado por script numa aba temporária 'poEt' (sem desenhar as etapas dos outros donos): ptBaseline, ptControles e ptContrafactual deram 0 ptFalta. ptAlfa deu 0,05, ptSorte(0,04) deu 'dificilmente é sorte' e ptLiquida acendeu 'vive'. Também conferi as formas de ptFxRot e ptDesfechoRot, ptCaminho por prefixo e com índice, ptCampo, ptRemovida com motivo, o universo da etapa 5, os nomes corrigidos, ptConclusao nos dois formatos (lacuna nula e lacuna ausente viram ptFalta), ordenavel:false, o gancho e o evento de ir para etapa, e a escala: no cru o botão não some, e ao voltar para percentil sem registro ele se esconde. A Protótipo continua com 'quem subiu / meio da tabela / quem caiu', e ptUniversoEtapa(PROTO) volta vazio.",
+   "riscos": [
+    "Decisão que o dono precisa confirmar: a regra 'a tela não preenche molde' virou 'a tela não formata nem calcula; só troca {lacuna} pelo `formatado` gravado'. Se o dono preferir, o gerador grava os textos prontos (caminho 1) e o caminho 2 nunca entra em uso.",
+    "O nome curto das faixas na aba de pontos ('faixa alta', 'faixa média', 'faixa baixa') sai da CHAVE que o gerador deu. O conferente pedia a ausência escrita até existir um nome curto, e eu não fiz assim. Se o gerador gravar rotulos_curtos que não seja substantivo feminino, a frase 'quem ficou na <nome>' fica errada; o caminho seguro é rotulos_formas.",
+    "Pequenas mudanças de texto na Protótipo: 'dos times dessa faixa de orçamento, quantos subiram' (antes 'dessa faixa'), o texto da ausência de conclusões e a explicação do selo moderado e do fraco. Os números não mudaram.",
+    "ptCampo('*', campo) só traduz quando todas as entradas do mapa concordam. Um campo com o mesmo nome e destinos diferentes em caminhos distintos continua com o nome da Protótipo, em silêncio.",
+    "ptSorte sem alfa devolve texto simples, não ptFalta, porque os donos fazem esc() no resultado. A ausência fica escrita, mas sem a classe .pt-falta.",
+    "O pontos.json ainda está em conferência. Os resultados medidos da casca com o PONTOS valem para o arquivo de hoje.",
+    "Anterior a esta rodada: abaixo de 1.080 px o sumário vira uma faixa grudada no topo com 16 pílulas, que ocupa uns 380 px e cobre conteúdo ao rolar num celular. Não mexi."
+   ]
+  }
+ ],
+ [
+  "reconfere",
+  {
+   "lente": "reconferencia-do-conserto (casca proto.js + style.css + glossario) e regressao da aba Prototipo e da janela de busca",
+   "conferidos": 17,
+   "medidas": "Teste headless próprio (scratchpad/rc_teste.py, com rc_mede.js, rc_probe.js e rc_busca.js), com Playwright. Subi dois servidores e derrubei os dois no fim; as portas 5090 e 5091 não foram tocadas. Na 5097, o código de hoje, por uma pasta-espelho com links e cenarios/premissas copiados, para não gravar nada no projeto. Na 5098, o retrato de antes do conserto (scratchpad/rg_now, com os mesmos proto_a/b/c e app.js). Saída em scratchpad/rc_saida.json.\n\nA 1.785 px: 16 etapas, nenhuma com erro ou em espera, ZERO erro ou aviso no console, nenhum id repetido, nada passando da borda (antes: 2 .pt-tec nas etapas 3 e 14), página sem rolagem lateral e 0 .pt-tec sem quebra fora de célula numérica (antes: 268). Das caixas, 5 ainda rolam: as mesmas 5 (ptEt-2-tab 5.586, matriz da etapa 5 2.673, ptEt-9-crus-3/-6/-7).\n\nA 400 px: 16 etapas, zero erro, 0 elemento cortado fora de caixa com rolagem (eram 145), página sem rolagem lateral. Captura em scratchpad/rc_400_et4.png.\n\nJanela de busca (abrirBusca), antes e depois de abrir a aba, nas duas larguras: abre com 335 linhas, 0 elemento passando da borda e sem erro. O filtro por texto via evento input não muda a contagem, nem no retrato de antes; não é regressão.\n\nTexto da aba Protótipo, antes contra agora (innerText do #ptCorpo): 172 linhas diferentes, todas de propósito. São os nomes corrigidos (pico de velocidade, pressão por ação defensiva), o aviso de conclusão ausente mais curto e duas frases ('um que não', '10 casos de quem subiu'). Nenhum número mudou.\n\nGlossário, em node: testar_glossario.js deu exit 0 e 0 erros. Pela minha checagem direta, as réguas B/C/D/G/H e tm_* estão sem lado e A/E/F/I com lado; d/p/q_clube e pct_* falam das duas abas; etapa 8 com 0 id sem entrada no PROTO; GP, golos_tec, cs e clean_sheets com nomes distintos; kpi_* sem espaço sobrando; kpi_37 com a fonte certa. Os t_* com 'menos é melhor' batem com menor_melhor do catálogo.\n\nCasca com PONTOS: ptBaseline, ptControles e ptContrafactual das 6 propostas com 0 ptFalta; ptAlfa 0,05; ptSorte com os três vereditos; alfas diferentes e alfa ausente devolvem null com motivo; ptLer de chave removida dá undefined e ptRemovida dá o motivo; ptLer('etapa_1.curva_top_k.curva[0].promovidos_acumulados') = 3; ptCampo('...controle_n_atletas','media_cai') = media_baixa; ptFxRot com dado null dá 'quem subiu'. Ao voltar para a Protótipo: 'quem subiu', 0,05. O 'subiram' que ainda aparece nos controles da aba de pontos é 'subiram de fato' (ptDesfechoRot), o que está certo. Conclusões no formato real do conclusoes_spec.json (41 itens, selo_calculado sintético): 5 no topo, tema lido, 0 'undefined', '[object Object]' ou '{lacuna}' crua, 53 ptFalta pelas lacunas sem formatado; HTML em formatado sai escapado; sem selo aparece 'não calculada' com o motivo. O gancho ptAoIrParaEtapa recebe ['ptEt', 11] e o sumário continua existindo.",
+   "problemas": [
+    {
+     "arquivo": "static/proto.js",
+     "onde": "ptCascaContagemFaixas (logo antes de ptRender), ramo `dado.faixas`",
+     "o_que_vi": "Com o PONTOS, a função devolve três vezes 'sem dado — a etapa 0 não traz a contagem desta faixa no topo'. Ela procura `etapa_0.alta`, `etapa_0.media` e `etapa_0.baixa`, mas o dado grava a contagem em `etapa_0.universo_80_2022_2025.alta|media|baixa`. O próprio mapa do dado traduz isso: 'etapa_0.sobe' → 'etapa_0.universo_80_2022_2025.alta'. É o mesmo tipo de leitura direta que o conserto trocou por ptLer em ptBaseline e ptControles, mas esta função ficou de fora. (O relato anterior media '24 na faixa…'; hoje sai a ausência.)",
+     "por_que_importa": "Na aba de pontos, a contagem de abertura diria que falta um dado que existe. Pela regra da casa, isso é 'mente'. Ainda não aparece porque a aba de pontos não tem tela, mas é a casca, e os donos das etapas não conseguem consertar.",
+     "conserto": "Ler cada contagem por `ptLer('etapa_0.' + f.interna, dado)` ('etapa_0.sobe' etc., que o mapa traduz), ou por `ptCaminho`. Só escrever ptFalta quando o valor traduzido não existir e, se houver ptRemovida, usar o motivo dela. Conferir com o PONTOS: 24 · 35 · 21.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto.js e static/proto_glossario.js",
+     "onde": "ptInfoMedida (campos `curto` e `nome_longo`), ptNomeCurto; entradas do glossário psv, psv5, psv99, psv99_top5, fis_psv99(_top5), fis_<setor>_psv99, gk_def, defesa_vs_xg, ppda",
+     "o_que_vi": "A correção de nome só troca o campo `nome`. Medido na aba: ptNomeCurto('fis_zaga_psv99') ainda devolve 'Velocidade máxima', e ptNomeCurto('gk_def') devolve 'Defesas'. ptInfoMedida(k).nome_longo continua 'velocidade máxima', 'gols evitados pelo goleiro (contra o xG)' e 'Pressão (passes do adversário por desarme)'. Quando a casca corrige o nome, ela também zera `aviso_nome`, e a dica perde o aviso. Nenhum dos dois donos regravou o nome e o nome_longo no glossário: a casca passou para o dono do glossário, e o relato do glossário não fala disso. O §10 do contrato manda o dono da etapa 5 usar `ptNomeCurto` no cabeçalho da matriz.",
+     "por_que_importa": "No momento em que a etapa 5 seguir o contrato, o cabeçalho volta a dizer 'Velocidade máxima' e 'Defesas' (contagem, quando é %), e a dica não avisa. É o mesmo 'afirmar mais' que o conserto dizia ter fechado. Hoje a aba não mostra essas palavras porque ninguém chama ptNomeCurto.",
+     "conserto": "No glossário, regravar nome, nome_longo e nome_simples dessas chaves com os nomes corrigidos, por exemplo nome 'Pico de veloc.' e '% defesas'. Na casca, enquanto isso não acontecer, fazer `curto` e `nome_longo` também passarem pelo nome corrigido, ou manter `aviso_nome` quando só o `nome` foi trocado. Acrescentar ao testar_glossario.js a checagem de que nome, nome_longo e nome_simples não contêm 'velocidade máxima', 'pelo goleiro' nem 'por desarme'.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_a.js, static/proto_b.js, static/proto_c.js",
+     "onde": "ptEt-2-tab; matriz da etapa 5; ptEt-9-crus-3, -6, -7",
+     "o_que_vi": "Continuam as mesmas 5 caixas rolando para o lado a 1.785 px: 5.586, 2.673, 1.530, 2.347 e 2.221 px. A casca resolveu tudo o que era dela, e as 5 estão listadas no contrato §10 com dono e conserto.",
+     "por_que_importa": "O item 14 fica aberto até os donos das etapas redesenharem. Não é regressão.",
+     "conserto": "Como descrito no §10: juntar colunas no catálogo (proto_a), pt-matriz com cabeçalho curto já corrigido na etapa 5 (proto_b) e tipo:'texto' nas colunas de frase da etapa 9 (proto_c).",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/proto_contrato.md",
+     "onde": "§8.6, 'O FORMATO, fechado nesta rodada'",
+     "o_que_vi": "O contrato trocou a regra 'a tela não preenche molde' por 'a tela só troca {lacuna} pelo formatado gravado' (caminho 2). Funciona com o formato real do spec (41 itens, 0 lixo na tela), mas é mudança de regra que o próprio relato marca como decisão do dono ainda não confirmada. O spec atual não tem `formatado` em nenhuma lacuna: se o gerador gravar só `valor`, as 41 conclusões saem com 53 ou mais 'sem dado'.",
+     "por_que_importa": "O gerador é a próxima rodada. Sem a decisão registrada, ele pode gravar só `valor` e as conclusões aparecem cheias de ausências.",
+     "conserto": "Confirmar com o dono entre o caminho 1 e o caminho 2 e anotar a decisão no CONTINUAR.md. Na ordem de serviço do gerador, deixar explícito que `lacunas[].formatado` é obrigatório no caminho 2.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ]
+]

@@ -1,0 +1,642 @@
+[
+ [
+  "origem",
+  {
+   "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/dados/serieb_origem_2018_2026.csv (180 linhas: 20 clubes x 9 anos; colunas ano, clube, origem, fonte_1, fonte_2, conferido_jogo_a_jogo, nota; csv puro). Scripts: /private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/o1_base_origem.py (monta e confere a base, compara com a lista de memoria) e .../scratchpad/o2_remedir.py (remede a conclusao).",
+   "anos": "2018 a 2026. Todo ano tem 4 A, 12 B e 4 C. A origem de 2018 vem de 2017, que nao esta em nenhuma base do projeto: so a fonte publica sustenta. A conta da conclusao usa 2019-2025 (140 clube-temporadas). 2018-2025 entra so como teste de sensibilidade. 2026 nao entra em conta nenhuma: aparece so como descricao.",
+   "fontes": [
+    "Todos os anos 2018-2026, fonte_1: Wikipedia pt, pagina 'Campeonato Brasileiro de Futebol de <ano> - Serie B', tabela Participantes, coluna 'Em <ano-1>' (ex. https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_2019_-_S%C3%A9rie_B).",
+    "Todos os anos 2018-2026, fonte_2: Wikipedia en, pagina '<ano> Campeonato Brasileiro Serie B', frase 'four promoted from ... Serie C (...) and four relegated from ... Serie A (...)' (ex. https://en.wikipedia.org/wiki/2019_Campeonato_Brasileiro_S%C3%A9rie_B).",
+    "As duas concordaram nos 9 anos, clube a clube. Duas ressalvas de leitura: o resumo da pagina pt de 2024 omitiu o Santos; a tabela final da Serie A 2023 (https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_2023_-_S%C3%A9rie_A) confirma o Santos em 17o, rebaixado. O resumo pt de 2018 e o de 2023 diziam 'tres rebaixados', mas listavam quatro.",
+    "Fora da Wikipedia, so uma conferencia: ogol, Serie A 2019 (https://www.ogol.com.br/edicao/campeonato-brasileiro-2019/131709), 17o-20o Cruzeiro, CSA, Chapecoense e Avai. Bate com os rebaixados que jogaram a B de 2020.",
+    "Para os anos 2023-2026 ha uma terceira fonte, independente: o jogo a jogo do Wyscout (dados/serieb_jogos.csv), conferido abaixo."
+   ],
+   "conferencia_contra_jogo_a_jogo": "Duas conferencias.\n\n(a) CSVs do projeto: os 8 clubes que entram em cada ano de 2019-2026 sao exatamente os 8 da lista publica. Quem estava na B em t-1 e origem B nos 144 casos; zero conflito.\n\n(b) Jogo a jogo:\n- **2023-2026 (80 linhas):** todas marcadas 'sim'. Os 32 que vieram de fora tem, no ano anterior, jogos so de Serie A (os 16 A) ou so de Serie C (os 16 C), sem nenhum de Serie B. Os 48 B tem jogos de Serie B em t-1.\n- **2019-2022:** a base 2018-2021 so guarda Serie B. Por isso os 48 B aparecem como 'sim' (tem jogos de B em t-1) e os 32 que vieram de fora como 'sem dado': zero jogo de B em t-1, mas A ou C so pela fonte publica.\n- **2018 (20 linhas):** 'sem dado'.\n- **Total:** 128 sim, 52 sem dado, 0 nao.\n\nRessalva: o jogo a jogo so guarda partidas dos clubes da B, entao alguns casos se apoiam em poucos jogos (ABC 2023: 1 jogo de Serie C em 2022; Vitoria 2023: 1; Mirassol, Amazonas e Paysandu: 3; Coritiba e Santos 2024: 8 de Serie A). Nenhum contradiz a lista publica.\n\nO agente anterior exigia 10+ jogos de A ou 5+ de C e so resolvia 17 casos. O criterio 'so uma das divisoes aparece' resolve os 32 de 2023-2026.",
+   "divergencias_da_lista_de_memoria": [
+    "Nenhuma divergencia de origem. As 140 linhas de origem_completa.csv (2019-2025) batem uma a uma com a base publica, inclusive as 39 que vinham de 'memoria'. O mesmo vale para MEM_A de c1_origem.py (2019-2022), MEM de c1b_origem_completa.py (ABC, Mirassol e Vitoria 2023; Amazonas e Paysandu 2024 como C; Santos e Coritiba 2024 como A) e DA_A de v1_origem.py (2019-2025).",
+    "O que muda e o metodo, nao o dado: as 39 origens de memoria agora tem fonte com link, e o jogo a jogo resolve 32 casos (2023-2026), nao 17.",
+    "O que a lista antiga nao tinha: 2018 (Coritiba, Avai, Ponte Preta e Atletico-GO da A; CSA, Fortaleza, Sao Bento e Sampaio Correa da C) e 2026 (Ceara, Fortaleza, Juventude e Sport da A; Ponte Preta, Londrina, Nautico e Sao Bernardo da C)."
+   ],
+   "numeros_medidos": "A base nova so confirma a lista antiga, entao os numeros do agente anterior se reproduzem exatamente.\n\n**2019-2025 (140):**\n- Veio da A (28): subiu 11 (39%), caiu 0. Ja estava na B (84): subiu 13 (15%), caiu 23 (27%). Veio da C (28): subiu 4 (14%), caiu 5 (18%).\n- Fisher bilateral: A x B subida p 0,015 e queda p 0,0008. C x B subida p 1,0 e queda p 0,45. A x C subida p 0,068 e queda p 0,052.\n\n**Por periodo:**\n- 2019-2021: A 5/12 subiram e 0 cairam; B 5/36 e 11/36; C 2/12 e 1/12. A x B subida p 0,094, queda p 0,044.\n- 2022-2025: A 6/16 e 0; B 8/48 e 12/48; C 2/16 e 4/16. A x B subida p 0,095, queda p 0,028. C x B p 1,0 e 1,0.\n- Nenhum periodo sozinho passa na subida. A queda passa nos dois.\n- Sensibilidade 2018-2025 (160): A 12/32 subiram e 0/32 cairam; B 14/96 e 26/96; C 6/32 e 6/32 (CSA e Fortaleza subiram em 2018). A x B subida p 0,010, queda p 0,0003; C x B p 0,58 e 0,48.\n- Quedas de quem veio da A em 2018-2025: zero, sem nenhuma excecao.\n\n**Dinheiro (2022-2025, 80 casos, posto de valor Transfermarkt no ano):**\n- Posto mediano A 3 (23,9 mi EUR), B 12 (13,5), C 15,5 (9,5).\n- Os 16 que vieram da A: 12 no top 5 e 4 entre o 6o e o 10o; nenhum abaixo do 9o.\n- Subidas da A: 6 observadas contra 7,33 esperadas pela logistica no posto (7,17 pela taxa do quartil). Permutacao da origem dentro de ano x quartil, 10.000 sorteios, semente [2026, 914]: bilateral 1,0.\n- Quedas da A: 0 contra 0,62 esperadas (0,57 pelo quartil), permutacao bilateral 0,59.\n- Veio da C: subiu 2 contra 1,54 esperadas, caiu 4 contra 4,86.\n- Origem alem do posto (razao de verossimilhanca, 2 gl): subida p 0,55, queda p 0,38.\n\n**Poder (Fisher 0,05, 2.000 simulacoes por cenario, semente [2026, 915]):**\n- 28 x 84: so enxerga subida de 40% contra 15% (71%) ou 35% (51%). Queda zero e sempre detectada (100%); queda de 10%, em 43% das vezes.\n- 16 x 48 (2022-2025): subida de 45% contra 17% em 54%; queda zero contra 25% em 54%.\n\n**Faixa de pontos (corte do dono 61/114 e 175/456, fracao exata), 2019-2025:**\n- Ritmo de briga: A 14/28, B 19/84, C 5/28. Ritmo de queda: A 0/28, B 30/84, C 5/28.\n- A x B: briga p 0,0086, queda p 0,00004. C x B: briga p 0,79, queda p 0,10.\n- 2022-2025: A x B briga p 0,13, queda p 0,0036.\n- O desconto do dinheiro nao foi feito pela faixa de pontos.",
+   "selo_e_frase": "**Selo pela regua:**\n- Veio da A x ja estava na B: FRACO. O p bruto fica abaixo de 0,05 na subida e na queda (2019-2025), mas morre no desconto do dinheiro: 6 subidas observadas contra 7 esperadas pelo valor, e 0 quedas contra menos de 1 esperada. A regra do empate MODERADO x FRACO nem chega a entrar.\n- Veio da C x ja estava na B: SEM SINAL. p 1,0 e 0,45; o estudo so enxergaria diferenca muito grande.\n- 'Nenhum caiu' pode ser escrito com o universo (zero excecao em 28 casos, e em 32 contando 2018), mas nao como regra, e junto do esperado pelo valor.\n\n**Frase de reuniao (universos separados):**\n\"De 2019 a 2025, quem tinha acabado de cair da Serie A subiu 11 vezes em 28 (39%) e nao caiu nenhuma vez. Quem ja estava na B subiu 13 em 84 (15%) e caiu 23. E um sinal fraco: esses clubes chegam com um dos elencos mais valiosos do ano. De 2022 a 2025, quando existe valor de elenco, os 16 que vieram da A tinham tipicamente o 3o elenco mais valioso do ano. Subiram 6 vezes, contra 7 esperadas pelo valor, e cairam 0, contra menos de 1 esperada. Quem subiu da Serie C subiu 4 em 28 e caiu 5 em 28, como quem ja estava na B. Aqui o selo e SEM SINAL: nao se viu diferenca, e 28 times so mostrariam uma diferenca muito grande.\"\n\n**O que nao quer dizer:** que cair da A ajuda a subir, porque e o elenco caro que vem junto; nem que quem sobe da C esta condenado ou protegido.\n\n**Condicionantes para ir a tela:**\n- A base esta gravada e conferida.\n- Pela faixa de pontos a leitura e a mesma (da A: 14 e 0 de 28), mas sem o desconto do dinheiro.\n- Em 2026 (27 rodadas, so descritivo) Juventude esta em 1o e Fortaleza em 4o, ambos vindos da A; o Ceara, tambem da A, esta em 16o.",
+   "o_que_nao_consegui": "- **Fonte fora da Wikipedia:** so o ogol de 2019. As paginas do ogol tem id numerico por edicao, e o endereco sem id de 2018 caiu num diretorio sem dado. Nos anos 2019-2022, pt e en da Wikipedia nao sao fontes plenamente independentes. Em 2023-2026 o jogo a jogo cobre essa lacuna; em 2019-2022 e 2018, o A x C depende so da Wikipedia (com o ogol de 2019 como exceção).\n- **Paginas da Serie A e da Serie C:** usei as paginas da Serie B de cada ano, que citam e linkam as da A e da C, e nao abri a pagina de cada campeonato ano a ano. Exceções: a Serie A 2023, no caso do Santos, e o ogol da Serie A 2019.\n- **Desconto do dinheiro na faixa de pontos:** nao foi feito.\n- **Elenco na fronteira (0,045 a 0,052) com 10.000 sorteios:** nao remedi. Fica fora desta tarefa de origem e exige importar gerar_prototipo enquanto a base de pontos roda.\n- **Git e arquivos proibidos:** nenhum git, e nenhum arquivo proibido foi tocado."
+  }
+ ],
+ [
+  "editor",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/CONCLUSOES.md",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/declaracoes_novas.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r4_duelos_familias.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r4_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r5_alvo_fisico_excesso.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r5_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r6_m1.log",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp1_regua_e_existentes.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp2_existentes.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp3_novas.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp4_consertos.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/CONCLUSOES_antes_14_09.md (cópia de segurança)",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/conclusoes_spec_antes_14_09.json (cópia de segurança)"
+   ],
+   "mudancas": [
+    {
+     "id": "REGUA",
+     "antes": "MODERADO e FRACO se sobrepunham quando q >= 0,05; o desempate só cobria repetição e céticos",
+     "depois": "Regra do 'olhar a lista inteira' por extenso no documento e em regua.selos + regua.regra_do_excesso: família declarada, rótulos sorteados dentro do ano, 10.000 sorteios, semente fixa, p do excesso = (1+#>=)/(N+1), corte estrito < 0,05, contagem bruta. Medido: técnico do time 7 contra 1, p 0,040 (segunda semente 0,038); elenco 3 contra 0, p 0,047 nas duas sementes (±0,002, abaixo do corte, nada depende disso); físico por setor 9 contra 6, p 0,33; técnico individual 10 contra 5, p 0,084",
+     "por_que": "Decisão 1 do dono em 14/09"
+    },
+    {
+     "id": "J1",
+     "antes": "FORTE, 'o único sinal de jogo que passa em tudo', 'consequência de chegar bem à área'",
+     "depois": "MODERADO; frase com o 1º turno 'no limite contando os 28'; mecanismo trocado pelo medido (descontadas entradas e toques, p 0,0013)",
+     "por_que": "Em 2018-2021 falha (p 0,079): as repetições discordam e vale o selo mais fraco"
+    },
+    {
+     "id": "M1",
+     "antes": "MODERADO, 'para contratar, o físico é pista melhor', 0,40 contra 0,83",
+     "depois": "NÃO DÁ PARA AFIRMAR para quem trocou de clube. Mesma população, sem 2026 (último par 2024→2025): posição +0,10, IC −0,04 a +0,18; setor +0,07, IC −0,05 a +0,15. Quem ficou: +0,20 e +0,15",
+     "por_que": "Com a mesma régua nos dois lados o intervalo cruza zero; o 0,40 x 0,83 comparava réguas diferentes"
+    },
+    {
+     "id": "FIS-07",
+     "antes": "FORTE com 0,86 em 614 pares; 'para contratar, boa pista'",
+     "depois": "FORTE: posto dentro de ano e setor (tabela do gerador) 0,61; mudou 0,58, ficou 0,68; pares 0,59/0,60/0,63; o 0,83 da liga inteira fica como outra pergunta",
+     "por_que": "Receita e número que não se reproduziu; o corte de 2026 não mexe aqui (499 pares com e sem)"
+    },
+    {
+     "id": "FIS-06, FIS-08, FIS-11",
+     "antes": "MODERADO",
+     "depois": "FRACO",
+     "por_que": "A família física por setor não tem mais achados que a sorte (p 0,33)"
+    },
+    {
+     "id": "J7 (item 7)",
+     "antes": "MODERADO, cai x resto p 0,076",
+     "depois": "FRACO. Sobe x meio p 0,012, q 0,22, lista p 0,084; sobe x resto p 0,0053, lista p 0,082; 13/16 na metade de cima; quem cai: contra o meio p 0,29, contra o resto p 0,093 e 0,26 descontado ('não é bem pior')",
+     "por_que": "Remedido; família técnico individual sem excesso"
+    },
+    {
+     "id": "J5 (item 3)",
+     "antes": "MODERADO, 'não antes', sem família",
+     "depois": "MODERADO: cai x resto p 0,0034, descontado 0,019, q 0,021 na família montada (lista 13 contra 1, p 0,002; q líquido 0,30); 2018-21 p 0,52; diferença entre períodos p 0,11. Zagueiros: FRACO (q 0,063, lista 8 contra 5, p 0,20)",
+     "por_que": "Remedido; título sem afirmar diferença entre períodos"
+    },
+    {
+     "id": "J10",
+     "antes": "SEM SINAL com 'escolher a rota não mostrou custo'",
+     "depois": "SEM SINAL: 'não se viu', G1 nomeado, Kruskal gravado 0,0325 ('3 de cada 100'), rota x valor ρ 0,42 na liga",
+     "por_que": "Decisão 2 do dono; receita e 'custo' saíram"
+    },
+    {
+     "id": "DIN-01",
+     "antes": "'quase sempre'",
+     "depois": "'3 em cada 4' com o contrapeso (20 de 32 top 8 não subiram) na mesma frase; tabela dos euros como descrição (2,5 a até 2 posições, 1,3 a até 1)",
+     "por_que": "Receita; nada de sexto rótulo"
+    },
+    {
+     "id": "DIN-03, ELE-01, J3, J8, J11",
+     "antes": "zero dependente da fonte; 'não é o valor'; 'time com a bola faz menos falta'; 'a melhor pista'; 'não separou nada'",
+     "depois": "duas fontes lado a lado; motivo do moderado escrito; mecanismo medido (ρ −0,13); título 'acrescentam pouco' e 'nenhum passa dela'; 'não se viu' com contagens e as duas diferenças de quem cai",
+     "por_que": "Consertos dos céticos"
+    },
+    {
+     "id": "NOVAS",
+     "antes": "não existiam",
+     "depois": "ORI-01 FRACO, ORI-02 SEM SINAL (base de origem gravada), J13 MODERADO (xG por chute cedido; total x cai moderado, x meio fraco), J14 SEM SINAL, J15 FRACO (posse), J16 FRACO, ELE-06 FRACO, ELE-07 FRACO, M4 FRACO (zaga, lateral, ataque), M5 MODERADO (meio: lista 11 contra 1, p 0,024; sobram expl, giros 90/180 e t_hsr), M6 FRACO (passes recebidos 0,29 x 0,53, p 0,016 sem 2026)",
+     "por_que": "As 9 do crítico, com os consertos do cético e as partes de selo diferente separadas"
+    },
+    {
+     "id": "SPEC",
+     "antes": "DIN-02 menor_k_que_atinge; A3/A4 sem aviso; fontes externas sem declaração",
+     "depois": "menor_k_com_14; A3 e A4 com lacuna ausente e motivo; bloco fontes_externas; regra_das_cinco; faixa_de_pontos provisória por conclusão; p_principal; lacunas do DIN-01 que faltavam",
+     "por_que": "Item 5 do mapa do gerador"
+    }
+   ],
+   "contagem_de_selos": "52 conclusões: 3 FORTES · 14 MODERADAS · 18 FRACAS · 11 SEM SINAL · 6 NÃO DÁ PARA AFIRMAR. O documento e o spec batem. Em 13/09 eram 41: 4 / 16 / 7 / 9 / 5.",
+   "as_cinco": [
+    "DIN-01 [FORTE] O valor do elenco é o sinal mais sólido: 11 de 20 entre os 5 mais caros subiram, 1 subiu e 8 caíram entre os 5 mais baratos; 20 dos 32 top 8 não subiram",
+    "FIS-07 [FORTE] O físico do jogador se repete de um ano para o outro, também em quem troca de clube (0,61 por setor; 0,58 mudou, 0,68 ficou)",
+    "J1 [MODERADO] Quem sobe finaliza de mais perto do gol (19,6 m contra 20,5; 14 de 16)",
+    "A2 [MODERADO] O que separou quem sobe em 2022-2025 apontou para o mesmo lado em 2018-2021 (12 de 12, tudo cru)",
+    "M5 [MODERADO] O perfil físico da nota só se sustenta no meio-campo (a M4 diz que nos outros setores é fraco)",
+    "Regra escrita no documento e em spec.regra_das_cinco: ordena por selo; só entram conclusões com o campo do selo em alguma base; primeira passada no máximo uma por tema; empate decidido pelo menor p da comparação principal; vaga que sobrar vai para a segunda passada. A A4 ficou fora porque o campo dela não existe em base nenhuma"
+   ],
+   "declaracoes_propostas_para_o_gerador": "Gravei em scratchpad/declaracoes_novas.json, no formato de prototipo_indicadores.json, e não mexi no arquivo do projeto. Chaves: (1) comparacoes: CR, SR e CM marcadas como 'declaradas depois de olhar'; (2) excesso_por_familia: 5 famílias do catálogo mais as 4 do perfil da nota por setor, 10.000 sorteios, semente [SEMENTE,3,i], corte estrito 0,05, contagem bruta; (3) duelos_itens_3_e_7: as linhas, as comparações e a checagem entre períodos; (4) etapa_6_mesmo_ano, com o bloco de consequência (item 10); (5) origem: base CSV, 2019-2025, Fisher, dinheiro por permutação dentro de ano x quartil, poder, sementes próprias; (6) elenco_base (pctFicou, novos), em família separada; (7) colocacao_t_t1; (8) estilo_x_valor; (9) etapa_11_mesma_regua: ano máximo 2025, físico por setor, comparação físico x técnico na mesma população com posição x posição e setor x setor, Fisher z mudou x ficou; (10) nota_por_setor_por_clube; (11) indice_intensidade, marcado 'montado depois de olhar', com teto FRACO; (12) etapa_1_tabela_e_euros: ks [4,6,8,9], valor do k-ésimo elenco por ano, blocos e vizinhos de valor; (13) etapa_14_contagem: por posição, 2.000 réplicas, [SEMENTE,14,i], Wilson, empate técnico.",
+   "campos_que_o_gerador_precisa_gravar": [
+    "bases.painel_2018_2021, bases.origem (dados/serieb_origem_2018_2026.csv) e bases.teste_cego, com sha256",
+    "etapa_3.por_familia[f].excesso[SM|SC|CR|SR|CM].{observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios, semente}",
+    "etapa_2.linhas[].{p_bruto_CR, p_liq_CR, q_CR, q_liq_CR, p_bruto_SR, p_liq_SR, q_SR, p_bruto_CM, p_mw_CM, q_CM, antigo_CR, antigo_SM, diferenca_entre_periodos_CR, cai_metade_baixo, sobe_metade_cima, cai_entre_5_piores, n_sobe}",
+    "etapa_2.linhas[faltas].{rho_com_posse, p_SM_descontada_posse}; linhas[dist_remate].p_SM_descontadas_entradas_toques",
+    "etapa_2.estilo_x_valor.{posse, ppda, cantos, cruzamentos, contra_ataques}.{rho, p}",
+    "etapa_2.linhas[pctFicou|novos] (família elenco_base, 2023-2025)",
+    "etapa_1.quartis[].cairam; auc_posto_de_valor.{p_sobe_x_meio, ic95, por_ano, p_meio_x_cai, meio_x_cai_por_ano}; cobertura_do_valor.p_valor_descontada_cobertura; sensibilidade_fonte_valor (valor_total Wyscout); curva_top_k.{valor_do_posto_k_por_ano, ks_da_tabela, curva[].promovidos_por_ano}; valor_mediano_da_liga_por_ano; blocos_de_posto; vizinhos_de_valor",
+    "etapa_6.colocacao.{n_pares, rho_posicao, rho_aproveitamento, por_periodo, por_faixa_de_posicao, rho_posicao_nos_pares_com_valor}; etapa_6.mesmo_ano[ind].{rho,p,n}; etapa_6.consequencia",
+    "etapa_7.linhas[].q_parcial; etapa_7.tabela_contra_melhor_numero.{dif, ic95}",
+    "etapa_8.tipologia.dinheiro.{rho_rota_x_valor_80, rho_territorio_x_valor_80} (p_kruskal já está gravado e é o que a frase usa)",
+    "etapa_11.tecnico com ano <= 2025 e metricas[].{p_dif_mudou_ficou, q_dif}",
+    "etapa_11.fisico.por_setor.{rho_mediano, rho_mudou, rho_ficou, rho_mediano_por_par_de_anos, p_max}",
+    "etapa_11.comparacao_fisico_tecnico.{mudou, ficou}.{posicao, setor}.{rho_fisico, rho_tecnico, dif, ic95, frac_menor_igual_zero, por_par_de_anos, n}",
+    "etapa_13.empates_na_margem.{n, de}",
+    "etapa_14 (gerador novo): propostas.*.vagas_detalhe[].{recomendacao, empate_tecnico, alternativas}[].{nome, freq_pct, ic95_pct}, contagem='por posição', replicas, gerador",
+    "etapa_15.proxy_sistema.formacao_principal_por_faixa",
+    "sobecai_corrigido_por_clube.<setor>.{testes, passam5_bruto, passam5_liq2, sobreviventes, q_das_sobreviventes, excesso, menor_p_liq2}",
+    "conclusoes_base.origem.{anos_da_conta, por_origem[A|B|C].{n,subiu,caiu}, fisher.{A_x_B,C_x_B,A_x_C}.{p_subida,p_queda}, por_periodo, dinheiro.por_origem[].{n, posto_mediano, subiu, caiu, subidas_esperadas_logistica, quedas_esperadas}, dinheiro.permutacao, razao_de_verossimilhanca, poder, faixa_de_pontos}",
+    "teste_cego_2018_2021.json (ou medida nova no gerador): diferenca_entre_blocos[].p (A3) e regime_veredito.p_bloco_por_ano (A4)",
+    "conclusoes.{versao_spec, contagem_de_selos, cinco_que_precisa_ler (pela regra), itens[].{selo_calculado, criterios_do_selo, lacunas resolvidas, divergencia_com_o_documento}}",
+    "PONTOS.conclusoes[id].vale_pela_faixa_de_pontos (gerado por gerar_pontos.py; os textos do spec são só referência provisória)"
+   ],
+   "pendencias": [
+    "As linhas 'vale também pela faixa de pontos?' saíram do pontos.json em conferência e de recálculos do CSV. Todas estão marcadas como provisórias até a base de pontos fechar.",
+    "A3 e A4: o campo que decide o selo não existe em base nenhuma. A A4 fica sem selo calculado e fora da regra das cinco até alguém medir e gravar p_bloco_por_ano.",
+    "J2, J4, J6 e J9 ainda não passaram por cético. O documento avisa.",
+    "O 'elenco' passou no p do excesso por pouco (0,047 nas duas sementes, com erro de ±0,002). Hoje nenhuma conclusão depende disso, mas uma geração com outra semente pode cruzar o corte.",
+    "No técnico do time, o excesso para quem sobe contra o meio só existe na contagem bruta (depois do dinheiro, p 0,087). A régua usa a bruta (opção A). Se o dono preferir a descontada, J4, J13 e M5 caem para FRACO.",
+    "M5 é MODERADO pela lista crua (p 0,024). Descontados valor e rodízio, a lista não tem excesso (p 0,16). Isso está escrito no rodapé.",
+    "M1: os números da mesma população vêm do script do cético rodado de novo (conf_atleta.py + conf_m1b.py). O técnico dali não corta 2026, mas o cruzamento com o físico termina em 2024→2025, então fica sem 2026 por construção. O gerador precisa gravar a comparação com a mesma régua.",
+    "M3: o número de empates só vale do gerador novo. Os nomes da etapa 14 e a frase das sul-americanas estão condicionados ao gerador novo, por regra, sem número.",
+    "TIPOLOGIA.md (item 5, 'custa dinheiro' e 'distância da linha') não foi editado porque não é meu. As frases estão recusadas no CONCLUSOES.md, mas o arquivo continua com elas.",
+    "declaracoes_novas.json ainda precisa ser aplicado ao dados/prototipo_indicadores.json por quem for dono dele, depois que a base de pontos fechar. Várias análises estão marcadas como declaradas depois de olhar.",
+    "CONTINUAR.md cita as 5 antigas e a contagem de 41. Não editei porque não fazia parte da tarefa.",
+    "Nenhum git foi rodado. O git status mostra outros arquivos modificados (gerar_pontos.py, ranking_gaps.py, static/, templates/), mas vêm de outras sessões. Esta tarefa só alterou CONCLUSOES.md e conclusoes_spec.json."
+   ]
+  }
+ ],
+ [
+  "confere:numeros-e-decisoes",
+  {
+   "lente": "NUMEROS E DECISOES. Refiz as contas por um caminho meu, com scripts próprios em scratchpad/cx (cx_excesso_v.py, cx_linhas.py, mais contas soltas): 20 conclusões, a saber J5 (item 3), J7 (item 7), ORI-01, ORI-02, J4, J10, M1, FIS-06, FIS-07, FIS-08, FIS-11, J13, J15, DIN-01, DIN-02, DIN-03, ELE-06, ELE-07, M6 e J16. Batem com o documento: itens 3 e 7 inteiros (p, Mann-Whitney, descontado, metades, Tombense; Brusque, Guarani e Ituano), J4, físicos por setor, xG cedido, posse, ELE-06, ELE-07, DIN-01/02/03, G1 do J10 (postos 3,1,2,1,1; chance 0,005), J16 (0,038), Fisher da origem (0,015, 0,0008, 1,0, 0,45) e o desconto do dinheiro na origem (6 contra 7,33; 0 contra 0,62; permutação 1,0 e 0,61). M6 dá p 0,013 com a variância simples; com o fator 1,06 de Spearman, que é o do script, dá 0,016, que está certo. p do excesso com 10.000 sorteios em três sementes novas ([7,2026,14], [123456], [99,1]): técnico do time sobe x meio 0,040 / 0,036 / 0,041; físico por setor 0,33 / 0,33 / 0,33; técnico individual 0,084 / 0,082 / 0,082; quem cai contra o resto no técnico do time 0,002 / 0,001 / 0,002. O elenco sai 0,052 / 0,048 / 0,045: uma semente passa do corte. Base de origem, 12 clube-temporadas sorteadas (Tombense 2022 C, Botafogo-SP 2023 C, América-MG 2019 A, Bahia 2022 A, Paysandu 2024 C, Náutico 2020 C, Sport 2026 A, Novorizontino 2022 C, Sport 2022 A, América-MG 2025 B, Oeste 2018 B, Brasil de Pelotas 2020 B): as 12 conferem na tabela de participantes da Wikipedia pt citada. No Oeste, a linha diz só \"6º\", sem link de divisão, ou seja, estava na B em 2017. Nos CSVs, zero conflito de \"já estava na B\" de 2019 a 2026. Decisões do dono: a 2 (J10 sem sinal, \"não se viu\", G1 nomeado, Kruskal 0,0325) e a 3 (regra da etapa 14 sem número velho; 213 e \"sul-americanas\" só nas recusadas) aplicadas ao pé da letra. A 1 está aplicada, mas a frase do elenco depende da semente. A 4 foi cumprida: base gravada, conferida e fora da tela.",
+   "conferidos": 20,
+   "problemas": [
+    {
+     "id": "CINCO-regra2",
+     "o_que_esta_escrito": "Regra das cinco, passo 2: 'só entram as que têm o número do selo em alguma base'. A A4 ficou fora porque o campo não existe; entraram FIS-07 e M5.",
+     "eu_medi": "No próprio spec, os campos que decidem o selo da FIS-07 (rho_setor, rho_setor_mudou, rho_setor_ficou, rho_setor_por_par) e da M5 (bruto_meio, nulo_meio, sobecai_corrigido_por_clube.meio.excesso) estão com ja_gravado_no_json=false. Em dados/prototipo.json, sobecai_corrigido_por_clube.meio não tem 'excesso' nem 'passam5_liq2' (só testes 34, p5_clube 11). Esses números só existem no scratchpad (conf_atleta.py e r5_saida.json), a mesma situação da A4 (CONFERENCIA.md). A regra foi aplicada a uma e não às outras duas. O mesmo vale para o p_excesso das famílias, que sustenta J4, J13, J7 e FIS-06/08/11: está em r4_saida.json, não em base.",
+     "conserto": "Escolher uma leitura e aplicar a todas. (a) 'Base' é só o que o gerador grava: aí FIS-07 e M5 saem das cinco até o gerador gravar os campos, e a lista refeita pela regra muda. Nenhuma outra moderada ou forte de físico ou de mercado tem campo gravado, então as vagas de tema vão para fracas ou para a segunda passada. (b) Medida de scratchpad conferida vale: aí a A4 também entra na disputa (p 0,017). Escrever no documento e no spec qual das duas vale e refazer 'as cinco'.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "J10-valor-medio",
+     "o_que_esta_escrito": "'Pela conta declarada, o valor médio do elenco não se distinguiu entre os quatro grupos (12 de cada 100)... E a conta pela ordem de valor, em vez do valor médio, dá 3 de cada 100.'",
+     "eu_medi": "gerar_prototipo.py, linhas 1834-1839: rv = posto_ano(d, 'tm_valor_total'); e_din = eta2(rv[sobe], grupo); p_din por 2.000 permutações; kw = stats.kruskal(rv[sobe][grupo==g] ...). As duas contas usam a POSIÇÃO no ranking de valor do ano (o campo se chama eta2_posto_valor). Nenhuma usa o valor médio em euros. A diferença entre 0,124 e 0,0325 é de método (eta² com sorteio contra Kruskal-Wallis), não de 'valor médio contra ordem'.",
+     "conserto": "Trocar por: 'Pela conta declarada (o quanto os grupos diferem na posição de valor do ano, sorteando os grupos), o acaso produziria a diferença em 12 de cada 100. Por outra conta sobre as mesmas posições (Kruskal-Wallis), em 3 de cada 100. As duas vão para o mesmo lado e o selo segue a declarada.' O selo continua SEM SINAL.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "REGUA-elenco-fronteira",
+     "o_que_esta_escrito": "'elenco 3 contra 0, p 0,047 (segunda semente 0,047; erro do sorteio ±0,002). O elenco fica abaixo do corte nas duas sementes... pela regra estrita, a família tem excesso.'",
+     "eu_medi": "Mesma família (10 medidas do elenco), sobe x meio, contagem bruta, 10.000 sorteios dentro do ano, código meu: semente [7,2026,14] dá 0,052; [123456] dá 0,0475; [99,1] dá 0,0445. Numa semente a família NÃO tem excesso. Nas cinco sementes (as duas do editor e as minhas três), o p vai de 0,045 a 0,052. A afirmação 'a família tem excesso' depende da semente. É verdade que nenhuma conclusão depende disso hoje: ELE-01 e ELE-02 passam no BH (q 0,006 e 0,038), ELE-03 morre no dinheiro e ELE-07 está fora do catálogo.",
+     "conserto": "Escrever: 'elenco: 3 contra 0, p do excesso entre 0,045 e 0,052 conforme a semente (cinco sementes de 10.000). Está na fronteira, e o resultado da regra muda com a semente. Hoje nenhuma conclusão depende disso.' Deixar gravado que uma conclusão do elenco que venha a depender desse excesso não pode ficar MODERADA só por essa conta, ou fixar a semente declarada antes de medir.",
+     "gravidade": "muda_numero"
+    },
+    {
+     "id": "FIS-07-numeros",
+     "o_que_esta_escrito": "'posto dentro do ano e do setor: todos 0,61 (IC95 0,56-0,65), mudou 0,58, ficou 0,68 ... posto só dentro do ano 0,83 ... o 0,86 em 614 pares da versão de 13/09 não se reproduziu e saiu'",
+     "eu_medi": "Caminho meu a partir de gerar_raio_serieb.carregar(): chave nome+nascimento, 8+ jogos nos dois anos, as 10 métricas da etapa 11, setor de SETOR_FUND x POSICOES, posto calculado sobre TODOS os atletas do ano antes do corte de 8 jogos. Deu 479 pares. Por ano: 0,861 (mudou 0,84, ficou 0,89). Por setor: 0,643 (mudou 0,637, ficou 0,68; por par 0,62 / 0,66 / 0,67). Por posição: 0,584. O 0,86 aparece de novo quando o posto é tirado antes do corte. A distância entre quem mudou e quem ficou cai de 0,10 (documento) para 0,04. Os números da FIS-07 dependem de onde se calcula o posto, e isso não está declarado.",
+     "conserto": "Declarar a régua (posto antes ou depois do corte de 8 jogos; universo de atletas) em declaracoes_novas.etapa_11 e gravar pelo gerador as duas versões. Tirar 'não se reproduziu' e dizer 'depende do universo do posto: 0,83 depois do corte e 0,86 antes'. Na ressalva, 'quem mudou repete menos' só com a diferença e o intervalo medidos na régua declarada. O selo FORTE resiste: tudo passa de 0,5 nas duas contas.",
+     "gravidade": "muda_numero"
+    },
+    {
+     "id": "FIS-07-selo-fora-da-regua",
+     "o_que_esta_escrito": "FORTE. No spec, regra_do_selo: 'forte_se p de cada rho < 0,001 E por_setor.rho_mediano_por_par_de_anos todos > 0,5'",
+     "eu_medi": "A régua escrita define FORTE por três critérios: q de BH na família declarada, desconto do dinheiro e toda repetição testável. Nenhum deles se aplica a uma conclusão de repetição do atleta. O corte 0,5 é um critério novo, criado só para esta conclusão, e não aparece na régua do documento.",
+     "conserto": "Pôr na régua, por extenso, como se dá selo a conclusões de repetição (FIS-07, M1, M6): limiar de rho, intervalo, todos os pares de anos. Ou marcar a FIS-07 como aplicação de regra própria, declarada antes da medida.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "ORI-01-universo",
+     "o_que_esta_escrito": "'\"Nenhum caiu\" vale para os 28 casos de 2019-2025 (e os 32 contando 2018), sem exceção, e é o que o valor do elenco já prevê'; no título: 'mas é o elenco caro que vem junto'",
+     "eu_medi": "Só existe valor de elenco de 2022 a 2025: são 16 dos 28 casos. Nos 12 de 2019-2021 o desconto do dinheiro não foi nem pode ser feito. Pelo valor, as quedas esperadas para quem veio da A mudam com a conta: 0,62 com a logística no posto (bate) e 1,03 com a logística no log do valor (conta minha). 'Menos de 1 esperada' depende da especificação.",
+     "conserto": "'Nenhum caiu: 0 em 28 de 2019-2025 (0 em 32 contando 2018). De 2022 a 2025 (16 casos), onde há valor de elenco, o valor já previa quase nenhuma queda (0,6 a 1,0, conforme a conta). De 2019 a 2021 não há como descontar o dinheiro.' O título pode ficar como '...mas de 2022 a 2025 é o que o elenco caro já prevê'.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "J5-familia-depois",
+     "o_que_esta_escrito": "'na família cai x resto (31 do técnico do time, montada depois da pergunta): q 0,021 bruto'",
+     "eu_medi": "q 0,0211 confere (13 de 31 passam). Mas a comparação 'quem cai contra o resto' não é uma das declaradas antes: a própria declaracoes_novas a marca como 'declarada depois da pergunta do dono'. A régua (critério 1 do FORTE) e a decisão 1 falam em família DECLARADA. O selo MODERADO não muda, porque as repetições falham de qualquer jeito.",
+     "conserto": "No número pequeno: 'q 0,021 numa família montada depois da pergunta — não conta como passar na conta dos testes para a régua'. Não usar esse q para promover selo se um dia a repetição passar.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "CINCO-item5",
+     "o_que_esta_escrito": "'5. [MODERADO] O perfil físico que a nota de encaixe procura só se sustenta no meio-campo... → M5 e M4'",
+     "eu_medi": "A regra das cinco escolhe uma conclusão por vaga. A vaga 5 junta duas: M5, moderada, e M4, fraca. O título fala dos outros setores com a força da M5.",
+     "conserto": "Vaga só com a M5 (se ela continuar entre as cinco depois do conserto de CINCO-regra2), título restrito ao meio-campo, e a M4 citada só como remissão.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere:regua-e-linguagem",
+  {
+   "lente": "REGUA E LINGUAGEM. Apliquei a regua de 14/09 as 52 conclusoes do CONCLUSOES.md, uma a uma, usando os numeros do proprio documento. Conferi os selos e os titulos contra o conclusoes_spec.json (forca_esperada_hoje, molde, lacunas, regra_do_selo) e testei a regra das cinco pelo passo 2 escrito nela. Tambem varri o texto das frases, fora dos rodapes, atras de \"nao separa\", \"nunca\", receita, linguagem de custo, ordem nao testada e jargao. Os 52 selos do spec batem com os do documento. Os problemas estao na aplicacao da regua e em algumas frases.",
+   "conferidos": 52,
+   "problemas": [
+    {
+     "id": "A4",
+     "o_que_esta_escrito": "Documento: [MODERADO] A4, contada entre as 14 moderadas. No rodape: 'o campo que decide o selo nao existe... o selo calculado fica pendente'. No spec: forca_esperada_hoje 'moderado' e, na lacuna, 'selo calculado = pendente (sem selo na tela)'.",
+     "eu_medi": "A regua do spec manda NAO DA PARA AFIRMAR quando a conclusao foi 'nunca medida de frente (inclusive campo decisivo ausente em toda base)'. A A3 recebeu exatamente esse tratamento ('diferenca nao gravada' vira NDPA). A A4 tem o mesmo campo ausente (p_bloco_por_ano) e ficou MODERADO. E 'pendente' funciona como um sexto rotulo. A contagem de 3/14/18/11/6 depende disso.",
+     "conserto": "A4 passa a NAO DA PARA AFIRMAR enquanto p_bloco_por_ano nao for gravado, como a A3. Contagem: 3 / 13 / 18 / 11 / 7. Tirar a palavra 'pendente' do documento e do spec.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "CINCO-regra2",
+     "o_que_esta_escrito": "As cinco sao DIN-01, FIS-07, J1, A2 e M5. A A4 ficou de fora porque 'o campo nao existe em base nenhuma'.",
+     "eu_medi": "Pelo spec, o campo que decide o selo tambem nao esta gravado em FIS-07 e em M5. FIS-07: forte_se usa por_setor.rho_mediano_por_par_de_anos; rho_setor, rho_setor_mudou, rho_setor_ficou e rho_setor_por_par estao com ja_gravado_no_json=false, e p_principal aponta para etapa_11.fisico.por_setor.p_max, que nao existe. M5: nenhuma das 6 lacunas esta gravada, e o p do excesso (0,024) so existe no scratchpad (r5_saida.json), que nao e base. O passo 2 da regra ('lacuna decisiva ausente = fora') tira as duas, pelo mesmo motivo que tirou a A4.",
+     "conserto": "Rodar a regra das cinco de novo com o passo 2 aplicado igual para todas: sem FIS-07 e M5 enquanto o gerador nao gravar por_setor e sobecai_corrigido_por_clube.meio.excesso. Ou reescrever o passo 2 para aceitar numero do scratchpad, e entao a A4 volta. As duas coisas ao mesmo tempo nao podem valer.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "A2",
+     "o_que_esta_escrito": "[MODERADO] A2: 12 de 12 no mesmo sentido, Spearman p 0,020, 'e tudo cru'. No spec, moderado_se diz: 'porta_concordancia.p < 0,05, sem desconto de dinheiro possivel no periodo antigo'.",
+     "eu_medi": "A regua escrita so da MODERADO a quem 'continua entre times de valor parecido'. A A1 virou FRACO justamente por ser crua em 2018-2021 e morrer no dinheiro em 2022-2025. Varios dos 12 numeros que a A2 soma sao os mesmos que morrem no dinheiro (posse com p liquido 0,98, entradas 0,81, toques 0,69). A A2 ganhou uma excecao que a regua nao preve, e esta entre as cinco.",
+     "conserto": "Pela regua como esta, A2 vira FRACO, porque o sinal cru nao foi descontado. Se o dono quiser uma excecao para concordancia entre periodos, ela precisa estar escrita na regua, e a A1 tem de ser revista junto.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "J9",
+     "o_que_esta_escrito": "[MODERADO] 'Os grupos se distinguem em indicadores que nao entraram na construcao, muito mais do que o acaso faria.' 'O do cerco de bola direta... e so descricao.'",
+     "eu_medi": "O proprio spec diz 'nao ha desconto de dinheiro por grupo', e MODERADO exige sobreviver ao dinheiro. Na J10, descontado o dinheiro, o territorio muda de lado em 6 dos 16. A bateria limpa da p 0,035 com 22 validadores e 0,099 com 23; como as contas discordam, vale o selo mais fraco. 'Muito mais' nao combina com 0,035 e 0,099. E 'so descricao' para o G2 (p 0,150) e um sexto rotulo disfarcado.",
+     "conserto": "J9 vira FRACO, ou NAO DA PARA AFIRMAR ate existir desconto de dinheiro por grupo. Trocar 'muito mais do que o acaso' por 'mais do que o acaso', com o numero. G2: 'nesse grupo nao se viu diferenca'.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "FIS-04",
+     "o_que_esta_escrito": "[SEM SINAL] 'Descontado o dinheiro, nao se viu o fisico separar quem sobe de quem cai.' Cru: 41 de 160, contra 7 do acaso.",
+     "eu_medi": "No numero cru ha excesso: fisico por setor 27 contra 6 (p do excesso 0,010) e fisico do elenco 14 contra 1 (0,012). O sinal some com o dinheiro: sobram 4 medidas, e com os dois descontos 2 contra 6 (p 0,86). A regua chama isso de FRACO ('parece bom olhando so ela, mas some quando se desconta o dinheiro'). E o tratamento que ORI-01, ELE-03 e J15 receberam. A FIS-04 so ficou SEM SINAL porque o titulo abre pela conta ja descontada.",
+     "conserto": "Selo FRACO. Frase no molde da regua: 'Quem sobe tem fisico melhor que quem cai no numero cru (41 de 160 medidas, contra 7 do acaso), mas quase tudo some quando se comparam elencos de valor parecido. E um sinal fraco.'",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "FIS-09",
+     "o_que_esta_escrito": "[NAO DA PARA AFIRMAR] Duas contas: catalogo 9 contra 6 (p 0,33) e bateria da conferencia 56 contra 15 (p 0,019). No spec: 'proibido selo sem_sinal enquanto a divergencia existir'.",
+     "eu_medi": "A regua so da NDPA quando as duas contas tem sinais opostos. Aqui as duas ficam acima do acaso (9 contra 6 e 56 contra 15), uma so nao chega ao corte. Foi exatamente esse o argumento usado para tirar a J10 de NDPA ('a regua pede sinais opostos; as duas vao para o mesmo lado'). Pela conta declarada (catalogo, p 0,33), o selo e SEM SINAL.",
+     "conserto": "Aplicar o mesmo criterio da J10: SEM SINAL pela conta declarada, com 'nao se viu' e a bateria de 332 citada como outra conta, que foi para o mesmo lado. Ou mudar a regua e reabrir a J10, mas nao as duas coisas. Corrigir a regra_do_selo no spec.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "J5-ELE01-teto",
+     "o_que_esta_escrito": "FIS-01 ficou com teto FRACO porque o indice foi 'montado depois de olhar'. J5 (quem cai contra o resto, 'declarada depois da pergunta do dono') e ELE-01 (quem cai contra o meio, 'nao e uma das duas declaradas') ficaram MODERADO.",
+     "eu_medi": "A regua escrita (documento e spec.regua) nao tem regra nenhuma para analise declarada depois de olhar. O teto so aparece dentro da regra_do_selo da FIS-01. O CONTINUAR, secao 4, chama de garimpo o indicador que o dono aponta a olho, que e o caso da J5.",
+     "conserto": "Escrever a regra na regua. Se valer um teto FRACO para comparacao declarada depois de olhar, J5 e ELE-01 viram FRACO. Se nao valer, tirar o teto da FIS-01; ela continua FRACO porque morre no dinheiro. Nos dois casos, uma regra so para todas.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "J8",
+     "o_que_esta_escrito": "[FRACO] 'Dos 28 numeros testados, 4 ajudam... quando a sorte daria 1 ou 2; contando os 28, nenhum se sustenta.' No spec: moderado_se = 'algum q_parcial < 0,05'.",
+     "eu_medi": "Pela regra de 14/09, quando q >= 0,05 o selo e decidido pelo excesso da lista, e esse excesso nao foi medido por sorteio. Pela binomial, 4 ou mais em 28: p 0,049 com 5% por teste, ou 0,005 exigindo sinal certo (2,5%). Pode passar do corte. A frase 'a sorte daria 1 ou 2' ja sugere excesso, o que contradiz o FRACO. Alem disso, a regra_do_selo da J8 no spec nao tem a clausula do excesso.",
+     "conserto": "Medir o p do excesso da lista de 28 (rotulos sorteados dentro do ano, 10.000 sorteios) e aplicar a regra. Ate la, nao afirmar FRACO nem MODERADO so pelo q. Acrescentar a clausula do excesso na regra_do_selo da J8.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "DIN-01",
+     "o_que_esta_escrito": "Titulo: 'O valor do elenco e o sinal mais solido para separar quem sobe'. Nas cinco: 'o sinal mais solido do estudo'.",
+     "eu_medi": "E ordem nunca testada, que a regua proibe ('o mais firme', 'o que mais separa'). O proprio texto da DIN-01 diz que '\"O que MAIS separa\" nao pode ser dito: essa ordem nunca foi testada contra os outros 293'. E ha outras duas FORTES (DIN-02 e FIS-07).",
+     "conserto": "'O valor do elenco separa quem sobe, e e um dos tres sinais fortes do estudo.' Mudar tambem o molde.titulo do spec.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "M6",
+     "o_que_esta_escrito": "'O que o jogador mais perde ao mudar de clube e o quanto recebe a bola' / 'e o numero que mais perde em relacao a quem ficou'.",
+     "eu_medi": "Ordem nunca testada entre as 10 metricas: so uma tem p < 0,05 (0,016) e o q e 0,16. Passes progressivos (0,36 contra 0,50, p 0,14) nao foi comparado com passes recebidos. E a lista recusada chegou a propor 'o que mais perde'.",
+     "conserto": "Titulo: 'Quem muda de clube repete menos o quanto recebe a bola do que quem fica'. Sem 'o que mais'. Mudar no molde do spec tambem.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "CINCO-5-M5",
+     "o_que_esta_escrito": "'O perfil fisico que a nota de encaixe procura so se sustenta no meio-campo. Arrancada e giro dos meias continuam de pe entre elencos de valor e rodizio parecidos.'",
+     "eu_medi": "'So se sustenta' afirma uma diferenca entre setores que nunca foi testada; nas sobreviventes, o q vai de 0,14 a 0,38. A frase omite que a comparacao e quem sobe contra quem cai. Contra o meio, a arrancada dos meias e FRACA (FIS-06). E, para o leitor, bate de frente com a FIS-04, que diz 'descontado o dinheiro, nao se viu o fisico separar quem sobe de quem cai'.",
+     "conserto": "Se continuar entre as cinco: 'No meio-campo, entre quem subiu e quem caiu, tres medidas de arrancada e giro continuam de pe entre elencos de valor e rodizio parecidos; nos outros setores nao sobra nenhuma. E um sinal moderado.' Na FIS-04 e na M5, uma linha explicando por que as duas contas (catalogo de 160 e medidas da nota por clube) nao se contradizem.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "J14",
+     "o_que_esta_escrito": "Documento: 'E estilo nao e \"de graca\": elenco mais valioso pressiona mais alto (J15).' Spec, ressalva: 'E estilo anda com o valor do elenco.'",
+     "eu_medi": "'De graca' e linguagem de custo, que a regua proibe ('valor de mercado nunca e custa'). E a mesma frase recusada na J10 ('escolher a rota nao mostrou custo'). Documento e spec dizem coisas diferentes.",
+     "conserto": "Usar a frase do spec no documento: 'E estilo anda com o valor do elenco: elenco mais valioso pressiona mais alto (J15).'",
+     "gravidade": "mente"
+    },
+    {
+     "id": "M1",
+     "o_que_esta_escrito": "'Duelo e duelo aereo se repetem quase como o fisico (0,72 e 0,64).' A mesma frase esta no molde do spec.",
+     "eu_medi": "Na mesma regua de quem mudou, o fisico fica em 0,52 por posicao e 0,60 por setor. Duelos em 0,72 repetem MAIS que o fisico, nao 'quase como'. E a populacao e outra: 176 pares do tecnico contra 164 do cruzamento fisico e tecnico. A frase mistura universos e inverte a leitura.",
+     "conserto": "'Entre quem mudou, duelos (0,72) e duelos aereos (0,64) mantiveram a ordem tanto quanto o fisico ou mais, contando todos os 176 que trocaram de clube.' Dizer o universo de cada numero.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "AUSENCIA-AFIRMADA",
+     "o_que_esta_escrito": "FIS-06: 'Nao e marca do clube'. J13: 'E nao e traco de clube que se contrata' e 'Em 2018-2021 quem caiu cedia o mesmo que o meio'. J2, J3, J4, J6 e ELE-02: 'o mesmo clube nao repete'. M2 (titulo): 'nao previu'. J7 (titulo): 'quem cai nao e \"bem pior\"'. ORI-01: 'e o elenco caro que vem junto'.",
+     "eu_medi": "Todos estes numeros tem p >= 0,05: FIS-06 rho 0,14 (p 0,43); J13 rho 0,21 (p 0,21) e quem cai contra o resto p 0,68; M2 p 0,71; J7 quem cai contra o meio p 0,29. Na ORI-01, a origem alem do valor da p 0,55 com 16 casos e 71% de poder so para diferencas grandes. As frases afirmam a ausencia como fato, contra a regra de escrever 'nao se viu'.",
+     "conserto": "Trocar por 'nao se viu o clube repetir', 'nao se viu diferenca de quem caiu para o meio', 'nao se viu a nota prever minutos nem permanencia', 'quem cai nao se mostrou bem pior'. Na ORI-01: 'descontado o valor do elenco, nao se viu a origem acrescentar nada; com 16 casos, so uma diferenca grande apareceria'.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "J2",
+     "o_que_esta_escrito": "'Resiste a conta dos testes e ao dinheiro, e o 1o turno ajuda a prever o 2o.' A mesma frase esta no molde do spec.",
+     "eu_medi": "O p parcial e 0,030, mas a J8 diz que, contando os 28 numeros, nenhum se sustenta (menor q 0,062). A J1 foi corrigida para 'contando os 28, ja nao da para separar da sorte'; a J2 (ainda sem cetico) ficou sem a ressalva.",
+     "conserto": "'O numero do 1o turno acompanha os pontos do 2o, mas, contando os 28 numeros testados, isso ja nao da para separar da sorte.'",
+     "gravidade": "mente"
+    },
+    {
+     "id": "J11-J14-sem-selo",
+     "o_que_esta_escrito": "J11 (SEM SINAL): 'Do lado de baixo apareceram duas diferencas... quem cai usou mais formacoes... e foi menos fiel.' J14 (SEM SINAL): 'Contra-ataque e cruzamento ficam fora desta lista... separaram quem sobe em 2018-2021.'",
+     "eu_medi": "Sao sinais com p < 0,05 sem selo proprio. J11: quem sobe contra quem cai p 0,033 (2022-2025) e 0,020 (2018-2021), quem cai contra o meio p 0,004, fidelidade 0,016. J14: contra-ataque p 0,0057 (q 0,020) e cruzamento p 0,0018 (q 0,013) em 2018-2021, com 0,68 e 0,78 em 2022-2025. A regra 'toda conclusao com selo' nao foi cumprida, e a formacao repete nos dois periodos.",
+     "conserto": "Criar conclusoes proprias com selo pela regua. Formacoes de quem cai: sem desconto de dinheiro medido, entao nao pode ser MODERADO; FRACO ou NDPA conforme a regra. Contra-ataque e cruzamento: os periodos discordam, vale o selo mais fraco. Ou medir antes de citar.",
+     "gravidade": "falta"
+    },
+    {
+     "id": "FIS-05",
+     "o_que_esta_escrito": "'Volume depende do plano de jogo: nao use \"corre muito\" nem \"corre pouco\" para contratar.' Esta tambem no molde do spec.",
+     "eu_medi": "E receita (imperativo sobre contratacao) e mecanismo que nao foi medido ('depende do plano de jogo'). A regua proibe as duas coisas.",
+     "conserto": "'Nao quer dizer que volume nao importa: o estudo so veria diferenca grande.' Tirar o imperativo e o mecanismo.",
+     "gravidade": "receita"
+    },
+    {
+     "id": "A1-spec-orcamento",
+     "o_that_esta_escrito": "",
+     "o_que_esta_escrito": "Documento A1: 'Na Serie B inteira, o territorio anda com o valor do elenco (rho 0,58).' Spec A1, ressalva: 'esse eixo e em boa parte o que o orcamento compra'.",
+     "eu_medi": "No documento, 'rho 0,58' e jargao na frase de reuniao. No spec, 'orcamento compra' e linguagem de gasto proibida pela regua, e 'em boa parte' e uma quantidade que nao foi medida.",
+     "conserto": "Documento: 'elenco mais valioso ocupa mais o campo adversario'. O numero vai para o rodape. Spec: 'esse eixo anda com o valor do elenco'.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "ELE-06",
+     "o_que_esta_escrito": "'so que 28 contra 28 nao separa isso do acaso'. Selo FRACO 'pela zona cinzenta, com sinal no aproveitamento'.",
+     "eu_medi": "Usa 'nao separa', que a regua proibe. O aproveitamento (p 0,025) nunca foi descontado do dinheiro; sem esse desconto, a regua nao classifica o sinal como FRACO nem como MODERADO.",
+     "conserto": "'com 28 contra 28, nao se viu diferenca alem do acaso'. Ou medir o aproveitamento descontado o valor e aplicar a regra; se nao der para medir, dizer que o selo saiu da zona cinzenta sem o desconto.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "FORMATO-chance",
+     "o_que_esta_escrito": "FIS-01: 'em 1 de cada 100 tentativas' (p 0,0095). A4: 'em menos de 2 de cada 100' (p 0,017). FIS-10: 'em 1 a 3 de cada 100' (p 0,004 a 0,033).",
+     "eu_medi": "formatos.chance_em_100 diz: p < 0,01 vira 'menos de 1 de cada 100'; p >= 0,01 vira 'N de cada 100', com N = round(100p). Entao 0,0095 e 'menos de 1', 0,017 e '2' e 0,004 e 'menos de 1'.",
+     "conserto": "FIS-01: 'menos de 1 de cada 100'. A4: '2 de cada 100'. FIS-10: 'de menos de 1 a 3 de cada 100'.",
+     "gravidade": "muda_numero"
+    },
+    {
+     "id": "ELE-07",
+     "o_que_esta_escrito": "'Quem subiu vindo da propria Serie B manteve 44%, contra 31%... quem caiu trouxe 42 contra 30.' 'E nao vale para quem chega da Serie A ou da C.'",
+     "eu_medi": "A frase nao diz o universo: 2023-2025, 36 clubes (6/22/8), so quem estava na B. A secao anuncia 2022-2025. E 'nao vale' afirma algo que nao foi medido.",
+     "conserto": "'De 2023 a 2025, entre os 36 que ja estavam na B...'. E 'para quem chega da A ou da C isso nao foi medido (o dado nao existe)'.",
+     "gravidade": "falta"
+    },
+    {
+     "id": "ELE-01",
+     "o_que_esta_escrito": "'time que perde troca de tecnico e contrata no meio do ano'",
+     "eu_medi": "E mecanismo afirmado como fato, e a J12 diz que nenhuma base tem o tecnico nem a data da troca.",
+     "conserto": "'time que esta perdendo pode trocar de tecnico e contratar no meio do ano; o estudo nao tem esse dado'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "TAMANHO-d",
+     "o_que_esta_escrito": "Nas frases de reuniao da ELE-01, ELE-05, J14, FIS-04 e FIS-05: 'so uma diferenca de tamanho 0,82 (1,02)'. Na J10 e na J11: 'tamanho medio-grande'.",
+     "eu_medi": "'Tamanho 0,82' e o d de Cohen com outro nome: jargao fora do numero pequeno, e nao aparece no molde do dono. As conclusoes escrevem a mesma coisa de dois jeitos.",
+     "conserto": "Um jeito so, em palavras ('so uma diferenca grande apareceria'), com o 0,82 no rodape. Ajustar a regua do documento, que tambem cita 0,82.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "J10-titulo",
+     "o_que_esta_escrito": "'Nao se viu o valor do elenco separar os quatro estilos de subir — com o grupo \"dono do jogo\" nomeado.'",
+     "eu_medi": "'Com o grupo nomeado' e texto de instrucao ao editor, nao conteudo. A decisao do dono pede o grupo nomeado dentro da frase, e ele ja esta la.",
+     "conserto": "'Nao se viu o valor do elenco separar os quatro estilos de subir; os 5 do \"dono do jogo\" estavam todos entre os 3 elencos mais caros do ano.' Mudar no spec tambem.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "REGUA-NDPA-x-SEMSINAL",
+     "o_que_esta_escrito": "NDPA = 'a comparacao pedida tem intervalo que cruza zero'. SEM SINAL = 'p >= 0,10'. A3 ficou NDPA com menor p 0,082.",
+     "eu_medi": "As duas definicoes se sobrepoem: todo SEM SINAL tem intervalo cruzando zero. A regua nao diz o que decide entre os dois selos. A A3, com p 0,082, pela zona cinzenta seria SEM SINAL 'no limite' (so ha uma comparacao); o NDPA dela se sustenta apenas pelo campo ausente.",
+     "conserto": "Escrever o criterio: por exemplo, NDPA para comparacao entre duas medidas ou dois periodos ('qual e maior'), campo ausente ou contas opostas; SEM SINAL para diferenca entre grupos com p >= 0,10.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "SPEC-x-DOC-titulos",
+     "o_que_esta_escrito": "Titulos do spec diferentes do documento: DIN-03 'o dinheiro tambem pesa' (documento: 'o valor do elenco'), ELE-07 'com poucos times' (documento: '6'), J16 'Os que subiram' (documento: 'Os quatro'), J9 sem '16', M3 sem 'etapa 13'. A ressalva da J14 tambem diverge (ver acima).",
+     "eu_medi": "Ids e selos batem 52 de 52. Titulos diferem em 14, a maioria so pelo {placeholder}. DIN-03 e ELE-07 mudam o sentido: 'dinheiro' contra 'valor de mercado', e 'poucos' tira o numero.",
+     "conserto": "DIN-03 no spec: 'o valor do elenco tambem pesa'. ELE-07: '{n_sobe_base} times que subiram'. J14: igualar a ressalva do documento a do spec.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "conserta",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/CONCLUSOES.md",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/declaracoes_novas.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r7_elenco_sementes.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r7_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r7b_elenco_semente_declarada.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r8_origem_formacao.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r8_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r9_fis07_universos.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r9_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r10_j8_excesso.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r10_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r11_m1_chave_nascimento.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r11.log",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp5_conserto.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/conclusoes_spec_antes_conserto_14_09.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/declaracoes_novas_antes_conserto.json"
+   ],
+   "mudancas": [
+    {
+     "id": "CINCO-regra2 (as duas entradas)",
+     "antes": "Passo 2: 'número do selo em alguma base'. A A4 saiu por falta de campo gravado, mas FIS-07 e M5 entraram, e os campos delas também não estavam gravados. Cinco: DIN-01, FIS-07, J1, A2, M5.",
+     "depois": "Leitura (a), escrita no documento e no spec: só entra conclusão com o campo que decide o selo GRAVADO (prototipo.json, teste_cego ou base lida pelo gerador, ou contagem direta de lista gravada). Scratchpad, CONFERENCIA.md e pontos.json não contam. Cinco de hoje: DIN-02, J1, FIS-10, A2, M2. Quando o gerador gravar os campos: DIN-01, FIS-07, J1, A2, M5.",
+     "por_que": "Confirmado no prototipo.json: DIN-01 também não tem p_sobe_x_meio, acerto por ano nem cobertura gravados; FIS-07 não tem por_setor; M5 não tem excesso. Fiquei com 'gravado' porque a própria FIS-07 mostrou dois recálculos conferidos que discordam (0,61 contra 0,64)."
+    },
+    {
+     "id": "J10-valor-medio",
+     "antes": "'valor médio do elenco... 12 de cada 100'; 'pela ordem de valor, em vez do valor médio, 3 de cada 100'",
+     "depois": "As duas contas usam a posição de valor no ano: pela declarada (eta² com sorteio), 12 de cada 100; pelo Kruskal-Wallis, 3 de cada 100. Vão para o mesmo lado e o selo segue a declarada. Título com o G1 dentro da frase. Continua SEM SINAL.",
+     "por_que": "Confirmado em gerar_prototipo.py ~1834-1839: rv = posto_ano(d,'tm_valor_total') nas duas contas. A diferença é de método."
+    },
+    {
+     "id": "REGUA-elenco-fronteira",
+     "antes": "p 0,047 nas duas sementes; 'pela regra estrita, a família tem excesso'",
+     "depois": "p do excesso de 0,044 a 0,052 em 12 sementes de 10.000; 10 abaixo de 0,05; a semente declarada [7,3,5] dá 0,0515. Não se afirma excesso. Hoje nenhuma conclusão depende disso, e ficou gravada a regra: conclusão do elenco não fica moderada por essa conta, vale a semente declarada.",
+     "por_que": "Refiz as 3 sementes do cético com resultado idêntico (0,052, 0,0475, 0,0445) e acrescentei mais 9."
+    },
+    {
+     "id": "FIS-07-numeros",
+     "antes": "0,61 (IC 0,56-0,65), mudou 0,58, ficou 0,68, 499 pares; posto por ano 0,83; 'o 0,86 não se reproduziu'; 'quem mudou repete menos'",
+     "depois": "479 pares ligados por nome e nascimento: setor 0,64 (IC95 0,60-0,68), por par 0,61/0,65/0,66; mudou 0,63, ficou 0,68, diferença +0,05 com IC95 de -0,03 a +0,14 (não se afirma que quem mudou repete menos); por ano 0,86; por posição 0,58. Selo FORTE mantido.",
+     "por_que": "O cético acertou nos números e ERROU a causa. Tirar o posto antes ou depois do corte de 8 jogos muda no máximo 0,004. O que muda é a chave: só pelo nome entram 20 pares de homônimos com outra data de nascimento (Matheuzinho, Kevin, David...), todos contados como 'mudou'. O 0,833/499 gravado pelo gerador tem esses homônimos."
+    },
+    {
+     "id": "ORI-01-universo",
+     "antes": "'é o elenco caro que vem junto'; 'nenhum caiu... é o que o valor já prevê' para os 28 casos; 'menos de 1 queda esperada'",
+     "depois": "Título: '...mas, de 2022 a 2025, é o que o elenco caro já prevê'. O valor só cobre 16 dos 28 casos. Quedas esperadas de 0,6 a 1,0 conforme a conta; de 2019 a 2021 (12 casos) não há como descontar. Ausência escrita como 'não se viu a origem acrescentar nada; com 16 casos, só uma diferença grande apareceria'.",
+     "por_que": "Medido (r8): logística no posto 0,62, no percentil 0,62, por quartil 0,57, no log do valor 1,03, no log centrado 0,87. Com penalização vai a 1,75. O cético estava certo e a faixa é ainda maior."
+    },
+    {
+     "id": "A4",
+     "antes": "MODERADO; p 0,017 'menos de 2 de cada 100'; spec com selo 'pendente'",
+     "depois": "FRACO. p 0,027 pelo t de Welch declarado ('3 de cada 100'); Student 0,017; Mann-Whitney 0,029. Fica fora da tela e das cinco até o gerador gravar. A palavra 'pendente' saiu do documento e do spec.",
+     "por_que": "O cético pedia NÃO DÁ PARA AFIRMAR por falta de campo. Recusei: a A3 é NDPA pela própria medida (pergunta 'qual período é maior', menor p 0,082), não só pelo campo ausente, e o dono já aceitou selos medidos no scratchpad (J4, J7, físicos por setor). A4 virou FRACO pela regra nova da comparação escolhida depois de olhar: o critério declarado antes era sobre 2020. Achado extra: o 0,017 da CONFERENCIA era t de Student, não o Welch que o spec declara."
+    },
+    {
+     "id": "A2",
+     "antes": "MODERADO, concordância crua com exceção não escrita na régua",
+     "depois": "FRACO, como a A1",
+     "por_que": "Conferido no prototipo.json: 7 dos 12 números têm p líquido do valor ≥ 0,05 em 2022-2025 (posse 0,98, entradas 0,81, toques 0,69, passes % 0,48, passes 0,46, xG por chute 0,35, xG cedido 0,27)."
+    },
+    {
+     "id": "J9",
+     "antes": "MODERADO; 'muito mais do que o acaso'; G2 'é só descrição'",
+     "depois": "FRACO; 'mais do que o acaso: 4 de cada 1.000'; bateria limpa '4 ou 10 de cada 100'; G2 'não se viu diferença'",
+     "por_que": "Não há desconto do dinheiro por grupo (o território muda em 6 de 16 descontado o dinheiro), e as baterias discordam (0,035 contra 0,099)."
+    },
+    {
+     "id": "FIS-04",
+     "antes": "SEM SINAL, com título que abria pela conta já descontada",
+     "depois": "FRACO: 'Quem sobe tem físico melhor que quem cai no número cru, mas quase tudo some entre elencos de valor parecido', com uma linha explicando por que não contradiz a M5",
+     "por_que": "Excesso no cru (27 contra 6, p 0,010; 14 contra 1, p 0,012) que some com os descontos (0,86). Pela régua é FRACO."
+    },
+    {
+     "id": "FIS-09",
+     "antes": "NÃO DÁ PARA AFIRMAR",
+     "depois": "SEM SINAL pela conta declarada (setor 9 contra 6, p 0,33; elenco 0 contra 1), com a bateria de 332 citada como outra conta que vai para o mesmo lado",
+     "por_que": "É o mesmo critério aplicado à J10. Critério escrito na régua: NDPA só com lados opostos, e contas no mesmo lado seguem a declarada."
+    },
+    {
+     "id": "J5-ELE01-teto",
+     "antes": "Teto FRACO só na regra da FIS-01; J5 e ELE-01 MODERADO por comparações montadas depois",
+     "depois": "Regra única escrita na régua: comparação, índice ou lista montada depois de olhar não conta no BH nem no excesso e não passa de FRACO; se houver comparação declarada antes, o selo sai dela. J5 vira FRACO (na declarada, sobe x cai, some no dinheiro: p líquido 0,15). ELE-01 continua MODERADO pela declarada sobe x cai (p 0,0002, q 0,0005, líquido 0,0006, repetição falha), e cai x meio vira descrição.",
+     "por_que": "O cético queria as duas FRACO. A ELE-01 tem comparação declarada que passa, gravada no prototipo.json. A regra também vale para A4, FIS-01 e J16."
+    },
+    {
+     "id": "J8",
+     "antes": "FRACO; 'quando a sorte daria 1 ou 2'; sem a cláusula do excesso",
+     "depois": "FRACO confirmado com o sorteio medido (Freedman-Lane dentro do ano, 10.000). Sem olhar o lado (conta da régua): 4 contra 1, p 0,12. Só lado certo: 4 contra 0, p 0,044. As contas discordam e vale a mais fraca; a etapa 7 também não desconta o dinheiro. Cláusula acrescentada no spec.",
+     "por_que": "O cético estava certo em pedir a medida: pela binomial ficava na borda (0,049), e a contagem de lado certo passa do corte."
+    },
+    {
+     "id": "DIN-01",
+     "antes": "'o sinal mais sólido'",
+     "depois": "'O valor do elenco separa quem sobe, e é um dos três sinais fortes do estudo' (no spec, {n_fortes})",
+     "por_que": "Ordem nunca testada."
+    },
+    {
+     "id": "M6",
+     "antes": "'O que o jogador mais perde ao mudar de clube...'",
+     "depois": "'Quem muda de clube repete menos o quanto recebe a bola do que quem fica', com universo (900+ min, 2022→2023 a 2024→2025)",
+     "por_que": "Ordem entre as 10 métricas nunca testada."
+    },
+    {
+     "id": "CINCO-5-M5",
+     "antes": "'só se sustenta no meio-campo', vaga juntando M5 e M4",
+     "depois": "M5 saiu das cinco (campo não gravado). Frase: 'No meio-campo, entre quem subiu e quem caiu... quatro medidas... continuam de pé; nos outros setores não sobra nenhuma', com a ressalva de que a diferença entre setores não foi testada e a explicação cruzada com a FIS-04",
+     "por_que": "Diferença entre setores nunca testada; a M5 tem 4 sobreviventes, contando o t_hsr."
+    },
+    {
+     "id": "J14",
+     "antes": "'estilo não é de graça'; contra-ataque e cruzamento dentro da lista",
+     "depois": "'E estilo anda com o valor do elenco: elenco mais valioso pressiona mais alto (J15)'; contra-ataque e cruzamento foram para a J18",
+     "por_que": "Linguagem de custo, e sinal sem selo próprio."
+    },
+    {
+     "id": "M1",
+     "antes": "'Duelo e duelo aéreo se repetem quase como o físico'; 0,52 x 0,42 (164 pares)",
+     "depois": "Com a chave de nascimento: 155 pares; posição 0,57 x 0,45, +0,12 (IC95 -0,004 a +0,21); setor 0,65 x 0,56, +0,10 (IC95 -0,01 a +0,17). Continua NDPA. Duelos 0,72 e aéreos 0,64 (176 pares do técnico) descritos 'no nível do físico de quem mudou ou acima (0,55, 295 pares)', com os dois universos",
+     "por_que": "Populações diferentes e leitura invertida (confirmado). Havia 9 homônimos em 'mudou'."
+    },
+    {
+     "id": "AUSENCIA-AFIRMADA",
+     "antes": "FIS-06 'não é marca do clube'; J13 'quem caiu cedia o mesmo', 'não é traço de clube'; J2/J3/J4/J6/ELE-02 'o mesmo clube não repete'; M2 'não previu'; J7 'quem cai não é bem pior'; ORI-01 'é o elenco caro que vem junto'",
+     "depois": "Todas trocadas por 'não se viu...' ('não se viu o mesmo clube repetir', 'não se viu a nota prever', 'quem cai não se mostrou bem pior', 'não se viu a origem acrescentar nada; com 16 casos só uma diferença grande apareceria'), com a regra de frase no spec",
+     "por_que": "Todos esses p são ≥ 0,05."
+    },
+    {
+     "id": "J2",
+     "antes": "'Resiste à conta dos testes e ao dinheiro, e o 1º turno ajuda a prever o 2º'",
+     "depois": "'O número do 1º turno acompanha os pontos do 2º, mas, contando os 28 números testados, isso já não dá para separar da sorte'",
+     "por_que": "O menor q entre os 28 é 0,062."
+    },
+    {
+     "id": "J11-J14-sem-selo",
+     "antes": "Formações de quem cai (dentro da J11) e contra-ataque/cruzamento (dentro da J14) sem selo",
+     "depois": "J17 [FRACO] 'Quem cai usou mais formações diferentes que quem sobe — mas isso some entre elencos de valor parecido' (sobe x cai 0,033; descontado o valor 0,13; 2018-21 0,020; cai x meio só descrição; fidelidade com contas que discordam). J18 [SEM SINAL] 'Contra-ataque e cruzamento: não se viu em 2022-2025; em 2018-2021 separaram, no número cru' (0,68 e 0,78; mesmo lado; o selo sai do período principal)",
+     "por_que": "Desconto do dinheiro medido agora (r8, coluna formacoes do painel). Contra-ataque e cruzamento vão para o mesmo lado nos dois períodos, então não é NDPA."
+    },
+    {
+     "id": "FIS-05",
+     "antes": "'Volume depende do plano de jogo: não use corre muito...'; 'mais da metade'",
+     "depois": "'Não quer dizer que volume não importa: o estudo só veria uma diferença grande contra o meio, ou muito grande contra quem cai'; '54 de cada 100'",
+     "por_que": "Era receita com mecanismo não medido, e o formato de chance estava errado."
+    },
+    {
+     "id": "A1-spec-orcamento",
+     "antes": "Documento 'anda com o valor do elenco (ρ 0,58)'; spec 'em boa parte o que o orçamento compra'",
+     "depois": "Documento: 'elenco mais valioso ocupa mais o campo adversário', com o ρ no rodapé. Spec: 'esse eixo anda com o valor do elenco'",
+     "por_que": "Jargão na frase e linguagem de gasto proibida."
+    },
+    {
+     "id": "FORMATO-chance",
+     "antes": "FIS-01 '1 de cada 100'; A4 'menos de 2'; FIS-10 '1 a 3'",
+     "depois": "FIS-01 'menos de 1 de cada 100'; A4 '3 de cada 100' (Welch 0,027); FIS-10 'menos de 1 a 3'; formato faixa_chance_em_100 atualizado no spec",
+     "por_que": "Aplicado formatos.chance_em_100. Na A4 o número mudou porque o teste declarado é o Welch."
+    },
+    {
+     "id": "ELE-07",
+     "antes": "Sem universo; 'não vale para quem chega da A ou da C'",
+     "depois": "'De 2023 a 2025, entre os 36 clubes que já estavam na B (6/22/8)...'; 'para quem chega da A ou da C isso não foi medido'; título do spec com {n_sobe_base}",
+     "por_que": "Confirmado."
+    },
+    {
+     "id": "detalhes",
+     "antes": "FIS-07 com corte de 0,5 inventado; J5 com q de família post-hoc; vaga 5 com M5+M4; ELE-06 'não separa'; ELE-01 com mecanismo; 'tamanho 0,82' nas frases; título da J10 com instrução; NDPA e SEM SINAL se sobrepondo; títulos do spec divergindo do documento",
+     "depois": "Régua de repetição do atleta escrita (e anotado que o corte de 0,5 veio depois de olhar); q post-hoc só como descrição; cinco sem vaga dupla; ELE-06 'não se viu diferença além do acaso', com o selo avisando que saiu da zona cinzenta sem desconto do dinheiro; ELE-01 'pode trocar de técnico; o estudo não tem esse dado'; tamanho em palavras com o número no rodapé (formato tamanho_em_palavras no spec); critério NDPA (a/b/c) contra SEM SINAL; títulos de DIN-03, ELE-07 e J14 alinhados entre spec e documento",
+     "por_que": "Todos os pontos confirmados no texto."
+    }
+   ],
+   "contagem_de_selos": "54 conclusões: 3 FORTES (DIN-01, DIN-02, FIS-07) · 10 MODERADAS (DIN-03, ELE-01, ELE-02, J1, J2, J3, J4, J6, J13, M5) · 24 FRACAS (DIN-04, DIN-05, ORI-01, ELE-03, ELE-06, ELE-07, FIS-01, FIS-04, FIS-06, FIS-08, FIS-10, FIS-11, J5, J7, J15, J8, J9, J16, J17, A1, A2, A4, M4, M6) · 12 SEM SINAL (ORI-02, ELE-04, ELE-05, FIS-05, FIS-09, J14, J10, J11, J18, A5, A6, M2) · 5 NÃO DÁ PARA AFIRMAR (DIN-06, J12, A3, M1, M3). Antes eram 52, com 3/14/18/11/6. Conferido por script: selo por id idêntico no CONCLUSOES.md e no spec.",
+   "as_cinco": [
+    "DIN-02 [FORTE] 12 dos 16 que subiram de 2022 a 2025 estavam entre os 8 elencos mais caros do ano (campo gravado: curva[k=8].p_exato_maior_igual e a lista de promovidos)",
+    "J1 [MODERADO] Quem sobe finaliza de mais perto do gol (q_SM, p_liq_SM, rho_persist e o p de 2018-2021 gravados)",
+    "FIS-10 [FRACO] O ataque de quem sobe corre mais que o de quem cai, mas não mais que o do meio (primeira conclusão de físico com o campo gravado)",
+    "A2 [FRACO] O que separou quem sobe em 2022-2025 apontou para o mesmo lado em 2018-2021 (porta_concordancia.p 0,020 desempata com a A1, 0,028)",
+    "M2 [SEM SINAL] Não se viu a nota física de encaixe prever minutos nem permanência (única de mercado com o campo gravado)",
+    "Quando o gerador gravar os campos que faltam, a mesma regra dá: DIN-01, FIS-07, J1, A2, M5"
+   ],
+   "declaracoes_propostas_para_o_gerador": "Arquivo /private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/declaracoes_novas.json, versão 2026-09-14-proposta-conserto. O dados/prototipo_indicadores.json não foi tocado. Entrou nesta rodada: (1) regra_comparacao_depois_de_olhar: chave declarada depois de olhar, e as comparações CR, CM e SR, não contam no BH nem no excesso, e o gerador grava criterios_do_selo.comparacao_declarada_antes. (2) excesso_por_familia.semente com o índice explícito i = 5·família + comparação, e a nota da fronteira do elenco (0,044-0,052; a semente declarada dá 0,0515). (3) etapa_7_excesso para a J8: Freedman-Lane dentro do ano, 10.000 sorteios, default_rng([SEMENTE,7,1]), duas contagens (sem olhar o sinal e só sinal certo). (4) etapa_11_mesma_regua.chave_do_atleta_fisico = chave_nome(short_name)+birthdate, universo do posto depois do corte de 8 jogos, por_setor com ic95, dif_ficou_menos_mudou e ic95_dif (bootstrap [SEMENTE,11,2]), e a régua de repetição. (5) formacoes_J17: colunas formacoes e formPrincipalPct, SC declarada, CM depois de olhar, desconto pelo posto de valor. (6) contra_ataque_cruzamento_J18: antigo_SM com d, p e q. (7) A4_mando: t de Welch com o ano como unidade, 4 x 4 (medido: 0,0269; Student 0,0172). (8) origem.dinheiro.esperado com cinco especificações e a faixa gravada. (9) indice_intensidade apontando para a regra única de comparação depois de olhar.",
+   "campos_que_o_gerador_precisa_gravar": [
+    "etapa_11.fisico: ligar atleta por chave_nome(short_name)+birthdate (hoje só nome: 20 pares de homônimos; o 0,833/499 gravado está contaminado) e gravar por_setor.{rho_mediano, ic95, rho_mudou, rho_ficou, n_mudou, n_ficou, dif_ficou_menos_mudou, ic95_dif, rho_mediano_por_par_de_anos} e por_posicao.{rho_mediano, rho_mudou, rho_ficou}",
+    "etapa_11.comparacao_fisico_tecnico.{mudou, ficou}.{posicao, setor}.{rho_fisico, rho_tecnico, dif, ic95, n} com a chave de nascimento no físico",
+    "etapa_1.auc_posto_de_valor.{p_sobe_x_meio, ic95, por_ano, meio_x_cai, meio_x_cai_por_ano} e cobertura_do_valor.p_valor_descontada_cobertura (DIN-01 só entra nas cinco com eles)",
+    "etapa_3.por_familia[f].excesso[SM|SC|CR|SR|CM][bruto|liq|liq2].{observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios, semente}",
+    "sobecai_corrigido_por_clube.<setor>.{passam5_bruto, passam5_liq2, sobreviventes, excesso} (M4, M5)",
+    "etapa_7.linhas[].q_parcial e etapa_7.excesso.{sem_sinal, sinal_certo}.{observado, nulo_mediana, nulo_p95, p_excesso}",
+    "teste_cego_2018_2021.json regime_veredito.p_bloco_por_ano (t de Welch com o ano como unidade) ou etapa_0.mando.p_bloco_por_ano",
+    "teste_cego_2018_2021.json diferenca_entre_blocos[].p (A3)",
+    "etapa_15.proxy_sistema.formacoes_distintas.{medianas, p_SC, p_liq_SC, p_CM, p_liq_CM, antigo_SC} (J17)",
+    "etapa_2.linhas[contra_ataques|cruzamentos].antigo_SM.{d, p, q} (J18)",
+    "etapa_2.linhas[].{p_bruto_CR, p_liq_CR, q_CR, p_bruto_CM, p_liq_CM, q_CM, p_bruto_SR, media_por_ano, n_sobe, n_meio, n_cai}",
+    "origem.{anos_da_conta, por_origem, fisher, dinheiro.por_origem[A].{quedas_esperadas, subidas_esperadas} por especificação, poder}",
+    "etapa_2.indice_intensidade (FIS-01), etapa_6.colocacao (ELE-06), etapa_2.linhas[pctFicou|novos] (ELE-07), etapa_2.estilo_x_valor (J15), etapa_8.tipologia.dinheiro.{rho_rota_x_valor_80, rho_territorio_x_valor_80}",
+    "etapa_11.tecnico com ano <= 2025 e metricas[].{p_dif_mudou_ficou, q_dif} (M6)",
+    "etapa_13.empates_na_margem.{n, de} (M3)",
+    "conclusoes.{contagem_de_selos, cinco_que_precisa_ler, itens[].selo_calculado, itens[].criterios_do_selo}; conclusão sem o campo decisivo gravado fica fora da tela, sem selo provisório"
+   ],
+   "pendencias": [
+    "Regra nova escrita nesta rodada, sem decisão explícita do dono: comparação escolhida depois de olhar não passa de FRACO. Ela mudou J5 e A4 para FRACO. Precisa do ok do dono; se ele recusar, J5 e A4 voltam a ser discutidas, e a FIS-01 continua FRACA porque some no dinheiro.",
+    "A regra das cinco, aplicada igual para todas, hoje traz duas fracas e uma sem sinal (FIS-10, A2, M2), porque a primeira passada exige um item por tema. Vale o dono confirmar se quer isso ou prefere mudar o passo 3.",
+    "Bug do gerador, fora do meu escopo de edição: etapa_11 liga o físico só pelo nome (gerar_prototipo.py, s['k'] = chave_nome(short_name)), e 20 pares de homônimos entram como 'mudou'. Os scripts conf_atleta.py e conf_m1b.py têm o mesmo problema. Na M1, o 'por par de anos' com a chave nova não foi refeito.",
+    "CONFERENCIA.md §3.5 continua com o t de Student (p 0,017) da A4; o teste declarado é o Welch (0,027). Não editei a CONFERENCIA.md.",
+    "J17 e J18 são novas e não passaram por cético. O desconto do dinheiro da J17 foi medido na coluna formacoes do painel, não no proxy sistemas_distintos do gerador, e a fidelidade à formação principal não tem desconto.",
+    "ELE-06: o sinal do aproveitamento (p 0,025) nunca foi descontado do dinheiro, e o selo FRACO saiu da zona cinzenta sem esse desconto.",
+    "J2, J4, J6 (e agora J9, J17 e J18) seguem sem cético próprio.",
+    "Escrevi que o corte de 0,5 da régua de repetição (FIS-07) veio depois de olhar; a FIS-07 passa também só pelo p de cada par. Pede ok do dono.",
+    "O índice i da semente declarada (5·família + comparação) é uma proposta minha para tirar a ambiguidade de declaracoes_novas; a semente declarada do elenco dá 0,0515 só com essa convenção.",
+    "Nada foi escrito em gerar_*.py, ranking_gaps.py, dados/*.json, static/ ou templates/. Nenhum git. As portas 5090 e 5091 não foram usadas."
+   ]
+  }
+ ]
+]

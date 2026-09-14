@@ -1,0 +1,472 @@
+{
+ "suposicoes": [
+  {
+   "etapa": "corte das faixas (obra nova)",
+   "funcao": "(nova) calculo do corte",
+   "linha": "-",
+   "o_que_supoe": "Que `aproveitamento >= media do 6o` em float reproduz a regra decidida.",
+   "risco_com_faixas_de_pontos": "MEDIDO: a media float do 6o sai 0.5350877192982457 e 61/114 sai 0.5350877192982456, um ulp abaixo. Vila Nova 2023, Criciuma 2025 e Goias 2025 (61 pts) caem para a MEDIA e a contagem vira 21/38/21 em vez de 24/35/21. No 15o nao ha empate (44/114 fica acima de 38,377%).",
+   "como_tratar": "Comparar em fracao exata (fractions.Fraction(pts, 3*J) contra a media das fracoes) ou em inteiros cruzados. Fazer assert de 24/35/21 e 4/12/4, 8/5/7, 6/9/5, 6/9/5, e gravar a regra e o tratamento do empate no JSON.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "corte das faixas (obra nova)",
+   "funcao": "carregar_jogos / J",
+   "linha": "329-344",
+   "o_que_supoe": "Que o J do painel e o numero de jogos do jogo a jogo sao a mesma coisa.",
+   "risco_com_faixas_de_pontos": "No painel J=38 para todos os de 2022-2025, mas serieb_jogos.csv tem 37 jogos para Londrina e Tombense 2022 e para Operario-PR e Chapecoense 2024. Com J contado dos jogos, o corte baixo vira 38,905% e as faixas viram 21/35/24. So o J do painel reproduz 53,509/38,377. Em 2018-2021 o proprio painel tem J=37 (Cuiaba e Figueirense 2019).",
+   "como_tratar": "Tirar pts e J do PAINEL (serieb_clube_temporada*.csv). Gravar ao lado quantos jogos existem no jogo a jogo e a divergencia. Cruzeiro 2020: pts=55 medido, 49 oficial (punicao_pts=6). As duas leituras ficam na media, mas gravar pts_oficial e dizer qual entra.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "bases",
+   "funcao": "carregar_painel",
+   "linha": "321-326",
+   "o_que_supoe": "Le so serieb_clube_temporada.csv e faz assert de len==80 e J==38.",
+   "risco_com_faixas_de_pontos": "O universo tecnico coletivo 2018-2025 (160) nao passa por aqui. Reusar a funcao para 2018-2021 quebra no assert (J=37 em 2019) ou devolve so 2022-2025 sem avisar. A coluna `faixa` que ela devolve e POSICIONAL.",
+   "como_tratar": "Carregar os dois CSVs na obra nova, com coluna `universo`, e sobrescrever `faixa` (ou criar `faixa_pts`) com a regra calculada. Assert proprio de 80+80 e de ano<=2025.",
+   "gravidade": "quebra"
+  },
+  {
+   "etapa": "bases",
+   "funcao": "carregar_jogos",
+   "linha": "336-343",
+   "o_que_supoe": "So serieb_jogos.csv, ano<=2025, assert len(tam)==80 e mediana 38.",
+   "risco_com_faixas_de_pontos": "serieb_jogos_2018_2021.csv nao entra. A porta temporal de 2018-2021 exige loader proprio: o assert de 80 fica certo por ano-bloco, mas nao cobre os 160 juntos.",
+   "como_tratar": "Loader proprio para os dois arquivos, com o filtro de Competicao nos dois e assert por bloco.",
+   "gravidade": "quebra"
+  },
+  {
+   "etapa": "uso como biblioteca",
+   "funcao": "modulo (import)",
+   "linha": "78-91, 3416-3432",
+   "o_que_supoe": "Roda como script: `G` e gerar_raio_serieb, `rng` e global do modulo, RAPIDO vem de sys.argv, DECL e PERIODO sao preenchidos no main.",
+   "risco_com_faixas_de_pontos": "`import gerar_prototipo as G` na obra nova esconde o `G.G` (raio). Toda funcao chamada consome `G.rng` na ordem em que a obra nova chama, entao o sorteio nao espelha o do Prototipo. `--rapido` passado a gerar_pontos.py muda N_* dentro do modulo. etapa_12 le PERIODO global: sem ele sai None.",
+   "como_tratar": "Importar com outro alias (ex.: `import gerar_prototipo as P`). Setar P.DECL e P.PERIODO. Nunca depender de P.rng: dar a cada etapa da obra nova um default_rng([7, n]) proprio, ou reatribuir P.rng antes de cada chamada, com o motivo escrito.",
+   "gravidade": "quebra"
+  },
+  {
+   "etapa": "constante",
+   "funcao": "FAIXAS",
+   "linha": "93",
+   "o_que_supoe": "FAIXAS = (\"sobe\",\"meio\",\"cai\").",
+   "risco_com_faixas_de_pontos": "Nao e usada em nenhum outro ponto: as mascaras repetem os literais em cada funcao. Trocar a constante nao troca nada.",
+   "como_tratar": "Na obra nova, uma so fonte de rotulos (alta/media/baixa). Se reusar funcoes do gerador que filtram por 'sobe'/'meio'/'cai', mapear alta->'sobe', media->'meio', baixa->'cai' numa copia do d80 e renomear as chaves na SAIDA.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "0",
+   "funcao": "etapa_0",
+   "linha": "466-487",
+   "o_que_supoe": "Conta sobe/meio/cai por ano pela coluna `faixa`. O poder tem tamanhos DIGITADOS (16x16, 16x48, 16x64) e Bonferroni com 191 testes digitado (o catalogo tem 293).",
+   "risco_com_faixas_de_pontos": "Com faixas de 24/35/21 os d minimos de 16x48 etc. descrevem outro desenho e saem na tela como se fossem deste. O 191 ja esta velho no Prototipo.",
+   "como_tratar": "Calcular d_minimo_detectavel com os n MEDIDOS (alta x media, alta x baixa, alta x resto, por universo) e o numero de testes pelo len do catalogo. Relatar o 191 como bug do gerador.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "1",
+   "funcao": "curva_top_k",
+   "linha": "519-603",
+   "o_que_supoe": "y = sobe. K por ano e medido (bom), mas K_PALPITE=8 e AFIRMADO=14 sao o palpite do dono sobre os 16 PROMOVIDOS. Texto 'dos %d que subiram', chaves `promovidos_*`, `taxa_de_subida_no_top_k_pct`.",
+   "risco_com_faixas_de_pontos": "A hipergeometrica continua valida com K=4/8/6/6. O palpite '14 dos 16 no top-8' deixa de ser a pergunta. Com 24 na alta, '>=14' vira criterio sem sentido e `menor_k_com_14` sai sem aviso.",
+   "como_tratar": "Espelhar a curva com K da alta por ano. Declarar que o palpite e da aba de posicao e nao reaplicar o 14; se quiser analogo, gravar como pergunta nova com a razao (ex.: fracao da alta).",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "1",
+   "funcao": "valor_por_setor",
+   "linha": "636-733",
+   "o_que_supoe": "Mascaras sobe/meio/cai; AUC sobe x resto/meio/cai; particao com BH em sobe x meio; bootstrap [7,11] comentado como '4 promovidos em media por ano'; melhor setor escolhido pelo maior AUC sobe x resto.",
+   "risco_com_faixas_de_pontos": "Numeros corretos se a faixa for remapeada, mas as chaves `*_sobe` e o comentario dos 4 por ano mentem. O setor 'melhor' pode trocar (e escolhido depois de olhar), e o texto de leitura vem dele.",
+   "como_tratar": "Reusar com faixa remapeada numa copia e renomear as chaves. Manter o gerador proprio.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "1",
+   "funcao": "etapa_1 (top4_de_valor)",
+   "linha": "755-760, 842",
+   "o_que_supoe": "Os 4 mais caros contra os que subiram (nlargest(4)); esperado_por_acaso = y.sum()*4/20, com 4 vagas e 20 clubes por ano.",
+   "risco_com_faixas_de_pontos": "A alta tem 4/8/6/6 por ano. Top-4 contra 8 da alta e o esperado 24*4/20 = 4,8 saem com cara de medida e estao ERRADOS (o certo e sum(K_ano*k_ano/N_ano)).",
+   "como_tratar": "Usar k_ano = tamanho da alta no ano (ou publicar a curva inteira) e esperado = soma de K*k/N por ano.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "1",
+   "funcao": "etapa_1 (quartis, LOSO, AUC)",
+   "linha": "746-769, 843-848",
+   "o_que_supoe": "y = faixa=='sobe'; `subiram` por quartil; AUC sobe x resto/meio/cai; eventos_por_parametro = y.sum()/2.",
+   "risco_com_faixas_de_pontos": "Com y = alta os numeros mudam legitimamente (24 eventos). O docstring '55% de subida no quartil mais caro, AUC 0,828' e texto de sobe.",
+   "como_tratar": "Remapear e renomear para taxa de alta. Dizer que a alta inclui 8 que nao subiram.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "1",
+   "funcao": "etapa_1 (fora_da_amostra_2026)",
+   "linha": "777-800",
+   "o_que_supoe": "d26.faixa = G4 da rodada; esperado y26.sum()*4/len; motivo digitado '27 de 38 rodadas: sobe e o G4 de hoje'.",
+   "risco_com_faixas_de_pontos": "d100.faixa de 2026 e posicional: sem recalculo, o '2026 por ritmo' sai com o G4, nao com alta 5/media 9/baixa 6. O '27 de 38' esta digitado.",
+   "como_tratar": "Recalcular a faixa de 2026 com os cortes de 2022-2025 sobre pts/(3*27), com provisoria=True e J lido do dado, montando a frase com os numeros. Assert de que 2026 nao entra em corte/media/teste.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "1",
+   "funcao": "etapa_1 (controle_n_atletas)",
+   "linha": "807-830",
+   "o_que_supoe": "Medias e d de sobe x meio; rho de fis_atletas com `d.pos` (posicao final).",
+   "risco_com_faixas_de_pontos": "O rho com a posicao nao depende da faixa, mas numa aba de pontos a variavel natural e o aproveitamento. As medias por faixa mudam com o remapeamento.",
+   "como_tratar": "Acrescentar rho com o aproveitamento continuo, mantendo o da posicao rotulado como tal.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "1",
+   "funcao": "etapa_1 (caliper)",
+   "linha": "861-871",
+   "o_que_supoe": "Controle = faixa != 'sobe' do mesmo ano, dentro de +-c do posto de valor.",
+   "risco_com_faixas_de_pontos": "Em 2023 a alta tem 8 e sobram 12 controles no ano: o pool encolhe, e `subidas_com_controle` e o nome.",
+   "como_tratar": "Remapear e renomear; publicar controles disponiveis por ano.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "2",
+   "funcao": "etapa_2",
+   "linha": "1031-1171",
+   "o_que_supoe": "Comparacao primaria sobe x MEIO (SM) e secundaria sobe x cai (SC); q por familia; porta A-D; `resultado` = coluna_csv in DECL['resultado']; motivo '-' = 'nao separa sobe de meio'.",
+   "risco_com_faixas_de_pontos": "SM vira alta x media, com 8 nao-promovidos na alta: a pergunta muda de 'o que separa quem sobe' para 'o que separa ritmo alto'. A porta D nao pega nada (ver circularidade). Textos de porta dizem sobe.",
+   "como_tratar": "Remapear; renomear SM/SC para AM/AB; motivos montados com o rotulo da faixa.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "2",
+   "funcao": "bootstrap_por_clube",
+   "linha": "1185-1218",
+   "o_que_supoe": "Mascaras sobe/meio; consome o rng GLOBAL (N_BOOT x choice de 40 clubes).",
+   "risco_com_faixas_de_pontos": "O consumo nao depende do tamanho da faixa (bom). Se a obra nova chamar por biblioteca, o estado do P.rng depende do que foi chamado antes.",
+   "como_tratar": "Gerador proprio na obra nova ([7, n]), escrito no JSON.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "3",
+   "funcao": "etapa_3",
+   "linha": "1233-1242, 1279, 1313",
+   "o_que_supoe": "sel = sobe|meio (64 linhas), y = sobe; cobertura >= 0,90 calculada DENTRO de sel; string do metodo com '229 indicadores' DIGITADO.",
+   "risco_com_faixas_de_pontos": "Com alta|media = 59 linhas, quais colunas de zaga/lateral passam de 90% pode mudar. O numero de indicadores do garimpo muda e a frase continua dizendo 229.",
+   "como_tratar": "Remapear e montar a frase com len(inds). Relatar o 229 digitado como bug.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "5",
+   "funcao": "etapa_5",
+   "linha": "1344-1486",
+   "o_que_supoe": "`prom` = 16 linhas de sobe (docstring 'Matriz de 16 linhas'); faixa_sobe/meio/cai e faixa_*_bruto (edicao nao commitada de hoje) com guarda len>=4; sensibilidade da agregacao em sobe x meio.",
+   "risco_com_faixas_de_pontos": "Remapeado, gera 24 linhas da alta (8 sem subir). Nas colunas fisicas de setor a faixa pode cair abaixo de 4 validos e vir [None]*3. Chaves `faixa_sobe*` e `clubes` sem campo que diga se subiu.",
+   "como_tratar": "Reusar com remapeamento, acrescentando em cada clube `subiu` (posicao) ao lado da faixa de pontos, e renomear faixa_sobe->faixa_alta.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "6",
+   "funcao": "etapa_6",
+   "linha": "971-1013",
+   "o_que_supoe": "truncamento = pares que terminaram em SUBIDA e subidas sem ano anterior; docstring '36 pares, 6 terminaram em subida' digitado; faixa_t/faixa_t1 por par.",
+   "risco_com_faixas_de_pontos": "Com remapeamento vira 'terminaram em alta', com a chave `terminaram_em_subida`. O rho de persistencia nao depende da faixa.",
+   "como_tratar": "Renomear e contar a alta. Os rho podem ser reusados identicos.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "7",
+   "funcao": "etapa_7",
+   "linha": "929-953",
+   "o_que_supoe": "1o turno = rod<19 e 2o = rod>=19, com 38 jogos; rodadas_1t=19 e rodadas_2t=19 digitados.",
+   "risco_com_faixas_de_pontos": "Quatro clube-temporadas de 2022-2025 e duas de 2019 tem 37 jogos no arquivo: o 2o turno delas tem 18 e os pts2 ficam um jogo curtos. Nao e da faixa, mas a obra nova e sobre pontos e vai estender a 2018-2021.",
+   "como_tratar": "Partir pelo meio do numero real de jogos (ou usar aproveitamento por turno) e gravar a contagem de jogos por turno.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "8",
+   "funcao": "etapa_8 (cemiterio)",
+   "linha": "2161-2177",
+   "o_que_supoe": "Silhueta e Jaccard em Z das linhas sobe (16), com o rng GLOBAL; `observacoes_por_dimensao=dict(n=16)` DIGITADO; etiqueta '16 que subiram'.",
+   "risco_com_faixas_de_pontos": "permutation(len(X)) e multivariate_normal(size=len(X)) consomem conforme o tamanho: com 24 linhas o fluxo global desloca e muda EM SILENCIO o Jaccard, o erro_da_margem da etapa 13 e as 200 reamostragens da etapa 14. O n=16 fica errado.",
+   "como_tratar": "Gerador proprio por bloco; n = len(X). Relatar o n=16 digitado.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "8",
+   "funcao": "tipologia (construcao)",
+   "linha": "1683-1705, 1748-1760, 1854-1862",
+   "o_que_supoe": "Os dois eixos (DECL['tipologia']) foram escolhidos e CONGELADOS nos 16 que subiram (CONGELADO_2022_2025.md). Cortes = mediana dos 16; quadrantes G1-G4; placebo exige indicador finito nos 16; residualizacao refaz os cortes nos 16.",
+   "risco_com_faixas_de_pontos": "Rodar nos 24 da alta produz OUTRA tipologia com eixos que nao foram congelados para ela: nao e espelho, e o teste cego 2018-2021 nao se aplica. Com 24 linhas, mais colunas de setor ficam com NaN e o numero de particoes placebo cai.",
+   "como_tratar": "Decidir e declarar: (a) manter os eixos congelados, cortar na mediana da ALTA e rotular 'tipologia exploratoria, eixos herdados da aba de posicao'; ou (b) publicar so os 16 que subiram, com a faixa de pontos de cada um. Nunca reaproveitar os p do teste cego.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "8",
+   "funcao": "p_exato_binario / tipologia (um-contra-o-resto e andares)",
+   "linha": "1643-1662, 1920-1924, 1948-1961",
+   "o_que_supoe": "Enumeracao exata viavel com n=16 (4.368 particoes para grupo de 5), cada particao avaliando o eta2 medio de 38 indicadores.",
+   "risco_com_faixas_de_pontos": "Com n=24 e grupo de 6: C(24,6)=134.596 particoes x 38 eta2, por grupo (quatro grupos). Grupo de 7: 346.104. Da dezenas de milhoes de eta2 em Python puro: horas. Os andares (C(12,6)=924) seguem viaveis.",
+   "como_tratar": "Na obra nova, Monte Carlo com gerador proprio e erro de Monte Carlo publicado (Clopper-Pearson) quando C(n,k) > limite declarado, ou vetorizar o eta2. Gravar qual caminho foi usado.",
+   "gravidade": "quebra"
+  },
+  {
+   "etapa": "8",
+   "funcao": "tipologia (valores declarados e limiares)",
+   "linha": "1966-1967, 2050-2055, 2101-2112, 1897-1898",
+   "o_que_supoe": "STATUS_DECLARADO e P_DECLARADO do TIPOLOGIA.md; validadores 23, p_placebo 0,066, teste cego 0,0627/0,3492; estabilidade passa se trocas <=1 / <=2 'maximo em 16'; etiquetas '16 que subiram'.",
+   "risco_com_faixas_de_pontos": "Sao numeros da particao de 16. Gravados ao lado de p medidos na alta, a tela compara testes diferentes como se fossem o mesmo. Os limiares 1 e 2 foram calibrados para 16.",
+   "como_tratar": "Nao copiar os declarados para o pontos.json (ou copiar com `origem: aba de posicao`). Limiares proporcionais ou declarados de novo, com motivo.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "9",
+   "funcao": "etapa_9",
+   "linha": "2185-2215",
+   "o_que_supoe": "d, p e q sobe x meio por regua; `sobe=[16 valores]`.",
+   "risco_com_faixas_de_pontos": "Remapeado vira lista de 24 com a chave `sobe`.",
+   "como_tratar": "Renomear e acrescentar identificacao do clube.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "10",
+   "funcao": "etapa_10",
+   "linha": "2218-2245",
+   "o_que_supoe": "Entra quem tem porta D (nunca acontece) ou porta B com rho_persist<0,15, mais as 17 colunas de DECL['resultado']; m_sobe/meio/cai; ordena por d_bruto_SC.",
+   "risco_com_faixas_de_pontos": "A porta vem da comparacao de faixa, entao quem entra no 'nao contrate' muda com as faixas sem ninguem ter mexido na lista. A lista branca nao cobre o que virou circular (ver circularidade).",
+   "como_tratar": "Lista de resultado ampliada e declarada ANTES de rodar (versionada), aplicada a TODA coluna candidata; lista fixa de 'consequencia' (share_11, conc_hhi, atletas_usados, nucleo_300, nucleo_1000) independente da porta.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "11",
+   "funcao": "etapa_11",
+   "linha": "2248-2318",
+   "o_que_supoe": "Nenhuma suposicao de faixa (persistencia do atleta ao trocar de clube).",
+   "risco_com_faixas_de_pontos": "Nenhum. So o consumo de estado se chamada por biblioteca (nao sorteia).",
+   "como_tratar": "Pode ser espelhada identica (ou referenciada ao prototipo.json), dizendo que nao depende da faixa.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "13 (base)",
+   "funcao": "sobecai_corrigido + gerar_raio_serieb.carregar",
+   "linha": "2325-2382; gerar_raio_serieb.py 170-173",
+   "o_que_supoe": "sc.faixa vem de G.carregar(), que le a coluna POSICIONAL `faixa` de serieb_clube_temporada.csv. itens_ref (n_atleta, d_atleta, p_atleta, bh_atleta) vem de raio_ref.json, calculado por posicao. Guarda len>=8.",
+   "risco_com_faixas_de_pontos": "ARMADILHA: remapear d80.faixa NAO chega ao sc. Alvos fisicos, nota de encaixe, backtest e elencos continuam sobe/cai POR POSICAO e saem na aba nova rotulados como faixa de pontos. As colunas de atleta continuam do universo posicional mesmo recalculando o sc.",
+   "como_tratar": "Depois de G.carregar(), sobrescrever sc['faixa'] pelo mapa (ano, clube) -> faixa de pontos. Recalcular as colunas de atleta (d, p, BH por atleta) na obra nova em vez de ler raio_ref.json, ou marca-las como 'aba de posicao'.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "13",
+   "funcao": "alvos_fisicos",
+   "linha": "2556-2622",
+   "o_que_supoe": "Cenarios sobe / caro = sobe & posto_val<=8 / barato = sobe & posto_val>8 / cai; top-8 fixo; docstring '16 contra 16 em vez de 4 contra 60'.",
+   "risco_com_faixas_de_pontos": "Com a alta (24) o caro/barato vira outro recorte, com n diferente de 12/4. O corte 8 foi escolhido para 4 vagas por ano.",
+   "como_tratar": "Declarar o corte do caro (ex.: top-k do ano = tamanho da alta, ou manter 8 com motivo), gravar n por cenario e montar o texto dos n.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "13",
+   "funcao": "indicadores_do_setor",
+   "linha": "2645-2671",
+   "o_que_supoe": "Criterio 'p_clube < 0,05 (teste corrigido por clube, 16x16)' digitado; fallback para bh_atleta de raio_ref.json.",
+   "risco_com_faixas_de_pontos": "O texto 16x16 fica falso (24x21). O fallback mistura um teste posicional numa nota de pontos.",
+   "como_tratar": "Montar o texto com os n medidos e usar o BH por atleta recalculado nas faixas de pontos.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "13",
+   "funcao": "erro_da_margem / etapa_13",
+   "linha": "2674-2705, 2778-2851",
+   "o_que_supoe": "margem = prox_sobe - prox_cai; teto |pct_cai - pct_sobe|; bootstrap com rng GLOBAL, na ordem do pool.",
+   "risco_com_faixas_de_pontos": "Os numeros seguem os alvos. O erro-padrao depende do estado do rng global, deslocado pelas etapas anteriores (ver etapa 8).",
+   "como_tratar": "Gerador proprio; renomear prox_alta/prox_baixa.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "13",
+   "funcao": "backtest_nota",
+   "linha": "2923-3052",
+   "o_que_supoe": "Nota = proximidade ao vetor sobe menos ao vetor cai; 'chegadas' e minutos sao independentes de faixa.",
+   "risco_com_faixas_de_pontos": "O desfecho (minutos, permanencia) nao muda; a nota muda com os alvos. Se o sc.faixa nao for sobrescrito, testa a nota posicional.",
+   "como_tratar": "Rodar depois de sobrescrever o sc.faixa; texto 'vetor alta/baixa'.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "14",
+   "funcao": "etapa_14",
+   "linha": "3087-3091, 3243-3245, 3343, 3358",
+   "o_que_supoe": "taxa_q = taxa de SUBIDA por quartil de valor (pd.qcut do posto no ano); contrafactual `taxa_historica_de_subida_do_quartil_pct`.",
+   "risco_com_faixas_de_pontos": "Com remapeamento vira taxa de alta por quartil sob a chave 'subida': o leitor le chance de acesso onde e chance de ritmo alto (inclui 8 que nao subiram).",
+   "como_tratar": "Publicar as duas taxas (alta e subida real) com rotulos distintos.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "14",
+   "funcao": "etapa_14 (textos e justificativa)",
+   "linha": "3270-3272, 3353-3357",
+   "o_que_supoe": "alvo_significa DIGITADO: '12 promovidos top-8', '4 que subiram fora do top-8 (n=4)', '16 contra 16'; justificativa com medias sobe/cai e porta='B' digitada.",
+   "risco_com_faixas_de_pontos": "Os n mudam e o texto nao. Ja e frase digitada passando por medida no Prototipo (bug a relatar, mesmo que hoje bata).",
+   "como_tratar": "Montar a frase com os n de alvos['_n_clube_por_cenario'] e ler a porta do catalogo.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "14",
+   "funcao": "etapa_14 (reamostragem)",
+   "linha": "3172-3173",
+   "o_que_supoe": "rng.normal global, 6 propostas x N_ELENCO.",
+   "risco_com_faixas_de_pontos": "Recebe o deslocamento de todo consumo global anterior (cemiterio da etapa 8, erro_da_margem).",
+   "como_tratar": "Gerador proprio por proposta.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "15",
+   "funcao": "etapa_15",
+   "linha": "3385-3409",
+   "o_que_supoe": "Testes sobe x meio e sobe x cai; `trocas_medianas_em_38_jogos` (ha clubes com 37); `clube_temporada=100` digitado.",
+   "risco_com_faixas_de_pontos": "Remapeado so muda rotulo; com 2018-2021 o 100 fica errado.",
+   "como_tratar": "Renomear, contar o universo e montar o rotulo com a mediana real de jogos.",
+   "gravidade": "so_rotulo"
+  },
+  {
+   "etapa": "main",
+   "funcao": "main (posto_val)",
+   "linha": "3468-3469",
+   "o_que_supoe": "posto de valor com rank(ascending=False) (media nos empates) truncado por int(); curva_top_k usa method='min'.",
+   "risco_com_faixas_de_pontos": "Empate (2023 Novorizontino/CRB) vira x.5 truncado: dois postos iguais que discordam da etapa 1. Afeta caro/barato se o empate cair na fronteira do corte. Bug do gerador, independente da faixa.",
+   "como_tratar": "Na obra nova usar method='min' em todo lugar. Relatar.",
+   "gravidade": "muda_numero_silencioso"
+  },
+  {
+   "etapa": "main",
+   "funcao": "main (saida)",
+   "linha": "3505, 3527-3528",
+   "o_que_supoe": "comparacao_primaria='sobe x meio'; controles_obrigatorios de=16 digitado.",
+   "risco_com_faixas_de_pontos": "Rotulo e contagem errados na aba nova.",
+   "como_tratar": "Montar a partir das faixas medidas.",
+   "gravidade": "so_rotulo"
+  }
+ ],
+ "circularidade": [
+  {
+   "indicador": "LISTA BRANCA INTEIRA (DECL['resultado'], 17 colunas) e a porta D",
+   "por_que_e_circular": "A lista esta certa em conteudo, mas e CODIGO MORTO no catalogo (CONFERENCIA 1.4): nenhuma das 17 colunas entra na matriz de 293, entao `resultado` (linha 1095) nunca e True e nenhuma linha recebe porta D. A protecao so existe no bloco extra da etapa 10 (2234-2243). Tambem nao e aplicada a DECL['bateria_tipologia'], DECL['tipologia_leitura'], aos `brutos` da tipologia (1988-1994) nem aos eixos.",
+   "o_que_fazer": "Na obra nova, lista de resultado versionada ANTES de rodar e aplicada como filtro em TODA fonte de coluna: catalogo, tabela de gaps (item 6), eixos, bateria e leitura da tipologia, 2018-2021. Com assert de que nenhuma coluna da lista entrou em teste, eixo, agrupamento ou nota."
+  },
+  {
+   "indicador": "pts, pos, subiu, caiu, faixa, aproveitamento, punicao_pts, jogos_faltando",
+   "por_que_e_circular": "Sao a propria faixa ou a definem. `pts` e `pos` estao em DECL['tipologia_leitura'] e entram em Pt (1713-1716). pos e quase monotona em pts.",
+   "o_que_fazer": "Fora de qualquer teste; so rotulo de linha."
+  },
+  {
+   "indicador": "V, E, D",
+   "por_que_e_circular": "pts = 3V + E exatamente (medido: diferenca 0 nas 80).",
+   "o_que_fazer": "Incluir na lista de resultado (hoje nao estao)."
+  },
+  {
+   "indicador": "GP, GC, SG, gp_jogo, gc_jogo, golos_sem_penalti, golos_tec, penaltis_marcados, penaltis_conv, bp_conv, golos_cabeca",
+   "por_que_e_circular": "Gols decidem resultado; saldo explica quase toda a variancia de pontos. Na lista hoje: so gp_jogo, gc_jogo, golos_sem_penalti e golos_tec. `golos_cabeca` esta na BATERIA PRE-DECLARADA da tipologia (38 validadores) e e pedaco de GP.",
+   "o_que_fazer": "Incluir todos. Tirar golos_cabeca da bateria na aba de pontos (ou marcar e excluir do eta2 medio), com o motivo."
+  },
+  {
+   "indicador": "defesa_vs_xg, gkEvitados",
+   "por_que_e_circular": "defesa_vs_xg tem correlacao 1,000 com xg_contra - GC/J: contem gols sofridos. gkEvitados = xG contra menos gols sofridos. Nenhum esta na lista; defesa_vs_xg esta em tipologia_leitura e nos `brutos`/`percentis` dos grupos.",
+   "o_que_fazer": "Incluir na lista de resultado."
+  },
+  {
+   "indicador": "finalizacao, xg_saldo",
+   "por_que_e_circular": "finalizacao = gols menos xG (contem GP). xg_saldo e processo (nao mecanico), mas ja esta na lista por cautela.",
+   "o_que_fazer": "Manter as duas na lista; declarar que xg_saldo e zona cinzenta, nao pedaco mecanico."
+  },
+  {
+   "indicador": "pontos_casa, pontos_fora, pts1t, pts2t",
+   "por_que_e_circular": "Somam pts (medido: diferenca maxima de 3 pontos, a punicao/buraco). Ja na lista.",
+   "o_que_fazer": "Manter. Na porta temporal, pts do 2o turno so como desfecho, nunca como indicador."
+  },
+  {
+   "indicador": "pts10ini, pts10fim, pts56, jogos56, xgd56",
+   "por_que_e_circular": "Pontos em recortes da temporada (primeiras/ultimas 10, jogos 5-6): pedacos de pts. Nao estao na lista.",
+   "o_que_fazer": "Incluir (xgd56 como zona cinzenta, por ser recorte definido pela tabela)."
+  },
+  {
+   "indicador": "ptsAposDerrota, ptsAposVitoria, ptsAposD, ptsAposDcasa, ptsAposDfora, ptsAposV",
+   "por_que_e_circular": "Media de pontos condicionada ao resultado anterior: pedaco de pts. Nao estao na lista.",
+   "o_que_fazer": "Incluir."
+  },
+  {
+   "indicador": "maxVitorias, maxSemVencer, semVencer, vitSeguidas e as 27 esp*/p* (espSemVencer, pSemVencer, espAposD, pAposDcasa, ... M, MT)",
+   "por_que_e_circular": "Sequencias e seus esperados/p calculados das taxas de V/E/D do proprio clube: funcao direta do resultado. Na lista so maxVitorias e maxSemVencer.",
+   "o_que_fazer": "Incluir todas (padrao de nome esp*, p*, semVencer, vitSeguidas, com assert por regex)."
+  },
+  {
+   "indicador": "aprovG6, aprovZ6, aprovMeio, aprovTop6, aprovMio7, aprovBot6, jG6",
+   "por_que_e_circular": "Aproveitamento contra grupos definidos pela POSICAO FINAL: pedaco de pts e ainda dependente da tabela. jG6 depende da propria posicao (um time do G6 enfrenta 5 do G6, os outros 6). Na lista so aprovG6 e aprovZ6.",
+   "o_que_fazer": "Incluir aprovMeio, aprovTop6, aprovMio7, aprovBot6 e jG6."
+  },
+  {
+   "indicador": "clean_sheets, brancos, goleadas_pro, goleadas_con",
+   "por_que_e_circular": "Contagens de placar. goleadas_con NAO esta na lista. clean_sheets esta em tipologia_leitura e nos brutos/percentis dos grupos.",
+   "o_que_fazer": "Incluir goleadas_con; tirar clean_sheets da leitura da tipologia na aba de pontos, ou marca-la."
+  },
+  {
+   "indicador": "pctArtilheiro, marcadores, pctTop3",
+   "por_que_e_circular": "Denominador e GP (zona cinzenta: nao somam pontos, mas sao reescalas de gols).",
+   "o_que_fazer": "Marcar como 'derivado de gols' e excluir de teste de faixa, ou declarar zona cinzenta com motivo."
+  },
+  {
+   "indicador": "share_11, conc_hhi, atletas_usados, nucleo_300, nucleo_1000 (e pctFicou, novos se entrarem)",
+   "por_que_e_circular": "Nao sao pedaco de pontos, mas consequencia (time que ganha repete o XI). Hoje so viram 'nao contrate' se a porta B e rho<0,15 disserem, e a porta depende da faixa: a membresia muda sozinha.",
+   "o_que_fazer": "Lista fixa de CONSEQUENCIA, declarada, independente da porta, com a marca 'consequencia do resultado' da tabela de gaps."
+  },
+  {
+   "indicador": "colunas de jogo: resultado, Golos, Golos sofridos, golos_pro, golos_contra, golos_casa, golos_visitante, pts (criado em carregar_jogos)",
+   "por_que_e_circular": "Se a porta temporal ou a tabela de gaps puxar colunas do jogo a jogo, essas sao o placar.",
+   "o_que_fazer": "Excluir por nome no loader da obra nova, com assert."
+  },
+  {
+   "indicador": "tecnico individual (serieb_tecnico.csv): Golos, Assistencias, e o que mais for placar",
+   "por_que_e_circular": "DECL['tecnico_ind'] nao tem nenhuma coluna de gol (xG e processo), mas uma varredura ampliada puxaria.",
+   "o_que_fazer": "Manter o catalogo pre-declarado; se ampliar, filtrar por nome."
+  }
+ ],
+ "etapas_que_mudam_de_natureza": [
+  "Etapa 0: deixa de ser 4/12/4 por ano; tamanhos variam por ano (4/12/4, 8/5/7, 6/9/5, 6/9/5) e o poder precisa ser recalculado com 24/35/21, por universo (tecnico coletivo 2018-2025 = 160, com alta 41, media 80, baixa 39 somando os dois blocos).",
+  "Etapa 1: 'taxa de subida por quartil' e 'top-4 de valor acerta as subidas' viram taxa de ritmo alto, com k variavel por ano. O palpite do dono (14 dos 16 no top-8) e pergunta da aba de posicao e nao se transporta. 2026 passa a ser classificado por ritmo (pts/3*27), provisorio.",
+  "Etapas 2, 3 e 9: a comparacao primaria alta x media ja nao e 'o que separa quem sobe': a alta inclui 8 que nao subiram e a media inclui 8 que ficaram fora do G4 por calendario. A lista de resultado passa de cosmetica a obrigatoria.",
+  "Etapa 5: 16 linhas de promovidos viram 24 da alta; precisa de marca de quem subiu de fato.",
+  "Etapa 6: truncamento 'terminaram em subida' vira 'terminaram em alta'; os rho de persistencia nao mudam.",
+  "Etapa 8 (tipologia): eixos e cortes foram CONGELADOS nos 16 que subiram e o teste cego 2018-2021 foi desse congelamento. Rodar na alta e outra tipologia, sem congelamento, e a enumeracao exata fica inviavel (C(24,6)=134.596 por grupo).",
+  "Etapa 10: a lista 'nao contrate' deixa de poder depender da porta (que depende da faixa) e precisa de lista fixa de resultado e de consequencia.",
+  "Etapas 13-14: alvos fisicos, nota de encaixe, backtest e elencos passam de 'perfil de quem sobe x quem cai' para 'perfil de ritmo alto x baixo'. O caro/barato (top-8) e o anti-queda (16x16) mudam de n. O contrafactual 'taxa de subida do quartil' vira taxa de alta. Exige sobrescrever sc.faixa e recalcular o que vem de raio_ref.json.",
+  "Etapa 15: so troca os grupos; mesma natureza.",
+  "Etapas 4, 7, 11 e 12: nao dependem do agrupamento (a 7 usa pontos continuos do 2o turno); podem ser espelhadas identicas, dizendo isso. Cuidado so com o turno de 37 jogos na 7."
+ ],
+ "ordem_de_execucao_do_main": [
+  "1. DECL = carregar_declaracao()",
+  "2. d100, d80 = carregar_painel()  (assert 80 linhas, J==38, ano<=2025)",
+  "3. jog = carregar_jogos()  (filtro Competicao, ano<=2025, assert mediana 38 e 80 clubes)",
+  "4. tec = carregar_tecnico()",
+  "5. elencos = serieb_elencos.csv; raio = raio_ref.json; base_j = jogadores.json (PERIODO, jogs); kpis = kpis.json",
+  "6. sc = G.carregar()  (gerar_raio_serieb: faixa POSICIONAL do CSV)",
+  "7. bruto, postos, meta, vazios, ns_ti = montar_matriz(d80, tec)",
+  "8. e4 = etapa_4(jog, meta) -> conf",
+  "9. e7 = etapa_7(jog, meta) -> temporal",
+  "10. pares = pares_consecutivos(d80); e6 = etapa_6(d80, postos, meta, pares) -> persist",
+  "11. linhas_cat, resumo_fam, liq = etapa_2(...)",
+  "12. ics = bootstrap_por_clube(d80, postos, liq, cols)  <- 1o consumo do rng GLOBAL (N_BOOT x choice de 40)",
+  "13. e3 = etapa_3(...)  (gerador proprio [7,3])",
+  "14. e1 = etapa_1(d80, d100)  (valor_por_setor com gerador proprio [7,11]; LogisticRegression sem sorteio)",
+  "15. e5 = etapa_5(...)  (sem sorteio)",
+  "16. E, Z, itens_eixo = eixos_matriz(d80, postos)",
+  "17. e8 = etapa_8(...): 17a silhueta_contra_nulos nos 16 sobe, k=2,3,4 (rng GLOBAL, consumo proporcional a len(X)=16); 17b silhueta_contra_nulos nas 80 (rng GLOBAL); 17c tipologia (gerador proprio [7,8], inclui silhueta_dos_rotulos, silhueta k=4 e Jaccard no plano); 17d jaccard_bootstrap nos 16 sobe, k=2,3,4 (rng GLOBAL)",
+  "18. e9 = etapa_9(...)  (sem sorteio)",
+  "19. e10 = etapa_10(...)  (sem sorteio)",
+  "20. e11 = etapa_11(tec, sc)  (sem sorteio)",
+  "21. e12, pool = etapa_12(jogs, elencos)  (sem sorteio; le PERIODO global)",
+  "22. corrigido = sobecai_corrigido(sc, raio)",
+  "23. posto_val = rank(ascending=False) por ano de tm_valor_total, truncado por int()",
+  "24. alvos = alvos_fisicos(sc, corrigido, posto_val)",
+  "25. bt = backtest_nota(tec, sc, alvos)  (sem sorteio)",
+  "26. e13 = etapa_13(pool, jogs, kpis, alvos, bt)  <- rng GLOBAL em erro_da_margem, um atleta por vez na ordem do pool",
+  "27. e14 = etapa_14(e13['candidatos'], d80, elencos)  <- rng GLOBAL: rng.normal por replica, propostas na ordem A_caro, B_barato_transicao, C_anti_queda x serie_b, sul_americano",
+  "28. e15 = etapa_15(jog, d80, formas)  (sem sorteio)",
+  "29. saida: etapa_0(d100, d80, meta, e12['degraus']) e chamada DENTRO do literal do dict (sem sorteio), depois json.dump",
+  "Consequencia: o rng global e consumido em 12 -> 17a -> 17b -> 17d -> 26 -> 27. Mudar o tamanho do grupo em 17a (16 -> 24) desloca 17d, 26 e 27 em silencio. Na obra nova, cada etapa com gerador proprio default_rng([7, n]) gravado no JSON."
+ ]
+}

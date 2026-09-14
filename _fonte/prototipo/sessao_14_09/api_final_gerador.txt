@@ -1,0 +1,21 @@
+No main do gerar_prototipo.py, depois do montar_matriz (d80 com faixa = sobe/meio/cai; dentro do módulo SEMENTE e RAIZ são nomes próprios; de fora use G.SEMENTE e G.RAIZ). Testado em scratchpad/fecho/api_final.py com python3 -B e G.SAIDA trocado, sem gravar nada:
+
+    import ranking_gaps as RG
+    dv = pd.read_csv(os.path.join(RAIZ, "dados", "serieb_clube_temporada_2018_2021.csv"))
+    dv = dv[dv.ano <= 2025].reset_index(drop=True)
+    cols_outro = [c for c in postos.columns if meta[c]["coluna_csv"] in dv.columns]
+    dvp = pd.DataFrame({c: dv.groupby("ano")[meta[c]["coluna_csv"]].rank(pct=True).values * 100 for c in cols_outro},
+                       index=pd.MultiIndex.from_frame(dv[["ano", "clube"]]))
+    r_val = d80.set_index(["ano", "clube"]).groupby(level="ano")["tm_valor_total"].rank(pct=True) * 100
+    ranking_gaps = RG.tabela_de_gaps(
+        RG.pela_chave(d80, "ano"), postos, bruto, RG.pela_chave(d80, "faixa"), list(postos.columns),
+        ("sobe", "meio", "cai"),
+        r_val=r_val,
+        controles=RG.controles_de_atletas_rastreados(meta, d80),
+        meta=meta,
+        outro=dict(postos=dvp, rotulos=RG.pela_chave(dv, "faixa"), anos=RG.pela_chave(dv, "ano"), rotulo="2018-2021"),
+        rotulo_universo="80 clube-temporada de 2022-2025, faixas por POSIÇÃO",
+        nomes_das_faixas={"sobe": "quem subiu", "meio": "meio da tabela", "cai": "quem caiu"},
+        semente=(SEMENTE, 23), ano_maximo=2025)
+
+Resultado medido: linha da sorte 37,78, 7 acima, p por limiar [0,003, 0,002, 0,002], sobrevivem_q_e_dinheiro 19, se_repete {sim 11, não 22, não dá para testar 260}. É idêntico com os postos na ordem do montar_matriz, sort_index, permutados ou invertidos. A mesma chamada sem `outro` reproduz exatamente linha_da_sorte e resumo de ranking_gaps.mesma_tabela_com_as_faixas_por_posicao no dados/pontos.json novo. Antes de gravar, o gerador passa o JSON inteiro por RG.referencias_circulares e RG.referencias_de_consequencia_sem_marca.

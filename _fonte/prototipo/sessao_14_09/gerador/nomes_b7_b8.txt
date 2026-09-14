@@ -1,0 +1,19 @@
+
+A_caro__serie_b
+  resumo: {'posicoes_com_nomes_diferentes': 0, 'de': 10, 'rec_b7': 13, 'rec_b8': 13, 'emp_b7': 4, 'emp_b8': 4, 'nucleo_b7': 6250000.0, 'nucleo_b8': 6250000.0, 'posto_b7': 18, 'posto_b8': 18}
+
+A_caro__sul_americano
+  resumo: {'posicoes_com_nomes_diferentes': 0, 'de': 10, 'rec_b7': 1, 'rec_b8': 1, 'emp_b7': 1, 'emp_b8': 1, 'nucleo_b7': 3700000.0, 'nucleo_b8': 3700000.0, 'posto_b7': 17, 'posto_b8': 17}
+
+B_barato_transicao__serie_b
+  resumo: {'posicoes_com_nomes_diferentes': 0, 'de': 10, 'rec_b7': 12, 'rec_b8': 12, 'emp_b7': 0, 'emp_b8': 0, 'nucleo_b7': 5400000.0, 'nucleo_b8': 5400000.0, 'posto_b7': 18, 'posto_b8': 18}
+
+B_barato_transicao__sul_americano
+  VOL  rec ['M. Arrasco (FC Cajamarca) 52.2 [50.0–54.5]'] emp ['Sebastián Galani (Coquimbo Unido) 50.4 [48.2–52.6]']  ->  rec [] emp ['M. Arrasco (FC Cajamarca) 50.65 [48.43–52.86]', 'Sebastián Galani (Coquimbo Unido) 48.65 [46.44–50.87]']
+  resumo: {'posicoes_com_nomes_diferentes': 1, 'de': 10, 'rec_b7': 1, 'rec_b8': 0, 'emp_b7': 1, 'emp_b8': 2, 'nucleo_b7': 1300000.0, 'nucleo_b8': 950000.0, 'posto_b7': 21, 'posto_b8': 21}
+
+C_anti_queda__serie_b
+  resumo: {'posicoes_com_nomes_diferentes': 0, 'de': 10, 'rec_b7': 13, 'rec_b8': 13, 'emp_b7': 4, 'emp_b8': 4, 'nucleo_b7': 6250000.0, 'nucleo_b8': 6250000.0, 'posto_b7': 18, 'posto_b8': 18}
+
+C_anti_queda__sul_americano
+  resumo: {'posicoes_com_nomes_diferentes': 0, 'de': 10, 'rec_b7': 1, 'rec_b8': 1, 'emp_b7': 1, 'emp_b8': 1, 'nucleo_b7': 3700000.0, 'nucleo_b8': 3700000.0, 'posto_b7': 17, 'posto_b8': 17}
