@@ -13,7 +13,7 @@
 
   const D = (typeof BOLA_PARADA !== 'undefined') ? BOLA_PARADA : null;
   const TIPOS = [['esc', 'Escanteio'], ['fd', 'Falta direta'], ['fi', 'Falta indireta ou jogada ensaiada'], ['lat', 'Lateral']];
-  const st = { comp: 'todas', min: 10, busca: '', vis: 'treinador', ord: 'saldo', dir: -1, sel: null, abertos: new Set() };
+  const st = { serie: 'todas', ano: 'todas', min: 10, busca: '', vis: 'treinador', ord: 'saldo', dir: -1, sel: null, abertos: new Set() };
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -28,8 +28,11 @@
   const compCurta = c => c.replace('Série ', '').replace(' 20', ' ');
   const somaBP = o => o.esc + o.fd + o.fi + o.lat;
 
+  /* competicao = "Série A 2024": a serie e o comeco, o ano sao os 4 ultimos caracteres */
+  const anoDe = comp => comp.slice(-4);
   function passa(t) {
-    return st.comp === 'todas' || t.comp === st.comp || t.comp.indexOf(st.comp + ' ') === 0;
+    return (st.serie === 'todas' || t.comp.indexOf(st.serie + ' ') === 0) &&
+           (st.ano === 'todas' || anoDe(t.comp) === st.ano);
   }
 
   /* Soma os trabalhos que passam no filtro e calcula as taxas. "Acima da media" usa a media da
@@ -84,24 +87,33 @@
 
   /* ---------------- casca (montada uma vez) ---------------- */
   function casca() {
-    const kpis = D.competicoes.map(c =>
-      '<div class="sb-kpi"><span class="sb-rot">' + esc(c.comp) + '</span><b>' + n2(c.media_bp) + '</b>' +
-      '<p>gols de bola parada por time, por jogo · <b>' + pct(c.bp / c.gols) + '</b> dos gols · ' +
-      c.jogos + ' jogos</p></div>').join('');
-    const opcoes = [['todas', 'Séries A e B, 2025 e 2026'], ['Série A', 'Só Série A'], ['Série B', 'Só Série B']]
-      .concat(D.competicoes.map(c => [c.comp, c.comp]))
-      .map(([v, r]) => '<option value="' + esc(v) + '">' + esc(r) + '</option>').join('');
+    const anos = [...new Set(D.competicoes.map(c => anoDe(c.comp)))].sort();
+    const series = [...new Set(D.competicoes.map(c => c.comp.slice(0, -5)))].sort();
+    const porComp = new Map(D.competicoes.map(c => [c.comp, c]));
+    /* referencia de cada competicao (nao muda com os filtros): series nas linhas, anos nas colunas.
+       Temporada com menos de 380 jogos esta em andamento e sai marcada. */
+    const medias = '<table class="sb-tab bp-medias"><thead><tr><th>gols de bola parada por time, por jogo</th>' +
+      anos.map(a => '<th>' + a + '</th>').join('') + '</tr></thead><tbody>' +
+      series.map(s => '<tr><td>' + esc(s) + '</td>' + anos.map(a => {
+        const c = porComp.get(s + ' ' + a);
+        return c ? '<td><b>' + n2(c.media_bp) + '</b><small>' + pct(c.bp / c.gols) + ' dos gols · ' + c.jogos +
+          ' jogos' + (c.jogos < 380 ? ' (em andamento)' : '') + '</small></td>' : '<td>—</td>';
+      }).join('') + '</tr>').join('') + '</tbody></table>';
+    const opt = (v, r) => '<option value="' + esc(v) + '">' + esc(r) + '</option>';
+    const optSerie = opt('todas', 'Séries A e B') + series.map(s => opt(s, 'Só ' + s)).join('');
+    const optAno = opt('todas', anos[0] + ' a ' + anos[anos.length - 1]) + anos.map(a => opt(a, 'Só ' + a)).join('');
     const minimos = [1, 10, 20, 38].map(n =>
       '<option value="' + n + '"' + (n === st.min ? ' selected' : '') + '>' + n + '</option>').join('');
     return '' +
       '<div><span class="sb-rot">Estudo · fonte ' + esc(D.fonte) + ' · atualizado em ' + esc(dataBR(D.gerado_em)) + '</span>' +
       '<h1 class="sb-h1">Bola parada por treinador</h1>' +
-      '<p class="sb-sub">Gols de escanteio, falta e lateral nas Séries A e B de 2025 e 2026, contados para o ' +
-      'treinador que comandava o time em cada jogo. Pênalti fica à parte. Como as médias da Série A e da ' +
-      'Série B são diferentes, cada treinador é comparado com a média da competição em que trabalhou.</p></div>' +
-      '<div class="sb-kpis">' + kpis + '</div>' +
+      '<p class="sb-sub">Gols de escanteio, falta e lateral nas Séries A e B de ' + anos[0] + ' a ' + anos[anos.length - 1] +
+      ', contados para o treinador que comandava o time em cada jogo. Pênalti fica à parte. Como as médias mudam ' +
+      'de uma série e de um ano para outro, cada treinador é comparado com a média da competição em que trabalhou.</p></div>' +
+      '<div class="bp-tabwrap">' + medias + '</div>' +
       '<div class="bp-filtros">' +
-        '<select id="bpComp" title="Competição">' + opcoes + '</select>' +
+        '<select id="bpSerie" title="Série">' + optSerie + '</select>' +
+        '<select id="bpAno" title="Temporada">' + optAno + '</select>' +
         '<label class="bp-rot">mínimo de jogos <select id="bpMin">' + minimos + '</select></label>' +
         '<span class="bp-seg" id="bpVis"><button data-v="treinador" class="on">por treinador</button>' +
         '<button data-v="trabalho">por trabalho</button></span>' +
@@ -125,6 +137,13 @@
       notas();
   }
 
+  /* competicoes sem xG na Sofascore (Serie B antes de 2025): o xG por jogo do treinador so usa os jogos que tem */
+  function semXg() {
+    const sem = D.competicoes.filter(c => !c.xg_n).map(c => c.comp);
+    return sem.length ? ' A Sofascore não tem xG em ' + sem.join(', ') + ': nessas temporadas a coluna fica ' +
+      'vazia, e o xG por jogo de quem trabalhou nelas usa só os jogos que têm.' : '';
+  }
+
   function notas() {
     const gc = D.gols_contra || {}, conf = gc.conferencia || {}, orig = gc.por_origem || {}, p = D.piloto || {};
     const r = D.regras || {};
@@ -133,25 +152,33 @@
       'lateral. Pênalti não entra na conta e aparece separado no detalhe.</p>' +
       '<p class="sb-nota"><b>Treinador do jogo.</b> A Sofascore registra quem estava no banco. Quando o titular ' +
       'está suspenso ou ausente e o auxiliar senta no lugar, o jogo conta para o titular — ' + D.reatribuidos +
-      ' jogos foram tratados assim. Interino entre dois treinadores continua sendo do interino.</p>' +
+      ' jogos foram tratados assim. Interino entre dois treinadores continua sendo do interino, e ausência de ' +
+      (r.seq_longa || 3) + ' jogos seguidos ou mais só vai para o titular se ele tiver ' + (r.seq_longa || 3) +
+      ' jogos antes e depois — para não engolir técnico de verdade que ficou pouco tempo.</p>' +
       '<p class="sb-nota"><b>Gol contra.</b> A Sofascore não diz de que lance ele nasceu; a narração lance a lance ' +
       'mostra o que veio até ' + (r.janela_gol_contra || 1) + ' minuto antes. Dos ' + (gc.total || 0) + ' gols contra, ' +
       (orig['Escanteio'] || 0) + ' saíram de escanteio e ' + (orig['Falta indireta / outra BP'] || 0) + ' de falta, ' +
-      'e contam como bola parada. Conferido contra a planilha manual da Série A 2026: bate em ' + (conf.bate || 0) +
+      'e contam como bola parada' + (orig['Sem narração'] ? '; em ' + orig['Sem narração'] + ' o jogo não tem narração, ' +
+      'e eles ficam fora da conta' : '') + '. Conferido contra a planilha manual da Série A 2026: bate em ' + (conf.bate || 0) +
       ' de ' + ((conf.bate || 0) + (conf.nao_bate || 0)) + ' casos.</p>' +
+      (D.sem_classificacao ? '<p class="sb-nota"><b>Gol sem tipo.</b> ' + D.sem_classificacao + ' dos ' + D.gols +
+        ' gols ficaram sem o tipo do lance, quase sempre porque a Sofascore não tem o mapa de chutes daquele jogo. ' +
+        'Eles contam nos gols totais, mas não na bola parada.</p>' : '') +
       '<p class="sb-nota"><b>A fonte foi conferida.</b> Na Série A 2026, jogo a jogo contra a planilha manual do ' +
       'Portal Bolas Paradas (' + (p.jogos || 0) + ' jogos), os gols batem em <b>' + pct1(p.gols) + '</b> e o total de ' +
       'gols de bola parada de cada time por jogo em <b>' + pct1(p.bp) + '</b>. O que não bate é gol contra e ' +
       'critério de rebote e segunda bola.</p>' +
       '<p class="sb-nota"><b>Amostra.</b> Com poucos jogos, um gol a mais ou a menos muda muito a taxa; por isso o ' +
       'filtro começa em ' + (r.amostra_min || 10) + ' jogos. O <b>xG de bola parada</b> soma a chance de gol de todas ' +
-      'as finalizações de bola parada, com ou sem gol: oscila menos que o gol e ajuda a separar padrão de acaso.</p>' +
+      'as finalizações de bola parada, com ou sem gol: oscila menos que o gol e ajuda a separar padrão de acaso.' +
+      semXg() + '</p>' +
       '</div>';
   }
 
   function ligarControles(alvo) {
     const q = s => alvo.querySelector(s);
-    q('#bpComp').onchange = e => { st.comp = e.target.value; render(); };
+    q('#bpSerie').onchange = e => { st.serie = e.target.value; render(); };
+    q('#bpAno').onchange = e => { st.ano = e.target.value; render(); };
     q('#bpMin').onchange = e => { st.min = +e.target.value; render(); };
     q('#bpBusca').oninput = e => { st.busca = e.target.value; render(); };
     q('#bpVis').onclick = e => {
