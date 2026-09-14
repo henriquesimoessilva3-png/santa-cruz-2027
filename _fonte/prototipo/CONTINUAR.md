@@ -1,173 +1,115 @@
-# CONTINUAR — aba Protótipo e a expansão 2018-2021
+# CONTINUAR — aba Protótipo, aba nova por pontos e aba de conclusões
 
-> Estado em 12/09/2026, fim da sessão. Leia este arquivo inteiro antes de agir.
-> O mapa geral do projeto está em `_fonte/CONTEXTO.md` (seções de 12/09/2026 no fim).
+> Estado em **13/09/2026**, fim da sessão `86429f10`. Substitui a versão de 12/09.
+> Leia nesta ordem: **este arquivo** → `PENDENTE_RODADA.md` (18 pedidos do dono, com números
+> medidos) → `CONCLUSOES.md` → `CONFERENCIA.md` (laudo de 12/09). O mapa geral do projeto está em
+> `_fonte/CONTEXTO.md`.
 
-## 1. O que JÁ está pronto
+## 1. O que está no ar, o que está só no disco
 
-| arquivo | o que é |
-|---|---|
-| `_fonte/prototipo/LEVANTAMENTO.md` | o terreno medido antes de projetar |
-| `_fonte/prototipo/ESPECIFICACAO.md` | **o método** — 13 seções, escrito por 5 planos + 3 juízes |
-| `_fonte/prototipo/TIPOLOGIA.md` | os 4 grupos dos 16 que subiram, com os testes que passou e os que não passou |
-| `_fonte/prototipo/tabelas_2018_2021.json` | as 4 tabelas de classificação, transcritas do Flashscore |
-| `_fonte/prototipo/extrair_2018_2021.json` | 36 clubes, 80 clube-temporada, 16 acessos |
-| `gerar_prototipo.py` | **o gerador, escrito e RODADO** (135 KB) |
-| `dados/prototipo.json` | **1,08 MB, 24 chaves — etapas 0 a 15 completas** |
+- **Site publicado** (GitHub Pages, commit `f9bf866`): o Protótipo ANTES da linguagem simples.
+- **Local, na porta 5090** (servidor do dono — não derrube, não use a 5090 nem a 5091): a aba
+  Protótipo reescrita em linguagem simples, 16 etapas, zero erro, etapa 1 já com a curva dos mais
+  caros, a resposta ao palpite e o valor por setor.
+- **Git:** 3 commits locais NÃO empurrados — `3bf9aa4` (base 2018-2021), `d423103` (gerador e
+  conferência), `29272c4` (aba). O `40fc8d7` foi commitado E empurrado por um agente sem
+  autorização em 12/09; o dono ainda não decidiu se reverte (`git revert --no-edit 40fc8d7`).
+- **Não commitado** (commit/push só com pedido do dono): `gerar_prototipo.py` (faixa de quem subiu,
+  faixas no valor cru, conserto de determinismo, blocos novos da etapa 1), `dados/prototipo.json`,
+  `static/prototipo.js`, `static/proto*.js` reescritos, `static/style.css` (vocabulário `.pt-tec`),
+  `_fonte/prototipo/{CONCLUSOES.md, conclusoes_spec.json, PENDENTE_RODADA.md}`,
+  `ranking_gaps.py`, `gerar_pontos.py` (em construção).
 
-## 2. A CONFERÊNCIA DO JSON TERMINOU — e reprovou. NÃO PUBLIQUE A TELA.
+## 2. Dois fluxos estavam rodando quando a sessão fechou
 
-Os três céticos do `wf_d046db62-f21` fecharam depois deste pacote ser escrito. **Os três
-disseram `ajustar`: 28 divergências e 40 buracos.** Os vereditos completos estão em
-`_fonte/prototipo/conferencia_do_json.json` (chave `confs`). O `dados/prototipo.json` como
-está **não pode virar tela** — e o que reprova não é detalhe de formatação.
+`resumeFromRunId` não funciona em sessão nova. Os scripts de TODOS os fluxos desta sessão estão
+copiados em `_fonte/prototipo/workflows/`. Os retornos de cada agente concluído ficam no journal:
+`~/.claude/projects/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-Santa-Cruz/86429f10-6359-4758-b9ee-f9cba02f2bf9/subagents/workflows/<run>/journal.jsonl`
 
-### O que reprova de verdade, em ordem de gravidade
+| fluxo | run | estado ao fechar | o que fazer |
+|---|---|---|---|
+| conclusões do estudo | `wf_5faaea6d-ae8` | **COMPLETO** (11 de 11). `CONCLUSOES.md` (41 conclusões), `conclusoes_spec.json` e o retorno do crítico de completude em `conclusoes_critico.json` | antes de pôr as conclusões na tela, tratar o que o crítico apontou (conclusões que faltam, selos suspeitos, frases que soam como receita) |
+| base da aba por pontos | `wf_15b47fcf-686` | **INTERROMPIDA às 22h28 de 13/09** (parada de propósito para a sessão nova não escrever em paralelo). A auditoria do gerador está PRONTA no journal. O construtor NÃO devolveu relatório; as três conferências NÃO rodaram. No disco e commitados como rascunho: `ranking_gaps.py`, `gerar_pontos.py`, `gerar_pontos_js.py`, `dados/pontos.json` (2 MB), `static/pontos.js` | **não confie no `pontos.json`**: ler a auditoria no journal, ler o `gerar_pontos.py` inteiro, rodá-lo de novo, e rodar as três conferências (lentes no script `aba-pontos-dados-*.js`: circularidade e faixas · números · espelho completo) antes de qualquer tela |
 
-1. **São TRÊS pilares, não quatro.** A etapa 5 se chama "os quatro pilares" e os painéis são
-   só `tecnico_col`, `tecnico_ind` e `fisico_col`. **O físico individual não tem painel.** É
-   exatamente o que o dono pediu, e não está lá.
-2. **A nota de encaixe tem a orientação INVERTIDA nos indicadores de tempo.** O candidato é
-   medido em percentil invertido (100−p) e o alvo em percentil cru de segundos. Quem sobe é
-   MAIS RÁPIDO, então a nota está premiando o mais lento nesses indicadores. Isso recomenda o
-   jogador errado — é o defeito mais caro do arquivo.
-3. **O portão de persistência (ρ ≥ 0,30) não é aplicado**, e `t505_90` reprova nele (0,205).
-   Ou seja, entra no score um indicador que a própria regra manda excluir.
-4. **O backtest não testou a nota publicada** — esqueceu o filtro `campos_fis`. E **169 das
-   716 chegadas pontuadas são de 2026** (24%), violando a regra da casa de que 2026 não entra
-   em média nenhuma.
-5. **`coluna_csv` dos 92 indicadores técnicos individuais não existe em arquivo nenhum.**
-   Conferido nas 346 colunas do painel e nas 118 do técnico. São referências quebradas.
-6. **151 dos 603 candidatos (25%) carregam um critério que a própria tabela do JSON
-   contradiz** ("nenhum indicador do bloco sobreviveu", quando `psv5` na zaga sobrevive com
-   p=0,0074).
-7. **Elenco sul-americano: 4 a 6 das 15 vagas voltam vazias** — nenhum nome chega a 10% nas
-   200 réplicas.
-8. **Imputação escondida de zero** no contrafactual do dinheiro (7 a 10 dos 15 nomes do núcleo
-   entram sem valor), e o contrafactual **compara duas réguas diferentes** (`mv` do
-   jogadores.json ago26 contra `valor_eur` do Transfermarkt 2025).
-9. **A largura da faixa do elenco é uma constante inventada e não publicada**
-   (`erro = max(0,02; 0,30/√sc_n)`), e vale 65% do desvio-padrão real da nota.
-10. **`remates_baliza_pct` tem confiabilidade −0,021** e mesmo assim sobrevive ao BH e ganha
-    selo de Porta B. Medida sem sinal nenhum passando por achado.
+**Não edite `gerar_prototipo.py` enquanto a base de pontos estiver sendo construída ou rodada**:
+ela importa o gerador como biblioteca.
 
-### O que a conferência APROVOU, e não precisa refazer
+## 3. A ordem da próxima rodada (os itens são do `PENDENTE_RODADA.md`)
 
-- **Os painéis da etapa 5** (4.688 células) — reimplementados do zero e batem: "este é o bloco
-  mais sólido do arquivo".
-- **A tipologia da etapa 8** — filiação e cortes reproduzem sem exceção.
-- E dois achados a favor: o `TIPOLOGIA.md` tem as **médias de eixo erradas nos quatro grupos**
-  (o JSON está certo, o documento é que está errado), e a **ESPECIFICACAO erra** em pelo menos
-  dois pontos (a tabela da §6.5 sobre `min_estrangeiros` e a promessa da §11.2 sobre o caliper).
+1. **Fechar a base por pontos** (item 8): o construtor foi interrompido — terminar, rodar e conferir (ver a tabela da seção 2).
+2. **Metade gerador** (`gerar_prototipo.py`, um agente só):
+   rodar com `faixa_sobe` e `faixa_*_bruto` (itens 2 e 9 — código pronto, nunca rodado) ·
+   bloco `conclusoes` pelo `conclusoes_spec.json` (item 5) · `ranking_gaps` chamando
+   `ranking_gaps.tabela_de_gaps` (item 6) · `nac` nos candidatos e goleiros, gravado na montagem do
+   pool, que já nasce de `jogadores.json` (item 15) · etapa 14 com gerador próprio
+   `default_rng([SEMENTE, 14])`, mais réplicas e "empate técnico" (item 16) · provar determinismo
+   (`PYTHONHASHSEED=1` contra `=2`: zero diferença) · diff contra o JSON anterior ·
+   `gerar_prototipo_js.py`.
+3. **Metade tela**, um dono por arquivo: `proto.js`+`style.css` (largura, botão da escala, bloco de
+   conclusões, ajudantes) · `proto_a.js` (tabela dos mais caros com os dois fora do top 9, tabela
+   de gaps, "serve para contratar", catálogo compacto) · `proto_b.js` (linha da faixa de quem subiu,
+   tudo aberto nas etapas 5-6, botão cru nas matrizes, gráfico da etapa 6 redesenhado, etapa 7
+   explicada) · `proto_c.js` (tudo aberto em 12-14, nomes físicos da 13, filtros de liga,
+   nacionalidade e idade, empate técnico e teste de volta ao lado dos nomes) · e um arquivo NOVO
+   `static/proto_glossario.js` (nome simples, o que mede, unidade, fonte, lado bom de cada
+   indicador — tirado de `analisar_serieb.py::do_tecnico`, `gerar_raio_serieb.py::DE_PARA*` e das
+   skills dados-wyscout e dados-skillcorner, nunca inventado).
+4. **Aba nova por pontos na tela** (item 8): reusar o renderer do Protótipo lendo `PONTOS`, com
+   os rótulos de `faixas.rotulos`; cada número diz de que universo veio.
+5. **Aba de conclusões** (item 18), por último.
+6. Conferir a 1.785 px sem rolagem lateral (item 14). **Publicar só com ok do dono.**
 
-### Por onde continuar
+## 4. Regras de trabalho que custaram caro nesta sessão
 
-Use a mesma máquina das Ondas 1 e 2, que funcionou duas vezes: **um agente por bloco corrige,
-um cético confere, e só então o JSON é regerado.** Os dez itens acima são a lista de trabalho.
-Depois disso, e só depois, a tela.
+- **Nenhum agente faz git que escreva.** Um empurrou o `40fc8d7` para o repositório público.
+  Escreva a proibição em todo prompt.
+- **Um dono por arquivo** em escrita paralela. Quem importa o gerador trava o gerador.
+- **Fora do `main`, carregue `G.DECL = G.carregar_declaracao()`** antes de `montar_matriz`.
+- **O gerador não era determinístico:** `set` de strings muda de ordem a cada execução
+  (PYTHONHASHSEED) e decidia qual atleta recebia qual sorteio na etapa 14. Consertado. Qualquer
+  `set` iterado novo → `sorted` ou `dict.fromkeys`.
+- **Sorteio global:** etapa nova que sorteia antes desloca as seguintes. Dê gerador próprio.
+- `etapa_14.propostas[].vagas_detalhe[].recomendacao` é uma LISTA (uma leitura como campo único
+  deu "0 de 90 mudaram" falso nesta sessão).
+- **O número da célula das matrizes é a POSIÇÃO no ranking do ano (0-100), não o valor.** O dono
+  leu como valor; a legenda e o botão cru (item 9) existem para isso.
+- **O dono aponta indicadores a olho nas matrizes.** É garimpo: responder sempre com a família de
+  testes, o desconto do dinheiro, a faixa de pontos e a checagem em 2018-2021, e lembrar da tabela
+  de gaps com a linha da sorte.
+- Os gráficos das etapas 6 e 7 foram lidos errado (cor = desfecho do ano seguinte; o turno 1
+  prevê o 2). Itens 10 e 12.
 
-## 2b. O que estava rodando quando a sessão acabou
+## 5. Decisões do dono em 13/09 (não refazer)
 
-**Workflow `wf_d046db62-f21` — TERMINOU** (4 de 4 agentes, nenhum erro). O resultado está na
-seção 2 acima e o arquivo completo em `_fonte/prototipo/conferencia_do_json.json`.
+Tela em **português de reunião de clube**, vocabulário único em `proto.js` (`ptTamanho`,
+`ptAcaso`, `ptSorte`, `ptJunto`, `ptAcerto`, `ptTecnico`) · **toda conclusão com o selo de força**
+dito com todas as letras, inclusive fraco e sem sinal · **aba nova por faixa de aproveitamento**
+(ritmo do 6º e do 15º: alta >= 53,509%, baixa < 38,377%; espelha as 16 etapas; 2018-2021 entra no
+técnico coletivo; Protótipo continua) · **faixa de quem subiu numa linha só** junto das outras
+duas · **botão percentil / valor cru** · **tudo aberto, sem clicar** · **filtros de liga,
+nacionalidade e idade** · **sem rolagem lateral** · **aba de conclusões no fim**.
 
-Os retornos de quem terminou estão em:
-`~/.claude/projects/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-Santa-Cruz/d04c10c6-3785-4e71-a494-989fd871831f/subagents/workflows/wf_d046db62-f21/journal.jsonl`
+## 6. O que se mediu em 13/09 (detalhe e fontes no `PENDENTE_RODADA.md`)
 
-**`resumeFromRunId` só funciona na sessão de origem.** Numa sessão nova, relance a
-conferência do zero: o script está em `_fonte/prototipo/workflow_gerador.js` (cópia do que
-rodou). O gerador vai voltar do zero também, mas ele é determinístico (semente 7), então
-produz o mesmo JSON — ou, se preferir economizar, edite o script deixando só a fase
-`Conferir`, já que o `prototipo.json` está no disco.
-
-**Não publique a aba antes da conferência.** O JSON tem número que ninguém recalculou ainda.
-
-## 3. O que FALTA, em ordem
-
-1. **Corrigir os dez defeitos da seção 2** e regerar o `prototipo.json`. A conferência já foi
-   feita e reprovou; não é preciso conferir de novo antes de corrigir.
-2. **Construir a tela.** Aba no `templates/index.html`, renderer no `static/app.js`, CSS no
-   `static/style.css`. O desenho etapa por etapa está na **seção 10 da ESPECIFICACAO** — o
-   dono pediu a construção explícita, não só o fim. Siga o padrão da casa: botão + modal como
-   o "Série A × Série B" e o "Sobe × Cai", ou aba própria se for grande demais para modal.
-3. **Integrar 2018-2021** (seção 4 abaixo).
-4. **Treinador**, por coleta web — decisão do dono: etapa POSTERIOR, não desenhe assumindo.
-
-## 4. Os dados de 2018-2021 que chegaram
-
-### 4.1 Técnico de EQUIPE — `bases wyscout - serie B/bases times serie B - 2021 a 2018.zip`
-
-**80 de 80 — completo em 12/09, com os quatro que o dono mandou no fim da sessão.**
-Os arquivos estão EXTRAÍDOS em `_fonte/serie_b_jogos_2018_2021/` (80 `.xlsx`) e o manifesto
-conferido, em `_fonte/prototipo/manifesto_2018_2021.json`.
-
-Formato `Team Stats <Clube> (N).xlsx` — o `(N)` é contador de download, **não o ano**.
-Estrutura: **uma linha por (partida, equipe)**, 109 colunas, com `Data`, `Jogo`, `Competição`,
-`Duração`, `Equipa`, `Sistema`. É o mesmo formato do `serieb_jogos.csv` (119 colunas —
-o de-para é parte do trabalho).
-
-#### O que o processador precisa saber
-
-- **A TEMPORADA NÃO SAI DO ANO DA DATA.** Esta linha dizia o contrário e estava errada.
-  Os **20 clubes de 2020** atravessam o ano civil: a Série B 2020 foi de 08/08/2020 a
-  30/01/2021, por causa da covid. O Chapecoense tem 62 jogos datados em 2020 e **14 em 2021**.
-  Quem filtrar por `Data.year` racha a temporada 2020 inteira — e justo o campeão daquele ano,
-  que é o caso que o teste cego mais precisa. **A temporada sai do arquivo** (ano do primeiro
-  jogo de Série B naquele arquivo), nunca da data da linha.
-- **Filtrar `Competição == 'Brazil. Serie B'`** — os arquivos trazem estadual, Copa do Brasil,
-  Copa Verde e amistoso junto.
-- **Cada partida aparece DUAS vezes**: a linha do próprio clube e a do adversário, distinguidas
-  pela coluna `Equipa`. São 38 × 2 = 76 linhas de Série B por arquivo. Depois da dedup por
-  (temporada, Data, Jogo, Equipa): **3.038 linhas, 80 equipe-temporada** — contra 3.036 das 80
-  temporadas completas de 2022-2025.
-
-#### Dois buracos, um que custa e outro que não
-
-- **`Team Stats Vila Nova (7).xlsx` saiu VAZIO** — duas linhas de rótulo ("Vila Nova" /
-  "Adversários") e nenhuma partida. Era o Vila Nova 2019. **Não custa nada:** como cada jogo
-  está no arquivo dos dois clubes, os 38 jogos do Vila Nova estão inteiros nos arquivos dos
-  outros 19. Reconstruindo pela união, fecha 80 de 80. Já conferido.
-- **Falta uma partida no Wyscout inteiro: Cuiabá × Figueirense de 2019.** Por isso esses dois
-  têm 37 jogos naquele ano, e 2019 tem 379 partidas contra 380 dos outros três. É buraco da
-  fonte. Registre, não conserte.
-
-### 4.2 Técnico por JOGADOR — `~/Downloads/serie B - indicadores tecnicos wyscout - jogadores - 2018 a 2021.zip`
-
-8 Excels de 500 linhas × 115 colunas. Mesmo formato do `serieb_tecnico.csv` (118 colunas).
-
-**ARMADILHA: não têm coluna de temporada.** O ano precisa ser inferido cruzando o conjunto de
-clubes da coluna `Equipa dentro de um período de tempo seleccionado` com as quatro tabelas do
-`tabelas_2018_2021.json`. (A coluna `Equipa` é o clube ATUAL, de 2026 — não serve.)
-
-### 4.3 De-para de nomes
-
-Nove clubes o projeto nunca viu: Boa, Botafogo, Bragantino, Brasil de Pelotas, Confiança,
-Figueirense, Oeste, Paraná, São Bento.
-
-Nomes que divergem entre fontes, já conferidos nos arquivos de equipe:
-`Red Bull Bragantino`→Bragantino · `Vasco da Gama`→Vasco · `Sport Recife`→Sport ·
-`Operário PR`→Operário-PR · `América Mineiro`→América-MG · `Botafogo SP`→Botafogo-SP ·
-`Atlético GO`→Atlético-GO. No Flashscore o Oeste aparece como **"Osasco Sporting"** e o
-Botafogo como **"Botafogo RJ"**.
-
-**E normalize Unicode antes de comparar nome.** O macOS grava nome de arquivo em NFD e o
-JSON está em NFC: `"Avaí" != "Avaí"` e 12 clubes "somem" silenciosamente. Custou um
-diagnóstico errado nesta sessão.
-
-## 5. As decisões que NÃO se refazem
-
-- **Não existe agrupamento cego.** Sob o nulo de mesma covariância, k=2 nos 16 dá p=0,555.
-  O nulo de embaralhar coluna é INVÁLIDO (destrói a correlação entre indicadores; qualquer
-  dado correlacionado o bate). Não reabra isso.
-- **A tipologia é em eixos declarados**, e vale porque foi validada em 38 indicadores que
-  NÃO a construíram (eta² 0,410 contra 0,238 do nulo placebo, p=0,0012).
-- **Físico não existe antes de 2022.** Confirmado NA API, não no banco local: o catálogo tem
-  `BRA - Série B - 2019` (id=120) e ela volta com 0 jogadores. Todas as 12 edições mais
-  recentes do catálogo com ano ≤ 2021 voltam vazias. Não gaste tempo procurando.
-- **Quando 2018-2021 entrar, a aba terá dois universos** — técnico 2018-2025, físico
-  2022-2025. Cada número na tela precisa dizer de qual veio.
-- **O melhor uso dos anos novos é TESTE, não treino:** congelar os dois eixos e os dois
-  cortes nos times de 2022-2025 e aplicá-los cegamente em 2018-2021. Os dois eixos são
-  técnicos coletivos, então roda sem físico.
-- **Antes de juntar, testar regime:** 2020 foi sem torcida (mando é um dos eixos) e as SAFs
-  chegaram por volta de 2021-22.
+- **Os mais caros:** dos 16 que subiram, 10 no top 4 do valor, 12 no top 6 e no top 8, 14 no top 9
+  (palpite do dono: 14 no top 8 — não se confirma). Fora do top 9: Criciúma 2023 (12º) e
+  Chapecoense 2025 (18º de 20).
+- **Valor por setor:** quem sobe gasta mais em todos; a defesa sozinha separa tanto quanto o total
+  (84 contra 83 pares, intervalo cruza zero — empate); % do elenco na defesa é sinal fraco.
+- **Quem cai finaliza pior, nos dois períodos:** finalizações no alvo (repete em 2018-21 e prevê o
+  2º turno) e chance por finalização (repete pela faixa de pontos). **Só em 2022-25:** xG sofrido,
+  finalizações sofridas, PPDA, duelo aéreo. **Sem diferença:** recuperações, entradas na área,
+  cruzamentos.
+- **Quem sobe ganha mais duelos** (time inteiro, repete em 2018-21); no duelo defensivo do meio,
+  quem destoa é quem sobe.
+- **Físico:** quem cai quase nunca tem intensidade boa (1 de 16 no top 5), mas descontados dinheiro
+  e tamanho do elenco pode ser sorte; distância total não separa.
+- **XI mais usado:** forte no mesmo ano (ρ 0,55 com os pontos), zero de um ano para o outro —
+  consequência de resultado.
+- **Etapa 7:** 4 de 28 números do 1º turno preveem o 2º além dos pontos (distância do chute,
+  finalizações no alvo, passes ao terço final, cruzamentos); nenhum chega aos próprios pontos (0,50).
+- **Tabela de gaps (prévia):** 18 gaps >= 30 contra 1 do sorteio; o maior gap do sorteio tem mediana
+  30,4 e 95% até 37,6; 24 sobrevivem ao desconto dos 293 testes, 20 também ao dinheiro.
+- **Nomes da etapa 14:** a correção do sinal trocou 6, 10 e 7 de 15 vagas; o não-determinismo
+  trocava 1-2 por rodada; as propostas sul-americanas nunca tiveram nome acima de metade das
+  réplicas; a nota não previu quem rendeu (teste de volta). Lista para observar, não recomendação.

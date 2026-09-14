@@ -1,0 +1,2238 @@
+{
+ "_doc": "Especificação do bloco `conclusoes` que o gerador vai gravar em dados/prototipo.json e a tela vai montar. Uma entrada por conclusão do _fonte/prototipo/CONCLUSOES.md. Moldes sem número digitado: todo número vem de uma lacuna. 'forca_esperada_hoje' é o selo que a regra dá com o JSON de 13/09; a tela usa o selo CALCULADO pela regra, nunca este campo.",
+ "gerado_em": "2026-09-13",
+ "regua": {
+  "ordem_de_leitura": "selo antes da frase",
+  "selos": {
+   "forte": "q BH < 0,05 dentro da família declarada E p líquido de dinheiro < 0,05 (quando o dinheiro pode explicar; no físico também líquido de fis_atletas) E repetição medida passa quando testável (rho_persist, etapa_7 p_parcial, ou período antigo)",
+   "moderado": "p bruto < 0,05 E sobrevive ao dinheiro, mas q >= 0,05 OU repetição não testável ou falhou",
+   "fraco": "p bruto < 0,05 mas morre no BH OU no desconto do dinheiro (ou de fis_atletas no físico)",
+   "sem_sinal": "p >= 0,10; a frase obrigatoriamente diz o tamanho detectável (etapa_0.poder)",
+   "nao_da_para_afirmar": "a comparação pedida tem intervalo que cruza zero, ou nunca foi medida de frente, ou há duas contas não reconciliadas com sinais opostos"
+  },
+  "zona_cinzenta": "0,05 <= p < 0,10 sem os demais critérios: fraco se havia sinal bruto em outra comparação da mesma linha; senão sem_sinal com a palavra 'no limite'",
+  "desempate": "quando critérios de repetição discordam, ou dois céticos discordam, vale o selo mais fraco",
+  "regras_de_frase": [
+   "associação não é causa: nada de 'faz subir', 'evita cair', 'contrate X para'",
+   "'nunca' e 'sempre' só com zero exceção verificada no dado; uma exceção vira 'quase nunca' com o nome",
+   "o que a conferência derrubou não volta (PSV-99 do top-5, 'ROTA não replica', 'TERRITÓRIO ficou mais forte', 'a tipologia caiu no teste cego')",
+   "valor de mercado nunca é 'gasto', 'gastar', 'custa' nem 'orçamento' dito como dado; 'comparando times de orçamento parecido' só como tradução do desconto do valor",
+   "sem_sinal escreve 'não se viu', nunca 'não separa' ou 'não existe'",
+   "q de BH não se traduz como 'chance de acaso'; traduzir como 'contando os N testes, já não dá para descartar a sorte' ou 'ainda fica abaixo do limite'",
+   "só p bilateral chega ao leitor",
+   "2026 (faixa_provisoria) nunca conta como repetição"
+  ]
+ },
+ "formatos": {
+  "chance_em_100": "p >= 0,01: 'N de cada 100 tentativas' com N = round(100p); p < 0,01: 'menos de 1 de cada 100 tentativas'",
+  "chance_em_1000": "p >= 0,01: como chance_em_100; 0,001 <= p < 0,01: 'N de cada 1.000 tentativas'; p < 0,001: 'menos de 1 de cada 1.000 tentativas'",
+  "em_1000": "'N de cada 1.000 tentativas' com N = round(1000p)",
+  "faixa_chance_em_100": "'N a M de cada 100 tentativas'",
+  "pares_em_100": "'N de cada 100 pares' com N = round(100 * AUC)",
+  "pares_em_100_absoluto": "round(100 * abs(x))",
+  "lista_pares_em_100": "valores separados por ' / ' na ordem dos anos",
+  "pct_inteiro": "round(x), com vírgula decimal se a diferença entre os dois números citados for < 1",
+  "inteiro": "inteiro",
+  "inteiro_arredondado": "round(x)",
+  "dec1": "uma casa, vírgula decimal",
+  "dec2": "duas casas, vírgula decimal",
+  "milhar": "inteiro com ponto de milhar",
+  "milhoes_eur": "'X,Y milhões de euros'",
+  "ano": "quatro dígitos",
+  "faixa_inteira": "'N ou M' com floor e ceil",
+  "contagem_da_lista": "len(lista)",
+  "numerador": "parte antes da barra em 'a/b'",
+  "lista_inteiros": "separados por vírgula",
+  "lista_dec2": "separados por ' / '",
+  "lista_nomes": "'Clube Ano (Nº)' separados por vírgula e 'e' no último",
+  "lista_anos": "anos separados por vírgula",
+  "selo_minusculo": "forte | moderado | fraco",
+  "dict_grupos": "'G1 N, G2 N, G3 N, G4 N' com nomes simples dos grupos",
+  "inteiro_por_extenso_se_zero": "0 -> 'nenhum'",
+  "texto": "texto já pronto"
+ },
+ "cinco_que_precisa_ler": [
+  "DIN-01",
+  "J1",
+  "FIS-07",
+  "ELE-01",
+  "M2"
+ ],
+ "temas": {
+  "dinheiro_e_elenco": "Dinheiro e elenco",
+  "fisico": "Físico",
+  "jogo_e_padroes": "Jogo e padrões",
+  "anos_antigos": "Os anos antigos",
+  "mercado_e_contratacao": "Mercado e contratação"
+ },
+ "conclusoes": [
+  {
+   "id": "DIN-01",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "forte",
+   "molde": {
+    "titulo": "O valor do elenco é o sinal mais sólido para separar quem sobe",
+    "frase": "Quem sobe tem, quase sempre, um dos elencos mais valiosos do ano. Somando os {n_anos} anos, entre os {k_quartil} elencos mais caros de cada temporada ({n_q4} no total), {sub_q4} subiram; entre os {k_quartil} mais baratos, subiu {sub_q1} e caíram {cai_q1}. Descontado quanto do elenco o Transfermarkt avalia, o sinal continua.",
+    "numero": "Comparando a posição de cada time no ranking de valor do seu ano, o time que subiu tinha elenco mais caro que o que não subiu em {auc_sr_100}; contra quem caiu, em {auc_sc_100}.",
+    "ressalva": "Não quer dizer que ter elenco mais valorizado faz subir. Também não garante: {top4_nao_subiram} dos {top4_total} elencos que eram top {k_top4} do ano não subiram ({exemplo_top1_nao_subiu}). Em {ano_parcial}, com {rodadas_parcial} rodadas, o grupo de acesso de hoje aponta para o mesmo lado, mas só vale no fim do campeonato.",
+    "tecnico": "AUC {auc_sr} (IC95 {ic_lo}-{ic_hi}); por ano {auc_por_ano}; deixando um ano de fora {loso}; descontada a cobertura p {p_cob}"
+   },
+   "lacunas": {
+    "n_anos": {
+     "formato": "contagem_da_lista",
+     "caminho": "etapa_1.curva_top_k.anos",
+     "ja_gravado_no_json": true
+    },
+    "k_quartil": {
+     "formato": "inteiro",
+     "calcular": "tamanho do quartil de cima por ano = etapa_1.quartis[quartil=4].n / n_anos, arredondado",
+     "ja_gravado_no_json": false
+    },
+    "n_q4": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.quartis[quartil=4].n",
+     "ja_gravado_no_json": true
+    },
+    "sub_q4": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.quartis[quartil=4].subiram",
+     "ja_gravado_no_json": true
+    },
+    "sub_q1": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.quartis[quartil=1].subiram",
+     "ja_gravado_no_json": true
+    },
+    "cai_q1": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_1.quartis[].cairam (soma de caiu por quartil do posto de valor no ano)",
+     "ja_gravado_no_json": false
+    },
+    "auc_sr_100": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.auc_posto_de_valor.sobe_x_resto",
+     "ja_gravado_no_json": true
+    },
+    "auc_sc_100": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.auc_posto_de_valor.sobe_x_cai",
+     "ja_gravado_no_json": true
+    },
+    "top4_total": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_1.top4_de_valor.n_clubes (k_top4 x n_anos)",
+     "ja_gravado_no_json": false
+    },
+    "k_top4": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.curva[k=4].k",
+     "ja_gravado_no_json": true
+    },
+    "top4_nao_subiram": {
+     "formato": "inteiro",
+     "calcular": "clubes_no_top_k menos promovidos_acumulados em etapa_1.curva_top_k.curva[k=4]",
+     "ja_gravado_no_json": false
+    },
+    "exemplo_top1_nao_subiu": {
+     "formato": "texto",
+     "calcular": "gravar etapa_1.top4_de_valor.por_ano[].posicao_final; listar o posto 1 que não subiu com clube, ano e posição",
+     "ja_gravado_no_json": false
+    },
+    "ano_parcial": {
+     "formato": "ano",
+     "caminho": "etapa_1.fora_da_amostra_2026.ano",
+     "ja_gravado_no_json": true
+    },
+    "rodadas_parcial": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.fora_da_amostra_2026.J",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "forte_se": [
+     "teste único declarado em controles_obrigatorios.baseline_de_dinheiro (sem família para descontar)",
+     "p Mann-Whitney sobe x meio no posto de valor < 0,05 [gravar etapa_1.auc_posto_de_valor.p_sobe_x_meio]",
+     "desconto do dinheiro não se aplica (é o próprio dinheiro)",
+     "repetição medida: acerto de pares > 0,5 em todo ano [gravar .por_ano] E loso_sobe_x_resto > 0,5",
+     "controle de cobertura: p do posto de valor residualizado no posto de tm_com_valor < 0,05 [gravar etapa_1.cobertura_do_valor.p_valor_descontada_cobertura]"
+    ],
+    "moderado_se": "alguma repetição por ano <= 0,5 ou o controle de cobertura >= 0,05",
+    "proibido": [
+     "dizer 'o que MAIS separa' sem teste de ordem contra os demais indicadores",
+     "contar fora_da_amostra_2026 como repetição enquanto faixa_provisoria = true",
+     "usar 'gasto', 'gastar', 'custa', 'orçamento' para valor de mercado"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "DIN-02",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "forte",
+   "molde": {
+    "titulo": "{prom_top8} dos {n_prom} que subiram estavam entre os {k8} elencos mais caros do ano",
+    "frase": "E {prom_top4} entre os {k4} mais caros. O palpite de {palpite} entre os {k8} mais caros não se confirma: esse número só aparece no {k_palpite}º posto. Vieram de fora dos {k8}: {fora_top8}.",
+    "numero": "Num sorteio, o esperado seriam {esp_top8} no top {k8}; o acaso produziria {prom_top8} ou mais em {p_top8_em_1000}. Por ano: {prom_top8_por_ano}.",
+    "ressalva": "A linha de corte não é o {k8}º nem o {k_palpite}º: o degrau são {degrau_n} times em {n_anos} anos. Dos {clubes_top8} elencos que eram top {k8} do seu ano, {top8_nao_subiram} não subiram.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "prom_top8": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.curva[k=8].promovidos_acumulados",
+     "ja_gravado_no_json": true
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    },
+    "k8": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.palpite_do_dono.k",
+     "ja_gravado_no_json": true
+    },
+    "prom_top4": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.curva[k=4].promovidos_acumulados",
+     "ja_gravado_no_json": true
+    },
+    "k4": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.curva[k=4].k",
+     "ja_gravado_no_json": true
+    },
+    "palpite": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.palpite_do_dono.afirmado",
+     "ja_gravado_no_json": true
+    },
+    "k_palpite": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.palpite_do_dono.menor_k_que_atinge",
+     "ja_gravado_no_json": true
+    },
+    "fora_top8": {
+     "formato": "lista_nomes",
+     "calcular": "etapa_1.curva_top_k.promovidos com posto_valor > k8: 'Clube Ano (Nº)' separados por vírgula",
+     "ja_gravado_no_json": false
+    },
+    "esp_top8": {
+     "formato": "faixa_inteira",
+     "caminho": "etapa_1.curva_top_k.curva[k=8].esperado_por_acaso",
+     "ja_gravado_no_json": true
+    },
+    "p_top8_em_1000": {
+     "formato": "em_1000",
+     "caminho": "etapa_1.curva_top_k.curva[k=8].p_exato_maior_igual",
+     "ja_gravado_no_json": true
+    },
+    "prom_top8_por_ano": {
+     "formato": "lista_inteiros",
+     "calcular": "gravar etapa_1.curva_top_k.curva[k].promovidos_por_ano",
+     "ja_gravado_no_json": false
+    },
+    "degrau_n": {
+     "formato": "texto",
+     "caminho": "etapa_1.curva_top_k.aviso_de_amostra",
+     "ja_gravado_no_json": true
+    },
+    "n_anos": {
+     "formato": "contagem_da_lista",
+     "caminho": "etapa_1.curva_top_k.anos",
+     "ja_gravado_no_json": true
+    },
+    "clubes_top8": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.curva[k=8].clubes_no_top_k",
+     "ja_gravado_no_json": true
+    },
+    "top8_nao_subiram": {
+     "formato": "inteiro",
+     "calcular": "clubes_no_top_k - promovidos_acumulados em curva[k=8]",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "forte_se": [
+     "k declarado antes (palpite_do_dono.k), sem busca de corte",
+     "p_exato_maior_igual em curva[k=palpite] < 0,05",
+     "promovidos no top k acima de esperado_por_acaso/n_anos em todo ano [gravar promovidos_por_ano]"
+    ],
+    "moderado_se": "algum ano abaixo do esperado",
+    "sem_selo": "a escolha da fronteira (k)"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "DIN-03",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Do lado de baixo, o dinheiro também pesa — menos, e não em todo ano",
+    "frase": "Pelo valor do Transfermarkt, {cai_q4} dos {k_quartil} elencos mais caros de cada temporada caiu nos {n_anos} anos; o acaso produziria esse número em {p_q4_chance}. O rebaixado mais caro foi {rebaixado_mais_caro}. Comparando quem caiu com o meio da tabela, o de elenco mais barato foi o rebaixado em {auc_cm_100}.",
+    "numero": "Por ano, esse acerto foi {auc_cm_por_ano}.",
+    "ressalva": "Não quer dizer que elenco caro não cai. Com o valor de mercado do Wyscout, os rebaixados mais caros aparecem nos postos {postos_cai_wyscout}. Em {ano_sem_sinal_cai} o valor não distinguiu rebaixado de meio de tabela. Não há como conferir antes de {ano_inicio_valor}.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "cai_q4": {
+     "formato": "inteiro_por_extenso_se_zero",
+     "calcular": "gravar etapa_1.quartis[quartil=4].cairam",
+     "ja_gravado_no_json": false
+    },
+    "k_quartil": {
+     "formato": "inteiro",
+     "calcular": "etapa_1.quartis[quartil=4].n / n_anos",
+     "ja_gravado_no_json": false
+    },
+    "n_anos": {
+     "formato": "contagem_da_lista",
+     "caminho": "etapa_1.curva_top_k.anos",
+     "ja_gravado_no_json": true
+    },
+    "p_q4_chance": {
+     "formato": "chance_em_100",
+     "calcular": "hipergeométrica: P(rebaixados no quartil de cima <= observado) com 4 rebaixados em 20 por ano, convoluída nos anos; gravar etapa_1.curva_top_k_rebaixados.p_quartil",
+     "ja_gravado_no_json": false
+    },
+    "rebaixado_mais_caro": {
+     "formato": "texto",
+     "calcular": "menor posto_valor entre faixa=cai, com clube e ano; gravar etapa_1.curva_top_k_rebaixados.rebaixados",
+     "ja_gravado_no_json": false
+    },
+    "auc_cm_100": {
+     "formato": "pares_em_100",
+     "calcular": "gravar etapa_1.auc_posto_de_valor.meio_x_cai (pares meio x cai no posto do ano)",
+     "ja_gravado_no_json": false
+    },
+    "auc_cm_por_ano": {
+     "formato": "lista_pares_em_100",
+     "calcular": "gravar etapa_1.auc_posto_de_valor.meio_x_cai_por_ano",
+     "ja_gravado_no_json": false
+    },
+    "postos_cai_wyscout": {
+     "formato": "lista_inteiros",
+     "calcular": "gravar etapa_1.sensibilidade_fonte_valor.postos_rebaixados_valor_total (posto de valor_total no ano, os três menores)",
+     "ja_gravado_no_json": false
+    },
+    "ano_sem_sinal_cai": {
+     "formato": "lista_anos",
+     "calcular": "anos com meio_x_cai_por_ano <= 0,5",
+     "ja_gravado_no_json": false
+    },
+    "ano_inicio_valor": {
+     "formato": "ano",
+     "caminho": "etapa_1.curva_top_k.anos[0]",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": [
+     "cai x meio no posto de valor p < 0,05 [gravar]",
+     "corte do quartil de cima definido antes (etapa_1.quartis)"
+    ],
+    "nao_sobe_para_forte_porque": [
+     "não há repetição testável fora de 2022-2025",
+     "meio_x_cai_por_ano <= 0,5 em algum ano",
+     "o zero muda com a fonte do valor (sensibilidade_fonte_valor)"
+    ],
+    "fraco_se": "cai x meio p >= 0,05",
+    "proibido": [
+     "'nunca cai'",
+     "ancorar a frase no corte do 6º posto (achado olhando a lista)"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "DIN-04",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "Quem sobe tem uma parte maior do valor do elenco na defesa",
+    "frase": "{pct_def_sobe}% do valor de mercado do elenco, contra {pct_def_meio}% no meio da tabela. É um sinal {selo}. Quando se olham os {n_setores} setores, é normal que um deles se destaque só por sorte, e a diferença some quando se comparam times de valor total parecido.",
+    "numero": "Olhando só a defesa, o acaso produziria essa diferença em {p_bruto_chance}; contando que foram {n_setores} setores, já não dá para descartar a sorte.",
+    "ressalva": "Não quer dizer 'invista na defesa para subir', nem que o ataque de quem sobe vale menos: vale mais em euros, só ocupa uma fatia menor de um bolo maior. Varia muito: {exemplo_min_max}. {sobe_abaixo_meio} dos {n_prom} que subiram tinham fatia abaixo do time típico do meio.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "pct_def_sobe": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=defesa].pct_do_elenco_mediano_sobe",
+     "ja_gravado_no_json": true
+    },
+    "pct_def_meio": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=defesa].pct_do_elenco_mediano_meio",
+     "ja_gravado_no_json": true
+    },
+    "selo": {
+     "formato": "selo_minusculo",
+     "calcular": "resultado da regra_do_selo",
+     "ja_gravado_no_json": false
+    },
+    "n_setores": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.valor_por_setor.particao.testes",
+     "ja_gravado_no_json": true
+    },
+    "p_bruto_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_1.valor_por_setor.particao.setores[setor=defesa].p_bruto",
+     "ja_gravado_no_json": true
+    },
+    "exemplo_min_max": {
+     "formato": "texto",
+     "calcular": "no último ano, o promovido de menor e o de maior fatia da defesa: 'em ANO subiram X com N% e Y com M%'",
+     "ja_gravado_no_json": false
+    },
+    "sobe_abaixo_meio": {
+     "formato": "inteiro",
+     "calcular": "promovidos com fatia da defesa abaixo da mediana do meio",
+     "ja_gravado_no_json": false
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "familia": "etapa_1.valor_por_setor.particao (4 setores, BH)",
+    "forte_se": "q_bh < 0,05 E p_liquido_do_valor_total < 0,05 E mediana sobe > meio em todo ano",
+    "moderado_se": "p_bruto < 0,05 E p_liquido < 0,05 E q_bh >= 0,05",
+    "fraco_se": "p_bruto < 0,05 E (q_bh >= 0,05 OU p_liquido >= 0,05)",
+    "sem_sinal_se": "p_bruto >= 0,10",
+    "campos_novos": [
+     "particao.setores[].p_liquido_do_valor_total (resíduo do posto da fatia no posto do valor total, Mann-Whitney)",
+     "particao.setores[].mediana_por_ano"
+    ],
+    "proibido": [
+     "tratar q_bh como 'chance de acaso em N de 100'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "DIN-05",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "Defesa, meio-campo e ataque de quem sobe valem mais — mas é o mesmo dinheiro",
+    "frase": "A defesa de quem sobe vale {eur_def_sobe}, contra {eur_def_meio} no meio da tabela. Como informação nova, é um sinal {selo}: é o valor do elenco inteiro visto por setor. Comparando a fatia de cada setor, e não o valor, só a defesa se destaca, e ela não passa nos descontos.",
+    "numero": "Contra todos os outros times, o valor da defesa acerta {auc_def}, o do meio-campo {auc_meio}, o do ataque {auc_ataque} e o do elenco inteiro {auc_total}; a diferença entre defesa e elenco inteiro é acaso.",
+    "ressalva": "O setor não diz nada que o valor total já não diga.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "eur_def_sobe": {
+     "formato": "milhoes_eur",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=defesa].eur_mediano_sobe",
+     "ja_gravado_no_json": true
+    },
+    "eur_def_meio": {
+     "formato": "milhoes_eur",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=defesa].eur_mediano_meio",
+     "ja_gravado_no_json": true
+    },
+    "selo": {
+     "formato": "selo_minusculo",
+     "calcular": "resultado da regra_do_selo",
+     "ja_gravado_no_json": false
+    },
+    "auc_def": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=defesa].auc_sobe_x_resto",
+     "ja_gravado_no_json": true
+    },
+    "auc_meio": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=meio].auc_sobe_x_resto",
+     "ja_gravado_no_json": true
+    },
+    "auc_ataque": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=ataque].auc_sobe_x_resto",
+     "ja_gravado_no_json": true
+    },
+    "auc_total": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=total].auc_sobe_x_resto",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "fraco_se": "algum setor com q_bh do valor < 0,05 [gravar setores[].q_sobe_x_meio] E o desconto do dinheiro (particao) não passa (DIN-04 não é forte nem moderado)",
+    "proibido": [
+     "pôr no mesmo número AUC sobe x resto e sobe x meio",
+     "'custa' para valor de mercado"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "DIN-06",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "nao_da_para_afirmar",
+   "molde": {
+    "titulo": "O valor da defesa sozinho prevê melhor que o elenco inteiro?",
+    "frase": "Acerta {auc_setor}, contra {auc_total}. A diferença pode ir de {ic_lo_pares} pares a menos até {ic_hi_pares} a mais. E a defesa foi escolhida por ter saído na frente entre {entre}.",
+    "numero": "{auc_setor} contra {auc_total}.",
+    "ressalva": "Não quer dizer que olhar só a defesa basta, nem que os dois são equivalentes: o estudo não tem tamanho para ordenar os dois.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "auc_setor": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.melhor_setor_contra_total.auc_setor",
+     "ja_gravado_no_json": true
+    },
+    "auc_total": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.melhor_setor_contra_total.auc_total",
+     "ja_gravado_no_json": true
+    },
+    "ic_lo_pares": {
+     "formato": "pares_em_100_absoluto",
+     "caminho": "etapa_1.valor_por_setor.melhor_setor_contra_total.ic95_lo",
+     "ja_gravado_no_json": true
+    },
+    "ic_hi_pares": {
+     "formato": "pares_em_100_absoluto",
+     "caminho": "etapa_1.valor_por_setor.melhor_setor_contra_total.ic95_hi",
+     "ja_gravado_no_json": true
+    },
+    "entre": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.valor_por_setor.melhor_setor_contra_total.entre",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "nao_da_para_afirmar_se": "melhor_setor_contra_total.ic_cruza_zero = true OU escolhido_depois_de_olhar = true",
+    "campo_que_decide": "melhor_setor_contra_total.pode_afirmar_que_supera_o_total"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "ELE-01",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Quem cai roda muito mais gente",
+    "frase": "Quem cai usa muito mais jogadores no ano: {usados_cai} em média, contra {usados_meio} no meio da tabela e {usados_sobe} em quem sobe. O rastreamento físico conta a mesma história por outra fonte: {fis_cai} jogadores com minutos medidos, contra {fis_meio} e {fis_sobe}. Aconteceu em {anos_cai_acima} dos {n_anos} anos, nas duas contagens, e não acompanha o valor do elenco. Entre quem sobe e o meio da tabela não se viu diferença.",
+    "numero": "Contra o meio da tabela, o acaso produziria essa diferença em {p_cm_chance}.",
+    "ressalva": "Não quer dizer que elenco curto faz subir nem que rodar muito faz cair: pode ser, pelo menos em parte, consequência de a campanha estar dando errado, e não há escalação por rodada para separar. O mesmo clube não repete o número de um ano para o outro, e quem cai sai da Série B, então essa conferência quase não tem rebaixados. Com {n_sobe} contra {n_meio}, uma diferença menor que tamanho {d_min} entre quem sobe e o meio passaria despercebida.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "usados_cai": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_2.linhas[indicador=atletas_usados].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "usados_meio": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_2.linhas[indicador=atletas_usados].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "usados_sobe": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_2.linhas[indicador=atletas_usados].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "fis_cai": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_1.controle_n_atletas.media_cai",
+     "ja_gravado_no_json": true
+    },
+    "fis_meio": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_1.controle_n_atletas.media_meio",
+     "ja_gravado_no_json": true
+    },
+    "fis_sobe": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_1.controle_n_atletas.media_sobe",
+     "ja_gravado_no_json": true
+    },
+    "anos_cai_acima": {
+     "formato": "inteiro",
+     "calcular": "anos em que a média de cai supera a de meio E a de sobe nas duas contagens; gravar etapa_2.linhas[atletas_usados].media_por_ano e controle_n_atletas.media_por_ano",
+     "ja_gravado_no_json": false
+    },
+    "n_anos": {
+     "formato": "contagem_da_lista",
+     "caminho": "etapa_1.curva_top_k.anos",
+     "ja_gravado_no_json": true
+    },
+    "p_cm_chance": {
+     "formato": "chance_em_1000",
+     "calcular": "gravar etapa_2.linhas[atletas_usados].p_bruto_CM (Mann-Whitney no posto do ano, cai x meio)",
+     "ja_gravado_no_json": false
+    },
+    "n_sobe": {
+     "formato": "inteiro",
+     "caminho": "etapa_0.sobe",
+     "ja_gravado_no_json": true
+    },
+    "n_meio": {
+     "formato": "inteiro",
+     "caminho": "etapa_0.meio",
+     "ja_gravado_no_json": true
+    },
+    "d_min": {
+     "formato": "dec2",
+     "caminho": "etapa_0.poder.d_minimo_16x48",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "comparacao_da_frase": "cai x meio (não é uma das duas declaradas no catálogo; gravar colunas _CM)",
+    "forte_se": "q_CM < 0,05 na família elenco E p_liq_CM < 0,05 E rho_persist com p < 0,05",
+    "moderado_se": "p_CM < 0,05 E p_liq_CM < 0,05 E (q_CM >= 0,05 OU rho_persist sem significância)",
+    "fraco_se": "p_CM < 0,05 E p_liq_CM >= 0,05",
+    "sem_sinal_se": "p_CM >= 0,10",
+    "regra_de_familia": "para fis_atletas, a família é a das 166 colunas fis_* (não as 5 contagens)",
+    "proibido": [
+     "'quase certamente é consequência'",
+     "'minutos relevantes' sem dizer o corte"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "ELE-02",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_10",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Quem sobe repete mais o time-base — e isto não é critério de contratação",
+    "frase": "O XI mais usado de quem sobe joga {share_sobe}% dos minutos, contra {share_meio}% no meio da tabela e {share_cai}% em quem cai; {sobe_acima} dos {n_prom} que subiram ficaram acima do time típico do meio. O mesmo clube não repete o padrão no ano seguinte.",
+    "numero": "Olhando só este número, o acaso produziria a diferença em {p_chance}; descontados os {n_familia} testes do elenco, {frase_q}.",
+    "ressalva": "Não quer dizer que escalar sempre os mesmos onze faz subir: um número que não se repete no clube não é traço do elenco, e o estudo não tem escalação por rodada para testar a direção. A especificação proíbe usá-lo para contratar. A concentração de minutos diz a mesma coisa com outra conta, e não é segunda confirmação.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "share_sobe": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_2.linhas[indicador=share_11].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "share_meio": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_2.linhas[indicador=share_11].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "share_cai": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_2.linhas[indicador=share_11].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "sobe_acima": {
+     "formato": "inteiro",
+     "calcular": "promovidos acima da mediana do meio em share_11",
+     "ja_gravado_no_json": false
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    },
+    "p_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=share_11].p_bruto_SM",
+     "ja_gravado_no_json": true
+    },
+    "n_familia": {
+     "formato": "inteiro",
+     "calcular": "contagem de etapa_2.linhas com familia=elenco",
+     "ja_gravado_no_json": false
+    },
+    "frase_q": {
+     "formato": "texto",
+     "calcular": "se q_SM < 0,05: 'ainda fica abaixo do limite' (+ ', mas perto dele' se q_SM > 0,025); senão: 'já não dá para descartar a sorte'",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "porta = B E q_SM < 0,05 E p_liq_SM < 0,05 E rho_persist < 0,15",
+    "nao_sobe_para_forte_porque": "rho_persist < 0,15 (não se repete) e teste do 1º turno impossível (etapa_7.nao_testaveis)",
+    "marca_obrigatoria": "resultado redescrito (etapa_10) — nunca como critério de encaixe"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "ELE-03",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "Quem sobe dá mais minutos a estrangeiros — mas estrangeiro anda junto com elenco caro",
+    "frase": "{est_sobe}% dos minutos, contra {est_meio}% no meio da tabela. É um sinal {selo}: comparando times de valor de elenco parecido, a diferença deixa de se distinguir do acaso.",
+    "numero": "Descontado o valor do elenco, o acaso produziria o que sobra em {p_liq_chance}.",
+    "ressalva": "Não quer dizer que estrangeiro ajuda nem que atrapalha. Varia muito de ano para ano: {ano_contra}. {sobe_zero} dos {n_prom} que subiram não deram minuto nenhum a estrangeiro.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "est_sobe": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_2.linhas[indicador=min_estrangeiros].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "est_meio": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_2.linhas[indicador=min_estrangeiros].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "selo": {
+     "formato": "selo_minusculo",
+     "calcular": "resultado da regra_do_selo",
+     "ja_gravado_no_json": false
+    },
+    "p_liq_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=min_estrangeiros].p_liq_SM",
+     "ja_gravado_no_json": true
+    },
+    "ano_contra": {
+     "formato": "texto",
+     "calcular": "anos em que a média de sobe ficou abaixo da de meio: 'em ANO quem subiu usou menos que o meio (X% contra Y%)'; gravar media_por_ano",
+     "ja_gravado_no_json": false
+    },
+    "sobe_zero": {
+     "formato": "inteiro",
+     "calcular": "promovidos com min_estrangeiros = 0",
+     "ja_gravado_no_json": false
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "fraco_se": "porta = C (p_bruto_SM < 0,05 E p_liq_SM >= 0,05)",
+    "proibido": [
+     "'a média é puxada por poucos clubes' (a mediana desmente)",
+     "'orçamento'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "ELE-04",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_1",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "Goleiro caro: não se viu diferença entre quem sobe e o meio da tabela",
+    "frase": "O valor do goleiro acerta {auc_gol}, perto do que o acaso daria ({auc_acaso}); o estudo só enxergaria uma diferença de uns {auc_detectavel}. Contra quem cai o goleiro de quem sobe vale mais, mas isso é só o elenco mais caro no geral.",
+    "numero": "Na fatia do elenco, {fatia_sobe}% contra {fatia_meio}%: o acaso produziria isso em {p_fatia_chance}.",
+    "ressalva": "Não quer dizer que goleiro não importa: uma diferença menor pode existir, e valor de mercado mede mal goleiro.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "auc_gol": {
+     "formato": "pares_em_100",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=goleiro].auc_sobe_x_meio",
+     "ja_gravado_no_json": true
+    },
+    "auc_detectavel": {
+     "formato": "pares_em_100",
+     "calcular": "Phi(etapa_0.poder.d_minimo_16x48 / sqrt(2))",
+     "ja_gravado_no_json": false
+    },
+    "auc_acaso": {
+     "formato": "pares_em_100",
+     "calcular": "AUC nula = 0,5",
+     "ja_gravado_no_json": false
+    },
+    "fatia_sobe": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=goleiro].pct_do_elenco_mediano_sobe",
+     "ja_gravado_no_json": true
+    },
+    "fatia_meio": {
+     "formato": "pct_inteiro",
+     "caminho": "etapa_1.valor_por_setor.setores[setor=goleiro].pct_do_elenco_mediano_meio",
+     "ja_gravado_no_json": true
+    },
+    "p_fatia_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_1.valor_por_setor.particao.setores[setor=goleiro].p_bruto",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "setores[goleiro].p_sobe_x_meio >= 0,10 E particao.setores[goleiro].p_bruto >= 0,10",
+    "obrigatorio": "dizer o tamanho detectável (etapa_0.poder)",
+    "proibido": [
+     "'não separa' como fato"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "ELE-05",
+   "tema": "dinheiro_e_elenco",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "Tamanho do plantel e idade do XI: não se viu diferença",
+    "frase": "{plantel_sobe} inscritos em quem sobe contra {plantel_meio} no meio; {idade_sobe} contra {idade_meio} anos no time-base. O estudo só enxergaria uma diferença de tamanho {d_min} ou maior.",
+    "numero": "Plantel: o acaso produziria a diferença em {p_plantel_chance}. Idade do XI: em {p_idade_chance}.",
+    "ressalva": "Não quer dizer que plantel e idade não importam: se existe diferença, é pequena demais para este número de times mostrar.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "plantel_sobe": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_2.linhas[indicador=plantel].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "plantel_meio": {
+     "formato": "inteiro_arredondado",
+     "caminho": "etapa_2.linhas[indicador=plantel].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "idade_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=idade_11].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "idade_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=idade_11].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "d_min": {
+     "formato": "dec2",
+     "caminho": "etapa_0.poder.d_minimo_16x48",
+     "ja_gravado_no_json": true
+    },
+    "p_plantel_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=plantel].p_bruto_SM",
+     "ja_gravado_no_json": true
+    },
+    "p_idade_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=idade_11].p_bruto_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "p_bruto_SM >= 0,10 nas duas linhas",
+    "proibido": [
+     "'não separam ninguém'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-01",
+   "tema": "fisico",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "Quem cai tende a ser dos menos intensos do ano, mas isso não se separa do dinheiro e do rodízio",
+    "frase": "Quem cai fica tipicamente em {pos_cai}º de {n_por_ano} em sprint, corrida forte e arrancada; os times do meio, em {pos_meio}º. Dos {n_cai} que caíram, só {cai_top5} esteve entre os {k5} mais intensos do ano ({excecao_top5}) e {cai_bottom5} estavam entre os {k5} menos intensos. Quem sobe não se mostrou mais intenso que o meio da tabela.",
+    "numero": "Sem desconto, o acaso produziria essa diferença em {p_bruto_chance}; entre times de orçamento parecido, em {p_liq_chance}; entre times de orçamento e rodízio parecidos, em {p_liq2_chance}.",
+    "ressalva": "Não quer dizer que faltou físico e por isso caiu, nem que contratar intensidade evita cair. O índice foi montado depois de olhar os dados, e a contagem dos mais e menos intensos é a mesma medida vista de outro jeito, não uma prova a mais.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "pos_cai": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_2.indice_intensidade (média do posto no ano das colunas declaradas ANTES em indice_intensidade.colunas); mediana da posição no ano por faixa",
+     "ja_gravado_no_json": false
+    },
+    "pos_meio": {
+     "formato": "inteiro",
+     "calcular": "idem, faixa meio",
+     "ja_gravado_no_json": false
+    },
+    "n_por_ano": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.clubes_por_ano",
+     "ja_gravado_no_json": true
+    },
+    "n_cai": {
+     "formato": "inteiro",
+     "caminho": "etapa_0.cai",
+     "ja_gravado_no_json": true
+    },
+    "k5": {
+     "formato": "inteiro",
+     "calcular": "parâmetro declarado indice_intensidade.k_extremos",
+     "ja_gravado_no_json": false
+    },
+    "cai_top5": {
+     "formato": "inteiro",
+     "calcular": "rebaixados com posição <= k5",
+     "ja_gravado_no_json": false
+    },
+    "excecao_top5": {
+     "formato": "lista_nomes",
+     "calcular": "nomes dos rebaixados no top k5: 'Clube Ano, Nº'",
+     "ja_gravado_no_json": false
+    },
+    "cai_bottom5": {
+     "formato": "inteiro",
+     "calcular": "rebaixados com posição > n_por_ano - k5",
+     "ja_gravado_no_json": false
+    },
+    "p_bruto_chance": {
+     "formato": "chance_em_100",
+     "calcular": "Welch bilateral cai x meio no índice",
+     "ja_gravado_no_json": false
+    },
+    "p_liq_chance": {
+     "formato": "chance_em_100",
+     "calcular": "Welch bilateral no resíduo do índice sobre o posto de tm_valor_total",
+     "ja_gravado_no_json": false
+    },
+    "p_liq2_chance": {
+     "formato": "chance_em_100",
+     "calcular": "Welch bilateral no resíduo sobre posto de valor e posto de fis_atletas",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "fraco_se": "p_bruto < 0,05 E (p_liq >= 0,05 OU p_liq2 >= 0,05)",
+    "moderado_se": "p_bruto, p_liq e p_liq2 < 0,05",
+    "teto": "fraco enquanto indice_intensidade não for declarado antes do cálculo",
+    "regra_de_teste": "só p bilateral para o leitor; nunca misturar unilateral",
+    "proibido": [
+     "'é o dinheiro e o rodízio' como explicação",
+     "'nunca tem físico bom'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-04",
+   "tema": "fisico",
+   "etapa": "etapa_3",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "Descontado o dinheiro, não se viu o físico separar quem sobe de quem cai",
+    "frase": "No número cru, {n_bruto} das {n_medidas} medidas físicas separam quem sobe de quem cai, quando o acaso daria umas {esperado}. Só o desconto do dinheiro já leva quase tudo: sobram {n_liq}. Descontado também o número de jogadores usados, sobram {n_liq2}.",
+    "numero": "Com {n_sobe} contra {n_cai}, o estudo só enxergaria diferenças de tamanho {d_min} ou maior.",
+    "ressalva": "Não quer dizer que o físico não conta: o dinheiro compra físico, e rodar muita gente pode ser consequência de estar caindo; os descontos podem ter levado junto uma parte real da diferença.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "n_bruto": {
+     "formato": "inteiro",
+     "calcular": "etapa_3.por_familia.fisico_col_elenco.passam5_SC + fisico_col_setor.passam5_SC",
+     "ja_gravado_no_json": false
+    },
+    "n_medidas": {
+     "formato": "inteiro",
+     "calcular": "etapa_3.por_familia.fisico_col_elenco.testes + fisico_col_setor.testes",
+     "ja_gravado_no_json": false
+    },
+    "esperado": {
+     "formato": "inteiro",
+     "calcular": "mediana do nulo por permutação dentro do ano [gravar etapa_3.por_familia.*.nulo_contagem_SC]",
+     "ja_gravado_no_json": false
+    },
+    "n_liq": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_3.por_familia.*.passam5_liq_SC",
+     "ja_gravado_no_json": false
+    },
+    "n_liq2": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_3.por_familia.*.passam5_liq2_SC",
+     "ja_gravado_no_json": false
+    },
+    "n_sobe": {
+     "formato": "inteiro",
+     "caminho": "etapa_0.sobe",
+     "ja_gravado_no_json": true
+    },
+    "n_cai": {
+     "formato": "inteiro",
+     "caminho": "etapa_0.cai",
+     "ja_gravado_no_json": true
+    },
+    "d_min": {
+     "formato": "dec2",
+     "caminho": "etapa_0.poder.d_minimo_16x16",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "permutação da média de |t| no nível liq2 com p >= 0,10 E nenhuma família < 0,10 [gravar]",
+    "obrigatorio": "abrir pelo desconto só do dinheiro; dizer que o desconto do rodízio pode apagar sinal real",
+    "proibido": [
+     "'menos do que o acaso daria'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-05",
+   "tema": "fisico",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "Não se viu quem sobe correr mais",
+    "frase": "Na distância total por jogo os três grupos ficam praticamente iguais: {dist_sobe} metros em quem sobe, {dist_meio} no meio e {dist_cai} em quem cai. E {mais_correu_caiu}, o time que mais correu no ano, caiu.",
+    "numero": "Uma diferença como a de quem sobe para o meio, o acaso produziria em {p_sm_chance}.",
+    "ressalva": "Não quer dizer que volume não importa: o estudo só veria diferença de tamanho {d_min_sm} contra o meio ou {d_min_sc} contra quem cai. Volume depende do plano de jogo: não use 'corre muito' nem 'corre pouco' para contratar.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "dist_sobe": {
+     "formato": "milhar",
+     "caminho": "etapa_2.linhas[indicador=fis_distance_p90].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "dist_meio": {
+     "formato": "milhar",
+     "caminho": "etapa_2.linhas[indicador=fis_distance_p90].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "dist_cai": {
+     "formato": "milhar",
+     "caminho": "etapa_2.linhas[indicador=fis_distance_p90].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "mais_correu_caiu": {
+     "formato": "texto",
+     "calcular": "rebaixados com posto 1 de fis_distance_p90 no ano: 'o Clube de Ano'",
+     "ja_gravado_no_json": false
+    },
+    "p_sm_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=fis_distance_p90].p_bruto_SM",
+     "ja_gravado_no_json": true
+    },
+    "d_min_sm": {
+     "formato": "dec2",
+     "caminho": "etapa_0.poder.d_minimo_16x48",
+     "ja_gravado_no_json": true
+    },
+    "d_min_sc": {
+     "formato": "dec2",
+     "caminho": "etapa_0.poder.d_minimo_16x16",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "p_bruto_SM >= 0,10 E p_liq_SM >= 0,10",
+    "proibido": [
+     "'correr mais não separa ninguém' como fato",
+     "atribuir o p da distância à contagem dos rebaixados"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-06",
+   "tema": "fisico",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "O meio-campo de quem sobe faz mais arrancadas que viram sprint",
+    "frase": "{v_sobe} por jogo, contra {v_meio} no meio da tabela e {v_cai} em quem cai. A diferença continua comparando times de orçamento parecido. Mas é uma entre {n_familia} medidas de setor testadas, e uma dessas pode sair por sorte.",
+    "numero": "Olhando só ela, o acaso produziria a diferença em {p_liq2_chance}. Apareceu em {anos_ok} dos {n_anos} anos.",
+    "ressalva": "Não quer dizer 'contrate meia que arranca e você sobe'. O mesmo clube não repete o número de um ano para o outro, então não é marca do clube.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "v_sobe": {
+     "formato": "dec2",
+     "caminho": "etapa_2.linhas[indicador=fis_meio_expl_accel_sprint_p90].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "v_meio": {
+     "formato": "dec2",
+     "caminho": "etapa_2.linhas[indicador=fis_meio_expl_accel_sprint_p90].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "v_cai": {
+     "formato": "dec2",
+     "caminho": "etapa_2.linhas[indicador=fis_meio_expl_accel_sprint_p90].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "n_familia": {
+     "formato": "inteiro",
+     "caminho": "etapa_3.por_familia.fisico_col_setor.testes",
+     "ja_gravado_no_json": true
+    },
+    "p_liq2_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=fis_meio_expl_accel_sprint_p90].p_liq2_SM",
+     "ja_gravado_no_json": true
+    },
+    "anos_ok": {
+     "formato": "inteiro",
+     "calcular": "anos com posto médio de sobe > meio; gravar posto_por_ano",
+     "ja_gravado_no_json": false
+    },
+    "n_anos": {
+     "formato": "contagem_da_lista",
+     "caminho": "etapa_1.curva_top_k.anos",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_bruto_SM < 0,05 E p_liq2_SM < 0,05 E q_SM >= 0,05",
+    "forte_se": "q de p_liq2_SM < 0,05 [gravar q_liq2_SM] E rho_persist p < 0,05",
+    "proibido": [
+     "'a melhor pista física'",
+     "'não há físico por jogo' (há para 2025)"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-07",
+   "tema": "fisico",
+   "etapa": "etapa_11",
+   "forca_esperada_hoje": "forte",
+   "molde": {
+    "titulo": "O físico do jogador se mantém de um ano para o outro",
+    "frase": "Quem esteve entre os mais rápidos e intensos da Série B num ano costuma continuar entre os mais rápidos no ano seguinte: numa escala em que um é a mesma ordem e zero é ordem nenhuma, a ordem dos atletas fica em {rho}. Para contratar, o físico do ano anterior é uma boa pista do que vem, sem garantia.",
+    "numero": "{rho} em {pares} pares de atletas; por par de anos: {rho_por_par}.",
+    "ressalva": "Ainda não se mediu se isso vale igual para quem trocou de clube: a conta mistura quem ficou e quem mudou. Só entra quem jogou {corte} na Série B nos dois anos.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "rho": {
+     "formato": "dec2",
+     "caminho": "etapa_11.fisico.rho_mediano",
+     "ja_gravado_no_json": true
+    },
+    "pares": {
+     "formato": "inteiro",
+     "caminho": "etapa_11.fisico.pares",
+     "ja_gravado_no_json": true
+    },
+    "rho_por_par": {
+     "formato": "lista_dec2",
+     "calcular": "gravar etapa_11.fisico.rho_mediano_por_par_de_anos",
+     "ja_gravado_no_json": false
+    },
+    "corte": {
+     "formato": "texto",
+     "caminho": "etapa_11.fisico.corte",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "forte_se": "p de cada rho < 0,001 E rho_mediano_por_par_de_anos todos > 0,5 (repete nos pares)",
+    "nao_da_para_afirmar": "'vai junto quando muda de clube' enquanto etapa_11.fisico não tiver rho_mudou e rho_ficou",
+    "proibido": [
+     "'o físico é do jogador, não do clube'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-08",
+   "tema": "fisico",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "A zaga de quem sobe corre menos que a do meio da tabela",
+    "frase": "Uns {dif_metros} metros a menos por jogo, por zagueiro. A diferença continua entre times de orçamento e rodízio parecidos. Mas é uma entre {n_familia} medidas testadas, e é frágil: só {sobe_com_zaga} dos {n_prom} que subiram tinham zagueiros rastreados em número suficiente.",
+    "numero": "Com os descontos, o acaso produziria a diferença em {p_liq2_chance}; contando todos os times, sem o corte, a diferença crua fica em {p_sem_corte_chance}.",
+    "ressalva": "Não quer dizer 'contrate zagueiro que corre pouco': pode ser reflexo de um time menos atacado. As medidas de distância da zaga contadas de jeitos diferentes são um achado só, não vários.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "dif_metros": {
+     "formato": "inteiro",
+     "calcular": "etapa_2.linhas[indicador=fis_zaga_distance_p90].m_meio - etapa_2.linhas[indicador=fis_zaga_distance_p90].m_sobe, arredondado a 50",
+     "ja_gravado_no_json": false
+    },
+    "n_familia": {
+     "formato": "inteiro",
+     "caminho": "etapa_3.por_familia.fisico_col_setor.testes",
+     "ja_gravado_no_json": true
+    },
+    "sobe_com_zaga": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_2.linhas[].n_sobe (hoje só n total)",
+     "ja_gravado_no_json": false
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    },
+    "p_liq2_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=fis_zaga_distance_p90].p_liq2_SM",
+     "ja_gravado_no_json": true
+    },
+    "p_sem_corte_chance": {
+     "formato": "chance_em_100",
+     "calcular": "gravar sensibilidade_sem_corte_de_atletas.p_bruto_SM e p_liq2_SM",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_bruto_SM < 0,05 E p_liq2_SM < 0,05 E q_SM >= 0,05",
+    "marca": "agrupar distance/m_per_min/tip como uma medida só"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-09",
+   "tema": "fisico",
+   "etapa": "etapa_3",
+   "forca_esperada_hoje": "nao_da_para_afirmar",
+   "molde": {
+    "titulo": "O físico, no conjunto, separa quem sobe do meio da tabela?",
+    "frase": "Nenhuma medida física sozinha separa com segurança. No catálogo de {n_medidas} medidas declaradas, o número das que separam ({n_passam}) é o que o acaso daria ({esperado}). Mas uma bateria maior da conferência, com outros recortes, achou excesso de sinal, e ninguém a derrubou. Enquanto as duas contas não forem refeitas lado a lado, a pergunta fica em aberto.",
+    "numero": "No físico cru, o dinheiro come quase tudo: {antes_liq} diferenças viram {depois_liq} descontado o valor.",
+    "ressalva": "Não quer dizer nem que o físico explica a subida, nem que não explica.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "n_medidas": {
+     "formato": "inteiro",
+     "calcular": "fisico_col_elenco.testes + fisico_col_setor.testes",
+     "ja_gravado_no_json": false
+    },
+    "n_passam": {
+     "formato": "inteiro",
+     "calcular": "fisico_col_elenco.passam5_SM + fisico_col_setor.passam5_SM",
+     "ja_gravado_no_json": false
+    },
+    "esperado": {
+     "formato": "inteiro",
+     "calcular": "mediana do nulo por permutação dentro do ano [gravar]",
+     "ja_gravado_no_json": false
+    },
+    "antes_liq": {
+     "formato": "inteiro",
+     "calcular": "passam5_SM somado nas famílias físicas",
+     "ja_gravado_no_json": false
+    },
+    "depois_liq": {
+     "formato": "inteiro",
+     "calcular": "passam5_liq_SM somado nas famílias físicas",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "nao_da_para_afirmar_se": "as duas baterias (catálogo e a de 332 da conferência) não foram rodadas no mesmo nulo e dão sinais opostos",
+    "sem_sinal_se": "a reconciliação gravar as duas contas no mesmo nulo e as duas derem p >= 0,10",
+    "proibido": [
+     "selo sem_sinal enquanto a divergência existir"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-10",
+   "tema": "fisico",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "O ataque intenso separa quem sobe de quem cai, mas não do meio",
+    "frase": "O ataque de quem sobe faz mais sprint e mais corrida forte que o de quem cai. Contando as muitas medidas testadas, nenhuma se sustenta, e parte da diferença some quando se desconta que quem cai roda mais atacantes. Contra o meio da tabela, não se viu diferença.",
+    "numero": "Olhando cada medida sozinha, o acaso produziria a diferença em {faixa_p_chance}.",
+    "ressalva": "Não quer dizer que ataque que corre faz subir. No máximo, uma pista: ataque sem intensidade acompanha quem cai. Quem cai rastreou {atac_cai} atacantes, contra {atac_sobe} de quem sobe.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "faixa_p_chance": {
+     "formato": "faixa_chance_em_100",
+     "calcular": "menor e maior p_bruto_SC do bloco declarado de medidas de intensidade do ataque",
+     "ja_gravado_no_json": false
+    },
+    "atac_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_1.controle_n_atletas.por_setor[setor=ataque].media_cai",
+     "ja_gravado_no_json": true
+    },
+    "atac_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_1.controle_n_atletas.por_setor[setor=ataque].media_sobe",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "fraco_se": "algum p_bruto_SC < 0,05 no bloco E nenhum q_SC < 0,05",
+    "obrigatorio": "o bloco é um achado só; listar quantas medidas cada faixa cobre"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "FIS-11",
+   "tema": "fisico",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Os laterais de quem sobe atacam mais o espaço sem bola",
+    "frase": "{v_sobe} corridas para espaço perigoso a cada meia hora de bola do time, contra {v_meio} no meio da tabela. Continua entre times de orçamento e rodízio parecidos e apareceu em {anos_ok} dos {n_anos} anos.",
+    "numero": "Olhando só ela, o acaso produziria a diferença em {p_liq2_chance}; entre {n_familia} medidas, isso não basta.",
+    "ressalva": "Não quer dizer que o lateral é fisicamente melhor: uma medida contada com a bola do próprio time parece descrever o jeito de jogar, e a especificação a exclui do critério de compra.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "v_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=fis_lateral_runs_dangerous_p30tip].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "v_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=fis_lateral_runs_dangerous_p30tip].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "anos_ok": {
+     "formato": "inteiro",
+     "calcular": "anos com resíduo médio de sobe > meio; gravar",
+     "ja_gravado_no_json": false
+    },
+    "n_anos": {
+     "formato": "contagem_da_lista",
+     "caminho": "etapa_1.curva_top_k.anos",
+     "ja_gravado_no_json": true
+    },
+    "p_liq2_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=fis_lateral_runs_dangerous_p30tip].p_liq2_SM",
+     "ja_gravado_no_json": true
+    },
+    "n_familia": {
+     "formato": "inteiro",
+     "caminho": "etapa_3.por_familia.fisico_col_setor.testes",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_bruto_SM < 0,05 E p_liq2_SM < 0,05 E q_SM >= 0,05",
+    "marca": "medida condicionada à posse: descreve plano"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "J1",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "forte",
+   "molde": {
+    "titulo": "Quem sobe finaliza de mais perto do gol",
+    "frase": "Em média {m_sobe} metros, contra {m_meio} no meio da tabela e {m_cai} em quem cai. {sobe_perto} dos {n_prom} que subiram chutaram de mais perto que a metade da liga no seu ano. Resiste à conta dos {n_familia} indicadores de jogo, continua entre times de orçamento parecido, o mesmo clube tende a repetir de um ano para o outro, e o número do primeiro turno ajuda a prever os pontos do segundo.",
+    "numero": "Pegando um time que subiu e um do meio, o que subiu chuta de mais perto em {auc_100}.",
+    "ressalva": "Não quer dizer 'mande chutar de perto': chutar de perto é consequência de chegar bem à área. No período {periodo_antigo} foi para o mesmo lado, mas o acaso produziria aquilo em {p_antigo_chance}.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "m_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=dist_remate].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "m_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=dist_remate].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "m_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=dist_remate].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "sobe_perto": {
+     "formato": "inteiro",
+     "calcular": "promovidos com dist_remate abaixo da mediana do ano",
+     "ja_gravado_no_json": false
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    },
+    "n_familia": {
+     "formato": "inteiro",
+     "calcular": "contagem de etapa_2.linhas com familia=tecnico_col",
+     "ja_gravado_no_json": false
+    },
+    "auc_100": {
+     "formato": "pares_em_100",
+     "calcular": "1 - etapa_2.linhas[indicador=dist_remate].auc_SM (sinal -1)",
+     "ja_gravado_no_json": false
+    },
+    "periodo_antigo": {
+     "formato": "texto",
+     "calcular": "rótulo do bloco de teste_cego_2018_2021.json",
+     "ja_gravado_no_json": false
+    },
+    "p_antigo_chance": {
+     "formato": "chance_em_100",
+     "caminho": "teste_cego_2018_2021.json porta.velho[ind=dist_remate].p_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "forte_se": [
+     "q_SM < 0,05",
+     "p_liq_SM < 0,05",
+     "(rho_persist com p < 0,05 [etapa_6.rho[ind].p]) OU (etapa_7.linhas[ind].p_parcial < 0,05 com sinal_certo)"
+    ],
+    "moderado_se": "q_SM >= 0,05 OU nenhuma repetição medida passa",
+    "atencao": "porta A só com rho_1T_2T não nulo (CONFERENCIA §1.3)"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J2",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Quem sobe acerta mais chutes no gol",
+    "frase": "{m_sobe}% dos chutes no alvo, contra {m_meio}% no meio da tabela e {m_cai}% em quem cai. Resiste à conta dos testes e ao dinheiro, e o primeiro turno ajuda a prever o segundo. Mas o mesmo clube não repete a pontaria de um ano para o outro.",
+    "numero": "Olhando só este número, o acaso produziria a diferença em {p_chance}; no período antigo, em {p_antigo_chance}.",
+    "ressalva": "Não quer dizer que pontaria é traço do elenco que se contrata: pode ser forma da temporada, e a etapa {etapa_redescrito} o marca como possível resultado redescrito.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "m_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=remates_baliza_pct].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "m_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=remates_baliza_pct].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "m_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=remates_baliza_pct].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "etapa_redescrito": {
+     "formato": "inteiro",
+     "calcular": "número da etapa de etapa_10.titulo_chave",
+     "ja_gravado_no_json": false
+    },
+    "p_chance": {
+     "formato": "chance_em_1000",
+     "caminho": "etapa_2.linhas[indicador=remates_baliza_pct].p_bruto_SM",
+     "ja_gravado_no_json": true
+    },
+    "p_antigo_chance": {
+     "formato": "chance_em_100",
+     "caminho": "teste_cego_2018_2021.json porta.velho[ind=remates_baliza_pct].p_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "q_SM < 0,05 E p_liq_SM < 0,05 E repetição mista (etapa_7 passa, rho_persist não, período antigo não)",
+    "regra_de_desempate": "com repetição mista, fica o selo mais fraco"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J3",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Quem sobe faz menos faltas",
+    "frase": "{m_sobe} faltas por jogo, contra {m_meio} no meio da tabela. Resiste à conta dos testes e ao dinheiro, mas não se repete no mesmo clube nem prevê o segundo turno.",
+    "numero": "Descontado o dinheiro, o acaso produziria a diferença em {p_liq_chance}.",
+    "ressalva": "Não quer dizer 'faça menos falta para subir': time que tem a bola faz menos falta.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "m_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=faltas].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "m_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=faltas].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "m_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=faltas].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "p_liq_chance": {
+     "formato": "chance_em_1000",
+     "caminho": "etapa_2.linhas[indicador=faltas].p_liq_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "q_SM < 0,05 E p_liq_SM < 0,05 E rho_persist e etapa_7 sem significância"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J4",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Quem sobe ganha mais duelos — e isso também apareceu no período antigo",
+    "frase": "Na posição no ranking de duelos ganhos do ano, quem sobe fica bem acima do meio (em porcentagem, {m_sobe} contra {m_meio}). Continua entre times de orçamento parecido, e no período antigo apareceu com força. Mas não resiste à conta dos muitos testes no período recente, e o mesmo clube não repete o número.",
+    "numero": "No período antigo, o acaso produziria a diferença em {p_antigo_chance}.",
+    "ressalva": "Não quer dizer que duelo ganho faz subir. No período antigo não há valor de mercado: lá o resultado é cru. Quem cai não se distingue dos outros em duelo.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "m_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=duelos_pct].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "m_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=duelos_pct].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "m_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=duelos_pct].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "p_antigo_chance": {
+     "formato": "chance_em_1000",
+     "caminho": "teste_cego_2018_2021.json porta.velho[ind=duelos_pct].p_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_bruto_SM < 0,05 E p_liq_SM < 0,05 E q_SM >= 0,05",
+    "nota": "repetição no período antigo não substitui a falha no BH"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J5",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Quem cai perdeu mais duelos aéreos — no período recente, não antes",
+    "frase": "No período recente, {cai_metade_baixo} dos {n_cai} que caíram ficaram na metade de baixo do ano em duelo aéreo ganho, e a diferença continua entre times de orçamento parecido. No período antigo, quem caiu ganhava duelo aéreo como qualquer outro time.",
+    "numero": "O acaso produziria a diferença do período recente em {p_cr_chance}; descontado o dinheiro, em {p_cr_liq_chance}.",
+    "ressalva": "Não quer dizer que isso é regra da Série B nem que zagueiro bom no alto evita queda: é sinal de um período, e a medida por setor tem poucos zagueiros por time.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "cai_metade_baixo": {
+     "formato": "inteiro",
+     "calcular": "rebaixados com posto de duelos_aereos_pct no ano <= 50",
+     "ja_gravado_no_json": false
+    },
+    "n_cai": {
+     "formato": "inteiro",
+     "caminho": "etapa_0.cai",
+     "ja_gravado_no_json": true
+    },
+    "p_cr_chance": {
+     "formato": "chance_em_100",
+     "calcular": "gravar etapa_2.linhas[duelos_aereos_pct].p_bruto_CR (cai x resto, Welch no posto)",
+     "ja_gravado_no_json": false
+    },
+    "p_cr_liq_chance": {
+     "formato": "chance_em_100",
+     "calcular": "gravar p_liq_CR",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_CR < 0,05 E p_liq_CR < 0,05, comparação fora das declaradas (sem família)",
+    "nao_sobe_porque": "período antigo p >= 0,05"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J6",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Os meias de quem sobe dão mais passes-chave",
+    "frase": "{m_sobe} passe-chave por jogo por meia, contra {m_meio} no meio da tabela e em quem cai. Resiste à conta dos {n_familia} indicadores individuais e ao dinheiro. Mas o mesmo clube não repete de um ano para o outro.",
+    "numero": "Descontado o dinheiro, o acaso produziria a diferença em {p_liq_chance}.",
+    "ressalva": "Não quer dizer que contratar meia de passe-chave faz subir: o número pode vir de quem estava em campo, e passe-chave depende de alguém finalizar. Não há como conferir no período antigo.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "m_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_passes_chave_90].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "m_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_passes_chave_90].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "m_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_passes_chave_90].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "n_familia": {
+     "formato": "inteiro",
+     "calcular": "contagem de etapa_2.linhas com familia=tecnico_ind",
+     "ja_gravado_no_json": false
+    },
+    "p_liq_chance": {
+     "formato": "chance_em_1000",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_passes_chave_90].p_liq_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "q_SM < 0,05 E p_liq_SM < 0,05 E rho_persist sem significância"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J7",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_2",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Os meias de quem sobe ganham mais duelos defensivos",
+    "frase": "Quem mais destoa é quem sobe, para cima: {m_sobe}% de duelos defensivos ganhos contra {m_meio}% no meio. Continua entre times de orçamento parecido, mas não resiste à conta dos muitos testes e não se repete no clube.",
+    "numero": "Descontado o dinheiro, o acaso produziria a diferença em {p_liq_chance}.",
+    "ressalva": "Não quer dizer que quem cai é bem pior nisso: contra o resto, quem cai não se distingue do acaso. A etapa {etapa_redescrito} marca esta medida como possível resultado redescrito.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "m_sobe": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_duelos_defensivos_ganhos].m_sobe",
+     "ja_gravado_no_json": true
+    },
+    "m_meio": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_duelos_defensivos_ganhos].m_meio",
+     "ja_gravado_no_json": true
+    },
+    "m_cai": {
+     "formato": "dec1",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_duelos_defensivos_ganhos].m_cai",
+     "ja_gravado_no_json": true
+    },
+    "etapa_redescrito": {
+     "formato": "inteiro",
+     "calcular": "número da etapa de etapa_10.titulo_chave",
+     "ja_gravado_no_json": false
+    },
+    "p_liq_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=ti_meio_duelos_defensivos_ganhos].p_liq_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_bruto_SM < 0,05 E p_liq_SM < 0,05 E q_SM >= 0,05"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J8",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_7",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "A tabela do primeiro turno ainda é a melhor pista do segundo",
+    "frase": "Os pontos do primeiro turno andam com os do segundo com força que nenhum número de jogo alcança. Dos {n_testados} números testados, {n_passam} acrescentam algo mesmo entre times com pontos parecidos no primeiro turno (o acaso daria {esperado}). Contando os {n_testados}, nenhum se sustenta sozinho.",
+    "numero": "Força da relação entre os turnos: {rho_pts}; o melhor número de jogo, {melhor_ind}, fica em {melhor_rho}.",
+    "ressalva": "Não quer dizer que números de jogo não servem: o que acrescentam à tabela é pequeno e pode ser sorte. Os números de escalação não puderam entrar.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "n_testados": {
+     "formato": "inteiro",
+     "calcular": "len(etapa_7.linhas)",
+     "ja_gravado_no_json": false
+    },
+    "n_passam": {
+     "formato": "inteiro",
+     "calcular": "linhas com p_parcial < 0,05 E sinal_certo",
+     "ja_gravado_no_json": false
+    },
+    "esperado": {
+     "formato": "dec1",
+     "calcular": "n_testados * 0,05",
+     "ja_gravado_no_json": false
+    },
+    "rho_pts": {
+     "formato": "dec2",
+     "caminho": "etapa_7.referencia_pts1t_x_pts2t.rho",
+     "ja_gravado_no_json": true
+    },
+    "melhor_ind": {
+     "formato": "texto",
+     "calcular": "linha de menor p_parcial com sinal_certo, nome simples do glossário",
+     "ja_gravado_no_json": false
+    },
+    "melhor_rho": {
+     "formato": "dec2",
+     "calcular": "abs(rho_parcial) dessa linha",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "fraco_se": "algum p_parcial < 0,05 E nenhum q (BH nos n_testados) < 0,05 [gravar etapa_7.linhas[].q_parcial]",
+    "moderado_se": "algum q_parcial < 0,05"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J9",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_8",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "Não há um jeito só de subir: os que subiram se dividem em quatro estilos",
+    "frase": "Cruzando de quem é o campo e a área com como a bola chega lá, pelo chão ou direta, os {n_prom} se dividem em grupos de {tamanhos}. Os grupos se distinguem em indicadores que não entraram na construção, muito mais do que o acaso faria. {n_tipos} grupos passam no teste; {grupo_descritivo} é só descrição.",
+    "numero": "Contra partições feitas com indicadores reais de futebol, o acaso produziria essa separação em {p_placebo_chance}.",
+    "ressalva": "Não quer dizer que existem tipos naturais: é um contínuo cortado por duas medianas ({fronteira}). Não prevê quem sobe; descreve de quantos jeitos se subiu.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_1.curva_top_k.promovidos_total",
+     "ja_gravado_no_json": true
+    },
+    "tamanhos": {
+     "formato": "lista_inteiros",
+     "caminho": "etapa_8.tipologia.grupos[].n",
+     "ja_gravado_no_json": true
+    },
+    "n_tipos": {
+     "formato": "inteiro",
+     "calcular": "grupos com status = TIPO",
+     "ja_gravado_no_json": false
+    },
+    "grupo_descritivo": {
+     "formato": "texto",
+     "calcular": "grupos com status != TIPO: nome e times",
+     "ja_gravado_no_json": false
+    },
+    "p_placebo_chance": {
+     "formato": "chance_em_1000",
+     "caminho": "etapa_8.tipologia.teste_de_fora.p_placebo",
+     "ja_gravado_no_json": true
+    },
+    "fronteira": {
+     "formato": "lista_nomes",
+     "calcular": "times com troca_sob_ruido_10pt_pct >= 40",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "teste_de_fora.p_placebo < 0,05 E veredito[silhueta].passou = false",
+    "forte_nao_se_aplica_porque": "a bateria limpa diverge entre conjuntos de validadores (0,035 x 0,099) e não há desconto de dinheiro por grupo",
+    "proibido": [
+     "'quatro tipos de time que sobe'",
+     "G2 com a mesma tipografia dos TIPO"
+    ]
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J10",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_8",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "O dinheiro não distinguiu os quatro estilos de subir — com uma exceção nomeada",
+    "frase": "Formalmente, o valor do elenco não separa os grupos, e uma divisão feita só por dinheiro não explica nada do jogo. Descontado o dinheiro, o corte da rota muda {muda_rota} dos {n_prom} times; o do território muda {muda_territorio}.",
+    "numero": "O acaso produziria a diferença de valor entre os grupos em {p_perm_chance}.",
+    "ressalva": "Não quer dizer que estilo e dinheiro não têm relação: com tão poucos times só uma diferença grande apareceria, e {excecao_g1}.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "muda_rota": {
+     "formato": "inteiro",
+     "caminho": "etapa_8.tipologia.dinheiro.residualizado.muda_rota",
+     "ja_gravado_no_json": true
+    },
+    "muda_territorio": {
+     "formato": "inteiro",
+     "caminho": "etapa_8.tipologia.dinheiro.residualizado.muda_territorio",
+     "ja_gravado_no_json": true
+    },
+    "n_prom": {
+     "formato": "inteiro",
+     "caminho": "etapa_8.tipologia.dinheiro.residualizado.de",
+     "ja_gravado_no_json": true
+    },
+    "p_perm_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_8.tipologia.dinheiro.p_permutacao",
+     "ja_gravado_no_json": true
+    },
+    "excecao_g1": {
+     "formato": "texto",
+     "calcular": "se max(posto_valor) em grupos[G1].times <= 3: 'os N do grupo dono do jogo estavam, sem exceção, entre os 3 elencos mais caros do seu ano' (o 3 vem do máximo)",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "dinheiro.p_permutacao >= 0,10",
+    "obrigatorio": "citar a exceção do G1 com zero exceção verificada"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J11",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_15",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "A formação não separou nada",
+    "frase": "Nem entre os estilos de quem subiu, nem entre quem sobe e o meio da tabela.",
+    "numero": "Entre estilos, o acaso produziria as diferenças de formação em {p_linha3_chance}; entre quem sobe e o meio, em {p_sistemas_chance}.",
+    "ressalva": "Não quer dizer que o desenho não importa: a formação anotada é a do papel, e uma diferença pequena não apareceria.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "p_linha3_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_8.tipologia.formacao.linha3.p",
+     "ja_gravado_no_json": true
+    },
+    "p_sistemas_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_15.proxy_sistema.testes.sistemas_distintos.p_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "formacao.*.p >= 0,10 E proxy_sistema.testes.*.p_SM >= 0,10"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "J12",
+   "tema": "jogo_e_padroes",
+   "etapa": "etapa_15",
+   "forca_esperada_hoje": "nao_da_para_afirmar",
+   "molde": {
+    "titulo": "Trocar de técnico ajuda ou atrapalha?",
+    "frase": "Não há, em nenhuma base do estudo, o nome do técnico nem a data da troca. A pergunta nunca foi medida.",
+    "numero": "Bases conferidas: {bases}.",
+    "ressalva": "Não quer dizer nada, para nenhum lado. A coleta que resolveria: {coleta}.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "bases": {
+     "formato": "texto",
+     "caminho": "etapa_15.bases_conferidas.procurado_em",
+     "ja_gravado_no_json": true
+    },
+    "coleta": {
+     "formato": "texto",
+     "caminho": "etapa_15.coleta_que_resolveria.tabela",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "nao_da_para_afirmar_se": "etapa_15.tem_nome_de_treinador = false"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "A1",
+   "tema": "anos_antigos",
+   "etapa": "etapa_8",
+   "forca_esperada_hoje": "fraco",
+   "molde": {
+    "titulo": "Ocupar o campo e a área do adversário separou quem sobe nos dois períodos — mas pode ser o dinheiro",
+    "frase": "O eixo de território separou quem sobe do meio no período recente e de novo, com os cortes congelados, no período antigo. Mas no período recente os números que o formam sumiram quando se compararam times de orçamento parecido, e no antigo não há valor de mercado para descontar.",
+    "numero": "Período antigo: o acaso produziria a diferença em {p_antigo_chance}. Período recente: em {p_recente_chance}; descontado o dinheiro, a posse fica em {p_liq_posse_chance}.",
+    "ressalva": "Repetir no número cru não prova ter resistido ao dinheiro. Pela tipologia, esse eixo é em boa parte o que o orçamento compra.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "p_antigo_chance": {
+     "formato": "chance_em_1000",
+     "caminho": "teste_cego_2018_2021.json eixos_como_marcador_de_acesso.2018-2021.TERRITORIO.p_SM",
+     "ja_gravado_no_json": true
+    },
+    "p_recente_chance": {
+     "formato": "chance_em_100",
+     "caminho": "teste_cego_2018_2021.json eixos_como_marcador_de_acesso.2022-2025.TERRITORIO.p_SM",
+     "ja_gravado_no_json": true
+    },
+    "p_liq_posse_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_2.linhas[indicador=posse].p_liq_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "fraco_se": "componentes do eixo com porta = C no período recente (morrem no dinheiro)",
+    "nota": "a replicação crua não sobe o selo"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "A2",
+   "tema": "anos_antigos",
+   "etapa": "etapa_8",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "O que separou quem sobe no período recente apontou para o mesmo lado no antigo",
+    "frase": "Dos {n_ind} números de jogo com selo que existem nos dois períodos, {mesmo_sinal} foram para o mesmo lado, e os que separavam mais num período tendiam a separar mais no outro.",
+    "numero": "O acaso produziria essa concordância em {p_conc_chance}.",
+    "ressalva": "Não quer dizer que cada número replicou: só {replicam} ficaram, sozinhos, abaixo do limite. E é tudo cru.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "n_ind": {
+     "formato": "inteiro",
+     "calcular": "denominador de teste_cego_2018_2021.json porta_concordancia.mesmo_sinal_SM",
+     "ja_gravado_no_json": false
+    },
+    "mesmo_sinal": {
+     "formato": "numerador",
+     "caminho": "teste_cego_2018_2021.json porta_concordancia.mesmo_sinal_SM",
+     "ja_gravado_no_json": true
+    },
+    "p_conc_chance": {
+     "formato": "chance_em_100",
+     "caminho": "teste_cego_2018_2021.json porta_concordancia.p",
+     "ja_gravado_no_json": true
+    },
+    "replicam": {
+     "formato": "inteiro",
+     "caminho": "teste_cego_2018_2021.json porta_concordancia.replicam_p05_SM",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "porta_concordancia.p < 0,05, sem desconto de dinheiro possível no período antigo"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "A3",
+   "tema": "anos_antigos",
+   "etapa": "etapa_8",
+   "forca_esperada_hoje": "nao_da_para_afirmar",
+   "molde": {
+    "titulo": "Algum sinal ficou mais forte ou mais fraco de um período para o outro?",
+    "frase": "Nenhuma diferença entre os dois períodos foi distinguível do acaso. Não se pode dizer que o território ficou mais forte, nem que a rota não replica: a rota não se estabeleceu em nenhum dos dois.",
+    "numero": "O teste de diferença mais perto do limite ficou em {menor_p_chance}.",
+    "ressalva": "Não quer dizer que os sinais são iguais: o estudo não tem tamanho para medir a mudança.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "menor_p_chance": {
+     "formato": "chance_em_100",
+     "calcular": "gravar teste_cego_2018_2021.json diferenca_entre_blocos[].p (teste de diferença entre os dois d, por indicador); menor p",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "nao_da_para_afirmar_se": "todos os p de diferença entre blocos >= 0,05 OU diferença não gravada",
+    "proibido": [
+     "'ficou mais forte'",
+     "'não replica'",
+     "'a tipologia caiu no teste cego'"
+    ]
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "A4",
+   "tema": "anos_antigos",
+   "etapa": "etapa_0",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "O mando de campo pesou mais no período recente do que no antigo",
+    "frase": "Os mandantes fizeram {pct_recente}% dos pontos no período recente, contra {pct_antigo}% no antigo.",
+    "numero": "Tomando o ano como unidade, o acaso produziria essa diferença em {p_bloco_chance}.",
+    "ressalva": "Não se sabe por que mudou. Qualquer conta em número cru que dependa de jogar em casa não pode juntar os dois períodos.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "pct_recente": {
+     "formato": "dec1",
+     "calcular": "média de teste_cego_2018_2021.json regime[ano em 2022-2025].pct_pts_casa",
+     "ja_gravado_no_json": false
+    },
+    "pct_antigo": {
+     "formato": "dec1",
+     "calcular": "média de teste_cego_2018_2021.json regime[ano em 2018-2021].pct_pts_casa",
+     "ja_gravado_no_json": false
+    },
+    "p_bloco_chance": {
+     "formato": "chance_em_100",
+     "calcular": "gravar teste_cego_2018_2021.json regime_veredito.p_bloco_por_ano (t de Welch com ano como unidade)",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "p_bloco_por_ano < 0,05; achado depois do critério declarado (que era sobre 2020), sem repetição possível"
+   },
+   "passou_pelos_ceticos": true
+  },
+  {
+   "id": "A5",
+   "tema": "anos_antigos",
+   "etapa": "etapa_0",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "O ano sem torcida não apagou o mando",
+    "frase": "Em {ano} os mandantes fizeram {pct}% dos pontos, dentro da faixa dos outros anos ({lo} a {hi}). O critério declarado antes não disparou.",
+    "numero": "{pct}% contra a faixa de {lo} a {hi}.",
+    "ressalva": "Não quer dizer que torcida não faz diferença: com um ano só, só um efeito grande apareceria.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "ano": {
+     "formato": "ano",
+     "calcular": "ano de pct_pts_casa_2020",
+     "ja_gravado_no_json": false
+    },
+    "pct": {
+     "formato": "dec1",
+     "caminho": "teste_cego_2018_2021.json regime_veredito.pct_pts_casa_2020",
+     "ja_gravado_no_json": true
+    },
+    "lo": {
+     "formato": "dec1",
+     "caminho": "teste_cego_2018_2021.json regime_veredito.intervalo_outros[0]",
+     "ja_gravado_no_json": true
+    },
+    "hi": {
+     "formato": "dec1",
+     "caminho": "teste_cego_2018_2021.json regime_veredito.intervalo_outros[1]",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "regime_veredito.disparou = false"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "A6",
+   "tema": "anos_antigos",
+   "etapa": "etapa_8",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "No período antigo ninguém subiu jogando como controlador paciente — mas isso não se distingue do acaso",
+    "frase": "Acessos por estilo no período antigo: {observado}. O quadrante do controlador existia e estava povoado ({ocupacao} times); ninguém subiu de dentro dele.",
+    "numero": "Corrigido pelas casas testadas, o acaso produziria uma casa vazia em {p_bonf_chance}.",
+    "ressalva": "Não quer dizer que esse estilo deixou de funcionar, nem que a tipologia caiu no teste cego.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "observado": {
+     "formato": "dict_grupos",
+     "caminho": "teste_cego_2018_2021.json tipologia.observado",
+     "ja_gravado_no_json": true
+    },
+    "ocupacao": {
+     "formato": "inteiro",
+     "caminho": "teste_cego_2018_2021.json tipologia.G3_vazio.ocupacao_do_quadrante_no_painel.a_2018_2021",
+     "ja_gravado_no_json": true
+    },
+    "p_bonf_chance": {
+     "formato": "chance_em_100",
+     "caminho": "teste_cego_2018_2021.json tipologia.G3_vazio.p_bonferroni_4_celulas",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "G3_vazio.p_bonferroni_4_celulas >= 0,10 E taxa_de_acesso.fisher_p >= 0,10"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "M1",
+   "tema": "mercado_e_contratacao",
+   "etapa": "etapa_11",
+   "forca_esperada_hoje": "moderado",
+   "molde": {
+    "titulo": "O técnico do jogador muda mais que o físico quando ele troca de clube",
+    "frase": "Nos números técnicos individuais, a ordem dos atletas se mantém em {rho_mudou} para quem mudou de clube e {rho_ficou} para quem ficou. No físico, fica em {rho_fis}. Para contratar, o físico do ano anterior é pista melhor que o técnico.",
+    "numero": "{rho_mudou} ({pares_mudou} pares) e {rho_ficou} ({pares_ficou}) contra {rho_fis} ({pares_fis}).",
+    "ressalva": "Não quer dizer que o técnico não viaja: {mais_estavel} se mantém quase como o físico, {menos_estavel} pouco. A comparação de frente com a mesma população nunca foi feita.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "rho_mudou": {
+     "formato": "dec2",
+     "caminho": "etapa_11.tecnico.rho_mediano_mudou",
+     "ja_gravado_no_json": true
+    },
+    "rho_ficou": {
+     "formato": "dec2",
+     "caminho": "etapa_11.tecnico.rho_mediano_ficou",
+     "ja_gravado_no_json": true
+    },
+    "rho_fis": {
+     "formato": "dec2",
+     "caminho": "etapa_11.fisico.rho_mediano",
+     "ja_gravado_no_json": true
+    },
+    "pares_mudou": {
+     "formato": "inteiro",
+     "caminho": "etapa_11.tecnico.pares_mudou",
+     "ja_gravado_no_json": true
+    },
+    "pares_ficou": {
+     "formato": "inteiro",
+     "caminho": "etapa_11.tecnico.pares_ficou",
+     "ja_gravado_no_json": true
+    },
+    "pares_fis": {
+     "formato": "inteiro",
+     "caminho": "etapa_11.fisico.pares",
+     "ja_gravado_no_json": true
+    },
+    "mais_estavel": {
+     "formato": "texto",
+     "calcular": "métrica de maior rho_mudou em etapa_11.tecnico.metricas, com o valor",
+     "ja_gravado_no_json": false
+    },
+    "menos_estavel": {
+     "formato": "texto",
+     "calcular": "métrica de menor rho_mudou, com o valor",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "moderado_se": "diferença de Fisher z entre rho_mediano_fisico e rho_mediano_mudou com p < 0,05 [gravar etapa_11.comparacao_fisico_tecnico]",
+    "forte_se": "a mesma comparação feita só com quem mudou nas duas bases",
+    "nao_da_para_afirmar_se": "comparação não gravada"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "M2",
+   "tema": "mercado_e_contratacao",
+   "etapa": "etapa_13",
+   "forca_esperada_hoje": "sem_sinal",
+   "molde": {
+    "titulo": "A nota física de encaixe não previu minutos nem permanência",
+    "frase": "Entre as chegadas com nota, as que a nota aprovaria jogaram em média {min_rec} minutos, e as reprovadas {min_rep}; ficaram no clube {perm_rec}% contra {perm_rep}%. O estudo enxergaria uma diferença de tamanho {d_min} e não viu nenhuma.",
+    "numero": "Minutos: o acaso produziria a diferença em {p_min_chance}.",
+    "ressalva": "Não quer dizer que a nota é inútil: ela aproxima o perfil físico de quem subiu, e o teste mede minutos e permanência, não contribuição para subir. Mas não pode ser apresentada como previsão de que o atleta vai jogar ou ficar.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "min_rec": {
+     "formato": "milhar",
+     "caminho": "etapa_13.backtest.min_medio_recomendados",
+     "ja_gravado_no_json": true
+    },
+    "min_rep": {
+     "formato": "milhar",
+     "caminho": "etapa_13.backtest.min_medio_reprovados",
+     "ja_gravado_no_json": true
+    },
+    "perm_rec": {
+     "formato": "dec1",
+     "caminho": "etapa_13.backtest.permanencia_recomendados_pct",
+     "ja_gravado_no_json": true
+    },
+    "perm_rep": {
+     "formato": "dec1",
+     "caminho": "etapa_13.backtest.permanencia_reprovados_pct",
+     "ja_gravado_no_json": true
+    },
+    "d_min": {
+     "formato": "dec2",
+     "calcular": "d_minimo_detectavel(n_recomendados, n_reprovados)",
+     "ja_gravado_no_json": false
+    },
+    "p_min_chance": {
+     "formato": "chance_em_100",
+     "caminho": "etapa_13.backtest.p_minutos",
+     "ja_gravado_no_json": true
+    }
+   },
+   "regra_do_selo": {
+    "sem_sinal_se": "backtest.p_minutos >= 0,10 E backtest.p_permanencia >= 0,10"
+   },
+   "passou_pelos_ceticos": false
+  },
+  {
+   "id": "M3",
+   "tema": "mercado_e_contratacao",
+   "etapa": "etapa_13",
+   "forca_esperada_hoje": "nao_da_para_afirmar",
+   "molde": {
+    "titulo": "A ordem da lista de candidatos é mérito medido?",
+    "frase": "{n_empatados} dos {n_candidatos} candidatos empatam no teto ou no piso da margem, e a ordem dentro do empate não vem de medida nenhuma.",
+    "numero": "{n_empatados} de {n_candidatos}.",
+    "ressalva": "Não quer dizer que os nomes do topo são ruins: a posição de um nome contra o vizinho, dentro do empate, não diz nada.",
+    "tecnico": ""
+   },
+   "lacunas": {
+    "n_empatados": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_13.empates_na_margem.n (margem_normalizada >= 1,0 ou <= -1,0)",
+     "ja_gravado_no_json": false
+    },
+    "n_candidatos": {
+     "formato": "inteiro",
+     "calcular": "gravar etapa_13.empates_na_margem.de",
+     "ja_gravado_no_json": false
+    }
+   },
+   "regra_do_selo": {
+    "nao_da_para_afirmar_se": "empates_na_margem.n > 0 E não há desempate medido gravado"
+   },
+   "passou_pelos_ceticos": false
+  }
+ ],
+ "descartadas": {
+  "fonte": "_fonte/prototipo/CONCLUSOES.md, seção 'O que parecia conclusão e não é'",
+  "regra_da_tela": "a lista é texto fixo de auditoria (o que foi recusado e por quê), não molde; quando um motivo citar número, ele deve vir do mesmo caminho da conclusão correspondente"
+ },
+ "campos_novos_no_gerador_resumo": [
+  "etapa_1.quartis[].cairam",
+  "etapa_1.auc_posto_de_valor.{p_sobe_x_meio, ic95, por_ano, meio_x_cai, meio_x_cai_por_ano}",
+  "etapa_1.cobertura_do_valor.p_valor_descontada_cobertura",
+  "etapa_1.curva_top_k.curva[].promovidos_por_ano",
+  "etapa_1.curva_top_k_rebaixados",
+  "etapa_1.sensibilidade_fonte_valor (tm_valor_total x valor_total)",
+  "etapa_1.top4_de_valor.por_ano[].posicao_final",
+  "etapa_1.valor_por_setor.particao.setores[].{p_liquido_do_valor_total, mediana_por_ano}",
+  "etapa_1.valor_por_setor.setores[].q_sobe_x_meio",
+  "etapa_2.linhas[].{p_bruto_CM, p_liq_CM, q_CM, media_por_ano, n_sobe, n_meio, n_cai, q_liq2_SM, q_liq2_SC}",
+  "etapa_2.linhas[duelos_aereos_pct].{p_bruto_CR, p_liq_CR}",
+  "etapa_2.indice_intensidade (colunas declaradas antes, k_extremos, posição por clube)",
+  "etapa_3.por_familia.*.{passam5_liq_SC, passam5_liq2_SC, nulo_contagem_SM, nulo_contagem_SC, p_media_abs_t}",
+  "etapa_7.linhas[].q_parcial",
+  "etapa_11.fisico.{rho_mediano_por_par_de_anos, rho_mudou, rho_ficou}",
+  "etapa_11.comparacao_fisico_tecnico",
+  "etapa_13.empates_na_margem",
+  "teste_cego_2018_2021.json diferenca_entre_blocos[], regime_veredito.p_bloco_por_ano",
+  "reconciliação da bateria física de 332 (CONFERENCIA §2.4) com o catálogo de 160 no mesmo nulo"
+ ]
+}

@@ -2131,3 +2131,16 @@ rodando, o que falta e as armadilhas dos dados novos. Em resumo:
 - **Normalize Unicode antes de comparar nome de clube.** O macOS grava nome de arquivo em NFD
   e os JSON do projeto estão em NFC — `"Avaí" != "Avaí"`, e 12 clubes somem em silêncio.
   Custou um diagnóstico errado nesta sessão.
+
+## O Protótipo em linguagem simples, e a fila do dono (13/09/2026)
+
+Nesta sessão: a conferência do `prototipo.json` fechou (catálogo bateu campo a campo; dois bugs de
+código corrigidos, 422 de 586 notas de encaixe mudaram), a aba Protótipo foi construída, revisada,
+publicada (commit `f9bf866`) e depois reescrita em português de reunião de clube; a base técnica de
+2018-2021 fechou em 80 de 80 com o teste cego; e o dono fez 18 pedidos novos — faixa de quem subiu,
+botão percentil/valor cru, tudo aberto, filtros, sem rolagem lateral, conclusões com selo de força,
+uma **aba nova por faixa de aproveitamento de pontos** e uma **aba de conclusões**.
+
+**Para continuar, leia `_fonte/prototipo/CONTINUAR.md`** (estado, fluxos que ficaram rodando, ordem
+da rodada, regras que custaram caro) e `_fonte/prototipo/PENDENTE_RODADA.md` (os 18 pedidos, cada
+um com o que já foi medido).
