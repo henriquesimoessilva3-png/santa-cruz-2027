@@ -796,7 +796,46 @@ function paCardCurva(e1) {
        MAIS que o elenco inteiro se `pode_afirmar_que_supera_o_total` for verdadeiro E o
        intervalo não cruzar zero. Hoje cruza: a frase diz que as duas contas empatam;
      - a fatia do elenco na defesa (a partição) foi testada em 4 setores, e o desconto de
-       testar 4 coisas vai junto — hoje não sobra nenhum. */
+       testar 4 coisas vai junto — hoje não sobra nenhum.
+
+   Pedido do dono de 14/09: a mesma pergunta PONDERADA pela quantidade de jogadores de cada
+   setor (`ponderado_por_jogador`) e os elencos abertos, time a time (`times`). Duas regras dele
+   mandam no texto desta parte:
+     - jogador sem preço no Transfermarkt é jogador de valor baixo ou nenhum, não dado faltando:
+       ele conta como jogador, com valor zero, e nenhuma frase daqui diz que a soma fica "por
+       baixo" por causa dele;
+     - nenhum "descontado o dinheiro" novo: o desconto pelo valor do elenco está em decisão com
+       ele, então a leitura por jogador só leva o desconto de ter testado vários setores.
+   Com o arquivo antigo (sem os dois blocos) o quadro desenha como antes e diz, numa linha, o que
+   ainda não veio. */
+
+/* Contagem mediana: a mediana de 16 temporadas pode cair entre dois times ("18,5 jogadores"), e
+   escrever "18,5" como "19" seria inventar um time que não existe; o inteiro sai sem casa. */
+function paContagem(n) {
+  if (n === null || n === undefined || isNaN(Number(n))) return null;
+  return ptNum(n, Number.isInteger(Number(n)) ? 0 : 1);
+}
+
+/* "Passa por pouco": o desconto dos testes ficou abaixo do corte, mas na metade de cima dele. É o
+   espelho da faixa "no limite" do ptSorte (entre α e 2α), do lado de dentro — a mesma régua de
+   fator dois da casca, sem corte novo digitado. Existe porque o q do goleiro fica colado no corte,
+   e "dificilmente é sorte" sozinho leria um 0,047 igual a um 0,0001. */
+function paPorPouco(q) {
+  const a = paAlfa();
+  return a !== null && q !== null && q !== undefined && Number(q) < a && Number(q) >= a / 2;
+}
+function paQCel(q, l, sobrevive) {
+  if (q === null || q === undefined) {
+    return l && l.motivo_sem_q ? paCinza('fora do desconto', l.motivo_sem_q) : ptFalta('sem o desconto dos testes');
+  }
+  return ptSorte(q) + (sobrevive === true && paPorPouco(q) ? ' — <b>passa por pouco</b>' : '') + ptTecnico('q ' + ptPv(q));
+}
+
+/* Estado da tabela por time: as linhas montadas no desenho, por id de tabela (com o prefixo da
+   aba), para o filtro de grupo refazer a tabela sem recalcular nada e sem perder a ordenação que
+   o leitor escolheu. É refeito a cada desenho da etapa. */
+const PA_TIMES = {};
+
 function paCardSetor(e1) {
   const v = e1.valor_por_setor;
   if (!v) {
@@ -807,26 +846,78 @@ function paCardSetor(e1) {
   const S = v.setores || [];
   const fx = v.faixas || {};
   const setoresSo = S.filter(s => s.setor !== 'total');
-  const tot = S.find(s => s.setor === 'total') || null;
   const m = v.melhor_setor_contra_total || null;
   const destaque = m ? S.find(s => s.setor === m.setor) : null;
 
+  /* A conta por jogador. A linha do elenco inteiro é a referência: é a que NÃO está na família
+     dos testes (`familia_do_bh.setores`), e é assim que ela é achada — o nome dela no bloco novo
+     ("elenco") não é o do bloco antigo ("total"), e casar os dois por nome digitado quebraria no
+     dia em que um deles mudar. */
+  const pj = v.ponderado_por_jogador || null;
+  const pjS = pj && Array.isArray(pj.setores) ? pj.setores : [];
+  const familia = pj && pj.familia_do_bh && Array.isArray(pj.familia_do_bh.setores) ? pj.familia_do_bh.setores : [];
+  const pjRef = familia.length ? pjS.find(x => familia.indexOf(x.setor) < 0) || null : null;
+  const pjFam = pjS.filter(x => x !== pjRef);
+  const pjDe = setor => pjS.find(x => x.setor === setor) || (setor === 'total' ? pjRef : null);
+  const nomeSetor = s => (pjRef && s === pjRef.setor) ? paSetor('total') : paSetor(s);
+  const semPrecoRegra = pj && pj.sem_preco && pj.sem_preco.entra_na_conta_como ? pj.sem_preco.entra_na_conta_como : null;
+
+  const fxRotN = f => ptFxRot(f, { forma: 'nome' });
+  const val = (o, base, f) => (o ? o[ptK(base, f)] : undefined);
+  const nulo = x => x === null || x === undefined;
+
   /* A frase falada: o time típico de cada faixa, no setor que o JSON aponta como o que mais
-     distingue. Sem esse apontamento, a frase não escolhe setor por conta própria. */
-  const frase = destaque
-    ? '<p class="pt-nota" style="font-size:14px;color:var(--tinta)">' +
-        'O time típico que subiu tinha <b>' + ptEur(destaque[ptK('eur_mediano_', 'sobe')]) + '</b> na ' + esc(paSetor(destaque.setor)) +
-        '; o do meio da tabela, <b>' + ptEur(destaque[ptK('eur_mediano_', 'meio')]) + '</b>; o que caiu, <b>' +
-        ptEur(destaque[ptK('eur_mediano_', 'cai')]) + '</b>.</p>'
-    : '<p class="pt-nota">' + ptFalta('o bloco não aponta o setor que mais distingue (`melhor_setor_contra_total`)') + '</p>';
+     distingue. Sem esse apontamento, a frase não escolhe setor por conta própria. Com a conta por
+     jogador, o valor por jogador vai colado no valor do setor — é o pedido do dono: o total do
+     setor sozinho esconde se é muito dinheiro em pouca gente ou pouco dinheiro espalhado. */
+  let frase;
+  if (!destaque) {
+    frase = '<p class="pt-nota">' + ptFalta('o bloco não aponta o setor que mais distingue (`melhor_setor_contra_total`)') + '</p>';
+  } else {
+    const pd = pjDe(destaque.setor);
+    const porJog = f => {
+      const x = val(pd, 'eur_por_jogador_mediano_', f);
+      return nulo(x) ? '' : ptEur(x) + ' por jogador';
+    };
+    const fatias = f => {
+      const pv = val(pd, 'pct_do_valor_mediano_', f), pg = val(pd, 'pct_dos_jogadores_mediano_', f);
+      return nulo(pv) || nulo(pg) ? null : '<b>' + ptPct(pv, 0) + '</b> do valor com <b>' + ptPct(pg, 0) + '</b> dos jogadores';
+    };
+    frase = '<p class="pt-nota" style="font-size:14px;color:var(--tinta)">' +
+      'O time típico que subiu tinha <b>' + ptEur(destaque[ptK('eur_mediano_', 'sobe')]) + '</b> na ' + esc(paSetor(destaque.setor)) +
+        (pd ? ', <b>' + porJog('sobe') + '</b>' : '') +
+      '; o do meio da tabela, <b>' + ptEur(destaque[ptK('eur_mediano_', 'meio')]) + '</b>' + (pd ? ' (' + porJog('meio') + ')' : '') +
+      '; o que caiu, <b>' + ptEur(destaque[ptK('eur_mediano_', 'cai')]) + '</b>' + (pd ? ' (' + porJog('cai') + ')' : '') + '.' +
+      (pd && fatias('sobe') && fatias('cai')
+        ? ' Na ' + esc(paSetor(destaque.setor)) + ' do time típico que subiu estavam ' + fatias('sobe') +
+          ' do elenco; na do que caiu, ' + fatias('cai') + '.'
+        : '') +
+      '</p>';
+  }
 
   const celEur = (s, faixa) => {
     const eur = s[ptK('eur_mediano_', faixa)], pct = s[ptK('pct_do_elenco_mediano_', faixa)];
-    const fatia = (pct === null || pct === undefined)
-      ? (s.setor === 'total' ? paCinza('o elenco todo', 'o total não tem fatia: é a soma dos setores')
-          : ptFalta('sem fatia do elenco no ' + ptArquivoDado()))
-      : ptPct(pct, 0) + ' do elenco';
-    return (eur === null || eur === undefined ? ptFalta('sem valor no ' + ptArquivoDado()) : ptEur(eur)) + ' · ' + fatia;
+    const p = pjDe(s.setor);
+    const eurTxt = nulo(eur) ? ptFalta('sem valor no ' + ptArquivoDado()) : ptEur(eur);
+    if (!p) {
+      const fatia = nulo(pct)
+        ? (s.setor === 'total' ? paCinza('o elenco todo', 'o total não tem fatia: é a soma dos setores')
+            : ptFalta('sem fatia do elenco no ' + ptArquivoDado()))
+        : ptPct(pct, 0) + ' do elenco';
+      return eurTxt + ' · ' + fatia;
+    }
+    /* Três linhas: o dinheiro do setor, a gente do setor (com quantos não têm preço — que contam
+       como jogador, regra do dono) e as duas fatias lado a lado. */
+    const nL = paContagem(val(p, 'n_listados_mediano_', faixa)), nS = paContagem(val(p, 'n_sem_preco_mediano_', faixa));
+    const epj = val(p, 'eur_por_jogador_mediano_', faixa);
+    const pv = val(p, 'pct_do_valor_mediano_', faixa), pg = val(p, 'pct_dos_jogadores_mediano_', faixa);
+    const linha2 = (nL === null ? ptFalta('sem a contagem de jogadores') : nL + ' jogadores' +
+        (nS === null ? '' : ' <span class="pt-n">(' + nS + ' sem preço)</span>')) +
+      ' · <b>' + (nulo(epj) ? ptFalta('sem valor por jogador') : ptEur(epj)) + '</b> por jogador';
+    const linha3 = (nulo(pv) || nulo(pg))
+      ? (p.motivo_sem_fatia ? paCinza('o elenco todo', p.motivo_sem_fatia) : ptFalta('sem as fatias no ' + ptArquivoDado()))
+      : ptPct(pv, 0) + ' do valor com ' + ptPct(pg, 0) + ' dos jogadores';
+    return eurTxt + ' no setor<br>' + linha2 + '<br>' + linha3;
   };
   const tabDinheiro = S.length ? ptTabela({
     id: 'ptEt-1-setor-eur',
@@ -840,17 +931,38 @@ function paCardSetor(e1) {
   }) : ptFalta('o bloco não trouxe a lista `setores`');
 
   /* A soma dos setores contra o total: se não fecha, a tabela está lendo colunas erradas, e
-     isso aparece aqui antes de qualquer conclusão. */
+     isso aparece aqui antes de qualquer conclusão. A conferência da conta por jogador (a soma do
+     euro por jogador bate com o valor do setor, temporada a temporada) também é dita, porque a
+     tabela nova lê OUTRO arquivo (a lista de jogadores) e poderia divergir da antiga em silêncio. */
   const soma = v.soma_dos_setores_sobre_total || null;
   const conferencia = !soma ? ptFalta('o bloco não traz a conferência da soma dos setores')
     : (soma.min === 1 && soma.max === 1 && !soma.nan)
       ? 'Em toda temporada, os ' + ptInt(setoresSo.length) + ' setores somam exatamente o valor do elenco.'
       : paCinza('atenção: a soma dos setores não fecha com o total em todas as temporadas (de ' +
           ptNum(soma.min, 3) + ' a ' + ptNum(soma.max, 3) + ' do total, ' + ptInt(soma.nan) + ' sem valor)');
+  const cf = pj && pj.conferencia ? pj.conferencia : null;
+  const conferenciaJog = !pj ? ''
+    : !cf ? ' ' + ptFalta('a conta por jogador não traz a própria conferência')
+    : cf.bate === true
+      ? ' A conta por jogador lê a lista de jogadores de cada temporada e bate com o valor de cada setor em ' +
+        ptInt(cf.temporadas_conferidas) + ' de ' + ptInt(cf.temporadas_conferidas) + ' temporadas.' +
+        ptTecnico(esc(cf.arquivo || '') + (cf.linhas_usadas !== undefined ? ' · ' + ptInt(cf.linhas_usadas) + ' jogadores-temporada' : ''))
+      : ' ' + paCinza('atenção: a conta por jogador não bate com o valor dos setores em todas as temporadas');
+
+  const notaPj = pj
+    ? '<p class="pt-nota"><b>Quem conta como jogador:</b> ' + esc((pj.universo && pj.universo.jogadores) || '') +
+        (semPrecoRegra ? '; o jogador sem preço entra como ' + esc(semPrecoRegra) : '') + '. ' +
+        'As duas fatias são o time típico de cada grupo, cada uma por si: por isso não somam 100 entre os setores, ' +
+        'e o valor por jogador típico não sai da divisão de uma pela outra.' +
+        ptTecnico(esc((pj.definicoes && pj.definicoes.mediana) || '') +
+          (pj.pedido_do_dono_em ? ' · análise pedida em ' + esc(pj.pedido_do_dono_em) +
+            (pj.declarada_antes_de_medir === true ? ', regra declarada antes de medir' : '') : '')) + '</p>'
+    : '<p class="pt-nota">' + ptFalta('o ' + ptArquivoDado() + ' desta aba ainda não traz a conta por jogador de cada setor ' +
+        'nem os elencos time a time: aparecem quando o gerador gravar esses blocos') + '</p>';
 
   /* O que separa: setor por setor, a mesma medida de acerto do ranking de valor inteiro. */
   const posicoes = s => ['sobe', 'meio', 'cai'].map(f => s[ptK('posicao_media_no_ano_', f)])
-    .map(x => x === null || x === undefined ? '—' : ptNum(x, 1) + 'º').join(' · ');
+    .map(x => nulo(x) ? '—' : ptNum(x, 1) + 'º').join(' · ');
   const tabSepara = S.length ? ptTabela({
     id: 'ptEt-1-setor-separa',
     ordem: { col: ptK('auc_{sobe}_x_resto'), dir: 'desc' },
@@ -865,6 +977,89 @@ function paCardSetor(e1) {
     ],
     linhas: S,
   }) : '';
+
+  /* O que separa POR JOGADOR: a mesma forma da tabela de cima, agora com o desconto de ter
+     testado os setores (a família está gravada no bloco) e as duas comparações. */
+  const nTestes = familia.length;
+  const kPm = ptK('p_{sobe}_x_{meio}'), kPc = ptK('p_{sobe}_x_{cai}');
+  const kQm = ptK('q_bh_{sobe}_x_{meio}'), kQc = ptK('q_bh_{sobe}_x_{cai}');
+  const kSm = ptK('sobrevive_bh_5pct_{sobe}_x_{meio}'), kSc = ptK('sobrevive_bh_5pct_{sobe}_x_{cai}');
+  const tabSeparaJog = pjS.length ? ptTabela({
+    id: 'ptEt-1-setor-separa-jog',
+    ordem: { col: ptK('auc_{sobe}_x_resto'), dir: 'desc' },
+    colunas: [
+      { k: 'setor', rot: 'setor', tipo: 'texto',
+        fmt: (s, l) => esc(nomeSetor(s)) + (l === pjRef ? ' ' + paCinza('referência', (pj.familia_do_bh || {}).fora_da_familia || '') : '') },
+      { k: ptK('posicao_media_no_ano_', 'sobe'), rot: 'posição média no ranking do ano, pelo valor por jogador · subiu · meio · caiu',
+        dica: pj.regra_da_posicao || '', fmt: (x, l) => posicoes(l) },
+      { k: ptK('auc_{sobe}_x_resto'), rot: 'põe quem subiu na frente?', dica: pj.regra_do_auc || '',
+        fmt: x => nulo(x) ? ptFalta('sem medida') : ptAcerto(x) + ptTecnico('AUC ' + ptNum(x, 3)) },
+      { k: kPm, rot: 'subiu × meio: sozinho, é sorte?', fmt: x => paSorteCel(x, 'p') },
+      { k: kQm, rot: 'subiu × meio: descontada a sorte de testar ' + ptInt(nTestes) + ' setores', fmt: (x, l) => paQCel(x, l, l[kSm]) },
+      { k: kPc, rot: 'subiu × caiu: sozinho, é sorte?', fmt: x => paSorteCel(x, 'p') },
+      { k: kQc, rot: 'subiu × caiu: descontada a sorte de testar ' + ptInt(nTestes) + ' setores', fmt: (x, l) => paQCel(x, l, l[kSc]) },
+    ],
+    linhas: pjS,
+  }) : '';
+
+  /* A leitura por jogador em frase, e o confronto com a do valor total. A comparação é de igual
+     para igual: a tabela do valor total não tem desconto dos testes, então o confronto usa o p
+     SOZINHO das duas; o que o desconto derruba vem numa frase à parte, sem virar "contradição". */
+  let leituraJog = '';
+  if (pjFam.length) {
+    const lista = xs => xs.length ? xs.map(x => '<b>' + esc(nomeSetor(x.setor)) + '</b>').join(', ') : 'nenhum';
+    const deP = (k, xs) => xs.filter(x => x[k] === true);
+    const pm = deP(kSm, pjFam), pc = deP(kSc, pjFam);
+    const porPouco = pjFam.filter(x => (x[kSm] === true && paPorPouco(x[kQm])) || (x[kSc] === true && paPorPouco(x[kQc])));
+    const aCorte = paAlfa();
+    const passaSo = p => aCorte !== null && !nulo(p) && Number(p) < aCorte;
+    const caemNoDesconto = pjFam.filter(x => passaSo(x[kPm]) && x[kSm] !== true);
+
+    const topo = xs => xs.filter(x => !nulo(x[ptK('auc_{sobe}_x_resto')]))
+      .sort((a, b) => b[ptK('auc_{sobe}_x_resto')] - a[ptK('auc_{sobe}_x_resto')])[0] || null;
+    const topoEur = topo(setoresSo), topoJog = topo(pjFam);
+    const diverge = aCorte === null ? [] : pjFam.map(x => {
+      const e = S.find(s => s.setor === x.setor);
+      if (!e) return null;
+      const out = [];
+      [['meio', kPm], ['cai', kPc]].forEach(par => {
+        const pe = e[par[1]], pjv = x[par[1]];
+        if (nulo(pe) || nulo(pjv) || passaSo(pe) === passaSo(pjv)) return;
+        out.push('contra ' + ptFxRot(par[0], { forma: 'quem' }) + ', ' +
+          (passaSo(pe) ? 'pelo valor total dificilmente era sorte e, por jogador, pode ser'
+                       : 'pelo valor total podia ser sorte e, por jogador, dificilmente é') +
+          ptTecnico('p ' + ptPv(pe) + ' → ' + ptPv(pjv)));
+      });
+      return out.length ? '<b>' + esc(nomeSetor(x.setor)) + '</b>: ' + out.join('; ') : null;
+    }).filter(Boolean);
+    const topoMuda = topoEur && topoJog && topoEur.setor !== topoJog.setor;
+
+    leituraJog = '<p class="pt-nota"><b>Contando por jogador.</b> O ranking do ano agora é pelo valor por jogador de cada ' +
+        'setor. Descontada a sorte de testar ' + ptInt(nTestes) + ' setores, ficam de pé contra o meio da tabela ' +
+        ptInt(pm.length) + ' de ' + ptInt(nTestes) + ' (' + lista(pm) + ') e contra quem caiu ' + ptInt(pc.length) + ' de ' +
+        ptInt(nTestes) + ' (' + lista(pc) + ').' +
+        /* a lista abre a oração: a primeira letra do nome do setor sobe para maiúscula */
+        (porPouco.length ? ' ' + lista(porPouco).replace(/^<b>(.)/, (_, c) => '<b>' + c.toUpperCase()) + ' ' +
+          (porPouco.length === 1 ? 'passa' : 'passam') +
+          ' por pouco: o número fica colado no corte de sorte, e um ano a mais pode tirar ' +
+          (porPouco.length === 1 ? 'esse setor' : 'esses setores') + ' da lista.' : '') +
+        (caemNoDesconto.length ? ' Contra o meio da tabela, ' + lista(caemNoDesconto) + ' parecia achado sozinho e ' +
+          '<b>não fica de pé depois do desconto</b>; a tabela do valor total, acima, não tem esse desconto.' : '') +
+        ptTecnico(esc((pj.familia_do_bh || {}).correcao || 'correção não declarada')) + '</p>' +
+      '<p class="pt-nota"><b>Valor total × valor por jogador.</b> ' +
+        (diverge.length || topoMuda
+          ? '<b>As duas leituras não dizem a mesma coisa.</b> ' +
+            (topoMuda ? 'Pelo valor total, o setor que mais põe quem subiu na frente é o ' + esc(nomeSetor(topoEur.setor)) +
+              '; por jogador, é o ' + esc(nomeSetor(topoJog.setor)) + '. ' : '') +
+            (diverge.length ? diverge.join(' · ') + '.' : '')
+          : 'Setor por setor, as duas leituras apontam para o mesmo lado: o mesmo setor põe quem subiu mais na frente ' +
+            (topoJog ? '(' + esc(nomeSetor(topoJog.setor)) + ')' : '') + ', e nenhum setor troca de "dificilmente é sorte" ' +
+            'para "pode ser sorte", sozinho, de uma conta para a outra.') +
+        ' A margem da diferença entre um setor e o elenco inteiro só foi medida no valor total, então, por jogador, a ' +
+        'tela não diz se algum setor separa mais que o elenco todo.' +
+        ptTecnico(topoEur && topoJog ? 'AUC subiu × resto, maior setor: ' + ptNum(topoEur[ptK('auc_{sobe}_x_resto')], 3) +
+          ' no valor total, ' + ptNum(topoJog[ptK('auc_{sobe}_x_resto')], 3) + ' por jogador' : '') + '</p>';
+  }
 
   /* Defesa contra o elenco inteiro. A regra do dono: só diz que supera se o intervalo gravado
      não cruza zero. As três condições vêm do JSON; nenhuma é decidida aqui. */
@@ -899,8 +1094,24 @@ function paCardSetor(e1) {
       '</p>';
   }
 
-  /* A partição: não o euro, a FATIA do elenco em cada setor. Com o desconto dos testes. */
+  /* A partição: não o euro, a FATIA do elenco em cada setor. Com o desconto dos testes. A versão
+     ponderada troca a fatia do valor pelo índice (fatia do valor ÷ fatia de jogadores): um setor
+     com muita gente tem fatia grande de valor sem que cada jogador valha mais. */
+  const tabParticao = (id, blocoP, rotPosto, dicaPosto) => ptTabela({
+    id: id,
+    ordem: { col: 'p_bruto', dir: 'asc' },
+    colunas: [
+      { k: 'setor', rot: 'setor', tipo: 'texto', fmt: s => esc(paSetor(s)) },
+      { k: ptK('posto_medio_', 'sobe'), rot: rotPosto, dica: dicaPosto,
+        fmt: (x, l) => ['sobe', 'meio', 'cai'].map(f => l[ptK('posto_medio_', f)])
+          .map(y => nulo(y) ? '—' : ptInt(Math.round(y))).join(' · ') },
+      { k: 'p_bruto', rot: 'sozinho: é sorte?', fmt: x => paSorteCel(x, 'p') },
+      { k: 'q_bh', rot: 'descontada a sorte de testar ' + ptInt(blocoP.testes) + ' setores', fmt: x => paSorteCel(x, 'q') },
+    ],
+    linhas: blocoP.setores,
+  });
   const pa = v.particao || null;
+  const pp = pj && pj.particao && (pj.particao.setores || []).length ? pj.particao : null;
   let particao;
   if (!pa || !(pa.setores || []).length) {
     particao = ptFaltaBloco('A fatia do elenco em cada setor',
@@ -909,22 +1120,46 @@ function paCardSetor(e1) {
     const ps = pa.setores;
     const sobram = ps.filter(s => s.sobrevive_bh_5pct === true).length;
     const mp = pa.menor_p ? ps.find(s => s.setor === pa.menor_p.setor) : null;
-    const tabPart = ptTabela({
-      id: 'ptEt-1-setor-fatia',
-      ordem: { col: 'p_bruto', dir: 'asc' },
-      colunas: [
-        { k: 'setor', rot: 'setor', tipo: 'texto', fmt: s => esc(paSetor(s)) },
-        { k: ptK('posto_medio_', 'sobe'), rot: 'posição média, de 0 a 100 · subiu · meio · caiu',
-          dica: 'posição no ranking daquele ano da fatia do elenco no setor: 100 = a maior fatia do ano',
-          fmt: (x, l) => ['sobe', 'meio', 'cai'].map(f => l[ptK('posto_medio_', f)])
-            .map(y => y === null || y === undefined ? '—' : ptInt(Math.round(y))).join(' · ') },
-        { k: 'p_bruto', rot: 'sozinho: é sorte?', fmt: x => paSorteCel(x, 'p') },
-        { k: 'q_bh', rot: 'descontada a sorte de testar ' + ptInt(pa.testes) + ' setores', fmt: x => paSorteCel(x, 'q') },
-      ],
-      linhas: ps,
-    });
+    const tabPart = tabParticao('ptEt-1-setor-fatia', pa, 'posição média, de 0 a 100 · subiu · meio · caiu',
+      'posição no ranking daquele ano da fatia do elenco no setor: 100 = a maior fatia do ano');
+
+    /* A versão por jogador, e o confronto com a de cima pelo p sozinho de cada setor (as duas têm
+       o mesmo desconto de 4 testes, então o "sobram" também é comparado). */
+    let blocoPond = '';
+    if (pj && !pp) {
+      blocoPond = '<p class="pt-nota">' + ptFalta('a conta por jogador não traz a partição ponderada') + '</p>';
+    } else if (pp) {
+      const sobramP = pp.setores.filter(s => s.sobrevive_bh_5pct === true).length;
+      const aCorte = paAlfa();
+      const passaSo = p => aCorte !== null && !nulo(p) && Number(p) < aCorte;
+      const trocam = aCorte === null ? [] : pp.setores.map(x => {
+        const e = ps.find(s => s.setor === x.setor);
+        if (!e || nulo(e.p_bruto) || nulo(x.p_bruto) || passaSo(e.p_bruto) === passaSo(x.p_bruto)) return null;
+        return '<b>' + esc(paSetor(x.setor)) + '</b> ' + (passaSo(e.p_bruto)
+          ? 'parecia achado sozinha pela fatia do valor, e pela fatia do valor dividida pela de jogadores nem sozinha parece'
+          : 'não parecia achado pela fatia do valor, e passa a parecer, sozinha, pela fatia dividida pela de jogadores') +
+          ptTecnico('p ' + ptPv(e.p_bruto) + ' → ' + ptPv(x.p_bruto));
+      }).filter(Boolean);
+      const mpp = pp.menor_p ? pp.setores.find(s => s.setor === pp.menor_p.setor) : null;
+      blocoPond =
+        '<p class="pt-nota" style="margin-top:14px"><b>Pesando pela quantidade de jogadores.</b> Em vez da fatia do valor, ' +
+          'a fatia do valor dividida pela fatia de jogadores do setor: acima de 1, cada jogador do setor vale mais que o ' +
+          'jogador médio do elenco. ' +
+          (mpp ? 'O setor em que quem subiu mais se afasta do meio da tabela é a <b>' + esc(paSetor(mpp.setor)) + '</b>: ' +
+            ptAcaso(mpp.p_bruto) + '. ' : '') +
+          '<b>Descontada a sorte de testar ' + ptInt(pp.testes) + ' setores, sobram ' + ptInt(sobramP) + ' de ' + ptInt(pp.testes) + '</b>' +
+          (sobramP === 0 ? ' — por jogador, nenhuma divisão do elenco separa quem subiu do meio da tabela sem poder ser sorte.' : '.') +
+          ' ' + (trocam.length
+            ? '<b>Aqui as duas contas não dizem a mesma coisa:</b> ' + trocam.join(' · ') + '.' +
+              (sobram === sobramP ? ' Descontados os testes, as duas terminam iguais: sobram ' + ptInt(sobramP) + ' nas duas.' : '')
+            : 'Setor por setor, a leitura sozinha é a mesma nas duas contas.') +
+          ptTecnico(esc(pp.o_que_e || '') + (pp.correcao ? ' · ' + esc(pp.correcao) : '')) + '</p>' +
+        tabParticao('ptEt-1-setor-fatia-jog', pp, 'posição média, de 0 a 100 · subiu · meio · caiu',
+          'posição no ranking daquele ano da fatia do valor dividida pela fatia de jogadores: 100 = a maior do ano');
+    }
+
     particao = ptCard('E a fatia do elenco? Quem sobe põe mais dinheiro na defesa?',
-      'a parte do elenco em cada setor, e não o euro',
+      'a parte do elenco em cada setor, e não o euro' + (pp ? '; e a mesma parte pesada pela quantidade de jogadores' : ''),
       (mp
         ? '<p class="pt-nota">No ranking do ano de "quanto do elenco está na ' + esc(paSetor(mp.setor)) +
             '", quem subiu fica em média na posição <b>' + ptInt(Math.round(mp[ptK('posto_medio_', 'sobe')])) + '</b> de 100; o meio da ' +
@@ -936,22 +1171,149 @@ function paCardSetor(e1) {
             ptTecnico((pa.correcao ? esc(pa.correcao) : 'correção não declarada') + ' · q da ' + esc(paSetor(mp.setor)) +
               ' ' + ptPv(mp.q_bh)) + '</p>'
         : '<p class="pt-nota">' + ptFalta('o bloco não aponta o setor de menor p') + '</p>') +
-      tabPart);
+      tabPart + blocoPond);
   }
 
   return ptCard('Onde está o dinheiro: goleiro, defesa, meio-campo e ataque',
-    'o valor típico de cada setor em quem subiu, ficou no meio e caiu',
+    'o valor típico de cada setor em quem subiu, ficou no meio e caiu' + (pj ? ', com quantos jogadores e quanto vale cada um' : ''),
     frase +
     tabDinheiro +
     '<p class="pt-nota">Cada número é o time <b>típico</b> daquele grupo naquele setor; por isso os setores ' +
-      'somados não dão o elenco típico. ' + conferencia +
+      'somados não dão o elenco típico. ' + conferencia + conferenciaJog +
       ptTecnico('mediana por faixa' + (v.fonte ? ' · ' + esc(v.fonte) : '')) + '</p>' +
+    notaPj +
     '<p class="pt-nota" style="margin-top:14px"><b>O que separa.</b> Pegue um time que subiu e um que não subiu e ' +
       'compare a posição de cada um no ranking de valor do seu ano, setor por setor. 50 em 100 seria cara ou coroa. ' +
       'Estes testes não descontam a sorte de ter testado vários setores.</p>' +
     tabSepara +
-    versus) +
-    particao;
+    versus +
+    (pjS.length ? '<p class="pt-nota" style="margin-top:14px"><b>O que separa, por jogador.</b> A mesma pergunta, com o ' +
+      'valor de cada setor dividido pelos seus jogadores, e agora com o desconto de ter testado ' + ptInt(nTestes) +
+      ' setores. O elenco inteiro fica na tabela como referência e não entra no desconto.</p>' + tabSeparaJog + leituraJog : '')) +
+    particao +
+    paCardTimes(v, pj);
+}
+
+/* ---- os elencos abertos, time a time (pedido do dono, 14/09) ----
+
+   Uma linha por temporada de clube, sem clicar, com filtro por grupo. As colunas por setor são
+   três e curtas (valor · jogadores · por jogador), para as 80 linhas caberem na largura da tela
+   sem rolar de lado; as fatias do setor vão no `title` da contagem de jogadores. A tabela rola
+   para baixo dentro da própria caixa, com o cabeçalho grudado, porque 80 linhas empurrariam o
+   resto da etapa para longe. Nenhum número é recalculado aqui: tudo vem de `times[]`. */
+function paCardTimes(v, pj) {
+  const titulo = 'Os elencos, time a time';
+  const times = Array.isArray(v.times) ? v.times : null;
+  if (!times || !times.length) {
+    return pj || times
+      ? ptFaltaBloco(titulo, 'o ' + ptArquivoDado() + ' não traz a lista de elencos por temporada')
+      : '';   /* arquivo antigo: a linha discreta do quadro de cima já diz que os dois blocos não vieram */
+  }
+  const familia = pj && pj.familia_do_bh && Array.isArray(pj.familia_do_bh.setores) ? pj.familia_do_bh.setores : null;
+  /* A ordem das colunas de setor é a da família gravada; sem ela, a do primeiro time com setores. */
+  const setores = familia || Object.keys((times.find(t => t.setores) || {}).setores || {});
+  const nulo = x => x === null || x === undefined;
+  const fxs = ptFxLista();
+  const fxDe = f => fxs.find(x => x.interna === f || x.chave === f) || null;
+
+  const linhas = times.map(t => {
+    const l = {
+      ano: t.ano, clube: t.clube, _fx: (fxDe(t.faixa) || {}).interna || t.faixa,
+      grupo: fxDe(t.faixa) ? fxDe(t.faixa).nome : t.faixa, posicao_final: t.posicao_final,
+      el_eur: t.valor_elenco_eur, el_n: t.jogadores_listados, el_epj: t.eur_por_jogador_elenco, _t: t,
+    };
+    setores.forEach(s => {
+      const o = (t.setores || {})[s] || null;
+      l[s + '_eur'] = o ? o.eur : null;
+      l[s + '_n'] = o ? o.n_listados : null;
+      l[s + '_epj'] = o ? o.eur_por_jogador : null;
+    });
+    return l;
+  });
+  const cEur = x => nulo(x) ? ptFalta('sem valor') : ptEur(x);
+  const colsSetor = [];
+  setores.forEach(s => {
+    const motivo = l => ((l._t.setores || {})[s] || {}).motivo_null || 'o ' + ptArquivoDado() + ' não traz este setor neste time';
+    colsSetor.push(
+      { k: s + '_eur', rot: paSetor(s) + ' · valor', fmt: (x, l) => nulo(x) ? ptFalta(motivo(l)) : ptEur(x) },
+      { k: s + '_n', rot: paSetor(s) + ' · jogadores', fmt: (x, l) => {
+          const o = (l._t.setores || {})[s];
+          if (!o || nulo(x)) return ptFalta(motivo(l));
+          const dica = ptInt(x) + ' jogadores' + (nulo(o.n_com_preco) ? '' : ', ' + ptInt(o.n_com_preco) + ' com preço') +
+            (nulo(o.pct_do_valor) || nulo(o.pct_dos_jogadores) ? ''
+              : ': ' + ptPct(o.pct_do_valor, 1) + ' do valor do elenco com ' + ptPct(o.pct_dos_jogadores, 1) + ' dos jogadores');
+          return '<span title="' + esc(dica) + '">' + ptInt(x) + '</span>';
+        } },
+      { k: s + '_epj', rot: paSetor(s) + ' · por jogador', fmt: (x, l) => nulo(x) ? ptFalta(motivo(l)) : ptEur(x) });
+  });
+  const colunas = [
+    { k: 'ano', rot: 'ano', fmt: x => ptAno(x) },
+    { k: 'clube', rot: 'clube', tipo: 'texto' },
+    { k: 'grupo', rot: 'grupo', tipo: 'texto' },
+    { k: 'posicao_final', rot: 'posição final', fmt: x => paOrd(x) },
+    { k: 'el_eur', rot: 'elenco · valor', fmt: cEur },
+    { k: 'el_n', rot: 'elenco · jogadores', fmt: (x, l) => nulo(x) ? ptFalta('sem contagem')
+        : '<span title="' + esc(ptInt(x) + ' jogadores' + (nulo(l._t.jogadores_com_preco) ? '' : ', ' + ptInt(l._t.jogadores_com_preco) +
+          ' com preço e ' + ptInt(l._t.jogadores_sem_preco) + ' sem preço')) + '">' + ptInt(x) + '</span>' },
+    { k: 'el_epj', rot: 'elenco · por jogador', fmt: cEur },
+  ].concat(colsSetor);
+
+  const id = 'ptEt-1-times';
+  PA_TIMES[ptTabId(id)] = { linhas: linhas, colunas: colunas };
+  const conta = f => f ? linhas.filter(l => l._fx === f).length : linhas.length;
+  const chips = [{ f: '', rot: 'todos' }].concat(fxs.map(x => ({ f: x.interna, rot: x.nome })))
+    .map(c => '<button type="button" class="pt-chip' + (c.f === '' ? ' on' : '') + (conta(c.f) === 0 ? ' zero' : '') +
+      '" data-pa-times-fx="' + esc(c.f) + '"' + (conta(c.f) === 0 ? ' title="nenhum time deste grupo na lista"' : '') + '>' +
+      esc(c.rot) + '<span class="pt-chip-n">' + ptInt(conta(c.f)) + '</span></button>').join('');
+  const anos = linhas.map(l => l.ano).filter((a, i, xs) => !nulo(a) && xs.indexOf(a) === i).sort((a, b) => a - b);
+  const fonte = pj && pj.conferencia && pj.conferencia.arquivo ? pj.conferencia.arquivo : null;
+
+  return ptCard(titulo,
+    paQuantos(linhas.length, 'temporada de clube', 'temporadas de clube') +
+      (anos.length ? ' · ' + ptAno(anos[0]) + (anos.length > 1 ? ' a ' + ptAno(anos[anos.length - 1]) : '') : '') +
+      ' · Transfermarkt, por temporada',
+    '<p class="pt-nota" style="margin-top:0">De onde vem: a lista de jogadores de cada clube no Transfermarkt, temporada a ' +
+      'temporada' + (fonte ? ptTecnico(esc(fonte)) : '') + '. ' +
+      '<b>Quem conta como jogador:</b> ' + esc((pj && pj.universo && pj.universo.jogadores) || 'o arquivo não diz') +
+      (pj && pj.sem_preco && pj.sem_preco.entra_na_conta_como ? '; o sem preço entra como ' + esc(pj.sem_preco.entra_na_conta_como) : '') +
+      '. Valor por jogador = valor do setor dividido por todos os jogadores do setor. Passe o mouse na contagem de jogadores ' +
+      'para ver a fatia do valor e a fatia de jogadores do setor naquele time.' +
+      (pj && pj.regra ? ptTecnico(esc(pj.regra)) : '') + '</p>' +
+    '<div class="pt-filtros" data-pa-times-filtros><span>mostrar:</span>' + chips +
+      '<span class="pt-filtros-conta" data-pa-times-conta>' + paTimesConta(linhas.length, linhas.length) + '</span></div>' +
+    '<div data-pa-times-caixa>' + paTimesTabela(id, linhas, colunas, { col: 'ano', dir: 'asc' }) + '</div>');
+}
+function paTimesConta(n, de) {
+  return 'mostrando ' + ptInt(n) + ' de ' + ptInt(de) + ' temporadas · clique no cabeçalho para ordenar';
+}
+/* A caixa ganha a rolagem vertical do contrato (`pt-rola-vertical`) trocando a classe na saída do
+   ptTabela, que não aceita classe de caixa. A ordem de antes é passada de volta, para o filtro não
+   desfazer a ordenação que o leitor escolheu. */
+function paTimesTabela(id, linhas, colunas, ordem, el) {
+  return ptTabela({ id: id, el: el, ordem: ordem, colunas: colunas, linhas: linhas,
+    vazio: 'nenhum time deste grupo na lista' })
+    .replace('<div class="pt-tab-rola">', '<div class="pt-tab-rola pt-rola-vertical">');
+}
+function paTimesLigar(alvo) {
+  const barra = alvo.querySelector('[data-pa-times-filtros]');
+  const caixa = alvo.querySelector('[data-pa-times-caixa]');
+  if (!barra || !caixa) return;
+  const idTab = ptTabId('ptEt-1-times', alvo);
+  barra.querySelectorAll('[data-pa-times-fx]').forEach(bt => {
+    bt.onclick = () => {
+      const est = PA_TIMES[idTab];
+      if (!est) return;
+      const f = bt.getAttribute('data-pa-times-fx');
+      const filtradas = f ? est.linhas.filter(l => l._fx === f) : est.linhas;
+      const antes = PT_TABELAS[idTab];
+      caixa.innerHTML = paTimesTabela('ptEt-1-times', filtradas, est.colunas,
+        antes && antes.ordem ? antes.ordem : { col: 'ano', dir: 'asc' }, alvo);
+      ptLigarTabelas(caixa);
+      barra.querySelectorAll('[data-pa-times-fx]').forEach(b => b.classList.toggle('on', b === bt));
+      const c = barra.querySelector('[data-pa-times-conta]');
+      if (c) c.textContent = paTimesConta(filtradas.length, est.linhas.length);
+    };
+  });
 }
 
 function ptEtapa1(alvo, d) {
@@ -1111,15 +1473,20 @@ function ptEtapa1(alvo, d) {
         ptInt(cob.tm_com_valor_mediana) + ' atletas por temporada). A parte do plantel com preço e o valor do elenco ' +
         ptJunto(cob.rho_cobertura_x_valor) + ' (' + esc(ptSorte(cob.p_cobertura_x_valor)) + ')' +
         /* "time pobre tem mais jogador sem preço" era afirmado sempre que o ρ existia. Só vale com o ρ
-           positivo e fora da sorte; com ρ negativo é o contrário, e com sorte possível não se diz nada. */
+           positivo e fora da sorte; com ρ negativo é o contrário, e com sorte possível não se diz nada.
+           Até 14/09 a frase seguia com "então o valor do time barato está por baixo ... esta conta não
+           sabe dizer". O dono decidiu em 14/09 que jogador sem preço no Transfermarkt é jogador de valor
+           baixo ou nenhum, e não preço que faltou: ele entra na soma com o valor que tem, e a soma não
+           fica por baixo por causa dele. Então a falta de preço deixou de ser um defeito da conta, e a
+           frase só descreve de que lado ela está. */
         (paAlfa() !== null && cob.p_cobertura_x_valor !== null && cob.p_cobertura_x_valor !== undefined &&
           cob.p_cobertura_x_valor < paAlfa() && Math.abs(Number(cob.rho_cobertura_x_valor)) >= 0.1
           ? (Number(cob.rho_cobertura_x_valor) > 0
-              ? ': <b>time mais barato tem mais jogador sem preço</b>. Então o valor do time barato está por baixo'
-              : ': <b>time mais caro tem mais jogador sem preço</b>. Então o valor do time caro está por baixo') +
-            ', e isso pode deixar a distância entre rico e pobre maior ou menor do que é de verdade; esta conta não sabe dizer.'
-          : ': não se viu que a falta de preço pese mais de um lado, então esta conta não diz para que lado ela ' +
-            'puxa o valor.') +
+              ? ': <b>time mais barato tem mais jogador sem preço</b>'
+              : ': <b>time mais caro tem mais jogador sem preço</b>') + '.'
+          : ': não se viu, com segurança, que a falta de preço fique mais de um lado.') +
+        ' Jogador sem preço lá é jogador de valor baixo ou nenhum (decisão do dono): ele conta como jogador do elenco, ' +
+        'com valor zero, e a soma do elenco não fica por baixo por causa dele.' +
         ptTecnico('ρ cobertura × valor ' + ptNum(cob.rho_cobertura_x_valor, 3) + ' · ' + ptP(cob.p_cobertura_x_valor)) + '</p>'
       : ptFaltaBloco('Quantos jogadores têm preço', 'o ' + ptArquivoDado() + ' não traz o bloco `cobertura_do_valor`')));
 
@@ -1137,6 +1504,8 @@ function ptEtapa1(alvo, d) {
     '<p class="pt-nota">Estes números são a régua que volta no topo da aba e ao lado de cada proposta ' +
       '(<b>Controle 1</b>): todo eixo, índice ou elenco desta aba precisa acertar mais que o ranking de valor, ' +
       '<b>testado num ano que a conta não viu</b>.</p>';
+  /* O filtro de grupo da tabela por time liga depois do innerHTML, porque os botões só existem aí. */
+  paTimesLigar(alvo);
 }
 
 /* ================= ETAPA 2 — o catálogo dos indicadores =================

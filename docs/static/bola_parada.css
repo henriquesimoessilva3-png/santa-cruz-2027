@@ -1,0 +1,65 @@
+/* ================= aba Bola parada por treinador (static/bola_parada.js) =================
+   Reaproveita a casca da aba Série B (.sb, .sb-kpi, .sb-tela, .sb-tab, .sb-nota). O par
+   azul/laranja também é o de lá, e pelo mesmo motivo: verde/vermelho some para quem tem
+   daltonismo de eixo vermelho-verde. Aqui a cor só marca melhor/pior que a média; o número
+   ao lado, com sinal, diz a mesma coisa sem depender da cor. */
+#pgBolaParada:not(.oculta){display:flex;flex-direction:column;min-height:0}
+#pgBolaParada{--bp-bom:#3f9fcc;--bp-ruim:#c08420;--bp-ponto:#8b95a4}
+body.claro #pgBolaParada{--bp-bom:#0f6f9e;--bp-ruim:#c2650d;--bp-ponto:#6b7482}
+
+.bp-filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.bp-filtros select,.bp-filtros input{background:var(--input-bg);border:1px solid var(--input-borda);
+  color:var(--tinta);border-radius:6px;padding:6px 8px;font:inherit;font-size:12.5px}
+.bp-filtros input{min-width:220px}
+.bp-rot{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--tinta2)}
+.bp-seg{display:inline-flex;border:1px solid var(--borda2);border-radius:6px;overflow:hidden}
+.bp-seg button{background:transparent;border:0;color:var(--tinta2);padding:6px 11px;font:inherit;
+  font-size:12.5px;cursor:pointer}
+.bp-seg button+button{border-left:1px solid var(--borda2)}
+.bp-seg button.on{background:var(--veu3);color:var(--tinta);font-weight:700}
+.bp-cont{font-size:12px;color:var(--tinta3);margin-left:auto}
+
+.bp-tela{position:relative}
+.bp-p{cursor:pointer;outline:none}
+.bp-p:focus-visible circle:last-child{stroke:var(--tinta)}
+.bp-dica{position:absolute;pointer-events:none;background:var(--fundo3);border:1px solid var(--borda2);
+  border-radius:6px;padding:8px 10px;font-size:12px;box-shadow:var(--sombra-card);max-width:300px;z-index:5}
+.bp-dica b{display:block;font-size:13px;color:var(--tinta);margin-bottom:3px}
+.bp-dica span{display:block;color:var(--tinta2);line-height:1.45}
+
+/* a tabela tem 13 colunas: esta aba ganha mais largura que a Série B (1020 px), para caber
+   inteira a partir de ~1280 px de janela sem rolagem lateral */
+#pgBolaParada .sb{max-width:1240px}
+.bp-tabwrap{overflow-x:auto;background:var(--fundo2);border:1px solid var(--borda);border-radius:8px}
+.sb-tab.bp-tab{min-width:1060px}
+.bp-tab th,.bp-tab td{padding:7px 6px}
+/* titulos quebram em 2 linhas: em maiusculas e espacados, sem quebra eles empurravam a ultima
+   coluna (xG contra) para fora da tela */
+.bp-tab thead th{line-height:1.25;white-space:normal;letter-spacing:.05em}
+.bp-tab tbody td{white-space:nowrap}
+.bp-tab tbody td:first-child{white-space:normal}
+.bp-tab thead tr.grupo th{text-align:center;border-bottom:1px solid var(--borda2);padding-bottom:4px}
+.bp-tab thead th[data-k]{cursor:pointer;user-select:none;vertical-align:bottom}
+.bp-tab thead th.ord{color:var(--tinta)}
+.bp-tab tbody td:first-child{max-width:230px}
+.bp-trab{display:block;font-size:10.5px;color:var(--tinta3);line-height:1.35;margin-top:2px;white-space:normal}
+.bp-tab tbody tr.linha{cursor:pointer}
+.bp-tab tbody tr.linha:hover td{background:var(--veu1)}
+.bp-tab tbody tr.bp-sel td{background:var(--veu3)}
+.bp-div{display:inline-grid;grid-template-columns:40px 40px;gap:5px;align-items:center;justify-items:end}
+.bp-div i{display:block;width:40px;height:8px;background:var(--veu2);border-radius:4px;position:relative}
+.bp-div i s{position:absolute;top:0;height:100%;border-radius:4px}
+.bp-div i::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--tracejado2)}
+
+.bp-tab tr.bp-det td{background:var(--fundo3);text-align:left;cursor:default}
+/* a 1a coluna tem "Falta indireta ou jogada ensaiada": com 280 px a tabela passava da celula e
+   o "sofridos" invadia a tabela dos trabalhos */
+.bp-det-grid{display:grid;grid-template-columns:minmax(340px,360px) 1fr;gap:22px;padding:6px 2px 8px}
+.bp-det-grid>div{min-width:0}
+.bp-mini{border-collapse:collapse;width:100%;font-size:12px}
+.bp-mini th,.bp-mini td{padding:4px 8px;border-bottom:1px solid var(--borda);text-align:right;color:var(--tinta2)}
+.bp-mini th:first-child,.bp-mini td:first-child{text-align:left}
+.bp-mini thead th{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta3);font-weight:700}
+.bp-mini tr.tot td{color:var(--tinta);font-weight:700}
+.bp-mini tr.obs td{font-size:11px;color:var(--tinta3);border-bottom-style:dashed}
+.bp-obs{margin:8px 0 0;font-size:11.5px;color:var(--tinta3)}

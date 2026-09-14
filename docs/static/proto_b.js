@@ -785,10 +785,39 @@ function pb5Vazios(d) {
    indicador faria a nuvem do ppda ocupar o quadro inteiro e parecer tão organizada quanto a
    do físico, que é exatamente o engano que esta etapa existe para impedir.
 
-   Os pontos NÃO têm cor de desfecho. O dono leu três nuvens como "se repete" porque a cor era
-   o que o clube fez no ano seguinte e o eixo vertical também era o ano seguinte: a separação
-   por cor era a relação com o resultado no mesmo ano, outra pergunta. A desta etapa é a
-   diagonal, e ela não precisa de cor. */
+   COR DOS PONTOS (pedido do dono, 14/09, substitui a cor neutra do item 10 de PENDENTE_RODADA):
+   azul claro = no ano seguinte subiu; laranja = no ano seguinte caiu; cinza = meio. Na aba de
+   pontos, as mesmas três cores leem a faixa de pontos do ano seguinte (ptFx/ptFxRot).
+   A cor é o desfecho do ANO SEGUINTE (`pares[i].faixa_t1`), não do primeiro ano, porque quem
+   subiu ou caiu no primeiro ano não tem par: no ano seguinte estava na A ou na C. O ano seguinte
+   é o do eixo vertical — então cor separada em cima/embaixo quer dizer que o número daquele ano
+   anda junto com o resultado daquele MESMO ano, e não que o número se repete. A pergunta da
+   etapa continua sendo a diagonal; a tela diz as duas coisas com todas as letras. */
+
+/* Cores novas (não há variável de "subiu/caiu" na casca nem no style.css que seja azul claro e
+   laranja nos dois temas). Miolo claro + contorno escuro do mesmo tom: lê no fundo claro e no
+   escuro, e o contorno separa pontos sobrepostos. As MESMAS no ponto e na legenda. */
+const PB6_CORES = {
+  sobe: { miolo: '#5cb8ee', contorno: '#1f6ea3' },   /* azul claro */
+  cai:  { miolo: '#f39a3e', contorno: '#a3530f' },   /* laranja */
+  meio: { miolo: 'var(--tinta3)', contorno: 'var(--tinta2)' },
+};
+/* A faixa interna (sobe/meio/cai) do ano seguinte de um par, lida pelo vocabulário da casca. */
+function pb6Faixa(par, campo) {
+  const v = par && par[campo || 'faixa_t1'];
+  if (v === null || v === undefined) return null;
+  const k = ptFx('sobe') === v ? 'sobe' : ptFx('cai') === v ? 'cai' : ptFx('meio') === v ? 'meio' : null;
+  return k;
+}
+/* A bolinha da legenda é um <span>, não <svg>: `.pt-mini svg{width:100%}` esticaria um svg
+   dentro da miniatura até a largura inteira. */
+function pb6Bola(k, lado) {
+  const c = PB6_CORES[k];
+  const l = lado || 9;
+  return '<span class="pb6-leg-bola" aria-hidden="true" style="display:inline-block;width:' + l + 'px;height:' + l +
+    'px;border-radius:50%;box-sizing:border-box;vertical-align:-1px;background:' + c.miolo +
+    ';border:1.5px solid ' + c.contorno + '"></span>';
+}
 
 function ptEtapa6(alvo, d) {
   const disp = d.dispersao || {};
@@ -844,7 +873,36 @@ function ptEtapa6(alvo, d) {
   const semPontos = linhas.filter(l => !l.pontos).length;
   const acimaDoDinheiro = ref.rho === undefined || ref.rho === null ? null
     : ordenados.filter(k => rhoDe(k) !== null && rhoDe(k) >= Number(ref.rho)).length;
-  const faixasNomes = ptFxLista().map(f => f.nome).join(', ');
+  /* A legenda com o total de pares de cada cor, contado do dado (cada par é um ponto em cada
+     quadradinho que tem os dois valores; a contagem de cada quadradinho vai embaixo dele). */
+  const contaPares = { sobe: 0, cai: 0, meio: 0, sem: 0 };
+  (d.pares || []).forEach(par => { contaPares[pb6Faixa(par) || 'sem']++; });
+  /* Por que a cor é o ano seguinte. "O primeiro ano não separaria ninguém" só é verdade quando
+     todos os pares têm a MESMA faixa no primeiro ano (por posição: todos no meio, porque quem subiu
+     ou caiu não tem par). Na aba de pontos a faixa do primeiro ano varia, e a frase não entra. */
+  const fxPrimeiro = {};
+  (d.pares || []).forEach(par => { const f = pb6Faixa(par, 'faixa_t'); fxPrimeiro[f || 'sem'] = 1; });
+  const unicaPrimeiro = Object.keys(fxPrimeiro).length === 1 && !fxPrimeiro.sem ? Object.keys(fxPrimeiro)[0] : null;
+  const porQueCor = unicaPrimeiro
+    ? ' Ela vem desse ano porque o primeiro não separaria ninguém: nos ' + ptInt((d.pares || []).length) +
+      ' pares, no primeiro ano, todos ' + esc(ptFxRot(unicaPrimeiro, { forma: 'verbos' })) +
+      (unicaPrimeiro === 'meio' && !d.faixas
+        ? ' — quem subiu ou caiu naquele ano não tem par, porque no ano seguinte já não estava na Série B.'
+        : '.')
+    : ' Aqui o primeiro ano também tem faixa; a cor fica com o ano seguinte por escolha, para ler junto com ' +
+      'o eixo vertical.';
+  const legenda = '<div class="pt-controle pb6-legenda"><span class="pt-rot">As cores</span>' +
+    '<p class="pt-nota">' +
+    ['sobe', 'cai', 'meio'].map(k => '<span style="display:block">' + pb6Bola(k) + ' ' +
+      (k === 'sobe' ? '<b>azul claro</b>' : k === 'cai' ? '<b>laranja</b>' : '<b>cinza</b>') + ': no ano seguinte, ' +
+      esc(ptFxRot(k, { forma: 'verbo' })) + ' — <b>' + ptInt(contaPares[k]) + '</b> ' +
+      pbPl(contaPares[k], 'par', 'pares') + '</span>').join(' ') +
+    (contaPares.sem
+      ? ' ' + ptFalta(ptInt(contaPares.sem) + ' ' + pbPl(contaPares.sem, 'par sem', 'pares sem') +
+          ' a faixa do ano seguinte no arquivo: ' + pbPl(contaPares.sem, 'fica', 'ficam') + ' fora da contagem de cor')
+      : '') +
+    ' São ' + ptInt((d.pares || []).length) + ' pares ao todo. Embaixo de cada quadradinho, quantos pontos de cada cor ' +
+    'ele desenha (quadradinho sem um dos dois valores de um par tem menos pontos).</p></div>';
 
   const minis = '<div class="pt-minis">' +
     ordenados.map(k => pb6Mini(d, k, lo, hi, e10)).join('') + '</div>';
@@ -877,10 +935,12 @@ function ptEtapa6(alvo, d) {
         ptNum(lo, 0) + ' a ' + ptNum(hi, 0) + ' em todos os quadradinhos. <b>A pergunta desta etapa é a ' +
         'diagonal</b> (a linha tracejada): se o time que estava alto num ano continua alto no outro, os pontos ' +
         'sobem por ela; se não continua, viram uma mancha sem direção.</p>' +
-      '<p class="pt-nota"><b>Os pontos não têm cor, de propósito. A cor não responde esta pergunta.</b> ' +
-        'Pintar cada clube pelo que ele fez no ano seguinte (' + esc(faixasNomes) + ') mostra outra coisa: se ' +
-        'o número anda junto com o resultado <b>no mesmo ano</b>. Pontos de uma cor em cima e de outra embaixo ' +
-        'parecem "isto se repete" e não são — a repetição está só na diagonal.</p>' +
+      '<p class="pt-nota"><b>A cor mostra outra coisa: o que o time fez no ano seguinte</b> — o ano do eixo ' +
+        'vertical: ' + ['sobe', 'cai', 'meio'].map(k => esc(ptFxRot(k, { forma: 'quem' }))).join(', ') + '.' +
+        porQueCor + ' <b>Pontos de uma cor em cima e de outra embaixo querem ' +
+        'dizer que o número daquele ano anda junto com o resultado daquele mesmo ano — não que o número se ' +
+        'repete.</b> Se o número se repete, quem diz é só a diagonal.</p>' +
+      legenda +
       minis,
       (acimaDoDinheiro === null
         ? ptFalta('sem o valor do elenco para comparar, a tela não diz quantos se repetem tanto quanto ele')
@@ -1022,17 +1082,32 @@ function pb6Mini(d, id, lo, hi, e10) {
   const LADO = 100, M = 4, W = LADO + 2 * M;
   const px = v => M + (v - lo) / (hi - lo) * LADO;
   const py = v => M + LADO - (v - lo) / (hi - lo) * LADO;
-  /* Conferido antes de desenhar: a ordem de `dispersao[ind]` é a ordem de `pares`. O title do
-     ponto diz clube e anos, e NÃO diz o desfecho do ano seguinte — é a leitura que esta etapa
-     quer tirar da frente da pergunta da diagonal. */
-  const bolas = pontos.map((pp, i) => {
-    if (!pp || pp[0] === null || pp[0] === undefined || pp[1] === null || pp[1] === undefined) return '';
+  /* Conferido antes de desenhar: a ordem de `dispersao[ind]` é a ordem de `pares`. A cor é a
+     faixa do ano seguinte do par (pb6Faixa). Os cinzas vão por baixo e os coloridos por cima,
+     para a cor não sumir atrás de um cinza no mesmo lugar. */
+  const conta = { sobe: 0, cai: 0, meio: 0, sem: 0 };
+  const camadas = { meio: [], sem: [], sobe: [], cai: [] };
+  pontos.forEach((pp, i) => {
+    if (!pp || pp[0] === null || pp[0] === undefined || pp[1] === null || pp[1] === undefined) return;
     const par = pares[i] || {};
-    return '<circle cx="' + px(pp[0]).toFixed(1) + '" cy="' + py(pp[1]).toFixed(1) + '" r="2.3" ' +
-      'fill="var(--tinta2)" fill-opacity="0.5"><title>' +
+    const fx = pb6Faixa(par);
+    const k = fx || 'sem';
+    conta[k]++;
+    const c = PB6_CORES[fx || 'meio'];
+    camadas[k].push('<circle class="pb6-ponto" data-faixa="' + k + '" cx="' + px(pp[0]).toFixed(1) +
+      '" cy="' + py(pp[1]).toFixed(1) + '" r="' + (fx === 'sobe' || fx === 'cai' ? '2.6' : '2.2') + '" ' +
+      'fill="' + c.miolo + '" fill-opacity="' + (fx === 'sobe' || fx === 'cai' ? '0.85' : '0.45') + '" ' +
+      'stroke="' + c.contorno + '" stroke-width="0.7"><title>' +
       esc((par.clube || 'clube não identificado') + ' · ' + ptAno(par.ano_t) + ' → ' + ptAno(par.ano_t1) +
-        ' · posição no ranking ' + ptNum(pp[0], 0) + ' → ' + ptNum(pp[1], 0)) + '</title></circle>';
-  }).join('');
+        ' · posição no ranking ' + ptNum(pp[0], 0) + ' → ' + ptNum(pp[1], 0) + ' · no ano seguinte, ' +
+        (fx ? ptFxRot(fx, { forma: 'verbo' }) : 'sem faixa no arquivo')) + '</title></circle>');
+  });
+  const bolas = camadas.meio.join('') + camadas.sem.join('') + camadas.sobe.join('') + camadas.cai.join('');
+  const linhaCores = '<div class="pt-mini-num pb6-conta">' +
+    ['sobe', 'cai', 'meio'].map(k => '<span data-faixa="' + k + '" title="' +
+      esc('pontos de quem, no ano seguinte, ' + ptFxRot(k, { forma: 'verbo' })) + '">' + pb6Bola(k, 8) + ' ' +
+      ptInt(conta[k]) + '</span>').join(' · ') +
+    (conta.sem ? ' · ' + ptFalta(ptInt(conta.sem) + ' sem faixa') : '') + '</div>';
   const svg = '<svg viewBox="0 0 ' + W + ' ' + W + '" role="img" aria-label="' +
       esc(pbNome(id) + ': posição num ano contra a do ano seguinte') + '">' +
     '<rect x="' + M + '" y="' + M + '" width="' + LADO + '" height="' + LADO + '" fill="none" stroke="var(--borda)"/>' +
@@ -1040,9 +1115,9 @@ function pb6Mini(d, id, lo, hi, e10) {
       '" stroke="var(--tinta3)" stroke-dasharray="3 3" stroke-width="1"/>' +
     bolas + '</svg>';
   const temRho = r.rho !== null && r.rho !== undefined;
-  return '<div class="pt-mini" title="' + esc(ptDicaMedida(id)) + '">' +
+  return '<div class="pt-mini" data-ind="' + esc(id) + '" title="' + esc(ptDicaMedida(id)) + '">' +
     '<div class="pt-mini-tit">' + esc(pbNome(id)) + '</div>' +
-    svg +
+    svg + linhaCores +
     '<div class="pt-mini-num">' +
       (temRho
         ? '<b style="color:var(--tinta)">' + esc(ptJunto(r.rho)) + '</b> · ' + esc(ptSorte(r.p)) +
