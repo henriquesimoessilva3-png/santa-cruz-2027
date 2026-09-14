@@ -379,9 +379,49 @@ function pb5Q(v, rot) {
    monta os grupos a partir do que existe e escreve, no lugar onde faltaria o quarto, o que
    falta e onde o que sobrou dele está.
 
-   A matriz é montada à mão em vez de sair do `ptTabela` porque ela tem duas linhas de rodapé
-   (a faixa do meio e a de quem caiu) que precisam ficar coladas em cada coluna de indicador.
-   O preço é conhecido e está dito na tela: esta tabela não ordena por clique. */
+   A matriz é montada à mão em vez de sair do `ptTabela` porque ela tem três linhas de rodapé
+   (a faixa de quem subiu, a do meio e a de quem caiu) que precisam ficar coladas em cada coluna
+   de indicador. O preço é conhecido e está dito na tela: esta tabela não ordena por clique.
+
+   A ORDEM das colunas (pedido do dono, 14/09) é a que o gerador gravou em `ordem_por_diferenca`:
+   da maior para a menor diferença, em módulo, entre o time típico que subiu e o típico que caiu.
+   A tela não calcula a diferença nem a ordem — só as lê. Com dado sem essas chaves (a aba por
+   pontos antes de ser regerada, um prototipo.js antigo), a ordem é a do arquivo e a tela diz isso. */
+
+/* A ordem de leitura das colunas de um painel, lida do dado. Devolve os índices de `indicadores`
+   na ordem de desenho e, quando não há ordem gravada (ou ela não é uma permutação dos índices), a
+   ordem original com o motivo. Uma permutação torta aplicada em silêncio trocaria a célula de
+   coluna — o pior erro possível numa matriz —, então ela é recusada inteira, não remendada. */
+function pb5Ordem(p, nInd) {
+  const kOrdem = 'ordem_por_diferenca';
+  const kDif = ptK('diferenca_{sobe}_{cai}');
+  const orig = Array.from({ length: nInd }, (_, i) => i);
+  const ordem = p[kOrdem], dif = p[kDif];
+  const semValor = p[kDif + '_sem_valor'] || {};
+  if (!Array.isArray(ordem) || !Array.isArray(dif)) {
+    return { idx: orig, dif: null, semValor: semValor, kOrdem: kOrdem, kDif: kDif,
+      motivo: 'o ' + ptArquivoDado() + ' não traz a ordem por diferença neste painel (chaves ' + kOrdem +
+        ' e ' + kDif + '); as colunas seguem a ordem do arquivo' };
+  }
+  const visto = {};
+  const ok = ordem.length === nInd && dif.length === nInd &&
+    ordem.every(i => Number.isInteger(i) && i >= 0 && i < nInd && !visto[i] && (visto[i] = true));
+  if (!ok) {
+    return { idx: orig, dif: null, semValor: semValor, kOrdem: kOrdem, kDif: kDif,
+      motivo: 'a ordem gravada em ' + kOrdem + ' não casa com as ' + nInd + ' colunas deste painel; as ' +
+        'colunas seguem a ordem do arquivo, para nenhuma célula mudar de coluna' };
+  }
+  return { idx: ordem.slice(), dif: dif, semValor: semValor, kOrdem: kOrdem, kDif: kDif, motivo: null };
+}
+
+/* A diferença no cabeçalho: número pequeno com sinal e o lado dito em português. "Acima" e
+   "abaixo" são na escala das células (posição no ranking do ano), não "melhor" e "pior": o lado
+   bom de cada número é outra informação, que já está na dica da coluna. */
+function pb5DifTexto(v) {
+  const quem = ptFxRot('sobe', { forma: 'verbo' }), outro = ptFxRot('cai', { forma: 'quem' });
+  if (Number(v) === 0) return quem + ' empatado com ' + outro;
+  return quem + ' ' + (v > 0 ? '+' : '') + ptNum(v, 0) + ' ' + (v > 0 ? 'acima' : 'abaixo') + ' de ' + outro;
+}
 
 function ptEtapa5(alvo, d) {
   const chaves = Object.keys(d.paineis || {});
@@ -440,7 +480,8 @@ function ptEtapa5(alvo, d) {
       'ranking daquele ano</b>: ele foi comparado só com os outros clubes da mesma Série B, nunca com outra ' +
       'temporada. Cor forte numa ponta: estava entre os primeiros do ano. Na outra ponta: entre os últimos. ' +
       'Cor apagada: no meio do ranking, nem bem nem mal. Embaixo de cada coluna ficam os ' +
-      esc(ptFxRot('meio', { forma: 'times' })) + ' e os ' + esc(ptFxRot('cai', { forma: 'times' })) +
+      esc(ptFxRot('sobe', { forma: 'times' })) + ', os ' + esc(ptFxRot('meio', { forma: 'times' })) +
+      ' e os ' + esc(ptFxRot('cai', { forma: 'times' })) +
       ' — é a comparação que interessa.' + ptTecnico('percentil dentro do ano') + '</p>' +
     (semLado
       ? '<p class="pt-nota">Em <b>' + ptInt(semLado) + '</b> das ' + ptInt(totalInd) + ' colunas o estudo ' +
@@ -451,7 +492,7 @@ function ptEtapa5(alvo, d) {
     '<p class="pt-nota">Passe o mouse no nome de uma coluna para ver o que ela mede, em que unidade e de ' +
       'onde vem. Clique num quadradinho para abrir, logo abaixo daquela tabela, o número medido, a posição, ' +
       'de quantos jogadores ou jogos ele saiu e a temporada. As tabelas <b>não se reordenam com clique</b>: ' +
-      'as duas linhas de baixo precisam ficar embaixo de cada coluna, e reordenar as descolaria. Para ordenar ' +
+      'as três linhas de baixo precisam ficar embaixo de cada coluna, e reordenar as descolaria. Para ordenar ' +
       'por qualquer número, use a etapa 2, onde cada número é uma linha.</p>' +
     falta4 +
     paineis +
@@ -519,16 +560,32 @@ function pb5Matriz(d, chave) {
   let suspeitasJ = 0;               /* destas, as em que o n e exatamente o J (rodadas) do ano */
   let naoMarcadas = 0;              /* celulas na faixa que a marca nao alcancou (ptCel mudou) */
   const maxN = pb5MaxN(d, unid);    /* maior n na mesma unidade, para dar tamanho ao contraste */
+  /* A ordem das colunas vem do gerador; tudo o que é "por coluna" (cabeçalho, célula, faixas)
+     passa por `ord.idx`, para nada se descolar da sua coluna. */
+  const ord = pb5Ordem(p, inds.length);
 
   const cab = '<thead><tr><th class="txt pt-col-fixa">time e ano</th>' +
     /* `white-space:normal` no deitado: a classe da casca não quebra linha e corta o nome na altura
        máxima ("pico de velocidade (" sumia no meio). Deitado, o nome quebra em duas ou três linhas
        dentro da largura que a coluna já tem por causa dos números. */
-    inds.map(i => '<th class="num' + (deitado ? ' pt-th-vertical" style="white-space:normal' : '') + '" title="' +
-      esc(ptDicaMedida(i.id || i.nome) + ' · nome na base ' + (i.origem || i.coluna_csv || i.id) +
-        ' · medido sobre ' + pbUnid(i.unidade_n) + (i.sinal === 1 ? ' · ter mais é melhor' : i.sinal === -1
-          ? ' · ter menos é melhor' : ' · o estudo não disse se ter mais é bom ou ruim')) + '">' +
-      esc(i.id ? pbCurto(i.id, setor) : pbPopular(i.nome)) + '</th>').join('') + '</tr></thead>';
+    ord.idx.map(j => {
+      const i = inds[j] || {};
+      const v = ord.dif ? ord.dif[j] : undefined;
+      const motivoDif = ord.dif && (v === null || v === undefined)
+        ? (ord.semValor[i.id] || 'sem motivo declarado no arquivo') : null;
+      const difDica = !ord.dif ? ''
+        : motivoDif ? ' · sem diferença entre ' + ptFxRot('sobe', { forma: 'quem' }) + ' e ' +
+            ptFxRot('cai', { forma: 'quem' }) + ': ' + motivoDif
+        : ' · ' + pb5DifTexto(v) + ' (típico contra típico, em posição no ranking do ano: ' + pbCheio(v) + ')';
+      const difHtml = !ord.dif ? ''
+        : '<small style="display:block;font-weight:400;color:var(--tinta3);font-size:9px;margin-top:2px">' +
+          (motivoDif ? esc('sem diferença') : esc(pb5DifTexto(v))) + '</small>';
+      return '<th class="num' + (deitado ? ' pt-th-vertical" style="white-space:normal' : '') + '" title="' +
+        esc(ptDicaMedida(i.id || i.nome) + ' · nome na base ' + (i.origem || i.coluna_csv || i.id) +
+          ' · medido sobre ' + pbUnid(i.unidade_n) + (i.sinal === 1 ? ' · ter mais é melhor' : i.sinal === -1
+            ? ' · ter menos é melhor' : ' · o estudo não disse se ter mais é bom ou ruim') + difDica) + '">' +
+        esc(i.id ? pbCurto(i.id, setor) : pbPopular(i.nome)) + difHtml + '</th>';
+    }).join('') + '</tr></thead>';
 
   const corpo = clubes.map(c => {
     const cels = c.celulas || [];
@@ -545,8 +602,9 @@ function pb5Matriz(d, chave) {
           ? '<i>' + esc(motivoLinha) + '</i>'
           : pb5RotN(nLinha, unid, c.ano)) +
       '</small></td>' +
-      cels.map((cel, j) => {
+      ord.idx.map(j => {
         const ind = inds[j] || {};
+        const cel = cels[j] || [];
         const bruto = cel[0], pct = cel[1], n = cel[2], motivo = cel.length > 3 ? cel[3] : null;
         if (pct === null || pct === undefined) motivos.push(motivo || 'sem motivo declarado no JSON');
         /* O title e o bloco do clique levavam o mesmo rotulo cru que a linha levava; os tres
@@ -572,33 +630,53 @@ function pb5Matriz(d, chave) {
       }).join('') + '</tr>';
   }).join('');
 
-  /* As duas faixas ao pé. Elas são o que transforma a matriz de "lista de postos" em
-     comparação: sem a faixa de quem caiu, um posto acima do meio parece bom sozinho. Os três
-     números vão EMPILHADOS na célula: lado a lado eles alargavam cada coluna para o triplo, e a
-     matriz voltava a rolar para o lado. */
-  const faixa = (arr, rot, dica) => '<tr><td class="txt pt-col-fixa" style="background:var(--fundo3)" title="' +
-    esc(dica) + '"><b>' + esc(rot) + '</b>' +
-    '<small style="display:block;color:var(--tinta3);font-size:10px;line-height:1.3">de cima para baixo: ' +
-      '1º número · típico · 3º número</small></td>' +
-    (arr || []).map(f => '<td class="num" style="color:var(--tinta3);font-size:10px;line-height:1.25;' +
-      'background:var(--fundo3)">' +
-      (!f ? ptFalta('faixa ausente no arquivo')
-          : pb5Q(f[0], 'q1') + '<br><b style="color:var(--tinta2)">' + pb5Q(f[1], 'mediana') +
-            '</b><br>' + pb5Q(f[2], 'q3')) +
-      '</td>').join('') + '</tr>';
+  /* As três faixas ao pé, na ordem subiram · meio · caíram (pedido do dono, 14/09: a de quem
+     subiu no mesmo formato das outras duas). Elas são o que transforma a matriz de "lista de
+     postos" em comparação: sem a faixa de quem caiu, um posto acima do meio parece bom sozinho.
+     Os três números vão EMPILHADOS na célula: lado a lado eles alargavam cada coluna para o
+     triplo, e a matriz voltava a rolar para o lado. Faixa que não veio no dado não some: a linha
+     fica, com a ausência escrita numa célula só, para o leitor não achar que o grupo foi esquecido. */
+  const estiloFx = 'color:var(--tinta3);font-size:10px;line-height:1.25;background:var(--fundo3)';
+  const faixa = fx => {
+    const k = ptK('faixa_', fx), arr = p[k], times = ptFxRot(fx, { forma: 'times' });
+    const cabLinha = '<tr><td class="txt pt-col-fixa" style="background:var(--fundo3)" title="' +
+      esc('metade dos ' + times + ' ficou entre o primeiro e o terceiro número; o do meio, em negrito, é o ' +
+        'time típico — tudo em posição no ranking daquele ano (q1 · mediana · q3) · chave ' + k) + '"><b>' +
+      esc(times) + '</b>';
+    if (!Array.isArray(arr)) {
+      return cabLinha + '</td><td class="txt" colspan="' + Math.max(ord.idx.length, 1) + '" style="' + estiloFx + '">' +
+        pbMiudo(esc('o ' + ptArquivoDado() + ' não traz a faixa dos ' + times + ' neste painel (chave ' + k + ')')) +
+        '</td></tr>';
+    }
+    return cabLinha +
+      '<small style="display:block;color:var(--tinta3);font-size:10px;line-height:1.3">de cima para baixo: ' +
+        '1º número · típico · 3º número</small></td>' +
+      ord.idx.map(j => {
+        const f = arr[j];
+        return '<td class="num" style="' + estiloFx + '">' +
+          (!f ? ptFalta('faixa ausente no arquivo')
+              : pb5Q(f[0], 'q1') + '<br><b style="color:var(--tinta2)">' + pb5Q(f[1], 'mediana') +
+                '</b><br>' + pb5Q(f[2], 'q3')) +
+          '</td>';
+      }).join('') + '</tr>';
+  };
+  const rodape = '<tfoot>' + ['sobe', 'meio', 'cai'].map(faixa).join('') + '</tfoot>';
 
-  const kMeio = ptK('faixa_', 'meio'), kCai = ptK('faixa_', 'cai');
-  const rodape = '<tfoot>' +
-    (p[kMeio] ? faixa(p[kMeio], ptFxRot('meio', { forma: 'times' }),
-      'metade dos ' + ptFxRot('meio', { forma: 'times' }) + ' ficou entre o primeiro e o terceiro número; o do ' +
-      'meio, em negrito, é o time típico — tudo em posição no ranking daquele ano (q1 · mediana · q3)') : '') +
-    (p[kCai] ? faixa(p[kCai], ptFxRot('cai', { forma: 'times' }),
-      'metade dos ' + ptFxRot('cai', { forma: 'times' }) + ' ficou entre o primeiro e o terceiro número; o do ' +
-      'meio, em negrito, é o time típico — tudo em posição no ranking daquele ano (q1 · mediana · q3)') : '') +
-    '</tfoot>';
-  const faltaFaixa = [[kMeio, 'meio'], [kCai, 'cai']].filter(x => !p[x[0]])
-    .map(x => ptFalta('o ' + ptArquivoDado() + ' não traz a faixa dos ' + ptFxRot(x[1], { forma: 'times' }) +
-      ' neste painel (chave ' + x[0] + ')'));
+  /* A regra da ordem numa linha acima da matriz, com as palavras da tela; a regra inteira do
+     gerador (`etapa_5.regra_da_ordem`) vai no title, para quem quiser conferir. Sem ordem gravada,
+     a mesma linha diz que a ordem é a do arquivo, discreta, com o motivo. */
+  const regraOrdem = d.regra_da_ordem || {};
+  const linhaOrdem = '<p class="pt-nota" style="margin:0 0 6px">' + (ord.motivo
+    ? pbMiudo(esc('colunas na ordem do arquivo — ' + ord.motivo))
+    : '<span title="' + esc(['o_que_e', 'diferenca', 'ordem', 'sem_diferenca', 'sem_teste']
+        .filter(x => regraOrdem[x]).map(x => regraOrdem[x]).join(' · ') ||
+        'o arquivo não traz etapa_5.regra_da_ordem') + '">Colunas da maior para a menor diferença entre o ' +
+      'time típico que ' + esc(ptFxRot('sobe', { forma: 'verbo' })) + ' e o que ' +
+      esc(ptFxRot('cai', { forma: 'verbo' })) + ', em posição no ranking do ano; o número pequeno embaixo ' +
+      'do nome diz de que lado ficou quem ' + esc(ptFxRot('sobe', { forma: 'verbo' })) + '.</span>' +
+      ptTecnico('ordem por |mediana ' + esc(ptFx('sobe')) + ' − mediana ' + esc(ptFx('cai')) + '|') +
+      (regraOrdem.sem_teste ? pbMiudo(' É ordem de leitura, não teste: se a diferença passa da sorte está na etapa 2.') : '')) +
+    '</p>';
 
   return '<div class="pt-card-cab" style="margin-bottom:8px">' +
       '<h4>' + esc(pbRotPilar(chave)) + '</h4>' +
@@ -607,11 +685,11 @@ function pb5Matriz(d, chave) {
       esc(unid ? pbUnid(unid) : 'unidade não declarada') +
       (suspeitas ? ' · ' + pbCinza('essa unidade não fecha com a etapa 0 — ver o aviso embaixo',
         'comparado com etapa_0.por_ano') : '') + '</span></div>' +
+    linhaOrdem +
     '<div class="pt-tab-rola"><table class="pt-tab pt-matriz" id="' + esc(ptId('5-mat-' + chave)) + '">' +
       cab + '<tbody>' + corpo + '</tbody>' + rodape + '</table></div>' +
     ptLegendaPosto() +
-    (faltaFaixa.length ? '<p class="pt-nota">' + faltaFaixa.join(' · ') + '</p>' : '') +
-    '<p class="pt-nota">Nas duas linhas de baixo, cada coluna traz três números. <b>Não são o pior e o ' +
+    '<p class="pt-nota">Nas três linhas de baixo, cada coluna traz três números. <b>Não são o pior e o ' +
       'melhor do grupo:</b> metade dos times do grupo fica entre o primeiro e o terceiro número; o do meio, ' +
       'em negrito, é o time típico.' + ptTecnico('quartis: q1 · mediana · q3') + '</p>' +
     (leg.length

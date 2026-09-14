@@ -2105,8 +2105,58 @@ function ptIrParaEtapa(n, prefixo) {
     caixa = caixa.parentElement;
   }
   if (!caixa || caixa === document.body) { sec.scrollIntoView({ block: 'start' }); return; }
-  const topo = sec.getBoundingClientRect().top - caixa.getBoundingClientRect().top;
-  caixa.scrollTo({ top: caixa.scrollTop + topo - 12, behavior: 'smooth' });
+  const destino = () => caixa.scrollTop + (sec.getBoundingClientRect().top - caixa.getBoundingClientRect().top) -
+    12 - ptAlturaGrudada(sec, pre);
+  caixa.scrollTo({ top: destino(), behavior: 'smooth' });
+  ptReajustarSalto(caixa, destino);
+}
+
+/* O primeiro salto depois de abrir a aba caía no meio de outra etapa (título a ~800 px do topo),
+   e só os seguintes acertavam. Motivo: a conta do destino é feita ANTES de a rolagem passar pelas
+   etapas do caminho, e algumas delas só montam o conteúdo quando chegam perto da tela (as matrizes
+   da etapa 2, por exemplo) — a página cresce acima da etapa durante a viagem e o destino já calculado
+   fica velho. No segundo clique tudo já está montado, por isso acertava.
+   Conserto: esperar a rolagem assentar, medir de novo e, se a etapa não está onde deveria, pular
+   direto (sem animação) para a posição nova. Repete enquanto a montagem continuar mexendo na página,
+   com teto de tentativas. Um salto novo cancela o anterior, e a pessoa mexendo na rolagem também —
+   o reajuste não pode arrancar a tela da mão de quem já está lendo. */
+let PT_SALTO_VEZ = 0;
+function ptReajustarSalto(caixa, destino) {
+  const vez = ++PT_SALTO_VEZ;
+  let largou = false;
+  const soltar = () => { largou = true; };
+  const eventos = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+  eventos.forEach(ev => caixa.addEventListener(ev, soltar, { passive: true, once: true }));
+  const fim = () => eventos.forEach(ev => caixa.removeEventListener(ev, soltar));
+  let ultimo = -1, parado = 0, correcoes = 0;
+  const inicio = Date.now();
+  const passo = () => {
+    if (vez !== PT_SALTO_VEZ || largou || Date.now() - inicio > 8000) { fim(); return; }
+    const agora = caixa.scrollTop;
+    parado = Math.abs(agora - ultimo) < 1 ? parado + 1 : 0;
+    ultimo = agora;
+    /* ~10 quadros sem mexer = a rolagem suave terminou (ou bateu no fim da caixa) */
+    if (parado < 10) { requestAnimationFrame(passo); return; }
+    const alvo = Math.max(0, Math.min(destino(), caixa.scrollHeight - caixa.clientHeight));
+    if (Math.abs(alvo - agora) <= 2 || correcoes >= 6) { fim(); return; }
+    correcoes++;
+    caixa.scrollTo({ top: alvo, behavior: 'auto' });
+    parado = 0;
+    requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+}
+
+/* Em tela estreita o sumário deixa de ser coluna ao lado e gruda EM CIMA das etapas; saltar só
+   12 px acima da etapa deixava o título dela atrás dele. Mede-se o que de fato está grudado e
+   sobreposto na horizontal (em tela larga ele fica ao lado e a conta dá zero), em vez de um número
+   fixo que muda com a largura e com quantas linhas os botões ocupam. */
+function ptAlturaGrudada(sec, pre) {
+  const sum = document.getElementById(pre === 'ptEt' ? 'ptSumario' : pre + '-sumario');
+  if (!sum || getComputedStyle(sum).position !== 'sticky') return 0;
+  const rs = sum.getBoundingClientRect(), re = sec.getBoundingClientRect();
+  const sobrepoe = rs.left < re.right && re.left < rs.right;
+  return sobrepoe ? Math.ceil(rs.height) : 0;
 }
 
 function ptLigarSumario(alvo, estado) {
@@ -2129,6 +2179,14 @@ function ptLigarSumario(alvo, estado) {
       if (!en.isIntersecting) return;
       const n = en.target.id.slice(pre.length + 1);
       botoes.forEach(b => b.classList.toggle('on', b.dataset.etapa === n));
+      /* no celular o sumário é uma linha que rola de lado: o botão aceso pode estar fora da vista.
+         Move-se só a própria linha (scrollIntoView levaria junto a caixa da aba e o topo) */
+      const on = botoes.find(b => b.dataset.etapa === n);
+      const lin = on && on.parentElement;
+      if (lin && lin.scrollWidth > lin.clientWidth + 1) {
+        const dx = on.getBoundingClientRect().left - lin.getBoundingClientRect().left;
+        if (dx < 0 || dx + on.offsetWidth > lin.clientWidth) lin.scrollLeft += dx - 24;
+      }
     });
   }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
   ((a && a.etapas) || PT_ETAPAS).forEach(e => {

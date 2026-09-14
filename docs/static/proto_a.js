@@ -917,7 +917,10 @@ function paCardSetor(e1) {
     const linha3 = (nulo(pv) || nulo(pg))
       ? (p.motivo_sem_fatia ? paCinza('o elenco todo', p.motivo_sem_fatia) : ptFalta('sem as fatias no ' + ptArquivoDado()))
       : ptPct(pv, 0) + ' do valor com ' + ptPct(pg, 0) + ' dos jogadores';
-    return eurTxt + ' no setor<br>' + linha2 + '<br>' + linha3;
+    /* A linha de referência é o elenco inteiro, não um setor: dizer "no setor" nela confundia a
+       leitura linha a linha. Ela é reconhecida pelo mesmo objeto de referência (`pjRef`), nunca
+       pelo nome digitado. */
+    return eurTxt + (p === pjRef ? ' no elenco' : ' no setor') + '<br>' + linha2 + '<br>' + linha3;
   };
   const tabDinheiro = S.length ? ptTabela({
     id: 'ptEt-1-setor-eur',

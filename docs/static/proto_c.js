@@ -1035,6 +1035,69 @@ function ptEtapa11(alvo, dados) {
   const nomeMet = s => '<span title="' + esc(s) + '">' + esc(ptNomeMedida(s)) + '</span>';
   const nomeMetTxt = s => esc(ptNomeMedida(s));
 
+  /* "Atravessa a troca sem perder nada" é uma propriedade do jogador, e até 14/09 a tela a
+     afirmava pela simples comparação ρ de quem mudou >= ρ de quem ficou, sem margem nenhuma. Há
+     medida na lista com diferença de milésimos, e só tirar 2026 do técnico já trocou medidas de
+     lado — as diferenças estão dentro do ruído. Enquanto o gerador não gravar a margem da diferença,
+     a tela diz só o que foi medido (não caíram nestes números) e que não dá para afirmar mais.
+     Quando a margem existir (`dif_ic95` = [baixo, alto] de ρ mudou − ρ ficou em cada medida, e
+     `tecnico.perda_relevante`, a queda que o estudo declara relevante — chaves ainda não gravadas),
+     só entram na lista as medidas cujo intervalo não chega a uma perda relevante. */
+  const ef26 = dados.efeito_de_retirar_2026 || null;
+  const comMargem = mets.length > 0 && typeof t.perda_relevante === 'number' &&
+    mets.every(m => Array.isArray(m.dif_ic95) && m.dif_ic95.length === 2);
+  const listaMet = ms => ms.map(m => nomeMet(m.metrica) + ptTecnico('ρ ' + ptNum(m.rho_mudou, 3) + ' contra ' +
+    ptNum(m.rho_ficou, 3))).join('; ');
+  let fraseViajam;
+  if (comMargem) {
+    const seguram = mets.filter(m => m.dif_ic95[0] > -t.perda_relevante);
+    fraseViajam = seguram.length
+      ? '<b>' + ptInt(seguram.length) + ' ' + (seguram.length === 1 ? 'medida técnica atravessa' : 'medidas técnicas atravessam') +
+        ' a troca de clube sem perda relevante</b>, mesmo no pior caso da margem: ' + listaMet(seguram) +
+        ptTecnico('perda relevante declarada: ' + ptNum(t.perda_relevante, 3)) + '. '
+      : '<b>Nenhuma medida técnica atravessa a troca de clube com a margem inteira longe de uma perda relevante.</b> ';
+  } else if (viajam.length) {
+    const difs = viajam.map(m => m.rho_mudou - m.rho_ficou);
+    fraseViajam =
+      'Nos números medidos, <b>' + ptInt(viajam.length) + ' ' +
+        (viajam.length === 1 ? 'medida técnica não caiu' : 'medidas técnicas não caíram') +
+        '</b> em quem mudou de clube — ' + (viajam.length === 1 ? 'ela se repetiu' : 'elas se repetiram') +
+        ' tanto ou mais do que em quem ficou: ' + listaMet(viajam) + '. ' +
+      'Mas isso <b>não basta para dizer que atravessam a troca sem perder</b>: as diferenças são pequenas' +
+        ptTecnico('de ' + ptNum(pcMin(difs), 3) + ' a ' + ptNum(pcMax(difs), 3) + ' em ρ') +
+        ', e o estudo ainda não grava a margem delas — sem margem, não dá para separar diferença de ruído. ' +
+      (ef26
+        ? 'A conta também é sensível ao recorte: só por tirar 2026 do técnico, os pares de quem mudou de clube ' +
+          'foram de ' + ptInt((ef26.pares_mudou || {}).com_2026) + ' para ' + ptInt((ef26.pares_mudou || {}).sem_2026) +
+          ', e o dado não guarda a lista de cada versão para mostrar quais medidas trocaram de lado. '
+        : '');
+  } else {
+    fraseViajam = '<b>Neste dado, nenhuma medida técnica se repetiu tanto em quem mudou de clube quanto em quem ficou.</b> ';
+  }
+
+  /* O site publicado antes de 14/09 mostra outros pares e outra lista porque o técnico ia até 2026,
+     que tem só parte das rodadas. Sem esta nota, quem compara vê o número mudar sem motivo escrito. */
+  const nota2026 = ef26
+    ? '<div class="pt-controle" style="margin-top:10px">' +
+        '<span class="pt-rot">' + ((ef26.anos_usados_no_tecnico || []).length
+          ? 'o técnico agora vai só até ' + ptAno(pcMax(ef26.anos_usados_no_tecnico.map(Number)))
+          : 'o técnico agora fica sem o ano em andamento') + '</span>' +
+        '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)">' +
+          '<b>Os números desta etapa não se comparam com os de versões anteriores.</b> O ano em andamento saiu ' +
+          'da conta porque ainda não fechou. Com ele, eram ' +
+          pcQtd((ef26.pares_mudou || {}).com_2026, 'pares de quem mudou de clube') + ' e ' +
+          pcQtd((ef26.pares_ficou || {}).com_2026, 'de quem ficou') + ', com o jogador típico em ' +
+          ptNum((ef26.rho_mediano_mudou || {}).com_2026, 3) + ' e ' + ptNum((ef26.rho_mediano_ficou || {}).com_2026, 3) +
+          '; sem ele, ' + ptInt((ef26.pares_mudou || {}).sem_2026) + ' e ' + ptInt((ef26.pares_ficou || {}).sem_2026) +
+          ', em ' + ptNum((ef26.rho_mediano_mudou || {}).sem_2026, 3) + ' e ' + ptNum((ef26.rho_mediano_ficou || {}).sem_2026, 3) +
+          ptTecnico('ρ mediano, mudou e ficou') + '.' +
+          (ef26.fisico
+            ? ' O físico não muda: ' + pcQtd((ef26.fisico.pares || {}).sem_2026, 'pares') + ' com e sem o corte.'
+            : '') +
+          ptTecnico(esc(ef26.motivo || '') + (ef26.fisico && ef26.fisico.motivo ? ' · ' + esc(ef26.fisico.motivo) : '')) +
+        '</p></div>'
+    : '';
+
   const frase =
     (fisicoAcima
       ? '<b>O físico vai junto com o atleta.</b> Medido em dois anos seguidos, o físico de um ano e o do ' +
@@ -1045,13 +1108,7 @@ function ptEtapa11(alvo, dados) {
         ptJunto(f.rho_mediano) + '; no técnico de quem mudou de clube, ' + ptJunto(t.rho_mediano_mudou) +
         ptTecnico('ρ mediano ' + ptNum(f.rho_mediano, 3) + ' contra ' + ptNum(t.rho_mediano_mudou, 3)) +
         ' — a primeira parte da frase do estudo não se sustenta aqui. ') +
-    (viajam.length
-      ? '<b>' + ptInt(viajam.length) + ' ' + (viajam.length === 1 ? 'medida técnica atravessa' : 'medidas técnicas atravessam') +
-        ' a troca de clube sem perder nada</b> — em quem mudou, ' + (viajam.length === 1 ? 'ela se repete' : 'elas se repetem') +
-        ' tanto ou mais do que em quem ficou: ' +
-        viajam.map(m => nomeMet(m.metrica) + ptTecnico('ρ ' + ptNum(m.rho_mudou, 3) + ' contra ' +
-          ptNum(m.rho_ficou, 3))).join('; ') + '. '
-      : '<b>Neste dado, nenhuma medida técnica atravessa a troca de clube sem perder.</b> ') +
+    fraseViajam +
     (maiorQueda
       ? 'A que mais perde é ' + nomeMet(maiorQueda.metrica) + ': em quem ficou no clube, os dois anos ' +
         ptJunto(maiorQueda.rho_ficou) + '; em quem mudou, ' + ptJunto(maiorQueda.rho_mudou) +
@@ -1089,6 +1146,7 @@ function ptEtapa11(alvo, dados) {
       '<span class="pt-rot">o que a tela afirma — cada parte conferida no dado antes de ser escrita</span>' +
       '<p class="pt-nota" style="font-size:13.5px;color:var(--tinta);margin-top:6px">' + frase + '</p>' +
     '</div>' +
+    nota2026 +
 
     ptCard('Técnico: quem mudou de clube contra quem ficou',
       pcQtd(t.pares_mudou, 'atletas mudaram de clube') + ' · ' + pcQtd(t.pares_ficou, 'ficaram no mesmo clube') +
@@ -1619,6 +1677,7 @@ function ptEtapa13(alvo, d) {
 
   alvo.innerHTML =
     cabecalhoBacktest +
+    pcEt13MudancaDoGerador(d) +
     baseline +
     cardPesos +
     pcEt13Alvos(d, setores, nClube) +
@@ -1642,6 +1701,48 @@ function ptEtapa13(alvo, d) {
   });
   pcLigarSaltos(alvo);
   ptLigarTabelas(alvo);
+}
+
+/* A frase que compara as duas contas de cada setor. Até 14/09 ela era fixa e dizia nos quatro
+   setores que a conta por atleta infla — mas no dado gravado há setor em que as duas contas
+   empatam e setor em que o clube inteiro deixa MAIS medidas de pé que a conta por atleta. Ali a
+   frase fixa afirmava o contrário do número ao lado. "Ilusão de quantidade" só é dita quando a
+   conta por atleta de fato deixa mais de pé; nos outros casos a frase diz o que o número mostra. */
+function pcEt13LeituraDasContas(porClube, porAtleta, maxAtletas) {
+  if (porAtleta > porClube) {
+    return 'A conta por atleta deixa mais de pé, e essa sobra é ilusão de quantidade: até ' + ptInt(maxAtletas) +
+      ' atletas dentro de poucos clubes dão resultado com cara de forte sem trazer informação nova.';
+  }
+  if (porAtleta === porClube) {
+    return 'Aqui as duas contas concordam no número de medidas que ficam de pé; vale a de clubes inteiros, ' +
+      'que é a que não conta o mesmo clube várias vezes.';
+  }
+  return 'Aqui o clube inteiro deixa <b>mais</b> medidas de pé que a conta por atleta — neste setor a conta ' +
+    'por atleta não inflou nada. Vale a de clubes inteiros.';
+}
+
+/* Os números da etapa 13 mudaram em 14/09 porque o sorteio do erro da margem ganhou gerador próprio
+   por atleta. O site anterior mostra outras margens; sem esta nota, quem compara acha erro onde houve
+   decisão. Sai do bloco gravado (`erro_padrao_da_margem.mudanca_do_gerador`) e só aparece com ele. */
+function pcEt13MudancaDoGerador(d) {
+  const ep = d.erro_padrao_da_margem || null;
+  const mg = ep ? ep.mudanca_do_gerador : null;
+  if (!mg) return '';
+  return '<div class="pt-controle" style="margin-top:10px">' +
+    '<span class="pt-rot">' + (mg.os_numeros_mudam ? 'as margens mudaram em ' : 'o sorteio mudou em ') +
+      pcEt14DataBr(mg.data) + '</span>' +
+    '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)">' +
+      (mg.os_numeros_mudam
+        ? '<b>As margens e o ruído de cada candidato não se comparam com os de versões anteriores.</b> '
+        : '') +
+      'O ruído da margem de cada jogador sai de um sorteio refeito várias vezes. Antes, esse sorteio era ' +
+      'o mesmo usado por outras etapas do estudo, então mexer numa etapa anterior mudava as margens daqui ' +
+      'sem ninguém ter mudado o método. Agora cada jogador tem o seu próprio sorteio, e acrescentar um ' +
+      'candidato à lista não mexe no dos outros.' +
+      ptTecnico(esc(mg.antes || '') + (mg.por_que ? ' · ' + esc(mg.por_que) : '') +
+        (mg.por_que_um_por_atleta ? ' · ' + esc(mg.por_que_um_por_atleta) : '') +
+        (ep.gerador ? ' · ' + esc(ep.gerador) : '')) + '</p>' +
+    '</div>';
 }
 
 /* O nome da medida física da etapa 13 (os apelidos `spn_s`, `obr_area`, `psv5`…): nome simples e
@@ -1775,9 +1876,7 @@ function pcEt13Alvos(d, setores, nClube) {
       tab +
       '<p class="pt-nota">Descontada a sorte de testar muita coisa, sobram <b>' + ptInt(sobrevivemBH) + '</b> das ' +
         ptInt(chaves.length) + ' medidas deste setor quando se comparam clubes inteiros; contando atleta por ' +
-        'atleta, sobram <b>' + ptInt(sobrevivemAtleta) + '</b>. A diferença entre os dois números é ilusão de ' +
-        'quantidade: até ' + ptInt(maxAtletas) + ' atletas dentro de poucos clubes dão resultado com cara de forte ' +
-        'sem trazer informação nova.</p>' +
+        'atleta, sobram <b>' + ptInt(sobrevivemAtleta) + '</b>. ' + pcEt13LeituraDasContas(sobrevivemBH, sobrevivemAtleta, maxAtletas) + '</p>' +
       '</div>';
   }).join('');
 
@@ -2272,8 +2371,55 @@ function pcEt14ComoLer(d) {
   const rg = pcEt14Regra(d);
   const mm = d.mudanca_de_metodo || null;
   if (!rg && !mm) return '';
+  /* Os itens gravados em `mudanca_de_metodo` são anotação de método ("[SEMENTE, 14, i]", "rng
+     global", "Húngaro", "vaga -> posição") e saíam crus, no corpo do texto — justamente na parte
+     que explica ao dono por que os nomes mudaram. Cada item é reconhecido pelo assunto e dito em
+     português de reunião; o texto gravado vai inteiro ao lado, em número pequeno, para conferência.
+     Os números da frase (quantas vezes a conta foi refeita) saem do próprio item, nunca digitados.
+     Item que nenhum padrão reconhece não some: aparece como "outro ajuste", com o texto ao lado. */
+  const dizer = x => {
+    const s = String(x || '');
+    let m;
+    if (/h[úu]ngaro|vagas g[êe]meas/i.test(s)) {
+      return 'contando por vaga, o método dividia o mesmo jogador entre as duas vagas da mesma posição: quem ' +
+        'estava no time aparecia com pouco mais de metade em cada vaga, e as duas vagas podiam ficar sem recomendação';
+    }
+    if ((m = /r[ée]plicas:\s*de\s*(\d+)\s*para\s*(\d+)/i.exec(s))) {
+      return 'a conta passa a ser refeita ' + ptInt(Number(m[2])) + ' vezes, e não mais ' + ptInt(Number(m[1]));
+    }
+    if ((m = /com\s*(\d+)\s*r[ée]plicas/i.exec(s))) {
+      return 'refazendo a conta só ' + ptInt(Number(m[1])) + ' vezes, um nome perto da metade fica dentro do ' +
+        'vaivém do próprio sorteio';
+    }
+    if (/gerador pr[óo]prio por proposta/i.test(s)) {
+      return 'cada proposta tem o seu próprio sorteio, e o sorteio de uma não mexe no da outra';
+    }
+    if (/gerador pr[óo]prio por atleta/i.test(s)) {
+      return 'o ruído de cada jogador, que vem da etapa 13, também ganhou sorteio próprio, um por jogador';
+    }
+    if (/rng global/i.test(s)) {
+      return 'com um sorteio só para o estudo inteiro, mexer num sorteio de uma etapa anterior, ou acrescentar ' +
+        'uma proposta, mudava os nomes sem ninguém ter mudado o método — e isso só fecha com sorteio próprio ' +
+        'por proposta e por jogador';
+    }
+    if (/empate t[ée]cnico/i.test(s)) {
+      return 'nasce a marca de empate técnico, e "recomendado" passa a exigir que até o pior caso do intervalo ' +
+        'fique acima da metade das vezes';
+    }
+    if (/contrafactual/i.test(s)) {
+      return 'a conta do dinheiro ao pé de cada proposta passa a usar o núcleo contado por posição';
+    }
+    if (/posi[çc][ãa]o/i.test(s) && /vaga/i.test(s)) {
+      return 'os nomes passam a ser contados por posição — quantas vezes o jogador entrou em qualquer vaga ' +
+        'daquela posição — e não mais vaga por vaga';
+    }
+    if (/claramente/i.test(s)) {
+      return '"recomendado" tem de querer dizer claramente acima da metade das vezes';
+    }
+    return 'outro ajuste de método, descrito ao lado';
+  };
   const lista = itens => '<ul class="pt-nota" style="margin:4px 0 8px 18px;padding:0">' +
-    (itens || []).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>';
+    (itens || []).map(x => '<li>' + esc(dizer(x)) + ptTecnico(esc(x)) + '</li>').join('') + '</ul>';
   const corte = rg ? pcEt14PctDa(rg.recomendacao) : null;
   const nivel = rg ? pcEt14PctDa(rg.intervalo) : null;
   const intervaloTxt = nivel ? 'o intervalo de ' + esc(nivel) : 'o intervalo';
@@ -2747,8 +2893,12 @@ function pcEt14Proposta(p, chave, f, c14) {
       'sorteadas de novo, e não uma previsão de quem sobe. O que a compara com o dinheiro é o quadro logo abaixo',
   });
 
-  /* "top-N de valor" e "(n=N)" são jeito de planilha; o número continua saindo da frase do estudo. */
+  /* "top-N de valor" e "(n=N)" são jeito de planilha; o número continua saindo da frase do estudo.
+     A troca leva a preposição junto ("no top-8", "do top-8"): trocar só a expressão deixava
+     "estavam no entre os 8 elencos mais caros" em todas as propostas A e B. */
   const alvoTxt = s => String(s)
+    .replace(/\bfora do top-(\d+) de valor/g, 'fora dos $1 elencos mais caros')
+    .replace(/\b(?:no|do|ao) top-(\d+) de valor/g, 'entre os $1 elencos mais caros')
     .replace(/top-(\d+) de valor/g, 'entre os $1 elencos mais caros')
     .replace(/\s*\(n=\d+\)/g, '')
     .replace(/(\d+) contra (\d+)/g, '$1 times contra $2');
@@ -2768,8 +2918,15 @@ function pcEt14Proposta(p, chave, f, c14) {
 
     pcAvisoBacktest14() +
 
-    '<div style="margin-top:10px"><span class="pt-rot">por vaga: quem aparece em mais da metade das ' +
-      ptInt(refeitas) + ' vezes em que a conta foi refeita</span>' + tab + '</div>' +
+    /* Com o dado de 14/09 a contagem é por posição e "recomendado" exige o intervalo inteiro acima da
+       metade: o rótulo antigo ("mais da metade das vezes") contradizia a regra do card acima e fazia
+       51% parecer suficiente. A unidade sai de `contagem_por`; o texto antigo fica só para o dado antigo. */
+    '<div style="margin-top:10px"><span class="pt-rot">' +
+      (novo
+        ? 'por ' + esc(rotPos) + ': recomendado, empate técnico e alternativa, nas ' + ptInt(refeitas) +
+          ' vezes em que a conta foi refeita'
+        : 'por vaga: quem aparece em mais da metade das ' + ptInt(refeitas) + ' vezes em que a conta foi refeita') +
+      '</span>' + tab + '</div>' +
 
     (novo ? pcEt14Resumo(p, vagas, semRecomendacao, semNenhumNome, comEmpate, denomMin) :
     '<p class="pt-nota">' +
