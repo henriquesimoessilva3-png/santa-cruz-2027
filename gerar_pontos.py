@@ -65,6 +65,7 @@ Uso:
     python3 gerar_pontos.py            # escreve dados/pontos.json
     python3 gerar_pontos.py --rapido   # menos réplicas, para iterar no código
 """
+import contextlib
 import datetime as dt
 import itertools
 import json
@@ -95,14 +96,52 @@ assert P.RAPIDO == RAPIDO
 
 INTERNO = {"alta": "sobe", "media": "meio", "baixa": "cai"}
 ORDEM = ("alta", "media", "baixa")
-ROTULOS = {"alta": "ritmo de briga pelo acesso", "media": "meio",
-           "baixa": "ritmo de rebaixamento"}
+# Rótulos da tela: saem da PRÓPRIA régua, preenchidos em `rotulos_da_regua` depois dos
+# cortes. "Ritmo de briga pelo acesso" punha acesso na cabeça do leitor — o corte é a média
+# do 6º, não o G4, e 8 dos 24 da alta não subiram.
+ROTULOS = None
+
+
+def rotulos_da_regua(corte_alto, corte_baixo):
+    def pct(x):
+        return f"{100 * float(x):.1f}".replace(".", ",") + "%"
+    return {"alta": f"aproveitamento ≥ média do 6º colocado ({pct(corte_alto)})",
+            "media": "aproveitamento entre os dois cortes",
+            "baixa": f"aproveitamento < média do 15º colocado ({pct(corte_baixo)})"}
+
+
+def potencia_t(d, n1, n2, alfa):
+    """Poder do t de duas amostras para efeito d, por integração na distribuição do desvio.
+
+    P(|T| > c) com T = (Z + nc) / sqrt(V/gl), V ~ qui-quadrado(gl): integra-se na V. Não usa
+    `stats.nct`, que devolve NaN quando a não-centralidade é grande e o alfa pequeno — e a
+    função do Protótipo, ao trocar NaN por 0 ou 1, erra o d mínimo com Bonferroni (24 x 56:
+    devolve 1,144 onde o poder de 80% está em 1,176; conferido por simulação nesta obra).
+    """
+    from scipy import integrate
+    gl = n1 + n2 - 2
+    c = stats.t.ppf(1 - alfa / 2, gl)
+    nc = d * np.sqrt(n1 * n2 / (n1 + n2))
+
+    def f(v):
+        s = c * np.sqrt(v / gl)
+        return (stats.norm.cdf(nc - s) + stats.norm.cdf(-nc - s)) * stats.chi2.pdf(v, gl)
+    return integrate.quad(f, 0, np.inf, limit=200)[0]
+
+
+def d_minimo_detectavel(n1, n2, alfa=0.05, poder=0.80):
+    lo, hi = 0.0, 4.0
+    for _ in range(50):
+        meio = (lo + hi) / 2
+        lo, hi = (lo, meio) if potencia_t(meio, n1, n2, alfa) >= poder else (meio, hi)
+    return (lo + hi) / 2
 BLOCO_NOVO, BLOCO_VELHO = "2022-2025", "2018-2021"
 
 r, r_sig, rotulo_p, num_br = P.r, P.r_sig, P.rotulo_p, P.num_br
 posto_ano, d_cohen, welch_p, bh, auc = P.posto_ano, P.d_cohen, P.welch_p, P.bh, P.auc
 
 GERADORES = {}
+abaixo = RG.abaixo
 
 
 def gerador(nome, *n):
@@ -112,18 +151,44 @@ def gerador(nome, *n):
     return np.random.default_rng(semente)
 
 
+class _RngVigiado:
+    """Posto no lugar do `rng` global do Protótipo FORA dos blocos declarados.
+
+    Trocar o `rng` só antes das chamadas que se sabe que sorteiam deixaria o último gerador
+    pendurado no módulo: uma função do Protótipo que sorteasse sem ninguém saber consumiria
+    dele em silêncio, e o número mudaria com a ordem das chamadas. Com o vigia, qualquer
+    sorteio fora de um bloco declarado QUEBRA a rodada — é a prova de que a lista de
+    geradores do JSON é completa.
+    """
+    def __getattr__(self, nome):
+        raise RuntimeError(f"o gerador do Protótipo sorteou do rng GLOBAL (.{nome}) fora de um "
+                           "bloco com gerador próprio declarado")
+
+
+P.rng = _RngVigiado()
+
+
+@contextlib.contextmanager
 def rng_do_gerador(nome, *n):
-    """Reatribui o `rng` global do gerador do Protótipo antes de uma função dele que sorteia.
+    """Empresta ao Protótipo um gerador PRÓPRIO só durante uma chamada que sorteia do `rng` global.
 
     A função do Protótipo lê `rng` do módulo na hora da chamada; trocar o objeto antes dela é
-    o único jeito de dar gerador próprio a quem não aceita `gen` sem editar o arquivo dele.
+    o único jeito de dar gerador próprio a quem não aceita `gen` sem editar o arquivo dele. Na
+    saída o vigia volta.
     """
     P.rng = gerador(nome, *n)
+    try:
+        yield
+    finally:
+        P.rng = _RngVigiado()
+
+
+ANO_MAXIMO = 2025
 
 
 def sem_2026(*dfs):
     for d in dfs:
-        assert int(d.ano.max()) <= 2025, "2026 entrou numa média — 27 de 38 rodadas"
+        assert int(pd.to_numeric(d.ano).max()) <= ANO_MAXIMO, "2026 entrou numa média — 27 de 38 rodadas"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -141,9 +206,16 @@ TAMANHOS_DECIDIDOS = {BLOCO_NOVO: (24, 35, 21), BLOCO_VELHO: (17, 45, 18)}
 POR_ANO_DECIDIDO = {2022: (4, 12, 4), 2023: (8, 5, 7), 2024: (6, 9, 5), 2025: (6, 9, 5)}
 
 
+LINHAS_LIDAS = {}      # preenchido por carregar_paineis: linhas de cada CSV do painel antes de filtro
+
+
 def carregar_paineis():
     novo = pd.read_csv(os.path.join(RAIZ, "dados", "serieb_clube_temporada.csv"))
     velho = pd.read_csv(os.path.join(RAIZ, "dados", "serieb_clube_temporada_2018_2021.csv"))
+    # Linhas LIDAS de cada arquivo, antes de qualquer filtro: é o que `etapa_0.linhas_no_arquivo_por_painel`
+    # promete. Até a rodada 4 aquele campo somava os quadros já filtrados (d80 + d26, dv) — hoje dá o mesmo
+    # (100 e 80), mas no dia em que uma linha sair num filtro ele deixaria de dizer quantas o arquivo tinha.
+    LINHAS_LIDAS.update(painel_2022_2026=len(novo), painel_2018_2021=len(velho))
     d80 = novo[novo.ano <= 2025].copy().reset_index(drop=True)
     d26 = novo[novo.ano > 2025].copy().reset_index(drop=True)
     dv = velho[velho.ano <= 2025].copy().reset_index(drop=True)
@@ -159,6 +231,7 @@ def carregar_paineis():
     def media_do_posto(pos):
         g = d80[d80.pos == pos]
         assert len(g) == d80.ano.nunique(), f"posição {pos} não aparece uma vez por ano"
+        assert int(g.ano.max()) <= ANO_MAXIMO and int(g.ano.min()) >= 2022, "o corte saiu de fora de 2022-2025"
         fr = [fracao(p, j) for p, j in zip(g.pts, g.J)]
         return sum(fr, Fraction(0)) / len(fr), g
 
@@ -248,7 +321,41 @@ def carregar_jogos():
 #  O bloco `faixas`
 # ══════════════════════════════════════════════════════════════════════════════
 
-def bloco_faixas(d80, dv, d26, regua, jogos, jogos26):
+def perto_do_corte_2026(d26, cortes, jogos26):
+    """Quantos pontos (com o J de hoje) cada clube de 2026 precisa ganhar ou perder para trocar de faixa.
+
+    A faixa de 2026 é provisória por ritmo; uma leitura que troca com um empate precisa dizer
+    isso em número, não só em "provisório". E o denominador de hoje tem DUAS fontes: o J do
+    painel e o número de jogos no jogo a jogo, que em 2026 divergem em alguns clubes (26 contra
+    27). Onde divergem, a faixa é recalculada com o J do jogo a jogo e a troca, se houver, vai
+    escrita ao lado: é uma segunda razão, além do empate, para a leitura ser provisória.
+    """
+    alto, baixo = cortes
+    nome = {2: "alta", 1: "media", 0: "baixa"}
+
+    def fx(p, j):
+        a = fracao(p, j)
+        return 2 if a >= alto else (0 if a < baixo else 1)
+    out = []
+    for c, p, j in zip(d26.clube, d26.pts, d26.J):
+        p, j = int(p), int(j)
+        f0 = fx(p, j)
+        sobe = next((x for x in range(1, 3 * j + 1) if fx(p + x, j) > f0), None) if f0 < 2 else None
+        desce = next((x for x in range(1, p + 1) if fx(p - x, j) < f0), None) if f0 > 0 else None
+        L = dict(clube=c, pts=p, J_painel=j, pts_a_mais_para_subir_de_faixa=sobe,
+                 pts_a_menos_para_descer_de_faixa=desce)
+        jj = int(jogos26.get((2026, c), 0))
+        L["jogos_no_jogo_a_jogo"] = jj
+        if jj and jj != j:
+            L["faixa_com_J_do_painel"] = nome[f0]
+            L["faixa_com_jogos_do_jogo_a_jogo"] = nome[fx(p, jj)]
+            L["aproveitamento_com_jogos_do_jogo_a_jogo_pct"] = r(100 * float(fracao(p, jj)), 2)
+            L["troca_de_faixa_conforme_a_fonte_do_J"] = bool(fx(p, jj) != f0)
+        out.append(L)
+    return out
+
+
+def bloco_faixas(d80, dv, d26, regua, jogos, jogos26, cortes):
     def por_ano(d):
         return [dict(ano=int(a), **{f: int((g.faixa_pts == f).sum()) for f in ORDEM})
                 for a, g in d.groupby("ano")]
@@ -273,6 +380,13 @@ def bloco_faixas(d80, dv, d26, regua, jogos, jogos26):
 
     cruz = dv[dv.punicao_pts != 0]
     n160 = pd.concat([d80, dv])
+    perto = perto_do_corte_2026(d26, cortes, jogos26)
+    trocam_pelo_J = [x["clube"] for x in perto if x.get("troca_de_faixa_conforme_a_fonte_do_J")]
+    faixa26 = dict(zip(d26.clube, d26.faixa_pts))
+    assert all(x.get("faixa_com_J_do_painel", faixa26[x["clube"]]) == faixa26[x["clube"]] for x in perto), \
+        "a faixa recalculada com o J do painel não bate com a faixa de 2026 do carregamento"
+    a_1_ponto = [x["clube"] for x in perto
+                 if (x["pts_a_mais_para_subir_de_faixa"] or 99) <= 1 or (x["pts_a_menos_para_descer_de_faixa"] or 99) <= 1]
     return dict(
         regra=("aproveitamento = pts / (3 × J), com pts e J do painel; ALTA = aproveitamento >= "
                "média do 6º colocado de 2022-2025; BAIXA = abaixo da média do 15º colocado de "
@@ -327,7 +441,19 @@ def bloco_faixas(d80, dv, d26, regua, jogos, jogos26):
                          faixa_posicao_hoje=fp)
                     for c, p, pt, j, ap, fx, fp in sorted(
                         zip(d26.clube, d26.pos, d26.pts, d26.J, d26.aproveitamento,
-                            d26.faixa_pts, d26.faixa_posicao), key=lambda t: t[1])]),
+                            d26.faixa_pts, d26.faixa_posicao), key=lambda t: t[1])],
+            perto_do_corte=dict(
+                regra=("pontos a mais (ou a menos) com o J de hoje para trocar de faixa pela régua exata; "
+                       "null = já está na faixa de cima (ou de baixo)"),
+                clubes=perto, a_ate_1_ponto_de_um_corte=len(a_1_ponto), quem_esta_a_ate_1_ponto=a_1_ponto,
+                J_divergente_entre_painel_e_jogo_a_jogo=sum(1 for x in perto if "faixa_com_J_do_painel" in x),
+                trocam_de_faixa_conforme_a_fonte_do_J=len(trocam_pelo_J),
+                quem_troca_de_faixa_conforme_a_fonte_do_J=trocam_pelo_J,
+                contagem_com_jogos_do_jogo_a_jogo={f: sum(1 for x in perto if x.get(
+                    "faixa_com_jogos_do_jogo_a_jogo", faixa26[x["clube"]]) == f) for f in ORDEM},
+                regra_da_fonte_do_J=("onde o J do painel e os jogos do jogo a jogo divergem, a faixa é "
+                                     "recalculada com os jogos do jogo a jogo; a faixa oficial desta aba "
+                                     "segue a do J do painel (é a que reproduz os cortes decididos)"))),
         lista_de_resultado_versao=RG.VERSAO_DAS_LISTAS,
     )
 
@@ -345,6 +471,7 @@ def porta_temporal(jog, meta, universo):
     jogos cada um teve. Para os clubes com 38 o posto dentro do ano é o mesmo da soma.
     """
     j = jog
+    sem_2026(j)
     n = j.groupby(["ano", "Equipa"]).rod.transform("size")
     t1 = (j.rod < np.ceil(n / 2)).values
     k = ["ano", "Equipa"]
@@ -368,8 +495,9 @@ def porta_temporal(jog, meta, universo):
         t["rv"] = posto_ano(t, "v1")
         rho, p = stats.spearmanr(t.rv, t.r2)
         pr, pp = P.parcial_spearman(t.rv, t.r2, t.r1)
-        linhas.append(dict(indicador=ind, n=len(t), rho_bruto=r(rho, 3), p_bruto=r(p, 4),
-                           rho_parcial=r(pr, 3), p_parcial=r(pp, 4), sinal=m["sinal"],
+        # p por algarismo significativo (r_sig): em 4 casas um p de 1e-6 virava 0, e p nunca é zero
+        linhas.append(dict(indicador=ind, n=len(t), rho_bruto=r(rho, 3), p_bruto=r_sig(p, 3),
+                           rho_parcial=r(pr, 3), p_parcial=r_sig(pp, 3), sinal=m["sinal"],
                            sinal_certo=bool(m["sinal"] and np.isfinite(pr)
                                             and np.sign(pr) == np.sign(m["sinal"]))))
     linhas.sort(key=lambda x: -abs(x["rho_parcial"] or 0))
@@ -377,10 +505,17 @@ def porta_temporal(jog, meta, universo):
     turnos = base.groupby(["n1", "n2"]).size()
     return dict(universo=universo, n=len(base),
                 regra_do_turno="1º turno = os primeiros ceil(n/2) jogos por data; 2º turno = o resto",
+                jogos_por_turno_resumo=dict(jogos_1t_min=int(base.n1.min()), jogos_1t_max=int(base.n1.max()),
+                                            jogos_2t_min=int(base.n2.min()), jogos_2t_max=int(base.n2.max())),
                 desfecho="aproveitamento do 2º turno (pts / 3 × jogos do turno), em posto no ano",
                 jogos_por_turno=[dict(jogos_1t=int(a), jogos_2t=int(b), clube_temporada=int(c))
                                  for (a, b), c in turnos.items()],
-                referencia_ap1t_x_ap2t=dict(rho=r(ref.statistic, 3), p=r_sig(ref.pvalue, 3)),
+                referencia_ap1t_x_ap2t=dict(
+                    rho=r(ref.statistic, 3), p=r_sig(ref.pvalue, 3),
+                    **RG.referencia_de_resultado(
+                        ["ap1t", "ap2t"],
+                        "é o quanto o aproveitamento do 1º turno já prediz o do 2º: a referência que o ρ "
+                        "parcial de cada linha desconta, não achado sobre faixa nenhuma")),
                 linhas=linhas)
 
 
@@ -397,35 +532,72 @@ def etapa_0(d80, dv, d26, meta, n_tecnico_col, funil):
                                 J=int(g.J.median()), completa=bool(g.J.median() == J_completa),
                                 **{f: int((g.faixa_pts == f).sum()) for f in ORDEM},
                                 faixa_provisoria=bool(ano > 2025),
-                                entra_nas_medias=bool(ano <= 2025),
+                                # `entra_nas_medias` guarda o sentido que tinha no Protótipo: a
+                                # linha está no universo das 80 de 2022-2025 (físico, técnico
+                                # individual e valor). Com True em 2018-2021 o renderer somava os
+                                # oito anos como anos do estudo (41/80/39). O universo das 160 do
+                                # técnico coletivo tem flag próprio.
+                                entra_nas_medias=bool(2022 <= ano <= 2025),
+                                entra_no_universo_80_2022_2025=bool(2022 <= ano <= 2025),
+                                entra_no_universo_160_tecnico_coletivo=bool(ano <= 2025),
                                 universos=(["técnico coletivo"] if ano < 2022 else
                                            ["técnico coletivo", "técnico individual", "físico",
                                             "valor de mercado"] if ano <= 2025 else [])))
 
     def poder(d, testes, rotulo):
         n = {f: int((d.faixa_pts == f).sum()) for f in ORDEM}
-        out = dict(universo=rotulo, n=n, testes_na_correcao_bonferroni=testes, alfa=0.05, poder=0.80)
+        out = dict(universo=rotulo, n=n, testes_na_correcao_bonferroni=testes, alfa=0.05, poder=0.80,
+                   formula=("menor d com poder >= 0,80 no t de duas amostras bilateral; alfa = 0,05 sem "
+                            "correção e 0,05/testes com Bonferroni; poder por integração na qui-quadrado "
+                            "(a MESMA fórmula nas duas colunas)"))
         for nome, a, b in (("alta_x_media", n["alta"], n["media"]),
                            ("alta_x_baixa", n["alta"], n["baixa"]),
                            ("alta_x_resto", n["alta"], n["media"] + n["baixa"]),
                            ("baixa_x_resto", n["baixa"], n["alta"] + n["media"])):
-            out[nome] = dict(n1=a, n2=b, d_minimo=r(P.d_minimo_detectavel(a, b), 3),
-                             d_minimo_bonferroni=r(P.d_minimo_detectavel(a, b, alfa=0.05 / testes), 3))
+            out[nome] = dict(n1=a, n2=b, d_minimo=r(d_minimo_detectavel(a, b), 3),
+                             d_minimo_bonferroni=r(d_minimo_detectavel(a, b, alfa=0.05 / testes), 3),
+                             d_minimo_bonferroni_pela_funcao_do_prototipo=r(
+                                 P.d_minimo_detectavel(a, b, alfa=0.05 / testes), 3))
+        return out
+
+    def universo_do_topo(d, fontes):
+        # clubes_distintos e aparicoes_por_clube moram DENTRO do universo (fechamento, 14/09): até aqui saíam só
+        # de d80 e ficavam soltos no topo, ao lado de `linhas_completas_dos_dois_periodos` (160) — o mesmo erro
+        # que tirou `linhas_completas` do topo — e a contagem de 2018-2021 não existia em lugar nenhum.
+        clubes = d.clube.value_counts()
+        out = dict(linhas_completas=len(d), anos=sorted(int(a) for a in d.ano.unique()), fontes=fontes,
+                   **{f: int((d.faixa_pts == f).sum()) for f in ORDEM},
+                   clubes_distintos=int(d.clube.nunique()),
+                   aparicoes_por_clube={str(k): int(v) for k, v in clubes.value_counts().sort_index().items()})
+        assert sum(out[f] for f in ORDEM) == out["linhas_completas"], ("a partição das faixas não fecha", out)
+        # cada clube aparece k vezes: a soma de k × (clubes com k aparições) tem de dar as linhas do universo
+        assert sum(int(k) * v for k, v in out["aparicoes_por_clube"].items()) == out["linhas_completas"], out
+        assert int(d.ano.max()) <= ANO_MAXIMO
         return out
 
     d160 = pd.concat([d80, dv])
-    clubes = d80.clube.value_counts()
     return dict(
         titulo_chave="etapa_0",
         estado_nesta_aba="adaptada",
         o_que_mudou=("tamanhos das faixas variam por ano; o poder sai dos n MEDIDOS, por universo, "
                      "e o número de testes do Bonferroni é o tamanho do catálogo, não um número digitado"),
-        linhas_no_arquivo=len(d80) + len(d26) + len(dv), linhas_completas=len(d80) + len(dv),
-        **{f: int((d80.faixa_pts == f).sum()) for f in ORDEM},
+        # O topo é separado POR UNIVERSO. Até 14/09 ele trazia linhas_completas = 160 ao lado de
+        # alta/media/baixa das 80 (24 + 35 + 21): quem dividisse a alta pelas completas escreveria
+        # "15% do que se compara", quando são 30% nas 80. Cada contagem de faixa agora mora ao lado das
+        # completas do mesmo universo, com assert de que a partição fecha.
+        linhas_no_arquivo_por_painel=dict(
+            painel_2022_2026=LINHAS_LIDAS["painel_2022_2026"], painel_2018_2021=LINHAS_LIDAS["painel_2018_2021"],
+            usadas=dict(painel_2022_2026=len(d80) + len(d26), painel_2018_2021=len(dv)),
+            regra=("linhas lidas de cada CSV antes de qualquer filtro; `usadas` são as que ficaram depois do filtro "
+                   "de ano (2026 está no painel 2022-2026 e fica fora das médias)")),
+        universo_80_2022_2025=universo_do_topo(d80, "físico, técnico individual, valor de mercado e técnico coletivo"),
+        universo_2018_2021=universo_do_topo(dv, "só técnico coletivo (as outras fontes não existem antes de 2022)"),
+        linhas_completas_dos_dois_periodos=dict(
+            n=len(d80) + len(dv),
+            uso=("só o técnico coletivo junta os dois períodos (ranking dentro do ano); nenhuma contagem de faixa "
+                 "deste topo se divide por este número")),
         por_ano=por_ano,
         rodadas_2026=int(d26.J.median()), rodadas_completa=J_completa,
-        clubes_distintos=int(d80.clube.nunique()),
-        aparicoes_por_clube={str(k): int(v) for k, v in clubes.value_counts().sort_index().items()},
         poder=dict(
             fisico_tecnico_individual_valor_2022_2025=poder(
                 d80, len(meta), "80 clube-temporada de 2022-2025; testes = indicadores do catálogo"),
@@ -470,7 +642,34 @@ def etapa_1(d80, d26, jogos26):
     # a curva do gerador, com y = alta; o palpite do dono sai (ver docstring)
     curva = P.curva_top_k(d)
     curva.pop("palpite_do_dono")
-    curva.pop("aviso_de_amostra")
+    # O aviso do Protótipo é montado em volta do k=8 do palpite (degrau 8→9). Aqui não há
+    # palpite, então o aviso é refeito para a curva INTEIRA, lendo o dado: quais postos não têm
+    # nenhum time da alta e onde está o maior degrau.
+    aviso_proto = curva.pop("aviso_de_amostra")
+    por_posto = curva["promovidos_por_posto"]
+    degraus = [(L["k"], L["promovidos_acumulados"] - (curva["curva"][i - 1]["promovidos_acumulados"] if i else 0))
+               for i, L in enumerate(curva["curva"])]
+    k_maior, maior = max(degraus, key=lambda t: (t[1], -t[0]))
+    n_anos = len(curva["anos"])
+    aviso = dict(
+        reaplicado_do_prototipo=False,
+        motivo_de_nao_reaplicar=("o aviso do Protótipo olha o degrau entre k=8 e k=9 do palpite de 14 dos 16; "
+                                 "sem o palpite, o aviso é refeito para a curva inteira"),
+        chaves_do_aviso_do_prototipo_nao_reaplicadas=None,           # preenchidas abaixo, medindo
+        postos_sem_nenhum_da_alta=[x["posto"] for x in por_posto if x["promovidos"] == 0],
+        maior_degrau=dict(k=k_maior, times=maior),
+        anos_na_amostra=n_anos, maximo_possivel_por_posto=n_anos,
+        leitura=("cada posto k acrescenta de 0 a %d times (um por ano); o maior degrau é de %d time(s), no "
+                 "posto %d: com %d anos a curva sobe em degraus de amostra, e nenhum degrau isolado é "
+                 "fronteira de valor" % (n_anos, maior, k_maior, n_anos)))
+    # Quais chaves do aviso do Protótipo NÃO voltam, medido contra o aviso refeito: uma chave que existe
+    # aqui não pode ser dada como "não reaplicada" (a conferência de 14/09 achou `leitura` e
+    # `anos_na_amostra` listadas assim ao lado delas mesmas).
+    aviso["chaves_do_aviso_do_prototipo_nao_reaplicadas"] = sorted(k for k in aviso_proto if k not in aviso)
+    aviso["chaves_com_mesmo_nome_e_mesmo_valor"] = sorted(k for k in aviso_proto if k in aviso
+                                                          and aviso_proto[k] == aviso[k])
+    aviso["chaves_com_mesmo_nome_e_outro_conteudo"] = sorted(k for k in aviso_proto if k in aviso
+                                                             and aviso_proto[k] != aviso[k])
     sub_real = {(a, c): bool(s) for a, c, s in zip(d.ano, d.clube, d.subiu_de_fato)}
     ren = {"promovidos_no_posto_k": "alta_no_posto_k", "promovidos_acumulados": "alta_acumulados",
            "pct_dos_promovidos": "pct_da_alta", "taxa_de_subida_no_top_k_pct": "taxa_de_alta_no_top_k_pct"}
@@ -485,6 +684,7 @@ def etapa_1(d80, d26, jogos26):
                                for x in curva.pop("promovidos_por_posto")]
     curva["membros_da_alta"] = [dict(**x, subiu_de_fato=sub_real[(x["ano"], x["clube"])])
                                 for x in curva.pop("promovidos")]
+    curva["aviso_de_amostra"] = aviso
     curva["modelo_do_acaso"] = ("hipergeométrica por ano (N clubes, K da faixa alta naquele ano, k "
                                 "sorteados), convoluída nos anos; p = P(soma >= acumulado medido)")
     curva["palpite_do_dono"] = dict(
@@ -556,7 +756,7 @@ def etapa_1(d80, d26, jogos26):
     controle = dict(
         coluna="fis_atletas", n=int(np.isfinite(at).sum()),
         **{f"media_{f}": r(np.nanmean(at[m[f]]), 2) for f in ORDEM},
-        d_AM=r(d_cohen(at[m["alta"]], at[m["media"]]), 3), p_AM=r(welch_p(at[m["alta"]], at[m["media"]]), 5),
+        d_AM=r(d_cohen(at[m["alta"]], at[m["media"]]), 3), p_AM=r_sig(welch_p(at[m["alta"]], at[m["media"]]), 3),
         d_AB=r(d_cohen(at[m["alta"]], at[m["baixa"]]), 3), p_AB=r_sig(welch_p(at[m["alta"]], at[m["baixa"]]), 3),
         rho_com_aproveitamento=r(rho_ap, 3), p_com_aproveitamento=r_sig(p_ap, 3),
         rho_com_posicao_final=r(rho_pos, 3), p_com_posicao_final=r_sig(p_pos, 3),
@@ -755,15 +955,22 @@ def tipologia_congelada(d80, postos, jog):
         assert meu["particoes_acima_ou_iguais"] == ac_p and meu["particoes"] == tot_p, (meu, ac_p, tot_p)
         conferencia = dict(caso="G2 dos 16 que subiram, bateria do Protótipo (com golos_cabeca)",
                            particoes=tot_p, acima_gerador_do_prototipo=ac_p,
-                           acima_motor_vetorizado=meu["particoes_acima_ou_iguais"], bate=True)
+                           acima_motor_vetorizado=meu["particoes_acima_ou_iguais"], bate=True,
+                           **{RG.MARCA_SEM_TESTE: {c: dict(
+                               motivo=RG.motivo_resultado(c),
+                               por_que=("o caso só confere o motor de enumeração contra o do Protótipo, com a "
+                                        "bateria dele como está; nenhum número deste caso é achado desta aba"))
+                               for c in bat_proto if RG.e_resultado(c)}})
     else:
         conferencia = dict(bate=None, motivo="o G2 dos 16 não é um caso pequeno nesta base")
 
     # bateria de fora SEM as colunas circulares
+    # As retiradas vão com a chave `col` (a mesma do resto da tipologia) e com a MARCA que a
+    # guarda final confere contra a lista de resultado: é o motivo, e não o nome da chave, que
+    # separa "listado como retirado" de "apresentado como achado".
     fora_tec = [c for c in bat_proto if not RG.e_resultado(c)]
-    retiradas = [dict(coluna_retirada=c, motivo=RG.motivo_resultado(c)) for c in bat_proto if RG.e_resultado(c)]
-    leitura_retirada = [dict(coluna_retirada=c, motivo=RG.motivo_resultado(c))
-                        for c in P.DECL["tipologia_leitura"] if RG.e_resultado(c)]
+    retiradas = [RG.retirada(c) for c in bat_proto if RG.e_resultado(c)]
+    leitura_retirada = [RG.retirada(c) for c in P.DECL["tipologia_leitura"] if RG.e_resultado(c)]
     leitura = [c for c in P.DECL["tipologia_leitura"] if not RG.e_resultado(c)]
     Pt = {c: Pt_all[c] for c in fora_tec}
     for c in leitura:
@@ -772,6 +979,10 @@ def tipologia_congelada(d80, postos, jog):
     M_fora = np.column_stack([Pt[c][alta] for c in fora_tec])
 
     N_BATERIA = 200 if RAPIDO else 10000
+    # Os nulos desta função permutam os rótulos dos 24 JUNTOS, sem estratificar por ano (a alta
+    # é 4/8/6/6 por ano). Mantido como no Protótipo — que tinha 4 por ano e não precisava — e
+    # DECLARADO em `nulo_nao_estratificado_por_ano`: estratificar mudaria todos os p desta
+    # tipologia, e a enumeração exata do um-contra-o-resto não tem versão estratificada aqui.
     perms = np.array([gen.permutation(gi) for _ in range(N_BATERIA)])
     E_obs = eta2_lote(M_fora, gi[None, :], 4)[0]
     E_nulo = eta2_lote(M_fora, perms, 4)
@@ -907,9 +1118,6 @@ def tipologia_congelada(d80, postos, jog):
             ct = {e: float(np.median(V2[e][sobe16])) for e in eixo_nomes}
             g2 = agrupa(V2[terr], V2[rota], ct[terr], ct[rota], alta)
             trocas_ind.append(dict(removido=c, trocas=int((g2 != gi).sum())))
-    LIM_TIME_16, LIM_IND_16 = 1, 2       # os limiares do Protótipo, calibrados para n=16
-    lim_time = int(LIM_TIME_16 * len(alta) // 16)
-    lim_ind = int(LIM_IND_16 * len(alta) // 16)
 
     X2 = np.column_stack([V[e][alta] for e in eixo_nomes])
     etiq = f"{len(alta)} da faixa alta, 2 eixos congelados da tipologia"
@@ -923,6 +1131,9 @@ def tipologia_congelada(d80, postos, jog):
             um_contra[NOMES_G[k]] = dict(p=None, motivo="nenhum time da alta neste quadrante")
             continue
         um_contra[NOMES_G[k]] = p_um_contra_o_resto(M_fora, gi == k, gen)
+    LIM_TIME_16, LIM_IND_16 = 1, 2       # os limiares do Protótipo, calibrados para n=16
+    lim_time = int(LIM_TIME_16 * len(alta) // 16)
+    lim_ind = int(LIM_IND_16 * len(alta) // 16)
 
     fronteira = []
     for kk, i in enumerate(alta):
@@ -947,7 +1158,8 @@ def tipologia_congelada(d80, postos, jog):
         if len(set(alto_rota.tolist())) < 2:
             andares[rot] = dict(n=int(len(idx)), p=None, motivo="andar com um lado vazio")
             continue
-        andares[rot] = dict(n=int(len(idx)), **p_um_contra_o_resto(M_fora[idx], alto_rota, gen))
+        res_andar = p_um_contra_o_resto(M_fora[idx], alto_rota, gen)
+        andares[rot] = dict(n=int(len(idx)), replicas=res_andar["metodo"], **res_andar)
 
     brutos_cols = [c for c in ["posse", "passes_pct", "passe_longo_pct", "compr_passe", "entradas_area",
                                "toques_area", "atq_posicional", "ppda", "recuperacoes", "cruzamentos",
@@ -959,17 +1171,44 @@ def tipologia_congelada(d80, postos, jog):
                             "xg_por_remate_contra", "contra_ataques", "passes_terco_final",
                             "clean_sheets", "defesa_vs_xg"]
                 if c in Pt and not RG.e_resultado(c)]
+    # STATUS. O um-contra-o-resto roda na bateria de fora, e ela tem colunas correlacionadas com
+    # os eixos que CORTARAM os grupos (passes, xg, remates...): um grupo cortado por esses eixos
+    # separa nessa bateria por construção — é a mesma circularidade do resultado, com os eixos no
+    # lugar dos pontos. Por isso o p dele sozinho não dá selo. TIPO exige também a bateria LIMPA
+    # contra o placebo (a que não carrega os eixos) e as duas estabilidades; nesta aba a
+    # tipologia é exploratória com eixos herdados, e a natureza vai gravada em cada grupo.
+    passou_limpa = bool(np.isfinite(p_lim_plac) and p_lim_plac < 0.05)
+    passou_est_time = bool(max(t["trocas"] for t in trocas_time) <= lim_time)
+    passou_est_ind = bool(max(t["trocas"] for t in trocas_ind) <= lim_ind)
     grupos = []
     for k in range(4):
         sel = alta[gi == k]
+        p_uc = um_contra[NOMES_G[k]].get("p")
+        condicoes = dict(um_contra_o_resto_p_abaixo_de_5pct=abaixo(p_uc, 0.05),
+                         bateria_limpa_passa_no_placebo=passou_limpa,
+                         estavel_ao_tirar_um_dos_16=passou_est_time,
+                         estavel_ao_tirar_um_indicador=passou_est_ind)
         grupos.append(dict(
             grupo=NOMES_G[k], n=int(len(sel)),
             territorio=r(np.mean(V[terr][sel]), 1) if len(sel) else None,
             rota=r(np.mean(V[rota][sel]), 1) if len(sel) else None,
-            status=("TIPO" if (um_contra[NOMES_G[k]].get("p") is not None and um_contra[NOMES_G[k]]["p"] < 0.05)
-                    else "DESCRITIVO"),
-            corte_do_status=0.05, p_um_contra_o_resto=um_contra[NOMES_G[k]].get("p"),
+            natureza="exploratoria_eixos_herdados",
+            status=("TIPO" if len(sel) and all(condicoes.values()) else "DESCRITIVO"),
+            condicoes_do_status=condicoes,
+            status_julgado_por=("TIPO só se as quatro condições passam: o p do um-contra-o-resto sozinho separa "
+                                "por construção, porque a bateria de fora carrega colunas correlacionadas com os "
+                                "eixos que cortaram os grupos"),
+            # `corte_do_status` null: o status depende de QUATRO condições, e o renderer do
+            # Protótipo recalcula "firme" por `p_um_contra_o_resto < corte_do_status` — com 0,05
+            # ali os quatro grupos DESCRITIVOS voltavam à tela como firmes. O corte do p fica com
+            # o nome do que ele corta.
+            corte_do_status=None,
+            motivo_corte_do_status=("o status não sai de um corte: TIPO exige as quatro condições de "
+                                    "condicoes_do_status; o corte do p está em corte_do_p_um_contra_o_resto"),
+            corte_do_p_um_contra_o_resto=0.05, p_um_contra_o_resto=p_uc,
             metodo_um_contra_o_resto=um_contra[NOMES_G[k]].get("metodo"),
+            replicas_um_contra_o_resto=um_contra[NOMES_G[k]].get("metodo"),
+            valor_medio_eur=r(np.nanmean(d.tm_valor_total.values[sel]), 0) if len(sel) else None,
             times=[dict(clube=d.clube[i], ano=int(d.ano[i]), pos=int(d.pos[i]), pts=int(d.pts[i]),
                         aproveitamento_pct=r(100 * d.aproveitamento[i], 1),
                         subiu_de_fato=bool(d.subiu_de_fato[i]),
@@ -1002,17 +1241,17 @@ def tipologia_congelada(d80, postos, jog):
              numero=int(np.nansum(q_fis < 0.05)), corte=1, passou=bool(np.nansum(q_fis < 0.05) >= 1)),
         dict(teste="formação separa os grupos (% de linha de três)",
              numero=testes_form["linha3"]["p"], corte=0.05,
-             passou=bool((testes_form["linha3"]["p"] or 1) < 0.05)),
+             passou=abaixo(testes_form["linha3"]["p"], 0.05)),
         dict(teste="o dinheiro distingue os quatro grupos (permutação)",
              numero=r(p_din, 4), corte=0.05, passou=bool(p_din < 0.05)),
         dict(teste="partição rival feita SÓ com dinheiro explica a bateria de fora",
              numero=r(p_rival, 4), corte=0.05, passou=bool(p_rival < 0.05)),
         dict(teste="corte de ROTA dentro do território alto (G1 x G2)",
              numero=andares["territorio_alto_G1_x_G2"].get("p"), corte=0.05,
-             passou=bool((andares["territorio_alto_G1_x_G2"].get("p") or 1) < 0.05)),
+             passou=abaixo(andares["territorio_alto_G1_x_G2"].get("p"), 0.05)),
         dict(teste="corte de ROTA dentro do território baixo (G3 x G4)",
              numero=andares["territorio_baixo_G3_x_G4"].get("p"), corte=0.05,
-             passou=bool((andares["territorio_baixo_G3_x_G4"].get("p") or 1) < 0.05)),
+             passou=abaixo(andares["territorio_baixo_G3_x_G4"].get("p"), 0.05)),
         dict(teste=f"estabilidade: trocas na alta ao tirar um dos 16 que definiram o corte "
                    f"(limiar {lim_time} = {LIM_TIME_16} do Protótipo × {len(alta)}/16)",
              numero=max(t["trocas"] for t in trocas_time), corte=lim_time,
@@ -1036,6 +1275,12 @@ def tipologia_congelada(d80, postos, jog):
         cortes_origem=dict(arquivo="_fonte/prototipo/CONGELADO_2022_2025.md",
                            recalculados_nos_16_que_subiram={e: r(cortes_recalc[e], 4) for e in eixo_nomes},
                            batem=True),
+        enumeracao_do_um_contra_o_resto=dict(
+            limite_exato_em_particoes=LIMITE_EXATO, replicas_monte_carlo_acima_do_limite=N_MC_EXATO,
+            regra=("exata (todas as C(n,k) rotulagens, eta² vetorizado) até o limite; acima dele, Monte "
+                   "Carlo com o gerador da tipologia e IC de Clopper-Pearson do p; o método usado vai "
+                   "em cada `metodo`"),
+            replicas_da_bateria=N_BATERIA),
         conferencia_do_motor_exato=conferencia,
         bateria_pre_declarada=fora_tec, retiradas_da_bateria_por_serem_resultado=retiradas,
         leitura_retirada_por_ser_resultado=leitura_retirada,
@@ -1063,13 +1308,32 @@ def tipologia_congelada(d80, postos, jog):
                                   for j, c in enumerate(fora_tec)], key=lambda x: -(x["eta2"] or 0))),
         bateria_limpa=dict(validadores=len(limpos), criterio="|rho| < 0,50 contra os dois eixos nas 80 linhas",
                            eta2_medio_obs=r(obs_lim, 3), p=r(p_lim_rot, 4),
+                           eta2_medio_nulo=r(np.nanmean(nulo_lim), 3), replicas_rotulo=int(len(nulo_lim)),
                            eta2_medio_nulo_placebo=r(np.nanmean(plac_lim), 3), p_placebo=r(p_lim_plac, 4),
+                           placebo_particoes=int(len(plac_lim)),
                            julgada_por="p_placebo", colunas=limpos),
+        nulo_nao_estratificado_por_ano=dict(
+            alta_por_ano={str(int(a)): int(((d.ano.values[alta]) == a).sum()) for a in sorted(set(d.ano.values[alta]))},
+            regra=("os nulos de rótulo sorteado, formação, dinheiro e partição rival permutam os %d juntos, e a "
+                   "enumeração do um-contra-o-resto conta todas as C(n,k) partições sem olhar o ano; o resto do "
+                   "estudo sorteia DENTRO do ano. Mantido como no Protótipo (lá eram 4 por ano) e declarado: "
+                   "estratificar mudaria todos os p desta tipologia" % len(alta)),
+            limiares_de_estabilidade=("proporcionais (limiar do Protótipo × n/16), NÃO recalibrados por simulação "
+                                      "com n=%d" % len(alta))),
         fisico=dict(colunas=len(fora_fis), colunas_testadas=int(testadas.sum()),
                     passam5=int(np.nansum(p_fis < 0.05)), esperados_por_acaso=r(testadas.sum() * 0.05, 1),
                     menor_q_bh=r(np.nanmin(q_fis) if len(q_fis) else np.nan, 3),
                     sobrevivem_bh5=int(np.nansum(q_fis < 0.05)), replicas=N_BATERIA,
-                    por_coluna=fis_por_coluna),
+                    n_clubes_minimo=min((x["n_clubes"] for x in fis_por_coluna), default=None),
+                    n_clubes_maximo=max((x["n_clubes"] for x in fis_por_coluna), default=None),
+                    menor_grupo_minimo=min((x["menor_grupo"] for x in fis_por_coluna), default=None),
+                    por_coluna=fis_por_coluna,
+                    colunas_fis_de_fora=[
+                        dict(col=c, motivo=(
+                            "denominador da média física (atletas rastreados), não indicador — entra como "
+                            "controle, ver etapa_1.controle_n_atletas" if c.endswith("_atletas") else
+                            "minutos rastreados do elenco: medida de exposição da base, não indicador de jogo"))
+                        for c in sorted(c for c in d.columns if c.startswith("fis_") and c not in set(fora_fis))]),
         formacao=testes_form,
         dinheiro=dict(eta2_posto_valor=r(e_din, 3), p_permutacao=r(p_din, 4),
                       p_kruskal=r(kw.pvalue, 4) if kw else None,
@@ -1079,8 +1343,16 @@ def tipologia_congelada(d80, postos, jog):
                       residualizado=dict(regra=("resíduo do posto de valor nos itens dos eixos, re-ranqueado "
                                                 "no ano; corte = mediana dos 16 que subiram no eixo residual"),
                                          muda_territorio=muda_t, muda_rota=muda_r, de=len(alta),
-                                         trocaram=[rotulo(alta[k]) for k in range(len(alta)) if g_res[k] != gi[k]])),
+                                         trocaram=[rotulo(alta[k]) for k in range(len(alta)) if g_res[k] != gi[k]]),
+                      rho_posto_valor_x_percentil_ppda=r(
+                          stats.spearmanr(posto_val[alta], postos["ppda"].values[alta]).statistic, 3),
+                      convencao_ppda=("posto de valor 1 = elenco mais caro do ano; percentil de PPDA alto = MENOS "
+                                      "pressão. rho positivo significa elenco caro pressiona alto"),
+                      n_do_rho=int(len(alta))),
         estabilidade=dict(tirar_um_dos_16=trocas_time, tirar_um_indicador=trocas_ind,
+                          times_que_nunca_se_movem=[rotulo(i) for i in alta
+                                                    if all(rotulo(i) not in t["trocaram"] for t in trocas_time)],
+                          regra_times_que_nunca_se_movem="times da alta que não trocam de grupo em nenhuma das 16 retiradas",
                           tirar_um_time_da_alta=dict(
                               possivel=False,
                               motivo=("com o corte congelado, tirar um time da alta não move corte nenhum: "
@@ -1108,10 +1380,16 @@ def etapa_8(d80, postos, jog, Z, itens_eixo):
            for k in (2, 3, 4)]
     tip = tipologia_congelada(d80, postos, jog)
     km = tip.pop("kmeans_no_plano_da_tipologia")
+    # Um eixo do cemitério feito SÓ de colunas de consequência (repetir o XI, concentrar minutos)
+    # agrupa a alta pelo que acontece com quem ganha: vai marcado, como na etapa 2.
+    so_consequencia = [e for e, its in itens_eixo.items() if its and all(RG.motivo_consequencia(c) for c in its)]
     return dict(titulo_chave="etapa_8", estado_nesta_aba="adaptada",
                 o_que_mudou=("cemitério rodado nos %d da alta com geradores próprios; tipologia com os "
-                             "eixos e cortes congelados do Protótipo aplicados à alta (ver `tipologia.decisao`)" % n),
+                             "eixos e cortes congelados do Protótipo aplicados à alta (ver `tipologia.decisao`); "
+                             "status TIPO só com a bateria limpa e a estabilidade passando" % n),
                 cemiterio=dict(linhas=cem, jaccard=jac, eixos_usados=itens_eixo,
+                               eixos_so_de_consequencia=so_consequencia,
+                               **RG.marca_consequencia([c for its in itens_eixo.values() for c in its]),
                                kmeans_no_plano_da_tipologia=km,
                                observacoes_por_dimensao=dict(n=n, dimensoes=Z.shape[1])),
                 tipologia=tip)
@@ -1135,8 +1413,7 @@ def etapa_10(d80, linhas_cat, pares):
     cat = {L["coluna_csv"]: L for L in linhas_cat}
     # A própria régua (pts, posição, a faixa, o aproveitamento) não é "resultado redescrito":
     # é a definição. Listá-la com d contra as faixas seria mostrar que a régua separa a si mesma.
-    REGUA = {"pts", "pos", "subiu", "caiu", "faixa", "faixa_pts", "faixa_posicao", "aproveitamento",
-             "pts_oficial", "punicao_pts", "jogos_faltando", "subiu_de_fato"}
+    REGUA = set(RG.REGUA)
     linhas = []
     for col in d80.columns:
         mot_r, mot_c = RG.motivo_resultado(col), RG.motivo_consequencia(col)
@@ -1148,8 +1425,10 @@ def etapa_10(d80, linhas_cat, pares):
         rk = pd.Series(v).groupby(d80.ano.values).rank(pct=True).values * 100
         ok = np.isfinite(rk[a]) & np.isfinite(rk[b])
         rho = stats.spearmanr(rk[a][ok], rk[b][ok]).statistic if ok.sum() >= 8 else np.nan
+        # linha de resultado vai MARCADA como retirada de teste: aqui ela é aviso ("não contrate
+        # para isto"), e a guarda final confere a marca contra a lista, não o nome da etapa
         linhas.append(dict(indicador=col, tipo="resultado" if mot_r else "consequencia",
-                           motivo=mot_r or mot_c,
+                           motivo=mot_r or mot_c, **({RG.MARCA_RETIRADA: mot_r} if mot_r else {}),
                            **{f"m_{f}": r(np.nanmean(v[fx == f]), 3) for f in ORDEM},
                            d_bruto_AM=r(d_cohen(v[fx == "alta"], v[fx == "media"]), 3),
                            d_bruto_AB=r(d_cohen(v[fx == "alta"], v[fx == "baixa"]), 3),
@@ -1160,7 +1439,10 @@ def etapa_10(d80, linhas_cat, pares):
                 o_que_mudou=("a lista é fixa (resultado + consequência, versão %s) e não sai da porta; "
                              "resultado nunca é testado, consequência fica marcada" % RG.VERSAO_DAS_LISTAS),
                 universo="80 clube-temporada de 2022-2025",
-                fora_por_serem_a_propria_regua=sorted(c for c in REGUA if c in d80.columns),
+                fora_por_serem_a_propria_regua=[
+                    RG.retirada(c) if RG.e_resultado(c) else
+                    dict(col=c, motivo="coluna criada por esta aba para carregar a régua (posição ou subida real)")
+                    for c in sorted(REGUA) if c in d80.columns],
                 linhas=linhas)
 
 
@@ -1239,10 +1521,13 @@ def alvos_fisicos(sc, corrigido, posto_val, k_por_ano):
             ref = pd.to_numeric(d[col], errors="coerce").dropna().values
             if len(ref) < 30:
                 continue
+            # o n do teste por clube NÃO vai à linha: ele é, por construção, o mesmo n_clubes do
+            # cenário alta/baixa (mesmas linhas, mesma média ponderada, mesmo dropna) — conferido
+            # com assert abaixo. Dois nomes para o mesmo número convidavam a ler um pelo outro.
             linha = dict(d_clube=it["d_clube"], p_clube=it["p_clube"], q_clube=it["q_clube"],
                          bh_clube=it["bh_clube"], bh_atleta=it["bh_atleta"], menor=it["menor"],
-                         n_clube_sobe=it["n_clube_sobe"], n_clube_cai=it["n_clube_cai"],
                          n_atletas_serie_b=int(len(ref)))
+            n_teste = (it["n_clube_sobe"], it["n_clube_cai"])
             falta = False
             for cen, filtro in cenarios.items():
                 g = d[filtro(d)]
@@ -1260,6 +1545,7 @@ def alvos_fisicos(sc, corrigido, posto_val, k_por_ano):
                 linha[f"n_clubes_{cen}"] = int(len(ag))
                 ns[cen] = max(ns.get(cen, 0), len(ag))
             if not falta:
+                assert (linha["n_clubes_sobe"], linha["n_clubes_cai"]) == n_teste, (setor, k, n_teste)
                 itens[k] = linha
         alvos[setor] = itens
     alvos["_n_clube_por_cenario"] = ns
@@ -1275,8 +1561,9 @@ def indicadores_do_setor(alvo):
     atleta REFEITO nas faixas de pontos (`raio_nas_faixas_de_pontos`), não o de posição.
     """
     campos_fis = P.DECL["blocos_encaixe"]["fisica"]
-    do_clube = [k for k, a in alvo.items() if k in campos_fis and (a["p_clube"] or 1) < 0.05]
-    ns = [(a.get("n_clube_sobe"), a.get("n_clube_cai")) for k, a in alvo.items() if k in campos_fis]
+    # `abaixo` e não `(p or 1) < 0,05`: p_clube vem arredondado a 5 casas e um p de 1e-6 vira 0,0
+    do_clube = [k for k, a in alvo.items() if k in campos_fis and abaixo(a["p_clube"], 0.05)]
+    ns = [(a.get("n_clubes_sobe"), a.get("n_clubes_cai")) for k, a in alvo.items() if k in campos_fis]
     n1 = max([x for x, _ in ns if x is not None], default=0)
     n2 = max([y for _, y in ns if y is not None], default=0)
     if len(do_clube) >= 3:
@@ -1318,7 +1605,7 @@ def tecnico_2018_2025(d80, dv, jogos, meta_tc, cols):
                            "bloco"] + cols],
                       dv[["ano", "clube", "pos", "pts", "J", "aproveitamento", "faixa_pts", "subiu_de_fato",
                           "bloco"] + cols]]).sort_values(["ano", "pos"]).reset_index(drop=True)
-    sem_2026(base)
+    sem_2026(base, jogos[BLOCO_NOVO], jogos[BLOCO_VELHO])
     assert len(base) == 160
     bruto = base[cols].astype(float)
     postos = pd.DataFrame({c: base.groupby("ano")[c].rank(pct=True).values * 100 for c in cols})
@@ -1440,11 +1727,15 @@ def tecnico_2018_2025(d80, dv, jogos, meta_tc, cols):
         tamanhos={g: int((fx == g).sum()) for g in ORDEM},
         tamanhos_por_bloco={b: {g: int((fx[m] == g).sum()) for g in ORDEM} for b, m in blocos.items()},
         catalogo=dict(familia="tecnico_col", testes=len(cols), comparacao_primaria="alta x media",
+                      teste=("Welch no percentil dentro do ano, com d de Cohen — o MESMO teste do catálogo da "
+                             "etapa_2 (função do Protótipo), para que este bloco e a etapa_2 sejam comparáveis "
+                             "linha a linha. As tabelas de gaps usam Mann-Whitney (percentil é ordinal): as "
+                             "contagens passam5/bh5 daqui e as do ranking NÃO são do mesmo teste"),
                       bh="Benjamini-Hochberg nos %d indicadores, por comparação" % len(cols),
                       passam5_AM=int(np.nansum(np.array(pam) < 0.05)),
-                      bh5_AM=int(sum(1 for L in linhas if (L["q_AM"] or 1) < 0.05)),
+                      bh5_AM=int(sum(1 for L in linhas if abaixo(L["q_AM"], 0.05))),
                       passam5_AB=int(np.nansum(np.array(pab) < 0.05)),
-                      bh5_AB=int(sum(1 for L in linhas if (L["q_AB"] or 1) < 0.05)),
+                      bh5_AB=int(sum(1 for L in linhas if abaixo(L["q_AB"], 0.05))),
                       esperados_por_acaso_5pct=r(0.05 * len(cols), 2),
                       mesmo_sinal_AM_nos_dois_blocos=int(sum(L["mesmo_sinal_AM_nos_dois_blocos"] for L in linhas)),
                       linhas=linhas),
@@ -1477,12 +1768,19 @@ PROTEGIDOS = ("fis_", "ti_", "fisico_col_", "tecnico_ind_", "val_", "setor_")
 TROCA = {"sobe": "alta", "cai": "baixa", "meio": "media", "SM": "AM", "SC": "AB"}
 
 
+RENOMEADAS = {}      # chave do Protótipo -> chave desta aba, registrada na troca (vai a `tela.mapa_de_chaves`)
+
+
 def renomear_chave(k, irmaos):
     if not isinstance(k, str) or k.startswith(PROTEGIDOS):
         return k
     if k == "meio":            # 'meio' sozinho é faixa só quando mora ao lado de sobe/cai
-        return "media" if irmaos & {"sobe", "cai"} else k
-    return "_".join(TROCA.get(t, t) for t in k.split("_"))
+        novo = "media" if irmaos & {"sobe", "cai"} else k
+    else:
+        novo = "_".join(TROCA.get(t, t) for t in k.split("_"))
+    if novo != k:
+        RENOMEADAS.setdefault(k, novo)
+    return novo
 
 
 def renomear(o):
@@ -1510,33 +1808,502 @@ def traduzir_textos(o):
     if isinstance(o, str):
         for padrao, novo in TEXTOS:
             o = padrao.sub(novo, o)
+        # Identificador de CHAVE citado como valor (ex.: `alvo: "margem_sobe"` apontando para a
+        # chave que já virou `margem_alta`). Só identificador composto, sem espaço e fora dos
+        # prefixos de indicador; 'meio' fica de fora porque sozinho é setor.
+        if ("_" in o and " " not in o and not o.startswith(PROTEGIDOS)
+                and re.search(r"(^|_)(sobe|cai|SM|SC)(_|$)", o)):
+            o = "_".join({"sobe": "alta", "cai": "baixa", "SM": "AM", "SC": "AB"}.get(t, t)
+                         for t in o.split("_"))
     return o
 
 
-CAMPOS_INDICADOR = {"indicador", "col", "coluna_csv", "removido", "id", "indicador_real_melhor"}
-LISTAS_INDICADOR = {"bateria_pre_declarada", "colunas", "eixos_usados"}
-
-
-def indicadores_citados(o, caminho="", fora=("circulares", "etapa_10", "faixas", "listas_declaradas")):
-    """Todo id de indicador que aparece como linha de teste, eixo, bateria ou nota."""
-    achados = []
+def _todas_as_chaves(o, acc=None):
+    acc = set() if acc is None else acc
     if isinstance(o, dict):
         for k, v in o.items():
-            cam = f"{caminho}.{k}"
-            if caminho == "" and k in fora:
-                continue
-            if k in CAMPOS_INDICADOR and isinstance(v, str):
-                achados.append((cam, v))
-            elif k in LISTAS_INDICADOR and isinstance(v, list):
-                achados += [(cam, x) for x in v if isinstance(x, str)]
-            elif k in LISTAS_INDICADOR and isinstance(v, dict):
-                achados += [(cam, x) for xs in v.values() for x in xs if isinstance(x, str)]
-            else:
-                achados += indicadores_citados(v, cam, fora)
+            acc.add(k)
+            _todas_as_chaves(v, acc)
     elif isinstance(o, list):
-        for i, x in enumerate(o):
-            achados += indicadores_citados(x, f"{caminho}[{i}]", fora)
-    return achados
+        for x in o:
+            _todas_as_chaves(x, acc)
+    return acc
+
+
+# Trocas de chave feitas À MÃO (fora do `renomear`), do nome do Protótipo para o desta aba.
+TROCAS_MANUAIS = {
+    "acertos_top4": "acertos_top_k", "top4_de_valor": "top_k_de_valor", "top4": "top_k",
+    "g4_provisorio": "alta_por_ritmo",
+    "promovidos_no_posto_k": "alta_no_posto_k", "promovidos_acumulados": "alta_acumulados",
+    "pct_dos_promovidos": "pct_da_alta", "taxa_de_subida_no_top_k_pct": "taxa_de_alta_no_top_k_pct",
+    "promovidos_total": "alta_total", "promovidos_por_ano": "alta_por_ano",
+    "promovidos_por_posto": "alta_por_posto", "promovidos": "membros_da_alta",
+    "sobe_x_resto": "alta_x_resto", "sobe_x_meio": "alta_x_media", "sobe_x_cai": "alta_x_baixa",
+    "loso_sobe_x_resto": "loso_alta_x_resto", "auc_sobe_x_resto": "auc_alta_x_resto",
+    "auc_sobe_x_meio": "auc_alta_x_media", "auc_sobe_x_cai": "auc_alta_x_baixa",
+    "subidas_com_controle": "alta_com_controle", "subiram": "na_alta", "taxa_pct": "taxa_de_alta_pct",
+    "subidas_sem_ano_anterior_na_serie_b": "alta_sem_ano_anterior_na_serie_b", "subidas_totais": "alta_total",
+    "terminaram_em_subida": "terminaram_em_alta",
+    "taxa_de_subida_por_quartil_pct": "taxa_de_alta_por_quartil_pct",
+    "taxa_historica_de_subida_do_quartil_pct": "taxa_historica_de_alta_do_quartil_pct",
+    "trocas_medianas_em_38_jogos": "trocas_medianas_por_clube_temporada",
+    "referencia_pts1t_x_pts2t": "referencia_ap1t_x_ap2t",
+    "media_sobe": "media_alta", "media_meio": "media_media", "media_cai": "media_baixa",
+    "d_SM": "d_AM", "p_SM": "p_AM", "d_SC": "d_AB", "p_SC": "p_AB",
+    "m_sobe": "m_alta", "m_meio": "m_media", "m_cai": "m_baixa", "sobe": "alta", "cai": "baixa",
+    "sobecai_corrigido_por_clube": "alta_baixa_corrigido_por_clube",
+    "n_clubes_sobe": "n_clubes_alta", "n_clubes_cai": "n_clubes_baixa",
+    "linhas_serie_b_2022_2025": "linhas_serie_b", "painel": "painel_2022_2026",
+    "promovidos_no_posto": "alta_por_posto",
+}
+
+_M_PALPITE = "palpite de 14 dos 16 não reaplicado (motivo em etapa_1.curva_top_k.palpite_do_dono)"
+_M_DECLARADO = ("valor declarado em documento sobre os 16 que subiram; não copiado "
+                "(motivo em etapa_8.tipologia.status_e_p_declarados_do_prototipo)")
+REMOVIDAS = {
+    "pergunta": _M_PALPITE, "afirmado": _M_PALPITE, "confirma": _M_PALPITE, "menor_k_com_14": _M_PALPITE,
+    "esperado_por_acaso_no_k": _M_PALPITE, "p_exato_do_medido": _M_PALPITE,
+    "status_declarado_no_documento": _M_DECLARADO, "p_declarado_no_documento": _M_DECLARADO,
+    "leitura_do_teste_cego": _M_DECLARADO, "declarado_em": _M_DECLARADO,
+    "p_em_2018_2021_declarado": _M_DECLARADO, "p_medido_aqui_placebo": _M_DECLARADO,
+    "p_medido_aqui_rotulo": _M_DECLARADO, "p_na_origem_2022_2025_declarado": _M_DECLARADO,
+    "p_placebo_declarado_na_conferencia": _M_DECLARADO, "validadores_declarados_no_documento": _M_DECLARADO,
+    "motivo_do_julgamento": ("texto do Protótipo que compara com os documentos dos 16; o critério segue em "
+                             "bateria_limpa.julgada_por"),
+}
+
+
+_ETAPA0_PODER = "etapa_0.poder.fisico_tecnico_individual_valor_2022_2025"
+_M_AVISO = ("aviso de amostra não reaplicado: olhava o degrau do palpite de 14 dos 16 (motivo em "
+            "etapa_1.curva_top_k.aviso_de_amostra.motivo_de_nao_reaplicar)")
+
+# Trocas por CAMINHO, do Protótipo para esta aba: onde o nome sozinho não diz para onde a chave
+# foi (mudou de nível, virou dicionário, tem duas origens) ou não foi para lugar nenhum. Valor:
+# (caminho aqui ou None, conversão/motivo). `[]` é "cada item da lista".
+CAMINHOS_MANUAIS = {
+    # contagens de clube: no Protótipo soltas no topo (um universo só); aqui dentro de cada universo
+    "etapa_0.clubes_distintos": ("etapa_0.universo_80_2022_2025.clubes_distintos",
+                                 "clubes distintos das 80 de 2022-2025; o de 2018-2021 está em universo_2018_2021"),
+    "etapa_0.aparicoes_por_clube": ("etapa_0.universo_80_2022_2025.aparicoes_por_clube",
+                                    "aparições por clube nas 80 de 2022-2025; o de 2018-2021 está em universo_2018_2021"),
+    # d mínimo: no Protótipo, 16x16 é quem sobe contra quem CAI e 16x48 contra o MEIO (é assim
+    # que proto_a.js rotula); aqui o d mínimo mora por universo e por comparação.
+    "etapa_0.poder.d_minimo_16x16": (f"{_ETAPA0_PODER}.alta_x_baixa.d_minimo",
+                                     "16x16 = quem sobe contra quem cai: alta x baixa, universo das 80"),
+    "etapa_0.poder.d_minimo_16x16_bonferroni": (f"{_ETAPA0_PODER}.alta_x_baixa.d_minimo_bonferroni",
+                                                "o Bonferroni do 16x16: alta x baixa, universo das 80"),
+    "etapa_0.poder.d_minimo_16x48": (f"{_ETAPA0_PODER}.alta_x_media.d_minimo",
+                                     "16x48 = quem sobe contra o meio: alta x média, universo das 80"),
+    "etapa_0.poder.d_minimo_16x64": (f"{_ETAPA0_PODER}.alta_x_resto.d_minimo",
+                                     "16x64 = quem sobe contra o resto: alta x resto, universo das 80"),
+    "etapa_0.poder.alfa": (f"{_ETAPA0_PODER}.alfa", "o mesmo alfa, dentro do universo das 80"),
+    "etapa_0.poder.poder": (f"{_ETAPA0_PODER}.poder", "o mesmo poder, dentro do universo das 80"),
+    "etapa_0.poder.testes_na_correcao_bonferroni": (f"{_ETAPA0_PODER}.testes_na_correcao_bonferroni",
+                                                    "tamanho do catálogo, dentro do universo das 80"),
+    "bases.painel.linhas": (None, "o painel desta aba soma dois arquivos; linhas e colunas por arquivo não foram "
+                                  "regravadas (ficam `usadas` e `ano_2026`)"),
+    "bases.painel.colunas": (None, "o painel desta aba soma dois arquivos; linhas e colunas por arquivo não foram "
+                                   "regravadas (ficam `usadas` e `ano_2026`)"),
+    "bases.jogos.arquivo": ("bases.jogos.arquivos", "texto virou lista de dois arquivos, 2022-2025 primeiro"),
+    "bases.jogos.linhas_serie_b_2022_2025": ("bases.jogos.linhas_serie_b.2022-2025",
+                                             "o número do Protótipo é a entrada 2022-2025 do dicionário"),
+    "etapa_1.curva_top_k.aviso_de_amostra.promovidos_no_posto": (None, _M_AVISO),
+    "etapa_1.curva_top_k.aviso_de_amostra.postos_ate_k_sem_promovido": (None, _M_AVISO),
+    "etapa_1.curva_top_k.aviso_de_amostra.degrau_k8_para_k9": (None, _M_AVISO),
+    "etapa_1.curva_top_k.aviso_de_amostra.leitura": ("etapa_1.curva_top_k.aviso_de_amostra.leitura",
+                                                      "mesmo nome, outro conteúdo: refeita para a curva inteira"),
+    # etapa 0: o topo foi separado por universo (ver etapa_0)
+    "etapa_0.linhas_no_arquivo": ("etapa_0.linhas_no_arquivo_por_painel.painel_2022_2026",
+                                  "o 100 do Protótipo é o painel 2022-2026 (80 + 20 de 2026); o de 2018-2021 fica ao lado"),
+    "etapa_0.linhas_completas": ("etapa_0.universo_80_2022_2025.linhas_completas",
+                                 "as 80 completas de 2022-2025; as de 2018-2021 estão em universo_2018_2021"),
+    "etapa_0.sobe": ("etapa_0.universo_80_2022_2025.alta", "quem subiu → faixa alta, dentro do universo das 80"),
+    "etapa_0.meio": ("etapa_0.universo_80_2022_2025.media", "meio → faixa média, dentro do universo das 80"),
+    "etapa_0.cai": ("etapa_0.universo_80_2022_2025.baixa", "quem caiu → faixa baixa, dentro do universo das 80"),
+    **{f"etapa_1.curva_top_k.palpite_do_dono.{k}": (None, _M_PALPITE)
+       for k in ("pergunta", "k", "afirmado", "medido", "confirma", "menor_k_com_14", "esperado_por_acaso_no_k",
+                 "p_exato_do_medido")},
+    "etapa_1.curva_top_k.promovidos_por_posto[].promovidos": ("etapa_1.curva_top_k.alta_por_posto[].na_alta",
+                                                              "quantos da faixa alta naquele posto de valor"),
+    "etapa_1.fora_da_amostra_2026.J": ("faixas.ano_2026.rodadas_no_painel",
+                                       "número virou lista dos J do painel (os jogos do jogo a jogo divergem: "
+                                       "faixas.ano_2026.perto_do_corte)"),
+    "etapa_1.fora_da_amostra_2026.top4_de_valor.de": ("etapa_1.fora_da_amostra_2026.top_k_de_valor.k",
+                                                       "`de` era o tamanho fixo do top-4; aqui k = tamanho da alta "
+                                                       "por ritmo em 2026"),
+    "etapa_7.rodadas_1t": ("etapa_7.jogos_por_turno_resumo.jogos_1t_max",
+                           "rodadas do 1º turno (rod < 19) viraram jogos do 1º turno = ceil(n/2); min e max em "
+                           "jogos_por_turno_resumo"),
+    "etapa_7.rodadas_2t": ("etapa_7.jogos_por_turno_resumo.jogos_2t_max",
+                           "rodadas do 2º turno viraram jogos do 2º turno = o resto; o mínimo (clube com 37 "
+                           "jogos) está em jogos_2t_min"),
+    "etapa_8.tipologia.estabilidade.tirar_um_time": ("etapa_8.tipologia.estabilidade.tirar_um_dos_16",
+                                                     "com o corte congelado, a retirada é a de cada um dos 16 "
+                                                     "que cortaram os eixos; tirar um da alta não move corte "
+                                                     "(tirar_um_time_da_alta.possivel = false)"),
+    "etapa_8.tipologia.estabilidade.tirar_um_time[].removido": (
+        "etapa_8.tipologia.estabilidade.tirar_um_dos_16[].removido_dos_16", "o removido é um dos 16"),
+    **{f"etapa_8.tipologia.bateria_limpa.{k}": (None, _M_DECLARADO)
+       for k in ("leitura_do_teste_cego", "p_placebo_declarado_na_conferencia",
+                 "validadores_declarados_no_documento")},
+    "etapa_8.tipologia.bateria_limpa.motivo_do_julgamento": (None, REMOVIDAS["motivo_do_julgamento"]),
+    "etapa_8.tipologia.grupos[].p_declarado_no_documento": (None, _M_DECLARADO),
+    "etapa_8.tipologia.grupos[].status_declarado_no_documento": (None, _M_DECLARADO),
+    "etapa_10.linhas[].nome": (None, "o Protótipo repetia o indicador em `nome`; aqui a linha tem só `indicador`"),
+    "etapa_10.linhas[].porta": ("etapa_10.linhas[].porta_no_catalogo",
+                                "a membresia não depende mais da porta; é null quando a coluna não está no "
+                                "catálogo, que é o caso de toda coluna de resultado"),
+}
+# Colunas de resultado que o Protótipo mostrava e esta aba retira: a entrada é a retirada.
+CAMINHOS_RETIRADOS = ("etapa_8.tipologia.grupos[].brutos.", "etapa_8.tipologia.grupos[].percentis.")
+
+# Mudança de TIPO sob um caminho traduzido, com a conversão. Caminho (regex) -> texto.
+TIPOS_DECLARADOS = (
+    (re.compile(r"^etapa_5\.paineis\.[^.]+\.clubes\[\]\.celulas\[\]\[\]$"),
+     "célula vira TEXTO com o motivo quando o setor tem menos de 3 atletas rastreados (ausência com motivo)"),
+    (re.compile(r"^etapa_10\.linhas\[\]\.porta$"), "a porta virou `porta_no_catalogo`, null para coluna fora do catálogo"),
+    (re.compile(r"^etapa_1\.fora_da_amostra_2026\.J$"), "número virou lista de J do painel"),
+    (re.compile(r"^bases\.jogos\.arquivo$"), "texto virou lista de arquivos"),
+)
+
+_VALOR_DE_FAIXA = {"sobe": "alta", "meio": "media", "cai": "baixa", "SM": "AM", "SC": "AB"}
+
+
+def _traduzir_valor(v):
+    if not isinstance(v, str) or " " in v:
+        return v
+    return "_".join(_VALOR_DE_FAIXA.get(t, t) for t in v.split("_"))
+
+
+def _tipo_json(v):
+    if v is None:
+        return "null"
+    if isinstance(v, bool):
+        return "bool"
+    if isinstance(v, (int, float)):
+        return "numero"
+    if isinstance(v, str):
+        return "texto"
+    return "lista" if isinstance(v, list) else "dicionario"
+
+
+def _caminhos_json(o, cam="", tipos=None, valores=None):
+    """{caminho: tipos} e {caminho: textos} (até 40 textos distintos por caminho), listas como `[]`."""
+    tipos = {} if tipos is None else tipos
+    valores = {} if valores is None else valores
+    if isinstance(o, dict):
+        itens = [(f"{cam}.{k}" if cam else str(k), v) for k, v in o.items()]
+    elif isinstance(o, list):
+        itens = [(f"{cam}[]", v) for v in o]
+    else:
+        return tipos, valores
+    for c, v in itens:
+        tipos.setdefault(c, set()).add(_tipo_json(v))
+        if isinstance(v, str):
+            vs = valores.setdefault(c, set())
+            if len(vs) < 40:
+                vs.add(v)
+        _caminhos_json(v, c, tipos, valores)
+    return tipos, valores
+
+
+def _segmentos(c):
+    """'a.b[].c' -> ['a', 'b', '[]', 'c'] (chave com ponto não existe nos dois JSON)."""
+    out = []
+    for parte in c.split("."):
+        nome = parte.replace("[]", "")
+        if nome:
+            out.append(nome)
+        out.extend(["[]"] * parte.count("[]"))
+    return out
+
+
+def _juntar(segs):
+    s = ""
+    for x in segs:
+        s = s + "[]" if x == "[]" else (f"{s}.{x}" if s else x)
+    return s
+
+
+def bloco_tela(saida):
+    """O que a TELA precisa saber para ler esta aba — e por que o renderer do Protótipo não serve.
+
+    `mapa_de_caminhos`: todo CAMINHO do `prototipo.json` (etapa.bloco.chave, `[]` para cada item
+    de lista) com o caminho que o substitui aqui, a troca (automática sobe→alta, manual por nome,
+    manual por caminho), o tipo de origem e o de destino — ou o motivo de não existir. A
+    conferência é por caminho, não por nome solto: um nome que existe em OUTRO lugar do JSON não
+    serve de par (foi assim que `etapa_0.meio` passou sem entrada). Sobra de caminho sem par, ou
+    tipo que muda sem conversão declarada, quebra o gerador na rodada completa.
+    `mapa_de_valores`: campos em que o VALOR (não a chave) mudou de sobe/meio/cai para
+    alta/media/baixa — o renderer compara esses valores por literal.
+    O mapa é INFORMATIVO. Ele não é camada de tradução suficiente: há comparações no renderer
+    que nenhum mapa corrige (ver `renderer_do_prototipo.impedimentos`). A aba precisa de
+    renderer próprio.
+    """
+    proto = json.load(open(os.path.join(RAIZ, "dados", "prototipo.json"), encoding="utf-8"))
+    proto.pop("gerado_em", None)
+    TP, VP = _caminhos_json(proto)
+    TN, VN = _caminhos_json(saida)
+    manuais = {c: v for c, v in CAMINHOS_MANUAIS.items()}
+    for c, (dest, _) in manuais.items():
+        assert dest is None or dest in TN, ("caminho manual aponta para caminho que não existe aqui", c, dest)
+
+    traducao = {}          # caminho do Protótipo -> (caminho aqui | None, como, nota)
+    mapa, sem_par, tipo_sem_conversao, valores = [], [], [], []
+    for c in sorted(TP, key=lambda s: (s.count(".") + s.count("[]"), s)):
+        segs = _segmentos(c)
+        pai = _juntar(segs[:-1]) if len(segs) > 1 else None
+        if pai is not None and pai in traducao and traducao[pai][0] is None:
+            traducao[c] = (None, "herdado", None)          # o pai saiu: os filhos saem junto
+            continue
+        base = traducao[pai][0] if pai is not None else ""
+        ultimo = segs[-1]
+        if c in manuais:
+            dest, nota = manuais[c]
+            traducao[c] = (dest, "manual por caminho", nota)
+        elif c.startswith(CAMINHOS_RETIRADOS) and RG.e_resultado(ultimo):
+            traducao[c] = (None, "retirada", RG.motivo_resultado(ultimo))
+        else:
+            if ultimo == "[]":
+                cands = [("[]", "igual")]
+            else:
+                cands = [(ultimo, "igual"), (RENOMEADAS.get(ultimo), "automática (sobe→alta, meio→media, cai→baixa)"),
+                         (TROCAS_MANUAIS.get(ultimo), "manual por nome")]
+            achou = None
+            for nome, como in cands:
+                if not nome:
+                    continue
+                alvo = (base + "[]") if nome == "[]" else (f"{base}.{nome}" if base else nome)
+                if alvo in TN:
+                    achou = (alvo, como)
+                    break
+            if achou is None:
+                if RG.e_resultado(ultimo):
+                    traducao[c] = (None, "retirada", RG.motivo_resultado(ultimo))
+                elif ultimo in REMOVIDAS:
+                    traducao[c] = (None, "removida", REMOVIDAS[ultimo])
+                else:
+                    traducao[c] = (None, "sem par", None)
+                    sem_par.append(c)
+                    continue
+            else:
+                traducao[c] = (achou[0], achou[1], None)
+        dest, como, nota = traducao[c]
+        tp = sorted(TP[c] - {"null"})
+        tn = sorted(TN[dest] - {"null"}) if dest else []
+        if dest and tp and tn and tp != tn:
+            conv = next((txt for rx, txt in TIPOS_DECLARADOS if rx.search(c)), None)
+            if conv is None:
+                tipo_sem_conversao.append(dict(prototipo=c, aqui=dest, tipo_prototipo=tp, tipo_aqui=tn))
+            nota = nota or conv
+        # entrada só onde algo muda: nome, nível, tipo, ou saída (os filhos de um caminho trocado
+        # herdam a troca e só entram se trocarem de novo)
+        esperado = (base + "[]") if ultimo == "[]" else (f"{base}.{ultimo}" if base else ultimo)
+        if dest != esperado or (dest and tp and tn and tp != tn) or (como == "manual por caminho" and nota):
+            if como == "retirada":
+                mapa.append(dict(RG.retirada(ultimo), prototipo=c, aqui=None))
+            else:
+                mapa.append(dict(prototipo=c, aqui=dest, troca=como, tipo_prototipo=tp,
+                                 tipo_aqui=tn if dest else None, **({"nota": nota} if nota else {})))
+        # valores literais de faixa
+        if dest and c in VP and dest in VN:
+            trocados = {v: _traduzir_valor(v) for v in sorted(VP[c])
+                        if v not in VN[dest] and _traduzir_valor(v) != v and _traduzir_valor(v) in VN[dest]}
+            if trocados:
+                valores.append(dict(prototipo=c, aqui=dest, valores=trocados))
+    # No modo --rapido algumas réplicas não produzem todos os campos (ex.: vagas da etapa 14):
+    # ali a sobra é gravada; na rodada completa ela quebra.
+    # Saída declarada (destino nulo) de um caminho que EXISTE aqui é mentira do mapa: a tela descartaria
+    # um dado que está no JSON. Vale nos dois modos.
+    nulo_que_existe = sorted(c for c, (d, como, _) in traducao.items() if d is None and como != "herdado" and c in TN)
+    assert not nulo_que_existe, ("mapa dá como saída um caminho que existe nesta aba", nulo_que_existe)
+    assert RAPIDO or not sem_par, ("caminho do Protótipo sem par nem motivo nesta aba", sem_par)
+    assert RAPIDO or not tipo_sem_conversao, ("tipo mudou sem conversão declarada", tipo_sem_conversao)
+    destinos = {}
+    for e in mapa:
+        if e.get("aqui"):
+            destinos.setdefault(e["aqui"], []).append(e["prototipo"])
+    muitos_para_um = {d: o for d, o in destinos.items() if len(o) > 1}
+    assert not muitos_para_um, ("dois caminhos do Protótipo no mesmo destino: a volta não seria única", muitos_para_um)
+
+    import glob
+    # `prototipo.js` é o JSON do Protótipo copiado para JS (dado, não renderer): lê-lo como código
+    # contava palavra de texto como "chave lida" e punha a própria cópia do dado em `onde`
+    arquivos = sorted(f for f in glob.glob(os.path.join(RAIZ, "static", "proto*.js"))
+                      if os.path.basename(f) != "prototipo.js")
+    txt = {os.path.basename(f): open(f, encoding="utf-8").read() for f in arquivos}
+    lidas = set()
+    for t in txt.values():
+        lidas |= set(re.findall(r"\.([A-Za-z_]\w*)", t)) | set(re.findall(r"\[['\"]([A-Za-z_]\w*)['\"]\]", t))
+    # nomes lidos pelo renderer cujo caminho no Protótipo NÃO existe igual aqui
+    ultimos_trocados = {_segmentos(c)[-1] for c, (d, _, _) in traducao.items() if d != c}
+    lidas_trocadas = sorted(lidas & ultimos_trocados)
+    prosa = re.compile(r"subi|promovid|rebaixad|acesso|\b16 que", re.I)
+    # O renderer (proto*.js) está sendo REESCRITO por outra rodada enquanto esta aba fecha (14/09). Tudo o que
+    # este bloco diz dele é uma FOTO do disco no instante de `gerado_em`: padrão que deixou de casar não quebra
+    # mais o gerador — vai para `padroes_sem_linha_nesta_foto`. Perseguir números de linha de um arquivo que
+    # muda de hora em hora seria trabalho perdido; o bloco será refeito quando a tela fechar.
+    sem_linha_nesta_foto = []
+
+    def onde(padrao, sem_comentario=False):
+        # `sem_comentario`: pula linha de comentário de bloco/linha (`/* ... */`, ` * `, `//`). A lista é o
+        # checklist de LEITURAS do renderer; o cabeçalho de proto_a.js cita `d.sobe + ' contra ' + d.cai` em
+        # prosa, e isso não é um ponto de leitura.
+        rx = re.compile(padrao)
+
+        def sem_comentarios(t):
+            # troca cada comentário de bloco por um texto em branco com as MESMAS quebras de linha (a numeração
+            # das linhas não pode mudar) e corta o comentário de linha; strings com `//` não existem nas
+            # linhas que estes padrões procuram
+            t = re.sub(r"/\*.*?\*/", lambda m: "\n" * m.group(0).count("\n"), t, flags=re.S)
+            return re.sub(r"(?m)^\s*//.*$", "", t)
+
+        achou = [f"{f}:{i}" for f, t in sorted(txt.items())
+                 for i, l in enumerate((sem_comentarios(t) if sem_comentario else t).splitlines(), 1) if rx.search(l)]
+        if not achou:
+            sem_linha_nesta_foto.append(padrao)
+        return achou
+
+    def impedimento_da_firmeza():
+        """A firmeza da tipologia, lida no renderer que está no disco AGORA.
+
+        O renderer do Protótipo muda em outras rodadas (em 14/09, entre duas gerações desta aba, `const
+        passaGrupo` saiu de proto_b.js e entrou `pb8Firme`). Texto fixo sobre ele envelhece: a afirmação é
+        montada a partir do código que existe, e quebra se nenhuma das duas formas conhecidas estiver lá."""
+        grupos_ = saida["etapa_8"]["tipologia"]["grupos"]
+        if any(re.search(r"const passaGrupo", t) for t in txt.values()):
+            return dict(o_que=("firmeza da tipologia recalculada: passaGrupo decide 'firme' por p_um_contra_o_resto < "
+                               "corte_do_status, sem ler o status; aqui o status exige quatro condições, "
+                               "corte_do_status é null e o corte do p mora em corte_do_p_um_contra_o_resto"),
+                        onde=onde(r"const passaGrupo"))
+        if not any(re.search(r"function pb8Firme", t) for t in txt.values()):
+            # renderer em reescrita: nenhuma das duas formas conhecidas está no disco nesta foto
+            return dict(o_que=("firmeza da tipologia: nesta foto o renderer não tem passaGrupo nem pb8Firme; a leitura "
+                               "da firmeza não foi reconhecida e fica para quando a tela fechar"),
+                        onde=[])
+        status = sorted({str(g.get("status")) for g in grupos_})
+        lidos = all(s.upper() in ("TIPO", "DESCRITIVO") for s in status)
+        return dict(
+            o_que=("firmeza da tipologia: o renderer lê o status (pb8Firme: TIPO = firme, DESCRITIVO = só descrição) "
+                   "e só usa p_um_contra_o_resto < corte_do_status para apontar discordância; aqui corte_do_status é "
+                   "null (o corte do p mora em corte_do_p_um_contra_o_resto), então a discordância nunca aparece. "
+                   + ("Status desta aba: %s — todos lidos pelo renderer." % ", ".join(status) if lidos else
+                      "Status desta aba: %s — algum fora de TIPO/DESCRITIVO cai em 'desconhecido'." % ", ".join(status))),
+            impede=not lidos,
+            onde=onde(r"function pb8Firme|function pb8ContaDiscorda"))
+
+    # As afirmações dos impedimentos novos, conferidas no próprio JSON antes de gravar
+    por_ano = saida["etapa_0"]["por_ano"]
+    anos_completos_fora = sorted(x["ano"] for x in por_ano if x["completa"] and not x["entra_nas_medias"])
+    assert anos_completos_fora == [2018, 2019, 2020, 2021], anos_completos_fora
+    grupos = saida["etapa_8"]["tipologia"]["grupos"]
+    assert all("status_declarado_no_documento" not in g and g.get("corte_do_status") is None for g in grupos)
+    return dict(
+        mapa_de_caminhos=dict(
+            caminhos_do_prototipo=len(TP), entradas=len(mapa), mapa=mapa,
+            sem_par_so_no_modo_rapido=sem_par, tipo_sem_conversao_so_no_modo_rapido=tipo_sem_conversao,
+            saidas_sem_destino=sum(1 for e in mapa if not e.get("aqui")),
+            regra=("conferência por CAMINHO: cada caminho do Protótipo tem destino aqui (igual, troca automática, "
+                   "troca manual por nome ou por caminho) ou motivo; tipo que muda precisa de conversão; nenhum "
+                   "destino recebe dois caminhos; sobra quebra o gerador"),
+            informativo=("o mapa descreve para onde cada caminho foi; ele NÃO basta como camada de tradução "
+                         "para o renderer do Protótipo (ver renderer_do_prototipo.impedimentos)")),
+        mapa_de_valores=dict(
+            regra="campos cujo VALOR de texto mudou de sobe/meio/cai (e SM/SC) para alta/media/baixa (e AM/AB)",
+            campos=valores),
+        renderer_do_prototipo=dict(
+            foto=("FOTO do renderer proto*.js no instante de `gerado_em`. O renderer está sendo reescrito por outra "
+                  "rodada: números de linha (`onde`), contagens e textos deste bloco envelhecem sozinhos e NÃO são "
+                  "checklist; o bloco será refeito quando a tela fechar"),
+            padroes_sem_linha_nesta_foto=sem_linha_nesta_foto,
+            reaproveitavel=False,
+            veredito="NÃO: a aba Pontos precisa de renderer próprio; o mapa é informativo",
+            arquivos=sorted(txt), fora_da_leitura=dict(arquivo="prototipo.js", motivo="é o dado copiado para JS, não código"),
+            nomes_lidos_pelo_renderer_com_caminho_trocado_aqui=len(lidas_trocadas),
+            dessas_sao_colunas_de_resultado_retiradas=sum(1 for k in lidas_trocadas if RG.e_resultado(k)),
+            linhas_de_texto_fixo_com_subida_ou_acesso={f: sum(1 for l in t.splitlines() if prosa.search(l))
+                                                      for f, t in txt.items()},
+            referencias_ao_global_PROTO={f: len(re.findall(r"\bPROTO\b", t)) for f, t in txt.items()},
+            ids_fixos_ptEt={f: len(re.findall(r"ptEt-", t)) for f, t in txt.items()},
+            impedimentos=[
+                dict(o_que=("o renderer lê chaves com os nomes do Protótipo e cai em traço silencioso quando falta; "
+                            "traduzir por mapa_de_caminhos não resolve os casos abaixo")),
+                impedimento_da_firmeza(),
+                dict(o_que=("valores de faixa comparados por LITERAL (sobe/meio/cai): cor e texto das faixas dos "
+                            "pares, grupo do alvo da etapa 14 (alvo.replace('margem_','') contra as chaves fixas "
+                            "sobe/caro/barato/cai: o C_anti_queda sairia sempre 'o alvo não foi alcançado'); "
+                            "os campos estão em mapa_de_valores"),
+                     onde=onde(r"function pbCorFaixa|function pbFaixaTxt|replace\('margem_'|prox_sobe")),
+                dict(o_que=("as quatro chaves d_minimo_16x* (16x16, 16x48, 16x64, 16x16_bonferroni) são lidas no "
+                            "topo de poder e não existem aqui (aqui é poder.<universo>.<comparação>.d_minimo, e "
+                            "mapa_de_caminhos diz qual); o filtro descarta os quatro recortes, nada é subtraído, e o "
+                            "cartão do poder diz que o JSON não traz limite nenhum — quando ele traz três universos"),
+                     onde=onde(r"d_minimo_16x")),
+                dict(o_que=("contagens da etapa 0 lidas no topo (d.sobe/d.meio/d.cai, d.linhas_completas, "
+                            "d.linhas_no_arquivo; e0.linhas_completas em proto.js): aqui o topo é separado por "
+                            "universo (universo_80_2022_2025, universo_2018_2021), não há linhas_completas solto e "
+                            "linhas_no_arquivo virou linhas_no_arquivo_por_painel; ptInt(d.meio + d.cai) soma dois "
+                            "undefined e escreve NaN na tela"),
+                     onde=onde(r"\b(d|e0)\.(sobe|meio|cai|linhas_completas|linhas_no_arquivo)\b", sem_comentario=True)),
+                dict(o_que=("o renderer entende entra_nas_medias=false como ano INCOMPLETO: monta a lista 'fora' com "
+                            "esses anos, diz que o campeonato parou na rodada J de %d, pinta o ano como 'fora da "
+                            "conta' e escreve 'não — J de %d'. Aqui %s estão completos (38 de 38) e fora só do "
+                            "universo das 80" % (saida["etapa_0"]["rodadas_completa"],
+                                                 saida["etapa_0"]["rodadas_completa"],
+                                                 "-".join(str(a) for a in (anos_completos_fora[0], anos_completos_fora[-1])))),
+                     onde=onde(r"entra_nas_medias|ptInt\(d\.rodadas_completa\)")),
+                dict(o_que=("tipologia lida contra chaves que esta aba não copia: a divergência com o documento "
+                            "(g.status !== g.status_declarado_no_documento) é acusada nos %d grupos porque o "
+                            "declarado não foi copiado e undefined difere de qualquer status; e o corte nulo é impresso "
+                            "com ptNum(null) na frase do corte (a leitura do corte na firmeza está no impedimento da "
+                            "firmeza, montado do código no disco)" % len(grupos)),
+                     onde=onde(r"status_declarado_no_documento|p_declarado_no_documento|ptNum\(g\.corte_do_status")),
+                dict(o_que=("o texto fixo do renderer diz 'times que subiram' onde aqui estão os da faixa alta, que "
+                            "inclui quem não subiu: nenhuma frase dele pode ser herdada")),
+                dict(o_que=("o renderer lê o global PROTO também para cruzar etapas e usa ids fixos: com as duas abas "
+                            "na mesma página puxaria números do Protótipo e as tabelas colidiriam")),
+            ]))
+
+
+def contar_marcas(o):
+    """Quantas referências declaradas como retiradas o JSON carrega (para a guarda não ser vazia)."""
+    if isinstance(o, dict):
+        return int(RG.MARCA_RETIRADA in o) + sum(contar_marcas(v) for v in o.values())
+    if isinstance(o, list):
+        return sum(contar_marcas(x) for x in o)
+    return 0
+
+
+def recontar_etapa_3(e3, linhas_cat):
+    """Refaz as contagens de p e q da etapa 3 sem o idioma `(p or 1) < 0,05`.
+
+    `P.etapa_3` conta `passam5_SC` com `(L["p_bruto_SC"] or 1) < 0.05`, e o `p_bruto_SC` da
+    etapa 2 vem arredondado a 4 casas: nesta aba cinco p de alta x baixa saem 0,0 e sumiriam da
+    contagem. As contagens são refeitas aqui (sem editar o gerador) e o que mudou vai ao JSON.
+    """
+    campos = dict(passam5_SM="p_bruto_SM", bh5_SM="q_SM", passam5_SC="p_bruto_SC", bh5_SC="q_SC",
+                  passam5_liq_SM="p_liq_SM", bh5_liq_SM="q_liq_SM")
+    mudou = {}
+    for chave, campo in campos.items():
+        novo = int(sum(1 for L in linhas_cat if abaixo(L.get(campo), 0.05)))
+        if e3.get(chave) != novo:
+            mudou[chave] = dict(gerador=e3.get(chave), recontado=novo)
+        e3[chave] = novo
+        for fam, rf in e3.get("por_familia", {}).items():
+            n = int(sum(1 for L in linhas_cat if L["familia"] == fam and abaixo(L.get(campo), 0.05)))
+            if rf.get(chave) != n:
+                mudou[f"por_familia.{fam}.{chave}"] = dict(gerador=rf.get(chave), recontado=n)
+            rf[chave] = n
+    e3["recontagem"] = dict(
+        motivo=("o gerador do Protótipo conta com `(p or 1) < 0,05`, e p arredondado a 0,0 vira 1; "
+                "as contagens foram refeitas tratando 0,0 como passou"),
+        p_arredondados_a_zero={campo: int(sum(1 for L in linhas_cat if L.get(campo) == 0))
+                               for campo in dict.fromkeys(campos.values())},
+        mudou=mudou)
+    # o selo de porta do Protótipo usa `(p_bruto_SM or 1) < 0,10` para escolher o motivo: se um
+    # p_bruto_SM sair 0,0 o motivo sai errado, e isso não se conserta daqui — então quebra
+    assert not [L["indicador"] for L in linhas_cat if L.get("p_bruto_SM") == 0], \
+        "p_bruto_SM arredondado a 0,0: o motivo da porta do Protótipo sairia errado"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1544,22 +2311,31 @@ def indicadores_citados(o, caminho="", fora=("circulares", "etapa_10", "faixas",
 # ══════════════════════════════════════════════════════════════════════════════
 
 def main():
+    global ROTULOS
     t0 = dt.datetime.now()
     P.DECL = P.carregar_declaracao()
     print(f"lista pré-declarada: versão {P.DECL['versao']} · listas de resultado {RG.VERSAO_DAS_LISTAS}")
 
     # 2-3. painéis e jogos (loaders próprios: os do gerador leem só 2022-2025)
-    d80, dv, d26, regua, _ = carregar_paineis()
+    d80, dv, d26, regua, cortes = carregar_paineis()
+    ROTULOS = rotulos_da_regua(*cortes)
     jogos, jogos26 = carregar_jogos()
     jog = jogos[BLOCO_NOVO]
     # 4-6. técnico, elencos, mercado, SkillCorner
+    # O arquivo técnico traz 2026. `montar_matriz` e `backtest_nota` cortam por conta própria,
+    # mas `etapa_11` não corta (pares 2025→2026 entram na persistência do atleta) e a etapa 5
+    # recebe o arquivo inteiro. Aqui todo uso recebe o recorte até 2025; o arquivo inteiro só
+    # vai ao backtest, que corta com assert e grava quais anos existiam.
     tec = P.carregar_tecnico()
+    tec25 = tec[tec.ano <= ANO_MAXIMO].copy()
+    sem_2026(tec25)
     elencos = pd.read_csv(os.path.join(RAIZ, "dados", "serieb_elencos.csv"), low_memory=False)
     base_j = json.load(open(os.path.join(RAIZ, "dados", "jogadores.json"), encoding="utf-8"))
     P.PERIODO = base_j["periodo"]
     jogs = base_j["jogadores"]
     kpis = json.load(open(os.path.join(RAIZ, "dados", "kpis.json"), encoding="utf-8"))
     sc = G.carregar()
+    sem_2026(sc, jog, jogos[BLOCO_VELHO])
     faixa_pts = {(int(a), c): f for a, c, f in zip(d80.ano, d80.clube, d80.faixa_pts)}
     assert all((int(a), c) in faixa_pts for a, c in zip(sc.ano, sc.clube))
     sc_pos = sc.copy()                      # etapa 11 não depende de faixa: lê o original
@@ -1570,10 +2346,11 @@ def main():
           f"skillcorner {len(sc)} · mercado {len(jogs)} ({P.PERIODO})")
 
     # 7. matriz
-    bruto, postos, meta, vazios, ns_ti = P.montar_matriz(d80, tec)
-    circ = [c for c in meta if RG.e_resultado(meta[c]["coluna_csv"])]
+    bruto, postos, meta, vazios, ns_ti = P.montar_matriz(d80, tec25)
+    circ = [c for c in meta if RG.e_resultado(meta[c]["coluna_csv"]) or RG.e_resultado(c)]
     assert not circ, ("indicador circular no catálogo", circ)
     assert not [c for c in P.DECL["tecnico_ind"] if RG.PLACAR_INDIVIDUAL.search(c)]
+    assert not [c for c, m in meta.items() if m.get("jogo") in RG.PLACAR_JOGO], "coluna de placar no catálogo"
     print(f"matriz {bruto.shape[0]}x{bruto.shape[1]}")
 
     # 8-10. confiabilidade, porta temporal, persistência
@@ -1589,14 +2366,46 @@ def main():
                         faixa_posicao_t=dd.faixa_posicao[i], faixa_posicao_t1=dd.faixa_posicao[j])
                    for i, j, c, an in pares]
     b_idx = [p[1] for p in pares]
+    # "Sem ano anterior na Série B" é um fato sobre a Série B, e esta aba tem os DOIS painéis:
+    # olhar só 2022-2025 contava os quatro da alta de 2022 como vindos de fora, e Cruzeiro e
+    # Vasco estavam na B em 2021. A contagem só dentro do painel fica ao lado, com outro nome.
+    na_serie_b = set(zip(d80.ano.astype(int), d80.clube)) | set(zip(dv.ano.astype(int), dv.clube))
+    alta_dd = dd[dd.faixa_pts == "alta"]
+    sem_ant = [f"{c} {int(a)}" for a, c in zip(alta_dd.ano, alta_dd.clube) if (int(a) - 1, c) not in na_serie_b]
+    com_ant_fora = [f"{c} {int(a)}" for a, c in zip(alta_dd.ano, alta_dd.clube)
+                    if (int(a) - 1, c) in na_serie_b and (int(a) - 1, c) not in set(zip(d80.ano.astype(int), d80.clube))]
+    n_alta_tr = int((dd.faixa_pts == "alta").sum())
+    _dentro = int(sum(dd.faixa_pts[j] == "alta" for j in b_idx))
+    assert (n_alta_tr - len(sem_ant)) - _dentro == len(com_ant_fora), \
+        ("o truncamento não fecha: dois painéis - dentro de 2022-2025 != ano anterior só em 2018-2021",
+         n_alta_tr, len(sem_ant), _dentro, com_ant_fora)
     e6["truncamento"] = dict(pares=len(pares),
                              terminaram_em_alta=int(sum(dd.faixa_pts[j] == "alta" for j in b_idx)),
-                             alta_total=int((dd.faixa_pts == "alta").sum()),
-                             alta_sem_ano_anterior_na_serie_b=int((dd.faixa_pts == "alta").sum()
-                                                                   - sum(dd.faixa_pts[j] == "alta" for j in b_idx)),
+                             regra_terminaram_em_alta="pares t→t+1 DENTRO de 2022-2025 que terminam na alta",
+                             terminaram_em_alta_olhando_os_dois_paineis=n_alta_tr - len(sem_ant),
+                             regra_terminaram_em_alta_olhando_os_dois_paineis=(
+                                 "clube-temporada da alta cujo clube está no painel da Série B no ano anterior, "
+                                 "olhando os dois painéis: é a contagem que fecha com a de sem ano anterior"),
+                             fechamento=dict(com_ano_anterior_na_serie_b=n_alta_tr - len(sem_ant),
+                                             sem_ano_anterior_na_serie_b=len(sem_ant), alta_total=n_alta_tr,
+                                             regra=("com ano anterior na Série B (dois painéis) + sem ano anterior "
+                                                    "= alta total; a diferença entre as duas contagens de 'com ano "
+                                                    "anterior' são os da alta de 2022 cujo ano anterior está só no "
+                                                    "painel 2018-2021")),
+                             alta_total=n_alta_tr,
+                             alta_sem_ano_anterior_na_serie_b=len(sem_ant),
+                             alta_sem_ano_anterior_na_serie_b_quem=sem_ant,
+                             regra_sem_ano_anterior=("clube-temporada da alta cujo clube NÃO está no painel da Série B "
+                                                     "no ano anterior, olhando os dois painéis (2018-2021 e 2022-2025)"),
+                             alta_sem_par_no_painel_2022_2025=int(n_alta_tr - sum(dd.faixa_pts[j] == "alta" for j in b_idx)),
+                             regra_sem_par_no_painel=("alta total menos os pares t→t+1 dentro de 2022-2025 que terminam "
+                                                      "na alta: inclui a alta de 2022, que não tem par dentro do painel"),
+                             ano_anterior_so_no_painel_2018_2021=com_ant_fora,
                              terminaram_em_subida_real=int(sum(bool(dd.subiu_de_fato[j]) for j in b_idx)))
     e6.update(estado_nesta_aba="adaptada",
-              o_que_mudou="os ρ de persistência não dependem da faixa e são idênticos; o truncamento conta a alta")
+              o_que_mudou=("os ρ de persistência não dependem da faixa e são idênticos; o truncamento conta a alta e "
+                           "olha o ano anterior nos dois painéis"),
+              **RG.marca_consequencia(list(e6.get("rho", {})) + list(e6.get("dispersao", {}))))
 
     # 11-12. catálogo e bootstrap
     linhas_cat, resumo_fam, liq = P.etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti)
@@ -1608,8 +2417,8 @@ def main():
         if mc:
             L["motivo_consequencia"] = mc
     print("bootstrap por clube...")
-    rng_do_gerador("bootstrap_por_clube", 12)
-    ics = P.bootstrap_por_clube(d80, postos, liq, list(postos.columns))
+    with rng_do_gerador("bootstrap_por_clube", 12):
+        ics = P.bootstrap_por_clube(d80, postos, liq, list(postos.columns))
     for L in linhas_cat:
         L.update(ics[L["indicador"]])
 
@@ -1621,11 +2430,14 @@ def main():
                     "juntos, então a correlação ENTRE indicadores fica intacta e só o vínculo com a faixa é "
                     "quebrado; a seleção do melhor entre N é refeita em cada réplica" % ng["indicadores"])
     ng["gerador"] = "np.random.default_rng([7, 3]) — próprio, dentro do gerador do Protótipo"
+    GERADORES["garimpo_etapa_3"] = "np.random.default_rng([7, 3]) — criado dentro de P.etapa_3"
+    GERADORES["valor_por_setor_etapa_1"] = "np.random.default_rng([7, 11]) — criado dentro de P.valor_por_setor"
+    recontar_etapa_3(e3, linhas_cat)
     e3.update(estado_nesta_aba="adaptada", comparacao="alta x media",
               linhas_na_comparacao=int(((d80.faixa_pts == "alta") | (d80.faixa_pts == "media")).sum()),
               o_que_mudou="o garimpo roda em alta x média; a frase do método é montada com o nº medido")
     e1 = etapa_1(d80, d26, jogos26)
-    e5 = P.etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec)
+    e5 = P.etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec25)
     info = {(int(a), c): (bool(s), fp, ap) for a, c, s, fp, ap in
             zip(d80.ano, d80.clube, d80.subiu_de_fato, d80.faixa_posicao, d80.aproveitamento)}
     sem_faixa = {}
@@ -1634,6 +2446,10 @@ def main():
             s, fp, ap = info[(cl["ano"], cl["clube"])]
             cl.update(subiu_de_fato=s, faixa_posicao=fp, aproveitamento_pct=r(100 * ap, 1))
         sem_faixa[nome] = {f: int(sum(1 for x in pn[f"faixa_{INTERNO[f]}"] if x[0] is None)) for f in ORDEM}
+        for ind in pn.get("indicadores", []):
+            mc = RG.motivo_consequencia(ind.get("coluna_csv"))
+            if mc:
+                ind.update(consequencia_do_resultado=True, motivo_consequencia=mc)
     e5.update(estado_nesta_aba="adaptada",
               o_que_mudou=("as linhas são os %d da alta (com `subiu_de_fato`); faixas nas duas escalas"
                            % int((d80.faixa_pts == "alta").sum())),
@@ -1650,13 +2466,28 @@ def main():
     for reg in e9["reguas"]:
         its = itens_eixo[reg["eixo"]]
         reg["consequencia_do_resultado"] = bool(its) and all(RG.motivo_consequencia(c) for c in its)
+        reg.update(RG.marca_consequencia(its))
     e9.update(estado_nesta_aba="adaptada", o_que_mudou="d e q em alta x média; a lista da alta vem com o clube",
               alta_clubes=[dict(clube=c, ano=int(a), subiu_de_fato=bool(s))
                            for c, a, s in zip(alta_rows.clube, alta_rows.ano, alta_rows.subiu_de_fato)])
     e10 = etapa_10(d80, linhas_cat, pares)
-    e11 = P.etapa_11(tec, sc_pos)
-    e11.update(estado_nesta_aba="completa",
-               o_que_mudou="nada: a persistência do atleta ao trocar de clube não depende de faixa")
+    # A etapa 11 não depende de faixa, mas o gerador do Protótipo a roda com o arquivo técnico
+    # INTEIRO, e pares 2025→2026 (27 de 38 rodadas) entram na persistência técnica do atleta.
+    # Aqui ela roda sem 2026; a rodada com 2026 é feita só para MEDIR o efeito, que vai ao JSON.
+    e11_com_2026 = P.etapa_11(tec, sc_pos)
+    e11 = P.etapa_11(tec25, sc_pos)
+    e11.update(estado_nesta_aba="adaptada",
+               o_que_mudou=("a persistência não depende de faixa; o técnico roda SEM 2026 (o gerador do "
+                            "Protótipo inclui pares 2025→2026)"),
+               efeito_de_retirar_2026=dict(
+                   pares_mudou=dict(com_2026=e11_com_2026["tecnico"]["pares_mudou"],
+                                    sem_2026=e11["tecnico"]["pares_mudou"]),
+                   pares_ficou=dict(com_2026=e11_com_2026["tecnico"]["pares_ficou"],
+                                    sem_2026=e11["tecnico"]["pares_ficou"]),
+                   rho_mediano_mudou=dict(com_2026=e11_com_2026["tecnico"]["rho_mediano_mudou"],
+                                          sem_2026=e11["tecnico"]["rho_mediano_mudou"]),
+                   rho_mediano_ficou=dict(com_2026=e11_com_2026["tecnico"]["rho_mediano_ficou"],
+                                          sem_2026=e11["tecnico"]["rho_mediano_ficou"])))
     print("funil, encaixe e elencos...")
     e12, pool = P.etapa_12(jogs, elencos)
     e12.update(estado_nesta_aba="completa", o_que_mudou="nada: o funil dos livres não depende de faixa")
@@ -1672,8 +2503,18 @@ def main():
     # 25-27.
     bt = P.backtest_nota(tec, sc, alvos)
     bt["nota"] = "margem = proximidade ao vetor da faixa alta menos proximidade ao vetor da faixa baixa, do setor"
-    rng_do_gerador("erro_da_margem_etapa_13", 13)
-    e13 = P.etapa_13(pool, jogs, kpis, alvos, bt)
+    with rng_do_gerador("erro_da_margem_etapa_13", 13):
+        e13 = P.etapa_13(pool, jogs, kpis, alvos, bt)
+    for setor, reg in corrigido.items():       # mesma armadilha do `(p or 1)` no gerador
+        reg["p5_clube"] = int(sum(1 for x in reg["itens"] if abaixo(x["p_clube"], 0.05)))
+    tg = e13.get("trilha_goleiro") or {}
+    sem_teste = {c: dict(motivo=RG.motivo_resultado(c),
+                         por_que=("percentil do goleiro CANDIDATO dentro da coorte da própria liga (kpis.json, "
+                                  "mercado); não é comparado com faixa nenhuma desta aba e não entra em média, "
+                                  "corte, teste nem na nota física de encaixe"))
+                 for c in tg.get("indicadores", []) if RG.e_resultado(c)}
+    if sem_teste:
+        tg[RG.MARCA_SEM_TESTE] = sem_teste
     no_top_k = np.array([posto_val[(int(a), c)] <= k_por_ano[int(a)] for a, c in zip(d80.ano, d80.clube)])
     caro = d80[(d80.faixa_pts == "alta").values & no_top_k]
     e13["ordenacao"]["o_que_e"] = "margem do cenário alta dividida pelo teto do próprio setor"
@@ -1697,8 +2538,8 @@ def main():
     e13.update(estado_nesta_aba="adaptada",
                o_que_mudou=("alvos alta/caro/barato/baixa, teste por clube e por atleta refeitos nas faixas de "
                             "pontos; o critério do setor é montado com os n medidos"))
-    rng_do_gerador("reamostragem_etapa_14", 14)
-    e14 = P.etapa_14(e13["candidatos"], d80, elencos)
+    with rng_do_gerador("reamostragem_etapa_14", 14):
+        e14 = P.etapa_14(e13["candidatos"], d80, elencos)
     dq = d80.copy()
     dq["r_val"] = posto_ano(dq, "tm_valor_total")
     qq = pd.qcut(dq.r_val, 4, labels=[1, 2, 3, 4])
@@ -1718,8 +2559,13 @@ def main():
             cf["taxa_historica_de_alta_do_quartil_pct"] = cf.pop("taxa_historica_de_subida_do_quartil_pct")
             cf["taxa_historica_de_subida_real_do_quartil_pct"] = taxa_sub.get(cf["quartil"])
     cat_idx = {L["indicador"]: L for L in linhas_cat}
-    e14["justificativa_no_dado"]["porta"] = cat_idx["share_11"]["porta"]
-    e14["justificativa_no_dado"]["porta_de"] = "share_11, lida do catálogo (etapa_2)"
+    jd = e14["justificativa_no_dado"]
+    jd["porta"] = cat_idx["share_11"]["porta"]
+    jd["porta_de"] = "share_11, lida do catálogo (etapa_2)"
+    # "Time que ganha repete o XI" justificando proposta: sem a marca, share_11 67 x 59 lê como
+    # receita. As colunas saem das próprias chaves do bloco (<coluna>_<faixa>).
+    cols_jd = [k.rpartition("_")[0] for k in jd if k.rpartition("_")[2] in ("sobe", "cai", "meio")]
+    jd.update(consequencia_do_resultado=True, **RG.marca_consequencia(cols_jd))
     e14.update(estado_nesta_aba="adaptada",
                o_que_mudou=("propostas pelos alvos da faixa alta; o contrafactual publica a taxa de ALTA e a taxa "
                             "de SUBIDA REAL do quartil, com rótulos distintos"))
@@ -1748,42 +2594,76 @@ def main():
     meta_tc = {c: meta[c] for c in tc_cols}
     tec160 = tecnico_2018_2025(d80, dv, jogos, meta_tc, tc_cols)
 
-    r_val = posto_ano(d80, "tm_valor_total").values
-    controles = {}
-    for c, m in meta.items():
-        if m["familia"] == "fisico_col_elenco":
-            controles[c] = ("posto de fis_atletas", posto_ano(d80, "fis_atletas").values)
-        elif m["familia"] == "fisico_col_setor":
-            controles[c] = (f"posto de fis_{m['setor']}_atletas", posto_ano(d80, f"fis_{m['setor']}_atletas").values)
-    dvp = pd.DataFrame({c: dv.groupby("ano")[c].rank(pct=True).values * 100 for c in tc_cols})
-    rk = RG.tabela_de_gaps(d80.ano.values, postos, bruto, d80.faixa_pts.values, list(postos.columns), ORDEM,
+    # Series indexada por (ano, clube), não `.values`: `tabela_de_gaps` realinha pela chave dos postos
+    # e recusa vetor sem índice (com `.values` a conferência de ordem nunca rodava). Mesma conta do
+    # `posto_ano` do Protótipo (percentil dentro do ano, empate pela média).
+    r_val = d80.set_index(["ano", "clube"]).groupby(level="ano")["tm_valor_total"].rank(pct=True) * 100
+    assert np.allclose(r_val.to_numpy(), posto_ano(d80, "tm_valor_total").to_numpy(), equal_nan=True)
+    controles = RG.controles_de_atletas_rastreados(meta, d80)
+    # O outro período recebe TODA coluna do catálogo que existe no painel de 2018-2021, não só as
+    # técnicas coletivas: "não dá para testar" tem de ser falta de dado, não de chamada. Só entram
+    # famílias que o catálogo lê direto da coluna do painel (técnico coletivo e elenco).
+    cols_outro = [c for c in postos.columns if meta[c]["coluna_csv"] in dv.columns]
+    assert all(meta[c]["familia"] in ("tecnico_col", "elenco") for c in cols_outro), \
+        [c for c in cols_outro if meta[c]["familia"] not in ("tecnico_col", "elenco")]
+    # Rodada 4: anos, rótulos e o outro período também vão com a chave (ano, clube). `tabela_de_gaps` agora
+    # recusa vetor sem índice para TODO vetor por linha — um sort_index nos postos com as faixas em `.values`
+    # zerava os sobreviventes sem erro (ver `RG.autoteste_do_alinhamento`).
+    dvp = pd.DataFrame({c: dv.groupby("ano")[meta[c]["coluna_csv"]].rank(pct=True).values * 100 for c in cols_outro},
+                       index=pd.MultiIndex.from_frame(dv[["ano", "clube"]]))
+    rk = RG.tabela_de_gaps(RG.pela_chave(d80, "ano"), postos, bruto, RG.pela_chave(d80, "faixa_pts"),
+                           list(postos.columns), ORDEM,
                            r_val=r_val, controles=controles, meta=meta,
-                           outro=dict(postos=dvp, rotulos=dv.faixa_pts.values, rotulo=BLOCO_VELHO),
+                           outro=dict(postos=dvp, rotulos=RG.pela_chave(dv, "faixa_pts"), anos=RG.pela_chave(dv, "ano"),
+                                      rotulo=BLOCO_VELHO),
                            rotulo_universo="80 clube-temporada de 2022-2025, catálogo pré-declarado",
-                           semente=(SEMENTE, 23), nomes_das_faixas=ROTULOS)
+                           semente=(SEMENTE, 23), nomes_das_faixas=ROTULOS, ano_maximo=ANO_MAXIMO)
     GERADORES["linha_da_sorte_2022_2025"] = rk["linha_da_sorte"]["gerador"]
-    comparacao_posicao, _ = RG.linha_da_sorte(postos.values.astype(float), d80.faixa_posicao.values,
-                                              d80.ano.values, ("sobe", "meio", "cai"), 1000, (SEMENTE, 23))
-    rk["linha_da_sorte_se_as_faixas_fossem_por_posicao"] = dict(
-        para_que=("a mesma linha medida com sobe/meio/cai, para comparar com a prévia da aba de posição"),
-        **{k: comparacao_posicao[k] for k in ("maior_gap_medido", "maior_gap_do_sorteio", "contagem_por_limiar")})
+    rk["outro_periodo_colunas"] = dict(
+        do_catalogo_no_painel_2018_2021=len(cols_outro), testadas=len(cols_outro),
+        por_familia={f: sum(1 for c in cols_outro if meta[c]["familia"] == f)
+                     for f in sorted({meta[c]["familia"] for c in cols_outro})},
+        regra="toda coluna do catálogo presente em serieb_clube_temporada_2018_2021.csv, posto dentro do ano")
+    # A MESMA tabela com as faixas por posição: é a conferência do módulo compartilhado contra a
+    # prévia que o dono leu (PENDENTE_RODADA.md, itens 6 e 7). Só o resumo e a linha da sorte vão
+    # ao JSON — as linhas por posição são da outra aba. Os rótulos ficam como lista de texto,
+    # para a troca de chaves sobe→alta desta aba não os tocar.
+    rk_pos = RG.tabela_de_gaps(RG.pela_chave(d80, "ano"), postos, bruto, RG.pela_chave(d80, "faixa_posicao"),
+                               list(postos.columns), ("sobe", "meio", "cai"), r_val=r_val, controles=controles, meta=meta,
+                               rotulo_universo="80 clube-temporada de 2022-2025, faixas por POSIÇÃO",
+                               semente=(SEMENTE, 23), ano_maximo=ANO_MAXIMO)
+    duelo = next(L for L in rk_pos["linhas"] if L["indicador"] == "ti_meio_duelos_defensivos_ganhos")
+    rk["mesma_tabela_com_as_faixas_por_posicao"] = dict(
+        para_que=("conferir o módulo compartilhado contra a prévia da aba de posição publicada em "
+                  "_fonte/prototipo/PENDENTE_RODADA.md (itens 6 e 7)"),
+        faixas_na_ordem=["sobe", "meio", "cai"], teste=rk_pos["teste"],
+        linha_da_sorte=rk_pos["linha_da_sorte"], resumo=rk_pos["resumo"],
+        ti_meio_duelos_defensivos_ganhos=dict(
+            ordem_no_ranking=duelo["ordem"], gap=duelo["gap"],
+            posicao_media_na_ordem_das_faixas=[duelo["posicao_media"][g] for g in ("sobe", "meio", "cai")],
+            destoa=duelo["destoa"], lado=duelo["lado"], q=duelo["q"],
+            p_descontado_dinheiro=duelo.get("p_descontado_dinheiro")))
+    GERADORES["linha_da_sorte_por_posicao"] = rk_pos["linha_da_sorte"]["gerador"]
 
-    base160 = pd.concat([d80[["ano", "faixa_pts", "bloco"] + tc_cols], dv[["ano", "faixa_pts", "bloco"] + tc_cols]],
-                        ignore_index=True)
-    p160 = pd.DataFrame({c: base160.groupby("ano")[c].rank(pct=True).values * 100 for c in tc_cols})
-    rk160 = RG.tabela_de_gaps(base160.ano.values, p160, base160[tc_cols].astype(float), base160.faixa_pts.values,
+    # `clube` entra para a chave (ano, clube): os dois painéis não se sobrepõem em ano, então ela é única
+    base160 = pd.concat([d80[["ano", "clube", "faixa_pts", "bloco"] + tc_cols],
+                         dv[["ano", "clube", "faixa_pts", "bloco"] + tc_cols]], ignore_index=True)
+    chave160 = pd.MultiIndex.from_frame(base160[["ano", "clube"]])
+    p160 = pd.DataFrame({c: base160.groupby("ano")[c].rank(pct=True).values * 100 for c in tc_cols}, index=chave160)
+    b160 = pd.DataFrame(base160[tc_cols].astype(float).to_numpy(), columns=tc_cols, index=chave160)
+    rk160 = RG.tabela_de_gaps(RG.pela_chave(base160, "ano"), p160, b160, RG.pela_chave(base160, "faixa_pts"),
                               tc_cols, ORDEM, r_val=None, meta=meta_tc,
                               rotulo_universo="técnico coletivo 2018-2025 (160 clube-temporada)",
-                              semente=(SEMENTE, 24), nomes_das_faixas=ROTULOS)
+                              semente=(SEMENTE, 24), nomes_das_faixas=ROTULOS, ano_maximo=ANO_MAXIMO)
     GERADORES["linha_da_sorte_tecnico_160"] = rk160["linha_da_sorte"]["gerador"]
     por_bloco = {}
     for b, sem in ((BLOCO_NOVO, 25), (BLOCO_VELHO, 26)):
         m = (base160.bloco == b).values
-        por_bloco[b] = RG.tabela_de_gaps(base160.ano.values[m], p160[m].reset_index(drop=True),
-                                         base160[tc_cols][m].astype(float).reset_index(drop=True),
-                                         base160.faixa_pts.values[m], tc_cols, ORDEM, r_val=None, meta=meta_tc,
+        sub = base160[m]
+        por_bloco[b] = RG.tabela_de_gaps(RG.pela_chave(sub, "ano"), p160[m], b160[m],
+                                         RG.pela_chave(sub, "faixa_pts"), tc_cols, ORDEM, r_val=None, meta=meta_tc,
                                          rotulo_universo=f"técnico coletivo {b}", semente=(SEMENTE, sem),
-                                         nomes_das_faixas=ROTULOS)
+                                         nomes_das_faixas=ROTULOS, ano_maximo=ANO_MAXIMO)
         GERADORES[f"linha_da_sorte_tecnico_{b}"] = por_bloco[b]["linha_da_sorte"]["gerador"]
     pb_idx = {b: {L["indicador"]: L for L in t["linhas"]} for b, t in por_bloco.items()}
     for L in rk160["linhas"]:
@@ -1804,7 +2684,7 @@ def main():
         o_que_e=("colunas que viraram pedaço da definição das faixas (ou reescala de gols): ficam FORA de "
                  "todo teste, eixo, bateria, agrupamento e nota desta aba"),
         versao=RG.VERSAO_DAS_LISTAS,
-        colunas=[dict(coluna=c, motivo=RG.motivo_resultado(c),
+        colunas=[dict(coluna=c, motivo=RG.motivo_resultado(c), **{RG.MARCA_RETIRADA: RG.motivo_resultado(c)},
                       existe_em=[b for b, d in ((BLOCO_NOVO, d80), (BLOCO_VELHO, dv)) if c in d.columns])
                  for c in todas_cols if RG.e_resultado(c)],
         consequencia=[dict(coluna=c, motivo=RG.motivo_consequencia(c),
@@ -1832,7 +2712,7 @@ def main():
             skillcorner=dict(atleta_temporada=len(sc), corte="min_tot >= 300"),
             mercado=dict(arquivo="dados/jogadores.json", periodo=P.PERIODO, jogadores=len(jogs)),
             kpis=dict(arquivo="dados/kpis.json", kpis=len(kpis["kpis"]), jogadores=len(kpis["jogadores"]))),
-        "faixas": bloco_faixas(d80, dv, d26, regua, jogos, jogos26),
+        "faixas": bloco_faixas(d80, dv, d26, regua, jogos, jogos26, cortes),
         "etapa_0": etapa_0(d80, dv, d26, meta, len(tc_cols), e12["degraus"]),
         "etapa_1": e1,
         "etapa_2": dict(titulo_chave="etapa_2", estado_nesta_aba="adaptada",
@@ -1853,8 +2733,13 @@ def main():
         "etapa_6": e6,
         "etapa_7": dict(e7, titulo_chave="etapa_7", estado_nesta_aba="adaptada",
                         o_que_mudou=("turno partido pelo nº real de jogos e desfecho em aproveitamento; não depende "
-                                     "da faixa. Nas 160 do técnico coletivo: `tecnico_2018_2025.porta_temporal`"),
+                                     "da faixa. Nas 160 do técnico coletivo: `tecnico_2018_2025.porta_temporal`. "
+                                     "`nao_testaveis` passou a ser a família elenco INTEIRA do catálogo (%d colunas; "
+                                     "no Protótipo eram só as de estabilidade do XI): nenhuma coluna dessa família tem "
+                                     "valor por jogo, então nenhuma pode ser partida em turnos"
+                                     % sum(1 for m in meta.values() if m["familia"] == "elenco")),
                         nao_testaveis=[i for i, m in meta.items() if m["familia"] == "elenco"],
+                        **RG.marca_consequencia([i for i, m in meta.items() if m["familia"] == "elenco"]),
                         motivo_nao_testaveis=("minutagem.json guarda minuto por TEMPORADA e serieb_jogos.csv não "
                                               "traz escalação")),
         "etapa_8": e8,
@@ -1865,7 +2750,7 @@ def main():
         "etapa_13": e13,
         "etapa_14": e14,
         "etapa_15": e15,
-        "sobecai_corrigido_por_clube": corrigido,
+        "alta_baixa_corrigido_por_clube": corrigido,
         "tecnico_2018_2025": tec160,
         "ranking_gaps": rk,
         "ranking_gaps_tecnico_2018_2025": rk160,
@@ -1883,19 +2768,70 @@ def main():
     assert all(c in saida["etapa_2"]["linhas"][0] for c in saida["etapa_2"]["colunas"]), \
         [c for c in saida["etapa_2"]["colunas"] if c not in saida["etapa_2"]["linhas"][0]]
     saida["geradores"] = dict(GERADORES, regra=("cada bloco que sorteia tem gerador próprio; as funções do "
-                                                "Protótipo que usam o rng global recebem um novo antes da chamada"))
+                                                "Protótipo que usam o rng global recebem um novo só durante a "
+                                                "chamada, e fora dela o rng global é um vigia que quebra se usado"))
 
-    # as duas guardas finais
-    citados = indicadores_citados(saida)
-    ruins = [(cam, v) for cam, v in citados if RG.e_resultado(v)]
+    # De que universo veio cada etapa, montado com os n medidos (a regra da casa: todo número diz
+    # de onde veio). Onde a etapa mistura universos, o bloco interno já traz o seu `universo`.
+    n_alta = int((d80.faixa_pts == "alta").sum())
+    n_am = int(d80.faixa_pts.isin(["alta", "media"]).sum())
+    u80 = f"{len(d80)} clube-temporada de {BLOCO_NOVO}"
+    universos = {
+        "etapa_0": f"{u80} e {len(dv)} de {BLOCO_VELHO} (poder por universo em `poder`); 2026 só em `por_ano`, fora das médias",
+        "etapa_1": f"{u80} (valor de mercado); 2026 só pelo ritmo em `fora_da_amostra_2026`",
+        "etapa_2": f"{u80}; o técnico coletivo nas {len(d80) + len(dv)} está em `tecnico_2018_2025.catalogo`",
+        "etapa_3": f"{n_am} clube-temporada de {BLOCO_NOVO} (alta + média)",
+        "etapa_4": f"jogo a jogo da Série B de {BLOCO_NOVO} ({len(jog)} linhas)",
+        "etapa_5": f"{n_alta} clube-temporada da faixa alta de {BLOCO_NOVO}; nas 160 em `tecnico_2018_2025.pilar_tecnico_coletivo_etapa_5`",
+        "etapa_6": f"pares consecutivos de {BLOCO_NOVO} ({len(pares)}); nas 160 em `tecnico_2018_2025.persistencia`",
+        "etapa_8": f"{u80}; tipologia nos {n_alta} da alta",
+        "etapa_9": u80,
+        "etapa_11": f"atletas SkillCorner {BLOCO_NOVO} ({len(sc)}) e técnico individual {BLOCO_NOVO} ({len(tec25)} linhas)",
+        "etapa_12": f"mercado `jogadores.json` ({P.PERIODO}, {len(jogs)} jogadores); elenco 2026 da Série B só para identificar atleta",
+        "etapa_13": f"atletas SkillCorner {BLOCO_NOVO} ({len(sc)}) para os alvos; mercado ({P.PERIODO}) para os candidatos",
+        "etapa_14": f"candidatos da etapa 13, {u80} para as taxas por quartil, elenco 2025 para a referência",
+        "etapa_15": f"jogo a jogo da Série B de {BLOCO_NOVO}, {u80}",
+    }
+    for k, u in universos.items():
+        saida[k].setdefault("universo", u)
+    faltam_universo = [f"etapa_{n}" for n in range(16) if not saida[f"etapa_{n}"].get("universo")]
+    assert not faltam_universo, ("etapa sem universo", faltam_universo)
+
+    saida["tela"] = bloco_tela(saida)
+
+    # GUARDA 1 — nenhum indicador circular apresentado como achado, em lugar nenhum do JSON.
+    # Semântica: o que decide é o PAPEL do registro (listado como retirado x apresentado com
+    # estatística), não o nome da chave; ver o cabeçalho de ranking_gaps. A etapa 10 é o único
+    # bloco de exposição ("não contrate para isto") e `faixas` a única zona da régua.
+    RG.autoteste_da_guarda()
+    RG.autoteste_do_alinhamento()
+    ruins =RG.referencias_circulares(saida, blocos_de_exposicao=(r"^\.etapa_10\.linhas\[\d+\]$",),
+                                      zonas_da_regua=(r"^\.faixas(\.|$)",))
     assert not ruins, ("indicador circular aparece como achado", ruins[:10])
-    assert all(x["ano"] <= 2025 or not x["entra_nas_medias"] for x in saida["etapa_0"]["por_ano"])
+    assert all(L["tipo"] in ("resultado", "consequencia") for L in saida["etapa_10"]["linhas"])
+    cons = RG.referencias_de_consequencia_sem_marca(saida)
+    assert not cons, ("coluna de consequência sem a marca", cons[:10])
+    marcas = contar_marcas(saida)
+    assert marcas > 0, "a guarda não viu nenhuma retirada declarada: ela estaria olhando o vazio"
+
+    # GUARDA 2 — nada de 2026 em média, corte ou teste. As entradas já passaram por `sem_2026`
+    # e as tabelas de gaps por `ano_maximo`; aqui confere-se o que o JSON AFIRMA.
+    assert saida["faixas"]["ano_2026"]["entra_em_media_corte_ou_teste"] is False
+    assert all(x["ano"] <= ANO_MAXIMO for x in saida["faixas"]["cortes"]["corte_alto"]["sextos"]
+               + saida["faixas"]["cortes"]["corte_baixo"]["decimos_quintos"])
+    assert all(not x["entra_nas_medias"] for x in saida["etapa_0"]["por_ano"] if x["ano"] > ANO_MAXIMO)
+    assert all(x["entra_nas_medias"] == x["entra_no_universo_80_2022_2025"] for x in saida["etapa_0"]["por_ano"])
+    assert sum(x["n"] for x in saida["etapa_0"]["por_ano"] if x["entra_nas_medias"]) == len(d80)
+    f26 = saida["etapa_1"]["fora_da_amostra_2026"]
+    assert not f26.get("existe") or (f26["ajustado_em"] == BLOCO_NOVO and f26["entra_nas_medias"] is False)
+    assert saida["etapa_11"]["tecnico"]["pares_mudou"] == saida["etapa_11"]["efeito_de_retirar_2026"]["pares_mudou"]["sem_2026"]
 
     faltam = [n for n in range(16) if f"etapa_{n}" not in saida]
     assert not faltam, faltam
     json.dump(saida, open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"), allow_nan=False)
     kb = os.path.getsize(SAIDA) / 1024
-    print(f"indicadores citados conferidos contra a lista de resultado: {len(citados)}")
+    print(f"guarda de circularidade: autoteste ok, {marcas} retiradas declaradas conferidas, 0 achados circulares, "
+          f"0 consequências sem marca")
     print(f"gravado {SAIDA} ({kb:.0f} KB, {len(saida)} chaves) em {(dt.datetime.now() - t0).seconds}s")
 
 
