@@ -73,6 +73,26 @@ const GRUPOS_LIGA = {
               'Polonia','Tcheca','Croacia','Servia','Romenia','Bulgaria','Hungria','Eslovaquia',
               'Dinamarca','Noruega','Suecia','Escocia','Turquia','Ucrania','Russia'],
 };
+/* Rotulos dos botoes de regiao e modos de nacionalidade, fora de montarChips e do HTML
+   para que outras telas (proto_c.js) usem os MESMOS grupos e textos em vez de copiar.
+   A ordem aqui e a ordem dos botoes. 'todas' nao tem lista em GRUPOS_LIGA de proposito:
+   significa nao filtrar por liga.
+   NACAO_MODOS: os valores sao os que passaNacao entende; o select #fNacao e montado
+   daqui em ligar(), entao mudar um texto aqui muda a janela de busca junto.
+   Quem le estas const de outro script precisa ler DENTRO de funcao chamada depois
+   que app.js carregou: const de nivel de cima nao existe antes disso. */
+const GRUPOS_LIGA_ROTULOS = [
+  { c:'brasil', r:'Brasil A/B/C' }, { c:'brasilbc', r:'Brasil B+C' },
+  { c:'sulamerica', r:'América do Sul' }, { c:'europa', r:'Europa' },
+  { c:'todas', r:'Todas as ligas' },
+];
+const NACAO_MODOS = [
+  { v:'',      r:'Qualquer nacionalidade' },
+  { v:'br',    r:'Só brasileiros' },
+  { v:'sul',   r:'Só sul-americanos (com Brasil)' },
+  { v:'sulex', r:'Sul-americanos estrangeiros' },
+  { v:'ex',    r:'Só estrangeiros' },
+];
 
 /* nome do pais -> sigla curta para o selo no card */
 const SIGLA_PAIS = {
@@ -1524,8 +1544,7 @@ function filtrar() {
     else if (ligas && !ligas.has(j.l)) return false;
     if (nacao && !passaNacao(j, nacao)) return false;
     if (txt && !(j.n.toLowerCase().includes(txt) || (j.t || '').toLowerCase().includes(txt))) return false;
-    const id = Number(j.id_) || 0;
-    if (id && (id < idMin || id > idMax)) return false;
+    if (!passaIdade(j.id_, idMin, idMax)) return false;
     if (ovMin && (Number(j.ov) || 0) < ovMin) return false;
     if (minMin && (Number(j.min) || 0) < minMin) return false;
     if (ctAte) {
@@ -1533,6 +1552,17 @@ function filtrar() {
     }
     return true;
   });
+}
+
+/* Faixa de idade da janela de busca. Quem NAO tem idade (vazio ou 0) passa em qualquer
+   faixa: a idade do Wyscout falha, e sumir com o jogador por falta do dado seria pior.
+   min/max vazios (null, '', 0, NaN) valem 0 e 99, como nos campos da janela. */
+function passaIdade(idade, min, max) {
+  const id = Number(idade) || 0;
+  if (!id) return true;
+  const lo = Number(min) || 0;
+  const hi = Number(max) || 99;
+  return !(id < lo || id > hi);
 }
 
 const PAISES_SUL = new Set(['Brazil','Argentina','Uruguay','Paraguay','Chile','Bolivia',
@@ -5866,12 +5896,7 @@ function gerarPdf() {
 
 /* ---------------- ligacoes de tela ---------------- */
 function montarChips() {
-  const defs = [
-    { c:'brasil', r:'Brasil A/B/C' }, { c:'brasilbc', r:'Brasil B+C' },
-    { c:'sulamerica', r:'América do Sul' }, { c:'europa', r:'Europa' },
-    { c:'todas', r:'Todas as ligas' },
-  ];
-  $('#chipsLiga').innerHTML = defs.map(d =>
+  $('#chipsLiga').innerHTML = GRUPOS_LIGA_ROTULOS.map(d =>
     '<button class="chip' + (d.c === filtroGrupo ? ' on' : '') + '" data-g="' + d.c + '">' + d.r + '</button>').join('');
   $$('#chipsLiga .chip').forEach(b => {
     b.onclick = () => {
@@ -5902,6 +5927,8 @@ function ligar() {
     $(s).oninput = debounce(renderTabela, 180);
   });
   $('#fPos').onchange = renderTabela;
+  $('#fNacao').innerHTML = NACAO_MODOS.map(m =>
+    '<option value="' + m.v + '">' + esc(m.r) + '</option>').join('');
   $('#fNacao').onchange = renderTabela;
   $('#fLiga').onchange = () => {
     /* liga específica manda: os atalhos de grupo ficam apagados */
