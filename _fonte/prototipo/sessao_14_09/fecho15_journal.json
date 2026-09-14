@@ -1,0 +1,498 @@
+[
+ [
+  "dono:gerador",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/gerar_prototipo.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/prototipo_fecho.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/prototipo_fecho_h1.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/prototipo_fecho_h2.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/roda1.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/roda2.py"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Pedido B: diferença entre quem subiu e quem caiu, e a ordem das colunas, gravadas por painel",
+     "onde": "gerar_prototipo.py, etapa_5, logo antes de montar saida[nome_g]",
+     "como": "Para cada indicador k: diferenca_sobe_cai[k] = faixa_sobe[k][1] - faixa_cai[k][1], usando as medianas já arredondadas a 1 casa que o JSON grava (o número do cabeçalho é a subtração dos dois números que a tela mostra), arredondada a 1 casa e com o sinal: positivo = quem subiu acima de quem caiu. ordem_por_diferenca = sorted pela chave (sem diferença, -módulo, k): maior módulo primeiro, empate na ordem original, os sem diferença no fim. Faixa com menos de 4 valores dá null, e o motivo vai em diferenca_sobe_cai_sem_valor {id: texto}. Hoje nenhum dos 293 indicadores fica sem diferença. Comentário em prosa explica o porquê."
+    },
+    {
+     "item": "Pedido B: regra declarada na etapa",
+     "onde": "gerar_prototipo.py, retorno de etapa_5, chave regra_da_ordem",
+     "como": "Dicionário com a data do pedido, o que é, a fórmula da diferença, a regra da ordem e do empate, o caso sem diferença, o aviso de que é ordem de leitura e não teste (o teste está na etapa 2) e a nota de que a aba por pontos usa alta contra baixa quando gerar_pontos.py for regerado. Nada foi mexido em gerar_pontos.py."
+    },
+    {
+     "item": "Pedido C: jogador em dois clubes na mesma temporada, medido no código",
+     "onde": "gerar_prototipo.py, _elenco_por_setor (dicionário dois_clubes devolvido em el['dois_clubes'])",
+     "como": "Identidade = id_jogador do Transfermarkt dentro do ano, só nas temporadas conferidas. Mede: linhas, linhas com preço, jogadores-ano, passagens por jogador, valor somado nessas linhas e valor a mais (soma menos o preço contado uma vez só, pelo maior). NÃO vai à conferência gravada, porque o diff pedido só abria a regra; o dicionário está pronto para virar chave se o dono quiser."
+    },
+    {
+     "item": "Pedido C: frase na regra do bloco ponderado_por_jogador",
+     "onde": "gerar_prototipo.py, ponderado_por_jogador, depois da montagem da regra",
+     "como": "Frase montada do dado (num_br e separador de milhar, nenhum número digitado): o jogador conta nos dois elencos, inteiro e com o preço inteiro, como val_* e o plantel já contam, porque fez parte dos dois. Traz 433 linhas de 216 jogadores (333 com preço), € 175,3 mi somados nessas linhas, dos quais € 87,8 mi são a segunda contagem; as 4.461 linhas usadas são passagens por clube, e jogadores distintos por ano são 4.244. Nenhum número do bloco mudou."
+    },
+    {
+     "item": "Rodada no rascunho, determinismo e diff",
+     "onde": "fecho15/roda1.py e roda2.py (G.SAIDA trocado, python3 -B), com PYTHONHASHSEED 1 e 2",
+     "como": "As duas saídas são idênticas byte a byte (cmp). Diff recursivo contra dados/prototipo.json (gravado às 17:01): 36 diferenças. 33 chaves novas (3 por painel × 11), 1 regra_da_ordem nova, a regra da etapa 1 mudou e gerado_em mudou (é a hora da geração). Nenhum outro valor mudou. dados/prototipo.json e static/prototipo.js não foram tocados."
+    }
+   ],
+   "chaves_do_json": "Etapa 5, em cada um dos 11 painéis de etapa_5.paineis.<painel>:\n- diferenca_sobe_cai: lista alinhada a indicadores, em pontos de posição no ranking do ano (0-100); null se faltar mediana. Exemplo, elenco: [-51.3, 47.5, 52.5, -52.5, -5.0, ...]\n- ordem_por_diferenca: índices de indicadores, do maior módulo para o menor. Exemplo, elenco: [2, 3, 0, 1, 6, 8, 7, 9, ...]; tecnico_col: [10, 12, 28, 13, 30, 14, 3, 15, ...]\n- diferenca_sobe_cai_sem_valor: dicionário {id_do_indicador: motivo} só para os sem diferença. Hoje vem {} nos 11 painéis.\nNa etapa: etapa_5.regra_da_ordem = {pedido_do_dono_em: \"2026-09-14\", o_que_e, diferenca, ordem, sem_diferenca, sem_teste, na_aba_por_pontos}.\nExemplo de ordem: \"`ordem_por_diferenca` = índices de `indicadores` do maior módulo da diferença para o menor; empate na ordem original; sem diferença no fim, na ordem original\".\n\nEtapa 1: etapa_1.valor_por_setor.ponderado_por_jogador.regra (texto que já existia, agora mais longo: 1.177 para 1.640 caracteres). Termina com: \"... Jogador listado pelo Transfermarkt em dois clubes na mesma temporada (mesmo id_jogador no ano) conta nos dois elencos, como jogador inteiro e com o preço inteiro em cada um, que é como val_* e o plantel já contam: ele fez parte dos dois. São 433 linhas de 216 jogadores (333 com preço), € 175,3 mi somados nessas linhas, dos quais € 87,8 mi são a segunda contagem; por isso as 4.461 linhas usadas são passagens por clube, e jogadores distintos por ano são 4.244.\"",
+   "numeros_principais": "Em cada coluna: mediana de quem subiu / mediana de quem caiu → diferença.\n\nPainel tecnico_col (31 colunas), 5 primeiras da ordem nova:\n1. índice 10, dist_remate (distância média do remate): 20,0 / 87,5 → -67,5\n2. índice 12, remates_baliza_pct (remates à baliza, %): 82,5 / 25,0 → +57,5\n3. índice 28, xg_contra: 22,5 / 80,0 → -57,5\n4. índice 13, xg_por_remate: 80,0 / 27,5 → +52,5\n5. índice 30, xg_por_remate_contra: 22,5 / 72,5 → -50,0\n\nPainel elenco (10 colunas), 5 primeiras da ordem nova:\n1. índice 2, conc_hhi (concentração de minutos): 75,0 / 22,5 → +52,5\n2. índice 3, nucleo_300 (atletas com 300+ minutos): 35,0 / 87,5 → -52,5 (empata em módulo com o anterior e fica depois dele pela ordem original)\n3. índice 0, atletas_usados: 37,5 / 88,8 → -51,3\n4. índice 1, share_11 (% dos minutos no XI mais usado): 77,5 / 30,0 → +47,5\n5. índice 6, min_estrangeiros: 85,0 / 47,5 → +37,5\n\nSem diferença: 0 dos 293 indicadores nos 11 painéis.\n\nPedido C: 433 linhas, 216 jogadores-ano (204 ids distintos, 215 com 2 clubes e 1 com 3), 333 com preço, € 175,3 mi somados, € 87,8 mi de segunda contagem, 4.461 linhas contra 4.244 jogadores distintos por ano.",
+   "como_testei": "Rodei o main com G.SAIDA trocado para o rascunho fecho15 (python3 -B, Python 3.13 do Framework), duas vezes em paralelo, com PYTHONHASHSEED=1 e PYTHONHASHSEED=2, 136 s cada. As duas saídas bateram byte a byte (cmp). Copiei a h1 como prototipo_fecho.json e fiz um diff recursivo, chave a chave e item a item, contra dados/prototipo.json: 33 chaves novas nos painéis, regra_da_ordem nova, ponderado_por_jogador.regra mudou, gerado_em mudou, e nada mais. Os números da frase da etapa 1 foram medidos antes à parte, direto no serieb_elencos.csv, e bateram com os do journal (433 / 216 / 175,3 / 4.244). Conferi à mão a ordem nos dois painéis (módulo decrescente, e no elenco o empate 52,5 contra -52,5 ficou na ordem original). Nenhum servidor foi subido, nenhum git foi rodado, nenhum arquivo da outra sessão foi tocado.",
+   "riscos": [
+    "A diferença sai das medianas já arredondadas a 1 casa. Por isso aparecem empates exatos em módulo (elenco: +52,5 e -52,5), resolvidos pela ordem original, como pedido. Com a mediana sem arredondar, algum desses empates poderia virar ordem de verdade. A regra declara isso.",
+    "O número '216 jogadores' conta jogador por ano: são 204 pessoas distintas. A frase diz 'jogadores' e a regra define a identidade como id_jogador no ano, mas quem ler rápido pode entender pessoas.",
+    "O valor 'contado duas vezes' tem duas leituras: € 175,3 mi é o total das 433 linhas nos dois elencos, e € 87,8 mi é o excesso, contando o maior preço uma vez só. O pedido citava 175,3 como 'contados nos dois elencos'; a frase traz os dois números para não confundir.",
+    "A medição dos jogadores em dois clubes não virou chave do JSON (o diff só abria a regra). Ela está pronta em _elenco_por_setor (el['dois_clubes']) se a tela precisar do número separado.",
+    "proto_b.js ainda não lê ordem_por_diferenca nem regra_da_ordem, e o dado novo não foi gravado em dados/prototipo.json nem em static/prototipo.js: isso fica com a etapa da tela e com a gravação posterior. A trava 1 do CONTINUAR §2.1 (proto_c.js) segue valendo antes de gravar.",
+    "A frase de regra_da_ordem sobre a aba por pontos é só aviso: gerar_pontos.py não foi mexido, e o pontos.json não tem essas chaves."
+   ]
+  }
+ ],
+ [
+  "confere:efeito-nas-conclusoes",
+  {
+   "lente": "O efeito do dado novo nas conclusões. Só li: CONCLUSOES.md e conclusoes_spec.json contra o dados/prototipo.json gravado às 17:01. Para comparar, usei a cópia do dado antigo (scratchpad/setores/prototipo_antes_da_gravacao.json). O script de leitura está em scratchpad/fecho15/lente_conclusoes/lente.py, a saída em saida.json. Nada foi escrito no projeto e nenhum git foi rodado.",
+   "conferidos": 56,
+   "medidas": "O QUE CONFERI\nNas 56 conclusões, li cada critério do selo e cada número que o spec diz já estar gravado, no dado antigo e no novo.\n- Nenhum valor mudou de lado nem de número, com uma exceção: o critério \"sem 2026\" da M6 agora existe no dado e passa (último ano usado: 2025).\n- Na J1, J2 e J8 muda só o p que era 0 na lista da etapa 7. Nenhuma frase usa esse p.\n- Nenhum selo mudou por causa do dado novo.\n\n(a) A LEITURA POR JOGADOR CONTRA AS CONCLUSÕES DE DINHEIRO\n- DIN-01 e DIN-02: confirma. Elenco inteiro por jogador: acerto de pares 0,812 contra o resto, 0,771 contra o meio, 0,938 contra quem caiu (p 0,0013 contra o meio). Em euros eram 0,828 / 0,793 / 0,934.\n- DIN-04 (fatia do valor na defesa): CONTRADIZ. Pela fatia em euros, p 0,036. Pelo índice por jogador (fatia do valor ÷ fatia de jogadores), p 0,26, acerto 0,595, q 0,94. Pela régua, isso seria SEM SINAL, não FRACO.\n- DIN-05: ENFRAQUECE uma parte.\n  - O selo não muda: por jogador, a defesa ainda passa na conta dos 4 setores (q 0,0024).\n  - O meio-campo contra o meio da tabela deixa de passar (p 0,038, q 0,051). O título diz que ele \"vale mais\".\n  - A frase \"só a defesa se destaca\" na fatia não se sustenta: por jogador, nenhum setor se destaca (menor p 0,26).\n  - Acerto contra o resto (defesa / meio / ataque / elenco): em euros 84 / 75 / 78 / 83; por jogador 82 / 73 / 81 / 81.\n- DIN-06: CONFIRMA que não dá para ordenar. Por jogador, defesa 0,816 contra elenco 0,812, sem intervalo gravado.\n- ELE-04 (goleiro): CONFIRMA sem sinal.\n  - Contra o meio: p 0,187. Índice: p 0,87.\n  - Contra quem caiu, por jogador: p 0,0475 e q 0,0475, na beira. Em euros era 0,015.\n- Ressalva da DIN-04 sobre o ataque: confirma. Por jogador vale € 513 mil contra € 285 mil no meio, com índice menor (1,09 contra 1,165).\n\n(b) JOGADOR SEM PREÇO\n- Nenhuma frase do documento nem do spec diz \"subestimado\", \"por baixo\" ou \"piso\".\n- Mas a DIN-01 parte da ideia de dado faltando:\n  - a frase diz \"Descontado quanto do elenco o Transfermarkt avalia, o sinal continua\";\n  - o critério k4 (\"controle da cobertura do valor\", p 0,005) decide o selo FORTE;\n  - o rodapé diz \"descontada a cobertura\";\n  - o campo desse critério (p_valor_descontada_cobertura) não está gravado.\n- A cobertura anda com o valor (rho 0,564). Com a decisão do dono (sem preço = valor baixo ou nenhum), descontar a cobertura tira parte do próprio sinal do dinheiro.\n\n(c) NÚMEROS QUE MUDARAM COM O DADO NOVO\n- Etapa 11: M6 e M1 já estavam escritas sem 2026 e batem com o JSON novo:\n  - 176 e 144 pares;\n  - passes recebidos 0,293 contra 0,525;\n  - duelos 0,72 e duelos aéreos 0,64;\n  - Fisher z p 0,016 (confere com o fator 1,06 da correlação de posto; sem o fator daria 0,013).\n- A citação da M1 a pontos.json (efeito_de_retirar_2026) existe.\n- Etapa 13: M3 segue 213 de 586 empatados, recontado no dado novo.\n  - As margens não mudaram em nenhum candidato. Mudou só o erro-padrão da margem, em 435 candidatos.\n- Etapa 0: o d mínimo com Bonferroni foi de 1,787 para 1,844 (191 para 293 testes). Nenhuma conclusão cita esse número. Os tamanhos detectáveis citados (0,82 e 1,02) não mudaram.\n- J8: o p 0,000003 do rodapé bate com o 2,94e-06 gravado.\n- Etapa 14: nenhuma conclusão usa os nomes, pela regra da seção 5.\n\n(d) SELO SEM O DESCONTO DO DINHEIRO (pela régua escrita, conferido contra a regra de máquina)\nPassariam de FRACO a MODERADO:\n- J17: q 0,045, e 2018-2021 passa.\n- J19: q 0,0086.\n- ELE-03: p 0,008, q 0,038, repetição não testada.\n- A2: concordância entre períodos p 0,020.\n- A1, provável: território p 0,028 e 0,003 nos dois períodos; a regra de máquina não tem linha para esse caso.\n\nDisputada:\n- DIN-04: a regra de máquina daria MODERADO. A régua escrita dá FRACO (conta dos 4 setores falha e não há lista). A leitura por jogador dá SEM SINAL.\n\nNão dá para calcular hoje (os critérios juntam valor e rodízio, e a conta só com o rodízio não está medida):\n- FIS-04 e M4.\n\nNão mudam:\n- Ficam FRACAS pelo teto da comparação escolhida depois de olhar: ORI-01, A4, FIS-01, J9, J16.\n- Continuam SEM SINAL: ELE-06, J15 fica FRACA (zona cinzenta com sinal cru em outra comparação).\n- A limitação é outra coisa, então nada muda: FIS-06, FIS-08, FIS-11, J7.\n- Já passavam no desconto: ELE-01, ELE-02, J1 a J6, J13, FIS-10, M5.\n- Não têm desconto: DIN-01 a 03, DIN-06, FIS-05, FIS-07, FIS-09, J8, J10 a J12, J14, J18, A3, A5, A6 e M1 a M7 menos M4 e M5.\n\nContagem: hoje 3 fortes · 11 moderadas · 24 fracas · 13 sem sinal · 5 não dá para afirmar. Sem o desconto: 3 · 15 ou 16 · 20 ou 19 · 13 · 5 (mais DIN-04, FIS-04 e M4 em aberto).\nAs cinco mais firmes não mudam: DIN-02, J1, J2, ELE-01, J6. As novas moderadas têm p maior que o de J6.",
+   "problemas": [
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/CONCLUSOES.md",
+     "onde": "DIN-04 (linhas 174-179) e conclusoes_spec.json DIN-04",
+     "o_que_vi": "A conclusão diz que quem sobe tem uma parte maior do valor na defesa, com sinal fraco (p 0,036 na fatia em euros), e manda ver na etapa 1. A etapa 1 agora mostra a leitura por jogador. Nela, o índice da defesa (fatia do valor ÷ fatia de jogadores) dá p 0,26, acerto 0,595, q 0,94. Parte da fatia maior vem de ter mais defensores listados (33,1% contra 31,7% dos jogadores).",
+     "por_que_importa": "Quem ler a conclusão e abrir a aba vê um sinal na conclusão e nenhum na tabela. Pela régua, a pergunta 'o setor pesa mais que a sua gente' é SEM SINAL por jogador.",
+     "conserto": "Na rodada seguinte, pôr a leitura por jogador ao lado, no rodapé e em 'o que isso não quer dizer', com o caminho ponderado_por_jogador.particao.setores[setor=defesa]. Decidir com o dono qual das duas contas é a do título. Nenhuma das duas foi declarada antes para esta pergunta; a por jogador é de 14/09. Se nenhuma for a declarada, vale a mais fraca, SEM SINAL.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/CONCLUSOES.md",
+     "onde": "DIN-05 (linhas 181-186)",
+     "o_que_vi": "O título diz que defesa, meio-campo e ataque de quem sobe valem mais. A frase diz que, na fatia, só a defesa se destaca. Por jogador: o meio-campo contra o meio da tabela tem p 0,038 e q 0,051, e não passa na conta dos 4 setores. Na partição por jogador nenhum setor se destaca (menor p 0,26). Os acertos de pares 84/75/78/83 viram 82/73/81/81 por jogador, e a defesa deixa de ficar à frente do elenco (0,816 contra 0,812).",
+     "por_que_importa": "O selo não muda: a defesa por jogador ainda passa (q 0,0024). Mas duas afirmações da frase dependem de contar em euros e não por jogador, e a tela da etapa 1 já mostra a outra conta.",
+     "conserto": "Descrever as duas leituras no rodapé com os caminhos gravados e tirar da frase o 'só a defesa se destaca', ou dizer que é na fatia em euros. No título, dizer que o meio-campo por jogador fica no limite contra o meio da tabela.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+     "onde": "DIN-01: molde.frase ('Descontado quanto do elenco o Transfermarkt avalia, o sinal continua'), criterios_do_selo k4 (controle da cobertura do valor) e regra_maquina forte",
+     "o_que_vi": "O selo FORTE da DIN-01 exige k4, o controle da cobertura: o valor descontado de quantos jogadores têm preço. Essa conta trata o jogador sem preço como dado faltando. O dono decidiu em 14/09 que jogador sem preço é valor baixo ou nenhum. A cobertura anda com o valor (rho 0,564, cobertura_do_valor gravado). E o campo p_valor_descontada_cobertura nem está gravado.",
+     "por_que_importa": "Um critério que decide o único FORTE sobre dinheiro parte de uma premissa que o dono derrubou. Descontar a cobertura tira parte do próprio sinal. Enquanto o critério ficar, a DIN-01 continua fora da tela e fora das cinco por falta desse campo.",
+     "conserto": "Na rodada que tira o desconto, decidir com o dono se o k4 sai da DIN-01. Se sair, a regra de máquina dá FORTE com k0, k2 e k3, que já passam. A frase e o rodapé perdem 'descontado quanto do elenco o Transfermarkt avalia' e 'descontada a cobertura'. O gerador deixa de precisar gravar p_valor_descontada_cobertura. Não mexer agora.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+     "onde": "regra_maquina de ORI-01, A4, ELE-03, J15, A1, DIN-04 e DIN-05 (o que a próxima rodada vai encontrar)",
+     "o_que_vi": "Tirando o desconto do dinheiro pela regra de máquina, sete regras fazem coisa errada. ORI-01 dá MODERADO porque 'declarada antes' (k3) está com decide=false, mas a régua põe teto FRACO na comparação escolhida depois sem lista. A4 junta 'lista e desconto' num critério só (k2): ao tirar o desconto vira MODERADO, mas continua sem lista, então segue FRACO. ELE-03 e J15 ficam sem selo (nenhuma linha bate), quando a régua dá MODERADO e FRACO. A1 fica sem selo, provável MODERADO. DIN-04 dá MODERADO pela linha dela, mas a régua geral dá FRACO (conta dos 4 setores falha e não há lista), e o próprio spec escreve 'sem excesso possível' como licença para moderado. Em cascata, o k1 da DIN-05 exige 'DIN-04 forte ou moderada' e a única linha dela deixaria de bater: a DIN-05 sairia da tela.",
+     "por_que_importa": "Na rodada que tira o desconto, recalcular selos só apagando os critérios de dinheiro dá selo errado em ORI-01, A4 e DIN-04 e tira ELE-03, J15, A1 e DIN-05 da tela.",
+     "conserto": "Na rodada seguinte, reescrever essas regras de máquina à mão, pela régua escrita. Separar o k2 da A4 em dois critérios. Dar decide=true ao 'declarada antes' da ORI-01. Pôr o critério de q na ELE-03 (0,038 está só no rodapé). Decidir a DIN-04 sem lista. Trocar o k1 da DIN-05 por um critério de dado, não pelo selo de outra conclusão.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+     "onde": "FIS-04 k1, M4 k1 (e os p com 'valor + atletas' da FIS-06, FIS-08, FIS-10, FIS-11 e M5)",
+     "o_que_vi": "No físico, o desconto é sempre o dinheiro e o rodízio juntos. Sem o dinheiro, falta a conta só com o rodízio, e ela não está em lugar nenhum: nem no dado, nem no documento. Na FIS-04 e na M4 isso decide o selo. Na M4, a lista crua do ataque passa da sorte (0,011), então a M4 pode subir.",
+     "por_que_importa": "Não dá para dizer que selo a FIS-04 e a M4 teriam sem o dinheiro. As outras cinco precisariam de um número novo na frase.",
+     "conserto": "Pôr na ordem de serviço da rodada que tira o desconto: medir com só o desconto do rodízio (fis_atletas e fis_<setor>_atletas) as listas da FIS-04 e da M4 e os p das cinco medidas, declarando antes de medir.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/dados/prototipo.json",
+     "onde": "etapa_1.valor_por_setor.ponderado_por_jogador.regra e universo; CONCLUSOES.md ELE-05 ('56 inscritos')",
+     "o_que_vi": "A regra gravada às 17:01 ainda não declara os jogadores listados em dois clubes na mesma temporada: não aparecem 'dois clubes', 433, 216 nem 175. O plantel da ELE-05 é a mesma contagem (listados = plantel em 80 de 80), então os 56 e 55 inscritos também contam essas passagens.",
+     "por_que_importa": "O pedido C desta rodada ainda não está no dado gravado. Quando entrar, a ELE-05 fala de 'inscritos' com a mesma unidade e deveria dizer o mesmo.",
+     "conserto": "Quem fechar o pedido C grava a declaração com os números lidos do dado. A ELE-05, no universo, passa a dizer 'jogadores listados no clube na temporada; quem passou por dois clubes conta nos dois'. O selo não muda.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/setores_journal.json",
+     "onde": "retorno 'grava', riscos e diff item (8): 'as margens (margem_sobe/caro/barato) mudaram em cerca de 415 candidatos'",
+     "o_que_vi": "Recontei candidato a candidato. margem, margem_sobe e margem_normalizada estão idênticas nos 603. Mudou só o erro_padrao, em 435. Os 213 de 586 empatados da M3 continuam iguais.",
+     "por_que_importa": "Se alguém usar esse relato para avisar que as margens da etapa 13 ou a M3 mudaram, vai avisar errado. Mudou o ruído que a etapa 14 usa, não a margem.",
+     "conserto": "No relato ao dono e no CONTINUAR, escrever 'o erro-padrão da margem mudou em 435 candidatos; as margens e os empates da M3 (213 de 586) não mudaram'.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere:tela-e-linguagem",
+  {
+   "lente": "Conferi a tela com o dado já gravado (dados/prototipo.json e static/prototipo.js das 17:01), no app real rodando na porta 5171. O servidor foi o scratchpad/fecho15/servir.py, com SC_CENARIOS e SC_PREMISSAS apontando para cópias em fecho15. A medição foi feita com Playwright do Python sem janela, a 1.785 e a 400 px. O servidor foi derrubado no fim e a porta 5171 está livre. Não escrevi em nenhum arquivo do projeto e não fiz git. A etapa 5 ficou fora, porque já é sabido.",
+   "conferidos": 3384,
+   "medidas": "Scripts e saídas estão em scratchpad/fecho15: tela.py, tela2.py, cmp1.py, tela_{1785,400}.json, tela2_{1785,400}.json e as capturas et*_*.png e v_*.png.\n\nGERAL, NAS DUAS LARGURAS\n- As 16 etapas foram desenhadas, sem nenhum .pt-erro e sem erro no console.\n- Nenhum \"undefined\", \"NaN\", \"[object\", \"Infinity\" ou \"null\" no texto.\n- A página não rola de lado. Nada fica cortado a 400 px.\n- Caixas que rolam de lado: nenhuma a 1.785 px; 64 a 400 px, cada uma dentro da própria caixa.\n\nETAPA 1, NÚMERO A NÚMERO CONTRA O JSON (1.632 por largura)\nComparei com arredondamento meio-para-cima, que é o que a tela usa. Tudo bateu: 0 diferenças nas duas larguras. Entraram:\n- tabela por setor: valor, jogadores, sem preço, valor por jogador e a frase \"X% do valor com Y% dos jogadores\" (a fatia do valor fica ao lado da fatia de jogadores);\n- \"o que separa, por jogador\": posição média, AUC, p e q de subiu x meio e de subiu x caiu;\n- partição ponderada: posto médio, p e q;\n- as 80 linhas time a time, 19 colunas cada.\n\nFrases da etapa 1:\n- A frase principal (€ 7,9 mi na defesa, € 428 mil por jogador; 34% do valor com 33% dos jogadores) e as contagens 2 de 4 contra o meio e 4 de 4 contra quem caiu batem com os sobrevive_bh do JSON.\n- Goleiro contra quem caiu: q 0,048, marcado \"passa por pouco\".\n\nFiltro da tabela de times:\n- Os chips todos 80, subiu 16, meio 48 e caiu 16 mostram 80, 16, 48 e 16 linhas, cada uma só do grupo escolhido.\n- A ordenação escolhida pelo leitor continua depois de filtrar.\n\nCONTROLE 2 E SOBRAS DA FRASE ANTIGA\n- O Controle 2 diz que o jogador sem preço é \"valor baixo ou sem mercado\", conta com valor zero e não deixa a soma por baixo.\n- O lado da conclusão sai do sinal do ρ (0,564, p < 0,001), e está coerente.\n- Zero ocorrências de \"não sabe dizer\", \"cuidado com o próprio\", \"A soma está por baixo\" e \"o total é um piso\".\n- Os \"piso\", \"subestim\" e \"dado faltando\" que sobram na página são da regra nova ou de outras etapas (5, 8 e 3), sem relação com o jogador sem preço.\n- \"Dado que falta\", na etapa 14, fala só da faixa salarial, e está certo.\n\nETAPA 14, NAS 6 PROPOSTAS (60 posições, a cada largura)\nBate com o dado, com 0 diferença real:\n- nome, % das vezes e intervalo de 95% de cada recomendado, empatado e alternativa;\n- as marcas \"na borda\" e \"abaixo do sorteio\";\n- vagas, candidatos (= denominador) e \"se fosse sorteio\".\n- A marca de \"sem nome\" só aparece nas 2 posições do B barato sul-americano, as mesmas de posicoes_sem_nenhum_nome = 2. Nenhuma posição com nome aparece vazia.\n- O filtro de nacionalidade vem ligado nas etapas 13 e 14, com as 4 opções.\n  - Etapa 14, nomes visíveis de 72: só brasileiros 25; sul-americanos com Brasil 70; sul-americanos estrangeiros 45; só estrangeiros 47. Sem erro, e a tela volta ao estado inicial ao limpar.\n  - Etapa 13, candidatos de linha visíveis de 601: 63, 591, 528 e 538.\n\nETAPA 0\n- \"293 coisas\" e d mínimo 1,84 batem com poder.testes_na_correcao_bonferroni = 293 e d_minimo_16x16_bonferroni = 1,844.\n- indicadores_pre_declarados já era 293 no dado antigo; só a correção usava 191. Então a frase \"lista de 293 guardada antes da primeira conta\" continua verdadeira.\n\nETAPA 11\n- 176 x 144 pares, ρ 0,396 contra 0,460 e físico 0,833 batem com o JSON.",
+   "problemas": [
+    {
+     "arquivo": "static/proto_c.js",
+     "onde": "Etapa 13, nota abaixo da tabela de alvo de cada setor (~linhas 1776-1780, frase 'A diferença entre os dois números é ilusão de quantidade')",
+     "o_que_vi": "A frase é fixa e sai igual nos 4 setores. Com o dado gravado, os setores dizem: (a) comparando clubes sobram 0 de 34, contando atleta sobram 3; (b) 0 de 35 contra 5; (c) 5 de 34 contra 5; (d) 11 de 35 contra 3. Em (c) os dois números são iguais e em (d) o clube inteiro deixa MAIS medidas de pé que a conta por atleta. Mesmo assim a tela diz nos quatro que 'a diferença é ilusão de quantidade: até N atletas dentro de poucos clubes dão resultado com cara de forte'.",
+     "por_que_importa": "Em dois setores o texto afirma o contrário do número ao lado. Quem lê o setor (d) sai achando que a conta por atleta infla, quando ali ela achou menos. A regra da casa é não afirmar mais que o dado.",
+     "conserto": "Montar a frase conforme os números: dizer 'ilusão de quantidade' só quando a conta por atleta deixa mais de pé que a por clube; quando empatam, dizer que as duas contas concordam; quando o clube deixa mais de pé, dizer isso e não afirmar inflação. Comentar em prosa o motivo.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_c.js",
+     "onde": "Etapa 11, frase principal (~linhas 1047-1053: 'N medidas técnicas atravessam a troca de clube sem perder nada — em quem mudou, elas se repetem tanto ou mais')",
+     "o_que_vi": "A lista entra pela simples comparação rho_mudou >= rho_ficou, sem margem nenhuma. Hoje são 7 medidas, com diferenças de 0,004 (passes-chave, 0,096 contra 0,092) e 0,020 (duelos aéreos), em 176 e 144 pares. No dado antigo, com 2026, eram 5. Só por tirar o ano incompleto, três medidas trocaram de lado: passes-chave (0,193 contra 0,118 virou 0,096 contra 0,092), gols esperados (0,223 < 0,287 virou 0,281 > 0,224) e chutes (0,454 < 0,467 virou 0,487 > 0,435). Passes-chave, com ρ perto de zero nos dois grupos, aparece como medida que 'atravessa sem perder nada'.",
+     "por_que_importa": "'Sem perder nada' afirma uma propriedade do jogador. O próprio dado mostra que a lista muda com um corte de ano, ou seja, as diferenças estão dentro do ruído. Na reunião isso vira critério de contratação sem sustentação.",
+     "conserto": "Enquanto o gerador não gravar a margem da diferença rho_mudou − rho_ficou por medida, a tela não deve afirmar 'sem perder nada'. Dizer que, nos números medidos, essas medidas não caíram, que as diferenças são pequenas demais para afirmar e que a lista mudou ao tirar 2026, lendo efeito_de_retirar_2026. Quando a margem existir, só listar as medidas cuja margem não passa por uma perda relevante.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_c.js",
+     "onde": "Etapas 11 e 13: números que mudaram em relação ao site publicado, sem aviso na tela",
+     "o_que_vi": "Etapa 11: pares passaram de 233 para 176 e de 178 para 144, e a contagem de medidas 'que atravessam' foi de 5 para 7. O JSON traz etapa_11.efeito_de_retirar_2026 (motivo, com e sem 2026), mas nenhuma linha da etapa diz que 2026 saiu. Etapa 13: as margens de cerca de 415 candidatos mudaram com o gerador por atleta. O JSON traz etapa_13.erro_padrao_da_margem.mudanca_do_gerador (data, os_numeros_mudam: true, antes, por_que), mas o texto da etapa 13 não fala de gerador nem de mudança. A etapa 14 mostra a própria mudança; a 13, de onde vem o ruído dela, não.",
+     "por_que_importa": "O site no ar tem os números antigos. Quem comparar vê números mudarem sem motivo escrito, o que fere a regra de ausência e mudança com motivo, e pode achar erro onde houve decisão.",
+     "conserto": "Etapa 11: uma nota curta lendo efeito_de_retirar_2026 ('o técnico agora vai só até 2025; com 2026 eram X pares e ρ Y'). Etapa 13: uma nota lendo erro_padrao_da_margem.mudanca_do_gerador (data, que os números mudam e por quê), no mesmo formato do bloco da etapa 14. As duas só aparecem quando a chave existir.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/proto_c.js",
+     "onde": "Etapa 14, rótulo acima de cada tabela de vagas (~linha 2771: 'por vaga: quem aparece em mais da metade das N vezes')",
+     "o_que_vi": "Com o dado novo o rótulo segue dizendo 'POR VAGA: QUEM APARECE EM MAIS DA METADE DAS 2.000 VEZES EM QUE A CONTA FOI REFEITA'. O card 'Como ler os nomes' e o próprio dado dizem que a contagem é por POSIÇÃO e que recomendado exige o intervalo de 95% inteiro acima de 50%. Na mesma tabela aparecem empatados com 51,2% ('mais da metade') que não são recomendados.",
+     "por_que_importa": "O rótulo contradiz a regra escrita logo acima e a mudança de método de 14/09 (de vaga para posição). Quem lê só a tabela entende que 51% já basta.",
+     "conserto": "Com o dado novo (contagem_por presente), trocar o rótulo para algo como 'por posição: recomendado, empate técnico e alternativa, nas 2.000 vezes em que a conta foi refeita', com a unidade tirada de contagem_por. O texto antigo fica só para o dado antigo.",
+     "gravidade": "mente"
+    },
+    {
+     "arquivo": "static/proto_c.js",
+     "onde": "Etapa 14, card 'Como ler os nomes', listas 'o que mudou' e 'por quê' (pcEt14ComoLer, função lista)",
+     "o_que_vi": "Os textos gravados em mudanca_de_metodo saem crus, no mesmo corpo do texto (ul.pt-nota, 12,5px, igual aos parágrafos): '[SEMENTE, 14, i], no lugar do rng global', '[SEMENTE, 13, id]', 'o Húngaro dividia o mesmo atleta entre as vagas gêmeas', '(vaga -> posição)', 'rng global'. Só a linha np.random.default_rng vai em ptTecnico.",
+     "por_que_importa": "É jargão de código fora do número pequeno, na parte que explica ao dono por que os nomes mudaram, justamente a que ele precisa entender sozinho.",
+     "conserto": "Dizer cada item em português de reunião (ex.: 'cada proposta tem o seu próprio sorteio, e o sorteio de uma não mexe na outra'; 'por vaga, o método dividia o mesmo jogador entre as duas vagas da mesma posição') e mandar o texto gravado para ptTecnico ao lado.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto_c.js",
+     "onde": "Etapa 14, linha 'Alvo:' das 4 propostas A e B (a troca de 'top-8 de valor' por texto da casa)",
+     "o_que_vi": "Sai 'perfil FÍSICO dos 12 promovidos que estavam no entre os 8 elencos mais caros' e 'dos 4 que subiram fora do entre os 8 elencos mais caros'. A troca de palavras deixou o 'no' e o 'do' do texto original.",
+     "por_que_importa": "Frase quebrada em todas as propostas A e B, na linha que diz qual é o alvo do cenário.",
+     "conserto": "Trocar a expressão inteira, com a preposição ('no top-8 de valor' por 'entre os 8 elencos mais caros'; 'fora do top-8 de valor' por 'fora dos 8 elencos mais caros'), ou montar a frase a partir do dado em vez de substituir texto.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "gerar_prototipo.py",
+     "onde": "etapa_1.valor_por_setor.ponderado_por_jogador.regra (mostrada por inteiro em ptTecnico no card 'Os elencos, time a time') e o parágrafo 'Quem conta como jogador' do proto_a.js",
+     "o_que_vi": "A regra gravada, que a tela mostra literalmente, não diz que 216 jogadores aparecem em dois clubes na mesma temporada (433 linhas, € 175,3 mi contados nos dois elencos). As colunas 'jogadores' da tabela de 80 times (ex.: Amazonas 2025 com 72, Coritiba 2025 com 70) incluem esses nomes sem nenhum aviso.",
+     "por_que_importa": "É o pedido C desta rodada. Hoje a tela não declara a dupla contagem, então quem soma jogadores ou valor entre clubes do mesmo ano conta duas vezes sem saber.",
+     "conserto": "O gerador grava na regra, e em chaves próprias (linhas, jogadores, valor), que o jogador que passou por dois clubes na temporada conta nos dois elencos, como o val_*. O card de times e a nota 'Quem conta como jogador' do proto_a.js leem essas chaves e dizem os três números; sem as chaves, ausência com motivo.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/proto_a.js",
+     "onde": "Etapa 1, tabela ptEt-1-setor-eur, linha 'elenco inteiro'",
+     "o_que_vi": "A célula do elenco inteiro diz '€ 24,0 mi no setor', '€ 13,9 mi no setor' e '€ 9,0 mi no setor'. Elenco não é setor.",
+     "por_que_importa": "Pequena incoerência de vocabulário numa tabela que o dono lê linha a linha.",
+     "conserto": "Na linha de referência (família fora do BH), escrever 'no elenco' em vez de 'no setor'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/style.css",
+     "onde": "A 400 px: cabeçalho do app + barra grudada das 16 etapas",
+     "o_que_vi": "Nas capturas a 400 x 1000 (v_seteur_400.png, v_times_400.png), o cabeçalho e a barra das etapas presa no topo ocupam cerca de 420 px dos 1.000 visíveis. Ao pular para um bloco, o começo dele fica escondido atrás da barra: o título da tabela de times e as primeiras linhas por setor ficam cobertos.",
+     "por_que_importa": "No telefone, menos de 60% da tela sobra para o conteúdo, e o salto por âncora cai com o topo encoberto. Não é corte lateral, mas atrapalha a leitura.",
+     "conserto": "A 400 px, não deixar a lista de etapas presa no topo (ou recolhê-la num seletor de uma linha) e ajustar o scroll-margin-top dos blocos à altura real do que fica preso.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "dono:proto_a",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_a.js"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Conferi o problema antes de consertar: o conferente estava certo",
+     "onde": "static/proto_a.js, paCardSetor, celEur (perto da linha 920)",
+     "como": "A linha 'total' do bloco antigo cai no mesmo caminho dos setores. pjDe('total') devolve pjRef, a linha de referência do elenco inteiro. Por isso ela ganhava o mesmo texto fixo ' no setor<br>' que os quatro setores."
+    },
+    {
+     "item": "Linha do elenco inteiro diz 'no elenco'",
+     "onde": "static/proto_a.js, celEur",
+     "como": "Troquei o texto fixo por (p === pjRef ? ' no elenco' : ' no setor'). A linha é reconhecida pelo objeto de referência pjRef, nunca pelo nome digitado, na mesma lógica que já acha essa linha. Deixei um comentário em prosa explicando o motivo. Não mudei nenhum número, nenhuma regra e nenhum outro arquivo."
+    }
+   ],
+   "chaves_do_json": "Nenhuma chave nova. A tela continua lendo etapa_1.valor_por_setor.setores e ponderado_por_jogador (setores, familia_do_bh.setores e os campos *_mediano_{faixa}) do dado já gravado.",
+   "numeros_principais": "Na tabela ptEt-1-setor-eur, na tela, a linha 'elenco inteiro' agora mostra: € 24,0 mi no elenco, 56,5 jogadores (20,5 sem preço), € 437 mil por jogador (quem subiu, 16 times); € 13,9 mi no elenco, 54 jogadores (24,5 sem preço), € 256 mil por jogador (meio da tabela, 48 times); € 9,0 mi no elenco, 57,5 jogadores (29 sem preço), € 157 mil por jogador (quem caiu, 16 times). As linhas de goleiro, defesa, meio-campo e ataque continuam com 'no setor'.",
+   "como_testei": "Rodei node --check no proto_a.js e passou. Depois abri o app real com o dado gravado numa porta própria, a 5173. Usei o servir.py do scratchpad, com SC_CENARIOS e SC_PREMISSAS apontando para as cópias em fecho15. O teste foi headless, com Playwright do Python, pelo script fecho15/tela_a5173.py, nas larguras 1.785 e 400. Nas duas: 16 de 16 etapas desenhadas, zero .pt-erro, zero erro no console, nenhum undefined, NaN ou Infinity no texto, zero rolagem lateral da página e nada cortado. Li a tabela ptEt-1-setor-eur célula por célula e o texto saiu como esperado. O servidor foi derrubado no fim e a porta 5173 ficou livre. Não usei as portas 5090 e 5091, não rodei nenhum git e não mexi em arquivos da outra sessão.",
+   "riscos": [
+    "Nenhum risco relevante: a mudança é só de texto, numa célula. Se um dia o bloco ponderado_por_jogador vier sem familia_do_bh, pjRef fica nulo e a linha do total volta a cair no caminho antigo, de duas partes, que nunca teve 'no setor'."
+   ]
+  }
+ ],
+ [
+  "dono:casca",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/style.css",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Conferi o apontamento antes de mexer: o problema é real",
+     "onde": "static/style.css, a lista das etapas em tela de até 1080 px; static/proto.js, a função ptIrParaEtapa",
+     "como": "Olhei a captura v_times_400.png e o código. Em tela estreita a lista das 16 etapas continua presa no topo e quebra em 8 linhas, cerca de 300 px, que somados ao cabeçalho do app dão uns 420 px. O salto para uma etapa só deixava 12 px fixos de folga, então o começo dela caía atrás da lista. Um reparo ao conferente: a captura dele usou a rolagem do próprio Playwright, não o botão da lista. Mesmo assim, o salto do app tinha o mesmo defeito."
+    },
+    {
+     "item": "No celular, a lista das etapas virou uma linha só que rola de lado",
+     "onde": "static/style.css, bloco @media (max-width:720px) no fim do arquivo",
+     "como": "A lista não quebra mais linha e rola de lado dentro dela mesma (a página continua sem rolar de lado). Ela segue presa no topo porque o seletor de escala fica dentro dela e precisa estar à mão. As etapas ganharam scroll-margin-top de 60 px, para quem pula por âncora sem passar pela lista. A lista caiu de cerca de 300 px para 37 px."
+    },
+    {
+     "item": "O salto desconta a altura real do que está preso no topo",
+     "onde": "static/proto.js, função nova ptAlturaGrudada, chamada por ptIrParaEtapa",
+     "como": "Mede a lista quando ela está presa no topo e fica por cima das etapas. Em tela larga ela fica ao lado, a conta dá zero e nada muda. Entre 720 e 1080 px, onde a lista ainda quebra em várias linhas, o desconto também acompanha a altura real."
+    },
+    {
+     "item": "O botão aceso fica sempre à vista na linha que rola de lado",
+     "onde": "static/proto.js, dentro do observador de ptLigarSumario",
+     "como": "Quando a etapa em leitura muda e o botão dela saiu da vista, só a própria linha rola de lado. Não uso scrollIntoView, que arrastaria junto a caixa da aba e o topo."
+    }
+   ],
+   "chaves_do_json": "Nenhuma. Não mexi em dado nem em contrato, só em CSS e no salto da casca.",
+   "numeros_principais": "A 400 x 1000: a lista das etapas caiu de cerca de 300 px para 37 px, e o que fica preso no topo (cabeçalho + lista) vai até y=160, contra uns 420 antes. Pulei pelos botões para as etapas 1, 9, 14, 15, 2 e 6: o título de cada uma caiu entre y=160 e 163, logo abaixo da lista, sem nada coberto. O botão aceso ficou à vista em todos os saltos. A 1.785: a lista segue coluna ao lado, títulos em y=86, sem mudança. Nas duas larguras, 16/16 etapas, zero rolagem lateral, zero elemento cortado, zero erro no console na 1ª rodada.",
+   "como_testei": "node --check static/proto.js passou. Rodei o teste com Playwright do Python pelo app real e o dado gravado, na porta 5178, subida com fecho15/servir.py (SC_CENARIOS e SC_PREMISSAS apontando para as cópias em fecho15). O servidor foi derrubado ao fim e o lsof confirmou a porta livre. Scripts: fecho15/topo400.py e fecho15/topo5.py. Capturas: fecho15/topo_400.png e topo_1785.png. Mediram 16 etapas, rolagem lateral e elementos cortados (a mesma verificação do tela.py), erros de console e, depois de clicar no botão, o topo do título da etapa contra a base da lista. Nota: o campo 'coberto: true' a 1.785 é falso alarme do meu teste. A lista ali fica ao lado das etapas e o teste não olha a sobreposição de lado.",
+   "riscos": [
+    "ERRO DE OUTRO ARQUIVO, NÃO MEU: na 2ª rodada (topo5.py, minutos depois da 1ª, que deu zero erro) a etapa 11 quebrou com 'fraseViajam is not defined' em static/proto_c.js, linha 1048. O proto_c.js mudou entre as duas rodadas: parece edição em curso do dono dele. Precisa ser conferido antes de publicar.",
+    "Defeito que já existia, sem conserto nesta rodada: o primeiro salto para a etapa 5 a partir do alto da página para antes, com o título em y=909 e o botão aceso no 4. Acontece igual a 1.785, então não vem desta mudança. Um segundo clique acerta (y=162). O mais provável é conteúdo acima crescendo durante a rolagem suave (matrizes montadas tarde). Um conserto possível, no proto.js: corrigir o salto uma vez depois que a rolagem assentar.",
+    "O cabeçalho do app mais a faixa das abas continua ocupando cerca de 112 px a 400, porque 'Fim de contrato' e 'Análise do elenco' quebram em duas ou três linhas. Não mexi: é regra do app inteiro (.topo/.abas) e mora perto do que a outra sessão edita.",
+    "Entre 720 e 1080 px a lista ainda quebra em várias linhas presas no topo (não foi o apontamento). O salto agora desconta essa altura, mas ela continua ocupando tela."
+   ]
+  }
+ ],
+ [
+  "dono:proto_c",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_c.js",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/c15.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/c15.json"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Etapa 13: a frase que compara as duas contas agora segue os números. O conferente estava certo: a frase era fixa e, na tela, os setores davam 0x3, 0x5, 5x5 e 11x3.",
+     "onde": "static/proto_c.js: nova função pcEt13LeituraDasContas, chamada na nota de cada setor dentro de pcEt13Alvos",
+     "como": "Se a conta por atleta deixa mais medidas de pé, a frase fala em 'ilusão de quantidade'. Se as duas empatam, diz que concordam e que vale a de clubes inteiros. Se o clube inteiro deixa mais, diz isso e afirma que a conta por atleta não inflou nada. Um comentário em prosa explica o motivo. Na tela, a expressão 'ilusão de quantidade' saiu só nos 2 setores em que é verdade."
+    },
+    {
+     "item": "Etapa 11: saiu a frase 'atravessam a troca sem perder nada'. O conferente estava certo: a lista entrava por rho_mudou >= rho_ficou, sem margem, e as diferenças vão de 0,004 a 0,138.",
+     "onde": "static/proto_c.js, ptEtapa11: nova variável fraseViajam antes da frase principal",
+     "como": "Sem margem gravada, a tela diz que nos números medidos 7 medidas não caíram e dá a lista. Em seguida diz que isso não basta para afirmar que não perdem: as diferenças são pequenas (o intervalo vai em número pequeno) e o estudo não grava a margem. Diz também que tirar 2026 levou os pares de 233 para 176 e que o dado não guarda a lista de cada versão. As medidas que trocaram de lado não são citadas porque não estão no JSON. Quando o gerador gravar margem, a tela lista só as medidas cuja margem não chega a uma perda relevante. Chaves esperadas: dif_ic95 = [baixo, alto] em cada medida e tecnico.perda_relevante; o nome das duas está declarado no comentário. 'Nenhuma medida atravessa sem perder' também virou frase neutra."
+    },
+    {
+     "item": "Etapa 11: nota sobre a saída de 2026 (a falta estava confirmada: efeito_de_retirar_2026 existia e não aparecia na tela)",
+     "onde": "static/proto_c.js, ptEtapa11: bloco nota2026 logo abaixo do quadro 'o que a tela afirma'",
+     "como": "Bloco pt-controle 'o técnico agora vai só até 2025'. Diz que os números não se comparam com versões anteriores e mostra pares e jogador típico com e sem 2026 (233/178, 0,399/0,468 contra 176/144, 0,396/0,460). Diz que o físico não muda (499 pares). O motivo gravado vai em ptTecnico. O ano sai de anos_usados_no_tecnico. O bloco só aparece quando a chave existe."
+    },
+    {
+     "item": "Etapa 13: nota sobre a mudança do sorteio da margem (a falta estava confirmada)",
+     "onde": "static/proto_c.js: nova função pcEt13MudancaDoGerador, colocada logo depois do teste da nota em ptEtapa13",
+     "como": "Mesmo formato do bloco da etapa 14: 'as margens mudaram em 14/09/2026'. Diz que as margens não se comparam com versões anteriores e explica em português por que cada jogador ganhou sorteio próprio. antes, por_que, por_que_um_por_atleta e o gerador vão em ptTecnico. O bloco só aparece com erro_padrao_da_margem.mudanca_do_gerador."
+    },
+    {
+     "item": "Etapa 14: rótulo acima de cada tabela de posições (confirmado: seguia 'por vaga: quem aparece em mais da metade', contra a regra do intervalo)",
+     "onde": "static/proto_c.js, cartão de cada proposta na etapa 14 (a antiga linha ~2771)",
+     "como": "Com o dado novo, o rótulo é 'por posição: recomendado, empate técnico e alternativa, nas 2.000 vezes em que a conta foi refeita'. A unidade vem de rotPos, que lê contagem_por. O texto antigo ficou só para o dado antigo."
+    },
+    {
+     "item": "Etapa 14: listas 'o que mudou' e 'por quê' do card 'Como ler os nomes' (confirmado: os itens gravados saíam crus, com [SEMENTE, 14, i], rng global, Húngaro)",
+     "onde": "static/proto_c.js, pcEt14ComoLer: nova função interna dizer, usada pela função lista",
+     "como": "Cada item é reconhecido pelo assunto (Húngaro/vagas gêmeas, réplicas de X para Y, gerador por proposta, gerador por atleta, rng global, empate técnico, contrafactual, posição x vaga, 'claramente') e dito em português de reunião. Os números (200, 2.000) saem do próprio texto. O texto gravado vai inteiro em ptTecnico ao lado. Item sem padrão conhecido aparece como 'outro ajuste de método, descrito ao lado'. Os 10 itens de hoje caíram cada um no padrão certo."
+    },
+    {
+     "item": "Etapa 14: linha 'Alvo:' das propostas A e B (confirmado: saía 'estavam no entre os 8 elencos mais caros' e 'fora do entre os 8')",
+     "onde": "static/proto_c.js, alvoTxt dentro do cartão da proposta",
+     "como": "A troca agora leva a preposição junto: 'fora do top-N de valor' vira 'fora dos N elencos mais caros', e 'no/do/ao top-N de valor' vira 'entre os N elencos mais caros'. A troca antiga, sem preposição, ficou como reserva. Na tela sai 'que estavam entre os 8 elencos mais caros' e 'que subiram fora dos 8 elencos mais caros'."
+    }
+   ],
+   "chaves_do_json": "Lidas e não alteradas: etapa_11.efeito_de_retirar_2026 (motivo, anos_usados_no_tecnico, pares_mudou/pares_ficou/rho_mediano_mudou/rho_mediano_ficou com com_2026/sem_2026, fisico.pares, fisico.motivo); etapa_11.tecnico.metricas[].rho_mudou/rho_ficou; etapa_13.erro_padrao_da_margem.mudanca_do_gerador (data, os_numeros_mudam, antes, por_que, por_que_um_por_atleta) e .gerador; etapa_14.mudanca_de_metodo.o_que_mudou/por_que; etapa_14.propostas[].contagem_por (via rotPos) e alvo_significa. Opcionais que o gerador ainda NÃO grava, só usadas se aparecerem: etapa_11.tecnico.metricas[].dif_ic95 ([baixo, alto] de rho_mudou − rho_ficou) e etapa_11.tecnico.perda_relevante.",
+   "numeros_principais": "Etapa 13, medidas que ficam de pé por setor, clube inteiro contra atleta: 0x3, 0x5, 5x5, 11x3. 'Ilusão de quantidade' aparece em 2 setores, não mais em 4. Etapa 11: 7 medidas não caíram, com diferenças de 0,004 a 0,138 em ρ; pares com 2026 eram 233/178 e sem 2026 são 176/144; jogador típico 0,399/0,468 com 2026 e 0,396/0,460 sem; físico 499 pares nos dois casos. Etapa 13: as margens mudaram em 14/09/2026. Etapa 14: rótulo 'por posição ... nas 2.000 vezes'.",
+   "como_testei": "node --check sem erro. Teste sem janela com Playwright no app real (servir.py do fecho15, SC_CENARIOS e SC_PREMISSAS apontando para as cópias do scratchpad), na porta 5177, com o dado gravado, a 1.785 e a 400 px. Resultado nas duas larguras: 16/16 etapas, zero .pt-erro, zero erro de JS ou console, sem rolagem lateral, nada cortado, zero 'undefined'/'NaN'/'[object'/'Infinity', zero ' no entre '/' do entre ', zero 'sem perder nada', zero rótulo antigo 'mais da metade das 2.000' ou 'por vaga: quem', e 'ilusão de quantidade' exatamente 2 vezes. Li na tela o texto novo das etapas 11, 13 e 14. Na primeira rodada, o bloco da etapa 13 e o rótulo da 14 pareciam ausentes: era a busca do teste, que não pegava o texto em maiúsculas do CSS. Com a busca ignorando maiúsculas, os dois aparecem. O servidor foi derrubado ao fim e a porta 5177 ficou livre. Não toquei nas portas 5090 e 5091, não rodei git e não escrevi nenhum arquivo além de proto_c.js e dos rascunhos do scratchpad.",
+   "riscos": [
+    "Etapa 11: a tela não diz quais medidas trocaram de lado ao tirar 2026 (passes-chave, gols esperados, chutes), porque o JSON não guarda a lista por versão. Diz só que a lista é sensível ao recorte. Para citar as medidas, o gerador precisa gravar rho por medida com e sem 2026.",
+    "Etapa 11: a regra 'só listar quem não chega a uma perda relevante' depende de dois nomes de chave que eu escolhi (metricas[].dif_ic95 e tecnico.perda_relevante). Se o gerador gravar outros nomes, a tela segue no modo sem margem até alguém acertar os nomes.",
+    "Etapa 14: a tradução das listas de mudanca_de_metodo reconhece o assunto por padrões de texto. Se o gerador reescrever os itens, um item pode cair em 'outro ajuste de método, descrito ao lado' (o texto gravado continua visível em número pequeno) ou, em caso raro, no padrão errado.",
+    "A 'A que mais perde é Passes recebidos' da etapa 11 continua sem margem, como antes. O conferente não pediu, mas a mesma ressalva de ruído vale para ela."
+   ]
+  }
+ ],
+ [
+  "dono:proto_b",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto_b.js",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/espelho_b/static (copia do static com prototipo.js montado de prototipo_fecho.json)",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/servir_b.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/tela_b.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/cab_b.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/tela_b_espelho.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/tela_b_real.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/cab_elenco_1785.png",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/cab_tecnico_col_1785.png",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/cab_tecnico_col_400.png"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Pedido A: a linha dos times que subiram nas 11 matrizes",
+     "onde": "static/proto_b.js, pb5Matriz, rodapé (função faixa)",
+     "como": "As três linhas saem de uma função só, na ordem subiram · meio · caíram. Cada uma lê ptK('faixa_', fx) e o rótulo ptFxRot(fx, {forma:'times'}), com o mesmo formato de antes: 1º número, típico em negrito, 3º número, e o valor cheio no title. Se a faixa não vier no dado, a linha continua na tabela, com o nome do grupo e uma célula só dizendo a ausência e a chave, em letra miúda. Isso vale também para o meio e para quem caiu, e substituiu o parágrafo solto que existia antes."
+    },
+    {
+     "item": "Pedido B: colunas na ordem que o gerador gravou, com a diferença no cabeçalho",
+     "onde": "static/proto_b.js: pb5Ordem e pb5DifTexto (novas, antes de ptEtapa5); pb5Matriz (cabeçalho, células, faixas e linha da regra)",
+     "como": "pb5Ordem lê ordem_por_diferenca e ptK('diferenca_{sobe}_{cai}'), que na aba por pontos vira diferenca_alta_baixa. Só aceita a ordem se ela for uma permutação exata dos índices; se não for, volta à ordem do arquivo e diz o motivo, para nenhuma célula trocar de coluna. Cabeçalho, células da tabela e as três faixas passam todos pelo mesmo ord.idx. Embaixo do nome da coluna aparece em letra pequena, por exemplo, 'subiu +53 acima de quem caiu' ou 'subiu −68 abaixo de quem caiu'. A dica da coluna ganhou essa frase e o valor cheio. Se a diferença vier vazia, aparece 'sem diferença', com o motivo de diferenca_sobe_cai_sem_valor na dica. Acima de cada matriz, uma linha: 'Colunas da maior para a menor diferença entre o time típico que subiu e o que caiu...', com etapa_5.regra_da_ordem no title e o aviso de que é ordem de leitura, não teste. Sem as chaves de ordem, essa mesma linha diz, discreta, 'colunas na ordem do arquivo' e o motivo."
+    },
+    {
+     "item": "Textos que citavam duas linhas de faixa",
+     "onde": "static/proto_b.js: ptEtapa5 (parágrafo de abertura e nota das tabelas), pb5Matriz (nota dos quartis), comentário do bloco da etapa 5",
+     "como": "'Embaixo de cada coluna ficam os times que subiram, os do meio e os que caíram'; 'as duas linhas de baixo' passou a 'as três'. Comentário em prosa explicando a ordem lida do gerador e por que uma permutação torta é recusada."
+    },
+    {
+     "item": "Item 3, consertos apontados pela conferência",
+     "onde": "static/proto_b.js",
+     "como": "A lista veio vazia ([]); nada a fazer."
+    }
+   ],
+   "chaves_do_json": "Lidas por painel, em etapa_5.paineis.<painel>:\n- faixa_sobe (via ptK('faixa_','sobe')), faixa_meio e faixa_cai.\n- ordem_por_diferenca.\n- diferenca_sobe_cai (via ptK('diferenca_{sobe}_{cai}'); na aba por pontos, diferenca_alta_baixa).\n- diferenca_sobe_cai_sem_valor (a chave da diferença + '_sem_valor').\n\nLida na etapa: etapa_5.regra_da_ordem (o_que_e, diferenca, ordem, sem_diferenca, sem_teste), que vai no title e na frase 'ordem de leitura, não teste'.\n\nA tela não calcula nenhuma diferença nem ordem.",
+   "numeros_principais": "Espelho (prototipo_fecho.json): as 11 matrizes batem com o JSON, a 1.785 e a 400 px. Em cada uma conferi: a ordem das colunas pelo nome na base, a diferença cheia no title, o módulo em ordem decrescente, o lado dito (acima/abaixo) de acordo com o sinal, as três faixas q1/mediana/q3 contra faixa_sobe, faixa_meio e faixa_cai na ordem nova, e as células da 1ª linha acompanhando a coluna.\n\nPainel elenco, 10 colunas, as 3 primeiras:\n- Minutos concentrados: subiu +53 acima (52,5)\n- Atletas com 300+ min: subiu −53 abaixo (−52,5)\n- Atletas usados no ano: subiu −51 abaixo (−51,3)\n\nPainel técnico do time, 31 colunas, as 3 primeiras:\n- Distância do chute: −68 (−67,5)\n- Chutes no gol, %: +58 (57,5)\n- xG contra: −58 (−57,5)\n\nIsso bate com o relato do gerador. Os outros painéis: 23 colunas nos 4 técnicos individuais e 32 nos 5 físicos.\n\nApp real (dado gravado hoje, sem as chaves de ordem): 16/16 etapas, zero erro de tela, zero erro de console e zero 'undefined'/'NaN'. Sem rolagem lateral nas tabelas nem na página a 1.785, nada cortado a 400. As 11 matrizes aparecem com 'colunas na ordem do arquivo — o prototipo.json não traz a ordem por diferença neste painel...' e com as três linhas de faixa, a de quem subiu batendo com faixa_sobe.\n\nTeste sem faixa_sobe e sem as chaves de ordem (tiradas do elenco no navegador): a linha 'times que subiram' fica com 'o prototipo.json não traz a faixa dos times que subiram neste painel (chave faixa_sobe)'. Meio e caíram continuam batendo, e a ordem volta à do arquivo.",
+   "como_testei": "node --check no proto_b.js. Montei a pasta espelho_b copiando o static inteiro (já com o proto_b.js novo) e um prototipo.js feito do prototipo_fecho.json pela mesma lógica do gerar_prototipo_js.py, sem gravar no projeto.\n\nservir_b.py sobe o app.py na porta 5172, com SC_CENARIOS e SC_PREMISSAS apontando para as cópias em fecho15, e troca só o static_folder quando é o espelho. tela_b.py (Playwright, Chromium sem janela) roda o espelho e o app real a 1.785 e a 400. Ele faz a varredura das 16 etapas (erros, lixo de texto, rolagem lateral, conteúdo cortado) e confere as 11 matrizes contra o JSON pelos valores cheios nos titles, sem depender de arredondamento. Mais uma rodada tira faixa_sobe e as chaves de ordem de um painel, para ver a ausência escrita.\n\ncab_b.py tirou capturas dos cabeçalhos (elenco e técnico do time, a 1.785 e a 400); a letra pequena cabe, deitada nas 31 colunas. O servidor foi derrubado ao fim de cada script e a 5172 está livre. Não toquei nas portas 5090/5091, não rodei git e não mexi em nenhum arquivo fora do proto_b.js.",
+   "riscos": [
+    "No espelho, com o dado novo, a etapa 11 quebra: 'ReferenceError: fraseViajam is not defined' em static/proto_c.js:1048 (a declaração 'let fraseViajam' está na linha 1051, e o arquivo foi modificado às 17:26 por outro dono). Com o dado gravado de hoje, o app real não tem esse erro. Não é do proto_b.js: fica para o dono do proto_c.js conferir antes de gravar o prototipo.json.",
+    "Na diferença negativa o cabeçalho diz 'subiu −53 abaixo de quem caiu': o sinal e a palavra repetem a mesma informação. Mantive porque o pedido exige o sinal e o número; se ficar pesado, tirar o sinal só no negativo é uma troca de uma linha em pb5DifTexto.",
+    "O número do cabeçalho sai com 0 casas, como as faixas (valor cheio no title). Por isso duas colunas empatadas no arredondamento podem aparecer com o mesmo número em ordem diferente (ex.: +53 e −53 no elenco, resolvidos pela ordem original, como o gerador declara).",
+    "Na aba por pontos a tela vai procurar 'diferenca_alta_baixa' e 'ordem_por_diferenca' (pelo ptK). Se o gerar_pontos.py gravar a diferença com outro nome, a tela cai na ordem do arquivo com a ausência escrita, sem quebrar. Não testei a aba por pontos no navegador, porque ela ainda não está registrada no index.html.",
+    "A 400 px, a varredura acusa caixas que rolam de lado em ptSumario e em tabelas das etapas 0 e 1. Isso é igual no app real e no espelho, não vem da etapa 5, e nada fica cortado.",
+    "O dado novo ainda não está gravado em dados/prototipo.json: até lá o site mostra a ordem do arquivo com o aviso discreto em cada uma das 11 matrizes."
+   ]
+  }
+ ],
+ [
+  "grava",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/dados/prototipo.json (gravado pelo gerar_prototipo.py às 17:32)",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/prototipo.js (gravado pelo gerar_prototipo_js.py às 17:32)",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/prototipo_antes.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/prototipo_antes.js",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/gera_real.log",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/diff_real.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/tela_5174.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/tela_5174_real.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/srv_5174_real.log",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/b5_5174_1785.png",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/b5_5174_400.png"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Cópia de segurança do dado anterior",
+     "onde": "fecho15/prototipo_antes.json (e prototipo_antes.js)",
+     "como": "cp -p do dados/prototipo.json das 17:01 e do static/prototipo.js. Conferi com cmp que a cópia é idêntica ao original."
+    },
+    {
+     "item": "Gravação do dado novo",
+     "onde": "Santa Cruz/dados/prototipo.json e static/prototipo.js",
+     "como": "Rodei `python3 -B gerar_prototipo.py` com o Python 3.13 do Framework: 119 s, 2044 KB, 25 chaves, saída 0. Depois rodei `python3 gerar_prototipo_js.py`: 2045 KB, 16 etapas, saída 0. Não editei nenhum código."
+    },
+    {
+     "item": "Diff caminho a caminho",
+     "onde": "fecho15/diff_real.py",
+     "como": "Comparei chave a chave e item a item contra prototipo_antes.json. Deram 36 diferenças, todas permitidas: 33 chaves novas (diferenca_sobe_cai, diferenca_sobe_cai_sem_valor e ordem_por_diferenca nos 11 painéis), a etapa_5.regra_da_ordem nova, a etapa_1.valor_por_setor.ponderado_por_jogador.regra mudada e o gerado_em. Nenhum outro valor mudou. Contra o rascunho prototipo_fecho.json do gerador, a única diferença é o gerado_em. O JSON embutido no prototipo.js é igual ao dados/prototipo.json."
+    },
+    {
+     "item": "Regressão headless no app real",
+     "onde": "fecho15/tela_5174.py (Playwright/Chromium, porta 5174, SC_CENARIOS e SC_PREMISSAS apontando para as cópias em fecho15)",
+     "como": "Subi o app.py com o static real, abri a aba Protótipo a 1.785 e a 400 px, varri as 16 etapas e conferi as 11 matrizes da etapa 5 contra o JSON gravado, usando os valores cheios dos title. Servidor derrubado ao fim, 5174 livre. As cópias cenarios.json e premissas.json ficaram intactas (cmp)."
+    }
+   ],
+   "chaves_do_json": "Chaves novas em etapa_5.paineis.<painel>, nos 11 painéis: diferenca_sobe_cai (lista alinhada a indicadores), ordem_por_diferenca (é uma permutação exata dos índices nos 11) e diferenca_sobe_cai_sem_valor (vem {} nos 11). Chave nova na etapa: etapa_5.regra_da_ordem {pedido_do_dono_em, o_que_e, diferenca, ordem, sem_diferenca, sem_teste, na_aba_por_pontos}. Texto que mudou: etapa_1.valor_por_setor.ponderado_por_jogador.regra, que agora termina declarando os jogadores em dois clubes na mesma temporada: 433 linhas de 216 jogadores (333 com preço), € 175,3 mi somados nessas linhas, dos quais € 87,8 mi são a segunda contagem; 4.461 linhas contra 4.244 jogadores distintos por ano. faixa_sobe, faixa_meio e faixa_cai estão presentes nos 11 painéis.",
+   "numeros_principais": "Diff contra o dado anterior: 36 diferenças (33 chaves novas nos painéis, mais regra_da_ordem, a regra da etapa 1 e gerado_em). Contra o rascunho do gerador: só o gerado_em.\n\nTela, a 1.785 e a 400 px: 16/16 etapas, 0 erro de tela, 0 erro de console, 0 undefined/NaN/[object/Infinity. A 1.785: nenhuma rolagem lateral, nem da página nem de tabela. A 400: nada cortado e a página sem rolagem lateral.\n\nEtapa 5, nas 11 matrizes e nas duas larguras, deu tudo verdadeiro: ordem das colunas igual a ordem_por_diferenca, diferença do cabeçalho igual a diferenca_sobe_cai, módulo decrescente, lado dito (acima/abaixo) de acordo com o sinal, as três linhas de faixa batendo com o JSON e as células acompanhando a coluna. As linhas aparecem na ordem times que subiram · do meio · que caíram.\n\nColunas por painel: tecnico_col 31, elenco 10, os 4 técnicos individuais 23, os 5 físicos 32.\n\nAs 3 primeiras colunas:\n- elenco: Minutos concentrados +53 (52,5), Atletas com 300+ min −53 (−52,5), Atletas usados no ano −51 (−51,3).\n- tecnico_col: Distância do chute −68 (−67,5), Chutes no gol, % +58 (57,5), xG contra −58 (−57,5).\n\nAcima de cada matriz aparece a linha 'Colunas da maior para a menor diferença entre o time típico que subiu e o que caiu...'. Não aparece mais o aviso 'ordem do arquivo'.",
+   "como_testei": "Conferi a cópia com cmp. Rodei o gerador e a cópia para JS e vi os códigos de saída e o log. Fiz o diff recursivo contra a cópia anterior e contra o rascunho prototipo_fecho.json, e conferi que o JSON dentro do prototipo.js é igual ao arquivo gravado. Conferi, pelo JSON, que as ordens são permutações e que os sem-valor vêm vazios.\n\nRegressão com Playwright headless no app real, porta 5174. O servidor subiu por servir_b.py com as variáveis de ambiente apontando para as cópias em fecho15, sem trocar o static. A varredura rodou a 1.785 e a 400: número de etapas, .pt-erro, console e pageerror, palavras-lixo, rolagem lateral da página e das caixas, elementos cortados. Depois, a conferência das 11 matrizes contra o JSON pelos title. Capturas da matriz do elenco em b5_5174_1785.png e b5_5174_400.png.\n\nAo fim, a 5174 está livre e as cópias de cenários e premissas estão intactas. Não usei as portas 5090 e 5091, não rodei git e não toquei nos arquivos da outra sessão.",
+   "riscos": [
+    "A 400 px, algumas caixas rolam de lado dentro de si (ptSumario, tabelas das etapas 0, 1 e 3). Nada fica cortado e a página não rola. É o mesmo quadro que o relato das telas já registrava antes do dado novo, e não vem da etapa 5.",
+    "O ReferenceError de fraseViajam em proto_c.js, apontado no relato das telas, não apareceu: a declaração já está antes do uso (linha 1051) e a etapa 11 rodou sem erro de console com o dado novo, nas duas larguras.",
+    "O prototipo.json e o prototipo.js estão gravados, mas não comitados nem publicados: fica com o coordenador. A outra sessão comita no mesmo projeto, e esses dois arquivos têm de entrar no commit certo.",
+    "A aba por pontos não foi testada: não é desta rodada, porque o gerar_pontos.py não foi regerado."
+   ]
+  }
+ ],
+ [
+  "confere:final",
+  {
+   "lente": "Conferi o app real na porta 5175 (servir_b.py com SC_CENARIOS e SC_PREMISSAS nas cópias em fecho15). Usei Playwright headless a 1.785 e 400 px, nos temas escuro e claro (troca pelo botão #btTemaTopo), com os arquivos gravados às 17:32. O servidor foi derrubado ao fim e a 5175 está livre. As cópias de cenários e premissas e os dados/cenarios.json e dados/premissas.json do projeto ficaram com o mesmo md5 de antes. Não escrevi em nenhum arquivo do projeto e não rodei git. Scripts e saídas: fecho15/conf5175.py, conf5175.json, ctx5175.py, ctx5175.json e as capturas c5175_elenco_{1785,400}_{escuro,claro}.png.",
+   "conferidos": 7600,
+   "medidas": "(1) ETAPA 5, 11 matrizes x 4 vistas (2 larguras x 2 temas), todas as colunas (293 por vista)\n- As linhas do rodapé vêm nesta ordem nas 44 vistas: \"times que subiram\", \"times do meio da tabela\", \"times que caíram\".\n- A linha de quem subiu tem o mesmo formato das outras duas: legenda \"de cima para baixo\", 3 números por célula (2 quebras de linha, só o típico em negrito) e o mesmo número de células que colunas.\n- Os valores q1, mediana e q3 (pelos title) batem com faixa_sobe, faixa_meio e faixa_cai em todas as colunas, já na ordem nova.\n- A ordem das colunas (pelo \"nome na base\" no title) é igual a ordem_por_diferenca nos 11 painéis. As células da 1ª linha acompanham a coluna.\n- A diferença cheia no title é igual a diferenca_sobe_cai em todas as colunas dos 11 painéis, não só nos 3 sorteados (semente 20260914: tecnico_col, tecnico_ind_meio, tecnico_ind_ataque). O módulo é decrescente.\n- O número pequeno é a diferença arredondada, com \"+\" e \"acima\" quando positiva e \"−\" e \"abaixo\" quando negativa: zero falhas.\n- As 4 colunas com diferença 0 (zaga 1, lateral 1, ataque 2) mostram \"subiu empatado com quem caiu\".\n- A linha \"Colunas da maior para a menor diferença…\" aparece acima das 11 matrizes. O aviso \"ordem do arquivo\" não aparece.\n- No JSON, conferi também: as 11 ordens são permutações exatas; a diferença refeita (mediana sobe − mediana cai) bate com a gravada; o empate em módulo fica na ordem original; nenhuma diferença entre 0 e 0,5 (não há \"+0\"); diferenca_sobe_cai_sem_valor vem {} nos 11.\n\n(2) PROBLEMAS DA CONFERÊNCIA ANTERIOR\n- Etapa 13, \"ilusão de quantidade\": RESOLVIDO. Aparece 2 vezes, só nos setores 0x3 e 0x5. O setor 5x5 diz que as duas contas concordam. O 11x3 diz que o clube inteiro deixa mais de pé e que a conta por atleta não inflou.\n- Etapa 11, \"sem perder nada\": RESOLVIDO. Zero ocorrências. A frase agora diz que \"não basta para dizer que atravessam a troca sem perder\", com as diferenças de 0,004 a 0,138 e a sensibilidade ao corte de 2026.\n- Etapa 11, aviso de 2026: RESOLVIDO. O bloco \"O técnico agora vai só até 2025\" traz 233/178 com 2026 (0,399/0,468), 176/144 sem 2026 (0,396/0,460) e o físico com 499 pares.\n- Etapa 13, aviso do gerador: RESOLVIDO. \"as margens mudaram em\" presente.\n- Etapa 14: RESOLVIDO. \"por vaga: quem\" 0; \" no entre \", \" do entre \" e \"fora do entre\" 0; \"[SEMENTE\", \"rng global\" e \"Húngaro\" fora do texto técnico miúdo 0; rótulo \"por posição: recomendado…\" presente. As 19 ocorrências de \"mais da metade das\" são da regra nova (\"claramente mais da metade das vezes\", cabeçalho RECOMENDADO), não do rótulo antigo.\n- Etapa 1, linha do elenco inteiro: RESOLVIDO. Os três grupos dizem \"€ 24,0 mi no elenco\", \"€ 13,9 mi no elenco\" e \"€ 9,0 mi no elenco\", sem \"no setor\" nessa linha.\n- Pedido C: a regra de ponderado_por_jogador aparece na tela (proto_a.js:1284, ptTecnico) com 433 linhas, 216 jogadores, 333 com preço, € 175,3 mi, € 87,8 mi e 4.461 contra 4.244.\n- Salto no celular: PARCIAL. A lista presa no topo mede 37 px (base em y=160). Os saltos para 5 e 14 põem o título em y=162. O PRIMEIRO salto depois de carregar a página erra: etapa 9 em y=909 a 400 px e y=794 a 1.785 (o certo seria 162 e 86). Ver problemas.\n\n(3) REGRESSÃO, nas 4 vistas\n- 16/16 etapas, 0 .pt-erro, 0 erro de console ou pageerror.\n- 0 \"undefined\", \"NaN\", \"[object\" ou \"Infinity\".\n- A 1.785: página sem rolagem lateral e 0 caixas rolando de lado.\n- A 400: 0 elementos cortados e a página sem rolagem lateral. 65 caixas rolam dentro de si, o mesmo quadro de antes (eram 64), sem vir da etapa 5.\n- O fraseViajam de proto_c.js não dá erro.\n- Contraste medido do texto miúdo da matriz (diferença 9 px e faixas 10 px, cor --tinta3 sobre --fundo3): 3,38 no escuro e 2,77 no claro.\n\n(4) SINCRONIA: o JSON embutido em static/prototipo.js é igual ao dados/prototipo.json (gerado_em 2026-09-14 17:30).\n\n(5) PONTOS num alvo temporário: div criado no navegador e ptRender({dado: PONTOS, prefixo 'poEt'}), com pontos.js injetado, a 1.785 e a 400.\n- 16/16 etapas, 0 .pt-erro, 0 erro de console, 0 lixo de texto e 0 cortados.\n- As 11 matrizes ficam na ordem original do arquivo, com a linha discreta \"colunas na ordem do arquivo — o pontos.json não traz a ordem por diferença neste painel (chaves ordem_por_diferenca e diferenca_alta_baixa)…\". Nenhum número pequeno no cabeçalho.\n- Rodapé na ordem \"times da faixa alta\", \"média\", \"baixa\", batendo com faixa_alta, faixa_media e faixa_baixa em todas as colunas.\n- A aba Protótipo continua com 16 etapas na mesma página.",
+   "problemas": [
+    {
+     "arquivo": "static/proto.js",
+     "onde": "ptIrParaEtapa / ptLigarSumario (primeiro salto depois de carregar a aba)",
+     "o_que_vi": "Com a página recém-aberta, o primeiro clique no botão da etapa 9 põe o título em y=909 a 400 px e em y=794 a 1.785 px. O certo seria logo abaixo da lista (162) ou no topo (86). Os cliques seguintes (5 e 14) acertam. O relato da casca já tinha visto isso na etapa 5 e deixado sem conserto.",
+     "por_que_importa": "O conserto do topo a 400 px só vale do segundo clique em diante. Quem abre a aba e toca numa etapa cai no meio de outra, e acha que o botão não funciona.",
+     "conserto": "No proto.js, refazer o salto uma vez depois que a rolagem suave assentar (ou depois que as matrizes da etapa 5 terminarem de montar), recalculando a posição da seção. Conferir com o primeiro clique a partir do topo, nas duas larguras.",
+     "gravidade": "falta"
+    },
+    {
+     "arquivo": "static/proto_b.js",
+     "onde": "pb5Matriz, <small> da diferença no cabeçalho (font-size 9px, color var(--tinta3)) e células das faixas (10px, a mesma cor sobre --fundo3)",
+     "o_que_vi": "Contraste medido na tela: 3,38:1 no tema escuro e 2,77:1 no claro, para texto de 9 a 10 px. As faixas de meio e caiu já eram assim; o número pequeno da diferença é novo e herdou a mesma cor.",
+     "por_que_importa": "A diferença é a informação que define a ordem das colunas. Em 9 px com 2,77:1 no tema claro, ela fica difícil de ler numa projeção de reunião.",
+     "conserto": "No <small> da diferença, usar --tinta2 (ou subir para 10 px) e medir de novo o contraste nos dois temas. Não precisa mexer nas faixas agora.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "static/proto_b.js",
+     "onde": "pb5DifTexto",
+     "o_que_vi": "Na diferença negativa o cabeçalho diz 'subiu −53 abaixo de quem caiu': o sinal e a palavra dizem a mesma coisa duas vezes. No painel elenco, as duas primeiras colunas aparecem como '+53' e '−53' (52,5 e −52,5, empate em módulo resolvido pela ordem original), o que à primeira vista parece fora de ordem.",
+     "por_que_importa": "Não mente: o title traz o valor cheio e a regra declara o empate. Mas lido rápido, 'subiu −53 abaixo' pode ser entendido como dupla negação.",
+     "conserto": "Opcional: manter o sinal (o pedido exige) e trocar a palavra por algo neutro ('subiu −53 em relação a quem caiu'), ou deixar como está. É decisão de texto, não de dado.",
+     "gravidade": "detalhe"
+    },
+    {
+     "arquivo": "gerar_prototipo.py",
+     "onde": "etapa_1.valor_por_setor.ponderado_por_jogador.regra (frase dos dois clubes, que aparece na tela via ptTecnico)",
+     "o_que_vi": "'São 433 linhas de 216 jogadores' conta jogador por ano. São 204 pessoas distintas (215 com 2 clubes e 1 com 3, segundo o relato do gerador). A frase só diz 'jogadores distintos por ano' no fim, sobre os 4.244.",
+     "por_que_importa": "Quem citar o número na reunião vai dizer '216 jogadores em dois clubes', quando são 204 pessoas.",
+     "conserto": "Escrever '216 jogadores-temporada (204 pessoas)', lendo o 204 da medição que já existe em el['dois_clubes'], sem digitar o número.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "aprovar"
+  }
+ ],
+ [
+  "conserta:casca",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/static/proto.js",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/prim.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/fecho15/tela5178.py"
+   ],
+   "o_que_fiz": [
+    {
+     "item": "Confirmei o problema antes de consertar",
+     "onde": "prim.py na scratchpad fecho15, porta 5178, pagina aberta do zero a cada sequencia",
+     "como": "Com o codigo antigo, o primeiro clique caiu errado: a 400 px o titulo da etapa 9 (e da 5) ficou em y=909 em vez de 162; a 1.785 px as etapas 9, 5 e 14 ficaram em y=794 em vez de 86. Os cliques seguintes acertaram. So a 400 px o primeiro clique na 14 acertou por sorte."
+    },
+    {
+     "item": "Salto refeito depois que a rolagem assenta",
+     "onde": "static/proto.js: ptIrParaEtapa (o destino virou uma funcao que mede de novo) e a funcao nova ptReajustarSalto, logo abaixo",
+     "como": "O destino era calculado antes da rolagem passar pelas etapas do caminho. Algumas etapas so montam o conteudo quando chegam perto da tela, entao a pagina cresce durante a viagem. Agora o codigo espera a rolagem ficar parada por uns 10 quadros, mede a posicao da etapa de novo e, se ela esta a mais de 2 px de onde deveria, pula direto para a posicao nova. Repete no maximo 6 vezes, desiste depois de 8 s e para se chegar um salto novo ou se a pessoa mexer na rolagem (roda, toque, tecla, clique). O por que ficou escrito em prosa num comentario no codigo. style.css nao foi mexido."
+    }
+   ],
+   "chaves_do_json": "Nenhuma chave de dado mudou: a mudanca e so no comportamento da tela (proto.js). Os resultados do teste ficaram em t5178_1785.json e t5178_400.json, com as chaves etapas, tabelas, erros, lixo, pagina_lateral, rolam, cortados, chips, nac e console.",
+   "numeros_principais": "Depois do conserto, primeiro clique a partir do topo: a 400 px o titulo ficou em y=162 nas etapas 9, 5 e 14 (o sumario grudado termina em 160); a 1.785 px ficou em y=86 nas etapas 9, 5 e 14. Os cliques seguintes (5, 14, 1, 2, 15) tambem ficaram em 162 e 86. Teste completo: 16/16 etapas nas duas larguras, zero .pt-erro, zero erro no console, zero rolagem lateral (1.785 e 400), zero elemento cortado a 400 e nenhum undefined, NaN ou null na tela.",
+   "como_testei": "Rodei o Playwright do Python num servidor proprio na porta 5178, subido pelo servir.py com SC_CENARIOS e SC_PREMISSAS apontando para as copias em fecho15. O servidor foi derrubado ao fim e conferi que a porta ficou livre. prim.py abre a pagina do zero para cada sequencia ([9,5,14], [5,1], [14,2,15]) nas larguras 400 e 1.785 e mede o titulo da etapa 5 s depois de cada clique. Rodei antes do conserto (reproduziu o erro) e depois (acertou tudo). Por fim, tela5178.py e o tela.py original com outra porta: ele confere 16 etapas, erros, console, rolagem lateral e cortados nas duas larguras. node --check passou. Nao encostei nas portas 5090 e 5091, nao rodei nenhum git e nao mexi nos arquivos da outra sessao.",
+   "riscos": [
+    "O reajuste termina com um pulo sem animacao. Se a etapa ainda estava montando, a pessoa pode ver um tranco curto no fim da rolagem suave. E so visual; a etapa termina no lugar certo.",
+    "Se a pessoa rolar, tocar ou clicar enquanto a rolagem ainda anda, o reajuste e cancelado de proposito e o salto pode ficar com o erro antigo. Nao da para testar isso sem uma pessoa na tela.",
+    "O teste foi feito so no Chromium sem janela (headless). Safari e celular de verdade nao foram testados; a medicao depende de requestAnimationFrame, que existe nos dois.",
+    "A aba por pontos (poEt) usa o mesmo ptIrParaEtapa e ganha o mesmo conserto, mas o salto dela nao foi medido nesta rodada."
+   ]
+  }
+ ]
+]
