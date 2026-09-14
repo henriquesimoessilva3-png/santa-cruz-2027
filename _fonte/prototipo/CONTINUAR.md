@@ -23,7 +23,7 @@
 | tela, passos 1 e 2 + limpeza (`static/proto*.js`, `style.css`, `proto_glossario.js`, `proto_contrato.md`) | **APROVADA** no navegador sem janela: 16/16 etapas, zero erro, zero caixa rolando de lado a 1.785 px (eram 31), nada cortado a 400 px, nenhum número mudou; a mesma casca desenha o PONTOS sem erro | `sessao_14_09/tela1_journal.json`, `tela2_journal.json`, `tela_limpeza_journal.json` |
 | origem dos clubes (`dados/serieb_origem_2018_2026.csv`) | **PRONTA**, com fonte pública ano a ano, conferida contra os CSVs e o jogo a jogo | `sessao_14_09/conclusoes_journal.json` (retorno "origem") |
 | gerador, bloco 1 (`gerar_prototipo.py`, degraus B0 a B8) | **CÓDIGO APROVADO**; `dados/prototipo.json` **NÃO REGRAVADO** (trava §2.1) | `sessao_14_09/gerador1_journal.json`, `sessao_14_09/gerador/` |
-| conclusões (`CONCLUSOES.md`, `conclusoes_spec.json`) | fecho **em andamento** ao escrever isto (edição final com a reconferência e as decisões do dono, depois duas lentes e um conserto). Se a sessão fechou antes, ver o journal do run `wf_c5352b61-ab8` | ver §2.3 |
+| conclusões (`CONCLUSOES.md`, `conclusoes_spec.json`) | **FECHADAS com uma ressalva**: 56 conclusões — 3 fortes · 11 moderadas · 24 fracas · 13 sem sinal · 5 não dá para afirmar. Documento e spec saem da mesma fonte e batem campo a campo (prova por script). O conserto final (12 itens, entre eles J17 voltando a FRACO) **não passou por reconferência** | `sessao_14_09/conclusoes_journal.json`, `conclusoes_fecho_journal.json`; ver §2.3 |
 
 ### 2.1 Travas (não pular)
 
@@ -48,14 +48,23 @@ sul-americano 223 dos 575 candidatos e os 2 empatados do VOL não têm valor. Me
 € 5,4 mi para € 8,75 mi; o sul-americano passa de 0 para 3 recomendados. Na tela, mostrar
 `admite_sem_valor` ao lado da regra, seja qual for a decisão.
 
-### 2.3 Conclusões — como retomar se o fecho não terminou
+### 2.3 Conclusões — o que ficou
 
-O fecho (`_fonte/prototipo/workflows/conclusoes-fecho-wf_c5352b61-ab8.js`) aplica: a reconferência
-de três lentes (journal do run `wf_b3ce3ecf-009`), as decisões do dono de 14/09 (§5) e grava a
-**ordem de serviço do segundo bloco do gerador** em `sessao_14_09/ordem_gerador_bloco2.json` e as
-declarações em `sessao_14_09/declaracoes_novas.json`. Se esses dois arquivos não estiverem em
-`sessao_14_09/`, o fecho não terminou: ler o journal, conferir o `git diff` do `CONCLUSOES.md` e do
-spec, e relançar só o que faltou.
+O fecho (`_fonte/prototipo/workflows/conclusoes-fecho-wf_c5352b61-ab8.js`) terminou: aplicou a
+reconferência de três lentes e as decisões do dono de 14/09 (§5), passou por duas lentes e um
+conserto final. Gravou a **ordem de serviço do segundo bloco do gerador** em
+`sessao_14_09/ordem_gerador_bloco2.json` (98 campos, cada caminho não gravado do spec com campo
+nela) e as declarações em `sessao_14_09/declaracoes_novas.json`.
+
+- **As cinco hoje, com o que já está gravado:** DIN-02 (forte), J1, J2, ELE-01 e J6 (moderadas).
+  DIN-01 e FIS-07 (fortes) só entram quando o gerador gravar os campos que decidem o selo delas.
+- **Antes do bloco 2 do gerador, rode uma lente rápida** sobre o conserto final (retorno
+  "conserta" em `conclusoes_fecho_journal.json`): ele não teve reconferência. Pontos que as lentes
+  levantaram e o conserto disse ter tratado: selo como algoritmo (operador e limiar em cada
+  critério, não em prosa), semente [SEMENTE, 13, i] do excesso por setor colidindo com o gerador
+  por atleta da etapa 13, regra da comparação declarada antes para o que não é linha do catálogo,
+  definição do resíduo por ano da FIS-06/FIS-11, as 10 métricas da FIS-07, título da DIN-05,
+  FIS-10 apoiada numa medida só e no limite, título da ORI-01 afirmando ausência.
 
 Journals desta sessão ficam em
 `~/.claude/projects/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/subagents/workflows/<run>/journal.jsonl`
@@ -64,7 +73,8 @@ os fluxos estão copiados em `_fonte/prototipo/workflows/`). `resumeFromRunId` n
 
 ## 3. A ordem da próxima rodada
 
-1. **Conclusões**: confirmar que o fecho terminou aprovado (§2.3).
+1. **Conclusões**: uma lente rápida sobre o conserto final (§2.3) e a decisão pendente do cenário
+   barato (§2.2).
 2. **Gerador, bloco 2** (`gerar_prototipo.py`, um agente só, saída no rascunho): aplicar
    `declaracoes_novas.json` em `dados/prototipo_indicadores.json` ANTES de medir; gravar os campos
    de `ordem_gerador_bloco2.json` (análises novas declaradas: comparações escolhidas depois de ver,

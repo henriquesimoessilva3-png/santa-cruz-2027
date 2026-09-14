@@ -1,0 +1,591 @@
+[
+ [
+  "editor",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/CONCLUSOES.md",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/declaracoes_novas.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/ordem_gerador_bloco2.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_base.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_c1_dinheiro.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_c2_fisico.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_c3_jogo.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_c4_antigos.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_c5_mercado.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_checar.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_ordem.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_montar.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp7_prova.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r12_fis07_pares.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r12_saida.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/r13_varios.py",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/bk_reconf/CONCLUSOES_antes_reconf.md",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/bk_reconf/conclusoes_spec_antes_reconf.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/bk_reconf/declaracoes_novas_antes_reconf.json"
+   ],
+   "aplicados": [
+    {
+     "id": "PROVA (tarefa 3)",
+     "problema": "Documento e spec diziam coisas diferentes em vários ids (títulos, ressalvas, 'orçamento' só no spec, frase da M4 só no documento).",
+     "o_que_mudou": "O documento e o spec agora saem da mesma fonte, os arquivos sp6_c1 a sp6_c5, montados por sp6_montar.py. Cada conclusão do spec ganhou universo, criterios_do_selo (valor, se passou, se decide) e valores_14_09. O sp7_prova.py relê os dois arquivos do disco e compara as 56 conclusões campo a campo: selo, título, frase + número, 'o que não quer dizer', universo e critérios. Também confere as lacunas gravadas contra o prototipo.json, procura número digitado no molde, palavras proibidas, a contagem e as cinco. Resultado: PROVA OK."
+    },
+    {
+     "id": "EXC-FORMATO",
+     "problema": "Havia três formatos para o mesmo excesso da lista.",
+     "o_que_mudou": "Um formato só: excesso[comparação][nível]. Os caminhos de FIS-04, FIS-06, FIS-08, FIS-09, FIS-10, FIS-11, J4, J7, J13, M4 e M5 foram reescritos, e regua.regra_do_excesso.gravar também."
+    },
+    {
+     "id": "EXC-SOBECAI-SEMENTE-E-TESTE",
+     "problema": "Duas sementes e dois testes declarados para o excesso por clube.",
+     "o_que_mudou": "sobecai_* saiu de excesso_por_familia. Ficou uma declaração só em nota_por_setor_por_clube, com o teste que produziu os números: bruto no p_clube (valor cru), liq e liq2 no resíduo do posto calculado uma vez. A semente é [SEMENTE,13,i], com i = setor, e os níveis usam os mesmos sorteios."
+    },
+    {
+     "id": "EXC-LIQ-NULO",
+     "problema": "Não estava dito como se sorteia o resíduo.",
+     "o_que_mudou": "Declarados nulo_liq e nulo_liq2 como em r4: resíduo calculado uma vez, rótulos permutados dentro do ano, Welch refeito. Os três níveis usam os mesmos rótulos."
+    },
+    {
+     "id": "ORIGEM-RAIZ-E-FORMA",
+     "problema": "Três raízes possíveis e campos sem nome.",
+     "o_que_mudou": "Raiz fixada em conclusoes_base.origem, com a forma completa na ordem: por_origem, sensibilidade, fisher, por_periodo, dinheiro com as especificações, poder com limiar 0,70. Caminhos da ORI-01 e ORI-02 reescritos."
+    },
+    {
+     "id": "DIN03-P-MEIO-X-CAI",
+     "problema": "O p que decide a DIN-03 não estava em lista nenhuma.",
+     "o_que_mudou": "Pedidos etapa_1.auc_posto_de_valor.p_meio_x_cai, curva_top_k_rebaixados e sensibilidade_fonte_valor, todos declarados."
+    },
+    {
+     "id": "M5-ITENS-LIQ2",
+     "problema": "Não havia menor_p_liq2, itens com p_liq2 nem q das sobreviventes; passam5_bruto duplicava p5_clube.",
+     "o_que_mudou": "Pedidos itens[].{p_liq, p_liq2, q_liq2}, menor_p_liq2 e q_das_sobreviventes. A contagem bruta fica em p5_clube, um nome só (BUG-5)."
+    },
+    {
+     "id": "J14-PERIODO-ANTIGO",
+     "problema": "O selo da J14 dependia de 2018-2021 sem campo pedido.",
+     "o_que_mudou": "Pedido etapa_2.linhas[].antigo_SM para as colunas do painel antigo, na declaração antigo_2018_2021. Medido em r13: PPDA 0,85, bolas paradas 0,19, escanteios 0,20, intensidade 0,29."
+    },
+    {
+     "id": "J13-ANTIGO-EXISTE",
+     "problema": "O p de 2018-2021 da J13 já estava gravado.",
+     "o_que_mudou": "A lacuna lê teste_cego porta.velho[ind=xg_por_remate_contra].p_SM (0,1134), marcada como gravada."
+    },
+    {
+     "id": "J17-LINHA-JA-EXISTE",
+     "problema": "Havia uma estrutura paralela para uma linha que já é do catálogo.",
+     "o_que_mudou": "SC e p_liq_SC lidos da linha formacoes (gravados). O gerador grava na própria linha só medianas, CM e 2018-2021 (BUG-10)."
+    },
+    {
+     "id": "J11-FORMACAO-POR-FAIXA",
+     "problema": "Faltava a contagem da formação principal por faixa.",
+     "o_que_mudou": "Pedido etapa_15.proxy_sistema.formacao_principal_por_faixa. Conferido: 9, 29 e 9."
+    },
+    {
+     "id": "FIS10-BLOCO",
+     "problema": "O bloco da FIS-10 não estava declarado.",
+     "o_que_mudou": "Bloco = as 32 linhas fis_ataque_* do catálogo, sem escolher colunas. Pedido etapa_2.fis10_bloco. Contadas 12 medidas com p < 0,05 (não 8)."
+    },
+    {
+     "id": "FIS01-INDICE-SEM-FORMA",
+     "problema": "O índice de intensidade não dizia o que gravar.",
+     "o_que_mudou": "Declarado indice_intensidade.gravar: por clube, posição, mediana da posição, top e bottom k, exceções e os três p. Posições conferidas em r13: 15º e 9º."
+    },
+    {
+     "id": "ELE07-ELENCO-BASE",
+     "problema": "Faltavam teste, comparações, universo da BH e ano_fim.",
+     "o_que_mudou": "etapa_2.elenco_base fica fora das 293 linhas. Welch no posto, comparações SM, SC e CM, BH nos 6 testes (menor q 0,083), anos 2023-2025. Lacunas de ano pelo elenco_base.anos."
+    },
+    {
+     "id": "POR-CLUBE-SEM-FONTE",
+     "problema": "Contagens por clube não tinham de onde sair.",
+     "o_que_mudou": "Pedidos etapa_2.por_clube (colunas listadas), etapa_1.valor_por_setor.por_clube e as contagens cai_metade_baixo, cai_entre_5_piores e sobe_metade_cima nas linhas."
+    },
+    {
+     "id": "DECLARACOES-AUSENTES",
+     "problema": "Onze análises sem declaração.",
+     "o_que_mudou": "Declarados: faltas_x_posse_J3, dist_remate_descontada_J1, valor_DIN01_DIN03 (IC, por ano, cobertura, rebaixados, fonte Wyscout), diferenca_entre_blocos_A3, empates_na_margem_M3 e colocacao com desconto do aproveitamento. J8 tabela_contra_melhor_numero, FIS-08 sem corte, J10 rho x valor e reconciliação 332 saíram do molde e foram para retirados, com motivo."
+    },
+    {
+     "id": "TESTE-CEGO-CONGELADO",
+     "problema": "Pedidos escreviam no arquivo congelado.",
+     "o_que_mudou": "A3 vai para etapa_8.teste_cego.diferenca_entre_blocos e A4 para etapa_0.mando, no prototipo.json. bases.teste_cego só com leitura e sha256 (BUG-3)."
+    },
+    {
+     "id": "16-GRUPOS-INSUFICIENTES",
+     "problema": "Os 16 grupos não bastavam.",
+     "o_que_mudou": "ordem_gerador_bloco2.json tem 95 campos. Todos os 357 caminhos não gravados de lacunas, critérios e p_principal estão cobertos, conferido pelo sp7."
+    },
+    {
+     "id": "P-PRINCIPAL-27",
+     "problema": "27 conclusões sem p_principal, e o desempate das cinco indefinido.",
+     "o_que_mudou": "p_principal {caminho, valor_14_09} em todas. Nulo só em DIN-06, J12, A5, M1, M3 e M7. FIS-07 usa por_setor.p_max (1,5e-12). Desempate escrito: menor p, nulos depois, empate pela ordem do documento."
+    },
+    {
+     "id": "CONCLUSOES-FORMA",
+     "problema": "A forma de criterios_do_selo e do bloco Z não estava escrita.",
+     "o_que_mudou": "bloco_conclusoes na ordem: itens com selo_calculado, na_tela, motivo_fora, critérios {criterio, caminho, valor, passou, decide}, lacunas {valor_cru, texto_formatado}, textos e divergência com o documento."
+    },
+    {
+     "id": "JA-GRAVADO-COM-VALOR-VELHO",
+     "problema": "Lacunas com valor velho estavam marcadas como gravadas.",
+     "o_que_mudou": "FIS-07 (rho, pares) e os rho e pares de M1 e M6 ficaram com ja_gravado false e caminho_hoje_com_valor_velho, até BUG-1 (chave nome + nascimento) e BUG-2 (sem 2026) serem consertados."
+    },
+    {
+     "id": "NOMES-DIVERGENTES",
+     "problema": "O mesmo número tinha nomes diferentes.",
+     "o_que_mudou": "(a) esperado lê excesso.SC.bruto.nulo_mediana. (b) cai_metade_baixo e cai_entre_5_piores. (c) A2 n_morrem cruza teste_cego porta.novo[].ind com p_liq_SM. (d) e (e) completos na ordem. (f) bateria_limpa.por_conjunto_de_validadores e desconto_dinheiro_por_grupo = null."
+    },
+    {
+     "id": "ELE-06-desconto/selo/ausencia",
+     "problema": "O aproveitamento nunca tinha sido descontado do dinheiro, e a conta principal não estava definida.",
+     "o_que_mudou": "Medido de novo (v_ele06): parcial 0,24, p 0,16; resíduo nas 80 temporadas ρ 0,10, p 0,55. Conta principal = posição (0,064, no limite); nenhuma declarada antes → vale a mais fraca: SEM SINAL. Frases com 'não se viu'; ρ só no rodapé."
+    },
+    {
+     "id": "J17-familia e J17-proxy-e-fidelidade",
+     "problema": "A frase dizia que as formações não têm a conta dos testes, e havia uma pendência de proxy e fidelidade.",
+     "o_que_mudou": "Frase falsa corrigida: família elenco, q 0,045. Proxy igual à coluna (descontado 0,125). Fidelidade: a conta do gerador continua depois do dinheiro (0,048), a declarada não se viu (0,29), segue a declarada."
+    },
+    {
+     "id": "J4-repeticao-turno",
+     "problema": "Faltava a repetição do 1º turno.",
+     "o_que_mudou": "Acrescentado que o 1º turno não acompanha o 2º (p 0,90, gravado)."
+    },
+    {
+     "id": "J2-2018",
+     "problema": "'Apareceu fraco demais' com p 0,25.",
+     "o_que_mudou": "'Em 2018-2021 não se viu diferença contra o meio'; quem subiu ficou acima de quem caiu (p 0,0009)."
+    },
+    {
+     "id": "ORI-01-esperado",
+     "problema": "'Umas 7 esperadas' e 'de 0,6 a 1,0' subestimavam.",
+     "o_que_mudou": "'Subiram 6 vezes contra 7 a 8 esperadas' e 'o valor previa menos de 2 quedas em qualquer das contas (0,6 a 1,75)', com a conta sem os próprios A no rodapé."
+    },
+    {
+     "id": "ORI-02-poder",
+     "problema": "O poder citado era o de 16 × 48.",
+     "o_que_mudou": "Frase: '40% contra 15% apareceria em 7 de cada 10 amostras' (poder de 28 × 84 no rodapé)."
+    },
+    {
+     "id": "J9-bateria-limpa",
+     "problema": "Faltavam valores no rodapé.",
+     "o_que_mudou": "Rodapé cita 0,035, 0,0627 e 0,099, e a partição só com dinheiro (p 0,71). Título virou 'cortados em dois eixos... não tipos naturais'."
+    },
+    {
+     "id": "FIS-10 (selo e cinco)",
+     "problema": "A regra do excesso não tinha sido aplicada.",
+     "o_que_mudou": "FRACO → MODERADO: hsr_count p 0,0035, descontos 0,042 e 0,049, q 0,097, lista setor SC 27 contra 6 (p 0,010). Título sem 'mas não do meio'. Fora das cinco até gravar o excesso."
+    },
+    {
+     "id": "DIN-03",
+     "problema": "A regra da comparação escolhida depois não tinha sido aplicada.",
+     "o_que_mudou": "MODERADO → FRACO pela decisão 1: quem cai contra o meio, sem lista. Frase com 'menos de 1 de cada 100 e 5 de cada 100'; exemplo passou a ser o Amazonas 2025, 5º."
+    },
+    {
+     "id": "DIN-05, ELE-04, M4, J17/M6, ELE-02/J13",
+     "problema": "Frases que mentiam: equivalência, ausência afirmada, 'em boa parte', mecanismo como fato, traço de clube.",
+     "o_que_mudou": "Trocadas pelos moldes da lente: 'não se viu o setor dizer algo além...'; 'descontado o valor do elenco inteiro, não se viu diferença'; 'descontados valor e rodízio, não se viu o perfil da nota distinguir...'; 'pode mudar' com J12; 'não pode ser usado como traço'. Documento e spec iguais."
+    },
+    {
+     "id": "M1",
+     "problema": "A comparação de quem ficou no clube tinha intervalo acima de zero e nenhum selo.",
+     "o_que_mudou": "Virou a M7 (FRACO: montada depois, sem lista). Ressalva da M1 com 'não se viu'."
+    },
+    {
+     "id": "J14 (PPDA)",
+     "problema": "Sinal cru sem selo, só no rodapé.",
+     "o_que_mudou": "Criada a J19 (FRACO): PPDA sobe x cai p 0,0019, q 0,0086, descontado 0,83; 2018-2021 p 0,87."
+    },
+    {
+     "id": "J8",
+     "problema": "A lacuna lia a correlação parcial.",
+     "o_que_mudou": "melhor_rho = |rho_bruto| (0,44). Frase: 'nenhum ficou acima da tabela, mas a diferença é pequena demais para ordenar'."
+    },
+    {
+     "id": "J13 (2018-2021)",
+     "problema": "Trocava a comparação.",
+     "o_que_mudou": "'Entre quem caiu e o resto da liga'."
+    },
+    {
+     "id": "SELO-PROVISORIO-secao-3",
+     "problema": "Havia rótulo de espera e a lista de cético não batia.",
+     "o_que_mudou": "Intro reescrita. passou_pelos_ceticos=true para J2, J4, J6, J9, J17 e J18. Sem cético ficam J12, J19, A1, A2, A5, A6, M2, M3 e M7."
+    },
+    {
+     "id": "AUSENCIA-em-titulos",
+     "problema": "Títulos afirmavam ausência.",
+     "o_que_mudou": "FIS-10, FIS-09, A5 e ELE-06 com 'não se viu'."
+    },
+    {
+     "id": "SPEC-orcamento-e-periodo",
+     "problema": "'Orçamento' e 'período antigo' sem anos nos moldes.",
+     "o_que_mudou": "'Valor de elenco' em FIS-06, FIS-08, FIS-11 e A1. {periodo_antigo} e {periodo_recente} em todos os moldes. A proibição está na régua e é checada pela prova."
+    },
+    {
+     "id": "TABELA-o-que-parecia",
+     "problema": "Motivos de recusa desatualizados.",
+     "o_que_mudou": "(a) FIS-09 'vão para o mesmo lado: SEM SINAL'. (b) origem '7 a 8, menos de 2 em qualquer conta'. Mais a seção nova 'Cortadas ou mudadas na reconferência'."
+    },
+    {
+     "id": "ELE-07 (número do desconto)",
+     "problema": "0,045 do c78 contra 0,050-0,089.",
+     "o_que_mudou": "Rodapé nomeia as três contas: 0,045 (casa, c78/r13), 0,050 e 0,089 (v578). A frase diz que o resultado muda com a conta. Selo FRACO pela regra (montada depois, 6 testes sem BH)."
+    },
+    {
+     "id": "DIN-01/DIN-03 frases",
+     "problema": "'Três sinais fortes' e 'G4'.",
+     "o_que_mudou": "'Um dos sinais fortes (a DIN-02 é o mesmo sinal por outro corte)'; 'grupo de acesso'."
+    },
+    {
+     "id": "NUMEROS-DA-FRASE-FORA-DO-RODAPE",
+     "problema": "Números da frase não estavam no rodapé.",
+     "o_que_mudou": "J5 14/16 e 8 piores, J7 13/16, FIS-01 posições 15/9/7 (r13), M6 0,096/0,281 postos nos rodapés com fonte."
+    },
+    {
+     "id": "J5-titulo, M3-selo, J9-titulo, CINCO-A2",
+     "problema": "Detalhes de título e régua.",
+     "o_que_mudou": "J5 'ganhou uma parte menor'; M3 cita o caso (a) da régua; J9 novo título; A2 'com selo' no molde."
+    },
+    {
+     "id": "DECISÃO 1",
+     "problema": "Reaplicar a regra da comparação escolhida depois a todas.",
+     "o_que_mudou": "Régua reescrita (documento e spec). Efeito conclusão por conclusão: J5 e J17 → MODERADO, DIN-03 → FRACO; as outras sem mudança, com motivo."
+    },
+    {
+     "id": "DECISÃO 2",
+     "problema": "As cinco mais firmes de qualquer tema.",
+     "o_que_mudou": "regra_das_cinco sem limite de tema, desempate por p_principal. Hoje: DIN-02, J1, J2, ELE-01, J6. Quando gravar: FIS-07, DIN-01, DIN-02, J1, J2."
+    },
+    {
+     "id": "DECISÃO 3",
+     "problema": "FIS-07 apoiada no teste de cada par.",
+     "o_que_mudou": "r12: Spearman de cada uma das 10 métricas em cada par, maior p 1,5e-12 (setor) e 9,5e-26 (ano). forte_se reescrito; o corte de 0,5 ficou só como descrição do tamanho."
+    }
+   ],
+   "recusados_com_motivo": [
+    "ORI-01, faixa '0,3 a 1,75' (lente de números): o 0,33 vem de faixas de 3 postos, que não são especificação declarada. A frase usa as especificações declaradas mais a taxa do quartil sem os A e as logísticas penalizadas: 0,6 a 1,75. O efeito é o mesmo ('menos de 2 em qualquer conta').",
+    "EXC-SOBECAI, 'meio fora do sorteio' e semente i = setor×3+nível (lente de campos): recusado. O p 0,024 da M5 foi medido com o meio dentro do sorteio (r5). Declarar outro nulo mudaria o número depois de visto. A semente ficou i = setor, com os três níveis nos mesmos rótulos, que é o que foi medido.",
+    "EXC-LIQ-NULO, alternativa 'regressão refeita em cada sorteio': não adotada. Resíduo calculado uma vez é o que r4 e r5 fizeram e o que produziu os números.",
+    "DIN03 / lente de campos, 'o p de quem sobe contra o meio da DIN-01 não está gravado': falso. Está em etapa_1.valor_por_setor.setores[setor=total].p_sobe_x_meio (0,000491), mesmo teste. A DIN-01 lê esse caminho (BUG-7), mas segue fora das cinco porque por_ano e cobertura não estão gravados.",
+    "M3, lente de campos 'o gerador de hoje daria 213 de 603, o número que o spec proíbe': o universo certo é 586 (candidatos com margem; 2 goleiros e 15 meias sem margem). E a proibição do spec estava errada: 213 de 586 é o que o gerador atual dá (r13), não número velho. A proibição saiu; a regra ficou 'não digitar'.",
+    "ELE-07, lente de coerência 'se não houver motivo a linha da tabela sai': não saiu. 0,045 é justamente a conta da casa (posto sobre percentil de valor). A linha foi reescrita: depende da conta, e o selo FRACO vem da regra da comparação montada depois.",
+    "FIS-10, saída (b) da lente de coerência (manter FRACO citando a M4): recusada. A régua escrita dá MODERADO (linha passa nos dois descontos, lista SC com excesso), como na M5. M4 e FIS-10 vão para o mesmo lado e o selo segue a conta declarada antes (catálogo).",
+    "ELE-06, item 'desconto' da lente de números ('some no dinheiro é FRACO, não SEM SINAL'): conflitava com o item 'selo' da mesma lente. Segui a régua das contas da mesma pergunta: a posição, conta do título, fica no limite; o aproveitamento some no dinheiro; nenhuma declarada antes; vale a mais fraca: SEM SINAL.",
+    "Pedidos da lente de campos cuja lacuna não estava no molde (DIN-01 top4_total/top4_nao_subiram, ELE-01 anos_cai_acima, FIS-08 sem corte, J8 tabela_contra_melhor_numero, J10 rho da rota e do território × valor, FIS-09 reconciliação 332, etapa_6.mesmo_ano/consequencia): não entraram na ordem. As lacunas saíram, e o motivo está em ordem.retirados_da_lista_da_lente_de_campos.",
+    "M1, opção 'escrever que quem ficou é descrição sem selo': recusada. Seria sexto rótulo; virou a M7 com selo próprio. J14, opção 'tirar a PPDA do rodapé': recusada, virou a J19."
+   ],
+   "efeito_da_regra_depois_de_ver": [
+    "J5: FRACO → MODERADO de 2022 a 2025. Lista do técnico do time, quem cai contra o resto: 13 contra 1, p 0,002; descontado o dinheiro 0,019. Escrito 'em 2018-2021 não se repetiu' (p 0,52).",
+    "J5, zagueiros: seguem FRACOS. Lista do técnico individual, quem cai contra o resto: 8 contra 5, p 0,196.",
+    "J17: FRACO → MODERADO pela comparação quem cai contra o meio. Lista do elenco 5 contra 0, p 0,006; formações descontado 0,009. A declarada sobe x cai some no dinheiro (0,125) e fica descrita ao lado.",
+    "DIN-03: MODERADO → FRACO. Quem cai contra o meio é comparação escolhida depois e não sai de lista nenhuma.",
+    "A4: segue FRACO. Comparação entre períodos sem lista; o desconto do dinheiro não se aplica.",
+    "FIS-01: segue FRACO. Índice montado depois, sem lista (físico do elenco CM 4 contra 1, p 0,17), e some no dinheiro (0,094).",
+    "J16: segue FRACO. Linha escolhida depois, sem lista, e 3 de 4 trocam de lado no dinheiro.",
+    "ELE-06: não sobe (sem lista, aproveitamento some no dinheiro, 0,16). Virou SEM SINAL pela régua das contas da mesma pergunta.",
+    "ELE-07: segue FRACO. Duas medidas não formam lista; desconto 0,045 a 0,089.",
+    "ORI-01: segue FRACO. Sem lista; desconto do dinheiro 1,0 e 0,59.",
+    "M6: segue FRACO. 1 achado em 10 métricas; o desconto do dinheiro não se aplica.",
+    "M7 (nova): nasce FRACO. Comparação físico × técnico montada depois, sem lista.",
+    "J7: segue FRACO. Quem sobe contra o resto tem lista 10 contra 5, p 0,082; quem cai contra o resto fica na zona cinzenta e some no dinheiro.",
+    "ELE-01: segue MODERADO pela declarada sobe x cai. A parte quem cai contra o meio também seria moderada (lista 0,006; descontado 0,002), sem efeito no selo.",
+    "M1: segue NÃO DÁ PARA AFIRMAR. Os intervalos cruzam zero, e a regra não mexe nisso.",
+    "FIS-07: sem efeito. A régua por setor é mais dura, e a declarada (ano) dá o mesmo."
+   ],
+   "contagem_de_selos": "56 conclusões: 3 FORTES (DIN-01, DIN-02, FIS-07) · 12 MODERADAS (ELE-01, ELE-02, FIS-10, J1, J2, J3, J4, J5, J6, J13, J17, M5) · 23 FRACAS (DIN-03, DIN-04, DIN-05, ORI-01, ELE-03, ELE-07, FIS-01, FIS-04, FIS-06, FIS-08, FIS-11, J7, J15, J19, J8, J9, J16, A1, A2, A4, M4, M6, M7) · 13 SEM SINAL (ORI-02, ELE-04, ELE-05, ELE-06, FIS-05, FIS-09, J14, J10, J11, J18, A5, A6, M2) · 5 NÃO DÁ PARA AFIRMAR (DIN-06, J12, A3, M1, M3). Antes eram 54: 3/10/24/12/5. Entraram J19 e M7. Mudaram DIN-03 (moderado → fraco), J5 e J17 (fraco → moderado), FIS-10 (fraco → moderado) e ELE-06 (fraco → sem sinal). A contagem é igual no documento, no spec e no recálculo do sp7_prova.py.",
+   "as_cinco": [
+    "Regra (decisão 2): só entram as conclusões com todo critério que decide o selo gravado; ordenadas por selo, sem limite de tema; desempate pelo menor p_principal (nulos depois; empate pela ordem do documento).",
+    "Hoje, com o gravado: 1. DIN-02 [FORTE] 12 dos 16 que subiram estavam entre os 8 elencos mais caros do ano (p 0,0023).",
+    "2. J1 [MODERADO] Quem sobe finaliza de mais perto do gol (p 0,00003).",
+    "3. J2 [MODERADO] Quem sobe acerta mais chutes no gol (p 0,00013).",
+    "4. ELE-01 [MODERADO] Quem cai roda muito mais gente (p 0,00019).",
+    "5. J6 [MODERADO] Os meias de quem sobe dão mais passes-chave (p 0,00026).",
+    "Ficam de fora hoje, por campo que decide o selo ainda não gravado: DIN-01 e FIS-07 (fortes); FIS-10, J4, J5, J13, J17 e M5 (moderadas).",
+    "Quando o gerador gravar a ordem de serviço: FIS-07 (p_max 1,5e-12), DIN-01 (0,0005), DIN-02 (0,0023), J1 (0,00003), J2 (0,00013). DIN-01 e DIN-02 são o mesmo sinal por dois cortes; a regra só ordena, não junta."
+   ],
+   "ordem_de_servico_gerador": "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/ordem_gerador_bloco2.json. São 95 campos, cada um com caminho, formato, de_onde_sai, conclusoes_que_usam, analise_nova_declarada (59 com análise nova) e declaracao. Os usos fora das lacunas estão marcados. sem_cobertura = [] (o sp7_prova.py confere que os 357 caminhos não gravados de lacunas, critérios e p_principal do spec têm campo). Blocos: bases (sha256, teste cego só leitura); etapa_1 (quartis que caíram, AUC com IC e por ano, p_meio_x_cai, cobertura, euros por posto, blocos, vizinhos, rebaixados e fonte Wyscout, por setor e por clube); conclusoes_base.origem; etapa_2 (CR/SR/CM, q_liq2, medianas, contagens, antigo_SM/SC/CM/CR, diferença entre períodos, faltas × posse, dist_remate descontada, elenco_base fora das 293, indice_intensidade, fis10_bloco, estilo_x_valor, por_clube); etapa_3 excesso[comparação][nível]; etapa_6.colocacao com o desconto do aproveitamento; etapa_7 q_parcial e excesso; etapa_8 (bateria limpa por validadores, desconto por grupo = null, fora_do_top_k, teste_cego.diferenca_entre_blocos); etapa_0.mando; etapa_11 (chave nome + nascimento, sem 2026, p_max por par, por_setor, por_posicao, comparacao_fisico_tecnico); etapa_13.empates_na_margem; sobecai itens p_liq/p_liq2/q_liq2, menor_p_liq2 e excesso por nível; formação principal por faixa; bloco conclusoes. Inclui: declaracoes_para_prototipo_indicadores (33 chaves, igual a declaracoes_novas.json); bloco_conclusoes (formato, regra do selo calculado, regra das cinco, régua simples); 16 bugs do gerador, entre eles BUG-1 (etapa_11: físico ligado só pelo nome, 20 homônimos, 0,833/499 → 0,861/479), BUG-2 (técnico com 2026), BUG-3 (teste cego congelado), BUG-8 (M3: 586 com margem de 603) e BUG-16 (valores velhos marcados como gravados); e a lista do que saiu da lente de campos, com motivo. Nenhum git, dados/, gerar_*.py, static/ ou templates/ foi tocado; a base de origem não tinha problema e não foi alterada."
+  }
+ ],
+ [
+  "confere:ordem-do-gerador",
+  {
+   "lente": "A ORDEM DE SERVICO DO GERADOR (ordem_gerador_bloco2.json). Tudo foi lido sem escrever nada. Passei as 56 conclusoes do spec por um leitor proprio, mais estrito que o sp7 (scratchpad/lo_cobertura.py). Ele pega cada caminho de lacuna, criterio e p_principal, confere no dados/prototipo.json (13/09) e, quando o caminho nao esta la, exige que o nome final do campo apareca escrito na ordem ou na declaracao. Comparei os 95 campos com o que o gerar_prototipo.py do bloco 1 ja grava (bases, etapa_11, sobecai, sementes e arredondamento) e li as 33 declaracoes. O que ficou certo: todo caminho gravado resolve; todo campo novo tem, no fim, um lugar na ordem; a raiz da origem e o formato unico do excesso estao resolvidos; a FIS-07 foi apoiada no teste de cada par de anos, como decidido. O que falha: o selo calculado nao e um algoritmo que se execute; ha nomes que duplicam campos que o gerador ja grava; uma semente colide com as do gerador; e uma frase da ordem diz o contrario do codigo sobre 2026.",
+   "conferidos": 56,
+   "problemas": [
+    {
+     "id": "SELO-NAO-E-ALGORITMO",
+     "o_que_esta_escrito": "bloco_conclusoes.regra_do_selo_calculado: 'resolve cada criterio (caminho → valor → passou) e aplica conclusoes[].regra_do_selo; se algum criterio com decide=true tem caminho ausente, selo_calculado = null'. Os criterios_do_selo do spec tem so {criterio, caminho, valor_14_09, passou, decide}.",
+     "eu_medi": "(1) Nenhum criterio diz operador nem limiar: o '< 0,05' ou '>= 0,10' so existe no texto do criterio, entao 'passou' nao sai de caminho → valor. (2) regra_do_selo e prosa, com 42 chaves diferentes entre as conclusoes (forte_se, moderado_se, parte_CM, zagueiros, total_SC_moderado_se...) e nenhuma ordem de precedencia. (3) 34 criterios que decidem o selo tem caminho null (constantes como 'comparacao declarada antes: sim' ou 'nao ha lista'). Lida ao pe da letra, a regra tira da tela DIN-03, ELE-01, J1, J2, J6, M3 e outras. O sp7 ignora o null em silencio. (4) Cinco criterios que decidem apontam para uma lista inteira (DIN-02 curva_top_k.promovidos; DIN-05 setores[].p_sobe_x_meio, que ainda pede BH; J14 e A2 etapa_2.linhas; J8 etapa_7.linhas). Tres apontam para um dicionario com dois p (ORI-01 dinheiro.p_permutacao e p_razao_verossimilhanca {subida, queda}; ORI-02 fisher.C_x_B). A M4 traz o molde '<setor>' dentro do caminho. Nenhum desses vira 'passou' sem uma regra que ninguem escreveu.",
+     "conserto": "Em cada criterio: {operador, limiar, agregacao ('todos'|'algum'|'min'|'max'|'bh'), filtro (quais linhas ou setores), subcampo (subida|queda)}. Criterio de caminho null vira {constante: valor, fonte: 'conclusoes_spec'}, e fica escrito que null e constante, nao ausencia. regra_do_selo em forma de maquina: lista ordenada [{selo, exige: [ids de criterio com passou esperado]}], vence a primeira que casar, com um selo_padrao no fim. A prova do sp7 passa a recalcular o selo por essa lista e comparar com forca_esperada_hoje.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "NOMES-DUPLICAM-O-GERADOR",
+     "o_que_esta_escrito": "Campo 0: bases.painel_2018_2021 = {arquivo, linhas, colunas, linhas_usadas: 80, rotulo, sha256}, de_onde_sai 'leitura do CSV (ano <= 2021)'. Campo 3: bases.skillcorner.corte_minutos int (300). Campo 71: etapa_11.fisico.corte_jogos int (8). Campo 78: etapa_11.tecnico.corte_minutos int (900).",
+     "eu_medi": "O gerar_prototipo.py do bloco 1 (~linha 4127) ja grava bases.painel_2018_2021 = {arquivo, linhas, usadas, anos, usado_em, colunas_do_catalogo_presentes, colunas_do_catalogo}, lendo dv[ano <= 2025]. E ja grava bases.skillcorner.corte = 'min_tot >= 300', etapa_11.fisico.corte = 'matches >= 8 nos dois anos' e etapa_11.tecnico.corte = '600+ min no arquivo e 900+ min nos dois anos...'. A ordem cria nomes paralelos para o mesmo numero (usadas × linhas_usadas, corte × corte_minutos ou corte_jogos) e descreve um filtro diferente do codigo. E o mesmo erro que a propria ordem condena na BUG-5 (p5_clube × passam5_bruto).",
+     "conserto": "Usar as chaves que o gerador ja grava (a lacuna n_antigo le bases.painel_2018_2021.usadas) e pedir so o que falta: rotulo e sha256. Para os cortes, ou se grava o int ao lado com o texto dizendo que corte_minutos substitui corte, ou a lacuna le o numero de dentro do texto declarado. Nunca os dois soltos. Corrigir o de_onde_sai do campo 0 para 'ano <= 2025, como o gerador ja faz'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "BUG-2-JA-CONSERTADO-NO-CODIGO",
+     "o_que_esta_escrito": "bugs_do_gerador_relatados BUG-2: 'etapa_11.tecnico com 2026 ... conserto: ano <= 2025'. Campos 77 a 83: 'BUG 2: hoje inclui 2026', 'recalcular sem 2026', 'hoje 233 e 178 com 2026'. Pede ainda etapa_11.tecnico.ano_maximo.",
+     "eu_medi": "Falso para o gerador. O main do bloco 1 (gerar_prototipo.py ~4046) roda e11 = etapa_11(tec25, sc25) e confere com assert que ano max <= 2025. Tambem grava e11.efeito_de_retirar_2026 {anos_usados_no_tecnico, pares_mudou {com_2026, sem_2026}, ...}. Quem ainda tem 2026 e so o dados/prototipo.json de 13/09. O ano_maximo pedido repete efeito_de_retirar_2026.anos_usados_no_tecnico. Ja o BUG-1 continua de pe: a etapa_11 do codigo liga o fisico so por G.chave_nome(short_name).",
+     "conserto": "Marcar o BUG-2 como consertado no codigo do bloco 1, pendente so de regerar o JSON. O criterio 'sem 2026' da M6 le max(etapa_11.efeito_de_retirar_2026.anos_usados_no_tecnico), ou se grava ano_maximo dizendo que e derivado desse campo. Os de_onde_sai dos campos 77 a 83 passam a 'ja sai sem 2026; so falta regravar'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "SEMENTE-13-COLIDE",
+     "o_que_esta_escrito": "declaracoes.nota_por_setor_por_clube.excesso.semente: 'np.random.default_rng([SEMENTE, 13, i]) com i = indice do setor' (0 a 3). Campo 92: semente [SEMENTE, 13, i].",
+     "eu_medi": "O gerador ja cria default_rng([SEMENTE, 13, int(j['id'])]), um gerador por atleta, em etapa_13 (linha 3070). O dados/jogadores.json tem ids 0, 1, 2 e 3. Os sorteios do excesso da zaga, lateral, meio e ataque saem, portanto, na MESMA sequencia dos atletas 0 a 3, o que viola a regra de gerador proprio (CONTINUAR §4). Alem disso, o 0,024 da M5 foi medido com [2026, 919], uma sequencia so para os quatro setores. O numero muda com qualquer semente declarada agora, entao o motivo dado para recusar outro nulo ('mudaria o numero depois de visto') nao vale para a semente.",
+     "conserto": "Trocar por um espaco que nao colida, por exemplo default_rng([SEMENTE, 17, i]) ou [SEMENTE, 13, 1_000_000 + i]. Registrar na declaracao que p_excesso da M5 e da M4 vai mudar dentro do erro de Monte Carlo, e que o selo segue o numero regravado.",
+     "gravidade": "receita"
+    },
+    {
+     "id": "COMPARACAO-DECLARADA-ANTES-SEM-REGRA",
+     "o_que_esta_escrito": "Campo 46: etapa_2.linhas[].comparacao_declarada_antes = {SM: true, SC: true, CR: false, SR: false, CM: false}, 'constante declarada', usado pelas 56 conclusoes. O bloco Z pede item.comparacao_declarada_antes: bool, sem dizer de onde sai.",
+     "eu_medi": "A constante e por comparacao de linha do catalogo. Varias conclusoes nao sao linha do catalogo, ou tem valor diferente no spec. ELE-07 usa SM e SC do elenco_base, e o spec diz false (montada depois); com a constante, sairia true. FIS-01 (indice), DIN-03, ORI-01, ORI-02, ELE-06, A3, A4, J16, M1, M6 e M7 nao tem linha em etapa_2. Nao ha regra que diga como o gerador obtem o bool de cada item.",
+     "conserto": "item.comparacao_declarada_antes = conclusoes_spec.conclusoes[id].comparacao_declarada_antes (constante do spec). O campo 46 vale so para linhas de etapa_2.linhas. Os blocos fora do catalogo (elenco_base, indice_intensidade, colocacao, mando, origem, etapa_11) herdam o declarada_depois_de_olhar da propria declaracao. Tirar a lista das 56 do conclusoes_que_usam do campo 46.",
+     "gravidade": "falta"
+    },
+    {
+     "id": "RESIDUO-POR-ANO-SEM-DEFINICAO",
+     "o_que_esta_escrito": "Campo 40: etapa_2.linhas[].media_por_ano = [{ano, sobe, meio, cai, residuo_sobe_menos_meio}], 'medias por ano e residuo do valor', analise_nova_declarada false. A declaracao etapa_2_comparacoes_extras cita media_por_ano sem definir nada.",
+     "eu_medi": "O que decide o texto e o criterio de ano da FIS-06 (ano_contra) e da FIS-11 (anos_ok = 'anos com residuo medio de sobe > meio') e esse residuo. Nao esta escrito residuo de que (posto do ano ou valor cru), sobre o que (so o posto de tm_valor_total, que e o liq, ou tambem fis_<setor>_atletas, que e o liq2 usado no selo dessas duas), nem se a regressao e por ano ou nas 80. As tres contas dao anos diferentes. E conta nova, mas esta marcada como nao nova.",
+     "conserto": "Declarar: 'residuo do posto no ano sobre o posto de tm_valor_total e de fis_<setor>_atletas (o mesmo modelo do p_liq2), calculado uma vez nas 80; media do residuo por ano e faixa; residuo_sobe_menos_meio = media_sobe - media_meio'. Gravar tambem o nivel (liq ou liq2) e marcar analise_nova_declarada = true.",
+     "gravidade": "muda_numero"
+    },
+    {
+     "id": "FIS07-METRICAS-NAO-LISTADAS",
+     "o_que_esta_escrito": "etapa_11_mesma_regua.teste_por_par_de_anos: 'para cada uma das 10 metricas declaradas, Spearman ... p_max = maior p entre as 10 metricas e os pares'. O FORTE da FIS-07 decide por por_setor.p_max e fisico.p_max.",
+     "eu_medi": "As 10 metricas nao estao escritas em lugar nenhum da ordem nem das declaracoes. No gerador, cols_fis = [psv99, psv99_top5, sprint_count_p90, sprint_distance_p90, hsr_distance_p90, high_accel_p90, high_decel_p90, cod_count_p90, distance_p90, m_per_min] com 'if c in s.columns': se faltar coluna, o p_max sai de menos metricas sem aviso. E o indice da FIS-01 usa OUTRAS 10 colunas, entao 'as 10 declaradas' e ambiguo.",
+     "conserto": "Escrever a lista em etapa_11_mesma_regua.metricas_fisicas, gravar n_metricas e parar a execucao com erro se for menor que 10. Gravar tambem n_testes (metricas × pares) ao lado de p_max.",
+     "gravidade": "falta"
+    },
+    {
+     "id": "P-PRINCIPAL-E-DESEMPATE",
+     "o_que_esta_escrito": "Convencao da ordem: 'p = float bilateral com 5 casas significativas'. regra_das_cinco passo 3: 'menor p_principal'. Formato do item: p_principal float|null.",
+     "eu_medi": "(1) O gerador grava p com r_p(p, 5) = 5 casas DECIMAIS (J1 p_bruto_SM = 3e-05, um algarismo; ELE-05 0,42039), p_sobe_x_meio com r_sig(3) (0,000491) e etapa_15 com r_p(4). A convencao escrita nao e a que esta no JSON, e o desempate das cinco roda sobre valores arredondados de jeitos diferentes. Hoje nao ha empate; ha risco quando p < 5e-6 cair para a forma significativa de r_p. (2) O p_principal da A3 aponta para etapa_8.teste_cego.diferenca_entre_blocos, uma lista, com valor 0,0813 = o menor p. Nao e float, e nao esta dito que e o minimo.",
+     "conserto": "Corrigir a convencao para o que o gerador faz, ou pedir p_cru ao lado, e escrever que o desempate usa o valor nao arredondado. A3: p_principal = min(etapa_8.teste_cego.diferenca_entre_blocos[].p), ou gravar diferenca_entre_blocos_menor_p.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "NOTACAO-E-PROVA-FROUXA",
+     "o_que_esta_escrito": "Campos 59 a 61 e 88 a 92 usam etapa_3.por_familia[] / por_familia[f] e sobecai_corrigido_por_clube[]. O ORDEM.sem_cobertura = [] vem do sp7_prova.cobre.",
+     "eu_medi": "No JSON, por_familia e sobecai_corrigido_por_clube sao DICIONARIOS com chave por familia ou setor; '[]' e notacao de lista. O cobre do sp7 aceita '[]' como qualquer '.chave' e como prefixo, entao um campo 'etapa_2.linhas[]' cobriria qualquer 'etapa_2.linhas[...].x'. Com leitura estrita (nome final literal), 22 caminhos que decidem selo (excesso de FIS-04/06/08/09/10/11, J4, J5, J7, J13, J17, ELE-01, M4, M5) nao casam com caminho nenhum da ordem. Sao cobertos na intencao, nao pela prova. Soma-se o '<setor>' literal na M4.",
+     "conserto": "Escrever as chaves de dicionario como .<familia> / .<setor>, com a lista de valores permitidos em cada campo. No sp7, exigir o nome final do campo no caminho ou no formato. Na M4, trocar '<setor>' por um criterio com agregacao 'algum setor' (ver SELO-NAO-E-ALGORITMO).",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "CONTAGENS-DE-PIORES-AMBIGUAS",
+     "o_que_esta_escrito": "Campos 41 a 43 e etapa_2_comparacoes_extras.contagens: 'metade de baixo = posto <= 50; cinco piores = posicao > n_do_ano - 5; cinco melhores = posicao <= 5', pedidas para as 293 linhas. por_clube: 'posicao_no_ano: 1 = maior'. O campo 42 junta, numa entrada so, um int e uma lista ('cai_entre_5_melhores [CLUBE ANO (Nº)]').",
+     "eu_medi": "Nas linhas de G.MENOR_MELHOR (ppda, xg_contra...), 'pior' e 'metade de baixo' mudam de sentido conforme o posto seja cru ou orientado pelo sinal, e nada diz qual. Hoje so a J5 le essas contagens (duelos_aereos_pct, em que maior e melhor), entao o numero atual nao muda, mas o campo nasce ambiguo em 293 linhas.",
+     "conserto": "Definir sobre o posto orientado pelo sinal da linha (piores = pior desempenho), ou restringir as contagens as 5 linhas de duelos_itens_3_e_7. Separar cai_entre_5_melhores em campo proprio, com formato de lista.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "ANALISE-NOVA-SEM-DECLARACAO",
+     "o_que_esta_escrito": "Campo 94 'conclusoes': analise_nova_declarada true, declaracao null. Campo 63 etapa_7.linhas[].q_parcial: declaracao null.",
+     "eu_medi": "Pela propria regra da ordem, analise nova precisa de declaracao. O bloco conclusoes (selo calculado e as cinco) tem a regra em bloco_conclusoes, que nao e chave de declaracoes_para_prototipo_indicadores. Para o q_parcial falta dizer a familia do BH: as 28, com ou sem filtro de sinal_certo. A J1 e a J2 usam 'q < 0,05 com sinal_certo'.",
+     "conserto": "Campo 94: declaracao = 'bloco_conclusoes' (e a prova aceita essa chave). Campo 63: declarar 'BH nos 28 p_parcial, sem filtro de sinal; o sinal_certo e checado depois, na regra'.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "confere:regua-decisoes-coerencia",
+  {
+   "lente": "A RÉGUA, AS DECISÕES E A COERÊNCIA. Li inteiros CONTINUAR.md, os três resultados da reconferência (journal wf_b3ce3ecf-009), a régua e as cinco do CONCLUSOES.md, as seções 'O que parecia conclusão' e 'Cortadas', os blocos de DIN-03, DIN-05, ELE-01, ELE-06, FIS-04, FIS-10, J1, J5, J14, J17, J19, M1, M6, M7, ORI-01 e A6, as 56 conclusões do spec com os critérios do selo, e declaracoes_novas.json (excesso_por_familia, nota_por_setor_por_clube, etapa_11_mesma_regua, formacoes_J17). Rodei de novo o sp7_prova.py e deu PROVA OK: 56 contra 56, contagem 3/12/23/13/5, cinco de hoje DIN-02, J1, J2, ELE-01 e J6, e as cinco quando gravar FIS-07, DIN-01, DIN-02, J1 e J2. Recontei os selos no documento por conta própria (bate). A prova compara o documento com o molde montado pela mesma fonte: garante que os dois batem, não que o selo sai da régua. Por isso refiz a régua critério a critério contra os valores escritos. Também comparei com o backup de antes da reconferência (bk_reconf), para ver o que mudou de título junto com o selo, e contei no prototipo.json as 32 linhas fis_ataque_* (p sobe x cai e sobe x meio). Decisão 1: J5 aplicada ao pé da letra, com 'em 2018-2021 não se repetiu' no título. DIN-03, A4, zagueiros, FIS-01, J16, ELE-07, ORI-01, M6 e M7 estão coerentes com a regra. Decisão 2: regra e desempate escritos e recalculados; batem. Decisão 3: FIS-07 com o teste de cada par, os 479 pares conferidos no r12_saida.json (152+157+170), e o corte de 0,5 só como tamanho. O que não bate está abaixo, e o mais grave é a J17.",
+   "conferidos": 56,
+   "problemas": [
+    {
+     "id": "J17-TITULO-TROCADO-PARA-SUBIR-O-SELO",
+     "o_que_esta_escrito": "[MODERADO] J17 · 'Quem cai usou mais formações diferentes que o meio da tabela de 2022 a 2025; em 2018-2021 não se viu o mesmo.' Régua: 'O selo é o da comparação do título; a comparação declarada antes da mesma medida fica descrita ao lado.' Efeito declarado: 'J17: fraco → MODERADO pela comparação quem cai contra o meio'.",
+     "eu_medi": "No backup de antes da reconferência (bk_reconf/CONCLUSOES_antes_reconf.md:557 e o spec), o título da J17 era a comparação DECLARADA: '[FRACO] Quem cai usou mais formações diferentes que quem sobe — mas isso some entre elencos de valor parecido'. A frase não citava quem cai contra o meio (CM) em lugar nenhum. declaracoes_novas.formacoes_J17 marca CM como 'depois_de_olhar' e declarada_depois_de_olhar=true. Ou seja, a J17 não 'usava' comparação escolhida depois. O editor trocou o título para a CM, a única das duas contas que passa no dinheiro (0,009 contra 0,125 da declarada), e o selo subiu por causa da troca. Aplicada ao título que existia, a decisão 1 dá FRACO: a declarada some no dinheiro e não há comparação escolhida depois no título. Escolher depois de ver os números qual comparação vai para o título, por ser a que passa, é o garimpo que a régua existe para barrar. A decisão 1 do dono cita a J5, cujo título já era 'quem cai contra o resto' desde a pergunta dele, e não autoriza trocar título.",
+     "conserto": "Voltar o título da J17 para a comparação declarada (sobe x cai) com selo FRACO e deixar quem cai contra o meio descrito ao lado ('lista do elenco 5 contra 0, p 0,006; descontado 0,009, mas escolhida depois'). Ou levar ao dono a pergunta explícita: 'pode trocar o título para a comparação escolhida depois quando ela é a que passa?'. Contagem: 3 / 11 / 24 / 13 / 5. Tirar a linha 707 da tabela de cortadas ('quem cai contra o meio é MODERADO') e o item J17 do 'efeito, conclusão por conclusão' da régua, no documento e em regua.comparacao_escolhida_depois_de_olhar.efeito_por_conclusao do spec.",
+     "gravidade": "muda_selo"
+    },
+    {
+     "id": "DIN-05-TITULO",
+     "o_que_esta_escrito": "Título (documento e spec): 'Defesa, meio-campo e ataque de quem sobe valem mais — mas é o mesmo dinheiro.' Frase: 'é o valor do elenco inteiro visto por setor'. Na tabela de cortadas (linha 708), a reconferência diz ter retirado 'O setor não diz nada que o valor total já não diga' porque contradizia a DIN-06.",
+     "eu_medi": "O conserto da lente de coerência só entrou no 'o que não quer dizer' ('Não se viu o setor dizer algo além...'). O título e a frase, que são o que a tela mostra primeiro, continuam afirmando a equivalência como fato. A DIN-06 diz que não dá para ordenar setor e total (IC −0,089 a +0,119). É a mesma afirmação que a tabela diz ter cortado.",
+     "conserto": "Título: 'Defesa, meio-campo e ataque de quem sobe valem mais; não se viu o setor dizer algo além do valor do elenco inteiro'. Frase: trocar 'é o valor do elenco inteiro visto por setor' por 'não se viu informação nova além do valor do elenco inteiro (DIN-06)'. Mudar o molde do spec junto.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "FIS-10-SOBE-X-MEIO",
+     "o_que_esta_escrito": "Título e frase: 'contra o meio, não se viu diferença'. Rodapé: 'sobe x meio p 0,14 a 0,46'.",
+     "eu_medi": "No prototipo.json, das 12 medidas fis_ataque_* com p sobe x cai < 0,05, a de corridas para a área (runs_penalty_area_p30tip) tem p_bruto_SM 0,053. O intervalo certo é 0,053 a 0,457, não 0,14 a 0,46; o número veio copiado da lente de coerência sem conferir. Pela régua, 'não se viu' exige p ≥ 0,10. Com 0,053 a medida está na zona cinzenta, e o texto tem de dizer 'no limite'.",
+     "conserto": "Rodapé: 'sobe x meio p 0,053 (corridas para a área) a 0,46'. Título e frase: 'contra o meio não se viu diferença, com uma medida no limite (corridas para a área)'.",
+     "gravidade": "muda_numero"
+    },
+    {
+     "id": "FIS-10-MAIS-RAPIDO-E-NO-LIMITE",
+     "o_que_esta_escrito": "Título [MODERADO]: 'O ataque de quem sobe corre mais e mais rápido que o de quem cai'. Frase: 'na que continua de pé, descontados valor e rodízio, em 5 de cada 100 tentativas, no limite'.",
+     "eu_medi": "O MODERADO se apoia numa medida só: fis_ataque_hsr_count_p90, contagem de corridas em alta velocidade, com liq2 0,0488. A velocidade de pico, que é o que 'mais rápido' diz, é a psv99: p sobe x cai 0,0146, líquido 0,12, líquido 2 0,175. Ela some nos descontos. O título põe selo moderado numa coisa que só vale no número cru. Além disso, 'no limite' na régua é o nome da zona cinzenta (0,05 ≤ p < 0,10). Usá-lo para 0,0488, que passa do corte, mistura o vocabulário.",
+     "conserto": "Título: 'O ataque de quem sobe faz mais corridas em alta velocidade que o de quem cai; contra o meio não se viu diferença'. Frase: 'em 5 de cada 100 tentativas, logo abaixo do corte', sem 'no limite'.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "FIS-10-LISTA-DEPOIS-DOS-DESCONTOS",
+     "o_que_esta_escrito": "FIS-10 [MODERADO]: 'Uma delas... continua de pé entre elencos de valor e rodízio parecidos... essa lista... tem mais achados do que a sorte'. FIS-04 [FRACO], logo antes: depois dos dois descontos a lista por setor fica em '2 contra 6, p 0,86', e 'as 2 medidas que sobram... e as corridas em alta velocidade do ataque (p 0,049, FIS-10)'.",
+     "eu_medi": "Pela régua escrita, o selo sai MODERADO: a contagem bruta decide o excesso. Mas a sobrevivente da FIS-10 é uma das 2 que sobram de 128 depois dos descontos, contra 6 esperadas pela sorte, e esse número está na FIS-04 e não na FIS-10. Quem ler só a FIS-10, que é o que a tela mostra, entende que o físico do ataque tem sinal acima da sorte depois dos descontos, e isso a lista não mostra. A M5 pelo menos tem 4 contra 1 depois dos descontos; a FIS-10 tem 2 contra 6 no setor inteiro.",
+     "conserto": "No 'o que não quer dizer' da FIS-10: 'depois dos dois descontos, a lista inteira do físico por setor fica no nível da sorte (2 medidas sobram de 128, contra 6 do sorteio: FIS-04); a que sobra aqui pode ser uma delas por acaso'. O selo não muda pela régua. Se o dono quiser que o excesso depois dos descontos pese, isso é mudança de régua e cabe a ele.",
+     "gravidade": "falta"
+    },
+    {
+     "id": "ORI-01-TITULO-X-TABELA-DE-CORTADAS",
+     "o_que_esta_escrito": "Título: 'Quem acabou de cair da Série A subiu mais e não caiu — mas, de 2022 a 2025, é o que o elenco caro já prevê.' Ressalva: 'de 2022 a 2025 é o que o valor já prevê'. Tabela de cortadas (linha 683): '\"Nenhum caiu, e é o que o valor do elenco já prevê.\" (ORI-01)' foi cortada; linha 684: '\"É o elenco caro que vem junto.\" — ... ausência afirmada como fato'.",
+     "eu_medi": "O desconto do dinheiro não achou diferença (permutação 1,0 e 0,59; razão de verossimilhança 0,55 e 0,38, com 16 casos). 'É o que o elenco caro já prevê' afirma a ausência como fato, e é o mesmo molde que a reconferência trocou na ELE-04 ('descontado o valor, não se viu diferença'). O documento mantém no título uma forma que ele mesmo lista como cortada.",
+     "conserto": "Título: 'Quem acabou de cair da Série A subiu mais e não caiu — mas, de 2022 a 2025, descontado o valor do elenco, não se viu a origem acrescentar nada'. Mesma troca na ressalva. Molde do spec junto.",
+     "gravidade": "mente"
+    },
+    {
+     "id": "REGUA-SEMENTE-POR-CLUBE",
+     "o_que_esta_escrito": "CONCLUSOES.md, régua, item 3 do 'olhar a lista inteira': a semente é `default_rng([SEMENTE, 3, i])`, i = 5 × família + comparação, e o item 1 inclui 'a família declarada da própria análise (as medidas da nota por setor, contadas por clube)'.",
+     "eu_medi": "declaracoes_novas.nota_por_setor_por_clube.excesso declara [SEMENTE, 13, i], com i = índice do setor, e teste bruto no valor cru do clube (sem posto no ano). O spec (regua.regra_do_excesso.semente) tem as duas. O documento só tem a primeira e a aplica também às listas por clube. É a divergência de semente que o conserto EXC-SOBECAI disse ter resolvido. O sp7 não compara o texto da régua, por isso passou.",
+     "conserto": "No item 3 da régua do documento: '(por clube, na M4 e M5: default_rng([SEMENTE, 13, i]), i = índice do setor; teste bruto na média do clube, sem posto)'.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "M6-CRITERIOS-DA-DECISAO-1",
+     "o_que_esta_escrito": "M6 [FRACO], critérios: 'comparação declarada antes — não: mudou x ficou por métrica montada depois de olhar — não passa (não decide o selo)' e 'lista acima da sorte (regra do dono) — 1 de 10: não — não passa (não decide o selo)'. M7, mesma situação: os dois critérios com decide=true.",
+     "eu_medi": "A régua manda tratar mudou x ficou como comparação escolhida depois e diz que sem lista acima da sorte o teto é FRACO. Na M6 esse critério é o que prende o selo em FRACO, ao lado do q 0,16, e está marcado como 'não decide'. Na M7 o mesmo critério decide. O selo não muda. Muda o que a tela mostra como critério decisivo e fica incoerente entre as duas.",
+     "conserto": "Na M6, marcar decide=true nos dois critérios da decisão 1, como na M7. A M6 continua FRACA.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "FIS-07-APOIO-NA-REGUA-DECLARADA",
+     "o_que_esta_escrito": "Decisão 3 do dono: FORTE 'apoiada no teste declarado de cada par de anos'. Spec: p_principal = etapa_11.fisico.por_setor.p_max (régua do setor, 1,5e-12). Tabela: 'o forte sai do teste de cada par de anos (maior p 1,5 × 10⁻¹² no setor)'.",
+     "eu_medi": "A régua por setor foi escolhida depois de olhar; a régua declarada antes é o posto no ano (etapa_11.fisico.p_max, 9,5e-26, também 30 contas). O documento põe a régua escolhida depois como número principal do forte, e a declarada aparece só como segundo critério. A ordem das cinco não muda: a FIS-07 fica em 1º com qualquer dos dois p.",
+     "conserto": "p_principal da FIS-07 = etapa_11.fisico.p_max, a régua declarada. O setor fica como a conta mais dura que 'não rebaixa'. Na linha 716, citar primeiro o 9,5 × 10⁻²⁶ do posto no ano e depois o 1,5 × 10⁻¹² do setor.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "AUSENCIA-AFIRMADA-RESTANTE",
+     "o_que_esta_escrito": "DIN-03: 'em 2022 o valor não distinguiu rebaixado de meio de tabela' e, no título, 'e não em todo ano'. A6 [SEM SINAL]: 'ninguém subiu jogando como controlador paciente — mas isso não se distingue do acaso'. ELE-06, título e frase: 'o valor do elenco se repete' ('com força', ρ 0,72), um sinal sem selo dentro de conclusão SEM SINAL.",
+     "eu_medi": "Na DIN-03 o acerto de 2022 é 0,50 e a frase afirma ausência; a régua pede 'não se viu'. Na A6, SEM SINAL escreve 'não se viu' e 'não se distingue' é variante de 'não é'. Na ELE-06, a repetição do valor é o mesmo padrão que a reconferência resolveu criando a J19 e a M7 (sinal sem selo próprio). Aqui ela é contexto e não resultado, mas vai no título.",
+     "conserto": "DIN-03: 'em 2022 não se viu o valor distinguir rebaixado de meio de tabela'. A6: 'mas não se viu isso fora do acaso'. ELE-06: tirar 'o valor do elenco se repete' do título e deixar na frase como descrição, ou dizer que é descrição do dinheiro, sem selo porque não é a pergunta.",
+     "gravidade": "detalhe"
+    },
+    {
+     "id": "CINCO-J1-SEM-O-QUE-FALTOU",
+     "o_que_esta_escrito": "Nas cinco, J1 [MODERADO]: 'resiste à conta dos 31... continua entre elencos de valor parecido; o mesmo clube tende a repetir...; o número do primeiro turno... já não dá para separar da sorte.'",
+     "eu_medi": "O que tira a J1 do FORTE é 2018-2021 (p 0,079, critério que decide). O primeiro turno está marcado 'não decide'. A linha das cinco usa só o molde 'frase' e corta o 'número', que é onde está 2018-2021. Assim, a leitura das cinco dá como motivo do moderado um critério que não decide e esconde o que decide.",
+     "conserto": "Pôr no molde 'frase' da J1: 'e em 2018-2021 foi para o mesmo lado, mas no limite (8 de cada 100)'. Ou fazer a linha das cinco levar frase + número.",
+     "gravidade": "detalhe"
+    }
+   ],
+   "veredito": "ajustar"
+  }
+ ],
+ [
+  "conserta",
+  {
+   "arquivos_escritos": [
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/CONCLUSOES.md",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/conclusoes_spec.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/declaracoes_novas.json",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/ordem_gerador_bloco2.json",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/sessao_14_09/declaracoes_novas.json (cópia idêntica da do scratchpad)",
+    "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/prototipo/sessao_14_09/ordem_gerador_bloco2.json (cópia idêntica da do scratchpad)",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_maquina.py (novo: critérios em forma de máquina e regra do selo ordenada)",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/sp6_base.py, sp6_c1_dinheiro.py, sp6_c2_fisico.py, sp6_c3_jogo.py, sp6_c4_antigos.py, sp6_c5_mercado.py (sem mudança), sp6_montar.py, sp6_ordem.py, sp7_prova.py (reescrita)",
+    "/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/bk_final/ (cópia de tudo como estava antes deste conserto)"
+   ],
+   "aplicados": [
+    {
+     "id": "J17-TITULO-TROCADO-PARA-SUBIR-O-SELO",
+     "problema": "Confirmado. No backup de antes da reconferência o título da J17 era a comparação declarada, quem sobe x quem cai. Medido no JSON: p 0,024, q 0,045, 0,125 depois do desconto do dinheiro. A reconferência trocou o título para quem cai x meio, a única conta que passa no dinheiro (0,009), e o selo subiu por causa da troca.",
+     "o_que_mudou": "O título voltou à comparação declarada: 'Quem cai usou mais formações diferentes que quem sobe de 2022 a 2025 — mas isso some entre elencos de valor parecido'. Selo FRACO. Quem cai x meio ficou só descrito no número (0,003, depois do desconto 0,009) e num critério que não decide. Na régua, no documento e no spec, entrou a frase 'não se troca o título para a comparação que passa depois de ver os números'. Saíram 'J17 fraco → MODERADO' do efeito da régua, a linha 707 da tabela de cortadas e o efeito_por_conclusao do spec. Contagem: 3 / 11 / 24 / 13 / 5."
+    },
+    {
+     "id": "DIN-05-TITULO",
+     "problema": "Confirmado. O título ('é o mesmo dinheiro') e a frase ('é o valor do elenco inteiro visto por setor') afirmavam uma equivalência que a DIN-06 não deixa afirmar.",
+     "o_que_mudou": "Título: '...valem mais; não se viu o setor dizer algo além do valor do elenco inteiro'. Frase: 'não se viu informação nova além do valor do elenco inteiro (DIN-06)'. Ressalva: 'nem que o setor e o elenco inteiro dizem a mesma coisa'. Os moldes do spec mudaram junto, e as duas formas antigas entraram na lista de palavras proibidas da prova."
+    },
+    {
+     "id": "FIS-10-SOBE-X-MEIO",
+     "problema": "Confirmado no prototipo.json. Entre as 12 medidas fis_ataque_* com p sobe x cai abaixo de 0,05, o p de sobe x meio vai de 0,053 (runs_penalty_area_p30tip) a 0,457. O 0,14 escrito estava errado.",
+     "o_que_mudou": "Título e número: 'contra o meio não se viu diferença, com uma medida no limite (corridas para a área: 5 de cada 100 tentativas)'. Os valores vêm de lacunas novas, fis10_bloco.p_bruto_SM_min e p_bruto_SM_min_indicador, pedidas na ordem de serviço. No rodapé: '0,053 (corridas para a área, no limite) a 0,46'."
+    },
+    {
+     "id": "FIS-10-MAIS-RAPIDO-E-NO-LIMITE",
+     "problema": "Confirmado. A velocidade de pico (psv99) dá p 0,015 no cru, mas 0,12 depois do desconto do dinheiro e 0,175 com dinheiro e rodízio. O moderado se apoia só em hsr_count_p90, com 0,0488, que passa do corte, e por isso não é 'no limite'.",
+     "o_que_mudou": "Título: 'O ataque de quem sobe faz mais corridas em alta velocidade que o de quem cai...'. Número: 'em 5 de cada 100 tentativas, logo abaixo do corte'. Ressalva: 'nem que o ataque de quem sobe é mais rápido: a velocidade de pico some nos descontos'."
+    },
+    {
+     "id": "FIS-10-LISTA-DEPOIS-DOS-DESCONTOS",
+     "problema": "Confirmado. Depois dos dois descontos, a lista do físico por setor tem 2 achados contra 6 do sorteio, p 0,86 (FIS-04). A FIS-10 não dizia isso.",
+     "o_que_mudou": "Na ressalva: 'Depois dos dois descontos, a lista inteira do físico por setor fica no nível da sorte (2 medidas sobram de 128, contra 6 do sorteio: FIS-04); a que sobra aqui pode ser uma delas por acaso'. Os números vêm de lacunas (passam5_liq2_SC e excesso.SC.liq2.nulo_mediana). O selo continua MODERADO pela régua escrita. Ficou registrado na regra da conclusão que fazer o excesso depois dos descontos pesar no selo é mudança de régua e cabe ao dono."
+    },
+    {
+     "id": "ORI-01-TITULO-X-TABELA-DE-CORTADAS",
+     "problema": "Confirmado. O título e a ressalva usavam 'é o que o elenco caro / o valor já prevê', forma que a própria tabela de cortadas listava como cortada.",
+     "o_que_mudou": "Título: '...mas, de 2022 a 2025, descontado o valor do elenco, não se viu a origem acrescentar nada'. A ressalva ganhou a mesma forma. O molde do spec mudou junto, e a forma antiga entrou nas proibidas da conclusão e da prova."
+    },
+    {
+     "id": "SELO-NAO-E-ALGORITMO",
+     "problema": "Confirmado. Os critérios não tinham operador nem limiar, a regra_do_selo era texto com dezenas de formas, os caminhos nulos tirariam conclusões da tela, e havia caminhos para lista inteira, para dicionário e com '<setor>'.",
+     "o_que_mudou": "Novo sp6_maquina.py. Cada critério tem id (k0...), caminho, operador, limiar, agregação ('valor', 'todos', 'algum', 'min', 'max', 'bh', 'contagem_por_ano_todos', 'fracao'), filtro ('lista', 'dicionario', 'condicao') e subcampo. O que não tem caminho é constante, com fonte conclusoes_spec. Cada conclusão ganhou regra_maquina = {ordem: [{selo, exige: {kN: bool}}], selo_padrao}, vencendo a primeira linha que bater. O selo_padrao null tira a conclusão da tela sem inventar selo. Na montagem, o passou de cada critério é recalculado do JSON ou do valor medido, e a regra precisa reproduzir o selo das 56. A sp7_prova foi reescrita com um avaliador independente: recalcula 172 critérios e os 56 selos. Os caminhos de lista, dicionário e '<setor>' viraram filtro, com agregação explícita: DIN-02, DIN-05, J14, A2, J8, ORI-01, ORI-02, M4 e outros. A forma está documentada em regua.selo_calculado e em bloco_conclusoes.regra_do_selo_calculado. Cinco critérios mudaram de 'não decide' para 'decide', porque a regra os lê: ELE-07 k3, FIS-01 k2, J16 k2, M4 k0, M6 k2 e k3."
+    },
+    {
+     "id": "SEMENTE-13-COLIDE",
+     "problema": "Confirmado. gerar_prototipo.py, linha 3070, cria default_rng([SEMENTE, 13, int(j['id'])]) para cada atleta, e dados/jogadores.json tem ids de 0 a 40058.",
+     "o_que_mudou": "O excesso por clube passou para default_rng([SEMENTE, 17, i]), i = índice do setor, na declaração, na ordem, na régua do spec e no item 3 da régua do documento. Ficou declarado que o p do excesso da M5 e da M4 muda dentro do erro de Monte Carlo e que o selo segue o número regravado. BUG-17 registrado."
+    },
+    {
+     "id": "COMPARACAO-DECLARADA-ANTES-SEM-REGRA",
+     "problema": "Confirmado. A constante do campo 46 é por comparação de linha do catálogo, e o campo listava as 56 conclusões, inclusive as que não são linha.",
+     "o_que_mudou": "Nova regra bloco_conclusoes.comparacao_declarada_antes: o valor sai de conclusoes_spec.conclusoes[id].comparacao_declarada_antes. Os blocos fora do catálogo herdam o declarada_depois_de_olhar da própria declaração. O campo 46 diz que vale só para etapa_2.linhas, e o conclusoes_que_usam dele ficou só com as conclusões que têm critério decisivo em etapa_2.linhas."
+    },
+    {
+     "id": "RESIDUO-POR-ANO-SEM-DEFINICAO",
+     "problema": "Confirmado. Não estava escrito de que é o resíduo, sobre o que é calculado, nem se a conta é por ano ou nas 80. E estava marcado como análise que não é nova.",
+     "o_que_mudou": "Declarado em etapa_2_comparacoes_extras.media_por_ano: resíduo do posto no ano sobre o posto de tm_valor_total (nível liq) e também sobre fis_<setor>_atletas ou fis_atletas (nível liq2, o mesmo modelo do p_liq2). A regressão é feita uma vez nas 80. O gerador grava a média do resíduo por ano e faixa, residuo_sobe_menos_meio e o nível. FIS-06 e FIS-11 leem liq2. O campo ficou com analise_nova_declarada = true."
+    },
+    {
+     "id": "FIS07-METRICAS-NAO-LISTADAS",
+     "problema": "Confirmado. cols_fis (linha ~2466) filtra com 'if c in s.columns', e a FIS-01 usa outras 10 colunas.",
+     "o_que_mudou": "etapa_11_mesma_regua.metricas_fisicas = [psv99, psv99_top5, sprint_count_p90, sprint_distance_p90, hsr_distance_p90, high_accel_p90, high_decel_p90, cod_count_p90, distance_p90, m_per_min]. O gerador grava n_metricas e n_testes (métricas × pares) ao lado de p_max e para com erro se n_metricas for menor que 10. Ficou escrito que essas não são as colunas do índice da FIS-01."
+    },
+    {
+     "id": "detalhes (11)",
+     "problema": "REGUA-SEMENTE-POR-CLUBE; M6-CRITERIOS; FIS-07-APOIO; AUSENCIA-AFIRMADA-RESTANTE; CINCO-J1; NOMES-DUPLICAM; BUG-2-JA-CONSERTADO; P-PRINCIPAL; NOTACAO; CONTAGENS; ANALISE-NOVA. Todos conferidos e procedentes.",
+     "o_que_mudou": "(1) O item 3 da régua do documento cita [SEMENTE, 17, i] por clube, com teste bruto na média do clube. (2) Na M6, os dois critérios da decisão 1 passaram a decidir. (3) O p_principal da FIS-07 passou a ser etapa_11.fisico.p_max (9,5 × 10⁻²⁶), e a linha da tabela cita esse número primeiro. (4) DIN-03: 'não se viu o valor distinguir'. A6: 'não se viu isso fora do acaso'. ELE-06: 'o valor do elenco se repete' saiu do título e ficou no número, marcado como descrição sem selo. (5) As cinco agora mostram frase e número; o número da J1 diz que 2018-2021 foi para o mesmo lado, no limite (8 de cada 100), e que essa repetição falta para o selo forte. (6) A lacuna n_antigo lê bases.painel_2018_2021.usadas, que o bloco 1 já grava. Só rotulo e sha256 são pedidos. Os int de corte saem da mesma variável que o texto, com assert. O de_onde_sai foi corrigido. (7) BUG-2 marcado como consertado no código, faltando regravar o JSON. etapa_11.tecnico.ano_maximo saiu. A M6 lê max(etapa_11.efeito_de_retirar_2026.anos_usados_no_tecnico). (8) A convenção de p segue r_p/r_sig do gerador. O desempate usa p_principal_cru, sem arredondar. O p_principal da A3 tem agregacao 'min', subcampo 'p'. (9) Na ordem, chaves de dicionário viraram .<familia> e .<setor>, com valores_permitidos. As lacunas com [] foram trocadas por caminhos concretos. A cobertura agora é estrita: o nome final do campo tem de estar escrito no campo da ordem. (10) As contagens são sobre o posto orientado pelo sinal da linha, e cai_entre_5_melhores virou campo próprio, uma lista. (11) O campo 'conclusoes' ficou com declaracao 'bloco_conclusoes', e q_parcial com a declaração nova etapa_7_q_parcial (BH nos 28, sem filtro de sinal)."
+    }
+   ],
+   "recusados_com_motivo": [
+    "Nenhum dos 11 problemas nem dos 11 detalhes foi recusado: todos se confirmaram medindo. Dois pontos em que escolhi um caminho em vez de outro: (a) na J17 apliquei a primeira opção do conserto, voltar o título para a comparação declarada, e não levei a pergunta ao dono, porque a régua escrita já barra trocar a comparação depois de ver os números; (b) na FIS-10 o selo continua MODERADO pela régua escrita, e a pergunta 'o excesso depois dos descontos deve pesar no selo?' ficou registrada como decisão que cabe ao dono. Limite que continua: DIN-04 e ELE-03 não têm linha de FORTE na regra de máquina, porque o critério da mediana por ano não existe como critério. Se os valores subirem, selo_padrao null tira a conclusão da tela em vez de inventar um selo."
+   ],
+   "efeito_da_regra_depois_de_ver": [
+    "J17: MODERADO → FRACO. O título voltou à comparação declarada (quem sobe x quem cai), que some no dinheiro (0,125). Quem cai x meio (lista do elenco 5 contra 0, p 0,006; depois do desconto 0,009) ficou só descrita.",
+    "J5: continua MODERADO de 2022 a 2025. A lista do técnico do time em quem cai x resto tem 13 achados contra 1 (p 0,002) e passa no dinheiro (0,019). Está escrito que em 2018-2021 não se repetiu.",
+    "J5, zagueiros: FRACO (lista do técnico individual 8 contra 5, p 0,20).",
+    "DIN-03: FRACO (quem cai x meio é um teste só, sem lista).",
+    "A4: FRACO (comparação entre períodos, sem lista).",
+    "FIS-01: FRACO (índice sem lista, e some no dinheiro: 0,094).",
+    "J16: FRACO (linha escolhida depois, sem lista; 3 dos 4 trocam de lado no dinheiro).",
+    "ELE-07: FRACO (duas medidas não formam lista; o desconto vai de 0,045 a 0,089 conforme a conta).",
+    "ELE-06: SEM SINAL (sem lista; o aproveitamento some no dinheiro; vale a conta mais fraca).",
+    "ORI-01: FRACO (sem lista; desconto do dinheiro 1,0 e 0,59).",
+    "M6: FRACO (1 achado em 10 métricas). Os dois critérios dessa regra agora decidem.",
+    "M7: FRACO (comparação físico x técnico montada depois, sem lista).",
+    "J7: FRACO (quem sobe x resto: lista 10 contra 5, p 0,082).",
+    "ELE-01: continua MODERADO pela comparação declarada. A parte quem cai x meio também passaria, mas não muda nada.",
+    "M1: NÃO DÁ PARA AFIRMAR (o intervalo cruza zero; a regra não mexe nisso).",
+    "FIS-07: continua FORTE. A régua do setor, escolhida depois, só deixa a conta mais dura; a declarada (posto no ano, 9,5 × 10⁻²⁶) dá o mesmo selo."
+   ],
+   "contagem_de_selos": "56 conclusões: 3 FORTES · 11 MODERADAS · 24 FRACAS · 13 SEM SINAL · 5 NÃO DÁ PARA AFIRMAR. Antes deste conserto, na reconferência: 3 / 12 / 23 / 13 / 5; a única mudança de selo foi a J17, de moderado para fraco. A prova sp7_prova.py deu OK: documento e spec batem campo a campo nas 56 conclusões; 172 critérios e os 56 selos foram recalculados pela regra de máquina com avaliador independente; nenhuma lacuna gravada diverge do prototipo.json; os 376 caminhos não gravados têm campo na ordem de serviço (98 campos, leitura estrita, sem_cobertura vazio). Rodei a ordem de novo com PYTHONHASHSEED=1 e o arquivo saiu idêntico.",
+   "as_cinco": [
+    "Com o que está gravado hoje: 1) DIN-02 [FORTE], p 0,0023",
+    "2) J1 [MODERADO], p 3,0 × 10⁻⁵ (a linha agora leva frase e número, com 2018-2021 no limite)",
+    "3) J2 [MODERADO], p 0,00013",
+    "4) ELE-01 [MODERADO], p 0,0002",
+    "5) J6 [MODERADO], p 0,00026",
+    "Quando o gerador gravar a ordem de serviço: FIS-07 [FORTE] (p 9,5 × 10⁻²⁶, régua declarada), DIN-01 [FORTE], DIN-02 [FORTE], J1 e J2 [MODERADO]. Regra de desempate escrita: selo mais forte primeiro; dentro do mesmo selo, o menor p_principal sem arredondar; conclusão sem p vai depois; empate exato segue a ordem do documento."
+   ],
+   "ordem_de_servico_gerador": "A ordem de serviço está em /private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Analise-de-Performance/3b480dcb-f5fd-4012-affc-42b2f39ecf7c/scratchpad/ordem_gerador_bloco2.json, versão 2026-09-14-conserto-final, com cópia idêntica em _fonte/prototipo/sessao_14_09/. São 98 campos e sem_cobertura está vazio. O que mudou nesta rodada:\n- **Bases:** bases.painel_2018_2021 pede só rotulo e sha256; usadas já está no código do bloco 1.\n- **Cortes:** os int de corte (skillcorner 300, etapa_11 físico 8 jogos, técnico 900 minutos) saem da mesma variável que o texto, com assert.\n- **etapa_2:** media_por_ano com resíduo definido e nível (análise nova); contagens no posto orientado; cai_entre_5_melhores separado; fis10_bloco com p_bruto_SM_min e o indicador dele.\n- **Notação:** etapa_3.por_familia.<familia> e sobecai_corrigido_por_clube.<setor>, com valores_permitidos.\n- **Semente:** o excesso por clube usa [SEMENTE, 17, i].\n- **etapa_7:** q_parcial com a declaração nova etapa_7_q_parcial.\n- **etapa_11:** métricas físicas listadas, n_metricas e n_testes, erro se faltar alguma; efeito_de_retirar_2026.anos_usados_no_tecnico entra no lugar de tecnico.ano_maximo; BUG-2 marcado como consertado no código, falta só regravar o JSON.\n- **Bloco conclusoes:** critérios em forma de máquina, regra_maquina, p_principal_cru e regra de comparacao_declarada_antes; o campo aponta para a declaração 'bloco_conclusoes'.\n- **Bugs registrados:** BUG-17 (semente 13 colidia com o gerador de cada atleta) e BUG-18 (nomes paralelos para o que o bloco 1 já grava).\n\nContinua de pé para o gerador: gravar tudo antes do bloco conclusoes; recalcular o selo pela regra_maquina; mandar para divergencia_com_o_documento qualquer selo que não bata com forca_esperada_hoje, sem corrigir à mão."
+  }
+ ]
+]

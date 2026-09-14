@@ -1,0 +1,2150 @@
+{
+ "_doc": "Ordem de serviço do SEGUNDO bloco de gerar_prototipo.py, para o bloco conclusoes sair sem número digitado. Escrita na reconferência de 14/09/2026 (sessão 3b480dcb), a partir das três lentes e dos consertos aplicados em CONCLUSOES.md e conclusoes_spec.json. Completa: todo caminho não gravado que uma lacuna, um critério do selo ou um p_principal do spec lê está coberto por um campo abaixo (conferido por sp7_prova.py). Convenções: rho, d e AUC = float com 3 casas; ic95 = [lo, hi]; contagem = int; semente = lista de int gravada como foi usada; p = como o gerador já grava (r_p(p, casas): casas decimais, com algarismo significativo só quando sairia zero; p_sobe_x_meio da etapa 1 com r_sig(3)), e o desempate das cinco usa o p SEM arredondar (conclusoes.itens[].p_principal_cru); chave de dicionário escrita .<nome> com valores_permitidos no campo; todo bloco novo leva {universo: str, anos: [ini, fim], n: int}. SEMENTE = 7.",
+ "versao": "2026-09-14-conserto-final",
+ "spec": "_fonte/prototipo/conclusoes_spec.json",
+ "campos": [
+  {
+   "caminho": "bases.painel_2018_2021.usadas",
+   "formato": "int (80)",
+   "de_onde_sai": "JÁ no código do bloco 1 (gerar_prototipo.py ~4115: bases.painel_2018_2021 = {arquivo, linhas, usadas, anos, usado_em, colunas_do_catalogo_presentes, colunas_do_catalogo}, lendo dv com ano <= 2025, como o gerador já faz); só falta regravar o JSON. Não criar linhas_usadas",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "ELE-06",
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J5",
+    "J13",
+    "J14",
+    "J19",
+    "J17",
+    "J18",
+    "A1",
+    "A2",
+    "A3"
+   ]
+  },
+  {
+   "caminho": "bases.painel_2018_2021.rotulo",
+   "formato": "str ('2018-2021')",
+   "de_onde_sai": "novo, ao lado das chaves que o bloco 1 já grava: '{min(anos)}-{max(anos)}'",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "ELE-03",
+    "ELE-06",
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J5",
+    "J6",
+    "J7",
+    "J13",
+    "J14",
+    "J19",
+    "J17",
+    "J18",
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6"
+   ]
+  },
+  {
+   "caminho": "bases.painel_2018_2021.sha256",
+   "formato": "str",
+   "de_onde_sai": "novo: sha256 do arquivo lido",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "ELE-03",
+    "ELE-06",
+    "J1",
+    "J13",
+    "J14",
+    "J17",
+    "J18",
+    "J19",
+    "J2",
+    "J3",
+    "J4",
+    "J5",
+    "J6",
+    "J7"
+   ],
+   "uso_fora_das_lacunas": "pré-requisito: toda conclusão que cita 2018-2021 lê a base com hash"
+  },
+  {
+   "caminho": "bases.origem",
+   "formato": "{arquivo: 'dados/serieb_origem_2018_2026.csv', linhas: 180, sha256: str}",
+   "de_onde_sai": "leitura do CSV da base pública de origem",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "ORI-01",
+    "ORI-02"
+   ],
+   "uso_fora_das_lacunas": "pré-requisito: a base de origem entra em bases com sha256 antes do bloco"
+  },
+  {
+   "caminho": "bases.teste_cego",
+   "formato": "{arquivo: '_fonte/prototipo/teste_cego_2018_2021.json', sha256: str, congelado: true}",
+   "de_onde_sai": "leitura do arquivo congelado; o gerador NUNCA escreve nele",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "A1",
+    "A2",
+    "A5",
+    "A6",
+    "J1",
+    "J13",
+    "J2",
+    "J3",
+    "J4"
+   ],
+   "uso_fora_das_lacunas": "pré-requisito: toda conclusão que lê o teste cego"
+  },
+  {
+   "caminho": "bases.skillcorner.corte_minutos",
+   "formato": "int (300)",
+   "de_onde_sai": "o número do texto que o gerador já grava em bases.skillcorner.corte ('min_tot >= 300'): os dois saem da MESMA variável e o gerador confere com assert que str(corte_minutos) está no texto; o texto fica para a tela, as lacunas leem o int",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "FIS-01",
+    "FIS-04",
+    "FIS-05",
+    "FIS-06",
+    "FIS-08",
+    "FIS-09",
+    "FIS-10",
+    "FIS-11",
+    "M4",
+    "M5"
+   ]
+  },
+  {
+   "caminho": "bases.tecnico_ind.corte_minutos",
+   "formato": "int (600)",
+   "de_onde_sai": "corte de minutos do técnico individual agregado por setor",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "conclusoes_que_usam": [
+    "J5",
+    "J6",
+    "J7"
+   ]
+  },
+  {
+   "caminho": "etapa_1.quartis[].cairam",
+   "formato": "int por quartil",
+   "de_onde_sai": "soma de caiu por quartil do posto de valor no ano",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-01",
+    "DIN-03"
+   ]
+  },
+  {
+   "caminho": "etapa_1.auc_posto_de_valor.ic95",
+   "formato": "[lo, hi] dec3",
+   "de_onde_sai": "bootstrap estratificado por ano, 2.000, default_rng([SEMENTE, 1, 1])",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.auc_posto_de_valor.por_ano",
+   "formato": "[{ano, auc_sobe_x_resto}]",
+   "de_onde_sai": "AUC sobe x resto no posto de valor, ano a ano",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.auc_posto_de_valor.meio_x_cai",
+   "formato": "AUC dec3",
+   "de_onde_sai": "pares meio x cai no posto de valor do ano",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-03"
+   ]
+  },
+  {
+   "caminho": "etapa_1.auc_posto_de_valor.meio_x_cai_por_ano",
+   "formato": "[{ano, auc}]",
+   "de_onde_sai": "idem por ano",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-03"
+   ]
+  },
+  {
+   "caminho": "etapa_1.auc_posto_de_valor.p_meio_x_cai",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero)",
+   "de_onde_sai": "Mann-Whitney bilateral cai x meio no posto de valor do ano",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "obs": "decide o p da DIN-03",
+   "conclusoes_que_usam": [
+    "DIN-03"
+   ]
+  },
+  {
+   "caminho": "etapa_1.cobertura_do_valor.p_valor_descontada_cobertura",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e auc_descontada_cobertura dec3",
+   "de_onde_sai": "Mann-Whitney sobe x meio no resíduo do posto de valor sobre o posto de tm_com_valor",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.curva_top_k.valor_do_posto_k_por_ano",
+   "formato": "{'1'|'4'|'5'|'8'|'9': [{ano, eur}]}",
+   "de_onde_sai": "valor (euros) do k-ésimo elenco mais caro de cada ano",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_1_tabela_e_euros",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.curva_top_k.ks_da_tabela",
+   "formato": "[4, 6, 8, 9]",
+   "de_onde_sai": "lista declarada (decisão do dono, 14/09)",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_1_tabela_e_euros",
+   "obs": "não é lida por conclusão; é da tabela da etapa 1",
+   "conclusoes_que_usam": [],
+   "uso_fora_das_lacunas": "tabela da etapa 1 (decisão do dono); nenhuma conclusão lê"
+  },
+  {
+   "caminho": "etapa_1.curva_top_k.palpite_do_dono.afirmado_n",
+   "formato": "int (14)",
+   "de_onde_sai": "o número do texto '>= 14'",
+   "analise_nova_declarada": false,
+   "declaracao": null,
+   "obs": "hoje só existe o texto; a DIN-02 deriva o número",
+   "conclusoes_que_usam": [
+    "DIN-02"
+   ],
+   "uso_fora_das_lacunas": "hoje a DIN-02 deriva o número do texto '>= 14'"
+  },
+  {
+   "caminho": "etapa_1.valor_mediano_da_liga_por_ano",
+   "formato": "[{ano, eur}]",
+   "de_onde_sai": "mediana de tm_valor_total por ano",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_1_tabela_e_euros",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.blocos_de_posto",
+   "formato": "[{posto: '1-4', posto_ini, posto_fim, n, subiram, cairam, valor_mediano_eur}] nos 4 blocos declarados",
+   "de_onde_sai": "contagem por bloco de posto de valor",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_1_tabela_e_euros",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.vizinhos_de_valor",
+   "formato": "[{ate: 1|2, nao_subiram: int, por_promovido: dec2}]",
+   "de_onde_sai": "não promovidos a até N posições de valor de cada promovido, no mesmo ano",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_1_tabela_e_euros",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.top4_de_valor.por_ano[].posicao_final",
+   "formato": "[int × 4]",
+   "de_onde_sai": "posição final de cada top 4 de valor",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-01"
+   ]
+  },
+  {
+   "caminho": "etapa_1.curva_top_k_rebaixados",
+   "formato": "{curva: [{k, rebaixados_acumulados}], rebaixados: [{ano, clube, posto_valor}], k_quartil, rebaixados_no_quartil, p_quartil}",
+   "de_onde_sai": "hipergeométrica por ano convoluída, P(soma <= observado)",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-03"
+   ]
+  },
+  {
+   "caminho": "etapa_1.sensibilidade_fonte_valor",
+   "formato": "{coluna: 'valor_total', postos_rebaixados_valor_total: [int × 3], rebaixados_no_top_k: int, nomes: [str], p_quartil}",
+   "de_onde_sai": "a mesma contagem com o valor do Wyscout",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_DIN01_DIN03",
+   "conclusoes_que_usam": [
+    "DIN-03"
+   ]
+  },
+  {
+   "caminho": "etapa_1.valor_por_setor.particao.setores[].p_liquido_do_valor_total",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e mediana_por_ano [{ano, sobe, meio}]",
+   "de_onde_sai": "Mann-Whitney sobe x meio no resíduo do posto da fatia sobre o posto do valor total",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_por_setor_extras_DIN04_DIN05",
+   "conclusoes_que_usam": [
+    "DIN-04"
+   ]
+  },
+  {
+   "caminho": "etapa_1.valor_por_setor.setores[].q_sobe_x_meio",
+   "formato": "q BH nos 4 setores",
+   "de_onde_sai": "BH dos p_sobe_x_meio já gravados",
+   "analise_nova_declarada": false,
+   "declaracao": "valor_por_setor_extras_DIN04_DIN05",
+   "obs": "a DIN-05 deriva dos p gravados; gravar evita conta na tela",
+   "conclusoes_que_usam": [
+    "DIN-05"
+   ],
+   "uso_fora_das_lacunas": "critério do selo; hoje derivável dos p gravados"
+  },
+  {
+   "caminho": "etapa_1.valor_por_setor.por_clube",
+   "formato": "[{ano, clube, faixa, pct_goleiro, pct_defesa, pct_meio, pct_ataque}]",
+   "de_onde_sai": "fatia de cada setor no valor do elenco por clube-temporada",
+   "analise_nova_declarada": true,
+   "declaracao": "valor_por_setor_extras_DIN04_DIN05",
+   "conclusoes_que_usam": [
+    "DIN-04"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.anos_da_conta",
+   "formato": "[2019, 2025]",
+   "de_onde_sai": "declaração origem",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01",
+    "ORI-02"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.anos_sensibilidade",
+   "formato": "[2018, 2025]",
+   "de_onde_sai": "declaração origem",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.por_origem",
+   "formato": "{A|B|C: {n, subiu, caiu, faixa_alta, faixa_baixa}}",
+   "de_onde_sai": "contagem 2019-2025 na base de origem × painel",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01",
+    "ORI-02"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.sensibilidade",
+   "formato": "{A|B|C: {n, subiu, caiu}, fisher: {A_x_B|C_x_B: {p_subida, p_queda}}}",
+   "de_onde_sai": "o mesmo em 2018-2025",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.fisher",
+   "formato": "{A_x_B|C_x_B|A_x_C: {p_subida, p_queda}}",
+   "de_onde_sai": "Fisher exato bilateral",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01",
+    "ORI-02"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.por_periodo",
+   "formato": "{'2019-2021'|'2022-2025': {por_origem, fisher}}",
+   "de_onde_sai": "o mesmo por período",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01"
+   ],
+   "uso_fora_das_lacunas": "rodapé"
+  },
+  {
+   "caminho": "conclusoes_base.origem.dinheiro",
+   "formato": "{anos: [2022, 2025], por_origem: {A|B|C: {n, posto_mediano, valor_mediano_eur, subiu, caiu, subidas_esperadas: {especificação: float}, quedas_esperadas: {especificação: float}}}, p_permutacao: {subida, queda}, sorteios: 10000, semente: [SEMENTE, 16, 1], p_razao_verossimilhanca: {subida, queda}}",
+   "de_onde_sai": "logísticas e taxa por quartil (dez especificações), permutação da origem dentro de ano × quartil, razão de verossimilhança (2 gl)",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-01"
+   ]
+  },
+  {
+   "caminho": "conclusoes_base.origem.poder",
+   "formato": "{limiar: 0.70, simulacoes: 2000, semente: [SEMENTE, 16, 2], cenarios: [{grupo, desfecho, alvo, taxa_B, n1, n2, poder}], menor_subida_detectada_C, taxa_B_subida, poder_na_menor_subida, menor_queda_detectada_C}",
+   "de_onde_sai": "simulação do Fisher 0,05",
+   "analise_nova_declarada": true,
+   "declaracao": "origem",
+   "conclusoes_que_usam": [
+    "ORI-02"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_bruto_CR",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e p_liq_CR, q_CR, q_liq_CR",
+   "de_onde_sai": "Welch no posto do ano, cai x resto (comparação escolhida depois de olhar)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J5",
+    "J7"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_liq_CR",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero)",
+   "de_onde_sai": "idem, resíduo do posto sobre o posto de valor",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J5"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_bruto_SR",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e p_liq_SR, q_SR",
+   "de_onde_sai": "Welch no posto do ano, sobe x resto (escolhida depois)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J7"
+   ],
+   "uso_fora_das_lacunas": "regra do selo (parte quem sobe contra o resto) e rodapé"
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_bruto_CM",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e q_CM, p_mw_CM",
+   "de_onde_sai": "Welch no posto do ano, cai x meio (escolhida depois)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "ELE-01",
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_liq_CM",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero)",
+   "de_onde_sai": "idem, resíduo sobre o posto de valor",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].q_liq2_SM",
+   "formato": "q BH na família do p_liq2_SM; e q_liq2_SC",
+   "de_onde_sai": "BH dos p_liq2",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "FIS-06"
+   ],
+   "uso_fora_das_lacunas": "regra do selo (forte_se)"
+  },
+  {
+   "caminho": "etapa_2.linhas[].n_sobe",
+   "formato": "int; e n_meio, n_cai",
+   "de_onde_sai": "clube-temporadas com valor na linha, por faixa",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "FIS-08"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].mediana_sobe",
+   "formato": "valor cru; e mediana_meio, mediana_cai",
+   "de_onde_sai": "mediana do valor cru por faixa",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J7",
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].media_por_ano",
+   "formato": "[{ano, nivel, sobe, meio, cai, residuo_sobe_menos_meio}]",
+   "de_onde_sai": "declaração etapa_2_comparacoes_extras.media_por_ano: resíduo do posto no ano sobre tm_valor_total (liq) e também fis_<setor>_atletas (liq2), regressão uma vez nas 80, média por ano e faixa",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "ELE-03",
+    "FIS-06",
+    "FIS-11"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].cai_metade_baixo",
+   "formato": "int (rebaixados com posto ORIENTADO do ano <= 50)",
+   "de_onde_sai": "contagens no posto orientado pelo sinal da linha (declaração etapa_2_comparacoes_extras.contagens)",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J5"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].cai_entre_5_piores",
+   "formato": "int (rebaixados entre os 5 de pior desempenho do ano, posto orientado)",
+   "de_onde_sai": "contagens no posto orientado",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J5"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].cai_entre_5_melhores",
+   "formato": "['CLUBE ANO (Nº)'] (rebaixados entre os 5 de melhor desempenho, posto orientado)",
+   "de_onde_sai": "contagens no posto orientado; campo próprio, lista",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [],
+   "uso_fora_das_lacunas": "contagem pedida para a tabela dos itens 3 e 7 do dono (duelos_itens_3_e_7); nenhuma lacuna de 2022-2025 lê — a J5 lê antigo_CR.cai_entre_5_melhores"
+  },
+  {
+   "caminho": "etapa_2.linhas[].sobe_metade_cima",
+   "formato": "int (promovidos com posto orientado do ano > 50)",
+   "de_onde_sai": "contagens no posto orientado",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J7"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].mediana_meio",
+   "formato": "valor cru",
+   "de_onde_sai": "mediana do valor cru do meio",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J7",
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].mediana_cai",
+   "formato": "valor cru",
+   "de_onde_sai": "mediana do valor cru de quem caiu",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_2_comparacoes_extras",
+   "conclusoes_que_usam": [
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].comparacao_declarada_antes",
+   "formato": "{SM: true, SC: true, CR: false, SR: false, CM: false}",
+   "de_onde_sai": "constante declarada, válida SÓ para as linhas de etapa_2.linhas; o bool de cada conclusão NÃO sai daqui (ver bloco_conclusoes.comparacao_declarada_antes)",
+   "analise_nova_declarada": false,
+   "declaracao": "regra_comparacao_depois_de_olhar",
+   "conclusoes_que_usam": [
+    "A1",
+    "A2",
+    "ELE-01",
+    "ELE-02",
+    "ELE-03",
+    "ELE-05",
+    "FIS-05",
+    "FIS-06",
+    "FIS-08",
+    "FIS-10",
+    "FIS-11",
+    "J1",
+    "J13",
+    "J14",
+    "J15",
+    "J17",
+    "J18",
+    "J19",
+    "J2",
+    "J3",
+    "J4",
+    "J5",
+    "J6",
+    "J7"
+   ],
+   "uso_fora_das_lacunas": "só as conclusões com critério decisivo em etapa_2.linhas; o bool da conclusão sai de conclusoes_spec (bloco_conclusoes.comparacao_declarada_antes)"
+  },
+  {
+   "caminho": "etapa_2.linhas[].antigo_SM",
+   "formato": "{d, p, q, q_familia_n}",
+   "de_onde_sai": "Welch no posto do ano no painel 2018-2021, q na família tecnico_col de 2018-2021",
+   "analise_nova_declarada": true,
+   "declaracao": "antigo_2018_2021",
+   "conclusoes_que_usam": [
+    "J14",
+    "J18"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].antigo_SC",
+   "formato": "{d, p, q}",
+   "de_onde_sai": "idem, sobe x cai",
+   "analise_nova_declarada": true,
+   "declaracao": "antigo_2018_2021",
+   "conclusoes_que_usam": [
+    "J19",
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].antigo_CM",
+   "formato": "{d, p}",
+   "de_onde_sai": "idem, cai x meio",
+   "analise_nova_declarada": true,
+   "declaracao": "antigo_2018_2021",
+   "conclusoes_que_usam": [
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].antigo_CR",
+   "formato": "{d, p, q, cai_metade_baixo, n_cai, cai_entre_5_melhores}",
+   "de_onde_sai": "idem, cai x resto",
+   "analise_nova_declarada": true,
+   "declaracao": "antigo_2018_2021",
+   "conclusoes_que_usam": [
+    "J5"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].diferenca_entre_periodos_CR",
+   "formato": "{z, p}",
+   "de_onde_sai": "z dos dois d de cai x resto (fórmula declarada)",
+   "analise_nova_declarada": true,
+   "declaracao": "antigo_2018_2021",
+   "conclusoes_que_usam": [
+    "J5"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_SM_descontada_posse",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e rho_com_posse, p_rho, p_SM_descontada_posse_e_valor (linha faltas)",
+   "de_onde_sai": "declaração faltas_x_posse_J3",
+   "analise_nova_declarada": true,
+   "declaracao": "faltas_x_posse_J3",
+   "conclusoes_que_usam": [
+    "J3"
+   ]
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_SM_descontadas_entradas_toques",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero) (linha dist_remate)",
+   "de_onde_sai": "declaração dist_remate_descontada_J1",
+   "analise_nova_declarada": true,
+   "declaracao": "dist_remate_descontada_J1",
+   "obs": "descrição do rodapé da J1",
+   "conclusoes_que_usam": [
+    "J1"
+   ],
+   "uso_fora_das_lacunas": "ressalva ('comparando times com as mesmas entradas e toques na área') e rodapé"
+  },
+  {
+   "caminho": "etapa_2.elenco_base",
+   "formato": "etapa_2.elenco_base = {anos, universo, bh_testes: 6, linhas: [{indicador, n, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, p_bruto_SM, p_liq_SM, p_bruto_SC, p_liq_SC, p_bruto_CM, p_liq_CM, q_SM, q_SC, q_CM}]} — FORA de etapa_2.linhas (não mexe nas 293)",
+   "de_onde_sai": "declaração elenco_base; FORA de etapa_2.linhas",
+   "analise_nova_declarada": true,
+   "declaracao": "elenco_base",
+   "conclusoes_que_usam": [
+    "ELE-07"
+   ]
+  },
+  {
+   "caminho": "etapa_2.indice_intensidade",
+   "formato": "etapa_2.indice_intensidade = {colunas, agregacao, k_extremos, n_por_ano, por_clube: [{ano, clube, faixa, indice, posicao}], mediana_posicao: {sobe, meio, cai}, cai_top_k, cai_bottom_k, excecoes_top_k: [{clube, ano, posicao}], p_bruto_CM, p_liq_CM, p_liq2_CM, comparacao_declarada_antes: false}",
+   "de_onde_sai": "média do posto no ano das 10 colunas declaradas",
+   "analise_nova_declarada": true,
+   "declaracao": "indice_intensidade",
+   "conclusoes_que_usam": [
+    "FIS-01"
+   ]
+  },
+  {
+   "caminho": "etapa_2.fis10_bloco",
+   "formato": "etapa_2.fis10_bloco = {colunas, n, n_p_bruto_SC_abaixo_005, p_bruto_SC_min, p_bruto_SC_max, q_SC_min, n_p_liq2_SC_abaixo_005, p_bruto_SM_min, p_bruto_SM_min_indicador, p_bruto_SM_max} (min e max entre as linhas com p_bruto_SC < 0,05; hoje p_bruto_SM de 0,053, fis_ataque_runs_penalty_area_p30tip, a 0,457)",
+   "de_onde_sai": "as 32 linhas fis_ataque_* do catálogo",
+   "analise_nova_declarada": false,
+   "declaracao": "fis10_bloco",
+   "conclusoes_que_usam": [
+    "FIS-10"
+   ]
+  },
+  {
+   "caminho": "etapa_2.estilo_x_valor",
+   "formato": "{posse|ppda|cantos|cruzamentos|contra_ataques|bolas_paradas: {rho, p, n: 80}}",
+   "de_onde_sai": "Spearman do posto de valor com o posto da coluna no ano",
+   "analise_nova_declarada": true,
+   "declaracao": "estilo_x_valor",
+   "obs": "rodapé da J15 e da J10",
+   "conclusoes_que_usam": [
+    "J15",
+    "J10",
+    "J14",
+    "J19"
+   ],
+   "uso_fora_das_lacunas": "ressalvas em palavras ('elenco mais valioso tem mais a bola e pressiona mais alto') e rodapés"
+  },
+  {
+   "caminho": "etapa_2.por_clube",
+   "formato": "etapa_2.por_clube = [{ano, clube, faixa, pos, postos: {coluna: posto 0-100}, brutos: {coluna: valor}, posicao_no_ano: {coluna: 1 = maior}}] (80 clube-temporadas)",
+   "de_onde_sai": "postos e brutos das colunas listadas por clube-temporada",
+   "analise_nova_declarada": false,
+   "declaracao": "por_clube_etapa_2",
+   "conclusoes_que_usam": [
+    "ELE-02",
+    "ELE-03",
+    "FIS-05",
+    "J1"
+   ]
+  },
+  {
+   "caminho": "etapa_3.por_familia.<familia>.excesso",
+   "formato": "{SM|SC|CR|SR|CM: {bruto|liq|liq2: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 3, i]}}}",
+   "de_onde_sai": "excesso_por_familia (um formato só)",
+   "analise_nova_declarada": true,
+   "declaracao": "excesso_por_familia",
+   "valores_permitidos": {
+    "<familia>": [
+     "tecnico_col",
+     "elenco",
+     "fisico_col_elenco",
+     "fisico_col_setor",
+     "tecnico_ind"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "ELE-01",
+    "FIS-04",
+    "FIS-06",
+    "FIS-08",
+    "FIS-09",
+    "FIS-10",
+    "FIS-11",
+    "J4",
+    "J5",
+    "J7",
+    "J13",
+    "J17"
+   ]
+  },
+  {
+   "caminho": "etapa_3.por_familia.<familia>.passam5_liq_SC",
+   "formato": "int (linhas da família com p_liq_SC < 0,05)",
+   "de_onde_sai": "contagens por nível",
+   "analise_nova_declarada": false,
+   "declaracao": "excesso_por_familia",
+   "valores_permitidos": {
+    "<familia>": [
+     "tecnico_col",
+     "elenco",
+     "fisico_col_elenco",
+     "fisico_col_setor",
+     "tecnico_ind"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "FIS-04"
+   ]
+  },
+  {
+   "caminho": "etapa_3.por_familia.<familia>.passam5_liq2_SC",
+   "formato": "int (linhas com p_liq2_SC < 0,05); e passam5_liq2_SM",
+   "de_onde_sai": "contagens por nível",
+   "analise_nova_declarada": false,
+   "declaracao": "excesso_por_familia",
+   "valores_permitidos": {
+    "<familia>": [
+     "tecnico_col",
+     "elenco",
+     "fisico_col_elenco",
+     "fisico_col_setor",
+     "tecnico_ind"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "FIS-04",
+    "FIS-10"
+   ]
+  },
+  {
+   "caminho": "etapa_6.colocacao",
+   "formato": "etapa_6.colocacao = {n_pares, universo, rho_posicao, p_posicao, rho_aproveitamento, p_aproveitamento, por_periodo, por_faixa_de_posicao, n_pares_com_valor, rho_valor, rho_posicao_nos_pares_com_valor, p_posicao_nos_pares_com_valor, rho_aproveitamento_descontado_valor, p_aproveitamento_descontado_valor}",
+   "de_onde_sai": "painel 2018-2021 + 2022-2025",
+   "analise_nova_declarada": true,
+   "declaracao": "colocacao_t_t1",
+   "conclusoes_que_usam": [
+    "ELE-06"
+   ]
+  },
+  {
+   "caminho": "etapa_7.linhas[].q_parcial",
+   "formato": "q BH nos 28",
+   "de_onde_sai": "BH dos 28 p_parcial, sem filtro de sinal (declaração etapa_7_q_parcial)",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_7_q_parcial",
+   "conclusoes_que_usam": [
+    "J1",
+    "J2",
+    "J8"
+   ]
+  },
+  {
+   "caminho": "etapa_7.excesso",
+   "formato": "{sem_sinal|sinal_certo: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 7, 1]}}",
+   "de_onde_sai": "declaração etapa_7_excesso",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_7_excesso",
+   "conclusoes_que_usam": [
+    "J8"
+   ]
+  },
+  {
+   "caminho": "etapa_8.tipologia.bateria_limpa.por_conjunto_de_validadores",
+   "formato": "[{n_validadores, fonte, p, p_placebo}]",
+   "de_onde_sai": "a bateria limpa com cada conjunto de validadores (22 do gerador; 22 do teste cego; 23 da TIPOLOGIA.md)",
+   "analise_nova_declarada": false,
+   "declaracao": "bateria_limpa_J9",
+   "conclusoes_que_usam": [
+    "J9"
+   ]
+  },
+  {
+   "caminho": "etapa_8.tipologia.desconto_dinheiro_por_grupo",
+   "formato": "null (não medido) ou {por_grupo: [{grupo, p}]}",
+   "de_onde_sai": "explícito para a J9 decidir",
+   "analise_nova_declarada": false,
+   "declaracao": "bateria_limpa_J9",
+   "conclusoes_que_usam": [
+    "J9"
+   ]
+  },
+  {
+   "caminho": "etapa_8.tipologia.fora_do_top_k",
+   "formato": "etapa_8.tipologia.fora_do_top_k = {k, n_fora, nomes, estilos, colado_na_linha, trocam_no_dinheiro, abaixo_da_mediana, p_hipergeometrico, caros_nos_mesmos_estilos}",
+   "de_onde_sai": "promovidos × grupos × cortes × residualizado",
+   "analise_nova_declarada": true,
+   "declaracao": "fora_do_top_k_J16",
+   "conclusoes_que_usam": [
+    "J16"
+   ]
+  },
+  {
+   "caminho": "etapa_8.teste_cego.diferenca_entre_blocos",
+   "formato": "[{ind, d_novo, d_velho, z, p}]",
+   "de_onde_sai": "declaração diferenca_entre_blocos_A3",
+   "analise_nova_declarada": true,
+   "declaracao": "diferenca_entre_blocos_A3",
+   "conclusoes_que_usam": [
+    "A3"
+   ]
+  },
+  {
+   "caminho": "etapa_0.mando",
+   "formato": "etapa_0.mando = {media_2018_2021, media_2022_2025, n_anos_por_lado, t, gl, p_bloco_por_ano (Welch), p_student, p_mann_whitney, comparacao_declarada_antes: false} — no prototipo.json; o teste_cego_2018_2021.json é congelado e não recebe escrita",
+   "de_onde_sai": "teste_cego regime[].pct_pts_casa (só leitura)",
+   "analise_nova_declarada": true,
+   "declaracao": "A4_mando",
+   "conclusoes_que_usam": [
+    "A4"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.chave_do_atleta",
+   "formato": "str: \"chave_nome(short_name) + '|' + birthdate\"",
+   "de_onde_sai": "BUG 1: hoje só nome",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "FIS-07"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.corte_jogos",
+   "formato": "int (8)",
+   "de_onde_sai": "o número do texto que o gerador já grava em etapa_11.fisico.corte ('matches >= 8 nos dois anos'): mesma variável, assert de que o int está no texto; as lacunas leem o int",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "FIS-07",
+    "M1",
+    "M7"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.pares",
+   "formato": "int (479 com a chave nova)",
+   "de_onde_sai": "recalcular com a chave",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "obs": "hoje grava 499 (com homônimos)",
+   "conclusoes_que_usam": [
+    "FIS-07"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.rho_mediano",
+   "formato": "dec3 (0,861 com a chave nova)",
+   "de_onde_sai": "recalcular com a chave",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "obs": "hoje grava 0,833 (com homônimos)",
+   "conclusoes_que_usam": [
+    "FIS-07"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.p_max",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e rho_mediano_por_par_de_anos [{par, rho, p_max, n}], metricas_fisicas [10 nomes], n_metricas int, n_testes int",
+   "de_onde_sai": "teste de cada par de anos na régua declarada (posto no ano), nas 10 de etapa_11_mesma_regua.metricas_fisicas; erro se n_metricas < 10",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "FIS-07"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.por_setor",
+   "formato": "etapa_11.fisico.por_setor = {rho_mediano, ic95, rho_mudou, rho_ficou, n_mudou, n_ficou, dif_ficou_menos_mudou, ic95_dif, rho_mediano_por_par_de_anos: [{par, rho, p_max, n}], p_max}, bootstrap de atletas 1.000, default_rng([SEMENTE, 11, 2]); etapa_11.fisico.{pares, rho_mediano, rho_mediano_por_par_de_anos, p_max, chave_do_atleta, corte_jogos, ano_maximo}; etapa_11.fisico.por_posicao = {rho_mediano, rho_mudou, rho_ficou}; n_metricas, n_testes",
+   "de_onde_sai": "posto dentro de ano e setor; bootstrap [SEMENTE, 11, 2]",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "FIS-07",
+    "M1"
+   ]
+  },
+  {
+   "caminho": "etapa_11.fisico.por_posicao",
+   "formato": "{rho_mediano, rho_mudou, rho_ficou}",
+   "de_onde_sai": "posto dentro de ano e posição",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M1"
+   ]
+  },
+  {
+   "caminho": "etapa_11.efeito_de_retirar_2026.anos_usados_no_tecnico",
+   "formato": "[int] (2022 a 2025)",
+   "de_onde_sai": "JÁ no código do bloco 1 (gerar_prototipo.py ~4050); só falta regravar o JSON. O critério 'sem 2026' da M6 lê max() desta lista",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.corte_minutos",
+   "formato": "int (900)",
+   "de_onde_sai": "o número do texto que o gerador já grava em etapa_11.tecnico.corte ('600+ min no arquivo e 900+ min nos dois anos...'): mesma variável, assert de que o int está no texto",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M1",
+    "M7",
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.pares_mudou",
+   "formato": "int (176 sem 2026); e pares_ficou (144), pares_por_ano [{par, mudou, ficou}]",
+   "de_onde_sai": "já sai sem 2026 no código do bloco 1 (etapa_11(tec25, sc25)); só falta regravar o JSON",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "obs": "o prototipo.json de 13/09 ainda tem 233 e 178 (com 2026)",
+   "conclusoes_que_usam": [
+    "M1",
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.pares_ficou",
+   "formato": "int (144 sem 2026)",
+   "de_onde_sai": "já sai sem 2026 no código do bloco 1; só falta regravar",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.pares_por_ano",
+   "formato": "[{par, mudou, ficou}]",
+   "de_onde_sai": "contagem por par de anos (novo)",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.metricas[].rho_mudou",
+   "formato": "dec3; e rho_ficou, n_mudou, n_ficou (sem 2026)",
+   "de_onde_sai": "já sai sem 2026 no código do bloco 1; só falta regravar",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "obs": "o prototipo.json de 13/09 ainda tem 2026",
+   "conclusoes_que_usam": [
+    "M1",
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.metricas[].rho_ficou",
+   "formato": "dec3 (sem 2026)",
+   "de_onde_sai": "já sai sem 2026 no código do bloco 1; só falta regravar",
+   "analise_nova_declarada": false,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.metricas[].p_dif_mudou_ficou",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e q_dif (BH nas 10)",
+   "de_onde_sai": "Fisher z da diferença rho_mudou - rho_ficou (com o fator 1,06 de Spearman)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.tecnico.metricas[].q_dif",
+   "formato": "q BH nas 10",
+   "de_onde_sai": "BH",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M6"
+   ]
+  },
+  {
+   "caminho": "etapa_11.comparacao_fisico_tecnico",
+   "formato": "{mudou|ficou: {posicao|setor: {n, rho_fisico, rho_tecnico, dif, ic95, frac_menor_igual_zero, por_par_de_anos: [{par, dif, n}]}}, replicas: 1000, semente: [SEMENTE, 11, 1]}",
+   "de_onde_sai": "mesma população nas duas bases, chave nome + nascimento, sem 2026",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_11_mesma_regua",
+   "conclusoes_que_usam": [
+    "M1",
+    "M7"
+   ]
+  },
+  {
+   "caminho": "etapa_13.empates_na_margem",
+   "formato": "etapa_13.empates_na_margem = {n, de, n_pool, universo, definicao}",
+   "de_onde_sai": "contagem nos candidatos",
+   "analise_nova_declarada": true,
+   "declaracao": "empates_na_margem_M3",
+   "conclusoes_que_usam": [
+    "M3"
+   ]
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.passam5_liq2",
+   "formato": "int; e passam5_liq",
+   "de_onde_sai": "contagem por nível",
+   "analise_nova_declarada": true,
+   "declaracao": "nota_por_setor_por_clube",
+   "valores_permitidos": {
+    "<setor>": [
+     "zaga",
+     "lateral",
+     "meio",
+     "ataque"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "M4",
+    "M5"
+   ]
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.itens[].p_liq2",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e p_liq, q_liq2",
+   "de_onde_sai": "Welch nos resíduos (declaração)",
+   "analise_nova_declarada": true,
+   "declaracao": "nota_por_setor_por_clube",
+   "valores_permitidos": {
+    "<setor>": [
+     "zaga",
+     "lateral",
+     "meio",
+     "ataque"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "M5"
+   ]
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.menor_p_liq2",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e sobreviventes [k], q_das_sobreviventes {k: q}",
+   "de_onde_sai": "menor p_liq2 do setor",
+   "analise_nova_declarada": true,
+   "declaracao": "nota_por_setor_por_clube",
+   "valores_permitidos": {
+    "<setor>": [
+     "zaga",
+     "lateral",
+     "meio",
+     "ataque"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "M5"
+   ]
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.q_das_sobreviventes",
+   "formato": "{k: q}",
+   "de_onde_sai": "BH dos p_liq2 no setor",
+   "analise_nova_declarada": true,
+   "declaracao": "nota_por_setor_por_clube",
+   "valores_permitidos": {
+    "<setor>": [
+     "zaga",
+     "lateral",
+     "meio",
+     "ataque"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "M5"
+   ]
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.excesso",
+   "formato": "{SC: {bruto|liq|liq2: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 17, i]}}}",
+   "de_onde_sai": "declaração nota_por_setor_por_clube.excesso ([SEMENTE, 17, i]; o [SEMENTE, 13, id] é dos atletas)",
+   "analise_nova_declarada": true,
+   "declaracao": "nota_por_setor_por_clube",
+   "valores_permitidos": {
+    "<setor>": [
+     "zaga",
+     "lateral",
+     "meio",
+     "ataque"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "M4",
+    "M5"
+   ]
+  },
+  {
+   "caminho": "etapa_15.proxy_sistema.formacao_principal_por_faixa",
+   "formato": "{sobe|meio|cai: {formação: n}, mais_comum_sobe: str}",
+   "de_onde_sai": "coluna formPrincipal do painel",
+   "analise_nova_declarada": false,
+   "declaracao": "formacao_principal_por_faixa_J11",
+   "conclusoes_que_usam": [
+    "J11"
+   ]
+  },
+  {
+   "caminho": "conclusoes",
+   "formato": "ver bloco_conclusoes.formato",
+   "de_onde_sai": "conclusoes_spec.json (moldes, lacunas, criterios_do_selo em forma de máquina, regra_maquina, p_principal) resolvido nos campos acima",
+   "analise_nova_declarada": true,
+   "declaracao": "bloco_conclusoes",
+   "conclusoes_que_usam": [
+    "DIN-01",
+    "DIN-02",
+    "DIN-03",
+    "DIN-04",
+    "DIN-05",
+    "DIN-06",
+    "ORI-01",
+    "ORI-02",
+    "ELE-01",
+    "ELE-02",
+    "ELE-03",
+    "ELE-04",
+    "ELE-05",
+    "ELE-06",
+    "ELE-07",
+    "FIS-01",
+    "FIS-04",
+    "FIS-05",
+    "FIS-06",
+    "FIS-07",
+    "FIS-08",
+    "FIS-09",
+    "FIS-10",
+    "FIS-11",
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J5",
+    "J6",
+    "J7",
+    "J13",
+    "J14",
+    "J15",
+    "J19",
+    "J8",
+    "J9",
+    "J10",
+    "J16",
+    "J11",
+    "J17",
+    "J18",
+    "J12",
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "M1",
+    "M7",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6"
+   ]
+  }
+ ],
+ "declaracoes_para_prototipo_indicadores": {
+  "_doc": "PROPOSTA de acréscimo a dados/prototipo_indicadores.json, no mesmo formato (listas e dicionários declarados ANTES de medir; gerar_prototipo.py só lê). Escrita em 14/09/2026, sessão 3b480dcb; revista na reconferência de 14/09 (três lentes). O arquivo do projeto NÃO foi tocado. Quem aplicar copia estas chaves, sobe a versão e registra no JSON do gerador que as análises marcadas 'declarada_depois_de_olhar' foram declaradas depois de os números existirem. Toda semente é np.random.default_rng([SEMENTE, etapa, k]) com SEMENTE = 7 (a do gerador) e k fixo aqui; nunca o rng global.",
+  "versao": "2026-09-14-reconferencia",
+  "base_do_arquivo": "dados/prototipo_indicadores.json versao 2026-09-12",
+  "comparacoes": {
+   "_doc": "comparações além das duas do catálogo (SM = sobe x meio, SC = sobe x cai). Cada linha do catálogo passa a gravar p_bruto, p_liq, q (na família) e o excesso da família para as comparações listadas aqui.",
+   "SM": {
+    "grupos": [
+     "sobe",
+     "meio"
+    ],
+    "declarada_em": "2026-09-12"
+   },
+   "SC": {
+    "grupos": [
+     "sobe",
+     "cai"
+    ],
+    "declarada_em": "2026-09-12"
+   },
+   "CR": {
+    "grupos": [
+     "cai",
+     "resto"
+    ],
+    "motivo": "PENDENTE_RODADA item 3 (duelo aéreo de quem cai) e item 7 (duelo defensivo do meio)",
+    "declarada_depois_de_olhar": true,
+    "familias": [
+     "tecnico_col",
+     "tecnico_ind"
+    ],
+    "periodos": [
+     "2022-2025",
+     "2018-2021 (só tecnico_col)"
+    ]
+   },
+   "SR": {
+    "grupos": [
+     "sobe",
+     "resto"
+    ],
+    "motivo": "PENDENTE item 7: quem destoa é quem sobe",
+    "declarada_depois_de_olhar": true,
+    "familias": [
+     "tecnico_col",
+     "tecnico_ind"
+    ],
+    "periodos": [
+     "2022-2025",
+     "2018-2021 (só tecnico_col)"
+    ]
+   },
+   "CM": {
+    "grupos": [
+     "cai",
+     "meio"
+    ],
+    "motivo": "ELE-01 (atletas usados) e J7 (quem cai contra o meio)",
+    "declarada_depois_de_olhar": true,
+    "familias": [
+     "elenco",
+     "tecnico_ind",
+     "tecnico_col"
+    ]
+   }
+  },
+  "excesso_por_familia": {
+   "_doc": "regra do 'olhar a lista inteira' (decisão do dono, 14/09): desempate MODERADO x FRACO; e, para comparação escolhida depois de olhar, a condição da lista (decisão 1, 14/09)",
+   "familias": [
+    "tecnico_col",
+    "elenco",
+    "fisico_col_elenco",
+    "fisico_col_setor",
+    "tecnico_ind"
+   ],
+   "comparacoes": [
+    "SM",
+    "SC",
+    "CR",
+    "SR",
+    "CM"
+   ],
+   "teste_da_linha": "Welch bilateral no posto dentro do ano (0-100)",
+   "contagem": "linhas com p bruto < 0,05",
+   "nulo": "rótulos sobe/meio/cai permutados dentro de cada ano; clube-temporada leva todas as colunas",
+   "sorteios": 10000,
+   "semente": "np.random.default_rng([SEMENTE, 3, i]) com i = 5 * índice_da_família + índice_da_comparação, nas ordens das listas 'familias' e 'comparacoes' (ex.: elenco x SM = 5); os três níveis (bruto, liq, liq2) usam os MESMOS rótulos sorteados dentro de cada (família, comparação); nunca o rng global",
+   "p_excesso": "(1 + sorteios com contagem >= observada) / (sorteios + 1)",
+   "corte": 0.05,
+   "corte_estrito": true,
+   "nivel_usado_no_selo": "bruto",
+   "gravar_tambem": [
+    "passam5_liq_<comparacao>",
+    "passam5_liq2_<comparacao>"
+   ],
+   "fronteira": {
+    "elenco_SM_bruto": "p do excesso entre 0,044 e 0,052 em 12 sementes de 10.000 (a declarada [7,3,5] dá 0,0515): gravar o p da semente declarada e o erro de Monte Carlo; conclusão do elenco que dependa desse excesso não fica moderada por essa conta"
+   },
+   "niveis": [
+    "bruto",
+    "liq",
+    "liq2"
+   ],
+   "nulo_liq": "resíduo do posto do ano sobre o posto de tm_valor_total calculado UMA vez nos dados reais; os rótulos são permutados dentro do ano e o Welch é refeito no resíduo",
+   "nulo_liq2": "idem, resíduo sobre o posto de tm_valor_total e o posto de fis_atletas (físico do elenco) ou de fis_<setor>_atletas (físico por setor); nas famílias sem físico, liq2 = liq",
+   "gravar": "etapa_3.por_familia[f].excesso[comparacao][nivel] = {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios, semente} — um formato só"
+  },
+  "duelos_itens_3_e_7": {
+   "_doc": "linhas já declaradas no catálogo; o que é novo é a comparação e a checagem de período",
+   "linhas": [
+    {
+     "col": "duelos_aereos_pct",
+     "familia": "tecnico_col",
+     "comparacoes": [
+      "CR",
+      "SR",
+      "SM",
+      "CM"
+     ],
+     "periodo_antigo": true,
+     "contagens": [
+      "cai_metade_baixo",
+      "cai_entre_5_piores",
+      "cai_entre_5_melhores"
+     ]
+    },
+    {
+     "col": "ti_zaga_duelos_aereos_ganhos",
+     "familia": "tecnico_ind",
+     "comparacoes": [
+      "CR"
+     ],
+     "periodo_antigo": false,
+     "motivo_sem_antigo": "técnico individual 2018-2021 não processado",
+     "aviso": "3 a 5 zagueiros com 600+ min por clube"
+    },
+    {
+     "col": "ti_meio_duelos_defensivos_ganhos",
+     "familia": "tecnico_ind",
+     "comparacoes": [
+      "SM",
+      "SR",
+      "CR",
+      "CM"
+     ],
+     "periodo_antigo": false
+    },
+    {
+     "col": "ti_meio_duelos_ofensivos_ganhos",
+     "familia": "tecnico_ind",
+     "comparacoes": [
+      "CR",
+      "CM"
+     ],
+     "periodo_antigo": false
+    },
+    {
+     "col": "duelos_pct",
+     "familia": "tecnico_col",
+     "comparacoes": [
+      "SM",
+      "SR",
+      "CR"
+     ],
+     "periodo_antigo": true
+    }
+   ],
+   "diferenca_entre_periodos": "z = (d_2022_2025 - d_2018_2021) / sqrt(se1² + se2²), se_d = sqrt((n1+n2)/(n1*n2) + d²/(2(n1+n2))), bilateral"
+  },
+  "etapa_6_mesmo_ano": {
+   "_doc": "PENDENTE item 10: separar 'o time alto num ano continua alto no outro?' (diagonal t→t+1, já existe) de 'o número anda com os pontos no mesmo ano?'",
+   "indicadores": "todos os de etapa_6.rho (mesma lista, mesma ordem)",
+   "medida": "Spearman do posto do indicador no ano com o posto dos pontos no mesmo ano",
+   "universo": "80 clube-temporada 2022-2025",
+   "gravar": "etapa_6.mesmo_ano[ind] = {rho, p, n}",
+   "consequencia": {
+    "indicadores": [
+     "share_11",
+     "conc_hhi",
+     "atletas_usados",
+     "nucleo_300"
+    ],
+    "gravar": "etapa_6.consequencia[ind] = {rho_mesmo_ano, media_posto_t_de_quem_caiu_em_t1, media_posto_t_do_resto, n}"
+   },
+   "declarada_depois_de_olhar": true
+  },
+  "origem": {
+   "_doc": "origem do clube na Série B (veio da A / já estava na B / veio da C). Base gravada e conferida em 14/09.",
+   "base": "dados/serieb_origem_2018_2026.csv",
+   "colunas_da_base": [
+    "ano",
+    "clube",
+    "origem",
+    "fonte_1",
+    "fonte_2",
+    "conferido_jogo_a_jogo",
+    "nota"
+   ],
+   "categorias": [
+    "A",
+    "B",
+    "C"
+   ],
+   "anos_da_conta": [
+    2019,
+    2025
+   ],
+   "anos_sensibilidade": [
+    2018,
+    2025
+   ],
+   "ano_so_descricao": 2026,
+   "desfechos": [
+    "subiu",
+    "caiu",
+    "ritmo_de_briga (faixa alta)",
+    "ritmo_de_queda (faixa baixa)"
+   ],
+   "comparacoes": [
+    "A_x_B",
+    "C_x_B",
+    "A_x_C"
+   ],
+   "teste": "Fisher exato bilateral",
+   "por_periodo": [
+    [
+     2019,
+     2021
+    ],
+    [
+     2022,
+     2025
+    ]
+   ],
+   "dinheiro": {
+    "anos": [
+     2022,
+     2025
+    ],
+    "posto": "tm_valor_total no ano, 1 = mais caro",
+    "esperado": {
+     "declaradas_antes_de_medir": [
+      "logistica_posto",
+      "logistica_percentil_do_ano",
+      "logistica_log_valor",
+      "logistica_log_valor_centrado_no_ano",
+      "taxa_do_quartil_de_posto (5/10/15/20)"
+     ],
+     "acrescentadas_na_reconferencia_14_09": {
+      "declarada_depois_de_olhar": true,
+      "especificacoes": [
+       "as quatro logísticas com penalização padrão (sklearn C = 1)",
+       "taxa do quartil de posto calculada SEM os próprios clubes da A (fora da amostra)"
+      ],
+      "motivo": "lente de números da reconferência: a taxa dentro da amostra usa os próprios clubes da A e puxa o esperado para o observado"
+     },
+     "gravar": "dinheiro.por_origem[X].{subidas_esperadas, quedas_esperadas} = {especificacao: float} para as dez; a frase usa o menor e o maior"
+    },
+    "permutacao": "origem permutada dentro de ano x quartil, 10.000, np.random.default_rng([SEMENTE, 16, 1])",
+    "razao_de_verossimilhanca": "origem além do posto, 2 gl",
+    "gravar_faixa": "por_origem[A].quedas_esperadas e subidas_esperadas por especificação, sem penalização; a frase usa o menor e o maior"
+   },
+   "poder": {
+    "teste": "Fisher 0,05",
+    "simulacoes": 2000,
+    "semente": "np.random.default_rng([SEMENTE, 16, 2])",
+    "cenarios": "subida alvo 25% a 55% contra a taxa de B; queda alvo 0% a 15% contra a taxa de B",
+    "limiar": 0.7,
+    "frase": "a menor subida de C detectada com poder >= limiar contra a taxa de B"
+   },
+   "gravar": "conclusoes_base.origem = {anos_da_conta, anos_sensibilidade, por_origem, sensibilidade, fisher, por_periodo, dinheiro, poder, faixa_de_pontos: null}"
+  },
+  "elenco_base": {
+   "_doc": "família nova, separada de 'elenco' para não mexer na contagem do excesso da família declarada",
+   "colunas": [
+    {
+     "col": "pctFicou",
+     "nome": "% do elenco do ano anterior que continua",
+     "sinal": 1
+    },
+    {
+     "col": "novos",
+     "nome": "Atletas que não estavam no ano anterior",
+     "sinal": -1
+    }
+   ],
+   "universo": "2023-2025, só quem estava na Série B no ano anterior",
+   "declarada_depois_de_olhar": true,
+   "teste": "Welch bilateral no posto do ano (percentil 0-100)",
+   "comparacoes": [
+    "SM",
+    "SC",
+    "CM"
+   ],
+   "bh": "Benjamini-Hochberg nos 6 testes (2 colunas × 3 comparações)",
+   "desconto": "resíduo do posto do ano sobre o percentil de tm_valor_total no ano (a conta da casa)",
+   "anos": [
+    2023,
+    2025
+   ],
+   "gravar": "etapa_2.elenco_base = {anos, universo, bh_testes: 6, linhas: [{indicador, n, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, p_bruto_SM, p_liq_SM, p_bruto_SC, p_liq_SC, p_bruto_CM, p_liq_CM, q_SM, q_SC, q_CM}]} — FORA de etapa_2.linhas (não mexe nas 293)"
+  },
+  "colocacao_t_t1": {
+   "_doc": "ELE-06: colocação e aproveitamento de um ano contra o seguinte",
+   "universo": "clubes na Série B em t e t+1, t+1 <= 2025, painel 2018-2021 + 2022-2025",
+   "medidas": [
+    "Spearman posição t x t+1",
+    "Spearman aproveitamento t x t+1",
+    "subiu e caiu em t+1 por faixa de posição em t: 5-8, 9-12, 13-16",
+    "Fisher 5-8 x 13-16"
+   ],
+   "por_periodo_de_t": [
+    [
+     2018,
+     2020
+    ],
+    [
+     2021,
+     2024
+    ]
+   ],
+   "valor": "Spearman tm_valor_total t x t+1 nos pares com valor (etapa_6.referencia_dinheiro) e a posição nesses mesmos pares",
+   "declarada_depois_de_olhar": true,
+   "desconto_do_dinheiro": "nos pares com valor (2022-2025, 36): Spearman parcial de aproveitamento t × t+1 controlando o posto de tm_valor_total em t e em t+1 (resíduo dos postos, Pearson dos resíduos); gravar rho_aproveitamento_descontado_valor e p_aproveitamento_descontado_valor; e a posição nesses pares (rho, p)",
+   "gravar": "etapa_6.colocacao = {n_pares, universo, rho_posicao, p_posicao, rho_aproveitamento, p_aproveitamento, por_periodo, por_faixa_de_posicao, n_pares_com_valor, rho_valor, rho_posicao_nos_pares_com_valor, p_posicao_nos_pares_com_valor, rho_aproveitamento_descontado_valor, p_aproveitamento_descontado_valor}",
+   "conta_principal": "posição t × t+1 (a do título); o aproveitamento é outra conta da mesma pergunta"
+  },
+  "estilo_x_valor": {
+   "colunas": [
+    "posse",
+    "ppda",
+    "cantos",
+    "cruzamentos",
+    "contra_ataques",
+    "bolas_paradas"
+   ],
+   "medida": "Spearman do posto de tm_valor_total com o posto da coluna no ano, 80 clube-temporada 2022-2025; convenção: ppda com sinal invertido = pressão mais alta",
+   "declarada_depois_de_olhar": true,
+   "gravar": "etapa_2.estilo_x_valor.<coluna> = {rho, p, n}"
+  },
+  "etapa_11_mesma_regua": {
+   "_doc": "M1, FIS-07 e M6",
+   "ano_maximo": 2025,
+   "fisico_por_setor": {
+    "setor": "G.SETOR_FUND x G.POSICOES (gerar_raio_serieb)",
+    "posto": "dentro de ano e setor",
+    "separar": [
+     "mudou",
+     "ficou"
+    ],
+    "por_par_de_anos": true,
+    "universo_do_posto": "atletas com 300+ min rastreados (gerar_raio_serieb.carregar) e 8+ jogos, posto tirado DEPOIS do corte de 8 jogos (antes do corte muda no máximo 0,004)",
+    "gravar": "etapa_11.fisico.por_setor = {rho_mediano, ic95, rho_mudou, rho_ficou, n_mudou, n_ficou, dif_ficou_menos_mudou, ic95_dif, rho_mediano_por_par_de_anos: [{par, rho, p_max, n}], p_max}, bootstrap de atletas 1.000, default_rng([SEMENTE, 11, 2]); etapa_11.fisico.{pares, rho_mediano, rho_mediano_por_par_de_anos, p_max, chave_do_atleta, corte_jogos, ano_maximo}; etapa_11.fisico.por_posicao = {rho_mediano, rho_mudou, rho_ficou}"
+   },
+   "comparacao_fisico_tecnico": {
+    "populacao": "atleta com par físico (8+ jogos) e par técnico (900+ min) no mesmo par de anos, com o mesmo 'mudou'",
+    "reguas": [
+     "posicao x posicao",
+     "setor x setor"
+    ],
+    "bootstrap": "atletas, 1.000, np.random.default_rng([SEMENTE, 11, 1])",
+    "gravar": "etapa_11.comparacao_fisico_tecnico.{mudou, ficou}.{posicao, setor}.{rho_fisico, rho_tecnico, dif, ic95, frac_menor_igual_zero, por_par_de_anos, n}"
+   },
+   "tecnico_dif_mudou_ficou": {
+    "teste": "Fisher z da diferença rho_mudou - rho_ficou por métrica, BH nas 10",
+    "gravar": "etapa_11.tecnico.metricas[].{p_dif_mudou_ficou, q_dif}"
+   },
+   "declarada_depois_de_olhar": true,
+   "chave_do_atleta_fisico": "chave_nome(short_name) + '|' + birthdate (só pelo nome entram 20 pares de homônimos, todos contados como 'mudou'; conferido 14/09, r9_fis07_universos.py). Vale para etapa_11.fisico, fisico.por_setor e comparacao_fisico_tecnico",
+   "regua_repeticao": "decisão 3 do dono (14/09): FORTE quando o teste de cada par de anos dá p < 0,05 em todas as métricas declaradas, na régua do setor e na régua declarada antes (posto no ano); a mediana, o intervalo e o corte de 0,5 só descrevem o tamanho. Diferença mudou x ficou ou físico x técnico: 'qual é maior' — NÃO DÁ PARA AFIRMAR se o ic95 cruzar zero",
+   "teste_por_par_de_anos": "em cada par de anos (t, t+1), para cada uma das 10 métricas de etapa_11_mesma_regua.metricas_fisicas, Spearman do posto em t com o posto em t+1 (H0: rho = 0), bilateral; p_max = maior p entre as 10 métricas e os pares; gravar na régua do setor (por_setor) e na régua declarada antes (posto no ano)",
+   "metricas_fisicas": [
+    "psv99",
+    "psv99_top5",
+    "sprint_count_p90",
+    "sprint_distance_p90",
+    "hsr_distance_p90",
+    "high_accel_p90",
+    "high_decel_p90",
+    "cod_count_p90",
+    "distance_p90",
+    "m_per_min"
+   ],
+   "metricas_fisicas_regra": "as 10 do cols_fis de gerar_prototipo.py (~2466), na ordem; o gerador grava etapa_11.fisico.{metricas_fisicas, n_metricas, n_testes} e PARA COM ERRO se n_metricas < 10 (hoje o código filtra com 'if c in s.columns' e o p_max sairia de menos métricas sem aviso); n_testes = n_metricas × número de pares de anos, gravado ao lado de p_max. Não confundir com as 10 colunas do índice de intensidade da FIS-01 (indice_intensidade.colunas), que são outras",
+   "tecnico": {
+    "ano_maximo": 2025,
+    "gravar": "etapa_11.tecnico.{corte_minutos, pares_mudou, pares_ficou, pares_por_ano, metricas[].{rho_mudou, rho_ficou, n_mudou, n_ficou, p_dif_mudou_ficou, q_dif}} sem pares que terminam em 2026",
+    "estado_2026": "BUG-2 consertado no código do bloco 1 (gerar_prototipo.py ~4045: etapa_11(tec25, sc25) com assert ano <= 2025, e etapa_11.efeito_de_retirar_2026); falta só regravar o JSON. O ano máximo se lê de max(etapa_11.efeito_de_retirar_2026.anos_usados_no_tecnico); não se cria ano_maximo"
+   }
+  },
+  "nota_por_setor_por_clube": {
+   "_doc": "M4 e M5: as medidas da nota por setor (gerar_raio_serieb.DE_PARA + DE_PARA_JSON + DE_PARA_OBR, fixas antes) como família, clube como caso",
+   "agregacao": "média ponderada por minuto (analisar_serieb.media_pond) por clube-temporada, setor de G.SETOR_FUND",
+   "comparacao": "SC (sobe x cai); SM e faixa alta x baixa gravadas ao lado",
+   "descontos": [
+    "posto de tm_valor_total no ano",
+    "posto de fis_<setor>_atletas no ano"
+   ],
+   "minimo": "8 clubes que subiram e 8 que caíram com valor",
+   "excesso": {
+    "familia": "as medidas da nota do setor com 8+ clubes que subiram e 8+ que caíram com valor",
+    "comparacao": "SC",
+    "nulo": "rótulos sobe/meio/cai permutados entre os 20 clubes de cada ano (o meio entra no sorteio; a contagem é só sobe x cai); o resíduo de liq e liq2 é calculado uma vez nos dados reais",
+    "sorteios": 10000,
+    "semente": "np.random.default_rng([SEMENTE, 17, i]) com i = índice do setor em 'setores' (0 zaga, 1 lateral, 2 meio, 3 ataque); os três níveis usam os mesmos rótulos sorteados. NÃO usar [SEMENTE, 13, i]: é o gerador próprio de cada atleta na etapa 13 (gerar_prototipo.py ~3070, default_rng([SEMENTE, 13, int(j['id'])])), e os ids 0 a 3 existem em dados/jogadores.json — os sorteios do excesso sairiam na mesma sequência dos atletas 0 a 3",
+    "efeito_da_semente": "o p do excesso da M5 (0,024) e da M4 (ataque 0,011, zaga 0,13, lateral 0,15) foi medido com [2026, 919], uma sequência só para os quatro setores; com a semente declarada ele muda dentro do erro de Monte Carlo, e o selo segue o número regravado (conserto final 14/09)",
+    "p_excesso": "(1 + sorteios com contagem >= observada) / (sorteios + 1)",
+    "referencia_medida": "r5_alvo_fisico_excesso.py, semente [2026, 919] (uma sequência para os quatro setores): meio 11 contra 1, p 0,024; ataque 13 contra 1, p 0,011; com os dois descontos meio 4 contra 1, p 0,16"
+   },
+   "gravar": "sobecai_corrigido_por_clube.<setor>.{testes, p5_clube (= contagem bruta, um nome só), passam5_liq, passam5_liq2, sobreviventes, q_das_sobreviventes, menor_p_liq2, itens[].{p_liq, p_liq2, q_liq2}, excesso.SC.{bruto, liq, liq2}}",
+   "setores": [
+    "zaga",
+    "lateral",
+    "meio",
+    "ataque"
+   ],
+   "teste_da_linha": {
+    "bruto": "Welch bilateral na média ponderada por minuto do clube (o p_clube que o gerador já grava; valor cru, sem posto no ano), sobe x cai",
+    "liq": "Welch bilateral no resíduo do posto no ano (percentil) da média do clube sobre o posto de tm_valor_total no ano",
+    "liq2": "Welch bilateral no resíduo do posto no ano da média do clube sobre o posto de tm_valor_total e o posto de fis_<setor>_atletas no ano (posto de atletas ausente vira a média, como em r5_alvo_fisico_excesso.py)"
+   }
+  },
+  "indice_intensidade": {
+   "_doc": "FIS-01. O índice foi montado DEPOIS de olhar os dados; declarar aqui não o torna pré-declarado. Teto FRACO pela regra_comparacao_depois_de_olhar (a mesma de J5, A4, J16).",
+   "colunas": [
+    "fis_psv99",
+    "fis_psv99_top5",
+    "fis_sprint_distance_p90",
+    "fis_sprint_count_p90",
+    "fis_hsr_distance_p90",
+    "fis_hsr_count_p90",
+    "fis_hi_distance_p90",
+    "fis_hi_count_p90",
+    "fis_expl_accel_sprint_p90",
+    "fis_expl_accel_hsr_p90"
+   ],
+   "agregacao": "média do posto no ano",
+   "k_extremos": 5,
+   "comparacao": "CM (cai x meio), Welch bilateral: bruto, líquido do valor, líquido de valor e fis_atletas",
+   "declarada_depois_de_olhar": true,
+   "gravar": "etapa_2.indice_intensidade = {colunas, agregacao, k_extremos, n_por_ano, por_clube: [{ano, clube, faixa, indice, posicao}], mediana_posicao: {sobe, meio, cai}, cai_top_k, cai_bottom_k, excecoes_top_k: [{clube, ano, posicao}], p_bruto_CM, p_liq_CM, p_liq2_CM, comparacao_declarada_antes: false}",
+   "posicao": "1 = mais intenso no ano, pelo índice (rank descendente, empate pelo menor)"
+  },
+  "etapa_1_tabela_e_euros": {
+   "ks_da_tabela": [
+    4,
+    6,
+    8,
+    9
+   ],
+   "motivo_ks": "os k aprovados pelo dono para a tabela da etapa 1 (decisão da rodada de 14/09); lista declarada, não saída do dado",
+   "valor_do_posto_k_por_ano": {
+    "ks": [
+     1,
+     4,
+     5,
+     8,
+     9
+    ],
+    "unidade": "euros (Transfermarkt, valor de mercado, não folha)"
+   },
+   "blocos_de_posto": [
+    [
+     1,
+     4
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     9,
+     12
+    ],
+    [
+     13,
+     20
+    ]
+   ],
+   "vizinhos_de_valor": {
+    "ate_posicoes": [
+     1,
+     2
+    ],
+    "contagem": "não promovidos a até N posições de valor de cada promovido, no mesmo ano, por promovido"
+   }
+  },
+  "etapa_14_contagem": {
+   "_doc": "decisão do dono de 14/09; declarada antes de rodar",
+   "contagem": "por POSIÇÃO (frequência do atleta em qualquer vaga daquela posição)",
+   "replicas": 2000,
+   "gerador": "np.random.default_rng([SEMENTE, 14, i]) com i = índice fixo de (cenário, escopo) na ordem declarada",
+   "intervalo": "Wilson 95% da frequência nas réplicas",
+   "recomendado_se": "limite inferior > 50%, até n_vagas nomes",
+   "empate_tecnico_se": "intervalo contém 50%",
+   "alternativa_se": "frequência 10% a 50% fora do empate",
+   "o_que_o_intervalo_mede": "só o ruído do sorteio dado o erro-padrão da nota, não a incerteza da nota"
+  },
+  "regra_comparacao_depois_de_olhar": {
+   "_doc": "decisão 1 do dono (14/09): comparação, índice ou lista escolhida DEPOIS de ver os números pode ser MODERADA só se a lista dela tiver mais achados que a sorte (p do excesso < 0,05, contagem bruta, na família declarada e na comparação escolhida) E se ela sobreviver ao desconto do dinheiro (p líquido < 0,05); senão, teto FRACO. Nunca FORTE. Conclusão sem lista de onde a comparação saia fica com teto FRACO. Toda chave com declarada_depois_de_olhar=true e toda comparação CR, SR e CM entra nesta regra. O gerador grava, em cada conclusão, comparacao_declarada_antes = true/false e os critérios da regra em criterios_do_selo."
+  },
+  "etapa_7_excesso": {
+   "_doc": "J8: a lista dos 28 números do 1º turno contra o sorteio",
+   "contagens": [
+    "p_parcial < 0,05 sem olhar o sinal (a da régua)",
+    "p_parcial < 0,05 com sinal_certo"
+   ],
+   "nulo": "Freedman-Lane dentro do ano: resíduo do posto de pts2 sobre o posto de pts1 (OLS), permutado dentro do ano e somado aos ajustados; cada clube-temporada leva os 28 números; recalcula a parcial de Spearman das 28",
+   "sorteios": 10000,
+   "semente": "np.random.default_rng([SEMENTE, 7, 1])",
+   "gravar": "etapa_7.excesso.{sem_sinal, sinal_certo}.{observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo}",
+   "declarada_depois_de_olhar": true
+  },
+  "A4_mando": {
+   "teste": "t de Welch, ano como unidade, 4 x 4, sobre teste_cego_2018_2021.json regime[].pct_pts_casa",
+   "gravar": "etapa_0.mando = {media_2018_2021, media_2022_2025, n_anos_por_lado, t, gl, p_bloco_por_ano (Welch), p_student, p_mann_whitney, comparacao_declarada_antes: false} — no prototipo.json; o teste_cego_2018_2021.json é congelado e não recebe escrita",
+   "medido_14_09": {
+    "t": 3.264,
+    "p_welch": 0.0269,
+    "p_student": 0.0172,
+    "p_mann_whitney": 0.0286
+   },
+   "declarada_depois_de_olhar": true
+  },
+  "formacoes_J17": {
+   "_doc": "J17: a coluna formacoes JÁ é linha do catálogo (família elenco); nada de estrutura paralela em etapa_15. O título é a comparação declarada (SC); a CM, escolhida depois de olhar, é só descrição (conserto final 14/09)",
+   "linha": "etapa_2.linhas[indicador=formacoes]",
+   "comparacoes": {
+    "declarada": "SC",
+    "depois_de_olhar": [
+     "CM"
+    ]
+   },
+   "gravar": "etapa_2.linhas[formacoes].{mediana_sobe, mediana_meio, mediana_cai, p_bruto_CM, p_liq_CM, antigo_SC.{p, d}, antigo_CM.{p, d}} (as medianas e o CM valem para todas as linhas: ver etapa_2_comparacoes_extras)",
+   "declarada_depois_de_olhar": true
+  },
+  "antigo_2018_2021": {
+   "_doc": "J14, J17, J18, J19, J5: as mesmas contas no painel 2018-2021 (dados/serieb_clube_temporada_2018_2021.csv), só nas colunas que existem nele",
+   "teste": "Welch bilateral no posto do ano; q de BH na família tecnico_col de 2018-2021 (as colunas existentes, hoje 31)",
+   "gravar": "etapa_2.linhas[].antigo_SM.{d, p, q, q_familia_n}, antigo_SC.{d, p, q}, antigo_CM.{d, p}, antigo_CR.{d, p, q, cai_metade_baixo, n_cai, cai_entre_5_melhores}; etapa_2.linhas[duelos_aereos_pct].diferenca_entre_periodos_CR.{z, p}",
+   "diferenca_entre_periodos": "z = (d_2022_2025 - d_2018_2021) / sqrt(se1² + se2²), se_d = sqrt((n1+n2)/(n1*n2) + d²/(2(n1+n2))), bilateral"
+  },
+  "etapa_2_comparacoes_extras": {
+   "_doc": "o que toda linha do catálogo (293) passa a gravar além de SM e SC",
+   "gravar": "etapa_2.linhas[].{p_bruto_CR, p_liq_CR, q_CR, q_liq_CR, p_bruto_SR, p_liq_SR, q_SR, p_bruto_CM, p_liq_CM, q_CM, p_mw_CM, q_liq2_SM, q_liq2_SC, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, media_por_ano, cai_metade_baixo, cai_entre_5_piores, cai_entre_5_melhores, sobe_metade_cima, comparacao_declarada_antes}",
+   "q_das_comparacoes_depois_de_olhar": "calculado (BH na família, na comparação) e gravado, mas marcado comparacao_declarada_antes=false: não conta para o selo",
+   "contagens": "sobre o posto ORIENTADO pelo sinal da linha (nas linhas de G.MENOR_MELHOR — ppda, xg_contra... — o posto é invertido antes: 100 = melhor desempenho), 0-100 no ano: metade de baixo = posto orientado <= 50; cinco piores = os 5 de pior desempenho do ano (posição orientada > n_do_ano - 5); cinco melhores = os 5 de melhor desempenho; sobe_metade_cima = promovidos com posto orientado > 50. cai_entre_5_piores e sobe_metade_cima são int; cai_entre_5_melhores é campo PRÓPRIO, lista ['CLUBE ANO (Nº)']",
+   "media_por_ano": "[{ano, nivel, sobe, meio, cai, residuo_sobe_menos_meio}]: resíduo do posto no ano sobre o posto de tm_valor_total (nivel 'liq') e, nas linhas físicas, sobre o posto de tm_valor_total e de fis_<setor>_atletas (ou fis_atletas no físico do elenco) (nivel 'liq2', o mesmo modelo do p_liq2); a regressão é calculada UMA vez nas 80 clube-temporadas de 2022-2025, não por ano; média do resíduo por ano e faixa; residuo_sobe_menos_meio = média de sobe − média de meio. Grava os dois níveis quando a linha tem físico; o selo e as frases da FIS-06 e FIS-11 leem nivel = liq2. Análise nova, declarada depois de olhar",
+   "declarada_depois_de_olhar": true
+  },
+  "etapa_7_q_parcial": {
+   "teste": "Benjamini-Hochberg nos 28 p_parcial de etapa_7.linhas, SEM filtro de sinal; o sinal_certo é checado depois, na regra do selo (J1 e J2: q_parcial < 0,05 com sinal_certo)",
+   "gravar": "etapa_7.linhas[].q_parcial"
+  },
+  "fis10_bloco": {
+   "_doc": "FIS-10: o bloco é o setor ataque INTEIRO do catálogo fisico_col_setor (as 32 linhas fis_ataque_*), sem escolher colunas",
+   "colunas": "etapa_2.linhas com familia=fisico_col_setor e setor=ataque",
+   "declarada_depois_de_olhar": false,
+   "gravar": "etapa_2.fis10_bloco = {colunas, n, n_p_bruto_SC_abaixo_005, p_bruto_SC_min, p_bruto_SC_max, q_SC_min, n_p_liq2_SC_abaixo_005, p_bruto_SM_min, p_bruto_SM_min_indicador, p_bruto_SM_max} (min e max entre as linhas com p_bruto_SC < 0,05; hoje p_bruto_SM de 0,053, fis_ataque_runs_penalty_area_p30tip, a 0,457)"
+  },
+  "diferenca_entre_blocos_A3": {
+   "teste": "z = (d_2022_2025 - d_2018_2021) / raiz(se1² + se2²), se_d = raiz((n1+n2)/(n1·n2) + d²/(2(n1+n2))), n1 = 16, n2 = 48, d de quem sobe contra o meio, bilateral",
+   "indicadores": "os 12 de teste_cego_2018_2021.json porta.novo[].ind (os mesmos de porta.velho)",
+   "gravar": "etapa_8.teste_cego.diferenca_entre_blocos = [{ind, d_novo, d_velho, z, p}]",
+   "declarada_depois_de_olhar": true,
+   "referencia": "CONFERENCIA.md §3.4; reproduzido em r13_varios.py: menor p 0,081 (entradas na área)"
+  },
+  "faltas_x_posse_J3": {
+   "gravar": "etapa_2.linhas[faltas].{rho_com_posse, p_rho, p_SM_descontada_posse, p_SM_descontada_posse_e_valor}",
+   "medida": "Spearman do posto de faltas com o posto de posse no ano (80); Welch SM no resíduo do posto de faltas sobre o posto de posse (e posse + valor)",
+   "declarada_depois_de_olhar": true
+  },
+  "dist_remate_descontada_J1": {
+   "gravar": "etapa_2.linhas[dist_remate].p_SM_descontadas_entradas_toques",
+   "medida": "Welch SM no resíduo do posto de dist_remate sobre os postos de entradas_area e toques_area no ano",
+   "declarada_depois_de_olhar": true
+  },
+  "valor_DIN01_DIN03": {
+   "auc_ic95": "bootstrap de clube-temporada estratificado por ano, 2.000, default_rng([SEMENTE, 1, 1]), AUC sobe x resto no posto de valor",
+   "auc_por_ano": "AUC sobe x resto no posto de valor, ano a ano",
+   "cobertura": "Mann-Whitney sobe x meio no resíduo do posto de tm_valor_total sobre o posto de tm_com_valor no ano; gravar p e AUC",
+   "meio_x_cai": "AUC e Mann-Whitney bilateral cai x meio no posto de valor; e por ano",
+   "curva_top_k_rebaixados": "rebaixados acumulados por posto de valor; p_quartil = hipergeométrica por ano (20 clubes, 4 rebaixados, k = tamanho do quartil de cima) convoluída nos anos, P(soma <= observado)",
+   "sensibilidade_fonte_valor": "a mesma contagem com a coluna valor_total (Wyscout): postos dos três rebaixados mais caros, rebaixados no top k, nomes, p_quartil",
+   "blocos_de_posto": [
+    [
+     1,
+     4
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     9,
+     12
+    ],
+    [
+     13,
+     20
+    ]
+   ],
+   "gravar": "etapa_1.{quartis[].cairam, auc_posto_de_valor.{ic95, por_ano, meio_x_cai, meio_x_cai_por_ano, p_meio_x_cai}, cobertura_do_valor.{p_valor_descontada_cobertura, auc_descontada_cobertura}, curva_top_k_rebaixados, sensibilidade_fonte_valor, blocos_de_posto, vizinhos_de_valor, valor_mediano_da_liga_por_ano, curva_top_k.valor_do_posto_k_por_ano, top4_de_valor.por_ano[].posicao_final}",
+   "declarada_depois_de_olhar": true
+  },
+  "valor_por_setor_extras_DIN04_DIN05": {
+   "gravar": "etapa_1.valor_por_setor.{particao.setores[].{p_liquido_do_valor_total, mediana_por_ano}, setores[].q_sobe_x_meio, por_clube: [{ano, clube, faixa, pct_goleiro, pct_defesa, pct_meio, pct_ataque}]}",
+   "p_liquido": "Mann-Whitney sobe x meio no resíduo do posto da fatia sobre o posto do valor total no ano"
+  },
+  "por_clube_etapa_2": {
+   "colunas": [
+    "dist_remate",
+    "share_11",
+    "min_estrangeiros",
+    "fis_distance_p90",
+    "duelos_aereos_pct",
+    "ti_zaga_duelos_aereos_ganhos",
+    "ti_meio_duelos_defensivos_ganhos",
+    "formacoes"
+   ],
+   "gravar": "etapa_2.por_clube = [{ano, clube, faixa, pos, postos: {coluna: posto 0-100}, brutos: {coluna: valor}, posicao_no_ano: {coluna: 1 = maior}}] (80 clube-temporadas)"
+  },
+  "fora_do_top_k_J16": {
+   "gravar": "etapa_8.tipologia.fora_do_top_k = {k, n_fora, nomes, estilos, colado_na_linha, trocam_no_dinheiro, abaixo_da_mediana, p_hipergeometrico, caros_nos_mesmos_estilos}",
+   "medida": "promovidos com posto_valor > k (k = palpite_do_dono.k); abaixo da mediana do território dos 16; p = hipergeométrica C(8,a)/C(16,a); colado = |território - mediana| < 1; trocam = interseção com dinheiro.residualizado.trocaram; caros = promovidos dos mesmos grupos com posto_valor <= tamanho do quartil",
+   "declarada_depois_de_olhar": true
+  },
+  "empates_na_margem_M3": {
+   "definicao": "n = candidatos com |nota_fisica.margem_normalizada| >= 1,0; de = candidatos com margem_normalizada não nula; n_pool = etapa_13.n",
+   "gravar": "etapa_13.empates_na_margem = {n, de, n_pool, universo, definicao}",
+   "referencia_14_09": "213 de 586 (603 no conjunto; sem margem: 2 goleiros e 15 meias)"
+  },
+  "formacao_principal_por_faixa_J11": {
+   "gravar": "etapa_15.proxy_sistema.formacao_principal_por_faixa = {sobe: {formação: n}, meio: {...}, cai: {...}, mais_comum_sobe}",
+   "fonte": "coluna formPrincipal do painel 2022-2025"
+  },
+  "bateria_limpa_J9": {
+   "gravar": "etapa_8.tipologia.bateria_limpa.por_conjunto_de_validadores = [{n_validadores, fonte, p, p_placebo}]; etapa_8.tipologia.desconto_dinheiro_por_grupo = null (não medido)"
+  }
+ },
+ "bloco_conclusoes": {
+  "formato": {
+   "regua_versao": "str (conclusoes_spec.json gerado_em + regua)",
+   "itens": [
+    {
+     "id": "str",
+     "tema": "str",
+     "selo_calculado": "'forte'|'moderado'|'fraco'|'sem_sinal'|'nao_da_para_afirmar'|null",
+     "na_tela": "bool",
+     "motivo_fora": "str|null ('campo ausente: <caminho>')",
+     "comparacao_declarada_antes": "bool",
+     "p_principal": "float|null (arredondado como o gerador grava p)",
+     "p_principal_cru": "float|null, o mesmo p SEM arredondar; é este que desempata as cinco",
+     "criterios_do_selo": [
+      {
+       "id": "k0...",
+       "criterio": "str",
+       "caminho": "str|null",
+       "constante": "bool|null (só com caminho null)",
+       "operador": "str",
+       "limiar": "número|texto|bool|null",
+       "agregacao": "str",
+       "filtro": "objeto|null",
+       "subcampo": "str|[str]|null",
+       "valor": "valor lido (lista/dicionário quando há filtro)",
+       "passou": "bool|null",
+       "decide": "bool"
+      }
+     ],
+     "regra_maquina": {
+      "ordem": [
+       {
+        "selo": "str",
+        "exige": {
+         "<id do critério>": "bool"
+        }
+       }
+      ],
+      "selo_padrao": "str|null"
+     },
+     "campos_ausentes": [
+      "caminho"
+     ],
+     "lacunas": {
+      "<nome>": {
+       "valor_cru": "valor lido",
+       "texto_formatado": "str pelo formato da lacuna"
+      }
+     },
+     "textos": {
+      "titulo": "str",
+      "frase": "str",
+      "numero": "str",
+      "ressalva": "str",
+      "universo": "str",
+      "tecnico": "str",
+      "descricao_em_euros": "str (só DIN-01)"
+     },
+     "divergencia_com_o_documento": "str|null (selo_calculado != forca_esperada_hoje do spec)",
+     "vale_pela_faixa_de_pontos": {
+      "provisorio": true,
+      "fonte": "PONTOS.conclusoes[id]"
+     }
+    }
+   ],
+   "contagem_de_selos": {
+    "forte": "int",
+    "moderado": "int",
+    "fraco": "int",
+    "sem_sinal": "int",
+    "nao_da_para_afirmar": "int",
+    "fora_da_tela": "int"
+   },
+   "cinco_que_precisa_ler": [
+    "id × 5"
+   ],
+   "cinco_passos_aplicados": [
+    "str"
+   ]
+  },
+  "regra_do_selo_calculado": "o gerador resolve, por conclusão, cada critério de conclusoes_spec.json conclusoes[].criterios_do_selo: caminho (com filtro e subcampo) → valor → agregação → operador e limiar → passou (forma em conclusoes_spec.json regua.selo_calculado.forma_do_criterio; critério com caminho null é CONSTANTE, e passou = constante); depois aplica conclusoes[].regra_maquina: vence a primeira linha de 'ordem' cujas exigências (id → passou) batem todas; nenhuma bate: selo_padrao, e selo_padrao null tira a conclusão da tela ('a regra do selo não cobre os valores gravados'). regra_do_selo (texto) é só leitura. Se algum caminho efetivo de critério com decide=true está ausente, selo_calculado = null, na_tela = false e motivo_fora diz o caminho; os textos saem dos moldes com as lacunas resolvidas pelos formatos de conclusoes_spec.json formatos (a tela não formata número); selo_calculado diferente de forca_esperada_hoje vai para divergencia_com_o_documento e não é corrigido à mão",
+  "regra_das_cinco": [
+   "1. só entram itens com na_tela = true (todo critério que decide o selo está gravado)",
+   "2. ordenar pelo selo: forte, moderado, fraco, sem_sinal, nao_da_para_afirmar; sem limite por tema (decisão 2 do dono, 14/09)",
+   "3. dentro do mesmo selo, desempate pelo número mais firme: menor p_principal_cru (sem arredondar; p_principal com agregacao, como na A3, é o mínimo da lista); p_principal null vai depois dos que têm p; empate exato ou dois null: a ordem de conclusoes_spec.json conclusoes",
+   "4. as cinco primeiras"
+  ],
+  "comparacao_declarada_antes": "item.comparacao_declarada_antes = conclusoes_spec.json conclusoes[id].comparacao_declarada_antes (constante do spec). etapa_2.linhas[].comparacao_declarada_antes vale só para as linhas do catálogo; os blocos fora do catálogo (elenco_base, indice_intensidade, colocacao, mando, origem, etapa_11) herdam o declarada_depois_de_olhar da própria declaração",
+  "regua_selos_simples": {
+   "forte": "q de BH < 0,05 na família declarada E continua depois do desconto do dinheiro (no físico, também do rodízio) E toda repetição testável passa; nunca por comparação escolhida depois de olhar",
+   "moderado": "p bruto < 0,05 E continua depois do desconto do dinheiro E falta algo do forte; se q >= 0,05, só com a lista de onde saiu acima da sorte (p do excesso < 0,05, contagem bruta); comparação escolhida depois de olhar só chega aqui com a lista dela acima da sorte E o desconto do dinheiro (decisão 1)",
+   "fraco": "p bruto < 0,05 mas some no dinheiro (ou no rodízio, no físico), ou q >= 0,05 com a lista no nível da sorte, ou comparação escolhida depois sem lista acima da sorte",
+   "sem_sinal": "p >= 0,10; zona cinzenta (0,05 a 0,10) sem sinal em outra comparação da mesma linha escreve 'no limite'; a frase escreve 'não se viu'",
+   "nao_da_para_afirmar": "só (a) qual dos dois é maior com intervalo cruzando zero, (b) dado inexistente, (c) contas da mesma pergunta com lados opostos",
+   "repeticao_do_atleta": "forte quando o teste de cada par de anos dá p < 0,05 em todas as métricas declaradas, na régua do setor e na declarada antes; o corte de 0,5 só descreve o tamanho (decisão 3)",
+   "contas_da_mesma_pergunta": "no mesmo lado, uma passa e outra não: segue a conta declarada antes; nenhuma declarada antes: o selo mais fraco",
+   "sem_sexto_rotulo": "cinco selos e só cinco; nada fica 'provisório' nem 'descritivo'"
+  }
+ },
+ "bugs_do_gerador_relatados": [
+  {
+   "id": "BUG-1 etapa_11 físico ligado só pelo nome",
+   "onde": "gerar_prototipo.py, etapa_11 (s['k'] = chave_nome(short_name))",
+   "efeito": "entram 20 pares de homônimos (pessoas diferentes com o mesmo nome curto e outra data de nascimento: Matheuzinho, Kevin, David, Éder, Wallace, Lucas Lima...), todos contados como 'mudou'; o gravado 0,833 em 499 pares vira 0,861 em 479; na régua do setor a diferença ficou − mudou parecia 0,10 (IC95 +0,02 a +0,20) e é 0,05 (IC95 −0,03 a +0,14)",
+   "conserto": "chave = chave_nome(short_name) + '|' + birthdate em etapa_11.fisico, por_setor, por_posicao e comparacao_fisico_tecnico; gravar etapa_11.fisico.chave_do_atleta",
+   "medido_em": "r9_fis07_universos.py; o mesmo erro está em conf_atleta.py e conf_m1b.py (9 homônimos na M1)"
+  },
+  {
+   "id": "BUG-2 etapa_11 técnico com 2026",
+   "estado": "CONSERTADO NO CÓDIGO do bloco 1 (gerar_prototipo.py ~4045: etapa_11(tec25, sc25), assert ano <= 2025, etapa_11.efeito_de_retirar_2026 gravado); pendente só regravar o JSON",
+   "onde": "etapa_11.tecnico no dados/prototipo.json de 13/09",
+   "efeito": "o JSON de 13/09 tem pares 233/178 em vez de 176/144; rho por métrica misturado (passes recebidos p 0,007 com 2026, 0,016 sem)",
+   "conserto": "regravar; o ano máximo se lê de max(etapa_11.efeito_de_retirar_2026.anos_usados_no_tecnico), sem campo ano_maximo novo"
+  },
+  {
+   "id": "BUG-3 teste cego congelado não recebe escrita",
+   "onde": "pedidos antigos de A3 e A4 apontavam teste_cego_2018_2021.json",
+   "efeito": "escrever nele muda o sha256 e perde o congelamento",
+   "conserto": "A3 em etapa_8.teste_cego.diferenca_entre_blocos; A4 em etapa_0.mando; o arquivo entra em bases.teste_cego só com leitura e hash"
+  },
+  {
+   "id": "BUG-4 três formatos para o mesmo excesso",
+   "onde": "spec antigo (excesso.SM.p_excesso sem nível; excesso.SC.bruto.p_excesso com nível; sobecai...excesso.p_excesso)",
+   "efeito": "um leitor com um formato não acha o outro e tira a conclusão da tela",
+   "conserto": "excesso[comparacao][nivel] em etapa_3.por_familia e em sobecai_corrigido_por_clube.<setor>"
+  },
+  {
+   "id": "BUG-5 dois nomes para a contagem bruta por clube",
+   "onde": "sobecai_corrigido_por_clube.<setor>.p5_clube x pedido passam5_bruto",
+   "efeito": "o mesmo número em dois campos pode divergir",
+   "conserto": "manter p5_clube (já gravado) e não criar passam5_bruto"
+  },
+  {
+   "id": "BUG-6 duas sementes e dois testes para o excesso por clube",
+   "onde": "declaracoes_novas antigas: sobecai_* em excesso_por_familia ([SEMENTE,3,i], Welch no posto) e em nota_por_setor_por_clube ([SEMENTE,13,i])",
+   "efeito": "o p do excesso da M5 dependia de qual declaração o gerador seguisse",
+   "conserto": "uma declaração só (nota_por_setor_por_clube.excesso), com o teste que produziu os números (bruto no valor cru por clube; liq/liq2 no resíduo do posto), o meio dentro do sorteio e a semente [SEMENTE, 17, i] (BUG-17)"
+  },
+  {
+   "id": "BUG-17 semente do excesso por clube colidia com a dos atletas",
+   "onde": "declaração antiga nota_por_setor_por_clube.excesso: default_rng([SEMENTE, 13, i]), i = 0 a 3",
+   "efeito": "gerar_prototipo.py ~3070 cria default_rng([SEMENTE, 13, int(j['id'])]) por atleta, e dados/jogadores.json tem ids 0 a 3: os sorteios do excesso da zaga, lateral, meio e ataque sairiam na mesma sequência dos atletas 0 a 3 (viola o gerador próprio, CONTINUAR §4)",
+   "conserto": "default_rng([SEMENTE, 17, i]); o p do excesso da M5 e da M4 muda dentro do erro de Monte Carlo e o selo segue o número regravado"
+  },
+  {
+   "id": "BUG-18 nomes paralelos para o que o bloco 1 já grava",
+   "onde": "pedidos antigos bases.painel_2018_2021.linhas_usadas, bases.skillcorner.corte_minutos, etapa_11.fisico.corte_jogos, etapa_11.tecnico.corte_minutos, etapa_11.tecnico.ano_maximo",
+   "efeito": "o mesmo número em dois nomes (usadas × linhas_usadas; corte em texto × corte em int) pode divergir — o erro da BUG-5",
+   "conserto": "a lacuna lê bases.painel_2018_2021.usadas (já no código); os int de corte saem da MESMA variável do texto, com assert; ano_maximo não é criado (lê-se efeito_de_retirar_2026)"
+  },
+  {
+   "id": "BUG-7 o p de quem sobe contra o meio da DIN-01 já existe",
+   "onde": "etapa_1.valor_por_setor.setores[setor=total].p_sobe_x_meio (0,000491)",
+   "efeito": "o pedido antigo de auc_posto_de_valor.p_sobe_x_meio duplicaria o número",
+   "conserto": "a DIN-01 lê o campo já gravado; não duplicar"
+  },
+  {
+   "id": "BUG-8 M3: o universo da contagem de empates",
+   "onde": "etapa_13.candidatos",
+   "efeito": "pela definição escrita, 213 empatam em 586 com margem calculada; o conjunto tem 603 (2 goleiros sem setor físico e 15 meias com critério mas margem nula)",
+   "conserto": "gravar n, de (com margem) e n_pool; investigar por que 15 meias ficam sem margem"
+  },
+  {
+   "id": "BUG-9 palpite do dono gravado só como texto",
+   "onde": "etapa_1.curva_top_k.palpite_do_dono.afirmado = '>= 14'",
+   "efeito": "a tela precisa extrair o número de um texto",
+   "conserto": "gravar afirmado_n = 14"
+  },
+  {
+   "id": "BUG-10 formações em estrutura paralela",
+   "onde": "pedido antigo etapa_15.proxy_sistema.formacoes_distintas",
+   "efeito": "a linha formacoes já é do catálogo (família elenco) com p_bruto_SC 0,02428 e p_liq_SC 0,12518; uma estrutura paralela pode divergir",
+   "conserto": "gravar só medianas, CM e 2018-2021 na própria linha"
+  },
+  {
+   "id": "BUG-11 J8 lendo a correlação parcial como a do melhor número",
+   "onde": "lacuna melhor_rho",
+   "efeito": "0,34 (parcial) ao lado de 0,50 (bruta dos pontos): réguas diferentes",
+   "conserto": "abs(rho_bruto) da linha (0,439)"
+  },
+  {
+   "id": "BUG-12 bloco da FIS-10 não declarado",
+   "onde": "spec antigo",
+   "efeito": "mínimo e máximo do p mudavam conforme quem entrasse",
+   "conserto": "o bloco é o setor ataque inteiro do catálogo (32 linhas); gravar etapa_2.fis10_bloco"
+  },
+  {
+   "id": "BUG-13 determinismo e sorteio global (herança de 13/09)",
+   "onde": "set de strings iterado e rng global",
+   "efeito": "a ordem mudava com PYTHONHASHSEED e uma etapa nova deslocava os sorteios das seguintes",
+   "conserto": "sorted/dict.fromkeys; toda análise nova com default_rng([SEMENTE, etapa, k]) próprio; provar com PYTHONHASHSEED=1 contra =2 (zero diferença)"
+  },
+  {
+   "id": "BUG-14 etapa_14 recomendacao é lista",
+   "onde": "etapa_14.propostas[].vagas_detalhe[].recomendacao",
+   "efeito": "ler como campo único deu '0 de 90 mudaram' falso em 13/09",
+   "conserto": "contagem por POSIÇÃO, 2.000 réplicas, sorteio próprio por proposta, empate técnico (declaração etapa_14_contagem)"
+  },
+  {
+   "id": "BUG-15 ELE-07: o desconto do dinheiro muda com a conta",
+   "onde": "scripts da rodada (c78, v578)",
+   "efeito": "0,045 (conta da casa), 0,050 e 0,089 (outras duas): o lado do corte muda",
+   "conserto": "gravar só a conta da casa (resíduo do posto do ano sobre o percentil de valor) e dizer na frase que o resultado muda com a conta"
+  },
+  {
+   "id": "BUG-16 campos gravados com valor velho marcados como prontos",
+   "onde": "spec antigo: FIS-07 rho e pares; M1 e M6 rho_mudou/rho_ficou/pares",
+   "efeito": "o passo 2 das cinco trataria números errados como gravados",
+   "conserto": "lacunas marcadas ja_gravado_no_json=false com caminho_hoje_com_valor_velho até BUG-1 e BUG-2 serem consertados"
+  }
+ ],
+ "retirados_da_lista_da_lente_de_campos": [
+  {
+   "campo": "etapa_1.top4_de_valor.n_clubes e top4_nao_subiram (DIN-01)",
+   "motivo": "não estavam no molde; saíram das lacunas"
+  },
+  {
+   "campo": "anos_cai_acima (ELE-01)",
+   "motivo": "não estava no molde"
+  },
+  {
+   "campo": "sensibilidade_sem_corte_de_atletas (FIS-08)",
+   "motivo": "não estava no molde; fica só no rodapé"
+  },
+  {
+   "campo": "etapa_7.tabela_contra_melhor_numero (J8)",
+   "motivo": "o intervalo não estava no molde; a frase só diz que a diferença é pequena demais para ordenar"
+  },
+  {
+   "campo": "etapa_8.tipologia.dinheiro.rho_rota_x_valor_80 e rho_territorio_x_valor_80 (J10)",
+   "motivo": "o molde deixou de citar correlação (jargão); fica no rodapé"
+  },
+  {
+   "campo": "reconciliacao_bateria_332 (FIS-09)",
+   "motivo": "os números da bateria de 332 saíram do molde (vêm de um laudo, não do gerador); refazer lado a lado continua pendente e não entra nesta ordem"
+  },
+  {
+   "campo": "etapa_15.proxy_sistema.formacoes_distintas (J17)",
+   "motivo": "a linha formacoes já é do catálogo (BUG-10)"
+  },
+  {
+   "campo": "etapa_6.mesmo_ano e etapa_6.consequencia",
+   "motivo": "declarados (PENDENTE item 10) mas nenhuma conclusão os lê; ficam para a tela da etapa 6, fora desta ordem"
+  }
+ ],
+ "sem_cobertura": []
+}
