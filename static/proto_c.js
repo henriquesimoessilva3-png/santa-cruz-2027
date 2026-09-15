@@ -1,8 +1,10 @@
 /* ================= aba Protótipo — etapas 9 a 15 =================
 
    As réguas, o mercado e o que não dá. É a metade da aba em que o estudo para de descrever
-   quem subiu e começa a sugerir contratação — e por isso é a metade em que o controle do
-   dinheiro e a palavra "ausência" precisam aparecer mais, não menos.
+   quem subiu e começa a sugerir contratação — e por isso é a metade em que a pergunta "pode ser
+   sorte?" e a palavra "ausência" precisam aparecer mais, não menos. Desde 15/09/2026 o desconto
+   pelo valor do elenco saiu de vez (decisão do dono): o valor do elenco continua DESCRITO (régua H
+   da etapa 9, faixas de orçamento da etapa 14), mas não é filtro, coluna nem régua de nada.
 
    Vale aqui a regra da aba inteira: **o dado é a fonte, o texto é consequência.** Nenhum
    número deste arquivo foi digitado. Quando uma frase tem número dentro, o número saiu do
@@ -19,8 +21,8 @@
    - nenhuma classe de CSS nova — só as publicadas no contrato; o que precisou de geometria
      foi feito com `style=""` e com SVG montado à mão;
    - nenhum "—" pelado. Todo vazio deste arquivo carrega o motivo do vazio, e boa parte dos
-     motivos é calculada: a etapa 10 não diz "sem líquido", ela PROCURA o indicador no
-     catálogo da etapa 2 e diz que não achou.
+     motivos é procurada no dado: a etapa 10 não diz "fora do catálogo" de cabeça, ela PROCURA
+     o indicador no catálogo da etapa 2 e diz que não achou.
 
    Os filtros das etapas 13 e 14 usam os grupos de liga, a regra de nacionalidade e a regra
    de idade do app.js (GRUPOS_LIGA, GRUPOS_LIGA_ROTULOS, NACAO_MODOS, passaNacao, passaIdade).
@@ -48,7 +50,7 @@ ptAoTrocarDado(function () {
 
 /* ---------------- pontes com o dado que mora em outra etapa ----------------
 
-   A etapa 10 precisa do líquido de valor, que só existe no catálogo da etapa 2; a etapa 9
+   A etapa 10 precisa da porta e da sorte de cada medida, que só existem no catálogo da etapa 2; a etapa 9
    precisa dos nomes dos 16 que subiram, que só existem na matriz da etapa 5; a etapa 13
    precisa saber quais ligas ficaram sem cobertura física, que é dado da etapa 12; a 14 lê o
    teste da nota, que é da 13. Nenhuma dessas pontes pode ser escrita à mão: são consultas ao
@@ -66,12 +68,12 @@ function pcCatalogo() {
   PC.catalogo = m;
   return m;
 }
-/* O número de um ano para o outro continua gravado em `etapa_6.rho`, mas desde 14/09/2026 a TELA
-   da etapa 6 mostra só o desempenho no mesmo ano (pedido do dono). Por isso nenhum texto desta aba
-   manda o leitor "ver na etapa 6" a repetição: diz "o estudo", que é quem de fato mediu. */
-function pcRhoDaEtapa6() {
+/* A relação de cada número com os pontos do MESMO ano (`etapa_6.mesmo_ano.rho_mesmo_ano`), com a
+   chave de sorte gravada. Desde 15/09/2026 a repetição "no ano seguinte" (`etapa_6.rho`) deixou de
+   ser critério em qualquer lugar da aba: esta metade não lê mais aquele bloco. */
+function pcRhoMesmoAno() {
   const e6 = pcEtapa(6);
-  return (e6 && e6.rho) || {};
+  return (e6 && e6.mesmo_ano && e6.mesmo_ano.rho_mesmo_ano) || {};
 }
 function pcLigasSemFisico() {
   const e12 = pcEtapa(12);
@@ -153,7 +155,7 @@ function pcNumeroSolto(rot, valor, nota) {
    O vocabulário é o de proto.js (ptTamanho, ptSorte, ptAcaso, ptJunto, ptTecnico) e nenhum
    outro. O que mora aqui é só a montagem repetida: a contagem com a unidade dita por extenso
    (no lugar do "n ="), o nome legível de um indicador (lido do catálogo, nunca de um
-   dicionário escrito à mão), e o par "antes e depois de descontar o dinheiro" em frase. */
+   dicionário escrito à mão), e a diferença com a sua sorte numa célula. */
 function pcDeMedidas(usadas, noBloco) {
   return ptInt(usadas) + ' de ' + ptInt(noBloco) + (Number(noBloco) === 1 ? ' medida' : ' medidas');
 }
@@ -178,31 +180,32 @@ function pcLado(d, quem, outro) {
   if (d === null || d === undefined || Number(d) === 0) return '';
   return quem + ' tem ' + (Number(d) > 0 ? 'mais' : 'menos') + ' que ' + outro;
 }
-/* Diferença em uma célula: tamanho, veredito de sorte e o número técnico ao lado. */
-function pcDif(d, p) {
+/* Diferença em uma célula: tamanho, a sorte e o número técnico ao lado. `sorte` é o que o
+   ptSorte aceita — de preferência a CHAVE gravada ({chave, p, q}); sem ela, um p sozinho, que
+   nunca vira "firme". Sem `sorte`, só o tamanho. */
+function pcDif(d, sorte, opc) {
   if (d === null || d === undefined) return ptFalta('sem diferença medida');
-  return '<b>' + ptTamanho(d) + '</b>' + (p !== undefined ? ' · ' + ptSorte(p) : '') +
-    ptTecnico('d ' + ptD(d) + (p !== undefined ? ' · ' + ptP(p) : ''));
+  if (sorte === undefined || sorte === null) return '<b>' + ptTamanho(d) + '</b>' + ptTecnico('d ' + ptD(d));
+  const o = opc || {};
+  const r = ptChaveSorte(sorte, undefined, o);
+  const txt = ptSorte(sorte, undefined, o);
+  const tec = ['d ' + ptD(d), r.q !== null && r.q !== undefined ? 'q ' + ptPv(r.q) : '',
+    r.p !== null && r.p !== undefined ? 'p ' + ptPv(r.p) : '', r.nota].filter(Boolean).join(' · ');
+  return '<b>' + ptTamanho(d) + '</b> · ' + (r.chave ? esc(txt) : ptFalta(txt)) + ptTecnico(esc(tec));
 }
-/* O controle 2 (bruto → líquido) em frase. Continua ao lado de toda linha de indicador, e o
-   destaque de "continua separando" usa o mesmo α do estudo que ptLiquida usa. */
-function pcDinheiro(x) {
-  const vive = pcPassa(x.p_liq);
-  return '<span class="pt-liq' + (vive ? ' vive' : '') + '">' +
-    '<i>sem desconto</i> ' + ptTamanho(x.d_bruto) + ', ' + ptSorte(x.p_bruto) +
-    '<em>→</em>' +
-    '<i>descontado o dinheiro</i> ' + ptTamanho(x.d_liq) + ', ' + ptSorte(x.p_liq) +
-    '</span>' +
-    ptTecnico('d ' + ptD(x.d_bruto) + ' (' + ptP(x.p_bruto) + ') → ' + ptD(x.d_liq) + ' (' + ptP(x.p_liq) + ')');
+/* A sorte de uma medida do catálogo da etapa 2, pela chave gravada, na comparação pedida
+   ('SM' = quem subiu × meio; 'SC' = quem subiu × quem caiu). Fora do catálogo: null. */
+function pcSorteCat(indicador, comp) {
+  const c = pcCatalogo()[indicador];
+  if (!c) return null;
+  const sfx = comp === 'SC' ? 'SC' : 'SM';
+  return { chave: c['sorte_' + sfx] || null, p: c['p_bruto_' + sfx], q: c['q_' + sfx] };
 }
 /* O nome de cada porta, dito pelo que ela significa. A letra continua ao lado, em ptTecnico.
-   A frase de cada nome está nos comentários desta etapa desde a primeira versão ("a porta D é
-   o placar redescrito; a porta B separa e não se repete") e na `porta_motivo` do catálogo.
+   O texto mora em proto.js (ptPortaTxt), o mesmo da etapa 2. O resumo da letra, porém, é só a
+   reserva: a letra B junta motivos diferentes no dado, e o motivo GRAVADO na linha do catálogo
+   diz qual vale para aquela medida. Quando ele existe e é da mesma letra, é ele que aparece.
    Porta sem nome aqui aparece pela letra — a tela não inventa significado para ela. */
-/* O texto mora em proto.js (ptPortaTxt), o mesmo da etapa 2. O resumo da letra, porém, é só a
-   reserva: a letra B junta dois motivos diferentes no dado ("não se repete" e "não sobra depois de
-   descontar a sorte de testar muitos"), e o motivo GRAVADO na linha do catálogo diz qual dos dois
-   vale para aquela medida. Quando ele existe e é da mesma letra, é ele que aparece. */
 function pcPorta(letra, el, motivo, plural) {
   /* Linha sem porta (a aba de pontos não grava o campo) escrevia "porta undefined". */
   if (letra === undefined || letra === null || letra === '') {
@@ -211,7 +214,8 @@ function pcPorta(letra, el, motivo, plural) {
       : ' não traz a porta desta linha: a tela não diz por que ela fica de fora') +
       ' em vez de inventar um motivo');
   }
-  const txt = motivo ? esc(motivo) : (ptPortaTxt(letra) ? esc(ptPortaTxt(letra)) : 'porta ' + esc(letra));
+  const txt = motivo ? esc(motivo) : (ptPortaTxt(letra) ? esc(ptPortaTxt(letra))
+    : (ptPortaMotivo(null, String(letra)).de === 'saiu' ? esc(ptPortaMotivo(null, String(letra)).texto) : 'porta ' + esc(letra)));
   return txt + ptTecnico('porta ' + esc(letra) + (motivo ? ' · motivo gravado no catálogo da etapa 2' : ''));
 }
 /* O motivo gravado no catálogo para UMA medida, só quando a letra do catálogo é a mesma da linha
@@ -220,9 +224,9 @@ function pcMotivoDaLinha(l, cat) {
   const c = cat[l.indicador];
   return c && c.porta_motivo && String(c.porta) === String(l.porta) ? String(c.porta_motivo) : '';
 }
-/* O motivo sem o número da medida ("não se repete de um ano para o outro (rho=0,097 em 36 pares)"
-   vira "não se repete de um ano para o outro"): serve para AGRUPAR linhas pelo mesmo motivo. O
-   número de cada uma continua na linha da tabela. */
+/* O motivo sem o número da medida ("não separa quem sobe do meio (p 0,1868)" vira "não separa
+   quem sobe do meio"): serve para AGRUPAR linhas pelo mesmo motivo. O número de cada uma continua
+   na linha da tabela. */
 function pcMotivoBase(m) {
   return String(m || '').replace(/\s*\([^()]*\)\s*$/, '').trim();
 }
@@ -245,13 +249,16 @@ function pcLadoRegua(r) {
   return 0;
 }
 /* A frase de sentido só é escrita quando há diferença que se possa ver: com tamanho "quase
-   nenhuma" ou com "pode ser sorte", dizer "quem subiu tem mais" é afirmar sentido de ruído. */
-function pcSemLadoVisivel(d, p) {
-  return ptTamanho(d) === 'quase nenhuma' || ptSorte(p) === 'pode ser sorte';
+   nenhuma" ou "sem diferença clara", dizer "quem subiu tem mais" é afirmar sentido de ruído.
+   O teste compara a CHAVE da sorte, nunca o texto: quando o vocabulário mudou (15/09), o teste
+   antigo pelo texto "pode ser sorte" passou a esconder justamente as diferenças com p < α. */
+function pcSemLadoVisivel(d, sorte) {
+  const ch = ptChaveSorte(sorte, undefined, {}).chave;
+  return ptTamanho(d) === 'quase nenhuma' || (ch !== 'firme' && ch !== 'pode_ser_sorte');
 }
-function pcFraseLado(d, p, lado, semLado) {
+function pcFraseLado(d, sorte, lado, semLado) {
   if (d === null || d === undefined) return '';
-  if (pcSemLadoVisivel(d, p)) return 'sem diferença que se possa afirmar';
+  if (pcSemLadoVisivel(d, sorte)) return 'sem diferença que se possa afirmar';
   if (lado === 1) return 'quem subiu fica do lado bom';
   if (lado === -1) return 'quem subiu fica do lado ruim';
   return pcLado(d, 'quem subiu', 'o meio') + (semLado ? ' — ' + semLado : '');
@@ -581,38 +588,31 @@ function pcContaExtras(ctx) {
 
    Nove eixos compostos, e o aviso que o próprio pipeline manda exibir: a unidade de teste é
    o indicador cru; o eixo é régua de tela. Esse aviso não é rodapé nem `title` — foi
-   compondo eixo antes de testar que um dos planos anteriores concluiu "nenhum eixo separa
-   depois do dinheiro" e perdeu o achado que estava dentro do eixo.
+   compondo eixo antes de testar que um dos planos anteriores concluiu que nenhum eixo separava
+   e perdeu o achado que estava dentro do eixo.
 
    Por isso cada régua vem com a tabela dos seus itens crus ao lado, e a tela MARCA, item a
-   item, quando o item discorda do eixo: sinal contrário ao do eixo, ou item que sobrevive
-   ao líquido dentro de um eixo que não sobrevive. A marcação é calculada, não catalogada. */
+   item, quando o item discorda do eixo: sinal contrário ao do eixo, ou item que separa sozinho
+   dentro de um eixo que não separa. A marcação é lida das chaves de sorte gravadas.
+
+   Desde 15/09/2026 saíram daqui o desconto pelo valor do elenco e a régua "apagada" por não se
+   repetir no ano seguinte (decisões do dono). A sorte de cada régua é a CHAVE gravada
+   (`reguas[].sorte`, contando as nove juntas), e a régua do valor do elenco fica como descrição. */
 function ptEtapa9(alvo, dados) {
   const reguas = (dados.reguas || []).slice();
   const clubes = pcClubesQueSubiram();
-
-  /* A baseline do dinheiro é obrigatória aqui (contrato, seção 3). Nenhuma das nove réguas
-     traz AUC fora da amostra no JSON — e em vez de deixar o controle em branco, a tela
-     confere isso e escreve o que a régua tem no lugar do que ela não tem. */
-  const comAuc = reguas.filter(r => r.auc !== undefined && r.auc !== null);
-  const baseline = comAuc.length
-    ? ptBaseline({ rotulo: 'a melhor das réguas', auc: pcMax(comAuc.map(r => r.auc)) })
-    : ptBaseline({
-        rotulo: 'as réguas',
-        auc: null,
-        motivo: 'nenhuma das ' + ptInt(reguas.length) + ' réguas foi testada do jeito que o valor do elenco foi: ' +
-          'não há taxa de acerto para elas. O que existe é a diferença entre quem subiu e o meio da tabela, ' +
-          'com e sem o desconto do dinheiro, e se a régua se repete no ano seguinte — tudo medido nos mesmos ' +
-          ptInt(reguas.length ? (reguas[0].sobe || []).length : 0) + ' times que subiram, sem nenhum ano guardado para testar',
-      });
-
-  /* Quantas réguas o pipeline mandou esmaecer, e quantas sobrevivem ao líquido de valor: os
-     dois números que resumem a etapa saem de contagem, não de memória. */
-  const esmaecidas = reguas.filter(r => r.esmaecido);
-  const vivasNoLiquido = reguas.filter(r => pcPassa(r.p_liq_SM));
   const alfa = pcAlfa();
+  const nSobe = reguas.length ? (reguas[0].sobe || []).length : 0;
 
-  const cards = reguas.map((r, i) => pcReguaCard(r, i, clubes)).join('');
+  /* A contagem sai das chaves gravadas, nunca de um corte refeito aqui. */
+  const porChave = { firme: [], pode_ser_sorte: [], sem_diferenca: [], '': [] };
+  reguas.forEach(r => { const ch = pcChaveRegua(r) || ''; (porChave[ch] = porChave[ch] || []).push(r); });
+  const nomes = rs => rs.map(r => esc(ptNomeRegua(r.eixo))).join(', ');
+  /* A régua do valor do elenco é reconhecida pela chave do eixo, que é o nome dela no arquivo. */
+  const regDin = reguas.find(r => /dinheiro/i.test(String(r.eixo))) || null;
+  const outrasFirmes = porChave.firme.filter(r => r !== regDin);
+
+  const cards = reguas.map((r, i) => pcReguaCard(r, i, clubes, reguas.length, regDin)).join('');
 
   alvo.innerHTML =
     (dados.aviso_composicao
@@ -628,42 +628,64 @@ function ptEtapa9(alvo, dados) {
           'o estudo não trouxe a frase que manda mostrar nesta etapa (etapa_9.aviso_composicao). ' +
           'Sem ela a tela não inventa a frase: registra que ela falta.')) +
 
-    baseline +
-
-    '<p class="pt-nota" style="margin-top:14px">São <b>' + ptInt(reguas.length) + '</b> réguas. ' +
-      '<b>' + ptInt(esmaecidas.length) + '</b> ' + (esmaecidas.length === 1 ? 'aparece apagada' : 'aparecem apagadas') +
-      ' porque o próprio estudo as marcou assim (' +
-      (esmaecidas.length ? esmaecidas.map(r => esc(ptNomeRegua(r.eixo)) + ': de um ano para o outro, ' +
-        ptJunto(r.rho_persist) + ptTecnico('ρ ' + ptNum(r.rho_persist, 3))).join('; ') : 'nenhuma') + '). ' +
-      'Descontado o dinheiro, <b>' + ptInt(vivasNoLiquido.length) + '</b> ' +
-      (vivasNoLiquido.length === 1 ? 'continua' : 'continuam') + ' separando quem subiu do meio da tabela' +
-      (alfa !== null ? ptTecnico('p abaixo de ' + ptNum(alfa, 2)) : '') + '. ' +
-      'Régua apagada não é régua mal desenhada: é régua que não se repete de um ano para o outro, ' +
-      'e por isso descreve um ano em vez de um jeito de jogar.</p>' +
+    '<p class="pt-nota" style="margin-top:14px">São <b>' + ptInt(reguas.length) + '</b> réguas, cada uma ' +
+      'comparando os ' + ptInt(nSobe) + ' que subiram com o meio da tabela. Contando as ' + ptInt(reguas.length) +
+      ' juntas, <b>' + ptInt(porChave.firme.length) + '</b> ' + (porChave.firme.length === 1 ? 'é firme' : 'são firmes') +
+      (porChave.firme.length ? ' (' + nomes(porChave.firme) + ')' : '') + ', <b>' + ptInt(porChave.pode_ser_sorte.length) +
+      '</b> ' + (porChave.pode_ser_sorte.length === 1 ? 'pode ser sorte' : 'podem ser sorte') +
+      (porChave.pode_ser_sorte.length ? ' (' + nomes(porChave.pode_ser_sorte) + ')' : '') +
+      ' e <b>' + ptInt(porChave.sem_diferenca.length) + '</b> ' +
+      (porChave.sem_diferenca.length === 1 ? 'fica' : 'ficam') + ' sem diferença clara' +
+      (porChave[''].length ? '; ' + ptInt(porChave[''].length) + ' sem medida de sorte (' + nomes(porChave['']) + ')' : '') +
+      (alfa !== null ? ptTecnico('firme: q abaixo de ' + ptNum(alfa, 2) + ' · pode ser sorte: p abaixo de ' +
+        ptNum(alfa, 2) + ' sem passar no q') : '') + '.' +
+      (regDin && pcChaveRegua(regDin) === 'firme'
+        ? ' Uma das firmes é a do próprio valor do elenco (' + esc(ptNomeRegua(regDin.eixo)) + '): ela descreve quanto ' +
+          'vale o elenco de quem subiu, e fica aqui como descrição, não como régua para escolher jogador.' +
+          (outrasFirmes.length
+            ? ' As outras firmes (' + nomes(outrasFirmes) + ') podem andar junto com ela: elenco valioso tende a ter ' +
+              'isso; o estudo não separa as duas coisas.'
+            : '')
+        : '') + '</p>' +
 
     cards +
 
     ptFaltaBloco('O meio da tabela e quem caiu não aparecem nestas réguas',
       'o pedido era mostrar, atrás de cada régua, a faixa do meio da tabela e a de quem caiu, como na ' +
       'matriz da etapa 5. O dado desta etapa só traz os ' +
-      ptInt(reguas.length ? (reguas[0].sobe || []).length : 0) + ' valores de quem subiu — não traz a faixa do ' +
+      ptInt(nSobe) + ' valores de quem subiu — não traz a faixa do ' +
       'meio nem a de quem caiu. Por isso cada régua mostra só onde ficaram os que subiram, e cada uma ' +
       'tem a sua própria escala.');
 
   ptLigarTabelas(alvo);
 }
 
-function pcReguaCard(r, i, clubes) {
+/* A chave de sorte de uma régua: a gravada, com o p e o q dela ao lado (só para o número técnico). */
+function pcSorteRegua(r) {
+  const cS = ptCampo('etapa_9.reguas', 'sorte');
+  return { chave: r[cS] || null, p: r.p_SM, q: r.q_SM };
+}
+function pcChaveRegua(r) { return ptChaveSorte(pcSorteRegua(r), undefined, {}).chave; }
+/* A sorte de um item cru: a do catálogo da etapa 2, quando o item está lá e o p é o mesmo (é o
+   mesmo teste); senão, só o p, que sai "pode ser sorte" sem a conta dos muitos testes e nunca "firme". */
+function pcSorteItem(it) {
+  const c = pcSorteCat(it.col, 'SM');
+  if (c && it.p_SM !== null && it.p_SM !== undefined && Number(c.p) === Number(it.p_SM)) return c;
+  return { p: it.p_SM };
+}
+
+function pcReguaCard(r, i, clubes, nReguas, regDin) {
   const itens = r.itens_crus || [];
   /* "Discorda do eixo" tem duas formas, e as duas importam por motivos opostos: o item com
-     sinal contrário está sendo diluído dentro da média do eixo, e o item que sobrevive ao
-     líquido num eixo que não sobrevive é justamente o achado que a composição apaga. */
+     sinal contrário está sendo diluído dentro da média do eixo, e o item que separa sozinho
+     num eixo que não separa é justamente o achado que a composição apaga. */
   /* Três itens das nove réguas chegam com tudo nulo — e não é descuido de leitura: o JSON traz
      `col` e mais nada. Eles são justamente os que não estão no catálogo de indicadores da
      etapa 2, e a tela descobre isso procurando lá, em vez de afirmar um motivo de cabeça. */
   const cat = pcCatalogo();
+  const chR = pcChaveRegua(r);
   const linhas = itens.map(it => {
-    const mudo = it.d_SM === null && it.p_SM === null && it.d_liq_SM === null && it.p_liq_SM === null;
+    const mudo = (it.d_SM === null || it.d_SM === undefined) && (it.p_SM === null || it.p_SM === undefined);
     /* O sentido da medida é comparado ao da régua DEPOIS de aplicar o sinal declarado: a régua de
        solidez soma xG contra com sinal −1, e comparar o d cru marcava as três medidas dela como
        "sentido contrário" quando as três concordam com a régua. Sem sinal declarado, o d cru. */
@@ -672,12 +694,15 @@ function pcReguaCard(r, i, clubes) {
     const dOrient = it.d_SM === null || it.d_SM === undefined ? null : Number(it.d_SM) * sItem;
     const sinalContrario = !mudo && dOrient !== null && r.d_SM !== null &&
       Math.sign(dOrient) !== 0 && Math.sign(r.d_SM) !== 0 && Math.sign(dOrient) !== Math.sign(r.d_SM);
-    const vivoSozinho = pcPassa(it.p_liq_SM) && !pcPassa(r.p_liq_SM);
+    const sorte = mudo ? null : pcSorteItem(it);
+    const chI = sorte ? ptChaveSorte(sorte, undefined, {}).chave : null;
+    const separaSozinho = (chI === 'firme' || chI === 'pode_ser_sorte') && chR === 'sem_diferenca';
     const notas = [];
-    if (vivoSozinho) notas.push('continua separando depois de descontar o dinheiro, e a régua inteira não');
+    if (separaSozinho) notas.push('separa sozinha (' + ptSorte(sorte, undefined, {}) + '), e a régua inteira não');
     if (sinalContrario) notas.push('vai no sentido contrário da régua');
     return Object.assign({}, it, {
       _mudo: mudo,
+      _sorte: sorte,
       _motivo: mudo
         ? (cat[it.col]
             ? 'a medida está no catálogo da etapa 2, mas a régua não trouxe resultado nenhum para ela'
@@ -701,19 +726,11 @@ function pcReguaCard(r, i, clubes) {
       { k: 'd_SM', rot: 'quem subiu × meio da tabela', dica: 'ordena pelo tamanho da diferença',
         cel: (v, l) => pcTdTxt(l._mudo ? ptFalta(l._motivo)
           : '<b>diferença ' + ptTamanho(v) + '</b>' +
-            (pcFraseLado(v, l.p_SM, pcLadoItem(v, l.col), 'o estudo não diz o lado bom')
-              ? ' · ' + pcFraseLado(v, l.p_SM, pcLadoItem(v, l.col), 'o estudo não diz o lado bom') : '') +
+            (pcFraseLado(v, l._sorte, pcLadoItem(v, l.col), 'o estudo não diz o lado bom')
+              ? ' · ' + pcFraseLado(v, l._sorte, pcLadoItem(v, l.col), 'o estudo não diz o lado bom') : '') +
             ptTecnico('d ' + ptD(v))) },
-      { k: 'p_SM', rot: 'pode ser sorte?', dica: 'ordena pelo p: do menos para o mais provável de ser sorte',
-        cel: (v, l) => pcTdTxt(l._mudo ? '' : ptSorte(v) + ptTecnico(ptP(v))) },
-      { k: '_liq', rot: 'antes e depois de descontar o dinheiro', tipo: 'texto', ordenavel: false,
-        motivoFixa: 'são dois resultados numa célula (sem e com o desconto do dinheiro): não há um número só para ordenar',
-        fmt: (v, l) => l._mudo ? ptFalta(l._motivo)
-          : pcDinheiro({ d_bruto: l.d_SM, p_bruto: l.p_SM, d_liq: l.d_liq_SM, p_liq: l.p_liq_SM }) },
-      { k: 'rho_persist', rot: 'se repete no ano seguinte?', dica: 'ordena pelo ρ de um ano para o outro',
-        cel: (v, l) => pcTdTxt(v === null || v === undefined
-          ? ptFalta(l._mudo ? l._motivo : 'o estudo não mediu esta medida em dois anos seguidos')
-          : ptJunto(v) + ptTecnico('ρ ' + ptNum(v, 3))) },
+      { k: 'p_SM', rot: 'firme ou pode ser sorte?', dica: 'ordena pelo p: do menos para o mais provável de ser sorte',
+        cel: (v, l) => pcTdTxt(l._mudo ? '' : ptSorteHtml(l._sorte, undefined, {})) },
       { k: '_nota', rot: 'discorda da régua?', tipo: 'texto',
         fmt: (v, l) => l._mudo
           ? ptFalta('sem resultado, não dá para dizer se esta medida concorda ou discorda da régua')
@@ -723,61 +740,44 @@ function pcReguaCard(r, i, clubes) {
     linhas: linhas,
   });
 
-  const fraseRegua = pcFraseLado(r.d_SM, r.p_SM, pcLadoRegua(r), 'o estudo não diz se mais é melhor aqui');
-  const quatro = pcGrade(170,
+  const sR = pcSorteRegua(r);
+  const fraseRegua = pcFraseLado(r.d_SM, sR, pcLadoRegua(r), 'o estudo não diz se mais é melhor aqui');
+  const explica = {
+    firme: 'fica de pé mesmo contando que se testaram as ' + ptInt(nReguas) + ' réguas',
+    pode_ser_sorte: 'passa sozinha, mas não fica de pé quando se contam as ' + ptInt(nReguas) + ' réguas testadas',
+    sem_diferenca: 'nem sozinha a diferença passa do que o acaso daria',
+  };
+  const dois = pcGrade(200,
     pcNumeroSolto('quem subiu × meio da tabela', 'diferença ' + ptTamanho(r.d_SM),
-      (fraseRegua ? fraseRegua + ' · ' : '') + ptSorte(r.p_SM) +
-      ptTecnico('d ' + ptD(r.d_SM) + ' · ' + ptP(r.p_SM))) +
-    pcNumeroSolto('descontada a sorte de testar muita coisa', pcPassa(r.q_SM) ? 'ainda separa' : 'não sobra',
-      (pcPassa(r.q_SM)
-        ? 'continua de pé mesmo depois de descontar a sorte de testar muito'
-        : 'quando se testa muita coisa, alguma dá certo por sorte; descontada essa sorte, esta régua não fica de pé') +
-      ptTecnico('q de Benjamini-Hochberg ' + ptNum(r.q_SM, 3))) +
-    pcNumeroSolto('descontado o dinheiro', 'diferença ' + ptTamanho(r.d_liq_SM),
-      ptSorte(r.p_liq_SM) + ptTecnico('d ' + ptD(r.d_liq_SM) + ' · ' + ptP(r.p_liq_SM))) +
-    pcNumeroSolto('se repete no ano seguinte?', '<span style="font-size:14px">' + ptJunto(r.rho_persist) + '</span>',
-      (r.esmaecido ? 'o estudo mandou apagar esta régua' : 'o estudo não mandou apagar esta régua') +
-      ptTecnico('ρ ' + ptNum(r.rho_persist, 3))));
+      (fraseRegua ? esc(fraseRegua) : '') + ptTecnico('d ' + ptD(r.d_SM))) +
+    pcNumeroSolto('contra a sorte, contando as ' + ptInt(nReguas) + ' réguas', esc(ptSorte(sR, undefined, {})),
+      (explica[chR] || '') + ptTecnico(['q ' + ptPv(r.q_SM), 'p ' + ptPv(r.p_SM)].join(' · '))));
 
   const corpo =
     '<p class="pt-nota" style="margin-top:0">Medidas somadas nesta régua: ' + pcListaNomes(r.itens) + '</p>' +
-    quatro +
+    dois +
     '<div style="margin-top:12px">' +
       '<span class="pt-rot">onde ficou cada um dos que subiram, nesta régua</span>' +
       pcReguaSvg(r, clubes) +
     '</div>' +
     '<div style="margin-top:10px">' +
       '<span class="pt-rot">as medidas, uma a uma, cada uma com o seu resultado</span>' + tab +
-    '</div>' +
-    '<div style="margin-top:10px">' +
-      '<span class="pt-rot">a régua inteira</span> ' +
-      pcDinheiro({ d_bruto: r.d_SM, p_bruto: r.p_SM, d_liq: r.d_liq_SM, p_liq: r.p_liq_SM }) +
     '</div>';
 
-  const card = ptCard(
+  return ptCard(
     '', /* o título vai montado em HTML no subtítulo, porque ptCard escapa o título e o nome do eixo é código */
     pcNomeEixo(r.eixo) + ' · ' + ptInt((r.itens_crus || []).length) + ' medidas' +
-      (r.esmaecido ? ' · <b style="color:var(--coral)">apagada: não se repete de um ano para o outro</b>' : ''),
+      (r === regDin ? ' · descreve o valor do elenco' : ''),
     corpo,
-    (r.esmaecido
-      ? 'Esta régua aparece apagada porque o próprio estudo a marcou assim: de um ano para o outro, os ' +
-        'números dela ' + ptJunto(r.rho_persist) + ptTecnico('ρ de persistência ' + ptNum(r.rho_persist, 3)) +
-        '. Uma régua que não se repete descreve o ano que passou; contratar por ela é comprar a foto, não o ' +
-        'jeito de jogar.'
-      : 'De um ano para o outro, os números desta régua ' + ptJunto(r.rho_persist) +
-        ptTecnico('ρ de persistência ' + ptNum(r.rho_persist, 3)) + '.') +
+    (r === regDin
+      ? 'Esta régua é o valor do elenco: fica como descrição de quanto vale o elenco de quem subiu, não como ' +
+        'régua para escolher jogador. '
+      : '') +
     (mudos.length
-      ? ' <b>' + ptInt(mudos.length) + ' ' + (mudos.length === 1 ? 'medida desta régua entra sem resultado' : 'medidas desta régua entram sem resultado') +
+      ? '<b>' + ptInt(mudos.length) + ' ' + (mudos.length === 1 ? 'medida desta régua entra sem resultado' : 'medidas desta régua entram sem resultado') +
         '</b> (' + pcListaNomes(mudos.map(l => l.col)) + '): a régua as soma, mas o estudo não publica o ' +
         'resultado delas. Ninguém consegue conferir essa média inteira.'
       : ''));
-
-  /* O esmaecimento é visual e é exigência do contrato. Sem classe de CSS disponível, ele sai
-     em opacidade e saturação reduzidas no bloco inteiro — o texto continua legível, que é o
-     ponto: a régua não é escondida, é rebaixada. */
-  return r.esmaecido
-    ? '<div style="opacity:.68;filter:saturate(.55)">' + card + '</div>'
-    : card;
 }
 
 /* A régua desenhada. A escala é a DA PRÓPRIA régua (mínimo e máximo dos 16 valores de
@@ -841,25 +841,33 @@ function pcReguaSvg(r, clubes) {
    separação, ver que "pontos fora de casa" separa quem sobe de quem cai com o maior d da
    aba inteira, e sair para o mercado atrás de um jogador que faça pontos fora de casa.
 
-   A porta D é o placar redescrito. A porta B separa e não se repete. Nenhuma das duas é
-   critério de contratação, e por isso a etapa tem um rótulo em vez de uma conclusão. */
+   Desde 15/09/2026 a lista é FIXA e o gerador a grava pronta: as medidas que são o resultado
+   contado de outro jeito (`tipo` 'resultado') e as que são consequência dele ('consequencia'),
+   cada uma com o motivo gravado. Ela não depende de porta, de ρ nem de p — não é filtro de sorte —,
+   e por isso a etapa tem um rótulo em vez de uma conclusão. A porta e a sorte do catálogo da
+   etapa 2 vão ao lado só das que estão no catálogo, para mostrar que separar não basta. */
+const PC_TIPO_E10 = {
+  resultado: 'é o resultado contado de outro jeito',
+  consequencia: 'é consequência do resultado',
+};
 function ptEtapa10(alvo, dados) {
   const linhas = (dados.linhas || []).slice();
   const cat = pcCatalogo();
-  const rho6 = pcRhoDaEtapa6();
+  const tipoDe = l => (l.tipo === undefined || l.tipo === null) ? '' : String(l.tipo);
+  const nomeTipo = t => PC_TIPO_E10[t] || t;
 
-  /* As portas não são explicadas no `etapa_10`: a legenda de cada porta mora no
-     `porta_motivo` do catálogo da etapa 2. A tela vai buscar lá. Onde não achar — e a porta
-     D não está no catálogo, porque essas colunas nem entraram nos indicadores — escreve a
-     ausência com o motivo que a própria busca revelou. */
-  /* Antes a legenda de cada porta era o motivo da PRIMEIRA linha do catálogo com aquela letra —
-     com o número de outra medida dentro, e escolhendo um dos dois motivos da letra B para o grupo
-     inteiro. Agora cada linha leva o próprio motivo, e o grupo diz quantas linhas têm cada um. */
+  const porTipo = {}, tipos = [];
+  linhas.forEach(l => {
+    const t = tipoDe(l);
+    if (!(t in porTipo)) { porTipo[t] = []; tipos.push(t); }
+    porTipo[t].push(l);
+  });
+  /* Os motivos de um grupo, contados na ordem em que aparecem no dado. */
   const motivosDoGrupo = ls => {
     const cont = {}, ordem = [];
     let sem = 0;
     ls.forEach(l => {
-      const b = pcMotivoBase(pcMotivoDaLinha(l, cat));
+      const b = l.motivo ? String(l.motivo) : '';
       if (!b) { sem++; return; }
       if (!(b in cont)) { cont[b] = 0; ordem.push(b); }
       cont[b]++;
@@ -867,21 +875,18 @@ function ptEtapa10(alvo, dados) {
     return { cont: cont, ordem: ordem, sem: sem };
   };
 
-  const porPorta = {};
-  const chavePorta = l => (l.porta === undefined || l.porta === null) ? '' : String(l.porta);
-  linhas.forEach(l => { const k = chavePorta(l); (porPorta[k] = porPorta[k] || []).push(l); });
-  const portas = Object.keys(porPorta).sort();
-
-  const noCatalogo = linhas.filter(l => cat[l.indicador]).length;
-  const forasNoCatalogo = linhas.length - noCatalogo;
-  const semRho = linhas.filter(l => l.rho_persist === null || l.rho_persist === undefined);
-  const semRhoEForaDaEtapa6 = semRho.filter(l => !(l.indicador in rho6)).length;
+  const noCatalogo = linhas.filter(l => cat[l.indicador]);
+  const foraDoCatalogo = linhas.filter(l => !cat[l.indicador]);
 
   /* O d mais forte da lista é a prova do ponto. Ele é encontrado, não decorado. */
   /* As chaves de comparação passam pelo vocabulário de faixa (na aba de pontos, d_bruto_AB). */
   const kSM = ptK('d_bruto_{SM}'), kSC = ptK('d_bruto_{SC}');
   const maisForte = linhas.slice().sort((a, b) =>
     Math.abs(b[kSC] || 0) - Math.abs(a[kSC] || 0))[0];
+
+  const semTipoTxt = plural => ptFalta('o ' + ptArquivoDado(alvo) + (plural
+    ? ' não traz o tipo destas linhas: a tela não diz por que elas ficam de fora em vez de inventar um motivo'
+    : ' não traz o tipo desta linha: a tela não diz por que ela fica de fora em vez de inventar um motivo'));
 
   /* Nove colunas com frase dentro estouravam para o lado (2.570 px). A tabela usa a classe
      compacta, as três médias vão numa célula só, e toda coluna de frase quebra linha sem perder
@@ -894,7 +899,11 @@ function ptEtapa10(alvo, dados) {
     colunas: [
       { k: 'indicador', rot: 'medida', tipo: 'texto', dica: 'passe o mouse no nome para ver a coluna como ela existe na base',
         fmt: v => pcNomeInd(v) },
-      { k: 'porta', rot: 'por que fica de fora', tipo: 'texto', fmt: (v, l) => pcPorta(v, alvo, pcMotivoDaLinha(l, cat)) },
+      { k: 'tipo', rot: 'por que fica de fora', tipo: 'texto',
+        cel: (v, l) => pcTdTxt(tipoDe(l) === '' ? semTipoTxt(false)
+          : '<b>' + esc(nomeTipo(tipoDe(l))) + '</b>' +
+            (l.motivo ? ': ' + esc(l.motivo) : ' ' + ptFalta('sem motivo gravado nesta linha')) +
+            ptTecnico(esc(tipoDe(l)))) },
       { k: ptK('m_', 'sobe'), rot: 'média de cada grupo', dica: 'ordena pela média de ' + ptFxRot('sobe'),
         cel: (v, l) => pcTdTxt(['sobe', 'meio', 'cai'].map(g => {
           const val = l[ptK('m_', g)];
@@ -902,94 +911,79 @@ function ptEtapa10(alvo, dados) {
             (val === null || val === undefined ? ptFalta('sem média deste grupo') : '<b>' + ptNum(val, 2) + '</b>') +
             '</span>';
         }).join('')) },
-      { k: kSM, rot: ptFxRot('sobe') + ' × ' + ptFxRot('meio'), cel: v => pcTdTxt(pcDif(v)) },
-      { k: kSC, rot: ptFxRot('sobe') + ' × ' + ptFxRot('cai'), cel: v => pcTdTxt(pcDif(v)) },
-      { k: '_liq', rot: 'antes e depois de descontar o dinheiro', tipo: 'texto', ordenavel: false,
-        motivoFixa: 'são dois resultados numa célula (sem e com o desconto do dinheiro): não há um número só para ordenar',
-        fmt: (v, l) => {
+      { k: kSM, rot: ptFxRot('sobe') + ' × ' + ptFxRot('meio'),
+        cel: (v, l) => pcTdTxt(pcDif(v, cat[l.indicador] ? pcSorteCat(l.indicador, 'SM') : undefined)) },
+      { k: kSC, rot: ptFxRot('sobe') + ' × ' + ptFxRot('cai'),
+        cel: (v, l) => pcTdTxt(pcDif(v, cat[l.indicador] ? pcSorteCat(l.indicador, 'SC') : undefined)) },
+      { k: 'porta_no_catalogo', rot: 'no catálogo de indicadores da etapa 2', tipo: 'texto',
+        cel: (v, l) => {
           const c = cat[l.indicador];
-          if (c) return pcDinheiro({ d_bruto: c.d_bruto_SM, p_bruto: c.p_bruto_SM, d_liq: c.d_liq_SM, p_liq: c.p_liq_SM });
-          return ptFalta('esta medida não está no catálogo de ' + ptInt(Object.keys(cat).length) +
-            ' indicadores da etapa 2: o estudo não fez o desconto do dinheiro para ela');
+          if (!c) {
+            return pcTdTxt(ptFalta('fora das ' + ptInt(Object.keys(cat).length) + ' medidas do catálogo: não foi ' +
+              'escolhida como indicador antes do primeiro teste, então não tem porta nem conta de sorte'));
+          }
+          const letra = v !== null && v !== undefined ? v : c.porta;
+          return pcTdTxt(pcPorta(letra, alvo, pcMotivoDaLinha({ indicador: l.indicador, porta: letra }, cat)));
         } },
-      { k: 'rho_persist', rot: 'se repete no ano seguinte?', dica: 'ordena pelo ρ de um ano para o outro',
-        cel: (v, l) => pcTdTxt(v !== null && v !== undefined
-          ? ptJunto(v) + ptTecnico('ρ ' + ptNum(v, 3))
-          : ptFalta(l.indicador in rho6
-            ? 'o estudo mediu isto de um ano para o outro, mas esta etapa não trouxe o número'
-            : 'não foi medido de um ano para o outro: fora das ' + ptInt(Object.keys(rho6).length) +
-              ' medidas acompanhadas assim')) },
     ],
     linhas: linhas,
   });
 
-  /* A abertura era uma frase fixa ("parte é o resultado, a outra não se repete no ano seguinte")
-     que nenhum campo controlava: na aba de pontos, sem porta em linha nenhuma, ela afirmava a divisão
-     logo acima do cartão que confessa não saber. Agora cada oração só existe se houver linha daquele
-     tipo, e o motivo de cada parte é o gravado no catálogo. */
-  const pedacos = portas.filter(p => p !== '').map(p => {
-    const ls = porPorta[p], mg = motivosDoGrupo(ls);
-    const n = '<b>' + ptInt(ls.length) + '</b> ' + (ls.length === 1 ? 'medida' : 'medidas');
-    if (!mg.ordem.length) {
-      return n + ': ' + (ptPortaTxt(p) ? esc(ptPortaTxt(p)) : 'porta ' + esc(p)) + ptTecnico('porta ' + esc(p));
-    }
-    return mg.ordem.map(b => '<b>' + ptInt(mg.cont[b]) + '</b> ' + (mg.cont[b] === 1 ? 'medida' : 'medidas') +
-        ': ' + esc(b)).join('; ') +
-      (mg.sem ? '; ' + '<b>' + ptInt(mg.sem) + '</b> sem motivo gravado no catálogo, ' +
-        (ptPortaTxt(p) ? esc(ptPortaTxt(p)) : 'porta ' + esc(p)) : '') +
-      ptTecnico('porta ' + esc(p));
+  const pedacos = tipos.filter(t => t !== '').map(t => {
+    const ls = porTipo[t], mg = motivosDoGrupo(ls);
+    return '<b>' + ptInt(ls.length) + '</b> ' + (ls.length === 1 ? 'medida ' : 'medidas ') + esc(nomeTipo(t)) +
+      (mg.ordem.length ? ' (' + mg.ordem.map(b => esc(b) + (mg.cont[b] > 1 ? ', ' + ptInt(mg.cont[b]) : '')).join('; ') + ')' : '') +
+      ptTecnico(esc(t));
   });
-  const semPorta = porPorta[''] ? porPorta[''].length : 0;
+  const semTipo = porTipo[''] ? porTipo[''].length : 0;
   const maisForteTxt = maisForte && maisForte[kSC] !== null && maisForte[kSC] !== undefined
     ? ' A maior diferença entre ' + esc(ptFxRot('sobe')) + ' e ' + esc(ptFxRot('cai')) + ' na lista é a de ' +
       pcNomeInd(maisForte.indicador) + ': diferença ' + ptTamanho(maisForte[kSC]) + ptTecnico(esc(kSC) + ' ' + ptD(maisForte[kSC])) + '.'
     : '';
-  const foraTodosPlacar = forasNoCatalogo > 0 &&
-    linhas.filter(l => !cat[l.indicador]).every(l => String(l.porta) === 'D');
+  const tiposFora = foraDoCatalogo.map(tipoDe).filter((t, i, a) => a.indexOf(t) === i);
+  const separamNoCat = noCatalogo.filter(l => {
+    const ch = ptChaveSorte(pcSorteCat(l.indicador, 'SM'), undefined, {}).chave;
+    return ch === 'firme' || ch === 'pode_ser_sorte';
+  });
 
   alvo.innerHTML =
     '<div class="pt-controle" style="border-left:3px solid var(--coral)">' +
       '<b style="font-size:26px;letter-spacing:-.02em;display:block;line-height:1.1">SEPARA, E MESMO ASSIM FICA DE FORA</b>' +
       '<p class="pt-nota">Estas <b>' + ptInt(linhas.length) + '</b> medidas ficam fora dos critérios de escolha ' +
         'do estudo, e cada uma pelo motivo que o próprio estudo gravou.' + maisForteTxt + '</p>' +
-      (pedacos.length
-        ? '<p class="pt-nota">' + pedacos.join('. ') + '.</p>'
+      (pedacos.length ? '<p class="pt-nota">' + pedacos.join('. ') + '.</p>' : '') +
+      (semTipo
+        ? '<p class="pt-nota"><b>' + ptInt(semTipo) + '</b> ' + (semTipo === 1 ? 'medida' : 'medidas') + ': ' +
+          semTipoTxt(semTipo !== 1) + '.</p>'
         : '') +
-      (semPorta
-        ? '<p class="pt-nota">' + '<b>' + ptInt(semPorta) + '</b> ' + (semPorta === 1 ? 'medida' : 'medidas') + ': ' +
-          pcPorta('', alvo, '', semPorta !== 1) + '.</p>'
-        : '') +
+      '<p class="pt-nota">A lista não sai de teste de sorte nenhum: é a lista fixa do estudo. Separar quem sobe ' +
+        'não tira uma medida daqui' +
+        (noCatalogo.length
+          ? ' — das ' + ptInt(noCatalogo.length) + ' que estão no catálogo, ' + ptInt(separamNoCat.length) +
+            ' separam quem subiu do meio da tabela, e ficam de fora do mesmo jeito'
+          : '') + '.</p>' +
     '</div>' +
 
-    pcGrade(230, portas.map(p => {
-      const ls = porPorta[p], mg = motivosDoGrupo(ls);
-      /* Grupo com um motivo só: o motivo é o título. Com mais de um (a letra B hoje pode juntar os
-         dois), o título é o resumo da letra e os motivos vêm contados logo abaixo. */
-      const titulo = p === '' ? pcPorta('', alvo, '', ls.length !== 1)
-        : (mg.ordem.length === 1 && !mg.sem ? pcPorta(p, alvo, mg.ordem[0]) : pcPorta(p, alvo));
+    pcGrade(230, tipos.map(t => {
+      const ls = porTipo[t], mg = motivosDoGrupo(ls);
       return '<div class="pt-controle">' +
         '<span class="pt-rot">' + ptInt(ls.length) + (ls.length === 1 ? ' medida' : ' medidas') + '</span>' +
-        '<p class="pt-nota" style="margin-top:5px"><b>' + titulo + '</b></p>' +
-        (p === '' ? '' : mg.ordem.length
-          ? '<p class="pt-nota" style="font-size:11px">' + ptTecnico('motivo gravado no catálogo do estudo: ' +
+        '<p class="pt-nota" style="margin-top:5px"><b>' + (t === '' ? semTipoTxt(ls.length !== 1) : esc(nomeTipo(t))) + '</b></p>' +
+        (t === '' ? '' : mg.ordem.length
+          ? '<p class="pt-nota" style="font-size:11px">' + ptTecnico('motivo gravado pelo estudo: ' +
               mg.ordem.map(b => esc(b) + ' (' + ptInt(mg.cont[b]) + ' de ' + ptInt(ls.length) + ')').join(' · ') +
-              (mg.sem ? ' · sem motivo no catálogo: ' + ptInt(mg.sem) : '')) + '</p>'
-          : '<p class="pt-nota" style="font-size:11px">' +
-            ptFalta('o catálogo da etapa 2 não explica este grupo: ' + (ls.length === 1
-              ? 'esta medida nem entrou' : 'estas medidas nem entraram') + ' entre os ' +
-              ptInt(Object.keys(cat).length) + ' indicadores') + '</p>') +
+              (mg.sem ? ' · sem motivo: ' + ptInt(mg.sem) : '')) + '</p>'
+          : '<p class="pt-nota" style="font-size:11px">' + ptFalta('o estudo não gravou o motivo deste grupo') + '</p>') +
         '<p class="pt-nota" style="font-size:11.5px">' + pcListaNomes(ls.map(l => l.indicador)) + '</p>' +
       '</div>';
     }).join('')) +
 
-    '<p class="pt-nota" style="margin-top:14px"><b>' + ptInt(forasNoCatalogo) + '</b> das ' +
-      ptInt(linhas.length) + ' medidas desta etapa não estão no catálogo de indicadores da etapa 2, e ' +
-      '<b>' + ptInt(semRhoEForaDaEtapa6) + '</b> não foram acompanhadas de um ano para o outro.' +
-      (foraTodosPlacar
-        ? ' As que estão fora do catálogo são todas do grupo "' + esc(ptPortaTxt('D') || 'porta D') + '": ' +
-          'não foram escolhidas como indicador antes do primeiro teste, então não passaram pelo desconto do ' +
-          'dinheiro nem pelo teste de repetição. Entram aqui só para serem mostradas e deixadas de fora.'
-        : '') + '</p>' +
+    '<p class="pt-nota" style="margin-top:14px"><b>' + ptInt(foraDoCatalogo.length) + '</b> das ' +
+      ptInt(linhas.length) + ' medidas desta etapa não estão no catálogo de indicadores da etapa 2' +
+      (foraDoCatalogo.length && tiposFora.length === 1 && tiposFora[0] !== ''
+        ? ', e são todas do grupo "' + esc(nomeTipo(tiposFora[0])) + '": não foram escolhidas como indicador antes ' +
+          'do primeiro teste. Entram aqui só para serem mostradas e deixadas de fora'
+        : '') + '.</p>' +
 
     tab;
 
@@ -1547,32 +1541,38 @@ function pcEt12Conferencia(cc, deg) {
 /* O veredito do teste da nota, calculado — usado aqui e ao lado dos nomes da etapa 14, para as
    duas etapas dizerem a mesma coisa com o mesmo critério. Se um dia a nota passar a separar
    minutos, a frase muda sozinha; se continuar não separando, ela continua dizendo isso. */
+function pcOpcBacktest(bt) {
+  return { nTestes: [bt.p_minutos, bt.p_permanencia].filter(v => v !== null && v !== undefined).length };
+}
 function pcVereditoBacktest(bt) {
   if (!bt) return { separou: false, sepMinutos: false, sepPermanencia: false, html: '' };
   const alfa = pcAlfa();
   const sepMinutos = pcPassa(bt.p_minutos);
   const sepPermanencia = pcPassa(bt.p_permanencia);
+  /* Os dois testes da nota são uma família de dois, sem q gravado: o rótulo sai do p com a nota
+     "sem a conta dos N testes" quando o p passar, e nunca vira "firme" sem o q. */
+  const opcBt = pcOpcBacktest(bt);
   const html = (sepMinutos || sepPermanencia
     ? '<b>A nota separou.</b> ' +
       (sepMinutos ? 'Minutos no ano da chegada: diferença ' + ptTamanho(bt.d_minutos) + ', ' +
-        ptSorte(bt.p_minutos) + ptTecnico('d ' + ptD(bt.d_minutos) + ' · ' + ptP(bt.p_minutos)) + '. ' : '') +
+        esc(ptSorte(bt.p_minutos, undefined, opcBt)) + ptTecnico('d ' + ptD(bt.d_minutos) + ' · ' + ptP(bt.p_minutos)) + '. ' : '') +
       (sepPermanencia ? 'Ficaram no clube no ano seguinte: ' + ptPct(bt.permanencia_recomendados_pct) +
         ' dos aprovados contra ' + ptPct(bt.permanencia_reprovados_pct) + ' dos reprovados, ' +
-        ptSorte(bt.p_permanencia) + ptTecnico(ptP(bt.p_permanencia)) + '.' : '')
+        esc(ptSorte(bt.p_permanencia, undefined, opcBt)) + ptTecnico(ptP(bt.p_permanencia)) + '.' : '')
     : '<b>A nota não separou nada.</b> Testada com jogadores que já tinham chegado a clubes da Série B, ' +
       'a metade que a nota aprovaria jogou em média ' + ptNum(bt.min_medio_recomendados, 0) +
       ' minutos (' + pcQtd(bt.n_recomendados, 'chegadas') + '), e a metade que ela reprovaria jogou ' +
       ptNum(bt.min_medio_reprovados, 0) + ' (' + pcQtd(bt.n_reprovados, 'chegadas') + '). Diferença ' +
-      ptTamanho(bt.d_minutos) + ': ' + ptAcaso(bt.p_minutos) + ' — ' + ptSorte(bt.p_minutos) +
+      ptTamanho(bt.d_minutos) + ': ' + ptAcaso(bt.p_minutos) + ' — ' + esc(ptSorte(bt.p_minutos, undefined, opcBt)) +
       ptTecnico('d ' + ptD(bt.d_minutos) + ' · ' + ptP(bt.p_minutos)) + '. ' +
       'Ficaram no clube no ano seguinte ' + ptPct(bt.permanencia_recomendados_pct) + ' dos aprovados contra ' +
-      ptPct(bt.permanencia_reprovados_pct) + ' dos reprovados — ' + ptSorte(bt.p_permanencia) +
+      ptPct(bt.permanencia_reprovados_pct) + ' dos reprovados — ' + esc(ptSorte(bt.p_permanencia, undefined, opcBt)) +
       ptTecnico(ptP(bt.p_permanencia)) + '. E a nota e os minutos ' + ptJunto(bt.rho_nota_x_minutos) +
       ptTecnico('ρ ' + ptNum(bt.rho_nota_x_minutos, 3) + ' · ' + ptP(bt.p_rho)) + '.' +
       /* "fica abaixo do corte do estudo" era o p < alfa disfarçado. O veredito sai do MENOR dos
-         dois p pelo mesmo ptSorte da aba: se um dia um deles ficar "no limite", a frase diz isso. */
+         dois p pelo mesmo ptSorte da aba, com as mesmas três palavras da aba inteira. */
       (alfa !== null ? ' Nos dois resultados (minutos jogados e ficar no clube), a nota não fez diferença: ' +
-        ptSorte(Math.min(Number(bt.p_minutos), Number(bt.p_permanencia))) + '.' +
+        esc(ptSorte(Math.min(Number(bt.p_minutos), Number(bt.p_permanencia)), undefined, opcBt)) + '.' +
         ptTecnico('nenhum p abaixo de ' + ptNum(alfa, 2)) : ''));
   return { separou: !!(sepMinutos || sepPermanencia), sepMinutos: sepMinutos, sepPermanencia: sepPermanencia, html: html };
 }
@@ -1617,16 +1617,9 @@ function ptEtapa13(alvo, d) {
         'sem o teste, a tela publicaria uma lista ordenada que ninguém conferiu. A ausência fica aqui, no ' +
         'topo, no lugar exato onde o resultado deveria estar.');
 
-  /* Controle 1. A nota não tem AUC comparável ao do dinheiro, e o motivo é de desenho: ela é
-     testada contra permanência e minutos do atleta, não contra subida do clube. */
-  const baseline = ptBaseline({
-    rotulo: 'a nota de encaixe',
-    auc: null,
-    motivo: bt
-      ? 'o teste desta nota mede minutos e permanência do JOGADOR depois de chegar, não a subida do CLUBE. ' +
-        'Não há taxa de acerto comparável à do valor do elenco — o que existe está no bloco acima'
-      : 'a nota não foi testada, portanto não há nada para comparar com o valor do elenco',
-  });
+  /* Desde 15/09/2026 a nota não é mais posta ao lado do acerto do valor do elenco (decisão do dono:
+     o valor do elenco é descrição, na etapa 1, e não régua para a nota). O teste que importa para
+     ela é o do bloco acima, com quem já chegou. */
 
   const pesos = d.pesos || {};
   const NOME_BLOCO = { fisica: 'física', duelo: 'duelo', estilo: 'estilo' };
@@ -1680,7 +1673,6 @@ function ptEtapa13(alvo, d) {
   alvo.innerHTML =
     cabecalhoBacktest +
     pcEt13MudancaDoGerador(d) +
-    baseline +
     cardPesos +
     pcEt13Alvos(d, setores, nClube) +
     pcEt13ListaInteira(d, cands, setoresCand, gk) +
@@ -1765,6 +1757,40 @@ function pcMedidaFrase(k) {
     '</small>';
 }
 
+/* A sorte de uma medida do alvo, comparando clubes inteiros: a CHAVE gravada em
+   `sobecai_corrigido_por_clube.<setor>.itens[].sorte_clube`, quando o item é o mesmo teste (mesmo p);
+   sem ela, o p e o q do próprio alvo, pelos mesmos cortes da casca. */
+function pcSorteClube(setor, l) {
+  const sc = (((ptDado() || {}).sobecai_corrigido_por_clube || {})[setor] || {}).itens || [];
+  const it = sc.find(x => x && x.k === l.k);
+  const mesmo = it && it.p_clube !== undefined && Number(it.p_clube) === Number(l.p_clube);
+  return { chave: mesmo && it.sorte_clube ? it.sorte_clube : null, p: l.p_clube, q: l.q_clube };
+}
+/* A MARCA da lista inteira do setor (quem subiu × quem caiu, clubes inteiros): tem ou não tem mais
+   achados do que a sorte produz. É só rótulo — não muda a nota, não filtra candidato. A chave vem de
+   `sobecai_corrigido_por_clube.<setor>.excesso.SC.bruto.lista`; a conta tirando o rodízio de elenco
+   vai ao lado, em número pequeno. */
+function pcEt13MarcaLista(setor) {
+  const ex = ((((ptDado() || {}).sobecai_corrigido_por_clube || {})[setor] || {}).excesso || {}).SC || null;
+  if (!ex || !ex.bruto) {
+    return '<p class="pt-nota">' + ptFalta('o arquivo de dados não traz a conta da lista inteira deste setor ' +
+      '(sobecai_corrigido_por_clube.' + setor + '.excesso.SC)') + '</p>';
+  }
+  const ch = ptChaveLista(ex.bruto).chave;
+  const tem = ch === 'tem_mais_achados_que_a_sorte';
+  /* A marca vai sem a cor de alerta: o laranja da classe `alerta` dava contraste 3,8:1 no tema claro.
+     Quem diz "tem" ou "não tem" são as palavras, não a cor. */
+  return '<p class="pt-nota"><span class="pt-marca">' +
+      esc(ptListaSorte(ex.bruto)) + '</span> ' +
+    'A lista inteira deste setor, ' + esc(ptFxRot('sobe')) + ' × ' + esc(ptFxRot('cai')) + ' comparando clubes inteiros: ' +
+    ptListaSorteHtml(ex.bruto) + '. ' +
+    (ex.rod ? 'Tirando o efeito do rodízio de elenco, ' + esc(ptListaSorte(ex.rod)) + '.' + ptTecnico(
+      ex.rod.observado !== undefined ? 'achados ' + ptInt(ex.rod.observado) + ' · p do excesso ' + ptPv(ex.rod.p_excesso) : '') + ' ' : '') +
+    (tem ? 'Elenco valioso tende a ter isso; o estudo não separa as duas coisas. ' : '') +
+    'A marca não muda a nota de ninguém: diz só o quanto a lista de onde a nota sai passa do que a sorte daria.' +
+    '</p>';
+}
+
 function pcEt13Alvos(d, setores, nClube) {
   if (!setores.length) {
     return ptFaltaBloco('O estudo não trouxe o alvo de cada setor',
@@ -1846,9 +1872,9 @@ function pcEt13Alvos(d, setores, nClube) {
           fmt: (v, l) => v ? 'menos é melhor' : esc(ptInfoMedida(l.k).lado || 'o estudo não declara lado bom') },
         { k: 'd_clube', rot: 'diferença, contando o clube uma vez',
           dica: 'tamanho da diferença entre ' + ptFxRot('sobe') + ' e ' + ptFxRot('cai') + ', com o CLUBE como caso',
-          cel: (v, l) => pcTdTxt(pcDif(v, l.p_clube)) },
-        { k: 'bh_clube', rot: 'sobra, descontada a sorte de testar muita coisa?', tipo: 'texto',
-          dica: 'quando se testa muita coisa, alguma dá certo por sorte; esta coluna diz se a medida sobra depois de descontar essa sorte, comparando clubes inteiros',
+          cel: (v, l) => pcTdTxt(pcDif(v, pcSorteClube(setor, l))) },
+        { k: 'bh_clube', rot: 'firme, contando todas as medidas do setor?', tipo: 'texto',
+          dica: 'quando se testa muita coisa, alguma dá certo por sorte; firme quer dizer que a medida fica de pé mesmo contando todas as medidas do setor, comparando clubes inteiros',
           fmt: (v, l) => (v ? '<b style="color:var(--pt-ok)">sim</b>' : '<span style="color:var(--tinta3)">não</span>') +
             ptTecnico('q de BH ' + ptPv(l.q_clube)) },
         { k: 'bh_atleta', rot: 'passa contando atleta por atleta? (teste antigo)', tipo: 'texto',
@@ -1876,9 +1902,10 @@ function pcEt13Alvos(d, setores, nClube) {
     return '<div id="' + esc(ptId('13-alvo-' + setor)) + '" style="margin-top:14px">' +
       '<span class="pt-rot">' + esc(PT_SETOR_NOME[setor] || setor) + ' · ' + ptInt(chaves.length) + ' medidas</span>' +
       tab +
-      '<p class="pt-nota">Descontada a sorte de testar muita coisa, sobram <b>' + ptInt(sobrevivemBH) + '</b> das ' +
-        ptInt(chaves.length) + ' medidas deste setor quando se comparam clubes inteiros; contando atleta por ' +
-        'atleta, sobram <b>' + ptInt(sobrevivemAtleta) + '</b>. ' + pcEt13LeituraDasContas(sobrevivemBH, sobrevivemAtleta, maxAtletas) + '</p>' +
+      '<p class="pt-nota">Contando todas as medidas do setor, <b>' + ptInt(sobrevivemBH) + '</b> das ' +
+        ptInt(chaves.length) + ' ficam firmes quando se comparam clubes inteiros; contando atleta por ' +
+        'atleta, ficam <b>' + ptInt(sobrevivemAtleta) + '</b>. ' + pcEt13LeituraDasContas(sobrevivemBH, sobrevivemAtleta, maxAtletas) + '</p>' +
+      pcEt13MarcaLista(setor) +
       '</div>';
   }).join('');
 
@@ -1975,13 +2002,13 @@ function pcEt13Candidatos(d, cands, setor, f, usaNac) {
       const nTest = Object.keys(alvosSet).length;
       const inds = crit.indicadores || [];
       const sobra = inds.some(i => alvosSet[i] && alvosSet[i].bh_clube === true);
-      const alfa = pcAlfa();
+      const exSet = ((((ptDado() || {}).sobecai_corrigido_por_clube || {})[setor] || {}).excesso || {}).SC || null;
       return 'a nota se apoia em ' + ptCascaConcorda(nf.sobreviventes_por_clube, 'medida só', 'medidas só') +
         (inds.length ? ' (' + esc(inds.map(ptNomeMedida).join(', ')) + ')' : '') +
         ', que passou no corte simples comparando clubes inteiros' +
         (inds.length && nTest && !sobra
-          ? ', mas não sobra quando se desconta a sorte de testar ' + ptInt(nTest) + ' medidas' +
-            (alfa !== null ? ' (só de sorte, passariam cerca de ' + ptNum(nTest * alfa, 1) + ')' : '')
+          ? ', mas não fica firme contando as ' + ptInt(nTest) + ' medidas do setor' +
+            (exSet && exSet.bruto ? '; e ' + esc(ptListaSorte(exSet.bruto)) : '')
           : '') +
         ptTecnico(esc(k));
     }
@@ -2275,8 +2302,9 @@ function pcEt13Goleiro(gk, d, f, usaNac) {
    chegar: lista para observar); e os nomes têm filtro de liga, idade e nacionalidade, que só
    esconde nomes e não refaz a proposta.
 
-   Ao pé de cada proposta, os dois controles: o contrafactual do dinheiro (quanto custa o
-   elenco proposto e que taxa histórica de subida tem o quartil onde ele cai) e a baseline. */
+   Ao pé de cada proposta, a descrição do valor: quanto vale o núcleo proposto e quanto subiu, na
+   história, a faixa de orçamento onde ele cai. Desde 15/09/2026 é só descrição — a proposta não é
+   mais posta contra o acerto do valor do elenco (decisão do dono). */
 
 /* A ficha de um nome da proposta (liga, idade e, quando houver, nacionalidade) mora no
    candidato da etapa 13. A ligação é pelo código do atleta quando o gerador o gravar dos dois
@@ -2342,14 +2370,15 @@ function pcAvisoBacktest14() {
     '<p class="pt-nota" style="margin-top:5px;color:var(--tinta)">' +
     (v.separou
       ? '<b>Lista para observar.</b> No teste com quem já tinha chegado a clubes da Série B, a nota separou ' +
-        (v.sepMinutos ? 'os minutos jogados (' + ptSorte(bt.p_minutos) + ')' : '') +
+        (v.sepMinutos ? 'os minutos jogados (' + esc(ptSorte(bt.p_minutos, undefined, pcOpcBacktest(bt))) + ')' : '') +
         (v.sepMinutos && v.sepPermanencia ? ' e ' : '') +
-        (v.sepPermanencia ? 'quem ficou no clube (' + ptSorte(bt.p_permanencia) + ')' : '') +
+        (v.sepPermanencia ? 'quem ficou no clube (' + esc(ptSorte(bt.p_permanencia, undefined, pcOpcBacktest(bt))) + ')' : '') +
         '. Mas o teste mede o que aconteceu com o atleta, não se o clube subiu: nome aqui é ponto de partida ' +
         'para olhar, não contratação.'
       : '<b>Lista para observar, não recomendação.</b> Estes nomes saem da nota de encaixe, e a nota, testada ' +
         'com quem já tinha chegado a clubes da Série B, não separou quem rendeu depois de chegar: nos minutos ' +
-        'jogados, ' + ptSorte(bt.p_minutos) + '; em ficar no clube no ano seguinte, ' + ptSorte(bt.p_permanencia) + '.') +
+        'jogados, ' + esc(ptSorte(bt.p_minutos, undefined, pcOpcBacktest(bt))) + '; em ficar no clube no ano seguinte, ' +
+        esc(ptSorte(bt.p_permanencia, undefined, pcOpcBacktest(bt))) + '.') +
     tec + link + '</p></div>';
 }
 
@@ -2409,7 +2438,7 @@ function pcEt14ComoLer(d) {
         'fique acima da metade das vezes';
     }
     if (/contrafactual/i.test(s)) {
-      return 'a conta do dinheiro ao pé de cada proposta passa a usar o núcleo contado por posição';
+      return 'a conta do valor do núcleo, ao pé de cada proposta, passa a usar o núcleo contado por posição';
     }
     if (/posi[çc][ãa]o/i.test(s) && /vaga/i.test(s)) {
       return 'os nomes passam a ser contados por posição — quantas vezes o jogador entrou em qualquer vaga ' +
@@ -2473,6 +2502,42 @@ function pcEt14ComoLer(d) {
     corpo + mudou, '');
 }
 
+/* A porta de cada medida que justifica o núcleo enxuto. Desde 15/09/2026 o gerador grava
+   `justificativa_no_dado.porta` como DICIONÁRIO (uma letra por medida: share_11 e atletas_usados
+   têm portas diferentes); com o dado antigo, uma letra só, que vale para a frase inteira. Ao lado
+   de cada letra vão o motivo e a sorte gravados no catálogo e, quando a etapa 10 a marca, o motivo
+   de consequência do resultado. */
+function pcEt14Portas(j, el) {
+  const saida = { html: '', consequencias: [], n: 0 };
+  if (!j) return saida;
+  const e10 = ((pcEtapa(10) || {}).linhas || []);
+  const porta = j.porta;
+  if (porta === undefined || porta === null) {
+    saida.html = pcPorta(undefined, el, '', true);
+    return saida;
+  }
+  if (typeof porta !== 'object') {
+    saida.html = '<b>' + pcPorta(String(porta), el) + '</b>';
+    saida.n = 1;
+    return saida;
+  }
+  const ks = Object.keys(porta);
+  saida.n = ks.length;
+  saida.html = ks.map(k => {
+    const letra = porta[k];
+    const pm = ptPortaMotivo(k, letra === null || letra === undefined ? undefined : String(letra));
+    const l10 = e10.find(x => x && x.indicador === k);
+    if (l10 && l10.tipo === 'consequencia' && l10.motivo) saida.consequencias.push(String(l10.motivo));
+    return pcNomeInd(k) + ': <b>' +
+      (letra === null || letra === undefined ? pcPorta(undefined, el) : pcPorta(String(letra), el, pm.de === 'linha' ? pm.texto : '')) +
+      '</b>' +
+      (pm.sorteTxt ? ' (' + esc(pm.sorteTxt) + ', quem subiu × meio)' : '') +
+      (l10 && l10.tipo === 'consequencia'
+        ? ' — marcada como consequência do resultado' + (l10.motivo ? ': ' + esc(l10.motivo) : '') : '');
+  }).join('; ');
+  return saida;
+}
+
 function ptEtapa14(alvo, d) {
   const props = d.propostas || {};
   const chaves = Object.keys(props);
@@ -2485,6 +2550,7 @@ function ptEtapa14(alvo, d) {
   const grade = d.grade || [];
   const taxa = d.taxa_de_subida_por_quartil_pct || {};
   const j = d.justificativa_no_dado || null;
+  const jPortas = pcEt14Portas(j, alvo);
 
   /* A grade soma um número e toda proposta entrega outro, e a subtração nunca esteve na tela.
      A conta é feita aqui e a caixa que sobra é marcada como não preenchível — e descobrir QUAL
@@ -2542,12 +2608,15 @@ function ptEtapa14(alvo, d) {
       ? '<p class="pt-nota">Quem subiu usou em média <b>' + ptNum(j.atletas_usados_sobe, 1) + '</b> atletas na ' +
         'temporada, contra <b>' + ptNum(j.atletas_usados_cai, 1) + '</b> de quem caiu, e concentrou <b>' +
         ptPct(j.share_11_sobe) + '</b> dos minutos no time-base mais usado, contra <b>' + ptPct(j.share_11_cai) +
-        '</b>. É daí que sai a ideia do núcleo enxuto — e a ressalva é do tamanho da ideia: essa medida ' +
-        '<b>' + pcPorta(j.porta) + '</b>' +
-        (j.aviso ? ', ou seja, <b>' + esc(j.aviso) + '</b>' : '') + '.</p>'
+        '</b>. É daí que sai a ideia do núcleo enxuto — e a ressalva é do tamanho da ideia. As duas medidas, ' +
+        'cada uma com o que o estudo gravou para ela: ' + jPortas.html + '.' +
+        (j.aviso ? ' Ou seja: <b>' + esc(j.aviso) + '</b>.' : '') + '</p>'
       : ptFalta('a justificativa da forma não veio no dado')),
-    'Núcleo enxuto é decisão de projeto apoiada numa medida que não se repete de um ano para o outro. Fica ' +
-    'na tela como aposta, com nome de aposta.');
+    'Núcleo enxuto é decisão de projeto apoiada ' +
+      (jPortas.consequencias.length && jPortas.consequencias.length === jPortas.n
+        ? 'em medidas que o estudo marca como consequência do resultado (' + esc(jPortas.consequencias.join('; ')) + ')'
+        : 'em medidas que o estudo não trata como critério de escolha') +
+      '. Fica na tela como aposta, com nome de aposta.');
 
   /* A faixa de orçamento pelo número do quartil, do maior (mais caro) para o menor — a ordem
      sai da chave, e o ordinal da posição na lista, sem nenhum rótulo digitado por faixa. */
@@ -2555,14 +2624,15 @@ function ptEtapa14(alvo, d) {
   const nomeFaixa = i => i === 0 ? 'a faixa mais cara'
     : i === quartis.length - 1 ? 'a faixa mais barata'
     : 'a ' + ptInt(i + 1) + 'ª mais cara';
-  const cardTaxa = ptCard('A régua do dinheiro, que todo elenco proposto vai ter de enfrentar',
-    'quantos subiram, na história da Série B, em cada faixa de orçamento',
-    pcGrade(130, quartis.map((q, i) =>
-      pcNumeroSolto(nomeFaixa(i), ptPct(taxa[q]),
-        'subiram' + ptTecnico(q + 'º quartil de valor do elenco'))).join('')),
-    'Estes números são a comparação que toda proposta precisa enfrentar: montar um elenco que cai na faixa ' +
-    'mais barata é aceitar a chance histórica de subida daquela faixa. A proposta pode ser boa mesmo assim ' +
-    '— mas precisa saber contra o que está jogando.');
+  const cardTaxa = ptCard('Quanto subiu, na história, cada faixa de orçamento',
+    'na Série B, dividindo os elencos em faixas pelo valor',
+    quartis.length
+      ? pcGrade(130, quartis.map((q, i) =>
+          pcNumeroSolto(nomeFaixa(i), ptPct(taxa[q]),
+            'subiram' + ptTecnico(q + 'º quartil de valor do elenco'))).join(''))
+      : ptFalta('o arquivo de dados não traz a taxa de subida por faixa de orçamento'),
+    'É descrição do valor do elenco: quanto subiu, em cada faixa, quem montou elenco daquele tamanho. ' +
+    'Não é nota das propostas abaixo — ao pé de cada uma está quanto vale o núcleo e em que faixa ele cai.');
 
   const saltos = pcSaltos('ir para a proposta:', chaves.map(k => {
     const partes = k.split('__');
@@ -2887,13 +2957,6 @@ function pcEt14Proposta(p, chave, f, c14) {
 
   const nomeProposta = pcNomeProposta(chave);
 
-  const baseline = ptBaseline({
-    rotulo: nomeProposta,
-    auc: null,
-    motivo: 'uma proposta de elenco não tem taxa de acerto para comparar com o dinheiro: ela é a melhor ' +
-      'distribuição de nomes pelas vagas dentro das regras, refeita ' + ptInt(p.replicas) + ' vezes com as notas ' +
-      'sorteadas de novo, e não uma previsão de quem sobe. O que a compara com o dinheiro é o quadro logo abaixo',
-  });
 
   /* "top-N de valor" e "(n=N)" são jeito de planilha; o número continua saindo da frase do estudo.
      A troca leva a preposição junto ("no top-8", "do top-8"): trocar só a expressão deixava
@@ -2970,7 +3033,6 @@ function pcEt14Proposta(p, chave, f, c14) {
           'sem essa conferência não dá para dizer se o elenco proposto reproduz o perfil que o cenário pediu.')) +
 
     cardRestricoes +
-    baseline +
     ptContrafactual(p.contrafactual) +
     pcEt14FaixaEmpate(p.contrafactual),
     '');
@@ -3049,9 +3111,9 @@ function pcEt14Filtro(p) {
     '</p></div>';
 }
 
-/* O núcleo que o Controle 3 soma é feito dos nomes mais frequentes de cada posição; quando algum
+/* O núcleo somado ao pé da proposta é feito dos nomes mais frequentes de cada posição; quando algum
    deles está em empate técnico, a soma poderia ser outra com o outro empatado. O gerador grava a
-   faixa dessa troca, e ela vai logo abaixo do Controle 3 (que é da casca e não a desenha). */
+   faixa dessa troca, e ela vai logo abaixo do quadro do valor (que é da casca e não a desenha). */
 function pcEt14FaixaEmpate(cf) {
   if (!cf || !Array.isArray(cf.nomes_do_nucleo_em_empate_tecnico)) return '';
   const nomes = cf.nomes_do_nucleo_em_empate_tecnico;
@@ -3100,6 +3162,9 @@ function ptEtapa15(alvo, dados) {
   const alfa = pcAlfa();
 
   const linhas = Object.keys(testes).map(k => Object.assign({ proxy: k }, testes[k]));
+  /* Os testes do proxy não têm q gravado: o rótulo sai do p, com a nota "sem a conta dos N testes",
+     e nunca vira "firme" (N = quantos testes a tabela tem em cada comparação). */
+  const opc15 = { nTestes: linhas.length };
   const passamSM = linhas.filter(l => pcPassa(l.p_SM));
   const passamSC = linhas.filter(l => pcPassa(l.p_SC));
 
@@ -3113,9 +3178,9 @@ function ptEtapa15(alvo, dados) {
       { k: 'm_meio', rot: 'meio da tabela', casas: 2 },
       { k: 'm_cai', rot: 'quem caiu', casas: 2 },
       { k: 'd_SM', rot: 'quem subiu × meio', fmt: v => '<b>' + ptTamanho(v) + '</b>' + ptTecnico('d ' + ptD(v)) },
-      { k: 'p_SM', rot: 'pode ser sorte? (× meio)', fmt: v => ptSorte(v) + ptTecnico(ptP(v)) },
+      { k: 'p_SM', rot: 'contra a sorte (× meio)', fmt: v => ptSorteHtml(v, undefined, opc15) },
       { k: 'd_SC', rot: 'quem subiu × quem caiu', fmt: v => '<b>' + ptTamanho(v) + '</b>' + ptTecnico('d ' + ptD(v)) },
-      { k: 'p_SC', rot: 'pode ser sorte? (× quem caiu)', fmt: v => ptSorte(v) + ptTecnico(ptP(v)) },
+      { k: 'p_SC', rot: 'contra a sorte (× quem caiu)', fmt: v => ptSorteHtml(v, undefined, opc15) },
     ],
     linhas: linhas,
   });
@@ -3126,23 +3191,31 @@ function ptEtapa15(alvo, dados) {
   const paraOLadoErrado = passamSC.filter(l => l.d_SC < 0);
   const chaveTrocas = Object.keys(px).find(k => /^trocas_medianas_em_\d+_jogos$/.test(k)) || null;
 
-  /* As perguntas que a coleta responderia chegam em texto de analista ("se ppda (rho=0,129) e posse
-     (rho=0,272) passam a persistir quando se condiciona a permanência do técnico"). Na tela, a
-     pergunta como se faz numa reunião; a situação de hoje sai do número gravado em etapa_6.rho, não da string; o texto
-     do estudo fica ao lado, em letra miúda. Pergunta que o mapa não reconhece aparece como veio. */
-  const rho6 = pcRhoDaEtapa6();
+  /* As perguntas que a coleta responderia chegam em texto de analista. Na tela, a pergunta como se
+     faz numa reunião; o texto do estudo fica ao lado, em letra miúda. Pergunta que o mapa não
+     reconhece aparece como veio. Desde 15/09/2026 a de ppda e posse é sobre o MESMO ano (a repetição
+     no ano seguinte saiu dos critérios), e a situação de hoje sai de `etapa_6.mesmo_ano.rho_mesmo_ano`,
+     com a chave de sorte gravada — nunca de um número escrito na frase. */
+  const rhoAno = pcRhoMesmoAno();
   const pergunta = q => {
     const s = String(q);
     if (/pontos por jogo antes\/depois da troca/.test(s)) {
       return 'Quantos pontos por jogo o time fazia antes e depois de trocar o treinador, contra adversários ' +
         'parecidos e com o mesmo mando.' + ptTecnico(esc(s));
     }
-    if (/ppda.*posse.*persist/.test(s)) {
-      const hoje = (k, rot) => rho6[k] && rho6[k].rho !== null && rho6[k].rho !== undefined
-        ? 'os números de ' + rot + ' de um ano e do seguinte ' + ptJunto(rho6[k].rho)
-        : ptFalta('o estudo não mediu ' + rot + ' de um ano para o outro');
-      return 'Se o time com o mesmo treinador repete a pressão e a posse no ano seguinte. Hoje, sem saber ' +
-        'quem era o treinador, ' + hoje('ppda', 'pressão') + '; ' + hoje('posse', 'posse') + '.' + ptTecnico(esc(s));
+    if (/ppda/.test(s) && /posse/.test(s)) {
+      const hoje = k => {
+        const x = rhoAno[k];
+        if (!x || x.rho === null || x.rho === undefined) {
+          return ptFalta('o estudo não mediu ' + ptNomeIndicador(k) + ' contra os pontos do mesmo ano');
+        }
+        return esc(ptNomeIndicador(k)) + ' e os pontos do mesmo ano ' + ptJunto(x.rho) + ' (' +
+          esc(ptSorte({ chave: x.sorte || null, p: x.p, q: x.q }, undefined, { objeto: 'relacao' })) + ')' +
+          ptTecnico('ρ ' + ptNum(x.rho, 3) + ' · ' + ptP(x.p) + (x.q !== undefined && x.q !== null ? ' · q ' + ptPv(x.q) : '') +
+            (x.n ? ' · ' + ptInt(x.n) + ' temporadas de clube' : ''));
+      };
+      return 'Se a relação da pressão e da posse com os pontos do próprio ano muda quando o treinador fica. ' +
+        'Hoje, sem saber quem era o treinador: ' + hoje('ppda') + '; ' + hoje('posse') + '.' + ptTecnico(esc(s));
     }
     if (/técnicos aparecem em mais de uma promoção/.test(s)) {
       return 'Quais treinadores aparecem em mais de uma subida.' + ptTecnico(esc(s));
@@ -3187,7 +3260,7 @@ function ptEtapa15(alvo, dados) {
       (paraOLadoErrado.length
         ? '<b>E ' + ptInt(paraOLadoErrado.length) + ' ' + (paraOLadoErrado.length === 1 ? 'delas aponta' : 'delas apontam') +
           ' para o lado errado</b> (' +
-          paraOLadoErrado.map(l => esc(ptNomeMedida(l.proxy)) + ': diferença ' + ptTamanho(l.d_SC) + ', ' + ptSorte(l.p_SC) +
+          paraOLadoErrado.map(l => esc(ptNomeMedida(l.proxy)) + ': diferença ' + ptTamanho(l.d_SC) + ', ' + esc(ptSorte(l.p_SC, undefined, opc15)) +
             ptTecnico('d ' + ptD(l.d_SC) + ' · ' + ptP(l.p_SC))).join('; ') +
           '): ' + (paraOLadoErrado.length === 1 ? 'nessa medida' : 'nessas medidas') + ' quem caiu está ACIMA ' +
           'de quem subiu. Isso não é característica de quem sobe — é o efeito de estar perdendo medido de outro ' +

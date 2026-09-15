@@ -10,8 +10,8 @@
    `ptFalta()` existe exatamente para isso, e um "—" pelado é considerado defeito.
 
    Este arquivo tem três responsabilidades e nenhuma a mais:
-     1. montar o esqueleto (tarja de conferência, controles obrigatórios, sumário, os
-        dezesseis lugares de etapa);
+     1. montar o esqueleto (tarja de conferência, o valor do elenco descrito no topo, sumário,
+        os dezesseis lugares de etapa);
      2. chamar `ptEtapa0()`..`ptEtapa15()` — que moram em proto_a.js, proto_b.js e
         proto_c.js — e sobreviver quando alguma delas ainda não existir;
      3. oferecer os helpers compartilhados, para que três arquivos escritos por mãos
@@ -343,7 +343,7 @@ const PT_ETAPAS = [
   [0,  'O que está sendo medido',          'quantos times entram no estudo, e o que dá para concluir com esse tanto', 'proto_a.js'],
   [1,  'Quanto o dinheiro já explica',     'antes de olhar o jogo: o valor do elenco, sozinho, já separa quem sobe?', 'proto_a.js'],
   [2,  'Tudo o que foi medido',            'um indicador por linha — clique no nome da coluna para ordenar', 'proto_a.js'],
-  [3,  'Quanto disso pode ser sorte',      'quando se testa muita coisa, alguma dá certo por acaso: quantas sobram descontada essa sorte', 'proto_a.js'],
+  [3,  'Quanto disso pode ser sorte',      'quando se testa muita coisa, alguma dá certo por acaso: quantas são firmes contando todos os testes, e se a lista tem mais achados do que a sorte produz', 'proto_a.js'],
   [4,  'Dá para confiar na medida?',       'a medida dá o mesmo resultado se for medida duas vezes no mesmo ano?', 'proto_a.js'],
   /* 5: redesenhada em 14/09 (pedido do dono, aprovada na prévia): abre com o valor típico de cada grupo
      e a diferença contra o meio; a matriz por time ficou embaixo, como detalhe. Sem afirmar resultado. */
@@ -355,11 +355,13 @@ const PT_ETAPAS = [
   [7,  'Veio antes ou veio depois?',       'foi o que o time fez, ou é o que acontece com quem já está subindo?', 'proto_b.js'],
   /* 8 e 10: título e subtítulo são texto fixo, que nenhum campo do dado controla — então só podem
      dizer do que a etapa trata, nunca o resultado dela. "Os padrões que não pararam de pé" e "não
-     contrate para isto" afirmavam o resultado (e a etapa 10 tem também linhas que separam mas não se
-     repetem, que não são "o resultado dito de outro jeito"). Quem diz o resultado é a própria etapa. */
+     contrate para isto" afirmavam o resultado. Quem diz o resultado é a própria etapa.
+     10, desde 15/09: a etapa deixou de ser "porta D ou B que não se repete no ano seguinte" e virou a
+     LISTA FIXA do que é resultado ou consequência do resultado (a mesma do ranking_gaps). Não é filtro
+     de sorte nem de repetição — por isso o subtítulo não fala mais de "provas". */
   [8,  'Os padrões de jogo, testados',     'os times se separam em grupos de estilo? o que o teste mostrou, grupo por grupo', 'proto_b.js'],
   [9,  'As réguas',                        'as medidas que resumem o jogo, e cada item com a sua própria chance de ser sorte', 'proto_c.js'],
-  [10, 'Causa ou consequência',            'o que separa os times, mas não passou em todas as provas — e o motivo de cada um', 'proto_c.js'],
+  [10, 'Causa ou consequência',            'os números que são o resultado contado de outro jeito, ou consequência dele — e o motivo de cada um', 'proto_c.js'],
   [11, 'O que o jogador leva na mala',     'o que o jogador leva quando muda de clube, e o que era do time anterior', 'proto_c.js'],
   [12, 'O funil dos jogadores livres',     'do arquivo inteiro até os jogadores que dá para avaliar, degrau por degrau', 'proto_c.js'],
   [13, 'A nota de encaixe',                'os três pedaços da nota, quanto dado físico cada jogador tem, e como a nota teria ido no passado', 'proto_c.js'],
@@ -431,7 +433,23 @@ function ptAno(v) { return v === null || v === undefined ? '—' : String(v); }
    dela. O número técnico nunca some — vai ao lado, menor, em ptTecnico(), para quem quer conferir.
 
    E a regra que não se negocia: simplificar não é afirmar mais. "Pode ser sorte" continua
-   aparecendo onde o dado diz que pode ser sorte. */
+   aparecendo onde o dado diz que pode ser sorte.
+
+   DESDE 15/09 A SORTE TEM UM VOCABULÁRIO SÓ, E ELE SAI DA CHAVE QUE O GERADOR GRAVA.
+   Até 14/09 a mesma expressão tinha dois cortes: na etapa 2 o `ptSorte` lia UM número (às vezes
+   o p, às vezes o q) em três faixas — "dificilmente é sorte" abaixo de α, "no limite" entre α e
+   2α, "pode ser sorte" acima —, e na etapa 5 "pode ser sorte" queria dizer p < α sem passar no q.
+   73 comparações eram "pode ser sorte" numa etapa e "dificilmente é sorte" na outra. Agora o
+   gerador grava a chave (`sorte`, `sorte_SM`, `sorte_SC`, `sorte_clube`) a partir de p e q:
+     firme           q < α (num teste único declarado, q = p)
+     pode_ser_sorte  p < α e q >= α
+     sem_diferenca   p >= α
+   e a tela só TRADUZ a chave (`ptSorte`). Onde não há chave gravada, a casca aplica exatamente os
+   mesmos cortes, com as mesmas palavras; sem q, "pode ser sorte" leva a nota técnica "sem a conta
+   dos N testes". Saíram "dificilmente é sorte" (dizia mais do que o p sozinho diz) e "no limite"
+   como rótulo de sorte (a faixa de 2α era a origem da colisão): "no limite" só existe no SELO das
+   conclusões, para a zona cinzenta. Teste de rótulo compara a CHAVE (`ptChaveSorte`), nunca o
+   texto — texto muda de palavra e o teste passa a mentir calado. */
 
 /* Tamanho da diferença (d de Cohen), nas faixas usuais 0,2 · 0,5 · 0,8. */
 const PT_FAIXAS_D = [[0.8, 'grande'], [0.5, 'média'], [0.2, 'pequena'], [0, 'quase nenhuma']];
@@ -453,12 +471,12 @@ function ptAcaso(p) {
 }
 
 /* O veredito curto sobre sorte, amarrado ao alfa do próprio estudo (etapa 0) e não a um 0,05
-   digitado. "No limite" existe porque o leitor leigo lê 0,049 e 0,051 como coisas opostas. */
+   digitado. */
 /* O α mora em `etapa_0.poder.alfa` na Protótipo. Na aba de pontos o poder foi dividido por
    UNIVERSO (`poder.fisico_tecnico_individual_valor_2022_2025.alfa`, `poder.tecnico_coletivo_2018_2025.alfa`).
    `ptAlfa(universo?)`: com universo, o α dele; sem universo, o α único — e se os universos
    declararem α DIFERENTES, não escolhe um: devolve null, e `ptAlfaInfo().motivo` diz por quê.
-   Não existe α de reserva digitado: sem α declarado, nada vira "dificilmente é sorte". */
+   Não existe α de reserva digitado: sem α declarado, nada vira "firme". */
 function ptAlfaInfo(universo, dado) {
   const d = dado === undefined ? ptDado() : dado;
   const poder = d && d.etapa_0 && d.etapa_0.poder;
@@ -481,16 +499,183 @@ function ptAlfaInfo(universo, dado) {
     motivo: 'cada universo do estudo declara um corte de sorte diferente; a tela precisa saber de qual universo é o número' };
 }
 function ptAlfa(universo, dado) { return ptAlfaInfo(universo, dado).alfa; }
-/* Devolve TEXTO simples (os arquivos de etapa passam por esc): sem α declarado, a frase diz isso.
-   `el` (opcional, 3º argumento — ou 2º, no lugar do universo): o α sai do dado da aba daquele
-   elemento, para redesenho fora de evento com duas abas na página. */
-function ptSorte(p, universo, el) {
-  if (p === null || p === undefined || isNaN(Number(p))) return 'sem medida';
-  if (universo && universo.nodeType) { el = universo; universo = undefined; }
-  const alfa = ptAlfa(universo, el ? ptDado(el) : undefined);
-  if (alfa === null) return 'sem corte de sorte declarado no arquivo de dados';
-  const v = Number(p);
-  return v < alfa ? 'dificilmente é sorte' : v < 2 * alfa ? 'no limite' : 'pode ser sorte';
+
+/* ---- a chave de sorte e as palavras dela ----
+
+   As três chaves e as três frases. O substantivo de "sem ..." muda com o objeto do teste (uma
+   diferença, uma relação ρ, uma separação de grupos), a chave não. "por pouco" não é quarta chave:
+   é sufixo de "firme", só quando quem chama pede (`porPouco: true`) e o q está entre α/2 e α. */
+const PT_SORTE_CHAVES = ['firme', 'pode_ser_sorte', 'sem_diferenca'];
+const PT_SORTE_SEM = { diferenca: 'sem diferença clara', relacao: 'sem relação clara', separacao: 'sem separação clara' };
+function ptNumSorte(v) {
+  return v !== null && v !== undefined && v !== '' && typeof v !== 'boolean' && isFinite(Number(v)) ? Number(v) : null;
+}
+/* Lê os argumentos das duas formas de chamar, a nova e a de antes de 15/09:
+     nova:   ptSorte(chave | {chave|sorte, p, q, ...opc} | p, q?, opc?)
+     antiga: ptSorte(p, universo?, el?) — continua funcionando: string no 2º lugar é universo,
+             elemento é o `el`; só não existe mais o corte "no limite".
+   Número (ou null) no 2º lugar é o q. Objeto simples em qualquer lugar depois do 1º é `opc`. */
+function ptSorteArgs(args) {
+  const o = { chave: null, chaveCrua: null, p: null, q: null, temQ: false, opc: {} };
+  const a0 = args[0];
+  if (typeof a0 === 'string' && !isFinite(Number(a0))) {
+    o.chaveCrua = a0;
+  } else if (a0 && typeof a0 === 'object' && !a0.nodeType) {
+    Object.assign(o.opc, a0);
+    o.chaveCrua = a0.chave !== undefined && a0.chave !== null ? a0.chave : (a0.sorte !== undefined ? a0.sorte : null);
+    o.p = ptNumSorte(a0.p);
+    if (Object.prototype.hasOwnProperty.call(a0, 'q')) { o.q = ptNumSorte(a0.q); o.temQ = o.q !== null; }
+  } else {
+    o.p = ptNumSorte(a0);
+  }
+  for (let i = 1; i < args.length; i++) {
+    const v = args[i];
+    if (v === undefined) continue;
+    if (v === null || typeof v === 'number') {
+      if (i === 1) { o.q = ptNumSorte(v); o.temQ = o.q !== null; }
+    } else if (typeof v === 'string') {
+      o.opc.universo = v;
+    } else if (v && v.nodeType) {
+      o.opc.el = v;
+    } else if (v && typeof v === 'object') {
+      Object.assign(o.opc, v);
+      if (Object.prototype.hasOwnProperty.call(v, 'q')) { o.q = ptNumSorte(v.q); o.temQ = o.q !== null; }
+      if (Object.prototype.hasOwnProperty.call(v, 'p') && o.p === null) o.p = ptNumSorte(v.p);
+      if ((v.chave !== undefined && v.chave !== null) && o.chaveCrua === null) o.chaveCrua = v.chave;
+    }
+  }
+  return o;
+}
+/* A CHAVE, sem texto. É o que os testes de rótulo comparam (`ptChaveSorte(l.sorte_SM).chave === 'firme'`).
+   Devolve {chave, de, p, q, alfa, semQ, porPouco, nota, motivo}:
+   - `chave`: 'firme' | 'pode_ser_sorte' | 'sem_diferenca' | null (sem medida; `motivo` diz por quê);
+   - `de`: 'dado' quando veio a chave gravada; 'casca' quando a casca aplicou os cortes;
+   - `semQ`: true quando o "pode ser sorte" saiu só do p, sem a conta dos muitos testes;
+   - `nota`: o texto técnico dessa falta ("sem a conta dos 28 testes"), para ir no ptTecnico;
+   - `porPouco`: firme com q entre α/2 e α (só informa; a frase só usa com `opc.porPouco`).
+   opc: {unico: true} = teste único declarado (q = p) · {nTestes: N} = tamanho da família sem q
+   gravado · {universo, el} = de qual α (como antes). Chave gravada vence os números: o gerador é
+   quem decide, e a casca não recalcula por cima dele. */
+function ptChaveSorte() {
+  const a = ptSorteArgs(arguments);
+  const opc = a.opc;
+  const el = opc.el && opc.el.nodeType ? opc.el : undefined;
+  const alfa = ptAlfa(opc.universo, el ? ptDado(el) : undefined);
+  const r = { chave: null, de: null, p: a.p, q: a.q, alfa: alfa, semQ: false, porPouco: false, nota: '', motivo: '' };
+  if (a.chaveCrua !== null && a.chaveCrua !== undefined && a.chaveCrua !== '') {
+    const k = String(a.chaveCrua);
+    if (PT_SORTE_CHAVES.indexOf(k) < 0) {
+      r.motivo = 'rótulo de sorte que a tela não conhece: ' + k;
+      return r;
+    }
+    r.chave = k;
+    r.de = 'dado';
+  } else {
+    if (alfa === null) { r.motivo = 'sem corte de sorte declarado no arquivo de dados'; return r; }
+    let q = a.q;
+    if (q === null && opc.unico === true && a.p !== null) q = a.p;
+    if (q !== null && q < alfa) r.chave = 'firme';
+    else if (a.p === null) {
+      r.motivo = q === null ? 'sem medida'
+        : 'o arquivo traz a conta dos muitos testes sem o p de cada teste, e sem ele não dá para dizer se pode ser sorte';
+      return r;
+    } else if (a.p < alfa) {
+      r.chave = 'pode_ser_sorte';
+      if (q === null) {
+        r.semQ = true;
+        const n = ptNumSorte(opc.nTestes);
+        r.nota = n !== null ? 'sem a conta dos ' + ptInt(n) + ' testes' : 'sem a conta dos muitos testes';
+      }
+    } else r.chave = 'sem_diferenca';
+    r.de = 'casca';
+    if (q !== null) r.q = q;
+  }
+  if (r.chave === 'firme' && alfa !== null && r.q !== null && r.q >= alfa / 2 && r.q < alfa) r.porPouco = true;
+  return r;
+}
+/* A FRASE da chave, em TEXTO simples (os arquivos de etapa continuam passando por esc):
+     'firme' · 'firme por pouco' (só com opc.porPouco) · 'pode ser sorte' ·
+     'sem diferença clara' / 'sem relação clara' (opc.objeto 'relacao') / 'sem separação clara' ('separacao').
+   Sem medida: 'sem medida'; sem α declarado: 'sem corte de sorte declarado no arquivo de dados'.
+   Exemplos: ptSorte('firme') → 'firme' · ptSorte(l.sorte_SM) · ptSorte(0.03, 0.2) → 'pode ser sorte' ·
+   ptSorte(0.03, null, {unico:true}) → 'firme' · ptSorte(0.3, null, {objeto:'relacao'}) → 'sem relação clara'.
+   Chamada antiga com um número só (`ptSorte(p)`) = p sem q: abaixo de α sai "pode ser sorte", nunca
+   "firme" — simplificar não é afirmar mais. Teste único declarado passa {unico:true}. */
+function ptSorte() {
+  const r = ptChaveSorte.apply(null, arguments);
+  const opc = ptSorteArgs(arguments).opc;
+  if (!r.chave) return r.motivo === 'sem medida' || !r.motivo ? 'sem medida' : r.motivo;
+  if (r.chave === 'firme') return opc.porPouco === true && r.porPouco ? 'firme por pouco' : 'firme';
+  if (r.chave === 'pode_ser_sorte') return 'pode ser sorte';
+  return PT_SORTE_SEM[opc.objeto] || PT_SORTE_SEM.diferenca;
+}
+/* A frase com o número técnico ao lado, já em HTML: 'firme' + (q 0,007 · p 0,001), e a nota
+   "sem a conta dos N testes" quando o "pode ser sorte" saiu só do p. Mesmos argumentos do ptSorte. */
+function ptSorteHtml() {
+  const r = ptChaveSorte.apply(null, arguments);
+  const a = ptSorteArgs(arguments);
+  const txt = ptSorte.apply(null, arguments);
+  /* só os números que quem chamou passou: no teste único o q É o p, e escrever os dois duplicaria */
+  const tec = [a.q !== null ? 'q ' + ptPv(a.q) : '', a.p !== null ? 'p ' + ptPv(a.p) : '', r.nota]
+    .filter(Boolean).join(' · ');
+  return (r.chave ? esc(txt) : ptFalta(txt)) + ptTecnico(esc(tec));
+}
+
+/* ---- a lista inteira contra a sorte ----
+
+   A outra pergunta de sorte não é sobre um número, é sobre a LISTA de onde ele saiu: ela tem mais
+   achados do que o sorteio dos rótulos produz? O gerador grava a chave em `excesso.*.{bruto,rod}.lista`
+   ('tem_mais_achados_que_a_sorte' | 'nao_tem_mais_achados_que_a_sorte'), com `observado`,
+   `nulo_mediana` e `p_excesso` ao lado. As mesmas duas frases valem na aba inteira. */
+const PT_LISTA_CHAVES = {
+  tem_mais_achados_que_a_sorte: 'a lista tem mais achados do que a sorte produz',
+  nao_tem_mais_achados_que_a_sorte: 'a lista não tem mais achados do que a sorte produz',
+};
+/* ptChaveLista(bloco | chave | observado, mediana?, p_excesso?, opc?) →
+   {chave, de, observado, mediana, p, motivo}. Com o bloco gravado vale `bloco.lista`; sem ela,
+   p do excesso < α. */
+function ptChaveLista(x, mediana, pEx, opc) {
+  const o = opc || {};
+  const r = { chave: null, de: null, observado: null, mediana: null, p: null, motivo: '' };
+  let crua = null;
+  if (typeof x === 'string' && !isFinite(Number(x))) crua = x;
+  else if (x && typeof x === 'object' && !x.nodeType) {
+    crua = x.lista !== undefined ? x.lista : null;
+    r.observado = ptNumSorte(x.observado);
+    r.mediana = ptNumSorte(x.nulo_mediana !== undefined ? x.nulo_mediana : x.mediana);
+    r.p = ptNumSorte(x.p_excesso !== undefined ? x.p_excesso : x.p);
+  } else {
+    r.observado = ptNumSorte(x);
+    r.mediana = ptNumSorte(mediana);
+    r.p = ptNumSorte(pEx);
+  }
+  if (crua !== null && crua !== '') {
+    if (!PT_LISTA_CHAVES[crua]) { r.motivo = 'rótulo da lista que a tela não conhece: ' + crua; return r; }
+    r.chave = crua; r.de = 'dado';
+    return r;
+  }
+  if (x === null || x === undefined) { r.motivo = 'o arquivo de dados não traz a conta da lista inteira'; return r; }
+  const alfa = ptAlfa(o.universo, o.el && o.el.nodeType ? ptDado(o.el) : undefined);
+  if (alfa === null) { r.motivo = 'sem corte de sorte declarado no arquivo de dados'; return r; }
+  if (r.p === null) { r.motivo = 'o arquivo de dados não traz o p do excesso desta lista'; return r; }
+  r.chave = r.p < alfa ? 'tem_mais_achados_que_a_sorte' : 'nao_tem_mais_achados_que_a_sorte';
+  r.de = 'casca';
+  return r;
+}
+/* TEXTO simples: 'a lista tem mais achados do que a sorte produz' / '... não tem ...'.
+   Sem medida: o motivo. Exemplo: ptListaSorte(PROTO.etapa_3.por_familia.elenco.excesso.SM.bruto). */
+function ptListaSorte(x, mediana, pEx, opc) {
+  const r = ptChaveLista(x, mediana, pEx, opc);
+  return r.chave ? PT_LISTA_CHAVES[r.chave] : r.motivo;
+}
+/* Com o número técnico: quantos achados, quantos o sorteio dá (mediana) e o p do excesso. HTML. */
+function ptListaSorteHtml(x, mediana, pEx, opc) {
+  const r = ptChaveLista(x, mediana, pEx, opc);
+  if (!r.chave) return ptFalta(r.motivo);
+  const tec = [r.observado !== null ? 'achados ' + ptInt(r.observado) : '',
+    r.mediana !== null ? 'o sorteio dá ' + ptNum(r.mediana, Number.isInteger(r.mediana) ? 0 : 1) + ' (mediana)' : '',
+    r.p !== null ? 'p do excesso ' + ptPv(r.p) : ''].filter(Boolean).join(' · ');
+  return esc(PT_LISTA_CHAVES[r.chave]) + ptTecnico(esc(tec));
 }
 
 /* Correlação (ρ) em palavras, com o sentido junto: "quando um sobe, o outro cai" é metade da
@@ -710,7 +895,7 @@ function ptDicaMedida(id, dado) {
     i.lado ? 'lado bom: ' + i.lado : '',
     i.aviso_nome ? 'atenção ao nome: ' + i.aviso_nome : '', 'chave: ' + i.id].filter(Boolean).join(' · ');
 }
-/* As COLUNAS das tabelas (m_sobe, d_bruto_SM, rho_persist, porta…) moram em outro mapa do glossário
+/* As COLUNAS das tabelas (m_sobe, d_bruto_SM, sorte_SM, porta…) moram em outro mapa do glossário
    (`ptGlossarioColuna`), porque a mesma chave pode ser indicador numa tabela e coluna em outra.
    ptInfoMedida não as enxerga — e por isso o catálogo escrevia os cabeçalhos à mão. Mesma forma de
    ptInfoMedida; campo sem fonte volta null. Sem o glossário carregado, tudo null (a tela diz a falta). */
@@ -829,44 +1014,59 @@ function ptNomeRegua(k) {
 }
 
 /* O selo de cada indicador da etapa 2 — e das portas da etapa 10 —, dito pelo que ele significa.
-   Um só texto para as duas etapas. A porta A NÃO é "serve para contratar" (item 17a): isso é
-   receita, e o estudo não mediu receita. O texto é o MOTIVO que o gerador grava na linha
-   (`porta_motivo`: "sobrevive ao dinheiro, se repete e prevê o 2º turno"), dito em português de
-   reunião — prever o 2º turno é o que mostra que o número vem ANTES do resultado. Se o motivo
-   gravado mudar, este texto tem de mudar junto; a linha da etapa 2 continua mostrando o motivo dela. */
+   Um só texto para as duas etapas. Desde 15/09 as portas são A, B, D e "-" (sem C), na ordem em que
+   o gerador testa:
+     D  lista de resultado (o placar contado de outro jeito);
+     A  firme (passa na conta dos muitos testes parecidos) E o 1º turno prevê o 2º no lado declarado —
+        é o "reaparece por outro caminho". SÓ LEITURA: a nota de encaixe (etapa 13) nunca leu a porta,
+        então a A NÃO é "critério de contratação", não "entra no score" e não é receita;
+     B  separa quem sobe do meio (p < α) sem chegar à A;
+     -  não separa.
+   Saíram da régua o desconto do dinheiro e a repetição do mesmo clube no ano seguinte; a porta C
+   ("era só o dinheiro") deixou de existir. O texto do MOTIVO de cada linha continua sendo o que o
+   gerador grava (`porta_motivo`); estes são só os resumos da letra. */
 const PT_PORTAS_TXT = {
-  A: 'resiste ao dinheiro, se repete de um ano para o outro e vem antes do resultado',
-  /* B junta dois motivos no dado: "não se repete de um ano para o outro" e "sobrevive ao dinheiro
-     mas não sobrevive à família" (se repete, mas não sobra depois de descontar a sorte de testar
-     muitos parecidos). O resumo tem de valer para os dois — proto_b e proto_c mostram só ele. */
-  B: 'separa, mas ou não se repete de um ano para o outro, ou pode ser sorte de testar muitos parecidos',
-  C: 'era só o dinheiro',
+  A: 'firme e reaparece por outro caminho',
+  /* B junta, no dado, três motivos: "firme, mas o 1º turno não previu o 2º", "firme, sem versão por
+     jogo" e "separa, mas não sobra na conta dos N parecidos". O resumo tem de valer para os três. */
+  B: 'separa, mas ou pode ser sorte de testar muitos parecidos, ou é firme e não reapareceu por outro caminho',
   D: 'é o placar contado de outro jeito',
 };
+/* Letras que já existiram e saíram: a tela diz que saíram, em vez de mostrar "porta C" sem sentido. */
+const PT_PORTAS_SAIRAM = { C: 'porta que não existe mais no estudo' };
 function ptPortaTxt(letra) {
   return PT_PORTAS_TXT[letra] || null;
 }
-/* O motivo de UMA linha, e não o resumo da letra. A letra B junta dois motivos diferentes, e onde a
-   tela só tem a letra ela acaba dizendo "ou não se repete, ou pode ser sorte" de uma medida que o
-   catálogo já sabe que não se repete (ρ medido). Por isso: primeiro o `porta_motivo` que o gerador
-   gravou para aquele indicador em `etapa_2.linhas` do dado da aba; só sem ele, o resumo da letra.
-   Devolve {texto, de: 'linha' | 'letra' | null, letra}. `letra` (opcional) é a porta que a tela já tem
-   em mãos; `el` (opcional) escolhe o dado pela aba do elemento. */
+/* O motivo de UMA linha, e não o resumo da letra. A letra B junta motivos diferentes, e onde a tela só
+   tem a letra ela diria "ou pode ser sorte, ou não reapareceu" de uma medida cujo caso o catálogo já
+   sabe. Por isso: primeiro o `porta_motivo` que o gerador gravou para aquele indicador em
+   `etapa_2.linhas` do dado da aba; só sem ele, o resumo da letra.
+   Devolve {texto, de: 'linha' | 'letra' | 'saiu' | null, letra, sorte, sorteTxt}:
+   `sorte` é a CHAVE gravada da comparação quem sobe × meio (`sorte_SM`) — o rótulo único que vai ao
+   lado da letra ("firme" / "pode ser sorte") —, e `sorteTxt` a frase dela (vazia sem a chave).
+   `letra` (opcional) é a porta que a tela já tem em mãos; `el` (opcional) escolhe o dado pela aba. */
 function ptPortaMotivo(indicador, letra, el) {
   const dd = ptDado(el) || {};
   const linhas = ((dd.etapa_2 || {}).linhas) || [];
   const l = indicador === null || indicador === undefined ? null
     : linhas.find(x => x && x.indicador === String(indicador));
   const porta = letra || (l && l.porta) || null;
+  const cS = ptCampo('etapa_2.linhas', 'sorte_SM', dd);
+  const sorte = l && l[cS] ? String(l[cS]) : null;
+  const sorteTxt = sorte ? ptSorte(sorte) : '';
   if (l && l.porta_motivo && (!letra || !l.porta || l.porta === letra)) {
-    return { texto: String(l.porta_motivo), de: 'linha', letra: l.porta || porta };
+    return { texto: String(l.porta_motivo), de: 'linha', letra: l.porta || porta, sorte: sorte, sorteTxt: sorteTxt };
+  }
+  if (porta && PT_PORTAS_SAIRAM[porta] && !PT_PORTAS_TXT[porta]) {
+    return { texto: PT_PORTAS_SAIRAM[porta], de: 'saiu', letra: porta, sorte: sorte, sorteTxt: sorteTxt };
   }
   const resumo = porta ? ptPortaTxt(porta) : null;
-  return { texto: resumo, de: resumo ? 'letra' : null, letra: porta };
+  return { texto: resumo, de: resumo ? 'letra' : null, letra: porta, sorte: sorte, sorteTxt: sorteTxt };
 }
 
-/* A ressalva do tamanho da própria régua do dinheiro. Estava escrita de dois jeitos (no topo e
-   na etapa 1), e nenhum dizia o que ela significa na prática. Uma redação, lida do dado. */
+/* A ressalva do tamanho da conta do valor do elenco (etapa 1). Estava escrita de dois jeitos (no
+   topo e na etapa 1), e nenhum dizia o que ela significa na prática. Uma redação, lida do dado.
+   Desde 15/09 o valor do elenco é DESCRIÇÃO, não régua: por isso "conta do valor do elenco". */
 function ptPoucaBase(auc) {
   const a = auc || {};
   if (a.eventos_por_parametro === undefined || a.eventos_por_parametro === null ||
@@ -876,10 +1076,10 @@ function ptPoucaBase(auc) {
      cima na aba de pontos — por isso a palavra sai de ptFxRot e não de um "subidas" fixo */
   const casos = 'casos de ' + ptFxRot('sobe', { forma: 'quem' });
   return Number(a.eventos_por_parametro) < Number(a.regra_pratica)
-    ? 'Até essa conta do dinheiro tem pouca base: o costume pede ' + ptInt(a.regra_pratica) + ' ' + casos +
+    ? 'Até essa conta do valor do elenco tem pouca base: o costume pede ' + ptInt(a.regra_pratica) + ' ' + casos +
       ' para cada coisa que a conta leva em conta, e aqui há ' + ev + '. O número pode mudar com mais anos.' +
       ptTecnico('eventos por parâmetro')
-    : 'A conta do dinheiro tem a base que o costume pede: ' + ev + ' ' + casos + ' para cada coisa que ela leva em conta, ' +
+    : 'A conta do valor do elenco tem a base que o costume pede: ' + ev + ' ' + casos + ' para cada coisa que ela leva em conta, ' +
       'contra ' + ptInt(a.regra_pratica) + ' pedidos.' + ptTecnico('eventos por parâmetro');
 }
 /* Concordância de número. "há 1 horas" é o tipo de erro que faz o leitor desconfiar do
@@ -1001,8 +1201,8 @@ function ptBarra(valor, max, opts) {
    custa caro e, pior, perde qualquer célula que tenha sido montada por função (as de
    `fmt`). Redesenhar do dado é mais barato e não tem como divergir do dado.
 
-   Nulo vai SEMPRE para o fim, nas duas direções. Ordenar por "d líquido" e receber no topo
-   as linhas que não têm d líquido seria esconder as que têm. */
+   Nulo vai SEMPRE para o fim, nas duas direções. Ordenar pela coluna do rodízio (que só as
+   linhas físicas têm) e receber no topo as linhas sem ela seria esconder as que têm. */
 const PT_TABELAS = {};
 /* O id da tabela ganha o prefixo da aba sozinho: os arquivos de etapa escrevem 'ptEt-2-tab' e,
    na aba de pontos, a tabela nasce 'poEt-2-tab'. Sem isso o registro (que é por id) de uma aba
@@ -1130,18 +1330,22 @@ function ptCard(titulo, subtitulo, corpo, nota) {
     (nota ? '<p class="pt-nota">' + nota + '</p>' : '') + '</section>';
 }
 
-/* ================= os três controles obrigatórios (seção 11 da ESPECIFICACAO) =================
+/* ================= o valor do elenco, DESCRITO (antes: "os três controles obrigatórios") =================
 
-   Os três estão na tela, não no rodapé, e dois deles são componentes que as etapas chamam
-   de dentro do próprio conteúdo. O motivo é o de sempre: nota de rodapé não é lida na hora
-   da decisão, e a decisão aqui é "contrato ou não contrato". */
+   Até 14/09 a aba tinha três controles do dinheiro: (1) o que não acerta mais que o dinheiro "não
+   serve para recomendar"; (2) nenhum indicador sem a coluna "descontado o dinheiro"; (3) quanto
+   custa cada proposta. O dono tirou o desconto de vez em 14/09 ("dá para montar elenco valioso
+   gastando pouco"): (1) e (2) deixaram de ser régua. O que era medida do valor do elenco continua,
+   como DESCRIÇÃO: quanto o valor sozinho acerta (etapa 1), quanto custa cada proposta e quanto subiu,
+   na história, cada faixa de orçamento (etapa 14). As funções abaixo continuam existindo com o mesmo
+   nome para os arquivos de etapa não quebrarem, mas nenhuma diz mais "não serve", "descontado" ou
+   "merece ir para a reunião". */
 
-/* CONTROLE 1 — a baseline do dinheiro, ao lado de TODA proposta.
+/* O valor do elenco, sozinho: quanto já acerta (era o Controle 1). Só descreve.
 
-   `compara` é a proposta que está sendo defendida naquele ponto da tela. Quando ela não
-   tem AUC fora da amostra — e uma proposta de elenco não tem —, o componente NÃO fica em
-   branco: ele imprime o motivo. Uma proposta sem número comparável é uma informação sobre
-   a proposta, não um espaço vazio no controle. */
+   `compara` é o que está sendo mostrado naquele ponto da tela. Quando não tem AUC fora da
+   amostra — e uma proposta de elenco não tem —, o componente NÃO fica em branco: ele imprime o
+   motivo. Não é mais régua: pôr os dois lado a lado é informação, não reprovação. */
 function ptBaseline(compara) {
   /* Toda leitura passa por ptLer/ptCampo: na aba de pontos `top4_de_valor` virou `top_k_de_valor`,
      `acertos_top4` virou `acertos_top_k` e `loso_sobe_x_resto` virou `loso_alta_x_resto`. Ler o nome
@@ -1181,7 +1385,7 @@ function ptBaseline(compara) {
       esc(c.motivo || 'quem chamou ptBaseline() não disse se esta proposta tem AUC fora da amostra') +
       '</span>';
   return '<div class="pt-baseline">' +
-    '<span class="pt-rot">Controle 1 · quanto o dinheiro sozinho já acerta</span>' +
+    '<span class="pt-rot">Para comparar · quanto o valor do elenco, sozinho, já acerta</span>' +
     '<p class="pt-baseline-frase">' +
       (acertos !== undefined && acertos !== null && b.de !== undefined && topFrase
         ? 'Dos <b>' + ptInt(b.de) + '</b> ' + esc(quem) + ', <b>' + ptInt(acertos) + '</b> estavam ' + topFrase +
@@ -1202,57 +1406,50 @@ function ptBaseline(compara) {
             ptNum(loso, 3) : '')) + '</span></div>' +
       '<div class="pt-baseline-cel">' + alvo + '</div>' +
     '</div>' +
-    '<p class="pt-nota">A regra desta aba: medida, nota ou elenco que não acerte mais do que o dinheiro sozinho, ' +
-      'testado num ano que a conta não viu, <b>descreve o passado, mas não serve para recomendar</b>.' +
-      (ptPoucaBase(auc) ? ' ' + ptPoucaBase(auc) : '') + '</p>' +
+    (ptPoucaBase(auc) ? '<p class="pt-nota">' + ptPoucaBase(auc) + '</p>' : '') +
     '</div>';
 }
 
-/* CONTROLE 2 — a coluna líquida em toda linha de indicador.
-
-   Bruto é "quem subiu tinha mais disto"; líquido é "quem subiu tinha mais disto DEPOIS de
-   descontar o valor do elenco". A diferença entre os dois é o assunto inteiro desta aba, e
-   por isso os dois viajam sempre juntos, na mesma linha, nunca em colunas distantes. */
-/* O corte que acende o "vive" é o α do estudo, lido de `etapa_0.poder.alfa` — o mesmo que
-   proto_a, proto_b e proto_c usam para CONTAR sobreviventes. Estava digitado 0,05 aqui, e
-   digitado é o pior lugar para ele estar: hoje o JSON também diz 0,05 e a tela não muda,
-   mas no dia em que o estudo apertar o corte para 0,01 as contagens das etapas 3, 7 e 9
-   passariam a falar de 1% enquanto estas 293 linhas continuariam acendendo a 5%. A tela
-   contradiria a si mesma sem nenhum erro no console — que é justamente o defeito que esta
-   aba existe para não ter. Sem α declarado nada acende: verde sem corte conhecido é
-   afirmação sem régua, e o title diz por que a linha ficou apagada. */
+/* O EFEITO de uma comparação, sem desconto nenhum: tamanho + sentido + sorte, nesta ordem.
+   O sentido vai junto porque "média" sozinha não diz se quem sobe tem mais ou menos disto — e é o
+   sinal do d que decide a leitura da linha. A sorte sai da CHAVE gravada quando ela vem.
+   ptEfeito(d, p, q?, opc?) → HTML. opc: {chave (a chave gravada, ex. l.sorte_SM), unico, nTestes,
+   objeto, universo}. Exemplo: ptEfeito(l.d_bruto_SM, l.p_bruto_SM, l.q_SM, {chave: l.sorte_SM})
+   → '<b>grande, para menos</b> <small>firme</small>' + (d −0,912 · p 0,003 · q 0,040).
+   Linha com a chave 'firme' ganha a classe `vive` (o destaque verde que já existia). */
+function ptEfeito(d, p, q, opc) {
+  const o = Object.assign({}, opc || {});
+  const qv = q === undefined ? null : q;
+  /* um objeto só para a chave e para a frase: {chave gravada (se houver), p, q, unico, objeto...} */
+  const x = Object.assign({}, o, { chave: o.chave || null, p: p, q: qv });
+  const r = ptChaveSorte(x);
+  const tam = ptTamanho(d);
+  const sentido = d === null || d === undefined || isNaN(Number(d)) || tam === 'quase nenhuma' ? ''
+    : Number(d) > 0 ? ', para mais' : ', para menos';
+  const frase = ptSorte(x);
+  const tec = ['d ' + ptD(d), p !== null && p !== undefined ? ptP(p) : '',
+    qv !== null && qv !== undefined ? 'q ' + ptPv(qv) : '', r.nota].filter(Boolean).join(' · ');
+  return '<span class="pt-liq' + (r.chave === 'firme' ? ' vive' : '') + '">' +
+    '<span class="pt-liq-par"><b>' + tam + sentido + '</b> <small>' + esc(frase) + '</small></span>' +
+    ptTecnico(esc(tec)) + '</span>';
+}
+/* ANTIGO Controle 2 ("descontado o dinheiro"). Saiu de vez em 14/09 (decisão do dono). Fica só o
+   nome, para arquivo de etapa ainda não migrado não quebrar: mostra o lado SEM desconto (o único que
+   existe no dado novo), pelo ptEfeito, e nunca a coluna descontada — mesmo que alguém passe d_liq. */
 function ptLiquidaAlfa(universo) {
   return ptAlfa(universo);
 }
 function ptLiquida(x) {
-  const info = ptAlfaInfo(x && x.universo);
-  const alfa = info.alfa;
-  const sobrevive = alfa !== null && x.p_liq !== null && x.p_liq !== undefined && x.p_liq < alfa;
-  const dica = alfa === null
-    ? 'Nenhuma linha é marcada como de pé depois do desconto: ' + info.motivo + '.'
-    : 'Sem descontar: a comparação direta. Descontado o dinheiro: o que sobra quando se compara time de ' +
-      'orçamento parecido. Em destaque: a diferença continua de pé depois do desconto e dificilmente é sorte.';
-  /* tamanho + sentido + sorte, nesta ordem. O sentido vai junto porque "média" sozinha não diz
-     se quem sobe tem mais ou menos disto — e é o sinal do d que decide a leitura da linha. */
-  const lado = (d, p) => {
-    const tam = ptTamanho(d);
-    const sentido = d === null || d === undefined || isNaN(Number(d)) || tam === 'quase nenhuma' ? ''
-      : Number(d) > 0 ? ', para mais' : ', para menos';
-    return '<b>' + tam + sentido + '</b> <small>' + ptSorte(p, x.universo) + '</small>';
-  };
-  return '<span class="pt-liq' + (sobrevive ? ' vive' : '') + '" title="' + esc(dica) + '">' +
-    '<span class="pt-liq-par"><i>sem descontar</i> ' + lado(x.d_bruto, x.p_bruto) + '</span>' +
-    '<em>→</em>' +
-    '<span class="pt-liq-par"><i>descontado o dinheiro</i> ' + lado(x.d_liq, x.p_liq) + '</span>' +
-    ptTecnico('d ' + ptD(x.d_bruto) + ' (' + ptP(x.p_bruto) + ') → ' + ptD(x.d_liq) + ' (' + ptP(x.p_liq) + ')') +
-    '</span>';
+  const v = x || {};
+  return ptEfeito(v.d_bruto, v.p_bruto, v.q !== undefined ? v.q : v.q_bruto,
+    { chave: v.sorte || v.chave || undefined, universo: v.universo });
 }
 
-/* CONTROLE 3 — o contrafactual do dinheiro ao pé de cada proposta de elenco.
+/* Quanto custa cada proposta de elenco, e quanto subiu, na história, a faixa de orçamento dela
+   (era o Controle 3). Só descreve: é assunto do valor do elenco, não régua para a proposta.
 
-   Lê o bloco `contrafactual` de uma proposta da etapa 14 como ele está. O número que
-   importa é o último: a taxa histórica de subida do quartil de valor em que a proposta
-   cai. Sem ele, "montamos um elenco" esconde "e ele custa o que custa quem não sobe". */
+   Lê o bloco `contrafactual` de uma proposta da etapa 14 como ele está. O último número é a
+   taxa histórica de subida do quartil de valor em que a proposta cai. */
 /* O posto mora numa chave que carrega o ano no próprio nome: `posto_de_valor_em_2025`.
    Ler pelo nome fixo quebra calado no dia em que o estudo andar um ano — a linha viraria
    "sem posto no JSON" num bloco que tem posto. Aqui a chave é achada pela forma, e o ano
@@ -1277,7 +1474,7 @@ function ptCascaFaixa(q) {
 }
 function ptContrafactual(cf) {
   if (!cf) return ptFaltaBloco('Quanto custa esta proposta',
-    'esta proposta não trouxe no arquivo de dados a conta do dinheiro (bloco `contrafactual`)');
+    'esta proposta não trouxe no arquivo de dados a conta do valor do elenco (bloco `contrafactual`)');
   const linha = (rot, valor, cls) => '<div class="pt-cf-l' + (cls ? ' ' + cls : '') +
     '"><span>' + rot + '</span><b>' + valor + '</b></div>';
   const po = ptCfPosto(cf);
@@ -1329,7 +1526,7 @@ function ptContrafactual(cf) {
   const taxaReal = Object.prototype.hasOwnProperty.call(cf, chaveReal) ? cf[chaveReal] : undefined;
 
   return '<div class="pt-cf">' +
-    '<span class="pt-rot">Controle 3 · quanto custa, e quanto sobe quem custa isso</span>' +
+    '<span class="pt-rot">Quanto vale o núcleo, e quanto subiu, na história, cada faixa de orçamento</span>' +
     '<div class="pt-cf-grade">' +
       linha('quanto vale, somado, o núcleo proposto', cf.nucleo_valor_eur === null || cf.nucleo_valor_eur === undefined
         ? ptFalta('a soma não está no arquivo de dados') : ptEur(cf.nucleo_valor_eur)) +
@@ -1408,9 +1605,10 @@ function ptTarja(estado) {
      lugar no pipeline onde o resultado de uma auditoria se grave. Por isso é prosa, e por isso
      o caminho do laudo vai escrito dentro dela: para que cada afirmação daqui seja conferível
      em outro arquivo. O que é medida continua saindo do dado, no pé. */
-  const cLiq2 = ptCampo('etapa_2.linhas', 'd_liq2_SM', D);
+  /* quantas linhas da lista trazem a comparação descontado SÓ o rodízio (`d_rod_SM`, físico) */
+  const cRod = ptCampo('etapa_2.linhas', 'd_rod_SM', D);
   const nFis = (((D.etapa_2 || {}).linhas) || [])
-    .filter(l => l[cLiq2] !== null && l[cLiq2] !== undefined).length;
+    .filter(l => l[cRod] !== null && l[cRod] !== undefined).length;
   const CNA = 'etapa_1.controle_n_atletas';
   const ctrl0 = ptLer(CNA, D) || null;
   /* os campos com faixa no nome (media_sobe, d_SC…) são lidos pelo nome do dado ativo */
@@ -1447,36 +1645,27 @@ function ptTarja(estado) {
      rodado depois do conserto. A tarja agora diz só DO QUE SE TRATA e aponta o laudo; a conclusão
      fica lá, onde pode ser conferida. */
   const num = v => (v !== null && v !== undefined && v !== '' && isFinite(Number(v)) ? Number(v) : null);
-  const alfa = ptAlfa(undefined, D);
   let blocoCtrl = '';
   if (ctrl) {
-    const ms = num(ctrl.media_sobe), mc = num(ctrl.media_cai), pSC = num(ctrl.p_SC);
-    const rho = num(ctrl.rho_posto_atletas_x_posto_valor), pV = num(ctrl.p_atletas_x_valor);
-    const firmeSC = alfa !== null && pSC !== null && pSC < alfa;
-    /* o negrito só sai com o sinal do dado e com p abaixo do corte de sorte do estudo */
+    const ms = num(ctrl.media_sobe), mc = num(ctrl.media_cai);
+    /* Teste único declarado (o controle do rodízio é uma comparação só): q = p. O negrito só sai com
+       a CHAVE "firme" e com o sinal do dado; a chave é comparada, nunca o texto. */
+    const chSC = ptChaveSorte(ctrl.p_SC, null, { unico: true, el: undefined }).chave;
     const achado = ms === null || mc === null ? 'Falta uma das médias no arquivo de dados, então não dá para dizer quem usa mais jogadores.'
-      : !firmeSC || ms === mc ? 'Não se viu, com segurança, se quem sobe usa mais ou menos jogadores do que quem cai.'
+      : chSC !== 'firme' || ms === mc ? 'Não se viu, com segurança, se quem sobe usa mais ou menos jogadores do que quem cai.'
       : ms < mc ? '<b>Quem sobe usa menos jogadores.</b>' : '<b>Quem sobe usa mais jogadores.</b>';
-    /* "não é o dinheiro disfarçado" só com ligação fraca E p acima do corte; ligação firme vira
-       aviso; o resto é "não se viu" */
-    const dinheiro = alfa === null || rho === null || pV === null
-      ? 'Sem medida para dizer se isso tem a ver com o dinheiro.'
-      : pV < alfa ? '<b>Parte disso pode ser o dinheiro</b>: os dois andam juntos com segurança.'
-      /* "fraca" = as duas faixas de baixo do próprio ptJunto, sem corte digitado de novo aqui */
-      : /^(não andam juntos|.* pouco)$/.test(ptJunto(rho)) ? 'Não se viu o dinheiro por trás disso.'
-      : 'Não se viu, com segurança, se isso é ou não o dinheiro disfarçado.';
-    blocoCtrl = '<p>A revisão apontou uma medida a descontar: quantos jogadores cada time usou. ' +
+    /* Desde 15/09 o valor do elenco não é descontado de nada: a relação entre rodízio e valor fica só
+       como DESCRIÇÃO, sem "parte disso pode ser o dinheiro" nem "não é o dinheiro disfarçado". */
+    blocoCtrl = '<p>A revisão apontou uma medida a descontar nos números físicos: quantos jogadores cada time usou. ' +
       'Em média, quem subiu teve ' + ptNum(ctrl.media_sobe, 2) + ' jogadores com dado físico na ' +
-      'temporada; quem caiu, ' + ptNum(ctrl.media_cai, 2) + ' — diferença ' + ptTamanho(ctrl.d_SC) + ', e ' +
-      ptSorte(ctrl.p_SC) + ' ' + ptTecnico('d ' + ptD(ctrl.d_SC) + ' · ' + ptP(ctrl.p_SC)) + '. ' + achado + ' ' +
-      'Número de jogadores e valor do elenco ' + ptJunto(ctrl.rho_posto_atletas_x_posto_valor) + ', e ' +
-      ptSorte(ctrl.p_atletas_x_valor) + ' ' +
-      ptTecnico('ρ ' + ptNum(ctrl.rho_posto_atletas_x_posto_valor, 3) + ' · ' + ptP(ctrl.p_atletas_x_valor)) + '. ' +
-      dinheiro +
+      'temporada; quem caiu, ' + ptNum(ctrl.media_cai, 2) + ' — diferença ' + ptTamanho(ctrl.d_SC) + ', ' +
+      esc(ptSorte(ctrl.p_SC, null, { unico: true })) + ' ' + ptTecnico('d ' + ptD(ctrl.d_SC) + ' · ' + ptP(ctrl.p_SC)) + '. ' + achado + ' ' +
+      'Número de jogadores e valor do elenco: ' + ptJunto(ctrl.rho_posto_atletas_x_posto_valor) + ' (' +
+      esc(ptSorte(ctrl.p_atletas_x_valor, null, { unico: true, objeto: 'relacao' })) + ') ' +
+      ptTecnico('ρ ' + ptNum(ctrl.rho_posto_atletas_x_posto_valor, 3) + ' · ' + ptP(ctrl.p_atletas_x_valor)) + '.' +
       (nFis
-        ? ' Como os números físicos são médias por jogador, a lista de indicadores traz uma segunda coluna — ' +
-          '<b>descontado o dinheiro e o tamanho do elenco</b> — em ' + ptInt(nFis) + ' linhas, ao lado da que ' +
-          'desconta só o dinheiro.'
+        ? ' Como os números físicos são médias por jogador, a lista de indicadores mede também a diferença ' +
+          '<b>entre times que rodaram o elenco parecido</b> em ' + ptInt(nFis) + ' linhas.'
         : '') + '</p>';
   }
   return '<div class="pt-tarja pt-tarja-ok">' +
@@ -1583,17 +1772,17 @@ function ptBases() {
     '</details>';
 }
 
-/* Os três controles no topo, antes de qualquer etapa. Aqui eles aparecem como declaração
-   do método; dentro das etapas, `ptBaseline` e `ptContrafactual` reaparecem colados na
-   afirmação que cada um controla. Repetir é de propósito. */
+/* O bloco do topo, antes de qualquer etapa. Até 14/09 eram "os três controles obrigatórios" do
+   dinheiro. O desconto saiu de vez (decisão do dono): saíram o Controle 1 como regra ("não serve para
+   recomendar"), o Controle 2 ("descontado o dinheiro", com o pareamento de orçamento parecido como
+   segundo caminho do desconto) e a nota da cobertura, que foi para a etapa 1 junto com o acerto do
+   valor do elenco e o pareamento (proto_a já os mostra lá, como descrição). No topo fica só a
+   DESCRIÇÃO que um diretor pergunta primeiro: quanto subiu, na história, cada faixa de orçamento. */
 function ptControles() {
   const dd = ptDado() || {};
   const e1 = dd.etapa_1 || {};
-  const cal = (e1.caliper || []).slice().sort((a, b) => b.caliper - a.caliper);
-  const cob = e1.cobertura_do_valor || {};
-  /* nomes do dado ativo: `subidas_com_controle` → `alta_com_controle`, `quartis[].subiram` → `na_alta`,
+  /* nomes do dado ativo: `quartis[].subiram` → `na_alta`,
      `taxa_de_subida_por_quartil_pct` → `taxa_de_alta_por_quartil_pct` na aba de pontos */
-  const cCal = ptCampo('etapa_1.caliper', 'subidas_com_controle');
   const cSub = ptCampo('etapa_1.quartis', 'subiram');
   const taxas = ptLer('etapa_14.taxa_de_subida_por_quartil_pct') || {};
   const taxasReais = ptCampo('*', 'taxa_de_subida_por_quartil_pct') !== 'taxa_de_subida_por_quartil_pct'
@@ -1604,59 +1793,14 @@ function ptControles() {
   (e1.quartis || []).forEach(q => { qInfo[String(q.quartil)] = q; });
   const quartis = Object.keys(taxas).sort((a, b) =>
     ((qInfo[b] || {}).valor_mediano_eur || 0) - ((qInfo[a] || {}).valor_mediano_eur || 0));
-  /* a margem mais apertada primeiro: é a comparação mais exigente, e a que se lê primeiro */
-  const calAsc = cal.slice().reverse();
   return '<div class="pt-controles">' +
-    ptBaseline({ rotulo: 'aqui no topo', motivo: 'a comparação com o dinheiro aparece dentro de cada etapa, ao lado de cada proposta' }) +
-
     '<div class="pt-controle">' +
-      '<span class="pt-rot">Controle 2 · descontado o dinheiro</span>' +
-      '<p class="pt-controle-frase">Time mais caro pode ter mais de quase tudo só por ser mais caro. Por isso nenhum indicador ' +
-      'aparece nesta aba sozinho: ao lado dele vai sempre a mesma medida <b>descontado o dinheiro</b> — o que ' +
-      'sobra quando se compara time de orçamento parecido. Se a diferença some no desconto, quem estava falando ' +
-      'era o dinheiro.</p>' +
-      (calAsc.length
-        ? '<p class="pt-nota">Para conferir o desconto por outro caminho, cada time que ' + esc(ptFxRot('sobe', { forma: 'verbo' })) +
-          ' foi colocado lado a lado com times do mesmo ano e de valor de elenco parecido. ' +
-          calAsc.map((c, i) => (i === 0 ? 'Com a margem mais apertada' : i === calAsc.length - 1 ? 'com a mais folgada' : 'com uma margem maior') +
-            ', <b>' + ptInt(c[cCal]) + ' dos ' + ptInt(c.de) + '</b> acharam com quem ser comparados (' +
-            ptNum(c.controles_medios, 1) + ' times em média) ' + ptTecnico('caliper ±' + ptNum(c.caliper, 2) + ' de posto')).join('; ') +
-          '. <b>Só o que continua de pé nessa comparação entre iguais merece ir para a reunião.</b></p>'
-        : '<p class="pt-nota"><b>Só o que continua de pé depois do desconto merece ir para a reunião.</b></p>') +
-      (cob.pct_do_plantel_mediana !== undefined
-        /* Até 14/09 este parágrafo tratava o jogador sem preço como dado faltando ("um cuidado com o
-           próprio desconto"). O dono decidiu em 14/09 que jogador sem preço no Transfermarkt é, na
-           prática, jogador de valor baixo ou sem mercado. A medida continua na tela — a parte do
-           plantel com preço, temporada a temporada, e se ela anda junto com o valor —, mas a
-           leitura mudou: time barato ter mais jogador sem preço é o esperado, não um defeito da
-           soma. A conclusão continua saindo só quando o dado a sustenta (p abaixo do corte de sorte
-           do estudo), e o lado dela sai do sinal do ρ, nunca fixo. */
-        ? '<p class="pt-nota">Sobre o valor de mercado: o Transfermarkt não dá preço a todo jogador. ' +
-          'Ele dá preço a algo entre <b>' + ptPct(cob.pct_do_plantel_min) + '</b> e <b>' +
-          ptPct(cob.pct_do_plantel_max) + '</b> do plantel, conforme a temporada (em metade das temporadas, mais de ' +
-          ptPct(cob.pct_do_plantel_mediana) + ' — uns ' + ptInt(cob.tm_com_valor_mediana) + ' jogadores). ' +
-          'Jogador sem preço lá é, na prática, jogador de valor baixo ou sem mercado (leitura do clube, registrada ' +
-          'como decisão do dono em 14/09): ele conta como jogador do elenco, com valor zero, e a soma do elenco não ' +
-          'fica por baixo por causa dele. ' +
-          'A parte do plantel com preço e o valor do elenco ' + ptJunto(cob.rho_cobertura_x_valor) + ', e ' +
-          ptSorte(cob.p_cobertura_x_valor) +
-          ' ' + ptTecnico('ρ ' + ptNum(cob.rho_cobertura_x_valor, 3) + ' · ' + ptP(cob.p_cobertura_x_valor)) + '. ' +
-          (ptAlfa() !== null && cob.p_cobertura_x_valor !== undefined && cob.p_cobertura_x_valor !== null &&
-            cob.p_cobertura_x_valor < ptAlfa() && Number(cob.rho_cobertura_x_valor) !== 0
-            ? (Number(cob.rho_cobertura_x_valor) > 0
-                ? '<b>Quanto mais barato o elenco, mais jogador sem preço</b> — coerente com essa leitura: time ' +
-                  'barato tem mais jogador de pouco mercado.</p>'
-                : '<b>Quanto mais caro o elenco, mais jogador sem preço</b> — o contrário do que essa leitura ' +
-                  'faria esperar.</p>')
-            : 'Não se viu, com segurança, se elenco mais barato tem mais jogador sem preço.</p>')
-        : '') +
-    '</div>' +
-
-    '<div class="pt-controle">' +
-      '<span class="pt-rot">Controle 3 · quanto custa, e quanto sobe quem custa isso</span>' +
-      '<p class="pt-controle-frase">Toda proposta de elenco vem com a conta do dinheiro ao pé: quanto valem os ' +
-      'jogadores somados (e a folha, quando se sabe), em que <b>posição do ranking de valor da Série B</b> isso ' +
-      'ficaria, e quantos times dessa faixa de orçamento ' + esc(verbos) + ' no passado.</p>' +
+      '<span class="pt-rot">O valor do elenco · quanto subiu, na história, cada faixa de orçamento</span>' +
+      '<p class="pt-controle-frase">O valor do elenco entra nesta aba como descrição. ' +
+      'Toda proposta de elenco da etapa 14 traz ao pé quanto valem os jogadores somados (e a folha, ' +
+      'quando se sabe), em que <b>posição do ranking de valor da Série B</b> isso ficaria, e quantos times dessa faixa ' +
+      'de orçamento ' + esc(verbos) + ' no passado. O quanto o valor do elenco, sozinho, já separa quem sobe está ' +
+      'na etapa 1.</p>' +
       (quartis.length
         ? '<ul class="pt-faixas">' + quartis.map(q => {
             const qi = qInfo[q];
@@ -1795,11 +1939,16 @@ function ptLegendaPosto(opts) {
    (frase de reunião) → `regua.selos[selo]` quando for objeto `{simples|frase, tecnico|regra}` →
    a reserva PT_SELOS abaixo. A regra técnica (`regua.selos[selo]` em texto, com q, p e BH) vai ao
    lado, no número pequeno e no `title` — nunca no lugar da frase. A reserva se declara no `title`. */
+/* A reserva só ESPELHA a régua de 15/09 (conclusoes_spec.json, chave regua.selos): quatro perguntas —
+   escrita antes de olhar? firme? conferida por outro caminho (1º turno prevendo o 2º, ou 2018-2021)?
+   a lista tem mais achados do que a sorte produz? — e, no físico, a quinta: continua entre times que
+   rodaram o elenco parecido? Sem dinheiro, sem "se repete no ano seguinte", sem "dificilmente é
+   sorte". "No limite" só aqui, no selo, para a zona cinzenta logo acima do corte de sorte. */
 const PT_SELOS = {
-  forte: ['forte', 'passa no desconto da sorte de testar muita coisa, continua de pé descontado o dinheiro e se repete onde deu para testar'],
-  moderado: ['moderado', 'dificilmente é sorte e resiste ao dinheiro, mas não passa no desconto dos muitos testes, ou não deu para ver se se repete, ou não se repetiu — e só vale se a lista inteira de onde a medida saiu tem mais achados do que a sorte produziria'],
-  fraco: ['fraco', 'aparece, mas some no desconto dos muitos testes ou no desconto do dinheiro, ou fica no limite da sorte'],
-  sem_sinal: ['sem sinal', 'não apareceu diferença — uma diferença menor do que o estudo consegue enxergar pode existir'],
+  forte: ['forte', 'escrita antes de olhar, firme (passa na conta dos muitos testes parecidos) e conferida por outro caminho — o 1º turno prevendo o 2º, ou 2018-2021 — sem falhar em nenhum; no físico, continua entre times que rodaram o elenco parecido'],
+  moderado: ['moderado', 'firme, mas uma conferência por outro caminho falhou, não havia como conferir, ou passou por pouco com uma conferência só; ou pode ser sorte olhando só ela, mas a lista de onde saiu tem mais achados do que a sorte produz'],
+  fraco: ['fraco', 'pode ser sorte, e a lista de onde saiu não tem mais achados do que a sorte produz; ou fica logo acima do corte de sorte, com outra comparação da mesma linha abaixo dele; ou, no físico, some entre times que rodaram o elenco parecido'],
+  sem_sinal: ['sem sinal', 'não se viu diferença — uma diferença menor do que o estudo consegue enxergar pode existir; logo acima do corte de sorte, vai com a palavra "no limite"'],
   nao_da_para_afirmar: ['não dá para afirmar', 'a comparação não foi medida de frente, o intervalo cruza o zero, ou duas contas discordam'],
 };
 function ptSeloChave(s) {

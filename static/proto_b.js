@@ -110,7 +110,7 @@ function pbTxt(x, y, texto, opts) {
    O vocabulário de estatística mora em proto.js (ptTamanho, ptAcaso, ptSorte, ptJunto,
    ptAcerto, ptTecnico) e não é redefinido aqui. O que segue é outra coisa: nomes de chave e
    de coluna que o arquivo escreve em sigla (`psv99`, `p30tip`, `clube-temporada`,
-   `passam5_liq_SM`) e que chegavam à tela crus. A tradução é por pedaço de palavra, e todo
+   `passam5_SM`) e que chegavam à tela crus. A tradução é por pedaço de palavra, e todo
    número que aparece no rótulo continua saindo do próprio nome da chave — nada é digitado. */
 function pbPopular(nome) {
   /* A tradução por pedaço deixava uma terceira língua ("corrida em alta velocidade distance").
@@ -155,14 +155,14 @@ function pbRotSens(k) {
   const s = String(k);
   if (s === 'testes') return 'números testados';
   /* O código da comparação vem do dado ativo (SM na Protótipo, AM na aba de pontos). */
-  const m = /^(passam|bh)(\d+)(_liq)?_([A-Z]{2})$/.exec(s);
-  if (!m || m[4] !== ptFx('SM')) return pbRotChave(s);
-  /* O corte (o "5" de `passam5`) saiu do cabeçalho: repetido em quatro colunas ele não dizia o
-     que era. Uma frase acima da tabela diz, uma vez, que "separam" é "dificilmente é sorte". */
-  return (m[1] === 'passam'
-      ? 'separam ' + ptFxRot('sobe', { forma: 'quem' }) + ' de ' + ptFxRot('meio', { forma: 'quem' })
-      : 'sobram, descontada a sorte de testar muito') +
-    (m[3] ? ', descontado o dinheiro' : '');
+  const m = /^(passam|bh)(\d+)_([A-Z]{2})$/.exec(s);
+  if (!m || m[3] !== ptFx('SM')) return pbRotChave(s);
+  /* O corte (o "5" de `passam5`) sai do nome da chave. "Separam" é só o p abaixo do corte (pode ser
+     sorte ou firme); "firmes" é o vocabulário único da aba: passam contando os muitos testes (q). */
+  return m[1] === 'passam'
+    ? 'separam ' + ptFxRot('sobe', { forma: 'quem' }) + ' de ' + ptFxRot('meio', { forma: 'quem' }) +
+      ' (p abaixo de ' + m[2] + '%)'
+    : 'firmes, contando os muitos testes';
 }
 /* Colunas de `vazios_por_setor`, com os números do próprio nome da chave. */
 function pbRotVazio(k) {
@@ -213,10 +213,10 @@ const PB8_PERGUNTAS = [
   [/bateria de fora.*rótulo sorteado/i, 'As caixas aparecem em números que não as construíram?'],
   [/silhueta/i, 'As caixas ficam separadas de verdade, ou é um mapa contínuo cortado?'],
   [/Jaccard/i, 'Um programa de agrupar acha grupos que saem iguais ao refazer a conta? (não são estas caixas)'],
-  [/f[íi]sico.*sobrevive/i, 'Sobra algum número físico, descontada a sorte de testar muito?'],
+  [/f[íi]sico.*sobrevive/i, 'Algum número físico é firme, contando os muitos testes?'],
   [/formação separa/i, 'A formação tática separa as caixas?'],
-  [/dinheiro distingue/i, 'O dinheiro sozinho separa as caixas?'],
-  [/partição rival/i, 'Uma divisão feita só com dinheiro explica o mesmo que as caixas?'],
+  [/dinheiro distingue/i, 'O valor do elenco sozinho separa as caixas?'],
+  [/partição rival/i, 'Uma divisão feita só com o valor do elenco explica o mesmo que as caixas?'],
   [/ROTA dentro do território alto/i, 'Entre os times que jogam no campo do adversário, o jeito de a bola chegar separa?'],
   [/ROTA dentro do território baixo/i, 'Entre os times que jogam mais atrás, o jeito de a bola chegar separa?'],
   [/tirar um time/i, 'Tirando um time da conta, as caixas continuam iguais?'],
@@ -616,45 +616,33 @@ function pb5DifCel(p, r, j, g) {
     '<span style="display:block;font-size:11px;color:' + corLado + '">' + esc(ladoTxt) + '</span></td>';
 }
 
-/* Um selo por comparação. O texto é o rótulo gravado pelo gerador (firme / pode ser sorte / sem
-   diferença clara); p e q ficam no title, para quem quiser conferir, e não na leitura. */
+/* Um selo por comparação. O texto é a frase da CHAVE gravada pelo gerador, dita pelo vocabulário único
+   da casca (ptSorte: firme / pode ser sorte / sem diferença clara); p e q ficam no title. */
 /* Se o gerador leu algum teste de quem caiu contra o meio (hoje não: o catálogo não tem). */
 function pb5TemTesteCaiMeio(d) {
   const t = (d && d.regra_do_resumo && d.regra_do_resumo.testes_lidos) || null;
   return !!t && Object.keys(t).some(k => /cai_meio|meio_cai/.test(k));
 }
 
-/* A MESMA expressão com dois cortes (revisão de 14/09, noite). Na etapa 2 o `ptSorte` diz "pode ser
-   sorte" quando o número passa do DOBRO do corte; aqui o rótulo "pode ser sorte" é o que o gerador grava
-   para p abaixo do corte que não passa na conta dos muitos testes (q). O rótulo é da prévia aprovada e
-   do gerador, e a tela não o troca; o que ela faz é dizer, em cada selo e na caixa de regras, a
-   relação entre as duas escalas, com o corte lido do dado. */
-function pb5RelacaoEtapa2(regra) {
-  const cortes = (regra && regra.cortes) || {};
-  const cp = cortes.p_pode_ser_sorte, cq = cortes.q_firme;
-  const e2 = pb6EtapaDe('etapa_2');
-  const onde = e2.n === null ? 'no catálogo' : 'na etapa ' + ptInt(e2.n);
-  if (cp === undefined || cp === null || cq === undefined || cq === null) {
-    return 'a regra do resumo não grava os cortes, e a relação com a escala ' + onde + ' não pode ser dita';
-  }
-  return 'aqui, "pode ser sorte" é um p abaixo de ' + ptNum(cp, 2) + ' que não passa na conta dos muitos testes (q de ' +
-    ptNum(cq, 2) + ' ou mais). ' + pbMaiusc(onde) + ', a mesma expressão tem outro corte: lá um p abaixo do corte ' +
-    'aparece como "dificilmente é sorte", e "pode ser sorte" só quando o número passa do dobro do corte';
-}
+/* (15/09) Saiu o pb5RelacaoEtapa2: a etapa 2 dizia "dificilmente é sorte" com outro corte, e a caixa
+   de regras avisava do cruzamento. Com a chave única gravada nas duas etapas, as três palavras querem
+   dizer o mesmo na aba inteira, e não há mais o que avisar. */
 
 function pb5Selo(f, rot) {
   if (!f) return '<div style="margin:2px 0">' + ptFalta('o arquivo não traz o teste de ' + rot) + '</div>';
-  const chave = f.chave;
+  const ch = ptChaveSorte({ chave: f.chave, p: f.p, q: f.q });
+  const chave = ch.chave;
   const est = chave === 'firme' ? 'background:var(--tinta);color:var(--fundo2);border-color:var(--tinta)'
     : chave === 'pode_ser_sorte' ? 'color:var(--txt-ambar);border-color:var(--txt-ambar)'
       : 'color:var(--tinta2);border-color:var(--borda2)';
-  if (!f.rotulo) {
-    return '<div style="margin:2px 0">' + ptFalta((f.motivo || 'o catálogo não tem o teste desta comparação') + ' (' + rot + ')') + '</div>';
+  if (!chave) {
+    return '<div style="margin:2px 0">' + ptFalta((f.motivo || ch.motivo || 'o catálogo não tem o teste desta comparação') + ' (' + rot + ')') + '</div>';
   }
-  const dica = rot + ': ' + f.rotulo + ' · p ' + pb6P(f.p) + ' · q, contando os muitos testes feitos ao mesmo tempo, ' + pb6P(f.q);
+  const frase = ptSorte({ chave: f.chave, p: f.p, q: f.q });
+  const dica = rot + ': ' + frase + ' · p ' + pb6P(f.p) + ' · q, contando os muitos testes feitos ao mesmo tempo, ' + pb6P(f.q);
   return '<div style="display:flex;align-items:center;gap:6px;white-space:nowrap;margin:2px 0" title="' + esc(dica) + '">' +
     '<span style="display:inline-block;min-width:9.5em;text-align:center;font-size:11px;font-weight:650;border:1px solid;' +
-    'border-radius:999px;padding:1px 7px;' + est + '">' + esc(f.rotulo) + '</span>' +
+    'border-radius:999px;padding:1px 7px;' + est + '">' + esc(frase) + '</span>' +
     '<span style="font-size:11px;color:var(--tinta2)">' + esc(rot) + '</span></div>';
 }
 
@@ -682,7 +670,10 @@ function pb5LinhaResumo(p, r, j, setor, posFirmeza) {
   const difere = Array.isArray(p.ordem_das_medianas_difere_no_cru) && p.ordem_das_medianas_difere_no_cru[j] === true &&
     (p.ordem_das_medianas_difere_no_cru_so_por_empate || []).indexOf(ind.id) < 0;
   const f1 = r.firmeza.sobe_meio[j], f2 = r.firmeza.sobe_cai[j];
-  const mostra = [f1, f2].some(f => f && (f.chave === 'firme' || f.chave === 'pode_ser_sorte'));
+  const mostra = [f1, f2].some(f => {
+    const ch = f ? ptChaveSorte({ chave: f.chave, p: f.p, q: f.q }).chave : null;
+    return ch === 'firme' || ch === 'pode_ser_sorte';
+  });
   const rotComp = c => ptFxRot(c[1], { forma: 'nome' }) + ' × ' + ptFxRot(c[2], { forma: 'nome' });
   const pct = pb5EhPct(r, j);
   return '<tr data-pb5-busca="' + esc(pb5Norm(nome + ' ' + (ind.id || ''))) + '" data-pb5-of="' + posFirmeza +
@@ -694,8 +685,8 @@ function pb5LinhaResumo(p, r, j, setor, posFirmeza) {
       (difere
         ? '<span style="display:block;font-size:11px;color:var(--txt-ambar);margin-top:2px" title="' +
           esc('O valor típico junta os anos; a firmeza compara a posição do time dentro de cada ano. Neste número as ' +
-            'duas leituras põem os grupos em ordens diferentes: parte da diferença do valor vem de a liga ter mudado de ' +
-            'um ano para o outro.') + '">na posição de cada ano, a ordem dos grupos é outra</span>'
+            'duas leituras põem os grupos em ordens diferentes: parte da diferença do valor vem de a liga não ser igual ' +
+            'em todos os anos.') + '">na posição de cada ano, a ordem dos grupos é outra</span>'
         : '') +
     '</td>' +
     PB5_GRUPOS.map(g => {
@@ -864,13 +855,14 @@ function pb5Exemplo(d) {
     const fz = ex.firmeza || {};
     const entre = (f, a, b) => {
       const par = 'entre ' + quemX(a) + ' e ' + quemX(b);
-      if (!f || !f.rotulo) return par + ', ' + ptFalta((f && f.motivo) || 'sem teste gravado');
-      return f.chave === 'firme' ? par + ', a diferença é <b>firme</b>'
-        : f.chave === 'pode_ser_sorte' ? par + ', a diferença <b>pode ser sorte</b>'
-          : f.chave === 'sem_diferenca' ? par + ', <b>sem diferença clara</b>'
-            : par + ': <b>' + esc(f.rotulo) + '</b>';
+      const ch = f ? ptChaveSorte({ chave: f.chave, p: f.p, q: f.q }) : null;
+      if (!ch || !ch.chave) return par + ', ' + ptFalta((f && f.motivo) || (ch && ch.motivo) || 'sem teste gravado');
+      const frase = esc(ptSorte({ chave: f.chave, p: f.p, q: f.q }));
+      return ch.chave === 'firme' ? par + ', a diferença é <b>' + frase + '</b>'
+        : ch.chave === 'pode_ser_sorte' ? par + ', a diferença <b>' + frase + '</b>'
+          : par + ', <b>' + frase + '</b>';
     };
-    const tecs = [['sobe_meio', fz.sobe_meio], ['sobe_cai', fz.sobe_cai]].filter(x => x[1] && x[1].rotulo)
+    const tecs = [['sobe_meio', fz.sobe_meio], ['sobe_cai', fz.sobe_cai]].filter(x => x[1] && (x[1].chave || x[1].p !== undefined))
       .map(x => ptFxRot('sobe', { forma: 'nome' }) + ' × ' + ptFxRot(x[0] === 'sobe_meio' ? 'meio' : 'cai', { forma: 'nome' }) +
         ': p ' + pb6P(x[1].p) + ' · q ' + pb6P(x[1].q));
     depois = '<div style="flex:1 1 20em;min-width:0"><b style="font-size:13px">Como fica: o valor medido' +
@@ -1015,10 +1007,9 @@ function ptEtapa5(alvo, d) {
         '<p class="pt-nota">São os testes que o estudo já fez no catálogo, comparando a posição do time no ranking de ' +
           'cada ano. <b>Firme</b>: passa na conta dos muitos testes feitos ao mesmo tempo. <b>Pode ser sorte</b>: a ' +
           'diferença aparece, mas, com tantos números testados, uma assim pode sair por acaso. <b>Sem diferença clara</b>: ' +
-          'nem isso.' +
+          'nem isso. São as mesmas três palavras, com os mesmos cortes, em toda a aba.' +
           (pb5TemTesteCaiMeio(d) ? '' : ' ' + pbMaiusc(quem('cai')) + ' contra ' + quem('meio') + ' não tem teste no ' +
             'catálogo e fica sem selo: os dois selos de cada linha são das outras duas comparações.') +
-          ' <b>Atenção ao cruzar com o catálogo:</b> ' + esc(pb5RelacaoEtapa2(regra)) + '.' +
           ptTecnico('firme: q < ' + ptNum(cortes.q_firme, 2) + ' · pode ser sorte: p < ' + ptNum(cortes.p_pode_ser_sorte, 2) +
             ' sem passar no q') + '</p>' +
         rotSub('A ordem das linhas') +
@@ -1353,7 +1344,7 @@ function pb5Matriz(d, chave) {
           pbPl(marcadas, 'quadradinho deste painel tem', 'quadradinhos deste painel têm') +
           ' <b style="color:var(--txt-ambar)">&#9651;</b> e contorno tracejado: o número saiu de só <b>' +
           ptInt(fbaixa.min) + '</b> a <b>' + ptInt(fbaixa.max) + '</b> ' + esc(pbUnid(unid)) + '. É pouca ' +
-          'gente para uma média firme. ' +
+          'gente para uma média confiável. ' +
           (maxN !== null && maxN > fbaixa.max
             ? 'A cor não mostra isso: nesta etapa, um quadradinho feito com ' + ptInt(fbaixa.min) +
               ' jogadores sai com o mesmo tom de um feito com ' + ptInt(maxN) + '. '
@@ -1392,7 +1383,9 @@ function pb5Sensibilidade(d) {
     'o estudo exige refazer a conta com cada jeito de juntar os jogadores num número do time e mostrar ' +
     'quantos números passam em cada um; o arquivo não trouxe sensibilidade_da_agregacao');
   const regras = Object.keys(s);
-  const campos = Object.keys(s[regras[0]] || {});
+  /* (15/09) O desconto pelo valor do elenco saiu do estudo. Um arquivo antigo (ou a aba de pontos antes
+     de ser regerada) ainda pode trazer as colunas `*_liq_*`; elas não entram na tabela. */
+  const campos = Object.keys(s[regras[0]] || {}).filter(c => !/_liq_/.test(c));
   const linhas = regras.map(r => Object.assign({ regra: r }, s[r]));
   const colunas = [{ k: 'regra', rot: 'jeito de juntar os jogadores', tipo: 'texto',
     dica: 'nome e frase do glossário, tirados do código que junta os jogadores (agrega_tecnico_individual)',
@@ -1415,9 +1408,9 @@ function pb5Sensibilidade(d) {
     '<p class="pt-nota">Para um número de jogador virar número do time, é preciso juntar os jogadores ' +
     'de algum jeito. Cada linha é um jeito. As colunas contam quantos números separam ' +
     esc(ptFxRot('sobe', { forma: 'quem' })) + ' de ' + esc(ptFxRot('meio', { forma: 'quem' })) +
-    ': primeiro sem desconto nenhum; depois descontada a sorte — quando se testa muita coisa, ' +
-    'alguma dá certo por sorte —; depois descontado também o dinheiro. Nesta tabela, <b>"separam" quer ' +
-    'dizer "dificilmente é sorte"</b>.' +
+    ': primeiro olhando um número de cada vez (o p abaixo do corte, que <b>pode ser sorte ou firme</b>); ' +
+    'depois só os <b>firmes</b>, os que continuam de pé contando os muitos testes feitos ao mesmo tempo — ' +
+    'quando se testa muita coisa, alguma dá certo por sorte.' +
     pbMiudo(' corte de ' + esc(campos.map(c => (/^(?:passam|bh)(\d+)/.exec(c) || [])[1]).filter(Boolean)
       .filter((v, i, a) => a.indexOf(v) === i).join(' e ')) + '%') + '</p>' +
     ptTabela({
@@ -1435,8 +1428,7 @@ function pb5Sensibilidade(d) {
       : 'Nenhuma contagem muda entre os jeitos de somar: nesta tabela, o resultado não depende do jeito de juntar os jogadores.') +
     pbMiudo(' Colunas no arquivo: ' + campos.map(esc).join(', ') + ' · ' + esc(ptFx('SM')) + ' = ' +
       esc(ptFxRot('sobe', { forma: 'nome' })) + ' × ' + esc(ptFxRot('meio', { forma: 'nome' })) +
-      ' · bh = descontada a sorte de testar muito' + ptTecnico('Benjamini-Hochberg') +
-      ' · liq = descontado o dinheiro' +
+      ' · bh = firmes, contando os muitos testes' + ptTecnico('Benjamini-Hochberg') +
       (divergem.length ? ' · mudam: ' + esc(divergem.join(', ')) : '')));
 }
 
@@ -1548,14 +1540,17 @@ function pb6NomeCor(k) { return k === 'sobe' ? 'azul claro' : k === 'cai' ? 'lar
 /* O sentido em palavras. A posição no ranking cresce com o número cru (quanto maior o número
    naquele ano, mais para a direita), então ρ positivo quer dizer que os times com mais disto
    fizeram mais pontos. Duas travas:
-   - só quando o q passa no corte de sorte. Dar direção a uma relação que a própria linha diz que
-     "pode ser sorte" afirma mais do que o dado mostra;
+   - só quando a CHAVE de sorte da linha é "firme". Dar direção a uma relação que a própria linha diz
+     que "pode ser sorte" afirma mais do que o dado mostra;
    - a frase DESCREVE o que foi visto naquele ano ("os times com mais disto fizeram mais pontos"),
      em vez da forma condicional "quanto mais disto, mais pontos", que se lê como receita. */
-function pb6Sentido(rho, q) {
+function pb6Chave(r) {
+  return ptChaveSorte({ chave: r && r.sorte, p: r && r.p, q: r && r.q });
+}
+function pb6Sentido(rho, r) {
   if (rho === null || rho === undefined || isNaN(Number(rho))) return '';
   if (/^não/.test(ptJunto(rho))) return '';
-  if (!pbPassa(q)) return '';
+  if (pb6Chave(r).chave !== 'firme') return '';
   return Number(rho) > 0 ? 'os times com mais disto fizeram mais pontos naquele ano'
     : 'os times com mais disto fizeram menos pontos naquele ano';
 }
@@ -1598,9 +1593,10 @@ function pb6Azuis7() {
   });
   return out;
 }
-/* A marca da etapa 10 SAIU desta etapa (revisão de 14/09). O motivo que mora lá ainda é "não se
-   repete de um ano para o outro" — a pergunta que o dono tirou daqui —, e o sinal curto levava a
-   ela num clique. Volta a ter sentido quando a rodada que tira a repetição dos critérios passar. */
+/* A marca da etapa 10 SAIU desta etapa (14/09) e NÃO volta (15/09). A etapa 10 passou a ser a lista
+   fixa de resultado + consequência do resultado; dos números desta etapa, os que estão nela são
+   exatamente os cinco que já levam a marca "efeito do resultado" (`consequencia_do_resultado`, lida da
+   mesma lista do estudo). Um segundo selo diria a mesma coisa duas vezes. */
 
 /* Números que dão EXATAMENTE a mesma ordem dos times no ano (distância por 90 min e metros por minuto,
    e as versões com e sem a bola): o gerador grava o par em `mesmo_posto_que`. Lado a lado, com os
@@ -1691,7 +1687,10 @@ function ptEtapa6(alvo, d) {
   const nTestes = li.n_testes !== undefined && li.n_testes !== null ? Number(li.n_testes) : comRho.length;
   const alfa = pbAlfa();
   const passaP = alfa === null ? null : comRho.filter(k => pbPassa(rho[k].p)).length;
-  const passaQ = alfa === null ? null : comRho.filter(k => pbPassa(rho[k].q)).length;
+  /* A contagem por CHAVE (a gravada; sem ela, a casca aplica os mesmos cortes): firme · pode ser sorte · sem relação clara. */
+  const porChave = { firme: 0, pode_ser_sorte: 0, sem_diferenca: 0, sem: 0 };
+  comRho.forEach(k => { const ch = pb6Chave(rho[k]).chave; porChave[ch || 'sem']++; });
+  const passaQ = alfa === null ? null : porChave.firme;
   const fortes = comRho.filter(k => /com força$/.test(ptJunto(rho[k].rho)));
   const fortesConseq = fortes.filter(k => rho[k].consequencia_do_resultado === true);
   const nsRho = comRho.map(k => Number(rho[k].n)).filter(v => isFinite(v));
@@ -1755,16 +1754,19 @@ function ptEtapa6(alvo, d) {
        sorteio continua falando dela, com o tamanho dela dito. */
     const frasePrincipal = temDist
       ? 'Olhando um número de cada vez, <b>' + ptInt(xDist) + ' dos ' + ptInt(nDist) + '</b> números distintos ' +
-        'andam junto com os pontos do ano de um jeito que dificilmente seria sorte.' +
+        'andam junto com os pontos do ano com o p abaixo do corte.' +
         (gruposMP.length
           ? ' Alguns números aparecem com dois nomes e dão exatamente a mesma ordem dos times (' +
             gruposMP.map(g => g.map(k => esc(pbNome(k))).join(' e ')).join('; ') + '): cada grupo desses conta uma vez só. ' +
             'Com os nomes repetidos, a lista tem ' + ptInt(nTestes) + ' números, e ' + ptInt(x) + ' passam.'
           : '')
       : 'Olhando um número de cada vez, <b>' + ptInt(x) + ' dos ' + ptInt(nTestes) + '</b> ' +
-        'andam junto com os pontos do ano de um jeito que dificilmente seria sorte.';
+        'andam junto com os pontos do ano com o p abaixo do corte.';
     const temSorteio = s !== undefined && s !== null && med !== undefined && med !== null;
-    const excesso = pe === null || pe === undefined ? null : pbPassa(pe);
+    /* A lista pela CHAVE gravada (`lista`); sem ela, a casca usa o p do excesso. */
+    const chLista = ptChaveLista(li);
+    const excesso = chLista.chave === 'tem_mais_achados_que_a_sorte' ? true
+      : chLista.chave === 'nao_tem_mais_achados_que_a_sorte' ? false : null;
     return '<div class="pt-controle"><span class="pt-rot">A lista inteira, dita uma vez</span>' +
       '<p class="pt-nota">' + frasePrincipal +
       (temSorteio
@@ -1778,16 +1780,19 @@ function ptEtapa6(alvo, d) {
               ? 'Chegou a ' + ptInt(x) + ' ou mais em ' + ptInt(ge) + ' ' + pbPl(ge, 'vez', 'vezes') + '.'
               : '') +
           (excesso === true
-            ? ' <b>A lista tem muito mais do que a sorte produz</b>: há relação de verdade entre boa parte destes ' +
+            ? ' <b>' + esc(pbMaiusc(ptListaSorte(li))) + '</b>: há relação de verdade entre boa parte destes ' +
               'números e os pontos do mesmo ano. Isso não diz de que lado a relação veio (ver o aviso abaixo).'
             : excesso === false
-              ? ' <b>A lista não tem mais do que a sorte produz</b>: não dá para dizer que estes números andam ' +
+              ? ' <b>' + esc(pbMaiusc(ptListaSorte(li))) + '</b>: não dá para dizer que estes números andam ' +
                 'junto com os pontos além do acaso.'
-              : ' ' + ptFalta('o bloco não grava o p do excesso da lista'))
+              : ' ' + ptFalta(chLista.motivo || 'o bloco não grava o p do excesso da lista'))
         : ' ' + ptFalta('o bloco não grava o sorteio da lista inteira')) +
       (passaQ !== null
-        ? ' Contando que foram ' + ptInt(nTestes) + ' testes, <b>' + ptInt(passaQ) + '</b> ' +
-          pbPl(passaQ, 'continua', 'continuam') + ' com cara de "dificilmente é sorte" um por um.'
+        ? ' Contando que foram ' + ptInt(nTestes) + ' testes, <b>' + ptInt(porChave.firme) + '</b> ' +
+          pbPl(porChave.firme, 'é firme', 'são firmes') + ', <b>' + ptInt(porChave.pode_ser_sorte) + '</b> ' +
+          pbPl(porChave.pode_ser_sorte, 'pode ser sorte', 'podem ser sorte') + ' e <b>' + ptInt(porChave.sem_diferenca) +
+          '</b> ' + pbPl(porChave.sem_diferenca, 'fica', 'ficam') + ' sem relação clara' +
+          (porChave.sem ? ' (' + ptInt(porChave.sem) + ' sem medida de sorte)' : '') + '.'
         : '') +
       ptTecnico('p < ' + ptNum(alfa, 2) + ' em ' + ptInt(x) + ' de ' + ptInt(nTestes) +
         (temDist ? ' (distintos: ' + ptInt(xDist) + ' de ' + ptInt(nDist) + ')' : '') +
@@ -1825,9 +1830,9 @@ function ptEtapa6(alvo, d) {
         ? 'As ' + ptInt(temps.length) + ' temporadas são de ' + ptInt(nClubes) + ' ' + pbPl(nClubes, 'clube', 'clubes') +
           ', e um mesmo clube aparece em até <b>' + ptInt(maxPorClube) + '</b>. '
         : ptFalta('o bloco não diz o clube de cada temporada') + ' ') +
-      'As temporadas de um mesmo clube se parecem entre si no jeito de jogar e no dinheiro, então ' +
+      'As temporadas de um mesmo clube se parecem entre si no jeito de jogar e no valor do elenco, então ' +
       ptInt(temps.length) + ' temporadas valem menos do que ' + ptInt(temps.length) + ' times diferentes, e o ' +
-      '"dificilmente é sorte" de cada quadradinho sai <b>otimista</b>.</p>' +
+      '"firme" de cada quadradinho sai <b>otimista</b>.</p>' +
     '<p class="pt-nota"><b>3. Não é receita.</b> Os times que andaram mais alto num número fizeram mais ' +
       '(ou menos) pontos naquele ano; isso não garante que subir nesse número traga pontos.</p>' +
     (nMin !== null
@@ -1883,12 +1888,13 @@ function ptEtapa6(alvo, d) {
           { k: 'rho', rot: 'força com os pontos do ano', tipo: 'texto', ordenavel: false, motivoFixa: fixa,
             fmt: (v, l) => (v === null || v === undefined)
               ? ptFalta(l.r.motivo || 'sem força medida no arquivo')
-              : esc(ptJunto(v)) + (pb6Sentido(v, l.q) ? ': ' + esc(pb6Sentido(v, l.q)) : '') + ptTecnico('ρ ' + ptNum(v, 3)) },
-          { k: 'q', rot: 'pode ser sorte?', tipo: 'texto', ordenavel: false, motivoFixa: fixa,
-            dica: 'contando os muitos testes (q de Benjamini-Hochberg)',
-            fmt: (v, l) => (v === null || v === undefined)
-              ? ptFalta(l.r.motivo || 'sem medida de sorte no arquivo')
-              : esc(ptSorte(v)) + ptTecnico('q ' + pb6P(v) + ' · p ' + pb6P(l.r.p, l.r.p_rotulo)) },
+              : esc(ptJunto(v)) + (pb6Sentido(v, l.r) ? ': ' + esc(pb6Sentido(v, l.r)) : '') + ptTecnico('ρ ' + ptNum(v, 3)) },
+          { k: 'q', rot: 'firme ou sorte?', tipo: 'texto', ordenavel: false, motivoFixa: fixa,
+            dica: 'firme: passa contando os muitos testes (q de Benjamini-Hochberg) · pode ser sorte: só o p passa',
+            fmt: (v, l) => !pb6Chave(l.r).chave
+              ? ptFalta(l.r.motivo || pb6Chave(l.r).motivo || 'sem medida de sorte no arquivo')
+              : esc(ptSorte({ chave: l.r.sorte, p: l.r.p, q: l.r.q }, { objeto: 'relacao' })) +
+                ptTecnico('q ' + pb6P(v) + ' · p ' + pb6P(l.r.p, l.r.p_rotulo)) },
           { k: 'n', rot: 'temporadas', casas: 0 },
           { k: 'id', rot: 'aviso', tipo: 'texto', ordenavel: false, motivoFixa: fixa,
             fmt: (v, l) => [pb6MarcaConseq(l.r), azuis7[v] ? '<b>' + esc(pb6RotE7(e7)) + '</b>' : '', pb6Gemeos(l.r)]
@@ -1942,14 +1948,16 @@ function pb6Mini(m, id, e, azuis7, nTestes, e7) {
     '<rect x="' + M + '" y="' + M + '" width="' + LADO + '" height="' + LADO + '" fill="none" stroke="var(--borda)"/>' +
     bolas + '</svg>';
   const temRho = r.rho !== null && r.rho !== undefined;
-  const sentido = temRho ? pb6Sentido(r.rho, r.q) : '';
+  const sentido = temRho ? pb6Sentido(r.rho, r) : '';
   return '<div class="pt-mini" data-ind="' + esc(id) + '" title="' + esc(ptDicaMedida(id)) + '">' +
     '<div class="pt-mini-tit">' + esc(pbNome(id)) + '</div>' +
     svg + linhaCores +
     '<div class="pt-mini-num"' + PB6_RODAPE + '>' +
       (temRho
         ? '<b style="color:var(--tinta)">' + esc(ptJunto(r.rho)) + '</b>' + (sentido ? ': ' + esc(sentido) : '') +
-          ' · contando os ' + ptInt(nTestes) + ' testes, ' + esc(ptSorte(r.q)) +
+          ' · contando os ' + ptInt(nTestes) + ' testes, ' +
+          (pb6Chave(r).chave ? esc(ptSorte({ chave: r.sorte, p: r.p, q: r.q }, { objeto: 'relacao' }))
+            : ptFalta(pb6Chave(r).motivo || 'sem medida de sorte')) +
           ptTecnico('ρ ' + ptNum(r.rho, 2) + ' · p ' + pb6P(r.p, r.p_rotulo) + ' · q ' + pb6P(r.q) + ' · ' +
             ptInt(r.n) + ' temporadas')
         : ptFalta(r.motivo || 'o arquivo não traz a força deste número')) +
@@ -1993,6 +2001,10 @@ function ptEtapa7(alvo, d) {
   const passaParcial = alfa === null ? null : linhas.filter(l => pbPassa(l.p_parcial)).length;
   const erradoSinal = linhas.filter(l => !l.sinal_certo);
   const maior = linhas.slice().sort((a, b) => b.abs - a.abs)[0];
+  /* A família são os números medidos por turno. O q gravado (`q_parcial`) e a chave (`sorte`) valem para
+     o parcial; o bruto não tem q, e sai "pode ser sorte, sem a conta dos N testes" quando o p passa. */
+  const nT = linhas.length;
+  const ch7 = pb7Chaves(linhas);
 
   alvo.innerHTML =
     '<p class="pt-nota">As etapas 5 e 6 medem tudo na <b>mesma temporada</b> do resultado — e aí não dá ' +
@@ -2006,7 +2018,8 @@ function ptEtapa7(alvo, d) {
     (ref.rho !== undefined
       ? '<div class="pt-controle"><span class="pt-rot">O que já se sabe sem olhar estilo nenhum</span>' +
         '<p class="pt-nota">Os <b>pontos do 1º turno</b> e os do 2º <b>' + esc(ptJunto(ref.rho)) + '</b> (' +
-        esc(ptSorte(ref.p)) + ').' + ptTecnico('ρ = ' + ptNum(ref.rho, 3) + ' · ' + ptP(ref.p)) +
+        esc(ptSorte(ref.p, null, { unico: true, objeto: 'relacao' })) + ', um teste só).' +
+        ptTecnico('ρ = ' + ptNum(ref.rho, 3) + ' · ' + ptP(ref.p)) +
         /* A frase sai do SINAL ("quanto mais X, menos pontos") e da ORDEM dos números: com três
            "moderada" iguais na tela, o leitor não tinha como ver que o 1º turno prevê melhor. A
            conclusão "a melhor previsão continua sendo o 1º turno" só é escrita se o número de
@@ -2021,7 +2034,7 @@ function ptEtapa7(alvo, d) {
             ((maior.rho_parcial < 0) === (maior.rho_bruto < 0)
               ? 'continua no mesmo sentido' + (Math.abs(maior.rho_parcial) < Math.abs(maior.rho_bruto) ? ', um pouco mais fraco' : '')
               : 'muda de sentido') +
-            ' (' + esc(ptJunto(maior.rho_parcial)) + ', ' + esc(ptSorte(maior.p_parcial)) + ').' +
+            ' (' + esc(ptJunto(maior.rho_parcial)) + ', ' + esc(pb7Sorte(maior, nT)) + ').' +
             ptTecnico('ρ ' + ptNum(maior.rho_bruto, 3) + ' → ' + ptNum(maior.rho_parcial, 3) + ' · ' + ptP(maior.p_parcial))
           : '') +
         (!maior || Math.abs(maior.rho_bruto) < Math.abs(ref.rho)
@@ -2034,7 +2047,8 @@ function ptEtapa7(alvo, d) {
 
     ptCard('O 1º turno prevê o 2º? Número por número',
       ptInt(linhas.length) + ' números medidos por turno · ' + pbConta(passaBruto) +
-        ' dificilmente são sorte sem desconto, ' + pbConta(passaParcial) + ' com o desconto',
+        ' passam no corte sem descontar os pontos do 1º turno, ' + pbConta(passaParcial) + ' descontando · ' +
+        ptInt(ch7.firme) + ' ' + pbPl(ch7.firme, 'firme', 'firmes') + ' contando os ' + ptInt(nT) + ' testes',
       ptTabela({
         id: 'ptEt-7-tab',
         ordem: { col: 'abs', dir: 'desc' },
@@ -2043,11 +2057,13 @@ function ptEtapa7(alvo, d) {
           { k: 'n', rot: 'times', casas: 0 },
           { k: 'rho_bruto', rot: 'com os pontos do 2º turno', dica: 'ρ bruto',
             fmt: v => esc(ptJunto(v)) + ptTecnico('ρ ' + ptNum(v, 3)) },
-          { k: 'p_bruto', rot: 'é sorte?', dica: 'p-valor do ρ bruto', fmt: v => esc(ptSorte(v)) + ptTecnico(ptP(v)) },
+          { k: 'p_bruto', rot: 'firme ou sorte?', dica: 'p-valor do ρ bruto; sem q gravado, não passa de "pode ser sorte"',
+            fmt: v => ptSorteHtml(v, null, { nTestes: nT, objeto: 'relacao' }) },
           { k: 'rho_parcial', rot: 'descontados os pontos do 1º turno', dica: 'ρ parcial',
             fmt: v => esc(ptJunto(v)) + ptTecnico('ρ ' + ptNum(v, 3)) },
-          { k: 'p_parcial', rot: 'é sorte? (com desconto)', dica: 'p-valor do ρ parcial',
-            fmt: v => esc(ptSorte(v)) + ptTecnico(ptP(v)) },
+          { k: 'p_parcial', rot: 'firme ou sorte? (descontados os pontos do 1º turno)',
+            dica: 'firme: q do ρ parcial, contando os testes por turno · pode ser sorte: só o p passa',
+            fmt: (v, l) => pb7SorteHtml(l, nT) },
           { k: 'abs', rot: 'força, sem o sentido', fmt: v => ptTecnico(ptNum(v, 3)),
             dica: '|ρ| bruto — coluna calculada na tela só para ordenar' },
           { k: 'sinal_certo', rot: 'sentido',
@@ -2058,10 +2074,14 @@ function ptEtapa7(alvo, d) {
         linhas: linhas,
         vazio: 'nenhum número tem versão por turno',
       }),
-      'Dos <b>' + ptInt(linhas.length) + '</b>, <b>' + pbConta(passaBruto) + '</b> dificilmente são sorte sem ' +
-      'desconto, e <b>' + pbConta(passaParcial) + '</b> continuam assim depois de descontar os pontos do ' +
-      '1º turno. A queda de uma conta para a outra é o assunto desta etapa.' +
-      ptTecnico('corte: p < α = ' + (alfa === null ? '?' : ptNum(alfa, 2))) +
+      'Dos <b>' + ptInt(linhas.length) + '</b>, <b>' + pbConta(passaBruto) + '</b> passam no corte olhando um ' +
+      'de cada vez, e <b>' + pbConta(passaParcial) + '</b> continuam passando depois de descontar os pontos do ' +
+      '1º turno. A queda de uma conta para a outra é o assunto desta etapa. Contando os ' + ptInt(nT) + ' testes, ' +
+      'descontados os pontos do 1º turno: <b>' + ptInt(ch7.firme) + '</b> ' + pbPl(ch7.firme, 'é firme', 'são firmes') +
+      ', <b>' + ptInt(ch7.pode_ser_sorte) + '</b> ' + pbPl(ch7.pode_ser_sorte, 'pode ser sorte', 'podem ser sorte') +
+      ' e <b>' + ptInt(ch7.sem_diferenca) + '</b> ' + pbPl(ch7.sem_diferenca, 'fica', 'ficam') + ' sem relação clara' +
+      (ch7.sem ? ' (' + ptInt(ch7.sem) + ' sem medida de sorte)' : '') + '.' +
+      ptTecnico('corte: p < α = ' + (alfa === null ? '?' : ptNum(alfa, 2)) + ' · firme: q < α') +
       (erradoSinal.length
         ? ' E <b>' + ptInt(erradoSinal.length) + '</b> ' + pbPl(erradoSinal.length, 'vai', 'vão') +
           ' para o lado <b>contrário</b> do que o estudo tinha dito antes de testar (' +
@@ -2073,7 +2093,7 @@ function ptEtapa7(alvo, d) {
               ? ': ' + erradoSinal.filter(l => pbPassa(l.p_parcial)).map(l => '<b>' + esc(l.nome) + '</b>').join(', ') +
                 ' ' + pbPl(erradoSinal.filter(l => pbPassa(l.p_parcial)).length, 'passa', 'passam') +
                 ' no corte mesmo com o desconto, e merece leitura linha a linha.'
-              : ': nenhum deles passa no corte depois do desconto, então pode ser sorte apontando para um lado qualquer.')
+              : ': nenhum deles passa no corte depois do desconto, então fica sem relação clara, para lado nenhum.')
         : '')) +
 
     (d.nao_testaveis && d.nao_testaveis.length
@@ -2087,6 +2107,21 @@ function ptEtapa7(alvo, d) {
             : ptFalta('sem motivo declarado no arquivo')) +
           ' Eles ficam sem este teste, o que é diferente de terem sido testados e reprovados.</p></div>'
       : '');
+}
+
+/* A chave de sorte do ρ parcial: a gravada (`sorte`, com `q_parcial`); sem ela, a casca aplica os
+   mesmos cortes, e sem q o "pode ser sorte" leva a nota "sem a conta dos N testes". */
+function pb7ArgSorte(l) {
+  const o = { chave: l && l.sorte, p: l && l.p_parcial };
+  if (l && l.q_parcial !== undefined && l.q_parcial !== null) o.q = l.q_parcial;
+  return o;
+}
+function pb7Sorte(l, nT) { return ptSorte(pb7ArgSorte(l), { nTestes: nT, objeto: 'relacao' }); }
+function pb7SorteHtml(l, nT) { return ptSorteHtml(pb7ArgSorte(l), { nTestes: nT, objeto: 'relacao' }); }
+function pb7Chaves(linhas) {
+  const c = { firme: 0, pode_ser_sorte: 0, sem_diferenca: 0, sem: 0 };
+  linhas.forEach(l => { const k = ptChaveSorte(pb7ArgSorte(l), { nTestes: linhas.length }).chave; c[k || 'sem']++; });
+  return c;
 }
 
 function pb7Grafico(d, linhas) {
@@ -2128,8 +2163,9 @@ function pb7Grafico(d, linhas) {
       '<circle cx="' + a.toFixed(1) + '" cy="' + y + '" r="3.4" fill="none" stroke="' + cor + '" stroke-width="1.4"/>' +
       '<circle cx="' + b.toFixed(1) + '" cy="' + y + '" r="4" fill="' + cor + '"/>' +
       pbTxt(L - 9, y + 3.5, l.nome, { anc: 'end', tam: 10, cor: forte ? 'var(--tinta)' : 'var(--tinta2)' }) +
-      '<title>' + esc(l.nome + ' · 1º turno com os pontos do 2º: ' + ptJunto(l.rho_bruto) + ', ' + ptSorte(l.p_bruto) +
-        ' · só entre times com pontos parecidos no 1º turno: ' + ptJunto(l.rho_parcial) + ', ' + ptSorte(l.p_parcial) +
+      '<title>' + esc(l.nome + ' · 1º turno com os pontos do 2º: ' + ptJunto(l.rho_bruto) + ', ' +
+        ptSorte(l.p_bruto, null, { nTestes: linhas.length, objeto: 'relacao' }) +
+        ' · só entre times com pontos parecidos no 1º turno: ' + ptJunto(l.rho_parcial) + ', ' + pb7Sorte(l, linhas.length) +
         ' · ρ ' + ptNum(l.rho_bruto, 3) + ' (' + ptP(l.p_bruto) + ') → ' + ptNum(l.rho_parcial, 3) +
         ' (' + ptP(l.p_parcial) + ')') + '</title>';
   }).join('');
@@ -2177,9 +2213,14 @@ function pb7Grafico(d, linhas) {
               pbPl(chegam, 'número chega', 'números chegam') + ' nela ou passa: leia esses linha a linha.')
         : ptFalta('o arquivo não traz os pontos do 1º turno contra os do 2º (referencia_pts1t_x_pts2t)')) +
     bloco('4 · As cores',
-      '<b style="color:var(--pt-alto)">azul</b> (' + ptInt(azuis) + '): na direção esperada, e continua de pé ' +
-      'depois do desconto · <b style="color:var(--tinta3)">cinza</b> (' + ptInt(cinzas) + '): na direção ' +
-      'esperada, mas descontado pode ser sorte · <b style="color:var(--pt-baixo)">laranja</b> (' +
+      '<b style="color:var(--pt-alto)">azul</b> (' + ptInt(azuis) + '): na direção esperada, e continua abaixo do ' +
+      'corte depois do desconto' + (function () {
+        const az = pb7Chaves(linhas.filter(l => l.sinal_certo && pbPassa(l.p_parcial)));
+        return azuis ? ' (contando os ' + ptInt(linhas.length) + ' testes: ' + ptInt(az.firme) + ' ' +
+          pbPl(az.firme, 'firme', 'firmes') + ', ' + ptInt(az.pode_ser_sorte) + ' ' +
+          pbPl(az.pode_ser_sorte, 'pode ser sorte', 'podem ser sorte') + ')' : '';
+      })() + ' · <b style="color:var(--tinta3)">cinza</b> (' + ptInt(cinzas) + '): na direção ' +
+      'esperada, mas descontados os pontos do 1º turno fica sem relação clara · <b style="color:var(--pt-baixo)">laranja</b> (' +
       ptInt(laranjas) + '): na direção contrária ao esperado. ' +
       (porSorte === null
         ? ptFalta('sem a linha de corte da sorte no arquivo, a tela não conta quantos passariam por sorte')
@@ -2270,8 +2311,10 @@ function pb8Cemiterio(c) {
       '<circle cx="' + px(l.silhueta_obs).toFixed(1) + '" cy="' + y + '" r="4.6" fill="var(--pt-alto)"/>' +
       pbTxt(L - 9, y + 3.5, l.conjunto + ' · ' + ptInt(l.k) + ' grupos', { anc: 'end', tam: 9.5, cor: 'var(--tinta2)' }) +
       '<title>' + esc(l.conjunto + ' · ' + l.k + ' grupos · separação real ' + ptNum(l.silhueta_obs, 3) +
-        ' · sorteio fácil ' + ptNum(l.emb_med, 3) + ' (' + ptSorte(l.emb_p) + ', ' + ptP(l.emb_p) + ')' +
-        ' · sorteio justo ' + ptNum(l.cov_med, 3) + ' (' + ptSorte(l.cov_p) + ', ' + ptP(l.cov_p) + ')' +
+        ' · sorteio fácil ' + ptNum(l.emb_med, 3) + ' (' + ptSorte(l.emb_p, null, { unico: true, objeto: 'separacao' }) +
+        ', ' + ptP(l.emb_p) + ')' +
+        ' · sorteio justo ' + ptNum(l.cov_med, 3) + ' (' + ptSorte(l.cov_p, null, { unico: true, objeto: 'separacao' }) +
+        ', ' + ptP(l.cov_p) + ')' +
         ' · silhueta; nulos de colunas embaralhadas e de mesma covariância') + '</title>';
   }).join('');
   const fim = T + linhas.length * ALT;
@@ -2281,8 +2324,12 @@ function pb8Cemiterio(c) {
     pbTxt(px(lo), fim + 14, ptNum(lo, 2), { anc: 'middle', tam: 9 }) +
     pbTxt(px(hi), fim + 14, ptNum(hi, 2), { anc: 'middle', tam: 9 }), 470);
 
-  const sorteNaCel = v => (pbPassa(v) ? '<b style="color:var(--pt-baixo)">' + esc(ptSorte(v)) + '</b>'
-    : esc(ptSorte(v))) + ptTecnico(ptP(v));
+  /* Cada linha é um teste único declarado (a tentativa contra um sorteio): q = p, e a frase é
+     "firme" ou "sem separação clara". A cor lê a CHAVE, não o texto. */
+  const sepUnico = v => ptSorte(v, null, { unico: true, objeto: 'separacao' });
+  const sorteNaCel = v => (ptChaveSorte(v, null, { unico: true }).chave === 'firme'
+    ? '<b style="color:var(--pt-baixo)">' + esc(sepUnico(v)) + '</b>'
+    : esc(sepUnico(v))) + ptTecnico(ptP(v));
   return ptCard('Por que esta aba não tem grupos de times',
     ptInt(linhas.length) + ' tentativas · cada uma contra ' + ptInt(linhas[0].replicas) + ' sorteios de comparação',
     '<p class="pt-nota">A pergunta: os times se dividem em tipos de verdade, ou qualquer nuvem de números ' +
@@ -2305,10 +2352,10 @@ function pb8Cemiterio(c) {
           fmt: v => '<b>' + ptNum(v, 3) + '</b>' },
         { k: 'emb_med', rot: 'sorteio fácil: separação típica', dica: 'mediana do nulo de colunas embaralhadas',
           fmt: v => ptNum(v, 3) },
-        { k: 'emb_p', rot: 'contra o fácil, é sorte?', dica: 'p do nulo de colunas embaralhadas', fmt: sorteNaCel },
+        { k: 'emb_p', rot: 'contra o fácil, a separação é firme?', dica: 'p do nulo de colunas embaralhadas (teste único)', fmt: sorteNaCel },
         { k: 'cov_med', rot: 'sorteio justo: separação típica', dica: 'mediana do nulo de mesma covariância',
           fmt: v => ptNum(v, 3) },
-        { k: 'cov_p', rot: 'contra o justo, é sorte?', dica: 'p do nulo de mesma covariância',
+        { k: 'cov_p', rot: 'contra o justo, a separação é firme?', dica: 'p do nulo de mesma covariância (teste único)',
           fmt: v => '<b>' + sorteNaCel(v) + '</b>' },
         { k: 'replicas', rot: 'sorteios', casas: 0 },
       ],
@@ -2317,7 +2364,7 @@ function pb8Cemiterio(c) {
     }),
     'Os dois sorteios ficam lado a lado porque a diferença entre eles <b>é</b> o resultado. Contra o ' +
     'sorteio fácil, <b>' + pbConta(rejEmb) + ' das ' + ptInt(linhas.length) + '</b> tentativas parecem ter ' +
-    'grupo (dificilmente seria sorte). Contra o justo, <b>' + pbConta(rejCov) + '</b>. O sorteio fácil não ' +
+    'grupo (firme contra o sorteio fácil). Contra o justo, <b>' + pbConta(rejCov) + '</b>. O sorteio fácil não ' +
     'testa se existe grupo; testa se os números andam juntos.' +
     ptTecnico('corte: p < α = ' + (alfa === null ? '?' : ptNum(alfa, 2))) + ' ' +
     (obs.n !== undefined
@@ -2354,17 +2401,19 @@ function pb8Jaccard(c) {
       dica: 'Jaccard de bootstrap ' + ptNum(v, 3),
       hachura: v < dissolve,
       cor: v >= estavel ? 'alto' : 'baixo',
-      extra: v >= estavel ? 'firme' : (v < dissolve ? 'se desfaz' : 'entre as duas linhas'),
+      extra: v >= estavel ? 'estável' : (v < dissolve ? 'se desfaz' : 'entre as duas linhas'),
     })).join('')).join('');
+  /* "estável" e não "firme": aqui é estabilidade de grupo (linhas de Hennig), sem nada a ver com sorte;
+     "firme" fica reservado para a chave de sorte da aba. */
   return ptCard('O segundo teste: o grupo sai igual quando se refaz a conta?',
-    'firme: reaparece pelo menos ' + ptPct(estavel * 100, 0) + ' igual · se desfaz: abaixo de ' +
+    'estável: reaparece pelo menos ' + ptPct(estavel * 100, 0) + ' igual · se desfaz: abaixo de ' +
       ptPct(dissolve * 100, 0) + ptTecnico('Jaccard de bootstrap · linhas de Hennig ' + ptNum(estavel, 2) +
       ' e ' + ptNum(dissolve, 2)),
     '<p class="pt-nota">Refaz-se a conta muitas vezes, com os dados sorteados de novo, e vê-se quanto ' +
     'cada grupo reaparece igual. A barra é essa porcentagem.</p>' + corpo,
     'De <b>' + ptInt(todos.length) + '</b> ' +
     pbPl(todos.length, 'grupo testado', 'grupos testados') + ' em todas as tentativas, <b>' +
-    ptInt(acima) + '</b> ' + pbPl(acima, 'chega', 'chegam') + ' à linha de firme e <b>' + ptInt(abaixo) +
+    ptInt(acima) + '</b> ' + pbPl(acima, 'chega', 'chegam') + ' à linha de estável e <b>' + ptInt(abaixo) +
     '</b> ' + pbPl(abaixo, 'fica', 'ficam') + ' abaixo da linha de "se desfaz" — ' +
     pbPl(abaixo, 'desenhado', 'desenhados') +
     ' com hachura, porque uma barra cheia ali enganaria por omissão. Grupo que se desfaz quando se ' +
@@ -2416,11 +2465,11 @@ function pb8CampoTroca(fronteira) {
   return k ? { campo: k, pontos: Number(/(\d+)pt/.exec(k)[1]) } : null;
 }
 
-/* A firmeza de cada caixa é a que o gerador GRAVOU em `status`, no vocabulário do próprio
+/* Se a caixa é tipo é o que o gerador GRAVOU em `status`, no vocabulário do próprio
    arquivo (`TIPO` = passa no teste contra as outras caixas; `DESCRITIVO` = só descrição). A tela
    não refaz a conta com p e corte. Status fora desse vocabulário devolve null, e quem chama
    escreve que não reconhece — em vez de encaixá-lo num dos dois lados. */
-function pb8Firme(g) {
+function pb8EhTipo(g) {
   const s = String((g && g.status) || '').toUpperCase();
   if (s === 'TIPO') return true;
   if (s === 'DESCRITIVO') return false;
@@ -2429,7 +2478,7 @@ function pb8Firme(g) {
 /* Quando o p gravado e o corte gravado dariam o contrário do status, a tela mostra a discordância
    e diz qual vale. Não arbitra: vale o status, porque é ele que o gerador publicou. */
 function pb8ContaDiscorda(g) {
-  const f = pb8Firme(g);
+  const f = pb8EhTipo(g);
   if (f === null || g.p_um_contra_o_resto === null || g.p_um_contra_o_resto === undefined ||
       g.corte_do_status === null || g.corte_do_status === undefined) return false;
   return (Number(g.p_um_contra_o_resto) < Number(g.corte_do_status)) !== f;
@@ -2453,9 +2502,9 @@ function pb8Tipologia(t) {
      cada uma contra o resto e quais são só descrição. Sai do STATUS gravado pelo gerador, não de
      uma conta refeita aqui com p e corte — refazer a firmeza na tela é o jeito de a tela e o
      arquivo discordarem em silêncio. Status fora do vocabulário conhecido fica em lista própria. */
-  const firmes = grupos.filter(g => pb8Firme(g) === true);
-  const soDescricao = grupos.filter(g => pb8Firme(g) === false);
-  const desconhecidos = grupos.filter(g => pb8Firme(g) === null);
+  const firmes = grupos.filter(g => pb8EhTipo(g) === true);
+  const soDescricao = grupos.filter(g => pb8EhTipo(g) === false);
+  const desconhecidos = grupos.filter(g => pb8EhTipo(g) === null);
   const nomesDe = gs => gs.map(g => '<b>' + esc(g.grupo) + '</b>').join(', ');
 
   return '<div class="pt-etapa-cab" style="border-top-width:1px;margin-top:6px">' +
@@ -2484,11 +2533,12 @@ function pb8Tipologia(t) {
         'construíram. Caixa por caixa: ' +
         (firmes.length
           ? nomesDe(firmes) + ' ' + pbPl(firmes.length, 'passa', 'passam') + ' no teste de cada caixa ' +
-            'contra as outras (dificilmente é sorte)'
+            'contra as outras (firme, num teste só por caixa)'
           : 'nenhuma passa no teste de cada caixa contra as outras') +
         (soDescricao.length
           ? '; ' + nomesDe(soDescricao) + ' ' + pbPl(soDescricao.length, 'é', 'são') + ' <b>só descrição</b> — ' +
-            soDescricao.map(g => 'com ' + ptInt(g.n) + ' times, ' + esc(ptSorte(g.p_um_contra_o_resto)))
+            soDescricao.map(g => 'com ' + ptInt(g.n) + ' times, ' +
+              esc(ptSorte(g.p_um_contra_o_resto, null, { unico: true, objeto: 'separacao' })))
               .join('; ') + '. Serve para contar o que aconteceu, não para dizer que é um tipo de time.'
           : '.') +
         (desconhecidos.length
@@ -2499,9 +2549,11 @@ function pb8Tipologia(t) {
           ? ' ' + ptFalta('o arquivo não traz o teste de separação das caixas contra o sorteio justo; sem ele a ' +
               'tela não diz se a divisão é um mapa contínuo ou grupos separados')
           : sil.passa
-            ? ' A separação das caixas passa no sorteio justo (' + esc(ptSorte(sil.p)) + '): veja o teste e a ' +
+            ? ' A separação das caixas passa no sorteio justo (' +
+              esc(ptSorte(sil.p, null, { unico: true, objeto: 'separacao' })) + '): veja o teste e a ' +
               'lista do que não passou, mais abaixo.'
-            : ' E a separação das caixas não passa no sorteio justo (' + esc(ptSorte(sil.p)) + '): a divisão ' +
+            : ' E a separação das caixas não passa no sorteio justo (' +
+              esc(ptSorte(sil.p, null, { unico: true, objeto: 'separacao' })) + '): a divisão ' +
               'inteira se lê como um mapa contínuo cortado ao meio, não como ilhas separadas. Veja o teste e a ' +
               'lista do que não passou, mais abaixo.') +
         ptTecnico('status: ' + grupos.map(g => esc(g.grupo) + ' ' + esc(g.status)).join(' · ')) + '</p></div>'
@@ -2695,21 +2747,23 @@ function pb8Grupo(g, i, t) {
     tabTimes +
     validadores;
 
-  const firme = pb8Firme(g);
+  const firme = pb8EhTipo(g);
   const discorda = pb8ContaDiscorda(g);
   const veredito = firme === true
     ? 'passa no teste contra as outras caixas'
     : firme === false
-      ? 'só descrição: ' + ptSorte(g.p_um_contra_o_resto)
+      ? 'só descrição: ' + ptSorte(g.p_um_contra_o_resto, null, { unico: true, objeto: 'separacao' })
       : 'status gravado que a tela não reconhece: ' + String(g.status);
+  /* Um teste único por caixa (esta contra as outras): q = p, frase "firme" ou "sem separação clara". */
+  const sorteCaixa = esc(ptSorte(g.p_um_contra_o_resto, null, { unico: true, objeto: 'separacao' }));
 
   const nota =
     '<b>Esta caixa contra todas as outras juntas:</b> ' + esc(ptAcaso(g.p_um_contra_o_resto)) + ' — ' +
     (firme === true
-      ? '<b>' + esc(ptSorte(g.p_um_contra_o_resto)) + '</b>, e o estudo a registrou como tipo. Por isso conta ' +
+      ? '<b>' + sorteCaixa + '</b>, e o estudo a registrou como tipo. Por isso conta ' +
         'como tipo, dentro das ressalvas desta etapa: a separação das caixas e a lista do que não passou.'
       : firme === false
-        ? '<b>' + esc(ptSorte(g.p_um_contra_o_resto)) + '</b>, e o estudo a registrou como <b>só descrição</b>: ' +
+        ? '<b>' + sorteCaixa + '</b>, e o estudo a registrou como <b>só descrição</b>: ' +
           'serve para contar o que estes ' + ptInt(g.n) + ' times fizeram, não para dizer que existe um tipo ' +
           'de time assim.'
         : ptFalta('o arquivo grava o status "' + String(g.status) + '", que esta tela não sabe ler; a caixa não ' +
@@ -2857,9 +2911,11 @@ function pb8TesteDeFora(t) {
     { k: 'nome', rot: 'número (nenhum entrou na montagem)', tipo: 'texto' },
     { k: 'eta2', rot: 'quanto a caixa explica', dica: 'eta²',
       fmt: v => pbExplica(v) + ptTecnico('eta² ' + ptNum(v, 3)) },
-    { k: 'p', rot: 'é sorte?', dica: 'p-valor', fmt: v => esc(ptSorte(v)) + ptTecnico(ptP(v)) },
-    { k: 'q', rot: 'descontada a sorte de testar muito', dica: 'q de Benjamini-Hochberg',
-      fmt: v => esc(ptSorte(v)) + ptTecnico('q ' + ptPv(v)) },
+    /* Uma coluna só, pela chave única: firme (q < α, contando os números testados) · pode ser sorte
+       (só o p passa) · sem separação clara. O p e o q ficam no número técnico. */
+    { k: 'q', rot: 'firme ou sorte? (contando os ' + ptInt(porInd.length) + ' testes)',
+      dica: 'q de Benjamini-Hochberg; o p vai ao lado',
+      fmt: (v, l) => ptSorteHtml(l.p, l.q, { objeto: 'separacao' }) },
   ].concat(gs.map(g => ({
     k: 'g_' + g, rot: 'posição de ' + g + ' no ranking',
     cel: (v, l) => ptCel(v, { casas: 1, sinal: 0, texto: ptNum(v, 0),
@@ -2867,22 +2923,22 @@ function pb8TesteDeFora(t) {
   })));
 
   return ptCard('O teste de fora: as caixas aparecem em números que não as construíram?',
-    ptInt(f.indicadores) + ' números testados · ' + ptInt(f.sobrevivem_bh5) +
-      ' sobram descontada a sorte de testar muito, no corte mais duro',
+    ptInt(f.indicadores) + ' números testados · ' + ptInt(f.sobrevivem_bh5) + ' ' +
+      pbPl(f.sobrevivem_bh5, 'firme', 'firmes') + ', contando os muitos testes',
     '<p class="pt-nota">Pega-se cada número que ficou de fora da montagem e pergunta-se: saber a caixa do ' +
       'time ajuda a adivinhar esse número? Em média, a caixa <b>explica ' + pbExplica(f.eta2_medio_obs) +
       '</b> da diferença entre os times. Com caixas sorteadas ao acaso, explicaria ' +
-      pbExplica(f.eta2_medio_nulo_rotulo) + ' (' + esc(ptSorte(f.p_rotulo)) + ').' +
+      pbExplica(f.eta2_medio_nulo_rotulo) + ' (' + esc(ptSorte(f.p_rotulo, null, { unico: true, objeto: 'separacao' })) + ').' +
       ptTecnico('eta² ' + ptNum(f.eta2_medio_obs, 3) + ' contra ' + ptNum(f.eta2_medio_nulo_rotulo, 3) +
         ' · ' + ptP(f.p_rotulo)) +
       ' Com o <b>sorteio de comparação mais duro</b> — ' + ptInt(f.placebo_particoes) + ' divisões feitas ' +
       'ordenando os times por outros números reais de futebol —, explicaria ' +
-      pbExplica(f.eta2_medio_nulo_placebo) + ' (' + esc(ptSorte(f.p_placebo)) + ').' +
+      pbExplica(f.eta2_medio_nulo_placebo) + ' (' + esc(ptSorte(f.p_placebo, null, { unico: true, objeto: 'separacao' })) + ').' +
       ptTecnico('nulo placebo ' + ptNum(f.eta2_medio_nulo_placebo, 3) + ' · ' + ptP(f.p_placebo)) +
       ' O duro é o que importa: ele respeita a ligação natural entre os números, que o sorteio fácil ' +
-      'apaga. E quando se testa muita coisa, alguma dá certo por sorte; descontada essa sorte, sobram <b>' +
-      ptInt(f.sobrevivem_bh5) + '</b> números no corte mais duro e <b>' + ptInt(f.sobrevivem_bh10) +
-      '</b> no mais frouxo' +
+      'apaga. E quando se testa muita coisa, alguma dá certo por sorte; contando os muitos testes, <b>' +
+      ptInt(f.sobrevivem_bh5) + '</b> ' + pbPl(f.sobrevivem_bh5, 'número é firme', 'números são firmes') +
+      ', e <b>' + ptInt(f.sobrevivem_bh10) + '</b> passariam se o corte fosse o mais frouxo' +
       (pre ? ', de uma lista de ' + ptInt(pre) + ' números escrita antes de rodar' : '') + '.' +
       /* os cortes saem do nome das chaves (`sobrevivem_bh5`, `sobrevivem_bh10`), não de memória */
       ptTecnico('Benjamini-Hochberg a ' + Object.keys(f).map(k => (/^sobrevivem_bh(\d+)$/.exec(k) || [])[1])
@@ -2907,9 +2963,10 @@ function pb8TesteDeFora(t) {
             'montagem, a caixa explica ' + pbExplica(limpa.eta2_medio_obs) +
             (caiu ? ' (com todos, explicava ' + pbExplica(f.eta2_medio_obs) + ')' : '') + ', contra ' +
             pbExplica(nuloJulga) + ' do ' + (peloPlacebo ? 'sorteio mais duro' : 'sorteio') + ' (' +
-            esc(ptSorte(pJulga)) + ')' +
+            esc(ptSorte(pJulga, null, { unico: true, objeto: 'separacao' })) + ')' +
             (peloPlacebo
-              ? '; contra o sorteio fácil, ' + pbExplica(limpa.eta2_medio_nulo) + ' (' + esc(ptSorte(limpa.p)) + ')'
+              ? '; contra o sorteio fácil, ' + pbExplica(limpa.eta2_medio_nulo) + ' (' +
+                esc(ptSorte(limpa.p, null, { unico: true, objeto: 'separacao' })) + ')'
               : '') + '.' +
             ptTecnico('eta² ' + ptNum(limpa.eta2_medio_obs, 3) + ' contra ' + ptNum(nuloJulga, 3) + ' · ' + ptP(pJulga) +
               (peloPlacebo ? ' · nulo de rótulo ' + ptNum(limpa.eta2_medio_nulo, 3) + ' · ' + ptP(limpa.p) : '')) +
@@ -2930,8 +2987,10 @@ function pb8DinheiroEstabilidade(t) {
   const fis = t.fisico || {};
   const form = t.formacao || {};
   const and = t.andares || {};
-  const res = din.residualizado || {};
+  /* (15/09) O recorte "descontado o dinheiro" (`dinheiro.residualizado`) saiu do estudo e da tela. Ficam
+     os dois testes do valor do elenco contra as caixas e a divisão rival: descrevem o valor, não descontam. */
   const rival = din.particao_rival_so_dinheiro || {};
+  const sepU = v => ptSorte(v, null, { unico: true, objeto: 'separacao' });
   const tirarTime = est.tirar_um_time || [];
   const tirarInd = est.tirar_um_indicador || [];
   const sil = (est.silhueta_espaco_reduzido || [])[0];
@@ -2952,44 +3011,31 @@ function pb8DinheiroEstabilidade(t) {
   const semTroca = tirarInd.filter(x => x.trocas === 0);
 
   const nPlano = ptInt((t.plano || []).length);
-  const sortePerm = ptSorte(din.p_permutacao), sorteKrus = ptSorte(din.p_kruskal);
+  const sortePerm = sepU(din.p_permutacao), sorteKrus = sepU(din.p_kruskal);
+  const chPerm = ptChaveSorte(din.p_permutacao, null, { unico: true }).chave;
+  const chKrus = ptChaveSorte(din.p_kruskal, null, { unico: true }).chave;
   const dinheiroHtml =
     '<div class="pt-cf-grade">' +
       '<div class="pt-cf-l"><span>quanto a caixa explica do ranking de valor do elenco</span><b>' +
         pbExplica(din.eta2_posto_valor) + ptTecnico('eta² ' + ptNum(din.eta2_posto_valor, 3)) + '</b></div>' +
-      '<div class="pt-cf-l"><span>é sorte? (sorteio de comparação)</span><b>' + esc(sortePerm) +
+      '<div class="pt-cf-l"><span>a separação pelo valor é firme? (sorteio de comparação)</span><b>' + esc(sortePerm) +
         ptTecnico('permutação ' + ptP(din.p_permutacao)) + '</b></div>' +
-      '<div class="pt-cf-l"><span>é sorte? (segundo teste)</span><b>' + esc(sorteKrus) +
+      '<div class="pt-cf-l"><span>a separação pelo valor é firme? (segundo teste)</span><b>' + esc(sorteKrus) +
         ptTecnico('Kruskal ' + ptP(din.p_kruskal)) + '</b></div>' +
-      '<div class="pt-cf-l"><span>divisão rival feita só com dinheiro: quanto explica dos números de fora</span><b>' +
+      '<div class="pt-cf-l"><span>divisão rival feita só com o valor do elenco: quanto explica dos números de fora</span><b>' +
         pbExplica(rival.eta2_medio) + ' contra ' + pbExplica(rival.eta2_medio_nulo) + ' do sorteio · ' +
-        esc(ptSorte(rival.p)) + ptTecnico('eta² ' + ptNum(rival.eta2_medio, 3) + ' · ' + ptP(rival.p)) +
+        esc(sepU(rival.p)) + ptTecnico('eta² ' + ptNum(rival.eta2_medio, 3) + ' · ' + ptP(rival.p)) +
         '</b></div>' +
     '</div>' +
-    '<p class="pt-nota">Os dois testes do dinheiro ' +
-      (sortePerm !== sorteKrus
+    '<p class="pt-nota">Os dois testes do valor do elenco ' +
+      (chPerm !== chKrus
         ? '<b>discordam</b>: um diz "' + esc(sortePerm) + '", o outro diz "' + esc(sorteKrus) + '". Os dois ' +
           'estão na tela. Com ' + nPlano + ' times, a diferença entre eles é a amostra pequena falando. '
         : 'dizem o mesmo: "' + esc(sortePerm) + '". ') +
       'O teste que decide é outro: uma divisão rival montada <b>só</b> com o ranking de valor explica os ' +
       'números de fora em ' + pbExplica(rival.eta2_medio) + ', contra ' + pbExplica(rival.eta2_medio_nulo) +
-      ' do sorteio (' + esc(ptSorte(rival.p)) + ')' +
-      (pbPassa(rival.p) ? '.' : ' — não se viu o dinheiro sozinho reproduzir estas caixas.') + '</p>' +
-    (res.de !== undefined
-      ? '<p class="pt-nota">E quando se <b>desconta o dinheiro</b> — comparando times de orçamento ' +
-        'parecido e traçando as linhas de novo —, a rota ' +
-        (res.muda_rota === 0 ? 'não tira <b>nenhum</b>' : 'tira <b>' + ptInt(res.muda_rota) + '</b>') +
-        ' dos ' + ptInt(res.de) + ' times da sua caixa, e o território tira <b>' +
-        ptInt(res.muda_territorio) + '</b> (' +
-        (res.trocaram || []).map(esc).join(', ') + ').' + ptTecnico('residualizado no percentil de valor') +
-        /* Só a comparação que a linha grava: quantos times cada critério muda. Sem "o que o dinheiro
-           compra" — isso seria receita, e o estudo mediu troca de caixa, não compra. */
-        (Number(res.muda_territorio) !== Number(res.muda_rota)
-          ? ' Nesta amostra, o <b>' + (Number(res.muda_territorio) > Number(res.muda_rota) ? 'território' : 'jeito de a bola chegar (a rota)') +
-            '</b> anda mais junto com o valor do elenco do que ' +
-            (Number(res.muda_territorio) > Number(res.muda_rota) ? 'o jeito de a bola chegar (a rota)' : 'o território') + '.'
-          : '') + '</p>'
-      : '') +
+      ' do sorteio (' + esc(sepU(rival.p)) + ')' +
+      (pbPassa(rival.p) ? '.' : ' — não se viu o valor do elenco sozinho reproduzir estas caixas.') + '</p>' +
     (din.rho_posto_valor_x_percentil_ppda !== undefined
       ? (function () {
           /* O sentido depende de duas escalas invertidas, e só a convenção gravada pelo estudo diz
@@ -3001,7 +3047,7 @@ function pb8DinheiroEstabilidade(t) {
           const sabeLado = /rho positivo significa elenco caro pressiona alto/.test(conv);
           return '<p class="pt-nota">' +
             (sabeLado && Math.abs(rho) >= 0.1
-              ? 'Pressão e dinheiro: <b>elenco mais caro pressiona ' + (rho > 0 ? 'mais' : 'menos') +
+              ? 'Pressão e valor do elenco: <b>elenco mais caro pressiona ' + (rho > 0 ? 'mais' : 'menos') +
                 ' alto</b> — ' + esc(forca) + '.'
               : 'Ranking de valor do elenco e pressão: <b>' + esc(ptJunto(rho)) + '</b>; o sentido não é dito aqui.') +
             ptTecnico('ρ ' + ptNum(rho, 3)) +
@@ -3023,7 +3069,7 @@ function pb8DinheiroEstabilidade(t) {
           (Number(sil.silhueta_obs) < Number((sil.nulo_mesma_covariancia || {}).mediana)
             ? 'MENOS separadas que nos dados falsos'
             : 'mais separadas que nos dados falsos') +
-          ' · ' + esc(ptSorte((sil.nulo_mesma_covariancia || {}).p)) +
+          ' · ' + esc(sepU((sil.nulo_mesma_covariancia || {}).p)) +
           ptTecnico('silhueta ' + ptNum(sil.silhueta_obs, 2) + ' contra ' +
             ptNum((sil.nulo_mesma_covariancia || {}).mediana, 2) + ' · ' + ptP((sil.nulo_mesma_covariancia || {}).p)) +
           '</b></div>'
@@ -3044,13 +3090,13 @@ function pb8DinheiroEstabilidade(t) {
         : '') +
     '</div>' +
     (jac && !jacBate
-      ? '<p class="pt-nota">Estes ' + ptInt(jacN) + ' números <b>não medem a firmeza das ' +
+      ? '<p class="pt-nota">Estes ' + ptInt(jacN) + ' números <b>não medem a estabilidade das ' +
         ptInt(nGrupos.length) + ' caixas</b>, e ler o menor deles como "a caixa tal se desfaz" é trocar uma ' +
         'coisa pela outra. A conta é refeita ' + ptInt(jac.replicas) + ' vezes pedindo ' + ptInt(jac.k) +
         ' grupos a um programa de agrupar, e mede os grupos que ele mesmo encontrou: os dele têm tamanhos <b>' +
         jacT.map(v => ptInt(v)).join('/') + '</b>, as caixas têm <b>' + nGrupos.map(v => ptInt(v)).join('/') +
         '</b> — não são as mesmas. O que estes números dizem é que um agrupamento assim mal sobrevive a ' +
-        'refazer a conta; a firmeza das caixas é a das linhas acima, tirar um time e tirar um número.</p>'
+        'refazer a conta; a estabilidade das caixas é a das linhas acima, tirar um time e tirar um número.</p>'
       : '') +
     '<p class="pt-nota">' +
       ((est.times_que_nunca_se_movem || []).length
@@ -3068,9 +3114,9 @@ function pb8DinheiroEstabilidade(t) {
       ? '<p class="pt-nota">' +
         (pbPassa((sil.nulo_mesma_covariancia || {}).p)
           ? 'A separação das caixas <b>passa</b> no sorteio justo (' +
-            esc(ptSorte((sil.nulo_mesma_covariancia || {}).p)) + ').</p>'
+            esc(sepU((sil.nulo_mesma_covariancia || {}).p)) + ').</p>'
           : 'A separação das caixas é o teste que <b>não passa</b> (' +
-            esc(ptSorte((sil.nulo_mesma_covariancia || {}).p)) + ')' +
+            esc(sepU((sil.nulo_mesma_covariancia || {}).p)) + ')' +
             (Number(sil.silhueta_obs) < Number((sil.nulo_mesma_covariancia || {}).mediana)
               ? ' — as caixas ficam até <b>menos</b> separadas do que em dados falsos parecidos' : '') +
             ': mesmo olhando só os critérios da ' +
@@ -3095,7 +3141,7 @@ function pb8DinheiroEstabilidade(t) {
         ? '<div class="pt-cf-l"><span>físico: números testados</span><b>' + ptInt(fis.colunas) + '</b></div>' +
           '<div class="pt-cf-l"><span>físico: passam no corte simples</span><b>' + ptInt(fis.passam5) +
             ' contra ' + ptNum(fis.esperados_por_acaso, 1) + ' que passariam só por sorte</b></div>' +
-          '<div class="pt-cf-l"><span>físico: sobram, descontada a sorte de testar muito</span><b>' +
+          '<div class="pt-cf-l"><span>físico: firmes, contando os muitos testes</span><b>' +
             ptInt(fis.sobrevivem_bh5) + ptTecnico('Benjamini-Hochberg · menor q ' + ptNum(fis.menor_q_bh, 3)) +
             '</b></div>'
         : '') +
@@ -3103,22 +3149,22 @@ function pb8DinheiroEstabilidade(t) {
          chave não é linha de achado negativo e não vira uma célula "sem medida" que não existe. */
       Object.keys(form).filter(k => form[k] && form[k].eta2 !== undefined)
         .map(k => '<div class="pt-cf-l"><span title="' + esc(k) + '">formação · ' + esc(ptNomeMedida(k)) +
-        ': quanto a caixa explica</span><b>' + pbExplica(form[k].eta2) + ' · ' + esc(ptSorte(form[k].p)) +
+        ': quanto a caixa explica</span><b>' + pbExplica(form[k].eta2) + ' · ' + esc(sepU(form[k].p)) +
         ptTecnico('eta² ' + ptNum(form[k].eta2, 3) + ' · ' + ptP(form[k].p)) + '</b></div>').join('') +
       andares.map(k => '<div class="pt-cf-l"><span title="' + esc(k) + '">' + esc(andarNome(k)) +
         ': quanto o jeito de a bola chegar explica</span><b>' +
-        pbExplica(and[k].eta2_medio) + ' · ' + esc(ptSorte(and[k].p)) + ' · ' + ptInt(and[k].n) + ' times' +
+        pbExplica(and[k].eta2_medio) + ' · ' + esc(sepU(and[k].p)) + ' · ' + ptInt(and[k].n) + ' times' +
         ptTecnico('eta² ' + ptNum(and[k].eta2_medio, 3) + ' · ' + ptP(and[k].p)) + '</b></div>').join('') +
     '</div>' +
     '<p class="pt-nota">' +
       (fis.sobrevivem_bh5 === 0
-        ? '<b>Nenhum</b> dos ' + ptInt(fis.colunas) + ' números físicos sobra depois de descontar a sorte de ' +
-          'testar muito: não se viu diferença física entre as caixas, e a tela não pode ser usada para ' +
+        ? '<b>Nenhum</b> dos ' + ptInt(fis.colunas) + ' números físicos é firme contando os muitos testes: ' +
+          'não se viu diferença física entre as caixas, e a tela não pode ser usada para ' +
           'dizer "a caixa tal corre mais". '
         : fis.sobrevivem_bh5 === undefined
-          ? ptFalta('o arquivo não diz quantos números físicos sobram descontada a sorte (fisico.sobrevivem_bh5)') + ' '
-          : '<b>' + ptInt(fis.sobrevivem_bh5) + '</b> dos ' + ptInt(fis.colunas) + ' números físicos sobram ' +
-            'depois de descontar a sorte de testar muito. ') +
+          ? ptFalta('o arquivo não diz quantos números físicos são firmes contando os muitos testes (fisico.sobrevivem_bh5)') + ' '
+          : '<b>' + ptInt(fis.sobrevivem_bh5) + '</b> dos ' + ptInt(fis.colunas) + ' números físicos são firmes ' +
+            'contando os muitos testes. ') +
       (formTestes.length === 0
         ? ptFalta('o arquivo não traz o teste da formação (formacao com eta²)') + ' '
         : formPassam.length === 0
@@ -3130,12 +3176,12 @@ function pb8DinheiroEstabilidade(t) {
       (andares.length
         ? 'Dentro de cada faixa de território, o jeito de a bola chegar (a rota): ' + andares.map(k =>
             esc(andarNome(k)) + ', <b>' + (pbPassa(and[k].p) ? 'passa no corte' : 'não passa no corte') +
-            '</b> (' + esc(ptSorte(and[k].p)) + ', ' + ptInt(and[k].n) + ' times)').join('; ') + '.'
+            '</b> (' + esc(sepU(and[k].p)) + ', ' + ptInt(and[k].n) + ' times)').join('; ') + '.'
         : ptFalta('o arquivo não traz o teste da rota dentro de cada faixa de território (andares)')) + '</p>';
 
-  return ptCard('As caixas são só dinheiro com nome de tática?', 'com o número, não com o adjetivo',
+  return ptCard('As caixas são só o valor do elenco com nome de tática?', 'com o número, não com o adjetivo',
     dinheiroHtml) +
-    ptCard('Firmeza: quanto as caixas mudam quando se mexe na amostra',
+    ptCard('Estabilidade: quanto as caixas mudam quando se mexe na amostra',
       ptInt(tirarTime.length) + ' testes tirando um time · ' + ptInt(tirarInd.length) + ' tirando um número',
       estabHtml) +
     ptCard('O que estas caixas não deixam dizer', 'os achados negativos, em número',

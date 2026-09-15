@@ -174,8 +174,65 @@
    (e, se o mapa apontar, `proto.js`/`proto_a.js`/`proto_c.js`/contrato). Se cair: conferir o
    journal e o `git diff` desses arquivos antes de relançar.
 3. **Tirar o desconto do dinheiro** (§2.4, 3) — junto sai a repetição "ano seguinte" dos critérios
-   (§5, "Repetição como critério") e o "pode ser sorte" passa a ter um sentido só na aba. **EM
-   ANDAMENTO (noite de 14/09, pedido do dono), parte 1 = só leitura e medição**: fluxo
+   (§5, "Repetição como critério") e o "pode ser sorte" passa a ter um sentido só na aba. **PARTE 1
+   FEITA (noite de 14/09)**: plano em `sessao_14_09/dinheiro_parte1_resultado.json` (journal ao lado).
+   Régua final = proposta "contra a sorte" (4 perguntas: declarada antes? firme pelo q? conferida por
+   outro caminho — 1º→2º turno ou 2018-2021? a lista tem mais achados que a sorte? — e, no físico,
+   continua descontado SÓ o rodízio; "sem conferência testável = moderado, nunca forte"). Portas: A 1→2
+   (dist_remate, remates_baliza_pct), B 17→27, C 31→0 (some), "-" 244→264; o nome "critério de
+   contratação" não se sustenta (a etapa 13 nunca leu a porta). Selos 3·11·24·13·5 → 4·15·17·15·5
+   (sobem J17, ELE-03, FIS-04, J19, A2; descem DIN-04, DIN-05). Físico sobe×cai: 41 no cru, 34 só com o
+   rodízio, 2 com o dinheiro. Etapa 9: réguas apagadas 3→0. Etapa 13: nada muda. Vocabulário único
+   (chave gravada): firme (q<0,05) / pode ser sorte (p<0,05, q>=0,05) / sem diferença clara; saem
+   "dificilmente é sorte" e "no limite" como rótulo de sorte. DECIDIDOS PELA REGRA DA CASA (coordenador):
+   A1 na família dos 2 eixos (fraco, registrado como escolhido depois); DIN-04/05 lidas por jogador (sem
+   sinal), como a decisão da etapa 1; etapa 13 só ganha marca da lista por setor (zaga e lateral), sem
+   filtro; etapa 10 com a lista fixa resultado + consequência (25→22), igual à aba por pontos.
+   RESPOSTAS DO DONO (noite de 14/09, as 4 recomendações): (a) J17 MODERADA, pela regra geral "firme
+   por pouco (q entre 0,025 e 0,05) com uma conferência só = moderado"; (b) aba mais afirmativa ACEITA,
+   com a ressalva "elenco valioso tende a ter isso; o estudo não separa as duas coisas" (J19, ELE-03, A2
+   e as que subirem), sem desconto; (c) porta A SÓ LEITURA, nome "firme e reaparece por outro caminho",
+   a nota da etapa 13 não muda; (d) M4 = zaga e lateral (fraco) e o ATAQUE vira conclusão própria
+   (moderado) — 57 conclusões. PARTE 2A FEITA (15/09; relato `sessao_14_09/dinheiro_parte2a_*`; fontes que conferem as conclusões
+   copiadas para `sessao_14_09/conclusoes_src_15_09/`): portas A 2 · B 27 · C 0 · – 264; etapa 10 =
+   22; etapa 9 sem réguas apagadas; chaves de sorte gravadas em todas as etapas; físico sobe×cai 41 cru
+   / 34 só com o rodízio; 57 conclusões = 3 fortes · 17 moderadas · 17 fracas · 15 sem sinal · 5 não dá
+   (J17 moderada, M8 = ataque por clube, DIN-04/05 sem sinal, ELE-03/FIS-04/J19/A2 moderadas com a
+   ressalva); as cinco seguem DIN-02, J1, J2, ELE-01, J6 (depois do bloco 2: FIS-07, DIN-01, DIN-02, J1,
+   J2). Registrado: DIN-01/02 fortes dependem de aceitar "acerto acima de 0,5 em cada ano e deixando um
+   de fora" como conferência (escrito na régua); M4 também foi partida depois de olhar (selo não muda);
+   lista do elenco sobe×meio com p do excesso 0,0502, colada no corte, marcada como fronteira;
+   `etapa_14.justificativa_no_dado.porta` virou dicionário (share_11 B, atletas_usados –). ITEM 6:
+   `recontar_etapa_3` do gerar_pontos grava passam5_liq=0 e ele ainda usa rho_persist/liq. O dado novo
+   conferido está em `.../scratchpad/dinheiro2/prototipo_novo.json` (o gerador o refaz se sumir).
+   PARTE 2B (15/09, autorizada pelo dono): o fluxo completo `wf_cc8b841b-608` fez a casca e as três telas
+   (proto.js, proto_a/b/c, relatos em `sessao_14_09/dinheiro_parte2b_telas_journal.jsonl`) e foi PARADO
+   às 12:18 a pedido do dono ("tá muito demorado"), antes do glossário (que não chegou a mexer em nada).
+   CAMINHO CURTO FEITO (15/09, 12:28; `workflows/dinheiro-parte2b-curta.js`, relato
+   `sessao_14_09/dinheiro_parte2b_resultado.json`): conferência APROVOU (16/16 sem erro nos 4 casos; 50
+   linhas sorteadas das etapas 2, 7, 9, 10, 13 e 14 batendo com o JSON e a chave; varredura da aba sem
+   nenhum "descontado o dinheiro"/"ano seguinte"/"dificilmente"/"porta C" como critério — o que sobrou
+   é descrição legítima: PSV-99 "descontado o 1% mais alto", 1º turno, rodízio, etapa 4 ímpares×pares,
+   etapa 11 repetição do atleta, backtest das 13/14); nada quebrava nem mentia, então não houve
+   conserto. GRAVADO: `dados/prototipo.json` (md5 83e8aa2b, gerado_em 2026-09-15 12:28) igual ao
+   rascunho conferido da 2A tirando gerado_em; `static/prototipo.js` igual; portas A 2 · B 27 · C 0 ·
+   – 264; etapa 10 com 22. SEM COMMIT E SEM PUBLICAR. Detalhes em aberto: a etapa 9 escreve "sem
+   diferença que se possa afirmar" (30×) ao lado de "sem diferença clara" — unificar no proto_c.js; o
+   dado não tem o bloco `conclusoes`, então a tela ainda não mostra M8 nem J17 (é o item 4, bloco 2 do
+   gerador).
+   FICAM PARA DEPOIS: `proto_glossario.js` e `proto_contrato.md` (ainda descrevem rho_persist, porta
+   C, liquido, ptSorte de três faixas, PT_PORTA_TXT antigo, ptBaseline/ptLiquida) — a conferência do
+   caminho curto lista as entradas falsas. Avisos dos donos das telas para rever: etapa 1 com "pode ser
+   sorte · sem a conta dos 20/4 testes" em p < 0,001 (família sem q gravado); coluna do rodízio no
+   catálogo decidida por corte na tela (o gerador não grava chave do rodízio); etapa 8 com testes do
+   valor contra as caixas que discordam (permutação 0,124 x Kruskal 0,033); contraste de .pt-rot,
+   .pt-falta e .pt-marca abaixo de 4,5:1 nas etapas 9-15 (style.css). Sem commit e sem publicar. O que foi a 2A: declarações, `ranking_gaps.py`,
+   `gerar_prototipo.py` (dado novo só no rascunho `.../scratchpad/dinheiro2/prototipo_novo.json`),
+   conferência dos números, conserto, e `conclusoes_spec.json`/`CONCLUSOES.md`/`ESPECIFICACAO.md`
+   reescritos e conferidos. NÃO grava `dados/prototipo.json` nem mexe em `static/` — isso é a parte 2B
+   (telas, gravação, conferência final). Entre as duas, o código novo já está no projeto, mas o dado e
+   as telas continuam os de antes, coerentes entre si. O DONO AUTORIZOU (15/09) seguir direto para a
+   parte 2B quando a 2A terminar (sem publicar e sem commit: commit só com pedido dele). Histórico da parte 1: fluxo
    `wf_19689286-ad6` (sessão `1abbf5c7`), script em
    `workflows/dinheiro-e-repeticao-mapa-e-regua-wf_19689286-ad6.js`, rascunho em `.../scratchpad/dinheiro`;
    devolve os mapas, 3 propostas de régua medidas, 2 juízes e o plano por dono de arquivo. A parte 2

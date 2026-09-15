@@ -1,6 +1,6 @@
 {
- "_doc": "Ordem de serviço do SEGUNDO bloco de gerar_prototipo.py, para o bloco conclusoes sair sem número digitado. Escrita na reconferência de 14/09/2026 (sessão 3b480dcb), a partir das três lentes e dos consertos aplicados em CONCLUSOES.md e conclusoes_spec.json. Completa: todo caminho não gravado que uma lacuna, um critério do selo ou um p_principal do spec lê está coberto por um campo abaixo (conferido por sp7_prova.py). Convenções: rho, d e AUC = float com 3 casas; ic95 = [lo, hi]; contagem = int; semente = lista de int gravada como foi usada; p = como o gerador já grava (r_p(p, casas): casas decimais, com algarismo significativo só quando sairia zero; p_sobe_x_meio da etapa 1 com r_sig(3)), e o desempate das cinco usa o p SEM arredondar (conclusoes.itens[].p_principal_cru); chave de dicionário escrita .<nome> com valores_permitidos no campo; todo bloco novo leva {universo: str, anos: [ini, fim], n: int}. SEMENTE = 7.",
- "versao": "2026-09-14-conserto-final",
+ "_doc": "Ordem de serviço do SEGUNDO bloco de gerar_prototipo.py, para o bloco conclusoes sair sem número digitado. Escrita na reconferência de 14/09/2026 (sessão 3b480dcb), a partir das três lentes e dos consertos aplicados em CONCLUSOES.md e conclusoes_spec.json. Completa: todo caminho não gravado que uma lacuna, um critério do selo ou um p_principal do spec lê está coberto por um campo abaixo (conferido por sp7_prova.py). Convenções: rho, d e AUC = float com 3 casas; ic95 = [lo, hi]; contagem = int; semente = lista de int gravada como foi usada; p = como o gerador já grava (r_p(p, casas): casas decimais, com algarismo significativo só quando sairia zero; p_sobe_x_meio da etapa 1 com r_sig(3)), e o desempate das cinco usa o p SEM arredondar (conclusoes.itens[].p_principal_cru); chave de dicionário escrita .<nome> com valores_permitidos no campo; todo bloco novo leva {universo: str, anos: [ini, fim], n: int}. SEMENTE = 7. REVISÃO de 14/09 à noite (plano aprovado em _fonte/prototipo/sessao_14_09/dinheiro_parte1_resultado.json, chave plano): saiu tudo o que dependia do desconto pelo valor do elenco e da repetição 'o mesmo clube no ano seguinte'; onde havia valor + atletas rastreados fica só o rodízio ('rod'). Cada campo mexido leva 'revisao_14_09_noite' dizendo o que mudou; os que saíram estão em 'retirados_na_revisao_sem_dinheiro' com o motivo; os novos estão no fim de 'campos'. 'rodada' diz quem grava: 'dinheiro_2A' = esta rodada (item 3 do CONTINUAR, dentro do diff permitido do plano); 'bloco_2' = item 4.",
+ "versao": "2026-09-14-noite-sem-dinheiro",
  "spec": "_fonte/prototipo/conclusoes_spec.json",
  "campos": [
   {
@@ -24,7 +24,8 @@
     "A1",
     "A2",
     "A3"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "bases.painel_2018_2021.rotulo",
@@ -53,7 +54,8 @@
     "A4",
     "A5",
     "A6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "bases.painel_2018_2021.sha256",
@@ -83,7 +85,8 @@
     "J6",
     "J7"
    ],
-   "uso_fora_das_lacunas": "pré-requisito: toda conclusão que cita 2018-2021 lê a base com hash"
+   "uso_fora_das_lacunas": "pré-requisito: toda conclusão que cita 2018-2021 lê a base com hash",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "bases.origem",
@@ -95,7 +98,8 @@
     "ORI-01",
     "ORI-02"
    ],
-   "uso_fora_das_lacunas": "pré-requisito: a base de origem entra em bases com sha256 antes do bloco"
+   "uso_fora_das_lacunas": "pré-requisito: a base de origem entra em bases com sha256 antes do bloco",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "bases.teste_cego",
@@ -114,7 +118,8 @@
     "J3",
     "J4"
    ],
-   "uso_fora_das_lacunas": "pré-requisito: toda conclusão que lê o teste cego"
+   "uso_fora_das_lacunas": "pré-requisito: toda conclusão que lê o teste cego",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "bases.skillcorner.corte_minutos",
@@ -132,8 +137,11 @@
     "FIS-10",
     "FIS-11",
     "M4",
-    "M5"
-   ]
+    "M5",
+    "M8"
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "M4 partida: o ataque é a conclusão nova (id proposto M8)"
   },
   {
    "caminho": "bases.tecnico_ind.corte_minutos",
@@ -145,7 +153,8 @@
     "J5",
     "J6",
     "J7"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.quartis[].cairam",
@@ -156,7 +165,8 @@
    "conclusoes_que_usam": [
     "DIN-01",
     "DIN-03"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.auc_posto_de_valor.ic95",
@@ -166,7 +176,8 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.auc_posto_de_valor.por_ano",
@@ -176,7 +187,8 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.auc_posto_de_valor.meio_x_cai",
@@ -186,7 +198,8 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-03"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.auc_posto_de_valor.meio_x_cai_por_ano",
@@ -196,7 +209,8 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-03"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.auc_posto_de_valor.p_meio_x_cai",
@@ -207,17 +221,8 @@
    "obs": "decide o p da DIN-03",
    "conclusoes_que_usam": [
     "DIN-03"
-   ]
-  },
-  {
-   "caminho": "etapa_1.cobertura_do_valor.p_valor_descontada_cobertura",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e auc_descontada_cobertura dec3",
-   "de_onde_sai": "Mann-Whitney sobe x meio no resíduo do posto de valor sobre o posto de tm_com_valor",
-   "analise_nova_declarada": true,
-   "declaracao": "valor_DIN01_DIN03",
-   "conclusoes_que_usam": [
-    "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.curva_top_k.valor_do_posto_k_por_ano",
@@ -227,7 +232,8 @@
    "declaracao": "etapa_1_tabela_e_euros",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.curva_top_k.ks_da_tabela",
@@ -237,7 +243,8 @@
    "declaracao": "etapa_1_tabela_e_euros",
    "obs": "não é lida por conclusão; é da tabela da etapa 1",
    "conclusoes_que_usam": [],
-   "uso_fora_das_lacunas": "tabela da etapa 1 (decisão do dono); nenhuma conclusão lê"
+   "uso_fora_das_lacunas": "tabela da etapa 1 (decisão do dono); nenhuma conclusão lê",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.curva_top_k.palpite_do_dono.afirmado_n",
@@ -249,7 +256,8 @@
    "conclusoes_que_usam": [
     "DIN-02"
    ],
-   "uso_fora_das_lacunas": "hoje a DIN-02 deriva o número do texto '>= 14'"
+   "uso_fora_das_lacunas": "hoje a DIN-02 deriva o número do texto '>= 14'",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.valor_mediano_da_liga_por_ano",
@@ -259,7 +267,8 @@
    "declaracao": "etapa_1_tabela_e_euros",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.blocos_de_posto",
@@ -269,7 +278,8 @@
    "declaracao": "etapa_1_tabela_e_euros",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.vizinhos_de_valor",
@@ -279,7 +289,8 @@
    "declaracao": "etapa_1_tabela_e_euros",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.top4_de_valor.por_ano[].posicao_final",
@@ -289,7 +300,8 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.curva_top_k_rebaixados",
@@ -299,7 +311,8 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-03"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.sensibilidade_fonte_valor",
@@ -309,17 +322,21 @@
    "declaracao": "valor_DIN01_DIN03",
    "conclusoes_que_usam": [
     "DIN-03"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
-   "caminho": "etapa_1.valor_por_setor.particao.setores[].p_liquido_do_valor_total",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e mediana_por_ano [{ano, sobe, meio}]",
-   "de_onde_sai": "Mann-Whitney sobe x meio no resíduo do posto da fatia sobre o posto do valor total",
-   "analise_nova_declarada": true,
+   "caminho": "etapa_1.valor_por_setor.particao.setores[].mediana_por_ano",
+   "formato": "[{ano, sobe, meio}] em euros; e sorte ('firme'|'pode_ser_sorte'|'sem_diferenca')",
+   "de_onde_sai": "mediana da fatia do setor por ano e faixa; sorte pelo helper único sobre p_bruto e q_bh já gravados",
+   "analise_nova_declarada": false,
    "declaracao": "valor_por_setor_extras_DIN04_DIN05",
    "conclusoes_que_usam": [
     "DIN-04"
-   ]
+   ],
+   "rodada": "dinheiro_2A",
+   "obs": "descrição da fatia em euros ('é a defesa ter mais gente'); não decide selo",
+   "revisao_14_09_noite": "sai p_liquido_do_valor_total (desconto pelo valor total); fica mediana_por_ano como descrição em euros e entra a chave sorte a partir de (p_bruto, q_bh) já gravados. A DIN-04 passa a decidir por jogador (ver etapa_1.valor_por_setor.ponderado_por_jogador.particao.setores[].sorte)"
   },
   {
    "caminho": "etapa_1.valor_por_setor.setores[].q_sobe_x_meio",
@@ -331,7 +348,8 @@
    "conclusoes_que_usam": [
     "DIN-05"
    ],
-   "uso_fora_das_lacunas": "critério do selo; hoje derivável dos p gravados"
+   "uso_fora_das_lacunas": "critério do selo; hoje derivável dos p gravados",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_1.valor_por_setor.por_clube",
@@ -341,7 +359,8 @@
    "declaracao": "valor_por_setor_extras_DIN04_DIN05",
    "conclusoes_que_usam": [
     "DIN-04"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.anos_da_conta",
@@ -352,7 +371,8 @@
    "conclusoes_que_usam": [
     "ORI-01",
     "ORI-02"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.anos_sensibilidade",
@@ -362,7 +382,8 @@
    "declaracao": "origem",
    "conclusoes_que_usam": [
     "ORI-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.por_origem",
@@ -373,7 +394,8 @@
    "conclusoes_que_usam": [
     "ORI-01",
     "ORI-02"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.sensibilidade",
@@ -383,7 +405,8 @@
    "declaracao": "origem",
    "conclusoes_que_usam": [
     "ORI-01"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.fisher",
@@ -394,7 +417,8 @@
    "conclusoes_que_usam": [
     "ORI-01",
     "ORI-02"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.por_periodo",
@@ -405,17 +429,21 @@
    "conclusoes_que_usam": [
     "ORI-01"
    ],
-   "uso_fora_das_lacunas": "rodapé"
+   "uso_fora_das_lacunas": "rodapé",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes_base.origem.dinheiro",
-   "formato": "{anos: [2022, 2025], por_origem: {A|B|C: {n, posto_mediano, valor_mediano_eur, subiu, caiu, subidas_esperadas: {especificação: float}, quedas_esperadas: {especificação: float}}}, p_permutacao: {subida, queda}, sorteios: 10000, semente: [SEMENTE, 16, 1], p_razao_verossimilhanca: {subida, queda}}",
-   "de_onde_sai": "logísticas e taxa por quartil (dez especificações), permutação da origem dentro de ano × quartil, razão de verossimilhança (2 gl)",
+   "formato": "{anos: [2022, 2025], por_origem: {A|B|C: {n, posto_mediano, valor_mediano_eur}}}",
+   "de_onde_sai": "posto de tm_valor_total no ano (1 = mais caro) e valor em euros, por origem, 2022-2025",
    "analise_nova_declarada": true,
    "declaracao": "origem",
    "conclusoes_que_usam": [
     "ORI-01"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "obs": "ORI-01: 'esses clubes chegam com um dos elencos mais valiosos do ano; o estudo não separa as duas coisas'",
+   "revisao_14_09_noite": "fica SÓ a descrição do valor com que cada origem chega (ressalva sem desconto da ORI-01); saem subidas/quedas esperadas pelas dez especificações, a permutação dentro de ano x quartil e a razão de verossimilhança"
   },
   {
    "caminho": "conclusoes_base.origem.poder",
@@ -425,39 +453,34 @@
    "declaracao": "origem",
    "conclusoes_que_usam": [
     "ORI-02"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].p_bruto_CR",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e p_liq_CR, q_CR, q_liq_CR",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p); e q_CR",
    "de_onde_sai": "Welch no posto do ano, cai x resto (comparação escolhida depois de olhar)",
    "analise_nova_declarada": true,
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "J5",
     "J7"
-   ]
-  },
-  {
-   "caminho": "etapa_2.linhas[].p_liq_CR",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero)",
-   "de_onde_sai": "idem, resíduo do posto sobre o posto de valor",
-   "analise_nova_declarada": true,
-   "declaracao": "etapa_2_comparacoes_extras",
-   "conclusoes_que_usam": [
-    "J5"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "sai p_liq_CR e q_liq_CR"
   },
   {
    "caminho": "etapa_2.linhas[].p_bruto_SR",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e p_liq_SR, q_SR",
+   "formato": "p bilateral, float gravado como o gerador grava p (r_p); e q_SR",
    "de_onde_sai": "Welch no posto do ano, sobe x resto (escolhida depois)",
    "analise_nova_declarada": true,
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "J7"
    ],
-   "uso_fora_das_lacunas": "regra do selo (parte quem sobe contra o resto) e rodapé"
+   "uso_fora_das_lacunas": "regra do selo (parte quem sobe contra o resto) e rodapé",
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "sai p_liq_SR"
   },
   {
    "caminho": "etapa_2.linhas[].p_bruto_CM",
@@ -468,28 +491,8 @@
    "conclusoes_que_usam": [
     "ELE-01",
     "J17"
-   ]
-  },
-  {
-   "caminho": "etapa_2.linhas[].p_liq_CM",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero)",
-   "de_onde_sai": "idem, resíduo sobre o posto de valor",
-   "analise_nova_declarada": true,
-   "declaracao": "etapa_2_comparacoes_extras",
-   "conclusoes_que_usam": [
-    "J17"
-   ]
-  },
-  {
-   "caminho": "etapa_2.linhas[].q_liq2_SM",
-   "formato": "q BH na família do p_liq2_SM; e q_liq2_SC",
-   "de_onde_sai": "BH dos p_liq2",
-   "analise_nova_declarada": true,
-   "declaracao": "etapa_2_comparacoes_extras",
-   "conclusoes_que_usam": [
-    "FIS-06"
    ],
-   "uso_fora_das_lacunas": "regra do selo (forte_se)"
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].n_sobe",
@@ -499,7 +502,8 @@
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "FIS-08"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].mediana_sobe",
@@ -510,19 +514,29 @@
    "conclusoes_que_usam": [
     "J7",
     "J17"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].media_por_ano",
-   "formato": "[{ano, nivel, sobe, meio, cai, residuo_sobe_menos_meio}]",
-   "de_onde_sai": "declaração etapa_2_comparacoes_extras.media_por_ano: resíduo do posto no ano sobre tm_valor_total (liq) e também fis_<setor>_atletas (liq2), regressão uma vez nas 80, média por ano e faixa",
+   "formato": "[{ano, nivel: 'bruto'|'rod', sobe, meio, cai, sobe_menos_meio}]",
+   "de_onde_sai": "declaração etapa_2_comparacoes_extras.media_por_ano (versão sem dinheiro): posto no ano por ano e faixa; nas físicas também o resíduo sobre fis_<setor>_atletas ou fis_atletas, regressão uma vez nas 80",
    "analise_nova_declarada": true,
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "ELE-03",
     "FIS-06",
     "FIS-11"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "valores_permitidos": {
+    "nivel": [
+     "bruto",
+     "rod"
+    ]
+   },
+   "obs": "ELE-03 lê nivel = bruto; FIS-06 e FIS-11 leem nivel = rod",
+   "revisao_14_09_noite": "níveis passam a ser 'bruto' (toda linha, média do posto no ano) e 'rod' (só físicas, resíduo sobre atletas rastreados); saem 'liq' e 'liq2'; o campo residuo_sobe_menos_meio vira sobe_menos_meio (vale para os dois níveis)"
   },
   {
    "caminho": "etapa_2.linhas[].cai_metade_baixo",
@@ -532,7 +546,8 @@
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "J5"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].cai_entre_5_piores",
@@ -542,7 +557,8 @@
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "J5"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].cai_entre_5_melhores",
@@ -551,7 +567,8 @@
    "analise_nova_declarada": false,
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [],
-   "uso_fora_das_lacunas": "contagem pedida para a tabela dos itens 3 e 7 do dono (duelos_itens_3_e_7); nenhuma lacuna de 2022-2025 lê — a J5 lê antigo_CR.cai_entre_5_melhores"
+   "uso_fora_das_lacunas": "contagem pedida para a tabela dos itens 3 e 7 do dono (duelos_itens_3_e_7); nenhuma lacuna de 2022-2025 lê — a J5 lê antigo_CR.cai_entre_5_melhores",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].sobe_metade_cima",
@@ -561,7 +578,8 @@
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "J7"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].mediana_meio",
@@ -572,7 +590,8 @@
    "conclusoes_que_usam": [
     "J7",
     "J17"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].mediana_cai",
@@ -582,7 +601,8 @@
    "declaracao": "etapa_2_comparacoes_extras",
    "conclusoes_que_usam": [
     "J17"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].comparacao_declarada_antes",
@@ -616,7 +636,8 @@
     "J6",
     "J7"
    ],
-   "uso_fora_das_lacunas": "só as conclusões com critério decisivo em etapa_2.linhas; o bool da conclusão sai de conclusoes_spec (bloco_conclusoes.comparacao_declarada_antes)"
+   "uso_fora_das_lacunas": "só as conclusões com critério decisivo em etapa_2.linhas; o bool da conclusão sai de conclusoes_spec (bloco_conclusoes.comparacao_declarada_antes)",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].antigo_SM",
@@ -627,7 +648,8 @@
    "conclusoes_que_usam": [
     "J14",
     "J18"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].antigo_SC",
@@ -638,7 +660,8 @@
    "conclusoes_que_usam": [
     "J19",
     "J17"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].antigo_CM",
@@ -648,7 +671,8 @@
    "declaracao": "antigo_2018_2021",
    "conclusoes_que_usam": [
     "J17"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].antigo_CR",
@@ -658,7 +682,8 @@
    "declaracao": "antigo_2018_2021",
    "conclusoes_que_usam": [
     "J5"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].diferenca_entre_periodos_CR",
@@ -668,17 +693,20 @@
    "declaracao": "antigo_2018_2021",
    "conclusoes_que_usam": [
     "J5"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.linhas[].p_SM_descontada_posse",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e rho_com_posse, p_rho, p_SM_descontada_posse_e_valor (linha faltas)",
+   "formato": "p bilateral (r_p); e rho_com_posse, p_rho",
    "de_onde_sai": "declaração faltas_x_posse_J3",
    "analise_nova_declarada": true,
    "declaracao": "faltas_x_posse_J3",
    "conclusoes_que_usam": [
     "J3"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "sai p_SM_descontada_posse_e_valor; o controle da posse fica (é escolha de jogo, não dinheiro)"
   },
   {
    "caminho": "etapa_2.linhas[].p_SM_descontadas_entradas_toques",
@@ -690,37 +718,44 @@
    "conclusoes_que_usam": [
     "J1"
    ],
-   "uso_fora_das_lacunas": "ressalva ('comparando times com as mesmas entradas e toques na área') e rodapé"
+   "uso_fora_das_lacunas": "ressalva ('comparando times com as mesmas entradas e toques na área') e rodapé",
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_2.elenco_base",
-   "formato": "etapa_2.elenco_base = {anos, universo, bh_testes: 6, linhas: [{indicador, n, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, p_bruto_SM, p_liq_SM, p_bruto_SC, p_liq_SC, p_bruto_CM, p_liq_CM, q_SM, q_SC, q_CM}]} — FORA de etapa_2.linhas (não mexe nas 293)",
+   "formato": "etapa_2.elenco_base = {anos, universo, bh_testes: 6, linhas: [{indicador, n, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, p_bruto_SM, p_bruto_SC, p_bruto_CM, q_SM, q_SC, q_CM}]}",
    "de_onde_sai": "declaração elenco_base; FORA de etapa_2.linhas",
    "analise_nova_declarada": true,
    "declaracao": "elenco_base",
    "conclusoes_que_usam": [
     "ELE-07"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "sem desconto pelo percentil de tm_valor_total: saem p_liq_SM, p_liq_SC e p_liq_CM das linhas"
   },
   {
    "caminho": "etapa_2.indice_intensidade",
-   "formato": "etapa_2.indice_intensidade = {colunas, agregacao, k_extremos, n_por_ano, por_clube: [{ano, clube, faixa, indice, posicao}], mediana_posicao: {sobe, meio, cai}, cai_top_k, cai_bottom_k, excecoes_top_k: [{clube, ano, posicao}], p_bruto_CM, p_liq_CM, p_liq2_CM, comparacao_declarada_antes: false}",
+   "formato": "etapa_2.indice_intensidade = {colunas, agregacao, k_extremos, n_por_ano, por_clube: [{ano, clube, faixa, indice, posicao}], mediana_posicao: {sobe, meio, cai}, cai_top_k, cai_bottom_k, excecoes_top_k: [{clube, ano, posicao}], p_bruto_CM, p_rod_CM, comparacao_declarada_antes: false}",
    "de_onde_sai": "média do posto no ano das 10 colunas declaradas",
    "analise_nova_declarada": true,
    "declaracao": "indice_intensidade",
    "conclusoes_que_usam": [
     "FIS-01"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "p_liq_CM e p_liq2_CM saem; entra p_rod_CM (resíduo só sobre o posto de fis_atletas). O título da FIS-01 troca 'valor e rodízio' por 'rodízio'"
   },
   {
    "caminho": "etapa_2.fis10_bloco",
-   "formato": "etapa_2.fis10_bloco = {colunas, n, n_p_bruto_SC_abaixo_005, p_bruto_SC_min, p_bruto_SC_max, q_SC_min, n_p_liq2_SC_abaixo_005, p_bruto_SM_min, p_bruto_SM_min_indicador, p_bruto_SM_max} (min e max entre as linhas com p_bruto_SC < 0,05; hoje p_bruto_SM de 0,053, fis_ataque_runs_penalty_area_p30tip, a 0,457)",
+   "formato": "etapa_2.fis10_bloco = {colunas, n, n_p_bruto_SC_abaixo_005, p_bruto_SC_min, p_bruto_SC_max, q_SC_min, n_p_rod_SC_abaixo_005, p_bruto_SM_min, p_bruto_SM_min_indicador, p_bruto_SM_max}",
    "de_onde_sai": "as 32 linhas fis_ataque_* do catálogo",
    "analise_nova_declarada": false,
    "declaracao": "fis10_bloco",
    "conclusoes_que_usam": [
     "FIS-10"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "n_p_liq2_SC_abaixo_005 vira n_p_rod_SC_abaixo_005"
   },
   {
    "caminho": "etapa_2.estilo_x_valor",
@@ -728,14 +763,16 @@
    "de_onde_sai": "Spearman do posto de valor com o posto da coluna no ano",
    "analise_nova_declarada": true,
    "declaracao": "estilo_x_valor",
-   "obs": "rodapé da J15 e da J10",
+   "obs": "rodapé da J15 e da J10; ressalva da J19; nunca desconto",
    "conclusoes_que_usam": [
     "J15",
     "J10",
     "J14",
     "J19"
    ],
-   "uso_fora_das_lacunas": "ressalvas em palavras ('elenco mais valioso tem mais a bola e pressiona mais alto') e rodapés"
+   "uso_fora_das_lacunas": "ressalvas em palavras ('elenco mais valioso tem mais a bola e pressiona mais alto') e rodapés",
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "fica (descrição); passa a alimentar também a ressalva da J19 (ppda) pela regra andam_com_o_valor"
   },
   {
    "caminho": "etapa_2.por_clube",
@@ -748,11 +785,12 @@
     "ELE-03",
     "FIS-05",
     "J1"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_3.por_familia.<familia>.excesso",
-   "formato": "{SM|SC|CR|SR|CM: {bruto|liq|liq2: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 3, i]}}}",
+   "formato": "{SM|SC|CR|SR|CM: {bruto|rod: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 3, i], lista}}}",
    "de_onde_sai": "excesso_por_familia (um formato só)",
    "analise_nova_declarada": true,
    "declaracao": "excesso_por_familia",
@@ -763,6 +801,10 @@
      "fisico_col_elenco",
      "fisico_col_setor",
      "tecnico_ind"
+    ],
+    "lista": [
+     "tem_mais_achados_que_a_sorte",
+     "nao_tem_mais_achados_que_a_sorte"
     ]
    },
    "conclusoes_que_usam": [
@@ -778,60 +820,44 @@
     "J7",
     "J13",
     "J17"
-   ]
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "níveis bruto e rod (rod null com rod_motivo nas famílias sem físico); saem liq e liq2; cada nível ganha a chave 'lista'. Semente e rótulos sorteados iguais aos do bruto"
   },
   {
-   "caminho": "etapa_3.por_familia.<familia>.passam5_liq_SC",
-   "formato": "int (linhas da família com p_liq_SC < 0,05)",
+   "caminho": "etapa_3.por_familia.<familia>.passam5_rod_SC",
+   "formato": "int (linhas com p_rod_SC < 0,05); e passam5_rod_SM",
    "de_onde_sai": "contagens por nível",
    "analise_nova_declarada": false,
    "declaracao": "excesso_por_familia",
    "valores_permitidos": {
     "<familia>": [
-     "tecnico_col",
-     "elenco",
      "fisico_col_elenco",
-     "fisico_col_setor",
-     "tecnico_ind"
-    ]
-   },
-   "conclusoes_que_usam": [
-    "FIS-04"
-   ]
-  },
-  {
-   "caminho": "etapa_3.por_familia.<familia>.passam5_liq2_SC",
-   "formato": "int (linhas com p_liq2_SC < 0,05); e passam5_liq2_SM",
-   "de_onde_sai": "contagens por nível",
-   "analise_nova_declarada": false,
-   "declaracao": "excesso_por_familia",
-   "valores_permitidos": {
-    "<familia>": [
-     "tecnico_col",
-     "elenco",
-     "fisico_col_elenco",
-     "fisico_col_setor",
-     "tecnico_ind"
+     "fisico_col_setor"
     ]
    },
    "conclusoes_que_usam": [
     "FIS-04",
     "FIS-10"
-   ]
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "passam5_liq2_SC / passam5_liq2_SM viram passam5_rod_SC / passam5_rod_SM, só nas famílias físicas"
   },
   {
    "caminho": "etapa_6.colocacao",
-   "formato": "etapa_6.colocacao = {n_pares, universo, rho_posicao, p_posicao, rho_aproveitamento, p_aproveitamento, por_periodo, por_faixa_de_posicao, n_pares_com_valor, rho_valor, rho_posicao_nos_pares_com_valor, p_posicao_nos_pares_com_valor, rho_aproveitamento_descontado_valor, p_aproveitamento_descontado_valor}",
+   "formato": "etapa_6.colocacao = {n_pares, universo, rho_posicao, p_posicao, rho_aproveitamento, p_aproveitamento, por_periodo, por_faixa_de_posicao, n_pares_com_valor, rho_valor, rho_posicao_nos_pares_com_valor, p_posicao_nos_pares_com_valor}",
    "de_onde_sai": "painel 2018-2021 + 2022-2025",
    "analise_nova_declarada": true,
    "declaracao": "colocacao_t_t1",
    "conclusoes_que_usam": [
     "ELE-06"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "saem rho_aproveitamento_descontado_valor e p_aproveitamento_descontado_valor; rho_valor fica como descrição. A ELE-06 fica (o assunto é a repetição do clube)"
   },
   {
    "caminho": "etapa_7.linhas[].q_parcial",
-   "formato": "q BH nos 28",
+   "formato": "q BH nos 28; e sorte ('firme'|'pode_ser_sorte'|'sem_diferenca')",
    "de_onde_sai": "BH dos 28 p_parcial, sem filtro de sinal (declaração etapa_7_q_parcial)",
    "analise_nova_declarada": false,
    "declaracao": "etapa_7_q_parcial",
@@ -839,17 +865,21 @@
     "J1",
     "J2",
     "J8"
-   ]
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "entra na rodada 2A e ganha a chave sorte (p_parcial, q_parcial). A conferência '1º turno prevê o 2º' continua sendo p_parcial < 0,05 com sinal_certo, não o q"
   },
   {
    "caminho": "etapa_7.excesso",
-   "formato": "{sem_sinal|sinal_certo: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 7, 1]}}",
+   "formato": "{sem_sinal|sinal_certo: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 7, 1], lista}}",
    "de_onde_sai": "declaração etapa_7_excesso",
    "analise_nova_declarada": true,
    "declaracao": "etapa_7_excesso",
    "conclusoes_que_usam": [
     "J8"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "cada contagem ganha a chave 'lista'"
   },
   {
    "caminho": "etapa_8.tipologia.bateria_limpa.por_conjunto_de_validadores",
@@ -859,27 +889,20 @@
    "declaracao": "bateria_limpa_J9",
    "conclusoes_que_usam": [
     "J9"
-   ]
-  },
-  {
-   "caminho": "etapa_8.tipologia.desconto_dinheiro_por_grupo",
-   "formato": "null (não medido) ou {por_grupo: [{grupo, p}]}",
-   "de_onde_sai": "explícito para a J9 decidir",
-   "analise_nova_declarada": false,
-   "declaracao": "bateria_limpa_J9",
-   "conclusoes_que_usam": [
-    "J9"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_8.tipologia.fora_do_top_k",
-   "formato": "etapa_8.tipologia.fora_do_top_k = {k, n_fora, nomes, estilos, colado_na_linha, trocam_no_dinheiro, abaixo_da_mediana, p_hipergeometrico, caros_nos_mesmos_estilos}",
-   "de_onde_sai": "promovidos × grupos × cortes × residualizado",
+   "formato": "etapa_8.tipologia.fora_do_top_k = {k, n_fora, nomes, estilos, colado_na_linha, abaixo_da_mediana, p_hipergeometrico, caros_nos_mesmos_estilos}",
+   "de_onde_sai": "promovidos × grupos × cortes",
    "analise_nova_declarada": true,
    "declaracao": "fora_do_top_k_J16",
    "conclusoes_que_usam": [
     "J16"
-   ]
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "sai trocam_no_dinheiro (dependia do bloco residualizado, que sai)"
   },
   {
    "caminho": "etapa_8.teste_cego.diferenca_entre_blocos",
@@ -889,7 +912,8 @@
    "declaracao": "diferenca_entre_blocos_A3",
    "conclusoes_que_usam": [
     "A3"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_0.mando",
@@ -899,7 +923,8 @@
    "declaracao": "A4_mando",
    "conclusoes_que_usam": [
     "A4"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.chave_do_atleta",
@@ -909,7 +934,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "FIS-07"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.corte_jogos",
@@ -921,7 +947,8 @@
     "FIS-07",
     "M1",
     "M7"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.pares",
@@ -932,7 +959,8 @@
    "obs": "hoje grava 499 (com homônimos)",
    "conclusoes_que_usam": [
     "FIS-07"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.rho_mediano",
@@ -943,7 +971,8 @@
    "obs": "hoje grava 0,833 (com homônimos)",
    "conclusoes_que_usam": [
     "FIS-07"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.p_max",
@@ -953,7 +982,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "FIS-07"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.por_setor",
@@ -964,7 +994,8 @@
    "conclusoes_que_usam": [
     "FIS-07",
     "M1"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.fisico.por_posicao",
@@ -974,7 +1005,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M1"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.efeito_de_retirar_2026.anos_usados_no_tecnico",
@@ -984,7 +1016,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.corte_minutos",
@@ -996,7 +1029,8 @@
     "M1",
     "M7",
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.pares_mudou",
@@ -1008,7 +1042,8 @@
    "conclusoes_que_usam": [
     "M1",
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.pares_ficou",
@@ -1018,7 +1053,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.pares_por_ano",
@@ -1028,7 +1064,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.metricas[].rho_mudou",
@@ -1040,7 +1077,8 @@
    "conclusoes_que_usam": [
     "M1",
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.metricas[].rho_ficou",
@@ -1050,7 +1088,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.metricas[].p_dif_mudou_ficou",
@@ -1060,7 +1099,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.tecnico.metricas[].q_dif",
@@ -1070,7 +1110,8 @@
    "declaracao": "etapa_11_mesma_regua",
    "conclusoes_que_usam": [
     "M6"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_11.comparacao_fisico_tecnico",
@@ -1081,7 +1122,8 @@
    "conclusoes_que_usam": [
     "M1",
     "M7"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "etapa_13.empates_na_margem",
@@ -1091,11 +1133,12 @@
    "declaracao": "empates_na_margem_M3",
    "conclusoes_que_usam": [
     "M3"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
-   "caminho": "sobecai_corrigido_por_clube.<setor>.passam5_liq2",
-   "formato": "int; e passam5_liq",
+   "caminho": "sobecai_corrigido_por_clube.<setor>.passam5_rod",
+   "formato": "int; e sobreviventes_rod [k]",
    "de_onde_sai": "contagem por nível",
    "analise_nova_declarada": true,
    "declaracao": "nota_por_setor_por_clube",
@@ -1109,13 +1152,37 @@
    },
    "conclusoes_que_usam": [
     "M4",
-    "M5"
-   ]
+    "M5",
+    "M8"
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "passam5_liq2 e passam5_liq viram passam5_rod; sobreviventes_rod = medidas com p_rod < 0,05"
   },
   {
-   "caminho": "sobecai_corrigido_por_clube.<setor>.itens[].p_liq2",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e p_liq, q_liq2",
-   "de_onde_sai": "Welch nos resíduos (declaração)",
+   "caminho": "sobecai_corrigido_por_clube.<setor>.itens[].p_rod",
+   "formato": "p bilateral (r_p); e q_rod, sorte_clube, rho_valor, p_rho_valor",
+   "de_onde_sai": "Welch no resíduo do posto no ano da média do clube sobre o posto de fis_<setor>_atletas (declaração nota_por_setor_por_clube.teste_da_linha.rod)",
+   "analise_nova_declarada": true,
+   "declaracao": "nota_por_setor_por_clube",
+   "valores_permitidos": {
+    "<setor>": [
+     "zaga",
+     "lateral",
+     "meio",
+     "ataque"
+    ]
+   },
+   "conclusoes_que_usam": [
+    "M5",
+    "M8"
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "saem p_liq, p_liq2 e q_liq2; entram p_rod, q_rod (BH nos p_rod de todas as medidas do setor), sorte_clube (p_clube, q_clube) e rho_valor/p_rho_valor (descrição para a ressalva)"
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.menor_p_rod",
+   "formato": "p bilateral (r_p)",
+   "de_onde_sai": "menor p_rod do setor",
    "analise_nova_declarada": true,
    "declaracao": "nota_por_setor_por_clube",
    "valores_permitidos": {
@@ -1128,47 +1195,13 @@
    },
    "conclusoes_que_usam": [
     "M5"
-   ]
-  },
-  {
-   "caminho": "sobecai_corrigido_por_clube.<setor>.menor_p_liq2",
-   "formato": "p bilateral, float gravado como o gerador grava p (r_p: casas decimais, significativo só quando sairia zero); e sobreviventes [k], q_das_sobreviventes {k: q}",
-   "de_onde_sai": "menor p_liq2 do setor",
-   "analise_nova_declarada": true,
-   "declaracao": "nota_por_setor_por_clube",
-   "valores_permitidos": {
-    "<setor>": [
-     "zaga",
-     "lateral",
-     "meio",
-     "ataque"
-    ]
-   },
-   "conclusoes_que_usam": [
-    "M5"
-   ]
-  },
-  {
-   "caminho": "sobecai_corrigido_por_clube.<setor>.q_das_sobreviventes",
-   "formato": "{k: q}",
-   "de_onde_sai": "BH dos p_liq2 no setor",
-   "analise_nova_declarada": true,
-   "declaracao": "nota_por_setor_por_clube",
-   "valores_permitidos": {
-    "<setor>": [
-     "zaga",
-     "lateral",
-     "meio",
-     "ataque"
-    ]
-   },
-   "conclusoes_que_usam": [
-    "M5"
-   ]
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "menor_p_liq2 vira menor_p_rod"
   },
   {
    "caminho": "sobecai_corrigido_por_clube.<setor>.excesso",
-   "formato": "{SC: {bruto|liq|liq2: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 17, i]}}}",
+   "formato": "{SC: {bruto|rod: {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios: 10000, semente: [SEMENTE, 17, i], lista}}}",
    "de_onde_sai": "declaração nota_por_setor_por_clube.excesso ([SEMENTE, 17, i]; o [SEMENTE, 13, id] é dos atletas)",
    "analise_nova_declarada": true,
    "declaracao": "nota_por_setor_por_clube",
@@ -1182,8 +1215,12 @@
    },
    "conclusoes_que_usam": [
     "M4",
-    "M5"
-   ]
+    "M5",
+    "M8"
+   ],
+   "rodada": "dinheiro_2A",
+   "uso_fora_das_lacunas": "marca da etapa 13 (lida pela tela da etapa 13; etapa_13 não recebe campo)",
+   "revisao_14_09_noite": "níveis bruto e rod (saem liq e liq2); cada nível ganha a chave 'lista', que é também a marca da etapa 13"
   },
   {
    "caminho": "etapa_15.proxy_sistema.formacao_principal_por_faixa",
@@ -1193,7 +1230,8 @@
    "declaracao": "formacao_principal_por_faixa_J11",
    "conclusoes_que_usam": [
     "J11"
-   ]
+   ],
+   "rodada": "bloco_2"
   },
   {
    "caminho": "conclusoes",
@@ -1257,16 +1295,263 @@
     "M3",
     "M4",
     "M5",
-    "M6"
-   ]
+    "M6",
+    "M8"
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "57 conclusões (M4 = zaga e lateral; o ataque vira conclusão própria, id proposto M8); régua = declaracoes_para_prototipo_indicadores.regua_final"
+  },
+  {
+   "caminho": "etapa_2.linhas[].d_rod_SM",
+   "formato": "d dec3; e p_rod_SM, d_rod_SC, p_rod_SC (p como o gerador grava), rod_controle, rod_motivo; null nas linhas sem físico",
+   "de_onde_sai": "Welch e d de Cohen no resíduo do posto sobre o posto de fis_atletas ou fis_<setor>_atletas",
+   "analise_nova_declarada": true,
+   "declaracao": "nivel_rod",
+   "conclusoes_que_usam": [
+    "FIS-04",
+    "FIS-05",
+    "FIS-06",
+    "FIS-08",
+    "FIS-10",
+    "FIS-11"
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "obs": "substitui d_liq*/p_liq*/d_liq2*/p_liq2*/liq2_controle/liq2_motivo/q_liq_SM/ic_liq (removidos pela rodada 2A)"
+  },
+  {
+   "caminho": "etapa_2.linhas[].sorte_SM",
+   "formato": "str; e sorte_SC",
+   "de_onde_sai": "helper único sobre (p_bruto_SM, q_SM) e (p_bruto_SC, q_SC), no cru",
+   "analise_nova_declarada": true,
+   "declaracao": "vocabulario_sorte",
+   "conclusoes_que_usam": [
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J6",
+    "J13",
+    "J15",
+    "J19",
+    "ELE-01",
+    "ELE-02",
+    "ELE-03"
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "valores_permitidos": {
+    "sorte_SM": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ],
+    "sorte_SC": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   },
+   "uso_fora_das_lacunas": "rótulo ao lado da porta e colunas das etapas 2 e 5"
+  },
+  {
+   "caminho": "etapa_2.linhas[].porta",
+   "formato": "str; e porta_motivo",
+   "de_onde_sai": "regra de portas (A/B/D/'-'; sem C), motivos montados do dado",
+   "analise_nova_declarada": true,
+   "declaracao": "portas",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "valores_permitidos": {
+    "porta": [
+     "A",
+     "B",
+     "D",
+     "-"
+    ]
+   },
+   "uso_fora_das_lacunas": "só leitura: etapas 2, 10 (porta_no_catalogo) e 14 (justificativa_no_dado.porta); nenhuma nota nem conclusão decide por ela"
+  },
+  {
+   "caminho": "etapa_6.mesmo_ano.rho_mesmo_ano.<ind>.sorte",
+   "formato": "str",
+   "de_onde_sai": "helper único sobre (p, q) já gravados",
+   "analise_nova_declarada": true,
+   "declaracao": "vocabulario_sorte",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "valores_permitidos": {
+    "sorte": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   },
+   "uso_fora_das_lacunas": "miniaturas da etapa 6 (nenhuma conclusão lê)"
+  },
+  {
+   "caminho": "etapa_6.mesmo_ano.lista_inteira.lista",
+   "formato": "str",
+   "de_onde_sai": "p_excesso já gravado < 0,05",
+   "analise_nova_declarada": true,
+   "declaracao": "vocabulario_sorte",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "obs": "não está na lista do diff_permitido_no_json do plano: o coordenador precisa acrescentar esta chave antes da gravação (ou a tela da etapa 6 fica sem a chave da lista)",
+   "valores_permitidos": {
+    "lista": [
+     "tem_mais_achados_que_a_sorte",
+     "nao_tem_mais_achados_que_a_sorte"
+    ]
+   },
+   "uso_fora_das_lacunas": "tela da etapa 6"
+  },
+  {
+   "caminho": "etapa_7.linhas[].sorte",
+   "formato": "str",
+   "de_onde_sai": "helper único sobre (p_parcial, q_parcial)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_7_q_parcial",
+   "conclusoes_que_usam": [
+    "J8"
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "valores_permitidos": {
+    "sorte": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   }
+  },
+  {
+   "caminho": "etapa_9.reguas[].sorte",
+   "formato": "str",
+   "de_onde_sai": "helper único sobre (p_SM, q_SM) já gravados; saem esmaecido, rho_persist, d_liq_SM, p_liq_SM (também de itens_crus)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_9_sem_esmaecido",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "valores_permitidos": {
+    "sorte": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   },
+   "uso_fora_das_lacunas": "tela da etapa 9"
+  },
+  {
+   "caminho": "etapa_10.linhas",
+   "formato": "[{indicador, nome, tipo: 'resultado'|'consequencia', motivo, m_sobe, m_meio, m_cai, d_bruto_SM, d_bruto_SC, porta_no_catalogo}]",
+   "de_onde_sai": "lista fixa de ranking_gaps (motivo_resultado / motivo_consequencia), com a régua de fora como no gerar_pontos.py, recortada ao catálogo da etapa 2 ∪ DECL['resultado'] (ver etapa_10_lista_fixa.esclarecimento_14_09_noite: 92 → 22, sem mudar número)",
+   "analise_nova_declarada": true,
+   "declaracao": "etapa_10_lista_fixa",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "uso_fora_das_lacunas": "tela da etapa 10; saem porta_B_sem_persistencia_medida e no_limiar_do_arredondamento"
+  },
+  {
+   "caminho": "ranking_gaps.linhas[].p_descontado_elenco",
+   "formato": "p (r_sig 3); e tamanho_descontado_elenco, n_descontado_elenco, controle_extra, motivo_descontado_elenco, sorte",
+   "de_onde_sai": "Mann-Whitney do mesmo grupo contra o resto no resíduo sobre o posto de atletas rastreados (só físicas); sorte por (p, q)",
+   "analise_nova_declarada": true,
+   "declaracao": "ranking_gaps_sem_dinheiro",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "valores_permitidos": {
+    "sorte": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   },
+   "uso_fora_das_lacunas": "tabela de gaps; gerar_pontos.py (item 6) ainda lê p_descontado_dinheiro e terá de trocar"
+  },
+  {
+   "caminho": "ranking_gaps.resumo.sobrevivem_q_e_elenco",
+   "formato": "int; e sobrevivem_q_e_elenco_sem_consequencia, regra_sobrevivem_q_e_elenco",
+   "de_onde_sai": "q < 0,05 e (sem controle ou p_descontado_elenco < 0,05), no cru",
+   "analise_nova_declarada": true,
+   "declaracao": "ranking_gaps_sem_dinheiro",
+   "conclusoes_que_usam": [],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "obs": "o diff_permitido do plano nomeia só sobrevivem_q_e_elenco; o _sem_consequencia é o par do que já existe no bruto e precisa estar no diff",
+   "uso_fora_das_lacunas": "cabeçalho da tabela de gaps"
+  },
+  {
+   "caminho": "etapa_1.valor_por_setor.ponderado_por_jogador.particao.setores[].sorte",
+   "formato": "str",
+   "de_onde_sai": "helper único sobre (p_bruto, q_bh) já gravados (4 setores, BH gravado)",
+   "analise_nova_declarada": true,
+   "declaracao": "din04_din05_por_jogador",
+   "conclusoes_que_usam": [
+    "DIN-04",
+    "DIN-05"
+   ],
+   "rodada": "dinheiro_2A",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "obs": "a DIN-04 decide por particao.setores[setor=defesa].{p_bruto, q_bh} e a DIN-05 por particao.menor_p, JÁ gravados",
+   "valores_permitidos": {
+    "sorte": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   }
+  },
+  {
+   "caminho": "etapa_2.andam_com_o_valor",
+   "formato": "{regra, linhas: [{indicador, rho dec3, p, q, n, sorte}]} para as 293 linhas, fora de etapa_2.linhas",
+   "de_onde_sai": "Spearman do posto de tm_valor_total com o posto da coluna no ano, 80 clube-temporadas; BH na família",
+   "analise_nova_declarada": true,
+   "declaracao": "andam_com_o_valor",
+   "conclusoes_que_usam": [
+    "J17",
+    "J19",
+    "ELE-03",
+    "A2",
+    "FIS-04",
+    "M8"
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir",
+   "obs": "descrição: alimenta a ressalva sem desconto; nunca selo, porta ou teto",
+   "valores_permitidos": {
+    "sorte": [
+     "firme",
+     "pode_ser_sorte",
+     "sem_diferenca"
+    ]
+   }
+  },
+  {
+   "caminho": "etapa_8.teste_cego.familia_dos_eixos",
+   "formato": "{eixos: ['TERRITORIO', 'ROTA'], periodo: '2022-2025', p_SM: {eixo: p}, q_SM: {eixo: q}, correcao, escolhida_depois_de_olhar: true, sha256_da_fonte}",
+   "de_onde_sai": "BH nos 2 p_SM de 2022-2025 lidos de teste_cego_2018_2021.json eixos_como_marcador_de_acesso (só leitura)",
+   "analise_nova_declarada": true,
+   "declaracao": "familia_A1",
+   "conclusoes_que_usam": [
+    "A1"
+   ],
+   "rodada": "bloco_2",
+   "revisao_14_09_noite": "campo novo, declarado em 2026-09-14 (noite), antes de medir"
   }
  ],
  "declaracoes_para_prototipo_indicadores": {
-  "_doc": "PROPOSTA de acréscimo a dados/prototipo_indicadores.json, no mesmo formato (listas e dicionários declarados ANTES de medir; gerar_prototipo.py só lê). Escrita em 14/09/2026, sessão 3b480dcb; revista na reconferência de 14/09 (três lentes). O arquivo do projeto NÃO foi tocado. Quem aplicar copia estas chaves, sobe a versão e registra no JSON do gerador que as análises marcadas 'declarada_depois_de_olhar' foram declaradas depois de os números existirem. Toda semente é np.random.default_rng([SEMENTE, etapa, k]) com SEMENTE = 7 (a do gerador) e k fixo aqui; nunca o rng global.",
-  "versao": "2026-09-14-reconferencia",
+  "_doc": "PROPOSTA de acréscimo a dados/prototipo_indicadores.json, no mesmo formato (listas e dicionários declarados ANTES de medir; gerar_prototipo.py e ranking_gaps.py só leem). Versão de 14/09/2026 à noite: o desconto pelo valor do elenco ('descontado o dinheiro') SAI DE VEZ de selos, portas, marcas, gates e textos, e a repetição 'o mesmo clube no ano seguinte' sai dos critérios (decisões do dono de 14/09; plano aprovado em _fonte/prototipo/sessao_14_09/dinheiro_parte1_resultado.json, chave plano). O valor do elenco continua DESCRITO (etapa 1, régua H_dinheiro, DIN-*, cenários da etapa 14). Onde havia dois descontos juntos (valor + atletas rastreados), fica só o do rodízio, com o nome 'rod'. Tudo o que é novo nesta versão foi escrito antes de o gerador medir. IMPORTANTE para quem aplica: o gerador NÃO lê este arquivo (carregar_declaracao lê só dados/prototipo_indicadores.json); o dono do gerador copia as regras para constantes declaradas no código antes da função que mede (como MESMO_ANO_DECL e RESUMO_DECL) e grava o texto da declaração no JSON. Toda semente é np.random.default_rng([SEMENTE, etapa, k]) com SEMENTE = 7 e k fixo aqui; nunca o rng global. Esta versão NÃO cria sorteio novo: o nível rod usa os mesmos rótulos sorteados do bruto.",
+  "versao": "2026-09-14-noite-sem-dinheiro",
   "base_do_arquivo": "dados/prototipo_indicadores.json versao 2026-09-12",
   "comparacoes": {
-   "_doc": "comparações além das duas do catálogo (SM = sobe x meio, SC = sobe x cai). Cada linha do catálogo passa a gravar p_bruto, p_liq, q (na família) e o excesso da família para as comparações listadas aqui.",
+   "_doc": "comparações além das duas do catálogo (SM = sobe x meio, SC = sobe x cai). Cada linha do catálogo grava p_bruto e q (na família) para as comparações listadas aqui; o excesso da família sai em excesso_por_familia. Não existe mais p líquido do valor em comparação nenhuma.",
    "SM": {
     "grupos": [
      "sobe",
@@ -1328,7 +1613,7 @@
    }
   },
   "excesso_por_familia": {
-   "_doc": "regra do 'olhar a lista inteira' (decisão do dono, 14/09): desempate MODERADO x FRACO; e, para comparação escolhida depois de olhar, a condição da lista (decisão 1, 14/09)",
+   "_doc": "regra do 'olhar a lista inteira' (decisão do dono, 14/09): a lista de onde a conclusão saiu tem mais achados do que a sorte produz? Decide o MODERADO de quem não é firme e o teto de comparação escolhida depois de olhar. Conta no nível bruto; o nível rod (só nas famílias físicas) é gravado para descrever e para a 5ª pergunta do físico, e não decide o excesso.",
    "familias": [
     "tecnico_col",
     "elenco",
@@ -1347,26 +1632,26 @@
    "contagem": "linhas com p bruto < 0,05",
    "nulo": "rótulos sobe/meio/cai permutados dentro de cada ano; clube-temporada leva todas as colunas",
    "sorteios": 10000,
-   "semente": "np.random.default_rng([SEMENTE, 3, i]) com i = 5 * índice_da_família + índice_da_comparação, nas ordens das listas 'familias' e 'comparacoes' (ex.: elenco x SM = 5); os três níveis (bruto, liq, liq2) usam os MESMOS rótulos sorteados dentro de cada (família, comparação); nunca o rng global",
+   "semente": "np.random.default_rng([SEMENTE, 3, i]) com i = 5 * índice_da_família + índice_da_comparação, nas ordens das listas 'familias' e 'comparacoes' (ex.: elenco x SM = 5); os níveis bruto e rod usam os MESMOS rótulos sorteados dentro de cada (família, comparação); nunca o rng global",
    "p_excesso": "(1 + sorteios com contagem >= observada) / (sorteios + 1)",
    "corte": 0.05,
    "corte_estrito": true,
    "nivel_usado_no_selo": "bruto",
    "gravar_tambem": [
-    "passam5_liq_<comparacao>",
-    "passam5_liq2_<comparacao>"
+    "passam5_rod_<comparacao> (só famílias físicas)"
    ],
    "fronteira": {
     "elenco_SM_bruto": "p do excesso entre 0,044 e 0,052 em 12 sementes de 10.000 (a declarada [7,3,5] dá 0,0515): gravar o p da semente declarada e o erro de Monte Carlo; conclusão do elenco que dependa desse excesso não fica moderada por essa conta"
    },
    "niveis": [
     "bruto",
-    "liq",
-    "liq2"
+    "rod"
    ],
-   "nulo_liq": "resíduo do posto do ano sobre o posto de tm_valor_total calculado UMA vez nos dados reais; os rótulos são permutados dentro do ano e o Welch é refeito no resíduo",
-   "nulo_liq2": "idem, resíduo sobre o posto de tm_valor_total e o posto de fis_atletas (físico do elenco) ou de fis_<setor>_atletas (físico por setor); nas famílias sem físico, liq2 = liq",
-   "gravar": "etapa_3.por_familia[f].excesso[comparacao][nivel] = {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios, semente} — um formato só"
+   "gravar": "etapa_3.por_familia[f].excesso[comparacao][nivel] = {observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, sorteios, semente, lista} com nivel em {bruto, rod} — um formato só; rod null com rod_motivo nas famílias sem físico",
+   "nulo_rod": "resíduo do posto do ano (0-100) sobre o posto no ano de fis_atletas (família fisico_col_elenco) ou de fis_<setor>_atletas do setor da própria linha (família fisico_col_setor), mínimos quadrados com intercepto, calculado UMA vez nos dados reais (80 clube-temporadas 2022-2025); os rótulos são permutados dentro do ano e o Welch é refeito no resíduo",
+   "rod_nas_familias_sem_fisico": "tecnico_col, elenco e tecnico_ind não são média por atleta rastreado: excesso[comparacao].rod = null e rod_motivo escrito; nunca rod = bruto",
+   "lista": "em cada nível gravado, chave 'lista' = 'tem_mais_achados_que_a_sorte' se p_excesso < 0,05 (estrito, no p sem arredondar) e 'nao_tem_mais_achados_que_a_sorte' senão; a tela só traduz a chave",
+   "sai_nesta_versao": "níveis liq e liq2 (desconto pelo posto de tm_valor_total) e as contagens passam5_liq_* / passam5_liq2_* / bh5_liq_*"
   },
   "duelos_itens_3_e_7": {
    "_doc": "linhas já declaradas no catálogo; o que é novo é a comparação e a checagem de período",
@@ -1431,21 +1716,13 @@
    "diferenca_entre_periodos": "z = (d_2022_2025 - d_2018_2021) / sqrt(se1² + se2²), se_d = sqrt((n1+n2)/(n1*n2) + d²/(2(n1+n2))), bilateral"
   },
   "etapa_6_mesmo_ano": {
-   "_doc": "PENDENTE item 10: separar 'o time alto num ano continua alto no outro?' (diagonal t→t+1, já existe) de 'o número anda com os pontos no mesmo ano?'",
+   "_doc": "PENDENTE item 10, JÁ IMPLEMENTADO e gravado em 14/09 19:05 pela constante MESMO_ANO_DECL de gerar_prototipo.py (etapa_6.mesmo_ano, com q de BH nos indicadores e lista inteira contra o sorteio [SEMENTE, 6]). O que esta versão acrescenta é só a chave de sorte (vocabulario_sorte). A pergunta 'o time alto num ano continua alto no outro' (diagonal t→t+1) deixa de ser critério; etapa_6.rho continua gravado como DADO, sem chave de sorte e sem entrar em porta, régua ou selo.",
    "indicadores": "todos os de etapa_6.rho (mesma lista, mesma ordem)",
    "medida": "Spearman do posto do indicador no ano com o posto dos pontos no mesmo ano",
    "universo": "80 clube-temporada 2022-2025",
-   "gravar": "etapa_6.mesmo_ano[ind] = {rho, p, n}",
-   "consequencia": {
-    "indicadores": [
-     "share_11",
-     "conc_hhi",
-     "atletas_usados",
-     "nucleo_300"
-    ],
-    "gravar": "etapa_6.consequencia[ind] = {rho_mesmo_ano, media_posto_t_de_quem_caiu_em_t1, media_posto_t_do_resto, n}"
-   },
-   "declarada_depois_de_olhar": true
+   "gravar": "etapa_6.mesmo_ano.rho_mesmo_ano[ind] ganha 'sorte' (chave de vocabulario_sorte a partir de p e q já gravados); etapa_6.mesmo_ano.lista_inteira ganha 'lista' (mesma regra de excesso_por_familia.lista)",
+   "declarada_depois_de_olhar": true,
+   "sai_nesta_versao": "etapa_6.consequencia (posto em t de quem caiu em t+1): era a pergunta do ano seguinte; nenhuma conclusão lê"
   },
   "origem": {
    "_doc": "origem do clube na Série B (veio da A / já estava na B / veio da C). Base gravada e conferida em 14/09.",
@@ -1496,32 +1773,19 @@
     ]
    ],
    "dinheiro": {
+    "_doc": "SÓ DESCRIÇÃO do valor de elenco com que cada origem chega, para a ressalva sem desconto da ORI-01 ('esses clubes chegam com um dos elencos mais valiosos do ano; o estudo não separa as duas coisas'). Não há subidas esperadas, permutação dentro do quartil de valor nem razão de verossimilhança: isso era descontar o dinheiro e saiu.",
     "anos": [
      2022,
      2025
     ],
     "posto": "tm_valor_total no ano, 1 = mais caro",
-    "esperado": {
-     "declaradas_antes_de_medir": [
-      "logistica_posto",
-      "logistica_percentil_do_ano",
-      "logistica_log_valor",
-      "logistica_log_valor_centrado_no_ano",
-      "taxa_do_quartil_de_posto (5/10/15/20)"
-     ],
-     "acrescentadas_na_reconferencia_14_09": {
-      "declarada_depois_de_olhar": true,
-      "especificacoes": [
-       "as quatro logísticas com penalização padrão (sklearn C = 1)",
-       "taxa do quartil de posto calculada SEM os próprios clubes da A (fora da amostra)"
-      ],
-      "motivo": "lente de números da reconferência: a taxa dentro da amostra usa os próprios clubes da A e puxa o esperado para o observado"
-     },
-     "gravar": "dinheiro.por_origem[X].{subidas_esperadas, quedas_esperadas} = {especificacao: float} para as dez; a frase usa o menor e o maior"
-    },
-    "permutacao": "origem permutada dentro de ano x quartil, 10.000, np.random.default_rng([SEMENTE, 16, 1])",
-    "razao_de_verossimilhanca": "origem além do posto, 2 gl",
-    "gravar_faixa": "por_origem[A].quedas_esperadas e subidas_esperadas por especificação, sem penalização; a frase usa o menor e o maior"
+    "gravar": "conclusoes_base.origem.dinheiro = {anos, por_origem: {A|B|C: {n, posto_mediano, valor_mediano_eur}}}",
+    "sai_nesta_versao": [
+     "esperado (as dez especificações logísticas e de quartil)",
+     "permutacao",
+     "razao_de_verossimilhanca",
+     "gravar_faixa"
+    ]
    },
    "poder": {
     "teste": "Fisher 0,05",
@@ -1531,7 +1795,7 @@
     "limiar": 0.7,
     "frase": "a menor subida de C detectada com poder >= limiar contra a taxa de B"
    },
-   "gravar": "conclusoes_base.origem = {anos_da_conta, anos_sensibilidade, por_origem, sensibilidade, fisher, por_periodo, dinheiro, poder, faixa_de_pontos: null}"
+   "gravar": "conclusoes_base.origem = {anos_da_conta, anos_sensibilidade, por_origem, sensibilidade, fisher, por_periodo, dinheiro (só descrição), poder, faixa_de_pontos: null}"
   },
   "elenco_base": {
    "_doc": "família nova, separada de 'elenco' para não mexer na contagem do excesso da família declarada",
@@ -1556,15 +1820,15 @@
     "CM"
    ],
    "bh": "Benjamini-Hochberg nos 6 testes (2 colunas × 3 comparações)",
-   "desconto": "resíduo do posto do ano sobre o percentil de tm_valor_total no ano (a conta da casa)",
    "anos": [
     2023,
     2025
    ],
-   "gravar": "etapa_2.elenco_base = {anos, universo, bh_testes: 6, linhas: [{indicador, n, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, p_bruto_SM, p_liq_SM, p_bruto_SC, p_liq_SC, p_bruto_CM, p_liq_CM, q_SM, q_SC, q_CM}]} — FORA de etapa_2.linhas (não mexe nas 293)"
+   "gravar": "etapa_2.elenco_base = {anos, universo, bh_testes: 6, linhas: [{indicador, n, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, p_bruto_SM, p_bruto_SC, p_bruto_CM, q_SM, q_SC, q_CM}]} — FORA de etapa_2.linhas (não mexe nas 293)",
+   "sai_nesta_versao": "desconto pelo percentil de tm_valor_total e os p_liq_* (BUG-15 deixa de existir)"
   },
   "colocacao_t_t1": {
-   "_doc": "ELE-06: colocação e aproveitamento de um ano contra o seguinte",
+   "_doc": "ELE-06: colocação e aproveitamento de um ano contra o seguinte. O ASSUNTO da conclusão é a repetição do clube, então ela fica com selo (decisão do dono de 14/09, noite); o que sai é o desconto do dinheiro. 'Ano seguinte' aqui é o achado, não critério de outra conclusão.",
    "universo": "clubes na Série B em t e t+1, t+1 <= 2025, painel 2018-2021 + 2022-2025",
    "medidas": [
     "Spearman posição t x t+1",
@@ -1582,11 +1846,11 @@
      2024
     ]
    ],
-   "valor": "Spearman tm_valor_total t x t+1 nos pares com valor (etapa_6.referencia_dinheiro) e a posição nesses mesmos pares",
+   "valor": "SÓ DESCRIÇÃO: Spearman tm_valor_total t x t+1 nos pares com valor e a posição nesses mesmos pares (rho, p); não entra na regra do selo",
    "declarada_depois_de_olhar": true,
-   "desconto_do_dinheiro": "nos pares com valor (2022-2025, 36): Spearman parcial de aproveitamento t × t+1 controlando o posto de tm_valor_total em t e em t+1 (resíduo dos postos, Pearson dos resíduos); gravar rho_aproveitamento_descontado_valor e p_aproveitamento_descontado_valor; e a posição nesses pares (rho, p)",
-   "gravar": "etapa_6.colocacao = {n_pares, universo, rho_posicao, p_posicao, rho_aproveitamento, p_aproveitamento, por_periodo, por_faixa_de_posicao, n_pares_com_valor, rho_valor, rho_posicao_nos_pares_com_valor, p_posicao_nos_pares_com_valor, rho_aproveitamento_descontado_valor, p_aproveitamento_descontado_valor}",
-   "conta_principal": "posição t × t+1 (a do título); o aproveitamento é outra conta da mesma pergunta"
+   "gravar": "etapa_6.colocacao = {n_pares, universo, rho_posicao, p_posicao, rho_aproveitamento, p_aproveitamento, por_periodo, por_faixa_de_posicao, n_pares_com_valor, rho_valor, rho_posicao_nos_pares_com_valor, p_posicao_nos_pares_com_valor}",
+   "conta_principal": "posição t × t+1 (a do título); o aproveitamento é outra conta da mesma pergunta",
+   "sai_nesta_versao": "rho_aproveitamento_descontado_valor e p_aproveitamento_descontado_valor"
   },
   "estilo_x_valor": {
    "colunas": [
@@ -1599,7 +1863,8 @@
    ],
    "medida": "Spearman do posto de tm_valor_total com o posto da coluna no ano, 80 clube-temporada 2022-2025; convenção: ppda com sinal invertido = pressão mais alta",
    "declarada_depois_de_olhar": true,
-   "gravar": "etapa_2.estilo_x_valor.<coluna> = {rho, p, n}"
+   "gravar": "etapa_2.estilo_x_valor.<coluna> = {rho, p, n}",
+   "uso": "descrição: rodapé da J10 e da J15 e ressalva da J19 (ppda), lida por andam_com_o_valor; nunca desconto"
   },
   "etapa_11_mesma_regua": {
    "_doc": "M1, FIS-07 e M6",
@@ -1652,25 +1917,29 @@
    }
   },
   "nota_por_setor_por_clube": {
-   "_doc": "M4 e M5: as medidas da nota por setor (gerar_raio_serieb.DE_PARA + DE_PARA_JSON + DE_PARA_OBR, fixas antes) como família, clube como caso",
+   "_doc": "M4, M5 e a conclusão nova do ataque (resposta d do dono): as medidas da nota por setor (gerar_raio_serieb.DE_PARA + DE_PARA_JSON + DE_PARA_OBR, fixas antes) como família, clube como caso",
    "agregacao": "média ponderada por minuto (analisar_serieb.media_pond) por clube-temporada, setor de G.SETOR_FUND",
    "comparacao": "SC (sobe x cai); SM e faixa alta x baixa gravadas ao lado",
    "descontos": [
-    "posto de tm_valor_total no ano",
-    "posto de fis_<setor>_atletas no ano"
+    "posto de fis_<setor>_atletas no ano (rodízio)"
    ],
    "minimo": "8 clubes que subiram e 8 que caíram com valor",
    "excesso": {
-    "familia": "as medidas da nota do setor com 8+ clubes que subiram e 8+ que caíram com valor",
+    "familia": "as medidas da nota do setor com 8+ clubes que subiram e 8+ que caíram com valor na medida",
     "comparacao": "SC",
-    "nulo": "rótulos sobe/meio/cai permutados entre os 20 clubes de cada ano (o meio entra no sorteio; a contagem é só sobe x cai); o resíduo de liq e liq2 é calculado uma vez nos dados reais",
+    "nulo": "rótulos sobe/meio/cai permutados entre os 20 clubes de cada ano (o meio entra no sorteio; a contagem é só sobe x cai); o resíduo rod é calculado uma vez nos dados reais",
     "sorteios": 10000,
-    "semente": "np.random.default_rng([SEMENTE, 17, i]) com i = índice do setor em 'setores' (0 zaga, 1 lateral, 2 meio, 3 ataque); os três níveis usam os mesmos rótulos sorteados. NÃO usar [SEMENTE, 13, i]: é o gerador próprio de cada atleta na etapa 13 (gerar_prototipo.py ~3070, default_rng([SEMENTE, 13, int(j['id'])])), e os ids 0 a 3 existem em dados/jogadores.json — os sorteios do excesso sairiam na mesma sequência dos atletas 0 a 3",
+    "semente": "np.random.default_rng([SEMENTE, 17, i]) com i = índice do setor em 'setores' (0 zaga, 1 lateral, 2 meio, 3 ataque); os níveis bruto e rod usam os mesmos rótulos sorteados. NÃO usar [SEMENTE, 13, i]: é o gerador próprio de cada atleta na etapa 13 (default_rng([SEMENTE, 13, int(j['id'])])), e os ids 0 a 3 existem em dados/jogadores.json",
     "efeito_da_semente": "o p do excesso da M5 (0,024) e da M4 (ataque 0,011, zaga 0,13, lateral 0,15) foi medido com [2026, 919], uma sequência só para os quatro setores; com a semente declarada ele muda dentro do erro de Monte Carlo, e o selo segue o número regravado (conserto final 14/09)",
     "p_excesso": "(1 + sorteios com contagem >= observada) / (sorteios + 1)",
-    "referencia_medida": "r5_alvo_fisico_excesso.py, semente [2026, 919] (uma sequência para os quatro setores): meio 11 contra 1, p 0,024; ataque 13 contra 1, p 0,011; com os dois descontos meio 4 contra 1, p 0,16"
+    "referencia_medida": "rascunho da parte 1 (scratchpad/dinheiro/m2_rodizio_por_clube.py, semente [2026, 919], uma sequência para os quatro setores): só com o rodízio sobram zaga 3, lateral 2, meio 6 e ataque 13; é conferência do número regravado, não alvo",
+    "niveis": [
+     "bruto",
+     "rod"
+    ],
+    "lista": "em cada nível, chave 'lista' pela regra de excesso_por_familia.lista"
    },
-   "gravar": "sobecai_corrigido_por_clube.<setor>.{testes, p5_clube (= contagem bruta, um nome só), passam5_liq, passam5_liq2, sobreviventes, q_das_sobreviventes, menor_p_liq2, itens[].{p_liq, p_liq2, q_liq2}, excesso.SC.{bruto, liq, liq2}}",
+   "gravar": "sobecai_corrigido_por_clube.<setor>.{testes, p5_clube (= contagem bruta, um nome só), passam5_rod, sobreviventes_rod, menor_p_rod, itens[].{p_rod, q_rod, sorte_clube}, excesso.SC.{bruto, rod}}; sorte_clube = chave de vocabulario_sorte a partir de (p_clube, q_clube)",
    "setores": [
     "zaga",
     "lateral",
@@ -1679,9 +1948,10 @@
    ],
    "teste_da_linha": {
     "bruto": "Welch bilateral na média ponderada por minuto do clube (o p_clube que o gerador já grava; valor cru, sem posto no ano), sobe x cai",
-    "liq": "Welch bilateral no resíduo do posto no ano (percentil) da média do clube sobre o posto de tm_valor_total no ano",
-    "liq2": "Welch bilateral no resíduo do posto no ano da média do clube sobre o posto de tm_valor_total e o posto de fis_<setor>_atletas no ano (posto de atletas ausente vira a média, como em r5_alvo_fisico_excesso.py)"
-   }
+    "rod": "Welch bilateral no resíduo do posto no ano (percentil) da média do clube sobre o posto no ano de fis_<setor>_atletas, mínimos quadrados com intercepto nas clube-temporadas com a medida (posto de atletas ausente vira a média, como em r5_alvo_fisico_excesso.py)"
+   },
+   "sobreviventes": "sobreviventes_rod = medidas do setor com p_rod < 0,05 (no p sem arredondar); q_rod = Benjamini-Hochberg nos p_rod de TODAS as medidas do setor (não só das sobreviventes); 'firme por clube' continua sendo q_clube (BH dos p_clube brutos) < 0,05",
+   "sai_nesta_versao": "desconto pelo posto de tm_valor_total; campos passam5_liq, passam5_liq2, itens[].p_liq / p_liq2 / q_liq2, menor_p_liq2, q_das_sobreviventes (vira q_rod por item); níveis liq e liq2 do excesso"
   },
   "indice_intensidade": {
    "_doc": "FIS-01. O índice foi montado DEPOIS de olhar os dados; declarar aqui não o torna pré-declarado. Teto FRACO pela regra_comparacao_depois_de_olhar (a mesma de J5, A4, J16).",
@@ -1699,10 +1969,11 @@
    ],
    "agregacao": "média do posto no ano",
    "k_extremos": 5,
-   "comparacao": "CM (cai x meio), Welch bilateral: bruto, líquido do valor, líquido de valor e fis_atletas",
+   "comparacao": "CM (cai x meio), Welch bilateral: bruto e rod (resíduo sobre o posto no ano de fis_atletas)",
    "declarada_depois_de_olhar": true,
-   "gravar": "etapa_2.indice_intensidade = {colunas, agregacao, k_extremos, n_por_ano, por_clube: [{ano, clube, faixa, indice, posicao}], mediana_posicao: {sobe, meio, cai}, cai_top_k, cai_bottom_k, excecoes_top_k: [{clube, ano, posicao}], p_bruto_CM, p_liq_CM, p_liq2_CM, comparacao_declarada_antes: false}",
-   "posicao": "1 = mais intenso no ano, pelo índice (rank descendente, empate pelo menor)"
+   "gravar": "etapa_2.indice_intensidade = {colunas, agregacao, k_extremos, n_por_ano, por_clube: [{ano, clube, faixa, indice, posicao}], mediana_posicao: {sobe, meio, cai}, cai_top_k, cai_bottom_k, excecoes_top_k: [{clube, ano, posicao}], p_bruto_CM, p_rod_CM, comparacao_declarada_antes: false}",
+   "posicao": "1 = mais intenso no ano, pelo índice (rank descendente, empate pelo menor)",
+   "sai_nesta_versao": "p_liq_CM e p_liq2_CM"
   },
   "etapa_1_tabela_e_euros": {
    "ks_da_tabela": [
@@ -1760,7 +2031,7 @@
    "o_que_o_intervalo_mede": "só o ruído do sorteio dado o erro-padrão da nota, não a incerteza da nota"
   },
   "regra_comparacao_depois_de_olhar": {
-   "_doc": "decisão 1 do dono (14/09): comparação, índice ou lista escolhida DEPOIS de ver os números pode ser MODERADA só se a lista dela tiver mais achados que a sorte (p do excesso < 0,05, contagem bruta, na família declarada e na comparação escolhida) E se ela sobreviver ao desconto do dinheiro (p líquido < 0,05); senão, teto FRACO. Nunca FORTE. Conclusão sem lista de onde a comparação saia fica com teto FRACO. Toda chave com declarada_depois_de_olhar=true e toda comparação CR, SR e CM entra nesta regra. O gerador grava, em cada conclusão, comparacao_declarada_antes = true/false e os critérios da regra em criterios_do_selo."
+   "_doc": "decisão 1 do dono (14/09), sem o desconto do dinheiro (14/09, noite): comparação, índice ou lista escolhida DEPOIS de ver os números pode ser MODERADA só se a lista DELA tiver mais achados que a sorte (p do excesso < 0,05, contagem bruta, na família declarada e na comparação escolhida); sem lista, ou com a lista no nível da sorte, teto FRACO. Nunca FORTE. No físico vale também a 5ª pergunta (p_rod < 0,05) para passar de FRACO. Toda chave com declarada_depois_de_olhar=true e toda comparação CR, SR e CM entra nesta regra. O gerador grava, em cada conclusão, comparacao_declarada_antes = true/false e os critérios em criterios_do_selo."
   },
   "etapa_7_excesso": {
    "_doc": "J8: a lista dos 28 números do 1º turno contra o sorteio",
@@ -1771,7 +2042,7 @@
    "nulo": "Freedman-Lane dentro do ano: resíduo do posto de pts2 sobre o posto de pts1 (OLS), permutado dentro do ano e somado aos ajustados; cada clube-temporada leva os 28 números; recalcula a parcial de Spearman das 28",
    "sorteios": 10000,
    "semente": "np.random.default_rng([SEMENTE, 7, 1])",
-   "gravar": "etapa_7.excesso.{sem_sinal, sinal_certo}.{observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo}",
+   "gravar": "etapa_7.excesso.{sem_sinal, sinal_certo}.{observado, nulo_mediana, nulo_p95, p_excesso, erro_monte_carlo, lista}",
    "declarada_depois_de_olhar": true
   },
   "A4_mando": {
@@ -1794,8 +2065,9 @@
      "CM"
     ]
    },
-   "gravar": "etapa_2.linhas[formacoes].{mediana_sobe, mediana_meio, mediana_cai, p_bruto_CM, p_liq_CM, antigo_SC.{p, d}, antigo_CM.{p, d}} (as medianas e o CM valem para todas as linhas: ver etapa_2_comparacoes_extras)",
-   "declarada_depois_de_olhar": true
+   "gravar": "etapa_2.linhas[formacoes].{mediana_sobe, mediana_meio, mediana_cai, p_bruto_CM, antigo_SC.{p, d}, antigo_CM.{p, d}} (as medianas e o CM valem para todas as linhas: ver etapa_2_comparacoes_extras)",
+   "declarada_depois_de_olhar": true,
+   "selo": "resposta a do dono (14/09, noite): MODERADO pela regra geral regua_final.firme_por_pouco (q entre 0,025 e 0,05 com uma conferência só); não é remendo da J17"
   },
   "antigo_2018_2021": {
    "_doc": "J14, J17, J18, J19, J5: as mesmas contas no painel 2018-2021 (dados/serieb_clube_temporada_2018_2021.csv), só nas colunas que existem nele",
@@ -1805,21 +2077,26 @@
   },
   "etapa_2_comparacoes_extras": {
    "_doc": "o que toda linha do catálogo (293) passa a gravar além de SM e SC",
-   "gravar": "etapa_2.linhas[].{p_bruto_CR, p_liq_CR, q_CR, q_liq_CR, p_bruto_SR, p_liq_SR, q_SR, p_bruto_CM, p_liq_CM, q_CM, p_mw_CM, q_liq2_SM, q_liq2_SC, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, media_por_ano, cai_metade_baixo, cai_entre_5_piores, cai_entre_5_melhores, sobe_metade_cima, comparacao_declarada_antes}",
+   "gravar": "etapa_2.linhas[].{p_bruto_CR, q_CR, p_bruto_SR, q_SR, p_bruto_CM, q_CM, p_mw_CM, n_sobe, n_meio, n_cai, mediana_sobe, mediana_meio, mediana_cai, media_por_ano, cai_metade_baixo, cai_entre_5_piores, cai_entre_5_melhores, sobe_metade_cima, comparacao_declarada_antes}",
    "q_das_comparacoes_depois_de_olhar": "calculado (BH na família, na comparação) e gravado, mas marcado comparacao_declarada_antes=false: não conta para o selo",
    "contagens": "sobre o posto ORIENTADO pelo sinal da linha (nas linhas de G.MENOR_MELHOR — ppda, xg_contra... — o posto é invertido antes: 100 = melhor desempenho), 0-100 no ano: metade de baixo = posto orientado <= 50; cinco piores = os 5 de pior desempenho do ano (posição orientada > n_do_ano - 5); cinco melhores = os 5 de melhor desempenho; sobe_metade_cima = promovidos com posto orientado > 50. cai_entre_5_piores e sobe_metade_cima são int; cai_entre_5_melhores é campo PRÓPRIO, lista ['CLUBE ANO (Nº)']",
-   "media_por_ano": "[{ano, nivel, sobe, meio, cai, residuo_sobe_menos_meio}]: resíduo do posto no ano sobre o posto de tm_valor_total (nivel 'liq') e, nas linhas físicas, sobre o posto de tm_valor_total e de fis_<setor>_atletas (ou fis_atletas no físico do elenco) (nivel 'liq2', o mesmo modelo do p_liq2); a regressão é calculada UMA vez nas 80 clube-temporadas de 2022-2025, não por ano; média do resíduo por ano e faixa; residuo_sobe_menos_meio = média de sobe − média de meio. Grava os dois níveis quando a linha tem físico; o selo e as frases da FIS-06 e FIS-11 leem nivel = liq2. Análise nova, declarada depois de olhar",
-   "declarada_depois_de_olhar": true
+   "media_por_ano": "[{ano, nivel, sobe, meio, cai, sobe_menos_meio}]: nivel 'bruto' em toda linha = média do posto no ano (0-100) por ano e faixa; nivel 'rod' só nas linhas físicas = média, por ano e faixa, do resíduo do posto no ano sobre o posto de fis_<setor>_atletas (ou fis_atletas no físico do elenco), o mesmo modelo do p_rod, regressão UMA vez nas 80 clube-temporadas 2022-2025; sobe_menos_meio = média de sobe − média de meio. A ELE-03 lê nivel = bruto; a FIS-06 e a FIS-11 leem nivel = rod. Nível 'rod' declarado em 2026-09-14 (noite), antes de medir",
+   "declarada_depois_de_olhar": true,
+   "sai_nesta_versao": "p_liq_CR, q_liq_CR, p_liq_SR, p_liq_CM, q_liq2_SM, q_liq2_SC (o rodízio é pergunta de p, não de q) e o nivel 'liq' / 'liq2' do media_por_ano"
   },
   "etapa_7_q_parcial": {
    "teste": "Benjamini-Hochberg nos 28 p_parcial de etapa_7.linhas, SEM filtro de sinal; o sinal_certo é checado depois, na regra do selo (J1 e J2: q_parcial < 0,05 com sinal_certo)",
-   "gravar": "etapa_7.linhas[].q_parcial"
+   "gravar": "etapa_7.linhas[].q_parcial e etapa_7.linhas[].sorte (chave de vocabulario_sorte a partir de p_parcial e q_parcial)",
+   "_doc": "J1, J2, J8 e a conferência '1º turno prevê o 2º' da régua final",
+   "conferencia_1T_2T": "a conferência 'o 1º turno prevê o 2º' passa com p_parcial < 0,05 E sinal_certo (lado declarado); NÃO pelo q dos 28. O q e a chave são a leitura da lista da etapa 7, não a conferência de uma conclusão do catálogo",
+   "declarada_em": "2026-09-14 (noite), antes de medir"
   },
   "fis10_bloco": {
    "_doc": "FIS-10: o bloco é o setor ataque INTEIRO do catálogo fisico_col_setor (as 32 linhas fis_ataque_*), sem escolher colunas",
    "colunas": "etapa_2.linhas com familia=fisico_col_setor e setor=ataque",
    "declarada_depois_de_olhar": false,
-   "gravar": "etapa_2.fis10_bloco = {colunas, n, n_p_bruto_SC_abaixo_005, p_bruto_SC_min, p_bruto_SC_max, q_SC_min, n_p_liq2_SC_abaixo_005, p_bruto_SM_min, p_bruto_SM_min_indicador, p_bruto_SM_max} (min e max entre as linhas com p_bruto_SC < 0,05; hoje p_bruto_SM de 0,053, fis_ataque_runs_penalty_area_p30tip, a 0,457)"
+   "gravar": "etapa_2.fis10_bloco = {colunas, n, n_p_bruto_SC_abaixo_005, p_bruto_SC_min, p_bruto_SC_max, q_SC_min, n_p_rod_SC_abaixo_005, p_bruto_SM_min, p_bruto_SM_min_indicador, p_bruto_SM_max} (min e max entre as linhas com p_bruto_SC < 0,05)",
+   "sai_nesta_versao": "n_p_liq2_SC_abaixo_005 (vira n_p_rod_SC_abaixo_005)"
   },
   "diferenca_entre_blocos_A3": {
    "teste": "z = (d_2022_2025 - d_2018_2021) / raiz(se1² + se2²), se_d = raiz((n1+n2)/(n1·n2) + d²/(2(n1+n2))), n1 = 16, n2 = 48, d de quem sobe contra o meio, bilateral",
@@ -1829,9 +2106,10 @@
    "referencia": "CONFERENCIA.md §3.4; reproduzido em r13_varios.py: menor p 0,081 (entradas na área)"
   },
   "faltas_x_posse_J3": {
-   "gravar": "etapa_2.linhas[faltas].{rho_com_posse, p_rho, p_SM_descontada_posse, p_SM_descontada_posse_e_valor}",
-   "medida": "Spearman do posto de faltas com o posto de posse no ano (80); Welch SM no resíduo do posto de faltas sobre o posto de posse (e posse + valor)",
-   "declarada_depois_de_olhar": true
+   "gravar": "etapa_2.linhas[faltas].{rho_com_posse, p_rho, p_SM_descontada_posse}",
+   "medida": "Spearman do posto de faltas com o posto de posse no ano (80); Welch SM no resíduo do posto de faltas sobre o posto de posse (o controle aqui é a posse, uma escolha de jogo, não o dinheiro)",
+   "declarada_depois_de_olhar": true,
+   "sai_nesta_versao": "p_SM_descontada_posse_e_valor"
   },
   "dist_remate_descontada_J1": {
    "gravar": "etapa_2.linhas[dist_remate].p_SM_descontadas_entradas_toques",
@@ -1841,7 +2119,6 @@
   "valor_DIN01_DIN03": {
    "auc_ic95": "bootstrap de clube-temporada estratificado por ano, 2.000, default_rng([SEMENTE, 1, 1]), AUC sobe x resto no posto de valor",
    "auc_por_ano": "AUC sobe x resto no posto de valor, ano a ano",
-   "cobertura": "Mann-Whitney sobe x meio no resíduo do posto de tm_valor_total sobre o posto de tm_com_valor no ano; gravar p e AUC",
    "meio_x_cai": "AUC e Mann-Whitney bilateral cai x meio no posto de valor; e por ano",
    "curva_top_k_rebaixados": "rebaixados acumulados por posto de valor; p_quartil = hipergeométrica por ano (20 clubes, 4 rebaixados, k = tamanho do quartil de cima) convoluída nos anos, P(soma <= observado)",
    "sensibilidade_fonte_valor": "a mesma contagem com a coluna valor_total (Wyscout): postos dos três rebaixados mais caros, rebaixados no top k, nomes, p_quartil",
@@ -1863,12 +2140,14 @@
      20
     ]
    ],
-   "gravar": "etapa_1.{quartis[].cairam, auc_posto_de_valor.{ic95, por_ano, meio_x_cai, meio_x_cai_por_ano, p_meio_x_cai}, cobertura_do_valor.{p_valor_descontada_cobertura, auc_descontada_cobertura}, curva_top_k_rebaixados, sensibilidade_fonte_valor, blocos_de_posto, vizinhos_de_valor, valor_mediano_da_liga_por_ano, curva_top_k.valor_do_posto_k_por_ano, top4_de_valor.por_ano[].posicao_final}",
-   "declarada_depois_de_olhar": true
+   "gravar": "etapa_1.{quartis[].cairam, auc_posto_de_valor.{ic95, por_ano, meio_x_cai, meio_x_cai_por_ano, p_meio_x_cai}, curva_top_k_rebaixados, sensibilidade_fonte_valor, blocos_de_posto, vizinhos_de_valor, valor_mediano_da_liga_por_ano, curva_top_k.valor_do_posto_k_por_ano, top4_de_valor.por_ano[].posicao_final}",
+   "declarada_depois_de_olhar": true,
+   "sai_nesta_versao": "controle da cobertura (resíduo do posto de valor sobre o posto de tm_com_valor): tratava o jogador sem preço como dado faltando, contra a decisão do dono de 14/09 (sem preço = valor baixo ou nenhum). etapa_1.cobertura_do_valor existente continua como descrição"
   },
   "valor_por_setor_extras_DIN04_DIN05": {
-   "gravar": "etapa_1.valor_por_setor.{particao.setores[].{p_liquido_do_valor_total, mediana_por_ano}, setores[].q_sobe_x_meio, por_clube: [{ano, clube, faixa, pct_goleiro, pct_defesa, pct_meio, pct_ataque}]}",
-   "p_liquido": "Mann-Whitney sobe x meio no resíduo do posto da fatia sobre o posto do valor total no ano"
+   "gravar": "etapa_1.valor_por_setor.{particao.setores[].{mediana_por_ano, sorte}, setores[].q_sobe_x_meio, por_clube: [{ano, clube, faixa, pct_goleiro, pct_defesa, pct_meio, pct_ataque}]}; particao.setores[].sorte a partir de (p_bruto, q_bh) já gravados",
+   "_doc": "DESCRIÇÃO em euros da DIN-04 e da DIN-05 (a fatia do valor em euros). A pergunta dos títulos é lida por jogador: ver din04_din05_por_jogador.",
+   "sai_nesta_versao": "p_liquido_do_valor_total (a fatia descontada do valor total). O plano_por_dono dizia 'fica como descrição'; os mapas e a DIN-04 da tabela 'conclusoes' do mesmo plano dizem 'sai'. Sai: é um desconto pelo valor total, e a leitura por jogador (fatia do valor ÷ fatia de jogadores) já responde à pergunta sem desconto"
   },
   "por_clube_etapa_2": {
    "colunas": [
@@ -1884,9 +2163,10 @@
    "gravar": "etapa_2.por_clube = [{ano, clube, faixa, pos, postos: {coluna: posto 0-100}, brutos: {coluna: valor}, posicao_no_ano: {coluna: 1 = maior}}] (80 clube-temporadas)"
   },
   "fora_do_top_k_J16": {
-   "gravar": "etapa_8.tipologia.fora_do_top_k = {k, n_fora, nomes, estilos, colado_na_linha, trocam_no_dinheiro, abaixo_da_mediana, p_hipergeometrico, caros_nos_mesmos_estilos}",
-   "medida": "promovidos com posto_valor > k (k = palpite_do_dono.k); abaixo da mediana do território dos 16; p = hipergeométrica C(8,a)/C(16,a); colado = |território - mediana| < 1; trocam = interseção com dinheiro.residualizado.trocaram; caros = promovidos dos mesmos grupos com posto_valor <= tamanho do quartil",
-   "declarada_depois_de_olhar": true
+   "gravar": "etapa_8.tipologia.fora_do_top_k = {k, n_fora, nomes, estilos, colado_na_linha, abaixo_da_mediana, p_hipergeometrico, caros_nos_mesmos_estilos}",
+   "medida": "promovidos com posto_valor > k (k = palpite_do_dono.k); abaixo da mediana do território dos 16; p = hipergeométrica C(8,a)/C(16,a); colado = |território - mediana| < 1; caros = promovidos dos mesmos grupos com posto_valor <= tamanho do quartil",
+   "declarada_depois_de_olhar": true,
+   "sai_nesta_versao": "trocam_no_dinheiro (interseção com o bloco residualizado da etapa 8, que sai)"
   },
   "empates_na_margem_M3": {
    "definicao": "n = candidatos com |nota_fisica.margem_normalizada| >= 1,0; de = candidatos com margem_normalizada não nula; n_pool = etapa_13.n",
@@ -1898,7 +2178,266 @@
    "fonte": "coluna formPrincipal do painel 2022-2025"
   },
   "bateria_limpa_J9": {
-   "gravar": "etapa_8.tipologia.bateria_limpa.por_conjunto_de_validadores = [{n_validadores, fonte, p, p_placebo}]; etapa_8.tipologia.desconto_dinheiro_por_grupo = null (não medido)"
+   "gravar": "etapa_8.tipologia.bateria_limpa.por_conjunto_de_validadores = [{n_validadores, fonte, p, p_placebo}]",
+   "sai_nesta_versao": "etapa_8.tipologia.desconto_dinheiro_por_grupo (e o bloco residualizado da etapa 8)"
+  },
+  "declarada_em": "2026-09-14 (noite), antes de medir",
+  "versao_anterior": "2026-09-14-reconferencia",
+  "vocabulario_sorte": {
+   "_doc": "UM vocabulário de sorte para a aba inteira, gravado pelo gerador como CHAVE; a tela só traduz a chave e todo teste de rótulo no código compara a CHAVE, nunca o texto (ex.: pcSemLadoVisivel).",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "alfa": "etapa_0.poder.alfa (0,05); o gerador lê a constante, não digita",
+   "helper": "uma função só no gerador (hoje _firmeza, que já produz as três chaves na etapa 5), usada pelas etapas 2, 5, 6, 7, 9, pelo bloco DIN-04/05 e, com o mesmo corte, por ranking_gaps.py",
+   "chaves": {
+    "firme": "q < alfa (num teste único declarado, q = p)",
+    "pode_ser_sorte": "p < alfa e q >= alfa",
+    "sem_diferenca": "p >= alfa (a tela escreve 'sem diferença clara'; para ρ, 'sem relação clara'; para grupos, 'sem separação clara')"
+   },
+   "decisao_no_cru": "a chave é decidida no p e no q SEM arredondar; o arredondado é só o que vai ao JSON. p ausente = chave null, com o motivo da ausência que a linha já grava",
+   "por_pouco": "NÃO é uma quarta chave e não é gravado no catálogo. 'Por pouco' só aparece atrás de 'firme' (q entre alfa/2 inclusive e alfa exclusive), nos textos das conclusões, lido do critério da régua",
+   "no_limite": "sai como rótulo de sorte; fica só no selo, para a zona cinzenta 0,05 <= p < 0,10 (regua_final)",
+   "sai": [
+    "dificilmente é sorte",
+    "no limite (como rótulo de sorte)",
+    "a faixa 2·alfa do ptSorte"
+   ],
+   "lista_inteira": "para uma lista: chave 'lista' = 'tem_mais_achados_que_a_sorte' (p do excesso < alfa, estrito) | 'nao_tem_mais_achados_que_a_sorte'",
+   "nomes_proprios_que_nao_disputam_a_palavra": [
+    "acima_da_linha_da_sorte (ranking_gaps: mede a busca inteira; não muda)",
+    "'estável' / 'se desfaz' (estabilidade de grupo da etapa 8; era 'firme')",
+    "'média confiável' (era 'média firme')"
+   ],
+   "onde_gravar": [
+    "etapa_2.linhas[].sorte_SM (p_bruto_SM, q_SM) e sorte_SC (p_bruto_SC, q_SC)",
+    "etapa_5.paineis[*].resumo_grupos.firmeza.*[].chave (JÁ gravada; não muda, contagens 32 · 73 · 481)",
+    "etapa_6.mesmo_ano.rho_mesmo_ano[ind].sorte (p, q) e etapa_6.mesmo_ano.lista_inteira.lista",
+    "etapa_7.linhas[].sorte (p_parcial, q_parcial) e etapa_7.excesso.*.lista",
+    "etapa_9.reguas[].sorte (p_SM, q_SM já gravados)",
+    "ranking_gaps.linhas[].sorte (p, q da tabela)",
+    "etapa_1.valor_por_setor.particao.setores[].sorte e etapa_1.valor_por_setor.ponderado_por_jogador.particao.setores[].sorte (p_bruto, q_bh)",
+    "sobecai_corrigido_por_clube.<setor>.itens[].sorte_clube (p_clube, q_clube)",
+    "etapa_3.por_familia[f].excesso[c][nivel].lista e sobecai_corrigido_por_clube.<setor>.excesso.SC[nivel].lista"
+   ],
+   "sem_chave": "etapa_6.rho (t→t+1) continua como DADO, sem chave: não é mais critério. O p do rodízio (p_rod_*) não ganha chave: é a 5ª pergunta do físico, lida por p < 0,05"
+  },
+  "nivel_rod": {
+   "_doc": "O desconto que FICA: só o rodízio de elenco (nº de atletas rastreados). Toda coluna fis_* é média por atleta rastreado, e quem roda menos gente tem menos atletas na média. Substitui o 'liq2' (valor + atletas); não soma o dinheiro.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "onde": "etapa_2.linhas[] das famílias fisico_col_elenco (controle: posto no ano de fis_atletas) e fisico_col_setor (controle: posto no ano de fis_<setor>_atletas do setor da linha)",
+   "residuo": "residualiza(posto da linha, posto do controle) do gerador: mínimos quadrados com intercepto, uma vez nas 80 clube-temporadas 2022-2025, só onde os dois existem",
+   "teste": "Welch bilateral no resíduo; tamanho = d de Cohen no resíduo; SM e SC",
+   "gravar": "etapa_2.linhas[].{d_rod_SM, p_rod_SM, d_rod_SC, p_rod_SC, rod_controle: 'posto de fis_atletas' | 'posto de fis_<setor>_atletas', rod_motivo: null}; linhas sem físico: os quatro null, rod_controle null e rod_motivo 'não é média por atleta rastreado: o nº de atletas não é denominador desta linha'",
+   "uso": "5ª pergunta da régua no físico: 'continua entre times que rodaram o elenco parecido?' = p_rod < 0,05 no lado da comparação da conclusão; porta A no físico exige p_rod_SM < 0,05; ranking_gaps usa o mesmo controle",
+   "sai_nesta_versao": "d_liq_SM, p_liq_SM, d_liq_SC, p_liq_SC, q_liq_SM, ic_liq, d_liq2_SM, p_liq2_SM, d_liq2_SC, p_liq2_SC, liq2_controle, liq2_motivo, passam5_liq_SM, bh5_liq_SM, e as colunas res/pl da sensibilidade da agregação da etapa 5",
+   "referencia_da_parte_1": "scratchpad/dinheiro/m1_rodizio_catalogo.py: físico sobe x cai com p < 0,05 — 41 no bruto, 34 só com o rodízio; conferência do número regravado, não alvo"
+  },
+  "regua_final": {
+   "_doc": "A régua dos selos das conclusões, versão 'contra a sorte' do plano aprovado, com as quatro respostas do dono e as quatro decisões do coordenador. Escrita antes de o gerador regravar qualquer número. O texto que vai à tela é do dono de CONCLUSOES.md/conclusoes_spec.json; aqui fica a regra que a máquina aplica.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "alfa": "etapa_0.poder.alfa (0,05)",
+   "perguntas": [
+    "1. A comparação foi escrita antes de olhar?",
+    "2. É firme? (q de Benjamini-Hochberg < alfa na família declarada; num teste único declarado, q = p)",
+    "3. Foi conferida por outro caminho? Conferências testáveis: o 1º turno prevê o 2º (p_parcial < 0,05 E sinal_certo; não pelo q dos 28) e 2018-2021 (p < 0,05 E mesmo sinal). Quando o teste é por ano (DIN-01, DIN-02), valem também 'cada ano sozinho' e 'deixando um ano de fora'",
+    "4. A lista de onde ela saiu tem mais achados do que a sorte produz? (p do excesso < alfa, contagem no bruto)",
+    "5. (só no físico) Continua entre times que rodaram o elenco parecido? (p_rod < 0,05 no lado da comparação)"
+   ],
+   "selos_na_ordem": [
+    "SEM SINAL: p >= 0,10; ou 0,05 <= p < 0,10 quando a mesma linha não tem p < 0,05 em nenhuma outra comparação (vai com 'no limite'). Sempre 'não se viu', dizendo o que o estudo conseguiria ver",
+    "FRACO: 0,05 <= p < 0,10 quando a mesma linha tem p < 0,05 em outra comparação",
+    "FRACO no físico: p_rod >= 0,05",
+    "COMPARAÇÃO ESCOLHIDA DEPOIS DE OLHAR: MODERADO se a lista DELA tem mais achados que a sorte; sem lista, ou lista no nível da sorte, FRACO; nunca FORTE",
+    "DECLARADA E FIRME: FORTE só com PELO MENOS UMA conferência testável, TODAS as testáveis passando e sem cair em firme_por_pouco; MODERADO se alguma conferência testável falhou (quando discordam, vale a mais fraca); MODERADO quando NENHUMA conferência é testável; MODERADO em firme_por_pouco",
+    "DECLARADA E NÃO FIRME (p < 0,05, q >= alfa): MODERADO se a lista da família tem mais achados que a sorte; senão FRACO",
+    "NÃO DÁ PARA AFIRMAR: só (a) 'qual é maior' com intervalo cruzando zero, (b) dado inexistente, (c) contas da mesma pergunta com lados opostos"
+   ],
+   "firme_por_pouco": {
+    "regra": "resposta a do dono (14/09, noite), REGRA GERAL para todas as conclusões: firme por pouco (alfa/2 <= q < alfa, isto é 0,025 <= q < 0,05, no q sem arredondar) com exatamente UMA conferência testável = MODERADO, mesmo que essa conferência passe",
+    "hoje_atinge": "J17 (é a única conhecida no plano; se o gerador achar outra, ela segue a mesma regra e vai no relato)"
+   },
+   "sem_conferencia_testavel": "nenhuma conferência testável = MODERADO, nunca FORTE (escrito com todas as letras na régua e na regra_maquina)",
+   "regras_proprias_que_continuam": [
+    "repetição do atleta (FIS-07, M1, M6, M7): FORTE quando o teste de cada par de anos dá p < 0,05 em todas as métricas declaradas, na régua do setor e na declarada antes (etapa_11_mesma_regua.regua_repeticao)",
+    "contas da mesma pergunta (ELE-06, J8, J9): no mesmo lado, uma passa e outra não: segue a declarada antes; nenhuma declarada antes: o selo mais fraco",
+    "a regra da lista inteira de 14/09 (excesso_por_familia)"
+   ],
+   "sai_da_regua": [
+    "'continua entre times de valor de elenco parecido' (do forte, do moderado e da comparação escolhida depois)",
+    "'o mesmo clube no ano seguinte' (das conferências e do desempate)",
+    "os níveis liq e liq2 do excesso (liq2 vira rod)",
+    "o controle da cobertura da DIN-01",
+    "a constante 'o desconto do dinheiro não se aplica'"
+   ],
+   "regra_maquina": "toda conclusão ganha as mesmas 5 entradas: declarada (bool); p e q; conferências, cada uma true / false / 'nao_testavel', mais a constante ha_conferencia_testavel; lista_p; p_rod (só no físico, null fora dele). Os k do 1º turno e de 2018-2021 passam a decidir (decide=true). Teste de aceitação: a máquina dá, nas 57, os selos da tabela plano.conclusoes com as respostas abaixo aplicadas; não pode haver remendo linha a linha",
+   "respostas_do_dono": {
+    "a": "J17 MODERADO pela regra geral firme_por_pouco; as cinco seguem a regra de escolha de sempre com o que estiver gravado",
+    "b": "aba mais afirmativa ACEITA: J19, ELE-03, A2 e as outras que sobem levam a ressalva escrita sem desconto e sem receita 'elenco valioso tende a ter isso; o estudo não separa as duas coisas' (medida em andam_com_o_valor)",
+    "c": "porta A SÓ LEITURA, nome 'firme e reaparece por outro caminho'; a nota da etapa 13 NÃO muda (ver portas)",
+    "d": "M4 = zaga e lateral (fraco); o ATAQUE vira conclusão própria (moderado): 57 conclusões (ver conclusao_ataque_por_clube)"
+   },
+   "decididos_pelo_coordenador": {
+    "A1": "família dos 2 eixos (fraco), registrada como 'família escolhida depois de olhar' (ver familia_A1)",
+    "DIN04_DIN05": "lidas por jogador (sem sinal), com a fatia em euros descrita (ver din04_din05_por_jogador)",
+    "etapa_13": "só ganha a MARCA da lista por setor, sem filtro (ver marca_etapa_13)",
+    "etapa_10": "lista fixa resultado + consequência do ranking_gaps (ver etapa_10_lista_fixa)"
+   },
+   "as_cinco": "regra de escolha de sempre (bloco_conclusoes.regra_das_cinco da ordem): primeiro o selo, depois o menor p_principal_cru; nada é escolhido à mão"
+  },
+  "portas": {
+   "_doc": "Portas do catálogo (293 linhas, quem sobe x meio). SÓ LEITURA: a etapa 13 nunca leu a porta (a nota usa p_clube_cru do sobecai_corrigido) e nada passa a ler. Resposta c do dono.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "ordem_de_teste": [
+    "D: coluna na lista de resultado (DECL['resultado']); motivo 'lista branca de resultado: é o placar redescrito' (sem mudança)",
+    "A: q_SM < 0,05 E p_1T_2T < 0,05 E sinal(rho_1T_2T) == sinal declarado da linha (sinal +1 ou -1); nas linhas físicas, também p_rod_SM < 0,05. Tudo no valor sem arredondar quando o gerador o tiver; p_1T_2T hoje chega da etapa 7 arredondado a 4 casas — o dono do gerador registra no relato se alguma linha fica na borda",
+    "B: p_bruto_SM < 0,05 sem chegar a A",
+    "'-': p_bruto_SM >= 0,05 (ou ausente)"
+   ],
+   "porta_C": "DEIXA DE EXISTIR (era 'passa no bruto e morre no líquido')",
+   "sem_subletras": "B não tem B1/B2/B3",
+   "nome_da_porta_A": "firme e reaparece por outro caminho",
+   "nomes_proibidos": [
+    "critério de contratação",
+    "entra no score",
+    "sobrevive ao dinheiro",
+    "se repete"
+   ],
+   "rotulo_ao_lado_da_letra": "sorte_SM da própria linha (chave de vocabulario_sorte)",
+   "motivos": {
+    "A": "firme e o 1º turno previu o 2º no lado declarado (parcial {rho_1T_2T}, p {p_1T_2T})",
+    "B_firme_1T_falhou": "firme, mas o 1º turno não previu o 2º (parcial {rho_1T_2T}, p {p_1T_2T})",
+    "B_firme_sem_lado": "firme, sem lado declarado: não deu para conferir no 1º turno",
+    "B_firme_sem_jogo": "firme, sem versão por jogo: não deu para ver se vem antes do resultado",
+    "B_firme_fisico_rodizio": "firme, mas não continua entre times que rodaram o elenco parecido (p {p_rod_SM})",
+    "B_nao_firme": "separa, mas não sobra na conta dos {n_familia} parecidos (q {q_SM}); quando etapa_3.por_familia[familia].excesso.SM.bruto.lista = tem_mais_achados_que_a_sorte, acrescenta '; a lista tem mais achados do que a sorte produz'",
+    "traco": "não separa quem sobe do meio (p {p_bruto_SM})"
+   },
+   "regra_do_texto": "motivo montado do dado da linha (nenhum número digitado); nunca usa a palavra 'sorte' salvo no sufixo da lista, que é o nome da regra da lista inteira. O sufixo depende do excesso da etapa 3: o gerador completa porta_motivo depois de calcular o excesso (não inventar o excesso dentro da etapa 2)",
+   "sai_nesta_versao": "rho_persist >= 0,30, p_liq_SM < 0,05 e q_SM < 0,10 como exigências; a porta C; os motivos 'sobrevive ao dinheiro' e 'não se repete de um ano para o outro'",
+   "etapa_14": "etapa_14.justificativa_no_dado.porta passa a ser LIDA de etapa_2.linhas[indicador].porta (hoje 'B' digitado); share_11 continua com a marca de consequência do ranking_gaps ao lado",
+   "compatibilidade": "P.etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti) mantém a assinatura e o retorno de 3 valores (linhas, resumo_fam, liq): persist vira opcional e ignorado e o 3º valor fica, com comentário 'mantido para o gerar_pontos até o item 6' (gerar_pontos.py 2411 desempacota os 3 e passa persist; ver fica_para_o_item_6 do plano). P.bootstrap_por_clube(d80, postos, liq, inds) mantém a assinatura (gerar_pontos.py 2421 passa o liq): o bootstrap grava só o bruto (ic_liq sai) e o parâmetro liq fica aceito e ignorado, com o mesmo comentário. rho_persist e n_persist saem da linha do catálogo; etapa_6.rho continua",
+   "referencia_da_parte_1": "A 2 (dist_remate, remates_baliza_pct), B 27 (6 firmes), C 0, '-' 264; conferência, não alvo"
+  },
+  "etapa_9_sem_esmaecido": {
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "regra": "etapa_9.reguas[]: sai o 'esmaecido' (rho t→t+1 < 0,30), sai rho_persist (da régua e de itens_crus), saem d_liq_SM e p_liq_SM (da régua e de itens_crus) e a contagem 'viva no líquido'. Cada régua ganha 'sorte' a partir de p_SM e q_SM JÁ gravados. H_dinheiro fica como régua que descreve o valor do elenco",
+   "nao_pode_mudar": "p_SM, q_SM e d_SM das 9 réguas, inclusive H_dinheiro",
+   "compatibilidade": "P.etapa_9(d80, E, itens_eixo, postos, linhas_cat) mantém a assinatura (gerar_pontos.py 2464)"
+  },
+  "etapa_10_lista_fixa": {
+   "_doc": "'Não contrate para isto'. Decidido pelo coordenador pela regra da casa (a mesma do gerar_pontos.py).",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "membresia": "a lista declarada em ranking_gaps.py (versão RG.VERSAO_DAS_LISTAS): coluna com RG.motivo_resultado (tipo 'resultado') ou RG.motivo_consequencia (tipo 'consequencia'), fora de RG.REGUA e das colunas faixa/faixa_pts/faixa_posicao, com algum valor finito no painel d80; a MESMA regra de gerar_pontos.py etapa_10 (~1402-1440). Não depende de porta, de rho nem de p",
+   "linha": "{indicador, nome, tipo, motivo, <MARCA_RETIRADA>: motivo (só nas de resultado), m_sobe, m_meio, m_cai, d_bruto_SM, d_bruto_SC, porta_no_catalogo (lida, só informação)}; ordem por |d_bruto_SC| decrescente",
+   "sai_nesta_versao": "rho_persist na linha, porta como critério de entrada, porta_B_sem_persistencia_medida e no_limiar_do_arredondamento",
+   "nao_e": "filtro de sorte: 'toda porta B' daria outra lista, com várias que separam de verdade",
+   "compatibilidade": "a assinatura de etapa_10 não é importada pelo gerar_pontos (ele tem a própria)",
+   "referencia_da_parte_1": "25 → 22 linhas (entram atletas_usados, nucleo_300, nucleo_1000; saem remates_baliza_pct, duelos_pct, fis_meio_expl_accel_sprint_p90, ti_meio_cortes_de_carrinho_ajust_a_posse, ti_meio_duelos_defensivos_ganhos, ti_meio_faltas_90); conferência, não alvo"
+  },
+  "marca_etapa_13": {
+   "_doc": "Decidido pelo coordenador: a etapa 13 só ganha uma MARCA por setor — o rótulo da lista por clube de quem sobe x quem cai. Não é filtro, não é porta e não muda nota, alvo, indicador nem candidato.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "fonte": "sobecai_corrigido_por_clube.<setor>.excesso.SC.bruto.lista (chave de vocabulario_sorte.lista_inteira)",
+   "onde_fica": "a chave fica gravada SÓ no sobecai_corrigido_por_clube; etapa_13 não recebe campo novo, porque diff_permitido_no_json do plano diz 'etapa_13 inteira NÃO PODE MUDAR'. A tela da etapa 13 lê a chave de lá. Se o coordenador quiser a marca dentro de etapa_13, precisa acrescentar a linha no diff permitido",
+   "texto": "'a lista tem mais achados do que a sorte' / 'a lista não tem mais achados do que a sorte' ao lado do setor; nenhuma frase de contratação",
+   "setores_goleiro": "goleiro não tem setor físico: sem marca, com o motivo",
+   "docstring": "corrigir no gerador o texto 'só porta A entra no score' (docstring ~38-42 e comentário ~1865-1869): a nota nunca leu porta"
+  },
+  "ranking_gaps_sem_dinheiro": {
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "parametro_r_val": "tabela_de_gaps continua ACEITANDO r_val (assinatura intacta: gerar_pontos.py 2614-2663 ainda o passa até o item 6), mas o IGNORA, com comentário 'mantido para o gerar_pontos até o item 6'; o gerador do Protótipo chama com r_val=None e controles=RG.controles_de_atletas_rastreados(meta, d80)",
+   "desconto": "só nas linhas com controle (físicas): resíduo do posto do indicador sobre o posto no ano de atletas rastreados do setor (ou do elenco), mínimos quadrados; o mesmo grupo contra o resto, Mann-Whitney bilateral",
+   "gravar_linha": "linhas[].{tamanho_descontado_elenco, n_descontado_elenco, p_descontado_elenco, controle_extra: 'posto de fis_<setor>_atletas' | 'posto de fis_atletas', sorte}; linha sem controle: p_descontado_elenco null e motivo_descontado_elenco 'não é média por atleta rastreado'; sorte a partir de (p, q) da linha",
+   "gravar_resumo": "resumo.{sobrevivem_q_e_elenco, sobrevivem_q_e_elenco_sem_consequencia, regra_sobrevivem_q_e_elenco}: q < 0,05 E (linha sem controle OU p_descontado_elenco < 0,05), nos valores crus; _sem_consequencia tira as linhas com consequencia_do_resultado",
+   "regra_do_desconto_texto": "'resíduo do posto do indicador no posto de atletas rastreados (só nas linhas físicas), mínimos quadrados; o mesmo grupo contra o resto'",
+   "sai_nesta_versao": "p_descontado_dinheiro, tamanho_descontado_dinheiro, n_descontado_dinheiro, motivo_descontado_dinheiro, *_descontado_dinheiro_e_elenco, sobrevivem_q_e_dinheiro, sobrevivem_q_e_dinheiro_sem_consequencia, sobrevivem_q_e_so_dinheiro_sem_desconto_de_elenco, motivo_sobrevivem_q_e_dinheiro, regra_sobrevivem_q_e_dinheiro",
+   "nao_muda": "acima_da_linha_da_sorte e a linha da sorte ([7, 23]); se_repete do outro período (é 2018-2021, não o ano seguinte: corrigir o comentário ~1901); p, q e tamanho brutos",
+   "referencia_da_parte_1": "sobrevivem_q_e_elenco esperado 24 (as 6 físicas firmes passam só com o rodízio); sorte 24 · 70 · 199; conferência, não alvo"
+  },
+  "din04_din05_por_jogador": {
+   "_doc": "Decidido pelo coordenador (regra da casa, a mesma decisão da etapa 1): DIN-04 e DIN-05 lidas POR JOGADOR. O bloco já está gravado (etapa_1.valor_por_setor.ponderado_por_jogador, declarado antes de medir em 14/09, sem desconto pelo valor do elenco); esta declaração só diz o que cada conclusão lê e acrescenta a chave.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "DIN_04": {
+    "pergunta": "a defesa de quem sobe vale mais do que a parte de gente que ela tem?",
+    "decide": "ponderado_por_jogador.particao.setores[setor=defesa].{p_bruto, q_bh} (índice = fatia do valor ÷ fatia de jogadores; Mann-Whitney sobe x meio no posto do ano; BH nos 4 setores)",
+    "descreve": "valor_por_setor.particao.setores[setor=defesa].{p_bruto, q_bh} (a fatia em euros), com a leitura 'é a defesa ter mais gente'",
+    "regra_maquina": "{k0: p_bruto >= 0,10} → sem_sinal; sem desconto do valor total"
+   },
+   "DIN_05": {
+    "pergunta": "o setor diz algo além do valor do elenco?",
+    "decide": "ponderado_por_jogador.particao.menor_p.{setor, p_bruto, q_bh}",
+    "descreve": "ponderado_por_jogador.setores[].{eur_por_jogador_mediano_*, p_sobe_x_meio, q_bh_sobe_x_meio}: o valor por jogador maior é o mesmo sinal da DIN-01 visto por setor e NÃO vira selo próprio (não contar o mesmo achado duas vezes, nem sugerir 'invista na defesa')"
+   },
+   "gravar": "só a chave 'sorte' em ponderado_por_jogador.particao.setores[] e valor_por_setor.particao.setores[] (vocabulario_sorte)",
+   "familia_do_bh": "a já gravada: 4 setores, separada em cada comparação; elenco fora da família"
+  },
+  "conclusao_ataque_por_clube": {
+   "_doc": "Resposta d do dono (14/09, noite): a M4 fica com zaga e lateral (fraco) e o ATAQUE vira conclusão própria (moderado). A família (medidas da nota do setor ataque, clube como caso) e a comparação (SC) foram declaradas antes (nota_por_setor_por_clube); o que foi decidido depois de olhar é só a divisão do título, e isso fica registrado. O selo não depende da divisão: firme por clube, sem conferência testável = moderado.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "id_proposto": "M8 (o id é do dono de conclusoes_spec.json; se mudar, trocar em conclusoes_que_usam da ordem)",
+   "M4_passa_a_ser": "zaga e lateral",
+   "familia": "nota_por_setor_por_clube, setor ataque",
+   "comparacao": "SC (declarada antes)",
+   "criterios": [
+    "firme por clube: algum item com q_clube < 0,05",
+    "lista: sobecai_corrigido_por_clube.ataque.excesso.SC.bruto.p_excesso < 0,05",
+    "5ª pergunta do físico: sobecai_corrigido_por_clube.ataque.passam5_rod >= 1 (algum item com p_rod < 0,05)",
+    "conferência testável: nenhuma (sem 1º→2º turno por clube, sem 2018-2021 físico) → ha_conferencia_testavel = false"
+   ],
+   "titulo_partido_depois_de_olhar": true,
+   "ressalva": "andam_com_o_valor (conclusão que sobe)"
+  },
+  "familia_A1": {
+   "_doc": "Decidido pelo coordenador pela regra da casa: a família da A1 são os 2 eixos da tipologia (território e rota). A família deveria ter sido declarada antes de medir; foi escolhida depois de olhar e fica registrada assim.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "escolhida_depois_de_olhar": true,
+   "eixos": [
+    "TERRITORIO",
+    "ROTA"
+   ],
+   "fonte": "teste_cego_2018_2021.json eixos_como_marcador_de_acesso['2022-2025'][eixo].p_SM (só leitura; arquivo congelado)",
+   "correcao": "Benjamini-Hochberg nos 2 p_SM de 2022-2025",
+   "conferencia": "2018-2021: eixos_como_marcador_de_acesso['2018-2021'].TERRITORIO.p_SM < 0,05 e d_SM com o mesmo sinal",
+   "gravar": "etapa_8.teste_cego.familia_dos_eixos = {eixos, periodo: '2022-2025', p_SM: {eixo: p}, q_SM: {eixo: q}, correcao, escolhida_depois_de_olhar: true, sha256_da_fonte}",
+   "nunca": "usar a lista de outra família (técnico do time) para dar excesso à A1: seria garimpo",
+   "selo_esperado_pela_regra": "fraco (firme só se q < 0,05; a família dos 2 eixos é declarada, mas escolhida depois; sem lista própria)"
+  },
+  "andam_com_o_valor": {
+   "_doc": "Resposta b do dono: a aba fica mais afirmativa e as conclusões que sobem levam a ressalva sem desconto e sem receita 'elenco valioso tende a ter isso; o estudo não separa as duas coisas'. Para a ressalva não ser frase à mão, o gerador mede, para TODAS as linhas (sem escolher quais), se o número anda junto com o valor do elenco. É descrição: não entra em porta, selo, marca nem gate.",
+   "declarada_em": "2026-09-14 (noite), antes de medir",
+   "declarada_depois_de_olhar": "parcialmente: ppda (ρ −0,55), min_estrangeiros (ρ +0,36) e os 12 da A2 (7 andam com o valor) foram vistos na parte 1; as demais linhas não",
+   "medida": "Spearman do posto no ano de tm_valor_total com o posto no ano da coluna, nas 80 clube-temporadas 2022-2025 com os dois valores; p bilateral (scipy.stats.spearmanr); chave de sorte com q de BH dentro da família do catálogo",
+   "gravar": [
+    "etapa_2.andam_com_o_valor = {regra, linhas: [{indicador, rho, p, q, n, sorte}]} para as 293 linhas do catálogo, FORA de etapa_2.linhas (não mexe nas 293)",
+    "sobecai_corrigido_por_clube.<setor>.itens[].{rho_valor, p_rho_valor} com a média do clube (posto no ano)",
+    "etapa_2.estilo_x_valor continua (é o mesmo teste nas 6 colunas de estilo; a J19 lê ppda de lá, sem duplicar)"
+   ],
+   "regra_da_ressalva": "vai a ressalva quando alguma coluna em que a conclusão se apoia tem p < 0,05 na relação com o valor; a frase diz quantas de quantas (ex.: 'x de y números andam junto com o valor do elenco'). Quando nenhuma tem, a frase é 'não se viu isso andar junto com o valor do elenco'. As conclusões que sobem hoje: J17, J19, ELE-03, A2, FIS-04 e a do ataque (conclusao_ataque_por_clube)",
+   "nunca": "virar teto de selo nem desconto (voltaria o dinheiro por outra porta: contraria a decisão 1 do dono)"
+  },
+  "retirado_nesta_versao": {
+   "_doc": "o que saiu desta versão e por quê, para quem comparar com a de 14/09 (reconferência)",
+   "dinheiro": [
+    "excesso_por_familia: níveis liq e liq2, nulo_liq, nulo_liq2, passam5_liq_*, passam5_liq2_*",
+    "origem.dinheiro: esperado, permutacao, razao_de_verossimilhanca, gravar_faixa (fica só a descrição)",
+    "elenco_base.desconto e os p_liq_*",
+    "colocacao_t_t1.desconto_do_dinheiro",
+    "nota_por_setor_por_clube: desconto por tm_valor_total, liq e liq2",
+    "indice_intensidade: p_liq_CM e p_liq2_CM (fica p_rod_CM)",
+    "regra_comparacao_depois_de_olhar: 'E sobreviver ao desconto do dinheiro'",
+    "formacoes_J17: p_liq_CM",
+    "etapa_2_comparacoes_extras: p_liq_CR, q_liq_CR, p_liq_SR, p_liq_CM, q_liq2_SM, q_liq2_SC, nivel liq/liq2",
+    "fis10_bloco: n_p_liq2_SC_abaixo_005",
+    "faltas_x_posse_J3: p_SM_descontada_posse_e_valor",
+    "valor_DIN01_DIN03.cobertura",
+    "valor_por_setor_extras_DIN04_DIN05.p_liquido",
+    "fora_do_top_k_J16: trocam_no_dinheiro",
+    "bateria_limpa_J9: desconto_dinheiro_por_grupo"
+   ],
+   "ano_seguinte": [
+    "etapa_6_mesmo_ano.consequencia (posto em t de quem caiu em t+1)",
+    "porta A: rho_persist >= 0,30; etapa 9: esmaecido (rho < 0,30); etapa 10: rho < 0,15"
+   ],
+   "fica": "o valor do elenco DESCRITO (etapa 1 inteira, régua H_dinheiro, DIN-*, cenários caro/barato e contrafactual da etapa 14, estilo_x_valor, colocacao_t_t1.valor, origem.dinheiro descritivo); etapa_6.rho como dado; 1º→2º turno e 2018-2021 como conferências; as conclusões cujo assunto é a repetição do atleta (FIS-07, M1, M6, M7) e do clube (ELE-06), com selo"
   }
  },
  "bloco_conclusoes": {
@@ -1954,7 +2493,7 @@
       "titulo": "str",
       "frase": "str",
       "numero": "str",
-      "ressalva": "str",
+      "ressalva": "str (nas conclusões que sobem, a ressalva sem desconto e sem receita, montada de etapa_2.andam_com_o_valor / estilo_x_valor)",
       "universo": "str",
       "tecnico": "str",
       "descricao_em_euros": "str (só DIN-01)"
@@ -1990,15 +2529,18 @@
   ],
   "comparacao_declarada_antes": "item.comparacao_declarada_antes = conclusoes_spec.json conclusoes[id].comparacao_declarada_antes (constante do spec). etapa_2.linhas[].comparacao_declarada_antes vale só para as linhas do catálogo; os blocos fora do catálogo (elenco_base, indice_intensidade, colocacao, mando, origem, etapa_11) herdam o declarada_depois_de_olhar da própria declaração",
   "regua_selos_simples": {
-   "forte": "q de BH < 0,05 na família declarada E continua depois do desconto do dinheiro (no físico, também do rodízio) E toda repetição testável passa; nunca por comparação escolhida depois de olhar",
-   "moderado": "p bruto < 0,05 E continua depois do desconto do dinheiro E falta algo do forte; se q >= 0,05, só com a lista de onde saiu acima da sorte (p do excesso < 0,05, contagem bruta); comparação escolhida depois de olhar só chega aqui com a lista dela acima da sorte E o desconto do dinheiro (decisão 1)",
-   "fraco": "p bruto < 0,05 mas some no dinheiro (ou no rodízio, no físico), ou q >= 0,05 com a lista no nível da sorte, ou comparação escolhida depois sem lista acima da sorte",
-   "sem_sinal": "p >= 0,10; zona cinzenta (0,05 a 0,10) sem sinal em outra comparação da mesma linha escreve 'no limite'; a frase escreve 'não se viu'",
+   "_doc": "resumo de leitura; a regra que decide é declaracoes_para_prototipo_indicadores.regua_final (revisão de 14/09, noite)",
+   "forte": "declarada e firme (q < 0,05; teste único q = p) com PELO MENOS UMA conferência testável (1º→2º turno com p < 0,05 no lado declarado, ou 2018-2021 com p < 0,05 e mesmo sinal), TODAS passando, e sem ser firme por pouco com uma conferência só; no físico, p_rod < 0,05",
+   "moderado": "declarada e firme com conferência que falhou, ou sem nenhuma conferência testável, ou firme por pouco (0,025 <= q < 0,05) com uma conferência só; declarada e não firme (p < 0,05) com a lista da família acima da sorte; escolhida depois de olhar com a lista DELA acima da sorte; no físico, sempre com p_rod < 0,05",
+   "fraco": "zona cinzenta (0,05 <= p < 0,10) com p < 0,05 em outra comparação da linha; físico com p_rod >= 0,05; não firme com a lista no nível da sorte; escolhida depois sem lista acima da sorte",
+   "sem_sinal": "p >= 0,10; zona cinzenta sem sinal em outra comparação escreve 'no limite'; a frase escreve 'não se viu'",
    "nao_da_para_afirmar": "só (a) qual dos dois é maior com intervalo cruzando zero, (b) dado inexistente, (c) contas da mesma pergunta com lados opostos",
    "repeticao_do_atleta": "forte quando o teste de cada par de anos dá p < 0,05 em todas as métricas declaradas, na régua do setor e na declarada antes; o corte de 0,5 só descreve o tamanho (decisão 3)",
    "contas_da_mesma_pergunta": "no mesmo lado, uma passa e outra não: segue a conta declarada antes; nenhuma declarada antes: o selo mais fraco",
-   "sem_sexto_rotulo": "cinco selos e só cinco; nada fica 'provisório' nem 'descritivo'"
-  }
+   "sem_sexto_rotulo": "cinco selos e só cinco; nada fica 'provisório' nem 'descritivo'",
+   "saiu": "'continua depois do desconto do dinheiro' e 'o mesmo clube repete no ano seguinte' como exigência de qualquer selo"
+  },
+  "regra_maquina_uniforme": "toda conclusão com as mesmas 5 entradas: declarada; p e q; conferências (true | false | 'nao_testavel') + ha_conferencia_testavel; lista_p; p_rod (só físico). k do 1º turno e de 2018-2021 com decide=true; nenhum k do dinheiro, do ano seguinte ou da cobertura"
  },
  "bugs_do_gerador_relatados": [
   {
@@ -2025,7 +2567,8 @@
    "id": "BUG-4 três formatos para o mesmo excesso",
    "onde": "spec antigo (excesso.SM.p_excesso sem nível; excesso.SC.bruto.p_excesso com nível; sobecai...excesso.p_excesso)",
    "efeito": "um leitor com um formato não acha o outro e tira a conclusão da tela",
-   "conserto": "excesso[comparacao][nivel] em etapa_3.por_familia e em sobecai_corrigido_por_clube.<setor>"
+   "conserto": "excesso[comparacao][nivel] em etapa_3.por_familia e em sobecai_corrigido_por_clube.<setor>",
+   "revisao_14_09_noite": "o formato único vale com nivel em {bruto, rod}"
   },
   {
    "id": "BUG-5 dois nomes para a contagem bruta por clube",
@@ -2037,7 +2580,8 @@
    "id": "BUG-6 duas sementes e dois testes para o excesso por clube",
    "onde": "declaracoes_novas antigas: sobecai_* em excesso_por_familia ([SEMENTE,3,i], Welch no posto) e em nota_por_setor_por_clube ([SEMENTE,13,i])",
    "efeito": "o p do excesso da M5 dependia de qual declaração o gerador seguisse",
-   "conserto": "uma declaração só (nota_por_setor_por_clube.excesso), com o teste que produziu os números (bruto no valor cru por clube; liq/liq2 no resíduo do posto), o meio dentro do sorteio e a semente [SEMENTE, 17, i] (BUG-17)"
+   "conserto": "uma declaração só (nota_por_setor_por_clube.excesso), com o teste que produziu os números (bruto no valor cru por clube; liq/liq2 no resíduo do posto), o meio dentro do sorteio e a semente [SEMENTE, 17, i] (BUG-17)",
+   "revisao_14_09_noite": "os níveis passam a ser bruto e rod (liq e liq2 saíram); a semente [SEMENTE, 17, i] fica"
   },
   {
    "id": "BUG-17 semente do excesso por clube colidia com a dos atletas",
@@ -2103,7 +2647,8 @@
    "id": "BUG-15 ELE-07: o desconto do dinheiro muda com a conta",
    "onde": "scripts da rodada (c78, v578)",
    "efeito": "0,045 (conta da casa), 0,050 e 0,089 (outras duas): o lado do corte muda",
-   "conserto": "gravar só a conta da casa (resíduo do posto do ano sobre o percentil de valor) e dizer na frase que o resultado muda com a conta"
+   "conserto": "gravar só a conta da casa (resíduo do posto do ano sobre o percentil de valor) e dizer na frase que o resultado muda com a conta",
+   "estado": "OBSOLETO na revisão de 14/09 à noite: o desconto do dinheiro saiu; elenco_base grava só o bruto"
   },
   {
    "id": "BUG-16 campos gravados com valor velho marcados como prontos",
@@ -2146,5 +2691,58 @@
    "motivo": "declarados (PENDENTE item 10) mas nenhuma conclusão os lê; ficam para a tela da etapa 6, fora desta ordem"
   }
  ],
- "sem_cobertura": []
+ "sem_cobertura": [],
+ "versao_anterior": "2026-09-14-conserto-final",
+ "retirados_na_revisao_sem_dinheiro": [
+  {
+   "caminho": "etapa_1.cobertura_do_valor.p_valor_descontada_cobertura",
+   "conclusoes_que_usavam": [
+    "DIN-01"
+   ],
+   "motivo": "controle da cobertura da DIN-01: tratava jogador sem preço como dado faltando (decisão do dono de 14/09: sem preço = valor baixo). Sai com o k4 da DIN-01"
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_liq_CR",
+   "conclusoes_que_usavam": [
+    "J5"
+   ],
+   "motivo": "desconto pelo valor do elenco (J5 decide pela lista CR bruta)"
+  },
+  {
+   "caminho": "etapa_2.linhas[].p_liq_CM",
+   "conclusoes_que_usavam": [
+    "J17"
+   ],
+   "motivo": "desconto pelo valor do elenco (J17: o dinheiro era o único motivo do fraco)"
+  },
+  {
+   "caminho": "etapa_2.linhas[].q_liq2_SM",
+   "conclusoes_que_usavam": [
+    "FIS-06"
+   ],
+   "motivo": "q do nível valor + atletas; o rodízio entra na régua como pergunta de p (p_rod), não de q"
+  },
+  {
+   "caminho": "etapa_3.por_familia.<familia>.passam5_liq_SC",
+   "conclusoes_que_usavam": [
+    "FIS-04"
+   ],
+   "motivo": "contagem no nível liq (valor), que saiu"
+  },
+  {
+   "caminho": "etapa_8.tipologia.desconto_dinheiro_por_grupo",
+   "conclusoes_que_usavam": [
+    "J9"
+   ],
+   "motivo": "desconto do dinheiro por grupo (J9); o bloco residualizado da etapa 8 sai inteiro"
+  },
+  {
+   "caminho": "sobecai_corrigido_por_clube.<setor>.q_das_sobreviventes",
+   "conclusoes_que_usavam": [
+    "M5"
+   ],
+   "motivo": "era o BH dos p_liq2 só das sobreviventes; vira q_rod por item (BH em todas as medidas do setor), no campo itens[]"
+  }
+ ],
+ "cobertura_a_reconferir": "sp7_prova.py provou a cobertura contra o conclusoes_spec.json de antes; depois que o dono do spec reescrever a régua e a M4/M8, rodar a prova de novo contra esta ordem (caminhos que saíram: retirados_na_revisao_sem_dinheiro)"
 }

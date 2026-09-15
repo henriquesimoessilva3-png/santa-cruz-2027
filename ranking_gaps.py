@@ -23,8 +23,8 @@ propósito.
 1. **Ordenar 293 indicadores junta no topo os vencedores do acaso.** Por isso a tabela sai
    com a LINHA DA SORTE: os rótulos são sorteados DENTRO do ano, mantendo quantos times de
    cada faixa havia em cada ano, mil vezes, e mede-se o maior gap que o puro sorteio
-   produz olhando todos os indicadores de uma vez. Acima dessa linha, o gap dificilmente é
-   sorte mesmo depois de ter olhado tudo; abaixo, só vale com o desconto dos N testes.
+   produz olhando todos os indicadores de uma vez. Acima dessa linha, o gap é maior do
+   que o sorteio produz olhando os 293 de uma vez; abaixo, só vale com o desconto dos N testes.
    Gerador próprio `np.random.default_rng([7, 23])`: a linha não pode depender do que
    outra etapa sorteou antes.
 2. **Parte do que separa as faixas é o próprio placar dito com outras palavras** (gols,
@@ -36,9 +36,16 @@ propósito.
    "consequência do resultado", que NÃO depende de porta nenhuma — se dependesse, a
    membresia mudaria sozinha a cada troca de faixa.
 
-E duas colunas de desconto, porque "separa" e "separa depois do dinheiro" são perguntas
-diferentes: o p descontado o posto de valor do elenco e, nas linhas físicas (média por
-atleta rastreado), descontado o valor E o número de atletas rastreados.
+E uma coluna de desconto, só nas linhas físicas: toda coluna física é média por atleta
+rastreado, e clube que roda mais gente tem mais atletas na média. O p descontado o posto
+de atletas rastreados (o rodízio do elenco) responde "continua separando entre times que
+rodaram o elenco parecido?". Até 14/09 havia também o desconto do valor do elenco; ele
+saiu de vez (declaracoes_novas.json, `ranking_gaps_sem_dinheiro`): o valor do elenco é
+descrito na etapa 1 do Protótipo, não é régua de achado.
+
+Cada linha grava a chave de sorte (`sorte`), a mesma da aba inteira: "firme" (q < 0,05),
+"pode_ser_sorte" (p < 0,05 e q >= 0,05), "sem_diferenca" (p >= 0,05). Ela lê o p e o q
+desta tabela; a "linha da sorte" é outra régua (mede a busca inteira) e guarda o nome.
 
 ## Sobre "quem destoa"
 
@@ -56,8 +63,8 @@ cima ganha exatamente quando a distância dela ao do meio é maior que a da pont
 O que se compara é o PERCENTIL dentro do ano, que é ordinal — a distância entre o 60 e o 70
 não é "10 unidades" de nada. O teste de postos (Mann-Whitney bilateral) é o que não finge
 escala intervalar, e é o teste da prévia que o dono leu no PENDENTE_RODADA.md (item 6: 24
-sobrevivem ao desconto dos testes, 20 também ao dinheiro; item 7: duelo defensivo do meio
-q 0,048 e p 0,016 descontado o dinheiro). Com Welch esses números mudariam sem ninguém ter
+sobrevivem ao desconto dos testes; item 7: duelo defensivo do meio com q 0,048). Com Welch
+esses números mudariam sem ninguém ter
 mudado de ideia sobre nada. O tamanho continua sendo o d de Cohen no percentil (a régua de
 tamanho do resto do estudo), dito como tal.
 
@@ -1527,6 +1534,25 @@ def _bh(ps):
     return q
 
 
+# A chave de sorte da aba inteira (declaracoes_novas.json, `vocabulario_sorte`). O corte é o alfa da
+# etapa 0 (0,05). A regra é a mesma do `_firmeza` do gerar_prototipo.py, copiada e não importada (este
+# módulo não importa os geradores — ver o cabeçalho). Decide no p e no q CRUS: `_r_sig(0,049996)` = 0,05
+# e a chave arredondada diria "pode ser sorte" de uma linha que é firme.
+ALFA = 0.05
+
+
+def chave_de_sorte(p, q):
+    """'firme' (q < alfa) | 'pode_ser_sorte' (p < alfa e q >= alfa) | 'sem_diferenca' (p >= alfa); p ausente = None.
+
+    "Por pouco" não é uma quarta chave (fica nos textos das conclusões) e "no limite" não é rótulo de sorte.
+    """
+    if p is None or not np.isfinite(float(p)):
+        return None
+    if abaixo(q, ALFA):
+        return "firme"
+    return "pode_ser_sorte" if abaixo(p, ALFA) else "sem_diferenca"
+
+
 def _residuo(y, xs):
     """Resíduo de y em um ou mais controles, mínimos quadrados (sem statsmodels)."""
     y = np.asarray(y, float)
@@ -1682,7 +1708,7 @@ def _conferir_entrada(anos, postos, rotulos, ordem, ano_maximo, rotulo):
 
 def pela_chave(painel, coluna, chave=("ano", "clube")):
     """A coluna do painel como Series indexada pela chave (ano, clube) — o formato que `tabela_de_gaps`
-    exige para anos, rótulos, r_val e controles."""
+    exige para anos, rótulos e controles."""
     return pd.Series(painel[coluna].to_numpy(), index=pd.MultiIndex.from_frame(painel[list(chave)]), name=coluna)
 
 
@@ -1727,10 +1753,11 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
     - `bruto`: DataFrame com o valor cru, mesma forma e MESMO índice, na mesma ordem dos `postos`.
     - `rotulos`: Series (ano, clube) com a faixa de cada linha, nos nomes de `ordem`.
     - `indicadores`: lista de colunas. Coluna da lista de resultado QUEBRA a função.
-    - `r_val`: Series (ano, clube) com o posto de valor do elenco, ou None (sem dinheiro no universo: a
-      coluna descontada sai null com motivo).
-    - `controles`: {indicador: (nome, Series (ano, clube))} — controle extra ao lado do dinheiro (nº de
-      atletas rastreados nas linhas físicas; `controles_de_atletas_rastreados` monta).
+    - `r_val`: ACEITO E IGNORADO — mantido para o gerar_pontos até o item 6 (ele ainda passa o posto de
+      valor do elenco). O desconto do dinheiro saiu em 14/09 (noite); passe None.
+    - `controles`: {indicador: (nome, Series (ano, clube))} — o nº de atletas rastreados nas linhas
+      físicas (`controles_de_atletas_rastreados` monta). É o único desconto: linha com controle ganha
+      `p_descontado_elenco`; sem controle, null com motivo.
     - `meta`: {indicador: dict(nome, familia, pilar, setor)} opcional.
     - `outro`: dict(anos=Series (ano, clube), postos=DataFrame com índice (ano, clube),
       rotulos=Series (ano, clube), rotulo=texto) — o outro período, para a coluna "se
@@ -1739,7 +1766,7 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
       presente mas sem isso → "não"; indicador ausente → "não dá para testar".
 
     ALINHAMENTO (rodada 4): `postos` e `bruto` com índice (ano, clube) — o do `montar_matriz` — e
-    TODO vetor por linha (`anos`, `rotulos`, `r_val`, cada controle; e `postos`, `rotulos`, `anos` do
+    TODO vetor por linha (`anos`, `rotulos`, cada controle; e `postos`, `rotulos`, `anos` do
     `outro`) como Series com o MESMO índice (ano, clube), em qualquer ordem: são reindexados pela chave
     dos postos. Vetor sem índice (`.values`, ndarray, lista) é recusado, porque não deixa conferir a
     ordem. `pela_chave(painel, coluna)` monta a Series. `autoteste_do_alinhamento` prova a recusa.
@@ -1755,11 +1782,10 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
         cols_outro = [c for c in postos.columns if meta[c]["coluna_csv"] in dv.columns]
         dvp = pd.DataFrame({c: dv.groupby("ano")[meta[c]["coluna_csv"]].rank(pct=True).values * 100
                             for c in cols_outro}, index=pd.MultiIndex.from_frame(dv[["ano", "clube"]]))
-        r_val = d80.set_index(["ano", "clube"]).groupby(level="ano")["tm_valor_total"].rank(pct=True) * 100
         ranking_gaps = RG.tabela_de_gaps(
             RG.pela_chave(d80, "ano"), postos, bruto, RG.pela_chave(d80, "faixa"), list(postos.columns),
             ("sobe", "meio", "cai"),
-            r_val=r_val,
+            r_val=None,
             controles=RG.controles_de_atletas_rastreados(meta, d80),
             meta=meta,
             outro=dict(postos=dvp, rotulos=RG.pela_chave(dv, "faixa"), anos=RG.pela_chave(dv, "ano"),
@@ -1785,7 +1811,7 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
     # única conferência era a dos anos contra o nível `ano` do índice. Um `postos.sort_index()` com
     # `d80.faixa.values` passava calado (os anos ficam juntos no sort, e o r_val era reindexado para a
     # ordem NOVA): dinheiro e postos concordavam entre si, as faixas ficavam trocadas, e
-    # sobrevivem_q_5pct ia de 24 para 0 sem erro. Agora anos, rótulos, r_val e controles TÊM de ser Series
+    # sobrevivem_q_5pct ia de 24 para 0 sem erro. Agora anos, rótulos e controles TÊM de ser Series
     # indexadas por (ano, clube) e são reindexados pela chave dos postos; vetor sem índice é recusado.
     _chave_dos_postos(postos, "postos")
     _chave_dos_postos(bruto, "bruto")
@@ -1795,8 +1821,11 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
     assert np.array_equal(anos.astype(int), postos.index.get_level_values("ano").to_numpy().astype(int)), \
         "anos diferentes do nível `ano` do índice dos postos"
     _conferir_entrada(anos, postos[indicadores], rotulos, ordem, ano_maximo, rotulo_universo or "tabela")
-    r_val = None if r_val is None else _alinhar_pela_chave(r_val, postos.index, "r_val", float)
-    controles = {k: (n, _alinhar_pela_chave(v, postos.index, f"controle {n}", float))
+    # `r_val` mantido para o gerar_pontos até o item 6: ele ainda passa o posto de valor do elenco, e a
+    # assinatura não pode quebrar. Aqui é ignorado de propósito — nem alinhado, para que nenhum número da
+    # tabela dependa dele. O desconto do dinheiro saiu da régua em 14/09 (noite).
+    del r_val
+    controles ={k: (n, _alinhar_pela_chave(v, postos.index, f"controle {n}", float))
                  for k, (n, v) in (controles or {}).items()}
     P = postos[indicadores].values.astype(float)
     B = bruto[indicadores].values.astype(float)
@@ -1815,8 +1844,8 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
     linhas, ps, crus = [], [], []
     for j, ind in enumerate(indicadores):
         v, vb = P[:, j], B[:, j]
-        # os p descontados SEM arredondar: o resumo conta com eles (ver `resumo`)
-        cru = dict(p_dinheiro=np.nan, p_elenco=None)
+        # o p descontado SEM arredondar: o resumo conta com ele (ver `resumo`). None = linha sem controle
+        cru = dict(p_elenco=None)
         mt = (meta or {}).get(ind, {})
         g_ix, lado = _destoa(medias[:, j], ordem)
         L = dict(indicador=ind, coluna_csv=coluna_de(ind), nome=mt.get("nome", ind), familia=mt.get("familia"),
@@ -1829,7 +1858,8 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
                  n_por_faixa={g: int(np.isfinite(v[rotulos == g]).sum()) for g in ordem},
                  gap=_r(gaps[j], 2))
         if g_ix is None:
-            L.update(destoa=None, lado=None, tamanho=None, p=None,
+            # sem p não há chave de sorte; o motivo da ausência é o da própria linha
+            L.update(destoa=None, lado=None, tamanho=None, p=None, sorte=None,
                      motivo="faixa sem valor neste indicador: não há três médias para ordenar")
             ps.append(np.nan)
         else:
@@ -1855,28 +1885,20 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
             p = _mw(v[alvo], v[~alvo])
             L["p"] = _r_sig(p, 3)
             ps.append(p)
-            if r_val is None:
-                L["p_descontado_dinheiro"] = None
-                L["motivo_descontado_dinheiro"] = "sem valor de mercado neste universo"
-            else:
-                res = _residuo(v, [r_val])
-                L["tamanho_descontado_dinheiro"] = _r(_d_cohen(res[alvo], res[~alvo]), 3)
-                # o resíduo só existe onde indicador e valor existem: o n do desconto vai junto
-                L["n_descontado_dinheiro"] = int(np.isfinite(res).sum())
-                cru["p_dinheiro"] = _mw(res[alvo], res[~alvo])
-                L["p_descontado_dinheiro"] = _r_sig(cru["p_dinheiro"], 3)
+            # O único desconto: o rodízio do elenco, só onde a coluna é média por atleta rastreado. Mesmo
+            # grupo contra o resto, no resíduo do posto do indicador sobre o posto de atletas rastreados.
             if controles and ind in controles:
                 nome_c, vc = controles[ind]
-                if r_val is None:
-                    res2 = _residuo(v, [vc])
-                    L["controle_extra"] = nome_c
-                else:
-                    res2 = _residuo(v, [r_val, vc])
-                    L["controle_extra"] = f"posto de valor + {nome_c}"
-                L["tamanho_descontado_dinheiro_e_elenco"] = _r(_d_cohen(res2[alvo], res2[~alvo]), 3)
-                L["n_descontado_dinheiro_e_elenco"] = int(np.isfinite(res2).sum())
-                cru["p_elenco"] = _mw(res2[alvo], res2[~alvo])
-                L["p_descontado_dinheiro_e_elenco"] = _r_sig(cru["p_elenco"], 3)
+                res = _residuo(v, [vc])
+                L["controle_extra"] = nome_c
+                L["tamanho_descontado_elenco"] = _r(_d_cohen(res[alvo], res[~alvo]), 3)
+                # o resíduo só existe onde indicador e controle existem: o n do desconto vai junto
+                L["n_descontado_elenco"] = int(np.isfinite(res).sum())
+                cru["p_elenco"] = _mw(res[alvo], res[~alvo])
+                L["p_descontado_elenco"] = _r_sig(cru["p_elenco"], 3)
+            else:
+                L["p_descontado_elenco"] = None
+                L["motivo_descontado_elenco"] = "não é média por atleta rastreado"
         mc = motivo_consequencia(mt.get("coluna_csv", ind))
         L["consequencia_do_resultado"] = bool(mc)
         if mc:
@@ -1886,19 +1908,23 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
         crus.append(cru)
 
     qs = _bh(ps)
-    for L, q in zip(linhas, qs):
+    for L, p, q in zip(linhas, ps, qs):
         L["q"] = _r_sig(q, 3)
+        if L.get("destoa") is not None:
+            L["sorte"] = chave_de_sorte(p, q)      # p e q crus, nunca os arredondados
     # Contagens do resumo com os valores CRUS, todas: `_r_sig(0,049996, 3)` = 0,05 e `abaixo(0,05, 0,05)`
     # é falso, então uma contagem com q cru e outra com q arredondado discordariam na borda.
-    passa_q = [abaixo(q, 0.05) for q in qs]
-    passa_din = [pq and abaixo(c["p_dinheiro"], 0.05) for pq, c in zip(passa_q, crus)]
-    passa_forte = [pd_ and (c["p_elenco"] is None or abaixo(c["p_elenco"], 0.05)) for pd_, c in zip(passa_din, crus)]
+    passa_q = [abaixo(q, ALFA) for q in qs]
+    # sobrevive = firme E, onde há controle (linha física), continua com p < 0,05 descontado o rodízio
+    passa_elenco = [pq and (c["p_elenco"] is None or abaixo(c["p_elenco"], ALFA)) for pq, c in zip(passa_q, crus)]
     e_cons = [L["consequencia_do_resultado"] for L in linhas]
 
     if outro is not None:
         Po = outro["postos"]
         assert "anos" in outro, "o outro período precisa trazer `anos` para a guarda de 2026"
-        # mesma regra do período principal: é a coluna "se repete?", a que dá credibilidade a um achado
+        # A coluna "se repete?" é o OUTRO PERÍODO (2018-2021, os mesmos rótulos de faixa em outros anos), não o
+        # mesmo clube no ano seguinte — essa repetição saiu dos critérios em 14/09 (noite). Mesma regra do
+        # período principal: o mesmo grupo contra o resto.
         rot_o = f"outro período {outro.get('rotulo')}"
         _chave_dos_postos(Po, rot_o)
         ro = _alinhar_pela_chave(outro["rotulos"], Po.index, f"{rot_o}: rotulos", object)
@@ -1952,22 +1978,15 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
         # marcadas "consequência do resultado" (quem ganha repete o XI) estão dentro dele e não são
         # receita. As duas contagens sem elas vão ao lado; as de cima ficam para conferir contra a prévia.
         sobrevivem_q_5pct_sem_consequencia=int(sum(1 for a, c in zip(passa_q, e_cons) if a and not c)),
-        # O sobrevivente conta só depois do desconto MAIS FORTE que existe para a linha: nas
-        # físicas (média por atleta rastreado), dinheiro E número de atletas — é o desconto que
-        # derrubou os físicos do topo da prévia. A contagem só com dinheiro vai ao lado, com
-        # outro nome, para conferir contra a prévia do PENDENTE (item 6).
-        sobrevivem_q_e_dinheiro=(None if r_val is None else int(sum(passa_forte))),
-        sobrevivem_q_e_dinheiro_sem_consequencia=(
-            None if r_val is None else int(sum(1 for a, c in zip(passa_forte, e_cons) if a and not c))),
+        # O sobrevivente conta depois do único desconto que existe: nas linhas físicas (média por
+        # atleta rastreado), o número de atletas rastreados. Linha sem controle passa só pelo q.
+        sobrevivem_q_e_elenco=int(sum(passa_elenco)),
+        sobrevivem_q_e_elenco_sem_consequencia=int(sum(1 for a, c in zip(passa_elenco, e_cons) if a and not c)),
         regra_das_contagens=("todas com os valores crus (q, p e p descontados antes do arredondamento); "
                              "`_sem_consequencia` tira as linhas com consequencia_do_resultado"),
-        regra_sobrevivem_q_e_dinheiro=("q < 0,05 e p < 0,05 no desconto mais forte da linha: dinheiro; nas "
-                                       "linhas físicas, dinheiro e nº de atletas rastreados"),
-        sobrevivem_q_e_so_dinheiro_sem_desconto_de_elenco=(
-            None if r_val is None else
-            int(sum(passa_din))),
-        motivo_sobrevivem_q_e_dinheiro=(None if r_val is not None else
-                                        "sem valor de mercado neste universo: não há desconto de dinheiro"),
+        regra_sobrevivem_q_e_elenco=("q < 0,05 e, nas linhas físicas (média por atleta rastreado), p < 0,05 "
+                                     "descontado o nº de atletas rastreados; linha sem esse controle passa só "
+                                     "pelo q"),
         consequencia_do_resultado=int(sum(1 for L in linhas if L["consequencia_do_resultado"])),
         acima_da_linha_da_sorte=int(sum(1 for L in linhas if L["acima_da_linha_da_sorte"])))
     if outro is not None:
@@ -1987,9 +2006,8 @@ def tabela_de_gaps(anos, postos, bruto, rotulos, indicadores, ordem, *,
                        "sinal do indicador (sinal -1: valor mais baixo é melhor; sinal 0: sem lado bom)"),
         teste="Mann-Whitney bilateral no percentil dentro do ano (ordinal); tamanho = d de Cohen no percentil",
         regra_do_q=f"Benjamini-Hochberg nos {n_testes} testes desta tabela",
-        regra_do_desconto=("resíduo do posto do indicador no posto de valor do elenco "
-                           "(e no posto de atletas rastreados nas linhas físicas), mínimos "
-                           "quadrados; o mesmo grupo contra o resto"),
+        regra_do_desconto=("resíduo do posto do indicador no posto de atletas rastreados (só nas linhas "
+                           "físicas), mínimos quadrados; o mesmo grupo contra o resto"),
         regra_se_repete=("no outro período, o mesmo grupo contra o resto com o mesmo sinal e "
                          "p < 0,05 = sim; presente sem isso = não; ausente = não dá para testar"),
         listas=dict(versao=VERSAO_DAS_LISTAS,

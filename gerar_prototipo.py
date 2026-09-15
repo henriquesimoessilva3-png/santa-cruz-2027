@@ -23,11 +23,14 @@ com o motivo**. `null` com `motivo` sempre; imputação nunca. Um zero no lugar 
 inflação do ano. Todo teste roda no percentil dentro do próprio ano. O valor bruto vai à
 tela ao lado — é o que o dono lê —, mas não é o que o teste vê.
 
-**2. Nenhuma linha existe só no bruto.** Toda comparação sai em duas versões: bruta e
-líquida do dinheiro (resíduo do posto de `tm_valor_total`, por `np.linalg.lstsq`, porque
-não há `statsmodels` aqui). A coluna líquida É a análise; a bruta é o contexto. Mais da
-metade dos indicadores que "separam quem sobe" morre nessa passagem, e essa morte é o
-achado mais caro do estudo.
+**2. O valor do elenco é DESCRITO, nunca descontado.** Até 14/09/2026 toda comparação
+saía também "líquida do dinheiro" (resíduo do posto de `tm_valor_total`), e essa coluna
+decidia porta, selo e lista. O dono tirou o desconto de vez (decisão de 14/09): dá para
+montar elenco valioso gastando pouco, e descontar o valor apagava justamente o que um clube
+pode construir. O valor continua na aba como descrição — etapa 1, régua H_dinheiro, os
+números DIN-* e os cenários da etapa 14. O único desconto que fica é o do RODÍZIO nas linhas
+físicas (`d_rod`/`p_rod`): toda coluna `fis_*` é média por atleta rastreado, e quem usa menos
+gente tem menos atletas no denominador. Esse é defeito da medida, não característica do clube.
 
 **3. A unidade de teste é o INDICADOR CRU, nunca o eixo composto.** Foi compondo eixo
 antes de testar que um dos planos perdeu o achado real: `share_11` e `conc_hhi` separam
@@ -35,11 +38,13 @@ sobe de meio, mas diluídos com `atletas_usados` e `nucleo_300` dentro de um eix
 "estabilidade" não separam nada. Eixo serve para desenhar régua na tela; quando os itens
 discordam, publica-se o item.
 
-**4. Persistência decide o que vira recomendação.** Um traço com ρ≈0,05 de um ano para o
-outro não é plano de clube, é o que sobrou de uma temporada em que deu certo. Por isso o
-selo de porta (A/B/C/D) exige `rho_persist >= 0,30` para que um indicador possa entrar em
-score de contratação — e é por isso que `ppda`, `share_11` e `conc_hhi` ficam de fora do
-score apesar do `d` alto.
+**4. A sorte se confere por outro caminho, não pelo mesmo clube no ano seguinte.** Até
+14/09/2026 a porta A exigia `rho_persist >= 0,30` (o clube repetir o número no ano
+seguinte). O dono tirou essa repetição dos critérios: a construção é para o ano. As
+conferências que ficam são o 1º turno prevendo o 2º (mesmo ano) e 2018-2021 (outro
+período). A porta (A/B/D/'-') é SÓ LEITURA: a nota da etapa 13 nunca a leu e continua sem
+ler. E um vocabulário só de sorte, gravado como CHAVE a partir de (p, q): `firme` (q < 0,05),
+`pode_ser_sorte` (p < 0,05 e q >= 0,05) e `sem_diferenca` (p >= 0,05).
 
 ## As três armadilhas do dado que fazem qualquer implementação devolver lixo em silêncio
 
@@ -322,6 +327,102 @@ def auc(pos, neg):
     if not len(pos) or not len(neg):
         return np.nan
     return float(stats.mannwhitneyu(pos, neg).statistic / (len(pos) * len(neg)))
+
+
+# ---------- o vocabulário de sorte: UMA regra para a aba inteira (declarada em 14/09, noite) ----------
+# Declaração `vocabulario_sorte` de _fonte/prototipo/sessao_14_09/declaracoes_novas.json, copiada para
+# cá ANTES do código que mede, porque este gerador só lê dados/prototipo_indicadores.json. Até 14/09 a
+# aba tinha três rótulos de sorte com cortes diferentes (o "dificilmente é sorte" do p, o "no limite" da
+# faixa 2·alfa, o "firme" do q), e a mesma linha saía com duas leituras em etapas vizinhas. Agora o
+# gerador grava só a CHAVE; a tela traduz. A chave é decidida no p e no q SEM arredondar.
+ALFA_SORTE = 0.05              # etapa_0.poder.alfa
+CHAVES_SORTE = ("firme", "pode_ser_sorte", "sem_diferenca")
+CHAVES_LISTA = ("tem_mais_achados_que_a_sorte", "nao_tem_mais_achados_que_a_sorte")
+
+
+def chave_sorte(p, q):
+    """firme (q < alfa) | pode_ser_sorte (p < alfa e q >= alfa) | sem_diferenca (p >= alfa).
+
+    p ausente (None ou NaN) devolve None: a linha já grava o motivo da ausência. Num teste único
+    declarado, quem chama passa q = p. É a mesma regra de `ranking_gaps.chave_de_sorte`, que o módulo
+    copia em vez de importar (ele não pode importar os geradores).
+    """
+    try:
+        pf = float(p)
+    except (TypeError, ValueError):
+        return None
+    if not np.isfinite(pf):
+        return None
+    try:
+        qf = float(q)
+    except (TypeError, ValueError):
+        qf = np.nan
+    if np.isfinite(qf) and qf < ALFA_SORTE:
+        return "firme"
+    return "pode_ser_sorte" if pf < ALFA_SORTE else "sem_diferenca"
+
+
+def chave_lista(p_excesso):
+    """A lista inteira: tem mais achados do que a sorte produz se o p do excesso < alfa (estrito)."""
+    return CHAVES_LISTA[0] if abaixo(p_excesso, ALFA_SORTE) else CHAVES_LISTA[1]
+
+
+def welch_mat(X, ma, mb):
+    """p bilateral de Welch de cada COLUNA de X, grupo `ma` contra `mb`, ignorando vazios.
+
+    A mesma conta de `welch_p` (scipy `ttest_ind(equal_var=False)`), escrita em matriz porque as
+    listas contra o sorteio pedem 10.000 contagens por família; a igualdade com `welch_p` é conferida
+    no dado real antes de sortear. Coluna com menos de 2 valores num grupo sai NaN, como em `welch_p`.
+    """
+    X = np.asarray(X, float)
+    A_ = np.where(ma[:, None], X, np.nan)
+    B_ = np.where(mb[:, None], X, np.nan)
+    na, nb = np.isfinite(A_).sum(0), np.isfinite(B_).sum(0)
+    with np.errstate(all="ignore"):
+        va, vb = np.nanvar(A_, 0, ddof=1), np.nanvar(B_, 0, ddof=1)
+        se2 = va / na + vb / nb
+        t = (np.nanmean(A_, 0) - np.nanmean(B_, 0)) / np.sqrt(se2)
+        gl = se2 ** 2 / ((va / na) ** 2 / (na - 1) + (vb / nb) ** 2 / (nb - 1))
+        p = 2 * stats.t.sf(np.abs(t), gl)
+    p[(na < 2) | (nb < 2)] = np.nan
+    return p
+
+
+def excesso_contra_o_sorteio(matrizes, rotulos, anos, grupo_a, grupo_b, gen, n_sorteios):
+    """A lista inteira contra o sorteio, em um ou mais níveis que dividem os MESMOS rótulos sorteados.
+
+    `matrizes` = {nivel: X (linhas na ordem de `rotulos`)}. Conta as colunas com p de Welch < alfa,
+    grupo_a contra grupo_b; sorteia os rótulos dentro de cada ano (a posição do clube não muda), e a
+    cada sorteio conta todos os níveis com o mesmo rótulo. p do excesso = (1 + sorteios com contagem
+    >= a real) / (sorteios + 1). Os anos são percorridos em ordem, para o sorteio não depender do
+    `np.unique` nem da ordem de chegada.
+    """
+    rotulos = np.asarray(rotulos, dtype=object)
+    anos = np.asarray(anos)
+    blocos = [np.where(anos == a)[0] for a in sorted(set(int(x) for x in anos))]
+
+    def conta(L):
+        ma, mb = np.isin(L, grupo_a), np.isin(L, grupo_b)
+        return {k: int(np.sum(welch_mat(X, ma, mb) < ALFA_SORTE)) for k, X in matrizes.items()}
+    obs = conta(rotulos)
+    nulo = {k: np.empty(n_sorteios, dtype=int) for k in matrizes}
+    for i in range(n_sorteios):
+        L = rotulos.copy()
+        for ix in blocos:
+            L[ix] = rotulos[ix][gen.permutation(len(ix))]
+        c = conta(L)
+        for k in matrizes:
+            nulo[k][i] = c[k]
+    out = {}
+    for k in matrizes:
+        acima = int((nulo[k] >= obs[k]).sum())
+        p = (1 + acima) / (n_sorteios + 1)
+        out[k] = dict(observado=obs[k], nulo_mediana=r(float(np.median(nulo[k])), 1),
+                      nulo_p95=r(float(np.percentile(nulo[k], 95)), 1),
+                      p_excesso=r_sig(p, 3), sorteios_com_contagem_maior_ou_igual=acima,
+                      erro_monte_carlo=r_sig(float(np.sqrt(p * (1 - p) / n_sorteios)), 2),
+                      sorteios=n_sorteios, lista=chave_lista(p))
+    return out
 
 
 FORMULA_DO_PODER = (
@@ -954,6 +1055,8 @@ def ponderado_por_jogador(d, linhas_valor):
     for x, q in zip(part, qs):
         x["q_bh"] = r_sig(q, 3)
         x["sobrevive_bh_5pct"] = bool(abaixo(q, 0.05))
+        # a chave do vocabulário único (declaração din04_din05_por_jogador), no p e no q crus
+        x["sorte"] = chave_sorte(x["p_bruto"], q)
         x["p_bruto_rotulo"] = rotulo_p(x["p_bruto"])
         x["p_bruto"] = r_sig(x["p_bruto"], 3)
     menor = min(part, key=lambda x: (x["p_bruto"] is None, x["p_bruto"] or 0.0))
@@ -1028,8 +1131,8 @@ def ponderado_por_jogador(d, linhas_valor):
             n_sem_preco="jogadores do setor sem valor publicado (entram com valor zero)",
             mediana="mediana entre as temporadas da faixa; a mediana do índice não é a razão das medianas das fatias"),
         desconto_pelo_valor_do_elenco=None,
-        motivo_sem_desconto=("não aplicado neste bloco: o dinheiro como critério está em decisão com o "
-                             "dono, e esta rodada não acrescenta desconto"),
+        motivo_sem_desconto=("decisão do dono de 14/09: o valor do elenco não é descontado em lugar "
+                             "nenhum da aba; ele é descrito"),
         conferencia=el["conferencia"],
         sem_preco=sem_preco,
         regra_da_posicao="posição no ranking do ano pelo valor por jogador (1 = maior), média por faixa; empate pela média",
@@ -1151,6 +1254,8 @@ def valor_por_setor(d):
     for x, q in zip(part, qs):
         x["q_bh"] = r_sig(q, 3)
         x["sobrevive_bh_5pct"] = bool(q < 0.05)
+        # chave do vocabulário único no p e no q crus: é a fatia em euros, que só DESCREVE a DIN-04
+        x["sorte"] = chave_sorte(x["p_bruto"], q)
         x["p_bruto_rotulo"] = rotulo_p(x["p_bruto"])
         x["p_bruto"] = r_sig(x["p_bruto"], 3)
     menor = min(part, key=lambda x: x["p_bruto"])
@@ -1216,12 +1321,13 @@ def valor_por_setor(d):
 
 
 def etapa_1(d80, d100):
-    """O dinheiro no primeiro parágrafo e não no rodapé.
+    """O valor do elenco no primeiro parágrafo e não no rodapé — como DESCRIÇÃO.
 
-    Quem lê a aba tem de encontrar o baseline antes de ver qualquer eixo tático: 55% de
-    subida no quartil mais caro contra 5% no mais barato, e AUC 0,828 só com o posto de
-    valor. Qualquer eixo, índice ou elenco que não bata isso FORA da amostra é descrição,
-    não recomendação — e o LOSO abaixo existe justamente para medir o "fora da amostra".
+    Quem lê a aba tem de encontrar esta linha de base antes de ver qualquer eixo tático: a
+    taxa de subida por quartil de valor e o AUC só com o posto de valor, com o LOSO (um ano
+    inteiro de fora) e 2026 como fora da amostra. Até 14/09/2026 este número também era régua
+    ("o que não bate o dinheiro não serve para recomendar"); o dono tirou essa régua de vez.
+    Ele fica aqui porque diz quanto o dinheiro sozinho já explica, não para descontar nada.
     """
     d = d80.copy()
     d["r_val"] = posto_ano(d, "tm_valor_total")
@@ -1281,11 +1387,11 @@ def etapa_1(d80, d100):
                                esperado_por_acaso=r(y26.sum() * 4 / len(d26), 2),
                                top4=top4_26, g4_provisorio=g4_26))
 
-    # ---------- o segundo controle, que não é dinheiro: quanta gente o clube usou ----------
+    # ---------- o controle que fica: quanta gente o clube usou ----------
     # Toda média física do catálogo é média POR ATLETA RASTREADO, e quem sobe usa menos
-    # gente. Sem este número ao lado do dinheiro, um "sobrevive ao resíduo de valor" pode
-    # ser só o efeito de dividir por um denominador menor. Ele entra como CONTROLE e nunca
-    # como indicador: o alvo não é correr atrás de elenco curto.
+    # gente: um físico que "separa" pode ser só o efeito de dividir por um denominador menor.
+    # É o ÚNICO desconto que sobrou na aba (o do valor do elenco saiu em 14/09). Ele entra como
+    # CONTROLE e nunca como indicador: o alvo não é correr atrás de elenco curto.
     d["r_at"] = posto_ano(d, "fis_atletas")
     at = d.fis_atletas.values.astype(float)
     a_sobe, a_meio, a_cai = at[d.y.values == 1], at[(d.faixa == "meio").values], at[(d.faixa == "cai").values]
@@ -1308,7 +1414,8 @@ def etapa_1(d80, d100):
                         p_SM=r_p(welch_p(d[f"fis_{s}_atletas"].values[d.y.values == 1],
                                        d[f"fis_{s}_atletas"].values[(d.faixa == "meio").values]), 5))
                    for s in SETORES],
-        entra_como="controle na coluna d_liq2 das 160 linhas físicas da etapa 2",
+        entra_como=("desconto só do rodízio: controle das colunas d_rod/p_rod das linhas físicas da "
+                    "etapa 2 (o valor do elenco não é descontado)"),
         nao_entra_como="indicador: não é característica de jogo, é tamanho de rodízio")
 
     cob = d80.tm_com_valor / d80.plantel
@@ -1414,7 +1521,7 @@ def etapa_7(jog, meta):
     base["r1"] = posto_ano(base, "pts1")
     base["r2"] = posto_ano(base, "pts2")
 
-    linhas = []
+    linhas, p_parcial_cru = [], []
     for ind, m in meta.items():
         col = m.get("jogo")
         if not col or col not in jog.columns:
@@ -1438,6 +1545,14 @@ def etapa_7(jog, meta):
                 if np.isfinite(pr) else
                 "menos de 6 times com os três números, ou ρ perfeito com o controle: parcial indefinida")
         linhas.append(linha)
+        p_parcial_cru.append(pp)
+    # A conta dos muitos testes (declaração etapa_7_q_parcial, 14/09 à noite): Benjamini-Hochberg nos
+    # p parciais de TODAS as linhas, sem filtro de sinal, e a chave do vocabulário único no p e no q
+    # crus. Ela é a leitura da lista; a conferência "o 1º turno prevê o 2º" de uma conclusão continua
+    # sendo p parcial < 0,05 com o sinal certo, não este q.
+    for linha, pp, q in zip(linhas, p_parcial_cru, bh(p_parcial_cru)):
+        linha["q_parcial"] = r_p(q, 4)
+        linha["sorte"] = chave_sorte(pp, q)
     linhas.sort(key=lambda x: -abs(x["rho_parcial"] or 0))
     ref = stats.spearmanr(base.r1, base.r2)
     return dict(titulo_chave="etapa_7", n=len(base), rodadas_1t=19, rodadas_2t=19,
@@ -1617,8 +1732,10 @@ def mesmo_ano(d80, postos, meta):
     for c in validos:
         # p e q por algarismo significativo: com casas fixas um p de 0,00012 saía 0,0001 ao lado do
         # rótulo "< 0,0001", e a tela mostraria dois números diferentes para a mesma coisa.
+        # A chave do vocabulário único (14/09, noite) sai do p e do q CRUS, antes do arredondamento.
         rhos[c] = dict(rho=r(rhos[c]["rho"], 3), p=r_sig(rhos[c]["p"], 3),
-                       p_rotulo=rotulo_p(rhos[c]["p"]), q=r_sig(rhos[c]["q"], 3), n=rhos[c]["n"])
+                       p_rotulo=rotulo_p(rhos[c]["p"]), q=r_sig(rhos[c]["q"], 3), n=rhos[c]["n"],
+                       sorte=chave_sorte(rhos[c]["p"], rhos[c]["q"]))
     # Uso do elenco (XI repetido, minutos concentrados, elenco rodado) é, pela lista do ranking_gaps,
     # CONSEQUÊNCIA do resultado: o time que ganha repete o XI. No mesmo ano isso pesa ainda mais, e
     # são justamente dos mais fortes da ordem. A marca vai no próprio registro de cada um e no bloco,
@@ -1682,6 +1799,7 @@ def mesmo_ano(d80, postos, meta):
             n_testes=len(validos), com_p_menor_005=real,
             mediana_sorteio=r(float(np.median(contagem)), 1),
             p_excesso=r_sig(p_exc, 3),
+            lista=chave_lista(p_exc),
             sorteios_com_contagem_maior_ou_igual=int((contagem >= real).sum()),
             p_excesso_formula="(1 + sorteios com contagem >= real) ÷ (sorteios + 1)",
             sorteios=MESMO_ANO_N_SORTEIOS, semente=MESMO_ANO_SEMENTE,
@@ -1703,15 +1821,16 @@ def pares_consecutivos(d80):
 
 
 def etapa_6(d80, postos, meta, pares):
-    """36 pares clube-ano consecutivos. ρ de Spearman do posto em t contra o posto em t+1.
+    """Pares clube-ano consecutivos: ρ de Spearman do posto em t contra o posto em t+1 — como DADO.
 
-    Este é o filtro que decide o que pode virar recomendação. `fis_distance_p90` em 0,722 e
-    `ppda` em 0,129 na mesma escala respondem sozinhos a pergunta do dono: um é como o
-    clube é, o outro é como o clube esteve.
+    Até 14/09/2026 este ρ era filtro (porta A pedia ρ >= 0,30, a etapa 9 apagava régua com
+    ρ < 0,30, a etapa 10 listava porta B com ρ < 0,15). O dono tirou "o mesmo clube no ano
+    seguinte" dos critérios: a construção é para o ano. O `rho` continua gravado porque é o
+    que o painel mede, e as conclusões cujo ASSUNTO é a repetição (ELE-06) o leem; nenhuma
+    porta, régua ou selo decide por ele. A tela da etapa 6 desenha `mesmo_ano`.
 
-    E o truncamento, que precisa ir junto: dos 36 pares, só 6 terminaram em subida — metade
-    das 16 promoções vem de clube que não estava na Série B no ano anterior. Todo desenho
-    preditivo t→t+1 tem n=6 e a tela diz n=6.
+    O truncamento vai junto: dos pares, poucos terminam em subida, porque boa parte das
+    promoções vem de clube que não estava na Série B no ano anterior. Os números são contados.
     """
     a = np.array([p[0] for p in pares])
     b = np.array([p[1] for p in pares])
@@ -1730,13 +1849,9 @@ def etapa_6(d80, postos, meta, pares):
 
     d = d80.reset_index(drop=True)
     subiu_em_t1 = int(sum(d.faixa.values[b[i]] == "sobe" for i in range(len(a))))
-    # a régua de cima: o dinheiro é a coisa mais persistente do painel. Qualquer traço
-    # tático que se venda como "o modelo do clube" tem de ser lido contra este número.
-    rv = posto_ano(d, "tm_valor_total").values
-    ref = stats.spearmanr(rv[a], rv[b])
+    # Saiu em 14/09 (noite) a `referencia_dinheiro` (o ρ t→t+1 do posto de valor): ela só servia de
+    # régua para o "se repete no ano seguinte", que deixou de ser critério.
     return dict(titulo_chave="etapa_6", n_pares=len(pares),
-                referencia_dinheiro=dict(indicador="tm_valor_total", rho=r(ref.statistic, 3),
-                                         p=r_p(ref.pvalue, 5), n=len(pares)),
                 pares=[dict(clube=c, ano_t=an, ano_t1=an + 1,
                             faixa_t=d.faixa.values[i], faixa_t1=d.faixa.values[j])
                        for i, j, c, an in pares],
@@ -1755,64 +1870,64 @@ def etapa_6(d80, postos, meta, pares):
 #  ETAPAS 2 e 3 — o catálogo dos indicadores e o aviso do sorteio
 # ══════════════════════════════════════════════════════════════════════════════
 
-def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
-    """Uma linha por indicador, bruto E líquido de valor, com o selo de porta.
+# ---------- etapa 2: as portas e o desconto do rodízio (declarados em 14/09, noite, antes de medir) ----------
+# Declarações `portas` e `nivel_rod` de _fonte/prototipo/sessao_14_09/declaracoes_novas.json, copiadas
+# para cá antes da função que mede. A porta é SÓ LEITURA (resposta c do dono): a nota da etapa 13 nunca
+# a leu e continua sem ler. O nome da A ("firme e reaparece por outro caminho") diz o que ela mede, e
+# não o que alguém faria com ela; a tela o traduz da letra. O texto da regra está na declaração `portas`.
+NIVEL_ROD_MOTIVO = "não é média por atleta rastreado: o nº de atletas não é denominador desta linha"
 
-    O que esta tabela faz que nenhum dos planos fez: nunca mostra o bruto sozinho. Os
-    `d` bruto e líquido ficam lado a lado na mesma linha, e é aí que se vê que `posse` cai
-    de +0,52 para +0,01 e `min_estrangeiros` de +0,79 para +0,45 — os dois são dinheiro
-    com nome tático. Sem a coluna líquida ao lado, os dois passariam por achado.
+
+def etapa_2(d80, bruto, postos, meta, conf, temporal, persist=None, ns_ti=None):
+    """Uma linha por indicador: o bruto, a chave de sorte, o desconto do rodízio no físico e a porta.
 
     A comparação primária é sobe × MEIO, não sobe × cai. Sobe × cai mede "time bom contra
     time ruim" e quase tudo passa; é o meio que define o que é CARACTERÍSTICA.
+
+    Até 14/09/2026 cada linha saía também "líquida do dinheiro" (e "líquida do dinheiro e do
+    rodízio"), e a porta dependia da líquida e do clube repetir o número no ano seguinte. Os
+    dois saíram por decisão do dono. Fica um desconto só, o do RODÍZIO, e só nas linhas físicas:
+    toda coluna `fis_*` é média por atleta rastreado, e quem sobe usa menos gente (ver
+    `controle_n_atletas` na etapa 1). O denominador menor levanta a média sem ninguém ter
+    corrido mais; `d_rod`/`p_rod` mostram o que fica entre times que rodaram o elenco parecido.
+
+    `persist` e `ns_ti` continuam na assinatura porque gerar_pontos.py passa os dois (mantido
+    para o gerar_pontos até o item 6); `persist` é aceito e ignorado. O 3º valor devolvido era a
+    matriz líquida do dinheiro e agora é None, também mantido para o gerar_pontos até o item 6
+    (ele só o repassa ao `bootstrap_por_clube`, que o ignora).
     """
+    del persist                      # mantido para o gerar_pontos até o item 6
     faixa = d80.faixa.values
-    r_val = posto_ano(d80, "tm_valor_total").values
     m_sobe, m_meio, m_cai = (faixa == "sobe"), (faixa == "meio"), (faixa == "cai")
     inds = list(postos.columns)
 
-    liq = pd.DataFrame({c: residualiza(postos[c].values, r_val) for c in inds})
-
-    # ---------- o segundo resíduo: dinheiro E número de atletas rastreados ----------
-    # O confundidor que faltava. Toda coluna `fis_*` é média por atleta rastreado, e quem
-    # sobe usa MENOS gente (ver `controle_n_atletas` na etapa 1): o denominador menor
-    # levanta a média sem que ninguém tenha corrido mais. E o nº de atletas não é dinheiro
-    # disfarçado — o ρ entre os dois postos é quase nulo —, então residualizar só em valor
-    # deixa o confundidor inteiro em pé. `d_liq2` ACRESCENTA uma coluna, não substitui
-    # `d_liq`: a passagem que interessa ao leitor é ver as duas lado a lado e descobrir
-    # qual achado físico sobrevive às duas e qual sobrevive só à primeira.
-    # Só linhas físicas: o técnico coletivo é do clube-temporada, não média por atleta.
+    # O controle do rodízio: posto no ano do nº de atletas rastreados (do elenco ou do setor da linha).
+    # Resíduo de mínimos quadrados com intercepto, uma vez nas 80 clube-temporadas (`residualiza`).
     r_atletas = {"fisico_col_elenco": posto_ano(d80, "fis_atletas").values}
     for s in SETORES:
         r_atletas[f"setor_{s}"] = posto_ano(d80, f"fis_{s}_atletas").values
 
-    def residuo_2(ind, mt):
-        """Campos `*_liq2_*` da linha: resíduo de valor + nº de atletas, ou a ausência com motivo."""
+    def residuo_rod(ind, mt):
+        """Campos `*_rod_*` da linha e os p crus (SM, SC); linha sem físico: ausência com motivo."""
         if mt["familia"] == "fisico_col_elenco":
             ctrl, nome = r_atletas["fisico_col_elenco"], "fis_atletas"
         elif mt["familia"] == "fisico_col_setor":
             ctrl, nome = r_atletas[f"setor_{mt['setor']}"], f"fis_{mt['setor']}_atletas"
         else:
-            return dict(d_liq2_SM=None, p_liq2_SM=None, d_liq2_SC=None, p_liq2_SC=None,
-                        liq2_controle=None,
-                        liq2_motivo=("não é média por atleta rastreado: o nº de atletas não "
-                                     "é denominador desta linha e não entra como controle"))
-        p2 = residualiza_multi(postos[ind].values, [r_val, ctrl])
+            return dict(d_rod_SM=None, p_rod_SM=None, d_rod_SC=None, p_rod_SC=None,
+                        rod_controle=None, rod_motivo=NIVEL_ROD_MOTIVO), None, None
+        res = residualiza(postos[ind].values, ctrl)
+        p_sm, p_sc = welch_p(res[m_sobe], res[m_meio]), welch_p(res[m_sobe], res[m_cai])
         return dict(
-            d_liq2_SM=r(d_cohen(p2[m_sobe], p2[m_meio]), 3),
-            p_liq2_SM=r_p(welch_p(p2[m_sobe], p2[m_meio]), 5),
-            d_liq2_SC=r(d_cohen(p2[m_sobe], p2[m_cai]), 3),
-            p_liq2_SC=r_p(welch_p(p2[m_sobe], p2[m_cai]), 5),
-            liq2_controle=f"posto de tm_valor_total + posto de {nome}", liq2_motivo=None)
+            d_rod_SM=r(d_cohen(res[m_sobe], res[m_meio]), 3), p_rod_SM=r_p(p_sm, 5),
+            d_rod_SC=r(d_cohen(res[m_sobe], res[m_cai]), 3), p_rod_SC=r_p(p_sc, 5),
+            rod_controle=f"posto de {nome}", rod_motivo=None), p_sm, p_sc
 
     linhas, fam_p = [], {}
     for ind in inds:
         pb, bb = postos[ind].values, bruto[ind].values
-        pl = liq[ind].values
         d_sm, p_sm = d_cohen(pb[m_sobe], pb[m_meio]), welch_p(pb[m_sobe], pb[m_meio])
-        d_sl, p_sl = d_cohen(pl[m_sobe], pl[m_meio]), welch_p(pl[m_sobe], pl[m_meio])
         d_sc, p_sc = d_cohen(pb[m_sobe], pb[m_cai]), welch_p(pb[m_sobe], pb[m_cai])
-        d_cl, p_cl = d_cohen(pl[m_sobe], pl[m_cai]), welch_p(pl[m_sobe], pl[m_cai])
         mt = meta[ind]
         linha = dict(
             indicador=ind, nome=mt["nome"], coluna_csv=mt["coluna_csv"], pilar=mt["pilar"],
@@ -1824,30 +1939,27 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
             r_sobe=r(np.nanmean(pb[m_sobe]), 1), r_meio=r(np.nanmean(pb[m_meio]), 1),
             r_cai=r(np.nanmean(pb[m_cai]), 1),
             d_bruto_SM=r(d_sm, 3), p_bruto_SM=r_p(p_sm, 5),
-            d_liq_SM=r(d_sl, 3), p_liq_SM=r_p(p_sl, 5),
             d_bruto_SC=r(d_sc, 3), p_bruto_SC=r_p(p_sc, 5),
-            d_liq_SC=r(d_cl, 3), p_liq_SC=r_p(p_cl, 5),
-            rho_persist=persist[ind].get("rho"), n_persist=persist[ind].get("n"),
             rho_1T_2T=temporal.get(ind, {}).get("rho_parcial"),
             p_1T_2T=temporal.get(ind, {}).get("p_parcial"),
             resultado=bool(mt["coluna_csv"] in DECL["resultado"]),
         )
-        linha.update(residuo_2(ind, mt))
+        campos_rod, p_rod_sm, p_rod_sc = residuo_rod(ind, mt)
+        linha.update(campos_rod)
         linhas.append(linha)
-        fam_p.setdefault(mt["familia"], []).append((len(linhas) - 1, p_sm, p_sc, p_sl))
+        fam_p.setdefault(mt["familia"], []).append((len(linhas) - 1, p_sm, p_sc, p_rod_sm, p_rod_sc))
 
-    # Toda DECISÃO (contagem, porta) é tomada no p e no q CRUS, guardados aqui por linha; o
-    # arredondado é só o que vai ao JSON. Com `(q or 1) < 0,05` sobre o arredondado, um q que
-    # saía 0,0 contava como 1 e sumia da contagem; e `np.isfinite(p or np.nan)` fazia o mesmo
-    # com um p cru exatamente zero.
-    cru = {i: dict(p_SM=p_sm_, p_SC=p_sc_, p_liq_SM=p_sl_) for itens in fam_p.values()
-           for i, p_sm_, p_sc_, p_sl_ in itens}
+    # Toda DECISÃO (contagem, chave de sorte, porta) é tomada no p e no q CRUS, guardados aqui por
+    # linha; o arredondado é só o que vai ao JSON. Com `(q or 1) < 0,05` sobre o arredondado, um q
+    # que saía 0,0 contava como 1 e sumia da contagem.
+    cru = {i: dict(p_SM=p_sm_, p_SC=p_sc_, p_rod_SM=prs_, p_rod_SC=prc_) for itens in fam_p.values()
+           for i, p_sm_, p_sc_, prs_, prc_ in itens}
 
     # BH DENTRO de cada família — nunca no bolo (ver docstring de bh())
     resumo_fam = {}
     for fam, itens in fam_p.items():
-        pos = [i for i, _, _, _ in itens]
-        for chave, col in (("q_SM", 1), ("q_SC", 2), ("q_liq_SM", 3)):
+        pos = [i for i, *_ in itens]
+        for chave, col in (("q_SM", 1), ("q_SC", 2)):
             qs = bh([itens[k][col] for k in range(len(itens))])
             for k, i in enumerate(pos):
                 linhas[i][chave] = r_p(qs[k], 5)
@@ -1858,64 +1970,61 @@ def etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti):
             passam5_SM=int(sum(1 for i in pos if abaixo(cru[i]["p_SM"], 0.05))),
             bh5_SM=int(sum(1 for i in pos if abaixo(cru[i]["q_SM"], 0.05))),
             passam5_SC=int(sum(1 for i in pos if abaixo(cru[i]["p_SC"], 0.05))),
-            bh5_SC=int(sum(1 for i in pos if abaixo(cru[i]["q_SC"], 0.05))),
-            passam5_liq_SM=int(sum(1 for i in pos if abaixo(cru[i]["p_liq_SM"], 0.05))),
-            bh5_liq_SM=int(sum(1 for i in pos if abaixo(cru[i]["q_liq_SM"], 0.05))))
+            bh5_SC=int(sum(1 for i in pos if abaixo(cru[i]["q_SC"], 0.05))))
+        # a 5ª pergunta do físico, contada só onde o rodízio é denominador (declaração excesso_por_familia)
+        if fam in ("fisico_col_elenco", "fisico_col_setor"):
+            resumo_fam[fam]["passam5_rod_SM"] = int(sum(1 for i in pos if abaixo(cru[i]["p_rod_SM"], 0.05)))
+            resumo_fam[fam]["passam5_rod_SC"] = int(sum(1 for i in pos if abaixo(cru[i]["p_rod_SC"], 0.05)))
 
-    # ---------- o selo de porta (seção 6.5) ----------
-    # A porta A é deliberadamente difícil: q<0,10 E p líquido<0,05 E ρ>=0,30 E, se for
-    # indicador de jogo, sinal certo na parcial do 1º→2º turno. Só quem tem A entra no
-    # score de contratação. Se a lista de A sair vazia ou quase, isso é o resultado, não
-    # um bug — e é melhor uma porta A vazia do que um score feito de Porta C.
-    # A porta temporal NÃO é dispensável para quem não tem versão por jogo. Escrita como
-    # "ou não é de jogo, ou passou na parcial", ela era verdadeira por omissão em 265 das
-    # 293 linhas: bastava um físico de setor bater o q e o p líquido para sair na tela com
-    # o selo que promete prever o 2º turno sem nunca ter sido testado contra o 2º turno —
-    # e `fis_zaga_distance_p90`, com p líquido 0,021, passou a um q de fazer isso. Agora
-    # quem não tem ρ do 1º→2º turno não chega à porta A, e a linha diz que foi vedada.
+    # ---------- a chave de sorte e o selo de porta (declarações vocabulario_sorte e portas) ----------
+    # A porta é só leitura e não tem mais C. A A pede duas coisas que se conferem por caminhos
+    # diferentes — firme na conta dos testes parecidos E o 1º turno prevendo o 2º no lado declarado
+    # (p < 0,05, não só o sinal: com só o sinal a faltas entrava com ρ −0,014 e p 0,90, cara ou coroa)
+    # — e, no físico, continuar entre times que rodaram o elenco parecido. A porta temporal NÃO é
+    # dispensável para quem não tem versão por jogo: sem ρ do 1º→2º turno a linha não chega à A, e o
+    # motivo diz por quê. Os motivos são montados do número da própria linha e não usam a palavra
+    # "sorte" (o sufixo da lista, que é o nome da regra da lista inteira, é posto pelo `main`, depois de
+    # a etapa 3 medir o excesso).
     for i_linha, L in enumerate(linhas):
+        c = cru[i_linha]
+        L["sorte_SM"] = chave_sorte(c["p_SM"], c["q_SM"])
+        L["sorte_SC"] = chave_sorte(c["p_SC"], c["q_SC"])
         if L["resultado"]:
             L["porta"] = "D"; L["porta_motivo"] = "lista branca de resultado: é o placar redescrito"
             continue
-        # decisão no cru; o texto do motivo continua saindo do arredondado que a tela mostra
-        q = cru[i_linha]["q_SM"] if np.isfinite(cru[i_linha]["q_SM"]) else 1
-        pl = cru[i_linha]["p_liq_SM"] if np.isfinite(cru[i_linha]["p_liq_SM"]) else 1
-        rp = L["rho_persist"]
-        n_fam = resumo_fam[L["familia"]]["testes"]
-        tem_jogo = meta[L["indicador"]].get("jogo") is not None
-        tem_temporal = L["rho_1T_2T"] is not None
-        ok_temporal = bool(tem_temporal and L["sinal"]
-                           and np.sign(L["rho_1T_2T"]) == np.sign(L["sinal"]))
-        if q < 0.10 and pl < 0.05 and rp is not None and rp >= 0.30 and ok_temporal:
-            L["porta"], L["porta_motivo"] = "A", "sobrevive ao dinheiro, se repete e prevê o 2º turno"
-        elif pl < 0.05:
-            # Três motivos MEDIDOS e um quarto que é a ausência da medida, nesta ordem:
-            # cada um carrega o número que o produziu. O motivo antigo dizia "falha na
-            # porta temporal" para cinco linhas que nunca tiveram porta temporal — frase
-            # escrita à mão passando por medida, que é o que a regra da casa proíbe.
+        firme = abaixo(c["q_SM"], ALFA_SORTE)
+        separa = abaixo(c["p_SM"], ALFA_SORTE)
+        fisica = L["familia"] in ("fisico_col_elenco", "fisico_col_setor")
+        tem_temporal = L["rho_1T_2T"] is not None and L["p_1T_2T"] is not None
+        tem_lado = L["sinal"] in (1, -1)
+        previu = bool(tem_temporal and tem_lado and abaixo(L["p_1T_2T"], ALFA_SORTE)
+                      and np.sign(L["rho_1T_2T"]) == np.sign(L["sinal"]))
+        rod_ok = (not fisica) or abaixo(c["p_rod_SM"], ALFA_SORTE)
+        parcial = f"parcial {num_br(L['rho_1T_2T'])}, p {num_br(L['p_1T_2T'], 4)}"
+        if firme and previu and rod_ok:
+            L["porta"] = "A"
+            L["porta_motivo"] = f"firme e o 1º turno previu o 2º no lado declarado ({parcial})"
+        elif firme:
             L["porta"] = "B"
-            if rp is None or rp < 0.30:
-                L["porta_motivo"] = ("não se repete de um ano para o outro "
-                                     f"(rho={num_br(rp)} em {L['n_persist']} pares)")
-            elif q >= 0.10:
-                L["porta_motivo"] = ("sobrevive ao dinheiro mas não sobrevive à família "
-                                     f"(q={num_br(L['q_SM'])} em {n_fam} testes)")
-            elif tem_temporal:
-                esperado = "+" if (L["sinal"] or 0) > 0 else ("−" if (L["sinal"] or 0) < 0
-                                                              else "não declarado")
-                L["porta_motivo"] = (f"falha na porta temporal (rho parcial 1º→2º turno "
-                                     f"{num_br(L['rho_1T_2T'])} contra sinal esperado {esperado})")
+            if not tem_temporal:
+                L["porta_motivo"] = "firme, sem versão por jogo: não deu para ver se vem antes do resultado"
+            elif not tem_lado:
+                L["porta_motivo"] = "firme, sem lado declarado: não deu para conferir no 1º turno"
+            elif not previu:
+                L["porta_motivo"] = f"firme, mas o 1º turno não previu o 2º ({parcial})"
             else:
-                L["porta_motivo"] = ("porta A vedada: sem versão por jogo em "
-                                     "serieb_jogos.csv, o indicador não foi testado contra "
-                                     "o 2º turno e não pode receber o selo que promete prevê-lo")
-        elif abaixo(cru[i_linha]["p_SM"], 0.10):
-            L["porta"], L["porta_motivo"] = "C", "passa no bruto e morre no líquido: é o valor do elenco"
+                L["porta_motivo"] = ("firme, mas não continua entre times que rodaram o elenco parecido "
+                                     f"(p {num_br(L['p_rod_SM'], 4)})")
+        elif separa:
+            L["porta"] = "B"
+            L["porta_motivo"] = (f"separa, mas não sobra na conta dos {resumo_fam[L['familia']]['testes']} "
+                                 f"parecidos (q {num_br(L['q_SM'], 4)})")
         else:
-            L["porta"], L["porta_motivo"] = "-", "não separa sobe de meio nem no bruto"
+            L["porta"] = "-"
+            L["porta_motivo"] = f"não separa quem sobe do meio (p {num_br(L['p_bruto_SM'], 4)})"
 
-    # ---------- teste de sensibilidade da agregação (seção 2) ----------
-    return linhas, resumo_fam, liq
+    # O 3º valor era a matriz líquida do dinheiro: None, mantido para o gerar_pontos até o item 6.
+    return linhas, resumo_fam, None
 
 
 def bootstrap_por_clube(d80, postos, liq, inds):
@@ -1925,13 +2034,18 @@ def bootstrap_por_clube(d80, postos, liq, inds):
     e todo BH aqui assumem independência que não existe — o Cruzeiro de 2022 e o de 2023
     não são dois sorteios. Reamostrar o CLUBE, e com ele todas as suas temporadas, é a
     correção barata: o p de Welch fica na tabela e o intervalo do bootstrap fica ao lado.
+
+    Só o bruto (desde 14/09, noite): o intervalo da coluna líquida do dinheiro saiu com ela. O
+    parâmetro `liq` é aceito e ignorado, mantido para o gerar_pontos até o item 6. O sorteio é o
+    mesmo de antes, réplica a réplica (uma escolha de clubes por réplica no `rng`), então o
+    `ic_bruto` não muda.
     """
+    del liq                          # mantido para o gerar_pontos até o item 6
     faixa = d80.faixa.values
     clubes = d80.clube.values
     unicos = np.unique(clubes)
     por_clube = {c: np.where(clubes == c)[0] for c in unicos}
     Pb = postos[inds].values.astype(float)
-    Pl = liq[inds].values.astype(float)
     sobe = faixa == "sobe"
     meio = faixa == "meio"
 
@@ -1947,17 +2061,13 @@ def bootstrap_por_clube(d80, postos, liq, inds):
             return np.where(sp > 0, (ms - mm) / sp, np.nan)
 
     bru = np.full((N_BOOT, len(inds)), np.nan)
-    liqu = np.full((N_BOOT, len(inds)), np.nan)
     for it in range(N_BOOT):
         escolha = rng.choice(unicos, size=len(unicos), replace=True)
         linhas = np.concatenate([por_clube[c] for c in escolha])
         bru[it] = d_vec(Pb, linhas)
-        liqu[it] = d_vec(Pl, linhas)
     with np.errstate(invalid="ignore"):
         return {ind: dict(ic_bruto=[r(np.nanpercentile(bru[:, k], 2.5), 3),
                                     r(np.nanpercentile(bru[:, k], 97.5), 3)],
-                          ic_liq=[r(np.nanpercentile(liqu[:, k], 2.5), 3),
-                                  r(np.nanpercentile(liqu[:, k], 97.5), 3)],
                           replicas=N_BOOT)
                 for k, ind in enumerate(inds)}
 
@@ -2043,7 +2153,7 @@ def etapa_3(d80, postos, meta, linhas_cat, resumo_fam):
         # arredondado, e era isso que o idioma `(p or 1) < 0,05` estragava (0,0 virava 1).
         # Cada linha pertence a exatamente uma família, então a soma é a mesma contagem.
         **{k: int(sum(rf[k] for rf in resumo_fam.values()))
-           for k in ("passam5_SM", "bh5_SM", "passam5_SC", "bh5_SC", "passam5_liq_SM", "bh5_liq_SM")},
+           for k in ("passam5_SM", "bh5_SM", "passam5_SC", "bh5_SC")},
         nulo_do_garimpo=dict(
             replicas=N_GARIMPO, indicadores=len(inds), indicadores_no_catalogo=total,
             semente=SEMENTE,
@@ -2072,6 +2182,114 @@ def etapa_3(d80, postos, meta, linhas_cat, resumo_fam):
             p_do_melhor_ic95_monte_carlo=[r(lo, 4), r(hi, 4)],
             p_do_melhor_formula="(1 + réplicas >= real) / (réplicas + 1)"),
     )
+
+
+# ---------- etapa 3: a lista inteira de cada família contra o sorteio (declarada antes de medir) ----------
+# Declaração `excesso_por_familia` (regra do dono de 14/09, "olhar a lista inteira"), na versão de 14/09 à
+# noite: níveis bruto e rod, sem os níveis do dinheiro. Copiada para cá antes do código que mede.
+EXCESSO_FAMILIAS = ("tecnico_col", "elenco", "fisico_col_elenco", "fisico_col_setor", "tecnico_ind")
+EXCESSO_COMPARACOES = {"SM": (("sobe",), ("meio",)), "SC": (("sobe",), ("cai",)),
+                       "CR": (("cai",), ("sobe", "meio")), "SR": (("sobe",), ("meio", "cai")),
+                       "CM": (("cai",), ("meio",))}
+EXCESSO_FISICAS = ("fisico_col_elenco", "fisico_col_setor")
+N_EXCESSO = 200 if RAPIDO else 10000
+EXCESSO_DECL = dict(
+    declarada_em="2026-09-14 (noite), antes de medir",
+    pergunta="a lista de onde a conclusão saiu tem mais achados do que a sorte produz?",
+    teste_da_linha="Welch bilateral no posto dentro do ano (0-100)",
+    contagem="linhas da família com p < 0,05",
+    comparacoes={k: dict(grupo_a=list(a), grupo_b=list(b)) for k, (a, b) in EXCESSO_COMPARACOES.items()},
+    nulo=("rótulos sobe/meio/cai sorteados dentro de cada ano, com as linhas na ordem (ano, clube); o "
+          "clube-temporada leva todas as colunas juntas"),
+    sorteios=N_EXCESSO,
+    semente=("np.random.default_rng([SEMENTE, 3, i]), i = 5 × índice da família + índice da comparação, "
+             "nas ordens %s e %s; os níveis bruto e rod usam os MESMOS rótulos sorteados"
+             % (list(EXCESSO_FAMILIAS), list(EXCESSO_COMPARACOES))),
+    p_excesso="(1 + sorteios com contagem >= a real) ÷ (sorteios + 1)",
+    lista="'tem_mais_achados_que_a_sorte' se p_excesso < 0,05 (estrito, no p sem arredondar)",
+    nivel_usado_no_selo="bruto",
+    nivel_rod=("resíduo do posto no ano sobre o posto no ano de fis_atletas (físico do elenco) ou de "
+               "fis_<setor>_atletas (físico por setor), calculado uma vez no dado real; só nas famílias "
+               "físicas, e só descreve"),
+    rod_nas_familias_sem_fisico="rod = null com rod_motivo: não é média por atleta rastreado",
+    # Copiada da declaração (`excesso_por_familia.fronteira`), que já previa este caso antes de
+    # medir e que a primeira versão do código não aplicava: a chave `lista` saía sozinha, e com
+    # 10.000 sorteios o elenco sobe×meio fica a dois erros de Monte Carlo do corte.
+    fronteira=dict(
+        elenco_SM_bruto=("p do excesso entre 0,044 e 0,052 em 12 sementes de 10.000 (a declarada [7,3,5] "
+                         "dá 0,0515): gravar o p da semente declarada e o erro de Monte Carlo; conclusão do "
+                         "elenco que dependa desse excesso não fica moderada por essa conta")))
+
+# Onde a declaração marcou a borda: (família, comparação, nível). A marca não troca a chave `lista`
+# (o formato é um só); ela diz que a chave, ali, é produto do sorteio e não decide selo.
+EXCESSO_NA_BORDA = {("elenco", "SM", "bruto"): "elenco_SM_bruto"}
+# Guarda, não medida: nenhum OUTRO excesso pode cair a menos de 3 erros de Monte Carlo do corte sem
+# estar declarado acima. Se o dado mudar e um cair, o gerador para em vez de gravar outra chave de
+# sorteio como se fosse do dado — e aí a borda nova precisa ser declarada antes de seguir.
+EXCESSO_GUARDA_ERROS = 3
+
+
+def marca_da_borda(res, onde, declarada):
+    """Grava `fronteira` no nível declarado na borda; nos outros, confere que estão longe do corte."""
+    p, emc = float(res["p_excesso"]), float(res["erro_monte_carlo"])
+    perto = emc > 0 and abs(p - ALFA_SORTE) < EXCESSO_GUARDA_ERROS * emc
+    if declarada is None:
+        assert not perto, ("excesso perto do corte sem borda declarada", onde, p, emc)
+        return
+    res["fronteira"] = dict(
+        na_borda_do_sorteio=True,
+        regra_declarada=EXCESSO_DECL["fronteira"][declarada],
+        efeito_no_selo="não decide: conclusão que dependa deste excesso não fica moderada por esta conta",
+        distancia_ao_corte_em_erros_monte_carlo=r(abs(p - ALFA_SORTE) / emc, 1) if emc > 0 else None)
+
+
+def excesso_por_familia(d80, postos, meta, resumo_fam):
+    """`etapa_3.por_familia[f].excesso[comparação]` = {bruto, rod}: a lista inteira contra o sorteio.
+
+    Mede exatamente o que `EXCESSO_DECL` diz. Os sorteios têm gerador PRÓPRIO por (família,
+    comparação), então nada no `rng` global se desloca. Duas conferências antes de gravar: o p de
+    Welch em matriz bate com o `welch_p` da etapa 2, e a contagem observada bate com `passam5_*` do
+    catálogo (bruto) e com `passam5_rod_*` (rodízio) nas comparações que o catálogo já grava.
+    """
+    d = d80.reset_index(drop=True)
+    ordem = sorted(range(len(d)), key=lambda i: (int(d.ano.values[i]), str(d.clube.values[i])))
+    fx = d.faixa.values.astype(object)[ordem]
+    anos = d.ano.values.astype(int)[ordem]
+    ctrl_elenco = posto_ano(d, "fis_atletas").values
+    out = {}
+    for fi, fam in enumerate(EXCESSO_FAMILIAS):
+        cols = [c for c in postos.columns if meta[c]["familia"] == fam]
+        if not cols:
+            continue
+        mats = {"bruto": postos[cols].values.astype(float)[ordem]}
+        fisica = fam in EXCESSO_FISICAS
+        if fisica:
+            mats["rod"] = np.column_stack([
+                residualiza(postos[c].values,
+                            ctrl_elenco if fam == "fisico_col_elenco"
+                            else posto_ano(d, f"fis_{meta[c]['setor']}_atletas").values)
+                for c in cols])[ordem]
+        # conferência do teste em matriz contra o da etapa 2, no rótulo real
+        ma, mb = np.isin(fx, ("sobe",)), np.isin(fx, ("meio",))
+        ref = np.array([welch_p(mats["bruto"][ma, j], mats["bruto"][mb, j]) for j in range(len(cols))])
+        assert np.allclose(welch_mat(mats["bruto"], ma, mb), ref, rtol=1e-6, atol=1e-12, equal_nan=True), fam
+        out[fam] = {}
+        for ci, (comp, (ga, gb)) in enumerate(EXCESSO_COMPARACOES.items()):
+            semente = [SEMENTE, 3, 5 * fi + ci]
+            res = excesso_contra_o_sorteio(mats, fx, anos, ga, gb, np.random.default_rng(semente), N_EXCESSO)
+            for nivel in res:
+                res[nivel]["semente"] = semente
+                marca_da_borda(res[nivel], (fam, comp, nivel), EXCESSO_NA_BORDA.get((fam, comp, nivel)))
+            entrada = dict(bruto=res["bruto"], rod=res.get("rod"))
+            if not fisica:
+                entrada["rod_motivo"] = NIVEL_ROD_MOTIVO
+            out[fam][comp] = entrada
+        rf = resumo_fam[fam]
+        for comp in ("SM", "SC"):
+            assert out[fam][comp]["bruto"]["observado"] == rf[f"passam5_{comp}"], (fam, comp)
+            if fisica:
+                assert out[fam][comp]["rod"]["observado"] == rf[f"passam5_rod_{comp}"], (fam, comp)
+    return out
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -2161,11 +2379,13 @@ def _pct_declarado(ind, m):
 
 
 def _firmeza(p, q):
-    if p is None:
-        return None
-    if q is not None and q < RESUMO_CORTE_Q:
-        return "firme"
-    return "pode_ser_sorte" if p < RESUMO_CORTE_P else "sem_diferenca"
+    """A chave do vocabulário único (`chave_sorte`): um helper só para as etapas 2, 5, 6, 7 e 9.
+
+    Os cortes do resumo são os mesmos do vocabulário (conferido abaixo), então delegar não muda
+    uma contagem da etapa 5.
+    """
+    assert RESUMO_CORTE_Q == ALFA_SORTE and RESUMO_CORTE_P == ALFA_SORTE
+    return chave_sorte(p, q)
 
 
 def resumo_por_grupos(pn, cols, meta, catalogo, n_por_grupo, aviso_do_setor):
@@ -2540,22 +2760,18 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec, catalogo=None):
                                                                n_por_grupo, aviso)
 
     # sensibilidade da regra de agregação do técnico individual (seção 2)
+    # Só o bruto desde 14/09 (noite): a versão descontada do valor do elenco saiu com o desconto.
     sens = {}
     faixa = d80.faixa.values
-    r_val = posto_ano(d80, "tm_valor_total").values
     for regra in ("ponderada", "mediana", "top5"):
         M, _ = agrega_tecnico_individual(tec, d80, regra)
-        ps, pl = [], []
+        ps = []
         for c in M.columns:
             v = pd.Series(M[c].values).groupby(d80.ano.values).rank(pct=True).values * 100
             ps.append(welch_p(v[faixa == "sobe"], v[faixa == "meio"]))
-            res = residualiza(v, r_val)
-            pl.append(welch_p(res[faixa == "sobe"], res[faixa == "meio"]))
         sens[regra] = dict(testes=len(ps),
                            passam5_SM=int(np.nansum(np.array(ps, float) < 0.05)),
-                           bh5_SM=int(np.nansum(bh(ps) < 0.05)),
-                           passam5_liq_SM=int(np.nansum(np.array(pl, float) < 0.05)),
-                           bh5_liq_SM=int(np.nansum(bh(pl) < 0.05)))
+                           bh5_SM=int(np.nansum(bh(ps) < 0.05)))
     marcas = [v for pn in saida.values() for v in pn["ordem_das_medianas_difere_no_cru"]]
     return dict(titulo_chave="etapa_5", paineis=saida, vazios_por_setor=vazios,
                 regra_do_resumo=_regra_do_resumo(d80, saida, catalogo),
@@ -2970,18 +3186,8 @@ def tipologia(d80, postos, bruto, jog):
     # de partições sem mudar o divisor dava um p errado sem erro nenhum.
     p_rival = (1 + (nulo_rival >= e_rival).sum()) / (len(nulo_rival) + 1)
 
-    # residualizar o dinheiro e refazer os cortes: regride cada coluna de construção no
-    # percentil de valor nas 80 linhas, re-ranqueia o resíduo dentro do ano e refaz os
-    # cortes. É aqui que se descobre qual dos dois eixos é bolso com nome tático.
-    Pres = {c: pd.Series(residualiza(postos[c].values, rv)).groupby(d.ano.values)
-            .rank(pct=True).values * 100 for c in usadas}
-    V_res = {e: eixo_tip(DECL["tipologia"][e], Pres) for e in eixo_nomes}
-    cortes_res = {e: float(np.median(V_res[e][sobe])) for e in eixo_nomes}
-    g_res = np.where((V_res[terr][sobe] >= cortes_res[terr]) & (V_res[rota][sobe] >= cortes_res[rota]), "G1",
-             np.where((V_res[terr][sobe] >= cortes_res[terr]), "G2",
-             np.where((V_res[rota][sobe] >= cortes_res[rota]), "G3", "G4")))
-    muda_terr = int(((V[terr][sobe] >= cortes[terr]) != (V_res[terr][sobe] >= cortes_res[terr])).sum())
-    muda_rota = int(((V[rota][sobe] >= cortes[rota]) != (V_res[rota][sobe] >= cortes_res[rota])).sum())
+    # Saiu em 14/09 (noite) o bloco "residualizado" (refazer os cortes descontado o valor do elenco):
+    # era desconto do dinheiro. Ficam os dois testes do valor CONTRA os estilos, acima, que descrevem.
 
     # estabilidade: tirar um time / tirar um indicador
     trocas_time = []
@@ -3257,11 +3463,6 @@ def tipologia(d80, postos, bruto, jog):
                       particao_rival_so_dinheiro=dict(
                           eta2_medio=r(e_rival, 3), eta2_medio_nulo=r(np.mean(nulo_rival), 3),
                           p=r(p_rival, 4)),
-                      residualizado=dict(muda_territorio=muda_terr, muda_rota=muda_rota,
-                                         de=len(sobe),
-                                         trocaram=[f"{d.clube[sobe[k]]} {int(d.ano[sobe[k]])}"
-                                                   for k in range(len(sobe))
-                                                   if g_res[k] != grupo[k]]),
                       rho_posto_valor_x_percentil_ppda=r(
                           stats.spearmanr(posto_val[sobe], postos["ppda"].values[sobe]).statistic, 3),
                       convencao_ppda=("posto de valor 1 = elenco mais caro do ano; percentil "
@@ -3308,86 +3509,93 @@ def etapa_8(d80, postos, bruto, jog, Z, itens_eixo):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def etapa_9(d80, E, itens_eixo, postos, linhas_cat):
+    """As nove réguas contínuas, sobe × meio, com o q das nove e a chave de sorte.
+
+    Até 14/09/2026 a régua saía também descontada do valor do elenco e ESMAECIDA quando o eixo não
+    se repetia no ano seguinte (ρ t→t+1 < 0,30). As duas coisas saíram por decisão do dono
+    (declaração etapa_9_sem_esmaecido): nenhuma régua é apagada, e a H_dinheiro fica como régua que
+    DESCREVE o valor do elenco. `postos` segue na assinatura porque gerar_pontos.py o passa.
+    """
     faixa = d80.faixa.values
-    r_val = posto_ano(d80, "tm_valor_total").values
-    pares = pares_consecutivos(d80)
-    a = np.array([p[0] for p in pares]); b = np.array([p[1] for p in pares])
     cat = {L["indicador"]: L for L in linhas_cat}
     reg = []
     ps = []
     for nome in E.columns:
         v = E[nome].values
-        res = residualiza(v, r_val)
         ps.append(welch_p(v[faixa == "sobe"], v[faixa == "meio"]))
-        rho = stats.spearmanr(v[a], v[b], nan_policy="omit").statistic
         reg.append(dict(eixo=nome, itens=itens_eixo[nome],
                         d_SM=r(d_cohen(v[faixa == "sobe"], v[faixa == "meio"]), 3),
                         p_SM=r_p(ps[-1], 5),
-                        d_liq_SM=r(d_cohen(res[faixa == "sobe"], res[faixa == "meio"]), 3),
-                        p_liq_SM=r_p(welch_p(res[faixa == "sobe"], res[faixa == "meio"]), 5),
-                        rho_persist=r(rho, 3), esmaecido=bool(np.isfinite(rho) and rho < 0.30),
                         sobe=[r(x, 1) for x in v[faixa == "sobe"]],
                         itens_crus=[dict(col=c, d_SM=cat[c]["d_bruto_SM"] if c in cat else None,
-                                         p_SM=cat[c]["p_bruto_SM"] if c in cat else None,
-                                         d_liq_SM=cat[c]["d_liq_SM"] if c in cat else None,
-                                         p_liq_SM=cat[c]["p_liq_SM"] if c in cat else None,
-                                         rho_persist=cat[c]["rho_persist"] if c in cat else None)
+                                         p_SM=cat[c]["p_bruto_SM"] if c in cat else None)
                                     for c in itens_eixo[nome]]))
     qs = bh(ps)
     for k, x in enumerate(reg):
         x["q_SM"] = r_p(qs[k], 5)
+        x["sorte"] = chave_sorte(ps[k], qs[k])       # no p e no q crus
     return dict(titulo_chave="etapa_9", reguas=reg,
                 aviso_composicao="a unidade de teste é o indicador cru; o eixo é régua de tela")
 
 
 def etapa_10(d80, bruto, postos, linhas_cat):
-    """"Não contrate para isto": o que separa forte e é o resultado redescrito."""
+    """"Não contrate para isto": a lista FIXA de resultado e de consequência do resultado.
+
+    Até 14/09/2026 quem entrava aqui saía da porta (D, ou B com o clube sem repetir o número no ano
+    seguinte, ρ < 0,15). O ano seguinte deixou de ser critério, e a porta passou a ser só leitura;
+    então a membresia é FIXA, pelas listas de `ranking_gaps` (versão `RG.VERSAO_DAS_LISTAS`): as linhas
+    do catálogo com motivo de CONSEQUÊNCIA do resultado (o que acontece com quem ganha) ou de
+    RESULTADO, mais as colunas da lista branca de resultado declarada (`DECL["resultado"]`, as mesmas
+    que eram a porta D) que existem no painel com algum valor — fora da própria régua. Não depende de
+    porta, de ρ nem de p: não é filtro de sorte. É a lista de 25 → 22 do plano aprovado (decisão do
+    coordenador pela regra da casa).
+
+    Por que não TODA coluna do painel com motivo das listas, como gerar_pontos.py faz: aqui isso
+    traria 92 linhas, quase todas pedaços do placar que nunca foram candidatas a indicador (a aba
+    por pontos também sai com 92). A declaração `etapa_10_lista_fixa` diz "a mesma regra de
+    gerar_pontos" e cita 25 → 22 como conferência; as duas coisas não cabem juntas, e fica o número
+    do plano — a divergência vai no relato para o dono da declaração.
+
+    Coluna que está no catálogo leva o `d` e as médias do catálogo (posto no ano, a mesma linha que a
+    etapa 2 mostra); coluna fora dele leva o `d` no valor cru. `bruto` e `postos` seguem na
+    assinatura sem uso.
+    """
     faixa = d80.faixa.values
+    cat = {L["coluna_csv"]: L for L in linhas_cat}
+    # A própria régua (pts, posição, a faixa, o aproveitamento) não é "resultado redescrito": é a
+    # definição. Listá-la com d contra as faixas seria mostrar que a régua separa a si mesma.
+    regua = set(RG.REGUA)
+    resultado_declarado = set(DECL["resultado"])
     linhas = []
-    # `(rho_persist or 0) < 0,15` punha a porta B SEM medida de persistência (rho null: menos de 8
-    # pares) nesta lista, como se não se repetisse — ausência decidindo como número. Ela sai daqui
-    # e vai para `porta_B_sem_persistencia_medida`, com o motivo. A comparação usa o rho de 3 casas
-    # que a etapa 2 recebeu (o cru não viaja até aqui); ela só pode discordar da do cru quando o
-    # arredondado cai exatamente em 0,150, e essas linhas ficam contadas em
-    # `no_limiar_do_arredondamento`.
-    sem_medida, no_limiar = [], []
-    for L in linhas_cat:
-        if L["porta"] == "B" and L["rho_persist"] is None:
-            sem_medida.append(L["indicador"])
+    for col in d80.columns:
+        mot_r, mot_c = RG.motivo_resultado(col), RG.motivo_consequencia(col)
+        if not (mot_r or mot_c) or col in regua or col in ("faixa", "faixa_pts", "faixa_posicao"):
             continue
-        if L["porta"] == "B" and L["rho_persist"] == 0.15:
-            no_limiar.append(L["indicador"])
-        if L["porta"] == "D" or (L["porta"] == "B" and abaixo(L["rho_persist"], 0.15)):
-            c = L["coluna_csv"]
-            if c not in bruto.columns:
-                continue
-            v = bruto[c].values
-            linhas.append(dict(indicador=L["indicador"], nome=L["nome"], porta=L["porta"],
-                               m_sobe=r(np.nanmean(v[faixa == "sobe"]), 3),
-                               m_meio=r(np.nanmean(v[faixa == "meio"]), 3),
-                               m_cai=r(np.nanmean(v[faixa == "cai"]), 3),
-                               d_bruto_SM=L["d_bruto_SM"], d_bruto_SC=L["d_bruto_SC"],
-                               rho_persist=L["rho_persist"]))
-    for c in DECL["resultado"]:
-        if c in d80.columns and not any(x["indicador"] == c for x in linhas):
-            v = d80[c].values
-            linhas.append(dict(indicador=c, nome=c, porta="D",
-                               m_sobe=r(np.nanmean(v[faixa == "sobe"]), 3),
-                               m_meio=r(np.nanmean(v[faixa == "meio"]), 3),
-                               m_cai=r(np.nanmean(v[faixa == "cai"]), 3),
-                               d_bruto_SM=r(d_cohen(v[faixa == "sobe"], v[faixa == "meio"]), 3),
-                               d_bruto_SC=r(d_cohen(v[faixa == "sobe"], v[faixa == "cai"]), 3),
-                               rho_persist=None))
+        if col not in cat and col not in resultado_declarado:
+            continue
+        v = pd.to_numeric(d80[col], errors="coerce").values.astype(float)
+        if not np.isfinite(v).any():
+            continue
+        L = cat.get(col)
+        if L is not None:
+            medidas = dict(m_sobe=L["m_sobe"], m_meio=L["m_meio"], m_cai=L["m_cai"],
+                           d_bruto_SM=L["d_bruto_SM"], d_bruto_SC=L["d_bruto_SC"])
+        else:
+            medidas = dict(m_sobe=r(np.nanmean(v[faixa == "sobe"]), 3),
+                           m_meio=r(np.nanmean(v[faixa == "meio"]), 3),
+                           m_cai=r(np.nanmean(v[faixa == "cai"]), 3),
+                           d_bruto_SM=r(d_cohen(v[faixa == "sobe"], v[faixa == "meio"]), 3),
+                           d_bruto_SC=r(d_cohen(v[faixa == "sobe"], v[faixa == "cai"]), 3))
+        # linha de resultado vai MARCADA como retirada de teste: aqui ela é aviso ("não contrate para
+        # isto"), e a guarda final confere a marca contra a lista, não o nome da etapa
+        linhas.append(dict(indicador=L["indicador"] if L is not None else col,
+                           nome=L["nome"] if L is not None else col,
+                           tipo="resultado" if mot_r else "consequencia", motivo=mot_r or mot_c,
+                           **({RG.MARCA_RETIRADA: mot_r} if mot_r else {}),
+                           **medidas,
+                           porta_no_catalogo=L["porta"] if L is not None else None))
     linhas.sort(key=lambda x: -abs(x["d_bruto_SC"] or 0))
-    return dict(titulo_chave="etapa_10", linhas=linhas,
-                porta_B_sem_persistencia_medida=dict(
-                    n=len(sem_medida), indicadores=sem_medida,
-                    motivo=("porta B sem rho de persistência (menos de 8 pares com valor nos dois "
-                            "anos): não se sabe se se repete, então não entra como 'não se repete'")),
-                no_limiar_do_arredondamento=dict(
-                    n=len(no_limiar), indicadores=no_limiar, limiar=0.15,
-                    motivo=("rho gravado com 3 casas exatamente no corte: só nessas linhas a decisão "
-                            "sobre o arredondado pode diferir da decisão sobre o cru")))
+    return dict(titulo_chave="etapa_10", linhas=linhas)
 
 
 def etapa_11(tec, sc):
@@ -3529,6 +3737,103 @@ def sobecai_corrigido(sc, raio):
             p5_clube=sum(1 for x in linhas if abaixo(x["p_clube_cru"], 0.05)),
             itens=linhas)
     return saida
+
+
+# ---------- nota por setor, clube como caso: o rodízio e a lista (declarados em 14/09, noite) ----------
+# Declaração `nota_por_setor_por_clube` (M4, M5 e a conclusão do ataque), versão sem o dinheiro: fica só
+# o desconto do rodízio do setor, e a lista inteira contra o sorteio com gerador próprio [SEMENTE, 17, i].
+# NÃO [SEMENTE, 13, i]: esse é o gerador de cada atleta na etapa 13, e os ids 0 a 3 existem.
+SOBECAI_ROD_DECL = dict(
+    declarada_em="2026-09-14 (noite), antes de medir",
+    familia="as medidas do sobecai_corrigido do setor (8+ clubes que subiram e 8+ que caíram com valor)",
+    comparacao="SC (quem subiu x quem caiu), clube-temporada como caso",
+    bruto="o p_clube de cada item (Welch na média ponderada por minuto do clube, valor cru)",
+    rod=("Welch no resíduo do posto no ano da média do clube sobre o posto no ano de "
+         "fis_<setor>_atletas, mínimos quadrados com intercepto nas clube-temporadas com a medida; "
+         "posto de atletas ausente vira a média"),
+    q_rod="Benjamini-Hochberg nos p_rod de TODAS as medidas do setor",
+    sorte_clube="chave do vocabulário único a partir de (p_clube, q_clube)",
+    rho_valor=("Spearman do posto no ano da média do clube com o posto no ano de tm_valor_total: só "
+               "DESCREVE se a medida anda com o valor do elenco (nunca desconta)"),
+    excesso=("contagem de medidas com p < 0,05, rótulos sobe/meio/cai sorteados entre os clubes de "
+             "cada ano (linhas na ordem ano, clube), 10.000 sorteios, np.random.default_rng([SEMENTE, "
+             "17, i]) com i = índice do setor em %s; bruto e rod com os mesmos rótulos" % list(SETORES)),
+    marca_da_etapa_13=("a chave excesso.SC.bruto.lista de cada setor é a marca que a tela da etapa 13 "
+                       "mostra ao lado do setor; não é filtro e não muda nota, alvo nem candidato"))
+
+
+def sobecai_rod_e_excesso(corrigido, sc, d80):
+    """Acrescenta a cada setor do `sobecai_corrigido` o rodízio, o q, a chave e a lista (declaração acima).
+
+    Não muda nenhum campo que já existia: o `p_clube`, o `q_clube` e o `p5_clube` são conferidos contra
+    a mesma conta refeita aqui (o painel dá o meio da tabela ao sorteio e o nº de atletas do setor).
+    """
+    base = d80.reset_index(drop=True)
+    ordem = sorted(range(len(base)), key=lambda i: (int(base.ano.values[i]), str(base.clube.values[i])))
+    base = base.iloc[ordem].reset_index(drop=True)
+    anos = base.ano.values.astype(int)
+    fx = base.faixa.values.astype(object)
+    m_sobe, m_cai = fx == "sobe", fx == "cai"
+    rv = posto_ano(base, "tm_valor_total").values
+    for i_s, setor in enumerate(SETORES):
+        reg = corrigido.get(setor)
+        if reg is None:
+            continue
+        codigos = G.SETOR_FUND[setor]
+        wy = {w for w, cs in G.POSICOES.items() if any(c in codigos for c in cs)}
+        d = sc[sc.pos_wy.isin(wy)]
+        pa = posto_ano(base, f"fis_{setor}_atletas").values
+        pa = np.where(np.isfinite(pa), pa, np.nanmean(pa))
+        V, R = [], []
+        for it in reg["itens"]:
+            col = G.DE_PARA.get(it["k"]) or G.DE_PARA_OBR.get(it["k"]) or it["k"]
+            g = pd.DataFrame(dict(ano=d.ano, clube=d.clube, v=pd.to_numeric(d[col], errors="coerce"),
+                                  w=d.min_tot))
+            ag = (g.groupby(["ano", "clube"]).apply(lambda x: A.media_pond(x.v, x.w), include_groups=False)
+                  .rename("v").reset_index().dropna())
+            v = base[["ano", "clube"]].merge(ag, on=["ano", "clube"], how="left").v.values.astype(float)
+            # a média do clube aqui é a mesma do teste por clube: o p bruto tem de ser o p_clube
+            p_b = welch_p(v[m_sobe], v[m_cai])
+            assert it["p_clube_cru"] is not None and np.isclose(p_b, it["p_clube_cru"], rtol=1e-9), (setor, it["k"])
+            rk = pd.Series(v).groupby(anos).rank(pct=True).values * 100
+            res = residualiza(rk, pa)
+            ok = np.isfinite(rk)
+            rho = stats.spearmanr(rk[ok], rv[ok])
+            it["_p_rod"] = welch_p(res[m_sobe], res[m_cai])
+            it["p_rod"] = r_p(it["_p_rod"], 5)
+            it["rho_valor"] = r(rho.statistic, 3)
+            it["p_rho_valor"] = r_p(rho.pvalue, 5)
+            V.append(v)
+            R.append(res)
+        itens = reg["itens"]
+        q_clube = bh([it["p_clube_cru"] for it in itens])
+        q_rod = bh([it["_p_rod"] for it in itens])
+        for it, qc, qr in zip(itens, q_clube, q_rod):
+            it["q_rod"] = r_p(qr, 5)
+            it["sorte_clube"] = chave_sorte(it["p_clube_cru"], qc)
+        sobreviventes = sorted(it["k"] for it in itens if abaixo(it["_p_rod"], ALFA_SORTE))
+        menor = min((it["_p_rod"] for it in itens if np.isfinite(it["_p_rod"])), default=None)
+        for it in itens:
+            del it["_p_rod"]
+        reg["passam5_rod"] = len(sobreviventes)
+        reg["sobreviventes_rod"] = sobreviventes
+        reg["menor_p_rod"] = r_p(menor, 5)
+        if itens:
+            semente = [SEMENTE, 17, i_s]
+            ex = excesso_contra_o_sorteio(dict(bruto=np.column_stack(V), rod=np.column_stack(R)),
+                                          fx, anos, ("sobe",), ("cai",), np.random.default_rng(semente),
+                                          N_EXCESSO)
+            for nivel in ex:
+                ex[nivel]["semente"] = semente
+                # nenhuma borda declarada nos setores: a guarda só confere que estão longe do corte
+                marca_da_borda(ex[nivel], (setor, "SC", nivel), None)
+            assert ex["bruto"]["observado"] == reg["p5_clube"], (setor, ex["bruto"]["observado"], reg["p5_clube"])
+            assert ex["rod"]["observado"] == reg["passam5_rod"], setor
+            reg["excesso"] = dict(SC=ex)
+        else:
+            reg["excesso"] = dict(SC=None, motivo="nenhuma medida do setor com 8 clubes de cada lado")
+    # A regra fica em SOBECAI_ROD_DECL, no código: `sobecai_corrigido_por_clube` é lido setor a setor
+    # pela tela, e uma chave de texto no topo dele passaria por setor.
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -4348,7 +4653,7 @@ def ic95_clopper_pearson(k, n):
     return lo, hi
 
 
-def etapa_14(cand, d80, elencos):
+def etapa_14(cand, d80, elencos, catalogo=None):
     """Núcleo de 16 (XI + 5), entregue como FAIXA e não como time.
 
     Duas decisões, e as duas são sobre honestidade de precisão:
@@ -4833,7 +5138,14 @@ def etapa_14(cand, d80, elencos):
                     atletas_usados_cai=r(d80[d80.faixa == "cai"].atletas_usados.mean(), 1),
                     share_11_sobe=r(d80[d80.faixa == "sobe"].share_11.mean(), 1),
                     share_11_cai=r(d80[d80.faixa == "cai"].share_11.mean(), 1),
-                    porta="B", aviso="aposta declarada, não característica comprável"),
+                    # A porta de CADA número do card, lida do catálogo da etapa 2 (era um "B" só,
+                    # digitado, que parecia valer para os dois). O card mostra atletas_usados e
+                    # share_11, e os dois não têm a mesma porta: por isso um dicionário por coluna,
+                    # e não uma chave única. Sem o catálogo (gerar_pontos.py chama sem ele e depois
+                    # grava a sua própria `porta` por cima, até o item 6) cada uma fica None.
+                    porta={col: next((L["porta"] for L in (catalogo or []) if L["indicador"] == col), None)
+                           for col in ("atletas_usados", "share_11")},
+                    aviso="aposta declarada, não característica comprável"),
                 taxa_de_subida_por_quartil_pct=taxa_q,
                 propostas=propostas)
 
@@ -4883,7 +5195,8 @@ def etapa_15(jog, d80, formas):
                     fonte="ogol", raspador_existente="preparar_ogol.py / ogol_clubes.json",
                     perguntas_que_passariam_a_ser_respondiveis=[
                         "pontos por jogo antes/depois da troca, controlado por adversário e mando",
-                        "se ppda (rho=0,129) e posse (rho=0,272) passam a persistir quando se "
+                        # sem número digitado (eram dois ρ do ano seguinte, que saiu dos critérios)
+                        "se a relação de ppda e de posse com os pontos do próprio ano muda quando se "
                         "condiciona a permanência do técnico",
                         "quais técnicos aparecem em mais de uma promoção"]))
 
@@ -4924,15 +5237,24 @@ def main():
     temporal = {L["indicador"]: L for L in e7["linhas"]}
     pares = pares_consecutivos(d80)
     e6 = etapa_6(d80, postos, meta, pares)
-    persist = e6["rho"]
-
-    linhas_cat, resumo_fam, liq = etapa_2(d80, bruto, postos, meta, conf, temporal, persist, ns_ti)
+    # `persist` (o ρ t→t+1) não entra mais na etapa 2: o ano seguinte saiu dos critérios (14/09, noite).
+    linhas_cat, resumo_fam, _ = etapa_2(d80, bruto, postos, meta, conf, temporal, None, ns_ti)
     print("bootstrap por clube...")
-    ics = bootstrap_por_clube(d80, postos, liq, list(postos.columns))
+    ics = bootstrap_por_clube(d80, postos, None, list(postos.columns))
     for L in linhas_cat:
         L.update(ics[L["indicador"]])
     print("nulo do garimpo...")
     e3 = etapa_3(d80, postos, meta, linhas_cat, resumo_fam)
+    print("listas inteiras contra o sorteio...")
+    excesso = excesso_por_familia(d80, postos, meta, resumo_fam)
+    for fam, ex in excesso.items():
+        e3["por_familia"][fam]["excesso"] = ex
+    # O sufixo do motivo da porta B que não é firme depende da lista da família, e a lista só existe
+    # depois da etapa 3 (declaração `portas`: não inventar o excesso dentro da etapa 2).
+    for L in linhas_cat:
+        if (L["porta"] == "B" and L["sorte_SM"] == "pode_ser_sorte"
+                and excesso[L["familia"]]["SM"]["bruto"]["lista"] == CHAVES_LISTA[0]):
+            L["porta_motivo"] += "; a lista tem mais achados do que a sorte produz"
     e1 = etapa_1(d80, d100)   # d100 entra só pelo fora-da-amostra de 2026; médias são d80
     e5 = etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec, catalogo=linhas_cat)
 
@@ -4954,13 +5276,12 @@ def main():
     dvp = pd.DataFrame({c: dv.groupby("ano")[meta[c]["coluna_csv"]].rank(pct=True).values * 100
                         for c in cols_outro},
                        index=pd.MultiIndex.from_frame(dv[["ano", "clube"]]))
-    r_val_chave = (d80.set_index(["ano", "clube"]).groupby(level="ano")["tm_valor_total"]
-                   .rank(pct=True) * 100)
     print("tabela de gaps...")
     rk_gaps = RG.tabela_de_gaps(
         RG.pela_chave(d80, "ano"), postos, bruto, RG.pela_chave(d80, "faixa"), list(postos.columns),
         FAIXAS,
-        r_val=r_val_chave,
+        r_val=None,          # o valor do elenco não é descontado (14/09); o módulo aceita e ignora
+
         controles=RG.controles_de_atletas_rastreados(meta, d80),
         meta=meta,
         outro=dict(postos=dvp, rotulos=RG.pela_chave(dv, "faixa"), anos=RG.pela_chave(dv, "ano"),
@@ -5017,6 +5338,8 @@ def main():
     print("funil, encaixe e elencos...")
     e12, pool = etapa_12(jogs, elencos)
     corrigido = sobecai_corrigido(sc, raio)
+    print("nota por setor: rodízio e listas contra o sorteio...")
+    sobecai_rod_e_excesso(corrigido, sc, d80)
     # Empate pelo MENOR posto, como em `curva_top_k` e na aba por pontos: o rank médio padrão
     # dava x,5 no único empate das 80 (2023, Novorizontino e CRB) e o `int()` o truncava.
     posto_val = {(int(a), c): int(p) for a, c, p in
@@ -5025,7 +5348,7 @@ def main():
     alvos = alvos_fisicos(sc, corrigido, posto_val)
     bt = backtest_nota(tec, sc, alvos)
     e13 = etapa_13(pool, jogs, kpis, alvos, bt)
-    e14 = etapa_14(e13["candidatos"], d80, elencos)
+    e14 = etapa_14(e13["candidatos"], d80, elencos, catalogo=linhas_cat)
     e15 = etapa_15(jog, d80, dict(
         serieb_clube_temporada_colunas=len(d100.columns),
         serieb_jogos_colunas=len(jog.columns) - 2,   # `pts` e `rod` são deste script
@@ -5067,9 +5390,8 @@ def main():
         "etapa_2": dict(titulo_chave="etapa_2", comparacao_primaria="sobe x meio",
                         colunas=["indicador", "nome", "coluna_csv", "pilar", "familia", "n",
                                  "conf", "m_sobe", "m_meio", "m_cai", "r_sobe", "r_meio",
-                                 "r_cai", "d_bruto_SM", "p_bruto_SM", "q_SM", "d_liq_SM",
-                                 "p_liq_SM", "q_liq_SM", "d_bruto_SC", "q_SC", "ic_bruto",
-                                 "ic_liq", "rho_persist", "rho_1T_2T", "porta"],
+                                 "r_cai", "d_bruto_SM", "p_bruto_SM", "q_SM", "d_bruto_SC", "q_SC",
+                                 "ic_bruto", "rho_1T_2T", "porta"],
                         linhas=linhas_cat),
         "etapa_3": e3,
         "etapa_4": e4,
@@ -5089,7 +5411,6 @@ def main():
             baseline_de_dinheiro=dict(auc=e1["auc_posto_de_valor"]["sobe_x_resto"],
                                       acertos_top4=e1["top4_de_valor"]["acertos"],
                                       de=e1["top4_de_valor"]["de"]),
-            coluna_liquida_em_toda_linha=True,
             assert_ano_max=int(d80.ano.max()),
             assert_filtro_competicao=COMP_SERIE_B),
     }
