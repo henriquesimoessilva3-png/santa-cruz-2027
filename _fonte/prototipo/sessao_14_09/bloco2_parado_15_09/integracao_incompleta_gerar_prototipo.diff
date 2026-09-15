@@ -1,0 +1,140 @@
+diff --git a/gerar_prototipo.py b/gerar_prototipo.py
+index 520d00a..15f73a3 100644
+--- a/gerar_prototipo.py
++++ b/gerar_prototipo.py
+@@ -449,7 +449,13 @@ def potencia_t(d, n1, n2, alfa):
+     def f(v):
+         s = c * np.sqrt(v / gl)
+         return (stats.norm.cdf(nc - s) + stats.norm.cdf(-nc - s)) * stats.chi2.pdf(v, gl)
+-    return integrate.quad(f, 0, np.inf, limit=200)[0]
++    # Integração num intervalo FINITO onde mora a massa da qui-quadrado (quantis 1e-12 e 1-1e-12),
++    # com o pico (v = gl) marcado. De 0 a infinito, com gl grande (209 x 208, a M2) o `quad` não acha
++    # a massa, devolve poder ~0 em todo d e a bissecção saía no próprio teto (4,0) sem aviso. Nos
++    # desenhos pequenos já gravados (16x16, 16x48, 16x64, Bonferroni) a diferença é da ordem de 1e-12
++    # e o número com 3 casas não muda (conferido na integração do bloco 2, 15/09).
++    lo_v, hi_v = stats.chi2.ppf(1e-12, gl), stats.chi2.isf(1e-12, gl)
++    return integrate.quad(f, lo_v, hi_v, limit=200, points=[gl])[0]
+ 
+ 
+ def d_minimo_detectavel(n1, n2, alfa=0.05, poder=0.80):
+@@ -3598,6 +3604,12 @@ def etapa_10(d80, bruto, postos, linhas_cat):
+     return dict(titulo_chave="etapa_10", linhas=linhas)
+ 
+ 
++# Os cortes da etapa 11 moram numa variável só, e o texto gravado (`fisico.corte`, `tecnico.corte`) é
++# escrito a partir dela (BUG-18): o int e o texto não podem divergir.
++CORTE_JOGOS_FIS_E11 = 8
++CORTE_MIN_TEC_E11 = 900
++
++
+ def etapa_11(tec, sc):
+     """O teste da mala: o que acompanha o atleta quando ele troca de clube.
+ 
+@@ -3611,9 +3623,13 @@ def etapa_11(tec, sc):
+     como coeficiente multiplicativo.
+     """
+     # físico: pares atleta t / t+1 com matches >= 8 nos dois anos
++    # A chave aqui continua SÓ o nome (BUG-1 da ordem do bloco 2): trocar na origem mudaria
++    # `fisico.metricas[]` e o efeito medido pela aba por pontos, que chama esta função duas vezes.
++    # O conserto dos caminhos da ordem (pares, rho_mediano, por_setor, por_posicao, comparação) é do
++    # módulo gerar_prototipo_b2_etapa11.py, com a chave nome + nascimento.
+     s = sc.copy()
+     s["k"] = s.short_name.map(G.chave_nome)
+-    s = s[s.matches >= 8]
++    s = s[s.matches >= CORTE_JOGOS_FIS_E11]
+     cols_fis = [c for c in ["psv99", "psv99_top5", "sprint_count_p90", "sprint_distance_p90",
+                             "hsr_distance_p90", "high_accel_p90", "high_decel_p90",
+                             "cod_count_p90", "distance_p90", "m_per_min"] if c in s.columns]
+@@ -3637,7 +3653,7 @@ def etapa_11(tec, sc):
+     bons = t.groupby(["ano", "k"]).filter(
+         lambda g: g.clube.nunique() == 1 and g.posicao_1.nunique() == 1)
+     bons = bons.drop_duplicates(["ano", "k"])
+-    bons = bons[bons["min"] >= 900]
++    bons = bons[bons["min"] >= CORTE_MIN_TEC_E11]
+     inds = ["Duelos/90", "Duelos aéreos/90", "Dribles/90", "Acelerações/90", "Remates/90",
+             "Passes progressivos/90", "Passes recebidos/90", "Toques na área/90",
+             "Golos esperados/90", "Passes chave/90"]
+@@ -3659,11 +3675,11 @@ def etapa_11(tec, sc):
+         tecn.append(linha)
+     med = lambda xs: r(np.nanmedian([x for x in xs if x is not None]), 3)
+     return dict(titulo_chave="etapa_11",
+-                fisico=dict(pares=n_pares_fis, corte="matches >= 8 nos dois anos",
++                fisico=dict(pares=n_pares_fis, corte=f"matches >= {CORTE_JOGOS_FIS_E11} nos dois anos",
+                             metricas=sorted(fis, key=lambda x: -(x["rho"] or 0)),
+                             rho_mediano=med([x["rho"] for x in fis])),
+                 tecnico=dict(pares_mudou=int(len(mudou)), pares_ficou=int(len(ficou)),
+-                             corte="600+ min no arquivo e 900+ min nos dois anos, "
++                             corte=f"600+ min no arquivo e {CORTE_MIN_TEC_E11}+ min nos dois anos, "
+                                    "posto dentro de ano+posição",
+                              metricas=tecn,
+                              rho_mediano_mudou=med([x["rho_mudou"] for x in tecn]),
+@@ -5209,6 +5225,45 @@ DECL = None
+ PERIODO = None
+ 
+ 
++MODULOS_BLOCO_2 = ("bases", "etapa1", "etapa2", "etapa11", "conclusoes")   # conclusoes SEMPRE por último
++
++
++def _aplicar_modulos_bloco_2(saida, ctx):
++    """Chama `aplicar(saida, ctx)` de cada `gerar_prototipo_b2_<nome>.py`, na ordem de MODULOS_BLOCO_2.
++
++    O import mora aqui dentro (e só o main chama) para o gerar_pontos.py, que importa este arquivo
++    como biblioteca, não carregar nada novo. Três regras:
++    - módulo que NÃO existe no disco não quebra a rodada: vai para `bloco_2_ausencias` com o motivo,
++      e as conclusões que dependem dele saem fora da tela pelo próprio módulo de conclusões;
++    - erro DENTRO de um módulo existente quebra a rodada: as guardas dos módulos são de propósito
++      (conferem contra o que o gerador gravou), e gravar meio bloco seria pior que não gravar;
++    - o módulo tem de devolver exatamente os caminhos que declara em CAMPOS.
++    """
++    import importlib
++    import importlib.util
++    # Rodado como script, este arquivo é `__main__`; os módulos fazem `import gerar_prototipo as G` e
++    # carregariam uma SEGUNDA cópia (sem DECL, e o `ctx['G'] is G` do módulo de bases falharia).
++    este = sys.modules[__name__]
++    sys.modules.setdefault("gerar_prototipo", este)
++    ctx = dict(ctx, G=sys.modules["gerar_prototipo"])
++    ausencias = {}
++    for nome in MODULOS_BLOCO_2:
++        mod_nome = f"gerar_prototipo_b2_{nome}"
++        if importlib.util.find_spec(mod_nome) is None:
++            ausencias[nome] = dict(arquivo=f"{mod_nome}.py",
++                                   motivo="módulo não encontrado na raiz do projeto: os caminhos dele não foram gravados")
++            print(f"bloco 2: {mod_nome}.py AUSENTE — segue sem ele")
++            continue
++        mod = importlib.import_module(mod_nome)
++        feitos = mod.aplicar(saida, ctx)
++        if sorted(feitos) != sorted(mod.CAMPOS):
++            raise SystemExit(f"{mod_nome}: devolveu caminhos diferentes de CAMPOS: "
++                             f"{sorted(set(feitos) ^ set(mod.CAMPOS))}")
++        print(f"bloco 2: {mod_nome} gravou {len(feitos)} caminhos")
++    if ausencias:
++        saida["bloco_2_ausencias"] = ausencias
++
++
+ def main():
+     global DECL, PERIODO
+     t0 = dt.datetime.now()
+@@ -5374,7 +5429,8 @@ def main():
+             tecnico=dict(arquivo="dados/serieb_tecnico.csv", linhas=len(tec),
+                          coluna_de_clube=COL_CLUBE_TEC),
+             elencos=dict(arquivo="dados/serieb_elencos.csv", linhas=len(elencos)),
+-            skillcorner=dict(atleta_temporada=len(sc), corte="min_tot >= 300"),
++            # o texto sai da MESMA constante que o carregador usa (BUG-18)
++            skillcorner=dict(atleta_temporada=len(sc), corte=f"min_tot >= {G.MIN_RASTREADOS}"),
+             mercado=dict(arquivo="dados/jogadores.json", periodo=PERIODO, jogadores=len(jogs)),
+             kpis=dict(arquivo="dados/kpis.json", kpis=len(kpis["kpis"]),
+                       jogadores=len(kpis["jogadores"])),
+@@ -5470,6 +5526,13 @@ def main():
+         acrescentados_por_bloco={b: pb_depois.get(b, 0) - pb_antes.get(b, 0)
+                                  for b in sorted(set(pb_antes) | set(pb_depois))
+                                  if pb_depois.get(b, 0) != pb_antes.get(b, 0)})
++    # ---------- bloco 2: os cinco módulos da ordem de serviço ----------
++    # Entram DEPOIS das guardas do ranking_gaps de propósito: as contagens de
++    # `ranking_gaps.guardas_no_json_inteiro` já estão gravadas e não podem mudar por causa de texto
++    # novo. `conclusoes` vai por último porque lê o que os outros quatro gravaram.
++    _aplicar_modulos_bloco_2(saida, dict(
++        d100=d100, d80=d80, jog=jog, tec=tec, bruto=bruto, postos=postos, meta=meta, ns_ti=ns_ti,
++        pares=pares, linhas_cat=linhas_cat, dv=dv, sc=sc, tec25=tec25, sc25=sc25))
+     json.dump(saida, open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False,
+               separators=(",", ":"), allow_nan=False)
+     kb = os.path.getsize(SAIDA) / 1024

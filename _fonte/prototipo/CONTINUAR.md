@@ -238,7 +238,20 @@
    devolve os mapas, 3 propostas de régua medidas, 2 juízes e o plano por dono de arquivo. A parte 2
    (implementação) só depois de ler o plano e levar ao dono o que for decisão dele. Mesma rodada: com a lente rápida do conserto das conclusões e as
    conclusões afetadas pelo dado novo (§2.3).
-4. **Gerador, bloco 2** com a ordem de serviço revista; bloco `conclusoes` por último.
+4. **Gerador, bloco 2** com a ordem de serviço revista; bloco `conclusoes` por último. **PARADO A PEDIDO DO
+   DONO (15/09, 13:17, "demorando muito")**: os 5 módulos TERMINARAM e ficaram na raiz, sem ninguém
+   importar (untracked; relatos em `sessao_14_09/bloco2_parado_15_09/bloco2_journal.jsonl`); a integração
+   parou no meio — as 75 linhas dela estão em `sessao_14_09/bloco2_parado_15_09/integracao_incompleta_gerar_prototipo.diff`
+   e o `gerar_prototipo.py` voltou ao commit `0fb4c80`. Dado e telas intactos. Para retomar: só a
+   integração, a conferência e a gravação (os módulos estão prontos; conferir antes se o gerador mudou).
+   Plano como foi lançado: 85 campos "bloco_2" da
+   ordem em 5 MÓDULOS NOVOS na raiz, um dono cada, em paralelo — `gerar_prototipo_b2_bases.py` (bases,
+   etapas 0/6/7/8/13/15), `_etapa1.py`, `_etapa2.py`, `_etapa11.py`, `_conclusoes.py` (conclusoes_base e
+   o bloco `conclusoes`, por último) — cada um com CAMPOS, aplicar(saida, ctx) e ctx_de_teste(); depois
+   um só dono do `gerar_prototipo.py` liga os módulos no main (import dentro do main, para o gerar_pontos
+   não carregar nada novo), roda no rascunho (`.../scratchpad/bloco2/prototipo_b2.json`) e compara os
+   selos calculados com o spec. Conferência (números por fora; aba com as conclusões), conserto, gravação.
+   Script em `workflows/gerador-bloco2-*.js`. Sem commit e sem publicar.
 5. **Tela, passo 3**: tabela 4·6·8·9 e os dois fora do top 9 (proto_a), tabela de gaps com a linha da
    sorte (proto_a), botão percentil/valor cru (proto_b), conclusões nos slots (proto.js).
 6. **`gerar_pontos.py`**: trava 2, regerar `pontos.json`/`pontos.js`.
