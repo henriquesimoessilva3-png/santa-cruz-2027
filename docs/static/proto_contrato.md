@@ -25,6 +25,11 @@ escreva na tela o motivo da decisão.
 > `ptNum`/`ptInt`/`ptD` nunca mais escrevem "−0" · classes `.pt-rola-vertical` e `.pt-td-frase` (§10) ·
 > `.pt-th-vertical` quebra linha e não corta · 25 nomes curtos encurtados no glossário (§8.7) ·
 > subtítulos das etapas 8 e 10 e três frases fixas da casca deixaram de afirmar resultado (§11).
+>
+> **Etapa 6 no mesmo ano (14/09, noite):** título e subtítulo novos em `PT_ETAPAS[6]` ("Anda junto com
+> os pontos do ano?") · chaves de `etapa_6.mesmo_ano` documentadas (§5.1) · `rho`, `pares`,
+> `dispersao`, `referencia_dinheiro` e `truncamento` ficam no JSON, fora da tela da 6 · verbetes novos
+> no glossário (§5.1).
 
 ---
 
@@ -139,7 +144,7 @@ da letra é só para quando não houver motivo da linha.
 o `porta_motivo` do indicador em `etapa_2.linhas` do dado da aba e só cai no `ptPortaTxt(letra)` sem ele.
 Devolve `{texto, de: 'linha' | 'letra' | null, letra}`. Medido: `ptPortaMotivo('remates_baliza_pct')` =
 "não se repete de um ano para o outro (rho=0,097 em 36 pares)", `de: 'linha'`. **Onde a tela mostra o
-motivo de UM indicador (miniatura da etapa 6, célula da etapa 10), use este, não `ptPortaTxt`** — o
+motivo de UM indicador (célula da etapa 10), use este, não `ptPortaTxt`** — o
 resumo da letra B diz "ou não se repete, ou pode ser sorte" de uma medida cujo ρ o catálogo já tem.
 Se passar `letra` e a linha tiver outra porta, o motivo da linha NÃO é usado (seria de outra régua).
 `de: 'letra'` = a tela está mostrando o resumo; diga isso no `title` se importar.
@@ -251,6 +256,49 @@ Continua valendo o mapa de chaves da versão de 12/09 (etapas 0 a 15 do `prototi
 está no histórico deste arquivo e na `_fonte/prototipo/ESPECIFICACAO.md` (seção 10). Os pedidos
 desta rodada estão em `_fonte/prototipo/PENDENTE_RODADA.md`. Na aba de pontos, as chaves com
 faixa mudam de nome: use a seção 8.3, nunca a chave digitada.
+
+### 5.1 Etapa 6 — o MESMO ano (pedido do dono, 14/09, noite; decidido, não reabrir)
+
+A etapa 6 deixou de perguntar "isso se repete no ano seguinte?". Cada miniatura é **posição do time
+no indicador (horizontal, 0 a 100) × aproveitamento de pontos no MESMO ano (vertical, %)**, nas 80
+temporadas 2022-2025, com a cor pela faixa daquele mesmo ano (azul claro subiu, laranja caiu, cinza
+o meio), a força escrita e a chance de ser sorte, **da mais forte para a mais fraca**. Nada de ano
+seguinte na tela da etapa 6 — nem número pequeno: a diagonal, o ρ de um ano para o outro, a régua do
+dinheiro de um ano para o outro e o card dos pares saem de lá.
+
+**O que continua no JSON e não aparece na tela da 6:** `etapa_6.rho`, `pares`, `n_pares`, `dispersao`,
+`referencia_dinheiro`, `truncamento`. Não são lixo: o catálogo (etapa 2, persistência), o
+`ranking_gaps.py` e o `pcRhoDaEtapa6` do proto_c leem `etapa_6.rho`. A saída da repetição dos
+critérios (régua, porta A, frases) é outra rodada — até lá, as outras etapas seguem falando dela.
+
+**O bloco novo, `etapa_6.mesmo_ano`** (grava `gerar_prototipo.py`, função `mesmo_ano`, chamada dentro
+de `etapa_6` sem mudar a assinatura; declaração em `MESMO_ANO_DECL`, escrita antes de medir):
+
+| Chave | O que é |
+|---|---|
+| `declarada_antes_de_medir`, `pedido_do_dono_em` | `true` e a data do pedido |
+| `declaracao` | a declaração inteira: `pergunta`, `universo`, `temporadas`, `indicadores`, `eixo_horizontal`, `eixo_vertical`, `cores`, `forca`, `minimo`, `muitos_testes`, `ordem`, `limites` (lista de frases), `fora_do_bloco` |
+| `regra` | a declaração em uma frase corrida, pronta para a nota da etapa (os números dela saem do gerador) |
+| `temporadas` | lista de `{ano, clube, faixa, pts, jogos, aproveitamento_pct}`, na ordem (ano, clube); `faixa` é `sobe`/`meio`/`cai` do próprio ano; `aproveitamento_pct` = 100 × pts ÷ (3 × jogos) |
+| `indicadores` | ids desenhados (famílias `tecnico_col`, `elenco`, `fisico_col_elenco`), na ordem das colunas da matriz |
+| `pontos[id]` | lista ALINHADA a `temporadas`: a posição no ranking do ano (0-100, a das células da etapa 5), `null` onde falta |
+| `rho_mesmo_ano[id]` | `{rho, p, p_rotulo, q, n}` — Spearman posição × aproveitamento nas temporadas com valor, p bilateral, q de Benjamini-Hochberg entre os indicadores com ρ; com menos de 20 temporadas, `{rho:null, p:null, q:null, n, motivo}`; indicador de uso do elenco traz também `consequencia_do_resultado: true` e `motivo_consequencia` |
+| `marca_consequencia` | `{id: motivo}` dos indicadores marcados como consequência do resultado (ex.: "time que ganha repete o XI") |
+| `lista_inteira` | `{n_testes, com_p_menor_005, mediana_sorteio, p_excesso, sorteios_com_contagem_maior_ou_igual, p_excesso_formula, sorteios, semente, gerador, embaralha}` — quantos têm p < 0,05 contra 10.000 sorteios do aproveitamento dentro de cada ano (gerador próprio) |
+| `ordem_por_forca` | ids por \|ρ\| decrescente, empate pelo id, `null` no fim. **A tela só lê esta ordem**, não reordena |
+| `regra_da_ordem` | a regra da ordem escrita |
+
+**Ausência:** se o painel de quem chama não tiver `pts`/`V`/`E`/`D`, o bloco vem
+`{ausente: true, motivo, declaracao}`; nos `prototipo.json` e `pontos.json` gravados antes de 14/09,
+noite, ele nem existe. A tela escreve a ausência com o motivo, discreta, sem erro.
+
+**Limites que a tela tem de dizer** (estão em `declaracao.limites`, leia de lá): associação no mesmo
+ano mistura causa e consequência (quem separa é a etapa 7); o mesmo clube aparece em até 4 temporadas;
+o físico do elenco é média só dos atletas rastreados; associação não é receita.
+
+**Glossário:** `ptGlossarioColuna('aproveitamento_pct' | 'rho_mesmo_ano' | 'ordem_por_forca' |
+'lista_inteira' | 'mesmo_ano')`. A coluna `rho` do glossário continua sendo o ρ de UM ANO PARA O
+OUTRO: não use o verbete dela para rotular o ρ do mesmo ano.
 
 ## 6. Dado fora das etapas
 
@@ -617,7 +665,7 @@ outra aba desenham o número do Protótipo sem erro nenhum.
 | `proto_b.js:275` | `PROTO.etapa_0.por_ano` | `ptDado()` |
 | `proto_b.js:315` | `PROTO.etapa_0.por_ano` | `ptDado()` |
 | `proto_c.js:42` | `PROTO.etapa_2` (cache `PC.catalogo`) | `ptDado()` + reset |
-| `proto_c.js:48` | `PROTO.etapa_6` | `ptDado()` |
+| `proto_c.js` `pcRhoDaEtapa6` (l.72 em 14/09, noite) | já lê `pcEtapa(6).rho`, não o `PROTO` cru — fica na tabela só para registrar que depende de `etapa_6.rho`, o ρ de um ano para o outro, que continua no JSON mesmo sem aparecer na tela da etapa 6 (§5.1) | — |
 | `proto_c.js:58-59` | `PROTO.etapa_5`, `PROTO.etapa_8` (cache `PC.clubes`) | `ptDado()` + reset |
 | `proto_c.js:85` | `PROTO.etapa_0.poder` | `ptDado()` |
 | `proto_c.js:1235-1236` | `PROTO.etapa_12.ligas_sem_cobertura_fisica` | `ptDado()` |
@@ -630,7 +678,8 @@ outra aba desenham o número do Protótipo sem erro nenhum.
 trocar o literal por `ptId(…)`: `proto_a.js` `ptEt-2-busca/-pilar/-familia/-setor/-porta/
 -limpar/-caixa` (l.1239, 1300, 1311-1333; o `<style>#ptEt-2-caixa …>` inline da l.1300 também
 precisa do prefixo); `proto_b.js` `ptEt-5-painel`, `ptEt-5-lupa` (l.423-424, 439, 448) e
-`ptEt-6-sel`, `ptEt-6-graf` (l.776, 780, 816, 818). As buscas já são por `alvo.querySelector`,
+`ptEt-6-sel`, `ptEt-6-graf` (l.776, 780, 816, 818 — em 14/09, noite, já não existem no proto_b, e a
+etapa 6 do mesmo ano não tem seletor). As buscas já são por `alvo.querySelector`,
 então funcionam; o id repetido é HTML inválido e confunde quem ligar evento por id.
 
 **Mapas de texto com faixa**, para trocar por `ptFxRot`: `proto_b.js:100` `PB_FAIXA_COR`,
@@ -645,7 +694,7 @@ então funcionam; o id repetido é HTML inválido e confunde quem ligar evento p
 | `pt-matriz` (em `ptTabela({classe:'pt-matriz'})` ou na `<table class="pt-tab pt-matriz">`) | matriz compacta: célula de 3-5 px de respiro, cabeçalho em 2-3 linhas, sem caixa alta | etapa 5 e toda matriz de posição |
 | `pt-th-vertical` (em `cabClasse` ou no `<th>`) | cabeçalho de lado, quando nem 3 linhas cabem | matriz com muitas colunas |
 | `pt-col-fixa` (no `<td>`/`<th>` da 1ª coluna) | coluna grudada ao rolar ("time e ano") | matrizes |
-| `pt-minis` > `pt-mini` > `pt-mini-tit`, `svg`, `pt-mini-num` | grade de miniaturas (~150 px cada) | etapa 6, as dispersões todas abertas |
+| `pt-minis` > `pt-mini` > `pt-mini-tit`, `svg`, `pt-mini-num` | grade de miniaturas (~150 px cada) | etapa 6: posição no ano × aproveitamento do mesmo ano, uma miniatura por indicador, da relação mais forte para a mais fraca (ordem de `etapa_6.mesmo_ano.ordem_por_forca`, §5.1) |
 | `pt-filtros` > `label`, `select`, `input[type=number]`, `pt-filtro-grupo` > `pt-chip` (`.on`, `.zero`) com `pt-chip-n`; `pt-filtros-conta` | barra de filtros de liga, nacionalidade e idade; chip com 0 fica visível e apagado, com o motivo no `title` | etapas 13 e 14 (fora da área que se redesenha) |
 | `_separadorAntes` na linha do `ptTabela` → `pt-linha-sorte` / `pt-linha-sorte-rot` | a linha da sorte, faixa de largura inteira | tabela de gaps (etapa 2) |
 | `pt-empate` | marca "empate técnico" ao lado do nome | etapa 14 |

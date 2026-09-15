@@ -3306,6 +3306,20 @@ body.claro .pt-erro b{color:var(--coral-esc)}
    técnico comprido passava da borda da tela e o .emp-rolagem o cortava calado; na célula de número
    ele continua numa linha só */
 .pt-tec{font-size:10.5px;color:var(--tinta3);font-variant-numeric:tabular-nums;margin-left:5px;white-space:normal}
+/* Contraste do número técnico pequeno (14/09): em --tinta3 ele dava 3,3:1 no escuro e 2,6:1 no
+   claro, abaixo do mínimo de 4,5:1 para texto dessa altura. A troca vale SÓ dentro da aba
+   Protótipo: --tinta3 é global e outras abas dependem dela, então a aba ganha um tom próprio,
+   --pt-tec, que continua um degrau abaixo de --tinta2 (discreto para quem lê) e passa de 4,5:1
+   no pior fundo medido de cada tema (o véu sobre o card no escuro; o fundo da página no claro).
+   A fonte não muda. O rodapé das miniaturas da etapa 6 entra junto pelo mesmo motivo. */
+#pgProto{--pt-tec:#8d96a4}
+body.claro #pgProto{--pt-tec:#5e6979}
+#pgProto .pt-tec,#pgProto .pt-mini-num{color:var(--pt-tec)}
+/* A régua esmaecida da etapa 9 sai num bloco com opacidade .68 (inline, no proto_c.js). A
+   opacidade multiplica a cor do filho e nenhum tom abaixo de --tinta2 sobrevive a ela: ali o
+   técnico usa a cor do texto principal, que depois do esmaecimento fica em ~5:1 nos dois temas.
+   O seletor lê o estilo inline porque o bloco não tem classe; se ganhar uma, trocar aqui. */
+#pgProto div[style*="opacity:.68"] .pt-tec,#pgProto div[style*="opacity:.68"] .pt-mini-num{color:var(--tinta)}
 .pt-tab td.num .pt-tec{white-space:nowrap}
 .pt-tarja-pe .pt-tec{white-space:normal;margin-left:0}
 
