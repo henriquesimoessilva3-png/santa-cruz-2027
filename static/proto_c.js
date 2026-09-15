@@ -66,6 +66,9 @@ function pcCatalogo() {
   PC.catalogo = m;
   return m;
 }
+/* O número de um ano para o outro continua gravado em `etapa_6.rho`, mas desde 14/09/2026 a TELA
+   da etapa 6 mostra só o desempenho no mesmo ano (pedido do dono). Por isso nenhum texto desta aba
+   manda o leitor "ver na etapa 6" a repetição: diz "o estudo", que é quem de fato mediu. */
 function pcRhoDaEtapa6() {
   const e6 = pcEtapa(6);
   return (e6 && e6.rho) || {};
@@ -709,7 +712,7 @@ function pcReguaCard(r, i, clubes) {
           : pcDinheiro({ d_bruto: l.d_SM, p_bruto: l.p_SM, d_liq: l.d_liq_SM, p_liq: l.p_liq_SM }) },
       { k: 'rho_persist', rot: 'se repete no ano seguinte?', dica: 'ordena pelo ρ de um ano para o outro',
         cel: (v, l) => pcTdTxt(v === null || v === undefined
-          ? ptFalta(l._mudo ? l._motivo : 'a etapa 6 não mediu esta medida em dois anos seguidos')
+          ? ptFalta(l._mudo ? l._motivo : 'o estudo não mediu esta medida em dois anos seguidos')
           : ptJunto(v) + ptTecnico('ρ ' + ptNum(v, 3))) },
       { k: '_nota', rot: 'discorda da régua?', tipo: 'texto',
         fmt: (v, l) => l._mudo
@@ -913,9 +916,9 @@ function ptEtapa10(alvo, dados) {
         cel: (v, l) => pcTdTxt(v !== null && v !== undefined
           ? ptJunto(v) + ptTecnico('ρ ' + ptNum(v, 3))
           : ptFalta(l.indicador in rho6
-            ? 'a etapa 6 mediu isto de um ano para o outro, mas esta etapa não trouxe o número'
-            : 'não foi medido: esta medida não está entre as ' + ptInt(Object.keys(rho6).length) +
-              ' que a etapa 6 acompanhou de um ano para o outro')) },
+            ? 'o estudo mediu isto de um ano para o outro, mas esta etapa não trouxe o número'
+            : 'não foi medido de um ano para o outro: fora das ' + ptInt(Object.keys(rho6).length) +
+              ' medidas acompanhadas assim')) },
     ],
     linhas: linhas,
   });
@@ -981,8 +984,7 @@ function ptEtapa10(alvo, dados) {
 
     '<p class="pt-nota" style="margin-top:14px"><b>' + ptInt(forasNoCatalogo) + '</b> das ' +
       ptInt(linhas.length) + ' medidas desta etapa não estão no catálogo de indicadores da etapa 2, e ' +
-      '<b>' + ptInt(semRhoEForaDaEtapa6) + '</b> não foram acompanhadas de um ano para o outro na ' +
-      'etapa 6.' +
+      '<b>' + ptInt(semRhoEForaDaEtapa6) + '</b> não foram acompanhadas de um ano para o outro.' +
       (foraTodosPlacar
         ? ' As que estão fora do catálogo são todas do grupo "' + esc(ptPortaTxt('D') || 'porta D') + '": ' +
           'não foram escolhidas como indicador antes do primeiro teste, então não passaram pelo desconto do ' +
@@ -3126,7 +3128,7 @@ function ptEtapa15(alvo, dados) {
 
   /* As perguntas que a coleta responderia chegam em texto de analista ("se ppda (rho=0,129) e posse
      (rho=0,272) passam a persistir quando se condiciona a permanência do técnico"). Na tela, a
-     pergunta como se faz numa reunião; a situação de hoje sai da etapa 6, não da string; o texto
+     pergunta como se faz numa reunião; a situação de hoje sai do número gravado em etapa_6.rho, não da string; o texto
      do estudo fica ao lado, em letra miúda. Pergunta que o mapa não reconhece aparece como veio. */
   const rho6 = pcRhoDaEtapa6();
   const pergunta = q => {
@@ -3138,7 +3140,7 @@ function ptEtapa15(alvo, dados) {
     if (/ppda.*posse.*persist/.test(s)) {
       const hoje = (k, rot) => rho6[k] && rho6[k].rho !== null && rho6[k].rho !== undefined
         ? 'os números de ' + rot + ' de um ano e do seguinte ' + ptJunto(rho6[k].rho)
-        : ptFalta('a etapa 6 não mediu ' + rot + ' de um ano para o outro');
+        : ptFalta('o estudo não mediu ' + rot + ' de um ano para o outro');
       return 'Se o time com o mesmo treinador repete a pressão e a posse no ano seguinte. Hoje, sem saber ' +
         'quem era o treinador, ' + hoje('ppda', 'pressão') + '; ' + hoje('posse', 'posse') + '.' + ptTecnico(esc(s));
     }

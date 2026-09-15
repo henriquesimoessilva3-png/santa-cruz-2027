@@ -345,8 +345,13 @@ const PT_ETAPAS = [
   [2,  'Tudo o que foi medido',            'um indicador por linha — clique no nome da coluna para ordenar', 'proto_a.js'],
   [3,  'Quanto disso pode ser sorte',      'quando se testa muita coisa, alguma dá certo por acaso: quantas sobram descontada essa sorte', 'proto_a.js'],
   [4,  'Dá para confiar na medida?',       'a medida dá o mesmo resultado se for medida duas vezes no mesmo ano?', 'proto_a.js'],
-  [5,  'Cada time, cada ano',              'a posição de cada time no ranking daquele ano — e o aviso escrito onde falta dado de jogador', 'proto_b.js'],
-  [6,  'Isso se repete?',                  'a posição no ranking de um ano contra a posição no ano seguinte', 'proto_b.js'],
+  /* 5: redesenhada em 14/09 (pedido do dono, aprovada na prévia): abre com o valor típico de cada grupo
+     e a diferença contra o meio; a matriz por time ficou embaixo, como detalhe. Sem afirmar resultado. */
+  [5,  'Quem subiu, quem ficou no meio, quem caiu', 'o valor típico de cada grupo em cada número, a diferença de quem subiu e de quem caiu contra o meio e se ela é firme — com o detalhe time a time embaixo', 'proto_b.js'],
+  /* 6: desde 14/09 a etapa olha o MESMO ano (pedido do dono: "a construção é sempre para o ano").
+     O título é pergunta porque texto fixo não pode afirmar o resultado; o ano seguinte saiu daqui
+     inteiro, inclusive do subtítulo. */
+  [6,  'Anda junto com os pontos do ano?',  'a posição do time em cada número contra o aproveitamento de pontos do mesmo ano, da relação mais forte para a mais fraca', 'proto_b.js'],
   [7,  'Veio antes ou veio depois?',       'foi o que o time fez, ou é o que acontece com quem já está subindo?', 'proto_b.js'],
   /* 8 e 10: título e subtítulo são texto fixo, que nenhum campo do dado controla — então só podem
      dizer do que a etapa trata, nunca o resultado dela. "Os padrões que não pararam de pé" e "não
@@ -1085,9 +1090,9 @@ function ptTabCorpo(id) {
       return '<td class="' + cls + '">' + txt + '</td>';
     }).join('') + '</tr>').join('') + '</tbody>';
 }
-/* Liga (ou religa) o clique de ordenação. Quem reescreve o próprio container — a etapa 6
-   troca de indicador, a 5 troca de painel — chama isto de novo no fim, senão a tabela nova
-   nasce muda. */
+/* Liga (ou religa) o clique de ordenação. Quem reescreve o próprio container — a etapa 1
+   refiltra a tabela dos 80 elencos, a 5 troca de painel — chama isto de novo no fim, senão a
+   tabela nova nasce muda. */
 function ptLigarTabelas(raiz) {
   (raiz || document).querySelectorAll('table.pt-tab').forEach(tab => {
     const t = PT_TABELAS[tab.id];

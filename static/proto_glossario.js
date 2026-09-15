@@ -72,6 +72,17 @@
    - "pico": média, entre os jogos rastreados, do pico de cada jogo — não é recorde;
    - "%": porcentagem; ids que terminam em `ganhos`, `certos` ou `com_sucesso` são %.
 
+   ETAPA 6 NO MESMO ANO (14/09, noite, dono da casca). A tela da etapa 6 deixou de mostrar o ano
+   seguinte: `rho`, `dispersao`, `referencia_dinheiro` e `truncamento` ficam no arquivo (o catálogo,
+   o ranking_gaps e o proto_c ainda leem `rho`) e ganharam `nota` dizendo isso; a `nota` antiga da
+   dispersão (cor pelo desfecho em t+1) saiu, porque a tela nova não desenha mais esse gráfico; o
+   nome de `rho` passou a dizer "no ano seguinte", para não ser confundido com o do mesmo ano; a
+   `origem` apontava para uma linha velha (971) e foi para a de hoje. Verbetes novos, conferidos no
+   gerador (MESMO_ANO_DECL e mesmo_ano): `mesmo_ano`, `aproveitamento_pct`, `rho_mesmo_ano`,
+   `ordem_por_forca`, `lista_inteira`. Editado aqui porque o rascunho de onde este arquivo nasceu
+   (montar_glossario.py) mora no scratchpad de outra sessão, fora do projeto: quem remontar pelo
+   rascunho perde estas mudanças.
+
    Quem usa: `ptGlossario(id)` para indicador, régua ou regra de juntar; `ptGlossarioColuna(k)`
    para coluna de tabela. As duas devolvem null quando não há entrada — e aí quem desenha
    escreve a ausência com motivo, não um traço. A tela procura nesta ordem: campo gravado pelo
@@ -9926,7 +9937,7 @@ const PT_GLOSSARIO_COLUNAS = {
    "prototipo.etapa_2",
    "pontos.etapa_2"
   ],
-  "origem": "gerar_prototipo.py:1020 · gerar_prototipo.py:971",
+  "origem": "gerar_prototipo.py:1020 · gerar_prototipo.py:1671",
   "nome_simples": "Se repete no ano seguinte",
   "escala": "não se aplica"
  },
@@ -10005,9 +10016,9 @@ const PT_GLOSSARIO_COLUNAS = {
   "escala": "não se aplica"
  },
  "rho": {
-  "nome": "Se repete (ρ)",
-  "nome_longo": "Se repete (ρ)",
-  "mede": "Spearman da posição no ano t contra a posição no ano t+1, nos pares clube-ano consecutivos (mínimo 8 pares).",
+  "nome": "Se repete no ano seguinte (ρ)",
+  "nome_longo": "Se repete no ano seguinte (ρ)",
+  "mede": "Spearman da posição no ano t contra a posição no ano t+1, nos pares clube-ano consecutivos (mínimo 8 pares). Não é o ρ do mesmo ano: esse é rho_mesmo_ano.",
   "unidade": "−1 a 1",
   "fonte": "calculado no projeto",
   "lado": "não se aplica",
@@ -10018,8 +10029,9 @@ const PT_GLOSSARIO_COLUNAS = {
    "prototipo.etapa_6",
    "pontos.etapa_6"
   ],
-  "origem": "gerar_prototipo.py:971",
-  "nome_simples": "Se repete (ρ)",
+  "origem": "gerar_prototipo.py:1671",
+  "nota": "desde 14/09 (noite) fica no arquivo e não aparece na tela da etapa 6, que passou a olhar o mesmo ano; continua lido pelo catálogo (etapa 2, persistência), pelo ranking_gaps.py e pelo proto_c (pcRhoDaEtapa6)",
+  "nome_simples": "Se repete no ano seguinte (ρ)",
   "escala": "não se aplica"
  },
  "dispersao": {
@@ -10036,15 +10048,15 @@ const PT_GLOSSARIO_COLUNAS = {
    "prototipo.etapa_6",
    "pontos.etapa_6"
   ],
-  "origem": "gerar_prototipo.py:971",
-  "nota": "a cor do ponto no gráfico é o desfecho em t+1 e NÃO responde a pergunta da etapa (item 10 do PENDENTE)",
+  "origem": "gerar_prototipo.py:1671",
+  "nota": "fica no arquivo, fora da tela: desde 14/09 (noite) a etapa 6 olha o mesmo ano e não mostra mais o ano seguinte",
   "nome_simples": "Pontos do gráfico",
   "escala": "não se aplica"
  },
  "referencia_dinheiro": {
   "nome": "Régua do dinheiro",
   "nome_longo": "Régua do dinheiro",
-  "mede": "O mesmo ρ de persistência para o valor do elenco (tm_valor_total): a régua contra a qual se lê se um traço 'se repete'.",
+  "mede": "O mesmo ρ de persistência para o valor do elenco (tm_valor_total): a régua contra a qual se lia se um traço 'se repete' de um ano para o outro.",
   "unidade": "−1 a 1",
   "fonte": "calculado no projeto",
   "lado": "não se aplica",
@@ -10055,7 +10067,8 @@ const PT_GLOSSARIO_COLUNAS = {
    "prototipo.etapa_6",
    "pontos.etapa_6"
   ],
-  "origem": "gerar_prototipo.py:971",
+  "origem": "gerar_prototipo.py:1671",
+  "nota": "fica no arquivo, fora da tela: desde 14/09 (noite) a etapa 6 olha o mesmo ano e não mostra mais o ano seguinte",
   "nome_simples": "Régua do dinheiro",
   "escala": "não se aplica"
  },
@@ -10073,8 +10086,96 @@ const PT_GLOSSARIO_COLUNAS = {
    "prototipo.etapa_6",
    "pontos.etapa_6"
   ],
-  "origem": "gerar_prototipo.py:971",
+  "origem": "gerar_prototipo.py:1671",
+  "nota": "fica no arquivo, fora da tela: desde 14/09 (noite) a etapa 6 olha o mesmo ano e não mostra mais o ano seguinte",
   "nome_simples": "Quantos pares terminaram em subida",
+  "escala": "não se aplica"
+ },
+ "mesmo_ano": {
+  "nome": "Mesmo ano",
+  "nome_longo": "Posição no ano × aproveitamento do mesmo ano",
+  "mede": "O bloco da etapa 6 desde 14/09 (noite): para cada indicador do técnico do time, do elenco e do físico do elenco, a posição do time no ranking do ano contra o aproveitamento de pontos daquele mesmo ano, nas 80 temporadas 2022-2025, declarado antes de medir. Nenhuma conta usa o ano seguinte.",
+  "unidade": "texto",
+  "fonte": "calculado no projeto",
+  "lado": "não se aplica",
+  "fase": "não se aplica",
+  "por": "não se aplica",
+  "compara_com_por_90": false,
+  "usada_em": [
+   "prototipo.etapa_6"
+  ],
+  "origem": "gerar_prototipo.py:1469 (MESMO_ANO_DECL) · gerar_prototipo.py:1531 (mesmo_ano)",
+  "nota": "associação no mesmo ano mistura causa e consequência (quem separa é a etapa 7); o mesmo clube aparece em até 4 temporadas; é associação, não receita",
+  "nome_simples": "Posição no ano × aproveitamento do mesmo ano",
+  "escala": "não se aplica"
+ },
+ "aproveitamento_pct": {
+  "nome": "Aproveitamento, %",
+  "nome_longo": "aproveitamento de pontos no mesmo ano, %",
+  "mede": "Pontos ganhos divididos pelos pontos em disputa no mesmo ano: 100 × pts ÷ (3 × jogos), com jogos = vitórias + empates + derrotas.",
+  "unidade": "%",
+  "fonte": "calculado no projeto",
+  "lado": "não se aplica",
+  "fase": "jogo inteiro",
+  "por": "%",
+  "compara_com_por_90": false,
+  "usada_em": [
+   "prototipo.etapa_6"
+  ],
+  "origem": "gerar_prototipo.py:1531",
+  "nome_simples": "aproveitamento de pontos no mesmo ano, %",
+  "escala": "%"
+ },
+ "rho_mesmo_ano": {
+  "nome": "Anda com os pontos (ρ)",
+  "nome_longo": "Anda com os pontos do mesmo ano (ρ)",
+  "mede": "Spearman da posição do time no indicador contra o aproveitamento de pontos do mesmo ano, só nas temporadas com valor; vem com o p bilateral, o q de Benjamini-Hochberg entre os indicadores desenhados e o n. Com menos de 20 temporadas com valor fica nulo, com o motivo.",
+  "unidade": "−1 a 1",
+  "fonte": "calculado no projeto",
+  "lado": "não se aplica",
+  "fase": "não se aplica",
+  "por": "não se aplica",
+  "compara_com_por_90": false,
+  "usada_em": [
+   "prototipo.etapa_6"
+  ],
+  "origem": "gerar_prototipo.py:1531",
+  "nota": "não é o ρ de um ano para o outro (esse é rho); indicador de uso do elenco vem marcado como consequência do resultado",
+  "nome_simples": "Anda com os pontos do mesmo ano (ρ)",
+  "escala": "não se aplica"
+ },
+ "ordem_por_forca": {
+  "nome": "Ordem por força",
+  "nome_longo": "ordem das miniaturas, da relação mais forte para a mais fraca",
+  "mede": "Os indicadores por |ρ do mesmo ano| decrescente; empate pelo id em ordem alfabética; os sem ρ no fim. A tela só lê esta ordem.",
+  "unidade": "texto",
+  "fonte": "calculado no projeto",
+  "lado": "não se aplica",
+  "fase": "não se aplica",
+  "por": "não se aplica",
+  "compara_com_por_90": false,
+  "usada_em": [
+   "prototipo.etapa_6"
+  ],
+  "origem": "gerar_prototipo.py:1531",
+  "nome_simples": "ordem das miniaturas, da relação mais forte para a mais fraca",
+  "escala": "não se aplica"
+ },
+ "lista_inteira": {
+  "nome": "Lista inteira × sorteio",
+  "nome_longo": "quantos passam na lista inteira, contra o sorteio",
+  "mede": "Quantos indicadores da etapa 6 têm p < 0,05, comparado com 10.000 sorteios que embaralham o aproveitamento dentro de cada ano (gerador próprio, semente fixa); vem com a mediana dos sorteios e o p do excesso = (1 + sorteios com contagem >= a real) ÷ (sorteios + 1).",
+  "unidade": "indicadores",
+  "fonte": "calculado no projeto",
+  "lado": "não se aplica",
+  "fase": "não se aplica",
+  "por": "não se aplica",
+  "compara_com_por_90": false,
+  "usada_em": [
+   "prototipo.etapa_6"
+  ],
+  "origem": "gerar_prototipo.py:1531",
+  "nome_simples": "quantos passam na lista inteira, contra o sorteio",
   "escala": "não se aplica"
  },
  "rho_bruto": {

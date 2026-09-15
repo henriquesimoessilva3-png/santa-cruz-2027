@@ -1,0 +1,287 @@
+<title>Quem sobe, quem fica, quem cai</title>
+<style>
+:root{
+  --fundo:#eceff4; --sup:#ffffff; --sup2:#f5f7fa; --sup3:#e9edf3;
+  --tinta:#1b2230; --tinta2:#535e70; --tinta3:#7d8797;
+  --borda:#dde2ea; --borda2:#c3ccd9;
+  --coral:#c8102e; --coral-veu:#c8102e12;
+  --g-sobe:#1a6aa0; --g-sobe-ponto:#4fb0ea; --g-meio:#6b7585; --g-meio-ponto:#9aa3b0; --g-cai:#a14f0c; --g-cai-ponto:#f0923a;
+  --bom:#17754a; --ruim:#b3261e;
+  --firme:#1b2230; --firme-tinta:#ffffff; --sorte:#8a5a06; --sorte-bg:#fbf0d9; --sorte-borda:#e8cf9c;
+  --sombra:0 1px 2px #0f172a12, 0 6px 20px #0f172a0d;
+  --fonte:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --fundo:#0d0f13; --sup:#151922; --sup2:#1a1f29; --sup3:#212834;
+    --tinta:#e8eaee; --tinta2:#a3acba; --tinta3:#7a8493;
+    --borda:#262d3a; --borda2:#364051;
+    --coral:#ef3f5c; --coral-veu:#ef3f5c1f;
+    --g-sobe:#7cc7f2; --g-sobe-ponto:#5cb8ee; --g-meio:#a3acba; --g-meio-ponto:#7a8493; --g-cai:#f5ad62; --g-cai-ponto:#f39a3e;
+    --bom:#6fd49a; --ruim:#ff8f86;
+    --firme:#e8eaee; --firme-tinta:#0d0f13; --sorte:#f3c77e; --sorte-bg:#2f250f; --sorte-borda:#5a4418;
+    --sombra:0 1px 0 #ffffff08;
+  }
+}
+:root[data-theme="dark"]{
+  --fundo:#0d0f13; --sup:#151922; --sup2:#1a1f29; --sup3:#212834;
+  --tinta:#e8eaee; --tinta2:#a3acba; --tinta3:#7a8493;
+  --borda:#262d3a; --borda2:#364051;
+  --coral:#ef3f5c; --coral-veu:#ef3f5c1f;
+  --g-sobe:#7cc7f2; --g-sobe-ponto:#5cb8ee; --g-meio:#a3acba; --g-meio-ponto:#7a8493; --g-cai:#f5ad62; --g-cai-ponto:#f39a3e;
+  --bom:#6fd49a; --ruim:#ff8f86;
+  --firme:#e8eaee; --firme-tinta:#0d0f13; --sorte:#f3c77e; --sorte-bg:#2f250f; --sorte-borda:#5a4418;
+  --sombra:0 1px 0 #ffffff08;
+}
+
+*{box-sizing:border-box}
+body{background:var(--fundo);color:var(--tinta);font-family:var(--fonte);font-size:14px;line-height:1.5;
+  padding-block:32px 72px;padding-inline:20px;-webkit-font-smoothing:antialiased}
+.pagina{max-width:1260px;margin-inline:auto;display:flex;flex-direction:column;gap:26px}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+.topo{display:flex;flex-direction:column;gap:12px;max-width:76ch}
+.marca{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta2)}
+.previa{font-size:10.5px;letter-spacing:.08em;border:1px solid var(--coral);color:var(--coral);border-radius:999px;padding:2px 8px}
+h1{font-size:clamp(28px,4.2vw,40px);line-height:1.1;letter-spacing:-.02em;font-weight:750}
+.lede{font-size:16px;max-width:70ch}
+.grupos{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;color:var(--tinta2)}
+.grupos span{display:inline-flex;align-items:center;gap:7px}
+.ponto{display:inline-block;width:10px;height:10px;border-radius:50%}
+.p-sobe{background:var(--g-sobe-ponto)} .p-meio{background:var(--g-meio-ponto)} .p-cai{background:var(--g-cai-ponto)}
+
+.exemplo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 28px;padding:18px 20px;background:var(--sup);
+  border:1px solid var(--borda);border-radius:10px;box-shadow:var(--sombra)}
+.exemplo h2{grid-column:1/-1;font-size:12px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2)}
+.exemplo .antes,.exemplo .depois{display:flex;flex-direction:column;gap:8px}
+.exemplo h3{font-size:14px;font-weight:650}
+.exemplo .trio{display:flex;gap:18px;flex-wrap:wrap}
+.exemplo .trio div{display:flex;flex-direction:column}
+.exemplo .trio small{font-size:12px;color:var(--tinta2)}
+.exemplo .trio b{font-size:22px;font-weight:650}
+.exemplo p{font-size:13.5px;color:var(--tinta2);max-width:60ch}
+.exemplo p b{color:var(--tinta)}
+
+.controles{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:flex-end;padding:14px 18px;background:var(--sup);border:1px solid var(--borda);border-radius:10px}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo > label{font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2)}
+select,input[type="search"]{background:var(--sup);border:1px solid var(--borda2);border-radius:8px;padding:6px 10px;min-height:34px}
+.check{display:flex;align-items:center;gap:8px;min-height:34px;cursor:pointer}
+.check input{accent-color:var(--coral);width:16px;height:16px}
+.saltos{display:flex;flex-wrap:wrap;gap:6px}
+.saltos a{font-size:12.5px;text-decoration:none;color:var(--tinta2);border:1px solid var(--borda2);border-radius:999px;padding:3px 10px;background:var(--sup)}
+.saltos a:hover{color:var(--tinta);border-color:var(--tinta3)}
+
+.painel{display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+.p-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 18px}
+.p-cab h2{font-size:21px;font-weight:700;letter-spacing:-.01em}
+.p-cab .fonte{font-size:12.5px;color:var(--tinta3)}
+.p-resumo{font-size:13px;color:var(--tinta2)}
+.p-aviso{font-size:13px;color:var(--sorte);background:var(--sorte-bg);border:1px solid var(--sorte-borda);border-radius:8px;padding:7px 12px}
+.rolagem{overflow-x:auto;background:var(--sup);border:1px solid var(--borda);border-radius:10px;box-shadow:var(--sombra)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1120px}
+thead th{font-size:11px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;color:var(--tinta2);text-align:left;
+  vertical-align:bottom;padding:10px 12px 9px;border-bottom:1px solid var(--borda2);background:var(--sup2);line-height:1.25}
+thead th .sub{display:block;font-size:10.5px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--tinta3)}
+th.c-g{text-align:right}
+th.c-sobe{color:var(--g-sobe)} th.c-meio{color:var(--g-meio)} th.c-cai{color:var(--g-cai)}
+tbody td{padding:10px 12px;border-bottom:1px solid var(--borda);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--sup2)}
+.c-ind{width:270px}
+.ind-nome{font-weight:600;line-height:1.3}
+.ind-meta{font-size:12px;color:var(--tinta3);margin-top:2px}
+.ind-nota{font-size:11.5px;color:var(--sorte);margin-top:3px;cursor:help}
+td.c-g{text-align:right;width:98px;font-variant-numeric:tabular-nums;font-size:15px;font-weight:600;cursor:help}
+td.c-meio{color:var(--tinta2);font-weight:500}
+.c-faixa{width:160px}
+.faixa{position:relative;height:28px;width:140px}
+.faixa .trilho{position:absolute;left:0;right:0;top:13px;height:1px;background:var(--borda2)}
+.faixa i{position:absolute;height:3px;border-radius:2px;opacity:.38}
+.faixa b{position:absolute;width:9px;height:9px;border-radius:50%;margin-left:-4.5px;border:1.5px solid var(--sup)}
+td.c-d{width:104px;font-variant-numeric:tabular-nums;cursor:help}
+.d-num{font-weight:650;font-size:14.5px}
+.d-lado{display:block;font-size:11.5px;color:var(--tinta3)}
+.d-num.bom{color:var(--bom)} .d-num.ruim{color:var(--ruim)}
+.c-teste{width:196px}
+.teste{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tinta2);line-height:1.2;cursor:help}
+.teste + .teste{margin-top:5px}
+.selo{display:inline-block;min-width:92px;text-align:center;font-size:11px;font-weight:650;border-radius:999px;padding:3px 7px;border:1px solid transparent}
+.selo.firme{background:var(--firme);color:var(--firme-tinta)}
+.selo.sorte{background:var(--sorte-bg);color:var(--sorte);border-color:var(--sorte-borda)}
+.selo.nada{color:var(--tinta3);border-color:var(--borda2)}
+tr.oculta{display:none}
+
+.metodo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 40px;padding-top:22px;border-top:1px solid var(--borda2)}
+.metodo h2{grid-column:1/-1;font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2)}
+.metodo section{display:flex;flex-direction:column;gap:4px;max-width:62ch}
+.metodo h3{font-size:14px;font-weight:650}
+.metodo p{font-size:13.5px;color:var(--tinta2)}
+.rodape{font-size:12px;color:var(--tinta3)}
+
+@media (max-width:860px){ .exemplo,.metodo{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:520px){ body{padding-inline:16px} .controles{padding:12px} }
+</style>
+
+<div class="pagina">
+  <header class="topo">
+    <div class="marca">Santa Cruz · Estudo da Série B · Etapa 5 <span class="previa">prévia do formato</span></div>
+    <h1>Quem sobe, quem fica, quem cai</h1>
+    <p class="lede">Cada linha é um número do jogo. As três colunas mostram o valor típico de cada grupo, na unidade do próprio número, de 2022 a 2025. Depois vem quanto quem subiu e quem caiu ficam acima ou abaixo de quem ficou no meio da tabela, e se essa diferença é firme ou pode ser sorte.</p>
+    <div class="grupos" id="grupos"></div>
+  </header>
+
+  <section class="exemplo" id="exemplo" aria-labelledby="t-ex"></section>
+
+  <div class="controles">
+    <div class="campo"><label for="f-ordem">Ordem das linhas</label>
+      <select id="f-ordem">
+        <option value="firmeza">Mais firme primeiro</option>
+        <option value="estudo">A do estudo (maior diferença entre quem subiu e quem caiu)</option>
+      </select></div>
+    <div class="campo"><label for="f-busca">Buscar número</label>
+      <input type="search" id="f-busca" placeholder="ex.: duelos" autocomplete="off"></div>
+    <label class="check" for="f-so"><input type="checkbox" id="f-so"> Esconder o que não mostra diferença</label>
+    <div class="campo"><label>Ir para</label><nav class="saltos" id="saltos"></nav></div>
+  </div>
+
+  <div id="paineis" style="display:flex;flex-direction:column;gap:34px"></div>
+
+  <div class="metodo">
+    <h2>Como os números foram feitos</h2>
+    <section><h3>Valor típico</h3>
+      <p>É a mediana: o time do meio do grupo, com metade acima e metade abaixo. Com só 16 temporadas em cada ponta, um time fora da curva puxa a média; por isso a média fica na dica de cada número, junto com a faixa em que está a metade dos times. Os valores juntam os quatro anos, sem ajuste de ano.</p></section>
+    <section><h3>A diferença</h3>
+      <p>Sempre contra quem ficou no meio da tabela, que é o time típico que fica na Série B. Em % do valor do meio; quando o número já é uma porcentagem, em pontos percentuais, porque "61% contra 59%" são 2 pontos, não 3%. Números de unidades diferentes não se comparam entre si, e por isso as linhas não se ordenam pelo tamanho da diferença.</p></section>
+    <section><h3>Firme ou sorte</h3>
+      <p>São os testes que o estudo já fez no catálogo da etapa 2. <b>Firme</b>: passa na conta dos muitos testes feitos ao mesmo tempo. <b>Pode ser sorte</b>: a diferença aparece, mas, com tantos números testados, uma assim sai por acaso. <b>Sem diferença clara</b>: nem isso. O teste compara a posição do time no ranking de cada ano, o que tira o efeito de a liga inteira mudar de um ano para o outro.</p></section>
+    <section><h3>O que isto não quer dizer</h3>
+      <p>Que fazer mais daquilo faz subir. Número e pontos saem dos mesmos jogos, e time que está ganhando joga diferente; quem separa uma coisa da outra é a etapa 7. O lado bom (melhor ou pior) só aparece onde o estudo o declarou; técnico por jogador e físico ficam sem lado.</p></section>
+    <p class="rodape" id="rodape"></p>
+  </div>
+</div>
+
+<script>
+const D = __DADOS__;
+const G = [["sobe","Subiu","quem subiu"],["meio","Ficou no meio","quem ficou no meio"],["cai","Caiu","quem caiu"]];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function casas(v){ const a = Math.abs(v); return a >= 100 ? 0 : a >= 10 ? 1 : a >= 1 ? 2 : 3; }
+function fmt(v, c){ if(v == null) return "—"; const k = c ?? casas(v); return v.toLocaleString("pt-BR",{minimumFractionDigits:k,maximumFractionDigits:k}); }
+function comUnidade(v, l){ if(v == null) return "—"; return l.tipo === "pp" ? fmt(v, 1) + "%" : fmt(v); }
+const P3 = p => p == null ? "—" : p < 0.001 ? "< 0,001" : fmt(p, 3);
+
+function difTexto(dv, l){
+  if(dv == null) return {num:"—", lado:"sem valor"};
+  const s = dv > 0 ? "+" : dv < 0 ? "−" : "";
+  const a = Math.abs(dv);
+  const num = l.tipo === "pp" ? s + fmt(a, 1) + " pts" : s + fmt(a, a >= 10 ? 0 : 1) + "%";
+  let cls = "", lado = dv > 0 ? "acima do meio" : dv < 0 ? "abaixo do meio" : "igual ao meio";
+  if(l.lado && dv !== 0){ const melhor = (dv > 0) === (l.lado > 0); cls = melhor ? "bom" : "ruim"; lado = melhor ? "melhor que o meio" : "pior que o meio"; }
+  return {num, lado, cls};
+}
+const SELO = {firme:"firme", sorte:"pode ser sorte", nada:"sem diferença clara"};
+function selo(f, p, q, rot){
+  if(!f) return `<div class="teste"><span class="selo nada">sem teste</span> ${rot}</div>`;
+  return `<div class="teste" title="${esc(rot + ': p ' + P3(p) + ' · q (conta dos muitos testes) ' + P3(q))}"><span class="selo ${f}">${SELO[f]}</span> ${rot}</div>`;
+}
+function dicaGrupo(l, i){
+  const q = l.q[i] || [];
+  const nome = G[i][2];
+  return `${nome}: mediana ${comUnidade(q[1], l)} · média ${comUnidade(l.media[i], l)} · metade dos times entre ${comUnidade(q[0], l)} e ${comUnidade(q[2], l)} · posição típica no ranking do ano ${fmt(l.posto[i],0)} de 100`;
+}
+function faixa(l){
+  const qs = l.q.filter(Boolean);
+  if(!qs.length) return "";
+  let lo = Math.min(...qs.map(q => q[0])), hi = Math.max(...qs.map(q => q[2]));
+  if(hi === lo){ lo -= 1; hi += 1; }
+  const pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
+  const x = v => ((v - lo) / (hi - lo) * 100).toFixed(2) + "%";
+  const cores = ["var(--g-sobe-ponto)","var(--g-meio-ponto)","var(--g-cai-ponto)"];
+  return `<div class="faixa" title="${esc('Barra fina: onde está a metade dos times de cada grupo. Bolinha: o valor típico. Escala desta linha: de ' + comUnidade(lo, l) + ' a ' + comUnidade(hi, l) + '.')}"><span class="trilho"></span>` +
+    l.q.map((q, i) => q ? `<i style="left:${x(q[0])};width:calc(${x(q[2])} - ${x(q[0])});top:${6 + i*7}px;background:${cores[i]}"></i><b style="left:${x(q[1])};top:${3 + i*7}px;background:${cores[i]}"></b>` : "").join("") + `</div>`;
+}
+function unidadeTxt(l){
+  const u = l.unidade ? l.unidade : "unidade não achada no glossário";
+  const lado = l.lado > 0 ? "mais é melhor" : l.lado < 0 ? "menos é melhor" : "sem lado bom declarado";
+  return `${esc(u)} · ${lado}`;
+}
+function linha(l){
+  const ds = difTexto(l.d_sobe, l), dc = difTexto(l.d_cai, l);
+  const nota = l.difere ? `<div class="ind-nota" title="Com o valor juntando os quatro anos, a ordem dos três grupos é outra que a da posição no ranking de cada ano: parte da diferença vem de a liga ter mudado de um ano para o outro.">na posição de cada ano, a ordem dos grupos é outra</div>` : "";
+  const forte = (l.f_sm === "firme" || l.f_sc === "firme") ? 0 : (l.f_sm === "sorte" || l.f_sc === "sorte") ? 1 : 2;
+  return `<tr data-busca="${esc(norm(l.nome))}" data-forca="${forte}">
+    <td class="c-ind"><div class="ind-nome" title="${esc(l.mede || '')}">${esc(l.nome)}</div><div class="ind-meta">${unidadeTxt(l)}</div>${nota}</td>
+    ${G.map((g,i) => `<td class="c-g c-${g[0]}" title="${esc(dicaGrupo(l,i))}">${comUnidade((l.q[i]||[])[1], l)}</td>`).join("")}
+    <td class="c-faixa">${faixa(l)}</td>
+    <td class="c-d" title="${esc('quem subiu: ' + comUnidade((l.q[0]||[])[1], l) + ' contra ' + comUnidade((l.q[1]||[])[1], l) + ' do meio')}"><span class="d-num ${ds.cls}">${ds.num}</span><span class="d-lado">${ds.lado}</span></td>
+    <td class="c-d" title="${esc('quem caiu: ' + comUnidade((l.q[2]||[])[1], l) + ' contra ' + comUnidade((l.q[1]||[])[1], l) + ' do meio')}"><span class="d-num ${dc.cls}">${dc.num}</span><span class="d-lado">${dc.lado}</span></td>
+    <td class="c-teste">${selo(l.f_sm, l.p_sm, l.q_sm, "subiu × meio")}${selo(l.f_sc, l.p_sc, l.q_sc, "subiu × caiu")}</td>
+  </tr>`;
+}
+function chaveFirmeza(l){
+  const qs = [l.q_sm, l.q_sc].filter(v => v != null);
+  return qs.length ? Math.min(...qs) : 9;
+}
+function renderPainel(pn){
+  const ordem = $("f-ordem").value;
+  const ls = pn.linhas.slice().sort((a,b) => ordem === "estudo" ? a.ordem_estudo - b.ordem_estudo : chaveFirmeza(a) - chaveFirmeza(b));
+  const c = {firme:0, sorte:0, nada:0};
+  pn.linhas.forEach(l => { const f = (l.f_sm === "firme" || l.f_sc === "firme") ? "firme" : (l.f_sm === "sorte" || l.f_sc === "sorte") ? "sorte" : "nada"; c[f]++; });
+  const aviso = pn.aviso ? `<p class="p-aviso">Em <b>${pn.aviso.poucos}</b> das 80 temporadas o número do setor saiu de só 3 ou 4 ${esc(pn.aviso.plural)}, e em <b>${pn.aviso.menos_de_3}</b> de menos de 3. É pouca gente para uma média firme.</p>` : "";
+  return `<section class="painel" id="p-${pn.chave}" aria-labelledby="t-${pn.chave}">
+    <div class="p-cab"><h2 id="t-${pn.chave}">${esc(pn.titulo)}</h2><span class="fonte">${esc(pn.fonte)}</span></div>
+    <p class="p-resumo">${pn.linhas.length} números · <b>${c.firme}</b> com diferença firme em pelo menos uma comparação · <b>${c.sorte}</b> que podem ser sorte · <b>${c.nada}</b> sem diferença clara</p>
+    ${aviso}
+    <div class="rolagem"><table>
+      <thead><tr>
+        <th class="c-ind">Número</th>
+        <th class="c-g c-sobe">Subiu<span class="sub">típico</span></th>
+        <th class="c-g c-meio">Ficou no meio<span class="sub">típico</span></th>
+        <th class="c-g c-cai">Caiu<span class="sub">típico</span></th>
+        <th class="c-faixa">Onde fica cada grupo</th>
+        <th class="c-d">Subiu<span class="sub">contra o meio</span></th>
+        <th class="c-d">Caiu<span class="sub">contra o meio</span></th>
+        <th class="c-teste">A diferença é firme?</th>
+      </tr></thead>
+      <tbody>${ls.map(linha).join("")}</tbody>
+    </table></div>
+  </section>`;
+}
+function filtrar(){
+  const b = norm($("f-busca").value.trim()), so = $("f-so").checked;
+  document.querySelectorAll("tbody tr").forEach(tr => {
+    const ok = (!b || tr.dataset.busca.includes(b)) && (!so || tr.dataset.forca !== "2");
+    tr.classList.toggle("oculta", !ok);
+  });
+}
+function render(){ $("paineis").innerHTML = D.paineis.map(renderPainel).join(""); filtrar(); }
+
+$("grupos").innerHTML = G.map(g => `<span><i class="ponto p-${g[0]}"></i><b>${D.grupos[g[0]]}</b> temporadas de ${g[2]}${g[0]==="sobe" ? " (1º a 4º)" : g[0]==="cai" ? " (17º a 20º)" : " (5º a 16º)"}</span>`).join("");
+$("saltos").innerHTML = D.paineis.map(pn => `<a href="#p-${pn.chave}">${esc(pn.titulo)}</a>`).join("");
+
+(function exemplo(){
+  const l = D.paineis.flatMap(p => p.linhas).find(x => x.id === D.exemplo);
+  if(!l){ $("exemplo").hidden = true; return; }
+  const dc = difTexto(l.d_cai, l), ds = difTexto(l.d_sobe, l);
+  const sel = SELO[l.f_sc] || "sem teste";
+  $("exemplo").innerHTML = `<h2 id="t-ex">O mesmo número nos dois formatos: ${esc(l.nome)}</h2>
+    <div class="antes"><h3>Como está hoje: posição no ranking do ano (0 a 100)</h3>
+      <div class="trio">${G.map((g,i) => `<div><small>${g[1]}</small><b class="num">${fmt(l.posto[i],0)}</b></div>`).join("")}</div>
+      <p>Parece uma distância enorme entre quem caiu e os outros dois grupos. Mas a posição só diz quem está na frente de quem, não por quanto: na Série B os times ficam muito perto uns dos outros, e um pouco a mais já muda muitas posições.</p></div>
+    <div class="depois"><h3>Como fica: o valor de verdade</h3>
+      <div class="trio">${G.map((g,i) => `<div><small>${g[1]}</small><b class="num">${comUnidade((l.q[i]||[])[1], l)}</b></div>`).join("")}</div>
+      <p>Quem caiu fica <b>${esc(dc.num)}</b> ${esc(dc.lado)}, e quem subiu <b>${esc(ds.num)}</b> ${esc(ds.lado)}. Entre quem subiu e quem caiu, a diferença <b>${esc(sel)}</b>.</p></div>`;
+})();
+
+$("f-ordem").addEventListener("change", render);
+$("f-busca").addEventListener("input", filtrar);
+$("f-so").addEventListener("change", filtrar);
+render();
+$("rodape").textContent = `Prévia montada em ${D.gerado} a partir de ${D.fonte}. É o desenho para decidir o formato; a tela do site ainda é a matriz por time.`;
+</script>

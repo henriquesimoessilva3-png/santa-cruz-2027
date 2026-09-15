@@ -1,0 +1,718 @@
+{
+ "base_n": 1783,
+ "times_ok": [
+  true,
+  16,
+  []
+ ],
+ "elenco_divergencias": [],
+ "amostra20": [
+  {
+   "ano": 2022,
+   "clube": "Cruzeiro",
+   "nome": "Lincoln",
+   "id": 31553,
+   "setor": "ataque",
+   "pos": "CF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Mirassol",
+   "nome": "Fernandinho",
+   "id": 53099,
+   "setor": "ataque",
+   "pos": "LW",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Ceará",
+   "nome": "Caio Rafael",
+   "id": 422046,
+   "setor": "ataque",
+   "pos": "RAMF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2022,
+   "clube": "Cruzeiro",
+   "nome": "Waguininho",
+   "id": 177444,
+   "setor": "lateral",
+   "pos": "RWB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Mirassol",
+   "nome": "Cristian Renato",
+   "id": 632560,
+   "setor": "ataque",
+   "pos": "RWF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Sport",
+   "nome": "Alisson Cassiano",
+   "id": 175708,
+   "setor": "zaga",
+   "pos": "RCB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Santos",
+   "nome": "Alex Nascimento",
+   "id": 32819,
+   "setor": "zaga",
+   "pos": "LCB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Santos",
+   "nome": "Serginho",
+   "id": 822529,
+   "setor": "meio",
+   "pos": "AMF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Mirassol",
+   "nome": "Dellatorre",
+   "id": 727009,
+   "setor": "ataque",
+   "pos": "CF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2025,
+   "clube": "Remo",
+   "nome": "Jorge",
+   "id": 11222,
+   "setor": "lateral",
+   "pos": "LB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Ceará",
+   "nome": "Kauã Lucas",
+   "id": 837702,
+   "setor": "ataque",
+   "pos": "LW",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2025,
+   "clube": "Remo",
+   "nome": "Kayky Almeida",
+   "id": 670392,
+   "setor": "zaga",
+   "pos": "LCB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2023,
+   "clube": "Atlético-GO",
+   "nome": "Gustavo Coutinho",
+   "id": 183964,
+   "setor": "ataque",
+   "pos": "CF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2024,
+   "clube": "Mirassol",
+   "nome": "Alex Silva",
+   "id": 31917,
+   "setor": "lateral",
+   "pos": "RB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2025,
+   "clube": "Chapecoense",
+   "nome": "Giovanni Augusto",
+   "id": 31806,
+   "setor": "meio",
+   "pos": "AMF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2023,
+   "clube": "Juventude",
+   "nome": "Rafael Furtado",
+   "id": 788229,
+   "setor": "ataque",
+   "pos": "CF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2023,
+   "clube": "Atlético-GO",
+   "nome": "Lucas Gazal",
+   "id": 179738,
+   "setor": "zaga",
+   "pos": "RCB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2025,
+   "clube": "Chapecoense",
+   "nome": "Dentinho",
+   "id": 151333,
+   "setor": "ataque",
+   "pos": "CF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2023,
+   "clube": "Criciúma",
+   "nome": "Crystopher",
+   "id": 633590,
+   "setor": "meio",
+   "pos": "LCMF",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  },
+  {
+   "ano": 2025,
+   "clube": "Coritiba",
+   "nome": "Guilherme Vargas",
+   "id": 818783,
+   "setor": "zaga",
+   "pos": "RCB",
+   "nums_ok": true,
+   "setor_ok": true,
+   "min_ok": true
+  }
+ ],
+ "percentis10": [
+  [
+   2022,
+   "Cruzeiro",
+   "Lincoln",
+   "ataque",
+   164,
+   0.041
+  ],
+  [
+   2024,
+   "Mirassol",
+   "Fernandinho",
+   "ataque",
+   162,
+   0.048
+  ],
+  [
+   2024,
+   "Sport",
+   "Alisson Cassiano",
+   "zaga",
+   83,
+   0.049
+  ],
+  [
+   2024,
+   "Santos",
+   "Serginho",
+   "meio",
+   109,
+   0.044
+  ],
+  [
+   2024,
+   "Mirassol",
+   "Dellatorre",
+   "ataque",
+   162,
+   0.047
+  ],
+  [
+   2025,
+   "Remo",
+   "Jorge",
+   "lateral",
+   87,
+   0.037
+  ],
+  [
+   2025,
+   "Remo",
+   "Kayky Almeida",
+   "zaga",
+   88,
+   0.046
+  ],
+  [
+   2023,
+   "Atlético-GO",
+   "Gustavo Coutinho",
+   "ataque",
+   164,
+   0.05
+  ],
+  [
+   2024,
+   "Mirassol",
+   "Alex Silva",
+   "lateral",
+   87,
+   0.047
+  ],
+  [
+   2025,
+   "Chapecoense",
+   "Giovanni Augusto",
+   "meio",
+   123,
+   0.041
+  ]
+ ],
+ "n_eligiveis_na_amostra": 13,
+ "fechamento6": [
+  [
+   2022,
+   "Grêmio",
+   17,
+   1.7763568394002505e-15,
+   0.0005
+  ],
+  [
+   2022,
+   "Vasco",
+   21,
+   5.551115123125783e-17,
+   0.0005
+  ],
+  [
+   2023,
+   "Atlético-GO",
+   17,
+   1.7763568394002505e-15,
+   0.0005
+  ],
+  [
+   2024,
+   "Mirassol",
+   18,
+   1.1102230246251565e-16,
+   0.0005
+  ],
+  [
+   2025,
+   "Chapecoense",
+   16,
+   3.552713678800501e-15,
+   0.0005
+  ],
+  [
+   2025,
+   "Athletico-PR",
+   26,
+   8.881784197001252e-16,
+   0.0005
+  ]
+ ],
+ "homonimos": {
+  "id_em_2_clubes_mesmo_ano": 0,
+  "id_repetido_mesmo_ano": 0,
+  "dois_ids_sc_mesmo_nome_mesmo_ano_casados": [
+   [
+    2023,
+    "Ponte Preta",
+    "Edson",
+    633850,
+    "2002-08-23",
+    1162.28
+   ],
+   [
+    2023,
+    "Ponte Preta",
+    "Edson",
+    792001,
+    "2002-05-22",
+    196.48
+   ],
+   [
+    2025,
+    "Athletic",
+    "G. Queiroz",
+    1030735,
+    "2008-07-26",
+    22.83
+   ],
+   [
+    2025,
+    "Athletic",
+    "G. Queiroz",
+    1031881,
+    "2008-07-26",
+    18.98
+   ],
+   [
+    2025,
+    "Operário-PR",
+    "Gabriel Souza",
+    974190,
+    "2002-12-25",
+    1199.47
+   ],
+   [
+    2025,
+    "Operário-PR",
+    "Gabriel Souza",
+    1016633,
+    "2002-02-19",
+    21.78
+   ]
+  ],
+  "sem_guarda_de_idade_nos_16": [],
+  "wyscout_2_linhas_mesmo_clube": [
+   [
+    2022,
+    "Vasco",
+    "Zé Vitor",
+    2.0
+   ],
+   [
+    2024,
+    "Mirassol",
+    "Marquinhos",
+    2.0
+   ]
+  ],
+  "lista_id_repetido_no_ano": [],
+  "nome_wy_difere_de_short_name": [],
+  "team_name_sc_preenchido_nos_16": 0
+ },
+ "physical_match_cols": [
+  "sc_player_id",
+  "sc_match_id",
+  "sc_competition_edition_id",
+  "match_date",
+  "match_name",
+  "team_id",
+  "team_name",
+  "position",
+  "position_group",
+  "minutes_played",
+  "psv99",
+  "distance_p90",
+  "m_per_min",
+  "running_distance_p90",
+  "hsr_distance_p90",
+  "hsr_count_p90",
+  "sprint_distance_p90",
+  "sprint_count_p90",
+  "hi_distance_p90",
+  "hi_count_p90",
+  "high_accel_p90",
+  "high_decel_p90",
+  "medium_accel_p90",
+  "medium_decel_p90",
+  "expl_accel_sprint_p90",
+  "expl_accel_hsr_p90",
+  "cod_count_p90",
+  "updated_at"
+ ],
+ "referencia": [
+  [
+   2023,
+   "zaga",
+   "serie_b",
+   79,
+   79,
+   0.0
+  ],
+  [
+   2023,
+   "zaga",
+   "sobe",
+   11,
+   11,
+   0.0
+  ],
+  [
+   2023,
+   "zaga",
+   "meio_tabela",
+   47,
+   47,
+   0.0
+  ],
+  [
+   2023,
+   "zaga",
+   "cai",
+   21,
+   21,
+   0.0
+  ],
+  [
+   2023,
+   "lateral",
+   "serie_b",
+   85,
+   85,
+   0.0
+  ],
+  [
+   2023,
+   "lateral",
+   "sobe",
+   15,
+   15,
+   0.0
+  ],
+  [
+   2023,
+   "lateral",
+   "meio_tabela",
+   45,
+   45,
+   0.0
+  ],
+  [
+   2023,
+   "lateral",
+   "cai",
+   25,
+   25,
+   0.0
+  ],
+  [
+   2023,
+   "meio",
+   "serie_b",
+   118,
+   118,
+   0.0
+  ],
+  [
+   2023,
+   "meio",
+   "sobe",
+   28,
+   28,
+   0.0
+  ],
+  [
+   2023,
+   "meio",
+   "meio_tabela",
+   66,
+   66,
+   0.0
+  ],
+  [
+   2023,
+   "meio",
+   "cai",
+   24,
+   24,
+   0.0
+  ],
+  [
+   2023,
+   "ataque",
+   "serie_b",
+   164,
+   164,
+   0.0
+  ],
+  [
+   2023,
+   "ataque",
+   "sobe",
+   27,
+   27,
+   0.0
+  ],
+  [
+   2023,
+   "ataque",
+   "meio_tabela",
+   101,
+   101,
+   0.0
+  ],
+  [
+   2023,
+   "ataque",
+   "cai",
+   36,
+   36,
+   0.0
+  ],
+  [
+   2025,
+   "zaga",
+   "serie_b",
+   88,
+   88,
+   0.0
+  ],
+  [
+   2025,
+   "zaga",
+   "sobe",
+   16,
+   16,
+   0.0
+  ],
+  [
+   2025,
+   "zaga",
+   "meio_tabela",
+   50,
+   50,
+   0.0
+  ],
+  [
+   2025,
+   "zaga",
+   "cai",
+   22,
+   22,
+   0.0
+  ],
+  [
+   2025,
+   "lateral",
+   "serie_b",
+   87,
+   87,
+   0.0
+  ],
+  [
+   2025,
+   "lateral",
+   "sobe",
+   18,
+   18,
+   0.0
+  ],
+  [
+   2025,
+   "lateral",
+   "meio_tabela",
+   49,
+   49,
+   0.0
+  ],
+  [
+   2025,
+   "lateral",
+   "cai",
+   20,
+   20,
+   0.0
+  ],
+  [
+   2025,
+   "meio",
+   "serie_b",
+   123,
+   123,
+   0.0
+  ],
+  [
+   2025,
+   "meio",
+   "sobe",
+   25,
+   25,
+   0.0
+  ],
+  [
+   2025,
+   "meio",
+   "meio_tabela",
+   71,
+   71,
+   0.0
+  ],
+  [
+   2025,
+   "meio",
+   "cai",
+   27,
+   27,
+   0.0
+  ],
+  [
+   2025,
+   "ataque",
+   "serie_b",
+   155,
+   155,
+   0.0
+  ],
+  [
+   2025,
+   "ataque",
+   "sobe",
+   24,
+   24,
+   0.0
+  ],
+  [
+   2025,
+   "ataque",
+   "meio_tabela",
+   98,
+   98,
+   0.0
+  ],
+  [
+   2025,
+   "ataque",
+   "cai",
+   33,
+   33,
+   0.0
+  ]
+ ]
+}

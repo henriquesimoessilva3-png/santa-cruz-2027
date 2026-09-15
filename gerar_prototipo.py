@@ -767,6 +767,7 @@ def _elenco_por_setor(d):
         linhas=int(len(Dup)),
         linhas_com_preco=int(Dup.valor_eur.notna().sum()),
         jogadores_ano=int(Dup[["ano", "id_jogador"]].drop_duplicates().shape[0]),
+        pessoas_distintas=int(Dup["id_jogador"].nunique()),
         passagens_por_jogador={str(k): int(v) for k, v in
                                sorted(por_pessoa.size().value_counts().items())},
         valor_das_linhas_eur=r(valor_linhas, 0),
@@ -995,10 +996,18 @@ def ponderado_por_jogador(d, linhas_valor):
     regra += (
         " Jogador listado pelo Transfermarkt em dois clubes na mesma temporada (mesmo id_jogador no "
         "ano) conta nos dois elencos, como jogador inteiro e com o preço inteiro em cada um, que é "
-        "como val_* e o plantel já contam: ele fez parte dos dois. São %s linhas de %s jogadores "
-        "(%s com preço), € %s mi somados nessas linhas, dos quais € %s mi são a segunda contagem; "
-        "por isso as %s linhas usadas são passagens por clube, e jogadores distintos por ano são %s."
-        % (mil(dc["linhas"]), mil(dc["jogadores_ano"]), mil(dc["linhas_com_preco"]),
+        "como val_* e o plantel já contam: ele fez parte dos dois. São %s linhas (%s com preço) de "
+        "%s jogadores-ano (cada jogador contado uma vez em cada temporada em que passou por dois "
+        "clubes), %s; € %s mi somados nessas linhas, dos quais € %s mi são a segunda contagem; "
+        "por isso as %s linhas usadas são passagens por clube, e jogadores-ano distintos são %s."
+        % (mil(dc["linhas"]), mil(dc["linhas_com_preco"]), mil(dc["jogadores_ano"]),
+           # Jogador-ano não é gente: quem troca de clube no meio de duas temporadas conta duas
+           # vezes. As pessoas são contadas pelo id_jogador sem o ano, e a frase só fala em
+           # "mesma pessoa em mais de uma temporada" quando a conta mostra que isso aconteceu.
+           ("que são %s pessoas distintas (há quem tenha passado por dois clubes em mais de uma "
+            "temporada)" % mil(dc["pessoas_distintas"]))
+           if dc["pessoas_distintas"] < dc["jogadores_ano"]
+           else "que são as mesmas %s pessoas distintas" % mil(dc["pessoas_distintas"]),
            num_br(dc["valor_das_linhas_eur"] / 1e6, 1), num_br(dc["valor_a_mais_eur"] / 1e6, 1),
            mil(dc["linhas_usadas"]), mil(dc["jogadores_ano_distintos"])))
     anos = sorted(int(a) for a in np.unique(ano))
@@ -1443,8 +1452,252 @@ def etapa_7(jog, meta):
 #  ETAPA 6 — isso se repete? persistência t -> t+1
 # ══════════════════════════════════════════════════════════════════════════════
 
+# ---------- etapa 6, desempenho no MESMO ano: a declaração vem antes do código que mede ----------
+# Pedido do dono em 14/09: "não quero esse foco de construir; quero foco em subida para o ano; a
+# construção é sempre para o ano". A tela da etapa 6 deixa de perguntar se o número se repete no ano
+# seguinte e passa a mostrar, para cada indicador, onde o time ficou no ranking do ano contra o
+# aproveitamento de pontos daquele mesmo ano. Tudo o que muda número está escrito aqui, ANTES da
+# função que mede, e vai ao JSON inteiro em `etapa_6.mesmo_ano.declaracao`: se a regra fosse escolhida
+# depois de ver as forças, a ordem e a contagem contra o sorteio seriam decorativas.
+MESMO_ANO_PEDIDO_EM = "2026-09-14"
+MESMO_ANO_N_SORTEIOS = 10000
+# Gerador próprio: `default_rng([SEMENTE, 6])`, 6 de etapa 6. Não passa pelo `rng` global, porque uma
+# etapa nova que sorteasse no global deslocaria todos os sorteios das etapas seguintes.
+MESMO_ANO_SEMENTE = [SEMENTE, 6]
+MESMO_ANO_MINIMO = 20
+MESMO_ANO_FAMILIAS = ("tecnico_col", "elenco", "fisico_col_elenco")
+MESMO_ANO_DECL = dict(
+    pedido_do_dono_em=MESMO_ANO_PEDIDO_EM,
+    pergunta="o time que fica mais alto neste indicador faz mais pontos NO MESMO ano?",
+    universo=("as 80 temporadas clube-ano de 2022-2025 do painel (d80), na ordem (ano, clube); "
+              "2026 não entra"),
+    # Texto que a tela mostra: português de reunião, sem nome de campo do JSON (o campo continua
+    # sendo `aproveitamento_pct` na lista `temporadas`; só a frase deixou de citá-lo).
+    temporadas=("ano, clube, faixa do próprio ano (subiu, meio ou caiu), pontos, jogos (vitórias + "
+                "empates + derrotas) e aproveitamento = 100 × pontos ÷ (3 × jogos)"),
+    indicadores=("os das famílias %s (os que têm miniatura na etapa 6), na ordem das colunas da matriz"
+                 % ", ".join(MESMO_ANO_FAMILIAS)),
+    eixo_horizontal=("posição do time no ranking do ano no indicador, de 0 a 100 (a mesma escala das "
+                     "células da etapa 5); vazio onde o indicador não tem valor"),
+    eixo_vertical="aproveitamento de pontos no mesmo ano, em %",
+    cores=("pela faixa do MESMO ano: azul claro quem subiu, laranja quem caiu, cinza o meio da tabela"),
+    forca=("rho de Spearman entre a posição no indicador e o aproveitamento, só nas temporadas com "
+           "valor; p bilateral (o de scipy.stats.spearmanr); n = temporadas com valor"),
+    minimo=("menos de %d temporadas com valor: a força fica sem valor, com o motivo escrito"
+            % MESMO_ANO_MINIMO),
+    muitos_testes=("q de Benjamini-Hochberg dentro dos indicadores desenhados que têm rho; e a lista "
+                   "inteira contra o sorteio: quantos indicadores têm p < 0,05, comparado com %d "
+                   "sorteios que embaralham o aproveitamento DENTRO de cada ano (cada temporada leva o "
+                   "aproveitamento de outra do mesmo ano; posição e faixa não mudam), gerador próprio "
+                   "np.random.default_rng(%s); p do excesso = (1 + sorteios com contagem >= a real) ÷ "
+                   "(sorteios + 1); junto vai a mediana da contagem nos sorteios"
+                   % (MESMO_ANO_N_SORTEIOS, MESMO_ANO_SEMENTE)),
+    ordem=("as miniaturas vão da relação mais forte para a mais fraca, pelo tamanho da força sem "
+           "olhar o sinal; empate pelo código do indicador em ordem alfabética; os que ficaram sem "
+           "força medida vão no fim, também em ordem alfabética. A tela só lê essa ordem"),
+    # Marca, não corte: indicadores com a mesma posição em todas as temporadas são o mesmo número
+    # com outro nome (ex.: distância por 90 e metros por minuto, quando todos jogam 90). Tirar um
+    # de cada par mudaria a lista declarada; então todos seguem no BH e no sorteio, e o bloco só diz,
+    # medido, quem repete quem, para a tela não mostrar duas miniaturas como duas confirmações.
+    postos_identicos=("indicadores com a mesma posição em todas as temporadas são marcados em "
+                      "mesmo_posto_que (medido, não digitado); continuam na lista, no BH e no sorteio"),
+    limites=[
+        "associação no mesmo ano mistura causa e consequência: o time que está ganhando joga "
+        "diferente (administra o placar, fica menos com a bola, sofre menos chutes); quem separa o "
+        "que vem antes dos pontos é a etapa 7 (1º turno contra o 2º)",
+        "o mesmo clube aparece em até 4 temporadas: as 80 não são independentes, e o p trata como "
+        "se fossem",
+        # Escrito antes de medir, então não afirma o resultado: em 14/09 o físico tem as 80.
+        "o físico do elenco é média só dos atletas rastreados e pode cobrir menos temporadas que o "
+        "técnico e o elenco; se cobrir menos, o n dele fica menor e aparece ao lado da força",
+        "é associação, não receita: subir num indicador não garante pontos",
+    ],
+    fora_do_bloco="nada de ano seguinte: nenhuma conta deste bloco usa a temporada t+1",
+)
+
+
+# Troca de palavra só na frase de consequência que a etapa 6 mostra (a chave é o texto do
+# ranking_gaps, que não é deste arquivo). Motivo no comentário de `mesmo_ano`.
+MESMO_ANO_MOTIVO_TELA = {"time que ganha repete o XI": "time que ganha usa quase sempre o mesmo XI"}
+
+
+def _spearman_matriz(x, Y):
+    """rho de Spearman e p bilateral de um x fixo contra cada LINHA de Y, de uma vez.
+
+    É a mesma conta de `stats.spearmanr` (Pearson dos postos médios, p pela t de Student com n − 2
+    graus de liberdade) escrita em matriz, porque o sorteio da lista inteira pede 10.000 × dezenas de
+    indicadores e uma chamada por par levaria minutos. A igualdade com o spearmanr é conferida no
+    dado real antes de sortear (assert em `mesmo_ano`).
+    """
+    xr = stats.rankdata(x)
+    Yr = stats.rankdata(Y, axis=1)
+    xc = xr - xr.mean()
+    Yc = Yr - Yr.mean(axis=1, keepdims=True)
+    den = np.sqrt((Yc ** 2).sum(axis=1)) * np.sqrt((xc ** 2).sum())
+    n = len(xr)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        rho = np.where(den > 0, (Yc @ xc) / den, np.nan)
+        rho = np.clip(rho, -1.0, 1.0)
+        t = rho * np.sqrt((n - 2) / ((1.0 - rho) * (1.0 + rho)))
+        p = 2 * stats.t.sf(np.abs(t), n - 2)
+    return rho, p
+
+
+def mesmo_ano(d80, postos, meta):
+    """Etapa 6 no desempenho do MESMO ano: posição no indicador × aproveitamento, 80 temporadas.
+
+    Mede exatamente o que `MESMO_ANO_DECL` diz, e só. O painel de quem chama pode não ter a tabela
+    (pts, V, E, D): aí o bloco sai como ausência com o motivo, e a etapa 6 continua inteira, porque
+    `rho` ainda é lido por outras etapas e pela aba por pontos.
+    """
+    falta = [c for c in ("ano", "clube", "faixa", "pts", "V", "E", "D") if c not in d80.columns]
+    if falta:
+        return dict(ausente=True, declaracao=MESMO_ANO_DECL,
+                    motivo="o painel recebido não tem as colunas %s; sem elas não há aproveitamento"
+                           % ", ".join(falta))
+    d = d80.reset_index(drop=True)
+    # A ordem (ano, clube) é declarada, e o sorteio dentro do ano depende dela: com a ordem das linhas
+    # do CSV, a mesma semente daria outro embaralhamento no dia em que o arquivo fosse reordenado.
+    ordem = sorted(range(len(d)), key=lambda i: (int(d.ano.values[i]), str(d.clube.values[i])))
+    jogos = (d.V + d.E + d.D).values.astype(float)[ordem]
+    pts = d.pts.values.astype(float)[ordem]
+    if not (np.isfinite(jogos).all() and (jogos > 0).all() and np.isfinite(pts).all()):
+        return dict(ausente=True, declaracao=MESMO_ANO_DECL,
+                    motivo="há temporada sem pontos ou sem jogos (V + E + D) no painel recebido")
+    apr = 100 * pts / (3 * jogos)
+    anos = d.ano.values.astype(int)[ordem]
+    assert anos.max() <= 2025, "2026 entrou no desempenho do mesmo ano"
+    temporadas = [dict(ano=int(a), clube=str(c), faixa=str(f), pts=int(p), jogos=int(j),
+                       aproveitamento_pct=r(x, 3))
+                  for a, c, f, p, j, x in zip(anos, d.clube.values[ordem], d.faixa.values[ordem],
+                                              pts, jogos, apr)]
+    inds = [c for c in postos.columns if meta[c]["familia"] in MESMO_ANO_FAMILIAS]
+    P = {c: postos[c].values.astype(float)[ordem] for c in inds}
+
+    rhos, validos = {}, []
+    for c in inds:
+        ok = np.isfinite(P[c])
+        n = int(ok.sum())
+        if n < MESMO_ANO_MINIMO:
+            rhos[c] = dict(rho=None, p=None, q=None, n=n,
+                           motivo="só %d temporadas com valor; o mínimo declarado é %d"
+                                  % (n, MESMO_ANO_MINIMO))
+            continue
+        res = stats.spearmanr(P[c][ok], apr[ok])
+        if not np.isfinite(res.statistic):
+            rhos[c] = dict(rho=None, p=None, q=None, n=n,
+                           motivo="o indicador não varia entre as temporadas com valor")
+            continue
+        rho_m, p_m = _spearman_matriz(P[c][ok], apr[ok][None, :])
+        assert np.isclose(rho_m[0], res.statistic, rtol=0, atol=1e-9), c
+        assert np.isclose(p_m[0], res.pvalue, rtol=1e-6, atol=1e-15), c
+        rhos[c] = dict(rho=float(res.statistic), p=float(res.pvalue), n=n)
+        validos.append(c)
+    qs = bh([rhos[c]["p"] for c in validos])
+    for c, q in zip(validos, qs):
+        rhos[c]["q"] = float(q)
+
+    # A lista inteira contra o sorteio. Cada linha de Y é um sorteio: o aproveitamento embaralhado
+    # dentro de cada ano, o que preserva quantos pontos cada ano distribuiu e não mexe na posição.
+    gen = np.random.default_rng(MESMO_ANO_SEMENTE)
+    Y = np.empty((MESMO_ANO_N_SORTEIOS, len(apr)))
+    for a in sorted(int(x) for x in np.unique(anos)):
+        m = np.where(anos == a)[0]
+        Y[:, m] = gen.permuted(np.tile(apr[m], (MESMO_ANO_N_SORTEIOS, 1)), axis=1)
+    contagem = np.zeros(MESMO_ANO_N_SORTEIOS, dtype=int)
+    for c in validos:
+        ok = np.isfinite(P[c])
+        _, p_s = _spearman_matriz(P[c][ok], Y[:, ok])
+        contagem += (np.nan_to_num(p_s, nan=1.0) < 0.05)
+    real = int(sum(1 for c in validos if rhos[c]["p"] < 0.05))
+    p_exc = (1 + int((contagem >= real).sum())) / (MESMO_ANO_N_SORTEIOS + 1)
+
+    ordem_forca = (sorted(validos, key=lambda c: (-abs(rhos[c]["rho"]), c))
+                   + sorted(c for c in inds if c not in validos))
+    for c in validos:
+        # p e q por algarismo significativo: com casas fixas um p de 0,00012 saía 0,0001 ao lado do
+        # rótulo "< 0,0001", e a tela mostraria dois números diferentes para a mesma coisa.
+        rhos[c] = dict(rho=r(rhos[c]["rho"], 3), p=r_sig(rhos[c]["p"], 3),
+                       p_rotulo=rotulo_p(rhos[c]["p"]), q=r_sig(rhos[c]["q"], 3), n=rhos[c]["n"])
+    # Uso do elenco (XI repetido, minutos concentrados, elenco rodado) é, pela lista do ranking_gaps,
+    # CONSEQUÊNCIA do resultado: o time que ganha repete o XI. No mesmo ano isso pesa ainda mais, e
+    # são justamente dos mais fortes da ordem. A marca vai no próprio registro de cada um e no bloco,
+    # para a tela poder dizer e para a guarda do JSON inteiro não contar como achado sem aviso.
+    for c in inds:
+        mc = RG.motivo_consequencia(meta[c]["coluna_csv"]) or RG.motivo_consequencia(c)
+        if mc:
+            rhos[c]["consequencia_do_resultado"] = True
+            # A frase que a tela mostra fala do XI dentro do ano; o verbo "repete" é o da pergunta
+            # que o dono tirou da etapa 6. A marca do bloco (abaixo) SAI daqui com o texto do
+            # ranking_gaps, porque a guarda confere a marca contra ele (e a aba por pontos quebra sem
+            # isso); o `main` deste arquivo troca para o texto da tela depois de rodar as guardas.
+            rhos[c]["motivo_consequencia"] = MESMO_ANO_MOTIVO_TELA.get(mc, mc)
+    # Postos idênticos medidos no próprio dado: igualdade exata da posição em todas as temporadas,
+    # vazio contra vazio. Grupos em ordem alfabética, para a saída não depender da ordem das colunas.
+    for c in inds:
+        iguais = sorted(o for o in inds if o != c and np.array_equal(P[c], P[o], equal_nan=True))
+        if iguais:
+            rhos[c]["mesmo_posto_que"] = iguais
+    grupos_iguais = sorted({tuple(sorted([c] + rhos[c]["mesmo_posto_que"]))
+                            for c in inds if "mesmo_posto_que" in rhos[c]})
+    n_distintos = len({tuple(sorted([c] + rhos[c].get("mesmo_posto_que", []))) for c in validos})
+    real_distintos = len({tuple(sorted([c] + rhos[c].get("mesmo_posto_que", [])))
+                          for c in validos if rhos[c]["p"] < 0.05})
+    fis = [rhos[c]["n"] for c in inds if meta[c]["familia"] == "fisico_col_elenco"]
+    # O limite do físico é dito conforme o dado: em 14/09 as 80 temporadas têm o físico do elenco,
+    # e escrever "n menor" ali seria falso. O que continua valendo é a base menor de atletas.
+    if not fis:
+        frase_fis = "não há indicador físico do elenco nesta rodada."
+    elif min(fis) < len(apr):
+        frase_fis = ("o físico do elenco cobre menos temporadas (n de %d a %d, contra %d) e vem só dos "
+                     "atletas rastreados." % (min(fis), max(fis), len(apr)))
+    else:
+        frase_fis = ("o físico do elenco tem valor nas %d temporadas, mas é média só dos atletas "
+                     "rastreados, uma base menor que a do técnico." % len(apr))
+    regra = (
+        "Declarada em %s, antes de medir, a pedido do dono (foco na subida no ano). Para cada um dos "
+        "%d indicadores das famílias técnico do time, elenco e físico do elenco: a posição do time no "
+        "ranking do ano no indicador (0 a 100, a mesma escala das células da etapa 5) contra o "
+        "aproveitamento de pontos NO MESMO ano (100 × pontos ÷ (3 × jogos)), nas %d temporadas de "
+        "2022-2025. Cor de cada ponto pela faixa daquele mesmo ano: azul claro quem subiu, laranja quem "
+        "caiu, cinza o meio. Força = rho de Spearman nas temporadas com valor, com p bilateral e n; com "
+        "menos de %d temporadas a força fica sem valor, com motivo. Muitos testes: q de Benjamini-Hochberg nos %d "
+        "indicadores com rho, e a lista inteira contra %s sorteios do aproveitamento dentro de cada ano "
+        "(gerador próprio, semente %s). Limites: associação no mesmo ano mistura causa e consequência "
+        "(time que está ganhando joga diferente; quem separa é a etapa 7); o mesmo clube aparece em "
+        "até 4 temporadas, então as %d não são independentes; %s Nenhuma conta usa o ano seguinte."
+        % (dt.date.fromisoformat(MESMO_ANO_PEDIDO_EM).strftime("%d/%m/%Y"), len(inds), len(apr),
+           MESMO_ANO_MINIMO, len(validos), f"{MESMO_ANO_N_SORTEIOS:,}".replace(",", "."),
+           MESMO_ANO_SEMENTE, len(apr), frase_fis))
+    return dict(
+        declarada_antes_de_medir=True,
+        pedido_do_dono_em=MESMO_ANO_PEDIDO_EM,
+        declaracao=MESMO_ANO_DECL,
+        regra=regra,
+        temporadas=temporadas,
+        indicadores=inds,
+        pontos={c: [r(v, 3) for v in P[c]] for c in inds},
+        rho_mesmo_ano=rhos,
+        lista_inteira=dict(
+            n_testes=len(validos), com_p_menor_005=real,
+            mediana_sorteio=r(float(np.median(contagem)), 1),
+            p_excesso=r_sig(p_exc, 3),
+            sorteios_com_contagem_maior_ou_igual=int((contagem >= real).sum()),
+            p_excesso_formula="(1 + sorteios com contagem >= real) ÷ (sorteios + 1)",
+            sorteios=MESMO_ANO_N_SORTEIOS, semente=MESMO_ANO_SEMENTE,
+            gerador="np.random.default_rng(%s), próprio, fora do rng global" % MESMO_ANO_SEMENTE,
+            embaralha="aproveitamento_pct dentro de cada ano",
+            # Os dois abaixo só contam: cada grupo de postos idênticos vale uma pergunta. A decisão
+            # (contagem contra o sorteio, BH) segue sobre a lista declarada, n_testes acima.
+            n_testes_distintos=n_distintos, com_p_menor_005_distintos=real_distintos),
+        grupos_mesmo_posto=[list(g) for g in grupos_iguais],
+        ordem_por_forca=ordem_forca,
+        regra_da_ordem=MESMO_ANO_DECL["ordem"],
+        **RG.marca_consequencia(inds))
+
+
 def pares_consecutivos(d80):
-    idx = {(a, c): i for i, (a, c) in enumerate(zip(d80.ano, d80.clube))}
+    idx ={(a, c): i for i, (a, c) in enumerate(zip(d80.ano, d80.clube))}
     return [(idx[(a, c)], idx[(a + 1, c)], c, int(a))
             for (a, c) in idx if (a + 1, c) in idx]
 
@@ -1491,7 +1744,11 @@ def etapa_6(d80, postos, meta, pares):
                 truncamento=dict(pares=len(pares), terminaram_em_subida=subiu_em_t1,
                                  subidas_totais=int((d.faixa == "sobe").sum()),
                                  subidas_sem_ano_anterior_na_serie_b=int(
-                                     (d.faixa == "sobe").sum() - subiu_em_t1)))
+                                     (d.faixa == "sobe").sum() - subiu_em_t1)),
+                # O bloco que a TELA da etapa 6 desenha desde 14/09. Os campos acima ficam no JSON
+                # porque a etapa 2, o ranking_gaps e a etapa 13 ainda leem `rho`; só a tela deixa
+                # de mostrá-los. Ele não sorteia no `rng` global (gerador próprio, ver declaração).
+                mesmo_ano=mesmo_ano(d80, postos, meta))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1829,7 +2086,244 @@ def etapa_3(d80, postos, meta, linhas_cat, resumo_fam):
 ELENCO_EM_JOGOS = ("formacoes", "formPrincipalPct")
 
 
-def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
+# ── Etapa 5: o resumo por grupos (pedido do dono em 14/09, noite; prévia aprovada) ──────────────
+# O dono achou a matriz por time "confusa, pouco visual e difícil de chegar a conclusão" e pediu o
+# indicador na linha, os três grupos nas colunas, o valor típico de cada um e a diferença. A regra
+# abaixo é a da prévia que ele aprovou (`_fonte/prototipo/sessao_14_09/etapa5_previa/`), escrita
+# AQUI, antes do código que mede, para que nenhum corte seja escolhido depois de ver o número. A
+# matriz por time continua no painel, como detalhe: nada do que já existia muda.
+RESUMO_PEDIDO_EM = "2026-09-14"
+RESUMO_CORTE_Q = 0.05          # q de Benjamini-Hochberg do catálogo abaixo disto = firme
+RESUMO_CORTE_P = 0.05          # p cru abaixo disto, sem passar no q = pode ser sorte
+RESUMO_ROTULO = {"firme": "firme", "pode_ser_sorte": "pode ser sorte", "sem_diferenca": "sem diferença clara"}
+# Os testes do catálogo da etapa 2 que cada comparação lê: (p cru, q).
+RESUMO_TESTES = {"sobe_meio": ("p_bruto_SM", "q_SM"), "sobe_cai": ("p_bruto_SC", "q_SC")}
+# O exemplo com que a etapa abre é o do print que o dono mandou, não um escolhido pelo resultado.
+RESUMO_EXEMPLO = "ti_zaga_duelos_aereos_ganhos"
+RESUMO_EXEMPLO_ESCOLHIDO_POR = "print do dono, 14/09"
+RESUMO_DECL = dict(
+    pedido_do_dono_em=RESUMO_PEDIDO_EM,
+    declarada_antes_de_medir=True,
+    o_que_e=("em cada painel, cada indicador numa linha e os três grupos nas colunas (quem subiu, quem "
+             "ficou no meio, quem caiu), com o valor típico de cada grupo na unidade do indicador e a "
+             "diferença de quem subiu e de quem caiu contra o meio"),
+    valor_tipico=("a MEDIANA crua do grupo nas temporadas 2022-2025: o 2º número de faixa_sobe_bruto, "
+                  "faixa_meio_bruto e faixa_cai_bruto, os mesmos que a tabela de gaps mostra. Com {times_nas_pontas} "
+                  "numa ponta, um só fora da curva puxa a média; por isso a média (m_sobe, m_meio, "
+                  "m_cai do catálogo da etapa 2), a faixa do 1º ao 3º quarto (1º e 3º números das faixas "
+                  "cruas) e a posição típica no ranking do ano (2º número de faixa_sobe/meio/cai) vão na "
+                  "dica, não na coluna"),
+    diferenca=("de quem subiu e de quem caiu CONTRA O MEIO, sobre as medianas já arredondadas que o JSON "
+               "grava: em % do meio (tipo 'rel', 1 casa); quando o indicador já é porcentagem, em PONTOS "
+               "PERCENTUAIS (tipo 'pp', 3 casas), porque % de % confunde (61% contra 59% não é '+3%'). "
+               "Meio igual a zero não tem % do meio: null com motivo"),
+    tipo_da_diferenca=("sai da unidade DECLARADA na fonte deste gerador: é 'pp' quando o nome declarado "
+                       "traz '%' (o `nome` de dados/prototipo_indicadores.json no técnico do time e no "
+                       "elenco; a coluna do Wyscout, antes de virar id, no técnico por jogador). O físico "
+                       "não tem porcentagem. A conferência contra o glossário da tela vai no relato da rodada"),
+    firmeza=("lida dos testes que o catálogo da etapa 2 já fez, na POSIÇÃO do time dentro do ano: subiu x "
+             "meio = p_bruto_SM e q_SM; subiu x caiu = p_bruto_SC e q_SC. q < %s = 'firme'; p < %s sem "
+             "passar no q = 'pode ser sorte'; senão 'sem diferença clara'. Nenhum teste novo é feito "
+             "aqui. Quem caiu x meio não tem teste no catálogo e não ganha rótulo"
+             % (RESUMO_CORTE_Q, RESUMO_CORTE_P)),
+    ordem=("`ordem_por_firmeza` = índices de `indicadores` pelo menor q das duas comparações (sem q no "
+           "fim), empate na ordem do estudo (a de `indicadores`). NUNCA pelo tamanho da diferença: "
+           "unidades diferentes não se ordenam entre si"),
+    lado=("'melhor que o meio' / 'pior que o meio' só onde o estudo declarou lado (sinal +1 ou -1 do "
+          "indicador); técnico por jogador e físico ficam 'sem lado bom declarado'"),
+    contagem=("por comparação (subiu x meio e subiu x caiu, cada uma conta uma vez) e por indicador (a "
+              "mais firme das duas)"),
+    # O número de temporadas das pontas NÃO é digitado: `_regra_do_resumo` preenche os moldes
+    # {temporadas_nas_pontas} e {times_nas_pontas} com a contagem do d80 (temporadas_por_grupo).
+    limites=["{temporadas_nas_pontas} (quem subiu e quem caiu): uma diferença firme ainda é de poucos times",
+             "associação no mesmo ano não é causa: a etapa 7 é a que separa o que vem antes do resultado",
+             "a firmeza vem do teste na posição dentro do ano; o valor cru junta os quatro anos, e a ordem "
+             "dos grupos no cru pode não ser a da posição (marca `ordem_das_medianas_difere_no_cru`)"],
+    matriz_por_time=("continua em cada painel, embaixo, como detalhe: ali o número da célula é a POSIÇÃO no "
+                     "ranking do ano (0 a 100), não o valor"),
+)
+
+
+def _pct_declarado(ind, m):
+    """O nome DECLARADO na fonte deste gerador e se ele diz porcentagem.
+
+    O id do técnico por jogador (`ti_<setor>_<slug>`) perdeu o '%' no slug; a coluna do Wyscout de
+    onde ele nasceu (DECL['tecnico_ind']) ainda o tem. No técnico do time e no elenco o nome
+    declarado é o da lista pré-declarada. O físico só tem a coluna.
+    """
+    if m["familia"] == "tecnico_ind":
+        cru = {f"ti_{m['setor']}_{slug(c)}": c for c in DECL["tecnico_ind"]}.get(ind)
+    elif m["familia"] in ("tecnico_col", "elenco"):
+        cru = m["nome"]
+    else:
+        cru = m["coluna_csv"]
+    return cru, (cru is not None and "%" in cru)
+
+
+def _firmeza(p, q):
+    if p is None:
+        return None
+    if q is not None and q < RESUMO_CORTE_Q:
+        return "firme"
+    return "pode_ser_sorte" if p < RESUMO_CORTE_P else "sem_diferenca"
+
+
+def resumo_por_grupos(pn, cols, meta, catalogo, n_por_grupo, aviso_do_setor):
+    """O bloco `resumo_grupos` de um painel, alinhado a `indicadores`. Só lê o que o painel e o
+    catálogo já gravam; a regra é a de `RESUMO_DECL`."""
+    if catalogo is None:
+        return dict(ausente=True,
+                    motivo=("a etapa 5 foi chamada sem o catálogo da etapa 2; sem os testes dele não há "
+                            "firmeza nem média crua, e o resumo não é montado pela metade"))
+    cat = {L["indicador"]: L for L in catalogo}
+    n = len(cols)
+    tipo, unidade, nome_declarado = [], [], []
+    dif = {"sobe": [], "cai": []}
+    mot_dif = {"sobe": [], "cai": []}
+    media = {"sobe": [], "meio": [], "cai": []}
+    firm = {k: [] for k in RESUMO_TESTES}
+    lado = {"sobe": [], "cai": []}
+    mot_lado = []
+    for k, ind in enumerate(cols):
+        cru, pct = _pct_declarado(ind, meta[ind])
+        nome_declarado.append(cru)
+        tipo.append("pp" if pct else "rel")
+        unidade.append("%" if pct else None)
+        L = cat.get(ind)
+        for g in ("sobe", "meio", "cai"):
+            media[g].append(L.get(f"m_{g}") if L else None)
+        fm = pn["faixa_meio_bruto"][k][1]
+        for g in ("sobe", "cai"):
+            x = pn[f"faixa_{g}_bruto"][k][1]
+            if x is None or fm is None:
+                falta = [nm for nm, v in (("do grupo", x), ("do meio", fm)) if v is None]
+                dif[g].append(None)
+                mot_dif[g].append("sem a mediana %s (a faixa tem menos de 4 valores)" % " e ".join(falta))
+            elif pct:
+                dif[g].append(r(x - fm, 3))
+                mot_dif[g].append(None)
+            elif fm == 0:
+                dif[g].append(None)
+                mot_dif[g].append("a mediana do meio é zero: não há diferença em % do meio")
+            else:
+                dif[g].append(r((x - fm) / abs(fm) * 100, 1))
+                mot_dif[g].append(None)
+        for comp, (cp, cq) in RESUMO_TESTES.items():
+            p, q = (L.get(cp), L.get(cq)) if L else (None, None)
+            f = _firmeza(p, q)
+            firm[comp].append(dict(p=p, q=q, rotulo=RESUMO_ROTULO[f] if f else None, chave=f,
+                                   **({} if f else {"motivo": "sem teste no catálogo da etapa 2"})))
+        s = meta[ind]["sinal"]
+        mot_lado.append(None if s in (1, -1) else "sem lado bom declarado")
+        for g in ("sobe", "cai"):
+            v = dif[g][k]
+            if s not in (1, -1) or v is None:
+                lado[g].append(None)
+            elif v == 0:
+                lado[g].append("igual ao meio")
+            else:
+                lado[g].append("melhor que o meio" if v * s > 0 else "pior que o meio")
+
+    chaves = ("firme", "pode_ser_sorte", "sem_diferenca")
+    por_comp = {comp: {c: int(sum(1 for x in firm[comp] if x["chave"] == c)) for c in chaves}
+                for comp in RESUMO_TESTES}
+    for comp in RESUMO_TESTES:
+        por_comp[comp]["sem_teste"] = int(sum(1 for x in firm[comp] if x["chave"] is None))
+    por_ind = {c: 0 for c in chaves}
+    por_ind["sem_teste"] = 0
+    for k in range(n):
+        ks = [firm[comp][k]["chave"] for comp in RESUMO_TESTES]
+        melhor = next((c for c in chaves if c in ks), "sem_teste")
+        por_ind[melhor] += 1
+
+    def menor_q(k):
+        qs = [firm[comp][k]["q"] for comp in RESUMO_TESTES if firm[comp][k]["q"] is not None]
+        return min(qs) if qs else None
+    ordem = sorted(range(n), key=lambda k: (menor_q(k) is None, menor_q(k) or 0.0, k))
+    return dict(
+        tipo_diferenca=tipo,
+        unidade=unidade,
+        nome_declarado_na_fonte=nome_declarado,
+        valor_tipico={g: [pn[f"faixa_{g}_bruto"][k][1] for k in range(n)] for g in ("sobe", "meio", "cai")},
+        n_por_grupo=n_por_grupo,
+        media_crua=media,
+        diferenca_contra_meio=dif,
+        lado_contra_meio=lado,
+        firmeza=firm,
+        contagem=dict({c: por_comp["sobe_meio"][c] + por_comp["sobe_cai"][c] for c in chaves},
+                      comparacoes=2 * n, por_comparacao=por_comp, por_indicador=por_ind),
+        ordem_por_firmeza=ordem,
+        aviso_do_setor=aviso_do_setor,
+        motivos=dict(
+            diferenca_sobe=mot_dif["sobe"], diferenca_cai=mot_dif["cai"], lado=mot_lado,
+            unidade=("só a porcentagem é declarada na fonte do gerador; as outras unidades a tela lê do "
+                     "glossário (ptInfoMedida)")))
+
+
+def _regra_do_resumo(d80, paineis, catalogo):
+    """A regra declarada, com as bases contadas do painel e a contagem geral somada dos painéis."""
+    faixa = d80.faixa.values
+    out = dict(RESUMO_DECL, cortes=dict(q_firme=RESUMO_CORTE_Q, p_pode_ser_sorte=RESUMO_CORTE_P),
+               testes_lidos={k: dict(p=v[0], q=v[1], origem="etapa_2.linhas[]")
+                             for k, v in RESUMO_TESTES.items()},
+               rotulos=dict(RESUMO_ROTULO),
+               temporadas_por_grupo={g: int((faixa == g).sum()) for g in ("sobe", "meio", "cai")})
+    # Os moldes do texto recebem a contagem; se as pontas tiverem tamanhos diferentes, a frase diz os dois.
+    tg = out["temporadas_por_grupo"]
+    if tg["sobe"] == tg["cai"]:
+        temporadas_pontas = f"{tg['sobe']} temporadas em cada ponta"
+        times_pontas = f"{tg['sobe']} times"
+    else:
+        temporadas_pontas = f"{tg['sobe']} temporadas de quem subiu e {tg['cai']} de quem caiu"
+        times_pontas = f"{min(tg['sobe'], tg['cai'])} a {max(tg['sobe'], tg['cai'])} times"
+
+    def _molde(t):
+        return t.replace("{temporadas_nas_pontas}", temporadas_pontas).replace("{times_nas_pontas}", times_pontas)
+    out["valor_tipico"] = _molde(out["valor_tipico"])
+    out["limites"] = [_molde(t) for t in out["limites"]]
+    if catalogo is None:
+        out["contagem_geral"] = dict(ausente=True, motivo="sem o catálogo da etapa 2 não há firmeza para contar")
+        return out
+    chaves = ("firme", "pode_ser_sorte", "sem_diferenca")
+    rs = [pn["resumo_grupos"] for pn in paineis.values()]
+    out["contagem_geral"] = dict(
+        paineis=len(rs), indicadores=int(sum(len(x["tipo_diferenca"]) for x in rs)),
+        comparacoes=int(sum(x["contagem"]["comparacoes"] for x in rs)),
+        **{c: int(sum(x["contagem"][c] for x in rs)) for c in chaves},
+        sem_teste=int(sum(x["contagem"]["por_comparacao"][k]["sem_teste"] for x in rs for k in RESUMO_TESTES)),
+        por_painel={nm: {c: pn["resumo_grupos"]["contagem"][c] for c in chaves}
+                    for nm, pn in paineis.items()})
+    return out
+
+
+def _exemplo_do_resumo(paineis, catalogo):
+    """O indicador do print do dono nos dois formatos: posição no ranking do ano e valor típico."""
+    base = dict(id=RESUMO_EXEMPLO, escolhido_por=RESUMO_EXEMPLO_ESCOLHIDO_POR)
+    achado = next(((nm, k) for nm, pn in paineis.items()
+                   for k, ind in enumerate(pn["indicadores"]) if ind["id"] == RESUMO_EXEMPLO), None)
+    if achado is None:
+        return dict(base, ausente=True, motivo="o indicador do print não está em nenhum painel desta rodada")
+    nm, k = achado
+    pn = paineis[nm]
+    rg = pn["resumo_grupos"]
+    grupos = ("sobe", "meio", "cai")
+    out = dict(base, painel=nm, indice=k, nome=pn["indicadores"][k]["nome"],
+               posicao_tipica={g: pn[f"faixa_{g}"][k][1] for g in grupos},
+               posicao_faixa={g: pn[f"faixa_{g}"][k] for g in grupos},
+               diferenca_sobe_cai_na_posicao=pn["diferenca_sobe_cai"][k],
+               valor_faixa={g: pn[f"faixa_{g}_bruto"][k] for g in grupos})
+    if rg.get("ausente"):
+        return dict(out, resumo_ausente=True, motivo=rg["motivo"])
+    return dict(out, tipo_diferenca=rg["tipo_diferenca"][k], unidade=rg["unidade"][k],
+                valor_tipico={g: rg["valor_tipico"][g][k] for g in grupos},
+                n_por_grupo={g: rg["n_por_grupo"][g][k] for g in grupos},
+                media_crua={g: rg["media_crua"][g][k] for g in grupos},
+                diferenca_contra_meio={g: rg["diferenca_contra_meio"][g][k] for g in ("sobe", "cai")},
+                lado_contra_meio={g: rg["lado_contra_meio"][g][k] for g in ("sobe", "cai")},
+                firmeza={c: rg["firmeza"][c][k] for c in RESUMO_TESTES})
+
+
+def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec, catalogo=None):
     """Matriz de 16 linhas (clube-ano promovido) × N colunas, com a faixa do meio ao fundo.
 
     O formato existe porque "indicador por indicador, time a time" é o pedido literal do
@@ -1929,6 +2423,8 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
             # uma temporada para outra), e o percentil dentro do ano não; por isso o ORDENAMENTO
             # continua sendo o do percentil, e o cru é leitura de tamanho.
             faixa_sobe_bruto, faixa_meio_bruto, faixa_cai_bruto = [], [], []
+            # quantos valores crus entram em cada mediana, para o resumo por grupos dizer a base
+            n_por_grupo = {"sobe": [], "meio": [], "cai": []}
             for ind in cols:
                 quartis_crus, n_cru = {}, {}
                 for alvo, lst in (("sobe", faixa_sobe), ("meio", faixa_meio), ("cai", faixa_cai)):
@@ -1941,6 +2437,7 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                     vb = vb[np.isfinite(vb)]
                     quartis_crus[alvo] = np.percentile(vb, [25, 50, 75]) if len(vb) else None
                     n_cru[alvo] = len(vb)
+                    n_por_grupo[alvo].append(int(len(vb)))
                 # O arredondamento do cru é o da tabela de gaps, e a MEDIANA sai da própria função do
                 # módulo: com 3 casas fixas, 40 dos 293 indicadores mostravam aqui uma mediana e em
                 # `ranking_gaps.linhas[].mediana_crua` outra (xG por finalização 0,105 contra 0,1045).
@@ -2025,6 +2522,22 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                     "média ponderada por minutos dos atletas do setor com 600+ min em "
                     "dados/serieb_tecnico.csv, agregada por este script. Por isso o campo "
                     "chama-se `origem` e não `coluna_csv`")
+            # O aviso de setor com pouca gente vem de `vazios_por_setor`, que conta ATLETAS RASTREADOS
+            # no físico. Ele vale no painel físico do setor; no técnico do setor a base é outra
+            # (atletas com 600+ min) e pendurar ali o aviso do físico diria uma coisa que não foi medida.
+            setor_g = nome_g.rsplit("_", 1)[1] if nome_g.startswith(("fisico_col_", "tecnico_ind_")) else None
+            v_setor = next((v for v in vazios if v["setor"] == setor_g), None)
+            if nome_g.startswith("fisico_col_") and v_setor is not None:
+                aviso = dict(v_setor, fonte="vazios_por_setor")
+            elif nome_g.startswith("tecnico_ind_"):
+                aviso = dict(aplica=False, motivo=(
+                    "`vazios_por_setor` conta atletas rastreados no físico; o técnico do setor usa "
+                    "atletas com 600+ min, e o grupo com menos de 4 valores já sai sem mediana "
+                    "(`n_por_grupo` dá a base de cada uma)"))
+            else:
+                aviso = None
+            saida[nome_g]["resumo_grupos"] = resumo_por_grupos(saida[nome_g], cols, meta, catalogo,
+                                                               n_por_grupo, aviso)
 
     # sensibilidade da regra de agregação do técnico individual (seção 2)
     sens = {}
@@ -2045,6 +2558,8 @@ def etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec):
                            bh5_liq_SM=int(np.nansum(bh(pl) < 0.05)))
     marcas = [v for pn in saida.values() for v in pn["ordem_das_medianas_difere_no_cru"]]
     return dict(titulo_chave="etapa_5", paineis=saida, vazios_por_setor=vazios,
+                regra_do_resumo=_regra_do_resumo(d80, saida, catalogo),
+                exemplo=_exemplo_do_resumo(saida, catalogo),
                 regra_da_ordem=dict(
                     pedido_do_dono_em="2026-09-14",
                     o_que_e=("as colunas de cada painel em ordem da diferença entre o time típico que "
@@ -4419,7 +4934,7 @@ def main():
     print("nulo do garimpo...")
     e3 = etapa_3(d80, postos, meta, linhas_cat, resumo_fam)
     e1 = etapa_1(d80, d100)   # d100 entra só pelo fora-da-amostra de 2026; médias são d80
-    e5 = etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec)
+    e5 = etapa_5(d80, bruto, postos, meta, vazios, ns_ti, tec, catalogo=linhas_cat)
 
     # ---------- a tabela de todas as diferenças, do maior gap para o menor ----------
     # Pedido do dono (PENDENTE_RODADA item 6). O cálculo NÃO mora aqui: mora em ranking_gaps.py,
@@ -4606,6 +5121,34 @@ def main():
         dentro_do_proprio_ranking_gaps=dict(
             resultado_como_achado=int(sum(1 for c, _ in circ if c.startswith(".ranking_gaps"))),
             consequencia_sem_marca=int(sum(1 for c, _ in cons if c.startswith(".ranking_gaps")))))
+    # A frase de consequência que a TELA da etapa 6 mostra troca DEPOIS das guardas. `mesmo_ano`
+    # grava a marca com o texto do ranking_gaps, porque a guarda confere a marca contra ele letra por
+    # letra — e a aba por pontos chama `etapa_6` e QUEBRA a rodada se a marca não bater. Aqui a guarda
+    # já rodou com a marca do módulo; o texto que vai ao JSON é o de `MESMO_ANO_MOTIVO_TELA`, o mesmo
+    # de `rho_mesmo_ano[*].motivo_consequencia`, para a etapa 6 dizer uma frase só.
+    mca = saida["etapa_6"].get("mesmo_ano", {}).get(RG.MARCA_CONSEQUENCIA)
+    if isinstance(mca, dict):
+        for c in list(mca):
+            mca[c] = MESMO_ANO_MOTIVO_TELA.get(mca[c], mca[c])
+    # A contagem acima foi feita ANTES da troca do texto; quem roda a guarda no arquivo gravado acha
+    # mais, porque a marca com o texto da tela já não é a que a guarda exige letra por letra. Roda de
+    # novo sobre o JSON como ele vai ser gravado e registra as duas, para o arquivo não descrever uma
+    # guarda que ele mesmo não passa. A base é a mesma da 1ª contagem: sem este próprio registro, que
+    # cita caminhos e colunas e seria contado como achado.
+    base_depois = {k: v for k, v in saida.items() if k != "ranking_gaps"}
+    base_depois["ranking_gaps"] = {k: v for k, v in saida["ranking_gaps"].items() if k != "guardas_no_json_inteiro"}
+    cons_depois = RG.referencias_de_consequencia_sem_marca(base_depois)
+    pb_antes, pb_depois = _por_bloco(cons), _por_bloco(cons_depois)
+    saida["ranking_gaps"]["guardas_no_json_inteiro"]["consequencia_sem_marca_depois_da_troca_do_texto"] = dict(
+        o_que_e=("a mesma guarda de consequência, rodada de novo DEPOIS da troca do texto da marca da etapa 6 "
+                 "(mesmo_ano) pela frase da tela; `consequencia_sem_marca` acima é a contagem de ANTES da troca"),
+        base=("o JSON como é gravado, sem o próprio bloco guardas_no_json_inteiro (a mesma base da contagem de "
+              "antes); rodada no arquivo inteiro, a guarda conta também os caminhos citados neste registro"),
+        n=len(cons_depois), por_bloco=pb_depois,
+        acrescentados_pela_troca=len(cons_depois) - len(cons),
+        acrescentados_por_bloco={b: pb_depois.get(b, 0) - pb_antes.get(b, 0)
+                                 for b in sorted(set(pb_antes) | set(pb_depois))
+                                 if pb_depois.get(b, 0) != pb_antes.get(b, 0)})
     json.dump(saida, open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False,
               separators=(",", ":"), allow_nan=False)
     kb = os.path.getsize(SAIDA) / 1024

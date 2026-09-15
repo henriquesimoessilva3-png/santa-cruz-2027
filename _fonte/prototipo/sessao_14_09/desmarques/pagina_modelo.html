@@ -1,0 +1,435 @@
+<title>Desmarques de quem subiu</title>
+<style>
+:root{
+  --fundo:#eceff4; --sup:#ffffff; --sup2:#f5f7fa; --sup3:#e9edf3;
+  --tinta:#1b2230; --tinta2:#535e70; --tinta3:#7d8797;
+  --borda:#dde2ea; --borda2:#c3ccd9;
+  --coral:#c8102e; --coral-tinta:#a60d27; --coral-veu:#c8102e14;
+  --barra:#3a7cc4; --barra-alta:#1a56c0; --trilho:#e3e8ef;
+  --aviso:#7d5205; --aviso-bg:#fbf0d9; --aviso-borda:#ead09b;
+  --preto-faixa:#16181d; --branco-faixa:#ffffff;
+  --sombra:0 1px 2px #0f172a12, 0 6px 20px #0f172a0d;
+  --fonte:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --fundo:#0d0f13; --sup:#151922; --sup2:#1a1f29; --sup3:#212834;
+    --tinta:#e8eaee; --tinta2:#a3acba; --tinta3:#7a8493;
+    --borda:#262d3a; --borda2:#364051;
+    --coral:#ef3f5c; --coral-tinta:#ff8a9c; --coral-veu:#ef3f5c1f;
+    --barra:#6f9fd3; --barra-alta:#a9cdf5; --trilho:#252c38;
+    --aviso:#f3c77e; --aviso-bg:#2f250f; --aviso-borda:#5a4418;
+    --preto-faixa:#000000; --branco-faixa:#e8eaee;
+    --sombra:0 1px 0 #ffffff08;
+  }
+}
+:root[data-theme="dark"]{
+  --fundo:#0d0f13; --sup:#151922; --sup2:#1a1f29; --sup3:#212834;
+  --tinta:#e8eaee; --tinta2:#a3acba; --tinta3:#7a8493;
+  --borda:#262d3a; --borda2:#364051;
+  --coral:#ef3f5c; --coral-tinta:#ff8a9c; --coral-veu:#ef3f5c1f;
+  --barra:#6f9fd3; --barra-alta:#a9cdf5; --trilho:#252c38;
+  --aviso:#f3c77e; --aviso-bg:#2f250f; --aviso-borda:#5a4418;
+  --preto-faixa:#000000; --branco-faixa:#e8eaee;
+  --sombra:0 1px 0 #ffffff08;
+}
+
+*{box-sizing:border-box}
+body{background:var(--fundo);color:var(--tinta);font-family:var(--fonte);font-size:14px;line-height:1.5;
+  padding-block:32px 72px;padding-inline:20px;-webkit-font-smoothing:antialiased}
+.pagina{max-width:1240px;margin-inline:auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+
+/* topo */
+.topo{display:flex;flex-direction:column;gap:12px;max-width:74ch}
+.marca{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tinta2)}
+.tricolor{display:inline-grid;grid-template-rows:repeat(3,4px);width:26px;border:1px solid var(--borda2);border-radius:2px;overflow:hidden}
+.tricolor i:nth-child(1){background:var(--coral)}
+.tricolor i:nth-child(2){background:var(--preto-faixa)}
+.tricolor i:nth-child(3){background:var(--branco-faixa)}
+h1{font-size:clamp(28px,4.2vw,40px);line-height:1.1;letter-spacing:-.02em;font-weight:750}
+.lede{font-size:16px;color:var(--tinta);max-width:68ch}
+.ressalva{font-size:14px;color:var(--tinta2);max-width:68ch;padding-left:14px;border-left:3px solid var(--coral)}
+.ressalva b{color:var(--tinta);font-weight:600}
+
+/* os 16 */
+.bloco-cab{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.bloco-cab h2{font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2)}
+.bloco-cab .dica{font-size:12.5px;color:var(--tinta3)}
+.anos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ano{display:flex;flex-direction:column;gap:6px;transition:opacity .15s}
+.ano.fora{opacity:.38}
+.ano h3{font-size:12px;font-weight:650;color:var(--tinta2);font-variant-numeric:tabular-nums;letter-spacing:.04em;padding-left:2px}
+.time{display:grid;grid-template-columns:2.2em 1fr auto;align-items:baseline;gap:6px;width:100%;text-align:left;
+  background:var(--sup);border:1px solid var(--borda);border-radius:8px;padding:8px 10px;cursor:pointer}
+.time:hover{border-color:var(--borda2)}
+.time[aria-pressed="true"]{border-color:var(--coral);background:var(--coral-veu);box-shadow:inset 0 0 0 1px var(--coral)}
+.time .pos{font-size:12px;font-weight:700;color:var(--tinta3);font-variant-numeric:tabular-nums}
+.time .clube{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time .pts{font-size:12px;color:var(--tinta2);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* filtros */
+.filtros{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;padding:16px 18px;background:var(--sup);
+  border:1px solid var(--borda);border-radius:10px;box-shadow:var(--sombra)}
+.campo{display:flex;flex-direction:column;gap:6px;min-width:0}
+.campo > span,.campo > label.rot{font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2)}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--sup3);border-radius:8px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:6px;padding:5px 11px;cursor:pointer;color:var(--tinta2);font-weight:550;font-variant-numeric:tabular-nums}
+.seg button:hover{color:var(--tinta)}
+.seg button[aria-pressed="true"]{background:var(--sup);color:var(--tinta);box-shadow:0 1px 2px #0000001f}
+select,input[type="search"]{background:var(--sup);border:1px solid var(--borda2);border-radius:8px;padding:6px 10px;min-height:34px}
+input[type="search"]{width:15em;max-width:100%}
+.check{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--tinta);min-height:34px;cursor:pointer}
+.check input{accent-color:var(--coral);width:16px;height:16px}
+.limpar{border:1px solid var(--borda2);background:transparent;border-radius:8px;padding:6px 12px;min-height:34px;cursor:pointer;color:var(--tinta2)}
+.limpar:hover{color:var(--tinta);border-color:var(--tinta3)}
+
+/* painel do time */
+.painel{display:flex;flex-direction:column;gap:12px;padding:16px 18px;background:var(--sup);border:1px solid var(--borda);border-radius:10px}
+.p-cab{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
+.p-cab h2{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.p-cab span{color:var(--tinta2);font-variant-numeric:tabular-nums}
+.p-num{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.p-num div{display:flex;flex-direction:column;gap:2px;padding-top:8px;border-top:1px solid var(--borda)}
+.p-num .rot{font-size:12px;color:var(--tinta2);line-height:1.3}
+.p-num b{font-size:20px;font-weight:650;font-variant-numeric:tabular-nums}
+.p-nota{font-size:12.5px;color:var(--tinta3)}
+.aviso-linha{font-size:13px;color:var(--aviso);background:var(--aviso-bg);border:1px solid var(--aviso-borda);border-radius:8px;padding:8px 12px}
+
+/* tabela */
+.resumo{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline;margin-bottom:10px}
+.resumo .conta{font-weight:650;font-variant-numeric:tabular-nums}
+.legenda{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;color:var(--tinta2);align-items:center}
+.legenda .ex{display:inline-flex;align-items:center;gap:6px}
+.legenda .ex i{display:inline-block;width:34px;height:5px;border-radius:3px;background:linear-gradient(90deg,var(--barra) 70%,var(--trilho) 70%)}
+.rolagem{overflow-x:auto;background:var(--sup);border:1px solid var(--borda);border-radius:10px;box-shadow:var(--sombra)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1060px;font-variant-numeric:tabular-nums}
+thead th{position:relative;font-size:11px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;color:var(--tinta2);
+  text-align:left;vertical-align:bottom;padding:0;border-bottom:1px solid var(--borda2);background:var(--sup2)}
+thead th button{all:unset;box-sizing:border-box;display:flex;align-items:flex-end;gap:4px;width:100%;padding:10px 10px 9px;cursor:pointer;line-height:1.25}
+thead th button:focus-visible{outline:2px solid var(--coral);outline-offset:-2px}
+thead th button:hover{color:var(--tinta)}
+thead th .seta{font-size:10px;opacity:0;flex:none}
+thead th[aria-sort] .seta{opacity:1;color:var(--coral)}
+thead th.num button{justify-content:flex-start}
+tbody td{padding:9px 10px;border-bottom:1px solid var(--borda);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--sup2)}
+.c-jog{width:250px;position:sticky;left:0;background:var(--sup);z-index:1}
+thead .c-jog{background:var(--sup2);z-index:2}
+tbody tr:hover td.c-jog{background:var(--sup2)}
+.nome{font-weight:600;line-height:1.3}
+.meta{font-size:12px;color:var(--tinta2);margin-top:1px}
+.avisos{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.pilula{font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:999px;color:var(--aviso);background:var(--aviso-bg);
+  border:1px solid var(--aviso-borda);cursor:help;white-space:nowrap}
+.pilula.cinza{color:var(--tinta2);background:var(--sup3);border-color:var(--borda2)}
+.motivo{font-size:12px;color:var(--tinta3);margin-top:4px;line-height:1.35}
+.c-set{width:74px;color:var(--tinta2)}
+.c-min{width:78px}
+.c-min .sub{display:block;font-size:11.5px;color:var(--tinta3)}
+.c-m{width:94px}
+.mv{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.mv b{font-size:15px;font-weight:600;min-width:1.6em}
+.mv .cru{font-size:11.5px;color:var(--tinta3);font-family:var(--mono)}
+td.alto .mv b{color:var(--barra-alta);font-weight:750}
+.trilho{height:5px;border-radius:3px;background:var(--trilho);margin-top:5px;overflow:hidden}
+.trilho i{display:block;height:100%;background:var(--barra);border-radius:3px}
+td.alto .trilho i{background:var(--barra-alta)}
+td.sem .mv b{color:var(--tinta3);font-weight:500}
+.c-pm{width:92px;background:var(--sup2)}
+tbody tr:hover td.c-pm{background:var(--sup3)}
+tr.abaixo td:not(.c-jog){opacity:.62}
+tr.abaixo .nome{color:var(--tinta2)}
+.vazio td{text-align:center;color:var(--tinta2);padding:28px}
+
+/* como foi feita */
+.metodo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 40px;padding-top:22px;border-top:1px solid var(--borda2)}
+.metodo h2{grid-column:1/-1;font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2)}
+.metodo section{display:flex;flex-direction:column;gap:4px;max-width:62ch}
+.metodo h3{font-size:14px;font-weight:650}
+.metodo p{font-size:13.5px;color:var(--tinta2)}
+.metodo code{font-family:var(--mono);font-size:12px;color:var(--tinta)}
+.rodape{font-size:12px;color:var(--tinta3)}
+
+@media (max-width:900px){
+  .anos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .p-num{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .metodo{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  body{padding-inline:16px}
+  .anos{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .time{grid-template-columns:1.8em 1fr;padding:7px 8px}
+  .time .pts{grid-column:2}
+  .p-num{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .filtros{padding:14px}
+  .c-jog{width:190px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="pagina">
+  <header class="topo">
+    <div class="marca"><span class="tricolor" aria-hidden="true"><i></i><i></i><i></i></span>Santa Cruz · Estudo da Série B · 2022 a 2025</div>
+    <h1>Desmarques de quem subiu</h1>
+    <p class="lede">Os jogadores dos 16 times que subiram da Série B, com seis números de corrida sem bola, contados a cada 30 minutos em que o time tinha a bola. Ao lado de cada número está onde o jogador fica entre os do mesmo setor na Série B daquele ano: 100 é quem mais faz, 50 é o do meio.</p>
+    <p class="ressalva"><b>Use como lista para observar, não como conclusão.</b> No time inteiro, quem subiu faz um pouco mais desses desmarques. Nas corridas para a área, por exemplo, são 3,3 a cada 30 minutos, contra 3,0 no meio da tabela e 2,8 em quem caiu. Mas, contando os 32 testes feitos com desmarques, a diferença pode ser sorte, e nenhum dos seis números passou nessa conta.</p>
+  </header>
+
+  <section aria-labelledby="t-times">
+    <div class="bloco-cab"><h2 id="t-times">Os 16 que subiram</h2><span class="dica">Clique num time para ver só o elenco dele.</span></div>
+    <div class="anos" id="anos"></div>
+  </section>
+
+  <form class="filtros" id="filtros" onsubmit="return false">
+    <div class="campo"><span id="r-ano">Ano</span><div class="seg" role="group" aria-labelledby="r-ano" id="f-ano"></div></div>
+    <div class="campo"><span id="r-setor">Setor</span><div class="seg" role="group" aria-labelledby="r-setor" id="f-setor"></div></div>
+    <div class="campo"><label class="rot" for="f-acima">Só quem passa de 80 em</label>
+      <select id="f-acima"></select></div>
+    <div class="campo"><label class="rot" for="f-busca">Buscar jogador ou clube</label>
+      <input type="search" id="f-busca" placeholder="ex.: Wellington Nem" autocomplete="off"></div>
+    <label class="check" for="f-abaixo"><input type="checkbox" id="f-abaixo"> Mostrar quem jogou menos de 300 minutos</label>
+    <button type="button" class="limpar" id="f-limpar">Limpar filtros</button>
+  </form>
+
+  <div class="painel" id="painel" hidden></div>
+
+  <section aria-labelledby="t-lista">
+    <div class="resumo">
+      <h2 id="t-lista" class="conta" aria-live="polite"></h2>
+      <div class="legenda">
+        <span class="ex"><i></i> onde fica no setor (0 a 100)</span>
+        <span>número pequeno: por 30 min com a bola</span>
+        <span>clique no título da coluna para ordenar</span>
+      </div>
+    </div>
+    <div class="rolagem">
+      <table id="tabela">
+        <thead><tr id="cab"></tr></thead>
+        <tbody id="corpo"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="metodo">
+    <h2>Como a lista foi feita</h2>
+    <section><h3>De onde vêm os números</h3>
+      <p>Das corridas sem bola do SkillCorner na Série B de 2022 a 2025. Cada número é contado a cada 30 minutos em que o time do jogador tinha a bola, então vale comparar quem jogou muito com quem jogou pouco. As seis contas: todas as corridas sem bola; as feitas acima da velocidade de corrida rápida; as que entram na área; as perigosas, que quebram uma linha do adversário; as que receberam a bola; e as que viraram chute em até 10 segundos.</p></section>
+    <section><h3>Quem entra</h3>
+      <p>O jogador é ligado ao clube pelo mesmo caminho do estudo: nome igual ao do Wyscout no mesmo ano, único no clube e com idade compatível, e depois identificado pelo número dele no SkillCorner. Quem tem 300 minutos rastreados ou mais entra na conta do time e ganha a posição no setor. Abaixo disso aparece só com o número, marcando a caixa acima. Nenhum goleiro foi ligado nesses 16 elencos.</p></section>
+    <section><h3>Setor e posição no setor</h3>
+      <p>O setor sai da posição principal no Wyscout. Zaga: zagueiros. Lateral: laterais e alas. Meio: volantes, meias centrais e meia ofensivo. Ataque: pontas e centroavantes. A posição no setor compara o jogador com os do mesmo setor na Série B do mesmo ano, com 300 minutos ou mais: 100 é quem mais faz, e empate conta metade. É o que se chama de percentil.</p></section>
+    <section><h3>Conferência</h3>
+      <p>Refeita por outro caminho, sem usar o script da lista. Os 16 times estão certos, sem ninguém faltando. Em 20 jogadores sorteados, os seis números são iguais aos do banco. A posição no setor refeita em 10 deles bateu até a primeira casa decimal. O número do time inteiro, refeito em 6 times, é o mesmo do estudo. Nenhum jogador aparece em dois times da lista.</p></section>
+    <section><h3>Limites</h3>
+      <p>Quem trocou de clube dentro da Série B no mesmo ano traz os números dos dois clubes somados. Em 2025 dá para ver jogo a jogo, e só aparecem Jacy (Coritiba) e N. Pessôa (Chapecoense). De 2022 a 2024 não há como conferir. Nos setores com 1 a 3 jogadores na conta, o número do setor no time é, na prática, o desses jogadores. 2026 fica fora.</p></section>
+    <section><h3>Os avisos amarelos</h3>
+      <p><b>2 clubes</b>: os números somam dois clubes. <b>xará</b>: o Wyscout tem outro jogador com o mesmo nome no clube, então o setor pode estar trocado. <b>setor com N</b>: poucos jogadores daquele setor na conta do time. Passe o mouse sobre o aviso para ler o detalhe.</p></section>
+    <p class="rodape" id="rodape"></p>
+  </div>
+</div>
+
+<script>
+const D = __DADOS__;
+const LAB = ["Corridas sem bola","Acima da corrida rápida","Para a área","Perigosas, quebram linha","Receberam a bola","Viraram chute em 10 s"];
+const SETORES = ["zaga","lateral","meio","ataque"];
+const SETOR_NOME = {zaga:"Zaga",lateral:"Lateral",meio:"Meio",ataque:"Ataque"};
+const SETOR_PLURAL = {zaga:"zagueiros",lateral:"laterais",meio:"meio-campistas",ataque:"atacantes"};
+const ANOS = [...new Set(D.times.map(t=>t.ano))].sort();
+const PADRAO = {ano:"todos", time:null, setor:"todos", busca:"", abaixo:false, acima:"", ord:{k:"pm", d:-1}};
+let st = JSON.parse(JSON.stringify(PADRAO));
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const n2 = v => v == null ? "—" : v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const n1 = v => v == null ? "—" : v.toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1});
+const nInt = v => v == null ? "—" : Math.round(v).toLocaleString("pt-BR");
+
+/* ---------- controles ---------- */
+function montarControles(){
+  const anos = $("anos");
+  anos.innerHTML = ANOS.map(a => `<div class="ano" data-ano="${a}"><h3>${a}</h3>` +
+    D.times.map((t,i)=>[t,i]).filter(([t])=>t.ano===a).sort((x,y)=>x[0].pos-y[0].pos)
+      .map(([t,i]) => `<button type="button" class="time" id="time-${i}" data-t="${i}" aria-pressed="false">
+        <span class="pos">${t.pos}º</span><span class="clube">${esc(t.clube)}</span><span class="pts">${t.pts} pts</span></button>`).join("") +
+    `</div>`).join("");
+  anos.addEventListener("click", e => {
+    const b = e.target.closest(".time"); if(!b) return;
+    const i = +b.dataset.t;
+    if(st.time === i){ st.time = null; }
+    else { st.time = i; st.ano = String(D.times[i].ano); }
+    render();
+  });
+
+  $("f-ano").innerHTML = ["todos",...ANOS].map(a => `<button type="button" id="ano-${a}" data-v="${a}" aria-pressed="false">${a==="todos"?"Todos":a}</button>`).join("");
+  $("f-ano").addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    st.ano = b.dataset.v;
+    if(st.time !== null && st.ano !== "todos" && D.times[st.time].ano !== +st.ano) st.time = null;
+    if(st.ano === "todos") st.time = null;
+    render();
+  });
+
+  $("f-setor").innerHTML = ["todos",...SETORES].map(s => `<button type="button" id="setor-${s}" data-v="${s}" aria-pressed="false">${s==="todos"?"Todos":SETOR_NOME[s]}</button>`).join("");
+  $("f-setor").addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    st.setor = b.dataset.v; render();
+  });
+
+  $("f-acima").innerHTML = `<option value="">ninguém (todos)</option><option value="pm">Média dos seis</option>` +
+    LAB.map((l,i)=>`<option value="${i}">${l}</option>`).join("");
+  $("f-acima").addEventListener("change", e => { st.acima = e.target.value; render(); });
+  $("f-busca").addEventListener("input", e => { st.busca = e.target.value; render(); });
+  $("f-abaixo").addEventListener("change", e => { st.abaixo = e.target.checked; render(); });
+  $("f-limpar").addEventListener("click", () => {
+    st = JSON.parse(JSON.stringify(PADRAO));
+    $("f-busca").value = ""; $("f-abaixo").checked = false; $("f-acima").value = "";
+    render();
+  });
+
+  const cols = [
+    {k:"nome", rot:"Jogador", cls:"c-jog"},
+    {k:"setor", rot:"Setor", cls:"c-set"},
+    {k:"min", rot:"Minutos", cls:"c-min num"},
+    ...LAB.map((l,i)=>({k:"m"+i, rot:l, cls:"c-m num"})),
+    {k:"pm", rot:"Média dos seis", cls:"c-pm num"},
+  ];
+  $("cab").innerHTML = cols.map(c => `<th class="${c.cls}" data-k="${c.k}" scope="col"><button type="button" id="ord-${c.k}">${esc(c.rot)}<span class="seta" aria-hidden="true">▼</span></button></th>`).join("");
+  $("cab").addEventListener("click", e => {
+    const th = e.target.closest("th"); if(!th) return;
+    const k = th.dataset.k;
+    if(st.ord.k === k) st.ord.d *= -1;
+    else st.ord = {k, d: (k==="nome"||k==="setor") ? 1 : -1};
+    render();
+  });
+}
+
+/* ---------- dados ---------- */
+function filtrar(){
+  const b = norm(st.busca.trim());
+  return D.jog.filter(j => {
+    const t = D.times[j.t];
+    if(st.ano !== "todos" && t.ano !== +st.ano) return false;
+    if(st.time !== null && j.t !== st.time) return false;
+    if(st.setor !== "todos" && j.setor !== st.setor) return false;
+    if(!st.abaixo && !j.conta) return false;
+    if(b && !(norm(j.nome).includes(b) || norm(j.completo).includes(b) || norm(j.wy).includes(b) || norm(t.clube).includes(b))) return false;
+    if(st.acima !== ""){
+      const v = st.acima === "pm" ? j.pm : (j.p ? j.p[+st.acima] : null);
+      if(v == null || v < 80) return false;
+    }
+    return true;
+  });
+}
+function chave(j, k){
+  if(k === "nome") return norm(j.nome);
+  if(k === "setor") return SETORES.indexOf(j.setor);
+  if(k === "min") return j.min;
+  if(k === "pm") return j.pm;
+  const i = +k.slice(1);
+  return j.p ? j.p[i] : null;
+}
+function ordenar(rows){
+  const {k, d} = st.ord;
+  return rows.sort((a, b) => {
+    const va = chave(a, k), vb = chave(b, k);
+    if(va == null && vb == null) return (b.min ?? 0) - (a.min ?? 0);
+    if(va == null) return 1;
+    if(vb == null) return -1;
+    if(va < vb) return -d;
+    if(va > vb) return d;
+    if(k.startsWith("m")){ const i = +k.slice(1); return d * ((a.v[i] ?? 0) - (b.v[i] ?? 0)); }
+    return (b.pm ?? -1) - (a.pm ?? -1);
+  });
+}
+
+/* ---------- desenho ---------- */
+function dicaCelula(j, i){
+  const t = D.times[j.t];
+  const ref = (D.ref[t.ano] || {})[j.setor] || {};
+  const med = g => ref[g] ? n2(ref[g][i+1]) : "—";
+  const nSetor = ref.serie_b ? ref.serie_b[0] : null;
+  let s = `${LAB[i]}: ${n2(j.v[i])} a cada 30 min com a bola do time.`;
+  if(j.p && j.p[i] != null){
+    s += `\nEntre os ${nSetor ?? "?"} ${SETOR_PLURAL[j.setor]} da Série B ${t.ano} com 300+ min, fica em ${n1(j.p[i])} (100 = quem mais faz).`;
+  } else {
+    s += `\nSem posição no setor${j.motivo ? ": " + j.motivo : "."}`;
+  }
+  s += `\nMediana dos ${SETOR_PLURAL[j.setor]} em ${t.ano}: Série B ${med("serie_b")} · quem subiu ${med("sobe")} · meio da tabela ${med("meio_tabela")} · quem caiu ${med("cai")}.`;
+  return s;
+}
+function celula(j, i){
+  const p = j.p ? j.p[i] : null;
+  const v = j.v[i];
+  if(p == null){
+    return `<td class="c-m sem" title="${esc(dicaCelula(j,i))}"><div class="mv"><b>—</b><span class="cru">${n2(v)}</span></div></td>`;
+  }
+  return `<td class="c-m${p >= 80 ? " alto" : ""}" title="${esc(dicaCelula(j,i))}"><div class="mv"><b>${nInt(p)}</b><span class="cru">${n2(v)}</span></div><div class="trilho"><i style="width:${Math.max(p,1.5)}%"></i></div></td>`;
+}
+function linha(j){
+  const t = D.times[j.t];
+  const avisos = j.av.map(a => `<span class="pilula" title="${esc(a.texto)}">${esc(a.curto)}</span>`).join("");
+  const abaixo = !j.conta ? `<span class="pilula cinza" title="${esc(j.motivo || "Abaixo do corte de 300 minutos rastreados.")}">menos de 300 min</span>` : "";
+  const motivo = j.conta && j.pm == null && j.motivo ?`<div class="motivo">${esc(j.motivo)}</div>` : "";
+  const nomeCompleto = j.completo && j.completo !== j.nome ? j.completo : "";
+  const pm = j.pm == null
+    ? `<td class="c-pm sem"><div class="mv"><b>—</b></div></td>`
+    : `<td class="c-pm${j.pm >= 80 ? " alto" : ""}" title="Média das seis posições no setor: ${n1(j.pm)}"><div class="mv"><b>${nInt(j.pm)}</b></div><div class="trilho"><i style="width:${Math.max(j.pm,1.5)}%"></i></div></td>`;
+  return `<tr class="${j.conta ? "" : "abaixo"}">
+    <td class="c-jog"><div class="nome" title="${esc(nomeCompleto)}">${esc(j.nome)}</div>
+      <div class="meta">${esc(j.posw || "")} · ${esc(t.clube)} ${t.ano} · ${t.pos}º</div>
+      ${(avisos || abaixo) ? `<div class="avisos">${avisos}${abaixo}</div>` : ""}${motivo}</td>
+    <td class="c-set">${SETOR_NOME[j.setor] || esc(j.setor)}</td>
+    <td class="c-min">${nInt(j.min)}<span class="sub">${j.jogos ?? "—"} jogos</span></td>
+    ${LAB.map((_,i)=>celula(j,i)).join("")}
+    ${pm}
+  </tr>`;
+}
+function painel(){
+  const el = $("painel");
+  if(st.time === null){ el.hidden = true; el.innerHTML = ""; return; }
+  const t = D.times[st.time];
+  const curtos = Object.entries(t.curtos);
+  el.innerHTML = `
+    <div class="p-cab"><h2>${esc(t.clube)} · ${t.ano}</h2>
+      <span>${t.pos}º lugar · ${t.pts} pontos · ${t.conta} jogadores na conta (300+ min)</span></div>
+    <div class="p-num">${LAB.map((l,i)=>`<div><span class="rot">${l}</span><b>${n2(t.ti[i])}</b></div>`).join("")}</div>
+    <p class="p-nota">Número do time inteiro, como o estudo conta: média dos jogadores na conta, pesada pelos minutos, a cada 30 min com a bola.</p>
+    ${curtos.length ? `<p class="aviso-linha">Poucos jogadores na conta em ${curtos.map(([s,n])=>`${SETOR_NOME[s].toLowerCase()} (${n})`).join(" e ")}. O número desse setor no time é, na prática, o desses jogadores.</p>` : ""}`;
+  el.hidden = false;
+}
+function render(){
+  // estado dos botoes
+  document.querySelectorAll("#f-ano button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === st.ano)));
+  document.querySelectorAll("#f-setor button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === st.setor)));
+  document.querySelectorAll(".time").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.t === st.time)));
+  document.querySelectorAll(".ano").forEach(a => a.classList.toggle("fora", st.ano !== "todos" && a.dataset.ano !== st.ano));
+  $("f-acima").value = st.acima;
+  document.querySelectorAll("#cab th").forEach(th => {
+    if(th.dataset.k === st.ord.k){
+      th.setAttribute("aria-sort", st.ord.d === 1 ? "ascending" : "descending");
+      th.querySelector(".seta").textContent = st.ord.d === 1 ? "▲" : "▼";
+    } else th.removeAttribute("aria-sort");
+  });
+
+  painel();
+  const rows = ordenar(filtrar());
+  const onde = st.time !== null ? `${D.times[st.time].clube} ${D.times[st.time].ano}`
+    : st.ano !== "todos" ? `os 4 que subiram em ${st.ano}` : "os 16 times";
+  $("t-lista").textContent = `${rows.length.toLocaleString("pt-BR")} ${rows.length === 1 ? "jogador" : "jogadores"} · ${onde}`;
+  $("corpo").innerHTML = rows.length ? rows.map(linha).join("")
+    : `<tr class="vazio"><td colspan="10">Nenhum jogador com esses filtros. Tente outro setor ou marque “Mostrar quem jogou menos de 300 minutos”.</td></tr>`;
+}
+
+montarControles();
+render();
+const tot = D.jog.length, naConta = D.jog.filter(j=>j.conta).length;
+$("rodape").textContent = `${tot} jogadores ligados aos 16 elencos, ${naConta} com 300 minutos ou mais. Lista gerada em ${D.gerado}. Arquivo: _fonte/prototipo/sessao_14_09/desmarques/lista_final.json.`;
+</script>

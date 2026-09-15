@@ -54,12 +54,9 @@
   Série B troca 7 nomes e o núcleo vai de € 5,4 mi para € 8,75 mi; o sul-americano passa de 0 para 3
   recomendados.
 - **Reverter ou não o `40fc8d7`.**
-- **A REPETIÇÃO ("se repete de um ano para o outro") como critério — perguntar ao dono no início da
-  próxima sessão.** Ele disse, sobre a etapa 6, que não quer o foco de construir e sim a subida no ano.
-  A repetição também pesa fora da etapa 6: na porta A do catálogo ("se repete e vem antes do
-  resultado"), no desempate dos selos (repetição no clube, 2018-2021) e em conclusões como a FIS-07
-  ("o físico se repete"). Confirmar se ela sai desses lugares também (como o desconto do dinheiro) ou
-  se a decisão vale só para a etapa 6. Não mexer antes da resposta.
+- ~~A REPETIÇÃO como critério~~ — **respondida em 14/09, noite** (ver §5, "Em 14/09, noite"): sai só
+  "o mesmo clube no ano seguinte"; 1º→2º turno e 2018-2021 ficam; FIS-07, M1, M6, M7 e ELE-06 ficam.
+  Entra na rodada do §3, item 3.
 
 ### 2.3 Conclusões — o que ficou
 
@@ -88,9 +85,15 @@
 2. **Lista dos jogadores dos 16 times que subiram com os seis números de desmarque** (corridas sem
    bola, a cada 30 min com a bola: total, acima da corrida rápida, para a área, perigosas/quebram
    linha, que receberam a bola, que viraram chute em 10 s), cada um com o percentil entre os jogadores
-   do mesmo setor na Série B daquele ano, conferida, numa página (artifact) com filtro. **Estava
-   rodando ao fechar** (run `wf_6f778c23-fdb`, só no rascunho): relançar pelo script
-   `workflows/desmarques-jogadores-que-subiram-*.js` e montar a página.
+   do mesmo setor na Série B daquele ano, conferida, numa página (artifact) com filtro. **FEITA
+   (noite de 14/09)**: o fluxo `wf_6f778c23-fdb` terminou (extração + conferência por outro caminho
+   + conserto) e tudo foi para `sessao_14_09/desmarques/` (`lista.json`, `montar.py`,
+   `conferencia/`, journals). `avisar_e_montar.py` refaz os avisos (2 clubes: Jacy e N. Pessôa, só
+   visível em 2025; xará: Zé Vitor e Marquinhos; setor com 1-3 na conta), para com erro se não
+   baterem com os do conserto, traduz os motivos e grava `lista_final.json`, `dados_pagina.json` e
+   `desmarques_de_quem_subiu.html` (modelo em `pagina_modelo.html`). 459 jogadores, 328 na conta.
+   Página publicada (privada): https://claude.ai/artifact/KAfb3pUeMjQjXRwZr17Ps5 — republicar
+   pela mesma URL (`url`) se mudar. Nada commitado.
 3. **Tirar de vez o "descontado o dinheiro"** — rodada própria: régua reescrita, selos das 56
    conclusões e as cinco recalculados, spec, ordem do bloco 2, gerador (portas do catálogo e marcas do
    `ranking_gaps`), textos de todas as etapas, e os pontos do §2.3.
@@ -101,12 +104,82 @@
    subiram (4 estilos, descritivos). A desenhar com as 80 (ou 160) temporadas, perfis declarados antes.
 6. **Ajustes pequenos da etapa 5:** contraste baixo do número da diferença no cabeçalho; "−53 abaixo"
    repete sinal e palavra; a frase dos dois clubes conta jogador-ano (são 204 pessoas distintas).
+7. **Etapa 5 REDESENHADA (pedido do dono, noite de 14/09):** achou a matriz por time "confusa, pouco
+   visual e difícil de chegar a conclusão". Quer indicador na linha, os 3 grupos (sobe, meio, cai)
+   nas colunas, o valor bruto típico de cada grupo e a diferença em %. Prévia com os números reais
+   publicada em https://claude.ai/artifact/LFnQ4QWbTuAsHatuyuGLKY (fonte e script em
+   `sessao_14_09/etapa5_previa/`). A prévia usa: mediana crua; diferença contra o meio (% do meio, ou
+   pontos percentuais quando o número já é %); firmeza pelos testes do catálogo da etapa 2 (q < 0,05
+   firme; p < 0,05 pode ser sorte); ordem pela firmeza ou pela do estudo, nunca pelo tamanho da diferença
+   (unidades diferentes). **APROVADO pelo dono (14/09, noite): "pode seguir assim e a matriz fica
+   embaixo como detalhe".** A etapa 5 abre com a tabela da prévia, painel a painel, e a matriz por
+   time (com linhas das faixas, ordem pela diferença e marcas de base) continua embaixo de cada
+   painel, aberta. Especificação para o gerador: por painel, alinhado a `indicadores`, gravar
+   `diferenca_contra_meio` {sobe, cai, tipo: "pp" | "rel"} a partir das medianas cruas
+   (`faixa_*_bruto[1]`), com o tipo decidido pela unidade declarada do indicador e conferido contra o
+   glossário; `firmeza` {sobe_meio, sobe_cai} com p, q e o rótulo (firme / pode ser sorte / sem
+   diferença clara) lidos do catálogo da etapa 2; `ordem_por_firmeza` (menor q das duas comparações,
+   empate pela ordem do estudo); `regra_do_resumo`. A tela não calcula nada disso. Na aba por pontos,
+   ausência escrita até o `gerar_pontos.py` ser regerado. **FEITO E GRAVADO, SEM PUBLICAR (20:24)**: `dados/prototipo.json` md5
+   2859ed76 com `etapa_5.paineis[*].resumo_grupos`, `etapa_5.regra_do_resumo` e `etapa_5.exemplo`
+   (32 firmes · 73 pode ser sorte · 481 sem diferença, igual à prévia); `proto_b.js` com a tabela antes
+   da matriz, nomes de painel da prévia, exemplo nos dois formatos; `style.css` levou o texto técnico
+   pequeno da aba a >= 4,5:1 (#pgProto); restos da etapa 6 resolvidos (pares de mesmo posto, texto do
+   share_11). Aceita pelo coordenador: chave de registro
+   `ranking_gaps.guardas_no_json_inteiro.consequencia_sem_marca_depois_da_troca_do_texto`. Relato:
+   `sessao_14_09/etapa5_grupos_*`. Fechamento FEITO (fluxo `wf_e7fc94ca-7c2`, relato
+   `sessao_14_09/fecho_etapa5_*`): título da etapa 5 = "Quem subiu, quem ficou no meio, quem caiu";
+   conferência independente no app real com o dado gravado: diff só com as chaves permitidas, 87
+   linhas sorteadas batendo célula a célula, contagem 32·73·481 refeita, 4.864 células da matriz iguais
+   ao HEAD, etapa 6 sem "repete/ano seguinte/diagonal", contraste mínimo 5,05:1, 16/16 sem erro nas duas
+   larguras e temas, só os 10 arquivos esperados modificados. Dois detalhes ACEITOS pelo coordenador e
+   registrados aqui: o cabeçalho da matriz passou a dizer "na escala de 0 a 100, quem subiu fica 68 abaixo
+   de quem caiu" (sem o sinal repetido, pedido do §2.4 item 6) e as células "vazio" ganharam cor
+   `--tinta2` por contraste. Pontas soltas listadas pelo dono do `proto.js`: `proto_contrato.md` e
+   `ESPECIFICACAO.md` podem ainda dizer "Cada time, cada ano"; o glossário (~5875) cita a sensibilidade
+   por regra da etapa 5 — conferir se a tela ainda mostra; a 400 px o chip "Tudo o que foi medido →"
+   cobre a barra do sumário (pré-existente). ABERTOS: (a) "pode ser sorte" quer dizer p < 0,05 sem passar no q
+   na etapa 5 e p >= 0,10 no `ptSorte` da etapa 2 — unificar o vocabulário na rodada da régua (§3,
+   item 3); (b) PARA O ITEM 6: com os caminhos novos no prototipo.json, a rodada completa do
+   `gerar_pontos.py` para no assert "caminho do Protótipo sem par" — tratar antes de regerar pontos;
+   (c) contraste abaixo de 4,5:1 em rótulos das etapas 0-4 e 9-15 (fora desta rodada). Histórico: fluxo `wf_7fafb52f-575`
+   (sessão `1abbf5c7`), lançado depois do da etapa 6; script em
+   `workflows/etapa5-grupos-lado-a-lado-wf_7fafb52f-575.js`; rascunho em `.../scratchpad/etapa5`. Leva
+   junto os restos da etapa 6 e o contraste do número técnico (`style.css`, só `#pgProto`). Grava
+   `dados/prototipo.json` e `static/prototipo.js` no passo 5. Se cair: journal + `git diff` de
+   `gerar_prototipo.py`, `proto_b.js` e `style.css` antes de relançar. Medido: 32 comparações firmes, 73 que podem ser sorte e 481 sem diferença
+   clara, em 586 (293 números × subiu×meio e subiu×caiu).
 
 ## 3. A ordem da próxima rodada
 
-1. **Lista dos desmarques** (§2.4, 2): relançar, conferir, montar a página.
-2. **Etapa 6 no mesmo ano** (§2.4, 1) + ajustes pequenos da etapa 5 (§2.4, 6).
-3. **Tirar o desconto do dinheiro** (§2.4, 3), com a lente rápida do conserto das conclusões e as
+1. ~~**Lista dos desmarques** (§2.4, 2)~~ — feita e publicada na noite de 14/09.
+2. **Etapa 6 no mesmo ano** (§2.4, 1) + ajustes pequenos da etapa 5 (§2.4, 6). **FEITO E GRAVADO, SEM PUBLICAR
+   (noite de 14/09)**: `dados/prototipo.json` e `static/prototipo.js` gravados às 19:05 (diff: só
+   `gerado_em`, a regra da etapa 1 com 216 jogadores-ano e 204 pessoas, e `etapa_6.mesmo_ano`);
+   `gerar_prototipo.py`, `proto_b.js`, `proto.js`, `proto_a.js`, `proto_c.js`, contrato e glossário
+   mexidos (publicar leva TODOS juntos). Medido: 41 de 73 números andam com o aproveitamento no mesmo
+   ano (p < 0,05; o sorteio daria 3; p do excesso 0,0001); os mais fortes são xG contra (−0,58),
+   distância do chute (−0,56) e três de uso do elenco marcados como consequência do resultado.
+   Restos (entram no fluxo da etapa 5): tela não lê `grupos_mesmo_posto` (distância e m/min com
+   pontos idênticos aparecem duas vezes; 70 testes distintos, 40 com p < 0,05); motivo do share_11
+   escrito de dois jeitos; número técnico pequeno com contraste 2,77-3,38. PARA O ITEM 6: no d80 do
+   `gerar_pontos` a faixa é a de PONTOS (24·35·21) e a declaração diria "quem subiu" — ajustar lá.
+   PARA O ITEM 3: a lista de onde a repetição "ano seguinte" é critério está em
+   `sessao_14_09/pendente_rodada_repeticao.json`; o chip "etapa 10" saiu da etapa 6 porque os motivos
+   de lá falam de repetição. Relato: `sessao_14_09/etapa6_mesmo_ano_*`. Histórico do lançamento: fluxo `wf_bc517137-a69` (sessão `1abbf5c7`, aberta com a pasta do Portal Ranking),
+   script em `workflows/etapa6-mesmo-ano-wf_bc517137-a69.js`, rascunho em
+   `/private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-fut-BOTA-Analytics-Portal-Ranking/1abbf5c7-a19a-4f3a-89c2-26d0445cdbba/scratchpad/etapa6`.
+   Ele GRAVA `dados/prototipo.json` e `static/prototipo.js` no passo 5 (só `etapa_6.mesmo_ano`, a
+   frase dos dois clubes e a declaração podem mudar) e escreve `gerar_prototipo.py` e `static/proto_b.js`
+   (e, se o mapa apontar, `proto.js`/`proto_a.js`/`proto_c.js`/contrato). Se cair: conferir o
+   journal e o `git diff` desses arquivos antes de relançar.
+3. **Tirar o desconto do dinheiro** (§2.4, 3) — junto sai a repetição "ano seguinte" dos critérios
+   (§5, "Repetição como critério") e o "pode ser sorte" passa a ter um sentido só na aba. **EM
+   ANDAMENTO (noite de 14/09, pedido do dono), parte 1 = só leitura e medição**: fluxo
+   `wf_19689286-ad6` (sessão `1abbf5c7`), script em
+   `workflows/dinheiro-e-repeticao-mapa-e-regua-wf_19689286-ad6.js`, rascunho em `.../scratchpad/dinheiro`;
+   devolve os mapas, 3 propostas de régua medidas, 2 juízes e o plano por dono de arquivo. A parte 2
+   (implementação) só depois de ler o plano e levar ao dono o que for decisão dele. Mesma rodada: com a lente rápida do conserto das conclusões e as
    conclusões afetadas pelo dado novo (§2.3).
 4. **Gerador, bloco 2** com a ordem de serviço revista; bloco `conclusoes` por último.
 5. **Tela, passo 3**: tabela 4·6·8·9 e os dois fora do top 9 (proto_a), tabela de gaps com a linha da
@@ -188,6 +261,13 @@ nacionalidade e idade** · **sem rolagem lateral** · **aba de conclusões no fi
   tela ("dá para montar elenco valioso gastando pouco"), como rodada própria. As conclusões sobre o
   próprio valor do elenco (DIN-*) continuam.
 - **Aba Físico: arrastar jogadores entre as colunas** — esperar a outra sessão liberar o `app.js`.
+- **Repetição como critério (respondido na noite de 14/09):** sai só **"o mesmo clube repete o número
+  no ano seguinte"** — da régua dos selos (o FORTE deixa de pedir essa repetição e ela não entra mais
+  no desempate), da porta A do catálogo (`rho_persist >= 0,30` sai; o placar da etapa 13 vai admitir
+  mais indicadores) e das frases "não se viu o mesmo clube repetir o número". **Ficam** o 1º turno
+  prevendo o 2º (é o mesmo ano) e a checagem em 2018-2021 (protege contra sorte). **As conclusões
+  cujo assunto é a repetição ficam, com o selo** (FIS-07, M1, M6, M7, ELE-06): são achado, não
+  critério. Executar junto com a retirada do dinheiro (§3, item 3).
 - **Publicar:** autorizado depois de pronto e conferido; commit só dos próprios arquivos.
 - Decididos por regra da casa: corte de 2026 na etapa 11 (bug); os k da tabela da etapa 1 são 4·6·8·9;
   botão Europa com 0 e o motivo, padrão "Todas as ligas"; unidade/definição dos derivados vêm do
