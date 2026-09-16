@@ -152,6 +152,13 @@
 
 ## 3. A ordem da próxima rodada
 
+> **MUDANÇA DE FORMA DE TRABALHAR (dono, 15/09):** "o caminho melhor vai ser fazer perguntas e você
+> responder do que fazer uma análise muito ampla de uma só vez". Daqui em diante: ele pergunta, a resposta
+> é uma análise focada com o material já colhido, no molde da "bola parada por treinador". A lista
+> abaixo fica PARADA até ele pedir um item. **PUBLICADO em 15/09 (commit `eeaf498`, enviado):** etapas
+> 5 e 6 novas e a rodada do dinheiro; conferido antes em docs/ (16/16, claro/escuro, 1.785/400, sem erro).
+> No ar, a aba ainda diz "O que o estudo concluiu: sem dado" (o bloco `conclusoes` é o bloco 2, parado).
+
 1. ~~**Lista dos desmarques** (§2.4, 2)~~ — feita e publicada na noite de 14/09.
 2. **Etapa 6 no mesmo ano** (§2.4, 1) + ajustes pequenos da etapa 5 (§2.4, 6). **FEITO E GRAVADO, SEM PUBLICAR
    (noite de 14/09)**: `dados/prototipo.json` e `static/prototipo.js` gravados às 19:05 (diff: só

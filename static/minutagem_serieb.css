@@ -1,0 +1,66 @@
+/* Aba "Minutagem Série B" — estilo próprio, escopado em #pgMinutagem, para não encostar
+   no resto do app. As cores saem das variáveis do tema, como nas outras abas. */
+
+#pgMinutagem .mn { display: flex; flex-direction: column; gap: 14px; padding: 18px 20px 40px; }
+
+#pgMinutagem .mn-topo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+#pgMinutagem .mn-topo h3 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+#pgMinutagem .mn-sub { color: var(--tinta2); font-size: 13px; }
+
+#pgMinutagem .mn-filtros {
+  display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-end;
+  padding: 12px 14px; background: var(--fundo2); border: 1px solid var(--borda); border-radius: 10px;
+}
+#pgMinutagem .mn-campo { display: flex; flex-direction: column; gap: 5px; }
+#pgMinutagem .mn-campo > label {
+  font-size: 10.5px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta2);
+}
+#pgMinutagem .mn-campo select,
+#pgMinutagem .mn-campo input {
+  background: var(--input-bg); color: var(--tinta); border: 1px solid var(--input-borda);
+  border-radius: 6px; padding: 5px 8px; font: inherit; font-size: 12.5px; min-height: 30px;
+}
+#pgMinutagem .mn-campo input[type="number"] { width: 5.5em; }
+#pgMinutagem .mn-campo input[type="search"] { width: 15em; max-width: 60vw; }
+#pgMinutagem .mn-idade { display: flex; align-items: center; gap: 6px; }
+#pgMinutagem .mn-idade span { color: var(--tinta3); font-size: 12px; }
+#pgMinutagem .mn-bt {
+  background: transparent; color: var(--tinta2); border: 1px solid var(--input-borda);
+  border-radius: 6px; padding: 5px 10px; min-height: 30px; cursor: pointer; font: inherit; font-size: 12.5px;
+}
+#pgMinutagem .mn-bt:hover { color: var(--tinta); border-color: var(--tinta3); }
+
+#pgMinutagem .mn-resumo { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; color: var(--tinta2); }
+#pgMinutagem .mn-resumo b { color: var(--tinta); font-variant-numeric: tabular-nums; }
+
+#pgMinutagem .mn-rolagem { overflow-x: auto; border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); }
+#pgMinutagem table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 880px; font-variant-numeric: tabular-nums; }
+#pgMinutagem thead th {
+  position: sticky; top: 0; z-index: 1; background: var(--fundo3); text-align: left; white-space: nowrap;
+  border-bottom: 1px solid var(--borda2); padding: 0; font-size: 10.5px; font-weight: 650;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--tinta2);
+}
+#pgMinutagem thead th button {
+  all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 4px;
+  width: 100%; padding: 9px 10px; cursor: pointer;
+}
+#pgMinutagem thead th button:hover { color: var(--tinta); }
+#pgMinutagem thead th[aria-sort] { color: var(--tinta); }
+#pgMinutagem thead th .mn-seta { font-size: 9px; color: var(--coral, #c8102e); }
+#pgMinutagem th.mn-num button, #pgMinutagem td.mn-num { text-align: right; justify-content: flex-end; }
+#pgMinutagem tbody td { padding: 7px 10px; border-bottom: 1px solid var(--linha-tab, var(--borda)); font-size: 13px; }
+#pgMinutagem tbody tr:last-child td { border-bottom: 0; }
+#pgMinutagem tbody tr:hover td { background: var(--veu1); }
+#pgMinutagem td.mn-num { text-align: right; }
+#pgMinutagem .mn-jog { font-weight: 600; }
+#pgMinutagem .mn-meta { display: block; font-size: 11.5px; color: var(--tinta3); }
+#pgMinutagem .mn-barra { display: inline-block; vertical-align: middle; width: 72px; height: 5px; border-radius: 3px; background: var(--trilho, #0a0c10); margin-left: 8px; overflow: hidden; }
+#pgMinutagem .mn-barra i { display: block; height: 100%; background: var(--gramado1, #42a072); border-radius: 3px; }
+#pgMinutagem .mn-vazio { text-align: center; color: var(--tinta2); padding: 26px; }
+#pgMinutagem .mn-mais { display: flex; justify-content: center; padding: 10px; }
+#pgMinutagem .mn-nota { font-size: 12px; color: var(--tinta3); max-width: 90ch; line-height: 1.5; }
+
+@media (max-width: 720px) {
+  #pgMinutagem .mn { padding: 14px 12px 30px; }
+  #pgMinutagem .mn-campo input[type="search"] { width: 100%; }
+}

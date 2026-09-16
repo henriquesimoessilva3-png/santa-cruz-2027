@@ -6,6 +6,7 @@
 <title>Santa Cruz · Montagem de Elenco</title>
 <link rel="stylesheet" href="/static/style.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/bola_parada.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/minutagem_serieb.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
 <body>
@@ -132,6 +133,7 @@
   <button class="aba" data-aba="serieb">Análise Série B</button>
   <button class="aba" data-aba="prototipo">Protótipo</button>
   <button class="aba" data-aba="bolaparada">Bola parada por treinador</button>
+  <button class="aba" data-aba="minutagem">Minutagem Série B</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -523,6 +525,13 @@
       <div class="emp-rolagem"><div class="sb" id="bpCorpo"></div></div>
     </section>
 
+    <!-- A aba Minutagem Série B: desenhada por static/minutagem_serieb.js com o dado de
+         static/minutagem_serieb_dados.js (gerar_minutagem_serieb.py). Como a de bola parada,
+         ela mesma se mostra e se esconde acompanhando o botão; o app.js não precisa saber dela. -->
+    <section class="pagina oculta" id="pgMinutagem">
+      <div class="emp-rolagem"><div class="mn" id="mnCorpoPagina"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgIndicados">
       <div class="emp-topo">
         <div class="emp-tit">
@@ -749,6 +758,8 @@
 <script src="/static/proto_c.js?v={{ ver }}"></script>
 <script src="/static/bola_parada_dados.js?v={{ ver }}"></script>
 <script src="/static/bola_parada.js?v={{ ver }}"></script>
+<script src="/static/minutagem_serieb_dados.js?v={{ ver }}"></script>
+<script src="/static/minutagem_serieb.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>
