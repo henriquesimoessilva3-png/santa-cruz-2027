@@ -802,6 +802,9 @@ body.claro .pos-nome,body.claro .pos-pe .tot{color:#16202e}
 
 /* abas mais finas */
 .abas{padding:0 12px}
+/* Com 11 abas a barra passa de 1.160px e, sem quebra, as ultimas ficam fora da tela (e sem
+   como rolar ate elas). Abaixo de 1.190px ela quebra em duas linhas. */
+@media (max-width:1190px){ .abas{flex-wrap:wrap} }
 .aba{padding:6px 13px;font-size:11.5px}
 .campo-area{padding:10px}
 
