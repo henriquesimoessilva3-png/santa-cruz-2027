@@ -1,5 +1,9 @@
 # CONTINUAR — aba Protótipo, aba por pontos e aba de conclusões
 
+> **DEPOIS DESTE ARQUIVO veio a sessão de 14/09 (noite) a 16/09: leia antes
+> `_fonte/CONTEXTO_sessao_15_16_09.md`.** Ele traz o que está no ar, as decisões do dono e o
+> que ficou parado; onde os dois discordarem, vale o mais novo.
+
 > Estado em **14/09/2026, ~18h**, fim da sessão `3b480dcb`. Substitui a versão do meio-dia de 14/09.
 > Leia nesta ordem: **este arquivo** → `PENDENTE_RODADA.md` (os 18 pedidos de 13/09) →
 > `CONCLUSOES.md` → `static/proto_contrato.md` (a API da tela). O mapa geral do projeto está em

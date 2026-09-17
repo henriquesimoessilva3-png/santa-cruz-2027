@@ -2144,3 +2144,10 @@ uma **aba nova por faixa de aproveitamento de pontos** e uma **aba de conclusõe
 **Para continuar, leia `_fonte/prototipo/CONTINUAR.md`** (estado, fluxos que ficaram rodando, ordem
 da rodada, regras que custaram caro) e `_fonte/prototipo/PENDENTE_RODADA.md` (os 18 pedidos, cada
 um com o que já foi medido).
+
+## Depois disso: 14/09 (noite) a 16/09/2026
+
+Etapa 6 no mesmo ano, etapa 5 com os grupos lado a lado, a saída do desconto do dinheiro e da
+repetição "ano seguinte" dos critérios, a aba **Minutagem Série B** e duas publicações.
+**Leia `_fonte/CONTEXTO_sessao_15_16_09.md`** — estado no ar, decisões do dono, o que ficou
+parado (coluna de valor de mercado, bloco 2 do gerador) e as regras que custaram tempo.
