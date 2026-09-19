@@ -12,3 +12,9 @@ dados/_serieb_progresso.json
 bases wyscout - serie B/
 dados/_serieb_lesoes_html/
 dados/_serieb_lesoes_progresso.json
+
+# cache HTML da coleta T01 (estudo Serie B)
+_fonte/estudo_serieb/_cache_T01/
+
+# backup de seguranca criado antes das correcoes de 19/09 — local, nao versionado
+_fonte/estudo_serieb/resultados/_backup_pre_correcoes_19_09/

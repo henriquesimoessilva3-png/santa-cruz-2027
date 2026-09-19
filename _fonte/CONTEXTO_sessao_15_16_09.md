@@ -1,6 +1,8 @@
 # Contexto — sessão de 14/09 (noite) a 16/09/2026
 
-> Escrito a pedido do dono em 16/09. Cobre o que foi feito, o que está no ar, o que ficou parado e
+> **DEPOIS DESTE ARQUIVO veio a sessão de 17/09, que construiu o Estudo Série B de zero a 19 partes: leia antes `_fonte/CONTEXTO_sessao_17_09.md`.** Ele manda onde discordar deste.
+
+> Escrito a pedido do dono em 16/09, com a virada de 17/09 acrescentada no §7 (leia o §7 primeiro). Cobre o que foi feito, o que está no ar, o que ficou parado e
 > como retomar. O detalhe do Protótipo continua em `_fonte/prototipo/CONTINUAR.md`; este arquivo é o
 > estado mais recente e manda onde os dois discordarem.
 
@@ -114,3 +116,45 @@ gerador (`p_liq_SM`, `rho_persist`) e vai gravar zeros se for rodado como está.
 - Desmarques dos que subiram: `sessao_14_09/desmarques/` (+ página publicada como artifact).
 - Prévia que originou a etapa 5 nova: `sessao_14_09/etapa5_previa/`.
 - Scripts dos fluxos: `_fonte/prototipo/workflows/`.
+
+---
+
+## 7. Virada de 17/09 — o estudo novo manda agora
+
+O dono trouxe um arquivo novo, escrito fora daqui, e decidiu **tocar direto por ele em vez de
+implantar a fila deste contexto**. Ele está instalado em `_fonte/estudo_serieb/CLAUDE.md` e é a
+direção atual do trabalho. **Onde este contexto e ele discordarem, vale ele.**
+
+O que o arquivo novo é: o mesmo estudo, organizado **por decisão** (que time montar, que treinador
+buscar, quem contratar) em vez de por método, com uma apresentação de três camadas (manchete, o que
+vimos, prova) e uma parte por pedido. Ele **aproveita** as análises, os dados e o método da Protótipo
+— a `ESPECIFICACAO.md` continua valendo no método. Não é recomeço: o que ele troca é a apresentação.
+
+### Decisões do dono em 17/09
+
+- **Aba por pontos: ENCERRADA.** O plano novo não a cita e ela não volta. O item 6 do
+  `CONTINUAR.md` e o §4(e) acima estão mortos; `gerar_pontos.py` e `dados/pontos.json` ficam no
+  disco sem dono.
+- **Coluna de valor de mercado na aba Minutagem: REVERTIDA.** Era o §4(a) acima, o único pedido em
+  aberto. A edição de `gerar_minutagem_serieb.py` foi desfeita e o diff ficou guardado em
+  `_fonte/prototipo/sessao_14_09/parados_17_09/` com a ressalva medida (valor é o de hoje; 83%
+  repetem entre anos; 45% são zero).
+
+### O que morre junto, quando o R01 aposentar as duas abas antigas
+
+Tudo isto era trabalho de **tela**, não de análise, e deixar parado não perde número nenhum:
+o bloco 2 do gerador (§4b), o glossário e o contrato desatualizados (§4c) e o texto da etapa 9 (§4d).
+As 57 conclusões, as 16 etapas e as réguas continuam sendo a fonte do estudo novo.
+
+### Dois furos do arquivo novo, já conferidos na base em 17/09
+
+1. **`dados/serieb_tecnico.csv` não é treinador** — o cabeçalho é `Jogador, Equipa, Posição, Idade,
+   Valor de mercado…`, dado técnico de jogador. Confirma o §0 da especificação: não há nome de
+   treinador em base nenhuma. **O Bloco T inteiro depende da coleta T01** na web, no molde do
+   `coletar_serieb_lesoes.py`. É o item mais caro do arquivo.
+2. **Não existe base de nenhuma liga fora a Série B** — só os zips do Wyscout da própria B.
+   **J08 (conversão de ligas) e J09 (alvos no exterior) estão sem dado**; o próprio arquivo manda
+   parar e perguntar nesse caso.
+
+O resto do Bloco A roda com o que já está no disco. A primeira tarefa é **E00** (criar a aba com as
+29 perguntas e seus status), que não depende de nada.

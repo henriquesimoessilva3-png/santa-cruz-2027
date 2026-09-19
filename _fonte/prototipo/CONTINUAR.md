@@ -1,5 +1,7 @@
 # CONTINUAR — aba Protótipo, aba por pontos e aba de conclusões
 
+> **DEPOIS DESTE ARQUIVO veio a sessão de 17/09, que construiu o Estudo Série B de zero a 19 partes: leia antes `_fonte/CONTEXTO_sessao_17_09.md`.** Ele manda onde discordar deste.
+
 > **DEPOIS DESTE ARQUIVO veio a sessão de 14/09 (noite) a 16/09: leia antes
 > `_fonte/CONTEXTO_sessao_15_16_09.md`.** Ele traz o que está no ar, as decisões do dono e o
 > que ficou parado; onde os dois discordarem, vale o mais novo.
