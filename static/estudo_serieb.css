@@ -1,0 +1,110 @@
+/* Aba "Estudo Série B" — estilo próprio, escopado em #pgEstudo, para não encostar no resto do
+   app. As cores saem das variáveis do tema, como nas outras abas.
+
+   A tela tem três camadas de leitura (regra da Didática do estudo): a manchete serve a quem tem
+   10 segundos, o "o que vimos" e o uso prático a quem tem 2 minutos, e a tabela de provas a quem
+   quer conferir. O CSS segue isso: manchete grande, uso prático destacado, prova em corpo menor. */
+
+#pgEstudo .esb { display: flex; flex-direction: column; gap: 22px; padding: 18px 20px 48px; max-width: 1080px; }
+
+/* ---------------- topo ---------------- */
+#pgEstudo .esb-topo h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.015em; }
+#pgEstudo .esb-sub { margin: 0 0 12px; color: var(--tinta2); font-size: 13px; max-width: 70ch; line-height: 1.5; }
+#pgEstudo .esb-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+/* flex:none + nowrap: sem isso, em tela estreita a etiqueta encolhe e quebra o proprio texto
+   ("1 em / rascunho" em duas linhas dentro da pilula). */
+#pgEstudo .esb-pill {
+  font-size: 11px; font-weight: 650; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--borda2); color: var(--tinta2);
+  flex: none; white-space: nowrap;
+}
+#pgEstudo .esb-pill-val { color: var(--verde); border-color: color-mix(in srgb, var(--verde) 45%, transparent); }
+#pgEstudo .esb-pill-ras { color: var(--ambar); border-color: color-mix(in srgb, var(--ambar) 45%, transparent); }
+#pgEstudo .esb-pill-pen { color: var(--tinta3); }
+#pgEstudo .esb-gerado { margin-left: auto; font-size: 10.5px; color: var(--tinta3); flex: none; white-space: nowrap; }
+
+/* ---------------- seções ---------------- */
+#pgEstudo .esb-secao { display: flex; flex-direction: column; gap: 10px; }
+#pgEstudo .esb-secao > h3 {
+  margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .01em;
+  display: flex; align-items: baseline; gap: 10px;
+  padding-bottom: 7px; border-bottom: 1px solid var(--borda);
+}
+#pgEstudo .esb-conta { font-size: 10.5px; font-weight: 500; color: var(--tinta3); margin-left: auto; }
+#pgEstudo .esb-nota { margin: 0; color: var(--tinta3); font-size: 12.5px; line-height: 1.55; max-width: 70ch; }
+
+/* "O que decidimos" é a primeira coisa da tela: fica em destaque mesmo vazia. */
+#pgEstudo .esb-decidimos { background: var(--fundo2); border: 1px solid var(--borda); border-radius: 12px; padding: 14px 16px; }
+#pgEstudo .esb-decidimos > h3 { border-bottom-color: var(--borda2); }
+
+/* ---------------- uma pergunta ---------------- */
+#pgEstudo .esb-parte { border-left: 2px solid var(--borda2); padding: 2px 0 2px 12px; }
+#pgEstudo .esb-parte.esb-pendente {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  border-left-color: var(--borda); color: var(--tinta3);
+}
+#pgEstudo .esb-parte.esb-rascunho { border-left-color: var(--ambar); }
+#pgEstudo .esb-parte.esb-validada { border-left-color: var(--verde); }
+#pgEstudo .esb-parte-topo { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+
+#pgEstudo .esb-id {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .06em;
+  color: var(--tinta2); font-variant-numeric: tabular-nums; flex: none;
+}
+#pgEstudo .esb-pergunta { font-size: 12.5px; color: var(--tinta2); flex: 1 1 320px; line-height: 1.45; }
+#pgEstudo .esb-pendente .esb-pergunta { color: var(--tinta3); }
+#pgEstudo .esb-status { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--tinta3); flex: none; }
+#pgEstudo .esb-rascunho-tag { color: var(--ambar); }
+#pgEstudo .esb-validada-tag { color: var(--verde); }
+
+/* ---------------- uma conclusão ---------------- */
+#pgEstudo .esb-concl { margin: 10px 0 14px; }
+#pgEstudo .esb-concl h4 {
+  margin: 0 0 6px; font-size: 15.5px; font-weight: 700; line-height: 1.32;
+  letter-spacing: -.01em; color: var(--tinta); max-width: 62ch;
+}
+#pgEstudo .esb-compacta h4 { font-size: 14px; }
+#pgEstudo .esb-vimos { margin: 0 0 7px; font-size: 13px; line-height: 1.6; color: var(--tinta2); max-width: 72ch; }
+#pgEstudo .esb-uso {
+  margin: 0 0 7px; font-size: 13px; line-height: 1.6; max-width: 72ch;
+  padding: 8px 11px; background: var(--fundo2); border-left: 2px solid var(--coral); border-radius: 0 7px 7px 0;
+}
+#pgEstudo .esb-uso b { color: var(--coral-cl); }
+#pgEstudo .esb-premissa { margin: 0 0 7px; font-size: 12px; color: var(--tinta2); max-width: 72ch; line-height: 1.5; }
+#pgEstudo .esb-premissa-vazia { color: var(--tinta3); }
+#pgEstudo .esb-aberto { margin: 6px 0 0; font-size: 12px; color: var(--tinta3); max-width: 72ch; line-height: 1.5; }
+
+#pgEstudo .esb-rodape { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+#pgEstudo .esb-selo {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid; cursor: help;
+}
+#pgEstudo .esb-selo-firme { color: var(--verde); border-color: color-mix(in srgb, var(--verde) 50%, transparent); }
+#pgEstudo .esb-selo-provavel { color: var(--ambar); border-color: color-mix(in srgb, var(--ambar) 50%, transparent); }
+#pgEstudo .esb-selo-indicio { color: var(--tinta3); border-color: var(--borda2); }
+#pgEstudo .esb-n { font-size: 11px; color: var(--tinta3); font-variant-numeric: tabular-nums; }
+#pgEstudo .esb-fonte { margin-left: auto; font-size: 10.5px; color: var(--tinta3); }
+
+/* ---------------- provas ---------------- */
+#pgEstudo .esb-provas { width: 100%; border-collapse: collapse; font-size: 12px; }
+#pgEstudo .esb-provas th {
+  text-align: left; padding: 6px 10px; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--tinta3); border-bottom: 1px solid var(--borda);
+}
+#pgEstudo .esb-provas td { padding: 7px 10px; border-bottom: 1px solid var(--borda); color: var(--tinta2); vertical-align: top; }
+#pgEstudo .esb-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--tinta3); }
+
+/* As tarefas de tela não são perguntas do estudo: ficam no fim e discretas. A linha delas é
+   sempre em fila — a regra de fila estava só na variante "pendente", e a tarefa feita saía com
+   o texto todo colado ("E00Criar a abaFEITA EM ..."). */
+#pgEstudo .esb-tarefas { opacity: .72; }
+#pgEstudo .esb-tarefas .esb-parte {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+#pgEstudo .esb-tarefas > h3 { font-size: 13px; }
+
+@media (max-width: 720px) {
+  #pgEstudo .esb { padding: 14px 14px 40px; }
+  #pgEstudo .esb-concl h4 { font-size: 14.5px; }
+  #pgEstudo .esb-gerado { margin-left: 0; width: 100%; }
+}
