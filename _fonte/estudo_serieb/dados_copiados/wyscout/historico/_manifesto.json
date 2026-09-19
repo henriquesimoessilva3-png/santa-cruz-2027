@@ -1,0 +1,54 @@
+{
+ "copiado_em": "2026-09-19",
+ "fonte": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/fut/BOTA/Analytics/Portal Ranking/dados",
+ "por_que": "o ANTES de cada transferencia do J08",
+ "periodos": {
+  "2018": {
+   "xlsx": 1,
+   "mb": 0.3,
+   "pre_filtro": false
+  },
+  "2019": {
+   "xlsx": 1,
+   "mb": 0.3,
+   "pre_filtro": false
+  },
+  "2020": {
+   "xlsx": 1,
+   "mb": 0.3,
+   "pre_filtro": false
+  },
+  "2021": {
+   "xlsx": 1,
+   "mb": 0.3,
+   "pre_filtro": false
+  },
+  "2022": {
+   "xlsx": 10,
+   "mb": 2.3,
+   "pre_filtro": false
+  },
+  "2023": {
+   "xlsx": 48,
+   "mb": 8.4,
+   "pre_filtro": false
+  },
+  "2024": {
+   "xlsx": 63,
+   "mb": 15.1,
+   "pre_filtro": false
+  },
+  "2025": {
+   "xlsx": 63,
+   "mb": 16.2,
+   "pre_filtro": false
+  },
+  "jun26": {
+   "xlsx": 130,
+   "mb": 25.9,
+   "pre_filtro": true
+  }
+ },
+ "total_mb": 69.0,
+ "total_xlsx": 318
+}

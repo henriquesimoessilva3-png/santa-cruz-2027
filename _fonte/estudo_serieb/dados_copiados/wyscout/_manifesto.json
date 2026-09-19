@@ -1,0 +1,38 @@
+{
+ "copiado_em": "2026-09-19",
+ "fonte": "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/fut/BOTA/Analytics/Portal Ranking",
+ "periodo": "ago26",
+ "arquivos": [
+  {
+   "nome": "rankings_ago26.json",
+   "de": "output/rankings_ago26.json",
+   "mb": 28.3,
+   "o_que_e": "a base por liga: jogador, liga, posicao, indicadores e primary_key"
+  },
+  {
+   "nome": "_temporal_movers.json",
+   "de": "output/_temporal_movers.json",
+   "mb": 1.7,
+   "o_que_e": "quem trocou de liga: from_league/to_league, qz dos dois lados e dqz — o insumo do J08"
+  },
+  {
+   "nome": "_temporal_photos.json",
+   "de": "output/_temporal_photos.json",
+   "mb": 20.7,
+   "o_que_e": "foto por temporada, 2018 a 2026, com qz normalizado dentro de liga+posicao"
+  },
+  {
+   "nome": "_temporal_aging.json",
+   "de": "output/_temporal_aging.json",
+   "mb": 0.0,
+   "o_que_e": "curvas de envelhecimento e a confiabilidade do qz (0,471)"
+  },
+  {
+   "nome": "xlsx_ago26/",
+   "de": "dados/ago26",
+   "mb": 9.7,
+   "o_que_e": "66 Excels crus, um por liga"
+  }
+ ],
+ "total_mb": 60.4
+}
