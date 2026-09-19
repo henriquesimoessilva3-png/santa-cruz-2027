@@ -1,0 +1,29 @@
+diff --git a/gerar_minutagem_serieb.py b/gerar_minutagem_serieb.py
+index 6619161..104ef8b 100644
+--- a/gerar_minutagem_serieb.py
++++ b/gerar_minutagem_serieb.py
+@@ -150,6 +150,7 @@ def main():
+                 int(r["Partidas jogadas"]) if pd.notna(r["Partidas jogadas"]) else None,
+                 minutos, None,  # a fatia entra depois, quando o tempo do time estiver somado
+                 str(r["Equipa"]) if pd.notna(r["Equipa"]) else None,
++                int(r["Valor de mercado"]) if pd.notna(r["Valor de mercado"]) else None,
+             ])
+         print(f"{ano}: {len(por_temporada[ano])} planilhas · {antes} linhas · "
+               f"{len(df)} sem repetição · {len(clubes)} clubes no painel")
+@@ -182,12 +183,14 @@ def main():
+         "gerado_em": datetime.date.today().isoformat(),
+         "fonte": os.path.basename(ZIP),
+         "colunas": ["ano", "jogador", "time", "posicao", "grupo", "idade", "jogos", "minutos",
+-                    "fatia_pct", "time_hoje"],
++                    "fatia_pct", "time_hoje", "valor_eur"],
+         "regra": ("Linha = jogador + clube + temporada, como o Wyscout exporta; quem trocou de clube "
+                   "no ano aparece uma vez por clube, e dois jogadores com o mesmo nome não são "
+                   "juntados. A fatia é os minutos do jogador sobre o tempo que o time jogou, e esse "
+                   "tempo é a soma dos minutos do elenco dividida por 11 — não é jogos × 90, porque o "
+-                  "Wyscout conta os acréscimos."),
++                  "Wyscout conta os acréscimos. O valor de mercado é o DE HOJE (o da extração das "
++                  "planilhas), o mesmo em todas as temporadas do jogador; não é quanto ele valia "
++                  "naquele ano. Valor zero é preço baixo ou nenhum, não dado faltando."),
+         "tempo_por_time": {f"{ano}|{time}": v for (ano, time), v in sorted(tempo_time.items())},
+         "linhas": sorted(linhas, key=lambda l: (-l[0], -(l[7] or 0))),
+         "avisos": sorted(set(avisos)),
