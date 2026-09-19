@@ -1,0 +1,374 @@
+{
+ "parte": "J01",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "Valores dos {marcadores} que a proposta de destino (_proposta_destino.json, propostas.J01) criou e que nao existem em J01.json, mais os itens da lista numeros_a_criar de cada conclusao. So numero: nenhum destino, texto, manchete, premissa ou nivel de confianca foi decidido ou alterado aqui, e nenhum arquivo da parte (J01.json, J01_resumo.json, scripts/J01.py) foi tocado.",
+ "regras_seguidas": [
+  "Recorte 2022-2025, que e o que os textos novos pedem: 2026 sai porque o CLAUDE.md a reserva para teste. Por isso quase todo numero que ja existia em J01.json esta em 'correcoes_de_numero_existente' — nao porque estivesse errado no recorte antigo, mas porque o texto novo fala de outro recorte.",
+  "Unidade de jogo / de contagem no texto; percentil, d e p so nos marcadores com '(prova)'.",
+  "Posto dentro da temporada nos testes de robustez (scripts/_metodo.py), nunca valor bruto comparado entre anos.",
+  "Arredondado, nunca truncado, e meio-termo para cima (21,65 -> 21,7; 55,5 -> 56; 32,5 -> 33). Onde isso discorda da proposta, esta dito na nota do numero.",
+  "valor e NUMERO no JSON (ou string ja montada, quando a proposta escreveu varios valores numa frase so); 'formatado' traz a versao pt-BR; quem decide o formato final e o gerador.",
+  "Escrevi um arquivo so: este."
+ ],
+ "ponte_de_clube_aplicada": "resultados/T01_ponte_clubes.json. Sem ela, as 36 linhas de Athletico Paranaense 2025 ficam sem faixa e n_ct cai de 80 para 79 — foi o que aconteceu na rodada publicada. Conferido: com a ponte, nenhum clube da minutagem e nenhum clube de serieb_elencos.csv fica fora dos nomes de A01_clube_temporada.csv.",
+ "calculados": 21,
+ "nao_calculaveis": 0,
+ "numeros": {
+  "reg_gk": {
+   "conclusao": "J01-1",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). Regra de 'regular' copiada de scripts/J01.py: fatia_pct >= 60 em pelo menos 2 das 3 temporadas da janela [ano-2, ano] do proprio jogador, e pelo menos 2 temporadas com dado na janela; conta-se a LINHA regular, nao o jogador. Filtro grupo = 'Goleiro'. Total de regulares em 2022-2025: 90 (Zaga 20, Meia 17, Goleiro 16, Lateral 13, Volante 9, Atacante 8, Extremo 7).",
+   "conferido": true,
+   "nota": "Conferido por dois caminhos independentes (dicionario por nome+ano em python puro e reimplementacao em pandas): os dois dao 90 regulares em 2022-2025 e reproduzem exatamente os 123 publicados quando 2026 entra, o que prova que a unica diferenca e a temporada que saiu."
+  },
+  "reg_zag": {
+   "conclusao": "J01-1",
+   "valor": 20,
+   "formatado": "20",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). Regra de 'regular' copiada de scripts/J01.py: fatia_pct >= 60 em pelo menos 2 das 3 temporadas da janela [ano-2, ano] do proprio jogador, e pelo menos 2 temporadas com dado na janela; conta-se a LINHA regular, nao o jogador. Filtro grupo = 'Zaga'. Total de regulares em 2022-2025: 90 (Zaga 20, Meia 17, Goleiro 16, Lateral 13, Volante 9, Atacante 8, Extremo 7).",
+   "conferido": true,
+   "nota": "Conferido por dois caminhos independentes (dicionario por nome+ano em python puro e reimplementacao em pandas): os dois dao 90 regulares em 2022-2025 e reproduzem exatamente os 123 publicados quando 2026 entra, o que prova que a unica diferenca e a temporada que saiu."
+  },
+  "reg_ext": {
+   "conclusao": "J01-1",
+   "valor": 7,
+   "formatado": "7",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). Regra de 'regular' copiada de scripts/J01.py: fatia_pct >= 60 em pelo menos 2 das 3 temporadas da janela [ano-2, ano] do proprio jogador, e pelo menos 2 temporadas com dado na janela; conta-se a LINHA regular, nao o jogador. Filtro grupo = 'Extremo'. Total de regulares em 2022-2025: 90 (Zaga 20, Meia 17, Goleiro 16, Lateral 13, Volante 9, Atacante 8, Extremo 7).",
+   "conferido": true,
+   "nota": "Conferido por dois caminhos independentes (dicionario por nome+ano em python puro e reimplementacao em pandas): os dois dao 90 regulares em 2022-2025 e reproduzem exatamente os 123 publicados quando 2026 entra, o que prova que a unica diferenca e a temporada que saiu."
+  },
+  "reg_atk": {
+   "conclusao": "J01-1",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). Regra de 'regular' copiada de scripts/J01.py: fatia_pct >= 60 em pelo menos 2 das 3 temporadas da janela [ano-2, ano] do proprio jogador, e pelo menos 2 temporadas com dado na janela; conta-se a LINHA regular, nao o jogador. Filtro grupo = 'Atacante'. Total de regulares em 2022-2025: 90 (Zaga 20, Meia 17, Goleiro 16, Lateral 13, Volante 9, Atacante 8, Extremo 7).",
+   "conferido": true,
+   "nota": "Conferido por dois caminhos independentes (dicionario por nome+ano em python puro e reimplementacao em pandas): os dois dao 90 regulares em 2022-2025 e reproduzem exatamente os 123 publicados quando 2026 entra, o que prova que a unica diferenca e a temporada que saiu."
+  },
+  "les_alta_base": {
+   "conclusao": "J01-2",
+   "valor": 348,
+   "formatado": "348",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). ponte de lesao, igual a de scripts/J01.py: dados/serieb_elencos.csv (nome normalizado sem acento + ano -> id_jogador; se o par devolver 2+ ids a linha e AMBIGUA e fica sem id, nunca adivinhada) e dados/serieb_lesoes.csv (colunas dias_2022..dias_2025 por id_jogador; 'tem lesao' = soma de dias do ano > 0). Filtro: fatia_pct >= 60 (minutagem ALTA) E com id do Transfermarkt. Confere com o outro lado: 1.974 de minutagem baixa + 348 de alta = 2.322 linhas casadas, e 3.160 - 838 sem ponte = 2.322.",
+   "conferido": true,
+   "nota": "Este denominador nao existe hoje em lugar nenhum do repositorio: J01_resumo.json so guarda a PORCENTAGEM do lado alto (alta_com_lesao_pct), nunca o n. E o lado pequeno, que domina a incerteza."
+  },
+  "les_alta_n": {
+   "conclusao": "J01-2",
+   "valor": 26,
+   "formatado": "26",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). ponte de lesao, igual a de scripts/J01.py: dados/serieb_elencos.csv (nome normalizado sem acento + ano -> id_jogador; se o par devolver 2+ ids a linha e AMBIGUA e fica sem id, nunca adivinhada) e dados/serieb_lesoes.csv (colunas dias_2022..dias_2025 por id_jogador; 'tem lesao' = soma de dias do ano > 0). Filtro: fatia_pct >= 60, com id do Transfermarkt e soma de dias do ano > 0.",
+   "conferido": true,
+   "nota": "Conferido em pandas por caminho separado (merge por id+ano em vez de dicionario): 26 nos dois."
+  },
+  "les_alta_dias": {
+   "conclusao": "J01-2",
+   "valor": 33,
+   "formatado": "33",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). ponte de lesao, igual a de scripts/J01.py: dados/serieb_elencos.csv (nome normalizado sem acento + ano -> id_jogador; se o par devolver 2+ ids a linha e AMBIGUA e fica sem id, nunca adivinhada) e dados/serieb_lesoes.csv (colunas dias_2022..dias_2025 por id_jogador; 'tem lesao' = soma de dias do ano > 0). Mediana da coluna de dias do ano entre as 26 linhas de minutagem alta COM lesao registrada.",
+   "conferido": true,
+   "valor_sem_arredondar": 32.5,
+   "nota": "A mediana exata e 32,5 dias (26 casos, n par: os dois do meio sao 31 e 34). A proposta escreveu 32, que e o 32,5 arredondado para baixo (arredondamento bancario de round() do python, o mesmo defeito que a auditoria achou); pela regra de arredondar e nunca truncar, 32,5 vai para 33. Se o dono preferir, a mediana exata 32,5 tambem serve. A media e 46,1 dias contra 77,2 da minutagem baixa, entao o 'quase o dobro' do texto se sustenta nas duas contas (56/33 = 1,7; 77,2/46,1 = 1,7)."
+  },
+  "les_dmin": {
+   "conclusao": "J01-2",
+   "valor": 12.3,
+   "formatado": "12,3",
+   "de_onde": "Calculo de poder sobre os proprios n de J01-2 (1.974 de minutagem baixa x 348 de alta) e sobre a taxa observada do lado alto (26/348 = 7,4713%). Menor taxa do lado baixo detectavel com 80% de poder e alfa 5% bilateral, pela mesma logica de §6.7 da ESPECIFICACAO.md (que faz isso para d de Cohen; aqui e proporcao, entao o tamanho de efeito e o h de Cohen: h minimo = (z_0,975 + z_0,80) * raiz(1/1974 + 1/348) = 0,1629, e p1 = sen(h/2 + arcsen(raiz(0,074713)))^2).",
+   "conferido": true,
+   "valor_sem_arredondar": 12.2979,
+   "nota": "12,2979% -> 12,3%. Por um segundo caminho (teste z de duas proporcoes com variancia agrupada sob o nulo, busca binaria ate poder 0,80) da 12,5%; sem agrupar, 11,9%. O texto diz 'mais de {les_dmin}%', e os tres caminhos dizem a mesma coisa: cerca de 12%. Confere tambem com o observado: diferenca -0,48 pp, erro padrao 1,52 pp, IC95 de -3,5 a +2,5 pp — exatamente o que a proposta escreveu."
+  },
+  "casadas_so_nome": {
+   "conclusao": "J01-2 (prova)",
+   "valor": 43,
+   "formatado": "43",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). ponte de lesao, igual a de scripts/J01.py: dados/serieb_elencos.csv (nome normalizado sem acento + ano -> id_jogador; se o par devolver 2+ ids a linha e AMBIGUA e fica sem id, nunca adivinhada) e dados/serieb_lesoes.csv (colunas dias_2022..dias_2025 por id_jogador; 'tem lesao' = soma de dias do ano > 0). Das 2.322 linhas casadas (nome+ano devolvendo UM id), quantas nao teriam casado se o clube tambem fosse exigido: nao existe em dados/serieb_elencos.csv nenhuma linha com o mesmo nome normalizado, o mesmo ano E o mesmo clube (clube do elenco passado por T01_ponte_clubes.json para bater com o nome da minutagem).",
+   "conferido": true,
+   "nota": "A proposta estimou '~61 das 2.322, ~8 com ficha de lesao'; pela conta acima sao 43 (1,9% das casadas), 5 delas com ficha de lesao. Nao reproduzi os 61 por nenhuma variante que testei. O achado de fundo nao muda: o docstring de J01.py promete 'nome + clube + ano' e o codigo casa so por nome + ano."
+  },
+  "casadas_so_nome_lesao": {
+   "conclusao": "J01-2 (prova)",
+   "valor": 5,
+   "formatado": "5",
+   "de_onde": "Mesmo filtro de casadas_so_nome, e alem disso com soma de dias de lesao do ano > 0.",
+   "conferido": true,
+   "nota": "A proposta estimou ~8."
+  },
+  "cai_usados": {
+   "conclusao": "J01-3",
+   "valor": 45.6,
+   "formatado": "45,6",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada. 'Jogadores usados' = numero de LINHAS de jogador-temporada do clube naquela temporada (cada linha e um jogador do export do Wyscout), somado por clube-temporada e depois a media dentro da faixa. Filtro faixa = 'Cai': 730 linhas / 16 clubes-temporada.",
+   "conferido": true,
+   "valor_sem_arredondar": 45.625,
+   "nota": "730/16 = 45,625. Contando NOMES distintos em vez de linhas dariam 45,3, porque ha 19 pares (ano, time, jogador) repetidos em 2022-2025 (homonimos no mesmo elenco, ex. dois 'Nathan' no Remo e no Cuiaba em 2025). A proposta usou linhas, que e o que 'jogadores usados' quer dizer aqui."
+  },
+  "meio_usados": {
+   "conclusao": "J01-3",
+   "valor": 38.4,
+   "formatado": "38,4",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada. 'Jogadores usados' = numero de LINHAS de jogador-temporada do clube naquela temporada (cada linha e um jogador do export do Wyscout), somado por clube-temporada e depois a media dentro da faixa. Filtro faixa = 'Meio': 1.845 linhas / 48 clubes-temporada.",
+   "conferido": true,
+   "valor_sem_arredondar": 38.4375
+  },
+  "sobe_usados": {
+   "conclusao": "J01-3",
+   "valor": 36.6,
+   "formatado": "36,6",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada. 'Jogadores usados' = numero de LINHAS de jogador-temporada do clube naquela temporada (cada linha e um jogador do export do Wyscout), somado por clube-temporada e depois a media dentro da faixa. Filtro faixa = 'Sobe': 585 linhas / 16 clubes-temporada.",
+   "conferido": true,
+   "valor_sem_arredondar": 36.5625,
+   "nota": "585 + 1.845 + 730 = 3.160, ou seja as tres faixas cobrem a base inteira — so com a ponte de clube; sem ela faltam as 36 linhas de Athletico-PR 2025."
+  },
+  "n_ct": {
+   "conclusao": "J01-3",
+   "valor": 80,
+   "formatado": "80",
+   "de_onde": "resultados/A01_clube_temporada.csv, filtro temporada em 2022-2025 (coluna faixa): 80 linhas = 4 temporadas x 20 clubes, 16 'Sobe', 48 'Meio' e 16 'Cai'. faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada.",
+   "conferido": true,
+   "nota": "80 = 4 x 20, e a minutagem cobre os 80 depois da ponte (nenhum clube-temporada sem linha de jogador)."
+  },
+  "n_sobe": {
+   "conclusao": "J01-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "resultados/A01_clube_temporada.csv, filtro temporada em 2022-2025 (coluna faixa): 80 linhas = 4 temporadas x 20 clubes, 16 'Sobe', 48 'Meio' e 16 'Cai'. faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada.",
+   "conferido": true
+  },
+  "n_meio": {
+   "conclusao": "J01-3",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "resultados/A01_clube_temporada.csv, filtro temporada em 2022-2025 (coluna faixa): 80 linhas = 4 temporadas x 20 clubes, 16 'Sobe', 48 'Meio' e 16 'Cai'. faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada.",
+   "conferido": true
+  },
+  "n_cai": {
+   "conclusao": "J01-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "resultados/A01_clube_temporada.csv, filtro temporada em 2022-2025 (coluna faixa): 80 linhas = 4 temporadas x 20 clubes, 16 'Sobe', 48 'Meio' e 16 'Cai'. faixa do time: resultados/A01_clube_temporada.csv (chave temporada+clube, coluna faixa), com o nome do clube da minutagem passado por resultados/T01_ponte_clubes.json ('Athletico Paranaense' -> 'Athletico-PR'). Sem a ponte, as 36 linhas de Athletico-PR 2025 ficam sem faixa e o total cai de 80 para 79 clubes-temporada.",
+   "conferido": true
+  },
+  "corte_por_posicao": {
+   "conclusao": "J01-1 (prova)",
+   "valor": "Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%",
+   "formatado": "Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). p75 (percentil 75, interpolacao linear, como np.percentile em scripts/J01.py) da coluna fatia_pct dentro de cada grupo, sobre 2022-2025. n por grupo: Extremo 653, Lateral 559, Meia 529, Zaga 485, Atacante 474, Volante 244, Goleiro 216.",
+   "conferido": true,
+   "nota": "String ja montada, porque a proposta a escreveu assim. Valores exatos: Goleiro 64,65 (arredonda para 64,7); Zaga 56,80; Volante 51,025; Lateral 46,80; Meia 42,50; Atacante 34,20; Extremo 32,40. Conferido com fracoes exatas (sem ponto flutuante), porque 64,65 e meio-termo: em float o pandas devolve 64,6 e o numpy 64,7 para o mesmo numero."
+  },
+  "altos_pos": {
+   "conclusao": "J01-1 (prova)",
+   "valor": 795,
+   "formatado": "795",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). Quantas linhas tem fatia_pct >= o p75 do proprio grupo (corte por posicao), 2022-2025. Contra 457 no corte unico de 60%.",
+   "conferido": true
+  },
+  "reg_pos": {
+   "conclusao": "J01-1 (prova)",
+   "valor": 215,
+   "formatado": "215",
+   "de_onde": "dados/minutagem_serieb.json (3.864 linhas; colunas ano, jogador, time, posicao, grupo, jogos, minutos, fatia_pct), filtro ano em {2022,2023,2024,2025} = 3.160 linhas. A fatia_pct ja vem pronta do gerador da aba Minutagem: minutos do jogador / (soma dos minutos do elenco / 11). Mesma regra de 'regular' de scripts/J01.py (2 das 3 temporadas da janela, 2 com dado), mas com 'alta' definida pelo p75 da propria posicao em vez dos 60%. 2022-2025.",
+   "conferido": true,
+   "nota": "A proposta escreveu 210. Os 210 saem se o corte for ESTRITO (fatia > p75); com >=, que e o sinal que J01.py usa para os 60%, dao 215 — e os 795 altos que a propria proposta cita tambem sao do >= (com > sao 786). Ou seja, o par '795 altos e 210 regulares' da proposta mistura os dois sinais. O par coerente e 795 e 215 (ou 786 e 210). Exigindo ainda a MESMA posicao nas tres temporadas cairia para 192."
+  },
+  "rob_j01_3": {
+   "conclusao": "J01-3 (prova)",
+   "valor": "jogadores usados Cai x Meio d +1,10 (p 0,0009) com fronteira e +1,18 (p 0,0030) sem; Sobe x Meio p 0,16 e 0,22 (nao separa); fatias altas Cai x Meio d -0,70 (p 0,0143) e -0,87 (p 0,0076); fatias altas Sobe x Meio p 0,0143 com e 0,1138 sem",
+   "formatado": "jogadores usados Cai x Meio d +1,10 (p 0,0009) com fronteira e +1,18 (p 0,0030) sem; Sobe x Meio p 0,16 e 0,22 (nao separa); fatias altas Cai x Meio d -0,70 (p 0,0143) e -0,87 (p 0,0076); fatias altas Sobe x Meio p 0,0143 com e 0,1138 sem",
+   "de_onde": "Metodo da casa, scripts/_metodo.py: posto dentro da temporada (percentil 0-100 por stats.rankdata sobre os clubes daquele ano), t de Welch bilateral e d de Cohen sobre o percentil. Base: os 80 clubes-temporada de A01_clube_temporada.csv (2022-2025) com 'usados' e 'altos' vindos da minutagem pela ponte de clube. 'Com fronteira' = os 80; 'sem fronteira' = tirando as 28 linhas com fronteira=1 (sobram 12 Cai, 32 Meio, 8 Sobe) E RECALCULANDO o posto dentro do ano depois de tira-las.",
+   "conferido": true,
+   "nota": "Reproduzi as 8 celulas exatamente como a proposta as escreveu — mas so quando o posto e recalculado DEPOIS de tirar a fronteira. Se o posto for calculado sobre os 20 times e so depois filtrado, os quatro valores 'sem fronteira' mudam (usados Cai x Meio d +1,09 p 0,0034; altos Cai x Meio d -0,88 p 0,0063; altos Sobe x Meio p 0,1601; usados Sobe x Meio p 0,2117). Quem for escrever a prova precisa dizer qual das duas leituras vale. O menor d detectavel por desenho e 0,82 (16x48) e 0,97 (12x32) / 1,14 (8x32)."
+  }
+ },
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "n",
+   "esta": 3864,
+   "deveria": 3160,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Contagem de linhas de dados/minutagem_serieb.json com ano em 2022-2025: 802 (2022) + 776 (2023) + 773 (2024) + 809 (2025) = 3.160. Os 3.864 publicados incluem as 704 linhas de 2026, que o CLAUDE.md reserva para teste.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "gk_60",
+   "esta": 29.2,
+   "deveria": 27.3,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "59 de 216 goleiros com fatia_pct >= 60 em 2022-2025 = 27,3148%.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "zag_60",
+   "esta": 23.1,
+   "deveria": 22.5,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "109 de 485 zagueiros = 22,4742%.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "ext_60",
+   "esta": 7.5,
+   "deveria": 7.8,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "51 de 653 extremos = 7,8101%.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "atk_60",
+   "esta": 7.1,
+   "deveria": 7.0,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "33 de 474 atacantes = 6,9620%.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "gk_med",
+   "esta": 25.9,
+   "deveria": 21.7,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Mediana de fatia_pct dos 216 goleiros de 2022-2025: n par, os dois do meio sao 21,2 e 22,1, mediana exata 21,65 -> 21,7. A proposta escreveu 21,6, que e o mesmo 21,65 arredondado para baixo. Os 25,9 publicados so aparecem com 2026 dentro: 2026 sozinha move a mediana do goleiro em mais de 4 pontos.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "gk_p75",
+   "esta": 69.3,
+   "deveria": 64.7,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "p75 de fatia_pct dos 216 goleiros de 2022-2025: exato 64,65 -> 64,7 (vizinhos 64,5 e 65,1).",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "atk_p75",
+   "esta": 35.6,
+   "deveria": 34.2,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "p75 dos 474 atacantes de 2022-2025: 34,20 exato.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "les_base",
+   "esta": 2296,
+   "deveria": 1974,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Linhas com fatia_pct < 60 E com id unico do Transfermarkt, 2022-2025.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "les_n",
+   "esta": 159,
+   "deveria": 138,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Das 1.974 acima, as que tem dias de lesao > 0 no ano.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "les_baixa_pct",
+   "esta": 6.9,
+   "deveria": 7.0,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "138/1.974 = 6,9909% -> 7,0%.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "les_alta_pct",
+   "esta": 6.7,
+   "deveria": 7.5,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "26/348 = 7,4713% -> 7,5%. Alem da temporada que sai, o valor publicado nunca teve o denominador ao lado.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "les_dias",
+   "esta": 53,
+   "deveria": 56,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Mediana de dias entre as 138 linhas de minutagem baixa com lesao: exata 55,5 (vizinhos 55 e 56) -> 56, que e o que a proposta escreveu.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "sobe_altos",
+   "esta": 7.1,
+   "deveria": 6.9,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "110 linhas de fatia >= 60 em 16 clubes-temporada 'Sobe' = 6,875.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "meio_altos",
+   "esta": 6.0,
+   "deveria": 5.8,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "278 em 48 clubes-temporada 'Meio' = 5,7917.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "cai_altos",
+   "esta": 4.1,
+   "deveria": 4.3,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "69 em 16 clubes-temporada 'Cai' = 4,3125.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "altos",
+   "esta": 577,
+   "deveria": 457,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Linhas com fatia_pct >= 60 em 2022-2025.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "regulares",
+   "esta": 123,
+   "deveria": 90,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Linhas regulares (2 das 3 temporadas da janela acima de 60%, 2 com dado) em 2022-2025.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "sem_ponte",
+   "esta": 1132,
+   "deveria": 838,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "372 sem id do Transfermarkt + 466 com nome ambiguo, em 2022-2025.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "pct_sem_ponte",
+   "esta": 29,
+   "deveria": 27,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "838/3.160 = 26,52% -> 27%.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "sem_id",
+   "esta": 594,
+   "deveria": 372,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Linhas de 2022-2025 cujo nome+ano nao aparece em serieb_elencos.csv.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "ambiguos",
+   "esta": 538,
+   "deveria": 466,
+   "arquivo": "resultados/J01.json, campo numeros",
+   "evidencia": "Linhas de 2022-2025 cujo nome+ano devolve 2 ou mais id_jogador.",
+   "nao_corrigido": true
+  }
+ ],
+ "ja_existem_e_continuam_certos": {
+  "corte": "60 — o corte unico do CLAUDE.md nao muda com o recorte; e o que os tres textos novos chamam de {corte}.",
+  "atk_med": "16,5 — a mediana do atacante e a mesma em 2022-2025 e em 2022-2026 (16,50 exato nos dois). E o unico numero de distribuicao que a saida de 2026 nao mexe."
+ },
+ "achados_de_base_que_nao_mudam_numero": [
+  "19 pares (ano, time, jogador) aparecem duas vezes na minutagem em 2022-2025 (ex.: dois 'Nathan' no Remo e no Cuiaba em 2025, dois 'Marquinhos' no Mirassol em 2024). Sao homonimos no mesmo elenco; por isso 'jogadores usados' conta linhas, nao nomes.",
+  "O item da proposta 'somem os 25,5 e 22,0 digitados do A07' e remocao de texto, nao numero: os 25,5 e 22,0 sao atletas rastreados pelo SkillCorner, populacao diferente dos 36 a 46 jogadores que o Wyscout conta. Nao recalculei nada de A07, que nao e minha parte."
+ ],
+ "como_refazer": "Rode scripts/J01.py trocando a constante ANOS para {2022,2023,2024,2025} e mapeando l['time'] por T01_ponte_clubes.json antes do faixa.get(); isso devolve n, altos, regulares, a distribuicao por posicao, a lesao dos dois lados e o por_faixa. Os 'usados' saem de uma contagem de linhas por (ano, clube). A robustez sai de _metodo.py conforme descrito em rob_j01_3. Todo numero deste arquivo foi obtido por dois caminhos independentes (python puro com dicionarios e pandas), e o mesmo codigo reproduz os valores publicados de 2022-2026 (3.864 / 577 / 123 / 2.296 / 159 / 6,9 / 6,7) quando 2026 volta — que e a prova de que so o recorte mudou."
+}

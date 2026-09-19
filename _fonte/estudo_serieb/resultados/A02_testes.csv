@@ -1,0 +1,53 @@
+fronteira,familia,comparacao,indicador,nome,n_sobe,n_alvo,cru_sobe,cru_alvo,dif_cru,d,ic95_d,p,d_minimo_80,placar_redescrito,regua_curta,q,selo,poder_suficiente
+com,cria,SM,gols_pro_90,Gols por jogo,16,48,1.329,1.066,0.263,1.38,"[0.81, 2.09]",1e-05,0.82,True,,6e-05,firme,True
+com,cria,SM,xg,xG por jogo,16,48,1.276,1.179,0.097,0.554,"[-0.01, 1.22]",0.05517,0.82,False,0.3,0.08444,sem diferença clara,False
+com,cria,SM,remates,Finalizações por jogo,16,48,12.618,12.28,0.339,0.24,"[-0.4, 0.91]",0.41891,0.82,False,,0.41891,sem diferença clara,False
+com,cria,SM,xg_por_remate,xG por finalização,16,48,0.105,0.097,0.007,0.584,"[0.02, 1.23]",0.06032,0.82,False,,0.08444,sem diferença clara,False
+com,cria,SM,dist_remate,Distância da finalização (m),16,48,19.522,20.472,-0.95,1.203,"[0.71, 1.78]",3e-05,0.82,False,,9e-05,firme,True
+com,cria,SM,toques_area,Toques na área por jogo,16,48,15.224,14.026,1.197,0.587,"[0.04, 1.22]",0.04385,0.82,False,,0.08444,pode ser sorte,False
+com,cria,SM,entradas_area,Entradas na área por jogo,16,48,23.618,21.842,1.776,0.517,"[-0.07, 1.17]",0.09396,0.82,False,,0.10962,sem diferença clara,False
+com,cria,ST,gols_pro_90,Gols por jogo,16,16,1.329,1.158,0.171,0.661,"[0.04, 1.53]",0.07159,1.02,True,,0.25056,sem diferença clara,False
+com,cria,ST,xg,xG por jogo,16,16,1.276,1.36,-0.084,-0.366,"[-1.17, 0.32]",0.30877,1.02,False,0.3,0.54034,sem diferença clara,False
+com,cria,ST,remates,Finalizações por jogo,16,16,12.618,12.869,-0.25,-0.459,"[-1.2, 0.24]",0.20414,1.02,False,,0.47633,sem diferença clara,False
+com,cria,ST,xg_por_remate,xG por finalização,16,16,0.105,0.103,0.002,0.089,"[-0.68, 0.91]",0.80283,1.02,False,,0.94947,sem diferença clara,False
+com,cria,ST,dist_remate,Distância da finalização (m),16,16,19.522,20.201,-0.68,0.842,"[0.19, 1.55]",0.02478,1.02,False,,0.17346,pode ser sorte,False
+com,cria,ST,toques_area,Toques na área por jogo,16,16,15.224,15.197,0.026,0.033,"[-0.69, 0.73]",0.92536,1.02,False,,0.94947,sem diferença clara,False
+com,cria,ST,entradas_area,Entradas na área por jogo,16,16,23.618,22.487,1.132,-0.023,"[-0.63, 0.8]",0.94947,1.02,False,,0.94947,sem diferença clara,False
+com,cede,SM,gols_contra_90,Gols sofridos por jogo,16,48,0.855,1.026,-0.171,0.883,"[0.34, 1.63]",0.00183,0.82,True,,0.00734,firme,True
+com,cede,SM,xg_contra,xG sofrido por jogo,16,48,1.017,1.183,-0.166,0.623,"[0.04, 1.38]",0.04878,0.82,False,,0.06503,pode ser sorte,False
+com,cede,SM,remates_contra,Finalizações sofridas por jogo,16,48,11.618,12.053,-0.434,0.247,"[-0.39, 0.88]",0.42873,0.82,False,,0.42873,sem diferença clara,False
+com,cede,SM,xg_por_remate_contra,xG por finalização sofrida,16,48,0.089,0.098,-0.008,0.805,"[0.28, 1.41]",0.01038,0.82,False,,0.02076,firme,False
+com,cede,ST,gols_contra_90,Gols sofridos por jogo,16,16,0.855,0.842,0.013,-0.08,"[-0.85, 0.71]",0.82242,1.02,True,,0.82629,sem diferença clara,False
+com,cede,ST,xg_contra,xG sofrido por jogo,16,16,1.017,1.089,-0.071,0.078,"[-0.66, 1.0]",0.82629,1.02,False,,0.82629,sem diferença clara,False
+com,cede,ST,remates_contra,Finalizações sofridas por jogo,16,16,11.618,11.053,0.566,-0.154,"[-0.91, 0.71]",0.66715,1.02,False,,0.82629,sem diferença clara,False
+com,cede,ST,xg_por_remate_contra,xG por finalização sofrida,16,16,0.089,0.095,-0.006,0.473,"[-0.16, 1.32]",0.19142,1.02,False,,0.76566,sem diferença clara,False
+com,sobra,SM,finalizacao,Gols menos xG (pontaria),16,48,0.053,-0.169,0.223,1.257,"[0.75, 1.84]",2e-05,0.82,True,,4e-05,firme,True
+com,sobra,SM,defesa_vs_xg,xG sofrido menos gols sofridos (goleiro e defesa),16,48,0.204,0.166,0.038,0.424,"[-0.13, 1.01]",0.17105,0.82,False,,0.17105,sem diferença clara,False
+com,sobra,ST,finalizacao,Gols menos xG (pontaria),16,16,0.053,-0.18,0.233,1.352,"[0.72, 2.28]",0.00072,1.02,True,,0.00144,firme,True
+com,sobra,ST,defesa_vs_xg,xG sofrido menos gols sofridos (goleiro e defesa),16,16,0.204,0.222,-0.018,0.056,"[-0.72, 0.75]",0.87624,1.02,False,,0.87624,sem diferença clara,False
+sem,cria,SM,gols_pro_90,Gols por jogo,8,32,1.316,1.053,0.263,1.626,"[0.73, 2.76]",0.00306,1.14,True,,0.02139,firme,True
+sem,cria,SM,xg,xG por jogo,8,32,1.37,1.163,0.207,0.911,"[-0.06, 2.0]",0.05995,1.14,False,0.3,0.08393,sem diferença clara,False
+sem,cria,SM,remates,Finalizações por jogo,8,32,13.026,12.161,0.865,0.66,"[-0.25, 1.7]",0.16606,1.14,False,,0.16606,sem diferença clara,False
+sem,cria,SM,xg_por_remate,xG por finalização,8,32,0.106,0.097,0.009,0.824,"[-0.07, 1.8]",0.0839,1.14,False,,0.09788,sem diferença clara,False
+sem,cria,SM,dist_remate,Distância da finalização (m),8,32,19.669,20.522,-0.853,1.084,"[0.38, 2.01]",0.00661,1.14,False,,0.02313,firme,False
+sem,cria,SM,toques_area,Toques na área por jogo,8,32,15.671,13.737,1.934,0.91,"[0.2, 1.76]",0.01503,1.14,False,,0.03507,firme,False
+sem,cria,SM,entradas_area,Entradas na área por jogo,8,32,23.618,21.487,2.132,0.926,"[0.15, 1.82]",0.02128,1.14,False,,0.03724,firme,False
+sem,cria,ST,gols_pro_90,Gols por jogo,8,7,1.316,1.132,0.184,0.782,"[-0.2, 2.98]",0.15106,1.57,True,,0.62926,sem diferença clara,False
+sem,cria,ST,xg,xG por jogo,8,7,1.37,1.291,0.079,0.053,"[-1.09, 1.24]",0.91978,1.57,False,0.3,0.91978,sem diferença clara,False
+sem,cria,ST,remates,Finalizações por jogo,8,7,13.026,13.027,-0.001,-0.239,"[-1.39, 0.94]",0.64637,1.57,False,,0.7541,sem diferença clara,False
+sem,cria,ST,xg_por_remate,xG por finalização,8,7,0.106,0.098,0.008,0.513,"[-0.59, 1.86]",0.34563,1.57,False,,0.7541,sem diferença clara,False
+sem,cria,ST,dist_remate,Distância da finalização (m),8,7,19.669,20.477,-0.808,0.774,"[-0.31, 2.42]",0.17979,1.57,False,,0.62926,sem diferença clara,False
+sem,cria,ST,toques_area,Toques na área por jogo,8,7,15.671,15.263,0.408,0.375,"[-0.97, 1.73]",0.50085,1.57,False,,0.7541,sem diferença clara,False
+sem,cria,ST,entradas_area,Entradas na área por jogo,8,7,23.618,22.474,1.145,0.305,"[-0.89, 1.76]",0.57555,1.57,False,,0.7541,sem diferença clara,False
+sem,cede,SM,gols_contra_90,Gols sofridos por jogo,8,32,0.789,1.079,-0.289,1.561,"[0.85, 2.43]",0.00067,1.14,True,,0.00134,firme,True
+sem,cede,SM,xg_contra,xG sofrido por jogo,8,32,1.002,1.189,-0.187,1.459,"[0.74, 2.37]",0.00031,1.14,False,,0.00124,firme,True
+sem,cede,SM,remates_contra,Finalizações sofridas por jogo,8,32,11.303,12.053,-0.75,0.634,"[-0.24, 1.54]",0.12174,1.14,False,,0.12174,sem diferença clara,False
+sem,cede,SM,xg_por_remate_contra,xG por finalização sofrida,8,32,0.086,0.1,-0.014,1.303,"[0.53, 2.3]",0.00322,1.14,False,,0.0043,firme,True
+sem,cede,ST,gols_contra_90,Gols sofridos por jogo,8,7,0.789,0.895,-0.105,0.849,"[-0.18, 2.53]",0.12591,1.57,True,,0.16788,sem diferença clara,False
+sem,cede,ST,xg_contra,xG sofrido por jogo,8,7,1.002,1.148,-0.147,1.351,"[0.33, 3.67]",0.0322,1.57,False,,0.06592,pode ser sorte,False
+sem,cede,ST,remates_contra,Finalizações sofridas por jogo,8,7,11.303,11.789,-0.487,0.546,"[-0.43, 1.87]",0.31067,1.57,False,,0.31067,sem diferença clara,False
+sem,cede,ST,xg_por_remate_contra,xG por finalização sofrida,8,7,0.086,0.1,-0.013,1.288,"[0.18, 3.73]",0.03296,1.57,False,,0.06592,pode ser sorte,False
+sem,sobra,SM,finalizacao,Gols menos xG (pontaria),8,32,-0.052,-0.169,0.117,1.06,"[0.28, 2.07]",0.01986,1.14,True,,0.03972,firme,False
+sem,sobra,SM,defesa_vs_xg,xG sofrido menos gols sofridos (goleiro e defesa),8,32,0.168,0.166,0.002,0.27,"[-0.57, 1.14]",0.51506,1.14,False,,0.51506,sem diferença clara,False
+sem,sobra,ST,finalizacao,Gols menos xG (pontaria),8,7,-0.052,-0.186,0.133,1.379,"[0.31, 4.43]",0.01911,1.57,True,,0.03821,firme,False
+sem,sobra,ST,defesa_vs_xg,xG sofrido menos gols sofridos (goleiro e defesa),8,7,0.168,0.248,-0.08,-0.529,"[-2.28, 0.49]",0.32415,1.57,False,,0.32415,sem diferença clara,False

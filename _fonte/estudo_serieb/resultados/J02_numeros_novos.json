@@ -1,0 +1,210 @@
+{
+ "parte": "J02",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "Valores dos {marcadores} que a proposta de destino (_proposta_destino.json, propostas.J02) criou e que nao existem em J02.json. So numero: nenhum destino, texto, manchete ou nivel de confianca foi decidido ou alterado aqui, e nenhum arquivo da parte (J02.json, J02_resumo.json, J02_testes.csv, J02_indicadores.json, scripts/J02.py) foi tocado.",
+ "regras_seguidas": [
+  "Unidade de jogo (% dos minutos, numero de jogadores) onde o texto pede; d, q e cobertura so nos marcadores marcados '(prova)'.",
+  "Mediana dentro do grupo, como J02.py faz; nenhuma comparacao de valor bruto entre anos.",
+  "Arredondado, nunca truncado (69,8478 -> 69,8; 70,064 -> 70,1; 13,9014 -> 13,9).",
+  "valor e NUMERO no JSON; 'formatado' traz a versao pt-BR pronta para a tela; quem decide o formato final e o gerador."
+ ],
+ "corte": "Onde a proposta nao diz outra coisa, CORTE COM FRONTEIRA (15 Sobe x 48 Meio x 16 Cai), que e de onde vem fic_min, fic_max e at_s. Os cortes sem fronteira (7 x 32 x 12) aparecem nos marcadores *_sf e nas notas.",
+ "calculados": 17,
+ "nao_calculaveis": 0,
+ "numeros": {
+  "contr_geral": {
+   "conclusao": "J02-1",
+   "valor": 69.8,
+   "formatado": "69,8",
+   "de_onde": "scripts/J02.py refeito em leitura pura (copia em /tmp, nada do repositorio foi escrito): A01_clube_temporada.csv (temporada, clube, faixa, trave, fronteira) x dados/serieb_clube_temporada.csv (share_11, conc_hhi, atletas_usados, nucleo_300) x base_jogador_temporada.csv (ano, time, jogador, minutos) x dados/serieb_elencos.csv (jogador, ano, clube, no_clube_desde), com T01_ponte_clubes.json traduzindo o nome de clube do Transfermarkt para o do Wyscout; filtro temporadas 2022-2025 e cobertura da ponte >= 60% dos minutos. Reproduziu as 79 linhas e todas as medianas de J02_resumo.json. | mediana da coluna min_de_contratado_pct nas 79 linhas da base. Valor exato 69,8478. Conferido por segundo caminho: mediana de min_de_quem_ficou_pct = 30,1522 e 100 - 30,1522 = 69,8478 (a transformacao e monotona, entao a mediana acompanha); e por terceiro caminho, o agregado por minutos (soma dos minutos de contratado / soma dos minutos classificados, 2.957.265 minutos) = 68,5516.",
+   "conferido": true,
+   "valor_sem_arredondar": 69.8478,
+   "nota": "A proposta pediu 'contr_geral = 69,9'. E arredondamento duplo: 69,8478 -> 69,85 (2 casas) -> 69,9 (1 casa). Arredondando uma vez so, 69,8478 -> 69,8. Gravei 69,8. Variantes para a prova: agregado por minutos 68,6 (68,5516); mediana sem os times de fronteira 69,6 (69,6485 — a proposta escreveu 69,7, mesmo arredondamento duplo). A frase 'cerca de dois tercos' continua valendo nas tres."
+  },
+  "n_esperado": {
+   "conclusao": "J02-1",
+   "valor": 80,
+   "formatado": "80",
+   "de_onde": "J02_indicadores.json, recorte.n_esperado = 80. Conferido contra a base: A01_clube_temporada.csv tem 20 clube-temporadas em cada um de 2022, 2023, 2024 e 2025 (20 x 4 = 80), divididas em 16 Sobe, 48 Meio e 16 Cai.",
+   "conferido": true,
+   "nota": null
+  },
+  "n_fora": {
+   "conclusao": "J02-1",
+   "valor": 1,
+   "formatado": "1",
+   "de_onde": "scripts/J02.py refeito em leitura pura (copia em /tmp, nada do repositorio foi escrito): A01_clube_temporada.csv (temporada, clube, faixa, trave, fronteira) x dados/serieb_clube_temporada.csv (share_11, conc_hhi, atletas_usados, nucleo_300) x base_jogador_temporada.csv (ano, time, jogador, minutos) x dados/serieb_elencos.csv (jogador, ano, clube, no_clube_desde), com T01_ponte_clubes.json traduzindo o nome de clube do Transfermarkt para o do Wyscout; filtro temporadas 2022-2025 e cobertura da ponte >= 60% dos minutos. Reproduziu as 79 linhas e todas as medianas de J02_resumo.json. | 80 clube-temporadas esperados menos as 79 da base = 1. O que falta e Athletico-PR 2025 (faixa Sobe, fronteira=0). Conferido por segundo caminho: a lista de clube-temporadas de 2025 em base_jogador_temporada.csv tem 20 times, e nenhum se chama 'Athletico-PR' — o Wyscout escreve 'Athletico Paranaense'.",
+   "conferido": true,
+   "nota": "ATENCAO ao motivo, que a proposta descreve pela metade. Hoje o clube-temporada nao cai por cobertura: cai antes, no 'if not js: continue' de J02.py, porque T01_ponte_clubes.json traduz o nome do Transfermarkt PARA o do Wyscout ('Athletico Paranaense' -> 'Athletico-PR') e a busca dos minutos e feita com a chave do A01 ('Athletico-PR'), que nao existe no lado da minutagem. Por isso fora_por_cobertura esta [] em J02_resumo.json. Refazendo a ponte tambem do lado da minutagem, a cobertura da linha da 0,5696 (24.420 de 42.873 minutos), abaixo do corte de 60%: ela cai de qualquer jeito e nenhum numero da parte muda — mas o descarte deixa de ser invisivel. n_fora = 1 vale nos dois caminhos."
+  },
+  "cob_med": {
+   "conclusao": "J02-1",
+   "valor": 90.9,
+   "formatado": "90,9",
+   "de_onde": "scripts/J02.py refeito em leitura pura (copia em /tmp, nada do repositorio foi escrito): A01_clube_temporada.csv (temporada, clube, faixa, trave, fronteira) x dados/serieb_clube_temporada.csv (share_11, conc_hhi, atletas_usados, nucleo_300) x base_jogador_temporada.csv (ano, time, jogador, minutos) x dados/serieb_elencos.csv (jogador, ano, clube, no_clube_desde), com T01_ponte_clubes.json traduzindo o nome de clube do Transfermarkt para o do Wyscout; filtro temporadas 2022-2025 e cobertura da ponte >= 60% dos minutos. Reproduziu as 79 linhas e todas as medianas de J02_resumo.json. | mediana da coluna cobertura_da_ponte das 79 linhas, em % dos minutos (0,9090). Media 89,1; maximo 99,9 (Ferroviaria 2025).",
+   "conferido": true,
+   "nota": "(prova) E a cobertura da ponte minutagem x elencos, nao um numero de jogo: fica no motivo da confianca, nao nas 3 frases. O J02.json de hoje resume a mesma coisa como 'de 65% a 100%'."
+  },
+  "cob_min": {
+   "conclusao": "J02-1",
+   "valor": 64.6,
+   "formatado": "64,6",
+   "de_onde": "scripts/J02.py refeito em leitura pura (copia em /tmp, nada do repositorio foi escrito): A01_clube_temporada.csv (temporada, clube, faixa, trave, fronteira) x dados/serieb_clube_temporada.csv (share_11, conc_hhi, atletas_usados, nucleo_300) x base_jogador_temporada.csv (ano, time, jogador, minutos) x dados/serieb_elencos.csv (jogador, ano, clube, no_clube_desde), com T01_ponte_clubes.json traduzindo o nome de clube do Transfermarkt para o do Wyscout; filtro temporadas 2022-2025 e cobertura da ponte >= 60% dos minutos. Reproduziu as 79 linhas e todas as medianas de J02_resumo.json. | minimo da coluna cobertura_da_ponte das 79 linhas (0,6460), que e Chapecoense 2025. Conferido por segundo caminho: e a unica linha da base abaixo de 0,65, e esta acima do corte de 0,60 do J02.py, logo entra.",
+   "conferido": true,
+   "nota": "(prova) Mesma ressalva de cob_med."
+  },
+  "n_sobe": {
+   "conclusao": "J02-2 e J02-3",
+   "valor": 15,
+   "formatado": "15",
+   "de_onde": "J02_testes.csv, coluna n_a das linhas fronteira=com e comparacao=SM (todas dao 15). Conferido por segundo caminho: a base recalculada tem 15 linhas com faixa=Sobe (16 esperadas menos Athletico-PR 2025).",
+   "conferido": true,
+   "nota": null
+  },
+  "n_meio": {
+   "conclusao": "J02-2 e J02-3",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "J02_testes.csv, coluna n_b das linhas fronteira=com e comparacao=SM ou CM (todas dao 48). Conferido por segundo caminho: a base recalculada tem 48 linhas com faixa=Meio, que e o total esperado (12 por temporada x 4).",
+   "conferido": true,
+   "nota": null
+  },
+  "n_sobe_sf": {
+   "conclusao": "J02-2 e J02-3",
+   "valor": 7,
+   "formatado": "7",
+   "de_onde": "J02_testes.csv, coluna n_a das linhas fronteira=sem e comparacao=SM (todas dao 7). Conferido por segundo caminho: a base recalculada tem 7 linhas com faixa=Sobe e fronteira=0.",
+   "conferido": true,
+   "nota": "Athletico-PR 2025 tem fronteira=0, entao, se a ponte de clube fosse corrigida e a linha entrasse, este corte iria a 8 — mas a cobertura de 57% a barra antes disso."
+  },
+  "n_meio_sf": {
+   "conclusao": "J02-2 e J02-3",
+   "valor": 32,
+   "formatado": "32",
+   "de_onde": "J02_testes.csv, coluna n_b das linhas fronteira=sem e comparacao=SM ou CM (todas dao 32). Conferido por segundo caminho: a base recalculada tem 32 linhas com faixa=Meio e fronteira=0.",
+   "conferido": true,
+   "nota": null
+  },
+  "fic_min": {
+   "conclusao": "J02-2",
+   "valor": 13.9,
+   "formatado": "13,9",
+   "de_onde": "scripts/J02.py refeito em leitura pura (copia em /tmp, nada do repositorio foi escrito): A01_clube_temporada.csv (temporada, clube, faixa, trave, fronteira) x dados/serieb_clube_temporada.csv (share_11, conc_hhi, atletas_usados, nucleo_300) x base_jogador_temporada.csv (ano, time, jogador, minutos) x dados/serieb_elencos.csv (jogador, ano, clube, no_clube_desde), com T01_ponte_clubes.json traduzindo o nome de clube do Transfermarkt para o do Wyscout; filtro temporadas 2022-2025 e cobertura da ponte >= 60% dos minutos. Reproduziu as 79 linhas e todas as medianas de J02_resumo.json. | menor valor de min_de_quem_ficou_pct entre as 15 linhas de faixa=Sobe, corte com fronteira: Remo 2025, 13,9014. Conferido por segundo caminho: a lista caso a caso das 15 linhas, ordenada, comeca em 13,90 (Remo 2025) e segue 14,39 (Santos 2024), 16,24 (Cruzeiro 2022).",
+   "conferido": true,
+   "valor_sem_arredondar": 13.9014,
+   "nota": "Unidade de jogo: % dos minutos do time jogados por quem ja estava no clube."
+  },
+  "fic_max": {
+   "conclusao": "J02-2",
+   "valor": 70.1,
+   "formatado": "70,1",
+   "de_onde": "scripts/J02.py refeito em leitura pura (copia em /tmp, nada do repositorio foi escrito): A01_clube_temporada.csv (temporada, clube, faixa, trave, fronteira) x dados/serieb_clube_temporada.csv (share_11, conc_hhi, atletas_usados, nucleo_300) x base_jogador_temporada.csv (ano, time, jogador, minutos) x dados/serieb_elencos.csv (jogador, ano, clube, no_clube_desde), com T01_ponte_clubes.json traduzindo o nome de clube do Transfermarkt para o do Wyscout; filtro temporadas 2022-2025 e cobertura da ponte >= 60% dos minutos. Reproduziu as 79 linhas e todas as medianas de J02_resumo.json. | maior valor de min_de_quem_ficou_pct entre as 15 linhas de faixa=Sobe, corte com fronteira: Criciuma 2023, 70,0640. Conferido por segundo caminho: a lista caso a caso das 15 linhas termina em 70,06 (Criciuma 2023), depois de 56,67 (Chapecoense 2025) e 45,63 (Bahia 2022).",
+   "conferido": true,
+   "valor_sem_arredondar": 70.064,
+   "nota": "Arredondado, nao truncado: 70,064 -> 70,1. A mediana do mesmo grupo e 27,0 (fic_s, que ja existe), o que mostra que os dois extremos sao caudas, nao o tipico."
+  },
+  "d_min_sm": {
+   "conclusao": "J02-2",
+   "valor": 0.84,
+   "formatado": "0,84",
+   "de_onde": "J02_testes.csv, coluna d_minimo_80 das linhas fronteira=com e comparacao=SM (15 contra 48): 0,84 em todas. No corte sem fronteira (7 contra 32) o mesmo campo da 1,20.",
+   "conferido": true,
+   "nota": "(prova) E um d — a Didatica proibe no texto. Serve para dizer, em palavras, que so uma diferenca grande apareceria: 0,84 (e 1,20 sem fronteira) e maior que qualquer diferenca observada na familia continuidade em SM (o maior |d| e 0,709)."
+  },
+  "at_s": {
+   "conclusao": "J02-3",
+   "valor": 35.0,
+   "formatado": "35",
+   "de_onde": "J02_resumo.json, quadro_por_faixa.Sobe.atletas_usados = 35.0 (mediana). Conferido por segundo caminho: J02_testes.csv, linha fronteira=com / concentracao / SM / atletas_usados, coluna cru_a = 35.0. Terceiro caminho: a base recalculada da, nas 15 linhas de faixa=Sobe, os valores [30, 30, 33, 35, 35, 35, 35, 35, 37, 37, 39, 40, 41, 43, 45], mediana 35.",
+   "conferido": true,
+   "nota": "Contagem de jogadores: 'formatado' tira a casa decimal (35, nao 35,0). Os vizinhos que ja estao em J02.json (at_c 47.0, at_m 38.0) foram gravados com a casa decimal; quem decide o formato final e o gerador. No corte sem fronteira o valor tambem e 35,0."
+  },
+  "n_cai": {
+   "conclusao": "J02-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "J02_testes.csv, coluna n_a das linhas fronteira=com e comparacao=CM (todas dao 16). Conferido por segundo caminho: a base recalculada tem 16 linhas com faixa=Cai, que e o total esperado (4 por temporada x 4) — nenhuma linha do Cai se perdeu na ponte.",
+   "conferido": true,
+   "nota": null
+  },
+  "n_cai_sf": {
+   "conclusao": "J02-3",
+   "valor": 12,
+   "formatado": "12",
+   "de_onde": "J02_testes.csv, coluna n_a das linhas fronteira=sem e comparacao=CM (todas dao 12). Conferido por segundo caminho: a base recalculada tem 12 linhas com faixa=Cai e fronteira=0.",
+   "conferido": true,
+   "nota": null
+  },
+  "j01_cai_altos": {
+   "conclusao": "J02-3",
+   "valor": 4.1,
+   "formatado": "4,1",
+   "de_onde": "J01.json, campo numeros.cai_altos = 4.1 — jogadores de fatia alta de minutos por clube-temporada, mediana de quem cai. Conferido por segundo caminho: o mesmo valor aparece escrito no texto de J01 ('{cai_altos}' na conclusao J01-3, 'Quem cai tem menos titulares') e e o numero que J02.json ja cita a mao no para_o_santa_cruz de J02-3.",
+   "conferido": true,
+   "nota": "Citacao entre partes: o valor vem do J01 e nao foi recalculado da base de minutagem. Se J01 for refeito, este marcador acompanha."
+  },
+  "j01_sobe_altos": {
+   "conclusao": "J02-3",
+   "valor": 7.1,
+   "formatado": "7,1",
+   "de_onde": "J01.json, campo numeros.sobe_altos = 7.1 — jogadores de fatia alta de minutos por clube-temporada, mediana de quem sobe. Conferido por segundo caminho: mesmo texto de J01-3, onde aparece ao lado de meio_altos 6,0 e cai_altos 4,1 (a serie e monotona, Sobe > Meio > Cai).",
+   "conferido": true,
+   "nota": "Mesma ressalva de j01_cai_altos."
+  }
+ },
+ "ja_existem_em_J02_json": {
+  "conferidos_contra_a_base_e_corretos": {
+   "n": "79 — J02_resumo.json.n e a contagem da base recalculada.",
+   "s11_s": "68,1 (68,1357) | s11_m 63,1 (63,1268) | s11_c 60,2 (60,1977) — medianas de share_11 por faixa, batem com J02_resumo.json e com a base recalculada.",
+   "fic_s": "27,0 (27,0170) | fic_t 39,8 (39,7937) | fic_m 32,3 (32,3345) | fic_c 24,1 (24,0888).",
+   "contr_s": "73,0 (72,983) | contr_m 67,7 (67,6655) | contr_c 75,9 (75,9112) — complementos exatos dos fic_* da mesma faixa.",
+   "at_c": "47,0 | at_m 38,0 | n300_c 30,5 | n300_m 27,0 — medianas com fronteira.",
+   "s11_d": "1.116 e s11_q 0.01745 (sem fronteira, SM, share_11) | hhi_d 1.051 (sem fronteira, SM, conc_hhi) | fic_d -0.709 e fic_q 0.25284 (sem fronteira, SM, min_de_quem_ficou_pct) — todos batem com J02_testes.csv, e o texto atual de J02-2 diz 'sem os times de fronteira', entao o par esta coerente ali."
+  },
+  "observacao_de_formato": "Os oito marcadores de d e q (s11_d, s11_q, hhi_d, fic_d, fic_q, fic_cd, fic_cq, at_cd, at_cq) estao gravados como TEXTO em J02.json. O valor nao esta errado por isso — e registro de formato, que a proposta ja apontou."
+ },
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "at_cd",
+   "esta": -1.105,
+   "deveria": -1.108,
+   "arquivo": "resultados/J02.json, campo numeros",
+   "evidencia": "A frase de J02-3 e 'Quem cai usa {at_c} atletas contra {at_m} do meio (d {at_cd}, q {at_cq})'. at_c=47.0 e at_m=38.0 sao os crus da linha COM fronteira de J02_testes.csv (com/concentracao/CM/atletas_usados: cru_a 47.0, cru_b 38.0, d -1.108, q 0.00268), mas at_cd=-1.105 e at_cq=0.00312 sao da linha SEM fronteira (cru_a 47.5, cru_b 38.5). Os dois valores existem no CSV; o que esta errado e a mistura de cortes dentro da mesma frase. Pareando pela linha com fronteira: d -1,108 e q 0,00268.",
+   "ressalva": "A propria proposta ja tira at_cd e at_cq do texto de J02-3; se eles ficarem so na prova, tem de sair da MESMA linha do CSV que os crus. Nao corrigido no arquivo.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "at_cq",
+   "esta": "0.00312",
+   "deveria": "0.00268",
+   "arquivo": "resultados/J02.json, campo numeros",
+   "evidencia": "Mesmo par de at_cd: q 0,00312 e da linha sem fronteira e q 0,00268 e da linha com fronteira, que e a que fornece os crus at_c/at_m usados na mesma frase. Gravado como texto ('0.00312'), nao como numero, o que a propria proposta aponta como furo do formatador da tela.",
+   "ressalva": "Nao corrigido no arquivo.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "fic_cd",
+   "esta": -0.827,
+   "deveria": -0.67,
+   "arquivo": "resultados/J02.json, campo numeros",
+   "evidencia": "Mesma frase de J02-3: 'mantem menos a base ({fic_c}% dos minutos contra {fic_m}%, d {fic_cd}, q {fic_cq})'. fic_c=24.1 e fic_m=32.3 sao os crus da linha COM fronteira (com/continuidade/CM/min_de_quem_ficou_pct: cru_a 24.089, cru_b 32.335, d -0.670, q 0.03038), enquanto fic_cd=-0.827 e fic_cq=0.04028 vem da linha SEM fronteira (cru_a 22.301, cru_b 31.218).",
+   "ressalva": "Mesma da at_cd: a proposta tira do texto; se ficar na prova, tem de sair da mesma linha. Nao corrigido no arquivo.",
+   "nao_corrigido": true
+  },
+  {
+   "marcador": "fic_cq",
+   "esta": "0.04028",
+   "deveria": "0.03038",
+   "arquivo": "resultados/J02.json, campo numeros",
+   "evidencia": "Par de fic_cd: 0,04028 e o q da linha sem fronteira; 0,03038 e o da linha com fronteira, que e a dos crus fic_c/fic_m da mesma frase. Tambem gravado como texto.",
+   "ressalva": "Nao corrigido no arquivo.",
+   "nao_corrigido": true
+  }
+ ],
+ "achados_de_base_que_nao_mudam_numero": [
+  "A ponte de clube do T01 e aplicada so no lado dos elencos (Transfermarkt -> Wyscout), e a busca dos minutos usa a chave do A01. Quando os tres nomes nao coincidem, a linha some sem aparecer em fora_por_cobertura. Hoje isso acontece uma vez: Athletico-PR 2025. Com a ponte nos dois lados a linha reapareceria com cobertura 0,5696 e cairia pelo corte de 60% — mesmos numeros, descarte visivel, e fora_por_cobertura deixaria de ser [].",
+  "A unica faixa que perde linha e o Sobe (15 de 16). Meio (48) e Cai (16) estao completos."
+ ],
+ "como_refazer": "python3 do script de leitura descrito em cada 'de_onde' (copia de scripts/J02.py sem nenhuma escrita): ele reproduziu as 79 linhas, as 4 medianas por faixa dos 7 indicadores e as coberturas de J02_resumo.json sem diferenca."
+}

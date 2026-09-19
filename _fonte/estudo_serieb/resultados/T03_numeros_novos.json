@@ -1,0 +1,358 @@
+{
+ "parte": "T03",
+ "gerado_em": "2026-09-19",
+ "para_que_serve": "Valores dos marcadores que o texto novo de _proposta_destino.json pede para T03 e que ainda nao existem no campo numeros de T03.json. Nada aqui altera T03.json, T03_resumo.json, T03_passagens.csv, T03_antes_depois.csv nem scripts/T03.py. So calculo: destino, texto e nivel de confianca das duas conclusoes ficam como estao.",
+ "recorte": "2022-2025, as quatro temporadas fechadas — o recorte que o texto novo declara. Unidades: T03-1 trabalha em PASSAGEM (treinador x clube x temporada, 10+ rodadas, nao interina, perfil completo: n = 126); T03-2 trabalha em TROCA (8+ jogos antes e depois, mesmo clube e temporada: n = 66). Os 7 tracos sao os mesmos que scripts/T03.py ja usa: dist_remate, entradas_area, duelo_def, xg, xg_contra, xg_por_remate, xg_por_remate_contra, cada um em percentil dentro da temporada contra os 20 clubes. Conversao para posicoes: 1 posicao = 5 pontos de percentil (20 clubes na escala 0-100).",
+ "calculados": 32,
+ "nao_calculaveis": 1,
+ "numeros": {
+  "n_pass": {
+   "marcador": "n_pass",
+   "conclusao": "T03-1 (o_que_vimos_novo e n_novo)",
+   "valor": 126,
+   "formatado": "126",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos. Contagem de linhas.",
+   "conferido": true,
+   "segundo_caminho": "Refeito do zero a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data), com a mesma regra do T03.py (10+ rodadas, nao interino, os 7 tracos preenchidos): 126.",
+   "nota": "O valor publicado em T03.json (151) esta certo para a base com 2026 dentro. O texto novo diz '2022 a 2025', e nas quatro fechadas sao 126. Nao e erro de conta, e recorte diferente."
+  },
+  "n_tec": {
+   "marcador": "n_tec",
+   "conclusao": "T03-1 (n_novo)",
+   "valor": 64,
+   "formatado": "64",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos, coluna treinador, valores distintos.",
+   "conferido": true,
+   "segundo_caminho": "Recontado na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 64.",
+   "nota": "T03.json publica 69, que inclui 2026."
+  },
+  "multi": {
+   "marcador": "multi",
+   "conclusao": "T03-1 (o_que_vimos_novo e n_novo)",
+   "valor": 28,
+   "formatado": "28",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: treinadores com passagens em 2 clubes ou mais (coluna clube, valores distintos por treinador).",
+   "conferido": true,
+   "segundo_caminho": "Recontado na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 28.",
+   "nota": "T03.json publica 34, que inclui 2026."
+  },
+  "n_um_par": {
+   "marcador": "n_um_par",
+   "conclusao": "T03-1 (n_novo)",
+   "valor": 10,
+   "formatado": "10",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: dos 28 multiclube, quantos formam um unico par entre clubes distintos (dois clubes, uma passagem em cada).",
+   "conferido": true,
+   "segundo_caminho": "Recontado na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 10. Na base cheia (com 2026) sao 15, que e o numero que a proposta cita."
+  },
+  "n_acima": {
+   "marcador": "n_acima",
+   "conclusao": "T03-1 (o_que_vimos_novo)",
+   "valor": 4,
+   "formatado": "4",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: dos 28 multiclube, quantos tem rho medio de Spearman entre clubes acima de 0,609 (a linha declarada: percentil 90 do rho de dois clube-temporadas quaisquer). Sao Vinicius (0,991), Marcelo Cabo (0,889), Mazola Junior (0,818) e Marcio Fernandes (0,692).",
+   "conferido": true,
+   "segundo_caminho": "Mesmo resultado calculando o rho de Spearman como Pearson dos postos dos 7 tracos (matriz 126x126) em vez de scipy.stats.spearmanr par a par: os mesmos 4 nomes. Com a linha recalculada so nas fechadas (p90 = 0,588) continuam 4.",
+   "nota": "Roger Silva, que aparece na lista publicada de 5, so tem o par entre clubes gracas a uma passagem de 2026; some no recorte fechado."
+  },
+  "esperado_acaso": {
+   "marcador": "esperado_acaso",
+   "conclusao": "T03-1 (o_que_vimos_novo)",
+   "valor": 1.27,
+   "formatado": "1,3",
+   "de_onde": "Permutacao do rotulo de treinador sobre as 126 passagens (30.000 replicas, embaralhando a coluna treinador e recontando quantos 'multiclube' sorteados passam de 0,609). Media = 1,271 (erro de Monte Carlo +-0,006).",
+   "conferido": true,
+   "segundo_caminho": "Com 2.000 replicas da 1,25 e com 6.000 da 1,29 — a proposta cita 1,2, que e a mesma conta com poucas replicas. Com a linha propria das fechadas (0,588) a media sobe para 1,40.",
+   "nota": "Este numero substitui o 3,4 publicado (= 34 x 10%), que trata cada treinador multiclube como um sorteio independente de 10%. Nao e: 10 dos 28 tem um unico par e o resto tem a media de varios pares, o que encolhe a variancia. Direto: sob a permutacao, a chance de sair 4 ou mais acima da linha e 3,2%."
+  },
+  "dist_mesmo_lado": {
+   "marcador": "dist_mesmo_lado",
+   "conclusao": "T03-1 (o_que_vimos_novo)",
+   "valor": 6,
+   "formatado": "6",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: nas 102 comparacoes entre clubes distintos do mesmo treinador, em quantas a distancia media do remate cai do mesmo lado do meio da tabela (as duas passagens acima de 50 ou as duas abaixo). 63 de 102 = 6,2 em cada 10.",
+   "conferido": true,
+   "segundo_caminho": "Refeito na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 63/102. Sob a permutacao do rotulo de treinador (4.000 replicas) o acaso da 4,7 em 10, p = 0,003.",
+   "nota": "E o unico traco, junto com o xG por remate (6,1 em 10, p = 0,001), que passa em BH a 5% na familia dos sete. Os dois medem quase a mesma coisa: chutar de perto sobe o xG por chute."
+  },
+  "meia_meia": {
+   "marcador": "meia_meia",
+   "conclusao": "T03-1 (o_que_vimos_novo)",
+   "valor": 3.7,
+   "formatado": "3,7",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos com os jogos de cada passagem lidos de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): cada passagem cortada em jogos pares e impares, cada metade virando percentil dentro da temporada nos 7 tracos, e contando em quantos tracos as duas metades caem do mesmo lado do meio da tabela. Media das 126 passagens = 3,69 (mediana 4).",
+   "conferido": true,
+   "segundo_caminho": "Spearman-Brown do mesmo corte par/impar: 0,28 pela mediana dos rho e 0,22 pela media (126 passagens).",
+   "nota": "A proposta escreve 3,9 com Spearman-Brown 0,31/0,20. Reproduzi 3,92 cortando a passagem na METADE (1a e 2a parte) em vez de pares e impares, e reproduzi 0,31/0,20 exatos no corte par/impar da base CHEIA (com 2026, media 3,68). Ou seja: os dois numeros da proposta vem de recortes diferentes. Entrego 3,7, que e o corte que o proprio texto nomeia (pares e impares) no recorte que o proprio texto nomeia (2022-2025)."
+  },
+  "rho_treinador": {
+   "marcador": "rho_treinador",
+   "conclusao": "T03-1 (prova e premissa_nova)",
+   "valor": 0.153,
+   "formatado": "0,153",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: media, entre os 28 multiclube, do rho de Spearman medio entre as suas passagens em clubes distintos (7 tracos por passagem, 102 pares).",
+   "conferido": true,
+   "segundo_caminho": "Mesmo 0,1533 calculando o rho como Pearson dos postos. Na base cheia da 0,107, que e o numero citado na nota_da_parte."
+  },
+  "rho_clube": {
+   "marcador": "rho_clube",
+   "conclusao": "T03-1 (premissa_nova)",
+   "valor": 0.072,
+   "formatado": "0,072",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: media do rho de Spearman entre pares de passagens do MESMO clube com treinadores DIFERENTES — 177 pares nas fechadas.",
+   "conferido": true,
+   "segundo_caminho": "Na base cheia sao 267 pares com media 0,063, e a proposta cita esses 267. Nas fechadas, os 177 pares dao 0,072, exatamente o valor que a proposta usa na premissa.",
+   "nota": "E a metade de 0,153: o clube segura menos do jeito de jogar do que o treinador."
+  },
+  "n_pares_clube": {
+   "marcador": "n_pares_clube",
+   "conclusao": "T03-1 (prova)",
+   "valor": 177,
+   "formatado": "177",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: numero de pares de passagens do mesmo clube com treinadores diferentes, nas quatro fechadas.",
+   "conferido": true,
+   "segundo_caminho": "Na base cheia sao 267, valor que a proposta cita."
+  },
+  "p_permutacao": {
+   "marcador": "p_permutacao",
+   "conclusao": "T03-1 (prova, T03_testes.csv)",
+   "valor": 0.004,
+   "formatado": "0,004",
+   "de_onde": "Permutacao do rotulo de treinador sobre as 126 passagens: p = (1 + n de replicas com rho medio >= 0,153) / (1 + replicas). Com 30.000 replicas, p = 0,0038.",
+   "conferido": true,
+   "segundo_caminho": "0,0055 com 2.000 replicas (o 0,005 da proposta) e 0,0045 com 6.000. Em todas, p < 0,01. Media do nulo = -0,007."
+  },
+  "linha_p90": {
+   "marcador": "linha_p90",
+   "conclusao": "T03-1 (rodape da prova)",
+   "valor": 0.609,
+   "formatado": "0,609",
+   "de_onde": "T03_resumo.json, nulo_dois_quaisquer.p90 — percentil 90 do rho de 2.000 pares de clube-temporadas quaisquer, calculado na base com 2026.",
+   "conferido": true,
+   "segundo_caminho": "Refeito com a mesma semente do T03.py: 0,609. Recalculado so nas fechadas: 0,588.",
+   "nota": "A proposta manda declarar 0,609 no rodape. Com 0,588 o n_acima nao muda (4) e o esperado sobe de 1,3 para 1,4."
+  },
+  "bh_familia_7": {
+   "marcador": "bh_familia_7",
+   "conclusao": "T03-1 (T03_testes.csv)",
+   "valor": "dist_remate q=0,011 · xg_por_remate q=0,009 · entradas_area q=0,435 · xg q=0,476 · duelo_def q=0,824 · xg_contra q=0,824 · xg_por_remate_contra q=0,824",
+   "formatado": "dist_remate q=0,011 · xg_por_remate q=0,009 · entradas_area q=0,435 · xg q=0,476 · duelo_def q=0,824 · xg_contra q=0,824 · xg_por_remate_contra q=0,824",
+   "de_onde": "Um teste por traco: proporcao das 102 comparacoes entre clubes do mesmo treinador em que o traco cai do mesmo lado do meio da tabela, contra a permutacao do rotulo de treinador (4.000 replicas). Os 7 p passam por scripts/_metodo.py::bh().",
+   "conferido": true,
+   "segundo_caminho": "p brutos: 0,0030 · 0,0012 · 0,1865 · 0,2719 · 0,7531 · 0,7826 · 0,8243. Observado em cada 10 pares: 6,2 · 6,1 · 5,3 · 4,8 · 4,3 · 4,0 · 4,1; acaso 4,7 · 4,3 · 4,9 · 4,5 · 4,7 · 4,4 · 4,6.",
+   "nota": "Dois dos sete passam em BH a 5% — e sao os dois que medem de onde o time chuta. Nenhum outro traco acompanha o treinador."
+  },
+  "robustez_5de7": {
+   "marcador": "robustez_5de7",
+   "conclusao": "T03-1 (conferencia de robustez)",
+   "valor": "3 treinadores contra 2,9 esperados",
+   "formatado": "3 treinadores contra 2,9 esperados",
+   "de_onde": "T03_passagens.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 126 passagens de 10+ rodadas, nao interinas, com perfil completo nos 7 tracos: contando TRACOS do mesmo lado em vez da forma do perfil — treinadores cuja media, entre os seus pares de clubes, e de 5 ou mais dos 7 tracos coincidindo. Esperado pela permutacao do rotulo (2.000 replicas).",
+   "conferido": true,
+   "segundo_caminho": "Lendo 'coincidir' como 'ter ao menos um par com 5+ tracos iguais' dao 15 observados contra 14,3 esperados. Nos dois modos a diferenca e minima.",
+   "nota": "NAO reproduzi o '6 contra 3,75 esperados' da proposta por nenhuma das duas leituras; a proposta nao escreve a definicao. A direcao que ela afirma (mesma direcao, efeito ainda menor) se confirma nas duas: o excesso sobre o acaso e quase nulo."
+  },
+  "teto_por_traco": {
+   "marcador": "teto_por_traco",
+   "conclusao": "T03-1 (prova, teto de medida)",
+   "valor": "dist_remate 0,54 · entradas_area 0,44 · duelo_def 0,33 · xg_contra 0,32 · xg_por_remate_contra 0,28 · xg_por_remate 0,04 · xg 0,00",
+   "formatado": "dist_remate 0,54 · entradas_area 0,44 · duelo_def 0,33 · xg_contra 0,32 · xg_por_remate_contra 0,28 · xg_por_remate 0,04 · xg 0,00",
+   "de_onde": "Confiabilidade de cada traco NA PASSAGEM: correlacao de Pearson, entre as 126 passagens, do percentil da metade par com o da metade impar, corrigida por Spearman-Brown.",
+   "conferido": true,
+   "segundo_caminho": "Media dos sete = 0,28; media dos quatro tracos de xG = 0,16.",
+   "nota": "Nao confundir com o conf_xg = 0,30 da casa (ESPECIFICACAO.md; A02.json numeros.conf_xg), que e medido em clube-temporada inteira. Na janela curta de uma passagem a regua e ainda mais curta: so a distancia do remate passa de 0,40. Serve ao 'e indicio porque a regua e curta'."
+  },
+  "ad_n": {
+   "marcador": "ad_n",
+   "conclusao": "T03-2 (o_que_vimos_novo, para_o_santa_cruz_novo e n_novo)",
+   "valor": 66,
+   "formatado": "66",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada. Contagem de linhas.",
+   "conferido": true,
+   "segundo_caminho": "Refeito do zero a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data) com a regra do T03.py (8+ jogos antes e depois, mesmo clube e temporada, treinador nao interino): 66.",
+   "nota": "T03.json publica 73, que inclui as 7 trocas de 2026."
+  },
+  "ad_ct": {
+   "marcador": "ad_ct",
+   "conclusao": "T03-2 (n_novo)",
+   "valor": 51,
+   "formatado": "51",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: pares (clube, temporada) distintos.",
+   "conferido": true,
+   "segundo_caminho": "Recontado na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 51.",
+   "nota": "66 trocas em 51 clube-temporadas: ha clube-temporada com duas e ate tres trocas, e as janelas se sobrepoem (o 'depois' de uma e o 'antes' da seguinte)."
+  },
+  "ad_cl": {
+   "marcador": "ad_cl",
+   "conclusao": "T03-2 (n_novo)",
+   "valor": 31,
+   "formatado": "31",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: valores distintos da coluna clube.",
+   "conferido": true,
+   "segundo_caminho": "Recontado na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 31. Na base cheia tambem sao 31."
+  },
+  "ad_mexe_min": {
+   "marcador": "ad_mexe_min",
+   "conclusao": "T03-2 (o_que_vimos_novo)",
+   "valor": 4,
+   "formatado": "4",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: para cada traco, mediana do valor ABSOLUTO da coluna <traco>_mudou (pontos de percentil), convertida em posicoes entre os 20 clubes (x 20/100). O menor dos sete e a distancia do remate: mediana 20,0 pontos = 4,0 posicoes.",
+   "conferido": true,
+   "segundo_caminho": "Refeito da reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): mesmos 20,0. Por traco, em posicoes: dist_remate 4,0 · xg 4,5 · entradas_area 5,0 · xg_contra 5,5 · xg_por_remate 6,0 · xg_por_remate_contra 6,5 · duelo_def 7,5.",
+   "nota": "E o quanto cada troca mexe o time, sem olhar a direcao. Nao confundir com a mediana com sinal, que fica entre -5 e +5 pontos de percentil — e o que sustenta 'cada time vai para um lado'."
+  },
+  "ad_mexe_max": {
+   "marcador": "ad_mexe_max",
+   "conclusao": "T03-2 (o_que_vimos_novo)",
+   "valor": 7.5,
+   "formatado": "7,5",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: o maior dos sete e o duelo defensivo ganho: mediana de |duelo_def_mudou| = 37,5 pontos de percentil = 7,5 posicoes entre os 20.",
+   "conferido": true,
+   "segundo_caminho": "Refeito da reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 37,5."
+  },
+  "dmin_min": {
+   "marcador": "dmin_min",
+   "conclusao": "T03-2 (o_que_vimos_novo)",
+   "valor": 2.4,
+   "formatado": "2,4",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: menor mudanca COMUM que o desenho pareado de 66 pares enxerga a 80% de poder. d minimo pareado = (1,96 + 0,8416) / raiz(66) = 0,3449; multiplicado pelo desvio-padrao das diferencas de cada traco. O menor e o xG criado: 0,3449 x 35,0 = 12,1 pontos de percentil = 2,4 posicoes.",
+   "conferido": true,
+   "segundo_caminho": "Pelo t nao central (busca binaria a 80%, como scripts/_metodo.py::d_minimo faz para dois grupos, mas com gl = n-1 e ncp = d*raiz(n)) o d minimo e 0,350 em vez de 0,3449, e o intervalo vira 2,4 a 3,6 posicoes. A proposta cita 2,4 a 3,5, que e a aproximacao normal.",
+   "nota": "d_minimo(66,66) de _metodo.py da 0,49, mas e a formula de dois grupos independentes; aqui o desenho e pareado (o mesmo clube antes e depois), e usar 0,49 exageraria o minimo detectavel."
+  },
+  "dmin_max": {
+   "marcador": "dmin_max",
+   "conclusao": "T03-2 (o_que_vimos_novo)",
+   "valor": 3.5,
+   "formatado": "3,5",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: o maior e o duelo defensivo: 0,3449 x 51,3 = 17,7 pontos de percentil = 3,5 posicoes.",
+   "conferido": true,
+   "segundo_caminho": "Pelo t nao central, 18,0 pontos = 3,6 posicoes.",
+   "nota": "Em pontos de percentil o intervalo e 12,1 a 17,7 — o par de numeros para a prova."
+  },
+  "pts_antes": {
+   "marcador": "pts_antes",
+   "conclusao": "T03-2 (para_o_santa_cruz_novo)",
+   "valor": 1.15,
+   "formatado": "1,15",
+   "de_onde": "Media, nas 66 trocas, dos pontos por jogo do time na janela ANTES da chegada. Pontos derivados de dados/serieb_jogos.csv, colunas golos_pro e golos_contra (3/1/0), nos jogos que T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada marca como 'antes'. Media exata 1,152, sobre 1.214 jogos.",
+   "conferido": true,
+   "segundo_caminho": "A derivacao 3/1/0 dos gols bate 100% com a coluna resultado de serieb_jogos.csv (1.268 V, 1.034 E, 1.268 D, zero divergencia). Somando pontos e jogos em vez de tirar a media das medias: 1,166."
+  },
+  "pts_depois": {
+   "marcador": "pts_depois",
+   "conclusao": "T03-2 (para_o_santa_cruz_novo)",
+   "valor": 1.32,
+   "formatado": "1,32",
+   "de_onde": "Mesma conta na janela DEPOIS da chegada: media 1,321, sobre 1.022 jogos.",
+   "conferido": true,
+   "segundo_caminho": "Somando pontos e jogos: 1,370. A diferenca depois-antes e +0,169, com IC95 por reamostragem de CLUBE (4.000 replicas, 31 clubes) de +0,077 a +0,270 — nao cruza zero."
+  },
+  "ad_sobe": {
+   "marcador": "ad_sobe",
+   "conclusao": "T03-2 (para_o_santa_cruz_novo)",
+   "valor": 43,
+   "formatado": "43",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: em quantas das 66 trocas os pontos por jogo depois sao maiores que antes. 43 sobem, 22 caem, 1 empata.",
+   "conferido": true,
+   "segundo_caminho": "Recontado na reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data): 43."
+  },
+  "placebo_antes": {
+   "marcador": "placebo_antes",
+   "conclusao": "T03-2 (para_o_santa_cruz_novo)",
+   "valor": 1.55,
+   "formatado": "1,55",
+   "de_onde": "A mesma conta SEM troca nenhuma: passagens de um so treinador com 16+ jogos (2022-2025, nao interinas, 10+ rodadas), cortadas ao meio pela ordem de rodada, com 8+ jogos de cada lado — 75 casos. Media dos pontos por jogo da primeira metade = 1,550.",
+   "conferido": true,
+   "segundo_caminho": "Reproduz exatamente o par que a proposta cita (1,55 / 1,33 em 75 casos). Restringindo ainda mais, so a clube-temporadas que NAO tiveram troca nenhuma, sobram 15 casos e a conta some: 1,59 para 1,58."
+  },
+  "placebo_depois": {
+   "marcador": "placebo_depois",
+   "conclusao": "T03-2 (para_o_santa_cruz_novo)",
+   "valor": 1.33,
+   "formatado": "1,33",
+   "de_onde": "Media dos pontos por jogo da segunda metade dos mesmos 75 casos = 1,334.",
+   "conferido": true,
+   "segundo_caminho": "Na base com 2026 sao 87 casos, 1,549 para 1,343 — mesma direcao.",
+   "nota": "Vai na direcao oposta a das trocas (1,15 -> 1,32). E o retorno a media: quem troca troca no fundo do poco, e quem nao troca estava bem e regride."
+  },
+  "placebo_n": {
+   "marcador": "placebo_n",
+   "conclusao": "T03-2 (prova)",
+   "valor": 75,
+   "formatado": "75",
+   "de_onde": "Numero de passagens de um so treinador que admitem o corte ao meio com 8+ jogos de cada lado, 2022-2025.",
+   "conferido": true,
+   "segundo_caminho": "87 na base com 2026."
+  },
+  "ad_sobe_desce": {
+   "marcador": "ad_sobe_desce",
+   "conclusao": "T03-2 (o_que_vimos_novo, sustenta 'cada time vai para um lado')",
+   "valor": "35/28 · 27/34 · 34/29 · 30/33 · 32/31 · 36/26 · 31/31",
+   "formatado": "35/28 · 27/34 · 34/29 · 30/33 · 32/31 · 36/26 · 31/31",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: quantas trocas sobem e quantas descem em cada traco, na ordem dist_remate, entradas_area, duelo_def, xg, xg_contra, xg_por_remate, xg_por_remate_contra. Os que faltam para 66 sao empates exatos (3, 5, 3, 3, 3, 4, 4).",
+   "conferido": true,
+   "segundo_caminho": "Reproduzido pelos dois caminhos (CSV publicado e reconstrucao a partir de dados/serieb_jogos.csv (Competicao = 'Brazil. Serie B', 2022-2025) cruzado com resultados/T01_rodada_treinador.csv pela chave (temporada, clube_wyscout, data)).",
+   "nota": "Em nenhum dos sete a maioria passa de 36 em 66 — e o que a manchete nova chama de 'cada time vai para um lado'."
+  },
+  "bh_ad": {
+   "marcador": "bh_ad",
+   "conclusao": "T03-2 (T03_testes.csv)",
+   "valor": "todos os 7 com q = 0,955 (menor p = 0,312, no xG por remate)",
+   "formatado": "todos os 7 com q = 0,955 (menor p = 0,312, no xG por remate)",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: Wilcoxon pareado da coluna <traco>_mudou em cada traco, e os 7 p por scripts/_metodo.py::bh(). p: dist_remate 0,4929 · entradas_area 0,4081 · duelo_def 0,7893 · xg 0,9399 · xg_contra 0,5511 · xg_por_remate 0,3123 · xg_por_remate_contra 0,9552.",
+   "conferido": true,
+   "segundo_caminho": "Na base com 2026 (73 casos) o menor p e 0,2063 e todos os q dao 0,669 — que e o valor citado no T04. Nas fechadas nada chega perto de 0,05."
+  },
+  "boot_clube_ad": {
+   "marcador": "boot_clube_ad",
+   "conclusao": "T03-2 (prova)",
+   "valor": "os 7 IC95 por reamostragem de clube cruzam zero",
+   "formatado": "os 7 IC95 por reamostragem de clube cruzam zero",
+   "de_onde": "T03_antes_depois.csv (gerado por scripts/T03.py), filtrando temporada != 2026 -> 66 trocas com 8+ jogos de cada lado, mesmo clube e mesma temporada: IC95 da mudanca mediana de cada traco por bootstrap de CLUBE (4.000 replicas, 31 clubes sorteados com reposicao), porque 66 trocas nao sao 66 observacoes independentes. dist_remate [-10,0; +15,0] · entradas_area [-10,0; +5,0] · duelo_def [-15,0; +25,0] · xg [-10,0; +17,5] · xg_contra [-10,0; +15,1] · xg_por_remate [-5,0; +20,0] · xg_por_remate_contra [-10,0; +15,0], em pontos de percentil.",
+   "conferido": true,
+   "segundo_caminho": "O unico intervalo que NAO cruza zero e o dos pontos por jogo: +0,169 [+0,077; +0,270]. Ou seja, o placar muda e o jeito de jogar nao."
+  }
+ },
+ "bloqueados": [
+  {
+   "marcador": "xgc_casa / dd_casa medidos na passagem",
+   "conclusao": "T03-1 e T03-2 (numeros_a_criar)",
+   "por_que": "Nao sao um numero: sao duas COLUNAS novas em T03_passagens.csv (xG sofrido em casa e duelo defensivo ganho em casa, por passagem) e, pelo que a proposta pede, entram no lugar de xg e xg_contra no conjunto de tracos. Isso muda a familia dos sete e, com ela, TODOS os numeros que esta tarefa acabou de calcular: rho entre clubes (0,153), 4 contra 1,3 acima da linha, 6 em 10 na distancia do remate, 3,7 do meia-meia, as medianas de mudanca e o minimo detectavel do T03-2. Entregar as duas colunas E os oito marcadores seria entregar dois conjuntos incompativeis. Trocar traco e rodar T03.py de novo — reanalise, que esta fora do 'so calcular' e fora da regra de escrita (nao posso tocar em scripts/T03.py nem em T03_passagens.csv).",
+   "o_que_resolveria": "Um pedido separado que rode scripts/T03.py com a lista de tracos revista e reescreva T03_passagens.csv, T03_antes_depois.csv e T03_resumo.json de uma vez — e entao os marcadores se recalculam sobre a base nova.",
+   "valor_que_eu_obtive": "A cobertura existe e nao bloqueia nada: 124 das 126 passagens fechadas tem 5 ou mais jogos em casa (mediana de 9 jogos em casa por passagem; dados/serieb_jogos.csv, coluna mando = 'casa', 1.785 jogos de casa no periodo). As duas que ficam de fora tem menos de 5 jogos em casa. A janela de casa de cada passagem, que a proposta manda declarar no em_aberto, e justamente essa mediana de 9 — metade de uma passagem tipica."
+  }
+ ],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "esperado_por_acaso",
+   "esta": "3,4 (T03.json, campo numeros)",
+   "deveria": "1,7 no mesmo recorte do numero publicado (base com 2026, 34 multiclube, 5 acima da linha); 1,3 no recorte fechado que o texto novo usa (28 multiclube, 4 acima da linha)",
+   "evidencia": "3,4 e 34 x 10%: trata cada treinador multiclube como um sorteio independente com 10% de chance de passar do percentil 90. Nao e um sorteio independente — o rho de cada treinador e a MEDIA dos seus pares entre clubes, e media de varios pares tem variancia menor, entao chega ao percentil 90 muito menos que 10% das vezes. Medindo em vez de supor: permutacao do rotulo de treinador sobre as passagens (embaralha a coluna treinador e reconta quantos 'multiclube' sorteados passam de 0,609) da media 1,68 na base com 2026 (2.000 replicas) e 1,271 nas fechadas (30.000 replicas, erro de Monte Carlo +-0,006). O erro e de um fator de 2 e inverte o sentido da frase publicada: '5 acima, o acaso previa 3,4' vira '5 acima, o acaso previa 1,7'."
+  }
+ ],
+ "conferidos_e_certos": {
+  "nota": "Recalculei os 18 valores do campo numeros de T03.json contra a base antes de concluir que so um esta errado. Os outros 17 batem.",
+  "recalculados": {
+   "n_pass / n_tec / multi": "151 / 69 / 34 — certos para a base com 2026 dentro",
+   "n_tracos": "7",
+   "nulo_medio / nulo_p90": "-0,014 / 0,609 (2.000 pares aleatorios, semente 20260917 — reproduzidos exatos)",
+   "n_acima": "5 na base com 2026 (Vinicius 0,991 · Marcelo Cabo 0,889 · Roger Silva 0,818 · Mazola Junior 0,818 · Marcio Fernandes 0,692)",
+   "acima_nomes": "os cinco nomes e os cinco rho conferem com T03_resumo.json, campo repete",
+   "mozart_rho / mozart_pass / mozart_cl": "0,27 / 7 / 6",
+   "claud_rho / eb_rho": "0,291 / 0,265",
+   "ad_n": "73 na base com 2026",
+   "ad_pmin": "0,2063 (entradas_area, Wilcoxon, base com 2026)",
+   "ad_maior": "5,0 — e o maior valor absoluto entre as SETE MEDIANAS COM SINAL (dist_remate +5,0 e xg_por_remate +5,0); esta certo como escrito"
+  },
+  "atencao_de_definicao": [
+   "ad_maior = 5,0 esta certo, mas mede outra coisa que o ad_mexe do texto novo. 5,0 e a mediana das mudancas COM SINAL, que se anula porque metade sobe e metade desce. A mediana do valor ABSOLUTO vai de 20,0 a 37,5 pontos de percentil (4 a 7,5 posicoes). Os dois numeros estao certos e dizem coisas opostas: o time mexe muito, mas cada um para um lado. E exatamente a inversao que a manchete nova faz.",
+   "n_pass, n_tec, multi e ad_n incluem 2026, que as Definicoes fixas do CLAUDE.md tratam como temporada de teste. Nao entrei com eles em correcoes porque nao estao errados contra a base — estao certos para outro recorte. O texto novo pede as fechadas, e e o que este arquivo entrega."
+  ]
+ },
+ "fora_do_meu_escopo": [
+  "Criar resultados/T03_testes.csv, que a proposta pede e nao existe: a regra de escrita desta tarefa so permite T03_numeros_novos.json. O CONTEUDO esta calculado aqui: para T03-1, os 7 p da permutacao por traco e os 7 q de BH (marcador bh_familia_7) mais o p global 0,004 (p_permutacao); para T03-2, os 7 p de Wilcoxon e os 7 q, todos 0,955 (bh_ad), mais o minimo detectavel pareado (dmin_min / dmin_max) e os IC95 por clube (boot_clube_ad).",
+  "Rodar a porta temporal da §6.4 no T03, fazer T03.py importar _metodo.py e escrever resultados/T03.md: sao mudanca de script e texto, nao numero.",
+  "Mudar o conjunto de tracos (ver bloqueados), reescrever manchete, o_que_vimos, para_o_santa_cruz, premissa ou o nivel de confianca das duas conclusoes, e mexer em J02-1, que a proposta diz que cai junto."
+ ]
+}

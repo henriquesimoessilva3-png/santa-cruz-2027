@@ -1,0 +1,43 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,consequencia_do_resultado
+com,concentracao,SM,share_11,15,48,68.136,63.127,0.975,"[0.47, 1.59]",0.0007,0.84,0.0028,firme,True,True
+com,concentracao,SM,conc_hhi,15,48,51.072,46.256,0.861,"[0.34, 1.44]",0.0024,0.84,0.00479,firme,True,True
+com,concentracao,SM,atletas_usados,15,48,35.0,38.0,0.363,"[-0.24, 1.01]",0.21439,0.84,0.21439,sem diferença clara,False,True
+com,concentracao,SM,nucleo_300,15,48,26.0,27.0,0.672,"[0.21, 1.2]",0.01741,0.84,0.02321,firme,False,True
+com,concentracao,ST,share_11,15,16,68.136,65.878,0.754,"[0.08, 1.56]",0.04347,1.04,0.17387,pode ser sorte,False,True
+com,concentracao,ST,conc_hhi,15,16,51.072,49.444,0.499,"[-0.21, 1.26]",0.17263,1.04,0.27421,sem diferença clara,False,True
+com,concentracao,ST,atletas_usados,15,16,35.0,35.0,-0.298,"[-1.2, 0.53]",0.41738,1.04,0.41738,sem diferença clara,False,True
+com,concentracao,ST,nucleo_300,15,16,26.0,27.0,0.461,"[-0.17, 1.14]",0.20565,1.04,0.27421,sem diferença clara,False,True
+com,concentracao,CM,share_11,16,48,60.198,63.127,-0.729,"[-1.38, -0.17]",0.01134,0.82,0.01134,firme,False,True
+com,concentracao,CM,conc_hhi,16,48,42.513,46.256,-0.808,"[-1.46, -0.23]",0.00749,0.82,0.00999,firme,False,True
+com,concentracao,CM,atletas_usados,16,48,47.0,38.0,-1.108,"[-1.9, -0.42]",0.00093,0.82,0.00268,firme,True,True
+com,concentracao,CM,nucleo_300,16,48,30.5,27.0,-1.025,"[-1.71, -0.44]",0.00134,0.82,0.00268,firme,True,True
+com,continuidade,SM,min_de_quem_ficou_pct,15,48,27.017,32.335,-0.328,"[-1.24, 0.41]",0.32213,0.84,0.4832,sem diferença clara,False,False
+com,continuidade,SM,min_de_contratado_pct,15,48,72.983,67.665,-0.328,"[-1.21, 0.4]",0.32213,0.84,0.4832,sem diferença clara,False,False
+com,continuidade,SM,jogadores_que_ficaram_pct,15,48,25.926,26.97,-0.108,"[-0.91, 0.61]",0.7357,0.84,0.7357,sem diferença clara,False,False
+com,continuidade,ST,min_de_quem_ficou_pct,15,16,27.017,39.794,-0.708,"[-1.75, 0.04]",0.06101,1.04,0.09151,sem diferença clara,False,False
+com,continuidade,ST,min_de_contratado_pct,15,16,72.983,60.206,-0.708,"[-1.77, 0.05]",0.06101,1.04,0.09151,sem diferença clara,False,False
+com,continuidade,ST,jogadores_que_ficaram_pct,15,16,25.926,30.223,-0.422,"[-1.34, 0.4]",0.25258,1.04,0.25258,sem diferença clara,False,False
+com,continuidade,CM,min_de_quem_ficou_pct,16,48,24.089,32.335,-0.67,"[-1.41, -0.16]",0.02025,0.82,0.03038,firme,False,False
+com,continuidade,CM,min_de_contratado_pct,16,48,75.911,67.665,-0.67,"[-1.38, -0.17]",0.02025,0.82,0.03038,firme,False,False
+com,continuidade,CM,jogadores_que_ficaram_pct,16,48,22.233,26.97,-0.579,"[-1.35, 0.02]",0.04988,0.82,0.04988,firme,False,False
+sem,concentracao,SM,share_11,7,32,68.84,62.542,1.116,"[0.48, 1.94]",0.00754,1.2,0.01745,firme,False,True
+sem,concentracao,SM,conc_hhi,7,32,52.094,45.719,1.051,"[0.45, 1.96]",0.00872,1.2,0.01745,firme,False,True
+sem,concentracao,SM,atletas_usados,7,32,35.0,38.5,0.535,"[-0.32, 1.59]",0.28266,1.2,0.28266,sem diferença clara,False,True
+sem,concentracao,SM,nucleo_300,7,32,26.0,28.0,0.656,"[0.02, 1.31]",0.09697,1.2,0.12929,sem diferença clara,False,True
+sem,concentracao,ST,share_11,7,7,68.84,61.784,1.427,"[0.4, 3.98]",0.02198,1.63,0.0879,pode ser sorte,False,True
+sem,concentracao,ST,conc_hhi,7,7,52.094,47.988,0.939,"[-0.06, 2.76]",0.10998,1.63,0.21996,sem diferença clara,False,True
+sem,concentracao,ST,atletas_usados,7,7,35.0,37.0,-0.104,"[-1.46, 1.2]",0.84941,1.63,0.84941,sem diferença clara,False,True
+sem,concentracao,ST,nucleo_300,7,7,26.0,27.0,0.766,"[-0.28, 2.37]",0.18116,1.63,0.24155,sem diferença clara,False,True
+sem,concentracao,CM,share_11,12,32,57.452,62.542,-1.006,"[-1.72, -0.41]",0.00058,0.97,0.00116,firme,True,True
+sem,concentracao,CM,conc_hhi,12,32,40.181,45.719,-1.076,"[-1.81, -0.47]",0.00056,0.97,0.00116,firme,True,True
+sem,concentracao,CM,atletas_usados,12,32,47.5,38.5,-1.105,"[-2.1, -0.35]",0.00312,0.97,0.00312,firme,True,True
+sem,concentracao,CM,nucleo_300,12,32,31.0,28.0,-1.158,"[-2.06, -0.44]",0.00183,0.97,0.00244,firme,True,True
+sem,continuidade,SM,min_de_quem_ficou_pct,7,32,20.277,31.218,-0.709,"[-1.83, 0.24]",0.16856,1.2,0.25284,sem diferença clara,False,False
+sem,continuidade,SM,min_de_contratado_pct,7,32,79.723,68.782,-0.709,"[-1.8, 0.27]",0.16856,1.2,0.25284,sem diferença clara,False,False
+sem,continuidade,SM,jogadores_que_ficaram_pct,7,32,25.0,26.569,-0.077,"[-1.05, 0.84]",0.8606,1.2,0.8606,sem diferença clara,False,False
+sem,continuidade,ST,min_de_quem_ficou_pct,7,7,20.277,42.207,-1.369,"[-4.12, -0.36]",0.02668,1.63,0.04002,firme,False,False
+sem,continuidade,ST,min_de_contratado_pct,7,7,79.723,57.793,-1.369,"[-4.09, -0.31]",0.02668,1.63,0.04002,firme,False,False
+sem,continuidade,ST,jogadores_que_ficaram_pct,7,7,25.0,31.034,-0.52,"[-2.31, 0.54]",0.34969,1.63,0.34969,sem diferença clara,False,False
+sem,continuidade,CM,min_de_quem_ficou_pct,12,32,22.301,31.218,-0.827,"[-1.77, -0.19]",0.02685,0.97,0.04028,firme,False,False
+sem,continuidade,CM,min_de_contratado_pct,12,32,77.699,68.782,-0.827,"[-1.79, -0.21]",0.02685,0.97,0.04028,firme,False,False
+sem,continuidade,CM,jogadores_que_ficaram_pct,12,32,22.233,26.569,-0.57,"[-1.53, 0.13]",0.12204,0.97,0.12204,sem diferença clara,False,False

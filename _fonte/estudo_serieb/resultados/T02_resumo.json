@@ -1,0 +1,238 @@
+{
+ "temporadas": [
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "min_rodadas": 10,
+ "passagens": 276,
+ "no_ranking": 151,
+ "fora_do_ranking": 125,
+ "treinadores_no_ranking": 69,
+ "com_alguma_rodada_no_g4": 39,
+ "repetem_g4_em_clubes_diferentes": 26,
+ "top": [
+  {
+   "treinador": "Renato Gaúcho",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2022",
+   "rodadas": 10,
+   "no_g4": 10,
+   "pct_g4": 100.0,
+   "rodadas_apos_10": 10,
+   "pct_g4_apos_10": 100.0,
+   "ppj": 1.8,
+   "xg_saldo_pj": 1.14,
+   "valor_elenco_mediano_eur": 49775000.0
+  },
+  {
+   "treinador": "Paulo Pezzolano",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2022",
+   "rodadas": 38,
+   "no_g4": 34,
+   "pct_g4": 89.5,
+   "rodadas_apos_10": 29,
+   "pct_g4_apos_10": 100.0,
+   "ppj": 2.05,
+   "xg_saldo_pj": 0.21,
+   "valor_elenco_mediano_eur": 29750000.0
+  },
+  {
+   "treinador": "Fábio Carille",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2024",
+   "rodadas": 37,
+   "no_g4": 33,
+   "pct_g4": 89.2,
+   "rodadas_apos_10": 28,
+   "pct_g4_apos_10": 89.3,
+   "ppj": 1.84,
+   "xg_saldo_pj": 0.45,
+   "valor_elenco_mediano_eur": 64075000.0
+  },
+  {
+   "treinador": "Mariano Soso",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2024",
+   "rodadas": 14,
+   "no_g4": 12,
+   "pct_g4": 85.7,
+   "rodadas_apos_10": 5,
+   "pct_g4_apos_10": 100.0,
+   "ppj": 1.71,
+   "xg_saldo_pj": 0.34,
+   "valor_elenco_mediano_eur": 20975000.0
+  },
+  {
+   "treinador": "Pepa",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2024",
+   "rodadas": 17,
+   "no_g4": 13,
+   "pct_g4": 76.5,
+   "rodadas_apos_10": 17,
+   "pct_g4_apos_10": 76.5,
+   "ppj": 2.0,
+   "xg_saldo_pj": 0.71,
+   "valor_elenco_mediano_eur": 20975000.0
+  },
+  {
+   "treinador": "Roger Machado",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2022",
+   "rodadas": 27,
+   "no_g4": 18,
+   "pct_g4": 66.7,
+   "rodadas_apos_10": 18,
+   "pct_g4_apos_10": 83.3,
+   "ppj": 1.63,
+   "xg_saldo_pj": 0.4,
+   "valor_elenco_mediano_eur": 49775000.0
+  },
+  {
+   "treinador": "Guto Ferreira",
+   "passagens": 5,
+   "clubes": 5,
+   "temporadas": "2022 2023 2025 2026",
+   "rodadas": 81,
+   "no_g4": 47,
+   "pct_g4": 58.0,
+   "rodadas_apos_10": 55,
+   "pct_g4_apos_10": 54.5,
+   "ppj": 1.72,
+   "xg_saldo_pj": 0.14,
+   "valor_elenco_mediano_eur": 21900000.0
+  },
+  {
+   "treinador": "Márcio Goiano",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2026",
+   "rodadas": 14,
+   "no_g4": 8,
+   "pct_g4": 57.1,
+   "rodadas_apos_10": 6,
+   "pct_g4_apos_10": 83.3,
+   "ppj": 1.71,
+   "xg_saldo_pj": 0.42,
+   "valor_elenco_mediano_eur": 23625000.0
+  },
+  {
+   "treinador": "Ricardo Catalá",
+   "passagens": 1,
+   "clubes": 1,
+   "temporadas": "2026",
+   "rodadas": 20,
+   "no_g4": 10,
+   "pct_g4": 50.0,
+   "rodadas_apos_10": 11,
+   "pct_g4_apos_10": 54.5,
+   "ppj": 1.35,
+   "xg_saldo_pj": 0.03,
+   "valor_elenco_mediano_eur": 7925000.0
+  },
+  {
+   "treinador": "Cauan de Almeida",
+   "passagens": 2,
+   "clubes": 2,
+   "temporadas": "2024 2026",
+   "rodadas": 38,
+   "no_g4": 18,
+   "pct_g4": 47.4,
+   "rodadas_apos_10": 20,
+   "pct_g4_apos_10": 50.0,
+   "ppj": 1.26,
+   "xg_saldo_pj": -0.22,
+   "valor_elenco_mediano_eur": 15662500.0
+  },
+  {
+   "treinador": "Eduardo Baptista",
+   "passagens": 4,
+   "clubes": 2,
+   "temporadas": "2023 2024 2025 2026",
+   "rodadas": 134,
+   "no_g4": 63,
+   "pct_g4": 47.0,
+   "rodadas_apos_10": 104,
+   "pct_g4_apos_10": 58.7,
+   "ppj": 1.69,
+   "xg_saldo_pj": 0.41,
+   "valor_elenco_mediano_eur": 13325000.0
+  },
+  {
+   "treinador": "Enderson Moreira",
+   "passagens": 6,
+   "clubes": 5,
+   "temporadas": "2022 2023 2024 2025 2026",
+   "rodadas": 122,
+   "no_g4": 57,
+   "pct_g4": 46.7,
+   "rodadas_apos_10": 108,
+   "pct_g4_apos_10": 49.1,
+   "ppj": 1.52,
+   "xg_saldo_pj": 0.43,
+   "valor_elenco_mediano_eur": 18450000.0
+  }
+ ],
+ "repete": [
+  {
+   "treinador": "Guto Ferreira",
+   "clubes": 5,
+   "pct_g4": 58.0
+  },
+  {
+   "treinador": "Cauan de Almeida",
+   "clubes": 2,
+   "pct_g4": 47.4
+  },
+  {
+   "treinador": "Eduardo Baptista",
+   "clubes": 2,
+   "pct_g4": 47.0
+  },
+  {
+   "treinador": "Enderson Moreira",
+   "clubes": 5,
+   "pct_g4": 46.7
+  },
+  {
+   "treinador": "Léo Condé",
+   "clubes": 3,
+   "pct_g4": 38.6
+  },
+  {
+   "treinador": "Vagner Mancini",
+   "clubes": 2,
+   "pct_g4": 37.7
+  },
+  {
+   "treinador": "Jorginho",
+   "clubes": 2,
+   "pct_g4": 34.5
+  },
+  {
+   "treinador": "Thiago Carpini",
+   "clubes": 2,
+   "pct_g4": 33.3
+  },
+  {
+   "treinador": "Mozart",
+   "clubes": 6,
+   "pct_g4": 32.9
+  },
+  {
+   "treinador": "Gilmar Dal Pozzo",
+   "clubes": 3,
+   "pct_g4": 26.7
+  }
+ ]
+}

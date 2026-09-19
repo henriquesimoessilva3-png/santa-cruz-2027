@@ -1,0 +1,441 @@
+{
+ "reguas": [
+  "A_posse_construcao",
+  "B_pressao_ritmo",
+  "C_volume_fisico",
+  "D_explosao",
+  "E_qualidade_chance",
+  "F_solidez",
+  "G_bola_aerea_parada",
+  "H_dinheiro",
+  "I_estabilidade_11"
+ ],
+ "firme_nos_dois_cortes": {
+  "SM": [
+   "E_qualidade_chance",
+   "F_solidez",
+   "H_dinheiro",
+   "I_estabilidade_11"
+  ],
+  "ST": [],
+  "CM": [
+   "D_explosao",
+   "E_qualidade_chance",
+   "F_solidez",
+   "H_dinheiro",
+   "I_estabilidade_11"
+  ]
+ },
+ "mediana_por_faixa": {
+  "A_posse_construcao": {
+   "Sobe": 73.2,
+   "Trave": 38.6,
+   "Meio": 49.6,
+   "Cai": 39.5
+  },
+  "B_pressao_ritmo": {
+   "Sobe": 63.2,
+   "Trave": 60.0,
+   "Meio": 54.2,
+   "Cai": 41.1
+  },
+  "C_volume_fisico": {
+   "Sobe": 65.8,
+   "Trave": 56.6,
+   "Meio": 50.0,
+   "Cai": 42.1
+  },
+  "D_explosao": {
+   "Sobe": 56.6,
+   "Trave": 52.6,
+   "Meio": 52.0,
+   "Cai": 36.8
+  },
+  "E_qualidade_chance": {
+   "Sobe": 71.1,
+   "Trave": 69.4,
+   "Meio": 47.4,
+   "Cai": 27.6
+  },
+  "F_solidez": {
+   "Sobe": 73.7,
+   "Trave": 64.9,
+   "Meio": 50.0,
+   "Cai": 28.1
+  },
+  "G_bola_aerea_parada": {
+   "Sobe": 56.9,
+   "Trave": 56.6,
+   "Meio": 52.0,
+   "Cai": 45.4
+  },
+  "H_dinheiro": {
+   "Sobe": 80.9,
+   "Trave": 56.6,
+   "Meio": 46.7,
+   "Cai": 15.1
+  },
+  "I_estabilidade_11": {
+   "Sobe": 71.1,
+   "Trave": 63.2,
+   "Meio": 50.3,
+   "Cai": 19.1
+  }
+ },
+ "cenario_barato": {
+  "perfil_declarado_na_especificacao": {
+   "ppda": [
+    10.0,
+    13.2
+   ],
+   "posse": [
+    47.0,
+    52.0
+   ],
+   "passe_longo_pct": [
+    10.0,
+    14.0
+   ]
+  },
+  "promovidos_fora_do_top8_de_valor": [
+   {
+    "temporada": "2023",
+    "clube": "Vitória",
+    "pos": 1,
+    "pontos": 72,
+    "posto_valor": 9,
+    "ppda": 10.02,
+    "posse": 52.0,
+    "passe_longo_pct": 11.5,
+    "cabe_no_perfil": false
+   },
+   {
+    "temporada": "2023",
+    "clube": "Criciúma",
+    "pos": 3,
+    "pontos": 64,
+    "posto_valor": 12,
+    "ppda": 10.93,
+    "posse": 48.6,
+    "passe_longo_pct": 13.5,
+    "cabe_no_perfil": true
+   },
+   {
+    "temporada": "2024",
+    "clube": "Mirassol",
+    "pos": 2,
+    "pontos": 67,
+    "posto_valor": 9,
+    "ppda": 13.17,
+    "posse": 51.5,
+    "passe_longo_pct": 10.0,
+    "cabe_no_perfil": true
+   },
+   {
+    "temporada": "2025",
+    "clube": "Chapecoense",
+    "pos": 3,
+    "pontos": 62,
+    "posto_valor": 18,
+    "ppda": 12.45,
+    "posse": 47.4,
+    "passe_longo_pct": 14.1,
+    "cabe_no_perfil": false
+   }
+  ],
+  "quantos_cabem_no_perfil": 22,
+  "destes_quantos_subiram": 2,
+  "taxa_de_acesso_no_perfil": 18.2,
+  "taxa_de_acesso_geral": 20.0,
+  "cabem_e_estao_fora_do_top8": 13,
+  "taxa_fora_do_top8_geral": 8.3,
+  "n_promovidos_baratos": 4,
+  "n_cabem_dos_baratos": 2
+ },
+ "teste_2026": [
+  {
+   "pos": 1,
+   "clube": "Juventude",
+   "posto_valor": 3,
+   "A_posse_construcao": 21,
+   "B_pressao_ritmo": 28,
+   "C_volume_fisico": 26,
+   "D_explosao": 21,
+   "E_qualidade_chance": 64,
+   "F_solidez": 88,
+   "G_bola_aerea_parada": 76,
+   "H_dinheiro": 87,
+   "I_estabilidade_11": 77
+  },
+  {
+   "pos": 2,
+   "clube": "Novorizontino",
+   "posto_valor": 8,
+   "A_posse_construcao": 35,
+   "B_pressao_ritmo": 79,
+   "C_volume_fisico": 95,
+   "D_explosao": 91,
+   "E_qualidade_chance": 93,
+   "F_solidez": 88,
+   "G_bola_aerea_parada": 63,
+   "H_dinheiro": 67,
+   "I_estabilidade_11": 49
+  },
+  {
+   "pos": 3,
+   "clube": "Vila Nova",
+   "posto_valor": 10,
+   "A_posse_construcao": 50,
+   "B_pressao_ritmo": 59,
+   "C_volume_fisico": 11,
+   "D_explosao": 64,
+   "E_qualidade_chance": 24,
+   "F_solidez": 63,
+   "G_bola_aerea_parada": 64,
+   "H_dinheiro": 49,
+   "I_estabilidade_11": 61
+  },
+  {
+   "pos": 4,
+   "clube": "Fortaleza",
+   "posto_valor": 1,
+   "A_posse_construcao": 61,
+   "B_pressao_ritmo": 25,
+   "C_volume_fisico": 3,
+   "D_explosao": 1,
+   "E_qualidade_chance": 59,
+   "F_solidez": 61,
+   "G_bola_aerea_parada": 30,
+   "H_dinheiro": 100,
+   "I_estabilidade_11": 38
+  },
+  {
+   "pos": 5,
+   "clube": "Criciúma",
+   "posto_valor": 5,
+   "A_posse_construcao": 51,
+   "B_pressao_ritmo": 94,
+   "C_volume_fisico": 87,
+   "D_explosao": 64,
+   "E_qualidade_chance": 59,
+   "F_solidez": 70,
+   "G_bola_aerea_parada": 57,
+   "H_dinheiro": 71,
+   "I_estabilidade_11": 84
+  },
+  {
+   "pos": 6,
+   "clube": "Operário-PR",
+   "posto_valor": 13,
+   "A_posse_construcao": 68,
+   "B_pressao_ritmo": 42,
+   "C_volume_fisico": 18,
+   "D_explosao": 28,
+   "E_qualidade_chance": 12,
+   "F_solidez": 30,
+   "G_bola_aerea_parada": 46,
+   "H_dinheiro": 34,
+   "I_estabilidade_11": 94
+  },
+  {
+   "pos": 7,
+   "clube": "Atlético-GO",
+   "posto_valor": 12,
+   "A_posse_construcao": 47,
+   "B_pressao_ritmo": 42,
+   "C_volume_fisico": 34,
+   "D_explosao": 78,
+   "E_qualidade_chance": 71,
+   "F_solidez": 60,
+   "G_bola_aerea_parada": 43,
+   "H_dinheiro": 30,
+   "I_estabilidade_11": 62
+  },
+  {
+   "pos": 8,
+   "clube": "CRB",
+   "posto_valor": 9,
+   "A_posse_construcao": 83,
+   "B_pressao_ritmo": 36,
+   "C_volume_fisico": 76,
+   "D_explosao": 16,
+   "E_qualidade_chance": 53,
+   "F_solidez": 47,
+   "G_bola_aerea_parada": 39,
+   "H_dinheiro": 51,
+   "I_estabilidade_11": 80
+  },
+  {
+   "pos": 9,
+   "clube": "Sport",
+   "posto_valor": 2,
+   "A_posse_construcao": 80,
+   "B_pressao_ritmo": 41,
+   "C_volume_fisico": 3,
+   "D_explosao": 32,
+   "E_qualidade_chance": 71,
+   "F_solidez": 51,
+   "G_bola_aerea_parada": 39,
+   "H_dinheiro": 95,
+   "I_estabilidade_11": 53
+  },
+  {
+   "pos": 10,
+   "clube": "Cuiabá",
+   "posto_valor": 11,
+   "A_posse_construcao": 43,
+   "B_pressao_ritmo": 63,
+   "C_volume_fisico": 87,
+   "D_explosao": 16,
+   "E_qualidade_chance": 50,
+   "F_solidez": 100,
+   "G_bola_aerea_parada": 46,
+   "H_dinheiro": 46,
+   "I_estabilidade_11": 57
+  },
+  {
+   "pos": 11,
+   "clube": "Náutico",
+   "posto_valor": 20,
+   "A_posse_construcao": 89,
+   "B_pressao_ritmo": 81,
+   "C_volume_fisico": 34,
+   "D_explosao": 91,
+   "E_qualidade_chance": 82,
+   "F_solidez": 44,
+   "G_bola_aerea_parada": 82,
+   "H_dinheiro": 1,
+   "I_estabilidade_11": 31
+  },
+  {
+   "pos": 12,
+   "clube": "Athletic",
+   "posto_valor": 7,
+   "A_posse_construcao": 10,
+   "B_pressao_ritmo": 47,
+   "C_volume_fisico": 100,
+   "D_explosao": 59,
+   "E_qualidade_chance": 46,
+   "F_solidez": 32,
+   "G_bola_aerea_parada": 28,
+   "H_dinheiro": 63,
+   "I_estabilidade_11": 43
+  },
+  {
+   "pos": 13,
+   "clube": "Goiás",
+   "posto_valor": 6,
+   "A_posse_construcao": 81,
+   "B_pressao_ritmo": 37,
+   "C_volume_fisico": 45,
+   "D_explosao": 38,
+   "E_qualidade_chance": 49,
+   "F_solidez": 60,
+   "G_bola_aerea_parada": 29,
+   "H_dinheiro": 79,
+   "I_estabilidade_11": 48
+  },
+  {
+   "pos": 14,
+   "clube": "São Bernardo",
+   "posto_valor": 15,
+   "A_posse_construcao": 59,
+   "B_pressao_ritmo": 40,
+   "C_volume_fisico": 68,
+   "D_explosao": 47,
+   "E_qualidade_chance": 34,
+   "F_solidez": 47,
+   "G_bola_aerea_parada": 32,
+   "H_dinheiro": 55,
+   "I_estabilidade_11": 89
+  },
+  {
+   "pos": 15,
+   "clube": "Botafogo-SP",
+   "posto_valor": 16,
+   "A_posse_construcao": 23,
+   "B_pressao_ritmo": 58,
+   "C_volume_fisico": 58,
+   "D_explosao": 87,
+   "E_qualidade_chance": 76,
+   "F_solidez": 77,
+   "G_bola_aerea_parada": 49,
+   "H_dinheiro": 20,
+   "I_estabilidade_11": 68
+  },
+  {
+   "pos": 16,
+   "clube": "Ceará",
+   "posto_valor": 4,
+   "A_posse_construcao": 57,
+   "B_pressao_ritmo": 48,
+   "C_volume_fisico": 32,
+   "D_explosao": 46,
+   "E_qualidade_chance": 51,
+   "F_solidez": 19,
+   "G_bola_aerea_parada": 59,
+   "H_dinheiro": 78,
+   "I_estabilidade_11": 34
+  },
+  {
+   "pos": 17,
+   "clube": "Avaí",
+   "posto_valor": 14,
+   "A_posse_construcao": 32,
+   "B_pressao_ritmo": 52,
+   "C_volume_fisico": 53,
+   "D_explosao": 42,
+   "E_qualidade_chance": 17,
+   "F_solidez": 23,
+   "G_bola_aerea_parada": 46,
+   "H_dinheiro": 38,
+   "I_estabilidade_11": 14
+  },
+  {
+   "pos": 18,
+   "clube": "Londrina",
+   "posto_valor": 17,
+   "A_posse_construcao": 31,
+   "B_pressao_ritmo": 37,
+   "C_volume_fisico": 58,
+   "D_explosao": 84,
+   "E_qualidade_chance": 12,
+   "F_solidez": 28,
+   "G_bola_aerea_parada": 53,
+   "H_dinheiro": 17,
+   "I_estabilidade_11": 12
+  },
+  {
+   "pos": 19,
+   "clube": "América-MG",
+   "posto_valor": 18,
+   "A_posse_construcao": 74,
+   "B_pressao_ritmo": 57,
+   "C_volume_fisico": 76,
+   "D_explosao": 47,
+   "E_qualidade_chance": 47,
+   "F_solidez": 11,
+   "G_bola_aerea_parada": 67,
+   "H_dinheiro": 14,
+   "I_estabilidade_11": 0
+  },
+  {
+   "pos": 20,
+   "clube": "Ponte Preta",
+   "posto_valor": 19,
+   "A_posse_construcao": 6,
+   "B_pressao_ritmo": 35,
+   "C_volume_fisico": 37,
+   "D_explosao": 47,
+   "E_qualidade_chance": 29,
+   "F_solidez": 0,
+   "G_bola_aerea_parada": 51,
+   "H_dinheiro": 4,
+   "I_estabilidade_11": 7
+  }
+ ],
+ "n": {
+  "fechadas": 80,
+  "total": 100
+ }
+}

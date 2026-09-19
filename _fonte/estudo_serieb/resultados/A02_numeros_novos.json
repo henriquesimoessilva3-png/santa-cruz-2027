@@ -1,0 +1,371 @@
+{
+ "parte": "A02",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "Valores dos {marcadores} que a proposta de destino (_proposta_destino.json, propostas.A02) criou e que nao existem em nenhum lugar do repositorio. So numero: nenhum destino, texto, manchete ou nivel de confianca foi decidido ou alterado aqui, e nenhum dos tres arquivos da parte (A02.json, A02.md, scripts/A02.py) foi tocado.",
+ "regras_seguidas": [
+  "Unidade de jogo onde o texto pede; percentil, d, q e p so nos marcadores marcados '(prova)'.",
+  "Posto dentro da temporada foi usado nos TESTES (e como A02.py ja faz); o que vai a tela e o valor bruto em unidade de jogo, que e a mediana do grupo, nunca valor bruto comparado entre anos.",
+  "Arredondado, nunca truncado (ex.: 9,760875 -> 9,8; 0,35696 -> 0,36).",
+  "valor e NUMERO no JSON; 'formatado' traz a versao pt-BR pronta para a tela; quem decide o formato final e o gerador."
+ ],
+ "corte": "CORTE CHEIO, 16 Sobe x 48 Meio ('com fronteira'), que e o que a proposta manda publicar. Os valores que estao hoje em A02.json sao do corte reduzido 8x32 e por isso diferem.",
+ "calculados": 27,
+ "nao_calculaveis": 0,
+ "numeros": {
+  "dist_s_cf": {
+   "conclusao": "A02-1",
+   "valor": 19.5,
+   "formatado": "19,5",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=dist_remate, cru_sobe 19,522. recalculado do zero: dados/serieb_clube_temporada.csv (coluna dist_remate, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 19.52158,
+   "nota": "valor exato 19,52158 m por jogo. Unidade de jogo: metros por finalizacao."
+  },
+  "dist_m_cf": {
+   "conclusao": "A02-1",
+   "valor": 20.5,
+   "formatado": "20,5",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=dist_remate, cru_alvo 20,472. recalculado do zero: dados/serieb_clube_temporada.csv (coluna dist_remate, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 20.47171,
+   "nota": "valor exato 20,47171. Diferenca Sobe-Meio = 0,95013 m ('quase um metro')."
+  },
+  "rem_s_cf": {
+   "conclusao": "A02-1",
+   "valor": 12.6,
+   "formatado": "12,6",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=remates, cru_sobe 12,618. recalculado do zero: dados/serieb_clube_temporada.csv (coluna remates, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 12.61842,
+   "nota": "valor exato 12,61842 finalizacoes por jogo."
+  },
+  "rem_m_cf": {
+   "conclusao": "A02-1",
+   "valor": 12.3,
+   "formatado": "12,3",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=remates, cru_alvo 12,280. recalculado do zero: dados/serieb_clube_temporada.csv (coluna remates, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 12.27952,
+   "nota": "valor exato 12,27952. Arredondado (nao truncado): 12,27952 -> 12,3."
+  },
+  "remc_s_cf": {
+   "conclusao": "A02-1 e A02-2",
+   "valor": 11.6,
+   "formatado": "11,6",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=remates_contra, cru_sobe 11,618. recalculado do zero: dados/serieb_clube_temporada.csv (coluna remates_contra, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 11.61842,
+   "nota": "valor exato 11,61842 finalizacoes sofridas por jogo. Marcador compartilhado pelas duas conclusoes."
+  },
+  "remc_m_cf": {
+   "conclusao": "A02-1 e A02-2",
+   "valor": 12.1,
+   "formatado": "12,1",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=remates_contra, cru_alvo 12,053. recalculado do zero: dados/serieb_clube_temporada.csv (coluna remates_contra, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 12.05263,
+   "nota": "valor exato 12,05263. Marcador compartilhado pelas duas conclusoes."
+  },
+  "rod_corte": {
+   "conclusao": "A02-1",
+   "valor": 19,
+   "formatado": "19",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/_porta_temporal.json, campo recorte.corte = 'rodada 19'; mesmo corte da §6.4 da ESPECIFICACAO.md ('media das 19 primeiras rodadas contra os pontos somados das 19 ultimas')",
+   "conferido": true,
+   "nota": "19 + 19 = 38 rodadas. 4 dos 80 clube-temporadas tem 37 jogos na base (conferido)."
+  },
+  "n_turnos": {
+   "conclusao": "A02-1, A02-2 e A02-3",
+   "valor": 80,
+   "formatado": "80",
+   "unidade_do_texto": null,
+   "de_onde": "_porta_temporal.json, recorte.clube_temporadas = 80 e campo n de cada componente; recontado: dados/serieb_jogos.csv filtrado em 'Brazil. Serie B' e 2022-2025 da 80 clube-temporadas com 30 jogos ou mais (76 com 38 jogos, 4 com 37)",
+   "conferido": true,
+   "nota": "Mesmo n de porta_n que ja esta em A02.json; o nome n_turnos e novo."
+  },
+  "n_meio_sf": {
+   "conclusao": "A02-1, A02-2 e A02-3",
+   "valor": 32,
+   "formatado": "32",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/A01_clube_temporada.csv, contagem de faixa='Meio' e fronteira='0' em 2022-2025",
+   "conferido": true,
+   "nota": "Confere com a soma: Meio 48 = 32 sem fronteira + 16 de fronteira; e com o total de 28 times de fronteira do A01 (8 do Sobe + 16 do Meio + 4 do Cai). Bate com o n_alvo=32 das linhas fronteira=sem/comparacao=SM de A02_testes.csv."
+  },
+  "porta_dist_parcial": {
+   "conclusao": "A02-1 (prova)",
+   "valor": 0.289,
+   "formatado": "0,289",
+   "unidade_do_texto": null,
+   "de_onde": "_porta_temporal.json, componentes -> dist_remate, campo parcial (escala alinhada, +0,289); o mesmo numero aparece como -0,289 em conferencia_6_4 (escala crua: chutar de LONGE e ruim)",
+   "conferido": true,
+   "nota": "2o caminho: a tabela da §6.4 da ESPECIFICACAO.md publica -0,289 (p=0,009) para 'Distancia media do remate'. So para a prova — a Didatica proibe este numero na manchete."
+  },
+  "porta_dist_p": {
+   "conclusao": "A02-1 (prova)",
+   "valor": 0.0094,
+   "formatado": "0,0094",
+   "unidade_do_texto": null,
+   "de_onde": "_porta_temporal.json, componentes -> dist_remate, campo p_parcial = 0,00938",
+   "conferido": true,
+   "valor_sem_arredondar": 0.00938,
+   "nota": "Arredondado para 4 casas: 0,00938 -> 0,0094. §6.4 publica p=0,009. So para a prova."
+  },
+  "dmin_SM_cf": {
+   "conclusao": "A02-1 e A02-2 (prova)",
+   "valor": 0.82,
+   "formatado": "0,82",
+   "unidade_do_texto": null,
+   "de_onde": "A02_testes.csv, coluna d_minimo_80 de qualquer linha fronteira=com/comparacao=SM (16x48); 2o caminho: A02_resumo.json, poder_por_desenho['16x48'] = 0,82",
+   "conferido": true,
+   "nota": "Menor d detectavel a 80% de poder, alfa 5%, no corte cheio. A §6.7 da ESPECIFICACAO.md cita 0,79 para 16x64; aqui o alvo tem 48, dai 0,82. So para a prova."
+  },
+  "xgpr_s100_cf": {
+   "conclusao": "A02-2",
+   "valor": 8.9,
+   "formatado": "8,9",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=xg_por_remate_contra, cru_sobe 0,089, multiplicado por 100. recalculado do zero: dados/serieb_clube_temporada.csv (coluna xg_por_remate_contra, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 2o caminho: a coluna xg_por_remate_contra foi conferida contra soma(xG do adversario) / soma(Remates contra) jogo a jogo em dados/serieb_jogos.csv — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 8.936664,
+   "nota": "Valor exato 0,08936664 -> 8,936664 gols esperados a cada 100 finalizacoes sofridas. x100 para virar unidade de jogo, como a proposta pediu."
+  },
+  "xgpr_m100_cf": {
+   "conclusao": "A02-2",
+   "valor": 9.8,
+   "formatado": "9,8",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=xg_por_remate_contra, cru_alvo 0,098, multiplicado por 100. recalculado do zero: dados/serieb_clube_temporada.csv (coluna xg_por_remate_contra, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. Mesma conferencia jogo a jogo de xgpr_s100_cf",
+   "conferido": true,
+   "valor_sem_arredondar": 9.760875,
+   "nota": "Valor exato 0,09760875 -> 9,760875. Arredondado (nao truncado): 9,76 -> 9,8."
+  },
+  "xgc_s_cf": {
+   "conclusao": "A02-2",
+   "valor": 1.02,
+   "formatado": "1,02",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=xg_contra, cru_sobe 1,017. recalculado do zero: dados/serieb_clube_temporada.csv (coluna xg_contra, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 1.01737,
+   "nota": "Valor exato 1,01737 xG sofrido por jogo. Hoje o texto usa 1,002, que e do corte reduzido (8x32)."
+  },
+  "xgc_m_cf": {
+   "conclusao": "A02-2",
+   "valor": 1.18,
+   "formatado": "1,18",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=xg_contra, cru_alvo 1,183. recalculado do zero: dados/serieb_clube_temporada.csv (coluna xg_contra, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 1.18303,
+   "nota": "Valor exato 1,18303. Hoje o texto usa 1,189, do corte reduzido."
+  },
+  "xg_s_cf": {
+   "conclusao": "A02-2",
+   "valor": 1.28,
+   "formatado": "1,28",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=xg, cru_sobe 1,276. recalculado do zero: dados/serieb_clube_temporada.csv (coluna xg, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 1.27618,
+   "nota": "Valor exato 1,27618 xG criado por jogo. Regua curta: a confiabilidade split-half do xG e 0,30 (§3), abaixo de 0,40 — a regra manda hachurar na tela."
+  },
+  "xg_m_cf": {
+   "conclusao": "A02-2",
+   "valor": 1.18,
+   "formatado": "1,18",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / indicador=xg, cru_alvo 1,179. recalculado do zero: dados/serieb_clube_temporada.csv (coluna xg, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira. 3o caminho: a coluna da temporada foi conferida contra a agregacao jogo a jogo de dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', 3.036 linhas, 80 clube-temporadas) — diferenca maxima 0,00000 nas 80 linhas",
+   "conferido": true,
+   "valor_sem_arredondar": 1.17908,
+   "nota": "Valor exato 1,17908. Cai no mesmo 1,18 de xgc_m_cf na tela, mas sao indicadores diferentes."
+  },
+  "conf_xgpr_contra": {
+   "conclusao": "A02-2 (prova)",
+   "valor": 0.36,
+   "formatado": "0,36",
+   "unidade_do_texto": null,
+   "de_onde": "CALCULADO AGORA, nao existia no repositorio. Split-half da §3 da ESPECIFICACAO.md sobre dados/serieb_jogos.csv (filtro 'Brazil. Serie B', 2022-2025, 80 clube-temporadas): jogos ordenados por Data, indice 0..37, metade PAR contra metade IMPAR, valor de cada metade = soma(xG do adversario)/soma(Remates contra) — a mesma razao-de-somas da coluna da temporada —, posto dentro do ano, Spearman entre os postos empilhados, corrigido por Spearman-Brown 2rho/(1+rho). rho de meia temporada 0,2173 -> Spearman-Brown 0,3570",
+   "conferido": true,
+   "valor_sem_arredondar": 0.35696,
+   "nota": "CONFERIDO pelo caminho mais forte que havia: o mesmo codigo reproduz EXATAMENTE os 12 valores publicados na §3 (Passes 0,78 / Passes certos % 0,78 / Passes frente 0,73 / Passes longos 0,70 / Duelos ganhos % 0,70 / Posse 0,69 / Recuperacoes 0,66 / Toques na area 0,63 / Cruzamentos 0,52 / Remates 0,50 / Contra-ataques 0,36 / xG 0,30). ATENCAO: a proposta chutou 0,35; o valor medido e 0,357, que arredonda para 0,36 (a regra manda arredondar, nao truncar). Se em vez da razao-de-somas se usar a media das razoes jogo a jogo, da 0,3519 -> 0,35; as duas ficam abaixo de 0,40, entao a hachura vale de qualquer jeito."
+  },
+  "fin_s_cf": {
+   "conclusao": "A02-3",
+   "valor": 0.05,
+   "formatado": "0,05",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / familia=sobra, indicador=finalizacao, cru_sobe +0,053. recalculado do zero: dados/serieb_clube_temporada.csv (coluna finalizacao, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira",
+   "conferido": true,
+   "valor_sem_arredondar": 0.05329,
+   "nota": "Valor exato +0,05329 gol por jogo ACIMA do xG. A troca do corte reduzido para o cheio inverte o sinal do promovido: no corte de hoje (8x32) e -0,052, abaixo do xG."
+  },
+  "fin_m_cf": {
+   "conclusao": "A02-3",
+   "valor": 0.17,
+   "formatado": "0,17",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / familia=sobra, indicador=finalizacao, cru_alvo -0,169. recalculado do zero: dados/serieb_clube_temporada.csv (coluna finalizacao, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira",
+   "conferido": true,
+   "valor_sem_arredondar": -0.16921,
+   "nota": "Valor exato -0,16921 (o Meio fica ABAIXO do xG). Gravado como 0,17 sem sinal porque a frase da proposta ja carrega o sinal na palavra ('o meio fica {fin_m_cf} abaixo'); o valor com sinal e -0,17. Quem montar a frase de outro jeito tem de usar -0,17."
+  },
+  "fin_gols_temporada": {
+   "conclusao": "A02-3",
+   "valor": 8,
+   "formatado": "8",
+   "unidade_do_texto": null,
+   "de_onde": "diferenca das medianas do corte cheio: 0,05329 - (-0,16921) = 0,22250 gol por jogo, x 38 jogos = 8,455 gols na temporada",
+   "conferido": true,
+   "valor_sem_arredondar": 8.455,
+   "nota": "2o caminho: A02_testes.csv, mesma linha, coluna dif_cru = 0,223 -> 0,223 x 38 = 8,47. Os dois caminhos dao 8 quando arredondados ('cerca de 8 gols'). 76 dos 80 clube-temporadas tem 38 jogos; 4 tem 37."
+  },
+  "def_s_cf": {
+   "conclusao": "A02-3",
+   "valor": 0.2,
+   "formatado": "0,20",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / familia=sobra, indicador=defesa_vs_xg, cru_sobe 0,204. recalculado do zero: dados/serieb_clube_temporada.csv (coluna defesa_vs_xg, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira",
+   "conferido": true,
+   "valor_sem_arredondar": 0.20368,
+   "nota": "Valor exato 0,20368 gol por jogo a MENOS do que as chances pediam. Formatado com duas casas de proposito: como numero JSON e 0.2, e a tela precisa de '0,20' ao lado de '0,17'."
+  },
+  "def_m_cf": {
+   "conclusao": "A02-3",
+   "valor": 0.17,
+   "formatado": "0,17",
+   "unidade_do_texto": null,
+   "de_onde": "_fonte/estudo_serieb/resultados/A02_testes.csv, linhas fronteira=com e comparacao=SM (16 Sobe x 48 Meio), colunas cru_sobe/cru_alvo — que sao MEDIANAS do valor bruto, nao medias (A02.py, funcao main: st.median) / familia=sobra, indicador=defesa_vs_xg, cru_alvo 0,166. recalculado do zero: dados/serieb_clube_temporada.csv (coluna defesa_vs_xg, filtro ano em 2022-2025) cruzado com resultados/A01_clube_temporada.csv (coluna faixa) — mediana de faixa=Sobe e de faixa=Meio, SEM tirar os times de fronteira",
+   "conferido": true,
+   "valor_sem_arredondar": 0.166,
+   "nota": "Valor exato 0,16600. A diferenca para o Sobe (0,038 por jogo) nao separa: q 0,171, d 0,424, abaixo do d minimo 0,82."
+  },
+  "conf_fin": {
+   "conclusao": "A02-3 (prova)",
+   "valor": 0.07,
+   "formatado": "0,07",
+   "unidade_do_texto": null,
+   "de_onde": "CALCULADO AGORA, nao existia no repositorio. Split-half da §3 sobre dados/serieb_jogos.csv (filtro 'Brazil. Serie B', 2022-2025, 80 clube-temporadas): jogos ordenados por Data, indice 0..37, metade PAR contra metade IMPAR, valor de cada metade = media de (golos_pro - 'Golos esperados') por jogo, posto dentro do ano, Spearman, Spearman-Brown 2rho/(1+rho). rho de meia temporada 0,0366 -> Spearman-Brown 0,0706",
+   "conferido": true,
+   "valor_sem_arredondar": 0.07064,
+   "nota": "Mesmo codigo validado contra os 12 valores publicados na §3 (reproduz todos). 2o caminho na definicao: trocando golos_pro pela coluna 'Golos' do Wyscout da o mesmo 0,0706. E o valor que sustenta a frase 'a regua e quase toda ruido': 0,07 contra o piso de 0,40 da §3. Para comparar, defesa_vs_xg da 0,25 no mesmo teste."
+  },
+  "rho_min_80": {
+   "conclusao": "A02-3 (prova)",
+   "valor": 0.31,
+   "formatado": "0,31",
+   "unidade_do_texto": null,
+   "de_onde": "CALCULADO AGORA, nao existia no repositorio. Menor rho detectavel a 80% de poder, alfa 5% bilateral, n=80, por Fisher z: rho = tanh((z_0,975 + z_0,80)/raiz(n-3)) = tanh((1,959964 + 0,841621)/raiz(77)) = tanh(0,319270) = 0,308847",
+   "conferido": true,
+   "valor_sem_arredondar": 0.308847,
+   "nota": "Conferido pela conta inversa: com rho=0,308847 e n=80, Fisher z da exatamente 80% de poder. E a frase fixa da §6.7 aplicada ao teste de repeticao: o observado foi 0,19, abaixo de 0,31, entao 'nao se repete' significa 'este desenho nao conseguiria ver'."
+  },
+  "persist_fin": {
+   "conclusao": "A02-3 (prova)",
+   "valor": 0.19,
+   "formatado": "0,19",
+   "unidade_do_texto": null,
+   "de_onde": "A02_resumo.json -> porta_temporal.finalizacao.rho = 0,191 (ja existe em A02.json como porta_fin; so muda de nome, porque nao e porta e sim persistencia dentro da temporada). Recalculado do zero a partir de dados/serieb_jogos.csv: 1a metade x 2a metade por ordem de data, Spearman, n=80 -> rho 0,1911 (p 0,08957), identico",
+   "conferido": true,
+   "valor_sem_arredondar": 0.1911,
+   "nota": "NAO e a porta temporal da §6.4 (essa compara o 1o turno com os PONTOS do 2o, com parcial pelos pontos do 1o). Aqui e o indicador contra ele mesmo. _porta_temporal.md de 19/09 registra essa divergencia como 'achado zero' do A02."
+  }
+ },
+ "valores_para_numeros": {
+  "dist_s_cf": 19.5,
+  "dist_m_cf": 20.5,
+  "rem_s_cf": 12.6,
+  "rem_m_cf": 12.3,
+  "remc_s_cf": 11.6,
+  "remc_m_cf": 12.1,
+  "rod_corte": 19,
+  "n_turnos": 80,
+  "n_meio_sf": 32,
+  "porta_dist_parcial": 0.289,
+  "porta_dist_p": 0.0094,
+  "dmin_SM_cf": 0.82,
+  "xgpr_s100_cf": 8.9,
+  "xgpr_m100_cf": 9.8,
+  "xgc_s_cf": 1.02,
+  "xgc_m_cf": 1.18,
+  "xg_s_cf": 1.28,
+  "xg_m_cf": 1.18,
+  "conf_xgpr_contra": 0.36,
+  "fin_s_cf": 0.05,
+  "fin_m_cf": 0.17,
+  "fin_gols_temporada": 8,
+  "def_s_cf": 0.2,
+  "def_m_cf": 0.17,
+  "conf_fin": 0.07,
+  "rho_min_80": 0.31,
+  "persist_fin": 0.19
+ },
+ "formatado_pt_br": {
+  "dist_s_cf": "19,5",
+  "dist_m_cf": "20,5",
+  "rem_s_cf": "12,6",
+  "rem_m_cf": "12,3",
+  "remc_s_cf": "11,6",
+  "remc_m_cf": "12,1",
+  "rod_corte": "19",
+  "n_turnos": "80",
+  "n_meio_sf": "32",
+  "porta_dist_parcial": "0,289",
+  "porta_dist_p": "0,0094",
+  "dmin_SM_cf": "0,82",
+  "xgpr_s100_cf": "8,9",
+  "xgpr_m100_cf": "9,8",
+  "xgc_s_cf": "1,02",
+  "xgc_m_cf": "1,18",
+  "xg_s_cf": "1,28",
+  "xg_m_cf": "1,18",
+  "conf_xgpr_contra": "0,36",
+  "fin_s_cf": "0,05",
+  "fin_m_cf": "0,17",
+  "fin_gols_temporada": "8",
+  "def_s_cf": "0,20",
+  "def_m_cf": "0,17",
+  "conf_fin": "0,07",
+  "rho_min_80": "0,31",
+  "persist_fin": "0,19"
+ },
+ "ja_existem_em_A02_json": {
+  "n_sobe": 16,
+  "n_meio": 48,
+  "n_sobe_sf": 8,
+  "n_trave": 16,
+  "_nota": "Conferidos contra resultados/A01_clube_temporada.csv (2022-2025) e contra A02_resumo.json: os quatro batem. Nao foram recalculados nem regravados."
+ },
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "trave_firmes",
+   "esta": 0,
+   "deveria": 1,
+   "arquivo": "resultados/A02.json, campo numeros",
+   "evidencia": "A02_testes.csv tem indicador com selo 'firme' na comparacao ST (Sobe x Trave) nos DOIS cortes: com/sobra/ST/finalizacao q 0,00144 e sem/sobra/ST/finalizacao q 0,03821. O proprio texto de A02-3 no mesmo A02.json diz que gols menos xG e 'o UNICO indicador que separa quem sobe da Trave' — ou seja, um, nao zero.",
+   "ressalva": "Pode ser leitura, nao erro: se trave_firmes quiser dizer 'firmes na Trave que NAO sao o placar redescrito', entao 0 esta certo, porque finalizacao tem placar_redescrito=True. Nenhum texto do A02 usa este marcador, e a proposta nao o pede. Fica registrado, nao corrigido.",
+   "nao_corrigido": true
+  }
+ ],
+ "achados_de_base_que_nao_mudam_numero": [
+  {
+   "o_que": "A coluna finalizacao (e defesa_vs_xg) de dados/serieb_clube_temporada.csv divide por 38 mesmo nos 4 clube-temporadas em que serieb_jogos.csv so tem 37 jogos.",
+   "onde": "2022 Londrina, 2024 Chapecoense, 2024 Operario-PR (3 divergem; o 4o coincide).",
+   "tamanho": "diferenca maxima 0,057 gol por jogo, nas 3 linhas; 77 das 80 batem exatamente.",
+   "efeito_aqui": "Nenhum: os numeros gravados acima saem da coluna da temporada, que e a fonte declarada em A02_indicadores.json. So esta registrado para quem refizer."
+  }
+ ],
+ "como_refazer": [
+  "As medianas do corte cheio: A02_testes.csv, colunas cru_sobe/cru_alvo das linhas fronteira=com e comparacao=SM. Ou recalcular: A01_clube_temporada.csv (faixa) x serieb_clube_temporada.csv (2022-2025), mediana por faixa, sem filtrar fronteira.",
+  "Os split-half: dados/serieb_jogos.csv, filtro Competicao='Brazil. Serie B' e ano 2022-2025; por (ano, Equipa) ordenar por Data; indices pares contra impares; posto dentro do ano; Spearman; 2rho/(1+rho). Para validar o codigo, reproduza antes os 12 valores da §3.",
+  "rho_min_80: tanh((1,959964 + 0,841621)/raiz(80-3))."
+ ]
+}

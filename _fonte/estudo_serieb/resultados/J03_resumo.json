@@ -1,0 +1,84 @@
+{
+ "n_titulares": 907,
+ "n_testes": 84,
+ "firmes": 2,
+ "firmes_detalhe": [
+  {
+   "setor": "Goleiro",
+   "familia": "defensivo",
+   "indicador": "Duelos aéreos ganhos, %",
+   "n_sobe": 16,
+   "n_meio": 48,
+   "pct_sobe": 71.4,
+   "pct_meio": 34.7,
+   "cru_sobe": 97.915,
+   "cru_meio": 87.87,
+   "d": 1.062,
+   "p": 0.0003,
+   "d_minimo_80": 0.82,
+   "q": 0.00121,
+   "selo": "firme"
+  },
+  {
+   "setor": "Meia",
+   "familia": "defensivo",
+   "indicador": "Faltas/90",
+   "n_sobe": 31,
+   "n_meio": 95,
+   "pct_sobe": 73.6,
+   "pct_meio": 48.9,
+   "cru_sobe": 0.99,
+   "cru_meio": 1.25,
+   "d": 0.663,
+   "p": 0.00181,
+   "d_minimo_80": 0.58,
+   "q": 0.00726,
+   "selo": "firme"
+  }
+ ],
+ "por_setor": {
+  "Goleiro": {
+   "firmes": 1,
+   "testes": 12,
+   "n_sobe": 16,
+   "n_meio": 48
+  },
+  "Zaga": {
+   "firmes": 0,
+   "testes": 12,
+   "n_sobe": 32,
+   "n_meio": 96
+  },
+  "Lateral": {
+   "firmes": 0,
+   "testes": 12,
+   "n_sobe": 32,
+   "n_meio": 96
+  },
+  "Volante": {
+   "firmes": 0,
+   "testes": 12,
+   "n_sobe": 22,
+   "n_meio": 59
+  },
+  "Meia": {
+   "firmes": 1,
+   "testes": 12,
+   "n_sobe": 31,
+   "n_meio": 95
+  },
+  "Extremo": {
+   "firmes": 0,
+   "testes": 12,
+   "n_sobe": 19,
+   "n_meio": 61
+  },
+  "Atacante": {
+   "firmes": 0,
+   "testes": 12,
+   "n_sobe": 27,
+   "n_meio": 89
+  }
+ },
+ "minimo_minutos": 900
+}

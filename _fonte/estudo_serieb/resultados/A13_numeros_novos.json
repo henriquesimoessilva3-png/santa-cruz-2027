@@ -1,0 +1,244 @@
+{
+ "parte": "A13",
+ "gerado_em": "2026-09-19",
+ "para_que_serve": "Valores dos marcadores que o texto novo de _proposta_destino.json pede para A13 e que ainda nao existem no campo numeros de A13.json. Nada aqui altera A13.json, A13_resumo.json, A13_turnos.csv nem scripts/A13.py. So calculo: destino, texto e nivel de confianca das conclusoes ficam como estao.",
+ "recorte": "2022-2025, as quatro temporadas fechadas. Unidade: clube-temporada (n = 80). TURNO = 19 (a rodada e o 19o jogo de cada time, nao a rodada do calendario).",
+ "calculados": 23,
+ "nao_calculaveis": 1,
+ "numeros": {
+  "dif_1t_cai_meio": {
+   "conclusao": "A13-1 (manchete e premissa)",
+   "valor": 5.5,
+   "formatado": "5,5",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), coluna pts_1t. Mediana do meio (faixa=Meio, n=48) 25,0 menos a mediana de quem caiu (faixa=Cai, n=16) 19,5 = 5,5 pontos no 1o turno.",
+   "conferido": true,
+   "segundo_caminho": "Refeito direto de classificacao_rodada.csv (pontos na rodada 19) cruzado com a faixa final de A01_clube_temporada.csv: medianas 25,0 e 19,5, iguais linha a linha.",
+   "nota": "Bate com quadro_por_turno.Meio.pts_1t e .Cai.pts_1t de A13_resumo.json."
+  },
+  "cai_abaixo_mediana": {
+   "conclusao": "A13-1",
+   "valor": 15,
+   "formatado": "15",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), faixa=Cai (16 linhas), coluna pts_1t < 25,0 (a mediana do meio). 15 dos 16 ficam abaixo. Unica excecao: Ponte Preta 2024, com 26 pontos no 1o turno.",
+   "conferido": true,
+   "segundo_caminho": "Lista lida a mao das 16 linhas Cai (22, 20, 20, 18, 14, 20, 12, 18, 19, 26, 13, 11, 20, 20, 19, 21) e recontagem por classificacao_rodada.csv na rodada 19: 15."
+  },
+  "cai_1t_sf": {
+   "conclusao": "A13-1",
+   "valor": 19.0,
+   "formatado": "19,0",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025) cruzado com A01_clube_temporada.csv pela chave (temporada, clube), descartando as linhas com fronteira=1. Sobram 12 rebaixados; mediana de pts_1t = 19,0.",
+   "conferido": true,
+   "segundo_caminho": "Mesma mediana refeita dos pontos na rodada 19 de classificacao_rodada.csv: 19,0.",
+   "nota": "No corte sem fronteira a distancia para o meio cai de 5,5 para 5,0 pontos, mas nao troca de sinal."
+  },
+  "meio_1t_sf": {
+   "conclusao": "A13-1",
+   "valor": 24.0,
+   "formatado": "24,0",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025) cruzado com A01_clube_temporada.csv, descartando fronteira=1. Sobram 32 linhas de Meio; mediana de pts_1t = 24,0.",
+   "conferido": true,
+   "segundo_caminho": "Recalculado de classificacao_rodada.csv (rodada 19): 24,0."
+  },
+  "cai_melhoraram": {
+   "conclusao": "A13-1 (tambem na premissa nova)",
+   "valor": 6,
+   "formatado": "6",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), faixa=Cai, linhas com pts_2t > pts_1t: CSA 2022 (20->22), Londrina 2023 (14->17), ABC 2023 (12->16), Tombense 2023 (18->19), Ituano 2024 (13->24) e Guarani 2024 (11->22). Seis dos 16.",
+   "conferido": true,
+   "segundo_caminho": "Mesma contagem pela coluna dif (dif > 0) e, por fora, pelos pontos da rodada 19 e da ultima rodada em classificacao_rodada.csv: 6."
+  },
+  "meio_total": {
+   "conclusao": "A13-1 (n_novo)",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), contagem de faixa=Meio (posicoes 5 a 16 nas quatro temporadas): 48 linhas.",
+   "conferido": true,
+   "segundo_caminho": "A01_clube_temporada.csv, mesma contagem: 12 times x 4 temporadas = 48. Ja esta em A13_resumo.json (quadro_por_turno.Meio.n)."
+  },
+  "n_sem_fronteira": {
+   "conclusao": "A13-1 e A13-3 (n_novo)",
+   "valor": 52,
+   "formatado": "52",
+   "de_onde": "A01_clube_temporada.csv, temporadas 2022-2025, coluna fronteira: 28 linhas com fronteira=1 saem e sobram 52. Sao 17 na linha do G4 (fronteira_g4) e 11 na linha do Z4 (fronteira_z4).",
+   "conferido": true,
+   "segundo_caminho": "Recontagem pela definicao da casa (time do G4 a ate 3 pontos do 5o, ou fora do G4 a ate 3 do 4o; idem 16o/17o) sobre a mesma tabela: 28 marcados, 52 restantes. Composicao por faixa no corte: 8 Sobe, 32 Meio, 12 Cai."
+  },
+  "rodada_turno": {
+   "conclusao": "A13-1, A13-2 e A13-3",
+   "valor": 19,
+   "formatado": "19",
+   "de_onde": "Constante TURNO de scripts/A13.py (linha 38). E a metade do campeonato de 38 rodadas; hoje o 19 esta digitado a mao no texto das conclusoes.",
+   "conferido": true,
+   "segundo_caminho": "classificacao_rodada.csv vai ate a rodada 38 em cada temporada de 2022-2025, logo a metade e a 19a. Ressalva ja registrada em A13.json/em_aberto: a 'rodada' aqui e o 19o jogo do time, nao a rodada do calendario."
+  },
+  "n_perderam_g4": {
+   "conclusao": "A13-2 e A13-3",
+   "valor": 6,
+   "formatado": "6",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), linhas com faixa_19='Sobe' e faixa != 'Sobe': Vila Nova 2023 (3o -> 8o), Sport 2023 (4o -> 7o), Novorizontino 2023 (2o -> 5o), Novorizontino 2024 (2o -> 5o), Goias 2025 (1o -> 6o) e Novorizontino 2025 (3o -> 7o).",
+   "conferido": true,
+   "segundo_caminho": "Refeito de classificacao_rodada.csv (posicao na rodada 19 <= 4) contra a posicao final de A01_clube_temporada.csv: os mesmos 6 clubes-temporada.",
+   "nota": "Bate com a lista nominal da proposta, clube a clube."
+  },
+  "n_temporadas": {
+   "conclusao": "A13-2",
+   "valor": 4,
+   "formatado": "4",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), temporadas distintas: 2022, 2023, 2024 e 2025 (as quatro fechadas).",
+   "conferido": true,
+   "segundo_caminho": "Mesma contagem em A01_clube_temporada.csv (2026 fica fora por estar em andamento)."
+  },
+  "lista_perderam_g4": {
+   "conclusao": "A13-2 (prova)",
+   "valor": "Vila Nova 2023, Sport 2023, Novorizontino 2023, Novorizontino 2024, Goiás 2025 e Novorizontino 2025",
+   "formatado": "Vila Nova 2023, Sport 2023, Novorizontino 2023, Novorizontino 2024, Goiás 2025 e Novorizontino 2025",
+   "tipo": "string ja montada",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), faixa_19='Sobe' e faixa != 'Sobe', na ordem temporada e depois posicao na rodada 19.",
+   "conferido": true,
+   "segundo_caminho": "classificacao_rodada.csv (rodada 19) contra A01_clube_temporada.csv: mesma lista."
+  },
+  "lista_viraram": {
+   "conclusao": "A13-2 (prova)",
+   "valor": "Criciúma 2023 (5º na metade), Atlético-GO 2023 (11º), Juventude 2023 (8º), Ceará 2024 (7º), Athletico-PR 2025 (11º) e Remo 2025 (5º)",
+   "formatado": "Criciúma 2023 (5º na metade), Atlético-GO 2023 (11º), Juventude 2023 (8º), Ceará 2024 (7º), Athletico-PR 2025 (11º) e Remo 2025 (5º)",
+   "tipo": "string ja montada",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), faixa='Sobe' e faixa_19 != 'Sobe'; a posicao entre parenteses e pos_19.",
+   "conferido": true,
+   "segundo_caminho": "Recalculado de classificacao_rodada.csv (rodada 19): mesmos seis clubes e mesmas posicoes.",
+   "nota": "Cobre os dois exemplos que o texto antigo de A13-2 citava a mao: Athletico-PR 2025 (11o com 25 pontos) e Atletico-GO 2023 (11o com 27)."
+  },
+  "lista_salvos": {
+   "conclusao": "A13-2 (prova)",
+   "valor": "Vila Nova 2022 (20º na metade, 13º no fim), Guarani 2022 (19º/10º), Avaí 2023 (18º/13º), Chapecoense 2023 (17º/16º), Chapecoense 2024 (17º/15º) e Botafogo-SP 2025 (20º/16º)",
+   "formatado": "Vila Nova 2022 (20º na metade, 13º no fim), Guarani 2022 (19º/10º), Avaí 2023 (18º/13º), Chapecoense 2023 (17º/16º), Chapecoense 2024 (17º/15º) e Botafogo-SP 2025 (20º/16º)",
+   "tipo": "string ja montada",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), faixa_19='Cai' e faixa != 'Cai'; posicoes de pos_19 e pos_final.",
+   "conferido": true,
+   "segundo_caminho": "classificacao_rodada.csv (rodada 19) contra A01_clube_temporada.csv: mesma lista."
+  },
+  "lista_cairam_de_fora": {
+   "conclusao": "A13-2 (prova)",
+   "valor": "Brusque 2022 (12º na metade, 18º no fim), Operário-PR 2022 (15º/19º), Sampaio Corrêa 2023 (15º/17º), Tombense 2023 (16º/18º), Ponte Preta 2024 (10º/17º) e Volta Redonda 2025 (16º/19º)",
+   "formatado": "Brusque 2022 (12º na metade, 18º no fim), Operário-PR 2022 (15º/19º), Sampaio Corrêa 2023 (15º/17º), Tombense 2023 (16º/18º), Ponte Preta 2024 (10º/17º) e Volta Redonda 2025 (16º/19º)",
+   "tipo": "string ja montada",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), faixa='Cai' e faixa_19 != 'Cai'; posicoes de pos_19 e pos_final.",
+   "conferido": true,
+   "segundo_caminho": "classificacao_rodada.csv (rodada 19) contra A01_clube_temporada.csv: mesma lista."
+  },
+  "alto_2t": {
+   "conclusao": "A13-3",
+   "valor": 31.0,
+   "formatado": "31",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025). Terco de cima do 1o turno = pts_1t >= 29 (27 linhas); mediana de pts_2t = 31.",
+   "conferido": true,
+   "segundo_caminho": "Com a outra definicao possivel de terco (ordenar as 80 linhas por pts_1t e pegar as 27 ultimas) a mediana de pts_2t continua 31.",
+   "nota": "A proposta escreveu 'n = 27 cada'. No terco de cima confere (27); no de baixo nao: com o corte limpo pts_1t <= 22 sao 28 linhas, porque ha 5 times empatados em 22. A mediana nao muda."
+  },
+  "baixo_2t": {
+   "conclusao": "A13-3",
+   "valor": 22.0,
+   "formatado": "22",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025). Terco de baixo do 1o turno = pts_1t <= 22 (28 linhas, pelo empate em 22); mediana de pts_2t = 22,0.",
+   "conferido": true,
+   "segundo_caminho": "Pelo corte ordinal exato (as 27 primeiras das 80 linhas ordenadas por pts_1t) a mediana tambem da 22. So cortando em 26 linhas ela mudaria (21,0), e 26 nao e um terco."
+  },
+  "dif_tercos": {
+   "conclusao": "A13-3",
+   "valor": 9.0,
+   "formatado": "9",
+   "de_onde": "alto_2t (31) menos baixo_2t (22) = 9 pontos de diferenca no 2o turno, em 19 jogos.",
+   "conferido": true,
+   "segundo_caminho": "Recalculado com o corte ordinal 27/26/27: 31 - 22 = 9."
+  },
+  "baixo_2t_max": {
+   "conclusao": "A13-3",
+   "valor": 37,
+   "formatado": "37",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), maior pts_2t dentro do terco de baixo (pts_1t <= 22): Ituano 2022, que fez 20 pontos no 1o turno e 37 no 2o.",
+   "conferido": true,
+   "segundo_caminho": "A13_turnos.csv, linha 2022/Ituano: pts_1t=20, pts_2t=37, dif=+17 (a maior virada de campanha da janela).",
+   "nota": "ATENCAO AO TEXTO, nao ao numero: o texto novo chama este valor de 'o melhor returno das quatro temporadas', e nao e. O melhor returno da janela e 40 pontos, do Athletico-PR 2025, que fez 25 no 1o turno e por isso cai no terco DO MEIO (23 a 28), nao no de baixo. 37 e o melhor returno DO TERCO DE BAIXO. Com o numero 37 a frase fica falsa como esta escrita; quem valida o texto precisa decidir entre corrigir a frase ou trocar o recorte. Nao mexi no texto."
+  },
+  "alto_2t_max": {
+   "conclusao": "A13-3",
+   "valor": 36,
+   "formatado": "36",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), maior pts_2t dentro do terco de cima (pts_1t >= 29): Cruzeiro 2022, que fez 42 pontos no 1o turno e 36 no 2o.",
+   "conferido": true,
+   "segundo_caminho": "Varredura dos 27 do terco de cima: 36 (Cruzeiro 2022) e o maximo; em seguida vem 35 (Mirassol 2024, Goias 2024 e outros). Confere com a lista nominal da proposta."
+  },
+  "d_observado": {
+   "conclusao": "A13-1 (prova)",
+   "valor": -0.32,
+   "formatado": "-0,32",
+   "de_onde": "A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), coluna dif (pts_2t - pts_1t). Media de Cai = -1,6875 (n=16) e de Meio = +0,625 (n=48); desvio agrupado 7,3206. d = (-1,6875 - 0,625) / 7,3206 = -0,3159.",
+   "conferido": true,
+   "segundo_caminho": "Refeito com os pontos por turno recalculados de classificacao_rodada.csv: mesmo -0,3159.",
+   "nota": "E o tamanho de efeito da METADE que morre da conclusao (o tombo do returno), nao do deficit do 1o turno."
+  },
+  "d_min_cai_meio": {
+   "conclusao": "A13-1 (prova)",
+   "valor": 0.82,
+   "formatado": "0,82",
+   "de_onde": "Menor d detectavel com 80% de poder, alfa 0,05 bilateral, n1=16 (Cai) e n2=48 (Meio): busca binaria sobre o poder do t bilateral com t nao-central (scipy.stats.nct), df=62, ncp = d*raiz(n1*n2/(n1+n2)) -> d = 0,8215.",
+   "conferido": true,
+   "segundo_caminho": "Aproximacao normal (z(0,975)+z(0,80)) * raiz(1/16 + 1/48) = 0,8087; o valor exato por nao-central t e 0,8215, que arredonda para 0,82 e bate com a proposta.",
+   "nota": "O observado (-0,32) e menos da metade do minimo detectavel (0,82): o desenho nao enxerga esse efeito."
+  },
+  "rho_1t_2t_sem_fronteira": {
+   "conclusao": "A13-3 (prova)",
+   "valor": 0.399,
+   "formatado": "0,399",
+   "de_onde": "Spearman entre pts_1t e pts_2t de A13_turnos.csv (gerado por scripts/A13.py; 80 linhas, 2022-2025), so nas 52 linhas com fronteira=0 em A01_clube_temporada.csv. rho = 0,3990, p = 0,003385, n = 52.",
+   "conferido": true,
+   "segundo_caminho": "Refeito com os pontos por turno tirados de classificacao_rodada.csv (rodada 19 e ultima rodada) em vez de A13_turnos.csv: mesmo rho ate a 4a casa.",
+   "nota": "Com as 80 linhas o rho e 0,4845 (o 0,484 ja gravado em A13.json/numeros, conferido e certo)."
+  },
+  "rho_1t_2t_posto": {
+   "conclusao": "A13-3 (prova)",
+   "valor": 0.496,
+   "formatado": "0,496",
+   "de_onde": "Mesmo par (pts_1t x pts_2t), mas com os pontos convertidos em posto DENTRO de cada temporada antes da correlacao, como manda a regra de normalizacao da casa. rho = 0,4957, p = 2,94e-06, n = 80.",
+   "conferido": true,
+   "segundo_caminho": "E a linha de referencia que a propria §6.4 da especificacao publica para este par (+0,496); o recalculo independente bate em 0,4957."
+  }
+ },
+ "bloqueados": [
+  {
+   "marcador": "r19_perto_simetrico",
+   "conclusao": "A13-2 (prova)",
+   "por_que": "A proposta manda tirar r19_perto (80,0%) do texto dizendo que 'a regra simetrica daria 95,0%', mas nao escreve qual e a regra simetrica. O script so aplica a folga de 3 pontos a quem termina no G4 ou no Z4; para quem termina no Meio exige estar exatamente no Meio. Escrevendo a versao simetrica mais direta (time de Meio que esta no G4 conta se estiver a ate 3 pontos de cair para 5o; no Z4, se estiver a ate 3 pontos de sair dele) eu chego a 91,2% (73 de 80), nao a 95,0%. Sem a definicao escrita nao da para saber qual das duas contas a proposta quis, e chutar um numero de conclusao e o que a regra da casa proibe.",
+   "o_que_resolveria": "Uma linha dizendo o que conta como 'a ate 3 pontos da faixa' para quem termina no Meio. Com a definicao escrita, o numero sai na hora dos mesmos dois arquivos (classificacao_rodada.csv e A01_clube_temporada.csv).",
+   "valor_que_eu_obtive": "91,2% (73 de 80) pela definicao simetrica que escrevi acima; 80,0% pela regra do script."
+  }
+ ],
+ "correcoes_de_numero_existente": [],
+ "conferidos_e_certos": {
+  "nota": "Os 26 valores do campo numeros de A13.json foram recalculados contra a base antes de eu concluir que nenhum precisa de correcao. Nenhum esta errado.",
+  "recalculados": {
+   "n": "80 (clube-temporadas de 2022 a 2025)",
+   "cai_1t / cai_2t / cai_dif": "19,5 / 17,0 / -1,5",
+   "meio_1t / meio_2t": "25,0 / 26,0",
+   "sobe_1t / sobe_2t": "32,5 / 34,0",
+   "trave_1t / trave_2t / trave_dif": "29,5 / 30,5 / -0,5",
+   "r10_faixa / r19_faixa / r29_faixa / r34_faixa": "52,5% / 70,0% / 75,0% / 85,0%",
+   "r19_perto": "80,0% pela definicao do script (ver bloqueado acima)",
+   "sobe_g4_19 / sobe_total / cai_z4_19 / cai_total": "10 / 16 / 10 / 16",
+   "n_viraram / n_salvos / n_cairam_de_fora": "6 / 6 / 6",
+   "rho_1t_2t": "0,4845 -> 0,484",
+   "rho_1t_final": "0,8161 -> 0,816",
+   "rho_xg": "0,4859 -> 0,486 (xG do 1o turno contra a posicao final)"
+  },
+  "atencao_de_definicao": [
+   "cai_dif (-1,5) e trave_dif (-0,5) sao a MEDIANA DAS DIFERENCAS de cada clube, nao a diferenca das medianas. Por isso trave_1t 29,5 -> trave_2t 30,5 sobe +1,0 e trave_dif e -0,5: as duas coisas estao certas contra a base, mas a frase antiga de A13-1 as junta como se fossem a mesma conta. O texto novo nao usa nenhum dos dois, entao o problema morre com a reescrita. Nao e erro de valor, e por isso nao entrou em correcoes_de_numero_existente.",
+   "rho_xg (0,486) esta certo para o par que o script calculou (saldo de xG do 1o turno x POSICAO FINAL). O par limpo equivalente, xG do 1o turno x pontos do 2o turno, da 0,4217 (p = 0,0001, n = 80) — calculado aqui so para registro, ja que a proposta tira a frase do xG do texto."
+  ]
+ },
+ "fora_do_meu_escopo": [
+  "Mover o calculo de rho_1t_2t para dentro de scripts/A13.py e grava-lo em previsores_do_1o_turno: e mudanca de script, que esta proibida nesta tarefa. O valor ja existe e esta certo (0,484).",
+  "Tirar de A13.json/numeros as chaves que nenhum texto novo usa (cai_2t, cai_dif, sobe_1t, sobe_2t, meio_2t, trave_1t, trave_2t, trave_dif, r10_faixa, r29_faixa, r34_faixa, r19_perto, rho_xg): e edicao de A13.json.",
+  "Escrever resultados/A13.md, que nao existe. Nao e numero.",
+  "Decidir destino, reescrever texto ou mudar nivel de confianca das tres conclusoes."
+ ]
+}

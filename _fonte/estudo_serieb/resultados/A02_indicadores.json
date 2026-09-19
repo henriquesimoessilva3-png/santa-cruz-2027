@@ -1,0 +1,162 @@
+{
+ "parte": "A02",
+ "pergunta": "A distância entre Sobe e Meio, e entre Sobe e Trave, está mais no que o time cria ou no que cede?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "nota": "Esta lista fecha ANTES de rodar, como manda o CLAUDE.md do estudo ('Indicador novo entra na lista pré-declarada antes de rodar, nunca depois de ver o resultado'). Nenhum indicador entra ou sai depois do resultado; se algum tiver de mudar, a mudança fica registrada aqui com a data e o motivo.",
+ "recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "motivo": "2026 está em curso e, pelo CLAUDE.md, serve só como teste. 2018–2021 ficou para a segunda parte (decisão do dono, 17/09).",
+  "unidade": "clube-temporada",
+  "n_esperado": {
+   "Sobe": 16,
+   "Meio": 48,
+   "Trave": 16,
+   "Cai": 16,
+   "total": 80
+  }
+ },
+ "comparacoes": [
+  {
+   "id": "SM",
+   "nome": "Sobe × Meio",
+   "papel": "padrão"
+  },
+  {
+   "id": "ST",
+   "nome": "Sobe × Trave (5º–8º)",
+   "papel": "secundária"
+  }
+ ],
+ "repetir_sem_fronteira": true,
+ "nota_fronteira": "Toda comparação roda também sem os times de fronteira (A01: 28 de 80). Conclusão que só aparece com eles é ruído, e é descartada.",
+ "familias": [
+  {
+   "id": "cria",
+   "nome": "O que o time cria",
+   "indicadores": [
+    {
+     "id": "gols_pro_90",
+     "nome": "Gols por jogo",
+     "sinal": 1,
+     "fonte": "A01_clube_temporada.csv: GP/J"
+    },
+    {
+     "id": "xg",
+     "nome": "xG por jogo",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: xg"
+    },
+    {
+     "id": "remates",
+     "nome": "Finalizações por jogo",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: remates"
+    },
+    {
+     "id": "xg_por_remate",
+     "nome": "xG por finalização",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: xg_por_remate"
+    },
+    {
+     "id": "dist_remate",
+     "nome": "Distância da finalização (m)",
+     "sinal": -1,
+     "fonte": "serieb_clube_temporada.csv: dist_remate"
+    },
+    {
+     "id": "toques_area",
+     "nome": "Toques na área por jogo",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: toques_area"
+    },
+    {
+     "id": "entradas_area",
+     "nome": "Entradas na área por jogo",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: entradas_area"
+    }
+   ]
+  },
+  {
+   "id": "cede",
+   "nome": "O que o time cede",
+   "indicadores": [
+    {
+     "id": "gols_contra_90",
+     "nome": "Gols sofridos por jogo",
+     "sinal": -1,
+     "fonte": "A01_clube_temporada.csv: GC/J"
+    },
+    {
+     "id": "xg_contra",
+     "nome": "xG sofrido por jogo",
+     "sinal": -1,
+     "fonte": "serieb_clube_temporada.csv: xg_contra"
+    },
+    {
+     "id": "remates_contra",
+     "nome": "Finalizações sofridas por jogo",
+     "sinal": -1,
+     "fonte": "serieb_clube_temporada.csv: remates_contra"
+    },
+    {
+     "id": "xg_por_remate_contra",
+     "nome": "xG por finalização sofrida",
+     "sinal": -1,
+     "fonte": "serieb_clube_temporada.csv: xg_por_remate_contra"
+    }
+   ]
+  },
+  {
+   "id": "sobra",
+   "nome": "A sobra: converter e defender acima do esperado",
+   "indicadores": [
+    {
+     "id": "finalizacao",
+     "nome": "Gols menos xG (pontaria)",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: finalizacao"
+    },
+    {
+     "id": "defesa_vs_xg",
+     "nome": "xG sofrido menos gols sofridos (goleiro e defesa)",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv: defesa_vs_xg"
+    }
+   ]
+  }
+ ],
+ "criterio": {
+  "referencia": "§6 da _fonte/prototipo/ESPECIFICACAO.md",
+  "bh": "Benjamini-Hochberg a 5%, aplicado DENTRO de cada família (3 famílias, 13 indicadores).",
+  "poder": "Calculado para cada indicador que não separar, para que 'não separa' não vire 'não existe'.",
+  "porta_temporal": "Para a pergunta de apoio ('a sobra de gols sobre o xG passa na porta temporal?'): o 1º turno prevê o 2º do mesmo clube-temporada.",
+  "garimpo": "Não se aplica escolha do melhor entre muitos aqui — a lista é fechada e pequena. Se em algum momento o A02 escolher o melhor de um conjunto, o nulo do garimpo entra."
+ },
+ "ressalvas_declaradas": [
+  "Gols pró e gols contra são consequência direta do resultado; entram como descrição do tamanho da diferença, e a conclusão não se apoia neles sozinhos.",
+  "A base não permite recorte por estado do jogo (vencendo/perdendo). Pelo CLAUDE.md, toda conclusão daqui vai marcada como 'pode ser efeito do placar' onde isso for plausível.",
+  "n de Sobe é 16 em 4 temporadas. É pouco: o poder é reportado sempre."
+ ],
+ "emendas": [
+  {
+   "data": "2026-09-17",
+   "motivo": "Apuração antes de calcular (subagente 'consequencia') encontrou que 3 indicadores desta lista estão marcados em dados/prototipo.json → etapa_10 como tipo=resultado, com o campo retirada_por_ser_resultado preenchido: golos_sem_penalti ('pedaço de GP'), xg_saldo ('zona cinzenta') e finalizacao ('gols menos xG: contém GP'). Isto é filtro diferente da lista CONSEQUENCIA de ranking_gaps.py — nenhum dos 13 está naquela lista.",
+   "decisao": "finalizacao e gols_pro_90/gols_contra_90 FICAM, com uso restrito e declarado: servem para MEDIR o tamanho da diferença e para a porta temporal, nunca para sustentar que são característica de quem sobe. Qualquer conclusão apoiada neles só pode ser NEGATIVA (do tipo 'isto não é característica'). xg_saldo não está nesta lista e segue fora.",
+   "por_que_e_licito": "O uso circular que a regra proíbe é 'quem sobe tem mais X, logo X explica subir'. Aqui o uso é o oposto: a diferença aparece em finalizacao, e a porta temporal mostra que finalizacao não se repete — portanto NÃO é característica. Rejeitar com o indicador é o contrário de explicar com ele.",
+   "registrado_antes_do_resultado_da_comparacao": true
+  },
+  {
+   "data": "2026-09-17",
+   "motivo": "Confirmado pela apuração: não existe recorte por estado do jogo em base nenhuma (346 colunas de serieb_clube_temporada.csv, 119 de serieb_jogos.csv). maxSemVencer, semVencer, ptsAposV e ptsAposD são sequência ENTRE jogos, não placar DENTRO do jogo.",
+   "decisao": "xG criado e xG sofrido mudam com o placar (time que ganha recua). As conclusões do A02 que usam esses dois saem marcadas com 'pode ser efeito do placar', conforme a seção Placar do CLAUDE.md."
+  }
+ ]
+}

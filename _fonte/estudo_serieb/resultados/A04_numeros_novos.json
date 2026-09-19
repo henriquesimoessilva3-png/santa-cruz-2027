@@ -1,0 +1,363 @@
+{
+ "parte": "A04",
+ "gerado_em": "2026-09-19",
+ "gerado_por": "recalculo a partir de dados/bola_parada.json + A01_clube_temporada.csv + dados/serieb_clube_temporada.csv, seguindo scripts/A04.py; nada foi reescrito",
+ "escopo": "So numeros. Nao decide destino de conclusao, nao reescreve texto, nao muda nivel de confianca.",
+ "como_refazer": "A base do A04 foi refeita do zero e bate linha a linha com a original: 80 clube-temporadas, 40 clubes, todas de 38 jogos. Receita: dados/bola_parada.json -> trabalhos com comp comecando em 'Serie B' e ano em 2022..2025; nome do time traduzido por resultados/A04_ponte_clubes.json (Sofascore -> Wyscout); soma por (ano, clube) de jogos, gp, gc, pro.esc, pro.fd, pro.fi, pro.lat, pen, pen_sof; cruza com resultados/A01_clube_temporada.csv (faixa, trave, fronteira) e com dados/serieb_clube_temporada.csv (cantos, duelos_aereos_pct, tm_altura, ...); descarta linha com jogos < 30 ou com indicador vazio. Mesma logica de scripts/A04.py.",
+ "calculados": 33,
+ "nao_calculaveis": 0,
+ "numeros": [
+  {
+   "marcador": "n_ind_carac",
+   "conclusao": "A04-1",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "A04_indicadores.json, campo familias: familia 'processo' (bolas_paradas, cantos, cantos_remates, livres_remates, bp_conv = 5) + familia 'regua_G' (duelos_aereos_pct, cruzamentos, tm_altura = 3). Exclui a familia 'gol_bp' (5), que A04_indicadores.json.lista_branca ja declara placar redescrito.",
+   "conferido": true,
+   "nota": "Conferido por segundo caminho em A04_testes.csv: contando os indicadores distintos com familia diferente de gol_bp, dao 8 por (comparacao, corte). Sao exatamente os 8 que o texto novo lista."
+  },
+  {
+   "marcador": "n_ind_carac_firmes",
+   "conclusao": "A04-1",
+   "valor": 0,
+   "formatado": "0",
+   "de_onde": "A04_testes.csv, filtro comparacao=SM e familia in (processo, regua_G): 8 indicadores x 2 cortes = 16 linhas, nenhuma com selo='firme'. O mais perto e tm_altura no corte com (selo 'pode ser sorte', q 0,14342).",
+   "conferido": true,
+   "nota": "Segundo caminho: A04_resumo.json.firme_nos_dois_cortes.SM = [] (lista vazia). Substitui o antigo sm_firmes_dois, que contava os 13 e nao so os 8 de trabalho — o valor 0 e o mesmo, mas agora quer dizer a coisa certa."
+  },
+  {
+   "marcador": "n_sobe_com",
+   "conclusao": "A04-1, A04-2, A04-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "Contagem na base do A04 (ver como_refazer): faixa='Sobe', corte com fronteira = todas as 80 linhas. 4 promovidos x 4 temporadas.",
+   "conferido": true,
+   "nota": "Segundo caminho: A04_testes.csv, coluna n_a das linhas fronteira=com e comparacao=SM -> 16."
+  },
+  {
+   "marcador": "n_meio_com",
+   "conclusao": "A04-1, A04-2, A04-3",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "Contagem na base do A04: faixa='Meio', corte com fronteira. 12 clubes (5o ao 16o) x 4 temporadas.",
+   "conferido": true,
+   "nota": "Segundo caminho: A04_testes.csv, coluna n_b das linhas fronteira=com e comparacao=SM ou CM -> 48."
+  },
+  {
+   "marcador": "n_sobe_sf",
+   "conclusao": "A04-1",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "Contagem na base do A04: faixa='Sobe' e fronteira=0 (tira os colados na linha do acesso), coluna fronteira de A01_clube_temporada.csv.",
+   "conferido": true,
+   "nota": "Ja existia em A04_resumo.json.n.sobe_sf = 8, e confere com a coluna n_a das linhas fronteira=sem, comparacao=SM de A04_testes.csv. Faltava em A04.json.numeros."
+  },
+  {
+   "marcador": "n_meio_sf",
+   "conclusao": "A04-1, A04-3",
+   "valor": 32,
+   "formatado": "32",
+   "de_onde": "Contagem na base do A04: faixa='Meio' e fronteira=0.",
+   "conferido": true,
+   "nota": "Ja existia em A04_resumo.json.n.meio_sf = 32, e confere com a coluna n_b das linhas fronteira=sem (SM e CM) de A04_testes.csv. Faltava em A04.json.numeros."
+  },
+  {
+   "marcador": "saldo_sobe_38",
+   "conclusao": "A04-1",
+   "valor": 5.5,
+   "formatado": "5,5",
+   "de_onde": "Mediana do saldo de gol de bola parada dos 16 que sobem, em gols por temporada de 38 jogos. Caminho 1: mediana de bp_saldo_90 dos Sobe = 0,14473684 (A04_resumo.json.quadro_por_faixa.Sobe.bp_saldo_90 = 0,145) x 38 = 5,5.",
+   "conferido": true,
+   "nota": "Conferido por segundo caminho, sem passar pelo por-jogo: mediana do saldo ABSOLUTO (bp_pro - bp_sof) das 16 linhas Sobe = 5,5 exatos (saldos ordenados: -7, -1, 0, 3, 3, 5, 5, 5, 6, 7, 7, 8, 8, 8, 10, 14; media 5,06). Os dois caminhos dao 5,5. O Meio da 0,0 nos dois, o que sustenta o 'o meio termina empatado' da frase."
+  },
+  {
+   "marcador": "dmin_sm_com",
+   "conclusao": "A04-1",
+   "valor": 0.82,
+   "formatado": "0,82",
+   "de_onde": "A04_testes.csv, coluna d_minimo_80, qualquer linha com fronteira=com e comparacao=SM (16 contra 48). So para o confianca_motivo e a prova — a Didatica proibe d no 'o que vimos'.",
+   "conferido": true,
+   "nota": "Constante nas 13 linhas com/SM; o mesmo 0,82 aparece em com/CM, que tambem e 16 contra 48."
+  },
+  {
+   "marcador": "dmin_sm_sem",
+   "conclusao": "A04-1",
+   "valor": 1.14,
+   "formatado": "1,14",
+   "de_onde": "A04_testes.csv, coluna d_minimo_80, linhas fronteira=sem e comparacao=SM (8 contra 32). So para o confianca_motivo e a prova.",
+   "conferido": true,
+   "nota": "Constante nas 13 linhas sem/SM."
+  },
+  {
+   "marcador": "n_cai_com",
+   "conclusao": "A04-2, A04-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "Contagem na base do A04: faixa='Cai', corte com fronteira. 4 rebaixados x 4 temporadas.",
+   "conferido": true,
+   "nota": "Segundo caminho: A04_testes.csv, coluna n_a das linhas fronteira=com, comparacao=CM -> 16."
+  },
+  {
+   "marcador": "n_trave",
+   "conclusao": "A04-2",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "Contagem na base do A04: trave=1 (5o ao 8o), corte com fronteira. 4 clubes x 4 temporadas.",
+   "conferido": true,
+   "nota": "Conferido o ponto que a frase faz questao de dizer: os 16 da trave estao TODOS dentro dos 48 do Meio (faixa='Meio' e trave=1 da 16). Por isso 16 + 48 + 16 = 80 e nao 96."
+  },
+  {
+   "marcador": "liga_bp_38",
+   "conclusao": "A04-2",
+   "valor": 14,
+   "formatado": "14",
+   "de_onde": "Gols de bola parada feitos por um clube numa temporada de 38 jogos, no clube tipico da liga. Caminho 1: mediana de bp_pro_90 nas 80 linhas = 0,36842105 (A04.json.numeros.liga_bp90 = 0,368) x 38 = 13,98.",
+   "conferido": true,
+   "nota": "Conferido por segundo caminho, sem passar pelo por-jogo: mediana do bp_pro ABSOLUTO das 80 linhas = 14,0 exatos. Terceiro olhar, para dimensionar: a media e 13,6 (1.091 gols de bola parada / 80 clube-temporadas), entao 'cerca de 14' esta do lado certo do arredondamento."
+  },
+  {
+   "marcador": "pct_min",
+   "conclusao": "A04-2",
+   "valor": 16.3,
+   "formatado": "16,3",
+   "de_onde": "Menor bp_pro_pct entre os 80 clube-temporadas = 16,3265 (Vila Nova 2023: 8 gols de bola parada em 49 gols feitos). bp_pro_pct = 100 x (esc+fd+fi+lat+pen pro) / gp.",
+   "conferido": true,
+   "nota": "Conferido recalculando bp_pro_pct do zero na base refeita e reordenando as 80 linhas."
+  },
+  {
+   "marcador": "pct_q1",
+   "conclusao": "A04-2",
+   "valor": 27.2,
+   "formatado": "27,2",
+   "de_onde": "1o quartil de bp_pro_pct nos 80 clube-temporadas = 27,2254 (np.percentile(v, 25), interpolacao linear, a mesma familia de np.median que o A04 usa no quadro_por_faixa). Fica entre a 20a linha ordenada (27,0833) e a 21a (27,2727).",
+   "conferido": true,
+   "nota": "ATENCAO: a proposta escreveu 27,1. Esse valor sai do metodo 'lower' (pegar a 20a linha, 27,0833). Com a interpolacao linear, que e o padrao do numpy e o que o resto do estudo usa, da 27,2254 -> 27,2. Gravei 27,2; se o dono preferir o quartil sem interpolacao, e 27,1. O q3 nao muda com a escolha (39,4737 no 'lower', 39,489 no linear: 39,5 nos dois)."
+  },
+  {
+   "marcador": "pct_q3",
+   "conclusao": "A04-2",
+   "valor": 39.5,
+   "formatado": "39,5",
+   "de_onde": "3o quartil de bp_pro_pct nos 80 clube-temporadas = 39,489 (np.percentile(v, 75), interpolacao linear).",
+   "conferido": true,
+   "nota": "Robusto a escolha de metodo: 'lower' da 39,4737 e 'higher' da 39,5349 — 39,5 nos dois."
+  },
+  {
+   "marcador": "pct_max",
+   "conclusao": "A04-2",
+   "valor": 60.7,
+   "formatado": "60,7",
+   "de_onde": "Maior bp_pro_pct entre os 80 clube-temporadas = 60,7143 (Vila Nova 2022: 17 gols de bola parada em 28 gols feitos — o mesmo clube que tem o minimo, no ano anterior).",
+   "conferido": true,
+   "nota": "Conferido recalculando bp_pro_pct do zero na base refeita."
+  },
+  {
+   "marcador": "tot_esc",
+   "conclusao": "A04-2",
+   "valor": 438,
+   "formatado": "438",
+   "de_onde": "Total de gols de escanteio feitos no recorte (Serie B 2022-2025, os 80 clube-temporadas): soma de pro.esc em dados/bola_parada.json.trabalhos.",
+   "conferido": true,
+   "nota": "Conferido por DOIS caminhos independentes: (1) soma direta sobre os 237 trabalhos selecionados, sem montar clube-temporada = 438; (2) dados/bola_parada.json.competicoes, campo 'esc' das quatro linhas Serie B 2022-2025 (107+107+117+107) = 438. Os tres caminhos batem."
+  },
+  {
+   "marcador": "tot_falta",
+   "conclusao": "A04-2",
+   "valor": 294,
+   "formatado": "294",
+   "de_onde": "Total de gols de falta feitos no recorte: soma de pro.fd (falta direta, 77) + pro.fi (falta indireta / outra bola parada, 217) em dados/bola_parada.json.",
+   "conferido": true,
+   "nota": "Conferido pelos mesmos tres caminhos. Em competicoes: fd 11+19+21+26 = 77 e fi 58+54+52+53 = 217."
+  },
+  {
+   "marcador": "tot_pen",
+   "conclusao": "A04-2",
+   "valor": 312,
+   "formatado": "312",
+   "de_onde": "Total de gols de penalti feitos no recorte: soma do campo 'pen' em dados/bola_parada.json.trabalhos.",
+   "conferido": true,
+   "nota": "Conferido pelos mesmos tres caminhos. Em competicoes: 81+71+71+89 = 312."
+  },
+  {
+   "marcador": "tot_lat",
+   "conclusao": "A04-2",
+   "valor": 47,
+   "formatado": "47",
+   "de_onde": "Total de gols vindos de lateral no recorte: soma de pro.lat em dados/bola_parada.json.",
+   "conferido": true,
+   "nota": "Conferido pelos mesmos tres caminhos. Em competicoes: 7+6+9+25 = 47. E o tipo que o texto novo nao cita, mas e o que fecha a soma: 438 + 294 + 47 + 312 = 1.091."
+  },
+  {
+   "marcador": "tot_bp",
+   "conclusao": "A04-2",
+   "valor": 1091,
+   "formatado": "1.091",
+   "de_onde": "Total de gols de bola parada feitos no recorte: escanteio + falta direta + falta indireta + lateral + penalti = 438 + 294 + 47 + 312.",
+   "conferido": true,
+   "nota": "Conferido pelos mesmos tres caminhos, e contra o total de gols feitos: 3.237 gols nos 80 clube-temporadas (3.040 jogos-time = 1.520 partidas x 2), ou seja 33,7% agregados — coerente com a mediana de 34,0% por clube e com o 'um em cada tres' da manchete. Formatei com ponto de milhar pt-BR ('1.091'); se o gerador nao quiser separador, o numero cru e 1091."
+  },
+  {
+   "marcador": "c_aer_com",
+   "conclusao": "A04-3",
+   "valor": 44.343,
+   "formatado": "44,3",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador duelos_aereos_pct, coluna cru_a. Valor cru 44,34276.",
+   "conferido": true,
+   "nota": "Recalculado do zero na base refeita: mediana 44,34276 (round 3 = 44,343), media 44,573. formatado com 1 casa para casar com c_aer_dif (46,1 - 44,3 = 1,8); o valor cru de 3 casas fica gravado em 'valor' para o gerador decidir."
+  },
+  {
+   "marcador": "c_aer_m_com",
+   "conclusao": "A04-3",
+   "valor": 46.147,
+   "formatado": "46,1",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador duelos_aereos_pct, coluna cru_b. Valor cru 46,14711.",
+   "conferido": true,
+   "nota": "Recalculado do zero: mediana 46,14711 (round 3 = 46,147), media 46,167."
+  },
+  {
+   "marcador": "c_aer_dif",
+   "conclusao": "A04-3",
+   "valor": 1.8,
+   "formatado": "1,8",
+   "de_onde": "Diferenca entre as duas medianas do corte com fronteira: 46,14711 - 44,34276 = 1,80434 ponto percentual de duelo aereo ganho.",
+   "conferido": true,
+   "nota": "Conferido por segundo caminho: a diferenca das MEDIAS da 1,59 ponto (46,167 - 44,573) — mesmo sinal e mesma ordem de grandeza, entao o 'cerca de 1,8 ponto' nao depende de a mediana ter pegado um outlier. No corte sem fronteira (12 contra 32) a diferenca e 2,97, e por isso o texto antigo dizia 3,0."
+  },
+  {
+   "marcador": "c_pro_com",
+   "conclusao": "A04-3",
+   "valor": 0.276,
+   "formatado": "0,28",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador bp_pro_90, coluna cru_a. Gols de bola parada FEITOS por jogo. Valor cru 0,2763158 (= 10,5 gols numa temporada de 38).",
+   "conferido": true,
+   "nota": "Recalculado do zero. Coincidencia util de checar: 0,276 e o mesmo valor nos dois cortes (com e sem), porque a mediana dos 16 e a dos 12 caem no mesmo ponto — e por isso este e o unico c_* que nao muda ao trocar o corte."
+  },
+  {
+   "marcador": "c_pro_m_com",
+   "conclusao": "A04-3",
+   "valor": 0.342,
+   "formatado": "0,34",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador bp_pro_90, coluna cru_b. Valor cru 0,3421053 (= 13,0 numa temporada de 38).",
+   "conferido": true,
+   "nota": "Recalculado do zero. O valor publicado hoje em A04.json.numeros.c_pro_m e 0,316, que e o corte SEM fronteira (32 do meio) — ver correcoes_de_numero_existente."
+  },
+  {
+   "marcador": "c_sof_com",
+   "conclusao": "A04-3",
+   "valor": 0.447,
+   "formatado": "0,45",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador bp_sof_90, coluna cru_a. Gols de bola parada SOFRIDOS por jogo. Valor cru 0,4473684 (= 17,0 numa temporada de 38).",
+   "conferido": true,
+   "nota": "Recalculado do zero. Hoje A04.json publica 0,461, que e o corte sem fronteira."
+  },
+  {
+   "marcador": "c_sof_m_com",
+   "conclusao": "A04-3",
+   "valor": 0.355,
+   "formatado": "0,36",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador bp_sof_90, coluna cru_b. Valor cru 0,3552632 (= 13,5 numa temporada de 38).",
+   "conferido": true,
+   "nota": "Recalculado do zero. Hoje A04.json publica 0,368, que e o corte sem fronteira."
+  },
+  {
+   "marcador": "c_sal_com",
+   "conclusao": "A04-3",
+   "valor": -0.132,
+   "formatado": "-0,13",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador bp_saldo_90, coluna cru_a. Saldo de bola parada por jogo. Valor cru -0,1315789 (= -5,0 numa temporada de 38).",
+   "conferido": true,
+   "nota": "Recalculado do zero. Hoje A04.json publica -0,184, que e o corte sem fronteira. Nao aparece no texto novo do 'o que vimos', mas a proposta pediu o valor na lista."
+  },
+  {
+   "marcador": "c_sal_m_com",
+   "conclusao": "A04-3",
+   "valor": 0.0,
+   "formatado": "0",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador bp_saldo_90, coluna cru_b. Valor exatamente 0,0 — a mediana do saldo de bola parada dos 48 do meio e zero.",
+   "conferido": true,
+   "nota": "Recalculado do zero: 0,0 exato, nos dois cortes. Conferido tambem no absoluto: a mediana do saldo em gols por temporada dos 48 do meio tambem e 0. formatado como '0' porque '0,000' na tela sugere precisao que o numero nao tem."
+  },
+  {
+   "marcador": "cai_cantos",
+   "conclusao": "A04-3",
+   "valor": 5.026,
+   "formatado": "5,0",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador cantos (escanteios cobrados por jogo, de dados/serieb_clube_temporada.csv), coluna cru_a. Valor cru 5,0263158.",
+   "conferido": true,
+   "nota": "Recalculado do zero: mediana 5,02632, media 4,985. O teste desse indicador da 'sem diferenca clara' (d -0,278, q 0,43404 no corte com), que e justamente o que a frase usa para dizer que o trabalho nao muda de faixa para faixa."
+  },
+  {
+   "marcador": "meio_cantos",
+   "conclusao": "A04-3",
+   "valor": 5.145,
+   "formatado": "5,1",
+   "de_onde": "A04_resumo.json.quadro_por_faixa (mediana na base do A04) e A04_testes.csv, linha fronteira=com, comparacao=CM (16 rebaixados contra 48 do meio), indicador cantos, coluna cru_b. Valor cru 5,1447368.",
+   "conferido": true,
+   "nota": "Recalculado do zero: mediana 5,14474, media 5,103."
+  },
+  {
+   "marcador": "n_cai_sf",
+   "conclusao": "A04-3",
+   "valor": 12,
+   "formatado": "12",
+   "de_onde": "Contagem na base do A04: faixa='Cai' e fronteira=0 (tira os colados na linha do rebaixamento).",
+   "conferido": true,
+   "nota": "Segundo caminho: A04_testes.csv, coluna n_a das linhas fronteira=sem, comparacao=CM -> 12."
+  }
+ ],
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "c_pro_m, c_sof, c_sof_m, c_sal, c_aer, c_aer_m (e os d/q que vem com eles)",
+   "esta": "c_pro_m 0,316 · c_sof 0,461 · c_sof_m 0,368 · c_sal -0,184 · c_aer 43,517 · c_aer_m 46,485",
+   "deveria": "para o n que a conclusao declara (16 contra 48): c_pro_m 0,342 · c_sof 0,447 · c_sof_m 0,355 · c_sal -0,132 · c_aer 44,343 · c_aer_m 46,147",
+   "evidencia": "Os valores gravados estao CERTOS, mas para outro corte: sao as linhas fronteira=sem, comparacao=CM de A04_testes.csv, que e 12 rebaixados contra 32 do meio. O campo 'n' da conclusao A04-3 esta digitado a mao e diz '16 rebaixados contra 48 do meio', que e o corte com fronteira. Refiz a base e confirmei os dois conjuntos. Nao mexi no arquivo: os marcadores novos c_*_com desta entrega trazem o corte de 16x48. (c_pro = 0,276 e a unica excecao: coincide nos dois cortes.)"
+  }
+ ],
+ "ja_tinham_valor": {
+  "nota": "Marcadores do texto novo que JA existem em A04.json.numeros e nao precisaram ser recalculados. Conferi os seis contra a base refeita e todos batem.",
+  "liga_pct": 34.022,
+  "liga_bp90": 0.368,
+  "sobe_pct": 35.191,
+  "meio_pct": 34.022,
+  "trave_pct": 33.165,
+  "cai_pct": 31.368,
+  "n_total": 80
+ },
+ "para_numeros": {
+  "n_ind_carac": 8,
+  "n_ind_carac_firmes": 0,
+  "n_sobe_com": 16,
+  "n_meio_com": 48,
+  "n_sobe_sf": 8,
+  "n_meio_sf": 32,
+  "saldo_sobe_38": 5.5,
+  "dmin_sm_com": 0.82,
+  "dmin_sm_sem": 1.14,
+  "n_cai_com": 16,
+  "n_trave": 16,
+  "liga_bp_38": 14,
+  "pct_min": 16.3,
+  "pct_q1": 27.2,
+  "pct_q3": 39.5,
+  "pct_max": 60.7,
+  "tot_esc": 438,
+  "tot_falta": 294,
+  "tot_pen": 312,
+  "tot_lat": 47,
+  "tot_bp": 1091,
+  "c_aer_com": 44.343,
+  "c_aer_m_com": 46.147,
+  "c_aer_dif": 1.8,
+  "c_pro_com": 0.276,
+  "c_pro_m_com": 0.342,
+  "c_sof_com": 0.447,
+  "c_sof_m_com": 0.355,
+  "c_sal_com": -0.132,
+  "c_sal_m_com": 0.0,
+  "cai_cantos": 5.026,
+  "meio_cantos": 5.145,
+  "n_cai_sf": 12
+ },
+ "nota": "Base refeita do zero e batendo com a original em tudo o que da para conferir: 80 clube-temporadas, 40 clubes, 3.040 jogos-time, todas as linhas com 38 jogos, e as 12 medianas por faixa do quadro_por_faixa reproduzidas ao milesimo. Os totais por tipo de gol (438/294/47/312/1.091) foram confirmados por tres caminhos independentes, um deles sem passar pela ponte de clube (o bloco 'competicoes' do bola_parada.json). Nenhum marcador ficou bloqueado: a proposta do A04 so pediu numero que a base tem. Tres avisos que nao sao calculo e por isso ficam aqui, sem eu mexer em nada: (1) pct_q1 da 27,2 e nao 27,1 como a proposta escreveu — a proposta usou o quartil sem interpolacao; (2) o campo 'formatado' de alguns valores encurta as casas decimais para a tela (44,3 em vez de 44,343), com o valor cheio em 'valor' — quem decide e o gerador, e o criterio que usei foi fazer as casas do texto baterem entre si (46,1 - 44,3 = 1,8); (3) a frase antiga do A04-2 'o escanteio sozinho vale mais que a falta e o penalti' nao se sustenta nos totais: escanteio 438 contra falta+penalti 606. O texto novo da proposta ja corrige isso sozinho, e os numeros liga_esc/liga_falta/liga_pen (5/4/4) que ele usava estao corretos como medianas — eram a leitura deles que estava errada. Por isso nao entraram em correcoes_de_numero_existente. Conferi tambem, um a um, os 30 numeros que ja existem em A04.json.numeros contra a base refeita: todos conferem como valores; o unico problema e o do corte trocado no A04-3, registrado em correcoes_de_numero_existente."
+}

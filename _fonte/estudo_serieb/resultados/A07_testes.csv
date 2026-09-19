@@ -1,0 +1,79 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,volume,SM,fis_distance_p90,16,48,9644.311,9597.973,0.178,"[-0.34, 0.8]",0.54068,0.82,0.54068,sem diferença clara,False,Distância por 90 min (m),False
+com,volume,SM,fis_running_distance_p90,16,48,1321.687,1260.332,0.332,"[-0.25, 0.96]",0.25636,0.82,0.54068,sem diferença clara,False,Distância em corrida por 90 (m),False
+com,volume,SM,fis_m_per_min,16,48,107.159,106.645,0.178,"[-0.41, 0.82]",0.54068,0.82,0.54068,sem diferença clara,False,Metros por minuto,False
+com,volume,ST,fis_distance_p90,16,16,9644.311,9655.355,-0.01,"[-0.82, 0.85]",0.97717,1.02,0.97717,sem diferença clara,False,Distância por 90 min (m),False
+com,volume,ST,fis_running_distance_p90,16,16,1321.687,1285.193,0.213,"[-0.56, 1.12]",0.55215,1.02,0.97717,sem diferença clara,False,Distância em corrida por 90 (m),False
+com,volume,ST,fis_m_per_min,16,16,107.159,107.282,-0.01,"[-0.78, 0.83]",0.97717,1.02,0.97717,sem diferença clara,False,Metros por minuto,False
+com,volume,CM,fis_distance_p90,16,48,9574.715,9597.973,-0.156,"[-0.76, 0.43]",0.61135,0.82,0.61135,sem diferença clara,False,Distância por 90 min (m),False
+com,volume,CM,fis_running_distance_p90,16,48,1248.624,1260.332,-0.31,"[-0.96, 0.31]",0.30084,0.82,0.61135,sem diferença clara,False,Distância em corrida por 90 (m),False
+com,volume,CM,fis_m_per_min,16,48,106.386,106.645,-0.156,"[-0.75, 0.43]",0.61135,0.82,0.61135,sem diferença clara,False,Metros por minuto,False
+com,intensidade,SM,fis_hi_distance_p90,16,48,669.117,652.318,0.173,"[-0.38, 0.76]",0.55292,0.82,0.64092,sem diferença clara,False,Distância em alta intensidade por 90 (m),False
+com,intensidade,SM,fis_sprint_distance_p90,16,48,162.76,168.146,-0.131,"[-0.63, 0.38]",0.64092,0.82,0.64092,sem diferença clara,False,Distância em sprint por 90 (m),False
+com,intensidade,SM,fis_sprint_count_p90,16,48,8.749,8.666,0.228,"[-0.31, 0.73]",0.4108,0.82,0.64092,sem diferença clara,False,Número de sprints por 90,False
+com,intensidade,SM,fis_high_accel_p90,16,48,6.325,6.489,-0.367,"[-0.96, 0.15]",0.1956,0.82,0.489,sem diferença clara,False,Acelerações fortes por 90,False
+com,intensidade,SM,fis_psv99_top5,16,48,30.963,30.803,0.51,"[0.04, 1.07]",0.08036,0.82,0.4018,sem diferença clara,False,PSV-99 dos 5 mais rápidos (km/h),False
+com,intensidade,ST,fis_hi_distance_p90,16,16,669.117,662.025,0.062,"[-0.71, 0.91]",0.86094,1.02,0.86094,sem diferença clara,False,Distância em alta intensidade por 90 (m),False
+com,intensidade,ST,fis_sprint_distance_p90,16,16,162.76,168.462,-0.156,"[-0.93, 0.56]",0.66275,1.02,0.82844,sem diferença clara,False,Distância em sprint por 90 (m),False
+com,intensidade,ST,fis_sprint_count_p90,16,16,8.749,8.603,0.297,"[-0.49, 1.27]",0.40725,1.02,0.82844,sem diferença clara,False,Número de sprints por 90,False
+com,intensidade,ST,fis_high_accel_p90,16,16,6.325,6.468,-0.224,"[-0.96, 0.55]",0.53098,1.02,0.82844,sem diferença clara,False,Acelerações fortes por 90,False
+com,intensidade,ST,fis_psv99_top5,16,16,30.963,30.836,0.355,"[-0.36, 1.16]",0.32288,1.02,0.82844,sem diferença clara,False,PSV-99 dos 5 mais rápidos (km/h),False
+com,intensidade,CM,fis_hi_distance_p90,16,48,632.62,652.318,-0.574,"[-1.22, 0.02]",0.05898,0.82,0.07372,sem diferença clara,False,Distância em alta intensidade por 90 (m),False
+com,intensidade,CM,fis_sprint_distance_p90,16,48,156.21,168.146,-0.85,"[-1.52, -0.28]",0.00565,0.82,0.02389,firme,True,Distância em sprint por 90 (m),False
+com,intensidade,CM,fis_sprint_count_p90,16,48,8.202,8.666,-0.746,"[-1.33, -0.2]",0.00955,0.82,0.02389,firme,False,Número de sprints por 90,False
+com,intensidade,CM,fis_high_accel_p90,16,48,6.389,6.489,-0.237,"[-0.81, 0.32]",0.40516,0.82,0.40516,sem diferença clara,False,Acelerações fortes por 90,False
+com,intensidade,CM,fis_psv99_top5,16,48,30.574,30.803,-0.648,"[-1.27, -0.15]",0.02463,0.82,0.04105,firme,False,PSV-99 dos 5 mais rápidos (km/h),False
+com,com_sem_bola,SM,fis_m_per_min_tip,16,48,137.118,136.247,0.087,"[-0.43, 0.7]",0.76046,0.82,0.76046,sem diferença clara,False,Metros por minuto COM posse,False
+com,com_sem_bola,SM,fis_m_per_min_otip,16,48,148.819,146.419,0.43,"[-0.17, 1.04]",0.12316,0.82,0.49265,sem diferença clara,False,Metros por minuto SEM posse,False
+com,com_sem_bola,SM,fis_sprint_distance_p30tip,16,48,95.895,99.057,-0.2,"[-0.76, 0.35]",0.4796,0.82,0.76046,sem diferença clara,False,Sprint por 30 min COM posse (m),False
+com,com_sem_bola,SM,fis_sprint_distance_p30otip,16,48,100.952,99.955,0.153,"[-0.45, 0.78]",0.59163,0.82,0.76046,sem diferença clara,False,Sprint por 30 min SEM posse (m),False
+com,com_sem_bola,ST,fis_m_per_min_tip,16,16,137.118,135.357,0.155,"[-0.63, 1.21]",0.66496,1.02,0.68544,sem diferença clara,False,Metros por minuto COM posse,False
+com,com_sem_bola,ST,fis_m_per_min_otip,16,16,148.819,146.911,0.413,"[-0.33, 1.31]",0.25174,1.02,0.68544,sem diferença clara,False,Metros por minuto SEM posse,False
+com,com_sem_bola,ST,fis_sprint_distance_p30tip,16,16,95.895,100.695,-0.145,"[-0.96, 0.61]",0.68544,1.02,0.68544,sem diferença clara,False,Sprint por 30 min COM posse (m),False
+com,com_sem_bola,ST,fis_sprint_distance_p30otip,16,16,100.952,99.823,0.178,"[-0.65, 1.09]",0.61865,1.02,0.68544,sem diferença clara,False,Sprint por 30 min SEM posse (m),False
+com,com_sem_bola,CM,fis_m_per_min_tip,16,48,135.572,136.247,-0.177,"[-0.72, 0.38]",0.51604,0.82,0.51604,sem diferença clara,False,Metros por minuto COM posse,False
+com,com_sem_bola,CM,fis_m_per_min_otip,16,48,145.469,146.419,-0.479,"[-1.04, 0.03]",0.06411,0.82,0.12821,sem diferença clara,False,Metros por minuto SEM posse,False
+com,com_sem_bola,CM,fis_sprint_distance_p30tip,16,48,89.421,99.057,-0.502,"[-1.24, 0.14]",0.11163,0.82,0.14884,sem diferença clara,False,Sprint por 30 min COM posse (m),False
+com,com_sem_bola,CM,fis_sprint_distance_p30otip,16,48,91.111,99.955,-0.824,"[-1.37, -0.38]",0.00122,0.82,0.00487,firme,True,Sprint por 30 min SEM posse (m),False
+com,descritor,SM,fis_atletas,16,48,21.0,21.0,-0.345,"[-0.91, 0.19]",0.23713,0.82,0.23713,sem diferença clara,False,Atletas rastreados na temporada,False
+com,descritor,ST,fis_atletas,16,16,21.0,20.0,0.012,"[-0.63, 0.66]",0.97391,1.02,0.97391,sem diferença clara,False,Atletas rastreados na temporada,False
+com,descritor,CM,fis_atletas,16,48,25.5,21.0,1.035,"[0.44, 1.74]",0.00074,0.82,0.00074,firme,True,Atletas rastreados na temporada,False
+sem,volume,SM,fis_distance_p90,8,32,9631.175,9597.146,0.302,"[-0.6, 1.37]",0.50159,1.14,0.50159,sem diferença clara,False,Distância por 90 min (m),False
+sem,volume,SM,fis_running_distance_p90,8,32,1308.889,1260.332,0.49,"[-0.42, 1.5]",0.25499,1.14,0.50159,sem diferença clara,False,Distância em corrida por 90 (m),False
+sem,volume,SM,fis_m_per_min,8,32,107.014,106.635,0.302,"[-0.62, 1.37]",0.50159,1.14,0.50159,sem diferença clara,False,Metros por minuto,False
+sem,volume,ST,fis_distance_p90,8,7,9631.175,9645.111,0.226,"[-0.86, 1.54]",0.67008,1.57,0.67008,sem diferença clara,False,Distância por 90 min (m),False
+sem,volume,ST,fis_running_distance_p90,8,7,1308.889,1284.707,0.47,"[-0.59, 1.85]",0.38423,1.57,0.67008,sem diferença clara,False,Distância em corrida por 90 (m),False
+sem,volume,ST,fis_m_per_min,8,7,107.014,107.168,0.226,"[-0.92, 1.5]",0.67008,1.57,0.67008,sem diferença clara,False,Metros por minuto,False
+sem,volume,CM,fis_distance_p90,12,32,9600.698,9597.146,0.086,"[-0.6, 0.8]",0.80899,0.97,0.80899,sem diferença clara,False,Distância por 90 min (m),False
+sem,volume,CM,fis_running_distance_p90,12,32,1251.998,1260.332,-0.121,"[-0.86, 0.62]",0.71367,0.97,0.80899,sem diferença clara,False,Distância em corrida por 90 (m),False
+sem,volume,CM,fis_m_per_min,12,32,106.674,106.635,0.086,"[-0.61, 0.83]",0.80899,0.97,0.80899,sem diferença clara,False,Metros por minuto,False
+sem,intensidade,SM,fis_hi_distance_p90,8,32,665.623,652.318,0.425,"[-0.45, 1.38]",0.31178,1.14,0.65385,sem diferença clara,False,Distância em alta intensidade por 90 (m),False
+sem,intensidade,SM,fis_sprint_distance_p90,8,32,172.962,170.039,0.168,"[-0.59, 0.92]",0.65385,1.14,0.65385,sem diferença clara,False,Distância em sprint por 90 (m),False
+sem,intensidade,SM,fis_sprint_count_p90,8,32,9.094,8.835,0.314,"[-0.46, 1.08]",0.40811,1.14,0.65385,sem diferença clara,False,Número de sprints por 90,False
+sem,intensidade,SM,fis_high_accel_p90,8,32,6.529,6.512,-0.169,"[-1.02, 0.63]",0.65147,1.14,0.65385,sem diferença clara,False,Acelerações fortes por 90,False
+sem,intensidade,SM,fis_psv99_top5,8,32,31.03,30.806,0.574,"[-0.2, 1.35]",0.14651,1.14,0.65385,sem diferença clara,False,PSV-99 dos 5 mais rápidos (km/h),False
+sem,intensidade,ST,fis_hi_distance_p90,8,7,665.623,648.79,0.688,"[-0.42, 2.14]",0.20884,1.57,0.41581,sem diferença clara,False,Distância em alta intensidade por 90 (m),False
+sem,intensidade,ST,fis_sprint_distance_p90,8,7,172.962,157.95,0.529,"[-0.56, 2.11]",0.33265,1.57,0.41581,sem diferença clara,False,Distância em sprint por 90 (m),False
+sem,intensidade,ST,fis_sprint_count_p90,8,7,9.094,8.259,0.901,"[-0.13, 2.74]",0.10633,1.57,0.41581,sem diferença clara,False,Número de sprints por 90,False
+sem,intensidade,ST,fis_high_accel_p90,8,7,6.529,6.32,0.349,"[-0.82, 1.65]",0.51729,1.57,0.51729,sem diferença clara,False,Acelerações fortes por 90,False
+sem,intensidade,ST,fis_psv99_top5,8,7,31.03,30.676,0.58,"[-0.43, 2.52]",0.29316,1.57,0.41581,sem diferença clara,False,PSV-99 dos 5 mais rápidos (km/h),False
+sem,intensidade,CM,fis_hi_distance_p90,12,32,638.482,652.318,-0.604,"[-1.4, 0.14]",0.09668,0.97,0.12085,sem diferença clara,False,Distância em alta intensidade por 90 (m),False
+sem,intensidade,CM,fis_sprint_distance_p90,12,32,154.423,170.039,-1.004,"[-1.87, -0.34]",0.00589,0.97,0.02195,firme,True,Distância em sprint por 90 (m),False
+sem,intensidade,CM,fis_sprint_count_p90,12,32,8.202,8.835,-0.899,"[-1.72, -0.22]",0.00878,0.97,0.02195,firme,False,Número de sprints por 90,False
+sem,intensidade,CM,fis_high_accel_p90,12,32,6.411,6.512,-0.354,"[-1.07, 0.35]",0.29319,0.97,0.29319,sem diferença clara,False,Acelerações fortes por 90,False
+sem,intensidade,CM,fis_psv99_top5,12,32,30.574,30.806,-0.778,"[-1.47, -0.21]",0.02552,0.97,0.04254,firme,False,PSV-99 dos 5 mais rápidos (km/h),False
+sem,com_sem_bola,SM,fis_m_per_min_tip,8,32,135.681,136.064,0.057,"[-0.95, 1.1]",0.9071,1.14,0.9071,sem diferença clara,False,Metros por minuto COM posse,False
+sem,com_sem_bola,SM,fis_m_per_min_otip,8,32,149.797,146.158,0.429,"[-0.36, 1.34]",0.27831,1.14,0.55662,sem diferença clara,False,Metros por minuto SEM posse,False
+sem,com_sem_bola,SM,fis_sprint_distance_p30tip,8,32,98.055,97.672,-0.11,"[-0.91, 0.65]",0.76278,1.14,0.9071,sem diferença clara,False,Sprint por 30 min COM posse (m),False
+sem,com_sem_bola,SM,fis_sprint_distance_p30otip,8,32,106.112,100.854,0.389,"[-0.36, 1.08]",0.2765,1.14,0.55662,sem diferença clara,False,Sprint por 30 min SEM posse (m),False
+sem,com_sem_bola,ST,fis_m_per_min_tip,8,7,135.681,133.635,0.563,"[-0.48, 1.97]",0.28315,1.57,0.51477,sem diferença clara,False,Metros por minuto COM posse,False
+sem,com_sem_bola,ST,fis_m_per_min_otip,8,7,149.797,145.128,0.582,"[-0.41, 2.3]",0.29001,1.57,0.51477,sem diferença clara,False,Metros por minuto SEM posse,False
+sem,com_sem_bola,ST,fis_sprint_distance_p30tip,8,7,98.055,87.078,0.351,"[-0.74, 1.89]",0.52237,1.57,0.52237,sem diferença clara,False,Sprint por 30 min COM posse (m),False
+sem,com_sem_bola,ST,fis_sprint_distance_p30otip,8,7,106.112,97.314,0.48,"[-0.72, 1.92]",0.38608,1.57,0.51477,sem diferença clara,False,Sprint por 30 min SEM posse (m),False
+sem,com_sem_bola,CM,fis_m_per_min_tip,12,32,135.711,136.064,0.08,"[-0.54, 0.72]",0.80384,0.97,0.80384,sem diferença clara,False,Metros por minuto COM posse,False
+sem,com_sem_bola,CM,fis_m_per_min_otip,12,32,145.871,146.158,-0.314,"[-1.05, 0.37]",0.27978,0.97,0.37304,sem diferença clara,False,Metros por minuto SEM posse,False
+sem,com_sem_bola,CM,fis_sprint_distance_p30tip,12,32,89.421,97.672,-0.537,"[-1.38, 0.11]",0.1193,0.97,0.23861,sem diferença clara,False,Sprint por 30 min COM posse (m),False
+sem,com_sem_bola,CM,fis_sprint_distance_p30otip,12,32,91.111,100.854,-0.886,"[-1.57, -0.33]",0.00559,0.97,0.02234,firme,False,Sprint por 30 min SEM posse (m),False
+sem,descritor,SM,fis_atletas,8,32,21.0,22.0,-0.191,"[-0.99, 0.54]",0.61529,1.14,0.61529,sem diferença clara,False,Atletas rastreados na temporada,False
+sem,descritor,ST,fis_atletas,8,7,21.0,20.0,-0.055,"[-1.27, 1.44]",0.91879,1.57,0.91879,sem diferença clara,False,Atletas rastreados na temporada,False
+sem,descritor,CM,fis_atletas,12,32,25.5,22.0,1.152,"[0.44, 1.95]",0.00046,0.97,0.00046,firme,True,Atletas rastreados na temporada,False

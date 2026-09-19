@@ -1,0 +1,320 @@
+{
+ "parte": "T04",
+ "gerado_em": "2026-09-19",
+ "para_que_serve": "Valores dos marcadores que o texto novo de _proposta_destino.json pede para T04. Nada aqui altera T04.json, T04_resumo.json nem scripts/T04.py, e nenhuma das duas conclusoes foi tocada: destino, texto e nivel de confianca ficam como a proposta os deixou. So calculo.",
+ "recorte": "T04-1: as quatro temporadas FECHADAS, 2022-2025, como a proposta pede (o T04.py de hoje nao filtra e deixa 2026 entrar). T04-2: os numeros vem de T02.json e T03.json como a proposta manda, e esses INCLUEM 2026 — o alternativo no corte fechado esta ao lado, com sufixo _fechadas. Unidade: passagem de treinador (10+ rodadas, nao interina).",
+ "calculados": 32,
+ "nao_calculaveis": 0,
+ "numeros": {
+  "n_lista": {
+   "conclusao": "T04-1 (o_que_vimos, duas vezes)",
+   "valor": 30,
+   "formatado": "30",
+   "de_onde": "Refiz a lista do T04 rodando a logica de scripts/T04.py com UM filtro a mais: T02_passagem.csv com no_ranking==1 E temporada em {2022,2023,2024,2025} (hoje o script nao filtra e 2026 entra). O resto e identico: cruza com T03_passagens.csv pela chave (treinador, clube, temporada), soma rodadas por treinador, corta em MIN_RODADAS_TOTAL=30 e ordena por (-pct_g4_pior, -indice_pior). Sobram 30 treinadores (com 2026 sao 33).",
+   "conferido": true,
+   "segundo_caminho": "Segundo caminho em pandas, sem reusar o script: merge de T02_passagem.csv (no_ranking==1, temporada<=2025) com T03_passagens.csv por (treinador, clube, temporada), groupby treinador, soma de rodadas >= 30 -> 30. Com 2026 o mesmo merge da 33, que e o valor hoje publicado.",
+   "nota": "Substitui o 33 de T04.json, que inclui a temporada em curso. Quem sai da lista ao cortar 2026: Cauan de Almeida, Pepa e Antonio Oliveira (os tres so tem passagem de 2026 ou dependem dela para chegar a 30 rodadas)."
+  },
+  "pz_piso": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": 89.5,
+   "formatado": "89,5",
+   "de_onde": "T02_passagem.csv, linha Paulo Pezzolano / Cruzeiro / 2022, coluna pct_g4. Nao muda com o corte: a passagem e de 2022.",
+   "conferido": true,
+   "segundo_caminho": "Recontado da propria linha: no_g4=34 sobre rodadas=38 = 89,47% -> 89,5.",
+   "nota": "Ja existe em T04.json com este valor. E o 1o da lista nos dois cortes."
+  },
+  "pz_valor": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": 3,
+   "formatado": "3",
+   "de_onde": "dados/serieb_clube_temporada.csv, coluna tm_valor_total, ano 2022: ordenando os 20 clubes do mais caro para o mais barato, Cruzeiro (29.750.000 EUR) e o 3o.",
+   "conferido": true,
+   "segundo_caminho": "Reordenei os 20 valores de 2022 a parte da funcao do T04.py e o Cruzeiro sai em 3o.",
+   "nota": "Ja existe em T04.json com este valor."
+  },
+  "ca_piso": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": 89.2,
+   "formatado": "89,2",
+   "de_onde": "T02_passagem.csv, linha Fabio Carille / Santos / 2024, coluna pct_g4. Nao muda com o corte.",
+   "conferido": true,
+   "segundo_caminho": "Recontado: no_g4=33 sobre rodadas=37 = 89,19% -> 89,2.",
+   "nota": "Ja existe em T04.json com este valor. E o 2o da lista nos dois cortes."
+  },
+  "ca_valor": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": 1,
+   "formatado": "1",
+   "de_onde": "dados/serieb_clube_temporada.csv, tm_valor_total, ano 2024: o Santos e o elenco mais caro do ano.",
+   "conferido": true,
+   "segundo_caminho": "Reordenei os 20 valores de 2024 a parte: Santos em 1o.",
+   "nota": "Ja existe em T04.json com este valor."
+  },
+  "eb_pass": {
+   "conclusao": "T04-1 (o_que_vimos e n)",
+   "valor": 3,
+   "formatado": "3",
+   "de_onde": "T02_passagem.csv, treinador='Eduardo Baptista', no_ranking==1, temporadas fechadas: Novorizontino 2023, Novorizontino 2024 e Criciuma 2025.",
+   "conferido": true,
+   "segundo_caminho": "Contagem direta das linhas do CSV (4 no total; a 4a e Criciuma 2026, que vem com em_curso=1 e base_incompleta=1).",
+   "nota": "Substitui o 4 de T04.json. O T04.py nao le as colunas em_curso/base_incompleta, por isso a passagem em andamento entrou."
+  },
+  "eb_cl": {
+   "conclusao": "T04-1 (o_que_vimos e n)",
+   "valor": 2,
+   "formatado": "2",
+   "de_onde": "T02_passagem.csv: clubes distintos das tres passagens fechadas = Novorizontino e Criciuma.",
+   "conferido": true,
+   "segundo_caminho": "Nao muda com o corte: a passagem de 2026 tambem e no Criciuma.",
+   "nota": "Ja existe em T04.json com este valor."
+  },
+  "eb_rod": {
+   "conclusao": "T04-1 (o_que_vimos e n)",
+   "valor": 108,
+   "formatado": "108",
+   "de_onde": "T02_passagem.csv, coluna rodadas das tres passagens fechadas: 38 (Novorizontino 2023) + 38 (Novorizontino 2024) + 32 (Criciuma 2025) = 108.",
+   "conferido": true,
+   "segundo_caminho": "Soma conferida a mao e pelo groupby de pandas: 108. Com as 26 rodadas do Criciuma 2026 dariam os 134 de hoje.",
+   "nota": "Substitui o 134 de T04.json."
+  },
+  "eb_piso": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": 37.5,
+   "formatado": "37,5",
+   "de_onde": "T02_passagem.csv, menor pct_g4 entre as tres passagens fechadas: 50,0 (2023), 52,6 (2024) e 37,5 (Criciuma 2025) -> 37,5.",
+   "conferido": true,
+   "segundo_caminho": "Recontado da linha: no_g4=12 sobre rodadas=32 = 37,5% exato.",
+   "nota": "Nao muda com o corte (a de 2026 tem 46,2%) e ja existe em T04.json com este valor."
+  },
+  "eb_med": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": 47.2,
+   "formatado": "47,2",
+   "de_onde": "T02_passagem.csv, media de pct_g4 ponderada por rodadas nas tres passagens fechadas: (50,0x38 + 52,6x38 + 37,5x32) / 108 = 5.098,8/108 = 47,21 -> 47,2.",
+   "conferido": true,
+   "segundo_caminho": "Segundo caminho sem ponderacao: somei as colunas brutas, no_g4 = 19+20+12 = 51 rodadas no G4 em 108 rodadas = 47,22% -> 47,2. Os dois caminhos batem.",
+   "nota": "Substitui o 47,0 de T04.json, que era a mesma conta com a passagem de 2026 dentro."
+  },
+  "eb_valores": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": "10º, 16º e 8º",
+   "formatado": "10º, 16º e 8º",
+   "de_onde": "dados/serieb_clube_temporada.csv, coluna tm_valor_total, posto do clube dentro do ano (do mais caro para o mais barato, 20 clubes por ano): Novorizontino 2023 = 10o (13,9 mi EUR), Novorizontino 2024 = 16o (11,0 mi), Criciuma 2025 = 8o (19,725 mi). Na ordem das temporadas.",
+   "conferido": true,
+   "segundo_caminho": "Os mesmos tres postos saem do campo passagens_detalhe de T04_resumo.json (posto_valor 10, 16 e 8) e da minha ordenacao independente dos 20 valores de cada ano.",
+   "nota": "Marcador novo, que a proposta poe no lugar de eb_valor (mediana). Se ainda for preciso a mediana, ela vale 10 no corte fechado (era 9,0 com 2026 dentro) — esta abaixo como eb_valor."
+  },
+  "eb_dist": {
+   "conclusao": "T04-1 (o_que_vimos)",
+   "valor": "duas a um ponto do 4º colocado e uma empatada em pontos com ele",
+   "formatado": "duas a um ponto do 4º colocado e uma empatada em pontos com ele",
+   "de_onde": "A01_clube_temporada.csv, coluna dist_g4 (pontos do time menos pontos do 4o colocado do ano): Novorizontino 2023 = -1, Novorizontino 2024 = 0, Criciuma 2025 = -1. As tres terminaram em 5o.",
+   "conferido": true,
+   "segundo_caminho": "Refeito pelos pontos, sem usar a coluna: 2023 Novorizontino 63 contra 64 do 4o (-1); 2024 Novorizontino 64 contra 64 do 4o (0, empate em pontos, decidido no criterio de desempate); 2025 Criciuma 61 contra 62 do 4o (-1).",
+   "nota": "String ja montada, como a proposta a escreveu. Confirma a correcao do cetico: em 2024 e empate em pontos, nao 'um ponto'."
+  },
+  "eb_temps": {
+   "conclusao": "T04-1 (prova / para_o_santa_cruz)",
+   "valor": "2023 Novorizontino, 5º com 63 pontos · 2024 Novorizontino, 5º com 64 · 2025 Criciúma, 5º com 61",
+   "formatado": "2023 Novorizontino, 5º com 63 pontos · 2024 Novorizontino, 5º com 64 · 2025 Criciúma, 5º com 61",
+   "de_onde": "A01_clube_temporada.csv, colunas pos e pontos: (2023, Novorizontino) pos 5 / 63 pts; (2024, Novorizontino) pos 5 / 64; (2025, Criciuma) pos 5 / 61.",
+   "conferido": true,
+   "segundo_caminho": "Os mesmos pontos aparecem na coluna pontos de T02_passagem.csv (63, 64 e 56) — atencao: em 2025 o 56 e o que o time somou NAS 32 rodadas da passagem dele, e os 61 sao os da temporada inteira. O numero do texto e o da temporada (61), que e como as outras duas linhas tambem estao.",
+   "nota": "String ja montada. Substitui o eb_temps de T04.json, que misturava 2026 e percentuais de G4."
+  },
+  "carp_piso": {
+   "conclusao": "T04-1 (o_que_vimos / prova)",
+   "valor": 31.2,
+   "formatado": "31,2",
+   "de_onde": "T02_passagem.csv, Thiago Carpini / Juventude / 2023, pct_g4. No corte fechado ele e o 4o da lista, com UMA passagem (hoje aparece com 2 por causa do Fortaleza 2026, 36,8%).",
+   "conferido": true,
+   "segundo_caminho": "Recontado: no_g4=10 sobre rodadas=32 = 31,25%.",
+   "nota": "Ja existe em T04.json com este valor. Atencao de arredondamento: 31,25 e meio exato; o round() do Python (meio-para-o-par, usado em todo o estudo) da 31,2, e o arredondamento meio-para-cima daria 31,3. Mantive 31,2 porque e a convencao de todos os scripts da casa — nao e truncamento."
+  },
+  "eb_piso10": {
+   "conclusao": "T04-1 (prova)",
+   "valor": 41.4,
+   "formatado": "41,4",
+   "de_onde": "T02_passagem.csv, coluna pct_g4_apos_10 (a contagem a partir da 10a rodada que o CLAUDE.md pede no T02): 62,1 (Novorizontino 2023), 69,0 (2024) e 41,4 (Criciuma 2025). O piso e 41,4.",
+   "conferido": true,
+   "segundo_caminho": "Recontado das colunas brutas: no_g4_apos_10=12 sobre rodadas_apos_10=29 = 41,38% -> 41,4.",
+   "nota": "Vai para a prova, nao para o texto. No conjunto, a media ponderada a partir da 10a rodada e 57,5% (50 de 87 rodadas)."
+  },
+  "n_lista10": {
+   "conclusao": "T04-1 (prova)",
+   "valor": 22,
+   "formatado": "22",
+   "de_onde": "Refiz a lista do T04 rodando a logica de scripts/T04.py com UM filtro a mais: T02_passagem.csv com no_ranking==1 E temporada em {2022,2023,2024,2025} (hoje o script nao filtra e 2026 entra). O resto e identico: cruza com T03_passagens.csv pela chave (treinador, clube, temporada), soma rodadas_apos_10 por treinador, corta em MIN_RODADAS_TOTAL=30 e ordena por (-pct_g4_pior, -indice_pior). Trocando rodadas por rodadas_apos_10 e pct_g4 por pct_g4_apos_10, sobram 22 treinadores com 30+ rodadas a partir da 10a.",
+   "conferido": true,
+   "segundo_caminho": "Conferido tambem pelo motivo da troca de lider: Eduardo Baptista passa a 1o (piso 41,4%) porque Pezzolano fica com 29 rodadas apos a 10a e Carille com 28 — os dois caem abaixo do corte de 30 e saem da lista, nao porque piorem.",
+   "nota": "Vai para a prova, nao para o texto, exatamente como a proposta pede."
+  },
+  "eb_valor": {
+   "conclusao": "T04-1 (prova; substituido por eb_valores no texto)",
+   "valor": 10,
+   "formatado": "10",
+   "de_onde": "dados/serieb_clube_temporada.csv, tm_valor_total: mediana dos postos das tres passagens fechadas (10, 16, 8) = 10.",
+   "conferido": true,
+   "segundo_caminho": "Mediana recalculada a mao: ordenados 8, 10, 16 -> 10.",
+   "nota": "Hoje T04.json publica 9,0, que e a mediana de 10, 16, 8 e 5 (a de 2026). Nao e erro: e a mesma conta com a temporada em curso dentro."
+  },
+  "eb_ind": {
+   "conclusao": "T04-1 (prova)",
+   "valor": 73.6,
+   "formatado": "73,6",
+   "de_onde": "T03_passagens.csv, media dos 7 tracos ja em percentil, por passagem (89,6 em 2023; 56,1 em 2024; 75,0 em 2025) e depois media simples das tres = 73,6. Mesma conta de scripts/T04.py, so sem 2026.",
+   "conferido": true,
+   "segundo_caminho": "Recalculado: (89,6+56,1+75,0)/3 = 220,7/3 = 73,57 -> 73,6. Com a passagem de 2026 (59,6) dariam os 70,1 de hoje.",
+   "nota": "A proposta manda TIRAR este numero do o_que_vimos (e percentil, proibido pela Didatica) e deixa-lo so na prova, rotulado como descricao do clube-temporada. Deixo o valor pronto para a prova."
+  },
+  "eb_ind_piso": {
+   "conclusao": "T04-1 (prova)",
+   "valor": 56.1,
+   "formatado": "56,1",
+   "de_onde": "T03_passagens.csv: menor indice de perfil das tres passagens fechadas (Novorizontino 2024 = 56,1).",
+   "conferido": true,
+   "segundo_caminho": "Nao muda com o corte (a de 2026 e 59,6). Ja existe em T04.json com este valor.",
+   "nota": "Percentil: so na prova."
+  },
+  "t02_multi": {
+   "conclusao": "T04-2 (o_que_vimos, duas vezes, e n)",
+   "valor": 34,
+   "formatado": "34",
+   "de_onde": "T02.json, campo numeros.multi = 34. Origem: T02_passagem.csv com no_ranking==1 (151 passagens, 69 treinadores); treinadores com clubes distintos >= 2.",
+   "conferido": true,
+   "segundo_caminho": "Recontado do CSV sem passar pelo T02.json: agrupando as 151 passagens por treinador e contando quem tem 2+ clubes distintos, dao 34. Bate tambem com T03_resumo.json, campo multiclube = 34.",
+   "nota": "ATENCAO, coerencia com o T04-1: este 34 inclui 2026. So com as temporadas fechadas sao 28 (entrada t02_multi_fechadas). A proposta diz que a decisao de recortar e do T02, nao do T04 — por isso deixo o valor do T02.json como principal e o alternativo ao lado. So nao da para o T04 cortar 2026 no T04-1 e manter no T04-2 sem dizer."
+  },
+  "t02_amp_mediana": {
+   "conclusao": "T04-2 (o_que_vimos)",
+   "valor": 16.2,
+   "formatado": "16,2",
+   "de_onde": "T02.json, campo numeros.amp_mediana = 16.2. E a mediana, entre os 34 treinadores multiclube, da amplitude (maior menos menor pct_g4) das passagens de cada um, em pontos percentuais do tempo no G4.",
+   "conferido": true,
+   "segundo_caminho": "Recalculado direto de T02_passagem.csv (no_ranking==1): mediana das 34 amplitudes = 16,2.",
+   "nota": "Mesmo alerta de 2026: so com as fechadas sobe para 21,7 (t02_amp_mediana_fechadas)."
+  },
+  "t02_amp50": {
+   "conclusao": "T04-2 (o_que_vimos)",
+   "valor": 9,
+   "formatado": "9",
+   "de_onde": "T02.json, campo numeros.amp_50mais = 9. Treinadores multiclube cuja amplitude de pct_g4 e de 50 pontos percentuais ou mais.",
+   "conferido": true,
+   "segundo_caminho": "Recontado de T02_passagem.csv: 9 dos 34.",
+   "nota": "So com as fechadas sao 8 (t02_amp50_fechadas)."
+  },
+  "t03_pass": {
+   "conclusao": "T04-2 (o_que_vimos e n)",
+   "valor": 151,
+   "formatado": "151",
+   "de_onde": "T03.json, campo numeros.n_pass = 151: passagens de 10 rodadas ou mais, nao interinas, com perfil completo nos 7 tracos.",
+   "conferido": true,
+   "segundo_caminho": "Contagem das linhas de T03_passagens.csv = 151, e bate com T02.json numeros.no_ranking = 151.",
+   "nota": "Tambem inclui 2026 (126 nas temporadas fechadas)."
+  },
+  "t03_tec": {
+   "conclusao": "T04-2 (o_que_vimos e n)",
+   "valor": 69,
+   "formatado": "69",
+   "de_onde": "T03.json, campo numeros.n_tec = 69: treinadores distintos nessas 151 passagens.",
+   "conferido": true,
+   "segundo_caminho": "Contagem de treinadores distintos em T03_passagens.csv = 69, igual a T02.json numeros.treinadores.",
+   "nota": "64 nas temporadas fechadas."
+  },
+  "ad_n": {
+   "conclusao": "T04-2 (o_que_vimos e n)",
+   "valor": 73,
+   "formatado": "73",
+   "de_onde": "T03.json, campo numeros.ad_n = 73 (= T03_resumo.json antes_depois.n): trocas de treinador no meio da temporada com pelo menos 8 jogos antes e 8 depois, no mesmo clube e na mesma temporada.",
+   "conferido": true,
+   "segundo_caminho": "Contagem das linhas de T03_antes_depois.csv = 73.",
+   "nota": "Por temporada: 2022=17, 2023=18, 2024=12, 2025=19, 2026=7. Sao 66 nas fechadas (ad_n_fechadas) — a auditoria de 18/09 pediu esse recorte; a proposta manda usar o 73 do T03.json. Mesmo alerta de coerencia do t02_multi."
+  },
+  "dmin_multi": {
+   "conclusao": "T04-2 (confianca_motivo / prova)",
+   "valor": 0.48,
+   "formatado": "0,48",
+   "de_onde": "scripts/_metodo.py::d_minimo(34, 2000) = 0,48 — o menor efeito que este desenho detecta a 80% de poder comparando os 34 treinadores multiclube contra o nulo de 2.000 pares de passagens quaisquer do T03. O observado no mesmo desenho e 0,271.",
+   "conferido": true,
+   "segundo_caminho": "Refiz o calculo inteiro a partir de T03_passagens.csv com a semente do script (20260917): 34 rhos de media 0,107 e mediana 0,078 contra nulo de media -0,014 (identico a T03_resumo.json.nulo_dois_quaisquer), d de Cohen = 0,271, Welch p = 0,086 e Mann-Whitney unilateral p = 0,085. Bate numero a numero com a medicao independente da auditoria de 18/09.",
+   "nota": "Duas ressalvas para quem escrever o texto. (1) E um 'd', que a Didatica proibe no o_que_vimos: o valor vive na prova ou no confianca_motivo, e a frase do texto fica sem numero, como a proposta a escreveu. (2) A frase proposta diz 'nao enxergaria nem uma repeticao de tamanho medio': efeito medio pela convencao e d=0,50 e o minimo detectavel e 0,48, ou seja, por um fio ele enxergaria. O que o numero sustenta com folga e 'nao enxergaria a repeticao que mediu' (0,27 contra 0,48)."
+  },
+  "dmin_antes_depois": {
+   "conclusao": "T04-2 (confianca_motivo / prova)",
+   "valor": 0.33,
+   "formatado": "0,33",
+   "de_onde": "Minimo detectavel do antes e depois, que e desenho PAREADO: 73 pares (T03_antes_depois.csv), alfa 0,05 bilateral, 80% de poder, t nao-central com gl=72 e nc = d*raiz(73) -> d = 0,33.",
+   "conferido": true,
+   "segundo_caminho": "Segundo caminho pela formula fechada: (1,960 + 0,8416)/raiz(73) = 2,8016/8,544 = 0,3279 -> 0,33. Os dois caminhos batem.",
+   "nota": "Confirma a correcao do cetico: d_minimo(73,73) de _metodo.py da 0,47, mas essa funcao e de dois grupos INDEPENDENTES e aqui o mesmo clube e comparado consigo mesmo. O numero a publicar e 0,33. Se o T04 recortar 2026 tambem aqui, com 66 pares da 0,35. Tambem e um 'd': so na prova."
+  },
+  "conf_tracos": {
+   "conclusao": "T04-2 (ressalva / prova)",
+   "valor": 3,
+   "formatado": "3",
+   "de_onde": "Confiabilidade split-half com correcao de Spearman-Brown dos 7 tracos do perfil, pelo metodo da §6.1/§3 da ESPECIFICACAO.md: dados/serieb_jogos.csv filtrado por Competicao=='Brazil. Serie B' e 2022-2025 (3.036 jogos, 80 clube-temporada), jogos ordenados por Data, media dos indices pares contra os impares, posto dentro do ano, Spearman e 2rho/(1+rho). Ficam abaixo do piso de 0,40: xg 0,302, xg_por_remate 0,349 e xg_por_remate_contra 0,357. Acima: duelo_def 0,417, xg_contra 0,533, dist_remate 0,577 e entradas_area 0,634.",
+   "conferido": true,
+   "segundo_caminho": "O xg da 0,302 e reproduz o 0,30 que a §3 da ESPECIFICACAO ja publicava — e a conferencia por fora de que o meu split-half esta implementado como o da casa. Os quatro valores de xG batem tambem, um a um, com os que o cetico mediu na proposta.",
+   "nota": "Confirma a correcao do cetico contra o auditor: sao 3 e nao 4. Mas o 4o, duelo_def, passa por 0,017 (0,417): se a ressalva do texto disser 'parte do perfil e medida com regua curta', ela e verdadeira para 3 dos 7 e quase para um quarto."
+  },
+  "t02_multi_fechadas": {
+   "conclusao": "T04-2 (alternativa de recorte; nao esta no texto)",
+   "valor": 28,
+   "formatado": "28",
+   "de_onde": "T02_passagem.csv, no_ranking==1, temporadas 2022-2025: 126 passagens, 64 treinadores, 28 deles com 2+ clubes distintos.",
+   "conferido": true,
+   "segundo_caminho": "Recontado do CSV. Bate com o numero que a propria proposta cita.",
+   "nota": "So serve se o dono decidir que o T04-2 tambem corta 2026, para ficar coerente com o T04-1."
+  },
+  "t02_amp_mediana_fechadas": {
+   "conclusao": "T04-2 (alternativa de recorte; nao esta no texto)",
+   "valor": 21.7,
+   "formatado": "21,7",
+   "de_onde": "Mesma conta de t02_amp_mediana so com 2022-2025: mediana das 28 amplitudes de pct_g4 = 21,7 pontos percentuais.",
+   "conferido": true,
+   "segundo_caminho": "Recontado do CSV; bate com o valor citado na proposta."
+  },
+  "t02_amp50_fechadas": {
+   "conclusao": "T04-2 (alternativa de recorte; nao esta no texto)",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "Mesma conta de t02_amp50 so com 2022-2025: 8 dos 28 variam 50 pontos percentuais ou mais.",
+   "conferido": true,
+   "segundo_caminho": "Recontado do CSV; bate com o valor citado na proposta."
+  },
+  "ad_n_fechadas": {
+   "conclusao": "T04-2 (alternativa de recorte; nao esta no texto)",
+   "valor": 66,
+   "formatado": "66",
+   "de_onde": "T03_antes_depois.csv sem as 7 linhas de 2026: 66 trocas no meio da temporada em 2022-2025.",
+   "conferido": true,
+   "segundo_caminho": "Contagem por temporada: 17+18+12+19 = 66.",
+   "nota": "E o recorte que a auditoria de 18/09 pediu. Com 66 pares o dmin pareado vai de 0,33 para 0,35."
+  }
+ },
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [],
+ "conferidos_e_certos": {
+  "nota": "Recalculei contra a base os 19 valores do campo numeros de T04.json antes de concluir que nenhum esta errado. Os que a proposta manda trocar (n_lista, eb_pass, eb_rod, eb_med, eb_valor, eb_ind, eb_temps) nao estao errados: estao certos para a definicao antiga, que inclui a temporada em curso. Por isso a lista de correcoes esta vazia.",
+  "recalculados": {
+   "n_lista": "33 com 2026 / 30 so nas fechadas",
+   "pz_piso / pz_pass / pz_valor": "89,5 / 1 / 3 — certos, nao mudam",
+   "ca_piso / ca_pass / ca_valor": "89,2 / 1 / 1 — certos, nao mudam",
+   "eb_piso / eb_cl / eb_ppj / eb_ind_piso": "37,5 / 2 / 1,69 / 56,1 — certos, nao mudam",
+   "eb_pass / eb_rod / eb_med / eb_valor / eb_ind": "4/134/47,0/9,0/70,1 com 2026; 3/108/47,2/10/73,6 so nas fechadas",
+   "eb_temps": "a string de hoje reproduz exatamente as quatro passagens; o que muda e o recorte",
+   "carp_piso": "31,2 — certo (10/32 = 31,25 com o round() do Python)",
+   "cauan_ind_piso": "13,6 — certo, mas so existe por causa de 2026 (Avai 2026); no corte fechado Cauan de Almeida sai da lista"
+  },
+  "atencao_de_definicao": [
+   "eb_valor (9,0) e eb_ind (70,1) nao sao 'numero errado': sao mediana e media com a passagem em curso do Criciuma 2026 dentro. O T04.py nao le em_curso nem base_incompleta de T02_passagem.csv, e e so isso que faz os dois cortes discordarem.",
+   "Em 2025 o Criciuma somou 56 pontos nas 32 rodadas da passagem de Eduardo Baptista e 61 na temporada inteira. O eb_temps novo usa os 61 (temporada), que e o mesmo criterio das outras duas linhas; quem for gravar nao deve trocar pelo 56 de T02_passagem.csv."
+  ]
+ },
+ "fora_do_meu_escopo": [
+  "A incoerencia de recorte entre T04-1 (so fechadas) e T04-2 (numeros do T02/T03 com 2026) e decisao do dono e do T02, nao minha. Calculei os dois lados: ver os marcadores com sufixo _fechadas.",
+  "dmin_multi, dmin_antes_depois e conf_tracos sao 'd' e confiabilidade — a Didatica proibe no o_que_vimos. Os textos novos nao os citam; ficam para a prova e para o confianca_motivo.",
+  "Nao escrevi T04.md, nao mexi em T04.json e nao rodei T04.py gravando por cima de T04_resumo.json. A refiltragem para 2022-2025 rodou num script temporario, fora do repositorio."
+ ]
+}

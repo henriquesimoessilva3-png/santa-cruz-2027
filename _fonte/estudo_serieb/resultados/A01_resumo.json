@@ -1,0 +1,88 @@
+{
+ "temporadas": [
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "fechadas": [
+  2022,
+  2023,
+  2024,
+  2025
+ ],
+ "corte_g4": {
+  "min": 62,
+  "max": 64,
+  "mediana": 63.0,
+  "amplitude": 2,
+  "por_ano": {
+   "2022": 62,
+   "2023": 64,
+   "2024": 64,
+   "2025": 62
+  }
+ },
+ "corte_z4": {
+  "min": 38,
+  "max": 42,
+  "mediana": 39.5,
+  "amplitude": 4,
+  "por_ano": {
+   "2022": 42,
+   "2023": 39,
+   "2024": 38,
+   "2025": 40
+  }
+ },
+ "margem_4o_5o": {
+  "2022": 4,
+  "2023": 1,
+  "2024": 0,
+  "2025": 1
+ },
+ "fronteira": {
+  "clubes": 28,
+  "de": 80,
+  "pct": 35.0
+ },
+ "jogos_faltando": [
+  {
+   "temporada": 2022,
+   "casa": "Londrina",
+   "gols_casa": 1,
+   "gols_fora": 1,
+   "fora": "Tombense"
+  },
+  {
+   "temporada": 2024,
+   "casa": "Operário-PR",
+   "gols_casa": 3,
+   "gols_fora": 2,
+   "fora": "Chapecoense"
+  },
+  {
+   "temporada": 2026,
+   "casa": "Vila Nova",
+   "gols_casa": 0,
+   "gols_fora": 2,
+   "fora": "Criciúma"
+  },
+  {
+   "temporada": 2026,
+   "casa": "Atlético-GO",
+   "gols_casa": 2,
+   "gols_fora": 1,
+   "fora": "São Bernardo"
+  },
+  {
+   "temporada": 2026,
+   "casa": "Ceará",
+   "gols_casa": 1,
+   "gols_fora": 2,
+   "fora": "Londrina"
+  }
+ ],
+ "clube_temporadas_incompletos": 10
+}

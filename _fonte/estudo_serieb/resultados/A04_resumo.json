@@ -1,0 +1,93 @@
+{
+ "quadro_por_faixa": {
+  "Sobe": {
+   "bp_pro_90": 0.434,
+   "bp_sof_90": 0.289,
+   "bp_pro_pct": 35.191,
+   "bp_sof_pct": 36.743,
+   "bp_saldo_90": 0.145,
+   "esc_pro": 7.0,
+   "falta_pro": 4.0,
+   "pen_pro": 5.0,
+   "cantos": 5.303,
+   "bp_conv": 13.514,
+   "duelos_aereos_pct": 45.54,
+   "tm_altura": 1.814
+  },
+  "Trave": {
+   "bp_pro_90": 0.421,
+   "bp_sof_90": 0.289,
+   "bp_pro_pct": 33.165,
+   "bp_sof_pct": 32.379,
+   "bp_saldo_90": 0.105,
+   "esc_pro": 6.0,
+   "falta_pro": 4.0,
+   "pen_pro": 3.0,
+   "cantos": 5.25,
+   "bp_conv": 14.229,
+   "duelos_aereos_pct": 47.597,
+   "tm_altura": 1.806
+  },
+  "Meio": {
+   "bp_pro_90": 0.342,
+   "bp_sof_90": 0.355,
+   "bp_pro_pct": 34.022,
+   "bp_sof_pct": 33.688,
+   "bp_saldo_90": 0.0,
+   "esc_pro": 5.5,
+   "falta_pro": 4.0,
+   "pen_pro": 4.0,
+   "cantos": 5.145,
+   "bp_conv": 13.064,
+   "duelos_aereos_pct": 46.147,
+   "tm_altura": 1.809
+  },
+  "Cai": {
+   "bp_pro_90": 0.276,
+   "bp_sof_90": 0.447,
+   "bp_pro_pct": 31.368,
+   "bp_sof_pct": 32.038,
+   "bp_saldo_90": -0.132,
+   "esc_pro": 4.0,
+   "falta_pro": 2.5,
+   "pen_pro": 3.5,
+   "cantos": 5.026,
+   "bp_conv": 12.294,
+   "duelos_aereos_pct": 44.343,
+   "tm_altura": 1.809
+  },
+  "Liga": {
+   "bp_pro_90": 0.368,
+   "bp_sof_90": 0.355,
+   "bp_pro_pct": 34.022,
+   "bp_sof_pct": 33.333,
+   "bp_saldo_90": 0.0,
+   "esc_pro": 5.0,
+   "falta_pro": 4.0,
+   "pen_pro": 4.0,
+   "cantos": 5.158,
+   "bp_conv": 13.064,
+   "duelos_aereos_pct": 45.451,
+   "tm_altura": 1.809
+  }
+ },
+ "firme_nos_dois_cortes": {
+  "SM": [],
+  "ST": [],
+  "CM": [
+   "bp_pro_90",
+   "bp_sof_90",
+   "bp_saldo_90",
+   "duelos_aereos_pct"
+  ]
+ },
+ "liga": {
+  "bp_pro_pct_mediano": 34.022,
+  "gols_bp_por_jogo": 0.368
+ },
+ "n": {
+  "total": 80,
+  "sobe_sf": 8,
+  "meio_sf": 32
+ }
+}

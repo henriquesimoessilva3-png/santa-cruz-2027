@@ -1,0 +1,91 @@
+{
+ "cabem_2026": [
+  {
+   "clube": "Juventude",
+   "pos": 1,
+   "pontos": 50,
+   "ppda": 10.11,
+   "posse": 49.85,
+   "longo": 12.71,
+   "valor": 15975000.0,
+   "posto_valor": 3
+  },
+  {
+   "clube": "Novorizontino",
+   "pos": 2,
+   "pontos": 49,
+   "ppda": 11.15,
+   "posse": 47.85,
+   "longo": 11.61,
+   "valor": 12250000.0,
+   "posto_valor": 8
+  },
+  {
+   "clube": "Fortaleza",
+   "pos": 4,
+   "pontos": 47,
+   "ppda": 11.96,
+   "posse": 48.95,
+   "longo": 10.3,
+   "valor": 30900000.0,
+   "posto_valor": 1
+  },
+  {
+   "clube": "Operário-PR",
+   "pos": 6,
+   "pontos": 43,
+   "ppda": 10.93,
+   "posse": 51.98,
+   "longo": 10.29,
+   "valor": 9275000.0,
+   "posto_valor": 13
+  },
+  {
+   "clube": "Atlético-GO",
+   "pos": 7,
+   "pontos": 43,
+   "ppda": 11.18,
+   "posse": 49.32,
+   "longo": 11.81,
+   "valor": 10550000.0,
+   "posto_valor": 12
+  },
+  {
+   "clube": "CRB",
+   "pos": 8,
+   "pontos": 42,
+   "ppda": 12.8,
+   "posse": 51.65,
+   "longo": 10.07,
+   "valor": 11450000.0,
+   "posto_valor": 9
+  },
+  {
+   "clube": "São Bernardo",
+   "pos": 14,
+   "pontos": 35,
+   "ppda": 13.06,
+   "posse": 50.46,
+   "longo": 11.23,
+   "valor": 7925000.0,
+   "posto_valor": 15
+  },
+  {
+   "clube": "Botafogo-SP",
+   "pos": 15,
+   "pontos": 31,
+   "ppda": 10.12,
+   "posse": 49.46,
+   "longo": 13.21,
+   "valor": 6450000.0,
+   "posto_valor": 16
+  }
+ ],
+ "baratos_no_perfil_2026": [
+  "Operário-PR",
+  "Atlético-GO",
+  "CRB",
+  "São Bernardo",
+  "Botafogo-SP"
+ ]
+}

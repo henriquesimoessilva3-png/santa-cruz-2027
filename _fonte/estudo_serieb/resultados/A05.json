@@ -1,0 +1,57 @@
+{
+ "id": "A05",
+ "bloco": "A",
+ "titulo": "Estilo com bola: existe um caminho, ou vários?",
+ "tipo": "analise",
+ "gerado_por": "scripts/_rodar.py A05",
+ "conclusoes": [
+  {
+   "id": "A05-1",
+   "bloco": "A",
+   "status": "rascunho",
+   "negativa": true,
+   "manchete": "Não existe estilo com bola que separe quem sobe",
+   "o_que_vimos": "Dos {n_ind} indicadores de estilo — posse, volume e acerto de passe, passe longo, comprimento do passe, passe para frente, passe progressivo, passe no terço final, ataque posicional e contra-ataque —, {sm_dois} passaram no critério em Sobe × Meio, {st_dois} em Sobe × Trave e {cm_dois} em Cai × Meio, contando só o que é firme nos dois cortes de fronteira. São {n_testes} testes e nenhum sobrevive.",
+   "para_o_santa_cruz": "Não existe um modelo de jogo com bola que seja o caminho do acesso. Escolher treinador por estilo de posse — ou por estilo direto — não é decisão apoiada em dado. O que separa está no que o time cede e no duelo (A02 e A06), não em como ele constrói.",
+   "premissa": null,
+   "premissa_motivo": "A régua A (posse e construção) da Protótipo fica sem sustentação como separadora de quem sobe. Vale registrar, junto com a régua G do A04.",
+   "confianca": "firme",
+   "confianca_motivo": "O resultado é a ausência, em {n_testes} testes cobrindo três comparações e dois cortes de fronteira. Ressalva importante: a seção Placar do CLAUDE.md nomeia posse e volume de passes como coisas que mudam com o resultado, e a base não permite recorte por estado do jogo — mas isso enfraqueceria um achado POSITIVO, e aqui o achado é a ausência.",
+   "n": "{n_total} clube-temporadas",
+   "prova": "A05_testes.csv; A05.md"
+  },
+  {
+   "id": "A05-2",
+   "bloco": "A",
+   "status": "rascunho",
+   "manchete": "Times sobem com estilos opostos — e no mesmo ano",
+   "o_que_vimos": "Em 2025 subiram o Coritiba, no percentil 79 de posse e 95 de passe certo, com passe longo no percentil 11; e a Chapecoense, no percentil 16 de posse, 89 de passe longo e 84 de contra-ataques. Entre os 16 promovidos, só {topo_posse} estão no terço de cima de posse do próprio ano e {base_posse} estão no terço de baixo. A posse de quem sobe vai de {posse_sobe_min}% a {posse_sobe_max}%, e o volume de passes de {passes_sobe_min} a {passes_sobe_max} por jogo.",
+   "para_o_santa_cruz": "O estilo é escolha livre do clube, não requisito de acesso. Dá para subir dominando a bola ou esperando e saindo em contra-ataque — o que não dá é confundir estilo com plano. O plano tem de estar no que A02 e A06 acharam.",
+   "premissa": null,
+   "premissa_motivo": "Não trata de nenhuma premissa existente.",
+   "confianca": "firme",
+   "confianca_motivo": "A dispersão de posse dentro de quem sobe ({posse_sobe_amp} pontos) é praticamente igual à do meio ({posse_meio_amp}). Não é que quem sobe tenha um estilo próprio com variação; é que estilo não é o eixo. Os 16 promovidos estão listados um a um em A05_resumo.json, como o CLAUDE.md pede.",
+   "n": "16 promovidos",
+   "prova": "A05_resumo.json, promovidos e dispersao_por_faixa"
+  }
+ ],
+ "numeros": {
+  "n_ind": 10,
+  "sm_dois": 0,
+  "st_dois": 0,
+  "cm_dois": 0,
+  "n_testes": 60,
+  "posse_sobe_min": 47.42,
+  "posse_sobe_max": 61.557,
+  "posse_sobe_amp": 14.136,
+  "posse_meio_amp": 13.782,
+  "terco_sobe_min": 46.579,
+  "terco_sobe_max": 72.184,
+  "passes_sobe_min": 355.105,
+  "passes_sobe_max": 463.842,
+  "topo_posse": 8,
+  "base_posse": 3,
+  "n_total": 80
+ },
+ "em_aberto": "Esta é a parte mais exposta ao efeito do placar de todo o Bloco A: posse e volume de passes mudam com o resultado corrente, e a base não permite o recorte. Como o achado é a AUSÊNCIA de separação, o viés não o cria — mas poderia estar escondendo uma diferença real que só apareceria com o recorte. Agrupamento de times não foi refeito: a §7.1 já decidiu que não há grupos, e o CLAUDE.md proíbe reabrir."
+}

@@ -1,0 +1,55 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente
+com,reguas,SM,A_posse_construcao,16,48,73.246,49.561,0.55,"[0.01, 1.16]",0.07185,0.82,0.12933,sem diferença clara,False
+com,reguas,SM,B_pressao_ritmo,16,48,63.158,54.211,0.32,"[-0.23, 1.02]",0.30263,0.82,0.3891,sem diferença clara,False
+com,reguas,SM,C_volume_fisico,16,48,65.789,50.0,0.237,"[-0.37, 0.92]",0.41778,0.82,0.47,sem diferença clara,False
+com,reguas,SM,D_explosao,16,48,56.579,51.974,0.045,"[-0.48, 0.55]",0.8801,0.82,0.8801,sem diferença clara,False
+com,reguas,SM,E_qualidade_chance,16,48,71.053,47.368,0.961,"[0.46, 1.59]",0.00086,0.82,0.00388,firme,True
+com,reguas,SM,F_solidez,16,48,73.684,50.0,0.724,"[0.16, 1.42]",0.0198,0.82,0.04454,firme,False
+com,reguas,SM,G_bola_aerea_parada,16,48,56.908,51.974,0.366,"[-0.19, 0.99]",0.20174,0.82,0.30262,sem diferença clara,False
+com,reguas,SM,H_dinheiro,16,48,80.921,46.711,1.149,"[0.6, 1.81]",0.00014,0.82,0.00128,firme,True
+com,reguas,SM,I_estabilidade_11,16,48,71.053,50.329,0.767,"[0.27, 1.31]",0.0052,0.82,0.01561,firme,False
+com,reguas,ST,A_posse_construcao,16,16,73.246,38.596,0.513,"[-0.21, 1.32]",0.15744,1.02,0.70732,sem diferença clara,False
+com,reguas,ST,B_pressao_ritmo,16,16,63.158,60.0,-0.005,"[-0.72, 0.88]",0.98858,1.02,0.98858,sem diferença clara,False
+com,reguas,ST,C_volume_fisico,16,16,65.789,56.579,0.091,"[-0.69, 0.93]",0.79924,1.02,0.95471,sem diferença clara,False
+com,reguas,ST,D_explosao,16,16,56.579,52.632,0.068,"[-0.69, 0.92]",0.84863,1.02,0.95471,sem diferença clara,False
+com,reguas,ST,E_qualidade_chance,16,16,71.053,69.408,0.362,"[-0.32, 1.13]",0.31436,1.02,0.70732,sem diferença clara,False
+com,reguas,ST,F_solidez,16,16,73.684,64.912,0.196,"[-0.49, 1.15]",0.58362,1.02,0.87544,sem diferença clara,False
+com,reguas,ST,G_bola_aerea_parada,16,16,56.908,56.579,-0.231,"[-1.14, 0.62]",0.51853,1.02,0.87544,sem diferença clara,False
+com,reguas,ST,H_dinheiro,16,16,80.921,56.579,1.203,"[0.47, 2.6]",0.00191,1.02,0.01723,firme,True
+com,reguas,ST,I_estabilidade_11,16,16,71.053,63.158,0.371,"[-0.35, 1.1]",0.30256,1.02,0.70732,sem diferença clara,False
+com,reguas,CM,A_posse_construcao,16,48,39.474,49.561,-0.305,"[-0.86, 0.22]",0.27527,0.82,0.35392,sem diferença clara,False
+com,reguas,CM,B_pressao_ritmo,16,48,41.053,54.211,-0.783,"[-1.36, -0.29]",0.0011,0.82,0.00479,firme,False
+com,reguas,CM,C_volume_fisico,16,48,42.105,50.0,-0.223,"[-0.78, 0.4]",0.46405,0.82,0.46405,sem diferença clara,False
+com,reguas,CM,D_explosao,16,48,36.842,51.974,-0.682,"[-1.27, -0.16]",0.01758,0.82,0.02637,firme,False
+com,reguas,CM,E_qualidade_chance,16,48,27.632,47.368,-0.767,"[-1.42, -0.23]",0.00708,0.82,0.01274,firme,False
+com,reguas,CM,F_solidez,16,48,28.07,50.0,-0.952,"[-1.67, -0.41]",0.00143,0.82,0.00479,firme,True
+com,reguas,CM,G_bola_aerea_parada,16,48,45.395,51.974,-0.273,"[-0.85, 0.3]",0.37185,0.82,0.41833,sem diferença clara,False
+com,reguas,CM,H_dinheiro,16,48,15.132,46.711,-0.815,"[-1.42, -0.26]",0.00581,0.82,0.01274,firme,False
+com,reguas,CM,I_estabilidade_11,16,48,19.079,50.329,-0.995,"[-1.67, -0.38]",0.0016,0.82,0.00479,firme,True
+sem,reguas,SM,A_posse_construcao,8,32,77.193,50.439,0.924,"[0.19, 1.7]",0.01924,1.14,0.0433,firme,False
+sem,reguas,SM,B_pressao_ritmo,8,32,68.947,50.526,0.798,"[-0.13, 1.95]",0.09645,1.14,0.14467,sem diferença clara,False
+sem,reguas,SM,C_volume_fisico,8,32,64.474,50.0,0.369,"[-0.57, 1.43]",0.40945,1.14,0.46063,sem diferença clara,False
+sem,reguas,SM,D_explosao,8,32,65.789,53.289,0.295,"[-0.52, 1.15]",0.46154,1.14,0.46154,sem diferença clara,False
+sem,reguas,SM,E_qualidade_chance,8,32,73.026,46.711,1.3,"[0.64, 2.15]",0.00045,1.14,0.00135,firme,True
+sem,reguas,SM,F_solidez,8,32,78.07,47.368,1.554,"[0.85, 2.44]",0.00018,1.14,0.0008,firme,True
+sem,reguas,SM,G_bola_aerea_parada,8,32,54.934,51.974,0.541,"[-0.1, 1.27]",0.1409,1.14,0.18116,sem diferença clara,False
+sem,reguas,SM,H_dinheiro,8,32,88.816,45.395,1.446,"[0.9, 2.15]",1e-05,1.14,7e-05,firme,True
+sem,reguas,SM,I_estabilidade_11,8,32,64.474,47.368,0.899,"[0.22, 1.76]",0.02596,1.14,0.04672,firme,False
+sem,reguas,ST,A_posse_construcao,8,7,77.193,74.561,0.579,"[-0.64, 2.11]",0.30822,1.57,0.39628,sem diferença clara,False
+sem,reguas,ST,B_pressao_ritmo,8,7,68.947,57.895,0.667,"[-0.3, 2.62]",0.21489,1.57,0.32233,sem diferença clara,False
+sem,reguas,ST,C_volume_fisico,8,7,64.474,55.263,0.338,"[-0.85, 1.72]",0.52595,1.57,0.59169,sem diferença clara,False
+sem,reguas,ST,D_explosao,8,7,65.789,40.789,0.821,"[-0.2, 2.43]",0.13882,1.57,0.31976,sem diferença clara,False
+sem,reguas,ST,E_qualidade_chance,8,7,73.026,64.474,0.789,"[-0.24, 2.14]",0.17765,1.57,0.31976,sem diferença clara,False
+sem,reguas,ST,F_solidez,8,7,78.07,45.614,1.495,"[0.53, 3.84]",0.02051,1.57,0.09229,pode ser sorte,False
+sem,reguas,ST,G_bola_aerea_parada,8,7,54.934,53.947,0.056,"[-1.24, 1.16]",0.91635,1.57,0.91635,sem diferença clara,False
+sem,reguas,ST,H_dinheiro,8,7,88.816,40.789,1.945,"[1.01, 5.14]",0.00704,1.57,0.06333,pode ser sorte,True
+sem,reguas,ST,I_estabilidade_11,8,7,64.474,49.342,0.781,"[-0.22, 2.27]",0.16768,1.57,0.31976,sem diferença clara,False
+sem,reguas,CM,A_posse_construcao,12,32,28.947,50.439,-0.503,"[-1.19, 0.1]",0.12962,0.97,0.16666,sem diferença clara,False
+sem,reguas,CM,B_pressao_ritmo,12,32,41.579,50.526,-0.55,"[-1.26, 0.09]",0.05291,0.97,0.07936,sem diferença clara,False
+sem,reguas,CM,C_volume_fisico,12,32,47.368,50.0,0.007,"[-0.72, 0.77]",0.98405,0.97,0.98405,sem diferença clara,False
+sem,reguas,CM,D_explosao,12,32,36.842,53.289,-0.836,"[-1.55, -0.25]",0.01597,0.97,0.02875,firme,False
+sem,reguas,CM,E_qualidade_chance,12,32,27.632,46.711,-0.843,"[-1.48, -0.34]",0.00721,0.97,0.02875,firme,False
+sem,reguas,CM,F_solidez,12,32,27.193,47.368,-0.904,"[-1.82, -0.24]",0.01494,0.97,0.02875,firme,False
+sem,reguas,CM,G_bola_aerea_parada,12,32,40.789,51.974,-0.312,"[-1.01, 0.3]",0.39271,0.97,0.4418,sem diferença clara,False
+sem,reguas,CM,H_dinheiro,12,32,21.711,45.395,-0.82,"[-1.6, -0.14]",0.01455,0.97,0.02875,firme,False
+sem,reguas,CM,I_estabilidade_11,12,32,13.158,47.368,-1.213,"[-1.95, -0.64]",0.00013,0.97,0.00117,firme,True

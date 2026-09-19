@@ -1,0 +1,40 @@
+{
+ "n": 80,
+ "correlacoes": 17,
+ "firmes": 6,
+ "no_sentido_esperado": 6,
+ "por_familia": {
+  "sem_bola": 3,
+  "com_bola": 2,
+  "resultado": 1
+ },
+ "estratificacao": {
+  "baixa": {
+   "n_sobe": 0,
+   "n_meio": 0,
+   "firmes": 0
+  },
+  "média": {
+   "n_sobe": 4,
+   "n_meio": 18,
+   "firmes": 0
+  },
+  "alta": {
+   "n_sobe": 12,
+   "n_meio": 15,
+   "firmes": 0
+  }
+ },
+ "persistencia_ja_medida_pela_prototipo": {
+  "fis_distance_p90": 0.722,
+  "fis_m_per_min": 0.722,
+  "tm_valor_total": 0.724,
+  "fis_psv99_top5": 0.377,
+  "posse": 0.272,
+  "xg_por_remate_contra": 0.214,
+  "xg": 0.144,
+  "ppda": 0.129,
+  "recuperacoes": 0.067,
+  "fonte": "ESPECIFICACAO.md §7.3, 36 pares ano a ano"
+ }
+}

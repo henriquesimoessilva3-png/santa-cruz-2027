@@ -1,0 +1,656 @@
+{
+ "parte": "A07",
+ "dispersao_por_faixa": {
+  "fis_distance_p90": {
+   "Sobe": {
+    "min": 9159.326,
+    "mediana": 9644.311,
+    "max": 9973.57,
+    "amplitude": 814.244
+   },
+   "Trave": {
+    "min": 9186.016,
+    "mediana": 9655.355,
+    "max": 9856.191,
+    "amplitude": 670.175
+   },
+   "Meio": {
+    "min": 9070.012,
+    "mediana": 9597.973,
+    "max": 9890.438,
+    "amplitude": 820.427
+   },
+   "Cai": {
+    "min": 9159.698,
+    "mediana": 9574.715,
+    "max": 9986.08,
+    "amplitude": 826.382
+   }
+  },
+  "fis_running_distance_p90": {
+   "Sobe": {
+    "min": 1120.489,
+    "mediana": 1321.687,
+    "max": 1374.363,
+    "amplitude": 253.874
+   },
+   "Trave": {
+    "min": 1082.404,
+    "mediana": 1285.193,
+    "max": 1407.013,
+    "amplitude": 324.609
+   },
+   "Meio": {
+    "min": 1082.404,
+    "mediana": 1260.332,
+    "max": 1407.013,
+    "amplitude": 324.609
+   },
+   "Cai": {
+    "min": 1118.454,
+    "mediana": 1248.624,
+    "max": 1372.083,
+    "amplitude": 253.629
+   }
+  },
+  "fis_m_per_min": {
+   "Sobe": {
+    "min": 101.771,
+    "mediana": 107.159,
+    "max": 110.817,
+    "amplitude": 9.046
+   },
+   "Trave": {
+    "min": 102.068,
+    "mediana": 107.282,
+    "max": 109.514,
+    "amplitude": 7.445
+   },
+   "Meio": {
+    "min": 100.778,
+    "mediana": 106.645,
+    "max": 109.893,
+    "amplitude": 9.115
+   },
+   "Cai": {
+    "min": 101.774,
+    "mediana": 106.386,
+    "max": 110.956,
+    "amplitude": 9.182
+   }
+  },
+  "fis_hi_distance_p90": {
+   "Sobe": {
+    "min": 593.503,
+    "mediana": 669.117,
+    "max": 726.031,
+    "amplitude": 132.528
+   },
+   "Trave": {
+    "min": 559.94,
+    "mediana": 662.025,
+    "max": 723.299,
+    "amplitude": 163.358
+   },
+   "Meio": {
+    "min": 559.94,
+    "mediana": 652.318,
+    "max": 729.306,
+    "amplitude": 169.366
+   },
+   "Cai": {
+    "min": 558.654,
+    "mediana": 632.62,
+    "max": 709.995,
+    "amplitude": 151.341
+   }
+  },
+  "fis_sprint_distance_p90": {
+   "Sobe": {
+    "min": 149.576,
+    "mediana": 162.76,
+    "max": 190.57,
+    "amplitude": 40.994
+   },
+   "Trave": {
+    "min": 133.307,
+    "mediana": 168.462,
+    "max": 188.456,
+    "amplitude": 55.149
+   },
+   "Meio": {
+    "min": 133.307,
+    "mediana": 168.146,
+    "max": 192.037,
+    "amplitude": 58.73
+   },
+   "Cai": {
+    "min": 128.534,
+    "mediana": 156.21,
+    "max": 190.596,
+    "amplitude": 62.062
+   }
+  },
+  "fis_sprint_count_p90": {
+   "Sobe": {
+    "min": 7.698,
+    "mediana": 8.749,
+    "max": 10.531,
+    "amplitude": 2.833
+   },
+   "Trave": {
+    "min": 7.36,
+    "mediana": 8.603,
+    "max": 9.509,
+    "amplitude": 2.149
+   },
+   "Meio": {
+    "min": 7.36,
+    "mediana": 8.666,
+    "max": 10.303,
+    "amplitude": 2.943
+   },
+   "Cai": {
+    "min": 6.944,
+    "mediana": 8.202,
+    "max": 10.202,
+    "amplitude": 3.258
+   }
+  },
+  "fis_high_accel_p90": {
+   "Sobe": {
+    "min": 5.781,
+    "mediana": 6.325,
+    "max": 6.879,
+    "amplitude": 1.098
+   },
+   "Trave": {
+    "min": 5.48,
+    "mediana": 6.468,
+    "max": 7.142,
+    "amplitude": 1.662
+   },
+   "Meio": {
+    "min": 5.457,
+    "mediana": 6.489,
+    "max": 7.318,
+    "amplitude": 1.861
+   },
+   "Cai": {
+    "min": 5.719,
+    "mediana": 6.389,
+    "max": 7.023,
+    "amplitude": 1.304
+   }
+  },
+  "fis_psv99_top5": {
+   "Sobe": {
+    "min": 30.386,
+    "mediana": 30.963,
+    "max": 31.507,
+    "amplitude": 1.121
+   },
+   "Trave": {
+    "min": 30.184,
+    "mediana": 30.836,
+    "max": 31.554,
+    "amplitude": 1.37
+   },
+   "Meio": {
+    "min": 30.151,
+    "mediana": 30.803,
+    "max": 31.554,
+    "amplitude": 1.403
+   },
+   "Cai": {
+    "min": 29.931,
+    "mediana": 30.574,
+    "max": 31.102,
+    "amplitude": 1.17
+   }
+  },
+  "fis_m_per_min_tip": {
+   "Sobe": {
+    "min": 127.665,
+    "mediana": 137.118,
+    "max": 141.536,
+    "amplitude": 13.872
+   },
+   "Trave": {
+    "min": 130.882,
+    "mediana": 135.357,
+    "max": 143.39,
+    "amplitude": 12.508
+   },
+   "Meio": {
+    "min": 129.858,
+    "mediana": 136.247,
+    "max": 143.39,
+    "amplitude": 13.531
+   },
+   "Cai": {
+    "min": 127.029,
+    "mediana": 135.572,
+    "max": 140.585,
+    "amplitude": 13.556
+   }
+  },
+  "fis_m_per_min_otip": {
+   "Sobe": {
+    "min": 139.005,
+    "mediana": 148.819,
+    "max": 156.334,
+    "amplitude": 17.328
+   },
+   "Trave": {
+    "min": 135.619,
+    "mediana": 146.911,
+    "max": 155.117,
+    "amplitude": 19.499
+   },
+   "Meio": {
+    "min": 135.619,
+    "mediana": 146.419,
+    "max": 155.117,
+    "amplitude": 19.499
+   },
+   "Cai": {
+    "min": 140.784,
+    "mediana": 145.469,
+    "max": 150.298,
+    "amplitude": 9.514
+   }
+  },
+  "fis_sprint_distance_p30tip": {
+   "Sobe": {
+    "min": 83.472,
+    "mediana": 95.895,
+    "max": 121.541,
+    "amplitude": 38.069
+   },
+   "Trave": {
+    "min": 73.86,
+    "mediana": 100.695,
+    "max": 133.876,
+    "amplitude": 60.016
+   },
+   "Meio": {
+    "min": 73.86,
+    "mediana": 99.057,
+    "max": 133.876,
+    "amplitude": 60.016
+   },
+   "Cai": {
+    "min": 69.763,
+    "mediana": 89.421,
+    "max": 123.975,
+    "amplitude": 54.213
+   }
+  },
+  "fis_sprint_distance_p30otip": {
+   "Sobe": {
+    "min": 83.295,
+    "mediana": 100.952,
+    "max": 142.146,
+    "amplitude": 58.851
+   },
+   "Trave": {
+    "min": 76.529,
+    "mediana": 99.823,
+    "max": 123.053,
+    "amplitude": 46.523
+   },
+   "Meio": {
+    "min": 75.985,
+    "mediana": 99.955,
+    "max": 141.035,
+    "amplitude": 65.05
+   },
+   "Cai": {
+    "min": 76.863,
+    "mediana": 91.111,
+    "max": 104.862,
+    "amplitude": 27.999
+   }
+  },
+  "fis_atletas": {
+   "Sobe": {
+    "min": 16.0,
+    "mediana": 21.0,
+    "max": 26.0,
+    "amplitude": 10.0
+   },
+   "Trave": {
+    "min": 16.0,
+    "mediana": 20.0,
+    "max": 27.0,
+    "amplitude": 11.0
+   },
+   "Meio": {
+    "min": 16.0,
+    "mediana": 21.0,
+    "max": 27.0,
+    "amplitude": 11.0
+   },
+   "Cai": {
+    "min": 20.0,
+    "mediana": 25.5,
+    "max": 31.0,
+    "amplitude": 11.0
+   }
+  }
+ },
+ "promovidos": [
+  {
+   "temporada": "2022",
+   "clube": "Cruzeiro",
+   "pos": 1,
+   "fis_distance_p90": 68,
+   "fis_running_distance_p90": 74,
+   "fis_m_per_min": 68,
+   "fis_hi_distance_p90": 89,
+   "fis_sprint_distance_p90": 100,
+   "fis_sprint_count_p90": 95,
+   "fis_high_accel_p90": 84,
+   "fis_psv99_top5": 84,
+   "fis_m_per_min_tip": 47,
+   "fis_m_per_min_otip": 95,
+   "fis_sprint_distance_p30tip": 53,
+   "fis_sprint_distance_p30otip": 100,
+   "fis_atletas": 50
+  },
+  {
+   "temporada": "2022",
+   "clube": "Grêmio",
+   "pos": 2,
+   "fis_distance_p90": 95,
+   "fis_running_distance_p90": 84,
+   "fis_m_per_min": 95,
+   "fis_hi_distance_p90": 100,
+   "fis_sprint_distance_p90": 95,
+   "fis_sprint_count_p90": 100,
+   "fis_high_accel_p90": 79,
+   "fis_psv99_top5": 68,
+   "fis_m_per_min_tip": 95,
+   "fis_m_per_min_otip": 79,
+   "fis_sprint_distance_p30tip": 95,
+   "fis_sprint_distance_p30otip": 74,
+   "fis_atletas": 0
+  },
+  {
+   "temporada": "2022",
+   "clube": "Bahia",
+   "pos": 3,
+   "fis_distance_p90": 26,
+   "fis_running_distance_p90": 37,
+   "fis_m_per_min": 26,
+   "fis_hi_distance_p90": 53,
+   "fis_sprint_distance_p90": 63,
+   "fis_sprint_count_p90": 79,
+   "fis_high_accel_p90": 37,
+   "fis_psv99_top5": 79,
+   "fis_m_per_min_tip": 21,
+   "fis_m_per_min_otip": 63,
+   "fis_sprint_distance_p30tip": 74,
+   "fis_sprint_distance_p30otip": 79,
+   "fis_atletas": 32
+  },
+  {
+   "temporada": "2022",
+   "clube": "Vasco",
+   "pos": 4,
+   "fis_distance_p90": 79,
+   "fis_running_distance_p90": 95,
+   "fis_m_per_min": 79,
+   "fis_hi_distance_p90": 95,
+   "fis_sprint_distance_p90": 68,
+   "fis_sprint_count_p90": 68,
+   "fis_high_accel_p90": 32,
+   "fis_psv99_top5": 100,
+   "fis_m_per_min_tip": 79,
+   "fis_m_per_min_otip": 100,
+   "fis_sprint_distance_p30tip": 63,
+   "fis_sprint_distance_p30otip": 89,
+   "fis_atletas": 50
+  },
+  {
+   "temporada": "2023",
+   "clube": "Vitória",
+   "pos": 1,
+   "fis_distance_p90": 0,
+   "fis_running_distance_p90": 11,
+   "fis_m_per_min": 0,
+   "fis_hi_distance_p90": 16,
+   "fis_sprint_distance_p90": 21,
+   "fis_sprint_count_p90": 21,
+   "fis_high_accel_p90": 58,
+   "fis_psv99_top5": 63,
+   "fis_m_per_min_tip": 5,
+   "fis_m_per_min_otip": 0,
+   "fis_sprint_distance_p30tip": 32,
+   "fis_sprint_distance_p30otip": 16,
+   "fis_atletas": 53
+  },
+  {
+   "temporada": "2023",
+   "clube": "Juventude",
+   "pos": 2,
+   "fis_distance_p90": 63,
+   "fis_running_distance_p90": 68,
+   "fis_m_per_min": 63,
+   "fis_hi_distance_p90": 84,
+   "fis_sprint_distance_p90": 89,
+   "fis_sprint_count_p90": 95,
+   "fis_high_accel_p90": 84,
+   "fis_psv99_top5": 84,
+   "fis_m_per_min_tip": 79,
+   "fis_m_per_min_otip": 89,
+   "fis_sprint_distance_p30tip": 89,
+   "fis_sprint_distance_p30otip": 95,
+   "fis_atletas": 74
+  },
+  {
+   "temporada": "2023",
+   "clube": "Criciúma",
+   "pos": 3,
+   "fis_distance_p90": 79,
+   "fis_running_distance_p90": 84,
+   "fis_m_per_min": 79,
+   "fis_hi_distance_p90": 63,
+   "fis_sprint_distance_p90": 42,
+   "fis_sprint_count_p90": 47,
+   "fis_high_accel_p90": 42,
+   "fis_psv99_top5": 32,
+   "fis_m_per_min_tip": 74,
+   "fis_m_per_min_otip": 74,
+   "fis_sprint_distance_p30tip": 37,
+   "fis_sprint_distance_p30otip": 47,
+   "fis_atletas": 11
+  },
+  {
+   "temporada": "2023",
+   "clube": "Atlético-GO",
+   "pos": 4,
+   "fis_distance_p90": 74,
+   "fis_running_distance_p90": 74,
+   "fis_m_per_min": 74,
+   "fis_hi_distance_p90": 58,
+   "fis_sprint_distance_p90": 26,
+   "fis_sprint_count_p90": 74,
+   "fis_high_accel_p90": 53,
+   "fis_psv99_top5": 95,
+   "fis_m_per_min_tip": 53,
+   "fis_m_per_min_otip": 95,
+   "fis_sprint_distance_p30tip": 16,
+   "fis_sprint_distance_p30otip": 79,
+   "fis_atletas": 5
+  },
+  {
+   "temporada": "2024",
+   "clube": "Santos",
+   "pos": 1,
+   "fis_distance_p90": 58,
+   "fis_running_distance_p90": 58,
+   "fis_m_per_min": 58,
+   "fis_hi_distance_p90": 63,
+   "fis_sprint_distance_p90": 47,
+   "fis_sprint_count_p90": 47,
+   "fis_high_accel_p90": 26,
+   "fis_psv99_top5": 11,
+   "fis_m_per_min_tip": 47,
+   "fis_m_per_min_otip": 47,
+   "fis_sprint_distance_p30tip": 26,
+   "fis_sprint_distance_p30otip": 58,
+   "fis_atletas": 61
+  },
+  {
+   "temporada": "2024",
+   "clube": "Mirassol",
+   "pos": 2,
+   "fis_distance_p90": 100,
+   "fis_running_distance_p90": 100,
+   "fis_m_per_min": 100,
+   "fis_hi_distance_p90": 84,
+   "fis_sprint_distance_p90": 53,
+   "fis_sprint_count_p90": 58,
+   "fis_high_accel_p90": 5,
+   "fis_psv99_top5": 89,
+   "fis_m_per_min_tip": 74,
+   "fis_m_per_min_otip": 74,
+   "fis_sprint_distance_p30tip": 53,
+   "fis_sprint_distance_p30otip": 11,
+   "fis_atletas": 3
+  },
+  {
+   "temporada": "2024",
+   "clube": "Sport",
+   "pos": 3,
+   "fis_distance_p90": 26,
+   "fis_running_distance_p90": 32,
+   "fis_m_per_min": 26,
+   "fis_hi_distance_p90": 32,
+   "fis_sprint_distance_p90": 11,
+   "fis_sprint_count_p90": 53,
+   "fis_high_accel_p90": 21,
+   "fis_psv99_top5": 26,
+   "fis_m_per_min_tip": 32,
+   "fis_m_per_min_otip": 68,
+   "fis_sprint_distance_p30tip": 16,
+   "fis_sprint_distance_p30otip": 68,
+   "fis_atletas": 61
+  },
+  {
+   "temporada": "2024",
+   "clube": "Ceará",
+   "pos": 4,
+   "fis_distance_p90": 11,
+   "fis_running_distance_p90": 11,
+   "fis_m_per_min": 11,
+   "fis_hi_distance_p90": 5,
+   "fis_sprint_distance_p90": 68,
+   "fis_sprint_count_p90": 74,
+   "fis_high_accel_p90": 53,
+   "fis_psv99_top5": 100,
+   "fis_m_per_min_tip": 11,
+   "fis_m_per_min_otip": 21,
+   "fis_sprint_distance_p30tip": 95,
+   "fis_sprint_distance_p30otip": 42,
+   "fis_atletas": 39
+  },
+  {
+   "temporada": "2025",
+   "clube": "Coritiba",
+   "pos": 1,
+   "fis_distance_p90": 37,
+   "fis_running_distance_p90": 42,
+   "fis_m_per_min": 37,
+   "fis_hi_distance_p90": 37,
+   "fis_sprint_distance_p90": 42,
+   "fis_sprint_count_p90": 37,
+   "fis_high_accel_p90": 21,
+   "fis_psv99_top5": 63,
+   "fis_m_per_min_tip": 5,
+   "fis_m_per_min_otip": 63,
+   "fis_sprint_distance_p30tip": 11,
+   "fis_sprint_distance_p30otip": 68,
+   "fis_atletas": 21
+  },
+  {
+   "temporada": "2025",
+   "clube": "Athletico-PR",
+   "pos": 2,
+   "fis_distance_p90": 79,
+   "fis_running_distance_p90": 89,
+   "fis_m_per_min": 79,
+   "fis_hi_distance_p90": 68,
+   "fis_sprint_distance_p90": 58,
+   "fis_sprint_count_p90": 74,
+   "fis_high_accel_p90": 79,
+   "fis_psv99_top5": 79,
+   "fis_m_per_min_tip": 89,
+   "fis_m_per_min_otip": 68,
+   "fis_sprint_distance_p30tip": 47,
+   "fis_sprint_distance_p30otip": 74,
+   "fis_atletas": 87
+  },
+  {
+   "temporada": "2025",
+   "clube": "Chapecoense",
+   "pos": 3,
+   "fis_distance_p90": 58,
+   "fis_running_distance_p90": 74,
+   "fis_m_per_min": 58,
+   "fis_hi_distance_p90": 58,
+   "fis_sprint_distance_p90": 21,
+   "fis_sprint_count_p90": 32,
+   "fis_high_accel_p90": 5,
+   "fis_psv99_top5": 37,
+   "fis_m_per_min_tip": 79,
+   "fis_m_per_min_otip": 37,
+   "fis_sprint_distance_p30tip": 26,
+   "fis_sprint_distance_p30otip": 21,
+   "fis_atletas": 0
+  },
+  {
+   "temporada": "2025",
+   "clube": "Remo",
+   "pos": 4,
+   "fis_distance_p90": 32,
+   "fis_running_distance_p90": 26,
+   "fis_m_per_min": 32,
+   "fis_hi_distance_p90": 16,
+   "fis_sprint_distance_p90": 26,
+   "fis_sprint_count_p90": 5,
+   "fis_high_accel_p90": 0,
+   "fis_psv99_top5": 42,
+   "fis_m_per_min_tip": 63,
+   "fis_m_per_min_otip": 42,
+   "fis_sprint_distance_p30tip": 42,
+   "fis_sprint_distance_p30otip": 16,
+   "fis_atletas": 39
+  }
+ ],
+ "firme_nos_dois_cortes": {
+  "SM": [],
+  "ST": [],
+  "CM": [
+   "fis_sprint_distance_p90",
+   "fis_sprint_count_p90",
+   "fis_psv99_top5",
+   "fis_sprint_distance_p30otip",
+   "fis_atletas"
+  ]
+ },
+ "poder_por_desenho": {
+  "16x48": 0.82,
+  "8x32": 1.14,
+  "16x16": 1.02,
+  "8x7": 1.57
+ },
+ "n": {
+  "total": 80,
+  "sobe_sf": 8,
+  "meio_sf": 32,
+  "cai_sf": 12
+ }
+}

@@ -1,0 +1,150 @@
+{
+ "parte": "J03",
+ "pergunta": "Em cada posição, como os titulares dos times que sobem se comparam aos do meio nas métricas técnicas?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidade": "jogador-temporada"
+ },
+ "comparacoes": [
+  {
+   "id": "SM",
+   "nome": "titular de quem sobe × titular do meio",
+   "papel": "padrão"
+  }
+ ],
+ "quem_e_titular": {
+  "regra": "Por clube-temporada e por SETOR, os jogadores de mais minutos — 1 no gol, 2 na zaga, 2 no lateral, 2 no volante/meia e 2 no ataque/extremo. O CLAUDE.md diz '1 ou 2 jogadores de mais minutos, conforme a posição'.",
+  "minimo_de_minutos": 900,
+  "motivo": "O md exige 900 minutos para entrar em percentil. Titular sem 900 minutos na temporada fica fora e é contado à parte."
+ },
+ "setores": {
+  "Goleiro": [
+   "GK"
+  ],
+  "Zaga": [
+   "CB",
+   "LCB",
+   "RCB"
+  ],
+  "Lateral": [
+   "LB",
+   "RB",
+   "LWB",
+   "RWB"
+  ],
+  "Volante": [
+   "DMF",
+   "LDMF",
+   "RDMF"
+  ],
+  "Meia": [
+   "AMF",
+   "LCMF",
+   "RCMF",
+   "LAMF",
+   "RAMF"
+  ],
+  "Extremo": [
+   "LW",
+   "RW",
+   "LWF",
+   "RWF"
+  ],
+  "Atacante": [
+   "CF"
+  ]
+ },
+ "familias": [
+  {
+   "id": "defensivo",
+   "nome": "Defender e disputar",
+   "indicadores": [
+    {
+     "id": "Duelos defensivos ganhos, %",
+     "sinal": 1
+    },
+    {
+     "id": "Duelos aéreos ganhos, %",
+     "sinal": 1
+    },
+    {
+     "id": "Interceções ajust. à posse",
+     "sinal": 1
+    },
+    {
+     "id": "Faltas/90",
+     "sinal": -1
+    }
+   ]
+  },
+  {
+   "id": "com_bola",
+   "nome": "Com a bola",
+   "indicadores": [
+    {
+     "id": "Passes certos, %",
+     "sinal": 1
+    },
+    {
+     "id": "Passes progressivos/90",
+     "sinal": 1
+    },
+    {
+     "id": "Dribles com sucesso, %",
+     "sinal": 1
+    },
+    {
+     "id": "Acções atacantes com sucesso/90",
+     "sinal": 1
+    }
+   ]
+  },
+  {
+   "id": "ofensivo",
+   "nome": "Produzir",
+   "indicadores": [
+    {
+     "id": "Golos esperados/90",
+     "sinal": 1
+    },
+    {
+     "id": "Assistências esperadas/90",
+     "sinal": 1
+    },
+    {
+     "id": "Remates/90",
+     "sinal": 1
+    },
+    {
+     "id": "Toques na área/90",
+     "sinal": 1
+    }
+   ]
+  }
+ ],
+ "percentil": "Dentro da mesma POSIÇÃO e TEMPORADA, entre todos os jogadores com 900+ minutos — como o CLAUDE.md manda. Não é percentil entre titulares: é entre todos os que jogaram o bastante, para o titular de quem sobe ser comparado à liga e não só aos seus pares.",
+ "armadilha_registrada": {
+  "coluna_de_clube": "`serieb_tecnico.csv` tem DUAS colunas de clube. `Equipa` traz o clube ATUAL do atleta e tem 531 valores distintos — está errada. A certa é `Equipa dentro de um período de tempo seleccionado`, com 42. Confundir as duas atribui o atleta ao clube errado em boa parte das linhas, e o erro é silencioso porque os dois nomes são de clube. Fonte: gerar_prototipo.py:528-540."
+ },
+ "ressalvas_declaradas": [
+  "Ações defensivas ajustadas pela posse do time, como o md pede — a coluna 'Interceções ajust. à posse' já vem ajustada; as de duelo são percentuais e não precisam.",
+  "Golos esperados por 90 e assistências esperadas por 90 medem produção e são próximas do placar, mas não estão na lista branca da §6, que é de clube-temporada. Entram com a ressalva de que medem resultado individual.",
+  "O Wyscout corta o export em 500 linhas por temporada e cada temporada veio em duas planilhas que se sobrepõem: quem jogou pouco pode faltar. Titular não é afetado."
+ ],
+ "emendas": [
+  {
+   "data": "2026-09-17",
+   "motivo": "Dois indicadores foram declarados com nome que não existe em serieb_tecnico.csv: 'Dribles bem sucedidos, %' e 'Perdas de bola/90'.",
+   "decisao": "O primeiro é 'Dribles com sucesso, %' — mesma métrica, nome diferente, troca direta. O segundo NÃO existe na base: não há coluna de perda de bola. Foi substituído por 'Acções atacantes com sucesso/90' (sinal +1), que é a métrica de ação com bola que a base tem no lugar.",
+   "registrado_antes_do_resultado": true,
+   "ressalva": "A substituição do segundo muda o que a família 'com bola' mede: sai um indicador de erro e entra um de acerto. Está registrado para a leitura não supor que houve medida de perda de bola."
+  }
+ ]
+}

@@ -1,0 +1,679 @@
+{
+ "parte": "A14",
+ "titulo": "Síntese e teste 2026: números novos pedidos pela proposta de destino",
+ "gerado_em": "2026-09-19",
+ "escopo": "Só cálculo. Não decidi destino de conclusão, não reescrevi texto e não mexi em nível de confiança. Este é o único arquivo escrito: nenhum <ID>.json, <ID>.md, <ID>.py, _registro.md, _auditoria*, _cascata*, _cruzar*, _proposta*, nem nada em dados/, static/ ou templates/ foi alterado.",
+ "fonte_do_pedido": "resultados/_proposta_destino.json, propostas.A14 (campos manchete_nova, o_que_vimos_novo, para_o_santa_cruz_novo, premissa_nova, n_novo e numeros_a_criar das três conclusões)",
+ "o_que_mudou_na_regua": "Todos os valores do índice foram recalculados com 7 componentes, sem I_estabilidade_11, que é feita só dos quatro nomes da constante CONSEQUENCIA de ranking_gaps.py (share_11, conc_hhi, atletas_usados, nucleo_300) e por isso é resultado contado de outro jeito. O A14.json de hoje traz o índice de 8: os valores diferentes NÃO são erro contra a base, são outro índice.",
+ "como_conferi": "recalculo do indice de 7 componentes. Caminho 1: scripts/A14.py importado como modulo (candidatos() com a varredura presa aos arquivos do Bloco A, base_completa() e a mesma regra de sinal), tirando I_estabilidade_11 da lista que sobra da redundancia. Caminho 2: reimplementacao do zero, sem importar A14.py e sem scipy.rankdata, lendo A01_clube_temporada.csv + dados/serieb_clube_temporada.csv + dados/serieb_jogos.csv + dados/prototipo_indicadores.json, com percentil por ranking manual e as reguas H_dinheiro e E_qualidade_chance remontadas na mao. Os dois caminhos deram o mesmo valor ate a 4a casa.",
+ "unidades": "O índice é média de percentis dentro da temporada — por isso todo valor de índice (i_*, pp_12, pp_36, top1_i, vn_i) está marcado 'só para a prova', junto com d, p, q e mínimo detectável. Os marcadores que entram na manchete, no que vimos e no uso prático são só contagens de times, nomes de clube e anos.",
+ "calculados": 59,
+ "nao_calculaveis": 2,
+ "numeros": [
+  {
+   "marcador": "n_ind",
+   "conclusao": "A14-1",
+   "valor": 7,
+   "formatado": "7",
+   "de_onde": "contagem da lista do índice depois de dois cortes. A varredura dos *_testes.csv e *_reguas.csv do Bloco A (A02, A03, A04, A05, A06, A07 e A12_reguas) devolve 10 candidatos firmes nos DOIS cortes de fronteira em Sobe × Meio e sem placar redescrito; o corte de redundância (|rho| de Spearman ≥ 0,80 entre percentis) tira 2 (dd_fora e F_solidez); a regra de 'resultado contado de outro jeito' tira I_estabilidade_11. 10 − 2 − 1 = 7.",
+   "segundo_caminho": "os 4 itens de I_estabilidade_11 em dados/prototipo_indicadores.json (share_11, conc_hhi, atletas_usados, nucleo_300) estão TODOS na constante CONSEQUENCIA de ranking_gaps.py:231 — conferido linha a linha. A régua é feita só de consequência do resultado, então sai inteira. Os 10 candidatos e os 2 descartes por redundância reproduzem, indicador a indicador e com o mesmo |d|, a lista já gravada em A14_resumo.json (campos 'candidatos' e 'descartados_por_redundancia').",
+   "conferido": true,
+   "nota": "A14.json de hoje traz n_ind = 8. Não é erro contra a base: é o índice antigo, que incluía I_estabilidade_11. A proposta é que muda a definição."
+  },
+  {
+   "marcador": "indice",
+   "conclusao": "A14-1",
+   "valor": "H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa",
+   "formatado": "H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa",
+   "de_onde": "a lista dos 7, na ordem de |d| mínimo entre os dois cortes: H_dinheiro 1,149 · dist_remate 1,084 · E_qualidade_chance 0,961 · xg_por_remate_contra 0,805 · duelos_def_pct 0,805 · xgc_casa 0,756 · dd_casa 0,703. |d| lido de A12_reguas.csv (H_dinheiro, E_qualidade_chance), A02_testes.csv (dist_remate, xg_por_remate_contra), A06_testes.csv (duelos_def_pct) e A03_testes.csv (xgc_casa, dd_casa), sempre comparacao=SM.",
+   "segundo_caminho": "mesma ordem e mesmos |d| do campo 'candidatos' de A14_resumo.json, tirando os 3 descartados.",
+   "conferido": true,
+   "nota": "só para a prova: é uma lista de nomes técnicos, não vai para a manchete."
+  },
+  {
+   "marcador": "descartados",
+   "conclusao": "A14-1",
+   "valor": "dd_fora (mede o mesmo que duelos_def_pct), F_solidez (mede o mesmo que xgc_casa), I_estabilidade_11 (é consequência do resultado, não característica)",
+   "formatado": "dd_fora (mede o mesmo que duelos_def_pct), F_solidez (mede o mesmo que xgc_casa), I_estabilidade_11 (é consequência do resultado, não característica)",
+   "de_onde": "dd_fora × duelos_def_pct: |rho| de Spearman 0,81 nos percentis das 80 linhas fechadas. F_solidez × xgc_casa: |rho| 0,83. I_estabilidade_11: sai por ser feita só de nomes da constante CONSEQUENCIA de ranking_gaps.py, não por redundância.",
+   "segundo_caminho": "os dois rho reproduzem 'descartados_por_redundancia' de A14_resumo.json ([['dd_fora', 'duelos_def_pct', 0.81], ['F_solidez', 'xgc_casa', 0.83]]); o terceiro descarte foi conferido contra ranking_gaps.py:231.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "n_base",
+   "conclusao": "A14-1",
+   "valor": 80,
+   "formatado": "80",
+   "de_onde": "A01_clube_temporada.csv, linhas com temporada em 2022–2025: 80 (20 clubes × 4 temporadas).",
+   "segundo_caminho": "contagem direta das faixas no mesmo arquivo: Sobe 16 + Meio 48 + Cai 16 = 80. E a base montada pelos dois caminhos de cálculo fecha em 80 linhas fechadas (100 com 2026).",
+   "conferido": true
+  },
+  {
+   "marcador": "n_sobe",
+   "conclusao": "A14-1",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, faixa == 'Sobe' (1º–4º): 16 linhas.",
+   "segundo_caminho": "4 promovidos × 4 temporadas; bate com a contagem de faixa do mesmo arquivo e com o n de cada temporada no recorte por ano (4 em cada).",
+   "conferido": true
+  },
+  {
+   "marcador": "n_meio",
+   "conclusao": "A14-1",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, faixa == 'Meio' (5º–16º): 48 linhas.",
+   "segundo_caminho": "12 × 4 = 48; e 48 = 16 da trave (5º–8º) + 32 fora dela, o que também foi contado.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_cai",
+   "conclusao": "A14-1",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, faixa == 'Cai' (17º–20º): 16 linhas.",
+   "segundo_caminho": "4 × 4 = 16; fecha 16 + 48 + 16 = 80.",
+   "conferido": true
+  },
+  {
+   "marcador": "i_sobe",
+   "conclusao": "A14-1",
+   "valor": 78.1,
+   "formatado": "78,1",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 16 linhas do Sobe. Sem arredondar: 78,1015.",
+   "segundo_caminho": "78,1015 nos dois caminhos (A14.py importado e reimplementação do zero).",
+   "conferido": true
+  },
+  {
+   "marcador": "i_trave",
+   "conclusao": "A14-1",
+   "valor": 56.6,
+   "formatado": "56,6",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 16 linhas com trave == 1 (5º–8º). Sem arredondar: 56,6259.",
+   "segundo_caminho": "56,6259 nos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "i_meio",
+   "conclusao": "A14-1",
+   "valor": 47.8,
+   "formatado": "47,8",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 48 linhas do Meio. Sem arredondar: 47,7914.",
+   "segundo_caminho": "47,7914 nos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "i_cai",
+   "conclusao": "A14-1",
+   "valor": 33.0,
+   "formatado": "33,0",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 16 linhas do Cai. Sem arredondar: 32,9887.",
+   "segundo_caminho": "32,9887 nos dois caminhos — arredonda para 33,0, não para 32,9.",
+   "conferido": true
+  },
+  {
+   "marcador": "i_meio_sem_trave",
+   "conclusao": "A14-1",
+   "valor": 46.1,
+   "formatado": "46,1",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 32 linhas do Meio que NÃO são trave (9º–16º). Sem arredondar: 46,1466.",
+   "segundo_caminho": "46,1466 nos dois caminhos; 32 = 48 do meio − 16 da trave.",
+   "conferido": true
+  },
+  {
+   "marcador": "d_sm",
+   "conclusao": "A14-1",
+   "valor": 1.59,
+   "formatado": "1,59",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). d de Cohen (pooled) entre as 16 do Sobe e as 48 do Meio, corte COM fronteira. Sem arredondar: 1,593160.",
+   "segundo_caminho": "1,5932 na reimplementação independente do d de Cohen.",
+   "conferido": true,
+   "nota": "só para a prova: d é palavra proibida na manchete e no que vimos."
+  },
+  {
+   "marcador": "p_sm",
+   "conclusao": "A14-1",
+   "valor": 1.75e-05,
+   "formatado": "1,75e-05",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). t de Welch bilateral, 16 do Sobe contra 48 do Meio, corte COM fronteira. Sem arredondar: 1,75012e-05.",
+   "segundo_caminho": "reproduz o valor citado na proposta (1,75e-05) partindo de base_completa() e do recálculo do zero.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "n_sobe_sf",
+   "conclusao": "A14-1",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, faixa == 'Sobe' e fronteira != 1: 8 linhas. Por temporada: 2022 tem 4, 2023 tem 1, 2024 tem 1 e 2025 tem 2.",
+   "segundo_caminho": "4 + 1 + 1 + 2 = 8, contado tanto no total quanto temporada a temporada.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_meio_sf",
+   "conclusao": "A14-1",
+   "valor": 32,
+   "formatado": "32",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, faixa == 'Meio' e fronteira != 1: 32 linhas. Por temporada: 9, 5, 10 e 8.",
+   "segundo_caminho": "9 + 5 + 10 + 8 = 32, contado nos dois cortes.",
+   "conferido": true
+  },
+  {
+   "marcador": "i_sobe_sf",
+   "conclusao": "A14-1",
+   "valor": 83.1,
+   "formatado": "83,1",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 8 linhas do Sobe sem os times colados na linha. Os percentis NÃO são recalculados no subconjunto: o corte só filtra as linhas, como em _metodo.comparar(). Sem arredondar: 83,0827.",
+   "segundo_caminho": "83,0827 nos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "i_meio_sf",
+   "conclusao": "A14-1",
+   "valor": 47.0,
+   "formatado": "47,0",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 32 linhas do Meio sem fronteira. Sem arredondar: 46,9925.",
+   "segundo_caminho": "46,9925 nos dois caminhos — arredonda para 47,0.",
+   "conferido": true
+  },
+  {
+   "marcador": "d_sm_sf",
+   "conclusao": "A14-1",
+   "valor": 2.71,
+   "formatado": "2,71",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). d de Cohen entre as 8 do Sobe e as 32 do Meio, corte SEM fronteira. Sem arredondar: 2,705046.",
+   "segundo_caminho": "2,7050 na reimplementação independente. Fica 2,71, não 2,70: o bruto passa de 2,705.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "p_sm_sf",
+   "conclusao": "A14-1",
+   "valor": 3.47e-07,
+   "formatado": "3,47e-07",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). t de Welch bilateral, 8 contra 32. Sem arredondar: 3,47335e-07.",
+   "segundo_caminho": "reproduz o valor citado na proposta (3,47e-07).",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "sobe_top4",
+   "conclusao": "A14-1",
+   "valor": 11,
+   "formatado": "11",
+   "de_onde": "dos 16 promovidos de 2022 a 2025, quantos ficaram entre os 4 primeiros do índice de 7 DENTRO da sua temporada (os 20 clubes do ano ordenados pelo índice, decrescente). Por temporada: 3 em 2022, 2 em 2023, 4 em 2024 e 2 em 2025.",
+   "segundo_caminho": "3 + 2 + 4 + 2 = 11 pelos dois caminhos de cálculo, com a ordenação refeita do zero no segundo.",
+   "conferido": true
+  },
+  {
+   "marcador": "sobe_acima",
+   "conclusao": "A14-1",
+   "valor": 9,
+   "formatado": "9",
+   "de_onde": "dos 16 promovidos, quantos tiveram índice MAIOR que o do melhor time do Meio da mesma temporada (acima de todos os 12 do meio). Por temporada: 3 em 2022, 0 em 2023, 4 em 2024 e 2 em 2025.",
+   "segundo_caminho": "3 + 0 + 4 + 2 = 9 pelos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_escolhiveis",
+   "conclusao": "A14-1",
+   "valor": 6,
+   "formatado": "6",
+   "de_onde": "dos 7 componentes, os que são decisão de modelo de jogo ou de contratação: dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa e dd_casa.",
+   "segundo_caminho": "7 − 1 = 6; o único não escolhível é H_dinheiro, que em dados/prototipo_indicadores.json é feita de tm_valor_total e tm_valor_mediana (valor do elenco).",
+   "conferido": true
+  },
+  {
+   "marcador": "n_nao_escolhiveis",
+   "conclusao": "A14-1",
+   "valor": 1,
+   "formatado": "1",
+   "de_onde": "só H_dinheiro, o valor do elenco, entre os 7.",
+   "segundo_caminho": "H_dinheiro = [tm_valor_total, tm_valor_mediana] em dados/prototipo_indicadores.json; nenhum dos outros 6 é valor de elenco. No índice antigo eram 2 (com I_estabilidade_11).",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_forte1",
+   "conclusao": "A14-2",
+   "valor": 2022,
+   "formatado": "2022",
+   "de_onde": "das 4 temporadas, a primeira (em ordem de ano) que passa em Benjamini-Hochberg a 5% no teste Sobe × Meio dentro do ano, índice de 7, corte COM fronteira: q 0,01040.",
+   "segundo_caminho": "BH sobre os 4 p do ano (0,00520 · 0,11491 · 0,00022 · 0,39010) dá q 0,01040 · 0,15321 · 0,00088 · 0,39010. Passam 2022 e 2024.",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_forte2",
+   "conclusao": "A14-2",
+   "valor": 2024,
+   "formatado": "2024",
+   "de_onde": "a segunda temporada que passa em BH: q 0,00088 (o menor dos quatro).",
+   "segundo_caminho": "mesmo BH; 2024 tem o menor p (0,00022) e o maior d (2,77).",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_fraco1",
+   "conclusao": "A14-2",
+   "valor": 2023,
+   "formatado": "2023",
+   "de_onde": "primeira temporada que NÃO passa em BH: q 0,15321, com d 0,87 contra um mínimo detectável de 1,74.",
+   "segundo_caminho": "mesmo BH. O d fica abaixo do mínimo detectável do desenho, então 'não passa' não é 'não existe' (§6.7).",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_fraco2",
+   "conclusao": "A14-2",
+   "valor": 2025,
+   "formatado": "2025",
+   "de_onde": "segunda temporada que NÃO passa em BH: q 0,39010, com d 0,74 contra 1,74 de mínimo detectável.",
+   "segundo_caminho": "mesmo BH. No corte SEM fronteira 2025 inverte e fica forte (q 0,00032).",
+   "conferido": true
+  },
+  {
+   "marcador": "top4_2022",
+   "conclusao": "A14-2",
+   "valor": 3,
+   "formatado": "3",
+   "de_onde": "dos 4 promovidos de 2022, quantos ficaram entre os 4 primeiros do índice de 7 daquela temporada.",
+   "segundo_caminho": "os 20 clubes de 2022 reordenados pelo índice nos dois caminhos de cálculo; o mesmo 3.",
+   "conferido": true
+  },
+  {
+   "marcador": "top4_2023",
+   "conclusao": "A14-2",
+   "valor": 2,
+   "formatado": "2",
+   "de_onde": "dos 4 promovidos de 2023, quantos ficaram entre os 4 primeiros do índice daquele ano.",
+   "segundo_caminho": "reordenação independente no segundo caminho; o mesmo 2.",
+   "conferido": true
+  },
+  {
+   "marcador": "top4_2024",
+   "conclusao": "A14-2",
+   "valor": 4,
+   "formatado": "4",
+   "de_onde": "dos 4 promovidos de 2024, quantos ficaram entre os 4 primeiros do índice daquele ano — os quatro.",
+   "segundo_caminho": "reordenação independente; 4 de 4, e os 4 também ficam acima de TODO o meio de 2024.",
+   "conferido": true
+  },
+  {
+   "marcador": "top4_2025",
+   "conclusao": "A14-2",
+   "valor": 2,
+   "formatado": "2",
+   "de_onde": "dos 4 promovidos de 2025, quantos ficaram entre os 4 primeiros do índice daquele ano.",
+   "segundo_caminho": "reordenação independente; o mesmo 2.",
+   "conferido": true
+  },
+  {
+   "marcador": "top4_fraco",
+   "conclusao": "A14-2",
+   "valor": 2,
+   "formatado": "2",
+   "de_onde": "quantos dos 4 promovidos a régua pegou entre os seus 4 primeiros nos DOIS anos fracos — 2023 e 2025 dão 2 cada, então o número serve para os dois.",
+   "segundo_caminho": "top4_2023 = 2 e top4_2025 = 2, contados separadamente pelos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "validacao_com_fronteira",
+   "conclusao": "A14-2",
+   "valor": "2022 d 2,20 p 0,00520 q 0,01040 · 2023 d 0,87 p 0,11491 q 0,15321 · 2024 d 2,77 p 0,00022 q 0,00088 · 2025 d 0,74 p 0,39010 q 0,39010 — mínimo detectável 1,74 em todas (4 contra 12)",
+   "formatado": "2022 d 2,20 p 0,00520 q 0,01040 · 2023 d 0,87 p 0,11491 q 0,15321 · 2024 d 2,77 p 0,00022 q 0,00088 · 2025 d 0,74 p 0,39010 q 0,39010 — mínimo detectável 1,74 em todas (4 contra 12)",
+   "de_onde": "índice de 7, temporada a temporada, 4 do Sobe contra 12 do Meio em cada; t de Welch bilateral, d de Cohen pooled, BH a 5% sobre os 4 p, mínimo detectável a 80% por desenho (_metodo.d_minimo(4, 12) = 1,74). Sem arredondar: d 2,20231 / 0,87231 / 2,77187 / 0,73929; p 0,005201 / 0,114912 / 0,000220 / 0,390099.",
+   "segundo_caminho": "os quatro d e p saem iguais pelos dois caminhos de cálculo do índice; o BH foi refeito à mão (p × 4/posto, com o mínimo acumulado de trás para frente) e bate com _metodo.bh().",
+   "conferido": true,
+   "nota": "string montada, como a proposta a escreveu; só para a prova. A proposta registrou q 0,15322 para 2023; o valor exato é 0,11491 × 4 / 3 = 0,15321."
+  },
+  {
+   "marcador": "dmin_val",
+   "conclusao": "A14-2",
+   "valor": 1.74,
+   "formatado": "1,74",
+   "de_onde": "_metodo.d_minimo(4, 12): menor d detectável a 80% de poder no desenho de 4 promovidos contra 12 do meio.",
+   "segundo_caminho": "o mesmo 1,74 já gravado em A14_resumo.json (validacao_uma_temporada_de_fora, campo d_minimo_80) — não depende do índice ter 7 ou 8 componentes, só dos tamanhos.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "validacao_sem_fronteira",
+   "conclusao": "A14-2",
+   "valor": "2022 4x9 d 2,18 p 0,00667 q 0,00667 (mínimo detectável 1,85) · 2023 1x5 sem teste · 2024 1x10 sem teste · 2025 2x8 d 2,68 p 0,00016 q 0,00032 (mínimo detectável 2,53)",
+   "formatado": "2022 4x9 d 2,18 p 0,00667 q 0,00667 (mínimo detectável 1,85) · 2023 1x5 sem teste · 2024 1x10 sem teste · 2025 2x8 d 2,68 p 0,00016 q 0,00032 (mínimo detectável 2,53)",
+   "de_onde": "o mesmo teste, tirando os times colados na linha do G4 e do Z4. Em 2023 sobra 1 promovido contra 5 do meio e em 2024 sobra 1 contra 10 — com um grupo de 1 não há variância, então não há teste. Sem arredondar: 2022 d 2,18174 p 0,006671; 2025 d 2,68430 p 0,000162.",
+   "segundo_caminho": "os n por temporada (4x9, 1x5, 1x10, 2x8) somam os 8 do Sobe e os 32 do Meio do corte sem fronteira, contados de A01_clube_temporada.csv; d e p saem iguais pelos dois caminhos.",
+   "conferido": true,
+   "nota": "string montada; só para a prova. O q aqui é BH sobre os 2 testes que existem (m = 2), que é a convenção de _metodo.comparar(): indicador sem n suficiente é pulado e não entra na família. A proposta registrou q 0,01334 e 0,00065, que é o mesmo BH contando m = 4 (as duas temporadas sem teste). Quem decide a convenção é o dono; os p são os mesmos nos dois casos."
+  },
+  {
+   "marcador": "rodada26",
+   "conclusao": "A14-3",
+   "valor": 27,
+   "formatado": "27",
+   "de_onde": "resultados/classificacao_rodada.csv, maior valor da coluna rodada com temporada == 2026.",
+   "segundo_caminho": "540 linhas de 2026 no mesmo arquivo ÷ 20 clubes = 27 rodadas; e em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B', Data de 2026) cada clube tem 26 ou 27 jogos.",
+   "conferido": true,
+   "nota": "já estava certo em A14.json; repetido aqui porque o texto novo o usa."
+  },
+  {
+   "marcador": "n26",
+   "conclusao": "A14-3",
+   "valor": 20,
+   "formatado": "20",
+   "de_onde": "A01_clube_temporada.csv, linhas com temporada == 2026: 20 clubes.",
+   "segundo_caminho": "as 20 linhas de 2026 também aparecem na base montada pelos dois caminhos (100 linhas ao todo, 80 fechadas + 20 de 2026).",
+   "conferido": true
+  },
+  {
+   "marcador": "top1",
+   "conclusao": "A14-3",
+   "valor": "Novorizontino",
+   "formatado": "Novorizontino",
+   "de_onde": "primeiro colocado do índice de 7 em 2026 na rodada 27: 85,3.",
+   "segundo_caminho": "mesma ordenação nos dois caminhos de cálculo. Com o índice antigo, de 8 componentes, o primeiro era o Juventude (83,1) — a troca é efeito de tirar I_estabilidade_11.",
+   "conferido": true
+  },
+  {
+   "marcador": "top1_i",
+   "conclusao": "A14-3",
+   "valor": 85.3,
+   "formatado": "85,3",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Valor do Novorizontino em 2026. Sem arredondar: 85,3383.",
+   "segundo_caminho": "85,3383 nos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "top1_pos",
+   "conclusao": "A14-3",
+   "valor": 2,
+   "formatado": "2",
+   "de_onde": "posição do Novorizontino na tabela de 2026 na rodada 27 (A01_clube_temporada.csv, coluna pos): 2º, com 49 pontos.",
+   "segundo_caminho": "A01 de 2026 traz 1 Juventude 50 · 2 Novorizontino 49 · 3 Vila Nova 47 · 4 Fortaleza 47.",
+   "conferido": true
+  },
+  {
+   "marcador": "top2",
+   "conclusao": "A14-3",
+   "valor": "Juventude",
+   "formatado": "Juventude",
+   "de_onde": "segundo colocado do índice de 7 em 2026: 84,0.",
+   "segundo_caminho": "mesma ordenação nos dois caminhos; a diferença para o Novorizontino é 1,3 ponto de índice.",
+   "conferido": true
+  },
+  {
+   "marcador": "top2_i",
+   "conclusao": "A14-3",
+   "valor": 84.0,
+   "formatado": "84,0",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Valor do Juventude em 2026. Sem arredondar: 84,0226.",
+   "segundo_caminho": "84,0226 nos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "top2_pos",
+   "conclusao": "A14-3",
+   "valor": 1,
+   "formatado": "1",
+   "de_onde": "posição do Juventude na tabela de 2026 na rodada 27: 1º, com 50 pontos.",
+   "segundo_caminho": "A01_clube_temporada.csv, temporada 2026, coluna pos.",
+   "conferido": true
+  },
+  {
+   "marcador": "backtest_conj",
+   "conclusao": "A14-3",
+   "valor": 1,
+   "formatado": "1",
+   "de_onde": "nas 4 temporadas fechadas, em quantas os DOIS primeiros do índice de 7 são exatamente os dois primeiros da tabela (comparação de conjunto, ignorando a ordem entre eles). 2022: régua Bahia e Grêmio, tabela Cruzeiro e Grêmio — não. 2023: régua Novorizontino e Vitória, tabela Juventude e Vitória — não. 2024: régua Ceará e Santos, tabela Mirassol e Santos — não. 2025: régua Athletico-PR e Coritiba, tabela Athletico-PR e Coritiba — sim.",
+   "segundo_caminho": "a comparação foi refeita do zero no segundo caminho, reordenando cada temporada e lendo a posição de A01_clube_temporada.csv; o mesmo 1.",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_acerto",
+   "conclusao": "A14-3",
+   "valor": 2025,
+   "formatado": "2025",
+   "de_onde": "a única temporada fechada em que os dois primeiros do índice são os dois primeiros da tabela: Athletico-PR e Coritiba.",
+   "segundo_caminho": "conferido nos dois caminhos, temporada a temporada.",
+   "conferido": true
+  },
+  {
+   "marcador": "backtest_por_temporada",
+   "conclusao": "A14-3",
+   "valor": "2022 não · 2023 não · 2024 não · 2025 sim",
+   "formatado": "2022 não · 2023 não · 2024 não · 2025 sim",
+   "de_onde": "o detalhe do backtest_conj, ano a ano.",
+   "segundo_caminho": "mesma varredura dos dois caminhos.",
+   "conferido": true,
+   "nota": "string montada; para a prova."
+  },
+  {
+   "marcador": "vn",
+   "conclusao": "A14-3",
+   "valor": "Vila Nova",
+   "formatado": "Vila Nova",
+   "de_onde": "o time do G4 de 2026 que a régua mais erra: 3º em pontos, 12º no índice.",
+   "segundo_caminho": "A01_clube_temporada.csv (pos) e a ordenação do índice, nos dois caminhos.",
+   "conferido": true
+  },
+  {
+   "marcador": "vn_pos",
+   "conclusao": "A14-3",
+   "valor": 3,
+   "formatado": "3",
+   "de_onde": "posição do Vila Nova na tabela de 2026 na rodada 27: 3º, com 47 pontos.",
+   "segundo_caminho": "A01_clube_temporada.csv, temporada 2026.",
+   "conferido": true
+  },
+  {
+   "marcador": "vn_reg",
+   "conclusao": "A14-3",
+   "valor": 12,
+   "formatado": "12",
+   "de_onde": "posição do Vila Nova na ordenação dos 20 clubes de 2026 pelo índice de 7: 12ª.",
+   "segundo_caminho": "12ª nos dois caminhos. Com o índice antigo, de 8 componentes, era a 13ª — a diferença é tirar I_estabilidade_11.",
+   "conferido": true
+  },
+  {
+   "marcador": "vn_i",
+   "conclusao": "A14-3",
+   "valor": 45.7,
+   "formatado": "45,7",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Valor do Vila Nova em 2026. Sem arredondar: 45,6767.",
+   "segundo_caminho": "45,6767 nos dois caminhos — arredonda para 45,7, não para 45,6.",
+   "conferido": true
+  },
+  {
+   "marcador": "pp_n12",
+   "conclusao": "A14-3",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, linhas com pos <= 2: 8 (2 por temporada).",
+   "segundo_caminho": "2 × 4 = 8.",
+   "conferido": true,
+   "nota": "já estava certo em A14.json."
+  },
+  {
+   "marcador": "pp_n36",
+   "conclusao": "A14-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "A01_clube_temporada.csv, 2022–2025, linhas com pos entre 3 e 6: 16 (4 por temporada).",
+   "segundo_caminho": "4 × 4 = 16.",
+   "conferido": true,
+   "nota": "já estava certo em A14.json."
+  },
+  {
+   "marcador": "pp_12",
+   "conclusao": "A14-3",
+   "valor": 79.4,
+   "formatado": "79,4",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 8 linhas com pos <= 2. Sem arredondar: 79,4173.",
+   "segundo_caminho": "79,4173 nos dois caminhos.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "pp_36",
+   "conclusao": "A14-3",
+   "valor": 56.3,
+   "formatado": "56,3",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). Mediana das 16 linhas com pos de 3 a 6. Sem arredondar: 56,3440.",
+   "segundo_caminho": "56,3440 nos dois caminhos.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "pp_d",
+   "conclusao": "A14-3",
+   "valor": 0.94,
+   "formatado": "0,94",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). d de Cohen entre os 8 de 1º–2º e os 16 de 3º–6º. Sem arredondar: 0,944103.",
+   "segundo_caminho": "0,9441 na reimplementação independente do d.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "pp_p",
+   "conclusao": "A14-3",
+   "valor": 0.01453,
+   "formatado": "0,01453",
+   "de_onde": "índice de 7 = média dos 7 percentis já alinhados (alto = melhor) do clube-temporada dentro da sua temporada. Componentes: H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa. H_dinheiro e E_qualidade_chance entram como régua de dados/prototipo_indicadores.json (já alinhadas); dist_remate, xg_por_remate_contra e xgc_casa entram invertidos (100 − percentil), porque o sinal declarado deles é −1; duelos_def_pct e dd_casa entram diretos. Base: as 80 linhas clube-temporada de 2022 a 2025 de A01_clube_temporada.csv que têm as colunas das réguas em dados/serieb_clube_temporada.csv e jogo a jogo em dados/serieb_jogos.csv (Competição == 'Brazil. Serie B'). t de Welch bilateral, 8 contra 16. Sem arredondar: 0,014534.",
+   "segundo_caminho": "reproduz o valor citado na proposta.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "pp_dmin",
+   "conclusao": "A14-3",
+   "valor": 1.27,
+   "formatado": "1,27",
+   "de_onde": "_metodo.d_minimo(8, 16): menor d detectável a 80% de poder com 8 contra 16.",
+   "segundo_caminho": "o mesmo 1,27 já gravado em A14_resumo.json (primeiro_segundo_contra_terceiro_sexto, d_minimo_80) — depende só dos tamanhos, não do número de componentes.",
+   "conferido": true,
+   "nota": "só para a prova."
+  },
+  {
+   "marcador": "pp_resumo",
+   "conclusao": "A14-3",
+   "valor": "pp_12 79,4 · pp_36 56,3 · d 0,94 · p 0,01453 · n 8 contra 16 · mínimo detectável 1,27",
+   "formatado": "pp_12 79,4 · pp_36 56,3 · d 0,94 · p 0,01453 · n 8 contra 16 · mínimo detectável 1,27",
+   "de_onde": "a linha inteira do teste 1º–2º contra 3º–6º, montada como a proposta a escreveu.",
+   "segundo_caminho": "cada pedaço conferido separadamente acima.",
+   "conferido": true,
+   "nota": "string montada; só para a prova."
+  }
+ ],
+ "valores": {
+  "n_ind": 7,
+  "indice": "H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, xgc_casa, dd_casa",
+  "descartados": "dd_fora (mede o mesmo que duelos_def_pct), F_solidez (mede o mesmo que xgc_casa), I_estabilidade_11 (é consequência do resultado, não característica)",
+  "n_base": 80,
+  "n_sobe": 16,
+  "n_meio": 48,
+  "n_cai": 16,
+  "i_sobe": 78.1,
+  "i_trave": 56.6,
+  "i_meio": 47.8,
+  "i_cai": 33.0,
+  "i_meio_sem_trave": 46.1,
+  "d_sm": 1.59,
+  "p_sm": 1.75e-05,
+  "n_sobe_sf": 8,
+  "n_meio_sf": 32,
+  "i_sobe_sf": 83.1,
+  "i_meio_sf": 47.0,
+  "d_sm_sf": 2.71,
+  "p_sm_sf": 3.47e-07,
+  "sobe_top4": 11,
+  "sobe_acima": 9,
+  "n_escolhiveis": 6,
+  "n_nao_escolhiveis": 1,
+  "ano_forte1": 2022,
+  "ano_forte2": 2024,
+  "ano_fraco1": 2023,
+  "ano_fraco2": 2025,
+  "top4_2022": 3,
+  "top4_2023": 2,
+  "top4_2024": 4,
+  "top4_2025": 2,
+  "top4_fraco": 2,
+  "validacao_com_fronteira": "2022 d 2,20 p 0,00520 q 0,01040 · 2023 d 0,87 p 0,11491 q 0,15321 · 2024 d 2,77 p 0,00022 q 0,00088 · 2025 d 0,74 p 0,39010 q 0,39010 — mínimo detectável 1,74 em todas (4 contra 12)",
+  "dmin_val": 1.74,
+  "validacao_sem_fronteira": "2022 4x9 d 2,18 p 0,00667 q 0,00667 (mínimo detectável 1,85) · 2023 1x5 sem teste · 2024 1x10 sem teste · 2025 2x8 d 2,68 p 0,00016 q 0,00032 (mínimo detectável 2,53)",
+  "rodada26": 27,
+  "n26": 20,
+  "top1": "Novorizontino",
+  "top1_i": 85.3,
+  "top1_pos": 2,
+  "top2": "Juventude",
+  "top2_i": 84.0,
+  "top2_pos": 1,
+  "backtest_conj": 1,
+  "ano_acerto": 2025,
+  "backtest_por_temporada": "2022 não · 2023 não · 2024 não · 2025 sim",
+  "vn": "Vila Nova",
+  "vn_pos": 3,
+  "vn_reg": 12,
+  "vn_i": 45.7,
+  "pp_n12": 8,
+  "pp_n36": 16,
+  "pp_12": 79.4,
+  "pp_36": 56.3,
+  "pp_d": 0.94,
+  "pp_p": 0.01453,
+  "pp_dmin": 1.27,
+  "pp_resumo": "pp_12 79,4 · pp_36 56,3 · d 0,94 · p 0,01453 · n 8 contra 16 · mínimo detectável 1,27"
+ },
+ "ja_tinham_valor_e_estao_certos": [
+  {
+   "marcador": "rodada26",
+   "valor": 27,
+   "onde": "A14.json, numeros.rodada26 — conferido contra classificacao_rodada.csv e serieb_jogos.csv; não muda com o índice de 7."
+  },
+  {
+   "marcador": "pp_n12",
+   "valor": 8,
+   "onde": "A14.json, numeros.pp_n12 — 2 clubes × 4 temporadas; não muda."
+  },
+  {
+   "marcador": "pp_n36",
+   "valor": 16,
+   "onde": "A14.json, numeros.pp_n36 — 4 clubes × 4 temporadas; não muda."
+  },
+  {
+   "marcador": "dmin_val",
+   "valor": 1.74,
+   "onde": "A14.json, numeros.dmin_val — só depende de 4 contra 12; não muda."
+  },
+  {
+   "marcador": "pp_dmin",
+   "valor": 1.27,
+   "onde": "A14.json, numeros.pp_dmin — só depende de 8 contra 16; não muda."
+  },
+  {
+   "marcador": "top1_pos / top2_pos",
+   "valor": "as posições de tabela 1 e 2 continuam sendo Juventude e Novorizontino",
+   "onde": "A14.json guarda top1_pos = 1 e top2_pos = 2 para o par (Juventude, Novorizontino). Com o índice de 7 a ORDEM da régua inverte, então os marcadores passam a valer top1_pos = 2 (Novorizontino) e top2_pos = 1 (Juventude). O dado de tabela é o mesmo; o que mudou foi a quem cada marcador se refere."
+  }
+ ],
+ "correcoes_de_numero_existente": [],
+ "nota_sobre_correcoes": "Nenhuma. Rodei também o índice de 8 componentes, como A14.json o declara, e ele reproduz TODOS os valores gravados lá, casa a casa: i_sobe 74,3832→74,4 · i_trave 57,9770→58,0 · i_meio 48,6842→48,7 · i_cai 31,9490→31,9 · d_sm 1,6584→1,66 · v22 2,6078→2,61 · v23 0,8759→0,88 · v24 2,6683→2,67 · v25 0,7861→0,79 · p22 0,00683 · p24 0,00014 · pp_12 77,5493→77,5 · pp_36 59,7862→59,8 · pp_d 0,8907→0,89 · pp_p 0,02283 · top1_i 83,1414→83,1 · top2_i 80,7566→80,8 · vn_i 47,6151→47,6 · vn_reg 13. Os arredondamentos estão todos certos e nenhum foi truncado. O que a proposta muda é a definição do índice, não um valor errado.",
+ "defeitos_de_codigo_encontrados_e_nao_corrigidos": [
+  "scripts/A14.py, candidatos(): varre TODOS os *_testes.csv de resultados/. Hoje quebra com KeyError 'comparacao' em J03_testes.csv e também em J08_testes.csv (nenhum dos dois tem a coluna), e A10_testes.csv tem 'comparacao' mas não tem 'fronteira'. Prendi a varredura aos arquivos que começam com 'A' e que trazem as duas colunas — A02, A03, A04, A05, A06, A07 e A12_reguas —, que é o conjunto que gerou o A14_resumo.json de 17/09. A10_testes.csv ficou de fora por estrutura incompatível (usa 'corte' no lugar de 'fronteira'); de qualquer modo A10 só cobre 2025 e não caberia num índice de quatro temporadas.",
+  "scripts/A14.py, sinais(): quebra com TypeError em A10_indicadores.json, onde familias[].indicadores é lista de strings e não de dicionários. Usei uma versão que pula o que não é dicionário. Conferi que isso não muda sinal nenhum dos 7: dist_remate −1 (A02), xg_por_remate_contra −1 (A02 e A06, iguais), duelos_def_pct +1 (A06), xgc_casa −1 (A03), dd_casa +1 (A03); H_dinheiro e E_qualidade_chance são réguas, já alinhadas.",
+  "scripts/A14.py, validação: o rótulo 'deixando uma temporada de fora' não descreve o que o código faz. O índice não tem peso ajustado, então montar sem a temporada e aplicar nela dá exatamente o mesmo índice — o teste é temporada a temporada, com a régua das quatro. Isto só confirma o achado que a proposta já registra; não foi corrigido em arquivo nenhum."
+ ],
+ "bloqueados": [
+  {
+   "marcador": "data_da_execucao",
+   "conclusao": "A14-1 e A14-3 (campo prova)",
+   "por_que": "A proposta pede que a prova cite 'A14_resumo.json + resultados/A14.md + a data da execução' depois de prender a varredura de candidatos() aos arquivos do Bloco A. Não há data para citar: o A14_resumo.json que está em disco é o do índice de 8 componentes, gravado em 17/09, e o resultados/A14.md não existe. Regravar o resumo ou criar o .md está fora do único arquivo que esta tarefa pode escrever.",
+   "o_que_resolveria": "uma execução do A14.py corrigido (varredura presa ao Bloco A — hoje ela quebra com KeyError 'comparacao' em J03_testes.csv e TypeError em A10_indicadores.json, que nasceram depois dela — e I_estabilidade_11 fora do índice), regravando A14_resumo.json e escrevendo A14.md. Os números da execução já estão todos aqui: o que falta é o arquivo e a data."
+  },
+  {
+   "marcador": "negativa",
+   "conclusao": "A14-2",
+   "por_que": "A proposta lista 'marcar negativa = true no JSON' dentro de numeros_a_criar, mas isso não é um número da base: é um campo de A14.json que manda a conclusão para 'Parece, mas não é' em vez de deixá-la elegível a 'O que decidimos' (gerar_estudo_serieb_js.py, linhas 139-146). Esta tarefa não pode tocar em A14.json.",
+   "o_que_resolveria": "quem aplicar a proposta em A14.json acrescenta o campo; nada precisa ser calculado."
+  }
+ ]
+}

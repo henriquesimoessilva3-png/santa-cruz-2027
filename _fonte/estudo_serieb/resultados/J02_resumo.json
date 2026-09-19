@@ -1,0 +1,57 @@
+{
+ "quadro_por_faixa": {
+  "Sobe": {
+   "share_11": 68.1,
+   "conc_hhi": 51.1,
+   "atletas_usados": 35.0,
+   "nucleo_300": 26.0,
+   "min_de_quem_ficou_pct": 27.0,
+   "min_de_contratado_pct": 73.0,
+   "jogadores_que_ficaram_pct": 25.9
+  },
+  "Trave": {
+   "share_11": 65.9,
+   "conc_hhi": 49.4,
+   "atletas_usados": 35.0,
+   "nucleo_300": 27.0,
+   "min_de_quem_ficou_pct": 39.8,
+   "min_de_contratado_pct": 60.2,
+   "jogadores_que_ficaram_pct": 30.2
+  },
+  "Meio": {
+   "share_11": 63.1,
+   "conc_hhi": 46.3,
+   "atletas_usados": 38.0,
+   "nucleo_300": 27.0,
+   "min_de_quem_ficou_pct": 32.3,
+   "min_de_contratado_pct": 67.7,
+   "jogadores_que_ficaram_pct": 27.0
+  },
+  "Cai": {
+   "share_11": 60.2,
+   "conc_hhi": 42.5,
+   "atletas_usados": 47.0,
+   "nucleo_300": 30.5,
+   "min_de_quem_ficou_pct": 24.1,
+   "min_de_contratado_pct": 75.9,
+   "jogadores_que_ficaram_pct": 22.2
+  }
+ },
+ "firme_nos_dois_cortes": {
+  "SM": [
+   "share_11",
+   "conc_hhi"
+  ],
+  "ST": [],
+  "CM": [
+   "share_11",
+   "conc_hhi",
+   "atletas_usados",
+   "nucleo_300",
+   "min_de_quem_ficou_pct",
+   "min_de_contratado_pct"
+  ]
+ },
+ "fora_por_cobertura": [],
+ "n": 79
+}

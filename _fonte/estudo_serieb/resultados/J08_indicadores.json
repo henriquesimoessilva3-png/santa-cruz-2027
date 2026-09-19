@@ -1,0 +1,366 @@
+{
+  "parte": "J08",
+  "pergunta": "Como os números de um jogador de outra liga se traduzem para a Série B?",
+  "declarado_em": "2026-09-19",
+  "declarado_antes_de_calcular": true,
+  "nota": "Esta lista fecha ANTES de rodar, como manda o CLAUDE.md do estudo ('Indicador novo entra na lista pré-declarada antes de rodar, nunca depois de ver o resultado'). Foi escrita no molde de A02_indicadores.json. Nenhum indicador entra ou sai depois do resultado; qualquer mudança fica registrada em 'emendas', com data e motivo.",
+  "unidade": {
+    "linha": "uma transferência: jogador que saiu de uma liga de origem numa temporada e apareceu no futebol brasileiro numa temporada seguinte",
+    "medida": "percentil ANTES e percentil DEPOIS do mesmo indicador, e a diferença entre os dois (Δpercentil = depois − antes)",
+    "regua_do_percentil": "dentro de (liga × período × posição-raiz), construída SÓ com quem tem 900+ minutos naquela liga-período — é a regra de percentil do CLAUDE.md ('Percentis: dentro da mesma posição e temporada, só para quem tem pelo menos 900 minutos') e é também a defesa contra a armadilha do Wyscout 'minutagem baixa polui a régua da liga' — VER A EMENDA 1 de 19/09: o corte de 900 vira TETO e a régua passa a usar a mesma fatia de temporada onde o campeonato é curto ou está em curso.",
+    "quem_entra_na_linha": "TODO transferido, inclusive quem não chegou a 900 minutos no destino — ele é posicionado na régua dos 900+, não entra na régua, e vai marcado na coluna menos_900_no_destino"
+  },
+  "recorte": {
+    "origem": "qualquer uma das 65 ligas do painel ago26 do Portal Ranking",
+    "destino": [
+      "Brasil A",
+      "Brasil B",
+      "Brasil C"
+    ],
+    "motivo_do_destino_triplo": "O J08 do CLAUDE.md autoriza os três ('Série B e, se houver base, Série A' e 'O mesmo método vale para a Série C'). Não é conveniência: com destino só Série B nenhuma liga estrangeira chega ao piso de 10 casos (a maior é Portugal A, com 8). Com os três destinos, sete ligas estrangeiras passam de 10.",
+    "temporadas": "todas as do painel temporal (2018 a 2026; 2026 = período jun26). O grosso está em 2023→2024, 2024→2025 e 2025→2026.",
+    "goleiros": "FORA. O painel temporal do Portal Ranking não tem posição-raiz de goleiro (roots: ZAG, LAT, VOL, MED, MEI, EXT, ATA). J08 não produz fator de liga para goleiro, e J09 tem de dizer isso."
+  },
+  "familias": [
+    {
+      "id": "volume",
+      "nome": "Técnicas de volume — quanto o jogador faz",
+      "papel": "unidade do BH",
+      "montavel": true,
+      "fonte": "Excel do Wyscout (aba BASE) da liga e do período, um por lado da transferência",
+      "de_onde_veio_a_lista": "É a lista técnica da etapa_11 de dados/prototipo.json ('o que o jogador leva na mala'), que o CLAUDE.md manda aproveitar — os dez indicadores dela são todos por 90 min, ou seja, todos de volume. Acrescentamos dois de base defensiva (Passes per 90 e Successful defensive actions per 90), porque a lista da etapa_11 é de ataque e 403 dos transferidos são ZAG, LAT ou VOL.",
+      "indicadores": [
+        {
+          "id": "duelos_90",
+          "coluna": "Duels per 90",
+          "nome": "Duelos por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.715
+        },
+        {
+          "id": "duelos_aereos_90",
+          "coluna": "Aerial duels per 90",
+          "nome": "Duelos aéreos por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.642
+        },
+        {
+          "id": "dribles_90",
+          "coluna": "Dribbles per 90",
+          "nome": "Dribles por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.513
+        },
+        {
+          "id": "aceleracoes_90",
+          "coluna": "Accelerations per 90",
+          "nome": "Acelerações com bola por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.432
+        },
+        {
+          "id": "remates_90",
+          "coluna": "Shots per 90",
+          "nome": "Finalizações por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.487
+        },
+        {
+          "id": "passes_progressivos_90",
+          "coluna": "Progressive passes per 90",
+          "nome": "Passes progressivos por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.36
+        },
+        {
+          "id": "passes_recebidos_90",
+          "coluna": "Received passes per 90",
+          "nome": "Passes recebidos por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.293
+        },
+        {
+          "id": "toques_area_90",
+          "coluna": "Touches in box per 90",
+          "nome": "Toques na área por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.346
+        },
+        {
+          "id": "xg_90",
+          "coluna": "xG per 90",
+          "nome": "Golos esperados por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.281
+        },
+        {
+          "id": "passes_chave_90",
+          "coluna": "Key passes per 90",
+          "nome": "Passes chave por 90",
+          "sinal": "neutro",
+          "etapa_11": true,
+          "rho_etapa_11_mudou": 0.096
+        },
+        {
+          "id": "passes_90",
+          "coluna": "Passes per 90",
+          "nome": "Passes por 90",
+          "sinal": "neutro",
+          "etapa_11": false
+        },
+        {
+          "id": "acoes_def_90",
+          "coluna": "Successful defensive actions per 90",
+          "nome": "Ações defensivas certas por 90",
+          "sinal": "neutro",
+          "etapa_11": false
+        }
+      ]
+    },
+    {
+      "id": "eficiencia",
+      "nome": "Técnicas de eficiência — quanto acerta do que faz",
+      "papel": "unidade do BH",
+      "montavel": true,
+      "fonte": "Excel do Wyscout (aba BASE) da liga e do período, um por lado da transferência",
+      "de_onde_veio_a_lista": "Cada eficiência é o par do volume correspondente: duelos/duelos ganhos, dribles/dribles certos, remates/remates à baliza, passes/passes certos, passes progressivos/progressivos certos. É esta paridade que faz a pergunta do J08 ter resposta separável: quando o jogador muda de liga, o que cai é o volume ou a pontaria?",
+      "indicadores": [
+        {
+          "id": "passes_certos_pct",
+          "coluna": "Accurate passes, %",
+          "nome": "Passes certos (%)",
+          "sinal": 1,
+          "par_de_volume": "passes_90"
+        },
+        {
+          "id": "duelos_ganhos_pct",
+          "coluna": "Duels won, %",
+          "nome": "Duelos ganhos (%)",
+          "sinal": 1,
+          "par_de_volume": "duelos_90"
+        },
+        {
+          "id": "duelos_aereos_ganhos_pct",
+          "coluna": "Aerial duels won, %",
+          "nome": "Duelos aéreos ganhos (%)",
+          "sinal": 1,
+          "par_de_volume": "duelos_aereos_90"
+        },
+        {
+          "id": "duelos_def_ganhos_pct",
+          "coluna": "Defensive duels won, %",
+          "nome": "Duelos defensivos ganhos (%)",
+          "sinal": 1,
+          "par_de_volume": "acoes_def_90"
+        },
+        {
+          "id": "dribles_certos_pct",
+          "coluna": "Successful dribbles, %",
+          "nome": "Dribles certos (%)",
+          "sinal": 1,
+          "par_de_volume": "dribles_90"
+        },
+        {
+          "id": "remates_baliza_pct",
+          "coluna": "Shots on target, %",
+          "nome": "Finalizações à baliza (%)",
+          "sinal": 1,
+          "par_de_volume": "remates_90"
+        },
+        {
+          "id": "conversao_pct",
+          "coluna": "Goal conversion, %",
+          "nome": "Conversão de finalização (%)",
+          "sinal": 1,
+          "par_de_volume": "remates_90"
+        },
+        {
+          "id": "cruzamentos_certos_pct",
+          "coluna": "Accurate crosses, %",
+          "nome": "Cruzamentos certos (%)",
+          "sinal": 1,
+          "par_de_volume": null
+        },
+        {
+          "id": "passes_prog_certos_pct",
+          "coluna": "Accurate progressive passes, %",
+          "nome": "Passes progressivos certos (%)",
+          "sinal": 1,
+          "par_de_volume": "passes_progressivos_90"
+        },
+        {
+          "id": "passes_ult_terco_certos_pct",
+          "coluna": "Accurate passes to final third, %",
+          "nome": "Passes certos ao último terço (%)",
+          "sinal": 1,
+          "par_de_volume": null
+        }
+      ]
+    },
+    {
+      "id": "fisicas",
+      "nome": "Físicas — corrida, sprint, aceleração, velocidade de pico",
+      "papel": "unidade do BH",
+      "montavel": false,
+      "status": "NÃO MONTÁVEL, e a lista fica declarada aqui para quando o dado existir",
+      "motivo": "Não existe dado físico por temporada para liga de origem nenhuma. O Wyscout não tem tracking (nenhuma das 115 colunas do Excel é de corrida; 'Accelerations per 90' é evento com bola e está declarado no volume, não aqui). O skillcorner_serieb.db copiado em 19/09 é só Série B. O phy_score de rankings_ago26.json existe para 37 das 65 ligas, mas é UMA foto (ago26): não há valor de phy_score na temporada de origem, então não há ANTES e não há Δ. A pasta dados/skillcorner/abr26 do Portal Ranking está vazia.",
+      "o_que_resolveria": "O skillcorner.db do Portal Skillcorner (329 MB, a fonte de onde saiu a cópia da Série B) com as edições das ligas de origem, por temporada. Isso é outra cópia, de outro projeto, e não é um período do Portal Ranking — não entra em precisa_copiar, e não foi feito aqui.",
+      "consequencia_declarada": "O fator de liga do J08 é TÉCNICO. Nenhum número desta parte diz se o jogador aguenta o ritmo da Série B. O J09 tem de marcar o requisito físico como 'não verificado' para todo alvo estrangeiro, como o CLAUDE.md já manda na seção Estrangeiros/Físico.",
+      "indicadores_quando_houver_dado": [
+        {
+          "id": "high_decel_p90",
+          "nome": "Desacelerações fortes por 90",
+          "rho_etapa_11": 0.862
+        },
+        {
+          "id": "sprint_count_p90",
+          "nome": "Sprints por 90",
+          "rho_etapa_11": 0.852
+        },
+        {
+          "id": "cod_count_p90",
+          "nome": "Mudanças de direção por 90",
+          "rho_etapa_11": 0.85
+        },
+        {
+          "id": "sprint_distance_p90",
+          "nome": "Distância em sprint por 90",
+          "rho_etapa_11": 0.841
+        },
+        {
+          "id": "high_accel_p90",
+          "nome": "Acelerações fortes por 90",
+          "rho_etapa_11": 0.838
+        },
+        {
+          "id": "hsr_distance_p90",
+          "nome": "Distância em alta intensidade por 90",
+          "rho_etapa_11": 0.828
+        },
+        {
+          "id": "distance_p90",
+          "nome": "Distância total por 90",
+          "rho_etapa_11": 0.794
+        },
+        {
+          "id": "m_per_min",
+          "nome": "Metros por minuto",
+          "rho_etapa_11": 0.794
+        },
+        {
+          "id": "psv99",
+          "nome": "PSV-99",
+          "rho_etapa_11": 0.792
+        },
+        {
+          "id": "psv99_top5",
+          "nome": "PSV-99 top 5",
+          "rho_etapa_11": 0.699
+        }
+      ]
+    }
+  ],
+  "composto_de_referencia": {
+    "id": "dqz",
+    "nome": "Diferença de nível na própria liga (qz)",
+    "fonte": "_temporal_movers.json (qz_from, qz_to, dqz), do Portal Ranking",
+    "papel": "NÃO é uma quarta família e não entra em BH nenhum. É a âncora: é o número que o Portal Ranking já publica e é por ele que a escada brasileira (A→B, C→B) está medida. As famílias existem porque o CLAUDE.md pede volume, eficiência e físicas separados, e o dqz é um número só.",
+    "confiabilidade_do_qz": 0.471,
+    "fonte_da_confiabilidade": "_temporal_aging.json, meta.reliability"
+  },
+  "o_que_se_aproveita_da_etapa_11": {
+    "chave": "dados/prototipo.json → etapa_11",
+    "1_a_lista": "os dez indicadores técnicos da etapa_11 são a espinha da família volume (a lista não foi reinventada).",
+    "2_o_desenho_mudou_x_ficou": "a etapa_11 mede 176 pares de quem MUDOU de clube contra 144 de quem FICOU. J08 é o mesmo desenho um degrau acima: quem mudou de LIGA. O grupo 'ficou' (mesma liga, temporadas seguidas) é o controle natural e entra como contraste declarado.",
+    "3_o_corte": "a etapa_11 usa '900+ min nos dois anos, posto dentro de ano+posição'. J08 mantém o posto dentro de liga+período+posição e mantém os 900 min NA RÉGUA, mas NÃO exclui quem tem menos no destino — inclui e marca, porque o J08 manda reportar à parte quem não chegou a 900.",
+    "4_a_faixa_e_nao_o_coeficiente": "a etapa_11 diz 'os rho entram na nota de encaixe como FAIXA, nunca como coeficiente'. O fator de liga do J08 herda a regra: sai como faixa com força declarada, nunca como multiplicador de uma casa decimal.",
+    "5_o_aviso_que_a_etapa_11_da_de_graca": "o rho mediano técnico de quem mudou é 0,396 e o físico é 0,833. Trocar de clube já embaralha metade do técnico. Trocar de LIGA embaralha mais. Esse é o teto de precisão de qualquer fator do J08, e ele é baixo."
+  },
+  "criterio": {
+    "referencia": "§6 da _fonte/prototipo/ESPECIFICACAO.md",
+    "bh": "Benjamini-Hochberg a 5% DENTRO de cada família (volume, 12 indicadores; eficiência, 10). Nunca no bolo das 22.",
+    "teste": "bilateral. O sinal de 'volume' é neutro de propósito: mais cruzamentos não é melhor, e J08 mede tradução, não qualidade.",
+    "hipotese_nula": "o Δpercentil médio do grupo é zero — o jogador ocupa na Série B a mesma posição relativa que ocupava na liga de origem.",
+    "poder": "calculado para cada indicador que não separar, com o n do grupo, para que 'não separa' não vire 'não existe' (§6.7).",
+    "independencia": "§6.6 vale aqui em duas camadas: o mesmo jogador pode ter mais de uma transferência, e transferências da mesma liga de origem partilham a régua daquela liga. IC95 por bootstrap de JOGADOR, e para o fator por liga, bootstrap de jogador dentro da liga.",
+    "porta_temporal": "a versão desta parte é a porta de COORTE: estimar o fator com as transferências que chegaram até 2024 e ver se ele acerta o Δpercentil das que chegaram em 2025 e 2026. É o que separa 'o fator descreve o passado' de 'o fator serve para contratar'. Um fator que não passa nesta porta não pode ir para o J09 como número.",
+    "garimpo": "aplica-se. As 45 ligas de origem são um universo grande e escolher 'a liga que mais traduz' é escolher o melhor entre muitos. O nulo do garimpo é permutar o rótulo de liga de origem dentro de (posição, ano de chegada, liga de destino) e refazer a escolha.",
+    "niveis_de_conclusao": "três e só três, como o CLAUDE.md manda: firme = passa no BH E na porta de coorte; provável = passa em só um dos dois; indício = nenhum dos dois, e a frase diz por quê."
+  },
+  "fator_por_liga": {
+    "piso_declarado": 10,
+    "fonte_do_piso": "o próprio texto do J08 no CLAUDE.md ('quando houver casos suficientes (ex.: 10 ou mais)')",
+    "abaixo_do_piso": "agrupar ligas de nível parecido e marcar o fator como FRACO, também por ordem do J08.",
+    "criterio_do_nivel_para_agrupar": "O DEGRAU MEDIDO, com o controle de quem ficou. Duas coisas foram descartadas antes, e por medida: (a) o qz médio da liga NÃO serve — o qz é normalizado DENTRO de cada liga e a mediana dá ~0,000 em toda liga (Bolívia +0,000, Espanha A +0,002, Portugal A +0,000, em 2025), então ele não ordena nível nenhum; (b) o degrau CRU (mediana do dqz com o destino descontado) também não serve sozinho — medido na base, ele põe o Uruguai em −1,24 e a Inglaterra A em +2,03 contra a Série B, que é o retrato da seleção na origem, não das ligas. O critério declarado é o degrau depois do contrafactual de quem FICOU (coluna dqz_liquido da base), com os níveis de origem e de destino estimados JUNTOS e ancorados em Brasil B = 0. Liga sem caso nenhum fica sem grupo e sem fator — não se inventa nível por reputação.",
+    "destino_nao_se_mistura": "o fator é estimado com um termo de destino, porque chegar à Série A não é chegar à Série B. A escada brasileira já medida serve de âncora: Brasil A → Brasil B, dqz médio +0,640 (152 casos); Brasil C → Brasil B, dqz médio −0,587 (90 casos).",
+    "entregavel": "resultados/fatores_liga.csv com liga, fator, número de casos e força da estimativa — no passo seguinte, não neste."
+  },
+  "ajustes_de_metodo_declarados_antes_de_rodar": [
+    {
+      "id": "idade_da_temporada",
+      "problema": "No Wyscout a idade é a da extração, não a da temporada — armadilha registrada no _registro.md. Pior do que o registrado: a defasagem NÃO é constante. Medida nas fotos, período a período e liga a liga, ela é 0 ano em 2018–2021 e em 2025 (exports históricos feitos em 2026), ~4 anos nas seis ligas sul-americanas de 2022 e 0 em Brasil A 2022, ~2 a 3 anos em 2023 e 2024, e há ligas de 2024 com defasagem 0 (backfill). Usar a coluna Age como idade da temporada põe um jogador de 21 anos no bin de 29.",
+      "correcao": "para cada (período, liga) mede-se a defasagem = mediana de (idade em jun26 − idade no período) entre os jogadores comuns, exigindo 20 pares; daí ano_de_extração = 2026 − defasagem, e idade_na_temporada = idade_do_arquivo − (ano_de_extração − ano_da_temporada). As colunas cruas e a defasagem usada ficam na base, para conferência."
+    },
+    {
+      "id": "envelhecimento",
+      "problema": "Quem troca de liga também envelhece, e o dqz mistura as duas coisas. Um fator de liga que é metade idade não serve para contratar.",
+      "correcao_1": "desconto pela curva de envelhecimento por posição-raiz (_temporal_aging.json): esperado = cumulativa(idade no destino) − cumulativa(idade na origem), interpolada entre bins de 2 anos, e dqz_ajustado = dqz − esperado.",
+      "correcao_2": "a curva do arquivo foi construída com a idade NÃO corrigida (temporal.py usa mid = média das idades dos dois lados, e essas idades são de extração). O eixo etário dela está deslocado. Por isso a base traz o desconto pelas DUAS curvas: a do arquivo e uma recalculada com a idade corrigida pelo mesmo método (Δqz/ano intra-liga, bins de 2 anos, peso = média harmônica de minutos, mínimo de 20 pares por bin). A distância entre as duas é a medida do estrago.",
+      "confundimento_que_permanece": "o desconto de idade existe para o COMPOSTO qz. Não existe curva de envelhecimento por indicador, então o Δpercentil de cada indicador continua misturando liga e idade. Por isso a base carrega idade corrigida dos dois lados e Δidade: no passo do fator, a idade entra como covariável do modelo (Δpercentil ~ liga de origem + liga de destino + idade na origem + Δidade), não como desconto prévio. Onde o n não permitir o modelo, a conclusão sai com o confundimento escrito na frase.",
+      "o_que_nao_se_corrige": "a curva do Portal Ranking é declaradamente enviesada por sobrevivência (quem declina sai da liga e some do painel), e o próprio arquivo manda ler a forma, não o nível. Isso vale para as duas curvas e vai na ressalva."
+    }
+  ],
+  "ressalvas_declaradas": [
+    "VIÉS DO SOBREVIVENTE — o erro mais caro desta parte. 309 dos 782 transferidos não chegaram a 900 minutos no destino. Eles ENTRAM na base, marcados em menos_900_no_destino, e todo número do J08 sai em duas versões: com eles e sem eles. Um fator calculado só sobre quem jogou é o fator de quem deu certo.",
+    "SELEÇÃO NA ORIGEM — quem é comprado é quem foi bem. O percentil de origem é alto por construção, e parte da queda que vamos medir é regressão à média, não nível de liga. O contraste com quem FICOU na mesma liga (o grupo 'ficou' da etapa_11) é o controle declarado.",
+    "O PAINEL CORTA EM 500 LINHAS POR LIGA-PERÍODO e a foto exige 200 minutos. Quem jogou pouco na liga de origem pode não existir na base: a amostra é de jogadores que já eram relevantes na própria liga.",
+    "O qz tem confiabilidade 0,471 (meta do _temporal_aging.json): menos de metade da variação é sinal. Abaixo de 0,40 a regra da casa manda hachurar; 0,471 passa raspando e vai dito.",
+    "SEM GOLEIRO. O painel temporal não tem posição-raiz de goleiro.",
+    "SEM FÍSICO. A terceira família que o J08 pede não é montável (ver familias.fisicas).",
+    "As ligas de 2022 no painel são só 10, e as de 2018–2021 são só Brasil A. Transferência com origem anterior a 2023 é rara (7 de 782) e entra marcada."
+  ],
+  "emendas": [
+    {
+      "data": "2026-09-19",
+      "quando": "ao montar a base, ANTES de qualquer comparação",
+      "motivo": "A régua de 900 minutos supõe temporada cheia, e há duas em que isso é falso: a Série C tem calendário curto e o período jun26 é temporada EM CURSO. No Brasil C de jun26 o jogador de mais minutos tem 909, e a régua dos 900+ teria UM jogador — 216 dos 782 casos (todos os que chegaram em 2026) ficariam sem percentil.",
+      "decisao": "O corte da régua passa a ser a mesma fatia de temporada que 900 minutos representam num campeonato de 38 rodadas (0,263 do máximo possível), com TETO nos 900 declarados. Em temporada cheia e longa dá exatamente 900; só afrouxa onde a temporada é curta ou está pela metade. Os limiares usados: Brasil C 545/592/616 min em 2023/2024/2025, e em jun26 Brasil A 426, Brasil B 284, Brasil C 213.",
+      "o_que_nao_muda": "A coluna menos_900_no_destino continua sendo o corte ABSOLUTO de 900, que é o que o J08 manda reportar à parte. A coluna abaixo_do_limiar_no_destino é a nova, e temporada_destino_em_curso marca os 216 casos de jun26 para rodar com e sem."
+    },
+    {
+      "data": "2026-09-19",
+      "quando": "ao montar a base, ANTES de qualquer comparação",
+      "motivo": "O Wyscout escreve 0, não vazio, nas colunas de % quando o jogador não tentou a ação. Na Série B de 2025, 130 dos 364 jogadores com 900+ minutos têm 'Goal conversion, %' exatamente 0.",
+      "decisao": "A lista de indicadores NÃO muda. O percentil trata empate pelo meio do bloco, então um zagueiro que nunca finalizou cai no meio do bloco dos zeros da própria posição, e não no fundo da régua. Fica declarado que as eficiências de ações que a posição quase não executa (conversão e cruzamentos para ZAG e VOL) têm bloco de empate grande e Δpercentil quase sempre perto de zero por construção: nenhuma conclusão do J08 pode se apoiar nelas por posição sem dizer o tamanho do bloco."
+    },
+    {
+      "data": "2026-09-19",
+      "quando": "ao montar a base, ANTES de qualquer comparação",
+      "motivo": "A ressalva de SELEÇÃO NA ORIGEM precisava de um controle, e não de uma frase. Sem ele, o degrau cru diz que o Uruguai é mais fraco que a Série B em 1,24 de qz e que a Inglaterra A é mais forte em 2,03 — o que é regressão à média de quem foi comprado porque foi bem.",
+      "decisao": "A base passa a trazer o contrafactual de quem FICOU: por posição-raiz, a reta qz(t+1) = a + b·qz(t) ajustada em 23.943 pares de jogadores que permaneceram na mesma liga em temporadas seguidas (b geral 0,400; por posição vai de 0,223 em VOL a 0,634 em MED). Daí saem as colunas qz_esperado_ficou e dqz_liquido.",
+      "regra_dura": "dqz_ajustado_idade e dqz_liquido são ALTERNATIVOS, nunca somados: quem fica também envelhece, então o segundo já absorve o primeiro. O passo do fator escolhe um e diz qual."
+    },
+    {
+      "data": "2026-09-19",
+      "quando": "ao montar a base, ANTES de qualquer comparação",
+      "motivo": "A guarda de homônimo do painel de origem (ranking_v2/temporal.py, AGE_TOL 2 anos sobre idade de EXTRAÇÃO) deixa passar pessoas diferentes com o mesmo nome. Com a idade da temporada corrigida dá para conferir: numa transferência de verdade a idade avança tantos anos quantos separam as duas temporadas.",
+      "decisao": "A base traz dif_idade_vs_anos e marca idade_incoerente quando a diferença é de 2 anos ou mais. São 39 de 782 (a distribuição é 607 em zero, 135 em ±1 por causa da idade inteira, e 39 acima disso): entre eles, três 'Marlon', dois 'Marquinhos', 'Vitinho', 'João Lucas', 'Serginho', 'Gabriel Barbosa'. Não são apagados: vão marcados, e o passo do fator roda com e sem eles.",
+      "consequencia_para_outras_partes": "O _temporal_movers.json contém transferências que não existiram. Qualquer parte que use esse arquivo precisa da mesma conferência."
+    },
+    {
+      "data": "2026-09-19",
+      "quando": "ao montar a base, ANTES de qualquer comparação",
+      "motivo": "O Excel de um período do Portal Ranking é MUTÁVEL: filtrar_minutos.py sobrescreve o arquivo removendo quem está abaixo de max(jogos)×90×pct%, e guarda o original em <periodo>/_pre_filtro/. Hoje só jun26 está filtrado (64 das 65 ligas têm backup); o Brasil A de jun26 tem 292 linhas no arquivo e 500 no _pre_filtro. Num período de temporada cheia o limiar do filtro passaria de 1.000 minutos e comeria a própria régua dos 900+.",
+      "decisao": "O script lê _pre_filtro/ sempre que existir, e só cai no arquivo do período quando não existir. É o export cru e é idempotente. A cópia que o fluxo principal fizer tem de levar o _pre_filtro junto."
+    }
+  ]
+}

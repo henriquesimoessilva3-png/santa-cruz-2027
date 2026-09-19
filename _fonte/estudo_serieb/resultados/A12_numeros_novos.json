@@ -1,0 +1,476 @@
+{
+  "parte": "A12",
+  "gerado_em": "2026-09-19",
+  "para_que_serve": "Valores dos marcadores que o texto novo de _proposta_destino.json (A12) pede e que ainda nao existem — ou existem errados — no campo numeros de A12.json. Nada aqui altera A12.json, A12_resumo.json, A12_reguas.csv nem A12.py. So calculo: destino, texto e nivel de confianca nao foram tocados.",
+  "base_usada": "A base do A12.py, refeita do zero num script temporario: juncao de _fonte/estudo_serieb/resultados/A01_clube_temporada.csv (temporada, clube, faixa, pos, pontos, trave, fronteira) com dados/serieb_clube_temporada.csv (chave ano+clube), mantendo so as linhas em que todos os itens das nove reguas de dados/prototipo_indicadores.json estao preenchidos. Da 100 clube-temporada: 80 fechadas (2022-2025, 20 por ano) e 20 de 2026. Bate com o 'base: 100 clube-temporadas (80 fechadas)' que o proprio A12.py imprime.",
+  "calculados": 47,
+  "nao_calculaveis": 0,
+  "numeros": {
+    "dist_sobe": {
+      "conclusao": "A12-1",
+      "valor": 19.5,
+      "formatado": "19,5",
+      "unidade": "metros por finalizacao",
+      "de_onde": "A02_testes.csv, linha fronteira=com, familia=cria, comparacao=SM, indicador=dist_remate, coluna cru_sobe = 19,522.",
+      "conferido": true,
+      "segundo_caminho": "Recalculado da base: mediana de dist_remate das 16 linhas com faixa=Sobe em 2022-2025 = 19,521579 -> 19,5. (A media e 19,623; o cru_ do A02 e mediana, confirmado nas quatro colunas testadas.)"
+    },
+    "dist_meio": {
+      "conclusao": "A12-1",
+      "valor": 20.5,
+      "formatado": "20,5",
+      "unidade": "metros por finalizacao",
+      "de_onde": "A02_testes.csv, com/cria/SM/dist_remate, coluna cru_alvo = 20,472.",
+      "conferido": true,
+      "segundo_caminho": "Mediana de dist_remate das 48 linhas faixa=Meio em 2022-2025 = 20,471711 -> 20,5. Arredondado, nao truncado."
+    },
+    "xgr_sobe": {
+      "conclusao": "A12-1",
+      "valor": 0.089,
+      "formatado": "0,089",
+      "unidade": "gol esperado por finalizacao sofrida",
+      "de_onde": "A02_testes.csv, com/cede/SM/xg_por_remate_contra, coluna cru_sobe = 0,089.",
+      "conferido": true,
+      "segundo_caminho": "Mediana de xg_por_remate_contra das 16 linhas faixa=Sobe em 2022-2025 = 0,089367 -> 0,089."
+    },
+    "xgr_meio": {
+      "conclusao": "A12-1",
+      "valor": 0.098,
+      "formatado": "0,098",
+      "unidade": "gol esperado por finalizacao sofrida",
+      "de_onde": "A02_testes.csv, com/cede/SM/xg_por_remate_contra, coluna cru_alvo = 0,098.",
+      "conferido": true,
+      "segundo_caminho": "Mediana das 48 linhas faixa=Meio = 0,097609 -> 0,098 (arredonda para cima, nao trunca para 0,097)."
+    },
+    "val_sobe": {
+      "conclusao": "A12-1",
+      "valor": 24.0,
+      "formatado": "24,0 milhoes de euros",
+      "unidade": "milhoes de euros (valor de mercado do elenco, Transfermarkt)",
+      "valor_bruto": 24012500,
+      "de_onde": "dados/serieb_clube_temporada.csv, coluna tm_valor_total; mediana das 16 linhas com faixa=Sobe (A01_clube_temporada.csv) em 2022-2025 = 24.012.500 euros.",
+      "conferido": true,
+      "segundo_caminho": "A regua H_dinheiro e construida sobre tm_valor_total + tm_valor_mediana e da mediana de percentil 80,9 no Sobe contra 46,7 no Meio (A12_resumo.json), coerente com a razao 24,0 / 13,9. Media do Sobe = 27,3 mi, bem acima da mediana, o que mostra que a mediana e a leitura certa.",
+      "nota": "O texto diz 'o elenco de quem sobe vale {val_sobe} contra {val_meio} do meio'. Se o gerador puser a unidade so uma vez, val_meio deve ficar sem 'milhoes de euros'."
+    },
+    "val_meio": {
+      "conclusao": "A12-1",
+      "valor": 13.9,
+      "formatado": "13,9 milhoes de euros",
+      "unidade": "milhoes de euros",
+      "valor_bruto": 13850000,
+      "de_onde": "dados/serieb_clube_temporada.csv, tm_valor_total; mediana das 48 linhas faixa=Meio em 2022-2025 = 13.850.000 euros.",
+      "conferido": true,
+      "segundo_caminho": "Mesma coluna, faixa=Cai: mediana 8.950.000 — a escada 24,0 / 13,9 / 9,0 e monotonica e bate com a ordem de H_dinheiro (80,9 / 46,7 / 15,1).",
+      "nota": "ATENCAO ao arredondar: 13,85 tem de virar 13,9 (arredonda, nao trunca). round(13.85, 1) em Python devolve 13.8 por causa do float — o gerador nao pode usar round() cru aqui."
+    },
+    "sh_sobe": {
+      "conclusao": "A12-1",
+      "valor": 68.1,
+      "formatado": "68,1",
+      "unidade": "% dos minutos jogados pelos onze mais usados",
+      "de_onde": "dados/serieb_clube_temporada.csv, coluna share_11; mediana das 16 linhas faixa=Sobe em 2022-2025 = 68,083102.",
+      "conferido": true,
+      "segundo_caminho": "A regua I_estabilidade_11 (share_11 + conc_hhi - atletas_usados - nucleo_300) da mediana de percentil 71,1 no Sobe contra 50,3 no Meio, mesma direcao. O texto ja traz o % por fora do marcador, entao 'formatado' vai sem o sinal.",
+      "nota": "E o mesmo numero que o _cruzar_19_09 pede para o J02."
+    },
+    "sh_meio": {
+      "conclusao": "A12-1",
+      "valor": 63.1,
+      "formatado": "63,1",
+      "unidade": "% dos minutos nos onze mais usados",
+      "de_onde": "dados/serieb_clube_temporada.csv, share_11; mediana das 48 linhas faixa=Meio em 2022-2025 = 63,126774.",
+      "conferido": true,
+      "segundo_caminho": "Media do Meio = 63,141 (praticamente igual a mediana: a distribuicao do Meio e simetrica). Faixa Cai = 60,198, abaixo das duas."
+    },
+    "n_sobe": {
+      "conclusao": "A12-1",
+      "valor": 16,
+      "formatado": "16",
+      "de_onde": "A01_clube_temporada.csv, contagem de faixa=Sobe em 2022-2025 (4 por ano x 4 anos).",
+      "conferido": true,
+      "segundo_caminho": "A12_reguas.csv, coluna n_a das linhas com/SM = 16 em todas as nove reguas."
+    },
+    "n_meio": {
+      "conclusao": "A12-1",
+      "valor": 48,
+      "formatado": "48",
+      "de_onde": "A01_clube_temporada.csv, contagem de faixa=Meio em 2022-2025 (12 por ano x 4 anos).",
+      "conferido": true,
+      "segundo_caminho": "A12_reguas.csv, coluna n_b das linhas com/SM = 48 em todas as nove reguas."
+    },
+    "n_sobe_sem": {
+      "conclusao": "A12-1 (n_novo)",
+      "valor": 8,
+      "formatado": "8",
+      "de_onde": "A01_clube_temporada.csv, faixa=Sobe e fronteira=0, 2022-2025.",
+      "conferido": true,
+      "segundo_caminho": "A12_reguas.csv, coluna n_a das linhas sem/SM = 8."
+    },
+    "n_meio_sem": {
+      "conclusao": "A12-1 (n_novo)",
+      "valor": 32,
+      "formatado": "32",
+      "de_onde": "A01_clube_temporada.csv, faixa=Meio e fronteira=0, 2022-2025.",
+      "conferido": true,
+      "segundo_caminho": "A12_reguas.csv, coluna n_b das linhas sem/SM = 32."
+    },
+    "separam": {
+      "conclusao": "A12-1",
+      "valor": "qualidade da chance, solidez, valor do elenco e estabilidade do onze",
+      "formatado": "qualidade da chance, solidez, valor do elenco e estabilidade do onze",
+      "tipo": "string ja montada",
+      "de_onde": "A12_reguas.csv, comparacao=SM: as reguas com selo 'firme' nos dois cortes de fronteira. E_qualidade_chance q 0,00388 (com) e 0,00135 (sem); F_solidez 0,04454 e 0,00080; H_dinheiro 0,00128 e 0,00007; I_estabilidade_11 0,01561 e 0,04672. Traducao dos nomes tecnicos para a linguagem da Didatica.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, firme_nos_dois_cortes.SM = [E_qualidade_chance, F_solidez, H_dinheiro, I_estabilidade_11]. Bate linha a linha com o CSV.",
+      "nota": "Nenhum marcador do texto novo le este valor (o texto escreve as quatro por extenso); fica gravado porque a proposta o pediu e porque a prova pode cita-lo."
+    },
+    "nao_separam": {
+      "conclusao": "A12-1",
+      "valor": "pressao e ritmo, volume fisico, explosao, bola aerea e parada",
+      "formatado": "pressao e ritmo, volume fisico, explosao, bola aerea e parada",
+      "tipo": "string ja montada",
+      "de_onde": "A12_reguas.csv, SM: as reguas que nao ficam firmes em corte nenhum. B_pressao_ritmo q 0,38910 (com) e 0,14467 (sem); C_volume_fisico 0,47000 e 0,46063; D_explosao 0,88010 e 0,46154; G_bola_aerea_parada 0,30262 e 0,18116. Sao quatro, nao cinco: A_posse_construcao sai desta lista e vai para depende_do_corte.",
+      "conferido": true,
+      "segundo_caminho": "Conferido tambem pela coluna 'selo' do CSV: as quatro estao como 'sem diferenca clara' nos dois cortes; A_posse_construcao esta 'sem diferenca clara' no corte com e 'firme' no corte sem.",
+      "nota": "DIFERE do valor guardado em A12.json (5 itens, incluindo A_posse_construcao). Nao e erro de conta no arquivo antigo — e a mudanca de enquadramento que a proposta pediu (quem so aparece num recorte deixa de ser 'nao separa'). Por isso nao entrou em correcoes_de_numero_existente."
+    },
+    "depende_do_corte": {
+      "conclusao": "A12-1",
+      "valor": "construcao com bola",
+      "formatado": "construcao com bola",
+      "tipo": "string ja montada",
+      "de_onde": "A12_reguas.csv, SM, A_posse_construcao: q 0,12933 com os times de fronteira (selo 'sem diferenca clara') e 0,04330 sem eles (selo 'firme'). Aparece num recorte e some no outro.",
+      "conferido": true,
+      "segundo_caminho": "Os crus da mesma regua contam a mesma historia: 73,25 x 49,56 com fronteira (d 0,55, p 0,07185) e 77,19 x 50,44 sem (d 0,924, p 0,01924) — o efeito nao muda de sinal, o que muda e o n (16x48 para 8x32) e a folga do BH."
+    },
+    "cabem": {
+      "conclusao": "A12-2",
+      "valor": 22,
+      "formatado": "22",
+      "de_onde": "Base fechada (80 clube-temporada de 2022-2025) filtrada pelo perfil PUBLICADO da 7.2(b): ppda entre 10,0 e 13,2, posse entre 47 e 52%, passe_longo_pct entre 10 e 14% (colunas ppda, posse e passe_longo_pct de dados/serieb_clube_temporada.csv).",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.quantos_cabem_no_perfil = 22. Bate.",
+      "nota": "JA EXISTE em A12.json com o valor certo (22). Gravado aqui so porque o texto novo o usa e para deixar a conta das faixas (4 Sobe + 11 Meio + 7 Cai = 22) documentada."
+    },
+    "n_fech": {
+      "conclusao": "A12-2",
+      "valor": 80,
+      "formatado": "80",
+      "de_onde": "Base fechada do A12: 20 clubes x 4 temporadas (2022-2025).",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, n.fechadas = 80, e A12.json ja usa '80 clube-temporadas' no campo n da A12-1."
+    },
+    "subiram": {
+      "conclusao": "A12-2",
+      "valor": 4,
+      "formatado": "4",
+      "de_onde": "Dos 22 que cabem no perfil publicado, os de faixa=Sobe: Criciuma 2023 (3o, valor 12o), Mirassol 2024 (2o, valor 9o), Athletico-PR 2025 (2o, valor 1o) e Remo 2025 (4o, valor 3o).",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.taxa_de_acesso_no_perfil = 18,2% — que so fecha com 4/22 (18,1818%). O 'destes_quantos_subiram' do resumo mostra 2 porque a chave esta duplicada no A12.py e o segundo valor (o de fora do top-8) sobrescreve o primeiro.",
+      "nota": "CORRIGE o 6 guardado em A12.json. Ver correcoes_de_numero_existente."
+    },
+    "cairam": {
+      "conclusao": "A12-2",
+      "valor": 7,
+      "formatado": "7",
+      "de_onde": "Dos 22 que cabem no perfil publicado, os de faixa=Cai: CSA 2022 (17o), Operario-PR 2022 (19o), Tombense 2023 (18o), Brusque 2024 (19o), Guarani 2024 (20o), Ferroviaria 2025 (17o) e Amazonas 2025 (18o).",
+      "conferido": true,
+      "segundo_caminho": "Contagem por faixa dos 22: Meio 11, Cai 7, Sobe 4 — soma 22. Taxa de queda 31,8% contra 20,0% da liga."
+    },
+    "sobe_liga": {
+      "conclusao": "A12-2",
+      "valor": 16,
+      "formatado": "16",
+      "de_onde": "A01_clube_temporada.csv: 4 promovidos por ano x 4 anos (2022-2025).",
+      "conferido": true,
+      "segundo_caminho": "16/80 = 20,0%, que e a taxa_de_acesso_geral gravada em A12_resumo.json."
+    },
+    "cai_liga": {
+      "conclusao": "A12-2",
+      "valor": 16,
+      "formatado": "16",
+      "de_onde": "A01_clube_temporada.csv: 4 rebaixados por ano x 4 anos (2022-2025).",
+      "conferido": true,
+      "segundo_caminho": "Contagem direta de faixa=Cai nas 80 linhas fechadas = 16."
+    },
+    "cabem8": {
+      "conclusao": "A12-2",
+      "valor": 13,
+      "formatado": "13",
+      "de_onde": "Dos 22 que cabem no perfil publicado, os que estao fora do top-8 de valor do ano (posto_valor > 8, posto calculado dentro de cada temporada por tm_valor_total decrescente).",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.cabem_e_estao_fora_do_top8 = 13. Bate.",
+      "nota": "CORRIGE o 14 guardado em A12.json."
+    },
+    "sub8": {
+      "conclusao": "A12-2",
+      "valor": 2,
+      "formatado": "2",
+      "de_onde": "Dos 13 acima, os de faixa=Sobe: Criciuma 2023 (valor 12o) e Mirassol 2024 (valor 9o). Athletico-PR e Remo cabem no perfil mas estao no top-8 de valor (1o e 3o), e Vitoria 2023 e Chapecoense 2025 estao fora do top-8 mas nao cabem no perfil publicado.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.n_cabem_dos_baratos = 2 (e o segundo 'destes_quantos_subiram', que sobrescreveu o primeiro). Bate.",
+      "nota": "CORRIGE o 4 guardado em A12.json. Taxa 2/13 = 15,4%, contra 8,3% dos 48 times fora do top-8."
+    },
+    "n_barato": {
+      "conclusao": "A12-2",
+      "valor": 4,
+      "formatado": "4",
+      "de_onde": "Promovidos fora do top-8 de valor em 2022-2025: Vitoria 2023 (1o, valor 9o), Criciuma 2023 (3o, valor 12o), Mirassol 2024 (2o, valor 9o) e Chapecoense 2025 (3o, valor 18o). Sao os 4 casos de que a 7.2(b) tirou o perfil.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.n_promovidos_baratos = 4, e a tabela da 7.2(b) da especificacao lista exatamente esses quatro."
+    },
+    "rodada": {
+      "conclusao": "A12-2",
+      "valor": 27,
+      "formatado": "27",
+      "de_onde": "dados/serieb_clube_temporada.csv, coluna J, ano=2026: 27 para os 20 times.",
+      "conferido": true,
+      "segundo_caminho": "Os 20 times de 2026 tem todos J=27 (nenhum jogo atrasado), e em 2022-2025 todos tem J=38 — o corte de 2026 e mesmo na 27a rodada."
+    },
+    "total_rodadas": {
+      "conclusao": "A12-2",
+      "valor": 38,
+      "formatado": "38",
+      "de_onde": "20 clubes em turno e returno = 38 rodadas.",
+      "conferido": true,
+      "segundo_caminho": "dados/serieb_clube_temporada.csv, coluna J: 38 para os 20 times em cada uma das quatro temporadas fechadas (2022, 2023, 2024 e 2025)."
+    },
+    "n_baratos26": {
+      "conclusao": "A12-2",
+      "valor": 5,
+      "formatado": "5",
+      "de_onde": "Times de 2026 que cabem no perfil publicado E estao fora do top-8 de valor: Operario-PR (6o, valor 13o), Atletico-GO (7o, valor 12o), CRB (8o, valor 9o), Sao Bernardo (14o, valor 15o) e Botafogo-SP (15o, valor 16o).",
+      "conferido": true,
+      "segundo_caminho": "Dos 8 times de 2026 no perfil, os tres restantes estao no top-8 de valor: Juventude (1o, valor 3o), Novorizontino (2o, valor 8o) e Fortaleza (4o, valor 1o).",
+      "nota": "JA EXISTE em A12.json com o valor certo (5), assim como n26=8, baratos26 e g4_26=3."
+    },
+    "pos_melhor26": {
+      "conclusao": "A12-2",
+      "valor": 6,
+      "formatado": "6",
+      "de_onde": "Melhor colocado entre os 5 times baratos de 2026 no perfil: Operario-PR, 6o com 43 pontos na 27a rodada (A01_clube_temporada.csv, temporada 2026; posse 51,98%, ppda 10,93, longo 10,29).",
+      "conferido": true,
+      "segundo_caminho": "Ordem dos cinco na tabela de 2026: Operario-PR 6o (43 pts), Atletico-GO 7o (43), CRB 8o (42), Sao Bernardo 14o (35), Botafogo-SP 15o (31). Em 2026 sobem direto o 1o e o 2o e o playoff vai do 3o ao 6o, entao o 6o e o ultimo lugar dentro da zona."
+    },
+    "taxa_env": {
+      "conclusao": "A12-2 (apoio; marcador ja existente, corrigido)",
+      "valor": 18.2,
+      "formatado": "18,2",
+      "unidade": "% de acesso entre os que cabem no perfil",
+      "de_onde": "4 de 22 = 18,1818% -> 18,2%.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.taxa_de_acesso_no_perfil = 18,2. Bate. Contra taxa_liga = 20,0% (16/80): a faixa sobe MENOS que a liga.",
+      "nota": "CORRIGE o 27,3 guardado em A12.json."
+    },
+    "taxa_queda_env": {
+      "conclusao": "A12-2 (apoio)",
+      "valor": 31.8,
+      "formatado": "31,8",
+      "unidade": "% de rebaixamento entre os que cabem no perfil",
+      "de_onde": "7 de 22 = 31,8182% -> 31,8%, contra 20,0% (16/80) da liga.",
+      "conferido": true,
+      "segundo_caminho": "Contagem nominal dos 7 rebaixados (CSA 2022, Operario-PR 2022, Tombense 2023, Brusque 2024, Guarani 2024, Ferroviaria 2025, Amazonas 2025).",
+      "nota": "Numero novo, sem marcador no texto: e o que sustenta a manchete nova ('caiu mais do que subiu')."
+    },
+    "taxa8": {
+      "conclusao": "A12-2 (apoio; marcador ja existente, corrigido)",
+      "valor": 15.4,
+      "formatado": "15,4",
+      "unidade": "% de acesso entre os que cabem no perfil e estao fora do top-8",
+      "de_onde": "2 de 13 = 15,3846% -> 15,4%.",
+      "conferido": true,
+      "segundo_caminho": "Contra taxa_geral8 = 8,3% (4 de 48 times fora do top-8 subiram), valor que ja esta certo em A12.json.",
+      "nota": "CORRIGE o 28,6 guardado em A12.json."
+    },
+    "ricos_no_perfil": {
+      "conclusao": "A12-2 (apoio)",
+      "valor": "Athletico-PR 2025 (1o em valor do ano) e Remo 2025 (3o)",
+      "formatado": "Athletico-PR 2025 (1o em valor do ano) e Remo 2025 (3o)",
+      "tipo": "string ja montada",
+      "de_onde": "Dos 4 que subiram dentro do perfil publicado, os dois que estao no top-8 de valor: Athletico-PR 2025, posto de valor 1, 2o na tabela; Remo 2025, posto de valor 3, 4o na tabela. Posto de valor = ordem de tm_valor_total dentro do ano.",
+      "conferido": true,
+      "segundo_caminho": "Os outros dois sao Criciuma 2023 (valor 12o) e Mirassol 2024 (valor 9o), que sao justamente os 2 do sub8. 2 + 2 = 4 = subiram.",
+      "nota": "Sustenta a frase 'dois eram o elenco mais caro e o terceiro mais caro do ano'. Nao ha marcador para isto no texto novo."
+    },
+    "ppda_lo": {
+      "conclusao": "A12-3",
+      "valor": 10.0,
+      "formatado": "10,0",
+      "de_onde": "Faixa publicada na 7.2(b) da ESPECIFICACAO.md: 'PPDA 10,0-13,2'. Mesma faixa fixada em PERFIL_BARATO no scripts/A12.py e gravada em A12_resumo.json, cenario_barato.perfil_declarado_na_especificacao.ppda = [10.0, 13.2].",
+      "conferido": true,
+      "segundo_caminho": "Conferido nos dois lugares (texto da especificacao e constante do script), que coincidem."
+    },
+    "ppda_hi": {
+      "conclusao": "A12-3",
+      "valor": 13.2,
+      "formatado": "13,2",
+      "de_onde": "Faixa publicada na 7.2(b); PERFIL_BARATO['ppda'][1] em scripts/A12.py.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, perfil_declarado_na_especificacao.ppda = [10.0, 13.2]."
+    },
+    "posse_lo": {
+      "conclusao": "A12-3",
+      "valor": 47,
+      "formatado": "47",
+      "unidade": "% de posse",
+      "de_onde": "Faixa publicada na 7.2(b): 'posse 47-52%'; PERFIL_BARATO['posse'] em scripts/A12.py.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, perfil_declarado_na_especificacao.posse = [47.0, 52.0]."
+    },
+    "posse_hi": {
+      "conclusao": "A12-3",
+      "valor": 52,
+      "formatado": "52",
+      "unidade": "% de posse",
+      "de_onde": "Faixa publicada na 7.2(b); PERFIL_BARATO['posse'][1].",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, perfil_declarado_na_especificacao.posse = [47.0, 52.0]."
+    },
+    "longo_lo": {
+      "conclusao": "A12-3",
+      "valor": 10,
+      "formatado": "10",
+      "unidade": "% de passe longo",
+      "de_onde": "Faixa publicada na 7.2(b): 'passe longo 10-14%'; PERFIL_BARATO['passe_longo_pct'] em scripts/A12.py.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, perfil_declarado_na_especificacao.passe_longo_pct = [10.0, 14.0]."
+    },
+    "longo_hi": {
+      "conclusao": "A12-3",
+      "valor": 14,
+      "formatado": "14",
+      "unidade": "% de passe longo",
+      "de_onde": "Faixa publicada na 7.2(b); PERFIL_BARATO['passe_longo_pct'][1].",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, perfil_declarado_na_especificacao.passe_longo_pct = [10.0, 14.0]."
+    },
+    "vit_posse": {
+      "conclusao": "A12-3",
+      "valor": 52.0153,
+      "formatado": "52,0153",
+      "unidade": "% de posse",
+      "valor_bruto": 52.015263,
+      "de_onde": "dados/serieb_clube_temporada.csv, ano=2023, clube=Vitoria, coluna posse = 52,015263. Estoura o teto publicado de 52% por 0,0153 ponto, e por isso cabe_no_perfil=false no A12_resumo.json.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, cenario_barato.promovidos_fora_do_top8_de_valor, entrada 2023/Vitoria: posse 52,0 e cabe_no_perfil false — o resumo arredonda para 52,0 e por isso a razao da exclusao so aparece com mais casas."
+    },
+    "chape_longo": {
+      "conclusao": "A12-3",
+      "valor": 14.0858,
+      "formatado": "14,0858",
+      "unidade": "% de passe longo",
+      "valor_bruto": 14.085789,
+      "de_onde": "dados/serieb_clube_temporada.csv, ano=2025, clube=Chapecoense, coluna passe_longo_pct = 14,085789. Estoura o teto publicado de 14% por 0,0858 ponto.",
+      "conferido": true,
+      "segundo_caminho": "A12_resumo.json, entrada 2025/Chapecoense: passe_longo_pct 14,1 e cabe_no_perfil false."
+    },
+    "r_ppda_melhor": {
+      "conclusao": "A12-3",
+      "valor": 13,
+      "formatado": "13",
+      "de_onde": "Lugar do Vitoria 2023 na coluna ppda entre os 20 times daquele ano, ordenado do que mais pressiona (menor ppda) para o que menos pressiona. Vitoria tem o menor ppda dos quatro casos (10,018) e mesmo assim so o 13o lugar da liga. Sem empates na coluna.",
+      "conferido": true,
+      "segundo_caminho": "Refeito num segundo script, direto de dados/serieb_clube_temporada.csv, sem passar pela base do A12: mesmos 13o/15o/18o/20o para Vitoria 2023, Criciuma 2023, Chapecoense 2025 e Mirassol 2024."
+    },
+    "r_ppda_pior": {
+      "conclusao": "A12-3",
+      "valor": 20,
+      "formatado": "20",
+      "de_onde": "Lugar do Mirassol 2024 na mesma ordenacao: ppda 13,168, o maior da liga em 2024 — ou seja, o time que menos pressionou entre os 20.",
+      "conferido": true,
+      "segundo_caminho": "Os quatro casos ficam em 13o, 15o, 18o e 20o; nenhum esta na metade de cima da pressao. Sem empates."
+    },
+    "r_posse_melhor": {
+      "conclusao": "A12-3",
+      "valor": 5,
+      "formatado": "5",
+      "de_onde": "Lugar do Vitoria 2023 na coluna posse entre os 20 times de 2023, do que mais tem posse para o que menos tem: 5o com 52,015%.",
+      "conferido": true,
+      "segundo_caminho": "Recalculado direto do CSV, fora da base do A12: 5o. Sem empates na coluna posse de 2023."
+    },
+    "r_posse_pior": {
+      "conclusao": "A12-3",
+      "valor": 17,
+      "formatado": "17",
+      "de_onde": "Lugar da Chapecoense 2025 na mesma ordenacao: 17o com 47,420% de posse. Os quatro casos vao do 5o ao 17o (Vitoria 5o, Mirassol 7o, Criciuma 16o, Chapecoense 17o).",
+      "conferido": true,
+      "segundo_caminho": "Recalculado direto do CSV: 5/7/16/17. Sem empates."
+    },
+    "r_longo_melhor": {
+      "conclusao": "A12-3",
+      "valor": 3,
+      "formatado": "3",
+      "de_onde": "Lugar da Chapecoense 2025 na coluna passe_longo_pct entre os 20 times de 2025, do que mais joga longo para o que menos joga: 3o com 14,086%.",
+      "conferido": true,
+      "segundo_caminho": "Recalculado direto do CSV: 3o. Sem empates na coluna de 2025."
+    },
+    "r_longo_pior": {
+      "conclusao": "A12-3",
+      "valor": 19,
+      "formatado": "19",
+      "de_onde": "Lugar do Mirassol 2024 na mesma ordenacao: 19o com 10,033% — quase o time que menos jogou longo em 2024. Os quatro vao do 3o ao 19o (Chapecoense 3o, Criciuma 5o, Vitoria 16o, Mirassol 19o).",
+      "conferido": true,
+      "segundo_caminho": "Recalculado direto do CSV: 3/5/16/19. Sem empates."
+    },
+    "envelope_real": {
+      "conclusao": "A12-3 (prova)",
+      "valor": "PPDA 10,0184-13,1684 - posse 47,4203-52,0153% - passe longo 10,0326-14,0858%",
+      "formatado": "PPDA 10,0184-13,1684 · posse 47,4203-52,0153% · passe longo 10,0326-14,0858%",
+      "tipo": "string ja montada",
+      "de_onde": "Minimo e maximo dos 4 promovidos fora do top-8 nas colunas ppda, posse e passe_longo_pct de dados/serieb_clube_temporada.csv, sem margem nenhuma: ppda min Vitoria 2023 (10,018421) e max Mirassol 2024 (13,168421); posse min Chapecoense 2025 (47,420263) e max Vitoria 2023 (52,015263); longo min Mirassol 2024 (10,032632) e max Chapecoense 2025 (14,085789).",
+      "conferido": true,
+      "segundo_caminho": "Com este envelope, os 4 casos cabem por construcao; aplicado as 80 linhas fechadas ele pega 20 clube-temporada (4 Sobe, 6 Cai), contra 22 (4 Sobe, 7 Cai) do perfil publicado — mesma historia, numeros ligeiramente menores.",
+      "nota": "So para a prova. A Didatica manda nao usar isto na manchete nem no que vimos."
+    }
+  },
+  "bloqueados": [],
+  "correcoes_de_numero_existente": [
+    {
+      "marcador": "subiram",
+      "conclusao": "A12-2",
+      "esta": 6,
+      "deveria": 4,
+      "evidencia": "Recontado na base fechada (80 linhas): dos 22 clube-temporada dentro do perfil publicado da 7.2(b), 4 tem faixa=Sobe (Criciuma 2023, Mirassol 2024, Athletico-PR 2025 e Remo 2025), 11 Meio e 7 Cai. A12_resumo.json ja imprime taxa_de_acesso_no_perfil = 18,2%, que so fecha com 4/22. O 6 nao reproduz por caminho nenhum: com o envelope real (sem arredondar) tambem da 4, sobre 20 que cabem."
+    },
+    {
+      "marcador": "taxa_env",
+      "conclusao": "A12-2",
+      "esta": 27.3,
+      "deveria": 18.2,
+      "evidencia": "27,3% e exatamente 6/22, ou seja, arrasta o erro do marcador subiram. O certo e 4/22 = 18,1818% -> 18,2%, valor que ja esta gravado em A12_resumo.json (cenario_barato.taxa_de_acesso_no_perfil). Muda o sentido da frase: 18,2% e MENOS que os 20,0% da liga, e nao mais."
+    },
+    {
+      "marcador": "cabem8",
+      "conclusao": "A12-2",
+      "esta": 14,
+      "deveria": 13,
+      "evidencia": "A12_resumo.json, cenario_barato.cabem_e_estao_fora_do_top8 = 13, e a recontagem da base confirma 13 (dos 22 no perfil, 9 estao no top-8 de valor do ano). Com o envelope real seriam 12 — nem 13 nem 12 dao 14."
+    },
+    {
+      "marcador": "sub8",
+      "conclusao": "A12-2",
+      "esta": 4,
+      "deveria": 2,
+      "evidencia": "Dos 13 que cabem no perfil e estao fora do top-8, sobem Criciuma 2023 e Mirassol 2024 — dois. Vitoria 2023 e Chapecoense 2025 sao baratos mas NAO cabem no perfil publicado (52,0153% de posse e 14,0858% de longo, exatamente o achado da A12-3), entao nao podem ser contados aqui. A12_resumo.json grava 2 em n_cabem_dos_baratos e no segundo 'destes_quantos_subiram'."
+    },
+    {
+      "marcador": "taxa8",
+      "conclusao": "A12-2",
+      "esta": 28.6,
+      "deveria": 15.4,
+      "evidencia": "28,6% e 4/14, herdando os dois erros acima. O certo e 2/13 = 15,3846% -> 15,4%. Continua acima dos 8,3% dos times fora do top-8 em geral (taxa_geral8, que esta certo), mas a distancia cai de 3,4x para 1,8x."
+    }
+  ],
+  "conferido_e_certo_em_A12_json": [
+    "cabem = 22", "n8 = 48", "taxa_liga = 20,0", "taxa_geral8 = 8,3", "n26 = 8", "n_baratos26 = 5",
+    "g4_26 = 3", "baratos26 (os cinco nomes)", "n_reguas = 9", "sm_n = 4", "sm_lista",
+    "E_sobe 71,1 / E_meio 47,4", "F_sobe 73,7 / F_meio 50,0", "H_sobe 80,9 / H_meio 46,7 / H_cai 15,1",
+    "I_sobe 71,1 / I_meio 50,3 / I_cai 19,1", "A_sobe 73,2 / A_trave 38,6 (orfaos: nenhum texto os le)"
+  ],
+  "observacoes": [
+    "A chave 'destes_quantos_subiram' aparece duas vezes no dict do scripts/A12.py (linhas do bloco cenario_barato). O segundo valor sobrescreve o primeiro, e por isso A12_resumo.json perde o 4 (dos 22) e guarda o 2 (dos 13). Nao corrigi o script: esta fora do que esta tarefa pode escrever.",
+    "A frase nova da A12-2 diz que dois dos baratos de 2026 ficam 'a um ponto' da zona de acesso. Na 27a rodada, Atletico-GO (7o) tem 43 pontos, os MESMOS do 6o colocado (Operario-PR, 43), e CRB (8o) tem 42 — ou seja, zero e um ponto. O texto e do dono; so registro que o numero exato e 'um ponto ou menos'.",
+    "Todos os valores em unidade de jogo, como a Didatica pede: metros, gol esperado por finalizacao, milhoes de euros, % de minutos, contagens e lugar na tabela. Nenhum percentil, d, q ou p entrou nos marcadores de texto — os q aparecem so nos campos de_onde, que sao prova."
+  ]
+}

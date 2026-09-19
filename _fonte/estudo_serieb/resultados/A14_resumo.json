@@ -1,0 +1,261 @@
+{
+ "candidatos": [
+  {
+   "indicador": "H_dinheiro",
+   "parte": "A12",
+   "d": 1.149
+  },
+  {
+   "indicador": "dist_remate",
+   "parte": "A02",
+   "d": 1.084
+  },
+  {
+   "indicador": "E_qualidade_chance",
+   "parte": "A12",
+   "d": 0.961
+  },
+  {
+   "indicador": "xg_por_remate_contra",
+   "parte": "A02",
+   "d": 0.805
+  },
+  {
+   "indicador": "duelos_def_pct",
+   "parte": "A06",
+   "d": 0.805
+  },
+  {
+   "indicador": "dd_fora",
+   "parte": "A03",
+   "d": 0.788
+  },
+  {
+   "indicador": "I_estabilidade_11",
+   "parte": "A12",
+   "d": 0.767
+  },
+  {
+   "indicador": "xgc_casa",
+   "parte": "A03",
+   "d": 0.756
+  },
+  {
+   "indicador": "F_solidez",
+   "parte": "A12",
+   "d": 0.724
+  },
+  {
+   "indicador": "dd_casa",
+   "parte": "A03",
+   "d": 0.703
+  }
+ ],
+ "indice": [
+  "H_dinheiro",
+  "dist_remate",
+  "E_qualidade_chance",
+  "xg_por_remate_contra",
+  "duelos_def_pct",
+  "I_estabilidade_11",
+  "xgc_casa",
+  "dd_casa"
+ ],
+ "descartados_por_redundancia": [
+  [
+   "dd_fora",
+   "duelos_def_pct",
+   0.81
+  ],
+  [
+   "F_solidez",
+   "xgc_casa",
+   0.83
+  ]
+ ],
+ "validacao_uma_temporada_de_fora": [
+  {
+   "temporada_de_fora": "2022",
+   "n_sobe": 4,
+   "n_meio": 12,
+   "indice_sobe": 84.7,
+   "indice_meio": 44.9,
+   "d": 2.61,
+   "p": 0.00683,
+   "d_minimo_80": 1.74
+  },
+  {
+   "temporada_de_fora": "2023",
+   "n_sobe": 4,
+   "n_meio": 12,
+   "indice_sobe": 61.6,
+   "indice_meio": 48.7,
+   "d": 0.88,
+   "p": 0.06005,
+   "d_minimo_80": 1.74
+  },
+  {
+   "temporada_de_fora": "2024",
+   "n_sobe": 4,
+   "n_meio": 12,
+   "indice_sobe": 82.3,
+   "indice_meio": 47.7,
+   "d": 2.67,
+   "p": 0.00014,
+   "d_minimo_80": 1.74
+  },
+  {
+   "temporada_de_fora": "2025",
+   "n_sobe": 4,
+   "n_meio": 12,
+   "indice_sobe": 60.3,
+   "indice_meio": 50.7,
+   "d": 0.79,
+   "p": 0.35917,
+   "d_minimo_80": 1.74
+  }
+ ],
+ "geral": {
+  "indice_sobe": 74.4,
+  "indice_trave": 58.0,
+  "indice_meio": 48.7,
+  "indice_cai": 31.9,
+  "d_sobe_meio": 1.66,
+  "p_sobe_meio": 6.8e-06
+ },
+ "primeiro_segundo_contra_terceiro_sexto": {
+  "n_1_2": 8,
+  "n_3_6": 16,
+  "indice_1_2": 77.5,
+  "indice_3_6": 59.8,
+  "d": 0.89,
+  "p": 0.02283,
+  "d_minimo_80": 1.27,
+  "nota": "8 times-temporada em 1º-2º: indicativo, como o CLAUDE.md manda dizer."
+ },
+ "teste_2026": {
+  "rodada": 27,
+  "tabela": [
+   {
+    "pos": 1,
+    "clube": "Juventude",
+    "pontos": 50,
+    "indice": 83.1
+   },
+   {
+    "pos": 2,
+    "clube": "Novorizontino",
+    "pontos": 49,
+    "indice": 80.8
+   },
+   {
+    "pos": 10,
+    "clube": "Cuiabá",
+    "pontos": 39,
+    "indice": 71.1
+   },
+   {
+    "pos": 7,
+    "clube": "Atlético-GO",
+    "pontos": 43,
+    "indice": 65.8
+   },
+   {
+    "pos": 9,
+    "clube": "Sport",
+    "pontos": 41,
+    "indice": 63.5
+   },
+   {
+    "pos": 13,
+    "clube": "Goiás",
+    "pontos": 36,
+    "indice": 63.4
+   },
+   {
+    "pos": 5,
+    "clube": "Criciúma",
+    "pontos": 47,
+    "indice": 60.9
+   },
+   {
+    "pos": 15,
+    "clube": "Botafogo-SP",
+    "pontos": 31,
+    "indice": 60.7
+   },
+   {
+    "pos": 4,
+    "clube": "Fortaleza",
+    "pontos": 47,
+    "indice": 56.2
+   },
+   {
+    "pos": 8,
+    "clube": "CRB",
+    "pontos": 42,
+    "indice": 55.9
+   },
+   {
+    "pos": 12,
+    "clube": "Athletic",
+    "pontos": 37,
+    "indice": 52.5
+   },
+   {
+    "pos": 14,
+    "clube": "São Bernardo",
+    "pontos": 35,
+    "indice": 48.7
+   },
+   {
+    "pos": 3,
+    "clube": "Vila Nova",
+    "pontos": 47,
+    "indice": 47.6
+   },
+   {
+    "pos": 11,
+    "clube": "Náutico",
+    "pontos": 37,
+    "indice": 41.9
+   },
+   {
+    "pos": 16,
+    "clube": "Ceará",
+    "pontos": 31,
+    "indice": 41.4
+   },
+   {
+    "pos": 18,
+    "clube": "Londrina",
+    "pontos": 25,
+    "indice": 34.1
+   },
+   {
+    "pos": 6,
+    "clube": "Operário-PR",
+    "pontos": 43,
+    "indice": 26.1
+   },
+   {
+    "pos": 17,
+    "clube": "Avaí",
+    "pontos": 29,
+    "indice": 19.2
+   },
+   {
+    "pos": 19,
+    "clube": "América-MG",
+    "pontos": 17,
+    "indice": 16.3
+   },
+   {
+    "pos": 20,
+    "clube": "Ponte Preta",
+    "pontos": 10,
+    "indice": 10.9
+   }
+  ]
+ }
+}

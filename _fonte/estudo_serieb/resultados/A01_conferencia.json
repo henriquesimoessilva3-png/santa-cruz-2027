@@ -1,0 +1,135 @@
+[
+ {
+  "temporada": 2018,
+  "n": 20,
+  "posicoes_iguais": 20,
+  "sem_par_no_oficial": [],
+  "trocas": []
+ },
+ {
+  "temporada": 2019,
+  "n": 20,
+  "posicoes_iguais": 17,
+  "sem_par_no_oficial": [],
+  "trocas": [
+   {
+    "clube": "Botafogo-SP",
+    "reconstruida": 8,
+    "oficial": 9
+   },
+   {
+    "clube": "Operário-PR",
+    "reconstruida": 9,
+    "oficial": 10
+   },
+   {
+    "clube": "Cuiabá",
+    "reconstruida": 10,
+    "oficial": 8
+   }
+  ]
+ },
+ {
+  "temporada": 2020,
+  "n": 20,
+  "posicoes_iguais": 18,
+  "sem_par_no_oficial": [],
+  "trocas": [
+   {
+    "clube": "Cruzeiro",
+    "reconstruida": 10,
+    "oficial": 11
+   },
+   {
+    "clube": "CRB",
+    "reconstruida": 11,
+    "oficial": 10
+   }
+  ]
+ },
+ {
+  "temporada": 2021,
+  "n": 20,
+  "posicoes_iguais": 20,
+  "sem_par_no_oficial": [],
+  "trocas": []
+ },
+ {
+  "temporada": 2022,
+  "n": 20,
+  "posicoes_iguais": 18,
+  "sem_par_no_oficial": [],
+  "trocas": [
+   {
+    "clube": "Novorizontino",
+    "reconstruida": 15,
+    "oficial": 16
+   },
+   {
+    "clube": "Tombense",
+    "reconstruida": 16,
+    "oficial": 15
+   }
+  ]
+ },
+ {
+  "temporada": 2023,
+  "n": 20,
+  "posicoes_iguais": 20,
+  "sem_par_no_oficial": [],
+  "trocas": []
+ },
+ {
+  "temporada": 2024,
+  "n": 20,
+  "posicoes_iguais": 17,
+  "sem_par_no_oficial": [],
+  "trocas": [
+   {
+    "clube": "América-MG",
+    "reconstruida": 7,
+    "oficial": 8
+   },
+   {
+    "clube": "Vila Nova",
+    "reconstruida": 8,
+    "oficial": 9
+   },
+   {
+    "clube": "Operário-PR",
+    "reconstruida": 9,
+    "oficial": 7
+   }
+  ]
+ },
+ {
+  "temporada": 2025,
+  "n": 20,
+  "posicoes_iguais": 20,
+  "sem_par_no_oficial": [],
+  "trocas": []
+ },
+ {
+  "temporada": 2026,
+  "n": 20,
+  "posicoes_iguais": 17,
+  "sem_par_no_oficial": [],
+  "trocas": [
+   {
+    "clube": "CRB",
+    "reconstruida": 7,
+    "oficial": 8
+   },
+   {
+    "clube": "Sport",
+    "reconstruida": 8,
+    "oficial": 9
+   },
+   {
+    "clube": "Atlético-GO",
+    "reconstruida": 9,
+    "oficial": 7
+   }
+  ]
+ }
+]

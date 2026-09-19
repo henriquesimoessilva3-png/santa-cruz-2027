@@ -1,0 +1,357 @@
+{
+ "parte": "J03",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "Valores dos {marcadores} que a proposta de destino (_proposta_destino.json, propostas.J03) criou e que nao existem em lugar nenhum do repositorio. So numero: nenhum destino, texto, manchete, premissa ou nivel de confianca foi decidido ou alterado aqui, e nenhum arquivo da parte (J03.json, J03_testes.csv, J03_resumo.json, J03_indicadores.json, scripts/J03.py) foi tocado. As 53 conclusoes continuam como estao.",
+ "regras_seguidas": [
+  "Unidade de jogo onde o texto pede (bolas altas na temporada, pontos percentuais, % de passe certo); percentil, d, q e p so nos marcadores marcados '(prova)'.",
+  "Posto dentro da temporada foi usado nos TESTES, como J03.py ja faz; o que vai a tela e o valor bruto, que e a mediana do grupo.",
+  "Arredondado, nunca truncado (14,550452 -> 14,6; 0,983553 -> 0,98; 87,87 -> 87,9).",
+  "valor e NUMERO no JSON; 'formatado' traz a versao pt-BR pronta para a tela; quem decide o formato final e o gerador.",
+  "Corte: os valores de tela saem do RECORTE CHEIO (com os times de fronteira), que e o que a regra de _metodo_fronteira.md manda publicar. Os n do recorte sem fronteira vao a parte (gk_n_s_sem, gk_n_m_sem, d_min_sem_*)."
+ ],
+ "calculados": 27,
+ "nao_calculaveis": 0,
+ "numeros": {
+  "n_usado": {
+   "conclusao": "J03-1",
+   "valor": 723,
+   "formatado": "723",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_resumo.json, campo por_setor: soma de n_sobe (179) + n_meio (544) nos 7 setores = 723. 2o caminho: Rerun completo do pipeline de scripts/J03.py feito em /tmp (nada escrito em resultados/): dados/serieb_tecnico.csv (coluna de clube CERTA, 'Equipa dentro de um período de tempo seleccionado'), anos 2022-2025, posicao_1 mapeada pelos 7 setores de J03_indicadores.json, corte de 900 minutos, titular = os N de mais minutos por clube-temporada e setor (1 no gol, 2 nos demais), faixa de resultados/A01_clube_temporada.csv, ponte de clube de resultados/T01_ponte_clubes.json. O rerun reproduz o J03_testes.csv publicado linha a linha (Goleiro/Duelos aéreos d 1,062 q 0,00121; Meia/Faltas q 0,00726) — e essa reproducao e a prova de que os cortes novos saem do mesmo pipeline. — a contagem de titulares por faixa devolve Sobe 179, Meio 544, Cai 184 (total 907).",
+   "conferido": true,
+   "nota": "Nao e correcao de n_tit: n_tit = 907 esta CERTO como 'titulares identificados'. 723 e quantos entraram nos 84 testes; os 184 do Cai foram identificados mas nunca comparados, porque a unica comparacao declarada em J03_indicadores.json e SM (Sobe x Meio)."
+  },
+  "n_sobe_tot": {
+   "conclusao": "J03-1",
+   "valor": 179,
+   "formatado": "179",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_resumo.json, por_setor, soma de n_sobe: 16+32+32+22+31+19+27. 2o caminho: rerun, contagem de titulares com faixa=Sobe.",
+   "conferido": true
+  },
+  "n_meio_tot": {
+   "conclusao": "J03-1",
+   "valor": 544,
+   "formatado": "544",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_resumo.json, por_setor, soma de n_meio: 48+96+96+59+95+61+89. 2o caminho: rerun, contagem de titulares com faixa=Meio.",
+   "conferido": true
+  },
+  "n_ind_setor": {
+   "conclusao": "J03-1 e J03-3",
+   "valor": 12,
+   "formatado": "12",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_indicadores.json, campo familias: 3 familias (defensivo, com_bola, ofensivo) x 4 indicadores cada = 12 por setor. 2o caminho: J03_testes.csv tem exatamente 12 linhas para cada um dos 7 setores (12 x 7 = 84).",
+   "conferido": true,
+   "nota": "E o mesmo 12 que hoje esta digitado a mao no texto de J03-1 e que J03-3 tambem usa."
+  },
+  "firmes_dois_cortes": {
+   "conclusao": "J03-1",
+   "valor": 1,
+   "formatado": "1",
+   "unidade_do_texto": null,
+   "de_onde": "Rerun nos QUATRO cruzamentos (normalizacao por setor x por posicao) x (com x sem times de fronteira, coluna 'fronteira' de A01_clube_temporada.csv). Pela normalizacao DECLARADA em J03_indicadores.json ('Dentro da mesma POSICAO e TEMPORADA'): com fronteira sao firmes Goleiro/Duelos aereos (q 0,00121), Lateral/Passes certos (q 0,04737) e Meia/Faltas (q 0,00329); sem fronteira sao firmes Goleiro/Duelos defensivos (q 0,01525), Goleiro/Intercecoes (q 0,01525), Goleiro/Faltas (q 0,01525), Lateral/Passes certos (q 0,04857) e Meia/Duelos defensivos (q 0,04009). A intersecao dos dois cortes tem UM item: Lateral / 'Passes certos, %'. Rerun completo do pipeline de scripts/J03.py feito em /tmp (nada escrito em resultados/): dados/serieb_tecnico.csv (coluna de clube CERTA, 'Equipa dentro de um período de tempo seleccionado'), anos 2022-2025, posicao_1 mapeada pelos 7 setores de J03_indicadores.json, corte de 900 minutos, titular = os N de mais minutos por clube-temporada e setor (1 no gol, 2 nos demais), faixa de resultados/A01_clube_temporada.csv, ponte de clube de resultados/T01_ponte_clubes.json. O rerun reproduz o J03_testes.csv publicado linha a linha (Goleiro/Duelos aéreos d 1,062 q 0,00121; Meia/Faltas q 0,00726) — e essa reproducao e a prova de que os cortes novos saem do mesmo pipeline.",
+   "conferido": true,
+   "nota": "Pela normalizacao como o CODIGO roda hoje (por SETOR, que e o defeito que a proposta aponta) a intersecao e ZERO: com fronteira passam Goleiro/Duelos aereos e Meia/Faltas, sem fronteira passam tres do Goleiro, e nenhum se repete. Os dois valores estao calculados; 1 e o que corresponde a lista declarada, que e a que a proposta manda valer, e e o que sustenta a frase 'o unico candidato que resiste aos dois recortes e o lateral'. O lateral, em unidade de jogo: 78,86% de passe certo em quem sobe contra 77,79% do meio no corte cheio (1,07 ponto percentual, 'cerca de um passe a mais em cada cem') e 79,46% contra 78,14% sem fronteira (1,33 ponto percentual). Marginal nos dois lados: q 0,04737 e q 0,04857, os dois a um fio de 0,05."
+  },
+  "d_min_menor": {
+   "conclusao": "J03-1 (prova)",
+   "valor": 0.82,
+   "formatado": "0,82",
+   "unidade_do_texto": null,
+   "de_onde": "Rerun + _metodo.py funcao d_minimo(n1, n2), contando CLUBE-TEMPORADA e nao linha de jogador. Recorte cheio, por setor: Goleiro 16x48 -> 0,82; Zaga 16x48 -> 0,82; Lateral 16x48 -> 0,82; Volante 13x36 -> 0,93; Meia 16x48 -> 0,82; Extremo 11x33 -> 1,00; Atacante 15x48 -> 0,84. Menor dos sete = 0,82. 2o caminho: simulacao de Monte Carlo (40 mil repeticoes, t bilateral a 5%) devolve poder 0,803 em 16x48 com d 0,82.",
+   "conferido": true,
+   "nota": "Vai para a prova, nao para o texto (d e unidade proibida na camada de leitura)."
+  },
+  "d_min_maior": {
+   "conclusao": "J03-1 (prova)",
+   "valor": 1.0,
+   "formatado": "1,00",
+   "unidade_do_texto": null,
+   "de_onde": "Mesma tabela do d_min_menor: o maior e o Extremo, 11 clube-temporadas de quem sobe contra 33 do meio -> 1,00. 2o caminho: simulacao devolve poder 0,802 em 11x33 com d 1,00.",
+   "conferido": true,
+   "nota": "Vai para a prova. Confirma o que a proposta escreveu: Extremo 1,00, Volante 0,93, Atacante 0,84, os outros quatro 0,82."
+  },
+  "d_min_sem_menor": {
+   "conclusao": "J03-1 (prova)",
+   "valor": 1.14,
+   "formatado": "1,14",
+   "unidade_do_texto": null,
+   "de_onde": "Mesmo calculo, tirando os clube-temporadas com fronteira=1 em A01_clube_temporada.csv: Goleiro 8x32 -> 1,14; Zaga 8x32 -> 1,14; Lateral 8x32 -> 1,14; Volante 7x29 -> 1,21; Meia 8x32 -> 1,14; Extremo 5x20 -> 1,46; Atacante 7x32 -> 1,20. Menor = 1,14. 2o caminho: simulacao devolve poder 0,804 em 8x32 com d 1,14; e A06_testes.csv ja traz d_minimo_80 = 1,14 na linha fronteira=sem / SM (mesmo 8x32).",
+   "conferido": true,
+   "nota": "Vai para a prova."
+  },
+  "d_min_sem_maior": {
+   "conclusao": "J03-1 (prova)",
+   "valor": 1.46,
+   "formatado": "1,46",
+   "unidade_do_texto": null,
+   "de_onde": "Mesma tabela sem fronteira: o maior e o Extremo, 5 clube-temporadas de quem sobe contra 20 do meio -> 1,46. 2o caminho: simulacao devolve poder 0,799 em 5x20 com d 1,46.",
+   "conferido": true,
+   "nota": "Vai para a prova."
+  },
+  "dd_time_pp": {
+   "conclusao": "J03-2",
+   "valor": 0.98,
+   "formatado": "0,98",
+   "unidade_do_texto": "pontos percentuais de duelo defensivo ganho",
+   "de_onde": "resultados/A06_testes.csv, linha fronteira=com / comparacao=SM / indicador=duelos_def_pct: cru_a 60,768 menos cru_b 59,785. 2o caminho, do zero: dados/serieb_jogos.csv (filtro Competicao='Brazil. Serie B', datas de 2022 a 2025, coluna 'Duelos defensivos ganhos, %'), media dos jogos por (ano, Equipa), cruzado com A01_clube_temporada.csv (coluna faixa), mediana de Sobe menos mediana de Meio nas 80 clube-temporadas = 0,983553.",
+   "conferido": true,
+   "valor_sem_arredondar": 0.983553,
+   "nota": "Hoje o texto de J03-2 diz 'cerca de dois pontos percentuais' a mao — e isso dobra o numero robusto. Cuidado de tela: 60,77 menos 59,78 da 0,99 na subtracao dos arredondados; o valor verdadeiro da diferenca e 0,983553, que arredonda para 0,98. Com uma casa decimal (60,8 contra 59,8) o artefato some."
+  },
+  "dd_time_s": {
+   "conclusao": "J03-2",
+   "valor": 60.77,
+   "formatado": "60,77",
+   "unidade_do_texto": "% de duelos defensivos ganhos",
+   "de_onde": "A06_testes.csv, fronteira=com / SM / duelos_def_pct, coluna cru_a (mediana das 16 clube-temporadas de quem subiu). 2o caminho, do zero, a partir de dados/serieb_jogos.csv como descrito em dd_time_pp: 60,768421.",
+   "conferido": true,
+   "valor_sem_arredondar": 60.768421
+  },
+  "dd_time_m": {
+   "conclusao": "J03-2",
+   "valor": 59.78,
+   "formatado": "59,78",
+   "unidade_do_texto": "% de duelos defensivos ganhos",
+   "de_onde": "A06_testes.csv, fronteira=com / SM / duelos_def_pct, coluna cru_b (mediana das 48 clube-temporadas do meio). 2o caminho, do zero, a partir de dados/serieb_jogos.csv: 59,784868.",
+   "conferido": true,
+   "valor_sem_arredondar": 59.784868,
+   "nota": "ATENCAO ao arredondamento duplo. A proposta escreveu 59,79, que vem de arredondar o 59,785 ja arredondado do CSV. O valor bruto e 59,784868, que arredondado UMA vez para duas casas da 59,78. Gravei 59,78. Quem preferir a consistencia visual com dd_time_pp pode publicar as duas medianas com uma casa (60,8 contra 59,8)."
+  },
+  "dd_vol_s": {
+   "conclusao": "J03-2",
+   "valor": 59.87,
+   "formatado": "59,87",
+   "unidade_do_texto": "% de duelos defensivos ganhos",
+   "de_onde": "resultados/J03_testes.csv, linha setor=Volante / indicador='Duelos defensivos ganhos, %', coluna cru_sobe (mediana dos 22 volantes titulares de quem subiu). 2o caminho: o rerun devolve o mesmo 59,87.",
+   "conferido": true,
+   "nota": "E a maior diferenca por posicao (d 0,535, q 0,16864 — 'pode ser sorte')."
+  },
+  "dd_vol_m": {
+   "conclusao": "J03-2",
+   "valor": 58.06,
+   "formatado": "58,06",
+   "unidade_do_texto": "% de duelos defensivos ganhos",
+   "de_onde": "resultados/J03_testes.csv, linha setor=Volante / indicador='Duelos defensivos ganhos, %', coluna cru_meio (mediana dos 59 volantes titulares do meio). 2o caminho: rerun, mesmo valor.",
+   "conferido": true,
+   "nota": "Diferenca volante = 1,81 ponto percentual, contra 0,98 do time inteiro. O IC95 por clube do d do volante (0,09 a 1,14) cobre o d do time (0,805, IC 0,18 a 1,52): os dois nao se distinguem."
+  },
+  "n_a06_s": {
+   "conclusao": "J03-2",
+   "valor": 16,
+   "formatado": "16",
+   "unidade_do_texto": null,
+   "de_onde": "A06_testes.csv, fronteira=com / SM / duelos_def_pct, coluna n_a. 2o caminho: A01_clube_temporada.csv, faixa=Sobe nos anos 2022-2025 = 16 clube-temporadas, todas presentes em dados/serieb_jogos.csv com duelo defensivo jogo a jogo.",
+   "conferido": true,
+   "nota": "Substitui o '80 clube-temporadas' que o texto publicado usa hoje — 80 e o tamanho da base do A06, nao o do teste."
+  },
+  "n_a06_m": {
+   "conclusao": "J03-2",
+   "valor": 48,
+   "formatado": "48",
+   "unidade_do_texto": null,
+   "de_onde": "A06_testes.csv, fronteira=com / SM / duelos_def_pct, coluna n_b. 2o caminho: A01_clube_temporada.csv, faixa=Meio nos anos 2022-2025 = 48 clube-temporadas.",
+   "conferido": true
+  },
+  "gk_ganhos_s": {
+   "conclusao": "J03-3",
+   "valor": 14.6,
+   "formatado": "14,6",
+   "unidade_do_texto": "bolas altas ganhas na temporada",
+   "de_onde": "Rerun sobre dados/serieb_tecnico.csv, anos 2022-2025, posicao_1=GK, 900+ minutos, 1 titular por clube-temporada (o de mais minutos), faixa de A01_clube_temporada.csv. Bolas altas da temporada = coluna 'Duelos aéreos/90' x 'Minutos jogados:' / 90; ganhas = isso x 'Duelos aéreos ganhos, %' / 100; perdidas = total menos ganhas. Mediana do grupo. 2o caminho: arredondando a bola alta de CADA goleiro para o inteiro mais proximo antes da mediana (o Wyscout exporta o por-90 com 2 casas, e o produto volta a inteiro: 12,90 -> 13, 22,97 -> 23), as medianas dao 14,5 / 14,5 / 0,5 / 2,0 — as mesmas. Grupo Sobe, 16 goleiros.",
+   "conferido": true,
+   "valor_sem_arredondar": 14.550452,
+   "nota": "Arredondado, nao truncado: 14,550452 -> 14,6."
+  },
+  "gk_ganhos_m": {
+   "conclusao": "J03-3",
+   "valor": 14.5,
+   "formatado": "14,5",
+   "unidade_do_texto": "bolas altas ganhas na temporada",
+   "de_onde": "Rerun sobre dados/serieb_tecnico.csv, anos 2022-2025, posicao_1=GK, 900+ minutos, 1 titular por clube-temporada (o de mais minutos), faixa de A01_clube_temporada.csv. Bolas altas da temporada = coluna 'Duelos aéreos/90' x 'Minutos jogados:' / 90; ganhas = isso x 'Duelos aéreos ganhos, %' / 100; perdidas = total menos ganhas. Mediana do grupo. 2o caminho: arredondando a bola alta de CADA goleiro para o inteiro mais proximo antes da mediana (o Wyscout exporta o por-90 com 2 casas, e o produto volta a inteiro: 12,90 -> 13, 22,97 -> 23), as medianas dao 14,5 / 14,5 / 0,5 / 2,0 — as mesmas. Grupo Meio, 48 goleiros.",
+   "conferido": true,
+   "valor_sem_arredondar": 14.522812
+  },
+  "gk_perd_s": {
+   "conclusao": "J03-3",
+   "valor": 0.5,
+   "formatado": "0,5",
+   "unidade_do_texto": "bolas altas perdidas na temporada",
+   "de_onde": "Rerun sobre dados/serieb_tecnico.csv, anos 2022-2025, posicao_1=GK, 900+ minutos, 1 titular por clube-temporada (o de mais minutos), faixa de A01_clube_temporada.csv. Bolas altas da temporada = coluna 'Duelos aéreos/90' x 'Minutos jogados:' / 90; ganhas = isso x 'Duelos aéreos ganhos, %' / 100; perdidas = total menos ganhas. Mediana do grupo. 2o caminho: arredondando a bola alta de CADA goleiro para o inteiro mais proximo antes da mediana (o Wyscout exporta o por-90 com 2 casas, e o produto volta a inteiro: 12,90 -> 13, 22,97 -> 23), as medianas dao 14,5 / 14,5 / 0,5 / 2,0 — as mesmas. Grupo Sobe, 16 goleiros.",
+   "conferido": true,
+   "valor_sem_arredondar": 0.49705
+  },
+  "gk_perd_m": {
+   "conclusao": "J03-3",
+   "valor": 2.0,
+   "formatado": "2,0",
+   "unidade_do_texto": "bolas altas perdidas na temporada",
+   "de_onde": "Rerun sobre dados/serieb_tecnico.csv, anos 2022-2025, posicao_1=GK, 900+ minutos, 1 titular por clube-temporada (o de mais minutos), faixa de A01_clube_temporada.csv. Bolas altas da temporada = coluna 'Duelos aéreos/90' x 'Minutos jogados:' / 90; ganhas = isso x 'Duelos aéreos ganhos, %' / 100; perdidas = total menos ganhas. Mediana do grupo. 2o caminho: arredondando a bola alta de CADA goleiro para o inteiro mais proximo antes da mediana (o Wyscout exporta o por-90 com 2 casas, e o produto volta a inteiro: 12,90 -> 13, 22,97 -> 23), as medianas dao 14,5 / 14,5 / 0,5 / 2,0 — as mesmas. Grupo Meio, 48 goleiros.",
+   "conferido": true,
+   "valor_sem_arredondar": 2.004233,
+   "nota": "O texto novo diz 'em 38 jogos'. Em rigor e POR TEMPORADA: o goleiro titular mediano jogou 34 partidas em quem subiu e 32 no meio (coluna 'Partidas jogadas'), nao 38. A frase 'em 38 jogos' e a temporada, nao o que o goleiro jogou — quem revisar o texto decide se troca por 'na temporada'."
+  },
+  "gk_n_s": {
+   "conclusao": "J03-3",
+   "valor": 16,
+   "formatado": "16",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_resumo.json, por_setor.Goleiro.n_sobe. 2o caminho: A01_clube_temporada.csv tem 16 clube-temporadas faixa=Sobe em 2022-2025 e todas as 16 tem um goleiro com 900+ minutos no rerun.",
+   "conferido": true
+  },
+  "gk_n_m": {
+   "conclusao": "J03-3",
+   "valor": 48,
+   "formatado": "48",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_resumo.json, por_setor.Goleiro.n_meio. 2o caminho: 48 clube-temporadas faixa=Meio em 2022-2025, todas com goleiro de 900+ minutos no rerun.",
+   "conferido": true
+  },
+  "gk_n_s_sem": {
+   "conclusao": "J03-3",
+   "valor": 8,
+   "formatado": "8",
+   "unidade_do_texto": null,
+   "de_onde": "Rerun com o filtro sem fronteira (coluna 'fronteira' = 0 em A01_clube_temporada.csv): sobram 8 goleiros de quem subiu. 2o caminho: A01_clube_temporada.csv, faixa=Sobe e fronteira=0 nos anos 2022-2025 = 8; bate com o n_a de A06_testes.csv na linha fronteira=sem / SM e com a tabela de _metodo_fronteira.md (Sobe: 20 no total, 8 ficam).",
+   "conferido": true
+  },
+  "gk_n_m_sem": {
+   "conclusao": "J03-3",
+   "valor": 32,
+   "formatado": "32",
+   "unidade_do_texto": null,
+   "de_onde": "Rerun com o filtro sem fronteira: sobram 32 goleiros do meio. 2o caminho: A01_clube_temporada.csv, faixa=Meio e fronteira=0 em 2022-2025 = 32; bate com o n_b de A06_testes.csv na linha fronteira=sem / SM.",
+   "conferido": true
+  },
+  "gk_ind_vazios": {
+   "conclusao": "J03-3",
+   "valor": 7,
+   "formatado": "7",
+   "unidade_do_texto": null,
+   "de_onde": "resultados/J03_testes.csv, 12 linhas do setor Goleiro: quantas tem cru_sobe = 0 E cru_meio = 0. Sao Faltas/90, 'Dribles com sucesso, %', 'Accoes atacantes com sucesso/90', 'Golos esperados/90', 'Assistencias esperadas/90', 'Remates/90' e 'Toques na area/90' = 7. 2o caminho: rerun, medianas recalculadas do zero sobre serieb_tecnico.csv, mesmas 7.",
+   "conferido": true,
+   "nota": "A lista bate exatamente com a que a proposta escreveu. 'Duelos defensivos ganhos, %' NAO entra: a mediana de quem sobe e 0, mas a do meio e 50, entao nao e zero para quase todo goleiro — e um indicador quase sem observacao, nao um zero."
+  },
+  "gk_s": {
+   "conclusao": "J03-3",
+   "valor": 97.9,
+   "formatado": "97,9",
+   "unidade_do_texto": "% de bolas altas ganhas",
+   "de_onde": "J03_testes.csv, setor=Goleiro / 'Duelos aéreos ganhos, %', cru_sobe = 97,915. Ja existe em J03.json (campo numeros) com as tres casas; aqui so arredondado para uma, como a proposta pede.",
+   "conferido": true,
+   "valor_sem_arredondar": 97.915,
+   "nota": "NAO e correcao: 97,915 esta certo. E a versao de tela pedida em numeros_a_criar."
+  },
+  "gk_m": {
+   "conclusao": "J03-3",
+   "valor": 87.9,
+   "formatado": "87,9",
+   "unidade_do_texto": "% de bolas altas ganhas",
+   "de_onde": "J03_testes.csv, setor=Goleiro / 'Duelos aéreos ganhos, %', cru_meio = 87,87. Ja existe em J03.json (campo numeros); aqui so arredondado para uma casa, como a proposta pede.",
+   "conferido": true,
+   "valor_sem_arredondar": 87.87,
+   "nota": "NAO e correcao: 87,87 esta certo. Arredondado, nao truncado: 87,87 -> 87,9."
+  }
+ },
+ "valores_para_numeros": {
+  "n_usado": 723,
+  "n_sobe_tot": 179,
+  "n_meio_tot": 544,
+  "n_ind_setor": 12,
+  "firmes_dois_cortes": 1,
+  "d_min_menor": 0.82,
+  "d_min_maior": 1.0,
+  "d_min_sem_menor": 1.14,
+  "d_min_sem_maior": 1.46,
+  "dd_time_pp": 0.98,
+  "dd_time_s": 60.77,
+  "dd_time_m": 59.78,
+  "dd_vol_s": 59.87,
+  "dd_vol_m": 58.06,
+  "n_a06_s": 16,
+  "n_a06_m": 48,
+  "gk_ganhos_s": 14.6,
+  "gk_ganhos_m": 14.5,
+  "gk_perd_s": 0.5,
+  "gk_perd_m": 2.0,
+  "gk_n_s": 16,
+  "gk_n_m": 48,
+  "gk_n_s_sem": 8,
+  "gk_n_m_sem": 32,
+  "gk_ind_vazios": 7,
+  "gk_s": 97.9,
+  "gk_m": 87.9
+ },
+ "formatado_pt_br": {
+  "n_usado": "723",
+  "n_sobe_tot": "179",
+  "n_meio_tot": "544",
+  "n_ind_setor": "12",
+  "firmes_dois_cortes": "1",
+  "d_min_menor": "0,82",
+  "d_min_maior": "1,00",
+  "d_min_sem_menor": "1,14",
+  "d_min_sem_maior": "1,46",
+  "dd_time_pp": "0,98",
+  "dd_time_s": "60,77",
+  "dd_time_m": "59,78",
+  "dd_vol_s": "59,87",
+  "dd_vol_m": "58,06",
+  "n_a06_s": "16",
+  "n_a06_m": "48",
+  "gk_ganhos_s": "14,6",
+  "gk_ganhos_m": "14,5",
+  "gk_perd_s": "0,5",
+  "gk_perd_m": "2,0",
+  "gk_n_s": "16",
+  "gk_n_m": "48",
+  "gk_n_s_sem": "8",
+  "gk_n_m_sem": "32",
+  "gk_ind_vazios": "7",
+  "gk_s": "97,9",
+  "gk_m": "87,9"
+ },
+ "ja_existem_em_J03_json": {
+  "n_testes": 84,
+  "min_min": 900,
+  "setores": 7,
+  "_nota": "Conferidos contra J03_testes.csv (84 linhas, 12 por setor, 7 setores) e contra J03_indicadores.json (minimo_de_minutos 900): os tres batem e nao foram recalculados nem regravados. Tambem conferi, um a um, os outros 17 valores do campo numeros de J03.json (n_tit, firmes, dd_min, dd_max, dd_vol, dd_ext, dd_zag_s, dd_zag_m, gk_s, gk_m, gk_d, gk_q, mf_s, mf_m, mf_d, mf_q): todos batem com J03_testes.csv e com o rerun. O unico errado e dd_time, registrado em correcoes_de_numero_existente."
+ },
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "dd_time",
+   "arquivo": "resultados/J03.json, campo numeros",
+   "esta": 1.59,
+   "deveria": 0.805,
+   "evidencia": "1,59 e o d do corte SEM fronteira (A06_testes.csv, linha fronteira=sem / SM / duelos_def_pct, d 1,593, n 8x32). O valor do corte que vale nos dois e o COM fronteira: d 0,805, n 16x48, IC95 por clube de 0,18 a 1,52, q 0,02556. Publicar o 1,59 e exatamente o defeito que resultados/_metodo_fronteira.md documenta — 'tratei o recorte sem fronteira como o verdadeiro'. Conferido em A06_testes.csv e recalculado do zero de dados/serieb_jogos.csv.",
+   "consequencia": "Com 0,805, cai junto a frase 'o maior separador do estudo': no corte que vale ele empata com xg_por_remate_contra (0,805) e fica atras de dist_remate (1,203). Alem disso o IC do d do volante (0,09 a 1,14) passa a cobrir o do time.",
+   "nao_corrigido": true
+  }
+ ],
+ "achados_de_base_que_nao_mudam_numero": [
+  {
+   "o_que": "scripts/J03.py normaliza o percentil por SETOR (7 grupos), mas J03_indicadores.json declara 'Dentro da mesma POSICAO e TEMPORADA'. O rerun confirma que a diferenca muda o resultado: por setor sobrevivem aos dois cortes 0 indicadores; por posicao, 1 (Lateral / 'Passes certos, %').",
+   "onde": "scripts/J03.py, funcao main, o defaultdict por (ano, setor) na secao do percentil.",
+   "efeito_aqui": "firmes_dois_cortes foi gravado com o valor da normalizacao DECLARADA (1), que e o que a proposta manda valer e o que sustenta a frase sobre o lateral. O valor da normalizacao como o codigo roda (0) esta na nota do marcador. Nao alterei o script."
+  },
+  {
+   "o_que": "scripts/J03.py nao aplica o sinal do indicador ao d depois do percentil (o percentil ja vem invertido para sinal -1), entao o d de Faltas/90 sai positivo mesmo com o grupo Sobe fazendo MENOS falta. Nao e erro de conta: e so leitura do sinal, e nao muda nenhum p nem q.",
+   "onde": "scripts/J03.py, funcao main: cohen_d(a, b) sem multiplicar por i['sinal'].",
+   "efeito_aqui": "Nenhum: nenhum marcador novo depende do sinal do d."
+  },
+  {
+   "o_que": "O texto novo de J03-3 diz 'em 38 jogos'. O goleiro titular mediano jogou 34 partidas em quem subiu e 32 no meio; 38 e a temporada, nao o que ele jogou.",
+   "onde": "dados/serieb_tecnico.csv, coluna 'Partidas jogadas', goleiros titulares 2022-2025.",
+   "efeito_aqui": "Nenhum numero muda: gk_perd_s e gk_perd_m sao por TEMPORADA. So a palavra do texto e que pode precisar de ajuste, e isso e decisao de quem revisa o texto."
+  }
+ ],
+ "como_refazer": [
+  "O rerun: copie scripts/J03.py para /tmp, acrescente (a) o filtro sem fronteira usando a coluna 'fronteira' de A01_clube_temporada.csv e (b) a opcao de normalizar o percentil por 'posicao' em vez de 'setor'. Rode os 4 cruzamentos. A validacao e o cruzamento setor+com reproduzir J03_testes.csv linha a linha.",
+  "d_min por clube-temporada: conte clube-temporadas distintas (ano, clube) com pelo menos um titular no setor, por faixa, e chame _metodo.d_minimo(n_sobe_ct, n_meio_ct). Cheio: 16x48, 16x48, 16x48, 13x36, 16x48, 11x33, 15x48. Sem fronteira: 8x32, 8x32, 8x32, 7x29, 8x32, 5x20, 7x32.",
+  "Bolas altas do goleiro: serieb_tecnico.csv, 'Duelos aéreos/90' x 'Minutos jogados:' / 90 = total da temporada; x 'Duelos aéreos ganhos, %' / 100 = ganhas; o resto = perdidas. Mediana por faixa.",
+  "dd_time_*: A06_testes.csv, linha fronteira=com / comparacao=SM / indicador=duelos_def_pct, colunas cru_a e cru_b. Para a precisao cheia: dados/serieb_jogos.csv, filtro Competicao='Brazil. Serie B' e datas de 2022 a 2025, media de 'Duelos defensivos ganhos, %' por (ano, Equipa), mediana por faixa."
+ ]
+}

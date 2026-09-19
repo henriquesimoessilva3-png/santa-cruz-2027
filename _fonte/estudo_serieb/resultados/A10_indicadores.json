@@ -1,0 +1,1204 @@
+{
+ "parte": "A10",
+ "pergunta": "Quem sobe sustenta a intensidade no returno e em sequências de jogos?",
+ "declarado_em": "2026-09-19",
+ "declarado_antes_de_calcular": true,
+ "declarado_antes_de_calcular_o_que": "Nenhuma comparação entre faixas foi rodada antes desta lista. O que foi medido antes dela é só o que o CLAUDE.md manda medir antes de usar dado físico — cobertura por temporada e por time — mais o retrato do descanso e o poder do desenho, que são propriedades da base e do n, não resultado de comparação.",
+ "escrito_por": "scripts/A10_base.py (passo 1 de A10: a base, e só a base)",
+ "o_limite_que_define_a_parte": {
+  "o_que_e": "O físico POR JOGO da Série B só existe em 2025 e em 2026 parcial. Em 2022, 2023 e 2024 o physical_match tem ZERO linhas — na fonte também, conferido em 19/09 (_registro.md).",
+  "consequencia": "A10 responde para UMA temporada fechada (2025). 2026 entra marcado como teste (no_recorte = 0) e nunca no recorte principal.",
+  "linhas": {
+   "2025": 11027,
+   "2026": 6019
+  },
+  "clube_jogo": {
+   "2025": 746,
+   "2026": 410
+  }
+ },
+ "recorte": {
+  "temporadas_na_base": [
+   2025,
+   2026
+  ],
+  "temporada_das_conclusoes": 2025,
+  "unidade_principal": "jogador-jogo",
+  "unidade_secundaria": "clube-temporada (4 contra 12: ver poder)",
+  "goleiro": "Fora, e não por escolha: o SkillCorner não rastreia goleiro. O physical_match não tem nenhum position_group de goleiro."
+ },
+ "fonte_do_dado": {
+  "fisico_por_jogo": "_fonte/estudo_serieb/dados_copiados/skillcorner_serieb.db, tabela physical_match, edições 1061 = Série B 2025 e 1399 = Série B 2026. Só leitura.",
+  "clube": "physical_match.team_name traduzido por resultados/J04_ponte_clubes.json (players.team_name está VAZIA nas 2.105 linhas — achado do J04).",
+  "faixa_trave_fronteira": "resultados/A01_clube_temporada.csv.",
+  "rodada": "o N-ésimo jogo do clube na Série B por data, mesma definição do A01, conferida contra resultados/classificacao_rodada.csv.",
+  "calendario_e_descanso": "dados/serieb_jogos.csv, TODAS as competições (coluna Competição), não só a Série B.",
+  "lista_de_partida": "resultados/A07_indicadores.json, declarada em 2026-09-17."
+ },
+ "corte_turno_returno": {
+  "regra": "Por RODADA do clube, não por data: turno = rodadas 1 a 19; returno = rodada 20 em diante.",
+  "por_que_nao_pela_data": "Times têm calendário diferente — com jogo adiado, a mesma data é a 19ª rodada de um clube e a 21ª de outro.",
+  "2025": "38 rodadas: 19 contra 19, fechado.",
+  "2026": "27 rodadas na base: o returno é parcial (20 a 27) e a temporada inteira está fora do recorte principal.",
+  "conferencia_contra_classificacao_rodada": {
+   "clubes_conferidos": 40,
+   "divergencia_no_numero_de_jogos": [],
+   "jogo_depois_do_fecho_da_rodada": [],
+   "n_jogo_depois_do_fecho": 0
+  },
+  "jogos_que_faltam_na_base": "A01 registra 5 jogos ausentes de serieb_jogos.csv, 3 deles em 2026. Nos 6 clube-temporada de 2026 afetados a rodada deste script fica deslocada em 1; 2025 está completa e é ela que responde."
+ },
+ "descanso": {
+  "regra": "Para cada jogo da Série B com físico, descanso_dias = dias desde o jogo ANTERIOR do mesmo clube em QUALQUER competição de serieb_jogos.csv, no mesmo ano. jogo_curto = 1 quando descanso_dias < 4.",
+  "corte_de_sensibilidade_declarado_junto": "jogo_curto_ate4 = 1 quando descanso_dias < 5. Declarado AGORA, junto com o corte do arquivo, e não depois: existe porque a data tem grão de um dia (ver armadilha_da_data) e porque com o corte do arquivo o grupo curto é pequeno. O corte que responde a pergunta continua sendo o de menos de 4 dias; o de menos de 5 é robustez.",
+  "por_que_todas_as_competicoes": "É o ponto do arquivo: a base traz estaduais e copas, e é isso que encurta o calendário.",
+  "confundidor_declarado": "Se quem sobe joga mais copa, ele tem mais jogo curto — isso é confundidor, não resultado. Por isso a distribuição por faixa entra aqui, antes do teste, e a comparação jogo curto × jogo normal é feita DENTRO do clube, para o clube ser o seu próprio controle.",
+  "armadilha_da_data": {
+   "o_que_e": "Data do Wyscout é UTC: jogo das 21h30 em Brasília cai no dia seguinte. O SkillCorner guarda a data local.",
+   "medida": "Nos clube-jogo que as duas bases têm em comum, o deslocamento é 0 ou exatamente 1 dia; a contagem por deslocamento está em conferencia_do_casamento_de_jogo.",
+   "o_que_se_faz": "O descanso usa UMA convenção só, a do Wyscout, porque só ela tem as outras competições. A incerteza de um dia só morde na borda, e a borda (descanso de 3 ou 4 dias) está contada."
+  },
+  "medido": {
+   "2025": {
+    "clube_jogo_rastreado": 746,
+    "com_menos_de_4_dias": 59,
+    "pct_do_total": 7.9,
+    "com_menos_de_5_dias_sensibilidade": 174,
+    "sem_descanso_por_ser_o_1o_jogo_do_ano": 2,
+    "na_borda_3_ou_4_dias": 164,
+    "se_todo_jogo_deslocasse_1_dia_para_cima": 10,
+    "se_todo_jogo_deslocasse_1_dia_para_baixo": 174,
+    "distribuicao_dias": {
+     "2": 10,
+     "3": 49,
+     "4": 115,
+     "5": 124,
+     "6": 135,
+     "7": 132,
+     "8": 85,
+     "9": 43,
+     "10": 31,
+     "11": 7,
+     "14": 1,
+     "16": 3,
+     "20": 1,
+     "21": 1,
+     "23": 2,
+     "24": 1,
+     "25": 1,
+     "27": 1,
+     "29": 1,
+     "41": 1
+    },
+    "por_faixa": {
+     "Sobe": {
+      "clube_jogo_rastreado": 150,
+      "com_menos_de_4_dias": 13,
+      "pct": 8.7,
+      "clubes": 4
+     },
+     "Meio": {
+      "clube_jogo_rastreado": 447,
+      "com_menos_de_4_dias": 36,
+      "pct": 8.1,
+      "clubes": 12
+     },
+     "Cai": {
+      "clube_jogo_rastreado": 149,
+      "com_menos_de_4_dias": 10,
+      "pct": 6.7,
+      "clubes": 4
+     }
+    },
+    "competicao_do_jogo_anterior_nos_curtos": {
+     "Brazil. Serie B": 46,
+     "Brazil. Copa do Brasil": 10,
+     "Brazil. Copa Verde": 2,
+     "Brazil. Paraense": 1
+    }
+   },
+   "2026": {
+    "clube_jogo_rastreado": 410,
+    "com_menos_de_4_dias": 62,
+    "pct_do_total": 15.1,
+    "com_menos_de_5_dias_sensibilidade": 112,
+    "sem_descanso_por_ser_o_1o_jogo_do_ano": 0,
+    "na_borda_3_ou_4_dias": 95,
+    "se_todo_jogo_deslocasse_1_dia_para_cima": 17,
+    "se_todo_jogo_deslocasse_1_dia_para_baixo": 112,
+    "distribuicao_dias": {
+     "1": 1,
+     "2": 16,
+     "3": 45,
+     "4": 50,
+     "5": 43,
+     "6": 66,
+     "7": 60,
+     "8": 40,
+     "9": 26,
+     "10": 21,
+     "11": 17,
+     "12": 8,
+     "13": 6,
+     "14": 5,
+     "15": 2,
+     "16": 2,
+     "17": 1,
+     "33": 1
+    },
+    "por_faixa": {
+     "Sobe": {
+      "clube_jogo_rastreado": 82,
+      "com_menos_de_4_dias": 14,
+      "pct": 17.1,
+      "clubes": 4
+     },
+     "Meio": {
+      "clube_jogo_rastreado": 248,
+      "com_menos_de_4_dias": 42,
+      "pct": 16.9,
+      "clubes": 12
+     },
+     "Cai": {
+      "clube_jogo_rastreado": 80,
+      "com_menos_de_4_dias": 6,
+      "pct": 7.5,
+      "clubes": 4
+     }
+    },
+    "competicao_do_jogo_anterior_nos_curtos": {
+     "Brazil. Serie B": 25,
+     "Brazil. Copa do Brasil": 20,
+     "Brazil. Copa do Nordeste": 17
+    }
+   }
+  }
+ },
+ "cobertura": {
+  "exigida_pelo_claude_md": "Antes de usar, informe a cobertura por temporada e por time. Não impute valores; time-temporada com cobertura baixa é sinalizado e rodado com e sem.",
+  "regra_fixada_antes_de_medir": {
+   "jogos": "cobertura baixa quando o clube-temporada tem menos de 75% dos seus jogos da Série B rastreados.",
+   "atletas": "ou quando a mediana de atletas rastreados por jogo fica abaixo de 70% da mediana do próprio ano.",
+   "nao_imputar": "Jogo sem físico não vira média de nada: fica de fora, contado.",
+   "denominador": "jogos_serie_b é o que serieb_jogos.csv tem do clube naquela temporada; jogos_rastreados é o que entrou nesta base. O jogo de 2026 que o SkillCorner tem e o Wyscout não (Criciúma × Vila Nova) fica fora dos dois lados: aparece no audit, não na conta."
+  },
+  "mediana_de_atletas_por_jogo_no_ano": {
+   "2025": 15.0,
+   "2026": 15.0
+  },
+  "por_clube_temporada": {
+   "2025": {
+    "Amazonas": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "América-MG": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Athletic": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 35,
+     "cobertura_pct": 92.1,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Athletico-PR": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Atlético-GO": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Avaí": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Botafogo-SP": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "CRB": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Chapecoense": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Coritiba": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Criciúma": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Cuiabá": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Ferroviária": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Goiás": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Novorizontino": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Operário-PR": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 38,
+     "cobertura_pct": 100.0,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Paysandu": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Remo": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Vila Nova": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Volta Redonda": {
+     "jogos_serie_b": 38,
+     "jogos_rastreados": 37,
+     "cobertura_pct": 97.4,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    }
+   },
+   "2026": {
+    "América-MG": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 74.1,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 1
+    },
+    "Athletic": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 74.1,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 1
+    },
+    "Atlético-GO": {
+     "jogos_serie_b": 26,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 80.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Avaí": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 74.1,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 1
+    },
+    "Botafogo-SP": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "CRB": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 14,
+     "cobertura_baixa": 0
+    },
+    "Ceará": {
+     "jogos_serie_b": 26,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 80.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Criciúma": {
+     "jogos_serie_b": 26,
+     "jogos_rastreados": 19,
+     "cobertura_pct": 73.1,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 1
+    },
+    "Cuiabá": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Fortaleza": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Goiás": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Juventude": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 74.1,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 1
+    },
+    "Londrina": {
+     "jogos_serie_b": 26,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 76.9,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    },
+    "Novorizontino": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Náutico": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 74.1,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 1
+    },
+    "Operário-PR": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Ponte Preta": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 74.1,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 1
+    },
+    "Sport": {
+     "jogos_serie_b": 27,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 77.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "São Bernardo": {
+     "jogos_serie_b": 26,
+     "jogos_rastreados": 21,
+     "cobertura_pct": 80.8,
+     "atletas_por_jogo_mediana": 15,
+     "cobertura_baixa": 0
+    },
+    "Vila Nova": {
+     "jogos_serie_b": 26,
+     "jogos_rastreados": 20,
+     "cobertura_pct": 76.9,
+     "atletas_por_jogo_mediana": 15.0,
+     "cobertura_baixa": 0
+    }
+   }
+  },
+  "clubes_com_cobertura_baixa": {
+   "2025": [],
+   "2026": [
+    "América-MG",
+    "Athletic",
+    "Avaí",
+    "Criciúma",
+    "Juventude",
+    "Náutico",
+    "Ponte Preta"
+   ]
+  },
+  "o_que_a_regra_produziu": "Em 2025, a temporada que responde, a cobertura vai de 92,1% a 100% e NENHUM clube fica marcado — o corte com e sem cobertura baixa é, em 2025, a mesma conta duas vezes. Em 2026 a faixa inteira é estreita (73,1% a 80,8%: é a temporada em curso, todo mundo igual) e a linha dos 75% parte um grupo homogêneo; ali a marca é efeito do limiar, não diferença real, e 2026 já está fora do recorte de qualquer jeito. A regra fica como foi declarada."
+ },
+ "comparacoes": [
+  {
+   "id": "SM",
+   "nome": "Sobe × Meio",
+   "papel": "padrão",
+   "nota": "A comparação que define característica (§6.2)."
+  },
+  {
+   "id": "ST",
+   "nome": "Sobe × Trave (5º–8º)",
+   "papel": "secundária",
+   "nota": "Recorte próprio do estudo. Em 2025 são 4 contra 4 clubes: declarada para não ser escolhida depois, e lida com o d mínimo ao lado."
+  },
+  {
+   "id": "CM",
+   "nome": "Cai × Meio",
+   "papel": "secundária",
+   "nota": "Declarada em A07 e mantida: se o sinal físico estiver do lado de quem cai, a leitura muda de lado."
+  }
+ ],
+ "medidas": [
+  {
+   "id": "turno",
+   "nome": "nível no 1º turno (rodadas 1–19)"
+  },
+  {
+   "id": "returno",
+   "nome": "nível no 2º turno (rodadas 20+)"
+  },
+  {
+   "id": "delta_turno",
+   "nome": "returno menos turno — sustentar ao longo da temporada"
+  },
+  {
+   "id": "delta_descanso",
+   "nome": "jogo com menos de 4 dias de descanso menos jogo normal — sustentar em sequência"
+  }
+ ],
+ "familias": [
+  {
+   "id": "fisico_ind_x_SM",
+   "pilar": "fisico_ind",
+   "pilar_nome": "Físico individual, na régua do jogador-jogo (nível principal)",
+   "comparacao": "SM",
+   "indicadores": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "hi_distance_p90",
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "high_accel_p90",
+    "psv99"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 32,
+   "bh": "Benjamini-Hochberg a 5% sobre os 32 testes desta família, todos juntos."
+  },
+  {
+   "id": "fisico_ind_x_ST",
+   "pilar": "fisico_ind",
+   "pilar_nome": "Físico individual, na régua do jogador-jogo (nível principal)",
+   "comparacao": "ST",
+   "indicadores": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "hi_distance_p90",
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "high_accel_p90",
+    "psv99"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 32,
+   "bh": "Benjamini-Hochberg a 5% sobre os 32 testes desta família, todos juntos."
+  },
+  {
+   "id": "fisico_ind_x_CM",
+   "pilar": "fisico_ind",
+   "pilar_nome": "Físico individual, na régua do jogador-jogo (nível principal)",
+   "comparacao": "CM",
+   "indicadores": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "hi_distance_p90",
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "high_accel_p90",
+    "psv99"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 32,
+   "bh": "Benjamini-Hochberg a 5% sobre os 32 testes desta família, todos juntos."
+  },
+  {
+   "id": "fisico_col_x_SM",
+   "pilar": "fisico_col",
+   "pilar_nome": "Físico coletivo, na régua do clube-temporada",
+   "comparacao": "SM",
+   "indicadores": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "hi_distance_p90",
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "high_accel_p90",
+    "psv99"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 32,
+   "bh": "Benjamini-Hochberg a 5% sobre os 32 testes desta família, todos juntos."
+  },
+  {
+   "id": "fisico_col_x_ST",
+   "pilar": "fisico_col",
+   "pilar_nome": "Físico coletivo, na régua do clube-temporada",
+   "comparacao": "ST",
+   "indicadores": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "hi_distance_p90",
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "high_accel_p90",
+    "psv99"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 32,
+   "bh": "Benjamini-Hochberg a 5% sobre os 32 testes desta família, todos juntos."
+  },
+  {
+   "id": "fisico_col_x_CM",
+   "pilar": "fisico_col",
+   "pilar_nome": "Físico coletivo, na régua do clube-temporada",
+   "comparacao": "CM",
+   "indicadores": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "hi_distance_p90",
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "high_accel_p90",
+    "psv99"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 32,
+   "bh": "Benjamini-Hochberg a 5% sobre os 32 testes desta família, todos juntos."
+  },
+  {
+   "id": "resultado_col_x_SM",
+   "pilar": "resultado_col",
+   "pilar_nome": "Resultado do clube no jogo (porta D: é o placar redescrito)",
+   "comparacao": "SM",
+   "indicadores": [
+    "pontos_jogo"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 4,
+   "bh": "Benjamini-Hochberg a 5% sobre os 4 testes desta família, todos juntos."
+  },
+  {
+   "id": "resultado_col_x_ST",
+   "pilar": "resultado_col",
+   "pilar_nome": "Resultado do clube no jogo (porta D: é o placar redescrito)",
+   "comparacao": "ST",
+   "indicadores": [
+    "pontos_jogo"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 4,
+   "bh": "Benjamini-Hochberg a 5% sobre os 4 testes desta família, todos juntos."
+  },
+  {
+   "id": "resultado_col_x_CM",
+   "pilar": "resultado_col",
+   "pilar_nome": "Resultado do clube no jogo (porta D: é o placar redescrito)",
+   "comparacao": "CM",
+   "indicadores": [
+    "pontos_jogo"
+   ],
+   "medidas": [
+    "turno",
+    "returno",
+    "delta_turno",
+    "delta_descanso"
+   ],
+   "n_testes": 4,
+   "bh": "Benjamini-Hochberg a 5% sobre os 4 testes desta família, todos juntos."
+  }
+ ],
+ "unidade_da_familia": {
+  "regra": "§6.3 da ESPECIFICACAO.md: uma família = um pilar × uma comparação. O BH a 5% roda sobre TODOS os testes da família juntos.",
+  "por_que_esta_escrito_aqui": "J03 e J04 partiram a família também por SETOR, e a conferência do J04 apontou isso como divergência da especificação. A10 não parte por setor.",
+  "o_corte_de_fronteira_nao_parte_a_familia": "Rodar sem os times de fronteira é REPETIR a análise inteira, não dividir a família: são duas rodadas do mesmo conjunto de testes, e firme é firme nas duas (_metodo_fronteira.md).",
+  "leitura_secundaria": "A versão partida por setor (zaga, lateral, meio, ataque) e a versão partida por pergunta (turno × descanso) podem ser rodadas, e se forem entram rotuladas como SECUNDÁRIAS. A principal é a da §6.3."
+ },
+ "indicadores": [
+  {
+   "familia_em_A07": "volume",
+   "id_em_A07": "fis_distance_p90",
+   "coluna": "distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "volume",
+   "id_em_A07": "fis_running_distance_p90",
+   "coluna": "running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "volume",
+   "id_em_A07": "fis_m_per_min",
+   "coluna": "m_per_min",
+   "nome": "Metros por minuto",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "intensidade",
+   "id_em_A07": "fis_hi_distance_p90",
+   "coluna": "hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "intensidade",
+   "id_em_A07": "fis_sprint_distance_p90",
+   "coluna": "sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "intensidade",
+   "id_em_A07": "fis_sprint_count_p90",
+   "coluna": "sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "intensidade",
+   "id_em_A07": "fis_high_accel_p90",
+   "coluna": "high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "sinal": 1,
+   "min_60": true,
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+  },
+  {
+   "familia_em_A07": "intensidade",
+   "id_em_A07": "fis_psv99_top5",
+   "coluna": "psv99",
+   "nome": "PSV-99 do jogador no jogo (km/h)",
+   "sinal": 1,
+   "min_60": false,
+   "nota": "Métrica de pico: usa todos os jogos, como manda o CLAUDE.md."
+  }
+ ],
+ "descritor_fora_das_conclusoes": [
+  {
+   "coluna": "atletas_no_jogo",
+   "nome": "Atletas rastreados do clube naquele jogo",
+   "papel": "Não entra em família nem em BH. E, medido, NÃO serve de descritor de rodízio: o SkillCorner rastreia um teto por equipa-jogo e a coluna quase não varia.",
+   "distribuicao": {
+    "10": 40,
+    "11": 22,
+    "12": 120,
+    "13": 533,
+    "14": 2548,
+    "15": 13335,
+    "16": 448
+   }
+  },
+  {
+   "coluna": "(derivado) atletas distintos por clube-temporada e por turno",
+   "nome": "O rodízio de verdade, na régua em que ele existe",
+   "papel": "É este o descritor de rodízio de A10, no lugar do fis_atletas de A07. Fora das conclusões: serve para checar se a queda do returno é o mesmo time cansado ou outro time em campo.",
+   "medido": {
+    "2025": {
+     "Amazonas": {
+      "atletas_na_temporada": 53,
+      "atletas_no_turno": 46,
+      "atletas_no_returno": 36,
+      "so_no_returno": 7
+     },
+     "América-MG": {
+      "atletas_na_temporada": 42,
+      "atletas_no_turno": 34,
+      "atletas_no_returno": 32,
+      "so_no_returno": 8
+     },
+     "Athletic": {
+      "atletas_na_temporada": 39,
+      "atletas_no_turno": 31,
+      "atletas_no_returno": 26,
+      "so_no_returno": 8
+     },
+     "Athletico-PR": {
+      "atletas_na_temporada": 33,
+      "atletas_no_turno": 30,
+      "atletas_no_returno": 30,
+      "so_no_returno": 3
+     },
+     "Atlético-GO": {
+      "atletas_na_temporada": 44,
+      "atletas_no_turno": 33,
+      "atletas_no_returno": 31,
+      "so_no_returno": 11
+     },
+     "Avaí": {
+      "atletas_na_temporada": 35,
+      "atletas_no_turno": 28,
+      "atletas_no_returno": 29,
+      "so_no_returno": 7
+     },
+     "Botafogo-SP": {
+      "atletas_na_temporada": 33,
+      "atletas_no_turno": 27,
+      "atletas_no_returno": 26,
+      "so_no_returno": 6
+     },
+     "CRB": {
+      "atletas_na_temporada": 35,
+      "atletas_no_turno": 32,
+      "atletas_no_returno": 28,
+      "so_no_returno": 3
+     },
+     "Chapecoense": {
+      "atletas_na_temporada": 33,
+      "atletas_no_turno": 30,
+      "atletas_no_returno": 27,
+      "so_no_returno": 3
+     },
+     "Coritiba": {
+      "atletas_na_temporada": 28,
+      "atletas_no_turno": 25,
+      "atletas_no_returno": 25,
+      "so_no_returno": 3
+     },
+     "Criciúma": {
+      "atletas_na_temporada": 38,
+      "atletas_no_turno": 32,
+      "atletas_no_returno": 27,
+      "so_no_returno": 6
+     },
+     "Cuiabá": {
+      "atletas_na_temporada": 36,
+      "atletas_no_turno": 30,
+      "atletas_no_returno": 27,
+      "so_no_returno": 6
+     },
+     "Ferroviária": {
+      "atletas_na_temporada": 32,
+      "atletas_no_turno": 28,
+      "atletas_no_returno": 28,
+      "so_no_returno": 4
+     },
+     "Goiás": {
+      "atletas_na_temporada": 36,
+      "atletas_no_turno": 31,
+      "atletas_no_returno": 31,
+      "so_no_returno": 5
+     },
+     "Novorizontino": {
+      "atletas_na_temporada": 30,
+      "atletas_no_turno": 29,
+      "atletas_no_returno": 26,
+      "so_no_returno": 1
+     },
+     "Operário-PR": {
+      "atletas_na_temporada": 47,
+      "atletas_no_turno": 31,
+      "atletas_no_returno": 39,
+      "so_no_returno": 16
+     },
+     "Paysandu": {
+      "atletas_na_temporada": 47,
+      "atletas_no_turno": 36,
+      "atletas_no_returno": 38,
+      "so_no_returno": 11
+     },
+     "Remo": {
+      "atletas_na_temporada": 42,
+      "atletas_no_turno": 34,
+      "atletas_no_returno": 32,
+      "so_no_returno": 8
+     },
+     "Vila Nova": {
+      "atletas_na_temporada": 38,
+      "atletas_no_turno": 28,
+      "atletas_no_returno": 32,
+      "so_no_returno": 10
+     },
+     "Volta Redonda": {
+      "atletas_na_temporada": 51,
+      "atletas_no_turno": 34,
+      "atletas_no_returno": 41,
+      "so_no_returno": 17
+     }
+    },
+    "2026": {
+     "América-MG": {
+      "atletas_na_temporada": 41,
+      "atletas_no_turno": 38,
+      "atletas_no_returno": 19,
+      "so_no_returno": 3
+     },
+     "Athletic": {
+      "atletas_na_temporada": 34,
+      "atletas_no_turno": 34,
+      "atletas_no_returno": 19,
+      "so_no_returno": 0
+     },
+     "Atlético-GO": {
+      "atletas_na_temporada": 35,
+      "atletas_no_turno": 29,
+      "atletas_no_returno": 22,
+      "so_no_returno": 6
+     },
+     "Avaí": {
+      "atletas_na_temporada": 37,
+      "atletas_no_turno": 32,
+      "atletas_no_returno": 18,
+      "so_no_returno": 5
+     },
+     "Botafogo-SP": {
+      "atletas_na_temporada": 33,
+      "atletas_no_turno": 33,
+      "atletas_no_returno": 20,
+      "so_no_returno": 0
+     },
+     "CRB": {
+      "atletas_na_temporada": 28,
+      "atletas_no_turno": 28,
+      "atletas_no_returno": 15,
+      "so_no_returno": 0
+     },
+     "Ceará": {
+      "atletas_na_temporada": 38,
+      "atletas_no_turno": 37,
+      "atletas_no_returno": 18,
+      "so_no_returno": 1
+     },
+     "Criciúma": {
+      "atletas_na_temporada": 25,
+      "atletas_no_turno": 25,
+      "atletas_no_returno": 15,
+      "so_no_returno": 0
+     },
+     "Cuiabá": {
+      "atletas_na_temporada": 32,
+      "atletas_no_turno": 31,
+      "atletas_no_returno": 20,
+      "so_no_returno": 1
+     },
+     "Fortaleza": {
+      "atletas_na_temporada": 28,
+      "atletas_no_turno": 27,
+      "atletas_no_returno": 19,
+      "so_no_returno": 1
+     },
+     "Goiás": {
+      "atletas_na_temporada": 28,
+      "atletas_no_turno": 27,
+      "atletas_no_returno": 18,
+      "so_no_returno": 1
+     },
+     "Juventude": {
+      "atletas_na_temporada": 32,
+      "atletas_no_turno": 29,
+      "atletas_no_returno": 20,
+      "so_no_returno": 3
+     },
+     "Londrina": {
+      "atletas_na_temporada": 36,
+      "atletas_no_turno": 33,
+      "atletas_no_returno": 19,
+      "so_no_returno": 3
+     },
+     "Novorizontino": {
+      "atletas_na_temporada": 30,
+      "atletas_no_turno": 30,
+      "atletas_no_returno": 18,
+      "so_no_returno": 0
+     },
+     "Náutico": {
+      "atletas_na_temporada": 37,
+      "atletas_no_turno": 33,
+      "atletas_no_returno": 21,
+      "so_no_returno": 4
+     },
+     "Operário-PR": {
+      "atletas_na_temporada": 25,
+      "atletas_no_turno": 25,
+      "atletas_no_returno": 18,
+      "so_no_returno": 0
+     },
+     "Ponte Preta": {
+      "atletas_na_temporada": 34,
+      "atletas_no_turno": 33,
+      "atletas_no_returno": 17,
+      "so_no_returno": 1
+     },
+     "Sport": {
+      "atletas_na_temporada": 34,
+      "atletas_no_turno": 33,
+      "atletas_no_returno": 18,
+      "so_no_returno": 1
+     },
+     "São Bernardo": {
+      "atletas_na_temporada": 29,
+      "atletas_no_turno": 29,
+      "atletas_no_returno": 18,
+      "so_no_returno": 0
+     },
+     "Vila Nova": {
+      "atletas_na_temporada": 31,
+      "atletas_no_turno": 31,
+      "atletas_no_returno": 15,
+      "so_no_returno": 0
+     }
+    }
+   },
+   "rodizio_em_A07": "O desconto que existia juntava dinheiro e rodízio, e a rodada de 15/09 tirou o dinheiro dos critérios — sobrou um desconto que não é mais o que a especificação descreve. Não existe hoje uma versão só-rodízio dos indicadores físicos. Em vez de inventar um desconto novo depois de ver o resultado, o rodízio entra como DESCRITOR declarado (fis_atletas, família própria, fora das conclusões) e a leitura verifica se o físico anda com ele."
+  }
+ ],
+ "o_que_nao_roda_por_falta_de_dado": [
+  {
+   "o_que": "A família 'com bola ou sem bola' de A07 (m_per_min_tip, m_per_min_otip, sprint_distance_p30tip, sprint_distance_p30otip).",
+   "por_que": "O physical_match não tem NENHUMA coluna tip/otip — só as por 90 min e o psv99 (conferido no schema da tabela). O agregado por temporada tem; o por jogo, não.",
+   "consequencia": "A10 responde volume e intensidade, e não responde 'com bola ou sem bola' ao longo da temporada. Nenhuma cópia resolve."
+  },
+  {
+   "o_que": "1º tempo × 2º tempo e faixas de 15 min.",
+   "por_que": "O SkillCorner guarda um período só, full_all (A08 não roda).",
+   "consequencia": "'Sustentar dentro do jogo' é A08 e continua fora."
+  },
+  {
+   "o_que": "Recorte por estado do jogo (vencendo/perdendo no minuto).",
+   "por_que": "Não existe em base nenhuma do repositório.",
+   "consequencia": "Ver 'placar' abaixo: o que dá para fazer é separar pelo RESULTADO FINAL, que não é a mesma coisa."
+  },
+  {
+   "o_que": "Sobe × Meio no nível clube-temporada SEM os times de fronteira.",
+   "por_que": "Em 2025 sobram 2 clubes no Sobe, abaixo do piso de 5 do método.",
+   "consequencia": "O corte de fronteira só roda de verdade no nível jogador-jogo, e mesmo lá com 2 clubes do lado do Sobe — o bootstrap de clube diz o tamanho disso."
+  }
+ ],
+ "poder": {
+  "clube_temporada_2025": {
+   "n": {
+    "Cai": 4,
+    "Meio": 12,
+    "Sobe": 4
+   },
+   "n_trave": 4,
+   "d_minimo_80_SM": 1.74,
+   "d_minimo_80_ST": 2.38,
+   "d_minimo_80_CM": 1.74,
+   "sem_fronteira": {
+    "Cai": 3,
+    "Meio": 8,
+    "Sobe": 2
+   },
+   "sem_fronteira_roda": false,
+   "leitura": "4 contra 12 numa temporada só. O menor efeito que este desenho enxerga a 80% é enorme; e sem os times de fronteira sobram 2 do Sobe, abaixo do piso de 5 do _metodo.comparar — o corte sem fronteira NÃO roda neste nível. É por isso que o nível principal é o de jogador-jogo."
+  },
+  "jogador_jogo_2025_min60": {
+   "n_linhas": {
+    "Cai": 1342,
+    "Meio": 4088,
+    "Sobe": 1399
+   },
+   "d_minimo_80_SM_pelo_n_de_linhas": 0.09,
+   "n_jogadores": {
+    "Sobe": 119,
+    "Meio": 348,
+    "Cai": 148
+   },
+   "d_minimo_80_SM_pelo_n_de_jogadores": 0.3,
+   "n_clubes": {
+    "Cai": 4,
+    "Meio": 12,
+    "Sobe": 4
+   },
+   "d_minimo_80_SM_pelo_n_de_clubes": 1.74,
+   "leitura": "Os três d mínimos são o mesmo desenho contado em três unidades. O de linhas é otimista (linha não é independente: 4 clubes, §6.6), o de clubes é o pessimista honesto. Quem decide o intervalo é o bootstrap de CLUBE do _metodo.ic_por_clube, e é ele que vai ao lado de cada d."
+  }
+ },
+ "porta_temporal": {
+  "situacao": "Aqui ela RODA, e é a primeira parte física em que roda: com físico por jogo em 2025 dá para medir o indicador no 1º turno e os pontos somados do 2º turno, no molde da §6.4.",
+  "como": "Média do indicador nas rodadas 1–19 do clube, em posto dentro do ano, contra os pontos das rodadas 20–38, com a correlação parcial dada a pontuação do 1º turno.",
+  "limite": "n = 20 clubes, uma temporada. A parcial com n=20 é frouxa; o número vai com o n ao lado e não sustenta 'firme' sozinho.",
+  "efeito_no_selo": "Confiança, três níveis e só três: firme = BH E porta temporal; provável = só um; indício = nenhum, e a frase diz por quê."
+ },
+ "placar": {
+  "o_que_o_claude_md_pede": "Correr muda com o placar: um time que está atrás corre mais. A base não permite recorte por estado do jogo — conclusão sai marcada com 'pode ser efeito do placar'.",
+  "o_que_da_para_fazer_aqui": "A base tem jogo a jogo com data, então cada linha carrega resultado (V/E/D), mando e o placar do jogo. Dá para separar vitória, empate e derrota.",
+  "por_que_isso_nao_e_o_recorte_que_a_especificacao_queria": "Estado do jogo é o placar NO MINUTO; resultado final é o placar DEPOIS. Condicionar no resultado final é condicionar num desfecho que o próprio físico ajuda a produzir — abre viés de colisor. Por isso a análise principal roda SEM condicionar, e o recorte por V/E/D entra declarado como leitura de sensibilidade: se o achado sobreviver dentro das três, ele não é só o placar; se sumir, a conclusão sai marcada 'pode ser efeito do placar'.",
+  "colunas_na_base": [
+   "resultado",
+   "mando",
+   "golos_pro",
+   "golos_contra",
+   "pontos_jogo"
+  ]
+ },
+ "fronteira": {
+  "regra": "Toda comparação entre faixas roda também sem os times de fronteira. Conclusão que só aparece COM eles é ruído (_metodo_fronteira.md).",
+  "em_2025": {
+   "fronteira": 7,
+   "sobram_por_faixa": {
+    "Cai": 3,
+    "Meio": 8,
+    "Sobe": 2
+   }
+  }
+ },
+ "metodo": {
+  "referencia": "§6 da _fonte/prototipo/ESPECIFICACAO.md e scripts/_metodo.py.",
+  "posto": "Posto dentro da temporada (percentil_no_ano), nunca valor bruto entre anos. Como o recorte é de uma temporada só, o posto é dentro de 2025.",
+  "teste": "Welch bilateral + d de Cohen no percentil, com o sinal declarado.",
+  "ic": "Bootstrap de CLUBE, 2.000 réplicas (_metodo.ic_por_clube) — linha de jogador-jogo não é unidade independente (§6.6).",
+  "bh": "5% dentro de cada família (§6.3), como listado em familias.",
+  "garimpo": "A lista é fechada e pequena e não há escolha do melhor entre muitos; se em algum momento A10 escolher o melhor de um conjunto, o nulo do garimpo entra.",
+  "sufixos": "Só há _p90 nesta base (mais o psv99, que é pico). Não há _p30tip nem _p30otip por jogo, então a proibição de comparar réguas diferentes não chega a morder aqui."
+ },
+ "ressalvas_declaradas": [
+  "UMA temporada fechada. Tudo que A10 concluir vale para 2025, e a frase tem de dizer isso — não é 'quem sobe', é 'quem subiu em 2025'.",
+  "No nível clube-temporada são 4 contra 12: 'não separa' aqui significa 'este desenho não conseguiria ver' (§6.7). O n de 4 vai em toda linha.",
+  "Correr muda com o placar. O recorte possível é por resultado final, não por estado do jogo, e ele é sensibilidade, não prova.",
+  "Jogo curto pode ser consequência de jogar copa, e jogar copa anda com ser time bom. A comparação curto × normal é feita dentro do clube por causa disso.",
+  "O psv99 é pico do jogador no jogo: usa todos os jogos, inclusive os de poucos minutos. As métricas por 90 usam só jogos com 60+ minutos."
+ ],
+ "conferencia_do_casamento_de_jogo": {
+  "regra": "O jogo do SkillCorner casa com o do Wyscout por clube e por data local, aceitando 0 ou +1 dia (a data UTC do Wyscout).",
+  "linhas_lidas_do_physical_match": 17075,
+  "linhas_na_base": 17046,
+  "deslocamento_0_dia": 9608,
+  "deslocamento_1_dia": 7438,
+  "clube_jogo_com_deslocamento_1_dia": 505,
+  "team_name_sem_ponte": {},
+  "jogos_do_skillcorner_sem_par_no_wyscout": [
+   [
+    2026,
+    "Criciúma",
+    "2026-07-18",
+    "Criciuma EC v Vila Nova FC"
+   ],
+   [
+    2026,
+    "Vila Nova",
+    "2026-07-18",
+    "Criciuma EC v Vila Nova FC"
+   ]
+  ],
+  "nota_sobre_o_sem_par": "O único jogo sem par é o Criciúma × Vila Nova de 2026, que é exatamente um dos 5 jogos que A01 já tinha identificado como ausentes de serieb_jogos.csv. A base do SkillCorner confirma o achado do A01 por um caminho independente."
+ }
+}

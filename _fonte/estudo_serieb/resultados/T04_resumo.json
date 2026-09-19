@@ -1,0 +1,1607 @@
+{
+ "criterio": "ordenado pelo PISO — a pior passagem do treinador —, porque é o único critério que sobreviveu a um teste de repetição (T02). A média premia quem teve uma passagem boa em clube rico.",
+ "premissas_que_falharam": {
+  "T02": "histórico de G4 não se transfere entre clubes",
+  "T03": "o perfil de jogo não é traço do treinador, e o time não muda quando ele chega"
+ },
+ "min_rodadas_total": 30,
+ "n_na_lista": 33,
+ "lista_curta": [
+  {
+   "treinador": "Paulo Pezzolano",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 38,
+   "pct_g4_medio": 89.5,
+   "pct_g4_pior": 89.5,
+   "ppj": 2.05,
+   "indice_medio": 56.1,
+   "indice_pior": 56.1,
+   "posto_valor_mediano": 3,
+   "passagens_detalhe": [
+    {
+     "clube": "Cruzeiro",
+     "temporada": "2022",
+     "rodadas": 38,
+     "pct_g4": 89.5,
+     "ppj": 2.05,
+     "indice_perfil": 56.1,
+     "posto_valor": 3
+    }
+   ]
+  },
+  {
+   "treinador": "Fábio Carille",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 37,
+   "pct_g4_medio": 89.2,
+   "pct_g4_pior": 89.2,
+   "ppj": 1.84,
+   "indice_medio": 82.1,
+   "indice_pior": 82.1,
+   "posto_valor_mediano": 1,
+   "passagens_detalhe": [
+    {
+     "clube": "Santos",
+     "temporada": "2024",
+     "rodadas": 37,
+     "pct_g4": 89.2,
+     "ppj": 1.84,
+     "indice_perfil": 82.1,
+     "posto_valor": 1
+    }
+   ]
+  },
+  {
+   "treinador": "Eduardo Baptista",
+   "passagens": 4,
+   "clubes": 2,
+   "rodadas": 134,
+   "pct_g4_medio": 47.0,
+   "pct_g4_pior": 37.5,
+   "ppj": 1.69,
+   "indice_medio": 70.1,
+   "indice_pior": 56.1,
+   "posto_valor_mediano": 9.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Novorizontino",
+     "temporada": "2023",
+     "rodadas": 38,
+     "pct_g4": 50.0,
+     "ppj": 1.66,
+     "indice_perfil": 89.6,
+     "posto_valor": 10
+    },
+    {
+     "clube": "Novorizontino",
+     "temporada": "2024",
+     "rodadas": 38,
+     "pct_g4": 52.6,
+     "ppj": 1.68,
+     "indice_perfil": 56.1,
+     "posto_valor": 16
+    },
+    {
+     "clube": "Criciúma",
+     "temporada": "2025",
+     "rodadas": 32,
+     "pct_g4": 37.5,
+     "ppj": 1.75,
+     "indice_perfil": 75.0,
+     "posto_valor": 8
+    },
+    {
+     "clube": "Criciúma",
+     "temporada": "2026",
+     "rodadas": 26,
+     "pct_g4": 46.2,
+     "ppj": 1.69,
+     "indice_perfil": 59.6,
+     "posto_valor": 5
+    }
+   ]
+  },
+  {
+   "treinador": "Thiago Carpini",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 51,
+   "pct_g4_medio": 33.3,
+   "pct_g4_pior": 31.2,
+   "ppj": 1.82,
+   "indice_medio": 49.1,
+   "indice_pior": 48.2,
+   "posto_valor_mediano": 3.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Juventude",
+     "temporada": "2023",
+     "rodadas": 32,
+     "pct_g4": 31.2,
+     "ppj": 1.94,
+     "indice_perfil": 50.0,
+     "posto_valor": 5
+    },
+    {
+     "clube": "Fortaleza",
+     "temporada": "2026",
+     "rodadas": 19,
+     "pct_g4": 36.8,
+     "ppj": 1.63,
+     "indice_perfil": 48.2,
+     "posto_valor": 1
+    }
+   ]
+  },
+  {
+   "treinador": "Cauan de Almeida",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 38,
+   "pct_g4_medio": 47.4,
+   "pct_g4_pior": 26.7,
+   "ppj": 1.26,
+   "indice_medio": 38.2,
+   "indice_pior": 13.6,
+   "posto_valor_mediano": 9.5,
+   "passagens_detalhe": [
+    {
+     "clube": "América-MG",
+     "temporada": "2024",
+     "rodadas": 23,
+     "pct_g4": 60.9,
+     "ppj": 1.52,
+     "indice_perfil": 62.9,
+     "posto_valor": 5
+    },
+    {
+     "clube": "Avaí",
+     "temporada": "2026",
+     "rodadas": 15,
+     "pct_g4": 26.7,
+     "ppj": 0.87,
+     "indice_perfil": 13.6,
+     "posto_valor": 14
+    }
+   ]
+  }
+ ],
+ "lista_completa": [
+  {
+   "treinador": "Paulo Pezzolano",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 38,
+   "pct_g4_medio": 89.5,
+   "pct_g4_pior": 89.5,
+   "ppj": 2.05,
+   "indice_medio": 56.1,
+   "indice_pior": 56.1,
+   "posto_valor_mediano": 3,
+   "passagens_detalhe": [
+    {
+     "clube": "Cruzeiro",
+     "temporada": "2022",
+     "rodadas": 38,
+     "pct_g4": 89.5,
+     "ppj": 2.05,
+     "indice_perfil": 56.1,
+     "posto_valor": 3
+    }
+   ]
+  },
+  {
+   "treinador": "Fábio Carille",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 37,
+   "pct_g4_medio": 89.2,
+   "pct_g4_pior": 89.2,
+   "ppj": 1.84,
+   "indice_medio": 82.1,
+   "indice_pior": 82.1,
+   "posto_valor_mediano": 1,
+   "passagens_detalhe": [
+    {
+     "clube": "Santos",
+     "temporada": "2024",
+     "rodadas": 37,
+     "pct_g4": 89.2,
+     "ppj": 1.84,
+     "indice_perfil": 82.1,
+     "posto_valor": 1
+    }
+   ]
+  },
+  {
+   "treinador": "Eduardo Baptista",
+   "passagens": 4,
+   "clubes": 2,
+   "rodadas": 134,
+   "pct_g4_medio": 47.0,
+   "pct_g4_pior": 37.5,
+   "ppj": 1.69,
+   "indice_medio": 70.1,
+   "indice_pior": 56.1,
+   "posto_valor_mediano": 9.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Novorizontino",
+     "temporada": "2023",
+     "rodadas": 38,
+     "pct_g4": 50.0,
+     "ppj": 1.66,
+     "indice_perfil": 89.6,
+     "posto_valor": 10
+    },
+    {
+     "clube": "Novorizontino",
+     "temporada": "2024",
+     "rodadas": 38,
+     "pct_g4": 52.6,
+     "ppj": 1.68,
+     "indice_perfil": 56.1,
+     "posto_valor": 16
+    },
+    {
+     "clube": "Criciúma",
+     "temporada": "2025",
+     "rodadas": 32,
+     "pct_g4": 37.5,
+     "ppj": 1.75,
+     "indice_perfil": 75.0,
+     "posto_valor": 8
+    },
+    {
+     "clube": "Criciúma",
+     "temporada": "2026",
+     "rodadas": 26,
+     "pct_g4": 46.2,
+     "ppj": 1.69,
+     "indice_perfil": 59.6,
+     "posto_valor": 5
+    }
+   ]
+  },
+  {
+   "treinador": "Thiago Carpini",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 51,
+   "pct_g4_medio": 33.3,
+   "pct_g4_pior": 31.2,
+   "ppj": 1.82,
+   "indice_medio": 49.1,
+   "indice_pior": 48.2,
+   "posto_valor_mediano": 3.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Juventude",
+     "temporada": "2023",
+     "rodadas": 32,
+     "pct_g4": 31.2,
+     "ppj": 1.94,
+     "indice_perfil": 50.0,
+     "posto_valor": 5
+    },
+    {
+     "clube": "Fortaleza",
+     "temporada": "2026",
+     "rodadas": 19,
+     "pct_g4": 36.8,
+     "ppj": 1.63,
+     "indice_perfil": 48.2,
+     "posto_valor": 1
+    }
+   ]
+  },
+  {
+   "treinador": "Cauan de Almeida",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 38,
+   "pct_g4_medio": 47.4,
+   "pct_g4_pior": 26.7,
+   "ppj": 1.26,
+   "indice_medio": 38.2,
+   "indice_pior": 13.6,
+   "posto_valor_mediano": 9.5,
+   "passagens_detalhe": [
+    {
+     "clube": "América-MG",
+     "temporada": "2024",
+     "rodadas": 23,
+     "pct_g4": 60.9,
+     "ppj": 1.52,
+     "indice_perfil": 62.9,
+     "posto_valor": 5
+    },
+    {
+     "clube": "Avaí",
+     "temporada": "2026",
+     "rodadas": 15,
+     "pct_g4": 26.7,
+     "ppj": 0.87,
+     "indice_perfil": 13.6,
+     "posto_valor": 14
+    }
+   ]
+  },
+  {
+   "treinador": "Odair Hellmann",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 30,
+   "pct_g4_medio": 20.0,
+   "pct_g4_pior": 20.0,
+   "ppj": 1.83,
+   "indice_medio": 85.7,
+   "indice_pior": 85.7,
+   "posto_valor_mediano": 1,
+   "passagens_detalhe": [
+    {
+     "clube": "Athletico-PR",
+     "temporada": "2025",
+     "rodadas": 30,
+     "pct_g4": 20.0,
+     "ppj": 1.83,
+     "indice_perfil": 85.7,
+     "posto_valor": 1
+    }
+   ]
+  },
+  {
+   "treinador": "Jair Ventura",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 46,
+   "pct_g4_medio": 23.9,
+   "pct_g4_pior": 18.5,
+   "ppj": 1.61,
+   "indice_medio": 64.7,
+   "indice_pior": 59.3,
+   "posto_valor_mediano": 8.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Atlético-GO",
+     "temporada": "2023",
+     "rodadas": 19,
+     "pct_g4": 31.6,
+     "ppj": 1.95,
+     "indice_perfil": 59.3,
+     "posto_valor": 2
+    },
+    {
+     "clube": "Avaí",
+     "temporada": "2025",
+     "rodadas": 27,
+     "pct_g4": 18.5,
+     "ppj": 1.37,
+     "indice_perfil": 70.0,
+     "posto_valor": 15
+    }
+   ]
+  },
+  {
+   "treinador": "Claudio Tencati",
+   "passagens": 3,
+   "clubes": 2,
+   "rodadas": 103,
+   "pct_g4_medio": 23.3,
+   "pct_g4_pior": 5.3,
+   "ppj": 1.46,
+   "indice_medio": 63.0,
+   "indice_pior": 54.6,
+   "posto_valor_mediano": 16,
+   "passagens_detalhe": [
+    {
+     "clube": "Criciúma",
+     "temporada": "2022",
+     "rodadas": 38,
+     "pct_g4": 5.3,
+     "ppj": 1.47,
+     "indice_perfil": 70.4,
+     "posto_valor": 16
+    },
+    {
+     "clube": "Criciúma",
+     "temporada": "2023",
+     "rodadas": 38,
+     "pct_g4": 50.0,
+     "ppj": 1.68,
+     "indice_perfil": 54.6,
+     "posto_valor": 12
+    },
+    {
+     "clube": "Botafogo-SP",
+     "temporada": "2026",
+     "rodadas": 27,
+     "pct_g4": 11.1,
+     "ppj": 1.15,
+     "indice_perfil": 63.9,
+     "posto_valor": 16
+    }
+   ]
+  },
+  {
+   "treinador": "Adilson Batista",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 50,
+   "pct_g4_medio": 6.0,
+   "pct_g4_pior": 2.7,
+   "ppj": 1.4,
+   "indice_medio": 31.2,
+   "indice_pior": 24.6,
+   "posto_valor_mediano": 15.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Londrina",
+     "temporada": "2022",
+     "rodadas": 37,
+     "pct_g4": 2.7,
+     "ppj": 1.41,
+     "indice_perfil": 24.6,
+     "posto_valor": 15
+    },
+    {
+     "clube": "Botafogo-SP",
+     "temporada": "2023",
+     "rodadas": 13,
+     "pct_g4": 15.4,
+     "ppj": 1.38,
+     "indice_perfil": 37.9,
+     "posto_valor": 16
+    }
+   ]
+  },
+  {
+   "treinador": "Enderson Moreira",
+   "passagens": 6,
+   "clubes": 5,
+   "rodadas": 122,
+   "pct_g4_medio": 46.7,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.52,
+   "indice_medio": 76.2,
+   "indice_pior": 60.0,
+   "posto_valor_mediano": 6.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Bahia",
+     "temporada": "2022",
+     "rodadas": 17,
+     "pct_g4": 100.0,
+     "ppj": 1.41,
+     "indice_perfil": 90.7,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Sport",
+     "temporada": "2023",
+     "rodadas": 37,
+     "pct_g4": 75.7,
+     "ppj": 1.62,
+     "indice_perfil": 73.6,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Avaí",
+     "temporada": "2024",
+     "rodadas": 19,
+     "pct_g4": 0.0,
+     "ppj": 1.47,
+     "indice_perfil": 60.0,
+     "posto_valor": 8
+    },
+    {
+     "clube": "América-MG",
+     "temporada": "2025",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 0.73,
+     "indice_perfil": 62.9,
+     "posto_valor": 5
+    },
+    {
+     "clube": "Novorizontino",
+     "temporada": "2025",
+     "rodadas": 15,
+     "pct_g4": 20.0,
+     "ppj": 1.6,
+     "indice_perfil": 80.0,
+     "posto_valor": 14
+    },
+    {
+     "clube": "Novorizontino",
+     "temporada": "2026",
+     "rodadas": 23,
+     "pct_g4": 39.1,
+     "ppj": 1.83,
+     "indice_perfil": 90.0,
+     "posto_valor": 8
+    }
+   ]
+  },
+  {
+   "treinador": "Vagner Mancini",
+   "passagens": 4,
+   "clubes": 2,
+   "rodadas": 77,
+   "pct_g4_medio": 37.7,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.57,
+   "indice_medio": 66.1,
+   "indice_pior": 60.0,
+   "posto_valor_mediano": 3.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Ceará",
+     "temporada": "2023",
+     "rodadas": 13,
+     "pct_g4": 0.0,
+     "ppj": 1.15,
+     "indice_perfil": 66.4,
+     "posto_valor": 1
+    },
+    {
+     "clube": "Ceará",
+     "temporada": "2024",
+     "rodadas": 12,
+     "pct_g4": 0.0,
+     "ppj": 1.33,
+     "indice_perfil": 68.6,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Goiás",
+     "temporada": "2024",
+     "rodadas": 20,
+     "pct_g4": 0.0,
+     "ppj": 1.9,
+     "indice_perfil": 60.0,
+     "posto_valor": 3
+    },
+    {
+     "clube": "Goiás",
+     "temporada": "2025",
+     "rodadas": 32,
+     "pct_g4": 90.6,
+     "ppj": 1.62,
+     "indice_perfil": 69.3,
+     "posto_valor": 10
+    }
+   ]
+  },
+  {
+   "treinador": "Eduardo Barros",
+   "passagens": 2,
+   "clubes": 1,
+   "rodadas": 40,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.42,
+   "indice_medio": 63.2,
+   "indice_pior": 57.9,
+   "posto_valor_mediano": 8.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Cuiabá",
+     "temporada": "2025",
+     "rodadas": 17,
+     "pct_g4": 0.0,
+     "ppj": 1.35,
+     "indice_perfil": 57.9,
+     "posto_valor": 6
+    },
+    {
+     "clube": "Cuiabá",
+     "temporada": "2026",
+     "rodadas": 23,
+     "pct_g4": 0.0,
+     "ppj": 1.48,
+     "indice_perfil": 68.6,
+     "posto_valor": 11
+    }
+   ]
+  },
+  {
+   "treinador": "Marcinho",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 30,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.17,
+   "indice_medio": 55.0,
+   "indice_pior": 55.0,
+   "posto_valor_mediano": 20,
+   "passagens_detalhe": [
+    {
+     "clube": "Ituano",
+     "temporada": "2023",
+     "rodadas": 30,
+     "pct_g4": 0.0,
+     "ppj": 1.17,
+     "indice_perfil": 55.0,
+     "posto_valor": 20
+    }
+   ]
+  },
+  {
+   "treinador": "Alex",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 53,
+   "pct_g4_medio": 1.9,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.34,
+   "indice_medio": 52.3,
+   "indice_pior": 45.4,
+   "posto_valor_mediano": 8.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Operário-PR",
+     "temporada": "2025",
+     "rodadas": 26,
+     "pct_g4": 0.0,
+     "ppj": 1.31,
+     "indice_perfil": 59.3,
+     "posto_valor": 9
+    },
+    {
+     "clube": "Athletic",
+     "temporada": "2026",
+     "rodadas": 27,
+     "pct_g4": 3.7,
+     "ppj": 1.37,
+     "indice_perfil": 45.4,
+     "posto_valor": 7
+    }
+   ]
+  },
+  {
+   "treinador": "Alberto Valentim",
+   "passagens": 4,
+   "clubes": 4,
+   "rodadas": 71,
+   "pct_g4_medio": 2.8,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.1,
+   "indice_medio": 44.3,
+   "indice_pior": 40.0,
+   "posto_valor_mediano": 7.5,
+   "passagens_detalhe": [
+    {
+     "clube": "CSA",
+     "temporada": "2022",
+     "rodadas": 10,
+     "pct_g4": 0.0,
+     "ppj": 0.7,
+     "indice_perfil": 44.3,
+     "posto_valor": 10
+    },
+    {
+     "clube": "Atlético-GO",
+     "temporada": "2023",
+     "rodadas": 12,
+     "pct_g4": 16.7,
+     "ppj": 1.25,
+     "indice_perfil": 48.6,
+     "posto_valor": 2
+    },
+    {
+     "clube": "Ituano",
+     "temporada": "2024",
+     "rodadas": 32,
+     "pct_g4": 0.0,
+     "ppj": 0.97,
+     "indice_perfil": 44.3,
+     "posto_valor": 15
+    },
+    {
+     "clube": "América-MG",
+     "temporada": "2025",
+     "rodadas": 17,
+     "pct_g4": 0.0,
+     "ppj": 1.47,
+     "indice_perfil": 40.0,
+     "posto_valor": 5
+    }
+   ]
+  },
+  {
+   "treinador": "Mozart",
+   "passagens": 7,
+   "clubes": 6,
+   "rodadas": 170,
+   "pct_g4_medio": 32.9,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.61,
+   "indice_medio": 59.2,
+   "indice_pior": 37.1,
+   "posto_valor_mediano": 7,
+   "passagens_detalhe": [
+    {
+     "clube": "CSA",
+     "temporada": "2022",
+     "rodadas": 12,
+     "pct_g4": 0.0,
+     "ppj": 1.08,
+     "indice_perfil": 37.1,
+     "posto_valor": 10
+    },
+    {
+     "clube": "Guarani",
+     "temporada": "2022",
+     "rodadas": 23,
+     "pct_g4": 0.0,
+     "ppj": 1.65,
+     "indice_perfil": 57.9,
+     "posto_valor": 12
+    },
+    {
+     "clube": "Mirassol",
+     "temporada": "2023",
+     "rodadas": 35,
+     "pct_g4": 0.0,
+     "ppj": 1.63,
+     "indice_perfil": 70.7,
+     "posto_valor": 7
+    },
+    {
+     "clube": "Mirassol",
+     "temporada": "2024",
+     "rodadas": 38,
+     "pct_g4": 55.3,
+     "ppj": 1.76,
+     "indice_perfil": 76.8,
+     "posto_valor": 9
+    },
+    {
+     "clube": "Coritiba",
+     "temporada": "2025",
+     "rodadas": 38,
+     "pct_g4": 86.8,
+     "ppj": 1.79,
+     "indice_perfil": 64.6,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Ceará",
+     "temporada": "2026",
+     "rodadas": 11,
+     "pct_g4": 18.2,
+     "ppj": 1.18,
+     "indice_perfil": 62.1,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Goiás",
+     "temporada": "2026",
+     "rodadas": 13,
+     "pct_g4": 0.0,
+     "ppj": 1.38,
+     "indice_perfil": 45.0,
+     "posto_valor": 6
+    }
+   ]
+  },
+  {
+   "treinador": "Hélio dos Anjos",
+   "passagens": 4,
+   "clubes": 4,
+   "rodadas": 101,
+   "pct_g4_medio": 4.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.29,
+   "indice_medio": 45.2,
+   "indice_pior": 33.6,
+   "posto_valor_mediano": 10.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Ponte Preta",
+     "temporada": "2022",
+     "rodadas": 38,
+     "pct_g4": 0.0,
+     "ppj": 1.29,
+     "indice_perfil": 46.1,
+     "posto_valor": 5
+    },
+    {
+     "clube": "CRB",
+     "temporada": "2024",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 1.55,
+     "indice_perfil": 33.6,
+     "posto_valor": 11
+    },
+    {
+     "clube": "Paysandu",
+     "temporada": "2024",
+     "rodadas": 25,
+     "pct_g4": 0.0,
+     "ppj": 1.08,
+     "indice_perfil": 41.4,
+     "posto_valor": 10
+    },
+    {
+     "clube": "Náutico",
+     "temporada": "2026",
+     "rodadas": 27,
+     "pct_g4": 14.8,
+     "ppj": 1.37,
+     "indice_perfil": 59.6,
+     "posto_valor": 20
+    }
+   ]
+  },
+  {
+   "treinador": "Léo Condé",
+   "passagens": 3,
+   "clubes": 3,
+   "rodadas": 101,
+   "pct_g4_medio": 38.6,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.73,
+   "indice_medio": 67.6,
+   "indice_pior": 32.5,
+   "posto_valor_mediano": 9,
+   "passagens_detalhe": [
+    {
+     "clube": "Sampaio Corrêa",
+     "temporada": "2022",
+     "rodadas": 38,
+     "pct_g4": 0.0,
+     "ppj": 1.53,
+     "indice_perfil": 32.5,
+     "posto_valor": 18
+    },
+    {
+     "clube": "Vitória",
+     "temporada": "2023",
+     "rodadas": 38,
+     "pct_g4": 94.7,
+     "ppj": 1.89,
+     "indice_perfil": 83.2,
+     "posto_valor": 9
+    },
+    {
+     "clube": "Ceará",
+     "temporada": "2024",
+     "rodadas": 25,
+     "pct_g4": 12.0,
+     "ppj": 1.8,
+     "indice_perfil": 87.1,
+     "posto_valor": 4
+    }
+   ]
+  },
+  {
+   "treinador": "Rogério Corrêa",
+   "passagens": 1,
+   "clubes": 1,
+   "rodadas": 38,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 0.95,
+   "indice_medio": 32.5,
+   "indice_pior": 32.5,
+   "posto_valor_mediano": 20,
+   "passagens_detalhe": [
+    {
+     "clube": "Volta Redonda",
+     "temporada": "2025",
+     "rodadas": 38,
+     "pct_g4": 0.0,
+     "ppj": 0.95,
+     "indice_perfil": 32.5,
+     "posto_valor": 20
+    }
+   ]
+  },
+  {
+   "treinador": "Gilmar Dal Pozzo",
+   "passagens": 7,
+   "clubes": 3,
+   "rodadas": 116,
+   "pct_g4_medio": 26.7,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.46,
+   "indice_medio": 44.5,
+   "indice_pior": 29.3,
+   "posto_valor_mediano": 8,
+   "passagens_detalhe": [
+    {
+     "clube": "Chapecoense",
+     "temporada": "2022",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 1.45,
+     "indice_perfil": 57.1,
+     "posto_valor": 9
+    },
+    {
+     "clube": "Sport",
+     "temporada": "2022",
+     "rodadas": 14,
+     "pct_g4": 64.3,
+     "ppj": 1.5,
+     "indice_perfil": 42.1,
+     "posto_valor": 6
+    },
+    {
+     "clube": "Chapecoense",
+     "temporada": "2023",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 0.91,
+     "indice_perfil": 34.3,
+     "posto_valor": 6
+    },
+    {
+     "clube": "Avaí",
+     "temporada": "2024",
+     "rodadas": 16,
+     "pct_g4": 37.5,
+     "ppj": 1.5,
+     "indice_perfil": 51.4,
+     "posto_valor": 8
+    },
+    {
+     "clube": "Chapecoense",
+     "temporada": "2024",
+     "rodadas": 15,
+     "pct_g4": 0.0,
+     "ppj": 1.6,
+     "indice_perfil": 29.3,
+     "posto_valor": 14
+    },
+    {
+     "clube": "Chapecoense",
+     "temporada": "2025",
+     "rodadas": 38,
+     "pct_g4": 42.1,
+     "ppj": 1.63,
+     "indice_perfil": 44.6,
+     "posto_valor": 18
+    },
+    {
+     "clube": "Sport",
+     "temporada": "2026",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 1.18,
+     "indice_perfil": 52.9,
+     "posto_valor": 2
+    }
+   ]
+  },
+  {
+   "treinador": "Umberto Louzer",
+   "passagens": 4,
+   "clubes": 4,
+   "rodadas": 77,
+   "pct_g4_medio": 26.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.33,
+   "indice_medio": 43.0,
+   "indice_pior": 28.6,
+   "posto_valor_mediano": 14.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Guarani",
+     "temporada": "2023",
+     "rodadas": 26,
+     "pct_g4": 15.4,
+     "ppj": 1.58,
+     "indice_perfil": 52.1,
+     "posto_valor": 8
+    },
+    {
+     "clube": "Chapecoense",
+     "temporada": "2024",
+     "rodadas": 17,
+     "pct_g4": 17.6,
+     "ppj": 1.06,
+     "indice_perfil": 34.3,
+     "posto_valor": 14
+    },
+    {
+     "clube": "Novorizontino",
+     "temporada": "2025",
+     "rodadas": 22,
+     "pct_g4": 59.1,
+     "ppj": 1.59,
+     "indice_perfil": 57.1,
+     "posto_valor": 14
+    },
+    {
+     "clube": "América-MG",
+     "temporada": "2026",
+     "rodadas": 12,
+     "pct_g4": 0.0,
+     "ppj": 0.67,
+     "indice_perfil": 28.6,
+     "posto_valor": 18
+    }
+   ]
+  },
+  {
+   "treinador": "Bruno Pivetti",
+   "passagens": 3,
+   "clubes": 3,
+   "rodadas": 53,
+   "pct_g4_medio": 9.4,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.28,
+   "indice_medio": 45.5,
+   "indice_pior": 27.9,
+   "posto_valor_mediano": 9,
+   "passagens_detalhe": [
+    {
+     "clube": "Tombense",
+     "temporada": "2022",
+     "rodadas": 31,
+     "pct_g4": 0.0,
+     "ppj": 1.26,
+     "indice_perfil": 27.9,
+     "posto_valor": 20
+    },
+    {
+     "clube": "Guarani",
+     "temporada": "2023",
+     "rodadas": 10,
+     "pct_g4": 40.0,
+     "ppj": 1.5,
+     "indice_perfil": 63.6,
+     "posto_valor": 8
+    },
+    {
+     "clube": "Operário-PR",
+     "temporada": "2025",
+     "rodadas": 12,
+     "pct_g4": 8.3,
+     "ppj": 1.17,
+     "indice_perfil": 45.0,
+     "posto_valor": 9
+    }
+   ]
+  },
+  {
+   "treinador": "Eduardo Barroca",
+   "passagens": 4,
+   "clubes": 3,
+   "rodadas": 89,
+   "pct_g4_medio": 6.7,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.45,
+   "indice_medio": 39.0,
+   "indice_pior": 27.1,
+   "posto_valor_mediano": 5.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Avaí",
+     "temporada": "2023",
+     "rodadas": 23,
+     "pct_g4": 0.0,
+     "ppj": 1.43,
+     "indice_perfil": 27.1,
+     "posto_valor": 3
+    },
+    {
+     "clube": "Ceará",
+     "temporada": "2023",
+     "rodadas": 12,
+     "pct_g4": 0.0,
+     "ppj": 1.75,
+     "indice_perfil": 33.6,
+     "posto_valor": 1
+    },
+    {
+     "clube": "CRB",
+     "temporada": "2025",
+     "rodadas": 38,
+     "pct_g4": 15.8,
+     "ppj": 1.47,
+     "indice_perfil": 43.2,
+     "posto_valor": 7
+    },
+    {
+     "clube": "CRB",
+     "temporada": "2026",
+     "rodadas": 16,
+     "pct_g4": 0.0,
+     "ppj": 1.19,
+     "indice_perfil": 52.1,
+     "posto_valor": 9
+    }
+   ]
+  },
+  {
+   "treinador": "Márcio Fernandes",
+   "passagens": 3,
+   "clubes": 2,
+   "rodadas": 45,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.16,
+   "indice_medio": 41.2,
+   "indice_pior": 26.4,
+   "posto_valor_mediano": 13,
+   "passagens_detalhe": [
+    {
+     "clube": "Sampaio Corrêa",
+     "temporada": "2023",
+     "rodadas": 22,
+     "pct_g4": 0.0,
+     "ppj": 1.05,
+     "indice_perfil": 26.4,
+     "posto_valor": 17
+    },
+    {
+     "clube": "Paysandu",
+     "temporada": "2024",
+     "rodadas": 13,
+     "pct_g4": 0.0,
+     "ppj": 1.77,
+     "indice_perfil": 51.4,
+     "posto_valor": 10
+    },
+    {
+     "clube": "Paysandu",
+     "temporada": "2025",
+     "rodadas": 10,
+     "pct_g4": 0.0,
+     "ppj": 0.6,
+     "indice_perfil": 45.7,
+     "posto_valor": 13
+    }
+   ]
+  },
+  {
+   "treinador": "Rafael Lacerda",
+   "passagens": 3,
+   "clubes": 3,
+   "rodadas": 63,
+   "pct_g4_medio": 7.9,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.43,
+   "indice_medio": 46.2,
+   "indice_pior": 25.7,
+   "posto_valor_mediano": 16,
+   "passagens_detalhe": [
+    {
+     "clube": "Amazonas",
+     "temporada": "2024",
+     "rodadas": 31,
+     "pct_g4": 0.0,
+     "ppj": 1.42,
+     "indice_perfil": 58.6,
+     "posto_valor": 17
+    },
+    {
+     "clube": "Atlético-GO",
+     "temporada": "2025",
+     "rodadas": 21,
+     "pct_g4": 0.0,
+     "ppj": 1.43,
+     "indice_perfil": 25.7,
+     "posto_valor": 2
+    },
+    {
+     "clube": "Vila Nova",
+     "temporada": "2025",
+     "rodadas": 11,
+     "pct_g4": 45.5,
+     "ppj": 1.45,
+     "indice_perfil": 54.3,
+     "posto_valor": 16
+    }
+   ]
+  },
+  {
+   "treinador": "Rafael Guanaes",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 52,
+   "pct_g4_medio": 5.8,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.43,
+   "indice_medio": 31.6,
+   "indice_pior": 25.4,
+   "posto_valor_mediano": 11.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Novorizontino",
+     "temporada": "2022",
+     "rodadas": 15,
+     "pct_g4": 0.0,
+     "ppj": 1.27,
+     "indice_perfil": 37.9,
+     "posto_valor": 11
+    },
+    {
+     "clube": "Operário-PR",
+     "temporada": "2024",
+     "rodadas": 37,
+     "pct_g4": 8.1,
+     "ppj": 1.49,
+     "indice_perfil": 25.4,
+     "posto_valor": 12
+    }
+   ]
+  },
+  {
+   "treinador": "Guto Ferreira",
+   "passagens": 5,
+   "clubes": 5,
+   "rodadas": 81,
+   "pct_g4_medio": 58.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.72,
+   "indice_medio": 50.1,
+   "indice_pior": 24.3,
+   "posto_valor_mediano": 4,
+   "passagens_detalhe": [
+    {
+     "clube": "Bahia",
+     "temporada": "2022",
+     "rodadas": 14,
+     "pct_g4": 100.0,
+     "ppj": 1.79,
+     "indice_perfil": 65.7,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Ceará",
+     "temporada": "2023",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 1.27,
+     "indice_perfil": 47.9,
+     "posto_valor": 1
+    },
+    {
+     "clube": "Cuiabá",
+     "temporada": "2025",
+     "rodadas": 21,
+     "pct_g4": 28.6,
+     "ppj": 1.48,
+     "indice_perfil": 65.7,
+     "posto_valor": 6
+    },
+    {
+     "clube": "Remo",
+     "temporada": "2025",
+     "rodadas": 10,
+     "pct_g4": 50.0,
+     "ppj": 2.3,
+     "indice_perfil": 24.3,
+     "posto_valor": 3
+    },
+    {
+     "clube": "Vila Nova",
+     "temporada": "2026",
+     "rodadas": 25,
+     "pct_g4": 88.0,
+     "ppj": 1.84,
+     "indice_perfil": 47.1,
+     "posto_valor": 10
+    }
+   ]
+  },
+  {
+   "treinador": "Vinícius",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 36,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.39,
+   "indice_medio": 26.0,
+   "indice_pior": 20.7,
+   "posto_valor_mediano": 17.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Avaí",
+     "temporada": "2025",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 1.73,
+     "indice_perfil": 31.4,
+     "posto_valor": 15
+    },
+    {
+     "clube": "Ferroviária",
+     "temporada": "2025",
+     "rodadas": 25,
+     "pct_g4": 0.0,
+     "ppj": 1.24,
+     "indice_perfil": 20.7,
+     "posto_valor": 19
+    }
+   ]
+  },
+  {
+   "treinador": "Daniel Paulista",
+   "passagens": 6,
+   "clubes": 4,
+   "rodadas": 120,
+   "pct_g4_medio": 5.8,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.43,
+   "indice_medio": 42.3,
+   "indice_pior": 16.4,
+   "posto_valor_mediano": 6.5,
+   "passagens_detalhe": [
+    {
+     "clube": "CRB",
+     "temporada": "2022",
+     "rodadas": 30,
+     "pct_g4": 0.0,
+     "ppj": 1.53,
+     "indice_perfil": 30.0,
+     "posto_valor": 7
+    },
+    {
+     "clube": "CRB",
+     "temporada": "2023",
+     "rodadas": 30,
+     "pct_g4": 0.0,
+     "ppj": 1.73,
+     "indice_perfil": 47.9,
+     "posto_valor": 11
+    },
+    {
+     "clube": "CRB",
+     "temporada": "2024",
+     "rodadas": 24,
+     "pct_g4": 0.0,
+     "ppj": 1.04,
+     "indice_perfil": 25.0,
+     "posto_valor": 11
+    },
+    {
+     "clube": "Remo",
+     "temporada": "2025",
+     "rodadas": 10,
+     "pct_g4": 40.0,
+     "ppj": 1.7,
+     "indice_perfil": 70.7,
+     "posto_valor": 3
+    },
+    {
+     "clube": "Ceará",
+     "temporada": "2026",
+     "rodadas": 12,
+     "pct_g4": 0.0,
+     "ppj": 1.17,
+     "indice_perfil": 16.4,
+     "posto_valor": 4
+    },
+    {
+     "clube": "Goiás",
+     "temporada": "2026",
+     "rodadas": 14,
+     "pct_g4": 21.4,
+     "ppj": 1.29,
+     "indice_perfil": 63.6,
+     "posto_valor": 6
+    }
+   ]
+  },
+  {
+   "treinador": "Marcelo Chamusca",
+   "passagens": 2,
+   "clubes": 2,
+   "rodadas": 33,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 0.97,
+   "indice_medio": 46.5,
+   "indice_pior": 15.0,
+   "posto_valor_mediano": 17.5,
+   "passagens_detalhe": [
+    {
+     "clube": "Botafogo-SP",
+     "temporada": "2023",
+     "rodadas": 23,
+     "pct_g4": 0.0,
+     "ppj": 1.13,
+     "indice_perfil": 15.0,
+     "posto_valor": 16
+    },
+    {
+     "clube": "Tombense",
+     "temporada": "2023",
+     "rodadas": 10,
+     "pct_g4": 0.0,
+     "ppj": 0.6,
+     "indice_perfil": 77.9,
+     "posto_valor": 19
+    }
+   ]
+  },
+  {
+   "treinador": "Claudinei Oliveira",
+   "passagens": 5,
+   "clubes": 5,
+   "rodadas": 88,
+   "pct_g4_medio": 21.6,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.4,
+   "indice_medio": 51.7,
+   "indice_pior": 14.3,
+   "posto_valor_mediano": 13,
+   "passagens_detalhe": [
+    {
+     "clube": "Operário-PR",
+     "temporada": "2022",
+     "rodadas": 19,
+     "pct_g4": 5.3,
+     "ppj": 1.05,
+     "indice_perfil": 14.3,
+     "posto_valor": 13
+    },
+    {
+     "clube": "Sport",
+     "temporada": "2022",
+     "rodadas": 18,
+     "pct_g4": 0.0,
+     "ppj": 1.67,
+     "indice_perfil": 87.1,
+     "posto_valor": 6
+    },
+    {
+     "clube": "Chapecoense",
+     "temporada": "2023",
+     "rodadas": 17,
+     "pct_g4": 0.0,
+     "ppj": 1.24,
+     "indice_perfil": 51.4,
+     "posto_valor": 6
+    },
+    {
+     "clube": "Vila Nova",
+     "temporada": "2023",
+     "rodadas": 21,
+     "pct_g4": 85.7,
+     "ppj": 1.67,
+     "indice_perfil": 66.4,
+     "posto_valor": 14
+    },
+    {
+     "clube": "Paysandu",
+     "temporada": "2025",
+     "rodadas": 13,
+     "pct_g4": 0.0,
+     "ppj": 1.31,
+     "indice_perfil": 39.3,
+     "posto_valor": 13
+    }
+   ]
+  },
+  {
+   "treinador": "Márcio Zanardi",
+   "passagens": 4,
+   "clubes": 4,
+   "rodadas": 59,
+   "pct_g4_medio": 13.5,
+   "pct_g4_pior": 0.0,
+   "ppj": 0.98,
+   "indice_medio": 32.6,
+   "indice_pior": 12.9,
+   "posto_valor_mediano": 15.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Botafogo-SP",
+     "temporada": "2024",
+     "rodadas": 10,
+     "pct_g4": 0.0,
+     "ppj": 1.3,
+     "indice_perfil": 25.0,
+     "posto_valor": 18
+    },
+    {
+     "clube": "Goiás",
+     "temporada": "2024",
+     "rodadas": 18,
+     "pct_g4": 44.4,
+     "ppj": 1.39,
+     "indice_perfil": 69.3,
+     "posto_valor": 3
+    },
+    {
+     "clube": "Amazonas",
+     "temporada": "2025",
+     "rodadas": 19,
+     "pct_g4": 0.0,
+     "ppj": 0.95,
+     "indice_perfil": 23.2,
+     "posto_valor": 12
+    },
+    {
+     "clube": "Ponte Preta",
+     "temporada": "2026",
+     "rodadas": 12,
+     "pct_g4": 0.0,
+     "ppj": 0.17,
+     "indice_perfil": 12.9,
+     "posto_valor": 19
+    }
+   ]
+  },
+  {
+   "treinador": "Allan Aal",
+   "passagens": 6,
+   "clubes": 6,
+   "rodadas": 107,
+   "pct_g4_medio": 0.0,
+   "pct_g4_pior": 0.0,
+   "ppj": 1.18,
+   "indice_medio": 35.5,
+   "indice_pior": 12.9,
+   "posto_valor_mediano": 14.0,
+   "passagens_detalhe": [
+    {
+     "clube": "Novorizontino",
+     "temporada": "2022",
+     "rodadas": 13,
+     "pct_g4": 0.0,
+     "ppj": 1.08,
+     "indice_perfil": 50.0,
+     "posto_valor": 11
+    },
+    {
+     "clube": "Vila Nova",
+     "temporada": "2022",
+     "rodadas": 22,
+     "pct_g4": 0.0,
+     "ppj": 1.59,
+     "indice_perfil": 47.9,
+     "posto_valor": 14
+    },
+    {
+     "clube": "ABC",
+     "temporada": "2023",
+     "rodadas": 19,
+     "pct_g4": 0.0,
+     "ppj": 0.79,
+     "indice_perfil": 22.9,
+     "posto_valor": 15
+    },
+    {
+     "clube": "Guarani",
+     "temporada": "2024",
+     "rodadas": 20,
+     "pct_g4": 0.0,
+     "ppj": 1.1,
+     "indice_perfil": 37.1,
+     "posto_valor": 7
+    },
+    {
+     "clube": "Botafogo-SP",
+     "temporada": "2025",
+     "rodadas": 22,
+     "pct_g4": 0.0,
+     "ppj": 1.09,
+     "indice_perfil": 12.9,
+     "posto_valor": 17
+    },
+    {
+     "clube": "Avaí",
+     "temporada": "2026",
+     "rodadas": 11,
+     "pct_g4": 0.0,
+     "ppj": 1.45,
+     "indice_perfil": 42.1,
+     "posto_valor": 14
+    }
+   ]
+  }
+ ]
+}

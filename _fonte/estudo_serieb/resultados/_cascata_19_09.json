@@ -1,0 +1,111 @@
+{
+ "lente": "cascata",
+ "achados": [
+  {
+   "titulo": "A régua em que o estudo inteiro se apoia nunca passou no teste que separa causa de consequência",
+   "ids": [
+    "A14-1",
+    "A14-2",
+    "A12-1",
+    "A02-1",
+    "A06-1",
+    "A03-2"
+   ],
+   "o_que": "A casa define firme como duas coisas: BH a 5% por família E porta temporal (1º turno prevendo o 2º). Só 3 das 19 partes rodaram alguma coisa temporal — A02, A06 e A13. Cruzando os 12 indicadores que passaram pela porta com os 8 componentes do índice do A14, sobra UM: o duelo defensivo, e com o rho mais fraco dos seis que o A06 mediu. Os outros sete nunca foram perguntados se vêm antes do resultado. Pior: no corte cheio (a base inteira, 16 promovidos contra 48 do meio), cinco dos oito são 'firmes' num efeito que o próprio desenho declara não conseguir ver. Isso não aparece olhando uma conclusão por vez, porque cada refutador só checava se AQUELA conclusão citava a porta; olhando o conjunto, 27 das 33 conclusões marcadas firmes estão em partes que nunca rodaram o teste. Descontando as puramente descritivas (A01, J01-1, J02-1, T01), sobram 18 que fazem afirmação comparativa e a auditoria flagrou 12 — escaparam A03-2, A04-1, A04-2, A05-1, A07-1 e T03-2.",
+   "evidencia": "grep 'porta_temporal' em _fonte/estudo_serieb/scripts/*.py devolve só A02.py, A06.py e A13.py. Chaves de A02_resumo.json.porta_temporal: xg, xg_contra, gols_pro_90, gols_contra_90, finalizacao, defesa_vs_xg. Chaves de A06_resumo.json.porta_temporal: ppda, recuperacoes, duelos_def_pct (rho 0,319), duelos_aereos_pct, posse, intensidade. A14_resumo.json campo 'indice' = H_dinheiro, dist_remate, E_qualidade_chance, xg_por_remate_contra, duelos_def_pct, I_estabilidade_11, xgc_casa, dd_casa — interseção com os 12 acima: só duelos_def_pct. Campo poder_suficiente no corte 'com' (16x48): dist_remate True (A02_testes.csv), H_dinheiro True e E_qualidade_chance True (A12_reguas.csv); xg_por_remate_contra False, duelos_def_pct False (A06_testes.csv), xgc_casa False, dd_casa False (A03_testes.csv), I_estabilidade_11 False (A12_reguas.csv).",
+   "o_que_fazer": "Aceitar que o teto do índice é 'provável' (onde A14-1 já está) e que A12-1 e A14-2, marcadas firmes, não podem ficar. E antes de gastar qualquer coisa nova: rodar a porta temporal sobre os oito componentes. É o teste mais barato que resta — só precisa do 1º e do 2º turno da tabela que o A01 já tem em casa — e é o único que decide se a régua descreve o que o time fez ou o que o time é.",
+   "gravidade": "confianca"
+  },
+  {
+   "titulo": "A bola parada separa quem sobe no corte bom, e o estudo publicou que não separa",
+   "ids": [
+    "A04-1",
+    "A12-1",
+    "A14-1"
+   ],
+   "o_que": "A04-1 está marcada firme com a manchete 'Bola parada não separa quem sobe — nem no gol, nem no processo, nem no jogo aéreo' e o marcador sm_firmes_dois = 0. Mas na base inteira o saldo de bola parada por jogo é firme, com folga e com poder: quem sobe tem mediana de +0,145 gol de bola parada por jogo contra 0,000 do meio — cinco gols e meio de saldo numa temporada de 38 jogos. Ele só morre no corte reduzido de 8 contra 32, e mesmo lá o efeito é MAIOR (1,231 contra 0,981) e o intervalo não cruza o zero; ele reprova por q = 0,053 contra uma linha de 0,05. O gol de bola parada pró faz o mesmo caminho. O refutador do A04-1 atacou a perna Sobe × Trave e nunca olhou esta; só aparece varrendo os nove arquivos de teste com a mesma régua.",
+   "evidencia": "_fonte/estudo_serieb/resultados/A04_testes.csv, comparacao=SM. Linha fronteira=com, bp_saldo_90: n 16x48, cru_sobe 0.145, cru_alvo 0.0, d 0.981, ic95_d [0.47, 1.55], q 0.00228, selo 'firme', poder_suficiente True, d_minimo_80 0.82. Linha fronteira=sem, bp_saldo_90: n 8x32, d 1.231, ic95_d [0.34, 2.3], q 0.05339, selo 'pode ser sorte', poder_suficiente True, d_minimo_80 1.14. bp_pro_90: com q 0.02394 'firme'; sem q 0.29391. A04.json, numeros.sm_firmes_dois = 0. A04.py:159 define bp_saldo_90 = (pro - sof) / jogos.",
+   "o_que_fazer": "A04-1 deixa de dizer 'não separa' e passa a dizer 'depende do corte' — exatamente o tratamento que a auditoria já exigiu, por 3 a 0, para a posse em A12-1. O saldo de bola parada entra na lista de candidatos do índice do A14 como indício. E 'bola parada' sai dos cinco 'não separa' da resposta em três linhas: hoje ela é a coisa mais mal contada do estudo.",
+   "gravidade": "conclusao"
+  },
+  {
+   "titulo": "A frase mais citada do estudo — o duelo do time contra o duelo do titular — compara dois cortes diferentes",
+   "ids": [
+    "J03-2",
+    "A06-1",
+    "A14-1"
+   ],
+   "o_que": "A resposta de topo diz: o duelo defensivo separa o TIME (d +1,59) mas não o titular em nenhum setor (de −0,11 a +0,54). O 1,59 é o número do corte sem os times de fronteira, com 8 promovidos contra 32. Na base inteira o mesmo indicador dá 0,805, com o intervalo indo de 0,18 a 1,52 e poder insuficiente. E os números do jogador vêm do J03, cujo script não tem uma única ocorrência de 'fronteira' — ou seja, são os da base inteira, 16 contra 48. O contraste põe 8x32 contra 16x48. No mesmo corte é 0,805 do time contra 0,535 do volante, e o intervalo do volante por clube vai de +0,09 a +1,11, contendo o 0,805. A diferença que a frase explica não existe. O número já se espalhou por quatro lugares, um deles a aba que está no ar.",
+   "evidencia": "A06_testes.csv, comparacao=SM, indicador=duelos_def_pct: fronteira=sem → n 8x32, cru 61.672 x 59.885, d 1.593, q 6e-05; fronteira=com → n 16x48, cru 60.768 x 59.785, d 0.805, q 0.02556, ic95_d [0.18, 1.52], poder_suficiente False. grep -c fronteira em _fonte/estudo_serieb/scripts/J03.py = 0. J03.json, numeros.dd_time = 1.59 e dd_vol = 0.535. O 1,59 aparece em _fonte/CONTEXTO_sessao_17_09.md linha 49, em A03_indicadores.json linha 49 ('por_que_o_duelo_entra'), em J03.json e em static/estudo_serieb_dados.js linhas 335 e 1086.",
+   "o_que_fazer": "Trocar o 1,59 pelos 0,98 ponto percentual de duelo por jogo (60,8% contra 59,8%) nos quatro lugares, inclusive na aba. E tirar 'não se compra o duelo; organiza-se': com os dois lados medidos no mesmo corte, a base não mostra diferença entre o time e o titular, e não mediu treino nem organização em lugar nenhum.",
+   "gravidade": "conclusao"
+  },
+  {
+   "titulo": "(c) T04 não tem pé — e o motivo é um só: o bloco do treinador roda fora do método da casa",
+   "ids": [
+    "T04-1",
+    "T04-2",
+    "T03-1",
+    "T03-2",
+    "T02-1",
+    "T02-2",
+    "T02-3",
+    "T01-1"
+   ],
+   "o_que": "Sete das dez conclusões do bloco T caíram em 'confiança alta demais'. Olhando o conjunto, não são sete deslizes: é um import que falta. Os cinco scripts do bloco não importam o método da casa e não conhecem o corte de fronteira — sem BH, sem mínimo detectável, sem intervalo por clube, sem porta temporal, e não existe nenhum arquivo de teste do bloco T na pasta de resultados. Ou seja, 'firme' é inalcançável por construção, e T02-1, T02-3, T03-1, T03-2 e T04-2 carregam um selo que o código não consegue produzir. Há uma segunda ponta, que só se vê de cima: o T04 nunca abre um arquivo do A14. Então corrigir o A14 — tirar a estabilidade do onze do índice — não move um número sequer do T04, e a frase 'perfil alinhado à régua do A14' vai continuar apontando para a régua velha depois do conserto. E as três pernas do T04-1 viram uma: o índice de perfil anda com os pontos da temporada (rho 0,689) e quase não anda com o próprio treinador de um clube para outro (0,265), o que o T04-2 já afirma no mesmo arquivo.",
+   "evidencia": "grep -c '_metodo' em T01.py, T01_rodadas.py, T02.py, T03.py e T04.py = 0 nos cinco; grep -c 'fronteira' = 0 nos cinco. Não existe T02_testes.csv, T03_testes.csv nem T04_testes.csv em _fonte/estudo_serieb/resultados/. T04.py lê apenas T02_passagem.csv, T02_treinador.csv e T03_passagens.csv (linhas 44-49) — nenhum A14. Números do rho: parecer 'numero' de T04-1 n1 (2/3), reproduzido nos 80 clube-temporada; T03_resumo.json dá rho_medio_entre_clubes 0,265 para Eduardo Baptista contra p90 0,609 do nulo.",
+   "o_que_fazer": "T04-1 e T04-2 descem para indício (a auditoria já pediu, 3 a 0 nas duas). Depois é decisão do dono: ou reescreve o bloco T importando o método da casa, ou aceita que nenhuma conclusão sobre treinador passa de indício, hoje ou depois. Enquanto isso o T04 não serve para escolher treinador — serve para dizer que a base não escolhe treinador.",
+   "gravidade": "conclusao"
+  },
+  {
+   "titulo": "(a) O índice sobrevive de forma, mas perde a manchete — e a metade da validação que funciona é o dinheiro",
+   "ids": [
+    "A14-1",
+    "A14-2",
+    "A14-3",
+    "A12-1"
+   ],
+   "o_que": "Os oito componentes vêm todos de partes que a auditoria rebaixou (A12 três, A02 dois, A03 dois, A06 um). Mas só um deles cai de verdade, e a razão é tranquilizadora: o filtro do próprio A14 já exigia firme nos dois cortes no nível do indicador, então as 18 conclusões que caíram na armadilha da fronteira NÃO contaminam o índice — o defeito delas é de vitrine (mostraram os números do corte reduzido), não de existência. Refiz a conta. Tirando a estabilidade do onze (3 a 0, em quatro conclusões diferentes): sete componentes, Sobe 78,1 · trave 56,6 · meio 47,8 · cai 33,0. E o topo de 2026 TROCA DE ORDEM — Novorizontino 85,3 passa o Juventude 84,0 —, o que derruba o 'exatamente o 1º e o 2º' do A14-3. Tirando também as duas duplicações literais (a distância do chute já está dentro da qualidade da chance; o duelo em casa é metade dos jogos do duelo total): cinco componentes, 81,3 · 57,4 · 50,3 · 31,3. A ordem das faixas aguenta tudo. Mas tirando o valor do elenco, isto é, deixando só as quatro coisas que um clube escolhe, a validação fora da amostra cai de 2 temporadas de 4 para 1 de 4: 2022 vai abaixo do mínimo detectável. Metade da validação que funciona é o preço do elenco.",
+   "evidencia": "Reproduzido com o próprio _fonte/estudo_serieb/scripts/A14.py (funções base_completa e sinais importadas, nada escrito no repositório; script em /private/tmp/claude-501/.../scratchpad/cascata_a14.py). Os oito publicados batem casa a casa com A14_resumo.json: 74,4 / 58,0 / 48,7 / 31,9 e d 1,66. Sem I_estabilidade_11: 78,1 / 56,6 / 47,8 / 33,0, d 1,59 — idêntico ao recálculo do auditor em A14-1 n1. Com cinco componentes: 81,3 / 57,4 / 50,3 / 31,3, d 1,61. Com quatro (sem H_dinheiro): d 1,35 e a validação de 2022 cai para d 1,58 contra d_minimo_80 1,74 (A14_resumo.json, validacao_uma_temporada_de_fora).",
+   "o_que_fazer": "Manchete do A14-1 vira 'sete indicadores'. A14-3 perde o 'acerta em cheio' e o 'exatamente o 1º e o 2º' — a ordem dos dois primeiros não é robusta. E o motivo de confiança do A14-2 tem de dizer que, sem o valor do elenco, a validação cai para uma temporada em quatro: a régua lê melhor o bolso do clube do que o jogo dele.",
+   "gravidade": "conclusao"
+  },
+  {
+   "titulo": "(b) Das nove réguas sobram duas alavancas, e a conta erra dos dois lados",
+   "ids": [
+    "A12-1",
+    "A14-1"
+   ],
+   "o_que": "Das quatro que separam: a estabilidade do onze cai duas vezes — é feita inteira da lista fixa de consequência do resultado (3 a 0, e a mesma acusação aparece em quatro conclusões diferentes sem que ninguém somasse) e é a única régua com poder insuficiente nos DOIS cortes. O valor do elenco sobrevive e é o efeito mais forte do estudo, mas ninguém escolhe. Qualidade de chance e solidez sobrevivem como eixos, mas a especificação manda testar o indicador cru: no cru, a qualidade de chance se reduz a chutar de perto e a solidez se reduz ao xG por chute sofrido — e esse xG tem confiabilidade medida de 0,30, abaixo do piso de 0,40 da casa. Do outro lado a conta também erra: a posse é firme no corte reduzido, então são quatro que nunca separam, não cinco. Resultado: 'das nove, quatro separam' vira duas alavancas de verdade (chutar de perto e ceder chute pior), um preço de elenco, uma que cai e uma que depende do corte.",
+   "evidencia": "A12_reguas.csv, comparacao=SM. I_estabilidade_11: com → d 0.767 contra d_minimo_80 0.82, poder_suficiente False; sem → d 0.899 contra 1.14, poder_suficiente False. H_dinheiro: 1.149 e 1.446, poder True nos dois. E_qualidade_chance: 0.961 e 1.3, poder True nos dois. F_solidez: 0.724 (poder False) e 1.554. A_posse_construcao: com d 0.55 'sem diferença clara'; sem d 0.924, q 0.0433, selo 'firme'. dados/prototipo_indicadores.json: I_estabilidade_11 = [share_11, conc_hhi, atletas_usados, nucleo_300], os quatro na constante CONSEQUENCIA de ranking_gaps.py:231-239. A redução ao cru vem de A12-1 n3 (2/3) corrigida pelo parecer 'regra': xg_por_remate_contra é item de F e é firme nos dois cortes (q 0,0311 com / 0,0048 sem).",
+   "o_que_fazer": "Reescrever a manchete do A12-1 e tirar 'a estabilidade do onze' da lista do que dá para escolher — sobra a qualidade da chance criada e cedida. Corrigir a posse de 'não separa' para 'depende do corte'. E a frase 'cinco das nove réguas da Protótipo ficam sem sustentação', da resposta em três linhas, vira quatro.",
+   "gravidade": "conclusao"
+  },
+  {
+   "titulo": "A regra dos dois cortes é simétrica, mas os cortes não são — e ela está matando achados do corte bom",
+   "ids": [
+    "A04-1",
+    "J02-1",
+    "A12-1",
+    "A05-1"
+   ],
+   "o_que": "'Firme exige firme nos dois cortes' trata os dois cortes como iguais. Não são: o corte 'com' é a base inteira (16 contra 48, mínimo detectável 0,82) e o corte 'sem' é aquele que o próprio método da casa chama de enviesado por construção (8 contra 32, mínimo 1,14, um terço menos de poder). Varrendo todos os testes de Sobe × Meio das nove partes que rodaram os dois cortes: a regra nega, com razão, seis afirmações que só existem no corte enviesado (toques na área, entradas na área e xG sofrido total no A02; xG sofrido fora no A03; posse no A05; a régua de posse no A12). Mas ela também mata, em silêncio, três que só existem no corte BOM: gol de bola parada pró, saldo de bola parada e o núcleo de 300 minutos do J02. E o estudo escreve as seis primeiras como 'depende do corte' e as três últimas como 'não separa'. Mesma regra, honestidade oposta.",
+   "evidencia": "Varredura de A02_testes.csv, A03_testes.csv, A04_testes.csv, A05_testes.csv, A06_testes.csv, A07_testes.csv, J02_testes.csv e A12_reguas.csv, comparacao=SM, campo 'selo'. Só no corte com: A04 bp_pro_90 (q 0.02394 → 0.29391) e bp_saldo_90 (q 0.00228 → 0.05339); J02 nucleo_300 (q 0.02321 → 0.12929). Só no corte sem: A02 toques_area (0.08444 → 0.03507), entradas_area (0.10962 → 0.03724), xg_contra (0.06503 → 0.00124); A03 xgc_fora; A05 posse; A12 A_posse_construcao (q 0.0433). d_minimo_80: 0.82 no corte com, 1.14 no corte sem, em todas as partes.",
+   "o_que_fazer": "Escrever na regra da fronteira que o corte reduzido é teste de robustez e não veto. O que é firme na base inteira e cai no corte reduzido vira 'provável, com a ressalva de que o corte reduzido não tem poder para ver'; o inverso continua 'indício que depende do corte'. Sem isso o estudo vai continuar publicando como 'não existe' coisas que só o corte fraco não enxerga.",
+   "gravidade": "conclusao"
+  },
+  {
+   "titulo": "O mapa de dependências está errado: o A14 lê quatro partes, não doze, e o A12 não confirma o A05, o A06 nem o A07",
+   "ids": [
+    "A14-1",
+    "A12-1"
+   ],
+   "o_que": "A dependência declarada diz que o A14 sintetiza de A02 a A13. No código ele varre os arquivos de teste da pasta: o A11 e o A13 não produzem nenhum, então contribuem zero; o A04, o A05 e o A07 produzem e contribuem zero também, porque nada deles é firme nos dois cortes fora do placar. O índice vem de quatro partes: A02 (dois componentes), A03 (dois), A06 (um) e A12 (três). A segunda ponta é mais séria. O A12 abre um arquivo só, a tabela do A01 — nunca lê uma linha de saída do A05, do A06 ou do A07. Ele recalcula as mesmas colunas da base do clube-temporada empacotadas em nove eixos. Então quando o A12-1 diz que 'confirma A05, A06, A07 e A04 pela régua agregada', isso não é corroboração: é o mesmo dado passado uma segunda vez por outro moedor. Os cinco 'não separa' parecem ter dois apoios independentes e têm um só.",
+   "evidencia": "A14.py, função candidatos() (linhas 73-89): varre os arquivos terminados em _testes.csv e _reguas.csv da pasta de resultados. ls _fonte/estudo_serieb/resultados/A11* A13* → A11_correlacoes.csv, A11_estratificado.csv e A13_turnos.csv; nenhum _testes.csv. A14_resumo.json, campo 'candidatos', traz o campo 'parte' dos dez: A12 quatro, A03 três, A02 dois, A06 um. A12.py abre apenas A01_clube_temporada.csv (mais dados/serieb_clube_temporada.csv e dados/prototipo_indicadores.json) — nenhum arquivo de A04, A05, A06 ou A07.",
+   "o_que_fazer": "Corrigir o mapa antes de decidir o que cai junto com o quê — hoje ele faz o dono imaginar uma cascata de doze partes que na prática são quatro. E tirar 'o que confirma A05, A06, A07 e A04 pela régua agregada' do uso prático do A12-1: inflar evidência é o tipo de erro que a auditoria não pega olhando uma conclusão por vez.",
+   "gravidade": "conclusao"
+  }
+ ],
+ "veredito_sintese": "A resposta de topo muda, mas não cai. Continua de pé o essencial: quem sobe chuta de mais perto, cede chute de pior qualidade e ganha um pouquinho mais de duelo no chão — e tem elenco mais caro, que não se escolhe. Cai a estabilidade do onze: ela é resultado de ganhar, não causa, e é a única peça sem poder em nenhum dos dois cortes. E há um erro para o outro lado: a bola parada, que o estudo pôs na lista das que não separam, é a que mais separa na base inteira — quem sobe tem cinco gols e meio de saldo de bola parada por temporada contra zero do meio. Já a pergunta do treinador não tem resposta: o bloco T inteiro rodou sem o método da casa e nenhuma conclusão dele pode passar de indício.",
+ "nota": "Trabalho só de leitura: nenhum arquivo do repositório foi criado, editado ou apagado (git status --porcelain continua com as mesmas 20 entradas do início). O único script que escrevi está no scratchpad da sessão: /private/tmp/claude-501/-Users-henriquesimoessilva-Meu-Drive-6--arquivos-pessoais-Henrique-Santa-Cruz/4950a7f5-653b-478e-8152-dd0c3fb42622/scratchpad/cascata_a14.py — ele importa base_completa() e sinais() do próprio A14.py (nunca main(), que grava) e reconstrói o índice em cinco composições. A reprodução dos oito componentes publicados bate casa a casa com A14_resumo.json (74,4 / 58,0 / 48,7 / 31,9, d 1,66), e a de sete bate com o recálculo do auditor em A14-1 n1 (78,1 / 56,6 / 47,8 / 33,0, d 1,59) — é a garantia de que os números novos vêm do mesmo código, não de uma reimplementação minha. O que olhei: os 53 <ID>.json, o JSON da auditoria com o campo pareceres de cada achado (segui a §13.7 — em A12-1 n3 o parecer 'regra' corrige o refutador, que errou ao dizer que F_solidez não tem item firme no cru: xg_por_remate_contra é dela e passa nos dois cortes), os nove arquivos de teste, A12_reguas.csv, e os scripts A03, A12, A14, J03, T02, T03 e T04. Ignorei gravidade_do_refutador, como mandado. Não repeti nada que a auditoria por conclusão já tinha achado — os oito achados acima só existem cruzando partes. O que NÃO consegui checar: a aba no ar (static/estudo_serieb_dados.js) só entrou como prova de que o 1,59 se espalhou; conferir os 53 textos dela contra os JSON é a lente 'espelhos', não esta. Também não rodei a porta temporal que estou pedindo — isso escreveria resultado novo, e o pedido era só leitura."
+}

@@ -1,0 +1,2043 @@
+{
+ "parte": "J04",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "A ponte de nome de clube do SkillCorner para o nome do A01, mais a auditoria de identidade jogador a jogador e a cobertura física — as três coisas que o CLAUDE.md manda medir ANTES de usar dado físico.",
+ "fonte": "physical_match.team_name do skillcorner_serieb.db (copiado em 19/09/2026)",
+ "regra": "Decidida pelas TEMPORADAS, como em A04_ponte_clubes.json e T01_ponte_clubes.json: em cada temporada com physical_match os nomes do SkillCorner caem um a um sobre os clubes que A01 diz que estavam na Série B naquele ano. Caso ambíguo pelo nome é listado, nunca adivinhado.",
+ "limite": "O team_name só existe no physical_match, e o physical_match só existe em 2025 e 2026. Por isso a ponte tem 28 nomes e não mais: são os 20 clubes de 2025 e os 20 de 2026, com 12 em comum. Em 2022-2024 o clube do jogador vem do Wyscout, não do SkillCorner.",
+ "mapa": {
+  "AC Goianiense": "Atlético-GO",
+  "Amazonas FC": "Amazonas",
+  "América Mineiro FC": "América-MG",
+  "Associação Ferroviária de Esportes": "Ferroviária",
+  "Athletic Club (Minas Gerais)": "Athletic",
+  "Avaí Futebol Clube": "Avaí",
+  "Botafogo FC Ribeirão Preto": "Botafogo-SP",
+  "Ceará Sporting Club": "Ceará",
+  "Chapecoense AF": "Chapecoense",
+  "Club Athletico Paranaense": "Athletico-PR",
+  "Clube Náutico Capibaribe": "Náutico",
+  "Clube de Regatas Brasil": "CRB",
+  "Clube do Remo": "Remo",
+  "Coritiba FBC": "Coritiba",
+  "Criciuma EC": "Criciúma",
+  "Cuiaba Esporte Club": "Cuiabá",
+  "Fortaleza EC": "Fortaleza",
+  "Goiás EC": "Goiás",
+  "Grêmio Novorizontino": "Novorizontino",
+  "Juventude RS": "Juventude",
+  "Londrina EC": "Londrina",
+  "Operário Ferroviário EC": "Operário-PR",
+  "Paysandu SC": "Paysandu",
+  "Ponte Preta": "Ponte Preta",
+  "SC do Recife": "Sport",
+  "São Bernardo FC": "São Bernardo",
+  "Vila Nova FC": "Vila Nova",
+  "Volta Redonda FC": "Volta Redonda"
+ },
+ "n": 28,
+ "prova_por_temporada": {
+  "2025": {
+   "nomes_skillcorner": 20,
+   "clubes_a01": 20,
+   "bijecao": true,
+   "clube_do_a01_sem_nome_no_skillcorner": [],
+   "nome_do_skillcorner_que_nao_cai_na_temporada": []
+  },
+  "2026": {
+   "nomes_skillcorner": 20,
+   "clubes_a01": 20,
+   "bijecao": true,
+   "clube_do_a01_sem_nome_no_skillcorner": [],
+   "nome_do_skillcorner_que_nao_cai_na_temporada": []
+  }
+ },
+ "ambiguos_pelo_nome_resolvidos_pela_temporada": [
+  {
+   "nome_skillcorner": "AC Goianiense",
+   "escolhido": "Atlético-GO",
+   "outro_candidato": "Atlético-MG",
+   "por_que": "Atlético-MG não estava na Série B nas temporadas em que este nome aparece"
+  },
+  {
+   "nome_skillcorner": "Athletic Club (Minas Gerais)",
+   "escolhido": "Athletic",
+   "outro_candidato": "Athletico-PR",
+   "por_que": "Athletico-PR não estava na Série B nas temporadas em que este nome aparece"
+  },
+  {
+   "nome_skillcorner": "Botafogo FC Ribeirão Preto",
+   "escolhido": "Botafogo-SP",
+   "outro_candidato": "Botafogo",
+   "por_que": "Botafogo não estava na Série B nas temporadas em que este nome aparece"
+  },
+  {
+   "nome_skillcorner": "Club Athletico Paranaense",
+   "escolhido": "Athletico-PR",
+   "outro_candidato": "Athletic",
+   "por_que": "Athletic não estava na Série B nas temporadas em que este nome aparece"
+  },
+  {
+   "nome_skillcorner": "Grêmio Novorizontino",
+   "escolhido": "Novorizontino",
+   "outro_candidato": "Grêmio",
+   "por_que": "Grêmio não estava na Série B nas temporadas em que este nome aparece"
+  },
+  {
+   "nome_skillcorner": "SC do Recife",
+   "escolhido": "Sport",
+   "outro_candidato": "Náutico",
+   "por_que": "Náutico não estava na Série B nas temporadas em que este nome aparece"
+  }
+ ],
+ "identidade_jogador": {
+  "regra": "Ponte canônica da ESPECIFICACAO.md §1.1 (gerar_raio_serieb.py::carregar): chave de nome sem acento + janela de idade −2 ≤ Δ ≤ +3. Descarte automático dos dois lados: (ano, nome) com dois clubes ou duas posições no Wyscout, e (ano, nome) com dois sc_player_id no SkillCorner.",
+  "por_que_o_wyscout_player_id_nao_fecha_a_ponte": "A `players` tem o id em 2.079 de 2.105 linhas, mas nenhuma base do lado Wyscout neste repositório carrega esse id: serieb_tecnico.csv não tem coluna de id, minutagem_serieb.json também não, e o campo `id_` de dados/jogadores.json é idade (conferido). O id entra na base como coluna e serve para separar pessoas diferentes dentro do SkillCorner, não para casar com o Wyscout.",
+  "linhas_physical": 3616,
+  "linhas_physical_sem_cadastro_em_players": 2,
+  "casadas": 2982,
+  "perdidas": {
+   "sem nome igual no Wyscout (ou nome ambíguo lá)": 608,
+   "idade fora da janela (−2 a +3): não é a mesma pessoa": 2,
+   "mesmo nome com mais de um jogador no SkillCorner": 22
+  },
+  "homonimos_no_skillcorner_descartados": [
+   {
+    "temporada": 2023,
+    "nome_curto": "Gabriel Silva",
+    "nome_completo": "Gabriel Moisés Antunes da Silva",
+    "sc_player_id": 3699,
+    "wyscout_player_id": 21550
+   },
+   {
+    "temporada": 2023,
+    "nome_curto": "Wellington",
+    "nome_completo": "Wellington Aparecido Martins",
+    "sc_player_id": 25202,
+    "wyscout_player_id": 40754
+   },
+   {
+    "temporada": 2023,
+    "nome_curto": "Wellington",
+    "nome_completo": "Wellington Ferreira Nascimento",
+    "sc_player_id": 64683,
+    "wyscout_player_id": 354954
+   },
+   {
+    "temporada": 2023,
+    "nome_curto": "Edson",
+    "nome_completo": "Edson Rogerio Gomes de Moraes Júnior",
+    "sc_player_id": 633850,
+    "wyscout_player_id": 751582
+   },
+   {
+    "temporada": 2023,
+    "nome_curto": "Gabriel Silva",
+    "nome_completo": "Gabriel Santos Silva",
+    "sc_player_id": 780134,
+    "wyscout_player_id": 495138
+   },
+   {
+    "temporada": 2023,
+    "nome_curto": "Edson",
+    "nome_completo": "Edson Eduardo Dias Gomes",
+    "sc_player_id": 792001,
+    "wyscout_player_id": 597893
+   },
+   {
+    "temporada": 2024,
+    "nome_curto": "Robson",
+    "nome_completo": "Robson dos Santos Fernandes",
+    "sc_player_id": 32863,
+    "wyscout_player_id": 144412
+   },
+   {
+    "temporada": 2024,
+    "nome_curto": "Foguinho",
+    "nome_completo": "Vinicius Xavier da Purificação Moutinho",
+    "sc_player_id": 53117,
+    "wyscout_player_id": 554232
+   },
+   {
+    "temporada": 2024,
+    "nome_curto": "Róbson",
+    "nome_completo": "Róbson Luiz dos Santos Nascimento",
+    "sc_player_id": 53521,
+    "wyscout_player_id": 553283
+   },
+   {
+    "temporada": 2024,
+    "nome_curto": "Pará",
+    "nome_completo": "Luis Felipe Rabelo Costa",
+    "sc_player_id": 208441,
+    "wyscout_player_id": 690456
+   },
+   {
+    "temporada": 2024,
+    "nome_curto": "Foguinho",
+    "nome_completo": "Guilherme Seefeldt Krolow",
+    "sc_player_id": 790109,
+    "wyscout_player_id": 47054
+   },
+   {
+    "temporada": 2024,
+    "nome_curto": "Pará",
+    "nome_completo": "Anderson Ferreira da Silva",
+    "sc_player_id": 818646,
+    "wyscout_player_id": 296687
+   },
+   {
+    "temporada": 2025,
+    "nome_curto": "Luquinhas",
+    "nome_completo": "Lucas Antonio da Silva Soares",
+    "sc_player_id": 970508,
+    "wyscout_player_id": 555837
+   },
+   {
+    "temporada": 2025,
+    "nome_curto": "Gabriel Souza",
+    "nome_completo": "Gabriel Souza Dos Santos",
+    "sc_player_id": 974190,
+    "wyscout_player_id": 812587
+   },
+   {
+    "temporada": 2025,
+    "nome_curto": "Luquinhas",
+    "nome_completo": "Lucas Rodrigues Moreira Costa",
+    "sc_player_id": 996768,
+    "wyscout_player_id": 944905
+   },
+   {
+    "temporada": 2025,
+    "nome_curto": "Gabriel Souza",
+    "nome_completo": "Gabriel Souza dos Santos",
+    "sc_player_id": 1016633,
+    "wyscout_player_id": 651699
+   },
+   {
+    "temporada": 2026,
+    "nome_curto": "Felipe",
+    "nome_completo": "Felipe Vieira Augusto",
+    "sc_player_id": 175869,
+    "wyscout_player_id": 490512
+   },
+   {
+    "temporada": 2026,
+    "nome_curto": "Felipe",
+    "nome_completo": "Luis Antonio Ferreira Rodrigues",
+    "sc_player_id": 31480,
+    "wyscout_player_id": 359640
+   },
+   {
+    "temporada": 2026,
+    "nome_curto": "Marcos Júnior",
+    "nome_completo": "Marcos Antonio Augusto Júnior",
+    "sc_player_id": 177453,
+    "wyscout_player_id": 524968
+   },
+   {
+    "temporada": 2026,
+    "nome_curto": "Marcos Júnior",
+    "nome_completo": "Marcos Júnior Lima dos Santos",
+    "sc_player_id": 27030,
+    "wyscout_player_id": 170296
+   },
+   {
+    "temporada": 2026,
+    "nome_curto": "Neris",
+    "nome_completo": "Neris",
+    "sc_player_id": 16039,
+    "wyscout_player_id": null
+   },
+   {
+    "temporada": 2026,
+    "nome_curto": "Neris",
+    "nome_completo": "Hueglo dos Santos Neris",
+    "sc_player_id": 29188,
+    "wyscout_player_id": 43623
+   }
+  ],
+  "ambiguos_no_wyscout_descartados": 248,
+  "ambiguos_no_wyscout_exemplos": [
+   {
+    "temporada": 2022,
+    "jogador": "Danielzinho",
+    "clubes": [
+     "Bahia",
+     "Novorizontino"
+    ],
+    "posicoes": [
+     "AMF",
+     "RDMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Luiz Henrique",
+    "clubes": [
+     "Bahia",
+     "CSA",
+     "Novorizontino",
+     "Vasco"
+    ],
+    "posicoes": [
+     "AMF",
+     "LB",
+     "RCMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Marcinho",
+    "clubes": [
+     "Bahia",
+     "Guarani",
+     "Londrina"
+    ],
+    "posicoes": [
+     "AMF",
+     "RB",
+     "RDMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Ronaldo",
+    "clubes": [
+     "Bahia",
+     "Novorizontino"
+    ],
+    "posicoes": [
+     "CF",
+     "RAMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Wallace",
+    "clubes": [
+     "Brusque",
+     "CRB"
+    ],
+    "posicoes": [
+     "LCB",
+     "LDMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Jordan",
+    "clubes": [
+     "Brusque",
+     "Vila Nova"
+    ],
+    "posicoes": [
+     "GK",
+     "RCB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Pará",
+    "clubes": [
+     "Brusque",
+     "Sampaio Corrêa"
+    ],
+    "posicoes": [
+     "LB",
+     "RB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Jeferson",
+    "clubes": [
+     "Brusque",
+     "Londrina"
+    ],
+    "posicoes": [
+     "LCB",
+     "RB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Edílson",
+    "clubes": [
+     "Brusque",
+     "Grêmio"
+    ],
+    "posicoes": [
+     "RB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Lucas Silva",
+    "clubes": [
+     "Brusque",
+     "Grêmio"
+    ],
+    "posicoes": [
+     "CF",
+     "RCMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Fabinho",
+    "clubes": [
+     "CRB",
+     "Sport"
+    ],
+    "posicoes": [
+     "RAMF",
+     "RCMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Reginaldo",
+    "clubes": [
+     "CRB",
+     "Tombense"
+    ],
+    "posicoes": [
+     "LB",
+     "RB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Bryan",
+    "clubes": [
+     "CRB",
+     "Náutico"
+    ],
+    "posicoes": [
+     "LB",
+     "RB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Guilherme",
+    "clubes": [
+     "CRB",
+     "Grêmio"
+    ],
+    "posicoes": [
+     "LAMF",
+     "LB"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   },
+   {
+    "temporada": 2022,
+    "jogador": "Riquelme",
+    "clubes": [
+     "CRB",
+     "Vasco",
+     "Vila Nova"
+    ],
+    "posicoes": [
+     "CF",
+     "LB",
+     "RAMF"
+    ],
+    "motivo": "mesmo nome com dois clubes ou duas posições no ano"
+   }
+  ]
+ },
+ "conferencia_independente_do_clube": {
+  "como": "Em 2025 e 2026 o próprio SkillCorner diz o clube, no physical_match. O clube de mais minutos rastreados, traduzido pela ponte, é comparado com o clube que o Wyscout deu.",
+  "resultado": {
+   "sem jogo rastreado (2022-2024 não tem physical_match)": 1871,
+   "confere": 1095,
+   "diverge": 16
+  },
+  "taxa_de_acerto_pct": 98.6,
+  "divergencias": [
+   {
+    "temporada": 2025,
+    "jogador": "F. Labandeira",
+    "nome_skillcorner": "Facundo Labandeira Castro",
+    "sc_player_id": 69510,
+    "clube_wyscout": "América-MG",
+    "clube_skillcorner": "Vila Nova",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2025,
+    "jogador": "Raí Ramos",
+    "nome_skillcorner": "Raí dos Reis Ramos",
+    "sc_player_id": 156889,
+    "clube_wyscout": "Novorizontino",
+    "clube_skillcorner": "Atlético-GO",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Mádson",
+    "nome_skillcorner": "Mádson Ferreira dos Santos",
+    "sc_player_id": 25166,
+    "clube_wyscout": "Novorizontino",
+    "clube_skillcorner": "Sport",
+    "clubes_rastreados_no_ano": 1,
+    "leitura": "um clube só dos dois lados, e eles não batem — conferir antes de usar"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Pablo Dyego",
+    "nome_skillcorner": "Pablo Dyego da Silva Rosa",
+    "sc_player_id": 28271,
+    "clube_wyscout": "Londrina",
+    "clube_skillcorner": "São Bernardo",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "William Pottker",
+    "nome_skillcorner": "William de Oliveira Pottker",
+    "sc_player_id": 28320,
+    "clube_wyscout": "Londrina",
+    "clube_skillcorner": "Ponte Preta",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Yuri",
+    "nome_skillcorner": "Yuri Antônio Costa da Silva",
+    "sc_player_id": 31618,
+    "clube_wyscout": "Atlético-GO",
+    "clube_skillcorner": "Náutico",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Léo Chú",
+    "nome_skillcorner": "Leonardo Alves Chú Franco",
+    "sc_player_id": 31661,
+    "clube_wyscout": "Avaí",
+    "clube_skillcorner": "Athletic",
+    "clubes_rastreados_no_ano": 1,
+    "leitura": "um clube só dos dois lados, e eles não batem — conferir antes de usar"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Alex Silva",
+    "nome_skillcorner": "Alex da Silva",
+    "sc_player_id": 31917,
+    "clube_wyscout": "América-MG",
+    "clube_skillcorner": "Ceará",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Gustavo Maia",
+    "nome_skillcorner": "Gustavo Maia da Silva",
+    "sc_player_id": 53352,
+    "clube_wyscout": "Atlético-GO",
+    "clube_skillcorner": "Sport",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Yago Santos",
+    "nome_skillcorner": "Yago Santos de Andrade",
+    "sc_player_id": 82412,
+    "clube_wyscout": "Athletic",
+    "clube_skillcorner": "América-MG",
+    "clubes_rastreados_no_ano": 1,
+    "leitura": "um clube só dos dois lados, e eles não batem — conferir antes de usar"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Matheusinho",
+    "nome_skillcorner": "Matheus Leonardo Sales Cardoso",
+    "sc_player_id": 122012,
+    "clube_wyscout": "Atlético-GO",
+    "clube_skillcorner": "Ceará",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Natã",
+    "nome_skillcorner": "Nathan Felipe de Amorim Santos",
+    "sc_player_id": 175750,
+    "clube_wyscout": "Atlético-GO",
+    "clube_skillcorner": "Juventude",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Juan Alano",
+    "nome_skillcorner": "Juan Matheus Alano Nascimento",
+    "sc_player_id": 254459,
+    "clube_wyscout": "Sport",
+    "clube_skillcorner": "Ceará",
+    "clubes_rastreados_no_ano": 1,
+    "leitura": "um clube só dos dois lados, e eles não batem — conferir antes de usar"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Tárik",
+    "nome_skillcorner": "Tárik Michel Kedes Boschetti",
+    "sc_player_id": 632556,
+    "clube_wyscout": "Londrina",
+    "clube_skillcorner": "Ponte Preta",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Redney",
+    "nome_skillcorner": "Redney Emanuel de Jesus Assis",
+    "sc_player_id": 1056079,
+    "clube_wyscout": "Athletic",
+    "clube_skillcorner": "Atlético-GO",
+    "clubes_rastreados_no_ano": 1,
+    "leitura": "um clube só dos dois lados, e eles não batem — conferir antes de usar"
+   },
+   {
+    "temporada": 2026,
+    "jogador": "Artur",
+    "nome_skillcorner": "Artur Sérgio Batista de Souza",
+    "sc_player_id": 15550,
+    "clube_wyscout": "Londrina",
+    "clube_skillcorner": "América-MG",
+    "clubes_rastreados_no_ano": 2,
+    "leitura": "trocou de clube dentro da temporada: o SkillCorner rastreou dois, o Wyscout guardou um"
+   }
+  ],
+  "leitura": "As divergências não são homônimo: são troca de clube dentro da temporada. O agregado físico do SkillCorner mistura os dois clubes e o Wyscout guarda um. Ficam marcadas em `clube_confere = 0` na base, e a comparação de J04 roda com e sem elas."
+ },
+ "cobertura_por_temporada": {
+  "2022": {
+   "clubes": 20,
+   "jogador_temporada_com_fisico": 614,
+   "elegiveis_900min_sem_goleiro": 329,
+   "elegiveis_rastreados_pelo_skillcorner": 327,
+   "elegiveis_com_fisico": 277,
+   "cobertura_da_fonte_pct": 99.4,
+   "cobertura_pct": 84.2,
+   "goleiros_900min_sem_nenhum_fisico": 26,
+   "clubes_com_cobertura_baixa": 5
+  },
+  "2023": {
+   "clubes": 20,
+   "jogador_temporada_com_fisico": 610,
+   "elegiveis_900min_sem_goleiro": 344,
+   "elegiveis_rastreados_pelo_skillcorner": 341,
+   "elegiveis_com_fisico": 284,
+   "cobertura_da_fonte_pct": 99.1,
+   "cobertura_pct": 82.6,
+   "goleiros_900min_sem_nenhum_fisico": 25,
+   "clubes_com_cobertura_baixa": 10
+  },
+  "2024": {
+   "clubes": 20,
+   "jogador_temporada_com_fisico": 612,
+   "elegiveis_900min_sem_goleiro": 325,
+   "elegiveis_rastreados_pelo_skillcorner": 322,
+   "elegiveis_com_fisico": 276,
+   "cobertura_da_fonte_pct": 99.1,
+   "cobertura_pct": 84.9,
+   "goleiros_900min_sem_nenhum_fisico": 25,
+   "clubes_com_cobertura_baixa": 4
+  },
+  "2025": {
+   "clubes": 20,
+   "jogador_temporada_com_fisico": 625,
+   "elegiveis_900min_sem_goleiro": 335,
+   "elegiveis_rastreados_pelo_skillcorner": 326,
+   "elegiveis_com_fisico": 282,
+   "cobertura_da_fonte_pct": 97.3,
+   "cobertura_pct": 84.2,
+   "goleiros_900min_sem_nenhum_fisico": 29,
+   "clubes_com_cobertura_baixa": 6
+  },
+  "2026": {
+   "clubes": 20,
+   "jogador_temporada_com_fisico": 521,
+   "elegiveis_900min_sem_goleiro": 249,
+   "elegiveis_rastreados_pelo_skillcorner": 236,
+   "elegiveis_com_fisico": 203,
+   "cobertura_da_fonte_pct": 94.8,
+   "cobertura_pct": 81.5,
+   "goleiros_900min_sem_nenhum_fisico": 23,
+   "clubes_com_cobertura_baixa": 9
+  }
+ },
+ "cobertura_por_clube_temporada": {
+  "2022|Bahia": {
+   "n_900": 18,
+   "n_900_gk": 2,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 29380,
+   "n_fisico_total": 28,
+   "pct": 77.8,
+   "pct_rastreado": 94.4,
+   "cobertura_baixa": 1
+  },
+  "2022|Brusque": {
+   "n_900": 20,
+   "n_900_gk": 1,
+   "n_900_rastreado": 20,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 30732,
+   "n_fisico_total": 31,
+   "pct": 85.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|CRB": {
+   "n_900": 18,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 30139,
+   "n_fisico_total": 28,
+   "pct": 88.9,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|CSA": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 27468,
+   "n_fisico_total": 34,
+   "pct": 80.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Chapecoense": {
+   "n_900": 16,
+   "n_900_gk": 2,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 33142,
+   "n_fisico_total": 33,
+   "pct": 93.8,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Criciúma": {
+   "n_900": 18,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 30989,
+   "n_fisico_total": 32,
+   "pct": 83.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Cruzeiro": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 32222,
+   "n_fisico_total": 37,
+   "pct": 92.9,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Grêmio": {
+   "n_900": 13,
+   "n_900_gk": 2,
+   "n_900_rastreado": 13,
+   "n_900_com_fisico": 9,
+   "min_rastreados": 24213,
+   "n_fisico_total": 25,
+   "pct": 69.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2022|Guarani": {
+   "n_900": 19,
+   "n_900_gk": 1,
+   "n_900_rastreado": 19,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 31136,
+   "n_fisico_total": 30,
+   "pct": 89.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Ituano": {
+   "n_900": 19,
+   "n_900_gk": 2,
+   "n_900_rastreado": 19,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 32278,
+   "n_fisico_total": 28,
+   "pct": 89.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Londrina": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 30603,
+   "n_fisico_total": 33,
+   "pct": 85.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Novorizontino": {
+   "n_900": 16,
+   "n_900_gk": 2,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 10,
+   "min_rastreados": 23690,
+   "n_fisico_total": 20,
+   "pct": 62.5,
+   "pct_rastreado": 93.8,
+   "cobertura_baixa": 1
+  },
+  "2022|Náutico": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 27186,
+   "n_fisico_total": 38,
+   "pct": 68.8,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2022|Operário-PR": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 29125,
+   "n_fisico_total": 34,
+   "pct": 76.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2022|Ponte Preta": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 33601,
+   "n_fisico_total": 37,
+   "pct": 82.4,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Sampaio Corrêa": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 30961,
+   "n_fisico_total": 24,
+   "pct": 86.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Sport": {
+   "n_900": 17,
+   "n_900_gk": 2,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 31467,
+   "n_fisico_total": 29,
+   "pct": 82.4,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Tombense": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 32842,
+   "n_fisico_total": 30,
+   "pct": 88.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Vasco": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 34396,
+   "n_fisico_total": 30,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2022|Vila Nova": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 33119,
+   "n_fisico_total": 33,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|ABC": {
+   "n_900": 19,
+   "n_900_gk": 2,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 30946,
+   "n_fisico_total": 39,
+   "pct": 78.9,
+   "pct_rastreado": 94.7,
+   "cobertura_baixa": 1
+  },
+  "2023|Atlético-GO": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 28778,
+   "n_fisico_total": 28,
+   "pct": 76.5,
+   "pct_rastreado": 94.1,
+   "cobertura_baixa": 1
+  },
+  "2023|Avaí": {
+   "n_900": 15,
+   "n_900_gk": 2,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 26061,
+   "n_fisico_total": 32,
+   "pct": 73.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Botafogo-SP": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 35178,
+   "n_fisico_total": 34,
+   "pct": 94.1,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|CRB": {
+   "n_900": 18,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 35475,
+   "n_fisico_total": 32,
+   "pct": 94.4,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Ceará": {
+   "n_900": 21,
+   "n_900_gk": 2,
+   "n_900_rastreado": 21,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 28350,
+   "n_fisico_total": 27,
+   "pct": 71.4,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Chapecoense": {
+   "n_900": 18,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 36059,
+   "n_fisico_total": 36,
+   "pct": 88.9,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Criciúma": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 27448,
+   "n_fisico_total": 22,
+   "pct": 73.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Guarani": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 36812,
+   "n_fisico_total": 24,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Ituano": {
+   "n_900": 19,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 29093,
+   "n_fisico_total": 31,
+   "pct": 73.7,
+   "pct_rastreado": 94.7,
+   "cobertura_baixa": 1
+  },
+  "2023|Juventude": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 37035,
+   "n_fisico_total": 33,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Londrina": {
+   "n_900": 14,
+   "n_900_gk": 2,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 10,
+   "min_rastreados": 28925,
+   "n_fisico_total": 40,
+   "pct": 71.4,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Mirassol": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 31218,
+   "n_fisico_total": 27,
+   "pct": 87.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Novorizontino": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 29613,
+   "n_fisico_total": 23,
+   "pct": 75.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Ponte Preta": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 31412,
+   "n_fisico_total": 29,
+   "pct": 76.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Sampaio Corrêa": {
+   "n_900": 18,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 32233,
+   "n_fisico_total": 42,
+   "pct": 83.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Sport": {
+   "n_900": 18,
+   "n_900_gk": 2,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 28967,
+   "n_fisico_total": 27,
+   "pct": 72.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2023|Tombense": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 32541,
+   "n_fisico_total": 29,
+   "pct": 88.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Vila Nova": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 36947,
+   "n_fisico_total": 28,
+   "pct": 87.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2023|Vitória": {
+   "n_900": 19,
+   "n_900_gk": 1,
+   "n_900_rastreado": 19,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 34698,
+   "n_fisico_total": 27,
+   "pct": 84.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Amazonas": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 35881,
+   "n_fisico_total": 34,
+   "pct": 93.8,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|América-MG": {
+   "n_900": 17,
+   "n_900_gk": 2,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 25769,
+   "n_fisico_total": 27,
+   "pct": 70.6,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2024|Avaí": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 30168,
+   "n_fisico_total": 23,
+   "pct": 80.0,
+   "pct_rastreado": 93.3,
+   "cobertura_baixa": 0
+  },
+  "2024|Botafogo-SP": {
+   "n_900": 19,
+   "n_900_gk": 1,
+   "n_900_rastreado": 19,
+   "n_900_com_fisico": 18,
+   "min_rastreados": 33930,
+   "n_fisico_total": 30,
+   "pct": 94.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Brusque": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 33101,
+   "n_fisico_total": 32,
+   "pct": 87.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|CRB": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 31183,
+   "n_fisico_total": 28,
+   "pct": 88.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Ceará": {
+   "n_900": 16,
+   "n_900_gk": 2,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 37149,
+   "n_fisico_total": 29,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Chapecoense": {
+   "n_900": 16,
+   "n_900_gk": 2,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 26257,
+   "n_fisico_total": 34,
+   "pct": 68.8,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2024|Coritiba": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 28933,
+   "n_fisico_total": 31,
+   "pct": 88.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Goiás": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 10,
+   "min_rastreados": 27001,
+   "n_fisico_total": 29,
+   "pct": 71.4,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2024|Guarani": {
+   "n_900": 15,
+   "n_900_gk": 2,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 36211,
+   "n_fisico_total": 41,
+   "pct": 86.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Ituano": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 31810,
+   "n_fisico_total": 35,
+   "pct": 81.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Mirassol": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 31070,
+   "n_fisico_total": 25,
+   "pct": 85.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Novorizontino": {
+   "n_900": 18,
+   "n_900_gk": 1,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 30240,
+   "n_fisico_total": 22,
+   "pct": 83.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Operário-PR": {
+   "n_900": 17,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 32187,
+   "n_fisico_total": 37,
+   "pct": 88.2,
+   "pct_rastreado": 94.1,
+   "cobertura_baixa": 0
+  },
+  "2024|Paysandu": {
+   "n_900": 19,
+   "n_900_gk": 2,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 28872,
+   "n_fisico_total": 29,
+   "pct": 73.7,
+   "pct_rastreado": 94.7,
+   "cobertura_baixa": 1
+  },
+  "2024|Ponte Preta": {
+   "n_900": 19,
+   "n_900_gk": 1,
+   "n_900_rastreado": 19,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 33886,
+   "n_fisico_total": 29,
+   "pct": 89.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Santos": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 36085,
+   "n_fisico_total": 33,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Sport": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 30867,
+   "n_fisico_total": 29,
+   "pct": 85.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2024|Vila Nova": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 29041,
+   "n_fisico_total": 35,
+   "pct": 80.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Amazonas": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 36738,
+   "n_fisico_total": 46,
+   "pct": 93.8,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|América-MG": {
+   "n_900": 17,
+   "n_900_gk": 2,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 33925,
+   "n_fisico_total": 36,
+   "pct": 88.2,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Athletic": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 32949,
+   "n_fisico_total": 34,
+   "pct": 93.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Athletico-PR": {
+   "n_900": 20,
+   "n_900_gk": 2,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 15,
+   "min_rastreados": 29656,
+   "n_fisico_total": 28,
+   "pct": 75.0,
+   "pct_rastreado": 90.0,
+   "cobertura_baixa": 1
+  },
+  "2025|Atlético-GO": {
+   "n_900": 19,
+   "n_900_gk": 2,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 30197,
+   "n_fisico_total": 32,
+   "pct": 84.2,
+   "pct_rastreado": 94.7,
+   "cobertura_baixa": 0
+  },
+  "2025|Avaí": {
+   "n_900": 14,
+   "n_900_gk": 2,
+   "n_900_rastreado": 13,
+   "n_900_com_fisico": 10,
+   "min_rastreados": 28139,
+   "n_fisico_total": 28,
+   "pct": 71.4,
+   "pct_rastreado": 92.9,
+   "cobertura_baixa": 1
+  },
+  "2025|Botafogo-SP": {
+   "n_900": 20,
+   "n_900_gk": 1,
+   "n_900_rastreado": 20,
+   "n_900_com_fisico": 18,
+   "min_rastreados": 34277,
+   "n_fisico_total": 28,
+   "pct": 90.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|CRB": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 32624,
+   "n_fisico_total": 26,
+   "pct": 87.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Chapecoense": {
+   "n_900": 15,
+   "n_900_gk": 2,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 33247,
+   "n_fisico_total": 28,
+   "pct": 86.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Coritiba": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 16,
+   "min_rastreados": 36493,
+   "n_fisico_total": 26,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Criciúma": {
+   "n_900": 14,
+   "n_900_gk": 2,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 33708,
+   "n_fisico_total": 29,
+   "pct": 92.9,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Cuiabá": {
+   "n_900": 16,
+   "n_900_gk": 2,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 27174,
+   "n_fisico_total": 27,
+   "pct": 75.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2025|Ferroviária": {
+   "n_900": 15,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 28202,
+   "n_fisico_total": 27,
+   "pct": 80.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Goiás": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 30917,
+   "n_fisico_total": 25,
+   "pct": 81.2,
+   "pct_rastreado": 93.8,
+   "cobertura_baixa": 0
+  },
+  "2025|Novorizontino": {
+   "n_900": 20,
+   "n_900_gk": 1,
+   "n_900_rastreado": 20,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 32257,
+   "n_fisico_total": 26,
+   "pct": 85.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Operário-PR": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 33826,
+   "n_fisico_total": 40,
+   "pct": 87.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2025|Paysandu": {
+   "n_900": 19,
+   "n_900_gk": 2,
+   "n_900_rastreado": 18,
+   "n_900_com_fisico": 17,
+   "min_rastreados": 30399,
+   "n_fisico_total": 38,
+   "pct": 89.5,
+   "pct_rastreado": 94.7,
+   "cobertura_baixa": 0
+  },
+  "2025|Remo": {
+   "n_900": 19,
+   "n_900_gk": 1,
+   "n_900_rastreado": 17,
+   "n_900_com_fisico": 14,
+   "min_rastreados": 29307,
+   "n_fisico_total": 30,
+   "pct": 73.7,
+   "pct_rastreado": 89.5,
+   "cobertura_baixa": 1
+  },
+  "2025|Vila Nova": {
+   "n_900": 16,
+   "n_900_gk": 1,
+   "n_900_rastreado": 15,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 29242,
+   "n_fisico_total": 29,
+   "pct": 75.0,
+   "pct_rastreado": 93.8,
+   "cobertura_baixa": 1
+  },
+  "2025|Volta Redonda": {
+   "n_900": 16,
+   "n_900_gk": 2,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 30298,
+   "n_fisico_total": 42,
+   "pct": 75.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2026|América-MG": {
+   "n_900": 11,
+   "n_900_gk": 1,
+   "n_900_rastreado": 11,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 23291,
+   "n_fisico_total": 36,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Athletic": {
+   "n_900": 12,
+   "n_900_gk": 1,
+   "n_900_rastreado": 10,
+   "n_900_com_fisico": 8,
+   "min_rastreados": 17508,
+   "n_fisico_total": 24,
+   "pct": 66.7,
+   "pct_rastreado": 83.3,
+   "cobertura_baixa": 1
+  },
+  "2026|Atlético-GO": {
+   "n_900": 12,
+   "n_900_gk": 1,
+   "n_900_rastreado": 11,
+   "n_900_com_fisico": 9,
+   "min_rastreados": 21205,
+   "n_fisico_total": 29,
+   "pct": 75.0,
+   "pct_rastreado": 91.7,
+   "cobertura_baixa": 1
+  },
+  "2026|Avaí": {
+   "n_900": 10,
+   "n_900_gk": 2,
+   "n_900_rastreado": 10,
+   "n_900_com_fisico": 9,
+   "min_rastreados": 22077,
+   "n_fisico_total": 31,
+   "pct": 90.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Botafogo-SP": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 13,
+   "n_900_com_fisico": 12,
+   "min_rastreados": 23989,
+   "n_fisico_total": 26,
+   "pct": 92.3,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|CRB": {
+   "n_900": 14,
+   "n_900_gk": 1,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 22789,
+   "n_fisico_total": 23,
+   "pct": 92.9,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Ceará": {
+   "n_900": 10,
+   "n_900_gk": 1,
+   "n_900_rastreado": 8,
+   "n_900_com_fisico": 6,
+   "min_rastreados": 17419,
+   "n_fisico_total": 28,
+   "pct": 60.0,
+   "pct_rastreado": 80.0,
+   "cobertura_baixa": 1
+  },
+  "2026|Criciúma": {
+   "n_900": 11,
+   "n_900_gk": 1,
+   "n_900_rastreado": 11,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 22325,
+   "n_fisico_total": 21,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Cuiabá": {
+   "n_900": 11,
+   "n_900_gk": 1,
+   "n_900_rastreado": 9,
+   "n_900_com_fisico": 7,
+   "min_rastreados": 19976,
+   "n_fisico_total": 23,
+   "pct": 63.6,
+   "pct_rastreado": 81.8,
+   "cobertura_baixa": 1
+  },
+  "2026|Fortaleza": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 11,
+   "n_900_com_fisico": 8,
+   "min_rastreados": 17335,
+   "n_fisico_total": 19,
+   "pct": 61.5,
+   "pct_rastreado": 84.6,
+   "cobertura_baixa": 1
+  },
+  "2026|Goiás": {
+   "n_900": 17,
+   "n_900_gk": 2,
+   "n_900_rastreado": 16,
+   "n_900_com_fisico": 10,
+   "min_rastreados": 16819,
+   "n_fisico_total": 21,
+   "pct": 58.8,
+   "pct_rastreado": 94.1,
+   "cobertura_baixa": 1
+  },
+  "2026|Juventude": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 12,
+   "n_900_com_fisico": 9,
+   "min_rastreados": 17033,
+   "n_fisico_total": 22,
+   "pct": 69.2,
+   "pct_rastreado": 92.3,
+   "cobertura_baixa": 1
+  },
+  "2026|Londrina": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 12,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 22297,
+   "n_fisico_total": 30,
+   "pct": 84.6,
+   "pct_rastreado": 92.3,
+   "cobertura_baixa": 0
+  },
+  "2026|Novorizontino": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 12,
+   "n_900_com_fisico": 10,
+   "min_rastreados": 20889,
+   "n_fisico_total": 22,
+   "pct": 76.9,
+   "pct_rastreado": 92.3,
+   "cobertura_baixa": 1
+  },
+  "2026|Náutico": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 13,
+   "n_900_com_fisico": 8,
+   "min_rastreados": 15450,
+   "n_fisico_total": 26,
+   "pct": 61.5,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 1
+  },
+  "2026|Operário-PR": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 13,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 26695,
+   "n_fisico_total": 25,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Ponte Preta": {
+   "n_900": 14,
+   "n_900_gk": 2,
+   "n_900_rastreado": 14,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 20854,
+   "n_fisico_total": 31,
+   "pct": 92.9,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Sport": {
+   "n_900": 11,
+   "n_900_gk": 1,
+   "n_900_rastreado": 11,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 25924,
+   "n_fisico_total": 31,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|São Bernardo": {
+   "n_900": 12,
+   "n_900_gk": 1,
+   "n_900_rastreado": 12,
+   "n_900_com_fisico": 11,
+   "min_rastreados": 25428,
+   "n_fisico_total": 28,
+   "pct": 91.7,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  },
+  "2026|Vila Nova": {
+   "n_900": 13,
+   "n_900_gk": 1,
+   "n_900_rastreado": 13,
+   "n_900_com_fisico": 13,
+   "min_rastreados": 24451,
+   "n_fisico_total": 25,
+   "pct": 100.0,
+   "pct_rastreado": 100.0,
+   "cobertura_baixa": 0
+  }
+ },
+ "cobertura_regra": {
+  "corte": "cobertura_baixa = 1 quando menos de 80% dos jogadores de 900+ minutos do clube-temporada têm dado físico",
+  "declarado_antes_de_medir": true,
+  "nao_impute": "Nenhum valor físico é preenchido por média, mediana ou vizinho. Quem não tem, não tem, e a linha fica com tem_fisico = 0.",
+  "goleiro": "O SkillCorner não rastreia goleiro. Goleiro não é cobertura baixa: é ausência declarada, e o setor Goleiro não produz teste em J04."
+ },
+ "titulares": {
+  "regra": "A MESMA de J03, para as duas partes serem comparáveis: por clube-temporada e por SETOR, os jogadores de mais minutos — 1 no gol, 2 na zaga, 2 no lateral, 2 no volante, 2 na meia, 2 no extremo e 2 no ataque. Mínimo de 900 minutos no Wyscout, que é o corte que o CLAUDE.md exige para entrar em percentil.",
+  "conferencia_contra_j03": {
+   "como": "A regra foi re-rodada aqui sobre as mesmas linhas do Wyscout. O total e a contagem por setor e faixa têm de bater com J03_resumo.json, senão as duas partes não estão falando dos mesmos titulares.",
+   "total_2022_2025": 907,
+   "j03_resumo_diz": 907,
+   "bate": true,
+   "por_setor_sobe_meio": {
+    "Goleiro": {
+     "sobe": 16,
+     "meio": 48
+    },
+    "Zaga": {
+     "sobe": 32,
+     "meio": 96
+    },
+    "Lateral": {
+     "sobe": 32,
+     "meio": 96
+    },
+    "Volante": {
+     "sobe": 22,
+     "meio": 59
+    },
+    "Meia": {
+     "sobe": 31,
+     "meio": 95
+    },
+    "Extremo": {
+     "sobe": 19,
+     "meio": 61
+    },
+    "Atacante": {
+     "sobe": 27,
+     "meio": 89
+    }
+   }
+  },
+  "total_no_recorte_2022_2025": 907,
+  "com_fisico": 697,
+  "sem_fisico": 210,
+  "por_setor_e_faixa": {
+   "Goleiro|Sobe": {
+    "titulares": 16,
+    "com_fisico": 0,
+    "elegivel_para_o_teste": 0
+   },
+   "Goleiro|Meio": {
+    "titulares": 48,
+    "com_fisico": 0,
+    "elegivel_para_o_teste": 0
+   },
+   "Goleiro|Cai": {
+    "titulares": 16,
+    "com_fisico": 0,
+    "elegivel_para_o_teste": 0
+   },
+   "Zaga|Sobe": {
+    "titulares": 32,
+    "com_fisico": 25,
+    "elegivel_para_o_teste": 25
+   },
+   "Zaga|Meio": {
+    "titulares": 96,
+    "com_fisico": 81,
+    "elegivel_para_o_teste": 81
+   },
+   "Zaga|Cai": {
+    "titulares": 32,
+    "com_fisico": 28,
+    "elegivel_para_o_teste": 28
+   },
+   "Lateral|Sobe": {
+    "titulares": 32,
+    "com_fisico": 27,
+    "elegivel_para_o_teste": 27
+   },
+   "Lateral|Meio": {
+    "titulares": 96,
+    "com_fisico": 79,
+    "elegivel_para_o_teste": 79
+   },
+   "Lateral|Cai": {
+    "titulares": 32,
+    "com_fisico": 27,
+    "elegivel_para_o_teste": 27
+   },
+   "Volante|Sobe": {
+    "titulares": 22,
+    "com_fisico": 21,
+    "elegivel_para_o_teste": 21
+   },
+   "Volante|Meio": {
+    "titulares": 59,
+    "com_fisico": 50,
+    "elegivel_para_o_teste": 50
+   },
+   "Volante|Cai": {
+    "titulares": 22,
+    "com_fisico": 18,
+    "elegivel_para_o_teste": 18
+   },
+   "Meia|Sobe": {
+    "titulares": 31,
+    "com_fisico": 28,
+    "elegivel_para_o_teste": 28
+   },
+   "Meia|Meio": {
+    "titulares": 95,
+    "com_fisico": 75,
+    "elegivel_para_o_teste": 75
+   },
+   "Meia|Cai": {
+    "titulares": 32,
+    "com_fisico": 27,
+    "elegivel_para_o_teste": 27
+   },
+   "Extremo|Sobe": {
+    "titulares": 19,
+    "com_fisico": 17,
+    "elegivel_para_o_teste": 17
+   },
+   "Extremo|Meio": {
+    "titulares": 61,
+    "com_fisico": 53,
+    "elegivel_para_o_teste": 53
+   },
+   "Extremo|Cai": {
+    "titulares": 22,
+    "com_fisico": 18,
+    "elegivel_para_o_teste": 18
+   },
+   "Atacante|Sobe": {
+    "titulares": 27,
+    "com_fisico": 23,
+    "elegivel_para_o_teste": 23
+   },
+   "Atacante|Meio": {
+    "titulares": 89,
+    "com_fisico": 76,
+    "elegivel_para_o_teste": 76
+   },
+   "Atacante|Cai": {
+    "titulares": 28,
+    "com_fisico": 24,
+    "elegivel_para_o_teste": 24
+   }
+  },
+  "trave_por_setor": {
+   "Goleiro": {
+    "titulares": 16,
+    "elegivel_para_o_teste": 0
+   },
+   "Zaga": {
+    "titulares": 32,
+    "elegivel_para_o_teste": 29
+   },
+   "Lateral": {
+    "titulares": 32,
+    "elegivel_para_o_teste": 27
+   },
+   "Volante": {
+    "titulares": 16,
+    "elegivel_para_o_teste": 14
+   },
+   "Meia": {
+    "titulares": 32,
+    "elegivel_para_o_teste": 21
+   },
+   "Extremo": {
+    "titulares": 29,
+    "elegivel_para_o_teste": 26
+   },
+   "Atacante": {
+    "titulares": 29,
+    "elegivel_para_o_teste": 26
+   }
+  },
+  "sem_fronteira_por_setor_e_faixa": {
+   "Goleiro|Sobe": 0,
+   "Goleiro|Meio": 0,
+   "Goleiro|Cai": 0,
+   "Zaga|Sobe": 13,
+   "Zaga|Meio": 54,
+   "Zaga|Cai": 21,
+   "Lateral|Sobe": 14,
+   "Lateral|Meio": 53,
+   "Lateral|Cai": 21,
+   "Volante|Sobe": 12,
+   "Volante|Meio": 40,
+   "Volante|Cai": 13,
+   "Meia|Sobe": 15,
+   "Meia|Meio": 48,
+   "Meia|Cai": 20,
+   "Extremo|Sobe": 8,
+   "Extremo|Meio": 32,
+   "Extremo|Cai": 15,
+   "Atacante|Sobe": 12,
+   "Atacante|Meio": 54,
+   "Atacante|Cai": 18
+  }
+ },
+ "base": {
+  "arquivo": "J04_base.csv",
+  "linhas": 3370,
+  "com_fisico": 2982,
+  "sem_fisico_900min": 388,
+  "elegiveis_para_percentil": 1322,
+  "elegiveis_no_recorte_2022_2025": 1119,
+  "indicadores": [
+   "distance_p90",
+   "running_distance_p90",
+   "m_per_min",
+   "m_per_min_tip",
+   "m_per_min_otip",
+   "hi_distance_p90",
+   "hi_count_p90",
+   "hsr_distance_p90",
+   "high_accel_p90",
+   "hi_distance_p30tip",
+   "hi_distance_p30otip",
+   "sprint_distance_p90",
+   "sprint_count_p90",
+   "sprint_count_p30tip",
+   "sprint_count_p30otip",
+   "psv99",
+   "psv99_top5"
+  ],
+  "colunas_m60": [
+   "distance_p90_m60",
+   "running_distance_p90_m60",
+   "m_per_min_m60",
+   "hi_distance_p90_m60",
+   "hi_count_p90_m60",
+   "hsr_distance_p90_m60",
+   "high_accel_p90_m60",
+   "sprint_distance_p90_m60",
+   "sprint_count_p90_m60",
+   "psv99_m60"
+  ]
+ }
+}

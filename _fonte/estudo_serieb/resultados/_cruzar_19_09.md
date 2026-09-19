@@ -1,0 +1,289 @@
+# As 3 lentes transversais restantes (19/09/2026)
+
+> Etapa 0 do `PLANO.md`, fechada. Run `wf_f1f816f5-ac8`, 4 agentes.
+> A lente da **cascata** está à parte, em `_cascata_19_09.md`. Cru: `_cruzar_19_09.json`.
+> A **porta temporal** rodou junto e tem arquivos próprios: `_porta_temporal.*`.
+
+## Lente: espelhos  (10 achados)
+
+### 1. O T03 aparece na tela como pergunta respondida e nao mostra conclusao nenhuma
+
+**Gravidade:** conclusao · **Conclusões:** T03, T03-1, T03-2
+
+As duas conclusoes do T03 sao negativas, e o cartao da parte filtra as negativas para manda-las a secao "Parece, mas nao e". Resultado: debaixo de "Que treinador buscar" o T03 aparece com a pergunta, o selo rascunho e o "Em aberto" — e zero conclusao. E a unica parte respondida em que sobra nada. Quem abrir a aba para saber se o perfil de jogo e traco do treinador ve uma pergunta marcada como respondida e uma caixa vazia; a resposta inteira esta noutra secao, que nao diz de onde veio.
+
+**Evidência.** _fonte/estudo_serieb/resultados/T03.json: so duas conclusoes, T03-1 e T03-2, ambas com "negativa": true. static/estudo_serieb.js:75: p.conclusoes.filter(c => !c.negativa).map(...) — sobram zero. Confirmado no gerado: static/estudo_serieb_dados.js traz a parte T03 com as duas conclusoes marcadas "negativa": true.
+
+**O que fazer.** Uma linha no parteHtml: quando o filtro esvaziar a parte, escrever "a resposta desta parte esta toda em Parece, mas nao e" com o link. Ou deixar as negativas no cartao com a tarja, como ja aparecem na outra secao.
+
+### 2. O registro promoveu a ressalva do A06-2 a afirmacao
+
+**Gravidade:** conclusao · **Conclusões:** A06-2
+
+Ja se sabe que o registro da A06-2 como provavel quando o JSON diz indicio. O que nao estava dito e que ele tambem reescreveu a manchete e apagou a ressalva. No JSON a frase e hesitante e diz de que depende; no registro virou afirmacao seca, sem condicao. Quem ler so o registro — que e o que a secao 10 do contexto manda ler primeiro — leva a versao forte de uma conclusao que e indicio, com a confianca errada e a ressalva sumida ao mesmo tempo.
+
+**Evidência.** _fonte/estudo_serieb/resultados/A06.json, A06-2, campo manchete: "Contra a trave, o duelo defensivo e a unica pista — mas depende do corte". _fonte/estudo_serieb/resultados/_registro.md:43: "| A06-2 | O duelo defensivo e a unica coisa que separa quem sobe de quem ficou na trave | provavel | 8 x 7 | duelos_def_pct (d 2,23) |".
+
+**O que fazer.** Ao sincronizar as tabelas, copiar a manchete do JSON inteira, ressalva incluida, em vez de resumir. As outras manchetes encurtadas (A02-3, T02-3, A03-1, A04-2) nao mudam o sentido; esta muda.
+
+### 3. Doze das 19 partes nao tem o .md que tres espelhos juram que existe
+
+**Gravidade:** conclusao · **Conclusões:** A05, A07, A11, A12, A13, A14, J01, J02, J03, J07, T03, T04, A05-1, A07-1
+
+So sete partes tem <ID>.md: A01, A02, A03, A04, A06, T01 e T02. As outras doze nao tem nenhum. Mesmo assim o contexto manda o leitor para "<ID>.md de cada parte", o registro manda "ver A05.md", "ver A07.md", "ver A11.md", "ver A12.md", "ver A13.md" e "ver A14.md" em 16 das suas 37 linhas de conclusao, e duas conclusoes citam como prova um arquivo que nao existe. A auditoria de 18/09 pegou o caso do A07-1 sozinho; o que so aparece olhando o conjunto e que a terceira camada de leitura — a de quem quer conferir — nao existe em 12 das 19 partes, e que os tres espelhos afirmam o contrario.
+
+**Evidência.** ls _fonte/estudo_serieb/resultados/*.md devolve so A01.md A02.md A03.md A04.md A06.md T01.md T02.md (mais _auditoria_18_09.md, _cascata_19_09.md, _metodo_fronteira.md, _registro.md). _fonte/CONTEXTO_sessao_17_09.md:4: "O detalhe de cada parte esta em _fonte/estudo_serieb/resultados/<ID>.md". _fonte/CONTEXTO_sessao_17_09.md secao 2: "resultados/ 85 arquivos — <ID>.md e <ID>.json de cada parte". _registro.md linhas 20 a 35: 16 linhas com "ver A05.md / A07.md / A11.md / A12.md / A13.md / A14.md". A05.json, A05-1, prova="A05_testes.csv; A05.md"; A07.json, A07-1, prova="A07_testes.csv; A07.md".
+
+**O que fazer.** Escolher um dos dois: gerar os 12 .md que faltam, ou tirar as 16 referencias do registro, a frase da linha 4 do contexto e os dois "prova" dos JSON. Enquanto ficar como esta, nenhuma das 12 partes tem por onde ser conferida — e sao elas que vao a validacao.
+
+### 4. A tabela "Como sabemos" mostra uma prova por parte, e em seis partes mostra a da conclusao que ela esconde
+
+**Gravidade:** conclusao · **Conclusões:** A03, A04, A05, A07, J03, T03, A13, A12, A14
+
+A coluna Prova pega a prova da PRIMEIRA conclusao da parte e mais nada. Dezessete das 19 partes tem mais de uma prova distinta, entao a tabela que a aba oferece como "onde conferir" nomeia um dos dois ou tres arquivos. Pior: em seis partes a conclusao numero 1 e negativa, ou seja, a prova exibida e a de uma conclusao que o cartao daquela parte nem chega a mostrar.
+
+**Evidência.** static/estudo_serieb.js:125: '<td>' + esc((p.conclusoes[0] || {}).prova || '—') + '</td>'. Exemplo A13: a tabela mostra "A13_turnos.csv; A13_resumo.json" (prova do A13-1) e nunca "A13_resumo.json, previsibilidade_por_rodada" (A13-2) nem "...previsores_do_1o_turno" (A13-3). Partes cuja conclusao numero 1 e negativa e por isso nao aparece no cartao: A03 (A03-1), A04 (A04-1), A05 (A05-1), A07 (A07-1), J03 (J03-1), T03 (T03-1).
+
+**O que fazer.** Uma linha por conclusao na tabela de provas, ou juntar numa celula so as provas distintas da parte. Hoje a tabela da a impressao de que a parte inteira sai de um arquivo.
+
+### 5. Cento e sete numeros chegam a tela com ponto ingles, e o conserto e no gerador, nao nos textos
+
+**Gravidade:** texto · **Conclusões:** A02, A03, A04, A06, A07, A11, J02, T02
+
+A auditoria de 18/09 pegou isso como defeito de texto de A02-1, A07-1 e A07-2. Olhando o conjunto e um defeito unico do gerador: a funcao trocar() so formata em virgula o que e float ou int de verdade; o que esta gravado como string em `numeros` passa por str(v) intacto. Sao 107 valores em 8 partes. E o ramo de int usa ponto como separador de milhar, entao na mesma tela "9.464" e um PPDA de nove e pouco e "3.580" e tres mil e quinhentos. Consertar os textos um a um seria trabalho errado: sao 107 numeros e uma linha de codigo.
+
+**Evidência.** gerar_estudo_serieb_js.py:100-104 (float -> virgula; int -> f"{v:,}".replace(",", "."); resto -> str(v)). Strings decimais usadas em texto, por parte: A02 19, A03 18, A04 12, A06 20, A07 20, A11 10, J02 6, T02 2 = 107. Na aba, static/estudo_serieb_dados.js, A06-1: "PPDA 9.464 contra 10.256 do meio (d 0.59, q 0.16647)" e "61.672% contra 59.885%, d 1.593"; A07-1: "percorre 9631.175 m por 90 min contra 9597.146". Ao lado, no mesmo arquivo, A13-3: "rho 0,82 ... cai para 0,48" — ali o valor e float no JSON e sai certo.
+
+**O que fazer.** No trocar(), tentar float(v) antes de cair no str(v), e trocar o ramo de int por separador de milhar de verdade (ou nenhum ate 9999). Confere rodando o gerador num diretorio temporario e comparando com o que esta no ar.
+
+### 6. O gerador so olha para um lado, entao nunca vai pegar o numero digitado a mao
+
+**Gravidade:** texto · **Conclusões:** A05-2, A12-3, J01-3, T01-3, A13-2
+
+A regra da casa esta escrita no cabecalho do proprio gerador: numero de conclusao nao se digita a mao, e marcador sem valor PARA o gerador. Rodei: passa limpo nos 19 JSON, zero marcador sem valor. Mas a checagem inversa nao existe — chave medida em `numeros` que nenhum texto usa. Sao 91 chaves em 17 das 19 partes, e sobraram 226 numeros digitados a mao nos textos. A garantia em que o registro e o contexto se apoiam ("rode o gerador toda vez, ele para com erro se um marcador nao tiver valor") nao cobre o erro que ela diz cobrir, e nunca vai cobrir do jeito que esta.
+
+**Evidência.** gerar_estudo_serieb_js.py:97 so acusa marcador sem valor; nao ha checagem de chave sem marcador. A12: chaves medidas e nao usadas "taxa_env" 27.3, "taxa_liga" 20.0, "cabem" 22, "subiram" 6, enquanto A12-3 traz "52,0153%", "14,0858%", "PPDA 10,02-13,17" digitados no texto. A05: "terco_sobe_min" 46.579 e "terco_sobe_max" 72.184 nao usados, e A05-2 traz "percentil 79", "95", "11", "16", "89", "84" a mao. T01: "passagens_brutas" 1160 e "com_10_rodadas" 273 nao usados. J01-3 e J02-3 citam "25,5 atletas contra 22,0" a mao — o valor existe, mas em A07.json (at_c "25.5", at_m "22.0"), e `numeros` e por parte, entao toda citacao entre partes e digitada.
+
+**O que fazer.** Cinco linhas no gerador: depois de montar o conjunto de marcadores usados, acusar toda chave de `numeros` que ninguem usou. Ele vai apontar as 91 e, com elas, os textos com numero a mao. E, para os numeros que uma parte pega de outra, ou o marcador passa a aceitar {A07.at_c}, ou a regra tem de dizer que citacao entre partes e excecao.
+
+### 7. O registro nao parou so na tabela de conclusoes: parou nas mesmas sete partes em mais duas secoes
+
+**Gravidade:** texto · **Conclusões:** A05, A07, A11, A12, A13, A14, J01, J02, J03, J07, T03, T04
+
+Ja se sabe que a tabela de conclusoes tem 36 das 53. As outras duas secoes de conteudo do registro pararam no mesmo lugar, e num lugar mais estreito ainda: "O que ficou em aberto" lista sete partes quando as 19 <ID>.json tem o campo em_aberto preenchido; "Bases geradas por este estudo" lista as mesmas sete. Sao exatamente as sete que tem .md. Doze partes nao aparecem em nenhuma das duas — e e nessas doze que estao J01 a J07 e T03/T04, o bloco que a cascata mandou reabrir.
+
+**Evidência.** _registro.md:109, secao "O que ficou em aberto": sete itens, A01, A04, A03, A06, A02, T02, T01. Secao "Bases geradas por este estudo": as celulas de parte trazem so A01, A02, A03, A04, A06, T01, T02 (mais uma linha "metodo"). Nos JSON, todas as 19 partes tem em_aberto nao vazio (conferido uma a uma). Fora da tabela de bases ficam, entre outros, A05_testes.csv (60 linhas), A07_testes.csv (78), J02_testes.csv (42), J03_testes.csv (84), A12_reguas.csv, A13_turnos.csv, A14_resumo.json, T03_antes_depois.csv, T04_resumo.json.
+
+**O que fazer.** Quando for sincronizar, sincronizar as quatro secoes e nao so a tabela de conclusoes. As 12 partes que faltam sao as mesmas nas tres, entao da para fazer de uma vez.
+
+### 8. O registro dobra o tamanho do A02_testes.csv
+
+**Gravidade:** texto · **Conclusões:** A02
+
+A tabela de bases diz que o A02_testes.csv tem 104 linhas. Tem 52: 13 indicadores x 2 cortes de fronteira x 2 comparacoes. Quem for conferir o poder ou o BH por familia pelo tamanho anunciado conta o dobro de testes que existem. E o unico numero errado que achei nessa tabela — os outros 13 que dava para contar batem.
+
+**Evidência.** _registro.md:167: "| `A02_testes.csv` | A02 | Welch no posto, d de Cohen, IC por bootstrap de clube, BH por familia | 104 |". Contagem: 52 linhas de dado em _fonte/estudo_serieb/resultados/A02_testes.csv (13 indicadores x fronteira com/sem x comparacao SM/ST). Conferem: A04_testes 78, A03_testes 72, A06_testes 32, T02_passagem 276, T02_treinador 69, T01_rodada_treinador 6546, classificacao_rodada 3580, A01_clube_temporada 100, A01_regua 5, base_passagens 1160, base_passagens_temporada 506, T01_ponte_clubes 51, A04_ponte_clubes 42.
+
+**O que fazer.** Trocar 104 por 52.
+
+### 9. A aba tem 27 perguntas, e tres lugares dizem 29
+
+**Gravidade:** texto · **Conclusões:** E00, R01
+
+O roteiro do gerador tem 29 linhas, mas duas sao tarefa de tela (E00 e R01), nao pergunta. A propria barra do topo da aba soma 27, porque a contagem exclui o bloco E. Mesmo assim o cabecalho do arquivo gerado, o comentario da aba e o registro falam em 29 perguntas; so o contexto fala em 27. O cabecalho errado e gerado, entao volta toda vez que alguem rodar o gerador.
+
+**Evidência.** static/estudo_serieb_dados.js:3 "o roteiro das 29 perguntas"; static/estudo_serieb.js:4 "das 29 perguntas"; _registro.md:130 "No ar no Flask local, com as 29 perguntas". Contra: _fonte/CONTEXTO_sessao_17_09.md:36 "com as 27 perguntas" e a contagem do proprio gerado, "contagem": {"total": 27, "pendente": 8, "rascunho": 19, "validada": 0}.
+
+**O que fazer.** No CABECALHO do gerador, usar a contagem de perguntas (bloco != "E") em vez de len(ROTEIRO), e corrigir as duas frases escritas a mao.
+
+### 10. Sobrou no registro um "as tres nascem como rascunho" debaixo de uma tabela de 37 linhas
+
+**Gravidade:** texto · **Conclusões:** 
+
+Logo abaixo da tabela de conclusoes, uma frase de quando o estudo tinha tres conclusoes. Hoje a tabela tem 37 linhas e o estudo, 53 conclusoes. E pequeno, mas e a frase que explica a regra do rascunho — a mais importante do arquivo para quem vai validar — e ela conta errado quantas coisas a regra alcanca.
+
+**Evidência.** _fonte/estudo_serieb/resultados/_registro.md:55: "As tres nascem como **rascunho** e so sobem para \"O que decidimos\" depois de validadas pelo dono." A tabela acima dela tem 37 linhas de conclusao; os JSON tem 53, todas com "status": "rascunho".
+
+**O que fazer.** "Todas nascem como rascunho" — e entra junto na mesma sincronizacao das quatro secoes.
+
+**Nota do agente.** Rodei o gerar_estudo_serieb_js.py num diretorio temporario sobre os 19 JSON de hoje: o static/estudo_serieb_dados.js que esta no ar bate byte a byte, so muda "gerado_em" (2026-09-17 contra hoje) — a aba NAO esta desatualizada, e nao ha um unico {marcador} sem valor, nem nos campos que o gerador nem substitui (titulo, em_aberto, premissa, prova).
+A aba mostra as 53 conclusoes: 39 nos cartoes das partes e 14 na secao "Parece, mas nao e". Os totais dos dois cabecalhos (33 firmes, 13 provaveis, 7 indicios, 14 negativas, nenhuma validada, 19 de 27 partes) batem com os JSON, e 13 dos 14 tamanhos de base do registro que dava para contar tambem batem.
+Conferi ainda manchete, confianca e n das 37 linhas da tabela de conclusoes contra os JSON: fora o que ja se sabia e o A06-2 abaixo, as diferencas restantes sao so encurtamento de frase (A02-3, T02-3, A03-1, A04-2) e "n" escrito em notacao curta (8 x 32 em vez de "8 promovidos contra 32 do meio").
+
+## Lente: completude  (10 achados)
+
+### 1. O nome do treinador estava dentro de dados/ desde 14/09 — e com ele a conferência que o T01 diz que não fez
+
+**Gravidade:** conclusao · **Conclusões:** T01-1, T01-3, T02-2, T04-1
+
+O CLAUDE.md, em 'O que a base não tem', afirma: 'T01 a T04. Nenhuma base tem nome de treinador'. E o em_aberto do T01 diz que 'a conferência contra fonte independente não foi feita: a cobertura é prova interna (Transfermarkt contra Wyscout)'. As duas coisas são falsas: dados/bola_parada.json — arquivo que o próprio CLAUDE.md manda ler ANTES de calcular — traz 280 passagens de Série B com treinador, clube, número de jogos e datas de início e fim, de 2022 a 2026, vindas do Sofascore, que é fonte independente das duas. Pior: ele foi gerado em 14/09, três dias antes de o T01 rodar a coleta. E a conferência, quando se faz, PASSA: das 157 passagens de 10 jogos ou mais, 143 batem com o T01 no mesmo clube e ano. As 14 restantes não são divergência — são grafia de clube (CRB) e nome curto do Transfermarkt, e as duas maiores batem rodada a rodada: 'Marcinho' no T01 é 'Marcio Freitas' no Sofascore (30 rodadas dos dois lados, Ituano 2023) e 'Alex' é 'Alexsandro de Souza' (26, Operário-PR 2025).
+
+**Evidência.** dados/bola_parada.json: campo 'fonte' = 'Sofascore', 'gerado_em' = '2026-09-14'; lista 'trabalhos' tem 528 itens, 280 com comp começando em 'Série B' (279 com nome, 135 treinadores distintos, comps Série B 2022 a 2026). Exemplo de item: {'tec': 'Adilson Batista', 'time': 'Londrina', 'comp': 'Série B 2022', 'jogos': 36, 'primeiro': '2022-04-10', 'ultimo': '2022-10-22'}. Contra: _fonte/estudo_serieb/CLAUDE.md, seção 'O que a base não tem' ('Nenhuma base tem nome de treinador'), e T01.json campo em_aberto. Cruzamento com resultados/base_passagens_temporada.csv (colunas treinador, clube_wyscout, temporada, rodadas): 143 de 157 confirmadas. Ituano 2023 em base_passagens_temporada.csv: 'Marcinho', 30 rodadas — Sofascore: 'Marcio Freitas', 30 jogos. Operário-PR 2025: 'Alex', 26 rodadas — Sofascore: 'Alexsandro de Souza', 26 jogos. grep bola_parada em _fonte/estudo_serieb/ não devolve nenhum script do bloco T.
+
+**O que fazer.** Tirar a frase 'nenhuma base tem nome de treinador' do CLAUDE.md e fechar o em_aberto do T01: a conferência independente é uma tarde de trabalho e já tem ponte de clube pronta (T01_ponte_clubes.json). Registrar que ela passa em 143 de 157 e que as duas 'divergências' de nome são a mesma pessoa — isso sozinho resolve a ambiguidade de nome curto que o T01 carrega. E o Sofascore dá jogos por passagem, que serve de terceira prova para as rodadas do T02.
+
+### 2. A12 mediu o Cai contra o meio nas nove réguas, não publicou uma linha disso, e ainda põe na lista das que 'não separam' uma que separa firme nos dois cortes
+
+**Gravidade:** conclusao · **Conclusões:** A12-1, A07-1, A07-2, A14-1
+
+A A12 rodou as nove réguas em três comparações e dois cortes — 54 testes. Publicou conclusão só de Sobe × Meio. Em Cai × Meio, CINCO réguas são firmes nos DOIS cortes de fronteira (D_explosao, E_qualidade_chance, F_solidez, H_dinheiro e I_estabilidade_11) e nenhuma virou conclusão nenhuma; o em_aberto do A12 também não menciona a comparação. E há um erro direto de texto: o marcador 'nao_separam' do A12 lista D_explosao entre as cinco que não separam, quando a explosão é a ÚNICA régua física que separa alguma coisa firme nos dois cortes em todo o estudo. Varrendo régua por régua e comparação por comparação, só duas das nove nunca passam em lugar nenhum: C_volume_fisico e G_bola_aerea_parada.
+
+**Evidência.** A12_reguas.csv, comparacao=CM. D_explosao: fronteira=com n 16x48, percentil 36,842 (cai) contra 51,974 (meio), d −0,682, q 0,02637, selo 'firme'; fronteira=sem n 12x32, 36,842 contra 53,289, d −0,836, q 0,02875, selo 'firme'. Também firmes nos dois cortes em CM: E_qualidade_chance (q 0,01274 / 0,02875), F_solidez (0,00479 / 0,02875, poder True no corte cheio), H_dinheiro (0,01274 / 0,02875) e I_estabilidade_11 (0,00479 / 0,00117, poder True nos dois). A12.json, numeros.nao_separam = 'A_posse_construcao, B_pressao_ritmo, C_volume_fisico, D_explosao, G_bola_aerea_parada'. A12.json tem três conclusões e nenhuma cita Cai × Meio.
+
+**O que fazer.** Tirar D_explosao (e B_pressao_ritmo, que é firme no corte cheio em CM) da lista do que 'não separa' — a frase correta é 'não separam quem SOBE'. E escrever a conclusão de Cai × Meio que os números já sustentam: quem cai fica no percentil 37 de explosão contra 52 do meio, firme nos dois cortes. Isso é o apoio agregado que falta ao A07-2, que hoje é só 'provável'.
+
+### 3. O J02 pergunta se quem sobe concentra os minutos em menos jogadores, a base responde que sim com folga, e nenhuma das três conclusões diz isso
+
+**Gravidade:** conclusao · **Conclusões:** J02-1, J02-2, J02-3
+
+A pergunta do J02 no CLAUDE.md tem duas metades: 'quem sobe concentra os minutos em menos jogadores E mantém mais a base da temporada anterior?'. A segunda metade virou o J02-2 (mantém menos). A primeira passou no critério com o melhor resultado da parte — share_11 e conc_hhi são firmes nos DOIS cortes de fronteira e são os únicos dois indicadores do J02 com poder suficiente no corte cheio — e não virou conclusão nenhuma. As três conclusões falam de contratados, de continuidade e de quem cai. A própria lista pré-declarada previa isso: ela diz que esses indicadores 'entram aqui como DESCRIÇÃO — respondem quem sobe concentra mais?, que é a pergunta do J02'. Foram descritos no CSV e não foram ditos.
+
+**Evidência.** J02_testes.csv, comparacao=SM. share_11: fronteira=com n 15x48, 68,136% contra 63,127%, d 0,975, IC [0,47, 1,59], q 0,0028, selo 'firme', poder_suficiente True, d_minimo_80 0,84; fronteira=sem n 7x32, 68,84 contra 62,542, d 1,116, q 0,01745, 'firme'. conc_hhi: com n 15x48, 51,072 contra 46,256, d 0,861, q 0,00479, 'firme', poder True; sem d 1,051, q 0,01745, 'firme'. J02_indicadores.json, ressalvas_declaradas[0]. J02.json: manchetes de J02-1, J02-2 e J02-3 — nenhuma diz que quem sobe concentra mais.
+
+**O que fazer.** Escrever a conclusão que falta, em unidade de jogo: os onze mais usados de quem sobe ficam com 68% dos minutos contra 63% do meio — cinco pontos, firme nos dois cortes. Com o selo que o CLAUDE.md manda para consequência do resultado: descreve, não explica (time que ganha repete o XI). Sem ela o J02 entrega meia resposta e a régua I do A12 fica sem a leitura em minutos que a sustenta.
+
+### 4. O A04 diz 'nem no jogo aéreo' e no corte cheio contra a Trave o jogo aéreo aparece duas vezes
+
+**Gravidade:** conclusao · **Conclusões:** A04-1, A06-2
+
+A manchete do A04-1 é 'Bola parada não separa quem sobe — nem no gol, nem no processo, nem no jogo aéreo', com o marcador st_firmes_dois = 0. Mas na base inteira (16 contra 16), na comparação Sobe × Trave, a família régua_G tem dois firmes: o duelo aéreo ganho, com poder suficiente, e a altura do elenco. Os dois morrem no corte reduzido de 8 contra 7, onde o mínimo detectável sobe para 1,57 e nada passa. É o mesmo mecanismo do bp_saldo_90 que a cascata achou, mas na outra perna: lá era Sobe × Meio, aqui é Sobe × Trave, e a cascata registrou que o refutador do A04-1 só olhou a perna da Trave — mas olhou a que morre, não a que passa.
+
+**Evidência.** A04_testes.csv, comparacao=ST, familia=regua_G. duelos_aereos_pct fronteira=com: n 16x16, 45,540% (sobe) contra 47,597% (trave), d −1,048, IC [−1,95, −0,35], q 0,01861, selo 'firme', poder_suficiente True, d_minimo_80 1,02; fronteira=sem: n 8x7, d −0,738, q 0,25133, 'sem diferença clara'. tm_altura fronteira=com: 1,814 m contra 1,806 m, d 0,896, q 0,02537, 'firme'; fronteira=sem: q 0,16081. A04.json, numeros.st_firmes_dois = 0.
+
+**O que fazer.** Tirar o 'nem no jogo aéreo' da manchete ou qualificá-lo: contra a Trave, na base inteira, quem sobe é oito milímetros mais alto e ganha DOIS pontos percentuais A MENOS de duelo aéreo (45,5% contra 47,6%). O sinal é contra o senso comum e vale como indício — não como ausência.
+
+### 5. O A06 deixou de fora o contra-ataque sofrido dizendo que a base não tem, e a base tem: é a linha do adversário no mesmo jogo
+
+**Gravidade:** conclusao · **Conclusões:** A06-1, A06-3
+
+O em_aberto do A06 declara: 'Duas métricas que a pergunta pedia não existem na base: recuperação por altura do campo e contra-ataque sofrido (só o próprio)'. A primeira é verdade. A segunda não. O serieb_jogos.csv tem UMA LINHA POR TIME POR JOGO — os 1.518 jogos de Série B de 2022 a 2025 têm exatamente duas linhas cada, sem exceção —, então o contra-ataque sofrido é a coluna 'Contra-ataques' da linha do adversário no mesmo jogo. Isso cobre os 80 clube-temporada, sem imputar nada. O CLAUDE.md lista 'contra-ataques sofridos' entre as métricas da pergunta do A06, e a mesma técnica de emparelhamento já é o que sustenta as colunas 'contra' que a parte usa.
+
+**Evidência.** dados/serieb_jogos.csv, filtro Competição == 'Brazil. Serie B' e ano em 2022-2025: 3.036 linhas, 1.518 jogos distintos por (ano, Data, Jogo), distribuição de linhas por jogo = {2: 1518} — nenhum jogo com uma linha só. Coluna 40 = 'Contra-ataques'. Emparelhando e casando com a faixa de dados/serieb_clube_temporada.csv, os 80 clube-temporada ficam cobertos; mediana de contra-ataques sofridos por jogo: sobe 1,053 · meio 1,280 · cai 0,974. Contra: A06.json, campo em_aberto. CLAUDE.md, seção A06, linha de Métricas ('contra-ataques sofridos').
+
+**O que fazer.** Rodar o indicador que falta com o método da casa e os dois cortes, antes de dar a pergunta do A06 por respondida. A direção bruta já é interessante e cabe na manchete do A06-3 se passar: quem sobe cede 1,05 contra-ataque por jogo e o meio cede 1,28. E conferir se a mesma lacuna declarada não fechou a porta de outras partes — o emparelhamento serve para qualquer coluna 'do adversário'.
+
+### 6. A régua curta do xG marca uma coluna só, e o resto do estudo defensivo corre em cima dela sem aviso
+
+**Gravidade:** confianca · **Conclusões:** A02-2, A03-2, A03-3, A06-3, A13-3, A14-1, A14-2
+
+A especificação tem regra dura: indicador com confiabilidade abaixo de 0,40 sai hachurado, 'o efeito nunca pode ser maior que a régua'. O xG está medido em 0,30. No arquivo de teste do A02 a marca existe — mas só na coluna crua 'xg'. As cinco colunas construídas em cima do MESMO xG (xg_contra, xg_por_remate, xg_por_remate_contra, finalizacao e defesa_vs_xg) saem com o campo vazio. E os outros oito arquivos de teste não têm a coluna. Resultado: a única conclusão do estudo que carrega a ressalva é a A02-2 — justo a que diz que o xG criado 'não passa no critério' —, enquanto as que se apoiam em xG e PASSAM (A03-2, A03-3, A06-3, A13-3) saem limpas. E dois dos oito componentes do índice do A14 são feitos de xG: xg_por_remate_contra e xgc_casa.
+
+**Evidência.** _fonte/prototipo/ESPECIFICACAO.md, linha 80: 'Contra-ataques 0,36 · xG 0,30. Regra visual dura: indicador com teto < 0,40 sai da tela hachurado'. A02_testes.csv, coluna regua_curta: preenchida com 0.3 só nas linhas de indicador='xg'; vazia em gols_pro_90, remates, xg_por_remate, dist_remate, toques_area, entradas_area, gols_contra_90, xg_contra, remates_contra, xg_por_remate_contra, finalizacao e defesa_vs_xg. Os cabeçalhos de A03_testes.csv, A04_testes.csv, A05_testes.csv, A06_testes.csv, A07_testes.csv, J02_testes.csv, J03_testes.csv e A12_reguas.csv não têm a coluna regua_curta. A02.json, numeros.conf_xg = 0.3. A14_resumo.json, campo 'indice': inclui xg_por_remate_contra e xgc_casa.
+
+**O que fazer.** Propagar a marca para tudo que nasce do xG e repetir a frase em cada conclusão que se apoia nele — é ressalva obrigatória, não decoração do A02. Em particular, o A06-3 ('cede chutes piores') e o componente xg_por_remate_contra do índice do A14 medem qualidade de chance com uma régua que só reproduz 30% de si mesma entre rodadas pares e ímpares.
+
+### 7. O A05 declarou que todos os seus indicadores passam do piso de 0,40 listando cinco dos dez — e um dos que ficaram de fora está medido em 0,36
+
+**Gravidade:** confianca · **Conclusões:** A05-1, A05-2
+
+A ressalva pré-declarada do A05 enumera a confiabilidade de cinco indicadores (Passes 0,78, Passes certos 0,78, Passes frente 0,73, Passes longos 0,70, Posse 0,69) e conclui: 'Todos acima do corte de 0,40, então nenhum entra hachurado'. Mas a lista pré-declarada do A05 tem DEZ indicadores, e um dos cinco não enumerados é contra-ataques, cuja confiabilidade a especificação mede em 0,36 — abaixo do piso. Os outros quatro que ficaram de fora (comprimento do passe, passes progressivos, passes no terço final, ataques posicionais) não têm confiabilidade medida em lugar nenhum, então a frase 'todos acima do corte' não se sustenta para metade da lista. E o A05-2 usa contra-ataques como prova, sem hachura: 'a Chapecoense, no percentil 16 de posse, 89 de passe longo e 84 de contra-ataques'.
+
+**Evidência.** A05_indicadores.json, ressalvas_declaradas[1]. A05_indicadores.json, familias: construcao = posse, passes, passes_pct, passe_longo_pct, compr_passe; progressao = passes_frente_pct, passes_progressivos, passes_terco_final, atq_posicional, contra_ataques — dez no total, e A05.json numeros.n_ind = 10. _fonte/prototipo/ESPECIFICACAO.md, linha 80: 'Contra-ataques 0,36'. A05.json, A05-2, o_que_vimos: '84 de contra-ataques'.
+
+**O que fazer.** Corrigir a ressalva para dizer o que de fato se sabe: cinco indicadores têm confiabilidade medida e passam, um (contra-ataques, 0,36) reprova e quatro não foram medidos. O A05-1 é um achado de ausência, então o piso não o derruba — mas o A05-2, que usa contra-ataques como evidência de um caso concreto, precisa da hachura.
+
+### 8. A cobertura física declarada não bate com a base, e por causa disso a rodada 'com e sem' que a casa exige nunca aconteceu
+
+**Gravidade:** confianca · **Conclusões:** A07-1, A07-2, A11-1, A11-2, A11-3, A12-1
+
+O CLAUDE.md manda: informar a cobertura física por temporada E por time, e 'time-temporada com cobertura baixa é sinalizado e rodado com e sem'. O A07 declarou cobertura completa com base em duas afirmações que a base não sustenta — o teto dos minutos rastreados e o piso relativo — e concluiu que 'nenhum clube-temporada tem cobertura baixa de verdade', então nunca rodou com e sem. Em números absolutos os minutos rastreados vão de 62,0% a 96,9% do possível, e o PIOR dos 80 é o Grêmio de 2022, que é um dos dezesseis promovidos em que todo o estudo se apoia. Some-se o que a própria fonte do dado diz e que nenhuma conclusão de A07, A11 ou A12 repete: o SkillCorner é uma AMOSTRA de jogos (cerca de 15 por atleta, não 38) e só entram atletas com 300+ minutos rastreados.
+
+**Evidência.** A07_indicadores.json, cobertura.medida_em_17_09: 'Os minutos rastreados por clube-temporada vão de 23.307 a 31.593, todos acima de 78% da mediana do próprio ano'. Na base (dados/serieb_clube_temporada.csv, coluna fis_minutos, 2022-2025) o mínimo bate (23.306,54 — Grêmio 2022) mas o máximo é 36.438,16 (Ceará 2024), não 31.593; e o Grêmio 2022 está em 77,7% da mediana de 2022 (29.976), não acima de 78%. Cobertura absoluta = fis_minutos / (J × 11 × 90): mínimo 0,620 (Grêmio 2022, promovido), p10 0,716, mediana 0,803, máximo 0,969 (Ceará 2024); 20 dos 80 abaixo de 0,75. Entre os 16 promovidos a faixa vai de 0,620 a 0,969. Origem da coluna: analisar_serieb.py, função de agregação física — 'fis_minutos': float(d.min_tot.sum()) — com docstring: 'O SkillCorner nao cobre todos os jogos. A media e de ~15 partidas rastreadas por atleta por temporada, nao 38' e 'Entram so atletas com 300+ minutos rastreados'.
+
+**O que fazer.** Refazer a declaração de cobertura em minutos absolutos, não em percentual da mediana do ano — é a conta que esconde o buraco. Marcar os 20 clube-temporada abaixo de 0,75 e rodar A07 e A11 com e sem eles, como o CLAUDE.md manda; se o A07-2 (quem cai sprinta menos) sobreviver, ele fica mais forte, e se não sobreviver o estudo precisa saber. E toda conclusão física tem de dizer que o número é média de uma amostra de jogos.
+
+### 9. Cinco conclusões que são puro resultado negativo ficaram fora de 'Parece, mas não é' — e duas delas na mesma parte em que a irmã entrou
+
+**Gravidade:** texto · **Conclusões:** A12-2, A12-3, A14-2, T02-1, J03-2
+
+A regra da casa diz que resultado negativo também é conclusão e vai para 'Parece, mas não é'. Na aba publicada essa seção tem 14 conclusões, e cinco que são negativo puro ficaram de fora. A mais gritante é a A12-2, cuja manchete é literalmente 'O Cenário Barato PARECE funcionar, mas a conta é circular — e 2026 não confirma'. Que é descuido e não política, prova-se dentro da própria parte: no T02 a T02-3 ('histórico de G4 não se transfere') está marcada e a T02-1 ('no G4 quem manda é o tamanho do elenco, não o nome do treinador') não está; no J03 a J03-1 está e a J03-2 ('o duelo defensivo separa o time, mas não o jogador') não. Como o gerador exclui a negativa de 'O que decidimos', o efeito não é só de vitrine: hoje a A14-2 ('o índice só se sustenta em metade das temporadas') está elegível para subir ao topo como se fosse resultado positivo.
+
+**Evidência.** static/estudo_serieb_dados.js, chave 'negativas': 14 itens — A02-3, A03-1, A04-1, A05-1, A07-1, A11-3, A13-3, T02-3, T03-1, T03-2, T04-2, J01-2, J02-2, J03-1. Sem o campo negativa=true nos JSON: A12-2, A12-3, A14-2, T02-1 e J03-2. gerar_estudo_serieb_js.py, linhas 139-146: item['negativa'] = bool(c.get('negativa')); if item['negativa']: negativas.append(item); elif item['status'] == 'validada': validadas.append(item) — ou seja, quem não é marcada disputa 'O que decidimos'. CLAUDE.md, seção Didática: 'Resultado negativo também é conclusão'.
+
+**O que fazer.** Marcar negativa = true nas cinco. Em particular a A12-2 e a A14-2, que são as duas frases mais honestas do estudo e hoje estão guardadas no lugar errado — a seção 'Parece, mas não é' existe justamente para elas.
+
+### 10. Doze das dezenove partes nunca entregaram o .md — e duas conclusões apontam a prova para um arquivo que não existe
+
+**Gravidade:** texto · **Conclusões:** A05-1, A07-1, A11-1, A12-1, A13-1, A14-1, J01-1, J02-1, J03-1, J07-1, T03-1, T04-1
+
+A entrega de cada parte, no CLAUDE.md, são dois arquivos: o <ID>.md — com as conclusões e, separada, a prova (arquivos, colunas, n, lacunas, tabela e testes) e o que ficou em aberto — e o <ID>.json para a tela. Só sete partes têm o .md: A01, A02, A03, A04, A06, T01 e T02. As outras doze entregaram só o JSON, ou seja, a camada de prova em texto nunca foi escrita para dois terços do estudo — e é justamente onde mora o 'que ficou em aberto' em duas linhas que esta varredura deveria ler. Pior: o A05-1 e o A07-1 citam como prova exatamente os .md que não existem.
+
+**Evidência.** ls de _fonte/estudo_serieb/resultados/: existem A01.md, A02.md, A03.md, A04.md, A06.md, T01.md e T02.md. Não existem A05.md, A07.md, A11.md, A12.md, A13.md, A14.md, J01.md, J02.md, J03.md, J07.md, T03.md nem T04.md. A05.json, conclusão A05-1, campo prova = 'A05_testes.csv; A05.md'. A07.json, conclusão A07-1, campo prova = 'A07_testes.csv; A07.md'. CLAUDE.md, seção 'Entrega de cada parte', item 1.
+
+**O que fazer.** Ou escrever os doze .md que faltam, ou decidir de uma vez que a prova mora no JSON e no _resumo.json e corrigir o CLAUDE.md e as duas provas quebradas. O que não pode ficar é uma conclusão publicada apontando para um arquivo inexistente como sua prova.
+
+**Nota do agente.** Conferi e NÃO são achados: a regra do público 2020-2021 (A03_indicadores.json.publico — o recorte é 2022-2025, todo com público, e nenhuma parte lê casa/fora em 2018-2021); o xG de bola parada só existir em 2025-2026 (bola_parada.json.competicoes: xg_n = 0 em Série B 2022, 2023 e 2024 — a lacuna do A04 é verdadeira); recuperação por altura do campo (serieb_jogos.csv só quebra por comprimento de passe: curto/médio/longo); peak_velocity (zero colunas com "peak" em serieb_clube_temporada.csv). A05 e A07 não têm script próprio mas rodam por scripts/_rodar.py — são reproduzíveis, não é lacuna.
+
+## Lente: contradicao  (7 achados)
+
+### 1. O T03 diz que o jeito de jogar é do clube, e o próprio dado do T03 mostra que não é de ninguém
+
+**Gravidade:** conclusao · **Conclusões:** T03-1, T03-2, J02-1
+
+T03-1 conclui que o perfil de jogo não é traço do treinador (rho médio dele entre clubes fica no nível do acaso) e, na saída para o registro, propõe a premissa nova: 'na Série B, o perfil de jogo é do clube, não do treinador'. A segunda metade da frase nunca foi testada. Rodando o MESMO teste do T03 (os mesmos 7 traços, o mesmo Spearman) sobre pares do mesmo CLUBE com treinadores diferentes, o clube repete a rho 0,063 — três a quatro vezes MENOS que o treinador entre clubes (0,265 a 0,291). O perfil não é do clube nem do treinador: ele não é de nada. A premissa proposta está de cabeça para baixo, e o J02-1 já a repete como coisa sabida ('explica por que o perfil de jogo do clube não segue o treinador'), o que a espalha para uma segunda parte.
+
+**Evidência.** resultados/T03.json, conclusão T03-1, campo premissa_motivo: 'Sugere uma premissa nova: na Série B, o perfil de jogo é do clube, não do treinador'. resultados/T03_resumo.json, repete[]: Claudinei Oliveira rho_medio_entre_clubes 0,291 (5 passagens/5 clubes), Mozart 0,27 (7/6), Eduardo Baptista 0,265 (4/2); nulo_dois_quaisquer rho_medio -0,014, p90 0,609. scripts/T03.py linhas 150-179: o nulo é 'dois clube-temporadas quaisquer' — não existe no script nenhum agrupamento por clube, nenhuma linha mede se o clube repete. Recálculo sobre resultados/T03_passagens.csv (7 traços, spearmanr, script só de leitura no scratchpad): 267 pares mesmo clube/treinador diferente → rho médio 0,063; 228 pares mesmo clube/temporadas diferentes → 0,076; 33 clubes com 2+ treinadores → média das médias 0,004, mediana 0,035. Meu nulo reproduzido dá -0,021 e p90 0,606, contra os -0,014 e 0,609 publicados — é o mesmo cálculo.
+
+**O que fazer.** Tirar a premissa 'o perfil de jogo é do clube' do T03-1 e da frase do J02-1. O que a base sustenta é mais duro e mais útil: em Série B o jeito de jogar não persiste em ninguém — nem no treinador entre clubes, nem no clube entre treinadores, nem no clube entre anos. Se o dono quiser a frase publicada, o teste do clube custa dez linhas e já tem o arquivo pronto (T03_passagens.csv tem clube e temporada).
+
+### 2. O A13 registra que o rebaixamento se decide no 1º turno e, duas conclusões abaixo, conta 6 rebaixados que não estavam no Z4 na metade
+
+**Gravidade:** conclusao · **Conclusões:** A13-1, A13-2, A13-3
+
+A13-1 é 'firme' e propõe a premissa nova 'na Série B o rebaixamento se define no 1º turno', com o uso prático de decidir tudo antes da rodada 19. A13-2, também 'firme', no mesmo arquivo, conta que 6 dos 16 rebaixados caíram vindo de FORA do Z4 na rodada 19 — 37% das quedas se decidiram depois. E A13-3, também firme, mede que o 1º turno prevê o 2º a rho 0,484 ('metade do 2º turno é campanha nova'). As três não podem ser as três verdadeiras do jeito que estão escritas, e nenhuma cita a outra. Junto vem um erro de aritmética visível na tela: A13-1 diz 'É a ÚNICA faixa que piora no returno' e, na frase seguinte, nomeia uma segunda — a trave — com os números '29,5 para 30,5, -0,5', que é uma SUBIDA de um ponto apresentada como queda. O -0,5 é a mediana das diferenças individuais; as duas medianas mostradas ao lado sobem. Na trave, 8 times melhoram e 8 pioram: não há queda nenhuma a contar.
+
+**Evidência.** resultados/A13.json: A13-1 manchete 'Quem cai não despenca: já estava mal na metade e afundou depois', premissa_motivo 'Sugere uma premissa nova: na Série B o rebaixamento se define no 1º turno', confianca 'firme'; numeros.trave_1t 29.5, trave_2t 30.5, trave_dif -0.5, cai_1t 19.5, cai_2t 17.0, cai_dif -1.5. resultados/A13_resumo.json, quadro_por_turno.Trave: pts_1t 29.5, pts_2t 30.5, dif -0.5. Recontagem de A13_turnos.csv: Trave 8 times com dif>0, 8 com dif<0, 0 empates; Cai mediana(2t)-mediana(1t) = -2.5 contra dif publicada -1.5. A13.json numeros.n_cairam_de_fora = 6 e A13_resumo.json cai_ja_no_z4_na_19 = 10 de cai_total 16. A13.json numeros.rho_1t_2t = 0.484.
+
+**O que fazer.** A premissa do A13-1 não pode entrar no registro como está — a versão que a base sustenta é '10 dos 16 rebaixados já estavam no Z4 na metade, 6 não'. E a frase da trave sai: ou se mostram as duas medianas (que sobem) ou se mostra a mediana das diferenças (que é -0,5 num 8 a 8), nunca as duas na mesma linha com a palavra 'cai'.
+
+### 3. Um teste só virou três conclusões: o A06 diz que 'confirma o A02 com o ajuste que faltava' e os números são idênticos, dígito por dígito
+
+**Gravidade:** conclusao · **Conclusões:** A06-3, A02-1, A02-2, A04-1
+
+Varrendo os nove arquivos de teste, dois indicadores foram rodados duas vezes, em partes diferentes, e as linhas saem bit a bit iguais — mesmo n, mesmo valor cru dos dois grupos, mesmo d, mesmo p. Só o q muda, porque cada parte o corrigiu dentro de uma família de BH diferente. O caso grave é o xG por finalização sofrida: ele é a prova central do A02-2 ('o lado que mais separa é o defensivo'), aparece de novo no A02-1, e o A06-3 o apresenta como conclusão própria dizendo 'Confirma o A02 com o ajuste que faltava'. Não houve ajuste nenhum: o A06 arquivou o indicador na família 'cede_ajustado', mas o número é o mesmo do A02. Quem lê a síntese conta duas evidências defensivas independentes e tem uma. O mesmo acontece com o duelo aéreo, rodado em A04 (família regua_G) e A06 (família duelo). Efeito colateral: correr o mesmo teste em duas famílias dá dois q válidos para a mesma coisa — 0,0043 e 0,00967 no corte sem, 0,01861 e 0,01241 no Sobe × Trave.
+
+**Evidência.** A02_testes.csv linha 'sem,cede,SM,xg_por_remate_contra': 8,32, cru 0.086 x 0.100, d 1.303, p 0.00322, q 0.0043. A06_testes.csv linha 'sem,cede_ajustado,SM,xg_por_remate_contra': 8,32, cru 0.086 x 0.100, d 1.303, p 0.00322, q 0.00967. Idem no corte com: d 0.805, p 0.01038 nos dois, q 0.02076 (A02) contra 0.03113 (A06). duelos_aereos_pct em A04_testes.csv (regua_G) e A06_testes.csv (duelo): com/SM 45.54 x 46.147, d -0.051 nos dois; com/ST 45.54 x 47.597, d -1.048, p 0.0062 nos dois, q 0.01861 (A04) contra 0.01241 (A06). A06.json, A06-3, para_o_santa_cruz: 'Confirma o A02 com o ajuste que faltava'. Varredura das 8 chaves duplicadas: script de leitura no scratchpad, sobre os 8 *_testes.csv + A12_reguas.csv.
+
+**O que fazer.** Tirar 'Confirma o A02' do A06-3 e dizer o que é: é o mesmo teste, o ajuste pela posse mudou o volume de finalizações sofridas (esse sim mudou) e não tocou no xG por finalização. E declarar um dono por indicador: quem roda o xG por finalização sofrida é o A02 ou o A06, não os dois, porque hoje o mesmo indicador tem dois q publicados e dá para escolher o melhor.
+
+### 4. O A04 manda tirar duelo aéreo do critério de contratação e o J03 manda pagar por duelo aéreo no gol — mesma métrica, nenhum cita o outro
+
+**Gravidade:** conclusao · **Conclusões:** A04-1, J03-3, A06-3
+
+A04-1 é firme, tem na manchete 'nem no jogo aéreo' e fecha com a instrução: 'Na contratação, altura e duelo aéreo não entram como requisito de acesso'. J03-3 é firme e diz o contrário na mesma decisão (quem sobe contra o meio): 'Se há uma posição em que vale pagar por qualidade individual, é o gol — e a métrica é a bola aérea disputada'. É literalmente a mesma coluna do Wyscout, 'Duelos aéreos ganhos, %', nas duas partes. Nenhuma das duas cita a outra: a prova do A04-1 é A04_testes.csv e a do J03-3 é J03_testes.csv. Pior para o A04: no único corte em que o duelo aéreo do time é firme e com poder — Sobe × Trave, base inteira, 16 contra 16 — o sinal é INVERSO ao do goleiro: quem sobe ganha MENOS duelo aéreo que a trave (45,5% contra 47,6%, d -1,048). O estudo tem o mesmo indicador com sinal positivo no jogador e negativo no time, e publica uma instrução de contratação contra a outra.
+
+**Evidência.** A04.json, A04-1, para_o_santa_cruz: 'Na contratação, altura e duelo aéreo não entram como requisito de acesso'; confianca 'firme'. J03.json, J03-3, manchete 'O goleiro é a única posição em que o titular de quem sobe se destaca', para_o_santa_cruz: 'vale pagar por qualidade individual, é o gol — e a métrica é a bola aérea disputada'; confianca 'firme'. J03_testes.csv, linha 'Goleiro,defensivo,"Duelos aéreos ganhos, %",16,48,71.4,34.7,97.915,87.87,d 1.062,q 0.00121,firme'. A04_testes.csv, linha 'com,regua_G,ST,duelos_aereos_pct,16,16,45.54,47.597,-1.048,q 0.01861,firme,poder_suficiente True'. A06_testes.csv, 'sem,duelo,SM,duelos_aereos_pct,8,32,46.571,46.485,d 0.189,sem diferença clara'.
+
+**O que fazer.** As duas frases têm de conversar numa só: o duelo aéreo de linha não é requisito de acesso (e no corte cheio contra a trave aponta para baixo), o duelo aéreo DO GOLEIRO é o maior efeito individual do estudo. Sem essa costura, J05/J06 recebem duas ordens opostas sobre a mesma coluna do Wyscout. O J03-3 também precisa dizer que o A04 mediu o mesmo indicador no time e não achou nada.
+
+### 5. Cinco conclusões publicam um n que não é o n dos números que mostram — e uma delas junta os dois cortes na mesma frase
+
+**Gravidade:** confianca · **Conclusões:** A02-1, A02-2, A04-3, A07-2, J02-3
+
+O n é a única coisa que o leitor tem para pesar a conclusão, e em cinco delas ele não bate com a linha de onde saíram os números. A02-1 e A02-2 exibem números do corte sem fronteira (8 contra 32) e declaram 'n: 8 promovidos contra 48 do meio' — um corte de 8 contra 48 não existe em lugar nenhum do A02_testes.csv; o A02 simplesmente não tem marcador para o 32, então o texto pegou o 48 do corte cheio. A04-3, A07-2 e J02-3 declaram, à mão, '16 rebaixados contra 48 do meio' e todos os números que mostram vêm do corte de 12 contra 32 — um terço a mais de n do que o que foi medido. O J02-3 é o pior caso: ele mistura os dois cortes numa linha só, mostrando o valor cru do corte de 16x48 ('47 atletas contra 38') junto do tamanho de efeito do corte de 12x32 (d -1,105, q 0,00312). Esse par não existe em nenhuma linha do arquivo.
+
+**Evidência.** A02.json, campo n de A02-1: '{n_sobe_sf} promovidos contra {n_meio} do meio, sem a fronteira'; numeros tem n_sobe_sf 8 e n_meio 48 e NÃO tem n_meio_sf. Os valores de A02-1 (13.026, 19.669, 15.671, 23.618/21.487, 1.002/1.189, d 1.459) são todos linhas 'sem,...,SM' de A02_testes.csv, n_sobe 8 / n_alvo 32. A04.json, n de A04-3: '16 rebaixados contra 48 do meio'; numeros c_pro 0.276/c_pro_m 0.316/d -0.776, c_sof 0.461/0.368/-0.83, c_sal -0.184, c_aer 43.517/46.485/-1.156/q 0.00121 = linhas 'sem,...,CM' de A04_testes.csv, 12 contra 32 (as linhas 'com' dão 0.276/0.342, 0.447/0.355, -0.132, 44.343/46.147). A07.json, n de A07-2: '16 rebaixados contra 48'; sp_c 154.423/170.039/-1.004, otip 91.111/100.854/-0.886, at_c 25.5/22.0/1.152 = linhas 'sem,CM' de A07_testes.csv, 12 contra 32 (as 'com' dão 156.21/168.146, 91.111/99.955, 25.5/21.0). J02.json, n de J02-3: '16 rebaixados contra 48'; at_c 47.0 e at_m 38.0 = linha 'com,concentracao,CM,atletas_usados,16,48' mas at_cd -1.105 e at_cq 0.00312 = linha 'sem,...,12,32' (a 'com' dá d -1.108, q 0.00268); fic_c 24.089/fic_m 32.335 da linha 'com' e fic_cd -0.827/fic_cq 0.04028 da linha 'sem' (a 'com' dá -0.67 e 0.03038).
+
+**O que fazer.** Criar o marcador que falta (n_meio_sf = 32 no A02; n_cai_sf/n_meio_sf no A04, A07 e J02, como o A03 já tem) e proibir n digitado à mão. E fechar a regra de um corte por conclusão: cru, d e q saem sempre da MESMA linha do arquivo de teste. O J02-3 tem de ser recalculado antes de qualquer coisa — hoje ele publica um par que nenhuma linha produz.
+
+### 6. O mesmo PPDA é 'medida real que se repete' num arquivo e 'quase não se repete' no outro — 0,571 contra 0,129
+
+**Gravidade:** confianca · **Conclusões:** A11-3, A06-1, A02-3
+
+O estudo publica duas repetibilidades para os mesmos quatro indicadores, quatro a sete vezes distantes, e lê as duas em direções opostas sem nunca colocá-las lado a lado. Pela porta temporal da casa (1º turno prevendo o 2º, n=80), o A06-1 usa PPDA 0,571, recuperações 0,488 e intensidade 0,560 para argumentar que 'são medidas reais' que apenas não separam quem sobe. Quarenta minutos depois, o A11-3 chumba no código uma tabela de persistência ano a ano da Protótipo e usa PPDA 0,129, xG 0,144 e recuperações 0,067 para sustentar que 'o físico é a coisa MAIS repetível do estudo depois do valor do elenco'. As duas réguas medem horizontes diferentes e nenhuma das duas partes diz isso. E o buraco no argumento do A11-3 é que o físico nunca foi medido na régua da casa: o A07 não roda porta temporal nenhuma, então a comparação que dá a manchete é entre duas réguas diferentes.
+
+**Evidência.** scripts/A11.py linhas 152-156, dicionário 'persistencia_ja_medida_pela_prototipo' chumbado no código: ppda 0.129, xg 0.144, posse 0.272, recuperacoes 0.067, xg_por_remate_contra 0.214, fis_distance_p90 0.722, tm_valor_total 0.724; fonte declarada 'ESPECIFICACAO.md §7.3, 36 pares ano a ano' (confere com a linha 286 da especificação). Contra: A06_resumo.json, porta_temporal — ppda rho 0.571 (n 80), recuperacoes 0.488, intensidade 0.560, posse 0.679; A02_resumo.json, porta_temporal — xg rho 0.470, xg_contra 0.522. A11.json, A11-3, o_que_vimos: 'o físico ser a coisa MAIS repetível do estudo depois do valor do elenco'. A11.json não cita A06 nem A02 em nenhum campo; A11_correlacoes.csv não tem coluna de porta temporal.
+
+**O que fazer.** Escrever nas duas partes de qual régua o número vem, porque hoje a tela pode mostrar PPDA 0,571 numa conclusão e 0,129 em outra. E tirar 'do estudo' do A11-3: a frase correta é 'a Protótipo mediu, ano a ano...'. Se o dono quiser a comparação de verdade, é a porta temporal sobre os indicadores físicos — que o A07 tem os dados para rodar e nunca rodou.
+
+### 7. Três conclusões copiam à mão o número de outra parte, e uma delas foi para a tela com o marcador quebrado e a correção do autor no meio da frase
+
+**Gravidade:** texto · **Conclusões:** J01-3, J02-3, T04-2
+
+O CLAUDE.md manda que todo número dentro do texto venha por marcador, para que nenhum seja digitado à mão. Onde uma parte cita a outra, essa regra caiu: os números atravessam a fronteira da parte digitados, e por isso não se mexem quando a parte de origem for corrigida — exatamente o que a cascata está pedindo para A14, A04-1 e o 1,59. O J01-3 mostra o estrago em público: o texto publicado é 'quem cai rastreia {cai_altos} contra... na verdade 25,5 atletas contra 22,0 do meio', ou seja um marcador que vale 4,1 no lugar onde deveria estar 25,5, mais a correção do autor deixada dentro da frase. Na tela isso renderiza como 'rastreia 4,1 contra... na verdade 25,5 atletas contra 22,0'.
+
+**Evidência.** resultados/J01.json, J01-3, o_que_vimos (texto cru): 'Conversa com o A07, onde quem cai rastreia {cai_altos} contra... na verdade 25,5 atletas contra 22,0 do meio'; J01.json numeros.cai_altos = 4.1 e não existe marcador com 25.5 nem 22.0. resultados/J02.json, J02-3, para_o_santa_cruz: 'Conversa com o A07 (quem cai rastreia 25,5 atletas contra 22,0) e com o J01 (quem cai tem 4,1 jogadores de minutagem alta contra 7,1 de quem sobe)' — os quatro números digitados, nenhum nos numeros do J02. resultados/T04.json, T04-2, o_que_vimos: 'dos 34 multiclube, 9 variam 50 pontos ou mais' — digitados, a origem é T02.json numeros.multi 34 e amp_50mais 9. Origem real dos 25,5/22,0: A07.json numeros.at_c 25.5 e at_m 22.0 (linha 'sem,descritor,CM,fis_atletas,12,32' de A07_testes.csv).
+
+**O que fazer.** Consertar a frase do J01-3 antes de qualquer outra coisa — ela está na tela com um número errado visível. Depois, criar marcadores de importação (ex.: {a07_at_c}) para os números que atravessam partes, ou declarar que citação entre partes vai sem número. Hoje qualquer correção no A07, no J01 ou no T02 deixa três textos desatualizados sem aviso.
+
+**Nota do agente.** Procurei e NÃO achei: dois clube-temporada classificados em faixas diferentes entre partes (as faixas batem em A01/A02/A03/A04/A05/A06/A07/A12/A13); uma terceira duplicação de teste além de xg_por_remate_contra e duelos_aereos_pct (a varredura das 9 tabelas deu só essas 8 chaves); e contradição entre o requisito físico do A11-1 e a ausência do A07-1 — são níveis diferentes (correlação com entradas na área x separação de faixa) e convivem. Anotado sem virar achado: o A05-1 diz '30 testes e nenhum sobrevive' e o A05_testes.csv tem 60 linhas (ele conta indicador x comparação e ignora os dois cortes) — o erro reforça o próprio resultado negativo, não o enfraquece. Também sobraram dois marcadores órfãos no A12 (A_sobe 73.2, A_trave 38.6) que nenhum texto usa: não vão à tela. Trabalho só de leitura; nada foi criado, editado ou apagado no repositório, e os dois scripts que escrevi ficaram no scratchpad da sessão.

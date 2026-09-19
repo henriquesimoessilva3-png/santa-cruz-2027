@@ -1,0 +1,61 @@
+{
+ "parte": "A06",
+ "pergunta": "Quem sobe pressiona mais alto, ou apenas cede menos finalização de qualidade?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada",
+             "n_esperado": {"Sobe": 16, "Meio": 48, "Trave": 16, "total": 80}},
+ "comparacoes": [{"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
+                 {"id": "ST", "nome": "Sobe × Trave", "papel": "secundária"}],
+ "repetir_sem_fronteira": true,
+
+ "familias": [
+  {"id": "pressao", "nome": "Pressiona mais alto?", "indicadores": [
+   {"id": "ppda", "nome": "PPDA (passes do adversário por ação defensiva)", "sinal": -1,
+    "fonte": "serieb_clube_temporada.csv: ppda"},
+   {"id": "recuperacoes", "nome": "Recuperações por jogo", "sinal": 1,
+    "fonte": "serieb_clube_temporada.csv: recuperacoes"},
+   {"id": "intensidade", "nome": "Intensidade de jogo", "sinal": 1,
+    "fonte": "serieb_clube_temporada.csv: intensidade"}
+  ]},
+  {"id": "duelo", "nome": "Ganha a disputa?", "indicadores": [
+   {"id": "duelos_def_pct", "nome": "Duelos defensivos ganhos, %", "sinal": 1,
+    "fonte": "agregado de serieb_jogos.csv: 'Duelos defensivos ganhos, %' (não existe no clube-temporada)"},
+   {"id": "duelos_aereos_pct", "nome": "Duelos aéreos ganhos, %", "sinal": 1,
+    "fonte": "serieb_clube_temporada.csv: duelos_aereos_pct"}
+  ]},
+  {"id": "cede_ajustado", "nome": "O que cede, por posse do adversário", "indicadores": [
+   {"id": "remates_contra_aj", "nome": "Finalizações sofridas por 50% de posse do adversário", "sinal": -1,
+    "fonte": "remates_contra ÷ ((100−posse)/50)"},
+   {"id": "xg_contra_aj", "nome": "xG sofrido por 50% de posse do adversário", "sinal": -1,
+    "fonte": "xg_contra ÷ ((100−posse)/50)"},
+   {"id": "xg_por_remate_contra", "nome": "xG por finalização sofrida", "sinal": -1,
+    "fonte": "serieb_clube_temporada.csv: xg_por_remate_contra (já é taxa, não se ajusta)"}
+  ]}
+ ],
+
+ "o_que_a_base_nao_tem": [
+  "Recuperações POR ALTURA do campo. Existe só o total (recuperacoes) e a quebra por comprimento do passe (curto/médio/longo), que é outra coisa. A pergunta 'pressiona mais alto' fica respondida por PPDA e recuperações totais, não pela altura da recuperação.",
+  "Contra-ataques SOFRIDOS. A coluna contra_ataques é a do próprio time; não existe versão _contra. A métrica sai da lista.",
+  "Duelos defensivos no clube-temporada. Existem por jogo ('Duelos defensivos ganhos, %'), e são agregados aqui pela média dos jogos de Série B da temporada."
+ ],
+
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py",
+  "teste": "t de Welch no posto dentro da temporada; d de Cohen; BH a 5% por família × comparação; IC95 por bootstrap de clube; poder por desenho.",
+  "porta_temporal": "1º turno prevendo o 2º, por clube-temporada, com PPDA, recuperações, duelos defensivos e posse — todos existem jogo a jogo em serieb_jogos.csv."
+ },
+
+ "ja_medido_pela_prototipo_a_conferir": {
+  "ppda_confiabilidade_split_half": 0.591,
+  "ppda_persistencia_ano_a_ano": {"rho": 0.129, "p": 0.4533, "n": 36},
+  "ppda_porta_temporal": {"rho_parcial": -0.116, "p_parcial": 0.3072, "q_parcial": 0.4527, "sorte": "sem_diferenca"},
+  "ppda_x_valor_do_elenco": {"rho": 0.455, "convencao": "elenco caro pressiona alto"},
+  "nota": "Estes números vêm de dados/prototipo.json e são conferidos aqui pelo cálculo próprio, não citados de confiança."
+ },
+
+ "ressalvas_declaradas": [
+  "PPDA e intensidade mudam com o placar (time que ganha recua e deixa o adversário com a bola). A base não permite recorte por estado do jogo — conclusão sai marcada com 'pode ser efeito do placar'.",
+  "PPDA anda com o valor do elenco (rho 0,455 medido pela Protótipo). Desde 15/09 isso não vira desconto: vira a ressalva 'elenco valioso tende a ter isso; o estudo não separa as duas coisas'."
+ ]
+}

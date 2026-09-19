@@ -1,0 +1,1931 @@
+{
+ "parte": "A07",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "Os valores dos {marcadores} do texto proposto para A07-1 e A07-2 em resultados/_proposta_destino.json. Só cálculo: nenhum destino, texto ou nível de confiança foi decidido aqui, e nenhum outro arquivo foi tocado.",
+ "corte_padrao": "Todo número de vitrine sai do corte COM fronteira (A07_testes.csv, fronteira=com), como manda _metodo_fronteira.md. Onde o número do corte SEM difere, está dito no detalhe.",
+ "numeros": {
+  "dist_s": 9644,
+  "dist_m": 9598,
+  "hi_s": 669,
+  "hi_m": 652,
+  "dif_dist": 46,
+  "pos_dist": 1.0,
+  "pos_visivel": 4.7,
+  "n_ind": 12,
+  "n_sobe_sf": 8,
+  "n_meio_sf": 32,
+  "q_rod_min_sm": 0.52,
+  "q_rod_min_st": 0.42,
+  "otip_c": 91.1,
+  "otip_m": 100.0,
+  "tip_c": 89.4,
+  "tip_m": 99.1,
+  "at_c": 25.5,
+  "at_m": 21,
+  "pos_otip": 4.5,
+  "n_cai_sf": 12,
+  "d_rod_otip": -0.761,
+  "q_rod_otip": 0.0095,
+  "d_rod_otip_sf": -0.818,
+  "q_rod_otip_sf": 0.037,
+  "q_rod_sp90": 0.096,
+  "q_rod_spcount": 0.108,
+  "q_rod_psv": 0.238,
+  "rod_sprint": -0.118,
+  "rod_sprint_p": 0.2991,
+  "rod_psv": -0.377,
+  "rod_psv_p": 0.0006,
+  "cob_min": 62,
+  "cob_max": 97,
+  "cob_mediana": 80,
+  "n_cob_baixa": 20,
+  "jogos_por_atleta": 15
+ },
+ "formatado": {
+  "dist_s": "9.644",
+  "dist_m": "9.598",
+  "hi_s": "669",
+  "hi_m": "652",
+  "dif_dist": "46",
+  "pos_dist": "1,0",
+  "pos_visivel": "4,7",
+  "n_ind": "12",
+  "n_sobe_sf": "8",
+  "n_meio_sf": "32",
+  "q_rod_min_sm": "0,52",
+  "q_rod_min_st": "0,42",
+  "otip_c": "91,1",
+  "otip_m": "100,0",
+  "tip_c": "89,4",
+  "tip_m": "99,1",
+  "at_c": "25,5",
+  "at_m": "21",
+  "pos_otip": "4,5",
+  "n_cai_sf": "12",
+  "d_rod_otip": "-0,761",
+  "q_rod_otip": "0,0095",
+  "d_rod_otip_sf": "-0,818",
+  "q_rod_otip_sf": "0,037",
+  "q_rod_sp90": "0,096 (com fronteira) e 0,086 (sem)",
+  "q_rod_spcount": "0,108 (com fronteira) e 0,086 (sem)",
+  "q_rod_psv": "0,238 (com fronteira) e 0,231 (sem)",
+  "rod_sprint": "-0,118",
+  "rod_sprint_p": "0,2991",
+  "rod_psv": "-0,377",
+  "rod_psv_p": "0,0006",
+  "cob_min": "62%",
+  "cob_max": "97%",
+  "cob_mediana": "80%",
+  "n_cob_baixa": "20",
+  "jogos_por_atleta": "15"
+ },
+ "detalhe": {
+  "dist_s": {
+   "conclusao": "A07-1",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, linha fronteira=com, comparacao=SM, indicador=fis_distance_p90, coluna cru_a (mediana de 16 clube-temporada da faixa Sobe; valor cru 9644.311)",
+   "conferido": true,
+   "nota": "CORTE COM FRONTEIRA (o padrão). Hoje A07.json guarda 9631.175, que é o corte SEM."
+  },
+  "dist_m": {
+   "conclusao": "A07-1",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, SM, fis_distance_p90, coluna cru_b (mediana de 48 do Meio; cru 9597.973)",
+   "conferido": true,
+   "nota": "CORTE COM FRONTEIRA. Hoje A07.json guarda 9597.146, do corte SEM."
+  },
+  "hi_s": {
+   "conclusao": "A07-1",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, SM, fis_hi_distance_p90, cru_a (cru 669.117)",
+   "conferido": true,
+   "nota": "CORTE COM FRONTEIRA. Hoje A07.json guarda 665.623, do corte SEM."
+  },
+  "hi_m": {
+   "conclusao": "A07-1",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, SM, fis_hi_distance_p90, cru_b (cru 652.318)",
+   "conferido": true,
+   "nota": "Vale para os dois cortes: a mediana do Meio é 652.318 com e sem fronteira. Só o formato muda."
+  },
+  "dif_dist": {
+   "conclusao": "A07-1",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, SM, fis_distance_p90: cru_a − cru_b = 9644.311 − 9597.973 = 46.338",
+   "conferido": true,
+   "nota": "A diferença que de fato existe, em metros por jogo, para o leitor comparar com o limiar."
+  },
+  "pos_dist": {
+   "conclusao": "A07-1",
+   "de_onde": "média do posto no ano (coluna fis_distance_p90::pct de _metodo.percentil_no_ano) na base de 80 clube-temporada: Sobe 55.26 contra Meio 49.89 = 5.37 pontos de percentil ÷ 5,2632 (100/19, o passo de uma posição numa tabela de 20 times)",
+   "conferido": true,
+   "nota": "2º caminho: posição média direta no ranking de corrida do ano — Sobe 9,50 contra Meio 10,52 = 1,02 posição. Bate."
+  },
+  "pos_visivel": {
+   "conclusao": "A07-1",
+   "de_onde": "poder por desenho: d mínimo detectável a 80% com 16 contra 48 = 0.82 (A07_resumo.json, poder_por_desenho['16x48']; _metodo.d_minimo). Em pontos de percentil: 0.82 × desvio combinado 30.146 = 24.72; ÷ 5,2632 = 4.70 posições",
+   "conferido": true,
+   "nota": "É assim que o poder vira unidade de jogo sem usar d. 4,7 posições ≈ um quarto da tabela."
+  },
+  "n_ind": {
+   "conclusao": "A07-1",
+   "de_onde": "A07_indicadores.json: 3 da família volume + 5 de intensidade + 4 de com_sem_bola (fis_atletas é descritor, fora da conta)",
+   "conferido": true,
+   "nota": "JÁ EXISTE em A07.json e está certo; repetido aqui só para a lista do marcador ficar completa."
+  },
+  "n_sobe_sf": {
+   "conclusao": "A07-1",
+   "de_onde": "A07_resumo.json, n.sobe_sf; confere com A07_testes.csv, linhas fronteira=sem/SM, coluna n_a = 8",
+   "conferido": true
+  },
+  "n_meio_sf": {
+   "conclusao": "A07-1 e A07-2",
+   "de_onde": "A07_resumo.json, n.meio_sf; confere com A07_testes.csv, linhas fronteira=sem/SM e sem/CM, coluna n_b = 32",
+   "conferido": true
+  },
+  "q_rod_min_sm": {
+   "conclusao": "A07-1",
+   "de_onde": "menor q com desconto do rodízio entre TODAS as linhas Sobe × Meio, nos dois cortes (com 0.53067, sem 0.52121) — ver tabela_d_rod_q_rod",
+   "conferido": true,
+   "nota": "Marcador novo: a proposta pediu 'q com o desconto do rodízio nas linhas SM e ST' sem batizar o marcador."
+  },
+  "q_rod_min_st": {
+   "conclusao": "A07-1",
+   "de_onde": "menor q com desconto do rodízio entre TODAS as linhas Sobe × Trave, nos dois cortes (com 0.68692, sem 0.41638) — ver tabela_d_rod_q_rod",
+   "conferido": true,
+   "nota": "Marcador novo, mesmo motivo. Com desconto ou sem, nenhuma linha de SM ou ST chega perto de 0,05."
+  },
+  "otip_c": {
+   "conclusao": "A07-2",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, CM, fis_sprint_distance_p30otip, cru_a (mediana de 16 rebaixados; cru 91.110516)",
+   "conferido": true,
+   "nota": "A mediana de Cai é 91.111 nos dois cortes; o que muda é só o formato (hoje string '91.111', que a tela lê como milhar)."
+  },
+  "otip_m": {
+   "conclusao": "A07-2",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, CM, fis_sprint_distance_p30otip, cru_b (cru 99.954714)",
+   "conferido": true,
+   "nota": "CORTE COM FRONTEIRA. Hoje A07.json guarda 100.854, do corte SEM. 99,954714 arredonda para 100,0 (meio para cima)."
+  },
+  "tip_c": {
+   "conclusao": "A07-2",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, CM, fis_sprint_distance_p30tip, cru_a (cru 89.421355)",
+   "conferido": true,
+   "nota": "Marcador novo: o com-bola só aparecia no texto antigo em d e q, palavras proibidas fora da prova."
+  },
+  "tip_m": {
+   "conclusao": "A07-2",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, CM, fis_sprint_distance_p30tip, cru_b (cru 99.057109)",
+   "conferido": true
+  },
+  "at_c": {
+   "conclusao": "A07-2",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, CM, fis_atletas, cru_a",
+   "conferido": true,
+   "nota": "25,5 nos dois cortes."
+  },
+  "at_m": {
+   "conclusao": "A07-2",
+   "de_onde": "_fonte/estudo_serieb/resultados/A07_testes.csv, fronteira=com, CM, fis_atletas, cru_b",
+   "conferido": true,
+   "nota": "CORTE COM FRONTEIRA. Hoje A07.json guarda 22.0, do corte SEM — e J01-3 e J02-3 copiam esse 22,0 à mão."
+  },
+  "pos_otip": {
+   "conclusao": "A07-2",
+   "de_onde": "média do posto no ano de fis_sprint_distance_p30otip nas 80 linhas: Meio 53.84 contra Cai 29.93 = 23.90 pontos de percentil ÷ 5,2632",
+   "conferido": true,
+   "nota": "2º caminho: posição média no ranking do ano — Cai 14,31 contra Meio 9,77 = 4,54 posições. Bate."
+  },
+  "n_cai_sf": {
+   "conclusao": "A07-2",
+   "de_onde": "A07_resumo.json, n.cai_sf; confere com A07_testes.csv, linhas fronteira=sem/CM, coluna n_a = 12",
+   "conferido": true
+  },
+  "d_rod_otip": {
+   "conclusao": "A07-2",
+   "de_onde": "desconto do rodízio: resíduo de mínimos quadrados do posto no ano de fis_sprint_distance_p30otip sobre o posto no ano de fis_atletas, ajustado UMA vez nas 80 clube-temporada (mecânica de residualiza() em gerar_prototipo.py:267, usada em etapa_2:1906); depois t de Welch e BH a 5% dentro da família com_sem_bola × comparação CM × corte fronteira=com",
+   "conferido": true,
+   "nota": "Coluna que A07_testes.csv não tem; a tabela inteira está em tabela_d_rod_q_rod deste arquivo."
+  },
+  "q_rod_otip": {
+   "conclusao": "A07-2",
+   "de_onde": "desconto do rodízio: resíduo de mínimos quadrados do posto no ano de fis_sprint_distance_p30otip sobre o posto no ano de fis_atletas, ajustado UMA vez nas 80 clube-temporada (mecânica de residualiza() em gerar_prototipo.py:267, usada em etapa_2:1906); depois t de Welch e BH a 5% dentro da família com_sem_bola × comparação CM × corte fronteira=com",
+   "conferido": true,
+   "nota": "Coluna que A07_testes.csv não tem; a tabela inteira está em tabela_d_rod_q_rod deste arquivo."
+  },
+  "d_rod_otip_sf": {
+   "conclusao": "A07-2",
+   "de_onde": "desconto do rodízio: resíduo de mínimos quadrados do posto no ano de fis_sprint_distance_p30otip sobre o posto no ano de fis_atletas, ajustado UMA vez nas 80 clube-temporada (mecânica de residualiza() em gerar_prototipo.py:267, usada em etapa_2:1906); depois t de Welch e BH a 5% dentro da família com_sem_bola × comparação CM × corte fronteira=sem",
+   "conferido": true,
+   "nota": "Coluna que A07_testes.csv não tem; a tabela inteira está em tabela_d_rod_q_rod deste arquivo."
+  },
+  "q_rod_otip_sf": {
+   "conclusao": "A07-2",
+   "de_onde": "desconto do rodízio: resíduo de mínimos quadrados do posto no ano de fis_sprint_distance_p30otip sobre o posto no ano de fis_atletas, ajustado UMA vez nas 80 clube-temporada (mecânica de residualiza() em gerar_prototipo.py:267, usada em etapa_2:1906); depois t de Welch e BH a 5% dentro da família com_sem_bola × comparação CM × corte fronteira=sem",
+   "conferido": true,
+   "nota": "Coluna que A07_testes.csv não tem; a tabela inteira está em tabela_d_rod_q_rod deste arquivo."
+  },
+  "q_rod_sp90": {
+   "conclusao": "A07-2",
+   "de_onde": "mesmo desconto do rodízio, linha CM/fis_sprint_distance_p90, família intensidade; q_rod com fronteira 0.09567, sem 0.08603",
+   "conferido": true,
+   "nota": "Bruto era firme nos dois cortes; com o desconto deixa de passar em BH a 5% — é por isso que sobra só o sprint sem a bola."
+  },
+  "q_rod_spcount": {
+   "conclusao": "A07-2",
+   "de_onde": "mesmo desconto do rodízio, linha CM/fis_sprint_count_p90, família intensidade; q_rod com fronteira 0.10788, sem 0.08603",
+   "conferido": true,
+   "nota": "Bruto era firme nos dois cortes; com o desconto deixa de passar em BH a 5% — é por isso que sobra só o sprint sem a bola."
+  },
+  "q_rod_psv": {
+   "conclusao": "A07-2",
+   "de_onde": "mesmo desconto do rodízio, linha CM/fis_psv99_top5, família intensidade; q_rod com fronteira 0.23846, sem 0.23089",
+   "conferido": true,
+   "nota": "Bruto era firme nos dois cortes; com o desconto deixa de passar em BH a 5% — é por isso que sobra só o sprint sem a bola."
+  },
+  "rod_sprint": {
+   "conclusao": "A07-2",
+   "de_onde": "ρ de Spearman entre fis_atletas e fis_sprint_distance_p90 nas 80 clube-temporada de dados/serieb_clube_temporada.csv (2022–2025, valores brutos)",
+   "conferido": true,
+   "nota": "JÁ EXISTE em A07.json e confere; aqui ganha origem reproduzível — hoje o número não está em arquivo nenhum da base."
+  },
+  "rod_sprint_p": {
+   "conclusao": "A07-2",
+   "de_onde": "p bilateral do mesmo ρ de Spearman (fis_atletas × fis_sprint_distance_p90, n = 80)",
+   "conferido": true
+  },
+  "rod_psv": {
+   "conclusao": "A07-2",
+   "de_onde": "ρ de Spearman entre fis_atletas e fis_psv99_top5 nas 80 clube-temporada de dados/serieb_clube_temporada.csv (2022–2025, valores brutos)",
+   "conferido": true,
+   "nota": "JÁ EXISTE em A07.json e confere; aqui ganha origem reproduzível — hoje o número não está em arquivo nenhum da base."
+  },
+  "rod_psv_p": {
+   "conclusao": "A07-2",
+   "de_onde": "p bilateral do mesmo ρ de Spearman (fis_atletas × fis_psv99_top5, n = 80)",
+   "conferido": true
+  },
+  "cob_min": {
+   "conclusao": "A07-2",
+   "de_onde": "cobertura absoluta = fis_minutos ÷ (J × 11 × 90) por clube-temporada, em dados/serieb_clube_temporada.csv; pior caso: Grêmio 2022, 0.620",
+   "conferido": true,
+   "nota": "O pior é um dos 16 promovidos em que o estudo se apoia."
+  },
+  "cob_max": {
+   "conclusao": "A07-2",
+   "de_onde": "mesma conta; melhor caso: Ceará 2024, 0.969",
+   "conferido": true
+  },
+  "cob_mediana": {
+   "conclusao": "A07-2",
+   "de_onde": "mediana das 80 linhas: 0.803 (por temporada: 2022 0,797 · 2023 0,804 · 2024 0,805 · 2025 0,825)",
+   "conferido": true
+  },
+  "n_cob_baixa": {
+   "conclusao": "A07-2",
+   "de_onde": "clube-temporada com cobertura absoluta abaixo de 0,75 na mesma conta",
+   "conferido": true,
+   "nota": "É a lista que o CLAUDE.md manda rodar com e sem; a rodada está em rodada_sem_cobertura_baixa deste arquivo."
+  },
+  "jogos_por_atleta": {
+   "conclusao": "A07-2",
+   "de_onde": "fis_minutos ÷ fis_atletas ÷ 90, mediana das 80 linhas (15.2; vai de 9,9 a 21,9)",
+   "conferido": true,
+   "nota": "Confere o 'cerca de 15 por atleta, não de 38' que a proposta escreveu à mão no texto novo."
+  }
+ },
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "dist_s",
+   "esta": "\"9631.175\"",
+   "deveria": "9644 (9.644)",
+   "evidencia": "A07_testes.csv: fronteira=com/SM/fis_distance_p90 cru_a = 9644.311; o 9631.175 é a linha fronteira=sem. O corte padrão de vitrine é COM fronteira (_metodo_fronteira.md)."
+  },
+  {
+   "marcador": "dist_m",
+   "esta": "\"9597.146\"",
+   "deveria": "9598 (9.598)",
+   "evidencia": "A07_testes.csv: fronteira=com/SM/fis_distance_p90 cru_b = 9597.973; 9597.146 é do corte sem."
+  },
+  {
+   "marcador": "hi_s",
+   "esta": "\"665.623\"",
+   "deveria": "669",
+   "evidencia": "A07_testes.csv: fronteira=com/SM/fis_hi_distance_p90 cru_a = 669.117; 665.623 é do corte sem."
+  },
+  {
+   "marcador": "otip_m",
+   "esta": "\"100.854\"",
+   "deveria": "100,0",
+   "evidencia": "A07_testes.csv: fronteira=com/CM/fis_sprint_distance_p30otip cru_b = 99.955; 100.854 é do corte sem."
+  },
+  {
+   "marcador": "at_m",
+   "esta": "\"22.0\"",
+   "deveria": "21",
+   "evidencia": "A07_testes.csv: fronteira=com/CM/fis_atletas cru_b = 21.0; 22.0 é do corte sem. J01-3 e J02-3 copiam o 22,0 à mão."
+  },
+  {
+   "marcador": "hi_m, otip_c, at_c, n_c, psv_c (formato, não valor)",
+   "esta": "string com ponto inglês, ex. \"652.318\" e \"91.111\"",
+   "deveria": "número, com a versão pt-BR ao lado (\"652\", \"91,1\")",
+   "evidencia": "A07.json, campo numeros: os valores batem com a base, mas vão para a tela como string com ponto — '91.111' vira noventa e um mil. É o defeito dos 107 números com ponto inglês.",
+   "nota": "Valor certo, formato errado: não é correção de número, é de tipo."
+  },
+  {
+   "marcador": "psv_m",
+   "esta": "\"30.806\"",
+   "deveria": "30,803 se o texto for para o corte com fronteira",
+   "evidencia": "A07_testes.csv: fronteira=com/CM/fis_psv99_top5 cru_b = 30.803; 30.806 é do corte sem. O PSV-99 sai do texto novo, então o marcador pode morrer — fica registrado por não ser do corte padrão."
+  }
+ ],
+ "bloqueados": [
+  {
+   "marcador": "porta_temporal_fisico (a proposta não batizou marcador; o número não existe)",
+   "conclusao": "A07-1 e A07-2",
+   "por_que": "A porta temporal da §6.4 precisa do 1º turno prevendo o 2º, e isso exige físico POR JOGO. Neste repositório a única tabela física por jogo é dados_copiados/skillcorner_serieb.db → physical_match, que tem Série B 2025 (374 jogos) e 2026 parcial; 2022, 2023 e 2024 têm zero linhas. O agregado clube-temporada de serieb_clube_temporada.csv não separa turno de returno.",
+   "o_que_resolveria": "Copiar o skillcorner.db do Portal Ranking (outro projeto, porta 5053), que tem físico por jogador e por jogo, com a data da cópia no _registro.md — decisão do dono. Sem isso nenhum número de porta temporal existe para A07."
+  },
+  {
+   "marcador": "recorte_por_estado_do_jogo (placar)",
+   "conclusao": "A07-1 e A07-2",
+   "por_que": "O CLAUDE.md manda recortar por estado do jogo quando a base permitir. O SkillCorner guarda um período só (full_all): não há corrida com o time à frente, empatando ou atrás, em fonte alguma do repositório. É a mesma falta que derruba A08.",
+   "o_que_resolveria": "Dado físico por faixa de minutos ou por estado do placar, que o SkillCorner atual não expõe. Enquanto não houver, a ressalva 'pode ser efeito do placar' fica como texto, sem número."
+  },
+  {
+   "marcador": "d_rod / q_rod como coluna de A07_testes.csv; os 4 ρ do rodízio em A07_resumo.json",
+   "conclusao": "A07-1 e A07-2",
+   "por_que": "Os números FORAM calculados e estão aqui (tabela_d_rod_q_rod, e rod_sprint/rod_psv em numeros). O que está bloqueado é o lugar: a regra desta tarefa proíbe escrever em A07_testes.csv e em A07_resumo.json.",
+   "o_que_resolveria": "Quem for reescrever a parte acrescenta as colunas d_rod/p_rod/q_rod ao A07_testes.csv e a chave rho_rodizio ao A07_resumo.json copiando daqui, ou roda de novo o scripts/_rodar.py com o desconto embutido."
+  }
+ ],
+ "tabela_d_rod_q_rod": [
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "fis_distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.156,
+   "p_rod": 0.59007,
+   "q_rod": 0.59007,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "fis_running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.304,
+   "p_rod": 0.29401,
+   "q_rod": 0.59007,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "fis_m_per_min",
+   "nome": "Metros por minuto",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.156,
+   "p_rod": 0.59007,
+   "q_rod": 0.59007,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "ST",
+   "indicador": "fis_distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": -0.01,
+   "p_rod": 0.97859,
+   "q_rod": 0.97859,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "ST",
+   "indicador": "fis_running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.215,
+   "p_rod": 0.54724,
+   "q_rod": 0.97859,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "ST",
+   "indicador": "fis_m_per_min",
+   "nome": "Metros por minuto",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": -0.01,
+   "p_rod": 0.97859,
+   "q_rod": 0.97859,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "CM",
+   "indicador": "fis_distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.088,
+   "p_rod": 0.77775,
+   "q_rod": 0.77775,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "CM",
+   "indicador": "fis_running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.223,
+   "p_rod": 0.46073,
+   "q_rod": 0.77775,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "volume",
+   "comparacao": "CM",
+   "indicador": "fis_m_per_min",
+   "nome": "Metros por minuto",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.088,
+   "p_rod": 0.77775,
+   "q_rod": 0.77775,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.127,
+   "p_rod": 0.66228,
+   "q_rod": 0.66228,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.179,
+   "p_rod": 0.52967,
+   "q_rod": 0.66228,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.166,
+   "p_rod": 0.55485,
+   "q_rod": 0.66228,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.336,
+   "p_rod": 0.22869,
+   "q_rod": 0.57173,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_psv99_top5",
+   "nome": "PSV-99 dos 5 mais rápidos (km/h)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.399,
+   "p_rod": 0.18551,
+   "q_rod": 0.57173,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.065,
+   "p_rod": 0.85637,
+   "q_rod": 0.85637,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": -0.152,
+   "p_rod": 0.67069,
+   "q_rod": 0.83836,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.29,
+   "p_rod": 0.41868,
+   "q_rod": 0.83836,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": -0.232,
+   "p_rod": 0.51714,
+   "q_rod": 0.83836,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_psv99_top5",
+   "nome": "PSV-99 dos 5 mais rápidos (km/h)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.35,
+   "p_rod": 0.32973,
+   "q_rod": 0.83836,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.435,
+   "p_rod": 0.15221,
+   "q_rod": 0.23846,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.704,
+   "p_rod": 0.01913,
+   "q_rod": 0.09567,
+   "selo_rod": "pode ser sorte"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.567,
+   "p_rod": 0.04315,
+   "q_rod": 0.10788,
+   "selo_rod": "pode ser sorte"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.344,
+   "p_rod": 0.23846,
+   "q_rod": 0.23846,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_psv99_top5",
+   "nome": "PSV-99 dos 5 mais rápidos (km/h)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.317,
+   "p_rod": 0.23825,
+   "q_rod": 0.23846,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_m_per_min_tip",
+   "nome": "Metros por minuto COM posse",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.104,
+   "p_rod": 0.71645,
+   "q_rod": 0.71645,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_m_per_min_otip",
+   "nome": "Metros por minuto SEM posse",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.418,
+   "p_rod": 0.13267,
+   "q_rod": 0.53067,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_distance_p30tip",
+   "nome": "Sprint por 30 min COM posse (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.219,
+   "p_rod": 0.44131,
+   "q_rod": 0.71645,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_distance_p30otip",
+   "nome": "Sprint por 30 min SEM posse (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": 0.132,
+   "p_rod": 0.64488,
+   "q_rod": 0.71645,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_m_per_min_tip",
+   "nome": "Metros por minuto COM posse",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.153,
+   "p_rod": 0.66805,
+   "q_rod": 0.68692,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_m_per_min_otip",
+   "nome": "Metros por minuto SEM posse",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.413,
+   "p_rod": 0.25187,
+   "q_rod": 0.68692,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_distance_p30tip",
+   "nome": "Sprint por 30 min COM posse (m)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": -0.144,
+   "p_rod": 0.68692,
+   "q_rod": 0.68692,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_distance_p30otip",
+   "nome": "Sprint por 30 min SEM posse (m)",
+   "n_a": 16,
+   "n_b": 16,
+   "d_rod": 0.176,
+   "p_rod": 0.62291,
+   "q_rod": 0.68692,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_m_per_min_tip",
+   "nome": "Metros por minuto COM posse",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.23,
+   "p_rod": 0.39791,
+   "q_rod": 0.39791,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_m_per_min_otip",
+   "nome": "Metros por minuto SEM posse",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.443,
+   "p_rod": 0.08682,
+   "q_rod": 0.17363,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_distance_p30tip",
+   "nome": "Sprint por 30 min COM posse (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.447,
+   "p_rod": 0.15344,
+   "q_rod": 0.20459,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "com",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_distance_p30otip",
+   "nome": "Sprint por 30 min SEM posse (m)",
+   "n_a": 16,
+   "n_b": 48,
+   "d_rod": -0.761,
+   "p_rod": 0.00238,
+   "q_rod": 0.00953,
+   "selo_rod": "firme"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "fis_distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.289,
+   "p_rod": 0.52121,
+   "q_rod": 0.52121,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "fis_running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.474,
+   "p_rod": 0.27628,
+   "q_rod": 0.52121,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "fis_m_per_min",
+   "nome": "Metros por minuto",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.289,
+   "p_rod": 0.52121,
+   "q_rod": 0.52121,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "ST",
+   "indicador": "fis_distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.223,
+   "p_rod": 0.67274,
+   "q_rod": 0.67274,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "ST",
+   "indicador": "fis_running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.464,
+   "p_rod": 0.38936,
+   "q_rod": 0.67274,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "ST",
+   "indicador": "fis_m_per_min",
+   "nome": "Metros por minuto",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.223,
+   "p_rod": 0.67274,
+   "q_rod": 0.67274,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "CM",
+   "indicador": "fis_distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": 0.169,
+   "p_rod": 0.63913,
+   "q_rod": 0.95791,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "CM",
+   "indicador": "fis_running_distance_p90",
+   "nome": "Distância em corrida por 90 (m)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.018,
+   "p_rod": 0.95791,
+   "q_rod": 0.95791,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "CM",
+   "indicador": "fis_m_per_min",
+   "nome": "Metros por minuto",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": 0.169,
+   "p_rod": 0.63913,
+   "q_rod": 0.95791,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.4,
+   "p_rod": 0.33833,
+   "q_rod": 0.70073,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.141,
+   "p_rod": 0.70073,
+   "q_rod": 0.70073,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.281,
+   "p_rod": 0.44944,
+   "q_rod": 0.70073,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": -0.148,
+   "p_rod": 0.69122,
+   "q_rod": 0.70073,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "SM",
+   "indicador": "fis_psv99_top5",
+   "nome": "PSV-99 dos 5 mais rápidos (km/h)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.515,
+   "p_rod": 0.20701,
+   "q_rod": 0.70073,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.689,
+   "p_rod": 0.20786,
+   "q_rod": 0.41638,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.53,
+   "p_rod": 0.33311,
+   "q_rod": 0.41638,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.856,
+   "p_rod": 0.12766,
+   "q_rod": 0.41638,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.369,
+   "p_rod": 0.49259,
+   "q_rod": 0.49259,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "ST",
+   "indicador": "fis_psv99_top5",
+   "nome": "PSV-99 dos 5 mais rápidos (km/h)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.545,
+   "p_rod": 0.32072,
+   "q_rod": 0.41638,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_hi_distance_p90",
+   "nome": "Distância em alta intensidade por 90 (m)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.451,
+   "p_rod": 0.21176,
+   "q_rod": 0.23089,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_distance_p90",
+   "nome": "Distância em sprint por 90 (m)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.847,
+   "p_rod": 0.01765,
+   "q_rod": 0.08603,
+   "selo_rod": "pode ser sorte"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_count_p90",
+   "nome": "Número de sprints por 90",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.706,
+   "p_rod": 0.03441,
+   "q_rod": 0.08603,
+   "selo_rod": "pode ser sorte"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_high_accel_p90",
+   "nome": "Acelerações fortes por 90",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.474,
+   "p_rod": 0.1731,
+   "q_rod": 0.23089,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "intensidade",
+   "comparacao": "CM",
+   "indicador": "fis_psv99_top5",
+   "nome": "PSV-99 dos 5 mais rápidos (km/h)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.403,
+   "p_rod": 0.23089,
+   "q_rod": 0.23089,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_m_per_min_tip",
+   "nome": "Metros por minuto COM posse",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.068,
+   "p_rod": 0.8895,
+   "q_rod": 0.8895,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_m_per_min_otip",
+   "nome": "Metros por minuto SEM posse",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.423,
+   "p_rod": 0.28332,
+   "q_rod": 0.57788,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_distance_p30tip",
+   "nome": "Sprint por 30 min COM posse (m)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": -0.121,
+   "p_rod": 0.73769,
+   "q_rod": 0.8895,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "SM",
+   "indicador": "fis_sprint_distance_p30otip",
+   "nome": "Sprint por 30 min SEM posse (m)",
+   "n_a": 8,
+   "n_b": 32,
+   "d_rod": 0.376,
+   "p_rod": 0.28894,
+   "q_rod": 0.57788,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_m_per_min_tip",
+   "nome": "Metros por minuto COM posse",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.566,
+   "p_rod": 0.28052,
+   "q_rod": 0.52167,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_m_per_min_otip",
+   "nome": "Metros por minuto SEM posse",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.578,
+   "p_rod": 0.29369,
+   "q_rod": 0.52167,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_distance_p30tip",
+   "nome": "Sprint por 30 min COM posse (m)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.352,
+   "p_rod": 0.52167,
+   "q_rod": 0.52167,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "ST",
+   "indicador": "fis_sprint_distance_p30otip",
+   "nome": "Sprint por 30 min SEM posse (m)",
+   "n_a": 8,
+   "n_b": 7,
+   "d_rod": 0.471,
+   "p_rod": 0.39605,
+   "q_rod": 0.52167,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_m_per_min_tip",
+   "nome": "Metros por minuto COM posse",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": 0.013,
+   "p_rod": 0.96776,
+   "q_rod": 0.96776,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_m_per_min_otip",
+   "nome": "Metros por minuto SEM posse",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.277,
+   "p_rod": 0.33789,
+   "q_rod": 0.45051,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_distance_p30tip",
+   "nome": "Sprint por 30 min COM posse (m)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.478,
+   "p_rod": 0.16237,
+   "q_rod": 0.32475,
+   "selo_rod": "sem diferença clara"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "com_sem_bola",
+   "comparacao": "CM",
+   "indicador": "fis_sprint_distance_p30otip",
+   "nome": "Sprint por 30 min SEM posse (m)",
+   "n_a": 12,
+   "n_b": 32,
+   "d_rod": -0.818,
+   "p_rod": 0.00924,
+   "q_rod": 0.03696,
+   "selo_rod": "firme"
+  }
+ ],
+ "cobertura_por_clube_temporada": [
+  {
+   "temporada": "2022",
+   "clube": "Grêmio",
+   "faixa": "Sobe",
+   "cobertura": 0.62,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2022",
+   "clube": "Novorizontino",
+   "faixa": "Meio",
+   "cobertura": 0.632,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2024",
+   "clube": "América-MG",
+   "faixa": "Meio",
+   "cobertura": 0.663,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2022",
+   "clube": "Náutico",
+   "faixa": "Cai",
+   "cobertura": 0.69,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2024",
+   "clube": "Goiás",
+   "faixa": "Meio",
+   "cobertura": 0.698,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2025",
+   "clube": "Cuiabá",
+   "faixa": "Meio",
+   "cobertura": 0.704,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Criciúma",
+   "faixa": "Sobe",
+   "cobertura": 0.707,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2022",
+   "clube": "CSA",
+   "faixa": "Cai",
+   "cobertura": 0.707,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2024",
+   "clube": "Chapecoense",
+   "faixa": "Meio",
+   "cobertura": 0.716,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2025",
+   "clube": "Avaí",
+   "faixa": "Meio",
+   "cobertura": 0.717,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2025",
+   "clube": "Ferroviária",
+   "faixa": "Cai",
+   "cobertura": 0.724,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Ceará",
+   "faixa": "Meio",
+   "cobertura": 0.727,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2022",
+   "clube": "Operário-PR",
+   "faixa": "Cai",
+   "cobertura": 0.728,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Londrina",
+   "faixa": "Cai",
+   "cobertura": 0.732,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Atlético-GO",
+   "faixa": "Sobe",
+   "cobertura": 0.733,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2024",
+   "clube": "Vila Nova",
+   "faixa": "Meio",
+   "cobertura": 0.734,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Avaí",
+   "faixa": "Meio",
+   "cobertura": 0.734,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2024",
+   "clube": "Paysandu",
+   "faixa": "Meio",
+   "cobertura": 0.739,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Ituano",
+   "faixa": "Meio",
+   "cobertura": 0.743,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2023",
+   "clube": "Sport",
+   "faixa": "Meio",
+   "cobertura": 0.744,
+   "abaixo_de_075": true
+  },
+  {
+   "temporada": "2025",
+   "clube": "Remo",
+   "faixa": "Sobe",
+   "cobertura": 0.752,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Bahia",
+   "faixa": "Sobe",
+   "cobertura": 0.753,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Vila Nova",
+   "faixa": "Meio",
+   "cobertura": 0.755,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Novorizontino",
+   "faixa": "Meio",
+   "cobertura": 0.757,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Volta Redonda",
+   "faixa": "Cai",
+   "cobertura": 0.76,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Coritiba",
+   "faixa": "Meio",
+   "cobertura": 0.764,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "ABC",
+   "faixa": "Cai",
+   "cobertura": 0.77,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Paysandu",
+   "faixa": "Cai",
+   "cobertura": 0.773,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Atlético-GO",
+   "faixa": "Meio",
+   "cobertura": 0.775,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Avaí",
+   "faixa": "Meio",
+   "cobertura": 0.775,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "CRB",
+   "faixa": "Meio",
+   "cobertura": 0.778,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Athletico-PR",
+   "faixa": "Sobe",
+   "cobertura": 0.78,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Londrina",
+   "faixa": "Meio",
+   "cobertura": 0.78,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Criciúma",
+   "faixa": "Meio",
+   "cobertura": 0.78,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Sport",
+   "faixa": "Sobe",
+   "cobertura": 0.789,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Cruzeiro",
+   "faixa": "Sobe",
+   "cobertura": 0.793,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Novorizontino",
+   "faixa": "Meio",
+   "cobertura": 0.798,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Brusque",
+   "faixa": "Cai",
+   "cobertura": 0.801,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Mirassol",
+   "faixa": "Meio",
+   "cobertura": 0.802,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Guarani",
+   "faixa": "Meio",
+   "cobertura": 0.803,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Ituano",
+   "faixa": "Cai",
+   "cobertura": 0.804,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Sampaio Corrêa",
+   "faixa": "Meio",
+   "cobertura": 0.805,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Sampaio Corrêa",
+   "faixa": "Cai",
+   "cobertura": 0.805,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Mirassol",
+   "faixa": "Sobe",
+   "cobertura": 0.806,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Goiás",
+   "faixa": "Meio",
+   "cobertura": 0.81,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "CRB",
+   "faixa": "Meio",
+   "cobertura": 0.815,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Ponte Preta",
+   "faixa": "Meio",
+   "cobertura": 0.822,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Sport",
+   "faixa": "Meio",
+   "cobertura": 0.825,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Ponte Preta",
+   "faixa": "Meio",
+   "cobertura": 0.836,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Chapecoense",
+   "faixa": "Sobe",
+   "cobertura": 0.84,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Athletic",
+   "faixa": "Meio",
+   "cobertura": 0.844,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Tombense",
+   "faixa": "Meio",
+   "cobertura": 0.844,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "CRB",
+   "faixa": "Meio",
+   "cobertura": 0.847,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Ituano",
+   "faixa": "Meio",
+   "cobertura": 0.853,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Vila Nova",
+   "faixa": "Meio",
+   "cobertura": 0.854,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Tombense",
+   "faixa": "Cai",
+   "cobertura": 0.855,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Novorizontino",
+   "faixa": "Meio",
+   "cobertura": 0.855,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Brusque",
+   "faixa": "Cai",
+   "cobertura": 0.856,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Chapecoense",
+   "faixa": "Meio",
+   "cobertura": 0.86,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "América-MG",
+   "faixa": "Meio",
+   "cobertura": 0.864,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Criciúma",
+   "faixa": "Meio",
+   "cobertura": 0.869,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Operário-PR",
+   "faixa": "Meio",
+   "cobertura": 0.873,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Operário-PR",
+   "faixa": "Meio",
+   "cobertura": 0.881,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Botafogo-SP",
+   "faixa": "Meio",
+   "cobertura": 0.886,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2022",
+   "clube": "Vasco",
+   "faixa": "Sobe",
+   "cobertura": 0.888,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Botafogo-SP",
+   "faixa": "Meio",
+   "cobertura": 0.896,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Guarani",
+   "faixa": "Cai",
+   "cobertura": 0.904,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Vitória",
+   "faixa": "Sobe",
+   "cobertura": 0.907,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Botafogo-SP",
+   "faixa": "Meio",
+   "cobertura": 0.913,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Amazonas",
+   "faixa": "Cai",
+   "cobertura": 0.916,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Amazonas",
+   "faixa": "Meio",
+   "cobertura": 0.922,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "CRB",
+   "faixa": "Meio",
+   "cobertura": 0.922,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Chapecoense",
+   "faixa": "Meio",
+   "cobertura": 0.923,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Santos",
+   "faixa": "Sobe",
+   "cobertura": 0.94,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Ponte Preta",
+   "faixa": "Cai",
+   "cobertura": 0.943,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2025",
+   "clube": "Coritiba",
+   "faixa": "Sobe",
+   "cobertura": 0.948,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Juventude",
+   "faixa": "Sobe",
+   "cobertura": 0.957,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Guarani",
+   "faixa": "Meio",
+   "cobertura": 0.957,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2023",
+   "clube": "Vila Nova",
+   "faixa": "Meio",
+   "cobertura": 0.961,
+   "abaixo_de_075": false
+  },
+  {
+   "temporada": "2024",
+   "clube": "Ceará",
+   "faixa": "Sobe",
+   "cobertura": 0.969,
+   "abaixo_de_075": false
+  }
+ ],
+ "rodada_sem_cobertura_baixa": {
+  "o_que_e": "A rodada com e sem os clube-temporada abaixo de 0,75 de cobertura que o CLAUDE.md exige e que a parte pulou. Postos recalculados dentro de cada temporada sobre as linhas que ficaram.",
+  "n": {
+   "linhas": 60,
+   "clubes": 35,
+   "com_fronteira": {
+    "Sobe": 13,
+    "Meio": 36,
+    "Cai": 11,
+    "Trave": 13
+   },
+   "sem_fronteira": {
+    "Sobe": 7,
+    "Meio": 24,
+    "Cai": 9,
+    "Trave": 6
+   }
+  },
+  "firme_nos_dois_cortes": {
+   "SM": [],
+   "ST": [],
+   "CM": [
+    "fis_atletas",
+    "fis_hi_distance_p90",
+    "fis_sprint_count_p90",
+    "fis_sprint_distance_p30otip",
+    "fis_sprint_distance_p90"
+   ]
+  },
+  "linhas_chave": {
+   "com/CM/fis_sprint_distance_p30otip": {
+    "n_a": 11,
+    "n_b": 36,
+    "d": -1.006,
+    "p": 0.00068,
+    "d_min": 0.99,
+    "q": 0.00273,
+    "selo": "firme"
+   },
+   "sem/CM/fis_sprint_distance_p30otip": {
+    "n_a": 9,
+    "n_b": 24,
+    "d": -1.079,
+    "p": 0.00143,
+    "d_min": 1.13,
+    "q": 0.00574,
+    "selo": "firme"
+   },
+   "com/CM/fis_atletas": {
+    "n_a": 11,
+    "n_b": 36,
+    "d": 0.958,
+    "p": 0.00288,
+    "d_min": 0.99,
+    "q": 0.00288,
+    "selo": "firme"
+   },
+   "com/SM/fis_distance_p90": {
+    "n_a": 13,
+    "n_b": 36,
+    "d": -0.037,
+    "p": 0.91409,
+    "d_min": 0.93,
+    "q": 0.91409,
+    "selo": "sem diferença clara"
+   }
+  },
+  "leitura": "O achado de A07-2 aguenta: sprint sem a bola em Cai × Meio continua firme nos dois cortes (q 0,00273 e 0,00574, |d| 1,01 e 1,08). O negativo de A07-1 também aguenta: nada firme em Sobe × Meio nem em Sobe × Trave. Mudanças na lista de CM: o PSV-99 sai e a distância em alta intensidade entra."
+ },
+ "conferencia": {
+  "como": "reconstruído do zero a partir de A01_clube_temporada.csv + dados/serieb_clube_temporada.csv com o método de scripts/_metodo.py; as 78 linhas de A07_testes.csv bateram sem nenhuma divergência",
+  "linhas_conferidas": 78,
+  "divergencias": 0
+ }
+}

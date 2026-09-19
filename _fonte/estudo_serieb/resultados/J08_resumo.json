@@ -1,0 +1,897 @@
+{
+ "parte": "J08",
+ "passo": 2,
+ "achado": {
+  "ligas_estrangeiras_com_fator_proprio": 7,
+  "quais": [
+   "Argentina A",
+   "Chile",
+   "Colombia A",
+   "EUA",
+   "Portugal A",
+   "Portugal B",
+   "Uruguai"
+  ],
+  "so_e_possivel_porque_o_destino_inclui_A_e_C": "com destino só Série B a maior origem estrangeira é Portugal A, com 8 casos; nenhuma chega ao piso de 10 (conferido, e bate com o que o dono contou)",
+  "ligas_estrangeiras_abaixo_do_piso": 38,
+  "casos_nessas_ligas": 133,
+  "ligas_do_painel_sem_nenhum_caso": 18,
+  "escada_brasileira_em_pontos_de_percentil": {
+   "volume": {
+    "Brasil A → Brasil B": {
+     "bruto": 5.85,
+     "com_controle": 3.38
+    },
+    "Brasil C → Brasil B": {
+     "bruto": -0.99,
+     "com_controle": 0.07
+    }
+   },
+   "eficiencia": {
+    "Brasil A → Brasil B": {
+     "bruto": 6.18,
+     "com_controle": 2.95
+    },
+    "Brasil C → Brasil B": {
+     "bruto": -1.95,
+     "com_controle": 0.26
+    }
+   }
+  },
+  "o_maior_fator_estrangeiro_nao_bate_o_garimpo": {
+   "volume": "o maior fator estrangeiro (Colombia A, 7.6 pp) NÃO supera o que a busca entre 7 ligas produz por sorteio no p95 (9.3 pp)",
+   "eficiencia": "o maior fator estrangeiro (Chile, 5.2 pp) NÃO supera o que a busca entre 7 ligas produz por sorteio no p95 (7.9 pp)"
+  },
+  "indicadores_que_passaram_no_BH": {
+   "Argentina A · volume": 2,
+   "Brasil A · volume": 7,
+   "Brasil C · volume": 5,
+   "Chile · volume": 1,
+   "Colombia A · volume": 0,
+   "EUA · volume": 0,
+   "Portugal A · volume": 0,
+   "Portugal B · volume": 1,
+   "Uruguai · volume": 2,
+   "FAIXA ABAIXO · volume": 0,
+   "FAIXA ACIMA · volume": 1,
+   "FAIXA PAREADO · volume": 0,
+   "Argentina A · eficiencia": 1,
+   "Brasil A · eficiencia": 3,
+   "Brasil C · eficiencia": 0,
+   "Chile · eficiencia": 0,
+   "Colombia A · eficiencia": 0,
+   "EUA · eficiencia": 0,
+   "Portugal A · eficiencia": 0,
+   "Portugal B · eficiencia": 0,
+   "Uruguai · eficiencia": 2,
+   "FAIXA ABAIXO · eficiencia": 0,
+   "FAIXA ACIMA · eficiencia": 1,
+   "FAIXA PAREADO · eficiencia": 0
+  },
+  "porta_de_coorte": {
+   "volume": "não passou",
+   "eficiencia": "passou"
+  }
+ },
+ "pergunta": "Como os números de um jogador de outra liga se traduzem para a Série B?",
+ "rodado_em": "2026-09-19",
+ "base": {
+  "linhas": 782,
+  "principal": 737,
+  "jogadores_distintos": 591,
+  "cortes": {
+   "principal": 737,
+   "com_identidade_incoerente": 775,
+   "so_900_no_destino": 446,
+   "so_temporada_fechada": 532
+  }
+ },
+ "o_encolhimento_confere_com_tres_contas_independentes": {
+  "o_que_e": "quanto do posto de origem o jogador guarda no ano seguinte. Três medidas de origens diferentes; se batem, o controle de seleção está medindo regressão à média, e não nível de liga.",
+  "aqui_volume": 0.442,
+  "aqui_eficiencia": 0.199,
+  "etapa_11_quem_mudou_de_clube": 0.396,
+  "etapa_11_quem_ficou": 0.46,
+  "reta_de_quem_ficou_na_mesma_liga_qz": 0.4,
+  "fonte_da_reta": "emenda do passo 1 (J08_indicadores.json): qz(t+1)=a+b·qz(t) em 23.943 pares de quem permaneceu na mesma liga",
+  "confiabilidade_do_qz": 0.471
+ },
+ "sensibilidade_do_encolhimento": {
+  "volume": {
+   "b_livre": -0.558,
+   "b_fixado_pela_confiabilidade": -0.529,
+   "quanto_o_fator_anda_pp": {
+    "Argentina A": 0.06,
+    "Brasil A": 0.13,
+    "Brasil C": -0.06,
+    "Chile": -0.07,
+    "Colombia A": 0.02,
+    "EUA": -0.1,
+    "Portugal A": -0.06,
+    "Portugal B": 0.0,
+    "Uruguai": -0.14,
+    "FAIXA ABAIXO": -0.14,
+    "FAIXA ACIMA": -0.02,
+    "FAIXA PAREADO": -0.04
+   },
+   "maior_movimento_pp": [
+    "Uruguai",
+    -0.14
+   ]
+  },
+  "eficiencia": {
+   "b_livre": -0.801,
+   "b_fixado_pela_confiabilidade": -0.529,
+   "quanto_o_fator_anda_pp": {
+    "Argentina A": 0.0,
+    "Brasil A": 1.12,
+    "Brasil C": -0.77,
+    "Chile": 0.72,
+    "Colombia A": 0.75,
+    "EUA": -0.69,
+    "Portugal A": -0.02,
+    "Portugal B": 0.19,
+    "Uruguai": -0.76,
+    "FAIXA ABAIXO": -0.02,
+    "FAIXA ACIMA": -0.53,
+    "FAIXA PAREADO": 0.49
+   },
+   "maior_movimento_pp": [
+    "Brasil A",
+    1.12
+   ]
+  }
+ },
+ "a_conta_para_o_J09": {
+  "forma": "Δpercentil previsto = intercepto + b·(percentil na origem) + coef_idade·envelhecimento_esperado_pp + fator(origem) − fator(destino)",
+  "por_familia": {
+   "volume": {
+    "intercepto": 26.99,
+    "b_percentil_origem": -0.558,
+    "b_implicito_de_quem_fica": 0.442,
+    "coef_envelhecimento": 0.15,
+    "p_envelhecimento": 0.02496,
+    "ic95_coef_envelhecimento": [
+     0.026,
+     0.291
+    ]
+   },
+   "eficiencia": {
+    "intercepto": 39.65,
+    "b_percentil_origem": -0.801,
+    "b_implicito_de_quem_fica": 0.199,
+    "coef_envelhecimento": 0.042,
+    "p_envelhecimento": 0.56208,
+    "ic95_coef_envelhecimento": [
+     -0.095,
+     0.188
+    ]
+   }
+  },
+  "onde_esta_o_fator": "coluna `fator` de fatores_liga.csv, já com o destino descontado"
+ },
+ "conferencia_do_agrupamento_proposto_no_passo_1": {
+  "confirmadas": [
+   "Bahrain",
+   "Bolivia",
+   "Bulgaria",
+   "Colombia B",
+   "Coreia B",
+   "Equador A",
+   "França A",
+   "Inglaterra A",
+   "Japao B",
+   "Mexico",
+   "Paraguai",
+   "Portugal C"
+  ],
+  "mudaram_de_faixa": [
+   "Alemanha B: proposta PAREADO → medida ACIMA",
+   "Arabia Saudita A: proposta PAREADO → medida ABAIXO",
+   "Belgica A: proposta ACIMA → medida PAREADO",
+   "Catar: proposta ABAIXO → medida PAREADO",
+   "Grecia: proposta PAREADO → medida ACIMA",
+   "Italia A: proposta PAREADO → medida ACIMA",
+   "Japao A: proposta ACIMA → medida PAREADO",
+   "Peru: proposta PAREADO → medida ACIMA",
+   "Russia: proposta ACIMA → medida PAREADO",
+   "Turquia: proposta PAREADO → medida ACIMA"
+  ],
+  "viraram_fator_proprio": [
+   "Argentina A (FATOR PRÓPRIO (28 casos))",
+   "Chile (FATOR PRÓPRIO (10 casos))",
+   "Colombia A (FATOR PRÓPRIO (16 casos))",
+   "EUA (FATOR PRÓPRIO (15 casos))",
+   "Portugal A (FATOR PRÓPRIO (13 casos))",
+   "Portugal B (FATOR PRÓPRIO (12 casos))",
+   "Uruguai (FATOR PRÓPRIO (22 casos))"
+  ],
+  "sem_caso_na_base": []
+ },
+ "faixas": {
+  "criterio": "nível em dqz_liquido no modelo pareado de todas as ligas; corte em ±0.21, metade do degrau Brasil A → Brasil B medido no mesmo modelo",
+  "corte": 0.206,
+  "membros": {
+   "FAIXA PAREADO": [
+    "Belgica A",
+    "Bolivia",
+    "Catar",
+    "Equador A",
+    "França A",
+    "Japao A",
+    "Russia"
+   ],
+   "FAIXA ACIMA": [
+    "Alemanha A",
+    "Alemanha B",
+    "Argentina RESERVAS",
+    "China",
+    "Coreia B",
+    "Dinamarca",
+    "Emirados",
+    "Espanha A",
+    "Grecia",
+    "Holanda",
+    "Inglaterra A",
+    "Inglaterra B",
+    "Italia A",
+    "Paraguai",
+    "Peru",
+    "Polonia",
+    "Turquia",
+    "Venezuela"
+   ],
+   "FAIXA ABAIXO": [
+    "Arabia Saudita A",
+    "Bahrain",
+    "Bulgaria",
+    "Colombia B",
+    "Coreia A",
+    "Eslovaquia",
+    "Espanha B",
+    "Japao B",
+    "Mexico",
+    "Portugal C",
+    "Romenia",
+    "Tcheca",
+    "Ucrania"
+   ]
+  },
+  "niveis_por_liga_dqz_liquido": {
+   "Holanda": 2.02,
+   "Espanha A": 1.85,
+   "Inglaterra A": 1.64,
+   "Coreia B": 1.28,
+   "Alemanha A": 1.19,
+   "Argentina RESERVAS": 1.17,
+   "Polonia": 1.12,
+   "Peru": 1.0,
+   "China": 0.86,
+   "Paraguai": 0.77,
+   "Emirados": 0.75,
+   "Portugal A": 0.58,
+   "Dinamarca": 0.53,
+   "Italia A": 0.48,
+   "Venezuela": 0.47,
+   "Grecia": 0.44,
+   "Brasil A": 0.41,
+   "Turquia": 0.35,
+   "Argentina A": 0.34,
+   "Inglaterra B": 0.3,
+   "Alemanha B": 0.21,
+   "Russia": 0.17,
+   "Bolivia": 0.15,
+   "Japao A": 0.14,
+   "Belgica A": 0.13,
+   "Catar": 0.06,
+   "EUA": 0.03,
+   "França A": 0.01,
+   "Brasil B": 0.0,
+   "Equador A": -0.02,
+   "Chile": -0.13,
+   "Brasil C": -0.18,
+   "Coreia A": -0.23,
+   "Portugal B": -0.23,
+   "Arabia Saudita A": -0.31,
+   "Mexico": -0.35,
+   "Ucrania": -0.45,
+   "Bahrain": -0.45,
+   "Colombia A": -0.48,
+   "Japao B": -0.5,
+   "Uruguai": -0.59,
+   "Portugal C": -0.6,
+   "Bulgaria": -0.75,
+   "Romenia": -0.78,
+   "Espanha B": -0.9,
+   "Colombia B": -1.15,
+   "Eslovaquia": -1.96,
+   "Tcheca": -2.19
+  },
+  "ligas_com_fator_proprio": [
+   "Argentina A",
+   "Brasil A",
+   "Brasil B",
+   "Brasil C",
+   "Chile",
+   "Colombia A",
+   "EUA",
+   "Portugal A",
+   "Portugal B",
+   "Uruguai"
+  ]
+ },
+ "envelhecimento": {
+  "volume": {
+   "intercepto": 26.99,
+   "b_percentil_origem": -0.558,
+   "b_implicito_de_quem_fica": 0.442,
+   "coef_envelhecimento": 0.15,
+   "p_envelhecimento": 0.02496,
+   "ic95_coef_envelhecimento": [
+    0.026,
+    0.291
+   ]
+  },
+  "eficiencia": {
+   "intercepto": 39.65,
+   "b_percentil_origem": -0.801,
+   "b_implicito_de_quem_fica": 0.199,
+   "coef_envelhecimento": 0.042,
+   "p_envelhecimento": 0.56208,
+   "ic95_coef_envelhecimento": [
+    -0.095,
+    0.188
+   ]
+  }
+ },
+ "vies_do_sobrevivente": {
+  "volume": {
+   "n_jogou_900": 446,
+   "n_nao_jogou_900": 291,
+   "media_jogou_900": -2.04,
+   "media_nao_jogou_900": -1.7,
+   "d_cohen": -0.024,
+   "ic95_d": [
+    -0.16,
+    0.12
+   ],
+   "quanto_o_fator_muda_sem_eles": {
+    "Argentina A": -1.59,
+    "Brasil A": 0.2,
+    "Brasil C": -1.55,
+    "Chile": -2.1,
+    "Colombia A": -2.43,
+    "EUA": -0.8,
+    "Portugal A": -3.25,
+    "Portugal B": -1.02,
+    "Uruguai": -2.12,
+    "FAIXA ABAIXO": -2.04,
+    "FAIXA ACIMA": 0.2,
+    "FAIXA PAREADO": 0.29
+   },
+   "maior_mudanca_pp": [
+    "Portugal A",
+    -3.25
+   ]
+  },
+  "eficiencia": {
+   "n_jogou_900": 446,
+   "n_nao_jogou_900": 291,
+   "media_jogou_900": -0.39,
+   "media_nao_jogou_900": -1.62,
+   "d_cohen": 0.077,
+   "ic95_d": [
+    -0.07,
+    0.21
+   ],
+   "quanto_o_fator_muda_sem_eles": {
+    "Argentina A": -2.12,
+    "Brasil A": -0.08,
+    "Brasil C": -0.76,
+    "Chile": -0.89,
+    "Colombia A": 2.03,
+    "EUA": -0.44,
+    "Portugal A": -4.06,
+    "Portugal B": -4.24,
+    "Uruguai": -0.84,
+    "FAIXA ABAIXO": 2.47,
+    "FAIXA ACIMA": 1.91,
+    "FAIXA PAREADO": 3.2
+   },
+   "maior_mudanca_pp": [
+    "Portugal B",
+    -4.24
+   ]
+  }
+ },
+ "porta_de_coorte": {
+  "volume": {
+   "rodou": true,
+   "n_cedo": 222,
+   "n_tarde": 515,
+   "rho_fator_cedo_x_residuo_tarde": 0.462,
+   "mae_com_liga": 9.81,
+   "mae_sem_liga": 9.58,
+   "ganho_mae": -0.232,
+   "rho_previsto_observado": 0.521,
+   "passou": false,
+   "unidades_testaveis": 12,
+   "unidades_com_sinal_certo": 8,
+   "por_unidade": {
+    "Brasil A": {
+     "fator_ate_2024": 4.2,
+     "n_tarde": 84,
+     "residuo_medio_tarde": 2.48,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Portugal A": {
+     "fator_ate_2024": 15.12,
+     "n_tarde": 10,
+     "residuo_medio_tarde": -1.64,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "FAIXA PAREADO": {
+     "fator_ate_2024": 2.48,
+     "n_tarde": 24,
+     "residuo_medio_tarde": -2.78,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "EUA": {
+     "fator_ate_2024": 2.67,
+     "n_tarde": 9,
+     "residuo_medio_tarde": -5.2,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "FAIXA ABAIXO": {
+     "fator_ate_2024": -3.99,
+     "n_tarde": 38,
+     "residuo_medio_tarde": -4.0,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Brasil C": {
+     "fator_ate_2024": -2.53,
+     "n_tarde": 68,
+     "residuo_medio_tarde": 0.77,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "FAIXA ACIMA": {
+     "fator_ate_2024": 7.65,
+     "n_tarde": 49,
+     "residuo_medio_tarde": 0.3,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Uruguai": {
+     "fator_ate_2024": -1.81,
+     "n_tarde": 16,
+     "residuo_medio_tarde": -5.56,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Argentina A": {
+     "fator_ate_2024": 4.75,
+     "n_tarde": 17,
+     "residuo_medio_tarde": 2.85,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Colombia A": {
+     "fator_ate_2024": -1.75,
+     "n_tarde": 12,
+     "residuo_medio_tarde": -11.1,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Chile": {
+     "fator_ate_2024": -16.04,
+     "n_tarde": 9,
+     "residuo_medio_tarde": -4.79,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Portugal B": {
+     "fator_ate_2024": 2.2,
+     "n_tarde": 10,
+     "residuo_medio_tarde": 0.21,
+     "sinal_bate": true,
+     "testavel": true
+    }
+   }
+  },
+  "eficiencia": {
+   "rodou": true,
+   "n_cedo": 222,
+   "n_tarde": 515,
+   "rho_fator_cedo_x_residuo_tarde": 0.112,
+   "mae_com_liga": 9.69,
+   "mae_sem_liga": 9.84,
+   "ganho_mae": 0.158,
+   "rho_previsto_observado": 0.655,
+   "passou": true,
+   "unidades_testaveis": 12,
+   "unidades_com_sinal_certo": 6,
+   "por_unidade": {
+    "Brasil A": {
+     "fator_ate_2024": 3.28,
+     "n_tarde": 84,
+     "residuo_medio_tarde": 4.89,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Portugal A": {
+     "fator_ate_2024": 11.65,
+     "n_tarde": 10,
+     "residuo_medio_tarde": -1.98,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "FAIXA PAREADO": {
+     "fator_ate_2024": 2.78,
+     "n_tarde": 24,
+     "residuo_medio_tarde": -4.69,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "EUA": {
+     "fator_ate_2024": 5.19,
+     "n_tarde": 9,
+     "residuo_medio_tarde": 1.19,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "FAIXA ABAIXO": {
+     "fator_ate_2024": 1.42,
+     "n_tarde": 38,
+     "residuo_medio_tarde": -1.71,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "Brasil C": {
+     "fator_ate_2024": -1.89,
+     "n_tarde": 68,
+     "residuo_medio_tarde": 0.56,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "FAIXA ACIMA": {
+     "fator_ate_2024": 8.35,
+     "n_tarde": 49,
+     "residuo_medio_tarde": 4.01,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Uruguai": {
+     "fator_ate_2024": 0.53,
+     "n_tarde": 16,
+     "residuo_medio_tarde": -6.11,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "Argentina A": {
+     "fator_ate_2024": 1.14,
+     "n_tarde": 17,
+     "residuo_medio_tarde": 1.23,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Colombia A": {
+     "fator_ate_2024": 5.22,
+     "n_tarde": 12,
+     "residuo_medio_tarde": -8.96,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "Chile": {
+     "fator_ate_2024": -0.57,
+     "n_tarde": 9,
+     "residuo_medio_tarde": -7.08,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Portugal B": {
+     "fator_ate_2024": -2.9,
+     "n_tarde": 10,
+     "residuo_medio_tarde": -1.07,
+     "sinal_bate": true,
+     "testavel": true
+    }
+   }
+  },
+  "dqz_liquido": {
+   "rodou": true,
+   "n_cedo": 222,
+   "n_tarde": 515,
+   "rho_fator_cedo_x_residuo_tarde": 0.449,
+   "mae_com_liga": 0.9,
+   "mae_sem_liga": 0.93,
+   "ganho_mae": 0.034,
+   "rho_previsto_observado": 0.313,
+   "passou": true,
+   "unidades_testaveis": 12,
+   "unidades_com_sinal_certo": 9,
+   "por_unidade": {
+    "Brasil A": {
+     "fator_ate_2024": 0.4,
+     "n_tarde": 84,
+     "residuo_medio_tarde": 0.2,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Portugal A": {
+     "fator_ate_2024": 0.29,
+     "n_tarde": 10,
+     "residuo_medio_tarde": 0.25,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "FAIXA PAREADO": {
+     "fator_ate_2024": 0.35,
+     "n_tarde": 24,
+     "residuo_medio_tarde": -0.46,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "EUA": {
+     "fator_ate_2024": 0.39,
+     "n_tarde": 9,
+     "residuo_medio_tarde": -0.7,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "FAIXA ABAIXO": {
+     "fator_ate_2024": -0.22,
+     "n_tarde": 38,
+     "residuo_medio_tarde": -0.9,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Brasil C": {
+     "fator_ate_2024": -0.31,
+     "n_tarde": 68,
+     "residuo_medio_tarde": -0.29,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "FAIXA ACIMA": {
+     "fator_ate_2024": 1.12,
+     "n_tarde": 49,
+     "residuo_medio_tarde": 0.49,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Uruguai": {
+     "fator_ate_2024": -1.04,
+     "n_tarde": 16,
+     "residuo_medio_tarde": -0.78,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Argentina A": {
+     "fator_ate_2024": 0.26,
+     "n_tarde": 17,
+     "residuo_medio_tarde": -0.17,
+     "sinal_bate": false,
+     "testavel": true
+    },
+    "Colombia A": {
+     "fator_ate_2024": -0.22,
+     "n_tarde": 12,
+     "residuo_medio_tarde": -0.93,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Chile": {
+     "fator_ate_2024": -1.14,
+     "n_tarde": 9,
+     "residuo_medio_tarde": -0.38,
+     "sinal_bate": true,
+     "testavel": true
+    },
+    "Portugal B": {
+     "fator_ate_2024": -0.77,
+     "n_tarde": 10,
+     "residuo_medio_tarde": -0.29,
+     "sinal_bate": true,
+     "testavel": true
+    }
+   }
+  }
+ },
+ "nulo_do_garimpo": {
+  "volume": {
+   "reps": 400,
+   "maior_fator_por_sorteio_p50": 5.35,
+   "maior_fator_por_sorteio_p95": 9.3,
+   "maior_fator_por_sorteio_max": 15.33,
+   "ligas_estrangeiras_no_piso": 7,
+   "maior_fator_observado": {
+    "liga": "Colombia A",
+    "pp": 7.63
+   },
+   "o_maior_supera_o_sorteio": false,
+   "leitura": "o maior fator estrangeiro (Colombia A, 7.6 pp) NÃO supera o que a busca entre 7 ligas produz por sorteio no p95 (9.3 pp)"
+  },
+  "eficiencia": {
+   "reps": 400,
+   "maior_fator_por_sorteio_p50": 5.06,
+   "maior_fator_por_sorteio_p95": 7.94,
+   "maior_fator_por_sorteio_max": 10.79,
+   "ligas_estrangeiras_no_piso": 7,
+   "maior_fator_observado": {
+    "liga": "Chile",
+    "pp": 5.15
+   },
+   "o_maior_supera_o_sorteio": false,
+   "leitura": "o maior fator estrangeiro (Chile, 5.2 pp) NÃO supera o que a busca entre 7 ligas produz por sorteio no p95 (7.9 pp)"
+  }
+ },
+ "poder": {
+  "volume": {
+   "sd_do_delta_pp": 14.12,
+   "com_4_casos_ve_a_partir_de_pp": 19.9,
+   "com_8_casos_ve_a_partir_de_pp": 14.1,
+   "com_10_casos_ve_a_partir_de_pp": 12.6,
+   "com_16_casos_ve_a_partir_de_pp": 10.0,
+   "com_22_casos_ve_a_partir_de_pp": 8.6,
+   "com_28_casos_ve_a_partir_de_pp": 7.6
+  },
+  "eficiencia": {
+   "sd_do_delta_pp": 15.82,
+   "com_4_casos_ve_a_partir_de_pp": 22.3,
+   "com_8_casos_ve_a_partir_de_pp": 15.8,
+   "com_10_casos_ve_a_partir_de_pp": 14.1,
+   "com_16_casos_ve_a_partir_de_pp": 11.2,
+   "com_22_casos_ve_a_partir_de_pp": 9.6,
+   "com_28_casos_ve_a_partir_de_pp": 8.5
+  }
+ },
+ "confiabilidade_do_qz": 0.471,
+ "precisa_copiar": {
+  "o_que": "os Excels do Wyscout (aba BASE) do Portal Ranking, por período, lidos em modo somente-leitura pelo passo 1 (J08_base.py). Nada foi copiado por este estudo; o fluxo principal copia e registra a data.",
+  "onde": "Portal Ranking/dados/<periodo>/ (e <periodo>/_pre_filtro/ quando existir, que é o export cru e é o que o script prefere)",
+  "periodos_e_ligas": {
+   "2018": [
+    "Brasil A"
+   ],
+   "2019": [
+    "Brasil A"
+   ],
+   "2020": [
+    "Brasil A"
+   ],
+   "2021": [
+    "Brasil A"
+   ],
+   "2022": [
+    "Argentina A",
+    "Brasil A",
+    "Chile",
+    "Colombia A",
+    "Equador A",
+    "Paraguai",
+    "Uruguai"
+   ],
+   "2023": [
+    "Alemanha B",
+    "Arabia Saudita A",
+    "Argentina A",
+    "Belgica A",
+    "Brasil A",
+    "Brasil B",
+    "Brasil C",
+    "Chile",
+    "Colombia A",
+    "Coreia A",
+    "Coreia B",
+    "Dinamarca",
+    "EUA",
+    "Equador A",
+    "Espanha B",
+    "Japao A",
+    "Japao B",
+    "Mexico",
+    "Paraguai",
+    "Peru",
+    "Portugal A",
+    "Portugal B",
+    "Portugal C",
+    "Uruguai"
+   ],
+   "2024": [
+    "Alemanha A",
+    "Arabia Saudita A",
+    "Argentina A",
+    "Argentina RESERVAS",
+    "Bahrain",
+    "Belgica A",
+    "Bolivia",
+    "Brasil A",
+    "Brasil B",
+    "Brasil C",
+    "Bulgaria",
+    "Catar",
+    "Chile",
+    "China",
+    "Colombia A",
+    "Colombia B",
+    "EUA",
+    "Emirados",
+    "Equador A",
+    "Eslovaquia",
+    "Espanha A",
+    "Espanha B",
+    "França A",
+    "Grecia",
+    "Holanda",
+    "Inglaterra A",
+    "Inglaterra B",
+    "Italia A",
+    "Japao B",
+    "Mexico",
+    "Paraguai",
+    "Polonia",
+    "Portugal A",
+    "Portugal B",
+    "Portugal C",
+    "Romenia",
+    "Russia",
+    "Uruguai",
+    "Venezuela"
+   ],
+   "2025": [
+    "Arabia Saudita A",
+    "Argentina A",
+    "Bahrain",
+    "Belgica A",
+    "Bolivia",
+    "Brasil A",
+    "Brasil B",
+    "Brasil C",
+    "Bulgaria",
+    "Catar",
+    "Chile",
+    "China",
+    "Colombia A",
+    "Coreia A",
+    "Coreia B",
+    "EUA",
+    "Emirados",
+    "Equador A",
+    "Espanha A",
+    "Espanha B",
+    "Grecia",
+    "Japao A",
+    "Japao B",
+    "Mexico",
+    "Paraguai",
+    "Polonia",
+    "Portugal A",
+    "Portugal B",
+    "Portugal C",
+    "Russia",
+    "Tcheca",
+    "Turquia",
+    "Ucrania",
+    "Uruguai",
+    "Venezuela"
+   ],
+   "jun26": [
+    "Brasil A",
+    "Brasil B",
+    "Brasil C"
+   ]
+  },
+  "total_pares_periodo_liga": 112,
+  "o_que_ja_esta_no_repositorio": "dados_copiados/wyscout/ (rankings_ago26.json, _temporal_movers.json, _temporal_photos.json, _temporal_aging.json, xlsx_ago26/) — o período ago26 NÃO cobre os lados das transferências."
+ },
+ "o_que_nao_tem": {
+  "fisicas": "família não montável: não há dado físico por temporada para liga de origem nenhuma. O fator do J08 é TÉCNICO, e o J09 marca o requisito físico como 'não verificado' em todo alvo estrangeiro.",
+  "goleiros": "o painel temporal não tem posição-raiz de goleiro; J08 não produz fator para goleiro."
+ }
+}

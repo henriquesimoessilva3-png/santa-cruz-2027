@@ -1,0 +1,301 @@
+liga,fator,casos,forca,destino,familia,ic95,ic95_lo,ic95_hi,p_da_familia,unidade_usada,fator_bruto,fator_sem_idade,quanto_era_selecao,quanto_era_idade,fator_so_quem_jogou_900,passou_bh,porta_coorte,nivel,n_indicadores_da_familia_no_bh,obs
+Brasil A,2.95,156,forte,Brasil B,eficiencia,"[+1.6, +4.2]",1.57,4.2,1e-05,Brasil A,6.18,2.91,3.27,-0.04,2.87,3,passou,firme,10,fator próprio da liga
+Brasil A,3.38,156,forte,Brasil B,volume,"[+2.0, +4.7]",1.97,4.68,0.0,Brasil A,5.85,3.27,2.58,-0.1,3.58,7,não passou,provável,12,fator próprio da liga
+Brasil C,0.26,92,forte,Brasil B,eficiencia,"[-1.2, +1.8]",-1.23,1.8,0.73812,Brasil C,-1.95,0.3,-2.25,0.04,-0.5,0,não passou,indício,10,fator próprio da liga
+Brasil C,0.07,92,forte,Brasil B,volume,"[-1.3, +1.5]",-1.35,1.53,0.92706,Brasil C,-0.99,0.2,-1.19,0.13,-1.49,5,não passou,provável,12,fator próprio da liga
+Argentina A,2.62,28,forte,Brasil B,eficiencia,"[-1.3, +6.6]",-1.35,6.57,0.19858,Argentina A,2.73,2.69,0.04,0.07,0.5,1,passou,firme,10,fator próprio da liga
+Argentina A,5.24,28,forte,Brasil B,volume,"[+1.6, +9.3]",1.61,9.3,0.00894,Argentina A,6.55,5.49,1.06,0.24,3.65,2,não passou,provável,12,fator próprio da liga
+Uruguai,-2.96,22,forte,Brasil B,eficiencia,"[-7.7, +2.2]",-7.67,2.19,0.20839,Uruguai,-5.09,-2.89,-2.2,0.07,-3.8,2,não passou,provável,10,fator próprio da liga
+Uruguai,-3.36,22,forte,Brasil B,volume,"[-9.4, +2.8]",-9.45,2.76,0.26901,Uruguai,-5.91,-3.15,-2.76,0.21,-5.49,2,não passou,provável,12,fator próprio da liga
+Colombia A,-4.75,16,forte,Brasil B,eficiencia,"[-12.2, +2.3]",-12.18,2.29,0.17959,Colombia A,-2.58,-4.78,2.2,-0.04,-2.72,0,não passou,indício,10,fator próprio da liga
+Colombia A,-7.63,16,forte,Brasil B,volume,"[-12.2, -3.2]",-12.21,-3.17,0.00068,Colombia A,-7.38,-7.74,0.36,-0.12,-10.05,0,não passou,indício,12,fator próprio da liga
+EUA,4.27,15,forte,Brasil B,eficiencia,"[-1.1, +9.6]",-1.05,9.55,0.09588,EUA,2.26,4.28,-2.02,0.0,3.84,0,passou,provável,10,fator próprio da liga
+EUA,-1.31,15,forte,Brasil B,volume,"[-9.3, +6.6]",-9.26,6.6,0.74268,EUA,-3.3,-1.31,-1.99,-0.01,-2.11,0,não passou,indício,12,fator próprio da liga
+Portugal A,2.59,13,forte,Brasil B,eficiencia,"[-3.7, +9.2]",-3.65,9.15,0.42166,Portugal A,2.66,2.67,-0.02,0.08,-1.47,0,não passou,indício,10,fator próprio da liga
+Portugal A,3.91,13,forte,Brasil B,volume,"[-2.9, +11.2]",-2.86,11.17,0.24519,Portugal A,2.9,4.18,-1.28,0.27,0.66,0,não passou,indício,12,fator próprio da liga
+Portugal B,-0.8,12,forte,Brasil B,eficiencia,"[-9.4, +9.3]",-9.41,9.29,0.85818,Portugal B,-0.09,-0.7,0.6,0.1,-5.03,0,passou,provável,10,fator próprio da liga
+Portugal B,2.02,12,forte,Brasil B,volume,"[-4.7, +8.3]",-4.73,8.33,0.54416,Portugal B,2.21,2.37,-0.17,0.36,1.0,1,não passou,provável,12,fator próprio da liga
+Chile,-5.15,10,forte,Brasil B,eficiencia,"[-12.6, +0.8]",-12.58,0.82,0.0977,Chile,-2.9,-5.06,2.16,0.09,-6.04,0,passou,provável,10,fator próprio da liga
+Chile,-4.18,10,forte,Brasil B,volume,"[-14.1, +4.4]",-14.07,4.39,0.348,Chile,-5.37,-3.88,-1.49,0.3,-6.29,1,não passou,provável,12,fator próprio da liga
+Japao B,-0.29,9,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 9 casos)
+Japao B,-3.17,9,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 9 casos)
+Japao A,-1.32,8,agrupado,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 8 casos)
+Japao A,0.31,8,agrupado,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 8 casos)
+Arabia Saudita A,-0.29,7,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 7 casos)
+Arabia Saudita A,-3.17,7,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 7 casos)
+Inglaterra A,6.54,7,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Inglaterra A,3.25,7,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Paraguai,6.54,7,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Paraguai,3.25,7,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Coreia B,6.54,6,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Coreia B,3.25,6,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Grecia,6.54,6,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Grecia,3.25,6,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Italia A,6.54,6,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Italia A,3.25,6,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Mexico,-0.29,6,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 6 casos)
+Mexico,-3.17,6,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 6 casos)
+Russia,-1.32,6,agrupado,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 6 casos)
+Russia,0.31,6,agrupado,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 6 casos)
+Belgica A,-1.32,5,agrupado,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Belgica A,0.31,5,agrupado,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Equador A,-1.32,5,agrupado,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Equador A,0.31,5,agrupado,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Catar,-1.32,4,agrupado,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 4 casos)
+Catar,0.31,4,agrupado,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 4 casos)
+Coreia A,-0.29,4,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 4 casos)
+Coreia A,-3.17,4,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 4 casos)
+Emirados,6.54,4,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 4 casos)
+Emirados,3.25,4,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 4 casos)
+Bahrain,-0.29,3,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bahrain,-3.17,3,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bolivia,-1.32,3,agrupado,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 3 casos)
+Bolivia,0.31,3,agrupado,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 3 casos)
+Bulgaria,-0.29,3,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bulgaria,-3.17,3,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+China,6.54,3,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+China,3.25,3,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Colombia B,-0.29,3,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Colombia B,-3.17,3,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Espanha B,-0.29,3,agrupado,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Espanha B,-3.17,3,agrupado,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Peru,6.54,3,agrupado,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Peru,3.25,3,agrupado,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Espanha A,6.54,2,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Espanha A,3.25,2,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+França A,-1.32,2,fraco,Brasil B,eficiencia,"[-5.5, +2.7]",-5.46,2.74,0.53133,FAIXA PAREADO,0.08,-1.35,1.42,-0.02,1.87,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 2 casos)
+França A,0.31,2,fraco,Brasil B,volume,"[-4.1, +4.8]",-4.08,4.82,0.88986,FAIXA PAREADO,-0.46,0.22,-0.68,-0.09,0.6,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 2 casos)
+Polonia,6.54,2,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Polonia,3.25,2,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Portugal C,-0.29,2,fraco,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 2 casos)
+Portugal C,-3.17,2,fraco,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 2 casos)
+Turquia,6.54,2,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Turquia,3.25,2,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Venezuela,6.54,2,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Venezuela,3.25,2,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Alemanha A,6.54,1,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha A,3.25,1,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha B,6.54,1,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha B,3.25,1,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Argentina RESERVAS,6.54,1,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Argentina RESERVAS,3.25,1,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Dinamarca,6.54,1,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Dinamarca,3.25,1,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Eslovaquia,-0.29,1,fraco,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Eslovaquia,-3.17,1,fraco,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Holanda,6.54,1,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Holanda,3.25,1,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Inglaterra B,6.54,1,fraco,Brasil B,eficiencia,"[+2.7, +10.4]",2.67,10.37,0.00068,FAIXA ACIMA,5.0,6.55,-1.55,0.02,8.45,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Inglaterra B,3.25,1,fraco,Brasil B,volume,"[-0.1, +6.5]",-0.06,6.46,0.05656,FAIXA ACIMA,2.97,3.3,-0.33,0.06,3.44,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Romenia,-0.29,1,fraco,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Romenia,-3.17,1,fraco,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Tcheca,-0.29,1,fraco,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Tcheca,-3.17,1,fraco,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Ucrania,-0.29,1,fraco,Brasil B,eficiencia,"[-4.0, +3.7]",-4.0,3.65,0.8863,FAIXA ABAIXO,-0.4,-0.32,-0.08,-0.03,2.18,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Ucrania,-3.17,1,fraco,Brasil B,volume,"[-7.0, +0.4]",-7.01,0.4,0.08614,FAIXA ABAIXO,-5.91,-3.29,-2.62,-0.12,-5.21,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Brasil B,-2.95,240,forte,Brasil A,eficiencia,"[-2.9, -2.9]",-2.95,-2.95,,Brasil B,-6.18,-2.91,-3.27,0.04,-2.87,0,não testável,indício,10,fator próprio da liga
+Brasil B,-3.38,240,forte,Brasil A,volume,"[-3.4, -3.4]",-3.38,-3.38,,Brasil B,-5.85,-3.27,-2.58,0.1,-3.58,0,não testável,indício,12,fator próprio da liga
+Brasil C,-2.69,92,forte,Brasil A,eficiencia,"[-4.2, -1.2]",-4.18,-1.15,0.73812,Brasil C,-8.12,-2.61,-5.51,0.08,-3.37,0,não passou,indício,10,fator próprio da liga
+Brasil C,-3.31,92,forte,Brasil A,volume,"[-4.7, -1.8]",-4.72,-1.85,0.92706,Brasil C,-6.85,-3.08,-3.77,0.23,-5.06,5,não passou,provável,12,fator próprio da liga
+Argentina A,-0.33,28,forte,Brasil A,eficiencia,"[-4.3, +3.6]",-4.3,3.62,0.19858,Argentina A,-3.45,-0.22,-3.22,0.1,-2.36,1,passou,firme,10,fator próprio da liga
+Argentina A,1.87,28,forte,Brasil A,volume,"[-1.8, +5.9]",-1.77,5.92,0.00894,Argentina A,0.69,2.21,-1.52,0.35,0.07,2,não passou,provável,12,fator próprio da liga
+Uruguai,-5.91,22,forte,Brasil A,eficiencia,"[-10.6, -0.8]",-10.62,-0.76,0.20839,Uruguai,-11.26,-5.8,-5.46,0.11,-6.66,2,não passou,provável,10,fator próprio da liga
+Uruguai,-6.74,22,forte,Brasil A,volume,"[-12.8, -0.6]",-12.83,-0.62,0.26901,Uruguai,-11.77,-6.42,-5.34,0.32,-9.06,2,não passou,provável,12,fator próprio da liga
+Colombia A,-7.7,16,forte,Brasil A,eficiencia,"[-15.1, -0.7]",-15.13,-0.66,0.17959,Colombia A,-8.76,-7.7,-1.07,0.0,-5.58,0,não passou,indício,10,fator próprio da liga
+Colombia A,-11.0,16,forte,Brasil A,volume,"[-15.6, -6.5]",-15.59,-6.55,0.00068,Colombia A,-13.24,-11.02,-2.22,-0.02,-13.63,0,não passou,indício,12,fator próprio da liga
+EUA,1.32,15,forte,Brasil A,eficiencia,"[-4.0, +6.6]",-4.0,6.6,0.09588,EUA,-3.92,1.37,-5.28,0.04,0.97,0,passou,provável,10,fator próprio da liga
+EUA,-4.68,15,forte,Brasil A,volume,"[-12.6, +3.2]",-12.63,3.22,0.74268,EUA,-9.16,-4.58,-4.57,0.1,-5.68,0,não passou,indício,12,fator próprio da liga
+Portugal A,-0.35,13,forte,Brasil A,eficiencia,"[-6.6, +6.2]",-6.6,6.2,0.42166,Portugal A,-3.52,-0.24,-3.28,0.12,-4.33,0,não passou,indício,10,fator próprio da liga
+Portugal A,0.54,13,forte,Brasil A,volume,"[-6.2, +7.8]",-6.23,7.8,0.24519,Portugal A,-2.95,0.91,-3.86,0.37,-2.92,0,não passou,indício,12,fator próprio da liga
+Portugal B,-3.75,12,forte,Brasil A,eficiencia,"[-12.4, +6.3]",-12.35,6.35,0.85818,Portugal B,-6.27,-3.61,-2.66,0.14,-7.9,0,passou,provável,10,fator próprio da liga
+Portugal B,-1.36,12,forte,Brasil A,volume,"[-8.1, +5.0]",-8.11,4.96,0.54416,Portugal B,-3.65,-0.9,-2.75,0.46,-2.58,1,não passou,provável,12,fator próprio da liga
+Chile,-8.1,10,forte,Brasil A,eficiencia,"[-15.5, -2.1]",-15.53,-2.13,0.0977,Chile,-9.08,-7.97,-1.11,0.13,-8.91,0,passou,provável,10,fator próprio da liga
+Chile,-7.56,10,forte,Brasil A,volume,"[-17.4, +1.0]",-17.45,1.01,0.348,Chile,-11.22,-7.15,-4.07,0.41,-9.87,1,não passou,provável,12,fator próprio da liga
+Japao B,-3.24,9,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 9 casos)
+Japao B,-6.55,9,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 9 casos)
+Japao A,-4.27,8,agrupado,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 8 casos)
+Japao A,-3.07,8,agrupado,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 8 casos)
+Arabia Saudita A,-3.24,7,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 7 casos)
+Arabia Saudita A,-6.55,7,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 7 casos)
+Inglaterra A,3.59,7,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Inglaterra A,-0.13,7,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Paraguai,3.59,7,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Paraguai,-0.13,7,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Coreia B,3.59,6,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Coreia B,-0.13,6,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Grecia,3.59,6,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Grecia,-0.13,6,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Italia A,3.59,6,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Italia A,-0.13,6,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Mexico,-3.24,6,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 6 casos)
+Mexico,-6.55,6,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 6 casos)
+Russia,-4.27,6,agrupado,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 6 casos)
+Russia,-3.07,6,agrupado,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 6 casos)
+Belgica A,-4.27,5,agrupado,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Belgica A,-3.07,5,agrupado,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Equador A,-4.27,5,agrupado,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Equador A,-3.07,5,agrupado,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Catar,-4.27,4,agrupado,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 4 casos)
+Catar,-3.07,4,agrupado,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 4 casos)
+Coreia A,-3.24,4,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 4 casos)
+Coreia A,-6.55,4,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 4 casos)
+Emirados,3.59,4,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 4 casos)
+Emirados,-0.13,4,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 4 casos)
+Bahrain,-3.24,3,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bahrain,-6.55,3,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bolivia,-4.27,3,agrupado,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 3 casos)
+Bolivia,-3.07,3,agrupado,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 3 casos)
+Bulgaria,-3.24,3,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bulgaria,-6.55,3,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+China,3.59,3,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+China,-0.13,3,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Colombia B,-3.24,3,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Colombia B,-6.55,3,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Espanha B,-3.24,3,agrupado,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Espanha B,-6.55,3,agrupado,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Peru,3.59,3,agrupado,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Peru,-0.13,3,agrupado,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Espanha A,3.59,2,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Espanha A,-0.13,2,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+França A,-4.27,2,fraco,Brasil A,eficiencia,"[-8.4, -0.2]",-8.41,-0.21,0.53133,FAIXA PAREADO,-6.1,-4.26,-1.84,0.01,-0.99,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 2 casos)
+França A,-3.07,2,fraco,Brasil A,volume,"[-7.5, +1.4]",-7.46,1.44,0.88986,FAIXA PAREADO,-6.32,-3.05,-3.26,0.02,-2.98,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 2 casos)
+Polonia,3.59,2,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Polonia,-0.13,2,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Portugal C,-3.24,2,fraco,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 2 casos)
+Portugal C,-6.55,2,fraco,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 2 casos)
+Turquia,3.59,2,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Turquia,-0.13,2,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Venezuela,3.59,2,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Venezuela,-0.13,2,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Alemanha A,3.59,1,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha A,-0.13,1,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha B,3.59,1,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha B,-0.13,1,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Argentina RESERVAS,3.59,1,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Argentina RESERVAS,-0.13,1,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Dinamarca,3.59,1,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Dinamarca,-0.13,1,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Eslovaquia,-3.24,1,fraco,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Eslovaquia,-6.55,1,fraco,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Holanda,3.59,1,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Holanda,-0.13,1,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Inglaterra B,3.59,1,fraco,Brasil A,eficiencia,"[-0.3, +7.4]",-0.28,7.42,0.00068,FAIXA ACIMA,-1.18,3.64,-4.82,0.05,5.58,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Inglaterra B,-0.13,1,fraco,Brasil A,volume,"[-3.4, +3.1]",-3.44,3.08,0.05656,FAIXA ACIMA,-2.88,0.03,-2.91,0.16,-0.13,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Romenia,-3.24,1,fraco,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Romenia,-6.55,1,fraco,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Tcheca,-3.24,1,fraco,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Tcheca,-6.55,1,fraco,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Ucrania,-3.24,1,fraco,Brasil A,eficiencia,"[-6.9, +0.7]",-6.94,0.7,0.8863,FAIXA ABAIXO,-6.58,-3.23,-3.35,0.01,-0.69,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Ucrania,-6.55,1,fraco,Brasil A,volume,"[-10.4, -3.0]",-10.39,-2.98,0.08614,FAIXA ABAIXO,-11.77,-6.56,-5.21,-0.01,-8.79,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Brasil B,-0.26,240,forte,Brasil C,eficiencia,"[-0.3, -0.3]",-0.26,-0.26,,Brasil B,1.95,-0.3,2.25,-0.04,0.5,0,não testável,indício,10,fator próprio da liga
+Brasil B,-0.07,240,forte,Brasil C,volume,"[-0.1, -0.1]",-0.07,-0.07,,Brasil B,0.99,-0.2,1.19,-0.13,1.49,0,não testável,indício,12,fator próprio da liga
+Brasil A,2.69,156,forte,Brasil C,eficiencia,"[+1.3, +3.9]",1.31,3.94,1e-05,Brasil A,8.12,2.61,5.51,-0.08,3.37,3,passou,firme,10,fator próprio da liga
+Brasil A,3.31,156,forte,Brasil C,volume,"[+1.9, +4.6]",1.91,4.61,0.0,Brasil A,6.85,3.08,3.77,-0.23,5.06,7,não passou,provável,12,fator próprio da liga
+Argentina A,2.36,28,forte,Brasil C,eficiencia,"[-1.6, +6.3]",-1.61,6.31,0.19858,Argentina A,4.68,2.39,2.29,0.02,1.0,1,passou,firme,10,fator próprio da liga
+Argentina A,5.18,28,forte,Brasil C,volume,"[+1.5, +9.2]",1.54,9.23,0.00894,Argentina A,7.54,5.29,2.25,0.11,5.14,2,não passou,provável,12,fator próprio da liga
+Uruguai,-3.22,22,forte,Brasil C,eficiencia,"[-7.9, +1.9]",-7.93,1.93,0.20839,Uruguai,-3.14,-3.19,0.05,0.03,-3.3,2,não passou,provável,10,fator próprio da liga
+Uruguai,-3.43,22,forte,Brasil C,volume,"[-9.5, +2.7]",-9.51,2.69,0.26901,Uruguai,-4.92,-3.35,-1.57,0.08,-4.0,2,não passou,provável,12,fator próprio da liga
+Colombia A,-5.01,16,forte,Brasil C,eficiencia,"[-12.4, +2.0]",-12.44,2.03,0.17959,Colombia A,-0.64,-5.08,4.45,-0.08,-2.22,0,não passou,indício,10,fator próprio da liga
+Colombia A,-7.69,16,forte,Brasil C,volume,"[-12.3, -3.2]",-12.28,-3.24,0.00068,Colombia A,-6.39,-7.94,1.55,-0.25,-8.57,0,não passou,indício,12,fator próprio da liga
+EUA,4.01,15,forte,Brasil C,eficiencia,"[-1.3, +9.3]",-1.31,9.29,0.09588,EUA,4.21,3.98,0.23,-0.04,4.34,0,passou,provável,10,fator próprio da liga
+EUA,-1.37,15,forte,Brasil C,volume,"[-9.3, +6.5]",-9.32,6.53,0.74268,EUA,-2.31,-1.51,-0.8,-0.13,-0.62,0,não passou,indício,12,fator próprio da liga
+Portugal A,2.34,13,forte,Brasil C,eficiencia,"[-3.9, +8.9]",-3.91,8.89,0.42166,Portugal A,4.6,2.37,2.23,0.04,-0.97,0,não passou,indício,10,fator próprio da liga
+Portugal A,3.85,13,forte,Brasil C,volume,"[-2.9, +11.1]",-2.92,11.11,0.24519,Portugal A,3.9,3.99,-0.09,0.14,2.15,0,não passou,indício,12,fator próprio da liga
+Portugal B,-1.06,12,forte,Brasil C,eficiencia,"[-9.7, +9.0]",-9.66,9.04,0.85818,Portugal B,1.85,-1.0,2.85,0.06,-4.54,0,passou,provável,10,fator próprio da liga
+Portugal B,1.95,12,forte,Brasil C,volume,"[-4.8, +8.3]",-4.8,8.27,0.54416,Portugal B,3.2,2.18,1.02,0.23,2.48,1,não passou,provável,12,fator próprio da liga
+Chile,-5.41,10,forte,Brasil C,eficiencia,"[-12.8, +0.6]",-12.84,0.56,0.0977,Chile,-0.96,-5.36,4.41,0.05,-5.54,0,passou,provável,10,fator próprio da liga
+Chile,-4.25,10,forte,Brasil C,volume,"[-14.1, +4.3]",-14.13,4.32,0.348,Chile,-4.37,-4.08,-0.3,0.17,-4.8,1,não passou,provável,12,fator próprio da liga
+Japao B,-0.55,9,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 9 casos)
+Japao B,-3.24,9,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 9 casos)
+Japao A,-1.58,8,agrupado,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 8 casos)
+Japao A,0.24,8,agrupado,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 8 casos)
+Arabia Saudita A,-0.55,7,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 7 casos)
+Arabia Saudita A,-3.24,7,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 7 casos)
+Inglaterra A,6.28,7,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Inglaterra A,3.18,7,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Paraguai,6.28,7,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Paraguai,3.18,7,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 7 casos)
+Coreia B,6.28,6,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Coreia B,3.18,6,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Grecia,6.28,6,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Grecia,3.18,6,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Italia A,6.28,6,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Italia A,3.18,6,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 6 casos)
+Mexico,-0.55,6,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 6 casos)
+Mexico,-3.24,6,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 6 casos)
+Russia,-1.58,6,agrupado,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 6 casos)
+Russia,0.24,6,agrupado,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 6 casos)
+Belgica A,-1.58,5,agrupado,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Belgica A,0.24,5,agrupado,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Equador A,-1.58,5,agrupado,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Equador A,0.24,5,agrupado,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 5 casos)
+Catar,-1.58,4,agrupado,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 4 casos)
+Catar,0.24,4,agrupado,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 4 casos)
+Coreia A,-0.55,4,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 4 casos)
+Coreia A,-3.24,4,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 4 casos)
+Emirados,6.28,4,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 4 casos)
+Emirados,3.18,4,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 4 casos)
+Bahrain,-0.55,3,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bahrain,-3.24,3,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bolivia,-1.58,3,agrupado,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 3 casos)
+Bolivia,0.24,3,agrupado,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 3 casos)
+Bulgaria,-0.55,3,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Bulgaria,-3.24,3,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+China,6.28,3,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+China,3.18,3,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Colombia B,-0.55,3,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Colombia B,-3.24,3,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Espanha B,-0.55,3,agrupado,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Espanha B,-3.24,3,agrupado,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 3 casos)
+Peru,6.28,3,agrupado,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Peru,3.18,3,agrupado,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 3 casos)
+Espanha A,6.28,2,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Espanha A,3.18,2,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+França A,-1.58,2,fraco,Brasil C,eficiencia,"[-5.7, +2.5]",-5.72,2.48,0.53133,FAIXA PAREADO,2.02,-1.64,3.67,-0.06,2.37,0,não passou,indício,10,fator da faixa de nível FAIXA PAREADO (a liga tem 2 casos)
+França A,0.24,2,fraco,Brasil C,volume,"[-4.1, +4.8]",-4.15,4.75,0.88986,FAIXA PAREADO,0.53,0.02,0.51,-0.22,2.08,0,não passou,indício,12,fator da faixa de nível FAIXA PAREADO (a liga tem 2 casos)
+Polonia,6.28,2,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Polonia,3.18,2,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Portugal C,-0.55,2,fraco,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 2 casos)
+Portugal C,-3.24,2,fraco,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 2 casos)
+Turquia,6.28,2,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Turquia,3.18,2,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Venezuela,6.28,2,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Venezuela,3.18,2,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 2 casos)
+Alemanha A,6.28,1,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha A,3.18,1,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha B,6.28,1,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Alemanha B,3.18,1,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Argentina RESERVAS,6.28,1,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Argentina RESERVAS,3.18,1,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Dinamarca,6.28,1,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Dinamarca,3.18,1,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Eslovaquia,-0.55,1,fraco,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Eslovaquia,-3.24,1,fraco,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Holanda,6.28,1,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Holanda,3.18,1,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Inglaterra B,6.28,1,fraco,Brasil C,eficiencia,"[+2.4, +10.1]",2.41,10.11,0.00068,FAIXA ACIMA,6.94,6.25,0.69,-0.02,8.95,1,passou,indício,10,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Inglaterra B,3.18,1,fraco,Brasil C,volume,"[-0.1, +6.4]",-0.13,6.39,0.05656,FAIXA ACIMA,3.97,3.11,0.86,-0.07,4.93,1,não passou,indício,12,fator da faixa de nível FAIXA ACIMA (a liga tem 1 caso)
+Romenia,-0.55,1,fraco,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Romenia,-3.24,1,fraco,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Tcheca,-0.55,1,fraco,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Tcheca,-3.24,1,fraco,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Ucrania,-0.55,1,fraco,Brasil C,eficiencia,"[-4.3, +3.4]",-4.25,3.39,0.8863,FAIXA ABAIXO,1.55,-0.61,2.16,-0.07,2.68,0,não passou,indício,10,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Ucrania,-3.24,1,fraco,Brasil C,volume,"[-7.1, +0.3]",-7.08,0.33,0.08614,FAIXA ABAIXO,-4.92,-3.48,-1.44,-0.25,-3.73,0,não passou,indício,12,fator da faixa de nível FAIXA ABAIXO (a liga tem 1 caso)
+Arabia Saudita B,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Argentina B,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Austria,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Belgica B,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Croacia,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Equador B,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Escocia,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Espanha C,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+França B,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Hungria,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Israel,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Italia B,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Italia C,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Marrocos,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Noruega,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Servia,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Suecia,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator
+Suiça,,0,sem fator,,,,,,,,,,,,,,,,,liga do painel sem nenhuma transferência para o futebol brasileiro: sem faixa e sem fator

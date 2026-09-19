@@ -1,0 +1,689 @@
+{
+ "parte": "J07",
+ "gerado_em": "2026-09-19",
+ "escopo": "So calculo. Nenhum destino, texto ou nivel de confianca foi decidido aqui; nenhum arquivo de conclusao foi tocado.",
+ "janela": "2022-2025 (4 temporadas fechadas), como manda o _registro.md. 2026 so aparece como ano seguinte na permanencia e nas notas de cobertura.",
+ "metodo_do_cruzamento": "Cruzamento de identidade refeito (script em /tmp, nao versionado): para cada linha de _fonte/estudo_serieb/resultados/base_jogador_temporada.csv procura-se a linha de dados/serieb_elencos.csv do mesmo (ano, clube) com maior pontuacao — id_tm=id_jogador +100, nome normalizado igual +60, forma abreviada do Wyscout casada com o nome cheio do Transfermarkt ('C. Palacios' = 'Carlos Palacios', 'G. Risso' = 'Gabriel Risso Patron') +45, idade da temporada batendo ate 1 ano +25 / ate 2 anos +5 / acima disso -60; empate ou pontuacao abaixo de 60 nao casa. Ponte de clube T01_ponte_clubes.json nos DOIS sentidos, mais 'Athletico Paranaense' -> 'Athletico-PR' (a base de jogadores usa o nome longo em 2025). A coluna idade da base e a idade HOJE: subtrai-se (2026 - ano). Estrangeiro = quem NAO tem 'Brasil' na lista de nacionalidades. Janela 2022-2025 (4 temporadas fechadas), 3.160 linhas, 2.996 com nacionalidade (94,8%).",
+ "conferencia": "Conferido por um segundo caminho independente: partindo do lado dos elencos (para cada linha estrangeira 2022-2025 de serieb_elencos.csv, casamento por ultimo sobrenome dentro do mesmo ano e clube) chega-se a 177 linhas com minutos, Sobe 58 / Meio 85 / Cai 34, 63 clube-temporadas com algum e as mesmas origens por pais — diferenca de 4% contra as 184 do caminho principal, que casa tambem as formas em que o Wyscout abre outro prenome.",
+ "calculados": 58,
+ "nao_calculaveis": 3,
+ "numeros": [
+  {
+   "marcador": "liga_ct",
+   "conclusao": "J07-1",
+   "valor": "2.3",
+   "formatado": "2,3",
+   "de_onde": "184 linhas de estrangeiro / 80 clube-temporadas (A01_clube_temporada.csv, temporada em 2022-2025). Cruzamento de identidade refeito (script em /tmp, nao versionado): para cada linha de _fonte/estudo_serieb/resultados/base_jogador_temporada.csv procura-se a linha de dados/serieb_elencos.csv do mesmo (ano, clube) com maior pontuacao — id_tm=id_jogador +100, nome normalizado igual +60, forma abreviada do Wyscout casada com o nome cheio do Transfermarkt ('C. Palacios' = 'Carlos Palacios', 'G. Risso' = 'Gabriel Risso Patron') +45, idade da temporada batendo ate 1 ano +25 / ate 2 anos +5 / acima disso -60; empate ou pontuacao abaixo de 60 nao casa. Ponte de clube T01_ponte_clubes.json nos DOIS sentidos, mais 'Athletico Paranaense' -> 'Athletico-PR' (a base de jogadores usa o nome longo em 2025). A coluna idade da base e a idade HOJE: subtrai-se (2026 - ano). Estrangeiro = quem NAO tem 'Brasil' na lista de nacionalidades. Janela 2022-2025 (4 temporadas fechadas), 3.160 linhas, 2.996 com nacionalidade (94,8%).",
+   "conferido": true,
+   "nota": "Conferido por um segundo caminho independente: partindo do lado dos elencos (para cada linha estrangeira 2022-2025 de serieb_elencos.csv, casamento por ultimo sobrenome dentro do mesmo ano e clube) chega-se a 177 linhas com minutos, Sobe 58 / Meio 85 / Cai 34, 63 clube-temporadas com algum e as mesmas origens por pais — diferenca de 4% contra as 184 do caminho principal, que casa tambem as formas em que o Wyscout abre outro prenome."
+  },
+  {
+   "marcador": "ct_com_algum",
+   "conclusao": "J07-1",
+   "valor": "63",
+   "formatado": "63",
+   "de_onde": "clube-temporadas distintas (ano, clube) com pelo menos uma linha de estrangeiro em base_jogador_temporada.csv, 2022-2025.",
+   "conferido": true,
+   "nota": "Segundo caminho (lado elencos) da os mesmos 63."
+  },
+  {
+   "marcador": "ct_total",
+   "conclusao": "J07-1",
+   "valor": "80",
+   "formatado": "80",
+   "de_onde": "linhas de A01_clube_temporada.csv com temporada em 2022-2025 (20 clubes x 4 temporadas); confere com os (ano, time) distintos de base_jogador_temporada.csv na mesma janela.",
+   "conferido": true
+  },
+  {
+   "marcador": "vagas",
+   "conclusao": "J07-1",
+   "valor": "9",
+   "formatado": "9",
+   "de_onde": "dados/premissas.json, premissa p9 'Limite de estrangeiros': '9 estrangeiros no elenco.' Constante de regulamento, nao medida.",
+   "conferido": true,
+   "nota": "Nao sai de base de jogo: e a premissa do app. Hoje esta digitada a mao na manchete publicada."
+  },
+  {
+   "marcador": "razao_sobe_meio",
+   "conclusao": "J07-1",
+   "valor": "2.7",
+   "formatado": "2,7",
+   "de_onde": "sobe_min / meio_min = 10,6328 / 3,9184 = 2,7136. Minutos de base_jogador_temporada.csv, coluna minutos, por faixa de A01_clube_temporada.csv.",
+   "conferido": true,
+   "nota": "Na conta so com quem subiu e quem ficou no meio; arredondado para uma casa como os dois termos."
+  },
+  {
+   "marcador": "sobe_min",
+   "conclusao": "J07-1",
+   "valor": "10.6",
+   "formatado": "10,6",
+   "de_onde": "soma dos minutos das linhas de estrangeiro / soma dos minutos de todas as linhas COM nacionalidade, faixa=Sobe (A01_clube_temporada.csv), 2022-2025: 60 linhas de estrangeiro em 555; 16 clube-temporadas.",
+   "conferido": true,
+   "nota": "Denominador so com nacionalidade conhecida (94,9% da Sobe). Com TODAS as linhas no denominador da 10,2% — piso."
+  },
+  {
+   "marcador": "meio_min",
+   "conclusao": "J07-1",
+   "valor": "3.9",
+   "formatado": "3,9",
+   "de_onde": "mesma conta, faixa=Meio: 87 linhas de estrangeiro em 1.749; 48 clube-temporadas.",
+   "conferido": true,
+   "nota": "Com todas as linhas no denominador: 3,8%."
+  },
+  {
+   "marcador": "cai_min",
+   "conclusao": "J07-1",
+   "valor": "4.7",
+   "formatado": "4,7",
+   "de_onde": "mesma conta, faixa=Cai: 37 linhas de estrangeiro em 692; 16 clube-temporadas.",
+   "conferido": true,
+   "nota": "Com todas as linhas no denominador: 4,5%."
+  },
+  {
+   "marcador": "sobe_sem",
+   "conclusao": "J07-1",
+   "valor": "13.8",
+   "formatado": "13,8",
+   "de_onde": "sobe_min tirando os clube-temporadas com fronteira=1 em A01_clube_temporada.csv (coluna que J07.py nunca leu): sobram 8 clube-temporadas da Sobe, 38 linhas de estrangeiro em 281.",
+   "conferido": true
+  },
+  {
+   "marcador": "meio_sem",
+   "conclusao": "J07-1",
+   "valor": "4.3",
+   "formatado": "4,3",
+   "de_onde": "meio_min sem os clube-temporadas de fronteira: 32 clube-temporadas, 63 linhas de estrangeiro em 1.205. (Cai sem fronteira: 6,1%.)",
+   "conferido": true,
+   "nota": "A diferenca Sobe x Meio nao so se mantem como cresce: 3,2 vezes sem os times de fronteira contra 2,7 com eles."
+  },
+  {
+   "marcador": "sobe_por",
+   "conclusao": "J07-1",
+   "valor": "3.8",
+   "formatado": "3,8",
+   "de_onde": "60 linhas de estrangeiro / 16 clube-temporadas da faixa Sobe = 3,75 -> 3,8 (arredondado, nao truncado).",
+   "conferido": true
+  },
+  {
+   "marcador": "meio_por",
+   "conclusao": "J07-1",
+   "valor": "1.8",
+   "formatado": "1,8",
+   "de_onde": "87 linhas de estrangeiro / 48 clube-temporadas da faixa Meio = 1,8125. (Cai: 37/16 = 2,3.)",
+   "conferido": true
+  },
+  {
+   "marcador": "est_lin",
+   "conclusao": "J07-1",
+   "valor": "184",
+   "formatado": "184",
+   "de_onde": "linhas de base_jogador_temporada.csv com ano em 2022-2025 e nacionalidade sem 'Brasil'.",
+   "conferido": true,
+   "nota": "Sao 182 pares (pessoa, temporada) distintos: a base do Wyscout duplica dois estrangeiros em 2025 (Stiven Mendoza aparece como 'S. Mendoza' e 'J. Mendoza Valencia' no Athletico-PR; Christian Ortiz como 'C. Ortiz' e 'C. Ortiz Lopez' no America-MG). Se o texto disser 'jogador-temporadas', o numero honesto e 182."
+  },
+  {
+   "marcador": "est_pes",
+   "conclusao": "J07-1",
+   "valor": "148",
+   "formatado": "148",
+   "de_onde": "id_jogador distintos do Transfermarkt entre essas 184 linhas. Reaparicao: 121 pessoas com 1 temporada, 21 com 2, 3 com 3 e 3 com 4.",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_ini",
+   "conclusao": "J07-1",
+   "valor": "2022",
+   "formatado": "2022",
+   "de_onde": "primeira temporada fechada da janela do estudo (_registro.md e CLAUDE.md: 2022-2025).",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_fim",
+   "conclusao": "J07-1",
+   "valor": "2025",
+   "formatado": "2025",
+   "de_onde": "ultima temporada fechada da janela.",
+   "conferido": true
+  },
+  {
+   "marcador": "ano_invertido",
+   "conclusao": "J07-1",
+   "valor": "2023",
+   "formatado": "2023",
+   "de_onde": "unica temporada de 2022-2025 em que a faixa Meio deu mais minutos a estrangeiro que a Sobe: Sobe 0,5% (3 linhas) contra Meio 1,2% (10 linhas). 2022: 8,4 x 2,1; 2024: 13,8 x 5,7; 2025: 20,6 x 6,7.",
+   "conferido": true,
+   "nota": "Confirma o '(hoje 2023)' que a proposta supunha."
+  },
+  {
+   "marcador": "ct_sobe_com_algum",
+   "conclusao": "J07-1",
+   "valor": "13",
+   "formatado": "13",
+   "de_onde": "clube-temporadas da faixa Sobe (16 ao todo) com pelo menos uma linha de estrangeiro. Com a ponte de clube corrigida, Athletico-PR 2025 entra na Sobe com 11 linhas de estrangeiro — era a clube-temporada que sumia.",
+   "conferido": true,
+   "nota": "Meio: 38 de 48. Cai: 12 de 16. O 4,3% publicado vinha de 2 clube-temporadas; agora sao 13 de 16."
+  },
+  {
+   "marcador": "cobertura_nova",
+   "conclusao": "J07-1",
+   "valor": "94.8",
+   "formatado": "94,8",
+   "de_onde": "linhas de base_jogador_temporada.csv 2022-2025 que casaram nacidade em serieb_elencos.csv: 2.996 de 3.160. Por faixa: Sobe 94,9% (555/585), Meio 94,8% (1.749/1.845), Cai 94,8% (692/730). Por ano: 2022 95,8%, 2023 96,3%, 2024 94,0%, 2025 93,2%, 2026 84,5%.",
+   "conferido": true,
+   "nota": "Era 81,7% (nas 5 temporadas) e a perda era enviesada contra o estrangeiro; agora a cobertura e praticamente igual nas tres faixas. Nas 5 temporadas: 92,9%."
+  },
+  {
+   "marcador": "mult_uso",
+   "conclusao": "J07-1",
+   "valor": "3.0",
+   "formatado": "3,0",
+   "de_onde": "%min de estrangeiro na liga inteira: 3,49% em 2022 e 10,36% em 2025 = 2,97 vezes. Por numero de linhas: 34 -> 80 = 2,4 vezes. Por clube-temporada: 1,7 -> 4,0 = 2,4 vezes.",
+   "conferido": true,
+   "nota": "ATENCAO AO TEXTO: a frase da proposta diz 'mais que triplicou'. Com o cruzamento corrigido nao triplica: quase triplica em minutos (2,97x) e cresce 2,4x em numero de jogadores. Quem escreve o texto decide a palavra; o numero e este."
+  },
+  {
+   "marcador": "pri_est",
+   "conclusao": "J07-2",
+   "valor": "18.1",
+   "formatado": "18,1",
+   "de_onde": "fatia_pct mediana (coluna fatia_pct de base_jogador_temporada.csv) na PRIMEIRA temporada em que a pessoa aparece na base, entre as estreias de 2022 a 2025, linhas de estrangeiro. n=149.",
+   "conferido": true,
+   "nota": "So 2023-2025 (sem o corte a esquerda de 2022, em que a estreia pode ser falsa): 19,9% com n=115. Definicao do J07.py (estreias 2022-2026): 19,6%."
+  },
+  {
+   "marcador": "pri_br",
+   "conclusao": "J07-2",
+   "valor": "16.8",
+   "formatado": "16,8",
+   "de_onde": "mesma conta, linhas de brasileiro (inclui dupla nacionalidade com Brasil). n=1.685.",
+   "conferido": true,
+   "nota": "So 2023-2025: 14,4% com n=951. A distancia cai de 8,4 pontos (publicado) para 1,3 ponto."
+  },
+  {
+   "marcador": "n_pri_est",
+   "conclusao": "J07-2",
+   "valor": "149",
+   "formatado": "149",
+   "de_onde": "estreias de estrangeiro entre 2022 e 2025 na base de jogador-temporada.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_pri_br",
+   "conclusao": "J07-2",
+   "valor": "1685",
+   "formatado": "1.685",
+   "de_onde": "estreias de brasileiro entre 2022 e 2025 na mesma base.",
+   "conferido": true
+  },
+  {
+   "marcador": "pri_est_nc",
+   "conclusao": "J07-2",
+   "valor": "16.6",
+   "formatado": "16,6",
+   "de_onde": "pri_est restrito a quem ENTROU NO CLUBE naquele ano: ano final de no_clube_desde (serieb_elencos.csv, dd/mm/aaaa) igual a temporada. n=120.",
+   "conferido": true,
+   "nota": "So 2023-2025: 19,4% (n=94)."
+  },
+  {
+   "marcador": "pri_br_nc",
+   "conclusao": "J07-2",
+   "valor": "16.5",
+   "formatado": "16,5",
+   "de_onde": "mesma restricao, brasileiros. n=1.078.",
+   "conferido": true,
+   "nota": "ATENCAO AO TEXTO: a proposta esperava a distancia cair de 8,4 para ~6,5 pontos. Com o cruzamento corrigido ela cai para 0,1 ponto (16,6 x 16,5) — comparando quem chegou ao clube no mesmo ano, estrangeiro e brasileiro estreiam jogando igual. So 2023-2025 a distancia volta a 4,2 pontos (19,4 x 15,2). A manchete 'o estrangeiro estreia jogando mais' nao se sustenta nesse recorte; a decisao do texto e do dono."
+  },
+  {
+   "marcador": "n_pri_est_nc",
+   "conclusao": "J07-2",
+   "valor": "120",
+   "formatado": "120",
+   "de_onde": "estreias de estrangeiro 2022-2025 com no_clube_desde no mesmo ano.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_pri_br_nc",
+   "conclusao": "J07-2",
+   "valor": "1078",
+   "formatado": "1.078",
+   "de_onde": "estreias de brasileiro 2022-2025 com no_clube_desde no mesmo ano.",
+   "conferido": true
+  },
+  {
+   "marcador": "perm_est",
+   "conclusao": "J07-2",
+   "valor": "26.6",
+   "formatado": "26,6",
+   "de_onde": "das 184 linhas de estrangeiro de 2022-2025, 49 reaparecem na Serie B no ano seguinte. O ALVO e montado sobre TODAS as 3.864 linhas de base_jogador_temporada.csv (por id do Transfermarkt quando ha, senao por nome normalizado), nao so sobre as que casaram nacionalidade.",
+   "conferido": true,
+   "nota": "Alvo so sobre as linhas com nacionalidade: 25,5% — a escolha do alvo move meio ponto. Por ano de partida: 2022->2023 14,7% (5/34), 2023->2024 35,3% (6/17), 2024->2025 37,7% (20/53), 2025->2026 22,5% (18/80)."
+  },
+  {
+   "marcador": "perm_br",
+   "conclusao": "J07-2",
+   "valor": "51.1",
+   "formatado": "51,1",
+   "de_onde": "mesma conta para as 2.812 linhas de brasileiro de 2022-2025: 1.438 reaparecem.",
+   "conferido": true,
+   "nota": "Alvo so com nacionalidade: 51,0%. Por ano: 53,5% / 48,9% / 53,1% / 49,0%."
+  },
+  {
+   "marcador": "n_perm_est",
+   "conclusao": "J07-2",
+   "valor": "184",
+   "formatado": "184",
+   "de_onde": "linhas de estrangeiro 2022-2025 na coorte de permanencia (todas).",
+   "conferido": true
+  },
+  {
+   "marcador": "n_perm_br",
+   "conclusao": "J07-2",
+   "valor": "2812",
+   "formatado": "2.812",
+   "de_onde": "linhas de brasileiro 2022-2025 na coorte de permanencia.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_pos_min",
+   "conclusao": "J07-2",
+   "valor": "13",
+   "formatado": "13",
+   "de_onde": "menor n de estrangeiro por posicao (coluna grupo de base_jogador_temporada.csv), 2022-2025: Volante 13.",
+   "conferido": true,
+   "nota": "Goleiro nao tem nenhum estrangeiro em 2022-2025 — se o texto disser 'por posicao', o piso verdadeiro e 0 no gol e 13 entre as posicoes de linha."
+  },
+  {
+   "marcador": "n_pos_max",
+   "conclusao": "J07-2",
+   "valor": "49",
+   "formatado": "49",
+   "de_onde": "maior n de estrangeiro por posicao, 2022-2025: Meia 49. Os demais: Extremo 45, Atacante 30, Lateral 28, Zaga 19, Volante 13, Goleiro 0.",
+   "conferido": true
+  },
+  {
+   "marcador": "cobertura_perm_por_ano",
+   "conclusao": "J07-2",
+   "valor": "2022: 95,8% · 2023: 96,3% · 2024: 94,0% · 2025: 93,2% · 2026: 84,5%",
+   "formatado": "2022: 95,8% · 2023: 96,3% · 2024: 94,0% · 2025: 93,2% · 2026: 84,5%",
+   "de_onde": "% das linhas de base_jogador_temporada.csv de cada temporada que casaram nacionalidade em serieb_elencos.csv. Marcador que junta varios valores numa frase, ja montado como string.",
+   "conferido": true,
+   "nota": "A ressalva continua valendo, com outro tamanho: 43,5% da coorte estrangeira (80 de 184) e julgada contra 2026, que e a temporada de pior cobertura (84,5%) e ainda em curso. Era 52% antes do recasamento."
+  },
+  {
+   "marcador": "pct_coorte_2025",
+   "conclusao": "J07-2",
+   "valor": "43.5",
+   "formatado": "43,5",
+   "de_onde": "80 das 184 linhas de estrangeiro sao de 2025 e so podem ser julgadas contra 2026: 43,5%.",
+   "conferido": true
+  },
+  {
+   "marcador": "total_est",
+   "conclusao": "J07-3",
+   "valor": "184",
+   "formatado": "184",
+   "de_onde": "mesmo numero de est_lin: linhas de estrangeiro em base_jogador_temporada.csv, 2022-2025.",
+   "conferido": true,
+   "nota": "182 pares (pessoa, temporada) distintos por causa das duas duplicatas do Wyscout em 2025."
+  },
+  {
+   "marcador": "total_pes",
+   "conclusao": "J07-3",
+   "valor": "148",
+   "formatado": "148",
+   "de_onde": "id_jogador distintos do Transfermarkt entre as 184 linhas.",
+   "conferido": true
+  },
+  {
+   "marcador": "sulamer",
+   "conclusao": "J07-3",
+   "valor": "159",
+   "formatado": "159",
+   "de_onde": "linhas cuja primeira nacionalidade e de pais sul-americano (Argentina, Colombia, Uruguai, Paraguai, Equador, Venezuela, Bolivia, Chile, Peru), 2022-2025: 43+37+34+20+11+6+5+2+1.",
+   "conferido": true,
+   "nota": "Por pessoa: 125 de 148."
+  },
+  {
+   "marcador": "pct_viz",
+   "conclusao": "J07-3",
+   "valor": "72.8",
+   "formatado": "72,8",
+   "de_onde": "(Argentina 43 + Uruguai 34 + Colombia 37 + Paraguai 20) / 184 = 134/184 = 72,83%.",
+   "conferido": true,
+   "nota": "Por pessoa: 104/148 = 70,3%."
+  },
+  {
+   "marcador": "arg",
+   "conclusao": "J07-3",
+   "valor": "43",
+   "formatado": "43",
+   "de_onde": "linhas com primeira nacionalidade Argentina, 2022-2025 (coluna nacionalidades de serieb_elencos.csv, primeiro item da lista).",
+   "conferido": true,
+   "nota": "Por pessoa: 28. A ordem muda entre as duas contagens."
+  },
+  {
+   "marcador": "col",
+   "conclusao": "J07-3",
+   "valor": "37",
+   "formatado": "37",
+   "de_onde": "linhas com primeira nacionalidade Colombia, 2022-2025.",
+   "conferido": true,
+   "nota": "Por pessoa: 33 — por pessoa a Colombia e a PRIMEIRA, nao a Argentina."
+  },
+  {
+   "marcador": "uru",
+   "conclusao": "J07-3",
+   "valor": "34",
+   "formatado": "34",
+   "de_onde": "linhas com primeira nacionalidade Uruguai, 2022-2025.",
+   "conferido": true,
+   "nota": "Por pessoa: 28, empatada com a Argentina."
+  },
+  {
+   "marcador": "par",
+   "conclusao": "J07-3",
+   "valor": "20",
+   "formatado": "20",
+   "de_onde": "linhas com primeira nacionalidade Paraguai, 2022-2025.",
+   "conferido": true,
+   "nota": "Por pessoa: 15."
+  },
+  {
+   "marcador": "por",
+   "conclusao": "J07-3",
+   "valor": "7",
+   "formatado": "7",
+   "de_onde": "linhas com primeira nacionalidade Portugal, 2022-2025.",
+   "conferido": true,
+   "nota": "Por pessoa: 6. Continua sendo o unico europeu com mais de um caso — Grecia, Dinamarca e Espanha tem 1 linha cada."
+  },
+  {
+   "marcador": "arg_pes",
+   "conclusao": "J07-3",
+   "valor": "28",
+   "formatado": "28",
+   "de_onde": "pessoas distintas (id do Transfermarkt) de nacionalidade argentina, 2022-2025.",
+   "conferido": true
+  },
+  {
+   "marcador": "col_pes",
+   "conclusao": "J07-3",
+   "valor": "33",
+   "formatado": "33",
+   "de_onde": "pessoas distintas de nacionalidade colombiana, 2022-2025.",
+   "conferido": true
+  },
+  {
+   "marcador": "uru_pes",
+   "conclusao": "J07-3",
+   "valor": "28",
+   "formatado": "28",
+   "de_onde": "pessoas distintas de nacionalidade uruguaia, 2022-2025.",
+   "conferido": true
+  },
+  {
+   "marcador": "par_pes",
+   "conclusao": "J07-3",
+   "valor": "15",
+   "formatado": "15",
+   "de_onde": "pessoas distintas de nacionalidade paraguaia, 2022-2025.",
+   "conferido": true
+  },
+  {
+   "marcador": "por_pes",
+   "conclusao": "J07-3",
+   "valor": "6",
+   "formatado": "6",
+   "de_onde": "pessoas distintas de nacionalidade portuguesa, 2022-2025.",
+   "conferido": true
+  },
+  {
+   "marcador": "sulamer_pes",
+   "conclusao": "J07-3",
+   "valor": "125",
+   "formatado": "125",
+   "de_onde": "pessoas distintas sul-americanas, 2022-2025.",
+   "conferido": true
+  },
+  {
+   "marcador": "pct_viz_pes",
+   "conclusao": "J07-3",
+   "valor": "70.3",
+   "formatado": "70,3",
+   "de_onde": "104 de 148 pessoas sao de Argentina, Uruguai, Colombia ou Paraguai.",
+   "conferido": true
+  },
+  {
+   "marcador": "ordem_por_linha",
+   "conclusao": "J07-3",
+   "valor": "Argentina 43, Colômbia 37, Uruguai 34, Paraguai 20",
+   "formatado": "Argentina 43, Colômbia 37, Uruguai 34, Paraguai 20",
+   "de_onde": "contagem por linha de base_jogador_temporada.csv, 2022-2025. Marcador de frase, ja montado.",
+   "conferido": true,
+   "nota": "ATENCAO AO TEXTO: a proposta escreveu 'Argentina {arg}, Uruguai {uru}, Colombia {col} e Paraguai {par}'. Nenhuma das duas contagens da essa ordem: por linha e ARG-COL-URU-PAR e por pessoa e COL-ARG=URU-PAR."
+  },
+  {
+   "marcador": "ordem_por_pessoa",
+   "conclusao": "J07-3",
+   "valor": "Colômbia 33, Argentina 28, Uruguai 28, Paraguai 15",
+   "formatado": "Colômbia 33, Argentina 28, Uruguai 28, Paraguai 15",
+   "de_onde": "contagem por pessoa distinta, 2022-2025. Marcador de frase, ja montado.",
+   "conferido": true
+  },
+  {
+   "marcador": "dupla_lin",
+   "conclusao": "J07-3",
+   "valor": "177",
+   "formatado": "177",
+   "de_onde": "linhas de base_jogador_temporada.csv 2022-2025 com 'Brasil' na lista de nacionalidades E mais de uma nacionalidade. No MESMO cruzamento, contra 184 de estrangeiro de fato.",
+   "conferido": true,
+   "nota": "Razao dupla : estrangeiro = 0,96 para 1 — praticamente 1:1, contra o 40 x 11 publicado, que era artefato do cruzamento de nome. Na base crua de elencos sao 310 x 280. Por pessoa: 115 dupla x 148 estrangeiro."
+  },
+  {
+   "marcador": "est_lin_mesmo_cruzamento",
+   "conclusao": "J07-3",
+   "valor": "184",
+   "formatado": "184",
+   "de_onde": "o proprio est_lin, repetido aqui para o par dupla_lin x est_lin da premissa nova.",
+   "conferido": true
+  },
+  {
+   "marcador": "cobertura_por_faixa",
+   "conclusao": "J07-3",
+   "valor": "Sobe 94,9% · Meio 94,8% · Cai 94,8%",
+   "formatado": "Sobe 94,9% · Meio 94,8% · Cai 94,8%",
+   "de_onde": "linhas com nacionalidade / linhas totais por faixa, 2022-2025: 555/585, 1.749/1.845, 692/730. Marcador de frase, ja montado.",
+   "conferido": true,
+   "nota": "A perda deixou de ser enviesada: era 81,7% no total com o estrangeiro casando muito menos."
+  },
+  {
+   "marcador": "cobertura_por_ano",
+   "conclusao": "J07-3",
+   "valor": "2022: 95,8% · 2023: 96,3% · 2024: 94,0% · 2025: 93,2%",
+   "formatado": "2022: 95,8% · 2023: 96,3% · 2024: 94,0% · 2025: 93,2%",
+   "de_onde": "linhas com nacionalidade / totais por temporada fechada. Marcador de frase, ja montado.",
+   "conferido": true
+  }
+ ],
+ "bloqueados": [
+  {
+   "marcador": "de_clube_europeu",
+   "conclusao": "J07-3",
+   "por_que": "Nao existe tabela de clube -> pais/liga no repositorio. A coluna clube_anterior de dados/serieb_elencos.csv traz 116 nomes distintos so entre as 184 linhas de estrangeiro, e o campo esta sujo: 8 linhas dizem 'Sem clube', 6 dizem ': Ablose ?' e 3 ': Ablose custo zero' (residuo da raspagem do Transfermarkt alemao), 4 vem vazias. Nomes como 'Legia de Varsovia' ou 'Club Leon' so viram pais por classificacao manual, que e exatamente a saida que a propria proposta reservou para o dono decidir (dado, nao metodo).",
+   "o_que_resolveria": "Uma das duas saidas que a proposta ja desenhou: (1) o dono aprova uma lista clube -> pais montada uma vez sobre esses 116 nomes (mais os ~90 das demais linhas), conferivel e versionada, e a frase sai com numero; ou (2) a frase da Europa cai e a origem continua saindo so da nacionalidade, com a aproximacao declarada. A mesma lista destrava a liga de origem de J08 e J09.",
+   "conclusao_texto": "o_que_vimos_novo e para_o_santa_cruz_novo de J07-3"
+  },
+  {
+   "marcador": "percentis do estrangeiro contra o brasileiro da mesma posicao",
+   "conclusao": "J07 (metrica do CLAUDE.md, fora das tres conclusoes)",
+   "por_que": "O CLAUDE.md pede 'percentis em relacao aos brasileiros da mesma posicao' e a base de jogador-temporada do estudo so tem minutos, jogos, fatia, idade e lesao — nao tem metrica tecnica por jogador. Nao foi pedido por nenhum marcador da proposta, e fica registrado porque o em_aberto do J07.json atual o promete.",
+   "o_que_resolveria": "A base de metricas por jogador de J03/J04 (J04_base.csv, J08_base.csv) cruzada com esta classificacao de nacionalidade; com 13 a 49 estrangeiros por posicao em quatro temporadas, o resultado seria descritivo.",
+   "conclusao_texto": "-"
+  },
+  {
+   "marcador": "comparacao com a Serie A",
+   "conclusao": "J07 (metrica do CLAUDE.md)",
+   "por_que": "O CLAUDE.md diz 'Se houver base da Serie A, repetir para comparacao'. Nao ha base de elenco nem de minutagem da Serie A no repositorio.",
+   "o_que_resolveria": "Coleta de elencos da Serie A no molde de coletar_serieb_lesoes.py, ou o Portal Ranking (dados/abr26), que e outro repositorio.",
+   "conclusao_texto": "-"
+  }
+ ],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "sobe_min",
+   "esta": "4,3",
+   "deveria": "10,6",
+   "evidencia": "o cruzamento por nome exato perdia quase todo estrangeiro (o Wyscout abrevia o prenome) e Athletico-PR 2025, a clube-temporada mais estrangeira da Sobe, ficava sem faixa. Refeito: 60 linhas de estrangeiro em 555 da Sobe, 10,63% dos minutos."
+  },
+  {
+   "marcador": "meio_min",
+   "esta": "1,0",
+   "deveria": "3,9",
+   "evidencia": "87 linhas de estrangeiro em 1.749 do Meio, 3,92% dos minutos, 2022-2025."
+  },
+  {
+   "marcador": "cai_min",
+   "esta": "2,2",
+   "deveria": "4,7",
+   "evidencia": "37 linhas de estrangeiro em 692 do Cai, 4,66% dos minutos, 2022-2025."
+  },
+  {
+   "marcador": "sobe_por",
+   "esta": "1,1",
+   "deveria": "3,8",
+   "evidencia": "60 estrangeiros / 16 clube-temporadas da Sobe."
+  },
+  {
+   "marcador": "meio_por",
+   "esta": "0,4",
+   "deveria": "1,8",
+   "evidencia": "87 estrangeiros / 48 clube-temporadas do Meio."
+  },
+  {
+   "marcador": "sobe_n",
+   "esta": "17",
+   "deveria": "60",
+   "evidencia": "linhas de estrangeiro na faixa Sobe, 2022-2025, com o cruzamento refeito."
+  },
+  {
+   "marcador": "total_est",
+   "esta": "57",
+   "deveria": "184",
+   "evidencia": "o 57 somava as 5 temporadas (inclusive 2026, que o _registro.md manda deixar de fora) e vinha do cruzamento que perdia 78% dos estrangeiros. Em 2022-2025 sao 184 linhas, de 148 pessoas; nas 5 temporadas seriam 225."
+  },
+  {
+   "marcador": "col",
+   "esta": "12",
+   "deveria": "37",
+   "evidencia": "linhas com primeira nacionalidade Colombia, 2022-2025 (33 pessoas)."
+  },
+  {
+   "marcador": "arg",
+   "esta": "11",
+   "deveria": "43",
+   "evidencia": "linhas com primeira nacionalidade Argentina, 2022-2025 (28 pessoas)."
+  },
+  {
+   "marcador": "uru",
+   "esta": "10",
+   "deveria": "34",
+   "evidencia": "linhas com primeira nacionalidade Uruguai, 2022-2025 (28 pessoas)."
+  },
+  {
+   "marcador": "por",
+   "esta": "8",
+   "deveria": "7",
+   "evidencia": "o 8 incluia 2026; em 2022-2025 sao 7 linhas e 6 pessoas de Portugal. Unico caso em que o numero publicado estava ALTO demais."
+  },
+  {
+   "marcador": "sulamer",
+   "esta": "40",
+   "deveria": "159",
+   "evidencia": "linhas de nacionalidade sul-americana, 2022-2025 (125 pessoas)."
+  },
+  {
+   "marcador": "pri_est",
+   "esta": "25,9",
+   "deveria": "18,1",
+   "evidencia": "fatia mediana na primeira temporada, estreias 2022-2025, cruzamento refeito (n=149). O 25,9 saia de 40 estreias, quase todas de estrangeiro de muito minuto — justamente os que o nome cheio deixava passar."
+  },
+  {
+   "marcador": "pri_br",
+   "esta": "17,5",
+   "deveria": "16,8",
+   "evidencia": "estreias de brasileiro 2022-2025, n=1.685. A distancia estrangeiro x brasileiro cai de 8,4 para 1,3 ponto."
+  },
+  {
+   "marcador": "perm_est",
+   "esta": "25,0",
+   "deveria": "26,6",
+   "evidencia": "49 de 184 linhas de estrangeiro reaparecem na Serie B no ano seguinte, com o alvo montado sobre as 3.864 linhas da base."
+  },
+  {
+   "marcador": "perm_br",
+   "esta": "48,5",
+   "deveria": "51,1",
+   "evidencia": "1.438 de 2.812 linhas de brasileiro reaparecem, mesmo alvo."
+  },
+  {
+   "marcador": "perm_n",
+   "esta": "44",
+   "deveria": "184",
+   "evidencia": "o n da coorte estrangeira de permanencia em 2022-2025."
+  },
+  {
+   "marcador": "cob",
+   "esta": "81,7",
+   "deveria": "92,9",
+   "evidencia": "cobertura de nacionalidade nas 5 temporadas com o cruzamento refeito (3.591 de 3.864); em 2022-2025, 94,8%. E o defeito que gerava todos os outros: a perda de 18,3% nao era aleatoria, batia no estrangeiro."
+  },
+  {
+   "marcador": "pct_min_min",
+   "esta": "0,1",
+   "deveria": "1,0",
+   "evidencia": "menor % de minutos de estrangeiro numa temporada, 2022-2025: 2023 com 0,96%."
+  },
+  {
+   "marcador": "pct_min_max",
+   "esta": "4,2",
+   "deveria": "10,4",
+   "evidencia": "maior: 2025 com 10,36%."
+  },
+  {
+   "marcador": "pct_jog_min",
+   "esta": "0,3",
+   "deveria": "2,3",
+   "evidencia": "menor % de jogadores estrangeiros numa temporada: 2023 com 2,28%."
+  },
+  {
+   "marcador": "pct_jog_max",
+   "esta": "3,7",
+   "deveria": "10,6",
+   "evidencia": "maior: 2025 com 10,61%."
+  },
+  {
+   "marcador": "clubes_min",
+   "esta": "2",
+   "deveria": "12",
+   "evidencia": "menor numero de clubes com algum estrangeiro numa temporada: 2023 com 12 de 20."
+  },
+  {
+   "marcador": "clubes_max",
+   "esta": "10",
+   "deveria": "19",
+   "evidencia": "maior: 2025 com 19 de 20."
+  },
+  {
+   "marcador": "dupla_med",
+   "esta": "40",
+   "deveria": "44",
+   "evidencia": "media por temporada 2022-2025 das linhas com dupla nacionalidade incluindo Brasil: 38, 44, 47, 48 = 44,2."
+  },
+  {
+   "marcador": "est_med",
+   "esta": "11",
+   "deveria": "46",
+   "evidencia": "media por temporada 2022-2025 das linhas de estrangeiro: 34, 17, 53, 80 = 46,0. O contraste 40 x 11 vira 44 x 46 — praticamente 1:1, que e o que a premissa nova de J07-3 precisa."
+  }
+ ]
+}

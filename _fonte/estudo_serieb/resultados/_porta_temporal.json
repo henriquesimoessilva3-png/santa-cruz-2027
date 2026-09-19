@@ -1,0 +1,344 @@
+{
+ "_doc": "Porta temporal (§6.4) sobre os oito componentes do índice do A14. Evidência, não correção: nenhuma conclusão do estudo foi alterada.",
+ "gerado_em": "2026-09-19",
+ "metodo": {
+  "escolhido": "§6.4 da ESPECIFICACAO.md",
+  "definicao": "média do indicador nas 19 primeiras rodadas × pontos somados das 19 últimas, em posto dentro do ano, com parcial dada a pontuação do 1º turno",
+  "parcial": "resíduo por MQO contra o posto dos pontos do 1º turno, depois Spearman entre os resíduos",
+  "criterio_passa": "p da parcial < 0,05 e parcial positiva na escala alinhada (porta A da §6.5); o BH é do teste de separação, não da porta",
+  "por_que": "o CLAUDE.md do estudo manda que a especificação valha onde houver divergência, e é a §6.4 que a §6.5 lê em p_1T_2T / rho_1T_2T",
+  "divergencia_entre_as_partes": {
+   "A02": "indicador da 1ª metade × o PRÓPRIO indicador da 2ª (persistência), com limiar rho>0,30 — o rho_persist que a §6.5 aposentou em 15/09",
+   "A06": "idem A02",
+   "A13": "previsores do 1º turno × POSIÇÃO FINAL (que contém o 1º turno), sem parcial",
+   "consequencia": "nenhuma das três é a porta da §6.4; das 19 partes, ZERO rodaram a porta como a especificação a define"
+  }
+ },
+ "recorte": {
+  "temporadas": [
+   "2022",
+   "2023",
+   "2024",
+   "2025"
+  ],
+  "linhas_de_jogo": 3036,
+  "clube_temporadas": 80,
+  "corte": "rodada 19",
+  "temporada_por_bloco_difere_do_ano_da_data": 0,
+  "pontos_divergentes_de_classificacao_rodada": 0
+ },
+ "conferencia_6_4": {
+  "linhas": [
+   {
+    "indicador": "Distância média do remate",
+    "rho": -0.439,
+    "rho_publicado_6_4": -0.439,
+    "parcial": -0.289,
+    "parcial_publicada_6_4": -0.289,
+    "p_parcial": 0.00938,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "Golos esperados",
+    "rho": 0.372,
+    "rho_publicado_6_4": 0.372,
+    "parcial": 0.248,
+    "parcial_publicada_6_4": 0.248,
+    "p_parcial": 0.02668,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "Remates à baliza, %",
+    "rho": 0.328,
+    "rho_publicado_6_4": 0.328,
+    "parcial": 0.215,
+    "parcial_publicada_6_4": 0.215,
+    "p_parcial": 0.05564,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "Posse, %",
+    "rho": 0.247,
+    "rho_publicado_6_4": 0.247,
+    "parcial": 0.227,
+    "parcial_publicada_6_4": 0.227,
+    "p_parcial": 0.04322,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "Intensidade de jogo",
+    "rho": 0.19,
+    "rho_publicado_6_4": 0.19,
+    "parcial": 0.204,
+    "parcial_publicada_6_4": 0.204,
+    "p_parcial": 0.06972,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "PPDA",
+    "rho": -0.195,
+    "rho_publicado_6_4": -0.195,
+    "parcial": -0.103,
+    "parcial_publicada_6_4": -0.103,
+    "p_parcial": 0.36312,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "% de passe longo",
+    "rho": -0.13,
+    "rho_publicado_6_4": -0.13,
+    "parcial": -0.152,
+    "parcial_publicada_6_4": -0.152,
+    "p_parcial": 0.17907,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "Passes certos, %",
+    "rho": 0.177,
+    "rho_publicado_6_4": 0.177,
+    "parcial": 0.173,
+    "parcial_publicada_6_4": 0.173,
+    "p_parcial": 0.12511,
+    "n": 80,
+    "bate": true
+   },
+   {
+    "indicador": "Duelos ganhos, %",
+    "rho": 0.041,
+    "rho_publicado_6_4": 0.041,
+    "parcial": -0.03,
+    "parcial_publicada_6_4": -0.03,
+    "p_parcial": 0.78994,
+    "n": 80,
+    "bate": true
+   }
+  ],
+  "identicas": 9,
+  "de": 9,
+  "referencia_pts_1t_x_pts_2t": {
+   "rho": 0.496,
+   "p": 3e-06,
+   "publicado": 0.496
+  }
+ },
+ "componentes": [
+  {
+   "componente": "H_dinheiro",
+   "sinal_declarado": 1,
+   "em_portugues": "elenco caro",
+   "calculavel_por_turno": false,
+   "motivo": "tm_valor_total e tm_valor_mediana são um instantâneo por temporada (Transfermarkt). Não existem por rodada: não há como medir só no 1º turno.",
+   "rho": null,
+   "p": null,
+   "parcial": null,
+   "p_parcial": null,
+   "n": 0,
+   "passa": false,
+   "complemento_valor_da_temporada": {
+    "rho": 0.514,
+    "p": 0.0,
+    "parcial": 0.405,
+    "p_parcial": 0.0002,
+    "n": 80,
+    "nao_e_a_porta": "o valor é da temporada inteira, não do 1º turno",
+    "ressalva": "instantâneo de mercado sem data conhecida: pode ter sido atualizado no meio da temporada"
+   },
+   "leitura": "Não dá para saber: elenco caro só existe medido na temporada inteira, então não há como ver se vem antes ou depois do resultado."
+  },
+  {
+   "componente": "dist_remate",
+   "sinal_declarado": -1,
+   "em_portugues": "chute de perto",
+   "calculavel_por_turno": true,
+   "como_montado": "média de 'Distância média do remate' nas 19 primeiras rodadas",
+   "rho": 0.439,
+   "p": 5e-05,
+   "parcial": 0.289,
+   "p_parcial": 0.00938,
+   "n": 80,
+   "passa": true,
+   "leitura": "É característica: o time que já chuta de perto nas 19 primeiras rodadas pontua mais nas 19 seguintes mesmo comparado com quem vinha pontuando igual."
+  },
+  {
+   "componente": "E_qualidade_chance",
+   "sinal_declarado": 1,
+   "em_portugues": "chance boa em vez de chute de longe",
+   "calculavel_por_turno": true,
+   "como_montado": "régua remontada por turno: posto dentro do ano de dist_remate (−), xg_por_remate (+), toques_area (+) e entradas_area (+), todos medidos só no 1º turno, e a média dos quatro alinhados",
+   "rho": 0.411,
+   "p": 0.00015,
+   "parcial": 0.254,
+   "p_parcial": 0.02279,
+   "n": 80,
+   "passa": true,
+   "leitura": "É característica: o time que já cria chance boa em vez de chutar de longe nas 19 primeiras rodadas pontua mais nas 19 seguintes mesmo comparado com quem vinha pontuando igual."
+  },
+  {
+   "componente": "xg_por_remate_contra",
+   "sinal_declarado": -1,
+   "em_portugues": "chute ruim cedido",
+   "calculavel_por_turno": true,
+   "como_montado": "soma do xG do adversário ÷ soma de 'Remates contra' nas 19 primeiras rodadas (razão de somas, como a coluna da temporada)",
+   "rho": 0.208,
+   "p": 0.06355,
+   "parcial": -0.026,
+   "p_parcial": 0.82131,
+   "n": 80,
+   "passa": false,
+   "leitura": "Parece consequência: saber quem só cede chute ruim nas 19 primeiras rodadas não acrescenta nada sobre as 19 seguintes depois de saber quantos pontos o time já tinha."
+  },
+  {
+   "componente": "duelos_def_pct",
+   "sinal_declarado": 1,
+   "em_portugues": "disputa ganha defendendo",
+   "calculavel_por_turno": true,
+   "como_montado": "média de 'Duelos defensivos ganhos, %' nas 19 primeiras rodadas",
+   "rho": 0.121,
+   "p": 0.2858,
+   "parcial": 0.092,
+   "p_parcial": 0.41602,
+   "n": 80,
+   "passa": false,
+   "leitura": "Parece consequência: saber quem ganha a disputa quando defende nas 19 primeiras rodadas não acrescenta nada sobre as 19 seguintes depois de saber quantos pontos o time já tinha."
+  },
+  {
+   "componente": "I_estabilidade_11",
+   "sinal_declarado": 1,
+   "em_portugues": "time repetido",
+   "calculavel_por_turno": false,
+   "motivo": "share_11, conc_hhi, atletas_usados e nucleo_300 saem de minutagem_serieb.json, que guarda minutos por jogador-clube-TEMPORADA; serieb_jogos.csv não traz escalação (só Sistema). A §6.5 já registra este teste como impossível com o dado atual.",
+   "rho": null,
+   "p": null,
+   "parcial": null,
+   "p_parcial": null,
+   "n": 0,
+   "passa": false,
+   "complemento_valor_da_temporada": {
+    "rho": 0.424,
+    "p": 9e-05,
+    "parcial": 0.202,
+    "p_parcial": 0.07195,
+    "n": 80,
+    "nao_e_a_porta": "o valor é da temporada inteira, não do 1º turno",
+    "ressalva": "medido SOBRE os jogos, inclusive os do 2º turno — a janela de medida invade a janela do desfecho, então o número é circular"
+   },
+   "leitura": "Não dá para saber: time repetido só existe medido na temporada inteira, então não há como ver se vem antes ou depois do resultado."
+  },
+  {
+   "componente": "xgc_casa",
+   "sinal_declarado": -1,
+   "em_portugues": "pouco perigo sofrido em casa",
+   "calculavel_por_turno": true,
+   "como_montado": "média do xG do adversário nos jogos EM CASA das 19 primeiras rodadas",
+   "rho": 0.282,
+   "p": 0.01115,
+   "parcial": 0.134,
+   "p_parcial": 0.23632,
+   "n": 80,
+   "passa": false,
+   "leitura": "Parece consequência: saber quem sofre pouco perigo em casa nas 19 primeiras rodadas não acrescenta nada sobre as 19 seguintes depois de saber quantos pontos o time já tinha."
+  },
+  {
+   "componente": "dd_casa",
+   "sinal_declarado": 1,
+   "em_portugues": "disputa ganha defendendo em casa",
+   "calculavel_por_turno": true,
+   "como_montado": "média de 'Duelos defensivos ganhos, %' nos jogos EM CASA das 19 primeiras rodadas",
+   "rho": -0.027,
+   "p": 0.8139,
+   "parcial": -0.026,
+   "p_parcial": 0.8183,
+   "n": 80,
+   "passa": false,
+   "leitura": "Parece consequência: saber quem ganha a disputa defendendo em casa nas 19 primeiras rodadas não acrescenta nada sobre as 19 seguintes depois de saber quantos pontos o time já tinha."
+  }
+ ],
+ "passam": [
+  "dist_remate",
+  "E_qualidade_chance"
+ ],
+ "placar": "2 de 8",
+ "variante_de_mando": {
+  "xgc_casa": {
+   "alvo": "pontos de CASA do 2º turno",
+   "rho": 0.226,
+   "p": 0.04352,
+   "parcial": 0.082,
+   "p_parcial": 0.46817,
+   "n": 80,
+   "passa": false
+  },
+  "dd_casa": {
+   "alvo": "pontos de CASA do 2º turno",
+   "rho": -0.026,
+   "p": 0.82125,
+   "parcial": -0.009,
+   "p_parcial": 0.93925,
+   "n": 80,
+   "passa": false
+  }
+ },
+ "regua_E_por_dentro": {
+  "dist_remate": {
+   "rho": 0.439,
+   "p": 5e-05,
+   "parcial": 0.289,
+   "p_parcial": 0.00938,
+   "n": 80,
+   "passa": true
+  },
+  "xg_por_remate": {
+   "rho": 0.274,
+   "p": 0.01405,
+   "parcial": 0.093,
+   "p_parcial": 0.41302,
+   "n": 80,
+   "passa": false
+  },
+  "toques_area": {
+   "rho": 0.219,
+   "p": 0.05139,
+   "parcial": 0.136,
+   "p_parcial": 0.23051,
+   "n": 80,
+   "passa": false
+  },
+  "entradas_area": {
+   "rho": 0.293,
+   "p": 0.00839,
+   "parcial": 0.211,
+   "p_parcial": 0.05988,
+   "n": 80,
+   "passa": false
+  },
+  "E_qualidade_chance_sem_dist_remate": {
+   "rho": 0.353,
+   "p": 0.0013,
+   "parcial": 0.191,
+   "p_parcial": 0.08947,
+   "n": 80,
+   "passa": false
+  }
+ },
+ "persistencia_conta_do_a02_a06": {
+  "dist_remate": {
+   "rho": 0.333,
+   "p": 0.00252,
+   "n": 80,
+   "se_repete_a02_a06": true
+  },
+  "duelos_def_pct": {
+   "rho": 0.319,
+   "p": 0.00389,
+   "n": 80,
+   "se_repete_a02_a06": true
+  }
+ }
+}

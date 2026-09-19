@@ -1,0 +1,62 @@
+{
+ "parte": "A03",
+ "pergunta": "Quem sobe se diferencia ganhando fora ou dominando em casa? Quem cai perde pontos onde?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada",
+             "n_esperado": {"Sobe": 16, "Meio": 48, "Cai": 16, "total": 80}},
+ "comparacoes": [{"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
+                 {"id": "ST", "nome": "Sobe × Trave", "papel": "secundária"},
+                 {"id": "CM", "nome": "Cai × Meio", "papel": "própria do A03: 'quem cai perde pontos onde?'"}],
+ "repetir_sem_fronteira": true,
+
+ "publico": {
+  "regra_do_claude_md": "2020 e boa parte de 2021 foram sem público: sinalizar em qualquer leitura de casa e fora.",
+  "situacao_nesta_parte": "O recorte é 2022–2025, todo com público. A regra não morde aqui, mas fica registrada para a segunda parte (2018–2021), onde morde."
+ },
+
+ "familias": [
+  {"id": "casa", "nome": "O que o time faz em casa", "indicadores": [
+   {"id": "pj_casa", "nome": "Pontos por jogo em casa", "sinal": 1, "placar_redescrito": true,
+    "fonte": "serieb_jogos.csv, mando=casa"},
+   {"id": "xg_casa", "nome": "xG criado por jogo em casa", "sinal": 1,
+    "fonte": "serieb_jogos.csv, mando=casa, 'Golos esperados'"},
+   {"id": "xgc_casa", "nome": "xG sofrido por jogo em casa", "sinal": -1,
+    "fonte": "xG do adversário no mesmo jogo"},
+   {"id": "dd_casa", "nome": "Duelos defensivos ganhos em casa, %", "sinal": 1,
+    "fonte": "serieb_jogos.csv, 'Duelos defensivos ganhos, %'"}
+  ]},
+  {"id": "fora", "nome": "O que o time faz fora", "indicadores": [
+   {"id": "pj_fora", "nome": "Pontos por jogo fora", "sinal": 1, "placar_redescrito": true,
+    "fonte": "serieb_jogos.csv, mando=fora"},
+   {"id": "xg_fora", "nome": "xG criado por jogo fora", "sinal": 1, "fonte": "idem, mando=fora"},
+   {"id": "xgc_fora", "nome": "xG sofrido por jogo fora", "sinal": -1, "fonte": "idem"},
+   {"id": "dd_fora", "nome": "Duelos defensivos ganhos fora, %", "sinal": 1, "fonte": "idem"}
+  ]},
+  {"id": "assimetria", "nome": "A diferença entre casa e fora", "indicadores": [
+   {"id": "dif_pj", "nome": "Pontos por jogo: casa menos fora", "sinal": -1, "placar_redescrito": true,
+    "fonte": "pj_casa − pj_fora. Sinal −1: quem depende menos de casa é mais forte."},
+   {"id": "dif_xg", "nome": "xG criado: casa menos fora", "sinal": -1, "fonte": "xg_casa − xg_fora"},
+   {"id": "dif_xgc", "nome": "xG sofrido: fora menos casa", "sinal": -1, "fonte": "xgc_fora − xgc_casa"},
+   {"id": "dif_dd", "nome": "Duelos defensivos: casa menos fora, pp", "sinal": -1, "fonte": "dd_casa − dd_fora"}
+  ]}
+ ],
+
+ "lista_branca": {
+  "referencia": "§6 da ESPECIFICACAO.md: 'Lista branca de RESULTADO — mostrar e desqualificar'",
+  "afetados_nesta_parte": ["pj_casa", "pj_fora", "dif_pj"],
+  "nota": "`pontos_casa` e `pontos_fora` estão literalmente na lista branca: são o placar redescrito e NUNCA entram em eixo, agrupamento ou score. Entram aqui como a especificação manda — mostrar e desqualificar: medem o tamanho da diferença e respondem 'quem cai perde pontos onde?', mas nenhuma conclusão sobre CARACTERÍSTICA se apoia neles. O que carrega a análise é o xG e o duelo defensivo por mando, que não estão na lista.",
+  "por_que_o_duelo_entra": "A06 achou o duelo defensivo como o maior separador do estudo (d 1,59 contra o meio, 2,23 contra a Trave). Testá-lo por mando responde se aquilo é um traço do time ou um efeito de jogar em casa. É indicador novo nesta parte e por isso está declarado aqui, antes de rodar."
+ },
+
+ "criterio": {
+  "referencia": "§6, via scripts/_metodo.py",
+  "teste": "Welch no posto dentro da temporada; d de Cohen; BH a 5% por família × comparação; IC95 por bootstrap de clube; poder por desenho.",
+  "porta_temporal": "1º turno prevendo o 2º, separando por mando quando houver jogos suficientes de cada lado em cada metade."
+ },
+
+ "ressalvas_declaradas": [
+  "xG criado e sofrido mudam com o placar, e o placar típico é diferente em casa e fora. Sem recorte por estado do jogo (que não existe na base), a leitura de mando sai marcada com 'pode ser efeito do placar'.",
+  "Cai × Meio não tem teste no catálogo da Protótipo (etapa_5 só testa Sobe×Meio e Sobe×Cai). A comparação CM é feita aqui do zero, com o mesmo método."
+ ]
+}

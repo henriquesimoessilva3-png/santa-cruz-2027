@@ -1,0 +1,606 @@
+{
+ "tracos": [
+  "dist_remate",
+  "entradas_area",
+  "duelo_def",
+  "xg",
+  "xg_contra",
+  "xg_por_remate",
+  "xg_por_remate_contra"
+ ],
+ "n_passagens": 151,
+ "n_treinadores": 69,
+ "multiclube": 34,
+ "repete": [
+  {
+   "treinador": "Vinícius",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.991,
+   "amplitude_mediana": 10.0,
+   "amplitude_por_traco": {
+    "dist_remate": 10.0,
+    "entradas_area": 0.0,
+    "duelo_def": 10.0,
+    "xg": 30.0,
+    "xg_contra": 10.0,
+    "xg_por_remate": 45.0,
+    "xg_por_remate_contra": 10.0
+   }
+  },
+  {
+   "treinador": "Marcelo Cabo",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.889,
+   "amplitude_mediana": 22.5,
+   "amplitude_por_traco": {
+    "dist_remate": 0.0,
+    "entradas_area": 22.5,
+    "duelo_def": 45.0,
+    "xg": 30.0,
+    "xg_contra": 50.0,
+    "xg_por_remate": 5.0,
+    "xg_por_remate_contra": 15.0
+   }
+  },
+  {
+   "treinador": "Roger Silva",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.818,
+   "amplitude_mediana": 10.0,
+   "amplitude_por_traco": {
+    "dist_remate": 5.0,
+    "entradas_area": 70.0,
+    "duelo_def": 15.0,
+    "xg": 50.0,
+    "xg_contra": 5.0,
+    "xg_por_remate": 10.0,
+    "xg_por_remate_contra": 5.0
+   }
+  },
+  {
+   "treinador": "Mazola Júnior",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.818,
+   "amplitude_mediana": 20.0,
+   "amplitude_por_traco": {
+    "dist_remate": 0.0,
+    "entradas_area": 50.0,
+    "duelo_def": 20.0,
+    "xg": 20.0,
+    "xg_contra": 30.0,
+    "xg_por_remate": 5.0,
+    "xg_por_remate_contra": 35.0
+   }
+  },
+  {
+   "treinador": "Márcio Fernandes",
+   "passagens": 3,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.692,
+   "amplitude_mediana": 35.0,
+   "amplitude_por_traco": {
+    "dist_remate": 10.0,
+    "entradas_area": 55.0,
+    "duelo_def": 25.0,
+    "xg": 35.0,
+    "xg_contra": 40.0,
+    "xg_por_remate": 35.0,
+    "xg_por_remate_contra": 80.0
+   }
+  },
+  {
+   "treinador": "Vagner Mancini",
+   "passagens": 4,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.407,
+   "amplitude_mediana": 45.0,
+   "amplitude_por_traco": {
+    "dist_remate": 65.0,
+    "entradas_area": 25.0,
+    "duelo_def": 65.0,
+    "xg": 20.0,
+    "xg_contra": 60.0,
+    "xg_por_remate": 30.0,
+    "xg_por_remate_contra": 45.0
+   }
+  },
+  {
+   "treinador": "Marcelo Chamusca",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.368,
+   "amplitude_mediana": 60.0,
+   "amplitude_por_traco": {
+    "dist_remate": 50.0,
+    "entradas_area": 85.0,
+    "duelo_def": 60.0,
+    "xg": 90.0,
+    "xg_contra": 55.0,
+    "xg_por_remate": 15.0,
+    "xg_por_remate_contra": 85.0
+   }
+  },
+  {
+   "treinador": "Claudinei Oliveira",
+   "passagens": 5,
+   "clubes": 5,
+   "rho_medio_entre_clubes": 0.291,
+   "amplitude_mediana": 80.0,
+   "amplitude_por_traco": {
+    "dist_remate": 80.0,
+    "entradas_area": 85.0,
+    "duelo_def": 60.0,
+    "xg": 80.0,
+    "xg_contra": 90.0,
+    "xg_por_remate": 75.0,
+    "xg_por_remate_contra": 60.0
+   }
+  },
+  {
+   "treinador": "Adilson Batista",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.275,
+   "amplitude_mediana": 7.5,
+   "amplitude_por_traco": {
+    "dist_remate": 2.5,
+    "entradas_area": 7.5,
+    "duelo_def": 37.5,
+    "xg": 2.5,
+    "xg_contra": 2.5,
+    "xg_por_remate": 27.5,
+    "xg_por_remate_contra": 72.5
+   }
+  },
+  {
+   "treinador": "Mozart",
+   "passagens": 7,
+   "clubes": 6,
+   "rho_medio_entre_clubes": 0.27,
+   "amplitude_mediana": 77.5,
+   "amplitude_por_traco": {
+    "dist_remate": 55.0,
+    "entradas_area": 60.0,
+    "duelo_def": 95.0,
+    "xg": 75.0,
+    "xg_contra": 77.5,
+    "xg_por_remate": 80.0,
+    "xg_por_remate_contra": 95.0
+   }
+  },
+  {
+   "treinador": "Eduardo Baptista",
+   "passagens": 4,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.265,
+   "amplitude_mediana": 47.5,
+   "amplitude_por_traco": {
+    "dist_remate": 47.5,
+    "entradas_area": 52.5,
+    "duelo_def": 47.5,
+    "xg": 50.0,
+    "xg_contra": 20.0,
+    "xg_por_remate": 62.5,
+    "xg_por_remate_contra": 37.5
+   }
+  },
+  {
+   "treinador": "Gilson Kleina",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.222,
+   "amplitude_mediana": 30.0,
+   "amplitude_por_traco": {
+    "dist_remate": 10.0,
+    "entradas_area": 5.0,
+    "duelo_def": 50.0,
+    "xg": 45.0,
+    "xg_contra": 30.0,
+    "xg_por_remate": 20.0,
+    "xg_por_remate_contra": 45.0
+   }
+  },
+  {
+   "treinador": "Hélio dos Anjos",
+   "passagens": 4,
+   "clubes": 4,
+   "rho_medio_entre_clubes": 0.209,
+   "amplitude_mediana": 45.0,
+   "amplitude_por_traco": {
+    "dist_remate": 27.5,
+    "entradas_area": 45.0,
+    "duelo_def": 57.5,
+    "xg": 87.5,
+    "xg_contra": 17.5,
+    "xg_por_remate": 52.5,
+    "xg_por_remate_contra": 37.5
+   }
+  },
+  {
+   "treinador": "Cauan de Almeida",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": 0.198,
+   "amplitude_mediana": 55.0,
+   "amplitude_por_traco": {
+    "dist_remate": 35.0,
+    "entradas_area": 75.0,
+    "duelo_def": 55.0,
+    "xg": 90.0,
+    "xg_contra": 45.0,
+    "xg_por_remate": 60.0,
+    "xg_por_remate_contra": 15.0
+   }
+  },
+  {
+   "treinador": "Daniel Paulista",
+   "passagens": 6,
+   "clubes": 4,
+   "rho_medio_entre_clubes": 0.109,
+   "amplitude_mediana": 90.0,
+   "amplitude_por_traco": {
+    "dist_remate": 85.0,
+    "entradas_area": 45.0,
+    "duelo_def": 100.0,
+    "xg": 90.0,
+    "xg_contra": 45.0,
+    "xg_por_remate": 100.0,
+    "xg_por_remate_contra": 95.0
+   }
+  },
+  {
+   "treinador": "Guto Ferreira",
+   "passagens": 5,
+   "clubes": 5,
+   "rho_medio_entre_clubes": 0.095,
+   "amplitude_mediana": 70.0,
+   "amplitude_por_traco": {
+    "dist_remate": 80.0,
+    "entradas_area": 70.0,
+    "duelo_def": 60.0,
+    "xg": 70.0,
+    "xg_contra": 50.0,
+    "xg_por_remate": 80.0,
+    "xg_por_remate_contra": 85.0
+   }
+  },
+  {
+   "treinador": "Allan Aal",
+   "passagens": 6,
+   "clubes": 6,
+   "rho_medio_entre_clubes": 0.084,
+   "amplitude_mediana": 75.0,
+   "amplitude_por_traco": {
+    "dist_remate": 40.0,
+    "entradas_area": 55.0,
+    "duelo_def": 90.0,
+    "xg": 75.0,
+    "xg_contra": 95.0,
+    "xg_por_remate": 75.0,
+    "xg_por_remate_contra": 95.0
+   }
+  },
+  {
+   "treinador": "Enderson Moreira",
+   "passagens": 6,
+   "clubes": 5,
+   "rho_medio_entre_clubes": 0.073,
+   "amplitude_mediana": 55.0,
+   "amplitude_por_traco": {
+    "dist_remate": 20.0,
+    "entradas_area": 55.0,
+    "duelo_def": 90.0,
+    "xg": 50.0,
+    "xg_contra": 60.0,
+    "xg_por_remate": 30.0,
+    "xg_por_remate_contra": 90.0
+   }
+  },
+  {
+   "treinador": "Léo Condé",
+   "passagens": 3,
+   "clubes": 3,
+   "rho_medio_entre_clubes": 0.072,
+   "amplitude_mediana": 62.5,
+   "amplitude_por_traco": {
+    "dist_remate": 67.5,
+    "entradas_area": 47.5,
+    "duelo_def": 62.5,
+    "xg": 27.5,
+    "xg_contra": 82.5,
+    "xg_por_remate": 40.0,
+    "xg_por_remate_contra": 90.0
+   }
+  },
+  {
+   "treinador": "Alberto Valentim",
+   "passagens": 4,
+   "clubes": 4,
+   "rho_medio_entre_clubes": 0.034,
+   "amplitude_mediana": 65.0,
+   "amplitude_por_traco": {
+    "dist_remate": 15.0,
+    "entradas_area": 90.0,
+    "duelo_def": 70.0,
+    "xg": 50.0,
+    "xg_contra": 55.0,
+    "xg_por_remate": 85.0,
+    "xg_por_remate_contra": 65.0
+   }
+  },
+  {
+   "treinador": "Gilmar Dal Pozzo",
+   "passagens": 7,
+   "clubes": 3,
+   "rho_medio_entre_clubes": -0.059,
+   "amplitude_mediana": 80.0,
+   "amplitude_por_traco": {
+    "dist_remate": 55.0,
+    "entradas_area": 55.0,
+    "duelo_def": 100.0,
+    "xg": 80.0,
+    "xg_contra": 80.0,
+    "xg_por_remate": 80.0,
+    "xg_por_remate_contra": 95.0
+   }
+  },
+  {
+   "treinador": "Eduardo Barroca",
+   "passagens": 4,
+   "clubes": 3,
+   "rho_medio_entre_clubes": -0.082,
+   "amplitude_mediana": 72.5,
+   "amplitude_por_traco": {
+    "dist_remate": 45.0,
+    "entradas_area": 90.0,
+    "duelo_def": 100.0,
+    "xg": 72.5,
+    "xg_contra": 35.0,
+    "xg_por_remate": 85.0,
+    "xg_por_remate_contra": 17.5
+   }
+  },
+  {
+   "treinador": "Umberto Louzer",
+   "passagens": 4,
+   "clubes": 4,
+   "rho_medio_entre_clubes": -0.107,
+   "amplitude_mediana": 75.0,
+   "amplitude_por_traco": {
+    "dist_remate": 65.0,
+    "entradas_area": 35.0,
+    "duelo_def": 100.0,
+    "xg": 75.0,
+    "xg_contra": 85.0,
+    "xg_por_remate": 50.0,
+    "xg_por_remate_contra": 80.0
+   }
+  },
+  {
+   "treinador": "Claudio Tencati",
+   "passagens": 3,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.14,
+   "amplitude_mediana": 30.0,
+   "amplitude_por_traco": {
+    "dist_remate": 0.0,
+    "entradas_area": 20.0,
+    "duelo_def": 30.0,
+    "xg": 60.0,
+    "xg_contra": 30.0,
+    "xg_por_remate": 50.0,
+    "xg_por_remate_contra": 35.0
+   }
+  },
+  {
+   "treinador": "Márcio Zanardi",
+   "passagens": 4,
+   "clubes": 4,
+   "rho_medio_entre_clubes": -0.162,
+   "amplitude_mediana": 75.0,
+   "amplitude_por_traco": {
+    "dist_remate": 60.0,
+    "entradas_area": 70.0,
+    "duelo_def": 100.0,
+    "xg": 75.0,
+    "xg_contra": 70.0,
+    "xg_por_remate": 75.0,
+    "xg_por_remate_contra": 80.0
+   }
+  },
+  {
+   "treinador": "Rafael Lacerda",
+   "passagens": 3,
+   "clubes": 3,
+   "rho_medio_entre_clubes": -0.17,
+   "amplitude_mediana": 50.0,
+   "amplitude_por_traco": {
+    "dist_remate": 30.0,
+    "entradas_area": 20.0,
+    "duelo_def": 90.0,
+    "xg": 50.0,
+    "xg_contra": 55.0,
+    "xg_por_remate": 40.0,
+    "xg_por_remate_contra": 95.0
+   }
+  },
+  {
+   "treinador": "Jorginho",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.17,
+   "amplitude_mediana": 45.0,
+   "amplitude_por_traco": {
+    "dist_remate": 75.0,
+    "entradas_area": 15.0,
+    "duelo_def": 90.0,
+    "xg": 10.0,
+    "xg_contra": 40.0,
+    "xg_por_remate": 50.0,
+    "xg_por_remate_contra": 45.0
+   }
+  },
+  {
+   "treinador": "Bruno Pivetti",
+   "passagens": 3,
+   "clubes": 3,
+   "rho_medio_entre_clubes": -0.225,
+   "amplitude_mediana": 70.0,
+   "amplitude_por_traco": {
+    "dist_remate": 90.0,
+    "entradas_area": 80.0,
+    "duelo_def": 100.0,
+    "xg": 70.0,
+    "xg_contra": 70.0,
+    "xg_por_remate": 60.0,
+    "xg_por_remate_contra": 35.0
+   }
+  },
+  {
+   "treinador": "Eduardo Souza",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.318,
+   "amplitude_mediana": 30.0,
+   "amplitude_por_traco": {
+    "dist_remate": 25.0,
+    "entradas_area": 35.0,
+    "duelo_def": 30.0,
+    "xg": 80.0,
+    "xg_contra": 5.0,
+    "xg_por_remate": 85.0,
+    "xg_por_remate_contra": 20.0
+   }
+  },
+  {
+   "treinador": "Rafael Guanaes",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.345,
+   "amplitude_mediana": 52.5,
+   "amplitude_por_traco": {
+    "dist_remate": 52.5,
+    "entradas_area": 62.5,
+    "duelo_def": 17.5,
+    "xg": 67.5,
+    "xg_contra": 72.5,
+    "xg_por_remate": 2.5,
+    "xg_por_remate_contra": 42.5
+   }
+  },
+  {
+   "treinador": "Jair Ventura",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.351,
+   "amplitude_mediana": 25.0,
+   "amplitude_por_traco": {
+    "dist_remate": 20.0,
+    "entradas_area": 20.0,
+    "duelo_def": 65.0,
+    "xg": 25.0,
+    "xg_contra": 25.0,
+    "xg_por_remate": 40.0,
+    "xg_por_remate_contra": 90.0
+   }
+  },
+  {
+   "treinador": "Thiago Carpini",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.358,
+   "amplitude_mediana": 25.0,
+   "amplitude_por_traco": {
+    "dist_remate": 25.0,
+    "entradas_area": 52.5,
+    "duelo_def": 70.0,
+    "xg": 20.0,
+    "xg_contra": 50.0,
+    "xg_por_remate": 5.0,
+    "xg_por_remate_contra": 15.0
+   }
+  },
+  {
+   "treinador": "Alex",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.518,
+   "amplitude_mediana": 47.5,
+   "amplitude_por_traco": {
+    "dist_remate": 47.5,
+    "entradas_area": 52.5,
+    "duelo_def": 27.5,
+    "xg": 47.5,
+    "xg_contra": 67.5,
+    "xg_por_remate": 57.5,
+    "xg_por_remate_contra": 7.5
+   }
+  },
+  {
+   "treinador": "Roberto Fernandes",
+   "passagens": 2,
+   "clubes": 2,
+   "rho_medio_entre_clubes": -0.532,
+   "amplitude_mediana": 45.0,
+   "amplitude_por_traco": {
+    "dist_remate": 80.0,
+    "entradas_area": 5.0,
+    "duelo_def": 45.0,
+    "xg": 55.0,
+    "xg_contra": 45.0,
+    "xg_por_remate": 10.0,
+    "xg_por_remate_contra": 65.0
+   }
+  }
+ ],
+ "nulo_dois_quaisquer": {
+  "rho_medio": -0.014,
+  "p50": -0.019,
+  "p90": 0.609,
+  "n": 2000
+ },
+ "antes_depois": {
+  "n": 73,
+  "por_traco": {
+   "dist_remate": {
+    "mediana": 5.0,
+    "n": 73,
+    "p_wilcoxon": 0.632
+   },
+   "entradas_area": {
+    "mediana": -5.0,
+    "n": 73,
+    "p_wilcoxon": 0.2063
+   },
+   "duelo_def": {
+    "mediana": 0.0,
+    "n": 73,
+    "p_wilcoxon": 0.5063
+   },
+   "xg": {
+    "mediana": -5.0,
+    "n": 73,
+    "p_wilcoxon": 0.6535
+   },
+   "xg_contra": {
+    "mediana": 0.0,
+    "n": 73,
+    "p_wilcoxon": 0.4713
+   },
+   "xg_por_remate": {
+    "mediana": 5.0,
+    "n": 73,
+    "p_wilcoxon": 0.3432
+   },
+   "xg_por_remate_contra": {
+    "mediana": 0.0,
+    "n": 73,
+    "p_wilcoxon": 0.6686
+   }
+  }
+ }
+}

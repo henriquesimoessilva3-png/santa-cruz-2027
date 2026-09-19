@@ -1,0 +1,503 @@
+{
+ "parte": "A11",
+ "gerado_em": "2026-09-19",
+ "para_que_serve": "Valores dos {marcadores} que o texto novo de resultados/_proposta_destino.json pede para A11-1, A11-2 e A11-3 e que ainda não existem no campo numeros de A11.json. Só cálculo: nenhum destino, nenhuma frase e nenhum nível de confiança foi decidido aqui. Nada em A11.json, A11_correlacoes.csv, A11_estratificado.csv, A11_resumo.json, A11_indicadores.json ou scripts/A11.py foi tocado.",
+ "calculados": 54,
+ "nao_calculaveis": 2,
+ "base": {
+  "linhas": 80,
+  "clubes": 40,
+  "temporadas": "2022-2025",
+  "como": "A01_clube_temporada.csv cruzado com dados/serieb_clube_temporada.csv pelo par (temporada, clube), como faz scripts/A11.py; posto dentro da temporada por _metodo.percentil_no_ano.",
+  "cortes": {
+   "com_fronteira_o_padrao": 80,
+   "sem_fronteira": 52,
+   "cobertura_fisica_075_ou_mais": 60
+  },
+  "cobertura_fisica": "fis_minutos ÷ (J × 11 × 90), a mesma conta de A07_numeros_novos.json. Mede quanto dos minutos do time está coberto por atleta com dado físico de temporada — não é cobertura de jogos rastreados, que só existe para 2025 (physical_match do skillcorner_serieb.db não tem 2022, 2023 nem 2024)."
+ },
+ "terco": {
+  "regra": "terço = os 7 primeiros e os 7 últimos de cada temporada no posto do indicador (um terço de 20 times, arredondado), somando 28 clube-temporada de cada lado; o valor mostrado é a MÉDIA do grupo, no valor bruto",
+  "por_que_nao_26": "cada posto dentro da temporada aparece 4 vezes (4 anos × 20 times), então o corte em 26 linhas parte um empate de 4 no meio e o grupo passa a depender da ordem das linhas do arquivo. Com 7 por temporada o grupo é único e qualquer pessoa refaz igual.",
+  "sensibilidade": "Com 6, 7 ou 8 por temporada (24, 28 ou 32 linhas) a leitura é a mesma: corridas para a área 2,5→3,6 e entradas 20,4→23,4 em todas as versões; nenhum marcador muda mais que 0,2 na unidade de jogo, com a exceção anotada em rec_alto/rec_baixo."
+ },
+ "numeros": {
+  "corr_alto": {
+   "conclusao": "A11-1",
+   "valor": 3.6,
+   "formatado": "3,6",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna fis_runs_penalty_area_p30tip; terço = os 7 primeiros e os 7 últimos de cada temporada no posto do indicador (um terço de 20 times, arredondado), somando 28 clube-temporada de cada lado; o valor mostrado é a MÉDIA do grupo, no valor bruto. Média do terço de cima = 3,5981",
+   "conferido": true,
+   "segundo_caminho": "Refeito do CSV cru, sem _metodo e sem a junção com A01: 3,5981. Bate."
+  },
+  "corr_baixo": {
+   "conclusao": "A11-1",
+   "valor": 2.51,
+   "formatado": "2,5",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna fis_runs_penalty_area_p30tip; terço = os 7 primeiros e os 7 últimos de cada temporada no posto do indicador (um terço de 20 times, arredondado), somando 28 clube-temporada de cada lado; o valor mostrado é a MÉDIA do grupo, no valor bruto. Média do terço de baixo = 2,5059",
+   "conferido": true,
+   "segundo_caminho": "Refeito do CSV cru: 2,5059. Bate."
+  },
+  "ent_alto": {
+   "conclusao": "A11-1",
+   "valor": 23.44,
+   "formatado": "23,4",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna entradas_area (já é por jogo), média do terço DE CIMA de fis_runs_penalty_area_p30tip (terço = os 7 primeiros e os 7 últimos de cada temporada no posto do indicador (um terço de 20 times, arredondado), somando 28 clube-temporada de cada lado; o valor mostrado é a MÉDIA do grupo, no valor bruto) = 23,4436",
+   "conferido": true,
+   "segundo_caminho": "Mediana do mesmo grupo: 22,86 — a leitura não muda."
+  },
+  "ent_baixo": {
+   "conclusao": "A11-1",
+   "valor": 20.44,
+   "formatado": "20,4",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); entradas_area, média do terço DE BAIXO de corridas para a área = 20,4363",
+   "conferido": true,
+   "segundo_caminho": "Mediana do mesmo grupo: 20,55."
+  },
+  "xg_alto": {
+   "conclusao": "A11-1",
+   "valor": 1.277,
+   "formatado": "1,28",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna xg (já é por jogo), média do terço DE CIMA de corridas para a área = 1,2775",
+   "conferido": true,
+   "nota": "O xG tem confiabilidade split-half 0,30 (ESPECIFICACAO.md §2, abaixo do piso de 0,40): é o número mais frouxo da frase."
+  },
+  "xg_baixo": {
+   "conclusao": "A11-1",
+   "valor": 1.114,
+   "formatado": "1,11",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); xg, média do terço DE BAIXO de corridas para a área = 1,1141",
+   "conferido": true
+  },
+  "vol_ent_alto": {
+   "conclusao": "A11-1",
+   "valor": 21.85,
+   "formatado": "21,9",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); entradas_area, média do terço DE CIMA de fis_m_per_min_tip (metros por minuto COM a bola) = 21,8532",
+   "conferido": true
+  },
+  "vol_ent_baixo": {
+   "conclusao": "A11-1",
+   "valor": 21.63,
+   "formatado": "21,6",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); entradas_area, média do terço DE BAIXO de fis_m_per_min_tip = 21,6282",
+   "conferido": true
+  },
+  "vol_xg_alto": {
+   "conclusao": "A11-1",
+   "valor": 1.1928,
+   "formatado": "1,19",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); xg, média do terço DE CIMA de fis_m_per_min_tip = 1,1928",
+   "conferido": true,
+   "nota": "Arredondado dá o MESMO 1,19 do terço de baixo (1,1924 contra 1,1928): é exatamente o 'não muda nada' da frase."
+  },
+  "vol_xg_baixo": {
+   "conclusao": "A11-1",
+   "valor": 1.1924,
+   "formatado": "1,19",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); xg, média do terço DE BAIXO de fis_m_per_min_tip = 1,1924",
+   "conferido": true
+  },
+  "ent_metade_alto": {
+   "conclusao": "A11-1",
+   "valor": 23,
+   "formatado": "23",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); dos 28 do terço DE CIMA de corridas para a área, quantos estão entre os 10 primeiros da SUA temporada em entradas_area",
+   "conferido": true,
+   "segundo_caminho": "Pelo percentil dentro do ano (entradas_area::pct ≥ 50, que numa tabela de 20 é o 11º posto para cima): 23. Bate."
+  },
+  "ent_metade_baixo": {
+   "conclusao": "A11-1",
+   "valor": 8,
+   "formatado": "8",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); mesma conta para os 28 do terço DE BAIXO",
+   "conferido": true
+  },
+  "n_terco": {
+   "conclusao": "A11-1",
+   "valor": 28,
+   "formatado": "28",
+   "de_onde": "tamanho de cada terço: 7 times × 4 temporadas = 28 clube-temporada",
+   "conferido": true,
+   "nota": "A proposta escreveu 26 (= 80÷3). 26 NÃO fecha: cada posto dentro da temporada aparece 4 vezes (4 anos × 20 times), então o corte em 26 parte um empate de 4 linhas no meio e o resultado passa a depender da ordem das linhas do arquivo. Com 7 por temporada não há empate e qualquer pessoa refaz igual. Os valores quase não mudam: no corte de 26 seriam corr 2,5/3,6 · ent 20,5/23,5 · xG 1,12/1,28 · metade de cima 21 de 26 contra 8."
+  },
+  "n_sf": {
+   "conclusao": "A11-1 e A11-2",
+   "valor": 52,
+   "formatado": "52",
+   "de_onde": "A01_clube_temporada.csv, coluna fronteira: 28 das 80 linhas são fronteira (G4 ou Z4 a até 3 pontos), sobram 52",
+   "conferido": true,
+   "segundo_caminho": "80 − 28 = 52; o mesmo 52 aparece no corte sem fronteira do A07."
+  },
+  "n_cob": {
+   "conclusao": "A11-1",
+   "valor": 60,
+   "formatado": "60",
+   "de_onde": "cobertura física = fis_minutos ÷ (J × 11 × 90), em dados/serieb_clube_temporada.csv: 60 das 80 linhas ficam em 0,75 ou acima",
+   "conferido": true,
+   "segundo_caminho": "Mesma conta e mesmo corte de A07_numeros_novos.json (cobertura_por_clube_temporada, n_cob_baixa = 20 e rodada_sem_cobertura_baixa com 60 linhas). Bate linha a linha."
+  },
+  "n_cob_fora": {
+   "conclusao": "A11-1",
+   "valor": 20,
+   "formatado": "20",
+   "de_onde": "as 20 linhas com cobertura física abaixo de 0,75 (pior: Grêmio 2022 com 0,620; melhor excluída: Sport 2023 com 0,744)",
+   "conferido": true,
+   "segundo_caminho": "A lista completa está em A07_numeros_novos.json → cobertura_por_clube_temporada. Bate."
+  },
+  "rho_sf_area_ent": {
+   "conclusao": "A11-1",
+   "valor": 0.481,
+   "formatado": "0,481",
+   "de_onde": "Spearman no posto REFEITO dentro da temporada sobre as 52 linhas sem fronteira, fis_runs_penalty_area_p30tip × entradas_area",
+   "conferido": true,
+   "nota": "Vai para a prova, não para o texto: a Didática proíbe rho na manchete e no que vimos."
+  },
+  "rho_sf_area_xg": {
+   "conclusao": "A11-1",
+   "valor": 0.497,
+   "formatado": "0,497",
+   "de_onde": "mesma conta, fis_runs_penalty_area_p30tip × xg, 52 linhas",
+   "conferido": true
+  },
+  "rho_cob_area_ent": {
+   "conclusao": "A11-1",
+   "valor": 0.507,
+   "formatado": "0,507",
+   "de_onde": "Spearman no posto refeito sobre as 60 linhas com cobertura ≥ 0,75, fis_runs_penalty_area_p30tip × entradas_area",
+   "conferido": true
+  },
+  "rho_cob_area_xg": {
+   "conclusao": "A11-1",
+   "valor": 0.617,
+   "formatado": "0,617",
+   "de_onde": "mesma conta, × xg, 60 linhas",
+   "conferido": true,
+   "nota": "É o corte onde a relação fica mais forte (0,617 contra 0,499 no total), como a proposta diz."
+  },
+  "ic_area_ent": {
+   "conclusao": "A11-1",
+   "valor": [
+    0.26,
+    0.64
+   ],
+   "formatado": "[0,26; 0,64]",
+   "de_onde": "IC95 por reamostragem de CLUBE (40 clubes, 10.000 réplicas, semente 2026) do Spearman fis_runs_penalty_area_p30tip × entradas_area nas 80 linhas",
+   "conferido": true,
+   "segundo_caminho": "Quatro sementes (1, 7, 11, 2026) dão [0,26; 0,64] com variação de ±0,01.",
+   "nota": "Substitui o [0,28; 0,62] de Fisher que está hoje em A11_correlacoes.csv — Fisher supõe 80 linhas independentes, e elas são 40 clubes."
+  },
+  "ic_area_xg": {
+   "conclusao": "A11-1",
+   "valor": [
+    0.33,
+    0.65
+   ],
+   "formatado": "[0,33; 0,65]",
+   "de_onde": "mesma reamostragem de clube, fis_runs_penalty_area_p30tip × xg",
+   "conferido": true,
+   "segundo_caminho": "Quatro sementes dão [0,33; 0,65].",
+   "nota": "Substitui o [0,31; 0,65] de Fisher. Quase igual: aqui a dependência de clube quase não morde."
+  },
+  "rho_min_det": {
+   "conclusao": "A11-1 e A11-2",
+   "valor": 0.309,
+   "formatado": "0,31",
+   "de_onde": "poder por desenho: menor correlação detectável a 80%, alfa 0,05 bilateral, n = 80 — tanh((1,95996+0,84162)/√77) = 0,3088",
+   "conferido": true,
+   "segundo_caminho": "Mesma conta com statsmodels-livre em duas implementações (z de Fisher e busca binária sobre a potência): 0,309.",
+   "nota": "Vale igual para as 17 linhas de A11_correlacoes.csv, porque todas têm n = 80. Nos cortes: 0,38 com 52 linhas e 0,35 com 60."
+  },
+  "conf_xg": {
+   "conclusao": "A11-1",
+   "valor": 0.3,
+   "formatado": "0,30",
+   "de_onde": "_fonte/prototipo/ESPECIFICACAO.md, parágrafo \"Confiabilidade (split-half, Spearman-Brown)\" (linha 80): ordenar os jogos por data, média das rodadas pares contra ímpares, posto dentro do ano, Spearman corrigido por 2ρ/(1+ρ) — xG 0,30, o mais baixo da lista e abaixo do piso de 0,40 que manda hachurar. Repetido na ETAPA 4 (linha 410).",
+   "conferido": true,
+   "nota": "Não foi recalculado aqui: é valor publicado da Protótipo, citado como está."
+  },
+  "spr_alto": {
+   "conclusao": "A11-2",
+   "valor": 113.37,
+   "formatado": "113",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna fis_sprint_distance_p30otip (metros de sprint a cada 30 min SEM posse); terço = os 7 primeiros e os 7 últimos de cada temporada no posto do indicador (um terço de 20 times, arredondado), somando 28 clube-temporada de cada lado; o valor mostrado é a MÉDIA do grupo, no valor bruto. Média do terço de cima = 113,3673",
+   "conferido": true
+  },
+  "spr_baixo": {
+   "conclusao": "A11-2",
+   "valor": 87.22,
+   "formatado": "87",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); mesma coluna, média do terço de baixo = 87,2181",
+   "conferido": true
+  },
+  "ppda_alto": {
+   "conclusao": "A11-2",
+   "valor": 9.33,
+   "formatado": "9,3",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna ppda (passes do adversário por ação defensiva), média do terço DE CIMA de sprint sem posse = 9,3259",
+   "conferido": true,
+   "nota": "PPDA baixo é pressão mais alta: o terço que corre mais pressiona mais."
+  },
+  "ppda_baixo": {
+   "conclusao": "A11-2",
+   "valor": 11.17,
+   "formatado": "11,2",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); ppda, média do terço DE BAIXO de sprint sem posse = 11,1673",
+   "conferido": true
+  },
+  "rec_alto": {
+   "conclusao": "A11-2",
+   "valor": 77.91,
+   "formatado": "77,9",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna recuperacoes (já é por jogo), média do terço DE CIMA de sprint sem posse = 77,9121",
+   "conferido": true,
+   "nota": "Cuidado: a diferença entre os dois terços (0,3 recuperação por jogo) é menor que o ruído. Com o terço de 26 linhas da proposta o sinal até se inverte (77,7 contra 78,1). Para a frase tanto faz — 'praticamente a mesma bola' —, mas não se deve dizer qual terço recupera mais."
+  },
+  "rec_baixo": {
+   "conclusao": "A11-2",
+   "valor": 77.63,
+   "formatado": "77,6",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); recuperacoes, média do terço DE BAIXO de sprint sem posse = 77,6269",
+   "conferido": true
+  },
+  "xgc_alto": {
+   "conclusao": "A11-2",
+   "valor": 1.133,
+   "formatado": "1,13",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); coluna xg_contra (por jogo), média do terço DE CIMA de sprint sem posse = 1,1326",
+   "conferido": true,
+   "nota": "ATENÇÃO AO TEXTO: a diferença é 0,11 de xG por jogo (1,13 contra 1,24), cerca de 9%. A frase proposta diz 'quase não muda'. A correlação sprint × xG sofrido é −0,141 e não passa no BH, mas metros por minuto sem posse × xG sofrido é −0,27 e passa. Quem escrever o texto decide; o número é este."
+  },
+  "xgc_baixo": {
+   "conclusao": "A11-2",
+   "valor": 1.24,
+   "formatado": "1,24",
+   "de_onde": "dados/serieb_clube_temporada.csv, anos 2022-2025 (80 linhas, as mesmas de A11_correlacoes.csv); xg_contra, média do terço DE BAIXO de sprint sem posse = 1,2403",
+   "conferido": true
+  },
+  "ic_rec_topo": {
+   "conclusao": "A11-2",
+   "valor": 0.34,
+   "formatado": "0,34",
+   "de_onde": "A11_correlacoes.csv, linha sem_bola / fis_m_per_min_otip / recuperacoes, coluna ic95: [-0,09; 0,34] — o topo é 0,34",
+   "conferido": true,
+   "segundo_caminho": "Recalculado por Fisher sobre as 80 linhas: 0,340.",
+   "nota": "Pela reamostragem de clube (o intervalo honesto) o topo cai para 0,31 — e 0,31 é justamente o mínimo detectável, o que reforça o 'não achamos'. Se a coluna ic95 do CSV for trocada pelo bootstrap, este marcador tem de virar 0,31."
+  },
+  "rho_sf_spr_ppda": {
+   "conclusao": "A11-2",
+   "valor": -0.715,
+   "formatado": "−0,715",
+   "de_onde": "Spearman no posto refeito sobre as 52 linhas sem fronteira, fis_sprint_distance_p30otip × ppda",
+   "conferido": true
+  },
+  "rho_sf_mpm_ppda": {
+   "conclusao": "A11-2",
+   "valor": -0.48,
+   "formatado": "−0,480",
+   "de_onde": "mesma conta, fis_m_per_min_otip × ppda, 52 linhas",
+   "conferido": true
+  },
+  "rec_sf_frase": {
+   "conclusao": "A11-2",
+   "valor": "0.105 e 0.114",
+   "formatado": "0,105 (p = 0,45801) e 0,114 (p = 0,41963)",
+   "de_onde": "os dois pares com recuperacoes nas 52 linhas sem fronteira, posto refeito: seguem sem relação",
+   "conferido": true,
+   "nota": "String já montada, para a prova. Sustenta o 'recuperações seguem sem relação' que a proposta escreveu."
+  },
+  "n_estrat": {
+   "conclusao": "A11-3",
+   "valor": 49,
+   "formatado": "49",
+   "de_onde": "A11_estratificado.csv: 4 + 18 (faixa técnica média) + 12 + 15 (faixa alta) = 49 das 80 linhas; a faixa baixa não entra por não ter promovido nenhum",
+   "conferido": true,
+   "segundo_caminho": "Refeito do zero com o método de scripts/A11.py: faixa baixa 26 linhas com 0 Sobe e 15 Meio, média 4×18, alta 12×15. Bate com o CSV."
+  },
+  "n_sobe_media": {
+   "conclusao": "A11-3",
+   "valor": 4,
+   "formatado": "4",
+   "de_onde": "A11_estratificado.csv, faixa_tecnica=média, coluna n_sobe",
+   "conferido": true
+  },
+  "n_meio_media": {
+   "conclusao": "A11-3",
+   "valor": 18,
+   "formatado": "18",
+   "de_onde": "A11_estratificado.csv, faixa_tecnica=média, coluna n_meio",
+   "conferido": true
+  },
+  "n_sobe_alta": {
+   "conclusao": "A11-3",
+   "valor": 12,
+   "formatado": "12",
+   "de_onde": "A11_estratificado.csv, faixa_tecnica=alta, coluna n_sobe",
+   "conferido": true
+  },
+  "n_meio_alta": {
+   "conclusao": "A11-3",
+   "valor": 15,
+   "formatado": "15",
+   "de_onde": "A11_estratificado.csv, faixa_tecnica=alta, coluna n_meio",
+   "conferido": true
+  },
+  "dist_sobe_alta": {
+   "conclusao": "A11-3",
+   "valor": 9614,
+   "formatado": "9.614",
+   "de_onde": "dados/serieb_clube_temporada.csv, fis_distance_p90 (metros por 90 min), média dos 12 Sobe da faixa técnica alta (índice técnico de A11_indicadores.json, terços de 80): 9.614,4",
+   "conferido": true,
+   "segundo_caminho": "Mediana do mesmo grupo: 9.646,9 — a leitura (empate) não muda.",
+   "nota": "É MÉDIA. O A07 publica MEDIANA para o mesmo indicador (9.644 do Sobe); os dois números não são comparáveis lado a lado."
+  },
+  "dist_meio_alta": {
+   "conclusao": "A11-3",
+   "valor": 9620,
+   "formatado": "9.620",
+   "de_onde": "mesma conta, média dos 15 Meio da faixa técnica alta: 9.620,1",
+   "conferido": true,
+   "segundo_caminho": "Mediana: 9.665,6."
+  },
+  "dif_alta": {
+   "conclusao": "A11-3",
+   "valor": -6,
+   "formatado": "−6",
+   "de_onde": "9.614,4 − 9.620,1 = −5,7 metros por jogo, arredondado para −6 (o arredondado da diferença bate com a diferença dos arredondados)",
+   "conferido": true,
+   "nota": "Quem sobe corre MENOS que o meio dentro da faixa técnica alta, por uma diferença que é ruído: 6 metros em quase dez quilômetros."
+  },
+  "dist_sobe_media": {
+   "conclusao": "A11-3",
+   "valor": 9607,
+   "formatado": "9.607",
+   "de_onde": "média dos 4 Sobe da faixa técnica média: 9.606,8",
+   "conferido": true,
+   "segundo_caminho": "Mediana: 9.644,3."
+  },
+  "dist_meio_media": {
+   "conclusao": "A11-3",
+   "valor": 9582,
+   "formatado": "9.582",
+   "de_onde": "média dos 18 Meio da faixa técnica média: 9.581,7",
+   "conferido": true,
+   "segundo_caminho": "Mediana: 9.630,1."
+  },
+  "dif_media": {
+   "conclusao": "A11-3",
+   "valor": 25,
+   "formatado": "+25",
+   "de_onde": "9.606,8 − 9.581,7 = +25,1 metros por jogo, arredondado para +25",
+   "conferido": true,
+   "nota": "Com n = 4 promovidos, 25 metros não significam nada: o mínimo detectável desta faixa é d = 1,63."
+  },
+  "n_testes": {
+   "conclusao": "A11-3",
+   "valor": 10,
+   "formatado": "10",
+   "de_onde": "A11_estratificado.csv tem 10 linhas (2 faixas técnicas × 5 indicadores físicos), todas com selo 'sem diferença clara'",
+   "conferido": true,
+   "segundo_caminho": "Menor q do arquivo: 0,95148. Nenhuma passa no BH a 5%."
+  },
+  "pos_corrida": {
+   "conclusao": "A11-3",
+   "valor": 3.528,
+   "formatado": "3,5",
+   "de_onde": "dados/serieb_clube_temporada.csv: posto de fis_distance_p90 dentro de cada temporada (1 a 20) e média do |salto| de um ano para o outro, nos 36 clubes que repetem em temporadas seguidas (2022→23, 23→24, 24→25): 3,528 posições",
+   "conferido": true,
+   "segundo_caminho": "É a tradução dos 0,722 de persistência da ESPECIFICACAO.md §7.3, recalculados aqui e batendo: Spearman t→t+1 nos mesmos 36 pares = 0,722.",
+   "nota": "Mediana do salto: 3 posições; o maior salto é 11."
+  },
+  "pos_xg": {
+   "conclusao": "A11-3",
+   "valor": 6.083,
+   "formatado": "6,1",
+   "de_onde": "mesma conta com a coluna xg: 6,083 posições",
+   "conferido": true,
+   "segundo_caminho": "Persistência recalculada: 0,144 — igual ao publicado na §7.3.",
+   "nota": "Mediana: 5."
+  },
+  "pos_ppda": {
+   "conclusao": "A11-3",
+   "valor": 6.139,
+   "formatado": "6,1",
+   "de_onde": "mesma conta com a coluna ppda: 6,139 posições",
+   "conferido": true,
+   "segundo_caminho": "Persistência recalculada: 0,129 — igual ao publicado na §7.3.",
+   "nota": "Mediana: 5,5."
+  },
+  "sf_alta": {
+   "conclusao": "A11-3",
+   "valor": "7 contra 9",
+   "formatado": "7 contra 9",
+   "de_onde": "mesma estratificação, tirando os 28 clube-temporada de fronteira (A01_clube_temporada.csv) e MANTENDO as faixas técnicas dos 80: a faixa alta fica com 7 Sobe contra 9 Meio",
+   "conferido": true,
+   "nota": "String já montada. A faixa média desaba para 1 Sobe contra 11 Meio e sai do teste (o script exige 4 de cada lado); a baixa continua com 0 Sobe. Se em vez disso as faixas técnicas forem refeitas dentro das 52 linhas, a alta fica 8 contra 10 e a média fica sem nenhum promovido."
+  },
+  "d_min_alta": {
+   "conclusao": "A11-3",
+   "valor": 1.13,
+   "formatado": "1,13",
+   "de_onde": "A11_estratificado.csv, faixa_tecnica=alta, coluna d_minimo_80 (menor d detectável a 80% com 12 × 15)",
+   "conferido": true,
+   "segundo_caminho": "Recalculado com _metodo.d_minimo(12, 15) = 1,13."
+  },
+  "d_min_media": {
+   "conclusao": "A11-3",
+   "valor": 1.63,
+   "formatado": "1,63",
+   "de_onde": "A11_estratificado.csv, faixa_tecnica=média, coluna d_minimo_80 (4 × 18)",
+   "conferido": true,
+   "segundo_caminho": "Recalculado com _metodo.d_minimo(4, 18) = 1,63.",
+   "nota": "Sem fronteira a faixa alta cairia para 7 × 9, e aí o mínimo detectável sobe para 1,52."
+  }
+ },
+ "bloqueados": [
+  {
+   "marcador": "físico por turno (a proposta não batizou marcador — reconhece que o número não existe)",
+   "conclusao": "A11-1, A11-2 e A11-3",
+   "por_que": "A porta temporal da §6.4 precisa do 1º turno prevendo o 2º, e para isso é preciso físico por jogo. No repositório o único físico por jogo é dados_copiados/skillcorner_serieb.db → physical_match, que tem 374 jogos de 2025 e 207 de 2026 e ZERO linhas de 2022, 2023 e 2024 (conferido: SELECT por sc_competition_edition_id). O agregado de dados/serieb_clube_temporada.csv é de temporada inteira.",
+   "o_que_resolveria": "Físico por jogo de 2022 a 2024 — a cópia do skillcorner.db do Portal Ranking com physical_match das edições 335, 446 e 773, como já se pediu em A07. Sem isso nenhuma conclusão do A11 passa de provável."
+  },
+  {
+   "marcador": "recorte por estado do jogo (placar)",
+   "conclusao": "A11-1 e A11-2",
+   "por_que": "As três conclusões carregam a ressalva 'pode ser efeito do placar' e nenhuma tem número para ela: o SkillCorner guarda um período só (full_all), sem corrida com o time à frente, empatando ou atrás. É a mesma falta que derruba A08.",
+   "o_que_resolveria": "Físico por faixa de minutos ou por estado do placar, que o SkillCorner atual não expõe. Enquanto não houver, a ressalva fica como texto, sem número."
+  }
+ ],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "area_ent, area_xg, mpm_ent, spr_ent, mpm_xg, spr_ppda, mpm_ppda, spr_rec, mpm_rec, mpm_xgc (formato, não valor)",
+   "esta": "string com ponto inglês, ex. \"0.467\" e \"-0.633\"",
+   "deveria": "número, com a versão pt-BR ao lado (0,467 e −0,633)",
+   "evidencia": "A11.json, campo numeros: os dez valores batem linha a linha com A11_correlacoes.csv (conferido), mas vão para a tela como string com ponto inglês. É o defeito dos 107 números com ponto inglês.",
+   "nota": "Valor certo, formato errado: não é correção de número, é de tipo. Não corrigi o arquivo."
+  },
+  {
+   "marcador": "n (usado no campo n de A11-3)",
+   "esta": "80 — 'O físico não separa quem sobe... {n} clube-temporadas em {niveis}'",
+   "deveria": "49 (o marcador novo n_estrat)",
+   "evidencia": "A estratificação usa 4+18+12+15 = 49 das 80 linhas: a faixa técnica baixa não tem promovido nenhum e sai do teste (A11_estratificado.csv não tem linha 'baixa'). O 80 está certo para A11-1 e A11-2 e errado só aqui.",
+   "nota": "A proposta já prevê a troca; o número está calculado em n_estrat. Não mexi em A11.json nem no _registro.md."
+  }
+ ],
+ "conferidos_e_certos": {
+  "o_que_e": "Marcadores que JÁ estão em A11.json e que refiz contra a base sem achar erro de valor.",
+  "n": 80,
+  "n_corr": 17,
+  "n_firmes": 6,
+  "estrat_firmes": 0,
+  "estrat_testes": 10,
+  "niveis": "alta, média",
+  "rhos": "os 10 rho batem com A11_correlacoes.csv, que por sua vez refiz do zero (80 linhas, Spearman no posto) sem divergência",
+  "persistencias": "pers_fis 0,722 · pers_valor 0,724 · pers_xg 0,144 · pers_ppda 0,129 — recalculados aqui dos 36 pares com scipy.rankdata: 0,7220 · 0,7243 · 0,1437 · 0,1290. Batem com a ESPECIFICACAO.md §7.3."
+ },
+ "fora_do_meu_escopo": [
+  "Trocar a coluna ic95 de A11_correlacoes.csv pelo intervalo de clube (valores prontos em ic_area_ent e ic_area_xg).",
+  "Gravar o mínimo detectável por correlação em A11_resumo.json (é 0,31 para as 17 linhas, todas com n = 80).",
+  "Fazer scripts/A11.py passar a rodar os cortes sem fronteira e sem cobertura baixa (os resultados estão aqui).",
+  "Escrever resultados/A11.md, que a seção Entrega exige e que ainda não existe.",
+  "Qualquer alteração em A11.json, no _registro.md ou no texto das conclusões."
+ ]
+}

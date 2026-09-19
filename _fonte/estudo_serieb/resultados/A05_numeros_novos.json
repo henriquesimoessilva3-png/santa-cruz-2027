@@ -1,0 +1,352 @@
+{
+ "_doc": "So numeros. Calculados para os marcadores que a proposta de destino (_proposta_destino.json, A05) criou e que nao tem valor em lugar nenhum. Nenhuma conclusao, texto, destino ou nivel de confianca foi decidido ou alterado aqui.",
+ "parte": "A05",
+ "gerado_em": "2026-09-19",
+ "escreve_so": "_fonte/estudo_serieb/resultados/A05_numeros_novos.json",
+ "base_do_recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidade": "clube-temporada",
+  "n_total": 80,
+  "faixas": {
+   "Sobe": 16,
+   "Meio": 48,
+   "Cai": 16
+  },
+  "arquivos": [
+   "_fonte/estudo_serieb/resultados/A01_clube_temporada.csv",
+   "dados/serieb_clube_temporada.csv",
+   "_fonte/estudo_serieb/resultados/A05_testes.csv",
+   "_fonte/estudo_serieb/resultados/A05_resumo.json",
+   "_fonte/estudo_serieb/resultados/_porta_temporal.json",
+   "_fonte/estudo_serieb/resultados/classificacao_rodada.csv",
+   "dados/prototipo.json (segundo caminho)",
+   "_fonte/prototipo/ESPECIFICACAO.md (segundo caminho, tabela da 6.4)"
+  ]
+ },
+ "calculados": 23,
+ "nao_calculaveis": 0,
+ "ja_tinham_valor_em_A05_json": [
+  "n_ind",
+  "n_testes",
+  "topo_posse",
+  "base_posse",
+  "n_total",
+  "posse_sobe_min",
+  "posse_sobe_max",
+  "posse_sobe_amp",
+  "posse_meio_amp",
+  "passes_sobe_min",
+  "passes_sobe_max",
+  "terco_sobe_min",
+  "terco_sobe_max",
+  "sm_dois",
+  "st_dois",
+  "cm_dois"
+ ],
+ "numeros": [
+  {
+   "marcador": "posse_sobe_med",
+   "conclusao": "A05-1",
+   "valor": 51.4,
+   "valor_bruto": 51.402,
+   "unidade": "% de posse",
+   "formatado": "51,4",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- mediana da coluna `posse` nas 16 linhas com faixa=Sobe",
+   "conferido": true,
+   "conferido_como": "dois caminhos independentes batem no mesmo 51,402: A05_testes.csv (linha com,construcao,SM,posse -> cru_a=51.402) e dados/prototipo.json ranking_gaps.linhas[42] 'Posse, %' -> mediana_crua.sobe=51.402, n_por_faixa.sobe=16",
+   "nota": "Arredondado (51,402 -> 51,4), nao truncado."
+  },
+  {
+   "marcador": "posse_meio_med",
+   "conclusao": "A05-1",
+   "valor": 49.8,
+   "valor_bruto": 49.782,
+   "unidade": "% de posse",
+   "formatado": "49,8",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- mediana da coluna `posse` nas 48 linhas com faixa=Meio (5o-16o)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv (com,construcao,SM,posse -> cru_b=49.782) e dados/prototipo.json ranking_gaps.linhas[42] mediana_crua.meio=49.782, n_por_faixa.meio=48",
+   "nota": ""
+  },
+  {
+   "marcador": "posse_cai_med",
+   "conclusao": "A05-1",
+   "valor": 48.5,
+   "valor_bruto": 48.459,
+   "unidade": "% de posse",
+   "formatado": "48,5",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- mediana da coluna `posse` nas 16 linhas com faixa=Cai (17o-20o)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv (com,construcao,CM,posse -> cru_a=48.459) e dados/prototipo.json ranking_gaps.linhas[42] mediana_crua.cai=48.459",
+   "nota": "Arredondado (48,459 -> 48,5), nao truncado."
+  },
+  {
+   "marcador": "posse_dif",
+   "conclusao": "A05-1",
+   "valor": 1.6,
+   "valor_bruto": 1.6205,
+   "unidade": "pontos de posse",
+   "formatado": "1,6",
+   "de_onde": "mediana de posse do Sobe menos a do Meio, na mesma base: 51,402 - 49,782 = 1,6205",
+   "conferido": true,
+   "conferido_como": "as duas medianas ja vem conferidas por dois caminhos (A05_testes.csv e prototipo.json); a subtracao foi refeita sobre os valores brutos das duas fontes",
+   "nota": "A proposta pedia 1,6 e bate."
+  },
+  {
+   "marcador": "passes_dif",
+   "conclusao": "A05-1",
+   "valor": 21,
+   "valor_bruto": 21.4317,
+   "unidade": "passes por jogo",
+   "formatado": "21",
+   "de_onde": "mediana da coluna `passes` do Sobe (401,461) menos a do Meio (380,029), mesma base",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv (com,construcao,SM,passes -> cru_a=401.461, cru_b=380.029) e dados/prototipo.json ranking_gaps.linhas[59] 'Passes por jogo' -> sobe 401.461 / meio 380.029",
+   "nota": "Diferenca de medianas, em passes por jogo (unidade de jogo, como a Didatica pede)."
+  },
+  {
+   "marcador": "sobe_mais_bola",
+   "conclusao": "A05-1",
+   "valor": 12,
+   "valor_bruto": 12,
+   "unidade": "promovidos",
+   "formatado": "12",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- contagem de faixa=Sobe com `posse` > 50; os 4 de fora sao Criciuma 2023 (48,6), Ceara 2024 (49,6), Chapecoense 2025 (47,4) e Remo 2025 (48,1)",
+   "conferido": true,
+   "conferido_como": "contado de duas maneiras: 16 - n_pouca_bola (4) = 12, e a lista clube a clube impressa dos 16 promovidos; nenhum time fica exatamente em 50,0, entao >50 e >=50 dao o mesmo numero",
+   "nota": ""
+  },
+  {
+   "marcador": "cai_mais_bola",
+   "conclusao": "A05-1",
+   "valor": 4,
+   "valor_bruto": 4,
+   "unidade": "rebaixados",
+   "formatado": "4",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- contagem de faixa=Cai com `posse` > 50: Brusque 2022 (52,0), Sampaio Correa 2023 (50,6), Tombense 2023 (50,6) e Volta Redonda 2025 (53,2)",
+   "conferido": true,
+   "conferido_como": "lista dos 16 rebaixados impressa um a um e recontada; >50 e >=50 dao o mesmo numero (nenhum em 50,0 exato)",
+   "nota": ""
+  },
+  {
+   "marcador": "n_sobe",
+   "conclusao": "A05-1, A05-2, A05-3",
+   "valor": 16,
+   "valor_bruto": 16,
+   "unidade": "clube-temporadas",
+   "formatado": "16",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- linhas com faixa=Sobe (1o-4o de 2022 a 2025)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv coluna n_a das linhas com/SM = 16 e prototipo.json n_por_faixa.sobe = 16",
+   "nota": ""
+  },
+  {
+   "marcador": "n_cai",
+   "conclusao": "A05-1",
+   "valor": 16,
+   "valor_bruto": 16,
+   "unidade": "clube-temporadas",
+   "formatado": "16",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- linhas com faixa=Cai (17o-20o de 2022 a 2025)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv coluna n_a das linhas com/CM = 16 e prototipo.json n_por_faixa.cai = 16",
+   "nota": ""
+  },
+  {
+   "marcador": "n_meio",
+   "conclusao": "A05-1, A05-3",
+   "valor": 48,
+   "valor_bruto": 48,
+   "unidade": "clube-temporadas",
+   "formatado": "48",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- linhas com faixa=Meio (5o-16o de 2022 a 2025)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv coluna n_b das linhas com/SM = 48 e prototipo.json n_por_faixa.meio = 48; 16+48+16 = 80 = n_total",
+   "nota": ""
+  },
+  {
+   "marcador": "rodadas_1t",
+   "conclusao": "A05-1",
+   "valor": 19,
+   "valor_bruto": 19,
+   "unidade": "rodadas",
+   "formatado": "19",
+   "de_onde": "classificacao_rodada.csv: 2022, 2023, 2024 e 2025 tem 38 rodadas cada; o 1o turno sao as rodadas 1 a 19",
+   "conferido": true,
+   "conferido_como": "_porta_temporal.json define o metodo como 'media do indicador nas 19 primeiras rodadas' e registra recorte.corte = 'rodada 19'; a contagem de rodadas distintas por temporada em classificacao_rodada.csv da 38 em todos os quatro anos",
+   "nota": ""
+  },
+  {
+   "marcador": "rodadas_2t",
+   "conclusao": "A05-1",
+   "valor": 19,
+   "valor_bruto": 19,
+   "unidade": "rodadas",
+   "formatado": "19",
+   "de_onde": "classificacao_rodada.csv: rodadas 20 a 38 de cada temporada de 2022 a 2025",
+   "conferido": true,
+   "conferido_como": "_porta_temporal.json: 'pontos somados das 19 ultimas'; 38 - 19 = 19, conferido contra a contagem de rodadas do CSV",
+   "nota": ""
+  },
+  {
+   "marcador": "porta_parcial_posse",
+   "conclusao": "A05-1 (so na prova)",
+   "valor": 0.227,
+   "valor_bruto": 0.227,
+   "unidade": "correlacao parcial de posto",
+   "formatado": "+0,227",
+   "de_onde": "_porta_temporal.json, conferencia_6_4.linhas, indicador 'Posse, %', campo parcial (n=80)",
+   "conferido": true,
+   "conferido_como": "ESPECIFICACAO.md linha 170 publica a mesma celula: '| Posse, % | +0,247 (p=0,027) | +0,227 (p=0,043) |'; o campo parcial_publicada_6_4 do JSON tambem e 0,227 e 'bate': true",
+   "nota": "Nunca vai no texto de 2 minutos (a Didatica proibe parcial/p ali)."
+  },
+  {
+   "marcador": "porta_p_posse",
+   "conclusao": "A05-1 (so na prova)",
+   "valor": 0.043,
+   "valor_bruto": 0.04322,
+   "unidade": "p da parcial",
+   "formatado": "0,043",
+   "de_onde": "_porta_temporal.json, conferencia_6_4.linhas, indicador 'Posse, %', campo p_parcial = 0,04322 (n=80)",
+   "conferido": true,
+   "conferido_como": "ESPECIFICACAO.md linha 170 publica p=0,043 para a mesma parcial",
+   "nota": "Arredondado (0,04322 -> 0,043). Nunca vai no texto de 2 minutos."
+  },
+  {
+   "marcador": "n_pouca_bola",
+   "conclusao": "A05-2",
+   "valor": 4,
+   "valor_bruto": 4,
+   "unidade": "promovidos",
+   "formatado": "4",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- faixa=Sobe com `posse` < 50: Chapecoense 2025 (47,420), Remo 2025 (48,145), Criciuma 2023 (48,626) e Ceara 2024 (49,591)",
+   "conferido": true,
+   "conferido_como": "fecha com sobe_mais_bola: 4 + 12 = 16; e os quatro nomes sao exatamente os que a proposta cita",
+   "nota": "Os quatro sao tambem os quatro promovidos com fronteira=1 e posse abaixo de 50."
+  },
+  {
+   "marcador": "posse_min",
+   "conclusao": "A05-2",
+   "valor": 47.4,
+   "valor_bruto": 47.42026315789474,
+   "unidade": "% de posse",
+   "formatado": "47,4",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- menor `posse` entre as 16 linhas de faixa=Sobe: Chapecoense 2025",
+   "conferido": true,
+   "conferido_como": "A05_resumo.json dispersao_por_faixa.posse.Sobe.min = 47,42, mesmo valor; e o minimo foi recalculado da base crua",
+   "nota": "Arredondado para 47,4."
+  },
+  {
+   "marcador": "sobe_folga",
+   "conclusao": "A05-2",
+   "valor": 8,
+   "valor_bruto": 8,
+   "unidade": "promovidos",
+   "formatado": "8",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- faixa=Sobe com fronteira=0, isto e, que nao terminaram a 3 pontos ou menos do 5o: Cruzeiro e Gremio e Bahia e Vasco (2022), Vitoria (2023), Santos (2024), Coritiba e Athletico-PR (2025)",
+   "conferido": true,
+   "conferido_como": "A05_resumo.json n.sobe_sf = 8 (mesma contagem por outro caminho) e A05_testes.csv coluna n_a das linhas sem/SM = 8; a distancia ao 5o foi recalculada ano a ano de A01_clube_temporada.csv e os oito estao a 4 pontos ou mais",
+   "nota": "Os oito tem todos posse acima de 50, como a proposta descreve."
+  },
+  {
+   "marcador": "posse_folga_min",
+   "conclusao": "A05-2",
+   "valor": 50.1,
+   "valor_bruto": 50.10868421052632,
+   "unidade": "% de posse",
+   "formatado": "50,1",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- menor `posse` entre os 8 promovidos com fronteira=0: Gremio 2022",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv linha sem,construcao,SM,posse tem n_a=8 e mediana 51,668, coerente com um minimo de 50,1; o minimo foi lido direto da lista dos 8 clubes impressa um a um",
+   "nota": ""
+  },
+  {
+   "marcador": "posse_folga_max",
+   "conclusao": "A05-2",
+   "valor": 61.6,
+   "valor_bruto": 61.55657894736842,
+   "unidade": "% de posse",
+   "formatado": "61,6",
+   "de_onde": "A01_clube_temporada.csv (faixa, trave, fronteira, pos, pontos) cruzado com dados/serieb_clube_temporada.csv (ano+clube), 2022-2025, 80 clube-temporadas; mesmo caminho de scripts/_rodar.py A05 -- maior `posse` entre os 8 promovidos com fronteira=0: Cruzeiro 2022",
+   "conferido": true,
+   "conferido_como": "A05_resumo.json dispersao_por_faixa.posse.Sobe.max = 61,557 (o maximo do Sobe inteiro e o mesmo clube, que nao e fronteira)",
+   "nota": "Arredondado para cima (61,557 -> 61,6); truncar daria 61,5, que e o defeito apontado na auditoria."
+  },
+  {
+   "marcador": "pts_raspando",
+   "conclusao": "A05-2",
+   "valor": 3,
+   "valor_bruto": 3,
+   "unidade": "pontos",
+   "formatado": "3",
+   "de_onde": "definicao de Fronteira do CLAUDE.md do estudo: time do G4 a ate 3 pontos do 5o colocado; e a coluna fronteira de A01_clube_temporada.csv",
+   "conferido": true,
+   "conferido_como": "recalculado ano a ano em A01_clube_temporada.csv: os quatro promovidos com pouca bola ficaram a 1, 0, 1 e 1 ponto do 5o (Criciuma 2023 +1, Ceara 2024 0, Chapecoense 2025 +1, Remo 2025 +1), todos dentro dos 3",
+   "nota": "E o limiar da definicao, nao a distancia medida. A distancia real dos quatro foi de no maximo 1 ponto - se o texto quiser ser exato em vez de conservador, o numero seria 1."
+  },
+  {
+   "marcador": "n_nao_separam",
+   "conclusao": "A05-3",
+   "valor": 9,
+   "valor_bruto": 9,
+   "unidade": "indicadores",
+   "formatado": "9",
+   "de_onde": "A05_testes.csv, comparacao=SM: dos 10 indicadores, so `posse` recebe selo=firme (linha sem,construcao,SM,posse, q=0,03748); nenhum outro e firme em corte algum",
+   "conferido": true,
+   "conferido_como": "contado nos dois cortes separadamente (com: zero firmes em 10; sem: 1 firme em 10) e por complemento: 10 - 1 = 9; A05_resumo.json firme_nos_dois_cortes.SM = [] confirma que nenhum e firme nos dois",
+   "nota": "Os nove sao: passes, passes certos %, passe longo %, comprimento do passe, passes para frente %, passes progressivos, passes no terco final, ataques posicionais e contra-ataques."
+  },
+  {
+   "marcador": "d_min_com",
+   "conclusao": "A05-3 (so na prova)",
+   "valor": 0.82,
+   "valor_bruto": 0.82,
+   "unidade": "d minimo detectavel a 80%",
+   "formatado": "0,82",
+   "de_onde": "A05_resumo.json, poder_por_desenho['16x48'] = 0,82 (16 promovidos contra 48 do meio)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv coluna d_minimo_80 vale 0,82 em todas as 20 linhas com n_a=16 e n_b=48",
+   "nota": "Nunca vai no texto de 2 minutos."
+  },
+  {
+   "marcador": "d_min_sem",
+   "conclusao": "A05-3 (so na prova)",
+   "valor": 1.14,
+   "valor_bruto": 1.14,
+   "unidade": "d minimo detectavel a 80%",
+   "formatado": "1,14",
+   "de_onde": "A05_resumo.json, poder_por_desenho['8x32'] = 1,14 (8 promovidos contra 32 do meio, sem os times de fronteira)",
+   "conferido": true,
+   "conferido_como": "A05_testes.csv coluna d_minimo_80 vale 1,14 em todas as 10 linhas com n_a=8 e n_b=32; e o maior d de todo o arquivo e 0,869, abaixo dos dois limiares",
+   "nota": "Nunca vai no texto de 2 minutos."
+  }
+ ],
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "n_testes",
+   "esta": "30",
+   "deveria": "60",
+   "evidencia": "A05_testes.csv tem 61 linhas com cabecalho, ou seja 60 testes: 10 indicadores x 3 comparacoes (SM, ST, CM) x 2 cortes de fronteira (com, sem). 10*3*2 = 60. O 30 do A05.json conta so um dos dois cortes.",
+   "conclusao_afetada": "A05-1 (texto atual usa {n_testes} duas vezes)"
+  },
+  {
+   "marcador": "topo_posse",
+   "esta": "8",
+   "deveria": "10 (com a definicao que a proposta usa) - mas o marcador e ambiguo",
+   "evidencia": "Recalculado o posto de posse de cada clube dentro do proprio ano (20 clubes por ano, 2022-2025). Promovidos entre os 7 primeiros do ano: 10 (Cruzeiro 1o, Vasco 6o, Bahia 7o, Juventude 4o, Vitoria 5o, Atletico-GO 2o, Sport 3o, Santos 6o, Mirassol 7o, Coritiba 5o). Entre os 6 primeiros: 8. O valor guardado (8) e exatamente o corte de percentil >= 70, isto e, os 6 de cima de 20 (30%); o 10 da proposta e o corte de percentil >= 66,7, isto e, os 7 de cima (35%). O terco de cima de 20 times e 6,67 clubes, entao os dois arredondamentos sao defensaveis e nenhum dos dois e 'errado contra a base' - o que falta e a definicao escrita. Observacao: a propria proposta diz '5,3 esperados por acaso', que e 16 x 6,67/20 e corresponde ao corte de 6 clubes (contagem 8); com o corte de 7 clubes o esperado seria 5,6.",
+   "conclusao_afetada": "A05-2 (o texto novo NAO usa topo_posse; a proposta admite aposenta-lo)"
+  }
+ ],
+ "nao_sao_numero_a_calcular": [
+  "APOSENTAR sm_dois, st_dois e cm_dois (valem 0/0/0 e estao certos contra A05_resumo.json firme_nos_dois_cortes, que traz as tres listas vazias) - e decisao de texto, nao calculo.",
+  "APOSENTAR posse_sobe_amp (14,136) e posse_meio_amp (13,782): os dois valores estao CERTOS contra a base (61,55658-47,42026 = 14,1363 e 56,06579-42,28342 = 13,7824). Conferido tambem o que a proposta afirma: sem o Cruzeiro 2022 a amplitude do Sobe cai para 7,269 (a proposta escreveu 7,3, que e o arredondamento).",
+  "Exemplo Coritiba x Chapecoense, se for mantido em algum lugar: conferidos os valores brutos pedidos - Coritiba 2025 posse 52,265 (52,3) e passes certos 84,813 (84,8); Chapecoense 2025 posse 47,420 (47,4) e passe longo 14,086 (14,1). Os quatro batem com a proposta. Contra-ataques tem confiabilidade 0,36 na ESPECIFICACAO.md (linha 80), abaixo do corte de 0,40, como a proposta diz."
+ ],
+ "formato": "valor = numero cru arredondado para a casa de tela; valor_bruto = sem arredondar; formatado = versao pt-BR (virgula decimal) pronta, mas quem decide o formato final e o gerador. Arredondado sempre, nunca truncado."
+}

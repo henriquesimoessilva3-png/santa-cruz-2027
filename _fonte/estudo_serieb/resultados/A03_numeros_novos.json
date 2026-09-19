@@ -1,0 +1,360 @@
+{
+ "parte": "A03",
+ "titulo": "Casa e fora: numeros novos pedidos pela proposta de destino",
+ "gerado_em": "2026-09-19",
+ "escopo": "So calculo. Nao decidi destino de conclusao, nao reescrevi texto e nao mexi em nivel de confianca. Nenhum arquivo do estudo foi alterado: este e o unico arquivo escrito.",
+ "fonte_do_pedido": "resultados/_proposta_destino.json, propostas.A03 (campos manchete_nova, o_que_vimos_novo, para_o_santa_cruz_novo, n_novo e numeros_a_criar)",
+ "como_conferi": "Cada valor tem duas origens independentes: (1) a saida ja gravada da parte (A03_testes.csv e A03_resumo.json) e (2) um recalculo da base do zero a partir de dados/serieb_jogos.csv + A01_clube_temporada.csv, repetindo a receita do scripts/A03.py sem rodar o script. As 80 linhas, os 40 clubes e todas as medianas bateram. Os valores 'sem arredondar' registrados abaixo saem desse recalculo, nao do CSV, porque o CSV ja vem com 3 casas — arredondar o que ja foi arredondado e o defeito que a auditoria achou (60,05 vira 60,0 em vez de 60,1).",
+ "unidades": "xG em gols esperados por jogo; duelo defensivo em % de dividida ganha (dif_dd em ponto percentual); pontos por jogo. Nenhum percentil, d, q ou p entra nos numeros de texto — d_min_com, d_min_sem e maior_d_asm foram pedidos explicitamente para a prova, e so para ela.",
+ "sinal_de_dif_xgc": "Em A03.py, dif_xgc = xgc_fora - xgc_casa ('sofre mais fora = positivo'). Nao e casa menos fora, ao contrario dos outros tres dif_.",
+ "calculados": 24,
+ "nao_calculaveis": 0,
+ "numeros": [
+  {
+   "marcador": "dif_xg_sobe",
+   "conclusao": "A03-1",
+   "valor": 0.419,
+   "formatado": "0,419",
+   "de_onde": "A03_testes.csv, linha fronteira=com | familia=assimetria | comparacao=SM | indicador=dif_xg, coluna cru_a (mediana bruta do grupo A = Sobe, n=16). dif_xg = xg_casa - xg_fora do clube-temporada. Sem arredondar: 0,418947.",
+   "segundo_caminho": "recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa. Mediana de dif_xg dos 16 do Sobe = 0,418947.",
+   "conferido": true
+  },
+  {
+   "marcador": "dif_xg_meio",
+   "conclusao": "A03-1",
+   "valor": 0.387,
+   "formatado": "0,387",
+   "de_onde": "A03_testes.csv, mesma linha (com | assimetria | SM | dif_xg), coluna cru_b (mediana do grupo B = Meio, n=48). Sem arredondar: 0,386842.",
+   "segundo_caminho": "recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa. Mediana de dif_xg dos 48 do Meio = 0,386842.",
+   "conferido": true
+  },
+  {
+   "marcador": "dif_xgc_sobe",
+   "conclusao": "A03-1",
+   "valor": 0.447,
+   "formatado": "0,447",
+   "de_onde": "A03_testes.csv, linha com | assimetria | SM | dif_xgc, coluna cru_a (Sobe, n=16). ATENCAO ao sinal: em A03.py dif_xgc = xgc_fora - xgc_casa ('sofre mais fora = positivo'), nao casa menos fora. Sem arredondar: 0,446842.",
+   "segundo_caminho": "recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa. Mediana de (xgc_fora - xgc_casa) dos 16 do Sobe = 0,446842.",
+   "conferido": true
+  },
+  {
+   "marcador": "dif_xgc_meio",
+   "conclusao": "A03-1",
+   "valor": 0.391,
+   "formatado": "0,391",
+   "de_onde": "A03_testes.csv, mesma linha (com | assimetria | SM | dif_xgc), coluna cru_b (Meio, n=48). Sem arredondar: 0,391316.",
+   "segundo_caminho": "recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa. Mediana de (xgc_fora - xgc_casa) dos 48 do Meio = 0,391316.",
+   "conferido": true
+  },
+  {
+   "marcador": "dif_dd_sobe",
+   "conclusao": "A03-1",
+   "valor": 0.887,
+   "formatado": "0,887",
+   "de_onde": "A03_testes.csv, linha com | assimetria | SM | dif_dd, coluna cru_a (Sobe, n=16). dif_dd = dd_casa - dd_fora, em ponto percentual de dividida defensiva ganha. Sem arredondar: 0,886842.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Sobe.dif_dd = 0,887; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa. Mediana = 0,886842.",
+   "conferido": true,
+   "nota": "E a MEDIANA DAS DIFERENCAS por clube-temporada, nao a diferenca das medianas: a mediana de dd_casa do Sobe (60,932) menos a de dd_fora (60,605) da 0,327, e nao 0,887. Quem for conferir na tabela do quadro vai estranhar; o valor certo para o texto e o da coluna dif_dd."
+  },
+  {
+   "marcador": "dif_dd_meio",
+   "conclusao": "A03-1",
+   "valor": 1.164,
+   "formatado": "1,164",
+   "de_onde": "A03_testes.csv, mesma linha (com | assimetria | SM | dif_dd), coluna cru_b (Meio, n=48). Sem arredondar: 1,164474.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Meio.dif_dd = 1,164; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa. Mediana = 1,164474.",
+   "conferido": true,
+   "nota": "Mesma ressalva de dif_dd_sobe: mediana das diferencas, nao diferenca das medianas (60,050 - 59,578 = 0,472)."
+  },
+  {
+   "marcador": "d_min_com",
+   "conclusao": "A03-1",
+   "valor": 0.82,
+   "formatado": "0,82",
+   "de_onde": "A03_resumo.json, poder_por_desenho['16x48'] = 0,82. E a coluna d_minimo_80 de toda linha 16x48 do A03_testes.csv. Menor d de Cohen detectavel a 80% de poder no desenho 16 x 48. So para a prova.",
+   "segundo_caminho": "Recalculado chamando _metodo.d_minimo(16, 48) direto: 0,82.",
+   "conferido": true
+  },
+  {
+   "marcador": "d_min_sem",
+   "conclusao": "A03-1",
+   "valor": 1.14,
+   "formatado": "1,14",
+   "de_onde": "A03_resumo.json, poder_por_desenho['8x32'] = 1,14 (corte sem fronteira, Sobe x Meio). Tambem na coluna d_minimo_80 das linhas 8x32 do A03_testes.csv. So para a prova.",
+   "segundo_caminho": "Recalculado chamando _metodo.d_minimo(8, 32) direto: 1,14.",
+   "conferido": true
+  },
+  {
+   "marcador": "maior_d_asm",
+   "conclusao": "A03-1",
+   "valor": 0.778,
+   "formatado": "0,778",
+   "de_onde": "A03_testes.csv, maior |d| entre as 24 linhas de familia=assimetria: linha com | assimetria | ST | dif_xgc, d = -0,778. So para a prova.",
+   "segundo_caminho": "Varredura das 24 linhas de assimetria: nenhuma outra passa de 0,778 (a segunda e 0,777, em sem | ST | dif_pj). Confere tambem que as 24 tem poder_suficiente=False e selo firme em zero delas, e que o menor q da familia e 0,14282 (com | ST | dif_xgc).",
+   "conferido": true,
+   "nota": "Valor absoluto. No CSV o d vem com sinal negativo (-0,778)."
+  },
+  {
+   "marcador": "xgc_casa_s",
+   "conclusao": "A03-2",
+   "valor": 0.8,
+   "formatado": "0,80",
+   "de_onde": "A03_testes.csv, linha fronteira=COM | familia=casa | comparacao=SM | indicador=xgc_casa, coluna cru_a (Sobe, n=16) = 0,798. xG sofrido por jogo em casa. Sem arredondar: 0,798421.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Sobe.xgc_casa = 0,798; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "SUBSTITUI o valor que esta hoje em A03.json (0.736), que e do corte SEM fronteira (8x32) enquanto o n da conclusao abre 16x48. Ver correcoes_de_numero_existente."
+  },
+  {
+   "marcador": "xgc_casa_m",
+   "conclusao": "A03-2",
+   "valor": 1.02,
+   "formatado": "1,02",
+   "de_onde": "A03_testes.csv, mesma linha (com | casa | SM | xgc_casa), coluna cru_b (Meio, n=48) = 1,024. Sem arredondar: 1,023684.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Meio.xgc_casa = 1,024; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "SUBSTITUI o 1.026 de hoje, que e do corte SEM fronteira (mediana do Meio sem fronteira = 1,025526). Ver correcoes_de_numero_existente."
+  },
+  {
+   "marcador": "dd_casa_s",
+   "conclusao": "A03-2",
+   "valor": 60.9,
+   "formatado": "60,9",
+   "de_onde": "A03_testes.csv, linha com | casa | SM | dd_casa, coluna cru_a (Sobe, n=16) = 60,932. Duelos defensivos ganhos em casa, em %. Sem arredondar: 60,931579.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Sobe.dd_casa = 60,932; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true
+  },
+  {
+   "marcador": "dd_casa_m",
+   "conclusao": "A03-2",
+   "valor": 60.1,
+   "formatado": "60,1",
+   "de_onde": "A03_testes.csv, mesma linha (com | casa | SM | dd_casa), coluna cru_b (Meio, n=48) = 60,05. Sem arredondar: 60,050263.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Meio.dd_casa = 60,05; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "ARMADILHA DE ARREDONDAMENTO, conferida: quem arredondar o 60,05 que esta no CSV recebe 60,0, porque em ponto flutuante 60,05 e 60,049999... O valor bruto e 60,050263, que arredonda para 60,1. Use 60,1."
+  },
+  {
+   "marcador": "dd_fora_s",
+   "conclusao": "A03-2",
+   "valor": 60.6,
+   "formatado": "60,6",
+   "de_onde": "A03_testes.csv, linha com | fora | SM | dd_fora, coluna cru_a (Sobe, n=16) = 60,605. Sem arredondar: 60,604737.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Sobe.dd_fora = 60,605; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true
+  },
+  {
+   "marcador": "dd_fora_m",
+   "conclusao": "A03-2",
+   "valor": 59.6,
+   "formatado": "59,6",
+   "de_onde": "A03_testes.csv, mesma linha (com | fora | SM | dd_fora), coluna cru_b (Meio, n=48) = 59,578. Sem arredondar: 59,578421.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Meio.dd_fora = 59,578; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true
+  },
+  {
+   "marcador": "xgc_fora_s",
+   "conclusao": "A03-2",
+   "valor": 1.29,
+   "formatado": "1,29",
+   "de_onde": "A03_testes.csv, linha com | fora | SM | xgc_fora, coluna cru_a (Sobe, n=16) = 1,288. xG sofrido por jogo fora. Sem arredondar: 1,287895.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Sobe.xgc_fora = 1,288; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true
+  },
+  {
+   "marcador": "xgc_fora_m",
+   "conclusao": "A03-2",
+   "valor": 1.36,
+   "formatado": "1,36",
+   "de_onde": "A03_testes.csv, mesma linha (com | fora | SM | xgc_fora), coluna cru_b (Meio, n=48) = 1,364. Sem arredondar: 1,363947.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Meio.xgc_fora = 1,364; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "Mesmo valor de c_xgcfora_m (A03-3): a mediana do Meio no corte com fronteira e a mesma nos dois usos."
+  },
+  {
+   "marcador": "conf_xg",
+   "conclusao": "A03-2",
+   "valor": 0.3,
+   "formatado": "0,30",
+   "de_onde": "A02.json, numeros.conf_xg = 0.3. E constante medida, nao recalculada aqui: confiabilidade split-half corrigida por Spearman-Brown do xG. Serve a ressalva de estar abaixo do piso de 0,40.",
+   "segundo_caminho": "_fonte/prototipo/ESPECIFICACAO.md, secao de confiabilidade (Spearman-Brown): 'xG 0,30' na lista medida, com a regra 'indicador com teto < 0,40 sai da tela hachurado'. A03.py nao calcula confiabilidade; o valor vem de fora da parte.",
+   "conferido": true,
+   "nota": "Vale tambem para A03-3, que pede a mesma ressalva nas duas pernas."
+  },
+  {
+   "marcador": "c_xgcasa_c",
+   "conclusao": "A03-3",
+   "valor": 1.26,
+   "formatado": "1,26",
+   "de_onde": "A03_testes.csv, linha fronteira=COM | familia=casa | comparacao=CM | indicador=xg_casa, coluna cru_a (Cai, n=16) = 1,263. xG criado por jogo em casa. Sem arredondar: 1,263421.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Cai.xg_casa = 1,263; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "SUBSTITUI o 1.246 de hoje, que e do corte SEM fronteira (12x32). Ver correcoes_de_numero_existente."
+  },
+  {
+   "marcador": "c_xgcasa_m",
+   "conclusao": "A03-3",
+   "valor": 1.39,
+   "formatado": "1,39",
+   "de_onde": "A03_testes.csv, mesma linha (com | casa | CM | xg_casa), coluna cru_b (Meio, n=48) = 1,391. Sem arredondar: 1,391053.",
+   "segundo_caminho": "No corte SEM fronteira (12x32) a mediana do Meio e a mesma, 1,391053 — por isso serve nos dois cortes, como a proposta diz. Conferido tambem em A03_resumo.json, quadro_por_faixa.Meio.xg_casa = 1,391, e no recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "NAO e correcao: o 1.391 que ja esta em A03.json esta certo. A proposta pede 1,39 so para harmonizar as duas casas decimais com os outros tres numeros da frase."
+  },
+  {
+   "marcador": "c_xgcfora_c",
+   "conclusao": "A03-3",
+   "valor": 1.56,
+   "formatado": "1,56",
+   "de_onde": "A03_testes.csv, linha COM | fora | CM | xgc_fora, coluna cru_a (Cai, n=16) = 1,557. xG sofrido por jogo fora. Sem arredondar: 1,557105.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Cai.xgc_fora = 1,557; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "SUBSTITUI o 1.646 de hoje, que e do corte SEM fronteira (12x32). Ver correcoes_de_numero_existente."
+  },
+  {
+   "marcador": "c_xgcfora_m",
+   "conclusao": "A03-3",
+   "valor": 1.36,
+   "formatado": "1,36",
+   "de_onde": "A03_testes.csv, mesma linha (com | fora | CM | xgc_fora), coluna cru_b (Meio, n=48) = 1,364. Sem arredondar: 1,363947.",
+   "segundo_caminho": "A03_resumo.json, quadro_por_faixa.Meio.xgc_fora = 1,364; e recalculo independente da base do A03 (nao rodei o scripts/A03.py): dados/serieb_jogos.csv com filtro Competicao=='Brazil. Serie B' e Data de 2022 a 2025, xG sofrido tomado do xG do adversario no mesmo (ano, data), clube-temporada com >=15 jogos em cada mando, juntado a resultados/A01_clube_temporada.csv pelas colunas faixa/trave/fronteira. Deu as mesmas 80 linhas e 40 clubes, e reproduziu cru_a/cru_b do A03_testes.csv casa a casa.",
+   "conferido": true,
+   "nota": "SUBSTITUI o 1.394 de hoje, que e do corte SEM fronteira (mediana do Meio sem fronteira = 1,393947). Ver correcoes_de_numero_existente."
+  },
+  {
+   "marcador": "n_cai_com",
+   "conclusao": "A03-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "A03_testes.csv, coluna n_a das linhas fronteira=com | comparacao=CM: 16 clube-temporadas do Cai (4 por temporada x 4 temporadas, 2022 a 2025).",
+   "segundo_caminho": "Contagem direta na base refeita: faixa=='Cai' sem filtro de fronteira = 16 linhas. Bate tambem com A01_clube_temporada.csv.",
+   "conferido": true
+  },
+  {
+   "marcador": "n_meio_com",
+   "conclusao": "A03-3",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "A03_testes.csv, coluna n_b das linhas fronteira=com | comparacao=CM (e =SM): 48 clube-temporadas do Meio (12 por temporada x 4).",
+   "segundo_caminho": "Contagem direta na base refeita: faixa=='Meio' sem filtro de fronteira = 48 linhas. 16 Sobe + 48 Meio + 16 Cai = 80, o total do A03_resumo.json.",
+   "conferido": true
+  }
+ ],
+ "valores": {
+  "dif_xg_sobe": 0.419,
+  "dif_xg_meio": 0.387,
+  "dif_xgc_sobe": 0.447,
+  "dif_xgc_meio": 0.391,
+  "dif_dd_sobe": 0.887,
+  "dif_dd_meio": 1.164,
+  "d_min_com": 0.82,
+  "d_min_sem": 1.14,
+  "maior_d_asm": 0.778,
+  "xgc_casa_s": 0.8,
+  "xgc_casa_m": 1.02,
+  "dd_casa_s": 60.9,
+  "dd_casa_m": 60.1,
+  "dd_fora_s": 60.6,
+  "dd_fora_m": 59.6,
+  "xgc_fora_s": 1.29,
+  "xgc_fora_m": 1.36,
+  "conf_xg": 0.3,
+  "c_xgcasa_c": 1.26,
+  "c_xgcasa_m": 1.39,
+  "c_xgcfora_c": 1.56,
+  "c_xgcfora_m": 1.36,
+  "n_cai_com": 16,
+  "n_meio_com": 48
+ },
+ "ja_tinham_valor_e_estao_certos": [
+  {
+   "marcador": "asm_testes",
+   "valor": 24,
+   "conferido": "24 linhas com familia=assimetria em A03_testes.csv (12 no corte com, 12 no sem: 4 indicadores x 3 comparacoes x 2 cortes)."
+  },
+  {
+   "marcador": "dif_liga",
+   "valor": 0.789,
+   "conferido": "A03_resumo.json, quadro_por_faixa.Liga.dif_pj = 0,789; base refeita da mediana de (pj_casa - pj_fora) dos 80 = 0,789474.",
+   "nota": "A premissa_nova escrita pela proposta diz 'cerca de 0,79 ponto por jogo', mas o marcador guarda 0,789 e vai para a tela com 3 casas. Se o texto quiser 0,79, e decisao de quem escreve, nao minha; o valor de 2 casas seria 0.79."
+  },
+  {
+   "marcador": "n_cai_sf",
+   "valor": 12,
+   "conferido": "A03_resumo.json, n.cai_sf = 12; coluna n_a das linhas sem | CM do A03_testes.csv."
+  },
+  {
+   "marcador": "n_meio_sf",
+   "valor": 32,
+   "conferido": "A03_resumo.json, n.meio_sf = 32; coluna n_b das linhas sem | SM e sem | CM."
+  }
+ ],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "xgc_casa_s",
+   "conclusao": "A03-2",
+   "esta": "0.736 (string)",
+   "deveria": "0.80",
+   "evidencia": "0,736 e a mediana do Sobe no corte SEM fronteira (A03_testes.csv, sem | casa | SM | xgc_casa, cru_a, n=8). O texto da conclusao declara n de 16 promovidos contra 48 do meio, que e o corte COM fronteira, onde a mediana e 0,798421 -> 0,80. O numero nao e inventado: e o valor do outro corte, colado numa frase que anuncia este."
+  },
+  {
+   "marcador": "xgc_casa_m",
+   "conclusao": "A03-2",
+   "esta": "1.026 (string)",
+   "deveria": "1.02",
+   "evidencia": "1,026 e a mediana do Meio no corte SEM fronteira (n=32; valor bruto 1,025526). No corte COM fronteira (n=48) a mediana e 1,023684 -> 1,02. Mesmo descasamento do xgc_casa_s: o par de numeros da frase vem do corte que o n da conclusao nao anuncia."
+  },
+  {
+   "marcador": "c_xgcasa_c",
+   "conclusao": "A03-3",
+   "esta": "1.246 (string)",
+   "deveria": "1.26",
+   "evidencia": "1,246 e a mediana do Cai no corte SEM fronteira (A03_testes.csv, sem | casa | CM | xg_casa, cru_a, n=12; bruto 1,245526). No corte COM fronteira (n=16) e 1,263421 -> 1,26. A frase atual poe esse unico bruto ao lado dos dois d, o com e o sem, como se ele valesse para os dois."
+  },
+  {
+   "marcador": "c_xgcfora_c",
+   "conclusao": "A03-3",
+   "esta": "1.646 (string)",
+   "deveria": "1.56",
+   "evidencia": "1,646 e a mediana do Cai no corte SEM fronteira (sem | fora | CM | xgc_fora, cru_a, n=12; bruto 1,646053). No corte COM fronteira (n=16) e 1,557105 -> 1,56. A diferenca aqui nao e de arredondamento: sao 0,09 de xG por jogo."
+  },
+  {
+   "marcador": "c_xgcfora_m",
+   "conclusao": "A03-3",
+   "esta": "1.394 (string)",
+   "deveria": "1.36",
+   "evidencia": "1,394 e a mediana do Meio no corte SEM fronteira (n=32; bruto 1,393947). No corte COM fronteira (n=48) e 1,363947 -> 1,36. Somado ao c_xgcfora_c, o par atual (1,646 contra 1,394) pinta uma distancia de 0,25 onde o corte anunciado mostra 0,19."
+  },
+  {
+   "marcador": "(formato) 20 dos 26 marcadores de A03.json",
+   "conclusao": "A03 (parte inteira)",
+   "esta": "gravados como string, ex. \"0.756\", \"1.246\", \"0.77786\"",
+   "deveria": "gravados como numero (float), ex. 0.756",
+   "evidencia": "Em A03.json so asm_testes, asm_firmes, dif_sobe, dif_meio, dif_liga, n_cai_sf e n_meio_sf sao numeros; os outros 20 sao string. String passa direto para a tela com o ponto ingles, que e o defeito dos 107 numeros apontado no diagnostico. Nao alterei A03.json: todos os valores deste arquivo vao como float, e a versao pt-BR fica no campo 'formatado'."
+  }
+ ],
+ "bloqueados": [],
+ "marcadores_que_a_proposta_manda_aposentar": {
+  "nota": "Repetido da proposta so para quem for aplicar nao esquecer. Nao e decisao minha e nao mexi em A03.json.",
+  "A03-1": [
+   "asm_p_welch",
+   "asm_p_sem",
+   "dif_sobe",
+   "dif_meio"
+  ],
+  "A03-2": [
+   "dd_casa_com",
+   "dd_casa_sem",
+   "dd_fora_com",
+   "dd_fora_sem",
+   "xgc_fora_com_selo"
+  ],
+  "A03-3": [
+   "c_xgcasa_dcom",
+   "c_xgcasa_dsem",
+   "c_xgcfora_dcom",
+   "c_xgcfora_dsem",
+   "c_difxg_p",
+   "c_difxgc_p"
+  ]
+ }
+}

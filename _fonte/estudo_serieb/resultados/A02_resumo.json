@@ -1,0 +1,78 @@
+{
+ "porta_temporal": {
+  "xg": {
+   "rho": 0.47,
+   "p": 1e-05,
+   "n": 80,
+   "ic": [
+    0.28,
+    0.62
+   ],
+   "se_repete": true
+  },
+  "xg_contra": {
+   "rho": 0.522,
+   "p": 0.0,
+   "n": 80,
+   "ic": [
+    0.34,
+    0.67
+   ],
+   "se_repete": true
+  },
+  "gols_pro_90": {
+   "rho": 0.54,
+   "p": 0.0,
+   "n": 80,
+   "ic": [
+    0.36,
+    0.68
+   ],
+   "se_repete": true
+  },
+  "gols_contra_90": {
+   "rho": 0.335,
+   "p": 0.00241,
+   "n": 80,
+   "ic": [
+    0.12,
+    0.52
+   ],
+   "se_repete": true
+  },
+  "finalizacao": {
+   "rho": 0.191,
+   "p": 0.08957,
+   "n": 80,
+   "ic": [
+    -0.03,
+    0.39
+   ],
+   "se_repete": false
+  },
+  "defesa_vs_xg": {
+   "rho": -0.09,
+   "p": 0.42547,
+   "n": 80,
+   "ic": [
+    -0.3,
+    0.13
+   ],
+   "se_repete": false
+  }
+ },
+ "poder_por_desenho": {
+  "16x48": 0.82,
+  "16x16": 1.02,
+  "8x32": 1.14,
+  "8x7": 1.57
+ },
+ "n": {
+  "sobe": 16,
+  "meio": 48,
+  "trave": 16,
+  "sobe_sem_fronteira": 8,
+  "trave_sem_fronteira": 7,
+  "clubes": 40
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "parte": "J02",
+ "pergunta": "Quem sobe concentra os minutos em menos jogadores e mantém mais a base da temporada anterior?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada", "n_esperado": 80},
+ "comparacoes": [{"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
+                 {"id": "ST", "nome": "Sobe × Trave", "papel": "secundária"},
+                 {"id": "CM", "nome": "Cai × Meio", "papel": "secundária"}],
+ "repetir_sem_fronteira": true,
+ "regra_da_fronteira": "Firme = firme NOS DOIS cortes (_metodo_fronteira.md).",
+
+ "familias": [
+  {"id": "concentracao", "nome": "Concentra os minutos? (régua I)", "indicadores": [
+   {"id": "share_11", "nome": "Fatia dos minutos dos 11 mais usados, %", "sinal": 1},
+   {"id": "conc_hhi", "nome": "Concentração dos minutos (HHI)", "sinal": 1},
+   {"id": "atletas_usados", "nome": "Atletas usados na temporada", "sinal": -1},
+   {"id": "nucleo_300", "nome": "Jogadores com 300+ minutos", "sinal": -1}
+  ]},
+  {"id": "continuidade", "nome": "Mantém a base do ano anterior?", "indicadores": [
+   {"id": "min_de_quem_ficou_pct", "nome": "Minutos de quem já estava no clube, %", "sinal": 1,
+    "fonte": "minutagem × elencos: soma dos minutos dos jogadores cujo no_clube_desde é anterior à temporada, sobre o total"},
+   {"id": "min_de_contratado_pct", "nome": "Minutos de contratado na temporada, %", "sinal": -1,
+    "fonte": "o complemento: quem chegou naquele ano"},
+   {"id": "jogadores_que_ficaram_pct", "nome": "Jogadores do elenco que já estavam, %", "sinal": 1,
+    "fonte": "contagem, não minutos — para separar 'manteve gente' de 'manteve quem joga'"}
+  ]}
+ ],
+
+ "ressalvas_declaradas": [
+  "share_11, conc_hhi, atletas_usados e nucleo_300 estão na lista fixa de CONSEQUÊNCIA DO RESULTADO de ranking_gaps.py (7 nomes). O CLAUDE.md é explícito: 'nunca são tratados como característica'. Entram aqui como DESCRIÇÃO — respondem 'quem sobe concentra mais?', que é a pergunta do J02 —, e nenhuma conclusão sobre característica se apoia neles. Time que vai bem repete o XI porque está ganhando; é a direção contrária da que se quer inferir.",
+  "A continuidade (as três de minutos e contagem) NÃO está nessa lista e pode sustentar característica: quem monta o elenco decide manter ou trocar antes da temporada, não durante.",
+  "A ponte entre a minutagem (Wyscout) e os elencos (Transfermarkt) é por nome normalizado + clube + ano. O J01 mediu a cobertura: 29% das linhas não têm ponte confiável. Os clube-temporadas com cobertura baixa de minutos ficam marcados."
+ ]
+}

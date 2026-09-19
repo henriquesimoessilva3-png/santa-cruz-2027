@@ -1,0 +1,60 @@
+{
+ "id": "T04",
+ "bloco": "T",
+ "titulo": "O treinador ideal: o que a base sustenta",
+ "tipo": "analise",
+ "gerado_por": "scripts/T04.py",
+ "conclusoes": [
+  {
+   "id": "T04-1",
+   "bloco": "T",
+   "status": "rascunho",
+   "manchete": "A lista curta tem um nome só: Eduardo Baptista",
+   "o_que_vimos": "Ordenando os {n_lista} treinadores com 30 rodadas ou mais pelo PISO — a pior passagem, não a média —, os dois primeiros são Paulo Pezzolano ({pz_piso}%) e Fábio Carille ({ca_piso}%), mas cada um tem {pz_pass} passagem só, nos elencos {pz_valor}º e {ca_valor}º mais caros do ano: o piso deles é o teto. O terceiro é Eduardo Baptista, com {eb_pass} passagens em {eb_cl} clubes e {eb_rod} rodadas, piso de {eb_piso}% e média de {eb_med}%, elenco mediano {eb_valor}º, índice de perfil {eb_ind}. Depois dele o piso cai para {carp_piso}% e o índice de perfil desaba (Cauan de Almeida tem piso {cauan_ind_piso}).",
+   "para_o_santa_cruz": "É o único nome que combina as três coisas com amostra: resultado repetido, perfil alinhado à régua do A14 e elenco barato. {eb_temps}. Disponibilidade e custo ficam para validação externa, como o CLAUDE.md manda.",
+   "premissa": null,
+   "premissa_motivo": "Não trata de nenhuma premissa existente.",
+   "confianca": "provável",
+   "confianca_motivo": "São {eb_pass} passagens em {eb_cl} clubes — amostra pequena para garantir um terceiro clube, e é exatamente essa a limitação que o T02 já apontava. O critério do piso é o único que sobreviveu a um teste de repetição; ordenar pela média premiaria quem teve uma passagem boa em clube rico.",
+   "n": "{eb_rod} rodadas em {eb_cl} clubes",
+   "prova": "T04_resumo.json; T02 e T03"
+  },
+  {
+   "id": "T04-2",
+   "bloco": "T",
+   "status": "rascunho",
+   "negativa": true,
+   "manchete": "A pergunta do treinador ideal não tem resposta preditiva nesta base",
+   "o_que_vimos": "T04 pedia quem combina resultado, perfil alinhado e consistência entre clubes. As duas primeiras premissas caíram: o histórico de G4 não se transfere de clube (T02: dos 34 multiclube, 9 variam 50 pontos ou mais) e o perfil de jogo não é traço do treinador (T03: a semelhança do próprio perfil em clubes diferentes é indistinguível do acaso, e o time não muda quando ele chega). Sobra o ranking do que já aconteceu, não uma previsão.",
+   "para_o_santa_cruz": "A lista do T04 serve para reduzir o campo de conversa, não para decidir. O que o estudo sustenta sobre treinador é modesto: prefira quem nunca afundou (o piso), desconfie de quem brilhou uma vez em clube rico, e não pague por modelo de jogo — o A12 já mostrou que estilo não separa quem sobe.",
+   "premissa": null,
+   "premissa_motivo": "Sugere registrar que o estudo não encontrou como prever desempenho de treinador.",
+   "confianca": "firme",
+   "confianca_motivo": "São dois resultados negativos independentes, cada um com o seu teste: o T02 pela amplitude entre passagens e o T03 contra um nulo construído da própria base.",
+   "n": "151 passagens, 69 treinadores",
+   "prova": "T02_passagem.csv; T03_resumo.json"
+  }
+ ],
+ "numeros": {
+  "n_lista": 33,
+  "pz_piso": 89.5,
+  "pz_pass": 1,
+  "pz_valor": 3,
+  "ca_piso": 89.2,
+  "ca_pass": 1,
+  "ca_valor": 1,
+  "eb_piso": 37.5,
+  "eb_pass": 4,
+  "eb_cl": 2,
+  "eb_rod": 134,
+  "eb_med": 47.0,
+  "eb_ppj": 1.69,
+  "eb_ind": 70.1,
+  "eb_ind_piso": 56.1,
+  "eb_valor": 9.0,
+  "eb_temps": "2023 Novorizontino 50.0% (elenco 10º) · 2024 Novorizontino 52.6% (elenco 16º) · 2025 Criciúma 37.5% (elenco 8º) · 2026 Criciúma 46.2% (elenco 5º)",
+  "carp_piso": 31.2,
+  "cauan_ind_piso": 13.6
+ },
+ "em_aberto": "O perfil ideal descrito em réguas, que o CLAUDE.md também pede, é o índice do A14 — e ele só se sustenta em duas das quatro temporadas. Disponibilidade e custo dos nomes ficam para validação externa. E a lista exclui quem trabalhou menos de 30 rodadas no total, o que tira treinadores recentes com pouca amostra na Série B."
+}

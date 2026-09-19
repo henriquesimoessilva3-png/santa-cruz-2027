@@ -1,0 +1,100 @@
+{
+ "id": "T01",
+ "bloco": "T",
+ "titulo": "Quem comandou cada time da Série B, 2018 a 2026",
+ "tipo": "coleta",
+ "gerado_por": "scripts/T01.py + scripts/T01_rodadas.py",
+ "conclusoes": [
+  {
+   "id": "T01-1",
+   "bloco": "T",
+   "status": "rascunho",
+   "manchete": "Time da Série B troca de treinador duas vezes por ano, e só 3 em cada 10 terminam a temporada com quem começou",
+   "o_que_vimos": "A mediana é de {mediana_efetivos} treinadores efetivos por clube-temporada (média {media_efetivos}, máximo {max_efetivos}). Em {um_efetivo_so} dos {clube_temporadas} clube-temporadas — {pct_um_efetivo_so}% — um treinador só comandou o ano inteiro. Interinos dirigiram {rodadas_interino} das {rodadas_total} rodadas, {pct_rodadas_interino}% do total.",
+   "para_o_santa_cruz": "Contratar treinador para a Série B é contratar duas vezes. O perfil de jogador de J05 não pode depender de um modelo de jogo que muda no meio do ano.",
+   "premissa": null,
+   "premissa_motivo": "Nenhuma premissa de dados/premissas.json trata de troca de treinador; sugere uma nova.",
+   "confianca": "firme",
+   "confianca_motivo": "Contagem completa dos nove anos, não um teste: não há hipótese a submeter ao critério da §6.",
+   "n": "{clube_temporadas} clube-temporadas",
+   "prova": "base_passagens_temporada.csv; T01.md, seção Prova"
+  },
+  {
+   "id": "T01-2",
+   "bloco": "T",
+   "status": "rascunho",
+   "manchete": "Treinador de Série B roda entre clubes: {rodam_3_clubes} comandaram dez rodadas ou mais em três clubes diferentes",
+   "o_que_vimos": "Dos {treinadores} treinadores da base, {rodam_3_clubes} tiveram passagem de 10 rodadas ou mais em três ou mais clubes distintos da Série B.",
+   "para_o_santa_cruz": "Há amostra para julgar treinador pelo que ele repete, e não pelo que fez num clube só — o que T03 pede. A lista curta de T04 sai de gente com histórico conferível aqui.",
+   "premissa": null,
+   "premissa_motivo": "Não trata de nenhuma premissa existente.",
+   "confianca": "firme",
+   "confianca_motivo": "Contagem completa.",
+   "n": "{treinadores} treinadores",
+   "prova": "base_passagens_temporada.csv; T01.md, seção Prova"
+  },
+  {
+   "id": "T01-3",
+   "bloco": "T",
+   "status": "rascunho",
+   "manchete": "O nome do treinador deixou de ser o que não dá",
+   "o_que_vimos": "A etapa 15 da Protótipo registra tem_nome_de_treinador: false e lista como coleta_que_resolveria a tabela (ano, clube, treinador, data_inicio, data_fim), estimando de 250 a 400 passagens. A coleta foi feita: {passagens_temporada} passagens-temporada, {treinadores} treinadores, {clubes} clubes, {temporadas} temporadas.",
+   "para_o_santa_cruz": "T02, T03 e T04 estão destravadas.",
+   "premissa": null,
+   "premissa_motivo": "Não trata de nenhuma premissa existente.",
+   "confianca": "firme",
+   "confianca_motivo": "A coleta existe e está conferida por cobertura: {cobertura_exata} de {clube_temporadas} clube-temporadas com a conta exata e {cobertura_sobra} com jogo contado duas vezes.",
+   "n": "{passagens_temporada} passagens-temporada",
+   "prova": "T01.md, seção Prova; T01_lacunas.json"
+  }
+ ],
+ "numeros": {
+  "clube_temporadas": 180,
+  "mediana_efetivos": 2.0,
+  "media_efetivos": 2.23,
+  "max_efetivos": 5,
+  "um_efetivo_so": 54,
+  "pct_um_efetivo_so": 29,
+  "rodadas_total": 6546,
+  "rodadas_interino": 283,
+  "pct_rodadas_interino": 4.3,
+  "treinadores": 193,
+  "rodam_3_clubes": 29,
+  "topo_clubes": [
+   {
+    "treinador": "Allan Aal",
+    "clubes": 8
+   },
+   {
+    "treinador": "Claudinei Oliveira",
+    "clubes": 7
+   },
+   {
+    "treinador": "Mozart",
+    "clubes": 7
+   },
+   {
+    "treinador": "Daniel Paulista",
+    "clubes": 6
+   },
+   {
+    "treinador": "Marcelo Cabo",
+    "clubes": 6
+   }
+  ],
+  "passagens_temporada": 492,
+  "passagens_brutas": 1160,
+  "clubes": 51,
+  "temporadas": 9,
+  "com_10_rodadas": 278,
+  "cobertura_exata": 151,
+  "cobertura_buraco": 29,
+  "cobertura_sobra": 0,
+  "sem_jogo_no_tm": 58,
+  "etapa15_estimativa": [
+   250,
+   400
+  ]
+ },
+ "em_aberto": "A conferência contra fonte independente não foi feita: a cobertura é prova interna (Transfermarkt contra Wyscout) e não pega erro que o Transfermarkt cometa sozinho. Os 29 buracos de T01_lacunas.json são onde procurar primeiro."
+}

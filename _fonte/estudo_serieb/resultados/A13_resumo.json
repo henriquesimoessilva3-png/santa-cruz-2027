@@ -1,0 +1,295 @@
+{
+ "quadro_por_turno": {
+  "Sobe": {
+   "n": 16,
+   "pts_1t": 32.5,
+   "pts_2t": 34.0,
+   "dif": 1.0
+  },
+  "Meio": {
+   "n": 48,
+   "pts_1t": 25.0,
+   "pts_2t": 26.0,
+   "dif": 1.0
+  },
+  "Cai": {
+   "n": 16,
+   "pts_1t": 19.5,
+   "pts_2t": 17.0,
+   "dif": -1.5
+  },
+  "Trave": {
+   "n": 16,
+   "pts_1t": 29.5,
+   "pts_2t": 30.5,
+   "dif": -0.5
+  }
+ },
+ "previsibilidade_por_rodada": [
+  {
+   "rodada": 1,
+   "n": 80,
+   "ja_na_faixa_pct": 51.2,
+   "na_faixa_ou_perto_pct": 78.8
+  },
+  {
+   "rodada": 2,
+   "n": 80,
+   "ja_na_faixa_pct": 58.8,
+   "na_faixa_ou_perto_pct": 77.5
+  },
+  {
+   "rodada": 3,
+   "n": 80,
+   "ja_na_faixa_pct": 51.2,
+   "na_faixa_ou_perto_pct": 70.0
+  },
+  {
+   "rodada": 4,
+   "n": 80,
+   "ja_na_faixa_pct": 55.0,
+   "na_faixa_ou_perto_pct": 75.0
+  },
+  {
+   "rodada": 5,
+   "n": 80,
+   "ja_na_faixa_pct": 58.8,
+   "na_faixa_ou_perto_pct": 76.2
+  },
+  {
+   "rodada": 6,
+   "n": 80,
+   "ja_na_faixa_pct": 61.2,
+   "na_faixa_ou_perto_pct": 78.8
+  },
+  {
+   "rodada": 7,
+   "n": 80,
+   "ja_na_faixa_pct": 57.5,
+   "na_faixa_ou_perto_pct": 75.0
+  },
+  {
+   "rodada": 8,
+   "n": 80,
+   "ja_na_faixa_pct": 62.5,
+   "na_faixa_ou_perto_pct": 76.2
+  },
+  {
+   "rodada": 9,
+   "n": 80,
+   "ja_na_faixa_pct": 60.0,
+   "na_faixa_ou_perto_pct": 76.2
+  },
+  {
+   "rodada": 10,
+   "n": 80,
+   "ja_na_faixa_pct": 52.5,
+   "na_faixa_ou_perto_pct": 71.2
+  },
+  {
+   "rodada": 11,
+   "n": 80,
+   "ja_na_faixa_pct": 52.5,
+   "na_faixa_ou_perto_pct": 67.5
+  },
+  {
+   "rodada": 12,
+   "n": 80,
+   "ja_na_faixa_pct": 55.0,
+   "na_faixa_ou_perto_pct": 70.0
+  },
+  {
+   "rodada": 13,
+   "n": 80,
+   "ja_na_faixa_pct": 62.5,
+   "na_faixa_ou_perto_pct": 76.2
+  },
+  {
+   "rodada": 14,
+   "n": 80,
+   "ja_na_faixa_pct": 65.0,
+   "na_faixa_ou_perto_pct": 75.0
+  },
+  {
+   "rodada": 15,
+   "n": 80,
+   "ja_na_faixa_pct": 62.5,
+   "na_faixa_ou_perto_pct": 75.0
+  },
+  {
+   "rodada": 16,
+   "n": 80,
+   "ja_na_faixa_pct": 65.0,
+   "na_faixa_ou_perto_pct": 76.2
+  },
+  {
+   "rodada": 17,
+   "n": 80,
+   "ja_na_faixa_pct": 72.5,
+   "na_faixa_ou_perto_pct": 81.2
+  },
+  {
+   "rodada": 18,
+   "n": 80,
+   "ja_na_faixa_pct": 72.5,
+   "na_faixa_ou_perto_pct": 81.2
+  },
+  {
+   "rodada": 19,
+   "n": 80,
+   "ja_na_faixa_pct": 70.0,
+   "na_faixa_ou_perto_pct": 80.0
+  },
+  {
+   "rodada": 20,
+   "n": 80,
+   "ja_na_faixa_pct": 67.5,
+   "na_faixa_ou_perto_pct": 78.8
+  },
+  {
+   "rodada": 21,
+   "n": 80,
+   "ja_na_faixa_pct": 70.0,
+   "na_faixa_ou_perto_pct": 77.5
+  },
+  {
+   "rodada": 22,
+   "n": 80,
+   "ja_na_faixa_pct": 70.0,
+   "na_faixa_ou_perto_pct": 75.0
+  },
+  {
+   "rodada": 23,
+   "n": 80,
+   "ja_na_faixa_pct": 72.5,
+   "na_faixa_ou_perto_pct": 80.0
+  },
+  {
+   "rodada": 24,
+   "n": 80,
+   "ja_na_faixa_pct": 75.0,
+   "na_faixa_ou_perto_pct": 80.0
+  },
+  {
+   "rodada": 25,
+   "n": 80,
+   "ja_na_faixa_pct": 80.0,
+   "na_faixa_ou_perto_pct": 85.0
+  },
+  {
+   "rodada": 26,
+   "n": 80,
+   "ja_na_faixa_pct": 75.0,
+   "na_faixa_ou_perto_pct": 85.0
+  },
+  {
+   "rodada": 27,
+   "n": 80,
+   "ja_na_faixa_pct": 65.0,
+   "na_faixa_ou_perto_pct": 78.8
+  },
+  {
+   "rodada": 28,
+   "n": 80,
+   "ja_na_faixa_pct": 70.0,
+   "na_faixa_ou_perto_pct": 78.8
+  },
+  {
+   "rodada": 29,
+   "n": 80,
+   "ja_na_faixa_pct": 75.0,
+   "na_faixa_ou_perto_pct": 82.5
+  },
+  {
+   "rodada": 30,
+   "n": 80,
+   "ja_na_faixa_pct": 80.0,
+   "na_faixa_ou_perto_pct": 85.0
+  },
+  {
+   "rodada": 31,
+   "n": 80,
+   "ja_na_faixa_pct": 80.0,
+   "na_faixa_ou_perto_pct": 87.5
+  },
+  {
+   "rodada": 32,
+   "n": 80,
+   "ja_na_faixa_pct": 82.5,
+   "na_faixa_ou_perto_pct": 90.0
+  },
+  {
+   "rodada": 33,
+   "n": 80,
+   "ja_na_faixa_pct": 85.0,
+   "na_faixa_ou_perto_pct": 88.8
+  },
+  {
+   "rodada": 34,
+   "n": 80,
+   "ja_na_faixa_pct": 85.0,
+   "na_faixa_ou_perto_pct": 90.0
+  },
+  {
+   "rodada": 35,
+   "n": 80,
+   "ja_na_faixa_pct": 90.0,
+   "na_faixa_ou_perto_pct": 95.0
+  },
+  {
+   "rodada": 36,
+   "n": 80,
+   "ja_na_faixa_pct": 95.0,
+   "na_faixa_ou_perto_pct": 97.5
+  },
+  {
+   "rodada": 37,
+   "n": 80,
+   "ja_na_faixa_pct": 85.0,
+   "na_faixa_ou_perto_pct": 92.5
+  },
+  {
+   "rodada": 38,
+   "n": 80,
+   "ja_na_faixa_pct": 100.0,
+   "na_faixa_ou_perto_pct": 100.0
+  }
+ ],
+ "previsores_do_1o_turno": [
+  {
+   "previsor": "pontos do 1º turno",
+   "rho_com_posicao_final": 0.816,
+   "ic95": [
+    0.73,
+    0.88
+   ],
+   "p": 0.0,
+   "n": 80
+  },
+  {
+   "previsor": "posição na rodada 19",
+   "rho_com_posicao_final": 0.803,
+   "ic95": [
+    0.71,
+    0.87
+   ],
+   "p": 0.0,
+   "n": 80
+  },
+  {
+   "previsor": "saldo de xG do 1º turno",
+   "rho_com_posicao_final": 0.486,
+   "ic95": [
+    0.3,
+    0.64
+   ],
+   "p": 5e-06,
+   "n": 80
+  }
+ ],
+ "sobe_ja_no_g4_na_19": 10,
+ "sobe_total": 16,
+ "cai_ja_no_z4_na_19": 10,
+ "cai_total": 16,
+ "n": 80
+}

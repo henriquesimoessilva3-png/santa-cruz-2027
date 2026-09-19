@@ -1,0 +1,157 @@
+{
+ "por_temporada": {
+  "2022": {
+   "jogadores": 710,
+   "estrangeiros": 4,
+   "pct_dos_jogadores": 0.6,
+   "pct_dos_minutos": 0.8,
+   "clubes_com_algum": 3,
+   "dupla_com_brasil": 36
+  },
+  "2023": {
+   "jogadores": 704,
+   "estrangeiros": 2,
+   "pct_dos_jogadores": 0.3,
+   "pct_dos_minutos": 0.1,
+   "clubes_com_algum": 2,
+   "dupla_com_brasil": 43
+  },
+  "2024": {
+   "jogadores": 657,
+   "estrangeiros": 15,
+   "pct_dos_jogadores": 2.3,
+   "pct_dos_minutos": 2.6,
+   "clubes_com_algum": 8,
+   "dupla_com_brasil": 45
+  },
+  "2025": {
+   "jogadores": 630,
+   "estrangeiros": 23,
+   "pct_dos_jogadores": 3.7,
+   "pct_dos_minutos": 4.2,
+   "clubes_com_algum": 10,
+   "dupla_com_brasil": 44
+  },
+  "2026": {
+   "jogadores": 455,
+   "estrangeiros": 13,
+   "pct_dos_jogadores": 2.9,
+   "pct_dos_minutos": 1.9,
+   "clubes_com_algum": 10,
+   "dupla_com_brasil": 33
+  }
+ },
+ "por_faixa_do_time": {
+  "Sobe": {
+   "jogadores": 468,
+   "estrangeiros": 17,
+   "pct_dos_minutos": 4.3,
+   "estrangeiros_por_clube_temporada": 1.1
+  },
+  "Meio": {
+   "jogadores": 1603,
+   "estrangeiros": 17,
+   "pct_dos_minutos": 1.0,
+   "estrangeiros_por_clube_temporada": 0.4
+  },
+  "Cai": {
+   "jogadores": 630,
+   "estrangeiros": 10,
+   "pct_dos_minutos": 2.2,
+   "estrangeiros_por_clube_temporada": 0.6
+  }
+ },
+ "origem_por_nacionalidade": {
+  "Colômbia": 12,
+  "Argentina": 11,
+  "Uruguai": 10,
+  "Portugal": 8,
+  "Paraguai": 3,
+  "Venezuela": 2,
+  "Guiné Bissau": 2,
+  "Bolívia": 2,
+  "Senegal": 1,
+  "Guiné Equatorial": 1,
+  "Cabo Verde": 1,
+  "Síria": 1,
+  "Panamá": 1,
+  "Equador": 1,
+  "Espanha": 1
+ },
+ "rendimento_por_posicao": {
+  "Atacante": {
+   "n_estrangeiros": 9,
+   "n_brasileiros": 452,
+   "fatia_mediana_estrangeiro": 24.6,
+   "fatia_mediana_brasileiro": 17.4,
+   "pct_estrangeiros_com_fatia_alta": 11.1,
+   "pct_brasileiros_com_fatia_alta": 8.0
+  },
+  "Extremo": {
+   "n_estrangeiros": 11,
+   "n_brasileiros": 594,
+   "fatia_mediana_estrangeiro": 23.5,
+   "fatia_mediana_brasileiro": 14.5,
+   "pct_estrangeiros_com_fatia_alta": 9.1,
+   "pct_brasileiros_com_fatia_alta": 8.8
+  },
+  "Lateral": {
+   "n_estrangeiros": 12,
+   "n_brasileiros": 563,
+   "fatia_mediana_estrangeiro": 27.5,
+   "fatia_mediana_brasileiro": 27.4,
+   "pct_estrangeiros_com_fatia_alta": 16.7,
+   "pct_brasileiros_com_fatia_alta": 16.5
+  },
+  "Meia": {
+   "n_estrangeiros": 12,
+   "n_brasileiros": 516,
+   "fatia_mediana_estrangeiro": 27.1,
+   "fatia_mediana_brasileiro": 21.4,
+   "pct_estrangeiros_com_fatia_alta": 25.0,
+   "pct_brasileiros_com_fatia_alta": 16.9
+  },
+  "Volante": {
+   "n_estrangeiros": 6,
+   "n_brasileiros": 257,
+   "fatia_mediana_estrangeiro": 20.4,
+   "fatia_mediana_brasileiro": 28.2,
+   "pct_estrangeiros_com_fatia_alta": 0.0,
+   "pct_brasileiros_com_fatia_alta": 20.2
+  },
+  "Zaga": {
+   "n_estrangeiros": 7,
+   "n_brasileiros": 481,
+   "fatia_mediana_estrangeiro": 28.4,
+   "fatia_mediana_brasileiro": 32.9,
+   "pct_estrangeiros_com_fatia_alta": 14.3,
+   "pct_brasileiros_com_fatia_alta": 24.9
+  }
+ },
+ "permanencia": {
+  "estrangeiro": {
+   "n": 44,
+   "ficou_na_serie_b_no_ano_seguinte_pct": 25.0
+  },
+  "brasileiro": {
+   "n": 2657,
+   "ficou_na_serie_b_no_ano_seguinte_pct": 48.5
+  }
+ },
+ "primeira_temporada": {
+  "estrangeiro": {
+   "n": 40,
+   "fatia_mediana_na_primeira": 25.9
+  },
+  "brasileiro": {
+   "n": 1472,
+   "fatia_mediana_na_primeira": 17.5
+  }
+ },
+ "cobertura": {
+  "com_nacionalidade": 3156,
+  "total": 3864,
+  "pct": 81.7
+ },
+ "nota": "Descritivo por decisão do CLAUDE.md: sem teste de hipótese. Quem tem Brasil na lista de nacionalidades conta como brasileiro."
+}

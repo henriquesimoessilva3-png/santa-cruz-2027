@@ -1,0 +1,524 @@
+{
+ "parte": "A05",
+ "dispersao_por_faixa": {
+  "posse": {
+   "Sobe": {
+    "min": 47.42,
+    "mediana": 51.402,
+    "max": 61.557,
+    "amplitude": 14.136
+   },
+   "Trave": {
+    "min": 42.283,
+    "mediana": 49.687,
+    "max": 56.066,
+    "amplitude": 13.782
+   },
+   "Meio": {
+    "min": 42.283,
+    "mediana": 49.782,
+    "max": 56.066,
+    "amplitude": 13.782
+   },
+   "Cai": {
+    "min": 45.914,
+    "mediana": 48.459,
+    "max": 53.231,
+    "amplitude": 7.317
+   }
+  },
+  "passes": {
+   "Sobe": {
+    "min": 355.105,
+    "mediana": 401.461,
+    "max": 463.842,
+    "amplitude": 108.737
+   },
+   "Trave": {
+    "min": 314.237,
+    "mediana": 369.934,
+    "max": 469.737,
+    "amplitude": 155.5
+   },
+   "Meio": {
+    "min": 314.237,
+    "mediana": 380.029,
+    "max": 469.737,
+    "amplitude": 155.5
+   },
+   "Cai": {
+    "min": 334.263,
+    "mediana": 366.092,
+    "max": 424.289,
+    "amplitude": 90.026
+   }
+  },
+  "passes_pct": {
+   "Sobe": {
+    "min": 79.729,
+    "mediana": 82.174,
+    "max": 84.813,
+    "amplitude": 5.084
+   },
+   "Trave": {
+    "min": 75.588,
+    "mediana": 80.303,
+    "max": 86.08,
+    "amplitude": 10.492
+   },
+   "Meio": {
+    "min": 75.588,
+    "mediana": 81.29,
+    "max": 86.08,
+    "amplitude": 10.492
+   },
+   "Cai": {
+    "min": 78.829,
+    "mediana": 80.894,
+    "max": 84.024,
+    "amplitude": 5.195
+   }
+  },
+  "passe_longo_pct": {
+   "Sobe": {
+    "min": 9.477,
+    "mediana": 11.622,
+    "max": 14.086,
+    "amplitude": 4.609
+   },
+   "Trave": {
+    "min": 9.203,
+    "mediana": 12.794,
+    "max": 15.447,
+    "amplitude": 6.244
+   },
+   "Meio": {
+    "min": 9.203,
+    "mediana": 12.006,
+    "max": 15.447,
+    "amplitude": 6.244
+   },
+   "Cai": {
+    "min": 10.318,
+    "mediana": 12.165,
+    "max": 14.64,
+    "amplitude": 4.322
+   }
+  },
+  "compr_passe": {
+   "Sobe": {
+    "min": 19.63,
+    "mediana": 20.397,
+    "max": 21.666,
+    "amplitude": 2.036
+   },
+   "Trave": {
+    "min": 19.273,
+    "mediana": 20.877,
+    "max": 21.977,
+    "amplitude": 2.704
+   },
+   "Meio": {
+    "min": 19.273,
+    "mediana": 20.556,
+    "max": 21.977,
+    "amplitude": 2.704
+   },
+   "Cai": {
+    "min": 19.513,
+    "mediana": 20.44,
+    "max": 21.168,
+    "amplitude": 1.654
+   }
+  },
+  "passes_frente_pct": {
+   "Sobe": {
+    "min": 69.085,
+    "mediana": 72.421,
+    "max": 76.136,
+    "amplitude": 7.051
+   },
+   "Trave": {
+    "min": 66.761,
+    "mediana": 71.127,
+    "max": 77.607,
+    "amplitude": 10.845
+   },
+   "Meio": {
+    "min": 66.761,
+    "mediana": 71.336,
+    "max": 77.607,
+    "amplitude": 10.845
+   },
+   "Cai": {
+    "min": 68.74,
+    "mediana": 71.822,
+    "max": 73.251,
+    "amplitude": 4.511
+   }
+  },
+  "passes_progressivos": {
+   "Sobe": {
+    "min": 62.158,
+    "mediana": 68.908,
+    "max": 84.263,
+    "amplitude": 22.105
+   },
+   "Trave": {
+    "min": 61.921,
+    "mediana": 71.25,
+    "max": 77.921,
+    "amplitude": 16.0
+   },
+   "Meio": {
+    "min": 59.921,
+    "mediana": 67.842,
+    "max": 77.921,
+    "amplitude": 18.0
+   },
+   "Cai": {
+    "min": 60.658,
+    "mediana": 67.5,
+    "max": 70.921,
+    "amplitude": 10.263
+   }
+  },
+  "passes_terco_final": {
+   "Sobe": {
+    "min": 46.579,
+    "mediana": 54.053,
+    "max": 72.184,
+    "amplitude": 25.605
+   },
+   "Trave": {
+    "min": 47.237,
+    "mediana": 55.42,
+    "max": 61.237,
+    "amplitude": 14.0
+   },
+   "Meio": {
+    "min": 44.053,
+    "mediana": 51.303,
+    "max": 61.237,
+    "amplitude": 17.184
+   },
+   "Cai": {
+    "min": 45.053,
+    "mediana": 49.132,
+    "max": 55.0,
+    "amplitude": 9.947
+   }
+  },
+  "atq_posicional": {
+   "Sobe": {
+    "min": 23.868,
+    "mediana": 29.184,
+    "max": 35.658,
+    "amplitude": 11.789
+   },
+   "Trave": {
+    "min": 27.053,
+    "mediana": 29.75,
+    "max": 35.5,
+    "amplitude": 8.447
+   },
+   "Meio": {
+    "min": 22.676,
+    "mediana": 28.487,
+    "max": 35.5,
+    "amplitude": 12.824
+   },
+   "Cai": {
+    "min": 23.316,
+    "mediana": 26.947,
+    "max": 30.711,
+    "amplitude": 7.395
+   }
+  },
+  "contra_ataques": {
+   "Sobe": {
+    "min": 0.447,
+    "mediana": 1.197,
+    "max": 2.368,
+    "amplitude": 1.921
+   },
+   "Trave": {
+    "min": 0.579,
+    "mediana": 1.066,
+    "max": 2.158,
+    "amplitude": 1.579
+   },
+   "Meio": {
+    "min": 0.553,
+    "mediana": 1.053,
+    "max": 2.289,
+    "amplitude": 1.737
+   },
+   "Cai": {
+    "min": 0.342,
+    "mediana": 1.132,
+    "max": 1.868,
+    "amplitude": 1.526
+   }
+  }
+ },
+ "promovidos": [
+  {
+   "temporada": "2022",
+   "clube": "Cruzeiro",
+   "pos": 1,
+   "posse": 100,
+   "passes": 100,
+   "passes_pct": 95,
+   "passe_longo_pct": 11,
+   "compr_passe": 100,
+   "passes_frente_pct": 95,
+   "passes_progressivos": 100,
+   "passes_terco_final": 100,
+   "atq_posicional": 100,
+   "contra_ataques": 29
+  },
+  {
+   "temporada": "2022",
+   "clube": "Grêmio",
+   "pos": 2,
+   "posse": 58,
+   "passes": 89,
+   "passes_pct": 84,
+   "passe_longo_pct": 0,
+   "compr_passe": 0,
+   "passes_frente_pct": 89,
+   "passes_progressivos": 68,
+   "passes_terco_final": 68,
+   "atq_posicional": 89,
+   "contra_ataques": 100
+  },
+  {
+   "temporada": "2022",
+   "clube": "Bahia",
+   "pos": 3,
+   "posse": 68,
+   "passes": 47,
+   "passes_pct": 21,
+   "passe_longo_pct": 58,
+   "compr_passe": 53,
+   "passes_frente_pct": 32,
+   "passes_progressivos": 74,
+   "passes_terco_final": 84,
+   "atq_posicional": 84,
+   "contra_ataques": 79
+  },
+  {
+   "temporada": "2022",
+   "clube": "Vasco",
+   "pos": 4,
+   "posse": 74,
+   "passes": 21,
+   "passes_pct": 32,
+   "passe_longo_pct": 79,
+   "compr_passe": 26,
+   "passes_frente_pct": 16,
+   "passes_progressivos": 37,
+   "passes_terco_final": 16,
+   "atq_posicional": 42,
+   "contra_ataques": 50
+  },
+  {
+   "temporada": "2023",
+   "clube": "Vitória",
+   "pos": 1,
+   "posse": 79,
+   "passes": 79,
+   "passes_pct": 84,
+   "passe_longo_pct": 21,
+   "compr_passe": 16,
+   "passes_frente_pct": 89,
+   "passes_progressivos": 37,
+   "passes_terco_final": 63,
+   "atq_posicional": 53,
+   "contra_ataques": 100
+  },
+  {
+   "temporada": "2023",
+   "clube": "Juventude",
+   "pos": 2,
+   "posse": 84,
+   "passes": 47,
+   "passes_pct": 37,
+   "passe_longo_pct": 42,
+   "compr_passe": 58,
+   "passes_frente_pct": 5,
+   "passes_progressivos": 11,
+   "passes_terco_final": 11,
+   "atq_posicional": 37,
+   "contra_ataques": 68
+  },
+  {
+   "temporada": "2023",
+   "clube": "Criciúma",
+   "pos": 3,
+   "posse": 21,
+   "passes": 42,
+   "passes_pct": 42,
+   "passe_longo_pct": 79,
+   "compr_passe": 53,
+   "passes_frente_pct": 37,
+   "passes_progressivos": 95,
+   "passes_terco_final": 68,
+   "atq_posicional": 42,
+   "contra_ataques": 50
+  },
+  {
+   "temporada": "2023",
+   "clube": "Atlético-GO",
+   "pos": 4,
+   "posse": 95,
+   "passes": 95,
+   "passes_pct": 95,
+   "passe_longo_pct": 11,
+   "compr_passe": 26,
+   "passes_frente_pct": 84,
+   "passes_progressivos": 58,
+   "passes_terco_final": 89,
+   "atq_posicional": 89,
+   "contra_ataques": 79
+  },
+  {
+   "temporada": "2024",
+   "clube": "Santos",
+   "pos": 1,
+   "posse": 74,
+   "passes": 95,
+   "passes_pct": 95,
+   "passe_longo_pct": 11,
+   "compr_passe": 26,
+   "passes_frente_pct": 89,
+   "passes_progressivos": 79,
+   "passes_terco_final": 95,
+   "atq_posicional": 79,
+   "contra_ataques": 47
+  },
+  {
+   "temporada": "2024",
+   "clube": "Mirassol",
+   "pos": 2,
+   "posse": 68,
+   "passes": 89,
+   "passes_pct": 100,
+   "passe_longo_pct": 5,
+   "compr_passe": 5,
+   "passes_frente_pct": 74,
+   "passes_progressivos": 53,
+   "passes_terco_final": 58,
+   "atq_posicional": 16,
+   "contra_ataques": 34
+  },
+  {
+   "temporada": "2024",
+   "clube": "Sport",
+   "pos": 3,
+   "posse": 89,
+   "passes": 84,
+   "passes_pct": 63,
+   "passe_longo_pct": 47,
+   "compr_passe": 58,
+   "passes_frente_pct": 68,
+   "passes_progressivos": 95,
+   "passes_terco_final": 84,
+   "atq_posicional": 89,
+   "contra_ataques": 11
+  },
+  {
+   "temporada": "2024",
+   "clube": "Ceará",
+   "pos": 4,
+   "posse": 42,
+   "passes": 21,
+   "passes_pct": 16,
+   "passe_longo_pct": 74,
+   "compr_passe": 95,
+   "passes_frente_pct": 32,
+   "passes_progressivos": 26,
+   "passes_terco_final": 68,
+   "atq_posicional": 100,
+   "contra_ataques": 53
+  },
+  {
+   "temporada": "2025",
+   "clube": "Coritiba",
+   "pos": 1,
+   "posse": 79,
+   "passes": 89,
+   "passes_pct": 95,
+   "passe_longo_pct": 11,
+   "compr_passe": 5,
+   "passes_frente_pct": 95,
+   "passes_progressivos": 58,
+   "passes_terco_final": 58,
+   "atq_posicional": 21,
+   "contra_ataques": 11
+  },
+  {
+   "temporada": "2025",
+   "clube": "Athletico-PR",
+   "pos": 2,
+   "posse": 63,
+   "passes": 79,
+   "passes_pct": 68,
+   "passe_longo_pct": 16,
+   "compr_passe": 21,
+   "passes_frente_pct": 74,
+   "passes_progressivos": 68,
+   "passes_terco_final": 84,
+   "atq_posicional": 84,
+   "contra_ataques": 5
+  },
+  {
+   "temporada": "2025",
+   "clube": "Chapecoense",
+   "pos": 3,
+   "posse": 16,
+   "passes": 32,
+   "passes_pct": 58,
+   "passe_longo_pct": 89,
+   "compr_passe": 100,
+   "passes_frente_pct": 42,
+   "passes_progressivos": 21,
+   "passes_terco_final": 11,
+   "atq_posicional": 16,
+   "contra_ataques": 84
+  },
+  {
+   "temporada": "2025",
+   "clube": "Remo",
+   "pos": 4,
+   "posse": 26,
+   "passes": 21,
+   "passes_pct": 37,
+   "passe_longo_pct": 42,
+   "compr_passe": 53,
+   "passes_frente_pct": 21,
+   "passes_progressivos": 5,
+   "passes_terco_final": 37,
+   "atq_posicional": 0,
+   "contra_ataques": 71
+  }
+ ],
+ "firme_nos_dois_cortes": {
+  "SM": [],
+  "ST": [],
+  "CM": []
+ },
+ "poder_por_desenho": {
+  "16x48": 0.82,
+  "8x32": 1.14,
+  "16x16": 1.02,
+  "8x7": 1.57
+ },
+ "n": {
+  "total": 80,
+  "sobe_sf": 8,
+  "meio_sf": 32,
+  "cai_sf": 12
+ }
+}

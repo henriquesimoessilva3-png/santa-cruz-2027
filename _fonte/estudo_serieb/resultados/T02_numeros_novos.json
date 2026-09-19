@@ -1,0 +1,1130 @@
+{
+ "parte": "T02",
+ "gerado_em": "2026-09-19",
+ "o_que_e_isto": "So os numeros que faltavam para os textos novos de _proposta_destino.json (propostas.T02). Nenhuma conclusao, nenhum texto e nenhum nivel de confianca foi decidido aqui. Nada foi alterado em T02.json, T02.md, T02.py nem em nenhum outro arquivo.",
+ "recorte": "2022 a 2025. 2026 fica fora de todos os numeros novos, por decisao da propria proposta (temporada em curso, base incompleta e G4 deixou de ser a zona de acesso).",
+ "unidades": "T02-1 passa a ser clube-temporada (80), nao passagem (151). T02-2 e T02-3 continuam em passagem, com o minimo de 10 rodadas e sem interino (no_ranking = 1).",
+ "avisos": [
+  "EMPATE DE 2023. CRB e Novorizontino tem tm_valor_total identico (13.900.000 EUR) e caem exatamente na fronteira 10o/11o. Desempate adotado: valor_total do Wyscout na mesma linha, que poe Novorizontino em 10o — e o mesmo que a proposta usou. Pelo desempate inverso: ct_meio_rod 8,5 · ct_meio_mediana 5 · ct_baixo_rod 3,65 · ct_baixo_zero 21 · q_meio_baixo 0,18. A leitura da conclusao nao muda: nos dois, so top5 x baixo passa no BH.",
+  "ARREDONDAMENTO. ct_meio_rod vale exatamente 9,45. Pela regra 'arredonde, nao trunque' vai a 9,5; a proposta escreveu 9,4 (round() do Python sobre float). Nos outros meios-casos a propria proposta arredondou para cima (3,45 -> 3,5 e 22,35 -> 22,4), entao 9,5 e o coerente.",
+  "FORMATO. Todo valor vai como numero em 'valor' e em pt-BR em 'formatado'. Quem decide o que vai a tela e o gerador.",
+  "T02_faixa_valor.csv e T02_testes.csv, pedidos pela proposta, NAO foram escritos: a regra desta tarefa e um arquivo so. O conteudo dos dois esta aqui dentro, em 'tabela_faixa_valor' e 'testes'.",
+  "A frase antiga 'a maioria dos times de elenco na metade de baixo nao passa uma rodada sequer no G4' e literalmente verdadeira na unidade nova: 22 de 40 clubes-temporada (55%) do 11o elenco para baixo ficaram em zero. Registrado so como conferencia; o destino do texto nao e desta tarefa.",
+  "numeros.fugiram = 6, em T02.json, nao aparece em texto nenhum e nao esta definido no T02.md — nao deu para conferir o que ele conta, e por isso nao entrou nas correcoes."
+ ],
+ "ja_tinham_valor_em_T02_json": [
+  {
+   "marcador": "eb_clubes",
+   "valor": 2,
+   "situacao": "continua valendo em 2022-2025 (Novorizontino e Criciuma)"
+  },
+  {
+   "marcador": "eb_val_2023",
+   "valor": 10,
+   "situacao": "confere — Novorizontino 2023 e o 10o elenco mais caro, mas so pelo desempate adotado; pelo inverso seria 11o"
+  },
+  {
+   "marcador": "eb_val_2024",
+   "valor": 16,
+   "situacao": "confere — Novorizontino 2024, 16o de 20, sem empate por perto"
+  },
+  {
+   "marcador": "multi",
+   "valor": 34,
+   "situacao": "e o recorte 2022-2026; o texto novo pede 2022-2025, que da 28 — por isso multi foi recalculado"
+  },
+  {
+   "marcador": "amp_mediana",
+   "valor": 16.2,
+   "situacao": "recorte 2022-2026 e com defeito de arredondamento; ver correcoes. O texto novo nao usa mais este marcador"
+  }
+ ],
+ "numeros": [
+  {
+   "marcador": "ct_n",
+   "conclusao": "T02-1",
+   "valor": "80",
+   "formatado": "80",
+   "de_onde": "Clubes-temporada da Serie B de 2022 a 2025: 20 clubes x 4 temporadas. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora)",
+   "conferido": true,
+   "nota": "Confere com as 3.040 linhas de classificacao_rodada.csv em 2022-2025 = 80 clubes-temporada x 38 rodadas."
+  },
+  {
+   "marcador": "ct_top5_rod",
+   "conclusao": "T02-1",
+   "valor": "14.6",
+   "formatado": "14,6",
+   "de_onde": "Media de rodadas no G4 por clube-temporada do grupo top5. Soma 292 rodadas / 20 clubes-temporada. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora). Faixa de valor: dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true,
+   "nota": "2o caminho: somando no_g4 das passagens de T02_passagem.csv da 14,55 — a diferenca de 0,05 e 1 rodada do Bahia 2022 que nao tem dono de treinador no T01 (37 das 38 rodadas atribuidas)."
+  },
+  {
+   "marcador": "ct_meio_rod",
+   "conclusao": "T02-1",
+   "valor": "9.45",
+   "formatado": "9,5",
+   "de_onde": "Media de rodadas no G4 por clube-temporada do grupo 6o-10o elenco. Soma 189 / 20. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora). Faixa de valor: dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true,
+   "nota": "Valor exato 9,45 (189/20). Arredondando meio para cima da 9,5; a proposta escreveu 9,4, que e o round() do Python sobre um float que vale 9,4499999. Pela regra 'arredonde, nao trunque' o certo e 9,5. 2o caminho (soma das passagens) da o mesmo 9,45. Empate exato em 2023: CRB e Novorizontino, 13.900.000 EUR cada. Desempate adotado: valor_total do Wyscout na mesma linha (Novorizontino 7,55 M > CRB 5,20 M), logo Novorizontino e 10o e CRB 11o. E o mesmo desempate que a proposta usou. Pelo desempate inverso (CRB 10o) os numeros do grupo meio e do baixo mudam: ct_meio_rod 8,5 · ct_meio_mediana 5 · ct_baixo_rod 3,65 · ct_baixo_zero 21 · q_meio_baixo 0,18. A conclusao nao vira: em qualquer dos dois so top5 x baixo passa no BH a 5%."
+  },
+  {
+   "marcador": "ct_baixo_rod",
+   "conclusao": "T02-1",
+   "valor": "3.175",
+   "formatado": "3,2",
+   "de_onde": "Media de rodadas no G4 por clube-temporada do grupo 11o elenco para baixo. Soma 127 / 40. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora). Faixa de valor: dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true,
+   "nota": "2o caminho (soma das passagens) da o mesmo 3,175. Empate exato em 2023: CRB e Novorizontino, 13.900.000 EUR cada. Desempate adotado: valor_total do Wyscout na mesma linha (Novorizontino 7,55 M > CRB 5,20 M), logo Novorizontino e 10o e CRB 11o. E o mesmo desempate que a proposta usou. Pelo desempate inverso (CRB 10o) os numeros do grupo meio e do baixo mudam: ct_meio_rod 8,5 · ct_meio_mediana 5 · ct_baixo_rod 3,65 · ct_baixo_zero 21 · q_meio_baixo 0,18. A conclusao nao vira: em qualquer dos dois so top5 x baixo passa no BH a 5%."
+  },
+  {
+   "marcador": "ct_top5_n",
+   "conclusao": "T02-1",
+   "valor": "20",
+   "formatado": "20",
+   "de_onde": "5 clubes por temporada x 4 temporadas. dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true
+  },
+  {
+   "marcador": "ct_meio_n",
+   "conclusao": "T02-1",
+   "valor": "20",
+   "formatado": "20",
+   "de_onde": "5 clubes por temporada x 4 temporadas. dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true
+  },
+  {
+   "marcador": "ct_baixo_n",
+   "conclusao": "T02-1",
+   "valor": "40",
+   "formatado": "40",
+   "de_onde": "10 clubes por temporada x 4 temporadas. dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true
+  },
+  {
+   "marcador": "ct_top5_mediana",
+   "conclusao": "T02-1",
+   "valor": "9",
+   "formatado": "9",
+   "de_onde": "Mediana de rodadas no G4 nos 20 clubes-temporada top5: serie 0,0,0,0,1,2,3,8,8,9,9,10,14,28,29,32,33,34,34,38. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora)",
+   "conferido": true,
+   "nota": "Media dos 10o e 11o valores: (9+9)/2 = 9."
+  },
+  {
+   "marcador": "ct_meio_mediana",
+   "conclusao": "T02-1",
+   "valor": "6",
+   "formatado": "6",
+   "de_onde": "Mediana de rodadas no G4 nos 20 clubes-temporada do 6o ao 10o elenco: serie 0,0,0,0,0,0,0,1,4,6,6,6,8,9,12,19,21,30,31,36. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora)",
+   "conferido": true,
+   "nota": "Media dos 10o e 11o valores: (6+6)/2 = 6. Empate exato em 2023: CRB e Novorizontino, 13.900.000 EUR cada. Desempate adotado: valor_total do Wyscout na mesma linha (Novorizontino 7,55 M > CRB 5,20 M), logo Novorizontino e 10o e CRB 11o. E o mesmo desempate que a proposta usou. Pelo desempate inverso (CRB 10o) os numeros do grupo meio e do baixo mudam: ct_meio_rod 8,5 · ct_meio_mediana 5 · ct_baixo_rod 3,65 · ct_baixo_zero 21 · q_meio_baixo 0,18. A conclusao nao vira: em qualquer dos dois so top5 x baixo passa no BH a 5%."
+  },
+  {
+   "marcador": "ct_baixo_mediana",
+   "conclusao": "T02-1",
+   "valor": "0",
+   "formatado": "0",
+   "de_onde": "Mediana de rodadas no G4 nos 40 clubes-temporada do 11o elenco para baixo (22 zeros na serie). _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora)",
+   "conferido": true,
+   "nota": "Fecha o furo do 'a mediana e ZERO' que estava escrito a mao no T02.json."
+  },
+  {
+   "marcador": "ct_baixo_zero",
+   "conclusao": "T02-1",
+   "valor": "22",
+   "formatado": "22",
+   "de_onde": "Clubes-temporada do 11o elenco para baixo com zero rodada no G4, de 40. _fonte/estudo_serieb/resultados/classificacao_rodada.csv (A01), coluna pos <= 4, uma linha por clube-rodada; temporada 2022 a 2025 (2026 fora)",
+   "conferido": true,
+   "nota": "22 de 40 = 55%. Empate exato em 2023: CRB e Novorizontino, 13.900.000 EUR cada. Desempate adotado: valor_total do Wyscout na mesma linha (Novorizontino 7,55 M > CRB 5,20 M), logo Novorizontino e 10o e CRB 11o. E o mesmo desempate que a proposta usou. Pelo desempate inverso (CRB 10o) os numeros do grupo meio e do baixo mudam: ct_meio_rod 8,5 · ct_meio_mediana 5 · ct_baixo_rod 3,65 · ct_baixo_zero 21 · q_meio_baixo 0,18. A conclusao nao vira: em qualquer dos dois so top5 x baixo passa no BH a 5%."
+  },
+  {
+   "marcador": "q_top5_baixo",
+   "conclusao": "T02-1",
+   "valor": "0.00456",
+   "formatado": "0,005",
+   "de_onde": "Metodo da casa (scripts/_metodo.py): posto de rodadas_no_g4 dentro da temporada (percentil 0-100), t de Welch bilateral top5 x baixo, BH a 5% na familia das 3 comparacoes de faixa de valor. p bruto 0,00152.",
+   "conferido": true,
+   "nota": "Unica das tres que passa no BH a 5%. Vale nos dois desempates do empate de 2023 (0,005 e 0,008)."
+  },
+  {
+   "marcador": "d_top5_baixo",
+   "conclusao": "T02-1",
+   "valor": "0.993",
+   "formatado": "0,99",
+   "de_onde": "d de Cohen no posto dentro da temporada, top5 (n=20) contra 11o-para-baixo (n=40). scripts/_metodo.py, cohen_d().",
+   "conferido": true,
+   "nota": "d minimo detectavel a 80% para 20 x 40 = 0,78; 0,99 fica acima, entao ha poder."
+  },
+  {
+   "marcador": "ic_top5_baixo",
+   "conclusao": "T02-1",
+   "valor": "[0.48, 1.84]",
+   "formatado": "de 0,48 a 1,84",
+   "de_onde": "IC95 do d por bootstrap de CLUBE (2.000 reamostragens, semente 42), scripts/_metodo.py, ic_por_clube().",
+   "conferido": true,
+   "nota": "A proposta registrou [0,48; 1,80]; a diferenca no limite de cima e so a semente do bootstrap. O limite de baixo (0,48) e igual nas duas."
+  },
+  {
+   "marcador": "q_meio_baixo",
+   "conclusao": "T02-1",
+   "valor": "0.05624",
+   "formatado": "0,056",
+   "de_onde": "Mesma familia BH; 6o-10o contra 11o-para-baixo. p bruto 0,03749, d 0,633, IC95 por clube [0,19; 1,32].",
+   "conferido": true,
+   "nota": "Nao passa no BH a 5%. Empate exato em 2023: CRB e Novorizontino, 13.900.000 EUR cada. Desempate adotado: valor_total do Wyscout na mesma linha (Novorizontino 7,55 M > CRB 5,20 M), logo Novorizontino e 10o e CRB 11o. E o mesmo desempate que a proposta usou. Pelo desempate inverso (CRB 10o) os numeros do grupo meio e do baixo mudam: ct_meio_rod 8,5 · ct_meio_mediana 5 · ct_baixo_rod 3,65 · ct_baixo_zero 21 · q_meio_baixo 0,18. A conclusao nao vira: em qualquer dos dois so top5 x baixo passa no BH a 5%."
+  },
+  {
+   "marcador": "q_top5_meio",
+   "conclusao": "T02-1",
+   "valor": "0.33083",
+   "formatado": "0,33",
+   "de_onde": "Mesma familia BH; top5 contra 6o-10o. p bruto 0,33083, d 0,312, IC95 por clube [-0,23; 0,98].",
+   "conferido": true,
+   "nota": "Nao passa. Sustenta a frase 'entre os 5 mais caros e o 6o-10o a diferenca e pequena demais'."
+  },
+  {
+   "marcador": "d_minimo_80_20x40",
+   "conclusao": "T02-1",
+   "valor": "0.78",
+   "formatado": "0,78",
+   "de_onde": "Menor d detectavel a 80% de poder para 20 contra 40 linhas. scripts/_metodo.py, d_minimo().",
+   "conferido": true
+  },
+  {
+   "marcador": "d_minimo_80_20x20",
+   "conclusao": "T02-1",
+   "valor": "0.91",
+   "formatado": "0,91",
+   "de_onde": "Menor d detectavel a 80% de poder para 20 contra 20 linhas. scripts/_metodo.py, d_minimo().",
+   "conferido": true
+  },
+  {
+   "marcador": "multi",
+   "conclusao": "T02-2 e T02-3",
+   "valor": "28",
+   "formatado": "28",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos. Contagem de treinadores distintos.",
+   "conferido": true,
+   "nota": "Eram 34 contando 2026; seis multiclube so existem por causa de 2026. No T02.json numeros o valor guardado e 34 (recorte 2022-2026) — nao e erro, e outro recorte."
+  },
+  {
+   "marcador": "eb_passagens",
+   "conclusao": "T02-2",
+   "valor": "3",
+   "formatado": "3",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), treinador = Eduardo Baptista: Novorizontino 2023, Novorizontino 2024, Criciuma 2025.",
+   "conferido": true,
+   "nota": "Eram 4 com o Criciuma 2026 (26 rodadas, temporada em curso)."
+  },
+  {
+   "marcador": "eb_rodadas",
+   "conclusao": "T02-2",
+   "valor": "108",
+   "formatado": "108",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), Eduardo Baptista: 38 + 38 + 32 rodadas.",
+   "conferido": true,
+   "nota": "Eram 134 com as 26 rodadas de 2026."
+  },
+  {
+   "marcador": "eb_pior_rod",
+   "conclusao": "T02-2",
+   "valor": "12",
+   "formatado": "12",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), Eduardo Baptista, pior passagem por pct_g4: Criciuma 2025, coluna no_g4.",
+   "conferido": true,
+   "nota": "12 de 32 = 37,5%, o valor que o T02.json guarda como eb_pior = 38."
+  },
+  {
+   "marcador": "eb_pior_tot",
+   "conclusao": "T02-2",
+   "valor": "32",
+   "formatado": "32",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), Criciuma 2025, coluna rodadas.",
+   "conferido": true
+  },
+  {
+   "marcador": "eb_melhor_rod",
+   "conclusao": "T02-2",
+   "valor": "20",
+   "formatado": "20",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), melhor passagem por pct_g4: Novorizontino 2024, coluna no_g4.",
+   "conferido": true,
+   "nota": "20 de 38 = 52,6%, o eb_melhor = 53 do T02.json."
+  },
+  {
+   "marcador": "eb_melhor_tot",
+   "conclusao": "T02-2",
+   "valor": "38",
+   "formatado": "38",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), Novorizontino 2024, coluna rodadas.",
+   "conferido": true
+  },
+  {
+   "marcador": "eb_seg_nome",
+   "conclusao": "T02-2",
+   "valor": "Jair Ventura",
+   "formatado": "Jair Ventura",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; piso = menor pct_g4 entre as passagens do treinador. Ranking dos pisos: Eduardo Baptista 37,5 · Jair Ventura 18,5 · Umberto Louzer 15,4 · Adilson Batista 2,7 · todos os outros 24 em 0.",
+   "conferido": true,
+   "nota": "Confirma a frase 'em 2022-2025 quatro multiclube tem piso acima de zero'."
+  },
+  {
+   "marcador": "eb_seg_rod",
+   "conclusao": "T02-2",
+   "valor": "5",
+   "formatado": "5",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), Jair Ventura, pior passagem: Avai 2025, coluna no_g4.",
+   "conferido": true,
+   "nota": "5 de 27 = 18,5%."
+  },
+  {
+   "marcador": "eb_seg_tot",
+   "conclusao": "T02-2",
+   "valor": "27",
+   "formatado": "27",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), Jair Ventura, Avai 2025, coluna rodadas.",
+   "conferido": true
+  },
+  {
+   "marcador": "eb_ppj_nov",
+   "conclusao": "T02-2",
+   "valor": "1.671",
+   "formatado": "1,67",
+   "de_onde": "Pontos por jogo do recorte Novorizontino (2023 + 2024): 127 pontos em 76 rodadas. _fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), colunas pontos e rodadas.",
+   "conferido": true,
+   "nota": "2o caminho: classificacao_rodada.csv, pontos na rodada 38 — Novorizontino 63 (2023) + 64 (2024) = 127; Eduardo Baptista comandou as 38 rodadas dos dois anos, entao o ponto do clube e o dele. 127/76 = 1,671053."
+  },
+  {
+   "marcador": "eb_xg_nov",
+   "conclusao": "T02-2",
+   "valor": "0.5582",
+   "formatado": "0,56",
+   "de_onde": "Saldo de xG por jogo do recorte Novorizontino (2023 + 2024), 76 jogos. _fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), colunas xg_saldo_pj e xg_jogos, ponderado pelos jogos.",
+   "conferido": true,
+   "nota": "2o caminho, cru: dados/serieb_jogos.csv, Competicao = 'Brazil. Serie B', coluna 'Golos esperados', pareando as duas linhas do mesmo jogo por Data + adversario (o xG do adversario e o xG sofrido): 0,558158 em 76 jogos. Pela coluna ja arredondada do CSV da 0,555. Os dois arredondam para 0,56."
+  },
+  {
+   "marcador": "eb_val_cri",
+   "conclusao": "T02-2",
+   "valor": "8",
+   "formatado": "8",
+   "de_onde": "Posto do Criciuma 2025 no ranking de tm_valor_total da temporada (19,725 M EUR, 8o de 20). dados/serieb_clube_temporada.csv, coluna tm_valor_total (Transfermarkt), ordenada do maior para o menor dentro de cada temporada; top5 = postos 1-5, meio = 6-10, baixo = 11-20",
+   "conferido": true,
+   "nota": "Nao ha empate perto do 8o posto de 2025."
+  },
+  {
+   "marcador": "osc_n",
+   "conclusao": "T02-3",
+   "valor": "7",
+   "formatado": "7",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; criterio: ter uma passagem com no_g4 = 0 e outra com pct_g4 acima de 85%.",
+   "conferido": true,
+   "nota": "Mesmo resultado com o corte em 80%: os 7 nomes nao mudam. O T02.json guarda 6 — falta Claudinei Oliveira."
+  },
+  {
+   "marcador": "oscilam",
+   "conclusao": "T02-3",
+   "valor": "Claudinei Oliveira, Enderson Moreira, Guto Ferreira, Jorginho, Léo Condé, Mozart e Vagner Mancini",
+   "formatado": "Claudinei Oliveira, Enderson Moreira, Guto Ferreira, Jorginho, Léo Condé, Mozart e Vagner Mancini",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; mesmo criterio de osc_n; ordem alfabetica. Ano bom de cada um: Claudinei Oliveira (Vila Nova 2023, 18/21), Enderson Moreira (Bahia 2022, 17/17), Guto Ferreira (Bahia 2022, 14/14), Jorginho (Vasco 2022, 10/10), Léo Condé (Vitória 2023, 36/38), Mozart (Coritiba 2025, 33/38), Vagner Mancini (Goiás 2025, 29/32).",
+   "conferido": true,
+   "nota": "String ja montada, como a proposta escreveu. Claudinei Oliveira entra: Vila Nova 2023 tem 18 de 21 rodadas no G4 (85,7%) e ele tem tres passagens zeradas (Sport 2022, Chapecoense 2023, Paysandu 2025)."
+  },
+  {
+   "marcador": "osc_dppj",
+   "conclusao": "T02-3",
+   "valor": "0.12",
+   "formatado": "0,12",
+   "de_onde": "Mediana, nos 7 de osc_n, da diferenca de ponto por jogo entre o ano de mais tempo no G4 e o ano zerado de mais rodadas. _fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), coluna ppj. Serie: -0,28 (Mancini) · -0,06 (Enderson) · 0,00 (Claudinei) · +0,12 (Jorginho) · +0,16 (Mozart) · +0,36 (Condé) · +0,52 (Guto).",
+   "conferido": true,
+   "nota": "Mediana = o 4o valor da serie ordenada de 7 = 0,12. Conferido a mao. Se em vez do ano zerado de mais rodadas se usar a mediana dos anos zerados, a mediana sobe para 0,31 e osc_piores cai para 0 — a definicao que reproduz os tres casos citados pela propria proposta e a de cima."
+  },
+  {
+   "marcador": "osc_piores",
+   "conclusao": "T02-3",
+   "valor": "3",
+   "formatado": "3",
+   "de_onde": "Quantos dos 7 tiveram, no ano de mais G4, ponto por jogo igual ou menor que no ano zerado: Vagner Mancini (1,62 contra 1,90), Enderson Moreira (1,41 contra 1,47) e Claudinei Oliveira (1,67 contra 1,67). _fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino), coluna ppj.",
+   "conferido": true,
+   "nota": "Bate um a um com os tres nomes e os seis numeros que a propria proposta cita."
+  },
+  {
+   "marcador": "mc_pares",
+   "conclusao": "T02-3",
+   "valor": "8",
+   "formatado": "8",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); pares (treinador, clube) com 2 ou mais passagens no mesmo clube em 2022-2025: Vagner Mancini/Goiás, Mozart/Mirassol, Eduardo Baptista/Novorizontino, Claudio Tencati/Criciúma, Gilmar Dal Pozzo/Chapecoense, Daniel Paulista/CRB, Vagner Mancini/Ceará, Márcio Fernandes/Paysandu.",
+   "conferido": true,
+   "nota": "Mesmo 8 exigindo temporadas diferentes."
+  },
+  {
+   "marcador": "mc_osc_mediana",
+   "conclusao": "T02-3",
+   "valor": "22.35",
+   "formatado": "22,4",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1; amplitude de pct_g4 dentro de cada um dos 8 pares (treinador, clube) de mc_pares, ordenada: 0 (Daniel Paulista/CRB) · 0 (Vagner Mancini/Ceará) · 0 (Márcio Fernandes/Paysandu) · 2,6 (Eduardo Baptista/Novorizontino) · 42,1 (Gilmar Dal Pozzo/Chapecoense) · 44,7 (Claudio Tencati/Criciúma) · 55,3 (Mozart/Mirassol) · 90,6 (Vagner Mancini/Goiás).",
+   "conferido": true,
+   "nota": "Mediana dos 4o e 5o valores: (2,6 + 42,1)/2 = 22,35, que arredonda para 22,4. Conferido a mao sobre a lista acima. Compara com 21,7 de amp_mediana_todas, a mesma oscilacao entre clubes: e o numero que derruba o 'e o clube em que ele estava'."
+  },
+  {
+   "marcador": "amp_mediana_todas",
+   "conclusao": "T02-3",
+   "valor": "21.7",
+   "formatado": "21,7",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; amplitude = maior pct_g4 menos menor pct_g4 entre as passagens do treinador; mediana dos 28.",
+   "conferido": true,
+   "nota": "E o numero 'entre clubes' com que a frase compara os 22,4 do mesmo clube."
+  },
+  {
+   "marcador": "amp_mediana_apos10",
+   "conclusao": "T02-3",
+   "valor": "3.45",
+   "formatado": "3,5",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; mesma amplitude, mas na coluna pct_g4_apos_10 (so rodadas da 10a em diante), mediana dos 28.",
+   "conferido": true,
+   "nota": "Os 28 tem pct_g4_apos_10 nas duas pontas, entao o n nao muda. Mostra por que amp_mediana nao pode ir ao texto: o mesmo conceito vale 21,7 ou 3,5 conforme o corte que o CLAUDE.md manda contar dos dois jeitos."
+  },
+  {
+   "marcador": "amp_50mais_todas",
+   "conclusao": "T02-3",
+   "valor": "8",
+   "formatado": "8",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; treinadores com amplitude de pct_g4 igual ou maior que 50 pontos percentuais, contando todas as rodadas.",
+   "conferido": true
+  },
+  {
+   "marcador": "amp_50mais_apos10",
+   "conclusao": "T02-3",
+   "valor": "9",
+   "formatado": "9",
+   "de_onde": "_fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos; o mesmo na coluna pct_g4_apos_10.",
+   "conferido": true,
+   "nota": "A cauda dos 50+ sobrevive aos dois jeitos de contar (8 e 9), como a proposta diz."
+  },
+  {
+   "marcador": "r_prim_seg",
+   "conclusao": "T02-3",
+   "valor": "0.1053",
+   "formatado": "0,11",
+   "de_onde": "Correlacao de Pearson entre o pct_g4 da primeira passagem do treinador (ordem cronologica: temporada, depois rodada_1a) e o pct_g4 da primeira passagem dele num clube diferente. n = 28. _fonte/estudo_serieb/resultados/T02_passagem.csv, filtro temporada <= 2025 e no_ranking = 1 (passagem de 10+ rodadas, sem interino); treinador com 2 ou mais clubes distintos",
+   "conferido": true,
+   "nota": "Outras definicoes dao numero parecido e mesma leitura: ultima do 1o clube -> 1a do 2o r = 0,11 (p 0,59); ponderado por rodadas r = 0,10 (p 0,62); media simples r = 0,09 (p 0,66); Spearman r = 0,02 (p 0,93). A que reproduz o 0,11 / p 0,59 da proposta e a primeira."
+  },
+  {
+   "marcador": "p_prim_seg",
+   "conclusao": "T02-3",
+   "valor": "0.594",
+   "formatado": "0,59",
+   "de_onde": "p bilateral do Pearson de r_prim_seg, n = 28.",
+   "conferido": true
+  },
+  {
+   "marcador": "r_min_80",
+   "conclusao": "T02-3",
+   "valor": "0.508",
+   "formatado": "0,51",
+   "de_onde": "Menor r detectavel com 80% de poder e alfa 5% bilateral, n = 28 (transformacao z de Fisher). Mesmo desenho de poder do scripts/_metodo.py, d_minimo(), aplicado a correlacao.",
+   "conferido": true,
+   "nota": "E o numero que a §6.7 manda publicar para que 'nao se transfere' nao vire 'nao existe'."
+  }
+ ],
+ "testes": {
+  "metodo": "scripts/_metodo.py — posto de rodadas_no_g4 dentro da temporada (percentil 0-100), t de Welch bilateral, d de Cohen no posto, IC95 por bootstrap de CLUBE (2.000 reamostragens, semente 42), BH a 5% na familia das 3 comparacoes. Base: os 80 clubes-temporada de tabela_faixa_valor.",
+  "linhas": [
+   {
+    "comparacao": "top5 x baixo",
+    "n_a": 20,
+    "n_b": 40,
+    "d": 0.993,
+    "ic95_d": [
+     0.48,
+     1.84
+    ],
+    "p": 0.00152,
+    "q": 0.00456,
+    "d_minimo_80": 0.78,
+    "selo": "passa no BH a 5%",
+    "poder_suficiente": true
+   },
+   {
+    "comparacao": "meio x baixo",
+    "n_a": 20,
+    "n_b": 40,
+    "d": 0.633,
+    "ic95_d": [
+     0.19,
+     1.32
+    ],
+    "p": 0.03749,
+    "q": 0.05624,
+    "d_minimo_80": 0.78,
+    "selo": "pode ser sorte",
+    "poder_suficiente": false
+   },
+   {
+    "comparacao": "top5 x meio",
+    "n_a": 20,
+    "n_b": 20,
+    "d": 0.312,
+    "ic95_d": [
+     -0.23,
+     0.98
+    ],
+    "p": 0.33083,
+    "q": 0.33083,
+    "d_minimo_80": 0.91,
+    "selo": "sem diferenca clara",
+    "poder_suficiente": false
+   }
+  ],
+  "correlacao_T02_3": {
+   "o_que": "pct_g4 da primeira passagem contra pct_g4 da primeira passagem em clube diferente",
+   "n": 28,
+   "r_pearson": 0.1053,
+   "p": 0.594,
+   "r_minimo_detectavel_80": 0.508,
+   "leitura": "a ligacao observada e muito menor que a menor que este desenho enxergaria"
+  }
+ },
+ "tabela_faixa_valor": [
+  {
+   "temporada": 2022,
+   "clube": "Grêmio",
+   "posto_valor": 1,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 49775000.0,
+   "rodadas_no_g4": 29
+  },
+  {
+   "temporada": 2022,
+   "clube": "Vasco",
+   "posto_valor": 2,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 31125000.0,
+   "rodadas_no_g4": 32
+  },
+  {
+   "temporada": 2022,
+   "clube": "Cruzeiro",
+   "posto_valor": 3,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 29750000.0,
+   "rodadas_no_g4": 34
+  },
+  {
+   "temporada": 2022,
+   "clube": "Bahia",
+   "posto_valor": 4,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 21700000.0,
+   "rodadas_no_g4": 38
+  },
+  {
+   "temporada": 2022,
+   "clube": "Ponte Preta",
+   "posto_valor": 5,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 20500000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Sport",
+   "posto_valor": 6,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 16300000.0,
+   "rodadas_no_g4": 9
+  },
+  {
+   "temporada": 2022,
+   "clube": "CRB",
+   "posto_valor": 7,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 15925000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Náutico",
+   "posto_valor": 8,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 13925000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Chapecoense",
+   "posto_valor": 9,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 13875000.0,
+   "rodadas_no_g4": 4
+  },
+  {
+   "temporada": 2022,
+   "clube": "CSA",
+   "posto_valor": 10,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 13750000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Novorizontino",
+   "posto_valor": 11,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 11300000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Guarani",
+   "posto_valor": 12,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 11025000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Operário-PR",
+   "posto_valor": 13,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 10925000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2022,
+   "clube": "Vila Nova",
+   "posto_valor": 14,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 8900000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Londrina",
+   "posto_valor": 15,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 7200000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2022,
+   "clube": "Criciúma",
+   "posto_valor": 16,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 6800000.0,
+   "rodadas_no_g4": 2
+  },
+  {
+   "temporada": 2022,
+   "clube": "Ituano",
+   "posto_valor": 17,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 6500000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2022,
+   "clube": "Sampaio Corrêa",
+   "posto_valor": 18,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 4500000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2022,
+   "clube": "Brusque",
+   "posto_valor": 19,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 4375000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2022,
+   "clube": "Tombense",
+   "posto_valor": 20,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 3950000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Ceará",
+   "posto_valor": 1,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 35475000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Atlético-GO",
+   "posto_valor": 2,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 24525000.0,
+   "rodadas_no_g4": 8
+  },
+  {
+   "temporada": 2023,
+   "clube": "Avaí",
+   "posto_valor": 3,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 20300000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Sport",
+   "posto_valor": 4,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 17900000.0,
+   "rodadas_no_g4": 28
+  },
+  {
+   "temporada": 2023,
+   "clube": "Juventude",
+   "posto_valor": 5,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 16825000.0,
+   "rodadas_no_g4": 10
+  },
+  {
+   "temporada": 2023,
+   "clube": "Chapecoense",
+   "posto_valor": 6,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 16325000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Mirassol",
+   "posto_valor": 7,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 14900000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Guarani",
+   "posto_valor": 8,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 14200000.0,
+   "rodadas_no_g4": 8
+  },
+  {
+   "temporada": 2023,
+   "clube": "Vitória",
+   "posto_valor": 9,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 14025000.0,
+   "rodadas_no_g4": 36
+  },
+  {
+   "temporada": 2023,
+   "clube": "Novorizontino",
+   "posto_valor": 10,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 13900000.0,
+   "rodadas_no_g4": 19
+  },
+  {
+   "temporada": 2023,
+   "clube": "CRB",
+   "posto_valor": 11,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 13900000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Criciúma",
+   "posto_valor": 12,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 10900000.0,
+   "rodadas_no_g4": 19
+  },
+  {
+   "temporada": 2023,
+   "clube": "Ponte Preta",
+   "posto_valor": 13,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 10675000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Vila Nova",
+   "posto_valor": 14,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 10475000.0,
+   "rodadas_no_g4": 21
+  },
+  {
+   "temporada": 2023,
+   "clube": "ABC",
+   "posto_valor": 15,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 9400000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Botafogo-SP",
+   "posto_valor": 16,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 8600000.0,
+   "rodadas_no_g4": 2
+  },
+  {
+   "temporada": 2023,
+   "clube": "Sampaio Corrêa",
+   "posto_valor": 17,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 8500000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Londrina",
+   "posto_valor": 18,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 7700000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Tombense",
+   "posto_valor": 19,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 6950000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2023,
+   "clube": "Ituano",
+   "posto_valor": 20,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 6225000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2024,
+   "clube": "Santos",
+   "posto_valor": 1,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 64075000.0,
+   "rodadas_no_g4": 34
+  },
+  {
+   "temporada": 2024,
+   "clube": "Coritiba",
+   "posto_valor": 2,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 32050000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Goiás",
+   "posto_valor": 3,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 28750000.0,
+   "rodadas_no_g4": 8
+  },
+  {
+   "temporada": 2024,
+   "clube": "Ceará",
+   "posto_valor": 4,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 24725000.0,
+   "rodadas_no_g4": 3
+  },
+  {
+   "temporada": 2024,
+   "clube": "América-MG",
+   "posto_valor": 5,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 23325000.0,
+   "rodadas_no_g4": 14
+  },
+  {
+   "temporada": 2024,
+   "clube": "Sport",
+   "posto_valor": 6,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 20975000.0,
+   "rodadas_no_g4": 30
+  },
+  {
+   "temporada": 2024,
+   "clube": "Guarani",
+   "posto_valor": 7,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 20600000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Avaí",
+   "posto_valor": 8,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 19000000.0,
+   "rodadas_no_g4": 6
+  },
+  {
+   "temporada": 2024,
+   "clube": "Mirassol",
+   "posto_valor": 9,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 16975000.0,
+   "rodadas_no_g4": 21
+  },
+  {
+   "temporada": 2024,
+   "clube": "Paysandu",
+   "posto_valor": 10,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 13825000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "CRB",
+   "posto_valor": 11,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 13675000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Operário-PR",
+   "posto_valor": 12,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 12450000.0,
+   "rodadas_no_g4": 3
+  },
+  {
+   "temporada": 2024,
+   "clube": "Vila Nova",
+   "posto_valor": 13,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 12075000.0,
+   "rodadas_no_g4": 9
+  },
+  {
+   "temporada": 2024,
+   "clube": "Chapecoense",
+   "posto_valor": 14,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 11425000.0,
+   "rodadas_no_g4": 3
+  },
+  {
+   "temporada": 2024,
+   "clube": "Ituano",
+   "posto_valor": 15,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 11350000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Novorizontino",
+   "posto_valor": 16,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 11000000.0,
+   "rodadas_no_g4": 20
+  },
+  {
+   "temporada": 2024,
+   "clube": "Amazonas",
+   "posto_valor": 17,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 9675000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Botafogo-SP",
+   "posto_valor": 18,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 9525000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Ponte Preta",
+   "posto_valor": 19,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 7875000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2024,
+   "clube": "Brusque",
+   "posto_valor": 20,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 7500000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2025,
+   "clube": "Athletico-PR",
+   "posto_valor": 1,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 50500000.0,
+   "rodadas_no_g4": 9
+  },
+  {
+   "temporada": 2025,
+   "clube": "Atlético-GO",
+   "posto_valor": 2,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 28675000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2025,
+   "clube": "Remo",
+   "posto_valor": 3,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 27650000.0,
+   "rodadas_no_g4": 9
+  },
+  {
+   "temporada": 2025,
+   "clube": "Coritiba",
+   "posto_valor": 4,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 23500000.0,
+   "rodadas_no_g4": 33
+  },
+  {
+   "temporada": 2025,
+   "clube": "América-MG",
+   "posto_valor": 5,
+   "faixa_valor": "top5",
+   "tm_valor_total_eur": 23150000.0,
+   "rodadas_no_g4": 2
+  },
+  {
+   "temporada": 2025,
+   "clube": "Cuiabá",
+   "posto_valor": 6,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 21900000.0,
+   "rodadas_no_g4": 6
+  },
+  {
+   "temporada": 2025,
+   "clube": "CRB",
+   "posto_valor": 7,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 20200000.0,
+   "rodadas_no_g4": 6
+  },
+  {
+   "temporada": 2025,
+   "clube": "Criciúma",
+   "posto_valor": 8,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 19725000.0,
+   "rodadas_no_g4": 12
+  },
+  {
+   "temporada": 2025,
+   "clube": "Operário-PR",
+   "posto_valor": 9,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 19100000.0,
+   "rodadas_no_g4": 1
+  },
+  {
+   "temporada": 2025,
+   "clube": "Goiás",
+   "posto_valor": 10,
+   "faixa_valor": "meio",
+   "tm_valor_total_eur": 18250000.0,
+   "rodadas_no_g4": 31
+  },
+  {
+   "temporada": 2025,
+   "clube": "Athletic",
+   "posto_valor": 11,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 17710000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2025,
+   "clube": "Amazonas",
+   "posto_valor": 12,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 15970000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2025,
+   "clube": "Paysandu",
+   "posto_valor": 13,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 14100000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2025,
+   "clube": "Novorizontino",
+   "posto_valor": 14,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 13375000.0,
+   "rodadas_no_g4": 16
+  },
+  {
+   "temporada": 2025,
+   "clube": "Avaí",
+   "posto_valor": 15,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 13200000.0,
+   "rodadas_no_g4": 5
+  },
+  {
+   "temporada": 2025,
+   "clube": "Vila Nova",
+   "posto_valor": 16,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 11175000.0,
+   "rodadas_no_g4": 5
+  },
+  {
+   "temporada": 2025,
+   "clube": "Botafogo-SP",
+   "posto_valor": 17,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 10125000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2025,
+   "clube": "Chapecoense",
+   "posto_valor": 18,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 10000000.0,
+   "rodadas_no_g4": 16
+  },
+  {
+   "temporada": 2025,
+   "clube": "Ferroviária",
+   "posto_valor": 19,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 6650000.0,
+   "rodadas_no_g4": 0
+  },
+  {
+   "temporada": 2025,
+   "clube": "Volta Redonda",
+   "posto_valor": 20,
+   "faixa_valor": "baixo",
+   "tm_valor_total_eur": 5275000.0,
+   "rodadas_no_g4": 0
+  }
+ ]
+}

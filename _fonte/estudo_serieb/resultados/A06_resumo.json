@@ -1,0 +1,81 @@
+{
+ "porta_temporal": {
+  "ppda": {
+   "rho": 0.571,
+   "p": 0.0,
+   "n": 80,
+   "ic": [
+    0.4,
+    0.7
+   ],
+   "se_repete": true
+  },
+  "recuperacoes": {
+   "rho": 0.488,
+   "p": 0.0,
+   "n": 80,
+   "ic": [
+    0.3,
+    0.64
+   ],
+   "se_repete": true
+  },
+  "duelos_def_pct": {
+   "rho": 0.319,
+   "p": 0.00389,
+   "n": 80,
+   "ic": [
+    0.11,
+    0.5
+   ],
+   "se_repete": true
+  },
+  "duelos_aereos_pct": {
+   "rho": 0.34,
+   "p": 0.00203,
+   "n": 80,
+   "ic": [
+    0.13,
+    0.52
+   ],
+   "se_repete": true
+  },
+  "posse": {
+   "rho": 0.679,
+   "p": 0.0,
+   "n": 80,
+   "ic": [
+    0.54,
+    0.78
+   ],
+   "se_repete": true
+  },
+  "intensidade": {
+   "rho": 0.56,
+   "p": 0.0,
+   "n": 80,
+   "ic": [
+    0.39,
+    0.69
+   ],
+   "se_repete": true
+  }
+ },
+ "ppda_x_valor_elenco": {
+  "rho": -0.536,
+  "p": 0.0,
+  "n": 80,
+  "convencao": "percentil alto de PPDA = MENOS pressão; rho positivo = elenco caro pressiona alto"
+ },
+ "poder_por_desenho": {
+  "16x48": 0.82,
+  "8x32": 1.14,
+  "16x16": 1.02,
+  "8x7": 1.57
+ },
+ "n": {
+  "total": 80,
+  "sobe_sem_fronteira": 8,
+  "meio_sem_fronteira": 32
+ }
+}

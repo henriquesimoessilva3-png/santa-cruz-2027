@@ -1,0 +1,55 @@
+{
+ "parte": "A07",
+ "pergunta": "Quem sobe corre mais no total ou corre mais forte? A diferença está com bola ou sem bola?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada", "n_esperado": 80},
+ "comparacoes": [{"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
+                 {"id": "ST", "nome": "Sobe × Trave", "papel": "secundária"},
+                 {"id": "CM", "nome": "Cai × Meio", "papel": "secundária"}],
+ "repetir_sem_fronteira": true,
+ "regra_da_fronteira": "Firme = firme NOS DOIS cortes (_metodo_fronteira.md).",
+
+ "cobertura": {
+  "exigida_pelo_claude_md": "Antes de usar, informe a cobertura por temporada e por time. Não impute valores; time-temporada com cobertura baixa é sinalizado e rodado com e sem.",
+  "medida_em_17_09": "Completa no recorte: 20 de 20 clubes com dado físico em 2022, 2023, 2024 e 2025, inclusive as colunas com e sem posse (tip/otip) e o PSV-99. Os minutos rastreados por clube-temporada vão de 23.307 a 31.593, todos acima de 78% da mediana do próprio ano — nenhum clube-temporada tem cobertura baixa de verdade.",
+  "atletas_rastreados": "De 16 a 31 por clube-temporada (mediana 22). Isso não é falha de cobertura: é rodízio de elenco. Entra como descritor declarado (fis_atletas), para a leitura poder checar se o físico anda com o tamanho do rodízio.",
+  "fora_do_recorte": "2026 tem cobertura menor (mediana de 18 atletas e 20.376 minutos, temporada em curso) e está fora desta parte."
+ },
+
+ "familias": [
+  {"id": "volume", "nome": "Corre mais no total?", "indicadores": [
+   {"id": "fis_distance_p90", "nome": "Distância por 90 min (m)", "sinal": 1},
+   {"id": "fis_running_distance_p90", "nome": "Distância em corrida por 90 (m)", "sinal": 1},
+   {"id": "fis_m_per_min", "nome": "Metros por minuto", "sinal": 1}
+  ]},
+  {"id": "intensidade", "nome": "Corre mais forte?", "indicadores": [
+   {"id": "fis_hi_distance_p90", "nome": "Distância em alta intensidade por 90 (m)", "sinal": 1},
+   {"id": "fis_sprint_distance_p90", "nome": "Distância em sprint por 90 (m)", "sinal": 1},
+   {"id": "fis_sprint_count_p90", "nome": "Número de sprints por 90", "sinal": 1},
+   {"id": "fis_high_accel_p90", "nome": "Acelerações fortes por 90", "sinal": 1},
+   {"id": "fis_psv99_top5", "nome": "PSV-99 dos 5 mais rápidos (km/h)", "sinal": 1}
+  ]},
+  {"id": "com_sem_bola", "nome": "Com bola ou sem bola?", "indicadores": [
+   {"id": "fis_m_per_min_tip", "nome": "Metros por minuto COM posse", "sinal": 1},
+   {"id": "fis_m_per_min_otip", "nome": "Metros por minuto SEM posse", "sinal": 1},
+   {"id": "fis_sprint_distance_p30tip", "nome": "Sprint por 30 min COM posse (m)", "sinal": 1},
+   {"id": "fis_sprint_distance_p30otip", "nome": "Sprint por 30 min SEM posse (m)", "sinal": 1}
+  ]},
+  {"id": "descritor", "nome": "Descritor de rodízio (não é conclusão)", "indicadores": [
+   {"id": "fis_atletas", "nome": "Atletas rastreados na temporada", "sinal": 1}
+  ]}
+ ],
+
+ "rodizio": {
+  "o_que_o_claude_md_pede": "'Descontar o rodízio como na especificação.'",
+  "situacao": "O desconto que existia juntava dinheiro e rodízio, e a rodada de 15/09 tirou o dinheiro dos critérios — sobrou um desconto que não é mais o que a especificação descreve. Não existe hoje uma versão só-rodízio dos indicadores físicos. Em vez de inventar um desconto novo depois de ver o resultado, o rodízio entra como DESCRITOR declarado (fis_atletas, família própria, fora das conclusões) e a leitura verifica se o físico anda com ele.",
+  "se_andar": "Se fis_atletas separar as faixas junto com os indicadores físicos, a conclusão física sai com a ressalva de que pode ser efeito do rodízio, sem desconto — no mesmo molde da ressalva do valor do elenco decidida em 15/09."
+ },
+
+ "ressalvas_declaradas": [
+  "Velocidade máxima: a coluna de peak_velocity tem cobertura zero em 2022, 2023 e 2024 (achado do A02). O que cobre a janela inteira é o PSV-99, e é ele que entra.",
+  "Correr muda com o placar: um time que está atrás corre mais. A base não permite recorte por estado do jogo — conclusão sai marcada com 'pode ser efeito do placar'.",
+  "As métricas por 30 min de posse (p30tip/p30otip) já normalizam pelo tempo com e sem bola, o que é justamente o ajuste que a comparação com/sem bola exige."
+ ]
+}

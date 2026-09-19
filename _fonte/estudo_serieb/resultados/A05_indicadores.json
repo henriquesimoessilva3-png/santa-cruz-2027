@@ -1,0 +1,39 @@
+{
+ "parte": "A05",
+ "pergunta": "Existe estilo com bola que separa Sobe de Meio, ou há times subindo com estilos opostos?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada", "n_esperado": 80},
+ "comparacoes": [{"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
+                 {"id": "ST", "nome": "Sobe × Trave", "papel": "secundária"},
+                 {"id": "CM", "nome": "Cai × Meio", "papel": "secundária"}],
+ "repetir_sem_fronteira": true,
+ "regra_da_fronteira": "Firme = firme NOS DOIS cortes (_metodo_fronteira.md).",
+
+ "o_que_nao_se_refaz": "A §7.1 da ESPECIFICACAO.md já testou agrupamento de times por estilo contra o nulo de mesma covariância e a decisão é ZERO GRUPOS (silhueta observada dentro do nulo, p de 0,20 a 0,96). O CLAUDE.md do estudo proíbe refazer clusters ou escolher número de grupos. Esta parte NÃO agrupa: responde 'há times subindo com estilos opostos?' pela DISPERSÃO dentro da faixa e pelos 16 promovidos um a um na régua, como o md manda.",
+
+ "familias": [
+  {"id": "construcao", "nome": "Como o time constrói (régua A)", "indicadores": [
+   {"id": "posse", "nome": "Posse, %", "sinal": 1},
+   {"id": "passes", "nome": "Passes por jogo", "sinal": 1},
+   {"id": "passes_pct", "nome": "Passes certos, %", "sinal": 1},
+   {"id": "passe_longo_pct", "nome": "Passes longos, % do total", "sinal": -1},
+   {"id": "compr_passe", "nome": "Comprimento médio do passe (m)", "sinal": -1}
+  ]},
+  {"id": "progressao", "nome": "Como o time chega à frente", "indicadores": [
+   {"id": "passes_frente_pct", "nome": "Passes para frente, %", "sinal": 1},
+   {"id": "passes_progressivos", "nome": "Passes progressivos por jogo", "sinal": 1},
+   {"id": "passes_terco_final", "nome": "Passes no terço final por jogo", "sinal": 1},
+   {"id": "atq_posicional", "nome": "Ataques posicionais por jogo", "sinal": 1},
+   {"id": "contra_ataques", "nome": "Contra-ataques por jogo", "sinal": 1}
+  ]}
+ ],
+
+ "nota_sobre_sinal": "A régua A trata posse alta e passe curto como 'melhor'. Isso é convenção da régua, não juízo: o md diz que métricas de ESTILO entram sem inversão. Os sinais aqui servem só para orientar o d; a leitura da conclusão não trata posse alta como virtude.",
+
+ "ressalvas_declaradas": [
+  "A seção Placar do CLAUDE.md nomeia explicitamente posse e volume de passes como coisas que mudam com o resultado. A base não permite recorte por estado do jogo. TODA conclusão desta parte sai marcada com 'pode ser efeito do placar' — é a parte mais exposta a isso de todo o Bloco A.",
+  "A Protótipo mediu a confiabilidade split-half destes indicadores: Passes 0,78 · Passes certos % 0,78 · Passes frente 0,73 · Passes longos 0,70 · Posse 0,69. Todos acima do corte de 0,40, então nenhum entra hachurado.",
+  "PPDA e posse andam com o valor do elenco (A06 mediu rho −0,536 para PPDA). Vale a ressalva de 15/09, sem desconto."
+ ]
+}

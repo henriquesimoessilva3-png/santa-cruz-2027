@@ -1,0 +1,382 @@
+{
+ "parte": "T01",
+ "gerado_em": "2026-09-19",
+ "o_que_e": "Valores dos {marcadores} que o texto novo de _proposta_destino.json (propostas.T01) pede. So numero: nenhum destino, texto, manchete, premissa ou nivel de confianca foi decidido ou alterado aqui, e nenhum arquivo da parte (T01.json, T01.md, T01_rodada_treinador.csv, base_passagens*.csv, scripts/T01*.py, _registro.md) foi tocado. Este e o unico arquivo escrito.",
+ "o_que_mudou_na_base": "Todos os numeros de contagem de T01 sao refeitos com a TEMPORADA CORRIGIDA: os blocos de meses com jogo de scripts/A01.py:blocos_de_temporada, em vez do d.year que scripts/T01_rodadas.py usa hoje. O d.year parte a Serie B de 2020 (agosto/2020 a janeiro/2021) em dois anos: 2021 aparece com 28 clubes e as passagens que atravessam a virada sao contadas duas vezes. A atribuicao de dono por jogo NAO muda (e por data), so o agrupamento.",
+ "como_foi_conferido": [
+  "primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original.",
+  "segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+  "Prova de que a reimplementacao e fiel: rodada em modo d.year ela devolve 506 passagens-temporada, 188 clube-temporadas, 273 com 10+ rodadas, 159 de cobertura exata, 6.546 rodadas com dono, 283 de interino, 193 treinadores, 51 clubes e 29 com 3+ clubes — os nove valores de T01.json de hoje, celula a celula."
+ ],
+ "regras_seguidas": [
+  "Unidade de jogo: todos os numeros sao contagens (clube-temporadas, rodadas, treinadores, clubes). Nenhum percentil, d, q ou p.",
+  "Arredondado, nunca truncado: 2,3188 -> 2,32; 1,3188 -> 1,3; 41,9 -> 42; 24,4 -> 24.",
+  "valor e NUMERO no JSON; 'formatado' traz a versao pt-BR (milhar com ponto, decimal com virgula) pronta para a tela; quem decide o formato final e o gerador.",
+  "Marcador que junta varios valores numa frase vai como string ja montada, marcado com tipo = 'string ja montada'.",
+  "Criterio unico declarado para tudo que envolve 'passagem que conta': 10 ou mais rodadas de Serie B no clube-temporada, interino incluido. E o criterio que produz o 29 de rodam_3_clubes, e agora vale tambem para a lista de nomes."
+ ],
+ "calculados": 39,
+ "nao_calculaveis": 0,
+ "numeros": {
+  "clube_temporadas_fechadas": {
+   "conclusao": "T01-1",
+   "valor": 160,
+   "formatado": "160",
+   "de_onde": "T01_rodada_treinador.csv + dados/serieb_jogos.csv e serieb_jogos_2018_2021.csv (Competição = 'Brazil. Serie B'): clube-temporadas distintos (clube_wyscout, temporada) com temporada <= 2025, temporada dada pelos blocos de meses com jogo (A01.py:blocos_de_temporada) e nao por d.year. Sao 180 no total de 2018 a 2026, menos as 20 de 2026, que esta em curso. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "mediana_efetivos": {
+   "conclusao": "T01-1",
+   "valor": 2,
+   "formatado": "2",
+   "de_onde": "T01_rodada_treinador.csv: por clube-temporada fechada (2018-2025, n=160), numero de treinadores EFETIVOS DISTINTOS (interino = 0). Mediana = 2. Inteiro de proposito: o campo de hoje grava 2.0 e sairia '2,0 treinadores' na tela. A mediana e 2 tambem no conjunto inteiro de 180 e na temporada por d.year — nao depende da correcao. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "A media que acompanha (2,32 nas fechadas) vira o marcador media_trocas_fechadas, menos 1."
+  },
+  "media_trocas_fechadas": {
+   "conclusao": "T01-1",
+   "valor": 1.3,
+   "formatado": "1,3",
+   "de_onde": "T01_rodada_treinador.csv: media de treinadores efetivos distintos por clube-temporada fechada (2018-2025, n=160) = 2,3188, arredondado 2,32; trocas = efetivos - 1 = 1,3188 -> 1,3 (arredondado, nao truncado). Se em vez de efetivos DISTINTOS se contarem as PASSAGENS efetivas (definicao que o media_efetivos de hoje usa), da 2,3250 -> trocas 1,3 tambem: o 1,3 nao depende dessa escolha. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "termina_com_quem_comecou": {
+   "conclusao": "T01-1",
+   "valor": 40,
+   "formatado": "40",
+   "de_onde": "T01_rodada_treinador.csv: das 160 clube-temporadas fechadas (2018-2025), aquelas em que o treinador EFETIVO da primeira rodada com dono e o mesmo da ultima rodada com dono do ano (interinos ignorados nas duas pontas, porque o interino aninha dentro do efetivo). 40 de 160 = 25%, o 'um em cada quatro' do texto. Contando qualquer treinador, interino incluido, nas duas pontas, da 34 de 160. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "O 40 e a leitura do EFETIVO nas duas pontas. Se o gerador quiser a leitura crua (qualquer treinador), sao 34."
+  },
+  "rodadas_com_dono": {
+   "conclusao": "T01-1",
+   "valor": 6546,
+   "formatado": "6.546",
+   "de_onde": "T01_rodada_treinador.csv: numero de linhas do arquivo (uma por rodada de Serie B com treinador identificado), 2018-2026. Nao muda com a correcao de temporada. Substitui o nome 'rodadas_total' que existe hoje em T01.json e que engana: as rodadas JOGADAS sao 6.608. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "6.546 com dono + 62 sem dono = 6.608 jogadas. Fecha exato."
+  },
+  "clube_temporadas": {
+   "conclusao": "T01-3 (e T01-1)",
+   "valor": 180,
+   "formatado": "180",
+   "de_onde": "clube-temporadas distintos (clube_wyscout, temporada) com pelo menos um jogo de Serie B, 2018-2026, com a temporada dos blocos de meses. Os 188 de hoje vem de d.year, que parte a Serie B de 2020 (agosto/2020 a janeiro/2021) em dois anos e inventa 8 clube-temporadas em 2021. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 188, valor errado. Ver correcoes_de_numero_existente."
+  },
+  "um_efetivo_so_fechadas": {
+   "conclusao": "T01-1 (prova)",
+   "valor": 39,
+   "formatado": "39",
+   "de_onde": "T01_rodada_treinador.csv: clube-temporadas fechadas (2018-2025, n=160) com exatamente 1 treinador efetivo distinto. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "pct_um_efetivo_so_fechadas": {
+   "conclusao": "T01-1 (prova)",
+   "valor": 24,
+   "formatado": "24",
+   "de_onde": "39 de 160 = 24,4% -> 24 (arredondado). segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "tres_ou_mais_efetivos_fechadas": {
+   "conclusao": "T01-1 (prova)",
+   "valor": 67,
+   "formatado": "67",
+   "de_onde": "T01_rodada_treinador.csv: clube-temporadas fechadas (2018-2025, n=160) com 3 ou mais treinadores efetivos distintos, isto e, 2 trocas ou mais. E o numero que desmente o 'duas vezes por ano' da manchete de hoje: 67 de 160, 42%. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "pct_tres_ou_mais_efetivos_fechadas": {
+   "conclusao": "T01-1 (prova)",
+   "valor": 42,
+   "formatado": "42",
+   "de_onde": "67 de 160 = 41,9% -> 42 (arredondado, nao truncado). segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "um_efetivo_so_2026": {
+   "conclusao": "T01-1 (prova)",
+   "valor": 10,
+   "formatado": "10",
+   "de_onde": "T01_rodada_treinador.csv, temporada 2026 sozinha: 10 das 20 clube-temporadas com um efetivo so (50%), contra 20% a 35% em cada ano fechado. Por isso 2026 fica fora da conta por temporada: so 27 das 38 rodadas foram jogadas. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "faixa_pct_um_efetivo_anos_fechados": {
+   "conclusao": "T01-1 (prova)",
+   "valor": "20% a 35%",
+   "formatado": "20% a 35%",
+   "de_onde": "T01_rodada_treinador.csv, % de clube-temporadas com um efetivo so, ano a ano (temporada corrigida): 2018 25%, 2019 25%, 2020 20%, 2021 35%, 2022 25%, 2023 20%, 2024 20%, 2025 25%. Minimo 20, maximo 35. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "tipo": "string ja montada"
+  },
+  "rodadas_jogadas": {
+   "conclusao": "T01-1 e T01-2 (prova)",
+   "valor": 6608,
+   "formatado": "6.608",
+   "de_onde": "dados/serieb_jogos.csv + dados/serieb_jogos_2018_2021.csv, linhas com Competição = 'Brazil. Serie B' e Data legivel (uma linha por clube e jogo), 2018-2026. Contado direto na base, sem passar pela coleta de treinador. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "rodadas_sem_dono": {
+   "conclusao": "T01-2 e T01-3",
+   "valor": 62,
+   "formatado": "62",
+   "de_onde": "6.608 rodadas jogadas menos as 6.546 linhas de T01_rodada_treinador.csv. Sao as rodadas em que nenhuma passagem do Transfermarkt cobre a data; estao nos 29 clube-temporadas de T01_lacunas.json. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "media_efetivos_fechadas": {
+   "conclusao": "T01-1 (prova)",
+   "valor": 2.32,
+   "formatado": "2,32",
+   "de_onde": "media de treinadores efetivos distintos por clube-temporada fechada (2018-2025, n=160): 2,3188 -> 2,32. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "clubes_allan_aal": {
+   "conclusao": "T01-2",
+   "valor": 9,
+   "formatado": "9",
+   "de_onde": "T01_rodada_treinador.csv: clubes distintos em que Allan Aal teve passagem de 10+ rodadas — ABC (2023, 19), Avai (2026, 11), Botafogo-SP (2025, 22), CRB (2021, 38), Cuiaba (2020, 15), Guarani (2024, 20), Novorizontino (2022, 13), Parana (2020, 19) e Vila Nova (2022, 22). Nove, e nenhuma delas interina. CRITERIO UNICO, declarado: conta uma passagem quando ela tem 10 ou mais RODADAS de Serie B no mesmo clube-temporada, INTERINO INCLUIDO (e a regra de minimo do CLAUDE.md, e e o mesmo criterio que produz o 29). Sem o interino o total de treinadores com 3+ clubes continua 29, mas Marcelo Cabo cai de 7 para 6 clubes. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "O texto de hoje diz oito; nove e o que sai com a temporada corrigida."
+  },
+  "clubes_sete": {
+   "conclusao": "T01-2",
+   "valor": 7,
+   "formatado": "7",
+   "de_onde": "T01_rodada_treinador.csv, mesmo criterio: 7 clubes distintos para Claudinei Oliveira (Avai, Botafogo-SP, Chapecoense, Operario-PR, Paysandu, Sport, Vila Nova), Marcelo Cabo (Brusque, CRB, CSA, Chapecoense, Goias, Vasco, Vila Nova) e Mozart (CSA, Ceara, Coritiba, Cruzeiro, Goias, Guarani, Mirassol). CRITERIO UNICO, declarado: conta uma passagem quando ela tem 10 ou mais RODADAS de Serie B no mesmo clube-temporada, INTERINO INCLUIDO (e a regra de minimo do CLAUDE.md, e e o mesmo criterio que produz o 29). Sem o interino o total de treinadores com 3+ clubes continua 29, mas Marcelo Cabo cai de 7 para 6 clubes. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "Marcelo Cabo so chega a 7 contando o interinato de 19 rodadas no Goias em 2021 — sem interino ele tem 6. E dai que vem o erro do T01.json de hoje, que o lista com 6 usando um criterio diferente do que produziu o 29."
+  },
+  "clubes_seis": {
+   "conclusao": "T01-2",
+   "valor": 6,
+   "formatado": "6",
+   "de_onde": "T01_rodada_treinador.csv, mesmo criterio: 6 clubes para Daniel Paulista (CRB, Ceara, Confianca, Goias, Guarani, Remo) e para Guto Ferreira (Bahia, Ceara, Cuiaba, Remo, Sport, Vila Nova). CRITERIO UNICO, declarado: conta uma passagem quando ela tem 10 ou mais RODADAS de Serie B no mesmo clube-temporada, INTERINO INCLUIDO (e a regra de minimo do CLAUDE.md, e e o mesmo criterio que produz o 29). Sem o interino o total de treinadores com 3+ clubes continua 29, mas Marcelo Cabo cai de 7 para 6 clubes. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "Guto Ferreira esta fora da lista de cinco do T01.json de hoje por um corte nao declarado; com o criterio unico ele empata com Daniel Paulista."
+  },
+  "rodam_3_clubes_2225": {
+   "conclusao": "T01-2",
+   "valor": 14,
+   "formatado": "14",
+   "de_onde": "T01_rodada_treinador.csv, so temporadas 2022 a 2025 (a janela em que T03 tem regua tecnica e fisica): treinadores com passagem de 10+ rodadas em 3 ou mais clubes distintos. Sao 14: Alberto Valentim, Allan Aal, Bruno Pivetti, Claudinei Oliveira, Eduardo Barroca, Enderson Moreira, Gilmar Dal Pozzo, Guto Ferreira, Helio dos Anjos, Leo Conde, Mozart, Marcio Zanardi, Rafael Lacerda e Umberto Louzer. CRITERIO UNICO, declarado: conta uma passagem quando ela tem 10 ou mais RODADAS de Serie B no mesmo clube-temporada, INTERINO INCLUIDO (e a regra de minimo do CLAUDE.md, e e o mesmo criterio que produz o 29). Sem o interino o total de treinadores com 3+ clubes continua 29, mas Marcelo Cabo cai de 7 para 6 clubes. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "rodam_3_clubes_2226": {
+   "conclusao": "T01-2 (prova)",
+   "valor": 15,
+   "formatado": "15",
+   "de_onde": "Mesma conta com a janela 2022-2026 (2026 em curso incluida): 15. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "treinadores_com_10": {
+   "conclusao": "T01-2",
+   "valor": 113,
+   "formatado": "113",
+   "de_onde": "T01_rodada_treinador.csv: treinadores distintos com pelo menos UMA passagem-temporada de 10 rodadas ou mais, 2018-2026, temporada corrigida. CRITERIO UNICO, declarado: conta uma passagem quando ela tem 10 ou mais RODADAS de Serie B no mesmo clube-temporada, INTERINO INCLUIDO (e a regra de minimo do CLAUDE.md, e e o mesmo criterio que produz o 29). Sem o interino o total de treinadores com 3+ clubes continua 29, mas Marcelo Cabo cai de 7 para 6 clubes. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "com_10_rodadas": {
+   "conclusao": "T01-2 e T01-3 (prova)",
+   "valor": 278,
+   "formatado": "278",
+   "de_onde": "T01_rodada_treinador.csv: passagens-temporada com 10 rodadas ou mais, de 492. Com a temporada por d.year dava 273. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 273, valor errado. Ver correcoes_de_numero_existente."
+  },
+  "etapa15_min": {
+   "conclusao": "T01-3",
+   "valor": 250,
+   "formatado": "250",
+   "de_onde": "dados/prototipo.json, chave etapa_15.coleta_que_resolveria.passagens_estimadas = [250, 400]: primeiro elemento. Hoje o '250 a 400' esta digitado a mao no texto e o campo etapa15_estimativa de T01.json nao e usado por marcador nenhum.",
+   "conferido": true
+  },
+  "etapa15_max": {
+   "conclusao": "T01-3",
+   "valor": 400,
+   "formatado": "400",
+   "de_onde": "dados/prototipo.json, etapa_15.coleta_que_resolveria.passagens_estimadas = [250, 400]: segundo elemento.",
+   "conferido": true
+  },
+  "etapa15_clube_temporadas": {
+   "conclusao": "T01-3",
+   "valor": 100,
+   "formatado": "100",
+   "de_onde": "dados/prototipo.json, etapa_15.coleta_que_resolveria.clube_temporada = 100. E a janela 2022-2026 da Prototipo: 5 temporadas x 20 clubes. Confere com a base do estudo, que tem exatamente 100 clube-temporadas de 2022 a 2026.",
+   "conferido": true
+  },
+  "passagens_2226": {
+   "conclusao": "T01-3",
+   "valor": 276,
+   "formatado": "276",
+   "de_onde": "T01_rodada_treinador.csv: passagens-temporada distintas (clube, treinador, inicio, fim, temporada) nas temporadas 2022 a 2026 — a MESMA janela da estimativa da etapa 15 (100 clube-temporadas). E este 276 que se compara com os 250 a 400 estimados, nao o 492 dos nove anos. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true
+  },
+  "passagens_temporada": {
+   "conclusao": "T01-3",
+   "valor": 492,
+   "formatado": "492",
+   "de_onde": "T01_rodada_treinador.csv: passagens-temporada distintas (clube_wyscout, treinador, inicio, fim, temporada), 2018-2026, com a temporada dos blocos de meses. Os 506 de hoje vem de d.year, que parte a Serie B 2020 na virada do ano e conta duas vezes as passagens que atravessam dezembro/janeiro. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 506, valor errado. Confirmado 492 — e NAO os 497 que o auditor propos. Ver correcoes_de_numero_existente."
+  },
+  "temporadas": {
+   "conclusao": "T01-3",
+   "valor": 9,
+   "formatado": "9",
+   "de_onde": "T01_rodada_treinador.csv: temporadas distintas, 2018 a 2026. Nao muda com a correcao (os blocos so movem jogos entre anos vizinhos, nao criam nem apagam temporada). segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 9 e esta certo."
+  },
+  "sofa_10": {
+   "conclusao": "T01-3",
+   "valor": 157,
+   "formatado": "157",
+   "de_onde": "dados/bola_parada.json (fonte Sofascore, gerado em 14/09/2026), lista 'trabalhos': entradas com comp comecando em 'Série B' e jogos >= 10. Sao 157 de 280 passagens de Serie B (e de 528 no arquivo inteiro), temporadas 2022 a 2026. Segundo caminho: o mesmo filtro com corte >= 5 da 204 e sem corte da 280 — a escada bate.",
+   "conferido": true
+  },
+  "sofa_batem": {
+   "conclusao": "T01-3",
+   "valor": 150,
+   "formatado": "150",
+   "de_onde": "Cruzamento de dados/bola_parada.json (Sofascore) com T01_rodada_treinador.csv. REGRA DECLARADA, em duas partes. (1) Ponte de clube Sofascore->Wyscout: token em comum depois de tirar as particulas de razao social, MAIS os anos de Serie B do clube no Sofascore contidos nos anos do clube no Wyscout — o teste dos anos e o que separa 'Grêmio Novorizontino' de 'Grêmio' e 'Clube De Regatas Brasil' de 'Brasil de Pelotas'; 'Clube De Regatas Brasil' -> CRB e o unico par sem token em comum e entra como alias declarado, conferido pelos anos. Fecha 42 de 42 clubes. (2) Nome do treinador: os tokens de um nome contidos nos do outro, sem acento e sem as particulas de/da/do/dos. Resultado: 150 das 157 batem no mesmo clube e no mesmo ano.",
+   "conferido": true,
+   "nota": "ATENCAO, DIVERGE DA PROPOSTA. A proposta escreveu sofa_batem = 143 (e 144 com ponte propria); nao consegui reproduzir nenhum dos dois. Com a regra acima da 150; so com nome IDENTICO da 128; com 'primeiro e ultimo sobrenome iguais' da 137. O sofa_10 = 157 reproduz exato nas tres. A diferenca esta so na regra de nome, nao na base. Alem disso: o texto novo diz que as que nao batem 'sao apelido do mesmo homem', e isso vale para 5 das 7, nao para todas — ver sofa_nao_batem_lista. Quem decide o texto tem de olhar isso."
+  },
+  "sofa_nao_batem": {
+   "conclusao": "T01-3 (prova)",
+   "valor": 7,
+   "formatado": "7",
+   "de_onde": "157 - 150. Conferi as 7 uma a uma (e essa conferencia exaustiva do complemento e o segundo caminho do 150).",
+   "conferido": true
+  },
+  "sofa_nao_batem_lista": {
+   "conclusao": "T01-3 (prova)",
+   "valor": "Alex/Alexsandro de Souza (Operário-PR 2025 e Athletic 2026), Marcinho/Márcio Freitas (Ituano 2023), Renato Gaúcho/Renato Portaluppi (Grêmio 2022), William Batista/William Almeida (América-MG 2025), Claudinei Oliveira na Ferroviária de 2025 (10 jogos no Sofascore, ausente da coleta) e Fábio Matias no CRB de 2026 (11 jogos no Sofascore, ausente da coleta)",
+   "formatado": "Alex/Alexsandro de Souza (Operário-PR 2025 e Athletic 2026), Marcinho/Márcio Freitas (Ituano 2023), Renato Gaúcho/Renato Portaluppi (Grêmio 2022), William Batista/William Almeida (América-MG 2025), Claudinei Oliveira na Ferroviária de 2025 (10 jogos no Sofascore, ausente da coleta) e Fábio Matias no CRB de 2026 (11 jogos no Sofascore, ausente da coleta)",
+   "de_onde": "As 7 passagens do Sofascore com 10+ jogos que nao acharam par em T01_rodada_treinador.csv. As 5 primeiras sao o mesmo homem com outro nome; as 2 ultimas (Ferroviária 2025 e CRB 2026) sao divergencia de verdade entre as fontes — sao clube-temporadas que estao entre os 29 buracos de T01_lacunas.json.",
+   "conferido": true,
+   "tipo": "string ja montada"
+  },
+  "marcinho_rodadas": {
+   "conclusao": "T01-3",
+   "valor": 30,
+   "formatado": "30",
+   "de_onde": "Ituano 2023: T01_rodada_treinador.csv da 30 rodadas para 'Marcinho'; dados/bola_parada.json (Sofascore) da 30 jogos de Serie B para 'Marcio Freitas' no mesmo clube e ano. Os dois lados batem no 30.",
+   "conferido": true
+  },
+  "alex_rodadas": {
+   "conclusao": "T01-3 (prova)",
+   "valor": 26,
+   "formatado": "26",
+   "de_onde": "Operário-PR 2025: T01_rodada_treinador.csv da 26 rodadas para 'Alex'; dados/bola_parada.json da 26 jogos para 'Alexsandro de Souza'. Os dois lados batem no 26. O segundo caso de apelido que a proposta manda guardar.",
+   "conferido": true
+  },
+  "cobertura_exata": {
+   "conclusao": "T01-3 (prova)",
+   "valor": 151,
+   "formatado": "151",
+   "de_onde": "Das 180 clube-temporadas, aquelas em que a soma das rodadas com dono da exatamente as rodadas jogadas naquele clube-temporada. 151 exatas, 29 com buraco, 0 com sobra. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 159, valor errado. Ver correcoes_de_numero_existente."
+  },
+  "cobertura_buraco": {
+   "conclusao": "T01-3",
+   "valor": 29,
+   "formatado": "29",
+   "de_onde": "Clube-temporadas em que a soma das rodadas com dono e MENOR que as rodadas jogadas. Sao 29 com a temporada por d.year e 29 tambem com a temporada corrigida. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 29 e esta certo."
+  },
+  "rodadas_interino": {
+   "conclusao": "T01-1",
+   "valor": 283,
+   "formatado": "283",
+   "de_onde": "T01_rodada_treinador.csv, linhas com interino = 1. Nao muda com a correcao de temporada. 283 de 6.546 = 4,3%. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 283 e esta certo. O que estava errado era o nome do denominador, nao este numero."
+  },
+  "treinadores": {
+   "conclusao": "T01-2",
+   "valor": 193,
+   "formatado": "193",
+   "de_onde": "T01_rodada_treinador.csv: treinadores distintos, 2018-2026. Nao muda com a correcao de temporada. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 193 e esta certo."
+  },
+  "rodam_3_clubes": {
+   "conclusao": "T01-2",
+   "valor": 29,
+   "formatado": "29",
+   "de_onde": "T01_rodada_treinador.csv: treinadores com passagem de 10+ rodadas em 3 ou mais clubes distintos, 2018-2026. CRITERIO UNICO, declarado: conta uma passagem quando ela tem 10 ou mais RODADAS de Serie B no mesmo clube-temporada, INTERINO INCLUIDO (e a regra de minimo do CLAUDE.md, e e o mesmo criterio que produz o 29). Sem o interino o total de treinadores com 3+ clubes continua 29, mas Marcelo Cabo cai de 7 para 6 clubes. Refeito com a temporada corrigida da 29, e da 29 tambem sem interino — o numero e piso, porque as 62 rodadas sem dono so podem somar clubes. primeiro caminho: refiz o passo 2 inteiro (scripts/T01_rodadas.py reimplementado em /tmp, so leitura) trocando a temporada de d.year pelos BLOCOS DE MESES COM JOGO de scripts/A01.py:blocos_de_temporada. Rodando em modo d.year o mesmo codigo devolve 506/188/273/159, exatamente os numeros de hoje de T01.json — a reimplementacao esta conferida contra o original. segundo caminho: sem re-derivar nada. Li resultados/T01_rodada_treinador.csv (6.546 linhas, a atribuicao de dono por jogo, que NAO muda com a correcao porque e por data) e so reagrupei a temporada pelos blocos de meses, recontando. Bate numero a numero com o primeiro caminho.",
+   "conferido": true,
+   "nota": "JA EXISTE em T01.json com 29 e esta certo — o que muda e a lista de nomes por tras dele."
+  }
+ },
+ "bloqueados": [],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "clube_temporadas",
+   "esta": "188",
+   "deveria": "180",
+   "evidencia": "Com a temporada por d.year a Serie B de 2020 (agosto/2020 a janeiro/2021) e partida em dois anos e 2021 aparece com 28 clubes. Pelos blocos de meses com jogo (A01.py:blocos_de_temporada) sao 20 por ano em todos os nove anos: 180. A mesma contagem feita direto em dados/serieb_jogos.csv, sem passar pela coleta de treinador, tambem da 180 clube-temporadas com jogo."
+  },
+  {
+   "marcador": "passagens_temporada",
+   "esta": "506",
+   "deveria": "492",
+   "evidencia": "Passagens que atravessam a virada do ano viram duas linhas por d.year; pelos blocos de meses viram uma so quando a virada esta dentro da mesma edicao. Reagrupando as 6.546 linhas de T01_rodada_treinador.csv por (clube, treinador, inicio, fim, temporada-bloco) saem 492. Rodando o mesmo codigo em modo d.year saem 506, identico ao valor de hoje — a diferenca e so a regra de temporada."
+  },
+  {
+   "marcador": "com_10_rodadas",
+   "esta": "273",
+   "deveria": "278",
+   "evidencia": "Passagens-temporada com 10+ rodadas, sobre as 492. Sobe porque passagens que d.year partia em duas (uma de 6 e outra de 7 rodadas, por exemplo) voltam a ser uma so e cruzam o corte de 10."
+  },
+  {
+   "marcador": "cobertura_exata",
+   "esta": "159",
+   "deveria": "151",
+   "evidencia": "151 de 180 clube-temporadas fecham a conta exata (29 com buraco, 0 com sobra). Os 159 de hoje sao sobre as 188 falsas clube-temporadas de d.year. A proporcao piora pouco: 84% contra 85%."
+  },
+  {
+   "marcador": "um_efetivo_so",
+   "esta": "54 (de 188), com pct_um_efetivo_so = 29",
+   "deveria": "49 (de 180), pct 27 — na mesma definicao de hoje (todas as temporadas). O texto novo usa o recorte das fechadas: 39 de 160, pct 24.",
+   "evidencia": "T01_rodada_treinador.csv reagrupado: clube-temporadas com 1 treinador efetivo distinto. Todas as temporadas: 49 de 180 (27%). So as fechadas de 2018 a 2025: 39 de 160 (24%). Os 54 de 188 saem do artefato de d.year, que cria clube-temporadas curtas de 2021 com um treinador so."
+  },
+  {
+   "marcador": "media_efetivos",
+   "esta": "2.23",
+   "deveria": "2,26 na mesma definicao; 2,25 contando efetivos distintos",
+   "evidencia": "O 2,23 de hoje e a media de PASSAGENS efetivas por clube-temporada com d.year (2,2287). Com a temporada corrigida, mesma definicao, da 2,2556 -> 2,26; contando treinadores efetivos DISTINTOS da 2,2500 -> 2,25. Nas 160 fechadas, que e o que o texto novo usa, da 2,3188 -> 2,32."
+  },
+  {
+   "marcador": "mediana_efetivos",
+   "esta": "2.0 (grava como decimal)",
+   "deveria": "2 (inteiro)",
+   "evidencia": "O valor 2 esta certo em qualquer recorte, mas gravado como 2.0 o gerador manda '2,0 treinadores' para a tela. Defeito de formato, nao de conta."
+  },
+  {
+   "marcador": "rodadas_total",
+   "esta": "6546, usado no texto como 'das 6.546 rodadas'",
+   "deveria": "o valor 6.546 esta certo, o NOME e o que engana: sao as rodadas COM DONO. As rodadas jogadas sao 6.608.",
+   "evidencia": "dados/serieb_jogos.csv + serieb_jogos_2018_2021.csv, Competição = 'Brazil. Serie B': 6.608 linhas clube-jogo. T01_rodada_treinador.csv tem 6.546 linhas. 6.608 - 6.546 = 62 rodadas sem treinador conhecido. O marcador novo chama-se rodadas_com_dono."
+  },
+  {
+   "marcador": "topo_clubes",
+   "esta": "Allan Aal 8, Claudinei Oliveira 7, Mozart 7, Daniel Paulista 6, Marcelo Cabo 6",
+   "deveria": "Allan Aal 9, Claudinei Oliveira 7, Marcelo Cabo 7, Mozart 7, Daniel Paulista 6, Guto Ferreira 6",
+   "evidencia": "Com a temporada corrigida e com UM criterio so (passagem de 10+ rodadas, interino incluido — o mesmo que produz o 29 de rodam_3_clubes), Allan Aal tem 9 clubes (ABC, Avai, Botafogo-SP, CRB, Cuiaba, Guarani, Novorizontino, Parana, Vila Nova) e Marcelo Cabo tem 7, porque o interinato de 19 rodadas no Goias de 2021 conta. A lista de hoje mistura dois criterios: o 29 conta interino e a lista nao. Guto Ferreira tambem tem 6 e estava fora da lista de cinco."
+  },
+  {
+   "marcador": "cobertura_sobra",
+   "esta": "0, citado no confianca_motivo como conferencia",
+   "deveria": "o 0 esta certo, mas nao e conferencia: e garantido por construcao",
+   "evidencia": "T01_rodadas.py atribui dono[clube][data] = um treinador so (regra 3, 'cada jogo tem um dono so'). Com um dono por jogo, sobra zero nao e um teste que poderia falhar. Confirmado na base: 0 clube-temporadas com sobra, nos dois modos de temporada."
+  }
+ ],
+ "avisos": [
+  "sofa_batem: a proposta escreveu 143 (e 144 com ponte propria) e nao reproduzi nenhum dos dois. Com a regra de nome declarada no campo de_onde da 150; so com nome identico da 128; com primeiro e ultimo sobrenome iguais da 137. O sofa_10 = 157 reproduz exato nas tres regras, entao a divergencia esta na regra de nome e nao na base.",
+  "O texto novo de T01-3 afirma que as passagens que nao batem 'sao apelido do mesmo homem'. Vale para 5 das 7 que sobraram. As outras duas — Claudinei Oliveira na Ferroviaria de 2025 e Fabio Matias no CRB de 2026 — estao no Sofascore e nao estao na coleta, e as duas caem em clube-temporadas que ja constam dos 29 buracos de T01_lacunas.json. E ajuste de texto, nao de numero, e nao e decisao minha.",
+  "termina_com_quem_comecou = 40 usa o treinador EFETIVO nas duas pontas. Contando qualquer treinador, interino incluido, seriam 34 de 160. O 40 e o que a proposta descreve ('o efetivo da primeira rodada com dono e o mesmo da ultima') e o que fecha o 'um em cada quatro' do texto.",
+  "Nada aqui recalcula o nivel de confianca, o destino nem o texto das tres conclusoes: elas continuam exatamente como estao em T01.json."
+ ]
+}

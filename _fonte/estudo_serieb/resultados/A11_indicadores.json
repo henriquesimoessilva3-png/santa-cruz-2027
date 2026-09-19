@@ -1,0 +1,48 @@
+{
+ "parte": "A11",
+ "pergunta": "A intensidade vira ação e resultado? O físico separa as faixas mesmo entre times com nível técnico parecido?",
+ "declarado_em": "2026-09-17",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada", "n_esperado": 80},
+
+ "forma": "Esta parte NÃO é comparação de faixas: é relação. Correlação de Spearman entre o esforço físico e a ação técnica que ele deveria produzir, e depois entre o esforço e o resultado. Tudo no POSTO dentro da temporada, como manda a normalização do estudo. BH a 5% por família.",
+
+ "a_tensao_que_motiva": "O A07 mostrou que correr não separa quem sobe — nenhum dos 13 indicadores físicos passa. Mas a §7.3 da ESPECIFICACAO.md mede a persistência ano a ano e o físico é a coisa MAIS repetível depois do valor do elenco: fis_distance_p90 e fis_m_per_min dão 0,722, contra 0,724 do tm_valor_total e 0,144 do xg. Ou seja: o físico é um traço estável do clube que não anda com o desfecho. A11 pergunta onde essa corrida vai parar.",
+
+ "familias": [
+  {"id": "sem_bola", "nome": "A corrida sem bola vira ação defensiva?", "pares": [
+   ["fis_m_per_min_otip", "ppda"], ["fis_m_per_min_otip", "recuperacoes"], ["fis_m_per_min_otip", "xg_contra"],
+   ["fis_sprint_distance_p30otip", "ppda"], ["fis_sprint_distance_p30otip", "recuperacoes"],
+   ["fis_sprint_distance_p30otip", "xg_contra"]
+  ]},
+  {"id": "com_bola", "nome": "A corrida com bola vira ação ofensiva?", "pares": [
+   ["fis_m_per_min_tip", "entradas_area"], ["fis_m_per_min_tip", "xg"],
+   ["fis_sprint_distance_p30tip", "entradas_area"], ["fis_sprint_distance_p30tip", "xg"],
+   ["fis_runs_penalty_area_p30tip", "entradas_area"], ["fis_runs_penalty_area_p30tip", "xg"]
+  ]},
+  {"id": "resultado", "nome": "E vira resultado?", "pares": [
+   ["fis_distance_p90", "dist_g4"], ["fis_hi_distance_p90", "dist_g4"],
+   ["fis_sprint_distance_p90", "dist_g4"], ["fis_m_per_min_otip", "dist_g4"],
+   ["fis_m_per_min_tip", "dist_g4"]
+  ]}
+ ],
+
+ "sinais": {
+  "ppda": -1,
+  "xg_contra": -1,
+  "nota": "PPDA baixo é mais pressão e xG sofrido baixo é melhor: nesses dois, correlação NEGATIVA com a corrida é o resultado esperado se a corrida virar ação. O sinal está declarado para a leitura não se inverter sozinha."
+ },
+
+ "estratificacao": {
+  "pergunta_que_responde": "O físico separa as faixas mesmo entre times com nível técnico parecido?",
+  "indice_tecnico": ["xg_por_remate", "dist_remate", "toques_area", "entradas_area", "xg_por_remate_contra"],
+  "como": "Média dos percentis dentro da temporada, com o sinal alinhado (dist_remate e xg_por_remate_contra invertidos). São os indicadores TÉCNICOS do A02, nenhum deles físico e nenhum na lista branca do placar. Os 80 clube-temporadas vão em três faixas do índice, e dentro de cada uma se compara Sobe × Meio no físico.",
+  "declarado_antes": true
+ },
+
+ "ressalvas_declaradas": [
+  "Correlação no mesmo ano não é causa. A §7.3 avisa e o CLAUDE.md também: 'associação no mesmo ano não é causa'. Esta parte descreve para onde a corrida vai, não prova que ela produz o efeito.",
+  "Correr muda com o placar, e a base não permite o recorte por estado do jogo. Time que está atrás corre mais E cede mais xG — isso pode criar correlação sem relação causal nenhuma.",
+  "dist_g4 é o resultado, então a família 'resultado' é relação com o placar por construção. Ela responde 'a corrida anda com o desfecho?', que é descritivo, e não sustenta característica."
+ ]
+}

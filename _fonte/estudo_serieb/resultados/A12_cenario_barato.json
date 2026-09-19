@@ -1,0 +1,25 @@
+{
+ "envelope": {
+  "ppda": [
+   10.01842105263158,
+   13.168421052631578
+  ],
+  "posse": [
+   47.42026315789474,
+   52.015263157894736
+  ],
+  "longo": [
+   10.032631578947369,
+   14.08578947368421
+  ]
+ },
+ "cabem": 22,
+ "subiram": 6,
+ "taxa_no_envelope": 27.3,
+ "taxa_liga": 20.0,
+ "cabem_fora_top8": 14,
+ "subiram_fora_top8": 4,
+ "taxa_envelope_fora_top8": 28.6,
+ "taxa_fora_top8": 8.3,
+ "n_fora_top8": 48
+}

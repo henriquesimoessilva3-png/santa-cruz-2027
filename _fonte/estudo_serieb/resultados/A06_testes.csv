@@ -1,0 +1,33 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome
+com,pressao,SM,ppda,16,48,9.687,10.128,0.152,"[-0.39, 0.73]",0.59736,0.82,0.64056,sem diferença clara,False,PPDA (passes do adversário por ação defensiva)
+com,pressao,SM,recuperacoes,16,48,78.382,77.921,-0.136,"[-0.71, 0.43]",0.64056,0.82,0.64056,sem diferença clara,False,Recuperações por jogo
+com,pressao,SM,intensidade,16,48,15.688,15.549,0.335,"[-0.22, 0.92]",0.24985,0.82,0.64056,sem diferença clara,False,Intensidade de jogo
+com,pressao,ST,ppda,16,16,9.687,9.843,-0.136,"[-0.86, 0.61]",0.70368,1.02,0.70368,sem diferença clara,False,PPDA (passes do adversário por ação defensiva)
+com,pressao,ST,recuperacoes,16,16,78.382,79.882,-0.625,"[-1.4, 0.1]",0.08721,1.02,0.26164,sem diferença clara,False,Recuperações por jogo
+com,pressao,ST,intensidade,16,16,15.688,15.524,0.254,"[-0.58, 1.17]",0.47754,1.02,0.70368,sem diferença clara,False,Intensidade de jogo
+com,duelo,SM,duelos_def_pct,16,48,60.768,59.785,0.805,"[0.18, 1.52]",0.01278,0.82,0.02556,firme,False,"Duelos defensivos ganhos, %"
+com,duelo,SM,duelos_aereos_pct,16,48,45.54,46.147,-0.051,"[-0.55, 0.46]",0.84466,0.82,0.84466,sem diferença clara,False,"Duelos aéreos ganhos, %"
+com,duelo,ST,duelos_def_pct,16,16,60.768,59.812,0.679,"[0.04, 1.6]",0.06438,1.02,0.06438,sem diferença clara,False,"Duelos defensivos ganhos, %"
+com,duelo,ST,duelos_aereos_pct,16,16,45.54,47.597,-1.048,"[-2.02, -0.4]",0.0062,1.02,0.01241,firme,True,"Duelos aéreos ganhos, %"
+com,cede_ajustado,SM,remates_contra_aj,16,48,12.52,12.228,-0.114,"[-0.75, 0.5]",0.6989,0.82,0.6989,sem diferença clara,False,Finalizações sofridas por 50% de posse do adversário
+com,cede_ajustado,SM,xg_contra_aj,16,48,1.09,1.189,0.448,"[-0.16, 1.16]",0.15307,0.82,0.22961,sem diferença clara,False,xG sofrido por 50% de posse do adversário
+com,cede_ajustado,SM,xg_por_remate_contra,16,48,0.089,0.098,0.805,"[0.28, 1.43]",0.01038,0.82,0.03113,firme,False,xG por finalização sofrida
+com,cede_ajustado,ST,remates_contra_aj,16,16,12.52,11.389,-0.575,"[-1.44, 0.13]",0.11442,1.02,0.28712,sem diferença clara,False,Finalizações sofridas por 50% de posse do adversário
+com,cede_ajustado,ST,xg_contra_aj,16,16,1.09,1.084,-0.011,"[-0.72, 0.86]",0.97647,1.02,0.97647,sem diferença clara,False,xG sofrido por 50% de posse do adversário
+com,cede_ajustado,ST,xg_por_remate_contra,16,16,0.089,0.095,0.473,"[-0.11, 1.32]",0.19142,1.02,0.28712,sem diferença clara,False,xG por finalização sofrida
+sem,pressao,SM,ppda,8,32,9.464,10.256,0.59,"[0.0, 1.24]",0.05549,1.14,0.16647,sem diferença clara,False,PPDA (passes do adversário por ação defensiva)
+sem,pressao,SM,recuperacoes,8,32,79.329,77.211,0.425,"[-0.42, 1.44]",0.32022,1.14,0.32022,sem diferença clara,False,Recuperações por jogo
+sem,pressao,SM,intensidade,8,32,15.934,15.549,0.68,"[-0.13, 1.64]",0.13378,1.14,0.20067,sem diferença clara,False,Intensidade de jogo
+sem,pressao,ST,ppda,8,7,9.464,10.173,0.599,"[-0.56, 1.94]",0.29444,1.57,0.62589,sem diferença clara,False,PPDA (passes do adversário por ação defensiva)
+sem,pressao,ST,recuperacoes,8,7,79.329,78.132,0.257,"[-0.83, 1.68]",0.62589,1.57,0.62589,sem diferença clara,False,Recuperações por jogo
+sem,pressao,ST,intensidade,8,7,15.934,15.526,0.342,"[-0.68, 1.75]",0.5203,1.57,0.62589,sem diferença clara,False,Intensidade de jogo
+sem,duelo,SM,duelos_def_pct,8,32,61.672,59.885,1.593,"[0.99, 2.37]",3e-05,1.14,6e-05,firme,True,"Duelos defensivos ganhos, %"
+sem,duelo,SM,duelos_aereos_pct,8,32,46.571,46.485,0.189,"[-0.54, 0.85]",0.58867,1.14,0.58867,sem diferença clara,False,"Duelos aéreos ganhos, %"
+sem,duelo,ST,duelos_def_pct,8,7,61.672,59.791,2.23,"[1.31, 4.6]",0.0019,1.57,0.00379,firme,True,"Duelos defensivos ganhos, %"
+sem,duelo,ST,duelos_aereos_pct,8,7,46.571,48.302,-0.738,"[-1.98, 0.22]",0.16755,1.57,0.16755,sem diferença clara,False,"Duelos aéreos ganhos, %"
+sem,cede_ajustado,SM,remates_contra_aj,8,32,12.256,12.38,0.067,"[-0.85, 0.91]",0.87052,1.14,0.87052,sem diferença clara,False,Finalizações sofridas por 50% de posse do adversário
+sem,cede_ajustado,SM,xg_contra_aj,8,32,1.037,1.2,0.945,"[0.09, 1.95]",0.04254,1.14,0.06382,pode ser sorte,False,xG sofrido por 50% de posse do adversário
+sem,cede_ajustado,SM,xg_por_remate_contra,8,32,0.086,0.1,1.303,"[0.54, 2.28]",0.00322,1.14,0.00967,firme,True,xG por finalização sofrida
+sem,cede_ajustado,ST,remates_contra_aj,8,7,12.256,11.551,-0.149,"[-1.5, 0.97]",0.77624,1.57,0.77624,sem diferença clara,False,Finalizações sofridas por 50% de posse do adversário
+sem,cede_ajustado,ST,xg_contra_aj,8,7,1.037,1.178,0.874,"[-0.21, 2.5]",0.11866,1.57,0.17799,sem diferença clara,False,xG sofrido por 50% de posse do adversário
+sem,cede_ajustado,ST,xg_por_remate_contra,8,7,0.086,0.1,1.288,"[0.24, 3.58]",0.03296,1.57,0.09889,pode ser sorte,False,xG por finalização sofrida

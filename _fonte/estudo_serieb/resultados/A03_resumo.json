@@ -1,0 +1,76 @@
+{
+ "quadro_por_faixa": {
+  "Sobe": {
+   "pj_casa": 2.132,
+   "pj_fora": 1.395,
+   "dif_pj": 0.895,
+   "xg_casa": 1.51,
+   "xg_fora": 1.045,
+   "xgc_casa": 0.798,
+   "xgc_fora": 1.288,
+   "dd_casa": 60.932,
+   "dd_fora": 60.605,
+   "dif_dd": 0.887
+  },
+  "Trave": {
+   "pj_casa": 2.026,
+   "pj_fora": 1.132,
+   "dif_pj": 0.868,
+   "xg_casa": 1.634,
+   "xg_fora": 1.103,
+   "xgc_casa": 0.947,
+   "xgc_fora": 1.272,
+   "dd_casa": 60.05,
+   "dd_fora": 59.748,
+   "dif_dd": 0.322
+  },
+  "Meio": {
+   "pj_casa": 1.811,
+   "pj_fora": 0.947,
+   "dif_pj": 0.789,
+   "xg_casa": 1.391,
+   "xg_fora": 0.996,
+   "xgc_casa": 1.024,
+   "xgc_fora": 1.364,
+   "dd_casa": 60.05,
+   "dd_fora": 59.578,
+   "dif_dd": 1.164
+  },
+  "Cai": {
+   "pj_casa": 1.263,
+   "pj_fora": 0.526,
+   "dif_pj": 0.737,
+   "xg_casa": 1.263,
+   "xg_fora": 0.951,
+   "xgc_casa": 1.07,
+   "xgc_fora": 1.557,
+   "dd_casa": 59.63,
+   "dd_fora": 59.028,
+   "dif_dd": 1.737
+  },
+  "Liga": {
+   "pj_casa": 1.763,
+   "pj_fora": 0.947,
+   "dif_pj": 0.789,
+   "xg_casa": 1.358,
+   "xg_fora": 0.996,
+   "xgc_casa": 1.011,
+   "xgc_fora": 1.395,
+   "dd_casa": 60.351,
+   "dd_fora": 59.663,
+   "dif_dd": 1.287
+  }
+ },
+ "poder_por_desenho": {
+  "16x48": 0.82,
+  "8x32": 1.14,
+  "16x16": 1.02,
+  "8x7": 1.57
+ },
+ "n": {
+  "total": 80,
+  "sobe_sf": 8,
+  "meio_sf": 32,
+  "cai_sf": 12
+ }
+}

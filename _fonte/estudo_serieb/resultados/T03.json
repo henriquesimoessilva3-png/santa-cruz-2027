@@ -1,0 +1,59 @@
+{
+ "id": "T03",
+ "bloco": "T",
+ "titulo": "O perfil de jogo do treinador",
+ "tipo": "analise",
+ "gerado_por": "scripts/T03.py",
+ "conclusoes": [
+  {
+   "id": "T03-1",
+   "bloco": "T",
+   "status": "rascunho",
+   "negativa": true,
+   "manchete": "O perfil de jogo não é um traço do treinador: ele não repete em outro clube",
+   "o_que_vimos": "Medi o perfil de {n_pass} passagens de 10 rodadas ou mais ({n_tec} treinadores) em {n_tracos} traços do índice do A14, durante a passagem e em percentil dentro da temporada. Para os {multi} que trabalharam em dois clubes ou mais, a semelhança entre os próprios perfis é indistinguível do acaso: duas passagens QUAISQUER da base têm rho médio {nulo_medio}, e 10% delas chegam a {nulo_p90}. Ficaram acima disso {n_acima} treinadores — o acaso previa {esperado_por_acaso}. Quem tem amostra de verdade fica perto de zero: Mozart {mozart_rho} em {mozart_pass} passagens e {mozart_cl} clubes, Claudinei Oliveira {claud_rho}, Eduardo Baptista {eb_rho}.",
+   "para_o_santa_cruz": "Não se contrata um modelo de jogo contratando um treinador. O que ele fez no clube anterior não é previsão do que fará aqui — e isso conversa com o T02, onde o histórico de G4 também não se transferia. Escolher treinador por 'estilo dele' é escolher uma coisa que a base não encontra.",
+   "premissa": null,
+   "premissa_motivo": "Sugere uma premissa nova: na Série B, o perfil de jogo é do clube, não do treinador.",
+   "confianca": "firme",
+   "confianca_motivo": "O nulo é construído da própria base (2.000 pares aleatórios), e o número de treinadores acima da linha é igual ao que o acaso previa. Os quatro que passam têm só duas passagens cada — rho de 7 pontos com n=2 é ruído.",
+   "n": "{multi} treinadores multiclube, {n_pass} passagens",
+   "prova": "T03_passagens.csv; T03_resumo.json"
+  },
+  {
+   "id": "T03-2",
+   "bloco": "T",
+   "status": "rascunho",
+   "negativa": true,
+   "manchete": "E o time não muda quando o treinador chega",
+   "o_que_vimos": "Em {ad_n} casos com pelo menos 8 jogos antes e 8 depois da chegada, no mesmo clube e na mesma temporada, nenhum dos {n_tracos} traços muda: a maior mudança mediana é de {ad_maior} pontos de percentil e o menor p é {ad_pmin}. Distância da finalização, entradas na área, duelo defensivo, xG criado e xG cedido ficam onde estavam.",
+   "para_o_santa_cruz": "Trocar treinador no meio da temporada não muda como o time joga — ao menos não nos traços que separam quem sobe. Se a troca resolve algo, resolve por outro caminho que este dado não vê.",
+   "premissa": null,
+   "premissa_motivo": "Não trata de nenhuma premissa existente.",
+   "confianca": "firme",
+   "confianca_motivo": "n = {ad_n} trocas, teste de Wilcoxon pareado em cada traço, todos sem efeito. É o desenho mais limpo do estudo: o mesmo clube, a mesma temporada, o mesmo elenco — só o treinador muda.",
+   "n": "{ad_n} trocas de treinador",
+   "prova": "T03_antes_depois.csv"
+  }
+ ],
+ "numeros": {
+  "n_pass": 151,
+  "n_tec": 69,
+  "multi": 34,
+  "n_tracos": 7,
+  "nulo_medio": -0.014,
+  "nulo_p90": 0.609,
+  "n_acima": 5,
+  "esperado_por_acaso": 3.4,
+  "acima_nomes": "Vinícius (0.991), Marcelo Cabo (0.889), Roger Silva (0.818), Mazola Júnior (0.818), Márcio Fernandes (0.692)",
+  "mozart_rho": 0.27,
+  "mozart_pass": 7,
+  "mozart_cl": 6,
+  "claud_rho": 0.291,
+  "eb_rho": 0.265,
+  "ad_n": 73,
+  "ad_pmin": 0.2063,
+  "ad_maior": 5.0
+ },
+ "em_aberto": "Dois componentes do índice do A14 ficaram fora por serem de temporada e não de jogo: o valor do elenco e a estabilidade do onze. São justamente os dois que o treinador não escolhe, o que melhora o recorte. E o 'antes e depois' compara o treinador novo com o anterior no mesmo elenco — não com uma contrafactual do mesmo treinador; o que se mede é a diferença entre dois treinadores, não o efeito de um."
+}

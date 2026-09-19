@@ -1,0 +1,158 @@
+{
+  "parte": "A01",
+  "gerado_em": "2026-09-19",
+  "para_que_serve": "Valores dos marcadores que o texto novo de _proposta_destino.json pede e que ainda nao existem (ou estao errados) no campo numeros de A01.json. Nada aqui altera A01.json, A01.md nem A01.py.",
+  "calculados": 12,
+  "nao_calculaveis": 0,
+  "numeros": {
+    "corte_por_ano_frase": {
+      "conclusao": "A01-2 (usado em A01-1)",
+      "valor": "62 (2022), 64 (2023), 64 (2024) e 62 (2025)",
+      "formatado": "62 (2022), 64 (2023), 64 (2024) e 62 (2025)",
+      "tipo": "string ja montada",
+      "de_onde": "A01_regua.csv, coluna pontos_4o, linhas temporada 2022, 2023, 2024 e 2025 (em_curso=0). Substitui o marcador corte_por_ano, que hoje guarda '2022: 62, 2023: 64, ...' e renderiza quebrado no meio da frase.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS em static/app.js (linha 6933), recalculando pts = V*3 + E do 4o colocado de cada ano: 62, 64, 64, 62. Bate celula a celula."
+    },
+    "margens_frase": {
+      "conclusao": "A01-2",
+      "valor": "4 (2022), 1 (2023), 0 (2024) e 1 (2025)",
+      "formatado": "4 (2022), 1 (2023), 0 (2024) e 1 (2025)",
+      "tipo": "string ja montada",
+      "de_onde": "A01_regua.csv, coluna margem_4o_5o, temporadas 2022-2025. Substitui o marcador margens, que renderiza '2022: 4, 2023: 1, ...' dentro da frase.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS (static/app.js), pontos do 4o menos pontos do 5o recalculados de V*3+E: 62-58=4, 64-63=1, 64-64=0, 62-61=1."
+    },
+    "anos_falha_63": {
+      "conclusao": "A01-1",
+      "valor": 2,
+      "formatado": "2",
+      "de_onde": "A01_regua.csv, colunas pontos_4o e pontos_5o. Um elenco de 63 pontos so entra no G4 se 63 for maior que os pontos do 4o do ano (empate nao garante vaga). 2022: 4o com 62, entra. 2023: 4o com 64, fica de fora. 2024: 4o com 64 e 5o com 64, fica de fora (o 6o, Goias, fez 63). 2025: 4o com 62, entra. Fora em 2 das 4 temporadas.",
+      "conferido": true,
+      "segundo_caminho": "Mesma contagem refeita sobre SB_TABELAS (static/app.js), com os pontos recalculados de V*3+E: 2 anos (2023 e 2024)."
+    },
+    "anos_corte_max": {
+      "conclusao": "A01-1",
+      "valor": 2,
+      "formatado": "2",
+      "de_onde": "A01_regua.csv, coluna pontos_4o: o corte foi 64 (o maximo da janela) em 2023 e em 2024; foi 62 em 2022 e 2025.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS (static/app.js), pontos do 4o de cada ano: 62, 64, 64, 62 -> 2 anos no maximo."
+    },
+    "pontos_4o_2024": {
+      "conclusao": "A01-2",
+      "valor": 64,
+      "formatado": "64",
+      "de_onde": "A01_regua.csv, temporada 2024, coluna pontos_4o. Tira do texto o 64 que hoje esta digitado a mao, sem marcador.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS 2024, Ceara (4o): 19 vitorias e 7 empates = 64. O 5o, Novorizontino, tambem fez 64 (18 V, 10 E)."
+    },
+    "v_4o_2024": {
+      "conclusao": "A01-2",
+      "valor": 19,
+      "formatado": "19",
+      "de_onde": "A01_clube_temporada.csv, linha temporada=2024 e pos=4 (Ceara), coluna V.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS 2024: [4,'Ceara',38,19,7,12,59,41]. Com 64 pontos iguais aos do Novorizontino, o desempate regulamentar e numero de vitorias, antes do saldo: 19 contra 18. O saldo (18 contra 12) nao chegou a ser usado — e o '18 contra 12' que esta em A01.md:25 descreve o saldo, nao o criterio que decidiu."
+    },
+    "v_5o_2024": {
+      "conclusao": "A01-2",
+      "valor": 18,
+      "formatado": "18",
+      "de_onde": "A01_clube_temporada.csv, linha temporada=2024 e pos=5 (Novorizontino), coluna V.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS 2024: [5,'Novorizontino',38,18,10,10,43,31] -> 18*3+10 = 64 pontos, 18 vitorias."
+    },
+    "trave_de": {
+      "conclusao": "A01-3",
+      "valor": 16,
+      "formatado": "16",
+      "de_onde": "A01_clube_temporada.csv, linhas com trave=1 e temporada diferente de 2026: 16 clube-temporadas (5o a 8o de 2022, 2023, 2024 e 2025).",
+      "conferido": true,
+      "segundo_caminho": "4 temporadas fechadas x 4 posicoes (5o-8o) = 16, conferido tambem posicao a posicao em SB_TABELAS."
+    },
+    "trave_fronteira": {
+      "conclusao": "A01-3",
+      "valor": 9,
+      "formatado": "9",
+      "de_onde": "A01_clube_temporada.csv, linhas com trave=1, temporada != 2026 e fronteira_g4=1: 9 das 16. Sao 2023 (Novorizontino, Mirassol, Sport, Vila Nova), 2024 (Novorizontino, Goias) e 2025 (Criciuma, Goias, Novorizontino); em 2022 nenhuma, porque a Trave ficou de 4 a 6 pontos do 4o.",
+      "conferido": true,
+      "segundo_caminho": "Regra da fronteira reaplicada do zero sobre SB_TABELAS (time fora do G4 a ate 3 pontos do 4o colocado): 9 casos, os mesmos nove clubes."
+    },
+    "trave_mediana": {
+      "conclusao": "A01-3",
+      "valor": 60.5,
+      "formatado": "60,5",
+      "de_onde": "A01_clube_temporada.csv, coluna pontos das 16 linhas com trave=1 e temporada != 2026. Ordenadas: 56, 56, 57, 57, 58, 58, 58, 60, 61, 61, 61, 63, 63, 63, 63, 64 -> mediana (60+61)/2 = 60,5.",
+      "conferido": true,
+      "segundo_caminho": "Mesma mediana sobre os pontos recalculados de SB_TABELAS: 60,5.",
+      "nota": "CORRIGE o valor guardado em A01.json (60). Tambem registrado em correcoes_de_numero_existente. A01.json nao foi tocado."
+    },
+    "trave_dist_mediana": {
+      "conclusao": "A01-3",
+      "valor": 2.5,
+      "formatado": "2,5",
+      "de_onde": "A01_clube_temporada.csv, coluna dist_g4 das 16 linhas de Trave fechadas: mediana -2,5. O texto novo escreve '{trave_dist_mediana} pontos abaixo do corte do G4', entao o marcador leva a distancia em modulo (2,5) e a palavra 'abaixo' carrega o sinal — nunca o sinal cru.",
+      "conferido": true,
+      "segundo_caminho": "Mediana dos pontos da Trave (60,5) menos a mediana do corte do G4 por ano recalculada de SB_TABELAS: as 16 diferencas ponto a ponto dao mediana -2,5.",
+      "nota": "CORRIGE o valor guardado em A01.json (-2). Tambem registrado em correcoes_de_numero_existente. A01.json nao foi tocado."
+    },
+    "corte_z4_mediana": {
+      "conclusao": "A01-1 (marcador do bloco, hoje sem uso no texto)",
+      "valor": 39.5,
+      "formatado": "39,5",
+      "de_onde": "A01_regua.csv, coluna pontos_17o: 42 (2022), 39 (2023), 38 (2024), 40 (2025). Ordenados 38, 39, 40, 42 -> mediana (39+40)/2 = 39,5. A01_resumo.json ja traz 39.5 em corte_z4.mediana.",
+      "conferido": true,
+      "segundo_caminho": "SB_TABELAS, pontos do 17o de cada ano recalculados de V*3+E: 42, 39, 38, 40 -> 39,5.",
+      "nota": "CORRIGE o valor guardado em A01.json (39). Tambem registrado em correcoes_de_numero_existente. A01.json nao foi tocado."
+    }
+  },
+  "bloqueados": [],
+  "correcoes_de_numero_existente": [
+    {
+      "marcador": "trave_mediana",
+      "esta": "60",
+      "deveria": "60,5",
+      "evidencia": "Mediana dos pontos das 16 linhas com trave=1 e temporada != 2026 em A01_clube_temporada.csv: (60+61)/2 = 60,5. Confere com o recalculo independente a partir de SB_TABELAS (static/app.js:6933). O 60 foi digitado direto em A01.json — A01.py nao produz esse valor."
+    },
+    {
+      "marcador": "trave_dist_mediana",
+      "esta": "-2",
+      "deveria": "2,5 (escrito como '2,5 pontos abaixo do corte do G4')",
+      "evidencia": "Mediana de dist_g4 nas mesmas 16 linhas: -2,5. O valor guardado esta arredondado para menos E com o sinal cru, que o texto novo nao usa. Truncar -2,5 para -2 e o mesmo defeito de truncamento apontado na auditoria."
+    },
+    {
+      "marcador": "corte_z4_mediana",
+      "esta": "39",
+      "deveria": "39,5",
+      "evidencia": "pontos_17o em A01_regua.csv: 42, 39, 38, 40 -> mediana 39,5. A01_resumo.json ja grava corte_z4.mediana = 39.5; so A01.json esta com 39."
+    }
+  ],
+  "conferidos_e_certos": {
+    "temporadas": 4,
+    "corte_min": 62,
+    "corte_max": 64,
+    "corte_mediana": 63,
+    "corte_amplitude": 2,
+    "vit_min": 16,
+    "vit_max": 19,
+    "aprov_min": 54.4,
+    "aprov_max": 56.1,
+    "margem_max": 4,
+    "anos_ate_1pt": 3,
+    "corte_z4_min": 38,
+    "corte_z4_max": 42,
+    "fronteira_n": 28,
+    "fronteira_de": 80,
+    "fronteira_pct": 35,
+    "sobe_fronteira": 8,
+    "sobe_de": 16,
+    "trave_min": 56,
+    "trave_max": 64,
+    "nota": "Os 20 marcadores acima ja existem em A01.json e foram recalculados por dois caminhos (A01_regua.csv / A01_clube_temporada.csv e SB_TABELAS em static/app.js). Todos batem."
+  },
+  "fora_do_meu_escopo": [
+    "A tabela 'A regua, ano a ano' de A01.md (linhas 88-95) tem mesmo 11 das 32 celulas erradas, confirmado celula a celula contra A01_regua.csv e contra SB_TABELAS. Os valores certos: 2022 1o = 78; 2023 1o = 72, 8o = 61, 16o = 40, 20o = 28; 2024 1o = 68, 8o = 58, 16o = 43, 20o = 33; 2025 8o = 56, 16o = 42. Nao editei A01.md.",
+    "Fazer A01.py gravar em A01_resumo.json os sete valores de Trave/Sobe (trave_min, trave_max, trave_mediana, trave_dist_mediana, trave_fronteira, trave_de, sobe_fronteira) continua pendente: hoje eles so existem digitados em A01.json, o que e a causa raiz do 60 e do -2. Nao editei A01.py."
+  ]
+}

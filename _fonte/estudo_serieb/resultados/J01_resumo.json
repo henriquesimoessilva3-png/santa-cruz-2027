@@ -1,0 +1,494 @@
+{
+ "corte_escolhido": 60,
+ "distribuicao_por_posicao": {
+  "Atacante": {
+   "n": 567,
+   "p10": 1.9,
+   "p25": 5.5,
+   "p50": 16.5,
+   "p75": 35.6,
+   "p90": 55.5,
+   "max": 93.2,
+   "acima_de_60": 7.1,
+   "acima_de_50": 13.2,
+   "acima_de_70": 3.2
+  },
+  "Extremo": {
+   "n": 789,
+   "p10": 1.1,
+   "p25": 4.0,
+   "p50": 13.5,
+   "p75": 32.5,
+   "p90": 55.3,
+   "max": 94.8,
+   "acima_de_60": 7.5,
+   "acima_de_50": 13.2,
+   "acima_de_70": 4.3
+  },
+  "Goleiro": {
+   "n": 260,
+   "p10": 2.7,
+   "p25": 5.7,
+   "p50": 25.9,
+   "p75": 69.3,
+   "p90": 94.3,
+   "max": 102.4,
+   "acima_de_60": 29.2,
+   "acima_de_50": 36.5,
+   "acima_de_70": 25.0
+  },
+  "Lateral": {
+   "n": 678,
+   "p10": 2.5,
+   "p25": 8.9,
+   "p50": 25.0,
+   "p75": 48.3,
+   "p90": 68.8,
+   "max": 100.2,
+   "acima_de_60": 15.2,
+   "acima_de_50": 24.3,
+   "acima_de_70": 9.3
+  },
+  "Meia": {
+   "n": 655,
+   "p10": 1.3,
+   "p25": 5.6,
+   "p50": 20.1,
+   "p75": 44.2,
+   "p90": 66.6,
+   "max": 96.7,
+   "acima_de_60": 15.6,
+   "acima_de_50": 20.5,
+   "acima_de_70": 8.4
+  },
+  "Volante": {
+   "n": 312,
+   "p10": 2.1,
+   "p25": 9.9,
+   "p50": 26.2,
+   "p75": 51.5,
+   "p90": 69.7,
+   "max": 88.9,
+   "acima_de_60": 18.6,
+   "acima_de_50": 26.3,
+   "acima_de_70": 9.9
+  },
+  "Zaga": {
+   "n": 603,
+   "p10": 2.7,
+   "p25": 11.5,
+   "p50": 30.2,
+   "p75": 57.8,
+   "p90": 77.5,
+   "max": 98.3,
+   "acima_de_60": 23.1,
+   "acima_de_50": 32.0,
+   "acima_de_70": 15.1
+  }
+ },
+ "geral": {
+  "n": 3864,
+  "p10": 1.9,
+  "p25": 6.7,
+  "p50": 20.9,
+  "p75": 45.4,
+  "p90": 68.1
+ },
+ "lesao": {
+  "minutagem_baixa": 3287,
+  "com_id": 2296,
+  "com_lesao": 159,
+  "pct_da_baixa_com_lesao": 6.9,
+  "dias_medianos_quando_tem": 53.0,
+  "alta_com_lesao_pct": 6.7,
+  "leitura": "a fatia de minutagem baixa que tem lesão registrada, contra a fatia da alta que também tem — a diferença é o quanto a lesão explica"
+ },
+ "por_faixa_do_time": {
+  "Sobe": {
+   "n": 677,
+   "altos_por_clube_temporada": 7.1,
+   "fatia_mediana": 22.5
+  },
+  "Meio": {
+   "n": 2252,
+   "altos_por_clube_temporada": 6.0,
+   "fatia_mediana": 21.9
+  },
+  "Cai": {
+   "n": 899,
+   "altos_por_clube_temporada": 4.1,
+   "fatia_mediana": 17.5
+  }
+ },
+ "regulares": 123,
+ "altos": 577,
+ "ambiguos": [
+  {
+   "jogador": "Paulo Vítor",
+   "ano": "2026",
+   "time": "Atlético-GO",
+   "ids": [
+    "1116366",
+    "419120"
+   ]
+  },
+  {
+   "jogador": "Wenderson",
+   "ano": "2026",
+   "time": "Náutico",
+   "ids": [
+    "524404",
+    "681501"
+   ]
+  },
+  {
+   "jogador": "Patrick",
+   "ano": "2026",
+   "time": "Novorizontino",
+   "ids": [
+    "1130054",
+    "936090"
+   ]
+  },
+  {
+   "jogador": "Marcos Paulo",
+   "ano": "2026",
+   "time": "Juventude",
+   "ids": [
+    "612496",
+    "978039"
+   ]
+  },
+  {
+   "jogador": "Rômulo",
+   "ano": "2026",
+   "time": "Novorizontino",
+   "ids": [
+    "743588",
+    "867461"
+   ]
+  },
+  {
+   "jogador": "Raí",
+   "ano": "2026",
+   "time": "Juventude",
+   "ids": [
+    "875338",
+    "978146"
+   ]
+  },
+  {
+   "jogador": "Luiz Otávio",
+   "ano": "2026",
+   "time": "Ceará",
+   "ids": [
+    "265693",
+    "520484"
+   ]
+  },
+  {
+   "jogador": "Augusto",
+   "ano": "2026",
+   "time": "São Bernardo",
+   "ids": [
+    "1355323",
+    "411663"
+   ]
+  },
+  {
+   "jogador": "Pablo",
+   "ano": "2026",
+   "time": "Operário-PR",
+   "ids": [
+    "1088832",
+    "148765"
+   ]
+  },
+  {
+   "jogador": "Danielzinho",
+   "ano": "2026",
+   "time": "CRB",
+   "ids": [
+    "418530",
+    "866830"
+   ]
+  },
+  {
+   "jogador": "Lucas Lima",
+   "ano": "2026",
+   "time": "Goiás",
+   "ids": [
+    "232847",
+    "688310"
+   ]
+  },
+  {
+   "jogador": "Luiz Felipe",
+   "ano": "2026",
+   "time": "Goiás",
+   "ids": [
+    "1092749",
+    "373150",
+    "877578"
+   ]
+  },
+  {
+   "jogador": "Vinícius",
+   "ano": "2026",
+   "time": "Náutico",
+   "ids": [
+    "146020",
+    "286772"
+   ]
+  },
+  {
+   "jogador": "Joao Gabriel",
+   "ano": "2026",
+   "time": "Ceará",
+   "ids": [
+    "1223070",
+    "1223077"
+   ]
+  },
+  {
+   "jogador": "Nicolas",
+   "ano": "2026",
+   "time": "Goiás",
+   "ids": [
+    "186408",
+    "442258"
+   ]
+  },
+  {
+   "jogador": "Marcos Paulo",
+   "ano": "2026",
+   "time": "Juventude",
+   "ids": [
+    "612496",
+    "978039"
+   ]
+  },
+  {
+   "jogador": "Marlon",
+   "ano": "2026",
+   "time": "Cuiabá",
+   "ids": [
+    "538234",
+    "635807"
+   ]
+  },
+  {
+   "jogador": "Paulo Vitor",
+   "ano": "2026",
+   "time": "Avaí",
+   "ids": [
+    "1116366",
+    "419120"
+   ]
+  },
+  {
+   "jogador": "Thiaguinho",
+   "ano": "2026",
+   "time": "CRB",
+   "ids": [
+    "1222029",
+    "638305",
+    "701485"
+   ]
+  },
+  {
+   "jogador": "Jean Carlos",
+   "ano": "2026",
+   "time": "Goiás",
+   "ids": [
+    "102574",
+    "1092857"
+   ]
+  },
+  {
+   "jogador": "Jota",
+   "ano": "2026",
+   "time": "Athletic",
+   "ids": [
+    "1082637",
+    "1098654"
+   ]
+  },
+  {
+   "jogador": "Rodriguinho",
+   "ano": "2026",
+   "time": "Fortaleza",
+   "ids": [
+    "1088848",
+    "977463"
+   ]
+  },
+  {
+   "jogador": "João Vitor",
+   "ano": "2026",
+   "time": "Londrina",
+   "ids": [
+    "1226336",
+    "935978"
+   ]
+  },
+  {
+   "jogador": "Enzo",
+   "ano": "2026",
+   "time": "Athletic",
+   "ids": [
+    "1083674",
+    "1139255"
+   ]
+  },
+  {
+   "jogador": "Juninho",
+   "ano": "2026",
+   "time": "Novorizontino",
+   "ids": [
+    "271187",
+    "740271",
+    "986798"
+   ]
+  },
+  {
+   "jogador": "Luiz Felipe",
+   "ano": "2026",
+   "time": "Náutico",
+   "ids": [
+    "1092749",
+    "373150",
+    "877578"
+   ]
+  },
+  {
+   "jogador": "Wallace",
+   "ano": "2026",
+   "time": "Botafogo-SP",
+   "ids": [
+    "225335",
+    "68833"
+   ]
+  },
+  {
+   "jogador": "Juninho",
+   "ano": "2026",
+   "time": "Goiás",
+   "ids": [
+    "271187",
+    "740271",
+    "986798"
+   ]
+  },
+  {
+   "jogador": "Lucas Lima",
+   "ano": "2026",
+   "time": "São Bernardo",
+   "ids": [
+    "232847",
+    "688310"
+   ]
+  },
+  {
+   "jogador": "Jean Carlos",
+   "ano": "2026",
+   "time": "Náutico",
+   "ids": [
+    "102574",
+    "1092857"
+   ]
+  },
+  {
+   "jogador": "Pedro Henrique",
+   "ano": "2026",
+   "time": "Botafogo-SP",
+   "ids": [
+    "213368",
+    "531916"
+   ]
+  },
+  {
+   "jogador": "Pedro Henrique",
+   "ano": "2026",
+   "time": "Fortaleza",
+   "ids": [
+    "213368",
+    "531916"
+   ]
+  },
+  {
+   "jogador": "Pedrinho",
+   "ano": "2026",
+   "time": "São Bernardo",
+   "ids": [
+    "1022057",
+    "538978"
+   ]
+  },
+  {
+   "jogador": "João Vitor",
+   "ano": "2026",
+   "time": "Londrina",
+   "ids": [
+    "1226336",
+    "935978"
+   ]
+  },
+  {
+   "jogador": "Wallace",
+   "ano": "2026",
+   "time": "Londrina",
+   "ids": [
+    "225335",
+    "68833"
+   ]
+  },
+  {
+   "jogador": "Ryan",
+   "ano": "2026",
+   "time": "Fortaleza",
+   "ids": [
+    "1005642",
+    "1129200"
+   ]
+  },
+  {
+   "jogador": "Carlinhos",
+   "ano": "2026",
+   "time": "Novorizontino",
+   "ids": [
+    "363173",
+    "683337"
+   ]
+  },
+  {
+   "jogador": "Nicolas",
+   "ano": "2026",
+   "time": "Criciúma",
+   "ids": [
+    "186408",
+    "442258"
+   ]
+  },
+  {
+   "jogador": "João Vitor",
+   "ano": "2026",
+   "time": "Novorizontino",
+   "ids": [
+    "1226336",
+    "935978"
+   ]
+  },
+  {
+   "jogador": "Marlon",
+   "ano": "2026",
+   "time": "Sport",
+   "ids": [
+    "538234",
+    "635807"
+   ]
+  }
+ ],
+ "n_ambiguos": 538,
+ "sem_id": 594
+}

@@ -1,0 +1,1314 @@
+{
+ "parte": "J04",
+ "passo": 3,
+ "gerado_em": "2026-09-19T13:10:41",
+ "pergunta": "Em que posições os titulares de quem sobe se diferenciam fisicamente, e em quê: volume, alta intensidade, sprints ou velocidade máxima?",
+ "o_que_e": "O cálculo de J04: Sobe × Meio posição a posição, nos dois cortes de fronteira, no posto dentro de setor × temporada, com BH por família e poder por desenho. Nenhuma conclusão é escrita aqui.",
+ "entradas": {
+  "base": "resultados/J04_base.csv (passo 1, auditada em identidade no passo 2)",
+  "lista_pre_declarada": "resultados/J04_indicadores.json",
+  "regra_de_titular": "scripts/J03.py, conferida contra resultados/J03_resumo.json",
+  "metodo": "scripts/_metodo.py",
+  "porta": "dados_copiados/skillcorner_serieb.db, physical_match (só leitura)"
+ },
+ "comparacao_padrao": {
+  "id": "SM",
+  "nome": "titular de quem sobe × titular do meio",
+  "nota": "A aba Física do app usa Sobe × Cai; aqui não. CM e ST são secundárias, declaradas na lista, e estão no CSV."
+ },
+ "conferencia_contra_j03": {
+  "regra": "A MESMA de J03 (scripts/J03.py, constantes QUANTOS e MIN_MINUTOS): por clube-temporada e por SETOR, os jogadores de mais minutos — 1 no gol, 2 na zaga, 2 no lateral, 2 no volante, 2 na meia, 2 no extremo e 2 no ataque — com pelo menos 900 minutos no Wyscout.",
+  "escolhido_no_lado_wyscout": "O titular é escolhido por LINHA (ano + nome + clube + posição) antes de olhar se ele tem dado físico. J03 não descarta nome ambíguo porque não busca nada em outra base; descartar aqui mudaria quem é titular.",
+  "titular_sem_fisico_nao_e_substituido": "Fica marcado e contado à parte. Substituir pelo próximo da fila seria imputar titular.",
+  "total_recalculado_2022_2025": 907,
+  "total_em_j03": 907,
+  "mesmas_pessoas_da_coluna_titular_da_base": true,
+  "bate": true,
+  "por_setor": {
+   "Goleiro": {
+    "n_sobe_j03": 16,
+    "n_sobe_recalculado": 16,
+    "n_meio_j03": 48,
+    "n_meio_recalculado": 48,
+    "n_cai_recalculado": 16,
+    "bate": true
+   },
+   "Zaga": {
+    "n_sobe_j03": 32,
+    "n_sobe_recalculado": 32,
+    "n_meio_j03": 96,
+    "n_meio_recalculado": 96,
+    "n_cai_recalculado": 32,
+    "bate": true
+   },
+   "Lateral": {
+    "n_sobe_j03": 32,
+    "n_sobe_recalculado": 32,
+    "n_meio_j03": 96,
+    "n_meio_recalculado": 96,
+    "n_cai_recalculado": 32,
+    "bate": true
+   },
+   "Volante": {
+    "n_sobe_j03": 22,
+    "n_sobe_recalculado": 22,
+    "n_meio_j03": 59,
+    "n_meio_recalculado": 59,
+    "n_cai_recalculado": 22,
+    "bate": true
+   },
+   "Meia": {
+    "n_sobe_j03": 31,
+    "n_sobe_recalculado": 31,
+    "n_meio_j03": 95,
+    "n_meio_recalculado": 95,
+    "n_cai_recalculado": 32,
+    "bate": true
+   },
+   "Extremo": {
+    "n_sobe_j03": 19,
+    "n_sobe_recalculado": 19,
+    "n_meio_j03": 61,
+    "n_meio_recalculado": 61,
+    "n_cai_recalculado": 22,
+    "bate": true
+   },
+   "Atacante": {
+    "n_sobe_j03": 27,
+    "n_sobe_recalculado": 27,
+    "n_meio_j03": 89,
+    "n_meio_recalculado": 89,
+    "n_cai_recalculado": 28,
+    "bate": true
+   }
+  },
+  "goleiro": "entra na contagem para o total bater com J03 e sai de todo teste: o SkillCorner não rastreia goleiro (zero GK entre os 2.982 casados)."
+ },
+ "desenho": {
+  "unidade": "jogador-temporada",
+  "recorte": [
+   "2022",
+   "2023",
+   "2024",
+   "2025"
+  ],
+  "percentil": "dentro de SETOR × TEMPORADA, entre todos os 900+ minutos com físico (não só titulares), cada indicador na sua própria régua",
+  "familia_e_a_unidade_do_bh": "BH a 5% por família × setor × comparação × corte",
+  "n_minimo_por_setor": "8 de um lado e 16 do outro",
+  "setores_testados": [
+   "Zaga",
+   "Lateral",
+   "Volante",
+   "Meia",
+   "Extremo",
+   "Atacante"
+  ],
+  "goleiro": "entra na contagem para o total bater com J03 e sai de todo teste: o SkillCorner não rastreia goleiro (zero GK entre os 2.982 casados).",
+  "n_indicadores": 17,
+  "familias": {
+   "volume": [
+    "distance_p90",
+    "running_distance_p90",
+    "m_per_min",
+    "m_per_min_tip",
+    "m_per_min_otip"
+   ],
+   "alta_intensidade": [
+    "hi_distance_p90",
+    "hi_count_p90",
+    "hsr_distance_p90",
+    "high_accel_p90",
+    "hi_distance_p30tip",
+    "hi_distance_p30otip"
+   ],
+   "sprints": [
+    "sprint_distance_p90",
+    "sprint_count_p90",
+    "sprint_count_p30tip",
+    "sprint_count_p30otip"
+   ],
+   "velocidade_maxima": [
+    "psv99",
+    "psv99_top5"
+   ]
+  },
+  "n_testes": 850,
+  "coluna_confianca_do_achado": "é do ACHADO (setor × comparação × indicador × subamostra), não da linha: as duas linhas de corte trazem o mesmo rótulo. provável = BH nos dois cortes; indício = BH em um só; abaixo disso, não separa. Firme é impossível nesta parte.",
+  "sinal": "Todos +1, e o sinal aqui é DESCRITIVO, não é juízo de qualidade: correr mais não é correr melhor. O CLAUDE.md manda alinhar o sinal só em métrica de desempenho; física é estilo e entra sem inversão. d positivo significa 'o grupo A corre mais', não 'o grupo A é melhor'."
+ },
+ "n_e_poder": {
+  "Zaga": {
+   "com": {
+    "n_sobe": 25,
+    "n_meio": 81,
+    "n_cai": 28,
+    "n_trave": 29,
+    "clubes": 40,
+    "d_minimo_80_sobe_x_meio": 0.65,
+    "d_minimo_80_cai_x_meio": 0.62,
+    "d_minimo_80_sobe_x_trave": 0.78
+   },
+   "sem": {
+    "n_sobe": 13,
+    "n_meio": 54,
+    "n_cai": 21,
+    "n_trave": 13,
+    "clubes": 32,
+    "d_minimo_80_sobe_x_meio": 0.88,
+    "d_minimo_80_cai_x_meio": 0.73,
+    "d_minimo_80_sobe_x_trave": 1.15
+   }
+  },
+  "Lateral": {
+   "com": {
+    "n_sobe": 27,
+    "n_meio": 79,
+    "n_cai": 27,
+    "n_trave": 27,
+    "clubes": 40,
+    "d_minimo_80_sobe_x_meio": 0.63,
+    "d_minimo_80_cai_x_meio": 0.63,
+    "d_minimo_80_sobe_x_trave": 0.78
+   },
+   "sem": {
+    "n_sobe": 14,
+    "n_meio": 53,
+    "n_cai": 21,
+    "n_trave": 12,
+    "clubes": 32,
+    "d_minimo_80_sobe_x_meio": 0.85,
+    "d_minimo_80_cai_x_meio": 0.73,
+    "d_minimo_80_sobe_x_trave": 1.15
+   }
+  },
+  "Volante": {
+   "com": {
+    "n_sobe": 21,
+    "n_meio": 50,
+    "n_cai": 18,
+    "n_trave": 14,
+    "clubes": 36,
+    "d_minimo_80_sobe_x_meio": 0.74,
+    "d_minimo_80_cai_x_meio": 0.78,
+    "d_minimo_80_sobe_x_trave": 1.0
+   },
+   "sem": {
+    "n_sobe": 12,
+    "n_meio": 40,
+    "n_cai": 13,
+    "n_trave": 12,
+    "clubes": 29,
+    "d_minimo_80_sobe_x_meio": 0.94,
+    "d_minimo_80_cai_x_meio": 0.91,
+    "d_minimo_80_sobe_x_trave": 1.2
+   }
+  },
+  "Meia": {
+   "com": {
+    "n_sobe": 28,
+    "n_meio": 75,
+    "n_cai": 27,
+    "n_trave": 21,
+    "clubes": 39,
+    "d_minimo_80_sobe_x_meio": 0.63,
+    "d_minimo_80_cai_x_meio": 0.63,
+    "d_minimo_80_sobe_x_trave": 0.83
+   },
+   "sem": {
+    "n_sobe": 15,
+    "n_meio": 48,
+    "n_cai": 20,
+    "n_trave": 8,
+    "clubes": 30,
+    "d_minimo_80_sobe_x_meio": 0.84,
+    "d_minimo_80_cai_x_meio": 0.76,
+    "d_minimo_80_sobe_x_trave": 1.29
+   }
+  },
+  "Extremo": {
+   "com": {
+    "n_sobe": 17,
+    "n_meio": 53,
+    "n_cai": 18,
+    "n_trave": 26,
+    "clubes": 31,
+    "d_minimo_80_sobe_x_meio": 0.79,
+    "d_minimo_80_cai_x_meio": 0.78,
+    "d_minimo_80_sobe_x_trave": 0.89
+   },
+   "sem": {
+    "n_sobe": 8,
+    "n_meio": 32,
+    "n_cai": 15,
+    "n_trave": 10,
+    "clubes": 23,
+    "d_minimo_80_sobe_x_meio": 1.14,
+    "d_minimo_80_cai_x_meio": 0.9,
+    "d_minimo_80_sobe_x_trave": 1.42
+   }
+  },
+  "Atacante": {
+   "com": {
+    "n_sobe": 23,
+    "n_meio": 76,
+    "n_cai": 24,
+    "n_trave": 26,
+    "clubes": 36,
+    "d_minimo_80_sobe_x_meio": 0.67,
+    "d_minimo_80_cai_x_meio": 0.66,
+    "d_minimo_80_sobe_x_trave": 0.82
+   },
+   "sem": {
+    "n_sobe": 12,
+    "n_meio": 54,
+    "n_cai": 18,
+    "n_trave": 12,
+    "clubes": 29,
+    "d_minimo_80_sobe_x_meio": 0.91,
+    "d_minimo_80_cai_x_meio": 0.77,
+    "d_minimo_80_sobe_x_trave": 1.2
+   }
+  }
+ },
+ "comparacoes_fora_por_n": [
+  {
+   "subamostra": "todos",
+   "setor": "Zaga",
+   "comparacao": "ST",
+   "fronteira": "sem",
+   "n_a": 13,
+   "n_b": 13,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "todos",
+   "setor": "Lateral",
+   "comparacao": "ST",
+   "fronteira": "sem",
+   "n_a": 14,
+   "n_b": 12,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "todos",
+   "setor": "Volante",
+   "comparacao": "ST",
+   "fronteira": "com",
+   "n_a": 21,
+   "n_b": 14,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "todos",
+   "setor": "Volante",
+   "comparacao": "ST",
+   "fronteira": "sem",
+   "n_a": 12,
+   "n_b": 12,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "todos",
+   "setor": "Meia",
+   "comparacao": "ST",
+   "fronteira": "sem",
+   "n_a": 15,
+   "n_b": 8,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "todos",
+   "setor": "Extremo",
+   "comparacao": "ST",
+   "fronteira": "sem",
+   "n_a": 8,
+   "n_b": 10,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "todos",
+   "setor": "Atacante",
+   "comparacao": "ST",
+   "fronteira": "sem",
+   "n_a": 12,
+   "n_b": 12,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Volante",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 31,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Extremo",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 25,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "sem_identidade_marcada",
+   "setor": "Extremo",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 30,
+   "minimo": "8 de um lado, 16 do outro"
+  }
+ ],
+ "passaram_no_bh": [
+  {
+   "fronteira": "com",
+   "familia": "velocidade_maxima",
+   "comparacao": "SM",
+   "indicador": "psv99_top5",
+   "n_a": 21,
+   "n_b": 50,
+   "cru_a": 30.6,
+   "cru_b": 29.63,
+   "d": 0.585,
+   "p": 0.02059,
+   "d_minimo_80": 0.74,
+   "q": 0.02341,
+   "selo": "firme",
+   "poder_suficiente": false,
+   "setor": "Volante",
+   "subamostra": "todos",
+   "nome": "PSV-99 dos 5 picos mais altos (km/h)",
+   "pct_a": 70.4,
+   "pct_b": 42.0,
+   "clubes_a": 12,
+   "clubes_b": 23,
+   "ic95_lo": 0.07,
+   "ic95_hi": 1.16,
+   "passou_bh": true,
+   "passou_bh_nos_dois_cortes": false,
+   "confianca_do_achado": "indício"
+  },
+  {
+   "fronteira": "com",
+   "familia": "velocidade_maxima",
+   "comparacao": "SM",
+   "indicador": "psv99",
+   "n_a": 21,
+   "n_b": 50,
+   "cru_a": 27.92,
+   "cru_b": 27.49,
+   "d": 0.576,
+   "p": 0.02341,
+   "d_minimo_80": 0.74,
+   "q": 0.02341,
+   "selo": "firme",
+   "poder_suficiente": false,
+   "setor": "Volante",
+   "subamostra": "todos",
+   "nome": "PSV-99 da temporada (km/h)",
+   "pct_a": 67.5,
+   "pct_b": 44.2,
+   "clubes_a": 12,
+   "clubes_b": 23,
+   "ic95_lo": 0.04,
+   "ic95_hi": 1.23,
+   "passou_bh": true,
+   "passou_bh_nos_dois_cortes": false,
+   "confianca_do_achado": "indício"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "m_per_min_tip",
+   "n_a": 13,
+   "n_b": 54,
+   "cru_a": 114.05,
+   "cru_b": 122.275,
+   "d": -0.936,
+   "p": 0.01902,
+   "d_minimo_80": 0.88,
+   "q": 0.03441,
+   "selo": "firme",
+   "poder_suficiente": true,
+   "setor": "Zaga",
+   "subamostra": "todos",
+   "nome": "Metros por minuto COM a bola",
+   "pct_a": 15.0,
+   "pct_b": 56.7,
+   "clubes_a": 8,
+   "clubes_b": 21,
+   "ic95_lo": -1.86,
+   "ic95_hi": -0.13,
+   "passou_bh": true,
+   "passou_bh_nos_dois_cortes": false,
+   "confianca_do_achado": "indício"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "distance_p90",
+   "n_a": 13,
+   "n_b": 54,
+   "cru_a": 8509.32,
+   "cru_b": 8907.925,
+   "d": -0.847,
+   "p": 0.02065,
+   "d_minimo_80": 0.88,
+   "q": 0.03441,
+   "selo": "firme",
+   "poder_suficiente": false,
+   "setor": "Zaga",
+   "subamostra": "todos",
+   "nome": "Distância por 90 min (m)",
+   "pct_a": 25.0,
+   "pct_b": 59.4,
+   "clubes_a": 8,
+   "clubes_b": 21,
+   "ic95_lo": -1.63,
+   "ic95_hi": -0.0,
+   "passou_bh": true,
+   "passou_bh_nos_dois_cortes": false,
+   "confianca_do_achado": "indício"
+  },
+  {
+   "fronteira": "sem",
+   "familia": "volume",
+   "comparacao": "SM",
+   "indicador": "m_per_min",
+   "n_a": 13,
+   "n_b": 54,
+   "cru_a": 94.55,
+   "cru_b": 98.975,
+   "d": -0.847,
+   "p": 0.02065,
+   "d_minimo_80": 0.88,
+   "q": 0.03441,
+   "selo": "firme",
+   "poder_suficiente": false,
+   "setor": "Zaga",
+   "subamostra": "todos",
+   "nome": "Metros por minuto",
+   "pct_a": 25.0,
+   "pct_b": 59.4,
+   "clubes_a": 8,
+   "clubes_b": 21,
+   "ic95_lo": -1.71,
+   "ic95_hi": -0.02,
+   "passou_bh": true,
+   "passou_bh_nos_dois_cortes": false,
+   "confianca_do_achado": "indício"
+  }
+ ],
+ "passaram_nos_dois_cortes": [],
+ "achados_sobe_x_meio": [
+  {
+   "setor": "Volante",
+   "indicador": "psv99",
+   "nome": "PSV-99 da temporada (km/h)",
+   "familia": "velocidade_maxima",
+   "confianca": "indício",
+   "onde_aparece": [
+    "todos|com_fronteira",
+    "sem_identidade_marcada|com_fronteira"
+   ],
+   "onde_nao_aparece": [
+    "todos|sem_fronteira",
+    "sem_cobertura_baixa|com_fronteira",
+    "sem_identidade_marcada|sem_fronteira"
+   ],
+   "todos|com_fronteira": {
+    "n": "21x50",
+    "cru_sobe": 27.92,
+    "cru_meio": 27.49,
+    "pct_sobe": 67.5,
+    "pct_meio": 44.2,
+    "d": 0.576,
+    "ic95": [
+     0.04,
+     1.23
+    ],
+    "q": 0.02341,
+    "d_minimo_80": 0.74,
+    "poder_suficiente": false,
+    "passou_bh": true
+   },
+   "todos|sem_fronteira": {
+    "n": "12x40",
+    "cru_sobe": 27.83,
+    "cru_meio": 27.625,
+    "pct_sobe": 59.8,
+    "pct_meio": 52.1,
+    "d": 0.202,
+    "ic95": [
+     -0.41,
+     0.89
+    ],
+    "q": 0.54728,
+    "d_minimo_80": 0.94,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|com_fronteira": {
+    "n": "10x36",
+    "cru_sobe": 27.565,
+    "cru_meio": 27.505,
+    "pct_sobe": 52.4,
+    "pct_meio": 44.2,
+    "d": 0.147,
+    "ic95": [
+     -0.49,
+     0.75
+    ],
+    "q": 0.71373,
+    "d_minimo_80": 1.02,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|sem_fronteira": "não rodou: n abaixo do piso",
+   "sem_identidade_marcada|com_fronteira": {
+    "n": "20x45",
+    "cru_sobe": 27.94,
+    "cru_meio": 27.42,
+    "pct_sobe": 68.5,
+    "pct_meio": 43.5,
+    "d": 0.657,
+    "ic95": [
+     0.14,
+     1.37
+    ],
+    "q": 0.01349,
+    "d_minimo_80": 0.76,
+    "poder_suficiente": false,
+    "passou_bh": true
+   },
+   "sem_identidade_marcada|sem_fronteira": {
+    "n": "12x37",
+    "cru_sobe": 27.83,
+    "cru_meio": 27.59,
+    "pct_sobe": 59.8,
+    "pct_meio": 52.0,
+    "d": 0.225,
+    "ic95": [
+     -0.4,
+     0.9
+    ],
+    "q": 0.49935,
+    "d_minimo_80": 0.95,
+    "poder_suficiente": false,
+    "passou_bh": false
+   }
+  },
+  {
+   "setor": "Volante",
+   "indicador": "psv99_top5",
+   "nome": "PSV-99 dos 5 picos mais altos (km/h)",
+   "familia": "velocidade_maxima",
+   "confianca": "indício",
+   "onde_aparece": [
+    "todos|com_fronteira",
+    "sem_identidade_marcada|com_fronteira"
+   ],
+   "onde_nao_aparece": [
+    "todos|sem_fronteira",
+    "sem_cobertura_baixa|com_fronteira",
+    "sem_identidade_marcada|sem_fronteira"
+   ],
+   "todos|com_fronteira": {
+    "n": "21x50",
+    "cru_sobe": 30.6,
+    "cru_meio": 29.63,
+    "pct_sobe": 70.4,
+    "pct_meio": 42.0,
+    "d": 0.585,
+    "ic95": [
+     0.07,
+     1.16
+    ],
+    "q": 0.02341,
+    "d_minimo_80": 0.74,
+    "poder_suficiente": false,
+    "passou_bh": true
+   },
+   "todos|sem_fronteira": {
+    "n": "12x40",
+    "cru_sobe": 30.3,
+    "cru_meio": 30.02,
+    "pct_sobe": 60.8,
+    "pct_meio": 55.8,
+    "d": 0.256,
+    "ic95": [
+     -0.46,
+     0.97
+    ],
+    "q": 0.54728,
+    "d_minimo_80": 0.94,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|com_fronteira": {
+    "n": "10x36",
+    "cru_sobe": 30.03,
+    "cru_meio": 30.02,
+    "pct_sobe": 53.3,
+    "pct_meio": 56.3,
+    "d": 0.133,
+    "ic95": [
+     -0.57,
+     0.81
+    ],
+    "q": 0.71373,
+    "d_minimo_80": 1.02,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|sem_fronteira": "não rodou: n abaixo do piso",
+   "sem_identidade_marcada|com_fronteira": {
+    "n": "20x45",
+    "cru_sobe": 30.63,
+    "cru_meio": 29.58,
+    "pct_sobe": 71.2,
+    "pct_meio": 40.0,
+    "d": 0.695,
+    "ic95": [
+     0.14,
+     1.36
+    ],
+    "q": 0.01349,
+    "d_minimo_80": 0.76,
+    "poder_suficiente": false,
+    "passou_bh": true
+   },
+   "sem_identidade_marcada|sem_fronteira": {
+    "n": "12x37",
+    "cru_sobe": 30.3,
+    "cru_meio": 30.0,
+    "pct_sobe": 60.8,
+    "pct_meio": 55.6,
+    "d": 0.268,
+    "ic95": [
+     -0.5,
+     0.94
+    ],
+    "q": 0.49935,
+    "d_minimo_80": 0.95,
+    "poder_suficiente": false,
+    "passou_bh": false
+   }
+  },
+  {
+   "setor": "Zaga",
+   "indicador": "distance_p90",
+   "nome": "Distância por 90 min (m)",
+   "familia": "volume",
+   "confianca": "indício",
+   "onde_aparece": [
+    "todos|sem_fronteira"
+   ],
+   "onde_nao_aparece": [
+    "todos|com_fronteira",
+    "sem_cobertura_baixa|com_fronteira",
+    "sem_cobertura_baixa|sem_fronteira",
+    "sem_identidade_marcada|com_fronteira",
+    "sem_identidade_marcada|sem_fronteira"
+   ],
+   "todos|com_fronteira": {
+    "n": "25x81",
+    "cru_sobe": 8746.87,
+    "cru_meio": 8890.32,
+    "pct_sobe": 35.4,
+    "pct_meio": 56.7,
+    "d": -0.397,
+    "ic95": [
+     -1.01,
+     0.17
+    ],
+    "q": 0.25756,
+    "d_minimo_80": 0.65,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "todos|sem_fronteira": {
+    "n": "13x54",
+    "cru_sobe": 8509.32,
+    "cru_meio": 8907.925,
+    "pct_sobe": 25.0,
+    "pct_meio": 59.4,
+    "d": -0.847,
+    "ic95": [
+     -1.63,
+     -0.0
+    ],
+    "q": 0.03441,
+    "d_minimo_80": 0.88,
+    "poder_suficiente": false,
+    "passou_bh": true
+   },
+   "sem_cobertura_baixa|com_fronteira": {
+    "n": "17x59",
+    "cru_sobe": 8838.53,
+    "cru_meio": 8890.71,
+    "pct_sobe": 48.3,
+    "pct_meio": 58.3,
+    "d": -0.317,
+    "ic95": [
+     -1.08,
+     0.42
+    ],
+    "q": 0.70462,
+    "d_minimo_80": 0.78,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|sem_fronteira": {
+    "n": "9x43",
+    "cru_sobe": 8838.53,
+    "cru_meio": 8918.13,
+    "pct_sobe": 48.3,
+    "pct_meio": 60.4,
+    "d": -0.636,
+    "ic95": [
+     -1.61,
+     0.42
+    ],
+    "q": 0.267,
+    "d_minimo_80": 1.05,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_identidade_marcada|com_fronteira": {
+    "n": "22x76",
+    "cru_sobe": 8743.72,
+    "cru_meio": 8890.12,
+    "pct_sobe": 35.2,
+    "pct_meio": 56.4,
+    "d": -0.403,
+    "ic95": [
+     -1.08,
+     0.19
+    ],
+    "q": 0.3135,
+    "d_minimo_80": 0.69,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_identidade_marcada|sem_fronteira": {
+    "n": "11x51",
+    "cru_sobe": 8509.32,
+    "cru_meio": 8897.72,
+    "pct_sobe": 25.0,
+    "pct_meio": 58.3,
+    "d": -0.876,
+    "ic95": [
+     -1.84,
+     -0.02
+    ],
+    "q": 0.05299,
+    "d_minimo_80": 0.95,
+    "poder_suficiente": false,
+    "passou_bh": false
+   }
+  },
+  {
+   "setor": "Zaga",
+   "indicador": "m_per_min",
+   "nome": "Metros por minuto",
+   "familia": "volume",
+   "confianca": "indício",
+   "onde_aparece": [
+    "todos|sem_fronteira"
+   ],
+   "onde_nao_aparece": [
+    "todos|com_fronteira",
+    "sem_cobertura_baixa|com_fronteira",
+    "sem_cobertura_baixa|sem_fronteira",
+    "sem_identidade_marcada|com_fronteira",
+    "sem_identidade_marcada|sem_fronteira"
+   ],
+   "todos|com_fronteira": {
+    "n": "25x81",
+    "cru_sobe": 97.19,
+    "cru_meio": 98.78,
+    "pct_sobe": 35.4,
+    "pct_meio": 56.7,
+    "d": -0.398,
+    "ic95": [
+     -1.0,
+     0.19
+    ],
+    "q": 0.25756,
+    "d_minimo_80": 0.65,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "todos|sem_fronteira": {
+    "n": "13x54",
+    "cru_sobe": 94.55,
+    "cru_meio": 98.975,
+    "pct_sobe": 25.0,
+    "pct_meio": 59.4,
+    "d": -0.847,
+    "ic95": [
+     -1.71,
+     -0.02
+    ],
+    "q": 0.03441,
+    "d_minimo_80": 0.88,
+    "poder_suficiente": false,
+    "passou_bh": true
+   },
+   "sem_cobertura_baixa|com_fronteira": {
+    "n": "17x59",
+    "cru_sobe": 98.21,
+    "cru_meio": 98.79,
+    "pct_sobe": 48.3,
+    "pct_meio": 58.3,
+    "d": -0.319,
+    "ic95": [
+     -1.13,
+     0.44
+    ],
+    "q": 0.70462,
+    "d_minimo_80": 0.78,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|sem_fronteira": {
+    "n": "9x43",
+    "cru_sobe": 98.21,
+    "cru_meio": 99.09,
+    "pct_sobe": 48.3,
+    "pct_meio": 60.4,
+    "d": -0.636,
+    "ic95": [
+     -1.64,
+     0.4
+    ],
+    "q": 0.267,
+    "d_minimo_80": 1.05,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_identidade_marcada|com_fronteira": {
+    "n": "22x76",
+    "cru_sobe": 97.155,
+    "cru_meio": 98.78,
+    "pct_sobe": 35.2,
+    "pct_meio": 56.4,
+    "d": -0.405,
+    "ic95": [
+     -1.09,
+     0.24
+    ],
+    "q": 0.3135,
+    "d_minimo_80": 0.69,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_identidade_marcada|sem_fronteira": {
+    "n": "11x51",
+    "cru_sobe": 94.55,
+    "cru_meio": 98.86,
+    "pct_sobe": 25.0,
+    "pct_meio": 58.3,
+    "d": -0.876,
+    "ic95": [
+     -1.87,
+     -0.0
+    ],
+    "q": 0.05299,
+    "d_minimo_80": 0.95,
+    "poder_suficiente": false,
+    "passou_bh": false
+   }
+  },
+  {
+   "setor": "Zaga",
+   "indicador": "m_per_min_tip",
+   "nome": "Metros por minuto COM a bola",
+   "familia": "volume",
+   "confianca": "indício",
+   "onde_aparece": [
+    "todos|sem_fronteira"
+   ],
+   "onde_nao_aparece": [
+    "todos|com_fronteira",
+    "sem_cobertura_baixa|com_fronteira",
+    "sem_cobertura_baixa|sem_fronteira",
+    "sem_identidade_marcada|com_fronteira",
+    "sem_identidade_marcada|sem_fronteira"
+   ],
+   "todos|com_fronteira": {
+    "n": "25x81",
+    "cru_sobe": 121.23,
+    "cru_meio": 122.23,
+    "pct_sobe": 43.3,
+    "pct_meio": 55.0,
+    "d": -0.332,
+    "ic95": [
+     -0.96,
+     0.26
+    ],
+    "q": 0.33264,
+    "d_minimo_80": 0.65,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "todos|sem_fronteira": {
+    "n": "13x54",
+    "cru_sobe": 114.05,
+    "cru_meio": 122.275,
+    "pct_sobe": 15.0,
+    "pct_meio": 56.7,
+    "d": -0.936,
+    "ic95": [
+     -1.86,
+     -0.13
+    ],
+    "q": 0.03441,
+    "d_minimo_80": 0.88,
+    "poder_suficiente": true,
+    "passou_bh": true
+   },
+   "sem_cobertura_baixa|com_fronteira": {
+    "n": "17x59",
+    "cru_sobe": 122.3,
+    "cru_meio": 122.65,
+    "pct_sobe": 58.3,
+    "pct_meio": 56.7,
+    "d": -0.258,
+    "ic95": [
+     -1.07,
+     0.57
+    ],
+    "q": 0.70462,
+    "d_minimo_80": 0.78,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_cobertura_baixa|sem_fronteira": {
+    "n": "9x43",
+    "cru_sobe": 122.15,
+    "cru_meio": 123.37,
+    "pct_sobe": 56.2,
+    "pct_meio": 63.2,
+    "d": -0.698,
+    "ic95": [
+     -1.78,
+     0.35
+    ],
+    "q": 0.267,
+    "d_minimo_80": 1.05,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_identidade_marcada|com_fronteira": {
+    "n": "22x76",
+    "cru_sobe": 121.02,
+    "cru_meio": 122.145,
+    "pct_sobe": 42.5,
+    "pct_meio": 54.7,
+    "d": -0.344,
+    "ic95": [
+     -1.02,
+     0.29
+    ],
+    "q": 0.37213,
+    "d_minimo_80": 0.69,
+    "poder_suficiente": false,
+    "passou_bh": false
+   },
+   "sem_identidade_marcada|sem_fronteira": {
+    "n": "11x51",
+    "cru_sobe": 114.05,
+    "cru_meio": 122.23,
+    "pct_sobe": 15.0,
+    "pct_meio": 55.0,
+    "d": -0.986,
+    "ic95": [
+     -2.0,
+     -0.02
+    ],
+    "q": 0.05299,
+    "d_minimo_80": 0.95,
+    "poder_suficiente": true,
+    "passou_bh": false
+   }
+  }
+ ],
+ "nao_separa_nao_e_nao_existe": {
+  "regra": "A especificação proíbe transformar 'não separa' em 'não existe'. O que o desenho enxerga é o d mínimo detectável a 80% de poder, por posição e por corte — abaixo dele o efeito é invisível, não é ausente.",
+  "d_minimo_sobe_x_meio_por_posicao": {
+   "Zaga": {
+    "com_fronteira": 0.65,
+    "sem_fronteira": 0.88
+   },
+   "Lateral": {
+    "com_fronteira": 0.63,
+    "sem_fronteira": 0.85
+   },
+   "Volante": {
+    "com_fronteira": 0.74,
+    "sem_fronteira": 0.94
+   },
+   "Meia": {
+    "com_fronteira": 0.63,
+    "sem_fronteira": 0.84
+   },
+   "Extremo": {
+    "com_fronteira": 0.79,
+    "sem_fronteira": 1.14
+   },
+   "Atacante": {
+    "com_fronteira": 0.67,
+    "sem_fronteira": 0.91
+   }
+  },
+  "testes_sobe_x_meio": 204,
+  "testes_que_nao_passaram": 199,
+  "destes_com_efeito_menor_que_o_d_minimo": 199,
+  "leitura": "Nenhum dos testes que não passaram mediu um efeito do tamanho que este desenho conseguiria detectar. 'Não separa' aqui quer dizer 'não separa por mais do que o desenho enxerga', e não 'é igual'."
+ },
+ "quantos_passaram": {
+  "sobe_x_meio_com_fronteira": 2,
+  "sobe_x_meio_sem_fronteira": 3,
+  "sobe_x_meio_nos_dois": 0,
+  "cai_x_meio": 4,
+  "sobe_x_trave": 0
+ },
+ "robustez": {
+  "fronteira": "Toda comparação roda nos dois cortes. A regra escrita: conclusão que só aparece COM os times de fronteira é ruído. O corte sem fronteira é teste de robustez, não recorte melhor — ele é enviesado por construção (_metodo_fronteira.md).",
+  "subamostras": {
+   "todos": {
+    "o_que_tira": "nada",
+    "passaram_sobe_x_meio": 5
+   },
+   "sem_cobertura_baixa": {
+    "o_que_tira": "clube-temporada com menos de 80% dos seus 900+ min cobertos",
+    "passaram_sobe_x_meio": 0
+   },
+   "sem_identidade_marcada": {
+    "o_que_tira": "linha com nome que colide, clube misturado ou clube divergente",
+    "passaram_sobe_x_meio": 2
+   }
+  }
+ },
+ "porta_temporal": {
+  "rodou": "em parte",
+  "o_que_rodou": "a repetição turno a turno em 2025, no JOGADOR: o 1º turno (19 primeiras rodadas de cada clube) contra o 2º, só com jogos de 60+ minutos.",
+  "n_jogadores": 180,
+  "n_minimo_de_jogos_por_turno": 5,
+  "temporadas_possiveis": [
+   "2025"
+  ],
+  "indicadores_mensuraveis": [
+   "distance_p90",
+   "running_distance_p90",
+   "m_per_min",
+   "hi_distance_p90",
+   "hi_count_p90",
+   "hsr_distance_p90",
+   "high_accel_p90",
+   "sprint_distance_p90",
+   "sprint_count_p90",
+   "psv99"
+  ],
+  "indicadores_sem_dado_por_jogo": [
+   "m_per_min_tip",
+   "m_per_min_otip",
+   "hi_distance_p30tip",
+   "hi_distance_p30otip",
+   "sprint_count_p30tip",
+   "sprint_count_p30otip",
+   "psv99_top5"
+  ],
+  "por_indicador": {
+   "distance_p90": {
+    "rho": 0.909,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.88,
+     0.93
+    ],
+    "se_repete": true
+   },
+   "running_distance_p90": {
+    "rho": 0.933,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.91,
+     0.95
+    ],
+    "se_repete": true
+   },
+   "m_per_min": {
+    "rho": 0.909,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.88,
+     0.93
+    ],
+    "se_repete": true
+   },
+   "hi_distance_p90": {
+    "rho": 0.908,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.88,
+     0.93
+    ],
+    "se_repete": true
+   },
+   "hi_count_p90": {
+    "rho": 0.918,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.89,
+     0.94
+    ],
+    "se_repete": true
+   },
+   "hsr_distance_p90": {
+    "rho": 0.9,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.87,
+     0.92
+    ],
+    "se_repete": true
+   },
+   "high_accel_p90": {
+    "rho": 0.893,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.86,
+     0.92
+    ],
+    "se_repete": true
+   },
+   "sprint_distance_p90": {
+    "rho": 0.869,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.83,
+     0.9
+    ],
+    "se_repete": true
+   },
+   "sprint_count_p90": {
+    "rho": 0.884,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.85,
+     0.91
+    ],
+    "se_repete": true
+   },
+   "psv99": {
+    "rho": 0.661,
+    "p": 0.0,
+    "n": 180,
+    "ic95": [
+     0.57,
+     0.74
+    ],
+    "se_repete": true
+   }
+  },
+  "o_que_NAO_roda": {
+   "a_porta_da_especificacao": "1º turno prevendo o DESFECHO. Exige o físico por turno em mais de uma temporada e o desfecho do ano. O physical_match tem zero linha em 2022, 2023 e 2024 — na fonte também.",
+   "n_se_fosse_tentada": {
+    "temporadas_fechadas_com_dado": 1,
+    "clube_temporadas": 20,
+    "clubes_que_sobem": 4
+   },
+   "indicadores_fora": "7 dos 17 não existem jogo a jogo em temporada nenhuma: todos os _p30tip / _p30otip e o psv99_top5."
+  },
+  "teto_de_confianca": "provável",
+  "por_que_o_teto": "Repetir-se de um turno para o outro mostra que a medida é estável, não que ela vem ANTES do resultado. Sem o físico por turno em 2022–2024 não há como separar causa plausível de consequência, e o teto foi declarado em J04_indicadores.json antes de qualquer resultado: nenhuma conclusão de J04 é firme."
+ },
+ "sensibilidade_60_minutos": {
+  "o_que_e": "O CLAUDE.md manda usar só jogos de 60+ minutos nas métricas por 90. O agregado `physical` não separa jogo a jogo, e o `physical_match` só existe em 2025 e 2026 — a regra é impossível de aplicar em três das quatro temporadas do recorte. Aqui se mede o que ela mudaria no POSTO, que é o que o teste usa, na única temporada fechada em que dá.",
+  "temporada": "2025",
+  "spearman_por_setor": {
+   "distance_p90": {
+    "rho_min": 0.962,
+    "rho_mediano": 0.977,
+    "n": 282
+   },
+   "running_distance_p90": {
+    "rho_min": 0.976,
+    "rho_mediano": 0.982,
+    "n": 282
+   },
+   "m_per_min": {
+    "rho_min": 0.962,
+    "rho_mediano": 0.977,
+    "n": 282
+   },
+   "hi_distance_p90": {
+    "rho_min": 0.979,
+    "rho_mediano": 0.983,
+    "n": 282
+   },
+   "hi_count_p90": {
+    "rho_min": 0.97,
+    "rho_mediano": 0.99,
+    "n": 282
+   },
+   "hsr_distance_p90": {
+    "rho_min": 0.965,
+    "rho_mediano": 0.978,
+    "n": 282
+   },
+   "high_accel_p90": {
+    "rho_min": 0.936,
+    "rho_mediano": 0.967,
+    "n": 282
+   },
+   "sprint_distance_p90": {
+    "rho_min": 0.969,
+    "rho_mediano": 0.982,
+    "n": 282
+   },
+   "sprint_count_p90": {
+    "rho_min": 0.978,
+    "rho_mediano": 0.983,
+    "n": 282
+   },
+   "psv99": {
+    "rho_min": 0.674,
+    "rho_mediano": 0.753,
+    "n": 282
+   }
+  },
+  "leitura": "rho alto = a regra dos 60 minutos não reordena os jogadores, e o teste roda no posto. Onde ela pode ser aplicada, muda pouco."
+ },
+ "teto_de_confianca": {
+  "teto": "provável",
+  "declarado_antes_de_calcular": true,
+  "onde": "J04_indicadores.json, chave porta_temporal",
+  "frase": "Nenhuma conclusão de J04 é firme: não há físico por jogo em 2022–2024, então não dá para conferir se o físico vem antes do resultado ou é consequência dele."
+ },
+ "ressalvas": [
+  "SkillCorner e Wyscout são bases separadas e casam por NOME. A `players` do SkillCorner tem wyscout_player_id em 2.079 de 2.105 linhas, mas NENHUMA base do lado Wyscout neste repositório carrega esse id — nem serieb_tecnico.csv, nem minutagem_serieb.json, nem jogadores.json (o campo `id_` de lá é idade, conferido). Então o id não pode fechar a ponte sozinho; ele serve para separar pessoas diferentes dentro do SkillCorner. A ponte é a canônica da §1.1: nome + janela de idade, com descarte automático de todo caso ambíguo dos dois lados. A conferência independente está medida em J04_ponte_clubes.json.",
+  "Jogador que trocou de clube dentro da temporada tem um agregado físico só, misturando os dois clubes, enquanto o Wyscout o atribui a um clube. Esses casos ficam marcados (`clube_confere = 0` onde há como conferir) e a comparação roda com e sem eles.",
+  "O export do Wyscout corta em 500 linhas por temporada: quem jogou pouco pode faltar. Titular não é afetado.",
+  "A média física do SkillCorner é de ~15 partidas rastreadas por atleta, não 38 (ESPECIFICACAO.md §4.2). O número de partidas rastreadas vai na base (`sc_matches`) e quem tem menos de 8 fica marcado.",
+  "Correr mais sem a bola é a face física de pressionar alto — é escolha do time, não qualidade do atleta (ESPECIFICACAO.md §5). Um achado em _p30otip descreve o plano do clube antes de descrever o jogador, e a frase tem de dizer isso.",
+  "`distance_p90` e `m_per_min` têm rho ≈ 1 entre si (ESPECIFICACAO.md §5b). Os dois entram na família volume porque a família é a unidade do BH e o BH é conservador com redundância; mas contar os dois como dois achados seria contar duas vezes, e a conclusão trata os dois como um."
+ ]
+}

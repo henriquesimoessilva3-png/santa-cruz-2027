@@ -1,0 +1,512 @@
+{
+ "_doc": "Só números. Calculados para os marcadores que a proposta de destino (_proposta_destino.json, A06) criou e que não têm valor em lugar nenhum. Nenhuma conclusão, texto, destino ou nível de confiança foi decidido ou alterado aqui.",
+ "parte": "A06",
+ "gerado_em": "2026-09-19",
+ "escreve_so": "_fonte/estudo_serieb/resultados/A06_numeros_novos.json",
+ "base_do_recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidade": "clube-temporada",
+  "n_total": 80,
+  "clubes": 40,
+  "faixas": {
+   "Sobe": 16,
+   "Meio": 48,
+   "Cai": 16,
+   "trave (5o-8o)": 16
+  },
+  "sem_os_colados_na_linha": {
+   "Sobe": 8,
+   "Meio": 32,
+   "trave": 7
+  },
+  "linhas_de_jogo": 3036,
+  "arquivos": [
+   "_fonte/estudo_serieb/resultados/A06_testes.csv",
+   "_fonte/estudo_serieb/resultados/A06_resumo.json",
+   "_fonte/estudo_serieb/resultados/A06_indicadores.json",
+   "_fonte/estudo_serieb/resultados/A01_clube_temporada.csv",
+   "_fonte/estudo_serieb/resultados/_porta_temporal.json",
+   "_fonte/estudo_serieb/resultados/_porta_temporal.md",
+   "_fonte/estudo_serieb/resultados/A02_testes.csv (segundo caminho)",
+   "dados/serieb_clube_temporada.csv",
+   "dados/serieb_jogos.csv",
+   "_fonte/estudo_serieb/scripts/_metodo.py (BH, d minimo, bootstrap de clube)"
+  ]
+ },
+ "calculados": 38,
+ "nao_calculaveis": 1,
+ "ja_tinham_valor_em_A06_json": [
+  "n_sobe_sf = 8",
+  "n_meio_sf = 32"
+ ],
+ "numeros": [
+  {
+   "marcador": "dd_s_com",
+   "conclusao": "A06-1",
+   "valor": 60.77,
+   "valor_bruto": 60.768421,
+   "unidade": "% de duelos defensivos ganhos",
+   "formatado": "60,77",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|duelo|SM|duelos_def_pct, coluna cru_a (mediana das 16 linhas faixa=Sobe). Valor bruto 60,768421 = média dos 38 jogos por clube-temporada de 'Duelos defensivos ganhos, %' em dados/serieb_jogos.csv, depois mediana entre os 16.",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 60,768421.",
+   "nota": "Arredondado (60,768 -> 60,77), não truncado."
+  },
+  {
+   "marcador": "dd_m_com",
+   "conclusao": "A06-1",
+   "valor": 59.78,
+   "valor_bruto": 59.784868,
+   "unidade": "% de duelos defensivos ganhos",
+   "formatado": "59,78",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|duelo|SM|duelos_def_pct, coluna cru_b (mediana das 48 linhas faixa=Meio).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 59,784868.",
+   "nota": "ATENÇÃO: a proposta escreveu 59.79, que é arredondamento duplo — ela arredondou o 59,785 já arredondado do CSV. O valor da base é 59,784868, que a 2 casas dá 59,78. A diferença contra o Sobe continua 0,99 ponto percentual, ou seja a frase 'cerca de uma dividida a mais a cada cem' segue valendo."
+  },
+  {
+   "marcador": "dd_s_sem",
+   "conclusao": "A06-1 e A06-2",
+   "valor": 61.67,
+   "valor_bruto": 61.672237,
+   "unidade": "% de duelos defensivos ganhos",
+   "formatado": "61,67",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha sem|duelo|SM|duelos_def_pct, coluna cru_a (8 linhas Sobe, sem os colados na linha). A mesma cru_a aparece em sem|duelo|ST.",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 61,672237.",
+   "nota": "Hoje existe em A06.json como dd_s = '61.672' (string, 3 casas, ponto inglês) e sai '61,672%' na tela. Mesmo número, formato novo."
+  },
+  {
+   "marcador": "dd_m_sem",
+   "conclusao": "A06-1",
+   "valor": 59.89,
+   "valor_bruto": 59.885174,
+   "unidade": "% de duelos defensivos ganhos",
+   "formatado": "59,89",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha sem|duelo|SM|duelos_def_pct, coluna cru_b (32 linhas Meio).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 59,885174."
+  },
+  {
+   "marcador": "ppda_s_com",
+   "conclusao": "A06-1",
+   "valor": 9.69,
+   "valor_bruto": 9.687368,
+   "unidade": "passes do adversário por ação defensiva",
+   "formatado": "9,69",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|pressao|SM|ppda, coluna cru_a (mediana da coluna `ppda` de dados/serieb_clube_temporada.csv nas 16 linhas Sobe).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 9,687368."
+  },
+  {
+   "marcador": "ppda_m_com",
+   "conclusao": "A06-1",
+   "valor": 10.13,
+   "valor_bruto": 10.128026,
+   "unidade": "passes do adversário por ação defensiva",
+   "formatado": "10,13",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|pressao|SM|ppda, coluna cru_b (48 linhas Meio).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 10,128026."
+  },
+  {
+   "marcador": "rec_s_com",
+   "conclusao": "A06-1",
+   "valor": 78.38,
+   "valor_bruto": 78.381579,
+   "unidade": "recuperações por jogo",
+   "formatado": "78,38",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|pressao|SM|recuperacoes, coluna cru_a (coluna `recuperacoes` de dados/serieb_clube_temporada.csv, já por jogo).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 78,381579."
+  },
+  {
+   "marcador": "rec_m_com",
+   "conclusao": "A06-1",
+   "valor": 77.92,
+   "valor_bruto": 77.921053,
+   "unidade": "recuperações por jogo",
+   "formatado": "77,92",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|pressao|SM|recuperacoes, coluna cru_b.",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 77,921053."
+  },
+  {
+   "marcador": "int_s_com",
+   "conclusao": "A06-1",
+   "valor": 15.69,
+   "valor_bruto": 15.688026,
+   "unidade": "índice de intensidade de jogo do Wyscout (sem unidade de campo)",
+   "formatado": "15,69",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|pressao|SM|intensidade, coluna cru_a (coluna `intensidade` de dados/serieb_clube_temporada.csv).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 15,688026.",
+   "nota": "Não tem unidade de jogo: é o índice 'Intensidade de jogo' do Wyscout. O texto novo já o cita sem unidade."
+  },
+  {
+   "marcador": "int_m_com",
+   "conclusao": "A06-1",
+   "valor": 15.55,
+   "valor_bruto": 15.548553,
+   "unidade": "índice de intensidade de jogo do Wyscout (sem unidade de campo)",
+   "formatado": "15,55",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|pressao|SM|intensidade, coluna cru_b.",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 15,548553."
+  },
+  {
+   "marcador": "n_sobe_com",
+   "conclusao": "A06-1 e A06-3",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, coluna n_a das linhas fronteira=com (todas as famílias, comparação SM). São as 16 linhas faixa=Sobe de A01_clube_temporada.csv em 2022-2025 (4 promovidos x 4 temporadas).",
+   "conferido": true,
+   "conferido_como": "Contagem direta na base refeita: 16 linhas faixa='Sobe'. Bate com n_a=16 em todas as 9 linhas com/SM do CSV."
+  },
+  {
+   "marcador": "n_meio_com",
+   "conclusao": "A06-1 e A06-3",
+   "valor": 48,
+   "formatado": "48",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, coluna n_b das linhas fronteira=com, comparação SM. São as 48 linhas faixa=Meio (5º-16º) em 2022-2025.",
+   "conferido": true,
+   "conferido_como": "Contagem direta na base refeita: 48 linhas faixa='Meio'. Bate com n_b=48 no CSV. 16 Sobe + 48 Meio + 16 Cai = 80."
+  },
+  {
+   "marcador": "dd_q_com",
+   "conclusao": "A06-1",
+   "valor": 0.02556,
+   "formatado": "0,02556",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|duelo|SM|duelos_def_pct, coluna q (BH a 5% dentro da família 'duelo' x comparação SM, que tem 2 indicadores).",
+   "conferido": true,
+   "conferido_como": "Refiz o BH à mão com os dois p da família (0,01278 e 0,84466): q = 0,01278 x 2/1 = 0,02556 e 0,84466 x 2/2 = 0,84466. Bate com o CSV.",
+   "nota": "Selo no CSV: 'firme'."
+  },
+  {
+   "marcador": "dd_ic_com",
+   "conclusao": "A06-1",
+   "valor": "+0,18 a +1,52",
+   "unidade": "IC95 do d de Cohen (no posto dentro da temporada)",
+   "formatado": "+0,18 a +1,52",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|duelo|SM|duelos_def_pct, coluna ic95_d = [0.18, 1.52]. IC95 do d por bootstrap de CLUBE (2.000 reamostragens de 40 clubes), como manda scripts/_metodo.py.",
+   "conferido": true,
+   "conferido_como": "Refiz o bootstrap de clube com 4.000 reamostragens em 5 sementes: os limites caem entre [+0,20; +1,51] e [+0,23; +1,54], ou seja o [+0,18; +1,52] publicado está dentro do ruído de Monte Carlo. Reprodução dígito a dígito exigiria rodar A06.py inteiro, porque o RNG é um só e é consumido na ordem dos testes.",
+   "nota": "String montada, em pt-BR, como a proposta a escreveu. Hoje A06.json tem dd_ic = '+0.99 a +2.37', que é o outro corte (sem fronteira)."
+  },
+  {
+   "marcador": "dmin_SM_com",
+   "conclusao": "A06-1",
+   "valor": 0.82,
+   "unidade": "d de Cohen",
+   "formatado": "0,82",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, coluna d_minimo_80 das linhas fronteira=com, comparação SM (desenho 16x48). Menor d detectável a 80% de poder.",
+   "conferido": true,
+   "conferido_como": "Rodei d_minimo(16,48) de scripts/_metodo.py: 0,82. Bate com A06_resumo.json.poder_por_desenho['16x48'] = 0.82 e com a coluna do CSV.",
+   "nota": "Hoje A06.json só tem dmin_SM = '1.14', que é o desenho 8x32 (corte sem fronteira). Os três indicadores de pressão com fronteira têm |d| 0,152 / 0,136 / 0,335, todos abaixo de 0,82."
+  },
+  {
+   "marcador": "porta_dd_parcial",
+   "conclusao": "A06-1",
+   "valor": 0.092,
+   "unidade": "correlação parcial (Spearman entre resíduos)",
+   "formatado": "+0,092",
+   "de_onde": "_porta_temporal.json, componentes -> duelos_def_pct, campo `parcial` (§6 e tabela da §3 do _porta_temporal.md). Porta da §6.4: média de 'Duelos defensivos ganhos, %' nas 19 primeiras rodadas x pontos somados das 19 últimas, em posto dentro do ano, parcial dada a pontuação do 1º turno. n=80.",
+   "conferido": true,
+   "conferido_como": "Os dois arquivos da mesma medição batem: _porta_temporal.json traz parcial 0.092 / p_parcial 0.41602 e _porta_temporal.md §3 e §6 publicam +0,092 (p 0,4160). O método está conferido lá dentro por `conferencia_6_4`: 9 de 9 linhas da tabela da §6.4 reproduzidas idênticas.",
+   "nota": "Só entra no confianca_motivo e na prova, não no texto de tela. Não passa a porta."
+  },
+  {
+   "marcador": "porta_dd_p",
+   "conclusao": "A06-1",
+   "valor": 0.416,
+   "formatado": "0,416",
+   "de_onde": "_porta_temporal.json, componentes -> duelos_def_pct, campo `p_parcial` = 0.41602 (o .md arredonda para 0,4160).",
+   "conferido": true,
+   "conferido_como": "Mesma dupla de arquivos (.json 0.41602 e .md 0,4160).",
+   "nota": "ρ bruto da porta, para a prova: +0,121 (p 0,2858)."
+  },
+  {
+   "marcador": "ddt_t_sem",
+   "conclusao": "A06-2",
+   "valor": 59.79,
+   "valor_bruto": 59.791316,
+   "unidade": "% de duelos defensivos ganhos",
+   "formatado": "59,79",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha sem|duelo|ST|duelos_def_pct, coluna cru_b (mediana das 7 linhas trave=1 que sobram sem os colados na linha).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 59,791316.",
+   "nota": "Hoje existe como ddt_t = '59.791' (string). Mesmo número, formato novo. A mediana da trave COM todos os times é outra: 59,81."
+  },
+  {
+   "marcador": "n_trave",
+   "conclusao": "A06-2",
+   "valor": 16,
+   "formatado": "16",
+   "de_onde": "A01_clube_temporada.csv, linhas com trave=1 e temporada em 2022-2025: 4 por temporada (5º a 8º) x 4 temporadas.",
+   "conferido": true,
+   "conferido_como": "Contagem direta (16) e conferida contra n_b=16 nas linhas com|...|ST de A06_testes.csv. Listei as 16: 2022 Sampaio Corrêa, Ituano, Sport, Criciúma; 2023 Novorizontino, Mirassol, Sport, Vila Nova; 2024 Novorizontino, Goiás, Operário-PR, América-MG; 2025 Criciúma, Goiás, Novorizontino, CRB."
+  },
+  {
+   "marcador": "n_trave_sai",
+   "conclusao": "A06-2",
+   "valor": 9,
+   "formatado": "9",
+   "de_onde": "A01_clube_temporada.csv, linhas trave=1 E fronteira=1 em 2022-2025: as que o corte 'sem os colados na linha' retira.",
+   "conferido": true,
+   "conferido_como": "Contagem direta: 9. Fecha com n_trave (16) - n_trave_sf (7) = 9. São 2023 Mirassol, Novorizontino, Sport, Vila Nova; 2024 Goiás, Novorizontino; 2025 Criciúma, Goiás, Novorizontino.",
+   "nota": "O confianca_motivo de A06-2 já dizia '9 dos 16' e está certo."
+  },
+  {
+   "marcador": "n_trave_sf",
+   "conclusao": "A06-2",
+   "valor": 7,
+   "formatado": "7",
+   "de_onde": "A01_clube_temporada.csv, linhas trave=1 E fronteira=0 em 2022-2025.",
+   "conferido": true,
+   "conferido_como": "Contagem direta (7) e conferida contra n_b=7 nas linhas sem|...|ST de A06_testes.csv. São 2022 Sampaio Corrêa, Ituano, Sport, Criciúma; 2024 Operário-PR, América-MG; 2025 CRB.",
+   "nota": "Hoje o 7 está digitado à mão no campo `n` e no confianca_motivo de A06-2, sem marcador."
+  },
+  {
+   "marcador": "pts_trave_sai",
+   "conclusao": "A06-2",
+   "valor": 63,
+   "valor_bruto": 63.0,
+   "unidade": "pontos na temporada",
+   "formatado": "63",
+   "de_onde": "A01_clube_temporada.csv, coluna `pontos`: mediana das 9 linhas trave=1 e fronteira=1 em 2022-2025. Valores: 60, 61, 61, 61, 63, 63, 63, 63, 64.",
+   "conferido": true,
+   "conferido_como": "Listei os 9 valores um a um e a mediana (5º valor) é 63; a média é 62,11. Refiz também no recorte 2022-2026 (20 times da trave, 10 que saem) e aí a mediana é 62 — que é de onde vem o número do texto atual.",
+   "nota": "O confianca_motivo de A06-2 hoje diz 62, que é o recorte 2022-2026 do _metodo_fronteira.md. No recorte do próprio A06 (2022-2025) é 63."
+  },
+  {
+   "marcador": "pts_trave_fica",
+   "conclusao": "A06-2",
+   "valor": 57,
+   "valor_bruto": 57.0,
+   "unidade": "pontos na temporada",
+   "formatado": "57",
+   "de_onde": "A01_clube_temporada.csv, coluna `pontos`: mediana das 7 linhas trave=1 e fronteira=0 em 2022-2025. Valores: 56, 56, 57, 57, 58, 58, 58.",
+   "conferido": true,
+   "conferido_como": "Listei os 7 valores um a um e a mediana (4º valor) é 57; a média é 57,14. No recorte 2022-2026 (10 que ficam) a mediana é 56,5, que é o número do texto atual.",
+   "nota": "Do outro lado, o corte tira mesmo os mais fracos da Sobe: mediana 64 pontos nos 8 promovidos que saem contra 66,5 nos 8 que ficam. Isso sustenta a frase 'compara um grupo reforçado com um enfraquecido'."
+  },
+  {
+   "marcador": "dd_q_com_ST",
+   "conclusao": "A06-2",
+   "valor": 0.06438,
+   "formatado": "0,06438",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|duelo|ST|duelos_def_pct, coluna q.",
+   "conferido": true,
+   "conferido_como": "Refiz o BH da família 'duelo' x ST com fronteira (p 0,06438 do duelo defensivo e 0,0062 do aéreo): q = 0,06438 e 0,01241. Bate com o CSV."
+  },
+  {
+   "marcador": "selo_dd_com_ST",
+   "conclusao": "A06-2",
+   "valor": "sem diferença clara",
+   "formatado": "sem diferença clara",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|duelo|ST|duelos_def_pct, coluna selo. A regra de scripts/_metodo.py: q>=0,05 e p>=0,05 => 'sem diferença clara' (aqui q 0,06438 e p 0,06438).",
+   "conferido": true,
+   "conferido_como": "Apliquei a regra do _metodo.py aos q e p desta linha e sai o mesmo selo do CSV.",
+   "nota": "Corrige o 'pode ser sorte' citado entre aspas no texto atual — esse selo exige p<0,05, e aqui p = 0,06438."
+  },
+  {
+   "marcador": "dmin_ST_sem",
+   "conclusao": "A06-2",
+   "valor": 1.57,
+   "unidade": "d de Cohen",
+   "formatado": "1,57",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, coluna d_minimo_80 das linhas fronteira=sem, comparação ST (desenho 8x7).",
+   "conferido": true,
+   "conferido_como": "Rodei d_minimo(8,7) de scripts/_metodo.py: 1,57. Bate com A06_resumo.json.poder_por_desenho['8x7'] e com o CSV.",
+   "nota": "Já existe em A06.json como dmin_ST = '1.57' (string). Mesmo número, nome e formato novos."
+  },
+  {
+   "marcador": "dmin_ST_com",
+   "conclusao": "A06-2",
+   "valor": 1.02,
+   "unidade": "d de Cohen",
+   "formatado": "1,02",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, coluna d_minimo_80 das linhas fronteira=com, comparação ST (desenho 16x16).",
+   "conferido": true,
+   "conferido_como": "Rodei d_minimo(16,16): 1,02. Bate com A06_resumo.json.poder_por_desenho['16x16'] e com o CSV."
+  },
+  {
+   "marcador": "rca_s_com",
+   "conclusao": "A06-3",
+   "valor": 12.52,
+   "valor_bruto": 12.520206,
+   "unidade": "finalizações sofridas por 50% de posse do adversário",
+   "formatado": "12,52",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|cede_ajustado|SM|remates_contra_aj, coluna cru_a. Cálculo: coluna `remates_contra` de dados/serieb_clube_temporada.csv dividida por ((100-posse)/50); mediana das 16 linhas Sobe.",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 12,520206.",
+   "nota": "UNIDADE: é 'por 50% de posse do adversário', não 'por jogo'. O texto proposto escreve 'sofre esse valor finalizações por jogo' — quem validar precisa decidir isso, porque as finalizações por jogo de verdade são rc_s_com = 11,62. Não mexi no texto."
+  },
+  {
+   "marcador": "rca_m_com",
+   "conclusao": "A06-3",
+   "valor": 12.23,
+   "valor_bruto": 12.228421,
+   "unidade": "finalizações sofridas por 50% de posse do adversário",
+   "formatado": "12,23",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|cede_ajustado|SM|remates_contra_aj, coluna cru_b (48 linhas Meio).",
+   "conferido": true,
+   "conferido_como": "Refiz a base do zero por esse caminho e as medianas, d, p e q de A06_testes.csv saem idênticos; é esse recalculo que confere as linhas abaixo. Recalculo do zero: 12,228421.",
+   "nota": "Mesma ressalva de unidade do rca_s_com. Hoje A06.json tem rca_m = '12.38', que é o corte sem fronteira."
+  },
+  {
+   "marcador": "rc_s_com",
+   "conclusao": "A06-3",
+   "valor": 11.62,
+   "valor_bruto": 11.618421,
+   "unidade": "finalizações sofridas por jogo",
+   "formatado": "11,62",
+   "de_onde": "Finalizações sofridas por jogo, SEM ajuste de posse: coluna `remates_contra` de dados/serieb_clube_temporada.csv, mediana das 16 linhas faixa=Sobe em 2022-2025. Não existe em A06_testes.csv (o A06 só declarou a versão ajustada).",
+   "conferido": true,
+   "conferido_como": "Três caminhos batem em 11,618421: (1) mediana da coluna de temporada; (2) mediana da média por clube-temporada de 'Remates contra' nos jogos de dados/serieb_jogos.csv; (3) A02_testes.csv, linha com|cede|SM|remates_contra, cru_sobe = 11.618."
+  },
+  {
+   "marcador": "rc_m_com",
+   "conclusao": "A06-3",
+   "valor": 12.05,
+   "valor_bruto": 12.052632,
+   "unidade": "finalizações sofridas por jogo",
+   "formatado": "12,05",
+   "de_onde": "Mesma coluna, mediana das 48 linhas faixa=Meio.",
+   "conferido": true,
+   "conferido_como": "Os mesmos três caminhos batem em 12,052632, inclusive A02_testes.csv com|cede|SM|remates_contra, cru_alvo = 12.053.",
+   "nota": "Diferença bruta: o Meio sofre 0,43 finalização a mais por jogo. Com o ajuste de posse a ordem se inverte (12,52 do Sobe contra 12,23 do Meio) — que é exatamente o ponto da frase. Só bruto, sem selo: o indicador não está na lista pré-declarada do A06 (está na do A02, onde d +0,247 e q 0,42873, sem diferença clara)."
+  },
+  {
+   "marcador": "xgpr_s_com",
+   "conclusao": "A06-3",
+   "valor": 0.089,
+   "valor_bruto": 0.089367,
+   "unidade": "gol esperado por finalização sofrida",
+   "formatado": "0,089",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|cede_ajustado|SM|xg_por_remate_contra, coluna cru_a (coluna `xg_por_remate_contra` de dados/serieb_clube_temporada.csv; é taxa e por isso não leva ajuste de posse).",
+   "conferido": true,
+   "conferido_como": "Recalculo do zero: 0,089367. Segundo caminho: A02_testes.csv, linha com|cede|SM|xg_por_remate_contra, cru_sobe = 0.089 — o mesmo número, medido em outra parte."
+  },
+  {
+   "marcador": "xgpr_m_com",
+   "conclusao": "A06-3",
+   "valor": 0.098,
+   "valor_bruto": 0.097609,
+   "unidade": "gol esperado por finalização sofrida",
+   "formatado": "0,098",
+   "de_onde": "_fonte/estudo_serieb/resultados/A06_testes.csv, linha com|cede_ajustado|SM|xg_por_remate_contra, coluna cru_b.",
+   "conferido": true,
+   "conferido_como": "Recalculo do zero: 0,097609. Segundo caminho: A02_testes.csv, mesma linha, cru_alvo = 0.098.",
+   "nota": "Diferença 0,0082 gol esperado por finalização, ou seja 0,82 a cada cem chutes sofridos — a frase 'cerca de um gol esperado a menos a cada cem chutes' arredonda para cima e continua honesta."
+  },
+  {
+   "marcador": "conf_xgpr",
+   "conclusao": "A06-3",
+   "valor": 0.36,
+   "valor_bruto": 0.357,
+   "unidade": "confiabilidade (0 a 1)",
+   "formatado": "0,36",
+   "de_onde": "Split-half do xg_por_remate_contra: rodadas ímpares x pares de cada clube-temporada (ordenadas por data), razão de somas em cada metade (xG do adversário ÷ 'Remates contra'), posto dentro do ano, Spearman e correção de Spearman-Brown. dados/serieb_jogos.csv, Série B 2022-2025, n=80.",
+   "conferido": true,
+   "conferido_como": "Rodei eu mesmo e deu r entre metades +0,217 -> Spearman-Brown 0,357, o mesmo 0,357 que a auditoria de 18/09 registra. O método se valida porque reproduz três números já publicados com ele: xG = 0,302 (o '0,30' da ESPECIFICACAO §6.1), posse = 0,690 e xg_contra = 0,533. Pela média das razões em vez da razão de somas dá 0,352 — mesma casa.",
+   "nota": "Abaixo do piso de 0,40 da régua dura da ESPECIFICACAO (§6.1: indicador com teto < 0,40 sai hachurado). A coluna regua_curta não existe em A06_testes.csv — existe em A02_testes.csv, mas lá está vazia para este indicador."
+  },
+  {
+   "marcador": "porta_xgpr_parcial",
+   "conclusao": "A06-3",
+   "valor": -0.026,
+   "unidade": "correlação parcial (Spearman entre resíduos)",
+   "formatado": "-0,026",
+   "de_onde": "_porta_temporal.json, componentes -> xg_por_remate_contra, campo `parcial` (tabela da §3 do _porta_temporal.md). Porta da §6.4, n=80, escala alinhada (o indicador tem sinal -1).",
+   "conferido": true,
+   "conferido_como": "O .json (parcial -0.026, p_parcial 0.82131) e a tabela da §3 do .md (-0,026, p 0,8213) batem. O método vem conferido por `conferencia_6_4`: 9 de 9 linhas da §6.4 idênticas.",
+   "nota": "Só no confianca_motivo e na prova. Sinal invertido em relação ao ρ bruto (+0,208): é esse o 'sinal invertido em relação ao declarado' da proposta."
+  },
+  {
+   "marcador": "porta_xgpr_p",
+   "conclusao": "A06-3",
+   "valor": 0.8213,
+   "formatado": "0,8213",
+   "de_onde": "_porta_temporal.json, componentes -> xg_por_remate_contra, campo `p_parcial` = 0.82131.",
+   "conferido": true,
+   "conferido_como": "Mesma dupla .json / .md.",
+   "nota": "ρ bruto da porta, para a prova: +0,208 (p 0,0635)."
+  },
+  {
+   "marcador": "ca_contra_s",
+   "conclusao": "A06-3",
+   "valor": 1.05,
+   "valor_bruto": 1.052632,
+   "unidade": "contra-ataques sofridos por jogo",
+   "formatado": "1,05",
+   "de_onde": "Contra-ataques SOFRIDOS por jogo: para cada jogo de Série B 2022-2025 em dados/serieb_jogos.csv, a coluna 'Contra-ataques' da LINHA DO ADVERSÁRIO no mesmo jogo (pareado por Data+Jogo); média dos 38 jogos por clube-temporada e mediana das 16 linhas faixa=Sobe.",
+   "conferido": true,
+   "conferido_como": "As 1.518 partidas do recorte têm exatamente 2 linhas cada (3.036 no total), então o pareamento é completo e sem buraco: 0 clube-temporadas sem o dado. Conferi pelo outro lado: a soma dos contra-ataques sofridos de todos os clubes bate com a soma dos contra-ataques feitos ('Contra-ataques' da própria linha), porque é a mesma coluna vista do outro lado do jogo.",
+   "nota": "Desmente o 'contra-ataque sofrido não existe' que o A06.py registrou e o em_aberto de A06.json publica: existe, é a coluna do adversário, e cobre os 80 clube-temporadas."
+  },
+  {
+   "marcador": "ca_contra_m",
+   "conclusao": "A06-3",
+   "valor": 1.28,
+   "valor_bruto": 1.279872,
+   "unidade": "contra-ataques sofridos por jogo",
+   "formatado": "1,28",
+   "de_onde": "Mesmo cálculo, mediana das 48 linhas faixa=Meio.",
+   "conferido": true,
+   "conferido_como": "Mesmo pareamento completo de 1.518 jogos. Média (em vez de mediana): Sobe 1,132 contra Meio 1,209 — mesma direção, diferença menor.",
+   "nota": "Direção bruta no corte COM fronteira: quem sobe sofre 0,23 contra-ataque a menos por jogo. ATENÇÃO, a direção NÃO é estável: no corte sem os colados na linha ela se inverte (Sobe 1,25 contra Meio 1,13). Só o bruto está aqui; o q e o selo estão em bloqueados."
+  }
+ ],
+ "bloqueados": [
+  {
+   "marcador": "ca_contra_q, ca_contra_ic e ca_contra_selo (o contra-ataque sofrido com o método da casa)",
+   "conclusao": "A06-3",
+   "por_que": "O bruto eu calculei (ca_contra_s e ca_contra_m acima) e o teste isolado também sai: no posto dentro da temporada, com fronteira 16x48 d +0,414 (p 0,14131, d mínimo 0,82); sem fronteira 8x32 d +0,460 (p 0,29618, d mínimo 1,14); trave com 16x16 d +0,492 (p 0,17448); trave sem 8x7 d +0,706 (p 0,19946). O que NÃO posso entregar é o q e o selo, porque o BH é por família: pôr o contra-ataque sofrido numa família muda o q de todos os outros indicadores dela, o que reescreveria A06_testes.csv e mexeria nas três conclusões. Escolher a família é decisão de quem declara a lista, não minha, e a regra de escrita desta tarefa proíbe tocar em qualquer arquivo além deste.",
+   "o_que_resolveria": "Acrescentar 'contra-ataques sofridos' a A06_indicadores.json declarando a família (a 'cede_ajustado' é a candidata natural, e aí é preciso decidir se entra ajustado pela posse do adversário, como os outros dois volumes cedidos, ou cru) e rodar de novo scripts/A06.py — que regrava A06_testes.csv, A06_resumo.json e os q de toda a parte. É o 'rodar mais uma vez' que a nota_da_parte já pede."
+  }
+ ],
+ "correcoes_de_numero_existente": [
+  {
+   "marcador": "porta_dd",
+   "conclusao": "A06-1",
+   "esta": "0.319, usado em A06.json como resultado da porta temporal do duelo defensivo",
+   "deveria": "+0,092 (p 0,4160) — e aí a porta REPROVA",
+   "evidencia": "0,319 está certo como número, mas é outra medida: é a persistência do indicador entre a 1ª e a 2ª metade da temporada (o próprio indicador prevendo o próprio indicador), que scripts/A06.py calcula em porta_temporal() e grava em A06_resumo.json. A porta da §6.4 é o indicador das 19 primeiras rodadas contra os PONTOS das 19 últimas, com a parcial dada aos pontos do 1º turno: ρ +0,121 (p 0,2858), parcial +0,092 (p 0,41602), em _porta_temporal.json/md §3 e §6. O limiar rho>0,30 que o A06.py usa é o rho_persist que a §6.5 aposentou em 15/09."
+  },
+  {
+   "marcador": "porta_ppda",
+   "conclusao": "A06-1",
+   "esta": "0.571, citado no confianca_motivo como 'passa na porta temporal'",
+   "deveria": "parcial -0,103 (p 0,36312) na escala crua, +0,103 na escala alinhada — não passa",
+   "evidencia": "Mesma troca: 0,571 é persistência entre metades. A porta de verdade para o PPDA está em _porta_temporal.json, conferencia_6_4: ρ -0,195, parcial -0,103, p 0,36312, n 80 — a linha 'PPDA' da tabela da §6.4, reproduzida idêntica ao publicado. Com p 0,36 não passa, nem na escala crua nem na alinhada."
+  },
+  {
+   "marcador": "porta_int",
+   "conclusao": "A06-1",
+   "esta": "0.56, citado no confianca_motivo como 'passa na porta temporal'",
+   "deveria": "parcial +0,204 (p 0,06972) — não passa",
+   "evidencia": "0,56 é persistência. A porta para 'Intensidade de jogo' está em _porta_temporal.json, conferencia_6_4: ρ +0,190, parcial +0,204, p 0,06972, n 80. Fica acima de 0,05 e portanto não passa."
+  },
+  {
+   "marcador": "porta_rec",
+   "conclusao": "A06-1",
+   "esta": "0.488, citado no confianca_motivo como 'passa na porta temporal'",
+   "deveria": "não existe medida de porta para recuperações em arquivo nenhum",
+   "evidencia": "0,488 é persistência entre metades, igual aos outros três. Procurei a porta das recuperações nos 8 componentes de _porta_temporal.json e nas 9 linhas de conferencia_6_4 (a tabela da §6.4) e ela não está em nenhuma das duas. Ou seja: aqui não é só o nome trocado, é afirmação sem medição. Rodar scripts/_porta_temporal.py com 'Recuperações' resolveria."
+  },
+  {
+   "marcador": "(sem marcador) os 62 e 56,5 digitados no confianca_motivo de A06-2",
+   "conclusao": "A06-2",
+   "esta": "mediana 62 pontos nos que saem contra 56,5 nos que ficam",
+   "deveria": "63 contra 57, no recorte do próprio A06",
+   "evidencia": "Refiz as duas medianas em A01_clube_temporada.csv. No recorte do A06 (2022-2025, 16 clube-temporadas na trave) dá 63 nos 9 que saem e 57 nos 7 que ficam. Os 62 e 56,5 saem do recorte 2022-2026, que tem 20 times na trave, 10 de cada lado — é a tabela do _metodo_fronteira.md. Os marcadores novos pts_trave_sai e pts_trave_fica desta entrega trazem o recorte certo. O '9 dos 16' da mesma frase está correto."
+  }
+ ],
+ "formato": "Cada numero vai como NUMERO em `valor` (e o nao arredondado em `valor_bruto`, quando existe) e em pt-BR em `formatado`. Arredondado, nunca truncado. Quem decide o formato final da tela e o gerador."
+}
