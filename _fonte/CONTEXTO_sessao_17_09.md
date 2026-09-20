@@ -22,8 +22,8 @@
 | marcadores publicados | **1.462**, todos saindo de um cálculo do próprio script |
 | portão de entrega | **40 reprovações** (eram 131) · **J02 aceita** |
 | aba | **no ar**, em `docs/`, publicada no GitHub Pages |
-| git | branch **`estudo-serieb-20-09`**, árvore limpa · o `main` está 4 commits atrás |
-| ⚠️ site | `docs/` **desatualizado**: a aba publicada não tem J05, J06 nem J09 |
+| git | **`main`**, árvore limpa, tudo empurrado (`f9580ba`) |
+| site | **no ar e em dia** — 27 perguntas: 22 validadas, 3 em rascunho, 2 pendentes |
 
 **A resposta do estudo, em três linhas.** Uma coisa só passa nos dois testes da casa: quem sobe
 **finaliza de mais perto** — 19,5 m contra 20,5 do meio, e já finalizava assim no 1º turno. Três
@@ -49,17 +49,21 @@ obrigatório da §8.6 e ele **não passou**; nenhum nome foi publicado, nem na S
 
 ### O estado do git, que você herda
 
-A árvore está **limpa**, na branch **`estudo-serieb-20-09`** — quatro commits de 20/09 que o `main`
-ainda não tem. Para levá-los ao `main`:
+**Tudo limpo.** Você abre na `main`, sem pendências, com tudo empurrado para o GitHub
+(`f9580ba`) e **o site em dia** — a aba publicada já tem as 25 partes.
+
+**Se for publicar de novo, a ordem importa**, e é esta:
 
 ```
-git checkout main && git merge --ff-only estudo-serieb-20-09
+python3 gerar_estudo_serieb_js.py          # os <ID>.json viram o dado da aba
+python3 _fonte/estudo_serieb/scripts/gerar_registro.py
+python3 _fonte/estudo_serieb/scripts/_portao.py    # olhar antes de publicar
+python3 publicar_site.py                   # monta docs/
+git add -A && git commit && git push origin main
 ```
 
-⚠️ **O `docs/` está desatualizado.** A aba publicada no GitHub Pages foi gerada em 19/09 e **não tem
-J05, J06 nem J09**. Antes de publicar de novo, na ordem: `python3 gerar_estudo_serieb_js.py`, depois
-`python3 publicar_site.py`, e só então commitar e dar push no `main` — senão o site volta com dado
-velho. O repositório é **público** (ver §5).
+Pular o primeiro põe o site de volta com dado velho — foi o que quase aconteceu em 20/09.
+O repositório é **público** (ver §5).
 
 ---
 
