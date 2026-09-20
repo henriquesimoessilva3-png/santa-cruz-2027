@@ -1,0 +1,335 @@
+{
+ "parte": "J09",
+ "pergunta": "Quais estrangeiros atendem o perfil de J05, com minutagem alta e regular na liga de origem, depois do ajuste de J08?",
+ "declarado_em": "2026-09-20",
+ "declarado_antes_de_calcular": true,
+ "declarado_antes_de_calcular_o_que": "O universo de ligas, o corte de liga utilizável, o requisito de minutagem, a ficha que sobra depois de o físico cair, a conta do ajuste de J08, o desenho do backtest próprio desta parte, a família do BH, os dois cortes de fronteira e — o mais importante — A REGRA QUE DECIDE SE A LISTA DE NOMES PODE SER PUBLICADA E COM QUE RÓTULO. Este arquivo é gravado antes de scripts/J09.py rodar pela primeira vez. Nenhum número desta parte foi visto antes dele.",
+ "o_chao_em_que_esta_parte_pisa": {
+  "J05": "A ficha é DESCRITIVA e o teto dela é indício. São 4 a 6 métricas por posição, 32 pisos e 7 sem piso. Dois dos blocos são técnicos e um é físico.",
+  "J06": "O backtest da §8.6 RODOU E NÃO PASSOU. A ficha inteira aprovou 17 de 297 chegadas e os aprovados jogaram MENOS (1.095 contra 1.317 minutos, d -0,224). Nenhum nome foi publicado na Série B, e J06_alvos.csv não existe no disco.",
+  "J06_o_unico_sinal": "O requisito de minutagem alta e repetida: 1.718 contra 1.244 minutos, d +0,403 e q 0,029 no corte COM fronteira, d +0,334 e q 0,129 no corte SEM. É indício, não provável.",
+  "J07": "Estrangeiro na Série B é leitura descritiva por decisão do CLAUDE.md, seção Estrangeiros: 'liste os casos, sem aplicar o critério de conclusão'.",
+  "J08_1": "NÃO EXISTE fator de conversão por liga estrangeira com esta base. Com destino só Série B a maior origem é Portugal A com 8 casos, abaixo do piso de 10. Sete ligas passam do piso só porque o destino inclui Série A e C; 38 ligas têm fator de faixa, marcado fraco; 18 não têm fator nenhum.",
+  "J08_2": "A família física NÃO É MONTÁVEL: não há dado físico por temporada em liga de origem nenhuma. J08 escreveu literalmente que J09 tem de marcar o requisito físico como NÃO VERIFICADO em todo alvo estrangeiro.",
+  "J08_3": "Quem chega guarda menos da metade do destaque que tinha (firme, n=737). É a conclusão mais bem amarrada do J08 e é a que autoriza comparar dois estrangeiros entre si mesmo sem fator confiável de liga.",
+  "J08_sem_goleiro": "O painel temporal tem 7 posições-raiz e NENHUMA é goleiro. Não há fator para goleiro, e não há uma única chegada de goleiro estrangeiro à Série B na base.",
+  "consequencia": "O teto de confiança de TODA conclusão desta parte é indício, declarado antes de rodar. Nenhuma frase do J09 pode afirmar que um nome vai render: essa afirmação foi testada em J06 e reprovou. O que J09 pode afirmar é contagem (quantos existem, onde, com que dado) e ordenação entre estrangeiros (autorizada por J08-3)."
+ },
+ "recorte": {
+  "universo": "Os Excels de dados_copiados/wyscout/xlsx_ago26/, aba BASE, excluindo Brasil A, Brasil B, Brasil C (não são exterior) e Argentina RESERVAS (competição de reservas, não é liga de origem de contratação).",
+  "periodo": "ago26, a foto mais recente copiada em 19/09/2026 (65 ligas, 18.460 jogadores).",
+  "unidade": "jogador-liga",
+  "corte_de_liga_utilizavel": "A liga entra se o maior número de jogos de um jogador dela for >= 15. Abaixo disso a temporada mal começou e a fatia de minutos não mede rodagem. Declarado antes de olhar quais ligas caem.",
+  "temporadas_da_regularidade": [
+   "2024",
+   "2025",
+   "jun26"
+  ],
+  "fonte_da_regularidade": "dados_copiados/wyscout/_temporal_photos.json (minutos por jogador, liga, time e temporada)."
+ },
+ "setores": {
+  "Goleiro": [
+   "GK"
+  ],
+  "Zaga": [
+   "CB",
+   "LCB",
+   "RCB"
+  ],
+  "Lateral": [
+   "LB",
+   "RB",
+   "LWB",
+   "RWB"
+  ],
+  "Volante": [
+   "DMF",
+   "LDMF",
+   "RDMF"
+  ],
+  "Meia": [
+   "AMF",
+   "LCMF",
+   "RCMF",
+   "LAMF",
+   "RAMF"
+  ],
+  "Extremo": [
+   "LW",
+   "RW",
+   "LWF",
+   "RWF"
+  ],
+  "Atacante": [
+   "CF"
+  ],
+  "regra": "A mesma de J05 e J06, sem reabrir. A posição do jogador é a primeira da coluna Position do Wyscout."
+ },
+ "posicoes_priorizadas": {
+  "de_onde_vem": "J06_numeros.json, chave oferta_escassez_ou_aperto",
+  "lista": [
+   "Goleiro",
+   "Volante",
+   "Extremo"
+  ],
+  "por_que": "Goleiro 1 livre com rodagem (escassez), Volante 6 e Extremo 6 (aperto). As outras quatro posições têm 8 a 13 e a Série B resolve sozinha.",
+  "regra": "As três são respondidas uma a uma. As outras quatro saem só na contagem, sem nome."
+ },
+ "requisito_de_minutagem": {
+  "o_que_e": "Requisito que ELIMINA, nunca nota (§8.5). Vem antes de qualquer número técnico.",
+  "corte_por_posicao": {
+   "Goleiro": 64.7,
+   "Zaga": 56.8,
+   "Volante": 51.0,
+   "Lateral": 46.8,
+   "Meia": 42.5,
+   "Atacante": 34.2,
+   "Extremo": 32.4
+  },
+  "de_onde_vem_o_corte": "J05_numeros.json, chave min_corte_por_posicao. Não é recalculado aqui: é o p75 da fatia de minutos da Série B 2022-2025, por posição.",
+  "fatia": "minutos do jogador / (soma dos minutos do elenco daquele time naquele arquivo / 11) — a mesma fórmula de gerar_minutagem_serieb.py e de J01, aplicada dentro da liga de origem.",
+  "por_que_a_mesma_formula": "O corte é um número da Série B. Aplicá-lo a outra liga só faz sentido se a fatia for medida do mesmo jeito dos dois lados.",
+  "regular": "alta em pelo menos 2 das temporadas com dado, exigindo pelo menos 2 temporadas com dado. Temporada sem dado não conta como minutagem baixa (CLAUDE.md).",
+  "diagnostico_obrigatorio": "O script publica a razão entre (soma do elenco / 11) e (jogos do time x 90) por liga. Se as duas contas divergirem mais de 10% em alguma liga, aquela liga sai, porque o export do Wyscout cortou gente demais do elenco."
+ },
+ "a_ficha_que_sobra": {
+  "regra_mae": "§8.2: três notas, nunca somadas num número único. Aqui uma das três não existe.",
+  "bloco_fisico": {
+   "montavel": false,
+   "veredito": "NÃO VERIFICADO em todo alvo, em toda posição, sem exceção",
+   "por_que": "J08 mediu e escreveu: não há dado físico por temporada em liga de origem nenhuma. O Wyscout não tem tracking e o skillcorner_serieb.db copiado só tem Série B.",
+   "consequencia_declarada": "De 2 das 4 a 6 métricas de cada posição de linha não se sabe nada. A ficha aplicada ao estrangeiro é sempre uma ficha PELA METADE, e isso vai escrito em cada nome."
+  },
+  "bloco_duelo_corpo": {
+   "montavel": true,
+   "indicadores": [
+    {
+     "id": "duelos_def_ganhos_pct",
+     "coluna": "Defensive duels won, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "familia_j08": "eficiencia"
+    },
+    {
+     "id": "duelos_aereos_ganhos_pct",
+     "coluna": "Aerial duels won, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "familia_j08": "eficiencia"
+    }
+   ]
+  },
+  "bloco_estilo_tecnico": {
+   "montavel": true,
+   "peso": "baixo — ρ 0,16 a 0,30 ao trocar de clube (etapa 11)",
+   "aviso_literal": "este número mede em boa parte o time anterior do atleta",
+   "indicadores": [
+    {
+     "id": "passes_certos_pct",
+     "coluna": "Accurate passes, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "familia_j08": "eficiencia"
+    },
+    {
+     "id": "passes_progressivos_90",
+     "coluna": "Progressive passes per 90",
+     "nome": "Passes progressivos por 90",
+     "sentido": "maior é melhor",
+     "familia_j08": "volume"
+    }
+   ]
+  },
+  "pisos": "Exatamente os de J05_perfil.csv, coluna piso_pct, nas linhas com no_perfil_curto = 1. NÃO são reescolhidos aqui. Métrica sem piso entra como descrição e nunca reprova ninguém.",
+  "o_goleiro_e_um_caso_a_parte": {
+   "duelo_defensivo": "sem piso em J05 (quem subiu não estava acima da mediana da liga)",
+   "duelo_aereo": "descartado por J03-3 e pela ressalva do J06: porcentagem sobre um punhado de duelos, com o piso no teto da escala",
+   "fisico": "não existe — o SkillCorner não rastreia goleiro",
+   "o_que_sobra": "dois números de passe. Declarado antes de rodar: dois números de passe não são um perfil de goleiro, e o script vai dizer isso em vez de fingir que escolheu."
+  }
+ },
+ "percentil": {
+  "dentro_de": "liga x setor, entre os jogadores daquela liga com 900+ minutos",
+  "quem_tem_menos_de_900": "é POSICIONADO na mesma régua e sinalizado, a regra do J08; mas não entra em lista de nome nenhuma, porque o requisito de minutagem já o elimina antes",
+  "nunca_imputar": "indicador ausente sai da conta e o denominador vai publicado (§8.2)",
+  "n_minimo_da_regua": "10 jogadores de 900+ minutos no par liga x setor; abaixo disso a régua não existe e o jogador sai"
+ },
+ "ajuste_de_j08": {
+  "nao_e_multiplicador": true,
+  "forma": "percentil_ajustado = percentil_origem + intercepto + b·percentil_origem + coef_idade·envelhecimento_esperado_pp + fator(liga de origem, destino Brasil B, família)",
+  "de_onde": "J08_resumo.json, chave a_conta_para_o_J09; fator da coluna `fator` de resultados/fatores_liga.csv com destino = Brasil B",
+  "por_familia": {
+   "volume": {
+    "intercepto": 26.99,
+    "b": -0.558,
+    "coef_idade": 0.15
+   },
+   "eficiencia": {
+    "intercepto": 39.65,
+    "b": -0.801,
+    "coef_idade": 0.042
+   }
+  },
+  "envelhecimento_esperado_pp": "100 · φ(qz_origem) · dqz_esperado_idade(idade na temporada), com a curva relida de J08_base.csv (coluna dqz_esperado_idade, bins de 2 anos) — a curva recalculada pelo J08, NÃO a do _temporal_aging.json, como J08 avisou",
+  "idade_na_temporada": "idade do arquivo menos (2026 − ano da temporada). Em ago26 a temporada é a de 2026, então a defasagem é 0 e a idade do arquivo é a idade de hoje.",
+  "liga_sem_fator": "o alvo NÃO entra na lista de nomes. Não se inventa nível de liga por reputação (J08).",
+  "forca_do_fator": "a coluna `forca` de fatores_liga.csv vai ao lado de cada nome: forte (10+ casos, fator próprio), agrupado (3 a 9, fator de faixa), fraco (1 a 2, fator de faixa), sem fator (0).",
+  "aviso_obrigatorio_em_cada_nome": "Nenhuma das 7 ligas com fator próprio chega ao piso com destino só Série B: as 7 só passam porque o destino inclui Série A e Série C. O percentil ajustado é ordem de grandeza, nunca conta fechada."
+ },
+ "contrato": {
+  "fonte": "coluna `Contract expires` do Excel do Wyscout — snapshot, a armadilha do §2. Não há segunda fonte para liga estrangeira neste repositório.",
+  "papel": "DESCRIÇÃO e ordenação, nunca filtro que elimina. O contrato de estrangeiro tem uma fonte só e ela é frágil; eliminar por ela seria decidir com o dado mais fraco da parte.",
+  "janela_de_interesse": "expira até 2027-06-30 (cobre a virada brasileira de dezembro de 2026 e a europeia de junho de 2027)"
+ },
+ "backtest_proprio_do_j09": {
+  "obrigatorio": true,
+  "por_que_nao_basta_o_de_j06": "O de J06 testou a ficha em quem já estava na Série B. Esta parte contrata de FORA, que é justamente a metade que o backtest de J06 não conseguiu pontuar (1.200 das 1.743 chegadas ficaram sem ano anterior). O filtro do J09 tem de ser testado no movimento que ele de fato descreve.",
+  "base": "resultados/J08_base.csv, as linhas com liga_destino = Brasil B e liga_origem fora de {Brasil A, Brasil B, Brasil C}",
+  "chegada": "a transferência registrada pelo painel temporal do Wyscout: jogador presente na liga de origem no ano t−1 e na Série B no ano t",
+  "pontuado_com": "o dado do ano t−1, na liga de origem — o dado que o clube teria na mesa (§8.6 item 5)",
+  "desfechos": [
+   {
+    "id": "minutos",
+    "o_que_e": "minutos no ano da chegada (min_depois)",
+    "papel": "primário"
+   },
+   {
+    "id": "jogou_900",
+    "o_que_e": "chegou a 900 minutos no ano da chegada",
+    "papel": "secundário"
+   }
+  ],
+  "grupos": [
+   {
+    "id": "filtro_j09",
+    "aprovado": "minutagem alta na origem E não viola nenhum piso técnico que tenha dado, depois do ajuste de J08 — o filtro inteiro que escolheria os nomes"
+   },
+   {
+    "id": "minutagem_origem",
+    "aprovado": "minutagem alta na origem, sozinha"
+   },
+   {
+    "id": "duelo_corpo",
+    "aprovado": "não viola nenhum piso de duelo/corpo que tenha dado, depois do ajuste"
+   },
+   {
+    "id": "estilo_tecnico",
+    "aprovado": "não viola nenhum piso de estilo técnico que tenha dado, depois do ajuste"
+   }
+  ],
+  "familia_do_bh": "grupo × desfecho × corte — a §6.3 (um pilar × uma comparação), sem partir por setor. Dentro da família entram os testes por setor e o teste com todos os setores juntos; o primário é o de todos juntos.",
+  "metodo": "scripts/_metodo.py: Welch no posto do desfecho dentro de (setor, ano de chegada), d de Cohen, IC95 por bootstrap de CLUBE de destino, poder por desenho, BH a 5%",
+  "dois_cortes": "com e sem as chegadas cujo clube de destino estava na fronteira do G4 ou do Z4 naquele ano (A01_clube_temporada.csv). Os dois rodam e os dois são relatados. Conclusão que só aparece com eles é ruído (_metodo_fronteira.md).",
+  "n_minimo_por_lado": 8,
+  "poder": "o d mínimo detectável a 80% vai publicado em toda linha; com 79 chegadas o desenho é fraco por construção e isso é dito antes de rodar, não depois de ver o resultado",
+  "porta_temporal": "o backtest é temporal por construção (pontua com t−1, mede em t), mas é outro desenho e NÃO é chamado de porta da §6.4 — o mesmo critério que J06 usou. Por isso nenhuma conclusão desta parte pode ser firme."
+ },
+ "regra_que_autoriza_publicar_nomes": {
+  "declarada_antes_de_rodar": true,
+  "por_que_ha_dois_niveis_e_nao_um": "J06 já respondeu 'a ficha não acerta quem joga' e por isso não publicou nome. Repetir o mesmo veredito aqui entregaria zero. Mas publicar nome como recomendação depois de a ficha reprovar seria pior. Então o rótulo do nome é decidido pelo teste, e a diferença entre os dois rótulos é o que o clube pode fazer com a lista.",
+  "nivel_A_alvo": {
+   "rotulo": "alvo",
+   "familia_primaria": "filtro_j09 × minutos",
+   "recorte_primario": "todos os setores juntos",
+   "passa_se": "d > 0 E q < 0,05 dentro da família E o mesmo sinal e o mesmo selo nos DOIS cortes de fronteira E pelo menos 8 por lado nos dois",
+   "o_que_significa": "o nome pode ir ao campograma com status alvo, como o CLAUDE.md prevê"
+  },
+  "nivel_B_rastreio": {
+   "rotulo": "rastrear",
+   "vale_quando": "o nível A não passa",
+   "o_que_e": "a lista sai como CONTAGEM e ORDENAÇÃO, nunca como promessa de desempenho: são os estrangeiros que, na régua da própria liga e depois do ajuste de J08, não violam nenhum piso técnico que tenha dado e têm minutagem alta e regular",
+   "por_que_e_permitido": "é a mesma categoria da oferta de J06 — afirmação sobre o que está na base, não sobre o que vai acontecer — e é o que o CLAUDE.md manda fazer com estrangeiro na seção Estrangeiros: liste os casos, sem aplicar o critério de conclusão. A ordenação entre dois estrangeiros é autorizada por J08-3, que é firme: o encolhimento é o mesmo para todos.",
+   "o_que_e_proibido_nesse_nivel": "nenhuma frase do J09 pode dizer que o nome vai render, vai jogar mais, vai se adaptar ou é melhor que um jogador da Série B. Cada nome sai com: físico NÃO VERIFICADO, a força do fator da liga, e a nota de que a ficha reprovou no backtest de J06 e no desta parte."
+  },
+  "nivel_C_nenhum_nome": {
+   "vale_quando": "na posição não sobra ninguém que atravesse o funil com dado nos dois blocos montáveis, OU a ficha da posição não tem exigência nenhuma que possa reprovar alguém",
+   "o_que_e": "a posição sai com 'não há nome defensável' e o motivo escrito. Lista curta e honesta vale mais que lista cheia.",
+   "aplicacao_ja_prevista": "o Goleiro cai aqui se a ficha dele ficar só com os dois números de passe: um filtro que não olha para nada de goleiro não escolhe goleiro."
+  },
+  "poder_insuficiente_nao_absolve": "se o desenho não enxergar o efeito, o nível A continua não passando. O ônus é do filtro, e falha fechada é o princípio da casa."
+ },
+ "riscos_de_adaptacao_publicados_em_cada_nome": [
+  "físico NÃO VERIFICADO (sempre)",
+  "força do fator da liga de origem (forte / agrupado / fraco)",
+  "primeira saída do país (Birth country igual ao país da liga em todas as temporadas com dado)",
+  "idade na virada de 2027",
+  "quanto do destaque sobrevive (J08-3: menos da metade)",
+  "se ocupa vaga de estrangeiro (Birth country diferente de Brazil) — brasileiro jogando fora não ocupa vaga"
+ ],
+ "ressalvas_declaradas": [
+  "Não há fator de liga para goleiro e não há uma única chegada de goleiro estrangeiro à Série B na base do J08.",
+  "A idade do Wyscout é a de HOJE, não a da temporada (§2 armadilha b). Em ago26 a defasagem é zero, e isso é conferido pelo script.",
+  "Região é Birth country, nunca Passport country.",
+  "O export do Wyscout corta linhas por liga: o diagnóstico do denominador do elenco roda antes e derruba a liga que tiver sido cortada demais.",
+  "Homônimo: o cruzamento com o painel temporal é por nome normalizado dentro de (liga, temporada); nome que aparece com dois times na mesma liga-temporada é descartado, nunca adivinhado.",
+  "Contrato de estrangeiro tem fonte única e frágil: descreve, não elimina."
+ ],
+ "o_que_esta_parte_nao_faz": [
+  "não toca em arquivo de outra parte, no _registro.md, em dados/, static/ ou templates/",
+  "não roda gerar_estudo_serieb_js.py (fluxo principal)",
+  "não reabre os pisos de J05 nem os fatores de J08",
+  "não soma as notas de encaixe num número único (§8.2)",
+  "não estima custo nem disponibilidade: validação externa, como o CLAUDE.md manda"
+ ],
+ "emendas": [
+  {
+   "data": "2026-09-20",
+   "antes_de_rodar": true,
+   "o_que": "Declarar as DUAS leituras do piso, e qual manda.",
+   "por_que": "A conta de J08 é uma reta de encolhimento: na família eficiência o percentil ajustado é 39,65 + 0,199 · percentil_origem + idade + fator. Isso é aritmética dos coeficientes que J08 JÁ PUBLICOU, não resultado desta parte: qualquer estrangeiro, mesmo o melhor da liga dele, cai numa faixa estreita em torno do meio da régua da Série B. Pisos de J05 acima dessa faixa ficam inalcançáveis por construção. Se esta parte rodasse com uma leitura só, ou ela esvaziaria o mercado sem explicar por quê, ou ela esconderia o encolhimento. As duas rodam e as duas são relatadas, como se faz com os dois cortes de fronteira.",
+   "leitura_1_ajustado": {
+    "papel": "primária",
+    "o_que_e": "o piso de J05 aplicado ao percentil DEPOIS do ajuste de J08",
+    "o_que_responde": "onde a conta prevê que ele cairia na Série B",
+    "usada_em": "o nível A da regra que autoriza nomes, e o grupo filtro_j09 do backtest"
+   },
+   "leitura_2_origem": {
+    "papel": "secundária",
+    "o_que_e": "o piso de J05 aplicado ao percentil na régua da PRÓPRIA liga",
+    "o_que_responde": "ele está acima do piso onde joga hoje — afirmação sobre o que está na base, não previsão",
+    "usada_em": "o nível B (lista de rastreio), porque contagem é o que o CLAUDE.md autoriza para estrangeiro"
+   },
+   "regra": "O nome só entra na lista de rastreio se passar na leitura 2, e o valor da leitura 1 vai impresso ao lado dele. Nenhum nome entra por passar só na leitura 1.",
+   "o_que_isto_nao_autoriza": "não autoriza escolher a leitura depois de ver qual dá lista maior: as duas são publicadas com a contagem de cada uma, em toda posição."
+  },
+  {
+   "data": "2026-09-20",
+   "antes_de_rodar": "antes da rodada válida; a primeira rodada foi descartada por defeito de denominador, descrito aqui",
+   "o_que": "Consertar a fatia de minutos DO BACKTEST e escrever por extenso o que entra no grupo filtro_j09.",
+   "defeito_encontrado": "A primeira implementação mediu a fatia na origem contra o maior min_antes do par (liga, ano) DENTRO das 79 chegadas. Há de 1 a 3 chegadas por par: o maior de uma linha só é a própria linha, e quase toda chegada saía com fatia 100%. O grupo minutagem_origem ficou com menos de 8 de um lado e o teste nem entrou na tabela. É defeito de denominador, não resultado.",
+   "conserto": "A fatia da origem passa a sair de _temporal_photos.json, pela MESMA fórmula do resto desta parte e de J01: minutos do jogador / (soma dos minutos do elenco daquele time naquela liga-temporada / 11). O cruzamento é por nome normalizado dentro de (liga, temporada) e nome com dois times na mesma liga-temporada é descartado.",
+   "o_que_entra_no_filtro_j09": "minutagem alta E regular na origem E nenhum piso técnico violado depois do ajuste. A §8.6 item 5 manda testar a MESMA ficha que escolheria os nomes, e a regularidade faz parte dela; a redação curta do grupo ('minutagem alta na origem') era imprecisa e é esta a leitura que vale.",
+   "grupos_do_backtest_nesta_rodada": [
+    "filtro_j09",
+    "minutagem_alta",
+    "minutagem_alta_e_regular",
+    "duelo_corpo",
+    "estilo_tecnico"
+   ],
+   "consequencia_no_bh": "a família passa a ter 5 grupos × 2 desfechos × 2 cortes. O q desta parte não é comparável ao de J06 na mesma coluna.",
+   "o_goleiro": "O painel temporal do Wyscout NÃO TEM goleiro (J08 já registrou: 7 posições-raiz, nenhuma é GK). Logo a regularidade de goleiro estrangeiro é INVERIFICÁVEL, e não é a mesma coisa que 'não há goleiro com rodagem'. O script publica os dois números em separado: quantos goleiros têm minutagem alta na foto atual, e que a regularidade deles não pode ser conferida."
+  },
+  {
+   "data": "2026-09-20",
+   "antes_de_rodar": "antes da rodada válida; a rodada anterior foi descartada pelo defeito descrito aqui",
+   "o_que": "O denominador da fatia passa a ser o MAIOR entre (soma do elenco / 11) e (jogos do time × 90), time a time.",
+   "defeito_encontrado": "A conferência do denominador estava declarada por LIGA, sobre a mediana. Ela não pega o time isolado cujo elenco o export cortou. Medido: o Jeonnam Dragons (Coreia B) aparece com 14 jogadores e razão 0,848, e o Shanghai Port (China) com 14 e 0,946 — e daí saíam fatias de 132% e 123%, que não são rodagem, são denominador pequeno.",
+   "conserto": "denominador = max(soma do elenco / 11 ; jogos do time × 90). Quando o export traz o elenco inteiro a primeira conta é a maior (o Wyscout conta acréscimo) e a fórmula é exatamente a de J01 e de gerar_minutagem_serieb.py; quando o export cortou gente, a segunda segura o denominador e a fatia não infla.",
+   "direcao": "o conserto só DIMINUI fatia; nunca admite ninguém que a conta antiga reprovava. É a direção conservadora.",
+   "publicado": "a razão por time vai na base (coluna elenco_cortado) e a contagem de times cortados vai nos números."
+  },
+  {
+   "data": "2026-09-20",
+   "antes_de_rodar": "antes da rodada válida com o bloco físico; a rodada anterior saiu sem ele",
+   "o_que": "O BLOCO FÍSICO É MONTÁVEL para boa parte dos alvos estrangeiros. A declaração original dizia que não era, e estava errada.",
+   "de_onde_veio_o_erro": "J08 escreveu, e esta parte repetiu, que 'não há dado físico por temporada em liga de origem nenhuma' e que J09 teria de marcar o físico como NÃO VERIFICADO em todo alvo. A frase de J08 está CERTA PARA O QUE J08 PRECISA — ele precisa do antes E do depois, e uma foto só não serve para medir conversão. Mas J09 não precisa de duas pontas: precisa saber onde o jogador está HOJE na régua física da liga dele. Para isso uma foto basta, e a foto existe.",
+   "onde_esta": "dados/jogadores.json, a base do próprio app (40.059 jogadores, levantamento de fim de contrato). Ela traz as DEZ métricas físicas de J05 com os mesmos nomes curtos — psv5, psv, hsr, spr_km, spr_n, expl, t_spr, t505_90, t505_180, t_hsr_cod — mais sc_min e sc_n, para 9.091 jogadores em 36 ligas, incluindo Argentina A, EUA, Inglaterra A e B, Espanha A e B, Portugal A e B, Itália A e B, Alemanha A, França A, Holanda, Bélgica A, Turquia, Ucrânia, Colômbia A, Uruguai, Chile, Peru, Equador A, México e Arábia Saudita A.",
+   "por_que_e_legitimo_usar": "O CLAUDE.md manda, antes de calcular, ver se as análises e bases que já existem respondem, e lista dados/ como base do app para LER. Nada em dados/ é alterado. E o ponteiro corrigido é do mesmo tipo dos oito que a revisão de 17/09 já consertou.",
+   "a_ponte": "(nome curto, time, liga) — que são exatamente as três partes da primary_key do Wyscout. Medida antes de usar: 10.910 das 11.023 linhas casam (99,0%), 2 chaves ambíguas, descartadas.",
+   "o_que_muda": "O bloco físico entra na ficha com os pisos de J05, sem reabri-los. Quem não tem linha física continua com o bloco marcado NÃO VERIFICADO, e isso passa a ser uma contagem publicada em vez de um veredito geral.",
+   "o_que_NAO_muda": "Não há fator de conversão físico em J08 — a família física não é montável LÁ e continua não sendo. Logo o percentil físico do estrangeiro é o lugar dele na régua da PRÓPRIA liga, sem tradução nenhuma para a Série B. Isso é mais fraco que o bloco técnico, não mais forte, e vai escrito em cada nome.",
+   "e_o_goleiro": "Não muda nada para o goleiro: o SkillCorner quase não o rastreia. Medido aqui: 28 dos 585 goleiros com minutagem alta têm linha física. O goleiro continua em nível C.",
+   "tambem_entra_como_descricao": "a faixa salarial do TransferRoom (campo `sal`, 9.289 dos 11.023) e o valor de mercado (`mv`). DESCRIÇÃO, nunca filtro e nunca ordenação — entrar como ordenação seria escolher o critério depois de ver a lista."
+  }
+ ]
+}

@@ -1,0 +1,600 @@
+{
+ "gerado_por": "scripts/J05.py",
+ "gerado_em": "2026-09-20",
+ "semente": 7,
+ "reps_ic": 2000,
+ "familia_do_bh": "bloco × comparação × corte (§6.3), sem partir por setor",
+ "perfil_do_app": {
+  "zaga": {
+   "indicadores": [
+    "psv5"
+   ],
+   "criterio": "só 1 indicador(es) do bloco sobreviveu(ram) ao teste por clube (p_clube<0,05); a nota do setor descansa sobre 1 indicador(es)",
+   "sobreviventes_p_clube": 1,
+   "sobreviventes_bh_clube": 0,
+   "q_clube_de_cada_um": {
+    "psv5": 0.22512
+   },
+   "testes_do_setor": 34
+  },
+  "lateral": {
+   "indicadores": [
+    "psv5",
+    "t_spr",
+    "expl"
+   ],
+   "criterio": "p_clube < 0,05 (teste corrigido por clube, 16x16)",
+   "sobreviventes_p_clube": 3,
+   "sobreviventes_bh_clube": 0,
+   "q_clube_de_cada_um": {
+    "psv5": 0.2383,
+    "t_spr": 0.26981,
+    "expl": 0.26981
+   },
+   "testes_do_setor": 35
+  },
+  "meio": {
+   "indicadores": [
+    "t505_90",
+    "expl",
+    "t505_180",
+    "hsr",
+    "spr_n",
+    "psv"
+   ],
+   "criterio": "p_clube < 0,05 (teste corrigido por clube, 16x16)",
+   "sobreviventes_p_clube": 6,
+   "sobreviventes_bh_clube": 3,
+   "q_clube_de_cada_um": {
+    "t505_90": 0.02272,
+    "expl": 0.02272,
+    "t505_180": 0.02832,
+    "hsr": 0.09833,
+    "spr_n": 0.11756,
+    "psv": 0.11756
+   },
+   "testes_do_setor": 34
+  },
+  "ataque": {
+   "indicadores": [
+    "t505_90",
+    "spr_n",
+    "spr_km",
+    "psv5",
+    "t_hsr_cod",
+    "hsr",
+    "psv",
+    "expl"
+   ],
+   "criterio": "p_clube < 0,05 (teste corrigido por clube, 16x16)",
+   "sobreviventes_p_clube": 8,
+   "sobreviventes_bh_clube": 6,
+   "q_clube_de_cada_um": {
+    "t505_90": 0.04269,
+    "spr_n": 0.04269,
+    "spr_km": 0.04269,
+    "psv5": 0.04269,
+    "t_hsr_cod": 0.04269,
+    "hsr": 0.04382,
+    "psv": 0.05144,
+    "expl": 0.09681
+   },
+   "testes_do_setor": 35
+  }
+ },
+ "testes_fora_por_n": [
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Volante",
+   "indicador": "t505_90",
+   "n_a": 12,
+   "n_b": 13
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Volante",
+   "indicador": "expl",
+   "n_a": 12,
+   "n_b": 13
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Volante",
+   "indicador": "t505_180",
+   "n_a": 12,
+   "n_b": 13
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Volante",
+   "indicador": "hsr",
+   "n_a": 12,
+   "n_b": 13
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Volante",
+   "indicador": "spr_n",
+   "n_a": 12,
+   "n_b": 13
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Volante",
+   "indicador": "psv",
+   "n_a": 12,
+   "n_b": 13
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "t505_90",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "spr_n",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "spr_km",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "psv5",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "t_hsr_cod",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "hsr",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "psv",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Extremo",
+   "indicador": "expl",
+   "n_a": 8,
+   "n_b": 15
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "indicador": "Duelos defensivos ganhos, %",
+   "n_a": 8,
+   "n_b": 12
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "indicador": "Duelos aéreos ganhos, %",
+   "n_a": 8,
+   "n_b": 12
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "indicador": "Dribles com sucesso, %",
+   "n_a": 8,
+   "n_b": 12
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "indicador": "Passes certos, %",
+   "n_a": 8,
+   "n_b": 12
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "indicador": "Passes progressivos/90",
+   "n_a": 8,
+   "n_b": 12
+  },
+  {
+   "comparacao": "SC",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "indicador": "Toques na área/90",
+   "n_a": 8,
+   "n_b": 12
+  }
+ ],
+ "passa_nos_dois_cortes": [],
+ "discordancias_entre_os_cortes": [
+  {
+   "comparacao": "SC",
+   "setor": "Lateral",
+   "indicador": "t_spr",
+   "nome": "Tempo até atingir o sprint (s)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.205,
+   "d_sem": -0.038,
+   "q_com": 0.61238,
+   "q_sem": 0.91477
+  },
+  {
+   "comparacao": "SC",
+   "setor": "Meia",
+   "indicador": "Passes certos, %",
+   "nome": "Passes certos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.014,
+   "d_sem": 0.058,
+   "q_com": 0.95439,
+   "q_sem": 0.90244
+  },
+  {
+   "comparacao": "SC",
+   "setor": "Volante",
+   "indicador": "Duelos aéreos ganhos, %",
+   "nome": "Duelos aéreos ganhos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.128,
+   "d_sem": -0.093,
+   "q_com": 0.78601,
+   "q_sem": 0.89682
+  },
+  {
+   "comparacao": "SC",
+   "setor": "Zaga",
+   "indicador": "Dribles com sucesso, %",
+   "nome": "Dribles com sucesso, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.248,
+   "d_sem": 0.093,
+   "q_com": 0.75818,
+   "q_sem": 0.89682
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Atacante",
+   "indicador": "Dribles com sucesso, %",
+   "nome": "Dribles com sucesso, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.061,
+   "d_sem": 0.154,
+   "q_com": 0.87955,
+   "q_sem": 0.98859
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Atacante",
+   "indicador": "Duelos defensivos ganhos, %",
+   "nome": "Duelos defensivos ganhos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.034,
+   "d_sem": 0.005,
+   "q_com": 0.88592,
+   "q_sem": 0.98859
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Atacante",
+   "indicador": "Passes progressivos/90",
+   "nome": "Passes progressivos/90",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.002,
+   "d_sem": -0.034,
+   "q_com": 0.99374,
+   "q_sem": 0.95102
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Atacante",
+   "indicador": "t505_90",
+   "nome": "Tempo para girar 90 graus (s)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.12,
+   "d_sem": -0.167,
+   "q_com": 0.83738,
+   "q_sem": 0.92697
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Extremo",
+   "indicador": "expl",
+   "nome": "Arrancadas explosivas até o sprint por 90 min",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.242,
+   "d_sem": -0.103,
+   "q_com": 0.79428,
+   "q_sem": 0.92697
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Extremo",
+   "indicador": "t_hsr_cod",
+   "nome": "Tempo até a alta velocidade depois de mudar de direção (s)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.194,
+   "d_sem": -0.273,
+   "q_com": 0.83738,
+   "q_sem": 0.92697
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Goleiro",
+   "indicador": "Dribles com sucesso, %",
+   "nome": "Dribles com sucesso, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.205,
+   "d_sem": 0.023,
+   "q_com": 0.74704,
+   "q_sem": 0.98859
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Goleiro",
+   "indicador": "Duelos aéreos ganhos, %",
+   "nome": "Duelos aéreos ganhos, %",
+   "motivo": "passa num corte e não no outro",
+   "d_com": 1.062,
+   "d_sem": 0.679,
+   "q_com": 0.00638,
+   "q_sem": 0.33703
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Lateral",
+   "indicador": "Duelos aéreos ganhos, %",
+   "nome": "Duelos aéreos ganhos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.21,
+   "d_sem": 0.052,
+   "q_com": 0.74704,
+   "q_sem": 0.98859
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Lateral",
+   "indicador": "Duelos defensivos ganhos, %",
+   "nome": "Duelos defensivos ganhos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.11,
+   "d_sem": 0.255,
+   "q_com": 0.77439,
+   "q_sem": 0.51411
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Lateral",
+   "indicador": "expl",
+   "nome": "Arrancadas explosivas até o sprint por 90 min",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.056,
+   "d_sem": -0.043,
+   "q_com": 0.9357,
+   "q_sem": 0.92697
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Meia",
+   "indicador": "Duelos aéreos ganhos, %",
+   "nome": "Duelos aéreos ganhos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.263,
+   "d_sem": 0.029,
+   "q_com": 0.74453,
+   "q_sem": 0.98859
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Meia",
+   "indicador": "Toques na área/90",
+   "nome": "Toques na área/90",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.115,
+   "d_sem": -0.018,
+   "q_com": 0.87174,
+   "q_sem": 0.95102
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Meia",
+   "indicador": "spr_n",
+   "nome": "Sprints por 90 min",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.012,
+   "d_sem": -0.064,
+   "q_com": 0.95618,
+   "q_sem": 0.92697
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Volante",
+   "indicador": "Dribles com sucesso, %",
+   "nome": "Dribles com sucesso, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.117,
+   "d_sem": -0.28,
+   "q_com": 0.77439,
+   "q_sem": 0.51411
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Volante",
+   "indicador": "Duelos aéreos ganhos, %",
+   "nome": "Duelos aéreos ganhos, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.073,
+   "d_sem": -0.2,
+   "q_com": 0.87955,
+   "q_sem": 0.83495
+  },
+  {
+   "comparacao": "SM",
+   "setor": "Zaga",
+   "indicador": "Dribles com sucesso, %",
+   "nome": "Dribles com sucesso, %",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.109,
+   "d_sem": 0.207,
+   "q_com": 0.77439,
+   "q_sem": 0.77375
+  }
+ ],
+ "cobertura_dos_indicadores": {
+  "psv5": 100.0,
+  "t_spr": 95.5,
+  "expl": 100.0,
+  "t505_90": 100.0,
+  "t505_180": 99.6,
+  "hsr": 100.0,
+  "spr_n": 100.0,
+  "psv": 100.0,
+  "spr_km": 100.0,
+  "t_hsr_cod": 99.3,
+  "Duelos defensivos ganhos, %": 100.0,
+  "Duelos aéreos ganhos, %": 100.0,
+  "Dribles com sucesso, %": 100.0,
+  "Passes certos, %": 100.0,
+  "Passes progressivos/90": 100.0,
+  "Toques na área/90": 100.0
+ },
+ "minutagem": {
+  "n": 3160,
+  "p75": {
+   "Atacante": 34.2,
+   "Extremo": 32.4,
+   "Goleiro": 64.7,
+   "Lateral": 46.8,
+   "Meia": 42.5,
+   "Volante": 51.0,
+   "Zaga": 56.8
+  },
+  "frase": "Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%",
+  "regulares": 215,
+  "regulares_por_grupo": {
+   "Goleiro": 17,
+   "Zaga": 28,
+   "Meia": 38,
+   "Lateral": 39,
+   "Volante": 13,
+   "Atacante": 36,
+   "Extremo": 44
+  }
+ },
+ "minutagem_confere_com_J01": true,
+ "ponte_a14": {
+  "indice": [
+   "H_dinheiro",
+   "dist_remate",
+   "E_qualidade_chance",
+   "xg_por_remate_contra",
+   "duelos_def_pct",
+   "xgc_casa",
+   "dd_casa"
+  ],
+  "com_equivalente_de_jogador": [
+   "duelos_def_pct",
+   "dd_casa"
+  ]
+ },
+ "numeros": {
+  "n_tit_fis": 697,
+  "n_tit_tec": 907,
+  "n_base_fis": 1119,
+  "n_base_tec": 1438,
+  "app_ind_total": 18,
+  "app_zaga": 1,
+  "app_lateral": 3,
+  "app_meio": 6,
+  "app_ataque": 8,
+  "app_bh_zaga": 0,
+  "app_bh_lateral": 0,
+  "app_bh_meio": 3,
+  "app_bh_ataque": 6,
+  "app_ind_bh": 9,
+  "app_ind_sem_bh": 9,
+  "app_zaga_lateral": 4,
+  "app_testes": 138,
+  "raio_bh_atleta": 16,
+  "app_setores_sem_bh": 2,
+  "testes_total": 256,
+  "testes_fis_sm": 32,
+  "testes_fis_sc": 18,
+  "testes_tec_sm": 42,
+  "testes_tec_sc": 36,
+  "bh_fis_sm": 0,
+  "bh_fis_sc": 0,
+  "bh_tec_sm": 1,
+  "bh_tec_sc": 0,
+  "dois_cortes_sm": 0,
+  "dois_cortes_sc": 0,
+  "testes_sm": 74,
+  "testes_sc": 54,
+  "fora_por_n": 20,
+  "poder_menor_d": 0.58,
+  "poder_maior_d": 1.19,
+  "maior_d_sm": 0.72,
+  "maior_d_sc": 0.67,
+  "discordancias": "sem os times de fronteira mudam de lado ou de selo: Tempo até atingir o sprint (s) no Lateral (SC, d 0,20 contra -0,04); Passes certos, % no Meia (SC, d -0,01 contra 0,06); Duelos aéreos ganhos, % no Volante (SC, d 0,13 contra -0,09); Dribles com sucesso, % no Zaga (SC, d -0,25 contra 0,09); Dribles com sucesso, % no Atacante (SM, d -0,06 contra 0,15); Duelos defensivos ganhos, % no Atacante (SM, d -0,03 contra 0,01); Passes progressivos/90 no Atacante (SM, d 0,00 contra -0,03); Tempo para girar 90 graus (s) no Atacante (SM, d 0,12 contra -0,17); Arrancadas explosivas até o sprint por 90 min no Extremo (SM, d 0,24 contra -0,10); Tempo até a alta velocidade depois de mudar de direção (s) no Extremo (SM, d 0,19 contra -0,27); Dribles com sucesso, % no Goleiro (SM, d -0,20 contra 0,02); Duelos aéreos ganhos, % no Goleiro (SM, d 1,06 contra 0,68); Duelos aéreos ganhos, % no Lateral (SM, d -0,21 contra 0,05); Duelos defensivos ganhos, % no Lateral (SM, d -0,11 contra 0,26); Arrancadas explosivas até o sprint por 90 min no Lateral (SM, d 0,06 contra -0,04); Duelos aéreos ganhos, % no Meia (SM, d -0,26 contra 0,03); Toques na área/90 no Meia (SM, d 0,12 contra -0,02); Sprints por 90 min no Meia (SM, d 0,01 contra -0,06); Dribles com sucesso, % no Volante (SM, d 0,12 contra -0,28); Duelos aéreos ganhos, % no Volante (SM, d 0,07 contra -0,20); Dribles com sucesso, % no Zaga (SM, d -0,11 contra 0,21)",
+  "n_discordancias": 21,
+  "perfil_posicoes": 7,
+  "perfil_menor": 4,
+  "perfil_maior": 6,
+  "perfil_metricas": 39,
+  "perfil_sem_piso": 7,
+  "ficha_linhas": 74,
+  "a14_total": 7,
+  "a14_com_par": 2,
+  "a14_sem_par": 5,
+  "a14_indicadores_par": 1,
+  "perfil_com_piso": 32,
+  "gk_aereo_piso": 100.0,
+  "min_n": 3160,
+  "min_regulares": 215,
+  "min_gk_br": "64,7",
+  "min_atk_br": "34,2",
+  "min_corte_por_posicao": "Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%",
+  "min_confere_j01": true,
+  "min_gk": 64.7,
+  "min_atk": 34.2,
+  "gerado_em": "2026-09-20"
+ }
+}

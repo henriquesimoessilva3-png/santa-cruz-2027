@@ -1,0 +1,75 @@
+setor,bloco,indicador,nome,sentido,n_sobe,mediana_pct_sobe,piso_pct,piso_em_unidade_de_jogo,sem_piso_porque,cobertura_pct,no_perfil_curto
+Zaga,fisico,psv5,"Velocidade de pico, média dos 5 melhores jogos (km/h)",maior é melhor,25,71.7,70,31.4,,,1
+Lateral,fisico,psv5,"Velocidade de pico, média dos 5 melhores jogos (km/h)",maior é melhor,27,55.0,55,31.42,,,1
+Lateral,fisico,t_spr,Tempo até atingir o sprint (s),menor é melhor,27,56.1,55,1.23,,95.5,1
+Lateral,fisico,expl,Arrancadas explosivas até o sprint por 90 min,maior é melhor,27,62.7,60,1.83,,,0
+Volante,fisico,t505_90,Tempo para girar 90 graus (s),menor é melhor,21,70.4,70,1.9,,,1
+Volante,fisico,expl,Arrancadas explosivas até o sprint por 90 min,maior é melhor,21,64.0,60,0.69,,,1
+Volante,fisico,t505_180,Tempo para girar 180 graus (s),menor é melhor,21,70.0,70,2.63,,,0
+Volante,fisico,hsr,Distância em corrida de alta velocidade por 90 min (m),maior é melhor,21,52.5,50,452.27,,,0
+Volante,fisico,spr_n,Sprints por 90 min,maior é melhor,21,63.0,60,6.46,,,0
+Volante,fisico,psv,Velocidade de pico da temporada (km/h),maior é melhor,21,67.5,65,27.88,,,0
+Meia,fisico,t505_90,Tempo para girar 90 graus (s),menor é melhor,28,69.9,65,1.87,,,1
+Meia,fisico,expl,Arrancadas explosivas até o sprint por 90 min,maior é melhor,28,58.3,55,1.11,,,1
+Meia,fisico,t505_180,Tempo para girar 180 graus (s),menor é melhor,28,70.1,70,2.6,,99.6,0
+Meia,fisico,hsr,Distância em corrida de alta velocidade por 90 min (m),maior é melhor,28,54.9,50,540.6,,,0
+Meia,fisico,spr_n,Sprints por 90 min,maior é melhor,28,54.7,50,7.97,,,0
+Meia,fisico,psv,Velocidade de pico da temporada (km/h),maior é melhor,28,54.3,50,28.27,,,0
+Extremo,fisico,t505_90,Tempo para girar 90 graus (s),menor é melhor,17,70.0,70,1.85,,,1
+Extremo,fisico,spr_n,Sprints por 90 min,maior é melhor,17,50.0,50,11.98,,,1
+Extremo,fisico,spr_km,Distância em sprint por 90 min (m),maior é melhor,17,60.0,60,246.98,,,0
+Extremo,fisico,psv5,"Velocidade de pico, média dos 5 melhores jogos (km/h)",maior é melhor,17,71.1,70,32.24,,,0
+Extremo,fisico,t_hsr_cod,Tempo até a alta velocidade depois de mudar de direção (s),menor é melhor,17,58.3,55,0.63,,,0
+Extremo,fisico,hsr,Distância em corrida de alta velocidade por 90 min (m),maior é melhor,17,50.0,50,605.1,,,0
+Extremo,fisico,psv,Velocidade de pico da temporada (km/h),maior é melhor,17,69.7,65,29.84,,,0
+Extremo,fisico,expl,Arrancadas explosivas até o sprint por 90 min,maior é melhor,17,53.3,50,1.85,,,0
+Atacante,fisico,t505_90,Tempo para girar 90 graus (s),menor é melhor,23,58.8,55,1.88,,100.0,1
+Atacante,fisico,spr_n,Sprints por 90 min,maior é melhor,23,62.5,60,11.29,,100.0,1
+Atacante,fisico,spr_km,Distância em sprint por 90 min (m),maior é melhor,23,60.0,60,210.75,,100.0,0
+Atacante,fisico,psv5,"Velocidade de pico, média dos 5 melhores jogos (km/h)",maior é melhor,23,48.7,,,quem subiu não estava acima da mediana da liga neste número,100.0,0
+Atacante,fisico,t_hsr_cod,Tempo até a alta velocidade depois de mudar de direção (s),menor é melhor,23,55.0,55,0.68,,99.3,0
+Atacante,fisico,hsr,Distância em corrida de alta velocidade por 90 min (m),maior é melhor,23,55.0,55,527.46,,100.0,0
+Atacante,fisico,psv,Velocidade de pico da temporada (km/h),maior é melhor,23,59.0,55,28.89,,100.0,0
+Atacante,fisico,expl,Arrancadas explosivas até o sprint por 90 min,maior é melhor,23,62.5,60,1.72,,100.0,0
+Goleiro,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,16,19.6,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Goleiro,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,16,71.4,70,100.0,,100.0,1
+Goleiro,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,16,39.6,,,quem subiu não estava acima da mediana da liga neste número,100.0,0
+Goleiro,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,16,57.4,55,84.86,,100.0,1
+Goleiro,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,16,51.8,50,4.04,,100.0,1
+Goleiro,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,16,49.0,,,quem subiu não estava acima da mediana da liga neste número,100.0,0
+Zaga,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,32,63.9,60,68.39,,100.0,1
+Zaga,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,32,59.5,55,62.1,,100.0,1
+Zaga,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,32,52.5,50,66.67,,100.0,0
+Zaga,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,32,49.3,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Zaga,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,32,64.1,60,7.56,,100.0,1
+Zaga,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,32,42.3,,,quem subiu não estava acima da mediana da liga neste número,100.0,0
+Lateral,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,32,50.7,50,61.86,,100.0,1
+Lateral,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,32,40.7,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Lateral,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,32,60.8,60,60.0,,100.0,0
+Lateral,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,32,52.8,50,78.42,,100.0,1
+Lateral,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,32,49.0,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Lateral,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,32,64.5,60,0.79,,100.0,0
+Volante,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,22,62.7,60,59.44,,100.0,1
+Volante,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,22,56.0,55,51.02,,100.0,1
+Volante,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,22,46.6,,,quem subiu não estava acima da mediana da liga neste número,100.0,0
+Volante,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,22,63.6,60,86.78,,100.0,1
+Volante,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,22,60.0,55,5.86,,100.0,1
+Volante,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,22,66.1,65,0.65,,100.0,0
+Meia,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,31,56.8,55,57.1,,100.0,1
+Meia,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,31,46.0,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Meia,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,31,53.1,50,55.08,,100.0,0
+Meia,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,31,52.9,50,82.41,,100.0,1
+Meia,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,31,65.7,65,5.37,,100.0,1
+Meia,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,31,53.0,50,1.24,,100.0,0
+Extremo,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,19,75.7,75,59.8,,100.0,1
+Extremo,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,19,56.8,55,31.96,,100.0,1
+Extremo,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,19,52.4,50,55.13,,100.0,0
+Extremo,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,19,70.5,70,79.12,,100.0,1
+Extremo,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,19,56.8,55,3.79,,100.0,1
+Extremo,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,19,52.4,50,2.29,,100.0,0
+Atacante,duelo_corpo,"Duelos defensivos ganhos, %","Duelos defensivos ganhos, %",maior é melhor,27,51.2,50,52.27,,100.0,1
+Atacante,duelo_corpo,"Duelos aéreos ganhos, %","Duelos aéreos ganhos, %",maior é melhor,27,48.8,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Atacante,duelo_corpo,"Dribles com sucesso, %","Dribles com sucesso, %",maior é melhor,27,44.7,,,quem subiu não estava acima da mediana da liga neste número,100.0,0
+Atacante,estilo_tecnico,"Passes certos, %","Passes certos, %",maior é melhor,27,47.7,,,quem subiu não estava acima da mediana da liga neste número,100.0,1
+Atacante,estilo_tecnico,Passes progressivos/90,Passes progressivos/90,maior é melhor,27,52.3,50,1.54,,100.0,1
+Atacante,estilo_tecnico,Toques na área/90,Toques na área/90,maior é melhor,27,61.4,60,2.89,,100.0,0

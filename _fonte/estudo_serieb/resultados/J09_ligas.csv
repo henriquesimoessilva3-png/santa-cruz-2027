@@ -1,0 +1,63 @@
+liga,linhas,times,jogos_max,razao_denominador,forca_do_fator,casos_j08,veredito
+Alemanha A,297,18,34,0.998,fraco,1.0,entra
+Alemanha B,293,18,34,0.983,fraco,1.0,entra
+Arabia Saudita A,282,18,34,1.004,agrupado,7.0,entra
+Arabia Saudita B,0,,,,,,arquivo vazio
+Austria,183,12,35,0.952,sem fator,0,liga sem fator de J08
+Bahrain,207,12,21,1.026,agrupado,3.0,entra
+Belgica A,255,16,41,0.997,agrupado,5.0,entra
+Belgica B,258,17,36,0.911,sem fator,0,liga sem fator de J08
+Bulgaria,263,16,37,0.951,agrupado,3.0,entra
+Catar,201,12,22,1.018,agrupado,4.0,entra
+China,249,16,15,1.044,agrupado,3.0,entra
+Croacia,167,10,36,0.939,sem fator,0,liga sem fator de J08
+Dinamarca,99,9,7,1.011,fraco,1.0,temporada curta demais (7 jogos)
+Emirados,233,14,26,1.032,agrupado,4.0,entra
+Escocia,191,12,38,0.895,sem fator,0,elenco cortado no export (razão 0.89)
+Eslovaquia,205,12,32,0.945,fraco,1.0,entra
+Espanha A,341,20,38,1.008,fraco,2.0,entra
+Espanha B,367,22,43,0.982,agrupado,3.0,entra
+Espanha C,704,40,38,1.042,sem fator,0,liga sem fator de J08
+França A,293,18,34,0.978,fraco,2.0,entra
+França B,292,18,36,0.963,sem fator,0,liga sem fator de J08
+Grecia,230,14,35,0.957,agrupado,6.0,entra
+Holanda,272,18,36,0.949,fraco,1.0,entra
+Hungria,250,12,33,1.013,sem fator,0,liga sem fator de J08
+Inglaterra A,338,20,38,1.024,agrupado,7.0,entra
+Inglaterra B,369,24,49,0.942,fraco,1.0,entra
+Israel,229,14,35,0.99,sem fator,0,liga sem fator de J08
+Italia A,333,20,38,0.982,agrupado,6.0,entra
+Italia B,319,20,42,0.945,sem fator,0,liga sem fator de J08
+Italia C,500,59,44,0.629,sem fator,0,elenco cortado no export (razão 0.63)
+Marrocos,267,16,22,0.979,sem fator,0,liga sem fator de J08
+Mexico,240,18,52,0.927,agrupado,6.0,entra
+Noruega,226,16,13,0.98,sem fator,0,temporada curta demais (13 jogos)
+Polonia,296,18,34,0.978,fraco,2.0,entra
+Portugal A,300,18,34,0.982,forte,13.0,entra
+Portugal B,308,18,34,1.005,forte,12.0,entra
+Portugal C,308,20,32,0.98,fraco,2.0,entra
+Romenia,274,16,40,0.981,fraco,1.0,entra
+Russia,248,16,30,0.971,agrupado,6.0,entra
+Servia,278,16,37,0.948,sem fator,0,liga sem fator de J08
+Suecia,228,16,11,1.03,sem fator,0,temporada curta demais (11 jogos)
+Suiça,200,12,38,0.934,sem fator,0,liga sem fator de J08
+Tcheca,272,16,35,0.94,fraco,1.0,entra
+Turquia,299,18,34,1.003,fraco,2.0,entra
+Ucrania,263,16,30,0.922,fraco,1.0,entra
+Argentina A,437,30,25,0.924,forte,28.0,entra
+Argentina B,500,36,25,0.865,sem fator,0,elenco cortado no export (razão 0.86)
+Bolivia,260,16,15,0.918,agrupado,3.0,entra
+Chile,262,16,19,1.036,forte,10.0,entra
+Colombia A,307,20,27,0.917,forte,16.0,entra
+Colombia B,215,16,25,0.839,agrupado,3.0,elenco cortado no export (razão 0.84)
+Coreia A,201,12,23,1.052,agrupado,4.0,entra
+Coreia B,270,17,21,0.976,agrupado,6.0,entra
+EUA,458,30,20,0.994,forte,15.0,entra
+Equador A,268,16,25,1.011,agrupado,5.0,entra
+Equador B,186,12,20,0.92,sem fator,0,liga sem fator de J08
+Japao A,263,20,2,1.047,agrupado,8.0,temporada curta demais (2 jogos)
+Japao B,258,20,2,1.014,agrupado,9.0,temporada curta demais (2 jogos)
+Paraguai,193,12,27,0.953,agrupado,7.0,entra
+Peru,269,18,22,0.967,agrupado,3.0,entra
+Uruguai,262,16,25,0.971,forte,22.0,entra
+Venezuela,195,14,23,0.881,fraco,2.0,elenco cortado no export (razão 0.88)

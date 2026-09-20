@@ -1,0 +1,544 @@
+{
+ "parte": "J06",
+ "pergunta": "Quais jogadores da base atendem o perfil de cada posição e têm minutagem alta e regular?",
+ "declarado_em": "2026-09-20",
+ "declarado_antes_de_calcular": true,
+ "declarado_antes_de_calcular_o_que": "O funil, a régua de aprovação do perfil, os dois desfechos do backtest da §8.6, a família do BH, os dois cortes de fronteira e — o mais importante — A REGRA QUE DECIDE SE A LISTA DE NOMES PODE SER PUBLICADA. Nada disto foi escolhido depois de ver resultado: o arquivo é gravado antes de scripts/J06.py rodar pela primeira vez.",
+ "o_chao_em_que_esta_parte_pisa": {
+  "J03": "nenhum indicador técnico separa o titular de quem sobe do titular do meio nos dois cortes",
+  "J04": "zero de 204 testes físicos separam; a porta temporal não roda por falta de físico por jogo em 2022-2024",
+  "J05": "o perfil entregue é DESCRITIVO: 39 métricas em 7 posições, 32 com piso e 7 sem piso, três notas nunca somadas (§8.2)",
+  "A14": "a régua que separa quem sobe é feita de indicadores de CLUBE; 5 dos 7 não têm equivalente de jogador",
+  "T04": "não escolheu treinador, então a cláusula 'o perfil deve servir ao modelo do treinador' fica sem objeto",
+  "consequencia": "Não existe, nesta base, filtro de jogador com validade preditiva provada. Por isso o backtest da §8.6 não é formalidade: é o único teste que pode autorizar a publicação de nome."
+ },
+ "recorte": {
+  "universo_dos_alvos": "Série B 2026 (a temporada em curso), de dados/serieb_tecnico.csv",
+  "temporadas_do_backtest": [
+   "2023",
+   "2024",
+   "2025"
+  ],
+  "por_que_2022_fica_de_fora": "é o primeiro ano do arquivo: sem 2021 todo atleta de 2022 conta como chegada (§8.6)",
+  "por_que_2026_fica_de_fora_do_backtest": "27 de 38 rodadas; o desfecho medido (minutos no ano da chegada) ainda não terminou de acontecer (§8.6)",
+  "unidade": "jogador-temporada"
+ },
+ "setores": {
+  "Goleiro": [
+   "GK"
+  ],
+  "Zaga": [
+   "CB",
+   "LCB",
+   "RCB"
+  ],
+  "Lateral": [
+   "LB",
+   "RB",
+   "LWB",
+   "RWB"
+  ],
+  "Volante": [
+   "DMF",
+   "LDMF",
+   "RDMF"
+  ],
+  "Meia": [
+   "AMF",
+   "LCMF",
+   "RCMF",
+   "LAMF",
+   "RAMF"
+  ],
+  "Extremo": [
+   "LW",
+   "RW",
+   "LWF",
+   "RWF"
+  ],
+  "Atacante": [
+   "CF"
+  ]
+ },
+ "perfil_herdado_de_J05": {
+  "de_onde": "resultados/J05_perfil.csv, linhas com no_perfil_curto = 1",
+  "regra": "Os pisos NÃO são reescolhidos aqui. J06 aplica a ficha de J05 como ela saiu. Métrica sem piso não vira exigência: entra como descrição, porque quem subiu não estava acima da mediana da liga ali.",
+  "nunca_somar": "§8.2: as três notas (física, duelo/corpo, estilo técnico) saem separadas, nunca num número único",
+  "por_setor": {
+   "Zaga": [
+    {
+     "bloco": "fisico",
+     "indicador": "psv5",
+     "nome": "Velocidade de pico, média dos 5 melhores jogos (km/h)",
+     "sentido": "maior é melhor",
+     "piso_pct": 70,
+     "piso_em_unidade_de_jogo": 31.4,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 60,
+     "piso_em_unidade_de_jogo": 68.39,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 62.1,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": 60,
+     "piso_em_unidade_de_jogo": 7.56,
+     "sem_piso_porque": null
+    }
+   ],
+   "Lateral": [
+    {
+     "bloco": "fisico",
+     "indicador": "psv5",
+     "nome": "Velocidade de pico, média dos 5 melhores jogos (km/h)",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 31.42,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "fisico",
+     "indicador": "t_spr",
+     "nome": "Tempo até atingir o sprint (s)",
+     "sentido": "menor é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 1.23,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 61.86,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 78.42,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    }
+   ],
+   "Volante": [
+    {
+     "bloco": "fisico",
+     "indicador": "t505_90",
+     "nome": "Tempo para girar 90 graus (s)",
+     "sentido": "menor é melhor",
+     "piso_pct": 70,
+     "piso_em_unidade_de_jogo": 1.9,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "fisico",
+     "indicador": "expl",
+     "nome": "Arrancadas explosivas até o sprint por 90 min",
+     "sentido": "maior é melhor",
+     "piso_pct": 60,
+     "piso_em_unidade_de_jogo": 0.69,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 60,
+     "piso_em_unidade_de_jogo": 59.44,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 51.02,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 60,
+     "piso_em_unidade_de_jogo": 86.78,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 5.86,
+     "sem_piso_porque": null
+    }
+   ],
+   "Meia": [
+    {
+     "bloco": "fisico",
+     "indicador": "t505_90",
+     "nome": "Tempo para girar 90 graus (s)",
+     "sentido": "menor é melhor",
+     "piso_pct": 65,
+     "piso_em_unidade_de_jogo": 1.87,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "fisico",
+     "indicador": "expl",
+     "nome": "Arrancadas explosivas até o sprint por 90 min",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 1.11,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 57.1,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 82.41,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": 65,
+     "piso_em_unidade_de_jogo": 5.37,
+     "sem_piso_porque": null
+    }
+   ],
+   "Extremo": [
+    {
+     "bloco": "fisico",
+     "indicador": "t505_90",
+     "nome": "Tempo para girar 90 graus (s)",
+     "sentido": "menor é melhor",
+     "piso_pct": 70,
+     "piso_em_unidade_de_jogo": 1.85,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "fisico",
+     "indicador": "spr_n",
+     "nome": "Sprints por 90 min",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 11.98,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 75,
+     "piso_em_unidade_de_jogo": 59.8,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 31.96,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 70,
+     "piso_em_unidade_de_jogo": 79.12,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 3.79,
+     "sem_piso_porque": null
+    }
+   ],
+   "Atacante": [
+    {
+     "bloco": "fisico",
+     "indicador": "t505_90",
+     "nome": "Tempo para girar 90 graus (s)",
+     "sentido": "menor é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 1.88,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "fisico",
+     "indicador": "spr_n",
+     "nome": "Sprints por 90 min",
+     "sentido": "maior é melhor",
+     "piso_pct": 60,
+     "piso_em_unidade_de_jogo": 11.29,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 52.27,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 1.54,
+     "sem_piso_porque": null
+    }
+   ],
+   "Goleiro": [
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos defensivos ganhos, %",
+     "nome": "Duelos defensivos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": null,
+     "piso_em_unidade_de_jogo": null,
+     "sem_piso_porque": "quem subiu não estava acima da mediana da liga neste número"
+    },
+    {
+     "bloco": "duelo_corpo",
+     "indicador": "Duelos aéreos ganhos, %",
+     "nome": "Duelos aéreos ganhos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 70,
+     "piso_em_unidade_de_jogo": 100.0,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes certos, %",
+     "nome": "Passes certos, %",
+     "sentido": "maior é melhor",
+     "piso_pct": 55,
+     "piso_em_unidade_de_jogo": 84.86,
+     "sem_piso_porque": null
+    },
+    {
+     "bloco": "estilo_tecnico",
+     "indicador": "Passes progressivos/90",
+     "nome": "Passes progressivos/90",
+     "sentido": "maior é melhor",
+     "piso_pct": 50,
+     "piso_em_unidade_de_jogo": 4.04,
+     "sem_piso_porque": null
+    }
+   ]
+  }
+ },
+ "requisito_de_minutagem": {
+  "o_que_e": "Requisito que ELIMINA, nunca nota (§8.5). Vem antes de qualquer número técnico ou físico.",
+  "corte": "o p75 da fatia de minutos dentro do grupo de posição, calculado em 2022-2025 por J05 e aplicado sem recalcular com 2026",
+  "corte_por_posicao_de_J05": "Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%",
+  "regular": "alta em pelo menos 2 das 3 temporadas da janela (o ano e os dois anteriores), a regra de J01",
+  "temporada_sem_dado": "não conta como minutagem baixa (CLAUDE.md)",
+  "conferencia": "o script refaz o corte na janela 2022-2025 e para se não bater com min_corte_por_posicao de J05_numeros.json"
+ },
+ "funil": {
+  "molde": "etapa_12.degraus do prototipo.json, refeito para a Série B",
+  "degraus": [
+   "serie_b_2026",
+   "livres_na_janela",
+   "confianca_de_contrato",
+   "minutagem_alta_e_regular",
+   "com_dado_do_perfil",
+   "atende_o_perfil"
+  ],
+  "janela_de_contrato": "2026-11-01 a 2027-01-31",
+  "fonte_primaria_de_contrato": "dados/serieb_elencos.csv, coluna contrato_ate (Transfermarkt, 99,8% preenchida em 2026)",
+  "segunda_fonte": "dados/serieb_tecnico.csv, coluna 'Contrato termina' (snapshot do Wyscout, §2 armadilha b)",
+  "confianca_de_contrato": "as duas fontes caem no mesmo mês; a taxa de concordância é publicada, como manda a §8.1",
+  "contador_obrigatorio": "excluídos por dado ausente ao lado de cada degrau (§8.1)",
+  "ressalva_de_dezembro": "dezembro de 2026 não é filtro seletivo: é o calendário brasileiro. A seletividade, se houver, vem do perfil — nunca do contrato."
+ },
+ "percentil": {
+  "dentro_de": "setor × temporada, entre todos os jogadores da Série B daquela temporada com 900+ minutos",
+  "fisico": "e com pelo menos 300 minutos rastreados (min_tot = minutes_played × matches, §4.1)",
+  "nunca_imputar": "indicador ausente sai da conta e o denominador vai publicado (§8.2)",
+  "identidade": "a ponte SkillCorner × Wyscout já auditada por J04 (J04_base.csv); goleiro não tem linha física"
+ },
+ "backtest_8_6": {
+  "obrigatorio": true,
+  "por_que": "§8.6: sem ele a parte publica uma lista cuja ordenação nunca foi conferida",
+  "o_que_e_testado": "O FILTRO QUE J06 USARIA, não outro score. §8.6 item 5: 'a nota do backtest é a mesma da etapa 13, pela mesma função' — aqui, a mesma ficha de J05 e o mesmo requisito de minutagem que decidiriam quem entra na lista.",
+  "chegada": "jogador presente no clube X no ano t e ausente de X em t−1, em dados/serieb_tecnico.csv, com a regra de descarte de homônimo da §1.1 (nome que aparece com dois clubes ou duas posições no mesmo ano é descartado, nunca adivinhado)",
+  "pontuado_com": "o dado do ano t−1 — o dado que o clube teria na mesa",
+  "desfechos": [
+   {
+    "id": "minutos",
+    "o_que_e": "minutos no ano da chegada",
+    "papel": "primário"
+   },
+   {
+    "id": "permanencia",
+    "o_que_e": "estar no mesmo clube na Série B no ano seguinte",
+    "papel": "secundário"
+   }
+  ],
+  "grupos": [
+   {
+    "id": "perfil_completo",
+    "aprovado": "não viola nenhum piso que tenha dado, com pelo menos 2 indicadores presentes"
+   },
+   {
+    "id": "fisico",
+    "aprovado": "não viola nenhum piso físico que tenha dado"
+   },
+   {
+    "id": "duelo_corpo",
+    "aprovado": "não viola nenhum piso de duelo/corpo que tenha dado"
+   },
+   {
+    "id": "estilo_tecnico",
+    "aprovado": "não viola nenhum piso de estilo técnico que tenha dado"
+   },
+   {
+    "id": "minutagem",
+    "aprovado": "minutagem alta e regular pelo corte da posição em t−1"
+   }
+  ],
+  "familia_do_bh": "grupo × desfecho × corte — a família da §6.3 (um pilar × uma comparação), sem partir por setor. Dentro da família: um teste por setor mais o teste com todos os setores juntos.",
+  "metodo": "scripts/_metodo.py: Welch no percentil do desfecho dentro de (setor, temporada), d de Cohen, IC95 por bootstrap de CLUBE, poder por desenho, BH a 5%",
+  "dois_cortes": "com e sem as chegadas cujo clube de destino estava na fronteira do G4 ou do Z4 naquele ano (A01_clube_temporada.csv). Os dois rodam e os dois são relatados; conclusão que só aparece com eles é ruído (_metodo_fronteira.md).",
+  "n_minimo_por_lado": 8,
+  "escala_de_cada_desfecho": {
+   "minutos": "posto dentro de (setor, temporada) do ano da chegada, de 0 a 100 — a regra da casa, nunca o número bruto entre anos. A mediana em minutos vai publicada ao lado, em unidade de jogo.",
+   "permanencia": "0 ou 1, usado como está e sem virar posto: o posto de uma variável que só tem dois valores não existe. O Welch sobre 0/1 é o teste de duas proporções, e o que a tabela publica ao lado é a porcentagem de cada grupo.",
+   "declarado_antes_de_rodar": true
+  },
+  "teste_por_setor_e_teste_junto": "Dentro de cada família entram os testes por setor E o teste com todos os setores juntos. O primário é o de todos juntos; os por setor existem para mostrar se o resultado vem de uma posição só. Os dois estão na mesma família do BH, de propósito: separá-los inflaria o número de famílias e afrouxaria a correção."
+ },
+ "regra_que_autoriza_publicar_nomes": {
+  "declarada_antes_de_rodar": true,
+  "familia_primaria": "perfil_completo × minutos",
+  "recorte_primario": "todos os setores juntos",
+  "passa_se": "d > 0 (quem o filtro aprovaria jogou MAIS) E q < 0,05 dentro da família E o mesmo sinal e o mesmo selo nos DOIS cortes de fronteira",
+  "se_passar": "J06 publica 5 a 10 nomes por posição, livres primeiro",
+  "se_nao_passar": "J06 NÃO publica nome nenhum. Entrega a contagem da oferta por posição — que não depende da validade preditiva do perfil — e diz o que faria falta.",
+  "poder_insuficiente_nao_absolve": "se o desenho não enxergasse o efeito, a resposta continua sendo não publicar: o ônus é do filtro, e falha fechada é o princípio do portão desta casa",
+  "por_que_nao_ha_meio_termo": "nome publicado vira decisão de contratação; é o erro mais caro que esta parte pode cometer"
+ },
+ "oferta_escassa_para_o_J09": {
+  "o_que_e": "as posições em que a Série B não oferece nomes com minutagem alta e regular e contrato vencendo na janela",
+  "por_que_sobrevive_ao_backtest": "é uma CONTAGEM da oferta, não uma promessa de desempenho: o requisito de minutagem é o único que J05 sustenta, e contar quantos o atendem não afirma que eles vão render",
+  "entrega": "a contagem por posição, com e sem o filtro do perfil, para orientar J09"
+ },
+ "apoio_etapa_11": {
+  "o_que_e": "o que o jogador leva na mala quando troca de clube (§4.3 e etapa_11 do prototipo.json)",
+  "uso": "diz o peso de cada bloco na leitura de um nome: físico ρ 0,72-0,90, duelo/corpo 0,34-0,46, estilo técnico 0,16-0,30",
+  "aviso_literal_do_terceiro_bloco": "este número mede em boa parte o time anterior do atleta"
+ },
+ "ressalvas_declaradas": [
+  "Goleiro sem uma linha física: o SkillCorner não rastreia goleiro (§4.2 e §8.3). O requisito físico do goleiro fica marcado como não verificado.",
+  "O duelo aéreo do goleiro sai da ficha como não utilizável: J03-3 já o descartou (porcentagem sobre um punhado de duelos, piso no teto da escala).",
+  "Custo e disponibilidade ficam para validação externa (CLAUDE.md, J06).",
+  "A porta temporal não roda nesta unidade pelos mesmos motivos de J03, J04 e J05: o teto de confiança declarado antes de rodar é indício.",
+  "O contrato do Wyscout é snapshot (§2 armadilha b) e o do Transfermarkt é a fonte independente; onde discordam, a linha vai marcada."
+ ]
+}

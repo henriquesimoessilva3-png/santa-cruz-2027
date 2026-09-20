@@ -1,0 +1,178 @@
+{
+ "parte": "J05",
+ "pergunta": "Quais 4–6 métricas, técnicas e físicas, definem o jogador ideal em cada posição?",
+ "declarado_em": "2026-09-20",
+ "declarado_antes_de_calcular": true,
+ "declarado_antes_de_calcular_o_que": "Nenhuma comparação desta parte foi rodada antes desta lista. O que foi medido antes dela é só cobertura, como o CLAUDE.md manda antes de usar dado físico: a cobertura das cinco colunas físicas que J04 deixou fora da lista dela e que entram aqui (ver `emendas`). Os indicadores não foram escolhidos por resultado: os físicos são exatamente os que `dados/prototipo.json` já publica em `etapa_13.criterio_por_setor`, escritos em 15/09, e os técnicos são os de `J03_indicadores.json`, escritos em 17/09, apenas realocados nos dois blocos técnicos da §8.2.",
+
+ "o_chao_em_que_esta_parte_pisa": {
+  "J03": "Zero indicadores técnicos separam o titular de quem sobe do titular do meio nos dois cortes de fronteira. As três conclusões de J03 são indício e duas são negativas.",
+  "J04": "Zero de 204 testes físicos Sobe × Meio sobrevivem aos dois cortes, em nenhuma das seis posições de linha. As três conclusões de J04 são indício.",
+  "A14": "A régua do Bloco A tem 7 indicadores, e são todos de CLUBE. O mapa de equivalência ao jogador está declarado abaixo em `ponte_a14`.",
+  "T04": "Não escolheu treinador (as duas conclusões são indício e negativas). Então a cláusula do CLAUDE.md — 'se T04 já existir, o perfil deve servir ao modelo do treinador escolhido' — fica sem objeto, e está registrada em aberto.",
+  "consequencia": "Não há nada que tenha 'passado' para montar um perfil preditivo. O perfil que esta parte entrega é DESCRITIVO e vai rotulado como descrição: ele diz como era o titular de quem subiu, não o que faz subir. O teto de confiança declarado antes de rodar é `indício`."
+ },
+
+ "recorte": {
+  "temporadas": [2022, 2023, 2024, 2025],
+  "unidade": "jogador-temporada",
+  "2026": "fora. Temporada em curso, como o CLAUDE.md manda.",
+  "quem_entra": "Titular, pela MESMA regra de J03 e J04: por clube-temporada e por setor, os de mais minutos — 1 no gol, 2 na zaga, 2 no lateral, 2 no volante, 2 na meia, 2 no extremo e 2 no ataque, com 900+ minutos no Wyscout."
+ },
+
+ "setores": {
+  "Goleiro": ["GK"],
+  "Zaga": ["CB", "LCB", "RCB"],
+  "Lateral": ["LB", "RB", "LWB", "RWB"],
+  "Volante": ["DMF", "LDMF", "RDMF"],
+  "Meia": ["AMF", "LCMF", "RCMF", "LAMF", "RAMF"],
+  "Extremo": ["LW", "RW", "LWF", "RWF"],
+  "Atacante": ["CF"]
+ },
+ "ponte_setor_do_raio": {
+  "zaga": ["Zaga"], "lateral": ["Lateral"],
+  "meio": ["Volante", "Meia"], "ataque": ["Extremo", "Atacante"],
+  "Goleiro": "NÃO TEM setor no raio e não tem uma única linha física: o SkillCorner não rastreia goleiro (§4.2 e §8.3 da ESPECIFICACAO.md). A ficha do goleiro é só técnica, e o requisito físico dele fica marcado como não verificado."
+ },
+
+ "comparacoes": [
+  {"id": "SM", "nome": "titular de quem sobe × titular do meio", "papel": "padrão",
+   "nota": "É a que responde à pergunta do estudo: montar elenco para sair do meio da tabela."},
+  {"id": "SC", "nome": "titular de quem sobe × titular de quem cai", "papel": "secundária",
+   "nota": "Declarada porque é a comparação em que o perfil que JÁ EXISTE foi construído: `raio_ref.json` só guarda `sobe` e `cai`, e `sobecai_corrigido_por_clube` é sobe × cai. Ela entra para mostrar em que comparação o perfil do app vive — não para virar critério de contratação. O CLAUDE.md a classifica como leitura secundária, 'time bom contra time ruim'."}
+ ],
+ "repetir_sem_fronteira": true,
+ "regra_da_fronteira": "Toda comparação roda nos dois cortes (com e sem os times de fronteira de A01_clube_temporada.csv) e os dois são relatados. Firme = firme nos DOIS. O corte sem fronteira é teste de robustez, e é enviesado por construção (resultados/_metodo_fronteira.md): em Sobe × Cai ele reforça um grupo e enfraquece o outro, então achado que só aparece lá vale no máximo indício.",
+
+ "familia_e_a_unidade_do_bh": "BLOCO × COMPARAÇÃO × CORTE, sem partir por setor. É a §6.3 da ESPECIFICACAO.md ('uma família = um pilar × uma comparação'), que vale onde diverge — e é a correção que a conferência de 19/09 pediu a J03 e J04, que rodaram família × setor × comparação × corte. Consequência declarada: o q desta parte NÃO é comparável ao q de J03 e J04 nas mesmas colunas; a família aqui é maior, então o q é maior.",
+
+ "blocos": [
+  {
+   "id": "fisico",
+   "nome": "Nota Física",
+   "peso_da_especificacao": "alto (ρ 0,72–0,90 ao trocar de clube, §8.2)",
+   "de_onde_vem_a_lista": "dados/prototipo.json → etapa_13.criterio_por_setor. É o perfil físico por setor que o app JÁ publica; não foi escolhido aqui. Ele nasce de sobecai_corrigido_por_clube e o critério de entrada dele é `p_clube < 0,05` — o p cru do teste corrigido por clube (§4.4), NÃO o q de Benjamini-Hochberg.",
+   "por_setor_do_raio": {
+    "zaga": ["psv5"],
+    "lateral": ["psv5", "t_spr", "expl"],
+    "meio": ["t505_90", "expl", "t505_180", "hsr", "spr_n", "psv"],
+    "ataque": ["t505_90", "spr_n", "spr_km", "psv5", "t_hsr_cod", "hsr", "psv", "expl"]
+   },
+   "de_para_coluna": {
+    "psv5": "psv99_top5", "psv": "psv99", "spr_n": "sprint_count_p90",
+    "spr_km": "sprint_distance_p90", "hsr": "hsr_distance_p90",
+    "expl": "expl_accel_sprint_p90",
+    "t_spr": "raw_json.timetosprint_top3",
+    "t505_90": "raw_json.timeto505around90_top3",
+    "t505_180": "raw_json.timeto505around180_top3",
+    "t_hsr_cod": "raw_json.timetohsrpostcod_top3",
+    "fonte_do_de_para": "gerar_raio_serieb.py, constantes DE_PARA e DE_PARA_JSON (linhas 51-81)."
+   },
+   "sinal": {"menor_e_melhor": ["t_spr", "t505_90", "t505_180", "t_hsr_cod"],
+             "motivo": "São tempos em segundos (MENOR_MELHOR de gerar_raio_serieb.py:88). Nos demais o sinal é +1 e é DESCRITIVO, não juízo: correr mais não é correr melhor."},
+   "nomes_em_unidade_de_jogo": {
+    "psv99_top5": "Velocidade de pico, média dos 5 melhores jogos (km/h)",
+    "psv99": "Velocidade de pico da temporada (km/h)",
+    "sprint_count_p90": "Sprints por 90 min",
+    "sprint_distance_p90": "Distância em sprint por 90 min (m)",
+    "hsr_distance_p90": "Distância em corrida de alta velocidade por 90 min (m)",
+    "expl_accel_sprint_p90": "Arrancadas explosivas até o sprint por 90 min",
+    "t_spr": "Tempo até atingir o sprint (s)",
+    "t505_90": "Tempo para girar 90 graus (s)",
+    "t505_180": "Tempo para girar 180 graus (s)",
+    "t_hsr_cod": "Tempo até a alta velocidade depois de mudar de direção (s)"
+   }
+  },
+  {
+   "id": "duelo_corpo",
+   "nome": "Nota de Duelo e Corpo",
+   "peso_da_especificacao": "médio (ρ 0,34–0,46 ao trocar de clube, §8.2)",
+   "de_onde_vem_a_lista": "Os indicadores já pré-declarados em J03_indicadores.json (17/09), realocados no bloco de duelo/corpo da §8.2. Nenhum indicador técnico novo entra nesta parte.",
+   "indicadores": [
+    {"id": "Duelos defensivos ganhos, %", "sinal": 1},
+    {"id": "Duelos aéreos ganhos, %", "sinal": 1},
+    {"id": "Dribles com sucesso, %", "sinal": 1}
+   ]
+  },
+  {
+   "id": "estilo_tecnico",
+   "nome": "Nota de Estilo Técnico",
+   "peso_da_especificacao": "baixo, com aviso literal na tela: 'este número mede em boa parte o time anterior do atleta' (ρ 0,16–0,30, §8.2)",
+   "de_onde_vem_a_lista": "Idem: de J03_indicadores.json, realocados no bloco de estilo da §8.2.",
+   "indicadores": [
+    {"id": "Passes certos, %", "sinal": 1},
+    {"id": "Passes progressivos/90", "sinal": 1},
+    {"id": "Toques na área/90", "sinal": 1}
+   ]
+  }
+ ],
+ "nunca_somar": "§8.2: as três notas NUNCA viram um número único. As coberturas são diferentes e a soma esconde exatamente a informação que custou mais caro para descobrir — que o físico viaja com o jogador e o estilo técnico não. A ficha de cada posição traz as três separadas, e J05_perfil.csv tem uma linha por indicador, nunca uma nota agregada.",
+
+ "percentil": {
+  "regra": "Dentro do mesmo SETOR e da mesma TEMPORADA, entre todos os que têm 900+ minutos (no físico, entre todos os que têm 900+ minutos E têm linha física) — não só entre titulares. Mesma régua de J03 e J04.",
+  "motivo": "Assim o titular de quem sobe é comparado à sua liga e à sua posição, e não só aos seus pares."
+ },
+
+ "piso_de_percentil": {
+  "regra_declarada_antes_de_rodar": "Para cada indicador do bloco e cada setor, o piso é o múltiplo de 5 imediatamente abaixo (ou igual) da MEDIANA do percentil do titular de quem subiu, no corte COM fronteira.",
+  "quando_nao_ha_piso": "Se essa mediana for menor que 50, o indicador entra na ficha SEM piso, com o motivo escrito: quem subiu não estava acima da mediana da liga naquele número, e exigir isso seria inventar exigência.",
+  "o_que_vai_na_ficha": "O piso é publicado em UNIDADE DE JOGO (o valor bruto naquele percentil, na mediana das quatro temporadas), com o percentil ao lado como detalhe.",
+  "o_que_o_piso_NAO_e": "Não é previsão. É descrição: metade dos titulares de quem subiu estava nesse nível ou acima. O piso não passou em teste nenhum e não é promessa de acesso."
+ },
+
+ "perfil_curto": {
+  "o_que_e": "A resposta literal à pergunta — 4 a 6 métricas por posição. A ficha inteira (J05_perfil.csv) traz todos os indicadores dos três blocos; o perfil curto é o recorte que vai para J06.",
+  "regra_declarada_antes_de_rodar": "Por posição: as DUAS primeiras físicas da lista do próprio app para aquele setor (a ordem publicada em etapa_13.criterio_por_setor, que é a ordem de efeito do sobe × cai, fixada em 15/09 — não é escolha desta parte), mais as DUAS primeiras do bloco duelo/corpo e as DUAS primeiras do bloco estilo técnico, na ordem em que estão declaradas acima.",
+  "goleiro": "4 métricas (2 de duelo/corpo + 2 de estilo), porque não existe uma única linha física de goleiro. O requisito físico do goleiro vai marcado como NÃO VERIFICADO.",
+  "zaga": "5 métricas, porque o app declara uma única física para a zaga.",
+  "por_que_nao_mais": "A §8.2 não permite somar as notas, e cada métrica a mais é mais um denominador para o candidato sem dado. Seis é o teto da pergunta."
+ },
+
+ "requisito_de_minutagem": {
+  "regra": "Minutagem alta e regular, como o CLAUDE.md define e J01 mediu: fatia de minutos acima do corte da POSIÇÃO (o p75 da fatia naquela posição, 2022–2025) em pelo menos 2 das 3 temporadas da janela [ano−2, ano].",
+  "por_que_por_posicao": "J01-1: com um corte único de 60% passam 27,3% dos goleiros e 7,0% dos atacantes. O corte único não mede minutagem, mede posição.",
+  "fonte": "dados/minutagem_serieb.json, recalculado aqui pela mesma regra de scripts/J01.py (percentil_exato p75 por grupo, janela de 3 temporadas). O script confere o corte por posição contra o marcador `corte_por_posicao` de J01_numeros.json e relata se divergir.",
+  "papel": "É REQUISITO, não nota. Elimina, não pontua — como a §8.5 manda para viabilidade."
+ },
+
+ "ponte_a14": {
+  "declarada_antes_de_rodar": true,
+  "o_que_e": "Para cada indicador do índice de A14 (A14_resumo.json → `indice`), se existe equivalente de JOGADOR na lista declarada acima.",
+  "mapa": {
+   "H_dinheiro": null,
+   "dist_remate": null,
+   "E_qualidade_chance": null,
+   "xg_por_remate_contra": null,
+   "duelos_def_pct": "Duelos defensivos ganhos, %",
+   "xgc_casa": null,
+   "dd_casa": "Duelos defensivos ganhos, %"
+  },
+  "motivo_dos_nulos": "H_dinheiro é valor de elenco e não se contrata um jogador por ele; E_qualidade_chance e F_solidez são réguas compostas de clube; xg_por_remate_contra e xgc_casa são o que o time cede, com goleiro, defesa e plano de jogo juntos; dist_remate é de onde o TIME chuta, e não existe distância de remate por jogador em base nenhuma do repositório. Mando (casa/fora) não existe na unidade jogador-temporada."
+ },
+
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py",
+  "teste": "t de Welch no percentil dentro de setor × temporada; d de Cohen; BH a 5% por bloco × comparação × corte; IC95 por bootstrap de CLUBE (2.000 réplicas), porque a linha é jogador mas os jogadores vêm em elencos; poder por desenho (menor d detectável a 80%).",
+  "n_minimo_por_setor": "Pelo menos 8 de um lado e 16 do outro. Abaixo disso o setor sai do teste, com o n dito.",
+  "porta_temporal": {
+   "roda": false,
+   "motivo": "A porta temporal do estudo é o 1º turno prevendo o 2º. O técnico do Wyscout é agregado por temporada e não tem versão por rodada; o físico por jogo (`physical_match`) tem zero linha em 2022, 2023 e 2024. Nem J03 nem J04 a rodaram, pelo mesmo motivo.",
+   "consequencia_declarada": "TETO DE CONFIANÇA DESTA PARTE: `indício`. Nenhuma conclusão pode ser firme nem provável, e a frase de cada uma diz por quê."
+  }
+ },
+
+ "emendas": [
+  {"data": "2026-09-20",
+   "o_que_mudou": "Entram cinco colunas físicas que J04_indicadores.json deixou fora: `expl_accel_sprint_p90` e os quatro tempos do `raw_json` (`timetosprint_top3`, `timeto505around90_top3`, `timeto505around180_top3`, `timetohsrpostcod_top3`).",
+   "motivo": "Não é escolha desta parte: são indicadores que `etapa_13.criterio_por_setor` já nomeia no perfil do lateral, do meio e do ataque. Sem eles o perfil do lateral cairia de 3 para 1 indicador e o do ataque de 8 para 5, e o que se mediria seria o pedaço do perfil que a base tem, não o perfil. O próprio J04_indicadores.json prevê esta entrada: 'Se uma delas for necessária em J05, entra lá com emenda datada'.",
+   "cobertura_medida_antes_de_declarar": "expl_accel_sprint_p90: 100% em todas as temporadas. timeto505around90_top3: 82–84%. timeto505around180_top3: 74–78%. timetohsrpostcod_top3: 72–73%. timetosprint_top3: 64–68%. Os quatro tempos perdem entre um sexto e um terço dos jogadores; o n de cada teste é publicado em J05_testes.csv e a ficha diz a cobertura."}
+ ],
+
+ "ressalvas_declaradas": [
+  "Esta parte NÃO valida a nota de encaixe. A §8.6 exige o backtest antes de publicar ranking, e ele é de J06, não daqui. J05 entrega o perfil e as três notas separadas; quem publica nome é J06.",
+  "O perfil físico por setor que o app publica vem de uma comparação sobe × CAI, não sobe × meio: `raio_ref.json` só guarda essas duas pontas. Toda leitura dele tem de dizer isso.",
+  "A ponte SkillCorner × Wyscout é por nome (§1.1), com a auditoria de identidade de J04 (J04_identidade.json). 105 goleiros com 900+ minutos não têm uma única linha física.",
+  "O export do Wyscout corta em 500 linhas por temporada: quem jogou pouco pode faltar na base. Não afeta titular, que é quem jogou muito.",
+  "Jogador que trocou de clube na temporada tem um agregado físico só, misturando os dois clubes. Herdado de J04_base.csv, com a marca `clube_confere`."
+ ]
+}

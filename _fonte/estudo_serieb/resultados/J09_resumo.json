@@ -1,0 +1,835 @@
+{
+ "parte": "J09",
+ "rodado_em": "2026-09-20",
+ "gerado_por": "scripts/J09.py",
+ "veredito_do_nivel_A": false,
+ "rotulo_dos_nomes": "rastrear",
+ "desenho_do_backtest": {
+  "obrigatorio": true,
+  "por_que_nao_basta_o_de_j06": "O de J06 testou a ficha em quem já estava na Série B. Esta parte contrata de FORA, que é justamente a metade que o backtest de J06 não conseguiu pontuar (1.200 das 1.743 chegadas ficaram sem ano anterior). O filtro do J09 tem de ser testado no movimento que ele de fato descreve.",
+  "base": "resultados/J08_base.csv, as linhas com liga_destino = Brasil B e liga_origem fora de {Brasil A, Brasil B, Brasil C}",
+  "chegada": "a transferência registrada pelo painel temporal do Wyscout: jogador presente na liga de origem no ano t−1 e na Série B no ano t",
+  "pontuado_com": "o dado do ano t−1, na liga de origem — o dado que o clube teria na mesa (§8.6 item 5)",
+  "desfechos": [
+   {
+    "id": "minutos",
+    "o_que_e": "minutos no ano da chegada (min_depois)",
+    "papel": "primário"
+   },
+   {
+    "id": "jogou_900",
+    "o_que_e": "chegou a 900 minutos no ano da chegada",
+    "papel": "secundário"
+   }
+  ],
+  "grupos": [
+   {
+    "id": "filtro_j09",
+    "aprovado": "minutagem alta na origem E não viola nenhum piso técnico que tenha dado, depois do ajuste de J08 — o filtro inteiro que escolheria os nomes"
+   },
+   {
+    "id": "minutagem_origem",
+    "aprovado": "minutagem alta na origem, sozinha"
+   },
+   {
+    "id": "duelo_corpo",
+    "aprovado": "não viola nenhum piso de duelo/corpo que tenha dado, depois do ajuste"
+   },
+   {
+    "id": "estilo_tecnico",
+    "aprovado": "não viola nenhum piso de estilo técnico que tenha dado, depois do ajuste"
+   }
+  ],
+  "familia_do_bh": "grupo × desfecho × corte — a §6.3 (um pilar × uma comparação), sem partir por setor. Dentro da família entram os testes por setor e o teste com todos os setores juntos; o primário é o de todos juntos.",
+  "metodo": "scripts/_metodo.py: Welch no posto do desfecho dentro de (setor, ano de chegada), d de Cohen, IC95 por bootstrap de CLUBE de destino, poder por desenho, BH a 5%",
+  "dois_cortes": "com e sem as chegadas cujo clube de destino estava na fronteira do G4 ou do Z4 naquele ano (A01_clube_temporada.csv). Os dois rodam e os dois são relatados. Conclusão que só aparece com eles é ruído (_metodo_fronteira.md).",
+  "n_minimo_por_lado": 8,
+  "poder": "o d mínimo detectável a 80% vai publicado em toda linha; com 79 chegadas o desenho é fraco por construção e isso é dito antes de rodar, não depois de ver o resultado",
+  "porta_temporal": "o backtest é temporal por construção (pontua com t−1, mede em t), mas é outro desenho e NÃO é chamado de porta da §6.4 — o mesmo critério que J06 usou. Por isso nenhuma conclusão desta parte pode ser firme."
+ },
+ "ligas": [
+  {
+   "liga": "Alemanha A",
+   "linhas": 297,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 0.998,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Alemanha B",
+   "linhas": 293,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 0.983,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Arabia Saudita A",
+   "linhas": 282,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 1.004,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 7.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Arabia Saudita B",
+   "linhas": 0,
+   "veredito": "arquivo vazio"
+  },
+  {
+   "liga": "Austria",
+   "linhas": 183,
+   "times": 12,
+   "jogos_max": 35,
+   "razao_denominador": 0.952,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Bahrain",
+   "linhas": 207,
+   "times": 12,
+   "jogos_max": 21,
+   "razao_denominador": 1.026,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Belgica A",
+   "linhas": 255,
+   "times": 16,
+   "jogos_max": 41,
+   "razao_denominador": 0.997,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 5.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Belgica B",
+   "linhas": 258,
+   "times": 17,
+   "jogos_max": 36,
+   "razao_denominador": 0.911,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Bulgaria",
+   "linhas": 263,
+   "times": 16,
+   "jogos_max": 37,
+   "razao_denominador": 0.951,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Catar",
+   "linhas": 201,
+   "times": 12,
+   "jogos_max": 22,
+   "razao_denominador": 1.018,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 4.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "China",
+   "linhas": 249,
+   "times": 16,
+   "jogos_max": 15,
+   "razao_denominador": 1.044,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Croacia",
+   "linhas": 167,
+   "times": 10,
+   "jogos_max": 36,
+   "razao_denominador": 0.939,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Dinamarca",
+   "linhas": 99,
+   "times": 9,
+   "jogos_max": 7,
+   "razao_denominador": 1.011,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "temporada curta demais (7 jogos)"
+  },
+  {
+   "liga": "Emirados",
+   "linhas": 233,
+   "times": 14,
+   "jogos_max": 26,
+   "razao_denominador": 1.032,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 4.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Escocia",
+   "linhas": 191,
+   "times": 12,
+   "jogos_max": 38,
+   "razao_denominador": 0.895,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "elenco cortado no export (razão 0.89)"
+  },
+  {
+   "liga": "Eslovaquia",
+   "linhas": 205,
+   "times": 12,
+   "jogos_max": 32,
+   "razao_denominador": 0.945,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Espanha A",
+   "linhas": 341,
+   "times": 20,
+   "jogos_max": 38,
+   "razao_denominador": 1.008,
+   "forca_do_fator": "fraco",
+   "casos_j08": 2.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Espanha B",
+   "linhas": 367,
+   "times": 22,
+   "jogos_max": 43,
+   "razao_denominador": 0.982,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Espanha C",
+   "linhas": 704,
+   "times": 40,
+   "jogos_max": 38,
+   "razao_denominador": 1.042,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "França A",
+   "linhas": 293,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 0.978,
+   "forca_do_fator": "fraco",
+   "casos_j08": 2.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "França B",
+   "linhas": 292,
+   "times": 18,
+   "jogos_max": 36,
+   "razao_denominador": 0.963,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Grecia",
+   "linhas": 230,
+   "times": 14,
+   "jogos_max": 35,
+   "razao_denominador": 0.957,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 6.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Holanda",
+   "linhas": 272,
+   "times": 18,
+   "jogos_max": 36,
+   "razao_denominador": 0.949,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Hungria",
+   "linhas": 250,
+   "times": 12,
+   "jogos_max": 33,
+   "razao_denominador": 1.013,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Inglaterra A",
+   "linhas": 338,
+   "times": 20,
+   "jogos_max": 38,
+   "razao_denominador": 1.024,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 7.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Inglaterra B",
+   "linhas": 369,
+   "times": 24,
+   "jogos_max": 49,
+   "razao_denominador": 0.942,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Israel",
+   "linhas": 229,
+   "times": 14,
+   "jogos_max": 35,
+   "razao_denominador": 0.99,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Italia A",
+   "linhas": 333,
+   "times": 20,
+   "jogos_max": 38,
+   "razao_denominador": 0.982,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 6.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Italia B",
+   "linhas": 319,
+   "times": 20,
+   "jogos_max": 42,
+   "razao_denominador": 0.945,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Italia C",
+   "linhas": 500,
+   "times": 59,
+   "jogos_max": 44,
+   "razao_denominador": 0.629,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "elenco cortado no export (razão 0.63)"
+  },
+  {
+   "liga": "Marrocos",
+   "linhas": 267,
+   "times": 16,
+   "jogos_max": 22,
+   "razao_denominador": 0.979,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Mexico",
+   "linhas": 240,
+   "times": 18,
+   "jogos_max": 52,
+   "razao_denominador": 0.927,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 6.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Noruega",
+   "linhas": 226,
+   "times": 16,
+   "jogos_max": 13,
+   "razao_denominador": 0.98,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "temporada curta demais (13 jogos)"
+  },
+  {
+   "liga": "Polonia",
+   "linhas": 296,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 0.978,
+   "forca_do_fator": "fraco",
+   "casos_j08": 2.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Portugal A",
+   "linhas": 300,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 0.982,
+   "forca_do_fator": "forte",
+   "casos_j08": 13.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Portugal B",
+   "linhas": 308,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 1.005,
+   "forca_do_fator": "forte",
+   "casos_j08": 12.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Portugal C",
+   "linhas": 308,
+   "times": 20,
+   "jogos_max": 32,
+   "razao_denominador": 0.98,
+   "forca_do_fator": "fraco",
+   "casos_j08": 2.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Romenia",
+   "linhas": 274,
+   "times": 16,
+   "jogos_max": 40,
+   "razao_denominador": 0.981,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Russia",
+   "linhas": 248,
+   "times": 16,
+   "jogos_max": 30,
+   "razao_denominador": 0.971,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 6.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Servia",
+   "linhas": 278,
+   "times": 16,
+   "jogos_max": 37,
+   "razao_denominador": 0.948,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Suecia",
+   "linhas": 228,
+   "times": 16,
+   "jogos_max": 11,
+   "razao_denominador": 1.03,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "temporada curta demais (11 jogos)"
+  },
+  {
+   "liga": "Suiça",
+   "linhas": 200,
+   "times": 12,
+   "jogos_max": 38,
+   "razao_denominador": 0.934,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Tcheca",
+   "linhas": 272,
+   "times": 16,
+   "jogos_max": 35,
+   "razao_denominador": 0.94,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Turquia",
+   "linhas": 299,
+   "times": 18,
+   "jogos_max": 34,
+   "razao_denominador": 1.003,
+   "forca_do_fator": "fraco",
+   "casos_j08": 2.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Ucrania",
+   "linhas": 263,
+   "times": 16,
+   "jogos_max": 30,
+   "razao_denominador": 0.922,
+   "forca_do_fator": "fraco",
+   "casos_j08": 1.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Argentina A",
+   "linhas": 437,
+   "times": 30,
+   "jogos_max": 25,
+   "razao_denominador": 0.924,
+   "forca_do_fator": "forte",
+   "casos_j08": 28.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Argentina B",
+   "linhas": 500,
+   "times": 36,
+   "jogos_max": 25,
+   "razao_denominador": 0.865,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "elenco cortado no export (razão 0.86)"
+  },
+  {
+   "liga": "Bolivia",
+   "linhas": 260,
+   "times": 16,
+   "jogos_max": 15,
+   "razao_denominador": 0.918,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Chile",
+   "linhas": 262,
+   "times": 16,
+   "jogos_max": 19,
+   "razao_denominador": 1.036,
+   "forca_do_fator": "forte",
+   "casos_j08": 10.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Colombia A",
+   "linhas": 307,
+   "times": 20,
+   "jogos_max": 27,
+   "razao_denominador": 0.917,
+   "forca_do_fator": "forte",
+   "casos_j08": 16.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Colombia B",
+   "linhas": 215,
+   "times": 16,
+   "jogos_max": 25,
+   "razao_denominador": 0.839,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "elenco cortado no export (razão 0.84)"
+  },
+  {
+   "liga": "Coreia A",
+   "linhas": 201,
+   "times": 12,
+   "jogos_max": 23,
+   "razao_denominador": 1.052,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 4.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Coreia B",
+   "linhas": 270,
+   "times": 17,
+   "jogos_max": 21,
+   "razao_denominador": 0.976,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 6.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "EUA",
+   "linhas": 458,
+   "times": 30,
+   "jogos_max": 20,
+   "razao_denominador": 0.994,
+   "forca_do_fator": "forte",
+   "casos_j08": 15.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Equador A",
+   "linhas": 268,
+   "times": 16,
+   "jogos_max": 25,
+   "razao_denominador": 1.011,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 5.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Equador B",
+   "linhas": 186,
+   "times": 12,
+   "jogos_max": 20,
+   "razao_denominador": 0.92,
+   "forca_do_fator": "sem fator",
+   "casos_j08": 0,
+   "veredito": "liga sem fator de J08"
+  },
+  {
+   "liga": "Japao A",
+   "linhas": 263,
+   "times": 20,
+   "jogos_max": 2,
+   "razao_denominador": 1.047,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 8.0,
+   "veredito": "temporada curta demais (2 jogos)"
+  },
+  {
+   "liga": "Japao B",
+   "linhas": 258,
+   "times": 20,
+   "jogos_max": 2,
+   "razao_denominador": 1.014,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 9.0,
+   "veredito": "temporada curta demais (2 jogos)"
+  },
+  {
+   "liga": "Paraguai",
+   "linhas": 193,
+   "times": 12,
+   "jogos_max": 27,
+   "razao_denominador": 0.953,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 7.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Peru",
+   "linhas": 269,
+   "times": 18,
+   "jogos_max": 22,
+   "razao_denominador": 0.967,
+   "forca_do_fator": "agrupado",
+   "casos_j08": 3.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Uruguai",
+   "linhas": 262,
+   "times": 16,
+   "jogos_max": 25,
+   "razao_denominador": 0.971,
+   "forca_do_fator": "forte",
+   "casos_j08": 22.0,
+   "veredito": "entra"
+  },
+  {
+   "liga": "Venezuela",
+   "linhas": 195,
+   "times": 14,
+   "jogos_max": 23,
+   "razao_denominador": 0.881,
+   "forca_do_fator": "fraco",
+   "casos_j08": 2.0,
+   "veredito": "elenco cortado no export (razão 0.88)"
+  }
+ ],
+ "por_posicao": {
+  "Goleiro": {
+   "priorizada": true,
+   "candidatos_com_minutagem": 584,
+   "com_fator_de_liga": 584,
+   "passa_piso_na_origem": 99,
+   "passa_piso_no_ajustado": 66,
+   "exigencias": 2,
+   "nivel": "C",
+   "motivo": "três buracos ao mesmo tempo: o que sobra da ficha são dois números de passe (o físico não existe, o duelo defensivo não tem piso e o aéreo foi descartado em J03), o painel temporal não tem uma linha de goleiro e por isso a regularidade é inverificável, e J08 não tem fator para goleiro",
+   "publicados": 0,
+   "so_o_bloco_fisico": 0,
+   "com_linha_fisica": 18,
+   "so_o_bloco_duelo_corpo": 0,
+   "so_o_bloco_estilo_tecnico": 99,
+   "os_dois_blocos_juntos": 99,
+   "com_contrato_na_janela": 285,
+   "passa_e_contrato_na_janela": 44,
+   "publicados_com_contrato_na_janela": 0
+  },
+  "Zaga": {
+   "priorizada": false,
+   "candidatos_com_minutagem": 167,
+   "com_fator_de_liga": 167,
+   "passa_piso_na_origem": 9,
+   "passa_piso_no_ajustado": 3,
+   "exigencias": 4,
+   "nivel": "B",
+   "motivo": "",
+   "publicados": 5,
+   "so_o_bloco_fisico": 47,
+   "com_linha_fisica": 137,
+   "so_o_bloco_duelo_corpo": 38,
+   "so_o_bloco_estilo_tecnico": 75,
+   "os_dois_blocos_juntos": 9,
+   "com_contrato_na_janela": 92,
+   "passa_e_contrato_na_janela": 4,
+   "publicados_com_contrato_na_janela": 4
+  },
+  "Lateral": {
+   "priorizada": false,
+   "candidatos_com_minutagem": 239,
+   "com_fator_de_liga": 239,
+   "passa_piso_na_origem": 38,
+   "passa_piso_no_ajustado": 45,
+   "exigencias": 4,
+   "nivel": "B",
+   "motivo": "",
+   "publicados": 5,
+   "so_o_bloco_fisico": 55,
+   "com_linha_fisica": 185,
+   "so_o_bloco_duelo_corpo": 130,
+   "so_o_bloco_estilo_tecnico": 126,
+   "os_dois_blocos_juntos": 38,
+   "com_contrato_na_janela": 130,
+   "passa_e_contrato_na_janela": 22,
+   "publicados_com_contrato_na_janela": 5
+  },
+  "Volante": {
+   "priorizada": true,
+   "candidatos_com_minutagem": 67,
+   "com_fator_de_liga": 67,
+   "passa_piso_na_origem": 0,
+   "passa_piso_no_ajustado": 0,
+   "exigencias": 6,
+   "nivel": "C",
+   "motivo": "ninguém atravessa o funil com dado nos dois blocos montáveis",
+   "publicados": 0,
+   "so_o_bloco_fisico": 7,
+   "com_linha_fisica": 53,
+   "so_o_bloco_duelo_corpo": 8,
+   "so_o_bloco_estilo_tecnico": 12,
+   "os_dois_blocos_juntos": 0,
+   "com_contrato_na_janela": 37,
+   "passa_e_contrato_na_janela": 0,
+   "publicados_com_contrato_na_janela": 0
+  },
+  "Meia": {
+   "priorizada": false,
+   "candidatos_com_minutagem": 218,
+   "com_fator_de_liga": 218,
+   "passa_piso_na_origem": 11,
+   "passa_piso_no_ajustado": 3,
+   "exigencias": 5,
+   "nivel": "B",
+   "motivo": "",
+   "publicados": 5,
+   "so_o_bloco_fisico": 43,
+   "com_linha_fisica": 175,
+   "so_o_bloco_duelo_corpo": 105,
+   "so_o_bloco_estilo_tecnico": 56,
+   "os_dois_blocos_juntos": 11,
+   "com_contrato_na_janela": 93,
+   "passa_e_contrato_na_janela": 4,
+   "publicados_com_contrato_na_janela": 4
+  },
+  "Extremo": {
+   "priorizada": true,
+   "candidatos_com_minutagem": 82,
+   "com_fator_de_liga": 82,
+   "passa_piso_na_origem": 0,
+   "passa_piso_no_ajustado": 0,
+   "exigencias": 6,
+   "nivel": "C",
+   "motivo": "ninguém atravessa o funil com dado nos dois blocos montáveis",
+   "publicados": 0,
+   "so_o_bloco_fisico": 12,
+   "com_linha_fisica": 71,
+   "so_o_bloco_duelo_corpo": 12,
+   "so_o_bloco_estilo_tecnico": 18,
+   "os_dois_blocos_juntos": 0,
+   "com_contrato_na_janela": 34,
+   "passa_e_contrato_na_janela": 0,
+   "publicados_com_contrato_na_janela": 0
+  },
+  "Atacante": {
+   "priorizada": false,
+   "candidatos_com_minutagem": 137,
+   "com_fator_de_liga": 137,
+   "passa_piso_na_origem": 20,
+   "passa_piso_no_ajustado": 19,
+   "exigencias": 4,
+   "nivel": "B",
+   "motivo": "",
+   "publicados": 5,
+   "so_o_bloco_fisico": 28,
+   "com_linha_fisica": 109,
+   "so_o_bloco_duelo_corpo": 64,
+   "so_o_bloco_estilo_tecnico": 82,
+   "os_dois_blocos_juntos": 20,
+   "com_contrato_na_janela": 63,
+   "passa_e_contrato_na_janela": 8,
+   "publicados_com_contrato_na_janela": 5
+  }
+ },
+ "teto_aritmetico_do_ajuste": {
+  "volume": 76.4,
+  "eficiencia": 66.1
+ },
+ "pisos_inalcancaveis_pelo_ajuste": [
+  "Extremo: Duelos defensivos ganhos, % (piso 75)",
+  "Extremo: Passes certos, % (piso 70)"
+ ],
+ "curva_de_idade_relida_de_J08": {
+  "16": 0.1079,
+  "18": 0.2708,
+  "20": 0.1543,
+  "22": 0.0353,
+  "24": -0.0111,
+  "26": -0.0836,
+  "28": -0.1114,
+  "30": -0.1663,
+  "32": -0.1829,
+  "34": -0.2533,
+  "36": -0.119,
+  "38": 0.0,
+  "40": 0.0
+ },
+ "cortes_sem_par": {
+  "o_que_e": "As linhas que rodaram num corte de fronteira e não no outro. A regra 3 do portão as marca como REVISAR, e a resposta tem de estar escrita.",
+  "quais": [
+   "minutagem_alta_e_regular × minutos (Todos)",
+   "minutagem_alta_e_regular × jogou_900 (Todos)"
+  ],
+  "por_que": "Sem os clubes de fronteira o grupo fica com menos de 8 de um lado, que é o piso por lado declarado em J09_indicadores.json antes de rodar. Não é tabela meia-rodada nem escolha de texto: é o piso disparando.",
+  "as_que_emparelharam_discordam": 0
+ },
+ "avisos": []
+}

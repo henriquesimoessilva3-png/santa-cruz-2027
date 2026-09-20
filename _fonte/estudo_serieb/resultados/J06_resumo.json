@@ -1,0 +1,1425 @@
+{
+ "gerado_por": "scripts/J06.py",
+ "gerado_em": "2026-09-20",
+ "semente": 7,
+ "reps_ic": 2000,
+ "familia_do_bh": "grupo × desfecho × corte (§6.3), sem partir por setor",
+ "veredito_do_backtest": {
+  "passou": false,
+  "por_que": "o teste primário não rodou nos dois cortes",
+  "familia": "perfil_completo|minutos"
+ },
+ "regra_que_autorizava": {
+  "declarada_antes_de_rodar": true,
+  "familia_primaria": "perfil_completo × minutos",
+  "recorte_primario": "todos os setores juntos",
+  "passa_se": "d > 0 (quem o filtro aprovaria jogou MAIS) E q < 0,05 dentro da família E o mesmo sinal e o mesmo selo nos DOIS cortes de fronteira",
+  "se_passar": "J06 publica 5 a 10 nomes por posição, livres primeiro",
+  "se_nao_passar": "J06 NÃO publica nome nenhum. Entrega a contagem da oferta por posição — que não depende da validade preditiva do perfil — e diz o que faria falta.",
+  "poder_insuficiente_nao_absolve": "se o desenho não enxergasse o efeito, a resposta continua sendo não publicar: o ônus é do filtro, e falha fechada é o princípio do portão desta casa",
+  "por_que_nao_ha_meio_termo": "nome publicado vira decisão de contratação; é o erro mais caro que esta parte pode cometer"
+ },
+ "porta_temporal": {
+  "passa": false,
+  "parcial_nao_rodou": null,
+  "motivo": "a porta da §6.4 é o 1º turno prevendo os pontos do 2º, e ela não existe nesta unidade: o técnico do Wyscout é agregado por temporada e o físico por jogo tem zero linha em 2022-2024. É o mesmo motivo de J03, J04 e J05, e por isso o teto declarado antes de rodar era indício.",
+  "o_que_esta_parte_tem_no_lugar": "o backtest da §8.6 é temporal por construção — pontua com o dado de t−1 e mede o desfecho em t —, mas é OUTRO desenho, e esta parte não o chama de porta da §6.4 nem carimba confiança com ele."
+ },
+ "diagnostico_do_teste_primario": {
+  "o_que_e": "o teste primário rodado só no corte COM os clubes de fronteira; não entra na tabela, no BH nem no veredito, porque a régua declarada exige os dois cortes",
+  "n_aprovado": 17,
+  "n_reprovado": 280,
+  "d": -0.224,
+  "p": 0.46036,
+  "d_minimo_80": 0.7,
+  "minutos_aprovado": 1095.4,
+  "minutos_reprovado": 1317.4
+ },
+ "backtest_perdas": {
+  "sem_ano_anterior": 1200,
+  "sem_900_min_antes": 246,
+  "sem_dado_do_perfil": 0
+ },
+ "backtest_por_grupo": {
+  "perfil_completo": {
+   "aprovados": 17,
+   "reprovados": 280,
+   "sem_dado": 0
+  },
+  "fisico": {
+   "aprovados": 63,
+   "reprovados": 218,
+   "sem_dado": 16
+  },
+  "duelo_corpo": {
+   "aprovados": 113,
+   "reprovados": 184,
+   "sem_dado": 0
+  },
+  "estilo_tecnico": {
+   "aprovados": 104,
+   "reprovados": 193,
+   "sem_dado": 0
+  },
+  "minutagem": {
+   "aprovados": 38,
+   "reprovados": 259,
+   "sem_dado": 0
+  }
+ },
+ "testes_fora_por_n": [
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Zaga",
+   "n_a": 1,
+   "n_b": 50
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Lateral",
+   "n_a": 5,
+   "n_b": 50
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 0,
+   "n_b": 21
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Meia",
+   "n_a": 2,
+   "n_b": 70
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Extremo",
+   "n_a": 1,
+   "n_b": 37
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Atacante",
+   "n_a": 4,
+   "n_b": 44
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 4,
+   "n_b": 8
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Todos",
+   "n_a": 7,
+   "n_b": 164
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Zaga",
+   "n_a": 0,
+   "n_b": 33
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Lateral",
+   "n_a": 2,
+   "n_b": 30
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 0,
+   "n_b": 16
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Meia",
+   "n_a": 2,
+   "n_b": 36
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 0,
+   "n_b": 19
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Atacante",
+   "n_a": 2,
+   "n_b": 24
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 1,
+   "n_b": 6
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Zaga",
+   "n_a": 1,
+   "n_b": 50
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Lateral",
+   "n_a": 5,
+   "n_b": 50
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 0,
+   "n_b": 21
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Meia",
+   "n_a": 2,
+   "n_b": 70
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Extremo",
+   "n_a": 1,
+   "n_b": 37
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Atacante",
+   "n_a": 4,
+   "n_b": 44
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 4,
+   "n_b": 8
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Todos",
+   "n_a": 7,
+   "n_b": 164
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Zaga",
+   "n_a": 0,
+   "n_b": 33
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Lateral",
+   "n_a": 2,
+   "n_b": 30
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 0,
+   "n_b": 16
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Meia",
+   "n_a": 2,
+   "n_b": 36
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 0,
+   "n_b": 19
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Atacante",
+   "n_a": 2,
+   "n_b": 24
+  },
+  {
+   "grupo": "perfil_completo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 1,
+   "n_b": 6
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 4,
+   "n_b": 17
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 0,
+   "n_b": 1
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 4,
+   "n_b": 12
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Meia",
+   "n_a": 6,
+   "n_b": 32
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 4,
+   "n_b": 15
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 0,
+   "n_b": 1
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 4,
+   "n_b": 17
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 0,
+   "n_b": 1
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 4,
+   "n_b": 12
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Meia",
+   "n_a": 6,
+   "n_b": 32
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 4,
+   "n_b": 15
+  },
+  {
+   "grupo": "fisico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 0,
+   "n_b": 1
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 11,
+   "n_b": 1
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Zaga",
+   "n_a": 5,
+   "n_b": 28
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 9,
+   "n_b": 7
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 3,
+   "n_b": 16
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 6,
+   "n_b": 1
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 11,
+   "n_b": 1
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Zaga",
+   "n_a": 5,
+   "n_b": 28
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 9,
+   "n_b": 7
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 3,
+   "n_b": 16
+  },
+  {
+   "grupo": "duelo_corpo",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 6,
+   "n_b": 1
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 3,
+   "n_b": 18
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 4,
+   "n_b": 8
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 3,
+   "n_b": 13
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 3,
+   "n_b": 16
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 1,
+   "n_b": 6
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 3,
+   "n_b": 18
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 4,
+   "n_b": 8
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 3,
+   "n_b": 13
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 3,
+   "n_b": 16
+  },
+  {
+   "grupo": "estilo_tecnico",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 1,
+   "n_b": 6
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Zaga",
+   "n_a": 4,
+   "n_b": 47
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Lateral",
+   "n_a": 6,
+   "n_b": 49
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 3,
+   "n_b": 18
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Meia",
+   "n_a": 6,
+   "n_b": 66
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Extremo",
+   "n_a": 6,
+   "n_b": 32
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 3,
+   "n_b": 9
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Zaga",
+   "n_a": 2,
+   "n_b": 31
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Lateral",
+   "n_a": 4,
+   "n_b": 28
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 2,
+   "n_b": 14
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Meia",
+   "n_a": 4,
+   "n_b": 34
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 6,
+   "n_b": 13
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Atacante",
+   "n_a": 5,
+   "n_b": 21
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "minutos",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 1,
+   "n_b": 6
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Zaga",
+   "n_a": 4,
+   "n_b": 47
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Lateral",
+   "n_a": 6,
+   "n_b": 49
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Volante",
+   "n_a": 3,
+   "n_b": 18
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Meia",
+   "n_a": 6,
+   "n_b": 66
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Extremo",
+   "n_a": 6,
+   "n_b": 32
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "com",
+   "setor": "Goleiro",
+   "n_a": 3,
+   "n_b": 9
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Zaga",
+   "n_a": 2,
+   "n_b": 31
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Lateral",
+   "n_a": 4,
+   "n_b": 28
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Volante",
+   "n_a": 2,
+   "n_b": 14
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Meia",
+   "n_a": 4,
+   "n_b": 34
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Extremo",
+   "n_a": 6,
+   "n_b": 13
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Atacante",
+   "n_a": 5,
+   "n_b": 21
+  },
+  {
+   "grupo": "minutagem",
+   "desfecho": "permanencia",
+   "corte": "sem",
+   "setor": "Goleiro",
+   "n_a": 1,
+   "n_b": 6
+  }
+ ],
+ "passa_nos_dois_cortes": [],
+ "discordancias_entre_os_cortes": [
+  {
+   "familia": "duelo_corpo|minutos",
+   "setor": "Todos",
+   "nome": "Minutos no ano da chegada de quem o filtro aprovaria, contra quem reprovaria (duelo corpo)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.058,
+   "d_sem": -0.106,
+   "q_com": 0.8964,
+   "q_sem": 0.92151
+  },
+  {
+   "familia": "estilo_tecnico|minutos",
+   "setor": "Meia",
+   "nome": "Minutos no ano da chegada de quem o filtro aprovaria, contra quem reprovaria (estilo tecnico)",
+   "motivo": "passa num corte e não no outro",
+   "d_com": -0.589,
+   "d_sem": -0.934,
+   "q_com": 0.10958,
+   "q_sem": 0.04689
+  },
+  {
+   "familia": "estilo_tecnico|permanencia",
+   "setor": "Atacante",
+   "nome": "Permanência no clube no ano seguinte de quem o filtro aprovaria, contra quem reprovaria (estilo tecnico)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.205,
+   "d_sem": -0.06,
+   "q_com": 0.87062,
+   "q_sem": 0.88964
+  },
+  {
+   "familia": "estilo_tecnico|permanencia",
+   "setor": "Lateral",
+   "nome": "Permanência no clube no ano seguinte de quem o filtro aprovaria, contra quem reprovaria (estilo tecnico)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": -0.044,
+   "d_sem": 0.34,
+   "q_com": 0.87062,
+   "q_sem": 0.88964
+  },
+  {
+   "familia": "fisico|minutos",
+   "setor": "Todos",
+   "nome": "Minutos no ano da chegada de quem o filtro aprovaria, contra quem reprovaria (fisico)",
+   "motivo": "troca de lado entre os cortes",
+   "d_com": 0.075,
+   "d_sem": -0.123,
+   "q_com": 0.88665,
+   "q_sem": 0.68946
+  },
+  {
+   "familia": "fisico|permanencia",
+   "setor": "Zaga",
+   "nome": "Permanência no clube no ano seguinte de quem o filtro aprovaria, contra quem reprovaria (fisico)",
+   "motivo": "passa num corte e não no outro",
+   "d_com": -0.603,
+   "d_sem": -0.804,
+   "q_com": 0.12328,
+   "q_sem": 0.01005
+  },
+  {
+   "familia": "minutagem|minutos",
+   "setor": "Todos",
+   "nome": "Minutos no ano da chegada de quem o filtro aprovaria, contra quem reprovaria (minutagem)",
+   "motivo": "passa num corte e não no outro",
+   "d_com": 0.403,
+   "d_sem": 0.334,
+   "q_com": 0.02874,
+   "q_sem": 0.12858
+  }
+ ],
+ "cobertura_dos_indicadores": {
+  "expl": 90.0,
+  "psv5": 90.0,
+  "spr_n": 90.0,
+  "t505_90": 90.0,
+  "t_spr": 85.8,
+  "Duelos aéreos ganhos, %": 100.0,
+  "Duelos defensivos ganhos, %": 100.0,
+  "Passes certos, %": 100.0,
+  "Passes progressivos/90": 100.0
+ },
+ "contraprova_backtest_do_app": {
+  "possivel": true,
+  "chegadas_definicao_ampla": 1731,
+  "rotulo_da_definicao_ampla": "2023-2025",
+  "chegadas_definicao_ampla_com_o_primeiro_ano": 2406,
+  "anos_no_arquivo": [
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "ano_maximo_usado": 2025,
+  "motivo_de_descartar_o_primeiro_ano": "2022 é o primeiro ano do arquivo: sem 2021 para comparar, todo atleta de 2022 conta como chegada e o número infla",
+  "motivo_de_descartar_2026": "2026 tem 27 de 38 rodadas e não entra em conta nenhuma",
+  "chegadas_pontuaveis": 547,
+  "permanencias": 300,
+  "chegadas_com_nota": 417,
+  "cobertura_fisica_pct": 76.2,
+  "corte_mediana": -0.0123,
+  "nota": "margem = proximidade ao vetor sobe menos proximidade ao vetor cai, do setor",
+  "criterio_por_setor": {
+   "zaga": {
+    "criterio": "só 1 indicador(es) do bloco sobreviveu(ram) ao teste por clube (p_clube<0,05); a nota do setor descansa sobre 1 indicador(es)",
+    "indicadores": [
+     "psv5"
+    ],
+    "pseudorreplicado": true,
+    "sobreviventes_por_clube": 1
+   },
+   "lateral": {
+    "criterio": "p_clube < 0,05 (teste corrigido por clube, 16x16)",
+    "indicadores": [
+     "psv5",
+     "t_spr",
+     "expl"
+    ],
+    "pseudorreplicado": false,
+    "sobreviventes_por_clube": 3
+   },
+   "meio": {
+    "criterio": "p_clube < 0,05 (teste corrigido por clube, 16x16)",
+    "indicadores": [
+     "t505_90",
+     "expl",
+     "t505_180",
+     "hsr",
+     "spr_n",
+     "psv"
+    ],
+    "pseudorreplicado": false,
+    "sobreviventes_por_clube": 6
+   },
+   "ataque": {
+    "criterio": "p_clube < 0,05 (teste corrigido por clube, 16x16)",
+    "indicadores": [
+     "t505_90",
+     "spr_n",
+     "spr_km",
+     "psv5",
+     "t_hsr_cod",
+     "hsr",
+     "psv",
+     "expl"
+    ],
+    "pseudorreplicado": false,
+    "sobreviventes_por_clube": 8
+   }
+  },
+  "mesma_regra_da_etapa_13": "os indicadores saem de `indicadores_do_setor`, a mesma função que pontua o ranking publicado",
+  "min_medio_recomendados": 1188.3,
+  "n_recomendados": 209,
+  "min_medio_reprovados": 1220.3,
+  "n_reprovados": 208,
+  "d_minutos": -0.037,
+  "p_minutos": 0.70935,
+  "rho_nota_x_minutos": 0.018,
+  "p_rho": 0.71115,
+  "permanencia_recomendados_pct": 12.4,
+  "permanencia_reprovados_pct": 12.5,
+  "p_permanencia": 1.0,
+  "o_que_mede": "nota física do ano ANTERIOR à chegada, posto dentro do ano"
+ },
+ "funil": {
+  "degraus": [
+   {
+    "degrau": "serie_b_2026",
+    "n": 611,
+    "saiu": 0,
+    "estrangeiros": 49,
+    "excluidos_por_dado_ausente": 226
+   },
+   {
+    "degrau": "livres_na_janela",
+    "n": 347,
+    "saiu": 264,
+    "estrangeiros": 32,
+    "excluidos_por_dado_ausente": 58
+   },
+   {
+    "degrau": "confianca_de_contrato",
+    "n": 207,
+    "saiu": 140,
+    "estrangeiros": 4,
+    "excluidos_por_dado_ausente": 84
+   },
+   {
+    "degrau": "minutagem_alta_e_regular",
+    "n": 40,
+    "saiu": 167,
+    "estrangeiros": 1,
+    "excluidos_por_dado_ausente": 0
+   },
+   {
+    "degrau": "com_dado_do_perfil",
+    "n": 36,
+    "saiu": 4,
+    "estrangeiros": 1,
+    "excluidos_por_dado_ausente": 4
+   },
+   {
+    "degrau": "atende_o_perfil",
+    "n": 2,
+    "saiu": 34,
+    "estrangeiros": 0,
+    "excluidos_por_dado_ausente": 0
+   }
+  ],
+  "molde": [
+   {
+    "degrau": "arquivo",
+    "n": 40059,
+    "saiu": 0,
+    "serie_b": 1136,
+    "nao_brasileiros": 36446,
+    "brasil": 3613
+   },
+   {
+    "degrau": "ligas_alvo",
+    "n": 10984,
+    "saiu": 29075,
+    "serie_b": 1136,
+    "nao_brasileiros": 7371,
+    "brasil": 3613,
+    "sul_americanos": 7371
+   },
+   {
+    "degrau": "contrato_nov26_jan27",
+    "n": 4333,
+    "saiu": 6651,
+    "serie_b": 413,
+    "nao_brasileiros": 3566,
+    "brasil": 767,
+    "sul_americanos": 3566
+   },
+   {
+    "degrau": "confianca_de_contrato",
+    "n": 2728,
+    "saiu": 1605,
+    "serie_b": 216,
+    "nao_brasileiros": 2389,
+    "brasil": 339,
+    "sul_americanos": 2389
+   },
+   {
+    "degrau": "pool_operacional",
+    "n": 603,
+    "saiu": 2125,
+    "serie_b": 60,
+    "nao_brasileiros": 531,
+    "brasil": 72,
+    "sul_americanos": 531
+   }
+  ]
+ },
+ "oferta_por_posicao": {
+  "Goleiro": {
+   "na_serie_b": 39,
+   "regulares": 6,
+   "livres_regulares": 1,
+   "livres_regulares_com_perfil": 0,
+   "estrangeiros_livres_regulares": 0,
+   "livres_regulares_com_confianca": 0
+  },
+  "Zaga": {
+   "na_serie_b": 99,
+   "regulares": 11,
+   "livres_regulares": 8,
+   "livres_regulares_com_perfil": 0,
+   "estrangeiros_livres_regulares": 0,
+   "livres_regulares_com_confianca": 8
+  },
+  "Lateral": {
+   "na_serie_b": 106,
+   "regulares": 12,
+   "livres_regulares": 9,
+   "livres_regulares_com_perfil": 0,
+   "estrangeiros_livres_regulares": 0,
+   "livres_regulares_com_confianca": 7
+  },
+  "Volante": {
+   "na_serie_b": 59,
+   "regulares": 8,
+   "livres_regulares": 6,
+   "livres_regulares_com_perfil": 0,
+   "estrangeiros_livres_regulares": 0,
+   "livres_regulares_com_confianca": 3
+  },
+  "Meia": {
+   "na_serie_b": 165,
+   "regulares": 21,
+   "livres_regulares": 13,
+   "livres_regulares_com_perfil": 0,
+   "estrangeiros_livres_regulares": 0,
+   "livres_regulares_com_confianca": 11
+  },
+  "Extremo": {
+   "na_serie_b": 61,
+   "regulares": 7,
+   "livres_regulares": 6,
+   "livres_regulares_com_perfil": 0,
+   "estrangeiros_livres_regulares": 1,
+   "livres_regulares_com_confianca": 5
+  },
+  "Atacante": {
+   "na_serie_b": 82,
+   "regulares": 11,
+   "livres_regulares": 8,
+   "livres_regulares_com_perfil": 2,
+   "estrangeiros_livres_regulares": 0,
+   "livres_regulares_com_confianca": 6
+  }
+ },
+ "onde_a_conjuncao_mata": {
+  "fisico": 10,
+  "duelo_corpo": 18,
+  "estilo_tecnico": 23,
+  "os_tres_juntos": 2,
+  "base": 44
+ },
+ "concordancia_de_contrato": {
+  "com_as_duas_fontes": 374,
+  "concordam_no_mes": 316,
+  "pct": 84.5
+ },
+ "posicoes_escassas": [
+  "Goleiro"
+ ],
+ "ordem_para_o_J09": [
+  {
+   "posicao": "Goleiro",
+   "livres_regulares": 1,
+   "rotulo": "escassez"
+  },
+  {
+   "posicao": "Volante",
+   "livres_regulares": 6,
+   "rotulo": "aperto"
+  },
+  {
+   "posicao": "Extremo",
+   "livres_regulares": 6,
+   "rotulo": "aperto"
+  },
+  {
+   "posicao": "Zaga",
+   "livres_regulares": 8,
+   "rotulo": "dá para escolher"
+  },
+  {
+   "posicao": "Atacante",
+   "livres_regulares": 8,
+   "rotulo": "dá para escolher"
+  },
+  {
+   "posicao": "Lateral",
+   "livres_regulares": 9,
+   "rotulo": "dá para escolher"
+  },
+  {
+   "posicao": "Meia",
+   "livres_regulares": 13,
+   "rotulo": "dá para escolher"
+  }
+ ],
+ "minutagem": {
+  "corte_por_posicao": "Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%",
+  "p75": {
+   "Atacante": 34.2,
+   "Extremo": 32.4,
+   "Goleiro": 64.7,
+   "Lateral": 46.8,
+   "Meia": 42.5,
+   "Volante": 51.0,
+   "Zaga": 56.8
+  },
+  "confere_com_J05": true
+ },
+ "o_que_o_jogador_leva_na_mala": {
+  "fisico": {
+   "pares": 499,
+   "corte": "matches >= 8 nos dois anos",
+   "metricas": [
+    {
+     "metrica": "high_decel_p90",
+     "n": 499,
+     "rho": 0.862
+    },
+    {
+     "metrica": "sprint_count_p90",
+     "n": 499,
+     "rho": 0.852
+    },
+    {
+     "metrica": "cod_count_p90",
+     "n": 499,
+     "rho": 0.85
+    },
+    {
+     "metrica": "sprint_distance_p90",
+     "n": 499,
+     "rho": 0.841
+    },
+    {
+     "metrica": "high_accel_p90",
+     "n": 499,
+     "rho": 0.838
+    },
+    {
+     "metrica": "hsr_distance_p90",
+     "n": 499,
+     "rho": 0.828
+    },
+    {
+     "metrica": "distance_p90",
+     "n": 499,
+     "rho": 0.794
+    },
+    {
+     "metrica": "m_per_min",
+     "n": 499,
+     "rho": 0.794
+    },
+    {
+     "metrica": "psv99",
+     "n": 499,
+     "rho": 0.792
+    },
+    {
+     "metrica": "psv99_top5",
+     "n": 499,
+     "rho": 0.699
+    }
+   ],
+   "rho_mediano": 0.833
+  },
+  "tecnico": {
+   "pares_mudou": 176,
+   "pares_ficou": 144,
+   "corte": "600+ min no arquivo e 900+ min nos dois anos, posto dentro de ano+posição",
+   "metricas": [
+    {
+     "metrica": "Duelos/90",
+     "rho_mudou": 0.715,
+     "n_mudou": 176,
+     "rho_ficou": 0.648,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Duelos aéreos/90",
+     "rho_mudou": 0.642,
+     "n_mudou": 176,
+     "rho_ficou": 0.622,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Dribles/90",
+     "rho_mudou": 0.513,
+     "n_mudou": 176,
+     "rho_ficou": 0.484,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Acelerações/90",
+     "rho_mudou": 0.432,
+     "n_mudou": 176,
+     "rho_ficou": 0.294,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Remates/90",
+     "rho_mudou": 0.487,
+     "n_mudou": 176,
+     "rho_ficou": 0.435,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Passes progressivos/90",
+     "rho_mudou": 0.36,
+     "n_mudou": 176,
+     "rho_ficou": 0.499,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Passes recebidos/90",
+     "rho_mudou": 0.293,
+     "n_mudou": 176,
+     "rho_ficou": 0.525,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Toques na área/90",
+     "rho_mudou": 0.346,
+     "n_mudou": 176,
+     "rho_ficou": 0.425,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Golos esperados/90",
+     "rho_mudou": 0.281,
+     "n_mudou": 176,
+     "rho_ficou": 0.224,
+     "n_ficou": 144
+    },
+    {
+     "metrica": "Passes chave/90",
+     "rho_mudou": 0.096,
+     "n_mudou": 176,
+     "rho_ficou": 0.092,
+     "n_ficou": 144
+    }
+   ],
+   "rho_mediano_mudou": 0.396,
+   "rho_mediano_ficou": 0.46
+  },
+  "uso": "os rho entram na nota de encaixe como FAIXA, nunca como coeficiente"
+ },
+ "numeros": {
+  "bt_chegadas": 297,
+  "bt_sem_ano_anterior": 1200,
+  "bt_sem_900": 246,
+  "bt_sem_dado": 0,
+  "bt_aprovados": 17,
+  "bt_reprovados": 280,
+  "bt_aprovados_sem_fronteira": 7,
+  "bt_piso_do_lado": 8,
+  "bt_passou": false,
+  "bt_por_que": "o teste primário não rodou nos dois cortes",
+  "bt_d_com": null,
+  "bt_d_sem": null,
+  "bt_q_com": null,
+  "bt_q_sem": null,
+  "bt_p_com": null,
+  "bt_min_aprovado": null,
+  "bt_min_reprovado": null,
+  "bt_n_aprovado": null,
+  "bt_n_reprovado": null,
+  "bt_d_minimo": null,
+  "bt_fis_d": 0.075,
+  "bt_fis_q": 0.88665,
+  "bt_fis_a": 1388.6,
+  "bt_fis_b": 1246.9,
+  "bt_fis_na": 63,
+  "bt_fis_nb": 218,
+  "bt_due_d": 0.058,
+  "bt_due_q": 0.8964,
+  "bt_due_a": 1361.2,
+  "bt_due_b": 1270.0,
+  "bt_est_d": -0.055,
+  "bt_est_q": 0.79037,
+  "bt_est_a": 1248.9,
+  "bt_est_b": 1334.7,
+  "bt_testes": 56,
+  "bt_testes_com": 28,
+  "bt_bh": 1,
+  "bt_bh_dois_cortes": 0,
+  "bt_fora_por_n": 52,
+  "bt_discordancias": "sem os clubes de fronteira mudam de lado ou de selo: duelo_corpo|minutos no Todos (d 0,06 contra -0,11); estilo_tecnico|minutos no Meia (d -0,59 contra -0,93); estilo_tecnico|permanencia no Atacante (d 0,20 contra -0,06); estilo_tecnico|permanencia no Lateral (d -0,04 contra 0,34); fisico|minutos no Todos (d 0,07 contra -0,12); fisico|permanencia no Zaga (d -0,60 contra -0,80); minutagem|minutos no Todos (d 0,40 contra 0,33)",
+  "bt_n_discordancias": 7,
+  "bt_pares_discordantes": "duelo_corpo|minutos em Todos: d 0.058 no corte com e -0.106 no corte sem (q 0.8964 e 0.92151); estilo_tecnico|minutos em Meia: d -0.589 no corte com e -0.934 no corte sem (q 0.10958 e 0.04689); estilo_tecnico|permanencia em Atacante: d 0.205 no corte com e -0.06 no corte sem (q 0.87062 e 0.88964); estilo_tecnico|permanencia em Lateral: d -0.044 no corte com e 0.34 no corte sem (q 0.87062 e 0.88964); fisico|minutos em Todos: d 0.075 no corte com e -0.123 no corte sem (q 0.88665 e 0.68946); fisico|permanencia em Zaga: d -0.603 no corte com e -0.804 no corte sem (q 0.12328 e 0.01005); minutagem|minutos em Todos: d 0.403 no corte com e 0.334 no corte sem (q 0.02874 e 0.12858)",
+  "bt_diag_d": -0.224,
+  "bt_diag_p": 0.46036,
+  "bt_diag_na": 17,
+  "bt_diag_nb": 280,
+  "bt_diag_min_a": 1095.4,
+  "bt_diag_min_b": 1317.4,
+  "bt_diag_dmin": 0.7,
+  "bt_diag_min_a_int": 1095,
+  "bt_diag_min_b_int": 1317,
+  "bt_familias": 8,
+  "bt_min_d": 0.403,
+  "bt_min_q": 0.02874,
+  "bt_min_a": 1717.5,
+  "bt_min_b": 1244.1,
+  "bt_min_na": 38,
+  "bt_min_nb": 259,
+  "bt_min_a_int": 1718,
+  "bt_min_b_int": 1244,
+  "bt_min_dif_int": 473,
+  "bt_min_dif_jogos": "5,3",
+  "bt_min_d_sem": 0.334,
+  "bt_min_q_sem": 0.12858,
+  "bt_min_dmin": 0.49,
+  "bt_min_dmin_sem": 0.62,
+  "bt_min_ic": "[0.05; 0.78]",
+  "bt_min_ic_sem": "[-0.01; 0.69]",
+  "bt_minperm_a": 18.4,
+  "bt_minperm_b": 20.8,
+  "app_bt_recomendados": 209,
+  "app_bt_reprovados": 208,
+  "app_bt_min_rec": 1188.3,
+  "app_bt_min_rep": 1220.3,
+  "app_bt_d": -0.037,
+  "app_bt_p": 0.70935,
+  "app_bt_perm_rec": 12.4,
+  "app_bt_perm_rep": 12.5,
+  "funil_serie_b": 611,
+  "funil_livres": 347,
+  "funil_confianca": 207,
+  "funil_minutagem": 40,
+  "funil_com_dado": 36,
+  "funil_atende": 2,
+  "funil_sem_ponte": 226,
+  "ct_com_duas_fontes": 374,
+  "ct_concordam": 316,
+  "ct_concordam_pct": 84.5,
+  "bloco_fisico_2026": 10,
+  "bloco_duelo_2026": 18,
+  "bloco_estilo_2026": 23,
+  "bloco_tres_juntos_2026": 2,
+  "bloco_base_2026": 44,
+  "funil_estrangeiros": 49,
+  "funil_estrangeiros_livres": 32,
+  "oferta_regulares": 76,
+  "oferta_livres_regulares": 51,
+  "oferta_posicoes_escassas": 1,
+  "oferta_escassas_frase": "Goleiro 1",
+  "oferta_frase": "Meia 13 · Lateral 9 · Zaga 8 · Atacante 8 · Volante 6 · Extremo 6 · Goleiro 1",
+  "oferta_menor": 1,
+  "oferta_maior": 13,
+  "oferta_gol": 1,
+  "oferta_meia": 13,
+  "oferta_volante": 6,
+  "oferta_extremo": 6,
+  "oferta_zerou": 6,
+  "oferta_posicoes": 7,
+  "oferta_ordem_j09": "Goleiro 1 (escassez) · Volante 6 (aperto) · Extremo 6 (aperto) · Zaga 8 (dá para escolher) · Atacante 8 (dá para escolher) · Lateral 9 (dá para escolher) · Meia 13 (dá para escolher)",
+  "oferta_escassez_ou_aperto": "Goleiro · Volante · Extremo",
+  "oferta_abaixo_de_cinco": "Goleiro 1",
+  "alvos_publicados": 0,
+  "base_linhas": 3338,
+  "base_ambiguos": 239,
+  "base_2026": 611,
+  "base_2026_com_fisico": 367,
+  "perfil_metricas": 39,
+  "perfil_posicoes": 7,
+  "perfil_menor": 4,
+  "perfil_maior": 6,
+  "mala_fisico": 0.833,
+  "mala_tecnico_mudou": 0.396,
+  "mala_pares_fisico": 499,
+  "gk_sem_fisico": 39,
+  "gk_total": 39,
+  "gerado_em": "2026-09-20"
+ }
+}

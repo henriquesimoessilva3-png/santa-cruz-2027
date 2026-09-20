@@ -1,0 +1,612 @@
+jogador,clube,setor,posicao,idade,minutos,jogos,fatia_pct,minutagem_alta,minutagem_regular,temporadas_com_dado,contrato_tm,contrato_wy,livre_tm,livre_wy,fontes_concordam,emprestado,nascido_em,estrangeiro,dupla_nacionalidade,tem_fisico,sc_matches,lesao_dias,lesao_jogos,lesao_n,indicadores_com_dado,violados,atende_perfil,atende_fisico,atende_duelo_corpo,atende_estilo_tecnico
+Felipe Amaral,América-MG,Volante,DMF,23.0,1586.0,24.0,59.2,True,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,23.0,0,0,0,6,6,False,False,False,False
+Rafael Barcelos,América-MG,Zaga,LCB,22.0,1519.0,16.0,56.7,False,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,True,16.0,0,0,0,5,3,False,False,False,False
+Dalbert,América-MG,Lateral,LB,32.0,1423.0,17.0,53.1,True,False,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,16.0,0,0,0,6,2,False,True,False,False
+G. Mastriani,América-MG,Atacante,CF,33.0,1408.0,21.0,52.5,True,False,1,,2026-12-31,False,True,False,sim,Uruguay,True,True,True,20.0,0,0,0,6,2,False,False,True,False
+M. Segovia,América-MG,Extremo,RW,23.0,1303.0,19.0,48.6,True,False,1,,2026-12-31,False,True,False,sim,Paraguay,True,False,True,15.0,0,0,0,6,2,False,True,False,True
+Ricardo Silva,América-MG,Zaga,RCB,34.0,1252.0,13.0,46.7,False,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,5,2,False,False,True,False
+Willian,América-MG,Atacante,CF,39.0,1234.0,22.0,46.0,True,True,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,20.0,0,0,0,6,3,False,False,False,True
+Paulo Victor,América-MG,Atacante,CF,25.0,1104.0,18.0,41.2,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,3,False,False,False,False
+Alex Silva,América-MG,Lateral,RB,32.0,1084.0,14.0,40.4,False,False,3,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,14.0,0,0,0,6,3,False,False,False,True
+Yago,América-MG,Meia,LCMF,20.0,1010.0,18.0,37.7,False,False,2,,2028-12-31,False,False,False,sim,Brazil,False,False,True,12.0,0,0,0,6,3,False,False,False,False
+G. Barros,América-MG,Extremo,LW,24.0,991.0,15.0,37.0,True,False,3,,2027-12-31,False,False,False,sim,Brazil,False,False,True,14.0,0,0,0,6,4,False,True,False,False
+Guilherme Parede,América-MG,Extremo,LW,30.0,870.0,11.0,32.5,True,True,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+Jhonny,América-MG,Lateral,RB,24.0,834.0,11.0,31.1,False,False,3,,2027-12-31,False,False,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Manoel,América-MG,Zaga,LCB,36.0,833.0,9.0,31.1,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,8.0,68.0,22.0,1,0,0,,,,
+Eduardo Person,América-MG,Meia,RCMF,29.0,725.0,11.0,27.0,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Éverton Brito,América-MG,Extremo,RW,31.0,709.0,10.0,26.4,False,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+Alê,América-MG,Volante,DMF,36.0,684.0,11.0,25.5,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Léo Alaba,América-MG,Lateral,RB,27.0,660.0,9.0,24.6,False,False,2,,2027-06-30,False,False,False,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+Thauan,América-MG,Extremo,LW,22.0,606.0,10.0,22.6,False,False,3,,2027-12-31,False,False,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+F. Elizari,América-MG,Meia,LCMF,35.0,590.0,12.0,22.0,False,False,3,,2026-11-30,False,True,False,sim,Argentina,True,False,True,12.0,0,0,0,0,0,,,,
+T. Ostchega,América-MG,Lateral,LB,28.0,550.0,7.0,20.5,False,False,1,,2026-11-30,False,True,False,sim,Argentina,True,False,True,7.0,0,0,0,0,0,,,,
+L. Sosa,América-MG,Zaga,LCB,32.0,526.0,6.0,19.6,False,False,1,,2027-11-30,False,False,False,sim,Argentina,True,True,True,6.0,0,0,0,0,0,,,,
+Bruno Brígido,América-MG,Goleiro,GK,35.0,500.0,5.0,18.6,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Barreto,América-MG,Volante,RDMF,30.0,500.0,6.0,18.6,False,False,2,,,False,False,False,sim,Brazil,False,True,True,6.0,0,0,0,0,0,,,,
+Emerson Santos,América-MG,Zaga,LCB,31.0,496.0,7.0,18.5,False,False,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+J. Jiménez,América-MG,Volante,DMF,33.0,491.0,13.0,18.3,False,False,3,,2026-11-30,False,True,False,sim,Paraguay,True,False,True,12.0,0,0,0,0,0,,,,
+Paulinho,América-MG,Lateral,LB,22.0,458.0,7.0,17.1,False,False,3,31/12/2030,2030-12-31,False,False,True,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+Otávio,América-MG,Volante,LDMF,20.0,438.0,7.0,16.3,False,False,1,30/11/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,6.0,1.0,1.0,1,0,0,,,,
+Val Soares,América-MG,Meia,RCMF,29.0,358.0,6.0,13.4,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,5.0,0,0,0,0,0,,,,
+Julio Cesar,América-MG,Meia,RAMF,20.0,335.0,5.0,12.5,False,False,1,31/12/2027,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Fábio,América-MG,Lateral,RB,25.0,252.0,4.0,9.4,False,False,3,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+R. Piñeiro,América-MG,Meia,LAMF,27.0,223.0,6.0,8.3,False,False,1,,2027-11-30,False,False,False,sim,Uruguay,True,False,False,6.0,0,0,0,0,0,,,,
+Filipe Dahora,América-MG,Lateral,RB,20.0,198.0,3.0,7.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Jhonatan Lima,América-MG,Meia,LCMF,21.0,168.0,5.0,6.3,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Italo Gabriel,América-MG,Extremo,RW,16.0,143.0,7.0,5.3,False,False,1,,,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Luidy,América-MG,Lateral,LB,17.0,96.0,3.0,3.6,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Kaique Zizero,América-MG,Extremo,LW,19.0,30.0,1.0,1.1,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Gabriel Domingos,América-MG,Meia,LCMF,25.0,28.0,2.0,1.0,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Biel Silva,América-MG,Meia,LCMF,18.0,15.0,1.0,0.6,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Murilo Rodrigues,América-MG,Meia,RAMF,19.0,11.0,1.0,0.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Heitor,América-MG,Volante,LDMF,22.0,11.0,1.0,0.4,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Luan Polli,Athletic,Goleiro,GK,33.0,2603.0,26.0,95.0,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,False,,0,0,0,4,1,False,,True,False
+Lucas Belezi,Athletic,Zaga,LCB,23.0,2297.0,24.0,83.9,True,False,2,30/11/2028,2028-11-30,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,2,False,,False,True
+Kauan,Athletic,Meia,LCMF,21.0,2275.0,25.0,83.1,True,True,2,,2028-05-31,False,False,False,sim,Brazil,False,False,True,23.0,0,0,0,6,3,False,False,True,False
+João Miguel,Athletic,Volante,DMF,22.0,2249.0,26.0,82.1,True,False,2,01/12/2026,2026-11-30,True,True,False,sim,Brazil,False,False,True,25.0,0,0,0,6,2,False,False,True,False
+Jhonatan Silva,Athletic,Zaga,RCB,27.0,2120.0,22.0,77.4,True,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,True,19.0,0,0,0,5,3,False,True,False,False
+Diogo Batista,Athletic,Lateral,RB,23.0,1705.0,21.0,62.2,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Zeca,Athletic,Lateral,LB,32.0,1569.0,20.0,57.3,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,3,False,False,False,True
+Ian Luccas,Athletic,Atacante,CF,23.0,1433.0,17.0,52.3,True,False,3,,2030-06-30,False,False,False,sim,Brazil,False,False,True,16.0,0,0,0,6,1,False,False,True,True
+Jota,Athletic,Meia,RCMF,22.0,1354.0,22.0,49.4,True,False,1,,2029-03-31,False,False,False,sim,Brazil,False,False,True,20.0,0,0,0,6,2,False,False,True,False
+D. Vera,Athletic,Extremo,LWF,23.0,1011.0,21.0,36.9,True,False,1,,2026-12-31,False,True,False,sim,Ecuador,True,False,True,19.0,0,0,0,6,5,False,False,False,False
+G. Cabezas,Athletic,Meia,RCMF,23.0,996.0,19.0,36.4,False,False,1,,2028-06-30,False,False,False,sim,Colombia,True,False,True,18.0,0,0,0,6,3,False,False,False,False
+Redney,Athletic,Meia,AMF,24.0,711.0,16.0,26.0,False,False,1,,2029-03-14,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Douglas Pelé,Athletic,Lateral,RB,27.0,664.0,12.0,24.2,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+Bruninho,Athletic,Extremo,RWF,23.0,624.0,16.0,22.8,False,False,2,01/12/2026,2026-11-30,True,True,False,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Jhan Torres,Athletic,Zaga,LCB,25.0,531.0,10.0,19.4,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Colombia,True,False,True,10.0,0,0,0,0,0,,,,
+Ronaldo Tavares,Athletic,Atacante,CF,28.0,501.0,6.0,18.3,False,False,2,31/12/2028,2028-12-31,False,False,True,sim,Portugal,True,True,True,6.0,1.0,22.0,1,0,0,,,,
+Yago Santos,Athletic,Meia,LCMF,23.0,473.0,8.0,17.3,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Felipe Vieira,Athletic,Zaga,LCB,21.0,405.0,8.0,14.8,False,False,1,,,False,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+W. Aponzá,Athletic,Atacante,CF,26.0,379.0,7.0,13.8,False,False,1,,2026-11-30,False,True,False,sim,Colombia,True,False,True,6.0,0,0,0,0,0,,,,
+Felipe Negrucci,Athletic,Meia,RCMF,22.0,370.0,6.0,13.5,False,False,1,31/12/2026,2029-12-31,True,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Ruan Assis,Athletic,Extremo,LW,22.0,352.0,7.0,12.9,False,False,2,,2030-06-30,False,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Gabriel Moysés,Athletic,Atacante,CF,24.0,306.0,9.0,11.2,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+O. Otusanya,Athletic,Atacante,CF,22.0,244.0,6.0,8.9,False,False,2,,2027-12-31,False,False,False,sim,Nigeria,True,False,False,5.0,0,0,0,0,0,,,,
+Gabriel Queiroz,Athletic,Zaga,LCB,18.0,234.0,4.0,8.5,False,False,2,,2031-06-30,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Kauan Lindes,Athletic,Extremo,LW,22.0,193.0,4.0,7.0,False,False,2,01/12/2026,2030-12-31,True,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Gustavinho,Athletic,Meia,AMF,24.0,174.0,5.0,6.4,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Glauco,Athletic,Goleiro,GK,31.0,105.0,1.0,3.8,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Yarlen,Athletic,Extremo,RW,20.0,74.0,3.0,2.7,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Alexandre Pena,Athletic,Meia,RCMF,21.0,14.0,2.0,0.5,False,False,1,30/11/2026,2027-10-31,True,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+P. Sampaio,Athletic,Volante,DMF,31.0,5.0,1.0,0.2,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Paulo Vítor,Atlético-GO,Goleiro,GK,37.0,2402.0,24.0,90.2,True,True,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,28.0,5.0,1,4,1,False,,True,False
+Ewerthon,Atlético-GO,Lateral,RB,25.0,2014.0,22.0,75.6,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,15.0,0,0,0,6,1,False,True,True,False
+Marrony,Atlético-GO,Meia,AMF,27.0,1956.0,23.0,73.5,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,2,False,,True,False
+Soares,Atlético-GO,Meia,LAMF,26.0,1935.0,25.0,72.7,True,False,1,,2029-08-25,False,False,False,sim,Brazil,False,False,True,26.0,0,0,0,6,3,False,False,True,False
+J. Barreto,Atlético-GO,Zaga,RCB,28.0,1870.0,19.0,70.2,True,False,1,,2026-12-31,False,True,False,sim,Paraguay,True,False,True,20.0,0,0,0,5,3,False,False,False,True
+Gustavo Coutinho,Atlético-GO,Atacante,CF,27.0,1728.0,22.0,64.9,True,True,3,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,23.0,0,0,0,6,2,False,True,False,False
+Tito,Atlético-GO,Zaga,RCB,26.0,1717.0,20.0,64.5,True,False,2,30/11/2028,2028-11-30,False,False,True,sim,Brazil,False,False,True,20.0,0,0,0,5,2,False,True,False,False
+Adriano Martins,Atlético-GO,Zaga,LCB,29.0,1669.0,19.0,62.7,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,5,2,False,False,True,False
+Leandro Vilela,Atlético-GO,Volante,LDMF,31.0,1293.0,18.0,48.6,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,5,False,False,False,False
+Bruno José,Atlético-GO,Meia,RAMF,28.0,960.0,21.0,36.0,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,3,False,True,False,False
+Guilherme Marques,Atlético-GO,Meia,AMF,35.0,956.0,16.0,35.9,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,17.0,0,0,0,6,3,False,False,True,False
+Yuri,Atlético-GO,Lateral,LB,30.0,806.0,11.0,30.3,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Igor Henrique,Atlético-GO,Volante,RDMF,34.0,715.0,13.0,26.8,False,True,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Matheusinho,Atlético-GO,Meia,AMF,28.0,627.0,12.0,23.5,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Leo Jacó,Atlético-GO,Atacante,CF,21.0,564.0,17.0,21.2,False,False,1,,2030-06-30,False,False,False,sim,Brazil,False,False,True,17.0,0,0,0,0,0,,,,
+Daniel Peixoto,Atlético-GO,Volante,RDMF,29.0,503.0,6.0,18.9,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Warley,Atlético-GO,Lateral,RB,26.0,443.0,5.0,16.6,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,6.0,35.0,4.0,1,0,0,,,,
+Léo Tocantins,Atlético-GO,Meia,RAMF,27.0,401.0,11.0,15.1,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+Matheus Índio,Atlético-GO,Volante,RDMF,26.0,387.0,8.0,14.5,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Natã,Atlético-GO,Lateral,RB,25.0,362.0,9.0,13.6,False,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Gustavo Maia,Atlético-GO,Extremo,LWF,25.0,358.0,8.0,13.4,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+Henrique Freitas,Atlético-GO,Meia,RAMF,27.0,340.0,6.0,12.8,False,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Klebert,Atlético-GO,Meia,RCMF,18.0,247.0,6.0,9.3,False,False,2,,,False,False,False,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+João Pedro,Atlético-GO,Atacante,CF,29.0,156.0,5.0,5.9,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Portugal,True,True,False,6.0,0,0,0,0,0,,,,
+Felipe Guimarães,Atlético-GO,Lateral,RB,22.0,137.0,7.0,5.1,False,False,3,01/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Ariel,Atlético-GO,Meia,RCMF,28.0,128.0,5.0,4.8,False,False,2,,2027-04-30,False,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Netinho,Atlético-GO,Volante,LDMF,28.0,125.0,4.0,4.7,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Paulo Henrique,Atlético-GO,Goleiro,GK,32.0,100.0,1.0,3.8,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Vladimir,Atlético-GO,Goleiro,GK,37.0,98.0,1.0,3.7,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Kevin Ramírez,Atlético-GO,Atacante,CF,32.0,64.0,1.0,2.4,False,False,2,,2026-12-31,False,True,False,sim,Uruguay,True,False,False,1.0,17.0,4.0,1,0,0,,,,
+Gabriel Pae,Atlético-GO,Meia,RAMF,19.0,53.0,3.0,2.0,False,False,1,,,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Jader,Atlético-GO,Volante,LDMF,22.0,37.0,2.0,1.4,False,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+GH,Atlético-GO,Meia,AMF,19.0,25.0,1.0,0.9,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Luiz Henrique,Avaí,Meia,LCMF,27.0,2167.0,26.0,78.2,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,6,3,False,False,False,True
+Allyson,Avaí,Zaga,RCB,35.0,1980.0,21.0,71.5,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,5,2,False,False,True,False
+Jean Lucas,Avaí,Meia,AMF,31.0,1972.0,26.0,71.2,True,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,6,2,False,True,False,False
+Thayllon Roberth,Avaí,Meia,RAMF,20.0,1917.0,24.0,69.2,True,False,2,,2029-12-30,False,False,False,sim,Brazil,False,False,True,23.0,0,0,0,6,4,False,False,False,False
+DG,Avaí,Lateral,LB,25.0,1886.0,23.0,68.1,True,False,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,22.0,0,0,0,6,2,False,True,False,False
+Zé Ricardo,Avaí,Volante,RDMF,30.0,1697.0,20.0,61.2,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,5,False,False,False,False
+Paulo Vitor,Avaí,Meia,RCMF,22.0,1515.0,22.0,54.7,True,False,2,,2027-12-31,False,False,False,sim,Brazil,False,False,False,,28.0,5.0,1,4,0,True,,True,True
+Wallison,Avaí,Lateral,RB,25.0,1436.0,18.0,51.8,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,4,False,False,False,False
+Daniel Penha,Avaí,Atacante,CF,27.0,1313.0,16.0,47.4,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,15.0,0,0,0,6,2,False,False,True,True
+Léo Aragão,Avaí,Goleiro,GK,24.0,1285.0,13.0,46.4,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,False,,63.0,11.0,1,4,1,False,,True,False
+Bruno Ferreira,Avaí,Goleiro,GK,32.0,1195.0,12.0,43.1,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,2,False,,True,False
+B. Baldini,Avaí,Zaga,LCB,19.0,938.0,9.0,33.9,False,False,1,,2028-12-31,False,False,False,sim,Brazil,False,False,True,9.0,0,0,0,5,4,False,False,False,False
+Sorriso,Avaí,Meia,LAMF,21.0,844.0,18.0,30.5,False,False,1,,,False,False,False,sim,Brazil,False,False,True,17.0,0,0,0,0,0,,,,
+Jefferson Maciel,Avaí,Zaga,LCB,23.0,766.0,8.0,27.6,False,False,1,,2027-03-31,False,False,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Igor Bohn,Avaí,Goleiro,GK,30.0,754.0,8.0,27.2,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Reynaldo,Avaí,Zaga,LCB,29.0,725.0,8.0,26.2,False,False,3,30/11/2026,2028-06-30,True,False,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Guilherme Vargas,Avaí,Zaga,RCB,22.0,703.0,9.0,25.4,False,False,2,,2028-06-30,False,False,False,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+Wesley Gasolina,Avaí,Lateral,RB,26.0,697.0,12.0,25.2,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Walace,Avaí,Atacante,CF,21.0,609.0,12.0,22.0,False,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Felipe Vizeu,Avaí,Atacante,CF,29.0,585.0,7.0,21.1,False,False,2,30/06/2027,2027-06-30,False,False,True,sim,Brazil,False,False,True,7.0,80.0,12.0,1,0,0,,,,
+Léo Gamalho,Avaí,Atacante,CF,40.0,480.0,10.0,17.3,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+João Maistro,Avaí,Zaga,LCB,26.0,476.0,7.0,17.2,False,False,1,,2026-12-31,False,True,False,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+Léo Chú,Avaí,Extremo,LWF,26.0,382.0,9.0,13.8,False,False,1,30/06/2027,2028-06-30,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+F. Avenatti,Avaí,Atacante,CF,33.0,381.0,8.0,13.7,False,False,1,,2026-12-31,False,True,False,sim,Uruguay,True,True,True,7.0,0,0,0,0,0,,,,
+Gabriel Simples,Avaí,Zaga,RCB,21.0,325.0,4.0,11.7,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,4.0,0,0,0,0,0,,,,
+Mateus Quaresma,Avaí,Lateral,LB,30.0,297.0,5.0,10.7,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Gabriel Cipriano,Avaí,Meia,RAMF,26.0,273.0,7.0,9.9,False,False,1,31/03/2027,2027-03-31,False,False,True,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+Rafael Bilu,Avaí,Atacante,CF,27.0,246.0,5.0,8.9,False,False,2,,2027-06-30,False,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Del Piage,Avaí,Volante,RDMF,26.0,211.0,7.0,7.6,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,True,False,7.0,0,0,0,0,0,,,,
+Isaías,Avaí,Atacante,CF,21.0,188.0,9.0,6.8,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,8.0,0,0,0,0,0,,,,
+Hyan,Avaí,Extremo,RWF,22.0,81.0,5.0,2.9,False,False,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Jamerson,Avaí,Meia,RAMF,19.0,75.0,4.0,2.7,False,False,3,,2029-06-30,False,False,False,sim,Brazil,False,False,False,4.0,38.0,10.0,1,0,0,,,,
+Juanzin,Avaí,Extremo,LW,21.0,72.0,2.0,2.6,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Kauã Gabriel,Avaí,Meia,LAMF,19.0,56.0,2.0,2.0,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Marcio Vitor,Avaí,Atacante,CF,20.0,40.0,2.0,1.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Joao Vittor,Avaí,Lateral,RB,19.0,24.0,1.0,0.9,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Alemao Imming,Avaí,Lateral,LB,20.0,23.0,1.0,0.8,False,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Caio Brazil,Avaí,Extremo,LWF,18.0,10.0,1.0,0.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Vilar,Botafogo-SP,Zaga,LCB,26.0,2612.0,26.0,95.6,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,26.0,0,0,0,5,2,False,True,False,False
+Everton Morelli,Botafogo-SP,Meia,RCMF,28.0,2420.0,26.0,88.5,True,True,3,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,26.0,0,0,0,6,5,False,False,False,False
+Patrick Brey,Botafogo-SP,Lateral,LB,29.0,2301.0,23.0,84.2,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,True,23.0,0,0,0,6,3,False,False,True,False
+Victor Souza,Botafogo-SP,Goleiro,GK,34.0,2238.0,22.0,81.9,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Rafael Gava,Botafogo-SP,Meia,LCMF,33.0,1987.0,25.0,72.7,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,6,3,False,False,False,True
+Zé Hugo,Botafogo-SP,Meia,RAMF,26.0,1951.0,26.0,71.4,True,False,2,01/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,26.0,0,0,0,6,3,False,True,False,False
+Gabriel Inocêncio,Botafogo-SP,Lateral,RB,32.0,1676.0,19.0,61.3,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,1,False,True,False,True
+Matheus Sales,Botafogo-SP,Volante,DMF,31.0,1613.0,22.0,59.0,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,6,3,False,False,True,False
+Hygor,Botafogo-SP,Atacante,CF,34.0,1584.0,20.0,58.0,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,1,False,True,True,False
+Kelvin,Botafogo-SP,Extremo,LW,29.0,1400.0,22.0,51.2,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,6,2,False,True,False,False
+Ericson,Botafogo-SP,Zaga,RCB,27.0,1369.0,14.0,50.1,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,5,3,False,False,False,True
+L. Maciel,Botafogo-SP,Volante,DMF,30.0,979.0,20.0,35.8,False,False,2,,2026-12-31,False,True,False,sim,Argentina,True,False,True,20.0,0,0,0,6,6,False,False,False,False
+Wesley Pinheiro,Botafogo-SP,Meia,LAMF,26.0,903.0,17.0,33.0,True,False,1,,,False,False,False,sim,Brazil,False,False,True,17.0,0,0,0,6,2,False,True,True,False
+Arthur Caíke,Botafogo-SP,Atacante,CF,34.0,644.0,15.0,23.6,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,15.0,0,0,0,0,0,,,,
+Jefferson Nem,Botafogo-SP,Meia,LAMF,30.0,592.0,17.0,21.7,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,0,0,,,,
+Felipe,Botafogo-SP,Lateral,LB,27.0,522.0,10.0,19.1,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Jordan,Botafogo-SP,Goleiro,GK,28.0,497.0,5.0,18.2,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Yuri Felipe,Botafogo-SP,Meia,RCMF,20.0,404.0,8.0,14.8,False,False,1,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Luizao,Botafogo-SP,Atacante,CF,23.0,378.0,7.0,13.8,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Guilherme Queiróz,Botafogo-SP,Atacante,CF,36.0,347.0,10.0,12.7,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Marco Antônio,Botafogo-SP,Volante,RDMF,26.0,332.0,10.0,12.1,False,False,2,30/11/2026,2027-11-30,True,False,False,sim,Brazil,False,False,False,9.0,0,0,0,0,0,,,,
+Thiago Moraes,Botafogo-SP,Extremo,RW,28.0,313.0,13.0,11.5,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Guilherme Mariano,Botafogo-SP,Zaga,RCB,26.0,234.0,4.0,8.6,False,False,3,31/12/2026,2028-12-31,True,False,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Marcio Maranhão,Botafogo-SP,Extremo,RW,27.0,108.0,5.0,4.0,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Badaró,Botafogo-SP,Zaga,RCB,21.0,103.0,4.0,3.8,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Jonathan,Botafogo-SP,Lateral,LB,34.0,88.0,4.0,3.2,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Thalles,Botafogo-SP,Atacante,CF,21.0,37.0,1.0,1.4,False,False,2,,2027-06-30,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Felipe Penha,Botafogo-SP,Lateral,LB,20.0,33.0,1.0,1.2,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Jadson,Botafogo-SP,Meia,RCMF,21.0,25.0,2.0,0.9,False,False,2,31/12/2028,,False,False,False,sim,Brazil,False,False,False,2.0,18.0,3.0,1,0,0,,,,
+Marquinho,Botafogo-SP,Volante,RDMF,24.0,24.0,2.0,0.9,False,False,2,,2028-06-30,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Erik Rebello,Botafogo-SP,Meia,LCMF,21.0,17.0,1.0,0.6,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Darlan,Botafogo-SP,Zaga,LCB,22.0,6.0,1.0,0.2,False,False,1,30/04/2027,2027-04-30,False,False,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Dadá Belmonte,CRB,Extremo,LW,29.0,2285.0,25.0,84.3,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,4,False,False,False,False
+Mikael,CRB,Atacante,CF,27.0,2236.0,26.0,82.4,True,True,2,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,25.0,1.0,6.0,1,6,2,False,False,True,False
+Pedro Castro,CRB,Meia,RCMF,33.0,2179.0,26.0,80.3,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,24.0,0,0,0,6,2,False,False,True,True
+Crystopher,CRB,Meia,RCMF,28.0,2138.0,23.0,78.8,True,True,3,30/11/2026,2026-12-31,True,True,False,sim,Brazil,False,False,True,22.0,0,0,0,6,3,False,False,False,True
+Lucas Lovat,CRB,Lateral,LB,29.0,1941.0,23.0,71.6,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,2,False,False,False,True
+Vitor Caetano,CRB,Goleiro,GK,27.0,1937.0,20.0,71.4,True,False,3,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,True,False,,0,0,0,4,0,True,,True,True
+Danielzinho,CRB,Meia,LCMF,30.0,1875.0,25.0,69.1,True,True,3,,2026-12-31,False,True,False,sim,Brazil,False,False,True,24.0,0,0,0,6,2,False,False,True,True
+Fabio Alemão,CRB,Zaga,LCB,29.0,1608.0,18.0,59.3,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,5,2,False,False,False,True
+Bressan,CRB,Zaga,RCB,33.0,1499.0,19.0,55.3,False,False,2,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,True,True,18.0,0,0,0,5,3,False,False,False,True
+Hereda,CRB,Lateral,RB,27.0,1404.0,20.0,51.8,True,True,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,1,False,True,False,True
+Henri,CRB,Zaga,RCB,24.0,1300.0,14.0,47.9,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,14.0,0,0,0,5,3,False,False,False,True
+Kevin,CRB,Lateral,RB,29.0,1150.0,16.0,42.4,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,15.0,0,0,0,6,1,False,True,False,True
+Patrick De Lucca,CRB,Volante,DMF,26.0,968.0,21.0,35.7,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,2,False,False,True,True
+Lyncon,CRB,Zaga,LCB,21.0,916.0,11.0,33.8,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,10.0,0,0,0,5,3,False,True,False,False
+Douglas Baggio,CRB,Extremo,RW,31.0,851.0,20.0,31.4,False,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,0,0,,,,
+Matheus Albino,CRB,Goleiro,GK,31.0,785.0,8.0,28.9,False,True,3,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Reverson,CRB,Lateral,LB,29.0,566.0,10.0,20.9,False,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+L. Phellype,CRB,Atacante,CF,32.0,433.0,14.0,16.0,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Guilherme Pato,CRB,Extremo,RW,25.0,333.0,15.0,12.3,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Geovane,CRB,Meia,AMF,27.0,309.0,12.0,11.4,False,False,3,,2027-06-30,False,False,False,sim,Brazil,False,False,False,10.0,0,0,0,0,0,,,,
+Vinícius Barata,CRB,Extremo,RW,27.0,292.0,10.0,10.8,False,False,3,30/11/2028,2028-11-30,False,False,True,sim,Brazil,False,False,False,9.0,0,0,0,0,0,,,,
+Guilherme Estrella,CRB,Meia,RCMF,21.0,212.0,6.0,7.8,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Léo Campos,CRB,Lateral,LB,34.0,156.0,5.0,5.8,False,False,2,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+João Neto,CRB,Atacante,CF,23.0,96.0,4.0,3.5,False,False,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Estevão,CRB,Meia,LCMF,24.0,41.0,3.0,1.5,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+David Braw,CRB,Meia,AMF,23.0,39.0,1.0,1.4,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Éder,Ceará,Zaga,RCB,31.0,2021.0,20.0,82.9,True,True,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,5,3,False,True,False,False
+Richard,Ceará,Goleiro,GK,35.0,1972.0,20.0,80.9,True,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,False,,0,0,0,4,2,False,,True,False
+Júlio César,Ceará,Zaga,RCB,22.0,1877.0,23.0,77.0,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,3,False,,False,False
+Melk,Ceará,Meia,RAMF,20.0,1761.0,23.0,72.2,True,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,24.0,0,0,0,6,3,False,False,True,False
+Joao Gabriel,Ceará,Meia,LCMF,20.0,1727.0,20.0,70.8,True,False,1,,2028-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,4,3,False,,False,False
+Bryan,Ceará,Lateral,RB,30.0,1329.0,14.0,54.5,True,True,3,,2027-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,4,0,True,,True,True
+Lucca,Ceará,Atacante,CF,23.0,1200.0,16.0,49.2,True,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,17.0,0,0,0,6,3,False,False,True,False
+Sánchez,Ceará,Lateral,LB,30.0,1194.0,18.0,49.0,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,3,False,False,True,False
+Matheus Araújo,Ceará,Meia,AMF,24.0,1023.0,18.0,41.9,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,19.0,0,0,0,6,5,False,False,False,False
+Rafael Ramos,Ceará,Lateral,RB,31.0,902.0,13.0,37.0,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Portugal,True,False,True,13.0,0,0,0,6,2,False,False,True,False
+Richardson,Ceará,Volante,RDMF,35.0,865.0,15.0,35.5,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,15.0,0,0,0,0,0,,,,
+Fernando,Ceará,Lateral,LB,26.0,853.0,12.0,35.0,False,False,2,,2029-12-31,False,False,False,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Fernandinho,Ceará,Meia,LAMF,28.0,689.0,11.0,28.2,False,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+W. Silva,Ceará,Atacante,CF,26.0,664.0,13.0,27.2,False,False,2,,2029-06-30,False,False,False,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Giulio,Ceará,Meia,LAMF,21.0,662.0,13.0,27.1,False,False,1,,2031-06-30,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Vina,Ceará,Meia,AMF,35.0,636.0,12.0,26.1,False,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Nicolás Ferreira,Ceará,Meia,RAMF,24.0,609.0,8.0,25.0,False,False,2,31/12/2026,2027-06-30,True,False,False,sim,Uruguay,True,False,False,,0,0,0,0,0,,,,
+Sávio,Ceará,Lateral,LB,31.0,594.0,7.0,24.4,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,8.0,107.0,4.0,1,0,0,,,,
+Enzo Lodovico,Ceará,Meia,RAMF,20.0,568.0,14.0,23.3,False,False,1,,,False,False,False,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Gabriel Rocha,Ceará,Zaga,LCB,20.0,567.0,6.0,23.2,False,False,1,,,False,False,False,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+Dieguinho,Ceará,Volante,RDMF,31.0,546.0,8.0,22.4,False,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Lucas Mugni,Ceará,Meia,AMF,34.0,425.0,8.0,17.4,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Argentina,True,True,True,9.0,0,0,0,0,0,,,,
+Vinícius Zanocelo,Ceará,Volante,LDMF,25.0,387.0,5.0,15.9,False,False,1,,2028-12-31,False,False,False,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+R. López,Ceará,Atacante,CF,32.0,369.0,7.0,15.1,False,False,1,,2027-12-31,False,False,False,sim,Uruguay,True,False,True,7.0,0,0,0,0,0,,,,
+Giovanni Pavani,Ceará,Volante,RDMF,29.0,326.0,6.0,13.4,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Matheus Nogueira,Ceará,Goleiro,GK,28.0,149.0,2.0,6.1,False,False,3,30/11/2026,2028-12-31,True,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Gustavo Prado,Ceará,Meia,LAMF,21.0,140.0,3.0,5.7,False,False,1,,2028-12-31,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Thalisson,Ceará,Zaga,RCB,24.0,102.0,2.0,4.2,False,False,3,30/11/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,2.0,114.0,5.0,2,0,0,,,,
+Gabriel Amaral,Ceará,Atacante,CF,20.0,102.0,2.0,4.2,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Caio,Ceará,Meia,LCMF,18.0,93.0,3.0,3.8,False,False,1,31/12/2027,,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Gilmar,Ceará,Zaga,RCB,20.0,79.0,1.0,3.2,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Kauã,Ceará,Extremo,LWF,20.0,53.0,3.0,2.2,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Lenny Lobato,Ceará,Meia,RAMF,25.0,23.0,1.0,0.9,False,False,2,31/12/2026,,True,False,False,sim,Brazil,False,True,False,2.0,0,0,0,0,0,,,,
+Aloisio,Ceará,Lateral,RB,18.0,22.0,2.0,0.9,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Marcelo Hermes,Criciúma,Lateral,LWB,31.0,2610.0,26.0,100.2,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,6,2,False,False,True,False
+César Martins,Criciúma,Zaga,RCB,33.0,2035.0,21.0,78.1,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,33.0,4.0,1,5,2,False,True,False,True
+Guilherme Lobo,Criciúma,Meia,LCMF,26.0,1914.0,23.0,73.4,True,True,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,22.0,0,0,0,6,2,False,False,False,True
+Fellipe Mateus,Criciúma,Meia,AMF,35.0,1906.0,24.0,73.1,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,24.0,0,0,0,6,3,False,False,True,False
+Waguininho,Criciúma,Atacante,CF,36.0,1881.0,25.0,72.2,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,24.0,0,0,0,6,3,False,False,False,True
+Luciano Castán,Criciúma,Zaga,LCB,36.0,1841.0,19.0,70.6,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,True,True,19.0,0,0,0,5,2,False,False,False,True
+Airton,Criciúma,Goleiro,GK,32.0,1797.0,18.0,69.0,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,0,True,,True,True
+Rodrigo,Criciúma,Zaga,CB,39.0,1767.0,18.0,67.8,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,16.0,47.0,7.0,1,5,2,False,True,False,False
+Willean Lepo,Criciúma,Lateral,RWB,29.0,1710.0,22.0,65.6,True,True,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,21.0,0,0,0,6,3,False,False,True,False
+Rómulo Otero,Criciúma,Extremo,RWF,33.0,1477.0,23.0,56.7,True,True,2,31/12/2026,2026-12-31,True,True,True,sim,Venezuela,True,False,True,22.0,0,0,0,6,2,False,False,True,True
+Eduardo,Criciúma,Meia,RCMF,29.0,1239.0,17.0,47.5,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,6,2,False,False,False,True
+Bruno Alves,Criciúma,Zaga,RCB,35.0,1146.0,15.0,44.0,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,13.0,0,0,0,5,2,False,False,False,True
+Diego Gonçalves,Criciúma,Meia,AMF,31.0,848.0,19.0,32.5,False,False,3,31/12/2026,,True,False,False,sim,Brazil,False,False,True,15.0,0,0,0,0,0,,,,
+Marcinho,Criciúma,Lateral,RWB,30.0,743.0,13.0,28.5,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Jhonata Robert,Criciúma,Meia,AMF,26.0,710.0,17.0,27.2,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,16.0,0,0,0,0,0,,,,
+Ruan Carvalho,Criciúma,Zaga,RCB,19.0,618.0,8.0,23.7,False,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Pedro Santos,Criciúma,Goleiro,GK,21.0,605.0,6.0,23.2,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Romarinho,Criciúma,Meia,AMF,32.0,537.0,15.0,20.6,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Jean Irmer,Criciúma,Meia,RCMF,31.0,410.0,12.0,15.7,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Cauê,Criciúma,Atacante,CF,23.0,374.0,12.0,14.4,False,False,2,30/08/2028,2028-08-30,False,False,True,sim,Brazil,False,False,True,11.0,1.0,13.0,1,0,0,,,,
+Hiago Alves,Criciúma,Lateral,LWB,21.0,315.0,9.0,12.1,False,False,2,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+Alisson,Criciúma,Goleiro,GK,31.0,208.0,2.0,8.0,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,,53.0,8.0,1,0,0,,,,
+Yuri Jonathan,Criciúma,Atacante,CF,28.0,93.0,4.0,3.6,False,False,1,,2026-12-31,False,True,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Léo Mana,Criciúma,Zaga,RCB,22.0,45.0,2.0,1.7,False,False,2,,2029-12-31,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Bidu,Criciúma,Extremo,LW,18.0,14.0,1.0,0.5,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Raul,Cuiabá,Meia,RCMF,30.0,2614.0,26.0,96.7,True,False,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,26.0,0,0,0,6,2,False,False,True,True
+João Basso,Cuiabá,Zaga,RCB,29.0,2542.0,26.0,94.0,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,True,26.0,0,0,0,5,1,False,False,True,True
+Calebe Costa,Cuiabá,Zaga,CB,23.0,2318.0,25.0,85.8,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,5,4,False,False,False,False
+Marcelo Carné,Cuiabá,Goleiro,GK,36.0,2110.0,22.0,78.1,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Pepê,Cuiabá,Meia,LCMF,28.0,1571.0,21.0,58.1,True,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,21.0,1.0,6.0,1,6,3,False,False,False,False
+Railan,Cuiabá,Lateral,RWB,26.0,1538.0,19.0,56.9,True,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,18.0,0,0,0,6,4,False,False,False,False
+Vitor Mendes,Cuiabá,Zaga,LCB,27.0,1430.0,17.0,52.9,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,5,1,False,True,True,False
+Rodrigo Rodrigues,Cuiabá,Atacante,CF,26.0,1418.0,24.0,52.5,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,,120.0,34.0,1,4,0,True,,True,True
+Kauan Cristtyan,Cuiabá,Atacante,CF,20.0,1285.0,23.0,47.5,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,1,False,False,True,True
+Lorenzo,Cuiabá,Lateral,LWB,19.0,900.0,11.0,33.3,False,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,0,True,,True,True
+Jean Dias,Cuiabá,Meia,AMF,35.0,877.0,12.0,32.4,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Vinicius Peixoto,Cuiabá,Atacante,CF,22.0,852.0,22.0,31.5,False,False,1,31/12/2029,2029-12-31,False,False,True,sim,Brazil,False,False,True,22.0,0,0,0,0,0,,,,
+Alan Empereur,Cuiabá,Zaga,LCB,32.0,717.0,8.0,26.5,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,True,True,8.0,0,0,0,0,0,,,,
+Igor Inocêncio,Cuiabá,Lateral,RWB,28.0,684.0,8.0,25.3,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Weverson,Cuiabá,Lateral,LB,23.0,659.0,20.0,24.4,False,False,1,31/12/2028,2026-12-31,False,True,False,sim,Brazil,False,False,True,20.0,0,0,0,0,0,,,,
+Eric,Cuiabá,Lateral,LWB,26.0,651.0,13.0,24.1,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Eliel,Cuiabá,Meia,AMF,23.0,587.0,11.0,21.7,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+Fábio Gomes,Cuiabá,Atacante,CF,29.0,448.0,7.0,16.6,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+Hernandes,Cuiabá,Atacante,CF,26.0,390.0,5.0,14.4,False,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,True,5.0,0,0,0,0,0,,,,
+Gabriel,Cuiabá,Zaga,RCB,22.0,277.0,4.0,10.2,False,False,2,,2027-12-31,False,False,False,sim,Brazil,False,True,False,4.0,56.0,13.0,3,0,0,,,,
+Mateus Criciúma,Cuiabá,Atacante,CF,27.0,200.0,6.0,7.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,6.0,0,0,0,0,0,,,,
+Wesley Dias,Cuiabá,Meia,LCMF,31.0,177.0,4.0,6.5,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Yamil Asad,Cuiabá,Meia,LCMF,31.0,152.0,4.0,5.6,False,False,2,,2026-12-31,False,True,False,sim,Argentina,True,True,False,4.0,0,0,0,0,0,,,,
+Marcos Júnior,Cuiabá,Extremo,LWF,33.0,137.0,6.0,5.1,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Victor Barbara,Cuiabá,Extremo,RWF,22.0,99.0,4.0,3.7,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+D. de Souza Archangel,Cuiabá,Meia,LCMF,19.0,63.0,1.0,2.3,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Gabriel Mineiro,Cuiabá,Lateral,LWB,21.0,28.0,1.0,1.0,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Aiyran,Cuiabá,Atacante,CF,17.0,16.0,1.0,0.6,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Lucas Gazal,Fortaleza,Zaga,LCB,27.0,2331.0,24.0,85.0,True,False,2,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,24.0,0,0,0,5,2,False,False,False,True
+Lucas Sasha,Fortaleza,Meia,RCMF,36.0,1894.0,25.0,69.0,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,True,True,25.0,0,0,0,6,4,False,False,False,False
+Maílton,Fortaleza,Lateral,RB,28.0,1838.0,22.0,67.0,True,False,3,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,22.0,0,0,0,6,2,False,True,False,False
+João Ricardo,Fortaleza,Goleiro,GK,38.0,1816.0,18.0,66.2,True,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+J. Miritello,Fortaleza,Atacante,CF,27.0,1800.0,23.0,65.6,True,False,1,,2026-12-31,False,True,False,sim,Argentina,True,False,True,23.0,0,0,0,6,4,False,False,False,False
+Maurício,Fortaleza,Lateral,LB,25.0,1739.0,23.0,63.4,True,False,2,,2028-11-30,False,False,False,sim,Brazil,False,False,False,,0,0,0,4,0,True,,True,True
+Rodrigo Santos,Fortaleza,Meia,LCMF,25.0,1406.0,25.0,51.3,True,False,2,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,25.0,0,0,0,6,1,False,False,True,True
+E. Brítez,Fortaleza,Zaga,RCB,34.0,1208.0,12.0,44.0,False,False,1,,2027-12-31,False,False,False,sim,Argentina,True,False,True,12.0,0,0,0,5,2,False,False,False,True
+Luan Freitas,Fortaleza,Zaga,CB,25.0,1195.0,14.0,43.6,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,True,True,14.0,0,0,0,5,3,False,False,False,False
+Gabriel Fuentes,Fortaleza,Lateral,LB,29.0,1162.0,14.0,42.4,False,False,1,31/12/2026,2028-08-31,True,False,False,sim,Colombia,True,False,False,,112.0,6.0,1,4,0,True,,True,True
+Pierre,Fortaleza,Volante,DMF,24.0,1114.0,16.0,40.6,False,False,3,31/12/2029,2029-12-31,False,False,True,sim,Brazil,False,False,True,16.0,0,0,0,6,3,False,False,False,True
+T. Pochettino,Fortaleza,Meia,AMF,30.0,882.0,12.0,32.2,False,False,1,,2027-12-31,False,False,False,sim,Argentina,True,True,True,12.0,0,0,0,0,0,,,,
+Welliton Matheus,Fortaleza,Extremo,RW,26.0,703.0,19.0,25.6,False,True,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,19.0,0,0,0,0,0,,,,
+T. Cardona,Fortaleza,Zaga,LCB,30.0,638.0,8.0,23.3,False,False,1,,2026-12-31,False,True,False,sim,Argentina,True,True,True,8.0,0,0,0,0,0,,,,
+Kauã Rocha,Fortaleza,Zaga,CB,19.0,503.0,7.0,18.3,False,False,1,31/01/2029,,False,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Paulo Baya,Fortaleza,Extremo,LWF,27.0,452.0,16.0,16.5,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,0,0,,,,
+Lucas Crispim,Fortaleza,Meia,LCMF,32.0,449.0,14.0,16.4,False,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Neris,Fortaleza,Zaga,RCB,34.0,394.0,6.0,14.4,False,False,1,30/06/2027,2027-06-30,False,False,True,sim,Brazil,False,False,False,,31.0,9.0,1,0,0,,,,
+Lucas Emanoel,Fortaleza,Atacante,CF,20.0,322.0,7.0,11.7,False,False,1,31/12/2029,,False,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Brenno,Fortaleza,Goleiro,GK,27.0,307.0,3.0,11.2,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,True,False,,0,0,0,0,0,,,,
+Lucca Prior,Fortaleza,Meia,AMF,22.0,249.0,10.0,9.1,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,9.0,0,0,0,0,0,,,,
+Kaio Henrique,Fortaleza,Lateral,LB,20.0,152.0,3.0,5.5,False,False,1,30/06/2028,2028-06-30,False,False,True,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Nathan Fogaça,Fortaleza,Atacante,CF,27.0,143.0,3.0,5.2,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,3.0,58.0,3.0,1,0,0,,,,
+Kayke,Fortaleza,Atacante,CF,20.0,93.0,3.0,3.4,False,False,2,,2028-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Matheus Rossetto,Fortaleza,Meia,RCMF,30.0,48.0,1.0,1.7,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,True,False,1.0,0,0,0,0,0,,,,
+Filipe Machado,Goiás,Volante,LDMF,30.0,1855.0,21.0,68.7,True,True,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,21.0,0,0,0,6,2,False,False,True,True
+Thiago Rodrigues,Goiás,Goleiro,GK,37.0,1512.0,15.0,56.0,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,0,True,,True,True
+Lucas Ribeiro,Goiás,Zaga,LCB,27.0,1499.0,19.0,55.5,False,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,5,1,False,True,False,True
+Ramon Menezes,Goiás,Zaga,LCB,31.0,1484.0,16.0,54.9,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,5,3,False,False,False,False
+Lourenço,Goiás,Meia,AMF,29.0,1435.0,20.0,53.1,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,3,False,False,False,True
+Rodrigo Soares,Goiás,Lateral,RB,33.0,1415.0,21.0,52.4,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,2,False,False,True,True
+Kadu,Goiás,Meia,LAMF,24.0,1348.0,17.0,49.9,True,False,1,31/12/2029,2026-12-15,False,True,False,sim,Brazil,False,False,True,17.0,0,0,0,6,4,False,False,False,False
+Anselmo Ramon,Goiás,Atacante,CF,38.0,1331.0,22.0,49.3,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,6,2,False,False,True,True
+Cadu,Goiás,Atacante,CF,22.0,1235.0,20.0,45.7,True,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,20.0,0,0,0,6,2,False,True,False,False
+Tadeu,Goiás,Goleiro,GK,34.0,1207.0,12.0,44.7,False,True,3,31/12/2029,2029-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Lucas Rodrigues,Goiás,Meia,RCMF,18.0,1069.0,13.0,39.6,False,False,2,31/12/2029,2029-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Djalma Silva,Goiás,Lateral,LB,31.0,1060.0,20.0,39.2,False,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,2,False,False,True,False
+Gegé,Goiás,Meia,LAMF,32.0,1015.0,17.0,37.6,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,6,3,False,False,True,False
+Diego Caito,Goiás,Lateral,RB,22.0,682.0,12.0,25.2,False,False,3,,2026-12-31,False,True,False,sim,Brazil,False,False,True,12.0,5.0,1.0,1,0,0,,,,
+Baldória,Goiás,Volante,DMF,21.0,645.0,13.0,23.9,False,False,2,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+E. Garcia,Goiás,Meia,LAMF,26.0,619.0,15.0,22.9,False,False,3,,2026-12-31,False,True,False,sim,Venezuela,True,False,True,15.0,0,0,0,0,0,,,,
+Marcos Vinicius,Goiás,Lateral,RB,29.0,310.0,7.0,11.5,False,True,3,-,2026-12-31,False,True,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Bruno Sávio,Goiás,Meia,RAMF,31.0,236.0,8.0,8.7,False,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,8.0,0,0,0,0,0,,,,
+Brayann,Goiás,Meia,AMF,28.0,219.0,7.0,8.1,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+Wellington Rato,Goiás,Meia,RAMF,34.0,212.0,6.0,7.8,False,False,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,6.0,136.0,43.0,1,0,0,,,,
+Felipe Clemente,Goiás,Atacante,CF,27.0,168.0,3.0,6.2,False,False,1,30/11/2026,2029-04-30,True,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Murilo Camara,Goiás,Zaga,LCB,19.0,52.0,1.0,1.9,False,False,2,,,False,False,False,sim,Brazil,False,True,False,1.0,0,0,0,0,0,,,,
+Halerrandrio,Goiás,Lateral,LWB,20.0,44.0,2.0,1.6,False,False,2,30/06/2027,2027-06-30,False,False,True,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Danilo Cunha,Goiás,Extremo,LWF,19.0,16.0,1.0,0.6,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+João Magalhães,Goiás,Meia,RCMF,17.0,9.0,1.0,0.3,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Jandrei,Juventude,Goleiro,GK,33.0,2395.0,24.0,89.2,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,True,False,,0,0,0,4,1,False,,True,False
+Rodrigo Sam,Juventude,Zaga,RCB,31.0,2267.0,23.0,84.4,True,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,22.0,0,0,0,5,4,False,False,False,False
+Messias,Juventude,Zaga,CB,31.0,1645.0,19.0,61.3,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,18.0,0,0,0,5,1,False,True,True,False
+Diogo Barbosa,Juventude,Lateral,LWB,34.0,1586.0,20.0,59.1,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,1,False,True,True,False
+Alisson Safira,Juventude,Atacante,CF,31.0,1585.0,26.0,59.0,True,True,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,25.0,0,0,0,6,4,False,False,False,False
+Lucas Mineiro,Juventude,Meia,LCMF,30.0,1570.0,21.0,58.5,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,3,False,False,False,False
+Fábio Lima,Juventude,Meia,AMF,29.0,1360.0,23.0,50.7,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,3,False,,False,False
+Luan Gonçalves,Juventude,Meia,LCMF,26.0,1258.0,22.0,46.9,True,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,True,21.0,0,0,0,6,3,False,False,False,True
+Gabriel Pinheiro,Juventude,Zaga,RCB,29.0,1236.0,16.0,46.0,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,13.0,0,0,0,5,3,False,False,False,False
+Alan Kardec,Juventude,Atacante,CF,37.0,1130.0,21.0,42.1,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,6,3,False,False,False,True
+Aderlan,Juventude,Lateral,RWB,36.0,1009.0,14.0,37.6,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,6,3,False,False,True,False
+Mandaca,Juventude,Meia,LCMF,24.0,836.0,13.0,31.1,False,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+M. Castro,Juventude,Extremo,LW,30.0,796.0,16.0,29.6,False,False,1,,2026-12-31,False,True,False,sim,Uruguay,True,False,True,15.0,0,0,0,0,0,,,,
+Raí Ramos,Juventude,Lateral,RWB,32.0,737.0,11.0,27.4,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Titi,Juventude,Zaga,CB,38.0,661.0,9.0,24.6,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,True,9.0,0,0,0,0,0,,,,
+Wadson,Juventude,Lateral,LB,26.0,548.0,15.0,20.4,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Patryck,Juventude,Lateral,LWB,23.0,497.0,7.0,18.5,False,False,1,31/12/2026,2027-06-30,True,False,False,sim,Brazil,False,True,True,7.0,0,0,0,0,0,,,,
+Allanzinho,Juventude,Extremo,LW,26.0,303.0,9.0,11.3,False,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,6.0,0,0,0,0,0,,,,
+Pedro Rocha,Juventude,Goleiro,GK,28.0,297.0,3.0,11.1,False,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+L. Amarilla,Juventude,Atacante,CF,31.0,259.0,4.0,9.6,False,False,1,,2026-12-31,False,True,False,sim,Paraguay,True,False,False,4.0,0,0,0,0,0,,,,
+Gabriel Pires,Juventude,Meia,LCMF,32.0,257.0,7.0,9.6,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,False,7.0,0,0,0,0,0,,,,
+Pablo Roberto,Juventude,Extremo,LW,26.0,171.0,4.0,6.4,False,False,1,31/12/2026,2028-12-31,True,False,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Iba Ly,Juventude,Meia,RCMF,23.0,97.0,6.0,3.6,False,False,1,31/12/2026,2027-12-31,True,False,False,sim,Senegal,True,False,False,6.0,0,0,0,0,0,,,,
+Lucas Alves,Juventude,Extremo,LWF,24.0,78.0,4.0,2.9,False,False,1,31/12/2027,2028-12-31,False,False,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Carlos Júnior,Juventude,Meia,RCMF,18.0,45.0,3.0,1.7,False,False,1,,,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Ray Breno,Juventude,Meia,AMF,21.0,26.0,2.0,1.0,False,False,1,31/12/2026,2028-12-31,True,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Maurício Kozlinski,Londrina,Goleiro,GK,35.0,2495.0,25.0,89.2,True,False,2,30/11/2028,2028-11-30,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Yago Lincoln,Londrina,Zaga,RCB,23.0,2039.0,21.0,72.9,True,False,2,,2030-06-30,False,False,False,sim,Brazil,False,False,True,20.0,0,0,0,5,1,False,True,True,False
+Gabriel Lacerda,Londrina,Zaga,LCB,27.0,1811.0,19.0,64.7,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,5,3,False,False,False,False
+Lucas Marques,Londrina,Meia,RCMF,31.0,1667.0,21.0,59.6,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,3,False,False,True,False
+Bruno Santos,Londrina,Atacante,CF,29.0,1539.0,16.0,55.0,True,False,2,,2028-12-31,False,False,False,sim,Brazil,False,False,True,16.0,0,0,0,6,0,True,True,True,True
+Heron,Londrina,Lateral,LB,26.0,1499.0,23.0,53.6,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,6,1,False,True,True,False
+André Luiz,Londrina,Volante,DMF,31.0,1438.0,16.0,51.4,True,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,True,16.0,0,0,0,6,3,False,False,True,False
+William Pottker,Londrina,Atacante,CF,32.0,1425.0,19.0,50.9,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,0,True,True,True,True
+Victor Hugo,Londrina,Extremo,RW,23.0,1336.0,20.0,47.8,True,False,2,,2029-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,4,3,False,,False,False
+Kauê Leonardo,Londrina,Lateral,RB,21.0,1281.0,16.0,45.8,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,15.0,0,0,0,6,3,False,False,False,True
+Paulinho Moccelin,Londrina,Extremo,LW,32.0,1117.0,21.0,39.9,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,5,False,False,False,False
+Iago Teles,Londrina,Extremo,LW,26.0,1103.0,13.0,39.4,True,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,6,5,False,False,False,False
+Pablo Dyego,Londrina,Extremo,LW,32.0,960.0,18.0,34.3,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,6,4,False,False,False,False
+Tárik,Londrina,Volante,DMF,33.0,885.0,12.0,31.6,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,True,12.0,0,0,0,0,0,,,,
+Kevyn,Londrina,Lateral,LB,28.0,861.0,16.0,30.8,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Thalis,Londrina,Meia,LCMF,30.0,835.0,14.0,29.9,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Gilberto,Londrina,Atacante,CF,37.0,564.0,14.0,20.2,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Rafael Monteiro,Londrina,Lateral,LB,22.0,549.0,9.0,19.6,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,9.0,0,0,0,0,0,,,,
+Nino Paraíba,Londrina,Lateral,RB,40.0,495.0,11.0,17.7,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Artur,Londrina,Lateral,LB,32.0,437.0,8.0,15.6,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+André Dhominique,Londrina,Lateral,RB,22.0,414.0,7.0,14.8,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Caio Rodrigues,Londrina,Zaga,RCB,22.0,398.0,5.0,14.2,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+E. Rodríguez,Londrina,Extremo,RWF,23.0,356.0,7.0,12.7,False,False,1,,2026-12-31,False,True,False,sim,Uruguay,True,False,True,7.0,0,0,0,0,0,,,,
+Guilherme Portuga,Londrina,Meia,LCMF,28.0,318.0,6.0,11.4,False,False,2,30/11/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+André Cardoso,Londrina,Volante,DMF,23.0,178.0,6.0,6.4,False,False,1,31/12/2026,2028-12-31,True,False,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Chumbinho,Londrina,Meia,RCMF,22.0,134.0,4.0,4.8,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Caio Rafael,Londrina,Atacante,CF,22.0,133.0,5.0,4.8,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Fabiano,Londrina,Meia,RCMF,21.0,121.0,5.0,4.3,False,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+João Andrade,Londrina,Extremo,RW,20.0,116.0,2.0,4.1,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Murilo Sousa,Londrina,Volante,LDMF,21.0,96.0,3.0,3.4,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Luan Ribeiro,Londrina,Goleiro,GK,29.0,96.0,1.0,3.4,False,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Hebert,Londrina,Extremo,LW,26.0,50.0,1.0,1.8,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Caio Maia,Londrina,Extremo,LW,21.0,46.0,3.0,1.6,False,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Fellipe Resende,Londrina,Extremo,RW,22.0,13.0,1.0,0.5,False,False,1,,2026-10-30,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Rômulo,Novorizontino,Meia,AMF,24.0,2289.0,27.0,81.6,True,False,3,,2028-12-31,False,False,False,sim,Brazil,False,False,True,27.0,0,0,0,6,2,False,True,True,False
+Robson,Novorizontino,Atacante,CF,35.0,2272.0,26.0,81.0,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,26.0,0,0,0,6,2,False,False,False,True
+Maykon,Novorizontino,Lateral,LB,20.0,1984.0,21.0,70.7,True,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,20.0,0,0,0,6,4,False,False,False,False
+Luís Oyama,Novorizontino,Volante,RDMF,29.0,1906.0,23.0,67.9,True,True,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,True,True,23.0,0,0,0,6,4,False,False,False,False
+Jordi,Novorizontino,Goleiro,GK,33.0,1845.0,19.0,65.8,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,2,False,,True,False
+Léo Naldi,Novorizontino,Volante,LDMF,25.0,1795.0,23.0,64.0,True,True,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,23.0,0,0,0,6,5,False,False,False,False
+Mádson,Novorizontino,Lateral,RB,34.0,1458.0,18.0,52.0,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,False,True
+Vinícius Paiva,Novorizontino,Meia,LAMF,25.0,1342.0,20.0,47.8,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,2,False,True,True,False
+Matheus Bianqui,Novorizontino,Meia,RCMF,28.0,1299.0,21.0,46.3,True,False,2,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,3,False,False,True,False
+Gabriel Bahia,Novorizontino,Zaga,RCB,27.0,1246.0,13.0,44.4,False,False,2,31/12/2026,2027-03-31,True,False,False,sim,Brazil,False,False,True,13.0,0,0,0,5,1,False,True,True,False
+Reidiney,Novorizontino,Meia,RAMF,19.0,1076.0,14.0,38.3,True,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,4,2,False,,False,False
+N. Castrillón,Novorizontino,Lateral,RB,30.0,1030.0,12.0,36.7,False,False,2,,2026-11-30,False,True,False,sim,Colombia,True,False,True,12.0,0,0,0,6,2,False,False,True,True
+César Augusto,Novorizontino,Goleiro,GK,31.0,888.0,9.0,31.6,False,False,3,,2027-12-31,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Alexis Alvariño,Novorizontino,Lateral,RB,25.0,729.0,11.0,26.0,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Argentina,True,False,True,11.0,0,0,0,0,0,,,,
+Tavinho,Novorizontino,Extremo,RW,22.0,727.0,15.0,25.9,False,False,2,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,15.0,0,0,0,0,0,,,,
+Sander,Novorizontino,Lateral,LB,35.0,615.0,7.0,21.9,False,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Diego Galo,Novorizontino,Extremo,LW,21.0,581.0,12.0,20.7,False,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Eduardo Brock,Novorizontino,Zaga,LCB,35.0,474.0,5.0,16.9,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,True,True,5.0,0,0,0,0,0,,,,
+Nícolas Careca,Novorizontino,Meia,LAMF,29.0,419.0,11.0,14.9,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+C. Ortiz,Novorizontino,Extremo,LWF,34.0,379.0,14.0,13.5,False,False,3,,2026-11-30,False,True,False,sim,Argentina,True,False,True,14.0,0,0,0,0,0,,,,
+Kauan Alemão,Novorizontino,Lateral,RB,19.0,357.0,6.0,12.7,False,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Hélio Borges,Novorizontino,Extremo,RW,26.0,181.0,7.0,6.5,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+Diego Mathias,Novorizontino,Meia,LAMF,27.0,163.0,4.0,5.8,False,False,2,31/12/2026,2029-12-31,True,False,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Ronald Barcellos,Novorizontino,Meia,RAMF,24.0,93.0,5.0,3.3,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+J. Lora,Novorizontino,Meia,RAMF,25.0,64.0,2.0,2.3,False,False,1,,2026-12-31,False,True,False,sim,Peru,True,False,False,2.0,0,0,0,0,0,,,,
+Jardiel,Novorizontino,Atacante,CF,21.0,16.0,1.0,0.6,False,False,1,31/12/2026,2027-02-28,True,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Muriel,Náutico,Goleiro,GK,39.0,2749.0,27.0,102.3,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,False,,0,0,0,4,2,False,,True,False
+Igor Fernandes,Náutico,Lateral,LB,34.0,2392.0,26.0,89.0,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,6,1,False,False,True,True
+Derek,Náutico,Atacante,CF,28.0,1526.0,22.0,56.8,True,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,19.0,0,0,0,6,1,False,False,True,True
+Betão,Náutico,Zaga,LCB,27.0,1416.0,18.0,52.7,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,5,1,False,True,False,True
+Reginaldo,Náutico,Lateral,RB,33.0,1377.0,21.0,51.2,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,0,True,True,True,True
+Victor Andrade,Náutico,Meia,LAMF,30.0,1054.0,19.0,39.2,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,3,False,False,True,False
+Léo Índio,Náutico,Zaga,RCB,30.0,1009.0,13.0,37.6,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,4.0,0,0,0,5,2,False,False,False,True
+Samuel,Náutico,Volante,LDMF,22.0,957.0,16.0,35.6,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,8.0,0,0,0,6,3,False,False,False,False
+Matheus Ribeiro,Náutico,Lateral,RB,33.0,912.0,14.0,33.9,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,True,14.0,0,0,0,6,4,False,False,False,False
+Mateus Silva,Náutico,Zaga,RCB,31.0,865.0,10.0,32.2,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,10.0,106.0,24.0,1,0,0,,,,
+Arnaldo,Náutico,Lateral,RB,34.0,861.0,15.0,32.0,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Kauan Maranhão,Náutico,Atacante,CF,22.0,766.0,11.0,28.5,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Júnior Todinho,Náutico,Meia,RAMF,32.0,710.0,14.0,26.4,False,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,26.0,5.0,1,0,0,,,,
+Wanderson,Náutico,Zaga,RCB,31.0,697.0,13.0,25.9,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+B. Borasi,Náutico,Meia,LAMF,28.0,653.0,8.0,24.3,False,False,3,,2027-06-30,False,False,False,sim,Argentina,True,False,True,8.0,0,0,0,0,0,,,,
+Gustavo Henrique,Náutico,Zaga,LCB,20.0,513.0,7.0,19.1,False,False,2,01/12/2026,,True,False,False,sim,Brazil,False,False,True,5.0,0,0,0,0,0,,,,
+Leonai,Náutico,Volante,LDMF,31.0,493.0,10.0,18.3,False,False,1,,2026-12-31,False,True,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Paulo Sérgio,Náutico,Atacante,CF,37.0,383.0,6.0,14.3,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+Luiz Claudio,Náutico,Atacante,CF,21.0,324.0,10.0,12.1,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Felipe Saraiva,Náutico,Meia,RAMF,28.0,249.0,8.0,9.3,False,False,1,,2026-12-31,False,True,False,sim,Brazil,False,False,False,8.0,0,0,0,0,0,,,,
+Léo Jance,Náutico,Lateral,LB,21.0,212.0,5.0,7.9,False,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Auremir,Náutico,Volante,RDMF,35.0,176.0,6.0,6.6,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,5.0,0,0,0,0,0,,,,
+Felipe Cardoso,Náutico,Extremo,LW,23.0,104.0,4.0,3.9,False,False,1,,,False,False,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+P. Núñez,Náutico,Volante,RDMF,27.0,89.0,3.0,3.3,False,False,1,,,False,False,False,sim,Argentina,True,False,False,3.0,0,0,0,0,0,,,,
+Luiz Paulo,Náutico,Lateral,LB,33.0,52.0,2.0,1.9,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,88.0,47.0,1,0,0,,,,
+Marcos Rosa,Náutico,Atacante,CF,18.0,40.0,2.0,1.5,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Halanzinho,Náutico,Volante,RDMF,20.0,26.0,1.0,1.0,False,False,1,,2028-01-03,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Caio Soares,Náutico,Meia,LCMF,21.0,25.0,1.0,0.9,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Rikelme,Náutico,Meia,RAMF,20.0,9.0,1.0,0.3,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Wendell,Náutico,Meia,RAMF,18.0,8.0,1.0,0.3,False,False,3,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Boschilia,Operário-PR,Meia,AMF,30.0,2396.0,24.0,88.0,True,True,3,,2027-11-30,False,False,False,sim,Brazil,False,True,True,24.0,0,0,0,6,3,False,False,False,True
+Vinicius Diniz,Operário-PR,Meia,LCMF,27.0,2353.0,25.0,86.4,True,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,25.0,0,0,0,6,3,False,False,False,False
+Vágner,Operário-PR,Goleiro,GK,40.0,2333.0,24.0,85.7,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,False,,0,0,0,4,1,False,,True,False
+Matheus Trindade,Operário-PR,Volante,DMF,30.0,2067.0,26.0,75.9,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,26.0,0,0,0,6,5,False,False,False,False
+Miranda,Operário-PR,Zaga,LCB,26.0,1945.0,20.0,71.5,True,True,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,5,3,False,False,False,True
+Pablo,Operário-PR,Atacante,CF,34.0,1912.0,23.0,70.2,True,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,23.0,0,0,0,6,3,False,False,False,True
+Mikael Doka,Operário-PR,Lateral,RB,26.0,1877.0,22.0,69.0,True,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,22.0,0,0,0,6,1,False,False,True,True
+Moraes,Operário-PR,Lateral,LB,28.0,1876.0,23.0,68.9,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,23.0,0,0,0,6,1,False,True,False,True
+J. Cuenú,Operário-PR,Zaga,RCB,31.0,1775.0,18.0,65.2,True,False,1,,2026-11-30,False,True,False,sim,Colombia,True,False,True,18.0,0,0,0,5,1,False,True,False,True
+Hildeberto Pereira,Operário-PR,Extremo,RW,30.0,1576.0,24.0,57.9,True,False,1,,2026-11-30,False,True,False,sim,Portugal,True,True,True,24.0,0,0,0,6,4,False,False,False,False
+Gabriel Feliciano,Operário-PR,Lateral,LB,25.0,1543.0,21.0,56.7,True,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,2,False,False,True,False
+Aylon,Operário-PR,Extremo,LWF,34.0,1431.0,23.0,52.6,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,6,4,False,False,False,False
+Klaus,Operário-PR,Zaga,RCB,32.0,1046.0,12.0,38.4,False,False,2,,2027-11-30,False,False,False,sim,Brazil,False,False,True,12.0,0,0,0,5,4,False,False,False,False
+Maguinho,Operário-PR,Lateral,RB,34.0,914.0,16.0,33.6,False,False,2,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,16.0,0,0,0,6,2,False,False,False,True
+Neto Paraíba,Operário-PR,Meia,RCMF,34.0,870.0,23.0,32.0,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,0,0,,,,
+Joseph,Operário-PR,Zaga,LCB,31.0,602.0,6.0,22.1,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,6.0,0,0,0,0,0,,,,
+Caio Dantas,Operário-PR,Atacante,CF,33.0,596.0,21.0,21.9,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,0,0,,,,
+A. Torres,Operário-PR,Extremo,RW,26.0,406.0,6.0,14.9,False,False,1,,2028-06-30,False,False,False,sim,Colombia,True,False,True,6.0,0,0,0,0,0,,,,
+Felipe Augusto,Operário-PR,Extremo,RW,34.0,360.0,14.0,13.2,False,False,2,,2027-03-31,False,False,False,sim,Brazil,False,False,False,11.0,0,0,0,0,0,,,,
+E. Torres,Operário-PR,Extremo,RW,28.0,303.0,7.0,11.1,False,False,1,,,False,False,False,sim,Colombia,True,False,True,7.0,0,0,0,0,0,,,,
+Pedro Vilhena,Operário-PR,Extremo,LW,24.0,301.0,12.0,11.1,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,0,0,,,,
+Vinicius Mingotti,Operário-PR,Atacante,CF,26.0,273.0,9.0,10.0,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,9.0,0,0,0,0,0,,,,
+Maxwell,Operário-PR,Extremo,LW,31.0,241.0,9.0,8.9,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,9.0,0,0,0,0,0,,,,
+Juan Zuluaga,Operário-PR,Volante,DMF,33.0,19.0,1.0,0.7,False,False,2,30/11/2027,2027-11-30,False,False,True,sim,Colombia,True,False,False,1.0,0,0,0,0,0,,,,
+Léo Gaúcho,Operário-PR,Atacante,CF,24.0,14.0,1.0,0.5,False,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Charles,Operário-PR,Zaga,LCB,31.0,8.0,1.0,0.3,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Lucas Cunha,Ponte Preta,Zaga,CB,29.0,2014.0,20.0,80.4,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,True,True,19.0,0,0,0,5,3,False,False,False,False
+André Lima,Ponte Preta,Meia,RCMF,26.0,1691.0,19.0,67.5,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,0,0,0,6,3,False,False,False,True
+Élvis,Ponte Preta,Meia,AMF,35.0,1505.0,19.0,60.1,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,18.0,1.0,4.0,1,6,4,False,False,False,False
+Diogo Silva,Ponte Preta,Goleiro,GK,40.0,1421.0,14.0,56.7,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Danilo Barcelos,Ponte Preta,Zaga,LCB,35.0,1365.0,17.0,54.5,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,5,4,False,False,False,False
+Kevyson,Ponte Preta,Lateral,LB,22.0,1345.0,18.0,53.7,True,False,1,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,17.0,1.0,6.0,1,6,1,False,True,True,False
+Márcio,Ponte Preta,Zaga,LCB,25.0,1261.0,14.0,50.3,False,False,1,,2027-06-30,False,False,False,sim,Brazil,False,False,True,11.0,0,0,0,5,3,False,False,False,False
+Júlio,Ponte Preta,Lateral,RWB,19.0,1059.0,13.0,42.3,False,False,1,,,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,6,3,False,False,False,False
+Sergio Palacios,Ponte Preta,Zaga,RCB,21.0,1053.0,12.0,42.0,False,False,1,30/11/2026,2029-08-31,True,False,False,sim,Colombia,True,False,True,11.0,0,0,0,5,3,False,True,False,False
+Brandão,Ponte Preta,Atacante,CF,22.0,1020.0,16.0,40.7,True,False,2,,2026-12-31,False,True,False,sim,Brazil,False,False,True,15.0,0,0,0,6,2,False,True,False,False
+Thalys,Ponte Preta,Lateral,RB,26.0,1006.0,12.0,40.2,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,True,12.0,0,0,0,6,1,False,True,True,False
+Diego Porfírio,Ponte Preta,Lateral,LB,27.0,917.0,13.0,36.6,False,False,1,29/11/2026,2026-11-28,True,True,True,sim,Brazil,False,False,True,12.0,0,0,0,6,4,False,False,False,False
+Diego Leão,Ponte Preta,Zaga,CB,21.0,913.0,11.0,36.4,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,10.0,0,0,0,5,3,False,False,False,False
+Léo Gomes,Ponte Preta,Meia,LCMF,29.0,908.0,12.0,36.2,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,12.0,0,0,0,6,4,False,False,False,False
+Vinicius Ferrari,Ponte Preta,Goleiro,GK,23.0,906.0,9.0,36.2,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Diego Tavares,Ponte Preta,Meia,AMF,35.0,789.0,12.0,31.5,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,True,11.0,0,0,0,0,0,,,,
+Murilo,Ponte Preta,Meia,RCMF,27.0,789.0,10.0,31.5,False,False,1,30/11/2026,,True,False,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Baianinho,Ponte Preta,Meia,RCMF,27.0,737.0,15.0,29.4,False,False,1,,2028-12-31,False,False,False,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Miguel,Ponte Preta,Extremo,LW,21.0,625.0,14.0,25.0,False,False,1,,,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Gustavo Almeida,Ponte Preta,Zaga,LCB,20.0,577.0,7.0,23.0,False,False,1,,,False,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Juan Rodrigues,Ponte Preta,Lateral,RWB,20.0,460.0,11.0,18.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Guilherme Viana,Ponte Preta,Goleiro,GK,23.0,409.0,4.0,16.3,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+David Braz,Ponte Preta,Zaga,RCB,39.0,399.0,5.0,15.9,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,True,5.0,0,0,0,0,0,,,,
+Luis Phelipe,Ponte Preta,Atacante,CF,25.0,393.0,8.0,15.7,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Gustavo Telles,Ponte Preta,Volante,LDMF,21.0,331.0,10.0,13.2,False,False,1,,,False,False,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Jonathan Cafú,Ponte Preta,Meia,RAMF,35.0,304.0,10.0,12.1,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,False,9.0,0,0,0,0,0,,,,
+Matheus Souza,Ponte Preta,Lateral,LB,17.0,301.0,5.0,12.0,False,False,2,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Lucas Justen,Ponte Preta,Lateral,RB,23.0,281.0,5.0,11.2,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,False,4.0,0,0,0,0,0,,,,
+Rodrigo Souza,Ponte Preta,Meia,RCMF,38.0,272.0,7.0,10.9,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+R. Saravia,Ponte Preta,Volante,DMF,26.0,218.0,3.0,8.7,False,False,1,,2027-12-31,False,False,False,sim,Uruguay,True,False,False,3.0,0,0,0,0,0,,,,
+João Damião,Ponte Preta,Atacante,CF,17.0,210.0,7.0,8.4,False,False,1,,2027-10-15,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Nicolas Silva,Ponte Preta,Meia,AMF,20.0,142.0,5.0,5.7,False,False,1,,2027-06-12,False,False,False,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Ryan Andrade,Ponte Preta,Meia,RAMF,18.0,73.0,1.0,2.9,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Bruno Lopes,Ponte Preta,Extremo,RWF,31.0,59.0,2.0,2.4,False,False,2,,2027-05-31,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Thevyn,Ponte Preta,Meia,RAMF,20.0,42.0,2.0,1.7,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Cauã,Ponte Preta,Meia,LAMF,20.0,31.0,1.0,1.2,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Caio Vinícius,Ponte Preta,Meia,AMF,18.0,29.0,1.0,1.2,False,False,2,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Gabriel Cicala,Ponte Preta,Volante,RDMF,18.0,18.0,1.0,0.7,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Vitor Ribeiro,Ponte Preta,Atacante,CF,27.0,2.0,1.0,0.1,False,False,1,03/03/2027,2027-03-03,False,False,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Thiago Couto,Sport,Goleiro,GK,27.0,2741.0,27.0,102.4,True,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Perotti,Sport,Atacante,CF,28.0,2493.0,26.0,93.2,True,False,3,01/12/2026,2026-11-30,True,True,False,sim,Brazil,False,False,True,26.0,0,0,0,6,4,False,False,False,False
+Felipinho,Sport,Lateral,LB,29.0,2169.0,22.0,81.1,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,22.0,56.0,2.0,1,6,1,False,True,False,True
+Chrystian Barletta,Sport,Meia,RAMF,25.0,1991.0,21.0,74.4,True,True,2,31/07/2029,2029-07-31,False,False,True,sim,Brazil,False,False,True,21.0,0,0,0,6,2,False,True,True,False
+Biel,Sport,Volante,RDMF,24.0,1737.0,24.0,64.9,True,False,2,,2028-07-31,False,False,False,sim,Brazil,False,False,True,24.0,0,0,0,6,2,False,True,False,False
+Benevenuto,Sport,Zaga,RCB,30.0,1733.0,19.0,64.8,True,False,3,,2026-11-30,False,True,False,sim,Brazil,False,False,True,19.0,0,0,0,5,2,False,False,True,False
+Zé Gabriel,Sport,Volante,RDMF,27.0,1586.0,22.0,59.3,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,22.0,0,0,0,6,3,False,False,False,True
+Marcelo Ajul,Sport,Zaga,RCB,24.0,1426.0,15.0,53.3,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,15.0,0,0,0,5,4,False,False,False,False
+A. De Freitas,Sport,Lateral,RB,18.0,1202.0,22.0,44.9,False,False,1,,2027-08-31,False,False,False,sim,Brazil,False,False,True,22.0,0,0,0,6,2,False,False,False,True
+Zé Marcos,Sport,Zaga,LCB,28.0,1173.0,13.0,43.8,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,5,2,False,False,False,True
+Clayson,Sport,Meia,LAMF,31.0,1133.0,20.0,42.3,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,3,False,False,False,False
+Zé Lucas,Sport,Volante,LDMF,18.0,1087.0,14.0,40.6,False,False,1,,2031-06-30,False,False,False,sim,Brazil,False,False,True,14.0,0,0,0,6,6,False,False,False,False
+Juan Alano,Sport,Meia,AMF,30.0,828.0,18.0,30.9,False,False,1,28/02/2027,2026-12-31,False,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Yago Felipe,Sport,Meia,AMF,31.0,821.0,16.0,30.7,False,False,1,,2026-12-31,False,True,False,sim,Brazil,False,False,True,16.0,0,0,0,0,0,,,,
+C. de Pena,Sport,Meia,AMF,34.0,776.0,16.0,29.0,False,False,2,,2026-11-30,False,True,False,sim,Uruguay,True,True,True,16.0,0,0,0,0,0,,,,
+Iury,Sport,Meia,LAMF,30.0,743.0,13.0,27.8,False,False,3,,2028-06-30,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Diego Hernández,Sport,Meia,AMF,26.0,728.0,10.0,27.2,False,False,2,31/12/2027,2027-12-31,False,False,True,sim,Uruguay,True,False,True,10.0,1.0,6.0,1,0,0,,,,
+Kayky Almeida,Sport,Zaga,LCB,21.0,717.0,8.0,26.8,False,False,2,30/11/2026,2029-12-31,True,False,False,sim,Brazil,False,False,True,8.0,97.0,11.0,1,0,0,,,,
+Edson Lucas,Sport,Lateral,LB,26.0,656.0,11.0,24.5,False,False,2,30/11/2026,2027-11-30,True,False,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Habraão,Sport,Zaga,LCB,25.0,587.0,7.0,21.9,False,False,3,31/12/2026,2028-02-28,True,False,False,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Willian Oliveira,Sport,Volante,LDMF,33.0,584.0,7.0,21.8,False,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Pedro Martins,Sport,Meia,LCMF,26.0,555.0,15.0,20.7,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Fábio Matheus,Sport,Meia,LCMF,23.0,422.0,7.0,15.8,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Claudinho,Sport,Lateral,RB,25.0,307.0,6.0,11.5,False,False,2,31/12/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,6.0,46.0,44.0,1,0,0,,,,
+Dudu Teodora,Sport,Meia,LAMF,27.0,218.0,8.0,8.1,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,8.0,0,0,0,0,0,,,,
+Zé Roberto,Sport,Atacante,CF,32.0,169.0,7.0,6.3,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+Patrick de Paula,Sport,Volante,LDMF,27.0,30.0,1.0,1.1,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,1.0,10.0,5.0,1,0,0,,,,
+Dedezinho,Sport,Volante,DMF,20.0,27.0,1.0,1.0,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Micael,Sport,Extremo,RWF,20.0,27.0,1.0,1.0,False,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Fernando Sobral,Sport,Meia,AMF,31.0,20.0,1.0,0.7,False,False,1,31/12/2028,2026-12-31,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Lipão,Sport,Atacante,CF,19.0,18.0,1.0,0.7,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Adriel,Sport,Meia,RCMF,20.0,6.0,1.0,0.2,False,False,2,,2027-12-31,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Rodrigo Ferreira,São Bernardo,Lateral,RB,31.0,2469.0,25.0,94.1,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,26.0,0,0,0,6,1,False,False,True,True
+Alex Alves,São Bernardo,Goleiro,GK,39.0,2467.0,25.0,94.0,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,4,1,False,,True,False
+Pará,São Bernardo,Lateral,LB,31.0,2238.0,24.0,85.3,True,True,2,31/03/2027,2027-03-31,False,False,True,sim,Brazil,False,False,True,25.0,0,0,0,6,3,False,False,False,True
+Miraíma,São Bernardo,Volante,LDMF,26.0,2106.0,25.0,80.2,True,False,1,,2027-12-31,False,False,False,sim,Brazil,False,False,True,26.0,0,0,0,6,4,False,False,False,False
+Romisson,São Bernardo,Volante,LDMF,29.0,1924.0,22.0,73.3,True,False,1,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,23.0,0,0,0,6,1,False,True,False,True
+Foguinho,São Bernardo,Volante,RDMF,34.0,1914.0,23.0,72.9,True,True,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,24.0,0,0,0,6,4,False,False,False,False
+Augusto,São Bernardo,Zaga,LCB,29.0,1912.0,19.0,72.8,True,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,20.0,0,0,0,5,3,False,False,False,True
+Jemerson,São Bernardo,Zaga,RCB,34.0,1706.0,20.0,65.0,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,True,19.0,0,0,0,5,0,True,True,True,True
+Felipe Garcia,São Bernardo,Atacante,CF,35.0,1526.0,20.0,58.1,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,21.0,0,0,0,6,2,False,True,False,False
+Hélder Maciel,São Bernardo,Zaga,RCB,36.0,1240.0,13.0,47.2,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,5,3,False,False,False,False
+Echaporã,São Bernardo,Meia,LAMF,26.0,1215.0,19.0,46.3,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,19.0,0,0,0,6,2,False,True,True,False
+Pedro Vitor,São Bernardo,Meia,RAMF,28.0,1164.0,19.0,44.3,True,False,1,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,6,2,False,True,True,False
+Hyoran,São Bernardo,Meia,AMF,33.0,880.0,19.0,33.5,False,False,1,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,19.0,0,0,0,0,0,,,,
+Daniel Amorim,São Bernardo,Atacante,CF,36.0,846.0,19.0,32.2,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,20.0,0,0,0,0,0,,,,
+Lucas Rian,São Bernardo,Extremo,RWF,26.0,677.0,14.0,25.8,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,14.0,0,0,0,0,0,,,,
+Marcão,São Bernardo,Volante,RDMF,35.0,473.0,15.0,18.0,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,0,0,,,,
+Daniel Davi,São Bernardo,Meia,LAMF,21.0,382.0,13.0,14.6,False,False,1,23/03/2027,,False,False,False,sim,Brazil,False,False,True,13.0,0,0,0,0,0,,,,
+Mário Sérgio,São Bernardo,Lateral,LB,32.0,336.0,6.0,12.8,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,7.0,145.0,23.0,1,0,0,,,,
+Fabrício Daniel,São Bernardo,Atacante,CF,29.0,309.0,11.0,11.8,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,0,0,,,,
+Matheus Salustiano,São Bernardo,Zaga,RCB,33.0,262.0,3.0,10.0,False,False,2,31/03/2027,2027-03-31,False,False,True,sim,Brazil,False,False,False,3.0,0,0,0,0,0,,,,
+Hugo Sanches,São Bernardo,Lateral,RB,32.0,250.0,6.0,9.5,False,False,1,31/03/2027,2027-03-31,False,False,True,sim,Brazil,False,False,False,6.0,0,0,0,0,0,,,,
+Júnior Oliveira,São Bernardo,Goleiro,GK,36.0,150.0,2.0,5.7,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Lucas Fernandes,São Bernardo,Meia,AMF,28.0,138.0,5.0,5.3,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,5.0,4.0,8.0,1,0,0,,,,
+L. Jabá,São Bernardo,Meia,LAMF,28.0,104.0,5.0,4.0,False,False,1,,,False,False,False,sim,Brazil,False,False,False,6.0,0,0,0,0,0,,,,
+Júnior Urso,São Bernardo,Meia,RCMF,37.0,62.0,2.0,2.4,False,False,1,,,False,False,False,sim,Brazil,False,False,False,2.0,0,0,0,0,0,,,,
+Rodrigo Andrade,São Bernardo,Volante,DMF,29.0,42.0,1.0,1.6,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Wellington Manzoli,São Bernardo,Zaga,LCB,25.0,22.0,1.0,0.8,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Breninho,São Bernardo,Meia,RAMF,21.0,19.0,1.0,0.7,False,False,1,,,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+Lucas Reis,São Bernardo,Atacante,CF,25.0,5.0,1.0,0.2,False,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
+João Victor,São Bernardo,Meia,LCMF,21.0,3.0,1.0,0.1,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,1.0,39.0,5.0,1,0,0,,,,
+Helton Leite,Vila Nova,Goleiro,GK,35.0,2539.0,25.0,95.8,True,False,1,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,True,False,,0,0,0,4,1,False,,True,False
+Janderson,Vila Nova,Meia,LAMF,27.0,2279.0,25.0,86.0,True,True,3,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,25.0,0,0,0,6,4,False,False,False,False
+João Vieira,Vila Nova,Volante,RDMF,28.0,2081.0,22.0,78.5,True,True,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,True,23.0,0,0,0,6,3,False,True,False,False
+Marquinhos Gabriel,Vila Nova,Meia,AMF,36.0,2055.0,23.0,77.5,True,True,2,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,23.0,0,0,0,6,3,False,False,True,False
+Higor,Vila Nova,Lateral,LB,21.0,1921.0,22.0,72.5,True,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,23.0,0,0,0,6,3,False,False,True,False
+Tiago Pagnussat,Vila Nova,Zaga,RCB,36.0,1770.0,21.0,66.8,True,True,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,True,True,21.0,0,0,0,5,1,False,False,True,True
+Dudu,Vila Nova,Volante,RDMF,24.0,1685.0,23.0,63.6,True,False,3,30/11/2029,2029-11-30,False,False,True,sim,Brazil,False,False,True,24.0,0,0,0,6,4,False,False,False,False
+Ryan Lima,Vila Nova,Meia,RAMF,25.0,1467.0,19.0,55.3,True,False,1,,2028-11-30,False,False,False,sim,Brazil,False,False,True,18.0,0,0,0,6,3,False,True,False,False
+André Luis,Vila Nova,Atacante,CF,29.0,1319.0,18.0,49.8,True,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,17.0,0,0,0,6,2,False,False,True,True
+Hayner,Vila Nova,Lateral,RB,30.0,1276.0,25.0,48.1,True,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,25.0,0,0,0,6,2,False,False,False,True
+Nathan Camargo,Vila Nova,Lateral,RB,21.0,1147.0,19.0,43.3,False,False,2,30/11/2026,2027-12-31,True,False,False,sim,Brazil,False,False,True,19.0,0,0,0,6,3,False,False,False,True
+Willian Maranhão,Vila Nova,Volante,LDMF,30.0,973.0,15.0,36.7,False,False,3,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,14.0,0,0,0,6,4,False,False,False,False
+Anderson,Vila Nova,Zaga,LCB,31.0,946.0,11.0,35.7,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,9.0,17.0,3.0,1,5,3,False,False,False,False
+Dellatorre,Vila Nova,Atacante,CF,34.0,920.0,15.0,34.7,True,True,3,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,True,True,16.0,0,0,0,6,3,False,False,False,False
+Willian Formiga,Vila Nova,Lateral,LB,31.0,897.0,17.0,33.8,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,True,16.0,0,0,0,0,0,,,,
+Caio Marcelo,Vila Nova,Zaga,LCB,28.0,738.0,10.0,27.8,False,False,1,,2026-11-30,False,True,False,sim,Brazil,False,False,True,10.0,0,0,0,0,0,,,,
+Breno,Vila Nova,Zaga,LCB,24.0,640.0,7.0,24.1,False,False,2,,2027-07-31,False,False,False,sim,Brazil,False,False,True,8.0,0,0,0,0,0,,,,
+Peter Roman,Vila Nova,Zaga,RCB,25.0,466.0,7.0,17.6,False,False,2,,2026-11-30,False,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Everton Galdino,Vila Nova,Meia,RAMF,29.0,461.0,8.0,17.4,False,False,1,30/06/2027,2027-06-30,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Rafa Silva,Vila Nova,Atacante,CF,34.0,432.0,5.0,16.3,False,False,2,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,True,5.0,1.0,21.0,1,0,0,,,,
+Douglas Mendes,Vila Nova,Zaga,RCB,22.0,385.0,4.0,14.5,False,False,1,30/11/2028,2028-11-30,False,False,True,sim,Brazil,False,False,True,4.0,0,0,0,0,0,,,,
+Bruno Xavier,Vila Nova,Meia,RAMF,29.0,265.0,7.0,10.0,False,False,3,30/11/2026,2026-11-30,True,True,True,sim,Brazil,False,False,False,7.0,0,0,0,0,0,,,,
+Higor Meritão,Vila Nova,Volante,LDMF,32.0,259.0,6.0,9.8,False,False,2,30/11/2027,2027-11-30,False,False,True,sim,Brazil,False,False,True,7.0,0,0,0,0,0,,,,
+Igor Cariús,Vila Nova,Lateral,RB,33.0,242.0,4.0,9.1,False,False,2,30/11/2026,2026-12-31,True,True,False,sim,Brazil,False,False,False,4.0,42.0,16.0,1,0,0,,,,
+Gustavo Puskas,Vila Nova,Atacante,CF,18.0,241.0,9.0,9.1,False,False,1,31/12/2028,2028-12-31,False,False,True,sim,Brazil,False,False,False,8.0,0,0,0,0,0,,,,
+Emerson Urso,Vila Nova,Meia,RAMF,25.0,189.0,11.0,7.1,False,False,3,31/12/2027,2027-12-31,False,False,True,sim,Brazil,False,False,False,12.0,0,0,0,0,0,,,,
+Jonathan Costa,Vila Nova,Zaga,RCB,31.0,157.0,2.0,5.9,False,False,3,01/12/2026,2026-11-30,True,True,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Dalberson,Vila Nova,Goleiro,GK,29.0,121.0,2.0,4.6,False,False,3,31/12/2026,2026-12-31,True,True,True,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+R. Esmeraldo,Vila Nova,Zaga,LCB,18.0,22.0,1.0,0.8,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Samuel Lucas,Vila Nova,Zaga,RCB,18.0,16.0,1.0,0.6,False,False,1,,,False,False,False,sim,Brazil,False,False,False,,0,0,0,0,0,,,,
+Ruan Ribeiro,Vila Nova,Meia,LAMF,22.0,16.0,1.0,0.6,False,False,3,,2027-06-30,False,False,False,sim,Brazil,False,False,False,1.0,0,0,0,0,0,,,,
