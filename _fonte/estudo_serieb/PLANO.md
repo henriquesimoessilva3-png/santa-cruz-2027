@@ -5,6 +5,16 @@
 > Este arquivo só diz **em que ordem** e **de quem é cada passo**.
 > Estado detalhado: `_fonte/CONTEXTO_sessao_17_09.md`.
 
+## Onde parar de ler e começar a trabalhar
+
+> **Estado de 20/09/2026, fim do dia.** O portão aceita **14 de 22** partes (eram 1 de manhã) e
+> restam **10 reprovações** (eram 40). As etapas 6, 6b e 8 estão fechadas. A sequência do que fazer
+> está em `_fonte/CONTEXTO_sessao_20_09.md`, seção 2 — comece por lá, não por este quadro.
+>
+> **O primeiro item é uma dívida:** o `confianca_motivo` é hoje o `title=` de um selo, que não
+> rola, não copia e não abre no celular; o de J08-1 tem 4.020 caracteres. Vira um bloco que abre e
+> fecha, e conserta as 70 conclusões de uma vez.
+
 ## A regra de ordem
 
 **Correto e menor antes de grande e duvidoso.**
