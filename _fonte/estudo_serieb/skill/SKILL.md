@@ -163,9 +163,11 @@ pré-declarada**, auditável, nunca escondido no portão.
 
 ## 6. As armadilhas
 
-**Leia `references/armadilhas.md` antes de cruzar bases, antes de publicar número e antes de
-encurtar texto.** São ~25 entradas, cada uma de um erro que aconteceu de verdade, com o sinal de
-que ela está presente e o que fazer.
+**Leia `references/armadilhas.md` antes de cruzar bases, antes de publicar número, antes de
+encurtar texto e antes de dizer que a base não responde.** São ~32 entradas em sete grupos
+(procedência do número · teste e critério · cruzar bases · raspar página · texto e desenho ·
+dizer que a base não responde · processo), cada uma de um erro que aconteceu de verdade, com o
+sinal de que ela está presente e o que fazer.
 
 As cinco que mais custaram:
 
@@ -179,6 +181,24 @@ As cinco que mais custaram:
    nascimento, clube de formação), não com heurística. Antes de listar como ambíguo, pesquise.
 
 ---
+
+## 7. Quando a base não responde
+
+Metade do valor deste método é saber fechar uma pergunta sem resposta, e fechar **bem**. O grupo G
+do catálogo é sobre isso; o resumo:
+
+- **Meça a ausência, não a alegue.** "Esta base não tem X" escrito de memória é a mesma falha que
+  afirmar achado sem rodar teste. Um script que conta transforma isso em conclusão com número.
+- **A busca pelo que falta é generosa de propósito** — ela existe para *achar* o recorte. Escreva
+  no script a lista de nomes que procurou, para quem revisar julgar se ela era honesta.
+- **Nomeie o recorte que existe e não serve.** Uma base pode descer abaixo da unidade por outro
+  eixo (posse, e não tempo) e dar falsa impressão de granularidade.
+- **Escreva o que a ausência NÃO prova** — que o efeito não existe, que ele não separaria, que o
+  fornecedor não venda o dado. Sem essas três frases, a manchete negativa é lida ao contrário.
+- **Fechar é melhor que deixar pendente.** "Não responde com esta base" é conclusão, no formato
+  das outras, com uso prático. Assim ela ganha preço e destinatário: vira **compra**, não análise
+  por fazer.
+- **Declare a lista mesmo assim**, com data. Se a coleta acontecer um dia, a lista é de antes.
 
 ## O exemplo trabalhado
 

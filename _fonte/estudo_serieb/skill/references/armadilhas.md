@@ -271,6 +271,56 @@ que ter a bola faz subir — quando o mesmo vale para quem caiu.
 
 ---
 
+## G. Dizer que a base não responde
+
+### G1. Alegar a falta em vez de medir
+**O que é.** Escrever "esta base não tem X" a partir de memória, de um comentário antigo ou de uma
+olhada no schema.
+**Como aparece.** A frase fica num arquivo de método por semanas e ninguém confere. É a mesma
+falha de afirmar achado sem rodar teste — os dois são alegação —, só que ninguém a trata assim,
+porque ausência parece barata de verificar.
+**O que fazer.** Um script que **conta**. No caso real: 0 colunas de período em 88, e 0 chaves com
+recorte de tempo em 31 da resposta crua da API, lidas sobre 3.616 linhas. Aí "não responde" vira
+conclusão, com número e com n.
+
+### G2. A busca que foi feita para não achar
+**O que é.** Procurar o recorte ausente com uma lista curta de nomes.
+**O que fazer.** A lista de busca é **generosa de propósito** — no caso: `period`, `half`, `1st`,
+`2nd`, `phase`, `segment`, `window`, `quarter`, `tempo` e as faixas de 15 min. Ela existe para
+**achar** o recorte. Se achar, ótimo: a pergunta roda. Escreva a lista no script, para quem
+revisar poder julgar se ela era honesta.
+
+### G3. O recorte que existe e não é o que você precisa
+**O que é.** A base desce abaixo da unidade principal, mas por outro eixo.
+**Como aparece.** Havia 34 colunas de recorte dentro do jogo — com bola e sem bola. Dá a impressão
+de granularidade, e quem cruzar as duas coisas conclui que "a base tem detalhe dentro do jogo". Tem
+— por **posse**, não por **tempo**, e a pergunta era sobre tempo.
+**O que fazer.** Nomeie o eixo do recorte que existe, no texto, ao lado do que falta. Sem isso a
+próxima pessoa refaz a busca e chega à conclusão errada.
+
+### G4. Escrever o que a ausência NÃO prova
+**O que é.** Manchete negativa lida como resultado positivo ao contrário.
+**Como aparece.** "Esta base não mede o desgaste dentro do jogo" vira, na boca de terceiros, "o
+desgaste dentro do jogo não importa".
+**O que fazer.** Liste explicitamente o que não foi medido: que o efeito não existe, que ele não
+separaria os grupos, que o fornecedor não venda o recorte. Três frases, e elas impedem a leitura
+errada.
+
+### G5. Fechar em vez de deixar pendente
+**O que é.** Deixar a pergunta sem resposta e sem explicação, para sempre.
+**Como aparece.** Vira dívida invisível: ninguém sabe se está parada por falta de dado, de tempo
+ou de interesse.
+**O que fazer.** "Não responde com esta base" é **conclusão**, no mesmo formato das outras, com
+uso prático. Escrita assim ela ganha preço e destinatário: vira uma **compra** (pergunta para o
+fornecedor, com custo), e não uma análise por fazer.
+
+### G6. Declarar a lista mesmo sem rodar
+**O que fazer.** Declare os indicadores que a pergunta *exigiria*, com data, mesmo que ela não
+rode. Se um dia a coleta acontecer, a lista é de antes e a data prova que ninguém escolheu
+indicador vendo resultado. Custa cinco minutos e fecha a porta do garimpo futuro.
+
+---
+
 ## F. Processo
 
 ### F1. O portão só confere quem está na lista dele
@@ -293,6 +343,31 @@ saída declara — não que esse número saiu do dado"*.
 **O que fazer.** Escreva a ordem como comando, com o motivo de cada passo, e siga sempre:
 regenerar dados → regenerar registro → rodar o portão → montar a pasta publicada → **um** commit
 com fonte e publicação juntas → empurrar → conferir que não sobrou nada por empurrar.
+
+### F3b. Levantamento abandonado no meio
+**O que é.** Parar uma coleta e deixar a saída parcial no repositório.
+**Como aparece.** Meses depois alguém acha o CSV com 213 de 1.780 jogos e analisa, sem ver que
+está pela metade. É a mesma armadilha do site no ar com dado velho.
+**O que fazer.** Apague a saída parcial e o cache. Guarde o **coletor** (ele funciona) e marque a
+declaração como **"declarada e NÃO rodada"**, com a decisão e a data. Sem essa marca, quem abrir
+depois vai achar que foi medida.
+
+### F3c. O roteiro que descreve errado o que foi feito
+**O que é.** A tarefa foi cumprida com escopo mudado, e o roteiro continua com a redação antiga.
+**Como aparece.** O item dizia "aposentar as abas" e o que foi feito foi transformá-las em
+material auxiliar, sem apagar nada. Marcar como "feita" sem reescrever a frase deixa o registro
+afirmando algo falso.
+**O que fazer.** Reescreva a descrição junto com o status. Roteiro **desatualizado** a gente
+desconfia; roteiro **errado** a gente acredita.
+
+### F3d. Mudar módulo compartilhado
+**O que é.** Consertar o módulo de método que todas as partes importam.
+**Como aparece.** O conserto é legítimo e a regressão é silenciosa: números de outra parte mudam
+sem ninguém olhar.
+**O que fazer.** Rode **todas** as partes que o importam e compare **célula a célula** — q, d, p,
+selo, n —, não só o arquivo. E cuide do ponto de comparação: uma vez o diff acusou mudança e era
+a cópia de referência que estava velha, não o conserto. Baseline errada assusta à toa e, pior,
+pode tranquilizar à toa.
 
 ### F4. Versão em cache do navegador
 **O que é.** O parâmetro de versão do site deriva do mtime de um arquivo só.

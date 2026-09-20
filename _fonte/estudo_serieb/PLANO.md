@@ -7,6 +7,11 @@
 
 ## Onde parar de ler e começar a trabalhar
 
+> **ESTE QUADRO ESTÁ VENCIDO. O estudo FECHOU em 20/09, à tarde.** 27 de 27 perguntas
+> respondidas e validadas, portão em 27 de 27, zero rascunho, zero pendente, as duas tarefas de
+> tela feitas e a skill (etapa 7) pronta. Leia `_fonte/CONTEXTO_sessao_20_09_tarde.md` — o que
+> resta não é trabalho de análise, são duas COMPRAS de dado, descritas lá.
+
 > **Estado de 20/09/2026, fim do dia.** O portão aceita **14 de 22** partes (eram 1 de manhã) e
 > restam **10 reprovações** (eram 40). As etapas 6, 6b e 8 estão fechadas. A sequência do que fazer
 > está em `_fonte/CONTEXTO_sessao_20_09.md`, seção 2 — comece por lá, não por este quadro.
