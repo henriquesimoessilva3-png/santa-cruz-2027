@@ -6,10 +6,10 @@
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-19 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A10, A11, A12, A13, A14, J01, J02, J03, J04, J07, J08, T01, T02, T03, T04
+   Gerado em: 2026-09-20 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A10, A11, A12, A13, A14, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
- "gerado_em": "2026-09-19",
+ "gerado_em": "2026-09-20",
  "partes": [
   {
    "id": "E00",
@@ -47,7 +47,8 @@ const ESTUDO_SERIEB = {
      "n": "4 temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
      "prova": "A01_regua.csv; A01.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A01-2",
@@ -63,7 +64,8 @@ const ESTUDO_SERIEB = {
      "n": "4 temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
      "prova": "A01_regua.csv; A01.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A01-3",
@@ -79,7 +81,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas fechadas (2022–2025), das quais 16 promovidos e 16 na Trave",
      "prova": "A01_clube_temporada.csv; A01.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "2018–2021 fica fora do recorte (decisão do dono, 17/09): não tem dado físico nem tabela oficial no app, e entra nas conclusões como conferência ao lado, pela coluna pos de dados/serieb_clube_temporada_2018_2021.csv. Faltam 5 jogos na base de 2022–2026, listados em A01_resumo.json: por causa deles a tabela remontada jogo a jogo termina em posição diferente da oficial em 8 de 100 clube-temporadas (2 em 2022, 3 em 2024 e 3 em 2026) — inclusive sobre quem esteve na Trave em 2024. A marca base_incompleta = 1 pega só 3 dessas 8 e ainda marca 10 clubes, dos quais 7 não mudam de posição, porque o jogo que falta desloca o vizinho e é o vizinho que fica sem marca. As conclusões leem a tabela oficial e não mudam; quem lê classificacao_rodada.csv precisa saber disso.",
@@ -109,7 +112,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; 80 clube-temporadas no teste de anterioridade",
      "prova": "A02_testes.csv; _porta_temporal.json, componentes; A02_numeros_novos.json; _metodo_fronteira.md; A02.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A02-2",
@@ -125,7 +129,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; 80 clube-temporadas no teste de anterioridade",
      "prova": "A02_testes.csv; _porta_temporal.json, componentes; A02_numeros_novos.json; _metodo_fronteira.md; A02.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A02-3",
@@ -141,7 +146,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; 16 contra 16 no recorte de 5º a 8º (e 8 contra 7 sem os colados na linha); 80 clube-temporadas na comparação entre as duas metades do ano",
      "prova": "A02_testes.csv; A02_resumo.json, porta_temporal; _porta_temporal.md; A02_numeros_novos.json; A02.md, seção Prova",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "Aplicada em 19/09 a proposta de destino v2 validada pelo dono: A02-1 sobe para firme (a única do estudo, pela conciliação com A05-1), A02-2 inverte a manchete e fica em provável, e A02-3 cai de firme para provável e vai para “Parece, mas não é”. Nenhuma conclusão caiu, nenhuma se fundiu, nenhuma nasceu. Fica em aberto, e não se resolve escrevendo melhor: Sobe x Trave (5º a 8º) continua sem resposta fora do placar redescrito — sem os times de fronteira sobram 8 contra 7 e o desenho só pegaria um abismo (d mínimo 1,57) —, e o recorte por estado do jogo não existe em base nenhuma (conferido nas 346 colunas de serieb_clube_temporada.csv e nas 119 de serieb_jogos.csv), o que só coleta resolve. Pendências fora deste arquivo: A02.md está desatualizado e hoje contradiz este JSON (precisa da tabela dos dois cortes lado a lado); e 36 dos valores de `numeros` estão gravados como string e chegam à tela com ponto decimal, que é uma linha em gerar_estudo_serieb_js.py, não correção de texto. O marcador trave_firmes foi apagado aqui, como a v2 propôs: era o único sem origem em saída de script e nenhum texto o usava. Dono do indicador: pela conciliação, o xG por finalização sofrida é do A02 e o A06 cede a cópia — é o mesmo teste bit a bit, não duas provas defensivas independentes.",
@@ -171,7 +177,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas com todos os times (16 que subiram, 48 do meio — 16 deles na trave — e 16 que caíram); 52 sem os times colados na linha (8, 32 com 7 na trave, e 12)",
      "prova": "A03_testes.csv, família assimetria; A03_resumo.json, quadro_por_faixa; _metodo_fronteira.md",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A03-2",
@@ -187,7 +194,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha",
      "prova": "A03_testes.csv, família casa e fora na comparação SM; A03_resumo.json, quadro_por_faixa; _porta_temporal.md; _metodo_fronteira.md",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A03-3",
@@ -203,7 +211,8 @@ const ESTUDO_SERIEB = {
      "n": "16 do Cai contra 48 do Meio, e 12 contra 32 sem os times colados na linha",
      "prova": "A03_testes.csv, comparação CM; A03_resumo.json, quadro_por_faixa; _metodo_fronteira.md",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "Falta o split-half de confiabilidade do xG sofrido em casa, que é a perna principal do A03-2: as duas medidas por mando que existem (xG criado em casa e xG sofrido fora) estão acima do piso, e esta nunca foi medida em separado — o cálculo é o mesmo já rodado para as outras duas. O A03.py não produz o quadro por faixa no corte sem a fronteira nem a média ao lado da mediana, e por isso a prova dos dois cortes ainda se apoia em recálculo de auditoria; o A03.md também precisa ser refeito, porque publica só tabelas do corte reduzido e brutos que o JSON já não tem. A conclusão da trave segue fora como conclusão: vale num corte só e é placar redescrito, então volta apenas como descrição no A03-1. E xG muda com o placar, que é diferente por mando: sem recorte por estado do jogo, parte do 'sofre mais fora' pode ser 'passa mais tempo perdendo fora'.",
@@ -233,7 +242,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio; sem os times colados na linha, 8 contra 32. A comparação com a trave (5º–8º) fica sem resposta nesta parte: são 16 contra 16 com todos os times e 8 contra 7 sem os colados na linha, um desenho que o próprio método da casa (resultados/_metodo_fronteira.md) declara enviesado entre faixas vizinhas.",
      "prova": "A04_testes.csv, comparacao SM e ST; A04_resumo.json, firme_nos_dois_cortes",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A04-2",
@@ -249,7 +259,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas, todas de 38 jogos: 16 que sobem, 48 do meio (dos quais 16 são a trave) e 16 que caem",
      "prova": "A04_resumo.json, quadro_por_faixa; A04_testes.csv, indicador bp_pro_pct",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A04-3",
@@ -265,7 +276,8 @@ const ESTUDO_SERIEB = {
      "n": "16 rebaixados contra 48 do meio; sem os times colados na linha, 12 contra 32",
      "prova": "A04_testes.csv, comparacao CM; A04_resumo.json, firme_nos_dois_cortes",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "O gol de bola parada não tem versão jogo a jogo nesta base (é agregada por trabalho: treinador + time + competição), então não passa pela porta temporal. Para o duelo aéreo ela É rodável e não rodou: dados/serieb_jogos.csv traz duelos aéreos ganhos por jogo, e esse é o caminho barato para o A04-3 virar firme — A04_indicadores.json prometeu esse teste e não cumpriu. O xG de bola parada existe só para 2025 e 2026 e ficou fora, e pênalti entra na conta como a base o classifica: pênalti sofrido é em boa parte consequência de defender sob pressão, não um traço de bola parada. O A04.md ainda traz o texto antigo e mistura os dois cortes de fronteira numa frase só; ele tem de ser regerado a partir deste arquivo antes de voltar a valer como prova, e por isso saiu do campo prova.",
@@ -295,7 +307,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio (8 contra 32 sem os times a até 3 pontos da linha); a conta do primeiro turno usa os 80 clube-temporadas de 2022–2025",
      "prova": "A05_testes.csv, linhas do indicador posse em Sobe × Meio: com os times de fronteira d 0,521 e q 0,13363; sem eles d 0,689 e q 0,03748. As duas trocas de sinal entre os cortes estão contra a Trave, em ataques posicionais (d -0,496 e +0,291) e passes progressivos (d -0,284 e +0,145). _porta_temporal.json, conferencia_6_4. A05_numeros_novos.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A05-2",
@@ -311,7 +324,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos de 2022 a 2025: 4 com menos da metade da bola (todos a 1 ponto ou menos do 5º) e 8 que subiram com folga",
      "prova": "A05_resumo.json, promovidos e dispersao_por_faixa; A01_clube_temporada.csv, colunas de faixa e fronteira; A05_numeros_novos.json",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "O achado que não coube em nenhuma conclusão: nos dez indicadores, todas as vinte linhas de Sobe × Meio apontam para o mesmo lado nos dois cortes — quem sobe sempre com o valor maior — sem que nenhuma passe no critério; pode ser um efeito real pequeno demais para este desenho enxergar, ou ruído, e a parte não tem como decidir. A ressalva pré-declarada do A05 diz que todos os indicadores passam do piso de confiabilidade de 0,40, e isso não é verdade: só cinco estão medidos, contra-ataques está em 0,36 e quatro nunca foram medidos (comprimento do passe, passes progressivos, passes no terço final, ataques posicionais) — o texto novo não se apoia mais em contra-ataques, mas a ressalva em si continua errada. Falta a camada de conferência: o A05.md não existe, justamente na parte em que havia um selo firme escondido no CSV. E como a A05-1 é negativa, ela não aparece no cartão de “O que decidimos”: onde mora a metade positiva — ter a bola vem antes do resultado — é decisão do dono. Continua valendo que posse e volume de passes mudam com o placar e que a base não permite o recorte por estado do jogo; só coleta resolveria. Agrupamento de times não foi refeito: a §7.1 já decidiu que não há grupos, e o CLAUDE.md proíbe reabrir.",
@@ -341,7 +355,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, com todos os times; 8 contra 32 sem os colados na linha",
      "prova": "A06_testes.csv; _porta_temporal.md; A06_numeros_novos.json",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A06-2",
@@ -357,7 +372,8 @@ const ESTUDO_SERIEB = {
      "n": "8 promovidos contra 7 da trave, sem os colados na linha; 16 contra 16 com todos os times",
      "prova": "A06_testes.csv; _metodo_fronteira.md; _porta_temporal.md",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A06-3",
@@ -373,7 +389,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, com todos os times; 8 contra 32 sem os colados na linha",
      "prova": "A06_testes.csv; _porta_temporal.md; A06_numeros_novos.json",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "Recuperação por altura do campo não existe na base: há o total e a quebra por comprimento de passe, que é outra coisa. Sem ela, “pressiona mais alto” só tem resposta indireta, por PPDA e recuperações totais, e é por isso que essa metade da manchete do A06-1 não pode ser afirmada nem negada; só coleta resolve — vale abrir coleta de recuperações por terço do campo? Contra-ataque sofrido, ao contrário do que esta parte dizia, EXISTE: é a coluna do adversário no mesmo jogo e cobre os 80 clube-temporadas. O bruto já está calculado em A06_numeros_novos.json e a direção é instável entre os dois cortes, então rodá-lo dificilmente muda uma manchete; ainda assim é métrica da pergunta do CLAUDE.md e precisa ser declarado numa família em A06_indicadores.json e rodado por scripts/A06.py, que é quem dá o q e o selo. Não existe distância nem ângulo do chute sofrido em nenhuma coluna da base (só dist_remate, do próprio time), então o mecanismo do “chute pior” fica sem medição e o A06-3 para na descrição. O recorte por estado do jogo não existe em base alguma (o SkillCorner só guarda o período full_all), então a marca “pode ser efeito do placar” não tem como ser levantada sem coleta nova. Pendências de arquivo, fora do texto: para Recuperações não existe medida da porta temporal da §6.4 em arquivo nenhum (rodar scripts/_porta_temporal.py com “Recuperações” resolve); os marcadores porta_rec e porta_posse continuam sendo persistência entre metades da temporada, e não a porta da §6.4, e por isso nenhum texto os usa mais; faltam marcadores para cinco números que o texto novo usa e que são cópia de célula do A06_testes.csv (a mediana do duelo defensivo da trave com todos os times, os dois do duelo aéreo contra a trave no corte cheio e os dois do gol esperado por finalização sofrida sem os colados na linha) — enquanto eles não existirem, esses cinco ficam escritos no texto; o A06.md está desatualizado, publica um intervalo do duelo que não existe em arquivo nenhum e traz só a tabela do corte sem fronteira, precisando ser reescrito com as duas colunas de corte; e o xG por finalização sofrida tem dois q publicados (A02 e A06) para o mesmo teste, o que é decisão de dono por indicador.",
@@ -403,7 +420,8 @@ const ESTUDO_SERIEB = {
      "n": "16 que subiram contra 48 do meio (8 contra 32 sem os times de fronteira); contra a Trave, 16 contra 16 e 8 contra 7; 13 contra 36 quando saem os 20 clube-temporada com menos jogo rastreado. As 80 linhas são 40 clubes.",
      "prova": "A07_testes.csv, comparação SM e ST nos dois cortes de fronteira; A07_numeros_novos.json, tabela_d_rod_q_rod e rodada_sem_cobertura_baixa; A07_resumo.json, poder_por_desenho; A07_indicadores.json, ressalvas_declaradas",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A07-2",
@@ -419,7 +437,8 @@ const ESTUDO_SERIEB = {
      "n": "16 rebaixados contra 48 do meio (12 contra 32 sem os times de fronteira; 11 contra 36 quando saem os 20 clube-temporada com menos jogo rastreado).",
      "prova": "A07_testes.csv, comparação CM nos dois cortes de fronteira; A07_numeros_novos.json, tabela_d_rod_q_rod e rodada_sem_cobertura_baixa; A07_resumo.json, firme_nos_dois_cortes",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "Falta virar arquivo, e não é escolha de método: as colunas d_rod/p_rod/q_rod em A07_testes.csv, a rodada sem os clube-temporada de cobertura baixa e os quatro ρ do rodízio em A07_resumo.json — todos já calculados e conferidos em A07_numeros_novos.json, que é a fonte dos números novos desta parte. Faltam também o A07.md (a prova em texto, que não existe e por isso saiu do campo prova) e o A07_numeros.json que a regra 1 do portão exige: enquanto ele não existir, nenhum marcador desta parte é conferível por máquina. Dois números continuam escritos à mão no texto por não haver marcador para eles: os 30 minutos sem a bola, que são a unidade do indicador, e os 38 jogos da temporada, com que se compara a média de cerca de 15 jogos por atleta que o rastreamento cobre. Decisão que sobe para o dono: copiar ou não o skillcorner.db do Portal Ranking, único caminho para o físico POR JOGO de 2022 a 2024 — sem ele a porta temporal da §6.4 não roda e nenhuma conclusão desta parte passa de provável. Separado disso, o recorte por estado do placar não existe em fonte nenhuma (o SkillCorner só guarda o jogo inteiro), então a ressalva do placar fica como texto, sem número.",
@@ -475,7 +494,8 @@ const ESTUDO_SERIEB = {
      "n": "47 jogadores de quem subiu contra 135 do meio (4 clubes contra 12), só 2025",
      "prova": "A10.md, seção A prova; A10_testes.csv (2025, leitura principal, comparação SM, pilares fisico_*: as 96 linhas, e as 64 da leitura por setor); A10_resumo.json, o_que_cai_antes_de_perguntar_de_quem (medida delta_turno, distance_p90, faixas todos / Sobe / Meio, com o IC por clube e o p contra zero) e porta_temporal",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A10-2",
@@ -491,7 +511,8 @@ const ESTUDO_SERIEB = {
      "n": "20 clubes e 61 jogos curtos em 2025 (280 jogadores); 18 clubes e 75 jogos curtos em 2026 (217 jogadores) — uma temporada fechada e uma parcial",
      "prova": "A10_resumo.json, o_que_cai_antes_de_perguntar_de_quem.medido (2025 e 2026, medida delta_descanso, faixa todos: os oito indicadores físicos, com média, IC por clube e p contra zero) e placar.o_placar_muda_com_o_descanso.medido (ponto por jogo no curto e no normal, nas duas temporadas); A10_resumo.json, o_que_a_temporada_de_2026_pode_testar e confundidor_do_calendario; A10_indicadores.json, seção descanso",
      "status": "removida",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A10-3",
@@ -507,7 +528,8 @@ const ESTUDO_SERIEB = {
      "n": "71 jogadores de quem caiu contra 199 do meio no returno (4 clubes contra 12) e 83 contra 215 no 1º turno; só 2025",
      "prova": "A10_testes.csv, linhas 168 e 200 (2025, principal, jogador_jogo, CM, returno, sprint_count_p90, cortes com e sem fronteira) e 360 / 392 / 424 (o mesmo indicador nos recortes de placar D / E / V) — os cinco ponteiros antigos apontavam para psv99, duas linhas acima; A10_testes.csv na normalização posto_no_ano_x_setor (2025, CM, turno, hi_distance_p90, os dois cortes); A10_resumo.json, nos_dois_cortes e rodizio.atletas_distintos_por_meio",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "Falta a segunda temporada FECHADA. No returno, com físico por jogo só em 2025, nada aqui é “quem sobe” — é “quem subiu em 2025”. No calendário é pior: 2025 e 2026 já dizem o contrário uma da outra, e só 2026 completa desempata (2022–2024 não tem physical_match na fonte). E o descanso de dois clubes (Amazonas e Cuiabá) é, na prática, descanso só de Série B: serieb_jogos.csv não tem nenhum jogo deles fora da competição em 2025 — os dois são Cai e Meio, nenhum é do Sobe.",
@@ -537,7 +559,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas (40 clubes, 2022–2025); 52 sem os times colados nas linhas e 60 só com cobertura física de 0,75 para cima, onde a relação fica mais forte",
      "prova": "A11_correlacoes.csv, família com_bola",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A11-2",
@@ -553,7 +576,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas (40 clubes, 2022–2025); 52 sem os times colados nas linhas, onde a pressão fica igual ou mais forte e as recuperações seguem sem aparecer",
      "prova": "A11_correlacoes.csv, família sem_bola",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A11-3",
@@ -569,7 +593,8 @@ const ESTUDO_SERIEB = {
      "n": "49 das 80 clube-temporadas na estratificação: 4 promovidos contra 18 do meio na faixa técnica média e 12 contra 15 na alta, e a faixa técnica baixa não teve promovido nenhum em 2022–2025; sem os times colados nas linhas sobra a faixa alta, 7 contra 9. Os terços de sprint são 28 contra 28, dentro das mesmas 80 linhas (40 clubes).",
      "prova": "A11_estratificado.csv; A11_correlacoes.csv, família resultado",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "Pendências que não são desta rodada. (1) Quatro números da segunda frase da A11-3 — os 5 promovidos de cada terço extremo de sprint, os 9 rebaixados contra 2 e os 54,5 contra 47,9 pontos — foram calculados na proposta de 19/09, da mesma base e com a mesma regra de terço dos demais, mas não existem em arquivo de resultado nenhum: seguem escritos à mão até o A11.py gravá-los. (2) O selo de firme de metros por minuto sem posse × xG sofrido tem de sair de A11_correlacoes.csv: ele é firme só com os times colados nas linhas e some sem eles. (3) A coluna ic95 do mesmo CSV é Fisher supondo 80 linhas independentes, quando são 40 clubes; os intervalos por reamostragem de clube estão prontos em A11_numeros_novos.json (ic_area_ent e ic_area_xg). (4) O mínimo detectável por correlação (0,31 para as 17 linhas) não está gravado em lugar nenhum. (5) Os quatro números de persistência são literais chumbados em A11.py:153 e saem em A11_resumo.json como se fossem calculados. (6) A A06-1 publica 0,571 e a A11-3 publica 0,129 para o PPDA porque são réguas de horizonte diferente, e nenhuma das duas partes diz de qual régua veio. (7) O A11_resumo.json publica n_meio = 0 na faixa técnica baixa por fallback do next(): o real é 15. (8) O A11.md que a seção Entrega exige continua não existindo, e o A11.py não roda os cortes sem fronteira e sem cobertura baixa, cujos resultados já estão calculados. E o que trava a parte inteira em provável: a porta temporal da §6.4 é impossível enquanto não houver físico por jogo de 2022 a 2024 (o physical_match do skillcorner_serieb.db só tem 2025 e 2026), e não há recorte por estado do jogo, então a ressalva do placar fica como texto, sem número.",
@@ -599,7 +624,8 @@ const ESTUDO_SERIEB = {
      "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; na leitura de quem cai, 16 rebaixados contra 48, e 12 contra 32",
      "prova": "A12_reguas.csv; A12_resumo.json, firme_nos_dois_cortes; A12_numeros_novos.json; _porta_temporal.json; A02_testes.csv; A05_testes.csv; A07_testes.csv",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A12-2",
@@ -615,7 +641,8 @@ const ESTUDO_SERIEB = {
      "n": "22 times na faixa entre 2022 e 2025, 4 casos de origem, e os 20 times de 2026 na 27ª rodada de 38",
      "prova": "A12_cenario_barato.json, envelope; A12_teste_2026.json, baratos_no_perfil_2026; A12_resumo.json, cenario_barato; A12_numeros_novos.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A12-3",
@@ -631,7 +658,8 @@ const ESTUDO_SERIEB = {
      "n": "4 casos, de 2023 a 2025",
      "prova": "A12_cenario_barato.json, envelope; dados/serieb_clube_temporada.csv; A12_numeros_novos.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "Aplicada em 19/09 a proposta de destino v2 validada pelo dono, com a remarcação: A12-1 é reescrita e cai de firme para provável, A12-2 inverte a manchete e A12-3 cai de firme para indício; as duas últimas passam a negativa = true e vão para “Parece, mas não é”. Nenhuma conclusão caiu, nenhuma se fundiu, nenhuma nasceu — a parte continua com três. Os 14 números que a A12-3 digitava à mão e os dez marcadores medidos que nenhuma frase lia foram ligados: agora são 76 valores em numeros, 55 lidos por alguma frase e 21 guardados sem frase que os leia (os doze percentis das réguas, que a Didática proíbe no texto, mais n_reguas, sm_lista, sm_n, separam, nao_separam, depende_do_corte, n26, g4_26 e baratos26). O que ficou escrito está em sem_marcador, item a item.\n\nA ÚNICA REANÁLISE QUE FALTA, e que a v2 pede por escrito: rodar as réguas com e sem os clube-temporada de cobertura física baixa, como o CLAUDE.md manda. C_volume_fisico e D_explosao são só colunas fis_, a cobertura vai de 62% (Grêmio 2022, que é promovido) a 97%, e 20 dos 80 ficam abaixo de 75%. Sem ela, tanto o “não separa” físico quanto a linha nova sobre a explosão de quem cai valem num corte de cobertura só. Fica em aberto também a rodada com e sem os times de fronteira sobre o próprio Cenário Barato: três dos quatro casos de origem são times de fronteira.\n\nPENDÊNCIAS FORA DESTE ARQUIVO, que esta tarefa não pode escrever. (1) scripts/A12.py não grava os dois arquivos citados como prova, A12_cenario_barato.json e A12_teste_2026.json — prova que nenhum script reproduz não é prova; e o A12_cenario_barato.json que está no disco ainda traz os valores velhos (subiram 6, cabem_fora_top8 14, taxa 27,3 e 28,6), que o texto novo já corrigiu para 4, 13, 18,2 e 15,4. (2) A chave “destes_quantos_subiram” aparece duas vezes no dict do A12.py e o segundo valor apaga o primeiro: foi esse bug que gerou os cinco números errados corrigidos em 19/09. (3) O A12.md não existe. (4) A tabela de testes desta parte se chama A12_reguas.csv, e não A12_testes.csv: o portão de nove regras procura o segundo nome e, sem ele, não consegue recalcular o teto de confiança (regra 2) nem conferir os dois cortes de fronteira (regra 3), embora os dois cortes estejam lá, nas 54 linhas do A12_reguas.csv. Renomear ou emitir o alias é decisão do fluxo principal.\n\nDo que já estava aberto antes: ampliar o Cenário Barato dependia de 2018–2021, que saiu do recorte por decisão do dono em 17/09 (não tem dado físico nem tabela oficial no app) — com ele, a coleta de valor do Transfermarkt também precisaria cobrir aqueles anos, e hoje cobre 2022–2026. Agrupamento de times não foi refeito: a §7.1 já decidiu que não há grupos.",
@@ -661,7 +689,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas de 2022 a 2025 (52 sem os times colados nas linhas de corte); 16 rebaixados (12 no corte) e 48 do meio (32 no corte)",
      "prova": "A13_turnos.csv; A13_resumo.json, quadro_por_turno; A13_numeros_novos.json; A01_clube_temporada.csv",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A13-2",
@@ -677,7 +706,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas de 2022 a 2025 (52 sem os times colados nas linhas de corte); 16 acessos e 16 rebaixamentos",
      "prova": "A13_resumo.json, previsibilidade_por_rodada; A13_turnos.csv; A13_numeros_novos.json; A01_clube_temporada.csv",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A13-3",
@@ -693,7 +723,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas de 2022 a 2025 (52 sem os times colados nas linhas de corte); 27 no terço de cima e 28 no terço de baixo do 1º turno",
      "prova": "A13_resumo.json, previsores_do_1o_turno; A13_turnos.csv; A13_numeros_novos.json; A01_clube_temporada.csv",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "A rodada N aqui é o N-ésimo jogo de cada time, não a rodada do calendário — com jogo adiado isso difere da tabela do dia. E os dez clube-temporadas com um jogo faltando na base (A01) entram na conta; a falta é de um jogo em algum ponto e não desloca a trajetória o bastante para mudar a leitura. Continua aberto o que é trabalho de script, e não dado que falte: A13_testes.csv não existe e scripts/A13.py não importa scripts/_metodo.py — por isso A13-1 e A13-2 param em indício e A13-3 só chega a provável, pela porta temporal —, o script não lê a coluna fronteira nem grava os dois cortes, e A13.md, a terceira camada de leitura, ainda não foi escrito.",
@@ -723,7 +754,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clube-temporadas: 16 que subiram, 48 do meio e 16 que caíram; sem os times colados na linha, 8 contra 32",
      "prova": "A14_resumo.json; A14_numeros_novos.json; A01_clube_temporada.csv; A02_testes.csv; A03_testes.csv; A06_testes.csv; A12_reguas.csv; _porta_temporal.md; _cruzar_19_09.md",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "A14-2",
@@ -739,7 +771,8 @@ const ESTUDO_SERIEB = {
      "n": "4 temporadas fechadas, 4 promovidos contra 12 do meio em cada; sem os times colados na linha, 2.022 fica 4 contra 9 e 2.025 fica 2 contra 8, e 2.023 e 2.024 ficam com 1 promovido, sem comparação",
      "prova": "A14_resumo.json, validacao_uma_temporada_de_fora; A14_numeros_novos.json; A01_clube_temporada.csv; _porta_temporal.md",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "A14-3",
@@ -755,7 +788,8 @@ const ESTUDO_SERIEB = {
      "n": "20 times de 2026 na rodada 27, com 11 rodadas por jogar; nas temporadas fechadas, 8 times-temporada em 1º–2º contra 16 em 3º–6º — e, sem os times colados na linha, 6 contra 4",
      "prova": "A14_resumo.json, primeiro_segundo_contra_terceiro_sexto; A14_numeros_novos.json; A01_clube_temporada.csv",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "O índice inclui H_dinheiro, o valor do elenco, que não se escolhe e é a peça de maior efeito: separar a parte escolhível da não escolhível exigiria residualizar pelo valor, e a decisão de 15/09 foi não descontar o dinheiro, só ressalvar. Continuam abertos, fora do alcance desta rodada: (1) resultados/A14.md não existe e A14_testes.csv também não, então o índice nunca entrou numa família de correção e a prova desta parte ainda aponta para o A14_resumo.json de 17/09, que é o do índice de oito componentes; (2) A14.py precisa de uma execução corrigida — prender candidatos() aos arquivos do Bloco A (hoje quebra com KeyError em J03_testes.csv e J08_testes.csv e com TypeError em A10_indicadores.json), tirar I_estabilidade_11, passar as três comparações pelos dois cortes de fronteira (o campo já é gravado e nunca é usado), emitir vn_reg em vez de contar à mão e regravar o A14_resumo.json; (3) a base de 2026 está sem três jogos, um deles do Vila Nova, que é o contraexemplo da A14-3. E duas das sete peças nascem de xG, cuja régua reproduz 30% de si mesma (_cruzar_19_09.md, achado 6).",
@@ -785,7 +819,8 @@ const ESTUDO_SERIEB = {
      "n": "160 clube-temporadas fechadas (2018–2025); 2026, com 20 clube-temporadas em curso, entra à parte e não na conta",
      "prova": "T01_rodada_treinador.csv; T01_numeros_novos.json; base_passagens_temporada.csv; T01.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "T01-2",
@@ -801,7 +836,8 @@ const ESTUDO_SERIEB = {
      "n": "193 treinadores; 113 chegaram a pelo menos uma passagem de dez rodadas ou mais, e 278 das 492 passagens-temporada cruzam esse corte",
      "prova": "T01_rodada_treinador.csv; T01_numeros_novos.json; base_passagens_temporada.csv; T01.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "T01-3",
@@ -817,7 +853,8 @@ const ESTUDO_SERIEB = {
      "n": "492 passagens-temporada em 180 clube-temporadas, 2018–2026 (era 506 em 188)",
      "prova": "T01_rodada_treinador.csv; T01_numeros_novos.json; dados/bola_parada.json; T01_lacunas.json; T01.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "A conferência contra fonte independente foi feita e passa (150 das 157 passagens de dez jogos ou mais do Sofascore, em dados/bola_parada.json). Ficam em aberto duas coisas. Uma: o que o Sofascore tem e a coleta não — Claudinei Oliveira na Ferroviária de 2025 e Fábio Matias no CRB de 2026 —, dentro dos 29 clube-temporadas com buraco de T01_lacunas.json, que somam 62 das 6.608 rodadas jogadas sem treinador conhecido. Outra: scripts/T01_rodadas.py ainda tira a temporada de d.year e, rodado hoje, devolve 506 passagens em 188 clube-temporadas e reescreve base_passagens_temporada.csv com 506 linhas, contra os 492 em 180 publicados aqui; o T01.md também não é reescrito desde 17/09 e discorda destes números. Os dois são decisão do dono, e nenhum deles foi tocado nesta rodada.",
@@ -847,7 +884,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clubes-temporada de 2022 a 2025 (20 com elenco entre os 5 mais caros, 20 do 6º ao 10º, 40 do 11º para baixo); 2026 fica à parte, como teste",
      "prova": "T02_passagem.csv; classificacao_rodada.csv; T02_numeros_novos.json (testes); T02.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "T02-2",
@@ -863,7 +901,8 @@ const ESTUDO_SERIEB = {
      "n": "3 passagens, 2 clubes, 108 rodadas (2022–2025); a passagem no Criciúma de 2026 fica à parte — 26 rodadas de temporada em curso, com Vila Nova 0×2 Criciúma faltando na base",
      "prova": "T02_passagem.csv; T02_treinador.csv; T02_numeros_novos.json (numeros); T02.md, seção Prova",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "T02-3",
@@ -879,7 +918,8 @@ const ESTUDO_SERIEB = {
      "n": "28 treinadores com dois clubes ou mais (2022–2025); 2026 fica à parte, como teste",
      "prova": "T02_passagem.csv; T02_numeros_novos.json (correlacao_T02_3); T02.md, seção Prova",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "O recálculo que a proposta v2 pede ainda não rodou: o scripts/T02.py precisa passar a produzir o ranking de valor por temporada (T02_faixa_valor.csv), os testes pelo scripts/_metodo.py (T02_testes.csv) e as duas contagens em todos os marcadores. Hoje os números estão conferidos e reproduzíveis em T02_numeros_novos.json, mas o script da parte não os grava — e por isso o selo de provável da T02-1 não pode ir à tela. Falta também gravar em arquivo a contagem da 10ª rodada em diante na unidade clube-temporada e os quatro cortes da T02-2 e da T02-3, que só existem na conferência da proposta. A porta temporal não é passável nesta parte: o valor do elenco é instantâneo de temporada e não tem versão por turno, então o saldo de xG e o ponto por jogo entram como descrição, nunca como critério. Duas heranças a acertar fora daqui: o pedido do _cruzar de marcar a T02-1 como negativa morre na reescrita (a metade negativa “não o nome do treinador” saiu da manchete porque nunca foi testada, e a negativa da parte continua sendo a T02-3), e o T04-2 copia de T02 a frase “dos 34 multiclube, 9 variam 50 pontos ou mais”, que no recorte fechado vira 28 e 8 — arrumar T02 sem arrumar T04 deixa a aba com dois números que não existem mais.",
@@ -909,7 +949,8 @@ const ESTUDO_SERIEB = {
      "n": "28 treinadores em dois clubes ou mais, dentro de 126 passagens de 10 rodadas ou mais (64 treinadores), 2022–2025; 10 deles entram com um único par de clubes, e são 102 os pares entre clubes distintos. Com a temporada em andamento dentro seriam 34 em 151. A base de comparação do acaso são as 126 passagens inteiras, e não só as dos que trabalharam em mais de um clube.",
      "prova": "T03_passagens.csv; T03_resumo.json; T03_numeros_novos.json, chave bh_familia_7",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "T03-2",
@@ -925,7 +966,8 @@ const ESTUDO_SERIEB = {
      "n": "66 trocas em 51 clube-temporadas (31 clubes), 2022–2025 — as janelas se sobrepõem, porque o “depois” de uma troca vira o “antes” da seguinte, e 14 clube-temporadas entram com duas ou três trocas. Com a temporada em andamento dentro seriam 73. O placebo são 75 passagens de um treinador só, cortadas ao meio com 8 jogos ou mais de cada lado.",
      "prova": "T03_antes_depois.csv; T03_numeros_novos.json, chave bh_ad",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "O item em aberto de verdade é o conjunto de traços: os sete não são “o índice do A14” — o xG não entra em régua nenhuma do índice, o xG sofrido só entra numa régua que o A14 descartou, e dois traços calculáveis jogo a jogo (xG sofrido em casa e duelo defensivo ganho em casa) ficaram de fora mesmo havendo cobertura, com mediana de nove jogos em casa por passagem. Trocar os traços obriga a rodar scripts/T03.py de novo e muda de uma vez todos os números desta parte, então é pedido separado. Continuam por escrever resultados/T03_testes.csv, com os sete q de cada família (já calculados em T03_numeros_novos.json), e resultados/T03.md, que a seção Entrega de cada parte exige; e o antes-e-depois compara o treinador novo com o anterior no mesmo elenco, não com uma contrafactual do mesmo treinador.",
@@ -955,7 +997,8 @@ const ESTUDO_SERIEB = {
      "n": "30 treinadores com 30 rodadas ou mais, em passagens de 10 rodadas ou mais e não interinas, nas quatro temporadas fechadas (2022–2025); Eduardo Baptista com 3 passagens, 2 clubes e 108 rodadas. 2026 entra só como teste.",
      "prova": "T02_passagem.csv, colunas pct_g4 e pct_g4_apos_10, recortadas para 2022–2025 pelas colunas em_curso e base_incompleta, que o scripts/T04.py não lê; A01_clube_temporada.csv, para a posição, os pontos e a distância ao 4º de cada temporada; T04_numeros_novos.json, chave numeros, com o de onde e o segundo caminho de cada valor; T04_resumo.json, chave lista_completa, que já traz o piso e a média lado a lado. O índice de perfil do T03 é percentil e fica só aqui, como descrição do clube-temporada nas 7 medidas do T03 — 73,6 na média das três passagens e 56,1 na pior —, nunca como perfil alinhado do treinador. Sensibilidade do corte de rodadas em _robustez_19_09.json, chave subamostras_rodadas, refeita só nas fechadas: em 20 rodadas a lista vai a 44 nomes e ele cai para o 5º; em 40 e em 60 rodadas ele é o 1º.",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "T04-2",
@@ -971,7 +1014,8 @@ const ESTUDO_SERIEB = {
      "n": "126 passagens de 64 treinadores nas temporadas fechadas, 28 deles em dois clubes ou mais, e 66 trocas no meio da temporada (com 2026: 151 passagens, 69 treinadores, 34 multiclube e 73 trocas).",
      "prova": "T02_passagem.csv, coluna pct_g4, para a amplitude entre a melhor e a pior passagem de cada treinador; T03_passagens.csv e T03_resumo.json, chave nulo_dois_quaisquer, para a repetição do perfil entre clubes; T03_antes_depois.csv, colunas jogos_antes e jogos_depois, para as trocas no meio da temporada; T04_numeros_novos.json, chaves dmin_multi, dmin_antes_depois e conf_tracos: o desenho entre clubes só detecta 0,48 e mediu 0,27, o pareado do antes e depois só detecta 0,33, e 3 dos 7 traços ficam abaixo do piso de 0,40 de confiabilidade.",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "Falta o T04.md com a lista de 3 a 5 nomes, pontos fortes, riscos e amostra de cada um — agora nas duas ordens (pior passagem e média) e com a coluna de acessos ao lado do tempo no G4. O perfil ideal descrito em réguas continua sendo o índice do A14, que só se sustenta em duas das quatro temporadas, e o scripts/T04.py não abre arquivo nenhum do A14. O script também não recorta a temporada em curso (não lê em_curso nem base_incompleta) e não grava T04_numeros.json: os valores desta rodada vêm de T04_numeros_novos.json, conferidos por dois caminhos, e o script precisa ser rerrodado para produzi-los. Alguns números do texto continuam escritos à mão por não haver marcador — 48,5% e os 5 clubes de Enderson Moreira, os 21 dos 30 e os 9 com quatro passagens ou mais, os 14, 10 e 2 dos acessos, e as 126 passagens de 64 nomes das temporadas fechadas no T04-2 —, e o 48,5% é decimal, então o portão vai reprovar a regra 1 até ele ganhar marcador. Disponibilidade e custo dos nomes ficam para validação externa.",
@@ -1001,7 +1045,8 @@ const ESTUDO_SERIEB = {
      "n": "3.160 jogador-temporadas (2022-2025)",
      "prova": "J01_numeros_novos.json, chave corte_por_posicao — o percentil 75 da fatia de minutos em cada posição, com o n de cada grupo (Extremo 653, Lateral 559, Meia 529, Zaga 485, Atacante 474, Volante 244, Goleiro 216) — e as chaves reg_gk, reg_zag, reg_atk, reg_ext, altos_pos e reg_pos; dados/minutagem_serieb.json (colunas ano, grupo e fatia_pct), recorte 2022-2025. No corte único ficam 457 linhas acima da régua e 90 regulares; no corte por posição, 795 e 215, e os dois pares usam o mesmo sinal (fatia maior ou igual ao corte).",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "J01-2",
@@ -1017,7 +1062,8 @@ const ESTUDO_SERIEB = {
      "n": "1.974 de minutagem baixa e 348 de minutagem alta, com ponte ao Transfermarkt (2022-2025)",
      "prova": "J01_numeros_novos.json, chaves les_alta_base, les_alta_n, les_alta_dias e les_dmin (o cálculo de poder da §6.7 aplicado a proporção, com o h de Cohen); recorte 2022-2025. A ponte de lesão liga dados/serieb_elencos.csv (colunas jogador, ano e id_jogador) a dados/serieb_lesoes.csv (colunas dias_2022 a dias_2025): 1.974 linhas de minutagem baixa e 348 de alta casam, 838 ficam sem ficha. Das 2.322 casadas, 43 casam só por nome e ano, sem o clube, e 5 delas têm ficha de lesão — o docstring do script promete nome, clube e ano, e o código casa só nome e ano.",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J01-3",
@@ -1033,7 +1079,8 @@ const ESTUDO_SERIEB = {
      "n": "80 clubes-temporada (2022-2025): 16 que subiram, 48 do meio e 16 que caíram; sem os times de fronteira, 8, 32 e 12",
      "prova": "J01_numeros_novos.json, chave rob_j01_3: jogadores usados Cai × Meio d +1,10 e q 0,0037 com os times de fronteira, d +1,18 e q 0,0120 sem; Sobe × Meio não separa em corte nenhum (p 0,1633 e 0,2237). Fatias altas Cai × Meio d -0,70 e q 0,0191 com, d -0,87 e q 0,0151 sem; fatias altas Sobe × Meio só separa com os times de fronteira (p 0,0143 contra 0,1138 sem) e sai pela regra 4 do _metodo_fronteira.md. Leitura que a prova fixa: as células sem fronteira só batem com o posto RECALCULADO depois de tirar as 28 linhas de fronteira; calculando sobre os 20 times do ano e filtrando depois, a leitura é a mesma e os quatro valores mudam (usados Cai × Meio d +1,09 e p 0,0034; altos Cai × Meio d -0,88 e p 0,0063; altos Sobe × Meio p 0,1601; usados Sobe × Meio p 0,2117). Menor efeito detectável do desenho: 0,82 em 16 × 48 e 0,97 em 12 × 32. Base: resultados/A01_clube_temporada.csv (coluna faixa e marca de fronteira) e dados/minutagem_serieb.json (colunas ano, time e fatia_pct), com o nome do clube passado pela ponte resultados/T01_ponte_clubes.json.",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "A ponte com a base de lesões cobre 73% das linhas do recorte 2022-2025: das 3.160, 838 ficam sem ficha — 372 sem id do Transfermarkt e 466 com nome ambíguo (dois ou mais ids para o mesmo nome no mesmo ano), listados e nunca adivinhados. Resolver isso exige o módulo de identidade da §1.1, que não foi construído aqui. E o Wyscout corta o export em 500 linhas por temporada, então quem jogou muito pouco pode faltar na base — temporada sem dado não conta como minutagem baixa. Três dívidas de execução ficam abertas, todas fora deste arquivo: (1) scripts/J01.py continua rodando 2022-2026 e sem a ponte de clube, e não produz os números desta versão — eles vêm de J01_numeros_novos.json (19/09), e quem reexecutar a parte hoje regrava a prova com os valores antigos e entrega a J03-J06 uma base com 2026 dentro e o Athletico-PR 2025 sem faixa; (2) não existem a tabela de testes da parte nem a lista de indicadores pré-declarada, que é o que o esforço de reanálise de J01-3 tem de produzir; (3) o J01_resumo.json ainda está gravado em 2022-2026, e por isso saiu do campo prova das três conclusões até ser regravado no recorte que vale. Fica aberto também um conflito entre partes, que não cabe neste arquivo: a conciliação da v2 (J01-3, J02-3 e A07-2) decide que o dono da contagem de jogadores usados é o J02, que a mede com teste (47 contra 38, medianas), e que o par 45,6 contra 38,4 desta parte sai quando o J02-3 entrar, passando J01 a importá-lo por marcador. Aqui o texto foi aplicado como a v2 o escreveu em propostas.J01; a troca mexe em três arquivos e cabe ao fluxo principal.",
@@ -1063,7 +1110,8 @@ const ESTUDO_SERIEB = {
      "n": "79 de 80 clube-temporadas, 2022–2025",
      "prova": "J02_resumo.json, chave quadro_por_faixa e o n da base. J02_testes.csv, familia continuidade: min_de_contratado_pct em Sobe × Meio dá q 0,48320 com fronteira e 0,25284 sem, selo “sem diferença clara” nos dois — nenhuma linha de teste sustenta a contagem geral, que não é comparação. J02_numeros_novos.json, chave contr_geral: o de_onde do nível geral (mediana das 79 linhas, conferida por três caminhos — 69,8478 no valor cheio, 68,5516 no agregado por minutos) e do mesmo corte sem os times de fronteira (69,6485). _porta_temporal.md, seção 4, para a medida de elenco não ser partível por turno.",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "J02-2",
@@ -1079,7 +1127,8 @@ const ESTUDO_SERIEB = {
      "n": "15 que subiram contra 48 do meio; sem os times de fronteira, 7 contra 32",
      "prova": "J02_testes.csv, familia continuidade: min_de_quem_ficou_pct em Sobe × Meio, com fronteira 27,017 contra 32,335 (d -0,328, q 0,32213) e sem fronteira 20,277 contra 31,218 (d -0,709, q 0,25284) — o cru e o efeito saem sempre da mesma linha, nunca de cortes trocados. Poder: a menor diferença detectável é d 0,84 com fronteira e 1,20 sem, contra um maior efeito observado de 0,709 na mesma família. Sobe × Trave da mesma medida, e do seu espelho min_de_contratado_pct, é firme só SEM os times de fronteira (20,277 contra 42,207, d -1,369, q 0,04002) e não com eles (d -0,708, q 0,09151); firme só num corte é suspeito e não é publicado, pela regra escrita em _metodo_fronteira.md.",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J02-3",
@@ -1095,7 +1144,8 @@ const ESTUDO_SERIEB = {
      "n": "15 que subiram e 16 rebaixados contra 48 do meio; sem os times de fronteira, 7 e 12 contra 32",
      "prova": "J02_testes.csv, familia concentracao: em Sobe × Meio, share_11 (q 0,00280 com fronteira e 0,01745 sem) e conc_hhi (0,00479 e 0,01745) são os dois únicos indicadores da parte com poder suficiente no corte cheio, e atletas usados não separa em corte nenhum (0,21439 e 0,28266), que é a última frase do texto. Em Cai × Meio são firmes nos dois cortes share_11 (0,01134 e 0,00116), atletas_usados (0,00268 e 0,00312), nucleo_300 (0,00268 e 0,00244) e min_de_quem_ficou_pct (0,03038 e 0,04028). Discordam entre os cortes, e por isso ficam fora do texto, nucleo_300 em Sobe × Meio — firme só com fronteira (d 0,672, q 0,02321) e não sem (d 0,656, q 0,12929) — e jogadores_que_ficaram_pct em Cai × Meio, também firme só com fronteira (d -0,579, q 0,04988) e não sem (d -0,57, q 0,12204). A inversão que tirou o superlativo da manchete: sem os times de fronteira quem menos mantém passa a ser o Sobe (20,277) e não o Cai (22,301), e o espelho vira junto (com fronteira, minutos de contratado dá Cai 75,911 contra Sobe 72,983; sem, Sobe 79,723 contra Cai 77,699). _porta_temporal.md, seção 4: a régua I não é partível por turno, e o número circular (valor da temporada inteira contra os pontos do 2º turno) dá parcial +0,202, p 0,0720. J01.json, chave numeros, para cai_altos e sobe_altos.",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "Os sete indicadores da parte são consequência do resultado — a régua I e também a continuidade, que é pctFicou e novos na constante CONSEQUENCIA de ranking_gaps.py: a parte descreve o campeonato e nenhuma das três conclusões vira critério de contratação. Faltam duas rodadas de manutenção: a ponte de clube do T01 é aplicada só do lado dos elencos, então Athletico-PR 2025 some invisível no `if not js: continue` do J02.py em vez de sair por cobertura (mesmos números, descarte visível, e fora_por_cobertura deixaria de ser vazio); e a cobertura da ponte, declarada como subamostra, tem só um piso duro e nunca foi rodada com um piso mais alto. Falta ainda o resultados/J02.md que a seção Entrega de cada parte exige.",
@@ -1125,7 +1175,8 @@ const ESTUDO_SERIEB = {
      "n": "723 titulares — 179 de quem sobe contra 544 do meio — em 7 setores, 2022–2025; sem os times colados na linha de acesso, 456 titulares (91 contra 365)",
      "prova": "J03_testes.csv; J03_resumo.json; J03_numeros_novos.json; _robustez_19_09.md; _metodo_fronteira.md",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J03-2",
@@ -1141,7 +1192,8 @@ const ESTUDO_SERIEB = {
      "n": "no time, 16 temporadas de quem sobe contra 48 do meio (8 contra 32 sem os times colados na linha); no jogador, 723 titulares em 7 setores (456 sem esses times)",
      "prova": "J03_testes.csv; A06_testes.csv; _porta_temporal.md; _robustez_19_09.md; J03_numeros_novos.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J03-3",
@@ -1157,7 +1209,8 @@ const ESTUDO_SERIEB = {
      "n": "16 goleiros de quem sobe contra 48 do meio no recorte cheio; 8 contra 32 sem os times colados na linha de acesso",
      "prova": "J03_testes.csv; J03_resumo.json; _robustez_19_09.md; _metodo_fronteira.md; J03_numeros_novos.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     }
    ],
    "em_aberto": "Dois indicadores foram declarados com nome que não existe na base e a emenda está datada em J03_indicadores.json: “Dribles bem sucedidos, %” virou “Dribles com sucesso, %” (mesma métrica) e “Perdas de bola/90” NÃO existe — foi substituído por “Acções atacantes com sucesso/90”, o que troca um indicador de erro por um de acerto. Não há medida de perda de bola nesta base. Falta o rerun que o próprio J03 nunca fez: acrescentar a coluna de fronteira e a opção de normalizar por posição, rodar os quatro cruzamentos e regravar J03_testes.csv com ic95 e poder. Enquanto ele não acontece, os números do corte sem fronteira citados no texto (456 titulares, 91 contra 365, 78,9/77,8 e 79,5/78,1 do lateral, 61,7/59,9 do time, 97,9/88,6 e 1,4/2,1/1,7 do goleiro) continuam escritos à mão, porque não existe marcador para eles em J03_numeros_novos.json nem em nenhuma saída de scripts/J03.py — estão registrados em _robustez_19_09.md e em _auditoria_18_09.json. Falta dado, também, para o selo algum dia subir: serieb_tecnico.csv é fechado por temporada, e sem export do Wyscout de jogador por turno (o Portal Ranking teria?) a porta temporal da §6.4 não roda em NENHUMA conclusão do J03 — o teto do bloco fica em “provável” para sempre.",
@@ -1187,7 +1240,8 @@ const ESTUDO_SERIEB = {
      "n": "697 titulares com físico, de 907 no recorte 2022–2025; de 8 a 28 de quem sobe em cada posição, conforme o corte",
      "prova": "J04.md; J04_testes.csv; J04_resumo.json (nao_separa_nao_e_nao_existe); _robustez_19_09.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J04-2",
@@ -1203,7 +1257,8 @@ const ESTUDO_SERIEB = {
      "n": "volante: 21 contra 50 (quem sobe contra o meio); zaga: 13 contra 54 — 11 contra 51 sem as linhas de identidade marcada e 9 contra 43 sem os clubes de cobertura baixa",
      "prova": "J04_testes.csv; J04_resumo.json (achados_sobe_x_meio); _metodo_fronteira.md; _robustez_19_09.json",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J04-3",
@@ -1219,7 +1274,8 @@ const ESTUDO_SERIEB = {
      "n": "180 titulares em 2025, só jogos de 60 minutos ou mais",
      "prova": "J04_resumo.json (porta_temporal); J04_resumo.json (sensibilidade_60_minutos); ESPECIFICACAO.md §4.3",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "A porta temporal não roda: sem físico por jogo em 2022–2024 não há como dizer se o físico vem antes do resultado ou é consequência dele, e o buraco é do SkillCorner, não da cópia — só coleta resolve. A pergunta que decidiria: o Portal Ranking tem físico por jogo dessas três temporadas no skillcorner.db, ou o buraco é da própria coleta do fornecedor? Fica pendente também a unidade do BH: o cálculo rodou com a família partida por setor (pré-declarado, como em J03), e pela §6.3 da especificação, que vale onde diverge, zero dos 204 testes passam — é ela que decide se J04 tem 5 achados ou nenhum, e precisa ser resolvida antes de J05. Consequência para fora da parte: com J04-1 em indício e J03-1 também em indício, J05 recebe os dois pilares — técnico e físico — como resultado negativo fraco, não como fato assentado. E o que decidiria a zaga de J04-2 é prova de clube antes de 2025: 1.871 das 2.982 linhas (63%) não têm nenhuma, porque physical_match só existe de 2025 em diante e é o rótulo de clube que define Sobe, Meio ou Cai.",
@@ -1231,26 +1287,130 @@ const ESTUDO_SERIEB = {
    "bloco": "J",
    "secao": "Quem contratar",
    "pergunta": "Quais 4 a 6 métricas definem o jogador ideal em cada posição?",
-   "status": "pendente",
-   "titulo": null,
-   "tipo": null,
-   "conclusoes": [],
-   "em_aberto": null,
+   "status": "rascunho",
+   "titulo": "Perfil ideal por posição, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "J05-1",
+     "parte": "J05",
+     "bloco": "J",
+     "manchete": "A base só sustenta um perfil que descreve o titular de quem subiu",
+     "o_que_vimos": "Rodamos 74 comparações do titular de quem subiu contra o do meio, em 7 posições, e nenhuma resiste aos dois recortes. A ficha que sai daí tem de 4 a 6 métricas por posição e diz como era quem subiu.",
+     "para_o_santa_cruz": "A ficha de cada posição vai para J06 como descrição, com três notas separadas — física, de duelo e de estilo —, que a especificação proíbe somar num número só. Ela serve para descartar quem está longe do que o titular de quem subiu era, nunca para prometer acesso a quem está perto. Das 39 métricas da ficha curta, 32 têm piso e 7 entram sem piso nenhum, porque quem subiu não estava acima da mediana da liga naquele número — e inventar exigência ali seria escrever número que o dado não tem.",
+     "premissa": "p20",
+     "premissa_motivo": "Contradiz. A p20 monta um índice geral pela média dos grupos; a §8.2 proíbe somar as notas num número único, porque as coberturas são diferentes e a soma esconde justamente o que custou mais caro para descobrir — que o físico viaja com o jogador e o estilo técnico não. J05_perfil.csv tem uma linha por indicador e nenhuma coluna de nota somada.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) Correção para múltiplos testes a 5%, com a família da §6.3 (bloco × comparação × corte, sem partir por setor — a correção que a conferência de 19/09 pediu a J03 e J04): dos 74 testes Sobe × Meio no corte com fronteira, 1 passa no BH e 0 passam nos dois cortes; em Sobe × Cai são 0 de 54. (b) Porta temporal: NÃO roda. O técnico do Wyscout é agregado por temporada e o físico por jogo tem zero linha em 2022–2024, os mesmos motivos de J03 e J04 — por isso o teto declarado antes de rodar já era indício. (c) Poder por desenho: o menor d detectável a 80% vai de 0,58 a 1,19 e o maior efeito físico observado em Sobe × Meio é 0,72; “não separa” aqui quer dizer “este desenho não conseguiria ver”. (d) Os dois cortes de fronteira, os dois relatados: sem os times de fronteira mudam de lado ou de selo: Tempo até atingir o sprint (s) no Lateral (SC, d 0,20 contra -0,04); Passes certos, % no Meia (SC, d -0,01 contra 0,06); Duelos aéreos ganhos, % no Volante (SC, d 0,13 contra -0,09); Dribles com sucesso, % no Zaga (SC, d -0,25 contra 0,09); Dribles com sucesso, % no Atacante (SM, d -0,06 contra 0,15); Duelos defensivos ganhos, % no Atacante (SM, d -0,03 contra 0,01); Passes progressivos/90 no Atacante (SM, d 0,00 contra -0,03); Tempo para girar 90 graus (s) no Atacante (SM, d 0,12 contra -0,17); Arrancadas explosivas até o sprint por 90 min no Extremo (SM, d 0,24 contra -0,10); Tempo até a alta velocidade depois de mudar de direção (s) no Extremo (SM, d 0,19 contra -0,27); Dribles com sucesso, % no Goleiro (SM, d -0,20 contra 0,02); Duelos aéreos ganhos, % no Goleiro (SM, d 1,06 contra 0,68); Duelos aéreos ganhos, % no Lateral (SM, d -0,21 contra 0,05); Duelos defensivos ganhos, % no Lateral (SM, d -0,11 contra 0,26); Arrancadas explosivas até o sprint por 90 min no Lateral (SM, d 0,06 contra -0,04); Duelos aéreos ganhos, % no Meia (SM, d -0,26 contra 0,03); Toques na área/90 no Meia (SM, d 0,12 contra -0,02); Sprints por 90 min no Meia (SM, d 0,01 contra -0,06); Dribles com sucesso, % no Volante (SM, d 0,12 contra -0,28); Duelos aéreos ganhos, % no Volante (SM, d 0,07 contra -0,20); Dribles com sucesso, % no Zaga (SM, d -0,11 contra 0,21). (e) O único teste que cruza a régua é a bola alta do goleiro (q 0,006 com fronteira, 0,337 sem), que J03-3 já descartou: é porcentagem sobre um punhado de duelos, e o piso dela sai em 100%, que é o teto da escala. (f) Confiabilidade: o percentil técnico do Wyscout é agregado de temporada, sem split-half medido nesta unidade; o físico do SkillCorner tem ρ 0,72–0,90 de um ano para o outro (§4.3), e é por isso que a nota física pesa mais que a de estilo. (g) Placar: nenhum indicador da lista está na lista branca de resultado da §3.",
+     "n": "907 titulares com dado técnico e 697 com dado físico, 2022 a 2025; 256 linhas de teste nos dois cortes",
+     "prova": "J05.md; J05_testes.csv; J05_perfil.csv; J05_resumo.json",
+     "status": "rascunho",
+     "negativa": false,
+     "grafico": null
+    },
+    {
+     "id": "J05-2",
+     "parte": "J05",
+     "bloco": "J",
+     "manchete": "Metade do perfil físico que o app já usa não sobrevive à correção",
+     "o_que_vimos": "Dos 18 números que formam o perfil físico por setor, 9 passam na conta que corrige os muitos testes. Na zaga e no lateral não passa nenhum dos 4. E esse perfil compara quem sobe com quem cai, nunca com o meio.",
+     "para_o_santa_cruz": "O perfil físico por setor que a tela mostra hoje descreve quem subiu contra quem caiu, e não pode virar filtro de acesso. Na zaga e no lateral ele descansa em 4 números que a correção derruba, então ali a ficha entra com ressalva escrita e o peso da nota física cai. Nas outras posições ele continua servindo para descartar quem está longe do padrão de corrida da posição, que é o que o dado físico sabe fazer.",
+     "premissa": "m1",
+     "premissa_motivo": "Ajusta. A intensidade continua critério de escolha dentro da posição, mas não é sinal de acesso: não separa quem sobe do meio e, nesta base de titulares, também não separa quem sobe de quem cai.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) A conta é do próprio app, relida: em etapa_13.criterio_por_setor o critério de entrada é `p_clube < 0,05` — o p cru do teste corrigido por clube da §4.4 —, e dos 18 indicadores escolhidos só 9 têm `bh_clube` verdadeiro em sobecai_corrigido_por_clube (zaga 0 de 1, lateral 0 de 3, meio 3 de 6, ataque 6 de 8; os q_clube de cada um estão em J05_resumo.json). (b) Rodando os MESMOS indicadores na base de titulares de 2022–2025: Sobe × Cai dá 0 de 18 no BH e Sobe × Meio dá 0 de 32; o maior efeito observado em Sobe × Cai é 0,67, abaixo do menor d detectável deste desenho (0,71 a 1,19 nas linhas de Sobe × Cai). Isto NÃO é replicação do teste do app: ele compara 56 contra 75 atletas rastreados por setor, e aqui a unidade é o titular, 1 ou 2 por clube. (c) Os dois cortes de fronteira, os dois relatados: sem os times de fronteira mudam de lado ou de selo: Tempo até atingir o sprint (s) no Lateral (SC, d 0,20 contra -0,04); Passes certos, % no Meia (SC, d -0,01 contra 0,06); Duelos aéreos ganhos, % no Volante (SC, d 0,13 contra -0,09); Dribles com sucesso, % no Zaga (SC, d -0,25 contra 0,09); Dribles com sucesso, % no Atacante (SM, d -0,06 contra 0,15); Duelos defensivos ganhos, % no Atacante (SM, d -0,03 contra 0,01); Passes progressivos/90 no Atacante (SM, d 0,00 contra -0,03); Tempo para girar 90 graus (s) no Atacante (SM, d 0,12 contra -0,17); Arrancadas explosivas até o sprint por 90 min no Extremo (SM, d 0,24 contra -0,10); Tempo até a alta velocidade depois de mudar de direção (s) no Extremo (SM, d 0,19 contra -0,27); Dribles com sucesso, % no Goleiro (SM, d -0,20 contra 0,02); Duelos aéreos ganhos, % no Goleiro (SM, d 1,06 contra 0,68); Duelos aéreos ganhos, % no Lateral (SM, d -0,21 contra 0,05); Duelos defensivos ganhos, % no Lateral (SM, d -0,11 contra 0,26); Arrancadas explosivas até o sprint por 90 min no Lateral (SM, d 0,06 contra -0,04); Duelos aéreos ganhos, % no Meia (SM, d -0,26 contra 0,03); Toques na área/90 no Meia (SM, d 0,12 contra -0,02); Sprints por 90 min no Meia (SM, d 0,01 contra -0,06); Dribles com sucesso, % no Volante (SM, d 0,12 contra -0,28); Duelos aéreos ganhos, % no Volante (SM, d 0,07 contra -0,20); Dribles com sucesso, % no Zaga (SM, d -0,11 contra 0,21). (d) Porta temporal: não roda, mesmo motivo de J04. (e) O corte de fronteira derrubou 20 testes por falta de n, e eles saíram dos DOIS lados para que a tabela comparasse a mesma coisa nos dois cortes.",
+     "n": "18 indicadores do perfil do app sobre 138 testes de sobe × cai por setor; 32 testes físicos Sobe × Meio e 18 Sobe × Cai nesta parte",
+     "prova": "J05.md; J05_resumo.json; J05_testes.csv; prototipo.json",
+     "status": "rascunho",
+     "negativa": true,
+     "grafico": null
+    },
+    {
+     "id": "J05-3",
+     "parte": "J05",
+     "bloco": "J",
+     "manchete": "O único requisito que a base sustenta é minutagem alta e regular por posição",
+     "o_que_vimos": "O corte de minutos muda com a posição, de 64,7% no goleiro a 34,2% no atacante. Com ele, as quatro temporadas devolvem 215 jogador-temporadas de minutagem alta e repetida.",
+     "para_o_santa_cruz": "J06 aplica este corte antes de olhar qualquer número técnico ou físico, e ele elimina em vez de pontuar, como a §8.5 manda para viabilidade. Um corte único de minutos não mede minutagem, mede posição: reprova o atacante por ser atacante, como J01-1 mostrou. Com o corte por posição, a oferta de nomes regulares é curta, e é ela que vai dizer em quais posições J09 terá de procurar fora.",
+     "premissa": "m2",
+     "premissa_motivo": "Confirma, com um ajuste. Minutagem alta e repetida nas últimas três temporadas vale como critério, mas o corte tem de ser o da posição, não um número único para o elenco inteiro.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) Não é teste de hipótese: é um corte descritivo, herdado de J01-1, que já é indício. Nenhum BH, nenhuma porta temporal. (b) A conta foi refeita aqui, do dados/minutagem_serieb.json, pela mesma regra de scripts/J01.py (p75 da fatia dentro do grupo da posição, fatia alta em 2 das 3 temporadas da janela), e bate exatamente com o marcador corte_por_posicao de J01_numeros.json: Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%. Os 215 regulares também batem com o `reg_pos` de J01. (c) O que o corte NÃO resolve: minutagem alta em time do Cai pode ser falta de opção, como o CLAUDE.md avisa; e J01-2 mostrou que a ficha de lesão não separa quem jogou pouco de quem jogou muito, então minutagem baixa continua sem explicação. (d) O export do Wyscout corta em 500 linhas por temporada, o que afeta quem jogou pouco e não quem é titular.",
+     "n": "215 jogador-temporadas de minutagem alta e repetida entre 3.160, 2022 a 2025",
+     "prova": "J05.md; J05_resumo.json; J05_numeros.json",
+     "status": "rascunho",
+     "negativa": false,
+     "grafico": null
+    }
+   ],
+   "em_aberto": "O perfil não foi validado contra desfecho: o backtest da §8.6 é de J06 e ainda não rodou, então nenhum piso desta ficha tem prova de que ordena certo. E a cláusula do CLAUDE.md sobre servir ao modelo do treinador escolhido ficou sem objeto, porque T04 não escolheu treinador.",
    "feita_em": null,
-   "prova_arquivos": null
+   "prova_arquivos": "scripts/J05.py + scripts/_metodo.py"
   },
   {
    "id": "J06",
    "bloco": "J",
    "secao": "Quem contratar",
    "pergunta": "Quais jogadores da Série B atendem o perfil de cada posição?",
-   "status": "pendente",
-   "titulo": null,
-   "tipo": null,
-   "conclusoes": [],
-   "em_aberto": null,
+   "status": "rascunho",
+   "titulo": "Alvos na Série B, e o teste que decide se eles podem ser publicados",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "J06-1",
+     "parte": "J06",
+     "bloco": "J",
+     "manchete": "Nenhum nome sai desta parte porque o perfil não acertou quem jogou",
+     "o_que_vimos": "Dos 297 jogadores que chegaram a um clube da Série B, os 17 que a ficha aprovaria jogaram 1.095 minutos no primeiro ano e os 280 que ela reprovaria jogaram 1.317. Quem ela aprova jogou menos.",
+     "para_o_santa_cruz": "Não contrate por esta ficha. Ela descreve como era o titular de quem subiu e serve para descartar quem está muito longe disso, mas não ordena candidatos: conferida contra o que aconteceu de verdade com 297 chegadas a clubes da Série B, ela aponta para o lado errado. Some-se a isto que exigir as 4 a 6 linhas da posição ao mesmo tempo esvazia o mercado: no elenco de hoje da Série B, 2 de 44 jogadores livres e rodados passam nas três notas juntas. A conta de contratação continua sendo a do olheiro, com a ficha ao lado como conversa, e o que o estudo entrega de útil aqui é a contagem da oferta, não a lista.",
+     "premissa": "p20",
+     "premissa_motivo": "Contradiz. A p20 supõe que dá para ordenar candidato por um índice geral; a §8.2 já proibia somar as três notas num número único, e agora o backtest da §8.6 mostra que nem a conjunção delas ordena. A mesma conferência no score da própria aba (etapa_13.backtest) deu o mesmo resultado: {app_bt_recomendados} recomendados com {app_bt_min_rec} minutos contra {app_bt_min_rep} de {app_bt_reprovados} reprovados.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) A régua que autorizava publicar nome estava declarada ANTES de rodar, em J06_indicadores.json, chave regra_que_autoriza_publicar_nomes: d > 0 e q < 0,05 na família perfil_completo × minutos, com todos os setores juntos, nos DOIS cortes de fronteira. Ela não foi cumprida. (b) O teste primário nem chegou a entrar na tabela: o perfil inteiro aprova 17 das 297 chegadas e só 7 sem os clubes de fronteira, abaixo do piso declarado de 8 por lado. (c) Rodado à parte só no corte com fronteira — diagnóstico que não entra no BH nem no veredito —, o resultado é d -0,22 com p 0,46: aponta contra a ficha e não se distingue de zero. (d) Poder: o menor d que esse desenho enxergaria a 80% é 0,7, então 'não separa' aqui quer dizer também 'este desenho não conseguiria ver'. (e) Os blocos rodaram separados, como manda a §8.2, e nenhum dos três passa: físico d 0,07 (q 0,89), duelo/corpo d 0,06 (q 0,9), estilo técnico d -0,06 (q 0,79). (f) Os dois cortes, os dois relatados, com 7 pares discordantes: duelo_corpo|minutos em Todos: d 0.058 no corte com e -0.106 no corte sem (q 0.8964 e 0.92151); estilo_tecnico|minutos em Meia: d -0.589 no corte com e -0.934 no corte sem (q 0.10958 e 0.04689); estilo_tecnico|permanencia em Atacante: d 0.205 no corte com e -0.06 no corte sem (q 0.87062 e 0.88964); estilo_tecnico|permanencia em Lateral: d -0.044 no corte com e 0.34 no corte sem (q 0.87062 e 0.88964); fisico|minutos em Todos: d 0.075 no corte com e -0.123 no corte sem (q 0.88665 e 0.68946); fisico|permanencia em Zaga: d -0.603 no corte com e -0.804 no corte sem (q 0.12328 e 0.01005); minutagem|minutos em Todos: d 0.403 no corte com e 0.334 no corte sem (q 0.02874 e 0.12858). As duas únicas linhas que cruzam a correção a 5% aparecem SÓ no corte sem fronteira, que é enviesado por construção, e as duas apontam CONTRA a ficha. (g) Porta temporal da §6.4: não roda nesta unidade, pelos mesmos motivos de J03, J04 e J05 — o teto declarado antes de rodar já era indício. (h) Placar: o desfecho é minuto jogado e permanência, e nenhum dos dois está na lista branca de resultado da §3.",
+     "n": "297 chegadas pontuáveis em 2023 a 2025, de 28 comparações por corte; 1.200 chegadas ficaram fora por não terem ano anterior na Série B e 246 por não chegarem a 900 minutos no ano anterior",
+     "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json",
+     "status": "rascunho",
+     "negativa": true,
+     "grafico": null
+    },
+    {
+     "id": "J06-2",
+     "parte": "J06",
+     "bloco": "J",
+     "manchete": "A rodagem anterior é o único sinal de quem vai jogar no clube novo",
+     "o_que_vimos": "Quem chegou já jogando muito e sempre fez 1.718 minutos no ano da chegada, contra 1.244 dos outros. São 473 minutos, 5,3 jogos inteiros. Tirando os clubes colados na linha do acesso e da queda, a diferença encolhe e deixa de ser segura.",
+     "para_o_santa_cruz": "Use minutagem alta e repetida como primeiro corte, e use-a para eliminar, nunca para pontuar. É o único requisito desta parte que aparece no dado do desfecho: entre 38 chegadas que já vinham rodando e 259 que não vinham, a diferença no primeiro ano foi de 473 minutos. Mas o mesmo dado diz para não esperar mais do que isso: quem chegou rodado NÃO ficou mais no clube no ano seguinte, e a diferença some quando se tiram os clubes de fronteira — então o corte serve para reduzir a lista, não para prometer titularidade.",
+     "premissa": "m2",
+     "premissa_motivo": "Confirma, com o ajuste que J05 já tinha feito: o corte é o da posição, não um número único. Esta parte acrescenta que ele é o único do perfil que aparece do lado do desfecho — e que aparece nos minutos, não na permanência.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) Correção para múltiplos testes a 5%, com a família da §6.3 (grupo × desfecho × corte, sem partir por setor): a linha passa no corte COM fronteira (q 0,03) e NÃO passa no corte sem (q 0,13). Pela regra da casa, firme é firme nos dois cortes, e por isso esta conclusão é indício e não provável. O que muda entre os cortes é o tamanho da amostra, não o tamanho do efeito: d 0,4 contra 0,33. (b) A família desta linha tem um teste só — os testes por setor caíram por n —, então a correção a 5% não teve o que corrigir ali, e isso está dito. (c) IC95 por bootstrap de clube: [0.05; 0.78] no corte com e [-0.01; 0.69] no corte sem, e o segundo encosta em zero. (d) Poder: o menor d detectável a 80% é 0,49 no corte com e 0,62 no corte sem. (e) O desfecho secundário vai na direção contrária e não separa: permanência de 18,4% contra 20,8%. (f) Porta temporal da §6.4: não roda. O backtest é temporal por construção — pontua com o dado do ano anterior e mede o ano da chegada —, mas é outro desenho, e esta parte não o chama de porta nem carimba confiança com ele. (g) Circularidade declarada: minuto passado prevendo minuto futuro tem correlação própria, e é por isso que o achado é um piso de triagem, não uma previsão de rendimento.",
+     "n": "38 chegadas com minutagem alta e repetida contra 259 sem, em 2023 a 2025; o corte por posição é o de J05 e bate número a número",
+     "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json",
+     "status": "rascunho",
+     "negativa": false,
+     "grafico": null
+    },
+    {
+     "id": "J06-3",
+     "parte": "J06",
+     "bloco": "J",
+     "manchete": "A oferta de livre com rodagem é curta em toda posição",
+     "o_que_vimos": "Na Série B de hoje, 51 jogadores de 611 juntam contrato vencendo na virada e minutagem alta e repetida. Vão de 1 no gol a 13 na meia. Em 6 das 7 posições nenhum deles passa na ficha.",
+     "para_o_santa_cruz": "É esta a lista de onde sai o elenco, e ela é curta: 51 nomes no mercado inteiro da Série B, sendo 1 no gol, 6 no volante e 6 no extremo. A ordem em que J09 deve procurar fora é Goleiro · Volante · Extremo. A meia, com 13, é a de maior oferta, e zaga, lateral e ataque ficam no meio da faixa que o estudo pede. E cuidado com o calendário: 347 dos 611 jogadores da Série B têm contrato vencendo nesta virada — estar livre em dezembro não seleciona ninguém, é o calendário brasileiro.",
+     "premissa": null,
+     "premissa_motivo": "Sugere uma premissa nova: a de que o mercado de livres da Série B é grande o bastante para montar elenco. Ele não é — no gol ele é de um nome só.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) É contagem, não teste: não há hipótese a corrigir a 5% nem porta temporal a cruzar, e por isso o teto é indício por natureza, não por fraqueza do dado. (b) O requisito que produz a contagem é o único que J05 sustenta, e o backtest desta parte o mostra do lado do desfecho (J06-2). (c) O contrato tem duas fontes e elas foram comparadas, como manda a §8.1: das 374 linhas com data dos dois lados, 316 caem no mesmo mês, 84,5%. (d) Buraco declarado: 226 dos 611 jogadores não casaram por nome com o elenco do Transfermarkt, então neles só existe a data do Wyscout, que é uma foto. (e) A contagem é publicada em três níveis — só minutagem, mais contrato e mais ficha — porque o terceiro nível depende de um filtro que o backtest não sustentou. (f) Goleiro: 39 dos 39 da Série B de hoje não têm uma linha física sequer, e o requisito físico deles fica marcado como não verificado.",
+     "n": "611 jogadores da Série B de 2026 depois da regra de homônimo, 239 nomes ambíguos descartados; 51 livres e rodados",
+     "prova": "J06.md; J06_funil.csv; J06_resumo.json",
+     "status": "rascunho",
+     "negativa": false,
+     "grafico": null
+    }
+   ],
+   "em_aberto": "Não há lista de nomes: o backtest da §8.6 não autorizou, e J06_alvos.csv não foi escrito. Falta para ele passar: desfecho melhor que minuto jogado (nota de atuação por jogo não existe em base nenhuma), chegada de fora da Série B pontuável (hoje só se pontua quem vinha da própria Série B, o que perde 1.200 das 1.743 chegadas) e um perfil que não exija 4 a 6 pisos ao mesmo tempo. A porta temporal da §6.4 continua sem rodar. Não rodei gerar_estudo_serieb_js.py nem escrevi no _registro.md: os dois são do fluxo principal.",
    "feita_em": null,
-   "prova_arquivos": null
+   "prova_arquivos": "scripts/J06.py + scripts/_metodo.py"
   },
   {
    "id": "J07",
@@ -1275,7 +1435,8 @@ const ESTUDO_SERIEB = {
      "n": "184 casos de estrangeiro — 182 jogador-temporadas distintas, 148 jogadores — em 80 clube-temporadas de 2022 a 2025. Sobe: 60 casos em 16 clube-temporadas. Meio: 87 em 48. Cai: 37 em 16.",
      "prova": "J07_numeros_novos.json, sobe_min e sobe_sem; J07_resumo.json, por_faixa_do_time (cruzamento antigo, a regerar)",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "J07-2",
@@ -1291,7 +1452,8 @@ const ESTUDO_SERIEB = {
      "n": "Estreia, os dois lados restritos a quem entrou no clube naquele ano: 120 estrangeiros contra 1.078 brasileiros (2022-2025). Sem 2022: 94 estrangeiros. Ano seguinte: 184 casos de estrangeiro contra 2.812 de brasileiro.",
      "prova": "J07_numeros_novos.json, pri_est_nc e perm_est; J07_resumo.json, permanencia (cruzamento antigo, a regerar)",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     },
     {
      "id": "J07-3",
@@ -1307,7 +1469,8 @@ const ESTUDO_SERIEB = {
      "n": "184 casos de estrangeiro — 182 jogador-temporadas distintas, 148 jogadores — em 2022-2025, com 94,8% das linhas da janela cobertas por nacionalidade (Sobe 94,9% · Meio 94,8% · Cai 94,8%).",
      "prova": "J07_numeros_novos.json, ordem_por_linha e ordem_por_pessoa; J07_resumo.json, origem_por_nacionalidade (cruzamento antigo, a regerar)",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "A re-rodada de scripts/J07.py está pendente e é uma só, servindo as três conclusões: o script roda limpo, mas produz o cruzamento de nomes antigo (J07_resumo.json), enquanto os números publicados aqui vêm do cruzamento refeito em 19/09, com o de_onde de cada valor em J07_numeros_novos.json. A re-rodada precisa do módulo de identidade da §1.1, da ponte de clube nos dois sentidos e da coluna fronteira de A01_clube_temporada.csv, que o script nunca leu; o laço que procura faixa=='Trave' cai vazio em silêncio, porque trave é coluna separada. Dois números do texto existem hoje só dentro do de_onde de outro marcador e têm de virar marcador nessa re-rodada: a série Sobe x Meio ano a ano e a estreia estrita sem 2022 (19,4% x 15,2%, n 94). Falta a tabela de clube para país/liga: clube_anterior traz 116 nomes distintos só nas 184 linhas de estrangeiro e o campo vem sujo, então a origem sai por nacionalidade e a frase de quantos chegaram de clube europeu não sai; a mesma lista destrava a liga de origem de J08 e J09. Saiu do texto e só volta com recálculo a frase por posição de J07-2 (joga mais no ataque, no extremo e na meia, e menos no volante e na zaga): ela vem do cruzamento velho, com 6 a 12 estrangeiros por posição, e no cruzamento novo são 13 a 49 por posição e nenhum goleiro. Continuam fora os percentis do estrangeiro contra o brasileiro da mesma posição (a base de jogador-temporada do estudo não tem métrica técnica por jogador) e a comparação com a Série A (não há base de elenco da Série A no repositório).",
@@ -1337,7 +1500,8 @@ const ESTUDO_SERIEB = {
      "n": "737 mudanças de liga, 591 jogadores; 249 delas com origem estrangeira, em 45 países; 310 chegadas à Série B, nenhuma origem estrangeira com mais de 8 casos",
      "prova": "fatores_liga.csv; J08_testes.csv (coluna corte: principal e so_900_no_destino); J08_resumo.json (chaves nulo_do_garimpo, poder e porta_de_coorte); J08.md, seção Prova; _robustez_19_09.md, seção J08",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J08-2",
@@ -1353,7 +1517,8 @@ const ESTUDO_SERIEB = {
      "n": "737 linhas no corte principal (Brasil A 156 casos, Brasil C 92), 238 no corte estrito com 228 jogadores; 189 das 737 não são transferência e 203 estão abaixo de 900 minutos na origem",
      "prova": "J08_base.csv (colunas clube_antes, clube_depois, menos_900_na_origem); fatores_liga.csv; J08_testes.csv (coluna corte, linhas de Brasil A e Brasil C); J08.md, seção Prova; _robustez_19_09.md, seção J08",
      "status": "validada",
-     "negativa": true
+     "negativa": true,
+     "grafico": null
     },
     {
      "id": "J08-3",
@@ -1369,7 +1534,8 @@ const ESTUDO_SERIEB = {
      "n": "737 mudanças de liga, 591 jogadores distintos; 222 chegadas até 2024 preveem as 515 de 2025 e 2026",
      "prova": "J08_resumo.json (chaves o_encolhimento_confere_com_tres_contas_independentes, sensibilidade_do_encolhimento e porta_de_coorte); J08_testes.csv (coluna corte); J08.md, seção Prova; _robustez_19_09.md, seção J08",
      "status": "validada",
-     "negativa": false
+     "negativa": false,
+     "grafico": null
     }
    ],
    "em_aberto": "1) O recálculo que as três conclusões pedem, e que o próprio em_aberto da parte já pedia: virar corte de script o corte estrito (só transferência real + 900 minutos dos dois lados, 238 linhas) e o de 900 minutos na ORIGEM (534), hoje feitos à mão (J08.md:233 admite), rodar o sorteio dentro de CADA corte com a mesma regra (alvo = os países que chegam ao piso naquele corte) e emitir a linha de base de quem só chutasse a média. Enquanto isso não rodar, J08-1 e J08-2 não vão para a tela com número fechado. 2) A remarcação ficou incompleta por falta de fonte: J08 não tem J08_numeros_novos.json, então os números que a v2 trouxe dos cortes calados continuam escritos no texto, sem marcador, e estão listados aqui com o de_onde de cada um — 10,1 e o IC −14,3 a −5,2 (Colômbia A, volume, corte so_900_no_destino: J08_testes.csv, fator_pp −10,05); o sorteio de cerca de 8 nesse corte (varredura de robustez, três sementes: 7,69 / 8,18 / 8,34); 9,5 e 8,3 (Uruguai no corte estrito e o p95 de 4 países: J08.md:265-269); 10,0 com 16 casos (J08.md:265-269); 2,5 a 9,5 (Uruguai nos cinco cortes: J08_testes.csv, de −2,52 em com_identidade_incoerente a −9,51 no estrito); 2,9 a 3,6 e 2,88 / 3,38 / 3,43 / 3,58 (Brasil A, volume, os quatro cortes do J08_testes.csv); os degraus de grupo −3,2, −5,2, +3,3, +3,4, −1,3, +1,9, −0,3 e +2,2 (J08_testes.csv, alvo FAMILIA, unidades FAIXA ABAIXO/ACIMA/PAREADO nos cortes principal e so_900_no_destino); −0,39 (coeficiente de Brasil C no modelo pareado); 0,40 a 0,47 e o corte estrito 0,46 / 0,25 (quanto o jogador guarda; J08.md e J08_resumo.json). O recálculo do item 1 é o que grava esses números num J08_numeros.json e fecha a remarcação. 3) Quatro valores do campo numeros foram corrigidos agora, conforme a v2, e conferidos por mim na base: n_para_serieb 321 → 310 e maior_estrangeira_serieb \"Portugal A\" → \"Colômbia A e Uruguai\" (321 e Portugal A eram contagem das 782 linhas, e a mesma frase cita o corte principal de 737: ali são 310 chegadas, Colômbia A e Uruguai com 8 e Portugal A com 7); acerto_efic 0,67 → 0,66 (o script dá 0,655); lugar_depois_efic 43 → 42 (a conta sem o termo de idade). 4) b_min (−0,60) e b_max (−0,50) continuam no campo numeros mas nenhum texto os cita mais: esse intervalo só fecha somando dois cortes que o script não roda. O recálculo deve regravá-los a partir dos quatro cortes do script (−0,598 a −0,526) ou removê-los. 5) Lacuna de dado, não de escrita: a porta temporal da §6.4 exige o indicador jogo a jogo e nenhuma liga de origem tem linha por rodada no repositório (o painel do Wyscout é fechado por temporada). Sem coleta por rodada nas ligas de origem, nenhuma conclusão do J08 pode chegar a firme.",
@@ -1381,13 +1547,65 @@ const ESTUDO_SERIEB = {
    "bloco": "J",
    "secao": "Quem contratar",
    "pergunta": "Quais estrangeiros atendem o perfil, depois do ajuste de liga?",
-   "status": "pendente",
-   "titulo": null,
-   "tipo": null,
-   "conclusoes": [],
-   "em_aberto": null,
+   "status": "rascunho",
+   "titulo": "Alvos no exterior, e por que as três posições que faltam não têm nenhum",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "J09-1",
+     "parte": "J09",
+     "bloco": "J",
+     "manchete": "Quem chega de fora já jogando muito joga mais no primeiro ano",
+     "o_que_vimos": "Das 48 chegadas do exterior à Série B, quem vinha jogando muito na liga de origem fez 1.393 minutos no primeiro ano e quem não vinha fez 1.074. São 319 minutos, 3,5 jogos. Vale nos dois recortes.",
+     "para_o_santa_cruz": "É o único número desta parte que serve para decidir. Ao olhar um estrangeiro, a rodagem que ele tem hoje na liga dele pesa mais do que qualquer percentil da ficha — e pesa mais ainda porque os percentis da ficha, nesta mesma amostra, não separaram nada: duelo/corpo d 0,06 e estilo técnico apontando para o lado errado. Use como requisito que ELIMINA, nunca como nota. Quem chega com 70% dos minutos do time joga; quem chega de reserva não vira titular por ser bom no papel. O mesmo dado diz onde parar: dos 48 que chegaram, 30 vinham rodando e 18 não, e a diferença é de 319 minutos — serve para reduzir a lista, não para prometer titularidade.",
+     "premissa": "m2",
+     "premissa_motivo": "Confirma, pelo lado de fora. A m2 diz para priorizar quem joga e joga muito; esta parte mostra que, entre estrangeiros, é o único pedaço do perfil que aparece do lado do desfecho. É a mesma direção de J06-2, medida num desenho independente: lá, dentro da Série B, era d +0,403 e caía no corte sem fronteira; aqui é d {ma_d_com} e {ma_d_sem} e passa nos dois.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) Pela régua mecânica da casa isto seria PROVÁVEL, e o número está aqui para o dono decidir: passa no BH a 5% nos DOIS cortes de fronteira (q 0 com e 0 sem), nos DOIS desfechos (minutos, e chegar a 900 minutos: q 0,02 e 0,01, com 70% contra 40%). (b) Poder suficiente por desenho nos dois cortes: d 1,02 contra o mínimo detectável de 0,85, e d 1,18 contra 1,03. (c) IC95 por bootstrap de clube de destino exclui o zero nos dois: [0.38; 1.88] e [0.47; 2.16]. (d) Porta temporal da §6.4: NÃO rodou. O backtest é temporal por construção (pontua com o ano anterior, mede no ano da chegada), mas é outro desenho e não é a porta — o mesmo critério que J06 usou. Por isso não pode ser firme. (e) O que segura em indício e não em provável não é o teste: é que o teto desta parte foi declarado `indício` em J09_indicadores.json ANTES de rodar, e teto declarado não se reabre depois de ver o resultado. Está em aberto para o dono. (f) n pequeno: 48 chegadas, e 31 das 79 ficaram fora por não terem foto na liga de origem; elas fizeram menos minutos no destino que as que ficaram, o que empurra para o lado conservador. (g) O filtro com repetição — que é o que a parte usa de verdade — NÃO passa: d 0,36, q 0,34, com 8 de um lado e mínimo detectável de 1,11. A repetição pode valer; esta amostra não consegue dizer. (h) Placar: o desfecho é minuto jogado, que não está na lista branca de resultado.",
+     "n": "48 chegadas do exterior à Série B em 2023 a 2026, 30 com minutagem alta na origem contra 18 sem; 14 testes entraram na tabela e 126 recortes por setor ficaram fora por não chegar a 8 de cada lado",
+     "prova": "J09.md; J09_testes.csv (grupo minutagem_alta, setor Todos); J09_backtest.csv; J09_resumo.json",
+     "status": "rascunho",
+     "negativa": false,
+     "grafico": null
+    },
+    {
+     "id": "J09-2",
+     "parte": "J09",
+     "bloco": "J",
+     "manchete": "Nenhum estrangeiro passa no perfil nas três posições que faltam",
+     "o_que_vimos": "67 volantes e 82 extremos de fora jogam muito e sempre na liga deles, e a maioria tem dado físico. Nenhum dos dois grupos tem um só jogador que atenda os três blocos juntos. Isolados, no volante o físico aprova 7, o duelo 8 e o passe 12.",
+     "para_o_santa_cruz": "Não há alvo estrangeiro a perseguir no volante, na ponta e no gol — e o motivo não é o mercado, é a conta. Exigir 6 pisos ao mesmo tempo esvaziou o mercado lá fora como já tinha esvaziado dentro da Série B em J06, onde os três blocos juntos aprovavam 2 de 44. Nessas três posições, siga com olheiro e vídeo, e use a ficha para DESCARTAR quem está muito longe, nunca para escolher. Fora delas o estudo consegue dizer algo: 38 nomes em 4 posições passam o piso na régua da própria liga e têm contrato vencendo até 2027-06-30, com faixa salarial ao lado — mas ali a Série B já oferece de 8 a 13 nomes e a vaga de estrangeiro é cara.",
+     "premissa": "p9",
+     "premissa_motivo": "Contradiz no que a p9 tem de operacional. A vaga de estrangeiro existe — são 9 — mas esta base não indica em quem gastá-la justamente nas posições em que ela faria falta. Acrescenta também um dado de graça: {brasileiros_entre_elegiveis} dos {elegiveis_com_dado} elegíveis nasceram no Brasil e não ocupam vaga nenhuma.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) É CONTAGEM, não estimativa: quantos candidatos existem e quantos atravessam os pisos de J05. Nenhum teste a salva nem a derruba, porque o que falta é margem na ficha e não poder estatístico. (b) O teto da parte foi declarado indício antes de rodar e a regra que autorizaria o rótulo `alvo` (nível A) exigia d > 0 e q < 0,05 na família filtro_j09 × minutos nos dois cortes: o teste primário nem entrou na tabela, porque o filtro aprova 4 das 48 chegadas, abaixo do piso de 8 por lado. Rodado à parte, fora do BH, os 4 aprovados fizeram 1.079 minutos contra 1.291 dos 44 reprovados. Por isso o rótulo publicado é `rastrear`. (c) Os dois cortes da fronteira rodaram e os dois estão relatados; nenhum bloco técnico passa em nenhum deles. (d) As DUAS leituras do piso rodaram, como a emenda 1 declarou antes: 78 passam na régua da própria liga e 70 depois da conta de J08. (e) A conta de J08 é uma reta de encolhimento, e isto está medido: o ponto fixo dela fica em 49,5 na eficiência, então ela PROMOVE quem está abaixo e REBAIXA quem está acima — de 3.640 medidas, 1.764 sobem e 1.876 descem — e o teto de 66,1 deixa 2 dos 20 pisos técnicos fora de alcance por construção. (f) O bloco físico entrou porque esta parte achou o dado na base do próprio app, com ponte medida em 99% de 11.023 linhas; mas ele NÃO tem fator de conversão em J08, então é o lugar do jogador na régua da própria liga, sem tradução. (g) Porta temporal: não rodou.",
+     "n": "910 elegíveis com dado em 39 das 62 ligas lidas; 67 volantes e 82 extremos nas posições prioritárias, dos quais 53 e 71 com linha física",
+     "prova": "J09.md; J09_resumo.json (chave por_posicao); J09_base.csv; J09_rastreio.csv; J09_ligas.csv",
+     "status": "rascunho",
+     "negativa": true,
+     "grafico": null
+    },
+    {
+     "id": "J09-3",
+     "parte": "J09",
+     "bloco": "J",
+     "manchete": "No gol, a posição mais escassa, o estudo não tem como escolher",
+     "o_que_vimos": "585 goleiros de fora jogam quase tudo na liga deles, mas só 18 têm uma linha física e o painel do Wyscout não guarda um goleiro sequer para conferir a repetição. Da ficha de goleiro sobram 2 exigências, as duas de passe.",
+     "para_o_santa_cruz": "O gol é onde a Série B oferece menos — 1 livre com rodagem, em J06 — e é exatamente onde o estudo não ajuda. A decisão terá de ser tomada por olho e vídeo. Não peça outra conta: faltam as três pernas ao mesmo tempo e as três são de coleta, não de método. A contagem fica de pé e vale como mapa de onde procurar: 99 dos 584 passam os dois números de passe e 44 desses têm contrato vencendo na janela.",
+     "premissa": "m4",
+     "premissa_motivo": "Trata da m4, que diz ser o goleiro posição em que vale pagar acima da média do elenco. Não a contradiz: avisa que ela terá de ser executada sem apoio deste estudo enquanto as três lacunas existirem, e que o custo de errar ali continua alto.",
+     "confianca": "indício",
+     "confianca_motivo": "(a) O nível C — nenhum nome — estava escrito na regra ANTES de rodar, com o goleiro citado nominalmente: 'um filtro que não olha para nada de goleiro não escolhe goleiro'. Não é resultado, é a regra disparando. (b) As três lacunas estão medidas, não supostas: das 4 métricas do goleiro em J05 o duelo defensivo ficou sem piso e o aéreo foi descartado em J03-3, sobrando 2; o painel temporal tem 7 posições-raiz e nenhuma é goleiro, o que torna a repetição INVERIFICÁVEL — diferente de baixa; e só 18 dos 584 têm linha física, o que confirma em liga estrangeira o que J04 achou na Série B, onde 105 goleiros de 900+ minutos não tinham uma linha. (c) J08 não tem fator para goleiro: o painel de transferências não traz a posição. (d) Nenhum teste roda aqui, e por isso o teto é indício por construção: é contagem de lacuna. (e) Porta temporal: não se aplica.",
+     "n": "854 goleiros na base, 585 com minutagem alta e 18 com linha física, em 39 ligas",
+     "prova": "J09.md (seção O goleiro); J09_resumo.json (por_posicao.Goleiro); J09_base.csv (colunas regularidade_verificavel e fisico_rastreado); J05_perfil.csv",
+     "status": "rascunho",
+     "negativa": true,
+     "grafico": null
+    }
+   ],
+   "em_aberto": "O ponteiro do físico: J05 e J06 marcaram o requisito físico do alvo estrangeiro como inverificável apoiados numa frase de J08 que vale para J08 e não para eles — o dado está em dados/jogadores.json, 36 ligas, e esta parte o usou com ponte medida em 99,0%. Quem refizer J05 ou J06 deve conferir. O teto de nível da J09-1, que pela régua mecânica seria provável e saiu indício por teto declarado. E três lacunas nomeáveis: 31 das 79 chegadas do exterior não têm foto na liga de origem e ficaram fora do backtest; o backtest testa 4 dos 20 pisos, porque não há físico histórico; e a regularidade na origem não pôde ser testada, com 8 aprovados contra um mínimo detectável de 1,11.",
    "feita_em": null,
-   "prova_arquivos": null
+   "prova_arquivos": "scripts/J09.py + scripts/_metodo.py"
   },
   {
    "id": "R01",
@@ -1418,7 +1636,8 @@ const ESTUDO_SERIEB = {
    "n": "4 temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
    "prova": "A01_regua.csv; A01.md, seção Prova",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   },
   {
    "id": "A01-2",
@@ -1434,7 +1653,8 @@ const ESTUDO_SERIEB = {
    "n": "4 temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
    "prova": "A01_regua.csv; A01.md, seção Prova",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   },
   {
    "id": "A01-3",
@@ -1450,7 +1670,8 @@ const ESTUDO_SERIEB = {
    "n": "80 clube-temporadas fechadas (2022–2025), das quais 16 promovidos e 16 na Trave",
    "prova": "A01_clube_temporada.csv; A01.md, seção Prova",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   },
   {
    "id": "A02-1",
@@ -1466,7 +1687,8 @@ const ESTUDO_SERIEB = {
    "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; 80 clube-temporadas no teste de anterioridade",
    "prova": "A02_testes.csv; _porta_temporal.json, componentes; A02_numeros_novos.json; _metodo_fronteira.md; A02.md, seção Prova",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   },
   {
    "id": "A02-2",
@@ -1482,7 +1704,8 @@ const ESTUDO_SERIEB = {
    "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; 80 clube-temporadas no teste de anterioridade",
    "prova": "A02_testes.csv; _porta_temporal.json, componentes; A02_numeros_novos.json; _metodo_fronteira.md; A02.md, seção Prova",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   },
   {
    "id": "A03-2",
@@ -1498,7 +1721,8 @@ const ESTUDO_SERIEB = {
    "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha",
    "prova": "A03_testes.csv, família casa e fora na comparação SM; A03_resumo.json, quadro_por_faixa; _porta_temporal.md; _metodo_fronteira.md",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   },
   {
    "id": "A03-3",
@@ -1514,7 +1738,8 @@ const ESTUDO_SERIEB = {
    "n": "16 do Cai contra 48 do Meio, e 12 contra 32 sem os times colados na linha",
    "prova": "A03_testes.csv, comparação CM; A03_resumo.json, quadro_por_faixa; _metodo_fronteira.md",
    "status": "validada",
-   "negativa": false
+   "negativa": false,
+   "grafico": null
   }
  ],
  "negativas": [
@@ -1532,7 +1757,8 @@ const ESTUDO_SERIEB = {
    "n": "16 promovidos contra 48 do meio, e 8 contra 32 sem os times colados na linha; 16 contra 16 no recorte de 5º a 8º (e 8 contra 7 sem os colados na linha); 80 clube-temporadas na comparação entre as duas metades do ano",
    "prova": "A02_testes.csv; A02_resumo.json, porta_temporal; _porta_temporal.md; A02_numeros_novos.json; A02.md, seção Prova",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A03-1",
@@ -1548,7 +1774,8 @@ const ESTUDO_SERIEB = {
    "n": "80 clube-temporadas com todos os times (16 que subiram, 48 do meio — 16 deles na trave — e 16 que caíram); 52 sem os times colados na linha (8, 32 com 7 na trave, e 12)",
    "prova": "A03_testes.csv, família assimetria; A03_resumo.json, quadro_por_faixa; _metodo_fronteira.md",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A04-1",
@@ -1564,7 +1791,8 @@ const ESTUDO_SERIEB = {
    "n": "16 promovidos contra 48 do meio; sem os times colados na linha, 8 contra 32. A comparação com a trave (5º–8º) fica sem resposta nesta parte: são 16 contra 16 com todos os times e 8 contra 7 sem os colados na linha, um desenho que o próprio método da casa (resultados/_metodo_fronteira.md) declara enviesado entre faixas vizinhas.",
    "prova": "A04_testes.csv, comparacao SM e ST; A04_resumo.json, firme_nos_dois_cortes",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A05-1",
@@ -1580,7 +1808,8 @@ const ESTUDO_SERIEB = {
    "n": "16 promovidos contra 48 do meio (8 contra 32 sem os times a até 3 pontos da linha); a conta do primeiro turno usa os 80 clube-temporadas de 2022–2025",
    "prova": "A05_testes.csv, linhas do indicador posse em Sobe × Meio: com os times de fronteira d 0,521 e q 0,13363; sem eles d 0,689 e q 0,03748. As duas trocas de sinal entre os cortes estão contra a Trave, em ataques posicionais (d -0,496 e +0,291) e passes progressivos (d -0,284 e +0,145). _porta_temporal.json, conferencia_6_4. A05_numeros_novos.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A06-2",
@@ -1596,7 +1825,8 @@ const ESTUDO_SERIEB = {
    "n": "8 promovidos contra 7 da trave, sem os colados na linha; 16 contra 16 com todos os times",
    "prova": "A06_testes.csv; _metodo_fronteira.md; _porta_temporal.md",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A07-1",
@@ -1612,7 +1842,8 @@ const ESTUDO_SERIEB = {
    "n": "16 que subiram contra 48 do meio (8 contra 32 sem os times de fronteira); contra a Trave, 16 contra 16 e 8 contra 7; 13 contra 36 quando saem os 20 clube-temporada com menos jogo rastreado. As 80 linhas são 40 clubes.",
    "prova": "A07_testes.csv, comparação SM e ST nos dois cortes de fronteira; A07_numeros_novos.json, tabela_d_rod_q_rod e rodada_sem_cobertura_baixa; A07_resumo.json, poder_por_desenho; A07_indicadores.json, ressalvas_declaradas",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A10-1",
@@ -1628,7 +1859,8 @@ const ESTUDO_SERIEB = {
    "n": "47 jogadores de quem subiu contra 135 do meio (4 clubes contra 12), só 2025",
    "prova": "A10.md, seção A prova; A10_testes.csv (2025, leitura principal, comparação SM, pilares fisico_*: as 96 linhas, e as 64 da leitura por setor); A10_resumo.json, o_que_cai_antes_de_perguntar_de_quem (medida delta_turno, distance_p90, faixas todos / Sobe / Meio, com o IC por clube e o p contra zero) e porta_temporal",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A10-2",
@@ -1644,7 +1876,8 @@ const ESTUDO_SERIEB = {
    "n": "20 clubes e 61 jogos curtos em 2025 (280 jogadores); 18 clubes e 75 jogos curtos em 2026 (217 jogadores) — uma temporada fechada e uma parcial",
    "prova": "A10_resumo.json, o_que_cai_antes_de_perguntar_de_quem.medido (2025 e 2026, medida delta_descanso, faixa todos: os oito indicadores físicos, com média, IC por clube e p contra zero) e placar.o_placar_muda_com_o_descanso.medido (ponto por jogo no curto e no normal, nas duas temporadas); A10_resumo.json, o_que_a_temporada_de_2026_pode_testar e confundidor_do_calendario; A10_indicadores.json, seção descanso",
    "status": "removida",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A11-3",
@@ -1660,7 +1893,8 @@ const ESTUDO_SERIEB = {
    "n": "49 das 80 clube-temporadas na estratificação: 4 promovidos contra 18 do meio na faixa técnica média e 12 contra 15 na alta, e a faixa técnica baixa não teve promovido nenhum em 2022–2025; sem os times colados nas linhas sobra a faixa alta, 7 contra 9. Os terços de sprint são 28 contra 28, dentro das mesmas 80 linhas (40 clubes).",
    "prova": "A11_estratificado.csv; A11_correlacoes.csv, família resultado",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A12-2",
@@ -1676,7 +1910,8 @@ const ESTUDO_SERIEB = {
    "n": "22 times na faixa entre 2022 e 2025, 4 casos de origem, e os 20 times de 2026 na 27ª rodada de 38",
    "prova": "A12_cenario_barato.json, envelope; A12_teste_2026.json, baratos_no_perfil_2026; A12_resumo.json, cenario_barato; A12_numeros_novos.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A12-3",
@@ -1692,7 +1927,8 @@ const ESTUDO_SERIEB = {
    "n": "4 casos, de 2023 a 2025",
    "prova": "A12_cenario_barato.json, envelope; dados/serieb_clube_temporada.csv; A12_numeros_novos.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A13-3",
@@ -1708,7 +1944,8 @@ const ESTUDO_SERIEB = {
    "n": "80 clube-temporadas de 2022 a 2025 (52 sem os times colados nas linhas de corte); 27 no terço de cima e 28 no terço de baixo do 1º turno",
    "prova": "A13_resumo.json, previsores_do_1o_turno; A13_turnos.csv; A13_numeros_novos.json; A01_clube_temporada.csv",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "A14-2",
@@ -1724,7 +1961,8 @@ const ESTUDO_SERIEB = {
    "n": "4 temporadas fechadas, 4 promovidos contra 12 do meio em cada; sem os times colados na linha, 2.022 fica 4 contra 9 e 2.025 fica 2 contra 8, e 2.023 e 2.024 ficam com 1 promovido, sem comparação",
    "prova": "A14_resumo.json, validacao_uma_temporada_de_fora; A14_numeros_novos.json; A01_clube_temporada.csv; _porta_temporal.md",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "T02-3",
@@ -1740,7 +1978,8 @@ const ESTUDO_SERIEB = {
    "n": "28 treinadores com dois clubes ou mais (2022–2025); 2026 fica à parte, como teste",
    "prova": "T02_passagem.csv; T02_numeros_novos.json (correlacao_T02_3); T02.md, seção Prova",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "T03-2",
@@ -1756,7 +1995,8 @@ const ESTUDO_SERIEB = {
    "n": "66 trocas em 51 clube-temporadas (31 clubes), 2022–2025 — as janelas se sobrepõem, porque o “depois” de uma troca vira o “antes” da seguinte, e 14 clube-temporadas entram com duas ou três trocas. Com a temporada em andamento dentro seriam 73. O placebo são 75 passagens de um treinador só, cortadas ao meio com 8 jogos ou mais de cada lado.",
    "prova": "T03_antes_depois.csv; T03_numeros_novos.json, chave bh_ad",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "T04-2",
@@ -1772,7 +2012,8 @@ const ESTUDO_SERIEB = {
    "n": "126 passagens de 64 treinadores nas temporadas fechadas, 28 deles em dois clubes ou mais, e 66 trocas no meio da temporada (com 2026: 151 passagens, 69 treinadores, 34 multiclube e 73 trocas).",
    "prova": "T02_passagem.csv, coluna pct_g4, para a amplitude entre a melhor e a pior passagem de cada treinador; T03_passagens.csv e T03_resumo.json, chave nulo_dois_quaisquer, para a repetição do perfil entre clubes; T03_antes_depois.csv, colunas jogos_antes e jogos_depois, para as trocas no meio da temporada; T04_numeros_novos.json, chaves dmin_multi, dmin_antes_depois e conf_tracos: o desenho entre clubes só detecta 0,48 e mediu 0,27, o pareado do antes e depois só detecta 0,33, e 3 dos 7 traços ficam abaixo do piso de 0,40 de confiabilidade.",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J01-2",
@@ -1788,7 +2029,8 @@ const ESTUDO_SERIEB = {
    "n": "1.974 de minutagem baixa e 348 de minutagem alta, com ponte ao Transfermarkt (2022-2025)",
    "prova": "J01_numeros_novos.json, chaves les_alta_base, les_alta_n, les_alta_dias e les_dmin (o cálculo de poder da §6.7 aplicado a proporção, com o h de Cohen); recorte 2022-2025. A ponte de lesão liga dados/serieb_elencos.csv (colunas jogador, ano e id_jogador) a dados/serieb_lesoes.csv (colunas dias_2022 a dias_2025): 1.974 linhas de minutagem baixa e 348 de alta casam, 838 ficam sem ficha. Das 2.322 casadas, 43 casam só por nome e ano, sem o clube, e 5 delas têm ficha de lesão — o docstring do script promete nome, clube e ano, e o código casa só nome e ano.",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J02-2",
@@ -1804,7 +2046,8 @@ const ESTUDO_SERIEB = {
    "n": "15 que subiram contra 48 do meio; sem os times de fronteira, 7 contra 32",
    "prova": "J02_testes.csv, familia continuidade: min_de_quem_ficou_pct em Sobe × Meio, com fronteira 27,017 contra 32,335 (d -0,328, q 0,32213) e sem fronteira 20,277 contra 31,218 (d -0,709, q 0,25284) — o cru e o efeito saem sempre da mesma linha, nunca de cortes trocados. Poder: a menor diferença detectável é d 0,84 com fronteira e 1,20 sem, contra um maior efeito observado de 0,709 na mesma família. Sobe × Trave da mesma medida, e do seu espelho min_de_contratado_pct, é firme só SEM os times de fronteira (20,277 contra 42,207, d -1,369, q 0,04002) e não com eles (d -0,708, q 0,09151); firme só num corte é suspeito e não é publicado, pela regra escrita em _metodo_fronteira.md.",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J03-1",
@@ -1820,7 +2063,8 @@ const ESTUDO_SERIEB = {
    "n": "723 titulares — 179 de quem sobe contra 544 do meio — em 7 setores, 2022–2025; sem os times colados na linha de acesso, 456 titulares (91 contra 365)",
    "prova": "J03_testes.csv; J03_resumo.json; J03_numeros_novos.json; _robustez_19_09.md; _metodo_fronteira.md",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J03-2",
@@ -1836,7 +2080,8 @@ const ESTUDO_SERIEB = {
    "n": "no time, 16 temporadas de quem sobe contra 48 do meio (8 contra 32 sem os times colados na linha); no jogador, 723 titulares em 7 setores (456 sem esses times)",
    "prova": "J03_testes.csv; A06_testes.csv; _porta_temporal.md; _robustez_19_09.md; J03_numeros_novos.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J03-3",
@@ -1852,7 +2097,8 @@ const ESTUDO_SERIEB = {
    "n": "16 goleiros de quem sobe contra 48 do meio no recorte cheio; 8 contra 32 sem os times colados na linha de acesso",
    "prova": "J03_testes.csv; J03_resumo.json; _robustez_19_09.md; _metodo_fronteira.md; J03_numeros_novos.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J04-1",
@@ -1868,7 +2114,8 @@ const ESTUDO_SERIEB = {
    "n": "697 titulares com físico, de 907 no recorte 2022–2025; de 8 a 28 de quem sobe em cada posição, conforme o corte",
    "prova": "J04.md; J04_testes.csv; J04_resumo.json (nao_separa_nao_e_nao_existe); _robustez_19_09.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J04-2",
@@ -1884,7 +2131,42 @@ const ESTUDO_SERIEB = {
    "n": "volante: 21 contra 50 (quem sobe contra o meio); zaga: 13 contra 54 — 11 contra 51 sem as linhas de identidade marcada e 9 contra 43 sem os clubes de cobertura baixa",
    "prova": "J04_testes.csv; J04_resumo.json (achados_sobe_x_meio); _metodo_fronteira.md; _robustez_19_09.json",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
+  },
+  {
+   "id": "J05-2",
+   "parte": "J05",
+   "bloco": "J",
+   "manchete": "Metade do perfil físico que o app já usa não sobrevive à correção",
+   "o_que_vimos": "Dos 18 números que formam o perfil físico por setor, 9 passam na conta que corrige os muitos testes. Na zaga e no lateral não passa nenhum dos 4. E esse perfil compara quem sobe com quem cai, nunca com o meio.",
+   "para_o_santa_cruz": "O perfil físico por setor que a tela mostra hoje descreve quem subiu contra quem caiu, e não pode virar filtro de acesso. Na zaga e no lateral ele descansa em 4 números que a correção derruba, então ali a ficha entra com ressalva escrita e o peso da nota física cai. Nas outras posições ele continua servindo para descartar quem está longe do padrão de corrida da posição, que é o que o dado físico sabe fazer.",
+   "premissa": "m1",
+   "premissa_motivo": "Ajusta. A intensidade continua critério de escolha dentro da posição, mas não é sinal de acesso: não separa quem sobe do meio e, nesta base de titulares, também não separa quem sobe de quem cai.",
+   "confianca": "indício",
+   "confianca_motivo": "(a) A conta é do próprio app, relida: em etapa_13.criterio_por_setor o critério de entrada é `p_clube < 0,05` — o p cru do teste corrigido por clube da §4.4 —, e dos 18 indicadores escolhidos só 9 têm `bh_clube` verdadeiro em sobecai_corrigido_por_clube (zaga 0 de 1, lateral 0 de 3, meio 3 de 6, ataque 6 de 8; os q_clube de cada um estão em J05_resumo.json). (b) Rodando os MESMOS indicadores na base de titulares de 2022–2025: Sobe × Cai dá 0 de 18 no BH e Sobe × Meio dá 0 de 32; o maior efeito observado em Sobe × Cai é 0,67, abaixo do menor d detectável deste desenho (0,71 a 1,19 nas linhas de Sobe × Cai). Isto NÃO é replicação do teste do app: ele compara 56 contra 75 atletas rastreados por setor, e aqui a unidade é o titular, 1 ou 2 por clube. (c) Os dois cortes de fronteira, os dois relatados: sem os times de fronteira mudam de lado ou de selo: Tempo até atingir o sprint (s) no Lateral (SC, d 0,20 contra -0,04); Passes certos, % no Meia (SC, d -0,01 contra 0,06); Duelos aéreos ganhos, % no Volante (SC, d 0,13 contra -0,09); Dribles com sucesso, % no Zaga (SC, d -0,25 contra 0,09); Dribles com sucesso, % no Atacante (SM, d -0,06 contra 0,15); Duelos defensivos ganhos, % no Atacante (SM, d -0,03 contra 0,01); Passes progressivos/90 no Atacante (SM, d 0,00 contra -0,03); Tempo para girar 90 graus (s) no Atacante (SM, d 0,12 contra -0,17); Arrancadas explosivas até o sprint por 90 min no Extremo (SM, d 0,24 contra -0,10); Tempo até a alta velocidade depois de mudar de direção (s) no Extremo (SM, d 0,19 contra -0,27); Dribles com sucesso, % no Goleiro (SM, d -0,20 contra 0,02); Duelos aéreos ganhos, % no Goleiro (SM, d 1,06 contra 0,68); Duelos aéreos ganhos, % no Lateral (SM, d -0,21 contra 0,05); Duelos defensivos ganhos, % no Lateral (SM, d -0,11 contra 0,26); Arrancadas explosivas até o sprint por 90 min no Lateral (SM, d 0,06 contra -0,04); Duelos aéreos ganhos, % no Meia (SM, d -0,26 contra 0,03); Toques na área/90 no Meia (SM, d 0,12 contra -0,02); Sprints por 90 min no Meia (SM, d 0,01 contra -0,06); Dribles com sucesso, % no Volante (SM, d 0,12 contra -0,28); Duelos aéreos ganhos, % no Volante (SM, d 0,07 contra -0,20); Dribles com sucesso, % no Zaga (SM, d -0,11 contra 0,21). (d) Porta temporal: não roda, mesmo motivo de J04. (e) O corte de fronteira derrubou 20 testes por falta de n, e eles saíram dos DOIS lados para que a tabela comparasse a mesma coisa nos dois cortes.",
+   "n": "18 indicadores do perfil do app sobre 138 testes de sobe × cai por setor; 32 testes físicos Sobe × Meio e 18 Sobe × Cai nesta parte",
+   "prova": "J05.md; J05_resumo.json; J05_testes.csv; prototipo.json",
+   "status": "rascunho",
+   "negativa": true,
+   "grafico": null
+  },
+  {
+   "id": "J06-1",
+   "parte": "J06",
+   "bloco": "J",
+   "manchete": "Nenhum nome sai desta parte porque o perfil não acertou quem jogou",
+   "o_que_vimos": "Dos 297 jogadores que chegaram a um clube da Série B, os 17 que a ficha aprovaria jogaram 1.095 minutos no primeiro ano e os 280 que ela reprovaria jogaram 1.317. Quem ela aprova jogou menos.",
+   "para_o_santa_cruz": "Não contrate por esta ficha. Ela descreve como era o titular de quem subiu e serve para descartar quem está muito longe disso, mas não ordena candidatos: conferida contra o que aconteceu de verdade com 297 chegadas a clubes da Série B, ela aponta para o lado errado. Some-se a isto que exigir as 4 a 6 linhas da posição ao mesmo tempo esvazia o mercado: no elenco de hoje da Série B, 2 de 44 jogadores livres e rodados passam nas três notas juntas. A conta de contratação continua sendo a do olheiro, com a ficha ao lado como conversa, e o que o estudo entrega de útil aqui é a contagem da oferta, não a lista.",
+   "premissa": "p20",
+   "premissa_motivo": "Contradiz. A p20 supõe que dá para ordenar candidato por um índice geral; a §8.2 já proibia somar as três notas num número único, e agora o backtest da §8.6 mostra que nem a conjunção delas ordena. A mesma conferência no score da própria aba (etapa_13.backtest) deu o mesmo resultado: {app_bt_recomendados} recomendados com {app_bt_min_rec} minutos contra {app_bt_min_rep} de {app_bt_reprovados} reprovados.",
+   "confianca": "indício",
+   "confianca_motivo": "(a) A régua que autorizava publicar nome estava declarada ANTES de rodar, em J06_indicadores.json, chave regra_que_autoriza_publicar_nomes: d > 0 e q < 0,05 na família perfil_completo × minutos, com todos os setores juntos, nos DOIS cortes de fronteira. Ela não foi cumprida. (b) O teste primário nem chegou a entrar na tabela: o perfil inteiro aprova 17 das 297 chegadas e só 7 sem os clubes de fronteira, abaixo do piso declarado de 8 por lado. (c) Rodado à parte só no corte com fronteira — diagnóstico que não entra no BH nem no veredito —, o resultado é d -0,22 com p 0,46: aponta contra a ficha e não se distingue de zero. (d) Poder: o menor d que esse desenho enxergaria a 80% é 0,7, então 'não separa' aqui quer dizer também 'este desenho não conseguiria ver'. (e) Os blocos rodaram separados, como manda a §8.2, e nenhum dos três passa: físico d 0,07 (q 0,89), duelo/corpo d 0,06 (q 0,9), estilo técnico d -0,06 (q 0,79). (f) Os dois cortes, os dois relatados, com 7 pares discordantes: duelo_corpo|minutos em Todos: d 0.058 no corte com e -0.106 no corte sem (q 0.8964 e 0.92151); estilo_tecnico|minutos em Meia: d -0.589 no corte com e -0.934 no corte sem (q 0.10958 e 0.04689); estilo_tecnico|permanencia em Atacante: d 0.205 no corte com e -0.06 no corte sem (q 0.87062 e 0.88964); estilo_tecnico|permanencia em Lateral: d -0.044 no corte com e 0.34 no corte sem (q 0.87062 e 0.88964); fisico|minutos em Todos: d 0.075 no corte com e -0.123 no corte sem (q 0.88665 e 0.68946); fisico|permanencia em Zaga: d -0.603 no corte com e -0.804 no corte sem (q 0.12328 e 0.01005); minutagem|minutos em Todos: d 0.403 no corte com e 0.334 no corte sem (q 0.02874 e 0.12858). As duas únicas linhas que cruzam a correção a 5% aparecem SÓ no corte sem fronteira, que é enviesado por construção, e as duas apontam CONTRA a ficha. (g) Porta temporal da §6.4: não roda nesta unidade, pelos mesmos motivos de J03, J04 e J05 — o teto declarado antes de rodar já era indício. (h) Placar: o desfecho é minuto jogado e permanência, e nenhum dos dois está na lista branca de resultado da §3.",
+   "n": "297 chegadas pontuáveis em 2023 a 2025, de 28 comparações por corte; 1.200 chegadas ficaram fora por não terem ano anterior na Série B e 246 por não chegarem a 900 minutos no ano anterior",
+   "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json",
+   "status": "rascunho",
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J08-1",
@@ -1900,7 +2182,8 @@ const ESTUDO_SERIEB = {
    "n": "737 mudanças de liga, 591 jogadores; 249 delas com origem estrangeira, em 45 países; 310 chegadas à Série B, nenhuma origem estrangeira com mais de 8 casos",
    "prova": "fatores_liga.csv; J08_testes.csv (coluna corte: principal e so_900_no_destino); J08_resumo.json (chaves nulo_do_garimpo, poder e porta_de_coorte); J08.md, seção Prova; _robustez_19_09.md, seção J08",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
   },
   {
    "id": "J08-2",
@@ -1916,13 +2199,48 @@ const ESTUDO_SERIEB = {
    "n": "737 linhas no corte principal (Brasil A 156 casos, Brasil C 92), 238 no corte estrito com 228 jogadores; 189 das 737 não são transferência e 203 estão abaixo de 900 minutos na origem",
    "prova": "J08_base.csv (colunas clube_antes, clube_depois, menos_900_na_origem); fatores_liga.csv; J08_testes.csv (coluna corte, linhas de Brasil A e Brasil C); J08.md, seção Prova; _robustez_19_09.md, seção J08",
    "status": "validada",
-   "negativa": true
+   "negativa": true,
+   "grafico": null
+  },
+  {
+   "id": "J09-2",
+   "parte": "J09",
+   "bloco": "J",
+   "manchete": "Nenhum estrangeiro passa no perfil nas três posições que faltam",
+   "o_que_vimos": "67 volantes e 82 extremos de fora jogam muito e sempre na liga deles, e a maioria tem dado físico. Nenhum dos dois grupos tem um só jogador que atenda os três blocos juntos. Isolados, no volante o físico aprova 7, o duelo 8 e o passe 12.",
+   "para_o_santa_cruz": "Não há alvo estrangeiro a perseguir no volante, na ponta e no gol — e o motivo não é o mercado, é a conta. Exigir 6 pisos ao mesmo tempo esvaziou o mercado lá fora como já tinha esvaziado dentro da Série B em J06, onde os três blocos juntos aprovavam 2 de 44. Nessas três posições, siga com olheiro e vídeo, e use a ficha para DESCARTAR quem está muito longe, nunca para escolher. Fora delas o estudo consegue dizer algo: 38 nomes em 4 posições passam o piso na régua da própria liga e têm contrato vencendo até 2027-06-30, com faixa salarial ao lado — mas ali a Série B já oferece de 8 a 13 nomes e a vaga de estrangeiro é cara.",
+   "premissa": "p9",
+   "premissa_motivo": "Contradiz no que a p9 tem de operacional. A vaga de estrangeiro existe — são 9 — mas esta base não indica em quem gastá-la justamente nas posições em que ela faria falta. Acrescenta também um dado de graça: {brasileiros_entre_elegiveis} dos {elegiveis_com_dado} elegíveis nasceram no Brasil e não ocupam vaga nenhuma.",
+   "confianca": "indício",
+   "confianca_motivo": "(a) É CONTAGEM, não estimativa: quantos candidatos existem e quantos atravessam os pisos de J05. Nenhum teste a salva nem a derruba, porque o que falta é margem na ficha e não poder estatístico. (b) O teto da parte foi declarado indício antes de rodar e a regra que autorizaria o rótulo `alvo` (nível A) exigia d > 0 e q < 0,05 na família filtro_j09 × minutos nos dois cortes: o teste primário nem entrou na tabela, porque o filtro aprova 4 das 48 chegadas, abaixo do piso de 8 por lado. Rodado à parte, fora do BH, os 4 aprovados fizeram 1.079 minutos contra 1.291 dos 44 reprovados. Por isso o rótulo publicado é `rastrear`. (c) Os dois cortes da fronteira rodaram e os dois estão relatados; nenhum bloco técnico passa em nenhum deles. (d) As DUAS leituras do piso rodaram, como a emenda 1 declarou antes: 78 passam na régua da própria liga e 70 depois da conta de J08. (e) A conta de J08 é uma reta de encolhimento, e isto está medido: o ponto fixo dela fica em 49,5 na eficiência, então ela PROMOVE quem está abaixo e REBAIXA quem está acima — de 3.640 medidas, 1.764 sobem e 1.876 descem — e o teto de 66,1 deixa 2 dos 20 pisos técnicos fora de alcance por construção. (f) O bloco físico entrou porque esta parte achou o dado na base do próprio app, com ponte medida em 99% de 11.023 linhas; mas ele NÃO tem fator de conversão em J08, então é o lugar do jogador na régua da própria liga, sem tradução. (g) Porta temporal: não rodou.",
+   "n": "910 elegíveis com dado em 39 das 62 ligas lidas; 67 volantes e 82 extremos nas posições prioritárias, dos quais 53 e 71 com linha física",
+   "prova": "J09.md; J09_resumo.json (chave por_posicao); J09_base.csv; J09_rastreio.csv; J09_ligas.csv",
+   "status": "rascunho",
+   "negativa": true,
+   "grafico": null
+  },
+  {
+   "id": "J09-3",
+   "parte": "J09",
+   "bloco": "J",
+   "manchete": "No gol, a posição mais escassa, o estudo não tem como escolher",
+   "o_que_vimos": "585 goleiros de fora jogam quase tudo na liga deles, mas só 18 têm uma linha física e o painel do Wyscout não guarda um goleiro sequer para conferir a repetição. Da ficha de goleiro sobram 2 exigências, as duas de passe.",
+   "para_o_santa_cruz": "O gol é onde a Série B oferece menos — 1 livre com rodagem, em J06 — e é exatamente onde o estudo não ajuda. A decisão terá de ser tomada por olho e vídeo. Não peça outra conta: faltam as três pernas ao mesmo tempo e as três são de coleta, não de método. A contagem fica de pé e vale como mapa de onde procurar: 99 dos 584 passam os dois números de passe e 44 desses têm contrato vencendo na janela.",
+   "premissa": "m4",
+   "premissa_motivo": "Trata da m4, que diz ser o goleiro posição em que vale pagar acima da média do elenco. Não a contradiz: avisa que ela terá de ser executada sem apoio deste estudo enquanto as três lacunas existirem, e que o custo de errar ali continua alto.",
+   "confianca": "indício",
+   "confianca_motivo": "(a) O nível C — nenhum nome — estava escrito na regra ANTES de rodar, com o goleiro citado nominalmente: 'um filtro que não olha para nada de goleiro não escolhe goleiro'. Não é resultado, é a regra disparando. (b) As três lacunas estão medidas, não supostas: das 4 métricas do goleiro em J05 o duelo defensivo ficou sem piso e o aéreo foi descartado em J03-3, sobrando 2; o painel temporal tem 7 posições-raiz e nenhuma é goleiro, o que torna a repetição INVERIFICÁVEL — diferente de baixa; e só 18 dos 584 têm linha física, o que confirma em liga estrangeira o que J04 achou na Série B, onde 105 goleiros de 900+ minutos não tinham uma linha. (c) J08 não tem fator para goleiro: o painel de transferências não traz a posição. (d) Nenhum teste roda aqui, e por isso o teto é indício por construção: é contagem de lacuna. (e) Porta temporal: não se aplica.",
+   "n": "854 goleiros na base, 585 com minutagem alta e 18 com linha física, em 39 ligas",
+   "prova": "J09.md (seção O goleiro); J09_resumo.json (por_posicao.Goleiro); J09_base.csv (colunas regularidade_verificavel e fisico_rastreado); J05_perfil.csv",
+   "status": "rascunho",
+   "negativa": true,
+   "grafico": null
   }
  ],
  "contagem": {
   "total": 27,
-  "pendente": 5,
-  "rascunho": 0,
+  "pendente": 2,
+  "rascunho": 3,
   "validada": 22
  }
 };

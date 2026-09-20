@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**22 das 27 perguntas respondidas** · **61 conclusões** (41 indício · 19 provável · 1 firme) · **61 validadas**.
+**25 das 27 perguntas respondidas** · **70 conclusões** (50 indício · 19 provável · 1 firme) · **61 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -57,12 +57,21 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J04-1 | Procuramos o titular que corre diferente em quem sobe, posição por posição, e não achamos nenhum | indício | {n_fis} titulares com físico, de {n_tit} no recorte 2022–2025; de {n_sobe_min} a {n_sobe_max} de quem sobe em cada posição, conforme o corte |
 | J04-2 | Os dois sinais físicos que sobraram aparecem cada um em um recorte e somem no outro | indício | volante: {vol_n} (quem sobe contra o meio); zaga: {zag_n} — {zag_n_id} sem as linhas de identidade marcada e {zag_n_cob} sem os clubes de cobertura baixa |
 | J04-3 | Quem corria mais no primeiro turno corre mais no segundo — e mesmo assim isso não diz quem sobe | indício | {n_rep} titulares em 2025, só jogos de 60 minutos ou mais |
+| J05-1 | A base só sustenta um perfil que descreve o titular de quem subiu | indício | {n_tit_tec} titulares com dado técnico e {n_tit_fis} com dado físico, 2022 a 2025; {testes_total} linhas de teste nos dois cortes |
+| J05-2 | Metade do perfil físico que o app já usa não sobrevive à correção | indício | {app_ind_total} indicadores do perfil do app sobre {app_testes} testes de sobe × cai por setor; {testes_fis_sm} testes físicos Sobe × Meio e {testes_fis_sc} Sobe × Cai nesta parte |
+| J05-3 | O único requisito que a base sustenta é minutagem alta e regular por posição | indício | {min_regulares} jogador-temporadas de minutagem alta e repetida entre {min_n}, 2022 a 2025 |
+| J06-1 | Nenhum nome sai desta parte porque o perfil não acertou quem jogou | indício | {bt_chegadas} chegadas pontuáveis em 2023 a 2025, de {bt_testes_com} comparações por corte; {bt_sem_ano_anterior} chegadas ficaram fora por não terem ano anterior na Série B e {bt_sem_900} por não chegarem a 900 minutos no ano anterior |
+| J06-2 | A rodagem anterior é o único sinal de quem vai jogar no clube novo | indício | {bt_min_na} chegadas com minutagem alta e repetida contra {bt_min_nb} sem, em 2023 a 2025; o corte por posição é o de J05 e bate número a número |
+| J06-3 | A oferta de livre com rodagem é curta em toda posição | indício | {funil_serie_b} jogadores da Série B de 2026 depois da regra de homônimo, {base_ambiguos} nomes ambíguos descartados; {oferta_livres_regulares} livres e rodados |
 | J07-1 | A vaga de estrangeiro não está sobrando: a Série B já usa {liga_ct} por clube, e quem sobe põe quase três vezes mais minutos neles que o meio | indício | {est_lin} casos de estrangeiro — 182 jogador-temporadas distintas, {est_pes} jogadores — em {ct_total} clube-temporadas de 2022 a 2025. Sobe: {sobe_n} casos em 16 clube-temporadas. Meio: 87 em 48. Cai: 37 em 16. |
 | J07-2 | O estrangeiro não chega jogando mais que o brasileiro que chega — chega igual, e no ano seguinte só 1 em cada 4 ainda está na Série B | indício | Estreia, os dois lados restritos a quem entrou no clube naquele ano: {n_pri_est_nc} estrangeiros contra {n_pri_br_nc} brasileiros (2022-2025). Sem 2022: 94 estrangeiros. Ano seguinte: {n_perm_est} casos de estrangeiro contra {n_perm_br} de brasileiro. |
 | J07-3 | O estrangeiro da Série B é vizinho: 7 em cada 10 vêm de Argentina, Colômbia, Uruguai ou Paraguai | indício | {total_est} casos de estrangeiro — 182 jogador-temporadas distintas, {total_pes} jogadores — em 2022-2025, com {cobertura_nova}% das linhas da janela cobertas por nacionalidade ({cobertura_por_faixa}). |
 | J08-1 | Não dá para converter o número de um estrangeiro para a Série B: falta caso, e o pouco que aparece muda conforme o corte | indício | {n_principal} mudanças de liga, {n_jogadores} jogadores; {casos_estrangeiros} delas com origem estrangeira, em {n_ligas_estrangeiras} países; {n_para_serieb} chegadas à Série B, nenhuma origem estrangeira com mais de {casos_maior_estrangeira} casos |
 | J08-2 | Divisão de origem não vira desconto nem bônus: o degrau entre A, B e C muda de tamanho conforme quem entra na conta | indício | {n_principal} linhas no corte principal (Brasil A {casos_brasil_a} casos, Brasil C {casos_brasil_c}), {n_estrito} no corte estrito com {n_jogadores_estrito} jogadores; {nao_transferencia} das {n_principal} não são transferência e {abaixo_900_origem} estão abaixo de 900 minutos na origem |
 | J08-3 | Quem chega guarda menos da metade do destaque que tinha, venha de onde vier | indício | {n_principal} mudanças de liga, {n_jogadores} jogadores distintos; {n_cedo} chegadas até 2024 preveem as {n_tarde} de 2025 e 2026 |
+| J09-1 | Quem chega de fora já jogando muito joga mais no primeiro ano | indício | {bt_chegadas} chegadas do exterior à Série B em 2023 a 2026, {ma_n_a_com} com minutagem alta na origem contra {ma_n_b_com} sem; {bt_testes} testes entraram na tabela e {bt_fora_por_n} recortes por setor ficaram fora por não chegar a {bt_piso_do_lado} de cada lado |
+| J09-2 | Nenhum estrangeiro passa no perfil nas três posições que faltam | indício | {elegiveis_com_dado} elegíveis com dado em {ligas_que_entram} das {ligas_lidas} ligas lidas; {pri_vol_cand} volantes e {pri_ext_cand} extremos nas posições prioritárias, dos quais {pri_vol_com_fisico} e {pri_ext_com_fisico} com linha física |
+| J09-3 | No gol, a posição mais escassa, o estudo não tem como escolher | indício | {gk_na_base} goleiros na base, {gk_com_minutagem_alta} com minutagem alta e {pri_gol_com_fisico} com linha física, em {ligas_que_entram} ligas |
 | T01-1 | Time da Série B troca de treinador uma vez por ano, e só {termina_com_quem_comecou} dos {clube_temporadas_fechadas} times de 2018 a 2025 terminaram o ano com quem começaram | indício | {clube_temporadas_fechadas} clube-temporadas fechadas (2018–2025); 2026, com 20 clube-temporadas em curso, entra à parte e não na conta |
 | T01-2 | Treinador de Série B roda entre clubes: {rodam_3_clubes} comandaram dez rodadas ou mais em três clubes ou mais — e só {rodam_3_clubes_2225} deles de 2022 para cá | indício | {treinadores} treinadores; {treinadores_com_10} chegaram a pelo menos uma passagem de dez rodadas ou mais, e {com_10_rodadas} das {passagens_temporada} passagens-temporada cruzam esse corte |
 | T01-3 | O nome do treinador deixou de ser o que não dá, e uma segunda fonte confirma a coleta | indício | {passagens_temporada} passagens-temporada em {clube_temporadas} clube-temporadas, 2018–2026 (era 506 em 188) |
@@ -98,11 +107,11 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J02 | validada | 3 | **não** |
 | J03 | validada | 3 | **não** |
 | J04 | validada | 3 | sim |
-| J05 | pendente | — | — |
-| J06 | pendente | — | — |
+| J05 | rascunho | 3 | sim |
+| J06 | rascunho | 3 | sim |
 | J07 | validada | 3 | **não** |
 | J08 | validada | 3 | sim |
-| J09 | pendente | — | — |
+| J09 | rascunho | 3 | sim |
 | T01 | validada | 3 | sim |
 | T02 | validada | 3 | sim |
 | T03 | validada | 2 | **não** |
