@@ -756,3 +756,138 @@ Tirar o 1,59 do texto do A06 é **decisão de texto**, não correção de númer
 Pela mesma razão, a aba ainda mostra `d 0.59`, `d 0.425` e `d 1.593` no "o que vimos" do A06-1 — as
 palavras proibidas que a auditoria apontou. **Texto é do dono; número é da base.** Esta rodada só
 mexeu no segundo.
+
+## 23. O padrão que estava por baixo de tudo (19/09)
+
+Run `wf_8c4e9159-b87`, 23 agentes, 3,4M tokens. `resultados/_robustez_19_09.md` e `.json`.
+
+### 23.1 O estudo publica sistematicamente o corte que favorece a conclusão
+
+**81 casos de robustez citada de um lado só, em TODAS as 22 partes.** Nenhuma escapou.
+Gravidade: **20 mudam a conclusão**, 34 mudam a confiança, 27 são texto.
+
+Não são deslizes isolados: é um **padrão de método**. A parte roda dois ou mais cortes, e o texto
+cita o que favorece. Os que **invertem** a conclusão:
+
+- **A04-1** diz "bola parada não separa". No corte **com** fronteira — o primário, o de maior poder
+  (16×48) — o saldo de bola parada **separa**. E em Sobe × Trave (16×16), **dois dos três**
+  indicadores da régua G são firmes, incluindo o duelo aéreo que a manchete nega.
+- **A05-1** diz "não existe estilo com bola que separe". Sem fronteira, a **posse separa** — e é o
+  **único selo firme das 60 linhas** do arquivo de prova.
+- **A12-1** lista `A_posse_construcao` entre as que não separam. Sem fronteira ela fica **firme**, e
+  com efeito **maior** que o citado.
+- **A13-1** diz que o Cai é "a única faixa que piora no returno". Sem os times de fronteira, **a
+  trave é a que mais sobe** — 25,0 para 31,0.
+- **J02-3** diz que quem cai é o que menos mantém. Sem fronteira o superlativo **inverte**: passa a
+  ser o **Sobe**.
+- **J03-3** diz que o goleiro é a única posição em que o titular de quem sobe se destaca. Sem
+  fronteira **o achado morre**.
+- **T04-1** diz "a lista curta tem um nome só: Eduardo Baptista". Pela **média** — a coluna que o
+  próprio script calcula e grava — a lista tem **cinco nomes** e ele não é o primeiro.
+- **A10-2**: a mesma medida rodada em 2026 **inverte o sinal nos oito indicadores**.
+- **A06 inteiro**: o corte **com** fronteira **nunca aparece com número** na prova publicada.
+
+### 23.2 A causa raiz: 191 números que nenhum script gera
+
+**191 marcadores** existem apenas **digitados à mão** nos `<ID>.json`. Número digitado à mão não tem
+como estar certo por construção — e é daí que vieram os 98 erros.
+
+Os piores: **T01 (23 — todos os 22 marcadores)**, **J07 25**, **J01 22**, **J08 21**, **T02 17**,
+**A01 17**. E **nove partes não importam o `_metodo.py`**: A01, A02, A13, J01, J07, T01, T02, T03,
+T04 — ou seja, reimplementaram o teste, e a comparação entre elas não vale.
+
+### 23.3 A duplicata do A05: resolvida, o estudo segue com 53
+
+O A05-3 **não é achado novo nem alucinação**: é a A05-1 partida em duas, porque a proposta inverteu
+a A05-1 ("quem sobe tem mais a bola") e precisou de endereço para o negativo que sobrou. A própria
+seção de conflitos da proposta **recusa a inversão** e volta a fundir as duas. **Não criar A05-3.**
+
+### 23.4 O que isto faz com o resto
+
+A proposta de destino (§18) foi escrita **antes** desta varredura, olhando conclusão por conclusão.
+Os 20 casos que mudam a conclusão **não estavam na mão de quem a escreveu**. Antes de percorrê-la,
+vale cruzar com o `_robustez_19_09.md` — pelo menos em A04, A05, A12, A13, J02, J03, T04 e A10.
+
+## 24. Quem digitou os números à mão, e o conserto que o dono pediu
+
+**Foi a sessão do Claude de 17/09**, que construiu as 19 partes. O dono não digitou nenhum.
+A pasta `_fonte/estudo_serieb/` só entrou no git em 19/09 (nos commits desta sessão) — antes nasceu
+inteira fora de controle de versão. O `CLAUDE.md` manda o subagente da parte escrever
+`scripts/<ID>*` e `resultados/<ID>*`, e foi o que aconteceu: onde o script calculava, ele copiou;
+onde não calculava, **digitou**.
+
+**O agravante:** todo `<ID>.json` traz `gerado_por: "scripts/<ID>.py"` — **uma procedência falsa**.
+O `T01.py` não gera nenhum dos 22 marcadores do `T01.json`. Quem lesse o campo acreditaria.
+
+**O buraco estrutural, que vale mais que a culpa:** a trava existe (o gerador para se faltar valor)
+mas **guarda a coisa errada** — verifica que o marcador *tem* valor, não que o valor *veio de um
+cálculo*. Número inventado passa igual a número medido.
+
+**Conserto pedido pelo dono em 19/09 e posto na fila como etapa 6 do `PLANO.md`:** cada script grava
+a própria saída em `<ID>_numeros.json`, e o gerador recusa marcador que não esteja lá. A lista do
+que vai falhar na primeira execução já existe — são os 191 de `_robustez_19_09.md`.
+
+## 25. A proposta v2 (19/09) — 49 das 62 mudaram, e o estudo tem UMA conclusão firme
+
+Run `wf_92f3e221-7ad`, 23 agentes, 3,9M tokens.
+**`resultados/_proposta_destino_v2.md`** (687 linhas, ordenada pelo peso da mudança) e `.json`.
+A v1 continua em `_proposta_destino.md`, para comparação. **Nenhum `<ID>.json` foi tocado.**
+
+### 25.1 A v2 valeu, e o número que prova isso
+
+A v1 perguntava "esta conclusão está certa?". A varredura de robustez trocou a pergunta para
+**"os dois cortes dizem o mesmo?"** — e **49 das 62 conclusões mudaram de destino**. A v1 teria
+levado o dono a validar texto sobre chão falso em quase quatro de cada cinco.
+
+| | hoje | v1 | **v2** |
+|---|---|---|---|
+| firme | 35 | 2 | **1** |
+| provável | 16 | 14 | **19** |
+| indício | 11 | 38 | **42** |
+
+Destino: **44 reescreve · 8 invertem · 7 rebaixa · 2 só texto · 1 cai.**
+Esforço: 35 recálculo · 19 texto · 8 reanálise. **23 conclusões trazem `falta_dado`.**
+
+### 25.2 As duas que mudaram de lado
+
+**Bola parada sai do "não separa".** O *trabalho* (escanteios cobrados, fatia dos gols, altura do
+elenco) não separa em corte nenhum — mas o **saldo de gols de bola parada** separa na base inteira:
+**0,145 por jogo contra zero**, cinco gols e meio por temporada, e só morre quando se tiram os times
+colados na linha. Como é gol, é o placar contado de outro jeito e **não vira característica** — mas
+o estudo não pode mais escrever que bola parada "não separa" e pronto.
+
+**Ter a bola sai pelo motivo oposto:** só separa **depois** de tirar quem subiu raspando — e é **o
+único item de estilo cujo 1º turno antecipa os pontos do 2º**.
+
+Nenhum dos dois vira critério de contratação. Os dois deixam de poder ser escritos como "não existe".
+
+### 25.3 O que sobra de firme: uma coisa
+
+**Quem sobe finaliza de mais perto — 19,5 m contra 20,5 do meio, e já finalizava assim na primeira
+metade da temporada.** É o único achado que passa nos dois critérios da régua da casa.
+
+Três separam nos dois cortes mas sem prova de anterioridade, e ficam um degrau abaixo: ceder
+finalização de pior qualidade, ganhar ~1 ponto percentual da dividida no chão (60,8% × 59,8%) e
+sofrer menos perigo em casa.
+
+### 25.4 Uma distinção nova: "quem cai" é outra pergunta
+
+A v2 separou o que estava misturado. Quem **cai** tem respostas próprias e mais fortes: corre menos
+forte nos minutos sem a bola, perde o duelo aéreo, cria menos em casa e **roda 47 jogadores na
+temporada contra 38 do meio**.
+
+### 25.5 O que está pronto para o dono
+
+As **7 conclusões de "O que decidimos"** já escritas com uso prático — o limite do `CLAUDE.md` é 7.
+Entre elas: montar o elenco contra **64 pontos** (63 teria ficado de fora em duas das quatro
+temporadas); na metade do campeonato a tabela já tem **10 dos 16 acessos**; e **orçar comissão
+técnica para um ano é orçar mais de uma**.
+
+### 25.6 O estado, e o que falta
+
+**22 das 27 partes.** Faltam J05, J06 e J09 (seguradas até A14 e J03 serem consertados) e A08 e A09
+(sem base). Na fila do `PLANO.md`: o **portão de nove regras** (etapa 6), os **12 `.md`** (6b) e a
+**skill `analisar-campeonato`** (7).
+
+**Tudo commitado** na branch `estudo-serieb-19-09`, cinco commits. Nada publicado.
+**A etapa 1 continua sendo o próximo passo, e começa pelo dono:** percorrer a v2 e validar.

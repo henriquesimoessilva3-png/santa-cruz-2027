@@ -8,65 +8,89 @@
   {
    "id": "T01-1",
    "bloco": "T",
-   "status": "rascunho",
-   "manchete": "Time da Série B troca de treinador duas vezes por ano, e só 3 em cada 10 terminam a temporada com quem começou",
-   "o_que_vimos": "A mediana é de {mediana_efetivos} treinadores efetivos por clube-temporada (média {media_efetivos}, máximo {max_efetivos}). Em {um_efetivo_so} dos {clube_temporadas} clube-temporadas — {pct_um_efetivo_so}% — um treinador só comandou o ano inteiro. Interinos dirigiram {rodadas_interino} das {rodadas_total} rodadas, {pct_rodadas_interino}% do total.",
-   "para_o_santa_cruz": "Contratar treinador para a Série B é contratar duas vezes. O perfil de jogador de J05 não pode depender de um modelo de jogo que muda no meio do ano.",
-   "premissa": null,
-   "premissa_motivo": "Nenhuma premissa de dados/premissas.json trata de troca de treinador; sugere uma nova.",
-   "confianca": "firme",
-   "confianca_motivo": "Contagem completa dos nove anos, não um teste: não há hipótese a submeter ao critério da §6.",
-   "n": "{clube_temporadas} clube-temporadas",
-   "prova": "base_passagens_temporada.csv; T01.md, seção Prova"
+   "status": "validada",
+   "manchete": "Time da Série B troca de treinador uma vez por ano, e só {termina_com_quem_comecou} dos {clube_temporadas_fechadas} times de 2018 a 2025 terminaram o ano com quem começaram",
+   "o_que_vimos": "Nas {clube_temporadas_fechadas} clube-temporadas fechadas de 2018 a 2025 a mediana é de {mediana_efetivos} treinadores efetivos e a média é de {media_trocas_fechadas} troca por ano — uma troca, não duas —, e só {termina_com_quem_comecou} times, um em cada quatro, terminaram o ano com o treinador que o abriu. 2026 fica fora da conta por temporada porque não acabou: com 26 ou 27 das 38 rodadas jogadas, {um_efetivo_so_2026} dos 20 times ainda estão com o primeiro treinador, contra {faixa_pct_um_efetivo_anos_fechados} em cada ano fechado, e é essa temporada pela metade que inflava o número antigo para 3 em cada 10 (juntando os {temporadas} anos dá {um_efetivo_so} de {clube_temporadas}, {pct_um_efetivo_so}%). Os interinos dirigiram {rodadas_interino} das {rodadas_com_dono} rodadas com treinador identificado; é contagem de uma fonte só, sem nenhum teste por trás, e por isso entra como indício.",
+   "para_o_santa_cruz": "Orçar comissão técnica para um ano é orçar mais de uma: o clube mediano da Série B troca uma vez, {tres_ou_mais_efetivos_fechadas} dos {clube_temporadas_fechadas} ({pct_tres_ou_mais_efetivos_fechadas}%) trocaram duas vezes ou mais, e quem planeja a temporada com um nome só está planejando a exceção. A reserva de rescisão e de segunda comissão entra na conta desde o início, não como imprevisto. E o perfil de jogador de J05 não pode ficar amarrado a um modelo de jogo que tem uma chance em quatro de chegar inteiro em novembro.",
+   "premissa": "m5",
+   "premissa_motivo": "Ajusta m5 (“Comissão técnica top — investir”, grupo Montagem do elenco): a premissa trata a comissão como uma linha só do orçamento, e a base mostra que o clube mediano da Série B paga mais de uma por temporada. Sugere premissa nova no grupo Orçamento: reserva de rescisão e recontratação de comissão técnica, dimensionada pela mediana de 2 treinadores por clube-temporada na Série B.",
+   "confianca": "indício",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da §6. (a) Benjamini-Hochberg a 5% dentro da família: não há teste nenhum em T01 — não existe resultados/T01_testes.csv nem T01_resumo.json, nenhum script da parte importa scripts/_metodo.py e não há um único q para conferir; a parte é coleta, não análise. (b) Porta temporal da §6.4 (o indicador do 1º turno contra os pontos do 2º): uma contagem de trocas de treinador não tem indicador de 1º turno a prever pontos de 2º, e _porta_temporal.md registra que a parte não a rodou. Cai junto o motivo antigo, “contagem completa dos nove anos”: uma das {temporadas} temporadas não acabou e {rodadas_sem_dono} das {rodadas_jogadas} rodadas jogadas não têm dono conhecido. Os dois cortes ficam escritos: nas fechadas de 2018 a 2025 (n={clube_temporadas_fechadas}) um treinador só comandou o ano em {um_efetivo_so_fechadas} ({pct_um_efetivo_so_fechadas}%), com média de {media_efetivos_fechadas} efetivos; em 2026 sozinha são {um_efetivo_so_2026} de 20, o dobro de qualquer ano fechado e fora da faixa de {faixa_pct_um_efetivo_anos_fechados} que os anos fechados desenham. Os dois mostram rotatividade alta; o que não vale nos dois é o tamanho, e por isso a frase manda 2026 para fora com o número na mão. O corte de fronteira não se aplica: não há comparação entre faixas numa contagem de passagens de treinador.",
+   "n": "{clube_temporadas_fechadas} clube-temporadas fechadas (2018–2025); 2026, com 20 clube-temporadas em curso, entra à parte e não na conta",
+   "prova": "T01_rodada_treinador.csv; T01_numeros_novos.json; base_passagens_temporada.csv; T01.md, seção Prova",
+   "validada_em": "2026-09-19"
   },
   {
    "id": "T01-2",
    "bloco": "T",
-   "status": "rascunho",
-   "manchete": "Treinador de Série B roda entre clubes: {rodam_3_clubes} comandaram dez rodadas ou mais em três clubes diferentes",
-   "o_que_vimos": "Dos {treinadores} treinadores da base, {rodam_3_clubes} tiveram passagem de 10 rodadas ou mais em três ou mais clubes distintos da Série B.",
-   "para_o_santa_cruz": "Há amostra para julgar treinador pelo que ele repete, e não pelo que fez num clube só — o que T03 pede. A lista curta de T04 sai de gente com histórico conferível aqui.",
+   "status": "validada",
+   "manchete": "Treinador de Série B roda entre clubes: {rodam_3_clubes} comandaram dez rodadas ou mais em três clubes ou mais — e só {rodam_3_clubes_2225} deles de 2022 para cá",
+   "o_que_vimos": "Dos {treinadores} treinadores da base, {rodam_3_clubes} tiveram passagem de dez rodadas ou mais em três clubes ou mais da Série B: Allan Aal em {clubes_allan_aal}, Claudinei Oliveira, Marcelo Cabo e Mozart em {clubes_sete} cada, Daniel Paulista e Guto Ferreira em {clubes_seis}. Dentro de 2022 a 2025, que é a janela em que T03 tem régua técnica e física, restam {rodam_3_clubes_2225} — {rodam_3_clubes_2226} se 2026 entrar —, ou seja, metade da lista larga. É contagem de uma fonte só, sem teste por trás, e por isso entra como indício; e o {rodam_3_clubes} é piso, porque {rodadas_sem_dono} das {rodadas_jogadas} rodadas jogadas ficaram sem treinador conhecido e qualquer uma delas só pode somar clubes.",
+   "para_o_santa_cruz": "Dá para julgar treinador pelo que ele repete em clubes diferentes, e não pela última campanha, que é o que o mercado vende. Mas a lista que chega em T03 e T04 é a de 2022 a 2025: {rodam_3_clubes_2225} nomes, não {rodam_3_clubes} — é dessa lista curta que sai o treinador. Quem tem um clube só na Série B entra como aposta, e tem de ser pago como aposta.",
    "premissa": null,
-   "premissa_motivo": "Não trata de nenhuma premissa existente.",
-   "confianca": "firme",
-   "confianca_motivo": "Contagem completa.",
-   "n": "{treinadores} treinadores",
-   "prova": "base_passagens_temporada.csv; T01.md, seção Prova"
+   "premissa_motivo": "Não trata de nenhuma premissa de dados/premissas.json, e não sugere nova.",
+   "confianca": "indício",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da §6. (a) Benjamini-Hochberg a 5%: não existe resultados/T01_testes.csv nem T01_resumo.json, não há um q na parte e nenhum script dela importa scripts/_metodo.py. (b) Porta temporal da §6.4: não há 1º turno prevendo 2º turno numa contagem de clubes por treinador. O número em si é sólido e é piso: recontado do zero em T01_rodada_treinador.csv, reagrupando a temporada pelos blocos de meses com jogo de scripts/A01.py, deu {rodam_3_clubes}, o mesmo valor de hoje, e as {rodadas_sem_dono} rodadas sem dono só podem somar clubes, nunca tirar. Cai o motivo antigo, “contagem completa”, que a própria parte desmente. Os dois cortes: na janela cheia de 2018 a 2026 são {rodam_3_clubes}; na janela de 2022 a 2025, única com régua física (SkillCorner, 2022–2025), são {rodam_3_clubes_2225} — {rodam_3_clubes_2226} com 2026 dentro. O achado vale nos dois; o que muda é a amostra que chega a T03 e T04, e é ela que sustenta o uso prático. Com e sem interino dá {rodam_3_clubes} dos dois lados; sem o corte de dez rodadas dá 47, mesma direção. Fronteira não se aplica: não há comparação entre faixas nesta conclusão.",
+   "n": "{treinadores} treinadores; {treinadores_com_10} chegaram a pelo menos uma passagem de dez rodadas ou mais, e {com_10_rodadas} das {passagens_temporada} passagens-temporada cruzam esse corte",
+   "prova": "T01_rodada_treinador.csv; T01_numeros_novos.json; base_passagens_temporada.csv; T01.md, seção Prova",
+   "validada_em": "2026-09-19"
   },
   {
    "id": "T01-3",
    "bloco": "T",
-   "status": "rascunho",
-   "manchete": "O nome do treinador deixou de ser o que não dá",
-   "o_que_vimos": "A etapa 15 da Protótipo registra tem_nome_de_treinador: false e lista como coleta_que_resolveria a tabela (ano, clube, treinador, data_inicio, data_fim), estimando de 250 a 400 passagens. A coleta foi feita: {passagens_temporada} passagens-temporada, {treinadores} treinadores, {clubes} clubes, {temporadas} temporadas.",
-   "para_o_santa_cruz": "T02, T03 e T04 estão destravadas.",
+   "status": "validada",
+   "manchete": "O nome do treinador deixou de ser o que não dá, e uma segunda fonte confirma a coleta",
+   "o_que_vimos": "A etapa 15 da Protótipo dizia que não havia nome de treinador em base nenhuma e estimava de {etapa15_min} a {etapa15_max} passagens para {etapa15_clube_temporadas} clube-temporadas; a coleta entregou {passagens_2226} nessa mesma janela, e {passagens_temporada} em {clube_temporadas} clube-temporadas de {temporadas} temporadas. A conferência contra uma segunda fonte, que a parte dava como não feita, existe e passa: das {sofa_10} passagens de dez jogos ou mais do Sofascore que já estavam em casa desde 14/09, {sofa_batem} batem com a coleta no mesmo clube e no mesmo ano. Das {sofa_nao_batem} que não batem, 5 são apelido do mesmo homem — Marcinho é Márcio Freitas no Ituano de 2023, com as mesmas {marcinho_rodadas} rodadas dos dois lados — e 2 são treinadores que a coleta não tem, os dois dentro dos {cobertura_buraco} clube-temporadas com buraco; é contagem, não teste, e por isso entra como indício.",
+   "para_o_santa_cruz": "O clube passa a julgar treinador pelo histórico inteiro na Série B — quantas rodadas comandou, em quais clubes, com que elenco — e não pela última campanha. Quem aparece em três clubes é histórico conferível; quem aparece em um é aposta. T02, T03 e T04 ficam destravadas com essa base.",
    "premissa": null,
-   "premissa_motivo": "Não trata de nenhuma premissa existente.",
-   "confianca": "firme",
-   "confianca_motivo": "A coleta existe e está conferida por cobertura: {cobertura_exata} de {clube_temporadas} clube-temporadas com a conta exata e {cobertura_sobra} com jogo contado duas vezes.",
-   "n": "{passagens_temporada} passagens-temporada",
-   "prova": "T01.md, seção Prova; T01_lacunas.json"
+   "premissa_motivo": "Não trata de nenhuma premissa de dados/premissas.json. Contradiz, sim, uma frase do próprio CLAUDE.md, em “O que a base não tem”: “T01 a T04. Nenhuma base tem nome de treinador”. É falsa desde 14/09 — dados/bola_parada.json traz 280 passagens de Série B com treinador, clube, jogos e datas, de 2022 a 2026, vindas do Sofascore. A frase é do arquivo do dono e a correção é dele.",
+   "confianca": "indício",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da §6. (a) Benjamini-Hochberg a 5%: não existe resultados/T01_testes.csv nem T01_resumo.json, e não há teste nem q nenhum em T01. (b) Porta temporal da §6.4: não se aplica a uma coleta. A conferência independente contra o Sofascore ({sofa_batem} de {sofa_10}) fortalece muito a coleta e fecha o “em aberto” da parte, mas não é nenhum dos dois critérios: tira a ressalva, não sobe o selo. Sai também do motivo o “zero jogo contado duas vezes”: com um dono por jogo, sobra zero é propriedade do modelo, não conferência que poderia ter falhado. A cobertura, nos dois lados: {cobertura_exata} das {clube_temporadas} clube-temporadas fecham a conta exata e {cobertura_buraco} ficam com buraco, somando {rodadas_sem_dono} das {rodadas_jogadas} rodadas jogadas sem treinador conhecido — e são dois desses buracos que explicam as passagens do Sofascore que a coleta não tem. A leitura é a mesma nos dois lados, então o corte não muda a conclusão.",
+   "n": "{passagens_temporada} passagens-temporada em {clube_temporadas} clube-temporadas, 2018–2026 (era 506 em 188)",
+   "prova": "T01_rodada_treinador.csv; T01_numeros_novos.json; dados/bola_parada.json; T01_lacunas.json; T01.md, seção Prova",
+   "validada_em": "2026-09-19"
   }
  ],
  "numeros": {
   "clube_temporadas": 180,
-  "mediana_efetivos": 2.0,
-  "media_efetivos": 2.23,
+  "clube_temporadas_fechadas": 160,
+  "mediana_efetivos": 2,
+  "media_efetivos_fechadas": 2.32,
+  "media_trocas_fechadas": 1.3,
   "max_efetivos": 5,
-  "um_efetivo_so": 54,
-  "pct_um_efetivo_so": 29,
-  "rodadas_total": 6546,
+  "um_efetivo_so": 49,
+  "pct_um_efetivo_so": 27,
+  "um_efetivo_so_fechadas": 39,
+  "pct_um_efetivo_so_fechadas": 24,
+  "um_efetivo_so_2026": 10,
+  "faixa_pct_um_efetivo_anos_fechados": "20% a 35%",
+  "termina_com_quem_comecou": 40,
+  "tres_ou_mais_efetivos_fechadas": 67,
+  "pct_tres_ou_mais_efetivos_fechadas": 42,
+  "rodadas_com_dono": 6546,
+  "rodadas_jogadas": 6608,
+  "rodadas_sem_dono": 62,
   "rodadas_interino": 283,
   "pct_rodadas_interino": 4.3,
   "treinadores": 193,
+  "treinadores_com_10": 113,
   "rodam_3_clubes": 29,
+  "rodam_3_clubes_2225": 14,
+  "rodam_3_clubes_2226": 15,
+  "clubes_allan_aal": 9,
+  "clubes_sete": 7,
+  "clubes_seis": 6,
   "topo_clubes": [
    {
     "treinador": "Allan Aal",
-    "clubes": 8
+    "clubes": 9
    },
    {
     "treinador": "Claudinei Oliveira",
+    "clubes": 7
+   },
+   {
+    "treinador": "Marcelo Cabo",
     "clubes": 7
    },
    {
@@ -78,23 +102,31 @@
     "clubes": 6
    },
    {
-    "treinador": "Marcelo Cabo",
+    "treinador": "Guto Ferreira",
     "clubes": 6
    }
   ],
   "passagens_temporada": 492,
+  "passagens_2226": 276,
   "passagens_brutas": 1160,
+  "com_10_rodadas": 278,
   "clubes": 51,
   "temporadas": 9,
-  "com_10_rodadas": 278,
   "cobertura_exata": 151,
   "cobertura_buraco": 29,
   "cobertura_sobra": 0,
   "sem_jogo_no_tm": 58,
+  "sofa_10": 157,
+  "sofa_batem": 150,
+  "sofa_nao_batem": 7,
+  "marcinho_rodadas": 30,
+  "etapa15_min": 250,
+  "etapa15_max": 400,
+  "etapa15_clube_temporadas": 100,
   "etapa15_estimativa": [
    250,
    400
   ]
  },
- "em_aberto": "A conferência contra fonte independente não foi feita: a cobertura é prova interna (Transfermarkt contra Wyscout) e não pega erro que o Transfermarkt cometa sozinho. Os 29 buracos de T01_lacunas.json são onde procurar primeiro."
+ "em_aberto": "A conferência contra fonte independente foi feita e passa (150 das 157 passagens de dez jogos ou mais do Sofascore, em dados/bola_parada.json). Ficam em aberto duas coisas. Uma: o que o Sofascore tem e a coleta não — Claudinei Oliveira na Ferroviária de 2025 e Fábio Matias no CRB de 2026 —, dentro dos 29 clube-temporadas com buraco de T01_lacunas.json, que somam 62 das 6.608 rodadas jogadas sem treinador conhecido. Outra: scripts/T01_rodadas.py ainda tira a temporada de d.year e, rodado hoje, devolve 506 passagens em 188 clube-temporadas e reescreve base_passagens_temporada.csv com 506 linhas, contra os 492 em 180 publicados aqui; o T01.md também não é reescrito desde 17/09 e discorda destes números. Os dois são decisão do dono, e nenhum deles foi tocado nesta rodada."
 }

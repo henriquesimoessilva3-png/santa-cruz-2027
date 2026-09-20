@@ -119,6 +119,108 @@ e pode entrar em qualquer ponto.
 
 ---
 
+## Etapa 6 — O portão de entrega: nove regras · **aprovado pelo dono em 19/09**
+
+### Por que existe
+
+O problema não é "números digitados". É uma **classe**: o estudo afirma coisas sobre si mesmo que
+não são verdade, e nada confere. Todas as falhas de 18–19/09 são alegações de procedência — "isto
+veio do script", "isto passou no critério", "esta é a prova", "isto é robusto" — que nenhum
+mecanismo verificou. **Disciplina foi a única trava, e disciplina falha.**
+
+O portão roda **antes** de a parte ser aceita e **recusa** o que não prova o que alega.
+Parte que não passa não entra na aba.
+
+### As nove regras, com o custo medido em 19/09
+
+| # | regra | reprova hoje |
+|---|---|---|
+| **1** | Todo marcador de `numeros` consta na saída do próprio `<ID>.py` | **191 marcadores**, 21 das 22 partes |
+| **2** | A `confianca` é **recalculada** do `testes.csv`: "firme" exige BH **e** porta temporal | **as 35 firmes** — zero partes rodaram a porta |
+| **3** | Os dois cortes de fronteira existem, e **quando discordam** o texto cita os dois | **81 casos**, todas as 22 partes |
+| **4** | O campo `prova` aponta para algo que **existe e contém a prova** | **2**: A05-1 e A07-1 citam `.md` inexistente |
+| **5** | O script importa o `_metodo.py` — nada de teste reimplementado | **9 de 22** |
+| **6** | Nenhuma palavra proibida na manchete e no que vimos | **6**: A02-3, A11-1, A11-2, A13-3, T03-1, A14-2 |
+| **7** | Nenhum indicador publicado duas vezes com `q` diferente — **mesmo indicador × mesma unidade × mesma comparação** | **2**: `xg_por_remate_contra` (A02/A06), `duelos_aereos_pct` (A04/A06) |
+| **8** | O `_registro.md` é **gerado** dos JSON, nunca editado à mão | ele inteiro |
+| **9** | O `gerado_por` é verificado ou removido | **as 22 partes** |
+
+### Duas regras que mudaram no desenho, e por quê
+
+**A 4 era "o `<ID>.md` existe"** — reprovaria 12 partes e pegaria 2 problemas reais, porque 59 das
+62 conclusões citam o `_testes.csv` como prova, não o `.md`. Burocracia com aparência de rigor faz
+verificador ser ignorado. A versão nova é mais estreita e mais dura: pega as duas de verdade **e**
+pega o `.md` criado vazio só para satisfazer a regra.
+
+**A 7 acusaria A10 e J04** por compartilharem 8 indicadores físicos — mas ali é legítimo: unidades
+diferentes (clube-jogo contra jogador-temporada), perguntas diferentes. Por isso a regra é mesmo
+indicador **× mesma unidade × mesma comparação**.
+
+### O que o portão NÃO pega
+Se a conclusão é interessante, se a interpretação está certa, se a pergunta valia a pena.
+Ele pega **alegação sobre si mesma** — que é onde tudo falhou.
+
+### Nota de regra
+O `CLAUDE.md` só permite mexer no `gerar_estudo_serieb_js.py` em E00, R01 ou **"em pedido sobre a
+tela"**. Este é pedido do dono, de 19/09 — autorizado.
+
+## Etapa 6b — Os 12 `.md` que faltam · **pedido do dono em 19/09**
+
+Dívida com a regra de entrega do `CLAUDE.md`, que pede dois arquivos por parte: o `<ID>.json` para
+a tela e o **`<ID>.md` com a prova** — o que já existia e o que foi acrescentado, arquivos, colunas,
+n, lacunas, tabela, testes, e o que ficou em aberto em até 2 linhas.
+
+**Faltam 12 de 22:** A05, A07, A11, A12, A13, A14, J01, J02, J03, J07, T03, T04.
+Têm: A01, A02, A03, A04, A06, T01, T02 (de 17/09) e A10, J04, J08 (de 19/09).
+
+**Não é análise nova** — é redação sobre dado que já existe: os `_testes.csv`, os `_resumo.json` e
+os scripts estão todos no disco. É a diferença entre conferir uma parte lendo um documento e
+conferir lendo Python.
+
+**Depois da etapa 1**, para o `.md` já nascer com o texto validado em vez de documentar o que vai
+mudar.
+
+## Etapa 7 — A skill: analisar qualquer campeonato · **pedida pelo dono em 19/09**
+
+**Quando:** no fim do estudo, e a ordem importa. Metade do método *como foi praticado* está sendo
+corrigida agora; uma skill escrita antes congelaria os erros em vez do método.
+
+**O que transfere e o que não.** As conclusões do Estudo Série B **não** transferem — a qualidade da
+chance cedida e o duelo defensivo são resposta desta liga, destas temporadas. O que transfere é o
+**método**, e principalmente o **catálogo do que dá errado**, que esta sessão levantou a duro custo.
+
+### O que a skill precisa carregar
+
+**1. O desenho.** Unidade clube-temporada; posto dentro da temporada, nunca bruto entre anos;
+faixas e a comparação padrão; a régua da fronteira **como teste de robustez** — com o aviso de que o
+corte reduzido é enviesado entre faixas vizinhas (`_metodo_fronteira.md`).
+
+**2. O critério de conclusão.** BH a 5% **por família** (uma família = um pilar × uma comparação),
+lista pré-declarada **antes** de rodar, poder calculado para que "não separa" não vire "não existe",
+e porta temporal. Os três níveis, e o que cada um exige.
+
+**3. A forma da entrega.** Manchete / o que vimos / para o clube / premissa / confiança com n /
+prova. Número por marcador. Resultado negativo é conclusão.
+
+**4. O portão de entrega** — as nove regras da etapa 6, que é o que impede a classe de erro inteira.
+
+**5. O catálogo de armadilhas**, que é a parte mais valiosa e só existe porque esta sessão apanhou:
+robustez citada de um lado só · número digitado com `gerado_por` falso · o mesmo teste publicado em
+duas famílias com dois `q` · viés do sobrevivente (o corte de minutos aplicado só no destino) ·
+envelhecimento confundido com nível de liga · regressão à média lida como efeito · casamento por
+nome e o homônimo · data UTC contra local · a temporada que não sai do ano da data · o `saison_id`
+do Transfermarkt · export cortado em 500 linhas · consequência do resultado tratada como
+característica · "não separa" sem poder · promovido/rebaixado contado como transferência.
+
+**6. O teste de viabilidade da liga.** Antes de prometer resposta, dizer o que a base **tem**: sem
+físico por jogo não há A08 nem A10; sem minuto do gol não há A09; sem 10 casos por liga de origem
+não há fator de conversão; sem nome de treinador não há bloco T. Esta sessão mapeou isso — vira
+checklist.
+
+### Como ela se chamaria e onde mora
+Skill nova, no molde das que já existem (`dados-wyscout`, `dados-skillcorner`, `portais-botafogo`).
+Nome sugerido: **`analisar-campeonato`**. O `CLAUDE.md` do Estudo Série B vira o exemplo trabalhado.
+
 ## O que este plano NÃO cobre
 
 Ficaram fora por decisão ou por falta de base, e continuam em aberto:

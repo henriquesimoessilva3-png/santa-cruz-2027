@@ -1,0 +1,3844 @@
+{
+ "_doc": "Relatório da primeira rodada do portão de entrega (etapa 6 do PLANO.md) nas 22 partes. Lista de trabalho: por parte, o que falta para ela ser aceita, em ordem de esforço.",
+ "gerado_em": "2026-09-19",
+ "gerado_por": "python3 scripts/_portao.py --json (rodada de 19/09/2026); este relatório é transcrição por script dessa saída, somada à conferência contra o _robustez_19_09.json. Nenhum número foi digitado à mão. O portão não foi alterado e nenhum arquivo de parte foi tocado.",
+ "comando": "cd _fonte/estudo_serieb && python3 scripts/_portao.py            # e --json para a saída máquina",
+ "resumo": {
+  "aceitas": [],
+  "recusadas": [
+   "A01",
+   "A02",
+   "A03",
+   "A04",
+   "A05",
+   "A06",
+   "A07",
+   "A10",
+   "A11",
+   "A12",
+   "A13",
+   "A14",
+   "J01",
+   "J02",
+   "J03",
+   "J04",
+   "J07",
+   "J08",
+   "T01",
+   "T02",
+   "T03",
+   "T04"
+  ],
+  "conferencias": 198,
+  "reprovacoes": 131,
+  "revisar": 4,
+  "passa": 51,
+  "nao_aplicavel": 12,
+  "marcadores_publicados": 676,
+  "marcadores_conferiveis": 0,
+  "marcadores_provados_a_mao_pela_auditoria": 191,
+  "conclusoes": 62,
+  "firmes_hoje": 35,
+  "conclusoes_acima_do_teto": 43,
+  "reprovacoes_por_parte": {
+   "A01": 6,
+   "A02": 7,
+   "A03": 6,
+   "A04": 7,
+   "A05": 6,
+   "A06": 7,
+   "A07": 7,
+   "A10": 4,
+   "A11": 6,
+   "A12": 5,
+   "A13": 7,
+   "A14": 6,
+   "J01": 6,
+   "J02": 6,
+   "J03": 6,
+   "J04": 4,
+   "J07": 6,
+   "J08": 4,
+   "T01": 6,
+   "T02": 6,
+   "T03": 7,
+   "T04": 6
+  },
+  "revisar_por_parte": {
+   "A01": 0,
+   "A02": 1,
+   "A03": 0,
+   "A04": 0,
+   "A05": 1,
+   "A06": 0,
+   "A07": 1,
+   "A10": 1,
+   "A11": 0,
+   "A12": 0,
+   "A13": 0,
+   "A14": 0,
+   "J01": 0,
+   "J02": 0,
+   "J03": 0,
+   "J04": 0,
+   "J07": 0,
+   "J08": 0,
+   "T01": 0,
+   "T02": 0,
+   "T03": 0,
+   "T04": 0
+  }
+ },
+ "por_regra": {
+  "1": {
+   "REPROVA": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J02",
+    "J03",
+    "J04",
+    "J07",
+    "J08",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ]
+  },
+  "2": {
+   "REPROVA": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J02",
+    "J03",
+    "J07",
+    "J08",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ],
+   "REVISAR": [
+    "A10"
+   ],
+   "PASSA": [
+    "J04"
+   ]
+  },
+  "3": {
+   "REPROVA": [
+    "A01",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J02",
+    "J03",
+    "J04",
+    "J07",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ],
+   "REVISAR": [
+    "A02"
+   ],
+   "NÃO APLICÁVEL": [
+    "J08"
+   ]
+  },
+  "4": {
+   "REPROVA": [
+    "A05",
+    "A07"
+   ],
+   "PASSA": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A06",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J02",
+    "J03",
+    "J04",
+    "J07",
+    "J08",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ]
+  },
+  "5": {
+   "REPROVA": [
+    "A01",
+    "A02",
+    "A13",
+    "J01",
+    "J07",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ],
+   "REVISAR": [
+    "A05",
+    "A07"
+   ],
+   "PASSA": [
+    "A03",
+    "A04",
+    "A06",
+    "A10",
+    "A11",
+    "A12",
+    "A14",
+    "J02",
+    "J03",
+    "J04",
+    "J08"
+   ]
+  },
+  "6": {
+   "REPROVA": [
+    "A02",
+    "A03",
+    "A04",
+    "A06",
+    "A07",
+    "A11",
+    "A13",
+    "A14",
+    "J02",
+    "J03",
+    "T03"
+   ],
+   "PASSA": [
+    "A01",
+    "A05",
+    "A10",
+    "A12",
+    "J01",
+    "J04",
+    "J07",
+    "J08",
+    "T01",
+    "T02",
+    "T04"
+   ]
+  },
+  "7": {
+   "REPROVA": [
+    "A02",
+    "A04",
+    "A06"
+   ],
+   "PASSA": [
+    "A03",
+    "A05",
+    "A07",
+    "A10",
+    "J02",
+    "J03",
+    "J04",
+    "J08"
+   ],
+   "NÃO APLICÁVEL": [
+    "A01",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J07",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ]
+  },
+  "8": {
+   "REPROVA": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J02",
+    "J03",
+    "J04",
+    "J07",
+    "J08",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ]
+  },
+  "9": {
+   "REPROVA": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "J01",
+    "J02",
+    "J03",
+    "J04",
+    "J07",
+    "J08",
+    "T01",
+    "T02",
+    "T03",
+    "T04"
+   ]
+  }
+ },
+ "conferencia_contra_o_diagnostico": [
+  {
+   "regra": 1,
+   "o_diagnostico_esperava": "191 marcadores, 21 das 22 partes",
+   "o_portao_achou": "22 partes",
+   "bate": "sim, e mais duro"
+  },
+  {
+   "regra": 2,
+   "o_diagnostico_esperava": "as 35 firmes",
+   "o_portao_achou": "43 conclusões (as 35 firmes + 8 prováveis)",
+   "bate": "sim, e mais amplo"
+  },
+  {
+   "regra": 3,
+   "o_diagnostico_esperava": "81 casos",
+   "o_portao_achou": "49 citações em falta · 249 discordâncias · 81 casos no diagnóstico",
+   "bate": "outra unidade de contagem"
+  },
+  {
+   "regra": 4,
+   "o_diagnostico_esperava": "2 (A05-1 e A07-1)",
+   "o_portao_achou": "2 (A05-1 e A07-1)",
+   "bate": "bate exatamente"
+  },
+  {
+   "regra": 5,
+   "o_diagnostico_esperava": "9 de 22",
+   "o_portao_achou": "9 reprovam + 2 a conferir",
+   "bate": "bate exatamente"
+  },
+  {
+   "regra": 6,
+   "o_diagnostico_esperava": "6 conclusões",
+   "o_portao_achou": "21 conclusões, 60 trechos",
+   "bate": "não bate — 3,5× mais"
+  },
+  {
+   "regra": 7,
+   "o_diagnostico_esperava": "2 casos",
+   "o_portao_achou": "2 indicadores, 3 pares",
+   "bate": "bate exatamente"
+  },
+  {
+   "regra": 8,
+   "o_diagnostico_esperava": "o arquivo inteiro",
+   "o_portao_achou": "o arquivo inteiro + 3 espelhos trocados + 16 conclusões de fora",
+   "bate": "sim, e achou mais"
+  },
+  {
+   "regra": 9,
+   "o_diagnostico_esperava": "as 22",
+   "o_portao_achou": "as 22",
+   "bate": "bate exatamente"
+  }
+ ],
+ "notas_da_conferencia": {
+  "regra_1": "22 e não 21: todas as 22 partes têm marcador digitado à mão no _robustez_19_09.json. E o portão reprova por motivo mais forte: nenhum dos 676 marcadores é conferível, porque script nenhum grava a própria saída.",
+  "regra_2": "43 e não 35: as 35 firmes mais 8 'provável' que também não se sustentam (A04-3, A10-3, A11-2, A11-3, A14-1, J01-3, T02-2, T04-1).",
+  "regra_3": "81 e 249 contam coisas diferentes: os 81 do diagnóstico são conclusões que citam um corte só; o portão conta indicadores — 249 discordâncias e 49 sem citação no texto.",
+  "regra_6": "a única divergência que muda o tamanho do trabalho; ver surpresas.",
+  "marcadores_de_A12_A13_J01": "o portão reprovou essas três pelo número cravado no texto, então não imprimiu a contagem de marcadores delas; os totais vêm do próprio <ID>.json."
+ },
+ "surpresas": [
+  {
+   "o_que": "a regra 6 custa 3,5× o previsto",
+   "diagnostico": "6 conclusões",
+   "portao": "21 conclusões, 60 trechos",
+   "por_que_escapou": "o diagnóstico pegou palavra inteira (rho, porta); os 15 casos novos têm o termo colado no número — “d 1.459”, “q 0.00121”, “p 0.08957”",
+   "novas": [
+    "A02-2",
+    "A03-1",
+    "A03-2",
+    "A03-3",
+    "A04-3",
+    "A06-1",
+    "A06-2",
+    "A06-3",
+    "A07-2",
+    "A14-1",
+    "A14-3",
+    "J02-2",
+    "J02-3",
+    "J03-2",
+    "J03-3"
+   ],
+   "conferido": "varri o _backup_pre_correcoes_19_09/ com a mesma regra: resultado idêntico. As correções de 19/09 não introduziram isso; o texto sempre foi assim."
+  },
+  {
+   "o_que": "números medidos cravados no texto, sem marcador nenhum — fora dos 191",
+   "quantos": 8,
+   "onde": {
+    "A12": [
+     "A12-3 · o_que_vimos: 10,0",
+     "A12-3 · o_que_vimos: 13,2",
+     "A12-3 · o_que_vimos: 52,0153",
+     "A12-3 · o_que_vimos: 14,0858"
+    ],
+    "A13": [
+     "A13-3 · manchete: 0,48",
+     "A13-3 · manchete: 0,82"
+    ],
+    "J01": [
+     "J01-3 · o_que_vimos: 25,5",
+     "J01-3 · o_que_vimos: 22,0"
+    ]
+   },
+   "por_que_importa": "gerar o <ID>_numeros.json não conserta: não há marcador para conferir, o texto tem de ser reescrito",
+   "ressalva": "2 dos 4 de A12-3 (10,0 e 13,2) são citação da §7.2(b), não medida; o portão não distingue"
+  },
+  {
+   "o_que": "cicatriz de edição publicada em J01-3",
+   "trecho": "…onde quem cai rastreia {cai_altos} contra… na verdade 25,5 atletas contra 22,0 do meio",
+   "por_que_importa": "marcador abandonado no meio da frase, com o número digitado logo depois"
+  },
+  {
+   "o_que": "os dois cortes não rodaram a mesma tabela",
+   "A10": "228 das 744 linhas do corte com fronteira sem par no corte sem; há um terceiro corte, sem_cobertura_baixa",
+   "J04": "136 das 493 sem par",
+   "J03": "a tabela de testes não tem coluna de corte: a robustez da fronteira nunca rodou",
+   "conferido": "contei à mão nos CSV (A10_testes.csv, J04_testes.csv, J03_testes.csv) e bate"
+  },
+  {
+   "o_que": "registrar a porta temporal não é passar nela",
+   "A10": "todas as entradas de porta_temporal têm passa=false",
+   "J08": "porta_de_coorte tem passou=false",
+   "no_estudo_inteiro": "o _porta_temporal.json lista só dois indicadores que passam a porta da §6.4: dist_remate e E_qualidade_chance"
+  },
+  {
+   "o_que": "o registro escrito à mão mente em pontos localizáveis",
+   "selos_trocados": [
+    "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+    "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+    "A02-2: o registro diz “firme” e A02.json diz “provavel”"
+   ],
+   "conclusoes_de_fora": [
+    "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+   ]
+  },
+  {
+   "o_que": "A05 e A07 não têm script próprio",
+   "detalhe": "scripts/A05.py e scripts/A07.py não existem; as duas saem do scripts/_rodar.py, que importa o _metodo.py",
+   "veredito_do_portao": "REVISAR na regra 5 — é alegação de procedência que só gente confere",
+   "junto_com": "são as mesmas duas partes que citam um .md inexistente (regra 4), e A05 tem 0 de 30 indicadores passando no BH com duas conclusões 'firme'"
+  },
+  {
+   "o_que": "o quadro do PLANO diz '21 das 22 partes' na regra 1, e são 22",
+   "conferido": "o _robustez_19_09.json lista digitados_a_mao em todas as 22 partes, somando 191"
+  }
+ ],
+ "trabalho_comum": [
+  {
+   "o_que": "cada script grava resultados/<ID>_numeros.json com os marcadores que a parte publica",
+   "fecha": [
+    "regra 1",
+    "regra 9"
+   ],
+   "reprovacoes_que_some": 44
+  },
+  {
+   "o_que": "gerar o _registro.md dos <ID>.json, com linha-sentinela no topo",
+   "fecha": [
+    "regra 8"
+   ],
+   "reprovacoes_que_some": 22
+  },
+  {
+   "o_que": "rodar e registrar a porta da §6.4 em cada <ID>_resumo.json",
+   "fecha": [
+    "o caminho de volta para 'firme' na regra 2"
+   ],
+   "teto_de_hoje": "só dist_remate e E_qualidade_chance passam a porta em todo o estudo"
+  }
+ ],
+ "partes": {
+  "J04": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    3,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 37,
+   "marcadores_provados_a_mao": 1,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 6 discordância(s) (de 79 discordâncias em 357 comparações emparelhadas)"
+    },
+    {
+     "ordem": 2,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 3,
+     "o_que_fazer": "rodar o corte sem fronteira nas linhas que só existem no corte com — 136 linhas do corte com e 0 do corte sem NÃO emparelharam: os dois cortes não rodaram a mesma tabela"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/J04_numeros.json com os 37 marcadores publicados (a auditoria provou 1 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/J04_numeros.json",
+      "37 marcadores em J04.json.numeros e 37 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 1 marcador digitado à mão nesta parte (_robustez_19_09.json, partes.J04.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "PASSA",
+     "motivo": "nenhuma conclusão passa do teto recalculado (provável)",
+     "evidencia": [
+      "8 de 493 indicadores com q < 0.05 em J04_testes.csv (corte com fronteira)",
+      "porta temporal: há bloco `porta_*`, mas nenhuma entrada com parcial numérica e `passa` verdadeiro — registrar a porta não é passar nela",
+      "J04_resumo.json → porta_temporal"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "6 discordâncias que o texto não cita",
+     "evidencia": [
+      "357 comparações emparelhadas nos dois cortes, 79 discordam",
+      "136 linhas do corte com e 0 do corte sem NÃO emparelharam: os dois cortes não rodaram a mesma tabela",
+      "só com: distance_p90 (comparacao=ST, familia=volume, indicador=distance_p90, setor=Zaga, subamostra=todos)",
+      "só com: running_distance_p90 (comparacao=ST, familia=volume, indicador=running_distance_p90, setor=Zaga, subamostra=todo)",
+      "só com: m_per_min (comparacao=ST, familia=volume, indicador=m_per_min, setor=Zaga, subamostra=todos)",
+      "distance_p90 (SM): passa num corte e não no outro (q 0.25756 × 0.03441, d -0.397 × -0.847)",
+      "distance_p90 (CM): passa num corte e não no outro (q 0.04283 × 0.13622, d -0.484 × -0.428)",
+      "running_distance_p90 (CM): passa num corte e não no outro (q 0.04283 × 0.13622, d -0.486 × -0.437)",
+      "psv99 (SM): passa num corte e não no outro (q 0.02341 × 0.54728, d 0.576 × 0.202)",
+      "psv99_top5 (SM): passa num corte e não no outro (q 0.02341 × 0.54728, d 0.585 × 0.256)",
+      "psv99 (SM): passa num corte e não no outro (q 0.01349 × 0.49935, d 0.657 × 0.225)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "8 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "J04.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": [
+      "unidade inferida da parte (o CSV não a declara): jogador-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/J04_base.py + scripts/J04_identidade.py + scripts/J04.py + scripts/_metodo.py”",
+      "falta J04_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "J08": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 86,
+   "marcadores_provados_a_mao": 21,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 2 conclusão(ões): J08-1, J08-3"
+    },
+    {
+     "ordem": 2,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/J08_numeros.json com os 86 marcadores publicados (a auditoria provou 21 digitado(s) à mão)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no J08_resumo.json — porta temporal: há bloco `porta_*`, mas nenhuma entrada com parcial numérica e `passa` verdadeiro — registrar a porta não é passar nela"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/J08_numeros.json",
+      "86 marcadores em J08.json.numeros e 53 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 21 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.J08.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "2 conclusões passam do teto recalculado",
+     "evidencia": [
+      "J08-1 diz firme, e o teto da parte é provável",
+      "J08-3 diz firme, e o teto da parte é provável",
+      "85 de 900 indicadores com q < 0.05 em J08_testes.csv (corte com fronteira)",
+      "porta temporal: há bloco `porta_*`, mas nenhuma entrada com parcial numérica e `passa` verdadeiro — registrar a porta não é passar nela",
+      "J08_resumo.json → porta_de_coorte"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a fronteira G4/Z4 não existe na unidade liga-transferencia, e a parte rodou 3 outros cortes de sensibilidade",
+     "evidencia": [
+      "J08_testes.csv, coluna corte: ['com_identidade_incoerente', 'principal', 'so_900_no_destino', 'so_temporada_fechada']"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "10 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "J08.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/J08_base.py + scripts/J08.py + scripts/_metodo.py”",
+      "falta J08_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A10": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    3,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [
+    2
+   ],
+   "marcadores_publicados": 43,
+   "marcadores_provados_a_mao": 7,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 1 conclusão(ões): A10-3"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 23 discordância(s) (de 123 discordâncias em 516 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 3,
+     "o_que_fazer": "rodar o corte sem fronteira nas linhas que só existem no corte com — 228 linhas do corte com e 0 do corte sem NÃO emparelharam: os dois cortes não rodaram a mesma tabela"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A10_numeros.json com os 43 marcadores publicados (a auditoria provou 7 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A10_resumo.json — porta temporal: há bloco `porta_*`, mas nenhuma entrada com parcial numérica e `passa` verdadeiro — registrar a porta não é passar nela"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A10_numeros.json",
+      "43 marcadores em A10.json.numeros e 34 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 7 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A10.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REVISAR",
+     "motivo": "1 conclusão está dentro do teto da parte mas não dá para amarrá-la a um indicador que passou",
+     "evidencia": [
+      "A10-3 diz provável e não nomeia indicador nenhum: não dá para saber se o que a sustenta passou",
+      "25 de 744 indicadores com q < 0.05 em A10_testes.csv (corte com fronteira)",
+      "porta temporal: há bloco `porta_*`, mas nenhuma entrada com parcial numérica e `passa` verdadeiro — registrar a porta não é passar nela",
+      "A10_resumo.json → porta_temporal"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "23 discordâncias que o texto não cita",
+     "evidencia": [
+      "516 comparações emparelhadas nos dois cortes, 123 discordam",
+      "outros cortes na mesma coluna (não conferidos por esta regra): ['sem_cobertura_baixa']",
+      "228 linhas do corte com e 0 do corte sem NÃO emparelharam: os dois cortes não rodaram a mesma tabela",
+      "só com: distance_p90 (comparacao=SM, familia=fisico_col_x_SM, indicador=distance_p90, leitura=principal, medida=)",
+      "só com: hi_distance_p90 (comparacao=SM, familia=fisico_col_x_SM, indicador=hi_distance_p90, leitura=principal, medi)",
+      "só com: high_accel_p90 (comparacao=SM, familia=fisico_col_x_SM, indicador=high_accel_p90, leitura=principal, medid)",
+      "sprint_distance_p90 (CM): troca de sinal entre os cortes (q 0.82564 × 0.86267, d -0.419 × 0.214)",
+      "sprint_count_p90 (CM): passa num corte e não no outro (q 0.14208 × 0.01776, d -1.701 × -2.448)",
+      "psv99 (CM): passa num corte e não no outro (q 0.4993 × 0.0048, d -1.222 × -2.514)",
+      "sprint_count_p90 (CM): passa num corte e não no outro (q 0.4993 × 0.0032, d -1.297 × -2.984)",
+      "sprint_distance_p90 (CM): passa num corte e não no outro (q 0.4993 × 0.0144, d -1.138 × -1.995)",
+      "distance_p90 (CM): passa num corte e não no outro (q 0.04872 × 0.0601, d 0.489 × 0.51)",
+      "hi_distance_p90 (CM): passa num corte e não no outro (q 0.04872 × 0.05013, d -0.386 × -0.452)",
+      "hi_distance_p90 (CM): passa num corte e não no outro (q 0.18168 × 0.0, d -0.612 × -1.174)",
+      "…"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "8 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A10.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A10_base.py + scripts/A10.py + scripts/_metodo.py”",
+      "falta A10_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A12": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 29,
+   "marcadores_provados_a_mao": 7,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 1,
+     "o_que_fazer": "trocar por marcador 4 número(s) cravado(s) no texto: o_que_vimos: 10,0; o_que_vimos: 13,2; o_que_vimos: 52,0153; o_que_vimos: 14,0858"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 2 conclusão(ões) — A12-1, A12-3 — enquanto não houver A12_testes.csv"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A12_numeros.json com os 29 marcadores publicados (a auditoria provou 7 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe A12_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "4 números medidos estão cravados no texto, sem marcador: nada a conferir contra a saída do script",
+     "evidencia": [
+      "A12-3 · o_que_vimos: 10,0",
+      "A12-3 · o_que_vimos: 13,2",
+      "A12-3 · o_que_vimos: 52,0153",
+      "A12-3 · o_que_vimos: 14,0858",
+      "conferência do portão: a auditoria de 19/09 aponta 7 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A12.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 2 conclusões passam disso",
+     "evidencia": [
+      "A12_testes.csv: não existe",
+      "acima do teto: A12-1, A12-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "A12_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "5 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A12.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A12.py”",
+      "falta A12_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A01": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 32,
+   "marcadores_provados_a_mao": 17,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 3 conclusão(ões) — A01-1, A01-2, A01-3 — enquanto não houver A01_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/A01.py para importar scripts/_metodo.py em vez de reimplementar o teste (A01.py importa: collections, csv, datetime, json, os, re, statistics)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A01_numeros.json com os 32 marcadores publicados (a auditoria provou 17 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe A01_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A01_numeros.json",
+      "32 marcadores em A01.json.numeros e 22 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 17 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A01.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 3 conclusões passam disso",
+     "evidencia": [
+      "A01_testes.csv: não existe",
+      "acima do teto: A01-1, A01-2, A01-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "A01_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "6 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "A01.py importa: collections, csv, datetime, json, os, re, statistics",
+      "conclusões acima de indício: A01-1, A01-2, A01-3"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A01.py”",
+      "falta A01_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A03": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 28,
+   "marcadores_provados_a_mao": 7,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 2 conclusão(ões): A03-1, A03-2"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 1 discordância(s) (de 6 discordâncias em 36 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 4 trecho(s) em A03-1, A03-2, A03-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A03_numeros.json com os 28 marcadores publicados (a auditoria provou 7 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A03_resumo.json — porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A03_numeros.json",
+      "28 marcadores em A03.json.numeros e 26 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 7 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A03.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "2 conclusões passam do teto recalculado",
+     "evidencia": [
+      "A03-1 diz firme, e o teto da parte é provável",
+      "A03-2 diz firme, e o teto da parte é provável",
+      "10 de 36 indicadores com q < 0.05 em A03_testes.csv (corte com fronteira)",
+      "porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "1 discordância que o texto não cita",
+     "evidencia": [
+      "36 comparações emparelhadas nos dois cortes, 6 discordam",
+      "dd_casa (ST): passa num corte e não no outro (q 0.05321 × 0.00419, d 0.931 × 2.281)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "4 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A03.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "4 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A03-1 · o_que_vimos: “p” em …depende do teste: Welch dá p 0.77786 com a frontei…",
+      "A03-2 · o_que_vimos: “d” em …o nos dois mandos — em casa d 0.703 com a fronteira…",
+      "A03-3 · o_que_vimos: “d” em …jogo contra 1.391 do meio (d -0.705 com a fronteir…",
+      "A03-3 · o_que_vimos: “d” em …ra, sofre 1.56 contra 1.36 (d -0.92 e -1.134). Os d…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": [
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A03.py + scripts/_metodo.py”",
+      "falta A03_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A11": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 20,
+   "marcadores_provados_a_mao": 4,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 3 conclusão(ões) — A11-1, A11-2, A11-3 — enquanto não houver A11_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 4 trecho(s) em A11-1, A11-2: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A11_numeros.json com os 20 marcadores publicados (a auditoria provou 4 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe A11_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A11_numeros.json",
+      "20 marcadores em A11.json.numeros e 18 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 4 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A11.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 3 conclusões passam disso",
+     "evidencia": [
+      "A11_testes.csv: não existe",
+      "acima do teto: A11-1, A11-2, A11-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "A11_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "3 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A11.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "4 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A11-1 · o_que_vimos: “rho” em …minuto não explicam nada — rho 0.042 com entradas na…",
+      "A11-1 · o_que_vimos: “rho” em …ão as corridas PARA A ÁREA: rho 0.467 com entradas na…",
+      "A11-2 · o_que_vimos: “rho” em …osse anda forte com o PPDA (rho -0.633, firme) e os m…",
+      "A11-2 · o_que_vimos: “rho” em …s anda com as recuperações: rho 0.014 e 0.13, sem rel…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A11.py”",
+      "falta A11_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A14": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 31,
+   "marcadores_provados_a_mao": 1,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 2 conclusão(ões) — A14-1, A14-2 — enquanto não houver A14_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 6 trecho(s) em A14-1, A14-2, A14-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A14_numeros.json com os 31 marcadores publicados (a auditoria provou 1 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe A14_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A14_numeros.json",
+      "31 marcadores em A14.json.numeros e 29 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 1 marcador digitado à mão nesta parte (_robustez_19_09.json, partes.A14.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 2 conclusões passam disso",
+     "evidencia": [
+      "A14_testes.csv: não existe",
+      "acima do teto: A14-1, A14-2"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "A14_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "4 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A14.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "6 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A14-1 · o_que_vimos: “d” em …0, meio 48.7, cai 31.9, com d 1.66 entre Sobe e Mei…",
+      "A14-2 · o_que_vimos: “d” em …e aplicando o índice nela: d 2.61 em 2022 (p 0.006…",
+      "A14-2 · o_que_vimos: “p” em …ndice nela: d 2.61 em 2022 (p 0.00683) e 2.67 em 20…",
+      "A14-2 · o_que_vimos: “p” em …(p 0.00683) e 2.67 em 2024 (p 0.00014) — fortes; ma…",
+      "A14-3 · o_que_vimos: “d” em …e separa 1º–2º de 3º–6º com d 0.89 (p 0.02283, 77.5…",
+      "A14-3 · o_que_vimos: “p” em …1º–2º de 3º–6º com d 0.89 (p 0.02283, 77.5 contra…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A14.py”",
+      "falta A14_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "J01": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 24,
+   "marcadores_provados_a_mao": 22,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 1,
+     "o_que_fazer": "trocar por marcador 2 número(s) cravado(s) no texto: o_que_vimos: 25,5; o_que_vimos: 22,0"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 2 conclusão(ões) — J01-1, J01-3 — enquanto não houver J01_testes.csv"
+    },
+    {
+     "ordem": 3,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/J01.py para importar scripts/_metodo.py em vez de reimplementar o teste (J01.py importa: collections, csv, json, numpy, os, re, statistics, unicodedata)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/J01_numeros.json com os 24 marcadores publicados (a auditoria provou 22 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe J01_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "2 números medidos estão cravados no texto, sem marcador: nada a conferir contra a saída do script",
+     "evidencia": [
+      "J01-3 · o_que_vimos: 25,5",
+      "J01-3 · o_que_vimos: 22,0",
+      "conferência do portão: a auditoria de 19/09 aponta 22 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.J01.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 2 conclusões passam disso",
+     "evidencia": [
+      "J01_testes.csv: não existe",
+      "acima do teto: J01-1, J01-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "J01_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "3 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "J01.py importa: collections, csv, json, numpy, os, re, statistics, unicodedata",
+      "conclusões acima de indício: J01-1, J01-3"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/J01.py”",
+      "falta J01_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "J02": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 24,
+   "marcadores_provados_a_mao": 4,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 1 conclusão(ões): J02-1"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 4 discordância(s) (de 4 discordâncias em 21 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 5 trecho(s) em J02-2, J02-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/J02_numeros.json com os 24 marcadores publicados (a auditoria provou 4 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no J02_resumo.json — porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/J02_numeros.json",
+      "24 marcadores em J02.json.numeros e 20 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 4 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.J02.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "1 conclusão passa do teto recalculado",
+     "evidencia": [
+      "J02-1 diz firme, e o teto da parte é provável",
+      "10 de 21 indicadores com q < 0.05 em J02_testes.csv (corte com fronteira)",
+      "porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "4 discordâncias que o texto não cita",
+     "evidencia": [
+      "21 comparações emparelhadas nos dois cortes, 4 discordam",
+      "nucleo_300 (SM): passa num corte e não no outro (q 0.02321 × 0.12929, d 0.672 × 0.656)",
+      "min_de_quem_ficou_pct (ST): passa num corte e não no outro (q 0.09151 × 0.04002, d -0.708 × -1.369)",
+      "min_de_contratado_pct (ST): passa num corte e não no outro (q 0.09151 × 0.04002, d -0.708 × -1.369)",
+      "jogadores_que_ficaram_pct (CM): passa num corte e não no outro (q 0.04988 × 0.12204, d -0.579 × -0.57)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "4 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "J02.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "5 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "J02-2 · o_que_vimos: “q” em …de fronteira o d é -0.709 (q 0.25284), na direção…",
+      "J02-3 · o_que_vimos: “d” em …tletas contra 38.0 do meio (d -1.108, q 0.00268), t…",
+      "J02-3 · o_que_vimos: “q” em …tra 38.0 do meio (d -1.108, q 0.00268), tem 30.5 jo…",
+      "J02-3 · o_que_vimos: “d” em …% dos minutos contra 32.3%, d -0.67, q 0.03038). Os…",
+      "J02-3 · o_que_vimos: “q” em …utos contra 32.3%, d -0.67, q 0.03038). Os quatro p…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": [
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/J02.py”",
+      "falta J02_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "J03": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 20,
+   "marcadores_provados_a_mao": 1,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 2 conclusão(ões): J03-1, J03-2"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 5 trecho(s) em J03-2, J03-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/J03_numeros.json com os 20 marcadores publicados (a auditoria provou 1 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no J03_resumo.json — porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "a tabela de testes não tem coluna de corte: rodar a parte também sem os times de fronteira"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/J03_numeros.json",
+      "20 marcadores em J03.json.numeros e 20 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 1 marcador digitado à mão nesta parte (_robustez_19_09.json, partes.J03.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "2 conclusões passam do teto recalculado",
+     "evidencia": [
+      "J03-1 diz firme, e o teto da parte é provável",
+      "J03-2 diz firme, e o teto da parte é provável",
+      "2 de 84 indicadores com q < 0.05 em J03_testes.csv (corte com fronteira)",
+      "porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "a tabela de testes não tem coluna de corte: a robustez da fronteira não rodou",
+     "evidencia": [
+      "J03_testes.csv: colunas setor, familia, indicador, n_sobe, n_meio, pct_sobe, pct_meio, cru_sobe…"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "5 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "J03.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "5 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "J03-2 · o_que_vimos: “d” em …do estudo no nível do time: d 0.805. No titular, po…",
+      "J03-3 · o_que_vimos: “d” em …15% contra 87.87% do meio — d 1.062, q 0.00121, per…",
+      "J03-3 · o_que_vimos: “q” em …a 87.87% do meio — d 1.062, q 0.00121, percentil 71…",
+      "J03-3 · o_que_vimos: “d” em ….99 contra 1.25 por 90 min (d 0.663, q 0.00726).…",
+      "J03-3 · o_que_vimos: “q” em …a 1.25 por 90 min (d 0.663, q 0.00726).…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": [
+      "unidade inferida da parte (o CSV não a declara): jogador-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/J03.py”",
+      "falta J03_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "J07": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 26,
+   "marcadores_provados_a_mao": 25,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 1 conclusão(ões) — J07-3 — enquanto não houver J07_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/J07.py para importar scripts/_metodo.py em vez de reimplementar o teste (J07.py importa: collections, csv, json, numpy, os, re, statistics, unicodedata)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/J07_numeros.json com os 26 marcadores publicados (a auditoria provou 25 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe J07_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/J07_numeros.json",
+      "26 marcadores em J07.json.numeros e 26 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 25 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.J07.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 1 conclusão passa disso",
+     "evidencia": [
+      "J07_testes.csv: não existe",
+      "acima do teto: J07-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "J07_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "3 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "J07.py importa: collections, csv, json, numpy, os, re, statistics, unicodedata",
+      "conclusões acima de indício: J07-3"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/J07.py”",
+      "falta J07_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "T01": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 22,
+   "marcadores_provados_a_mao": 23,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 3 conclusão(ões) — T01-1, T01-2, T01-3 — enquanto não houver T01_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/T01.py para importar scripts/_metodo.py em vez de reimplementar o teste (T01.py importa: bs4, csv, datetime, json, os, random, re, requests, sys, time)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/T01_numeros.json com os 22 marcadores publicados (a auditoria provou 23 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe T01_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/T01_numeros.json",
+      "22 marcadores em T01.json.numeros e 16 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 23 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.T01.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 3 conclusões passam disso",
+     "evidencia": [
+      "T01_testes.csv: não existe",
+      "acima do teto: T01-1, T01-2, T01-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "T01_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "6 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "T01.py importa: bs4, csv, datetime, json, os, random, re, requests, sys, time",
+      "conclusões acima de indício: T01-1, T01-2, T01-3"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/T01.py + scripts/T01_rodadas.py”",
+      "falta T01_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "T02": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 28,
+   "marcadores_provados_a_mao": 17,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 3 conclusão(ões) — T02-1, T02-2, T02-3 — enquanto não houver T02_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/T02.py para importar scripts/_metodo.py em vez de reimplementar o teste (T02.py importa: collections, csv, json, os, re, statistics)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/T02_numeros.json com os 28 marcadores publicados (a auditoria provou 17 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe T02_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/T02_numeros.json",
+      "28 marcadores em T02.json.numeros e 20 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 17 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.T02.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 3 conclusões passam disso",
+     "evidencia": [
+      "T02_testes.csv: não existe",
+      "acima do teto: T02-1, T02-2, T02-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "T02_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "6 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "T02.py importa: collections, csv, json, os, re, statistics",
+      "conclusões acima de indício: T02-1, T02-2, T02-3"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/T02.py”",
+      "falta T02_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "T04": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 19,
+   "marcadores_provados_a_mao": 1,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 2 conclusão(ões) — T04-1, T04-2 — enquanto não houver T04_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/T04.py para importar scripts/_metodo.py em vez de reimplementar o teste (T04.py importa: collections, csv, json, numpy, os, statistics)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/T04_numeros.json com os 19 marcadores publicados (a auditoria provou 1 digitado(s) à mão)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe T04_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/T04_numeros.json",
+      "19 marcadores em T04.json.numeros e 16 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 1 marcador digitado à mão nesta parte (_robustez_19_09.json, partes.T04.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 2 conclusões passam disso",
+     "evidencia": [
+      "T04_testes.csv: não existe",
+      "acima do teto: T04-1, T04-2"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "T04_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "3 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "T04.py importa: collections, csv, json, numpy, os, statistics",
+      "conclusões acima de indício: T04-1, T04-2"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/T04.py”",
+      "falta T04_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A05": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    4,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [
+    5
+   ],
+   "marcadores_publicados": 16,
+   "marcadores_provados_a_mao": 7,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 2 conclusão(ões): A05-1, A05-2"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 1 discordância(s) (de 3 discordâncias em 30 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 4,
+     "o_que_fazer": "a prova citada não existe — A05-1: “A05.md” não existe em resultados/, no estudo nem na raiz: escrever o arquivo com a prova de verdade, ou apontar o campo para o que sustenta a conclusão"
+    },
+    {
+     "ordem": 4,
+     "esforco": "barato · texto",
+     "regra": 5,
+     "o_que_fazer": "não há scripts/A05.py: conferir à mão que o scripts/_rodar.py A05 roda mesmo esta parte, e dizer isso no gerado_por"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A05_numeros.json com os 16 marcadores publicados (a auditoria provou 7 digitado(s) à mão)"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 8,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A05_resumo.json — porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A05_numeros.json",
+      "16 marcadores em A05.json.numeros e 14 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 7 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A05.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "2 conclusões passam do teto recalculado",
+     "evidencia": [
+      "A05-1 diz firme, e o teto da parte é indício",
+      "A05-2 diz firme, e o teto da parte é indício",
+      "0 de 30 indicadores com q < 0.05 em A05_testes.csv (corte com fronteira)",
+      "porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "1 discordância que o texto não cita",
+     "evidencia": [
+      "30 comparações emparelhadas nos dois cortes, 3 discordam",
+      "atq_posicional (ST): troca de sinal entre os cortes (q 0.51001 × 0.82688, d -0.496 × 0.291)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "REPROVA",
+     "motivo": "1 prova não sustenta o que alega",
+     "evidencia": [
+      "A05-1: “A05.md” não existe em resultados/, no estudo nem na raiz"
+     ]
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REVISAR",
+     "motivo": "não existe scripts/A05.py: o método vem de um script comum, que é outra alegação — conferir à mão que ele roda ESTA parte",
+     "evidencia": [
+      "gerado_por: scripts/_rodar.py A05",
+      "importa o _metodo: _rodar.py"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "PASSA",
+     "motivo": "manchete e o que vimos sem palavra da lista",
+     "evidencia": []
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": [
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/_rodar.py A05”",
+      "falta A05_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A04": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    7,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 30,
+   "marcadores_provados_a_mao": 3,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 3 conclusão(ões): A04-1, A04-2, A04-3"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 4 discordância(s) (de 8 discordâncias em 39 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 4 trecho(s) em A04-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A04_numeros.json com os 30 marcadores publicados (a auditoria provou 3 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A04_resumo.json — porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+    },
+    {
+     "ordem": 8,
+     "esforco": "caro · análise nova",
+     "regra": 7,
+     "o_que_fazer": "decidir de qual família sai o q publicado — duelos_aereos_pct × clube-temporada × ST: A04 publica q [0.01861] e A06 publica q [0.01241]"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A04_numeros.json",
+      "30 marcadores em A04.json.numeros e 26 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 3 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A04.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "3 conclusões passam do teto recalculado",
+     "evidencia": [
+      "A04-1 diz firme, e o teto da parte é provável",
+      "A04-2 diz firme, e o teto da parte é provável",
+      "A04-3 diz provável, mas nenhum indicador que ela cita passou no BH (bolas_paradas): o teto dela é indício",
+      "8 de 39 indicadores com q < 0.05 em A04_testes.csv (corte com fronteira)",
+      "porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "4 discordâncias que o texto não cita",
+     "evidencia": [
+      "39 comparações emparelhadas nos dois cortes, 8 discordam",
+      "bp_pro_90 (SM): passa num corte e não no outro (q 0.02394 × 0.29391, d 0.739 × 0.718)",
+      "bp_saldo_90 (SM): passa num corte e não no outro (q 0.00228 × 0.05339, d 0.981 × 1.231)",
+      "duelos_aereos_pct (ST): passa num corte e não no outro (q 0.01861 × 0.25133, d -1.048 × -0.738)",
+      "tm_altura (ST): passa num corte e não no outro (q 0.02537 × 0.16081, d 0.896 × 1.074)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "4 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A04.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "4 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A04-3 · o_que_vimos: “d” em …jogo contra 0.316 do meio (d -0.776) e sofre 0.461…",
+      "A04-3 · o_que_vimos: “d” em …e sofre 0.461 contra 0.368 (d -0.83) — saldo de -0.…",
+      "A04-3 · o_que_vimos: “d” em …eo: 43.517% contra 46.485% (d -1.156, q 0.00121). O…",
+      "A04-3 · o_que_vimos: “q” em …% contra 46.485% (d -1.156, q 0.00121). Os quatro p…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "REPROVA",
+     "motivo": "1 caso de mesmo indicador publicado com dois q diferentes",
+     "evidencia": [
+      "duelos_aereos_pct × clube-temporada × ST: A04 publica q [0.01861] e A06 publica q [0.01241]",
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A04.py + scripts/_metodo.py”",
+      "falta A04_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A06": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    6,
+    7,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 38,
+   "marcadores_provados_a_mao": 6,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 2 conclusão(ões): A06-1, A06-3"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 1 discordância(s) (de 8 discordâncias em 16 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 12 trecho(s) em A06-1, A06-2, A06-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A06_numeros.json com os 38 marcadores publicados (a auditoria provou 6 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A06_resumo.json — porta temporal: a porta que a parte rodou não é a da §6.4: idem A02"
+    },
+    {
+     "ordem": 8,
+     "esforco": "caro · análise nova",
+     "regra": 7,
+     "o_que_fazer": "decidir de qual família sai o q publicado — duelos_aereos_pct × clube-temporada × ST: A06 publica q [0.01241] e A04 publica q [0.01861]; xg_por_remate_contra × clube-temporada × SM: A06 publica q [0.03113] e A02 publica q [0.02076]; xg_por_remate_contra × clube-temporada × ST: A06 publica q [0.28712] e A02 publica q [0.76566]"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A06_numeros.json",
+      "38 marcadores em A06.json.numeros e 27 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 6 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A06.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "2 conclusões passam do teto recalculado",
+     "evidencia": [
+      "A06-1 diz firme, e o teto da parte é provável",
+      "A06-3 diz firme, e o teto da parte é provável",
+      "3 de 16 indicadores com q < 0.05 em A06_testes.csv (corte com fronteira)",
+      "porta temporal: a porta que a parte rodou não é a da §6.4: idem A02",
+      "_porta_temporal.json, metodo.divergencia_entre_as_partes.A06"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "1 discordância que o texto não cita",
+     "evidencia": [
+      "16 comparações emparelhadas nos dois cortes, 8 discordam",
+      "duelos_aereos_pct (ST): passa num corte e não no outro (q 0.01241 × 0.16755, d -1.048 × -0.738)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "4 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "PASSA",
+     "motivo": "A06.py importa o _metodo.py",
+     "evidencia": []
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "12 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A06-1 · o_que_vimos: “d” em ….464 contra 10.256 do meio (d 0.59, q 0.16647), rec…",
+      "A06-1 · o_que_vimos: “q” em …tra 10.256 do meio (d 0.59, q 0.16647), recuperaçõe…",
+      "A06-1 · o_que_vimos: “d” em …, q 0.16647), recuperações (d 0.425) e intensidade…",
+      "A06-1 · o_que_vimos: “d” em …es (d 0.425) e intensidade (d 0.68) ficam todos sem…",
+      "A06-1 · o_que_vimos: “d” em …ho: 61.672% contra 59.885%, d 1.593 — o maior efeit…",
+      "A06-2 · o_que_vimos: “d” em …os contra 59.791% da trave (d 2.23, q 0.00379). COM…",
+      "A06-2 · o_que_vimos: “q” em …a 59.791% da trave (d 2.23, q 0.00379). COM os time…",
+      "A06-3 · o_que_vimos: “d” em …sária contra 12.38 do meio, d 0.067, sem diferença…",
+      "A06-3 · o_que_vimos: “d” em …por finalização sofrida com d 1.303 (q 0.00967), e…",
+      "A06-3 · o_que_vimos: “q” em …ização sofrida com d 1.303 (q 0.00967), e o xG sofr…",
+      "A06-3 · o_que_vimos: “d” em …e o xG sofrido ajustado em d 0.945. Duelo aéreo nã…",
+      "A06-3 · o_que_vimos: “d” em …45. Duelo aéreo não separa (d 0.189).…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "REPROVA",
+     "motivo": "3 casos de mesmo indicador publicado com dois q diferentes",
+     "evidencia": [
+      "duelos_aereos_pct × clube-temporada × ST: A06 publica q [0.01241] e A04 publica q [0.01861]",
+      "xg_por_remate_contra × clube-temporada × SM: A06 publica q [0.03113] e A02 publica q [0.02076]",
+      "xg_por_remate_contra × clube-temporada × ST: A06 publica q [0.28712] e A02 publica q [0.76566]",
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A06.py + scripts/_metodo.py”",
+      "falta A06_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A13": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 26,
+   "marcadores_provados_a_mao": 4,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 1,
+     "o_que_fazer": "trocar por marcador 2 número(s) cravado(s) no texto: manchete: 0,48; manchete: 0,82"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 3 conclusão(ões) — A13-1, A13-2, A13-3 — enquanto não houver A13_testes.csv"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 3 trecho(s) em A13-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 4,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/A13.py para importar scripts/_metodo.py em vez de reimplementar o teste (A13.py importa: collections, csv, json, math, numpy, os, re, scipy, statistics)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A13_numeros.json com os 26 marcadores publicados (a auditoria provou 4 digitado(s) à mão)"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 8,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe A13_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "2 números medidos estão cravados no texto, sem marcador: nada a conferir contra a saída do script",
+     "evidencia": [
+      "A13-3 · manchete: 0,48",
+      "A13-3 · manchete: 0,82",
+      "conferência do portão: a auditoria de 19/09 aponta 4 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A13.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 3 conclusões passam disso",
+     "evidencia": [
+      "A13_testes.csv: não existe",
+      "acima do teto: A13-1, A13-2, A13-3"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "A13_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "4 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "A13.py importa: collections, csv, json, math, numpy, os, re, scipy, statistics",
+      "conclusões acima de indício: A13-1, A13-2, A13-3"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "3 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A13-3 · manchete: “rho” em …prevê menos do que parece: rho 0,48, não 0,82…",
+      "A13-3 · o_que_vimos: “rho” em …andam com a posição final a rho 0.816 — mas isso é em…",
+      "A13-3 · o_que_vimos: “rho” em …prevendo o 2º TURNO, e aí o rho cai para 0.484. O sal…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A13.py”",
+      "falta A13_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "T03": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [],
+   "marcadores_publicados": 17,
+   "marcadores_provados_a_mao": 6,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar para indício 2 conclusão(ões) — T03-1, T03-2 — enquanto não houver T03_testes.csv"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 1 trecho(s) em T03-1: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 3,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/T03.py para importar scripts/_metodo.py em vez de reimplementar o teste (T03.py importa: collections, csv, json, numpy, os, re, scipy, sys)"
+    },
+    {
+     "ordem": 4,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/T03_numeros.json com os 17 marcadores publicados (a auditoria provou 6 digitado(s) à mão)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "caro · análise nova",
+     "regra": 3,
+     "o_que_fazer": "não existe T03_testes.csv: rodar a tabela de testes nos dois cortes, ou assumir que a parte é descritiva e nenhuma conclusão dela passa de indício"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/T03_numeros.json",
+      "17 marcadores em T03.json.numeros e 16 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 6 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.T03.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv nenhuma conclusão pode ser firme nem provável, e 2 conclusões passam disso",
+     "evidencia": [
+      "T03_testes.csv: não existe",
+      "acima do teto: T03-1, T03-2"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "sem <ID>_testes.csv não há como provar que os dois cortes rodaram",
+     "evidencia": [
+      "T03_testes.csv: não existe"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "3 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte não tem tabela de testes, mas publica conclusão acima de indício sem importar o _metodo.py: o teste que ela alega foi reimplementado fora do método da casa",
+     "evidencia": [
+      "T03.py importa: collections, csv, json, numpy, os, re, scipy, sys",
+      "conclusões acima de indício: T03-1, T03-2"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "1 palavra técnica no texto de 10 segundos",
+     "evidencia": [
+      "T03-1 · o_que_vimos: “rho” em …agens QUAISQUER da base têm rho médio -0.014, e 10% d…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "NÃO APLICÁVEL",
+     "motivo": "a parte não publica tabela de testes",
+     "evidencia": []
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/T03.py”",
+      "falta T03_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A02": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [
+    3
+   ],
+   "marcadores_publicados": 50,
+   "marcadores_provados_a_mao": 1,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 1 conclusão(ões): A02-3"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 8 discordância(s) (de 8 discordâncias em 26 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 11 trecho(s) em A02-2, A02-3: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 4,
+     "esforco": "médio · rodar o script de novo",
+     "regra": 5,
+     "o_que_fazer": "reescrever scripts/A02.py para importar scripts/_metodo.py em vez de reimplementar o teste (A02.py importa: collections, csv, json, math, numpy, os, re, scipy, statistics)"
+    },
+    {
+     "ordem": 5,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A02_numeros.json com os 50 marcadores publicados (a auditoria provou 1 digitado(s) à mão)"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 7,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 8,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A02_resumo.json — porta temporal: a porta que a parte rodou não é a da §6.4: indicador da 1ª metade × o PRÓPRIO indicador da 2ª (persistência), com limiar rho>0,30 — o rho_persist que a §6.5 aposentou em 15/09"
+    },
+    {
+     "ordem": 9,
+     "esforco": "caro · análise nova",
+     "regra": 7,
+     "o_que_fazer": "decidir de qual família sai o q publicado — xg_por_remate_contra × clube-temporada × SM: A02 publica q [0.02076] e A06 publica q [0.03113]; xg_por_remate_contra × clube-temporada × ST: A02 publica q [0.76566] e A06 publica q [0.28712]"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A02_numeros.json",
+      "50 marcadores em A02.json.numeros e 29 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 1 marcador digitado à mão nesta parte (_robustez_19_09.json, partes.A02.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "1 conclusão passa do teto recalculado",
+     "evidencia": [
+      "A02-3 diz firme, e o teto da parte é provável",
+      "6 de 26 indicadores com q < 0.05 em A02_testes.csv (corte com fronteira)",
+      "porta temporal: a porta que a parte rodou não é a da §6.4: indicador da 1ª metade × o PRÓPRIO indicador da 2ª (persistência), com limiar rho>0,30 — o rho_persist que a §6.5 aposentou em 15/09",
+      "_porta_temporal.json, metodo.divergencia_entre_as_partes.A02"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REVISAR",
+     "motivo": "8 discordâncias em que o texto fala de fronteira mas não amarra o indicador: conferir à mão",
+     "evidencia": [
+      "26 comparações emparelhadas nos dois cortes, 8 discordam",
+      "toques_area (SM): passa num corte e não no outro (q 0.08444 × 0.03507, d 0.587 × 0.91)",
+      "entradas_area (SM): passa num corte e não no outro (q 0.10962 × 0.03724, d 0.517 × 0.926)",
+      "xg (ST): troca de sinal entre os cortes (q 0.54034 × 0.91978, d -0.366 × 0.053) [perto de zero]",
+      "entradas_area (ST): troca de sinal entre os cortes (q 0.94947 × 0.7541, d -0.023 × 0.305) [perto de zero]",
+      "xg_contra (SM): passa num corte e não no outro (q 0.06503 × 0.00124, d 0.623 × 1.459)",
+      "gols_contra_90 (ST): troca de sinal entre os cortes (q 0.82629 × 0.16788, d -0.08 × 0.849) [perto de zero]",
+      "remates_contra (ST): troca de sinal entre os cortes (q 0.82629 × 0.31067, d -0.154 × 0.546) [perto de zero]",
+      "defesa_vs_xg (ST): troca de sinal entre os cortes (q 0.87624 × 0.32415, d 0.056 × -0.529) [perto de zero]"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "PASSA",
+     "motivo": "5 arquivos citados como prova existem e têm conteúdo",
+     "evidencia": []
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REPROVA",
+     "motivo": "a parte roda teste e o script dela não importa o _metodo.py: o método está reimplementado",
+     "evidencia": [
+      "A02.py importa: collections, csv, json, math, numpy, os, re, scipy, statistics",
+      "e define: bh, cohen_d",
+      "A02_testes.csv tem 52 linhas de teste"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "11 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A02-2 · o_que_vimos: “d” em …são defensivos: xG sofrido (d 1.459) e xG por final…",
+      "A02-2 · o_que_vimos: “d” em …xG por finalização sofrida (d 1.303). O melhor do a…",
+      "A02-2 · o_que_vimos: “d” em …a distância da finalização (d 1.084). O xG criado f…",
+      "A02-2 · o_que_vimos: “d” em …1.084). O xG criado fica em d 0.911 e não passa no…",
+      "A02-3 · o_que_vimos: “rho” em …turno a sobra anda sozinha (rho 0.191, IC -0.03 a 0.3…",
+      "A02-3 · o_que_vimos: “rho” em …r acima do xG é pior ainda (rho -0.09). No mesmo test…",
+      "A02-3 · o_que_vimos: “rho” em …09). No mesmo teste, criar (rho 0.47) e ceder (rho 0.…",
+      "A02-3 · o_que_vimos: “rho” em …, criar (rho 0.47) e ceder (rho 0.522) se repetem.…",
+      "A02-3 · o_que_vimos: “d” em …052 contra -0.169 por jogo, d 1.06) e é o ÚNICO ind…",
+      "A02-3 · o_que_vimos: “p” em …rho 0.191, IC -0.03 a 0.39, p 0.08957), e defender…",
+      "A02-3 · o_que_vimos: “porta” em …a quem sobe da Trave. Mas a porta temporal derruba: do…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "REPROVA",
+     "motivo": "2 casos de mesmo indicador publicado com dois q diferentes",
+     "evidencia": [
+      "xg_por_remate_contra × clube-temporada × SM: A02 publica q [0.02076] e A06 publica q [0.03113]",
+      "xg_por_remate_contra × clube-temporada × ST: A02 publica q [0.76566] e A06 publica q [0.28712]",
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/A02.py”",
+      "falta A02_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  },
+  "A07": {
+   "aceita": false,
+   "reprova_nas_regras": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    8,
+    9
+   ],
+   "revisar_nas_regras": [
+    5
+   ],
+   "marcadores_publicados": 30,
+   "marcadores_provados_a_mao": 6,
+   "tarefas": [
+    {
+     "ordem": 1,
+     "esforco": "barato · texto",
+     "regra": 2,
+     "o_que_fazer": "rebaixar ao teto recalculado 1 conclusão(ões): A07-1"
+    },
+    {
+     "ordem": 2,
+     "esforco": "barato · texto",
+     "regra": 3,
+     "o_que_fazer": "citar os dois cortes em 1 discordância(s) (de 10 discordâncias em 39 comparações emparelhadas)"
+    },
+    {
+     "ordem": 3,
+     "esforco": "barato · texto",
+     "regra": 4,
+     "o_que_fazer": "a prova citada não existe — A07-1: “A07.md” não existe em resultados/, no estudo nem na raiz: escrever o arquivo com a prova de verdade, ou apontar o campo para o que sustenta a conclusão"
+    },
+    {
+     "ordem": 4,
+     "esforco": "barato · texto",
+     "regra": 5,
+     "o_que_fazer": "não há scripts/A07.py: conferir à mão que o scripts/_rodar.py A07 roda mesmo esta parte, e dizer isso no gerado_por"
+    },
+    {
+     "ordem": 5,
+     "esforco": "barato · texto",
+     "regra": 6,
+     "o_que_fazer": "reescrever 5 trecho(s) em A07-2: o número técnico (d, q, p, rho) sai da manchete e do que vimos e vai para a prova"
+    },
+    {
+     "ordem": 6,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 1,
+     "o_que_fazer": "fazer o script gravar resultados/A07_numeros.json com os 30 marcadores publicados (a auditoria provou 6 digitado(s) à mão)"
+    },
+    {
+     "ordem": 7,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 8,
+     "o_que_fazer": "gerar o _registro.md dos <ID>.json, com a linha-sentinela no topo"
+    },
+    {
+     "ordem": 8,
+     "esforco": "comum · uma vez para as 22",
+     "regra": 9,
+     "o_que_fazer": "com o arquivo da regra 1 no lugar, o gerado_por passa a ser verdade; sem ele, tirar o campo"
+    },
+    {
+     "ordem": 9,
+     "esforco": "caro · análise nova",
+     "regra": 2,
+     "o_que_fazer": "para qualquer conclusão voltar a firme: rodar e registrar a porta da §6.4 no A07_resumo.json — porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+    }
+   ],
+   "saida_do_portao": [
+    {
+     "regra": 1,
+     "titulo": "Todo marcador de numeros consta na saída do próprio script, com o mesmo valor",
+     "veredito": "REPROVA",
+     "motivo": "o script não declara a saída: nenhum script grava os números que a parte publica",
+     "evidencia": [
+      "falta _fonte/estudo_serieb/resultados/A07_numeros.json",
+      "30 marcadores em A07.json.numeros e 28 usados no texto, nenhum conferível",
+      "conferência do portão: a auditoria de 19/09 aponta 6 marcadores digitados à mão nesta parte (_robustez_19_09.json, partes.A07.digitados_a_mao)"
+     ]
+    },
+    {
+     "regra": 2,
+     "titulo": "A confiança recalculada do testes.csv (firme = BH a 5% E porta temporal)",
+     "veredito": "REPROVA",
+     "motivo": "1 conclusão passa do teto recalculado",
+     "evidencia": [
+      "A07-1 diz firme, e o teto da parte é provável",
+      "5 de 39 indicadores com q < 0.05 em A07_testes.csv (corte com fronteira)",
+      "porta temporal: não há bloco `porta_*` no resumo nem registro da parte em _porta_temporal.json"
+     ]
+    },
+    {
+     "regra": 3,
+     "titulo": "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois",
+     "veredito": "REPROVA",
+     "motivo": "1 discordância que o texto não cita",
+     "evidencia": [
+      "39 comparações emparelhadas nos dois cortes, 10 discordam",
+      "fis_high_accel_p90 (ST): troca de sinal entre os cortes (q 0.82844 × 0.51729, d -0.224 × 0.349)"
+     ]
+    },
+    {
+     "regra": 4,
+     "titulo": "O campo prova aponta para algo que existe e não está vazio",
+     "veredito": "REPROVA",
+     "motivo": "1 prova não sustenta o que alega",
+     "evidencia": [
+      "A07-1: “A07.md” não existe em resultados/, no estudo nem na raiz"
+     ]
+    },
+    {
+     "regra": 5,
+     "titulo": "scripts/<ID>.py importa scripts/_metodo.py",
+     "veredito": "REVISAR",
+     "motivo": "não existe scripts/A07.py: o método vem de um script comum, que é outra alegação — conferir à mão que ele roda ESTA parte",
+     "evidencia": [
+      "gerado_por: scripts/_rodar.py A07",
+      "importa o _metodo: _rodar.py"
+     ]
+    },
+    {
+     "regra": 6,
+     "titulo": "Nenhuma palavra proibida na manchete e no que vimos",
+     "veredito": "REPROVA",
+     "motivo": "5 palavras técnicas no texto de 10 segundos",
+     "evidencia": [
+      "A07-2 · o_que_vimos: “d” em …min contra 170.039 do meio (d -1.004) e dá 8.202 sp…",
+      "A07-2 · o_que_vimos: “d” em …11 m por 30 min contra 100 (d -0.886, q 0.02234, fi…",
+      "A07-2 · o_que_vimos: “q” em …0 min contra 100 (d -0.886, q 0.02234, firme nos do…",
+      "A07-2 · o_que_vimos: “d” em …es); com a bola não separa (d -0.537, q 0.23861).…",
+      "A07-2 · o_que_vimos: “q” em …bola não separa (d -0.537, q 0.23861).…"
+     ]
+    },
+    {
+     "regra": 7,
+     "titulo": "Nenhum indicador publicado duas vezes com q diferente",
+     "veredito": "PASSA",
+     "motivo": "nenhum indicador desta parte reaparece em outra com outro q",
+     "evidencia": [
+      "unidade inferida da parte (o CSV não a declara): clube-temporada"
+     ]
+    },
+    {
+     "regra": 8,
+     "titulo": "O _registro.md é gerado dos <ID>.json, nunca editado à mão",
+     "veredito": "REPROVA",
+     "motivo": "não há linha-sentinela no topo: o registro é escrito à mão, e nada garante que ele diga o que os <ID>.json dizem",
+     "evidencia": [
+      "esperado no topo: uma linha do tipo “gerado por scripts/… — não editar à mão”",
+      "topo hoje: # Registro do Estudo Série B",
+      "A06-2: o registro diz “provavel” e A06.json diz “indicio”",
+      "A02-1: o registro diz “firme” e A02.json diz “provavel”",
+      "A02-2: o registro diz “firme” e A02.json diz “provavel”",
+      "16 conclusões publicadas não aparecem no registro: J01-1, J01-2, J01-3, J02-1, J02-2, J02-3, J03-1, J03-2, J03-3, J07-1, J07-2, J07-3 …"
+     ]
+    },
+    {
+     "regra": 9,
+     "titulo": "O campo gerado_por é verdade ou não existe",
+     "veredito": "REPROVA",
+     "motivo": "o gerado_por aponta script que não produz os números publicados — apontar um script que não produz é pior que não ter campo",
+     "evidencia": [
+      "“scripts/_rodar.py A07”",
+      "falta A07_numeros.json (a mesma máquina da regra 1)"
+     ]
+    }
+   ]
+  }
+ },
+ "limitacoes_do_portao": [
+  "O portão NÃO executa script nenhum e NÃO abre base nenhuma. Ele confere que o número publicado é igual ao que a saída do script declara — não que esse número saiu do dado. Uma saída escrita à mão, com um script de fachada que grave o mesmo arquivo, ainda passa. Fechar isso exige rodar o script em modo de conferência e comparar, e nenhum script do estudo aceita isso hoje.",
+  "Regras 1 e 9 dependem de um resultados/<ID>_numeros.json que NENHUM script grava hoje: elas reprovam por ausência, que é o comportamento certo, mas até o gerador existir o portão não distingue “o número está errado” de “o número não é conferível”.",
+  "Regra 5 lê o import pela árvore sintática, então docstring e comentário não enganam mais — mas ela não prova que o teste publicado veio do _metodo.py, só que o módulo foi importado. Script que importa e reimplementa ao lado sai como REVISAR, não como reprovado.",
+  "Regra 2 amarra a conclusão ao indicador pelo NOME que o texto usa. Conclusão que não nomeia indicador nenhum fica em REVISAR quando a parte tem indicador reprovado — o portão não adivinha qual frase se apoia em qual linha.",
+  "Regra 3 emparelha os cortes pelas colunas do CSV e relata o que não emparelhou; ela não sabe se as duas linhas mediram de fato a mesma coisa quando as colunas de identidade divergem.",
+  "Regra 4 confere que o trecho citado aparece no arquivo, em qualquer lugar do texto — não que ele sustente a conclusão.",
+  "Regra 7 usa a unidade declarada no CSV e, quando não há, a do mapa UNIDADE_INFERIDA no topo deste arquivo: duas partes que descrevem a mesma medida com unidades escritas de formas diferentes não colidem.",
+  "Regra 8 confere sentinela, existência do gerador e coerência com os <ID>.json; ela não regenera o registro para comparar palavra por palavra.",
+  "A regra 2 confere a porta parte a parte, no <ID>_resumo.json, e ignora a lista global de quem passou no _porta_temporal.json. É falha fechada e está certo assim, mas quer dizer que uma conclusão apoiada em dist_remate só volta a firme depois que a própria parte registrar a porta.",
+  "A regra 1 não distingue número medido de número citado de documento: os 10,0 e 13,2 de A12-3 são a faixa escrita na §7.2(b), não medida da parte."
+ ]
+}

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="static/style.css?v=1789416218">
 <link rel="stylesheet" href="static/bola_parada.css?v=1789416218">
 <link rel="stylesheet" href="static/minutagem_serieb.css?v=1789416218">
+<link rel="stylesheet" href="static/estudo_serieb.css?v=1789416218">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -137,6 +138,7 @@
   <button class="aba" data-aba="prototipo">Protótipo</button>
   <button class="aba" data-aba="bolaparada">Bola parada por treinador</button>
   <button class="aba" data-aba="minutagem">Minutagem Série B</button>
+  <button class="aba" data-aba="estudo">Estudo Série B</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -535,6 +537,15 @@
       <div class="emp-rolagem"><div class="mn" id="mnCorpoPagina"></div></div>
     </section>
 
+    <!-- A aba Estudo Série B: desenhada por static/estudo_serieb.js com o dado de
+         static/estudo_serieb_dados.js (gerar_estudo_serieb_js.py). Como as de bola parada e
+         minutagem, ela mesma se mostra e se esconde acompanhando o botão; o app.js não precisa
+         saber dela. A aba é o roteiro do estudo: mostra as 29 perguntas com o status de cada
+         uma, mesmo antes de haver resposta. -->
+    <section class="pagina oculta" id="pgEstudo">
+      <div class="emp-rolagem"><div class="esb" id="esCorpoPagina"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgIndicados">
       <div class="emp-topo">
         <div class="emp-tit">
@@ -764,6 +775,8 @@
 <script src="static/bola_parada.js?v=1789416218"></script>
 <script src="static/minutagem_serieb_dados.js?v=1789416218"></script>
 <script src="static/minutagem_serieb.js?v=1789416218"></script>
+<script src="static/estudo_serieb_dados.js?v=1789416218"></script>
+<script src="static/estudo_serieb.js?v=1789416218"></script>
 <script src="static/app.js?v=1789416218"></script>
 </body>
 </html>
