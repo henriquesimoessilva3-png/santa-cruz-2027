@@ -3256,10 +3256,17 @@ function fcRender() {
   /* Com o filtro do estudo ligado, dizer QUANTOS DOS 40 estão aparecendo: os filtros de data e
      de confirmação desta aba são mais estreitos que os do estudo (com "até dez/2026" e "só
      confirmado" passam 26 dos 40), e quem visse 26 sem explicação leria a lista como sendo 26. */
+  /* O total é o do ESTUDO (51), não o do mapa (49): dois dos 51 não têm par único nesta base e
+     ficam sem linha aqui. Dizer "de 49" faria a aba contradizer a aba do estudo, que publica 51 —
+     e a diferença é justamente o que precisa ficar visível. */
+  const totalEstudo = ((typeof ESTUDO_SERIEB !== 'undefined' && ESTUDO_SERIEB.elenco_livre)
+    ? ESTUDO_SERIEB.elenco_livre.total : ESTUDO_LIVRES.size) || 0;
+  const semPar = Math.max(0, totalEstudo - ESTUDO_LIVRES.size);
   const doEstudo = ESTUDO_LIVRES.size
-    ? ' · <b>' + lista.filter(estudoLivre).length + ' dos ' + ESTUDO_LIVRES.size +
+    ? ' · <b>' + lista.filter(estudoLivre).length + ' dos ' + totalEstudo +
       '</b> que rodam no estudo' + (($('#fcSoEstudo') || {}).checked
-        ? ' (os outros não passam nos filtros de data e de contrato acima)' : '')
+        ? ' (os outros não passam nos filtros de data e de contrato acima' +
+          (semPar ? ', e ' + semPar + ' não têm par nesta base' : '') + ')' : '')
     : '';
   $('#fcContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com contrato ' +
     'até ' + (mesAno($('#fcAte').value + '-01') || '—') +
