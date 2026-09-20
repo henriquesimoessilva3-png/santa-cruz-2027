@@ -21,6 +21,10 @@ _fonte/estudo_serieb/_cache_T01/
 # so para consertar a LEITURA sem custar outra volta no site.
 dados/_serieb_gols_html/
 
+# cache HTML da coleta jogo a jogo (o primeiro gol, A09). Sao ~1.780 paginas; o que vale sai
+# em dados/serieb_gols_evento.csv e dados/serieb_jogos_primeiro_gol.csv, que sao versionados.
+dados/_serieb_jogos_html/
+
 # backup de seguranca criado antes das correcoes de 19/09 — local, nao versionado
 _fonte/estudo_serieb/resultados/_backup_pre_correcoes_19_09/
 _fonte/estudo_serieb/resultados/_backup_pre_v2_19_09/

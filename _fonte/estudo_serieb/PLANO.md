@@ -190,7 +190,17 @@ conferir lendo Python.
 **Depois da etapa 1**, para o `.md` já nascer com o texto validado em vez de documentar o que vai
 mudar.
 
-## Etapa 7 — A skill: analisar qualquer campeonato · **pedida pelo dono em 19/09**
+## Etapa 7 — A skill: analisar qualquer campeonato · **FEITA em 20/09**
+
+> Instalada em `~/.claude/skills/analisar-campeonato/`, com cópia versionada em
+> `_fonte/estudo_serieb/skill/` (ver o `LEIA.md` de lá: ao mexer numa, sincronize a outra).
+> São o `SKILL.md` (189 linhas: viabilidade da base, desenho, critério, entrega, o portão de 11
+> regras) e o `references/armadilhas.md` (300 linhas, ~25 entradas em seis grupos — procedência do
+> número, teste e critério, cruzar bases, raspar página, texto e desenho, processo). Cada entrada
+> traz o que é, **como aparece** e o que fazer; quase todas passam caladas, e é por isso que estão
+> escritas.
+
+### O pedido original, de 19/09
 
 **Quando:** no fim do estudo, e a ordem importa. Metade do método *como foi praticado* está sendo
 corrigida agora; uma skill escrita antes congelaria os erros em vez do método.
