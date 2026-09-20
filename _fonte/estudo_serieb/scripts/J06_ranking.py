@@ -46,7 +46,8 @@ from pathlib import Path
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
-import J06  # noqa: E402  — reaproveita a ficha, a base e o julgar() da própria parte
+import J06  # noqa: E402
+import J06_livres  # noqa: E402  — reaproveita a resolucao da chave do app  — reaproveita a ficha, a base e o julgar() da própria parte
 
 RESULTADOS = SCRIPTS.parent / "resultados"
 SAIDA_CSV = RESULTADOS / "J06_ranking_aderencia.csv"
@@ -210,6 +211,24 @@ def main():
 
     print("montando a base da Série B (mesma conta do J06)…")
     b = serie_b(ficha_dec, setores)
+
+    # A chave com que o app reencontra cada um — a mesma `primaryKey` dele, resolvida pelo
+    # J06_livres. Quem não resolve de forma única fica sem chave e a lista diz por quê: caso
+    # ambíguo é listado, nunca adivinhado.
+    indice = J06_livres.chave_do_app()
+    sem_par = 0
+    for l in b:
+        cand = list({id(x): x for x in indice.get(J06_livres.norma(l["jogador"]), [])}.values())
+        if len(cand) > 1:
+            alvo = J06_livres.norma_clube(l["clube"])
+            perto = [x for x in cand if alvo and (alvo in J06_livres.norma_clube(x.get("t"))
+                                                  or J06_livres.norma_clube(x.get("t")) in alvo)]
+            cand = perto if len(perto) == 1 else []
+        l["pk_app"] = J06_livres.pk_do_app(cand[0]) if len(cand) == 1 else None
+        if not l["pk_app"]:
+            sem_par += 1
+    print(f"  chave do app resolvida para {len(b) - sem_par} de {len(b)}"
+          + (f" · {sem_par} sem par único" if sem_par else ""))
     erros = conferir_contra_o_funil(b)
     if erros:
         print(f"A lista NÃO foi gravada — {len(erros)} divergência(s) contra o funil publicado:",
@@ -253,7 +272,7 @@ def main():
                                ("jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
                                 "com_dado", "atende", "aderencia", "folga", "contrato", "livre",
                                 "estrangeiro", "fisico_verificado", "forca_do_fator",
-                                "minutagem_regular", "detalhe")}
+                                "minutagem_regular", "detalhe", "pk_app")}
                               for x in gente],
             })
             for i, x in enumerate(gente, 1):

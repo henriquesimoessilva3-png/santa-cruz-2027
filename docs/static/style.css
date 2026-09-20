@@ -3540,3 +3540,6 @@ td.pt-td-frase{text-align:left;white-space:normal}
   font-size: 10px; font-weight: 700; color: #eb6834; border: 1px solid #eb6834;
   border-radius: 3px; padding: 0 3px; margin-left: 4px; vertical-align: middle;
 }
+.fc-est-nota { font-variant-numeric: tabular-nums; }
+.fc-est-nota.fc-est-ok { color: #1baf7a; }
+.fc-est-frac { font-size: 10px; color: #8a8880; margin-left: 3px; }

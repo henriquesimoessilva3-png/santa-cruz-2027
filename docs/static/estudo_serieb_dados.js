@@ -5736,7 +5736,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 76/55; Passes progressivos/90 86/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 76/55; Passes progressivos/90 86/50",
+      "pk_app": "Airton - Criciúma - Brasil B"
      },
      {
       "jogador": "Thiago Rodrigues",
@@ -5755,7 +5756,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 81/55; Passes progressivos/90 52/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 81/55; Passes progressivos/90 52/50",
+      "pk_app": "Thiago Rodrigues - Goiás - Brasil B"
      },
      {
       "jogador": "Vitor Caetano",
@@ -5774,7 +5776,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 10/70; Passes certos, % 57/55; Passes progressivos/90 67/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 10/70; Passes certos, % 57/55; Passes progressivos/90 67/50",
+      "pk_app": "Vitor Caetano - CRB - Brasil B"
      },
      {
       "jogador": "Tadeu",
@@ -5793,7 +5796,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 62/70; Passes certos, % 38/55; Passes progressivos/90 79/50"
+      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 62/70; Passes certos, % 38/55; Passes progressivos/90 79/50",
+      "pk_app": "Tadeu - Goiás - Brasil B"
      },
      {
       "jogador": "Victor Souza",
@@ -5812,7 +5816,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 33/55; Passes progressivos/90 90/50"
+      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 33/55; Passes progressivos/90 90/50",
+      "pk_app": "Victor Souza - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Thiago Couto",
@@ -5831,7 +5836,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 100/55; Passes progressivos/90 5/50"
+      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 100/55; Passes progressivos/90 5/50",
+      "pk_app": "Thiago Couto - Sport Recife - Brasil B"
      },
      {
       "jogador": "Paulo Vítor",
@@ -5850,7 +5856,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 10/55; Passes progressivos/90 95/50"
+      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 10/55; Passes progressivos/90 95/50",
+      "pk_app": "Paulo Vítor - Atlético GO - Brasil B"
      },
      {
       "jogador": "Diogo Silva",
@@ -5869,7 +5876,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 81; Duelos aéreos ganhos, % 62/70; Passes certos, % 5/55; Passes progressivos/90 71/50"
+      "detalhe": "Duelos defensivos ganhos, % 81; Duelos aéreos ganhos, % 62/70; Passes certos, % 5/55; Passes progressivos/90 71/50",
+      "pk_app": "Diogo Silva - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Vágner",
@@ -5888,7 +5896,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 86/55; Passes progressivos/90 43/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 86/55; Passes progressivos/90 43/50",
+      "pk_app": "Vágner - Operário PR - Brasil B"
      },
      {
       "jogador": "Maurício Kozlinski",
@@ -5907,7 +5916,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 90/55; Passes progressivos/90 36/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 90/55; Passes progressivos/90 36/50",
+      "pk_app": "Maurício Kozlinski - Londrina - Brasil B"
      },
      {
       "jogador": "Jandrei",
@@ -5926,7 +5936,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 19/70; Passes certos, % 24/55; Passes progressivos/90 100/50"
+      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 19/70; Passes certos, % 24/55; Passes progressivos/90 100/50",
+      "pk_app": "Jandrei - Juventude - Brasil B"
      },
      {
       "jogador": "Alex Alves",
@@ -5945,7 +5956,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 95/55; Passes progressivos/90 21/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 95/55; Passes progressivos/90 21/50",
+      "pk_app": "Alex Alves - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Luan Polli",
@@ -5964,7 +5976,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 14/55; Passes progressivos/90 79/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 14/55; Passes progressivos/90 79/50",
+      "pk_app": "Luan Polli - Athletic Club - Brasil B"
      },
      {
       "jogador": "Helton Leite",
@@ -5983,7 +5996,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 29/55; Passes progressivos/90 62/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 29/55; Passes progressivos/90 62/50",
+      "pk_app": "Helton Leite - Vila Nova - Brasil B"
      },
      {
       "jogador": "Marcelo Carné",
@@ -6002,7 +6016,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 62/55; Passes progressivos/90 10/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 62/55; Passes progressivos/90 10/50",
+      "pk_app": "Marcelo Carné - Cuiabá - Brasil B"
      },
      {
       "jogador": "João Ricardo",
@@ -6021,7 +6036,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 5/70; Passes certos, % 71/55; Passes progressivos/90 14/50"
+      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 5/70; Passes certos, % 71/55; Passes progressivos/90 14/50",
+      "pk_app": "João Ricardo - Fortaleza - Brasil B"
      },
      {
       "jogador": "Léo Aragão",
@@ -6040,7 +6056,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 67/55; Passes progressivos/90 0/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 62/70; Passes certos, % 67/55; Passes progressivos/90 0/50",
+      "pk_app": "Léo Aragão - Avaí - Brasil B"
      },
      {
       "jogador": "Vinicius Ferrari",
@@ -6059,7 +6076,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 0/70; Passes certos, % 0/55; Passes progressivos/90 57/50"
+      "detalhe": "Duelos defensivos ganhos, % 24; Duelos aéreos ganhos, % 0/70; Passes certos, % 0/55; Passes progressivos/90 57/50",
+      "pk_app": "Vinicius Ferrari - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Muriel",
@@ -6078,7 +6096,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 62/70; Passes certos, % 48/55; Passes progressivos/90 36/50"
+      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 62/70; Passes certos, % 48/55; Passes progressivos/90 36/50",
+      "pk_app": "Muriel - Náutico - Brasil B"
      },
      {
       "jogador": "Bruno Ferreira",
@@ -6097,7 +6116,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 62/70; Passes certos, % 52/55; Passes progressivos/90 29/50"
+      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 62/70; Passes certos, % 52/55; Passes progressivos/90 29/50",
+      "pk_app": "Bruno Ferreira - Avaí - Brasil B"
      },
      {
       "jogador": "Jordi",
@@ -6116,7 +6136,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 19/55; Passes progressivos/90 48/50"
+      "detalhe": "Duelos defensivos ganhos, % 64; Duelos aéreos ganhos, % 62/70; Passes certos, % 19/55; Passes progressivos/90 48/50",
+      "pk_app": "Jordi - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Richard",
@@ -6135,7 +6156,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 14/70; Passes certos, % 43/55; Passes progressivos/90 21/50"
+      "detalhe": "Duelos defensivos ganhos, % 93; Duelos aéreos ganhos, % 14/70; Passes certos, % 43/55; Passes progressivos/90 21/50",
+      "pk_app": null
      }
     ]
    },
@@ -6161,7 +6183,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 73/70; Duelos defensivos ganhos, % 94/60; Duelos aéreos ganhos, % 88/55; Passes certos, % 94; Passes progressivos/90 62/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 73/70; Duelos defensivos ganhos, % 94/60; Duelos aéreos ganhos, % 88/55; Passes certos, % 94; Passes progressivos/90 62/60",
+      "pk_app": "Jemerson - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Gabriel Bahia",
@@ -6180,7 +6203,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 94/70; Duelos defensivos ganhos, % 85/60; Duelos aéreos ganhos, % 86/55; Passes certos, % 67; Passes progressivos/90 40/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 94/70; Duelos defensivos ganhos, % 85/60; Duelos aéreos ganhos, % 86/55; Passes certos, % 67; Passes progressivos/90 40/60",
+      "pk_app": "Gabriel Bahia - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Lucas Ribeiro",
@@ -6199,7 +6223,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 96/70; Duelos defensivos ganhos, % 76/60; Duelos aéreos ganhos, % 10/55; Passes certos, % 90; Passes progressivos/90 69/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 96/70; Duelos defensivos ganhos, % 76/60; Duelos aéreos ganhos, % 10/55; Passes certos, % 90; Passes progressivos/90 69/60",
+      "pk_app": "Lucas Ribeiro - Goias - Brasil B"
      },
      {
       "jogador": "Vitor Mendes",
@@ -6218,7 +6243,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 78/70; Duelos defensivos ganhos, % 90/60; Duelos aéreos ganhos, % 78/55; Passes certos, % 52; Passes progressivos/90 42/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 78/70; Duelos defensivos ganhos, % 90/60; Duelos aéreos ganhos, % 78/55; Passes certos, % 52; Passes progressivos/90 42/60",
+      "pk_app": "Vitor Mendes - Cuiabá - Brasil B"
      },
      {
       "jogador": "Yago Lincoln",
@@ -6237,7 +6263,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 92/70; Duelos defensivos ganhos, % 71/60; Duelos aéreos ganhos, % 69/55; Passes certos, % 48; Passes progressivos/90 56/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 92/70; Duelos defensivos ganhos, % 71/60; Duelos aéreos ganhos, % 69/55; Passes certos, % 48; Passes progressivos/90 56/60",
+      "pk_app": "Yago Lincoln - Londrina - Brasil B"
      },
      {
       "jogador": "Tiago Pagnussat",
@@ -6256,7 +6283,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 62/70; Duelos defensivos ganhos, % 79/60; Duelos aéreos ganhos, % 93/55; Passes certos, % 25; Passes progressivos/90 67/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 62/70; Duelos defensivos ganhos, % 79/60; Duelos aéreos ganhos, % 93/55; Passes certos, % 25; Passes progressivos/90 67/60",
+      "pk_app": "Tiago Pagnussat - Vila Nova - Brasil B"
      },
      {
       "jogador": "Betão",
@@ -6275,7 +6303,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 88/70; Duelos defensivos ganhos, % 83/60; Duelos aéreos ganhos, % 31/55; Passes certos, % 23; Passes progressivos/90 88/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 88/70; Duelos defensivos ganhos, % 83/60; Duelos aéreos ganhos, % 31/55; Passes certos, % 23; Passes progressivos/90 88/60",
+      "pk_app": "Betão - Náutico - Brasil B"
      },
      {
       "jogador": "Messias",
@@ -6294,7 +6323,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 83/70; Duelos defensivos ganhos, % 86/60; Duelos aéreos ganhos, % 67/55; Passes certos, % 69; Passes progressivos/90 0/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 83/70; Duelos defensivos ganhos, % 86/60; Duelos aéreos ganhos, % 67/55; Passes certos, % 69; Passes progressivos/90 0/60",
+      "pk_app": "Messias - Juventude - Brasil B"
      },
      {
       "jogador": "João Basso",
@@ -6313,7 +6343,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 44/70; Duelos defensivos ganhos, % 76/60; Duelos aéreos ganhos, % 56/55; Passes certos, % 35; Passes progressivos/90 78/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 44/70; Duelos defensivos ganhos, % 76/60; Duelos aéreos ganhos, % 56/55; Passes certos, % 35; Passes progressivos/90 78/60",
+      "pk_app": "João Basso - Cuiabá - Brasil B"
      },
      {
       "jogador": "J. Cuenú",
@@ -6332,7 +6363,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 83/70; Duelos defensivos ganhos, % 58/60; Duelos aéreos ganhos, % 58/55; Passes certos, % 6; Passes progressivos/90 81/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 83/70; Duelos defensivos ganhos, % 58/60; Duelos aéreos ganhos, % 58/55; Passes certos, % 6; Passes progressivos/90 81/60",
+      "pk_app": "J. Cuenú - Operário PR - Brasil B"
      },
      {
       "jogador": "Ricardo Silva",
@@ -6351,7 +6383,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 32/70; Duelos defensivos ganhos, % 65/60; Duelos aéreos ganhos, % 98/55; Passes certos, % 86; Passes progressivos/90 58/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 32/70; Duelos defensivos ganhos, % 65/60; Duelos aéreos ganhos, % 98/55; Passes certos, % 86; Passes progressivos/90 58/60",
+      "pk_app": "Ricardo Silva - América Mineiro - Brasil B"
      },
      {
       "jogador": "Benevenuto",
@@ -6370,7 +6403,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 57/70; Duelos defensivos ganhos, % 96/60; Duelos aéreos ganhos, % 71/55; Passes certos, % 88; Passes progressivos/90 14/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 57/70; Duelos defensivos ganhos, % 96/60; Duelos aéreos ganhos, % 71/55; Passes certos, % 88; Passes progressivos/90 14/60",
+      "pk_app": "Benevenuto - Sport Recife - Brasil B"
      },
      {
       "jogador": "Adriano Martins",
@@ -6389,7 +6423,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 50/70; Duelos defensivos ganhos, % 100/60; Duelos aéreos ganhos, % 73/55; Passes certos, % 79; Passes progressivos/90 17/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 50/70; Duelos defensivos ganhos, % 100/60; Duelos aéreos ganhos, % 73/55; Passes certos, % 79; Passes progressivos/90 17/60",
+      "pk_app": "Adriano Martins - Atlético GO - Brasil B"
      },
      {
       "jogador": "Lucas Gazal",
@@ -6408,7 +6443,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 47/70; Duelos defensivos ganhos, % 8/60; Duelos aéreos ganhos, % 83/55; Passes certos, % 85; Passes progressivos/90 85/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 47/70; Duelos defensivos ganhos, % 8/60; Duelos aéreos ganhos, % 83/55; Passes certos, % 85; Passes progressivos/90 85/60",
+      "pk_app": "Lucas Gazal - Fortaleza - Brasil B"
      },
      {
       "jogador": "Allyson",
@@ -6427,7 +6463,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 41/70; Duelos defensivos ganhos, % 81/60; Duelos aéreos ganhos, % 93/55; Passes certos, % 56; Passes progressivos/90 24/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 41/70; Duelos defensivos ganhos, % 81/60; Duelos aéreos ganhos, % 93/55; Passes certos, % 56; Passes progressivos/90 24/60",
+      "pk_app": "Allyson - Avaí - Brasil B"
      },
      {
       "jogador": "Rodrigo",
@@ -6446,7 +6483,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 80/70; Duelos defensivos ganhos, % 69/60; Duelos aéreos ganhos, % 52/55; Passes certos, % 65; Passes progressivos/90 15/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 80/70; Duelos defensivos ganhos, % 69/60; Duelos aéreos ganhos, % 52/55; Passes certos, % 65; Passes progressivos/90 15/60",
+      "pk_app": "Rodrigo - Criciúma - Brasil B"
      },
      {
       "jogador": "Fabio Alemão",
@@ -6465,7 +6503,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 36/70; Duelos defensivos ganhos, % 92/60; Duelos aéreos ganhos, % 2/55; Passes certos, % 75; Passes progressivos/90 75/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 36/70; Duelos defensivos ganhos, % 92/60; Duelos aéreos ganhos, % 2/55; Passes certos, % 75; Passes progressivos/90 75/60",
+      "pk_app": "Fabio Alemão - CRB - Brasil B"
      },
      {
       "jogador": "César Martins",
@@ -6484,7 +6523,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 100/70; Duelos defensivos ganhos, % 31/60; Duelos aéreos ganhos, % 34/55; Passes certos, % 12; Passes progressivos/90 100/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 100/70; Duelos defensivos ganhos, % 31/60; Duelos aéreos ganhos, % 34/55; Passes certos, % 12; Passes progressivos/90 100/60",
+      "pk_app": "César Martins - Criciúma - Brasil B"
      },
      {
       "jogador": "Bruno Alves",
@@ -6503,7 +6543,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 38/70; Duelos defensivos ganhos, % 40/60; Duelos aéreos ganhos, % 96/55; Passes certos, % 10; Passes progressivos/90 86/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 38/70; Duelos defensivos ganhos, % 40/60; Duelos aéreos ganhos, % 96/55; Passes certos, % 10; Passes progressivos/90 86/60",
+      "pk_app": "Bruno Alves - Criciúma - Brasil B"
      },
      {
       "jogador": "Vilar",
@@ -6522,7 +6563,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 90/70; Duelos defensivos ganhos, % 38/60; Duelos aéreos ganhos, % 65/55; Passes certos, % 31; Passes progressivos/90 38/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 90/70; Duelos defensivos ganhos, % 38/60; Duelos aéreos ganhos, % 65/55; Passes certos, % 31; Passes progressivos/90 38/60",
+      "pk_app": "Vilar - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Tito",
@@ -6541,7 +6583,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 73/70; Duelos defensivos ganhos, % 60/60; Duelos aéreos ganhos, % 64/55; Passes certos, % 27; Passes progressivos/90 29/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 73/70; Duelos defensivos ganhos, % 60/60; Duelos aéreos ganhos, % 64/55; Passes certos, % 27; Passes progressivos/90 29/60",
+      "pk_app": "Tito - Atlético GO - Brasil B"
      },
      {
       "jogador": "Zé Marcos",
@@ -6560,7 +6603,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 22/70; Duelos defensivos ganhos, % 62/60; Duelos aéreos ganhos, % 34/55; Passes certos, % 62; Passes progressivos/90 65/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 22/70; Duelos defensivos ganhos, % 62/60; Duelos aéreos ganhos, % 34/55; Passes certos, % 62; Passes progressivos/90 65/60",
+      "pk_app": "Zé Marcos - Sport Recife - Brasil B"
      },
      {
       "jogador": "Luciano Castán",
@@ -6579,7 +6623,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 28/70; Duelos defensivos ganhos, % 10/60; Duelos aéreos ganhos, % 85/55; Passes certos, % 19; Passes progressivos/90 92/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 28/70; Duelos defensivos ganhos, % 10/60; Duelos aéreos ganhos, % 85/55; Passes certos, % 19; Passes progressivos/90 92/60",
+      "pk_app": "Luciano Castán - Criciúma - Brasil B"
      },
      {
       "jogador": "Léo Índio",
@@ -6598,7 +6643,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 5/70; Duelos defensivos ganhos, % 88/60; Duelos aéreos ganhos, % 21/55; Passes certos, % 4; Passes progressivos/90 98/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 5/70; Duelos defensivos ganhos, % 88/60; Duelos aéreos ganhos, % 21/55; Passes certos, % 4; Passes progressivos/90 98/60",
+      "pk_app": "Léo Índio - Náutico - Brasil B"
      },
      {
       "jogador": "E. Brítez",
@@ -6617,7 +6663,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 10/70; Duelos defensivos ganhos, % 73/60; Duelos aéreos ganhos, % 12/55; Passes certos, % 29; Passes progressivos/90 83/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 10/70; Duelos defensivos ganhos, % 73/60; Duelos aéreos ganhos, % 12/55; Passes certos, % 29; Passes progressivos/90 83/60",
+      "pk_app": "E. Brítez - Fortaleza - Brasil B"
      },
      {
       "jogador": "Hélder Maciel",
@@ -6636,7 +6683,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 47/70; Duelos defensivos ganhos, % 53/60; Duelos aéreos ganhos, % 90/55; Passes certos, % 83; Passes progressivos/90 50/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 47/70; Duelos defensivos ganhos, % 53/60; Duelos aéreos ganhos, % 90/55; Passes certos, % 83; Passes progressivos/90 50/60",
+      "pk_app": "Hélder Maciel - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Rafael Barcelos",
@@ -6655,7 +6703,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 64/70; Duelos defensivos ganhos, % 12/60; Duelos aéreos ganhos, % 62/55; Passes certos, % 100; Passes progressivos/90 52/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 64/70; Duelos defensivos ganhos, % 12/60; Duelos aéreos ganhos, % 62/55; Passes certos, % 100; Passes progressivos/90 52/60",
+      "pk_app": "Rafael Barcelos - América Mineiro - Brasil B"
      },
      {
       "jogador": "Luan Freitas",
@@ -6674,7 +6723,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 19/70; Duelos defensivos ganhos, % 98/60; Duelos aéreos ganhos, % 18/55; Passes certos, % 96; Passes progressivos/90 33/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 19/70; Duelos defensivos ganhos, % 98/60; Duelos aéreos ganhos, % 18/55; Passes certos, % 96; Passes progressivos/90 33/60",
+      "pk_app": "Luan Freitas - Fortaleza - Brasil B"
      },
      {
       "jogador": "Jhonatan Silva",
@@ -6693,7 +6743,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 76/70; Duelos defensivos ganhos, % 19/60; Duelos aéreos ganhos, % 48/55; Passes certos, % 73; Passes progressivos/90 35/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 76/70; Duelos defensivos ganhos, % 19/60; Duelos aéreos ganhos, % 48/55; Passes certos, % 73; Passes progressivos/90 35/60",
+      "pk_app": "Jhonatan Silva - Athletic Club - Brasil B"
      },
      {
       "jogador": "J. Barreto",
@@ -6712,7 +6763,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 52/70; Duelos defensivos ganhos, % 36/60; Duelos aéreos ganhos, % 54/55; Passes certos, % 38; Passes progressivos/90 62/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 52/70; Duelos defensivos ganhos, % 36/60; Duelos aéreos ganhos, % 54/55; Passes certos, % 38; Passes progressivos/90 62/60",
+      "pk_app": "J. Barreto - Atlético GO - Brasil B"
      },
      {
       "jogador": "Gabriel Lacerda",
@@ -6731,7 +6783,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 54/70; Duelos defensivos ganhos, % 29/60; Duelos aéreos ganhos, % 78/55; Passes certos, % 33; Passes progressivos/90 46/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 54/70; Duelos defensivos ganhos, % 29/60; Duelos aéreos ganhos, % 78/55; Passes certos, % 33; Passes progressivos/90 46/60",
+      "pk_app": "Gabriel Lacerda - Londrina - Brasil B"
      },
      {
       "jogador": "Augusto",
@@ -6750,7 +6803,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 26/70; Duelos defensivos ganhos, % 27/60; Duelos aéreos ganhos, % 38/55; Passes certos, % 58; Passes progressivos/90 90/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 26/70; Duelos defensivos ganhos, % 27/60; Duelos aéreos ganhos, % 38/55; Passes certos, % 58; Passes progressivos/90 90/60",
+      "pk_app": "Augusto - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Anderson",
@@ -6769,7 +6823,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 5/70; Duelos defensivos ganhos, % 67/60; Duelos aéreos ganhos, % 15/55; Passes certos, % 92; Passes progressivos/90 60/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 5/70; Duelos defensivos ganhos, % 67/60; Duelos aéreos ganhos, % 15/55; Passes certos, % 92; Passes progressivos/90 60/60",
+      "pk_app": "Anderson - Vila Nova - Brasil B"
      },
      {
       "jogador": "Ramon Menezes",
@@ -6788,7 +6843,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 8/70; Duelos defensivos ganhos, % 50/60; Duelos aéreos ganhos, % 75/55; Passes certos, % 98; Passes progressivos/90 8/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 8/70; Duelos defensivos ganhos, % 50/60; Duelos aéreos ganhos, % 75/55; Passes certos, % 98; Passes progressivos/90 8/60",
+      "pk_app": "Ramon Menezes - Goiás - Brasil B"
      },
      {
       "jogador": "Lucas Belezi",
@@ -6807,7 +6863,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 45/60; Duelos aéreos ganhos, % 25/55; Passes certos, % 44; Passes progressivos/90 71/60"
+      "detalhe": "Duelos defensivos ganhos, % 45/60; Duelos aéreos ganhos, % 25/55; Passes certos, % 44; Passes progressivos/90 71/60",
+      "pk_app": "Lucas Belezi - Athletic Club - Brasil B"
      },
      {
       "jogador": "Lyncon",
@@ -6826,7 +6883,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 70/70; Duelos defensivos ganhos, % 45/60; Duelos aéreos ganhos, % 28/55; Passes certos, % 81; Passes progressivos/90 2/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 70/70; Duelos defensivos ganhos, % 45/60; Duelos aéreos ganhos, % 28/55; Passes certos, % 81; Passes progressivos/90 2/60",
+      "pk_app": "Lyncon - CRB - Brasil B"
      },
      {
       "jogador": "Gabriel Pinheiro",
@@ -6845,7 +6903,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 34/70; Duelos defensivos ganhos, % 21/60; Duelos aéreos ganhos, % 81/55; Passes certos, % 42; Passes progressivos/90 44/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 34/70; Duelos defensivos ganhos, % 21/60; Duelos aéreos ganhos, % 81/55; Passes certos, % 42; Passes progressivos/90 44/60",
+      "pk_app": "Gabriel Pinheiro - Juventude - Brasil B"
      },
      {
       "jogador": "Henri",
@@ -6864,7 +6923,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 30/70; Duelos defensivos ganhos, % 17/60; Duelos aéreos ganhos, % 50/55; Passes certos, % 36; Passes progressivos/90 78/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 30/70; Duelos defensivos ganhos, % 17/60; Duelos aéreos ganhos, % 50/55; Passes certos, % 36; Passes progressivos/90 78/60",
+      "pk_app": "Henri - CRB - Brasil B"
      },
      {
       "jogador": "Miranda",
@@ -6883,7 +6943,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 24/70; Duelos defensivos ganhos, % 48/60; Duelos aéreos ganhos, % 8/55; Passes certos, % 54; Passes progressivos/90 73/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 24/70; Duelos defensivos ganhos, % 48/60; Duelos aéreos ganhos, % 8/55; Passes certos, % 54; Passes progressivos/90 73/60",
+      "pk_app": "Miranda - Operário PR - Brasil B"
      },
      {
       "jogador": "Sergio Palacios",
@@ -6902,7 +6963,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 98/70; Duelos defensivos ganhos, % 33/60; Duelos aéreos ganhos, % 46/55; Passes certos, % 0; Passes progressivos/90 27/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 98/70; Duelos defensivos ganhos, % 33/60; Duelos aéreos ganhos, % 46/55; Passes certos, % 0; Passes progressivos/90 27/60",
+      "pk_app": "Sergio Palacios - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Ericson",
@@ -6921,7 +6983,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 57/70; Duelos defensivos ganhos, % 14/60; Duelos aéreos ganhos, % 18/55; Passes certos, % 15; Passes progressivos/90 96/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 57/70; Duelos defensivos ganhos, % 14/60; Duelos aéreos ganhos, % 18/55; Passes certos, % 15; Passes progressivos/90 96/60",
+      "pk_app": "Ericson - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Bressan",
@@ -6940,7 +7003,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 16/70; Duelos defensivos ganhos, % 2/60; Duelos aéreos ganhos, % 40/55; Passes certos, % 46; Passes progressivos/90 94/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 16/70; Duelos defensivos ganhos, % 2/60; Duelos aéreos ganhos, % 40/55; Passes certos, % 46; Passes progressivos/90 94/60",
+      "pk_app": "Bressan - CRB - Brasil B"
      },
      {
       "jogador": "Márcio",
@@ -6959,7 +7023,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 66/70; Duelos defensivos ganhos, % 64/60; Duelos aéreos ganhos, % 42/55; Passes certos, % 17; Passes progressivos/90 6/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 66/70; Duelos defensivos ganhos, % 64/60; Duelos aéreos ganhos, % 42/55; Passes certos, % 17; Passes progressivos/90 6/60",
+      "pk_app": "Márcio - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Lucas Cunha",
@@ -6978,7 +7043,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 60/70; Duelos defensivos ganhos, % 15/60; Duelos aéreos ganhos, % 60/55; Passes certos, % 8; Passes progressivos/90 48/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 60/70; Duelos defensivos ganhos, % 15/60; Duelos aéreos ganhos, % 60/55; Passes certos, % 8; Passes progressivos/90 48/60",
+      "pk_app": "Lucas Cunha - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Éder",
@@ -6997,7 +7063,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 86/70; Duelos defensivos ganhos, % 4/60; Duelos aéreos ganhos, % 14/55; Passes certos, % 77; Passes progressivos/90 10/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 86/70; Duelos defensivos ganhos, % 4/60; Duelos aéreos ganhos, % 14/55; Passes certos, % 77; Passes progressivos/90 10/60",
+      "pk_app": "Éder - Ceará - Brasil B"
      },
      {
       "jogador": "Diego Leão",
@@ -7016,7 +7083,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 0/70; Duelos defensivos ganhos, % 6/60; Duelos aéreos ganhos, % 100/55; Passes certos, % 14; Passes progressivos/90 4/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 0/70; Duelos defensivos ganhos, % 6/60; Duelos aéreos ganhos, % 100/55; Passes certos, % 14; Passes progressivos/90 4/60",
+      "pk_app": "Diego Leão - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Rodrigo Sam",
@@ -7035,7 +7103,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 68/70; Duelos defensivos ganhos, % 56/60; Duelos aéreos ganhos, % 36/55; Passes certos, % 60; Passes progressivos/90 54/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 68/70; Duelos defensivos ganhos, % 56/60; Duelos aéreos ganhos, % 36/55; Passes certos, % 60; Passes progressivos/90 54/60",
+      "pk_app": "Rodrigo Sam - Juventude - Brasil B"
      },
      {
       "jogador": "Marcelo Ajul",
@@ -7054,7 +7123,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 12/70; Duelos defensivos ganhos, % 42/60; Duelos aéreos ganhos, % 44/55; Passes certos, % 71; Passes progressivos/90 24/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 12/70; Duelos defensivos ganhos, % 42/60; Duelos aéreos ganhos, % 44/55; Passes certos, % 71; Passes progressivos/90 24/60",
+      "pk_app": "Marcelo Ajul - Sport Recife - Brasil B"
      },
      {
       "jogador": "Júlio César",
@@ -7073,7 +7143,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 35/60; Duelos aéreos ganhos, % 6/55; Passes certos, % 50; Passes progressivos/90 36/60"
+      "detalhe": "Duelos defensivos ganhos, % 35/60; Duelos aéreos ganhos, % 6/55; Passes certos, % 50; Passes progressivos/90 36/60",
+      "pk_app": "Júlio César - Ceará - Brasil B"
      },
      {
       "jogador": "Calebe Costa",
@@ -7092,7 +7163,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 14/70; Duelos defensivos ganhos, % 23/60; Duelos aéreos ganhos, % 28/55; Passes certos, % 64; Passes progressivos/90 19/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 14/70; Duelos defensivos ganhos, % 23/60; Duelos aéreos ganhos, % 28/55; Passes certos, % 64; Passes progressivos/90 19/60",
+      "pk_app": "Calebe Costa - Cuiabá - Brasil B"
      },
      {
       "jogador": "Klaus",
@@ -7111,7 +7183,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 19/70; Duelos defensivos ganhos, % 25/60; Duelos aéreos ganhos, % 23/55; Passes certos, % 40; Passes progressivos/90 31/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 19/70; Duelos defensivos ganhos, % 25/60; Duelos aéreos ganhos, % 23/55; Passes certos, % 40; Passes progressivos/90 31/60",
+      "pk_app": "Klaus - Operário PR - Brasil B"
      },
      {
       "jogador": "B. Baldini",
@@ -7130,7 +7203,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 41/70; Duelos defensivos ganhos, % 53/60; Duelos aéreos ganhos, % 4/55; Passes certos, % 21; Passes progressivos/90 12/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 41/70; Duelos defensivos ganhos, % 53/60; Duelos aéreos ganhos, % 4/55; Passes certos, % 21; Passes progressivos/90 12/60",
+      "pk_app": "B. Baldini - Avaí - Brasil B"
      },
      {
       "jogador": "Danilo Barcelos",
@@ -7149,7 +7223,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 2/70; Duelos defensivos ganhos, % 0/60; Duelos aéreos ganhos, % 0/55; Passes certos, % 2; Passes progressivos/90 21/60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 2/70; Duelos defensivos ganhos, % 0/60; Duelos aéreos ganhos, % 0/55; Passes certos, % 2; Passes progressivos/90 21/60",
+      "pk_app": "Danilo Barcelos - Ponte Preta - Brasil B"
      }
     ]
    },
@@ -7175,7 +7250,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 71/55; Tempo até atingir o sprint (s) 93/55; Duelos defensivos ganhos, % 79/50; Duelos aéreos ganhos, % 21; Passes certos, % 50/50; Passes progressivos/90 98"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 71/55; Tempo até atingir o sprint (s) 93/55; Duelos defensivos ganhos, % 79/50; Duelos aéreos ganhos, % 21; Passes certos, % 50/50; Passes progressivos/90 98",
+      "pk_app": "Reginaldo - Náutico - Brasil B"
      },
      {
       "jogador": "Felipinho",
@@ -7194,7 +7270,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 98/55; Tempo até atingir o sprint (s) 100/55; Duelos defensivos ganhos, % 6/50; Duelos aéreos ganhos, % 90; Passes certos, % 54/50; Passes progressivos/90 94"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 98/55; Tempo até atingir o sprint (s) 100/55; Duelos defensivos ganhos, % 6/50; Duelos aéreos ganhos, % 90; Passes certos, % 54/50; Passes progressivos/90 94",
+      "pk_app": "Felipinho - Sport Recife - Brasil B"
      },
      {
       "jogador": "Gabriel Inocêncio",
@@ -7213,7 +7290,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 69/55; Tempo até atingir o sprint (s) 95/55; Duelos defensivos ganhos, % 46/50; Duelos aéreos ganhos, % 71; Passes certos, % 71/50; Passes progressivos/90 67"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 69/55; Tempo até atingir o sprint (s) 95/55; Duelos defensivos ganhos, % 46/50; Duelos aéreos ganhos, % 71; Passes certos, % 71/50; Passes progressivos/90 67",
+      "pk_app": "Gabriel Inocêncio - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Rodrigo Ferreira",
@@ -7232,7 +7310,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 52/55; Tempo até atingir o sprint (s) 98/55; Duelos defensivos ganhos, % 67/50; Duelos aéreos ganhos, % 46; Passes certos, % 83/50; Passes progressivos/90 65"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 52/55; Tempo até atingir o sprint (s) 98/55; Duelos defensivos ganhos, % 67/50; Duelos aéreos ganhos, % 46; Passes certos, % 83/50; Passes progressivos/90 65",
+      "pk_app": "Rodrigo Ferreira - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Kevin",
@@ -7251,7 +7330,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 75/55; Tempo até atingir o sprint (s) 87/55; Duelos defensivos ganhos, % 4/50; Duelos aéreos ganhos, % 49; Passes certos, % 100/50; Passes progressivos/90 81"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 75/55; Tempo até atingir o sprint (s) 87/55; Duelos defensivos ganhos, % 4/50; Duelos aéreos ganhos, % 49; Passes certos, % 100/50; Passes progressivos/90 81",
+      "pk_app": "Kevin - CRB - Brasil B"
      },
      {
       "jogador": "Ewerthon",
@@ -7270,7 +7350,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 58/55; Tempo até atingir o sprint (s) 71/55; Duelos defensivos ganhos, % 93/50; Duelos aéreos ganhos, % 73; Passes certos, % 44/50; Passes progressivos/90 56"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 58/55; Tempo até atingir o sprint (s) 71/55; Duelos defensivos ganhos, % 93/50; Duelos aéreos ganhos, % 73; Passes certos, % 44/50; Passes progressivos/90 56",
+      "pk_app": "Ewerthon - Atlético GO - Brasil B"
      },
      {
       "jogador": "Igor Fernandes",
@@ -7289,7 +7370,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 31/55; Tempo até atingir o sprint (s) 64/55; Duelos defensivos ganhos, % 62/50; Duelos aéreos ganhos, % 67; Passes certos, % 94/50; Passes progressivos/90 62"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 31/55; Tempo até atingir o sprint (s) 64/55; Duelos defensivos ganhos, % 62/50; Duelos aéreos ganhos, % 67; Passes certos, % 94/50; Passes progressivos/90 62",
+      "pk_app": "Igor Fernandes - Náutico - Brasil B"
      },
      {
       "jogador": "Mikael Doka",
@@ -7308,7 +7390,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 79/55; Tempo até atingir o sprint (s) 29/55; Duelos defensivos ganhos, % 77/50; Duelos aéreos ganhos, % 34; Passes certos, % 98/50; Passes progressivos/90 48"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 79/55; Tempo até atingir o sprint (s) 29/55; Duelos defensivos ganhos, % 77/50; Duelos aéreos ganhos, % 34; Passes certos, % 98/50; Passes progressivos/90 48",
+      "pk_app": "Mikael Doka - Operário PR - Brasil B"
      },
      {
       "jogador": "Heron",
@@ -7327,7 +7410,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 100/55; Tempo até atingir o sprint (s) 82/55; Duelos defensivos ganhos, % 54/50; Duelos aéreos ganhos, % 98; Passes certos, % 4/50; Passes progressivos/90 15"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 100/55; Tempo até atingir o sprint (s) 82/55; Duelos defensivos ganhos, % 54/50; Duelos aéreos ganhos, % 98; Passes certos, % 4/50; Passes progressivos/90 15",
+      "pk_app": "Heron - Londrina - Brasil B"
      },
      {
       "jogador": "Kevyson",
@@ -7346,7 +7430,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 83/55; Tempo até atingir o sprint (s) 90/55; Duelos defensivos ganhos, % 52/50; Duelos aéreos ganhos, % 81; Passes certos, % 12/50; Passes progressivos/90 19"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 83/55; Tempo até atingir o sprint (s) 90/55; Duelos defensivos ganhos, % 52/50; Duelos aéreos ganhos, % 81; Passes certos, % 12/50; Passes progressivos/90 19",
+      "pk_app": "Kevyson - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Hereda",
@@ -7365,7 +7450,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 62/55; Tempo até atingir o sprint (s) 77/55; Duelos defensivos ganhos, % 40/50; Duelos aéreos ganhos, % 40; Passes certos, % 75/50; Passes progressivos/90 41"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 62/55; Tempo até atingir o sprint (s) 77/55; Duelos defensivos ganhos, % 40/50; Duelos aéreos ganhos, % 40; Passes certos, % 75/50; Passes progressivos/90 41",
+      "pk_app": "Hereda - CRB - Brasil B"
      },
      {
       "jogador": "Diogo Barbosa",
@@ -7384,7 +7470,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 90/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 90/50; Duelos aéreos ganhos, % 12; Passes certos, % 48/50; Passes progressivos/90 31"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 90/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 90/50; Duelos aéreos ganhos, % 12; Passes certos, % 48/50; Passes progressivos/90 31",
+      "pk_app": "Diogo Barbosa - Juventude - Brasil B"
      },
      {
       "jogador": "Moraes",
@@ -7403,7 +7490,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 88/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 27/50; Duelos aéreos ganhos, % 23; Passes certos, % 79/50; Passes progressivos/90 4"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 88/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 27/50; Duelos aéreos ganhos, % 23; Passes certos, % 79/50; Passes progressivos/90 4",
+      "pk_app": "Moraes - Operário PR - Brasil B"
      },
      {
       "jogador": "Thalys",
@@ -7422,7 +7510,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 58/55; Tempo até atingir o sprint (s) 71/55; Duelos defensivos ganhos, % 60/50; Duelos aéreos ganhos, % 44; Passes certos, % 15/50; Passes progressivos/90 10"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 58/55; Tempo até atingir o sprint (s) 71/55; Duelos defensivos ganhos, % 60/50; Duelos aéreos ganhos, % 44; Passes certos, % 15/50; Passes progressivos/90 10",
+      "pk_app": "Thalys - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Gabriel Fuentes",
@@ -7441,7 +7530,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 99/50; Duelos aéreos ganhos, % 100; Passes certos, % 77/50; Passes progressivos/90 85"
+      "detalhe": "Duelos defensivos ganhos, % 99/50; Duelos aéreos ganhos, % 100; Passes certos, % 77/50; Passes progressivos/90 85",
+      "pk_app": "Gabriel Fuentes - Fortaleza - Brasil B"
      },
      {
       "jogador": "Gabriel Feliciano",
@@ -7460,7 +7550,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 86/55; Tempo até atingir o sprint (s) 49/55; Duelos defensivos ganhos, % 50/50; Duelos aéreos ganhos, % 60; Passes certos, % 33/50; Passes progressivos/90 100"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 86/55; Tempo até atingir o sprint (s) 49/55; Duelos defensivos ganhos, % 50/50; Duelos aéreos ganhos, % 60; Passes certos, % 33/50; Passes progressivos/90 100",
+      "pk_app": "Gabriel Feliciano - Operário PR - Brasil B"
      },
      {
       "jogador": "Dalbert",
@@ -7479,7 +7570,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 93/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 19/50; Duelos aéreos ganhos, % 96; Passes certos, % 31/50; Passes progressivos/90 77"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 93/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 19/50; Duelos aéreos ganhos, % 96; Passes certos, % 31/50; Passes progressivos/90 77",
+      "pk_app": "Dalbert - América Mineiro - Brasil B"
      },
      {
       "jogador": "Maurício",
@@ -7498,7 +7590,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 56/50; Duelos aéreos ganhos, % 42; Passes certos, % 88/50; Passes progressivos/90 50"
+      "detalhe": "Duelos defensivos ganhos, % 56/50; Duelos aéreos ganhos, % 42; Passes certos, % 88/50; Passes progressivos/90 50",
+      "pk_app": null
      },
      {
       "jogador": "Djalma Silva",
@@ -7517,7 +7610,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 33/55; Tempo até atingir o sprint (s) 64/55; Duelos defensivos ganhos, % 93/50; Duelos aéreos ganhos, % 88; Passes certos, % 29/50; Passes progressivos/90 44"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 33/55; Tempo até atingir o sprint (s) 64/55; Duelos defensivos ganhos, % 93/50; Duelos aéreos ganhos, % 88; Passes certos, % 29/50; Passes progressivos/90 44",
+      "pk_app": "Djalma Silva - Goiás - Brasil B"
      },
      {
       "jogador": "N. Castrillón",
@@ -7536,7 +7630,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 26/55; Tempo até atingir o sprint (s) 40/55; Duelos defensivos ganhos, % 58/50; Duelos aéreos ganhos, % 94; Passes certos, % 65/50; Passes progressivos/90 60"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 26/55; Tempo até atingir o sprint (s) 40/55; Duelos defensivos ganhos, % 58/50; Duelos aéreos ganhos, % 94; Passes certos, % 65/50; Passes progressivos/90 60",
+      "pk_app": "N. Castrillón - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "DG",
@@ -7555,7 +7650,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 67/55; Tempo até atingir o sprint (s) 82/55; Duelos defensivos ganhos, % 30/50; Duelos aéreos ganhos, % 85; Passes certos, % 8/50; Passes progressivos/90 69"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 67/55; Tempo até atingir o sprint (s) 82/55; Duelos defensivos ganhos, % 30/50; Duelos aéreos ganhos, % 85; Passes certos, % 8/50; Passes progressivos/90 69",
+      "pk_app": "DG - Avaí - Brasil B"
      },
      {
       "jogador": "Rodrigo Soares",
@@ -7574,7 +7670,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 10/55; Tempo até atingir o sprint (s) 0/55; Duelos defensivos ganhos, % 72/50; Duelos aéreos ganhos, % 75; Passes certos, % 96/50; Passes progressivos/90 79"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 10/55; Tempo até atingir o sprint (s) 0/55; Duelos defensivos ganhos, % 72/50; Duelos aéreos ganhos, % 75; Passes certos, % 96/50; Passes progressivos/90 79",
+      "pk_app": "Rodrigo Soares - Goiás - Brasil B"
      },
      {
       "jogador": "Rafael Ramos",
@@ -7593,7 +7690,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 45/55; Tempo até atingir o sprint (s) 71/55; Duelos defensivos ganhos, % 96/50; Duelos aéreos ganhos, % 34; Passes certos, % 35/50; Passes progressivos/90 46"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 45/55; Tempo até atingir o sprint (s) 71/55; Duelos defensivos ganhos, % 96/50; Duelos aéreos ganhos, % 34; Passes certos, % 35/50; Passes progressivos/90 46",
+      "pk_app": "Rafael Ramos - Ceará - Brasil B"
      },
      {
       "jogador": "Lorenzo",
@@ -7612,7 +7710,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 99/50; Duelos aéreos ganhos, % 56; Passes certos, % 58/50; Passes progressivos/90 2"
+      "detalhe": "Duelos defensivos ganhos, % 99/50; Duelos aéreos ganhos, % 56; Passes certos, % 58/50; Passes progressivos/90 2",
+      "pk_app": "Lorenzo - Cuiabá - Brasil B"
      },
      {
       "jogador": "Lucas Lovat",
@@ -7631,7 +7730,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 64/55; Tempo até atingir o sprint (s) 18/55; Duelos defensivos ganhos, % 48/50; Duelos aéreos ganhos, % 62; Passes certos, % 67/50; Passes progressivos/90 52"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 64/55; Tempo até atingir o sprint (s) 18/55; Duelos defensivos ganhos, % 48/50; Duelos aéreos ganhos, % 62; Passes certos, % 67/50; Passes progressivos/90 52",
+      "pk_app": "Lucas Lovat - CRB - Brasil B"
      },
      {
       "jogador": "Maílton",
@@ -7650,7 +7750,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 75/55; Tempo até atingir o sprint (s) 77/55; Duelos defensivos ganhos, % 35/50; Duelos aéreos ganhos, % 0; Passes certos, % 10/50; Passes progressivos/90 88"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 75/55; Tempo até atingir o sprint (s) 77/55; Duelos defensivos ganhos, % 35/50; Duelos aéreos ganhos, % 0; Passes certos, % 10/50; Passes progressivos/90 88",
+      "pk_app": "Maílton - Fortaleza - Brasil B"
      },
      {
       "jogador": "Marcelo Hermes",
@@ -7669,7 +7770,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 55/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 75/50; Duelos aéreos ganhos, % 19; Passes certos, % 21/50; Passes progressivos/90 54"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 55/55; Tempo até atingir o sprint (s) 56/55; Duelos defensivos ganhos, % 75/50; Duelos aéreos ganhos, % 19; Passes certos, % 21/50; Passes progressivos/90 54",
+      "pk_app": "Marcelo Hermes - Criciúma - Brasil B"
      },
      {
       "jogador": "Maguinho",
@@ -7688,7 +7790,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 81/55; Tempo até atingir o sprint (s) 49/55; Duelos defensivos ganhos, % 0/50; Duelos aéreos ganhos, % 29; Passes certos, % 62/50; Passes progressivos/90 38"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 81/55; Tempo até atingir o sprint (s) 49/55; Duelos defensivos ganhos, % 0/50; Duelos aéreos ganhos, % 29; Passes certos, % 62/50; Passes progressivos/90 38",
+      "pk_app": "Maguinho - Operário PR - Brasil B"
      },
      {
       "jogador": "Bryan",
@@ -7707,7 +7810,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 72/50; Duelos aéreos ganhos, % 8; Passes certos, % 81/50; Passes progressivos/90 8"
+      "detalhe": "Duelos defensivos ganhos, % 72/50; Duelos aéreos ganhos, % 8; Passes certos, % 81/50; Passes progressivos/90 8",
+      "pk_app": null
      },
      {
       "jogador": "Hayner",
@@ -7726,7 +7830,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 95/55; Tempo até atingir o sprint (s) 40/55; Duelos defensivos ganhos, % 2/50; Duelos aéreos ganhos, % 10; Passes certos, % 56/50; Passes progressivos/90 6"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 95/55; Tempo até atingir o sprint (s) 40/55; Duelos defensivos ganhos, % 2/50; Duelos aéreos ganhos, % 10; Passes certos, % 56/50; Passes progressivos/90 6",
+      "pk_app": "Hayner - Vila Nova - Brasil B"
      },
      {
       "jogador": "A. De Freitas",
@@ -7745,7 +7850,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 21/55; Tempo até atingir o sprint (s) 64/55; Duelos defensivos ganhos, % 21/50; Duelos aéreos ganhos, % 6; Passes certos, % 52/50; Passes progressivos/90 21"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 21/55; Tempo até atingir o sprint (s) 64/55; Duelos defensivos ganhos, % 21/50; Duelos aéreos ganhos, % 6; Passes certos, % 52/50; Passes progressivos/90 21",
+      "pk_app": "A. De Freitas - Sport Recife - Brasil B"
      },
      {
       "jogador": "Mádson",
@@ -7764,7 +7870,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 30/50; Duelos aéreos ganhos, % 77; Passes certos, % 92/50; Passes progressivos/90 25"
+      "detalhe": "Duelos defensivos ganhos, % 30/50; Duelos aéreos ganhos, % 77; Passes certos, % 92/50; Passes progressivos/90 25",
+      "pk_app": "Mádson - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Higor",
@@ -7783,7 +7890,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 50/55; Tempo até atingir o sprint (s) 29/55; Duelos defensivos ganhos, % 82/50; Duelos aéreos ganhos, % 65; Passes certos, % 27/50; Passes progressivos/90 58"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 50/55; Tempo até atingir o sprint (s) 29/55; Duelos defensivos ganhos, % 82/50; Duelos aéreos ganhos, % 65; Passes certos, % 27/50; Passes progressivos/90 58",
+      "pk_app": "Higor - Vila Nova - Brasil B"
      },
      {
       "jogador": "Pará",
@@ -7802,7 +7910,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 29/55; Tempo até atingir o sprint (s) 21/55; Duelos defensivos ganhos, % 10/50; Duelos aéreos ganhos, % 79; Passes certos, % 69/50; Passes progressivos/90 91"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 29/55; Tempo até atingir o sprint (s) 21/55; Duelos defensivos ganhos, % 10/50; Duelos aéreos ganhos, % 79; Passes certos, % 69/50; Passes progressivos/90 91",
+      "pk_app": "Pará - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Willean Lepo",
@@ -7821,7 +7930,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 39/55; Tempo até atingir o sprint (s) 45/55; Duelos defensivos ganhos, % 85/50; Duelos aéreos ganhos, % 15; Passes certos, % 17/50; Passes progressivos/90 91"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 39/55; Tempo até atingir o sprint (s) 45/55; Duelos defensivos ganhos, % 85/50; Duelos aéreos ganhos, % 15; Passes certos, % 17/50; Passes progressivos/90 91",
+      "pk_app": "Willean Lepo - Criciúma - Brasil B"
      },
      {
       "jogador": "Sánchez",
@@ -7840,7 +7950,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 45/55; Tempo até atingir o sprint (s) 18/55; Duelos defensivos ganhos, % 69/50; Duelos aéreos ganhos, % 34; Passes certos, % 23/50; Passes progressivos/90 75"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 45/55; Tempo até atingir o sprint (s) 18/55; Duelos defensivos ganhos, % 69/50; Duelos aéreos ganhos, % 34; Passes certos, % 23/50; Passes progressivos/90 75",
+      "pk_app": "Sánchez - Ceará - Brasil B"
      },
      {
       "jogador": "Diogo Batista",
@@ -7859,7 +7970,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 82/50; Duelos aéreos ganhos, % 4; Passes certos, % 25/50; Passes progressivos/90 41"
+      "detalhe": "Duelos defensivos ganhos, % 82/50; Duelos aéreos ganhos, % 4; Passes certos, % 25/50; Passes progressivos/90 41",
+      "pk_app": "Diogo Batista - Athletic Club - Brasil B"
      },
      {
       "jogador": "Aderlan",
@@ -7878,7 +7990,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 5/55; Tempo até atingir o sprint (s) 4/55; Duelos defensivos ganhos, % 88/50; Duelos aéreos ganhos, % 34; Passes certos, % 19/50; Passes progressivos/90 71"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 5/55; Tempo até atingir o sprint (s) 4/55; Duelos defensivos ganhos, % 88/50; Duelos aéreos ganhos, % 34; Passes certos, % 19/50; Passes progressivos/90 71",
+      "pk_app": "Aderlan - Juventude - Brasil B"
      },
      {
       "jogador": "Kauê Leonardo",
@@ -7897,7 +8010,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 2/55; Tempo até atingir o sprint (s) 4/55; Duelos defensivos ganhos, % 25/50; Duelos aéreos ganhos, % 92; Passes certos, % 73/50; Passes progressivos/90 12"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 2/55; Tempo até atingir o sprint (s) 4/55; Duelos defensivos ganhos, % 25/50; Duelos aéreos ganhos, % 92; Passes certos, % 73/50; Passes progressivos/90 12",
+      "pk_app": "Kauê Leonardo - Londrina - Brasil B"
      },
      {
       "jogador": "Nathan Camargo",
@@ -7916,7 +8030,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 14/55; Tempo até atingir o sprint (s) 36/55; Duelos defensivos ganhos, % 38/50; Duelos aéreos ganhos, % 26; Passes certos, % 90/50; Passes progressivos/90 0"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 14/55; Tempo até atingir o sprint (s) 36/55; Duelos defensivos ganhos, % 38/50; Duelos aéreos ganhos, % 26; Passes certos, % 90/50; Passes progressivos/90 0",
+      "pk_app": "Nathan Camargo - Vila Nova - Brasil B"
      },
      {
       "jogador": "Zeca",
@@ -7935,7 +8050,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 7/55; Tempo até atingir o sprint (s) 12/55; Duelos defensivos ganhos, % 12/50; Duelos aéreos ganhos, % 2; Passes certos, % 85/50; Passes progressivos/90 83"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 7/55; Tempo até atingir o sprint (s) 12/55; Duelos defensivos ganhos, % 12/50; Duelos aéreos ganhos, % 2; Passes certos, % 85/50; Passes progressivos/90 83",
+      "pk_app": "Zeca - Athletic Club - Brasil B"
      },
      {
       "jogador": "Alex Silva",
@@ -7954,7 +8070,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 0/55; Tempo até atingir o sprint (s) 10/55; Duelos defensivos ganhos, % 16/50; Duelos aéreos ganhos, % 69; Passes certos, % 60/50; Passes progressivos/90 17"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 0/55; Tempo até atingir o sprint (s) 10/55; Duelos defensivos ganhos, % 16/50; Duelos aéreos ganhos, % 69; Passes certos, % 60/50; Passes progressivos/90 17",
+      "pk_app": "Alex Silva - América Mineiro - Brasil B"
      },
      {
       "jogador": "Júlio",
@@ -7973,7 +8090,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 12/55; Tempo até atingir o sprint (s) 87/55; Duelos defensivos ganhos, % 8/50; Duelos aéreos ganhos, % 26; Passes certos, % 6/50; Passes progressivos/90 23"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 12/55; Tempo até atingir o sprint (s) 87/55; Duelos defensivos ganhos, % 8/50; Duelos aéreos ganhos, % 26; Passes certos, % 6/50; Passes progressivos/90 23",
+      "pk_app": "Júlio - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Patrick Brey",
@@ -7992,7 +8110,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 24/55; Tempo até atingir o sprint (s) 14/55; Duelos defensivos ganhos, % 65/50; Duelos aéreos ganhos, % 17; Passes certos, % 0/50; Passes progressivos/90 29"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 24/55; Tempo até atingir o sprint (s) 14/55; Duelos defensivos ganhos, % 65/50; Duelos aéreos ganhos, % 17; Passes certos, % 0/50; Passes progressivos/90 29",
+      "pk_app": "Patrick Brey - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Railan",
@@ -8011,7 +8130,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 45/55; Tempo até atingir o sprint (s) 24/55; Duelos defensivos ganhos, % 42/50; Duelos aéreos ganhos, % 83; Passes certos, % 42/50; Passes progressivos/90 27"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 45/55; Tempo até atingir o sprint (s) 24/55; Duelos defensivos ganhos, % 42/50; Duelos aéreos ganhos, % 83; Passes certos, % 42/50; Passes progressivos/90 27",
+      "pk_app": "Railan - Cuiabá - Brasil B"
      },
      {
       "jogador": "Wallison",
@@ -8030,7 +8150,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 18/55; Tempo até atingir o sprint (s) 29/55; Duelos defensivos ganhos, % 16/50; Duelos aéreos ganhos, % 52; Passes certos, % 46/50; Passes progressivos/90 96"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 18/55; Tempo até atingir o sprint (s) 29/55; Duelos defensivos ganhos, % 16/50; Duelos aéreos ganhos, % 52; Passes certos, % 46/50; Passes progressivos/90 96",
+      "pk_app": "Wallison - Avaí - Brasil B"
      },
      {
       "jogador": "Matheus Ribeiro",
@@ -8049,7 +8170,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 18/55; Tempo até atingir o sprint (s) 40/55; Duelos defensivos ganhos, % 33/50; Duelos aéreos ganhos, % 49; Passes certos, % 40/50; Passes progressivos/90 73"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 18/55; Tempo até atingir o sprint (s) 40/55; Duelos defensivos ganhos, % 33/50; Duelos aéreos ganhos, % 49; Passes certos, % 40/50; Passes progressivos/90 73",
+      "pk_app": "Matheus Ribeiro - Náutico - Brasil B"
      },
      {
       "jogador": "Diego Porfírio",
@@ -8068,7 +8190,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 39/55; Tempo até atingir o sprint (s) 33/55; Duelos defensivos ganhos, % 44/50; Duelos aéreos ganhos, % 54; Passes certos, % 38/50; Passes progressivos/90 35"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 39/55; Tempo até atingir o sprint (s) 33/55; Duelos defensivos ganhos, % 44/50; Duelos aéreos ganhos, % 54; Passes certos, % 38/50; Passes progressivos/90 35",
+      "pk_app": "Diego Porfírio - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Maykon",
@@ -8087,7 +8210,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 36/55; Tempo até atingir o sprint (s) 7/55; Duelos defensivos ganhos, % 23/50; Duelos aéreos ganhos, % 58; Passes certos, % 2/50; Passes progressivos/90 33"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 36/55; Tempo até atingir o sprint (s) 7/55; Duelos defensivos ganhos, % 23/50; Duelos aéreos ganhos, % 58; Passes certos, % 2/50; Passes progressivos/90 33",
+      "pk_app": null
      }
     ]
    },
@@ -8113,7 +8237,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 96/70; Arrancadas explosivas até o sprint por 90 min 77/60; Duelos defensivos ganhos, % 96/60; Duelos aéreos ganhos, % 7/55; Passes certos, % 68/60; Passes progressivos/90 59/55"
+      "detalhe": "Tempo para girar 90 graus (s) 96/70; Arrancadas explosivas até o sprint por 90 min 77/60; Duelos defensivos ganhos, % 96/60; Duelos aéreos ganhos, % 7/55; Passes certos, % 68/60; Passes progressivos/90 59/55",
+      "pk_app": "Romisson - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Filipe Machado",
@@ -8132,7 +8257,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 34/70; Arrancadas explosivas até o sprint por 90 min 32/60; Duelos defensivos ganhos, % 91/60; Duelos aéreos ganhos, % 80/55; Passes certos, % 96/60; Passes progressivos/90 96/55"
+      "detalhe": "Tempo para girar 90 graus (s) 34/70; Arrancadas explosivas até o sprint por 90 min 32/60; Duelos defensivos ganhos, % 91/60; Duelos aéreos ganhos, % 80/55; Passes certos, % 96/60; Passes progressivos/90 96/55",
+      "pk_app": "Filipe Machado - Goiás - Brasil B"
      },
      {
       "jogador": "João Miguel",
@@ -8151,7 +8277,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 48/70; Arrancadas explosivas até o sprint por 90 min 86/60; Duelos defensivos ganhos, % 100/60; Duelos aéreos ganhos, % 64/55; Passes certos, % 77/60; Passes progressivos/90 50/55"
+      "detalhe": "Tempo para girar 90 graus (s) 48/70; Arrancadas explosivas até o sprint por 90 min 86/60; Duelos defensivos ganhos, % 100/60; Duelos aéreos ganhos, % 64/55; Passes certos, % 77/60; Passes progressivos/90 50/55",
+      "pk_app": "João Miguel - Athletic Club - Brasil B"
      },
      {
       "jogador": "Biel",
@@ -8170,7 +8297,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 96/60; Duelos defensivos ganhos, % 73/60; Duelos aéreos ganhos, % 14/55; Passes certos, % 59/60; Passes progressivos/90 68/55"
+      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 96/60; Duelos defensivos ganhos, % 73/60; Duelos aéreos ganhos, % 14/55; Passes certos, % 59/60; Passes progressivos/90 68/55",
+      "pk_app": "Biel - Brusque - Brasil C"
      },
      {
       "jogador": "Patrick De Lucca",
@@ -8189,7 +8317,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 4/70; Arrancadas explosivas até o sprint por 90 min 27/60; Duelos defensivos ganhos, % 82/60; Duelos aéreos ganhos, % 91/55; Passes certos, % 91/60; Passes progressivos/90 64/55"
+      "detalhe": "Tempo para girar 90 graus (s) 4/70; Arrancadas explosivas até o sprint por 90 min 27/60; Duelos defensivos ganhos, % 82/60; Duelos aéreos ganhos, % 91/55; Passes certos, % 91/60; Passes progressivos/90 64/55",
+      "pk_app": "Patrick De Lucca - CRB - Brasil B"
      },
      {
       "jogador": "Pierre",
@@ -8208,7 +8337,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 59/70; Arrancadas explosivas até o sprint por 90 min 23/60; Duelos defensivos ganhos, % 32/60; Duelos aéreos ganhos, % 96/55; Passes certos, % 100/60; Passes progressivos/90 91/55"
+      "detalhe": "Tempo para girar 90 graus (s) 59/70; Arrancadas explosivas até o sprint por 90 min 23/60; Duelos defensivos ganhos, % 32/60; Duelos aéreos ganhos, % 96/55; Passes certos, % 100/60; Passes progressivos/90 91/55",
+      "pk_app": "Pierre - Fortaleza - Brasil B"
      },
      {
       "jogador": "André Luiz",
@@ -8227,7 +8357,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 68/70; Arrancadas explosivas até o sprint por 90 min 57/60; Duelos defensivos ganhos, % 77/60; Duelos aéreos ganhos, % 68/55; Passes certos, % 41/60; Passes progressivos/90 77/55"
+      "detalhe": "Tempo para girar 90 graus (s) 68/70; Arrancadas explosivas até o sprint por 90 min 57/60; Duelos defensivos ganhos, % 77/60; Duelos aéreos ganhos, % 68/55; Passes certos, % 41/60; Passes progressivos/90 77/55",
+      "pk_app": "André Luiz - Londrina - Brasil B"
      },
      {
       "jogador": "Zé Gabriel",
@@ -8246,7 +8377,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 34/70; Arrancadas explosivas até o sprint por 90 min 36/60; Duelos defensivos ganhos, % 59/60; Duelos aéreos ganhos, % 86/55; Passes certos, % 82/60; Passes progressivos/90 86/55"
+      "detalhe": "Tempo para girar 90 graus (s) 34/70; Arrancadas explosivas até o sprint por 90 min 36/60; Duelos defensivos ganhos, % 59/60; Duelos aéreos ganhos, % 86/55; Passes certos, % 82/60; Passes progressivos/90 86/55",
+      "pk_app": "Zé Gabriel - Sport Recife - Brasil B"
      },
      {
       "jogador": "Matheus Sales",
@@ -8265,7 +8397,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 41/70; Arrancadas explosivas até o sprint por 90 min 82/60; Duelos defensivos ganhos, % 68/60; Duelos aéreos ganhos, % 80/55; Passes certos, % 27/60; Passes progressivos/90 14/55"
+      "detalhe": "Tempo para girar 90 graus (s) 41/70; Arrancadas explosivas até o sprint por 90 min 82/60; Duelos defensivos ganhos, % 68/60; Duelos aéreos ganhos, % 80/55; Passes certos, % 27/60; Passes progressivos/90 14/55",
+      "pk_app": "Matheus Sales - Botafogo SP - Brasil B"
      },
      {
       "jogador": "João Vieira",
@@ -8284,7 +8417,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 91/70; Arrancadas explosivas até o sprint por 90 min 70/60; Duelos defensivos ganhos, % 9/60; Duelos aéreos ganhos, % 23/55; Passes certos, % 86/60; Passes progressivos/90 32/55"
+      "detalhe": "Tempo para girar 90 graus (s) 91/70; Arrancadas explosivas até o sprint por 90 min 70/60; Duelos defensivos ganhos, % 9/60; Duelos aéreos ganhos, % 23/55; Passes certos, % 86/60; Passes progressivos/90 32/55",
+      "pk_app": "João Vieira - Vila Nova - Brasil B"
      },
      {
       "jogador": "Samuel",
@@ -8303,7 +8437,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 0/70; Arrancadas explosivas até o sprint por 90 min 100/60; Duelos defensivos ganhos, % 0/60; Duelos aéreos ganhos, % 59/55; Passes certos, % 64/60; Passes progressivos/90 0/55"
+      "detalhe": "Tempo para girar 90 graus (s) 0/70; Arrancadas explosivas até o sprint por 90 min 100/60; Duelos defensivos ganhos, % 0/60; Duelos aéreos ganhos, % 59/55; Passes certos, % 64/60; Passes progressivos/90 0/55",
+      "pk_app": "Samuel - Náutico - Brasil B"
      },
      {
       "jogador": "Dudu",
@@ -8322,7 +8457,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 68/70; Arrancadas explosivas até o sprint por 90 min 91/60; Duelos defensivos ganhos, % 36/60; Duelos aéreos ganhos, % 73/55; Passes certos, % 0/60; Passes progressivos/90 36/55"
+      "detalhe": "Tempo para girar 90 graus (s) 68/70; Arrancadas explosivas até o sprint por 90 min 91/60; Duelos defensivos ganhos, % 36/60; Duelos aéreos ganhos, % 73/55; Passes certos, % 0/60; Passes progressivos/90 36/55",
+      "pk_app": "Dudu - Vila Nova - Brasil B"
      },
      {
       "jogador": "Willian Maranhão",
@@ -8341,7 +8477,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 77/70; Arrancadas explosivas até o sprint por 90 min 4/60; Duelos defensivos ganhos, % 27/60; Duelos aéreos ganhos, % 100/55; Passes certos, % 9/60; Passes progressivos/90 54/55"
+      "detalhe": "Tempo para girar 90 graus (s) 77/70; Arrancadas explosivas até o sprint por 90 min 4/60; Duelos defensivos ganhos, % 27/60; Duelos aéreos ganhos, % 100/55; Passes certos, % 9/60; Passes progressivos/90 54/55",
+      "pk_app": "Willian Maranhão - Vila Nova - Brasil B"
      },
      {
       "jogador": "Luís Oyama",
@@ -8360,7 +8497,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 18/70; Arrancadas explosivas até o sprint por 90 min 64/60; Duelos defensivos ganhos, % 41/60; Duelos aéreos ganhos, % 27/55; Passes certos, % 32/60; Passes progressivos/90 82/55"
+      "detalhe": "Tempo para girar 90 graus (s) 18/70; Arrancadas explosivas até o sprint por 90 min 64/60; Duelos defensivos ganhos, % 41/60; Duelos aéreos ganhos, % 27/55; Passes certos, % 32/60; Passes progressivos/90 82/55",
+      "pk_app": "Luís Oyama - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Miraíma",
@@ -8379,7 +8517,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 84/70; Arrancadas explosivas até o sprint por 90 min 0/60; Duelos defensivos ganhos, % 14/60; Duelos aéreos ganhos, % 7/55; Passes certos, % 54/60; Passes progressivos/90 100/55"
+      "detalhe": "Tempo para girar 90 graus (s) 84/70; Arrancadas explosivas até o sprint por 90 min 0/60; Duelos defensivos ganhos, % 14/60; Duelos aéreos ganhos, % 7/55; Passes certos, % 54/60; Passes progressivos/90 100/55",
+      "pk_app": "Miraíma - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Foguinho",
@@ -8398,7 +8537,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 48/70; Arrancadas explosivas até o sprint por 90 min 70/60; Duelos defensivos ganhos, % 18/60; Duelos aéreos ganhos, % 0/55; Passes certos, % 73/60; Passes progressivos/90 25/55"
+      "detalhe": "Tempo para girar 90 graus (s) 48/70; Arrancadas explosivas até o sprint por 90 min 70/60; Duelos defensivos ganhos, % 18/60; Duelos aéreos ganhos, % 0/55; Passes certos, % 73/60; Passes progressivos/90 25/55",
+      "pk_app": "Foguinho - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Zé Ricardo",
@@ -8417,7 +8557,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 54/70; Arrancadas explosivas até o sprint por 90 min 57/60; Duelos defensivos ganhos, % 23/60; Duelos aéreos ganhos, % 36/55; Passes certos, % 36/60; Passes progressivos/90 73/55"
+      "detalhe": "Tempo para girar 90 graus (s) 54/70; Arrancadas explosivas até o sprint por 90 min 57/60; Duelos defensivos ganhos, % 23/60; Duelos aéreos ganhos, % 36/55; Passes certos, % 36/60; Passes progressivos/90 73/55",
+      "pk_app": "Zé Ricardo - Avaí - Brasil B"
      },
      {
       "jogador": "Matheus Trindade",
@@ -8436,7 +8577,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 84/70; Arrancadas explosivas até o sprint por 90 min 43/60; Duelos defensivos ganhos, % 54/60; Duelos aéreos ganhos, % 32/55; Passes certos, % 46/60; Passes progressivos/90 9/55"
+      "detalhe": "Tempo para girar 90 graus (s) 84/70; Arrancadas explosivas até o sprint por 90 min 43/60; Duelos defensivos ganhos, % 54/60; Duelos aéreos ganhos, % 32/55; Passes certos, % 46/60; Passes progressivos/90 9/55",
+      "pk_app": "Matheus Trindade - Operário PR - Brasil B"
      },
      {
       "jogador": "Leandro Vilela",
@@ -8455,7 +8597,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 14/70; Arrancadas explosivas até o sprint por 90 min 18/60; Duelos defensivos ganhos, % 86/60; Duelos aéreos ganhos, % 54/55; Passes certos, % 50/60; Passes progressivos/90 18/55"
+      "detalhe": "Tempo para girar 90 graus (s) 14/70; Arrancadas explosivas até o sprint por 90 min 18/60; Duelos defensivos ganhos, % 86/60; Duelos aéreos ganhos, % 54/55; Passes certos, % 50/60; Passes progressivos/90 18/55",
+      "pk_app": "Leandro Vilela - Atlético GO - Brasil B"
      },
      {
       "jogador": "Léo Naldi",
@@ -8474,7 +8617,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 23/70; Arrancadas explosivas até o sprint por 90 min 43/60; Duelos defensivos ganhos, % 64/60; Duelos aéreos ganhos, % 50/55; Passes certos, % 23/60; Passes progressivos/90 4/55"
+      "detalhe": "Tempo para girar 90 graus (s) 23/70; Arrancadas explosivas até o sprint por 90 min 43/60; Duelos defensivos ganhos, % 64/60; Duelos aéreos ganhos, % 50/55; Passes certos, % 23/60; Passes progressivos/90 4/55",
+      "pk_app": "Léo Naldi - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Felipe Amaral",
@@ -8493,7 +8637,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 68/70; Arrancadas explosivas até o sprint por 90 min 9/60; Duelos defensivos ganhos, % 46/60; Duelos aéreos ganhos, % 46/55; Passes certos, % 14/60; Passes progressivos/90 41/55"
+      "detalhe": "Tempo para girar 90 graus (s) 68/70; Arrancadas explosivas até o sprint por 90 min 9/60; Duelos defensivos ganhos, % 46/60; Duelos aéreos ganhos, % 46/55; Passes certos, % 14/60; Passes progressivos/90 41/55",
+      "pk_app": "Felipe Amaral - América Mineiro - Brasil B"
      },
      {
       "jogador": "Zé Lucas",
@@ -8512,7 +8657,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 27/70; Arrancadas explosivas até o sprint por 90 min 50/60; Duelos defensivos ganhos, % 50/60; Duelos aéreos ganhos, % 18/55; Passes certos, % 4/60; Passes progressivos/90 46/55"
+      "detalhe": "Tempo para girar 90 graus (s) 27/70; Arrancadas explosivas até o sprint por 90 min 50/60; Duelos defensivos ganhos, % 50/60; Duelos aéreos ganhos, % 18/55; Passes certos, % 4/60; Passes progressivos/90 46/55",
+      "pk_app": null
      },
      {
       "jogador": "L. Maciel",
@@ -8531,7 +8677,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 9/70; Arrancadas explosivas até o sprint por 90 min 14/60; Duelos defensivos ganhos, % 4/60; Duelos aéreos ganhos, % 41/55; Passes certos, % 18/60; Passes progressivos/90 25/55"
+      "detalhe": "Tempo para girar 90 graus (s) 9/70; Arrancadas explosivas até o sprint por 90 min 14/60; Duelos defensivos ganhos, % 4/60; Duelos aéreos ganhos, % 41/55; Passes certos, % 18/60; Passes progressivos/90 25/55",
+      "pk_app": "L. Maciel - Botafogo SP - Brasil B"
      }
     ]
    },
@@ -8557,7 +8704,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 82/65; Arrancadas explosivas até o sprint por 90 min 23/55; Duelos defensivos ganhos, % 58/55; Duelos aéreos ganhos, % 96; Passes certos, % 94/50; Passes progressivos/90 81/65"
+      "detalhe": "Tempo para girar 90 graus (s) 82/65; Arrancadas explosivas até o sprint por 90 min 23/55; Duelos defensivos ganhos, % 58/55; Duelos aéreos ganhos, % 96; Passes certos, % 94/50; Passes progressivos/90 81/65",
+      "pk_app": "Rodrigo Santos - Fortaleza - Brasil B"
      },
      {
       "jogador": "Paulo Vitor",
@@ -8576,7 +8724,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 57/55; Duelos aéreos ganhos, % 100; Passes certos, % 51/50; Passes progressivos/90 87/65"
+      "detalhe": "Duelos defensivos ganhos, % 57/55; Duelos aéreos ganhos, % 100; Passes certos, % 51/50; Passes progressivos/90 87/65",
+      "pk_app": "Paulo Vitor - Avaí - Brasil B"
      },
      {
       "jogador": "Raul",
@@ -8595,7 +8744,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 64/65; Arrancadas explosivas até o sprint por 90 min 46/55; Duelos defensivos ganhos, % 100/55; Duelos aéreos ganhos, % 23; Passes certos, % 100/50; Passes progressivos/90 91/65"
+      "detalhe": "Tempo para girar 90 graus (s) 64/65; Arrancadas explosivas até o sprint por 90 min 46/55; Duelos defensivos ganhos, % 100/55; Duelos aéreos ganhos, % 23; Passes certos, % 100/50; Passes progressivos/90 91/65",
+      "pk_app": "Raul - Cuiabá - Brasil B"
      },
      {
       "jogador": "Guilherme Lobo",
@@ -8614,7 +8764,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 88/65; Arrancadas explosivas até o sprint por 90 min 36/55; Duelos defensivos ganhos, % 38/55; Duelos aéreos ganhos, % 73; Passes certos, % 87/50; Passes progressivos/90 98/65"
+      "detalhe": "Tempo para girar 90 graus (s) 88/65; Arrancadas explosivas até o sprint por 90 min 36/55; Duelos defensivos ganhos, % 38/55; Duelos aéreos ganhos, % 73; Passes certos, % 87/50; Passes progressivos/90 98/65",
+      "pk_app": "Guilherme Lobo - Criciúma - Brasil B"
      },
      {
       "jogador": "Jota",
@@ -8633,7 +8784,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 64/65; Arrancadas explosivas até o sprint por 90 min 74/55; Duelos defensivos ganhos, % 79/55; Duelos aéreos ganhos, % 40; Passes certos, % 62/50; Passes progressivos/90 62/65"
+      "detalhe": "Tempo para girar 90 graus (s) 64/65; Arrancadas explosivas até o sprint por 90 min 74/55; Duelos defensivos ganhos, % 79/55; Duelos aéreos ganhos, % 40; Passes certos, % 62/50; Passes progressivos/90 62/65",
+      "pk_app": "Jota - Athletic Club - Brasil B"
      },
      {
       "jogador": "Pedro Vitor",
@@ -8652,7 +8804,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 92/65; Arrancadas explosivas até o sprint por 90 min 85/55; Duelos defensivos ganhos, % 87/55; Duelos aéreos ganhos, % 83; Passes certos, % 4/50; Passes progressivos/90 26/65"
+      "detalhe": "Tempo para girar 90 graus (s) 92/65; Arrancadas explosivas até o sprint por 90 min 85/55; Duelos defensivos ganhos, % 87/55; Duelos aéreos ganhos, % 83; Passes certos, % 4/50; Passes progressivos/90 26/65",
+      "pk_app": "Pedro Vitor - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Danielzinho",
@@ -8671,7 +8824,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 27/65; Arrancadas explosivas até o sprint por 90 min 38/55; Duelos defensivos ganhos, % 85/55; Duelos aéreos ganhos, % 57; Passes certos, % 79/50; Passes progressivos/90 83/65"
+      "detalhe": "Tempo para girar 90 graus (s) 27/65; Arrancadas explosivas até o sprint por 90 min 38/55; Duelos defensivos ganhos, % 85/55; Duelos aéreos ganhos, % 57; Passes certos, % 79/50; Passes progressivos/90 83/65",
+      "pk_app": "Danielzinho - CRB - Brasil B"
      },
      {
       "jogador": "Eduardo",
@@ -8690,7 +8844,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 36/65; Arrancadas explosivas até o sprint por 90 min 57/55; Duelos defensivos ganhos, % 8/55; Duelos aéreos ganhos, % 79; Passes certos, % 98/50; Passes progressivos/90 72/65"
+      "detalhe": "Tempo para girar 90 graus (s) 36/65; Arrancadas explosivas até o sprint por 90 min 57/55; Duelos defensivos ganhos, % 8/55; Duelos aéreos ganhos, % 79; Passes certos, % 98/50; Passes progressivos/90 72/65",
+      "pk_app": "Eduardo - Criciúma - Brasil B"
      },
      {
       "jogador": "Pedro Castro",
@@ -8709,7 +8864,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 13/65; Arrancadas explosivas até o sprint por 90 min 15/55; Duelos defensivos ganhos, % 83/55; Duelos aéreos ganhos, % 85; Passes certos, % 74/50; Passes progressivos/90 79/65"
+      "detalhe": "Tempo para girar 90 graus (s) 13/65; Arrancadas explosivas até o sprint por 90 min 15/55; Duelos defensivos ganhos, % 83/55; Duelos aéreos ganhos, % 85; Passes certos, % 74/50; Passes progressivos/90 79/65",
+      "pk_app": "Pedro Castro - CRB - Brasil B"
      },
      {
       "jogador": "Wesley Pinheiro",
@@ -8728,7 +8884,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 68/55; Duelos defensivos ganhos, % 91/55; Duelos aéreos ganhos, % 70; Passes certos, % 30/50; Passes progressivos/90 12/65"
+      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 68/55; Duelos defensivos ganhos, % 91/55; Duelos aéreos ganhos, % 70; Passes certos, % 30/50; Passes progressivos/90 12/65",
+      "pk_app": "Wesley Pinheiro - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Rômulo",
@@ -8747,7 +8904,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 88/65; Arrancadas explosivas até o sprint por 90 min 79/55; Duelos defensivos ganhos, % 61/55; Duelos aéreos ganhos, % 27; Passes certos, % 13/50; Passes progressivos/90 64/65"
+      "detalhe": "Tempo para girar 90 graus (s) 88/65; Arrancadas explosivas até o sprint por 90 min 79/55; Duelos defensivos ganhos, % 61/55; Duelos aéreos ganhos, % 27; Passes certos, % 13/50; Passes progressivos/90 64/65",
+      "pk_app": "Rômulo - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Vinícius Paiva",
@@ -8766,7 +8924,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 98/55; Duelos defensivos ganhos, % 77/55; Duelos aéreos ganhos, % 35; Passes certos, % 8/50; Passes progressivos/90 30/65"
+      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 98/55; Duelos defensivos ganhos, % 77/55; Duelos aéreos ganhos, % 35; Passes certos, % 8/50; Passes progressivos/90 30/65",
+      "pk_app": "Vinícius Paiva - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Chrystian Barletta",
@@ -8785,7 +8944,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 94/65; Arrancadas explosivas até o sprint por 90 min 100/55; Duelos defensivos ganhos, % 61/55; Duelos aéreos ganhos, % 6; Passes certos, % 21/50; Passes progressivos/90 35/65"
+      "detalhe": "Tempo para girar 90 graus (s) 94/65; Arrancadas explosivas até o sprint por 90 min 100/55; Duelos defensivos ganhos, % 61/55; Duelos aéreos ganhos, % 6; Passes certos, % 21/50; Passes progressivos/90 35/65",
+      "pk_app": "Chrystian Barletta - Sport Recife - Brasil B"
      },
      {
       "jogador": "Echaporã",
@@ -8804,7 +8964,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 85/65; Arrancadas explosivas até o sprint por 90 min 70/55; Duelos defensivos ganhos, % 74/55; Duelos aéreos ganhos, % 0; Passes certos, % 47/50; Passes progressivos/90 3/65"
+      "detalhe": "Tempo para girar 90 graus (s) 85/65; Arrancadas explosivas até o sprint por 90 min 70/55; Duelos defensivos ganhos, % 74/55; Duelos aéreos ganhos, % 0; Passes certos, % 47/50; Passes progressivos/90 3/65",
+      "pk_app": "Echaporã - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "Jean Lucas",
@@ -8823,7 +8984,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 68/65; Arrancadas explosivas até o sprint por 90 min 66/55; Duelos defensivos ganhos, % 23/55; Duelos aéreos ganhos, % 11; Passes certos, % 23/50; Passes progressivos/90 76/65"
+      "detalhe": "Tempo para girar 90 graus (s) 68/65; Arrancadas explosivas até o sprint por 90 min 66/55; Duelos defensivos ganhos, % 23/55; Duelos aéreos ganhos, % 11; Passes certos, % 23/50; Passes progressivos/90 76/65",
+      "pk_app": "Jean Lucas - Avaí - Brasil B"
      },
      {
       "jogador": "Matheus Bianqui",
@@ -8842,7 +9004,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 60/55; Duelos defensivos ganhos, % 96/55; Duelos aéreos ganhos, % 98; Passes certos, % 32/50; Passes progressivos/90 57/65"
+      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 60/55; Duelos defensivos ganhos, % 96/55; Duelos aéreos ganhos, % 98; Passes certos, % 32/50; Passes progressivos/90 57/65",
+      "pk_app": "Matheus Bianqui - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Luiz Henrique",
@@ -8861,7 +9024,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 49/55; Duelos defensivos ganhos, % 43/55; Duelos aéreos ganhos, % 87; Passes certos, % 76/50; Passes progressivos/90 74/65"
+      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 49/55; Duelos defensivos ganhos, % 43/55; Duelos aéreos ganhos, % 87; Passes certos, % 76/50; Passes progressivos/90 74/65",
+      "pk_app": "Luiz Henrique - Avaí - Brasil B"
      },
      {
       "jogador": "Vinicius Diniz",
@@ -8880,7 +9044,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 70/65; Arrancadas explosivas até o sprint por 90 min 34/55; Duelos defensivos ganhos, % 40/55; Duelos aéreos ganhos, % 77; Passes certos, % 92/50; Passes progressivos/90 55/65"
+      "detalhe": "Tempo para girar 90 graus (s) 70/65; Arrancadas explosivas até o sprint por 90 min 34/55; Duelos defensivos ganhos, % 40/55; Duelos aéreos ganhos, % 77; Passes certos, % 92/50; Passes progressivos/90 55/65",
+      "pk_app": "Vinicius Diniz - Operário PR - Brasil B"
      },
      {
       "jogador": "Lucas Mineiro",
@@ -8899,7 +9064,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 96/65; Arrancadas explosivas até o sprint por 90 min 0/55; Duelos defensivos ganhos, % 43/55; Duelos aéreos ganhos, % 94; Passes certos, % 85/50; Passes progressivos/90 46/65"
+      "detalhe": "Tempo para girar 90 graus (s) 96/65; Arrancadas explosivas até o sprint por 90 min 0/55; Duelos defensivos ganhos, % 43/55; Duelos aéreos ganhos, % 94; Passes certos, % 85/50; Passes progressivos/90 46/65",
+      "pk_app": "Lucas Mineiro - Juventude - Brasil B"
      },
      {
       "jogador": "Lucas Rodrigues",
@@ -8918,7 +9084,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 68/55; Duelos aéreos ganhos, % 55; Passes certos, % 77/50; Passes progressivos/90 39/65"
+      "detalhe": "Duelos defensivos ganhos, % 68/55; Duelos aéreos ganhos, % 55; Passes certos, % 77/50; Passes progressivos/90 39/65",
+      "pk_app": "Lucas Rodrigues - Goiás - Brasil B"
      },
      {
       "jogador": "Luan Gonçalves",
@@ -8937,7 +9104,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 21/65; Arrancadas explosivas até o sprint por 90 min 26/55; Duelos defensivos ganhos, % 47/55; Duelos aéreos ganhos, % 92; Passes certos, % 66/50; Passes progressivos/90 96/65"
+      "detalhe": "Tempo para girar 90 graus (s) 21/65; Arrancadas explosivas até o sprint por 90 min 26/55; Duelos defensivos ganhos, % 47/55; Duelos aéreos ganhos, % 92; Passes certos, % 66/50; Passes progressivos/90 96/65",
+      "pk_app": "Luan Gonçalves - Juventude - Brasil B"
      },
      {
       "jogador": "G. Cabezas",
@@ -8956,7 +9124,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 51/55; Duelos defensivos ganhos, % 43/55; Duelos aéreos ganhos, % 73; Passes certos, % 70/50; Passes progressivos/90 35/65"
+      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 51/55; Duelos defensivos ganhos, % 43/55; Duelos aéreos ganhos, % 73; Passes certos, % 70/50; Passes progressivos/90 35/65",
+      "pk_app": "G. Cabezas - Athletic Club - Brasil B"
      },
      {
       "jogador": "André Lima",
@@ -8975,7 +9144,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 4/65; Arrancadas explosivas até o sprint por 90 min 40/55; Duelos defensivos ganhos, % 34/55; Duelos aéreos ganhos, % 91; Passes certos, % 83/50; Passes progressivos/90 85/65"
+      "detalhe": "Tempo para girar 90 graus (s) 4/65; Arrancadas explosivas até o sprint por 90 min 40/55; Duelos defensivos ganhos, % 34/55; Duelos aéreos ganhos, % 91; Passes certos, % 83/50; Passes progressivos/90 85/65",
+      "pk_app": "André Lima - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Pepê",
@@ -8994,7 +9164,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 99/65; Arrancadas explosivas até o sprint por 90 min 17/55; Duelos defensivos ganhos, % 24/55; Duelos aéreos ganhos, % 60; Passes certos, % 81/50; Passes progressivos/90 51/65"
+      "detalhe": "Tempo para girar 90 graus (s) 99/65; Arrancadas explosivas até o sprint por 90 min 17/55; Duelos defensivos ganhos, % 24/55; Duelos aéreos ganhos, % 60; Passes certos, % 81/50; Passes progressivos/90 51/65",
+      "pk_app": "Pepê - Cuiabá - Brasil B"
      },
      {
       "jogador": "Soares",
@@ -9013,7 +9184,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 36/65; Arrancadas explosivas até o sprint por 90 min 96/55; Duelos defensivos ganhos, % 81/55; Duelos aéreos ganhos, % 46; Passes certos, % 43/50; Passes progressivos/90 17/65"
+      "detalhe": "Tempo para girar 90 graus (s) 36/65; Arrancadas explosivas até o sprint por 90 min 96/55; Duelos defensivos ganhos, % 81/55; Duelos aéreos ganhos, % 46; Passes certos, % 43/50; Passes progressivos/90 17/65",
+      "pk_app": "Soares - Atlético GO - Brasil B"
      },
      {
       "jogador": "Bruno José",
@@ -9032,7 +9204,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 92/55; Duelos defensivos ganhos, % 6/55; Duelos aéreos ganhos, % 89; Passes certos, % 2/50; Passes progressivos/90 46/65"
+      "detalhe": "Tempo para girar 90 graus (s) 76/65; Arrancadas explosivas até o sprint por 90 min 92/55; Duelos defensivos ganhos, % 6/55; Duelos aéreos ganhos, % 89; Passes certos, % 2/50; Passes progressivos/90 46/65",
+      "pk_app": "Bruno José - Atlético GO - Brasil B"
      },
      {
       "jogador": "Lucas Marques",
@@ -9051,7 +9224,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 16/65; Arrancadas explosivas até o sprint por 90 min 6/55; Duelos defensivos ganhos, % 66/55; Duelos aéreos ganhos, % 67; Passes certos, % 49/50; Passes progressivos/90 94/65"
+      "detalhe": "Tempo para girar 90 graus (s) 16/65; Arrancadas explosivas até o sprint por 90 min 6/55; Duelos defensivos ganhos, % 66/55; Duelos aéreos ganhos, % 67; Passes certos, % 49/50; Passes progressivos/90 94/65",
+      "pk_app": "Lucas Marques - Londrina - Brasil B"
      },
      {
       "jogador": "Guilherme Marques",
@@ -9070,7 +9244,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 12/55; Duelos defensivos ganhos, % 76/55; Duelos aéreos ganhos, % 63; Passes certos, % 28/50; Passes progressivos/90 68/65"
+      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 12/55; Duelos defensivos ganhos, % 76/55; Duelos aéreos ganhos, % 63; Passes certos, % 28/50; Passes progressivos/90 68/65",
+      "pk_app": null
      },
      {
       "jogador": "Crystopher",
@@ -9089,7 +9264,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 27/65; Arrancadas explosivas até o sprint por 90 min 46/55; Duelos defensivos ganhos, % 36/55; Duelos aéreos ganhos, % 38; Passes certos, % 58/50; Passes progressivos/90 89/65"
+      "detalhe": "Tempo para girar 90 graus (s) 27/65; Arrancadas explosivas até o sprint por 90 min 46/55; Duelos defensivos ganhos, % 36/55; Duelos aéreos ganhos, % 38; Passes certos, % 58/50; Passes progressivos/90 89/65",
+      "pk_app": "Crystopher - CRB - Brasil B"
      },
      {
       "jogador": "Rafael Gava",
@@ -9108,7 +9284,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 56/65; Arrancadas explosivas até o sprint por 90 min 12/55; Duelos defensivos ganhos, % 17/55; Duelos aéreos ganhos, % 67; Passes certos, % 68/50; Passes progressivos/90 70/65"
+      "detalhe": "Tempo para girar 90 graus (s) 56/65; Arrancadas explosivas até o sprint por 90 min 12/55; Duelos defensivos ganhos, % 17/55; Duelos aéreos ganhos, % 67; Passes certos, % 68/50; Passes progressivos/90 70/65",
+      "pk_app": "Rafael Gava - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Kauan",
@@ -9127,7 +9304,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 43/55; Duelos defensivos ganhos, % 64/55; Duelos aéreos ganhos, % 17; Passes certos, % 64/50; Passes progressivos/90 43/65"
+      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 43/55; Duelos defensivos ganhos, % 64/55; Duelos aéreos ganhos, % 17; Passes certos, % 64/50; Passes progressivos/90 43/65",
+      "pk_app": "Kauan - Athletic Club - Brasil B"
      },
      {
       "jogador": "Ryan Lima",
@@ -9146,7 +9324,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 82/65; Arrancadas explosivas até o sprint por 90 min 83/55; Duelos defensivos ganhos, % 19/55; Duelos aéreos ganhos, % 31; Passes certos, % 36/50; Passes progressivos/90 24/65"
+      "detalhe": "Tempo para girar 90 graus (s) 82/65; Arrancadas explosivas até o sprint por 90 min 83/55; Duelos defensivos ganhos, % 19/55; Duelos aéreos ganhos, % 31; Passes certos, % 36/50; Passes progressivos/90 24/65",
+      "pk_app": "Ryan Lima - Vila Nova - Brasil B"
      },
      {
       "jogador": "Lourenço",
@@ -9165,7 +9344,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 7/65; Arrancadas explosivas até o sprint por 90 min 29/55; Duelos defensivos ganhos, % 32/55; Duelos aéreos ganhos, % 15; Passes certos, % 91/50; Passes progressivos/90 92/65"
+      "detalhe": "Tempo para girar 90 graus (s) 7/65; Arrancadas explosivas até o sprint por 90 min 29/55; Duelos defensivos ganhos, % 32/55; Duelos aéreos ganhos, % 15; Passes certos, % 91/50; Passes progressivos/90 92/65",
+      "pk_app": "Lourenço - Goiás - Brasil B"
      },
      {
       "jogador": "Gegé",
@@ -9184,7 +9364,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 7/65; Arrancadas explosivas até o sprint por 90 min 19/55; Duelos defensivos ganhos, % 92/55; Duelos aéreos ganhos, % 27; Passes certos, % 57/50; Passes progressivos/90 60/65"
+      "detalhe": "Tempo para girar 90 graus (s) 7/65; Arrancadas explosivas até o sprint por 90 min 19/55; Duelos defensivos ganhos, % 92/55; Duelos aéreos ganhos, % 27; Passes certos, % 57/50; Passes progressivos/90 60/65",
+      "pk_app": "Gegé - Goiás - Brasil B"
      },
      {
       "jogador": "Zé Hugo",
@@ -9203,7 +9384,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 99/65; Arrancadas explosivas até o sprint por 90 min 87/55; Duelos defensivos ganhos, % 51/55; Duelos aéreos ganhos, % 9; Passes certos, % 0/50; Passes progressivos/90 12/65"
+      "detalhe": "Tempo para girar 90 graus (s) 99/65; Arrancadas explosivas até o sprint por 90 min 87/55; Duelos defensivos ganhos, % 51/55; Duelos aéreos ganhos, % 9; Passes certos, % 0/50; Passes progressivos/90 12/65",
+      "pk_app": "Zé Hugo - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Fellipe Mateus",
@@ -9222,7 +9404,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 31/65; Arrancadas explosivas até o sprint por 90 min 2/55; Duelos defensivos ganhos, % 98/55; Duelos aéreos ganhos, % 43; Passes certos, % 53/50; Passes progressivos/90 28/65"
+      "detalhe": "Tempo para girar 90 graus (s) 31/65; Arrancadas explosivas até o sprint por 90 min 2/55; Duelos defensivos ganhos, % 98/55; Duelos aéreos ganhos, % 43; Passes certos, % 53/50; Passes progressivos/90 28/65",
+      "pk_app": "Fellipe Mateus - Criciúma - Brasil B"
      },
      {
       "jogador": "Yago",
@@ -9241,7 +9424,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 2/65; Arrancadas explosivas até o sprint por 90 min 64/55; Duelos defensivos ganhos, % 26/55; Duelos aéreos ganhos, % 51; Passes certos, % 72/50; Passes progressivos/90 39/65"
+      "detalhe": "Tempo para girar 90 graus (s) 2/65; Arrancadas explosivas até o sprint por 90 min 64/55; Duelos defensivos ganhos, % 26/55; Duelos aéreos ganhos, % 51; Passes certos, % 72/50; Passes progressivos/90 39/65",
+      "pk_app": null
      },
      {
       "jogador": "Boschilia",
@@ -9260,7 +9444,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 32/55; Duelos defensivos ganhos, % 4/55; Duelos aéreos ganhos, % 13; Passes certos, % 89/50; Passes progressivos/90 66/65"
+      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 32/55; Duelos defensivos ganhos, % 4/55; Duelos aéreos ganhos, % 13; Passes certos, % 89/50; Passes progressivos/90 66/65",
+      "pk_app": "Boschilia - Operário PR - Brasil B"
      },
      {
       "jogador": "Marquinhos Gabriel",
@@ -9279,7 +9464,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 16/65; Arrancadas explosivas até o sprint por 90 min 21/55; Duelos defensivos ganhos, % 94/55; Duelos aéreos ganhos, % 20; Passes certos, % 55/50; Passes progressivos/90 32/65"
+      "detalhe": "Tempo para girar 90 graus (s) 16/65; Arrancadas explosivas até o sprint por 90 min 21/55; Duelos defensivos ganhos, % 94/55; Duelos aéreos ganhos, % 20; Passes certos, % 55/50; Passes progressivos/90 32/65",
+      "pk_app": "Marquinhos Gabriel - Vila Nova - Brasil B"
      },
      {
       "jogador": "Clayson",
@@ -9298,7 +9484,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 21/65; Arrancadas explosivas até o sprint por 90 min 94/55; Duelos defensivos ganhos, % 0/55; Duelos aéreos ganhos, % 31; Passes certos, % 60/50; Passes progressivos/90 15/65"
+      "detalhe": "Tempo para girar 90 graus (s) 21/65; Arrancadas explosivas até o sprint por 90 min 94/55; Duelos defensivos ganhos, % 0/55; Duelos aéreos ganhos, % 31; Passes certos, % 60/50; Passes progressivos/90 15/65",
+      "pk_app": "Clayson - Sport Recife - Brasil B"
      },
      {
       "jogador": "Melk",
@@ -9317,7 +9504,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 31/65; Arrancadas explosivas até o sprint por 90 min 55/55; Duelos defensivos ganhos, % 70/55; Duelos aéreos ganhos, % 2; Passes certos, % 11/50; Passes progressivos/90 49/65"
+      "detalhe": "Tempo para girar 90 graus (s) 31/65; Arrancadas explosivas até o sprint por 90 min 55/55; Duelos defensivos ganhos, % 70/55; Duelos aéreos ganhos, % 2; Passes certos, % 11/50; Passes progressivos/90 49/65",
+      "pk_app": "Melk - Ceará - Brasil B"
      },
      {
       "jogador": "Victor Andrade",
@@ -9336,7 +9524,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 0/65; Arrancadas explosivas até o sprint por 90 min 77/55; Duelos defensivos ganhos, % 72/55; Duelos aéreos ganhos, % 35; Passes certos, % 9/50; Passes progressivos/90 0/65"
+      "detalhe": "Tempo para girar 90 graus (s) 0/65; Arrancadas explosivas até o sprint por 90 min 77/55; Duelos defensivos ganhos, % 72/55; Duelos aéreos ganhos, % 35; Passes certos, % 9/50; Passes progressivos/90 0/65",
+      "pk_app": "Victor Andrade - Náutico - Brasil B"
      },
      {
       "jogador": "Reidiney",
@@ -9355,7 +9544,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 49/55; Duelos aéreos ganhos, % 81; Passes certos, % 6/50; Passes progressivos/90 77/65"
+      "detalhe": "Duelos defensivos ganhos, % 49/55; Duelos aéreos ganhos, % 81; Passes certos, % 6/50; Passes progressivos/90 77/65",
+      "pk_app": "Reidiney - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Lucas Sasha",
@@ -9374,7 +9564,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 64/65; Arrancadas explosivas até o sprint por 90 min 8/55; Duelos defensivos ganhos, % 53/55; Duelos aéreos ganhos, % 24; Passes certos, % 96/50; Passes progressivos/90 53/65"
+      "detalhe": "Tempo para girar 90 graus (s) 64/65; Arrancadas explosivas até o sprint por 90 min 8/55; Duelos defensivos ganhos, % 53/55; Duelos aéreos ganhos, % 24; Passes certos, % 96/50; Passes progressivos/90 53/65",
+      "pk_app": "Lucas Sasha - Fortaleza - Brasil B"
      },
      {
       "jogador": "Janderson",
@@ -9393,7 +9584,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 40/65; Arrancadas explosivas até o sprint por 90 min 89/55; Duelos defensivos ganhos, % 55/55; Duelos aéreos ganhos, % 6; Passes certos, % 15/50; Passes progressivos/90 58/65"
+      "detalhe": "Tempo para girar 90 graus (s) 40/65; Arrancadas explosivas até o sprint por 90 min 89/55; Duelos defensivos ganhos, % 55/55; Duelos aéreos ganhos, % 6; Passes certos, % 15/50; Passes progressivos/90 58/65",
+      "pk_app": "Janderson - Vila Nova - Brasil B"
      },
      {
       "jogador": "Marrony",
@@ -9412,7 +9604,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 89/55; Duelos aéreos ganhos, % 42; Passes certos, % 26/50; Passes progressivos/90 19/65"
+      "detalhe": "Duelos defensivos ganhos, % 89/55; Duelos aéreos ganhos, % 42; Passes certos, % 26/50; Passes progressivos/90 19/65",
+      "pk_app": "Marrony - Atlético GO - Brasil B"
      },
      {
       "jogador": "Élvis",
@@ -9431,7 +9624,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 4/55; Duelos defensivos ganhos, % 2/55; Duelos aéreos ganhos, % 46; Passes certos, % 24/50; Passes progressivos/90 100/65"
+      "detalhe": "Tempo para girar 90 graus (s) 48/65; Arrancadas explosivas até o sprint por 90 min 4/55; Duelos defensivos ganhos, % 2/55; Duelos aéreos ganhos, % 46; Passes certos, % 24/50; Passes progressivos/90 100/65",
+      "pk_app": "Élvis - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Kadu",
@@ -9450,7 +9644,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 36/65; Arrancadas explosivas até o sprint por 90 min 81/55; Duelos defensivos ganhos, % 15/55; Duelos aéreos ganhos, % 53; Passes certos, % 19/50; Passes progressivos/90 9/65"
+      "detalhe": "Tempo para girar 90 graus (s) 36/65; Arrancadas explosivas até o sprint por 90 min 81/55; Duelos defensivos ganhos, % 15/55; Duelos aéreos ganhos, % 53; Passes certos, % 19/50; Passes progressivos/90 9/65",
+      "pk_app": "Kadu - Goiás - Brasil B"
      },
      {
       "jogador": "Thayllon Roberth",
@@ -9469,7 +9664,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 56/65; Arrancadas explosivas até o sprint por 90 min 72/55; Duelos defensivos ganhos, % 12/55; Duelos aéreos ganhos, % 6; Passes certos, % 38/50; Passes progressivos/90 3/65"
+      "detalhe": "Tempo para girar 90 graus (s) 56/65; Arrancadas explosivas até o sprint por 90 min 72/55; Duelos defensivos ganhos, % 12/55; Duelos aéreos ganhos, % 6; Passes certos, % 38/50; Passes progressivos/90 3/65",
+      "pk_app": null
      },
      {
       "jogador": "Léo Gomes",
@@ -9488,7 +9684,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 11/65; Arrancadas explosivas até o sprint por 90 min 62/55; Duelos defensivos ganhos, % 12/55; Duelos aéreos ganhos, % 58; Passes certos, % 34/50; Passes progressivos/90 6/65"
+      "detalhe": "Tempo para girar 90 graus (s) 11/65; Arrancadas explosivas até o sprint por 90 min 62/55; Duelos defensivos ganhos, % 12/55; Duelos aéreos ganhos, % 58; Passes certos, % 34/50; Passes progressivos/90 6/65",
+      "pk_app": "Léo Gomes - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Joao Gabriel",
@@ -9507,7 +9704,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 30/55; Duelos aéreos ganhos, % 76; Passes certos, % 45/50; Passes progressivos/90 42/65"
+      "detalhe": "Duelos defensivos ganhos, % 30/55; Duelos aéreos ganhos, % 76; Passes certos, % 45/50; Passes progressivos/90 42/65",
+      "pk_app": "Joao Gabriel - Ceará - Brasil B"
      },
      {
       "jogador": "Everton Morelli",
@@ -9526,7 +9724,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 60/65; Arrancadas explosivas até o sprint por 90 min 53/55; Duelos defensivos ganhos, % 21/55; Duelos aéreos ganhos, % 63; Passes certos, % 42/50; Passes progressivos/90 23/65"
+      "detalhe": "Tempo para girar 90 graus (s) 60/65; Arrancadas explosivas até o sprint por 90 min 53/55; Duelos defensivos ganhos, % 21/55; Duelos aéreos ganhos, % 63; Passes certos, % 42/50; Passes progressivos/90 23/65",
+      "pk_app": "Everton Morelli - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Matheus Araújo",
@@ -9545,7 +9744,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 21/65; Arrancadas explosivas até o sprint por 90 min 29/55; Duelos defensivos ganhos, % 28/55; Duelos aéreos ganhos, % 20; Passes certos, % 40/50; Passes progressivos/90 21/65"
+      "detalhe": "Tempo para girar 90 graus (s) 21/65; Arrancadas explosivas até o sprint por 90 min 29/55; Duelos defensivos ganhos, % 28/55; Duelos aéreos ganhos, % 20; Passes certos, % 40/50; Passes progressivos/90 21/65",
+      "pk_app": "Matheus Araújo - Ceará - Brasil B"
      },
      {
       "jogador": "Fábio Lima",
@@ -9564,7 +9764,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 8/55; Duelos aéreos ganhos, % 49; Passes certos, % 17/50; Passes progressivos/90 8/65"
+      "detalhe": "Duelos defensivos ganhos, % 8/55; Duelos aéreos ganhos, % 49; Passes certos, % 17/50; Passes progressivos/90 8/65",
+      "pk_app": "Fábio Lima - Juventude - Brasil B"
      }
     ]
    },
@@ -9590,7 +9791,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 100/70; Sprints por 90 min 70/50; Duelos defensivos ganhos, % 64/75; Duelos aéreos ganhos, % 23/55; Passes certos, % 100/70; Passes progressivos/90 100/55"
+      "detalhe": "Tempo para girar 90 graus (s) 100/70; Sprints por 90 min 70/50; Duelos defensivos ganhos, % 64/75; Duelos aéreos ganhos, % 23/55; Passes certos, % 100/70; Passes progressivos/90 100/55",
+      "pk_app": null
      },
      {
       "jogador": "Rómulo Otero",
@@ -9609,7 +9811,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 65/70; Sprints por 90 min 0/50; Duelos defensivos ganhos, % 91/75; Duelos aéreos ganhos, % 64/55; Passes certos, % 82/70; Passes progressivos/90 82/55"
+      "detalhe": "Tempo para girar 90 graus (s) 65/70; Sprints por 90 min 0/50; Duelos defensivos ganhos, % 91/75; Duelos aéreos ganhos, % 64/55; Passes certos, % 82/70; Passes progressivos/90 82/55",
+      "pk_app": "Rómulo Otero - Criciúma - Brasil B"
      },
      {
       "jogador": "Kelvin",
@@ -9628,7 +9831,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 90/70; Sprints por 90 min 50/50; Duelos defensivos ganhos, % 100/75; Duelos aéreos ganhos, % 9/55; Passes certos, % 91/70; Passes progressivos/90 9/55"
+      "detalhe": "Tempo para girar 90 graus (s) 90/70; Sprints por 90 min 50/50; Duelos defensivos ganhos, % 100/75; Duelos aéreos ganhos, % 9/55; Passes certos, % 91/70; Passes progressivos/90 9/55",
+      "pk_app": "Kelvin - Botafogo SP - Brasil B"
      },
      {
       "jogador": "G. Barros",
@@ -9647,7 +9851,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 80/70; Sprints por 90 min 100/50; Duelos defensivos ganhos, % 0/75; Duelos aéreos ganhos, % 54/55; Passes certos, % 36/70; Passes progressivos/90 46/55"
+      "detalhe": "Tempo para girar 90 graus (s) 80/70; Sprints por 90 min 100/50; Duelos defensivos ganhos, % 0/75; Duelos aéreos ganhos, % 54/55; Passes certos, % 36/70; Passes progressivos/90 46/55",
+      "pk_app": "G. Barros - América Mineiro - Brasil B"
      },
      {
       "jogador": "Dadá Belmonte",
@@ -9666,7 +9871,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 20/70; Sprints por 90 min 30/50; Duelos defensivos ganhos, % 82/75; Duelos aéreos ganhos, % 46/55; Passes certos, % 54/70; Passes progressivos/90 73/55"
+      "detalhe": "Tempo para girar 90 graus (s) 20/70; Sprints por 90 min 30/50; Duelos defensivos ganhos, % 82/75; Duelos aéreos ganhos, % 46/55; Passes certos, % 54/70; Passes progressivos/90 73/55",
+      "pk_app": "Dadá Belmonte - CRB - Brasil B"
      },
      {
       "jogador": "Aylon",
@@ -9685,7 +9891,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 50/70; Sprints por 90 min 10/50; Duelos defensivos ganhos, % 46/75; Duelos aéreos ganhos, % 100/55; Passes certos, % 73/70; Passes progressivos/90 18/55"
+      "detalhe": "Tempo para girar 90 graus (s) 50/70; Sprints por 90 min 10/50; Duelos defensivos ganhos, % 46/75; Duelos aéreos ganhos, % 100/55; Passes certos, % 73/70; Passes progressivos/90 18/55",
+      "pk_app": "Aylon - Operário PR - Brasil B"
      },
      {
       "jogador": "Hildeberto Pereira",
@@ -9704,7 +9911,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 40/70; Sprints por 90 min 80/50; Duelos defensivos ganhos, % 18/75; Duelos aéreos ganhos, % 73/55; Passes certos, % 46/70; Passes progressivos/90 36/55"
+      "detalhe": "Tempo para girar 90 graus (s) 40/70; Sprints por 90 min 80/50; Duelos defensivos ganhos, % 18/75; Duelos aéreos ganhos, % 73/55; Passes certos, % 46/70; Passes progressivos/90 36/55",
+      "pk_app": "Hildeberto Pereira - Operário PR - Brasil B"
      },
      {
       "jogador": "Pablo Dyego",
@@ -9723,7 +9931,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 65/70; Sprints por 90 min 90/50; Duelos defensivos ganhos, % 9/75; Duelos aéreos ganhos, % 82/55; Passes certos, % 27/70; Passes progressivos/90 0/55"
+      "detalhe": "Tempo para girar 90 graus (s) 65/70; Sprints por 90 min 90/50; Duelos defensivos ganhos, % 9/75; Duelos aéreos ganhos, % 82/55; Passes certos, % 27/70; Passes progressivos/90 0/55",
+      "pk_app": "Pablo Dyego - Londrina - Brasil B"
      },
      {
       "jogador": "Iago Teles",
@@ -9742,7 +9951,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 0/70; Sprints por 90 min 20/50; Duelos defensivos ganhos, % 54/75; Duelos aéreos ganhos, % 91/55; Passes certos, % 64/70; Passes progressivos/90 54/55"
+      "detalhe": "Tempo para girar 90 graus (s) 0/70; Sprints por 90 min 20/50; Duelos defensivos ganhos, % 54/75; Duelos aéreos ganhos, % 91/55; Passes certos, % 64/70; Passes progressivos/90 54/55",
+      "pk_app": "Iago Teles - Londrina - Brasil B"
      },
      {
       "jogador": "Victor Hugo",
@@ -9761,7 +9971,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Duelos defensivos ganhos, % 73/75; Duelos aéreos ganhos, % 0/55; Passes certos, % 9/70; Passes progressivos/90 64/55"
+      "detalhe": "Duelos defensivos ganhos, % 73/75; Duelos aéreos ganhos, % 0/55; Passes certos, % 9/70; Passes progressivos/90 64/55",
+      "pk_app": "Victor Hugo - Londrina - Brasil B"
      },
      {
       "jogador": "Paulinho Moccelin",
@@ -9780,7 +9991,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 10/70; Sprints por 90 min 40/50; Duelos defensivos ganhos, % 36/75; Duelos aéreos ganhos, % 23/55; Passes certos, % 0/70; Passes progressivos/90 91/55"
+      "detalhe": "Tempo para girar 90 graus (s) 10/70; Sprints por 90 min 40/50; Duelos defensivos ganhos, % 36/75; Duelos aéreos ganhos, % 23/55; Passes certos, % 0/70; Passes progressivos/90 91/55",
+      "pk_app": "Paulinho Moccelin - Londrina - Brasil B"
      },
      {
       "jogador": "D. Vera",
@@ -9799,7 +10011,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 30/70; Sprints por 90 min 60/50; Duelos defensivos ganhos, % 27/75; Duelos aéreos ganhos, % 36/55; Passes certos, % 18/70; Passes progressivos/90 27/55"
+      "detalhe": "Tempo para girar 90 graus (s) 30/70; Sprints por 90 min 60/50; Duelos defensivos ganhos, % 27/75; Duelos aéreos ganhos, % 36/55; Passes certos, % 18/70; Passes progressivos/90 27/55",
+      "pk_app": "D. Vera - Athletic Club - Brasil B"
      }
     ]
    },
@@ -9825,7 +10038,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 76/55; Sprints por 90 min 92/60; Duelos defensivos ganhos, % 96/50; Duelos aéreos ganhos, % 88; Passes certos, % 38; Passes progressivos/90 50/50"
+      "detalhe": "Tempo para girar 90 graus (s) 76/55; Sprints por 90 min 92/60; Duelos defensivos ganhos, % 96/50; Duelos aéreos ganhos, % 88; Passes certos, % 38; Passes progressivos/90 50/50",
+      "pk_app": "Bruno Santos - Londrina - Brasil B"
      },
      {
       "jogador": "William Pottker",
@@ -9844,7 +10058,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 86/55; Sprints por 90 min 76/60; Duelos defensivos ganhos, % 69/50; Duelos aéreos ganhos, % 15; Passes certos, % 85; Passes progressivos/90 67/50"
+      "detalhe": "Tempo para girar 90 graus (s) 86/55; Sprints por 90 min 76/60; Duelos defensivos ganhos, % 69/50; Duelos aéreos ganhos, % 15; Passes certos, % 85; Passes progressivos/90 67/50",
+      "pk_app": "William Pottker - Londrina - Brasil B"
      },
      {
       "jogador": "Ian Luccas",
@@ -9863,7 +10078,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 34/55; Sprints por 90 min 82/60; Duelos defensivos ganhos, % 73/50; Duelos aéreos ganhos, % 85; Passes certos, % 50; Passes progressivos/90 96/50"
+      "detalhe": "Tempo para girar 90 graus (s) 34/55; Sprints por 90 min 82/60; Duelos defensivos ganhos, % 73/50; Duelos aéreos ganhos, % 85; Passes certos, % 50; Passes progressivos/90 96/50",
+      "pk_app": "Ian Luccas - Athletic Club - Brasil B"
      },
      {
       "jogador": "Derek",
@@ -9882,7 +10098,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 10/55; Sprints por 90 min 68/60; Duelos defensivos ganhos, % 85/50; Duelos aéreos ganhos, % 62; Passes certos, % 58; Passes progressivos/90 56/50"
+      "detalhe": "Tempo para girar 90 graus (s) 10/55; Sprints por 90 min 68/60; Duelos defensivos ganhos, % 85/50; Duelos aéreos ganhos, % 62; Passes certos, % 58; Passes progressivos/90 56/50",
+      "pk_app": "Derek - Náutico - Brasil B"
      },
      {
       "jogador": "Hygor",
@@ -9901,7 +10118,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 80/55; Sprints por 90 min 100/60; Duelos defensivos ganhos, % 58/50; Duelos aéreos ganhos, % 58; Passes certos, % 0; Passes progressivos/90 19/50"
+      "detalhe": "Tempo para girar 90 graus (s) 80/55; Sprints por 90 min 100/60; Duelos defensivos ganhos, % 58/50; Duelos aéreos ganhos, % 58; Passes certos, % 0; Passes progressivos/90 19/50",
+      "pk_app": "Hygor - Botafogo SP - Brasil B"
      },
      {
       "jogador": "Kauan Cristtyan",
@@ -9920,7 +10138,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 18/55; Sprints por 90 min 60/60; Duelos defensivos ganhos, % 54/50; Duelos aéreos ganhos, % 27; Passes certos, % 19; Passes progressivos/90 85/50"
+      "detalhe": "Tempo para girar 90 graus (s) 18/55; Sprints por 90 min 60/60; Duelos defensivos ganhos, % 54/50; Duelos aéreos ganhos, % 27; Passes certos, % 19; Passes progressivos/90 85/50",
+      "pk_app": "Kauan Cristtyan - Cuiabá - Brasil B"
      },
      {
       "jogador": "Robson",
@@ -9939,7 +10158,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 94/55; Sprints por 90 min 52/60; Duelos defensivos ganhos, % 38/50; Duelos aéreos ganhos, % 69; Passes certos, % 35; Passes progressivos/90 88/50"
+      "detalhe": "Tempo para girar 90 graus (s) 94/55; Sprints por 90 min 52/60; Duelos defensivos ganhos, % 38/50; Duelos aéreos ganhos, % 69; Passes certos, % 35; Passes progressivos/90 88/50",
+      "pk_app": "Robson - Grêmio Novorizontino - Brasil B"
      },
      {
       "jogador": "Mikael",
@@ -9958,7 +10178,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 94/55; Sprints por 90 min 36/60; Duelos defensivos ganhos, % 62/50; Duelos aéreos ganhos, % 92; Passes certos, % 42; Passes progressivos/90 33/50"
+      "detalhe": "Tempo para girar 90 graus (s) 94/55; Sprints por 90 min 36/60; Duelos defensivos ganhos, % 62/50; Duelos aéreos ganhos, % 92; Passes certos, % 42; Passes progressivos/90 33/50",
+      "pk_app": "Mikael - CRB - Brasil B"
      },
      {
       "jogador": "Anselmo Ramon",
@@ -9977,7 +10198,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 34/55; Sprints por 90 min 0/60; Duelos defensivos ganhos, % 92/50; Duelos aéreos ganhos, % 73; Passes certos, % 81; Passes progressivos/90 73/50"
+      "detalhe": "Tempo para girar 90 graus (s) 34/55; Sprints por 90 min 0/60; Duelos defensivos ganhos, % 92/50; Duelos aéreos ganhos, % 73; Passes certos, % 81; Passes progressivos/90 73/50",
+      "pk_app": "Anselmo Ramon - Goiás - Brasil B"
      },
      {
       "jogador": "André Luis",
@@ -9996,7 +10218,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 44/55; Sprints por 90 min 56/60; Duelos defensivos ganhos, % 100/50; Duelos aéreos ganhos, % 81; Passes certos, % 8; Passes progressivos/90 62/50"
+      "detalhe": "Tempo para girar 90 graus (s) 44/55; Sprints por 90 min 56/60; Duelos defensivos ganhos, % 100/50; Duelos aéreos ganhos, % 81; Passes certos, % 8; Passes progressivos/90 62/50",
+      "pk_app": "André Luis - Vila Nova - Brasil B"
      },
      {
       "jogador": "Cadu",
@@ -10015,7 +10238,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 72/55; Sprints por 90 min 96/60; Duelos defensivos ganhos, % 48/50; Duelos aéreos ganhos, % 8; Passes certos, % 100; Passes progressivos/90 23/50"
+      "detalhe": "Tempo para girar 90 graus (s) 72/55; Sprints por 90 min 96/60; Duelos defensivos ganhos, % 48/50; Duelos aéreos ganhos, % 8; Passes certos, % 100; Passes progressivos/90 23/50",
+      "pk_app": "Cadu - Goiás - Brasil B"
      },
      {
       "jogador": "Gustavo Coutinho",
@@ -10034,7 +10258,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 100/55; Sprints por 90 min 88/60; Duelos defensivos ganhos, % 27/50; Duelos aéreos ganhos, % 23; Passes certos, % 69; Passes progressivos/90 33/50"
+      "detalhe": "Tempo para girar 90 graus (s) 100/55; Sprints por 90 min 88/60; Duelos defensivos ganhos, % 27/50; Duelos aéreos ganhos, % 23; Passes certos, % 69; Passes progressivos/90 33/50",
+      "pk_app": "Gustavo Coutinho - Atlético GO - Brasil B"
      },
      {
       "jogador": "Daniel Penha",
@@ -10053,7 +10278,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 40/55; Sprints por 90 min 44/60; Duelos defensivos ganhos, % 88/50; Duelos aéreos ganhos, % 4; Passes certos, % 62; Passes progressivos/90 100/50"
+      "detalhe": "Tempo para girar 90 graus (s) 40/55; Sprints por 90 min 44/60; Duelos defensivos ganhos, % 88/50; Duelos aéreos ganhos, % 4; Passes certos, % 62; Passes progressivos/90 100/50",
+      "pk_app": "Daniel Penha - Avaí - Brasil B"
      },
      {
       "jogador": "Rodrigo Rodrigues",
@@ -10072,7 +10298,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": false,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Duelos defensivos ganhos, % 65/50; Duelos aéreos ganhos, % 0; Passes certos, % 73; Passes progressivos/90 81/50"
+      "detalhe": "Duelos defensivos ganhos, % 65/50; Duelos aéreos ganhos, % 0; Passes certos, % 73; Passes progressivos/90 81/50",
+      "pk_app": "Rodrigo Rodrigues - Cuiabá - Brasil B"
      },
      {
       "jogador": "Felipe Garcia",
@@ -10091,7 +10318,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 86/55; Sprints por 90 min 64/60; Duelos defensivos ganhos, % 31/50; Duelos aéreos ganhos, % 35; Passes certos, % 65; Passes progressivos/90 15/50"
+      "detalhe": "Tempo para girar 90 graus (s) 86/55; Sprints por 90 min 64/60; Duelos defensivos ganhos, % 31/50; Duelos aéreos ganhos, % 35; Passes certos, % 65; Passes progressivos/90 15/50",
+      "pk_app": "Felipe Garcia - São Bernardo FC - Brasil B"
      },
      {
       "jogador": "G. Mastriani",
@@ -10110,7 +10338,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 60/55; Sprints por 90 min 20/60; Duelos defensivos ganhos, % 77/50; Duelos aéreos ganhos, % 46; Passes certos, % 12; Passes progressivos/90 38/50"
+      "detalhe": "Tempo para girar 90 graus (s) 60/55; Sprints por 90 min 20/60; Duelos defensivos ganhos, % 77/50; Duelos aéreos ganhos, % 46; Passes certos, % 12; Passes progressivos/90 38/50",
+      "pk_app": null
      },
      {
       "jogador": "Brandão",
@@ -10129,7 +10358,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 64/55; Sprints por 90 min 82/60; Duelos defensivos ganhos, % 19/50; Duelos aéreos ganhos, % 12; Passes certos, % 27; Passes progressivos/90 4/50"
+      "detalhe": "Tempo para girar 90 graus (s) 64/55; Sprints por 90 min 82/60; Duelos defensivos ganhos, % 19/50; Duelos aéreos ganhos, % 12; Passes certos, % 27; Passes progressivos/90 4/50",
+      "pk_app": "Brandão - Ponte Preta - Brasil B"
      },
      {
       "jogador": "Paulo Victor",
@@ -10148,7 +10378,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 18/55; Sprints por 90 min 72/60; Duelos defensivos ganhos, % 48/50; Duelos aéreos ganhos, % 77; Passes certos, % 54; Passes progressivos/90 46/50"
+      "detalhe": "Tempo para girar 90 graus (s) 18/55; Sprints por 90 min 72/60; Duelos defensivos ganhos, % 48/50; Duelos aéreos ganhos, % 77; Passes certos, % 54; Passes progressivos/90 46/50",
+      "pk_app": "Paulo Victor - América-MG - Brasil B"
      },
      {
       "jogador": "Willian",
@@ -10167,7 +10398,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 10/55; Sprints por 90 min 32/60; Duelos defensivos ganhos, % 12/50; Duelos aéreos ganhos, % 54; Passes certos, % 96; Passes progressivos/90 92/50"
+      "detalhe": "Tempo para girar 90 graus (s) 10/55; Sprints por 90 min 32/60; Duelos defensivos ganhos, % 12/50; Duelos aéreos ganhos, % 54; Passes certos, % 96; Passes progressivos/90 92/50",
+      "pk_app": null
      },
      {
       "jogador": "Pablo",
@@ -10186,7 +10418,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 52/55; Sprints por 90 min 4/60; Duelos defensivos ganhos, % 4/50; Duelos aéreos ganhos, % 38; Passes certos, % 88; Passes progressivos/90 77/50"
+      "detalhe": "Tempo para girar 90 graus (s) 52/55; Sprints por 90 min 4/60; Duelos defensivos ganhos, % 4/50; Duelos aéreos ganhos, % 38; Passes certos, % 88; Passes progressivos/90 77/50",
+      "pk_app": "Pablo - Operário PR - Brasil B"
      },
      {
       "jogador": "Dellatorre",
@@ -10205,7 +10438,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 68/55; Sprints por 90 min 48/60; Duelos defensivos ganhos, % 42/50; Duelos aéreos ganhos, % 50; Passes certos, % 31; Passes progressivos/90 8/50"
+      "detalhe": "Tempo para girar 90 graus (s) 68/55; Sprints por 90 min 48/60; Duelos defensivos ganhos, % 42/50; Duelos aéreos ganhos, % 50; Passes certos, % 31; Passes progressivos/90 8/50",
+      "pk_app": "Dellatorre - Vila Nova - Brasil B"
      },
      {
       "jogador": "Waguininho",
@@ -10224,7 +10458,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 24/55; Sprints por 90 min 40/60; Duelos defensivos ganhos, % 23/50; Duelos aéreos ganhos, % 65; Passes certos, % 23; Passes progressivos/90 67/50"
+      "detalhe": "Tempo para girar 90 graus (s) 24/55; Sprints por 90 min 40/60; Duelos defensivos ganhos, % 23/50; Duelos aéreos ganhos, % 65; Passes certos, % 23; Passes progressivos/90 67/50",
+      "pk_app": "Waguininho - Criciúma - Brasil B"
      },
      {
       "jogador": "Alan Kardec",
@@ -10243,7 +10478,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 28/55; Sprints por 90 min 12/60; Duelos defensivos ganhos, % 8/50; Duelos aéreos ganhos, % 96; Passes certos, % 4; Passes progressivos/90 56/50"
+      "detalhe": "Tempo para girar 90 graus (s) 28/55; Sprints por 90 min 12/60; Duelos defensivos ganhos, % 8/50; Duelos aéreos ganhos, % 96; Passes certos, % 4; Passes progressivos/90 56/50",
+      "pk_app": "Alan Kardec - Juventude - Brasil B"
      },
      {
       "jogador": "Lucca",
@@ -10262,7 +10498,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 4/55; Sprints por 90 min 28/60; Duelos defensivos ganhos, % 81/50; Duelos aéreos ganhos, % 31; Passes certos, % 46; Passes progressivos/90 12/50"
+      "detalhe": "Tempo para girar 90 graus (s) 4/55; Sprints por 90 min 28/60; Duelos defensivos ganhos, % 81/50; Duelos aéreos ganhos, % 31; Passes certos, % 46; Passes progressivos/90 12/50",
+      "pk_app": "Lucca - Ceará - Brasil B"
      },
      {
       "jogador": "Alisson Safira",
@@ -10281,7 +10518,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 52/55; Sprints por 90 min 16/60; Duelos defensivos ganhos, % 15/50; Duelos aéreos ganhos, % 100; Passes certos, % 15; Passes progressivos/90 42/50"
+      "detalhe": "Tempo para girar 90 graus (s) 52/55; Sprints por 90 min 16/60; Duelos defensivos ganhos, % 15/50; Duelos aéreos ganhos, % 100; Passes certos, % 15; Passes progressivos/90 42/50",
+      "pk_app": "Alisson Safira - Juventude - Brasil B"
      },
      {
       "jogador": "Perotti",
@@ -10300,7 +10538,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 52/55; Sprints por 90 min 24/60; Duelos defensivos ganhos, % 35/50; Duelos aéreos ganhos, % 19; Passes certos, % 77; Passes progressivos/90 27/50"
+      "detalhe": "Tempo para girar 90 graus (s) 52/55; Sprints por 90 min 24/60; Duelos defensivos ganhos, % 35/50; Duelos aéreos ganhos, % 19; Passes certos, % 77; Passes progressivos/90 27/50",
+      "pk_app": "Perotti - Sport Recife - Brasil B"
      },
      {
       "jogador": "J. Miritello",
@@ -10319,7 +10558,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "",
       "minutagem_regular": false,
-      "detalhe": "Tempo para girar 90 graus (s) 0/55; Sprints por 90 min 8/60; Duelos defensivos ganhos, % 0/50; Duelos aéreos ganhos, % 42; Passes certos, % 92; Passes progressivos/90 0/50"
+      "detalhe": "Tempo para girar 90 graus (s) 0/55; Sprints por 90 min 8/60; Duelos defensivos ganhos, % 0/50; Duelos aéreos ganhos, % 42; Passes certos, % 92; Passes progressivos/90 0/50",
+      "pk_app": "J. Miritello - Fortaleza - Brasil B"
      }
     ]
    }
@@ -10347,7 +10587,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 56/55; Tempo até atingir o sprint (s) 69/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 56/55; Tempo até atingir o sprint (s) 69/55",
+      "pk_app": null
      },
      {
       "jogador": "Gaizka Larrazabal",
@@ -10366,7 +10607,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 87/55; Tempo até atingir o sprint (s) 94/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 87/55; Tempo até atingir o sprint (s) 94/55",
+      "pk_app": null
      },
      {
       "jogador": "Juan Iglesias",
@@ -10385,7 +10627,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 80/55; Tempo até atingir o sprint (s) 61/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 80/55; Tempo até atingir o sprint (s) 61/55",
+      "pk_app": null
      },
      {
       "jogador": "Gustavo Ferrareis",
@@ -10404,7 +10647,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 62/55; Tempo até atingir o sprint (s) 57/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 62/55; Tempo até atingir o sprint (s) 57/55",
+      "pk_app": null
      },
      {
       "jogador": "Carlos Romero",
@@ -10423,7 +10667,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 47/55; Tempo até atingir o sprint (s) 48/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 47/55; Tempo até atingir o sprint (s) 48/55",
+      "pk_app": null
      },
      {
       "jogador": "Dodô",
@@ -10442,7 +10687,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 76/55; Tempo até atingir o sprint (s) 99/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 76/55; Tempo até atingir o sprint (s) 99/55",
+      "pk_app": null
      },
      {
       "jogador": "Hu Hetao",
@@ -10461,7 +10707,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 67/55; Tempo até atingir o sprint (s) 94/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 67/55; Tempo até atingir o sprint (s) 94/55",
+      "pk_app": null
      },
      {
       "jogador": "Saad Balobaid",
@@ -10480,7 +10727,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 40/55; Tempo até atingir o sprint (s) 56/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 40/55; Tempo até atingir o sprint (s) 56/55",
+      "pk_app": null
      },
      {
       "jogador": "César Castro",
@@ -10499,7 +10747,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 92/55; Tempo até atingir o sprint (s) 88/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 92/55; Tempo até atingir o sprint (s) 88/55",
+      "pk_app": null
      },
      {
       "jogador": "Shinichi Chan",
@@ -10518,7 +10767,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 100/55; Tempo até atingir o sprint (s) 89/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 100/55; Tempo até atingir o sprint (s) 89/55",
+      "pk_app": null
      },
      {
       "jogador": " Yerco Oyanedel",
@@ -10537,7 +10787,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 59/55; Tempo até atingir o sprint (s) 94/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 59/55; Tempo até atingir o sprint (s) 94/55",
+      "pk_app": null
      },
      {
       "jogador": "Zayed Sultan",
@@ -10556,7 +10807,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 40/55; Tempo até atingir o sprint (s) 31/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 40/55; Tempo até atingir o sprint (s) 31/55",
+      "pk_app": null
      },
      {
       "jogador": "Ahmed Bamasud",
@@ -10575,7 +10827,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 54/55; Tempo até atingir o sprint (s) 68/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 54/55; Tempo até atingir o sprint (s) 68/55",
+      "pk_app": null
      },
      {
       "jogador": "Guille Rosas",
@@ -10594,7 +10847,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 48/55; Tempo até atingir o sprint (s) 33/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 48/55; Tempo até atingir o sprint (s) 33/55",
+      "pk_app": null
      },
      {
       "jogador": "Pedro Rebocho",
@@ -10613,7 +10867,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 43/55; Tempo até atingir o sprint (s) 22/55"
+      "detalhe": "Velocidade de pico, média dos 5 melhores jogos (km/h) 43/55; Tempo até atingir o sprint (s) 22/55",
+      "pk_app": null
      }
     ]
    },
@@ -10639,7 +10894,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 60/70; Arrancadas explosivas até o sprint por 90 min 71/60"
+      "detalhe": "Tempo para girar 90 graus (s) 60/70; Arrancadas explosivas até o sprint por 90 min 71/60",
+      "pk_app": null
      },
      {
       "jogador": "Fabinho",
@@ -10658,7 +10914,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 29/70; Arrancadas explosivas até o sprint por 90 min 43/60"
+      "detalhe": "Tempo para girar 90 graus (s) 29/70; Arrancadas explosivas até o sprint por 90 min 43/60",
+      "pk_app": null
      },
      {
       "jogador": "Wang Shangyuan",
@@ -10677,7 +10934,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 44/70; Arrancadas explosivas até o sprint por 90 min 11/60"
+      "detalhe": "Tempo para girar 90 graus (s) 44/70; Arrancadas explosivas até o sprint por 90 min 11/60",
+      "pk_app": null
      },
      {
       "jogador": "Fawaz Awana",
@@ -10696,7 +10954,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 7/60"
+      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 7/60",
+      "pk_app": null
      },
      {
       "jogador": "Àlex Corredera",
@@ -10715,7 +10974,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 82/70; Arrancadas explosivas até o sprint por 90 min 54/60"
+      "detalhe": "Tempo para girar 90 graus (s) 82/70; Arrancadas explosivas até o sprint por 90 min 54/60",
+      "pk_app": null
      },
      {
       "jogador": "Antonio Blanco",
@@ -10734,7 +10994,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 48/70; Arrancadas explosivas até o sprint por 90 min 27/60"
+      "detalhe": "Tempo para girar 90 graus (s) 48/70; Arrancadas explosivas até o sprint por 90 min 27/60",
+      "pk_app": null
      },
      {
       "jogador": "Yang Mingyang",
@@ -10753,7 +11014,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 56/60"
+      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 56/60",
+      "pk_app": null
      },
      {
       "jogador": "Alfa Semedo",
@@ -10772,7 +11034,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 14/70; Arrancadas explosivas até o sprint por 90 min 50/60"
+      "detalhe": "Tempo para girar 90 graus (s) 14/70; Arrancadas explosivas até o sprint por 90 min 50/60",
+      "pk_app": null
      },
      {
       "jogador": "Jon Moncayola",
@@ -10791,7 +11054,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 94/70; Arrancadas explosivas até o sprint por 90 min 94/60"
+      "detalhe": "Tempo para girar 90 graus (s) 94/70; Arrancadas explosivas até o sprint por 90 min 94/60",
+      "pk_app": null
      },
      {
       "jogador": "Isma Ruiz",
@@ -10810,7 +11074,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 91/60"
+      "detalhe": "Tempo para girar 90 graus (s) 100/70; Arrancadas explosivas até o sprint por 90 min 91/60",
+      "pk_app": null
      },
      {
       "jogador": "Ahmed Fathi",
@@ -10829,7 +11094,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 75/70; Arrancadas explosivas até o sprint por 90 min 45/60"
+      "detalhe": "Tempo para girar 90 graus (s) 75/70; Arrancadas explosivas até o sprint por 90 min 45/60",
+      "pk_app": null
      },
      {
       "jogador": "Mikel Jauregizar",
@@ -10848,7 +11114,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 33/70; Arrancadas explosivas até o sprint por 90 min 50/60"
+      "detalhe": "Tempo para girar 90 graus (s) 33/70; Arrancadas explosivas até o sprint por 90 min 50/60",
+      "pk_app": null
      },
      {
       "jogador": "Wendel",
@@ -10867,7 +11134,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 98/70; Arrancadas explosivas até o sprint por 90 min 100/60"
+      "detalhe": "Tempo para girar 90 graus (s) 98/70; Arrancadas explosivas até o sprint por 90 min 100/60",
+      "pk_app": null
      },
      {
       "jogador": "Matheus Dias",
@@ -10886,7 +11154,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 6/70; Arrancadas explosivas até o sprint por 90 min 48/60"
+      "detalhe": "Tempo para girar 90 graus (s) 6/70; Arrancadas explosivas até o sprint por 90 min 48/60",
+      "pk_app": null
      },
      {
       "jogador": "Mohamed Elneny",
@@ -10905,7 +11174,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 25/70; Arrancadas explosivas até o sprint por 90 min 21/60"
+      "detalhe": "Tempo para girar 90 graus (s) 25/70; Arrancadas explosivas até o sprint por 90 min 21/60",
+      "pk_app": null
      }
     ]
    },
@@ -10931,7 +11201,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 75/65; Arrancadas explosivas até o sprint por 90 min 25/55"
+      "detalhe": "Tempo para girar 90 graus (s) 75/65; Arrancadas explosivas até o sprint por 90 min 25/55",
+      "pk_app": null
      },
      {
       "jogador": "Carles Gil",
@@ -10950,7 +11221,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 9/65; Arrancadas explosivas até o sprint por 90 min 50/55"
+      "detalhe": "Tempo para girar 90 graus (s) 9/65; Arrancadas explosivas até o sprint por 90 min 50/55",
+      "pk_app": null
      },
      {
       "jogador": "Rodri Sánchez",
@@ -10969,7 +11241,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 69/65; Arrancadas explosivas até o sprint por 90 min 39/55"
+      "detalhe": "Tempo para girar 90 graus (s) 69/65; Arrancadas explosivas até o sprint por 90 min 39/55",
+      "pk_app": null
      },
      {
       "jogador": "Akram Afif",
@@ -10988,7 +11261,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 90/65; Arrancadas explosivas até o sprint por 90 min 97/55"
+      "detalhe": "Tempo para girar 90 graus (s) 90/65; Arrancadas explosivas até o sprint por 90 min 97/55",
+      "pk_app": null
      },
      {
       "jogador": "Tozé",
@@ -11007,7 +11281,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 65/65; Arrancadas explosivas até o sprint por 90 min 40/55"
+      "detalhe": "Tempo para girar 90 graus (s) 65/65; Arrancadas explosivas até o sprint por 90 min 40/55",
+      "pk_app": null
      },
      {
       "jogador": "Neto",
@@ -11026,7 +11301,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 8/65; Arrancadas explosivas até o sprint por 90 min 19/55"
+      "detalhe": "Tempo para girar 90 graus (s) 8/65; Arrancadas explosivas até o sprint por 90 min 19/55",
+      "pk_app": null
      },
      {
       "jogador": "Róger Guedes",
@@ -11045,7 +11321,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 69/65; Arrancadas explosivas até o sprint por 90 min 72/55"
+      "detalhe": "Tempo para girar 90 graus (s) 69/65; Arrancadas explosivas até o sprint por 90 min 72/55",
+      "pk_app": null
      },
      {
       "jogador": "Andrés Martín",
@@ -11064,7 +11341,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 93/65; Arrancadas explosivas até o sprint por 90 min 94/55"
+      "detalhe": "Tempo para girar 90 graus (s) 93/65; Arrancadas explosivas até o sprint por 90 min 94/55",
+      "pk_app": null
      },
      {
       "jogador": "Miguel Atienza",
@@ -11083,7 +11361,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 65/65; Arrancadas explosivas até o sprint por 90 min 16/55"
+      "detalhe": "Tempo para girar 90 graus (s) 65/65; Arrancadas explosivas até o sprint por 90 min 16/55",
+      "pk_app": null
      },
      {
       "jogador": "Francisco Trincão",
@@ -11102,7 +11381,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 60/65; Arrancadas explosivas até o sprint por 90 min 72/55"
+      "detalhe": "Tempo para girar 90 graus (s) 60/65; Arrancadas explosivas até o sprint por 90 min 72/55",
+      "pk_app": null
      },
      {
       "jogador": "Wellington Silva",
@@ -11121,7 +11401,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 100/65; Arrancadas explosivas até o sprint por 90 min 58/55"
+      "detalhe": "Tempo para girar 90 graus (s) 100/65; Arrancadas explosivas até o sprint por 90 min 58/55",
+      "pk_app": null
      },
      {
       "jogador": "Rômulo",
@@ -11140,7 +11421,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 29/65; Arrancadas explosivas até o sprint por 90 min 21/55"
+      "detalhe": "Tempo para girar 90 graus (s) 29/65; Arrancadas explosivas até o sprint por 90 min 21/55",
+      "pk_app": null
      },
      {
       "jogador": "Mario Soriano",
@@ -11159,7 +11441,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 51/65; Arrancadas explosivas até o sprint por 90 min 13/55"
+      "detalhe": "Tempo para girar 90 graus (s) 51/65; Arrancadas explosivas até o sprint por 90 min 13/55",
+      "pk_app": null
      },
      {
       "jogador": "João Carvalho",
@@ -11178,7 +11461,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 81/65; Arrancadas explosivas até o sprint por 90 min 52/55"
+      "detalhe": "Tempo para girar 90 graus (s) 81/65; Arrancadas explosivas até o sprint por 90 min 52/55",
+      "pk_app": null
      },
      {
       "jogador": "Evander",
@@ -11197,7 +11481,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 52/65; Arrancadas explosivas até o sprint por 90 min 8/55"
+      "detalhe": "Tempo para girar 90 graus (s) 52/65; Arrancadas explosivas até o sprint por 90 min 8/55",
+      "pk_app": null
      }
     ]
    },
@@ -11223,7 +11508,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 68/70; Sprints por 90 min 100/50"
+      "detalhe": "Tempo para girar 90 graus (s) 68/70; Sprints por 90 min 100/50",
+      "pk_app": null
      },
      {
       "jogador": "Paulinho Bóia",
@@ -11242,7 +11528,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 45/70; Sprints por 90 min 59/50"
+      "detalhe": "Tempo para girar 90 graus (s) 45/70; Sprints por 90 min 59/50",
+      "pk_app": null
      },
      {
       "jogador": "Bitello",
@@ -11261,7 +11548,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 33/70; Sprints por 90 min 44/50"
+      "detalhe": "Tempo para girar 90 graus (s) 33/70; Sprints por 90 min 44/50",
+      "pk_app": null
      },
      {
       "jogador": "Peglow",
@@ -11280,7 +11568,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 94/70; Sprints por 90 min 81/50"
+      "detalhe": "Tempo para girar 90 graus (s) 94/70; Sprints por 90 min 81/50",
+      "pk_app": null
      },
      {
       "jogador": "Jacobo González",
@@ -11299,7 +11588,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 60/70; Sprints por 90 min 46/50"
+      "detalhe": "Tempo para girar 90 graus (s) 60/70; Sprints por 90 min 46/50",
+      "pk_app": null
      },
      {
       "jogador": "David Larrubia",
@@ -11318,7 +11608,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 50/70; Sprints por 90 min 22/50"
+      "detalhe": "Tempo para girar 90 graus (s) 50/70; Sprints por 90 min 22/50",
+      "pk_app": null
      },
      {
       "jogador": "Cristian Carracedo",
@@ -11337,7 +11628,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 42/70; Sprints por 90 min 16/50"
+      "detalhe": "Tempo para girar 90 graus (s) 42/70; Sprints por 90 min 16/50",
+      "pk_app": null
      },
      {
       "jogador": "Murilo",
@@ -11356,7 +11648,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 31/70; Sprints por 90 min 17/50"
+      "detalhe": "Tempo para girar 90 graus (s) 31/70; Sprints por 90 min 17/50",
+      "pk_app": null
      },
      {
       "jogador": "Diogo Travassos",
@@ -11375,7 +11668,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 45/70; Sprints por 90 min 66/50"
+      "detalhe": "Tempo para girar 90 graus (s) 45/70; Sprints por 90 min 66/50",
+      "pk_app": null
      },
      {
       "jogador": "Gil Dias",
@@ -11394,7 +11688,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 69/70; Sprints por 90 min 81/50"
+      "detalhe": "Tempo para girar 90 graus (s) 69/70; Sprints por 90 min 81/50",
+      "pk_app": null
      },
      {
       "jogador": "Malcom",
@@ -11413,7 +11708,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 100/70; Sprints por 90 min 55/50"
+      "detalhe": "Tempo para girar 90 graus (s) 100/70; Sprints por 90 min 55/50",
+      "pk_app": null
      },
      {
       "jogador": "Aylton Boa Morte",
@@ -11432,7 +11728,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 80/70; Sprints por 90 min 73/50"
+      "detalhe": "Tempo para girar 90 graus (s) 80/70; Sprints por 90 min 73/50",
+      "pk_app": null
      },
      {
       "jogador": "Ali Saleh",
@@ -11451,7 +11748,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 50/70; Sprints por 90 min 59/50"
+      "detalhe": "Tempo para girar 90 graus (s) 50/70; Sprints por 90 min 59/50",
+      "pk_app": null
      },
      {
       "jogador": "Fábio Martins",
@@ -11470,7 +11768,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 26/70; Sprints por 90 min 0/50"
+      "detalhe": "Tempo para girar 90 graus (s) 26/70; Sprints por 90 min 0/50",
+      "pk_app": null
      },
      {
       "jogador": "Ronald",
@@ -11489,7 +11788,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 78/70; Sprints por 90 min 100/50"
+      "detalhe": "Tempo para girar 90 graus (s) 78/70; Sprints por 90 min 100/50",
+      "pk_app": null
      }
     ]
    },
@@ -11515,7 +11815,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 66/55; Sprints por 90 min 72/60"
+      "detalhe": "Tempo para girar 90 graus (s) 66/55; Sprints por 90 min 72/60",
+      "pk_app": null
      },
      {
       "jogador": "Alberto Quiles",
@@ -11534,7 +11835,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 50/55; Sprints por 90 min 50/60"
+      "detalhe": "Tempo para girar 90 graus (s) 50/55; Sprints por 90 min 50/60",
+      "pk_app": null
      },
      {
       "jogador": "Wesley",
@@ -11553,7 +11855,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 12/55; Sprints por 90 min 8/60"
+      "detalhe": "Tempo para girar 90 graus (s) 12/55; Sprints por 90 min 8/60",
+      "pk_app": null
      },
      {
       "jogador": "Andre Clóvis",
@@ -11572,7 +11875,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 95/55; Sprints por 90 min 46/60"
+      "detalhe": "Tempo para girar 90 graus (s) 95/55; Sprints por 90 min 46/60",
+      "pk_app": null
      },
      {
       "jogador": "Juan Muñoz",
@@ -11591,7 +11895,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 18/55; Sprints por 90 min 0/60"
+      "detalhe": "Tempo para girar 90 graus (s) 18/55; Sprints por 90 min 0/60",
+      "pk_app": null
      },
      {
       "jogador": "Pep Biel",
@@ -11610,7 +11915,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 73/55; Sprints por 90 min 47/60"
+      "detalhe": "Tempo para girar 90 graus (s) 73/55; Sprints por 90 min 47/60",
+      "pk_app": null
      },
      {
       "jogador": "Álex Calatrava",
@@ -11629,7 +11935,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 83/55; Sprints por 90 min 38/60"
+      "detalhe": "Tempo para girar 90 graus (s) 83/55; Sprints por 90 min 38/60",
+      "pk_app": null
      },
      {
       "jogador": "Hugo Rodallega",
@@ -11648,7 +11955,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 67/55; Sprints por 90 min 3/60"
+      "detalhe": "Tempo para girar 90 graus (s) 67/55; Sprints por 90 min 3/60",
+      "pk_app": null
      },
      {
       "jogador": "Zeca",
@@ -11667,7 +11975,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 42/55; Sprints por 90 min 58/60"
+      "detalhe": "Tempo para girar 90 graus (s) 42/55; Sprints por 90 min 58/60",
+      "pk_app": null
      },
      {
       "jogador": "Alan",
@@ -11686,7 +11995,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 90/55; Sprints por 90 min 5/60"
+      "detalhe": "Tempo para girar 90 graus (s) 90/55; Sprints por 90 min 5/60",
+      "pk_app": null
      },
      {
       "jogador": "Lionel Altamirano",
@@ -11705,7 +12015,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "forte",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 70/55; Sprints por 90 min 5/60"
+      "detalhe": "Tempo para girar 90 graus (s) 70/55; Sprints por 90 min 5/60",
+      "pk_app": null
      },
      {
       "jogador": "Omar Khribin",
@@ -11724,7 +12035,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 23/55; Sprints por 90 min 17/60"
+      "detalhe": "Tempo para girar 90 graus (s) 23/55; Sprints por 90 min 17/60",
+      "pk_app": null
      },
      {
       "jogador": "Vinícius Júnior",
@@ -11743,7 +12055,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "fraco",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 85/55; Sprints por 90 min 78/60"
+      "detalhe": "Tempo para girar 90 graus (s) 85/55; Sprints por 90 min 78/60",
+      "pk_app": null
      },
      {
       "jogador": "Cristiano Ronaldo",
@@ -11762,7 +12075,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 22/55; Sprints por 90 min 43/60"
+      "detalhe": "Tempo para girar 90 graus (s) 22/55; Sprints por 90 min 43/60",
+      "pk_app": null
      },
      {
       "jogador": "Gustavo",
@@ -11781,7 +12095,8 @@ const ESTUDO_SERIEB = {
       "fisico_verificado": true,
       "forca_do_fator": "agrupado",
       "minutagem_regular": true,
-      "detalhe": "Tempo para girar 90 graus (s) 12/55; Sprints por 90 min 17/60"
+      "detalhe": "Tempo para girar 90 graus (s) 12/55; Sprints por 90 min 17/60",
+      "pk_app": null
      }
     ]
    }

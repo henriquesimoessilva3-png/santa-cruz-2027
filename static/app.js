@@ -2873,6 +2873,29 @@ const ESTUDO_LIVRES = (() => {
 
 function estudoLivre(j) { return ESTUDO_LIVRES.get(primaryKey(j)) || null; }
 
+/* A lista por POSIÇÃO, ordenada por aderência à ficha (scripts/J06_ranking.py). 240 jogadores da
+   Série B com dois ou mais critérios medidos — não só os livres. A ficha é uma conjunção de 4 a 6
+   pisos, e exigir todos responde "quem é perfeito" escondendo quem está perto; aqui vem a nota
+   contínua, que é a que serve para montar elenco.
+
+   ATENÇÃO ao ler: isto mede SEMELHANÇA COM O PASSADO — o quanto o jogador se parece com o titular
+   de quem subiu —, não chance de dar certo. O J05 diz na manchete que o perfil descreve quem
+   subiu e não promete quem vai subir. */
+const ESTUDO_RANKING = (() => {
+  const mapa = new Map();
+  try {
+    const K = (typeof ESTUDO_SERIEB !== 'undefined') && ESTUDO_SERIEB.ranking;
+    if (!K) return mapa;
+    (K.serie_b || []).forEach(b => (b.jogadores || []).forEach((j, i) => {
+      if (j.pk_app) mapa.set(j.pk_app, { ...j, posicao: b.posicao, posto: i + 1,
+                                         de: b.quantos, criterios: b.criterios_da_ficha });
+    }));
+  } catch (e) { /* sem o dado do estudo a coluna fica vazia e o resto da aba segue igual */ }
+  return mapa;
+})();
+
+function estudoNota(j) { return ESTUDO_RANKING.get(primaryKey(j)) || null; }
+
 const FC_COLUNAS = [
   { c: 'n', r: 'Jogador', w: 15, cel: j =>
       '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
@@ -2941,19 +2964,25 @@ FC_COLUNAS.push(
       return f ? '<span title="TransferRoom: ' + esc(f.txt) + '/ano">' + brl(f.min, true) +
                  '<span class="fc-ast">*</span></span>'
                : '<span class="fc-vazia">–</span>'; } },
-  { c: 'est', r: 'Estudo', w: 8,
-    t: 'Os 40 do Estudo Série B: contrato vencendo, as duas fontes concordando na data e ' +
-       'minutagem regular pelo corte da posição. NÃO é lista de alvos — o teste que autorizaria ' +
-       'nomes não passou, e a ficha descreve quem subiu sem prometer quem vai subir.',
+  { c: 'est', r: 'Estudo', w: 10, num: 1,
+    t: 'Aderência à ficha da posição (Estudo Série B, J05/J06): quantos critérios o jogador ' +
+       'cruza, de quantos foram medidos, e a média do percentil dele nesses critérios, de 0 a ' +
+       '100. Mede SEMELHANÇA COM O TITULAR DE QUEM SUBIU — não é chance de dar certo, e o ' +
+       'próprio estudo diz que o perfil descreve quem subiu sem prometer quem vai subir. ' +
+       'A ordem é: quantos critérios ele cruza primeiro, a nota só para desempatar — senão quem ' +
+       'foi medido em 2 critérios subiria acima de quem foi medido em 4.',
     cel: j => {
-      const e = estudoLivre(j);
-      if (!e) return '<span class="fc-vazia">–</span>';
-      const ficha = e.atende_perfil ? '<b class="fc-est-ok">ficha inteira</b>'
-        : (String(e.indicadores_com_dado) === '0'
-           ? '<span class="fc-est-semdado">sem dado</span>'
-           : '<span class="fc-est-viola">viola ' + e.violados + '</span>');
-      return '<span class="fc-est-roda" title="minutagem regular em ' +
-        esc(e.temporadas_com_dado) + ' temporadas · ' + esc(e.setor) + '">roda</span> ' + ficha;
+      const n = estudoNota(j), e = estudoLivre(j);
+      if (!n) {
+        return e ? '<span class="fc-est-roda" title="minutagem regular · ' + esc(e.setor) +
+                   '">roda</span>' : '<span class="fc-vazia">–</span>';
+      }
+      const cheio = n.atende === n.com_dado ? ' fc-est-ok' : '';
+      return '<b class="fc-est-nota' + cheio + '" title="' + esc(n.posicao) + ': ' + n.posto +
+        'º de ' + n.de + ' · ' + esc(n.detalhe || '') + '">' +
+        Number(n.aderencia).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) +
+        '</b><span class="fc-est-frac">' + n.atende + '/' + n.com_dado + '</span>' +
+        (e ? ' <span class="fc-est-roda" title="minutagem regular">roda</span>' : '');
     } },
   { c: '_', r: '', w: 11, cel: j => '<button class="fc-add" title="Escolher a posição — a dele é ' +
       esc(sig(j.p)) + '">levar p/ ' + sig(j.p) + ' ▾</button>' +
@@ -3226,7 +3255,7 @@ function fcFiltrar() {
       const r = histResumo(primaryKey(j), GOLS_TEMPORADA);
       if (!r || r.goleadoras < 2) return false;
     }
-    if (soEstudo && !estudoLivre(j)) return false;
+    if (soEstudo && !estudoLivre(j) && !estudoNota(j)) return false;
     if (txt && !fsNorm(j.n + ' ' + j.t).includes(txt)) return false;
     return true;
   });
@@ -3258,7 +3287,15 @@ function fcRender() {
 
   const lista = fcFiltrar();
   const camp = fcOrdem.campo, desc = fcOrdem.desc;
-  const valor = (j) => camp === 'sal' ? (faixaSalarioTR(j) || {}).min
+  /* A ordem da coluna Estudo é a MESMA da aba do estudo: quantos critérios ele cruza primeiro,
+     aderência só para desempatar. Ordenar só pela nota poria quem foi medido em 2 critérios acima
+     de quem foi medido em 4 — quem é medido em menos coisa erra menos, e o topo da tabela viraria
+     artefato de denominador pequeno. */
+  const valor = (j) => camp === 'est' ? (() => {
+                         const n = estudoNota(j);
+                         return n ? n.atende * 1000 + (n.aderencia || 0) : null;
+                       })()
+                     : camp === 'sal' ? (faixaSalarioTR(j) || {}).min
                      : camp.startsWith('src_') ? ((j.src || {})[camp.slice(4)] || '')
                      : camp === 'min3' ? ((histResumo(primaryKey(j)) || {}).min)
                      : camp === 'g3' ? ((histResumo(primaryKey(j), GOLS_TEMPORADA) || {}).gols)
@@ -3297,9 +3334,13 @@ function fcRender() {
         ? ' (os outros não passam nos filtros de data e de contrato acima' +
           (semPar ? ', e ' + semPar + ' não têm par nesta base' : '') + ')' : '')
     : '';
+  const comNota = ESTUDO_RANKING.size
+    ? ' · <b>' + lista.filter(estudoNota).length + '</b> com nota de aderência à ficha ' +
+      '(ordene pela coluna Estudo)'
+    : '';
   $('#fcContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com contrato ' +
     'até ' + (mesAno($('#fcAte').value + '-01') || '—') +
-    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') + doEstudo +
+    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') + doEstudo + comNota +
     ' · clique na linha para levar ao campograma, escolhendo a posição';
 
   $$('#fcTbody tr').forEach(tr => {
