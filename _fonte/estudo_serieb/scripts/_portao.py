@@ -51,12 +51,12 @@ RAIZ = ESTUDO.parent.parent                       # a raiz do repositório
 PROTOTIPO = RAIZ / "_fonte" / "prototipo"         # onde mora a ESPECIFICACAO.md
 
 # A09 entrou em 20/09, quando a coleta do minuto do gol a tirou do "não roda".
-# ATENÇÃO, e não é detalhe: J05, J06 e J09 NÃO estão nesta lista e nunca passaram pelo portão.
-# Elas foram validadas pelo dono em 20/09 e estão na tela como decididas, mas sem conferência
-# automática nenhuma — nem regra 1 (número que sai do script), nem regra 3 (os dois cortes).
-# Entrar aqui é trabalho, não uma linha: cada uma precisa de <ID>_testes.csv e <ID>_numeros.json.
+# J05, J06 e J09 entraram no mesmo dia, e a entrada delas era dívida: estavam publicadas como
+# decididas sem conferência automática nenhuma. Tinham <ID>_testes.csv e <ID>_numeros.json desde
+# sempre — o que faltava era estarem NESTA LISTA, e ninguém tinha percebido.
 PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A09", "A10", "A11", "A12", "A13",
-          "A14", "J01", "J02", "J03", "J04", "J07", "J08", "T01", "T02", "T03", "T04"]
+          "A14", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
+          "T01", "T02", "T03", "T04"]
 
 # Vereditos. Só REPROVA impede a parte de ser aceita; AVISO e REVISAR pedem olho humano.
 PASSA, REPROVA, REVISAR, AVISO, NAO_APLICAVEL = "PASSA", "REPROVA", "REVISAR", "AVISO", "NÃO APLICÁVEL"
