@@ -221,6 +221,74 @@ checklist.
 Skill nova, no molde das que já existem (`dados-wyscout`, `dados-skillcorner`, `portais-botafogo`).
 Nome sugerido: **`analisar-campeonato`**. O `CLAUDE.md` do Estudo Série B vira o exemplo trabalhado.
 
+## Etapa 8 — Os gráficos e a passada de texto · **a próxima rodada, especificada para rodar a frio**
+
+As duas mexem nos mesmos `<ID>.json`, então vão juntas, um agente por parte (22).
+
+### 8.1 O que JÁ ESTÁ PRONTO e não precisa ser refeito
+
+| arquivo | o que é |
+|---|---|
+| `static/estudo_serieb_grafico.js` | o renderizador, 250 linhas, SVG inline, 4 formas |
+| `static/estudo_serieb.css` | o estilo (`.esb-graf`), claro e escuro |
+| `templates/index.html` | já carrega o renderizador antes da aba |
+| `static/estudo_serieb.js` | já põe o encaixe e monta os gráficos depois do HTML |
+| `gerar_estudo_serieb_js.py` | já **resolve os marcadores do gráfico** e falha se faltar valor |
+
+**Falta só uma coisa: o campo `grafico` em cada conclusão dos `<ID>.json`.**
+
+### 8.2 O formato do campo `grafico`
+
+Vai dentro de cada conclusão, ao lado de `manchete`. Os valores vêm **por marcador**, nunca
+escritos — o gerador resolve, e para com erro se o marcador não existir em `numeros`.
+
+```json
+"grafico": {
+  "tipo": "dois_cortes",
+  "titulo": "Distância da finalização",
+  "unidade": "metros",
+  "cortes": [
+    {"rotulo": "com todos os times",        "series": [
+      {"nome": "Sobe", "marcador": "dist_s_cf"}, {"nome": "Meio", "marcador": "dist_m_cf"}]},
+    {"rotulo": "sem os times de fronteira", "series": [
+      {"nome": "Sobe", "marcador": "dist_s"},    {"nome": "Meio", "marcador": "dist_m"}]}
+  ]
+}
+```
+
+As quatro formas, e quando usar cada uma:
+
+| `tipo` | campos | quando |
+|---|---|---|
+| **`dois_cortes`** | `cortes: [{rotulo, series:[{nome,marcador}]}]` | **o padrão deste estudo.** Sempre que a conclusão depender do corte de fronteira — mostra os dois, e a fragilidade fica visível |
+| `grupos` | `series: [{nome, marcador}]` | Sobe × Meio (× Cai) num indicador, num corte só |
+| `turno` | `linhas: [{nome, turno, returno}]` | 1º → 2º turno, uma linha por faixa |
+| `barras` | `barras: [{nome, marcador}]`, `linha_de_corte` | contagem por temporada ou categoria |
+
+O `nome` da série pinta a cor: começa com "Sobe" → azul, "Cai"/"Trave" → aqua, resto → laranja.
+
+### 8.3 A régua do texto, medível
+
+Medido em 20/09: a regra das 3 frases **está cumprida (0 de 62 passam) e burlada pelo tamanho** —
+mediana de **767 caracteres**, a maior com 1.258. **48 de 62 manchetes passam de 14 palavras.**
+
+- **manchete:** ≤ 14 palavras, **uma oração**, sem dois-pontos e sem travessão
+- **o_que_vimos:** ≤ 3 frases **E ≤ 280 caracteres**
+- **os dois cortes saem do texto** — agora estão no gráfico
+- **poder, placar e confiabilidade saem para o `confianca_motivo`**, onde o jargão é permitido
+- **"colados na linha" no máximo uma vez** por conclusão (aparece 26× hoje); idem "desenho" (9×),
+  "clube-temporada" (8×), "a régua" (7×)
+- **os inteiros cravados no texto viram marcador** — são as 12 que faltam para a regra 1 zerar
+  ("20 times", "a cada 100 finalizações", "3 pontos"). Onde for contagem legítima e não medida,
+  escrever por extenso ("vinte times") resolve sem inventar marcador.
+
+Depois: `python3 gerar_estudo_serieb_js.py` e `python3 scripts/_portao.py`.
+
+### 8.4 As duas regras novas do portão
+
+Manchete ≤ 14 palavras e `o_que_vimos` ≤ 280 caracteres viram as **regras 10 e 11**. São as duas
+únicas coisas do texto que dão para checar por máquina, e é justamente onde a régua foi burlada.
+
 ## O que este plano NÃO cobre
 
 Ficaram fora por decisão ou por falta de base, e continuam em aberto:
