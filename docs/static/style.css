@@ -3534,3 +3534,9 @@ td.pt-td-frase{text-align:left;white-space:normal}
 .fc-est-ok { color: #1baf7a; font-size: 11px; }
 .fc-est-viola { color: #8a8880; font-size: 11px; }
 .fc-est-semdado { color: #8a8880; font-size: 11px; font-style: italic; }
+/* Jogador que a base guarda duas vezes, em dois clubes (conferido em 20/09). Marca, nao funde:
+   fundir junta dois atletas reais sem ninguem perceber. Ver _fonte/CONTEXTO.md, armadilhas. */
+.fc-dup {
+  font-size: 10px; font-weight: 700; color: #eb6834; border: 1px solid #eb6834;
+  border-radius: 3px; padding: 0 3px; margin-left: 4px; vertical-align: middle;
+}

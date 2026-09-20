@@ -58,6 +58,23 @@ aparece com cadastro, contrato e salário estimado, e sem barras na ficha.
 - **Jogador entra com salário 0, sem sugestão.** Havia preenchimento com o piso da
   faixa do TransferRoom (azul itálico, `sugerido`); o usuário pediu para não sugerir.
   A faixa segue na ficha e na aba Fim de contrato.
+- **A base repete jogador, e nem toda repetição é duplicata** (20/09/2026). Na Série B há **12
+  pares** com o mesmo nome e a mesma idade em `dados/jogadores.json`. Conferidos um a um contra
+  fonte externa, **8 são a mesma pessoa** — transferência registrada duas vezes, e a assinatura
+  disso é *mesma posição e a MESMA data de fim de contrato*: Guilherme Mariano (ZD, 2028-12-31),
+  Pablo Roberto (VOL, 2028-12-31), Moraes (LE, 2027-12-31), Lucas Mineiro (MED, 2027-12-31),
+  Derek (CA, 2027-12-31), Allanzinho (2027-12-31), Marco Antônio (2027-11-30) e Gegé
+  (2026-12-31). Nos três últimos a posição diverge entre fontes, mas a data bate no dia.
+  Os outros **4 são pessoas diferentes**, e a base não tem como saber: Pablo Bezerra do
+  Nascimento (atacante, Ceará, 06/01/2004) × Pablo Andrade Neves (goleiro, CRB, 24/05/2004);
+  Caio Araújo, o "Caiozim" do Ceará × Caio Wunsch, goleiro do Goiás; Gabriel Veneno, que é do
+  **Atlético-MG** e não do GO × Gabriel Domingos, volante do América-MG; e dois João Vitor de
+  fato registrados na CBF pelo Criciúma, um zagueiro vindo do Vasco e um atacante do sub-20.
+  **O padrão que separa os dois casos:** posição distante (volante × goleiro, atacante ×
+  goleiro) + datas de contrato diferentes = duas pessoas. Posição igual ou vizinha + data
+  idêntica = um registro duplicado. O app **marca**, nunca funde: fundir errado junta dois
+  atletas reais e ninguém percebe.
+
 - **Capology não publica salário do futebol brasileiro** — o campo vem nulo. Todo
   salário é digitado, exceto a estimativa do TransferRoom (766 brasileiros).
 

@@ -1701,11 +1701,38 @@ function renderTabela() {
   });
 }
 
+/* ---------------- duplicatas conferidas na base ----------------
+   A Série B de dados/jogadores.json tem 12 pares de mesmo nome e mesma idade. Conferidos um a um
+   contra fonte externa em 20/09/2026, OITO são a mesma pessoa — transferência gravada duas vezes,
+   e a assinatura é posição igual ou vizinha com a MESMA data de fim de contrato. Os outros quatro
+   (Caio, Pablo, Gabriel, João Vitor) são pessoas diferentes de verdade, com o registro na CBF a
+   provar, e por isso NÃO entram aqui: marcá-los seria o erro oposto.
+
+   O app MARCA e não funde. Fundir junta dois atletas reais sem que ninguém perceba; marcar põe a
+   decisão na tela, que é onde ela pode ser tomada de olho. O detalhe caso a caso está na seção de
+   armadilhas do _fonte/CONTEXTO.md. */
+const DUPLICATAS = new Set([
+  'guilherme mariano|26', 'pablo roberto|26', 'moraes|28', 'lucas mineiro|30',
+  'derek|28', 'allanzinho|26', 'marco antonio|26', 'gege|32',
+]);
+function chaveDuplicata(j) { return norma(j && (j.n || j.nome)) + '|' + (j && (j.id_ != null ? j.id_ : j.idade)); }
+function ehDuplicata(j) { return DUPLICATAS.has(chaveDuplicata(j)); }
+
 function adicionarDaBase(id) {
   const j = BASE.find(x => x.id === id);
   if (!j) return;
   const lista = estado.elenco[posAtual];
   if (lista.some(x => x.jid === id)) { toast('Esse jogador já está em ' + sig(posAtual), 'ruim'); return; }
+  /* O mesmo jogador aparece duas vezes na base, em dois clubes. Sem este aviso ele entra duas
+     vezes no elenco, com dois salários e ocupando duas vagas, e nada na tela denuncia. */
+  if (ehDuplicata(j)) {
+    const gemeo = todosJogadores().find(x => x.jid !== id && chaveDuplicata(x) === chaveDuplicata(j));
+    if (gemeo && !confirm('"' + j.n + '" já está no elenco, por ' + (gemeo.clube || 'outro clube') +
+        '.\n\nA base guarda este jogador duas vezes, em dois clubes — é o mesmo atleta, ' +
+        'conferido em 20/09. Adicionar assim conta dois salários e duas vagas.\n\nAdicionar mesmo assim?')) {
+      return;
+    }
+  }
   /* Sem salario sugerido: o jogador entra com 0 (ambar) e o usuario define. A faixa
      do TransferRoom continua visivel na ficha e na aba Fim de contrato, so nao
      preenche o card — foi pedido explicito. */
@@ -2849,6 +2876,8 @@ function estudoLivre(j) { return ESTUDO_LIVRES.get(primaryKey(j)) || null; }
 const FC_COLUNAS = [
   { c: 'n', r: 'Jogador', w: 15, cel: j =>
       '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
+      (ehDuplicata(j) ? ' <span class="fc-dup" title="A base guarda este jogador duas vezes, ' +
+        'em dois clubes — conferido em 20/09, é o mesmo atleta. Leve só um dos dois.">2x</span>' : '') +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
       (j.ov ? ' <span class="fc-ovr">' + j.ov + '</span>' : '') +
       '<span class="fc-clube">' + esc(j.t) + ' · ' + esc(j.l) + '</span></div>' },

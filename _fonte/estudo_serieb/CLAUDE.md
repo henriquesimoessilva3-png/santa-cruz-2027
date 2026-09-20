@@ -96,7 +96,9 @@ na especificação). A régua contínua do dinheiro existe e chama-se `H_dinheir
 
 **Percentis.** Dentro da mesma posição e temporada, só para quem tem pelo menos 900 minutos. Ações defensivas ajustadas pela posse do time. Métricas físicas por 90 usam só jogos com pelo menos 60 minutos em campo; velocidade máxima pode usar todos.
 
-**Cruzamento de bases.** Pelo módulo de identidade que já existe (§1.1 da especificação). Casos ambíguos são listados, nunca adivinhados.
+**Cruzamento de bases.** Pelo módulo de identidade que já existe (§1.1 da especificação). Casos ambíguos são listados, nunca adivinhados — e, **desde 20/09/2026, antes de listar, são pesquisados fora da base** (autorização do dono). Homônimo de futebol brasileiro quase sempre se resolve com uma busca: o Transfermarkt, o BID da CBF e a imprensa local trazem data de nascimento e clube de formação, que é o que falta aqui dentro. Só o que sobreviver à pesquisa é que sobe como dúvida.
+
+**O que a busca resolveu em 20/09, e vale como molde:** 12 pares de mesmo nome e mesma idade na Série B. Oito eram a mesma pessoa (posição igual ou vizinha + **a mesma data exata de fim de contrato** = transferência registrada duas vezes); quatro eram pessoas diferentes, e o sinal era posição distante — volante × goleiro, atacante × goleiro — com datas de contrato diferentes. O detalhe caso a caso está na seção de armadilhas do `_fonte/CONTEXTO.md`.
 
 ### Estrangeiros
 **Contexto.** O clube pode usar até 9 estrangeiros, mas a Série B historicamente usa poucos. Resultados de estrangeiros na própria B são descritivos: liste os casos, sem aplicar o critério de conclusão.
