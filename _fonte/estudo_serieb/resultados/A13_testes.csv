@@ -1,0 +1,15 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,returno,SM,dif_turnos,16,48,1.0,1.0,0.1,"[-0.44, 0.6]",0.7036,0.82,0.7036,sem diferença clara,False,Diferença entre os turnos (2º − 1º),False
+com,trajetoria,CM,pts_1t,16,48,19.5,25.0,-1.428,"[-1.95, -1.01]",0.0,0.82,0.0,firme,True,Pontos no 1º turno,False
+com,trajetoria,CM,pts_2t,16,48,17.0,26.0,-2.006,"[-2.78, -1.54]",0.0,0.82,0.0,firme,True,Pontos no 2º turno,False
+com,trajetoria,CM,dif_turnos,16,48,-1.5,1.0,-0.21,"[-0.82, 0.35]",0.46575,0.82,0.46575,sem diferença clara,False,Diferença entre os turnos (2º − 1º),False
+com,trajetoria,CS,pts_1t,16,16,19.5,32.5,-4.138,"[-6.72, -3.04]",0.0,1.02,0.0,firme,True,Pontos no 1º turno,False
+com,trajetoria,CS,pts_2t,16,16,17.0,34.0,-6.043,"[-9.84, -4.49]",0.0,1.02,0.0,firme,True,Pontos no 2º turno,False
+com,trajetoria,CS,dif_turnos,16,16,-1.5,1.0,-0.34,"[-1.14, 0.41]",0.34438,1.02,0.34438,sem diferença clara,False,Diferença entre os turnos (2º − 1º),False
+sem,returno,SM,dif_turnos,8,32,-2.0,2.5,-0.516,"[-1.24, 0.18]",0.17322,1.14,0.17322,sem diferença clara,False,Diferença entre os turnos (2º − 1º),False
+sem,trajetoria,CM,pts_1t,12,32,19.0,24.0,-1.435,"[-2.17, -0.91]",5e-05,0.97,7e-05,firme,True,Pontos no 1º turno,False
+sem,trajetoria,CM,pts_2t,12,32,15.5,26.5,-2.264,"[-3.49, -1.67]",0.0,0.97,0.0,firme,True,Pontos no 2º turno,False
+sem,trajetoria,CM,dif_turnos,12,32,-4.0,2.5,-0.493,"[-1.29, 0.23]",0.19021,0.97,0.19021,sem diferença clara,False,Diferença entre os turnos (2º − 1º),False
+sem,trajetoria,CS,pts_1t,12,8,19.0,34.5,-4.534,"[-10.73, -2.95]",0.0,1.35,0.0,firme,True,Pontos no 1º turno,False
+sem,trajetoria,CS,pts_2t,12,8,15.5,33.5,-5.548,"[-12.66, -4.0]",0.0,1.35,1e-05,firme,True,Pontos no 2º turno,False
+sem,trajetoria,CS,dif_turnos,12,8,-4.0,-2.0,-0.01,"[-1.01, 0.94]",0.98101,1.35,0.98101,sem diferença clara,False,Diferença entre os turnos (2º − 1º),False

@@ -3,6 +3,7 @@
  "bloco": "T",
  "titulo": "O treinador ideal: o que a base sustenta",
  "tipo": "analise",
+ "sem_testes": "T04 ordena treinadores pelo que ja aconteceu em T02 e T03 — piso de G4, indice de perfil e valor do elenco, na unidade treinador-passagem — e por isso nao compara faixa nenhuma nem tem fronteira G4/Z4 para tirar: o scripts/T04.py so calcula ranking, poder minimo detectavel e confiabilidade das reguas, sem d, p, q nem BH, e as duas conclusoes saem como indicio.",
  "gerado_por": "scripts/T04.py",
  "conclusoes": [
   {

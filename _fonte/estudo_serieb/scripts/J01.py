@@ -46,6 +46,23 @@ muda a análise e é decisão do dono.
 deles: J01.json não é tocado aqui. Todo marcador sai de uma conta sobre o dado bruto — nenhum é
 copiado do que está publicado.
 
+## A tabela de testes
+
+`resultados/J01_testes.csv` grava, célula a célula, a única família que esta parte compara: os dois
+indicadores de elenco (`usados`, quantos jogadores o clube usou na temporada, e `altos`, quantos
+passaram do corte de minutagem) em Cai × Meio e Sobe × Meio, nos dois cortes de fronteira — oito
+linhas. É a mesma família que o `confianca_motivo` de J01-3 já declarava e que só existia resumida
+no marcador `rob_j01_3`; nada de novo é testado aqui, e a unidade destas oito linhas é
+**clube-temporada**, não a jogador-temporada do resto da parte (por isso a coluna `unidade`).
+
+As conclusões J01-1 e J01-2 não entram na tabela e não devem entrar: a primeira conta a distribuição
+inteira da minutagem e a segunda é um achado negativo sobre a cobertura da ficha de lesão; nenhuma
+das duas compara faixas, e as duas se declaram indício exatamente por isso.
+
+O BH corre sobre as quatro células de cada corte, que é a família declarada pela parte — e é isso
+que reproduz os q publicados no campo `prova` de J01-3. `_metodo.comparar` agruparia o BH por
+comparação (m=2) e devolveria outro q: aqui a família não é reaberta, ela é a que está publicada.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/J01.py
 """
@@ -66,7 +83,7 @@ from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from _metodo import cohen_d, pct, percentil_no_ano  # noqa: E402
+from _metodo import bh, cohen_d, d_minimo, ic_por_clube, pct, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
@@ -81,6 +98,20 @@ FECHADAS = ("2022", "2023", "2024", "2025")
 PONTE_CLUBES = os.path.join(R, "T01_ponte_clubes.json")
 CLUBE_TEMPORADA = os.path.join(R, "A01_clube_temporada.csv")
 NUMEROS_JSON = os.path.join(R, "J01_numeros.json")
+TESTES_CSV = os.path.join(R, "J01_testes.csv")
+# A mesma semente das outras partes (A06, J02): o IC95 por bootstrap de clube é reproduzível.
+RNG = np.random.default_rng(20260917)
+# A família de J01-3, como o confianca_motivo dela a declara: os DOIS indicadores nas DUAS
+# comparações, oito células ao todo (quatro por corte de fronteira). O BH corre sobre as quatro
+# células de cada corte — é o que os q publicados no campo `prova` de J01-3 fixam (0,0037 e 0,0191
+# com fronteira; 0,0120 e 0,0151 sem). Rodar o BH por comparação, como o _metodo.comparar agrupa,
+# daria m=2 e outro q: aqui a família é a declarada pela parte, e ela não é reaberta.
+FAMILIA_J01_3 = "elenco"
+COMPARACOES = (("CM", "Cai"), ("SM", "Sobe"))
+INDICADORES = (("usados", "Jogadores usados"), ("altos", "Fatias altas"))
+# Sinal: nenhum dos dois é métrica de desempenho com "alto = melhor" (CLAUDE.md, Unidade e
+# normalização). São contagens de estilo/consequência, e entram sem inversão.
+SINAL = 1
 # Data fixa: o script é reproduzível — roda hoje e daqui a um ano com o mesmo resultado, e data
 # dinâmica só faria o arquivo mudar sem o número mudar.
 GERADO_EM = "2026-09-20"
@@ -229,22 +260,59 @@ def marcadores(linhas, elencos, corte):
                 "usados": usados[(t, c)], "altos": altos_ct[(t, c)]}
                for r in ct for t, c in [(r["temporada"], r["clube"])]]
 
-    def welch(base):
-        """Posto dentro da temporada, d de Cohen e t de Welch bilateral (scripts/_metodo.py)."""
+    def welch(base, rotulo):
+        """As quatro células de um corte: posto dentro da temporada, d de Cohen, t de Welch
+        bilateral, IC95 por bootstrap de CLUBE, poder por desenho e BH sobre a família inteira —
+        tudo de `scripts/_metodo.py`.
+
+        Devolve (lookup, linhas). O lookup guarda d e p SEM arredondar, porque é dele que sai o
+        marcador `rob_j01_3`, que já está publicado e não pode mudar de casa decimal. As linhas são
+        a tabela de testes, com os valores arredondados na casa que as outras partes usam.
+        """
         ls = [dict(l) for l in base]
         percentil_no_ano(ls, ["usados", "altos"])
-        saida = {}
-        for ind in ("usados", "altos"):
-            for a in ("Cai", "Sobe"):
-                va = [l[pct(ind)] for l in ls if l["faixa"] == a]
-                vb = [l[pct(ind)] for l in ls if l["faixa"] == "Meio"]
-                saida[ind, a] = (cohen_d(va, vb),
-                                 float(stats.ttest_ind(va, vb, equal_var=False).pvalue))
-        return saida
+        lookup, linhas, ps = {}, [], []
+        for ind, nome in INDICADORES:
+            for cid, a in COMPARACOES:
+                campo = pct(ind)
+                ga = (lambda l, a=a: l["faixa"] == a)
+                gb = (lambda l: l["faixa"] == "Meio")
+                va = [l[campo] for l in ls if ga(l)]
+                vb = [l[campo] for l in ls if gb(l)]
+                d = cohen_d(va, vb) * SINAL
+                p = float(stats.ttest_ind(va, vb, equal_var=False).pvalue)
+                lookup[ind, a] = (d, p)
+                lo, hi = ic_por_clube(ls, campo, ga, gb, SINAL, RNG)
+                linhas.append({
+                    "fronteira": rotulo, "familia": FAMILIA_J01_3, "comparacao": cid,
+                    "indicador": ind, "unidade": "clube-temporada",
+                    "n_a": len(va), "n_b": len(vb),
+                    "cru_a": round(float(np.median([l[ind] for l in ls if ga(l)])), 3),
+                    "cru_b": round(float(np.median([l[ind] for l in ls if gb(l)])), 3),
+                    "d": round(d, 3), "ic95_d": [lo, hi], "p": round(p, 5),
+                    "d_minimo_80": d_minimo(len(va), len(vb)),
+                    "nome": nome, "placar_redescrito": False,
+                })
+                ps.append(p)
+        for it, q in zip(linhas, bh(ps)):
+            it["q"] = round(q, 5)
+            it["selo"] = ("firme" if q < 0.05 else
+                          ("pode ser sorte" if it["p"] < 0.05 else "sem diferença clara"))
+            it["poder_suficiente"] = abs(it["d"]) >= it["d_minimo_80"]
+        return lookup, linhas
 
     # "Sem fronteira" recalcula o posto DEPOIS de tirar as 28 linhas — é a leitura que o campo
     # `prova` de J01-3 fixa. Calcular sobre os 20 do ano e filtrar depois muda quatro células.
-    com, sem = welch(base_ct), welch([l for l in base_ct if not l["fronteira"]])
+    com, linhas_com = welch(base_ct, "com")
+    sem, linhas_sem = welch([l for l in base_ct if not l["fronteira"]], "sem")
+    # A ordem das colunas é a canônica das outras partes (A07_testes.csv), com `unidade` a mais,
+    # como A10, J05, J06 e J08 já fazem: a unidade destas linhas é clube-temporada, e não a
+    # jogador-temporada que o resto de J01 usa.
+    testes = [{k: it[k] for k in ("fronteira", "familia", "comparacao", "indicador", "unidade",
+                                  "n_a", "n_b", "cru_a", "cru_b", "d", "ic95_d", "p",
+                                  "d_minimo_80", "q", "selo", "poder_suficiente", "nome",
+                                  "placar_redescrito")}
+              for it in linhas_com + linhas_sem]
     rob = (
         f"jogadores usados Cai x Meio d {br(com['usados', 'Cai'][0], 2, True)} "
         f"(p {br(com['usados', 'Cai'][1], 4)}) com fronteira e "
@@ -308,7 +376,7 @@ def marcadores(linhas, elencos, corte):
         "n_cai": len(ct_da_faixa["Cai"]),
         "rob_j01_3": rob,
     }
-    return numeros, L, casadas
+    return numeros, L, casadas, testes
 
 
 def main():
@@ -465,7 +533,7 @@ def main():
     # Regra 1 do portão: todo marcador de J01.json tem de sair daqui. A análise acima não muda —
     # esta parte só acrescenta, e no recorte em que os textos da aba foram escritos (2022-2025 e a
     # ponte de clube). J01.json NÃO é tocado: divergência entre os dois lados é achado, não conserto.
-    numeros, L, casadas = marcadores(linhas, elencos, CORTE)
+    numeros, L, casadas, testes = marcadores(linhas, elencos, CORTE)
     json.dump({"gerado_por": "scripts/J01.py", "gerado_em": GERADO_EM,
                "recorte": "2022-2025 (as temporadas fechadas) com a ponte de clube "
                           "resultados/T01_ponte_clubes.json",
@@ -481,6 +549,20 @@ def main():
     print(f"  ponte de lesão: {len(casadas)} linhas casadas, {numeros['sem_ponte']} sem ficha "
           f"({numeros['pct_sem_ponte']}%)")
     print(f"  corte por posição (p75 de cada grupo): {numeros['corte_por_posicao']}")
+
+    # ---- a tabela de testes: as oito células da família de J01-3, nos dois cortes ----
+    # Regras 2 e 3 do portão. Ela não acrescenta conclusão nenhuma: grava, no formato das outras
+    # partes, exatamente a família que o `confianca_motivo` de J01-3 já declarava e que só existia
+    # resumida no marcador `rob_j01_3`.
+    with open(TESTES_CSV, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(testes[0]))
+        w.writeheader(); w.writerows(testes)
+    print(f"\n{'='*92}\nJ01_testes.csv: {len(testes)} células (2 indicadores × 2 comparações × 2 "
+          f"cortes de fronteira)\n{'='*92}")
+    for t in testes:
+        print(f"  {t['fronteira']:4s} {t['comparacao']} {t['indicador']:7s} "
+              f"n {t['n_a']:2d}×{t['n_b']:2d}  d {t['d']:+.3f}  IC95 {t['ic95_d']}  "
+              f"p {t['p']:.4f}  q {t['q']:.4f}  d_min {t['d_minimo_80']}  {t['selo']}")
 
 
 if __name__ == "__main__":

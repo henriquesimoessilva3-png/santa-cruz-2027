@@ -39,6 +39,17 @@ PLANO.md). Nada acima dessa seção mudou — `T02_passagem.csv`, `T02_treinador
 `T02_resumo.json` saem idênticos aos de 17/09, e é assim que se prova que a gravação não mexeu
 na análise.
 
+## A tabela de testes (20/09)
+
+`resultados/T02_testes.csv` passou a ser gravado: é a comparação de faixa de valor que a função
+`testes_de_faixa()` já calculava desde 19/09 e que só existia dentro do `T02_numeros.json`. Nada
+foi recalculado para escrevê-la — a mesma função, com a mesma semente, devolve as mesmas linhas, e
+os marcadores publicados continuam saindo dali. O que ela acrescenta é o que faltava gravar: o
+**corte sem os clubes de fronteira de valor** (postos 5, 6, 10 e 11 do ranking de `tm_valor_total`
+do ano, o análogo da fronteira nesta unidade, porque as faixas aqui são de preço de elenco e não de
+posição na tabela) e a **contagem da 10ª rodada em diante**, cada contagem como uma família própria
+para que o BH continue corrigindo os mesmos três p de antes.
+
 Ela roda em dois recortes, e os dois convivem:
   - a **passagem** (o que este script sempre fez), 2022 a 2026, é o que vai para os CSV;
   - o **clube-temporada**, 2022 a 2025, que a T02-1 pede — 2026 fica fora de todo marcador,
@@ -200,28 +211,95 @@ def clube_temporada(tabela):
     return base, postos
 
 
-def testes_de_faixa(base):
+# As três comparações da família, com o código curto que vai para a coluna `comparacao` do
+# T02_testes.csv, no molde do SM/ST/CM das partes do bloco A: T = 5 elencos mais caros,
+# M = 6º ao 10º, B = 11º para baixo.
+COMPARACOES = (("top5_baixo", "TB", "top5", "baixo"),
+               ("meio_baixo", "MB", "meio", "baixo"),
+               ("top5_meio", "TM", "top5", "meio"))
+
+# As duas contagens que o CLAUDE.md manda rodar, cada uma como uma FAMÍLIA à parte: o BH corrige
+# dentro da família, e juntar as duas contagens num bolo só mudaria os q já publicados.
+CONTAGENS = (("rodadas_no_g4", "valor", "Rodadas no G4 por temporada"),
+             ("rodadas_no_g4_apos_10", "valor_apos10", "Rodadas no G4 da 10ª rodada em diante"))
+
+# O corte de fronteira DESTA parte. A fronteira do G4/Z4 (CLAUDE.md, "Fronteira") é uma régua de
+# posição na TABELA, e aqui as faixas comparadas não são de classificação: são de VALOR de elenco.
+# O clube de fronteira, então, é o que cai colado no corte 5º/6º ou 10º/11º do ranking de
+# tm_valor_total da temporada — postos 5, 6, 10 e 11. É o mesmo corte de robustez que a proposta v2
+# rodou em 19/09 e que o T02.json descreve ("o corte sem os clubes dos postos de valor 5, 6, 10 e
+# 11"); ele existia só na conferência, e é o que passa a ficar gravado aqui.
+FRONTEIRA_DE_VALOR = (CORTE_TOP5, CORTE_TOP5 + 1, CORTE_MEIO, CORTE_MEIO + 1)
+
+# O cabeçalho canônico do estudo, copiado de A07_testes.csv.
+COLUNAS_TESTES = ["fronteira", "familia", "comparacao", "indicador", "n_a", "n_b", "cru_a",
+                  "cru_b", "d", "ic95_d", "p", "d_minimo_80", "q", "selo", "poder_suficiente",
+                  "nome", "placar_redescrito"]
+
+
+def uma_familia(base, coluna):
     """O método da casa, do scripts/_metodo.py, na família das três comparações de faixa de valor:
-    posto de rodadas no G4 dentro da temporada, Welch bilateral, d de Cohen no posto, IC95 por
-    bootstrap de CLUBE e BH a 5% sobre os três p."""
-    percentil_no_ano(base, ["rodadas_no_g4"])
-    campo = pct("rodadas_no_g4")
+    posto da contagem dentro da temporada, Welch bilateral, d de Cohen no posto, IC95 por
+    bootstrap de CLUBE e BH a 5% sobre os três p.
+
+    O `rng` nasce aqui, com a semente fixa: a função é determinística e roda igual quantas vezes
+    for chamada — é o que permite que o marcador publicado e a linha do CSV saiam do mesmo número
+    sem precisar carregar o resultado de um lado para o outro."""
+    percentil_no_ano(base, [coluna])
+    campo = pct(coluna)
     de = {f: (lambda fx: (lambda l: l["faixa_valor"] == fx))(f) for f in ("top5", "meio", "baixo")}
     rng = np.random.default_rng(SEMENTE)
     saida, ps = [], []
-    for nome, a, b in (("top5_baixo", "top5", "baixo"), ("meio_baixo", "meio", "baixo"),
-                       ("top5_meio", "top5", "meio")):
+    for nome, codigo, a, b in COMPARACOES:
         va = [l[campo] for l in base if de[a](l)]
         vb = [l[campo] for l in base if de[b](l)]
         _, p = stats.ttest_ind(va, vb, equal_var=False)
         lo, hi = ic_por_clube(base, campo, de[a], de[b], 1, rng)
-        saida.append({"nome": nome, "n_a": len(va), "n_b": len(vb),
+        saida.append({"nome": nome, "comparacao": codigo, "n_a": len(va), "n_b": len(vb),
+                      "cru_a": float(np.median([l[coluna] for l in base if de[a](l)])),
+                      "cru_b": float(np.median([l[coluna] for l in base if de[b](l)])),
                       "d": float(cohen_d(va, vb)), "ic95_d": [lo, hi], "p": float(p),
                       "d_minimo_80": d_minimo(len(va), len(vb))})
         ps.append(float(p))
     for linha, q in zip(saida, bh(ps)):
         linha["q"] = q
     return {t["nome"]: t for t in saida}
+
+
+def testes_de_faixa(base):
+    """A família que sustenta os marcadores da T02-1: a contagem de todas as rodadas."""
+    return uma_familia(base, "rodadas_no_g4")
+
+
+def tabela_de_testes(base):
+    """As linhas do T02_testes.csv: 2 contagens × 3 comparações × 2 cortes de fronteira.
+
+    O corte `sem` tira os clubes de fronteira de VALOR (postos 5, 6, 10 e 11 do ano) e roda tudo de
+    novo sobre o que sobra — inclusive o posto dentro da temporada, que é recalculado entre os
+    clubes restantes, porque "rodar sem" é rodar sem. As linhas do corte `sem` são cópias, para que
+    esse recálculo não toque nas linhas de que os marcadores publicados saem."""
+    sem = [dict(l) for l in base if l["posto_valor"] not in FRONTEIRA_DE_VALOR]
+    linhas = []
+    for rotulo, b in (("com", base), ("sem", sem)):
+        for coluna, familia, nome in CONTAGENS:
+            teste = uma_familia(b, coluna)
+            for chave, codigo, _a, _b in COMPARACOES:
+                t = teste[chave]
+                linhas.append({
+                    "fronteira": rotulo, "familia": familia, "comparacao": codigo,
+                    "indicador": coluna, "n_a": t["n_a"], "n_b": t["n_b"],
+                    "cru_a": round(t["cru_a"], 3), "cru_b": round(t["cru_b"], 3),
+                    "d": round(t["d"], 3), "ic95_d": t["ic95_d"], "p": round(t["p"], 5),
+                    "d_minimo_80": t["d_minimo_80"], "q": round(t["q"], 5),
+                    "selo": ("firme" if t["q"] < 0.05 else
+                             ("pode ser sorte" if t["p"] < 0.05 else "sem diferença clara")),
+                    "poder_suficiente": abs(t["d"]) >= t["d_minimo_80"],
+                    "nome": nome,
+                    # Rodada no G4 é posição na tabela, não ação em campo: não há estado de jogo
+                    # que a redescreva, e nenhuma linha desta parte é efeito do placar.
+                    "placar_redescrito": False,
+                })
+    return linhas
 
 
 def r_minimo(n, alvo=0.80, alfa=0.05):
@@ -500,6 +578,10 @@ def main():
         })
     tec.sort(key=lambda t: (-t["pct_g4"], -t["rodadas"]))
     grava("T02_treinador.csv", tec)
+
+    # A prova de que a comparação de faixa rodou, e rodou nos dois cortes de fronteira.
+    base_ct, _postos = clube_temporada(tabela)
+    grava("T02_testes.csv", tabela_de_testes(base_ct), campos=COLUNAS_TESTES)
 
     fora = [l for l in linhas if not l["no_ranking"]]
     com_g4 = [t for t in tec if t["no_g4"] > 0]

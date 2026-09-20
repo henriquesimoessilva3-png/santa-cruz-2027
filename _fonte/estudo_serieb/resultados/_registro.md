@@ -63,9 +63,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J06-1 | Nenhum nome sai desta parte por falha da ficha | indício | {bt_chegadas} chegadas pontuáveis em 2023 a 2025, de {bt_testes_com} comparações por corte; {bt_sem_ano_anterior} chegadas ficaram fora por não terem ano anterior na Série B e {bt_sem_900} por não chegarem a 900 minutos no ano anterior |
 | J06-2 | Quem chega já rodando joga mais no primeiro ano | indício | {bt_min_na} chegadas com minutagem alta e repetida contra {bt_min_nb} sem, em 2023 a 2025; o corte por posição é o de J05 e bate número a número |
 | J06-3 | São só {oferta_livres_regulares} livres com rodagem em toda a Série B | indício | {funil_serie_b} jogadores da Série B de 2026 depois da regra de homônimo, {base_ambiguos} nomes ambíguos descartados; {oferta_livres_regulares} livres e rodados |
-| J07-1 | Quem sobe dá {sobe_min}% dos minutos a estrangeiro, quase o triplo do meio | indício | {est_lin} casos de estrangeiro — 182 jogador-temporadas distintas, {est_pes} jogadores — em {ct_total} clube-temporadas de 2022 a 2025. Sobe: {sobe_n} casos em 16 clube-temporadas. Meio: 87 em 48. Cai: 37 em 16. |
-| J07-2 | Um ano depois, só {perm_est}% dos estrangeiros seguem na liga, contra {perm_br}% dos brasileiros | indício | Estreia, os dois lados restritos a quem entrou no clube naquele ano: {n_pri_est_nc} estrangeiros contra {n_pri_br_nc} brasileiros (2022-2025). Sem 2022: 94 estrangeiros. Ano seguinte: {n_perm_est} casos de estrangeiro contra {n_perm_br} de brasileiro. |
-| J07-3 | Quase todo estrangeiro da Série B é sul-americano, {sulamer} dos {total_est} casos | indício | {total_est} casos de estrangeiro — 182 jogador-temporadas distintas, {total_pes} jogadores — em 2022-2025, com {cobertura_nova}% das linhas da janela cobertas por nacionalidade ({cobertura_por_faixa}). |
+| J07-1 | Quem sobe dá {sobe_min}% dos minutos a estrangeiro, quase o triplo do meio | indício | {est_lin} casos de estrangeiro — 179 jogador-temporadas distintas, {est_pes} jogadores — em {ct_total} clube-temporadas de 2022 a 2025. Sobe: {sobe_n} casos em 16 clube-temporadas. Meio: 85 em 48. Cai: 37 em 16. |
+| J07-2 | Um ano depois, só {perm_est}% dos estrangeiros seguem na liga, contra {perm_br}% dos brasileiros | indício | Estreia, os dois lados restritos a quem entrou no clube naquele ano: {n_pri_est_nc} estrangeiros contra {n_pri_br_nc} brasileiros (2022-2025). Sem 2022: 87 estrangeiros. Ano seguinte: {n_perm_est} casos de estrangeiro contra {n_perm_br} de brasileiro. |
+| J07-3 | Quase todo estrangeiro da Série B é sul-americano, {sulamer} dos {total_est} casos | indício | {total_est} casos de estrangeiro — 179 jogador-temporadas distintas, {total_pes} jogadores — em 2022-2025, com {cobertura_nova}% das linhas da janela cobertas por nacionalidade ({cobertura_por_faixa}). |
 | J08-1 | Nenhum país de fora chega ao mínimo de casos com destino na Série B | indício | {n_principal} mudanças de liga, {n_jogadores} jogadores; {casos_estrangeiros} delas com origem estrangeira, em {n_ligas_estrangeiras} países; {n_para_serieb} chegadas à Série B, nenhuma origem estrangeira com mais de {casos_maior_estrangeira} casos |
 | J08-2 | O degrau da divisão de origem muda de tamanho conforme quem entra na conta | indício | {n_principal} linhas no corte principal (Brasil A {casos_brasil_a} casos, Brasil C {casos_brasil_c}), {n_estrito} no corte estrito com {n_jogadores_estrito} jogadores; {nao_transferencia} das {n_principal} não são transferência e {abaixo_900_origem} estão abaixo de 900 minutos na origem |
 | J08-3 | Quem chega de outra liga guarda menos da metade do destaque que tinha | indício | {n_principal} mudanças de liga, {n_jogadores} jogadores distintos; {n_cedo} chegadas até 2024 preveem as {n_tarde} de 2025 e 2026 |
@@ -93,29 +93,29 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A02 | validada | 3 | sim |
 | A03 | validada | 3 | sim |
 | A04 | validada | 3 | sim |
-| A05 | validada | 2 | **não** |
+| A05 | validada | 2 | sim |
 | A06 | validada | 3 | sim |
-| A07 | validada | 2 | **não** |
+| A07 | validada | 2 | sim |
 | A08 | pendente | — | — |
 | A09 | pendente | — | — |
 | A10 | validada | 2 | sim |
-| A11 | validada | 3 | **não** |
-| A12 | validada | 3 | **não** |
-| A13 | validada | 3 | **não** |
-| A14 | validada | 3 | **não** |
-| J01 | validada | 3 | **não** |
-| J02 | validada | 3 | **não** |
-| J03 | validada | 3 | **não** |
+| A11 | validada | 3 | sim |
+| A12 | validada | 3 | sim |
+| A13 | validada | 3 | sim |
+| A14 | validada | 3 | sim |
+| J01 | validada | 3 | sim |
+| J02 | validada | 3 | sim |
+| J03 | validada | 3 | sim |
 | J04 | validada | 3 | sim |
 | J05 | rascunho | 3 | sim |
 | J06 | rascunho | 3 | sim |
-| J07 | validada | 3 | **não** |
+| J07 | validada | 3 | sim |
 | J08 | validada | 3 | sim |
 | J09 | rascunho | 3 | sim |
 | T01 | validada | 3 | sim |
 | T02 | validada | 3 | sim |
-| T03 | validada | 2 | **não** |
-| T04 | validada | 2 | **não** |
+| T03 | validada | 2 | sim |
+| T04 | validada | 2 | sim |
 
 <!-- As seções abaixo são CURADAS: escritas à mão e preservadas pelo gerador.
      As tabelas de conclusões e de status NÃO ficam aqui — são geradas dos <ID>.json. -->

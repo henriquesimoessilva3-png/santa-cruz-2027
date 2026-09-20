@@ -49,7 +49,7 @@ from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from _metodo import bh, cohen_d, d_minimo, pct, percentil_no_ano  # noqa: E402
+from _metodo import bh, cohen_d, d_minimo, ic_por_clube, pct, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
@@ -209,6 +209,224 @@ def arred(v, casas):
 def br(v, casas):
     """O número como o texto da parte o escreve: vírgula decimal."""
     return f"{v:.{casas}f}".replace(".", ",")
+
+
+# ==============================================================================================
+# A tabela de testes — resultados/A11_testes.csv            (acrescentado em 20/09)
+# ==============================================================================================
+# POR QUE ELA FALTAVA, E POR QUE ELA CABE AQUI. As regras 2 e 3 de `scripts/_portao.py` são de
+# falha fechada: sem `<ID>_testes.csv` a parte é REPROVADA por ausência, porque não há como provar
+# que os dois cortes de fronteira rodaram. A A11 não é parte de base nem de coleta — o `tipo` do
+# A11.json é "analise", e as três conclusões se apoiam em teste com BH a 5% por família: a A11-1 e
+# a A11-2 citam os q das correlações e a A11-3 cita os dez testes de A11_estratificado.csv. Logo a
+# tabela tinha de ser GRAVADA, não dispensada.
+#
+# O QUE ENTRA. Os dois tipos de teste que esta parte roda, um do lado do outro:
+#   * as 17 correlações declaradas (Spearman no posto dentro da temporada, BH por família), que
+#     sustentam a A11-1 e a A11-2;
+#   * as comparações Sobe × Meio dentro de cada faixa técnica, que sustentam a A11-3.
+# Cada uma nos DOIS cortes de fronteira, que é o que a regra 3 emparelha.
+#
+# O CORTE `sem`. Para as correlações, o posto é REFEITO dentro da temporada sobre as 52 linhas
+# (`rho_no_corte`), que é o método que o A11.json já publica em rho_sf_area_ent e companhia. Para
+# a estratificação vale a convenção da casa — percentil nas 80 linhas, filtro depois —, que é a
+# leitura de onde sai o marcador publicado `sf_alta` ("7 contra 9"). Nessa leitura a faixa técnica
+# média cai para 1 × 11 e fica abaixo do piso de 4 promovidos, então ela NÃO tem linha no corte
+# `sem`: cinco comparações do corte `com` ficam sem par, e a regra 3 vai dizer isso. É achado
+# declarado, não defeito escondido — o próprio confianca_motivo da A11-3 já escrevia que "o corte
+# sem os times de fronteira derruba a faixa média por falta de promovidos". A outra leitura que o
+# texto cita (refazer as faixas técnicas dentro das 52 linhas, 6 × 12 na alta) não entra na tabela
+# porque teria a mesma identidade de linha e destruiria o emparelhamento; ela continua no texto.
+#
+# AS COLUNAS, E AS DUAS QUE PRECISAM DE AVISO.
+#   * `d` carrega o TAMANHO DO EFEITO, que não é o mesmo estatístico nas duas metades da tabela:
+#     é o d de Cohen na estratificação e o rho de Spearman na correlação. Por isso existe a coluna
+#     `medida_nome`, fora do cabeçalho canônico: sem ela a tabela afirmaria que os dois números são
+#     a mesma coisa, que é exatamente a classe de erro que o portão existe para pegar.
+#   * `cru_a` e `cru_b` são MÉDIAS, e não medianas como em A02 e A07. É de média que saem os
+#     marcadores publicados (dist_sobe_alta e companhia, via `media()`); publicar mediana aqui
+#     faria a tabela discordar do número que está na tela.
+#   * `d_minimo_80` na correlação é o menor rho detectável com 80% de poder (`rho_minimo_
+#     detectavel`), o análogo do d mínimo — é o número que o A11.json publica como rho_min_det.
+#   * `placar_redescrito` é True na tabela inteira: a terceira ressalva declarada em
+#     A11_indicadores.json vale para a parte toda ("correr muda com o placar, e a base não permite
+#     o recorte"), e as três conclusões repetem isso no confianca_motivo.
+#
+# NADA AQUI CONSERTA NADA. Antes de gravar, o bloco confere linha a linha contra o que já está
+# publicado — A11_correlacoes.csv, A11_estratificado.csv e os marcadores do A11.json — e PARA se
+# divergir, sem sobrescrever nada. Divergência é achado para relatar, não número para corrigir.
+
+CABECALHO_TESTES = ["fronteira", "familia", "comparacao", "indicador", "n_a", "n_b",
+                    "cru_a", "cru_b", "d", "medida_nome", "ic95_d", "p", "d_minimo_80",
+                    "q", "selo", "poder_suficiente", "nome", "placar_redescrito"]
+
+# O nome de reunião de cada par. É por ele que a regra 2 do portão amarra a conclusão ao teste que
+# a sustenta, então ele repete a forma que o texto da parte usa ("corridas para a área × entradas
+# na área"), e não uma invenção nova.
+NOME_DA_CORRELACAO = {
+    ("fis_m_per_min_otip", "ppda"): "Metros por minuto sem posse × PPDA",
+    ("fis_m_per_min_otip", "recuperacoes"): "Metros por minuto sem posse × recuperações",
+    ("fis_m_per_min_otip", "xg_contra"): "Metros por minuto sem posse × xG sofrido",
+    ("fis_sprint_distance_p30otip", "ppda"): "Sprint sem posse × PPDA",
+    ("fis_sprint_distance_p30otip", "recuperacoes"): "Sprint sem posse × recuperações",
+    ("fis_sprint_distance_p30otip", "xg_contra"): "Sprint sem posse × xG sofrido",
+    ("fis_m_per_min_tip", "entradas_area"): "Metros por minuto com posse × entradas na área",
+    ("fis_m_per_min_tip", "xg"): "Metros por minuto com posse × xG criado",
+    ("fis_sprint_distance_p30tip", "entradas_area"): "Sprint com posse × entradas na área",
+    ("fis_sprint_distance_p30tip", "xg"): "Sprint com posse × xG criado",
+    ("fis_runs_penalty_area_p30tip", "entradas_area"): "Corridas para a área × entradas na área",
+    ("fis_runs_penalty_area_p30tip", "xg"): "Corridas para a área × xG criado",
+    ("fis_distance_p90", "dist_g4"): "Distância por 90 min × distância ao G4",
+    ("fis_hi_distance_p90", "dist_g4"): "Distância em alta intensidade × distância ao G4",
+    ("fis_sprint_distance_p90", "dist_g4"): "Sprint por 90 × distância ao G4",
+    ("fis_m_per_min_otip", "dist_g4"): "Metros por minuto sem posse × distância ao G4",
+    ("fis_m_per_min_tip", "dist_g4"): "Metros por minuto com posse × distância ao G4",
+}
+NOME_DO_FISICO = {
+    "fis_distance_p90": "Distância por 90 min (m)",
+    "fis_hi_distance_p90": "Distância em alta intensidade por 90 (m)",
+    "fis_sprint_distance_p90": "Distância em sprint por 90 (m)",
+    "fis_m_per_min_otip": "Metros por minuto SEM posse",
+    "fis_m_per_min_tip": "Metros por minuto COM posse",
+}
+SUFIXO_DA_FAIXA = {"baixa": "baixa", "média": "media", "alta": "alta"}
+PISO_DE_GRUPO = 4          # o mesmo piso de 4 que a estratificação de cima já usa
+
+
+def testes_de_correlacao(linhas, usados, dec, rotulo):
+    """As 17 correlações declaradas, no formato da tabela de testes, para UM corte.
+
+    O posto é refeito dentro da temporada sobre o subconjunto (a mesma regra de `rho_no_corte`),
+    e o BH roda por família DENTRO do corte — corte novo é tabela nova, não uma coluna a mais da
+    tabela velha."""
+    sub = [dict(l) for l in linhas]
+    percentil_no_ano(sub, usados + ["dist_g4"])
+    n = len(sub)
+    rho_min = arred(rho_minimo_detectavel(n), 3)
+    saida = []
+    for fam in dec["familias"]:
+        ps, itens = [], []
+        for x, y in fam["pares"]:
+            rho, p = stats.spearmanr([l[pct(x)] for l in sub], [l[pct(y)] for l in sub])
+            z, se = 0.5 * math.log((1 + rho) / (1 - rho)), 1 / math.sqrt(n - 3)
+            itens.append({
+                "fronteira": rotulo, "familia": fam["id"], "comparacao": "esforco_x_efeito",
+                "indicador": f"{x}×{y}", "n_a": n, "n_b": n,
+                "cru_a": round(float(np.mean([l[x] for l in sub])), 3),
+                "cru_b": round(float(np.mean([l[y] for l in sub])), 3),
+                "d": round(float(rho), 3), "medida_nome": "rho de Spearman",
+                "ic95_d": [round(math.tanh(z - 1.96 * se), 2),
+                           round(math.tanh(z + 1.96 * se), 2)],
+                "p": round(float(p), 5), "d_minimo_80": rho_min,
+                "nome": NOME_DA_CORRELACAO[(x, y)], "placar_redescrito": True})
+            ps.append(float(p))
+        for it, q in zip(itens, bh(ps)):
+            it["q"] = round(q, 5)
+            it["selo"] = ("firme" if q < 0.05 else
+                          ("pode ser sorte" if it["p"] < 0.05 else "sem relação clara"))
+            it["poder_suficiente"] = abs(it["d"]) >= it["d_minimo_80"]
+        saida += itens
+    return saida
+
+
+def testes_de_estratificacao(linhas, fis, rotulo, rng):
+    """Sobe × Meio no físico dentro de cada faixa técnica, no formato da tabela, para UM corte.
+
+    Mesma conta da estratificação de cima (percentil dentro da temporada nas 80 linhas, t de
+    Welch, BH por faixa técnica, piso de 4 de cada lado); o que muda é só quais linhas entram e a
+    coluna ic95_d, que aqui vem da reamostragem de CLUBE, como manda a §6.6."""
+    saida = []
+    for ft in ("baixa", "média", "alta"):
+        g = [l for l in linhas if l["faixa_tecnica"] == ft]
+        sobe = [l for l in g if l["faixa"] == "Sobe"]
+        meio = [l for l in g if l["faixa"] == "Meio"]
+        if len(sobe) < PISO_DE_GRUPO or len(meio) < PISO_DE_GRUPO:
+            continue
+        ps, itens = [], []
+        for c in fis:
+            a = [l[pct(c)] for l in sobe]
+            b = [l[pct(c)] for l in meio]
+            _, p = stats.ttest_ind(a, b, equal_var=False)
+            lo, hi = ic_por_clube(g, pct(c), lambda l: l["faixa"] == "Sobe",
+                                  lambda l: l["faixa"] == "Meio", 1, rng)
+            itens.append({
+                "fronteira": rotulo, "familia": f"tec_{SUFIXO_DA_FAIXA[ft]}",
+                "comparacao": f"SM_tec_{SUFIXO_DA_FAIXA[ft]}", "indicador": c,
+                "n_a": len(sobe), "n_b": len(meio),
+                "cru_a": round(float(np.mean([l[c] for l in sobe])), 3),
+                "cru_b": round(float(np.mean([l[c] for l in meio])), 3),
+                "d": round(cohen_d(a, b), 3), "medida_nome": "d de Cohen",
+                "ic95_d": [lo, hi], "p": round(float(p), 5),
+                "d_minimo_80": d_minimo(len(sobe), len(meio)),
+                "nome": NOME_DO_FISICO[c], "placar_redescrito": True})
+            ps.append(float(p))
+        for it, q in zip(itens, bh(ps)):
+            it["q"] = round(q, 5)
+            it["selo"] = ("firme" if q < 0.05 else
+                          ("pode ser sorte" if it["p"] < 0.05 else "sem diferença clara"))
+            it["poder_suficiente"] = abs(it["d"]) >= it["d_minimo_80"]
+        saida += itens
+    return saida
+
+
+def conferir_a_tabela(tab_com_corr, tab_com_est, linhas, estrat, numeros, tab_sem_corr, tab_sem_est):
+    """Devolve a lista de divergências entre a tabela nova e o que a parte JÁ publica.
+
+    Nada é corrigido aqui: a tabela é a conferência, e número publicado que não bate é achado
+    para relatar. Confere três fontes — A11_correlacoes.csv, A11_estratificado.csv e os
+    marcadores do A11.json que falam dos cortes."""
+    achados = []
+    velhas = {(l["esforco"], l["efeito"]): l for l in linhas}
+    for t in tab_com_corr:
+        x, y = t["indicador"].split("×")
+        v = velhas.get((x, y))
+        if v is None:
+            achados.append(f"{t['indicador']}: não existe em A11_correlacoes.csv")
+            continue
+        for campo, antigo in (("d", v["rho"]), ("p", v["p"]), ("q", v["q"]), ("selo", v["selo"])):
+            if str(t[campo]) != str(antigo):
+                achados.append(f"correlação {t['indicador']}, {campo}: A11_correlacoes.csv diz "
+                               f"{antigo!r} e a tabela dá {t[campo]!r}")
+    chave_est = {(e["faixa_tecnica"], e["indicador"]): e for e in estrat}
+    for t in tab_com_est:
+        ft = t["comparacao"].replace("SM_tec_", "")
+        ft = {"media": "média"}.get(ft, ft)
+        v = chave_est.get((ft, t["indicador"]))
+        if v is None:
+            achados.append(f"{ft}/{t['indicador']}: não existe em A11_estratificado.csv")
+            continue
+        for campo, antigo in (("n_a", v["n_sobe"]), ("n_b", v["n_meio"]), ("d", v["d"]),
+                              ("p", v["p"]), ("q", v["q"]),
+                              ("d_minimo_80", v["d_minimo_80"]), ("selo", v["selo"])):
+            if str(t[campo]) != str(antigo):
+                achados.append(f"estratificação {ft}/{t['indicador']}, {campo}: "
+                               f"A11_estratificado.csv diz {antigo!r} e a tabela dá {t[campo]!r}")
+    # os marcadores do corte sem fronteira que o A11.json publica em texto
+    sem_corr = {t["indicador"]: t for t in tab_sem_corr}
+    esperado = {
+        "rho_sf_area_ent": "fis_runs_penalty_area_p30tip×entradas_area",
+        "rho_sf_area_xg": "fis_runs_penalty_area_p30tip×xg",
+        "rho_sf_spr_ppda": "fis_sprint_distance_p30otip×ppda",
+        "rho_sf_mpm_ppda": "fis_m_per_min_otip×ppda",
+    }
+    for marcador, chave in esperado.items():
+        if numeros.get(marcador) != sem_corr[chave]["d"]:
+            achados.append(f"marcador {marcador}: o A11.json publica {numeros.get(marcador)!r} e "
+                           f"a tabela dá {sem_corr[chave]['d']!r} no corte sem fronteira")
+    mpm = sem_corr["fis_m_per_min_otip×recuperacoes"]
+    spr = sem_corr["fis_sprint_distance_p30otip×recuperacoes"]
+    frase = (f"{br(mpm['d'], 3)} (p = {br(mpm['p'], 5)}) e "
+             f"{br(spr['d'], 3)} (p = {br(spr['p'], 5)})")
+    if numeros.get("rec_sf_frase") != frase:
+        achados.append(f"marcador rec_sf_frase: o A11.json publica "
+                       f"{numeros.get('rec_sf_frase')!r} e a tabela dá {frase!r}")
+    alta = [t for t in tab_sem_est if t["comparacao"] == "SM_tec_alta"]
+    if alta:
+        visto = f"{alta[0]['n_a']} contra {alta[0]['n_b']}"
+        if numeros.get("sf_alta") != visto:
+            achados.append(f"marcador sf_alta: o A11.json publica {numeros.get('sf_alta')!r} e a "
+                           f"tabela dá {visto!r}")
+    return achados
 
 
 def main():
@@ -539,6 +757,43 @@ def main():
             print(f"  DIVERGE  {m}: publicado {p!r} · o script dá {c!r}")
     else:
         print("  nenhuma divergência: todo marcador publicado sai deste script com o mesmo valor")
+
+    # ==========================================================================================
+    # A tabela de testes — resultados/A11_testes.csv          (acrescentado em 20/09)
+    # ==========================================================================================
+    # O bloco explicativo está acima de `testes_de_correlacao`. Aqui só se monta, confere e grava.
+    rng = np.random.default_rng(SEMENTE_IC)
+    com_corr = testes_de_correlacao(base, usados, dec, "com")
+    sem_corr = testes_de_correlacao(sem_fronteira, usados, dec, "sem")
+    com_est = testes_de_estratificacao(base, fis, "com", rng)
+    sem_est = testes_de_estratificacao(sem_fronteira, fis, "sem", rng)
+
+    achados = conferir_a_tabela(com_corr, com_est, linhas, estrat, pub, sem_corr, sem_est)
+    if achados:
+        print(f"\n{'='*94}\nA11_testes.csv NÃO FOI GRAVADO: a tabela diverge do que a parte "
+              f"publica\n{'='*94}")
+        for a in achados:
+            print(f"  DIVERGE  {a}")
+        raise SystemExit("A11: divergência entre a tabela de testes e o publicado. Divergência é "
+                         "achado para relatar, não número para corrigir — nada foi sobrescrito.")
+
+    tabela = com_corr + com_est + sem_corr + sem_est
+    with open(os.path.join(R, "A11_testes.csv"), "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=CABECALHO_TESTES)
+        w.writeheader()
+        w.writerows(tabela)
+
+    sem_par = ({(t["familia"], t["comparacao"], t["indicador"]) for t in com_corr + com_est}
+               ^ {(t["familia"], t["comparacao"], t["indicador"]) for t in sem_corr + sem_est})
+    print(f"\n{'='*94}\nA11_testes.csv: {len(tabela)} linhas "
+          f"({len(com_corr)} + {len(com_est)} no corte com fronteira, "
+          f"{len(sem_corr)} + {len(sem_est)} no corte sem)\n{'='*94}")
+    print("  conferida contra A11_correlacoes.csv, A11_estratificado.csv e os marcadores de "
+          "corte do A11.json: nenhuma divergência")
+    for chave in sorted(sem_par):
+        print(f"  SEM PAR ENTRE OS CORTES  {chave[1]} · {chave[2]} — a faixa técnica média fica "
+              "com 1 promovido sem os times de fronteira, abaixo do piso de "
+              f"{PISO_DE_GRUPO}: o teste não roda, e a regra 3 do portão vai apontar isto")
     return numeros
 
 

@@ -89,6 +89,23 @@ CABECALHO = """/* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 """
 
 
+def premissas_por_id():
+    """{id -> {titulo, grupo}} de dados/premissas.json.
+
+    O campo `premissa` da conclusão guarda o ID ("m2", "p20"), não o texto — e a aba imprimia o
+    código cru, então 23 conclusões chegavam à tela dizendo "Premissa: m2", que não quer dizer
+    nada para quem lê. Aqui o id vira título; o código segue junto, para quem quiser procurar."""
+    caminho = os.path.join(AQUI, "dados", "premissas.json")
+    if not os.path.exists(caminho):
+        return {}
+    with open(caminho, encoding="utf-8") as f:
+        dados = json.load(f)
+    if isinstance(dados, dict):
+        dados = dados.get("premissas") or dados.get("lista") or []
+    return {p.get("id"): {"titulo": p.get("titulo"), "grupo": p.get("grupo")}
+            for p in dados if isinstance(p, dict) and p.get("id")}
+
+
 def trocar(texto, numeros, onde, erros):
     """Troca {marcador} pelo valor medido. Marcador sem valor vira erro, nao vira texto."""
     def um(m):
@@ -123,7 +140,13 @@ def resolver_grafico(g, numeros, onde, erros):
         erros.append(f"{onde}: o grafico usa o marcador {{{m}}}, que nao esta em numeros")
         return {"nome": s.get("nome"), "valor": None}
 
-    out = {"tipo": g.get("tipo"), "titulo": g.get("titulo"), "unidade": g.get("unidade")}
+    # O titulo e a unidade tambem passam pelo trocar(): sem isso nao da para escrever "A regua de
+    # {n_ind} indicadores" na legenda, e o numero teria de ser digitado — que e exatamente o que a
+    # regra "Texto e numero" do CLAUDE.md proibe. Legenda que nao diz o que a regua mede deixa o
+    # leitor sem saber o que esta olhando; foi assim que o A14 chegou a tela.
+    out = {"tipo": g.get("tipo"),
+           "titulo": trocar(g.get("titulo"), numeros, onde + " / titulo do grafico", erros),
+           "unidade": trocar(g.get("unidade"), numeros, onde + " / unidade do grafico", erros)}
     if g.get("series"):
         out["series"] = [serie(s) for s in g["series"]]
     if g.get("cortes"):
@@ -163,6 +186,7 @@ def resolver_grafico(g, numeros, onde, erros):
 
 def main():
     por_id, erros = {}, []
+    premissas = premissas_por_id()
     for caminho in sorted(glob.glob(os.path.join(RESULTADOS, "*.json"))):
         nome = os.path.basename(caminho)
         if nome.startswith("_") or "_" in nome[:-5]:
@@ -187,7 +211,15 @@ def main():
                 "manchete": trocar(c.get("manchete"), numeros, onde, erros),
                 "o_que_vimos": trocar(c.get("o_que_vimos"), numeros, onde, erros),
                 "para_o_santa_cruz": trocar(c.get("para_o_santa_cruz"), numeros, onde, erros),
-                "premissa": c.get("premissa"), "premissa_motivo": c.get("premissa_motivo"),
+                "premissa": c.get("premissa"),
+                "premissa_titulo": (premissas.get(c.get("premissa")) or {}).get("titulo"),
+                "premissa_grupo": (premissas.get(c.get("premissa")) or {}).get("grupo"),
+                # A tela MOSTRA o premissa_motivo (o bloco "Premissa:"), então ele passa pelo
+                # trocar() como o resto. Enquanto não passava, todo número dentro dele era
+                # digitado à mão por construção — e foi assim que o J07-2 ficou anunciando um
+                # empate de 16,6% contra 16,5% depois que o número virou 17,5.
+                "premissa_motivo": trocar(c.get("premissa_motivo"), numeros,
+                                          onde + " / premissa_motivo", erros),
                 "confianca": c.get("confianca"),
                 "confianca_motivo": trocar(c.get("confianca_motivo"), numeros, onde, erros),
                 "n": trocar(c.get("n"), numeros, onde, erros),
@@ -212,7 +244,9 @@ def main():
             "id": pid, "bloco": bloco, "secao": SECOES[bloco], "pergunta": pergunta,
             "status": status, "titulo": (d or {}).get("titulo"),
             "tipo": (d or {}).get("tipo"), "conclusoes": concl,
-            "em_aberto": (d or {}).get("em_aberto"),
+            # Idem: "Em aberto" é texto de tela, e números nele envelhecem em silêncio.
+            "em_aberto": trocar((d or {}).get("em_aberto"), (d or {}).get("numeros", {}),
+                                f"{pid} / em_aberto", erros),
             "feita_em": TAREFAS_FEITAS.get(pid),
             "prova_arquivos": (d or {}).get("gerado_por"),
         })
@@ -223,9 +257,59 @@ def main():
             print("  -", e, file=sys.stderr)
         sys.exit(1)
 
+    # A lista nominal que a base sustenta (scripts/J06_livres.py). Entra na aba como seção
+    # própria, com o rótulo que ela tem no arquivo: NÃO é lista de alvos — o backtest da §8.6 não
+    # autorizou nome nenhum. Se o arquivo não existir, a seção simplesmente não aparece.
+    livres = None
+    caminho_livres = os.path.join(RESULTADOS, "J06_livres_regulares.json")
+    if os.path.exists(caminho_livres):
+        with open(caminho_livres, encoding="utf-8") as f:
+            livres = json.load(f)
+        if livres.get("backtest_autorizou"):
+            erros.append("J06_livres_regulares.json diz que o backtest autorizou: "
+                         "se isso virou verdade, a seção da aba tem de deixar de dizer que não")
+
+    # A lista inteira de treinadores do T04, aberta na tela. Ela ORDENA O QUE ACONTECEU e não diz
+    # quem é melhor: as duas premissas que sustentariam a leitura como previsão falharam (T02, o
+    # histórico de G4 não se transfere entre clubes; T03, o perfil de jogo não é traço do
+    # treinador). Vai com os dois critérios lado a lado — a média e o piso — porque trocar um pelo
+    # outro muda o pódio, e essa instabilidade É o achado da parte.
+    treinadores = None
+    caminho_t04 = os.path.join(RESULTADOS, "T04_resumo.json")
+    if os.path.exists(caminho_t04):
+        with open(caminho_t04, encoding="utf-8") as f:
+            t04 = json.load(f)
+        if t04.get("lista_completa"):
+            treinadores = {
+                "criterio": t04.get("criterio"),
+                "premissas_que_falharam": t04.get("premissas_que_falharam"),
+                "min_rodadas_total": t04.get("min_rodadas_total"),
+                "lista": t04["lista_completa"],
+            }
+
+    # A régua do A14, peça por peça. A aba mostrava só a nota final por faixa, com a legenda
+    # "A régua, por faixa · 0 a 100", e nada dizia DE QUE ela é feita — o leitor não tinha como
+    # saber o que estava olhando. Aqui vão as sete peças, o tamanho de efeito de cada uma e o que
+    # foi descartado por medir a mesma coisa que outra.
+    regua = None
+    caminho_a14 = os.path.join(RESULTADOS, "A14_resumo.json")
+    if os.path.exists(caminho_a14):
+        with open(caminho_a14, encoding="utf-8") as f:
+            a14 = json.load(f)
+        if a14.get("indice"):
+            regua = {
+                "indice": a14["indice"],
+                "candidatos": a14.get("candidatos") or [],
+                "descartados": a14.get("descartados_por_redundancia") or [],
+                "fora_por_ser_consequencia": a14.get("fora_por_ser_consequencia") or [],
+            }
+
     dado = {
         "gerado_em": dt.date.today().isoformat(),
         "partes": partes,
+        "elenco_livre": livres,
+        "treinadores": treinadores,
+        "regua": regua,
         "validadas": validadas[:7],   # "O que decidimos" mostra ate 7
         "negativas": negativas,
         "contagem": {

@@ -3,6 +3,7 @@
  "bloco": "T",
  "titulo": "Quem comandou cada time da Série B, 2018 a 2026",
  "tipo": "coleta",
+ "sem_testes": "Parte de coleta: T01 raspa e conta o histórico de treinadores de 2018 a 2026 e não compara faixa nenhuma da tabela (Sobe, Meio, Cai), então não há d, p, q nem corte de fronteira para gravar — as três conclusões são contagens e ficam em indício.",
  "gerado_por": "scripts/T01.py + scripts/T01_rodadas.py",
  "conclusoes": [
   {

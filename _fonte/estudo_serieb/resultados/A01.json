@@ -3,6 +3,7 @@
  "bloco": "A",
  "titulo": "A régua: o que separa as faixas, 2022 a 2026",
  "tipo": "base",
+ "sem_testes": "Parte de base: A01 monta a régua por contagem completa das tabelas (posição, pontos, margens, a Trave e a própria marca de fronteira) e não compara faixa com faixa — não há hipótese a testar aqui, e é ela que produz a coluna fronteira_g4/fronteira_z4 que as partes de análise usam nos dois cortes.",
  "gerado_por": "scripts/A01.py",
  "conclusoes": [
   {

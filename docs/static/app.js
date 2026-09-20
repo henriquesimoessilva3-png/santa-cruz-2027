@@ -2818,6 +2818,34 @@ function fcData(iso) {
   return iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(2, 4);
 }
 
+/* ---------------- os 40 do Estudo Série B na aba Fim de contrato ----------------
+   O estudo (J06) afunilou a Série B de 2026 até quem tem contrato vencendo na virada, com as
+   duas fontes concordando na data, e minutagem regular pelo corte de cada posição: 40 nomes.
+   Eles aparecem aqui porque é aqui que se decide contratação de fim de contrato — e daqui o
+   botão "levar p/" já manda o jogador ao campograma, onde ele entra com status "alvo".
+
+   NÃO É LISTA DE ALVOS, e a coluna diz isso: o backtest da §8.6 não autorizou nome nenhum, e a
+   ficha de perfil do J05 descreve quem subiu sem prometer quem vai subir. O que a coluna mostra
+   é o que a base sustenta — roda — e, ao lado, quantos pisos da ficha o jogador não atinge.
+
+   A CHAVE. O jogador é reencontrado pela `primaryKey` do app, que o próprio estudo já resolve e
+   grava em `pk_app` (scripts/J06_livres.py). Casar aqui por nome ou por id do Transfermarkt não
+   funcionaria: dos 1.136 jogadores da Série B na base, só 31 têm `tm`, e o mesmo clube aparece
+   escrito de três jeitos ("Botafogo-SP", "Botafogo SP", "Botafogo FC"). */
+const ESTUDO_LIVRES = (() => {
+  const mapa = new Map();
+  try {
+    const L = (typeof ESTUDO_SERIEB !== 'undefined') && ESTUDO_SERIEB.elenco_livre;
+    if (!L) return mapa;
+    (L.por_posicao || []).forEach(b => (b.jogadores || []).forEach(j => {
+      if (j.pk_app) mapa.set(j.pk_app, j);
+    }));
+  } catch (e) { /* sem o dado do estudo a coluna fica vazia, e o resto da aba segue igual */ }
+  return mapa;
+})();
+
+function estudoLivre(j) { return ESTUDO_LIVRES.get(primaryKey(j)) || null; }
+
 const FC_COLUNAS = [
   { c: 'n', r: 'Jogador', w: 15, cel: j =>
       '<div class="fc-nome"><b>' + esc(j.n) + '</b>' +
@@ -2884,6 +2912,20 @@ FC_COLUNAS.push(
       return f ? '<span title="TransferRoom: ' + esc(f.txt) + '/ano">' + brl(f.min, true) +
                  '<span class="fc-ast">*</span></span>'
                : '<span class="fc-vazia">–</span>'; } },
+  { c: 'est', r: 'Estudo', w: 8,
+    t: 'Os 40 do Estudo Série B: contrato vencendo, as duas fontes concordando na data e ' +
+       'minutagem regular pelo corte da posição. NÃO é lista de alvos — o teste que autorizaria ' +
+       'nomes não passou, e a ficha descreve quem subiu sem prometer quem vai subir.',
+    cel: j => {
+      const e = estudoLivre(j);
+      if (!e) return '<span class="fc-vazia">–</span>';
+      const ficha = e.atende_perfil ? '<b class="fc-est-ok">ficha inteira</b>'
+        : (String(e.indicadores_com_dado) === '0'
+           ? '<span class="fc-est-semdado">sem dado</span>'
+           : '<span class="fc-est-viola">viola ' + e.violados + '</span>');
+      return '<span class="fc-est-roda" title="minutagem regular em ' +
+        esc(e.temporadas_com_dado) + ' temporadas · ' + esc(e.setor) + '">roda</span> ' + ficha;
+    } },
   { c: '_', r: '', w: 11, cel: j => '<button class="fc-add" title="Escolher a posição — a dele é ' +
       esc(sig(j.p)) + '">levar p/ ' + sig(j.p) + ' ▾</button>' +
       '<button class="ver-ficha" title="Ver detalhe">+</button>' },
@@ -3136,6 +3178,7 @@ function fcFiltrar() {
   const pes = mselSelecionados('fcPeSel');
   const faixas = RANGES_FC.map(d => [d, rangeValor('fcRanges', d.k)]).filter(x => x[1]);
   const recorrente = $('#fcRecorrente').checked;
+  const soEstudo = ($('#fcSoEstudo') || {}).checked;
 
   return BASE.filter(j => {
     if (!j.ct) return false;
@@ -3154,6 +3197,7 @@ function fcFiltrar() {
       const r = histResumo(primaryKey(j), GOLS_TEMPORADA);
       if (!r || r.goleadoras < 2) return false;
     }
+    if (soEstudo && !estudoLivre(j)) return false;
     if (txt && !fsNorm(j.n + ' ' + j.t).includes(txt)) return false;
     return true;
   });
@@ -3209,9 +3253,17 @@ function fcRender() {
     FC_COLUNAS.map(c => '<td' + (c.num ? ' class="num-c"' : '') + '>' + c.cel(j) + '</td>').join('') +
     '</tr>').join('');
   $('#fcVazio').style.display = linhas.length ? 'none' : 'block';
+  /* Com o filtro do estudo ligado, dizer QUANTOS DOS 40 estão aparecendo: os filtros de data e
+     de confirmação desta aba são mais estreitos que os do estudo (com "até dez/2026" e "só
+     confirmado" passam 26 dos 40), e quem visse 26 sem explicação leria a lista como sendo 26. */
+  const doEstudo = ESTUDO_LIVRES.size
+    ? ' · <b>' + lista.filter(estudoLivre).length + ' dos ' + ESTUDO_LIVRES.size +
+      '</b> que rodam no estudo' + (($('#fcSoEstudo') || {}).checked
+        ? ' (os outros não passam nos filtros de data e de contrato acima)' : '')
+    : '';
   $('#fcContagem').innerHTML = '<b>' + milhar(lista.length) + '</b> jogadores com contrato ' +
     'até ' + (mesAno($('#fcAte').value + '-01') || '—') +
-    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
+    (lista.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') + doEstudo +
     ' · clique na linha para levar ao campograma, escolhendo a posição';
 
   $$('#fcTbody tr').forEach(tr => {
@@ -3297,6 +3349,7 @@ function fcLimpar() {
   mselMarcar('fcTimeSel', null, true); mselMarcar('fcPeSel', null, true);
   rangesReset('fcRanges');
   $('#fcAte').value = '2026-12'; $('#fcSoConf').checked = true; $('#fcTexto').value = '';
+  if ($('#fcSoEstudo')) $('#fcSoEstudo').checked = false;
   fcRender();
 }
 
@@ -3318,7 +3371,9 @@ function fcMontarFiltros() {
   $$('#fcLigaAbas button').forEach(b => { b.onclick = () => fcSetLiga(b.dataset.r); });
   $$('#fcPaisAbas button').forEach(b => { b.onclick = () => fcSetPais(b.dataset.r); });
   $$('#fcExt button').forEach(b => { b.onclick = () => fcSetExterior(b.classList.contains('on') ? null : b.dataset.e); });
-  ['#fcAte', '#fcSoConf', '#fcRecorrente'].forEach(sel => { $(sel).onchange = fcRender; });
+  ['#fcAte', '#fcSoConf', '#fcRecorrente', '#fcSoEstudo'].forEach(sel => {
+    const el = $(sel); if (el) el.onchange = fcRender;
+  });
   $$('#fcAtalhos button').forEach(b => { b.onclick = () => fcAtalho(b.dataset.a); });
   $('#fcTexto').oninput = debounce(fcRender, 200);
   $('#fcLimpar').onclick = fcLimpar;

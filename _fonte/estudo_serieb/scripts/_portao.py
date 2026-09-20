@@ -828,8 +828,50 @@ def emparelhar_os_cortes(linhas, col):
     return pares, sobra_com, sobra_sem
 
 
+def declara_sem_testes(parte):
+    """A parte pode DECLARAR, no campo `sem_testes` do topo, que não roda comparação nenhuma.
+
+    Por que isto existe. A regra 3 é de falha fechada: sem `<ID>_testes.csv` ela reprova, porque
+    ausência de prova não é prova. Só que há parte que legitimamente não compara faixa alguma — a
+    de base monta a régua por contagem, a de coleta raspa e conta, a descritiva lista casos porque
+    o próprio CLAUDE.md manda listar sem aplicar o critério. Reprovar essas por não terem tabela é
+    burocracia com cara de rigor, e verificador que reprova o certo acaba ignorado.
+
+    O QUE IMPEDE A DECLARAÇÃO DE VIRAR SAÍDA FÁCIL: ela é conferida contra a própria parte. Quem
+    declara que não testa e publica conclusão apoiada em teste — que diz que algo “se sustenta”,
+    que cita q ou BH, ou que carrega selo firme ou provável — está alegando duas coisas que não
+    cabem juntas, e aí a reprovação volta, agora por contradição, que é pior que a ausência."""
+    motivo = parte.dados.get("sem_testes")
+    if not isinstance(motivo, str) or not motivo.strip():
+        return None, []
+    contra = []
+    # A conferência é por SINAL INEQUÍVOCO, nunca por palavra no texto. Uma primeira versão
+    # procurava “se sustenta”, “Benjamini” e “correção para múltiplos testes” na prosa, e reprovou
+    # as quatro partes que declararam — porque as frases delas dizem justamente que aquilo NÃO se
+    # aplica ali. É a armadilha que a regra 6 já tinha aprendido com “BH”, e casar prosa não
+    # distingue a afirmação da negação dela.
+    if parte.testes:
+        contra.append(f"{parte.id}_testes.csv existe: a parte testa, e a declaração é falsa")
+    for c in parte.conclusoes:
+        conf = sem_acento(str(c.get("confianca") or ""))
+        if conf in ("firme", "provavel"):
+            contra.append(f"{c.get('id') or '?'}: selo “{c.get('confianca')}” exige teste, "
+                          "e a parte declara que não roda nenhum")
+    return motivo.strip(), contra
+
+
 def regra_3(parte, contexto):
     titulo = "Os dois cortes de fronteira existem, e quando discordam o texto cita os dois"
+    declarado, contradiz = declara_sem_testes(parte)
+    if declarado and contradiz:
+        return Achado(3, titulo, REPROVA,
+                      "a parte declara que não roda comparação e publica conclusão que alega teste: "
+                      "as duas coisas não cabem juntas",
+                      contradiz + [f"sem_testes: “{declarado[:180]}”"])
+    if declarado:
+        return Achado(3, titulo, NAO_APLICAVEL,
+                      "a parte declara que não compara faixas, e nenhuma conclusão dela alega teste",
+                      [f"sem_testes: “{declarado[:180]}”"])
     unidade = UNIDADE_INFERIDA.get(parte.id, "")
 
     if parte.testes is None:
@@ -1726,6 +1768,10 @@ LIMITACOES = [
     "diferentes não colidem.",
     "Regra 8 confere sentinela, existência do gerador e coerência com os <ID>.json; ela não "
     "regenera o registro para comparar palavra por palavra.",
+    "A regra 3 aceita a declaração `sem_testes` do topo do <ID>.json e, com ela, sai como NÃO "
+    "APLICÁVEL. O que o portão confere é a COERÊNCIA da declaração — selo firme ou provável, e "
+    "texto que alega teste, derrubam-na. Ele não abre o script para provar que ali não há "
+    "comparação nenhuma: isso continua sendo leitura humana.",
     "Regras 10 e 11 medem TAMANHO, não conteúdo. Elas provam que a manchete cabe em 14 palavras "
     "e que o que vimos cabe em 280 caracteres — não que a ressalva do texto longo sobreviveu ao "
     "corte. Texto que encolheu jogando fora o “mas só sem os times de fronteira” passa nas duas. "

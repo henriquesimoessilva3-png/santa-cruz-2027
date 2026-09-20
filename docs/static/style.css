@@ -3523,3 +3523,14 @@ td.pt-td-frase{text-align:left;white-space:normal}
   .pt-sumario .pt-escala{flex-wrap:nowrap}
   .pt-etapa{scroll-margin-top:60px}
 }
+
+/* Coluna "Estudo" da aba Fim de contrato (20/09): os 40 do J06 que têm contrato vencendo e
+   minutagem regular. "roda" é o que a base sustenta; a ficha ao lado diz quantos pisos do
+   perfil o jogador não atinge — e o perfil descreve quem subiu, não prevê quem vai subir. */
+.fc-est-roda {
+  display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .04em;
+  background: #1baf7a; color: #04150f; border-radius: 3px; padding: 1px 5px; font-weight: 700;
+}
+.fc-est-ok { color: #1baf7a; font-size: 11px; }
+.fc-est-viola { color: #8a8880; font-size: 11px; }
+.fc-est-semdado { color: #8a8880; font-size: 11px; font-style: italic; }

@@ -66,6 +66,25 @@ NOME_PT = {"dist_remate": "distância do remate", "entradas_area": "entradas na 
            "duelo_def": "duelo defensivo", "xg": "xG criado", "xg_contra": "xG sofrido",
            "xg_por_remate": "xG por remate", "xg_por_remate_contra": "xG por remate sofrido"}
 
+# --- a tabela de testes (resultados/T03_testes.csv) -------------------------------------------
+# Os q das duas famílias já existiam dentro dos marcadores `bh_familia_7` e `bh_ad`, como texto
+# corrido. A tabela abaixo é a MESMA conta, publicada linha a linha no formato da casa, que é o que
+# a entrega pede: um teste por traço, com n, valor bruto, tamanho de efeito, IC, p, q e selo.
+# Nada aqui altera marcador nenhum — o corte `com` reproduz `bh_familia_7` e `bh_ad` número a
+# número, e é essa igualdade que prova que a tabela é a conta publicada, e não uma conta nova.
+#
+# Os dois cortes de fronteira. A fronteira é uma régua de POSIÇÃO na tabela (A01, coluna
+# `fronteira`): o corte `sem` tira as passagens cujo clube-temporada estava colado na linha do G4
+# ou do Z4 naquele ano. O percentil de cada traço continua medido contra os 20 clubes do ano — o
+# corte tira as unidades comparadas, nunca a régua contra a qual elas foram medidas, que é como o
+# _metodo.comparar faz nas partes do Bloco A.
+PLACAR_REDESCRITO = {"xg", "xg_contra"}   # o próprio T03-2 avisa: os dois mudam com o placar
+BH_ALFA = 0.05                            # Benjamini-Hochberg a 5% por família (§6)
+Z_POTENCIA_80 = 2.801585                  # norm.ppf(0.975) + norm.ppf(0.80)
+COLUNAS_TESTES = ["fronteira", "familia", "comparacao", "indicador", "n_a", "n_b", "cru_a",
+                  "cru_b", "d", "ic95_d", "p", "d_minimo_80", "q", "selo", "poder_suficiente",
+                  "nome", "placar_redescrito"]
+
 # traço -> (coluna no jogo a jogo, sinal). Sinal +1 = mais é melhor.
 TRACOS = {
     "dist_remate": ("Distância média do remate", -1),
@@ -367,6 +386,136 @@ def marcadores(passagens, jogos_da_passagem, antes_depois, jogos_da_troca, perce
     return n
 
 
+# ----------------------------------------------------------------------------------------------
+# A tabela de testes — a mesma conta dos marcadores, linha a linha, nos dois cortes de fronteira
+# ----------------------------------------------------------------------------------------------
+def clubes_de_fronteira():
+    """{(temporada, clube): True} para quem estava colado na linha do G4 ou do Z4 (A01)."""
+    caminho = os.path.join(R, "A01_clube_temporada.csv")
+    with open(caminho, encoding="utf-8") as f:
+        return {(l["temporada"], l["clube"]): l["fronteira"] == "1" for l in csv.DictReader(f)}
+
+
+def selo_da_linha(p, q):
+    """O selo da casa (_metodo.comparar): q manda, p sozinho é sorte."""
+    return "firme" if q < BH_ALFA else ("pode ser sorte" if p < BH_ALFA else "sem diferença clara")
+
+
+def _linha(fronteira, familia, comparacao, traco, n_a, n_b, cru_a, cru_b, d, ic, p, dmin, q):
+    return {"fronteira": fronteira, "familia": familia, "comparacao": comparacao,
+            "indicador": traco, "n_a": n_a, "n_b": n_b,
+            "cru_a": round(cru_a, 3), "cru_b": round(cru_b, 3), "d": round(d, 3),
+            "ic95_d": f"[{round(ic[0], 2)}, {round(ic[1], 2)}]",
+            "p": round(p, 5), "d_minimo_80": round(dmin, 2), "q": round(q, 5),
+            "selo": selo_da_linha(p, q), "poder_suficiente": abs(d) >= dmin,
+            "nome": NOME_PT[traco], "placar_redescrito": traco in PLACAR_REDESCRITO}
+
+
+def testes_repete(P, linha_p90, fronteira):
+    """Família 1 (T03-1): o traço cai do mesmo lado do meio da tabela nos dois clubes do mesmo
+    treinador mais vezes do que o acaso?
+
+    `cru_a` é a proporção medida de comparações do mesmo lado; `cru_b`, a média da mesma
+    proporção sob o embaralhamento do rótulo de treinador (que preserva clube e número de
+    passagens por nome). `d` é a distância entre as duas em desvios-padrão do embaralhamento,
+    para caber na mesma coluna que o d de Cohen das outras partes; por isso o menor efeito
+    detectável a 80% de poder é exatamente z(0,975)+z(0,80). O IC95 reamostra TREINADORES, não
+    comparações: as 102 comparações não são 102 observações independentes.
+    """
+    _, clubes, tecs, rho, sinal = matriz_do_perfil(P)
+    grupos = pares_entre_clubes(tecs, clubes)
+    _, _, prop, n_pares, _ = estatisticas_do_rotulo(grupos, rho, sinal, linha_p90)
+
+    rng = np.random.default_rng(SEMENTE_MARCADORES)
+    nulo = np.array([estatisticas_do_rotulo(pares_entre_clubes(rng.permutation(tecs), clubes),
+                                            rho, sinal, linha_p90)[2]
+                     for _ in range(REPS_FAMILIA)])
+    ps = [(1 + int(np.sum(nulo[:, i] >= prop[i]))) / (1 + REPS_FAMILIA)
+          for i in range(len(TRACO_SINAL))]
+    qs = _metodo.bh(ps)
+
+    rng_b = np.random.default_rng(SEMENTE_MARCADORES)
+    boot = np.array([estatisticas_do_rotulo([grupos[i] for i in
+                                             rng_b.integers(0, len(grupos), len(grupos))],
+                                            rho, sinal, linha_p90)[2]
+                     for _ in range(REPS_BOOT)])
+    media, desvio = nulo.mean(axis=0), nulo.std(axis=0, ddof=1)
+
+    linhas = []
+    for i, t in enumerate(TRACO_SINAL):
+        d = (prop[i] - media[i]) / desvio[i]
+        lo, hi = np.percentile((boot[:, i] - media[i]) / desvio[i], [2.5, 97.5])
+        linhas.append(_linha(fronteira, "repete_entre_clubes", "TT", t, n_pares, len(P),
+                             float(prop[i]), float(media[i]), float(d), (float(lo), float(hi)),
+                             ps[i], Z_POTENCIA_80, qs[i]))
+    return linhas
+
+
+def testes_antes_depois(A, fronteira):
+    """Família 2 (T03-2): a chegada do treinador puxa o traço para um lado só?
+
+    `cru_a` e `cru_b` são a mediana do percentil antes e depois; `d` é o efeito padronizado do
+    desenho pareado (média da mudança sobre o desvio-padrão dela), e `d_minimo_80` o menor efeito
+    que esse desenho enxergaria com 80% de poder. O IC95 reamostra CLUBES: as trocas se
+    sobrepõem, porque o "depois" de uma vira o "antes" da seguinte.
+    """
+    por_clube = collections.defaultdict(list)
+    for l in A:
+        por_clube[l["clube"]].append(l)
+    nomes = list(por_clube)
+    rng_b = np.random.default_rng(SEMENTE_MARCADORES)
+    amostras = [rng_b.choice(nomes, len(nomes), replace=True) for _ in range(REPS_BOOT)]
+
+    def dz(v):
+        s = float(np.std(v, ddof=1))
+        return float(np.mean(v)) / s if s else 0.0
+
+    ps, cru, efeito, ics, ns = [], [], [], [], []
+    for t in TRACO_SINAL:
+        v = [l[t + "_mudou"] for l in A if l[t + "_mudou"] is not None]
+        ps.append(float(stats.wilcoxon(v)[1]))
+        cru.append((float(np.median([l[t + "_antes"] for l in A if l[t + "_antes"] is not None])),
+                    float(np.median([l[t + "_depois"] for l in A
+                                     if l[t + "_depois"] is not None]))))
+        efeito.append(dz(v))
+        ns.append(len(v))
+        b = []
+        for am in amostras:
+            vv = [l[t + "_mudou"] for c in am for l in por_clube[c] if l[t + "_mudou"] is not None]
+            if len(vv) > 2:
+                b.append(dz(vv))
+        ics.append((float(np.percentile(b, 2.5)), float(np.percentile(b, 97.5))))
+    qs = _metodo.bh(ps)
+
+    return [_linha(fronteira, "antes_depois", "AD", t, ns[i], len(nomes), cru[i][0], cru[i][1],
+                   efeito[i], ics[i], ps[i], Z_POTENCIA_80 / math.sqrt(ns[i]), qs[i])
+            for i, t in enumerate(TRACO_SINAL)]
+
+
+def tabela_de_testes(passagens, antes_depois, linha_p90):
+    """Os dois cortes × as duas famílias × os sete traços = 28 linhas de T03_testes.csv.
+
+    A janela é a das quatro temporadas FECHADAS, a mesma dos marcadores e a mesma que o texto
+    publicado declara.
+    """
+    fronteira = clubes_de_fronteira()
+
+    def e_fronteira(l):
+        return fronteira.get((l["temporada"], l["clube"]), False)
+
+    P = [p for p in passagens if p["temporada"] in FECHADAS]
+    A = [l for l in antes_depois if l["temporada"] in FECHADAS]
+    linhas = []
+    for rotulo, filtro in (("com", lambda l: True), ("sem", lambda l: not e_fronteira(l))):
+        linhas += testes_repete([p for p in P if filtro(p)], linha_p90, rotulo)
+        linhas += testes_antes_depois([l for l in A if filtro(l)], rotulo)
+    with open(os.path.join(R, "T03_testes.csv"), "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUNAS_TESTES)
+        w.writeheader()
+        w.writerows(linhas)
+    return linhas
+
+
 def main():
     js = jogos()
     por_ct = collections.defaultdict(list)
@@ -530,6 +679,15 @@ def main():
     print(f"\n{'='*84}\nMARCADORES ({len(numeros)}) → T03_numeros.json\n{'='*84}")
     for k, v in numeros.items():
         print(f"  {k:22s} {v}")
+
+    # ---- 4. a tabela de testes, nos dois cortes de fronteira ----
+    linhas = tabela_de_testes(passagens, antes_depois, numeros["linha_p90"])
+    print(f"\n{'='*84}\nTABELA DE TESTES ({len(linhas)} linhas) → T03_testes.csv\n{'='*84}")
+    print(f"{'corte':5s} {'família':20s} {'traço':22s} {'cru_a':>7s} {'cru_b':>7s} {'d':>7s} "
+          f"{'p':>8s} {'q':>8s}  selo")
+    for l in linhas:
+        print(f"{l['fronteira']:5s} {l['familia']:20s} {l['indicador']:22s} {l['cru_a']:7.3f} "
+              f"{l['cru_b']:7.3f} {l['d']:+7.3f} {l['p']:8.5f} {l['q']:8.5f}  {l['selo']}")
 
 
 if __name__ == "__main__":

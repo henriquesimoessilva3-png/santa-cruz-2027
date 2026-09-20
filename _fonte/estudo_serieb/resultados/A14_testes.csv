@@ -1,0 +1,13 @@
+fronteira,familia,comparacao,grupos,recorte,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,indice,SM,Sobe × Meio,2022-2025 (as quatro fechadas),indice,16,48,78.1,47.8,1.59,"[1.02, 2.39]",1.7501e-05,0.82,1.7501e-05,firme,True,A régua do Bloco A (índice de 7 indicadores),False
+sem,indice,SM,Sobe × Meio,2022-2025 (as quatro fechadas),indice,8,32,83.1,47.0,2.71,"[1.97, 3.77]",3.4733e-07,1.14,3.4733e-07,firme,True,A régua do Bloco A (índice de 7 indicadores),False
+com,validacao,SM,Sobe × Meio,fora de 2022,indice,4,12,85.3,45.6,2.2,"[1.27, 4.06]",0.0052,1.74,0.0104,firme,True,A régua do Bloco A (índice de 7 indicadores),False
+com,validacao,SM,Sobe × Meio,fora de 2023,indice,4,12,59.7,46.4,0.87,"[0.01, 2.42]",0.11491,1.74,0.15322,sem diferença clara,False,A régua do Bloco A (índice de 7 indicadores),False
+com,validacao,SM,Sobe × Meio,fora de 2024,indice,4,12,82.7,46.2,2.77,"[2.07, 4.74]",0.00022,1.74,0.00088,firme,True,A régua do Bloco A (índice de 7 indicadores),False
+com,validacao,SM,Sobe × Meio,fora de 2025,indice,4,12,64.7,50.8,0.74,"[-0.7, 3.1]",0.3901,1.74,0.3901,sem diferença clara,False,A régua do Bloco A (índice de 7 indicadores),False
+sem,validacao,SM,Sobe × Meio,fora de 2022,indice,4,9,85.3,49.6,2.18,"[1.15, 4.71]",0.00667,1.85,0.00667,firme,True,A régua do Bloco A (índice de 7 indicadores),False
+sem,validacao,SM,Sobe × Meio,fora de 2023,indice,1,5,79.3,38.7,,,,,,"grupo de 1: sem variância, sem teste",,A régua do Bloco A (índice de 7 indicadores),False
+sem,validacao,SM,Sobe × Meio,fora de 2024,indice,1,10,88.5,40.9,,,,,,"grupo de 1: sem variância, sem teste",,A régua do Bloco A (índice de 7 indicadores),False
+sem,validacao,SM,Sobe × Meio,fora de 2025,indice,2,8,80.3,50.8,2.68,"[1.85, 13.06]",0.00016,2.53,0.00032,firme,True,A régua do Bloco A (índice de 7 indicadores),False
+com,regulamento_2026,DR,1º-2º × 3º-6º,2022-2025 (as quatro fechadas),indice,8,16,79.4,56.3,0.94,"[0.29, 1.95]",0.014525,1.27,0.014525,firme,False,A régua do Bloco A (índice de 7 indicadores),False
+sem,regulamento_2026,DR,1º-2º × 3º-6º,2022-2025 (as quatro fechadas),indice,6,4,80.3,68.4,0.84,"[-0.94, 3.52]",0.35119,2.07,0.35119,sem diferença clara,False,A régua do Bloco A (índice de 7 indicadores),False

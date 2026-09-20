@@ -54,6 +54,28 @@ PERFIL_BARATO = {"ppda": (10.0, 13.2), "posse": (47.0, 52.0), "passe_longo_pct":
 SAIDA_NUMEROS = "A12_numeros.json"
 GERADO_EM = "2026-09-20"
 
+# ----------------------------------------------------------------------------------------------
+# A tabela de testes — regras 2 e 3 do portão
+# ----------------------------------------------------------------------------------------------
+# Acrescentado em 20/09. A comparação das nove réguas nos DOIS cortes de fronteira já rodava desde
+# sempre (o `comparar()` abaixo, com os filtros "com" e "sem"); o que faltava era gravá-la no nome
+# canônico `A12_testes.csv`, que é onde o portão procura a prova de que os dois cortes rodaram.
+# NÃO muda nenhum número: é a mesma lista de linhas que vai para `A12_reguas.csv`, acrescida das
+# duas colunas que faltavam para o cabeçalho canônico (copiado de A07_testes.csv).
+#
+# `A12_reguas.csv` continua sendo gravado com as 15 colunas de sempre, byte a byte, porque três
+# conclusões o citam como prova.
+CAMPOS_DA_REGUA = ["fronteira", "familia", "comparacao", "indicador", "n_a", "n_b", "cru_a",
+                   "cru_b", "d", "ic95_d", "p", "d_minimo_80", "q", "selo", "poder_suficiente"]
+CAMPOS_DO_TESTE = CAMPOS_DA_REGUA + ["nome", "placar_redescrito"]
+SAIDA_TESTES = "A12_testes.csv"
+
+# `placar_redescrito` é a lista branca do RESULTADO redescrito ("isto é o placar, não é
+# característica": gols, pontos, saldo), e não "indicador que muda com o placar". Nenhuma das nove
+# réguas é o resultado contado de outro jeito — a mais próxima, E_qualidade_chance, mede de onde o
+# time finaliza, não quanto marcou. Por isso a coluna sai False nas 54 linhas, como em A05 e A07.
+PLACAR_REDESCRITO = set()
+
 # Os nomes das réguas na linguagem da Didática, para as frases `separam`/`nao_separam`.
 NOME_DA_REGUA = {
     "A_posse_construcao": "construção com bola", "B_pressao_ritmo": "pressão e ritmo",
@@ -294,8 +316,19 @@ def main():
     filtros = [("com", lambda l: True), ("sem", lambda l: not l["fronteira"])]
     res = comparar(fechadas, familias, comparacoes, filtros, RNG, lambda i: 1)
     with open(os.path.join(R, "A12_reguas.csv"), "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(res[0]))
+        w = csv.DictWriter(f, fieldnames=CAMPOS_DA_REGUA, extrasaction="ignore")
         w.writeheader(); w.writerows(res)
+    # A mesma tabela, no nome e no cabeçalho canônicos. `nome` traz a régua na linguagem da
+    # Didática, para o texto da conclusão poder ser amarrado à linha que o sustenta.
+    for it in res:
+        it["nome"] = NOME_DA_REGUA[it["indicador"]]
+        it["placar_redescrito"] = it["indicador"] in PLACAR_REDESCRITO
+    with open(os.path.join(R, SAIDA_TESTES), "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=CAMPOS_DO_TESTE)
+        w.writeheader(); w.writerows(res)
+    print(f"{len(res)} linhas de teste gravadas em resultados/{SAIDA_TESTES} "
+          f"({len([r for r in res if r['fronteira'] == 'com'])} com fronteira, "
+          f"{len([r for r in res if r['fronteira'] == 'sem'])} sem)")
     por = collections.defaultdict(dict)
     for r in res:
         por[(r["comparacao"], r["indicador"])][r["fronteira"]] = r

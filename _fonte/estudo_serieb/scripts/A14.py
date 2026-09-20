@@ -16,6 +16,11 @@ Quatro passos:
 4. **Aplicar a 2026**, informando a rodada. E como em 2026 só 1º e 2º sobem direto, verificar
    também se a régua separa 1º–2º de 3º–6º — com 8 times-temporada em 1º–2º nas quatro fechadas,
    isso é indicativo, como o md manda dizer.
+5. **Gravar a tabela de testes** (`resultados/A14_testes.csv`), com os dois cortes de fronteira
+   lado a lado. Não é teste novo: é a mesma comparação dos passos 3, 3b e 4 escrita em tabela, mais
+   o corte sem fronteira do 1º–2º contra 3º–6º, que faltava e que a régua da fronteira exige de
+   toda comparação entre faixas. O indicador é um só — a régua. Os sete componentes não entram:
+   quem os testou foram A02, A03, A06 e A12.
 
 Uso:
     python3 _fonte/estudo_serieb/scripts/A14.py
@@ -32,7 +37,7 @@ from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from _metodo import bh, cohen_d, d_minimo, pct, percentil_no_ano  # noqa: E402
+from _metodo import bh, cohen_d, d_minimo, ic_por_clube, pct, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
@@ -46,6 +51,22 @@ REDUNDANCIA = 0.80
 # ano com o mesmo resultado, e data dinâmica só faria o arquivo mudar sem o número mudar.
 NUMEROS_JSON = os.path.join(R, "A14_numeros.json")
 GERADO_EM = "2026-09-20"
+
+# A tabela de testes da parte (regras 2 e 3 do portão, etapa 6 do PLANO.md). Ela NÃO acrescenta
+# teste nenhum: grava, linha a linha, as comparações que este script já rodava e que só existiam
+# soltas no A14_resumo.json e nos marcadores. A coluna `fronteira` é o corte: "com" são os 20 times
+# de cada ano, "sem" tira os times colados na linha do G4/Z4 — é por ela que a regra 3 emparelha.
+TESTES_CSV = os.path.join(R, "A14_testes.csv")
+COLUNAS_TESTES = ["fronteira", "familia", "comparacao", "grupos", "recorte", "indicador",
+                  "n_a", "n_b", "cru_a", "cru_b", "d", "ic95_d", "p", "d_minimo_80", "q",
+                  "selo", "poder_suficiente", "nome", "placar_redescrito"]
+# O indicador desta parte é um só: a régua. Os sete componentes NÃO entram na tabela — quem os
+# testou foram A02, A03, A06 e A12, e republicá-los aqui com outro q é justamente o que a regra 7
+# proíbe.
+INDICADOR = "indice"
+NOME_DO_INDICE = "A régua do Bloco A (índice de 7 indicadores)"
+TODAS = "2022-2025 (as quatro fechadas)"
+RNG = np.random.default_rng(20260917)
 
 # Sai do índice por não ser característica, e sim resultado contado de outro jeito — a mesma régua
 # da lista branca da §6 que já barra o placar redescrito. A régua I_estabilidade_11 é feita só dos
@@ -212,6 +233,68 @@ def base_completa(inds):
     return base
 
 
+def p5(v):
+    """p e q na tabela: cinco algarismos significativos, para que 1,75e-05 não vire 0,00002."""
+    return None if v is None else float(f"{float(v):.5g}")
+
+
+def selo_de(q, p):
+    """O mesmo selo de _metodo.comparar(): firme só depois do BH, nunca pelo p sozinho."""
+    if q is None or p is None:
+        return ""
+    return "firme" if q < 0.05 else ("pode ser sorte" if p < 0.05 else "sem diferença clara")
+
+
+def linha_de_teste(fronteira, familia, comparacao, grupos, recorte, a, b, base_ic=None,
+                   ga=None, gb=None, d=None, p=None, d_min=None):
+    """Uma linha da tabela de testes. `d`, `p` e `d_min` podem vir prontos: as quatro linhas da
+    validação reaproveitam exatamente os valores que este script já calculou e publica, para que a
+    tabela e os marcadores não possam divergir."""
+    if p is None:
+        _, p = stats.ttest_ind(a, b, equal_var=False)
+        p = float(p)
+    if d is None:
+        d = cohen_d(a, b)
+    if d_min is None:
+        d_min = d_minimo(len(a), len(b))
+    ic = ic_por_clube(base_ic, "indice_a14", ga, gb, 1, RNG) if base_ic else (None, None)
+    return {"fronteira": fronteira, "familia": familia, "comparacao": comparacao,
+            "grupos": grupos, "recorte": recorte, "indicador": INDICADOR,
+            "n_a": len(a), "n_b": len(b),
+            "cru_a": round(float(np.median(a)), 1), "cru_b": round(float(np.median(b)), 1),
+            "d": round(float(d), 2), "ic95_d": list(ic), "p": p5(p), "d_minimo_80": d_min,
+            "q": None, "selo": "", "poder_suficiente": abs(float(d)) >= d_min,
+            "nome": NOME_DO_INDICE, "placar_redescrito": False}
+
+
+def linha_sem_teste(fronteira, familia, comparacao, grupos, recorte, a, b, motivo):
+    """O corte que não tem times para comparar. Célula em branco de propósito: a regra 3 do portão
+    lê branco como “este corte não publicou resultado”, que é a verdade, e não como concordância."""
+    return {"fronteira": fronteira, "familia": familia, "comparacao": comparacao,
+            "grupos": grupos, "recorte": recorte, "indicador": INDICADOR,
+            "n_a": len(a), "n_b": len(b),
+            "cru_a": round(float(np.median(a)), 1) if a else None,
+            "cru_b": round(float(np.median(b)), 1) if b else None,
+            "d": None, "ic95_d": None, "p": None, "d_minimo_80": None, "q": None,
+            "selo": motivo, "poder_suficiente": None, "nome": NOME_DO_INDICE,
+            "placar_redescrito": False}
+
+
+def fechar_familia(linhas):
+    """BH a 5% dentro da família, como manda a §6. Família = um pilar × uma comparação × um corte,
+    que é a mesma conta de _metodo.comparar(): o loop do corte é o de fora, e cada corte corrige
+    dentro de si. As quatro linhas da validação já vêm com o q calculado no passo 3; aqui só se
+    fecham as famílias que ainda não têm."""
+    pendentes = [l for l in linhas if l["q"] is None and l["p"] is not None]
+    for l, q in zip(pendentes, bh([l["p"] for l in pendentes])):
+        l["q"] = p5(q)
+    for l in linhas:
+        if not l["selo"]:
+            l["selo"] = selo_de(l["q"], l["p"])
+    return linhas
+
+
+
 def main():
     cands = candidatos()
     inds = [c["indicador"] for c in cands]
@@ -308,6 +391,8 @@ def main():
 
     # ---- geral ----
     ind_f = indice(fech, fica)
+    for l in fech:
+        l["indice_a14"] = ind_f[(l["temporada"], l["clube"])]   # para o IC95 por clube da tabela
     grupos = {fx: [v for (a, c), v in ind_f.items()
                    if next(l for l in fech if l["temporada"] == a and l["clube"] == c)["faixa"] == fx]
               for fx in ("Sobe", "Meio", "Cai")}
@@ -348,6 +433,10 @@ def main():
     d36 = [v for (a, c), v in ind_f.items()
            if 3 <= next(l for l in fech if l["temporada"] == a and l["clube"] == c)["pos"] <= 6]
     _, p12 = stats.ttest_ind(d12, d36, equal_var=False)
+    # e a mesma dupla da ponta sem os times colados na linha, que é o corte que a regra da
+    # fronteira exige de toda comparação entre faixas
+    d12_sf = ind_de([l for l in fech if l["pos"] <= 2 and not l["fronteira"]])
+    d36_sf = ind_de([l for l in fech if 3 <= l["pos"] <= 6 and not l["fronteira"]])
 
     # ---- 4. 2026 ----
     b26 = [l for l in base if l["temporada"] == "2026"]
@@ -470,6 +559,69 @@ def main():
     json.dump({"gerado_por": "scripts/A14.py", "gerado_em": GERADO_EM, "numeros": numeros},
               open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
+    # ---- 6. a tabela de testes, para o portão e para quem confere à mão ----
+    # Nada aqui é teste novo: são as MESMAS comparações dos passos 3, 3b e 4, agora numa tabela com
+    # os dois cortes lado a lado. As quatro linhas da validação reaproveitam d, p, q e o mínimo
+    # detectável já calculados acima, para que a tabela não possa divergir dos marcadores.
+    def so(faixa, sem_fronteira=False, ano=None):
+        def f(l):
+            return (l["faixa"] == faixa
+                    and (not sem_fronteira or not l["fronteira"])
+                    and (ano is None or l["temporada"] == ano))
+        return f
+
+    def por_posto(lo, hi, sem_fronteira=False):
+        def f(l):
+            return lo <= l["pos"] <= hi and (not sem_fronteira or not l["fronteira"])
+        return f
+
+    testes = []
+    # família 1: a régua inteira, Sobe × Meio nas quatro fechadas
+    testes += fechar_familia([linha_de_teste(
+        "com", "indice", "SM", "Sobe × Meio", TODAS, grupos["Sobe"], grupos["Meio"],
+        fech, so("Sobe"), so("Meio"))])
+    testes += fechar_familia([linha_de_teste(
+        "sem", "indice", "SM", "Sobe × Meio", TODAS, sobe_sf, meio_sf,
+        fech, so("Sobe", True), so("Meio", True))])
+
+    # família 2: a validação deixando uma temporada de fora, uma linha por temporada
+    for rot, fonte, sf in (("com", val, False), ("sem", val_sf, True)):
+        linhas = []
+        for v in fonte:
+            ano = v["temporada_de_fora"]
+            do_ano = [l for l in fech if l["temporada"] == ano and (not sf or not l["fronteira"])]
+            a = ind_de([l for l in do_ano if l["faixa"] == "Sobe"])
+            b = ind_de([l for l in do_ano if l["faixa"] == "Meio"])
+            recorte = f"fora de {ano}"
+            if "p" not in v:
+                linhas.append(linha_sem_teste(rot, "validacao", "SM", "Sobe × Meio", recorte,
+                                              a, b, v["sem_teste"]))
+                continue
+            l = linha_de_teste(rot, "validacao", "SM", "Sobe × Meio", recorte, a, b, do_ano,
+                               so("Sobe", sf, ano), so("Meio", sf, ano),
+                               d=v["d"], p=v["p"], d_min=v["d_minimo_80"])
+            l["q"] = v["q"]
+            linhas.append(l)
+        testes += fechar_familia(linhas)
+
+    # família 3: a dupla da ponta contra o resto do G6, que é o regulamento de 2026
+    testes += fechar_familia([linha_de_teste(
+        "com", "regulamento_2026", "DR", "1º-2º × 3º-6º", TODAS, d12, d36,
+        fech, por_posto(1, 2), por_posto(3, 6), p=float(p12))])
+    if len(d12_sf) >= 2 and len(d36_sf) >= 2:
+        testes += fechar_familia([linha_de_teste(
+            "sem", "regulamento_2026", "DR", "1º-2º × 3º-6º", TODAS, d12_sf, d36_sf,
+            fech, por_posto(1, 2, True), por_posto(3, 6, True))])
+    else:
+        testes.append(linha_sem_teste("sem", "regulamento_2026", "DR", "1º-2º × 3º-6º", TODAS,
+                                      d12_sf, d36_sf, "grupo de 1: sem variância, sem teste"))
+
+    with open(TESTES_CSV, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=COLUNAS_TESTES)
+        w.writeheader()
+        for l in testes:
+            w.writerow({c: ("" if l[c] is None else l[c]) for c in COLUNAS_TESTES})
+
     print(f"\n{'='*74}\nO ÍNDICE, por faixa (2022-2025)\n{'='*74}")
     print(f"  Sobe {np.median(grupos['Sobe']):.1f} · Trave {np.median(tr):.1f} · "
           f"Meio {np.median(grupos['Meio']):.1f} · Cai {np.median(grupos['Cai']):.1f}"
@@ -488,6 +640,9 @@ def main():
         marca = " ←G4" if t["pos"] <= 4 else ""
         print(f"{t['indice']:7.1f} {t['pos']:4d} {t['pontos']:4d}  {t['clube']}{marca}")
     print(f"\n{len(numeros)} marcadores gravados em resultados/A14_numeros.json")
+    print(f"{len(testes)} linhas de teste gravadas em resultados/A14_testes.csv "
+          f"({sum(1 for l in testes if l['fronteira'] == 'com')} com fronteira e "
+          f"{sum(1 for l in testes if l['fronteira'] == 'sem')} sem)")
 
 
 if __name__ == "__main__":

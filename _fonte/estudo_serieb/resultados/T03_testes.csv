@@ -1,0 +1,29 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,repete_entre_clubes,TT,dist_remate,102,126,0.618,0.472,3.106,"[-0.55, 6.29]",0.004,2.8,0.014,firme,True,distância do remate,False
+com,repete_entre_clubes,TT,entradas_area,102,126,0.529,0.489,0.867,"[-0.95, 2.97]",0.19295,2.8,0.45022,sem diferença clara,False,entradas na área,False
+com,repete_entre_clubes,TT,duelo_def,102,126,0.431,0.467,-0.757,"[-2.25, 0.78]",0.76106,2.8,0.83454,sem diferença clara,False,duelo defensivo,False
+com,repete_entre_clubes,TT,xg,102,126,0.48,0.455,0.57,"[-1.68, 2.95]",0.27243,2.8,0.47676,sem diferença clara,False,xG criado,True
+com,repete_entre_clubes,TT,xg_contra,102,126,0.402,0.44,-0.827,"[-2.75, 1.29]",0.78605,2.8,0.83454,sem diferença clara,False,xG sofrido,True
+com,repete_entre_clubes,TT,xg_por_remate,102,126,0.608,0.43,3.81,"[0.5, 6.97]",0.0005,2.8,0.0035,firme,True,xG por remate,False
+com,repete_entre_clubes,TT,xg_por_remate_contra,102,126,0.412,0.456,-0.954,"[-2.66, 0.83]",0.83454,2.8,0.83454,sem diferença clara,False,xG por remate sofrido,False
+com,antes_depois,AD,dist_remate,66,31,50.0,52.5,0.047,"[-0.2, 0.31]",0.49291,0.34,0.95523,sem diferença clara,False,distância do remate,False
+com,antes_depois,AD,entradas_area,66,31,45.0,40.0,-0.112,"[-0.37, 0.16]",0.40814,0.34,0.95523,sem diferença clara,False,entradas na área,False
+com,antes_depois,AD,duelo_def,66,31,42.5,45.0,0.035,"[-0.25, 0.34]",0.78932,0.34,0.95523,sem diferença clara,False,duelo defensivo,False
+com,antes_depois,AD,xg,66,31,50.0,42.5,-0.072,"[-0.31, 0.21]",0.93989,0.34,0.95523,sem diferença clara,False,xG criado,True
+com,antes_depois,AD,xg_contra,66,31,45.0,45.0,0.064,"[-0.19, 0.34]",0.55106,0.34,0.95523,sem diferença clara,False,xG sofrido,True
+com,antes_depois,AD,xg_por_remate,66,31,40.0,50.0,0.109,"[-0.17, 0.4]",0.31231,0.34,0.95523,sem diferença clara,False,xG por remate,False
+com,antes_depois,AD,xg_por_remate_contra,66,31,47.5,50.0,-0.017,"[-0.23, 0.19]",0.95523,0.34,0.95523,sem diferença clara,False,xG por remate sofrido,False
+sem,repete_entre_clubes,TT,dist_remate,32,81,0.5,0.453,0.558,"[-1.44, 2.8]",0.30867,2.8,0.56686,sem diferença clara,False,distância do remate,False
+sem,repete_entre_clubes,TT,entradas_area,32,81,0.531,0.499,0.387,"[-1.61, 2.66]",0.32392,2.8,0.56686,sem diferença clara,False,entradas na área,False
+sem,repete_entre_clubes,TT,duelo_def,32,81,0.406,0.471,-0.777,"[-2.86, 1.41]",0.77081,2.8,0.77081,sem diferença clara,False,duelo defensivo,False
+sem,repete_entre_clubes,TT,xg,32,81,0.531,0.444,1.033,"[-1.03, 3.62]",0.13622,2.8,0.50562,sem diferença clara,False,xG criado,True
+sem,repete_entre_clubes,TT,xg_contra,32,81,0.438,0.435,0.026,"[-2.25, 2.4]",0.48888,2.8,0.68443,sem diferença clara,False,xG sofrido,True
+sem,repete_entre_clubes,TT,xg_por_remate,32,81,0.5,0.404,1.166,"[-1.18, 3.61]",0.14446,2.8,0.50562,sem diferença clara,False,xG por remate,False
+sem,repete_entre_clubes,TT,xg_por_remate_contra,32,81,0.406,0.453,-0.553,"[-2.42, 1.62]",0.69458,2.8,0.77081,sem diferença clara,False,xG por remate sofrido,False
+sem,antes_depois,AD,dist_remate,44,25,35.0,35.0,0.116,"[-0.12, 0.39]",0.33322,0.42,0.80477,sem diferença clara,False,distância do remate,False
+sem,antes_depois,AD,entradas_area,44,25,40.0,37.5,-0.122,"[-0.4, 0.21]",0.52934,0.42,0.80477,sem diferença clara,False,entradas na área,False
+sem,antes_depois,AD,duelo_def,44,25,42.5,42.5,0.078,"[-0.22, 0.44]",0.64793,0.42,0.80477,sem diferença clara,False,duelo defensivo,False
+sem,antes_depois,AD,xg,44,25,45.0,45.0,0.014,"[-0.25, 0.3]",0.6898,0.42,0.80477,sem diferença clara,False,xG criado,True
+sem,antes_depois,AD,xg_contra,44,25,50.0,45.0,-0.009,"[-0.38, 0.33]",0.82299,0.42,0.82299,sem diferença clara,False,xG sofrido,True
+sem,antes_depois,AD,xg_por_remate,44,25,40.0,55.0,0.244,"[-0.06, 0.58]",0.10222,0.42,0.71551,sem diferença clara,False,xG por remate,False
+sem,antes_depois,AD,xg_por_remate_contra,44,25,47.5,40.0,-0.126,"[-0.39, 0.13]",0.45182,0.42,0.80477,sem diferença clara,False,xG por remate sofrido,False

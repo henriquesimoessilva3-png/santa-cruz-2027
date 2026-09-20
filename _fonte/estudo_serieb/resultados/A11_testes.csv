@@ -1,0 +1,50 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,medida_nome,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,sem_bola,esforco_x_efeito,fis_m_per_min_otip×ppda,80,80,147.024,10.277,-0.503,rho de Spearman,"[-0.65, -0.32]",0.0,0.309,1e-05,firme,True,Metros por minuto sem posse × PPDA,True
+com,sem_bola,esforco_x_efeito,fis_m_per_min_otip×recuperacoes,80,80,147.024,77.995,0.13,rho de Spearman,"[-0.09, 0.34]",0.24983,0.309,0.29979,sem relação clara,False,Metros por minuto sem posse × recuperações,True
+com,sem_bola,esforco_x_efeito,fis_m_per_min_otip×xg_contra,80,80,147.024,1.196,-0.27,rho de Spearman,"[-0.46, -0.05]",0.01561,0.309,0.03122,firme,False,Metros por minuto sem posse × xG sofrido,True
+com,sem_bola,esforco_x_efeito,fis_sprint_distance_p30otip×ppda,80,80,99.863,10.277,-0.633,rho de Spearman,"[-0.75, -0.48]",0.0,0.309,0.0,firme,True,Sprint sem posse × PPDA,True
+com,sem_bola,esforco_x_efeito,fis_sprint_distance_p30otip×recuperacoes,80,80,99.863,77.995,0.014,rho de Spearman,"[-0.21, 0.23]",0.90156,0.309,0.90156,sem relação clara,False,Sprint sem posse × recuperações,True
+com,sem_bola,esforco_x_efeito,fis_sprint_distance_p30otip×xg_contra,80,80,99.863,1.196,-0.141,rho de Spearman,"[-0.35, 0.08]",0.21105,0.309,0.29979,sem relação clara,False,Sprint sem posse × xG sofrido,True
+com,com_bola,esforco_x_efeito,fis_m_per_min_tip×entradas_area,80,80,135.962,21.817,0.042,rho de Spearman,"[-0.18, 0.26]",0.70893,0.309,0.90418,sem relação clara,False,Metros por minuto com posse × entradas na área,True
+com,com_bola,esforco_x_efeito,fis_m_per_min_tip×xg,80,80,135.962,1.196,-0.014,rho de Spearman,"[-0.23, 0.21]",0.90418,0.309,0.90418,sem relação clara,False,Metros por minuto com posse × xG criado,True
+com,com_bola,esforco_x_efeito,fis_sprint_distance_p30tip×entradas_area,80,80,96.722,21.817,-0.033,rho de Spearman,"[-0.25, 0.19]",0.7705,0.309,0.90418,sem relação clara,False,Sprint com posse × entradas na área,True
+com,com_bola,esforco_x_efeito,fis_sprint_distance_p30tip×xg,80,80,96.722,1.196,0.209,rho de Spearman,"[-0.01, 0.41]",0.06256,0.309,0.12511,sem relação clara,False,Sprint com posse × xG criado,True
+com,com_bola,esforco_x_efeito,fis_runs_penalty_area_p30tip×entradas_area,80,80,3.047,21.817,0.467,rho de Spearman,"[0.28, 0.62]",1e-05,0.309,4e-05,firme,True,Corridas para a área × entradas na área,True
+com,com_bola,esforco_x_efeito,fis_runs_penalty_area_p30tip×xg,80,80,3.047,1.196,0.499,rho de Spearman,"[0.31, 0.65]",0.0,0.309,1e-05,firme,True,Corridas para a área × xG criado,True
+com,resultado,esforco_x_efeito,fis_distance_p90×dist_g4,80,80,9572.503,-11.55,0.097,rho de Spearman,"[-0.13, 0.31]",0.39151,0.309,0.48938,sem relação clara,False,Distância por 90 min × distância ao G4,True
+com,resultado,esforco_x_efeito,fis_hi_distance_p90×dist_g4,80,80,652.152,-11.55,0.258,rho de Spearman,"[0.04, 0.45]",0.02061,0.309,0.05153,pode ser sorte,False,Distância em alta intensidade × distância ao G4,True
+com,resultado,esforco_x_efeito,fis_sprint_distance_p90×dist_g4,80,80,164.798,-11.55,0.288,rho de Spearman,"[0.07, 0.48]",0.00954,0.309,0.04769,firme,False,Sprint por 90 × distância ao G4,True
+com,resultado,esforco_x_efeito,fis_m_per_min_otip×dist_g4,80,80,147.024,-11.55,0.218,rho de Spearman,"[-0.0, 0.42]",0.05157,0.309,0.08595,sem relação clara,False,Metros por minuto sem posse × distância ao G4,True
+com,resultado,esforco_x_efeito,fis_m_per_min_tip×dist_g4,80,80,135.962,-11.55,0.001,rho de Spearman,"[-0.22, 0.22]",0.9901,0.309,0.9901,sem relação clara,False,Metros por minuto com posse × distância ao G4,True
+com,tec_media,SM_tec_media,fis_distance_p90,4,18,9606.758,9581.676,0.091,d de Cohen,"[-0.64, 0.86]",0.80392,1.63,0.98515,sem diferença clara,False,Distância por 90 min (m),True
+com,tec_media,SM_tec_media,fis_hi_distance_p90,4,18,673.562,660.784,0.16,d de Cohen,"[-0.99, 1.19]",0.79413,1.63,0.98515,sem diferença clara,False,Distância em alta intensidade por 90 (m),True
+com,tec_media,SM_tec_media,fis_sprint_distance_p90,4,18,172.305,167.579,0.013,d de Cohen,"[-1.04, 1.18]",0.98515,1.63,0.98515,sem diferença clara,False,Distância em sprint por 90 (m),True
+com,tec_media,SM_tec_media,fis_m_per_min_otip,4,18,150.128,146.879,0.396,d de Cohen,"[-0.8, 1.53]",0.51254,1.63,0.98515,sem diferença clara,False,Metros por minuto SEM posse,True
+com,tec_media,SM_tec_media,fis_m_per_min_tip,4,18,137.487,136.954,0.313,d de Cohen,"[-0.33, 1.05]",0.38888,1.63,0.98515,sem diferença clara,False,Metros por minuto COM posse,True
+com,tec_alta,SM_tec_alta,fis_distance_p90,12,15,9614.363,9620.1,-0.126,d de Cohen,"[-0.97, 0.57]",0.75079,1.13,0.95148,sem diferença clara,False,Distância por 90 min (m),True
+com,tec_alta,SM_tec_alta,fis_hi_distance_p90,12,15,663.169,660.86,-0.024,d de Cohen,"[-0.86, 0.68]",0.95148,1.13,0.95148,sem diferença clara,False,Distância em alta intensidade por 90 (m),True
+com,tec_alta,SM_tec_alta,fis_sprint_distance_p90,12,15,165.187,167.347,-0.274,d de Cohen,"[-1.11, 0.39]",0.47546,1.13,0.95148,sem diferença clara,False,Distância em sprint por 90 (m),True
+com,tec_alta,SM_tec_alta,fis_m_per_min_otip,12,15,148.478,147.672,0.325,d de Cohen,"[-0.49, 1.24]",0.40144,1.13,0.95148,sem diferença clara,False,Metros por minuto SEM posse,True
+com,tec_alta,SM_tec_alta,fis_m_per_min_tip,12,15,135.574,135.794,0.103,d de Cohen,"[-0.73, 0.94]",0.79296,1.13,0.95148,sem diferença clara,False,Metros por minuto COM posse,True
+sem,sem_bola,esforco_x_efeito,fis_m_per_min_otip×ppda,52,52,146.987,10.254,-0.48,rho de Spearman,"[-0.67, -0.24]",0.00032,0.38,0.00096,firme,True,Metros por minuto sem posse × PPDA,True
+sem,sem_bola,esforco_x_efeito,fis_m_per_min_otip×recuperacoes,52,52,146.987,77.552,0.105,rho de Spearman,"[-0.17, 0.37]",0.45801,0.38,0.45801,sem relação clara,False,Metros por minuto sem posse × recuperações,True
+sem,sem_bola,esforco_x_efeito,fis_m_per_min_otip×xg_contra,52,52,146.987,1.207,-0.108,rho de Spearman,"[-0.37, 0.17]",0.44625,0.38,0.45801,sem relação clara,False,Metros por minuto sem posse × xG sofrido,True
+sem,sem_bola,esforco_x_efeito,fis_sprint_distance_p30otip×ppda,52,52,100.947,10.254,-0.715,rho de Spearman,"[-0.83, -0.55]",0.0,0.38,0.0,firme,True,Sprint sem posse × PPDA,True
+sem,sem_bola,esforco_x_efeito,fis_sprint_distance_p30otip×recuperacoes,52,52,100.947,77.552,0.114,rho de Spearman,"[-0.16, 0.38]",0.41963,0.38,0.45801,sem relação clara,False,Sprint sem posse × recuperações,True
+sem,sem_bola,esforco_x_efeito,fis_sprint_distance_p30otip×xg_contra,52,52,100.947,1.207,-0.149,rho de Spearman,"[-0.41, 0.13]",0.29201,0.38,0.45801,sem relação clara,False,Sprint sem posse × xG sofrido,True
+sem,com_bola,esforco_x_efeito,fis_m_per_min_tip×entradas_area,52,52,135.688,21.539,-0.013,rho de Spearman,"[-0.28, 0.26]",0.92788,0.38,0.92788,sem relação clara,False,Metros por minuto com posse × entradas na área,True
+sem,com_bola,esforco_x_efeito,fis_m_per_min_tip×xg,52,52,135.688,1.169,-0.063,rho de Spearman,"[-0.33, 0.21]",0.65977,0.38,0.82995,sem relação clara,False,Metros por minuto com posse × xG criado,True
+sem,com_bola,esforco_x_efeito,fis_sprint_distance_p30tip×entradas_area,52,52,96.414,21.539,-0.056,rho de Spearman,"[-0.32, 0.22]",0.69162,0.38,0.82995,sem relação clara,False,Sprint com posse × entradas na área,True
+sem,com_bola,esforco_x_efeito,fis_sprint_distance_p30tip×xg,52,52,96.414,1.169,0.201,rho de Spearman,"[-0.08, 0.45]",0.15228,0.38,0.30456,sem relação clara,False,Sprint com posse × xG criado,True
+sem,com_bola,esforco_x_efeito,fis_runs_penalty_area_p30tip×entradas_area,52,52,3.012,21.539,0.481,rho de Spearman,"[0.24, 0.67]",0.00031,0.38,0.00093,firme,True,Corridas para a área × entradas na área,True
+sem,com_bola,esforco_x_efeito,fis_runs_penalty_area_p30tip×xg,52,52,3.012,1.169,0.497,rho de Spearman,"[0.26, 0.68]",0.00018,0.38,0.00093,firme,True,Corridas para a área × xG criado,True
+sem,resultado,esforco_x_efeito,fis_distance_p90×dist_g4,52,52,9564.897,-13.173,0.011,rho de Spearman,"[-0.26, 0.28]",0.93779,0.38,0.93779,sem relação clara,False,Distância por 90 min × distância ao G4,True
+sem,resultado,esforco_x_efeito,fis_hi_distance_p90×dist_g4,52,52,652.725,-13.173,0.249,rho de Spearman,"[-0.03, 0.49]",0.07489,0.38,0.16934,sem relação clara,False,Distância em alta intensidade × distância ao G4,True
+sem,resultado,esforco_x_efeito,fis_sprint_distance_p90×dist_g4,52,52,165.647,-13.173,0.348,rho de Spearman,"[0.08, 0.57]",0.01154,0.38,0.05771,pode ser sorte,False,Sprint por 90 × distância ao G4,True
+sem,resultado,esforco_x_efeito,fis_m_per_min_otip×dist_g4,52,52,146.987,-13.173,0.078,rho de Spearman,"[-0.2, 0.34]",0.58045,0.38,0.72556,sem relação clara,False,Metros por minuto sem posse × distância ao G4,True
+sem,resultado,esforco_x_efeito,fis_m_per_min_tip×dist_g4,52,52,135.688,-13.173,-0.23,rho de Spearman,"[-0.47, 0.05]",0.1016,0.38,0.16934,sem relação clara,False,Metros por minuto com posse × distância ao G4,True
+sem,tec_alta,SM_tec_alta,fis_distance_p90,7,9,9610.69,9632.014,-0.236,d de Cohen,"[-1.48, 0.87]",0.66236,1.52,0.82796,sem diferença clara,False,Distância por 90 min (m),True
+sem,tec_alta,SM_tec_alta,fis_hi_distance_p90,7,9,666.779,657.792,0.249,d de Cohen,"[-0.83, 1.53]",0.63224,1.52,0.82796,sem diferença clara,False,Distância em alta intensidade por 90 (m),True
+sem,tec_alta,SM_tec_alta,fis_sprint_distance_p90,7,9,168.4,167.98,0.099,d de Cohen,"[-0.98, 1.12]",0.84287,1.52,0.84287,sem diferença clara,False,Distância em sprint por 90 (m),True
+sem,tec_alta,SM_tec_alta,fis_m_per_min_otip,7,9,148.623,147.321,0.312,d de Cohen,"[-0.72, 2.11]",0.54006,1.52,0.82796,sem diferença clara,False,Metros por minuto SEM posse,True
+sem,tec_alta,SM_tec_alta,fis_m_per_min_tip,7,9,135.575,135.249,0.278,d de Cohen,"[-0.95, 1.88]",0.6191,1.52,0.82796,sem diferença clara,False,Metros por minuto COM posse,True

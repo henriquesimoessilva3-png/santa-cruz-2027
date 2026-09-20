@@ -1,0 +1,9 @@
+fronteira,familia,comparacao,indicador,unidade,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,elenco,CM,usados,clube-temporada,16,48,47.0,38.0,1.099,"[0.46, 1.92]",0.00091,0.82,0.00365,firme,True,Jogadores usados,False
+com,elenco,SM,usados,clube-temporada,16,48,35.5,38.0,-0.393,"[-1.0, 0.2]",0.16334,0.82,0.16334,sem diferença clara,False,Jogadores usados,False
+com,elenco,CM,altos,clube-temporada,16,48,5.0,5.5,-0.701,"[-1.29, -0.17]",0.01426,0.82,0.01907,firme,False,Fatias altas,False
+com,elenco,SM,altos,clube-temporada,16,48,7.0,5.5,0.708,"[0.15, 1.38]",0.0143,0.82,0.01907,firme,False,Fatias altas,False
+sem,elenco,CM,usados,clube-temporada,12,32,47.5,38.5,1.176,"[0.36, 2.45]",0.00299,0.97,0.01196,firme,True,Jogadores usados,False
+sem,elenco,SM,usados,clube-temporada,8,32,35.5,38.5,-0.534,"[-1.5, 0.32]",0.22373,1.14,0.22373,sem diferença clara,False,Jogadores usados,False
+sem,elenco,CM,altos,clube-temporada,12,32,4.0,5.5,-0.872,"[-1.5, -0.35]",0.00757,0.97,0.01514,firme,False,Fatias altas,False
+sem,elenco,SM,altos,clube-temporada,8,32,7.0,5.5,0.646,"[-0.07, 1.43]",0.11379,1.14,0.15172,sem diferença clara,False,Fatias altas,False

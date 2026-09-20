@@ -57,13 +57,30 @@ ANOS = {"2022", "2023", "2024", "2025"}
 TURNO = 19
 
 sys.path.insert(0, AQUI)
-from _metodo import cohen_d, d_minimo  # noqa: E402
+from _metodo import cohen_d, comparar, d_minimo, percentil_no_ano  # noqa: E402
 
 # A saída por marcador: todo número que o A13.json publica sai daqui, com o mesmo nome (regra 1 do
 # portão, etapa 6 do PLANO.md). Data fixa porque o script é reprodutível — roda hoje e daqui a um
 # ano com o mesmo resultado, e data dinâmica só faria o arquivo mudar sem o número mudar.
 NUMEROS_JSON = os.path.join(R, "A13_numeros.json")
 GERADO_EM = "2026-09-20"
+
+# A tabela de testes — resultados/A13_testes.csv (regras 2 e 3 do portão). Semente fixa pelo mesmo
+# motivo da data: o IC95 do _metodo.py é por bootstrap de CLUBE, e semente de relógio faria o
+# intervalo "mudar" a cada rodada sem que dado nenhum tivesse mudado.
+TESTES_CSV = os.path.join(R, "A13_testes.csv")
+RNG_SEMENTE = 20260920
+COLUNAS_TESTES = ["fronteira", "familia", "comparacao", "indicador", "n_a", "n_b", "cru_a",
+                  "cru_b", "d", "ic95_d", "p", "d_minimo_80", "q", "selo", "poder_suficiente",
+                  "nome", "placar_redescrito"]
+
+# A lista pré-declarada desta parte. São as três medidas de trajetória que o A13 já calculava em
+# `turnos` — nada foi acrescentado à análise para ter o que testar.
+INDICADORES = [
+    ("pts_1t", "Pontos no 1º turno", 1),
+    ("pts_2t", "Pontos no 2º turno", 1),
+    ("dif_turnos", "Diferença entre os turnos (2º − 1º)", 1),
+]
 
 
 def faixa(pos):
@@ -307,6 +324,72 @@ def main():
     json.dump({"gerado_por": "scripts/A13.py", "gerado_em": GERADO_EM, "numeros": numeros},
               open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"A13_numeros.json: {len(numeros)} marcadores gravados")
+
+    # ==========================================================================================
+    # A tabela de testes — resultados/A13_testes.csv
+    # ==========================================================================================
+    # Por que ela faltava e por que ela entra. O A13 comparava faixas desde 19/09 — o déficit do
+    # 1º turno de quem cai contra o meio, o tombo do returno, os dois cortes de fronteira — mas
+    # publicava só a mediana e um d solto (`d_observado`). Sem <ID>_testes.csv as regras 2 e 3 do
+    # `scripts/_portao.py` reprovam por ausência: não há como provar que os dois cortes rodaram.
+    #
+    # Daqui para baixo só se LÊ `turnos` e `fim`, sobre CÓPIAS das linhas. Nada acima foi tocado:
+    # o A13_resumo.json, o A13_turnos.csv e o A13_numeros.json saem idênticos aos de 20/09.
+    #
+    # O método é o da casa (`scripts/_metodo.py`): posto dentro da temporada, t de Welch, d de
+    # Cohen no percentil, IC95 por bootstrap de clube, BH a 5% dentro de família × comparação e o
+    # menor d detectável a 80%. As colunas `cru_a`/`cru_b` saem no bruto e são a conferência: elas
+    # têm de bater com os marcadores já publicados (cai_1t, meio_1t, cai_1t_sf, meio_1t_sf,
+    # cai_2t, meio_2t, sobe_1t, sobe_2t, cai_dif, sobe_dif, sobe_dif_sf).
+    #
+    # DUAS FAMÍLIAS, E O MOTIVO DE SM NÃO LEVAR PONTOS:
+    #  · `trajetoria` (as três medidas) × Cai×Meio e Cai×Sobe — são as comparações que a parte de
+    #    fato faz: A13-1 afirma o déficit de quem cai contra o meio, e a auditoria de 18/09 rodou
+    #    exatamente Cai×Meio e Cai×Sobe sobre a diferença entre turnos.
+    #  · `returno` (só a diferença entre turnos) × Sobe×Meio — entra porque A13-1 publica a troca
+    #    de sinal de `sobe_dif`/`sobe_dif_sf` entre os dois cortes, e o corte que a sustenta tem
+    #    de estar na tabela, não só no texto.
+    #    Pontos do 1º e do 2º turno NÃO entram em Sobe×Meio de propósito: ponto é o resultado, e
+    #    "Resultado contado de outro jeito" (CLAUDE.md) proíbe tratá-lo como característica. É
+    #    de Sobe×Meio que o A14 colhe os candidatos a característica de quem sobe (A14.py,
+    #    `candidatos()`), e "quem subiu fez mais pontos" não é achado, é definição.
+    #
+    # O QUE ESTA TABELA NÃO TEM: a permutação dos turnos dentro do time, o terceiro teste da
+    # família da auditoria de 18/09. Ela não é comparação entre faixas e o _metodo.py não a roda.
+    base_t = []
+    for t in turnos:
+        l = dict(t)
+        l["dif_turnos"] = t["dif"]
+        l["fronteira"] = fim[(t["temporada"], t["clube"])]["fronteira"] == "1"
+        base_t.append(l)
+    ids = [i for i, _, _ in INDICADORES]
+    nome_do = {i: n for i, n, _ in INDICADORES}
+    sinal = {i: sg for i, _, sg in INDICADORES}
+    percentil_no_ano(base_t, ids)
+
+    e_cai = lambda l: l["faixa"] == "Cai"          # noqa: E731
+    e_meio = lambda l: l["faixa"] == "Meio"        # noqa: E731
+    e_sobe = lambda l: l["faixa"] == "Sobe"        # noqa: E731
+    filtros = [("com", lambda l: True), ("sem", lambda l: not l["fronteira"])]
+    rng = np.random.default_rng(RNG_SEMENTE)
+    testes = comparar(base_t, [("trajetoria", ids)],
+                      [("CM", e_cai, e_meio), ("CS", e_cai, e_sobe)],
+                      filtros, rng, lambda i: sinal[i])
+    testes += comparar(base_t, [("returno", ["dif_turnos"])],
+                       [("SM", e_sobe, e_meio)], filtros, rng, lambda i: sinal[i])
+    for it in testes:
+        it["nome"] = nome_do[it["indicador"]]
+        # Nenhum dos três é indicador redescrito pelo placar: ponto por turno é o próprio
+        # resultado, não posse, passe ou corrida que mudam com o jogo já ganho.
+        it["placar_redescrito"] = False
+    testes.sort(key=lambda it: (it["fronteira"] != "com", it["familia"], it["comparacao"],
+                                ids.index(it["indicador"])))
+    with open(TESTES_CSV, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUNAS_TESTES)
+        w.writeheader(); w.writerows(testes)
+    print(f"A13_testes.csv: {len(testes)} linhas "
+          f"({sum(1 for it in testes if it['selo'] == 'firme')} firmes)")
+
 
     print(f"\n{'='*70}\nPONTOS POR TURNO (medianas)\n{'='*70}")
     print(f"{'faixa':7s} {'n':>3s} {'1º turno':>9s} {'2º turno':>9s} {'2º − 1º':>9s}")

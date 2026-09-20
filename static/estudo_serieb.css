@@ -140,3 +140,133 @@ body:not(.claro) #pgEstudo .esb-graf-tabela th { color: #c3c2b7; }
 body:not(.claro) #pgEstudo .esb-graf-tabela summary:hover,
 body:not(.claro) #pgEstudo .esb-graf-tabela td { color: #ffffff; }
 @media print { #pgEstudo .esb-graf-tabela[open] summary { display: none; } }
+
+/* ---- navegação (20/09) -----------------------------------------------------
+   São 27 perguntas e 70 conclusões numa página só: sem índice, sem âncora e sem
+   filtro, achar uma conclusão é rolar até topar. Tudo aqui é de tela — o filtro
+   esconde e mostra o que já está montado, e não mexe em dado nenhum. */
+#pgEstudo .esb-oculto { display: none !important; }
+
+#pgEstudo .esb-sumario {
+  margin: 14px 0 6px; padding: 10px 14px; border: 1px solid #e6e5e1; border-radius: 8px;
+}
+#pgEstudo .esb-sumario > summary {
+  cursor: pointer; font-size: 13px; font-weight: 600; color: #52514e; list-style: revert;
+}
+#pgEstudo .esb-sum-bloco { margin-top: 10px; }
+#pgEstudo .esb-sum-bloco h4 {
+  margin: 0 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: #52514e;
+}
+#pgEstudo .esb-sum-bloco ul { margin: 0; padding: 0; list-style: none; }
+#pgEstudo .esb-sum-item {
+  display: flex; gap: 10px; align-items: baseline; padding: 3px 6px; border-radius: 5px;
+  text-decoration: none; color: inherit; font-size: 13px;
+}
+#pgEstudo .esb-sum-item:hover { background: #f2f1ec; }
+#pgEstudo .esb-sum-id {
+  flex: 0 0 34px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px;
+  color: #52514e;
+}
+#pgEstudo .esb-sum-perg { flex: 1 1 auto; }
+#pgEstudo .esb-sum-marca { flex: 0 0 auto; font-size: 11px; color: #52514e; }
+#pgEstudo .esb-sum-pendente .esb-sum-perg { color: #8a8880; }
+#pgEstudo .esb-sum-rascunho .esb-sum-id::after { content: ' ·'; color: #eb6834; }
+#pgEstudo .esb-sum-validada .esb-sum-id::after { content: ' ·'; color: #1baf7a; }
+
+#pgEstudo .esb-filtros {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0 16px;
+}
+#pgEstudo .esb-busca {
+  display: flex; align-items: center; gap: 6px; flex: 1 1 260px;
+  border: 1px solid #e6e5e1; border-radius: 6px; padding: 4px 8px;
+}
+#pgEstudo .esb-busca-lupa { color: #52514e; font-size: 15px; }
+#pgEstudo .esb-busca input {
+  border: 0; outline: 0; background: transparent; color: inherit; font: inherit;
+  font-size: 13px; width: 100%; padding: 2px 0;
+}
+#pgEstudo .esb-filtro-grupo { display: flex; gap: 4px; }
+#pgEstudo .esb-filtro-bt {
+  border: 1px solid #e6e5e1; background: transparent; color: #52514e; cursor: pointer;
+  border-radius: 6px; padding: 4px 10px; font: inherit; font-size: 12px;
+}
+#pgEstudo .esb-filtro-bt:hover { background: #f2f1ec; }
+#pgEstudo .esb-filtro-bt[aria-pressed="true"] {
+  background: #0b0b0b; border-color: #0b0b0b; color: #fcfcfb;
+}
+#pgEstudo .esb-filtro-conta { font-size: 12px; color: #52514e; }
+
+/* A âncora só aparece quando o ponteiro chega na conclusão: link permanente sem poluir. */
+#pgEstudo .esb-ancora {
+  margin-left: 8px; font-size: 12px; color: #a9a79f; text-decoration: none; opacity: 0;
+  transition: opacity .12s;
+}
+#pgEstudo .esb-concl:hover .esb-ancora, #pgEstudo .esb-ancora:focus { opacity: 1; }
+#pgEstudo .esb-concl:target { background: #fdf6e7; border-radius: 8px; }
+
+/* ---- quem está livre e roda ---- */
+#pgEstudo .esb-aviso-forte {
+  border-left: 3px solid #eb6834; padding: 8px 12px; margin: 10px 0 16px;
+  background: #faf3ef; font-size: 13px; line-height: 1.5;
+}
+#pgEstudo .esb-pos { margin: 0 0 18px; }
+#pgEstudo .esb-pos h4 { margin: 0 0 6px; font-size: 14px; }
+#pgEstudo .esb-pos-vazia h4 { color: #8a8880; font-weight: 500; }
+#pgEstudo .esb-tab-livres { border-collapse: collapse; font-size: 13px; width: 100%; }
+#pgEstudo .esb-tab-livres th {
+  text-align: left; font-weight: 500; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .03em; color: #52514e; border-bottom: 1px solid #e6e5e1; padding: 3px 10px 3px 0;
+}
+#pgEstudo .esb-tab-livres td { padding: 3px 10px 3px 0; border-bottom: 1px solid #f2f1ec; }
+#pgEstudo .esb-tab-livres .esb-num { text-align: right; font-variant-numeric: tabular-nums; }
+#pgEstudo .esb-semdado { color: #8a8880; }
+#pgEstudo .esb-flag { color: #eb6834; }
+
+body:not(.claro) #pgEstudo .esb-sumario { border-color: #333330; }
+body:not(.claro) #pgEstudo .esb-sumario > summary,
+body:not(.claro) #pgEstudo .esb-sum-bloco h4,
+body:not(.claro) #pgEstudo .esb-sum-id,
+body:not(.claro) #pgEstudo .esb-sum-marca,
+body:not(.claro) #pgEstudo .esb-filtro-conta,
+body:not(.claro) #pgEstudo .esb-busca-lupa,
+body:not(.claro) #pgEstudo .esb-tab-livres th { color: #c3c2b7; }
+body:not(.claro) #pgEstudo .esb-sum-item:hover,
+body:not(.claro) #pgEstudo .esb-filtro-bt:hover { background: #26251f; }
+body:not(.claro) #pgEstudo .esb-sum-pendente .esb-sum-perg,
+body:not(.claro) #pgEstudo .esb-semdado,
+body:not(.claro) #pgEstudo .esb-pos-vazia h4 { color: #83817a; }
+body:not(.claro) #pgEstudo .esb-busca,
+body:not(.claro) #pgEstudo .esb-filtro-bt { border-color: #333330; }
+body:not(.claro) #pgEstudo .esb-filtro-bt[aria-pressed="true"] {
+  background: #fcfcfb; border-color: #fcfcfb; color: #0b0b0b;
+}
+body:not(.claro) #pgEstudo .esb-aviso-forte { background: #2a201b; }
+body:not(.claro) #pgEstudo .esb-concl:target { background: #2b2519; }
+body:not(.claro) #pgEstudo .esb-tab-livres th { border-bottom-color: #333330; }
+body:not(.claro) #pgEstudo .esb-tab-livres td { border-bottom-color: #26251f; }
+
+/* ---- listas abertas: jogadores livres e treinadores (20/09) ---- */
+#pgEstudo .esb-lin-fraca td { opacity: .72; }
+#pgEstudo .esb-ct-ok { color: #1baf7a; font-size: 11px; }
+#pgEstudo .esb-ct-fraco { color: #eb6834; font-size: 11px; }
+#pgEstudo .esb-sempar {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .03em; color: #eb6834;
+  border: 1px solid #eb6834; border-radius: 3px; padding: 0 4px; margin-left: 4px;
+}
+#pgEstudo .esb-tab-tec { border-collapse: collapse; font-size: 13px; width: 100%; margin-top: 10px; }
+#pgEstudo .esb-tab-tec th {
+  text-align: left; font-weight: 500; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .03em; color: #52514e; border-bottom: 1px solid #e6e5e1; padding: 3px 10px 3px 0;
+}
+#pgEstudo .esb-tab-tec td { padding: 3px 10px 3px 0; border-bottom: 1px solid #f2f1ec; }
+#pgEstudo .esb-tab-tec .esb-num { text-align: right; font-variant-numeric: tabular-nums; }
+#pgEstudo .esb-tab-tec .esb-suave { color: #8a8880; }
+#pgEstudo .esb-tec-ord { margin-top: 10px; }
+body:not(.claro) #pgEstudo .esb-tab-tec th { color: #c3c2b7; border-bottom-color: #333330; }
+body:not(.claro) #pgEstudo .esb-tab-tec td { border-bottom-color: #26251f; }
+body:not(.claro) #pgEstudo .esb-tab-tec .esb-suave { color: #83817a; }
+#pgEstudo .esb-tab-tec tr.esb-forte td { font-weight: 600; }
+#pgEstudo .esb-tab-tec tr.esb-forte td:first-child::after {
+  content: ' · a mais forte'; font-weight: 400; font-size: 11px; color: #eb6834;
+}
+#pgEstudo .esb-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }

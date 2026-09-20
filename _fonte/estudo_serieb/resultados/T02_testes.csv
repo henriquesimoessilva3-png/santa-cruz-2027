@@ -1,0 +1,13 @@
+fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,valor,TB,rodadas_no_g4,20,40,9.0,0.0,0.993,"[0.48, 1.84]",0.00152,0.78,0.00456,firme,True,Rodadas no G4 por temporada,False
+com,valor,MB,rodadas_no_g4,20,40,6.0,0.0,0.633,"[0.19, 1.32]",0.03749,0.78,0.05624,pode ser sorte,False,Rodadas no G4 por temporada,False
+com,valor,TM,rodadas_no_g4,20,20,9.0,6.0,0.312,"[-0.23, 0.98]",0.33083,0.91,0.33083,sem diferença clara,False,Rodadas no G4 por temporada,False
+com,valor_apos10,TB,rodadas_no_g4_apos_10,20,40,6.0,0.0,1.145,"[0.59, 2.12]",0.00076,0.78,0.00229,firme,True,Rodadas no G4 da 10ª rodada em diante,False
+com,valor_apos10,MB,rodadas_no_g4_apos_10,20,40,2.5,0.0,0.822,"[0.29, 1.67]",0.01059,0.78,0.01588,firme,True,Rodadas no G4 da 10ª rodada em diante,False
+com,valor_apos10,TM,rodadas_no_g4_apos_10,20,20,6.0,2.5,0.282,"[-0.29, 0.99]",0.37773,0.91,0.37773,sem diferença clara,False,Rodadas no G4 da 10ª rodada em diante,False
+sem,valor,TB,rodadas_no_g4,16,36,9.0,0.5,1.02,"[0.42, 1.99]",0.00309,0.86,0.00926,firme,True,Rodadas no G4 por temporada,False
+sem,valor,MB,rodadas_no_g4,12,36,5.0,0.5,0.509,"[-0.01, 1.27]",0.17908,0.95,0.2479,sem diferença clara,False,Rodadas no G4 por temporada,False
+sem,valor,TM,rodadas_no_g4,16,12,9.0,5.0,0.457,"[-0.21, 1.3]",0.2479,1.11,0.2479,sem diferença clara,False,Rodadas no G4 por temporada,False
+sem,valor_apos10,TB,rodadas_no_g4_apos_10,16,36,6.0,0.0,1.149,"[0.55, 2.27]",0.00183,0.86,0.0055,firme,True,Rodadas no G4 da 10ª rodada em diante,False
+sem,valor_apos10,MB,rodadas_no_g4_apos_10,12,36,1.0,0.0,0.596,"[-0.01, 1.57]",0.12208,0.95,0.18312,sem diferença clara,False,Rodadas no G4 da 10ª rodada em diante,False
+sem,valor_apos10,TM,rodadas_no_g4_apos_10,16,12,6.0,1.0,0.502,"[-0.14, 1.4]",0.19793,1.11,0.19793,sem diferença clara,False,Rodadas no G4 da 10ª rodada em diante,False
