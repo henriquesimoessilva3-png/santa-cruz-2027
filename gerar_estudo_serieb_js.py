@@ -67,14 +67,21 @@ ROTEIRO = [
     ("J07", "J", "Quantos estrangeiros jogaram a Série B, e como renderam?"),
     ("J08", "J", "Como os números de um jogador de outra liga se traduzem para a Série B?"),
     ("J09", "J", "Quais estrangeiros atendem o perfil, depois do ajuste de liga?"),
-    ("R01", "E", "Aposentar as abas Análise Série B e Protótipo"),
+    ("R01", "E", "Tirar Análise Série B e Protótipo da barra, sem apagá-las"),
 ]
 SECOES = {"A": "Que time montar", "T": "Que treinador buscar", "J": "Quem contratar",
           "E": "Tarefas da tela"}
 
 # Tarefa de tela nao entrega <ID>.json (nao tem conclusao), entao o status dela nao sai dos
 # arquivos: fica aqui, com a data em que foi feita.
-TAREFAS_FEITAS = {"E00": "2026-09-17"}
+#
+# R01 entrou em 20/09 e com ESCOPO MUDADO pelo dono, o que importa registrar: o PLANO pedia para
+# APOSENTAR as abas Analise Serie B e Prototipo, e o que foi feito foi tira-las da barra e
+# transforma-las em material auxiliar do Estudo, com link no alto. Nada foi apagado — elas sao a
+# prova de onde muita conclusao veio. A pergunta do roteiro acima foi reescrita junto, porque
+# "aposentar" deixou de ser verdade e roteiro que descreve errado o que foi feito e pior do que
+# roteiro desatualizado.
+TAREFAS_FEITAS = {"E00": "2026-09-17", "R01": "2026-09-20"}
 
 CABECALHO = """/* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 

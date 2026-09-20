@@ -3279,13 +3279,13 @@ const ESTUDO_SERIEB = {
    "id": "R01",
    "bloco": "E",
    "secao": "Tarefas da tela",
-   "pergunta": "Aposentar as abas Análise Série B e Protótipo",
-   "status": "pendente",
+   "pergunta": "Tirar Análise Série B e Protótipo da barra, sem apagá-las",
+   "status": "feita",
    "titulo": null,
    "tipo": null,
    "conclusoes": [],
    "em_aberto": "",
-   "feita_em": null,
+   "feita_em": "2026-09-20",
    "prova_arquivos": null
   }
  ],
