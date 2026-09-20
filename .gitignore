@@ -16,6 +16,11 @@ dados/_serieb_lesoes_progresso.json
 # cache HTML da coleta T01 (estudo Serie B)
 _fonte/estudo_serieb/_cache_T01/
 
+# cache HTML da coleta do minuto do gol (A09) — 18 paginas do oGol, 3,9 MB.
+# O que vale esta em dados/serieb_gols_por_minuto.csv, que e versionado; o cache existe
+# so para consertar a LEITURA sem custar outra volta no site.
+dados/_serieb_gols_html/
+
 # backup de seguranca criado antes das correcoes de 19/09 — local, nao versionado
 _fonte/estudo_serieb/resultados/_backup_pre_correcoes_19_09/
 _fonte/estudo_serieb/resultados/_backup_pre_v2_19_09/

@@ -98,7 +98,40 @@
    "confianca_motivo": "Provável: passa numa prova e não na outra, conferido no A02_testes.csv em 19/09. (a) Benjamini-Hochberg a 5% dentro da família “a sobra” (2 indicadores): gols menos xG passa NOS DOIS CORTES DE FRONTEIRA — q 0,00004 com os 20 times de cada ano (16x48, d 1,257, poder suficiente contra um d mínimo de {dmin_SM_cf}) e q {fin_q} sem os times de fronteira (8x32, d {fin_d}, d mínimo {dmin_SM}); e é o único dos 13 indicadores a separar Sobe de Trave, também nos dois cortes (q 0,00144 com fronteira e q 0,03821 sem). (b) Porta temporal da §6.4: NÃO PASSA, porque nunca foi rodada para este indicador — o que o A02.py chama de porta temporal é persistência do indicador contra ele mesmo dentro da temporada, não o 1º turno prevendo os PONTOS do 2º (_porta_temporal.md, 19/09: “achado zero”, zero das 19 partes rodaram a porta como a §6.4 a define). E o teste que existe não tem poder: com n = {n_turnos} o menor sinal que ele enxergaria é {rho_min_80} e o observado foi {persist_fin}, com a confiabilidade da sobra medida em meia temporada em {conf_fin} contra o piso de 0,40 da §3. Um sim de dois = PROVÁVEL. O selo “firme” anterior é insustentável porque se apoiava justamente na metade que não se sustenta: uma negativa (“não se repete”) selada sem poder calculado, que é exatamente “não separa” virando “não existe”. Resultado negativo, vai para “Parece, mas não é”. Uso lícito do indicador: gols menos xG está na lista branca da §6 (“isto é o placar, não é característica”) e a emenda 1 da lista pré-declarada só o autoriza a sustentar conclusão NEGATIVA, que é o que está escrito aqui. ROBUSTEZ (varredura de 19/09): os dois cortes concordam no que importa e discordam no nível, e o texto diz os dois. A diferença Sobe-Meio é firme com os 20 times (+{fin_s_cf} contra {fin_m}, ou cerca de 0,22 gol por jogo) e sem os times de fronteira ({fin_s} contra {fin_m}, ou 0,12 gol por jogo); em Sobe x Trave também nos dois. Mas o SINAL do promovido inverte: com os 20 times ele converte acima do que as chances pediam, sem eles converte abaixo — e era justamente o corte calado que sustentava a prosa “convertendo acima do xG”, enquanto o número publicado ({fin_s}) dizia o contrário dela. Por isso o texto publica os dois e apoia a frase na diferença, não no nível. O outro indicador da família não depende de corte: xG sofrido menos gols sofridos não separa nem com fronteira (q 0,171) nem sem (q 0,515). A comparação entre as duas metades do ano não tem corte de subamostra nenhum (n = {n_turnos}, sem recorte), e os dois indicadores que o texto anterior omitia dela — gols por jogo +0,540 e gols sofridos +0,335 — não mudam a leitura. Por fim, sai do texto a frase “criar e ceder se repetem”: esses coeficientes são de metade de temporada contra metade de temporada e o A11 publica, para os mesmos indicadores, persistência ano a ano quatro a sete vezes menor — comparar réguas diferentes é o defeito que o cruzamento de 19/09 registrou. ETAPA 8 (20/09), o que saiu do texto de 10 segundos e passou a morar aqui: o nível de cada corte ({fin_s_cf} com os 20 times e {fin_s} sem os times de fronteira, contra {fin_m_cf} e {fin_m} do meio — que são o MESMO número, porque fin_m_cf está gravado sem sinal) e o lado do goleiro ({def_s_cf} contra {def_m_cf}, sem diferença em corte nenhum). O texto passou a apoiar a frase na DIFERENÇA ({fin_gols_temporada} gols numa temporada inteira), nunca no nível, que é o defeito que a varredura pegou. O gráfico publica só o corte sem os times de fronteira, e não os dois: fin_m_cf está gravado como módulo — 0,17 quer dizer 0,17 ABAIXO do que as chances pediam —, de modo que desenhá-lo ao lado de {fin_s_cf} inverteria a leitura na tela. É correção de saída de script, não de texto, e fica registrada aqui. A comparação entre as duas metades do ano ({persist_fin} observado, mínimo detectável {rho_min_80}, confiabilidade {conf_fin}) continua acima. CORREÇÃO (20/09, conferência do cético): esta conclusão ficou SEM GRÁFICO, e o parágrafo acima, que registrava publicar só o corte sem os times de fronteira, deixa de valer. O motivo dele era verdadeiro (fin_m_cf está gravado em módulo, 0,17, quando o valor com sinal é -0,169 — o cru_alvo da linha com,sobra,SM,finalizacao do A02_testes.csv, idêntico ao fin_m), mas a saída escolhida trocava um erro visível por um silêncio: aqui o corte não muda só o tamanho, muda o SINAL, e o corte reduzido é justamente aquele em que o promovido aparece ABAIXO do que as chances pediam (-0,052), enquanto com os 20 times ele aparece acima (+0,053). Publicar sozinho o corte que o _metodo_fronteira.md documenta como enviesado por construção é o que a regra da fronteira proíbe. O dois_cortes honesto (fin_s_cf/fin_m_cf ao lado de fin_s/fin_m) depende de o A02.py regravar fin_m_cf com sinal: é conserto de saída de script, não de texto, e enquanto não vier a conclusão fica sem desenho. O texto foi reescrito junto: a diferença de {fin_gols_temporada} gols voltou a dizer de que corte sai (os 20 times de cada ano: 0,053 menos -0,169 = 0,222 por jogo, x38), o predicado virou diferença entre os dois lados e não sobra do promovido sozinho — o nível dele no corte reduzido é negativo —, a ressalva de que a vantagem aparece nos dois cortes e o nível dela não voltou a ser visível, já que sem gráfico ela não tinha onde aparecer, e “do lado do goleiro não há diferença nenhuma” virou “no goleiro não dá para ver diferença”, porque o teste não tem poder: 0,204 contra 0,166, d 0,424 contra um d mínimo de 0,82, poder_suficiente False no A02_testes.csv. Há diferença de 0,038 gol por jogo; o que não há é desenho que a enxergue. TERCEIRA PASSADA (20/09), o que o encurtamento tinha levado junto: o texto de 10 segundos dizia “a vantagem aparece também sem os times de fronteira, o tamanho dela não”, e TAMANHO não é NÍVEL — a frase falava só da diferença encolher (0,222 por jogo com os 20 times contra 0,117 sem os de fronteira) e calava a inversão de SINAL, que é a armadilha da parte: sem os times de fronteira o próprio promovido fica ABAIXO do que as chances pediam ({fin_s}, contra {fin_s_cf} com os 20 times; linha sem,sobra,SM,finalizacao do A02_testes.csv, cru_sobe -0,052). Como a conclusão está SEM GRÁFICO, a ressalva não tinha para onde ter ido: ficava só aqui, que na tela é o title do selo. O texto voltou a dizer o sinal por escrito — “e lá até quem sobe fica abaixo do que as chances pediam” —, o que também devolve ao predicado “converte melhor que o meio” a âncora que ele tinha perdido, para o leitor não ler que o promovido converte acima do esperado nos dois cortes. O que saiu para caber nos 280, pela ordem de quem perde espaço: primeiro o segundo número do goleiro ({def_s_cf} contra {def_m_cf}), que o corte não enxerga de qualquer forma, e a repetição de que a diferença é a maior da lista; e, como ainda não cabia, o TAMANHO da vantagem (“cerca de {fin_gols_temporada} gols na temporada”), que é o detalhe do achado. O que NÃO saiu, e por isso o número saiu no lugar: o corte (“com os vinte times de cada ano”), o sinal no corte reduzido, a palavra que segura a afirmação do goleiro (“não dá para ver”) e a janela da repetição (“de uma metade do ano à outra”) — sem ela, “nem que a sobra se repita” viraria uma negativa sobre qualquer janela, e a medida é de meia temporada contra a outra. O gráfico continua não existindo pelo motivo já registrado acima: o dois_cortes honesto depende de o A02.py regravar fin_m_cf com sinal — hoje ele está gravado 0,17 quando o cru_alvo é -0,169, e desenhar assim inverteria o resultado. Um grupos só do corte reduzido foi descartado de propósito: mostraria um corte só numa conclusão que depende do corte.",
    "n": "{n_sobe} promovidos contra {n_meio} do meio, e {n_sobe_sf} contra {n_meio_sf} sem os times colados na linha; {n_sobe} contra {n_trave} no recorte de 5º a 8º (e {n_sobe_sf} contra {n_trave_sf} sem os colados na linha); {n_turnos} clube-temporadas na comparação entre as duas metades do ano",
    "prova": "A02_testes.csv; A02_resumo.json, porta_temporal; _porta_temporal.md; A02_numeros_novos.json; A02.md, seção Prova",
-   "validada_em": "2026-09-19"
+   "validada_em": "2026-09-19",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Sobra de gol sobre o esperado",
+    "unidade": "gols por jogo acima (+) ou abaixo (−) do esperado",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "fin_s_cf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "fin_m_cf"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "fin_s"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "fin_m"
+       }
+      ]
+     }
+    ]
+   }
   }
  ],
  "numeros": {
@@ -171,7 +204,7 @@
   "xg_m_cf": 1.18,
   "conf_xgpr_contra": 0.36,
   "fin_s_cf": 0.05,
-  "fin_m_cf": 0.17,
+  "fin_m_cf": -0.17,
   "fin_gols_temporada": 8,
   "def_s_cf": 0.2,
   "def_m_cf": 0.17,

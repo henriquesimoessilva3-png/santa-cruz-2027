@@ -3,49 +3,160 @@
  "pergunta": "Quanto da produção pró e contra vem de bola parada em cada faixa, e isso separa Sobe de Meio?",
  "declarado_em": "2026-09-17",
  "declarado_antes_de_calcular": true,
- "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada", "n_esperado": 80},
- "comparacoes": [{"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
-                 {"id": "ST", "nome": "Sobe × Trave", "papel": "secundária"},
-                 {"id": "CM", "nome": "Cai × Meio", "papel": "secundária"}],
+ "recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidade": "clube-temporada",
+  "n_esperado": 80
+ },
+ "comparacoes": [
+  {
+   "id": "SM",
+   "nome": "Sobe × Meio",
+   "papel": "padrão"
+  },
+  {
+   "id": "ST",
+   "nome": "Sobe × Trave",
+   "papel": "secundária"
+  },
+  {
+   "id": "CM",
+   "nome": "Cai × Meio",
+   "papel": "secundária"
+  }
+ ],
  "repetir_sem_fronteira": true,
  "regra_da_fronteira": "Firme = firme NOS DOIS cortes (corrigido em 17/09; ver _metodo_fronteira.md).",
-
  "achado_de_base": "O CLAUDE.md dizia que o Wyscout não marca a origem do gol e que gol de bola parada só sairia da base do estudo de bola parada por treinador 'se ela cobrir a Série B'. Ela cobre: dados/bola_parada.json tem Série B de 2022 a 2026, com os gols separados em escanteio, falta direta, falta indireta, lateral e pênalti, pró e contra, por trabalho (treinador + time + competição). Agregado por clube-temporada dá 80 linhas de 38 jogos no recorte.",
-
  "familias": [
-  {"id": "gol_bp", "nome": "Gol de bola parada, de verdade", "indicadores": [
-   {"id": "bp_pro_90", "nome": "Gols de bola parada feitos, por jogo", "sinal": 1, "fonte": "bola_parada.json: esc+fd+fi+lat+pen, pró"},
-   {"id": "bp_sof_90", "nome": "Gols de bola parada sofridos, por jogo", "sinal": -1, "fonte": "idem, sofridos"},
-   {"id": "bp_pro_pct", "nome": "% dos gols feitos que vieram de bola parada", "sinal": 1, "fonte": "bp pró ÷ gols feitos"},
-   {"id": "bp_sof_pct", "nome": "% dos gols sofridos que vieram de bola parada", "sinal": -1, "fonte": "bp sofridos ÷ gols sofridos"},
-   {"id": "bp_saldo_90", "nome": "Saldo de bola parada por jogo", "sinal": 1, "fonte": "pró − sofridos"}
-  ]},
-  {"id": "processo", "nome": "O processo: volume e conversão", "indicadores": [
-   {"id": "bolas_paradas", "nome": "Bolas paradas por jogo", "sinal": 1, "fonte": "serieb_clube_temporada.csv"},
-   {"id": "cantos", "nome": "Escanteios por jogo", "sinal": 1, "fonte": "idem"},
-   {"id": "cantos_remates", "nome": "Finalizações de escanteio por jogo", "sinal": 1, "fonte": "idem"},
-   {"id": "livres_remates", "nome": "Finalizações de falta por jogo", "sinal": 1, "fonte": "idem"},
-   {"id": "bp_conv", "nome": "Conversão de bola parada", "sinal": 1, "fonte": "idem"}
-  ]},
-  {"id": "regua_G", "nome": "A régua G: bola aérea e parada", "indicadores": [
-   {"id": "duelos_aereos_pct", "nome": "Duelos aéreos ganhos, %", "sinal": 1, "fonte": "idem"},
-   {"id": "cruzamentos", "nome": "Cruzamentos por jogo", "sinal": 1, "fonte": "idem"},
-   {"id": "tm_altura", "nome": "Altura média do elenco (cm)", "sinal": 1, "fonte": "idem (Transfermarkt)"}
-  ]}
+  {
+   "id": "gol_bp",
+   "nome": "Gol de bola parada, de verdade",
+   "indicadores": [
+    {
+     "id": "bp_pro_90",
+     "nome": "Gols de bola parada feitos, por jogo",
+     "sinal": 1,
+     "fonte": "bola_parada.json: esc+fd+fi+lat+pen, pró"
+    },
+    {
+     "id": "bp_sof_90",
+     "nome": "Gols de bola parada sofridos, por jogo",
+     "sinal": -1,
+     "fonte": "idem, sofridos"
+    },
+    {
+     "id": "bp_pro_pct",
+     "nome": "% dos gols feitos que vieram de bola parada",
+     "sinal": 1,
+     "fonte": "bp pró ÷ gols feitos"
+    },
+    {
+     "id": "bp_sof_pct",
+     "nome": "% dos gols sofridos que vieram de bola parada",
+     "sinal": -1,
+     "fonte": "bp sofridos ÷ gols sofridos"
+    },
+    {
+     "id": "bp_saldo_90",
+     "nome": "Saldo de bola parada por jogo",
+     "sinal": 1,
+     "fonte": "pró − sofridos"
+    }
+   ]
+  },
+  {
+   "id": "processo",
+   "nome": "O processo: volume e conversão",
+   "indicadores": [
+    {
+     "id": "bolas_paradas",
+     "nome": "Bolas paradas por jogo",
+     "sinal": 1,
+     "fonte": "serieb_clube_temporada.csv"
+    },
+    {
+     "id": "cantos",
+     "nome": "Escanteios por jogo",
+     "sinal": 1,
+     "fonte": "idem"
+    },
+    {
+     "id": "cantos_remates",
+     "nome": "Finalizações de escanteio por jogo",
+     "sinal": 1,
+     "fonte": "idem"
+    },
+    {
+     "id": "livres_remates",
+     "nome": "Finalizações de falta por jogo",
+     "sinal": 1,
+     "fonte": "idem"
+    },
+    {
+     "id": "bp_conv",
+     "nome": "Conversão de bola parada",
+     "sinal": 1,
+     "fonte": "idem"
+    }
+   ]
+  },
+  {
+   "id": "regua_G",
+   "nome": "A régua G: bola aérea e parada",
+   "indicadores": [
+    {
+     "id": "duelos_aereos_pct",
+     "nome": "Duelos aéreos ganhos, %",
+     "sinal": 1,
+     "fonte": "idem",
+     "citado_de": "A06"
+    },
+    {
+     "id": "cruzamentos",
+     "nome": "Cruzamentos por jogo",
+     "sinal": 1,
+     "fonte": "idem"
+    },
+    {
+     "id": "tm_altura",
+     "nome": "Altura média do elenco (cm)",
+     "sinal": 1,
+     "fonte": "idem (Transfermarkt)"
+    }
+   ]
+  }
  ],
-
  "ponte_de_clube": "A base de bola parada usa nomes da Sofascore ('América Mineiro', 'Vila Nova FC') e o estudo usa os do Wyscout ('América-MG', 'Vila Nova'). 31 dos 42 batem direto; os 11 restantes são pares 1:1 sem ambiguidade e vão para A04_ponte_clubes.json.",
-
  "lista_branca": {
-  "afetados": ["bp_pro_90", "bp_sof_90", "bp_pro_pct", "bp_sof_pct", "bp_saldo_90"],
+  "afetados": [
+   "bp_pro_90",
+   "bp_sof_90",
+   "bp_pro_pct",
+   "bp_sof_pct",
+   "bp_saldo_90"
+  ],
   "nota": "Gol é gol: os cinco indicadores da família gol_bp são pedaço do placar, no mesmo espírito da lista branca da §6 (gp_jogo, gc_jogo). Entram como MOSTRAR E DESQUALIFICAR — respondem 'quanto da produção vem de bola parada', que é a pergunta descritiva do A04, mas nenhuma conclusão sobre característica se apoia neles. O que pode sustentar característica é a família processo e a régua G."
  },
-
- "criterio": {"referencia": "§6, via scripts/_metodo.py",
-              "porta_temporal": "Não se aplica aos gols de bola parada com a base atual: ela é agregada por trabalho, sem jogo a jogo. Para o processo (escanteios, cruzamentos) a porta roda a partir de serieb_jogos.csv."},
-
+ "criterio": {
+  "referencia": "§6, via scripts/_metodo.py",
+  "porta_temporal": "Não se aplica aos gols de bola parada com a base atual: ela é agregada por trabalho, sem jogo a jogo. Para o processo (escanteios, cruzamentos) a porta roda a partir de serieb_jogos.csv."
+ },
  "ressalvas_declaradas": [
   "Pênalti entra na conta de bola parada, como a base o classifica. Pênalti sofrido é em boa parte consequência de defender sob pressão, e não um traço de bola parada — a leitura separa pênalti dos demais tipos.",
   "xg_bp só existe para Série B 2025 e 2026 (xg_n = 0 em 2022, 2023 e 2024). Fora do recorte útil, não entra."
- ]
+ ],
+ "citados_doc": {
+  "duelos_aereos_pct": {
+   "dono": "A06",
+   "familia_aqui": "regua_G",
+   "por_que": "O duelo aéreo ganho mora na família `duelo` do A06, que é a pergunta dele: quem ganha a disputa. Aqui ele entrava pela régua G (bola aérea e parada), mas a pergunta do A04 é sobre BOLA PARADA e o duelo aéreo acontece o jogo inteiro, escanteio ou não — é duelo, não bola parada. Do mesmo p 0,0062, o A04 publicava q 0,01861 e o A06, 0,01241. Decisão do dono em 20/09: a régua G continua sendo decomposta com ele, fora do BH desta família, citando o q do A06.",
+   "decidido_em": "2026-09-20"
+  }
+ }
 }

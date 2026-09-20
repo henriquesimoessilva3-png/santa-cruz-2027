@@ -54,7 +54,29 @@ SAIDA_CSV = RESULTADOS / "J06_ranking_aderencia.csv"
 SAIDA_JSON = RESULTADOS / "J06_ranking_aderencia.json"
 
 ORDEM = ["Goleiro", "Zaga", "Lateral", "Volante", "Meia", "Extremo", "Atacante"]
-COLUNAS = ["setor", "origem", "posto", "jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
+
+# Como a LISTA é dividida na tela — decisão do dono em 20/09. Lateral esquerdo e direito não são
+# a mesma vaga, e médio e meia ofensivo não são a mesma função: uma lista só de "Lateral" obriga
+# quem lê a adivinhar o lado de cada nome.
+#
+# O que isto NÃO faz, e é a ressalva que tem de chegar à tela: a FICHA continua sendo uma por
+# setor. O lateral esquerdo é julgado pela ficha de Lateral, e o médio pela de Meia — as mesmas de
+# antes, tiradas dos titulares de quem subiu. Fazer ficha própria para cada um dos quatro cortaria
+# o n de cada uma quase pela metade, e o dono escolheu não pagar esse preço agora.
+#
+# (bloco na tela, setor que dá a ficha, códigos de posição do Wyscout)
+LISTA = [
+    ("Goleiro", "Goleiro", None),
+    ("Zaga", "Zaga", None),
+    ("Lateral esquerdo", "Lateral", {"LB", "LWB"}),
+    ("Lateral direito", "Lateral", {"RB", "RWB"}),
+    ("Volante", "Volante", None),
+    ("Médio", "Meia", {"LCMF", "RCMF"}),
+    ("Meia ofensivo", "Meia", {"AMF", "LAMF", "RAMF"}),
+    ("Extremo", "Extremo", None),
+    ("Atacante", "Atacante", None),
+]
+COLUNAS = ["setor", "bloco", "posicao_wy", "origem", "posto", "jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
            "com_dado", "atende", "aderencia", "folga", "contrato", "livre", "estrangeiro",
            "fisico_verificado", "forca_do_fator", "detalhe"]
 
@@ -113,7 +135,8 @@ def serie_b(ficha_dec, setores):
         if not nota["com_dado"]:
             continue
         saida.append({
-            "setor": l["setor"], "origem": "Série B", "jogador": l["jogador"],
+            "setor": l["setor"], "posicao_wy": l["posicao"],
+            "origem": "Série B", "jogador": l["jogador"],
             "clube": l["clube"], "liga": "Série B", "idade": l["idade_na_temporada"],
             "minutos": l["minutos"], "fatia_pct": m["fatia"] if m else None,
             "contrato": (e["contrato_ate"] if e else "") or l["ct_wyscout"],
@@ -177,7 +200,8 @@ def exterior(ficha):
         if nota["com_dado"] < 2:
             continue
         fora.append({
-            "setor": setor, "origem": "exterior", "jogador": r.get("jogador"),
+            "setor": setor, "posicao_wy": (r.get("posicao") or "").strip(),
+            "origem": "exterior", "jogador": r.get("jogador"),
             "clube": r.get("time"), "liga": r.get("liga"),
             "idade": J06.num(r.get("idade")), "minutos": J06.num(r.get("minutos")),
             "fatia_pct": J06.num(r.get("fatia_pct")), "contrato": r.get("contrato"),
@@ -254,9 +278,25 @@ def main():
 
     linhas_csv = []
     for grupo, chave in ((b, "serie_b"), (fora, "exterior")):
-        for setor in ORDEM:
-            gente = sorted([x for x in grupo if x["setor"] == setor],
+        for bloco_nome, setor, codigos in LISTA:
+            # Quem tem setor certo mas código de posição que não conheço (ou nenhum) NÃO some da
+            # tela: cai no primeiro bloco daquele setor, e é melhor aparecer no lado errado do que
+            # desaparecer da lista sem ninguém notar.
+            conhecidos = {c for _, s2, cs in LISTA if s2 == setor and cs for c in cs}
+            primeiro = next(n for n, s2, _ in LISTA if s2 == setor)
+
+            def no_bloco(x):
+                if x["setor"] != setor:
+                    return False
+                if codigos is None:
+                    return True
+                pos = (x.get("posicao_wy") or "").strip()
+                return pos in codigos or (pos not in conhecidos and bloco_nome == primeiro)
+
+            gente = sorted([x for x in grupo if no_bloco(x)],
                            key=lambda x: (-(x["atende"] or 0), -(x["aderencia"] or 0)))
+            for x in gente:
+                x["bloco"] = bloco_nome
             if chave == "exterior":
                 # Ordem de fora: rodagem primeiro (o achado do J09), e so depois o pouco de ficha
                 # que existe. Cortada em 15 por posicao — lista longa sobre dado fino engana.
@@ -265,7 +305,8 @@ def main():
             if not gente:
                 continue
             saida[chave].append({
-                "posicao": setor,
+                "posicao": bloco_nome,
+                "ficha_de": setor,
                 "criterios_da_ficha": max((x["com_dado"] for x in gente), default=0),
                 "quantos": len(gente),
                 "jogadores": [{k: x.get(k) for k in

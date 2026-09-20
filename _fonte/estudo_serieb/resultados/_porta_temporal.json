@@ -1,6 +1,6 @@
 {
  "_doc": "Porta temporal (§6.4) sobre os oito componentes do índice do A14. Evidência, não correção: nenhuma conclusão do estudo foi alterada.",
- "gerado_em": "2026-09-19",
+ "gerado_em": "2026-09-20",
  "metodo": {
   "escolhido": "§6.4 da ESPECIFICACAO.md",
   "definicao": "média do indicador nas 19 primeiras rodadas × pontos somados das 19 últimas, em posto dentro do ano, com parcial dada a pontuação do 1º turno",
@@ -8,10 +8,13 @@
   "criterio_passa": "p da parcial < 0,05 e parcial positiva na escala alinhada (porta A da §6.5); o BH é do teste de separação, não da porta",
   "por_que": "o CLAUDE.md do estudo manda que a especificação valha onde houver divergência, e é a §6.4 que a §6.5 lê em p_1T_2T / rho_1T_2T",
   "divergencia_entre_as_partes": {
-   "A02": "indicador da 1ª metade × o PRÓPRIO indicador da 2ª (persistência), com limiar rho>0,30 — o rho_persist que a §6.5 aposentou em 15/09",
-   "A06": "idem A02",
    "A13": "previsores do 1º turno × POSIÇÃO FINAL (que contém o 1º turno), sem parcial",
-   "consequencia": "nenhuma das três é a porta da §6.4; das 19 partes, ZERO rodaram a porta como a especificação a define"
+   "consequencia": "nenhuma das três era a porta da §6.4; em 19/09, das 19 partes, ZERO rodavam a porta como a especificação a define",
+   "corrigidas_em_20_09": {
+    "A02": "o scripts/A02.py deixou de chamar a persistência de porta: ela passa a ser gravada em A02_resumo.json como `persistencia_dentro_da_temporada`, e ao lado dela entrou o bloco `porta_6_4` com a porta de verdade sobre a distância do remate (parcial +0,289, p 0,0094, n 80), contada por este script. Por isso A02 saiu da lista acima.",
+    "A06": "mesmo conserto do A02: o scripts/A06.py grava a persistência com o nome dela em A06_resumo.json e, ao lado, o bloco `porta_6_4` com a porta de verdade sobre os quatro indicadores que a parte cita. Ela REPROVA nos quatro, e é por isso que a parte fica no provável — o conserto foi de nome, não de resultado. Por isso A06 saiu da lista.",
+    "A13": "continua como estava, e continua listada acima."
+   }
   }
  },
  "recorte": {
@@ -128,6 +131,48 @@
    "publicado": 0.496
   }
  },
+ "partes": {
+  "A02": {
+   "indicador": "distância média do remate",
+   "coluna": "dist",
+   "sinal_alinhado": -1,
+   "sustenta": "A02-1, “Quem sobe finaliza de mais perto”",
+   "por_que_este_indicador": "a conclusão é sobre a distância do chute, e é ela que a porta testa; sinal −1 porque chutar de longe é pior",
+   "rho": 0.439,
+   "p": 5e-05,
+   "parcial": 0.289,
+   "p_parcial": 0.00938,
+   "n": 80,
+   "passa": true
+  },
+  "A06": {
+   "indicador": "duelos defensivos ganhos, %",
+   "coluna": "dd",
+   "sinal_alinhado": 1,
+   "sustenta": "A06-2, “quem sobe ganha a disputa quando defende”",
+   "por_que_este_indicador": "é o indicador da pergunta do A06 — ganhar a disputa —, e é ele que a régua F e o A12 leem. A porta REPROVA nele, e é isso que prende a parte no provável",
+   "rho": 0.121,
+   "p": 0.2858,
+   "parcial": 0.092,
+   "p_parcial": 0.41602,
+   "n": 80,
+   "passa": false
+  },
+  "A05": {
+   "indicador": "posse, %",
+   "coluna": "posse",
+   "sinal_alinhado": 1,
+   "sustenta": "A05-1, a metade positiva (“quem tinha mais a bola no 1º turno somou mais pontos no 2º”)",
+   "por_que_este_indicador": "é o único indicador com bola que a A05 leva à porta, e o motivo do selo dela já citava esta linha da tabela da §6.4 antes de ela existir aqui",
+   "rho": 0.247,
+   "p": 0.02743,
+   "parcial": 0.227,
+   "p_parcial": 0.04322,
+   "n": 80,
+   "passa": true
+  }
+ },
+ "partes_doc": "A porta da §6.4 rodada sobre o indicador que sustenta a conclusão de cada parte listada. Só entram partes com indicador único e nomeável; ausência aqui é ausência de porta, nunca porta reprovada.",
  "componentes": [
   {
    "componente": "H_dinheiro",

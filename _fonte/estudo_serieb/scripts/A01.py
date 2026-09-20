@@ -122,7 +122,7 @@ def blocos_de_temporada(datas):
     return {m: bl[0][0] for bl in blocos for m in bl}
 
 
-def ler_jogos():
+def ler_jogos(temporadas=None):
     linhas = []
     for arq in JOGOS:
         if not os.path.exists(arq):
@@ -145,7 +145,7 @@ def ler_jogos():
         if k not in vistos:
             vistos.add(k)
             limpas.append(l)
-    return [l for l in limpas if l["temporada"] in TEMPORADAS]
+    return [l for l in limpas if l["temporada"] in (temporadas or TEMPORADAS)]
 
 
 def ordenar(times, n):
@@ -155,6 +155,42 @@ def ordenar(times, n):
     for i, t in enumerate(o, 1):
         t["pos"], t["sg"], t["faixa"] = i, t["gp"] - t["gc"], faixa(i, n)
     return o
+
+
+ANTERIORES = [2018, 2019, 2020, 2021]
+
+
+def janela_anterior():
+    """O corte do G4 e do Z4 de 2018 a 2021, calculado da base de jogos.
+
+    Acrescentado em 20/09. Estas quatro temporadas não estão no `SB_TABELAS` do app — é por isso
+    que ficam fora do recorte —, mas o `dados/serieb_jogos_2018_2021.csv` tem os jogos, e o
+    CLAUDE.md manda usá-las para CONFERIR o que a base do recorte mostrou. Até aqui os números
+    delas estavam digitados à mão dentro do texto do A01 (“entre 39 e 43”, “falhou em 2021”):
+    agora saem daqui, com marcador, como todo número publicado.
+
+    A classificação é montada com o mesmo `ordenar()` do resto do script — pontos, vitórias,
+    saldo, gols pró, nome —, e não com a tabela oficial, que para estes anos não existe aqui.
+    """
+    jogos = ler_jogos(ANTERIORES)
+    por = collections.defaultdict(lambda: collections.defaultdict(list))
+    for l in jogos:
+        por[l["temporada"]][l["clube"]].append(l)
+    fora = []
+    for ano in ANTERIORES:
+        clubes = por.get(ano) or {}
+        if not clubes:
+            continue
+        n = len(clubes)
+        final = ordenar([{"clube": c,
+                          "pts": 3 * sum(1 for g in js if g["res"] == "V")
+                                 + sum(1 for g in js if g["res"] == "E"),
+                          "v": sum(1 for g in js if g["res"] == "V"),
+                          "gp": sum(g["gp"] for g in js), "gc": sum(g["gc"] for g in js)}
+                         for c, js in clubes.items()], n)
+        pts = {t["pos"]: t["pts"] for t in final}
+        fora.append({"temporada": ano, "times": n, "pontos_4o": pts[4], "pontos_17o": pts[n - 3]})
+    return fora
 
 
 def main():
@@ -310,6 +346,7 @@ def main():
     trave_ct = [c for c in fech_ct if c["trave"]]
     sobe_ct = [c for c in fech_ct if c["faixa"] == "Sobe"]
     corte_mediana = st.median(p4s)
+    anteriores = janela_anterior()
     r_curso = next(r for r in regua if r["temporada"] == EM_CURSO)
     pos_curso = {c["pos"]: c for c in clube_temp if c["temporada"] == EM_CURSO}
     pos_desempate = {c["pos"]: c for c in clube_temp if c["temporada"] == ANO_DESEMPATE}
@@ -325,6 +362,11 @@ def main():
         "corte_mediana": corte_mediana,
         "corte_amplitude": max(p4s) - min(p4s),
         "corte_por_ano_frase": frase_por_ano([(r["temporada"], r["pontos_4o"]) for r in fechadas]),
+        # o corte de CADA ano, um marcador por temporada (20/09). A frase acima serve ao texto;
+        # o gráfico precisa dos quatro valores separados, e desenhar a linha do acesso ano a ano
+        # é o que mostra que ela não é um número, é uma faixa.
+        **{f"corte_{r['temporada']}": r["pontos_4o"] for r in fechadas},
+        **{f"corte_z4_{r['temporada']}": r["pontos_17o"] for r in fechadas},
         # empate não garante vaga: um elenco da mediana só entra se fizer MAIS que o 4º do ano
         "anos_falha_63": sum(1 for r in fechadas if corte_mediana <= r["pontos_4o"]),
         "aprov_min": min(r["aproveit_4o_pct"] for r in fechadas),
@@ -338,6 +380,25 @@ def main():
         "pontos_4o_2024": next(r["pontos_4o"] for r in regua if r["temporada"] == ANO_DESEMPATE),
         "v_4o_2024": pos_desempate[4]["V"],
         "v_5o_2024": pos_desempate[5]["V"],
+        # as quatro temporadas anteriores (2018–2021), que o CLAUDE.md manda usar para conferir.
+        # Não entram no recorte — não têm dado físico e não estão no SB_TABELAS —, mas os números
+        # que o texto cita delas passam a sair da base, e não do teclado.
+        "temporadas_ant": len(anteriores),
+        "anos_ant": " · ".join(str(r["temporada"]) for r in anteriores),
+        "corte_ant_min": min(r["pontos_4o"] for r in anteriores),
+        "corte_ant_max": max(r["pontos_4o"] for r in anteriores),
+        "corte_ant_frase": frase_por_ano([(r["temporada"], r["pontos_4o"]) for r in anteriores]),
+        "anos_falha_63_ant": sum(1 for r in anteriores if corte_mediana <= r["pontos_4o"]),
+        "ano_falha_63_ant": " e ".join(str(r["temporada"]) for r in anteriores
+                                       if corte_mediana <= r["pontos_4o"]),
+        # as oito temporadas juntas: em quantas o topo da faixa APENAS empatou com o 4º — e
+        # empate não dá vaga, é o que a frase do uso prático usa para pedir 65.
+        "temporadas_total": len(fechadas) + len(anteriores),
+        "anos_empate_corte_max": sum(1 for r in list(fechadas) + list(anteriores)
+                                     if r["pontos_4o"] == max(p4s)),
+        "corte_z4_ant_min": min(r["pontos_17o"] for r in anteriores),
+        "corte_z4_ant_max": max(r["pontos_17o"] for r in anteriores),
+        **{f"corte_{r['temporada']}": r["pontos_4o"] for r in anteriores},
         # o corte do Z4
         "corte_z4_min": min(p17s),
         "corte_z4_max": max(p17s),

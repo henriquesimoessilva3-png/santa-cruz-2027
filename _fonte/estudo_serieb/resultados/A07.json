@@ -3,7 +3,7 @@
  "bloco": "A",
  "titulo": "Físico: volume ou intensidade, com bola ou sem bola",
  "tipo": "analise",
- "gerado_por": "scripts/_rodar.py A07 (tabela de testes); resultados/A07_numeros_novos.json (desconto do rodízio, rodada de cobertura e conversão para posições)",
+ "gerado_por": "scripts/A07.py (calcula e grava os 43 marcadores de A07_numeros.json, 24 reproduzidos do scripts/_rodar.py A07 e 19 novos — desconto do rodízio, rodada de cobertura e conversão para posições)",
  "conclusoes": [
   {
    "id": "A07-1",

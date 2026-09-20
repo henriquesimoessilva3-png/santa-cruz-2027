@@ -1,85 +1,169 @@
-setor,familia,indicador,n_sobe,n_meio,pct_sobe,pct_meio,cru_sobe,cru_meio,d,p,d_minimo_80,q,selo
-Goleiro,defensivo,"Duelos defensivos ganhos, %",16,48,19.6,53.6,0.0,50.0,-0.578,0.05823,0.82,0.07764,sem diferença clara
-Goleiro,defensivo,"Duelos aéreos ganhos, %",16,48,71.4,34.7,97.915,87.87,1.062,0.0003,0.82,0.00121,firme
-Goleiro,defensivo,Interceções ajust. à posse,16,48,39.6,62.5,1.685,2.11,-0.663,0.0372,0.82,0.07439,pode ser sorte
-Goleiro,defensivo,Faltas/90,16,48,64.0,64.0,0.0,0.0,0.197,0.46283,0.82,0.46283,sem diferença clara
-Goleiro,com_bola,"Passes certos, %",16,48,57.4,44.3,84.565,83.795,0.367,0.22207,0.82,0.44414,sem diferença clara
-Goleiro,com_bola,Passes progressivos/90,16,48,51.8,64.4,4.095,4.345,-0.206,0.44537,0.82,0.45424,sem diferença clara
-Goleiro,com_bola,"Dribles com sucesso, %",16,48,39.6,50.0,0.0,0.0,-0.205,0.45424,0.82,0.45424,sem diferença clara
-Goleiro,com_bola,Acções atacantes com sucesso/90,16,48,39.6,48.2,0.0,0.0,-0.474,0.03731,0.82,0.14923,pode ser sorte
-Goleiro,ofensivo,Golos esperados/90,16,48,47.2,47.9,0.0,0.0,-0.346,0.04509,0.82,0.09017,pode ser sorte
-Goleiro,ofensivo,Assistências esperadas/90,16,48,47.9,47.9,0.0,0.0,-0.298,0.08226,0.82,0.10968,sem diferença clara
-Goleiro,ofensivo,Remates/90,16,48,47.0,47.9,0.0,0.0,-0.433,0.01257,0.82,0.05028,pode ser sorte
-Goleiro,ofensivo,Toques na área/90,16,48,49.0,50.0,0.0,0.0,-0.168,0.35125,0.82,0.35125,sem diferença clara
-Zaga,defensivo,"Duelos defensivos ganhos, %",32,96,63.9,50.7,67.065,66.67,0.253,0.24818,0.58,0.46245,sem diferença clara
-Zaga,defensivo,"Duelos aéreos ganhos, %",32,96,59.5,50.0,62.625,61.705,0.14,0.46245,0.58,0.46245,sem diferença clara
-Zaga,defensivo,Interceções ajust. à posse,32,96,41.0,50.0,6.215,6.49,-0.196,0.36918,0.58,0.46245,sem diferença clara
-Zaga,defensivo,Faltas/90,32,96,66.1,54.0,0.795,0.91,0.272,0.17411,0.58,0.46245,sem diferença clara
-Zaga,com_bola,"Passes certos, %",32,96,49.3,51.1,86.685,86.815,0.062,0.75885,0.58,0.75885,sem diferença clara
-Zaga,com_bola,Passes progressivos/90,32,96,64.1,55.4,7.775,7.375,0.113,0.58926,0.58,0.75885,sem diferença clara
-Zaga,com_bola,"Dribles com sucesso, %",32,96,52.5,50.0,66.67,66.67,-0.109,0.58367,0.58,0.75885,sem diferença clara
-Zaga,com_bola,Acções atacantes com sucesso/90,32,96,59.3,49.3,0.39,0.32,0.072,0.74156,0.58,0.75885,sem diferença clara
-Zaga,ofensivo,Golos esperados/90,32,96,43.7,51.6,0.04,0.05,-0.204,0.35411,0.58,0.78046,sem diferença clara
-Zaga,ofensivo,Assistências esperadas/90,32,96,63.2,54.2,0.01,0.01,0.128,0.53982,0.58,0.78046,sem diferença clara
-Zaga,ofensivo,Remates/90,32,96,48.0,47.4,0.34,0.355,-0.061,0.78046,0.58,0.78046,sem diferença clara
-Zaga,ofensivo,Toques na área/90,32,96,42.3,46.6,0.455,0.49,-0.106,0.62267,0.58,0.78046,sem diferença clara
-Lateral,defensivo,"Duelos defensivos ganhos, %",32,96,50.7,48.9,61.255,61.75,-0.11,0.5589,0.58,0.71926,sem diferença clara
-Lateral,defensivo,"Duelos aéreos ganhos, %",32,96,40.7,50.4,46.87,51.155,-0.21,0.33141,0.58,0.71926,sem diferença clara
-Lateral,defensivo,Interceções ajust. à posse,32,96,48.6,51.5,5.6,5.57,-0.121,0.55161,0.58,0.71926,sem diferença clara
-Lateral,defensivo,Faltas/90,32,96,65.0,53.2,1.03,1.07,0.072,0.71926,0.58,0.71926,sem diferença clara
-Lateral,com_bola,"Passes certos, %",32,96,52.8,44.5,78.86,77.79,0.392,0.04736,0.58,0.18945,pode ser sorte
-Lateral,com_bola,Passes progressivos/90,32,96,49.0,54.5,8.045,8.135,-0.128,0.51969,0.58,0.69291,sem diferença clara
-Lateral,com_bola,"Dribles com sucesso, %",32,96,60.8,46.8,59.81,57.415,0.227,0.3177,0.58,0.6354,sem diferença clara
-Lateral,com_bola,Acções atacantes com sucesso/90,32,96,59.9,49.6,2.435,2.345,0.017,0.93441,0.58,0.93441,sem diferença clara
-Lateral,ofensivo,Golos esperados/90,32,96,55.8,49.2,0.035,0.03,0.047,0.81653,0.58,0.90311,sem diferença clara
-Lateral,ofensivo,Assistências esperadas/90,32,96,54.5,48.3,0.07,0.07,0.046,0.82045,0.58,0.90311,sem diferença clara
-Lateral,ofensivo,Remates/90,32,96,50.0,48.9,0.595,0.605,0.025,0.90311,0.58,0.90311,sem diferença clara
-Lateral,ofensivo,Toques na área/90,32,96,64.5,52.9,0.85,0.685,0.147,0.4918,0.58,0.90311,sem diferença clara
-Volante,defensivo,"Duelos defensivos ganhos, %",22,59,62.7,43.3,59.87,58.06,0.535,0.04216,0.71,0.16864,pode ser sorte
-Volante,defensivo,"Duelos aéreos ganhos, %",22,59,56.0,46.7,50.0,50.0,0.073,0.76044,0.71,0.76044,sem diferença clara
-Volante,defensivo,Interceções ajust. à posse,22,59,51.7,51.7,5.95,5.67,0.201,0.38293,0.71,0.76044,sem diferença clara
-Volante,defensivo,Faltas/90,22,59,48.3,46.6,1.825,1.75,0.129,0.58099,0.71,0.76044,sem diferença clara
-Volante,com_bola,"Passes certos, %",22,59,63.6,51.1,86.525,85.07,0.371,0.12116,0.71,0.23801,sem diferença clara
-Volante,com_bola,Passes progressivos/90,22,59,60.0,53.3,6.215,5.83,0.385,0.12146,0.71,0.23801,sem diferença clara
-Volante,com_bola,"Dribles com sucesso, %",22,59,46.6,46.7,58.835,58.33,0.117,0.59001,0.71,0.59001,sem diferença clara
-Volante,com_bola,Acções atacantes com sucesso/90,22,59,74.0,50.0,1.165,0.86,0.379,0.17851,0.71,0.23801,sem diferença clara
-Volante,ofensivo,Golos esperados/90,22,59,58.4,53.4,0.05,0.04,0.06,0.821,0.71,0.821,sem diferença clara
-Volante,ofensivo,Assistências esperadas/90,22,59,68.8,39.7,0.03,0.02,0.428,0.09279,0.71,0.37117,sem diferença clara
-Volante,ofensivo,Remates/90,22,59,37.7,46.6,0.64,0.7,-0.197,0.44713,0.71,0.59617,sem diferença clara
-Volante,ofensivo,Toques na área/90,22,59,66.1,47.7,0.675,0.45,0.249,0.35832,0.71,0.59617,sem diferença clara
-Meia,defensivo,"Duelos defensivos ganhos, %",31,95,56.8,50.0,57.81,56.74,0.237,0.2419,0.58,0.32254,sem diferença clara
-Meia,defensivo,"Duelos aéreos ganhos, %",31,95,46.0,55.2,35.29,40.38,-0.263,0.21165,0.58,0.32254,sem diferença clara
-Meia,defensivo,Interceções ajust. à posse,31,95,59.9,50.0,4.37,3.76,0.213,0.32989,0.58,0.32989,sem diferença clara
-Meia,defensivo,Faltas/90,31,95,73.6,48.9,0.99,1.25,0.663,0.00181,0.58,0.00726,firme
-Meia,com_bola,"Passes certos, %",31,95,52.9,51.9,82.97,82.04,0.038,0.85846,0.58,0.85846,sem diferença clara
-Meia,com_bola,Passes progressivos/90,31,95,65.7,55.7,5.61,5.16,0.242,0.28014,0.58,0.62845,sem diferença clara
-Meia,com_bola,"Dribles com sucesso, %",31,95,53.1,42.2,55.32,54.55,0.166,0.41135,0.58,0.62845,sem diferença clara
-Meia,com_bola,Acções atacantes com sucesso/90,31,95,62.6,44.3,2.71,1.75,0.156,0.47134,0.58,0.62845,sem diferença clara
-Meia,ofensivo,Golos esperados/90,31,95,43.8,48.8,0.08,0.1,0.066,0.77433,0.58,0.93594,sem diferença clara
-Meia,ofensivo,Assistências esperadas/90,31,95,77.7,55.4,0.13,0.07,0.318,0.16955,0.58,0.67822,sem diferença clara
-Meia,ofensivo,Remates/90,31,95,47.1,45.0,1.4,1.29,-0.017,0.93594,0.58,0.93594,sem diferença clara
-Meia,ofensivo,Toques na área/90,31,95,53.0,46.6,1.3,1.18,0.115,0.57079,0.58,0.93594,sem diferença clara
-Extremo,defensivo,"Duelos defensivos ganhos, %",19,61,75.7,43.2,59.72,55.06,0.521,0.04188,0.75,0.16753,pode ser sorte
-Extremo,defensivo,"Duelos aéreos ganhos, %",19,61,56.8,52.4,32.0,31.82,0.042,0.87745,0.75,0.87745,sem diferença clara
-Extremo,defensivo,Interceções ajust. à posse,19,61,56.8,54.5,3.29,3.06,0.191,0.50171,0.75,0.66895,sem diferença clara
-Extremo,defensivo,Faltas/90,19,61,43.2,43.2,1.07,1.14,0.172,0.50063,0.75,0.66895,sem diferença clara
-Extremo,com_bola,"Passes certos, %",19,61,70.5,42.9,78.25,75.65,0.508,0.07317,0.75,0.29268,sem diferença clara
-Extremo,com_bola,Passes progressivos/90,19,61,56.8,51.4,3.72,3.62,0.005,0.98485,0.75,0.98485,sem diferença clara
-Extremo,com_bola,"Dribles com sucesso, %",19,61,52.4,51.4,52.38,54.26,-0.188,0.45467,0.75,0.60623,sem diferença clara
-Extremo,com_bola,Acções atacantes com sucesso/90,19,61,40.9,56.8,3.41,3.59,-0.247,0.33383,0.75,0.60623,sem diferença clara
-Extremo,ofensivo,Golos esperados/90,19,61,38.1,57.1,0.16,0.17,-0.296,0.28162,0.75,0.73067,sem diferença clara
-Extremo,ofensivo,Assistências esperadas/90,19,61,60.8,54.5,0.11,0.11,0.203,0.41521,0.75,0.73067,sem diferença clara
-Extremo,ofensivo,Remates/90,19,61,40.6,52.4,1.73,2.0,-0.16,0.5625,0.75,0.73067,sem diferença clara
-Extremo,ofensivo,Toques na área/90,19,61,52.4,59.5,2.3,2.47,-0.094,0.73067,0.75,0.73067,sem diferença clara
-Atacante,defensivo,"Duelos defensivos ganhos, %",27,89,51.2,47.7,50.0,51.85,-0.034,0.88592,0.62,0.95504,sem diferença clara
-Atacante,defensivo,"Duelos aéreos ganhos, %",27,89,48.8,50.0,30.95,31.33,-0.061,0.77658,0.62,0.95504,sem diferença clara
-Atacante,defensivo,Interceções ajust. à posse,27,89,37.5,47.7,2.04,2.18,-0.186,0.376,0.62,0.95504,sem diferença clara
-Atacante,defensivo,Faltas/90,27,89,51.1,50.0,1.38,1.25,-0.012,0.95504,0.62,0.95504,sem diferença clara
-Atacante,com_bola,"Passes certos, %",27,89,47.7,52.3,74.64,76.06,-0.048,0.82393,0.62,0.99374,sem diferença clara
-Atacante,com_bola,Passes progressivos/90,27,89,52.3,50.0,1.53,1.43,0.002,0.99374,0.62,0.99374,sem diferença clara
-Atacante,com_bola,"Dribles com sucesso, %",27,89,44.7,51.1,44.83,48.28,-0.061,0.79578,0.62,0.99374,sem diferença clara
-Atacante,com_bola,Acções atacantes com sucesso/90,27,89,43.2,53.4,1.86,1.84,0.012,0.95815,0.62,0.99374,sem diferença clara
-Atacante,ofensivo,Golos esperados/90,27,89,71.3,52.3,0.33,0.29,0.305,0.18525,0.62,0.27551,sem diferença clara
-Atacante,ofensivo,Assistências esperadas/90,27,89,51.1,51.2,0.07,0.06,0.105,0.6344,0.62,0.6344,sem diferença clara
-Atacante,ofensivo,Remates/90,27,89,64.6,46.3,2.12,1.87,0.444,0.03979,0.62,0.15916,pode ser sorte
-Atacante,ofensivo,Toques na área/90,27,89,61.4,47.7,2.93,2.72,0.283,0.20663,0.62,0.27551,sem diferença clara
+fronteira,setor,familia,indicador,n_sobe,n_meio,pct_sobe,pct_meio,cru_sobe,cru_meio,d,p,d_minimo_80,q,selo
+com,Goleiro,defensivo,"Duelos defensivos ganhos, %",16,48,19.6,53.6,0.0,50.0,-0.578,0.05823,0.82,0.07764,sem diferença clara
+com,Goleiro,defensivo,"Duelos aéreos ganhos, %",16,48,71.4,34.7,97.915,87.87,1.062,0.0003,0.82,0.00121,firme
+com,Goleiro,defensivo,Interceções ajust. à posse,16,48,39.6,62.5,1.685,2.11,-0.663,0.0372,0.82,0.07439,pode ser sorte
+com,Goleiro,defensivo,Faltas/90,16,48,64.0,64.0,0.0,0.0,0.197,0.46283,0.82,0.46283,sem diferença clara
+com,Goleiro,com_bola,"Passes certos, %",16,48,57.4,44.3,84.565,83.795,0.367,0.22207,0.82,0.44414,sem diferença clara
+com,Goleiro,com_bola,Passes progressivos/90,16,48,51.8,64.4,4.095,4.345,-0.206,0.44537,0.82,0.45424,sem diferença clara
+com,Goleiro,com_bola,"Dribles com sucesso, %",16,48,39.6,50.0,0.0,0.0,-0.205,0.45424,0.82,0.45424,sem diferença clara
+com,Goleiro,com_bola,Acções atacantes com sucesso/90,16,48,39.6,48.2,0.0,0.0,-0.474,0.03731,0.82,0.14923,pode ser sorte
+com,Goleiro,ofensivo,Golos esperados/90,16,48,47.2,47.9,0.0,0.0,-0.346,0.04509,0.82,0.09017,pode ser sorte
+com,Goleiro,ofensivo,Assistências esperadas/90,16,48,47.9,47.9,0.0,0.0,-0.298,0.08226,0.82,0.10968,sem diferença clara
+com,Goleiro,ofensivo,Remates/90,16,48,47.0,47.9,0.0,0.0,-0.433,0.01257,0.82,0.05028,pode ser sorte
+com,Goleiro,ofensivo,Toques na área/90,16,48,49.0,50.0,0.0,0.0,-0.168,0.35125,0.82,0.35125,sem diferença clara
+com,Zaga,defensivo,"Duelos defensivos ganhos, %",32,96,63.9,50.7,67.065,66.67,0.253,0.24818,0.58,0.46245,sem diferença clara
+com,Zaga,defensivo,"Duelos aéreos ganhos, %",32,96,59.5,50.0,62.625,61.705,0.14,0.46245,0.58,0.46245,sem diferença clara
+com,Zaga,defensivo,Interceções ajust. à posse,32,96,41.0,50.0,6.215,6.49,-0.196,0.36918,0.58,0.46245,sem diferença clara
+com,Zaga,defensivo,Faltas/90,32,96,66.1,54.0,0.795,0.91,0.272,0.17411,0.58,0.46245,sem diferença clara
+com,Zaga,com_bola,"Passes certos, %",32,96,49.3,51.1,86.685,86.815,0.062,0.75885,0.58,0.75885,sem diferença clara
+com,Zaga,com_bola,Passes progressivos/90,32,96,64.1,55.4,7.775,7.375,0.113,0.58926,0.58,0.75885,sem diferença clara
+com,Zaga,com_bola,"Dribles com sucesso, %",32,96,52.5,50.0,66.67,66.67,-0.109,0.58367,0.58,0.75885,sem diferença clara
+com,Zaga,com_bola,Acções atacantes com sucesso/90,32,96,59.3,49.3,0.39,0.32,0.072,0.74156,0.58,0.75885,sem diferença clara
+com,Zaga,ofensivo,Golos esperados/90,32,96,43.7,51.6,0.04,0.05,-0.204,0.35411,0.58,0.78046,sem diferença clara
+com,Zaga,ofensivo,Assistências esperadas/90,32,96,63.2,54.2,0.01,0.01,0.128,0.53982,0.58,0.78046,sem diferença clara
+com,Zaga,ofensivo,Remates/90,32,96,48.0,47.4,0.34,0.355,-0.061,0.78046,0.58,0.78046,sem diferença clara
+com,Zaga,ofensivo,Toques na área/90,32,96,42.3,46.6,0.455,0.49,-0.106,0.62267,0.58,0.78046,sem diferença clara
+com,Lateral,defensivo,"Duelos defensivos ganhos, %",32,96,50.7,48.9,61.255,61.75,-0.11,0.5589,0.58,0.71926,sem diferença clara
+com,Lateral,defensivo,"Duelos aéreos ganhos, %",32,96,40.7,50.4,46.87,51.155,-0.21,0.33141,0.58,0.71926,sem diferença clara
+com,Lateral,defensivo,Interceções ajust. à posse,32,96,48.6,51.5,5.6,5.57,-0.121,0.55161,0.58,0.71926,sem diferença clara
+com,Lateral,defensivo,Faltas/90,32,96,65.0,53.2,1.03,1.07,0.072,0.71926,0.58,0.71926,sem diferença clara
+com,Lateral,com_bola,"Passes certos, %",32,96,52.8,44.5,78.86,77.79,0.392,0.04736,0.58,0.18945,pode ser sorte
+com,Lateral,com_bola,Passes progressivos/90,32,96,49.0,54.5,8.045,8.135,-0.128,0.51969,0.58,0.69291,sem diferença clara
+com,Lateral,com_bola,"Dribles com sucesso, %",32,96,60.8,46.8,59.81,57.415,0.227,0.3177,0.58,0.6354,sem diferença clara
+com,Lateral,com_bola,Acções atacantes com sucesso/90,32,96,59.9,49.6,2.435,2.345,0.017,0.93441,0.58,0.93441,sem diferença clara
+com,Lateral,ofensivo,Golos esperados/90,32,96,55.8,49.2,0.035,0.03,0.047,0.81653,0.58,0.90311,sem diferença clara
+com,Lateral,ofensivo,Assistências esperadas/90,32,96,54.5,48.3,0.07,0.07,0.046,0.82045,0.58,0.90311,sem diferença clara
+com,Lateral,ofensivo,Remates/90,32,96,50.0,48.9,0.595,0.605,0.025,0.90311,0.58,0.90311,sem diferença clara
+com,Lateral,ofensivo,Toques na área/90,32,96,64.5,52.9,0.85,0.685,0.147,0.4918,0.58,0.90311,sem diferença clara
+com,Volante,defensivo,"Duelos defensivos ganhos, %",22,59,62.7,43.3,59.87,58.06,0.535,0.04216,0.71,0.16864,pode ser sorte
+com,Volante,defensivo,"Duelos aéreos ganhos, %",22,59,56.0,46.7,50.0,50.0,0.073,0.76044,0.71,0.76044,sem diferença clara
+com,Volante,defensivo,Interceções ajust. à posse,22,59,51.7,51.7,5.95,5.67,0.201,0.38293,0.71,0.76044,sem diferença clara
+com,Volante,defensivo,Faltas/90,22,59,48.3,46.6,1.825,1.75,0.129,0.58099,0.71,0.76044,sem diferença clara
+com,Volante,com_bola,"Passes certos, %",22,59,63.6,51.1,86.525,85.07,0.371,0.12116,0.71,0.23801,sem diferença clara
+com,Volante,com_bola,Passes progressivos/90,22,59,60.0,53.3,6.215,5.83,0.385,0.12146,0.71,0.23801,sem diferença clara
+com,Volante,com_bola,"Dribles com sucesso, %",22,59,46.6,46.7,58.835,58.33,0.117,0.59001,0.71,0.59001,sem diferença clara
+com,Volante,com_bola,Acções atacantes com sucesso/90,22,59,74.0,50.0,1.165,0.86,0.379,0.17851,0.71,0.23801,sem diferença clara
+com,Volante,ofensivo,Golos esperados/90,22,59,58.4,53.4,0.05,0.04,0.06,0.821,0.71,0.821,sem diferença clara
+com,Volante,ofensivo,Assistências esperadas/90,22,59,68.8,39.7,0.03,0.02,0.428,0.09279,0.71,0.37117,sem diferença clara
+com,Volante,ofensivo,Remates/90,22,59,37.7,46.6,0.64,0.7,-0.197,0.44713,0.71,0.59617,sem diferença clara
+com,Volante,ofensivo,Toques na área/90,22,59,66.1,47.7,0.675,0.45,0.249,0.35832,0.71,0.59617,sem diferença clara
+com,Meia,defensivo,"Duelos defensivos ganhos, %",31,95,56.8,50.0,57.81,56.74,0.237,0.2419,0.58,0.32254,sem diferença clara
+com,Meia,defensivo,"Duelos aéreos ganhos, %",31,95,46.0,55.2,35.29,40.38,-0.263,0.21165,0.58,0.32254,sem diferença clara
+com,Meia,defensivo,Interceções ajust. à posse,31,95,59.9,50.0,4.37,3.76,0.213,0.32989,0.58,0.32989,sem diferença clara
+com,Meia,defensivo,Faltas/90,31,95,73.6,48.9,0.99,1.25,0.663,0.00181,0.58,0.00726,firme
+com,Meia,com_bola,"Passes certos, %",31,95,52.9,51.9,82.97,82.04,0.038,0.85846,0.58,0.85846,sem diferença clara
+com,Meia,com_bola,Passes progressivos/90,31,95,65.7,55.7,5.61,5.16,0.242,0.28014,0.58,0.62845,sem diferença clara
+com,Meia,com_bola,"Dribles com sucesso, %",31,95,53.1,42.2,55.32,54.55,0.166,0.41135,0.58,0.62845,sem diferença clara
+com,Meia,com_bola,Acções atacantes com sucesso/90,31,95,62.6,44.3,2.71,1.75,0.156,0.47134,0.58,0.62845,sem diferença clara
+com,Meia,ofensivo,Golos esperados/90,31,95,43.8,48.8,0.08,0.1,0.066,0.77433,0.58,0.93594,sem diferença clara
+com,Meia,ofensivo,Assistências esperadas/90,31,95,77.7,55.4,0.13,0.07,0.318,0.16955,0.58,0.67822,sem diferença clara
+com,Meia,ofensivo,Remates/90,31,95,47.1,45.0,1.4,1.29,-0.017,0.93594,0.58,0.93594,sem diferença clara
+com,Meia,ofensivo,Toques na área/90,31,95,53.0,46.6,1.3,1.18,0.115,0.57079,0.58,0.93594,sem diferença clara
+com,Extremo,defensivo,"Duelos defensivos ganhos, %",19,61,75.7,43.2,59.72,55.06,0.521,0.04188,0.75,0.16753,pode ser sorte
+com,Extremo,defensivo,"Duelos aéreos ganhos, %",19,61,56.8,52.4,32.0,31.82,0.042,0.87745,0.75,0.87745,sem diferença clara
+com,Extremo,defensivo,Interceções ajust. à posse,19,61,56.8,54.5,3.29,3.06,0.191,0.50171,0.75,0.66895,sem diferença clara
+com,Extremo,defensivo,Faltas/90,19,61,43.2,43.2,1.07,1.14,0.172,0.50063,0.75,0.66895,sem diferença clara
+com,Extremo,com_bola,"Passes certos, %",19,61,70.5,42.9,78.25,75.65,0.508,0.07317,0.75,0.29268,sem diferença clara
+com,Extremo,com_bola,Passes progressivos/90,19,61,56.8,51.4,3.72,3.62,0.005,0.98485,0.75,0.98485,sem diferença clara
+com,Extremo,com_bola,"Dribles com sucesso, %",19,61,52.4,51.4,52.38,54.26,-0.188,0.45467,0.75,0.60623,sem diferença clara
+com,Extremo,com_bola,Acções atacantes com sucesso/90,19,61,40.9,56.8,3.41,3.59,-0.247,0.33383,0.75,0.60623,sem diferença clara
+com,Extremo,ofensivo,Golos esperados/90,19,61,38.1,57.1,0.16,0.17,-0.296,0.28162,0.75,0.73067,sem diferença clara
+com,Extremo,ofensivo,Assistências esperadas/90,19,61,60.8,54.5,0.11,0.11,0.203,0.41521,0.75,0.73067,sem diferença clara
+com,Extremo,ofensivo,Remates/90,19,61,40.6,52.4,1.73,2.0,-0.16,0.5625,0.75,0.73067,sem diferença clara
+com,Extremo,ofensivo,Toques na área/90,19,61,52.4,59.5,2.3,2.47,-0.094,0.73067,0.75,0.73067,sem diferença clara
+com,Atacante,defensivo,"Duelos defensivos ganhos, %",27,89,51.2,47.7,50.0,51.85,-0.034,0.88592,0.62,0.95504,sem diferença clara
+com,Atacante,defensivo,"Duelos aéreos ganhos, %",27,89,48.8,50.0,30.95,31.33,-0.061,0.77658,0.62,0.95504,sem diferença clara
+com,Atacante,defensivo,Interceções ajust. à posse,27,89,37.5,47.7,2.04,2.18,-0.186,0.376,0.62,0.95504,sem diferença clara
+com,Atacante,defensivo,Faltas/90,27,89,51.1,50.0,1.38,1.25,-0.012,0.95504,0.62,0.95504,sem diferença clara
+com,Atacante,com_bola,"Passes certos, %",27,89,47.7,52.3,74.64,76.06,-0.048,0.82393,0.62,0.99374,sem diferença clara
+com,Atacante,com_bola,Passes progressivos/90,27,89,52.3,50.0,1.53,1.43,0.002,0.99374,0.62,0.99374,sem diferença clara
+com,Atacante,com_bola,"Dribles com sucesso, %",27,89,44.7,51.1,44.83,48.28,-0.061,0.79578,0.62,0.99374,sem diferença clara
+com,Atacante,com_bola,Acções atacantes com sucesso/90,27,89,43.2,53.4,1.86,1.84,0.012,0.95815,0.62,0.99374,sem diferença clara
+com,Atacante,ofensivo,Golos esperados/90,27,89,71.3,52.3,0.33,0.29,0.305,0.18525,0.62,0.27551,sem diferença clara
+com,Atacante,ofensivo,Assistências esperadas/90,27,89,51.1,51.2,0.07,0.06,0.105,0.6344,0.62,0.6344,sem diferença clara
+com,Atacante,ofensivo,Remates/90,27,89,64.6,46.3,2.12,1.87,0.444,0.03979,0.62,0.15916,pode ser sorte
+com,Atacante,ofensivo,Toques na área/90,27,89,61.4,47.7,2.93,2.72,0.283,0.20663,0.62,0.27551,sem diferença clara
+sem,Goleiro,defensivo,"Duelos defensivos ganhos, %",8,32,18.8,53.6,0.0,50.0,-0.906,0.00782,1.14,0.01525,firme
+sem,Goleiro,defensivo,"Duelos aéreos ganhos, %",8,32,71.1,37.8,97.915,88.565,0.679,0.09629,1.14,0.09629,sem diferença clara
+sem,Goleiro,defensivo,Interceções ajust. à posse,8,32,15.8,66.7,1.445,2.11,-1.348,0.01144,1.14,0.01525,firme
+sem,Goleiro,defensivo,Faltas/90,8,32,64.0,64.0,0.0,0.0,0.736,0.00787,1.14,0.01525,firme
+sem,Goleiro,com_bola,"Passes certos, %",8,32,52.1,39.6,84.86,83.395,0.344,0.44283,1.14,0.59044,sem diferença clara
+sem,Goleiro,com_bola,Passes progressivos/90,8,32,50.6,66.3,3.83,4.43,-0.4,0.30394,1.14,0.59044,sem diferença clara
+sem,Goleiro,com_bola,"Dribles com sucesso, %",8,32,44.8,50.0,0.0,0.0,0.023,0.9535,1.14,0.9535,sem diferença clara
+sem,Goleiro,com_bola,Acções atacantes com sucesso/90,8,32,43.9,48.2,0.0,0.0,-0.276,0.40072,1.14,0.59044,sem diferença clara
+sem,Goleiro,ofensivo,Golos esperados/90,8,32,46.2,47.9,0.0,0.0,-0.328,0.11077,1.14,0.22154,sem diferença clara
+sem,Goleiro,ofensivo,Assistências esperadas/90,8,32,49.0,47.9,0.0,0.0,-0.14,0.50345,1.14,0.60914,sem diferença clara
+sem,Goleiro,ofensivo,Remates/90,8,32,46.0,47.9,0.0,0.0,-0.391,0.05726,1.14,0.22154,sem diferença clara
+sem,Goleiro,ofensivo,Toques na área/90,8,32,48.0,50.0,0.0,0.0,-0.199,0.60914,1.14,0.60914,sem diferença clara
+sem,Zaga,defensivo,"Duelos defensivos ganhos, %",16,64,83.9,54.0,72.405,67.275,0.598,0.05999,0.79,0.11997,sem diferença clara
+sem,Zaga,defensivo,"Duelos aéreos ganhos, %",16,64,61.2,47.7,62.685,61.21,0.329,0.17048,0.79,0.22731,sem diferença clara
+sem,Zaga,defensivo,Interceções ajust. à posse,16,64,52.2,51.8,6.585,6.515,-0.06,0.85468,0.79,0.85468,sem diferença clara
+sem,Zaga,defensivo,Faltas/90,16,64,74.5,54.0,0.705,0.91,0.568,0.04142,0.79,0.11997,pode ser sorte
+sem,Zaga,com_bola,"Passes certos, %",16,64,54.8,61.3,87.15,87.88,0.019,0.94636,0.79,0.94636,sem diferença clara
+sem,Zaga,com_bola,Passes progressivos/90,16,64,65.3,52.9,7.5,7.175,0.203,0.5064,0.79,0.82001,sem diferença clara
+sem,Zaga,com_bola,"Dribles com sucesso, %",16,64,57.9,50.0,67.425,66.67,0.207,0.44214,0.79,0.82001,sem diferença clara
+sem,Zaga,com_bola,Acções atacantes com sucesso/90,16,64,65.2,52.8,0.42,0.325,0.158,0.61501,0.79,0.82001,sem diferença clara
+sem,Zaga,ofensivo,Golos esperados/90,16,64,39.9,51.6,0.04,0.05,-0.263,0.40253,0.79,0.56188,sem diferença clara
+sem,Zaga,ofensivo,Assistências esperadas/90,16,64,63.2,54.2,0.01,0.01,0.227,0.42141,0.79,0.56188,sem diferença clara
+sem,Zaga,ofensivo,Remates/90,16,64,37.1,43.1,0.31,0.335,-0.163,0.61018,0.79,0.61018,sem diferença clara
+sem,Zaga,ofensivo,Toques na área/90,16,64,31.0,50.5,0.425,0.485,-0.291,0.37305,0.79,0.56188,sem diferença clara
+sem,Lateral,defensivo,"Duelos defensivos ganhos, %",16,64,54.7,43.8,62.645,61.28,0.255,0.25957,0.79,0.98482,sem diferença clara
+sem,Lateral,defensivo,"Duelos aéreos ganhos, %",16,64,50.3,50.4,50.975,51.155,0.052,0.86353,0.79,0.98482,sem diferença clara
+sem,Lateral,defensivo,Interceções ajust. à posse,16,64,50.0,52.3,5.85,5.51,0.005,0.98482,0.79,0.98482,sem diferença clara
+sem,Lateral,defensivo,Faltas/90,16,64,39.6,50.0,1.35,1.12,-0.126,0.64757,0.79,0.98482,sem diferença clara
+sem,Lateral,com_bola,"Passes certos, %",16,64,62.9,47.7,79.46,78.135,0.52,0.03762,0.79,0.15047,pode ser sorte
+sem,Lateral,com_bola,Passes progressivos/90,16,64,44.9,46.7,7.84,7.89,-0.143,0.6089,0.79,0.81187,sem diferença clara
+sem,Lateral,com_bola,"Dribles com sucesso, %",16,64,60.8,45.2,59.81,56.03,0.37,0.24515,0.79,0.4903,sem diferença clara
+sem,Lateral,com_bola,Acções atacantes com sucesso/90,16,64,59.9,46.8,2.575,2.225,0.017,0.95255,0.79,0.95255,sem diferença clara
+sem,Lateral,ofensivo,Golos esperados/90,16,64,54.2,49.2,0.03,0.03,0.021,0.93713,0.79,0.93713,sem diferença clara
+sem,Lateral,ofensivo,Assistências esperadas/90,16,64,50.4,44.6,0.07,0.06,-0.08,0.77477,0.79,0.93713,sem diferença clara
+sem,Lateral,ofensivo,Remates/90,16,64,46.1,43.8,0.58,0.6,-0.094,0.73715,0.79,0.93713,sem diferença clara
+sem,Lateral,ofensivo,Toques na área/90,16,64,65.7,55.8,0.87,0.715,0.085,0.78088,0.79,0.93713,sem diferença clara
+sem,Volante,defensivo,"Duelos defensivos ganhos, %",12,46,70.8,44.1,60.985,58.14,0.76,0.04003,0.92,0.1601,pode ser sorte
+sem,Volante,defensivo,"Duelos aéreos ganhos, %",12,46,45.1,46.1,49.335,50.0,-0.2,0.51688,0.92,0.51688,sem diferença clara
+sem,Volante,defensivo,Interceções ajust. à posse,12,46,56.0,45.0,6.12,5.645,0.422,0.15945,0.92,0.3189,sem diferença clara
+sem,Volante,defensivo,Faltas/90,12,46,49.1,47.5,1.67,1.69,0.342,0.26295,0.92,0.35061,sem diferença clara
+sem,Volante,com_bola,"Passes certos, %",12,46,73.7,59.3,86.59,85.96,0.343,0.28371,0.92,0.28371,sem diferença clara
+sem,Volante,com_bola,Passes progressivos/90,12,46,76.1,55.9,6.89,5.995,0.595,0.07927,0.92,0.28371,sem diferença clara
+sem,Volante,com_bola,"Dribles com sucesso, %",12,46,35.1,47.2,50.835,58.33,-0.28,0.26929,0.92,0.28371,sem diferença clara
+sem,Volante,com_bola,Acções atacantes com sucesso/90,12,46,74.0,46.6,1.405,0.835,0.556,0.18823,0.92,0.28371,sem diferença clara
+sem,Volante,ofensivo,Golos esperados/90,12,46,69.7,47.7,0.06,0.04,0.365,0.30279,0.92,0.52247,sem diferença clara
+sem,Volante,ofensivo,Assistências esperadas/90,12,46,69.9,51.7,0.04,0.02,0.304,0.39185,0.92,0.52247,sem diferença clara
+sem,Volante,ofensivo,Remates/90,12,46,43.8,41.1,0.665,0.675,0.126,0.73659,0.92,0.73659,sem diferença clara
+sem,Volante,ofensivo,Toques na área/90,12,46,70.7,41.7,0.74,0.46,0.455,0.24603,0.92,0.52247,sem diferença clara
+sem,Meia,defensivo,"Duelos defensivos ganhos, %",16,63,59.8,48.6,58.07,56.74,0.538,0.04332,0.79,0.1733,pode ser sorte
+sem,Meia,defensivo,"Duelos aéreos ganhos, %",16,63,49.6,50.6,35.455,35.96,0.029,0.92458,0.79,0.92458,sem diferença clara
+sem,Meia,defensivo,Interceções ajust. à posse,16,63,51.5,42.0,3.9,3.44,0.232,0.4736,0.79,0.63147,sem diferença clara
+sem,Meia,defensivo,Faltas/90,16,63,65.2,49.4,1.05,1.23,0.454,0.11132,0.79,0.22264,sem diferença clara
+sem,Meia,com_bola,"Passes certos, %",16,63,48.0,49.4,81.74,81.67,0.182,0.52754,0.79,0.56732,sem diferença clara
+sem,Meia,com_bola,Passes progressivos/90,16,63,60.3,52.9,5.33,5.05,0.532,0.08286,0.79,0.33145,sem diferença clara
+sem,Meia,com_bola,"Dribles com sucesso, %",16,63,56.0,39.5,56.29,52.63,0.354,0.22219,0.79,0.44438,sem diferença clara
+sem,Meia,com_bola,Acções atacantes com sucesso/90,16,63,74.6,54.3,3.16,2.11,0.18,0.56732,0.79,0.56732,sem diferença clara
+sem,Meia,ofensivo,Golos esperados/90,16,63,67.1,57.1,0.135,0.11,0.048,0.88162,0.79,0.95102,sem diferença clara
+sem,Meia,ofensivo,Assistências esperadas/90,16,63,82.4,62.0,0.155,0.08,0.334,0.31222,0.79,0.95102,sem diferença clara
+sem,Meia,ofensivo,Remates/90,16,63,57.3,54.3,1.44,1.34,0.069,0.8233,0.79,0.95102,sem diferença clara
+sem,Meia,ofensivo,Toques na área/90,16,63,54.2,59.0,1.335,1.38,-0.018,0.95102,0.79,0.95102,sem diferença clara
+sem,Extremo,defensivo,"Duelos defensivos ganhos, %",9,36,75.0,44.6,59.62,55.985,0.544,0.09445,1.07,0.27618,sem diferença clara
+sem,Extremo,defensivo,"Duelos aéreos ganhos, %",9,36,56.8,52.9,31.25,31.91,0.047,0.90673,1.07,0.97642,sem diferença clara
+sem,Extremo,defensivo,Interceções ajust. à posse,9,36,85.7,49.4,4.43,3.005,0.677,0.13809,1.07,0.27618,sem diferença clara
+sem,Extremo,defensivo,Faltas/90,9,36,38.1,45.1,1.4,1.12,-0.01,0.97642,1.07,0.97642,sem diferença clara
+sem,Extremo,com_bola,"Passes certos, %",9,36,76.2,43.5,78.25,75.555,0.633,0.07186,1.07,0.28746,sem diferença clara
+sem,Extremo,com_bola,Passes progressivos/90,9,36,62.2,45.4,4.13,3.425,0.162,0.66882,1.07,0.89176,sem diferença clara
+sem,Extremo,com_bola,"Dribles com sucesso, %",9,36,56.8,45.4,53.62,53.555,-0.019,0.9589,1.07,0.9589,sem diferença clara
+sem,Extremo,com_bola,Acções atacantes com sucesso/90,9,36,37.8,60.2,3.48,3.835,-0.361,0.29207,1.07,0.58414,sem diferença clara
+sem,Extremo,ofensivo,Golos esperados/90,9,36,38.1,58.6,0.16,0.175,-0.364,0.23581,1.07,0.89832,sem diferença clara
+sem,Extremo,ofensivo,Assistências esperadas/90,9,36,60.8,51.4,0.11,0.105,0.225,0.51613,1.07,0.89832,sem diferença clara
+sem,Extremo,ofensivo,Remates/90,9,36,56.8,64.3,2.12,2.08,0.001,0.99857,1.07,0.99857,sem diferença clara
+sem,Extremo,ofensivo,Toques na área/90,9,36,52.4,69.0,2.3,2.58,-0.142,0.67374,1.07,0.89832,sem diferença clara
+sem,Atacante,defensivo,"Duelos defensivos ganhos, %",14,60,51.2,48.3,50.0,52.08,0.005,0.98859,0.84,0.98859,sem diferença clara
+sem,Atacante,defensivo,"Duelos aéreos ganhos, %",14,60,53.7,49.5,32.965,31.33,-0.006,0.98507,0.84,0.98859,sem diferença clara
+sem,Atacante,defensivo,Interceções ajust. à posse,14,60,35.3,50.0,1.95,2.175,-0.298,0.28533,0.84,0.57066,sem diferença clara
+sem,Atacante,defensivo,Faltas/90,14,60,62.4,51.8,1.185,1.25,0.332,0.24615,0.84,0.57066,sem diferença clara
+sem,Atacante,com_bola,"Passes certos, %",14,60,46.6,52.7,74.555,76.095,-0.049,0.8646,0.84,0.89678,sem diferença clara
+sem,Atacante,com_bola,Passes progressivos/90,14,60,50.5,43.8,1.545,1.325,-0.034,0.89678,0.84,0.89678,sem diferença clara
+sem,Atacante,com_bola,"Dribles com sucesso, %",14,60,57.3,47.6,51.59,48.055,0.154,0.6598,0.84,0.89678,sem diferença clara
+sem,Atacante,com_bola,Acções atacantes com sucesso/90,14,60,36.6,46.6,1.785,1.79,0.042,0.89597,0.84,0.89678,sem diferença clara
+sem,Atacante,ofensivo,Golos esperados/90,14,60,67.0,46.5,0.33,0.28,0.41,0.16511,0.84,0.22014,sem diferença clara
+sem,Atacante,ofensivo,Assistências esperadas/90,14,60,59.1,51.2,0.075,0.06,0.324,0.31297,0.84,0.31297,sem diferença clara
+sem,Atacante,ofensivo,Remates/90,14,60,64.1,41.2,2.175,1.86,0.564,0.06692,0.84,0.13384,sem diferença clara
+sem,Atacante,ofensivo,Toques na área/90,14,60,64.8,43.2,3.12,2.66,0.548,0.04471,0.84,0.13384,pode ser sorte

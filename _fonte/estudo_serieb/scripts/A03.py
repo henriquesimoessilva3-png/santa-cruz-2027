@@ -209,6 +209,18 @@ def main():
         "dif_dd_sobe": linha("com", "assimetria", "SM", "dif_dd")["cru_a"],
         "dif_dd_meio": linha("com", "assimetria", "SM", "dif_dd")["cru_b"],
 
+        # -- A vantagem de casa de CADA faixa, nos dois cortes (20/09) ---------------------------
+        # A conclusão A03-1 diz que depender de casa não separa quem sobe do meio, e até aqui só
+        # publicava a liga e quem sobe: quem lê não via o número do meio, que é justamente o outro
+        # lado da comparação. Sem ele a frase pedia fé. Os dois cortes vão juntos porque a regra da
+        # casa manda relatar os dois, e aqui eles concordam — é o que o desenho mostra.
+        "dif_pj_sobe_com": linha("com", "assimetria", "SM", "dif_pj")["cru_a"],
+        "dif_pj_meio_com": linha("com", "assimetria", "SM", "dif_pj")["cru_b"],
+        "dif_pj_sobe_sem": linha("sem", "assimetria", "SM", "dif_pj")["cru_a"],
+        "dif_pj_meio_sem": linha("sem", "assimetria", "SM", "dif_pj")["cru_b"],
+        "dif_pj_cai_com": linha("com", "assimetria", "CM", "dif_pj")["cru_a"],
+        "dif_pj_cai_sem": linha("sem", "assimetria", "CM", "dif_pj")["cru_a"],
+
         # -- A trave (grupo B da comparação ST), nos dois cortes ---------------------------------
         "dif_pj_trave_com": linha("com", "assimetria", "ST", "dif_pj")["cru_b"],
         "dif_pj_trave_sem": linha("sem", "assimetria", "ST", "dif_pj")["cru_b"],

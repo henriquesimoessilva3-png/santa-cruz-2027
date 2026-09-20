@@ -29,10 +29,43 @@
 
   /* ---------------- pedaços ---------------- */
 
+  /* O "por que esta confiança" era o title= do selo, e tooltip não rola, não copia e não
+     abre no celular. O maior destes textos tem mais de 8 mil caracteres de prova — nada
+     ali é supérfluo. Vira bloco que abre e fecha, no molde do "ver os números" do gráfico.
+
+     O texto vai INTEIRO e literal: a única coisa que o código faz é começar parágrafo onde
+     o próprio autor já marcou seção — um trecho em maiúsculas ("ROBUSTEZ", "FICA EM ABERTO")
+     ou um item enumerado ("(1)", "(a)"). Nenhuma frase é cortada, juntada ou reordenada. */
+  const FIM_FRASE = /(?<=[.!?])\s+/;
+  const CABECALHO = /^(?:[A-ZÁÂÃÉÊÍÓÔÕÚÜÇ]{2,}[^a-z]{0,3}){2,}/;
+  const ENUMERADOR = /^\((?:\d+|[a-z]{1,3})\)/;
+
+  function motivoParagrafos(txt) {
+    const paras = [];
+    let atual = [];
+    String(txt).split(FIM_FRASE).forEach(f => {
+      if (atual.length && (CABECALHO.test(f) || ENUMERADOR.test(f))) {
+        paras.push(atual.join(' '));
+        atual = [];
+      }
+      atual.push(f);
+    });
+    if (atual.length) paras.push(atual.join(' '));
+    return paras;
+  }
+
+  function motivoHtml(c) {
+    if (!c.confianca_motivo) return '';
+    return '<details class="esb-motivo">' +
+      '<summary>por que esta confiança</summary>' +
+      '<div class="esb-motivo-corpo">' +
+        motivoParagrafos(c.confianca_motivo).map(p => '<p>' + esc(p) + '</p>').join('') +
+      '</div></details>';
+  }
+
   function conclusaoHtml(c, compacta) {
     const n = c.n ? '<span class="esb-n">n = ' + esc(c.n) + '</span>' : '';
-    const selos = '<span class="' + classeSelo(c.confianca) + '" ' +
-      (c.confianca_motivo ? 'title="' + esc(c.confianca_motivo) + '"' : '') + '>' +
+    const selos = '<span class="' + classeSelo(c.confianca) + '">' +
       selo(c.confianca) + '</span>' + n;
     if (compacta) {
       return '<article class="esb-concl esb-compacta">' +
@@ -69,6 +102,7 @@
       '<div class="esb-rodape">' + selos +
         '<span class="esb-fonte">' + esc(c.parte) + (c.id ? ' · ' + esc(c.id) : '') + '</span>' +
       '</div>' +
+      motivoHtml(c) +
       '</article>';
   }
 
@@ -218,8 +252,19 @@
         return '<div class="esb-pos esb-pos-vazia"><h4>' + esc(b.posicao) +
           '<span class="esb-conta">nenhum, de ' + b.na_serie_b + ' na Série B</span></h4></div>';
       }
+      /* O denominador é do SETOR, não do bloco: o J06 conta a oferta da Série B por setor, e
+         dividir a lista por lado não divide essa contagem. Então o bloco dividido diz de quem é o
+         denominador — "4 · 106 laterais na Série B, os dois lados" —, em vez de deixar
+         "4 de 106" parecer quatro laterais direitos entre 106 laterais direitos. */
+      const PLURAL = { Lateral: 'laterais', Meia: 'meias', Zaga: 'zagueiros', Volante: 'volantes',
+                       Extremo: 'extremos', Atacante: 'atacantes', Goleiro: 'goleiros' };
+      const doSetor = (b.na_serie_b_de && b.na_serie_b_de !== b.posicao)
+        ? b.quantos + ' · ' + b.na_serie_b + ' ' +
+          esc(PLURAL[b.na_serie_b_de] || b.na_serie_b_de.toLowerCase()) +
+          ' na Série B, os dois blocos juntos · '
+        : b.quantos + ' de ' + b.na_serie_b + ' na Série B · ';
       return '<div class="esb-pos"><h4>' + esc(b.posicao) +
-        '<span class="esb-conta">' + b.quantos + ' de ' + b.na_serie_b + ' na Série B · ' +
+        '<span class="esb-conta">' + doSetor +
         b.com_contrato_confirmado + ' com contrato confirmado' +
         (b.com_a_ficha_inteira ? ' · ' + b.com_a_ficha_inteira + ' com a ficha inteira' : '') +
         '</span></h4><table class="esb-tab-livres"><thead>' + cab + '</thead><tbody>' +
@@ -353,9 +398,15 @@
         '<th class="esb-num" title="média do percentil dele nos critérios da posição, 0 a 100">aderência</th>' +
         '<th class="esb-num" title="média de (percentil − piso): negativo é abaixo do que a ficha pede">folga</th>' +
         '<th>contrato</th><th>onde ele está na ficha</th></tr>';
+      /* A lista é dividida por lado e por função (lateral esquerdo e direito, médio e meia
+         ofensivo), mas a FICHA continua sendo uma por setor. Quando as duas não coincidem, o
+         cabeçalho diz de qual ficha o bloco está sendo julgado — sem isso, quem lê "Lateral
+         esquerdo · ficha de 4 critérios" supõe que a ficha distingue o lado, e ela não distingue. */
+      const deQuem = (b.ficha_de && b.ficha_de !== b.posicao)
+        ? ' · ficha de ' + esc(b.ficha_de) + ', ' + b.criterios_da_ficha + ' critérios'
+        : ' · ficha de ' + b.criterios_da_ficha + ' critérios';
       return '<div class="esb-pos"><h4>' + esc(b.posicao) +
-        '<span class="esb-conta">' + b.quantos + ' com dado · ficha de ' +
-        b.criterios_da_ficha + ' critérios</span></h4>' +
+        '<span class="esb-conta">' + b.quantos + ' com dado' + deQuem + '</span></h4>' +
         '<table class="esb-tab-tec"><thead>' + cab + '</thead><tbody>' +
         vis.map((j, i) => linha(j, i + 1)).join('') + '</tbody></table>' +
         (resto.length
@@ -454,7 +505,16 @@
         '<span class="esb-pill esb-pill-ras">' + c.rascunho + ' em rascunho</span>' +
         '<span class="esb-pill esb-pill-pen">' + c.pendente + ' pendentes</span>' +
         '<span class="esb-gerado">dado de ' + esc(D.gerado_em) + '</span>' +
-      '</div></div>' +
+      '</div>' +
+      /* R01, 20/09. As abas Análise Série B e Protótipo saíram da barra do app: o conteúdo delas
+         migrou para cá, mas elas continuam sendo de onde muita conclusão veio, e apagá-las
+         apagaria a prova. Viram material auxiliar deste estudo, a um clique daqui. O botão
+         original continua no index.html, escondido — é dele que o irParaAba() do app.js depende
+         para trocar de página, e chamá-lo é o mesmo caminho da barra, sem duplicar nada. */
+      '<p class="esb-auxiliar">Material de onde este estudo partiu, fora da barra de abas: ' +
+        '<a href="#" data-ir="serieb">Análise Série B</a> · ' +
+        '<a href="#" data-ir="prototipo">Protótipo</a></p>' +
+      '</div>' +
       sumarioHtml() +
       filtroHtml() +
       decidimosHtml() +
@@ -556,6 +616,13 @@
     }
     if (alvo.dataset.montado) return;   // a tela é estática; montar uma vez basta
     alvo.innerHTML = casca();
+    alvo.querySelectorAll('[data-ir]').forEach(a => {
+      a.onclick = e => {
+        e.preventDefault();
+        const b = document.querySelector('.aba[data-aba="' + a.dataset.ir + '"]');
+        if (b) b.click();          /* mesmo caminho da barra: o onclick dela chama irParaAba */
+      };
+    });
     montarGraficos(alvo);
     ligarFiltros(alvo);
     alvo.dataset.montado = '1';

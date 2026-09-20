@@ -25,8 +25,8 @@ titulares. Assim o titular de quem sobe é comparado à liga, e não apenas aos 
 ## A saída dos números (20/09, etapa 6 do PLANO.md)
 
 O script passou a gravar `resultados/J03_numeros.json`: todo marcador que `J03.json` publica sai
-daqui, com o nome do marcador como chave. **A análise não mudou** — `J03_testes.csv` e
-`J03_resumo.json` continuam idênticos byte a byte aos de 19/09. O que se acrescentou foi
+daqui, com o nome do marcador como chave. **A análise não mudou** — `J03_resumo.json` continua idêntico
+byte a byte ao de 19/09, e as linhas do corte COM fronteira do `J03_testes.csv` também. O que se acrescentou foi
 (a) gravar, e (b) calcular os marcadores que até 19/09 só existiam digitados no `J03.json`:
 os quatro cruzamentos (normalização por setor × por posição, com × sem os times de fronteira),
 o poder por desenho contado em clube-temporada, a bola alta do goleiro em unidade de jogo e o
@@ -226,9 +226,18 @@ def main():
 
     res = comparar_setores(titulares, dec, PCT_SETOR, verboso=True)
 
+    # O corte SEM os times de fronteira, na mesma normalização publicada e pela mesma função.
+    # Até 20/09 ele era calculado mais abaixo, só para contar quantos achados sobreviviam, e não
+    # chegava ao J03_testes.csv: a tabela saía sem coluna de corte, e a regra 3 do portão recusava
+    # a parte porque "a robustez da fronteira não rodou". Ela rodava — só não estava publicada.
+    res_sem = comparar_setores(titulares, dec, PCT_SETOR, sem_fronteira=True)
+
+    linhas_csv = ([{"fronteira": "com", **r} for r in res] +
+                  [{"fronteira": "sem", **r} for r in res_sem])
     with open(os.path.join(R, "J03_testes.csv"), "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(res[0]))
-        w.writeheader(); w.writerows(res)
+        w = csv.DictWriter(f, fieldnames=list(linhas_csv[0]))
+        w.writeheader(); w.writerows(linhas_csv)
+    print(f"  J03_testes.csv: {len(res)} linhas com fronteira + {len(res_sem)} sem")
     firmes = [r for r in res if r["selo"] == "firme"]
     json.dump({"n_titulares": len(titulares), "n_testes": len(res), "firmes": len(firmes),
                "firmes_detalhe": firmes,

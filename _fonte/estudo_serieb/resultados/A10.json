@@ -36,8 +36,8 @@
      }
     ]
    },
-   "o_que_vimos": "Na média, do 1º para o 2º turno o mesmo jogador perde {queda_liga_m} metros por noventa minutos, {queda_liga_pct}% do que corria. A perda não separa quem subiu do meio, e sprint e alta intensidade ficam onde estavam. O que separou as faixas foi ponto por jogo no 2º turno, {ppj_returno_sobe} contra {ppj_returno_meio}, num corte só.",
-   "para_o_santa_cruz": "Não vale montar elenco para “aguentar o returno”: a queda de fim de temporada existe, mas é de {queda_liga_pct}% do que o jogador corria e é a mesma para quem sobe e para quem fica no meio. O físico entra em J05 como exigência de nível, como o A07 já apontava, e não como reserva de fôlego. E a diferença de ponto de 2025 aparece no 2º turno ({ppj_returno_sobe} contra {ppj_returno_meio}), não no 1º ({ppj_turno_sobe} contra {ppj_turno_meio}, que não passa no critério) — quem responde a pergunta da trajetória é A13, não esta parte.",
+   "o_que_vimos": "Na média, do 1º para o 2º turno o mesmo jogador perde {queda_liga_m} metros por noventa minutos, {queda_liga_pct}% do que corria. A perda não separa quem subiu do meio. Sprint e alta intensidade chegam a separar com os times colados na linha do acesso na conta, e não separam sem eles.",
+   "para_o_santa_cruz": "Não vale montar elenco para “aguentar o returno”: a queda de fim de temporada existe, mas é de {queda_liga_pct}% do que o jogador corria e é a mesma para quem sobe e para quem fica no meio. O físico entra em J05 como exigência de nível, como o A07 já apontava, e não como reserva de fôlego. E a diferença de ponto de 2025 aparece no 2º turno ({ppj_returno_sobe} contra {ppj_returno_meio}, e num corte só), não no 1º ({ppj_turno_sobe} contra {ppj_turno_meio}, que não passa no critério) — quem responde a pergunta da trajetória é A13, não esta parte.",
    "premissa": "m1",
    "premissa_motivo": "Ajusta a m1 (Time físico): a intensidade segue valendo como critério de nível na contratação, mas não como sustentação ao longo da temporada — a queda de returno existe, é de 0,8% do que o jogador corria, e não separa quem subiu do meio.",
    "confianca": "indício",
@@ -103,8 +103,8 @@
      }
     ]
    },
-   "o_que_vimos": "No 1º turno os rebaixados já correm {hi_cai_turno} metros em alta intensidade por noventa minutos contra {hi_meio_turno} do meio, e isso só aparece comparando cada um dentro do próprio setor. Não é cansaço, é elenco: quem caiu usou {atletas_cai} atletas por meia temporada contra {atletas_sobe} de quem subiu.",
-   "para_o_santa_cruz": "O risco da temporada longa não é o elenco cansar, é o elenco não ter o nível e ainda virar outro no meio do ano — o que conversa com as premissas m2 e m3. Núcleo fixo e minutagem concentrada valem mais que reforço de meio de temporada. Na régua de contratação (J05), sprint e alta intensidade entram como corte de nível do elenco inteiro, e não como prova de resistência para o fim do campeonato.",
+   "o_que_vimos": "No 1º turno os rebaixados já correm {hi_cai_turno} metros em alta intensidade por noventa minutos contra {hi_meio_turno} do meio, e só dentro do próprio setor. Sem os times colados na linha a conta se inverte: o sprint separa e a alta intensidade não. Não é cansaço, é elenco.",
+   "para_o_santa_cruz": "Quem caiu usou {atletas_cai} atletas por meia temporada contra {atletas_sobe} de quem subiu: o risco da temporada longa não é o elenco cansar, é o elenco não ter o nível e ainda virar outro no meio do ano — o que conversa com as premissas m2 e m3. Núcleo fixo e minutagem concentrada valem mais que reforço de meio de temporada. Na régua de contratação (J05), sprint e alta intensidade entram como corte de nível do elenco inteiro, e não como prova de resistência para o fim do campeonato.",
    "premissa": "m3",
    "premissa_motivo": "Confirma a m2 e a m3 por um caminho novo: o lado fraco da tabela é o que mais troca de gente no meio da temporada. Converge com o A07-2 (quem cai sprinta menos) e NÃO localiza o achado no tempo — a diferença já está no 1º turno, e era a escolha de leitura que a empurrava para o returno.",
    "confianca": "provável",

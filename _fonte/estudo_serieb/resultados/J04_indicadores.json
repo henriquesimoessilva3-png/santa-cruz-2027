@@ -4,14 +4,17 @@
  "declarado_em": "2026-09-19",
  "declarado_antes_de_calcular": true,
  "declarado_antes_de_calcular_o_que": "Nenhuma comparação Sobe × Meio foi rodada antes desta lista. O que foi medido antes dela é só o que o CLAUDE.md manda medir antes de usar dado físico: cobertura por temporada e por time, e a auditoria de identidade da ponte SkillCorner × Wyscout. Essas duas medidas estão em J04_ponte_clubes.json e são o motivo das exclusões declaradas abaixo.",
-
  "recorte": {
-  "temporadas": [2022, 2023, 2024, 2025],
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
   "unidade": "jogador-temporada",
   "2026": "fora das conclusões. Temporada em curso; entra na base com no_recorte = 0 e serve só como teste, como manda o CLAUDE.md.",
   "goleiro": "FORA, e não por escolha: o SkillCorner não rastreia goleiro (ESPECIFICACAO.md §4.2). Medido na base copiada — dos 2.982 jogador-temporada casados, ZERO são GK. O setor Goleiro, que existe em J03, não existe em J04."
  },
-
  "fonte_do_dado": {
   "fisico": "_fonte/estudo_serieb/dados_copiados/skillcorner_serieb.db, tabela `physical` (agregado jogador-temporada), edições 335=2022, 446=2023, 773=2024, 1061=2025, 1399=2026. Só leitura.",
   "identidade_clube_posicao_minutos": "dados/serieb_tecnico.csv (Wyscout), colunas `Jogador`, `Equipa dentro de um período de tempo seleccionado`, `posicao_1`, `idade_na_temporada`, `Minutos jogados:`.",
@@ -19,42 +22,76 @@
   "faixa_trave_fronteira": "_fonte/estudo_serieb/resultados/A01_clube_temporada.csv.",
   "conferencia_do_clube": "tabela `physical_match` do mesmo banco, que traz team_name — só existe em 2025 e 2026."
  },
-
  "comparacoes": [
-  {"id": "SM", "nome": "titular de quem sobe × titular do meio", "papel": "padrão",
-   "nota": "É esta que responde a pergunta. A aba Físico do app usa Sobe × Cai (dados/raio_ref.json só guarda `sobe` e `cai`); aqui a referência é o Meio, e por isso o raio_ref.json não serve."},
-  {"id": "CM", "nome": "titular de quem cai × titular do meio", "papel": "secundária",
-   "nota": "Declarada porque A07-2 achou sinal físico no Cai e não no Sobe, no nível de clube. Se o mesmo aparecer no jogador, a leitura muda de lado."},
-  {"id": "ST", "nome": "titular de quem sobe × titular da Trave (5º–8º)", "papel": "secundária",
-   "nota": "n pequeno por posição. Sai da conclusão se o poder não alcançar."}
+  {
+   "id": "SM",
+   "nome": "titular de quem sobe × titular do meio",
+   "papel": "padrão",
+   "nota": "É esta que responde a pergunta. A aba Físico do app usa Sobe × Cai (dados/raio_ref.json só guarda `sobe` e `cai`); aqui a referência é o Meio, e por isso o raio_ref.json não serve."
+  },
+  {
+   "id": "CM",
+   "nome": "titular de quem cai × titular do meio",
+   "papel": "secundária",
+   "nota": "Declarada porque A07-2 achou sinal físico no Cai e não no Sobe, no nível de clube. Se o mesmo aparecer no jogador, a leitura muda de lado."
+  },
+  {
+   "id": "ST",
+   "nome": "titular de quem sobe × titular da Trave (5º–8º)",
+   "papel": "secundária",
+   "nota": "n pequeno por posição. Sai da conclusão se o poder não alcançar."
+  }
  ],
-
  "repetir_sem_fronteira": true,
  "regra_da_fronteira": "Toda comparação roda nos dois cortes (com e sem os times de fronteira de A01). Firme = firme NOS DOIS. O corte sem fronteira é teste de robustez, não recorte melhor: ele é enviesado por construção (_metodo_fronteira.md). Relatar os dois.",
-
  "quem_e_titular": {
   "regra": "A MESMA de J03, para as duas partes serem comparáveis: por clube-temporada e por SETOR, os jogadores de mais minutos — 1 no gol, 2 na zaga, 2 no lateral, 2 no volante, 2 na meia, 2 no extremo e 2 no ataque. Mínimo de 900 minutos no Wyscout, que é o corte que o CLAUDE.md exige para entrar em percentil.",
   "fonte_da_regra": "_fonte/estudo_serieb/scripts/J03.py, constante QUANTOS e MIN_MINUTOS.",
   "escolhido_no_lado_wyscout": "O titular é escolhido pelos minutos do Wyscout, ANTES de olhar se ele tem dado físico. Quem for titular e não tiver físico fica marcado como titular sem físico e é contado à parte — não é substituído pelo próximo da fila. Substituir seria imputar titular, e mudaria quem J03 e J04 chamam de titular no mesmo clube-temporada.",
   "goleiro": "1 por clube-temporada, como em J03, mas sem nenhum dado físico: o setor Goleiro não produz teste nesta parte."
  },
-
  "percentil": {
   "regra": "Dentro do mesmo SETOR e da mesma TEMPORADA, entre todos os jogadores com 900+ minutos que têm dado físico — não só entre titulares, como em J03. Assim o titular de quem sobe é comparado à liga da sua posição, e não só aos seus pares.",
   "setor_e_nao_posicao_1": "Mesmo mapa de setores de J03 (e o mesmo `grupo` de dados/minutagem_serieb.json). Percentil por posicao_1 crua deixaria pools de 20 e 30 jogadores.",
   "piso_de_rastreio": "min_tot = minutes_played × matches ≥ 300, como gerar_raio_serieb.py (MIN_RASTREADOS). `physical.minutes_played` é o minuto MÉDIO por partida, não o total (ESPECIFICACAO.md §4.1): o corte ingênuo `minutes_played >= 450` devolve zero linha."
  },
-
  "setores": {
-  "Goleiro": ["GK"],
-  "Zaga": ["CB", "LCB", "RCB"],
-  "Lateral": ["LB", "RB", "LWB", "RWB"],
-  "Volante": ["DMF", "LDMF", "RDMF"],
-  "Meia": ["AMF", "LCMF", "RCMF", "LAMF", "RAMF"],
-  "Extremo": ["LW", "RW", "LWF", "RWF"],
-  "Atacante": ["CF"]
+  "Goleiro": [
+   "GK"
+  ],
+  "Zaga": [
+   "CB",
+   "LCB",
+   "RCB"
+  ],
+  "Lateral": [
+   "LB",
+   "RB",
+   "LWB",
+   "RWB"
+  ],
+  "Volante": [
+   "DMF",
+   "LDMF",
+   "RDMF"
+  ],
+  "Meia": [
+   "AMF",
+   "LCMF",
+   "RCMF",
+   "LAMF",
+   "RAMF"
+  ],
+  "Extremo": [
+   "LW",
+   "RW",
+   "LWF",
+   "RWF"
+  ],
+  "Atacante": [
+   "CF"
+  ]
  },
-
  "sufixos_das_metricas": {
   "_p90": "por 90 minutos de jogo",
   "_p30tip": "por 30 minutos COM a bola (time in possession)",
@@ -62,91 +99,209 @@
   "sem_sufixo": "já é média (m_per_min, psv99)",
   "regra_dura": "NUNCA comparar _p30tip com _p90: são réguas diferentes. Cada indicador é percentilado na sua própria régua e testado contra o mesmo indicador do outro grupo — nunca contra a versão de outro sufixo."
  },
-
  "familias": [
   {
    "id": "volume",
    "nome": "Corre quanto?",
    "indicadores": [
-    {"id": "distance_p90", "nome": "Distância por 90 min (m)", "sinal": 1},
-    {"id": "running_distance_p90", "nome": "Distância em corrida por 90 min (m)", "sinal": 1},
-    {"id": "m_per_min", "nome": "Metros por minuto", "sinal": 1},
-    {"id": "m_per_min_tip", "nome": "Metros por minuto COM a bola", "sinal": 1},
-    {"id": "m_per_min_otip", "nome": "Metros por minuto SEM a bola", "sinal": 1}
+    {
+     "id": "distance_p90",
+     "nome": "Distância por 90 min (m)",
+     "sinal": 1,
+     "apelidos": [
+      "corre",
+      "corrida",
+      "metros por jogo",
+      "corre menos",
+      "volume de corrida"
+     ]
+    },
+    {
+     "id": "running_distance_p90",
+     "nome": "Distância em corrida por 90 min (m)",
+     "sinal": 1,
+     "apelidos": [
+      "corre",
+      "corrida",
+      "metros por jogo",
+      "corre menos",
+      "volume de corrida"
+     ]
+    },
+    {
+     "id": "m_per_min",
+     "nome": "Metros por minuto",
+     "sinal": 1,
+     "apelidos": [
+      "corre",
+      "corrida",
+      "metros por jogo",
+      "volume de corrida"
+     ]
+    },
+    {
+     "id": "m_per_min_tip",
+     "nome": "Metros por minuto COM a bola",
+     "sinal": 1
+    },
+    {
+     "id": "m_per_min_otip",
+     "nome": "Metros por minuto SEM a bola",
+     "sinal": 1
+    }
    ]
   },
   {
    "id": "alta_intensidade",
    "nome": "Corre forte?",
    "indicadores": [
-    {"id": "hi_distance_p90", "nome": "Distância em alta intensidade por 90 (m)", "sinal": 1},
-    {"id": "hi_count_p90", "nome": "Ações em alta intensidade por 90", "sinal": 1},
-    {"id": "hsr_distance_p90", "nome": "Distância em corrida de alta velocidade por 90 (m)", "sinal": 1},
-    {"id": "high_accel_p90", "nome": "Acelerações fortes por 90", "sinal": 1},
-    {"id": "hi_distance_p30tip", "nome": "Alta intensidade por 30 min COM a bola (m)", "sinal": 1},
-    {"id": "hi_distance_p30otip", "nome": "Alta intensidade por 30 min SEM a bola (m)", "sinal": 1}
+    {
+     "id": "hi_distance_p90",
+     "nome": "Distância em alta intensidade por 90 (m)",
+     "sinal": 1
+    },
+    {
+     "id": "hi_count_p90",
+     "nome": "Ações em alta intensidade por 90",
+     "sinal": 1
+    },
+    {
+     "id": "hsr_distance_p90",
+     "nome": "Distância em corrida de alta velocidade por 90 (m)",
+     "sinal": 1
+    },
+    {
+     "id": "high_accel_p90",
+     "nome": "Acelerações fortes por 90",
+     "sinal": 1
+    },
+    {
+     "id": "hi_distance_p30tip",
+     "nome": "Alta intensidade por 30 min COM a bola (m)",
+     "sinal": 1
+    },
+    {
+     "id": "hi_distance_p30otip",
+     "nome": "Alta intensidade por 30 min SEM a bola (m)",
+     "sinal": 1
+    }
    ]
   },
   {
    "id": "sprints",
    "nome": "Sprinta quanto?",
    "indicadores": [
-    {"id": "sprint_distance_p90", "nome": "Distância em sprint por 90 (m)", "sinal": 1},
-    {"id": "sprint_count_p90", "nome": "Número de sprints por 90", "sinal": 1},
-    {"id": "sprint_count_p30tip", "nome": "Sprints por 30 min COM a bola", "sinal": 1},
-    {"id": "sprint_count_p30otip", "nome": "Sprints por 30 min SEM a bola", "sinal": 1}
+    {
+     "id": "sprint_distance_p90",
+     "nome": "Distância em sprint por 90 (m)",
+     "sinal": 1
+    },
+    {
+     "id": "sprint_count_p90",
+     "nome": "Número de sprints por 90",
+     "sinal": 1
+    },
+    {
+     "id": "sprint_count_p30tip",
+     "nome": "Sprints por 30 min COM a bola",
+     "sinal": 1
+    },
+    {
+     "id": "sprint_count_p30otip",
+     "nome": "Sprints por 30 min SEM a bola",
+     "sinal": 1
+    }
    ]
   },
   {
    "id": "velocidade_maxima",
    "nome": "Quão rápido chega?",
    "indicadores": [
-    {"id": "psv99", "nome": "PSV-99 da temporada (km/h)", "sinal": 1},
-    {"id": "psv99_top5", "nome": "PSV-99 dos 5 picos mais altos (km/h)", "sinal": 1}
+    {
+     "id": "psv99",
+     "nome": "PSV-99 da temporada (km/h)",
+     "sinal": 1,
+     "apelidos": [
+      "velocidade de pico",
+      "pico",
+      "psv-99",
+      "psv99"
+     ]
+    },
+    {
+     "id": "psv99_top5",
+     "nome": "PSV-99 dos 5 picos mais altos (km/h)",
+     "sinal": 1,
+     "apelidos": [
+      "velocidade de pico",
+      "pico",
+      "psv-99",
+      "psv99"
+     ]
+    }
    ]
   }
  ],
  "n_indicadores": 17,
  "familia_e_a_unidade_do_bh": "O BH a 5% roda dentro de cada família × setor × comparação × corte de fronteira. Nunca no bolo dos 17.",
-
  "sinal": "Todos +1, e o sinal aqui é DESCRITIVO, não é juízo de qualidade: correr mais não é correr melhor. O CLAUDE.md manda alinhar o sinal só em métrica de desempenho; física é estilo e entra sem inversão. d positivo significa 'o grupo A corre mais', não 'o grupo A é melhor'.",
-
  "fora_da_lista": [
-  {"id": "peak_velocity", "motivo": "Cobertura ZERO em 2022, 2023 e 2024 (medido: 0% nas três, 90% em 2025, 98% em 2026). A família de velocidade máxima roda com psv99 e psv99_top5, que cobrem 100% das cinco temporadas. Isto já estava escrito em 'O que a base não tem' do CLAUDE.md e foi confirmado na base copiada."},
-  {"id": "peak_velocity_top3", "motivo": "Mesmo buraco: 0% em 2022-2024, 79% em 2025, 85% em 2026."},
-  {"id": "expl_accel_sprint_p90 / expl_accel_hsr_p90 / cod_count_p90 / medium_accel_p90 / medium_decel_p90 / high_decel_p90 / hsr_count_p90 / hi_count_p30tip / hi_count_p30otip e as demais colunas _p30tip/_p30otip", "motivo": "Existem e têm cobertura boa, mas não entram: a pergunta nomeia quatro famílias e a lista fica do tamanho delas. Acrescentar coluna depois de ver resultado é exatamente o que a regra da casa proíbe. Se uma delas for necessária em J05, entra lá com emenda datada."},
-  {"id": "off_ball_runs (runs_p30tip, runs_received_p30tip ...)", "motivo": "Outra tabela, e é movimentação com intenção, não físico puro. Fora da pergunta desta parte."},
-  {"id": "dados/raio_ref.json", "motivo": "É a referência por posição do app, mas só guarda médias fechadas de `sobe` e `cai` — não tem `meio`, e não tem linha de jogador. Não responde a pergunta desta parte. Entra só como conferência de ordem de grandeza."}
+  {
+   "id": "peak_velocity",
+   "motivo": "Cobertura ZERO em 2022, 2023 e 2024 (medido: 0% nas três, 90% em 2025, 98% em 2026). A família de velocidade máxima roda com psv99 e psv99_top5, que cobrem 100% das cinco temporadas. Isto já estava escrito em 'O que a base não tem' do CLAUDE.md e foi confirmado na base copiada."
+  },
+  {
+   "id": "peak_velocity_top3",
+   "motivo": "Mesmo buraco: 0% em 2022-2024, 79% em 2025, 85% em 2026."
+  },
+  {
+   "id": "expl_accel_sprint_p90 / expl_accel_hsr_p90 / cod_count_p90 / medium_accel_p90 / medium_decel_p90 / high_decel_p90 / hsr_count_p90 / hi_count_p30tip / hi_count_p30otip e as demais colunas _p30tip/_p30otip",
+   "motivo": "Existem e têm cobertura boa, mas não entram: a pergunta nomeia quatro famílias e a lista fica do tamanho delas. Acrescentar coluna depois de ver resultado é exatamente o que a regra da casa proíbe. Se uma delas for necessária em J05, entra lá com emenda datada."
+  },
+  {
+   "id": "off_ball_runs (runs_p30tip, runs_received_p30tip ...)",
+   "motivo": "Outra tabela, e é movimentação com intenção, não físico puro. Fora da pergunta desta parte."
+  },
+  {
+   "id": "dados/raio_ref.json",
+   "motivo": "É a referência por posição do app, mas só guarda médias fechadas de `sobe` e `cai` — não tem `meio`, e não tem linha de jogador. Não responde a pergunta desta parte. Entra só como conferência de ordem de grandeza."
+  }
  ],
-
  "regra_dos_60_minutos": {
   "o_que_o_claude_md_manda": "Métricas físicas por 90 usam só jogos com pelo menos 60 minutos em campo; velocidade máxima pode usar todos.",
   "o_que_da_para_fazer": "O agregado `physical` não separa jogo a jogo. Só `physical_match` separa, e ele existe SÓ em 2025 e 2026 (zero linha em 2022-2024, na fonte também). Então a regra dos 60 minutos é impossível de aplicar em três das quatro temporadas do recorte.",
   "decisao": "O valor primário é o agregado `physical`, igual nas cinco temporadas — uma régua só. Onde a regra PODE ser aplicada (2025 e 2026), a base traz a coluna paralela <indicador>_m60, reconstruída de `physical_match` só com jogos de 60+ minutos, ponderada por minuto. Serve de teste de sensibilidade, não de valor oficial: trocar de régua no meio do recorte seria pior que não aplicar a regra.",
   "medido_antes_de_declarar": "Em 2025, o agregado `physical` reproduz a média ponderada por minuto de `physical_match` com rho de Spearman 0,998 a 0,999. Restringir a jogos de 60+ minutos muda a ordem dos jogadores em rho 0,950 a 0,977 (2025) e 0,938 a 0,966 (2026). Ou seja: a regra dos 60 minutos mexe pouco no posto, que é o que o teste usa. O psv99 é outra história (rho 0,72-0,77 contra o máximo por jogo), e é justamente o que o CLAUDE.md libera de usar todos os jogos.",
-  "colunas_m60_possiveis": ["distance_p90", "running_distance_p90", "m_per_min", "hi_distance_p90", "hi_count_p90", "hsr_distance_p90", "high_accel_p90", "sprint_distance_p90", "sprint_count_p90", "psv99"],
+  "colunas_m60_possiveis": [
+   "distance_p90",
+   "running_distance_p90",
+   "m_per_min",
+   "hi_distance_p90",
+   "hi_count_p90",
+   "hsr_distance_p90",
+   "high_accel_p90",
+   "sprint_distance_p90",
+   "sprint_count_p90",
+   "psv99"
+  ],
   "colunas_m60_impossiveis": "Nenhuma métrica _p30tip / _p30otip e nenhum psv99_top5 existem em `physical_match`. Para elas a regra dos 60 minutos não tem como ser testada em temporada nenhuma."
  },
-
  "cobertura": {
   "exigida_pelo_claude_md": "Antes de usar, informe a cobertura física por temporada e por time. Não impute valores; time-temporada com cobertura baixa é sinalizado e rodado com e sem.",
   "corte_declarado_antes_de_medir": "Clube-temporada com menos de 80% dos seus jogadores de 900+ minutos cobertos pelo físico é marcado `cobertura_baixa = 1`, e toda comparação roda com e sem esses clubes.",
   "duas_coberturas_diferentes": "A base mede as duas, porque elas contam histórias opostas. `cobertura_da_fonte_pct` é quantos dos elegíveis o SkillCorner rastreou: 99,4% · 99,1% · 99,1% · 97,3% em 2022-2025. `cobertura_pct` é quantos chegam à análise depois da ponte de nome: 84,2% · 82,6% · 84,9% · 84,2%. O buraco de ~15 pontos NÃO é do SkillCorner — é da ponte, e some se um dia o lado Wyscout ganhar o id do jogador. A frase de qualquer conclusão tem de dizer que o que falta é casamento de nome, não rastreamento.",
   "onde_esta_medida": "J04_ponte_clubes.json, campos `cobertura_por_temporada` e `cobertura_por_clube_temporada`."
  },
-
  "criterio": {
   "referencia": "§6 da ESPECIFICACAO.md, via _fonte/estudo_serieb/scripts/_metodo.py",
   "teste": "t de Welch no percentil dentro de setor × temporada; d de Cohen; BH a 5% por família × setor × comparação × corte; IC95 por bootstrap de CLUBE (a linha é jogador, mas os jogadores vêm em elencos: reamostrar linha supõe independência que não existe); poder por desenho (menor d detectável a 80%), para que 'não separa' não vire 'não existe'.",
   "n_minimo_por_setor": "Pelo menos 8 titulares de um lado e 16 do outro. Abaixo disso o setor sai, com o n dito."
  },
-
  "porta_temporal": {
   "roda": false,
   "motivo": "A porta temporal do estudo é o 1º turno prevendo o 2º, e ela exige o dado por turno. O físico por jogo da Série B (`physical_match`) só existe em 2025 (374 jogos) e 2026 (parcial) — zero linha em 2022, 2023 e 2024, e não é buraco desta cópia: é do SkillCorner. Com uma temporada fechada só, são 20 clubes e cerca de 280 jogadores; rodar a porta aí seria fabricar um número sem poder.",
   "consequencia_declarada": "O TETO de confiança desta parte é `provável`. Nenhuma conclusão de J04 pode ser `firme`, mesmo passando no BH nos dois cortes, e a frase de cada conclusão tem de dizer por quê: não há como conferir se o físico vem antes do resultado ou é consequência dele."
  },
-
  "ressalvas_declaradas": [
   "SkillCorner e Wyscout são bases separadas e casam por NOME. A `players` do SkillCorner tem wyscout_player_id em 2.079 de 2.105 linhas, mas NENHUMA base do lado Wyscout neste repositório carrega esse id — nem serieb_tecnico.csv, nem minutagem_serieb.json, nem jogadores.json (o campo `id_` de lá é idade, conferido). Então o id não pode fechar a ponte sozinho; ele serve para separar pessoas diferentes dentro do SkillCorner. A ponte é a canônica da §1.1: nome + janela de idade, com descarte automático de todo caso ambíguo dos dois lados. A conferência independente está medida em J04_ponte_clubes.json.",
   "Jogador que trocou de clube dentro da temporada tem um agregado físico só, misturando os dois clubes, enquanto o Wyscout o atribui a um clube. Esses casos ficam marcados (`clube_confere = 0` onde há como conferir) e a comparação roda com e sem eles.",
@@ -155,7 +310,6 @@
   "Correr mais sem a bola é a face física de pressionar alto — é escolha do time, não qualidade do atleta (ESPECIFICACAO.md §5). Um achado em _p30otip descreve o plano do clube antes de descrever o jogador, e a frase tem de dizer isso.",
   "`distance_p90` e `m_per_min` têm rho ≈ 1 entre si (ESPECIFICACAO.md §5b). Os dois entram na família volume porque a família é a unidade do BH e o BH é conservador com redundância; mas contar os dois como dois achados seria contar duas vezes, e a conclusão trata os dois como um."
  ],
-
  "emendas": [
   {
    "data": "2026-09-19",
@@ -170,5 +324,6 @@
    "motivo": "A ESPECIFICACAO.md §4.2 diz que o SkillCorner não rastreia goleiro. Medido na base copiada: dos 2.982 jogador-temporada casados, ZERO são GK, e 105 goleiros com 900+ minutos ficam sem uma única linha física em 2022-2025 (128 contando 2026).",
    "decisao": "O setor Goleiro entra na base (para o total de titulares bater com J03) e sai de todo teste, com a ausência declarada. Não é cobertura baixa: é métrica que não existe."
   }
- ]
+ ],
+ "apelidos_doc": "Como o texto de reunião chama cada medida, para a regra 3 do portão poder ver que a conclusão citou a discordância entre os dois cortes. A tabela nomeia a medida como a base a nomeia; o texto a nomeia como o clube fala. Isto é a ponte entre as duas, declarada aqui e não no portão, para ser auditável. Acrescentado em 20/09; não muda nenhum cálculo."
 }

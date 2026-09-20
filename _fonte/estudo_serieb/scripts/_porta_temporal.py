@@ -118,6 +118,34 @@ CONFERENCIA_6_4 = [
     ("Duelos ganhos, %", "duelos_pct", 0.041, -0.030),
 ]
 
+# A porta da §6.4 POR PARTE — acrescentado em 20/09.
+#
+# Até aqui este arquivo só respondia pelos oito componentes do índice do A14, e a regra 2 do
+# portão não tinha onde ler a porta de uma parte: o comentário dela ("quando guardar, entra
+# aqui") apontava um bloco `partes` que não existia. Ele passa a existir.
+#
+# NÃO é uma varredura das 22 partes: só entram as partes cuja conclusão principal se apoia num
+# indicador ÚNICO e nomeável, que é o que a §6.4 sabe testar. Parte que conclui por contagem de
+# casos, por régua agregada ou por um conjunto de indicadores continua sem porta — e sem porta o
+# teto dela é o que o BH sozinho permitir. Acrescentar uma parte aqui exige dizer QUAL indicador
+# sustenta QUAL conclusão, e é por isso que cada linha traz as duas coisas escritas.
+PORTA_POR_PARTE = {
+    "A02": {"coluna": "dist", "sinal": -1, "indicador": "distância média do remate",
+            "conclusao": "A02-1, “Quem sobe finaliza de mais perto”",
+            "por_que": "a conclusão é sobre a distância do chute, e é ela que a porta testa; "
+                       "sinal −1 porque chutar de longe é pior"},
+    "A06": {"coluna": "dd", "sinal": 1, "indicador": "duelos defensivos ganhos, %",
+            "conclusao": "A06-2, “quem sobe ganha a disputa quando defende”",
+            "por_que": "é o indicador da pergunta do A06 — ganhar a disputa —, e é ele que a "
+                       "régua F e o A12 leem. A porta REPROVA nele, e é isso que prende a parte "
+                       "no provável"},
+    "A05": {"coluna": "posse", "sinal": 1, "indicador": "posse, %",
+            "conclusao": "A05-1, a metade positiva (“quem tinha mais a bola no 1º turno somou "
+                         "mais pontos no 2º”)",
+            "por_que": "é o único indicador com bola que a A05 leva à porta, e o motivo do selo "
+                       "dela já citava esta linha da tabela da §6.4 antes de ela existir aqui"},
+}
+
 COL = {"dist": "Distância média do remate", "xg": "Golos esperados",
        "rem_baliza_pct": "Remates à baliza, %", "posse": "Posse, %",
        "intensidade": "Intensidade de jogo", "ppda": "PPDA",
@@ -319,6 +347,14 @@ def main():
         conf.append({"indicador": rot, "rho": r["rho"], "rho_publicado_6_4": rho_pub,
                      "parcial": r["parcial"], "parcial_publicada_6_4": par_pub,
                      "p_parcial": r["p_parcial"], "n": r["n"], "bate": ok})
+    # ---- a porta da §6.4 por parte (20/09) ---------------------------------
+    partes = {}
+    for pid, d in PORTA_POR_PARTE.items():
+        r = porta(reg, "_c_" + d["coluna"], d["sinal"])
+        partes[pid] = {"indicador": d["indicador"], "coluna": d["coluna"],
+                       "sinal_alinhado": d["sinal"], "sustenta": d["conclusao"],
+                       "por_que_este_indicador": d["por_que"], **r}
+
     rho_ref, p_ref = stats.spearmanr([l[pct("pts_1t")] for l in reg],
                                      [l[pct("pts_2t")] for l in reg])
     print(f"\nconferência §6.4: {batem} de {len(CONFERENCIA_6_4)} linhas idênticas · "
@@ -420,12 +456,23 @@ def main():
             "por_que": "o CLAUDE.md do estudo manda que a especificação valha onde houver "
                        "divergência, e é a §6.4 que a §6.5 lê em p_1T_2T / rho_1T_2T",
             "divergencia_entre_as_partes": {
-                "A02": "indicador da 1ª metade × o PRÓPRIO indicador da 2ª (persistência), com "
-                       "limiar rho>0,30 — o rho_persist que a §6.5 aposentou em 15/09",
-                "A06": "idem A02",
                 "A13": "previsores do 1º turno × POSIÇÃO FINAL (que contém o 1º turno), sem parcial",
-                "consequencia": "nenhuma das três é a porta da §6.4; das 19 partes, ZERO rodaram a "
-                                "porta como a especificação a define",
+                "consequencia": "nenhuma das três era a porta da §6.4; em 19/09, das 19 partes, "
+                                "ZERO rodavam a porta como a especificação a define",
+                "corrigidas_em_20_09": {
+                    "A02": "o scripts/A02.py deixou de chamar a persistência de porta: ela passa "
+                           "a ser gravada em A02_resumo.json como "
+                           "`persistencia_dentro_da_temporada`, e ao lado dela entrou o bloco "
+                           "`porta_6_4` com a porta de verdade sobre a distância do remate "
+                           "(parcial +0,289, p 0,0094, n 80), contada por este script. Por isso "
+                           "A02 saiu da lista acima.",
+                    "A06": "mesmo conserto do A02: o scripts/A06.py grava a persistência com o "
+                           "nome dela em A06_resumo.json e, ao lado, o bloco `porta_6_4` com a "
+                           "porta de verdade sobre os quatro indicadores que a parte cita. Ela "
+                           "REPROVA nos quatro, e é por isso que a parte fica no provável — o "
+                           "conserto foi de nome, não de resultado. Por isso A06 saiu da lista.",
+                    "A13": "continua como estava, e continua listada acima.",
+                },
             },
         },
         "recorte": {"temporadas": sorted(FECHADAS), "linhas_de_jogo": len(linhas),
@@ -436,6 +483,10 @@ def main():
                             "referencia_pts_1t_x_pts_2t": {"rho": round(float(rho_ref), 3),
                                                            "p": round(float(p_ref), 6),
                                                            "publicado": 0.496}},
+        "partes": partes,
+        "partes_doc": "A porta da §6.4 rodada sobre o indicador que sustenta a conclusão de cada "
+                      "parte listada. Só entram partes com indicador único e nomeável; ausência "
+                      "aqui é ausência de porta, nunca porta reprovada.",
         "componentes": saida,
         "passam": passam,
         "placar": f"{len(passam)} de {len(COMPONENTES)}",

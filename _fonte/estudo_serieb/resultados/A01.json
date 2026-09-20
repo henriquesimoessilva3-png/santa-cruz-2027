@@ -11,15 +11,55 @@
    "bloco": "A",
    "status": "validada",
    "manchete": "Elenco de {corte_mediana} pontos teria ficado fora do G4 em {anos_falha_63} das {temporadas} temporadas",
-   "o_que_vimos": "O 4º fechou com {corte_por_ano_frase}, com {vit_min} a {vit_max} vitórias; em 2026 vai em ritmo de {ritmo_4o_2026}. Um elenco de {corte_mediana} pontos teria ficado fora do G4 em {anos_falha_63} das {temporadas} temporadas do recorte. Nas quatro anteriores, fora dele, o corte variou mais e {corte_mediana} falhou em 2021.",
-   "para_o_santa_cruz": "Montar o elenco contra {corte_max} pontos, e não contra os {corte_mediana} do meio da faixa: {corte_mediana} não teria subido em 2023, em 2024 nem em 2021. E como {corte_max} apenas empatou com o 4º em três dessas oito temporadas, quem quer sair do desempate planeja 65 — uma vitória a mais. A linha de baixo é bem mais frouxa — o 17º ficou entre {corte_z4_min} e {corte_z4_max} no recorte e entre 39 e 43 nas quatro anteriores —, então escapar do rebaixamento custa bem menos do que subir: são duas decisões de orçamento diferentes, não a mesma com margem.",
+   "o_que_vimos": "O 4º fechou com {corte_por_ano_frase}, com {vit_min} a {vit_max} vitórias; em 2026 vai em ritmo de {ritmo_4o_2026}. Um elenco de {corte_mediana} pontos teria ficado fora do G4 em {anos_falha_63} das {temporadas} temporadas do recorte. Nas quatro anteriores, fora dele, o corte variou mais e {corte_mediana} falhou em {ano_falha_63_ant}.",
+   "para_o_santa_cruz": "Montar o elenco contra {corte_max} pontos, e não contra os {corte_mediana} do meio da faixa: {corte_mediana} não teria subido em 2023, em 2024 nem em 2021. E como {corte_max} apenas empatou com o 4º em {anos_empate_corte_max} dessas {temporadas_total} temporadas, quem quer sair do desempate planeja 65 — uma vitória a mais. A linha de baixo é bem mais frouxa — o 17º ficou entre {corte_z4_min} e {corte_z4_max} no recorte e entre {corte_z4_ant_min} e {corte_z4_ant_max} nas quatro anteriores —, então escapar do rebaixamento custa bem menos do que subir: são duas decisões de orçamento diferentes, não a mesma com margem.",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova em dados/premissas.json, grupo Elenco: o custo do acesso é de 62 a 64 pontos nas quatro temporadas do recorte (60 a 64 nas oito que a base tem) e o planejamento usa o topo da faixa, 64, com 65 como folga de desempate — nunca a mediana. Nenhuma premissa atual fixa o acesso em pontos; a p7 fixa só o objetivo.",
    "confianca": "indício",
    "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Correção para múltiplos testes (Benjamini-Hochberg a 5% por família): não há o que corrigir — não existe A01_testes.csv e scripts/A01.py não importa scripts/_metodo.py; as únicas contas da parte são contagem e mediana sobre os pontos do 4º e do 17º. (2) Porta temporal da §6.4 (1º turno prevendo o 2º): não rodou em A01, e _porta_temporal.md registra que nenhuma das 19 partes a rodou. Há ainda motivo material: a faixa de {corte_min} a {corte_max} é propriedade das {temporadas} temporadas do recorte — nas quatro anteriores o corte vai de 60 a 64, e o ritmo de 2026 está em {ritmo_4o_2026}. O que saiu do que vimos e fica registrado aqui, onde o jargão é permitido: a conclusão é contagem completa das tabelas, sem teste e sem leitura à frente do resultado, e por isso não há tamanho de efeito, poder nem q para reportar. Nas quatro temporadas anteriores (2018–2021), que estão na base mas fora do recorte, o 4º fechou com 60, 62, 61 e 64 pontos, com 15 a 18 vitórias, e um elenco de {corte_mediana} pontos também teria ficado fora em 2021 — três das oito temporadas da base.",
    "n": "{temporadas} temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
    "prova": "A01_regua.csv; A01.md, seção Prova",
-   "validada_em": "2026-09-19"
+   "validada_em": "2026-09-19",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Pontos do 4º colocado, ano a ano",
+    "unidade": "pontos",
+    "barras": [
+     {
+      "nome": "2018",
+      "marcador": "corte_2018"
+     },
+     {
+      "nome": "2019",
+      "marcador": "corte_2019"
+     },
+     {
+      "nome": "2020",
+      "marcador": "corte_2020"
+     },
+     {
+      "nome": "2021",
+      "marcador": "corte_2021"
+     },
+     {
+      "nome": "2022",
+      "marcador": "corte_2022"
+     },
+     {
+      "nome": "2023",
+      "marcador": "corte_2023"
+     },
+     {
+      "nome": "2024",
+      "marcador": "corte_2024"
+     },
+     {
+      "nome": "2025",
+      "marcador": "corte_2025"
+     }
+    ],
+    "linha_de_corte": "corte_mediana"
+   }
   },
   {
    "id": "A01-2",
@@ -121,7 +161,30 @@
   "jogos_faltando": 5,
   "ritmo_4o_2026": 66,
   "clube_4o_2026": "Fortaleza",
-  "rodada_2026": 27
+  "rodada_2026": 27,
+  "corte_2018": 60,
+  "corte_2019": 62,
+  "corte_2020": 61,
+  "corte_2021": 64,
+  "corte_2022": 62,
+  "corte_2023": 64,
+  "corte_2024": 64,
+  "corte_2025": 62,
+  "corte_ant_min": 60,
+  "corte_ant_max": 64,
+  "corte_ant_frase": "60 (2018), 62 (2019), 61 (2020) e 64 (2021)",
+  "anos_falha_63_ant": 1,
+  "ano_falha_63_ant": "2021",
+  "corte_z4_ant_min": 39,
+  "corte_z4_ant_max": 43,
+  "temporadas_ant": 4,
+  "anos_ant": "2018 · 2019 · 2020 · 2021",
+  "temporadas_total": 8,
+  "anos_empate_corte_max": 3,
+  "corte_z4_2022": 42,
+  "corte_z4_2023": 39,
+  "corte_z4_2024": 38,
+  "corte_z4_2025": 40
  },
  "em_aberto": "2018–2021 fica fora do recorte (decisão do dono, 17/09): não tem dado físico nem tabela oficial no app, e entra nas conclusões como conferência ao lado, pela coluna pos de dados/serieb_clube_temporada_2018_2021.csv. Faltam 5 jogos na base de 2022–2026, listados em A01_resumo.json: por causa deles a tabela remontada jogo a jogo termina em posição diferente da oficial em 8 de 100 clube-temporadas (2 em 2022, 3 em 2024 e 3 em 2026) — inclusive sobre quem esteve na Trave em 2024. A marca base_incompleta = 1 pega só 3 dessas 8 e ainda marca 10 clubes, dos quais 7 não mudam de posição, porque o jogo que falta desloca o vizinho e é o vizinho que fica sem marca. As conclusões leem a tabela oficial e não mudam; quem lê classificacao_rodada.csv precisa saber disso."
 }

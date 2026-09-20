@@ -1,0 +1,236 @@
+{
+ "parte": "A09",
+ "pergunta": "Em que faixas de minutos cada faixa de classificação marca e sofre? (A segunda metade da pergunta do CLAUDE.md — como cada faixa reage ao placar — NÃO roda; ver `o_que_nao_roda_por_falta_de_dado`.)",
+ "declarado_em": "2026-09-20",
+ "declarado_antes_de_calcular": true,
+ "declarado_antes_de_calcular_o_que": "Nenhuma comparação entre faixas foi rodada antes desta lista. O que foi medido antes dela é só a conferência da coleta contra a base do app: quantos gols cada temporada teve nas duas fontes. Essa conta não olha faixa de classificação nenhuma.",
+ "escrito_por": "coletar_serieb_gols_por_minuto.py (a coleta) e scripts/A09.py (a análise)",
+ "recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidade": "clube-temporada",
+  "2026": "fora das conclusões: temporada em curso, entra só como teste, como o CLAUDE.md manda.",
+  "2018_2021": "coletadas e gravadas, para conferir o que a base do recorte mostrar — não entram no teste, e a fronteira do A01 não existe para elas."
+ },
+ "fonte_do_dado": {
+  "gols_por_faixa": "dados/serieb_gols_por_minuto.csv, coletado do oGol (estatisticas-momento-jogo por edição). É AGREGADO pela fonte: não há evento gol a gol, nem autor, nem mando, nem qual time marcou primeiro.",
+  "faixa_de_classificacao": "resultados/A01_clube_temporada.csv (faixa, trave e fronteira)",
+  "ponte_de_clube": "resultados/T01_ponte_clubes.json, mais duas entradas próprias desta parte (Operário Ferroviário → Operário-PR, Athletic-MG → Athletic), declaradas no A09.py"
+ },
+ "unidade_da_medida": "gols na faixa ÷ jogos da temporada — unidade de jogo, como a seção Didática exige. NÃO é percentual do total de gols do time: proporção mistura 'marca no fim' com 'marca pouco no resto', e a pergunta é sobre QUANDO, não sobre a divisão do bolo.",
+ "comparacoes": {
+  "SM": "Sobe × Meio (padrão)",
+  "ST": "Sobe × Trave (5º-8º, leitura secundária)",
+  "CM": "Cai × Meio (leitura secundária)"
+ },
+ "repetir_sem_fronteira": true,
+ "regra_da_fronteira": "Toda comparação roda nos dois cortes (com e sem os times de fronteira de A01). Firme = firme NOS DOIS. O corte sem fronteira é teste de robustez, não recorte melhor.",
+ "familias": [
+  {
+   "id": "marca",
+   "nome": "Quando marca",
+   "indicadores": [
+    {
+     "id": "marca_0_15",
+     "nome": "Gols por jogo, 0 a 15 min",
+     "sinal": 1,
+     "apelidos": [
+      "comeco de jogo",
+      "primeiros minutos"
+     ]
+    },
+    {
+     "id": "marca_15_30",
+     "nome": "Gols por jogo, 15 a 30 min",
+     "sinal": 1,
+     "apelidos": [
+      "15 e 30",
+      "segundo quarto de hora"
+     ]
+    },
+    {
+     "id": "marca_30_45",
+     "nome": "Gols por jogo, 30 a 45 min",
+     "sinal": 1,
+     "apelidos": [
+      "30 e 45",
+      "antes do intervalo"
+     ]
+    },
+    {
+     "id": "marca_45mais",
+     "nome": "Gols por jogo, acréscimo do 1º tempo",
+     "sinal": 1,
+     "apelidos": [
+      "acrescimo",
+      "acrescimo do primeiro tempo"
+     ]
+    },
+    {
+     "id": "marca_45_60",
+     "nome": "Gols por jogo, 45 a 60 min",
+     "sinal": 1,
+     "apelidos": []
+    },
+    {
+     "id": "marca_60_75",
+     "nome": "Gols por jogo, 60 a 75 min",
+     "sinal": 1,
+     "apelidos": [
+      "60 e 75"
+     ]
+    },
+    {
+     "id": "marca_75_90",
+     "nome": "Gols por jogo, 75 a 90 min",
+     "sinal": 1,
+     "apelidos": [
+      "75 aos 90",
+      "fim de jogo",
+      "reta final",
+      "ultimos minutos"
+     ]
+    },
+    {
+     "id": "marca_90mais",
+     "nome": "Gols por jogo, acréscimo do 2º tempo",
+     "sinal": 1,
+     "apelidos": [
+      "acrescimo",
+      "acrescimo do segundo tempo",
+      "acrescimo final",
+      "fim de jogo",
+      "reta final",
+      "ultimos minutos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sofre",
+   "nome": "Quando sofre",
+   "indicadores": [
+    {
+     "id": "sofre_0_15",
+     "nome": "Gols sofridos por jogo, 0 a 15 min",
+     "sinal": -1,
+     "apelidos": [
+      "comeco de jogo",
+      "primeiros minutos"
+     ]
+    },
+    {
+     "id": "sofre_15_30",
+     "nome": "Gols sofridos por jogo, 15 a 30 min",
+     "sinal": -1,
+     "apelidos": []
+    },
+    {
+     "id": "sofre_30_45",
+     "nome": "Gols sofridos por jogo, 30 a 45 min",
+     "sinal": -1,
+     "apelidos": [
+      "30 e 45",
+      "antes do intervalo",
+      "sofre"
+     ]
+    },
+    {
+     "id": "sofre_45mais",
+     "nome": "Gols sofridos por jogo, acréscimo do 1º tempo",
+     "sinal": -1,
+     "apelidos": [
+      "acrescimo",
+      "acrescimo do primeiro tempo"
+     ]
+    },
+    {
+     "id": "sofre_45_60",
+     "nome": "Gols sofridos por jogo, 45 a 60 min",
+     "sinal": -1,
+     "apelidos": []
+    },
+    {
+     "id": "sofre_60_75",
+     "nome": "Gols sofridos por jogo, 60 a 75 min",
+     "sinal": -1,
+     "apelidos": []
+    },
+    {
+     "id": "sofre_75_90",
+     "nome": "Gols sofridos por jogo, 75 a 90 min",
+     "sinal": -1,
+     "apelidos": [
+      "fim de jogo",
+      "reta final",
+      "ultimos minutos"
+     ]
+    },
+    {
+     "id": "sofre_90mais",
+     "nome": "Gols sofridos por jogo, acréscimo do 2º tempo",
+     "sinal": -1,
+     "apelidos": [
+      "acrescimo",
+      "acrescimo final",
+      "fim de jogo",
+      "reta final",
+      "ultimos minutos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tempo",
+   "nome": "Qual tempo pesa mais",
+   "indicadores": [
+    {
+     "id": "marca_1t",
+     "nome": "Gols por jogo no 1º tempo",
+     "sinal": 1,
+     "apelidos": [
+      "marca meno no primeiro",
+      "primeiro tempo"
+     ]
+    },
+    {
+     "id": "marca_2t",
+     "nome": "Gols por jogo no 2º tempo",
+     "sinal": 1,
+     "apelidos": [
+      "segundo tempo"
+     ]
+    },
+    {
+     "id": "sofre_1t",
+     "nome": "Gols sofridos por jogo no 1º tempo",
+     "sinal": -1,
+     "apelidos": [
+      "primeiro tempo",
+      "sofre mai"
+     ]
+    },
+    {
+     "id": "sofre_2t",
+     "nome": "Gols sofridos por jogo no 2º tempo",
+     "sinal": -1,
+     "apelidos": [
+      "segundo tempo",
+      "sofre mai"
+     ]
+    }
+   ]
+  }
+ ],
+ "unidade_da_familia": "§6.3 da ESPECIFICACAO.md: o BH a 5% roda sobre TODOS os testes da família junto. São três famílias — quando marca (8 testes), quando sofre (8) e qual tempo pesa (4) — e não uma família por faixa de minuto: partir a família por faixa seria testar 16 vezes e corrigir uma, que é o garimpo que a §6.6 proíbe.",
+ "porta_temporal": "NÃO roda, e é limite de dado. O oGol publica a conta por TEMPORADA fechada, não por rodada: não há como medir só as 19 primeiras rodadas e prever as 19 últimas. Por isso nenhuma conclusão desta parte pode passar de provável, mesmo passando no BH.",
+ "o_que_nao_roda_por_falta_de_dado": {
+  "reage_ao_placar": "O CLAUDE.md pede também o aproveitamento quando o time marca primeiro e quando sofre primeiro. Isso exige saber, em CADA jogo, quem marcou primeiro — e a página agregada do oGol não traz isso. Resolve-se lendo a página de cada jogo (cerca de 1.780 páginas, umas duas horas no ritmo das outras coletas): o caminho está escrito no cabeçalho do coletar_serieb_gols_por_minuto.py. Fica como pergunta em aberto, não como conclusão.",
+  "cruzar_com_A08": "O CLAUDE.md manda cruzar a queda física do fim de jogo com os gols sofridos no fim, se A08 existir. A08 não roda — o SkillCorner guarda um período só —, então o cruzamento não existe.",
+  "mando": "A tabela agregada não separa casa e fora. Quem responde mando é o A03."
+ }
+}

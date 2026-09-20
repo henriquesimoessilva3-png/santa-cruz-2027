@@ -8,7 +8,7 @@
   {
    "id": "J05-1",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
    "manchete": "O perfil por posição descreve quem subiu e não promete quem vai subir",
@@ -34,12 +34,14 @@
    "confianca": "indício",
    "confianca_motivo": "(a) Correção para múltiplos testes a 5%, com a família da §6.3 (bloco × comparação × corte, sem partir por setor — a correção que a conferência de 19/09 pediu a J03 e J04): dos {testes_sm} testes Sobe × Meio no corte com fronteira, {bh_tec_sm} passa no BH e {dois_cortes_sm} passam nos dois cortes; em Sobe × Cai são {bh_fis_sc} de {testes_sc}. (b) Porta temporal: NÃO roda. O técnico do Wyscout é agregado por temporada e o físico por jogo tem zero linha em 2022–2024, os mesmos motivos de J03 e J04 — por isso o teto declarado antes de rodar já era indício. (c) Poder por desenho: o menor d detectável a 80% vai de 0,58 a 1,19 e o maior efeito físico observado em Sobe × Meio é 0,72; “não separa” aqui quer dizer “este desenho não conseguiria ver”. (d) Os dois cortes de fronteira, os dois relatados: {discordancias}. (e) O único teste que cruza a régua é a bola alta do goleiro (q 0,006 com fronteira, 0,337 sem), que J03-3 já descartou: é porcentagem sobre um punhado de duelos, e o piso dela sai em {gk_aereo_piso}%, que é o teto da escala. (f) Confiabilidade: o percentil técnico do Wyscout é agregado de temporada, sem split-half medido nesta unidade; o físico do SkillCorner tem ρ 0,72–0,90 de um ano para o outro (§4.3), e é por isso que a nota física pesa mais que a de estilo. (g) Placar: nenhum indicador da lista está na lista branca de resultado da §3. (h) O gráfico desta conclusão tem duas barras, e as duas contam a MESMA família: {testes_sm} comparações Sobe × Meio rodadas no corte com os times de fronteira e {dois_cortes_sm} que passam nos dois cortes. O degrau do meio saiu de propósito: {bh_tec_sm} passa no BH, mas esse contador é só das {testes_tec_sm} linhas não físicas, e pô-lo entre duas barras de escopo SM inteiro compararia coisas diferentes — bateria hoje por coincidência, porque {bh_fis_sm} teste físico passou, e subnotificaria em silêncio numa rodada em que algum passasse. “Não se sustentou”, no que vimos, é exatamente isso — não passar no BH a 5% nos dois cortes —, e o tamanho de efeito de cada linha fica em J05_testes.csv. (i) A §8.2 pede a forma dois_cortes sempre que a conclusão depende do corte de fronteira, e esta depende. Ela não foi construída porque J05_numeros.json não tem contador de quantos passam no BH no corte SEM fronteira: os que existem são bh_tec_sm e bh_fis_sm, do corte com, e dois_cortes_sm, que já é o cruzamento dos dois. A exceção fica registrada aqui, e a alínea (d) continua relatando as duas leituras.",
    "n": "{n_tit_tec} titulares com dado técnico e {n_tit_fis} com dado físico, 2022 a 2025; {testes_total} linhas de teste nos dois cortes",
-   "prova": "J05.md; J05_testes.csv; J05_perfil.csv; J05_resumo.json"
+   "prova": "J05.md; J05_testes.csv; J05_perfil.csv; J05_resumo.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   },
   {
    "id": "J05-2",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": true,
    "parece_mas_nao_e": true,
    "manchete": "Metade do perfil físico que o app já usa não sobrevive à correção",
@@ -65,12 +67,14 @@
    "confianca": "indício",
    "confianca_motivo": "(a) A conta é do próprio app, relida: em etapa_13.criterio_por_setor o critério de entrada é `p_clube < 0,05` — o p cru do teste corrigido por clube da §4.4 —, e dos {app_ind_total} indicadores escolhidos só {app_ind_bh} têm `bh_clube` verdadeiro em sobecai_corrigido_por_clube (zaga 0 de 1, lateral 0 de 3, meio 3 de 6, ataque 6 de 8; os q_clube de cada um estão em J05_resumo.json). (b) Rodando os MESMOS indicadores na base de titulares de 2022–2025: Sobe × Cai dá {bh_fis_sc} de {testes_fis_sc} no BH e Sobe × Meio dá {bh_fis_sm} de {testes_fis_sm}; o maior efeito observado em Sobe × Cai é 0,67, abaixo do menor d detectável deste desenho (0,71 a 1,19 nas linhas de Sobe × Cai). Isto NÃO é replicação do teste do app: ele compara 56 contra 75 atletas rastreados por setor, e aqui a unidade é o titular, 1 ou 2 por clube. (c) Os dois cortes de fronteira, os dois relatados: {discordancias}. (d) Porta temporal: não roda, mesmo motivo de J04. (e) O corte de fronteira derrubou {fora_por_n} testes por falta de n, e eles saíram dos DOIS lados para que a tabela comparasse a mesma coisa nos dois cortes. (f) “Passar na conta que corrige os muitos testes”, no que vimos e no gráfico, é o critério da alínea (a) e nada além dele: ter `bh_clube` verdadeiro, isto é passar na correção para múltiplos testes a 5% dentro da família da §6.3. Não quer dizer que o número seja falso, e sim que este desenho não o separa do acaso depois de contar quantos testes foram feitos. O gráfico não parte por setor, e a razão é de leitura: os quatro setores têm denominadores diferentes (zaga 1, lateral 3, meio 6, ataque 8), o renderizador não tem barra agrupada, e quatro barras só com o numerador fariam ataque 6 parecer o dobro de meio 3 quando é 6 de 8 contra 3 de 6. As duas barras publicadas dividem o mesmo denominador — {app_ind_total} indicadores escolhidos, {app_ind_bh} que passam —, e os quatro pares por setor ficam escritos na alínea (a) acima e em J05_resumo.json.",
    "n": "{app_ind_total} indicadores do perfil do app sobre {app_testes} testes de sobe × cai por setor; {testes_fis_sm} testes físicos Sobe × Meio e {testes_fis_sc} Sobe × Cai nesta parte",
-   "prova": "J05.md; J05_resumo.json; J05_testes.csv; prototipo.json"
+   "prova": "J05.md; J05_resumo.json; J05_testes.csv; prototipo.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   },
   {
    "id": "J05-3",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
    "manchete": "O único requisito que a base sustenta é minutagem alta e regular por posição",
@@ -96,7 +100,9 @@
    "confianca": "indício",
    "confianca_motivo": "(a) Não é teste de hipótese: é um corte descritivo, herdado de J01-1, que já é indício. Nenhum BH, nenhuma porta temporal. (b) A conta foi refeita aqui, do dados/minutagem_serieb.json, pela mesma regra de scripts/J01.py (p75 da fatia dentro do grupo da posição, fatia alta em 2 das 3 temporadas da janela), e bate exatamente com o marcador corte_por_posicao de J01_numeros.json: {min_corte_por_posicao}. Os {min_regulares} regulares também batem com o `reg_pos` de J01. (c) O que o corte NÃO resolve: minutagem alta em time do Cai pode ser falta de opção, como o CLAUDE.md avisa; e J01-2 mostrou que a ficha de lesão não separa quem jogou pouco de quem jogou muito, então minutagem baixa continua sem explicação. (d) O export do Wyscout corta em 500 linhas por temporada, o que afeta quem jogou pouco e não quem é titular. (e) O gráfico mostra duas das {perfil_posicoes} posições, o goleiro e o atacante, e elas não são as pontas da escala: o corte mais baixo é o do extremo. Os sete cortes inteiros estão no marcador min_corte_por_posicao e em J05_resumo.json.",
    "n": "{min_regulares} jogador-temporadas de minutagem alta e repetida entre {min_n}, 2022 a 2025",
-   "prova": "J05.md; J05_resumo.json; J05_numeros.json"
+   "prova": "J05.md; J05_resumo.json; J05_numeros.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   }
  ],
  "numeros": {

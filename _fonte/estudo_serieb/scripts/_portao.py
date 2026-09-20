@@ -33,6 +33,7 @@ Sai com código 0 se toda parte pedida é aceita, 1 se alguma reprova — para v
 Ele só LÊ: não escreve nem altera nada no repositório.
 """
 import ast
+import collections
 import csv
 import json
 import re
@@ -49,8 +50,13 @@ RESULTADOS = ESTUDO / "resultados"
 RAIZ = ESTUDO.parent.parent                       # a raiz do repositório
 PROTOTIPO = RAIZ / "_fonte" / "prototipo"         # onde mora a ESPECIFICACAO.md
 
-PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A10", "A11", "A12", "A13", "A14",
-          "J01", "J02", "J03", "J04", "J07", "J08", "T01", "T02", "T03", "T04"]
+# A09 entrou em 20/09, quando a coleta do minuto do gol a tirou do "não roda".
+# ATENÇÃO, e não é detalhe: J05, J06 e J09 NÃO estão nesta lista e nunca passaram pelo portão.
+# Elas foram validadas pelo dono em 20/09 e estão na tela como decididas, mas sem conferência
+# automática nenhuma — nem regra 1 (número que sai do script), nem regra 3 (os dois cortes).
+# Entrar aqui é trabalho, não uma linha: cada uma precisa de <ID>_testes.csv e <ID>_numeros.json.
+PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A09", "A10", "A11", "A12", "A13",
+          "A14", "J01", "J02", "J03", "J04", "J07", "J08", "T01", "T02", "T03", "T04"]
 
 # Vereditos. Só REPROVA impede a parte de ser aceita; AVISO e REVISAR pedem olho humano.
 PASSA, REPROVA, REVISAR, AVISO, NAO_APLICAVEL = "PASSA", "REPROVA", "REVISAR", "AVISO", "NÃO APLICÁVEL"
@@ -663,7 +669,56 @@ def radical(t):
     return re.sub(r"(\w)s\b", r"\1", t)
 
 
-def apelidos_da_linha(linha):
+# Como o texto do estudo DIZ a ressalva do corte de fronteira — acrescentado em 20/09.
+#
+# Até aqui esta regra procurava a palavra "fronteira" e só ela. Mas "times de fronteira" é
+# vocabulário de método, e a passada de texto de 20/09 trocou-o de propósito por "times colados na
+# linha" no que o leitor vê — a ressalva continuou no texto, escrita em português de reunião, e a
+# regra passou a não achá-la. Procurar uma grafia só transformava uma decisão de escrita em
+# reprovação de análise.
+#
+# A lista é FECHADA e cada entrada nomeia o corte, nunca um recorte qualquer: "recorte" sozinho
+# também serve para subamostra (cobertura física, identidade marcada) e deixaria a regra passar por
+# uma ressalva que não é esta.
+MODOS_DE_DIZER_FRONTEIRA = ("fronteira", "colados na linha", "colado na linha",
+                            "colada na linha", "coladas na linha", "nos dois recortes",
+                            "nos dois cortes", "troca de recorte", "troca de corte",
+                            "num recorte so", "num corte so", "sem os times colados",
+                            "quando esses times saem")
+
+
+def fala_do_corte(texto):
+    """O texto carrega a ressalva dos dois cortes, em qualquer das grafias da casa?"""
+    return any(radical(sem_acento(m)) in texto for m in MODOS_DE_DIZER_FRONTEIRA)
+
+
+def apelidos_declarados(pid):
+    """Os apelidos que a PARTE declara para cada indicador, em <ID>_indicadores.json.
+
+    Acrescentado em 20/09. A tabela de testes nomeia o indicador como a base o nomeia
+    (`distance_p90`, “Distância por 90 min (m)”) e o texto de reunião o nomeia como o clube fala
+    (“corre menos”, “velocidade de pico”). Sem ponte entre os dois, a regra 3 não conseguia ver
+    que a conclusão CITAVA a discordância dos cortes, e reprovava texto correto.
+
+    A ponte é DADO, não código: mora na lista pré-declarada da parte, um campo `apelidos` por
+    indicador, e por isso pode ser auditada linha a linha como o resto da lista. O portão não
+    inventa apelido nenhum — sem o campo, nada muda.
+    """
+    d = json_ou_nada(RESULTADOS / f"{pid}_indicadores.json")
+    fora = collections.defaultdict(set)
+    if not isinstance(d, dict):
+        return fora
+    for _, o, _ in andar(d):
+        if not isinstance(o, dict):
+            continue
+        ident = o.get("id") or o.get("indicador") or o.get("coluna")
+        apelidos = o.get("apelidos")
+        if isinstance(ident, str) and isinstance(apelidos, list):
+            fora[ident] |= {radical(sem_acento(str(a).lower())) for a in apelidos if str(a).strip()}
+    return fora
+
+
+def apelidos_da_linha(linha, declarados=None):
     """Como o texto de reunião pode chamar o indicador desta linha."""
     nomes = set()
     for campo in ("indicador", "alvo", "nome", "medida_nome"):
@@ -671,13 +726,21 @@ def apelidos_da_linha(linha):
         if not v:
             continue
         nomes.add(nucleo_do_nome(v.replace("_", " ")))
-    return {radical(n) for n in nomes if len(n) >= 5}
+    fora = {radical(n) for n in nomes if len(n) >= 5}
+    if declarados:
+        for campo in ("indicador", "alvo", "id"):
+            fora |= declarados.get((linha.get(campo) or "").strip(), set())
+    return fora
 
 
-def linhas_que_sustentam(texto_da_conclusao, linhas):
-    """As linhas de teste que a conclusão de fato cita, pelo nome do indicador."""
+def linhas_que_sustentam(texto_da_conclusao, linhas, declarados=None):
+    """As linhas de teste que a conclusão de fato cita, pelo nome do indicador.
+
+    Os apelidos DECLARADOS pela parte entram aqui pelo mesmo motivo que entram na regra 3: a
+    tabela nomeia a medida como a base a nomeia e o texto a nomeia como o clube fala.
+    """
     plano = radical(sem_acento(texto_da_conclusao))
-    return [l for l in linhas if any(a in plano for a in apelidos_da_linha(l))]
+    return [l for l in linhas if any(a in plano for a in apelidos_da_linha(l, declarados))]
 
 
 def regra_2(parte, contexto):
@@ -739,7 +802,7 @@ def regra_2(parte, contexto):
                          f"{NOME_DO_NIVEL[teto]}")
             continue
         texto = " ".join(t for i, t in parte.textos_das_conclusoes() if i == cid)
-        suas = linhas_que_sustentam(texto, linhas)
+        suas = linhas_que_sustentam(texto, linhas, apelidos_declarados(parte.id))
         if not suas:
             if len(passaram) < len(linhas):
                 sem_amarra.append(f"{cid} diz {NOME_DO_NIVEL.get(nivel, '?')} e não nomeia "
@@ -919,6 +982,7 @@ def regra_3(parte, contexto):
         return Achado(3, titulo, REPROVA, "só o corte sem a fronteira rodou",
                       [f"{parte.testes_path.name}, coluna {col}: valores {valores}"])
 
+    declarados = apelidos_declarados(parte.id)
     pares, sobra_com, sobra_sem = emparelhar_os_cortes(parte.testes, col)
     textos = [(cid, radical(sem_acento(t))) for cid, t in parte.textos_das_conclusoes()]
     texto_todo = "\n".join(t for _, t in textos)
@@ -942,13 +1006,25 @@ def regra_3(parte, contexto):
             motivo = "passa num corte e não no outro"
         else:
             motivo = "troca de sinal entre os cortes"
-        fraca = (not troca_selo) and (not falta_dado) and min(abs(da), abs(db)) < TROCA_DE_SINAL_FRACA
+        # Troca de sinal que não obriga o texto a nada — vai para REVISAR, não para REPROVA, e
+        # continua impressa no relatório. Dois casos:
+        #   perto de zero: o d de um dos lados é ruído;
+        #   nenhum dos dois cortes separa: os dois dizem a mesma coisa ("sem diferença clara") e o
+        #     que virou foi o sinal de uma NÃO-diferença. Não há resultado publicado de um lado
+        #     para o texto ressalvar do outro. O aviso continua valendo — estimativa instável, n
+        #     pequeno — e é por isso que ele não some do relatório, só deixa de reprovar.
+        # Com falta_dado, d ou q vêm vazios de um dos lados: nada a classificar.
+        comparavel = not falta_dado and not troca_selo
+        perto_de_zero = comparavel and min(abs(da), abs(db)) < TROCA_DE_SINAL_FRACA
+        sem_achado = comparavel and qa >= BH and qb >= BH
+        fraca = perto_de_zero or sem_achado
         rotulo = (f"{ind}{' (' + comp + ')' if comp else ''}: {motivo} "
-                  f"(q {qa} × {qb}, d {da} × {db})" + (" [perto de zero]" if fraca else "")
+                  f"(q {qa} × {qb}, d {da} × {db})" + (" [perto de zero]" if fraca and perto_de_zero
+                                              else " [nenhum dos dois cortes separa]" if fraca else "")
                   + (f" [emparelhado apesar de {', '.join(diferem)}]" if diferem else ""))
         discordam.append(rotulo)
 
-        apelidos = apelidos_da_linha(a) | apelidos_da_linha(b)
+        apelidos = apelidos_da_linha(a, declarados) | apelidos_da_linha(b, declarados)
         cita_numero = (any(f in texto_todo for f in formatos_do_numero(a.get("d")))
                        and any(f in texto_todo for f in formatos_do_numero(b.get("d"))))
         if cita_numero:
@@ -956,7 +1032,7 @@ def regra_3(parte, contexto):
         # A frase de praxe ("rodamos também sem os times de fronteira") não vale sozinha: a
         # fronteira e o indicador têm de aparecer NA MESMA conclusão, senão uma palavra solta
         # desarmava a regra para a parte inteira.
-        amarrada = any("fronteira" in t and any(x in t for x in apelidos) for _, t in textos)
+        amarrada = any(fala_do_corte(t) and any(x in t for x in apelidos) for _, t in textos)
         if amarrada or fraca:
             revisam.append(rotulo)
         else:

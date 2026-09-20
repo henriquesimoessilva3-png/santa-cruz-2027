@@ -8,7 +8,7 @@
   {
    "id": "J09-1",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
    "manchete": "Estrangeiro que já rodava joga mais no primeiro ano de Série B",
@@ -17,12 +17,32 @@
     "titulo": "Minutos no primeiro ano de Série B, por rodagem na liga de origem",
     "unidade": "minutos",
     "cortes": [
-     {"rotulo": "com todos os times", "series": [
-      {"nome": "Rodava", "marcador": "ma_min_a_com"},
-      {"nome": "Não rodava", "marcador": "ma_min_b_com"}]},
-     {"rotulo": "sem os times de fronteira", "series": [
-      {"nome": "Rodava", "marcador": "ma_min_a_sem"},
-      {"nome": "Não rodava", "marcador": "ma_min_b_sem"}]}
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Rodava",
+        "marcador": "ma_min_a_com"
+       },
+       {
+        "nome": "Não rodava",
+        "marcador": "ma_min_b_com"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Rodava",
+        "marcador": "ma_min_a_sem"
+       },
+       {
+        "nome": "Não rodava",
+        "marcador": "ma_min_b_sem"
+       }
+      ]
+     }
     ]
    },
    "o_que_vimos": "Das {bt_chegadas} chegadas do exterior à Série B, quem já vinha jogando muito na liga de origem fez {ma_min_a_com} minutos no primeiro ano, contra {ma_min_b_com} de quem não vinha. São {ma_dif_int} minutos, {ma_dif_jogos} jogos. Serve para reduzir a lista, não para prometer titularidade.",
@@ -32,12 +52,14 @@
    "confianca": "indício",
    "confianca_motivo": "(a) Pela régua mecânica da casa isto seria PROVÁVEL, e o número está aqui para o dono decidir: passa no BH a 5% nos DOIS cortes de fronteira (q {ma_q_com} com e {ma_q_sem} sem), nos DOIS desfechos (minutos, e chegar a 900 minutos: q {ma900_q_com} e {ma900_q_sem}, com {ma900_a_com}% contra {ma900_b_com}%). (b) Poder suficiente por desenho nos dois cortes: d {ma_d_com} contra o mínimo detectável de {ma_dmin_com}, e d {ma_d_sem} contra {ma_dmin_sem}. (c) IC95 por bootstrap de clube de destino exclui o zero nos dois: {ma_ic_com} e {ma_ic_sem}. (d) Porta temporal da §6.4: NÃO rodou. O backtest é temporal por construção (pontua com o ano anterior, mede no ano da chegada), mas é outro desenho e não é a porta — o mesmo critério que J06 usou. Por isso não pode ser firme. (e) O que segura em indício e não em provável não é o teste: é que o teto desta parte foi declarado `indício` em J09_indicadores.json ANTES de rodar, e teto declarado não se reabre depois de ver o resultado. Está em aberto para o dono. (f) n pequeno: {bt_chegadas} chegadas, e {bt_sem_foto_na_origem} das {bt_chegadas_na_base_j08} ficaram fora por não terem foto na liga de origem; elas fizeram menos minutos no destino que as que ficaram, o que empurra para o lado conservador. (g) O filtro com repetição — que é o que a parte usa de verdade — NÃO passa: d {mo_d_com}, q {mo_q_com}, com {mo_n_a} de um lado e mínimo detectável de {mo_dmin_com}. A repetição pode valer; esta amostra não consegue dizer. (h) Placar: o desfecho é minuto jogado, que não está na lista branca de resultado. (i) Os dois cortes de fronteira saíram do texto e foram para o gráfico desta conclusão, lado a lado: com todos os times, {ma_min_a_com} minutos contra {ma_min_b_com}, com {ma_n_a_com} e {ma_n_b_com} chegadas; sem os times de fronteira, {ma_min_a_sem} contra {ma_min_b_sem}, com {ma_n_a_sem} e {ma_n_b_sem}. A direção é a mesma nos dois, e é isso que a frase antiga “vale nos dois recortes” dizia. (j) A manchete NÃO crava magnitude, de propósito: o {ma_dif_int}/{ma_dif_jogos} é o corte COM fronteira, e sem a fronteira a diferença é bem maior ({ma_min_a_sem} contra {ma_min_b_sem}). Cravar um dos dois na manchete traria de volta pela manchete a fragilidade que o gráfico de dois cortes existe para mostrar. Some-se o IC95 de {ma_ic_com}, que é largo, e a alínea (g): um ponto com uma casa decimal na manchete seria certeza que este número não tem.",
    "n": "{bt_chegadas} chegadas do exterior à Série B em 2023 a 2026, {ma_n_a_com} com minutagem alta na origem contra {ma_n_b_com} sem; {bt_testes} testes entraram na tabela e {bt_fora_por_n} recortes por setor ficaram fora por não chegar a {bt_piso_do_lado} de cada lado",
-   "prova": "J09.md; J09_testes.csv (grupo minutagem_alta, setor Todos); J09_backtest.csv; J09_resumo.json"
+   "prova": "J09.md; J09_testes.csv (grupo minutagem_alta, setor Todos); J09_backtest.csv; J09_resumo.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   },
   {
    "id": "J09-2",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": true,
    "parece_mas_nao_e": true,
    "manchete": "Nenhum volante e nenhum extremo de fora passa nos {pri_vol_exig} pisos juntos",
@@ -46,10 +68,22 @@
     "titulo": "Volantes de fora aprovados, por bloco isolado e na ficha inteira",
     "unidade": "jogadores",
     "barras": [
-     {"nome": "Físico, isolado", "marcador": "pri_vol_so_fisico"},
-     {"nome": "Duelo, isolado", "marcador": "pri_vol_so_duelo"},
-     {"nome": "Passe, isolado", "marcador": "pri_vol_so_estilo"},
-     {"nome": "Na ficha inteira", "marcador": "pri_vol_origem"}
+     {
+      "nome": "Físico, isolado",
+      "marcador": "pri_vol_so_fisico"
+     },
+     {
+      "nome": "Duelo, isolado",
+      "marcador": "pri_vol_so_duelo"
+     },
+     {
+      "nome": "Passe, isolado",
+      "marcador": "pri_vol_so_estilo"
+     },
+     {
+      "nome": "Na ficha inteira",
+      "marcador": "pri_vol_origem"
+     }
     ]
    },
    "o_que_vimos": "{pri_vol_cand} volantes e {pri_ext_cand} extremos de fora jogam muito e sempre na liga deles. Nenhum dos dois grupos tem um jogador só que atenda as {pri_vol_exig} exigências ao mesmo tempo. Use a ficha para descartar quem está muito longe, nunca para escolher.",
@@ -59,12 +93,14 @@
    "confianca": "indício",
    "confianca_motivo": "(a) É CONTAGEM, não estimativa: quantos candidatos existem e quantos atravessam os pisos de J05. Nenhum teste a salva nem a derruba, porque o que falta é margem na ficha e não poder estatístico. (b) O teto da parte foi declarado indício antes de rodar e a regra que autorizaria o rótulo `alvo` (nível A) exigia d > 0 e q < 0,05 na família filtro_j09 × minutos nos dois cortes: o teste primário nem entrou na tabela, porque o filtro aprova {bt_aprovados} das {bt_chegadas} chegadas, abaixo do piso de {bt_piso_do_lado} por lado. Rodado à parte, fora do BH, os {bt_diag_na} aprovados fizeram {bt_diag_min_a_int} minutos contra {bt_diag_min_b_int} dos {bt_diag_nb} reprovados. Por isso o rótulo publicado é `{rotulo_dos_nomes}`. (c) Os dois cortes da fronteira rodaram e os dois estão relatados; nenhum bloco técnico passa em nenhum deles. (d) As DUAS leituras do piso rodaram, como a emenda 1 declarou antes: {passa_piso_na_origem} passam na régua da própria liga e {passa_piso_no_ajustado} depois da conta de J08. (e) A conta de J08 é uma reta de encolhimento, e isto está medido: o ponto fixo dela fica em {ponto_fixo_eficiencia} na eficiência, então ela PROMOVE quem está abaixo e REBAIXA quem está acima — de {ajuste_medidas} medidas, {ajuste_promove} sobem e {ajuste_rebaixa} descem — e o teto de {teto_eficiencia} deixa {pisos_inalcancaveis} dos {pisos_com_exigencia} pisos técnicos fora de alcance por construção. (f) O bloco físico entrou porque esta parte achou o dado na base do próprio app, com ponte medida em {ponte_app_pct}% de {base_linhas} linhas; mas ele NÃO tem fator de conversão em J08, então é o lugar do jogador na régua da própria liga, sem tradução. (g) Porta temporal: não rodou. (h) O funil que saiu do texto para o gráfico, bloco a bloco isolado: dos {pri_vol_cand} volantes, {pri_vol_com_fisico} têm linha física, o físico aprova {pri_vol_so_fisico}, o duelo {pri_vol_so_duelo} e o passe {pri_vol_so_estilo}, e {pri_vol_origem} passam em tudo; dos {pri_ext_cand} extremos, {pri_ext_com_fisico} têm linha física, {pri_ext_so_fisico}, {pri_ext_so_duelo} e {pri_ext_so_estilo} por bloco, e {pri_ext_origem} passam em tudo. É a mesma contagem nas duas leituras do piso, e o gráfico mostra a do volante. (i) O rótulo do gráfico diz ISOLADO porque é isso que a conta é: `atende`, no J09.py, é ter dado em pelo menos UM piso do bloco e não violar NENHUM dos que têm dado — leituras sobrepostas, não fatias exclusivas de um funil, e por isso {pri_vol_so_fisico}, {pri_vol_so_duelo} e {pri_vol_so_estilo} não se somam. A barra da ficha inteira é outro critério, `passa_ficha_origem`: dado em pelo menos DOIS pisos e nenhuma violação. Como os dois critérios não são o mesmo, a base de {pri_vol_cand} candidatos ficou FORA do desenho e está no texto: cinco barras na mesma escala liam-se como um funil de fatias exclusivas, o que seria falso.",
    "n": "{elegiveis_com_dado} elegíveis com dado em {ligas_que_entram} das {ligas_lidas} ligas lidas; {pri_vol_cand} volantes e {pri_ext_cand} extremos nas posições prioritárias, dos quais {pri_vol_com_fisico} e {pri_ext_com_fisico} com linha física",
-   "prova": "J09.md; J09_resumo.json (chave por_posicao); J09_base.csv; J09_rastreio.csv; J09_ligas.csv"
+   "prova": "J09.md; J09_resumo.json (chave por_posicao); J09_base.csv; J09_rastreio.csv; J09_ligas.csv",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   },
   {
    "id": "J09-3",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": true,
    "parece_mas_nao_e": false,
    "manchete": "No gol a base não tem como apontar um nome",
@@ -73,9 +109,18 @@
     "titulo": "Goleiros de fora, e o que a base tem sobre eles",
     "unidade": "goleiros",
     "barras": [
-     {"nome": "Na base", "marcador": "gk_na_base"},
-     {"nome": "Com minutos e ficha", "marcador": "pri_gol_cand"},
-     {"nome": "Com linha física", "marcador": "pri_gol_com_fisico"}
+     {
+      "nome": "Na base",
+      "marcador": "gk_na_base"
+     },
+     {
+      "nome": "Com minutos e ficha",
+      "marcador": "pri_gol_cand"
+     },
+     {
+      "nome": "Com linha física",
+      "marcador": "pri_gol_com_fisico"
+     }
     ]
    },
    "o_que_vimos": "Da ficha de goleiro sobram {gk_exigencias} exigências, as duas de passe, e a repetição na liga de origem não dá para conferir. Decida por olho e vídeo. {pri_gol_origem} dos {pri_gol_cand} passam esses dois números, e {pri_gol_janela} deles têm contrato vencendo até {janela_de_contrato}.",
@@ -85,7 +130,9 @@
    "confianca": "indício",
    "confianca_motivo": "(a) O nível C — nenhum nome — estava escrito na regra ANTES de rodar, com o goleiro citado nominalmente: 'um filtro que não olha para nada de goleiro não escolhe goleiro'. Não é resultado, é a regra disparando. (b) As três lacunas estão medidas, não supostas: das 4 métricas do goleiro em J05 o duelo defensivo ficou sem piso e o aéreo foi descartado em J03-3, sobrando {gk_exigencias}; o painel temporal tem 7 posições-raiz e nenhuma é goleiro, o que torna a repetição INVERIFICÁVEL — diferente de baixa; e só {pri_gol_com_fisico} dos {pri_gol_cand} têm linha física, o que confirma em liga estrangeira o que J04 achou na Série B, onde 105 goleiros de 900+ minutos não tinham uma linha. (c) J08 não tem fator para goleiro: o painel de transferências não traz a posição. (d) Nenhum teste roda aqui, e por isso o teto é indício por construção: é contagem de lacuna. (e) Porta temporal: não se aplica. (f) A contagem que saiu do texto para o gráfico, com as três barras na MESMA base encaixada: {gk_na_base} goleiros na base, {pri_gol_cand} deles com minutagem alta E os dois números da ficha (são {gk_com_minutagem_alta} os de minutagem alta; o que sobra não tem dois indicadores), e {pri_gol_com_fisico} desses com linha física. (g) A repetição NÃO é barra do gráfico, e é de propósito: {gk_regularidade_verificavel} goleiros têm repetição conferível porque `regularidade_verificavel` é `setor diferente de Goleiro` no J09.py — zero POR CONSTRUÇÃO, contado sobre os {gk_na_base} da base e não sobre os {pri_gol_com_fisico} da barra anterior. Desenhada como quarto degrau do funil, ela faria ler reprovação medida onde há AUSÊNCIA DE CONFERÊNCIA: o painel do Wyscout não guarda um goleiro sequer. É o mesmo que a alínea (b) diz — inverificável, diferente de baixa — e é por isso que a frase fica no que vimos, que se lê, e não só aqui.",
    "n": "{gk_na_base} goleiros na base, {gk_com_minutagem_alta} com minutagem alta e {pri_gol_com_fisico} com linha física, em {ligas_que_entram} ligas",
-   "prova": "J09.md (seção O goleiro); J09_resumo.json (por_posicao.Goleiro); J09_base.csv (colunas regularidade_verificavel e fisico_rastreado); J05_perfil.csv"
+   "prova": "J09.md (seção O goleiro); J09_resumo.json (por_posicao.Goleiro); J09_base.csv (colunas regularidade_verificavel e fisico_rastreado); J05_perfil.csv",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   }
  ],
  "numeros": {

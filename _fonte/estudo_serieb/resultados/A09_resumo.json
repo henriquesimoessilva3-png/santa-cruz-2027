@@ -1,0 +1,120 @@
+{
+ "n": {
+  "total": 80,
+  "sobe": 16,
+  "meio": 48,
+  "cai": 16,
+  "trave": 16,
+  "sobe_sem_fronteira": 8,
+  "meio_sem_fronteira": 32
+ },
+ "n_testes": 120,
+ "firmes_no_corte_com": 16,
+ "firmes_nos_dois_cortes": [
+  {
+   "comparacao": "SM",
+   "indicador": "marca_30_45",
+   "q_com": 0.01221,
+   "q_sem": 0.03176,
+   "d_com": 0.838,
+   "d_sem": 0.969
+  },
+  {
+   "comparacao": "SM",
+   "indicador": "marca_75_90",
+   "q_com": 0.01221,
+   "q_sem": 0.03176,
+   "d_com": 0.87,
+   "d_sem": 1.177
+  },
+  {
+   "comparacao": "SM",
+   "indicador": "sofre_30_45",
+   "q_com": 1e-05,
+   "q_sem": 0.00017,
+   "d_com": 1.448,
+   "d_sem": 1.358
+  },
+  {
+   "comparacao": "SM",
+   "indicador": "marca_1t",
+   "q_com": 0.00038,
+   "q_sem": 0.00274,
+   "d_com": 1.04,
+   "d_sem": 1.267
+  },
+  {
+   "comparacao": "SM",
+   "indicador": "marca_2t",
+   "q_com": 0.00168,
+   "q_sem": 0.03596,
+   "d_com": 1.07,
+   "d_sem": 1.15
+  },
+  {
+   "comparacao": "SM",
+   "indicador": "sofre_1t",
+   "q_com": 0.00168,
+   "q_sem": 0.01721,
+   "d_com": 0.917,
+   "d_sem": 1.191
+  },
+  {
+   "comparacao": "CM",
+   "indicador": "marca_1t",
+   "q_com": 0.00839,
+   "q_sem": 0.00693,
+   "d_com": -0.748,
+   "d_sem": -0.924
+  },
+  {
+   "comparacao": "CM",
+   "indicador": "sofre_1t",
+   "q_com": 0.00767,
+   "q_sem": 0.00419,
+   "d_com": -0.887,
+   "d_sem": -1.255
+  },
+  {
+   "comparacao": "CM",
+   "indicador": "sofre_2t",
+   "q_com": 0.00072,
+   "q_sem": 0.00444,
+   "d_com": -1.206,
+   "d_sem": -1.056
+  }
+ ],
+ "poder_por_desenho": {
+  "16x48": 0.82,
+  "16x16": 1.02,
+  "8x32": 1.14,
+  "8x7": 1.57
+ },
+ "conferencia_da_coleta": {
+  "2022": {
+   "ogol": 766,
+   "base_do_app": 764,
+   "diferenca": 2
+  },
+  "2023": {
+   "ogol": 796,
+   "base_do_app": 796,
+   "diferenca": 0
+  },
+  "2024": {
+   "ogol": 832,
+   "base_do_app": 827,
+   "diferenca": 5
+  },
+  "2025": {
+   "ogol": 843,
+   "base_do_app": 843,
+   "diferenca": 0
+  }
+ },
+ "porta_6_4": {
+  "roda": false,
+  "por_que": "o oGol publica a conta da temporada fechada, sem corte por rodada: não há como medir as 19 primeiras e prever as 19 últimas",
+  "consequencia": "nenhuma conclusão desta parte passa de provável"
+ }
+}

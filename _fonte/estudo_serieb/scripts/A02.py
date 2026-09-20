@@ -175,8 +175,14 @@ def bh(ps):
     return q
 
 
-def porta_temporal():
-    """1º turno prevendo o 2º, por clube-temporada. Spearman, como a §6.4."""
+def persistencia_dentro_da_temporada():
+    """1ª metade do indicador contra a 2ª metade DO PRÓPRIO indicador, por clube-temporada.
+
+    Isto NÃO é a porta temporal da §6.4, embora este script a chamasse assim até 20/09. É
+    persistência: mede se o indicador se repete, não se ele vem antes do resultado. O limiar
+    rho>0,30 que ela usa é o `rho_persist` que a §6.5 aposentou em 15/09. Quem roda a porta da
+    §6.4 nesta parte é o `porta_6_4()` logo abaixo, sobre a distância do remate.
+    """
     anos = {"2022", "2023", "2024", "2025"}
     linhas = []
     with open(os.path.join(DADOS, "serieb_jogos.csv"), encoding="utf-8-sig") as f:
@@ -306,7 +312,7 @@ def rho_detectavel(n, alvo=0.80, alfa=0.05):
     return math.tanh(z / math.sqrt(n - 3))
 
 
-def montar_numeros(base, resultados, porta, contagens, poder):
+def montar_numeros(base, resultados, porta, contagens, poder, por, p_dist):
     """Marcador → valor, os 76 que `A02.json` publica. Duas camadas, na ordem em que nasceram."""
     L = lambda fam, ind: linha(resultados, "sem", fam, "SM", ind)   # o corte REDUZIDO, 8 × 32
     cria_rem, cria_dist = L("cria", "remates"), L("cria", "dist_remate")
@@ -363,9 +369,9 @@ def montar_numeros(base, resultados, porta, contagens, poder):
     fin_s_cf, fin_m_cf = mediana_corte_cheio(base, "finalizacao")
     def_s_cf, def_m_cf = mediana_corte_cheio(base, "defesa_vs_xg")
 
-    _linhas, por = _pt.ler_jogos()      # a base de jogos pelo leitor comum da casa
+    # A base de jogos e a porta da §6.4 chegam prontas do main(), que já precisa das duas para
+    # gravar o A02_resumo.json: rodar _pt.ler_jogos() duas vezes só duplicaria a leitura.
     jogos_na_temporada = collections.Counter(len(js) for js in por.values()).most_common(1)[0][0]
-    p_dist = porta_6_4(por, "dist", -1)             # sinal −1: chutar de longe é pior
     conf_xgpr_contra, _ = split_half(por, lambda js: _pt.razao(js, "xg_sofrido", "remates_contra"))
     conf_fin, n_split = split_half(
         por, lambda js: (lambda v: sum(v) / len(v) if v else None)(
@@ -380,8 +386,11 @@ def montar_numeros(base, resultados, porta, contagens, poder):
         "xgc_s_cf": round(xgc_s_cf, 2), "xgc_m_cf": round(xgc_m_cf, 2),
         "xg_s_cf": round(xg_s_cf, 2), "xg_m_cf": round(xg_m_cf, 2),
         "fin_s_cf": round(fin_s_cf, 2),
-        # Sem sinal de propósito: a frase da proposta já diz "abaixo". Com sinal é −0,17.
-        "fin_m_cf": abs(round(fin_m_cf, 2)),
+        # COM SINAL, desde 20/09. Ficava em módulo "porque a frase já dizia abaixo" — mas a frase
+        # não é o único leitor do marcador: no corte cheio Sobe fica ACIMA do esperado (+0,05) e o
+        # Meio ABAIXO (−0,17), e publicar 0,17 faz o desenho mostrar o meio convertendo melhor que
+        # quem sobe, o contrário do que o número diz. Módulo é decisão de frase, não de dado.
+        "fin_m_cf": round(fin_m_cf, 2),
         "def_s_cf": round(def_s_cf, 2), "def_m_cf": round(def_m_cf, 2),
         "fin_gols_temporada": round((fin_s_cf - fin_m_cf) * jogos_na_temporada),
         "rod_corte": _pt.TURNO,
@@ -441,7 +450,11 @@ def main():
                     it["poder_suficiente"] = abs(it["d"]) >= it["d_minimo_80"]
                 resultados += itens
 
-    porta = porta_temporal()
+    persistencia = persistencia_dentro_da_temporada()
+    # A porta da §6.4 sobre a distância do remate, que é o indicador da conclusão A02-1. Sinal −1:
+    # chutar de longe é pior. A conta é a do scripts/_porta_temporal.py, não uma décima versão.
+    _linhas_pt, por_pt = _pt.ler_jogos()
+    p_dist_resumo = porta_6_4(por_pt, "dist", -1)
     with open(os.path.join(R, "A02_testes.csv"), "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(resultados[0]))
         w.writeheader(); w.writerows(resultados)
@@ -453,7 +466,18 @@ def main():
                  "sobe_sem_fronteira": sum(1 for l in base if l["faixa"] == "Sobe" and not l["fronteira"]),
                  "trave_sem_fronteira": sum(1 for l in base if l["trave"] and not l["fronteira"]),
                  "clubes": len({l["clube"] for l in base})}
-    json.dump({"porta_temporal": porta, "poder_por_desenho": poder, "n": contagens},
+    # As duas contas, cada uma com o seu nome. Até 20/09 a persistência era gravada como
+    # "porta_temporal", e era essa troca de nome que fazia a parte declarar uma porta que nunca
+    # tinha rodado — o _porta_temporal.md de 19/09 é quem achou. A porta da §6.4 é a de baixo.
+    json.dump({"persistencia_dentro_da_temporada": persistencia,
+               "porta_6_4": {
+                   "indicador": "dist_remate (distância média do remate, sinal −1)",
+                   "definicao": "média nas 19 primeiras rodadas × pontos somados das 19 últimas, "
+                                "em posto dentro do ano, com parcial dada à pontuação do 1º turno",
+                   "conta_de": "scripts/_porta_temporal.py, a mesma que reproduz as nove linhas "
+                               "da tabela da §6.4 célula a célula",
+                   **p_dist_resumo},
+               "poder_por_desenho": poder, "n": contagens},
               open(os.path.join(R, "A02_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
@@ -474,12 +498,13 @@ def main():
                   f"{it['d_minimo_80']:6.2f}  {it['selo']}{marca}")
 
     print(f"\n{'='*100}\nPORTA TEMPORAL — 1º turno prevendo o 2º (Spearman, n=80 clube-temporadas)\n{'='*100}")
-    for k, v in porta.items():
+    for k, v in persistencia.items():
         print(f"  {nome.get(k, k):34s} rho {v['rho']:+.3f}  IC95 [{v['ic'][0]:+.2f},{v['ic'][1]:+.2f}]  "
               f"p {v['p']:.4f}   {'SE REPETE' if v['se_repete'] else 'NÃO se repete'}")
 
     # ---- os números que a parte publica ------------------------------------------------------
-    num = montar_numeros(base, resultados, porta, contagens, poder)
+    num = montar_numeros(base, resultados, persistencia, contagens, poder,
+                         por_pt, p_dist_resumo)
     json.dump({"gerado_por": "scripts/A02.py", "gerado_em": GERADO_EM,
                "corte_do_texto": "reduzido, 8 Sobe × 32 Meio; os marcadores _cf são o cheio, 16 × 48",
                "numeros": num},

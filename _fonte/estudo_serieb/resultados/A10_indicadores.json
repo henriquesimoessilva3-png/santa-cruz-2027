@@ -735,7 +735,13 @@
    "nome": "Distância por 90 min (m)",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "corre",
+    "corrida",
+    "metros por noventa",
+    "volume de corrida"
+   ]
   },
   {
    "familia_em_A07": "volume",
@@ -744,7 +750,13 @@
    "nome": "Distância em corrida por 90 (m)",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "corre",
+    "corrida",
+    "metros por noventa",
+    "volume de corrida"
+   ]
   },
   {
    "familia_em_A07": "volume",
@@ -753,7 +765,12 @@
    "nome": "Metros por minuto",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "corre",
+    "corrida",
+    "metro por minuto"
+   ]
   },
   {
    "familia_em_A07": "intensidade",
@@ -762,7 +779,13 @@
    "nome": "Distância em alta intensidade por 90 (m)",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "alta intensidade",
+    "correr forte",
+    "corria menos forte",
+    "corre menos forte"
+   ]
   },
   {
    "familia_em_A07": "intensidade",
@@ -771,7 +794,10 @@
    "nome": "Distância em sprint por 90 (m)",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "sprint"
+   ]
   },
   {
    "familia_em_A07": "intensidade",
@@ -780,7 +806,10 @@
    "nome": "Número de sprints por 90",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "sprint"
+   ]
   },
   {
    "familia_em_A07": "intensidade",
@@ -789,7 +818,12 @@
    "nome": "Acelerações fortes por 90",
    "sinal": 1,
    "min_60": true,
-   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo."
+   "nota": "Por 90 min: só jogos com pelo menos 60 minutos em campo.",
+   "apelidos": [
+    "aceleracao",
+    "aceleracoes",
+    "arranque"
+   ]
   },
   {
    "familia_em_A07": "intensidade",
@@ -798,7 +832,11 @@
    "nome": "PSV-99 do jogador no jogo (km/h)",
    "sinal": 1,
    "min_60": false,
-   "nota": "Métrica de pico: usa todos os jogos, como manda o CLAUDE.md."
+   "nota": "Métrica de pico: usa todos os jogos, como manda o CLAUDE.md.",
+   "apelidos": [
+    "velocidade de pico",
+    "pico"
+   ]
   }
  ],
  "descritor_fora_das_conclusoes": [
@@ -1200,5 +1238,6 @@
    ]
   ],
   "nota_sobre_o_sem_par": "O único jogo sem par é o Criciúma × Vila Nova de 2026, que é exatamente um dos 5 jogos que A01 já tinha identificado como ausentes de serieb_jogos.csv. A base do SkillCorner confirma o achado do A01 por um caminho independente."
- }
+ },
+ "apelidos_doc": "Como o texto de reunião chama cada medida física. Serve à regra 3 do portão: a tabela nomeia a medida como o SkillCorner a nomeia (`hi_distance_p90`) e o texto a nomeia como o clube fala (“correr forte”). Sem esta ponte a regra não enxerga que a conclusão citou a discordância entre os dois cortes. Acrescentado em 20/09; não muda nenhum cálculo."
 }

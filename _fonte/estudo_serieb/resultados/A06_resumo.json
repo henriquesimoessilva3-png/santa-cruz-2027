@@ -1,5 +1,5 @@
 {
- "porta_temporal": {
+ "persistencia_dentro_da_temporada": {
   "ppda": {
    "rho": 0.571,
    "p": 0.0,
@@ -59,6 +59,44 @@
     0.69
    ],
    "se_repete": true
+  }
+ },
+ "porta_6_4": {
+  "definicao": "média nas 19 primeiras rodadas × pontos somados das 19 últimas, em posto dentro do ano, com parcial dada à pontuação do 1º turno",
+  "conta_de": "scripts/_porta_temporal.py, a mesma que reproduz as nove linhas da tabela da §6.4 célula a célula",
+  "indicadores": {
+   "duelos_def_pct": {
+    "rho": 0.121,
+    "p": 0.2858,
+    "parcial": 0.092,
+    "p_parcial": 0.41602,
+    "n": 80,
+    "passa": false
+   },
+   "ppda": {
+    "rho": -0.195,
+    "p": 0.08343,
+    "parcial": -0.103,
+    "p_parcial": 0.36312,
+    "n": 80,
+    "passa": false
+   },
+   "intensidade": {
+    "rho": 0.19,
+    "p": 0.09122,
+    "parcial": 0.204,
+    "p_parcial": 0.06972,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra": {
+    "rho": 0.208,
+    "p": 0.06355,
+    "parcial": -0.026,
+    "p_parcial": 0.82131,
+    "n": 80,
+    "passa": false
+   }
   }
  },
  "ppda_x_valor_elenco": {

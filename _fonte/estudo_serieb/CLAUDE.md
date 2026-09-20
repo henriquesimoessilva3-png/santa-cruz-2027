@@ -227,6 +227,7 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 ### A09 — Momentos do jogo
 **Pergunta:** em que faixas de minutos cada faixa de classificação marca e sofre, e como reage ao placar?
 **Métricas:** gols pró e contra por faixa de 15 min; aproveitamento quando marca primeiro e quando sofre primeiro. Exige minuto do gol: se a base não trouxer, pare e diga que coleta resolveria. Se A08 já foi feita, cruzar a queda física com os gols sofridos no fim.
+**Estado em 20/09:** a primeira metade foi respondida com a coleta do oGol (ver "O que a base não tem"). A segunda — o aproveitamento por quem marca primeiro — e o cruzamento com A08 continuam em aberto, e estão escritos como tal no `A09.json`.
 
 ### A10 — Físico ao longo da temporada
 **Pergunta:** quem sobe sustenta a intensidade no returno e em sequências de jogos?
@@ -325,8 +326,16 @@ que são as propostas de elenco; e as notas de encaixe da `etapa_13`. O backtest
 Conferido contra o repositório em 17/09/2026, antes de qualquer parte rodar. São lacunas de **dado**,
 não de método: nenhuma delas se resolve escrevendo melhor a pergunta.
 
-**A09 não roda.** Não existe minuto do gol em `dados/serieb_jogos.csv` nem em
-`serieb_jogos_2018_2021.csv` — nenhuma das 119 colunas traz minuto ou tempo. Só coleta resolve.
+**A09 rodava pela metade, e a metade que faltava foi coletada em 20/09.** Continua verdade que
+não existe minuto do gol em `dados/serieb_jogos.csv` nem em `serieb_jogos_2018_2021.csv` — nenhuma
+das 119 colunas traz minuto ou tempo. O que mudou foi o remédio: `coletar_serieb_gols_por_minuto.py`
+traz do oGol os gols marcados e sofridos por faixa de 15 minutos, por clube e temporada, de 2018 a
+2026, em **18 páginas** (a conta já vem agregada por edição, então não foi preciso ler as 1.782
+páginas de jogo). **A metade "como reage ao placar" continua sem dado:** o aproveitamento de quem
+marca primeiro e de quem sofre primeiro exige o primeiro gol de cada jogo, e a tabela agregada não
+traz evento nenhum. O caminho para essa coleta está escrito no cabeçalho do coletor. E a **porta
+temporal não roda** na A09, porque o oGol publica a conta da temporada fechada, sem corte por
+rodada: nenhuma conclusão da parte passa de provável.
 
 **A08 não roda.** O SkillCorner guarda um período só, `full_all`: não há 1º/2º tempo nem faixa de
 15 min em fonte alguma. Cai junto o recorte por estado do jogo da seção **Placar**.

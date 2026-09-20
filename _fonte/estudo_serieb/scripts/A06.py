@@ -40,7 +40,7 @@ from scipy import stats
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import _porta_temporal as porta_6_4  # noqa: E402  (a §6.4, onde ela está implementada e conferida)
-from _metodo import comparar, d_minimo, pct, percentil_no_ano  # noqa: E402
+from _metodo import citados_com_gemea, comparar, preencher_citados, d_minimo, pct, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
@@ -156,7 +156,16 @@ def main():
     comparacoes = [("SM", lambda l: l["faixa"] == "Sobe", lambda l: l["faixa"] == "Meio"),
                    ("ST", lambda l: l["faixa"] == "Sobe", lambda l: l["trave"])]
     filtros = [("com", lambda l: True), ("sem", lambda l: not l["fronteira"])]
-    res = comparar(base, familias, comparacoes, filtros, RNG, lambda i: sinal[i])
+    # Indicador que esta parte MEDE mas não é dona: fora do BH desta família, com o q da parte
+    # dona. A decisão de quem é dono está declarada em <ID>_indicadores.json (`citado_de`), que é
+    # a lista pré-declarada — não aqui dentro e não no portão. Regra 7, 20/09.
+    citados, dono_de = citados_com_gemea(dec, R)
+    res = comparar(base, familias, comparacoes, filtros, RNG, lambda i: sinal[i],
+                   citados=citados)
+    if citados:
+        preencher_citados(res, dono_de, R)
+        print(f"  {len(citados)} indicador(es) citado(s) de outra parte: "
+              + ", ".join(f"{i} ← {d}" for i, d in dono_de.items()))
     for it in res:
         it["nome"] = nome[it["indicador"]]
 
@@ -199,7 +208,37 @@ def main():
              if valor.get((l["temporada"], l["clube"]))]
     rho_v, p_v = stats.spearmanr([a for a, _ in pares], [b for _, b in pares])
 
-    json.dump({"porta_temporal": porta,
+    # ---- a porta da §6.4, pelos quatro indicadores que o A06 cita ----
+    # Subiu para cá em 20/09: o A06_resumo.json logo abaixo passou a gravá-la,
+    # e antes disso ele gravava a PERSISTÊNCIA com o nome de porta temporal.
+    _, por_ct = porta_6_4.ler_jogos()
+    reg64 = []
+    for (temporada, clube), js in por_ct.items():
+        t1, t2 = js[:porta_6_4.TURNO], js[porta_6_4.TURNO:]
+        reg64.append({"temporada": temporada, "clube": clube,
+                      "pts_1t": sum(porta_6_4.pontos(j) for j in t1),
+                      "pts_2t": sum(porta_6_4.pontos(j) for j in t2),
+                      "duelos_def_pct": porta_6_4.media(t1, "dd"),
+                      "ppda": porta_6_4.media(t1, "ppda"),
+                      "intensidade": porta_6_4.media(t1, "intensidade"),
+                      "xg_por_remate_contra": porta_6_4.razao(t1, "xg_sofrido",
+                                                              "remates_contra")})
+    percentil_no_ano(reg64, ["pts_1t", "pts_2t"])
+    p64 = {c: porta_6_4.porta(reg64, c, s) for c, s in (("duelos_def_pct", 1), ("ppda", 1),
+                                                        ("intensidade", 1),
+                                                        ("xg_por_remate_contra", -1))}
+
+    # As duas contas, cada uma com o seu nome. Até 20/09 a persistência era gravada como
+    # "porta_temporal" — e era essa troca de nome que fazia a parte declarar uma porta que nunca
+    # rodou, como o _porta_temporal.md de 19/09 apontou. A porta da §6.4 é a de baixo, e ela
+    # REPROVA nos quatro indicadores: é isso que prende o A06 no provável, e está certo que prenda.
+    json.dump({"persistencia_dentro_da_temporada": porta,
+               "porta_6_4": {
+                   "definicao": "média nas 19 primeiras rodadas × pontos somados das 19 últimas, "
+                                "em posto dentro do ano, com parcial dada à pontuação do 1º turno",
+                   "conta_de": "scripts/_porta_temporal.py, a mesma que reproduz as nove linhas "
+                               "da tabela da §6.4 célula a célula",
+                   "indicadores": p64},
                "ppda_x_valor_elenco": {"rho": round(float(rho_v), 3), "p": round(float(p_v), 5),
                                        "n": len(pares),
                                        "convencao": "percentil alto de PPDA = MENOS pressão; rho positivo = elenco caro pressiona alto"},
@@ -272,24 +311,7 @@ def main():
         m = float(np.median(v))
         return int(m) if m.is_integer() else round(m, 1)
 
-    # ---- a porta da §6.4, pelos quatro indicadores que o A06 cita ----
-    _, por_ct = porta_6_4.ler_jogos()
-    reg64 = []
-    for (temporada, clube), js in por_ct.items():
-        t1, t2 = js[:porta_6_4.TURNO], js[porta_6_4.TURNO:]
-        reg64.append({"temporada": temporada, "clube": clube,
-                      "pts_1t": sum(porta_6_4.pontos(j) for j in t1),
-                      "pts_2t": sum(porta_6_4.pontos(j) for j in t2),
-                      "duelos_def_pct": porta_6_4.media(t1, "dd"),
-                      "ppda": porta_6_4.media(t1, "ppda"),
-                      "intensidade": porta_6_4.media(t1, "intensidade"),
-                      "xg_por_remate_contra": porta_6_4.razao(t1, "xg_sofrido",
-                                                              "remates_contra")})
-    percentil_no_ano(reg64, ["pts_1t", "pts_2t"])
-    p64 = {c: porta_6_4.porta(reg64, c, s) for c, s in (("duelos_def_pct", 1), ("ppda", 1),
-                                                        ("intensidade", 1),
-                                                        ("xg_por_remate_contra", -1))}
-
+    # A porta da §6.4 já foi calculada antes do A06_resumo.json, que a grava.
     # ---- confiabilidade meia-metade do xg_por_remate_contra ----
     meias = []
     for (temporada, clube), js in por_ct.items():

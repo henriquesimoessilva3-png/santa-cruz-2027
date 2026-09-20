@@ -34,7 +34,7 @@ import numpy as np
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from _metodo import comparar, d_minimo, percentil_no_ano  # noqa: E402
+from _metodo import citados_com_gemea, comparar, preencher_citados, d_minimo, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
@@ -287,7 +287,16 @@ def main():
                    ("ST", lambda l: l["faixa"] == "Sobe", lambda l: l["trave"]),
                    ("CM", lambda l: l["faixa"] == "Cai", lambda l: l["faixa"] == "Meio")]
     filtros = [("com", lambda l: True), ("sem", lambda l: not l["fronteira"])]
-    res = comparar(base, familias, comparacoes, filtros, RNG, lambda i: sinal[i])
+    # Indicador que esta parte MEDE mas não é dona: fora do BH desta família, com o q da parte
+    # dona. A decisão de quem é dono está declarada em <ID>_indicadores.json (`citado_de`), que é
+    # a lista pré-declarada — não aqui dentro e não no portão. Regra 7, 20/09.
+    citados, dono_de = citados_com_gemea(dec, R)
+    res = comparar(base, familias, comparacoes, filtros, RNG, lambda i: sinal[i],
+                   citados=citados)
+    if citados:
+        preencher_citados(res, dono_de, R)
+        print(f"  {len(citados)} indicador(es) citado(s) de outra parte: "
+              + ", ".join(f"{i} ← {d}" for i, d in dono_de.items()))
     for it in res:
         it["nome"] = nome[it["indicador"]]
         it["placar_redescrito"] = it["indicador"] in placar

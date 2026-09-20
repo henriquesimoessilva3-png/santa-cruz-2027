@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Santa Cruz · Montagem de Elenco</title>
-<link rel="stylesheet" href="static/style.css?v=1789929340">
-<link rel="stylesheet" href="static/bola_parada.css?v=1789929340">
-<link rel="stylesheet" href="static/minutagem_serieb.css?v=1789929340">
-<link rel="stylesheet" href="static/estudo_serieb.css?v=1789929340">
+<link rel="stylesheet" href="static/style.css?v=1789932518">
+<link rel="stylesheet" href="static/bola_parada.css?v=1789932518">
+<link rel="stylesheet" href="static/minutagem_serieb.css?v=1789932518">
+<link rel="stylesheet" href="static/estudo_serieb.css?v=1789932518">
 <link rel="icon" href="static/escudo.svg">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -134,8 +134,13 @@
   <button class="aba" data-aba="financeiro">Financeiro</button>
   <button class="aba" data-aba="empresarios">Empresários</button>
   <button class="aba" data-aba="indicados">Indicados</button>
-  <button class="aba" data-aba="serieb">Análise Série B</button>
-  <button class="aba" data-aba="prototipo">Protótipo</button>
+  <!-- R01, 20/09: Análise Série B e Protótipo saem da BARRA, não do app. O conteúdo delas
+       migrou para o Estudo Série B, mas elas continuam sendo a prova de onde muita coisa veio —
+       apagá-las apagaria a prova. Viram material auxiliar, alcançável pelo link no alto do
+       Estudo Série B (static/estudo_serieb.js). Os botões ficam aqui, escondidos, porque é
+       deles que o irParaAba do app.js depende para mostrar e esconder as páginas. -->
+  <button class="aba aba-auxiliar" data-aba="serieb" hidden>Análise Série B</button>
+  <button class="aba aba-auxiliar" data-aba="prototipo" hidden>Protótipo</button>
   <button class="aba" data-aba="bolaparada">Bola parada por treinador</button>
   <button class="aba" data-aba="minutagem">Minutagem Série B</button>
   <button class="aba" data-aba="estudo">Estudo Série B</button>
@@ -760,25 +765,25 @@
 <script>window.__estatico = true;</script>
 <script src="static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "1789413561";</script>
-<script src="static/fs_visoes.js?v=1789929340"></script>
-<script src="static/sb_clubes.js?v=1789929340"></script>
+<script src="static/fs_visoes.js?v=1789932518"></script>
+<script src="static/sb_clubes.js?v=1789932518"></script>
 <!-- Protótipo: o dado primeiro (prototipo.js = cópia do dados/prototipo.json), depois a
      casca com os helpers, depois os três arquivos de etapa. A ordem importa: proto_a/b/c
      chamam helpers definidos em proto.js, e todos precisam existir antes do app.js chamar
      ptRender() pelo irParaAba(). -->
-<script src="static/prototipo.js?v=1789929340"></script>
-<script src="static/proto_glossario.js?v=1789929340"></script>
-<script src="static/proto.js?v=1789929340"></script>
-<script src="static/proto_a.js?v=1789929340"></script>
-<script src="static/proto_b.js?v=1789929340"></script>
-<script src="static/proto_c.js?v=1789929340"></script>
-<script src="static/bola_parada_dados.js?v=1789929340"></script>
-<script src="static/bola_parada.js?v=1789929340"></script>
-<script src="static/minutagem_serieb_dados.js?v=1789929340"></script>
-<script src="static/minutagem_serieb.js?v=1789929340"></script>
-<script src="static/estudo_serieb_dados.js?v=1789929340"></script>
-<script src="static/estudo_serieb_grafico.js?v=1789929340"></script>
-<script src="static/estudo_serieb.js?v=1789929340"></script>
-<script src="static/app.js?v=1789929340"></script>
+<script src="static/prototipo.js?v=1789932518"></script>
+<script src="static/proto_glossario.js?v=1789932518"></script>
+<script src="static/proto.js?v=1789932518"></script>
+<script src="static/proto_a.js?v=1789932518"></script>
+<script src="static/proto_b.js?v=1789932518"></script>
+<script src="static/proto_c.js?v=1789932518"></script>
+<script src="static/bola_parada_dados.js?v=1789932518"></script>
+<script src="static/bola_parada.js?v=1789932518"></script>
+<script src="static/minutagem_serieb_dados.js?v=1789932518"></script>
+<script src="static/minutagem_serieb.js?v=1789932518"></script>
+<script src="static/estudo_serieb_dados.js?v=1789932518"></script>
+<script src="static/estudo_serieb_grafico.js?v=1789932518"></script>
+<script src="static/estudo_serieb.js?v=1789932518"></script>
+<script src="static/app.js?v=1789932518"></script>
 </body>
 </html>

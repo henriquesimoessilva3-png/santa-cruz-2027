@@ -65,7 +65,7 @@
   "xg_s_cf": 1.28,
   "xg_m_cf": 1.18,
   "fin_s_cf": 0.05,
-  "fin_m_cf": 0.17,
+  "fin_m_cf": -0.17,
   "def_s_cf": 0.2,
   "def_m_cf": 0.17,
   "fin_gols_temporada": 8,

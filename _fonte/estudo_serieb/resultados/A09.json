@@ -1,0 +1,187 @@
+{
+ "parte": "A09",
+ "bloco": "A",
+ "pergunta": "Em que faixas de minutos cada faixa de classificação marca e sofre, e como reage ao placar?",
+ "gerado_por": "scripts/A09.py (a análise) e coletar_serieb_gols_por_minuto.py (a coleta do oGol, 18 páginas, 20/09/2026)",
+ "gerado_em": "2026-09-20",
+ "numeros": {
+  "n": 80,
+  "n_sobe": 16,
+  "n_meio": 48,
+  "n_cai": 16,
+  "n_trave": 16,
+  "n_sobe_sf": 8,
+  "n_meio_sf": 32,
+  "n_cai_sf": 12,
+  "n_testes": 120,
+  "n_faixas": 8,
+  "n_firmes": 9,
+  "dmin_SM": 0.82,
+  "sofre_30_45_sobe": 0.08,
+  "sofre_30_45_meio": 0.16,
+  "sofre_30_45_sobe_sf": 0.07,
+  "sofre_30_45_meio_sf": 0.16,
+  "sofre_30_45_cai": 0.18,
+  "marca_30_45_sobe": 0.18,
+  "marca_30_45_meio": 0.13,
+  "marca_30_45_sobe_sf": 0.18,
+  "marca_30_45_meio_sf": 0.16,
+  "marca_75_90_sobe": 0.24,
+  "marca_75_90_meio": 0.16,
+  "marca_1t_cai": 0.41,
+  "marca_1t_meio": 0.49,
+  "marca_1t_cai_sf": 0.39,
+  "marca_1t_meio_sf": 0.47,
+  "sofre_1t_cai": 0.63,
+  "sofre_1t_meio": 0.45,
+  "sofre_1t_cai_sf": 0.67,
+  "sofre_1t_meio_sf": 0.45,
+  "sofre_2t_cai": 0.75,
+  "sofre_2t_meio": 0.55,
+  "sofre_2t_cai_sf": 0.75,
+  "sofre_2t_meio_sf": 0.58,
+  "marca_45mais_sobe": 0.05,
+  "marca_45mais_meio": 0.04,
+  "marca_90mais_sobe": 0.12,
+  "marca_90mais_meio": 0.08,
+  "sofre_90mais_sobe": 0.05,
+  "sofre_90mais_meio": 0.08,
+  "sofre_90mais_sobe_sf": 0.05,
+  "sofre_90mais_meio_sf": 0.08
+ },
+ "em_aberto": "A metade da pergunta que fala de PLACAR não roda: saber o aproveitamento de quem marca primeiro e de quem sofre primeiro exige o primeiro gol de CADA jogo, e a tabela agregada do oGol não traz evento nenhum — só a soma por faixa. O caminho está escrito no cabeçalho do coletar_serieb_gols_por_minuto.py: a página de cada jogo tem o minuto preso ao jogador que marcou e o lado sai da classe do bloco, cerca de 1.780 páginas no ritmo educado das outras coletas. Também não roda a porta temporal: o oGol publica a conta da temporada FECHADA, sem corte por rodada, então nenhuma conclusão desta parte pode passar de provável mesmo passando na correção — e nenhuma passa. E o cruzamento com a queda física do fim de jogo, que o CLAUDE.md pede, depende de A08, que não roda porque o SkillCorner guarda um período só.",
+ "conclusoes": [
+  {
+   "id": "A09-1",
+   "bloco": "A",
+   "status": "validada",
+   "confianca": "provável",
+   "negativa": false,
+   "manchete": "Quem sobe sofre metade dos gols do meio antes do intervalo",
+   "o_que_vimos": "Entre 30 e 45 minutos quem sobe sofre {sofre_30_45_sobe} gol por jogo contra {sofre_30_45_meio} do meio, e ali também marca mais, {marca_30_45_sobe} contra {marca_30_45_meio}. Sem os times colados na linha do acesso a distância se mantém, {sofre_30_45_sobe_sf} contra {sofre_30_45_meio_sf}. É a única faixa em que quem sobe se separa dos dois lados.",
+   "para_o_santa_cruz": "O quarto de hora antes do intervalo é onde o jogo de quem sobe se decide, e é decisão de treino e de modelo, não de contratação: não dar o gol antes do intervalo vale tanto quanto fazê-lo. Vale como pergunta ao treinador em T04 — como ele fecha o primeiro tempo — e não como requisito de jogador em J05. Quem cai não se distingue nessa faixa ({sofre_30_45_cai} sofridos por jogo, perto do meio), então isto separa o topo, não o fundo.",
+   "premissa": null,
+   "premissa_motivo": "Sugere premissa nova, grupo Modelo: fechar o primeiro tempo sem sofrer é traço de quem sobe. Nenhuma premissa atual de dados/premissas.json fala de momento do jogo.",
+   "n": "{n_sobe} promovidos contra {n_meio} do meio em {n} clube-temporadas de 2022-2025 ({n_sobe_sf} contra {n_meio_sf} sem os times colados na linha)",
+   "prova": "resultados/A09_testes.csv, família `sofre`, Sobe × Meio, nos dois cortes; dados/serieb_gols_por_minuto.csv; resultados/A09_resumo.json",
+   "confianca_motivo": "Provável porque cumpre UM dos dois critérios, e o outro não existe nesta base. (a) Correção para múltiplos testes a 5% dentro da família `sofre` (os 8 recortes de minuto juntos): PASSA, e nos DOIS cortes de fronteira — q 0,00001 com todos os times e 0,00017 sem os colados na linha, com d 1,448 e 1,358 contra um mínimo detectável de {dmin_SM}. É o achado mais forte das {n_testes} comparações da parte. (b) Porta temporal da §6.4: NÃO RODA, e é limite de dado, não reprovação: o oGol publica a conta da temporada fechada, sem corte por rodada, então não há como medir as 19 primeiras e prever as 19 últimas. Um sim e um impossível = provável, e está declarado assim em A09_indicadores.json desde antes de rodar. SOBRE O GARIMPO: foram 8 faixas de minuto testadas para `sofre` e 8 para `marca`, e é por isso que a família é o conjunto das 8 e não cada faixa sozinha — corrigir uma de cada vez seria escolher a melhor entre muitas, que a §6.6 proíbe. A faixa 30-45 sobrevive à correção do conjunto. SOBRE A LEITURA SECUNDÁRIA: contra a Trave (5º a 8º) o mesmo achado é firme com os times de fronteira (q 0,00546) e perde o selo sem eles (q 0,18930), com apenas 8 contra 7 clube-temporadas — por isso a conclusão fala de Sobe × Meio e não do topo inteiro. O QUE A FONTE NÃO PERMITE CONFERIR: a contagem por faixa vem AGREGADA do oGol, não de evento. Não dá para recontar gol a gol, não há autor, não há mando e não há qual time marcou primeiro. A única conferência possível foi o total de gols por temporada contra a base do app, e ela está em A09_resumo.json: 2023 e 2025 batem exatamente; 2022 tem 2 gols a mais no oGol e 2024 tem 5, o que é coerente com os 5 jogos que o A01 já registrou como faltando na base do app.",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Gols sofridos entre 30 e 45 minutos",
+    "unidade": "gols sofridos por jogo",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "sofre_30_45_sobe"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "sofre_30_45_meio"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "sofre_30_45_sobe_sf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "sofre_30_45_meio_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
+  },
+  {
+   "id": "A09-2",
+   "bloco": "A",
+   "status": "validada",
+   "confianca": "provável",
+   "negativa": false,
+   "manchete": "Quem cai sofre mais nos dois tempos, e não num momento só",
+   "o_que_vimos": "Quem cai sofre {sofre_1t_cai} gol por jogo no primeiro tempo contra {sofre_1t_meio} do meio, e {sofre_2t_cai} contra {sofre_2t_meio} no segundo. Marca menos no primeiro, {marca_1t_cai} contra {marca_1t_meio}. Sem os times colados na linha a conta aumenta em vez de encolher, {sofre_1t_cai_sf} contra {sofre_1t_meio_sf}.",
+   "para_o_santa_cruz": "Não existe ajuste de momento que salve quem cai: o problema é nível o jogo inteiro, e é por isso que o físico de fim de jogo não entra na régua de contratação (o A10 já dizia o mesmo pelo outro lado). O que se compra contra o rebaixamento é nível de elenco, não fôlego para os últimos quinze minutos. Uma ressalva que muda a leitura: quem cai também marca menos no segundo tempo, mas isso só aparece com os times colados na linha na conta e some sem eles — por isso a frase acima fala do primeiro tempo, e só dele.",
+   "premissa": null,
+   "premissa_motivo": "Não mexe em premissa: reforça pelo avesso o que o A10-3 já disse sobre quem cai ser elenco, e não cansaço.",
+   "n": "{n_cai} rebaixados contra {n_meio} do meio ({n_cai_sf} contra {n_meio_sf} sem os times colados na linha)",
+   "prova": "resultados/A09_testes.csv, família `tempo`, Cai × Meio, nos dois cortes",
+   "confianca_motivo": "Provável pelo mesmo motivo do A09-1: passa na correção para múltiplos testes e a porta temporal não roda nesta base. Na família `tempo` (4 testes), Cai × Meio: gols sofridos no 1º tempo q 0,00767 com todos os times e 0,00419 sem os colados na linha; no 2º tempo 0,00072 e 0,00444; gols marcados no 1º tempo 0,00839 e 0,00693. Todos firmes NOS DOIS cortes. RESSALVA QUE MUDA A FRASE: gols marcados no 2º tempo NÃO sobrevivem aos dois cortes — q 0,00839 com os times de fronteira e 0,05818 sem eles —, e por isso a conclusão diz que quem cai marca menos no PRIMEIRO tempo, e não nos dois. Era a frase fácil e é a frase errada.",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Gols sofridos no primeiro tempo",
+    "unidade": "gols sofridos por jogo",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "sofre_1t_cai"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "sofre_1t_meio"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "sofre_1t_cai_sf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "sofre_1t_meio_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
+  },
+  {
+   "id": "A09-3",
+   "bloco": "A",
+   "status": "validada",
+   "confianca": "indício",
+   "negativa": true,
+   "manchete": "Os acréscimos não separam ninguém, nem no fim nem antes do intervalo",
+   "o_que_vimos": "No acréscimo do 2º tempo quem sobe marca {marca_90mais_sobe} gol por jogo contra {marca_90mais_meio} do meio, e não resiste — no do 1º também não. Entre 15 e 30 e entre 60 e 75 ele marca mais só com os times colados na linha na conta. Achado que existe num corte só não é achado.",
+   "para_o_santa_cruz": "Não vale montar elenco nem discurso para \"decidir no fim\": o acréscimo é onde a base tem menos gol e menos poder para enxergar diferença. Se o clube quiser vantagem no fim de jogo, o número que sustenta isso é o dos 75 aos 90 minutos do A09-1, não o do acréscimo.",
+   "premissa": null,
+   "premissa_motivo": "Não confirma nem contradiz premissa: é ausência de achado, e ela não vira regra.",
+   "n": "{n_sobe} promovidos contra {n_meio} do meio; no corte reduzido são {n_sobe_sf} contra {n_meio_sf}, e o efeito mínimo detectável sobe junto",
+   "prova": "resultados/A09_testes.csv, família `marca` e família `sofre`; resultados/A09_resumo.json",
+   "confianca_motivo": "Indício porque não cumpre nenhum dos dois critérios, e a frase diz por quê. (a) Correção para múltiplos testes: com todos os times, NENHUM dos quatro indicadores de acréscimo passa em comparação nenhuma — o menor q é 0,05439 (gols marcados no acréscimo do 1º tempo, Cai × Meio), que é \"pode ser sorte\". (b) Porta temporal: não roda nesta base, como nas outras conclusões da parte. O QUE APARECE SÓ NUM CORTE, e é a razão de a conclusão ser negativa em vez de positiva: sem os times colados na linha, os gols sofridos no acréscimo final ficam firmes em Sobe × Meio (q 0,00024, {sofre_90mais_sobe_sf} contra {sofre_90mais_meio_sf} por jogo) e os marcados no acréscimo do 1º tempo ficam firmes em Cai × Meio (q 0,04555) — e os dois somem com os times de fronteira na conta (0,29354 e 0,05439). A regra 4 do _metodo_fronteira.md é explícita: firme só sem fronteira é suspeito, não promovido. AS OUTRAS FAIXAS QUE SÓ APARECEM NUM CORTE, e que o texto agora cita: gols marcados entre 15 e 30 minutos, Sobe × Meio, passa com todos os times (q 0,00691) e não passa sem os colados na linha (0,05190); gols marcados entre 60 e 75, Sobe × Meio, 0,04656 com e 0,12097 sem; e gols marcados entre 15 e 30, Cai × Meio, ao contrário — 0,05439 com e 0,04555 sem. Nenhuma das três entra como achado, pela mesma regra 4 do _metodo_fronteira.md. SOBRE O PODER: o acréscimo é a faixa com menos gol da tabela — mediana de {marca_45mais_meio} gol por jogo no acréscimo do 1º tempo —, então \"não separa\" aqui quer dizer o que a §6.7 manda dizer: este desenho não conseguiria ver uma diferença menor do que {dmin_SM} de efeito, e não que a diferença não exista.",
+   "grafico": {
+    "tipo": "grupos",
+    "titulo": "Gols no acréscimo do segundo tempo, com todos os times",
+    "unidade": "gols por jogo",
+    "series": [
+     {
+      "nome": "Sobe",
+      "marcador": "marca_90mais_sobe"
+     },
+     {
+      "nome": "Meio",
+      "marcador": "marca_90mais_meio"
+     }
+    ]
+   },
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
+  }
+ ]
+}

@@ -13,10 +13,12 @@
  "por_posicao": [
   {
    "posicao": "Goleiro",
+   "ficha_de": "Goleiro",
    "quantos": 1,
    "com_a_ficha_inteira": 0,
    "com_contrato_confirmado": 0,
    "na_serie_b": 39,
+   "na_serie_b_de": "Goleiro",
    "jogadores": [
     {
      "jogador": "Paulo Vítor",
@@ -43,10 +45,12 @@
   },
   {
    "posicao": "Zaga",
+   "ficha_de": "Zaga",
    "quantos": 8,
    "com_a_ficha_inteira": 0,
    "com_contrato_confirmado": 8,
    "na_serie_b": 99,
+   "na_serie_b_de": "Zaga",
    "jogadores": [
     {
      "jogador": "Vilar",
@@ -219,11 +223,13 @@
    ]
   },
   {
-   "posicao": "Lateral",
-   "quantos": 9,
+   "posicao": "Lateral esquerdo",
+   "ficha_de": "Lateral",
+   "quantos": 5,
    "com_a_ficha_inteira": 0,
-   "com_contrato_confirmado": 7,
+   "com_contrato_confirmado": 5,
    "na_serie_b": 106,
+   "na_serie_b_de": "Lateral",
    "jogadores": [
     {
      "jogador": "Patrick Brey",
@@ -247,27 +253,6 @@
      "indicadores_com_dado": "6"
     },
     {
-     "jogador": "Willean Lepo",
-     "clube": "Criciúma",
-     "id_tm": "544464",
-     "pk_app": "Willean Lepo - Criciúma - Brasil B",
-     "motivo_sem_par": null,
-     "pais_de_nascimento": "Brazil",
-     "setor": "Lateral",
-     "posicao_wy": "RWB",
-     "idade": 29.0,
-     "minutos": 1710.0,
-     "jogos": 22.0,
-     "fatia_pct": 65.6,
-     "temporadas_com_dado": "2",
-     "lesao_dias": 0.0,
-     "estrangeiro": false,
-     "contrato_confirmado": false,
-     "atende_perfil": false,
-     "violados": "3",
-     "indicadores_com_dado": "6"
-    },
-    {
      "jogador": "Zeca",
      "clube": "Athletic",
      "id_tm": "325196",
@@ -286,48 +271,6 @@
      "contrato_confirmado": true,
      "atende_perfil": false,
      "violados": "3",
-     "indicadores_com_dado": "6"
-    },
-    {
-     "jogador": "Rodrigo Soares",
-     "clube": "Goiás",
-     "id_tm": "388236",
-     "pk_app": "Rodrigo Soares - Goiás - Brasil B",
-     "motivo_sem_par": null,
-     "pais_de_nascimento": "Brazil",
-     "setor": "Lateral",
-     "posicao_wy": "RB",
-     "idade": 33.0,
-     "minutos": 1415.0,
-     "jogos": 21.0,
-     "fatia_pct": 52.4,
-     "temporadas_com_dado": "3",
-     "lesao_dias": 0.0,
-     "estrangeiro": false,
-     "contrato_confirmado": true,
-     "atende_perfil": false,
-     "violados": "2",
-     "indicadores_com_dado": "6"
-    },
-    {
-     "jogador": "Hereda",
-     "clube": "CRB",
-     "id_tm": "634139",
-     "pk_app": "Hereda - CRB - Brasil B",
-     "motivo_sem_par": null,
-     "pais_de_nascimento": "Brazil",
-     "setor": "Lateral",
-     "posicao_wy": "RB",
-     "idade": 27.0,
-     "minutos": 1404.0,
-     "jogos": 20.0,
-     "fatia_pct": 51.8,
-     "temporadas_com_dado": "2",
-     "lesao_dias": 0.0,
-     "estrangeiro": false,
-     "contrato_confirmado": true,
-     "atende_perfil": false,
-     "violados": "1",
      "indicadores_com_dado": "6"
     },
     {
@@ -392,6 +335,80 @@
      "atende_perfil": false,
      "violados": "0",
      "indicadores_com_dado": "0"
+    }
+   ]
+  },
+  {
+   "posicao": "Lateral direito",
+   "ficha_de": "Lateral",
+   "quantos": 4,
+   "com_a_ficha_inteira": 0,
+   "com_contrato_confirmado": 2,
+   "na_serie_b": 106,
+   "na_serie_b_de": "Lateral",
+   "jogadores": [
+    {
+     "jogador": "Willean Lepo",
+     "clube": "Criciúma",
+     "id_tm": "544464",
+     "pk_app": "Willean Lepo - Criciúma - Brasil B",
+     "motivo_sem_par": null,
+     "pais_de_nascimento": "Brazil",
+     "setor": "Lateral",
+     "posicao_wy": "RWB",
+     "idade": 29.0,
+     "minutos": 1710.0,
+     "jogos": 22.0,
+     "fatia_pct": 65.6,
+     "temporadas_com_dado": "2",
+     "lesao_dias": 0.0,
+     "estrangeiro": false,
+     "contrato_confirmado": false,
+     "atende_perfil": false,
+     "violados": "3",
+     "indicadores_com_dado": "6"
+    },
+    {
+     "jogador": "Rodrigo Soares",
+     "clube": "Goiás",
+     "id_tm": "388236",
+     "pk_app": "Rodrigo Soares - Goiás - Brasil B",
+     "motivo_sem_par": null,
+     "pais_de_nascimento": "Brazil",
+     "setor": "Lateral",
+     "posicao_wy": "RB",
+     "idade": 33.0,
+     "minutos": 1415.0,
+     "jogos": 21.0,
+     "fatia_pct": 52.4,
+     "temporadas_com_dado": "3",
+     "lesao_dias": 0.0,
+     "estrangeiro": false,
+     "contrato_confirmado": true,
+     "atende_perfil": false,
+     "violados": "2",
+     "indicadores_com_dado": "6"
+    },
+    {
+     "jogador": "Hereda",
+     "clube": "CRB",
+     "id_tm": "634139",
+     "pk_app": "Hereda - CRB - Brasil B",
+     "motivo_sem_par": null,
+     "pais_de_nascimento": "Brazil",
+     "setor": "Lateral",
+     "posicao_wy": "RB",
+     "idade": 27.0,
+     "minutos": 1404.0,
+     "jogos": 20.0,
+     "fatia_pct": 51.8,
+     "temporadas_com_dado": "2",
+     "lesao_dias": 0.0,
+     "estrangeiro": false,
+     "contrato_confirmado": true,
+     "atende_perfil": false,
+     "violados": "1",
+     "indicadores_com_dado": "6"
     },
     {
      "jogador": "Marcos Vinicius",
@@ -418,10 +435,12 @@
   },
   {
    "posicao": "Volante",
+   "ficha_de": "Volante",
    "quantos": 6,
    "com_a_ficha_inteira": 0,
    "com_contrato_confirmado": 3,
    "na_serie_b": 59,
+   "na_serie_b_de": "Volante",
    "jogadores": [
     {
      "jogador": "Matheus Trindade",
@@ -552,11 +571,13 @@
    ]
   },
   {
-   "posicao": "Meia",
-   "quantos": 13,
+   "posicao": "Médio",
+   "ficha_de": "Meia",
+   "quantos": 6,
    "com_a_ficha_inteira": 0,
-   "com_contrato_confirmado": 11,
+   "com_contrato_confirmado": 4,
    "na_serie_b": 165,
+   "na_serie_b_de": "Meia",
    "jogadores": [
     {
      "jogador": "Pedro Castro",
@@ -664,6 +685,38 @@
      "indicadores_com_dado": "6"
     },
     {
+     "jogador": "Eduardo",
+     "clube": "Criciúma",
+     "id_tm": "540541",
+     "pk_app": "Eduardo - Criciúma - Brasil B",
+     "motivo_sem_par": null,
+     "pais_de_nascimento": "Brazil",
+     "setor": "Meia",
+     "posicao_wy": "RCMF",
+     "idade": 29.0,
+     "minutos": 1239.0,
+     "jogos": 17.0,
+     "fatia_pct": 47.5,
+     "temporadas_com_dado": "2",
+     "lesao_dias": 0.0,
+     "estrangeiro": false,
+     "contrato_confirmado": true,
+     "atende_perfil": false,
+     "violados": "2",
+     "indicadores_com_dado": "6"
+    }
+   ]
+  },
+  {
+   "posicao": "Meia ofensivo",
+   "ficha_de": "Meia",
+   "quantos": 7,
+   "com_a_ficha_inteira": 0,
+   "com_contrato_confirmado": 7,
+   "na_serie_b": 165,
+   "na_serie_b_de": "Meia",
+   "jogadores": [
+    {
      "jogador": "Élvis",
      "clube": "Ponte Preta",
      "id_tm": "76135",
@@ -719,27 +772,6 @@
      "jogos": 20.0,
      "fatia_pct": 47.8,
      "temporadas_com_dado": "3",
-     "lesao_dias": 0.0,
-     "estrangeiro": false,
-     "contrato_confirmado": true,
-     "atende_perfil": false,
-     "violados": "2",
-     "indicadores_com_dado": "6"
-    },
-    {
-     "jogador": "Eduardo",
-     "clube": "Criciúma",
-     "id_tm": "540541",
-     "pk_app": "Eduardo - Criciúma - Brasil B",
-     "motivo_sem_par": null,
-     "pais_de_nascimento": "Brazil",
-     "setor": "Meia",
-     "posicao_wy": "RCMF",
-     "idade": 29.0,
-     "minutos": 1239.0,
-     "jogos": 17.0,
-     "fatia_pct": 47.5,
-     "temporadas_com_dado": "2",
      "lesao_dias": 0.0,
      "estrangeiro": false,
      "contrato_confirmado": true,
@@ -835,10 +867,12 @@
   },
   {
    "posicao": "Extremo",
+   "ficha_de": "Extremo",
    "quantos": 6,
    "com_a_ficha_inteira": 0,
    "com_contrato_confirmado": 5,
    "na_serie_b": 61,
+   "na_serie_b_de": "Extremo",
    "jogadores": [
     {
      "jogador": "Dadá Belmonte",
@@ -970,10 +1004,12 @@
   },
   {
    "posicao": "Atacante",
+   "ficha_de": "Atacante",
    "quantos": 8,
    "com_a_ficha_inteira": 2,
    "com_contrato_confirmado": 6,
    "na_serie_b": 82,
+   "na_serie_b_de": "Atacante",
    "jogadores": [
     {
      "jogador": "Robson",

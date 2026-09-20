@@ -94,8 +94,21 @@ def bh(ps):
     return q
 
 
-def comparar(base, familias, comparacoes, filtros, rng, sinal_de, bruto_de=None):
-    """Roda o método inteiro. Devolve uma linha por indicador × comparação × filtro."""
+def comparar(base, familias, comparacoes, filtros, rng, sinal_de, bruto_de=None, citados=None):
+    """Roda o método inteiro. Devolve uma linha por indicador × comparação × filtro.
+
+    `citados` — acrescentado em 20/09, pela regra 7 do portão — é o conjunto de indicadores que
+    esta parte MEDE mas não é dona: {(familia, indicador), ...}. Eles saem da correção para
+    múltiplos testes desta família (não entram na conta do BH e não recebem q aqui), porque quem
+    corrige um indicador é a família em que ele mora. A linha continua saindo, com p, d e as
+    medianas — o que falta é o q, e quem o preenche é o `preencher_citados()`, lendo a tabela da
+    parte dona.
+
+    Por que isso importa: até 20/09 o mesmo indicador aparecia em duas famílias de duas partes, e
+    saía com DOIS q diferentes do MESMO p — porque o BH divide o crédito entre os testes feitos
+    juntos, e as duas famílias tinham vizinhos diferentes. Dois números para a mesma medida.
+    """
+    citados = citados or set()
     saida = []
     for rot_f, filtro in filtros:
         for fam_id, ids in familias:
@@ -116,17 +129,88 @@ def comparar(base, familias, comparacoes, filtros, rng, sinal_de, bruto_de=None)
                     cb = [l[ind] for l in base if gb(l)]
                     itens.append({
                         "fronteira": rot_f, "familia": fam_id, "comparacao": cid,
-                        "indicador": ind, "n_a": len(a), "n_b": len(b),
+                        "indicador": ind,
+                        "citado": int((fam_id, ind, cid) in citados),
+                        "n_a": len(a), "n_b": len(b),
                         "cru_a": round(float(np.median(ca)), 3),
                         "cru_b": round(float(np.median(cb)), 3),
                         "d": round(d, 3), "ic95_d": [lo, hi], "p": round(float(p), 5),
                         "d_minimo_80": d_minimo(len(a), len(b)),
                     })
-                    ps.append(float(p))
-                for it, q in zip(itens, bh(ps)):
+                    if not itens[-1]["citado"]:
+                        ps.append(float(p))
+                corrigidos = [it for it in itens if not it["citado"]]
+                for it, q in zip(corrigidos, bh(ps)):
                     it["q"] = round(q, 5)
                     it["selo"] = ("firme" if q < 0.05 else
                                   ("pode ser sorte" if it["p"] < 0.05 else "sem diferença clara"))
                     it["poder_suficiente"] = abs(it["d"]) >= it["d_minimo_80"]
+                for it in itens:
+                    if it["citado"]:
+                        it["q"] = None          # o preencher_citados() traz o da parte dona
+                        it["selo"] = None
+                        it["poder_suficiente"] = abs(it["d"]) >= it["d_minimo_80"]
                 saida += itens
     return saida
+
+
+def citados_com_gemea(dec, resultados):
+    """Quais (família, indicador, comparação) esta parte só CITA — e quais ela é dona mesmo.
+
+    Um indicador declarado `citado_de` só sai da correção daqui ONDE a parte dona de fato publica
+    a mesma comparação. Onde a dona não roda aquela comparação não há dois números para a mesma
+    coisa: não há o que ceder, e a linha continua sendo desta parte, corrigida aqui. É o caso do
+    duelo aéreo em Cai × Meio, que o A04 mede e o A06 não.
+    """
+    import csv as _csv
+    import os as _os
+    citados, dono_de, cache = set(), {}, {}
+    for f in dec["familias"]:
+        for i in f["indicadores"]:
+            dono = i.get("citado_de")
+            if not dono:
+                continue
+            dono_de[i["id"]] = dono
+            if dono not in cache:
+                caminho = _os.path.join(resultados, f"{dono}_testes.csv")
+                cache[dono] = {(l["comparacao"], l["indicador"])
+                               for l in _csv.DictReader(open(caminho, encoding="utf-8"))
+                               if l.get("q")}
+            for comp, ind in cache[dono]:
+                if ind == i["id"]:
+                    citados.add((f["id"], i["id"], comp))
+    return citados, dono_de
+
+
+def preencher_citados(res, dono_de, resultados):
+    """Copia o q e o selo da parte DONA para as linhas que esta parte só cita.
+
+    Falha fechada: linha citada sem gêmea na tabela do dono para o portão, e é o que se quer —
+    citar um número que não existe lá é pior do que não citar.
+    """
+    import csv as _csv
+    import os as _os
+    cache = {}
+    faltando = []
+    # A coluna existe em TODA linha, vazia onde a parte é dona: o CSV sai do primeiro registro, e
+    # uma chave que só aparece na linha 40 faria o cabeçalho não ter onde escrevê-la.
+    for it in res:
+        it.setdefault("q_de", "")
+    for it in res:
+        if not it.get("citado"):
+            continue
+        dono = dono_de[it["indicador"]]
+        if dono not in cache:
+            caminho = _os.path.join(resultados, f"{dono}_testes.csv")
+            cache[dono] = {(l["fronteira"], l["comparacao"], l["indicador"]): l
+                           for l in _csv.DictReader(open(caminho, encoding="utf-8"))}
+        g = cache[dono].get((it["fronteira"], it["comparacao"], it["indicador"]))
+        if not g or not g.get("q"):
+            faltando.append((dono, it["fronteira"], it["comparacao"], it["indicador"]))
+            continue
+        it["q"] = float(g["q"])
+        it["selo"] = g.get("selo")
+        it["q_de"] = dono
+    if faltando:
+        raise SystemExit("linha citada sem gêmea na parte dona: " + str(faltando[:5]))
+    return res

@@ -12,21 +12,47 @@
    "negativa": true,
    "manchete": "Depender de casa não separa quem sobe de quem fica no meio",
    "grafico": {
-    "tipo": "grupos",
-    "titulo": "xG sofrido a mais longe de casa",
-    "unidade": "xG por jogo",
-    "series": [
+    "tipo": "dois_cortes",
+    "titulo": "Vantagem de jogar em casa",
+    "unidade": "pontos por jogo a mais em casa",
+    "cortes": [
      {
-      "nome": "Sobe",
-      "marcador": "dif_xgc_sobe"
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "dif_pj_sobe_com"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "dif_pj_meio_com"
+       },
+       {
+        "nome": "Cai",
+        "marcador": "dif_pj_cai_com"
+       }
+      ]
      },
      {
-      "nome": "Meio",
-      "marcador": "dif_xgc_meio"
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "dif_pj_sobe_sem"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "dif_pj_meio_sem"
+       },
+       {
+        "nome": "Cai",
+        "marcador": "dif_pj_cai_sem"
+       }
+      ]
      }
     ]
    },
-   "o_que_vimos": "Na Série B, a vantagem de jogar em casa é de {dif_liga} ponto por jogo e não distingue quem sobe de quem fica no meio — a exceção é o grupo de 5º a 8º, só no placar e num corte só. Nenhum dos {asm_testes} testes de casa menos fora viu diferença entre as faixas, e nenhum tinha amostra para ver.",
+   "o_que_vimos": "A vantagem de jogar em casa é de {dif_liga} ponto por jogo, e quem sobe fica em {dif_pj_sobe_com} contra {dif_pj_meio_com} do meio — sem os times colados na linha, {dif_pj_sobe_sem} contra {dif_pj_meio_sem}. A exceção é o 5º-8º, só no placar e num corte só. Nenhum dos {asm_testes} testes viu diferença, e nenhum tinha amostra para ver.",
    "para_o_santa_cruz": "Não montar elenco atrás de 'time forte fora': a diferença de mando não separou as faixas, e este desenho também não garante que ela não exista — são coisas diferentes. O que dá para usar é o tamanho da vantagem de casa da liga, {dif_liga} ponto por jogo para qualquer time, no planejamento de calendário e de viagem. E a leitura de mando sai marcada: pode ser efeito do placar, porque quem joga fora passa mais tempo atrás.",
    "premissa": null,
    "premissa_motivo": "Sugere uma premissa nova em Montagem do elenco: a vantagem de casa é da liga inteira e não distingue quem sobe de quem fica no meio — 'ser forte fora' não é perfil de elenco a procurar. Toca a m6 (logística diferenciada para a Série B) sem confirmá-la: esta parte não mediu viagem nem descanso.",
@@ -160,7 +186,13 @@
   "n_sobe_sem": 8,
   "n_meio_sf": 32,
   "n_trave_sem": 7,
-  "n_cai_sf": 12
+  "n_cai_sf": 12,
+  "dif_pj_sobe_com": 0.895,
+  "dif_pj_meio_com": 0.789,
+  "dif_pj_sobe_sem": 0.947,
+  "dif_pj_meio_sem": 0.816,
+  "dif_pj_cai_com": 0.737,
+  "dif_pj_cai_sem": 0.737
  },
  "em_aberto": "Falta o split-half de confiabilidade do xG sofrido em casa, que é a perna principal do A03-2: as duas medidas por mando que existem (xG criado em casa e xG sofrido fora) estão acima do piso, e esta nunca foi medida em separado — o cálculo é o mesmo já rodado para as outras duas. O A03.py não produz o quadro por faixa no corte sem a fronteira nem a média ao lado da mediana, e por isso a prova dos dois cortes ainda se apoia em recálculo de auditoria; o A03.md também precisa ser refeito, porque publica só tabelas do corte reduzido e brutos que o JSON já não tem. A conclusão da trave segue fora como conclusão: vale num corte só e é placar redescrito, então volta apenas como descrição no A03-1. E xG muda com o placar, que é diferente por mando: sem recorte por estado do jogo, parte do 'sofre mais fora' pode ser 'passa mais tempo perdendo fora'."
 }

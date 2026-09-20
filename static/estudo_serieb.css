@@ -285,3 +285,43 @@ body:not(.claro) #pgEstudo .esb-tab-tec .esb-suave { color: #83817a; }
 #pgEstudo .esb-mini { font-size: 11px; max-width: 220px; overflow: hidden; text-overflow: ellipsis;
   white-space: nowrap; }
 #pgEstudo .esb-ranking .esb-pos { margin-bottom: 22px; }
+
+/* ---- por que esta confiança (20/09) ----------------------------------------
+   Era o title= do selo. Tooltip não rola, não copia, some ao mover o mouse e no
+   celular não abre — e o maior destes textos passa de 8 mil caracteres de prova.
+   Agora é bloco que abre e fecha, no molde do "ver os números" do gráfico: mesmo
+   tamanho de fonte da prova, mesma cor de resumo, e o tema do app decide a tinta
+   (body.claro), nunca o sistema operacional. */
+#pgEstudo .esb-motivo { margin: 8px 0 0; }
+#pgEstudo .esb-motivo > summary {
+  font-size: 11px; color: #52514e; cursor: pointer; list-style: revert;
+}
+#pgEstudo .esb-motivo > summary:hover { color: #0b0b0b; }
+#pgEstudo .esb-motivo-corpo {
+  margin-top: 6px; padding-left: 10px; border-left: 2px solid #e6e5e1;
+  max-width: 68ch;
+}
+#pgEstudo .esb-motivo-corpo p {
+  margin: 0 0 8px; font-size: 12px; line-height: 1.55; color: #0b0b0b;
+}
+#pgEstudo .esb-motivo-corpo p:last-child { margin-bottom: 0; }
+
+body:not(.claro) #pgEstudo .esb-motivo > summary { color: #c3c2b7; }
+body:not(.claro) #pgEstudo .esb-motivo > summary:hover,
+body:not(.claro) #pgEstudo .esb-motivo-corpo p { color: #ffffff; }
+body:not(.claro) #pgEstudo .esb-motivo-corpo { border-left-color: #3a3a36; }
+
+/* Fechado no papel: é prova, não leitura, e aberto sozinho dobraria o PDF. */
+@media print { #pgEstudo .esb-motivo { display: none; } }
+
+/* ---- material auxiliar (R01, 20/09) ---------------------------------------
+   Análise Série B e Protótipo saíram da barra de abas e viraram material deste
+   estudo. Discreto de propósito: é de onde o estudo partiu, não o que ele
+   conclui — quem abre a aba tem de ver a conclusão primeiro. */
+#pgEstudo .esb-auxiliar {
+  margin: 8px 0 0; font-size: 12px; color: #52514e;
+}
+#pgEstudo .esb-auxiliar a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+#pgEstudo .esb-auxiliar a:hover { color: #0b0b0b; }
+body:not(.claro) #pgEstudo .esb-auxiliar { color: #c3c2b7; }
+body:not(.claro) #pgEstudo .esb-auxiliar a:hover { color: #ffffff; }

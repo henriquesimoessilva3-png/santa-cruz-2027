@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**25 das 27 perguntas respondidas** · **70 conclusões** (50 indício · 19 provável · 1 firme) · **61 validadas**.
+**26 das 27 perguntas respondidas** · **73 conclusões** (51 indício · 21 provável · 1 firme) · **73 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -30,6 +30,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A06-3 | A vantagem de quem sobe é sofrer chute pior, não sofrer menos chute | provável | {n_sobe_com} promovidos contra {n_meio_com} do meio, com todos os times; {n_sobe_sf} contra {n_meio_sf} sem os colados na linha |
 | A07-1 | Correr mais não separou quem sobe do meio da tabela | indício | {n_sobe} que subiram contra {n_meio} do meio ({n_sobe_sf} contra {n_meio_sf} sem os times de fronteira); contra a Trave, {n_trave} contra {n_trave} e {n_sobe_sf} contra {n_trave_sf}; {n_sobe_cob} contra {n_meio_cob} quando saem os {n_cob_baixa} clube-temporada com menos jogo rastreado. As {n_total} linhas são {clubes} clubes. |
 | A07-2 | Quem cai sprinta menos nos minutos sem a bola | provável | {n_cai} rebaixados contra {n_meio} do meio ({n_cai_sf} contra {n_meio_sf} sem os times de fronteira; {n_cai_cob} contra {n_meio_cob} quando saem os {n_cob_baixa} clube-temporada com menos jogo rastreado). |
+| A09-1 | Quem sobe sofre metade dos gols do meio antes do intervalo | provável | {n_sobe} promovidos contra {n_meio} do meio em {n} clube-temporadas de 2022-2025 ({n_sobe_sf} contra {n_meio_sf} sem os times colados na linha) |
+| A09-2 | Quem cai sofre mais nos dois tempos, e não num momento só | provável | {n_cai} rebaixados contra {n_meio} do meio ({n_cai_sf} contra {n_meio_sf} sem os times colados na linha) |
+| A09-3 | Os acréscimos não separam ninguém, nem no fim nem antes do intervalo | indício | {n_sobe} promovidos contra {n_meio} do meio; no corte reduzido são {n_sobe_sf} contra {n_meio_sf}, e o efeito mínimo detectável sobe junto |
 | A10-1 | Em 2025 quem subiu perdeu no returno os mesmos {queda_sobe_mediana} metros que o meio | indício | {n_jog_sobe} jogadores de quem subiu contra {n_jog_meio} do meio ({n_sobe} clubes contra {n_meio}), só 2025 |
 | A10-2 | ~~Semana de três jogos: os dois anos medidos dizem o contrário um do outro, e não dá para montar elenco por isso~~ | **removida** | — |
 | A10-3 | Quem caiu em 2025 corria menos forte que o meio desde o 1º turno | provável | {n_jog_cai} jogadores de quem caiu contra {n_jog_meio_ret} do meio no returno ({n_cai} clubes contra {n_meio}) e {n_jog_cai_turno} contra {n_jog_meio_turno} no 1º turno; só 2025 |
@@ -97,7 +100,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A06 | validada | 3 | sim |
 | A07 | validada | 2 | sim |
 | A08 | pendente | — | — |
-| A09 | pendente | — | — |
+| A09 | validada | 3 | sim |
 | A10 | validada | 2 | sim |
 | A11 | validada | 3 | sim |
 | A12 | validada | 3 | sim |
@@ -107,11 +110,11 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |
 | J04 | validada | 3 | sim |
-| J05 | rascunho | 3 | sim |
-| J06 | rascunho | 3 | sim |
+| J05 | validada | 3 | sim |
+| J06 | validada | 3 | sim |
 | J07 | validada | 3 | sim |
 | J08 | validada | 3 | sim |
-| J09 | rascunho | 3 | sim |
+| J09 | validada | 3 | sim |
 | T01 | validada | 3 | sim |
 | T02 | validada | 3 | sim |
 | T03 | validada | 2 | sim |

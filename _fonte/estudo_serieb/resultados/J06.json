@@ -8,7 +8,7 @@
   {
    "id": "J06-1",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": true,
    "parece_mas_nao_e": true,
    "manchete": "Nenhum nome sai desta parte por falha da ficha",
@@ -19,12 +19,14 @@
    "confianca": "indício",
    "confianca_motivo": "(a) A régua que autorizava publicar nome estava declarada ANTES de rodar, em J06_indicadores.json, chave regra_que_autoriza_publicar_nomes: d > 0 e q < 0,05 na família perfil_completo × minutos, com todos os setores juntos, nos DOIS cortes de fronteira. Ela não foi cumprida. (b) O teste primário nem chegou a entrar na tabela: o perfil inteiro aprova {bt_aprovados} das {bt_chegadas} chegadas e só {bt_aprovados_sem_fronteira} sem os clubes de fronteira, abaixo do piso declarado de {bt_piso_do_lado} por lado. (c) Rodado à parte só no corte com fronteira — diagnóstico que não entra no BH nem no veredito —, o resultado é d {bt_diag_d} com p {bt_diag_p}: aponta contra a ficha e não se distingue de zero. (d) Poder: o menor d que esse desenho enxergaria a 80% é {bt_diag_dmin}, então 'não separa' aqui quer dizer também 'este desenho não conseguiria ver'. (e) Os blocos rodaram separados, como manda a §8.2, e nenhum dos três passa: físico d {bt_fis_d} (q {bt_fis_q}), duelo/corpo d {bt_due_d} (q {bt_due_q}), estilo técnico d {bt_est_d} (q {bt_est_q}). (f) Os dois cortes, os dois relatados, com {bt_n_discordancias} pares discordantes: {bt_pares_discordantes}. As duas únicas linhas que cruzam a correção a 5% aparecem SÓ no corte sem fronteira, que é enviesado por construção, e as duas apontam CONTRA a ficha. (g) Porta temporal da §6.4: não roda nesta unidade, pelos mesmos motivos de J03, J04 e J05 — o teto declarado antes de rodar já era indício. (h) Placar: o desfecho é minuto jogado e permanência, e nenhum dos dois está na lista branca de resultado da §3. (i) Esta conclusão ficou SEM gráfico de propósito. O único par de médias que existe aqui é o do diagnóstico do corte COM fronteira, {bt_diag_min_a_int} contra {bt_diag_min_b_int}, e duas barras de alturas diferentes afirmariam no olho uma diferença que o próprio teste não distingue de zero (d {bt_diag_d}, p {bt_diag_p}, com d mínimo detectável de {bt_diag_dmin}). Sem os clubes de fronteira o diagnóstico nem roda: a ficha aprova {bt_aprovados_sem_fronteira} chegadas, abaixo do piso de {bt_piso_do_lado} por lado.",
    "n": "{bt_chegadas} chegadas pontuáveis em 2023 a 2025, de {bt_testes_com} comparações por corte; {bt_sem_ano_anterior} chegadas ficaram fora por não terem ano anterior na Série B e {bt_sem_900} por não chegarem a 900 minutos no ano anterior",
-   "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json"
+   "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   },
   {
    "id": "J06-2",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
    "manchete": "Quem chega já rodando joga mais no primeiro ano",
@@ -50,12 +52,14 @@
    "confianca": "indício",
    "confianca_motivo": "(a) Correção para múltiplos testes a 5%, com a família da §6.3 (grupo × desfecho × corte, sem partir por setor): a linha passa no corte COM fronteira (q {bt_min_q}) e NÃO passa no corte sem (q {bt_min_q_sem}). Pela regra da casa, firme é firme nos dois cortes, e por isso esta conclusão é indício e não provável. O que muda entre os cortes é o tamanho da amostra, não o tamanho do efeito: d {bt_min_d} contra {bt_min_d_sem}. (b) A família desta linha tem um teste só — os testes por setor caíram por n —, então a correção a 5% não teve o que corrigir ali, e isso está dito. (c) IC95 por bootstrap de clube: {bt_min_ic} no corte com e {bt_min_ic_sem} no corte sem, e o segundo encosta em zero. (d) Poder: o menor d detectável a 80% é {bt_min_dmin} no corte com e {bt_min_dmin_sem} no corte sem. (e) O desfecho secundário vai na direção contrária e não separa: permanência de {bt_minperm_a}% contra {bt_minperm_b}%. (f) Porta temporal da §6.4: não roda. O backtest é temporal por construção — pontua com o dado do ano anterior e mede o ano da chegada —, mas é outro desenho, e esta parte não o chama de porta nem carimba confiança com ele. (g) Circularidade declarada: minuto passado prevendo minuto futuro tem correlação própria, e é por isso que o achado é um piso de triagem, não uma previsão de rendimento. (h) O gráfico desta conclusão mostra os minutos médios do corte COM fronteira, {bt_min_a_int} contra {bt_min_b_int}, que saíram do texto, e o título do gráfico diz em que corte eles foram medidos. Ele deveria ser de dois cortes, como manda a §8.2 para conclusão que depende da fronteira, e não é por limitação de publicação, não por falta de dado: as médias por grupo do corte SEM fronteira existem em J06_testes.csv, na linha minutagem|minutos de setor Todos, mas scripts/J06.py não as grava em J06_numeros.json, e sem chave em numeros não há marcador para desenhá-las — digitar o número no gráfico é exatamente o que a §8.2 proíbe. Enquanto o script não as publicar, a ressalva da fronteira fica escrita no que vimos, e o par de cortes fica aqui: d {bt_min_d} contra {bt_min_d_sem}, q {bt_min_q} contra {bt_min_q_sem}, com a amostra caindo entre um corte e outro.",
    "n": "{bt_min_na} chegadas com minutagem alta e repetida contra {bt_min_nb} sem, em 2023 a 2025; o corte por posição é o de J05 e bate número a número",
-   "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json"
+   "prova": "J06.md; J06_testes.csv; J06_backtest.csv; J06_resumo.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   },
   {
    "id": "J06-3",
    "bloco": "J",
-   "status": "rascunho",
+   "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
    "manchete": "São só {oferta_livres_regulares} livres com rodagem em toda a Série B",
@@ -89,7 +93,9 @@
    "confianca": "indício",
    "confianca_motivo": "(a) É contagem, não teste: não há hipótese a corrigir a 5% nem porta temporal a cruzar, e por isso o teto é indício por natureza, não por fraqueza do dado. (b) O requisito que produz a contagem é o único que J05 sustenta, e o backtest desta parte o mostra do lado do desfecho (J06-2). (c) O contrato tem duas fontes e elas foram comparadas, como manda a §8.1: das {ct_com_duas_fontes} linhas com data dos dois lados, {ct_concordam} caem no mesmo mês, {ct_concordam_pct}%. (d) Buraco declarado: {funil_sem_ponte} dos {funil_serie_b} jogadores não casaram por nome com o elenco do Transfermarkt, então neles só existe a data do Wyscout, que é uma foto. (e) A contagem é publicada em três níveis — só minutagem, mais contrato e mais ficha — porque o terceiro nível depende de um filtro que o backtest não sustentou. (f) Goleiro: {gk_sem_fisico} dos {gk_total} da Série B de hoje não têm uma linha física sequer, e o requisito físico deles fica marcado como não verificado. (g) O gráfico desta conclusão mostra só as quatro posições que têm número próprio na saída do script — Goleiro, Volante, Extremo e Meia. A contagem completa das sete, que saiu do que vimos, é {oferta_frase}, e a ordem de busca para J09 é {oferta_ordem_j09}. O gráfico não traz linha de piso: o piso de cinco nomes por posição não existe como chave em J06_numeros.json, e a §8.2 proíbe valor digitado à mão no desenho. Abaixo dele está só {oferta_abaixo_de_cinco}, isto é {oferta_posicoes_escassas} das {oferta_posicoes} posições.",
    "n": "{funil_serie_b} jogadores da Série B de 2026 depois da regra de homônimo, {base_ambiguos} nomes ambíguos descartados; {oferta_livres_regulares} livres e rodados",
-   "prova": "J06.md; J06_funil.csv; J06_resumo.json"
+   "prova": "J06.md; J06_funil.csv; J06_resumo.json",
+   "validada_em": "2026-09-20",
+   "validada_por": "o dono, na sessão de 20/09"
   }
  ],
  "numeros": {

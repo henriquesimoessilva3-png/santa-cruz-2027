@@ -225,15 +225,35 @@ def main():
         for r in sel:
             w.writerow(r)
 
+    # A lista sai dividida por lado e por função, como a do ranking (a LISTA mora lá, para as
+    # duas telas não divergirem). O `na_serie_b` continua sendo do SETOR — ele vem do
+    # J06_resumo.json, que conta a oferta por setor —, e por isso o bloco dividido diz de quem é
+    # esse denominador em vez de deixar “5 de 106” parecer 5 laterais esquerdos de 106.
+    import J06_ranking  # noqa: E402  — só a tabela de blocos, nenhuma conta
+
     por_posicao = []
-    for s in ORDEM:
-        gente = [r for r in sel if r["setor"] == s]
+    for bloco_nome, s, codigos in J06_ranking.LISTA:
+        conhecidos = {c for _, s2, cs in J06_ranking.LISTA if s2 == s and cs for c in cs}
+        primeiro = next(n for n, s2, _ in J06_ranking.LISTA if s2 == s)
+
+        def no_bloco(r, s=s, codigos=codigos, bloco_nome=bloco_nome,
+                     conhecidos=conhecidos, primeiro=primeiro):
+            if r["setor"] != s:
+                return False
+            if codigos is None:
+                return True
+            pos = (r.get("posicao") or "").strip()
+            return pos in codigos or (pos not in conhecidos and bloco_nome == primeiro)
+
+        gente = [r for r in sel if no_bloco(r)]
         por_posicao.append({
-            "posicao": s,
+            "posicao": bloco_nome,
+            "ficha_de": s,
             "quantos": len(gente),
             "com_a_ficha_inteira": sum(1 for r in gente if verdadeiro(r["atende_perfil"])),
             "com_contrato_confirmado": sum(1 for r in gente if r["contrato_confirmado"] == "true"),
             "na_serie_b": oferta[s]["na_serie_b"],
+            "na_serie_b_de": s,
             "jogadores": [{
                 "jogador": r["jogador"], "clube": r["clube"], "id_tm": r["id_tm"],
                 "pk_app": r.get("pk_app") or None,

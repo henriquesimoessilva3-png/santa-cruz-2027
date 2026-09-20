@@ -3,7 +3,7 @@
  "bloco": "A",
  "titulo": "Estilo com bola: existe um caminho, ou vários?",
  "tipo": "analise",
- "gerado_por": "scripts/_rodar.py A05",
+ "gerado_por": "scripts/A05.py (calcula e grava os 25 marcadores de A05_numeros.json, e confere a reprodução contra A05_testes.csv e A05_resumo.json, que continuam sendo do scripts/_rodar.py A05)",
  "conclusoes": [
   {
    "id": "A05-1",

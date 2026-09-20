@@ -1,5 +1,5 @@
 {
- "porta_temporal": {
+ "persistencia_dentro_da_temporada": {
   "xg": {
    "rho": 0.47,
    "p": 1e-05,
@@ -60,6 +60,17 @@
    ],
    "se_repete": false
   }
+ },
+ "porta_6_4": {
+  "indicador": "dist_remate (distância média do remate, sinal −1)",
+  "definicao": "média nas 19 primeiras rodadas × pontos somados das 19 últimas, em posto dentro do ano, com parcial dada à pontuação do 1º turno",
+  "conta_de": "scripts/_porta_temporal.py, a mesma que reproduz as nove linhas da tabela da §6.4 célula a célula",
+  "rho": 0.439,
+  "p": 5e-05,
+  "parcial": 0.289,
+  "p_parcial": 0.00938,
+  "n": 80,
+  "passa": true
  },
  "poder_por_desenho": {
   "16x48": 0.82,
