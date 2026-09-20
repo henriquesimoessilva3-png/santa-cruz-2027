@@ -22,7 +22,8 @@
 | marcadores publicados | **1.462**, todos saindo de um cálculo do próprio script |
 | portão de entrega | **40 reprovações** (eram 131) · **J02 aceita** |
 | aba | **no ar**, em `docs/`, publicada no GitHub Pages |
-| git | branch `main`, último commit `7d2ca99`, **86 pendências não commitadas** |
+| git | branch **`estudo-serieb-20-09`**, árvore limpa · o `main` está 4 commits atrás |
+| ⚠️ site | `docs/` **desatualizado**: a aba publicada não tem J05, J06 nem J09 |
 
 **A resposta do estudo, em três linhas.** Uma coisa só passa nos dois testes da casa: quem sobe
 **finaliza de mais perto** — 19,5 m contra 20,5 do meio, e já finalizava assim no 1º turno. Três
@@ -45,6 +46,20 @@ obrigatório da §8.6 e ele **não passou**; nenhum nome foi publicado, nem na S
    no gerador já estão prontos**; falta só o campo `grafico` nos JSON.
 3. Antes de dar qualquer número, **conferir no disco**. Esta sessão errou duas vezes afirmando de
    memória o que os arquivos contradiziam.
+
+### O estado do git, que você herda
+
+A árvore está **limpa**, na branch **`estudo-serieb-20-09`** — quatro commits de 20/09 que o `main`
+ainda não tem. Para levá-los ao `main`:
+
+```
+git checkout main && git merge --ff-only estudo-serieb-20-09
+```
+
+⚠️ **O `docs/` está desatualizado.** A aba publicada no GitHub Pages foi gerada em 19/09 e **não tem
+J05, J06 nem J09**. Antes de publicar de novo, na ordem: `python3 gerar_estudo_serieb_js.py`, depois
+`python3 publicar_site.py`, e só então commitar e dar push no `main` — senão o site volta com dado
+velho. O repositório é **público** (ver §5).
 
 ---
 
