@@ -194,6 +194,13 @@
     alvo.dataset.montado = '1';
   }
 
+  /* Trocar de tema tem de repintar o desenho: a paleta e escolhida na hora de montar, e o
+     SVG nao herda cor do CSS. Os encaixes ficam, so as figuras sao refeitas. */
+  function repintarGraficos(alvo) {
+    alvo.querySelectorAll('.esb-graf-slot').forEach(function (slot) { slot.textContent = ''; });
+    montarGraficos(alvo);
+  }
+
   function ligar() {
     const bt = document.querySelector('.aba[data-aba="estudo"]');
     const pg = document.getElementById('pgEstudo');
@@ -204,6 +211,10 @@
       if (on) render();
     };
     new MutationObserver(sync).observe(bt, { attributes: true, attributeFilter: ['class'] });
+    new MutationObserver(function () {
+      const alvo = document.getElementById('esCorpoPagina');
+      if (alvo && alvo.dataset.montado) repintarGraficos(alvo);
+    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
     sync();
   }
 

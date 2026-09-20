@@ -10,13 +10,46 @@
    "id": "A13-1",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Quem cai chega à metade do campeonato {dif_1t_cai_meio} pontos atrás do meio da tabela",
-   "o_que_vimos": "No 1º turno, quem terminou rebaixado fez {cai_1t} pontos de mediana contra {meio_1t} do meio da tabela, e {cai_abaixo_mediana} dos {cai_total} rebaixados ficaram abaixo dessa marca; tirando os times que terminaram colados nas linhas de corte sobram {n_sem_fronteira} campanhas e a distância se mantém — {cai_1t_sf} contra {meio_1t_sf}, com 11 dos 12. O tombo do returno não aparece: {cai_melhoraram} dos {cai_total} rebaixados fizeram mais pontos no 2º turno do que no 1º (4 dos 12 no corte sem os colados nas linhas), e a diferença entre as faixas no returno é menor do que este desenho consegue enxergar. Quem piora no returno depende de quais times entram na conta — com as {n} campanhas quem subiu melhora 1,0 ponto, sem os colados nas linhas perde 2,0 —, e como isso é contagem sem teste e os pontos do 1º turno já entram na soma que define a faixa, fica como indício.",
+   "manchete": "Quem cai já está {dif_1t_cai_meio} pontos atrás do meio na metade do campeonato",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Pontos no 1º turno, mediana da faixa",
+    "unidade": "pontos",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "cai_1t"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "meio_1t"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "cai_1t_sf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "meio_1t_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "No 1º turno, quem caiu fez {cai_1t} pontos de mediana contra {meio_1t} do meio, e {cai_abaixo_mediana} dos {cai_total} ficaram abaixo da marca do meio. Um tombo no returno, se existe, este recorte não enxerga: {cai_melhoraram} dos {cai_total} fizeram mais pontos no 2º turno. E a melhora de quem subiu depende de quem entra na conta.",
    "para_o_santa_cruz": "O déficit de quem cai já está montado na metade, então a correção é na janela do meio do ano — treinador ou reforço —, e não na espera de uma reação natural no returno. Mas a temporada não está perdida na rodada {rodada_turno}: em {n_temporadas} temporadas, {n_salvos} times saíram do Z4 depois dela (4 no corte sem os times colados nas linhas).",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova em dados/premissas.json, grupo Montagem do elenco: a Série B cobra planejamento de meio de ano — quem chega à metade cerca de 5 pontos abaixo do meio da tabela (5,5 nas 80 campanhas, 5,0 nas 52 sem os times colados nas linhas) precisa de correção na janela, e o orçamento tem de prever reforço de julho. NÃO entra a versão antiga que esta conclusão propunha (“na Série B o rebaixamento se define no 1º turno”): 6 dos 16 rebaixados melhoraram no returno e 6 times escaparam do Z4 depois da metade.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. (a) Correção para múltiplos testes a 5% dentro da família: NÃO — A13_testes.csv não existe, scripts/A13.py não importa scripts/_metodo.py e nenhum q foi calculado em lugar nenhum da parte; quando a auditoria de 18/09 rodou a família de três (Cai×Meio, Cai×Sobe e permutação dos turnos dentro do time) sobre a diferença entre turnos, q deu 0,42 nos três e nenhum passou. (b) Porta temporal da §6.4: NÃO — o desfecho é a faixa final, e os pontos do 1º turno já estão somados nela (_porta_temporal.md registra A13 como a porta sem o desconto, com o desfecho contaminado). Zero de dois = indício. O que sustenta o indício é o tamanho do déficit, que sobrevive aos dois cortes ({cai_1t} contra {meio_1t} nas {n} campanhas, {cai_1t_sf} contra {meio_1t_sf} nas {n_sem_fronteira}) e tem uso prático imediato na janela de julho. Duas ressalvas para a prova: o tombo do returno tem efeito observado de {d_observado} contra um mínimo detectável de {d_min_cai_meio}, ou seja, este desenho não o enxerga; e o corte sem os clube-temporadas de base incompleta, que o script prometia e nunca rodou, confirma o déficit — as medianas de quem cai ficam idênticas, {cai_1t} no 1º turno e {cai_2t} no 2º.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. (a) Correção para múltiplos testes a 5% dentro da família: NÃO — A13_testes.csv não existe, scripts/A13.py não importa scripts/_metodo.py e nenhum q foi calculado em lugar nenhum da parte; quando a auditoria de 18/09 rodou a família de três (Cai×Meio, Cai×Sobe e permutação dos turnos dentro do time) sobre a diferença entre turnos, q deu 0,42 nos três e nenhum passou. (b) Porta temporal da §6.4: NÃO — o desfecho é a faixa final, e os pontos do 1º turno já estão somados nela (_porta_temporal.md registra A13 como a porta sem o desconto, com o desfecho contaminado). Zero de dois = indício. O que sustenta o indício é o tamanho do déficit, que sobrevive aos dois cortes ({cai_1t} contra {meio_1t} nas {n} campanhas, {cai_1t_sf} contra {meio_1t_sf} nas {n_sem_fronteira}) e tem uso prático imediato na janela de julho. Duas ressalvas para a prova: o tombo do returno tem efeito observado de {d_observado} contra um mínimo detectável de {d_min_cai_meio}, ou seja, este desenho não o enxerga; e o corte sem os clube-temporadas de base incompleta, que o script prometia e nunca rodou, confirma o déficit — as medianas de quem cai ficam idênticas, {cai_1t} no 1º turno e {cai_2t} no 2º. Três coisas ficam aqui nesta passada, e a terceira volta ao texto sem os números. Os dois cortes do déficit agora estão no gráfico desta conclusão, lado a lado. No corte sem os times de fronteira, 11 dos 12 rebaixados ficam abaixo da mediana do meio e 4 dos 12 fizeram mais pontos no returno. E a mediana da diferença entre turnos de quem subiu vai de {sobe_dif} ponto nas {n} campanhas para {sobe_dif_sf} nas {n_sem_fronteira} sem esses times — troca de sinal, a única da parte entre os dois cortes, e por isso ela voltou ao texto: contagem sem teste, com o 1º turno já somado no desfecho, e por isso indício. Nesta passada ela voltou como dependência de amostra, e não como afirmação seca de que a melhora vira piora: a inversão se apóia em oito campanhas, as que sobram de quem subiu quando se tiram os times de fronteira. E a comparação de quem caiu é contra a marca do meio, {meio_1t} pontos: os {cai_abaixo_mediana} dos {cai_total} ficaram abaixo dela, não abaixo da própria mediana de quem caiu — abaixo dos {cai_1t} são oito dos {cai_total}.",
    "n": "{n} clube-temporadas de 2022 a 2025 ({n_sem_fronteira} sem os times colados nas linhas de corte); {cai_total} rebaixados (12 no corte) e {meio_total} do meio (32 no corte)",
    "prova": "A13_turnos.csv; A13_resumo.json, quadro_por_turno; A13_numeros_novos.json; A01_clube_temporada.csv",
    "validada_em": "2026-09-19"
@@ -25,13 +58,44 @@
    "id": "A13-2",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Na metade, a tabela já tem {sobe_g4_19} dos {sobe_total} acessos e {cai_z4_19} dos {cai_total} rebaixamentos — o resto virou depois",
-   "o_que_vimos": "Na rodada {rodada_turno}, {sobe_g4_19} dos {sobe_total} times que subiram já estavam no G4 e {cai_z4_19} dos {cai_total} que caíram já estavam no Z4. O resto virou depois: {n_viraram} subiram vindo de fora do G4, {n_salvos} escaparam do Z4, {n_cairam_de_fora} caíram vindo de fora dele e {n_perderam_g4} perderam o G4 que já tinham. Tirando os times que terminaram colados nas linhas de corte sobram {n_sem_fronteira} campanhas e as viradas encolhem — 1 acesso vindo de fora, 4 fugas do Z4, 4 quedas vindas de fora e nenhuma perda de G4 —, porque esse corte tira justamente quem terminou por pouco; é contagem de {n_temporadas} temporadas, sem teste, e mede onde o time estava, não o que veio depois.",
+   "manchete": "Na metade já estão {sobe_g4_19} dos {sobe_total} acessos, e o resto virou depois",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Onde o time estava na metade, e onde terminou",
+    "unidade": "campanhas",
+    "barras": [
+     {
+      "nome": "Sobe, do G4",
+      "marcador": "sobe_g4_19"
+     },
+     {
+      "nome": "Sobe, de fora",
+      "marcador": "n_viraram"
+     },
+     {
+      "nome": "Perdeu o G4",
+      "marcador": "n_perderam_g4"
+     },
+     {
+      "nome": "Cai, do Z4",
+      "marcador": "cai_z4_19"
+     },
+     {
+      "nome": "Cai, de fora",
+      "marcador": "n_cairam_de_fora"
+     },
+     {
+      "nome": "Escapou do Z4",
+      "marcador": "n_salvos"
+     }
+    ]
+   },
+   "o_que_vimos": "Na rodada {rodada_turno}, {sobe_g4_19} dos {sobe_total} times que subiram já estavam no G4 e {cai_z4_19} dos {cai_total} que caíram já estavam no Z4. O resto virou depois: {n_viraram} subiram vindo de fora, {n_salvos} escaparam do Z4 e {n_perderam_g4} perderam o G4 que tinham. Isto mede onde o time estava, não o que veio depois.",
    "para_o_santa_cruz": "A tabela da metade não é sentença nem garantia: em {n_temporadas} temporadas, {n_viraram} times subiram vindo de fora do G4 e {n_perderam_g4} perderam o lugar que já tinham — e os 12 terminaram a 3 pontos ou menos do 4º colocado. Isso põe a janela do meio do ano dentro do projeto desde o começo: dinheiro e vagas de elenco guardados para reforçar em julho, em vez de gastar tudo na montagem de janeiro.",
    "premissa": null,
    "premissa_motivo": "Reforça a premissa nova sugerida em A13-1 (planejar e orçar a janela do meio do ano). Não confirma nem contradiz nenhuma das premissas de dados/premissas.json.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. (a) Correção para múltiplos testes a 5% dentro da família: NÃO — não há teste nenhum na parte: A13_testes.csv não existe, scripts/A13.py não importa scripts/_metodo.py e nenhum q foi calculado; isto é contagem completa das {n} campanhas. (b) Porta temporal da §6.4: NÃO — mede a posição na rodada {rodada_turno} contra a faixa final, e os pontos dessa mesma rodada já estão somados na classificação que define a faixa; é o mesmo defeito que A13-3 denuncia. Zero de dois = indício. Os pareceres da auditoria mantinham “firme” citando a prática da casa (contagem completa = firme), mas a prática não é a régua escrita: a régua exige os dois critérios, e uma contagem que não testou nada não passou em nenhum. Fica em indício, e não abaixo, porque a metade que a manchete afirma — a maior parte do G4 e do Z4 finais já estava lá na metade — sobrevive aos dois cortes e fica ainda mais forte no corte sem os times colados nas linhas, e porque tem uso prático imediato.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. (a) Correção para múltiplos testes a 5% dentro da família: NÃO — não há teste nenhum na parte: A13_testes.csv não existe, scripts/A13.py não importa scripts/_metodo.py e nenhum q foi calculado; isto é contagem completa das {n} campanhas. (b) Porta temporal da §6.4: NÃO — mede a posição na rodada {rodada_turno} contra a faixa final, e os pontos dessa mesma rodada já estão somados na classificação que define a faixa; é o mesmo defeito que A13-3 denuncia. Zero de dois = indício. Os pareceres da auditoria mantinham “firme” citando a prática da casa (contagem completa = firme), mas a prática não é a régua escrita: a régua exige os dois critérios, e uma contagem que não testou nada não passou em nenhum. Fica em indício, e não abaixo, porque a metade que a manchete afirma — a maior parte do G4 e do Z4 finais já estava lá na metade — sobrevive aos dois cortes e fica ainda mais forte no corte sem os times colados nas linhas, e porque tem uso prático imediato. Duas coisas ficam aqui nesta passada, e a segunda volta também ao texto. O gráfico desta conclusão mostra as duas direções — quem chegou ao desfecho vindo de dentro e de fora, e também quem estava no G4 e não subiu ({n_perderam_g4}) e quem estava no Z4 e escapou ({n_salvos}) —, e é do corte cheio, porque as viradas no outro corte não têm marcador: sem os times de fronteira sobram {n_sem_fronteira} campanhas e as viradas encolhem para 1 acesso vindo de fora, 4 fugas do Z4, 4 quedas vindas de fora e nenhuma perda de G4 — esse corte tira justamente quem terminou por pouco, e a conclusão fica mais forte nele, não mais fraca. E isto é contagem completa de {n_temporadas} temporadas, sem teste: mede onde o time estava na rodada {rodada_turno}, não o que veio depois.",
    "n": "{n} clube-temporadas de 2022 a 2025 ({n_sem_fronteira} sem os times colados nas linhas de corte); {sobe_total} acessos e {cai_total} rebaixamentos",
    "prova": "A13_resumo.json, previsibilidade_por_rodada; A13_turnos.csv; A13_numeros_novos.json; A01_clube_temporada.csv",
    "validada_em": "2026-09-19"
@@ -42,13 +106,37 @@
    "status": "validada",
    "negativa": true,
    "parece_mas_nao_e": true,
-   "manchete": "A tabela da metade dá vantagem, não garante a segunda metade",
-   "o_que_vimos": "O terço que mais pontuou no 1º turno fez {alto_2t} pontos no returno e o terço que menos pontuou fez {baixo_2t} — {dif_tercos} pontos de diferença em {rodada_turno} jogos, e 6 pontos nas {n_sem_fronteira} campanhas sem os times colados nas linhas de corte. E as campanhas se cruzam: o melhor returno entre os times do terço de baixo ({baixo_2t_max} pontos, o Ituano de 2022) foi maior que o de qualquer time do terço de cima ({alto_2t_max}, o Cruzeiro de 2022), nos dois cortes. O que a tabela da metade mostra em primeiro lugar são os pontos já ganhos, que já estão somados na classificação final.",
+   "manchete": "A tabela da metade dá vantagem, não garante a vaga",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Quanto o 1º turno acompanha o 2º",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Os dois turnos",
+        "marcador": "rho_1t_2t"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Os dois turnos",
+        "marcador": "rho_1t_2t_sem_fronteira"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "O terço que mais pontuou no 1º turno fez {alto_2t} pontos no returno e o de baixo fez {baixo_2t}. Mas eles se cruzam nos dois cortes: o Ituano de 2022, do terço de baixo, fez {baixo_2t_max} e passou o melhor do terço de cima, {alto_2t_max}. Essa vantagem é feita de pontos já somados na classificação final.",
    "para_o_santa_cruz": "Vantagem na metade é banco de pontos, não vaga: dos 16 times que estavam no G4 na rodada {rodada_turno}, {n_perderam_g4} terminaram fora dele — e todos os seis terminaram a 3 pontos ou menos do 4º colocado, por isso somem quando se tira quem acabou colado na linha. A segunda metade se monta como campanha própria — carga física, rodízio e reforço de julho —, e não administrando o que já foi feito.",
    "premissa": null,
    "premissa_motivo": "Não trata de nenhuma das premissas de dados/premissas.json. Se alguma entrar, é a de planejar e orçar a janela do meio do ano sugerida em A13-1.",
    "confianca": "provável",
-   "confianca_motivo": "Provável porque passa em um dos dois critérios. (a) Correção para múltiplos testes a 5% dentro da família: NÃO — A13_testes.csv não existe, scripts/A13.py não importa scripts/_metodo.py e os três previsores do 1º turno saem com p bruto, sem q. (b) Porta temporal da §6.4: SIM — é o único par de toda a A13 em que o previsor é medido inteiro nas {rodada_turno} primeiras rodadas e o desfecho inteiro nas {rodada_turno} últimas, e a própria §6.4 publica esse par como linha de referência, em posto dentro do ano; o recálculo bate com ela. Um sim e um não = provável. A associação entre os dois turnos sobrevive aos dois cortes: {rho_1t_2t} nas {n} campanhas e {rho_1t_2t_sem_fronteira} nas {n_sem_fronteira} sem os times colados nas linhas. Ressalvas para a prova: por temporada a associação some em 2022 e o intervalo por clube é largo; o número que a conclusão antiga usava para o xG (0,486) media o saldo de xG do 1º turno contra a POSIÇÃO FINAL — exatamente o par contaminado que esta conclusão denuncia —, e por isso a frase do xG saiu do texto: o par limpo, xG do 1º turno contra os pontos do 2º, vale 0,4217, e o xG ainda tem confiabilidade abaixo do piso da especificação.",
+   "confianca_motivo": "Provável porque passa em um dos dois critérios. (a) Correção para múltiplos testes a 5% dentro da família: NÃO — A13_testes.csv não existe, scripts/A13.py não importa scripts/_metodo.py e os três previsores do 1º turno saem com p bruto, sem q. (b) Porta temporal da §6.4: SIM — é o único par de toda a A13 em que o previsor é medido inteiro nas {rodada_turno} primeiras rodadas e o desfecho inteiro nas {rodada_turno} últimas, e a própria §6.4 publica esse par como linha de referência, em posto dentro do ano; o recálculo bate com ela. Um sim e um não = provável. A associação entre os dois turnos sobrevive aos dois cortes: {rho_1t_2t} nas {n} campanhas e {rho_1t_2t_sem_fronteira} nas {n_sem_fronteira} sem os times colados nas linhas. Ressalvas para a prova: por temporada a associação some em 2022 e o intervalo por clube é largo; o número que a conclusão antiga usava para o xG (0,486) media o saldo de xG do 1º turno contra a POSIÇÃO FINAL — exatamente o par contaminado que esta conclusão denuncia —, e por isso a frase do xG saiu do texto: o par limpo, xG do 1º turno contra os pontos do 2º, vale 0,4217, e o xG ainda tem confiabilidade abaixo do piso da especificação. Duas coisas ficam aqui nesta passada, e a segunda volta também ao texto. O degrau entre os terços cai de {dif_tercos} pontos nas {n} campanhas para 6 nas {n_sem_fronteira} sem os times de fronteira, e esse par não entra no gráfico porque a mediana do returno por terço só foi calculada para as {n}: o gráfico mostra nos dois cortes a associação entre os turnos, que é o único par da conclusão com marcador nos dois cortes. E o que a tabela da metade mostra em primeiro lugar são os pontos já ganhos, que já estão somados na classificação final — é o mesmo defeito que esta conclusão denuncia.",
    "n": "{n} clube-temporadas de 2022 a 2025 ({n_sem_fronteira} sem os times colados nas linhas de corte); 27 no terço de cima e 28 no terço de baixo do 1º turno",
    "prova": "A13_resumo.json, previsores_do_1o_turno; A13_turnos.csv; A13_numeros_novos.json; A01_clube_temporada.csv",
    "validada_em": "2026-09-19"
@@ -94,6 +182,8 @@
   "rodada_turno": 19,
   "sobe_1t": 32.5,
   "sobe_2t": 34.0,
+  "sobe_dif": 1.0,
+  "sobe_dif_sf": -2.0,
   "sobe_g4_19": 10,
   "sobe_total": 16,
   "trave_1t": 29.5,

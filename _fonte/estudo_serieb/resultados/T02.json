@@ -11,13 +11,32 @@
    "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
-   "manchete": "No G4 o que pesa é o preço do elenco",
-   "o_que_vimos": "Clube com elenco entre os 5 mais caros do ano passa, em média, {ct_top5_rod} das 38 rodadas no G4; do 6º ao 10º elenco, {ct_meio_rod}; do 11º para baixo, {ct_baixo_rod} — e {ct_baixo_zero} dos {ct_baixo_n} clubes desse último grupo não passam uma rodada sequer lá. Contando só da 10ª rodada em diante, como a régua da casa também manda, a escada é a mesma e fica mais forte: 11,7 · 7,1 · 2,3 rodadas em 29. Nos dois jeitos de contar a distância que a conta sustenta é a dos 5 mais caros contra o 11º para baixo; entre os 5 mais caros e o 6º-10º a diferença não se separa do acaso em nenhum dos dois.",
+   "manchete": "O tempo no G4 acompanha o preço do elenco",
+   "grafico": {
+    "tipo": "grupos",
+    "titulo": "Média de rodadas no G4 por temporada, contando todas as rodadas",
+    "unidade": "rodadas",
+    "series": [
+     {
+      "nome": "5 mais caros",
+      "marcador": "ct_top5_rod"
+     },
+     {
+      "nome": "6º ao 10º",
+      "marcador": "ct_meio_rod"
+     },
+     {
+      "nome": "11º para baixo",
+      "marcador": "ct_baixo_rod"
+     }
+    ]
+   },
+   "o_que_vimos": "Clube com elenco entre os cinco mais caros passa, em média, {ct_top5_rod} rodadas no G4 por temporada; do 11º elenco para baixo, {ct_baixo_rod}. A distância que a conta sustenta é a dos cinco mais caros contra o 11º para baixo; o degrau do meio não se separa do acaso.",
    "para_o_santa_cruz": "Currículo de treinador com muito tempo no G4 diz, antes de tudo, o caixa do clube em que ele estava: na lista curta, cada nome tem de vir com o valor do elenco que comandou em cada ano. Para o Santa Cruz, que não vai ter elenco do top-5, o alvo é quem fez tempo de G4 com elenco do 11º para baixo — grupo em que mais da metade dos clubes não passa uma rodada sequer no G4.",
    "premissa": null,
    "premissa_motivo": "Confirma a ressalva aceita pelo dono em 15/09 (“elenco valioso tende a ter isso; o estudo não separa as duas coisas”) e sugere premissa nova no grupo Montagem do elenco: tempo no G4 anda com o preço do elenco, e todo currículo — de treinador ou de jogador — é lido ao lado do valor do elenco em que ele trabalhou.",
    "confianca": "provável",
-   "confianca_motivo": "(a) Correção para múltiplos testes a 5%: PASSA. Família das 3 comparações de faixa de valor, posto de rodadas no G4 dentro da temporada, Welch bilateral, BH a 5% pelo scripts/_metodo.py: q = {q_top5_baixo} nos 5 mais caros contra o 11º-para-baixo, d = {d_top5_baixo}, IC95 por bootstrap de clube {ic_top5_baixo} e d mínimo detectável a 80% = {d_minimo_80_20x40} — ou seja, há poder. Os outros dois degraus não passam: q = {q_meio_baixo} do 6º-10º contra o 11º-para-baixo e q = {q_top5_meio} dos 5 mais caros contra o 6º-10º. O achado se repete nas outras cinco versões rodadas em 19/09: a contagem da 10ª rodada em diante, os dois desempates do empate CRB/Novorizontino de 2023 (que cai exatamente no corte 10º/11º de valor) e o corte sem os clubes dos postos de valor 5, 6, 10 e 11 — em todas, só os 5 mais caros contra o 11º-para-baixo passa, e sem os clubes de fronteira de valor a escada abre. (b) Porta temporal: NÃO passa, e não é passável — tm_valor_total é instantâneo de temporada e não tem versão por turno (_porta_temporal.md, §3 e §4: “não calculável por turno”), e o complemento honesto de lá, o valor da temporada inteira contra os pontos do 2º turno, o próprio arquivo diz que não conta como passar. Um dos dois = provável; firme é impossível aqui por falta de dado, não por falta de trabalho. Ressalva de entrega: o selo só pode ir à tela quando o teste estiver gravado em T02_testes.csv e o agrupamento por faixa de valor dentro de T02.py — hoje ele é reproduzível pelo bloco testes do T02_numeros_novos.json, mas o pipeline não o produz.",
+   "confianca_motivo": "(a) Correção para múltiplos testes a 5%: PASSA. Família das 3 comparações de faixa de valor, posto de rodadas no G4 dentro da temporada, Welch bilateral, BH a 5% pelo scripts/_metodo.py: q = {q_top5_baixo} nos 5 mais caros contra o 11º-para-baixo, d = {d_top5_baixo}, IC95 por bootstrap de clube {ic_top5_baixo} e d mínimo detectável a 80% = {d_minimo_80_20x40} — ou seja, há poder. Os outros dois degraus não passam: q = {q_meio_baixo} do 6º-10º contra o 11º-para-baixo e q = {q_top5_meio} dos 5 mais caros contra o 6º-10º. O achado se repete nas outras cinco versões rodadas em 19/09: a contagem da 10ª rodada em diante, os dois desempates do empate CRB/Novorizontino de 2023 (que cai exatamente no corte 10º/11º de valor) e o corte sem os clubes dos postos de valor 5, 6, 10 e 11 — em todas, só os 5 mais caros contra o 11º-para-baixo passa, e sem os clubes de fronteira de valor a escada abre. (b) Porta temporal: NÃO passa, e não é passável — tm_valor_total é instantâneo de temporada e não tem versão por turno (_porta_temporal.md, §3 e §4: “não calculável por turno”), e o complemento honesto de lá, o valor da temporada inteira contra os pontos do 2º turno, o próprio arquivo diz que não conta como passar. Um dos dois = provável; firme é impossível aqui por falta de dado, não por falta de trabalho. Ressalva de entrega: o selo só pode ir à tela quando o teste estiver gravado em T02_testes.csv e o agrupamento por faixa de valor dentro de T02.py — hoje ele é reproduzível pelo bloco testes do T02_numeros_novos.json, mas o pipeline não o produz. A contagem da 10ª rodada em diante é a mesma escada: {ct_top5_rod_apos10} · {ct_meio_rod_apos10} · {ct_baixo_rod_apos10} rodadas em 29, contra {ct_top5_rod} · {ct_meio_rod} · {ct_baixo_rod} em 38. Ela ficou FORA do gráfico de propósito: o desenho de dois cortes do static/estudo_serieb_grafico.js usa um eixo só para os dois blocos, e como os denominadores são diferentes o bloco de 29 rodadas apareceria inteiro deslocado para a esquerda, como se o corte de robustez enfraquecesse o achado — quando, em proporção das rodadas jogadas, ele não enfraquece. Rotular cada bloco não conserta eixo compartilhado. Por isso o gráfico mostra só a contagem de todas as rodadas, e os dois cortes voltam a ficar lado a lado quando o scripts/T02.py gravar a contagem em percentual de rodadas no G4. Um aviso sobre a média: a distribuição é torta, e as medianas do mesmo recorte são {ct_top5_mediana} · {ct_meio_mediana} · {ct_baixo_mediana} rodadas — é por isso que o texto de 10 segundos diz “em média” e fala do grupo, nunca de um clube.",
    "n": "{ct_n} clubes-temporada de 2022 a 2025 ({ct_top5_n} com elenco entre os 5 mais caros, {ct_meio_n} do 6º ao 10º, {ct_baixo_n} do 11º para baixo); 2026 fica à parte, como teste",
    "prova": "T02_passagem.csv; classificacao_rodada.csv; T02_numeros_novos.json (testes); T02.md, seção Prova",
    "validada_em": "2026-09-19"
@@ -28,13 +47,28 @@
    "status": "validada",
    "negativa": false,
    "parece_mas_nao_e": false,
-   "manchete": "No pior ano de Eduardo Baptista o time ainda passou mais de um terço das rodadas no G4 — é o piso mais alto de quem trocou de clube",
-   "o_que_vimos": "Nas {eb_passagens} passagens de 2022 a 2025, em {eb_clubes} clubes, a pior teve o time {eb_pior_rod} rodadas no G4 em {eb_pior_tot} e a melhor, {eb_melhor_rod} em {eb_melhor_tot} — é o piso mais alto entre os {multi} treinadores que passaram por dois clubes ou mais, e o segundo, {eb_seg_nome}, ficou em {eb_seg_rod} rodadas em {eb_seg_tot}. O piso dele é o mais alto nos quatro jeitos de contar: da 10ª rodada em diante são 12 rodadas em 29 contra 2 em 18 do segundo, e mesmo incluindo 2026, que fica de fora por estar em curso, o segundo passa a ser Thiago Carpini com 10 rodadas em 32. Dois desses três anos são no Novorizontino, com o {eb_val_2023}º e o {eb_val_2024}º elencos mais caros do ano e {eb_ppj_nov} ponto por jogo; o terceiro é o Criciúma de 2025, que tinha o {eb_val_cri}º elenco — esse não é clube sem dinheiro.",
+   "manchete": "Eduardo Baptista teve o piso mais alto entre quem trocou de clube",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Rodadas no G4 na pior e na melhor passagem de Eduardo Baptista, contando todas as rodadas",
+    "unidade": "rodadas",
+    "barras": [
+     {
+      "nome": "Pior passagem",
+      "marcador": "eb_pior_rod"
+     },
+     {
+      "nome": "Melhor passagem",
+      "marcador": "eb_melhor_rod"
+     }
+    ]
+   },
+   "o_que_vimos": "Nas {eb_passagens} passagens de 2022 a 2025, a pior teve o time {eb_pior_rod} rodadas no G4 em {eb_pior_tot} e a melhor, {eb_melhor_rod} em {eb_melhor_tot}. Mas um desses clubes, o Criciúma, tinha o {eb_val_cri}º elenco mais caro, e não é clube sem dinheiro. O segundo piso mais alto é o de {eb_seg_nome}, {eb_seg_rod} em {eb_seg_tot}.",
    "para_o_santa_cruz": "É o nome que sobra para a lista curta de T04, mas pelo piso e não pelo pico: o que ele mostrou foi não afundar em dois clubes diferentes. Na conversa, pedir o valor do elenco de cada ano ao lado — só as duas temporadas do Novorizontino foram com elenco barato, e a repetição “em clube sem dinheiro” não vale para o Criciúma. Disponibilidade e custo ficam para validação externa.",
    "premissa": null,
    "premissa_motivo": "Não trata de nenhuma premissa existente.",
    "confianca": "indício",
-   "confianca_motivo": "(a) Correção para múltiplos testes a 5%: não passa — não há teste nenhum nesta conclusão, não existe T02_testes.csv e o scripts/T02.py não importa o scripts/_metodo.py; além disso o nome é o melhor escolhido entre os {multi} treinadores de dois clubes ou mais, caso em que a §6.3 ainda exigiria o nulo do garimpo, que não foi rodado. (b) Porta temporal: não passa — nunca foi rodada nesta parte, e tanto o tempo no G4 quanto o ponto por jogo são medidos na mesma janela do desfecho, então não há como mostrar que vêm antes dele. Nenhum dos dois = indício. O “amostra pequena” que o motivo antigo invocava para sustentar “provável” é literalmente a segunda definição de indício no CLAUDE.md, não de provável. O saldo de xG de {eb_xg_nov} por jogo no recorte Novorizontino fica aqui como descrição, e não como critério, justamente porque a porta temporal não foi rodada.",
+   "confianca_motivo": "(a) Correção para múltiplos testes a 5%: não passa — não há teste nenhum nesta conclusão, não existe T02_testes.csv e o scripts/T02.py não importa o scripts/_metodo.py; além disso o nome é o melhor escolhido entre os {multi} treinadores de dois clubes ou mais, caso em que a §6.3 ainda exigiria o nulo do garimpo, que não foi rodado. (b) Porta temporal: não passa — nunca foi rodada nesta parte, e tanto o tempo no G4 quanto o ponto por jogo são medidos na mesma janela do desfecho, então não há como mostrar que vêm antes dele. Nenhum dos dois = indício. O “amostra pequena” que o motivo antigo invocava para sustentar “provável” é literalmente a segunda definição de indício no CLAUDE.md, não de provável. O saldo de xG de {eb_xg_nov} por jogo no recorte Novorizontino fica aqui como descrição, e não como critério, justamente porque a porta temporal não foi rodada. O piso dele é o mais alto nos quatro jeitos de contar: da 10ª rodada em diante são 12 rodadas em 29 contra 2 em 18 do segundo, e incluindo 2026, que fica de fora por estar em curso, o segundo passa a ser Thiago Carpini com 10 rodadas em 32. O valor do elenco de cada passagem saiu do texto de 10 segundos e fica aqui: Novorizontino com o {eb_val_2023}º e o {eb_val_2024}º elencos mais caros, Criciúma com o {eb_val_cri}º, e {eb_ppj_nov} ponto por jogo no recorte Novorizontino. O gráfico ficou só com a amplitude do próprio Eduardo Baptista, a pior contra a melhor passagem, porque o piso da manchete é taxa e não contagem: as três passagens têm totais diferentes ({eb_pior_tot}, {eb_melhor_tot} e {eb_seg_tot} rodadas) e, postas lado a lado em rodadas cruas, as barras não seriam comparáveis entre si. O rótulo com o total não resolve isso e ainda punha número digitado no gráfico, onde o portão não o vê. A comparação com o segundo colocado fica no texto, que traz o denominador de cada um por marcador, e volta ao gráfico quando o scripts/T02.py gravar o percentual de rodadas no G4 por passagem. Vale para as duas barras que ficaram: elas também têm totais diferentes ({eb_pior_tot} e {eb_melhor_tot}), o que o texto logo acima do gráfico diz. Quem é o segundo colocado muda com o corte, e é outra razão para ele não estar no desenho de um corte só. A manchete diz o que ele TEVE, no passado e em 2022–2025, e não um traço que se repita: o piso mais alto é um lugar num ranking de {multi} nomes, medido na mesma janela do desfecho e sem o nulo que a §6.3 pediria, e a própria T02-3 mostra que o tempo no G4 de uma passagem não anuncia o da seguinte. A versão que dizia “é quem menos afunda” afirmava disposição presente, que este dado não paga.",
    "n": "{eb_passagens} passagens, {eb_clubes} clubes, {eb_rodadas} rodadas (2022–2025); a passagem no Criciúma de 2026 fica à parte — 26 rodadas de temporada em curso, com Vila Nova 0×2 Criciúma faltando na base",
    "prova": "T02_passagem.csv; T02_treinador.csv; T02_numeros_novos.json (numeros); T02.md, seção Prova",
    "validada_em": "2026-09-19"
@@ -46,12 +80,37 @@
    "negativa": true,
    "parece_mas_nao_e": true,
    "manchete": "O tempo no G4 no clube anterior não anuncia o do clube seguinte",
-   "o_que_vimos": "Dos {multi} treinadores que passaram por dois clubes ou mais entre 2022 e 2025, {osc_n} têm um ano sem uma rodada sequer no G4 e outro com o time lá em mais de 8 de cada 10 rodadas: {oscilam}. E o ano bom quase não foi melhor no placar: nesses {osc_n} o ano de mais tempo no G4 rendeu {osc_dppj} ponto por jogo a mais que o ano zerado, e em {osc_piores} deles rendeu o mesmo ou menos — contando só da 10ª rodada em diante, como a régua da casa também manda, são 8 nomes, 0,26 ponto por jogo e 2 casos iguais ou piores. Fica como indício, e não como prova de que nada se transfere: com {multi} nomes só uma ligação forte apareceria neste desenho, e a que aparece do primeiro clube para o seguinte é fraca.",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Treinadores que oscilam entre um ano zerado no G4 e um ano com o time quase sempre lá",
+    "unidade": "treinadores",
+    "cortes": [
+     {
+      "rotulo": "contando todas as rodadas",
+      "series": [
+       {
+        "nome": "Oscilam",
+        "marcador": "osc_n"
+       }
+      ]
+     },
+     {
+      "rotulo": "só da 10ª rodada em diante",
+      "series": [
+       {
+        "nome": "Oscilam",
+        "marcador": "osc_n_apos10"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "Dos {multi} treinadores com dois clubes ou mais, {osc_n} tiveram um ano zerado no G4 e outro quase todo lá. E o ano bom quase não foi melhor no placar, {osc_dppj} ponto por jogo, e em {osc_piores} deles foi igual ou pior. Com {multi} nomes só uma ligação forte apareceria, e isso não prova que nada se transfere.",
    "para_o_santa_cruz": "Não contratar ninguém pelo melhor ano de G4: o pico não se repete no clube seguinte — e nem no mesmo clube, porque nos {mc_pares} casos de treinador que ficou mais de uma temporada no mesmo clube a oscilação é pelo menos tão grande quanto entre clubes. O que sobra para comparar nomes é o ponto por jogo de cada passagem, com o valor do elenco ao lado.",
    "premissa": "m5",
    "premissa_motivo": "Ajusta a m5 (Comissão técnica top — investir): investir na comissão continua valendo, mas a base não oferece jeito de identificar o treinador top pelo tempo no G4 — esse critério não serve para escolher.",
    "confianca": "indício",
-   "confianca_motivo": "(a) Correção para múltiplos testes a 5%: não passa — nenhuma das contagens foi testada, não existe T02_testes.csv, o scripts/T02.py não importa o scripts/_metodo.py e nem sequer produz os marcadores da frase. (b) Porta temporal: não passa, não foi rodada em lugar nenhum da parte. Nenhum dos dois = indício — e, por ser conclusão negativa, a §6.7 manda publicar o poder junto: com {multi} nomes, a menor ligação que este desenho enxergaria a 80% é r = {r_min_80}, e a observada do primeiro clube para o clube seguinte é r = {r_prim_seg} (p = {p_prim_seg}). “Contagem completa” não é um terceiro caminho para firme. O achado 1 da auditoria (derrubado, 1/3) não muda o nível: o nulo que embaralha passagens entre clubes e temporadas acha “constância”, mas embaralha justamente o que a T02-1 mostrou mandar no tempo de G4 — permutando dentro do clube-temporada não sobra sinal de transferência a publicar. Os dois cortes, com o número ao lado: a amplitude mediana saiu do texto por valer coisas diferentes conforme o corte ({amp_mediana_todas} contando todas as rodadas contra {amp_mediana_apos10} da 10ª em diante), enquanto a cauda dos 50 pontos percentuais ou mais sobrevive aos dois ({amp_50mais_todas} e {amp_50mais_apos10}); e a oscilação dentro do mesmo clube é {mc_osc_mediana} contra {amp_mediana_todas} entre clubes contando tudo, o que sustenta o “pelo menos tão grande” do uso prático e não o “do mesmo tamanho” da versão antiga.",
+   "confianca_motivo": "(a) Correção para múltiplos testes a 5%: não passa — nenhuma das contagens foi testada, não existe T02_testes.csv, o scripts/T02.py não importa o scripts/_metodo.py e nem sequer produz os marcadores da frase. (b) Porta temporal: não passa, não foi rodada em lugar nenhum da parte. Nenhum dos dois = indício — e, por ser conclusão negativa, a §6.7 manda publicar o poder junto: com {multi} nomes, a menor ligação que este desenho enxergaria a 80% é r = {r_min_80}, e a observada do primeiro clube para o clube seguinte é r = {r_prim_seg} (p = {p_prim_seg}). “Contagem completa” não é um terceiro caminho para firme. O achado 1 da auditoria (derrubado, 1/3) não muda o nível: o nulo que embaralha passagens entre clubes e temporadas acha “constância”, mas embaralha justamente o que a T02-1 mostrou mandar no tempo de G4 — permutando dentro do clube-temporada não sobra sinal de transferência a publicar. Os dois cortes, com o número ao lado: a amplitude mediana saiu do texto por valer coisas diferentes conforme o corte ({amp_mediana_todas} contando todas as rodadas contra {amp_mediana_apos10} da 10ª em diante), enquanto a cauda dos 50 pontos percentuais ou mais sobrevive aos dois ({amp_50mais_todas} e {amp_50mais_apos10}); e a oscilação dentro do mesmo clube é {mc_osc_mediana} contra {amp_mediana_todas} entre clubes contando tudo, o que sustenta o “pelo menos tão grande” do uso prático e não o “do mesmo tamanho” da versão antiga. Os {osc_n} que oscilam são {oscilam}, e o critério do ano cheio é o time no G4 em mais de 8 de cada 10 rodadas — a lista saiu do texto de 10 segundos e fica aqui. Contando só da 10ª rodada em diante são {osc_n_apos10} nomes, {osc_dppj_apos10} ponto por jogo de diferença e {osc_piores_apos10} casos iguais ou piores. No gráfico ficaram os dois cortes de quem oscila e mais nada — {osc_n} e {osc_n_apos10} dos {multi} multiclube, a mesma base nos dois blocos. Os {osc_piores} e os {osc_piores_apos10} que renderam o mesmo ou menos saíram do gráfico porque não são de {multi}: são de {osc_n} e de {osc_n_apos10}, e no mesmo eixo pareceriam a mesma conta. Eles ficam no texto, onde o “deles” diz de quem são. Sobre o tamanho do {osc_dppj}: ele é a MEDIANA da série dos {osc_n} (−0,28 · −0,06 · 0,00 · +0,12 · +0,16 · +0,36 · +0,52), não uma média nem um ganho típico — é por isso que o texto de 10 segundos diz que o ano bom quase não foi melhor no placar, e não que ele rendeu mais.",
    "n": "{multi} treinadores com dois clubes ou mais (2022–2025); 2026 fica à parte, como teste",
    "prova": "T02_passagem.csv; T02_numeros_novos.json (correlacao_T02_3); T02.md, seção Prova",
    "validada_em": "2026-09-19"
@@ -100,7 +159,16 @@
   "amp_50mais_apos10": 9,
   "r_prim_seg": "0,11",
   "p_prim_seg": "0,59",
-  "r_min_80": "0,51"
+  "r_min_80": "0,51",
+  "ct_top5_rod_apos10": "11,7",
+  "ct_meio_rod_apos10": "7,1",
+  "ct_baixo_rod_apos10": "2,3",
+  "osc_n_apos10": 8,
+  "osc_dppj_apos10": "0,26",
+  "osc_piores_apos10": 2,
+  "ct_top5_mediana": 9,
+  "ct_meio_mediana": 6,
+  "ct_baixo_mediana": 0
  },
  "em_aberto": "O recálculo que a proposta v2 pede ainda não rodou: o scripts/T02.py precisa passar a produzir o ranking de valor por temporada (T02_faixa_valor.csv), os testes pelo scripts/_metodo.py (T02_testes.csv) e as duas contagens em todos os marcadores. Hoje os números estão conferidos e reproduzíveis em T02_numeros_novos.json, mas o script da parte não os grava — e por isso o selo de provável da T02-1 não pode ir à tela. Falta também gravar em arquivo a contagem da 10ª rodada em diante na unidade clube-temporada e os quatro cortes da T02-2 e da T02-3, que só existem na conferência da proposta. A porta temporal não é passável nesta parte: o valor do elenco é instantâneo de temporada e não tem versão por turno, então o saldo de xG e o ponto por jogo entram como descrição, nunca como critério. Duas heranças a acertar fora daqui: o pedido do _cruzar de marcar a T02-1 como negativa morre na reescrita (a metade negativa “não o nome do treinador” saiu da manchete porque nunca foi testada, e a negativa da parte continua sendo a T02-3), e o T04-2 copia de T02 a frase “dos 34 multiclube, 9 variam 50 pontos ou mais”, que no recorte fechado vira 28 e 8 — arrumar T02 sem arrumar T04 deixa a aba com dois números que não existem mais.",
  "numeros_de_onde": {

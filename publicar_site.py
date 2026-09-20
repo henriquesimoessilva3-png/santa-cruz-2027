@@ -69,7 +69,13 @@ def montar():
     # --- index.html: o template do Flask com os buracos preenchidos ---
     with open(os.path.join(AQUI, "templates", "index.html"), encoding="utf-8") as fh:
         html = fh.read()
-    v = versao(os.path.join(AQUI, "static", "app.js"))
+    # Mesma razao do versao_estatica() do app.py: o maior mtime de TODO .js e .css de
+    # static/. Antes era so o do app.js, e por isso mexer num arquivo de aba (o
+    # estudo_serieb_grafico.js, por exemplo) nao trocava o ?v= — quem ja tinha aberto o
+    # site continuava com o arquivo velho em cache, sem sinal nenhum de que estava velho.
+    v = str(max(int(os.path.getmtime(os.path.join(r, n)))
+                for r, _d, fs in os.walk(os.path.join(AQUI, "static"))
+                for n in fs if n.endswith((".js", ".css"))))
     # mesma razao do versao_dados() do app.py: o maior mtime entre as bases, para o
     # navegador nao servir raio_ref.json velho com app.js novo
     vd = str(max(int(versao(os.path.join(AQUI, "dados", n)))

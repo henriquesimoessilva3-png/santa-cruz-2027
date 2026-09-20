@@ -129,11 +129,14 @@
 #pgEstudo .esb-graf-tabela th { color: #52514e; }
 #pgEstudo .esb-graf-tabela td { color: #0b0b0b; font-variant-numeric: tabular-nums; }
 
-@media (prefers-color-scheme: dark) {
-  #pgEstudo .esb-graf figcaption,
-  #pgEstudo .esb-graf-tabela summary,
-  #pgEstudo .esb-graf-tabela th { color: #c3c2b7; }
-  #pgEstudo .esb-graf-tabela summary:hover,
-  #pgEstudo .esb-graf-tabela td { color: #ffffff; }
-}
+/* Escuro e o PADRAO do app, e quem o liga e desliga e o botao de tema (body.claro) — o
+   style.css nao usa prefers-color-scheme em parte nenhuma. Enquanto isto aqui era um
+   @media, a legenda e a tabela do grafico seguiam o sistema operacional e discordavam da
+   propria pagina: app no escuro com sistema no claro deixava o texto cinza-escuro sobre
+   fundo escuro. O #pgEstudo so existe dentro do app, entao o tema do app decide sozinho. */
+body:not(.claro) #pgEstudo .esb-graf figcaption,
+body:not(.claro) #pgEstudo .esb-graf-tabela summary,
+body:not(.claro) #pgEstudo .esb-graf-tabela th { color: #c3c2b7; }
+body:not(.claro) #pgEstudo .esb-graf-tabela summary:hover,
+body:not(.claro) #pgEstudo .esb-graf-tabela td { color: #ffffff; }
 @media print { #pgEstudo .esb-graf-tabela[open] summary { display: none; } }

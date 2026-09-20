@@ -10,13 +10,46 @@
    "bloco": "A",
    "status": "validada",
    "negativa": true,
-   "manchete": "Corrida não separou quem sobe do meio — e só uma diferença enorme apareceria neste estudo",
-   "o_que_vimos": "O time mediano de quem subiu percorreu {dist_s} metros por jogo contra {dist_m} do meio, e {hi_s} em alta intensidade contra {hi_m} — no ranking de corrida do próprio ano, {pos_dist} posição de diferença; sem os times que ficaram a três pontos da linha, {dist_s_sf} contra {dist_m_sf} e {hi_s_sf} contra {hi_m}. Nenhum dos {n_ind} indicadores físicos declarados separou quem sobe nos dois cortes, nem depois de tirar os {n_cob_baixa} clube-temporada com menos jogo rastreado, nem depois de descontar o tamanho do rodízio de elenco. Este desenho só enxergaria a partir de {pos_visivel} posições de diferença, quase um quarto da tabela: não vimos diferença, o que não é o mesmo que não haver — e correr muda com o placar, recorte que esta base não permite.",
+   "manchete": "Correr mais não separou quem sobe do meio da tabela",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Distância percorrida por jogo",
+    "unidade": "metros",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "dist_s"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "dist_m"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "dist_s_sf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "dist_m_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "O time mediano de quem subiu percorreu {dist_s} metros por jogo contra {dist_m} do meio, e {hi_s} em alta intensidade contra {hi_m}. Nenhum dos {n_ind} indicadores físicos declarados separou quem sobe nos dois cortes. Não vimos diferença, e aqui só apareceria a partir de {pos_visivel} posições de tabela.",
    "para_o_santa_cruz": "Não há base aqui para contratar pensando em “time que corre mais sobe” — e também não há base para dizer que correr não importa, porque este estudo não teria como ver. Escolha o nível físico pelo modelo de jogo que o treinador vai pedir, não como atalho para o acesso. Para o físico virar critério de acesso seria preciso dado por jogo, que neste repositório só existe a partir de 2025.",
    "premissa": null,
    "premissa_motivo": "Ajusta a m1 (Time físico): “a intensidade é critério de escolha, não detalhe” fica SEM PROVA pelo lado do acesso — não é contradita, este desenho não conseguiria enxergá-la. E corrige a leitura das réguas da Protótipo que o texto anterior fazia: a régua C_volume_fisico não separa nada em lugar nenhum, mas a D_explosao separa quem CAI do meio, firme nos dois cortes (A12_reguas.csv, Cai × Meio) — a frase certa é “não separam quem SOBE”, e não “não separam”.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não tem nenhum dos dois critérios da régua. (a) Correção para múltiplos testes a 5%: não — e resultado negativo não passa nela, ele é a ausência dela; nenhuma linha de Sobe × Meio ou de Sobe × Trave passa no critério, em nenhum dos dois cortes de fronteira, e com o desconto do rodízio que a especificação exige no físico o menor valor sobe ainda mais ({q_rod_min_sm} em Sobe × Meio e {q_rod_min_st} em Sobe × Trave). (b) Porta temporal da §6.4: não — nunca rodou nesta parte e não roda com o dado de hoje, porque não há físico por jogo antes de 2025. Poder: as linhas de Sobe × Meio e Sobe × Trave estão todas marcadas poder_suficiente=False, sem uma exceção — o menor efeito que este desenho enxergaria com {n_sobe} contra {n_meio} equivale a {pos_visivel} posições na tabela do ano, quase um quarto dela. Onde os dois cortes de fronteira trocam de sinal — acelerações fortes e distância em sprint contra a Trave, metros por minuto em Cai × Meio — o efeito é perto de zero dos dois lados, e nenhum deles vira frase. Cobertura: sai a frase “cobertura completa” que sustentava o selo firme, porque é falsa — pela conta absoluta (minutos rastreados sobre jogos × 11 × 90) a cobertura vai de {cob_min}% a {cob_max}% do possível, mediana {cob_mediana}%, o pior caso é um dos promovidos, e os {n_cob_baixa} clube-temporada abaixo de três quartos foram rodados à parte, com o mesmo resultado. Vale ainda a ressalva declarada por escrito antes de rodar: correr muda com o placar, e esta base não permite o recorte.",
+   "confianca_motivo": "Indício porque não tem nenhum dos dois critérios da régua. (a) Correção para múltiplos testes a 5%: não — e resultado negativo não passa nela, ele é a ausência dela; nenhuma linha de Sobe × Meio ou de Sobe × Trave passa no critério, em nenhum dos dois cortes de fronteira, e com o desconto do rodízio que a especificação exige no físico o menor valor sobe ainda mais ({q_rod_min_sm} em Sobe × Meio e {q_rod_min_st} em Sobe × Trave). (b) Porta temporal da §6.4: não — nunca rodou nesta parte e não roda com o dado de hoje, porque não há físico por jogo antes de 2025. Poder: as linhas de Sobe × Meio e Sobe × Trave estão todas marcadas poder_suficiente=False, sem uma exceção — o menor efeito que este desenho enxergaria com {n_sobe} contra {n_meio} equivale a {pos_visivel} posições na tabela do ano, quase um quarto dela. Onde os dois cortes de fronteira trocam de sinal — acelerações fortes e distância em sprint contra a Trave, metros por minuto em Cai × Meio — o efeito é perto de zero dos dois lados, e nenhum deles vira frase. Cobertura: sai a frase “cobertura completa” que sustentava o selo firme, porque é falsa — pela conta absoluta (minutos rastreados sobre jogos × 11 × 90) a cobertura vai de {cob_min}% a {cob_max}% do possível, mediana {cob_mediana}%, o pior caso é um dos promovidos, e os {n_cob_baixa} clube-temporada abaixo de três quartos foram rodados à parte, com o mesmo resultado. Vale ainda a ressalva declarada por escrito antes de rodar: correr muda com o placar, e esta base não permite o recorte. No ranking de corrida do próprio ano, a distância que separa quem subiu de quem ficou no meio vale {pos_dist} posição da tabela — e nenhum dos {n_ind} indicadores físicos declarados separou quem sobe nos dois cortes de fronteira, nem depois de tirar os {n_cob_baixa} clube-temporada com menos jogo rastreado, nem depois de descontar o tamanho do rodízio de elenco. Com todos os times, {dist_s} contra {dist_m} metros; sem os times que ficaram a três pontos da linha, {dist_s_sf} contra {dist_m_sf}. A alta intensidade sem os de fronteira é {hi_s_sf} contra {hi_m}. O gráfico desta conclusão não mostra metros: mostra, em posições da tabela do ano, a diferença que vimos ({pos_dist}) e o mínimo que este estudo enxergaria ({pos_visivel}).",
    "n": "{n_sobe} que subiram contra {n_meio} do meio ({n_sobe_sf} contra {n_meio_sf} sem os times de fronteira); contra a Trave, {n_trave} contra {n_trave} e {n_sobe_sf} contra {n_trave_sf}; {n_sobe_cob} contra {n_meio_cob} quando saem os {n_cob_baixa} clube-temporada com menos jogo rastreado. As {n_total} linhas são {clubes} clubes.",
    "prova": "A07_testes.csv, comparação SM e ST nos dois cortes de fronteira; A07_numeros_novos.json, tabela_d_rod_q_rod e rodada_sem_cobertura_baixa; A07_resumo.json, poder_por_desenho; A07_indicadores.json, ressalvas_declaradas",
    "validada_em": "2026-09-19"
@@ -25,13 +58,46 @@
    "id": "A07-2",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Quem cai sprinta menos nos minutos sem a bola, e não é só por rodar mais o elenco",
-   "o_que_vimos": "A cada 30 minutos sem a bola, o time mediano dos rebaixados correu {otip_c} metros em sprint contra {otip_m} do meio — sem os times que ficaram a três pontos da linha, {otip_c} contra {otip_m_sf}; no ranking do próprio ano, {pos_otip} posições abaixo. Com a bola o buraco bruto vai na mesma direção ({tip_c} contra {tip_m} metros), mas varia tanto de time para time que esta amostra não separa as duas fases: o estudo não consegue dizer onde exatamente falta o sprint. Descontado o rodízio — quem cai usou {at_c} atletas rastreados na temporada contra {at_m} do meio —, o sprint sem a bola é o único número físico que continua de pé nos dois cortes; o sprint somado no jogo inteiro e a velocidade máxima deixam de separar, e todos eles são média de cerca de {jogos_por_atleta} jogos por atleta, não de 38.",
+   "manchete": "Quem cai sprinta menos nos minutos sem a bola",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Sprint a cada trinta minutos sem a bola",
+    "unidade": "metros",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "otip_c"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "otip_m"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "otip_c"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "otip_m_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "A cada trinta minutos sem a bola, o time mediano dos rebaixados correu {otip_c} metros em sprint contra {otip_m} do meio. Descontado o rodízio de elenco, é o único número físico que continua separando quem cai. Esta amostra não diz se o sprint falta só sem a bola.",
    "para_o_santa_cruz": "Isto é sinal para medir no próprio time, não critério de contratação: a especificação (§5, armadilha a) já decidiu que correr sem a bola é a face física de pressionar alto — descreve o plano do treinador, não a qualidade do atleta, e não pode virar critério de compra. Se o elenco do Santa Cruz ficar na faixa dos {otip_c} metros dos rebaixados, o assunto é o modelo de jogo e o tamanho do rodízio, não o mercado. E nada aqui autoriza dizer que sprintar mais evita a queda: o estudo só viu as duas coisas andando juntas na mesma temporada.",
    "premissa": null,
    "premissa_motivo": "Ajusta a m1 (Time físico) pelo outro lado: o físico aparece contra a QUEDA, não a favor do acesso. E, pela §5 da especificação, correr sem a bola descreve o plano de jogo e não pode virar critério de compra — a premissa, que hoje diz “a intensidade é critério de escolha”, tem de separar as duas coisas. Sugere premissa nova: “o físico do elenco é escolha de modelo de jogo; mede-se o próprio time contra a régua da Série B, não se contrata por ele”.",
    "confianca": "provável",
-   "confianca_motivo": "Provável porque tem um dos dois critérios da régua. (a) Correção para múltiplos testes a 5%: sim, e para um indicador só — o sprint nos minutos sem a bola, em Cai × Meio, passa nos dois cortes de fronteira, continua passando com o desconto do rodízio que a especificação exige no físico ({q_rod_otip} com os times de fronteira e {q_rod_otip_sf} sem eles) e passa também sem os {n_cob_baixa} clube-temporada de cobertura baixa, onde fica firme nos dois cortes. (b) Porta temporal da §6.4: não — não rodou e não roda, porque não há físico por jogo antes de 2025; por isso esta conclusão não passa de provável, por melhor que fique escrita. Os outros três números físicos que o texto anterior usava caem com o mesmo desconto: o sprint somado no jogo inteiro vai para {q_rod_sp90}, o número de sprints para {q_rod_spcount} e a velocidade máxima para {q_rod_psv} — ou seja, o rodízio EXPLICA o sprint total, ao contrário do que esta parte afirmava, e o PSV-99 sai da manchete e também do corpo do texto. O maior efeito da parte não é o sprint: é o rodízio ({at_c} atletas rastreados contra {at_m}, firme nos dois cortes), e é por isso que ele entra como desconto e não como comentário. Poder: só o corte com os times de fronteira tem poder suficiente, e no fio; a linha do corte sem eles está marcada poder_suficiente=False. Todo número de vitrine sai do corte com fronteira, com o corte sem ao lado e o n de cada um. Sem o físico por jogo de 2022 a 2024 nada disto sobe para firme, e correr muda com o placar, recorte que esta base não permite.",
+   "confianca_motivo": "Provável porque tem um dos dois critérios da régua. (a) Correção para múltiplos testes a 5%: sim, e para um indicador só — o sprint nos minutos sem a bola, em Cai × Meio, passa nos dois cortes de fronteira, continua passando com o desconto do rodízio que a especificação exige no físico ({q_rod_otip} com os times de fronteira e {q_rod_otip_sf} sem eles) e passa também sem os {n_cob_baixa} clube-temporada de cobertura baixa, onde fica firme nos dois cortes. (b) Porta temporal da §6.4: não — não rodou e não roda, porque não há físico por jogo antes de 2025; por isso esta conclusão não passa de provável, por melhor que fique escrita. Os outros três números físicos que o texto anterior usava caem com o mesmo desconto: o sprint somado no jogo inteiro vai para {q_rod_sp90}, o número de sprints para {q_rod_spcount} e a velocidade máxima para {q_rod_psv} — ou seja, o rodízio EXPLICA o sprint total, ao contrário do que esta parte afirmava, e o PSV-99 sai da manchete e também do corpo do texto. O maior efeito da parte não é o sprint: é o rodízio ({at_c} atletas rastreados contra {at_m}, firme nos dois cortes), e é por isso que ele entra como desconto e não como comentário. Poder: só o corte com os times de fronteira tem poder suficiente, e no fio; a linha do corte sem eles está marcada poder_suficiente=False. Todo número de vitrine sai do corte com fronteira, com o corte sem ao lado e o n de cada um. Sem o físico por jogo de 2022 a 2024 nada disto sobe para firme, e correr muda com o placar, recorte que esta base não permite. No ranking do próprio ano, o sprint sem a bola dos rebaixados fica {pos_otip} posições abaixo do meio. Com a bola o buraco bruto vai na mesma direção ({tip_c} contra {tip_m} metros), mas varia tanto de time para time que esta amostra não separa as duas fases: o estudo não consegue dizer onde exatamente falta o sprint. O sprint somado no jogo inteiro e a velocidade máxima deixam de separar com o desconto do rodízio, e esses números de corrida, o sprint sem a bola incluído, são média de cerca de {jogos_por_atleta} jogos por atleta rastreado, não de uma temporada inteira.",
    "n": "{n_cai} rebaixados contra {n_meio} do meio ({n_cai_sf} contra {n_meio_sf} sem os times de fronteira; {n_cai_cob} contra {n_meio_cob} quando saem os {n_cob_baixa} clube-temporada com menos jogo rastreado).",
    "prova": "A07_testes.csv, comparação CM nos dois cortes de fronteira; A07_numeros_novos.json, tabela_d_rod_q_rod e rodada_sem_cobertura_baixa; A07_resumo.json, firme_nos_dois_cortes",
    "validada_em": "2026-09-19"

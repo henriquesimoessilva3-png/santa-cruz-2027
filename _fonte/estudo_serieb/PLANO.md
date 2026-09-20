@@ -221,9 +221,73 @@ checklist.
 Skill nova, no molde das que já existem (`dados-wyscout`, `dados-skillcorner`, `portais-botafogo`).
 Nome sugerido: **`analisar-campeonato`**. O `CLAUDE.md` do Estudo Série B vira o exemplo trabalhado.
 
-## Etapa 8 — Os gráficos e a passada de texto · **a próxima rodada, especificada para rodar a frio**
+## Etapa 8 — Os gráficos e a passada de texto · **FEITA em 20/09**
 
-As duas mexem nos mesmos `<ID>.json`, então vão juntas, um agente por parte (22).
+As duas mexiam nos mesmos `<ID>.json`, então foram juntas, um agente por parte (25, e não 22:
+J05, J06 e J09 entraram).
+
+### O que saiu, medido
+
+| | antes | depois |
+|---|---|---|
+| `o_que_vimos`, mediana | 767 caracteres | **266** (maior: 279) |
+| manchetes fora da régua | 51 de 70 | **0** (mediana 13 palavras) |
+| conclusões com gráfico | 0 | **58 de 70** |
+| portão, regra 1 | PASSA 3 · REPROVA 12 · REVISAR 7 | **PASSA 16** · REPROVA 5 · REVISAR 1 |
+| portão, reprovações | 40 | **33**, com as regras 10 e 11 a mais |
+
+A regra 1 melhorou sozinha: tirar do texto o inteiro cravado à mão era metade do que ela cobrava.
+
+### O que custou quatro rodadas, e por quê
+
+Encurtar de 767 para 266 caracteres **come ressalva**, e a régua das regras 10 e 11 não pega isso
+— está escrito nas limitações do próprio `_portao.py`. A primeira rodada entregou texto dentro da
+régua e perdeu escopo: "nenhuma **dessas** diferenças" virou "nenhuma diferença", caiu "em média",
+caiu "por 90", caiu "pode ser efeito do placar" (que o `A06_indicadores.json` declara obrigatória).
+Um cético novo, lendo só o resultado final contra o HEAD, achou **7 graves e 35 médias**; uma
+terceira rodada devolveu ressalva e escopo ao texto visível; um fecho consertou as 5 regressões que
+a devolução criou.
+
+**A regra que ficou:** quando não couber em 280 caracteres, sai o detalhe do achado, nunca a
+ressalva. E `confianca_motivo` **não é texto de leitura** — na tela é o `title` do selo de
+confiança. Ressalva que muda o que o leitor faz não pode morar só ali.
+
+### O desenho também afirma, e por isso ganhou régua
+
+Três defeitos do renderizador só apareceram com gráfico de verdade na tela:
+
+- **A régua começava no menor ponto do próprio gráfico**, com 35% de folga. 9.582 contra 9.607
+  metros — 0,26%, publicado como "sem diferença clara", com quatro clubes de um lado — ocupava 40%
+  da largura. O desenho afirmava o que a manchete negava. Agora a régua **começa no zero**, as
+  pontas dela são escritas, e o zero vira linha tracejada quando há valor negativo.
+- **A forma `turno` não desenhava**: o gerador resolve o marcador em valor e o renderizador ainda
+  procurava o valor pela chave. Devolvia `null`, e o `montarGraficos` removia o encaixe — sumia da
+  tela sem erro.
+- **A paleta seguia o sistema operacional**, e o app tem tema próprio (`body.claro`, padrão
+  escuro). App no escuro com sistema no claro pintava a tinta do rótulo em `#0b0b0b` sobre fundo
+  escuro: o número sumia, e é ele a regra de alívio do contraste. O `estudo_serieb.css` tinha o
+  mesmo buraco.
+
+E fora do estudo: o `?v=` do site vinha do mtime do `app.js` só, então mexer em arquivo de aba não
+trocava a versão e o navegador servia o arquivo velho. Agora é o maior mtime de todo `.js` e `.css`
+de `static/`, no `publicar_site.py` e no `versao_estatica()` do `app.py`.
+
+### O que ficou em aberto
+
+- **12 conclusões sem gráfico**, cada uma com o motivo no próprio relatório da parte. O padrão é um
+  só: falta par de marcadores na mesma unidade, ou o script grava o valor em módulo (A02-3:
+  `fin_m_cf` sem sinal inverteria a leitura). **Resolver é mexer nos `<ID>.py`, não no texto.**
+- **Marcadores que os scripts precisam gravar** para fechar o resto: A01 pede o corte por ano
+  (`corte_2022`…`corte_2025`) e a janela 2018–2021; A03 pede o `dif_pj` do Meio e do Cai no corte
+  sem fronteira; A02 pede `fin_m_cf` com sinal.
+- **O `confianca_motivo` de J08-1 e J08-2** está em 4.020 e 3.497 caracteres na tela. O mecanismo
+  foi consertado (edição no lugar, não errata anexada) e nada de substância saiu, mas um tooltip
+  desse tamanho não se lê. Decidir o que sai dali é do dono.
+- **A07-1** continua com a ressalva do corte reduzido fora do texto de leitura; ganhou o gráfico de
+  dois cortes da distância, que é a proteção que o plano desenhou para isso.
+- **O `PARTES` do `_portao.py` ainda lista 22** e não inclui J05, J06 e J09 — por isso os três
+  `<ID>_portao.py` avulsos, e por isso a regra 7 passa por vacuidade neles. As regras 10 e 11 os
+  alcançam pelos atalhos.
 
 ### 8.1 O que JÁ ESTÁ PRONTO e não precisa ser refeito
 

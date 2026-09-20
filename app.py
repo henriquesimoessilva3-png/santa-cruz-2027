@@ -211,13 +211,22 @@ def versao_dados():
 
 
 def versao_estatica():
-    """Assinatura dos arquivos de front, para o navegador nunca servir versao velha."""
-    marcas = []
-    for nome in ("app.js", "style.css", "fs_visoes.js",
-                 "prototipo.js", "proto.js", "proto_a.js", "proto_b.js", "proto_c.js"):
-        caminho = os.path.join(AQUI, "static", nome)
-        marcas.append(str(int(os.path.getmtime(caminho))) if os.path.exists(caminho) else "0")
-    return "-".join(marcas)
+    """Assinatura dos arquivos de front, para o navegador nunca servir versao velha.
+
+    O maior mtime de TODO .js e .css de static/, e nao uma lista de nomes. A lista fixa que
+    havia aqui (app.js, style.css, fs_visoes.js e os quatro da Prototipo) tinha de ser
+    editada a cada aba nova e nunca era: os arquivos do Estudo Serie B, por exemplo, nunca
+    entraram nela, entao mexer no estudo_serieb_grafico.js nao trocava o ?v= e o navegador
+    servia o renderizador velho. Varrer a pasta custa nada e nao envelhece."""
+    maior = 0
+    for raiz, _dirs, arquivos in os.walk(os.path.join(AQUI, "static")):
+        for nome in arquivos:
+            if nome.endswith((".js", ".css")):
+                try:
+                    maior = max(maior, int(os.path.getmtime(os.path.join(raiz, nome))))
+                except OSError:
+                    pass
+    return str(maior)
 
 
 @app.route("/")

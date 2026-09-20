@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""O portão de entrega do Estudo Série B: nove regras que conferem o que a parte alega sobre si mesma.
+"""O portão de entrega do Estudo Série B: onze regras que conferem o que a parte alega sobre si mesma.
 
 Por que existe (etapa 6 do PLANO.md, aprovada pelo dono em 19/09). O estudo falhou numa CLASSE de
 erro: ele afirma coisas sobre si mesmo que não são verdade, e nada confere. 191 números digitados
@@ -20,7 +20,7 @@ O QUE ELE NÃO CONSEGUE PROVAR (leia antes de confiar): o portão NÃO executa s
 abre base nenhuma. Ele confere que o número publicado é IGUAL ao número que a saída do script
 declara, que o script existe, que ele grava aquela saída e que importa o método da casa — mas não
 recalcula o número a partir do dado bruto. Uma saída inteira escrita à mão, com script de fachada
-que grave o mesmo arquivo, ainda passa nas nove regras. Fechar isso exige rodar o script e comparar
+que grave o mesmo arquivo, ainda passa nas onze regras. Fechar isso exige rodar o script e comparar
 com o que ele devolve, e nenhum script do estudo aceita ser rodado em modo de conferência hoje.
 A seção "O que o portão ainda NÃO consegue provar" no fim de cada rodada repete este aviso.
 
@@ -1561,9 +1561,116 @@ def regra_9(parte, contexto):
 
 
 # ----------------------------------------------------------------------------------------------
+# Regras 10 e 11 — a régua do texto (etapa 8.4 do PLANO.md)
+# ----------------------------------------------------------------------------------------------
+# Por que existem. A regra das 3 frases da seção Didática está cumprida e foi BURLADA PELO
+# TAMANHO: medido em 20/09, nenhuma das 62 conclusões passava de 3 frases e a mediana do "o que
+# vimos" era de 767 caracteres, com a maior em 1.258 — três frases que ninguém lê em 2 minutos.
+# 48 das 62 manchetes passavam de 14 palavras. Tamanho e contagem de palavras são as duas únicas
+# coisas do texto que uma máquina consegue conferir, e são justamente onde a régua foi burlada.
+
+
+def como_a_tela_mostra(texto, numeros):
+    """O texto com os marcadores trocados pelo valor JÁ FORMATADO como a tela o mostra.
+
+    Espelha, de propósito, o `trocar()` do `gerar_estudo_serieb_js.py`: 19.669 vira “19,67” e
+    1200 vira “1.200”. Medir pelo `str()` cru do Python contaria caracteres que o leitor não vê
+    e reprovaria (ou absolveria) uma conclusão pelo motivo errado. Se aquele formatador mudar,
+    este tem de mudar junto — é a mesma régua medida duas vezes."""
+    def troca(m):
+        chave = m.group(1)
+        if chave not in numeros:
+            return m.group(0)
+        v = numeros[chave]
+        if isinstance(v, float):
+            return f"{v:.2f}".rstrip("0").rstrip(".").replace(".", ",")
+        if isinstance(v, int):
+            return f"{v:,}".replace(",", ".")
+        return str(v)
+    return re.sub(r"\{([A-Za-z_][A-Za-z0-9_]*)\}", troca, texto or "")
+
+
+def frases_de(texto):
+    """As frases do texto. O ponto de um número já foi embora na formatação acima (vira vírgula),
+    então cortar em [.!?] seguido de espaço ou fim não parte “19,67” no meio."""
+    return [f for f in re.split(r"(?<=[.!?])\s+", (texto or "").strip()) if f]
+
+
+def publicadas(parte):
+    """As conclusões que a régua do texto alcança.
+
+    Conclusão `removida` fica de fora: a manchete dela é o registro riscado do que saiu do estudo
+    (“~~…~~”), não uma afirmação publicada. Reescrevê-la para caber em 14 palavras apagaria a
+    memória de por que ela caiu, que é o contrário do que o portão existe para proteger."""
+    return [c for c in parte.conclusoes if (c.get("status") or "rascunho") != "removida"]
+
+
+MANCHETE_MAX_PALAVRAS = 14
+VIMOS_MAX_CARACTERES = 280
+VIMOS_MAX_FRASES = 3
+# O dois-pontos e o travessão são o jeito mecânico de conferir “uma oração”: das 48 manchetes
+# longas de 20/09, quase toda grudava duas frases com um deles. A máquina não lê oração; lê a
+# emenda.
+RE_EMENDA_MANCHETE = re.compile(r"[:\u2014\u2013]")
+
+
+def regra_10(parte, contexto):
+    titulo = "A manchete cabe em 14 palavras, numa oração só"
+    problemas = []
+    for c in publicadas(parte):
+        cid = c.get("id") or "?"
+        texto = como_a_tela_mostra(c.get("manchete"), parte.numeros)
+        palavras = len(texto.split())
+        if palavras > MANCHETE_MAX_PALAVRAS:
+            problemas.append(f"{cid} · manchete com {palavras} palavras "
+                             f"(o teto é {MANCHETE_MAX_PALAVRAS}): “{texto}”")
+        emendas = sorted({m.group(0) for m in RE_EMENDA_MANCHETE.finditer(texto)})
+        if emendas:
+            problemas.append(f"{cid} · manchete emendada por “{'”, “'.join(emendas)}”: duas "
+                             f"orações onde a régua pede uma — “{texto}”")
+    if problemas:
+        return Achado(10, titulo, REPROVA,
+                      f"{plural(len(problemas), 'manchete não cabe', 'manchetes não cabem')} "
+                      "na régua de 10 segundos", problemas)
+    quantas = len(publicadas(parte))
+    riscadas = len(parte.conclusoes) - quantas
+    ev = [f"{riscadas} conclusão removida fora da conta (manchete riscada)"] if riscadas else []
+    return Achado(10, titulo, PASSA,
+                  f"{plural(quantas, 'manchete cabe', 'manchetes cabem')} em "
+                  f"{MANCHETE_MAX_PALAVRAS} palavras, sem dois-pontos e sem travessão", ev)
+
+
+def regra_11(parte, contexto):
+    titulo = f"O que vimos cabe em {VIMOS_MAX_CARACTERES} caracteres e em {VIMOS_MAX_FRASES} frases"
+    problemas = []
+    for c in publicadas(parte):
+        cid = c.get("id") or "?"
+        texto = como_a_tela_mostra(c.get("o_que_vimos"), parte.numeros)
+        n = len(texto)
+        if n > VIMOS_MAX_CARACTERES:
+            problemas.append(f"{cid} · o_que_vimos com {n} caracteres na tela "
+                             f"(o teto é {VIMOS_MAX_CARACTERES}): “{texto[:110]}…”")
+        fr = len(frases_de(texto))
+        if fr > VIMOS_MAX_FRASES:
+            problemas.append(f"{cid} · o_que_vimos em {fr} frases (o teto é "
+                             f"{VIMOS_MAX_FRASES}): cortar em frases curtas não é encurtar")
+    if problemas:
+        return Achado(11, titulo, REPROVA,
+                      f"{plural(len(problemas), 'medida do texto estourou', 'medidas do texto estouraram')}"
+                      " a régua dos 2 minutos", problemas)
+    quantas = len(publicadas(parte))
+    maior = max([len(como_a_tela_mostra(c.get("o_que_vimos"), parte.numeros))
+                 for c in publicadas(parte)] or [0])
+    return Achado(11, titulo, PASSA,
+                  f"{plural(quantas, 'o que vimos cabe', 'textos de o que vimos cabem')} na régua",
+                  [f"o maior tem {maior} caracteres na tela"])
+
+
+# ----------------------------------------------------------------------------------------------
 # Rodar
 # ----------------------------------------------------------------------------------------------
-REGRAS = [regra_1, regra_2, regra_3, regra_4, regra_5, regra_6, regra_7, regra_9]
+REGRAS = [regra_1, regra_2, regra_3, regra_4, regra_5, regra_6, regra_7, regra_9,
+          regra_10, regra_11]
 
 
 def conferir(pid, contexto):
@@ -1571,7 +1678,7 @@ def conferir(pid, contexto):
     if parte.problemas:
         # Sem um <ID>.json íntegro não há o que conferir — e "não há o que conferir" nunca pode
         # virar "tudo conferido". Arquivo truncado, vazio, com o topo errado ou trocado por uma
-        # pasta passava nas nove regras por falta de conteúdo.
+        # pasta passava nas onze regras por falta de conteúdo.
         achados = [Achado(0, "A parte existe, é legível e tem a forma certa", REPROVA,
                           f"{plural(len(parte.problemas), 'defeito de forma', 'defeitos de forma')}"
                           " no arquivo da parte: as outras regras não rodaram",
@@ -1589,7 +1696,7 @@ def imprimir(pid, achados, aceita):
     marca = "ACEITA" if aceita else "RECUSADA"
     print(f"\n{'=' * 94}\n{pid}  ·  {marca}\n{'=' * 94}")
     for a in achados:
-        print(f"  regra {a.regra}  {a.veredito:<14} {a.titulo}")
+        print(f"  regra {a.regra:<2} {a.veredito:<14} {a.titulo}")
         print(f"     └ {a.motivo}")
         for e in a.evidencia:
             print(f"       · {e}")
@@ -1619,6 +1726,10 @@ LIMITACOES = [
     "diferentes não colidem.",
     "Regra 8 confere sentinela, existência do gerador e coerência com os <ID>.json; ela não "
     "regenera o registro para comparar palavra por palavra.",
+    "Regras 10 e 11 medem TAMANHO, não conteúdo. Elas provam que a manchete cabe em 14 palavras "
+    "e que o que vimos cabe em 280 caracteres — não que a ressalva do texto longo sobreviveu ao "
+    "corte. Texto que encolheu jogando fora o “mas só sem os times de fronteira” passa nas duas. "
+    "O que protege disso é a regra 3 e o gráfico de dois cortes, não a régua do tamanho.",
 ]
 
 

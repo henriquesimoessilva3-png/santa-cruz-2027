@@ -9,13 +9,50 @@
    "id": "J07-1",
    "bloco": "J",
    "status": "validada",
-   "manchete": "A vaga de estrangeiro não está sobrando: a Série B já usa {liga_ct} por clube, e quem sobe põe quase três vezes mais minutos neles que o meio",
-   "o_que_vimos": "Nas quatro temporadas fechadas, {ct_com_algum} das {ct_total} clube-temporadas tiveram pelo menos um estrangeiro e a liga usa {liga_ct} por clube — longe das {vagas} que o regulamento permite, mas muito longe de zero. Quem subiu deu {sobe_min}% dos minutos do time a estrangeiros contra {meio_min}% do meio e {cai_min}% de quem caiu, e tirando os times colados na linha de acesso a distância não encolhe, aumenta: {sobe_sem}% contra {meio_sem}%. É leitura de agora e não das quatro temporadas: o uso quase triplicou de 2022 a 2025, de 3,5% para {pct_min_max}% dos minutos da liga, 80 dos {est_lin} casos da janela são só de 2025, e em {ano_invertido} quem subiu usou menos estrangeiro que o meio, 0,5% contra 1,2%.",
+   "manchete": "Quem sobe dá {sobe_min}% dos minutos a estrangeiro, quase o triplo do meio",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Minutos dados a estrangeiro",
+    "unidade": "% dos minutos do time",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "sobe_min"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "meio_min"
+       },
+       {
+        "nome": "Cai",
+        "marcador": "cai_min"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "sobe_sem"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "meio_sem"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "{ct_com_algum} das {ct_total} clube-temporadas já tiveram estrangeiro, e a liga usa {liga_ct} por clube, longe das {vagas} do regulamento. É retrato de agora, não das quatro temporadas: o uso quase triplicou desde 2022, até {pct_min_max}% dos minutos da liga, e em {ano_invertido} quem subiu usou menos estrangeiro que o meio.",
    "para_o_santa_cruz": "A vaga de estrangeiro não está vazia: {ct_com_algum} de {ct_total} clube-temporadas já usam pelo menos uma e {ct_sobe_com_algum} dos 16 clubes que subiram usaram — o Santa Cruz vai chegar num mercado com preço formado, e o que J08 e J09 fazem é escolher melhor dentro dele, não ocupar um espaço que ninguém viu. Quem subiu usa mais, mas isso é retrato de 2024-2025: em {ano_invertido} quem subiu usou menos que o meio. E nada aqui diz que estrangeiro faz subir — pode ser o contrário, clube que sobe é clube que tinha dinheiro para trazer.",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova, e ela inverte o que o texto publicado até aqui sugeria: a Série B usa 2,3 estrangeiros por clube-temporada, 63 de 80 clube-temporadas já têm pelo menos um e o uso quase triplicou em quatro anos — a vaga de estrangeiro é recurso disputado e em alta, não recurso ocioso. A premissa antiga (\"a vaga está sobrando, há espaço de arbitragem\") era artefato do cruzamento de nomes quebrado e sai.",
    "confianca": "indício",
-   "confianca_motivo": "Indício, por três razões que se somam. O CLAUDE.md já decidiu que \"resultados de estrangeiros na própria B são descritivos: liste os casos, sem aplicar o critério de conclusão\". Não há tabela de testes nesta parte — resultados/J07_testes.csv não existe e a linha 5 de scripts/J07.py diz por escrito que aqui não há teste de hipótese nem BH —, então nenhum q foi calculado e a distância entre as faixas não foi testada. E a porta temporal do 1º turno prevendo o 2º não rodou: a unidade desta parte é jogador-temporada e nenhum indicador tem versão por rodada. São {sobe_n} casos de estrangeiro na faixa Sobe, em 16 clube-temporadas; os dois cortes da fronteira rodaram e estão os dois na frase.",
+   "confianca_motivo": "Indício, por três razões que se somam. O CLAUDE.md já decidiu que \"resultados de estrangeiros na própria B são descritivos: liste os casos, sem aplicar o critério de conclusão\". Não há tabela de testes nesta parte — resultados/J07_testes.csv não existe e a linha 5 de scripts/J07.py diz por escrito que aqui não há teste de hipótese nem BH —, então nenhum q foi calculado e a distância entre as faixas não foi testada. E a porta temporal do 1º turno prevendo o 2º não rodou: a unidade desta parte é jogador-temporada e nenhum indicador tem versão por rodada. São {sobe_n} casos de estrangeiro na faixa Sobe, em 16 clube-temporadas; os dois cortes da fronteira rodaram e estão os dois no gráfico desta conclusão, um sobre o outro: sem os times colados na linha de acesso, a distância entre quem sobe e o meio aumenta em vez de encolher. A leitura é dominada por 2025, a temporada que concentra {pct_coorte_2025}% dos casos da janela (80 dos {est_lin}: é o maior ano, mas não é a maioria), e a série de quem sobe contra o meio ano a ano continua sem marcador próprio — por isso os percentuais de cada temporada saíram da frase e esperam a re-rodada. Usar estrangeiro não anda junto só com subir, e o contrapeso está no gráfico: quem caiu dá {cai_min}% dos minutos a estrangeiro, mais que os {meio_min}% do meio, então a faixa Cai entrou no corte com todos os times. A assimetria se repete no outro corte e é maior: sem os times de fronteira o Cai vai a 6,1% contra {meio_sem}% do meio — mas esses 6,1% existem hoje só dentro do de_onde de meio_sem em J07_numeros_novos.json, sem marcador próprio, e é por isso que a faixa Cai não aparece no corte de baixo do gráfico; ela entra na re-rodada.",
    "n": "{est_lin} casos de estrangeiro — 182 jogador-temporadas distintas, {est_pes} jogadores — em {ct_total} clube-temporadas de 2022 a 2025. Sobe: {sobe_n} casos em 16 clube-temporadas. Meio: 87 em 48. Cai: 37 em 16.",
    "prova": "J07_numeros_novos.json, sobe_min e sobe_sem; J07_resumo.json, por_faixa_do_time (cruzamento antigo, a regerar)",
    "validada_em": "2026-09-19"
@@ -24,13 +61,28 @@
    "id": "J07-2",
    "bloco": "J",
    "status": "validada",
-   "manchete": "O estrangeiro não chega jogando mais que o brasileiro que chega — chega igual, e no ano seguinte só 1 em cada 4 ainda está na Série B",
-   "o_que_vimos": "Comparando os dois lados do mesmo jeito, só quem entrou no clube naquele ano, o estrangeiro fica com {pri_est_nc}% dos minutos do time na estreia e o brasileiro com {pri_br_nc}% — empate, com {n_pri_est_nc} estrangeiros contra {n_pri_br_nc} brasileiros. A vantagem de {pri_est}% contra {pri_br}% que aparecia antes vem de uma coorte frouxa, em que chegar era só aparecer na base pela primeira vez, e some quando os dois lados são recortados igual; deixando 2022 de fora, ano em que a liga inteira conta como estreante, ela volta a 19,4% contra 15,2%, com 94 estrangeiros. O que não muda em corte nenhum é a saída: 49 dos {n_perm_est} estrangeiros reaparecem na Série B no ano seguinte ({perm_est}%), contra 1.438 de {n_perm_br} brasileiros ({perm_br}%), e o estrangeiro fica atrás nas quatro temporadas, de 14,7% a 37,7% contra 48,9% a 53,5%.",
+   "manchete": "Um ano depois, só {perm_est}% dos estrangeiros seguem na liga, contra {perm_br}% dos brasileiros",
+   "grafico": {
+    "tipo": "grupos",
+    "titulo": "Segue na Série B no ano seguinte",
+    "unidade": "% dos casos",
+    "series": [
+     {
+      "nome": "Estrangeiro",
+      "marcador": "perm_est"
+     },
+     {
+      "nome": "Brasileiro",
+      "marcador": "perm_br"
+     }
+    ]
+   },
+   "o_que_vimos": "Recortados igual, estrangeiro e brasileiro estreiam jogando o mesmo: {pri_est_nc}% contra {pri_br_nc}% dos minutos. O empate depende de contar 2022, quando a liga inteira era estreante; sem ele a vantagem do estrangeiro volta. Seguir na liga é reaparecer na Série B, não ficar no clube.",
    "para_o_santa_cruz": "O estrangeiro não chega com vantagem de minuto: ele entra no time como entra o brasileiro contratado no mesmo ano, e quem esperava que ele viesse para jogar mais está comprando uma diferença que não existe. O que pesa na conta é a saída — 1 em cada 4 segue na Série B no ano seguinte, contra 1 em cada 2 do brasileiro —, então contrato, janela de saída e custo de reposição têm de ser montados para uma temporada. Ressalva que muda o uso: sair da Série B inclui quem subiu para a Série A ou foi para fora do país, então parte dessa rotatividade é venda, não fracasso, e esta parte não sabe separar as duas.",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova: contratar estrangeiro na Série B é aposta de uma temporada — ele estreia com a mesma fatia de minutos do brasileiro que chega no mesmo ano (16,6% contra 16,5%) e só 26,6% reaparecem na liga no ano seguinte, contra 51,1% dos brasileiros. Derruba a premissa implícita do texto publicado até aqui, de que o estrangeiro chega com passe adiantado no time.",
    "confianca": "indício",
-   "confianca_motivo": "Indício: são contagens, não testes — resultados/J07_testes.csv não existe, nenhum q foi calculado e o cabeçalho de scripts/J07.py declara que aqui não há teste de hipótese nem BH. A porta temporal do 1º turno prevendo o 2º também não rodou, e o que esta conclusão olha é o ano seguinte, que é outra coisa. Duas ressalvas de leitura: a permanência mede \"reapareceu na Série B\", não \"ficou no clube\", e o alvo é montado sobre as 3.864 linhas da base — montado só sobre as linhas que casaram nacionalidade, o estrangeiro dá 25,5% em vez de {perm_est}%. Além disso, {pct_coorte_2025}% da coorte estrangeira é de 2025 e só pode ser julgada contra 2026, a temporada de pior cobertura e ainda em curso ({cobertura_perm_por_ano}).",
+   "confianca_motivo": "Indício: são contagens, não testes — resultados/J07_testes.csv não existe, nenhum q foi calculado e o cabeçalho de scripts/J07.py declara que aqui não há teste de hipótese nem BH. A porta temporal do 1º turno prevendo o 2º também não rodou, e o que esta conclusão olha é o ano seguinte, que é outra coisa. Duas ressalvas de leitura: a permanência mede \"reapareceu na Série B\", não \"ficou no clube\", e o alvo é montado sobre as 3.864 linhas da base — montado só sobre as linhas que casaram nacionalidade, o estrangeiro dá 25,5% em vez de {perm_est}%. Além disso, {pct_coorte_2025}% da coorte estrangeira é de 2025 e só pode ser julgada contra 2026, a temporada de pior cobertura e ainda em curso ({cobertura_perm_por_ano}). Sobre a estreia: a vantagem de minuto do estrangeiro ({pri_est}% contra {pri_br}%) só existe na coorte frouxa, em que chegar era aparecer na base pela primeira vez, e some quando os dois lados são recortados por quem entrou no clube naquele ano ({pri_est_nc}% contra {pri_br_nc}%). O empate desse recorte estrito depende de 2022 estar dentro, e sem ele o resultado INVERTE: só com 2023-2025 a distância volta a 4,2 pontos, 19,4% do estrangeiro contra 15,2% do brasileiro, em 94 casos de estrangeiro — quem decide contratação lê isso como \"o estrangeiro ainda estreia jogando mais\", e é por isso que a ressalva está também no o_que_vimos e não só aqui. Esses 19,4 e 15,2 existem hoje só dentro do de_onde de pri_est_nc em J07_numeros_novos.json, sem marcador próprio, e entram na re-rodada. Na passada de 20/09 o gráfico desta conclusão mostrava a estreia, que a manchete não afirma; agora ele mostra a permanência, que é o achado do título, e a estreia voltou para a frase. A contagem bruta de quem reapareceu continua sem marcador próprio, em em_aberto.",
    "n": "Estreia, os dois lados restritos a quem entrou no clube naquele ano: {n_pri_est_nc} estrangeiros contra {n_pri_br_nc} brasileiros (2022-2025). Sem 2022: 94 estrangeiros. Ano seguinte: {n_perm_est} casos de estrangeiro contra {n_perm_br} de brasileiro.",
    "prova": "J07_numeros_novos.json, pri_est_nc e perm_est; J07_resumo.json, permanencia (cruzamento antigo, a regerar)",
    "validada_em": "2026-09-19"
@@ -39,13 +91,25 @@
    "id": "J07-3",
    "bloco": "J",
    "status": "validada",
-   "manchete": "O estrangeiro da Série B é vizinho: 7 em cada 10 vêm de Argentina, Colômbia, Uruguai ou Paraguai",
-   "o_que_vimos": "Nas quatro temporadas fechadas, {sulamer} dos {total_est} casos de estrangeiro são sul-americanos, e quatro vizinhos respondem por 134 deles: {ordem_por_linha}. Contando pessoas em vez de temporadas — o mesmo jogador reaparece em até quatro anos — são {total_pes} estrangeiros e {sulamer_pes} sul-americanos, e a ordem vira outra, com a Colômbia na frente e Argentina e Uruguai empatadas: {ordem_por_pessoa}. A Europa quase não aparece dos dois jeitos: Portugal, com {por} casos e {por_pes} jogadores, é o único europeu com mais de um — e, contados do mesmo jeito, o brasileiro com segundo passaporte ({dupla_lin} casos) e o estrangeiro de fato ({est_lin_mesmo_cruzamento}) praticamente empatam, o que derruba a ideia de que na Série B o passaporte europeu era usado ao contrário.",
+   "manchete": "Quase todo estrangeiro da Série B é sul-americano, {sulamer} dos {total_est} casos",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Sul-americanos, e a linha tracejada do total de estrangeiros",
+    "unidade": "casos de estrangeiro (temporadas)",
+    "barras": [
+     {
+      "nome": "Sul-americanos",
+      "marcador": "sulamer"
+     }
+    ],
+    "linha_de_corte": 184
+   },
+   "o_que_vimos": "Sete em cada dez casos: {ordem_por_linha}. Por jogador, não por temporada, a Colômbia lidera, e a base traz a nacionalidade, não a liga. No mesmo cruzamento, brasileiro com segundo passaporte ({dupla_lin}) quase empata com estrangeiro de fato ({est_lin_mesmo_cruzamento}).",
    "para_o_santa_cruz": "Onde procurar é a vizinhança: Argentina, Colômbia, Uruguai e Paraguai. São essas as quatro ligas de que J08 precisa primeiro do fator de conversão, e é delas que J09 monta a lista — e, para montar lista de alvo, a contagem que vale é a de pessoas ({total_pes}, com a Colômbia na frente), não a de temporadas. Ressalva que muda o uso: a base tem a nacionalidade, não a liga de onde o jogador veio — um argentino pode ter chegado de clube brasileiro —, então isso diz de que país é o mercado, não de que campeonato se compra.",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova: o mercado de estrangeiro da Série B é sul-americano — Argentina, Colômbia, Uruguai e Paraguai respondem por 72,8% dos casos e 70,3% dos jogadores —, e é dessas quatro ligas que o fator de conversão de J08 precisa primeiro. E derruba a premissa implícita de que o passaporte europeu é usado ao contrário: contados no mesmo cruzamento, dupla nacionalidade com o Brasil (177 casos) e estrangeiro de fato (184) aparecem quase 1 para 1 — o contraste 40 x 11 que sustentava a frase era artefato do cruzamento de nomes.",
    "confianca": "indício",
-   "confianca_motivo": "Cai de firme para indício. O \"firme\" publicado se apoiava em \"contagem completa das cinco temporadas\", e isso não se sustenta: a janela do estudo é 2022-2025, a contagem não é completa ({cobertura_nova}% das linhas da janela casaram nacionalidade) e o motivo de confiança publicava cobertura de 81,7% enquanto todos os outros números da mesma conclusão vinham de um cruzamento com {cobertura_nova}%. Pelos dois critérios também não passa: não há resultados/J07_testes.csv nem q calculado — scripts/J07.py declara que aqui não há teste de hipótese nem BH — e contagem de nacionalidade não tem versão por turno, então a porta temporal do 1º turno prevendo o 2º não rodou. A origem sai por nacionalidade e não por liga: clube_anterior dá o clube, não a liga, e um argentino pode ter vindo de clube brasileiro.",
+   "confianca_motivo": "Cai de firme para indício. O \"firme\" publicado se apoiava em \"contagem completa das cinco temporadas\", e isso não se sustenta: a janela do estudo é 2022-2025, a contagem não é completa ({cobertura_nova}% das linhas da janela casaram nacionalidade) e o motivo de confiança publicava cobertura de 81,7% enquanto todos os outros números da mesma conclusão vinham de um cruzamento com {cobertura_nova}%. Pelos dois critérios também não passa: não há resultados/J07_testes.csv nem q calculado — scripts/J07.py declara que aqui não há teste de hipótese nem BH — e contagem de nacionalidade não tem versão por turno, então a porta temporal do 1º turno prevendo o 2º não rodou. A origem sai por nacionalidade e não por liga: clube_anterior dá o clube, não a liga, e um argentino pode ter vindo de clube brasileiro. A Europa quase não aparece dos dois jeitos de contar: Portugal, com {por} casos e {por_pes} jogadores, é o único europeu com mais de um. O gráfico desta conclusão ficou numa unidade só, casos de estrangeiro por temporada, porque as duas contagens não são a mesma medida e não cabem na mesma régua: a barra são os {sulamer} sul-americanos e a linha tracejada, o total de {total_est} casos. Por pessoa, e não por temporada, são {sulamer_pes} de {total_pes}, com a Colômbia na frente ({ordem_por_pessoa}). A linha de corte é o único valor escrito à mão em vez de marcador, porque o formato do gráfico não resolve marcador nesse campo: ela tem de ser atualizada junto com total_est na re-rodada. E a ressalva de contagem que muda o uso: contados no mesmo cruzamento, o brasileiro com segundo passaporte ({dupla_lin} casos) e o estrangeiro de fato ({est_lin_mesmo_cruzamento}) praticamente empatam — o contraste 40 x 11 que sustentava a ideia de que na Série B o passaporte europeu era usado ao contrário era artefato do cruzamento de nomes. Essa ressalva voltou para o texto de tela, no o_que_vimos, porque é ela que manda J09 separar os dois lados antes de contar vaga. Duas coisas que o dado desta parte NÃO diz e que saíram daqui na conferência de 20/09: não há fonte nenhuma, nem no de_onde de dupla_lin nem em premissas.json, para a regra de que dupla nacionalidade com o Brasil não ocupa vaga de estrangeiro — premissas.json só fixa o limite de {vagas} no elenco —, e a contagem de dupla nacionalidade não sustenta o \"a vaga não está sobrando\" de J07-1, que se apoia nos {liga_ct} por clube e nas {ct_com_algum} de {ct_total} clube-temporadas.",
    "n": "{total_est} casos de estrangeiro — 182 jogador-temporadas distintas, {total_pes} jogadores — em 2022-2025, com {cobertura_nova}% das linhas da janela cobertas por nacionalidade ({cobertura_por_faixa}).",
    "prova": "J07_numeros_novos.json, ordem_por_linha e ordem_por_pessoa; J07_resumo.json, origem_por_nacionalidade (cruzamento antigo, a regerar)",
    "validada_em": "2026-09-19"

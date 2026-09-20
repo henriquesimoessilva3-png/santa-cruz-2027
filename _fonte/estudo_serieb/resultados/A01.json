@@ -9,13 +9,13 @@
    "id": "A01-1",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Subir custa {corte_max} pontos: {corte_mediana} teria ficado de fora em {anos_falha_63} das {temporadas} temporadas",
-   "o_que_vimos": "O 4º colocado fechou com {corte_por_ano_frase}, com {vit_min} a {vit_max} vitórias; nas quatro temporadas anteriores, que estão na base mas fora do recorte desta parte, fechou com 60, 62, 61 e 64, com 15 a 18 vitórias. Um elenco montado para {corte_mediana} pontos teria ficado fora do G4 em 2023 e em 2024 — e também em 2021 —, três das oito temporadas da base, e na temporada em curso o 4º vai em ritmo de {ritmo_4o_2026} pontos. É contagem completa das tabelas, sem teste e sem leitura à frente do resultado, e o corte muda conforme os anos que se olham: por isso vale como indício.",
+   "manchete": "Elenco de {corte_mediana} pontos teria ficado fora do G4 em {anos_falha_63} das {temporadas} temporadas",
+   "o_que_vimos": "O 4º fechou com {corte_por_ano_frase}, com {vit_min} a {vit_max} vitórias; em 2026 vai em ritmo de {ritmo_4o_2026}. Um elenco de {corte_mediana} pontos teria ficado fora do G4 em {anos_falha_63} das {temporadas} temporadas do recorte. Nas quatro anteriores, fora dele, o corte variou mais e {corte_mediana} falhou em 2021.",
    "para_o_santa_cruz": "Montar o elenco contra {corte_max} pontos, e não contra os {corte_mediana} do meio da faixa: {corte_mediana} não teria subido em 2023, em 2024 nem em 2021. E como {corte_max} apenas empatou com o 4º em três dessas oito temporadas, quem quer sair do desempate planeja 65 — uma vitória a mais. A linha de baixo é bem mais frouxa — o 17º ficou entre {corte_z4_min} e {corte_z4_max} no recorte e entre 39 e 43 nas quatro anteriores —, então escapar do rebaixamento custa bem menos do que subir: são duas decisões de orçamento diferentes, não a mesma com margem.",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova em dados/premissas.json, grupo Elenco: o custo do acesso é de 62 a 64 pontos nas quatro temporadas do recorte (60 a 64 nas oito que a base tem) e o planejamento usa o topo da faixa, 64, com 65 como folga de desempate — nunca a mediana. Nenhuma premissa atual fixa o acesso em pontos; a p7 fixa só o objetivo.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Correção para múltiplos testes (Benjamini-Hochberg a 5% por família): não há o que corrigir — não existe A01_testes.csv e scripts/A01.py não importa scripts/_metodo.py; as únicas contas da parte são contagem e mediana sobre os pontos do 4º e do 17º. (2) Porta temporal da §6.4 (1º turno prevendo o 2º): não rodou em A01, e _porta_temporal.md registra que nenhuma das 19 partes a rodou. Há ainda motivo material: a faixa de {corte_min} a {corte_max} é propriedade das {temporadas} temporadas do recorte — nas quatro anteriores o corte vai de 60 a 64, e o ritmo de 2026 está em {ritmo_4o_2026}.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Correção para múltiplos testes (Benjamini-Hochberg a 5% por família): não há o que corrigir — não existe A01_testes.csv e scripts/A01.py não importa scripts/_metodo.py; as únicas contas da parte são contagem e mediana sobre os pontos do 4º e do 17º. (2) Porta temporal da §6.4 (1º turno prevendo o 2º): não rodou em A01, e _porta_temporal.md registra que nenhuma das 19 partes a rodou. Há ainda motivo material: a faixa de {corte_min} a {corte_max} é propriedade das {temporadas} temporadas do recorte — nas quatro anteriores o corte vai de 60 a 64, e o ritmo de 2026 está em {ritmo_4o_2026}. O que saiu do que vimos e fica registrado aqui, onde o jargão é permitido: a conclusão é contagem completa das tabelas, sem teste e sem leitura à frente do resultado, e por isso não há tamanho de efeito, poder nem q para reportar. Nas quatro temporadas anteriores (2018–2021), que estão na base mas fora do recorte, o 4º fechou com 60, 62, 61 e 64 pontos, com 15 a 18 vitórias, e um elenco de {corte_mediana} pontos também teria ficado fora em 2021 — três das oito temporadas da base.",
    "n": "{temporadas} temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
    "prova": "A01_regua.csv; A01.md, seção Prova",
    "validada_em": "2026-09-19"
@@ -24,13 +24,28 @@
    "id": "A01-2",
    "bloco": "A",
    "status": "validada",
-   "manchete": "O acesso se decide por um ponto — e quem desempata é a vitória, não o saldo",
-   "o_que_vimos": "A margem do 4º para o 5º foi de {margens_frase}: um ponto ou menos em {anos_ate_1pt} das {temporadas} temporadas, e cinco das oito somando as quatro anteriores da base, onde as margens foram 0, 1, 3 e 2. Em 2024 Ceará e Novorizontino terminaram os dois com {pontos_4o_2024} pontos e o acesso saiu na contagem de vitórias, {v_4o_2024} contra {v_5o_2024}, sem chegar ao saldo de gols; em 2018 foi igual, e mais claro — o Goiás subiu com 60 pontos e saldo de 4, à frente da Ponte Preta, com os mesmos 60 pontos e saldo de 12. É contagem completa das tabelas, sem teste por trás: por isso vale como indício.",
+   "manchete": "Quem desempata o acesso é a vitória, não o saldo de gols",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Vitórias do 4º e do 5º no empate de 2024",
+    "unidade": "vitórias",
+    "barras": [
+     {
+      "nome": "Sobe, o 4º em 2024",
+      "marcador": "v_4o_2024"
+     },
+     {
+      "nome": "Trave, o 5º em 2024",
+      "marcador": "v_5o_2024"
+     }
+    ]
+   },
+   "o_que_vimos": "A margem do 4º para o 5º foi de {margens_frase}, um ponto ou menos em {anos_ate_1pt} dos {temporadas} anos. Em 2024 Ceará e Novorizontino empataram em {pontos_4o_2024} pontos e o acesso saiu nas vitórias. Em 2018 o Goiás subiu à frente da Ponte Preta com os mesmos pontos e saldo menor.",
    "para_o_santa_cruz": "Um jogo decide o ano, e quem desempata é a vitória, não a goleada: com pontos iguais, ganhar por 1 a 0 vale mais do que golear. O ponto que falta vem do que separa quem sobe com e sem os times colados na linha — de onde o time finaliza e a qualidade da chance que ele cede. Bola parada não entra mais nesta frase como alavanca descartada: ela separa com os 20 times e só falha quando se tiram os colados na linha; e o fim de jogo fica de fora porque não existe minuto do gol em base nenhuma.",
    "premissa": "m7",
    "premissa_motivo": "Confirma a m7 (salário baixo, premiação alta por vitória): como o desempate do acesso é vitória, e não saldo, o bicho por vitória está alinhado ao critério que de fato decide o ano — e isso vale nas duas janelas, com 2024 e 2018 como casos. Não sugere premissa nova.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Benjamini-Hochberg a 5% por família: não roda — não existe A01_testes.csv e scripts/A01.py não importa scripts/_metodo.py; as margens são leitura direta da coluna margem_4o_5o de A01_regua.csv. (2) Porta temporal da §6.4: não rodou em A01 (_porta_temporal.md registra que nenhuma das 19 partes a rodou). O uso prático é forte e o achado sobrevive aos dois cortes — vale nas quatro temporadas do recorte e nas quatro anteriores, onde o desempate por vitória fica até mais claro —, então é indício, e não queda.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Benjamini-Hochberg a 5% por família: não roda — não existe A01_testes.csv e scripts/A01.py não importa scripts/_metodo.py; as margens são leitura direta da coluna margem_4o_5o de A01_regua.csv. (2) Porta temporal da §6.4: não rodou em A01 (_porta_temporal.md registra que nenhuma das 19 partes a rodou). O uso prático é forte e o achado sobrevive aos dois cortes — vale nas quatro temporadas do recorte e nas quatro anteriores, onde o desempate por vitória fica até mais claro —, então é indício, e não queda. O que saiu do que vimos e fica registrado aqui, onde o jargão é permitido: a conclusão é contagem completa das tabelas, sem teste por trás, logo sem tamanho de efeito e sem q. Nas quatro temporadas anteriores as margens foram 0, 1, 3 e 2, o que leva a margem de um ponto ou menos a cinco das oito temporadas da base; em 2018 o mesmo desempate apareceu mais claro, com o Goiás subindo com 60 pontos e saldo de 4 à frente da Ponte Preta, com os mesmos 60 pontos e saldo de 12.",
    "n": "{temporadas} temporadas fechadas (2022–2025); as quatro anteriores (2018–2021) conferidas na base",
    "prova": "A01_regua.csv; A01.md, seção Prova",
    "validada_em": "2026-09-19"
@@ -39,13 +54,29 @@
    "id": "A01-3",
    "bloco": "A",
    "status": "validada",
-   "manchete": "{sobe_fronteira} dos {sobe_de} que subiram terminaram colados na linha — por isso toda comparação roda duas vezes",
-   "o_que_vimos": "{sobe_fronteira} dos {sobe_de} promovidos fecharam a 3 pontos ou menos da linha do G4, e no total {fronteira_n} de {fronteira_de} clube-temporadas ({fronteira_pct}%) estão colados numa das duas linhas — 50% entre os que sobem, 33% no meio, 25% entre os que caem. A Trave (5º a 8º) fechou entre {trave_min} e {trave_max} pontos, mediana {trave_mediana}, ou seja {trave_dist_mediana} pontos abaixo do corte do G4, e {trave_fronteira} dos {trave_de} casos ficaram a 3 pontos ou menos dele. Refazendo a mesma contagem pela tabela remontada jogo a jogo em vez da oficial, todos esses números se repetem e só o piso da Trave muda, de {trave_min} para 55; nenhum teste aqui diz se a Trave joga diferente de quem sobe, e por isso vale como indício.",
+   "manchete": "{sobe_fronteira} dos {sobe_de} promovidos fecharam na fronteira do G4",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Campanhas na fronteira do G4, por faixa",
+    "unidade": "casos",
+    "barras": [
+     {
+      "nome": "Sobe",
+      "marcador": "sobe_fronteira"
+     },
+     {
+      "nome": "Trave",
+      "marcador": "trave_fronteira"
+     }
+    ],
+    "linha_de_corte": "sobe_de"
+   },
+   "o_que_vimos": "{sobe_fronteira} dos {sobe_de} promovidos e {trave_fronteira} dos {trave_de} da Trave fecharam na fronteira do G4. A Trave ficou entre {trave_min} e {trave_max} pontos, mediana {trave_mediana}, ou seja {trave_dist_mediana} pontos abaixo do corte. No total, {fronteira_n} das {fronteira_de} campanhas fechadas ficaram na fronteira de uma das duas linhas.",
    "para_o_santa_cruz": "A distância entre subir e ficar na Trave é de {trave_dist_mediana} pontos na mediana, e em {trave_fronteira} dos {trave_de} casos foi de 3 pontos ou menos — perto o bastante para o acaso pesar no que se lê como característica. Por isso toda comparação de faixa deste estudo roda com e sem os times colados na linha, e o que só aparece num dos dois não vira critério de contratação. Quem usar a campanha rodada a rodada que esta parte entrega precisa saber que ela discorda da tabela oficial em 8 de {clube_temporadas} clube-temporadas, 5 delas nas quatro temporadas fechadas.",
    "premissa": null,
    "premissa_motivo": "Não trata de nenhuma premissa existente.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Benjamini-Hochberg a 5% por família: não roda — não existe A01_testes.csv, e a contagem de colados na linha sai das colunas fronteira_g4 e fronteira_z4 de A01_clube_temporada.csv. (2) Porta temporal da §6.4: não rodou. A versão anterior ainda afirmava que a Trave é o mesmo time de quem sobe com dois pontos a menos: isso é um \"não separa\" sem poder calculado, que A01 não tem como sustentar (o script não importa scripts/_metodo.py e não calcula d mínimo). O texto agora fica dentro do que a contagem mostra, e a mesma contagem se repete na tabela remontada jogo a jogo.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios da régua. (1) Benjamini-Hochberg a 5% por família: não roda — não existe A01_testes.csv, e a contagem de colados na linha sai das colunas fronteira_g4 e fronteira_z4 de A01_clube_temporada.csv. (2) Porta temporal da §6.4: não rodou. A versão anterior ainda afirmava que a Trave é o mesmo time de quem sobe com dois pontos a menos: isso é um \"não separa\" sem poder calculado, que A01 não tem como sustentar (o script não importa scripts/_metodo.py e não calcula d mínimo). O texto agora fica dentro do que a contagem mostra, e a mesma contagem se repete na tabela remontada jogo a jogo. O que saiu do que vimos e fica registrado aqui, onde o jargão é permitido: a cobertura da fronteira por faixa é de 50% entre os que sobem, 33% no meio e 25% entre os que caem, e nenhum teste aqui diz se a Trave joga diferente de quem sobe — não há poder calculado nem tamanho de efeito. Refazendo a mesma contagem pela tabela remontada jogo a jogo em vez da oficial, todos esses números se repetem e só o piso da Trave muda, de {trave_min} para 55.",
    "n": "{fronteira_de} clube-temporadas fechadas (2022–2025), das quais {sobe_de} promovidos e {trave_de} na Trave",
    "prova": "A01_clube_temporada.csv; A01.md, seção Prova",
    "validada_em": "2026-09-19"

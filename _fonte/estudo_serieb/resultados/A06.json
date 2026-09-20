@@ -9,13 +9,46 @@
    "id": "A06-1",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Quem sobe ganha mais a dividida no chão — sobre pressão alta o estudo não decide",
-   "o_que_vimos": "Com todos os times na conta, quem sobe ganha {dd_s_com}% das divididas no chão contra {dd_m_com}% do meio — cerca de uma dividida a mais ganha a cada cem disputadas — e sem os times colados na linha a vantagem vai a {dd_s_sem}% contra {dd_m_sem}%. Sobre pressão alta o estudo não decide: quem sobe deixa o adversário dar {ppda_s_com} passes por ação defensiva contra {ppda_m_com} do meio ({ppda_s} contra {ppda_m} sem os colados na linha), recuperações ({rec_s_com} contra {rec_m_com} por jogo) e intensidade ({int_s_com} contra {int_m_com}) ficam empatadas, e diferenças desse tamanho um estudo de {n_sobe_com} promovidos não enxerga — se apontam para algum lado, é para quem sobe pressionar mais, não menos. Pode ser efeito do placar: pressão e intensidade mudam conforme o time está ganhando ou perdendo e a base não permite separar isso; e elenco caro tende a pressionar alto, coisa que o estudo também não separa da pressão em si.",
+   "manchete": "Quem sobe ganha mais a dividida no chão que o meio",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Divididas no chão ganhas",
+    "unidade": "%",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "dd_s_com"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "dd_m_com"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "dd_s_sem"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "dd_m_sem"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "A vantagem é de cerca de uma dividida ganha a mais a cada cem disputadas. Sobre pressão alta o estudo não decide: passes por ação defensiva, recuperações e intensidade empatam com o meio. Pressão e intensidade mudam com o placar e com o valor do elenco, que o estudo não separa.",
    "para_o_santa_cruz": "O time que sobe ganha mais a dividida no chão; se isso vem do jogador ou da organização, o A06 não decide — e medindo os dois lados no mesmo corte o número do time não se distingue do número do titular por posição do J03, então nem o contraste “separa o time, não o jogador” se sustenta. Na prática entra como exigência de modelo de jogo e de treino da disputa, e não como motivo para pagar caro num zagueiro que ganha duelo. Comprar sistema de pressão alta é o que este estudo menos sustenta: nem a favor, nem contra.",
    "premissa": null,
    "premissa_motivo": "Sugere uma premissa nova: na Série B a disputa da bola no chão separa quem sobe mais do que o sistema de pressão. Ela vale no nível do time; o estudo não consegue dizer se vem do jogador ou da organização, porque no mesmo corte o número do time e o do titular por posição não se distinguem.",
    "confianca": "provável",
-   "confianca_motivo": "Provável porque passa num critério e falha no outro. (a) Correção para múltiplos testes a 5% dentro da família do duelo: PASSA, e nos dois cortes — duelos defensivos ganhos dão q {dd_q_com} com todos os times e q {dd_q} sem os times de fronteira, com selo firme nas duas linhas de A06_testes.csv. (b) Porta temporal da §6.4 (o indicador das 19 primeiras rodadas contra os PONTOS das 19 últimas, com parcial nos pontos do 1º turno): REPROVA — parcial {porta_dd} com p {porta_dd_p}, n {porta_n}, em _porta_temporal.md §3 e §6. O que esta parte chamava de porta era outra medida: a persistência do próprio indicador entre as duas metades da temporada, critério que a §6.5 aposentou em 15/09 e nome que ela proíbe. Um sim e um não = provável. A metade de pressão não passa em nenhum dos dois critérios: PPDA com parcial {porta_ppda} e Intensidade de jogo com parcial {porta_int} na tabela conferencia_6_4 de _porta_temporal.json, e para Recuperações por jogo não existe medida de porta em arquivo nenhum — procurei nas nove linhas de conferencia_6_4 e nos oito componentes de _porta_temporal.json e ela não está. Poder: com {n_sobe_com} contra {n_meio_com} o desenho só enxerga efeito acima de {dmin_SM_com}, e os três indicadores de pressão ficam abaixo disso, então a metade negativa entra como ressalva e nunca como afirmação (§6.7). Robustez da fronteira: os dois cortes entram no texto número a número, e cai o superlativo “o maior efeito de todo o estudo até aqui” — ele só existe no corte sem os times de fronteira; com todos os times o efeito dos duelos defensivos ganhos é menos da metade e fica abaixo do dos gols marcados do A02 no mesmo corte. Recuperações por jogo e finalizações sofridas ajustadas pela posse trocam de sinal entre os dois cortes, razão a mais para o texto não afirmar o negativo e ficar em “o estudo não decide”. Duas ressalvas estavam declaradas em A06_indicadores.json e tinham sumido do JSON: pode ser efeito do placar, e elenco caro pressiona alto — o PPDA anda com o valor do plantel a {ppda_valor}.",
+   "confianca_motivo": "Provável porque passa num critério e falha no outro. (a) Correção para múltiplos testes a 5% dentro da família do duelo: PASSA, e nos dois cortes — duelos defensivos ganhos dão q {dd_q_com} com todos os times e q {dd_q} sem os times de fronteira, com selo firme nas duas linhas de A06_testes.csv. (b) Porta temporal da §6.4 (o indicador das 19 primeiras rodadas contra os PONTOS das 19 últimas, com parcial nos pontos do 1º turno): REPROVA — parcial {porta_dd} com p {porta_dd_p}, n {porta_n}, em _porta_temporal.md §3 e §6. O que esta parte chamava de porta era outra medida: a persistência do próprio indicador entre as duas metades da temporada, critério que a §6.5 aposentou em 15/09 e nome que ela proíbe. Um sim e um não = provável. A metade de pressão não passa em nenhum dos dois critérios: PPDA com parcial {porta_ppda} e Intensidade de jogo com parcial {porta_int} na tabela conferencia_6_4 de _porta_temporal.json, e para Recuperações por jogo não existe medida de porta em arquivo nenhum — procurei nas nove linhas de conferencia_6_4 e nos oito componentes de _porta_temporal.json e ela não está. Poder: com {n_sobe_com} contra {n_meio_com} o desenho só enxerga efeito acima de {dmin_SM_com}, e os três indicadores de pressão ficam abaixo disso, então a metade negativa entra como ressalva e nunca como afirmação (§6.7). Robustez da fronteira: os dois cortes entram no texto número a número, e cai o superlativo “o maior efeito de todo o estudo até aqui” — ele só existe no corte sem os times de fronteira; com todos os times o efeito dos duelos defensivos ganhos é menos da metade e fica abaixo do dos gols marcados do A02 no mesmo corte. Recuperações por jogo e finalizações sofridas ajustadas pela posse trocam de sinal entre os dois cortes, razão a mais para o texto não afirmar o negativo e ficar em “o estudo não decide”. Duas ressalvas estavam declaradas em A06_indicadores.json e tinham sumido do JSON: pode ser efeito do placar, e elenco caro pressiona alto — o PPDA anda com o valor do plantel a {ppda_valor}. Os números de pressão saíram do texto de 2 minutos e ficam aqui: PPDA {ppda_s_com} contra {ppda_m_com} com todos os times e {ppda_s} contra {ppda_m} sem os times de fronteira, recuperações {rec_s_com} contra {rec_m_com} por jogo, intensidade de jogo {int_s_com} contra {int_m_com} — se apontam para algum lado, é para quem sobe pressionar mais, não menos. O efeito do duelo defensivo sem os times de fronteira é {dd_d}, com intervalo {dd_ic}, e os dois cortes dele agora estão no gráfico da conclusão, que é onde a fragilidade fica visível sem ocupar o texto de 2 minutos. Na terceira passada as duas ressalvas declaradas em A06_indicadores.json voltaram ao texto de 2 minutos, e não só a este campo: é no texto visível que elas mudam a decisão, porque um clube de orçamento curto não copia como modelo de jogo uma pressão que anda com o valor do plantel a {ppda_valor}, e porque pressão e intensidade medidas sem recorte por estado do jogo podem ser o placar, não o método. Para caber nos 280 caracteres saiu no lugar delas a frase “nem a favor, nem contra comprar um sistema de pressão”, que apenas repetia o fecho do para o Santa Cruz, e o escopo “entre quem sobe e o meio” encolheu para “com o meio”, que diz a mesma comparação em menos espaço.",
    "n": "{n_sobe_com} promovidos contra {n_meio_com} do meio, com todos os times; {n_sobe_sf} contra {n_meio_sf} sem os colados na linha",
    "prova": "A06_testes.csv; _porta_temporal.md; A06_numeros_novos.json",
    "validada_em": "2026-09-19"
@@ -25,13 +58,28 @@
    "bloco": "A",
    "status": "validada",
    "negativa": true,
-   "manchete": "Entre subir e parar entre 5º e 8º, o jogo sem bola não mostra degrau — a dividida no chão só separa quando se tiram os times colados na linha",
-   "o_que_vimos": "Sem os times colados na linha, quem sobe ganha {dd_s_sem}% das divididas no chão contra {ddt_t_sem}% de quem parou entre 5º e 8º; com todos os times na conta a diferença encolhe para {dd_s_com}% contra 59,81% e o estudo não decide. Esse corte tira {n_trave_sai} dos {n_trave} times da trave, e justamente os mais fortes (mediana de {pts_trave_sai} pontos nos que saem contra {pts_trave_fica} nos que ficam), enquanto do lado de quem sobe tira os mais fracos — compara um grupo reforçado com um enfraquecido — e ainda sobram {n_sobe_sf} times contra {n_trave_sf}, tamanho em que só uma diferença enorme apareceria. Com todos os times na conta, o único indicador sem bola que separa as duas faixas é o duelo aéreo, e para o outro lado: quem sobe ganha 45,54% dos duelos aéreos contra 47,60% da trave.",
+   "manchete": "Nada do jogo sem bola separa quem sobe da trave nos dois cortes",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "A ressalva, não o achado: o corte tira os times mais fortes da trave, mediana",
+    "unidade": "pontos",
+    "barras": [
+     {
+      "nome": "Trave que o corte tira",
+      "marcador": "pts_trave_sai"
+     },
+     {
+      "nome": "Os que ficam",
+      "marcador": "pts_trave_fica"
+     }
+    ]
+   },
+   "o_que_vimos": "A dividida no chão só separa as duas faixas quando se tiram os times colados na linha, e esse corte tira {n_trave_sai} dos {n_trave} times da trave, justo os mais fortes. Sobram {n_sobe_sf} contra {n_trave_sf}, tamanho em que só diferença enorme apareceria. Com todos os times, o duelo aéreo separa, a favor da trave.",
    "para_o_santa_cruz": "Não há, na base deste estudo, alvo de contratação nem de modelo de jogo que venha do degrau da trave: o que separa quem sobe de quem parou entre 5º e 8º troca de indicador e de direção conforme quais times entram na conta. Para a montagem vale o A06-1, que se sustenta com todos os times. E o único indicador que separa essas duas faixas nos dois cortes é a pontaria — gols acima do esperado —, que é o placar contado de outro jeito e nem se repete de uma metade da temporada para a outra: o degrau da trave se parece mais com acerto de acabamento do que com característica que se compre.",
    "premissa": null,
    "premissa_motivo": "Não trata de nenhuma premissa existente. Se alguma coisa sugere, é negativa: o degrau entre subir e parar na trave não está no que se mede sem a bola.",
    "confianca": "indício",
-   "confianca_motivo": "Indício, o mesmo nível de 17/09 — o que muda é o sentido da conclusão. (a) Correção para múltiplos testes a 5%: passa em UM corte só. Duelos defensivos ganhos contra a trave dão q {ddt_q} sem os times de fronteira, mas q {dd_q_com_ST} com todos os times, que na chave da casa é “{selo_dd_com_ST}” — e não o “pode ser sorte” que o texto de 17/09 citava entre aspas, que é um degrau acima do medido e exige p abaixo de 5% (scripts/_metodo.py). Pela convenção escrita em _metodo_fronteira.md, firme é firme nos dois cortes (regra 2), e o que só é firme sem a fronteira é suspeito, vale no máximo indício e a frase tem de dizer que depende do corte (regra 4). (b) Porta temporal da §6.4: REPROVA — duelos defensivos ganhos com parcial {porta_dd} e p {porta_dd_p}. Nenhum dos dois critérios, logo indício. O corte que produz o achado tira {n_trave_sai} dos {n_trave} clube-temporadas da trave, justamente os mais fortes (mediana de {pts_trave_sai} pontos nos que saem contra {pts_trave_fica} nos que ficam), enquanto do lado de quem sobe tira os mais fracos, e sobram {n_sobe_sf} contra {n_trave_sf} — desenho em que só efeito acima de {dmin_ST} apareceria. Robustez da fronteira: é ela que inverte a conclusão e a manda para “Parece, mas não é”. Com todos os times, o único teste firme e com poder contra a trave é o de duelos aéreos ganhos, e na direção contrária à do achado; sem a fronteira esse mesmo duelo aéreo não separa. Como os dois cortes se contradizem em qual indicador separa, e em que direção, nada sobrevive aos dois — que é o que a tabela final do _metodo_fronteira.md já registrava para o A06 em Sobe × Trave. Os duelos aéreos ganhos NÃO viram conclusão: a regra 3 do _metodo_fronteira.md manda descartar o que só é firme com a fronteira, e o painel de 18/09 decidiu isso por 0 a 3 — eles entram no texto só como a razão de nada sobreviver, e é isso que desfaz a assimetria de publicar o achado de corte único que favorece e calar o de corte único que contraria. Sai também a frase “nenhum indicador do A02 ou do A06 separa essas duas faixas nos dois cortes”: ela é falsa, porque a pontaria do A02 (gols acima do gol esperado) é firme nos dois cortes — o texto novo a nomeia e diz por que ela não serve.",
+   "confianca_motivo": "Indício, o mesmo nível de 17/09 — o que muda é o sentido da conclusão. (a) Correção para múltiplos testes a 5%: passa em UM corte só. Duelos defensivos ganhos contra a trave dão q {ddt_q} sem os times de fronteira, mas q {dd_q_com_ST} com todos os times, que na chave da casa é “{selo_dd_com_ST}” — e não o “pode ser sorte” que o texto de 17/09 citava entre aspas, que é um degrau acima do medido e exige p abaixo de 5% (scripts/_metodo.py). Pela convenção escrita em _metodo_fronteira.md, firme é firme nos dois cortes (regra 2), e o que só é firme sem a fronteira é suspeito, vale no máximo indício e a frase tem de dizer que depende do corte (regra 4). (b) Porta temporal da §6.4: REPROVA — duelos defensivos ganhos com parcial {porta_dd} e p {porta_dd_p}. Nenhum dos dois critérios, logo indício. O corte que produz o achado tira {n_trave_sai} dos {n_trave} clube-temporadas da trave, justamente os mais fortes (mediana de {pts_trave_sai} pontos nos que saem contra {pts_trave_fica} nos que ficam), enquanto do lado de quem sobe tira os mais fracos, e sobram {n_sobe_sf} contra {n_trave_sf} — desenho em que só efeito acima de {dmin_ST} apareceria. Robustez da fronteira: é ela que inverte a conclusão e a manda para “Parece, mas não é”. Com todos os times, o único teste firme e com poder contra a trave é o de duelos aéreos ganhos, e na direção contrária à do achado; sem a fronteira esse mesmo duelo aéreo não separa. Como os dois cortes se contradizem em qual indicador separa, e em que direção, nada sobrevive aos dois — que é o que a tabela final do _metodo_fronteira.md já registrava para o A06 em Sobe × Trave. Os duelos aéreos ganhos NÃO viram conclusão: a regra 3 do _metodo_fronteira.md manda descartar o que só é firme com a fronteira, e o painel de 18/09 decidiu isso por 0 a 3 — eles entram no texto só como a razão de nada sobreviver, e é isso que desfaz a assimetria de publicar o achado de corte único que favorece e calar o de corte único que contraria. Sai também a frase “nenhum indicador do A02 ou do A06 separa essas duas faixas nos dois cortes”: ela é falsa, porque a pontaria do A02 (gols acima do gol esperado) é firme nos dois cortes — o texto novo a nomeia e diz por que ela não serve. Os números que saíram do texto de 2 minutos ficam aqui: duelos defensivos ganhos {dd_s_sem}% de quem sobe contra {ddt_t_sem}% da trave, sem os times de fronteira, com efeito {ddt_d} e intervalo {ddt_ic}. A mesma comparação com todos os times, e os dois números do duelo aéreo contra a trave no corte cheio, continuam sem marcador em A06_numeros.json — por isso saíram do texto em vez de virar número digitado à mão, e o em_aberto já os registra como pendência. É também por essa falta que o gráfico desta conclusão não é dois_cortes: ele mostra o viés do corte, a mediana de pontos de quem sai contra a de quem fica.",
    "n": "{n_sobe_sf} promovidos contra {n_trave_sf} da trave, sem os colados na linha; {n_sobe_com} contra {n_trave} com todos os times",
    "prova": "A06_testes.csv; _metodo_fronteira.md; _porta_temporal.md",
    "validada_em": "2026-09-19"
@@ -40,13 +88,46 @@
    "id": "A06-3",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Quem sobe sofre tanto chute quanto o meio — o que muda é o tamanho da chance que ele entrega",
-   "o_que_vimos": "Quem sobe sofre menos finalização por jogo ({rc_s_com} contra {rc_m_com} do meio), mas isso é a posse: pondo a posse do adversário na mesma base — finalizações sofridas por 50% de posse do adversário — o volume empata e nem escolhe lado, {rca_s_com} contra {rca_m_com} com todos os times e {rca_s} contra {rca_m} sem os colados na linha. O que fica é o tamanho da chance cedida: cada finalização que quem sobe sofre vale {xgpr_s_com} gol esperado contra {xgpr_m_com} do meio, cerca de um gol esperado a menos a cada cem chutes sofridos, e sem os colados na linha 0,086 contra 0,100. É o mesmo número que o A02 já publica, não uma segunda prova, e o gol esperado é régua curta — reproduz só {conf_xgpr} de si mesmo entre rodadas pares e ímpares —, então a diferença conta pela direção, não pelo tamanho.",
+   "manchete": "A vantagem de quem sobe é sofrer chute pior, não sofrer menos chute",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Finalizações sofridas por 50% de posse do adversário",
+    "unidade": "por 50% de posse",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "rca_s_com"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "rca_m_com"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "rca_s"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "rca_m"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "Quem sobe sofre menos finalização por jogo, mas isso é a posse. O que fica é o tamanho da chance cedida, cerca de um gol esperado a menos a cada cem chutes sofridos. É o mesmo número do A02, e de régua curta: a diferença conta pela direção, não pelo tamanho.",
    "para_o_santa_cruz": "A vantagem defensiva de quem sobe não é sofrer menos finalização: é sofrer finalização que vale menos. Na montagem, o alvo é reduzir o valor do chute cedido — organização da área e altura da linha — e não comprar volume de desarme. Por qual mecanismo isso acontece, o A06 não diz: não existe distância nem ângulo do chute sofrido em nenhuma coluna da base, e a conta divide pela posse do adversário, que muda conforme o placar.",
    "premissa": null,
    "premissa_motivo": "Ajusta a leitura defensiva do A02: o lado defensivo separa pela qualidade do que se cede, não pelo volume. A hipótese de que o volume só parecia menor porque quem sobe tem mais a bola precisa da posse declarada na lista e testada antes de virar afirmação — hoje a posse não está em nenhuma família do A06, e no recálculo da auditoria quem sobe tem mais bola, não menos.",
    "confianca": "provável",
-   "confianca_motivo": "Provável: passa num critério e falha no outro. (a) Correção para múltiplos testes a 5% na família do que se cede: xG por finalização sofrida PASSA nos dois cortes — selo firme com todos os times e q {xgpr_q} sem os times de fronteira, nas duas linhas de A06_testes.csv. (b) Porta temporal da §6.4: REPROVA, e com o sinal invertido em relação ao que a parte declarava — parcial {porta_xgpr_parcial} com p {porta_xgpr_p}, em _porta_temporal.md §3. Um sim e um não = provável, que é exatamente o nível do A02-2, que publica este mesmo número. Duas ressalvas obrigatórias que não estavam na conclusão: régua curta — o xG por finalização sofrida reproduz {conf_xgpr} de si mesmo entre rodadas pares e ímpares, abaixo do piso da §6.1, e a coluna regua_curta nem existe em A06_testes.csv; e pode ser efeito do placar — os dois indicadores de volume são divididos pela posse do adversário, que muda com o resultado, e não há recorte por estado do jogo em base nenhuma. Robustez da fronteira: sai da frase o xG sofrido por 50% de posse do adversário, que não separa em nenhum dos dois cortes; o volume ajustado também não separa e ainda troca de sinal entre eles, e por isso o texto dá os dois pares de números em vez de dizer que o volume “some”; e sai “Duelo aéreo não separa”, que era a célula mais nula das quatro que o A06 rodou para duelos aéreos ganhos — a célula firme do mesmo indicador passa a ser tratada no A06-2, para não citar a conveniente calando a contrária. Pendência de dono, não de método: o xG por finalização sofrida é rodado em A02 e em A06 e tem dois q publicados para o mesmo teste, porque cada parte o corrigiu numa família diferente; é preciso declarar um dono por indicador.",
+   "confianca_motivo": "Provável: passa num critério e falha no outro. (a) Correção para múltiplos testes a 5% na família do que se cede: xG por finalização sofrida PASSA nos dois cortes — selo firme com todos os times e q {xgpr_q} sem os times de fronteira, nas duas linhas de A06_testes.csv. (b) Porta temporal da §6.4: REPROVA, e com o sinal invertido em relação ao que a parte declarava — parcial {porta_xgpr_parcial} com p {porta_xgpr_p}, em _porta_temporal.md §3. Um sim e um não = provável, que é exatamente o nível do A02-2, que publica este mesmo número. Duas ressalvas obrigatórias que não estavam na conclusão: régua curta — o xG por finalização sofrida reproduz {conf_xgpr} de si mesmo entre rodadas pares e ímpares, abaixo do piso da §6.1, e a coluna regua_curta nem existe em A06_testes.csv; e pode ser efeito do placar — os dois indicadores de volume são divididos pela posse do adversário, que muda com o resultado, e não há recorte por estado do jogo em base nenhuma. Robustez da fronteira: sai da frase o xG sofrido por 50% de posse do adversário, que não separa em nenhum dos dois cortes; o volume ajustado também não separa e ainda troca de sinal entre eles, e por isso o texto dá os dois pares de números em vez de dizer que o volume “some”; e sai “Duelo aéreo não separa”, que era a célula mais nula das quatro que o A06 rodou para duelos aéreos ganhos — a célula firme do mesmo indicador passa a ser tratada no A06-2, para não citar a conveniente calando a contrária. Pendência de dono, não de método: o xG por finalização sofrida é rodado em A02 e em A06 e tem dois q publicados para o mesmo teste, porque cada parte o corrigiu numa família diferente; é preciso declarar um dono por indicador. Os números de volume saíram do texto de 2 minutos e ficam aqui: finalizações sofridas por jogo {rc_s_com} contra {rc_m_com}, e por 50% de posse do adversário {rca_s_com} contra {rca_m_com} com todos os times e {rca_s} contra {rca_m} sem os times de fronteira, com efeito {rca_d} e q {rca_q} — volume que empata e ainda troca de sinal entre os cortes. Os dois números do gol esperado por finalização sofrida sem os times de fronteira continuam sem marcador em A06_numeros.json e por isso saíram do texto, como o em_aberto registra; por isso o gráfico desta conclusão não é o do gol esperado por finalização sofrida e sim o das finalizações sofridas por 50% de posse do adversário, que tem os quatro marcadores e mostra nos dois cortes justamente a metade frágil da manchete, a que troca de sinal.",
    "n": "{n_sobe_com} promovidos contra {n_meio_com} do meio, com todos os times; {n_sobe_sf} contra {n_meio_sf} sem os colados na linha",
    "prova": "A06_testes.csv; _porta_temporal.md; A06_numeros_novos.json",
    "validada_em": "2026-09-19"

@@ -9,13 +9,28 @@
    "id": "J02-1",
    "bloco": "J",
    "status": "validada",
-   "manchete": "{contr_geral}% dos minutos da Série B são de jogador que chegou ao clube naquele mesmo ano",
-   "o_que_vimos": "Em 2022, 2023, 2024 e 2025, {contr_geral}% dos minutos que dá para identificar foram de jogador que chegou ao clube naquela mesma temporada; sem os times que terminaram colados na linha de corte dá {contr_geral_sf}%, o mesmo retrato. No meio da tabela, quem já estava no clube fica com {fic_m}% dos minutos — dois terços do tempo de jogo são de gente que chegou naquele ano. É contagem e não comparação: nenhum teste foi feito aqui, e {n_fora} dos {n_esperado} clube-temporadas ficou de fora porque as duas bases não se encontraram em minutos suficientes (Athletico-PR 2025).",
+   "manchete": "Na Série B, {contr_geral}% dos minutos são de jogador que chegou naquele ano",
+   "grafico": {
+    "tipo": "barras",
+    "titulo": "Minutos de quem chegou naquele mesmo ano",
+    "unidade": "% dos minutos",
+    "barras": [
+     {
+      "nome": "Com todos os times",
+      "marcador": "contr_geral"
+     },
+     {
+      "nome": "Sem os de fronteira",
+      "marcador": "contr_geral_sf"
+     }
+    ]
+   },
+   "o_que_vimos": "Em quatro temporadas, {contr_geral}% dos minutos identificáveis foram de jogador que chegou ao clube naquele mesmo ano. É contagem e não comparação: nenhum teste sustenta o número, e o Athletico-PR de 2025 ficou de fora por falta de minutos em comum.",
    "para_o_santa_cruz": "A montagem anual não é ajuste de elenco, é construção de elenco: em um ano, a maior parte do time que entra em campo não estava lá. Isso muda o peso do planejamento de janela e o peso do erro, porque não há base herdada para diluir uma contratação ruim. Vale como retrato do campeonato, não como receita — é assim que a Série B inteira funciona, e não é o que diferencia quem sobe.",
    "premissa": null,
    "premissa_motivo": "Sugere premissa nova no grupo Montagem do elenco: “Na Série B o elenco se refaz todo ano — cerca de sete em cada dez minutos de uma temporada são de jogadores que chegaram naquele ano. Planejar a temporada é construir um elenco, não ajustar o do ano anterior.” Nenhuma das premissas de dados/premissas.json trata de rotatividade anual. E sai daqui a frase que repetia a premissa do T03 como coisa sabida (“explica por que o perfil de jogo do clube não segue o treinador”): o próprio T03 a nega.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. Correção para múltiplos testes: não há teste aqui — é contagem descritiva do nível geral, e as duas linhas vizinhas de minutos de contratado em Sobe × Meio ficam em “sem diferença clara” nos dois cortes. Porta temporal: não rodou e não roda, porque a minutagem existe por temporada e não por rodada. A cobertura da ponte entre minutagem e elencos vai de {cob_min}% a praticamente todos os minutos, com mediana de {cob_med}%; abaixo do piso de cobertura declarado no J02.py o clube-temporada fica fora. n = {n} de {n_esperado} clube-temporadas.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. Correção para múltiplos testes: não há teste aqui — é contagem descritiva do nível geral, e as duas linhas vizinhas de minutos de contratado em Sobe × Meio ficam em “sem diferença clara” nos dois cortes. Porta temporal: não rodou e não roda, porque a minutagem existe por temporada e não por rodada. A cobertura da ponte entre minutagem e elencos vai de {cob_min}% a praticamente todos os minutos, com mediana de {cob_med}%; abaixo do piso de cobertura declarado no J02.py o clube-temporada fica fora. n = {n} de {n_esperado} clube-temporadas. Saiu do o que vimos e fica aqui: {n_fora} de {n_esperado} ficou de fora porque as duas bases não se encontraram em minutos suficientes (Athletico-PR 2025), e o nível geral sem os times de fronteira ({contr_geral_sf}%) é o mesmo retrato — está no gráfico, lado a lado.",
    "n": "{n} de {n_esperado} clube-temporadas, 2022–2025",
    "prova": "J02_resumo.json, chave quadro_por_faixa e o n da base. J02_testes.csv, familia continuidade: min_de_contratado_pct em Sobe × Meio dá q 0,48320 com fronteira e 0,25284 sem, selo “sem diferença clara” nos dois — nenhuma linha de teste sustenta a contagem geral, que não é comparação. J02_numeros_novos.json, chave contr_geral: o de_onde do nível geral (mediana das 79 linhas, conferida por três caminhos — 69,8478 no valor cheio, 68,5516 no agregado por minutos) e do mesmo corte sem os times de fronteira (69,6485). _porta_temporal.md, seção 4, para a medida de elenco não ser partível por turno.",
    "validada_em": "2026-09-19"
@@ -26,12 +41,45 @@
    "status": "validada",
    "negativa": true,
    "manchete": "Manter a base do ano anterior não aparece como vantagem de quem sobe",
-   "o_que_vimos": "Entre os que subiram, quem já estava no clube ficou com {fic_s}% dos minutos, contra {fic_m}% do meio da tabela; sem os times que terminaram colados na linha de corte é {fic_s_sf}% contra {fic_m_sf}%, e nos dois recortes a diferença cabe dentro do que o acaso produz numa amostra deste tamanho. Caso a caso não há padrão nenhum: entre os {n_sobe} que subiram a fatia vai de {fic_min}% (Remo 2025) a {fic_max}% (Criciúma 2023). Com {n_sobe} times que subiram contra {n_meio} do meio — {n_sobe_sf} contra {n_meio_sf} sem os de fronteira —, só uma vantagem grande apareceria: não dá para dizer que ela não existe, só que não apareceu.",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Minutos de quem já estava no clube",
+    "unidade": "% dos minutos",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "fic_s"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "fic_m"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "fic_s_sf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "fic_m_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "Entre os que subiram, quem já estava ficou com {fic_s}% dos minutos, contra {fic_m}% do meio; nos dois cortes a diferença cabe dentro do acaso. Caso a caso não há padrão: entre os {n_sobe} que subiram, de {fic_min}% a {fic_max}%. Não dá para dizer que a vantagem não existe, só que não apareceu.",
    "para_o_santa_cruz": "O que este número não pode dizer é se manter ajuda ou atrapalha: permanência de elenco depende de como foi o ano anterior, então ela vem contaminada pelo resultado e descreve em vez de orientar. Para 2027 a decisão de manter ou trocar continua aberta e tem de ser tomada jogador a jogador, pelo que cada um entrega — que é a pergunta de J05 e J06. O que dá para dizer é que o Santa Cruz não precisa temer a troca grande: ela é a norma da Série B, inclusive entre os que sobem.",
    "premissa": null,
    "premissa_motivo": "Nenhuma premissa de dados/premissas.json é tocada. Derruba duas premissas internas do estudo: a da própria pergunta do J02 (“quem sobe mantém mais a base”) e a ressalva 2 de J02_indicadores.json, que dava a continuidade como livre da lista de consequência do resultado — pctFicou e novos estão nela, na constante CONSEQUENCIA de ranking_gaps.py, com o motivo escrito no próprio arquivo (“permanência de elenco depende de como foi o ano”).",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. Correção para múltiplos testes: a continuidade não separa quem sobe do meio em corte nenhum, com selo “sem diferença clara” nos dois e o intervalo cruzando o zero nos dois sentidos. Porta temporal: não rodou e não é partível por turno, porque permanência de elenco só existe medida na temporada inteira. E o desenho é pequeno: a menor diferença que ele enxergaria é maior que a maior diferença já observada na família continuidade, então “não separa” aqui não vira “não existe”. A metade afirmativa da manchete antiga (“mantém menos”) não tem teste atrás em corte nenhum e caiu. n = {n_sobe} que subiram contra {n_meio} do meio.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. Correção para múltiplos testes: a continuidade não separa quem sobe do meio em corte nenhum, com selo “sem diferença clara” nos dois e o intervalo cruzando o zero nos dois sentidos. Porta temporal: não rodou e não é partível por turno, porque permanência de elenco só existe medida na temporada inteira. E o desenho é pequeno: a menor diferença que ele enxergaria é maior que a maior diferença já observada na família continuidade, então “não separa” aqui não vira “não existe”. A metade afirmativa da manchete antiga (“mantém menos”) não tem teste atrás em corte nenhum e caiu. n = {n_sobe} que subiram contra {n_meio} do meio. Saiu do o que vimos e fica aqui: com {n_sobe} que subiram contra {n_meio} do meio, e {n_sobe_sf} contra {n_meio_sf} sem os times de fronteira, só uma vantagem grande apareceria — os dois cortes estão no gráfico. Saíram também do o que vimos, por espaço, os dois extremos caso a caso dessas {n_sobe} subidas: Remo 2025 com {fic_min}% e Criciúma 2023 com {fic_max}% — são caudas, e a mediana do grupo é {fic_s}%.",
    "n": "{n_sobe} que subiram contra {n_meio} do meio; sem os times de fronteira, {n_sobe_sf} contra {n_meio_sf}",
    "prova": "J02_testes.csv, familia continuidade: min_de_quem_ficou_pct em Sobe × Meio, com fronteira 27,017 contra 32,335 (d -0,328, q 0,32213) e sem fronteira 20,277 contra 31,218 (d -0,709, q 0,25284) — o cru e o efeito saem sempre da mesma linha, nunca de cortes trocados. Poder: a menor diferença detectável é d 0,84 com fronteira e 1,20 sem, contra um maior efeito observado de 0,709 na mesma família. Sobe × Trave da mesma medida, e do seu espelho min_de_contratado_pct, é firme só SEM os times de fronteira (20,277 contra 42,207, d -1,369, q 0,04002) e não com eles (d -0,708, q 0,09151); firme só num corte é suspeito e não é publicado, pela regra escrita em _metodo_fronteira.md.",
    "validada_em": "2026-09-19"
@@ -40,13 +88,54 @@
    "id": "J02-3",
    "bloco": "J",
    "status": "validada",
-   "manchete": "Quem sobe concentra {s11_s}% dos minutos nos onze mais usados; quem cai espalha o ano por {at_c} jogadores",
-   "o_que_vimos": "Os onze mais usados de quem sobe ficam com {s11_s}% dos minutos do time, contra {s11_m}% do meio da tabela — e sem os times que terminaram colados na linha de corte a diferença cresce, {s11_s_sf}% contra {s11_m_sf}%. Quem cai anda no sentido contrário: {at_c} jogadores usados na temporada contra {at_m} do meio, {s11_c}% dos minutos nos onze mais usados contra {s11_m}% e {fic_c}% dos minutos com quem já estava no clube contra {fic_m}% — as três se sustentam sem os times de fronteira ({at_c_sf} contra {at_m_sf}; {s11_c_sf}% contra {s11_m_sf}%; {fic_c_sf}% contra {fic_m_sf}%). O que não separa quem sobe do meio, em nenhum dos dois recortes, é o número de jogadores usados: {at_s} contra {at_m}.",
+   "manchete": "Quem sobe concentra {s11_s}% dos minutos nos onze mais usados, contra {s11_m}% do meio",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Minutos nos onze mais usados",
+    "unidade": "% dos minutos",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "s11_s"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "s11_m"
+       },
+       {
+        "nome": "Cai",
+        "marcador": "s11_c"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Sobe",
+        "marcador": "s11_s_sf"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "s11_m_sf"
+       },
+       {
+        "nome": "Cai",
+        "marcador": "s11_c_sf"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "Os onze mais usados de quem sobe ficam com {s11_s}% dos minutos do time, contra {s11_m}% do meio da tabela e {s11_c}% de quem cai. Quem cai usa {at_c} jogadores na temporada, contra {at_m} do meio. Já o número de jogadores usados não separa quem sobe do meio ({at_s} contra {at_m}).",
    "para_o_santa_cruz": "Isto descreve, não ensina: quem está ganhando repete a escalação e quem está perdendo roda o elenco, e o rótulo destes números já está decidido — não contrate para isto. O teste que separaria causa de consequência não é possível com o dado que existe, porque a minutagem é por temporada e não por rodada. Como retrato de fim de ano conversa com o J01 ({j01_cai_altos} jogadores de minutagem alta em quem cai contra {j01_sobe_altos} em quem sobe); a alavanca de montagem continua sendo quem se contrata, não quantos minutos os onze vão dividir.",
    "premissa": null,
    "premissa_motivo": "Conversa com m3 (Titulares consolidados, reservas com potencial) na direção, mas não a confirma: a concentração de minutos é consequência do resultado, então não serve de prova de que montar assim faça subir. Nenhuma premissa nova. Par obrigatório com o A14-1, para o leitor não ver a mesma medida promovida numa parte e apagada na outra: a concentração separa e por isso o J02 a publica; ela sai da régua do A14 porque é consequência de ganhar e não é calculável por turno.",
    "confianca": "provável",
-   "confianca_motivo": "Provável porque passa em um dos dois critérios. Correção para múltiplos testes: passa, e nos dois cortes — em Sobe × Meio pela fatia dos onze mais usados e pela concentração dos minutos, e em Cai × Meio também pelos atletas usados, pelo núcleo de quem passa dos 300 minutos e pela base mantida. Porta temporal: não passa e não pode passar, porque não há escalação por rodada para partir a medida em turnos. Ser consequência do resultado não mexe no nível — mexe no que a conclusão pode afirmar, e isso está no uso prático. n = {n_sobe} que subiram e {n_cai} rebaixados contra {n_meio} do meio.",
+   "confianca_motivo": "Provável porque passa em um dos dois critérios. Correção para múltiplos testes: passa, e nos dois cortes — em Sobe × Meio pela fatia dos onze mais usados e pela concentração dos minutos, e em Cai × Meio também pelos atletas usados, pelo núcleo de quem passa dos 300 minutos e pela base mantida. Porta temporal: não passa e não pode passar, porque não há escalação por rodada para partir a medida em turnos. Ser consequência do resultado não mexe no nível — mexe no que a conclusão pode afirmar, e isso está no uso prático. n = {n_sobe} que subiram e {n_cai} rebaixados contra {n_meio} do meio. Saiu do o que vimos e fica aqui: a base mantida também separa quem cai do meio ({fic_c}% contra {fic_m}%, e {fic_c_sf}% contra {fic_m_sf}% sem os times de fronteira), e os atletas usados de quem cai se sustentam nos dois cortes ({at_c_sf} contra {at_m_sf}).",
    "n": "{n_sobe} que subiram e {n_cai} rebaixados contra {n_meio} do meio; sem os times de fronteira, {n_sobe_sf} e {n_cai_sf} contra {n_meio_sf}",
    "prova": "J02_testes.csv, familia concentracao: em Sobe × Meio, share_11 (q 0,00280 com fronteira e 0,01745 sem) e conc_hhi (0,00479 e 0,01745) são os dois únicos indicadores da parte com poder suficiente no corte cheio, e atletas usados não separa em corte nenhum (0,21439 e 0,28266), que é a última frase do texto. Em Cai × Meio são firmes nos dois cortes share_11 (0,01134 e 0,00116), atletas_usados (0,00268 e 0,00312), nucleo_300 (0,00268 e 0,00244) e min_de_quem_ficou_pct (0,03038 e 0,04028). Discordam entre os cortes, e por isso ficam fora do texto, nucleo_300 em Sobe × Meio — firme só com fronteira (d 0,672, q 0,02321) e não sem (d 0,656, q 0,12929) — e jogadores_que_ficaram_pct em Cai × Meio, também firme só com fronteira (d -0,579, q 0,04988) e não sem (d -0,57, q 0,12204). A inversão que tirou o superlativo da manchete: sem os times de fronteira quem menos mantém passa a ser o Sobe (20,277) e não o Cai (22,301), e o espelho vira junto (com fronteira, minutos de contratado dá Cai 75,911 contra Sobe 72,983; sem, Sobe 79,723 contra Cai 77,699). _porta_temporal.md, seção 4: a régua I não é partível por turno, e o número circular (valor da temporada inteira contra os pontos do 2º turno) dá parcial +0,202, p 0,0720. J01.json, chave numeros, para cai_altos e sobe_altos.",
    "validada_em": "2026-09-19"

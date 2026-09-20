@@ -23,7 +23,18 @@
   };
   var NS = 'http://www.w3.org/2000/svg';
 
+  /* Quem manda na paleta e o TEMA DO APP (o botao ☀/☾, que poe body.claro), nao o do
+     sistema: o style.css nao usa prefers-color-scheme em lugar nenhum e o padrao do app e
+     ESCURO. Sem isto, o caso mais comum — app no escuro, sistema no claro — pintava com a
+     paleta clara, e a tinta dos rotulos (#0b0b0b) sumia no fundo escuro. Esses rotulos sao
+     a regra de alivio do contraste do aqua: sem eles o desenho nao se le. O sistema so
+     decide quando nao ha body (teste fora do navegador). */
   function escuro() {
+    try {
+      if (document.body && document.body.classList) {
+        return !document.body.classList.contains('claro');
+      }
+    } catch (e) { /* cai para o do sistema */ }
     try { return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; }
     catch (e) { return false; }
   }
@@ -52,8 +63,25 @@
   }
   function fmt(v, casas) {
     if (v == null) return '—';
-    var c = casas == null ? (Math.abs(v) >= 100 ? 0 : (Math.abs(v) >= 10 ? 1 : 2)) : casas;
+    /* Contagem nao leva casa decimal: metade dos graficos deste estudo e contagem (casos,
+       campanhas, times, nomes) e “8,00 casos” e ruido para quem le. So a medida, que vem
+       com fracao, recebe casa. */
+    var c = casas != null ? casas
+          : (Number.isInteger(v) ? 0
+             : (Math.abs(v) >= 100 ? 0 : (Math.abs(v) >= 10 ? 1 : 2)));
     return v.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
+  }
+
+  /* turno e returno chegam como MARCADOR no <ID>.json e ja como VALOR depois que o
+     gerar_estudo_serieb_js.py resolve — e a aba chama montar() com numeros vazio. Sem
+     aceitar os dois, a forma `turno` devolvia null e o encaixe era removido: o grafico
+     sumia da tela em silencio. As outras tres nao tinham o problema porque passam por
+     serie(), que ja olha `valor` antes do marcador. */
+  function valorDe(v, numeros) {
+    if (v == null) return null;
+    if (typeof v === 'number') return v;
+    if (numeros && Object.prototype.hasOwnProperty.call(numeros, v)) return num(numeros[v]);
+    return num(v);
   }
 
   /* resolve uma série: {nome, marcador} -> {nome, valor} lendo de numeros */
@@ -62,25 +90,58 @@
     return { nome: s.nome, valor: v, marcador: s.marcador };
   }
 
+  /* A REGUA COMECA NO ZERO, e nao no menor valor do proprio grafico.
+
+     Por que mudou (20/09): a versao anterior tomava o minimo e o maximo dos pontos e abria
+     35% de folga de cada lado. Com isso a distancia entre 9.582 e 9.607 metros — 0,26%, que
+     o estudo publica como “sem diferenca clara”, com quatro clubes de um lado — ocupava 40%
+     da largura do desenho. O grafico afirmava o que a manchete acima dele negava, que e
+     exatamente a classe de erro que o portao de entrega existe para pegar: alegacao sobre si
+     mesma que nada confere. Ancorado no zero, empate parece empate.
+
+     Quando ha valor negativo (saldo, sobra sobre o esperado, diferenca entre faixas), o zero
+     fica dentro da regua e vira uma linha visivel: e dela que o sinal se le. */
+  function escala(vs) {
+    var mn = Math.min.apply(null, vs), mx = Math.max.apply(null, vs);
+    var lo = Math.min(0, mn), hi = Math.max(0, mx);
+    if (hi === lo) hi = lo + 1;                 // tudo zero: regua qualquer, so para dividir
+    var folga = (hi - lo) * 0.12;
+    if (lo < 0) lo -= folga;
+    if (hi > 0) hi += folga;
+    return { mn: lo, mx: hi, temNegativo: mn < 0 };
+  }
+
+  /* As pontas da regua escritas, para o leitor ver DE ONDE ATE ONDE o desenho vai. Sem isto
+     o zero e invisivel e o desenho volta a poder ser lido como se fosse todo o intervalo. */
+  function pontasDaRegua(svg, e, x, y, mn, mx, p) {
+    [[mn, e.esq, 'start'], [mx, e.dir, 'end']].forEach(function (q) {
+      var t = el('text', { x: q[1], y: y, fill: p.suave, 'font-size': 10, 'text-anchor': q[2] });
+      t.textContent = fmt(q[0]); svg.appendChild(t);
+    });
+  }
+
   /* ---------- formas ---------- */
 
   /* grupos: pontos numa régua só. O caso padrão — Sobe contra Meio num indicador. */
   function desenhaGrupos(g, numeros, larg) {
-    var p = paleta(), h = 34 + (g.series.length * 30), pad = { e: 96, d: 76, t: 26, b: 26 };
+    var p = paleta(), h = 48 + (g.series.length * 30), pad = { e: 96, d: 76, t: 26, b: 34 };
     var pts = g.series.map(function (s) { return serie(s, numeros); }).filter(function (s) { return s.valor != null; });
     if (!pts.length) return null;
-    var vs = pts.map(function (s) { return s.valor; });
-    var mn = Math.min.apply(null, vs), mx = Math.max.apply(null, vs);
-    var folga = (mx - mn) || Math.abs(mx) || 1;
-    mn -= folga * 0.35; mx += folga * 0.35;
+    var e = escala(pts.map(function (s) { return s.valor; }));
+    var mn = e.mn, mx = e.mx;
     var x = function (v) { return pad.e + ((v - mn) / (mx - mn)) * (larg - pad.e - pad.d); };
     var svg = el('svg', { viewBox: '0 0 ' + larg + ' ' + h, width: '100%', height: h, role: 'img' });
-    svg.appendChild(el('line', { x1: pad.e, x2: larg - pad.d, y1: h - pad.b + 8, y2: h - pad.b + 8, stroke: p.grade, 'stroke-width': 1 }));
+    var yBase = h - pad.b + 8;
+    svg.appendChild(el('line', { x1: pad.e, x2: larg - pad.d, y1: yBase, y2: yBase, stroke: p.grade, 'stroke-width': 1 }));
+    pontasDaRegua(svg, { esq: pad.e, dir: larg - pad.d }, x, yBase + 14, mn, mx, p);
+    if (e.temNegativo) {
+      svg.appendChild(el('line', { x1: x(0), x2: x(0), y1: pad.t - 14, y2: yBase, stroke: p.suave, 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+    }
     pts.forEach(function (s, i) {
       var y = pad.t + i * 30, c = corDe(s.nome, p);
       var rot = el('text', { x: pad.e - 10, y: y + 4, 'text-anchor': 'end', fill: p.suave, 'font-size': 12 });
       rot.textContent = s.nome; svg.appendChild(rot);
-      svg.appendChild(el('line', { x1: pad.e, x2: x(s.valor), y1: y, y2: y, stroke: p.grade, 'stroke-width': 2 }));
+      svg.appendChild(el('line', { x1: x(Math.min(0, Math.max(mn, 0))), x2: x(s.valor), y1: y, y2: y, stroke: p.grade, 'stroke-width': 2 }));
       var cir = el('circle', { cx: x(s.valor), cy: y, r: 6, fill: c, stroke: escuro() ? '#1a1a19' : '#fcfcfb', 'stroke-width': 2 });
       cir.appendChild(el('title')).textContent = s.nome + ': ' + fmt(s.valor) + (g.unidade ? ' ' + g.unidade : '');
       svg.appendChild(cir);
@@ -94,20 +155,23 @@
    * Mostra a MESMA comparação nos dois cortes de fronteira, um sobre o outro. Quando o
    * achado só existe num corte, isso salta aos olhos — no texto ficava escondido. */
   function desenhaDoisCortes(g, numeros, larg) {
-    var p = paleta(), pad = { e: 96, d: 76, t: 30, b: 14 };
+    var p = paleta(), pad = { e: 96, d: 76, t: 30, b: 26 };
     var blocos = (g.cortes || []).map(function (c) {
       return { rotulo: c.rotulo, pts: (c.series || []).map(function (s) { return serie(s, numeros); }).filter(function (s) { return s.valor != null; }) };
     }).filter(function (b) { return b.pts.length; });
     if (!blocos.length) return null;
     var todos = [];
     blocos.forEach(function (b) { b.pts.forEach(function (s) { todos.push(s.valor); }); });
-    var mn = Math.min.apply(null, todos), mx = Math.max.apply(null, todos);
-    var folga = (mx - mn) || Math.abs(mx) || 1;
-    mn -= folga * 0.35; mx += folga * 0.35;
+    var e = escala(todos);
+    var mn = e.mn, mx = e.mx;
     var alturaBloco = 30 + blocos[0].pts.length * 26;
     var h = pad.t + blocos.length * alturaBloco + pad.b;
     var x = function (v) { return pad.e + ((v - mn) / (mx - mn)) * (larg - pad.e - pad.d); };
     var svg = el('svg', { viewBox: '0 0 ' + larg + ' ' + h, width: '100%', height: h, role: 'img' });
+    pontasDaRegua(svg, { esq: pad.e, dir: larg - pad.d }, x, h - 4, mn, mx, p);
+    if (e.temNegativo) {
+      svg.appendChild(el('line', { x1: x(0), x2: x(0), y1: pad.t - 14, y2: h - pad.b - 2, stroke: p.suave, 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+    }
     blocos.forEach(function (b, bi) {
       var y0 = pad.t + bi * alturaBloco;
       var cab = el('text', { x: 0, y: y0 - 8, fill: p.suave, 'font-size': 11, 'font-weight': 600 });
@@ -131,7 +195,7 @@
   function desenhaTurno(g, numeros, larg) {
     var p = paleta(), h = 190, pad = { e: 78, d: 92, t: 24, b: 34 };
     var ls = (g.linhas || []).map(function (l) {
-      return { nome: l.nome, a: num(numeros[l.turno]), b: num(numeros[l.returno]) };
+      return { nome: l.nome, a: valorDe(l.turno, numeros), b: valorDe(l.returno, numeros) };
     }).filter(function (l) { return l.a != null && l.b != null; });
     if (!ls.length) return null;
     var vs = []; ls.forEach(function (l) { vs.push(l.a, l.b); });
@@ -167,12 +231,18 @@
     var bs = (g.barras || []).map(function (b) { return { nome: b.nome, valor: num(b.valor != null ? b.valor : numeros[b.marcador]) }; })
       .filter(function (b) { return b.valor != null; });
     if (!bs.length) return null;
-    var mx = Math.max.apply(null, bs.map(function (b) { return b.valor; })) * 1.18;
+    /* A linha de corte entra na ESCALA. Sem isto, corte acima da maior barra caia fora do
+       viewBox e simplesmente nao era desenhado — o numero ficava publicado no JSON e nao
+       chegava a leitor nenhum (A01-3: barras de 8 e 9 com corte em 16). */
+    var corte = g.linha_de_corte != null ? valorDe(g.linha_de_corte, numeros) : null;
+    var topo = Math.max.apply(null, bs.map(function (b) { return b.valor; }));
+    if (corte != null) topo = Math.max(topo, corte);
+    var mx = topo * 1.18;
     var lb = (larg - pad.e - pad.d) / bs.length, w = Math.min(46, lb - 10);
     var svg = el('svg', { viewBox: '0 0 ' + larg + ' ' + h, width: '100%', height: h, role: 'img' });
     svg.appendChild(el('line', { x1: pad.e - 8, x2: larg - pad.d, y1: h - pad.b, y2: h - pad.b, stroke: p.grade, 'stroke-width': 1 }));
-    if (g.linha_de_corte != null) {
-      var yc = pad.t + (1 - num(g.linha_de_corte) / mx) * (h - pad.t - pad.b);
+    if (corte != null) {
+      var yc = pad.t + (1 - corte / mx) * (h - pad.t - pad.b);
       svg.appendChild(el('line', { x1: pad.e - 8, x2: larg - pad.d, y1: yc, y2: yc, stroke: p.suave, 'stroke-width': 1, 'stroke-dasharray': '4 3' }));
     }
     bs.forEach(function (b, i) {
@@ -198,10 +268,12 @@
       (c.series || []).forEach(function (s) { var r = serie(s, numeros); linhas.push([c.rotulo + ' · ' + r.nome, fmt(r.valor)]); });
     });
     if (g.linhas) g.linhas.forEach(function (l) {
-      linhas.push([l.nome + ' · 1º turno', fmt(num(numeros[l.turno]))]);
-      linhas.push([l.nome + ' · 2º turno', fmt(num(numeros[l.returno]))]);
+      linhas.push([l.nome + ' · 1º turno', fmt(valorDe(l.turno, numeros))]);
+      linhas.push([l.nome + ' · 2º turno', fmt(valorDe(l.returno, numeros))]);
     });
     if (g.barras) g.barras.forEach(function (b) { linhas.push([b.nome, fmt(num(b.valor != null ? b.valor : numeros[b.marcador]))]); });
+    /* a linha de corte tambem e um numero publicado: quem le pela tabela tem de ve-la */
+    if (g.linha_de_corte != null) linhas.push(['linha de corte', fmt(valorDe(g.linha_de_corte, numeros))]);
     if (!linhas.length) return null;
     var d = document.createElement('details'); d.className = 'esb-graf-tabela';
     var s = document.createElement('summary'); s.textContent = 'ver os números'; d.appendChild(s);
@@ -238,13 +310,7 @@
 
   window.ESB_GRAFICO = { montar: montar, formas: Object.keys(FORMAS) };
 
-  /* o modo escuro é escolhido, não invertido: redesenha com os passos do modo */
-  try {
-    var mq = window.matchMedia('(prefers-color-scheme: dark)');
-    if (mq.addEventListener) mq.addEventListener('change', function () {
-      document.querySelectorAll('.esb-graf').forEach(function (f) {
-        var ev = new CustomEvent('esb:redesenhar', { bubbles: true }); f.dispatchEvent(ev);
-      });
-    });
-  } catch (e) { /* navegador sem matchMedia: fica no claro */ }
+  /* Quem redesenha ao trocar de tema e o estudo_serieb.js, que e dono dos encaixes:
+     ele observa a classe do body e remonta as figuras. Aqui nao ha estado a guardar. */
+
 })();

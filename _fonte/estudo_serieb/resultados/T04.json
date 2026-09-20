@@ -9,13 +9,28 @@
    "id": "T04-1",
    "bloco": "T",
    "status": "validada",
-   "manchete": "O nome que a lista apontava nunca subiu — e os dois que subiram com dois clubes diferentes nem entraram nela",
-   "o_que_vimos": "Nas quatro temporadas fechadas, {n_lista} treinadores chegam a 30 rodadas ou mais; pela pior passagem os dois primeiros são campeões de uma temporada só — {pz_piso}% e {ca_piso}% das rodadas no G4, com o {pz_valor}º e o {ca_valor}º elenco mais caro do ano — e o terceiro é Eduardo Baptista, {eb_piso}% na pior de {eb_pass} passagens em {eb_cl} clubes. Trocar a pior passagem pela média, que a mesma conta já produz, muda a lista: Enderson Moreira passa à frente com 48,5% em 5 clubes contra {eb_med}% dele; e contar só a partir da 10ª rodada muda de novo, com ele em 1º de {n_lista10} e {eb_piso10}%, porque aí os dois de cima não alcançam as 30 rodadas. A pior passagem zera para 21 dos {n_lista}, inclusive para os 9 que comandaram quatro vezes ou mais, e nenhuma das contas mexe no resultado: ele terminou em 5º nas três temporadas, {eb_dist}, enquanto Léo Condé (Vitória 2023 e Ceará 2024) e Mozart (Mirassol 2024 e Coritiba 2025) subiram com dois clubes cada e ficaram de fora da lista por terem uma passagem zerada.",
+   "manchete": "O 3º da lista pela pior passagem nunca subiu",
+   "grafico": {
+    "tipo": "grupos",
+    "titulo": "Eduardo Baptista no G4 nas quatro temporadas fechadas",
+    "unidade": "% das rodadas",
+    "series": [
+     {
+      "nome": "Pela pior passagem",
+      "marcador": "eb_piso"
+     },
+     {
+      "nome": "Pela média das passagens",
+      "marcador": "eb_med"
+     }
+    ]
+   },
+   "o_que_vimos": "Pela pior passagem, a lista de {n_lista} treinadores aponta dois campeões de uma temporada só e, em 3º, Eduardo Baptista, que nunca subiu. Trocando a pior passagem pela média, ele vai de {eb_piso}% a {eb_med}% do tempo no G4 e perde o lugar. E quem subiu com dois clubes ficou de fora.",
    "para_o_santa_cruz": "Não dá para tirar um nome só desta lista: trocar a pior passagem pela média já muda o terceiro lugar, e o critério que produzia \"um nome só\" é o mesmo que zera todo treinador com quatro passagens ou mais. Eduardo Baptista segue o nome mais regular da base — três temporadas sem afundar, com elencos {eb_valores} mais caros do ano, ou seja meio de tabela em dinheiro, e não barato —, mas isso tem de ser dito na mesma frase em que se diz que ele parou três vezes em 5º. Para avaliar qualquer candidato, olhe as duas contas juntas e o que ele entregou de fato: dos {n_lista}, 14 já terminaram alguma vez no G4, 10 comandaram isso até a última rodada e só 2 fizeram em dois clubes; disponibilidade e custo ficam para validação externa, como o CLAUDE.md manda.",
    "premissa": null,
    "premissa_motivo": "Não confirma nem contradiz premissa de dados/premissas.json. Sugere registrar, junto com o T04-2, que a lista de treinadores do estudo é ordenação do que já aconteceu e muda de nome conforme a conta escolhida — por isso não vira critério de contratação sozinha.",
    "confianca": "indício",
-   "confianca_motivo": "(a) Correção para múltiplos testes dentro da família: não. O bloco T não tem tabela de testes — não existe T04_testes.csv, nenhum dos scripts T01 a T04 importa scripts/_metodo.py e o T04.py apenas ordena o T02_passagem.csv pela pior passagem, então não há q nenhum para corrigir. (b) Porta temporal (§6.4): não. Nenhum script do bloco T a roda, e o pct_g4_apos_10 é recorte de rodadas, não a porta; dos sete traços que formam o índice de perfil, só a distância da finalização tem prova de anterioridade em _porta_temporal.md. Zero dos dois critérios: pela régua escrita, indício — e agora há um segundo motivo para não subir daí, porque a própria ordem da lista muda com o critério escolhido.",
+   "confianca_motivo": "(a) Correção para múltiplos testes dentro da família: não. O bloco T não tem tabela de testes — não existe T04_testes.csv, nenhum dos scripts T01 a T04 importa scripts/_metodo.py e o T04.py apenas ordena o T02_passagem.csv pela pior passagem, então não há q nenhum para corrigir. (b) Porta temporal (§6.4): não. Nenhum script do bloco T a roda, e o pct_g4_apos_10 é recorte de rodadas, não a porta; dos sete traços que formam o índice de perfil, só a distância da finalização tem prova de anterioridade em _porta_temporal.md. Zero dos dois critérios: pela régua escrita, indício — e agora há um segundo motivo para não subir daí, porque a própria ordem da lista muda com o critério escolhido. O que saiu do texto de 10 segundos e mora aqui: a ordem da lista depende do critério, e nenhum dos critérios é mais certo que o outro. Pela média das passagens, Enderson Moreira passa à frente com 48,5% em cinco clubes contra {eb_med}% dele; contando da 10ª rodada em diante ele é o 1º de {n_lista10}, com {eb_piso10}%, porque aí os dois de cima não chegam às 30 rodadas. A pior passagem zera para 21 dos {n_lista} nomes, inclusive para os 9 que comandaram quatro vezes ou mais, e é por isso que Léo Condé (Vitória 2023 e Ceará 2024) e Mozart (Mirassol 2024 e Coritiba 2025), que subiram com dois clubes cada, ficaram de fora. Os dois acima dele na lista são campeões de uma temporada só: Paulo Pezzolano no Cruzeiro 2022 e Fábio Carille no Santos 2024, {pz_piso}% e {ca_piso}% das rodadas no G4, com o {pz_valor}º e o {ca_valor}º elenco mais caro do ano e {pz_pass} e {ca_pass} passagem cada na base — o oposto do caso do Santa Cruz. Na sensibilidade do corte de rodadas (_robustez_19_09.json, subamostras_rodadas), em 20 rodadas a lista vai a 44 nomes e ele cai para o 5º; em 40 e em 60 rodadas ele é o 1º. Nenhuma das contas mexe no que ele entregou: 5º nas três temporadas, {eb_dist}, com elencos {eb_valores} mais caros do ano.",
    "n": "{n_lista} treinadores com 30 rodadas ou mais, em passagens de 10 rodadas ou mais e não interinas, nas quatro temporadas fechadas (2022–2025); Eduardo Baptista com {eb_pass} passagens, {eb_cl} clubes e {eb_rod} rodadas. 2026 entra só como teste.",
    "prova": "T02_passagem.csv, colunas pct_g4 e pct_g4_apos_10, recortadas para 2022–2025 pelas colunas em_curso e base_incompleta, que o scripts/T04.py não lê; A01_clube_temporada.csv, para a posição, os pontos e a distância ao 4º de cada temporada; T04_numeros_novos.json, chave numeros, com o de onde e o segundo caminho de cada valor; T04_resumo.json, chave lista_completa, que já traz o piso e a média lado a lado. O índice de perfil do T03 é percentil e fica só aqui, como descrição do clube-temporada nas 7 medidas do T03 — 73,6 na média das três passagens e 56,1 na pior —, nunca como perfil alinhado do treinador. Sensibilidade do corte de rodadas em _robustez_19_09.json, chave subamostras_rodadas, refeita só nas fechadas: em 20 rodadas a lista vai a 44 nomes e ele cai para o 5º; em 40 e em 60 rodadas ele é o 1º.",
    "validada_em": "2026-09-19"
@@ -25,13 +40,38 @@
    "bloco": "T",
    "status": "validada",
    "negativa": true,
-   "manchete": "O histórico do treinador não reaparece no clube seguinte — e esta base não conseguiria ver se reaparecesse",
-   "o_que_vimos": "Entre os {t02_multi_fechadas} treinadores que passaram por dois clubes ou mais nas temporadas fechadas, a diferença típica entre a melhor e a pior passagem é de {t02_amp_mediana_fechadas} pontos percentuais do tempo no G4, e {t02_amp50_fechadas} deles variam mais de 50: uma passagem quase sempre no G4 e outra quase nunca. O jeito de jogar também não acompanha o treinador de um clube para outro, em 126 passagens de 64 nomes, e o time não muda nas {ad_n_fechadas} trocas no meio da temporada com pelo menos 8 jogos de cada lado — com a base inteira, 2026 incluído, são {t02_multi} multiclube, {t02_amp_mediana} pontos percentuais típicos, {t02_amp50} acima de 50, {t03_pass} passagens, {t03_tec} nomes e {ad_n} trocas, e a leitura é a mesma. Mas o desenho é pequeno demais para fechar a conta: ele não enxergaria nem a repetição que ele próprio mediu, e {conf_tracos} dos 7 traços do perfil são medidos com régua curta demais para mostrar repetição ainda que ela existisse — por isso é falta de prova de que o treinador se repete, e não prova de que ele não se repete.",
+   "manchete": "Esta base não mostra o histórico do treinador reaparecendo no clube seguinte",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "Distância entre a melhor e a pior passagem do mesmo treinador",
+    "unidade": "pontos percentuais do tempo no G4",
+    "cortes": [
+     {
+      "rotulo": "só as temporadas fechadas",
+      "series": [
+       {
+        "nome": "Diferença típica",
+        "marcador": "t02_amp_mediana_fechadas"
+       }
+      ]
+     },
+     {
+      "rotulo": "com a temporada em curso",
+      "series": [
+       {
+        "nome": "Diferença típica",
+        "marcador": "t02_amp_mediana"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "Entre os {t02_multi_fechadas} treinadores que passaram por dois clubes ou mais, a diferença típica entre a melhor e a pior passagem dá {t02_amp_mediana_fechadas} pontos percentuais no G4. O jeito de jogar também não acompanha. A base é pequena demais para fechar a conta: é falta de prova, não prova do contrário.",
    "para_o_santa_cruz": "Não pague pelo currículo de G4 nem pelo modelo de jogo: nenhum dos dois reaparece no clube seguinte, e o estudo também não consegue afirmar que não reapareceriam. E, depois do T04-1, também não vale a regra de escolher pela pior temporada: ela põe na frente quem nunca subiu e deixa de fora os dois que subiram com dois clubes diferentes. O que sobra de prático é usar a lista só para reduzir a conversa e decidir por entrevista, comissão e projeto, que este dado não mede; investir na comissão técnica continua de pé.",
    "premissa": "m5",
    "premissa_motivo": "Ajusta a premissa m5 (\"Comissão técnica top — investir\", dados/premissas.json): investir na comissão continua valendo, mas histórico de G4 e modelo de jogo do treinador não servem de critério de escolha — a base não mostra que se repetem e, do tamanho em que está, não teria como mostrar. Sugere premissa nova: a escolha do treinador sai do estudo e vai para validação externa; nem a média nem a pior temporada do candidato ordenam a lista do mesmo jeito, e nenhuma das duas acerta quem subiu.",
    "confianca": "indício",
-   "confianca_motivo": "(a) Correção para múltiplos testes dentro da família: não. Não existe T03_testes.csv nem T04_testes.csv — os onze arquivos de teste de resultados/ são todos dos blocos A e J — e, aplicando o bh() de scripts/_metodo.py aos sete valores de Wilcoxon do antes e depois do T03_resumo.json, todos dão q = 0,669. A perna do T02 é amplitude, que é descrição e não teste, como o próprio T02-1 escreve. (b) Porta temporal (§6.4): não — nenhum script do bloco T a roda, e o pct_g4_apos_10 é recorte de rodadas, não a porta. Zero dos dois: indício, e a frase diz por quê. Uma negativa tripla sem correção, sem anterioridade e sem mínimo detectável não carrega o selo mais forte da casa, ainda mais quando o que foi medido aponta para o lado contrário da frase: a repetição entre clubes deu 0,27 num desenho que só enxergaria um efeito de {dmin_multi}, e o pareado do antes e depois só enxergaria {dmin_antes_depois}.",
+   "confianca_motivo": "(a) Correção para múltiplos testes dentro da família: não. Não existe T03_testes.csv nem T04_testes.csv — os onze arquivos de teste de resultados/ são todos dos blocos A e J — e, aplicando o bh() de scripts/_metodo.py aos sete valores de Wilcoxon do antes e depois do T03_resumo.json, todos dão q = 0,669. A perna do T02 é amplitude, que é descrição e não teste, como o próprio T02-1 escreve. (b) Porta temporal (§6.4): não — nenhum script do bloco T a roda, e o pct_g4_apos_10 é recorte de rodadas, não a porta. Zero dos dois: indício, e a frase diz por quê. Uma negativa tripla sem correção, sem anterioridade e sem mínimo detectável não carrega o selo mais forte da casa, ainda mais quando o que foi medido aponta para o lado contrário da frase: a repetição entre clubes deu 0,27 num desenho que só enxergaria um efeito de {dmin_multi}, e o pareado do antes e depois só enxergaria {dmin_antes_depois}. O que saiu do texto de 10 segundos e mora aqui: {t02_amp50_fechadas} dos {t02_multi_fechadas} multiclube variam mais de 50 pontos percentuais — uma passagem quase sempre no G4 e outra quase nunca. O jeito de jogar foi medido em 126 passagens de 64 nomes e em {ad_n_fechadas} trocas no meio da temporada com pelo menos 8 jogos de cada lado; com a base inteira, 2026 incluído, são {t02_multi} multiclube, {t02_amp_mediana} pontos percentuais típicos, {t02_amp50} acima de 50, {t03_pass} passagens, {t03_tec} nomes e {ad_n} trocas, e a leitura é a mesma. E {conf_tracos} dos 7 traços do perfil são medidos com régua curta demais para mostrar repetição ainda que ela existisse — por isso a frase é falta de prova de que o treinador se repete, e não prova de que ele não se repete.",
    "n": "126 passagens de 64 treinadores nas temporadas fechadas, {t02_multi_fechadas} deles em dois clubes ou mais, e {ad_n_fechadas} trocas no meio da temporada (com 2026: {t03_pass} passagens, {t03_tec} treinadores, {t02_multi} multiclube e {ad_n} trocas).",
    "prova": "T02_passagem.csv, coluna pct_g4, para a amplitude entre a melhor e a pior passagem de cada treinador; T03_passagens.csv e T03_resumo.json, chave nulo_dois_quaisquer, para a repetição do perfil entre clubes; T03_antes_depois.csv, colunas jogos_antes e jogos_depois, para as trocas no meio da temporada; T04_numeros_novos.json, chaves dmin_multi, dmin_antes_depois e conf_tracos: o desenho entre clubes só detecta 0,48 e mediu 0,27, o pareado do antes e depois só detecta 0,33, e 3 dos 7 traços ficam abaixo do piso de 0,40 de confiabilidade.",
    "validada_em": "2026-09-19"

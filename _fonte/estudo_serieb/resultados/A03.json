@@ -11,12 +11,27 @@
    "status": "validada",
    "negativa": true,
    "manchete": "Depender de casa não separa quem sobe de quem fica no meio",
-   "o_que_vimos": "Em toda a Série B, jogar em casa vale {dif_liga} ponto por jogo a mais do que jogar fora, e fora do placar as faixas ficam perto: de quem sobe para o meio, {dif_xg_sobe} contra {dif_xg_meio} de xG criado, {dif_xgc_sobe} contra {dif_xgc_meio} de xG sofrido e {dif_dd_sobe} contra {dif_dd_meio} ponto percentual de dividida. A exceção está só no placar e só num dos dois cortes: o grupo de 5º a 8º fica em {dif_pj_trave_com} ponto por jogo com todos os times, colado nos {dif_sobe} de quem sobe, e salta para {dif_pj_trave_sem} quando se tiram os times colados na linha — corte que deixa {n_trave_sem} dos {n_trave_com} clube-temporadas do grupo, e ali a mediana é quase o valor de um clube só. Nenhum dos {asm_testes} testes de casa menos fora viu diferença entre as faixas, e nenhum tinha amostra para ver: este desenho só enxergaria diferenças grandes, e ninguém checou se depender de casa vem antes ou depois do resultado.",
+   "grafico": {
+    "tipo": "grupos",
+    "titulo": "xG sofrido a mais longe de casa",
+    "unidade": "xG por jogo",
+    "series": [
+     {
+      "nome": "Sobe",
+      "marcador": "dif_xgc_sobe"
+     },
+     {
+      "nome": "Meio",
+      "marcador": "dif_xgc_meio"
+     }
+    ]
+   },
+   "o_que_vimos": "Na Série B, a vantagem de jogar em casa é de {dif_liga} ponto por jogo e não distingue quem sobe de quem fica no meio — a exceção é o grupo de 5º a 8º, só no placar e num corte só. Nenhum dos {asm_testes} testes de casa menos fora viu diferença entre as faixas, e nenhum tinha amostra para ver.",
    "para_o_santa_cruz": "Não montar elenco atrás de 'time forte fora': a diferença de mando não separou as faixas, e este desenho também não garante que ela não exista — são coisas diferentes. O que dá para usar é o tamanho da vantagem de casa da liga, {dif_liga} ponto por jogo para qualquer time, no planejamento de calendário e de viagem. E a leitura de mando sai marcada: pode ser efeito do placar, porque quem joga fora passa mais tempo atrás.",
    "premissa": null,
    "premissa_motivo": "Sugere uma premissa nova em Montagem do elenco: a vantagem de casa é da liga inteira e não distingue quem sobe de quem fica no meio — 'ser forte fora' não é perfil de elenco a procurar. Toca a m6 (logística diferenciada para a Série B) sem confirmá-la: esta parte não mediu viagem nem descanso.",
    "confianca": "indício",
-   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. Correção para múltiplos testes: não. A família assimetria tem {asm_testes} linhas (quatro indicadores, três comparações, dois cortes), com selo firme em {asm_firmes} delas, e o menor q da família é 0,14282 — em xG sofrido: fora menos casa, na comparação Sobe × Trave com a fronteira. Porta temporal da §6.4: não. Está pré-declarada em A03_indicadores.json (criterio.porta_temporal) e nunca rodou — não há turno em scripts/A03.py nem chave porta_temporal em A03_resumo.json, e a rodada de 19/09 (_porta_temporal.md) cobriu só os oito componentes do A14, nenhum deles de assimetria. Ausência de aprovação não é aprovação: as {asm_testes} linhas têm poder_suficiente=False, com |d| máximo {maior_d_asm} contra d mínimo detectável de {d_min_com} no desenho principal (16x48) e {d_min_sem} no reduzido (8x32) — é a §6.7 ao pé da letra, e aqui 'não separa' quer dizer 'este desenho não conseguiria ver'. Ressalva que fica no motivo e não vai ao texto: trocar mediana por média inverte a ordem entre Sobe e Meio nos DOIS cortes (0,796 contra 0,818 com a fronteira; 0,803 contra 0,863 sem), recálculo feito duas vezes — auditoria de 18/09, achado 9 (2/3), e varredura de robustez de 19/09.",
+   "confianca_motivo": "Indício porque não passa em nenhum dos dois critérios. Correção para múltiplos testes: não. A família assimetria tem {asm_testes} linhas (quatro indicadores, três comparações, dois cortes), com selo firme em {asm_firmes} delas, e o menor q da família é 0,14282 — em xG sofrido: fora menos casa, na comparação Sobe × Trave com a fronteira. Porta temporal da §6.4: não. Está pré-declarada em A03_indicadores.json (criterio.porta_temporal) e nunca rodou — não há turno em scripts/A03.py nem chave porta_temporal em A03_resumo.json, e a rodada de 19/09 (_porta_temporal.md) cobriu só os oito componentes do A14, nenhum deles de assimetria. Ausência de aprovação não é aprovação: as {asm_testes} linhas têm poder_suficiente=False, com |d| máximo {maior_d_asm} contra d mínimo detectável de {d_min_com} no desenho principal (16x48) e {d_min_sem} no reduzido (8x32) — é a §6.7 ao pé da letra, e aqui 'não separa' quer dizer 'este desenho não conseguiria ver'. Ressalva que fica no motivo e não vai ao texto: trocar mediana por média inverte a ordem entre Sobe e Meio nos DOIS cortes (0,796 contra 0,818 com a fronteira; 0,803 contra 0,863 sem), recálculo feito duas vezes — auditoria de 18/09, achado 9 (2/3), e varredura de robustez de 19/09. Etapa 8, o que saiu do texto para cá: fora do placar as faixas ficam perto, de quem sobe para o meio, {dif_xg_sobe} contra {dif_xg_meio} de xG criado, {dif_xgc_sobe} contra {dif_xgc_meio} de xG sofrido e {dif_dd_sobe} contra {dif_dd_meio} ponto percentual de dividida, sempre na diferença casa menos fora. O gráfico é o par Sobe contra Meio com a maior diferença padronizada da família, o xG sofrido casa menos fora ({dif_xgc_sobe} contra {dif_xgc_meio}, d -0,434): é o par menos favorável à conclusão negativa, e mesmo ele sai sem diferença clara. Não há marcador do ponto por jogo do Meio — o dif_liga vale 0,789 porque o Meio é 48 dos 80 casos, não porque seja a medida do Meio —, e por isso a vantagem de casa em pontos, que é o que o texto conta, ainda não tem gráfico. A exceção do grupo de 5º a 8º fica só aqui, sem gráfico — {dif_pj_trave_com} ponto por jogo com todos os times contra {dif_pj_trave_sem} sem os times de fronteira, corte que deixa {n_trave_sem} dos {n_trave_com} casos do grupo, onde a mediana é quase o valor de um clube só, e no corte reduzido quem sobe marca 0,947 contra esses 1,474, com d 0,777, q 0,52615 e selo sem diferença clara, com 8 contra 7 casos, que só enxergaria d 1,57 — e continua sendo placar redescrito, não indicador novo. Ela não vai a gráfico nenhum por dois motivos: o corte reduzido não publica o ponto por jogo de quem sobe em marcador, então o gráfico de dois cortes mostraria um ponto solitário numa régua compartilhada e faria a trave parecer disparar; e o em_aberto desta parte a demove a descrição de propósito. E a leitura de mando pode ser efeito do placar: quem joga fora passa mais tempo atrás. Etapa 8, terceira passada: a exceção do grupo de 5º a 8º voltou ao o_que_vimos em uma oração, sem os brutos, que ficam aqui. O texto curto da segunda passada dizia que a vantagem de casa não distingue as faixas sem recorte nenhum, e o texto longo nunca afirmou isso: ele abria a exceção do placar. Como a exceção não tem gráfico, o escopo 'só no placar e num corte só' tinha de voltar ao texto visível — é também o que o em_aberto desta parte manda, ao demover a trave a descrição dentro do A03-1. Para caber nos 280, saiu o detalhe, não a ressalva: os brutos {dif_pj_trave_com} e {dif_pj_trave_sem} e o 'entre as faixas' do fecho ficaram de fora, e o escopo continua inteiro no fecho: 'de casa menos fora' (são os testes de assimetria, não os de nível do A03-2 e do A03-3) e 'entre as faixas'. Para abrir espaço para os dois, a abertura virou 'a vantagem de jogar em casa é de {dif_liga} ponto por jogo' no lugar de 'vale {dif_liga} ponto por jogo a mais do que jogar fora' — 278 caracteres na tela.",
    "n": "80 clube-temporadas com todos os times ({n_sobe_com} que subiram, {n_meio_com} do meio — {n_trave_com} deles na trave — e {n_cai_com} que caíram); 52 sem os times colados na linha ({n_sobe_sem}, {n_meio_sf} com {n_trave_sem} na trave, e {n_cai_sf})",
    "prova": "A03_testes.csv, família assimetria; A03_resumo.json, quadro_por_faixa; _metodo_fronteira.md",
    "validada_em": "2026-09-19"
@@ -25,13 +40,36 @@
    "id": "A03-2",
    "bloco": "A",
    "status": "validada",
-   "manchete": "Quem sobe ganha mais dividida dentro e fora, mas só sofre menos perigo em casa",
-   "o_que_vimos": "Contra o meio, quem sobe ganha {dd_casa_s}% das divididas defensivas em casa, contra {dd_casa_m}%, e {dd_fora_s}% fora, contra {dd_fora_m}%: a vantagem aparece nos dois mandos com os {n_sobe_com} promovidos contra {n_meio_com} do meio, e continua, maior, nos {n_sobe_sem} contra {n_meio_sf} que sobram sem os times colados na linha. Em casa, quem sobe cede {xgc_casa_s} de xG por jogo contra {xgc_casa_m} do meio, também nos dois cortes; fora a distância encolhe para {xgc_fora_s} contra {xgc_fora_m} e o teste não a enxerga. O xG sofrido fora só passa no corte reduzido, justamente o que o método da casa trata como enviesado, e por isso fica fora da manchete — e o que se vê fora pode ser efeito do placar, porque quem visita passa mais tempo atrás.",
+   "manchete": "Quem sobe ganha mais dividida nos dois mandos e só sofre menos em casa",
+   "grafico": {
+    "tipo": "grupos",
+    "titulo": "Divididas defensivas ganhas, com todos os times",
+    "unidade": "%",
+    "series": [
+     {
+      "nome": "Sobe em casa",
+      "marcador": "dd_casa_s"
+     },
+     {
+      "nome": "Meio em casa",
+      "marcador": "dd_casa_m"
+     },
+     {
+      "nome": "Sobe fora",
+      "marcador": "dd_fora_s"
+     },
+     {
+      "nome": "Meio fora",
+      "marcador": "dd_fora_m"
+     }
+    ]
+   },
+   "o_que_vimos": "Em casa, quem sobe cede {xgc_casa_s} de xG por jogo contra {xgc_casa_m} do meio. Fora, a distância encolhe para {xgc_fora_s} contra {xgc_fora_m} e o teste só a enxerga no corte sem os times de fronteira, que o método da casa trata como enviesado.",
    "para_o_santa_cruz": "A dividida defensiva ganha é exigência de time e de modelo de jogo, não requisito individual de contratação: é o único traço desta parte que aparece dentro e fora de casa, com e sem os times colados na linha. É o mesmo indicador do A06 aberto por mando, não uma segunda medição, e ceder pouco perigo só se sustenta em casa: trate isso como modelo de jogo. Não escreva que o traço é do jogador e não do ambiente — sem recorte por estado do jogo, esta parte não consegue separar as duas coisas.",
    "premissa": null,
    "premissa_motivo": "Sugere uma premissa nova em Montagem do elenco: a dividida defensiva ganha é exigência de time — é o traço que viaja, aparece dentro e fora de casa —, nunca requisito individual de contratação. Não contradiz a m1 (time físico): intensidade física não foi medida nesta parte.",
    "confianca": "provável",
-   "confianca_motivo": "Provável: passa num critério e não no outro. Correção para múltiplos testes: sim, e nos dois cortes — xG sofrido por jogo em casa, duelos defensivos ganhos em casa e duelos defensivos ganhos fora ficam abaixo de 5% com e sem a fronteira, sendo 0,03030 o pior q dos seis. A quarta perna não: o xG sofrido por jogo fora dá q 0,23734 com a fronteira e 0,02585 sem, passa só no corte reduzido — que o _metodo_fronteira.md chama de enviesado por construção — e por isso fica fora da manchete. Porta temporal da §6.4: não, e aqui ela rodou: em _porta_temporal.md o xG sofrido em casa dá parcial +0,134 (p 0,2363) e a dividida em casa −0,026 (p 0,8183), as duas reprovadas; a dividida fora não foi testada, por não ser componente do A14. Duas ressalvas: com 80 linhas só uma parcial de cerca de 0,31 para cima seria detectável, então reprovar não prova que o traço venha depois do resultado; e falta o split-half de confiabilidade do xG sofrido EM CASA, que é a perna principal — existem 0,490 (xG criado em casa) e 0,482 (xG sofrido fora), acima do piso de 0,40 e refeitos pelos três pareceres da auditoria de 18/09, mas o xG sofrido em casa nunca foi medido em separado, e o valor de temporada inteira que a v1 mandava citar não é a confiabilidade desta medida. Sem os times colados na linha a vantagem aumenta, não diminui: xG sofrido em casa 0,736 contra 1,026 (era {xgc_casa_s} contra {xgc_casa_m} com todos os times), dividida em casa 62,541 contra 60,381 e dividida fora 61,411 contra 59,663.",
+   "confianca_motivo": "Provável: passa num critério e não no outro. Correção para múltiplos testes: sim, e nos dois cortes — xG sofrido por jogo em casa, duelos defensivos ganhos em casa e duelos defensivos ganhos fora ficam abaixo de 5% com e sem a fronteira, sendo 0,03030 o pior q dos seis. A quarta perna não: o xG sofrido por jogo fora dá q 0,23734 com a fronteira e 0,02585 sem, passa só no corte reduzido — que o _metodo_fronteira.md chama de enviesado por construção — e por isso fica fora da manchete. Porta temporal da §6.4: não, e aqui ela rodou: em _porta_temporal.md o xG sofrido em casa dá parcial +0,134 (p 0,2363) e a dividida em casa −0,026 (p 0,8183), as duas reprovadas; a dividida fora não foi testada, por não ser componente do A14. Duas ressalvas: com 80 linhas só uma parcial de cerca de 0,31 para cima seria detectável, então reprovar não prova que o traço venha depois do resultado; e falta o split-half de confiabilidade do xG sofrido EM CASA, que é a perna principal — existem 0,490 (xG criado em casa) e 0,482 (xG sofrido fora), acima do piso de 0,40 e refeitos pelos três pareceres da auditoria de 18/09, mas o xG sofrido em casa nunca foi medido em separado, e o valor de temporada inteira que a v1 mandava citar não é a confiabilidade desta medida. Sem os times colados na linha a vantagem aumenta, não diminui: xG sofrido em casa 0,736 contra 1,026 (era {xgc_casa_s} contra {xgc_casa_m} com todos os times), dividida em casa 62,541 contra 60,381 e dividida fora 61,411 contra 59,663. Etapa 8, o que saiu do texto para cá: a dividida defensiva ganha foi para o gráfico, nos dois mandos e no corte com todos os times, e o xG sofrido fora ({xgc_fora_s} contra {xgc_fora_m}) ficou no texto sem selo, porque o teste não o enxerga no corte principal. O corte sem a fronteira não entrou no gráfico porque esta parte não publica o quadro por faixa nesse corte — os valores estão acima, vindos de recálculo de auditoria. O que se vê fora também pode ser efeito do placar: quem visita passa mais tempo atrás. Etapa 8, conserto: a dependência do corte de fronteira no xG sofrido fora voltou ao o_que_vimos, porque o gráfico mostra um corte só — divididas com todos os times — e a fragilidade do 'só' não pode morar apenas no tooltip do selo. O gráfico continua em grupos, e não em dois cortes, porque o corte reduzido não tem marcador nem para a dividida nem para o xG sofrido: os valores existem em A03_testes.csv (62,541 contra 60,381 na dividida em casa, 61,411 contra 59,663 fora, 1,253 contra 1,394 no xG sofrido fora) e inventar marcador seria pior que mostrar um corte só declarado no título. Etapa 8, terceira passada: o corte reduzido voltou ao o_que_vimos com o rótulo que lhe cabe. Dizer apenas que o teste enxerga a diferença 'quando se tiram os times de fronteira' lê como 'aparece no corte mais limpo', e o _metodo_fronteira.md diz o contrário — o filtro reforça um grupo e enfraquece o outro, infla qualquer diferença por construção, e firme só sem fronteira é suspeito, não promovido; a tabela daquele arquivo lista xgc_fora em Sobe × Meio na coluna 'caiu para suspeito'. O gráfico mostra um corte só, então o rótulo de enviesado não podia morar apenas no tooltip do selo. Coube sem tirar nada: 213 caracteres na tela.",
    "n": "{n_sobe_com} promovidos contra {n_meio_com} do meio, e {n_sobe_sem} contra {n_meio_sf} sem os times colados na linha",
    "prova": "A03_testes.csv, família casa e fora na comparação SM; A03_resumo.json, quadro_por_faixa; _porta_temporal.md; _metodo_fronteira.md",
    "validada_em": "2026-09-19"
@@ -41,12 +79,45 @@
    "bloco": "A",
    "status": "validada",
    "manchete": "Quem cai cria menos em casa e sofre mais fora",
-   "o_que_vimos": "Em casa, quem cai cria {c_xgcasa_c} de xG por jogo contra {c_xgcasa_m} do meio; fora, sofre {c_xgcfora_c} contra {c_xgcfora_m}, com {n_cai_com} do Cai contra {n_meio_com} do Meio. As duas se repetem sem os times colados na linha, com {n_cai_sf} contra {n_meio_sf}, e lá a distância de fora é até maior: {c_xgcfora_c_sem} contra {c_xgcfora_m_sem}. Mas quem cai é pior nos quatro números, e o xG sofrido fora pode ser efeito do placar: time que cai passa mais tempo atrás do marcador longe de casa.",
+   "grafico": {
+    "tipo": "dois_cortes",
+    "titulo": "xG sofrido fora de casa",
+    "unidade": "xG por jogo",
+    "cortes": [
+     {
+      "rotulo": "com todos os times",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "c_xgcfora_c"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "c_xgcfora_m"
+       }
+      ]
+     },
+     {
+      "rotulo": "sem os times de fronteira",
+      "series": [
+       {
+        "nome": "Cai",
+        "marcador": "c_xgcfora_c_sem"
+       },
+       {
+        "nome": "Meio",
+        "marcador": "c_xgcfora_m_sem"
+       }
+      ]
+     }
+    ]
+   },
+   "o_que_vimos": "Em casa, quem cai cria {c_xgcasa_c} de xG por jogo contra {c_xgcasa_m} do meio, e longe de casa sofre mais. Quem cai é pior nos quatro números, então não são dois problemas separados por mando. Parte disso pode ser o placar: quem cai passa mais tempo atrás longe de casa.",
    "para_o_santa_cruz": "É o retrato a não repetir: elenco que não cria dentro de casa e não protege a área longe dela. Não trate como dois problemas separados por mando — quem cai é pior nos quatro números, e os testes só isolaram onde a diferença cruzou a linha. Na montagem, o requisito é criar e proteger sempre; não existe 'reforço para jogo fora'.",
    "premissa": null,
    "premissa_motivo": "Não trata de nenhuma premissa existente e não sugere nova.",
    "confianca": "provável",
-   "confianca_motivo": "Provável: passa num critério e não no outro. Correção para múltiplos testes: sim, e nos dois cortes — xG criado por jogo em casa e xG sofrido por jogo fora ficam abaixo de 5% com e sem a fronteira, sendo 0,00827 o pior q dos quatro. Porta temporal da §6.4: não — o scripts/A03.py não roda porta nenhuma, e a rodada de 19/09 cobriu só os oito componentes do A14, que não incluem nenhuma das duas pernas. O que a conclusão NÃO afirma é a assimetria: os dois testes diretos e pré-declarados não passam em corte nenhum e, no corte principal, nem chegam perto — xG criado casa menos fora p 0,28372 com a fronteira contra 0,12512 sem; xG sofrido fora menos casa p 0,21983 contra 0,07426. O recorte por mando é onde a diferença cruzou a linha, não um achado, e quem cai é pior nos quatro números. Sai a ressalva de confiabilidade que a v1 pedia: os três pareceres da auditoria de 18/09 refizeram o split-half por mando e acharam 0,490 no xG criado em casa e 0,482 no xG sofrido fora, as duas pernas desta conclusão, acima do piso de 0,40.",
+   "confianca_motivo": "Provável: passa num critério e não no outro. Correção para múltiplos testes: sim, e nos dois cortes — xG criado por jogo em casa e xG sofrido por jogo fora ficam abaixo de 5% com e sem a fronteira, sendo 0,00827 o pior q dos quatro. Porta temporal da §6.4: não — o scripts/A03.py não roda porta nenhuma, e a rodada de 19/09 cobriu só os oito componentes do A14, que não incluem nenhuma das duas pernas. O que a conclusão NÃO afirma é a assimetria: os dois testes diretos e pré-declarados não passam em corte nenhum e, no corte principal, nem chegam perto — xG criado casa menos fora p 0,28372 com a fronteira contra 0,12512 sem; xG sofrido fora menos casa p 0,21983 contra 0,07426. O recorte por mando é onde a diferença cruzou a linha, não um achado, e quem cai é pior nos quatro números. Sai a ressalva de confiabilidade que a v1 pedia: os três pareceres da auditoria de 18/09 refizeram o split-half por mando e acharam 0,490 no xG criado em casa e 0,482 no xG sofrido fora, as duas pernas desta conclusão, acima do piso de 0,40. Etapa 8, o que saiu do texto para cá: o xG sofrido fora nos dois cortes foi para o gráfico ({c_xgcfora_c} contra {c_xgcfora_m} com todos os times, {c_xgcfora_c_sem} contra {c_xgcfora_m_sem} sem os times de fronteira). O xG sofrido fora pode ser efeito do placar: quem cai passa mais tempo atrás do marcador longe de casa. Etapa 8, conserto: a ressalva do placar voltou também ao o_que_vimos, porque o para_o_santa_cruz desta conclusão não tem frase equivalente e sem ela o 'não protege a área longe dela' vira traço de elenco a contratar.",
    "n": "{n_cai_com} do Cai contra {n_meio_com} do Meio, e {n_cai_sf} contra {n_meio_sf} sem os times colados na linha",
    "prova": "A03_testes.csv, comparação CM; A03_resumo.json, quadro_por_faixa; _metodo_fronteira.md",
    "validada_em": "2026-09-19"

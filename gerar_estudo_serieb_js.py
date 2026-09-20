@@ -145,8 +145,19 @@ def resolver_grafico(g, numeros, onde, erros):
         out["linhas"] = ls
     if g.get("barras"):
         out["barras"] = [serie(b) for b in g["barras"]]
-    if g.get("linha_de_corte") is not None:
-        out["linha_de_corte"] = g["linha_de_corte"]
+    lc = g.get("linha_de_corte")
+    if lc is not None:
+        # Ela tambem e um numero publicado: aceita marcador, como o resto do grafico, e so
+        # segue como literal quando e mesmo um numero escrito (a §8.2 permite os dois).
+        if isinstance(lc, str) and not re.fullmatch(r"-?[\d.,]+", lc.strip()):
+            if lc in numeros:
+                out["linha_de_corte"] = numeros[lc]
+            else:
+                erros.append(f"{onde}: a linha_de_corte usa o marcador {{{lc}}}, "
+                             "que nao esta em numeros")
+                out["linha_de_corte"] = None
+        else:
+            out["linha_de_corte"] = lc
     return out
 
 
