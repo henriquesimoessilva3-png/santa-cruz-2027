@@ -1,0 +1,90 @@
+{
+ "parte": "A08",
+ "pergunta": "Quem sobe perde menos intensidade do 1º para o 2º tempo e no fim do jogo?",
+ "declarado_em": "2026-09-20",
+ "declarado_antes_de_calcular": true,
+ "declarado_antes_de_calcular_o_que": "Nada foi calculado, e é esse o ponto. Esta lista existe para o caso de a coleta um dia trazer o recorte por período: ela é de ANTES, e a data prova. Se a parte rodar depois com outra lista, alguém escolheu indicador vendo resultado.",
+ "estado": "NÃO RODA — a base não tem o recorte que a pergunta exige (medido em scripts/A08.py)",
+ "escrito_por": "scripts/A08.py (a medida da ausência) — não há script de análise, porque não há análise",
+ "o_que_a_pergunta_exigiria": "As mesmas métricas do A07 (distância, alta intensidade, sprint, aceleração), recortadas por 1º e 2º tempo e, idealmente, por faixa de 15 minutos; e a queda relativa entre o começo e o fim do jogo, por clube-temporada, comparada entre as faixas.",
+ "familias": [
+  {
+   "id": "queda_no_jogo",
+   "nome": "Cai menos dentro do jogo?",
+   "indicadores": [
+    {
+     "id": "dist_1t",
+     "nome": "Distância por 90 no 1º tempo",
+     "sinal": 1
+    },
+    {
+     "id": "dist_2t",
+     "nome": "Distância por 90 no 2º tempo",
+     "sinal": 1
+    },
+    {
+     "id": "queda_dist",
+     "nome": "Queda de distância do 1º para o 2º tempo",
+     "sinal": -1
+    },
+    {
+     "id": "hi_1t",
+     "nome": "Alta intensidade por 90 no 1º tempo",
+     "sinal": 1
+    },
+    {
+     "id": "hi_2t",
+     "nome": "Alta intensidade por 90 no 2º tempo",
+     "sinal": 1
+    },
+    {
+     "id": "queda_hi",
+     "nome": "Queda de alta intensidade do 1º para o 2º tempo",
+     "sinal": -1
+    },
+    {
+     "id": "queda_sprint",
+     "nome": "Queda de sprint do 1º para o 2º tempo",
+     "sinal": -1
+    }
+   ]
+  },
+  {
+   "id": "fim_de_jogo",
+   "nome": "Aguenta os últimos 15?",
+   "indicadores": [
+    {
+     "id": "dist_75_90",
+     "nome": "Distância por 90 dos 75 aos 90 min",
+     "sinal": 1
+    },
+    {
+     "id": "hi_75_90",
+     "nome": "Alta intensidade dos 75 aos 90 min",
+     "sinal": 1
+    },
+    {
+     "id": "queda_fim",
+     "nome": "Queda dos primeiros 15 para os últimos 15",
+     "sinal": -1
+    }
+   ]
+  }
+ ],
+ "o_que_a_base_tem": {
+  "colunas_de_periodo": 0,
+  "colunas_das_duas_tabelas_fisicas": 88,
+  "chaves_da_api": 31,
+  "chaves_com_recorte_de_tempo": 0,
+  "sufixo_de_toda_metrica": "_full_all_ (jogo inteiro, todas as fases)",
+  "unico_recorte_abaixo_do_jogo": "TIP/OTIP — com a bola e sem a bola. É recorte de POSSE, não de tempo, e não responde nada sobre cair de rendimento.",
+  "cobertura_por_jogo": "Série B 2025 (374 jogos) e 2026 parcial (207); 2022–2024 tem zero",
+  "medido_em": "scripts/A08.py, contra dados_copiados/skillcorner_serieb.db"
+ },
+ "o_que_resolveria": "Coleta nova com o recorte por período, se o fornecedor o vender — é pergunta para ele, e não está respondida aqui. Ao contrário da A09, não há atalho: a A09 foi salva porque o oGol já publicava a soma por faixa de minuto de graça. Não há equivalente para dado físico.",
+ "o_que_isto_nao_prova": [
+  "que o rendimento não cai dentro do jogo",
+  "que a queda não separaria quem sobe do meio",
+  "que o fornecedor não venda o recorte por período"
+ ]
+}

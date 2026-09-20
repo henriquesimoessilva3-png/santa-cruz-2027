@@ -33,15 +33,27 @@ def pct(ind):
 
 
 def percentil_no_ano(base, ids, chave_ano="temporada"):
-    """Acrescenta <id>::pct: o posto do clube dentro da temporada, de 0 a 100."""
+    """Acrescenta <id>::pct: o posto do clube dentro da temporada, de 0 a 100.
+
+    Valor AUSENTE (None) fica de fora do posto e sai com pct None — acrescentado em 20/09. Até
+    aqui as partes filtravam as linhas incompletas ANTES de chamar esta função, e uma linha com
+    None quebrava o rankdata. Isso deixou de servir quando uma parte passou a ter indicadores de
+    duas coletas diferentes na mesma linha: filtrar a linha inteira jogaria fora o indicador que
+    ESTÁ lá. Quem não tem ausência não muda de resultado — o posto dos presentes é o mesmo.
+    """
     por_ano = collections.defaultdict(list)
     for l in base:
         por_ano[l[chave_ano]].append(l)
     for ls in por_ano.values():
         for i in ids:
-            r = stats.rankdata([l[i] for l in ls])
-            for l, rr in zip(ls, r):
-                l[pct(i)] = 100 * (rr - 1) / (len(ls) - 1)
+            tem = [l for l in ls if l.get(i) is not None]
+            for l in ls:
+                l[pct(i)] = None
+            if len(tem) < 2:
+                continue
+            r = stats.rankdata([l[i] for l in tem])
+            for l, rr in zip(tem, r):
+                l[pct(i)] = 100 * (rr - 1) / (len(tem) - 1)
     return base
 
 
@@ -61,8 +73,9 @@ def ic_por_clube(base, campo, grupo_a, grupo_b, sinal, rng, reps=2000):
     saida = []
     for _ in range(reps):
         am = [l for c in rng.choice(clubes, len(clubes), replace=True) for l in por_clube[c]]
-        a = [l[campo] for l in am if grupo_a(l)]
-        b = [l[campo] for l in am if grupo_b(l)]
+        # Mesmo par do percentil_no_ano: linha sem este indicador sai da conta dele.
+        a = [l[campo] for l in am if grupo_a(l) and l.get(campo) is not None]
+        b = [l[campo] for l in am if grupo_b(l) and l.get(campo) is not None]
         if len(a) > 2 and len(b) > 2:
             saida.append(cohen_d(a, b) * sinal)
     if not saida:
@@ -118,15 +131,19 @@ def comparar(base, familias, comparacoes, filtros, rng, sinal_de, bruto_de=None,
                     campo = pct(ind)
                     ga = (lambda f=filtro, g=ga_f: (lambda l: g(l) and f(l)))()
                     gb = (lambda f=filtro, g=gb_f: (lambda l: g(l) and f(l)))()
-                    a = [l[campo] for l in base if ga(l)]
-                    b = [l[campo] for l in base if gb(l)]
+                    # Linha sem o indicador (pct None) sai da conta DESTE indicador, e não da
+                    # parte: é o par do percentil_no_ano acima.
+                    la = [l for l in base if ga(l) and l.get(campo) is not None]
+                    lb = [l for l in base if gb(l) and l.get(campo) is not None]
+                    a = [l[campo] for l in la]
+                    b = [l[campo] for l in lb]
                     if len(a) < 5 or len(b) < 5:
                         continue
                     _, p = stats.ttest_ind(a, b, equal_var=False)
                     d = cohen_d(a, b) * sinal_de(ind)
                     lo, hi = ic_por_clube(base, campo, ga, gb, sinal_de(ind), rng)
-                    ca = [l[ind] for l in base if ga(l)]
-                    cb = [l[ind] for l in base if gb(l)]
+                    ca = [l[ind] for l in la]
+                    cb = [l[ind] for l in lb]
                     itens.append({
                         "fronteira": rot_f, "familia": fam_id, "comparacao": cid,
                         "indicador": ind,

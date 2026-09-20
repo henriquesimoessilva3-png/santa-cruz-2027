@@ -19,7 +19,8 @@
  "fonte_do_dado": {
   "gols_por_faixa": "dados/serieb_gols_por_minuto.csv, coletado do oGol (estatisticas-momento-jogo por edição). É AGREGADO pela fonte: não há evento gol a gol, nem autor, nem mando, nem qual time marcou primeiro.",
   "faixa_de_classificacao": "resultados/A01_clube_temporada.csv (faixa, trave e fronteira)",
-  "ponte_de_clube": "resultados/T01_ponte_clubes.json, mais duas entradas próprias desta parte (Operário Ferroviário → Operário-PR, Athletic-MG → Athletic), declaradas no A09.py"
+  "ponte_de_clube": "resultados/T01_ponte_clubes.json, mais duas entradas próprias desta parte (Operário Ferroviário → Operário-PR, Athletic-MG → Athletic), declaradas no A09.py",
+  "primeiro_gol": "dados/serieb_jogos_primeiro_gol.csv e dados/serieb_gols_evento.csv, coletados do oGol jogo a jogo por coletar_serieb_primeiro_gol.py. Cada jogo só entra se os gols lidos baterem com o placar do calendário, lado a lado; o que não bate fica de fora e é contado no relatório."
  },
  "unidade_da_medida": "gols na faixa ÷ jogos da temporada — unidade de jogo, como a seção Didática exige. NÃO é percentual do total de gols do time: proporção mistura 'marca no fim' com 'marca pouco no resto', e a pergunta é sobre QUANDO, não sobre a divisão do bolo.",
  "comparacoes": {
@@ -224,13 +225,97 @@
      ]
     }
    ]
+  },
+  {
+   "id": "placar",
+   "nome": "Reage ao placar?",
+   "indicadores": [
+    {
+     "id": "pj_marcando_primeiro",
+     "nome": "Pontos por jogo quando marca primeiro",
+     "sinal": 1,
+     "apelidos": [
+      "marca primeiro",
+      "sai na frente",
+      "abre o placar"
+     ]
+    },
+    {
+     "id": "pj_sofrendo_primeiro",
+     "nome": "Pontos por jogo quando sofre primeiro",
+     "sinal": 1,
+     "apelidos": [
+      "sofre primeiro",
+      "leva primeiro",
+      "fica atras",
+      "vai atras do placar"
+     ]
+    },
+    {
+     "id": "pct_marca_primeiro",
+     "nome": "Em que fatia dos jogos marca primeiro",
+     "sinal": 1,
+     "apelidos": [
+      "marca primeiro",
+      "sai na frente"
+     ]
+    },
+    {
+     "id": "pct_virada_quando_sofre",
+     "nome": "Fatia dos jogos em que sofre primeiro e vence",
+     "sinal": 1,
+     "apelidos": [
+      "vira o jogo",
+      "virada",
+      "sofre primeiro"
+     ]
+    },
+    {
+     "id": "pct_perde_vantagem",
+     "nome": "Fatia dos jogos em que marca primeiro e não vence",
+     "sinal": -1,
+     "apelidos": [
+      "perde a vantagem",
+      "desperdica",
+      "marca primeiro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "quando_abre",
+   "nome": "Quando o primeiro gol sai",
+   "indicadores": [
+    {
+     "id": "min_primeiro_gol_pro",
+     "nome": "Minuto médio do primeiro gol que faz",
+     "sinal": -1,
+     "apelidos": [
+      "abre o placar cedo",
+      "primeiro gol"
+     ]
+    },
+    {
+     "id": "min_primeiro_gol_contra",
+     "nome": "Minuto médio do primeiro gol que sofre",
+     "sinal": 1,
+     "apelidos": [
+      "sofre cedo",
+      "primeiro gol sofrido"
+     ]
+    }
+   ]
   }
  ],
  "unidade_da_familia": "§6.3 da ESPECIFICACAO.md: o BH a 5% roda sobre TODOS os testes da família junto. São três famílias — quando marca (8 testes), quando sofre (8) e qual tempo pesa (4) — e não uma família por faixa de minuto: partir a família por faixa seria testar 16 vezes e corrigir uma, que é o garimpo que a §6.6 proíbe.",
  "porta_temporal": "NÃO roda, e é limite de dado. O oGol publica a conta por TEMPORADA fechada, não por rodada: não há como medir só as 19 primeiras rodadas e prever as 19 últimas. Por isso nenhuma conclusão desta parte pode passar de provável, mesmo passando no BH.",
  "o_que_nao_roda_por_falta_de_dado": {
-  "reage_ao_placar": "O CLAUDE.md pede também o aproveitamento quando o time marca primeiro e quando sofre primeiro. Isso exige saber, em CADA jogo, quem marcou primeiro — e a página agregada do oGol não traz isso. Resolve-se lendo a página de cada jogo (cerca de 1.780 páginas, umas duas horas no ritmo das outras coletas): o caminho está escrito no cabeçalho do coletar_serieb_gols_por_minuto.py. Fica como pergunta em aberto, não como conclusão.",
+  "reage_ao_placar": "NAO RODA, por decisao e nao por falta de caminho. O caminho existe e esta pronto: coletar_serieb_primeiro_gol.py le a pagina de cada jogo e ja foi testado (12 de 12 jogos fechando com o proprio placar). Sao ~1.780 paginas, cerca de duas horas. O dono decidiu em 20/09 nao fazer o levantamento, e por isso esta metade da pergunta do CLAUDE.md continua sem resposta. Quem retomar roda o coletor e depois o A09.py, que ja tem o bloco da analise escrito e ligado — ele falha aberto: sem o CSV, a parte responde so a primeira metade, como hoje.",
   "cruzar_com_A08": "O CLAUDE.md manda cruzar a queda física do fim de jogo com os gols sofridos no fim, se A08 existir. A08 não roda — o SkillCorner guarda um período só —, então o cruzamento não existe.",
   "mando": "A tabela agregada não separa casa e fora. Quem responde mando é o A03."
- }
+ },
+ "segunda_metade_declarada_em": "2026-09-20, com a coleta jogo a jogo ainda rodando — e NAO RODADA: o dono decidiu, no mesmo dia, nao fazer o levantamento. As duas familias abaixo (`placar` e `quando_abre`) estao declaradas e nunca foram medidas. Nenhum numero delas existe, em lugar nenhum. Elas ficam escritas porque a declaracao antes de rodar e o que protege do garimpo: se um dia a coleta acontecer, esta lista e de antes, e da para provar pela data.",
+ "pergunta_2": "Como cada faixa de classificação reage ao placar: o que rende quem marca primeiro e quem sofre primeiro?",
+ "porta_temporal_segunda_metade": "Rodaria, e essa era a maior vantagem do levantamento: com dado por JOGO da para medir as 19 primeiras rodadas e prever os pontos das 19 ultimas, e uma conclusao desta parte poderia ser firme. Sem a coleta, o teto da A09 continua PROVAVEL — limite da forma da tabela agregada, nao do mundo.",
+ "segunda_metade_estado": "DECLARADA, NAO RODADA (decisao do dono, 20/09/2026)"
 }

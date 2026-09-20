@@ -113,8 +113,14 @@
   }
  },
  "porta_6_4": {
-  "roda": false,
-  "por_que": "o oGol publica a conta da temporada fechada, sem corte por rodada: não há como medir as 19 primeiras e prever as 19 últimas",
-  "consequencia": "nenhuma conclusão desta parte passa de provável"
+  "primeira_metade_agregada": {
+   "roda": false,
+   "por_que": "a tabela por faixa de minuto do oGol e da temporada FECHADA, sem corte por rodada: nao ha como medir as 19 primeiras e prever as 19 ultimas",
+   "consequencia": "nenhuma conclusao apoiada so nela passa de provavel — e o caso de A09-1, A09-2 e A09-3"
+  },
+  "segunda_metade_jogo_a_jogo": {
+   "roda": false,
+   "motivo": "sem coleta"
+  }
  }
 }

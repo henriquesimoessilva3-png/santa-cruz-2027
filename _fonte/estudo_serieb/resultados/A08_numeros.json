@@ -1,0 +1,15 @@
+{
+ "gerado_por": "scripts/A08.py",
+ "gerado_em": "2026-09-20",
+ "numeros": {
+  "colunas_physical": 60,
+  "colunas_physical_match": 28,
+  "colunas_de_periodo": 0,
+  "colunas_de_posse": 34,
+  "chaves_da_api": 31,
+  "chaves_com_periodo": 0,
+  "linhas_lidas": 3613,
+  "jogos_rastreados_2025": 374,
+  "anos_com_jogo": "2025 (374) · 2026 (207)"
+ }
+}

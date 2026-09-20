@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**26 das 27 perguntas respondidas** · **73 conclusões** (51 indício · 21 provável · 1 firme) · **73 validadas**.
+**27 das 27 perguntas respondidas** · **74 conclusões** (52 indício · 21 provável · 1 firme) · **74 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -30,6 +30,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A06-3 | A vantagem de quem sobe é sofrer chute pior, não sofrer menos chute | provável | {n_sobe_com} promovidos contra {n_meio_com} do meio, com todos os times; {n_sobe_sf} contra {n_meio_sf} sem os colados na linha |
 | A07-1 | Correr mais não separou quem sobe do meio da tabela | indício | {n_sobe} que subiram contra {n_meio} do meio ({n_sobe_sf} contra {n_meio_sf} sem os times de fronteira); contra a Trave, {n_trave} contra {n_trave} e {n_sobe_sf} contra {n_trave_sf}; {n_sobe_cob} contra {n_meio_cob} quando saem os {n_cob_baixa} clube-temporada com menos jogo rastreado. As {n_total} linhas são {clubes} clubes. |
 | A07-2 | Quem cai sprinta menos nos minutos sem a bola | provável | {n_cai} rebaixados contra {n_meio} do meio ({n_cai_sf} contra {n_meio_sf} sem os times de fronteira; {n_cai_cob} contra {n_meio_cob} quando saem os {n_cob_baixa} clube-temporada com menos jogo rastreado). |
+| A08-1 | Esta base não mede o que o time faz dentro do jogo | indício | {colunas_de_periodo} colunas de período em {colunas_physical} + {colunas_physical_match} das duas tabelas físicas, e {chaves_com_periodo} chaves de tempo em {chaves_da_api} da API, sobre {linhas_lidas} linhas de jogador-temporada |
 | A09-1 | Quem sobe sofre metade dos gols do meio antes do intervalo | provável | {n_sobe} promovidos contra {n_meio} do meio em {n} clube-temporadas de 2022-2025 ({n_sobe_sf} contra {n_meio_sf} sem os times colados na linha) |
 | A09-2 | Quem cai sofre mais nos dois tempos, e não num momento só | provável | {n_cai} rebaixados contra {n_meio} do meio ({n_cai_sf} contra {n_meio_sf} sem os times colados na linha) |
 | A09-3 | Os acréscimos não separam ninguém, nem no fim nem antes do intervalo | indício | {n_sobe} promovidos contra {n_meio} do meio; no corte reduzido são {n_sobe_sf} contra {n_meio_sf}, e o efeito mínimo detectável sobe junto |
@@ -99,7 +100,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A05 | validada | 2 | sim |
 | A06 | validada | 3 | sim |
 | A07 | validada | 2 | sim |
-| A08 | pendente | — | — |
+| A08 | validada | 1 | sim |
 | A09 | validada | 3 | sim |
 | A10 | validada | 2 | sim |
 | A11 | validada | 3 | sim |

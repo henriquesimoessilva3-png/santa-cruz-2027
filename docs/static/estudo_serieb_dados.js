@@ -6,7 +6,7 @@
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-20 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A09, A10, A11, A12, A13, A14, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
+   Gerado em: 2026-09-20 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-20",
@@ -934,13 +934,33 @@ const ESTUDO_SERIEB = {
    "bloco": "A",
    "secao": "Que time montar",
    "pergunta": "Quem sobe perde menos intensidade do 1º para o 2º tempo e no fim do jogo?",
-   "status": "pendente",
+   "status": "validada",
    "titulo": null,
    "tipo": null,
-   "conclusoes": [],
-   "em_aberto": "",
+   "conclusoes": [
+    {
+     "id": "A08-1",
+     "parte": "A08",
+     "bloco": "A",
+     "manchete": "Esta base não mede o que o time faz dentro do jogo",
+     "o_que_vimos": "As duas tabelas físicas têm 60 e 28 colunas, e 0 delas separam primeiro de segundo tempo. Na resposta crua do fornecedor são 31 medidas, todas do jogo inteiro. O único recorte que existe é com bola e sem bola, que é posse e não tempo.",
+     "para_o_santa_cruz": "Não dá para escolher jogador nem treinador por 'aguenta os 90 minutos' com o que o clube tem hoje — quem disser isso está usando olho, não dado, e o olho aqui é legítimo desde que não se apresente como número. O que o estudo sustenta sobre desgaste é outra escala: o A10 mede do turno para o returno e diz que a queda existe, é de menos de 1% do que o jogador corria, e é a mesma para quem sobe e para quem fica no meio. Se o clube quiser a resposta de dentro do jogo, ela se compra: é pergunta para o fornecedor de dado físico, com custo, e não trabalho de análise.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Não mexe em premissa nenhuma: ausência de dado não confirma nem contradiz o que o clube acredita. Se alguém tratasse isto como prova de que o desgaste não importa, estaria lendo ausência de medida como ausência de efeito.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e o nível está certo: não há teste, então não há como passar em critério nenhum. O que existe é uma CONTAGEM, e ela é decisiva no que afirma. (a) Nas duas tabelas físicas, 0 de 60 + 28 colunas trazem qualquer marca de período — procurei por period, half, 1st, 2nd, faixa de 15 minutos, phase, segment e window, e a lista de busca é generosa de propósito, porque ela existe para ACHAR o recorte. (b) Na resposta crua da API, guardada em raw_json e lida sobre 3.613 linhas, toda métrica vem com o sufixo `_full_all_`: `full` é o jogo inteiro e `all` são todas as fases. São 31 chaves e 0 com recorte de tempo. Isto é o que fecha a pergunta, e é do dado, não de quem escreve. (c) O TIP/OTIP existe e engana: são 34 colunas de recorte abaixo do jogo inteiro, o que pode dar a impressão de que a base desce ao detalhe. Desce — mas por POSSE, não por tempo. Quem cruzar as duas coisas conclui errado. (d) E mesmo por jogo o recorte é raso: a tabela por jogo cobre 2025 (374) · 2026 (207), e cada linha é o jogo inteiro. É o mesmo limite que prendeu o A10 a 2025. O QUE ESTA CONTAGEM NÃO PROVA, e precisa estar dito porque a manchete é negativa: não prova que o rendimento não cai dentro do jogo; não prova que a queda não separaria quem sobe do meio; e não prova que o fornecedor não venda o recorte por período. Nenhuma das três foi medida. O que está medido é uma coisa só — a cópia que este estudo tem não permite a pergunta. POR QUE ISSO É CONCLUSÃO E NÃO SILÊNCIO: a regra da casa diz que resultado negativo também é conclusão, e uma pergunta que fica pendente para sempre, sem ninguém dizer por quê, vira dívida invisível. Escrita assim, ela tem preço e destinatário: é uma compra, não uma análise por fazer.",
+     "n": "0 colunas de período em 60 + 28 das duas tabelas físicas, e 0 chaves de tempo em 31 da API, sobre 3.613 linhas de jogador-temporada",
+     "prova": "resultados/A08_resumo.json e scripts/A08.py, contra dados_copiados/skillcorner_serieb.db",
+     "status": "validada",
+     "negativa": true,
+     "grafico": null
+    }
+   ],
+   "em_aberto": "A pergunta continua de pé; o que falta é dado. Resolveria uma coleta com recorte por período, se o fornecedor o vender — e isso é pergunta para ele, não para esta base. Ao contrário da A09, aqui não há atalho: a A09 foi salva porque o oGol publicava a soma por faixa de minuto de graça, e não existe equivalente para dado físico. Enquanto isso, a única leitura de desgaste que o estudo tem é a do A10, entre turno e returno, que é outra escala: ela fala de meses, esta falaria de minutos.",
    "feita_em": null,
-   "prova_arquivos": null
+   "prova_arquivos": "scripts/A08.py"
   },
   {
    "id": "A09",
@@ -13584,6 +13604,25 @@ const ESTUDO_SERIEB = {
    }
   },
   {
+   "id": "A08-1",
+   "parte": "A08",
+   "bloco": "A",
+   "manchete": "Esta base não mede o que o time faz dentro do jogo",
+   "o_que_vimos": "As duas tabelas físicas têm 60 e 28 colunas, e 0 delas separam primeiro de segundo tempo. Na resposta crua do fornecedor são 31 medidas, todas do jogo inteiro. O único recorte que existe é com bola e sem bola, que é posse e não tempo.",
+   "para_o_santa_cruz": "Não dá para escolher jogador nem treinador por 'aguenta os 90 minutos' com o que o clube tem hoje — quem disser isso está usando olho, não dado, e o olho aqui é legítimo desde que não se apresente como número. O que o estudo sustenta sobre desgaste é outra escala: o A10 mede do turno para o returno e diz que a queda existe, é de menos de 1% do que o jogador corria, e é a mesma para quem sobe e para quem fica no meio. Se o clube quiser a resposta de dentro do jogo, ela se compra: é pergunta para o fornecedor de dado físico, com custo, e não trabalho de análise.",
+   "premissa": null,
+   "premissa_titulo": null,
+   "premissa_grupo": null,
+   "premissa_motivo": "Não mexe em premissa nenhuma: ausência de dado não confirma nem contradiz o que o clube acredita. Se alguém tratasse isto como prova de que o desgaste não importa, estaria lendo ausência de medida como ausência de efeito.",
+   "confianca": "indício",
+   "confianca_motivo": "Indício, e o nível está certo: não há teste, então não há como passar em critério nenhum. O que existe é uma CONTAGEM, e ela é decisiva no que afirma. (a) Nas duas tabelas físicas, 0 de 60 + 28 colunas trazem qualquer marca de período — procurei por period, half, 1st, 2nd, faixa de 15 minutos, phase, segment e window, e a lista de busca é generosa de propósito, porque ela existe para ACHAR o recorte. (b) Na resposta crua da API, guardada em raw_json e lida sobre 3.613 linhas, toda métrica vem com o sufixo `_full_all_`: `full` é o jogo inteiro e `all` são todas as fases. São 31 chaves e 0 com recorte de tempo. Isto é o que fecha a pergunta, e é do dado, não de quem escreve. (c) O TIP/OTIP existe e engana: são 34 colunas de recorte abaixo do jogo inteiro, o que pode dar a impressão de que a base desce ao detalhe. Desce — mas por POSSE, não por tempo. Quem cruzar as duas coisas conclui errado. (d) E mesmo por jogo o recorte é raso: a tabela por jogo cobre 2025 (374) · 2026 (207), e cada linha é o jogo inteiro. É o mesmo limite que prendeu o A10 a 2025. O QUE ESTA CONTAGEM NÃO PROVA, e precisa estar dito porque a manchete é negativa: não prova que o rendimento não cai dentro do jogo; não prova que a queda não separaria quem sobe do meio; e não prova que o fornecedor não venda o recorte por período. Nenhuma das três foi medida. O que está medido é uma coisa só — a cópia que este estudo tem não permite a pergunta. POR QUE ISSO É CONCLUSÃO E NÃO SILÊNCIO: a regra da casa diz que resultado negativo também é conclusão, e uma pergunta que fica pendente para sempre, sem ninguém dizer por quê, vira dívida invisível. Escrita assim, ela tem preço e destinatário: é uma compra, não uma análise por fazer.",
+   "n": "0 colunas de período em 60 + 28 das duas tabelas físicas, e 0 chaves de tempo em 31 da API, sobre 3.613 linhas de jogador-temporada",
+   "prova": "resultados/A08_resumo.json e scripts/A08.py, contra dados_copiados/skillcorner_serieb.db",
+   "status": "validada",
+   "negativa": true,
+   "grafico": null
+  },
+  {
    "id": "A09-3",
    "parte": "A09",
    "bloco": "A",
@@ -14414,8 +14453,8 @@ const ESTUDO_SERIEB = {
  ],
  "contagem": {
   "total": 27,
-  "pendente": 1,
+  "pendente": 0,
   "rascunho": 0,
-  "validada": 26
+  "validada": 27
  }
 };

@@ -1,0 +1,101 @@
+{
+ "_doc": "A08 não roda, e este arquivo é a MEDIDA disso, não a alegação. Contado do skillcorner_serieb.db, a cópia que este estudo tem.",
+ "gerado_em": "2026-09-20",
+ "tabelas": {
+  "physical": {
+   "colunas": 60,
+   "linhas": 3616,
+   "colunas_de_periodo": [],
+   "colunas_de_posse": [
+    "cod_count_p30otip",
+    "cod_count_p30tip",
+    "distance_p30otip",
+    "distance_p30tip",
+    "expl_accel_hsr_p30otip",
+    "expl_accel_hsr_p30tip",
+    "expl_accel_sprint_p30otip",
+    "expl_accel_sprint_p30tip",
+    "hi_count_p30otip",
+    "hi_count_p30tip",
+    "hi_distance_p30otip",
+    "hi_distance_p30tip",
+    "high_accel_p30otip",
+    "high_accel_p30tip",
+    "high_decel_p30otip",
+    "high_decel_p30tip",
+    "hsr_count_p30otip",
+    "hsr_count_p30tip",
+    "hsr_distance_p30otip",
+    "hsr_distance_p30tip",
+    "m_per_min_otip",
+    "m_per_min_tip",
+    "medium_accel_p30otip",
+    "medium_accel_p30tip",
+    "medium_decel_p30otip",
+    "medium_decel_p30tip",
+    "minutes_otip",
+    "minutes_tip",
+    "running_distance_p30otip",
+    "running_distance_p30tip",
+    "sprint_count_p30otip",
+    "sprint_count_p30tip",
+    "sprint_distance_p30otip",
+    "sprint_distance_p30tip"
+   ]
+  },
+  "physical_match": {
+   "colunas": 28,
+   "linhas": 17075,
+   "colunas_de_periodo": [],
+   "colunas_de_posse": []
+  }
+ },
+ "api": {
+  "chaves_do_raw_json": [
+   "cod_count_full_all_p90",
+   "count_match",
+   "count_match_failed",
+   "explacceltohsr_count_full_all_p90",
+   "explacceltosprint_count_full_all_p90",
+   "hi_count_full_all_p90",
+   "hi_distance_full_all_p90",
+   "highaccel_count_full_all_p90",
+   "highdecel_count_full_all_p90",
+   "hsr_count_full_all_p90",
+   "hsr_distance_full_all_p90",
+   "medaccel_count_full_all_p90",
+   "meddecel_count_full_all_p90",
+   "minutes_full_all",
+   "player_birthdate",
+   "player_id",
+   "player_name",
+   "player_short_name",
+   "psv99",
+   "psv99_top5",
+   "running_distance_full_all_p90",
+   "sprint_count_full_all_p90",
+   "sprint_distance_full_all_p90",
+   "timeto505around180_top3",
+   "timeto505around90_top3",
+   "timetohsr_top3",
+   "timetohsrpostcod_top3",
+   "timetosprint_top3",
+   "timetosprintpostcod_top3",
+   "total_distance_full_all_p90",
+   "total_metersperminute_full_all_p90"
+  ],
+  "todas_com_sufixo_full_all": 61421,
+  "chaves_com_recorte_de_tempo": [],
+  "leitura": "`full` é o jogo inteiro e `all` são todas as fases. A resposta veio de um grupo de período só."
+ },
+ "cobertura_por_jogo": {
+  "2025": 374,
+  "2026": 207
+ },
+ "veredito": "A pergunta da A08 precisa das métricas do A07 por PERÍODO. A base tem zero coluna de período e zero chave de API com recorte de tempo. O único recorte abaixo do jogo é TIP/OTIP, que é posse e não tempo. Só coleta nova resolve, e ela não é barata como foi a da A09.",
+ "o_que_isto_nao_prova": [
+  "que o rendimento não cai dentro do jogo",
+  "que a queda não separaria quem sobe do meio",
+  "que o fornecedor não venda o recorte por período — isso se pergunta a ele"
+ ]
+}

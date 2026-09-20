@@ -223,6 +223,9 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 ### A08 — Físico dentro do jogo
 **Pergunta:** quem sobe perde menos intensidade do 1º para o 2º tempo e no fim do jogo?
 **Métricas:** as de A07 por tempo e, se houver, por faixa de 15 min; queda relativa entre o início e o fim do jogo.
+**Estado em 20/09: FECHADA como "esta base não responde"** (A08-1, resultado negativo). A lista de
+indicadores está declarada em `A08_indicadores.json`, de antes — se um dia a coleta trouxer
+período, a parte roda com ela, e a data prova que ninguém escolheu indicador vendo resultado.
 
 ### A09 — Momentos do jogo
 **Pergunta:** em que faixas de minutos cada faixa de classificação marca e sofre, e como reage ao placar?
@@ -337,8 +340,17 @@ traz evento nenhum. O caminho para essa coleta está escrito no cabeçalho do co
 temporal não roda** na A09, porque o oGol publica a conta da temporada fechada, sem corte por
 rodada: nenhuma conclusão da parte passa de provável.
 
-**A08 não roda.** O SkillCorner guarda um período só, `full_all`: não há 1º/2º tempo nem faixa de
-15 min em fonte alguma. Cai junto o recorte por estado do jogo da seção **Placar**.
+**A08 não roda, e em 20/09 isso passou a ser MEDIDO em vez de alegado.** O `scripts/A08.py` abre o
+`skillcorner_serieb.db` e conta: **zero** coluna de período nas 88 colunas das duas tabelas físicas
+e **zero** chave com recorte de tempo nas 31 da resposta crua da API — toda métrica vem com o
+sufixo `_full_all_` (jogo inteiro, todas as fases). O único recorte abaixo do jogo é TIP/OTIP, que
+é **posse e não tempo**, e engana: são 34 colunas, o que dá a impressão de que a base desce ao
+detalhe. A parte foi fechada como conclusão negativa (A08-1), que é o que a regra da casa manda
+fazer com "esta base não responde" — com a ressalva escrita de que isso não prova que o rendimento
+não cai, nem que a queda não separaria, nem que o fornecedor não venda o recorte. Cai junto o
+recorte por estado do jogo da seção **Placar**. Só coleta nova resolve, e aqui não há atalho: a
+A09 foi salva porque o oGol publicava a soma por faixa de minuto de graça, e não existe
+equivalente para dado físico.
 
 **A10 só cobre 2025.** A única tabela física por jogo (`physical_match`) tem Série B 2025 (374 jogos)
 e 2026 parcial (207); em 2022–2024 tem zero linhas. O calendário para o descanso existe

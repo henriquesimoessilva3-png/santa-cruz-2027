@@ -1,73 +1,73 @@
-fronteira,familia,comparacao,indicador,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
-com,casa,SM,pj_casa,16,48,2.132,1.811,1.038,"[0.57, 1.56]",5e-05,0.82,0.0002,firme,True,Pontos por jogo em casa,True
-com,casa,SM,xg_casa,16,48,1.51,1.391,0.322,"[-0.28, 0.96]",0.2574,0.82,0.2574,sem diferença clara,False,xG criado por jogo em casa,False
-com,casa,SM,xgc_casa,16,48,0.798,1.024,0.756,"[0.18, 1.5]",0.02048,0.82,0.02731,firme,False,xG sofrido por jogo em casa,False
-com,casa,SM,dd_casa,16,48,60.932,60.05,0.703,"[0.12, 1.4]",0.01307,0.82,0.02614,firme,False,"Duelos defensivos ganhos em casa, %",False
-com,casa,ST,pj_casa,16,16,2.132,2.026,0.12,"[-0.66, 0.86]",0.73629,1.02,0.73629,sem diferença clara,False,Pontos por jogo em casa,True
-com,casa,ST,xg_casa,16,16,1.51,1.634,-0.428,"[-1.28, 0.24]",0.2358,1.02,0.47159,sem diferença clara,False,xG criado por jogo em casa,False
-com,casa,ST,xgc_casa,16,16,0.798,0.947,0.277,"[-0.38, 1.15]",0.43953,1.02,0.58603,sem diferença clara,False,xG sofrido por jogo em casa,False
-com,casa,ST,dd_casa,16,16,60.932,60.05,0.931,"[0.1, 2.43]",0.0133,1.02,0.05321,pode ser sorte,False,"Duelos defensivos ganhos em casa, %",False
-com,casa,CM,pj_casa,16,48,1.263,1.811,-1.648,"[-2.35, -1.16]",0.0,0.82,0.0,firme,True,Pontos por jogo em casa,True
-com,casa,CM,xg_casa,16,48,1.263,1.391,-0.705,"[-1.3, -0.23]",0.00265,0.82,0.00529,firme,False,xG criado por jogo em casa,False
-com,casa,CM,xgc_casa,16,48,1.07,1.024,-0.559,"[-1.2, 0.03]",0.06546,0.82,0.08729,sem diferença clara,False,xG sofrido por jogo em casa,False
-com,casa,CM,dd_casa,16,48,59.63,60.05,0.3,"[-0.24, 0.88]",0.24924,0.82,0.24924,sem diferença clara,False,"Duelos defensivos ganhos em casa, %",False
-com,fora,SM,pj_fora,16,48,1.395,0.947,1.56,"[1.09, 2.3]",0.0,0.82,0.0,firme,True,Pontos por jogo fora,True
-com,fora,SM,xg_fora,16,48,1.045,0.996,0.418,"[-0.07, 0.95]",0.11641,0.82,0.15522,sem diferença clara,False,xG criado por jogo fora,False
-com,fora,SM,xgc_fora,16,48,1.288,1.364,0.352,"[-0.2, 0.94]",0.23734,0.82,0.23734,sem diferença clara,False,xG sofrido por jogo fora,False
-com,fora,SM,dd_fora,16,48,60.605,59.578,0.788,"[0.18, 1.46]",0.01515,0.82,0.0303,firme,False,"Duelos defensivos ganhos fora, %",False
-com,fora,ST,pj_fora,16,16,1.395,1.132,1.005,"[0.37, 2.04]",0.00942,1.02,0.03767,firme,False,Pontos por jogo fora,True
-com,fora,ST,xg_fora,16,16,1.045,1.103,-0.368,"[-1.2, 0.25]",0.30622,1.02,0.40829,sem diferença clara,False,xG criado por jogo fora,False
-com,fora,ST,xgc_fora,16,16,1.288,1.272,-0.19,"[-0.84, 0.63]",0.59481,1.02,0.59481,sem diferença clara,False,xG sofrido por jogo fora,False
-com,fora,ST,dd_fora,16,16,60.605,59.748,0.468,"[-0.2, 1.3]",0.19521,1.02,0.39042,sem diferença clara,False,"Duelos defensivos ganhos fora, %",False
-com,fora,CM,pj_fora,16,48,0.526,0.947,-1.734,"[-2.33, -1.27]",0.0,0.82,0.0,firme,True,Pontos por jogo fora,True
-com,fora,CM,xg_fora,16,48,0.951,0.996,-0.309,"[-0.92, 0.2]",0.30104,0.82,0.40139,sem diferença clara,False,xG criado por jogo fora,False
-com,fora,CM,xgc_fora,16,48,1.557,1.364,-0.92,"[-1.66, -0.37]",0.00095,0.82,0.00191,firme,True,xG sofrido por jogo fora,False
-com,fora,CM,dd_fora,16,48,59.028,59.578,-0.03,"[-0.61, 0.52]",0.92223,0.82,0.92223,sem diferença clara,False,"Duelos defensivos ganhos fora, %",False
-com,assimetria,SM,dif_pj,16,48,0.895,0.789,-0.084,"[-0.75, 0.52]",0.77786,0.82,0.98187,sem diferença clara,False,Pontos por jogo: casa menos fora,True
-com,assimetria,SM,dif_xg,16,48,0.419,0.387,-0.19,"[-0.77, 0.4]",0.51601,0.82,0.98187,sem diferença clara,False,xG criado: casa menos fora,False
-com,assimetria,SM,dif_xgc,16,48,0.447,0.391,-0.434,"[-1.05, 0.11]",0.12381,0.82,0.49524,sem diferença clara,False,xG sofrido: fora menos casa,False
-com,assimetria,SM,dif_dd,16,48,0.887,1.164,0.007,"[-0.62, 0.65]",0.98187,0.82,0.98187,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
-com,assimetria,ST,dif_pj,16,16,0.895,0.868,0.392,"[-0.37, 1.32]",0.2769,1.02,0.5538,sem diferença clara,False,Pontos por jogo: casa menos fora,True
-com,assimetria,ST,dif_xg,16,16,0.419,0.452,-0.02,"[-0.69, 0.78]",0.95479,1.02,0.95479,sem diferença clara,False,xG criado: casa menos fora,False
-com,assimetria,ST,dif_xgc,16,16,0.447,0.329,-0.778,"[-1.57, -0.05]",0.03571,1.02,0.14282,pode ser sorte,False,xG sofrido: fora menos casa,False
-com,assimetria,ST,dif_dd,16,16,0.887,0.322,-0.256,"[-1.11, 0.54]",0.4757,1.02,0.63426,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
-com,assimetria,CM,dif_pj,16,48,0.737,0.789,0.277,"[-0.26, 0.85]",0.3095,0.82,0.39399,sem diferença clara,False,Pontos por jogo: casa menos fora,True
-com,assimetria,CM,dif_xg,16,48,0.299,0.387,0.33,"[-0.22, 0.95]",0.28372,0.82,0.39399,sem diferença clara,False,xG criado: casa menos fora,False
-com,assimetria,CM,dif_xgc,16,48,0.519,0.391,-0.414,"[-1.13, 0.26]",0.21983,0.82,0.39399,sem diferença clara,False,xG sofrido: fora menos casa,False
-com,assimetria,CM,dif_dd,16,48,1.737,1.164,-0.245,"[-0.72, 0.24]",0.39399,0.82,0.39399,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
-sem,casa,SM,pj_casa,8,32,2.184,1.737,1.096,"[0.55, 1.81]",0.00212,1.14,0.00283,firme,False,Pontos por jogo em casa,True
-sem,casa,SM,xg_casa,8,32,1.646,1.391,0.793,"[-0.08, 1.64]",0.06724,1.14,0.06724,sem diferença clara,False,xG criado por jogo em casa,False
-sem,casa,SM,xgc_casa,8,32,0.736,1.026,1.545,"[0.97, 2.43]",0.0,1.14,0.0,firme,True,xG sofrido por jogo em casa,False
-sem,casa,SM,dd_casa,8,32,62.541,60.381,1.2,"[0.61, 2.03]",0.00066,1.14,0.00131,firme,True,"Duelos defensivos ganhos em casa, %",False
-sem,casa,ST,pj_casa,8,7,2.184,2.211,0.041,"[-1.28, 1.23]",0.93824,1.57,0.95485,sem diferença clara,False,Pontos por jogo em casa,True
-sem,casa,ST,xg_casa,8,7,1.646,1.569,0.03,"[-1.24, 1.13]",0.95485,1.57,0.95485,sem diferença clara,False,xG criado por jogo em casa,False
-sem,casa,ST,xgc_casa,8,7,0.736,0.993,1.237,"[0.3, 3.32]",0.05817,1.57,0.11634,sem diferença clara,False,xG sofrido por jogo em casa,False
-sem,casa,ST,dd_casa,8,7,62.541,60.194,2.281,"[1.16, 5.21]",0.00105,1.57,0.00419,firme,True,"Duelos defensivos ganhos em casa, %",False
-sem,casa,CM,pj_casa,12,32,1.263,1.737,-1.715,"[-2.47, -1.27]",0.0,0.97,0.0,firme,True,Pontos por jogo em casa,True
-sem,casa,CM,xg_casa,12,32,1.246,1.391,-0.886,"[-1.56, -0.35]",0.00413,0.97,0.00827,firme,False,xG criado por jogo em casa,False
-sem,casa,CM,xgc_casa,12,32,1.07,1.026,-0.358,"[-1.14, 0.38]",0.32365,0.97,0.32365,sem diferença clara,False,xG sofrido por jogo em casa,False
-sem,casa,CM,dd_casa,12,32,61.065,60.381,0.386,"[-0.25, 1.07]",0.2116,0.97,0.28214,sem diferença clara,False,"Duelos defensivos ganhos em casa, %",False
-sem,fora,SM,pj_fora,8,32,1.447,0.947,2.196,"[1.54, 3.23]",0.0,1.14,0.0,firme,True,Pontos por jogo fora,True
-sem,fora,SM,xg_fora,8,32,1.013,0.976,0.593,"[-0.15, 1.46]",0.14882,1.14,0.14882,sem diferença clara,False,xG criado por jogo fora,False
-sem,fora,SM,xgc_fora,8,32,1.253,1.394,0.895,"[0.17, 1.7]",0.01939,1.14,0.02585,firme,False,xG sofrido por jogo fora,False
-sem,fora,SM,dd_fora,8,32,61.411,59.663,1.407,"[0.72, 2.19]",0.00143,1.14,0.00286,firme,True,"Duelos defensivos ganhos fora, %",False
-sem,fora,ST,pj_fora,8,7,1.447,0.737,2.131,"[1.11, 7.37]",0.00583,1.57,0.02334,firme,True,Pontos por jogo fora,True
-sem,fora,ST,xg_fora,8,7,1.013,1.096,-0.354,"[-1.95, 0.67]",0.51133,1.57,0.51133,sem diferença clara,False,xG criado por jogo fora,False
-sem,fora,ST,xgc_fora,8,7,1.253,1.348,0.891,"[-0.13, 2.63]",0.117,1.57,0.15601,sem diferença clara,False,xG sofrido por jogo fora,False
-sem,fora,ST,dd_fora,8,7,61.411,59.676,1.326,"[0.38, 3.22]",0.03021,1.57,0.06041,pode ser sorte,False,"Duelos defensivos ganhos fora, %",False
-sem,fora,CM,pj_fora,12,32,0.474,0.947,-2.081,"[-2.96, -1.57]",0.0,0.97,0.0,firme,True,Pontos por jogo fora,True
-sem,fora,CM,xg_fora,12,32,0.951,0.976,-0.077,"[-0.78, 0.48]",0.82627,0.97,0.90373,sem diferença clara,False,xG criado por jogo fora,False
-sem,fora,CM,xgc_fora,12,32,1.646,1.394,-1.134,"[-1.99, -0.54]",0.0007,0.97,0.00141,firme,True,xG sofrido por jogo fora,False
-sem,fora,CM,dd_fora,12,32,59.223,59.663,0.046,"[-0.67, 0.74]",0.90373,0.97,0.90373,sem diferença clara,False,"Duelos defensivos ganhos fora, %",False
-sem,assimetria,SM,dif_pj,8,32,0.947,0.816,-0.04,"[-0.83, 0.75]",0.91893,1.14,0.91893,sem diferença clara,False,Pontos por jogo: casa menos fora,True
-sem,assimetria,SM,dif_xg,8,32,0.455,0.396,-0.444,"[-1.42, 0.43]",0.32743,1.14,0.65485,sem diferença clara,False,xG criado: casa menos fora,False
-sem,assimetria,SM,dif_xgc,8,32,0.447,0.391,-0.537,"[-1.35, 0.19]",0.15416,1.14,0.61662,sem diferença clara,False,xG sofrido: fora menos casa,False
-sem,assimetria,SM,dif_dd,8,32,1.423,1.532,-0.081,"[-0.86, 0.75]",0.8416,1.14,0.91893,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
-sem,assimetria,ST,dif_pj,8,7,0.947,1.474,0.777,"[-0.26, 2.12]",0.1553,1.57,0.52615,sem diferença clara,False,Pontos por jogo: casa menos fora,True
-sem,assimetria,ST,dif_xg,8,7,0.455,0.402,-0.342,"[-1.67, 0.8]",0.52615,1.57,0.52615,sem diferença clara,False,xG criado: casa menos fora,False
-sem,assimetria,ST,dif_xgc,8,7,0.447,0.405,-0.387,"[-2.05, 0.68]",0.46042,1.57,0.52615,sem diferença clara,False,xG sofrido: fora menos casa,False
-sem,assimetria,ST,dif_dd,8,7,1.423,1.091,-0.346,"[-1.63, 0.73]",0.50922,1.57,0.52615,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
-sem,assimetria,CM,dif_pj,12,32,0.737,0.816,0.242,"[-0.37, 0.92]",0.45961,0.97,0.45961,sem diferença clara,False,Pontos por jogo: casa menos fora,True
-sem,assimetria,CM,dif_xg,12,32,0.278,0.396,0.569,"[-0.13, 1.37]",0.12512,0.97,0.25025,sem diferença clara,False,xG criado: casa menos fora,False
-sem,assimetria,CM,dif_xgc,12,32,0.562,0.391,-0.719,"[-1.65, 0.05]",0.07426,0.97,0.25025,sem diferença clara,False,xG sofrido: fora menos casa,False
-sem,assimetria,CM,dif_dd,12,32,2.116,1.532,-0.375,"[-0.92, 0.14]",0.27159,0.97,0.36211,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
+fronteira,familia,comparacao,indicador,citado,n_a,n_b,cru_a,cru_b,d,ic95_d,p,d_minimo_80,q,selo,poder_suficiente,nome,placar_redescrito
+com,casa,SM,pj_casa,0,16,48,2.132,1.811,1.038,"[0.57, 1.56]",5e-05,0.82,0.0002,firme,True,Pontos por jogo em casa,True
+com,casa,SM,xg_casa,0,16,48,1.51,1.391,0.322,"[-0.28, 0.96]",0.2574,0.82,0.2574,sem diferença clara,False,xG criado por jogo em casa,False
+com,casa,SM,xgc_casa,0,16,48,0.798,1.024,0.756,"[0.18, 1.5]",0.02048,0.82,0.02731,firme,False,xG sofrido por jogo em casa,False
+com,casa,SM,dd_casa,0,16,48,60.932,60.05,0.703,"[0.12, 1.4]",0.01307,0.82,0.02614,firme,False,"Duelos defensivos ganhos em casa, %",False
+com,casa,ST,pj_casa,0,16,16,2.132,2.026,0.12,"[-0.66, 0.86]",0.73629,1.02,0.73629,sem diferença clara,False,Pontos por jogo em casa,True
+com,casa,ST,xg_casa,0,16,16,1.51,1.634,-0.428,"[-1.28, 0.24]",0.2358,1.02,0.47159,sem diferença clara,False,xG criado por jogo em casa,False
+com,casa,ST,xgc_casa,0,16,16,0.798,0.947,0.277,"[-0.38, 1.15]",0.43953,1.02,0.58603,sem diferença clara,False,xG sofrido por jogo em casa,False
+com,casa,ST,dd_casa,0,16,16,60.932,60.05,0.931,"[0.1, 2.43]",0.0133,1.02,0.05321,pode ser sorte,False,"Duelos defensivos ganhos em casa, %",False
+com,casa,CM,pj_casa,0,16,48,1.263,1.811,-1.648,"[-2.35, -1.16]",0.0,0.82,0.0,firme,True,Pontos por jogo em casa,True
+com,casa,CM,xg_casa,0,16,48,1.263,1.391,-0.705,"[-1.3, -0.23]",0.00265,0.82,0.00529,firme,False,xG criado por jogo em casa,False
+com,casa,CM,xgc_casa,0,16,48,1.07,1.024,-0.559,"[-1.2, 0.03]",0.06546,0.82,0.08729,sem diferença clara,False,xG sofrido por jogo em casa,False
+com,casa,CM,dd_casa,0,16,48,59.63,60.05,0.3,"[-0.24, 0.88]",0.24924,0.82,0.24924,sem diferença clara,False,"Duelos defensivos ganhos em casa, %",False
+com,fora,SM,pj_fora,0,16,48,1.395,0.947,1.56,"[1.09, 2.3]",0.0,0.82,0.0,firme,True,Pontos por jogo fora,True
+com,fora,SM,xg_fora,0,16,48,1.045,0.996,0.418,"[-0.07, 0.95]",0.11641,0.82,0.15522,sem diferença clara,False,xG criado por jogo fora,False
+com,fora,SM,xgc_fora,0,16,48,1.288,1.364,0.352,"[-0.2, 0.94]",0.23734,0.82,0.23734,sem diferença clara,False,xG sofrido por jogo fora,False
+com,fora,SM,dd_fora,0,16,48,60.605,59.578,0.788,"[0.18, 1.46]",0.01515,0.82,0.0303,firme,False,"Duelos defensivos ganhos fora, %",False
+com,fora,ST,pj_fora,0,16,16,1.395,1.132,1.005,"[0.37, 2.04]",0.00942,1.02,0.03767,firme,False,Pontos por jogo fora,True
+com,fora,ST,xg_fora,0,16,16,1.045,1.103,-0.368,"[-1.2, 0.25]",0.30622,1.02,0.40829,sem diferença clara,False,xG criado por jogo fora,False
+com,fora,ST,xgc_fora,0,16,16,1.288,1.272,-0.19,"[-0.84, 0.63]",0.59481,1.02,0.59481,sem diferença clara,False,xG sofrido por jogo fora,False
+com,fora,ST,dd_fora,0,16,16,60.605,59.748,0.468,"[-0.2, 1.3]",0.19521,1.02,0.39042,sem diferença clara,False,"Duelos defensivos ganhos fora, %",False
+com,fora,CM,pj_fora,0,16,48,0.526,0.947,-1.734,"[-2.33, -1.27]",0.0,0.82,0.0,firme,True,Pontos por jogo fora,True
+com,fora,CM,xg_fora,0,16,48,0.951,0.996,-0.309,"[-0.92, 0.2]",0.30104,0.82,0.40139,sem diferença clara,False,xG criado por jogo fora,False
+com,fora,CM,xgc_fora,0,16,48,1.557,1.364,-0.92,"[-1.66, -0.37]",0.00095,0.82,0.00191,firme,True,xG sofrido por jogo fora,False
+com,fora,CM,dd_fora,0,16,48,59.028,59.578,-0.03,"[-0.61, 0.52]",0.92223,0.82,0.92223,sem diferença clara,False,"Duelos defensivos ganhos fora, %",False
+com,assimetria,SM,dif_pj,0,16,48,0.895,0.789,-0.084,"[-0.75, 0.52]",0.77786,0.82,0.98187,sem diferença clara,False,Pontos por jogo: casa menos fora,True
+com,assimetria,SM,dif_xg,0,16,48,0.419,0.387,-0.19,"[-0.77, 0.4]",0.51601,0.82,0.98187,sem diferença clara,False,xG criado: casa menos fora,False
+com,assimetria,SM,dif_xgc,0,16,48,0.447,0.391,-0.434,"[-1.05, 0.11]",0.12381,0.82,0.49524,sem diferença clara,False,xG sofrido: fora menos casa,False
+com,assimetria,SM,dif_dd,0,16,48,0.887,1.164,0.007,"[-0.62, 0.65]",0.98187,0.82,0.98187,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
+com,assimetria,ST,dif_pj,0,16,16,0.895,0.868,0.392,"[-0.37, 1.32]",0.2769,1.02,0.5538,sem diferença clara,False,Pontos por jogo: casa menos fora,True
+com,assimetria,ST,dif_xg,0,16,16,0.419,0.452,-0.02,"[-0.69, 0.78]",0.95479,1.02,0.95479,sem diferença clara,False,xG criado: casa menos fora,False
+com,assimetria,ST,dif_xgc,0,16,16,0.447,0.329,-0.778,"[-1.57, -0.05]",0.03571,1.02,0.14282,pode ser sorte,False,xG sofrido: fora menos casa,False
+com,assimetria,ST,dif_dd,0,16,16,0.887,0.322,-0.256,"[-1.11, 0.54]",0.4757,1.02,0.63426,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
+com,assimetria,CM,dif_pj,0,16,48,0.737,0.789,0.277,"[-0.26, 0.85]",0.3095,0.82,0.39399,sem diferença clara,False,Pontos por jogo: casa menos fora,True
+com,assimetria,CM,dif_xg,0,16,48,0.299,0.387,0.33,"[-0.22, 0.95]",0.28372,0.82,0.39399,sem diferença clara,False,xG criado: casa menos fora,False
+com,assimetria,CM,dif_xgc,0,16,48,0.519,0.391,-0.414,"[-1.13, 0.26]",0.21983,0.82,0.39399,sem diferença clara,False,xG sofrido: fora menos casa,False
+com,assimetria,CM,dif_dd,0,16,48,1.737,1.164,-0.245,"[-0.72, 0.24]",0.39399,0.82,0.39399,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
+sem,casa,SM,pj_casa,0,8,32,2.184,1.737,1.096,"[0.55, 1.81]",0.00212,1.14,0.00283,firme,False,Pontos por jogo em casa,True
+sem,casa,SM,xg_casa,0,8,32,1.646,1.391,0.793,"[-0.08, 1.64]",0.06724,1.14,0.06724,sem diferença clara,False,xG criado por jogo em casa,False
+sem,casa,SM,xgc_casa,0,8,32,0.736,1.026,1.545,"[0.97, 2.43]",0.0,1.14,0.0,firme,True,xG sofrido por jogo em casa,False
+sem,casa,SM,dd_casa,0,8,32,62.541,60.381,1.2,"[0.61, 2.03]",0.00066,1.14,0.00131,firme,True,"Duelos defensivos ganhos em casa, %",False
+sem,casa,ST,pj_casa,0,8,7,2.184,2.211,0.041,"[-1.28, 1.23]",0.93824,1.57,0.95485,sem diferença clara,False,Pontos por jogo em casa,True
+sem,casa,ST,xg_casa,0,8,7,1.646,1.569,0.03,"[-1.24, 1.13]",0.95485,1.57,0.95485,sem diferença clara,False,xG criado por jogo em casa,False
+sem,casa,ST,xgc_casa,0,8,7,0.736,0.993,1.237,"[0.3, 3.32]",0.05817,1.57,0.11634,sem diferença clara,False,xG sofrido por jogo em casa,False
+sem,casa,ST,dd_casa,0,8,7,62.541,60.194,2.281,"[1.16, 5.21]",0.00105,1.57,0.00419,firme,True,"Duelos defensivos ganhos em casa, %",False
+sem,casa,CM,pj_casa,0,12,32,1.263,1.737,-1.715,"[-2.47, -1.27]",0.0,0.97,0.0,firme,True,Pontos por jogo em casa,True
+sem,casa,CM,xg_casa,0,12,32,1.246,1.391,-0.886,"[-1.56, -0.35]",0.00413,0.97,0.00827,firme,False,xG criado por jogo em casa,False
+sem,casa,CM,xgc_casa,0,12,32,1.07,1.026,-0.358,"[-1.14, 0.38]",0.32365,0.97,0.32365,sem diferença clara,False,xG sofrido por jogo em casa,False
+sem,casa,CM,dd_casa,0,12,32,61.065,60.381,0.386,"[-0.25, 1.07]",0.2116,0.97,0.28214,sem diferença clara,False,"Duelos defensivos ganhos em casa, %",False
+sem,fora,SM,pj_fora,0,8,32,1.447,0.947,2.196,"[1.54, 3.23]",0.0,1.14,0.0,firme,True,Pontos por jogo fora,True
+sem,fora,SM,xg_fora,0,8,32,1.013,0.976,0.593,"[-0.15, 1.46]",0.14882,1.14,0.14882,sem diferença clara,False,xG criado por jogo fora,False
+sem,fora,SM,xgc_fora,0,8,32,1.253,1.394,0.895,"[0.17, 1.7]",0.01939,1.14,0.02585,firme,False,xG sofrido por jogo fora,False
+sem,fora,SM,dd_fora,0,8,32,61.411,59.663,1.407,"[0.72, 2.19]",0.00143,1.14,0.00286,firme,True,"Duelos defensivos ganhos fora, %",False
+sem,fora,ST,pj_fora,0,8,7,1.447,0.737,2.131,"[1.11, 7.37]",0.00583,1.57,0.02334,firme,True,Pontos por jogo fora,True
+sem,fora,ST,xg_fora,0,8,7,1.013,1.096,-0.354,"[-1.95, 0.67]",0.51133,1.57,0.51133,sem diferença clara,False,xG criado por jogo fora,False
+sem,fora,ST,xgc_fora,0,8,7,1.253,1.348,0.891,"[-0.13, 2.63]",0.117,1.57,0.15601,sem diferença clara,False,xG sofrido por jogo fora,False
+sem,fora,ST,dd_fora,0,8,7,61.411,59.676,1.326,"[0.38, 3.22]",0.03021,1.57,0.06041,pode ser sorte,False,"Duelos defensivos ganhos fora, %",False
+sem,fora,CM,pj_fora,0,12,32,0.474,0.947,-2.081,"[-2.96, -1.57]",0.0,0.97,0.0,firme,True,Pontos por jogo fora,True
+sem,fora,CM,xg_fora,0,12,32,0.951,0.976,-0.077,"[-0.78, 0.48]",0.82627,0.97,0.90373,sem diferença clara,False,xG criado por jogo fora,False
+sem,fora,CM,xgc_fora,0,12,32,1.646,1.394,-1.134,"[-1.99, -0.54]",0.0007,0.97,0.00141,firme,True,xG sofrido por jogo fora,False
+sem,fora,CM,dd_fora,0,12,32,59.223,59.663,0.046,"[-0.67, 0.74]",0.90373,0.97,0.90373,sem diferença clara,False,"Duelos defensivos ganhos fora, %",False
+sem,assimetria,SM,dif_pj,0,8,32,0.947,0.816,-0.04,"[-0.83, 0.75]",0.91893,1.14,0.91893,sem diferença clara,False,Pontos por jogo: casa menos fora,True
+sem,assimetria,SM,dif_xg,0,8,32,0.455,0.396,-0.444,"[-1.42, 0.43]",0.32743,1.14,0.65485,sem diferença clara,False,xG criado: casa menos fora,False
+sem,assimetria,SM,dif_xgc,0,8,32,0.447,0.391,-0.537,"[-1.35, 0.19]",0.15416,1.14,0.61662,sem diferença clara,False,xG sofrido: fora menos casa,False
+sem,assimetria,SM,dif_dd,0,8,32,1.423,1.532,-0.081,"[-0.86, 0.75]",0.8416,1.14,0.91893,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
+sem,assimetria,ST,dif_pj,0,8,7,0.947,1.474,0.777,"[-0.26, 2.12]",0.1553,1.57,0.52615,sem diferença clara,False,Pontos por jogo: casa menos fora,True
+sem,assimetria,ST,dif_xg,0,8,7,0.455,0.402,-0.342,"[-1.67, 0.8]",0.52615,1.57,0.52615,sem diferença clara,False,xG criado: casa menos fora,False
+sem,assimetria,ST,dif_xgc,0,8,7,0.447,0.405,-0.387,"[-2.05, 0.68]",0.46042,1.57,0.52615,sem diferença clara,False,xG sofrido: fora menos casa,False
+sem,assimetria,ST,dif_dd,0,8,7,1.423,1.091,-0.346,"[-1.63, 0.73]",0.50922,1.57,0.52615,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False
+sem,assimetria,CM,dif_pj,0,12,32,0.737,0.816,0.242,"[-0.37, 0.92]",0.45961,0.97,0.45961,sem diferença clara,False,Pontos por jogo: casa menos fora,True
+sem,assimetria,CM,dif_xg,0,12,32,0.278,0.396,0.569,"[-0.13, 1.37]",0.12512,0.97,0.25025,sem diferença clara,False,xG criado: casa menos fora,False
+sem,assimetria,CM,dif_xgc,0,12,32,0.562,0.391,-0.719,"[-1.65, 0.05]",0.07426,0.97,0.25025,sem diferença clara,False,xG sofrido: fora menos casa,False
+sem,assimetria,CM,dif_dd,0,12,32,2.116,1.532,-0.375,"[-0.92, 0.14]",0.27159,0.97,0.36211,sem diferença clara,False,"Duelos defensivos: casa menos fora, pp",False

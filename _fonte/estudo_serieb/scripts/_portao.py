@@ -54,8 +54,8 @@ PROTOTIPO = RAIZ / "_fonte" / "prototipo"         # onde mora a ESPECIFICACAO.md
 # J05, J06 e J09 entraram no mesmo dia, e a entrada delas era dívida: estavam publicadas como
 # decididas sem conferência automática nenhuma. Tinham <ID>_testes.csv e <ID>_numeros.json desde
 # sempre — o que faltava era estarem NESTA LISTA, e ninguém tinha percebido.
-PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A09", "A10", "A11", "A12", "A13",
-          "A14", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
+PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12",
+          "A13", "A14", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
           "T01", "T02", "T03", "T04"]
 
 # Vereditos. Só REPROVA impede a parte de ser aceita; AVISO e REVISAR pedem olho humano.

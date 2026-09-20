@@ -132,6 +132,120 @@ def conferir_contra_a_base_do_app(base):
             for ano in sorted(FECHADAS)}
 
 
+# ==================================================================================================
+# A SEGUNDA METADE: como cada faixa reage ao placar          (acrescentado em 20/09)
+# ==================================================================================================
+# A primeira metade sai da tabela AGREGADA do oGol (gols por faixa de minuto) e nao permite saber
+# quem marcou primeiro em cada jogo. Esta metade sai da coleta JOGO A JOGO
+# (coletar_serieb_primeiro_gol.py), em que cada jogo so entra depois de os gols lidos baterem com o
+# proprio placar.
+#
+# Uma consequencia que muda o teto da parte: com dado por JOGO, a porta temporal da §6.4 volta a
+# ser calculavel — da para medir as 19 primeiras rodadas e prever os pontos das 19 ultimas. A
+# primeira metade nao permitia isso, e era por isso que ela parava no provavel.
+
+JOGOS_PRIMEIRO_GOL = "serieb_jogos_primeiro_gol.csv"
+
+
+def pontos_de(gp, gc):
+    return 3 if gp > gc else (1 if gp == gc else 0)
+
+
+def base_do_placar():
+    """Uma linha por clube-temporada, com o que o time rende marcando e sofrendo primeiro.
+
+    Cada jogo entra DUAS vezes, uma por clube, cada uma do ponto de vista dele. O `primeiro_gol_de`
+    vem como "casa"/"fora" e aqui vira "a favor"/"contra" do clube da linha.
+    """
+    caminho = os.path.join(DADOS, JOGOS_PRIMEIRO_GOL)
+    if not os.path.exists(caminho):
+        return {}, {"motivo": f"{JOGOS_PRIMEIRO_GOL} nao existe: a coleta jogo a jogo nao rodou"}
+
+    ponte = json.load(open(os.path.join(R, "T01_ponte_clubes.json"), encoding="utf-8"))
+    ponte = {**ponte, **PONTE_EXTRA}
+    a01 = {(r["temporada"], r["clube"]): r
+           for r in csv.DictReader(open(os.path.join(R, "A01_clube_temporada.csv"),
+                                        encoding="utf-8"))}
+    por_nome = {}
+    for (_t, clube) in a01:
+        por_nome.setdefault(normal(clube), clube)
+
+    por_ct, sem_par, jogos_lidos = collections.defaultdict(list), collections.Counter(), 0
+    for j in csv.DictReader(open(caminho, encoding="utf-8")):
+        if j["temporada"] not in FECHADAS:
+            continue
+        jogos_lidos += 1
+        for lado in ("casa", "fora"):
+            bruto = j[lado]
+            clube = por_nome.get(normal(ponte.get(bruto, bruto)))
+            if not clube or (j["temporada"], clube) not in a01:
+                sem_par[bruto] += 1
+                continue
+            gp = int(j["gols_casa"] if lado == "casa" else j["gols_fora"])
+            gc = int(j["gols_fora"] if lado == "casa" else j["gols_casa"])
+            primeiro = j["primeiro_gol_de"]
+            por_ct[(j["temporada"], clube)].append({
+                "data": j["data"], "rodada": j["rodada"], "pts": pontos_de(gp, gc),
+                "venceu": gp > gc,
+                "marcou_primeiro": primeiro == lado,
+                "sofreu_primeiro": bool(primeiro) and primeiro != lado,
+                "min_primeiro": int(j["primeiro_gol_min"]) if j["primeiro_gol_min"] else None,
+            })
+    return por_ct, {"jogos_lidos": jogos_lidos, "sem_par_na_ponte": dict(sem_par)}
+
+
+def medidas_do_placar(js):
+    """Os sete indicadores declarados, para um clube-temporada. None onde o n nao sustenta."""
+    com = [x for x in js if x["marcou_primeiro"]]
+    sem = [x for x in js if x["sofreu_primeiro"]]
+    # Um clube-temporada com menos de 4 jogos de um dos lados nao tem media que se leia: fica None,
+    # e o `comparar` da casa simplesmente nao o usa naquele indicador.
+    m = {
+        "pj_marcando_primeiro": (sum(x["pts"] for x in com) / len(com)) if len(com) >= 4 else None,
+        "pj_sofrendo_primeiro": (sum(x["pts"] for x in sem) / len(sem)) if len(sem) >= 4 else None,
+        "pct_marca_primeiro": 100 * len(com) / len(js) if js else None,
+        "pct_virada_quando_sofre": (100 * sum(1 for x in sem if x["venceu"]) / len(sem)
+                                    if len(sem) >= 4 else None),
+        "pct_perde_vantagem": (100 * sum(1 for x in com if not x["venceu"]) / len(com)
+                               if len(com) >= 4 else None),
+    }
+    mp = [x["min_primeiro"] for x in com if x["min_primeiro"] is not None]
+    mc = [x["min_primeiro"] for x in sem if x["min_primeiro"] is not None]
+    m["min_primeiro_gol_pro"] = (sum(mp) / len(mp)) if len(mp) >= 4 else None
+    m["min_primeiro_gol_contra"] = (sum(mc) / len(mc)) if len(mc) >= 4 else None
+    return m
+
+
+def porta_do_placar(por_ct, corte=19):
+    """A porta da §6.4 sobre marcar primeiro: as 19 primeiras rodadas prevendo os pontos das 19
+    ultimas, com a parcial dada aos pontos do 1o turno.
+
+    Aqui ela RODA, e e a diferenca que o dado por jogo traz. A conta e a do scripts/
+    _porta_temporal.py, pela mesma razao das outras partes: nao se reimplementa teste da casa.
+    """
+    import _porta_temporal as pt
+    reg = []
+    for (temporada, clube), js in por_ct.items():
+        ordenados = sorted(js, key=lambda x: x["data"])
+        t1, t2 = ordenados[:corte], ordenados[corte:]
+        if len(t1) < corte or len(t2) < 10:
+            continue
+        com1 = [x for x in t1 if x["marcou_primeiro"]]
+        reg.append({"temporada": temporada, "clube": clube,
+                    "pts_1t": sum(x["pts"] for x in t1),
+                    "pts_2t": sum(x["pts"] for x in t2),
+                    "marca_primeiro_1t": 100 * len(com1) / len(t1)})
+    if len(reg) < 20:
+        return {"roda": False, "motivo": f"so {len(reg)} clube-temporadas com os dois turnos"}
+    percentil_no_ano(reg, ["pts_1t", "pts_2t"])
+    fora = pt.porta(reg, "marca_primeiro_1t", 1)
+    return {"roda": True, "indicador": "marca_primeiro_1t",
+            "definicao": ("fatia dos jogos em que o time marcou primeiro nas 19 primeiras rodadas "
+                          "x pontos somados das 19 ultimas, em posto dentro do ano, com parcial "
+                          "dada a pontuacao do 1o turno"),
+            "conta_de": "scripts/_porta_temporal.py", **fora}
+
+
 def main():
     dec = json.load(open(os.path.join(R, "A09_indicadores.json"), encoding="utf-8"))
     inds = [i for fam in dec["familias"] for i in fam["indicadores"]]
@@ -142,6 +256,23 @@ def main():
     print(f"base: {len(base)} clube-temporadas · {len({l['clube'] for l in base})} clubes")
     if sem_par:
         print(f"  sem par na ponte de clube: {dict(sem_par)}")
+
+    # ---- a segunda metade: o placar, jogo a jogo ----------------------------------------
+    # Se a coleta jogo a jogo ainda nao rodou, a parte continua respondendo so a primeira metade:
+    # os indicadores do placar ficam sem valor e o `comparar` nao os usa. Falha aberta de
+    # proposito — e melhor a parte rodar com menos do que nao rodar.
+    por_ct, nota_placar = base_do_placar()
+    com_placar = 0
+    for l in base:
+        js = por_ct.get((l["temporada"], l["clube"]))
+        if not js:
+            continue
+        l.update(medidas_do_placar(js))
+        l["jogos_com_placar"] = len(js)
+        com_placar += 1
+    print(f"  placar jogo a jogo: {com_placar} de {len(base)} clube-temporadas · {nota_placar}")
+    porta = porta_do_placar(por_ct) if por_ct else {"roda": False, "motivo": "sem coleta"}
+    print(f"  porta da §6.4 sobre marcar primeiro: {porta}")
 
     conf = conferir_contra_a_base_do_app(base)
     print("  gols por temporada, oGol × base do app:")
@@ -196,18 +327,23 @@ def main():
         "firmes_nos_dois_cortes": firmes_nos_dois,
         "poder_por_desenho": poder,
         "conferencia_da_coleta": conf,
+        # A porta vale POR METADE da parte, e as duas metades tem dado diferente.
         "porta_6_4": {
-            "roda": False,
-            "por_que": ("o oGol publica a conta da temporada fechada, sem corte por rodada: não "
-                        "há como medir as 19 primeiras e prever as 19 últimas"),
-            "consequencia": "nenhuma conclusão desta parte passa de provável"},
+            "primeira_metade_agregada": {
+                "roda": False,
+                "por_que": ("a tabela por faixa de minuto do oGol e da temporada FECHADA, sem "
+                            "corte por rodada: nao ha como medir as 19 primeiras e prever as 19 "
+                            "ultimas"),
+                "consequencia": ("nenhuma conclusao apoiada so nela passa de provavel — e o caso "
+                                 "de A09-1, A09-2 e A09-3")},
+            "segunda_metade_jogo_a_jogo": porta},
     }
     json.dump(resumo, open(os.path.join(R, "A09_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
     # ---- os números por marcador ----
     def med(f, campo):
-        v = [l[campo] for l in base if f(l)]
+        v = [l[campo] for l in base if f(l) and l.get(campo) is not None]
         return round(float(np.median(v)), 2) if v else None
 
     sobe = lambda l: l["faixa"] == "Sobe"                                    # noqa: E731
@@ -229,6 +365,11 @@ def main():
         "gols_pro_sobe": med(sobe, "gols_pro"), "gols_pro_meio": med(meio, "gols_pro"),
         "gols_contra_sobe": med(sobe, "gols_contra"), "gols_contra_meio": med(meio, "gols_contra"),
     }
+    numeros["n_com_placar"] = com_placar
+    if porta.get("roda"):
+        numeros["porta_placar_parcial"] = porta["parcial"]
+        numeros["porta_placar_p"] = round(porta["p_parcial"], 4)
+        numeros["porta_placar_n"] = porta["n"]
     for i in inds:
         k = i["id"]
         numeros[f"{k}_sobe"] = med(sobe, k)
