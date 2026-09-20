@@ -1,0 +1,91 @@
+{
+ "parte": "T01",
+ "gerado_por": "scripts/T01.py",
+ "gerado_em": "2026-09-20",
+ "o_que_e": "Os marcadores que resultados/T01.json publica, recalculados do dado pelo passo 3 deste script. E a CONFERENCIA do publicado, nao a substituicao: quem discorda de T01.json fica registrado como achado.",
+ "de_onde": [
+  "resultados/base_passagens.csv (passo 1, scripts/T01.py)",
+  "resultados/T01_rodada_treinador.csv (passo 2, scripts/T01_rodadas.py)",
+  "dados/serieb_jogos.csv + dados/serieb_jogos_2018_2021.csv",
+  "dados/bola_parada.json (Sofascore)",
+  "dados/prototipo.json (etapa_15)"
+ ],
+ "temporada": "blocos de meses com jogo, a regra de scripts/A01.py:blocos_de_temporada — nao o ano da data, que parte a Serie B de 2020 em duas",
+ "numeros": {
+  "passagens_brutas": 1160,
+  "clubes": 51,
+  "sem_jogo_no_tm": 58,
+  "rodadas_jogadas": 6608,
+  "rodadas_com_dono": 6546,
+  "rodadas_sem_dono": 62,
+  "rodadas_interino": 283,
+  "pct_rodadas_interino": 4.3,
+  "treinadores": 193,
+  "temporadas": 9,
+  "clube_temporadas": 180,
+  "clube_temporadas_fechadas": 160,
+  "cobertura_exata": 151,
+  "cobertura_buraco": 29,
+  "cobertura_sobra": 0,
+  "mediana_efetivos": 2,
+  "media_efetivos_fechadas": 2.32,
+  "media_trocas_fechadas": 1.3,
+  "max_efetivos": 5,
+  "um_efetivo_so": 49,
+  "pct_um_efetivo_so": 27,
+  "um_efetivo_so_fechadas": 39,
+  "pct_um_efetivo_so_fechadas": 24,
+  "tres_ou_mais_efetivos_fechadas": 67,
+  "pct_tres_ou_mais_efetivos_fechadas": 42,
+  "um_efetivo_so_2026": 10,
+  "faixa_pct_um_efetivo_anos_fechados": "20% a 35%",
+  "termina_com_quem_comecou": 40,
+  "passagens_temporada": 492,
+  "passagens_2226": 276,
+  "com_10_rodadas": 278,
+  "treinadores_com_10": 113,
+  "rodam_3_clubes": 29,
+  "rodam_3_clubes_2225": 14,
+  "rodam_3_clubes_2226": 15,
+  "topo_clubes": [
+   {
+    "treinador": "Allan Aal",
+    "clubes": 9
+   },
+   {
+    "treinador": "Claudinei Oliveira",
+    "clubes": 7
+   },
+   {
+    "treinador": "Marcelo Cabo",
+    "clubes": 7
+   },
+   {
+    "treinador": "Mozart",
+    "clubes": 7
+   },
+   {
+    "treinador": "Daniel Paulista",
+    "clubes": 6
+   },
+   {
+    "treinador": "Guto Ferreira",
+    "clubes": 6
+   }
+  ],
+  "clubes_allan_aal": 9,
+  "clubes_sete": 7,
+  "clubes_seis": 6,
+  "marcinho_rodadas": 30,
+  "sofa_10": 157,
+  "sofa_batem": 150,
+  "sofa_nao_batem": 7,
+  "etapa15_estimativa": [
+   250,
+   400
+  ],
+  "etapa15_min": 250,
+  "etapa15_max": 400,
+  "etapa15_clube_temporadas": 100
+ }
+}

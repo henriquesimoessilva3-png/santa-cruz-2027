@@ -26,6 +26,7 @@ import csv
 import json
 import os
 import sys
+from decimal import ROUND_HALF_UP, Decimal
 
 import numpy as np
 
@@ -43,6 +44,196 @@ TESTE = "2026"
 
 # A faixa do perfil do Cenário Barato, como a §7.2(b) a descreve.
 PERFIL_BARATO = {"ppda": (10.0, 13.2), "posse": (47.0, 52.0), "passe_longo_pct": (10.0, 14.0)}
+
+# ----------------------------------------------------------------------------------------------
+# A saída por marcador — regra 1 do portão (etapa 6 do PLANO.md)
+# ----------------------------------------------------------------------------------------------
+# Acrescentado em 20/09. NÃO muda a análise: grava, com o nome do marcador como chave, o que o
+# script já calculava, e passa a calcular os marcadores que até aqui só existiam digitados no
+# A12.json. Receita de cada um: resultados/A12_numeros_novos.json, campo `de_onde`.
+SAIDA_NUMEROS = "A12_numeros.json"
+GERADO_EM = "2026-09-20"
+
+# Os nomes das réguas na linguagem da Didática, para as frases `separam`/`nao_separam`.
+NOME_DA_REGUA = {
+    "A_posse_construcao": "construção com bola", "B_pressao_ritmo": "pressão e ritmo",
+    "C_volume_fisico": "volume físico", "D_explosao": "explosão",
+    "E_qualidade_chance": "qualidade da chance", "F_solidez": "solidez",
+    "G_bola_aerea_parada": "bola aérea e parada", "H_dinheiro": "valor do elenco",
+    "I_estabilidade_11": "estabilidade do onze",
+}
+
+
+def br(v, casas):
+    """Número no formato do texto: vírgula decimal, arredondando meio para CIMA.
+    `round()` cru não serve — round(13.85, 1) devolve 13.8 por causa do float binário, e o
+    valor do elenco do meio é exatamente esse caso."""
+    d = Decimal(str(float(v))).quantize(Decimal(1).scaleb(-casas), rounding=ROUND_HALF_UP)
+    return f"{d:.{casas}f}".replace(".", ",")
+
+
+def inteiro(v):
+    return int(Decimal(str(float(v))).quantize(Decimal(1), rounding=ROUND_HALF_UP))
+
+
+def mediana(linhas, coluna):
+    return float(np.median([l[coluna] for l in linhas]))
+
+
+def juntar(itens):
+    """Lista em frase. Quando o último item já tem um “e” dentro (“bola aérea e parada”), a
+    ligação volta a ser vírgula: “explosão e bola aérea e parada” não é português."""
+    itens = list(itens)
+    if len(itens) < 2:
+        return "".join(itens)
+    if " e " in itens[-1]:
+        return ", ".join(itens)
+    return ", ".join(itens[:-1]) + " e " + itens[-1]
+
+
+def posto_no_ano(por_ano, linha, coluna, menor_primeiro):
+    """Lugar do clube na coluna dentro da própria temporada. 1 = melhor, pelo sentido pedido."""
+    v = linha[coluna]
+    iguais = por_ano[linha["temporada"]]
+    melhores = [x for x in iguais if (x[coluna] < v if menor_primeiro else x[coluna] > v)]
+    return len(melhores) + 1
+
+
+def gravar_numeros(eixos, fechadas, por_ano, tec, por, no_perfil, subiu_no_perfil,
+                   fora_top8, barato, perfil_fora_top8, teste, cabe):
+    """Todo marcador que o A12.json publica, com o valor que ESTE script calcula."""
+    sobe = [l for l in fechadas if l["faixa"] == "Sobe"]
+    meio = [l for l in fechadas if l["faixa"] == "Meio"]
+    cai = [l for l in fechadas if l["faixa"] == "Cai"]
+    sem = lambda ls: [l for l in ls if not l["fronteira"]]
+
+    # As nove réguas em Sobe × Meio, pelo selo em cada corte de fronteira (A12_reguas.csv).
+    def selo(e, corte):
+        return por[("SM", e)].get(corte, {}).get("selo")
+    firmes = {e: [c for c in ("com", "sem") if selo(e, c) == "firme"] for e in eixos}
+    separam = [NOME_DA_REGUA[e] for e in eixos if len(firmes[e]) == 2]
+    depende = [NOME_DA_REGUA[e] for e in eixos if len(firmes[e]) == 1]
+    nao_separam = [NOME_DA_REGUA[e] for e in eixos if not firmes[e]]
+    firme_nos_dois = [e for e in eixos if len(firmes[e]) == 2]
+
+    def med_regua(e, fx):
+        alvo = [l for l in fechadas if (l["trave"] if fx == "Trave" else l["faixa"] == fx)]
+        return round(float(np.median([l[e] for l in alvo])), 1)
+
+    # O Cenário Barato.
+    cairam = [l for l in no_perfil if l["faixa"] == "Cai"]
+    ricos = sorted([l for l in subiu_no_perfil if l["posto_valor"] <= 8],
+                   key=lambda l: (l["posto_valor"], l["temporada"]))
+    ricos_frase = juntar([f"{l['clube']} {l['temporada']} ({l['posto_valor']}º em valor do ano)"
+                          if i == 0 else f"{l['clube']} {l['temporada']} ({l['posto_valor']}º)"
+                          for i, l in enumerate(ricos)])
+
+    # Os quatro casos de origem, lidos dentro do próprio ano (A12-3).
+    envelope = {c: (min(l[c] for l in barato), max(l[c] for l in barato))
+                for c in ("ppda", "posse", "passe_longo_pct")}
+    postos = {(c, menor): sorted(posto_no_ano(por_ano, l, c, menor) for l in barato)
+              for c, menor in (("ppda", True), ("posse", False), ("passe_longo_pct", False))}
+    pior_posse = max(barato, key=lambda l: l["posse"])
+    pior_longo = max(barato, key=lambda l: l["passe_longo_pct"])
+
+    # 2026, na rodada em que a base foi copiada.
+    cabem26 = [l for l in teste if cabe(l)]
+    baratos26 = [l for l in cabem26 if l["posto_valor"] > 8]
+    melhor26 = min(baratos26, key=lambda l: l["pos"]) if baratos26 else None
+    jogos = lambda ls: sorted({int(tec[(l["temporada"], l["clube"])]["J"]) for l in ls})
+
+    n = {
+        # ---- as nove réguas (A12-1) ----
+        "n_reguas": len(eixos),
+        "sm_n": len(firme_nos_dois),
+        "sm_lista": ", ".join(firme_nos_dois),
+        "separam": juntar(separam),
+        "nao_separam": juntar(nao_separam),
+        "depende_do_corte": juntar(depende),
+        "E_sobe": med_regua("E_qualidade_chance", "Sobe"),
+        "E_meio": med_regua("E_qualidade_chance", "Meio"),
+        "F_sobe": med_regua("F_solidez", "Sobe"),
+        "F_meio": med_regua("F_solidez", "Meio"),
+        "H_sobe": med_regua("H_dinheiro", "Sobe"),
+        "H_meio": med_regua("H_dinheiro", "Meio"),
+        "H_cai": med_regua("H_dinheiro", "Cai"),
+        "I_sobe": med_regua("I_estabilidade_11", "Sobe"),
+        "I_meio": med_regua("I_estabilidade_11", "Meio"),
+        "I_cai": med_regua("I_estabilidade_11", "Cai"),
+        "A_sobe": med_regua("A_posse_construcao", "Sobe"),
+        "A_trave": med_regua("A_posse_construcao", "Trave"),
+        # ---- os indicadores crus por trás das réguas (mediana da faixa, como o cru_ do método) ----
+        "dist_sobe": br(mediana(sobe, "dist_remate"), 1),
+        "dist_meio": br(mediana(meio, "dist_remate"), 1),
+        "xgr_sobe": br(mediana(sobe, "xg_por_remate_contra"), 3),
+        "xgr_meio": br(mediana(meio, "xg_por_remate_contra"), 3),
+        "val_sobe": br(mediana(sobe, "tm_valor_total") / 1e6, 1),
+        "val_meio": br(mediana(meio, "tm_valor_total") / 1e6, 1),
+        "sh_sobe": br(mediana(sobe, "share_11"), 1),
+        "sh_meio": br(mediana(meio, "share_11"), 1),
+        "posse_sobe_com": br(mediana(sobe, "posse"), 1),
+        "posse_meio_com": br(mediana(meio, "posse"), 1),
+        "posse_sobe_sem": br(mediana(sem(sobe), "posse"), 1),
+        "posse_meio_sem": br(mediana(sem(meio), "posse"), 1),
+        "sprint_cai": inteiro(mediana(cai, "fis_sprint_distance_p90")),
+        "sprint_meio": inteiro(mediana(meio, "fis_sprint_distance_p90")),
+        "n_sobe": len(sobe),
+        "n_meio": len(meio),
+        "n_sobe_sem": len(sem(sobe)),
+        "n_meio_sem": len(sem(meio)),
+        "n_cai_sem": len(sem(cai)),
+        # ---- o Cenário Barato (A12-2) ----
+        "cabem": len(no_perfil),
+        "n_fech": len(fechadas),
+        "subiram": len(subiu_no_perfil),
+        "cairam": len(cairam),
+        "sobe_liga": len(sobe),
+        "cai_liga": len(cai),
+        "taxa_env": br(100 * len(subiu_no_perfil) / len(no_perfil), 1),
+        "taxa_queda_env": br(100 * len(cairam) / len(no_perfil), 1),
+        "taxa_liga": br(100 * len(sobe) / len(fechadas), 1),
+        "cabem8": len(perfil_fora_top8),
+        "sub8": len([l for l in perfil_fora_top8 if l["faixa"] == "Sobe"]),
+        "taxa8": br(100 * len([l for l in perfil_fora_top8 if l["faixa"] == "Sobe"])
+                    / len(perfil_fora_top8), 1),
+        "taxa_geral8": br(100 * len(barato) / len(fora_top8), 1),
+        "n8": len(fora_top8),
+        "n_barato": len(barato),
+        "ricos_no_perfil": ricos_frase,
+        "rodada": jogos(teste)[-1],
+        "total_rodadas": jogos(fechadas)[-1],
+        "n26": len(cabem26),
+        "baratos26": ", ".join(l["clube"] for l in sorted(baratos26, key=lambda l: l["pos"])),
+        "n_baratos26": len(baratos26),
+        "g4_26": len([l for l in cabem26 if l["pos"] <= 4]),
+        "pos_melhor26": melhor26["pos"],
+        "pts_zona26": melhor26["pontos"],
+        # ---- a faixa publicada contra os quatro casos (A12-3) ----
+        "ppda_lo": br(PERFIL_BARATO["ppda"][0], 1),
+        "ppda_hi": br(PERFIL_BARATO["ppda"][1], 1),
+        "posse_lo": inteiro(PERFIL_BARATO["posse"][0]),
+        "posse_hi": inteiro(PERFIL_BARATO["posse"][1]),
+        "longo_lo": inteiro(PERFIL_BARATO["passe_longo_pct"][0]),
+        "longo_hi": inteiro(PERFIL_BARATO["passe_longo_pct"][1]),
+        "vit_posse": br(pior_posse["posse"], 4),
+        "chape_longo": br(pior_longo["passe_longo_pct"], 4),
+        "r_ppda_melhor": postos[("ppda", True)][0],
+        "r_ppda_pior": postos[("ppda", True)][-1],
+        "r_posse_melhor": postos[("posse", False)][0],
+        "r_posse_pior": postos[("posse", False)][-1],
+        "r_longo_melhor": postos[("passe_longo_pct", False)][0],
+        "r_longo_pior": postos[("passe_longo_pct", False)][-1],
+        "envelope_real": (f"PPDA {br(envelope['ppda'][0], 4)}-{br(envelope['ppda'][1], 4)} · "
+                          f"posse {br(envelope['posse'][0], 4)}-{br(envelope['posse'][1], 4)}% · "
+                          f"passe longo {br(envelope['passe_longo_pct'][0], 4)}-"
+                          f"{br(envelope['passe_longo_pct'][1], 4)}%"),
+    }
+    caminho = os.path.join(R, SAIDA_NUMEROS)
+    with open(caminho, "w", encoding="utf-8") as f:
+        json.dump({"gerado_por": "scripts/A12.py", "gerado_em": GERADO_EM, "numeros": n},
+                  f, ensure_ascii=False, indent=1)
+    print(f"\n{len(n)} marcadores gravados em resultados/{SAIDA_NUMEROS}")
+    return n
 
 
 def main():
@@ -173,6 +364,9 @@ def main():
     print(f"\n  cabem no perfil E estão fora do top-8 de valor: {len(perfil_fora_top8)}")
     print(f"     destes, subiram: {len([l for l in perfil_fora_top8 if l['faixa']=='Sobe'])}")
     print(f"     taxa de acesso de quem está fora do top-8, em geral: {100*len(barato)/len(fora_top8):.1f}%")
+
+    gravar_numeros(eixos, fechadas, por_ano, tec, por, no_perfil, subiu_no_perfil,
+                   fora_top8, barato, perfil_fora_top8, teste, cabe)
 
 
 if __name__ == "__main__":

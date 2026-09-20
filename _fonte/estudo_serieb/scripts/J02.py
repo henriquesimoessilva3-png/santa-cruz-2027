@@ -20,6 +20,12 @@ o J02 acrescente `no_clube_desde` e `clube_anterior`.
 de janeiro da temporada. A fatia é calculada em MINUTOS (quem já estava e jogou) e também em
 CONTAGEM de jogadores — a diferença entre as duas separa "manteve gente" de "manteve quem joga".
 
+## O que sai
+
+`resultados/J02_testes.csv` (uma linha por indicador × comparação × corte), `J02_resumo.json`
+(o quadro por faixa) e `J02_numeros.json` — **todo marcador que J02.json publica, calculado**,
+que é a regra 1 do portão de entrega. Nenhum número da parte é digitado à mão.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/J02.py
 """
@@ -42,6 +48,7 @@ RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
 DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
 RNG = np.random.default_rng(20260917)
+GERADO_EM = "2026-09-20"          # fixa de propósito: a saída é reprodutível
 
 
 def norm(t):
@@ -157,6 +164,77 @@ def main():
                "fora_por_cobertura": sem_cob, "n": len(base)},
               open(os.path.join(R, "J02_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
+
+    # ------------------------------------------------------------------------------------------
+    # A saída por marcador — regra 1 do portão de entrega (etapa 6 do PLANO.md)
+    # ------------------------------------------------------------------------------------------
+    # Todo número que J02.json publica tem de SAIR daqui, com o nome do marcador como chave.
+    # O que o script já calculava (o quadro por faixa, os n de cada grupo, os mesmos cortes sem
+    # fronteira que vão para J02_testes.csv) passa a ser GRAVADO; o que só existia digitado no
+    # texto (o nível geral, a cobertura da ponte, os extremos do Sobe, o tamanho esperado da base)
+    # passa a ser CALCULADO, pela receita registrada em J02_numeros_novos.json, campo `de_onde`.
+    # Nenhuma análise muda: nada aqui entra em `base`, em `res` ou no que já era gravado.
+    # Arredondado, nunca truncado, na casa em que a tela mostra.
+    sem_front = [l for l in base if not l["fronteira"]]
+    quadro_sf = {fx: {i["id"]: round(float(np.median([l[i["id"]] for l in sem_front if f(l)])), 1)
+                      for i in inds}
+                 for fx, f in faixas.items() if any(f(l) for l in sem_front)}
+    fic_sobe = [l["min_de_quem_ficou_pct"] for l in base if l["faixa"] == "Sobe"]
+    cob = [l["cobertura_da_ponte"] for l in base]
+    n_esperado = int(dec["recorte"]["n_esperado"])
+    # j01_*: citação entre partes, e é assim que o `de_onde` manda. O J01 publica a mediana de
+    # jogadores de minutagem alta por faixa; o J02 não a recalcula, lê. Lendo em vez de copiar,
+    # se o J01 for refeito este marcador acompanha sozinho — foi exatamente o que falhou em 19/09,
+    # quando o número ficou preso na prosa com o valor velho.
+    j01 = json.load(open(os.path.join(R, "J01.json"), encoding="utf-8"))["numeros"]
+    numeros = {
+        # o tamanho da base
+        "n": len(base),
+        "n_esperado": n_esperado,
+        "n_fora": n_esperado - len(base),
+        "n_sobe": sum(1 for l in base if faixas["Sobe"](l)),
+        "n_meio": sum(1 for l in base if faixas["Meio"](l)),
+        "n_cai": sum(1 for l in base if faixas["Cai"](l)),
+        "n_sobe_sf": sum(1 for l in sem_front if faixas["Sobe"](l)),
+        "n_meio_sf": sum(1 for l in sem_front if faixas["Meio"](l)),
+        "n_cai_sf": sum(1 for l in sem_front if faixas["Cai"](l)),
+        # o nível geral do campeonato: mediana das linhas, na unidade do indicador
+        "contr_geral": round(float(np.median([l["min_de_contratado_pct"] for l in base])), 1),
+        "contr_geral_sf": round(float(np.median([l["min_de_contratado_pct"]
+                                                 for l in sem_front])), 1),
+        # a cobertura da ponte minutagem × elencos: é prova, não número de jogo
+        "cob_med": round(100 * float(np.median(cob)), 1),
+        "cob_min": round(100 * min(cob), 1),
+        # concentração dos minutos, por faixa (⚑ consequência do resultado)
+        "s11_s": quadro["Sobe"]["share_11"],
+        "s11_m": quadro["Meio"]["share_11"],
+        "s11_c": quadro["Cai"]["share_11"],
+        "s11_s_sf": quadro_sf["Sobe"]["share_11"],
+        "s11_m_sf": quadro_sf["Meio"]["share_11"],
+        "s11_c_sf": quadro_sf["Cai"]["share_11"],
+        "at_s": quadro["Sobe"]["atletas_usados"],
+        "at_m": quadro["Meio"]["atletas_usados"],
+        "at_c": quadro["Cai"]["atletas_usados"],
+        "at_m_sf": quadro_sf["Meio"]["atletas_usados"],
+        "at_c_sf": quadro_sf["Cai"]["atletas_usados"],
+        # continuidade, por faixa
+        "fic_s": quadro["Sobe"]["min_de_quem_ficou_pct"],
+        "fic_m": quadro["Meio"]["min_de_quem_ficou_pct"],
+        "fic_c": quadro["Cai"]["min_de_quem_ficou_pct"],
+        "fic_s_sf": quadro_sf["Sobe"]["min_de_quem_ficou_pct"],
+        "fic_m_sf": quadro_sf["Meio"]["min_de_quem_ficou_pct"],
+        "fic_c_sf": quadro_sf["Cai"]["min_de_quem_ficou_pct"],
+        # os extremos do grupo que subiu, caso a caso (Remo 2025 e Criciúma 2023)
+        "fic_min": round(min(fic_sobe), 1),
+        "fic_max": round(max(fic_sobe), 1),
+        # citação do J01
+        "j01_cai_altos": j01["cai_altos"],
+        "j01_sobe_altos": j01["sobe_altos"],
+    }
+    json.dump({"gerado_por": "scripts/J02.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(os.path.join(R, "J02_numeros.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"J02_numeros.json: {len(numeros)} marcadores gravados")
 
     print(f"\n{'='*94}\nCONCENTRAÇÃO E CONTINUIDADE, por faixa (medianas)\n{'='*94}")
     print(f"{'indicador':30s} {'Sobe':>8s} {'Trave':>8s} {'Meio':>8s} {'Cai':>8s}   firme nos dois?")

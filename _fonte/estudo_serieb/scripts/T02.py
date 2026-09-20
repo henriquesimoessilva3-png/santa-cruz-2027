@@ -31,15 +31,34 @@ adversário.
 Todo resultado vem com a posição do time quando o treinador assumiu e quando saiu, e com o valor
 do elenco (`tm_valor_total`, do Transfermarkt) como descrição ao lado — nunca como desconto.
 
+## A saída por marcador
+
+`resultados/T02_numeros.json` é a última coisa que este script escreve: todo número que o
+`T02.json` publica sai daqui, com o mesmo nome de marcador (regra 1 do portão, etapa 6 do
+PLANO.md). Nada acima dessa seção mudou — `T02_passagem.csv`, `T02_treinador.csv` e
+`T02_resumo.json` saem idênticos aos de 17/09, e é assim que se prova que a gravação não mexeu
+na análise.
+
+Ela roda em dois recortes, e os dois convivem:
+  - a **passagem** (o que este script sempre fez), 2022 a 2026, é o que vai para os CSV;
+  - o **clube-temporada**, 2022 a 2025, que a T02-1 pede — 2026 fica fora de todo marcador,
+    por ser temporada em curso e por o G4 ter deixado de ser a zona de acesso.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/T02.py
 """
 import collections
 import csv
 import json
+import math
 import os
 import re
 import statistics as st
+import sys
+from decimal import ROUND_HALF_UP, Decimal
+
+import numpy as np
+from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ESTUDO = os.path.dirname(AQUI)
@@ -51,6 +70,20 @@ TEMPORADAS = {2022, 2023, 2024, 2025, 2026}
 EM_CURSO = 2026
 MIN_RODADAS = 10          # o mínimo do CLAUDE.md
 DEPOIS_DA = 10            # "só a partir da 10ª rodada"
+
+sys.path.insert(0, AQUI)
+from _metodo import bh, cohen_d, d_minimo, ic_por_clube, pct, percentil_no_ano  # noqa: E402
+
+# A saída por marcador. Data fixa porque o script é reprodutível: roda hoje e daqui a um ano com o
+# mesmo resultado, e data dinâmica só faria o arquivo mudar sem nenhum número mudar.
+NUMEROS_JSON = os.path.join(R, "T02_numeros.json")
+GERADO_EM = "2026-09-20"
+
+ANOS_FECHADOS = (2022, 2023, 2024, 2025)   # o recorte de todo marcador: 2026 fica fora
+CORTE_TOP5, CORTE_MEIO = 5, 10             # faixas de valor: 1º–5º, 6º–10º, 11º para baixo
+OSC_ALTO = 85                              # "o time lá em mais de 8 de cada 10 rodadas"
+AMPLITUDE_GRANDE = 50                      # a cauda dos 50 pontos percentuais ou mais
+SEMENTE = 42                               # o bootstrap de clube do _metodo.py
 
 
 def ler_xg():
@@ -79,6 +112,274 @@ def ler_xg():
         outro = indice.get((l["data"], l["adv"]))
         por[(l["data"], l["clube"])] = (l["xg"], outro["xg"] if outro else None)
     return por
+
+
+# ==============================================================================================
+# A saída por marcador
+# ==============================================================================================
+# Daqui para baixo só se LÊ o que a análise acima já calculou (`linhas`, `por_passagem`, `tabela`)
+# e o ranking de valor, e se escreve o T02_numeros.json.
+#
+# CAMADA 1: o que o script já calculava, agora com o nome do marcador como chave.
+# CAMADA 2: os marcadores que até 19/09 só existiam digitados no T02.json. A receita de cada um
+# está no campo `de_onde` de resultados/T02_numeros_novos.json, conferido por dois caminhos —
+# nada foi reinventado aqui.
+
+def br(v, casas):
+    """O número em pt-BR, arredondando meio para CIMA — "arredonde, não trunque".
+
+    `round()` devolve 9,4 para 9,45 porque o float é 9,4499…; a média do grupo 6º–10º é exatamente
+    189/20, e é esse o caso que o T02.json publica como 9,5."""
+    if v is None:
+        return None
+    exato = Decimal(repr(round(float(v), 10)))
+    d = exato.quantize(Decimal(1).scaleb(-casas), rounding=ROUND_HALF_UP)
+    return f"{d:f}".replace(".", ",")
+
+
+def sem_decimal_a_toa(v):
+    """A mediana de 20 valores inteiros sai 9.0 do statistics; o número é 9."""
+    return int(v) if float(v).is_integer() else v
+
+
+def faixa_do_posto(posto):
+    return "top5" if posto <= CORTE_TOP5 else ("meio" if posto <= CORTE_MEIO else "baixo")
+
+
+def ranking_de_valor(clubes_por_ano):
+    """Posto do clube no ranking de `tm_valor_total` dentro da temporada, do maior para o menor.
+
+    Desempate: `valor_total` (Wyscout) na mesma linha. Ele existe por um caso só, e um caso que
+    muda o resultado: em 2023 CRB e Novorizontino têm o mesmo tm_valor_total (13,9 M EUR) e caem
+    exatamente no corte 10º/11º. Pelo Wyscout o Novorizontino é o 10º."""
+    valores = {}
+    with open(os.path.join(DADOS, "serieb_clube_temporada.csv"), encoding="utf-8-sig") as f:
+        for r in csv.DictReader(f):
+            ano = next((r[k] for k in ("ano", "temporada", "season") if k in r), None)
+            clube = next((r[k] for k in ("clube", "time", "Equipa") if k in r), None)
+            if not ano or not clube:
+                continue
+            def numero(coluna):
+                try:
+                    return float(r.get(coluna) or 0) or 0.0
+                except ValueError:
+                    return 0.0
+            try:
+                valores[(int(float(ano)), clube)] = (numero("tm_valor_total"), numero("valor_total"))
+            except ValueError:
+                continue
+    postos = {}
+    for ano, clubes in clubes_por_ano.items():
+        ordem = sorted(clubes, key=lambda c: (-valores.get((ano, c), (0.0, 0.0))[0],
+                                              -valores.get((ano, c), (0.0, 0.0))[1], c))
+        for i, clube in enumerate(ordem, 1):
+            postos[(ano, clube)] = i
+    return postos
+
+
+def clube_temporada(tabela):
+    """Uma linha por clube-temporada de 2022 a 2025, com as rodadas no G4 nos dois cortes e a
+    faixa de valor do elenco. É a unidade da T02-1 — passagem não serve, porque o clube que troca
+    de treinador apareceria duas vezes."""
+    g4, g4_tarde, clubes = collections.Counter(), collections.Counter(), collections.defaultdict(set)
+    for (ano, clube, rodada), t in tabela.items():
+        if ano not in ANOS_FECHADOS:
+            continue
+        clubes[ano].add(clube)
+        if int(t["pos"]) <= 4:
+            g4[(ano, clube)] += 1
+            if rodada >= DEPOIS_DA:
+                g4_tarde[(ano, clube)] += 1
+    postos = ranking_de_valor(clubes)
+    base = [{"temporada": ano, "clube": clube, "posto_valor": postos[(ano, clube)],
+             "faixa_valor": faixa_do_posto(postos[(ano, clube)]),
+             "rodadas_no_g4": g4[(ano, clube)],
+             "rodadas_no_g4_apos_10": g4_tarde[(ano, clube)]}
+            for ano in sorted(clubes) for clube in sorted(clubes[ano])]
+    base.sort(key=lambda l: (l["temporada"], l["posto_valor"]))
+    return base, postos
+
+
+def testes_de_faixa(base):
+    """O método da casa, do scripts/_metodo.py, na família das três comparações de faixa de valor:
+    posto de rodadas no G4 dentro da temporada, Welch bilateral, d de Cohen no posto, IC95 por
+    bootstrap de CLUBE e BH a 5% sobre os três p."""
+    percentil_no_ano(base, ["rodadas_no_g4"])
+    campo = pct("rodadas_no_g4")
+    de = {f: (lambda fx: (lambda l: l["faixa_valor"] == fx))(f) for f in ("top5", "meio", "baixo")}
+    rng = np.random.default_rng(SEMENTE)
+    saida, ps = [], []
+    for nome, a, b in (("top5_baixo", "top5", "baixo"), ("meio_baixo", "meio", "baixo"),
+                       ("top5_meio", "top5", "meio")):
+        va = [l[campo] for l in base if de[a](l)]
+        vb = [l[campo] for l in base if de[b](l)]
+        _, p = stats.ttest_ind(va, vb, equal_var=False)
+        lo, hi = ic_por_clube(base, campo, de[a], de[b], 1, rng)
+        saida.append({"nome": nome, "n_a": len(va), "n_b": len(vb),
+                      "d": float(cohen_d(va, vb)), "ic95_d": [lo, hi], "p": float(p),
+                      "d_minimo_80": d_minimo(len(va), len(vb))})
+        ps.append(float(p))
+    for linha, q in zip(saida, bh(ps)):
+        linha["q"] = q
+    return {t["nome"]: t for t in saida}
+
+
+def r_minimo(n, alvo=0.80, alfa=0.05):
+    """O menor r detectável com 80% de poder, pela transformação z de Fisher. Mesmo desenho de
+    poder do d_minimo() do _metodo.py, aplicado a correlação: a §6.7 manda publicar o poder para
+    que "não se transfere" não vire "não existe"."""
+    z = stats.norm.ppf(1 - alfa / 2) + stats.norm.ppf(alvo)
+    return math.tanh(z / math.sqrt(n - 3))
+
+
+def numeros_por_marcador(linhas, por_passagem, tabela):
+    """Todo marcador que o T02.json publica, com o nome dele como chave."""
+    base, postos = clube_temporada(tabela)
+    teste = testes_de_faixa(base)
+
+    def do_grupo(faixa, coluna="rodadas_no_g4"):
+        return [l[coluna] for l in base if l["faixa_valor"] == faixa]
+
+    # --- T02-2 e T02-3: a passagem, 2022 a 2025, no ranking (10+ rodadas e sem interino) ---
+    fechadas = [l for l in linhas if l["temporada"] in ANOS_FECHADOS and l["no_ranking"]]
+    por_treinador = collections.defaultdict(list)
+    for l in fechadas:
+        por_treinador[l["treinador"]].append(l)
+    multi = {t: ls for t, ls in por_treinador.items() if len({l["clube"] for l in ls}) >= 2}
+
+    # o piso: a pior passagem de cada treinador que trocou de clube, do maior piso para o menor
+    pisos = sorted(((min(l["pct_g4"] for l in ls), t) for t, ls in multi.items()), reverse=True)
+    primeiro, segundo = multi[pisos[0][1]], multi[pisos[1][1]]
+    eb = sorted(primeiro, key=lambda l: (l["temporada"], l["rodada_1a"]))
+    eb_pior = min(eb, key=lambda l: l["pct_g4"])
+    eb_melhor = max(eb, key=lambda l: l["pct_g4"])
+    seg_pior = min(segundo, key=lambda l: l["pct_g4"])
+    # o clube em que ele repetiu (Novorizontino): é o recorte de ponto por jogo e de saldo de xG
+    vezes = collections.Counter(l["clube"] for l in eb)
+    clube_repetido = max(vezes, key=lambda c: (vezes[c], sum(l["rodadas"] for l in eb
+                                                             if l["clube"] == c)))
+    repetido = sorted((l for l in eb if l["clube"] == clube_repetido),
+                      key=lambda l: l["temporada"])
+    outro = [l for l in eb if l["clube"] != clube_repetido]
+    jogos = [x for l in repetido
+             for x in por_passagem[(l["treinador"], l["clube"], l["temporada"], l["inicio"])]
+             if x["xg_pro"] is not None and x["xg_contra"] is not None]
+
+    # --- T02-3: o mesmo treinador em anos opostos ---
+    def amplitude(ls, coluna):
+        v = [l[coluna] for l in ls if l[coluna] is not None]
+        return (max(v) - min(v)) if v else None
+
+    def oscilacao(conta_g4, conta_pct, rodadas_do_corte):
+        """Quem teve um ano sem uma rodada sequer no G4 e outro com o time lá em mais de 8 de cada
+        10 rodadas — e quanto o ano bom rendeu a mais no placar que o ano zerado de mais rodadas.
+
+        As duas contagens que o CLAUDE.md manda rodar entram por aqui: as colunas de todas as
+        rodadas ou as da 10ª em diante. O ponto por jogo é o da passagem inteira nas duas, e a
+        passagem sem rodada nenhuma no corte não conta como ano zerado."""
+        def zerou(l):
+            return l[conta_g4] == 0 and l[rodadas_do_corte] > 0
+
+        nomes = sorted(t for t, ls in multi.items()
+                       if any(zerou(l) for l in ls)
+                       and any((l[conta_pct] or 0) > OSC_ALTO for l in ls))
+        difs, piores = [], 0
+        for t in nomes:
+            bom = max(multi[t], key=lambda l: (l[conta_pct] or 0))
+            zerado = max((l for l in multi[t] if zerou(l)), key=lambda l: l["rodadas"])
+            difs.append(round(bom["ppj"] - zerado["ppj"], 2))
+            piores += bom["ppj"] <= zerado["ppj"]
+        return nomes, st.median(difs), piores
+
+    oscilam, osc_dppj, osc_piores = oscilacao("no_g4", "pct_g4", "rodadas")
+    # a mesma frase da 10ª rodada em diante. NÃO são marcadores publicados: a T02-3 traz os três
+    # cravados no texto ("8 nomes, 0,26 ponto por jogo e 2 casos iguais ou piores"), e o 0,26 é o
+    # quarto decimal que faz a regra 1 do portão reprovar a parte.
+    apos_10, dppj_apos_10, piores_apos_10 = oscilacao("no_g4_apos_10", "pct_g4_apos_10",
+                                                      "rodadas_apos_10")
+
+    # o mesmo treinador, no mesmo clube, em temporadas diferentes
+    pares = collections.defaultdict(list)
+    for l in fechadas:
+        pares[(l["treinador"], l["clube"])].append(l)
+    repetidos = [ls for ls in pares.values() if len(ls) >= 2]
+    amp_todas = [amplitude(ls, "pct_g4") for ls in multi.values()]
+    amp_apos10 = [a for a in (amplitude(ls, "pct_g4_apos_10") for ls in multi.values())
+                  if a is not None]
+
+    # a primeira passagem contra a primeira passagem em outro clube
+    antes, depois = [], []
+    for ls in multi.values():
+        ordem = sorted(ls, key=lambda l: (l["temporada"], l["rodada_1a"]))
+        antes.append(ordem[0]["pct_g4"])
+        depois.append(next(l for l in ordem if l["clube"] != ordem[0]["clube"])["pct_g4"])
+    r, p_r = stats.pearsonr(antes, depois)
+
+    return {
+        # -- T02-1: clube-temporada, faixa de valor do elenco --
+        "ct_n": len(base),
+        "ct_top5_n": len(do_grupo("top5")),
+        "ct_meio_n": len(do_grupo("meio")),
+        "ct_baixo_n": len(do_grupo("baixo")),
+        "ct_top5_rod": br(st.mean(do_grupo("top5")), 1),
+        "ct_meio_rod": br(st.mean(do_grupo("meio")), 1),
+        "ct_baixo_rod": br(st.mean(do_grupo("baixo")), 1),
+        "ct_top5_mediana": sem_decimal_a_toa(st.median(do_grupo("top5"))),
+        "ct_meio_mediana": sem_decimal_a_toa(st.median(do_grupo("meio"))),
+        "ct_baixo_mediana": sem_decimal_a_toa(st.median(do_grupo("baixo"))),
+        "ct_baixo_zero": sum(1 for x in do_grupo("baixo") if x == 0),
+        "q_top5_baixo": br(teste["top5_baixo"]["q"], 3),
+        "d_top5_baixo": br(teste["top5_baixo"]["d"], 2),
+        "ic_top5_baixo": "de {} a {}".format(br(teste["top5_baixo"]["ic95_d"][0], 2),
+                                             br(teste["top5_baixo"]["ic95_d"][1], 2)),
+        "q_meio_baixo": br(teste["meio_baixo"]["q"], 3),
+        "q_top5_meio": br(teste["top5_meio"]["q"], 2),
+        "d_minimo_80_20x40": br(teste["top5_baixo"]["d_minimo_80"], 2),
+        "d_minimo_80_20x20": br(teste["top5_meio"]["d_minimo_80"], 2),
+        # a mesma escada da 10ª rodada em diante. NÃO são marcadores publicados: a T02-1 traz os
+        # três cravados no texto ("11,7 · 7,1 · 2,3 rodadas em 29"), que é a regra 1 do portão
+        # reprovando. O T02.json está fora do alcance desta tarefa, então o valor sai calculado
+        # aqui para que trocar o número cravado por marcador seja uma linha de edição.
+        "ct_top5_rod_apos10": br(st.mean(do_grupo("top5", "rodadas_no_g4_apos_10")), 1),
+        "ct_meio_rod_apos10": br(st.mean(do_grupo("meio", "rodadas_no_g4_apos_10")), 1),
+        "ct_baixo_rod_apos10": br(st.mean(do_grupo("baixo", "rodadas_no_g4_apos_10")), 1),
+        # -- T02-2: o piso mais alto de quem trocou de clube --
+        "eb_nome": pisos[0][1],
+        "eb_passagens": len(eb),
+        "eb_clubes": len({l["clube"] for l in eb}),
+        "eb_rodadas": sum(l["rodadas"] for l in eb),
+        "eb_pior_rod": eb_pior["no_g4"],
+        "eb_pior_tot": eb_pior["rodadas"],
+        "eb_melhor_rod": eb_melhor["no_g4"],
+        "eb_melhor_tot": eb_melhor["rodadas"],
+        "eb_seg_nome": pisos[1][1],
+        "eb_seg_rod": seg_pior["no_g4"],
+        "eb_seg_tot": seg_pior["rodadas"],
+        "eb_val_2023": postos[(repetido[0]["temporada"], repetido[0]["clube"])],
+        "eb_val_2024": postos[(repetido[1]["temporada"], repetido[1]["clube"])],
+        "eb_val_cri": postos[(outro[0]["temporada"], outro[0]["clube"])],
+        "eb_ppj_nov": br(sum(l["pontos"] for l in repetido) / sum(l["rodadas"] for l in repetido), 2),
+        "eb_xg_nov": br(sum(a - b for a, b in ((x["xg_pro"], x["xg_contra"]) for x in jogos))
+                        / len(jogos), 2),
+        # -- T02-3: o tempo no G4 não se transfere de um clube para o seguinte --
+        "multi": len(multi),
+        "osc_n": len(oscilam),
+        "oscilam": ", ".join(oscilam[:-1]) + " e " + oscilam[-1],
+        "osc_dppj": br(osc_dppj, 2),
+        "osc_piores": osc_piores,
+        "osc_n_apos10": len(apos_10),
+        "osc_dppj_apos10": br(dppj_apos_10, 2),
+        "osc_piores_apos10": piores_apos_10,
+        "mc_pares": len(repetidos),
+        "mc_osc_mediana": br(st.median(amplitude(ls, "pct_g4") for ls in repetidos), 1),
+        "amp_mediana_todas": br(st.median(amp_todas), 1),
+        "amp_mediana_apos10": br(st.median(amp_apos10), 1),
+        "amp_50mais_todas": sum(1 for a in amp_todas if a >= AMPLITUDE_GRANDE),
+        "amp_50mais_apos10": sum(1 for a in amp_apos10 if a >= AMPLITUDE_GRANDE),
+        "r_prim_seg": br(r, 2),
+        "p_prim_seg": br(p_r, 2),
+        "r_min_80": br(r_minimo(len(antes)), 2),
+    }
 
 
 def main():
@@ -215,6 +516,11 @@ def main():
     }
     json.dump(resumo, open(os.path.join(R, "T02_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
+
+    numeros = numeros_por_marcador(linhas, por_passagem, tabela)
+    json.dump({"gerado_por": "scripts/T02.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"  T02_numeros.json: {len(numeros)} marcadores")
 
     print(f"\n{len(linhas)} passagens-temporada · {len(linhas) - len(fora)} no ranking "
           f"(10+ rodadas, sem interino) · {len(fora)} sinalizadas")

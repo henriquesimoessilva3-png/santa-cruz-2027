@@ -57,7 +57,6 @@
   "E_qualidade_chance",
   "xg_por_remate_contra",
   "duelos_def_pct",
-  "I_estabilidade_11",
   "xgc_casa",
   "dd_casa"
  ],
@@ -73,63 +72,113 @@
    0.83
   ]
  ],
+ "fora_por_ser_consequencia": [
+  [
+   "I_estabilidade_11",
+   "é consequência do resultado, não característica"
+  ]
+ ],
  "validacao_uma_temporada_de_fora": [
   {
    "temporada_de_fora": "2022",
    "n_sobe": 4,
    "n_meio": 12,
-   "indice_sobe": 84.7,
-   "indice_meio": 44.9,
-   "d": 2.61,
-   "p": 0.00683,
-   "d_minimo_80": 1.74
+   "indice_sobe": 85.3,
+   "indice_meio": 45.6,
+   "d": 2.2,
+   "p": 0.0052,
+   "d_minimo_80": 1.74,
+   "q": 0.0104,
+   "texto": "2022 d 2,20 p 0,00520 q 0,01040"
   },
   {
    "temporada_de_fora": "2023",
    "n_sobe": 4,
    "n_meio": 12,
-   "indice_sobe": 61.6,
-   "indice_meio": 48.7,
-   "d": 0.88,
-   "p": 0.06005,
-   "d_minimo_80": 1.74
+   "indice_sobe": 59.7,
+   "indice_meio": 46.4,
+   "d": 0.87,
+   "p": 0.11491,
+   "d_minimo_80": 1.74,
+   "q": 0.15322,
+   "texto": "2023 d 0,87 p 0,11491 q 0,15322"
   },
   {
    "temporada_de_fora": "2024",
    "n_sobe": 4,
    "n_meio": 12,
-   "indice_sobe": 82.3,
-   "indice_meio": 47.7,
-   "d": 2.67,
-   "p": 0.00014,
-   "d_minimo_80": 1.74
+   "indice_sobe": 82.7,
+   "indice_meio": 46.2,
+   "d": 2.77,
+   "p": 0.00022,
+   "d_minimo_80": 1.74,
+   "q": 0.00088,
+   "texto": "2024 d 2,77 p 0,00022 q 0,00088"
   },
   {
    "temporada_de_fora": "2025",
    "n_sobe": 4,
    "n_meio": 12,
-   "indice_sobe": 60.3,
-   "indice_meio": 50.7,
-   "d": 0.79,
-   "p": 0.35917,
-   "d_minimo_80": 1.74
+   "indice_sobe": 64.7,
+   "indice_meio": 50.8,
+   "d": 0.74,
+   "p": 0.3901,
+   "d_minimo_80": 1.74,
+   "q": 0.3901,
+   "texto": "2025 d 0,74 p 0,39010 q 0,39010"
+  }
+ ],
+ "validacao_sem_os_times_de_fronteira": [
+  {
+   "temporada_de_fora": "2022",
+   "n_sobe": 4,
+   "n_meio": 9,
+   "d": 2.18,
+   "p": 0.00667,
+   "d_minimo_80": 1.85,
+   "q": 0.00667,
+   "texto": "2022 4x9 d 2,18 p 0,00667 q 0,00667 (mínimo detectável 1,85)"
+  },
+  {
+   "temporada_de_fora": "2023",
+   "n_sobe": 1,
+   "n_meio": 5,
+   "sem_teste": "grupo de 1: sem variância, sem teste",
+   "texto": "2023 1x5 sem teste"
+  },
+  {
+   "temporada_de_fora": "2024",
+   "n_sobe": 1,
+   "n_meio": 10,
+   "sem_teste": "grupo de 1: sem variância, sem teste",
+   "texto": "2024 1x10 sem teste"
+  },
+  {
+   "temporada_de_fora": "2025",
+   "n_sobe": 2,
+   "n_meio": 8,
+   "d": 2.68,
+   "p": 0.00016,
+   "d_minimo_80": 2.53,
+   "q": 0.00032,
+   "texto": "2025 2x8 d 2,68 p 0,00016 q 0,00032 (mínimo detectável 2,53)"
   }
  ],
  "geral": {
-  "indice_sobe": 74.4,
-  "indice_trave": 58.0,
-  "indice_meio": 48.7,
-  "indice_cai": 31.9,
-  "d_sobe_meio": 1.66,
-  "p_sobe_meio": 6.8e-06
+  "indice_sobe": 78.1,
+  "indice_trave": 56.6,
+  "indice_meio": 47.8,
+  "indice_cai": 33.0,
+  "d_sobe_meio": 1.59,
+  "p_sobe_meio": 1.75e-05
  },
  "primeiro_segundo_contra_terceiro_sexto": {
   "n_1_2": 8,
   "n_3_6": 16,
-  "indice_1_2": 77.5,
-  "indice_3_6": 59.8,
-  "d": 0.89,
-  "p": 0.02283,
+  "indice_1_2": 79.4,
+  "indice_3_6": 56.3,
+  "d": 0.94,
+  "p": 0.01453,
   "d_minimo_80": 1.27,
   "nota": "8 times-temporada em 1º-2º: indicativo, como o CLAUDE.md manda dizer."
  },
@@ -137,124 +186,124 @@
   "rodada": 27,
   "tabela": [
    {
-    "pos": 1,
-    "clube": "Juventude",
-    "pontos": 50,
-    "indice": 83.1
-   },
-   {
     "pos": 2,
     "clube": "Novorizontino",
     "pontos": 49,
-    "indice": 80.8
+    "indice": 85.3
+   },
+   {
+    "pos": 1,
+    "clube": "Juventude",
+    "pontos": 50,
+    "indice": 84.0
    },
    {
     "pos": 10,
     "clube": "Cuiabá",
     "pontos": 39,
-    "indice": 71.1
+    "indice": 73.1
    },
    {
     "pos": 7,
     "clube": "Atlético-GO",
     "pontos": 43,
-    "indice": 65.8
-   },
-   {
-    "pos": 9,
-    "clube": "Sport",
-    "pontos": 41,
-    "indice": 63.5
+    "indice": 66.4
    },
    {
     "pos": 13,
     "clube": "Goiás",
     "pontos": 36,
-    "indice": 63.4
+    "indice": 65.6
    },
    {
-    "pos": 5,
-    "clube": "Criciúma",
-    "pontos": 47,
-    "indice": 60.9
+    "pos": 9,
+    "clube": "Sport",
+    "pontos": 41,
+    "indice": 65.0
    },
    {
     "pos": 15,
     "clube": "Botafogo-SP",
     "pontos": 31,
-    "indice": 60.7
+    "indice": 59.6
    },
    {
     "pos": 4,
     "clube": "Fortaleza",
     "pontos": 47,
-    "indice": 56.2
+    "indice": 58.8
    },
    {
-    "pos": 8,
-    "clube": "CRB",
-    "pontos": 42,
-    "indice": 55.9
+    "pos": 5,
+    "clube": "Criciúma",
+    "pontos": 47,
+    "indice": 57.7
    },
    {
     "pos": 12,
     "clube": "Athletic",
     "pontos": 37,
-    "indice": 52.5
+    "indice": 53.9
    },
    {
-    "pos": 14,
-    "clube": "São Bernardo",
-    "pontos": 35,
-    "indice": 48.7
+    "pos": 8,
+    "clube": "CRB",
+    "pontos": 42,
+    "indice": 52.4
    },
    {
     "pos": 3,
     "clube": "Vila Nova",
     "pontos": 47,
-    "indice": 47.6
+    "indice": 45.7
    },
    {
     "pos": 11,
     "clube": "Náutico",
     "pontos": 37,
-    "indice": 41.9
+    "indice": 43.4
+   },
+   {
+    "pos": 14,
+    "clube": "São Bernardo",
+    "pontos": 35,
+    "indice": 42.9
    },
    {
     "pos": 16,
     "clube": "Ceará",
     "pontos": 31,
-    "indice": 41.4
+    "indice": 42.5
    },
    {
     "pos": 18,
     "clube": "Londrina",
     "pontos": 25,
-    "indice": 34.1
-   },
-   {
-    "pos": 6,
-    "clube": "Operário-PR",
-    "pontos": 43,
-    "indice": 26.1
+    "indice": 37.2
    },
    {
     "pos": 17,
     "clube": "Avaí",
     "pontos": 29,
-    "indice": 19.2
+    "indice": 19.9
    },
    {
     "pos": 19,
     "clube": "América-MG",
     "pontos": 17,
-    "indice": 16.3
+    "indice": 18.6
+   },
+   {
+    "pos": 6,
+    "clube": "Operário-PR",
+    "pontos": 43,
+    "indice": 16.4
    },
    {
     "pos": 20,
     "clube": "Ponte Preta",
     "pontos": 10,
-    "indice": 10.9
+    "indice": 11.5
    }
   ]
  }

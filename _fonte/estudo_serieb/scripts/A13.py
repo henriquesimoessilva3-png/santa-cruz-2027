@@ -15,6 +15,24 @@ Três perguntas, três respostas:
 O clube-temporada com jogo faltando (`base_incompleta = 1`, dez deles) entra: a falta é de um jogo
 em algum ponto e não desloca a trajetória o bastante para mudar a leitura. O número sai com e sem.
 
+## A saída por marcador (20/09)
+
+Além do `A13_resumo.json` e do `A13_turnos.csv`, este script passou a gravar
+`resultados/A13_numeros.json`: o valor de **cada marcador** que o `A13.json` publica, com o nome do
+marcador como chave. Antes, a procedência dos 44 números da tela era disciplina — alguém lia o CSV
+e copiava. Agora é mecanismo, e a regra 1 do `scripts/_portao.py` confere.
+
+São duas camadas. A primeira só grava o que as três perguntas acima já calculavam. A segunda
+acrescenta os 20 marcadores que até 19/09 **só existiam digitados** no `A13.json` — entre eles o
+`rho_1t_2t` da manchete de A13-3, que o script nunca produziu (os três previsores olham a posição
+final, não o 2º turno), e as quatro contagens de quem trocou de destino na segunda metade
+(`n_viraram`, `n_perderam_g4`, `n_salvos`, `n_cairam_de_fora`). A receita de cada um estava no
+campo `de_onde` de `resultados/A13_numeros_novos.json`; aqui ela virou código.
+
+Essa saída é a **conferência** do que está publicado, não a substituição: onde os dois discordarem,
+o portão acusa, e acusar é o que se quer. A análise não mudou — nada acima do bloco marcado foi
+tocado, e o `A13_resumo.json` e o `A13_turnos.csv` saem idênticos aos de 19/09.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/A13.py
 """
@@ -25,6 +43,7 @@ import math
 import os
 import re
 import statistics as st
+import sys
 
 import numpy as np
 from scipy import stats
@@ -36,6 +55,15 @@ DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
 ANOS = {"2022", "2023", "2024", "2025"}
 TURNO = 19
+
+sys.path.insert(0, AQUI)
+from _metodo import cohen_d, d_minimo  # noqa: E402
+
+# A saída por marcador: todo número que o A13.json publica sai daqui, com o mesmo nome (regra 1 do
+# portão, etapa 6 do PLANO.md). Data fixa porque o script é reprodutível — roda hoje e daqui a um
+# ano com o mesmo resultado, e data dinâmica só faria o arquivo mudar sem o número mudar.
+NUMEROS_JSON = os.path.join(R, "A13_numeros.json")
+GERADO_EM = "2026-09-20"
 
 
 def faixa(pos):
@@ -163,6 +191,122 @@ def main():
     with open(os.path.join(R, "A13_turnos.csv"), "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(turnos[0]))
         w.writeheader(); w.writerows(turnos)
+
+    # ==========================================================================================
+    # A saída por marcador — resultados/A13_numeros.json
+    # ==========================================================================================
+    # Daqui para baixo só se LÊ o que já foi calculado (`turnos`, `quadro`, `previsivel`, `prev`,
+    # `fim`) e se escreve. Nenhuma linha acima mudou: o A13_resumo.json e o A13_turnos.csv saem
+    # idênticos aos de 19/09, e é assim que se prova que a gravação não mexeu na análise.
+    #
+    # CAMADA 1: o que as três perguntas já calculavam, agora com o nome do marcador como chave.
+    # CAMADA 2: os marcadores que até 19/09 só existiam digitados no A13.json. A receita de cada
+    # um está no campo `de_onde` de resultados/A13_numeros_novos.json — nada foi reinventado.
+
+    def rodada(n_):
+        """A linha da rodada em previsibilidade_por_rodada. Erra alto se sumir: marcador sem
+        linha é marcador sem número, e o silêncio é o defeito que a auditoria achou."""
+        for it in previsivel:
+            if it["rodada"] == n_:
+                return it
+        raise KeyError(f"A13: sem a rodada {n_} em previsibilidade_por_rodada")
+
+    def previsor(nome):
+        for it in prev:
+            if it["previsor"] == nome:
+                return it
+        raise KeyError(f"A13: sem o previsor {nome!r} em previsores_do_1o_turno")
+
+    meio = [t for t in turnos if t["faixa"] == "Meio"]
+
+    # -- camada 2, o que faltava calcular -------------------------------------------------------
+    # Sem os times de fronteira: a coluna `fronteira` de A01_clube_temporada.csv, que é o segundo
+    # corte que a casa manda rodar. Saem 28 das 80 linhas.
+    sem_fronteira = [t for t in turnos if fim[(t["temporada"], t["clube"])]["fronteira"] != "1"]
+    # Os terços do 1º turno saem de quantil, não de número escrito à mão: 1/3 = 22 pontos (28
+    # linhas, porque cinco times empatam em 22) e 2/3 = 28,67 (27 linhas, pts_1t >= 29).
+    pts1 = [t["pts_1t"] for t in turnos]
+    q33, q66 = np.percentile(pts1, 100 / 3), np.percentile(pts1, 200 / 3)
+    alto = [t for t in turnos if t["pts_1t"] > q66]
+    baixo = [t for t in turnos if t["pts_1t"] <= q33]
+    alto_2t = round(st.median(t["pts_2t"] for t in alto), 1)
+    baixo_2t = round(st.median(t["pts_2t"] for t in baixo), 1)
+    # 1º turno × 2º turno. É a correlação da manchete de A13-3 e não estava em lugar nenhum do
+    # script: os três previsores acima olham a POSIÇÃO FINAL, não o returno.
+    rho_12, _ = stats.spearmanr(pts1, [t["pts_2t"] for t in turnos])
+    rho_12_sf, _ = stats.spearmanr([t["pts_1t"] for t in sem_fronteira],
+                                   [t["pts_2t"] for t in sem_fronteira])
+
+    numeros = {
+        # -- 1. pontos por turno em cada faixa (medianas do quadro_por_turno) -------------------
+        "n": len(turnos),
+        "n_temporadas": len({t["temporada"] for t in turnos}),
+        "rodada_turno": TURNO,
+        "sobe_total": quadro["Sobe"]["n"],
+        "meio_total": quadro["Meio"]["n"],
+        "cai_total": quadro["Cai"]["n"],
+        "sobe_1t": quadro["Sobe"]["pts_1t"],
+        "sobe_2t": quadro["Sobe"]["pts_2t"],
+        "meio_1t": quadro["Meio"]["pts_1t"],
+        "meio_2t": quadro["Meio"]["pts_2t"],
+        "cai_1t": quadro["Cai"]["pts_1t"],
+        "cai_2t": quadro["Cai"]["pts_2t"],
+        "cai_dif": quadro["Cai"]["dif"],
+        "trave_1t": quadro["Trave"]["pts_1t"],
+        "trave_2t": quadro["Trave"]["pts_2t"],
+        "trave_dif": quadro["Trave"]["dif"],
+        # a distância do 1º turno entre o meio e quem cai, e quantos dos rebaixados ficam abaixo
+        # da mediana do meio (camada 2)
+        "dif_1t_cai_meio": round(quadro["Meio"]["pts_1t"] - quadro["Cai"]["pts_1t"], 1),
+        "cai_abaixo_mediana": sum(1 for t in cai if t["pts_1t"] < quadro["Meio"]["pts_1t"]),
+        "cai_melhoraram": sum(1 for t in cai if t["pts_2t"] > t["pts_1t"]),
+        # o mesmo corte sem os de fronteira (camada 2)
+        "n_sem_fronteira": len(sem_fronteira),
+        "cai_1t_sf": round(st.median(t["pts_1t"] for t in sem_fronteira
+                                     if t["faixa"] == "Cai"), 1),
+        "meio_1t_sf": round(st.median(t["pts_1t"] for t in sem_fronteira
+                                      if t["faixa"] == "Meio"), 1),
+        # -- 2. a partir de que rodada o destino fica previsível --------------------------------
+        "r10_faixa": rodada(10)["ja_na_faixa_pct"],
+        "r19_faixa": rodada(19)["ja_na_faixa_pct"],
+        "r29_faixa": rodada(29)["ja_na_faixa_pct"],
+        "r34_faixa": rodada(34)["ja_na_faixa_pct"],
+        "r19_perto": rodada(19)["na_faixa_ou_perto_pct"],
+        "sobe_g4_19": sum(1 for t in sobe if t["faixa_19"] == "Sobe"),
+        "cai_z4_19": sum(1 for t in cai if t["faixa_19"] == "Cai"),
+        # quem trocou de destino na segunda metade (camada 2). É o sentido inverso das duas
+        # contagens de cima, e nenhuma linha do script fazia essa conta.
+        "n_viraram": sum(1 for t in sobe if t["faixa_19"] != "Sobe"),
+        "n_perderam_g4": sum(1 for t in turnos
+                             if t["faixa_19"] == "Sobe" and t["faixa"] != "Sobe"),
+        "n_salvos": sum(1 for t in turnos if t["faixa_19"] == "Cai" and t["faixa"] != "Cai"),
+        "n_cairam_de_fora": sum(1 for t in cai if t["faixa_19"] != "Cai"),
+        # -- 3. o 1º turno prevê? ---------------------------------------------------------------
+        "rho_1t_final": previsor("pontos do 1º turno")["rho_com_posicao_final"],
+        "rho_xg": previsor("saldo de xG do 1º turno")["rho_com_posicao_final"],
+        # camada 2 daqui até o fim
+        "rho_1t_2t": round(float(rho_12), 3),
+        "rho_1t_2t_sem_fronteira": round(float(rho_12_sf), 3),
+        "alto_2t": alto_2t,
+        "baixo_2t": baixo_2t,
+        "dif_tercos": round(alto_2t - baixo_2t, 1),
+        "alto_2t_max": max(t["pts_2t"] for t in alto),
+        "baixo_2t_max": max(t["pts_2t"] for t in baixo),
+        # o tamanho de efeito do tombo do returno (Cai contra Meio, coluna dif) e o menor d que
+        # este desenho enxergaria com 80% de poder — as duas contas do método da casa
+        "d_observado": round(float(cohen_d([t["dif"] for t in cai], [t["dif"] for t in meio])), 2),
+        "d_min_cai_meio": d_minimo(len(cai), len(meio)),
+        # Estes dois NÃO são marcadores publicados: o A13-1 traz os dois cravados no texto
+        # («quem subiu melhora 1,0 ponto, sem os colados nas linhas perde 2,0»), que é a regra 1
+        # do portão reprovando. O A13.json está fora do alcance desta tarefa, então o valor sai
+        # calculado aqui para que trocar o número cravado por marcador seja uma linha de edição.
+        "sobe_dif": round(st.median(t["dif"] for t in sobe), 1),
+        "sobe_dif_sf": round(st.median(t["dif"] for t in sem_fronteira
+                                       if t["faixa"] == "Sobe"), 1),
+    }
+    json.dump({"gerado_por": "scripts/A13.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"A13_numeros.json: {len(numeros)} marcadores gravados")
 
     print(f"\n{'='*70}\nPONTOS POR TURNO (medianas)\n{'='*70}")
     print(f"{'faixa':7s} {'n':>3s} {'1º turno':>9s} {'2º turno':>9s} {'2º − 1º':>9s}")

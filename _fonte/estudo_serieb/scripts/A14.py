@@ -32,7 +32,7 @@ from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from _metodo import cohen_d, d_minimo, pct, percentil_no_ano  # noqa: E402
+from _metodo import bh, cohen_d, d_minimo, pct, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
@@ -40,6 +40,52 @@ DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
 FECHADAS = ["2022", "2023", "2024", "2025"]
 REDUNDANCIA = 0.80
+
+# A saída por marcador: todo número que A14.json publica sai daqui, com o mesmo nome (regra 1 do
+# portão, etapa 6 do PLANO.md). Data fixa porque o script é reprodutível — roda hoje e daqui a um
+# ano com o mesmo resultado, e data dinâmica só faria o arquivo mudar sem o número mudar.
+NUMEROS_JSON = os.path.join(R, "A14_numeros.json")
+GERADO_EM = "2026-09-20"
+
+# Sai do índice por não ser característica, e sim resultado contado de outro jeito — a mesma régua
+# da lista branca da §6 que já barra o placar redescrito. A régua I_estabilidade_11 é feita só dos
+# quatro nomes da constante CONSEQUENCIA de ranking_gaps.py (share_11, conc_hhi, atletas_usados,
+# nucleo_300): time que vai bem repete escalação, e não o contrário.
+CONSEQUENCIA = {"I_estabilidade_11": "é consequência do resultado, não característica"}
+
+# O que o clube NÃO escolhe. O valor do elenco é a peça de maior efeito do índice e não é decisão
+# de modelo de jogo: a ressalva de 15/09 foi não descontar o dinheiro, só dizer quanto dele há.
+NAO_ESCOLHIVEIS = {"H_dinheiro"}
+
+
+def vg(v, casas=1):
+    """Número em pt-BR, para entrar em texto: 78,1 · 1,74 · 33,0."""
+    return f"{v:.{casas}f}".replace(".", ",")
+
+
+def marcador(v, casas=1):
+    """O valor como a aba o publica: número quando a casa decimal sobrevive ao float, e texto em
+    pt-BR quando ela sumiria — 33.0 vira "33" na tela, e o que se quer mostrar é 33,0."""
+    r = round(float(v), casas)
+    return vg(r, casas) if float(r).is_integer() else r
+
+
+def marcador_p(p):
+    """p e q como a aba os publica: científico quando cinco casas engoliriam o número."""
+    return (f"{p:.2e}" if p < 1e-4 else f"{p:.5f}").replace(".", ",")
+
+
+def unico(valores):
+    """O valor quando os candidatos concordam num só; None quando não há um. Marcador com None
+    reprova na regra 1 e aparece — que é o que se quer se a base deixar de dar a resposta."""
+    v = list(valores)
+    return v[0] if len(set(v)) == 1 and v else None
+
+
+def ano_n(anos, i):
+    """O i-ésimo ano da lista, como inteiro. None se a lista encurtar — ver `unico`."""
+    return int(anos[i]) if len(anos) > i else None
+
 
 # De onde vem cada candidato. Colunas diretas do CSV do clube-temporada, menos as que cada parte
 # derivou por conta própria — essas têm de ser recalculadas aqui, com a mesma regra da parte.
@@ -60,7 +106,10 @@ def sinais():
         d = json.load(open(os.path.join(R, arq), encoding="utf-8"))
         for fam in d.get("familias", []):
             for i in fam.get("indicadores", []):
-                s.setdefault(i["id"], i["sinal"])
+                # A10_indicadores.json guarda os indicadores como nome solto, não como objeto;
+                # ler só o que é objeto pula esse arquivo sem mudar sinal nenhum dos daqui.
+                if isinstance(i, dict):
+                    s.setdefault(i["id"], i["sinal"])
     # os indicadores que o A03 derivou por mando herdam o sinal do indicador de origem
     s.setdefault("xgc_casa", -1)
     s.setdefault("dd_casa", 1)
@@ -74,8 +123,13 @@ def candidatos():
     for arq in sorted(os.listdir(R)):
         if not (arq.endswith("_testes.csv") or arq.endswith("_reguas.csv")):
             continue
+        if not arq.startswith("A"):
+            continue      # J03/J08 são de outro bloco e nem têm a coluna comparacao
         por = collections.defaultdict(dict)
-        for r in csv.DictReader(open(os.path.join(R, arq), encoding="utf-8")):
+        leitor = csv.DictReader(open(os.path.join(R, arq), encoding="utf-8"))
+        if not {"comparacao", "fronteira"} <= set(leitor.fieldnames or []):
+            continue      # A10_testes.csv usa "corte" no lugar de "fronteira": estrutura outra
+        for r in leitor:
             if r["comparacao"] == "SM":
                 por[r["indicador"]][r["fronteira"]] = r
         for ind, v in por.items():
@@ -180,6 +234,12 @@ def main():
     print(f"\nredundância (rho ≥ {REDUNDANCIA}): ficam {len(fica)}, saem {len(saiu)}")
     for i, par, r in saiu:
         print(f"   {i} sai — mede o mesmo que {par} (rho {r})")
+
+    # ---- 2b. o que é resultado contado de outro jeito não entra ----
+    fora_consequencia = [i for i in fica if i in CONSEQUENCIA]
+    fica = [i for i in fica if i not in CONSEQUENCIA]
+    for i in fora_consequencia:
+        print(f"   {i} sai — {CONSEQUENCIA[i]}")
     print(f"   índice = {fica}")
 
     sg = sinais()
@@ -197,7 +257,7 @@ def main():
                 for l in linhas}
 
     # ---- 3. validação deixando uma temporada de fora ----
-    val = []
+    val, ps_val = [], []
     for fora in FECHADAS:
         treino = [l for l in fech if l["temporada"] != fora]
         teste = [l for l in fech if l["temporada"] == fora]
@@ -206,11 +266,45 @@ def main():
         sobe = [v for (a, c), v in ind.items() if next(l for l in teste if l["clube"] == c)["faixa"] == "Sobe"]
         meio = [v for (a, c), v in ind.items() if next(l for l in teste if l["clube"] == c)["faixa"] == "Meio"]
         _, p = stats.ttest_ind(sobe, meio, equal_var=False)
+        ps_val.append(float(p))
         val.append({"temporada_de_fora": fora, "n_sobe": len(sobe), "n_meio": len(meio),
                     "indice_sobe": round(float(np.median(sobe)), 1),
                     "indice_meio": round(float(np.median(meio)), 1),
                     "d": round(cohen_d(sobe, meio), 2), "p": round(float(p), 5),
                     "d_minimo_80": d_minimo(len(sobe), len(meio))})
+    # BH a 5% sobre as quatro temporadas: é uma família (o índice × Sobe·Meio), como manda a §6.
+    for v, q, p in zip(val, bh(ps_val), ps_val):
+        v["q"] = round(q, 5)
+        v["texto"] = (f"{v['temporada_de_fora']} d {vg(v['d'], 2)} p {marcador_p(p)} "
+                      f"q {marcador_p(q)}")
+
+    # ---- 3b. o mesmo teste sem os times colados na linha (a régua da fronteira, §6) ----
+    # Os percentis NÃO são recalculados no subconjunto: o corte só filtra linhas, como em
+    # _metodo.comparar(). Com um grupo de 1 não há variância, e aí não há teste.
+    val_sf, ps_sf = [], []
+    for fora in FECHADAS:
+        teste = [l for l in fech if l["temporada"] == fora and not l["fronteira"]]
+        ind = indice(teste, fica)
+        sobe = [ind[(l["temporada"], l["clube"])] for l in teste if l["faixa"] == "Sobe"]
+        meio = [ind[(l["temporada"], l["clube"])] for l in teste if l["faixa"] == "Meio"]
+        linha = {"temporada_de_fora": fora, "n_sobe": len(sobe), "n_meio": len(meio)}
+        if len(sobe) >= 2 and len(meio) >= 2:
+            _, p = stats.ttest_ind(sobe, meio, equal_var=False)
+            linha.update({"d": round(cohen_d(sobe, meio), 2), "p": round(float(p), 5),
+                          "d_minimo_80": d_minimo(len(sobe), len(meio))})
+            ps_sf.append(float(p))
+        else:
+            linha["sem_teste"] = "grupo de 1: sem variância, sem teste"
+        val_sf.append(linha)
+    # BH só sobre os testes que existem (m = 2), que é a convenção de _metodo.comparar():
+    # indicador sem n suficiente é pulado e não entra na família.
+    for v, q, p in zip([v for v in val_sf if "p" in v], bh(ps_sf), ps_sf):
+        v["q"] = round(q, 5)
+        v["texto"] = (f"{v['temporada_de_fora']} {v['n_sobe']}x{v['n_meio']} d {vg(v['d'], 2)} "
+                      f"p {marcador_p(p)} q {marcador_p(q)} "
+                      f"(mínimo detectável {vg(v['d_minimo_80'], 2)})")
+    for v in val_sf:
+        v.setdefault("texto", f"{v['temporada_de_fora']} {v['n_sobe']}x{v['n_meio']} sem teste")
 
     # ---- geral ----
     ind_f = indice(fech, fica)
@@ -220,6 +314,33 @@ def main():
     tr = [v for (a, c), v in ind_f.items()
           if next(l for l in fech if l["temporada"] == a and l["clube"] == c)["trave"]]
     _, p_sm = stats.ttest_ind(grupos["Sobe"], grupos["Meio"], equal_var=False)
+
+    # o mesmo Sobe × Meio sem os times colados na linha, e o Meio sem a Trave (5º-8º)
+    def ind_de(ls):
+        return [ind_f[(l["temporada"], l["clube"])] for l in ls]
+
+    sobe_sf = ind_de([l for l in fech if l["faixa"] == "Sobe" and not l["fronteira"]])
+    meio_sf = ind_de([l for l in fech if l["faixa"] == "Meio" and not l["fronteira"]])
+    meio_sem_trave = ind_de([l for l in fech if l["faixa"] == "Meio" and not l["trave"]])
+    _, p_sm_sf = stats.ttest_ind(sobe_sf, meio_sf, equal_var=False)
+
+    # onde a régua põe quem subiu, dentro da própria temporada
+    por_ano = collections.defaultdict(list)
+    for l in fech:
+        por_ano[l["temporada"]].append(l)
+    top4_ano, acima_ano, backtest_ano = {}, {}, {}
+    for ano, ls in por_ano.items():
+        ordem = sorted(ls, key=lambda l: -ind_f[(l["temporada"], l["clube"])])
+        top4_ano[ano] = sum(1 for l in ordem[:4] if l["faixa"] == "Sobe")
+        melhor_meio = max(ind_de([l for l in ls if l["faixa"] == "Meio"]))
+        acima_ano[ano] = sum(1 for l in ls if l["faixa"] == "Sobe"
+                             and ind_f[(l["temporada"], l["clube"])] > melhor_meio)
+        # backtest de conjunto: os dois primeiros da régua são os dois primeiros da tabela?
+        backtest_ano[ano] = ({l["clube"] for l in ordem[:2]}
+                             == {l["clube"] for l in ls if l["pos"] <= 2})
+    acertos = [a for a in FECHADAS if backtest_ano[a]]
+    fortes = [a for a, v in zip(FECHADAS, val) if v["q"] < 0.05]
+    fracos = [a for a, v in zip(FECHADAS, val) if v["q"] >= 0.05]
 
     # 1º-2º contra 3º-6º, como o md pede para o regulamento de 2026
     d12 = [v for (a, c), v in ind_f.items()
@@ -237,9 +358,16 @@ def main():
     rodada26 = max(int(r["rodada"]) for r in csv.DictReader(
         open(os.path.join(R, "classificacao_rodada.csv"), encoding="utf-8"))
         if r["temporada"] == "2026")
+    ordem26 = sorted(b26, key=lambda l: -ind26[(l["temporada"], l["clube"])])
+    posto26 = {l["clube"]: i for i, l in enumerate(ordem26, 1)}
+    # o time do G4 de 2026 que a régua mais erra: o maior salto entre a posição e o posto na régua
+    fura26 = max((l for l in b26 if l["pos"] <= 4),
+                 key=lambda l: (posto26[l["clube"]] - l["pos"], posto26[l["clube"]]))
 
     json.dump({"candidatos": cands, "indice": fica, "descartados_por_redundancia": saiu,
+               "fora_por_ser_consequencia": [[i, CONSEQUENCIA[i]] for i in fora_consequencia],
                "validacao_uma_temporada_de_fora": val,
+               "validacao_sem_os_times_de_fronteira": val_sf,
                "geral": {"indice_sobe": round(float(np.median(grupos["Sobe"])), 1),
                          "indice_trave": round(float(np.median(tr)), 1),
                          "indice_meio": round(float(np.median(grupos["Meio"])), 1),
@@ -256,6 +384,91 @@ def main():
                "teste_2026": {"rodada": rodada26, "tabela": tab26}},
               open(os.path.join(R, "A14_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
+
+    # ---- 5. os números por marcador, do próprio script ----
+    # Regra 1 do portão: todo marcador que A14.json publica tem de sair daqui, com o mesmo valor.
+    # Nada é digitado — cada linha abaixo lê o que este script acabou de calcular. Esta saída
+    # CONFERE o publicado; ela não o substitui, e A14.json não é tocado aqui.
+    dmins_val = {v["d_minimo_80"] for v in val}
+    ns_val = {(v["n_sobe"], v["n_meio"]) for v in val}
+    cauda_val = (f" — mínimo detectável {vg(val[0]['d_minimo_80'], 2)} em todas "
+                 f"({val[0]['n_sobe']} contra {val[0]['n_meio']})"
+                 if len(dmins_val) == 1 and len(ns_val) == 1 else "")
+    d_pp, dmin_pp = cohen_d(d12, d36), d_minimo(len(d12), len(d36))
+    m12, m36 = float(np.median(d12)), float(np.median(d36))
+
+    numeros = {
+        # o índice e o que ficou de fora
+        "n_ind": len(fica),
+        "indice": ", ".join(fica),
+        "descartados": ", ".join([f"{i} (mede o mesmo que {par})" for i, par, _ in saiu]
+                                 + [f"{i} ({CONSEQUENCIA[i]})" for i in fora_consequencia]),
+        "n_escolhiveis": sum(1 for i in fica if i not in NAO_ESCOLHIVEIS),
+        "n_nao_escolhiveis": sum(1 for i in fica if i in NAO_ESCOLHIVEIS),
+        # a base e as faixas
+        "n_base": len(fech),
+        "n_sobe": len(grupos["Sobe"]),
+        "n_meio": len(grupos["Meio"]),
+        "n_cai": len(grupos["Cai"]),
+        "i_sobe": marcador(np.median(grupos["Sobe"])),
+        "i_trave": marcador(np.median(tr)),
+        "i_meio": marcador(np.median(grupos["Meio"])),
+        "i_cai": marcador(np.median(grupos["Cai"])),
+        "i_meio_sem_trave": marcador(np.median(meio_sem_trave)),
+        "d_sm": round(cohen_d(grupos["Sobe"], grupos["Meio"]), 2),
+        "p_sm": marcador_p(float(p_sm)),
+        # as mesmas faixas sem os times colados na linha
+        "n_sobe_sf": len(sobe_sf),
+        "n_meio_sf": len(meio_sf),
+        "i_sobe_sf": marcador(np.median(sobe_sf)),
+        "i_meio_sf": marcador(np.median(meio_sf)),
+        "d_sm_sf": round(cohen_d(sobe_sf, meio_sf), 2),
+        "p_sm_sf": marcador_p(float(p_sm_sf)),
+        # onde a régua põe quem subiu
+        "sobe_top4": sum(top4_ano.values()),
+        "sobe_acima": sum(acima_ano.values()),
+        # temporada a temporada
+        "ano_forte1": ano_n(fortes, 0),
+        "ano_forte2": ano_n(fortes, 1),
+        "ano_fraco1": ano_n(fracos, 0),
+        "ano_fraco2": ano_n(fracos, 1),
+        "top4_fraco": unico(top4_ano[a] for a in fracos),
+        "validacao_com_fronteira": " · ".join(v["texto"] for v in val) + cauda_val,
+        "dmin_val": val[0]["d_minimo_80"],
+        "validacao_sem_fronteira": " · ".join(v["texto"] for v in val_sf),
+        # 1º-2º contra 3º-6º, o regulamento de 2026
+        "pp_n12": len(d12),
+        "pp_n36": len(d36),
+        "pp_12": marcador(m12),
+        "pp_36": marcador(m36),
+        "pp_d": round(d_pp, 2),
+        "pp_p": marcador_p(float(p12)),
+        "pp_dmin": dmin_pp,
+        "pp_resumo": (f"pp_12 {vg(m12)} · pp_36 {vg(m36)} · d {vg(d_pp, 2)} · "
+                      f"p {marcador_p(float(p12))} · n {len(d12)} contra {len(d36)} · "
+                      f"mínimo detectável {vg(dmin_pp, 2)}"),
+        # 2026 na régua
+        "rodada26": rodada26,
+        "n26": len(b26),
+        "top1": ordem26[0]["clube"],
+        "top1_i": marcador(ind26[(ordem26[0]["temporada"], ordem26[0]["clube"])]),
+        "top1_pos": ordem26[0]["pos"],
+        "top2": ordem26[1]["clube"],
+        "top2_i": marcador(ind26[(ordem26[1]["temporada"], ordem26[1]["clube"])]),
+        "top2_pos": ordem26[1]["pos"],
+        "vn": fura26["clube"],
+        "vn_pos": fura26["pos"],
+        "vn_reg": posto26[fura26["clube"]],
+        "vn_i": marcador(ind26[(fura26["temporada"], fura26["clube"])]),
+        # o backtest de conjunto nas quatro fechadas
+        "backtest_conj": len(acertos),
+        "ano_acerto": ano_n(acertos, 0) if len(acertos) == 1 else None,
+        "backtest_por_temporada": " · ".join(f"{a} {'sim' if backtest_ano[a] else 'não'}"
+                                             for a in FECHADAS),
+    }
+    numeros.update({f"top4_{a}": top4_ano[a] for a in FECHADAS})
+    json.dump({"gerado_por": "scripts/A14.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     print(f"\n{'='*74}\nO ÍNDICE, por faixa (2022-2025)\n{'='*74}")
     print(f"  Sobe {np.median(grupos['Sobe']):.1f} · Trave {np.median(tr):.1f} · "
@@ -274,6 +487,7 @@ def main():
     for t in tab26:
         marca = " ←G4" if t["pos"] <= 4 else ""
         print(f"{t['indice']:7.1f} {t['pos']:4d} {t['pontos']:4d}  {t['clube']}{marca}")
+    print(f"\n{len(numeros)} marcadores gravados em resultados/A14_numeros.json")
 
 
 if __name__ == "__main__":

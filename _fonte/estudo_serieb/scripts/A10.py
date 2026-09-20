@@ -7,6 +7,7 @@ Lê a base do passo 1 (`resultados/A10_base.csv`) e a lista pré-declarada
 Escreve, e só:
     resultados/A10_testes.csv     uma linha por teste, inclusive o que não passou
     resultados/A10_resumo.json    o quadro por faixa, o poder, a porta, o placar e as ressalvas
+    resultados/A10_numeros.json   {marcador: valor} de TODO número que a parte publica
 Lê, e não altera: resultados/A10_base.csv, resultados/A10_indicadores.json e
 dados/serieb_jogos.csv (só para os pontos e o descanso do calendário COMPLETO, ver abaixo).
 
@@ -83,6 +84,7 @@ import json
 import math
 import os
 import sys
+from decimal import Decimal, ROUND_HALF_UP
 
 import numpy as np
 from scipy import stats
@@ -641,6 +643,247 @@ def efeito_medio(bases, ids, nivel, unidade, temporada, rng, recorte=""):
     return saida
 
 
+# ======================================================= 7c. os números que a parte publica
+# A regra da casa é que nenhum número da tela seja digitado à mão. Até 19/09 o script calculava
+# tudo, mas NÃO gravava marcador nenhum: a conferência era feita a olho, casando A10.json com
+# A10_resumo.json e A10_testes.csv. Sete marcadores foram parar na tela por uma conta feita fora
+# daqui (a auditoria de 19/09 os lista em _robustez_19_09.json, partes.A10.digitados_a_mao) —
+# número de jogos de cada temporada, a contagem das comparações físicas de Sobe × Meio e o que
+# passou nelas, a fatia de unidades com um único jogo curto e os atletas por meio de temporada.
+# Este bloco faz as duas coisas: grava TODO marcador publicado em resultados/A10_numeros.json e
+# calcula aqui dentro os sete que faltavam. Nada da análise muda — o que vem abaixo só LÊ o que
+# as seções 1 a 8 produziram (a base, as linhas de teste, os efeitos, o poder, o rodízio).
+GERADO_EM = "2026-09-20"
+MENOS = "−"          # o sinal de menos que a tela usa, que não é o hífen
+
+
+def _arred(v, casas):
+    """Meia unidade sempre para LONGE do zero — a regra que a leitura humana usa.
+
+    `round` do Python arredonda meio para o par (35,875 → 35,8) e a tela publica 35,9.
+    """
+    return Decimal(repr(float(v))).quantize(Decimal(1).scaleb(-casas), rounding=ROUND_HALF_UP)
+
+
+def inteiro(v):
+    return int(_arred(v, 0))
+
+
+def modulo(v, casas=0):
+    """O tamanho do número, sem o sinal: o texto diz “perde 101 metros”, não “−101”."""
+    d = abs(_arred(v, casas))
+    return int(d) if casas == 0 else f"{d:.{casas}f}".replace(".", ",")
+
+
+def virgula(v, casas):
+    """Decimal como a tela escreve: vírgula, e o menos tipográfico quando for negativo."""
+    return f"{_arred(v, casas):.{casas}f}".replace("-", MENOS).replace(".", ",")
+
+
+def com_sinal(v, casas=0):
+    d = _arred(v, casas)
+    return ("+" if d >= 0 else MENOS) + f"{abs(d):.{casas}f}".replace(".", ",")
+
+
+def intervalo(lo, hi, casas=0, unidade=""):
+    """“−157 a +7 metros”: o IC com os dois sinais, que é como o texto cita."""
+    return f"{com_sinal(lo, casas)} a {com_sinal(hi, casas)}" + (f" {unidade}" if unidade else "")
+
+
+def intervalo_em_modulo(lo, hi, casas=0, unidade=""):
+    """“43 a 152 metros”: quando o texto já disse “perde”, o IC vai em tamanho,
+    do menor ao maior."""
+    a, b = sorted((abs(_arred(lo, casas)), abs(_arred(hi, casas))))
+    fmt = (lambda d: str(int(d))) if casas == 0 else (lambda d: f"{d:.{casas}f}".replace(".", ","))
+    return f"{fmt(a)} a {fmt(b)}" + (f" {unidade}" if unidade else "")
+
+
+def uma(linhas, **filtros):
+    """A única linha que casa com o filtro — se não for uma só, o script para em vez de chutar."""
+    casam = [l for l in linhas if all(l.get(k) == v for k, v in filtros.items())]
+    if len(casam) != 1:
+        raise SystemExit(f"A10: o filtro {filtros} casou com {len(casam)} linhas, e o marcador "
+                         "precisa de exatamente uma")
+    return casam[0]
+
+
+def jogos_curtos_por_unidade(base, temporada, indicadores):
+    """Distribuição de quantos jogos curtos cada unidade jogador-temporada do delta_descanso tem.
+
+    Mesmas regras já fixadas antes de comparar (MIN_JOGOS_CURTO, MIN_JOGOS_NORMAL e o corte de
+    60 min das métricas por 90), aplicadas com as mesmas funções da seção 3 — é a base do
+    delta_descanso recontada, não uma base nova.
+    """
+    p90 = [i for i in indicadores if i["min_60"]]
+    por = collections.defaultdict(list)
+    for l in base:
+        if l["temporada"] == temporada:
+            por[(l["clube"], l["sc_player_id"])].append(l)
+    conta = collections.Counter()
+    for jogos in por.values():
+        vs = {i["coluna"]: parte_dos_jogos(jogos, i["coluna"], True) for i in p90}
+        if all(len(v["curto"]) >= MIN_JOGOS_CURTO and len(v["normal"]) >= MIN_JOGOS_NORMAL
+               for v in vs.values()):
+            conta[len(vs[p90[0]["coluna"]]["curto"])] += 1
+    return conta
+
+
+def atletas_por_faixa(rodizio, base, temporada, faixa):
+    """Média de atletas distintos por MEIO de temporada (turno e returno) nos clubes da faixa."""
+    fx = {l["clube"]: l["faixa"] for l in base if l["temporada"] == temporada}
+    vs = [v[meio_da_temporada] for c, v in rodizio[str(temporada)].items() if fx.get(c) == faixa
+          for meio_da_temporada in ("turno", "returno")]
+    return media(vs)
+
+
+def numeros_da_parte(base, indicadores, linhas, efeitos, poder, mix, confundidor, rodizio):
+    """Todo marcador que A10.json publica, calculado aqui — o mapa {marcador: valor}.
+
+    Só lê o que as seções anteriores produziram. O formato de cada valor é o da tela (inteiro
+    arredondado, decimal com vírgula, intervalo com os dois sinais), para o portão poder comparar
+    marcador a marcador com o que está publicado.
+    """
+    def ef(**filtros):
+        return uma(efeitos, recorte="", **filtros)
+
+    def dturno(ind, faixa):
+        return ef(temporada=RECORTE, medida="delta_turno", indicador=ind, faixa=faixa)
+
+    def ddesc(ind, faixa="todos", temporada=RECORTE):
+        return ef(temporada=temporada, medida="delta_descanso", indicador=ind, faixa=faixa)
+
+    # --- a base em contagens ---------------------------------------------------------------
+    conta = {}
+    for t in TEMPORADAS:
+        sel = [l for l in base if l["temporada"] == t]
+        conta[t] = {"linhas": len(sel), "jogos": len({l["sc_match_id"] for l in sel}),
+                    "clubes": len({l["clube"] for l in sel}),
+                    "cobertura_baixa": len({l["clube"] for l in sel if l["cobertura_baixa"]})}
+
+    pod = poder[str(RECORTE)]
+    faixas = pod["clubes_por_faixa"]
+
+    # --- as linhas de teste que o texto cita -------------------------------------------------
+    pontos = {m: uma(linhas, temporada=RECORTE, leitura="principal", nivel="clube_temporada",
+                     comparacao="SM", corte="com", recorte_extra="", medida=m,
+                     indicador="pontos_jogo") for m in ("turno", "returno")}
+    spr_ret = {c: uma(linhas, temporada=RECORTE, leitura="principal", nivel="jogador_jogo",
+                      normalizacao="posto_no_ano", comparacao="CM", corte=c, recorte_extra="",
+                      medida="returno", indicador="sprint_count_p90")
+               for c in ("com", "sem_fronteira")}
+    hi_turno = uma(linhas, temporada=RECORTE, leitura="secundaria", nivel="jogador_jogo",
+                   normalizacao="posto_no_ano_x_setor", comparacao="CM", corte="com",
+                   recorte_extra="posto_por_setor", medida="turno", indicador="hi_distance_p90")
+    spr_vitoria = uma(linhas, temporada=RECORTE, leitura="secundaria", nivel="jogador_jogo",
+                      normalizacao="posto_no_ano", comparacao="CM", corte="sem_fronteira",
+                      recorte_extra="placar_V", medida="returno", indicador="sprint_count_p90")
+
+    # as comparações físicas de Sobe × Meio, e quantas passaram: a contagem que o texto cita
+    fisicos_sm = [l for l in linhas if l["temporada"] == RECORTE and l["leitura"] == "principal"
+                  and l["comparacao"] == "SM" and l["pilar"].startswith("fisico")]
+    passaram = [l for l in fisicos_sm if l["selo"] == "firme"]
+
+    # --- os efeitos dentro do jogador --------------------------------------------------------
+    queda = {f: dturno("distance_p90", f) for f in ("todos", "Sobe", "Meio")}
+    curto25 = {i: ddesc(i) for i in ("distance_p90", "sprint_distance_p90", "psv99")}
+    curto26 = {i: ddesc(i, temporada=2026)
+               for i in ("distance_p90", "running_distance_p90", "m_per_min")}
+    pontos_desc = ef(temporada=RECORTE, medida="delta_descanso", indicador="pontos_jogo",
+                     faixa="todos", nivel="clube_temporada")
+
+    curtos = jogos_curtos_por_unidade(base, RECORTE, indicadores)
+    n_unidades = sum(curtos.values())
+
+    return {
+        # a base
+        "n_linhas": conta[2025]["linhas"] + conta[2026]["linhas"],
+        "n_jogos_2025": conta[2025]["jogos"],
+        "n_linhas_2025": conta[2025]["linhas"],
+        "n_jogos_2026": conta[2026]["jogos"],
+        "n_linhas_2026": conta[2026]["linhas"],
+        "n_clubes_2025": conta[2025]["clubes"],
+        "n_clubes_cobertura_baixa_2026": conta[2026]["cobertura_baixa"],
+        # o desenho e o poder
+        "n_sobe": faixas["Sobe"],
+        "n_meio": faixas["Meio"],
+        "n_cai": faixas["Cai"],
+        "n_sobe_sem_fronteira": faixas["Sobe_sem_fronteira"],
+        "dmin_clube": virgula(pod["clube_temporada"]["d_minimo_80_SM"], 2),
+        "dmin_linhas": virgula(pod["jogador_temporada_delta_turno"]["d_minimo_80_pelas_linhas"], 2),
+        # a queda do turno para o returno (conclusão 1)
+        "queda_liga_m": modulo(queda["todos"]["media"]),
+        "queda_liga_mediana": modulo(queda["todos"]["mediana"]),
+        "queda_liga_pct": modulo(queda["todos"]["queda_pct_do_turno"], 1),
+        "queda_sobe_media": modulo(queda["Sobe"]["media"]),
+        "queda_meio_media": modulo(queda["Meio"]["media"]),
+        "queda_sobe_mediana": modulo(queda["Sobe"]["mediana"]),
+        "queda_meio_mediana": modulo(queda["Meio"]["mediana"]),
+        "ic_queda_liga": intervalo(*queda["todos"]["ic95_da_media"], unidade="metros"),
+        "ic_queda_sobe": intervalo_em_modulo(*queda["Sobe"]["ic95_da_media"], unidade="metros"),
+        "n_testes_fisicos_sm": len(fisicos_sm),
+        "n_passaram_sm": "nenhuma" if not passaram else str(len(passaram)),
+        "n_jog_sobe": queda["Sobe"]["n"],
+        "n_jog_meio": queda["Meio"]["n"],
+        "ppj_returno_sobe": virgula(pontos["returno"]["cru_a"], 2),
+        "ppj_returno_meio": virgula(pontos["returno"]["cru_b"], 2),
+        "ppj_turno_sobe": virgula(pontos["turno"]["cru_a"], 2),
+        "ppj_turno_meio": virgula(pontos["turno"]["cru_b"], 2),
+        # o calendário curto (conclusão 2)
+        "ppj_curto": virgula(mix[str(RECORTE)]["curto"]["pontos_por_jogo"], 2),
+        "ppj_normal": virgula(mix[str(RECORTE)]["normal"]["pontos_por_jogo"], 2),
+        "n_jogos_curtos": mix[str(RECORTE)]["curto"]["n"],
+        "n_jogos_normais": mix[str(RECORTE)]["normal"]["n"],
+        "delta_pontos_clube": modulo(pontos_desc["media"], 2),
+        "ic_pontos": intervalo(*pontos_desc["ic95_da_media"], casas=2),
+        "n_clubes_pontos": pontos_desc["clubes"],
+        "dist_curto_2025": modulo(curto25["distance_p90"]["media"]),
+        "ic_dist_curto_2025": intervalo(*curto25["distance_p90"]["ic95_da_media"],
+                                        unidade="metros"),
+        "sprint_a_mais": modulo(curto25["sprint_distance_p90"]["media"]),
+        "ic_sprint_curto_2025": intervalo(*curto25["sprint_distance_p90"]["ic95_da_media"],
+                                          casas=1, unidade="metros"),
+        "psv_a_mais": virgula(curto25["psv99"]["media"], 2),
+        "ic_psv_curto_2025": intervalo(*curto25["psv99"]["ic95_da_media"], casas=2,
+                                       unidade="km/h"),
+        "n_jog_descanso": curto25["distance_p90"]["n"],
+        "pct_um_jogo_curto": inteiro(100 * curtos[1] / n_unidades),
+        "dist_curto_2026": modulo(curto26["distance_p90"]["media"]),
+        "pct_dist_curto_2026": modulo(curto26["distance_p90"]["queda_pct_do_turno"], 1),
+        "ic_dist_curto_2026": intervalo(*curto26["distance_p90"]["ic95_da_media"],
+                                        unidade="metros"),
+        "corrida_curto_2026": modulo(curto26["running_distance_p90"]["media"]),
+        "mmin_curto_2026": modulo(curto26["m_per_min"]["media"], 2),
+        "ppj_curto_2026": virgula(mix["2026"]["curto"]["pontos_por_jogo"], 2),
+        "ppj_normal_2026": virgula(mix["2026"]["normal"]["pontos_por_jogo"], 2),
+        "n_jogos_curtos_2026": mix["2026"]["curto"]["n"],
+        "n_jogos_normais_2026": mix["2026"]["normal"]["n"],
+        "n_jog_descanso_2026": curto26["distance_p90"]["n"],
+        "n_clubes_descanso_2026": curto26["distance_p90"]["clubes"],
+        "pct_curtos_sobe": virgula(confundidor[str(RECORTE)]["Sobe"]["pct"], 1),
+        "pct_curtos_meio": virgula(confundidor[str(RECORTE)]["Meio"]["pct"], 1),
+        "pct_curtos_cai": virgula(confundidor[str(RECORTE)]["Cai"]["pct"], 1),
+        "pct_curtos_sobe_2026": virgula(confundidor["2026"]["Sobe"]["pct"], 1),
+        # quem caiu, desde o 1º turno (conclusão 3)
+        "sprint_cai_returno": virgula(spr_ret["com"]["cru_a"], 1),
+        "sprint_meio_returno": virgula(spr_ret["com"]["cru_b"], 1),
+        "sprint_cai_returno_sf": virgula(spr_ret["sem_fronteira"]["cru_a"], 1),
+        "sprint_meio_returno_sf": virgula(spr_ret["sem_fronteira"]["cru_b"], 1),
+        "hi_cai_turno": inteiro(hi_turno["cru_a"]),
+        "hi_meio_turno": inteiro(hi_turno["cru_b"]),
+        "n_jog_cai": spr_ret["com"]["n_a"],
+        "n_jog_meio_ret": spr_ret["com"]["n_b"],
+        "n_jog_cai_turno": hi_turno["n_a"],
+        "n_jog_meio_turno": hi_turno["n_b"],
+        "sprint_cai_placar_v": virgula(spr_vitoria["cru_a"], 1),
+        "sprint_meio_placar_v": virgula(spr_vitoria["cru_b"], 1),
+        "n_jog_cai_placar_v": spr_vitoria["n_a"],
+        "n_clubes_cai_placar_v": spr_vitoria["clubes_a"],
+        "atletas_cai": virgula(atletas_por_faixa(rodizio, base, RECORTE, "Cai"), 1),
+        "atletas_sobe": virgula(atletas_por_faixa(rodizio, base, RECORTE, "Sobe"), 1),
+        "sprint_cai_delta": com_sinal(dturno("sprint_count_p90", "Cai")["media"], 1) + " sprint",
+    }
+
+
 # ================================================================================ 8. o principal
 def main():
     dec, base = carregar()
@@ -1016,7 +1259,17 @@ def main():
     json.dump(resumo, open(os.path.join(R, "A10_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1, default=str)
 
+    # ---------------------------------------------- 9b. os números que a parte publica
+    # A saída que faltava: cada marcador de A10.json com o valor que ESTE script calculou.
+    # Não substitui o publicado — é o que permite conferi-lo, um a um, sem ler Python.
+    numeros = numeros_da_parte(base, indicadores, linhas, efeitos, poder, mix, confundidor,
+                               rodizio)
+    json.dump({"gerado_por": "scripts/A10.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(os.path.join(R, "A10_numeros.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+
     # ----------------------------------------------------------------------------- relatório
+    print(f"marcadores gravados em A10_numeros.json: {len(numeros)}")
     print(f"\nlinhas de teste: {len(linhas)}  ·  achados (q<0,05 com fronteira): {len(achados)}")
     for temporada in TEMPORADAS:
         print(f"\n{'='*104}\n{temporada} — PRINCIPAL (Sobe × Meio, com fronteira, posto no ano)"

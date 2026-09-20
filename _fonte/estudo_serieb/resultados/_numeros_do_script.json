@@ -1,0 +1,610 @@
+{
+ "A01": {
+  "parte": "A01",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 38,
+  "gravados_camada1": 18,
+  "gravados_camada2": 20,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A01.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A01_numeros.json"
+  ],
+  "nota": "Os 38 marcadores de A01.json.numeros saem agora do proprio A01.py, e os 38 batem com o publicado: zero divergencias, zero nao calculaveis.\n\nTRAVA DE SEGURANCA: rodei antes e depois e comparei com o backup. classificacao_rodada.csv, A01_regua.csv, A01_clube_temporada.csv e A01_resumo.json sairam BYTE A BYTE identicos (diff limpo nos quatro); o stdout so ganhou a linha nova \"A01_numeros.json: 38 marcadores\". Rodei duas vezes: A01_numeros.json e estavel (data fixa GERADO_EM = \"2026-09-20\", sem data dinamica). Nenhuma linha de analise foi tocada — so acrescentei a gravacao da saida e os agregados que faltavam, no fim do main().\n\nCAMADA 2 (os 20 que o script nao calculava): temporadas, anos, corte_por_ano_frase, anos_falha_63, aprov_min, aprov_max, vit_min, vit_max, margens_frase, margem_max, anos_ate_1pt, sobe_fronteira, sobe_de, trave_min, trave_max, trave_mediana, trave_dist_mediana, trave_fronteira, trave_de, ritmo_4o_2026. Todos seguem o \"de_onde\" de A01_numeros_novos.json. Tres pontos que valem registro: (a) anos_falha_63 usa a regra \"empate nao garante vaga\" (mediana <= pontos_4o do ano) e nao um 63 cravado — sai da mediana calculada; (b) trave_dist_mediana vai em modulo (2,5), porque o texto escreve \"abaixo do corte\" e a palavra carrega o sinal; (c) ritmo_4o_2026 = round(47/27 * 38), com o 38 vindo de 2*(times-1) da linha 2026 da regua, nao digitado.\n\nAs tres correcoes que A01_numeros_novos.json apontava (trave_mediana 60 -> 60,5; trave_dist_mediana -2 -> 2,5; corte_z4_mediana 39 -> 39,5) ja estavam aplicadas no A01.json publicado, e o script reproduz exatamente 60,5 / 2,5 / 39,5. Por isso nao ha divergencia.\n\nPORTAO (python3 scripts/_portao.py A01):\n- regra 9: REPROVA -> PASSA. \"scripts/A01.py existe, grava a saida dos numeros e assina o que gravou\".\n- regra 1: REPROVA -> REVISAR. Os 38 marcadores constam da saida com o mesmo valor; o que sobra e \"12 inteiros cravados no texto, fora de marcador\". Eles estao em o_que_vimos de A01.json, arquivo que eu nao podia tocar. Sao: A01-1 (61, 15, 18 — pontos e vitorias do 4o de 2018-2021, fora do recorte 2022-2026 do script e fora do SB_TABELAS, que nao cobre esses anos); A01-2 (3 — margem de 2019; 60 e 60 — Goias e Ponte Preta em 2018); A01-3 (3 e 3 — o limiar da fronteira, que e regra e nao medida; 50, 33, 25 e 55 — esses QUATRO sao medida e sao calculaveis: conferi contra as tabelas do proprio script e batem, fronteira por faixa da Sobe 8/16 = 50%, Meio 16/48 = 33%, Cai 4/16 = 25%, e o piso da Trave pela tabela remontada jogo a jogo e 55). Para a regra 1 virar PASSA falta trocar esses quatro por marcador em A01.json — decisao de quem manda no A01.json.\n- regra 3: continua REPROVA, por nao existir A01_testes.csv (A01 e parte descritiva, sem teste). Fora do escopo desta tarefa.\n- as demais nao mudaram: 2 PASSA, 4 PASSA, 5 AVISO, 6 PASSA, 7 NAO APLICAVEL, 8 PASSA.\n\nNao toquei em A01.json, _registro.md, _portao.py, dados/, static/, templates/ nem em arquivo de outra parte. (O git status mostra static/estudo_serieb.css e static/estudo_serieb_grafico.js mexidos — nao fui eu; ja estavam assim quando cheguei.)"
+ },
+ "A05": {
+  "parte": "A05",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 25,
+  "gravados_camada1": 13,
+  "gravados_camada2": 12,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A05.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A05_numeros.json"
+  ],
+  "nota": "A05 nao tinha script proprio (gerado_por = \"scripts/_rodar.py A05\", o executor generico). Criei scripts/A05.py, que NAO reescreve A05_testes.csv nem A05_resumo.json: ele refaz em memoria o caminho do _rodar.py A05 (mesma base, mesmo _metodo.py, mesma semente 20260917) e CONFERE a reproducao contra os dois arquivos ja no disco antes de gravar qualquer coisa — se divergir, ele aborta sem gravar. A conferencia bateu: as 60 linhas de A05_testes.csv identicas campo a campo (inclusive o ic95_d do bootstrap) e o A05_resumo.json inteiro identico. git confirma que A05.json, A05_testes.csv, A05_resumo.json, _registro.md, _rodar.py e _portao.py continuam intocados.\n\nCAMADA 1 (13): os que ja eram celula de alguma saida do _rodar.py — n_total, n_sobe, n_meio, n_cai, posse_sobe_med, posse_meio_med, posse_cai_med, posse_sobe_sf, posse_meio_sf, sobe_folga, posse_min, d_min_com, d_min_sem.\nCAMADA 2 (12): os que so existiam digitados — n_ind, n_testes, passes_dif, sobe_mais_bola, cai_mais_bola, n_pouca_bola, posse_folga_min, posse_folga_max, pts_raspando, pts_raspando_real, rodadas_1t, rodadas_2t. Todos seguindo o \"de_onde\" de A05_numeros_novos.json. Observacao: posse_folga_max (61,6) coincide com dispersao.posse.Sobe.max do resumo, mas e outra definicao (maximo entre os 8 promovidos sem fronteira) — por isso entrou na camada 2, nao na 1.\n\npts_raspando (=3) era o unico candidato a nao_calculavel: e o limiar da definicao de Fronteira, nao um valor medido. Em vez de cravar o 3 no codigo, o script o RECUPERA da coluna `fronteira` de A01_clube_temporada.csv — a maior distancia a linha entre os marcados como fronteira e 3 e a menor entre os de fora e 4, entao o limiar fica determinado sem ambiguidade; se os dois lados nao se encostassem, a funcao devolveria None e o marcador cairia em nao_calculaveis.\n\nPORTAO (python3 scripts/_portao.py A05):\n- regra 1: era REPROVA, agora REVISAR — \"os marcadores conferem\" (os 25 constam de A05_numeros.json com o mesmo valor). O que sobra e outro assunto e esta dentro do A05.json, que eu nao posso tocar: dois inteiros cravados no texto fora de marcador, \"20\" e \"32\", ambos em A05-1.o_que_vimos (\"todas as vinte linhas\" nao, sao \"32 do meio\" e \"20 times do ano\"). Trocar os dois por marcadores (o 32 ja e calculavel: e o meio_sf) fecharia a regra 1 em PASSA.\n- regra 9: continua REPROVA, e por um motivo que esta fora da minha parte. O A05.json declara gerado_por \"scripts/_rodar.py A05\", e o portao cobra que o script CITADO grave a saida dos numeros; o _rodar.py e compartilhado com A07 e A11 e nao pode ser mexido. O gerado_por deveria dizer \"scripts/A05.py\" — ai o portao acha o gravador e a assinatura do A05_numeros.json (\"gerado_por\": \"scripts/A05.py\") casa. Enquanto isso nao mudar, a regra 9 reprova mesmo com a saida existindo e correta.\n- as demais: regra 5 passou a PASSA (A05.py importa o _metodo.py). Regra 2 segue REPROVA e regras 3, 4, 6, 7, 8 passam — nada disso e desta tarefa."
+ },
+ "A03": {
+  "parte": "A03",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 37,
+  "gravados_camada1": 34,
+  "gravados_camada2": 3,
+  "nao_calculaveis": [],
+  "divergem": [
+   {
+    "marcador": "dd_casa_m",
+    "publicado": "60.1",
+    "o_script_da": "60.05 — a UNICA divergencia que nao e mero arredondamento, e a que faz a regra 1 REPROVAR. O script calcula a mediana bruta 60.050263157894734 e a grava com 3 casas (round(...,3) dentro de comparar/med), virando 60.05. Arredondar esse 60.05 para 1 casa da 60.0, nao 60.1. O publicado 60,1 esta certo contra a mediana BRUTA e errado contra a saida do proprio script: e o duplo arredondamento que o _robustez_19_09 ja tinha antecipado ('60,05 vira 60,0 em vez de 60,1'). Nao consertei nenhum dos dois lados."
+   },
+   {
+    "marcador": "xgc_casa_s",
+    "publicado": "0.8",
+    "o_script_da": "0.798 (A03_testes.csv, com|casa|SM|xgc_casa, cru_a). Arredondamento de 1 casa, coerente com a mediana bruta 0,798421. Ja constava da lista digitados_a_mao de 19/09."
+   },
+   {
+    "marcador": "xgc_casa_m",
+    "publicado": "1.02",
+    "o_script_da": "1.024 (com|casa|SM|xgc_casa, cru_b). Arredondamento de 2 casas. Ja constava da lista digitados_a_mao."
+   },
+   {
+    "marcador": "dd_casa_s",
+    "publicado": "60.9",
+    "o_script_da": "60.932 (com|casa|SM|dd_casa, cru_a). Arredondamento de 1 casa."
+   },
+   {
+    "marcador": "dd_fora_s",
+    "publicado": "60.6",
+    "o_script_da": "60.605 (com|fora|SM|dd_fora, cru_a). Arredondamento de 1 casa."
+   },
+   {
+    "marcador": "dd_fora_m",
+    "publicado": "59.6",
+    "o_script_da": "59.578 (com|fora|SM|dd_fora, cru_b). Arredondamento de 1 casa."
+   },
+   {
+    "marcador": "xgc_fora_s",
+    "publicado": "1.29",
+    "o_script_da": "1.288 (com|fora|SM|xgc_fora, cru_a). Arredondamento de 2 casas."
+   },
+   {
+    "marcador": "xgc_fora_m",
+    "publicado": "1.36",
+    "o_script_da": "1.364 (com|fora|SM|xgc_fora, cru_b). Arredondamento de 2 casas."
+   },
+   {
+    "marcador": "c_xgcasa_c",
+    "publicado": "1.26",
+    "o_script_da": "1.263 (com|casa|CM|xg_casa, cru_a). Arredondamento de 2 casas. Ja constava da lista digitados_a_mao."
+   },
+   {
+    "marcador": "c_xgcasa_m",
+    "publicado": "1.39",
+    "o_script_da": "1.391 (com|casa|CM|xg_casa, cru_b). Arredondamento de 2 casas."
+   },
+   {
+    "marcador": "c_xgcfora_c",
+    "publicado": "1.56",
+    "o_script_da": "1.557 (com|fora|CM|xgc_fora, cru_a). Arredondamento de 2 casas. Ja constava da lista digitados_a_mao."
+   },
+   {
+    "marcador": "c_xgcfora_m",
+    "publicado": "1.36",
+    "o_script_da": "1.364 (com|fora|CM|xgc_fora, cru_b). Arredondamento de 2 casas. Ja constava da lista digitados_a_mao."
+   },
+   {
+    "marcador": "c_xgcfora_c_sem",
+    "publicado": "1.65",
+    "o_script_da": "1.646 (sem|fora|CM|xgc_fora, cru_a). Arredondamento de 2 casas."
+   },
+   {
+    "marcador": "c_xgcfora_m_sem",
+    "publicado": "1.39",
+    "o_script_da": "1.394 (sem|fora|CM|xgc_fora, cru_b). Arredondamento de 2 casas."
+   }
+  ],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A03.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A03_numeros.json"
+  ],
+  "nota": "PORTAO DEPOIS DA MUDANCA — regra 9: PASSA (\"scripts/A03.py + scripts/_metodo.py existe, grava a saida dos numeros e assina o que gravou\"; antes REPROVAVA por falta do A03_numeros.json). Regra 1: REPROVA, mas por outro motivo — antes era \"o script nao declara a saida: 37 marcadores, nenhum conferivel\"; agora e \"1 marcador publica valor diferente do que o script gravou: dd_casa_m\". Os 37 marcadores estao todos na saida, com o nome certo. A parte segue RECUSADA (regra 1 REPROVA, regra 3 REVISAR, regra 2 ja era o teto \"provavel\").\n\nATENCAO A UM EFEITO DO PORTAO: a regra 1 devolve no PRIMEIRO problema. Como dd_casa_m cai no ramo \"diferentes\", os outros 13 arredondamentos NAO aparecem no relatorio do portao. Se dd_casa_m for resolvido um dia, a regra 1 passa a REVISAR listando os 13 restantes — nenhum deles some sozinho.\n\nA TRAVA DE SEGURANCA: rodei o script e o A03_testes.csv e o A03_resumo.json sairam byte a byte iguais aos de antes (md5 1f46758733aa351633043d405cf06be2 e d95bd4c7adf58306b46578b32561baed, diff vazio nos dois). Nenhum valor antigo mudou. O scripts/A03.py do backup _backup_pre_numeros_20_09 era identico ao do disco antes de eu mexer.\n\nO QUE MUDEI NO SCRIPT (so acrescimo, nenhuma linha de analise tocada): (1) uma secao na docstring; (2) a constante GERADO_EM = \"2026-09-20\", fixa e nao dinamica, porque a RNG e semeada e o script e reprodutivel; (3) o dicionario poder_por_desenho virou a variavel `poder` para poder ser lido duas vezes — a chamada json.dump do A03_resumo.json ficou com a mesma ordem de chaves e o arquivo saiu identico; (4) o bloco final que monta e grava o A03_numeros.json, que so LE `res`, `quadro` e `poder`. A funcao auxiliar `linha()` levanta KeyError se a linha do teste sumir: marcador sem linha tem de estourar, nao virar vazio.\n\nQUAL ARREDONDAMENTO A SAIDA CARREGA, E POR QUE: gravei os valores no arredondamento que o proprio script ja usa nas suas saidas (mediana com 3 casas, d com 3, d minimo com 2), nao a mediana bruta. Se gravasse a bruta, marcadores hoje exatos (dif_xg_sobe 0.419 contra a bruta 0,418947, e outros 8) passariam a constar como \"arredondados\" — eu estaria fabricando divergencia onde o publicado bate com o CSV. O preco dessa escolha e o caso dd_casa_m, que fica como divergencia dura em vez de arredondamento. Achei melhor assim: e um achado real e documentado, nao um artefato da minha escolha de formato.\n\nCAMADA 2 — as 3 que o script nao produzia e agora produz: asm_testes (24 = len das linhas familia=assimetria) e asm_firmes (0 = quantas delas tem selo \"firme\"), as duas apontadas como digitadas em _robustez_19_09.json; e maior_d_asm (0.778 = max |d| entre as 24). Esta terceira nao estava na lista da auditoria, mas tambem nao saia de lugar nenhum: o A03_testes.csv tem a celula d = -0.778, e o publicado e o valor absoluto dela. As tres agora se mexem sozinhas se alguem acrescentar um indicador a familia, que era exatamente o risco que a auditoria descreveu (\"o texto continua dizendo 24\").\n\nCAMADA 1 — 34 marcadores. Onze saem do A03_resumo.json (dif_liga, dif_sobe, d_min_com, d_min_sem) ou do A03_testes.csv, e os oito n_* saem das colunas n_a/n_b das linhas de teste. Vale registrar que dif_pj_trave_sem (1.474), que eu esperava ter de calcular, ja estava na saida: e o cru_b da linha sem|assimetria|ST|dif_pj.\n\nNAO CALCULAVEIS: nenhum. Os 37 marcadores publicados saem do script.\n\nNAO TOQUEI em A03.json, _registro.md, _portao.py, dados/, static/, templates/ nem em arquivo de outra parte. O git status confirma: dos arquivos de A03, so o scripts/A03.py aparece modificado e so o resultados/A03_numeros.json aparece novo (os A01/A02/A04/A05 que aparecem no git status sao de outros agentes rodando em paralelo, nao meus).\n\nObservacao lateral, fora do meu escopo: o A03_numeros_novos.json lista 24 marcadores, e um deles (conf_xg) nao consta dos 37 publicados no A03.json — a receita dele aponta A02.json, numeros.conf_xg. Nao criei esse marcador, so registro que a receita existe sem destino em A03."
+ },
+ "A04": {
+  "parte": "A04",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 40,
+  "gravados_camada1": 28,
+  "gravados_camada2": 12,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A04.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A04_numeros.json"
+  ],
+  "nota": "PORTAO: regra 1 PASSA (\"40 marcadores publicados constam de A04_numeros.json com o mesmo valor\") e regra 9 PASSA (\"scripts/A04.py + scripts/_metodo.py existe, grava a saida dos numeros e assina o que gravou\"; grava por: A04.py). A parte continua RECUSADA, mas por duas regras fora do meu escopo: regra 7 REPROVA (duelos_aereos_pct x clube-temporada x ST publicado com q 0,01861 em A04 e 0,01241 em A06) e regra 3 REVISAR (8 discordancias entre os cortes). Nao toquei em A04.json, _registro.md, _portao.py, dados/, static/, templates/ nem em arquivo de outra parte.\n\nTRAVA DE SEGURANCA: rodei o script e conferi byte a byte contra o snapshot pre-mudanca — A04_ponte_clubes.json, A04_testes.csv e A04_resumo.json sairam IDENTICOS, e o stdout so ganhou o bloco novo \"NUMEROS DA ABA\" no fim (as 63 linhas anteriores sao iguais). Rodei duas vezes: A04_numeros.json e reproduzivel (GERADO_EM e constante, \"2026-09-20\", nao data dinamica). Nenhuma linha de analise foi alterada; o diff contra scripts/_backup_pre_numeros_20_09/A04.py e so acrescimo.\n\nCAMADA 1 (28): n_total, liga_pct, liga_bp90, sobe_pct, meio_pct, trave_pct, cai_pct, n_sobe_com, n_meio_com, n_cai_com, n_trave, n_sobe_sf, n_meio_sf, n_cai_sf, dmin_sm_com, dmin_sm_sem, c_aer_com, c_aer_m_com, c_pro_com, c_pro_m_com, c_sof_com, c_sof_m_com, c_sal_com, c_sal_m_com, cai_cantos, meio_cantos, c_aer, c_aer_m — todos ja saiam em A04_resumo.json (quadro_por_faixa, liga, n) ou em A04_testes.csv (n_a, n_b, cru_a, cru_b, d_minimo_80), so que sem o nome do marcador ao lado.\n\nCAMADA 2 (12, antes so digitados): n_ind_carac (13 indicadores menos os 5 da lista branca de placar = 8), pct_min, pct_q1, pct_q3, pct_max (min/max e np.percentile 25/75 de bp_pro_pct nos 80 clube-temporadas), liga_bp_38 e saldo_sobe_38 (a mediana por-jogo x 38), tot_esc/tot_falta/tot_pen/tot_bp (438/294/312/1.091, soma na base do A04) e c_aer_dif (46,147 - 44,343). Todos seguem o campo \"de_onde\" de A04_numeros_novos.json; nada foi reinventado, e nenhum ficou sem fonte — por isso nao_calculaveis esta vazio.\n\nACHADO DE ARREDONDAMENTO (resolvido dentro do script, nao e divergencia): na primeira versao eu li os c_* da coluna cru_a/cru_b de A04_testes.csv, que ja vem com round(...,3), e c_sof_m_com saiu \"0,35\" contra \"0,36\" publicado — 0,3552632 virava 0,355 e depois 0,35. Passei a calcular a mediana crua sobre a base (mesma quantidade, sem a parada no meio) e pus uma guarda que para o script se round(crua,3) nao bater com a linha dos testes. Com isso os 40 batem: zero divergencia.\n\nFORMATO: A04.json publica 20 marcadores como numero cru (int ou os 3 decimais do quadro_por_faixa) e 20 como texto pt-BR (\"0,82\", \"43,5\", \"0\"). O script reproduz os dois formatos via a tabela CASAS_DO_MARCADOR, declarada no topo — o portao compara valor a valor e float 44.343 contra a string \"44,3\" reprovaria.\n\nNOTA SOBRE A AUDITORIA: o portao ainda cita \"3 marcadores digitados a mao\" de _robustez_19_09.json (n_ind, sm_testes, st_testes). Os tres nao existem mais no A04.json de hoje — n_ind virou n_ind_carac e sm_testes/st_testes sairam do texto na revisao de 19/09. A lista da auditoria esta defasada para esta parte."
+ },
+ "A02": {
+  "parte": "A02",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 76,
+  "gravados_camada1": 49,
+  "gravados_camada2": 27,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A02.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A02_numeros.json"
+  ],
+  "nota": "PORTAO, regras 1 e 9 (antes: REPROVA nas duas). Regra 9 agora PASSA: \"scripts/A02.py existe, grava a saida dos numeros e assina o que gravou\". Regra 1 agora REVISAR, nao REPROVA — a frase dela e \"os marcadores conferem\", ou seja, os 76 batem contra A02_numeros.json; o que sobra e outra coisa: 4 INTEIROS cravados no texto de A02.json, fora de marcador (A02-1 o_que_vimos \"20\"; A02-2 o_que_vimos \"100\" e \"20\"; A02-3 o_que_vimos \"20\"). Nao mexi neles porque A02.json e proibido; sao provavelmente \"20 times\" e \"a cada 100 finalizacoes\", contagem legitima, mas so quem edita o texto resolve.\n\nA DIVISAO DAS DUAS CAMADAS bate com a historia do arquivo: A02.json publica 76 marcadores = 49 antigos + os 27 que A02_numeros_novos.json levantou em 19/09 (conferido: set(A02.json.numeros) - set(numeros_novos.valores_para_numeros) da exatamente 49). Camada 1 = os 49, que o script ja calculava e das quais o valor era copiado a olho de uma celula de A02_testes.csv (linhas fronteira=sem/comparacao=SM, o corte REDUZIDO 8x32) ou de A02_resumo.json; agora saem da mesma celula, por codigo. Camada 2 = os 27 digitados a mao, agora calculados. Ressalva honesta: 3 dos 27 (n_turnos=80, n_meio_sf=32, dmin_SM_cf=0,82) ja existiam como celula exata na saida do script, so nunca tinham nome de marcador — contei-os na camada 2 porque estavam digitados, mas nao exigiram conta nova.\n\nCOMO OS 27 FORAM CALCULADOS, seguindo o \"de_onde\": (a) as 16 medianas do corte CHEIO (dist/rem/remc/xgpr100/xgc/xg/fin/def, Sobe e Meio) saem de mediana_corte_cheio() sobre a mesma `base` do script, sem filtrar fronteira — e a mesma mediana das linhas fronteira=com/SM, sem o arredondamento de 3 casas; (b) fin_gols_temporada = (mediana Sobe - mediana Meio) x numero modal de jogos por clube-temporada (38, contado da base: 76 clube-temporadas com 38 jogos e 4 com 37) = 8,455 -> 8; (c) rod_corte = _porta_temporal.TURNO (19), constante do metodo da §6.4 importada em vez de digitada; (d) porta_dist_parcial e porta_dist_p vem da porta da §6.4 de verdade — indicador das 19 primeiras rodadas contra os PONTOS das 19 ultimas, parcial dada a pontuacao do 1o turno —, emprestando ler_jogos/pontos/media/porta de scripts/_porta_temporal.py para nao criar uma decima versao da mesma conta: da parcial +0,289 e p 0,00938 -> 0,0094, identicos aos publicados; (e) conf_xgpr_contra e conf_fin sao o split-half da §3 (jogos pares x impares, posto dentro do ano por _metodo.percentil_no_ano, Spearman, Spearman-Brown 2rho/(1+rho)): 0,35701 -> 0,36 e 0,070624 -> 0,07; (f) rho_min_80 = tanh((z0,975 + z0,80)/raiz(n-3)) com n=80 -> 0,308847 -> 0,31; (g) persist_fin = arredondamento do rho de persistencia que o script ja calculava.\n\nVALIDACAO DO SPLIT-HALF antes de confiar nele: o mesmo codigo reproduz seis dos doze valores publicados na §3 — Passes certos 0,776->0,78; Duelos ganhos 0,697->0,70; Posse 0,690->0,69; Toques na area 0,630->0,63; Remates 0,4996->0,50; xG 0,302->0,30. Defesa_vs_xg da 0,248->0,25, que e o numero que A02_numeros_novos.json cita como comparacao.\n\nTRAVA DE SEGURANCA: rodei o script e comparei com scripts/_backup_pre_numeros_20_09/A02.py. A02_testes.csv e A02_resumo.json sairam BYTE-IDENTICOS (diff vazio), e todo o stdout anterior tambem. Rodando duas vezes, A02_numeros.json sai identico (nenhuma data dinamica: GERADO_EM e constante). Nao toquei em A02.json, _registro.md, _portao.py, dados/, static/, templates/ nem em arquivo de outra parte — git status confirma.\n\nZERO DIVERGENCIAS: os 76 valores que o script grava batem um a um com os publicados em A02.json, pelo mesmo criterio do portao (numerico com tolerancia 1e-9; string para xgc_ic \"[0.74, 2.37]\" e porta_fin_ic \"-0.03 a 0.39\"). Nenhum ficou so \"arredondado\".\n\nEFEITO COLATERAL QUE VOCE PRECISA SABER, regra 5: para o codigo novo eu importei `pct`/`percentil_no_ano` de scripts/_metodo.py (e _porta_temporal). Isso mudou a regra 5 de REPROVA para REVISAR: \"A02.py importa o _metodo.py, mas tambem define 2 funcoes com cara de teste proprio (bh, cohen_d)\". A mensagem e verdadeira e nao e um PASSA falso — a analise de 17/09 continua com as copias que o arquivo ja tinha, de proposito, porque troca-las mudaria numero publicado e nao era o que se pediu. A migracao de bh/cohen_d/d_minimo/ic_por_clube para o _metodo.py fica como divida separada (o proprio docstring do _metodo.py ja a registra: \"O A02 foi escrito antes deste modulo... ao passar a importar daqui, a saida dele tem de continuar identica\").\n\nO QUE CONTINUA REPROVANDO, e nao e desta tarefa: regra 2 (A02-1 diz \"firme\" e o teto recalculado e \"provavel\", porque a porta que a parte rodou e persistencia dentro da temporada, nao a porta da §6.4 — curiosamente o script agora CALCULA a porta da §6.4 para dist_remate, que passa, mas o campo confianca fica em A02.json, proibido) e regra 7 (xg_por_remate_contra publicado com q diferente em A02 e A06). Regra 3 fica em REVISAR com 8 discordancias entre os dois cortes.\n\nACHADO REGISTRADO, sem conserto: A02_numeros_novos.json.correcoes_de_numero_existente aponta trave_firmes (esta 0, deveria 1 ou 0 conforme a leitura). Esse marcador NAO existe mais no campo numeros de A02.json hoje, entao nao entrou na saida nem em \"divergem\" — o problema ja saiu da tela sozinho."
+ },
+ "A07": {
+  "parte": "A07",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 43,
+  "gravados_camada1": 24,
+  "gravados_camada2": 19,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A07.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A07_numeros.json"
+  ],
+  "nota": "A07 NAO tinha script proprio: o gerado_por aponta scripts/_rodar.py, o executor comum de A05/A07/A11, que so escreve A07_testes.csv e A07_resumo.json e nao grava marcador nenhum. Criei scripts/A07.py como o script da parte: ele chama _rodar.rodar(\"A07\") sem alterar uma linha do executor compartilhado (a analise continua sendo a mesma), remonta a mesma base de 80 clube-temporada para os calculos novos e grava resultados/A07_numeros.json com os 43 marcadores. Antes de publicar, o script trava se a base dele deixar de bater com a do _rodar.py: ele confere cada mediana cru_a/cru_b do corte \"com\" contra a tabela de testes e aborta na primeira diferenca acima de 5e-4.\n\nTRAVA DE SEGURANCA: A07_testes.csv e A07_resumo.json sairam BYTE-IDENTICOS (sha 07684561d2016efd3485b5a43a238461938eb6fc e a731ae28cdf7e8ea12a3cd539f832b754bc5e6bf, iguais antes e depois). scripts/_rodar.py e scripts/_metodo.py conferem com o backup de scripts/_backup_pre_numeros_20_09/. A07.json nao foi tocado. Rodando o script duas vezes a saida sai identica (data fixa em constante, sem relogio).\n\nCAMADA 2 — os 19 novos, todos pela receita do campo \"de_onde\" de A07_numeros_novos.json, sem reinventar calculo: pos_dist, pos_otip e pos_visivel (posto medio no ano e poder convertidos em posicoes de tabela, dividindo por 100/19); n_ind; as 6 do desconto do rodizio (q_rod_min_sm, q_rod_min_st, q_rod_otip, q_rod_otip_sf, q_rod_sp90, q_rod_spcount, q_rod_psv — residuo de minimos quadrados do posto sobre o posto de fis_atletas, ajustado uma vez nas 80 linhas, depois Welch + BH por familia x comparacao x corte); cob_min, cob_max, cob_mediana e n_cob_baixa (cobertura absoluta = fis_minutos / (J*11*90)); n_sobe_cob, n_meio_cob, n_cai_cob; jogos_por_atleta. Conferencia forte: reproduzi por fora as 72 linhas da tabela_d_rod_q_rod de A07_numeros_novos.json — 72 de 72, ZERO divergencia em d_rod, p_rod, q_rod, n_a e n_b.\n\nDIVERGENCIAS: nenhuma. Os 43 marcadores publicados batem com o calculo. Detalhe de forma: o A07.json guarda 6 marcadores como texto pt-BR (\"100,0\", \"0,0095\", \"0,096 (com fronteira) e 0,086 (sem)\"...) porque e o que a tela mostra; o script produz esse texto A PARTIR do numero calculado (tabela FORMA no topo do arquivo, que so escolhe casa decimal e virgula), e guarda os valores sem arredondar no bloco \"crus\" da saida. Nenhum numero foi digitado.\n\nNAO CALCULAVEIS: nenhum marcador publicado ficou de fora. O que segue bloqueado nao e marcador: a porta temporal da §6.4 (exige fisico POR JOGO, e o skillcorner so tem 2025/2026 parcial) e o recorte por estado do placar (o SkillCorner guarda um periodo so, full_all). Os dois ja estao registrados em \"bloqueados\" de A07_numeros_novos.json.\n\nPORTAO (python3 scripts/_portao.py A07):\n- REGRA 1: era REPROVA (\"o script nao declara a saida: nenhum script grava os numeros que a parte publica — falta A07_numeros.json, 43 marcadores nenhum conferivel\"). Agora e REVISAR: \"os marcadores conferem, mas o texto ainda traz inteiro digitado a mao\" — um unico caso, o \"30\" de \"A cada 30 minutos sem a bola\" em A07-2/o_que_vimos. E a unidade da metrica p30otip (por 30 min de posse), nao uma medida; e so sairia mexendo no A07.json, que e proibido nesta tarefa. Ou seja: a parte dos VALORES da regra 1 esta fechada.\n- REGRA 9: continua REPROVA, e por um motivo que nao esta na minha mao. O portao le so os scripts citados no gerado_por do A07.json, e la esta escrito \"scripts/_rodar.py A07 (tabela de testes); resultados/A07_numeros_novos.json (...)\". O _rodar.py de fato nao grava A07_numeros.json — quem grava e o scripts/A07.py, que o campo nao cita. O gerado_por DEVERIA dizer: \"scripts/A07.py (numeros e, via scripts/_rodar.py, a tabela de testes)\". Trocada essa linha no A07.json, a regra 9 passa sem mais nenhuma mudanca de codigo.\n- Efeito colateral bom: a REGRA 5 virou PASSA (\"A07.py importa o _metodo.py\"); antes era REVISAR por A07 nao ter script proprio.\n- Continuam como estavam, e sao de outra tarefa: regra 3 REVISAR (10 discordancias entre os cortes, quase todas perto de zero) e regra 2 PASSA com teto \"provavel\"."
+ },
+ "A06": {
+  "parte": "A06",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 70,
+  "gravados_camada1": 57,
+  "gravados_camada2": 13,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A06.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A06_numeros.json"
+  ],
+  "nota": "TRAVA DE SEGURANCA: passou. Rodei o script antes de mexer, guardei A06_testes.csv e A06_resumo.json, e depois da mudanca os dois saem BYTE A BYTE identicos (o git nem os lista como modificados). Rodei duas vezes: A06_numeros.json tambem sai identico entre rodadas. Nada da analise foi tocado — as 32 linhas de teste, os d, os q, os selos, o bootstrap e a persistencia sao os mesmos. Nao toquei em A06.json (o script so o LE, para conferir).\n\nDIVERGENCIAS: nenhuma. Os 70 marcadores publicados batem com o que o script grava, valor por valor, incluindo tipo e formato (as strings em pt-BR como \"0,02556\", \"+0,99 a +2,37\", \"-0,536\" sao montadas pelo script, nao digitadas). Conferi tambem pelo proprio portao (mesmo_valor/so_arredondou): 0 diferentes, 0 arredondados, saida mais nova que o script.\n\nCAMADA 2 — os 13 que so existiam digitados e agora sao calculados:\n- n_trave_sai (9), pts_trave_sai (63), pts_trave_fica (57): coluna `pontos` de A01_clube_temporada.csv nas linhas trave=1, separadas por fronteira. Os 63/57 do recorte 2022-2025 sao os que ja estavam publicados como marcador — os 62/56,5 que a auditoria acusou estao no TEXTO do confianca_motivo de A06-2, sem marcador, e vem do recorte 2022-2026; nao pude mexer.\n- rc_s_com (11,62) e rc_m_com (12,05): `remates_contra` sem o ajuste de posse — o par bruto do rca_*.\n- conf_xgpr (0,36): confiabilidade meia-metade do xg_por_remate_contra (rodadas impares x pares, razao de somas xG do adversario ÷ remates contra, posto no ano, Spearman-Brown). Reproduziu 0,357 -> 0,36, o mesmo da auditoria de 18/09.\n- porta_dd, porta_dd_p, porta_ppda, porta_int, porta_xgpr_parcial, porta_xgpr_p, porta_n: a porta temporal da §6.4 de verdade. Nao reimplementei o teste: o script passou a importar scripts/_porta_temporal.py (que tem a §6.4 conferida, 9 de 9 linhas identicas) e reusa ler_jogos/media/razao/porta. Os quatro saem identicos ao _porta_temporal.json: +0,092 (p 0,41602), -0,103, +0,204, -0,026 (p 0,82131), n 80.\n\nPORTAO, regras 1 e 9:\n- Regra 9: era REPROVA, agora PASSA — \"scripts/A06.py + scripts/_metodo.py existe, grava a saida dos numeros e assina o que gravou\".\n- Regra 1: continua REPROVA, mas NAO pela saida do script. Ela nem chega a ler o arquivo: reprova antes, na pre-checagem de numero cravado no texto, por 5 decimais digitados direto no `o_que_vimos` — A06-2: 59,81 / 45,54 / 47,60 e A06-3: 0,086 / 0,100. Simulei o resto da regra 1 com o proprio modulo do portao e ele passa inteiro (70 de 70 marcadores, 0 diferentes, 0 arredondados, saida mais nova que o script). O QUE RESOLVERIA: os cinco numeros JA sao calculados pelo script — sao celulas cru_a/cru_b de A06_testes.csv (com|duelo|ST cru_b = 59,812; com|duelo|SM|duelos_aereos_pct cru_a = 45,54; com|duelo|ST cru_b = 47,597; sem|cede_ajustado|SM|xg_por_remate_contra cru_a = 0,086 e cru_b = 0,100). Falta so criar marcador para eles em A06.json e trocar no texto, o que esta fora do que eu podia escrever.\n\nDOIS ACHADOS QUE NAO SAO DIVERGENCIA DE NUMERO (bato com o publicado, mas o rotulo mente):\n1. porta_rec (0,488) e porta_posse (0,679) batem porque sao PERSISTENCIA dentro da temporada (o indicador prevendo a si mesmo entre as metades), que e o que o A06.py sempre calculou — nao a porta da §6.4. A auditoria ja anotou que para recuperacoes nao existe medida de porta em arquivo nenhum. Deixei os dois como estao (nao consertar) e marquei no comentario do script que sao outra medida.\n2. `gerado_por` de A06.json diz \"scripts/A06.py + scripts/_metodo.py\" e agora e verdade tambem para os numeros.\n\nFORA DE ESCOPO, ja registrado em A06_numeros_novos.json.bloqueados: ca_contra_q/ic/selo (contra-ataque sofrido com o metodo da casa). O bruto e calculavel, mas o q e o selo exigem declarar a familia em A06_indicadores.json e rerodar, o que reescreveria o q de toda a parte. Nao mexi."
+ },
+ "A13": {
+  "parte": "A13",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 44,
+  "gravados_camada1": 24,
+  "gravados_camada2": 20,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "nota": "Os 44 marcadores publicados saem do script e todos batem com o A13.json (nenhuma divergencia). Camada 1 = 24 (quadro_por_turno, previsibilidade_por_rodada, previsores_do_1o_turno, as contagens do json.dump e a constante TURNO -> rodada_turno). Camada 2 = 20, implementados pelo \"de_onde\" de A13_numeros_novos.json: rho_1t_2t (0,484 — a manchete de A13-3, que o script nunca produzia: os tres previsores olham a POSICAO FINAL, nao o returno), rho_1t_2t_sem_fronteira, as quatro contagens de troca de destino (n_viraram, n_perderam_g4, n_salvos, n_cairam_de_fora), dif_1t_cai_meio, cai_abaixo_mediana, cai_melhoraram, n_sem_fronteira, cai_1t_sf, meio_1t_sf, n_temporadas, os tercos (alto_2t, baixo_2t, dif_tercos, alto_2t_max, baixo_2t_max) e d_observado / d_min_cai_meio.\n\nTRAVA DE SEGURANCA: A13_resumo.json e A13_turnos.csv saem byte a byte iguais aos de 19/09 (diff vazio, e o git nao os marca como modificados). O diff do script e de 144 insercoes e 0 delecoes — nenhuma linha da analise foi tocada. Saida deterministica (duas rodadas identicas), data fixa GERADO_EM = \"2026-09-20\".\n\nEscolhas de calculo que precisavam de definicao escrita: (a) os tercos do 1o turno saem de quantil (np.percentile 1/3 = 22, 2/3 = 28,67), nao de corte digitado — da os mesmos 27 / 28 e as mesmas medianas 31 / 22 do de_onde; (b) d_observado e d_min_cai_meio usam cohen_d e d_minimo do scripts/_metodo.py, que reproduzem exatamente -0,32 e 0,82.\n\nPORTAO (python3 scripts/_portao.py A13): regra 9 PASSA — \"scripts/A13.py existe, grava a saida dos numeros e assina o que gravou\". Regra 5 passou a PASSAR de tabela (o script agora importa o _metodo.py). Regra 1 CONTINUA REPROVANDO, mas por outro motivo, anterior a conferencia: \"2 numeros medidos estao cravados no texto, sem marcador — A13-1 o_que_vimos: 1,0 e 2,0\". Sao a frase \"quem subiu melhora 1,0 ponto, sem os colados nas linhas perde 2,0\". Recalculei: e a mediana da coluna dif da faixa Sobe, +1,0 com as 80 campanhas e -2,0 nas 52 sem fronteira — os dois valores estao certos, so estao digitados no texto em vez de marcador. Consertar exige editar o A13.json, que esta proibido nesta tarefa; deixei os dois valores gravados no A13_numeros.json como sobe_dif e sobe_dif_sf (as duas unicas chaves alem dos 44 publicados, 46 no total) para que a troca por marcador vire uma linha de edicao. Regras 2 e 3 tambem reprovam, por falta de resultados/A13_testes.csv — divida antiga, fora do escopo desta tarefa. Fica em aberto tambem o bloqueado herdado r19_perto_simetrico, que nao e marcador publicado.",
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A13.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A13_numeros.json"
+  ]
+ },
+ "A12": {
+  "parte": "A12",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 76,
+  "gravados_camada1": 38,
+  "gravados_camada2": 38,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A12.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A12_numeros.json"
+  ],
+  "nota": "PORTAO (python3 scripts/_portao.py A12): regra 1 PASSA — \"76 marcadores publicados constam de A12_numeros.json com o mesmo valor\"; regra 9 PASSA — \"scripts/A12.py existe, grava a saida dos numeros e assina o que gravou\". A parte continua RECUSADA, mas pelas regras 2 e 3, que reprovam por A12_testes.csv nao existir (o A12 grava A12_reguas.csv, nome que o portao nao procura) — fora do meu escopo, nao toquei.\n\nTRAVA DE SEGURANCA: rodei a versao de backup (scripts/_backup_pre_numeros_20_09/A12.py) numa arvore isolada e comparei. A12_reguas.csv e A12_resumo.json saem BYTE A BYTE identicos, e o stdout difere so nas duas linhas que acrescentei (\"76 marcadores gravados...\"). O diff do script contra o backup nao tem nenhuma linha removida nem alterada: a mudanca e puramente aditiva (import de decimal, um bloco de funcoes auxiliares e a funcao gravar_numeros, mais a chamada no fim de main()).\n\nZERO DIVERGENCIAS: os 76 marcadores publicados saem do script com valor E formato iguais ao de A12.json (inclusive o tipo: int onde e int, float onde e float, string com virgula onde e string). Isso ja considera as 5 correcoes de 19/09 (subiram 6->4, taxa_env 27,3->18,2, cabem8 14->13, sub8 4->2, taxa8 28,6->15,4), que ja estavam aplicadas no A12.json publicado.\n\nCAMADA 2, os 38 que o script nao calculava: os 7 que a auditoria _robustez_19_09.json apontou como digitados (n26, baratos26, n_baratos26, g4_26, n8, taxa8 e o envelope real, que virou o marcador envelope_real) estao todos calculados agora, e nenhum deles depende mais dos dois arquivos orfaos (A12_teste_2026.json e A12_cenario_barato.json, que nenhum script escreve). Junto vieram os que vinham de CSV de outra parte (dist_*/xgr_* do A02, posse_*_com/sem do A05, sprint_* do A07): passei a calcula-los da propria base do A12 — mediana da faixa, que e exatamente o que a coluna cru_ do _metodo.comparar guarda — e batem na virgula. Tambem entraram val_*, sh_*, cairam, taxa_queda_env, ricos_no_perfil, rodada, total_rodadas, pos_melhor26, pts_zona26, vit_posse, chape_longo, os 6 postos r_* e nao_separam/depende_do_corte (que agora saem do selo por corte de fronteira em A12_reguas.csv, nao de lista escrita a mao).\n\nDETALHE DE ARREDONDAMENTO: usei Decimal com ROUND_HALF_UP, nao round(). O val_meio e o caso exato que o A12_numeros_novos.json avisa: round(13.85, 1) devolve 13.8 em Python, e o publicado e 13,9.\n\nDOIS ACHADOS QUE FICAM REGISTRADOS (nao sao divergencia de valor, nao consertei nada):\n1. g4_26 = 3 agora reproduz pelo script (dos 8 times de 2026 no perfil, 3 estao em pos <= 4), mas a objecao de metodo da auditoria continua de pe: em 2026 nao ha G4 de acesso direto (sobem 1o e 2o, playoff do 3o ao 6o), entao o numero e reproduzivel e mesmo assim aplica uma regua que nao vale para a temporada em teste. E merito, nao procedencia.\n2. Sobram no A12.json tres numeros digitados SEM marcador nenhum (campo sem_marcador), que a regra 1 nao alcanca e que eu nao podia resolver sem tocar no A12.json: o \"14,4\" milhoes do valor mediano do elenco da Trave em A12-1, os lugares \"7o/8o/14o/15o\" dos baratos de 2026 em A12-2, e o \"20 times de 2026\" em A12-2. O primeiro so sai daqui quando existir um marcador val_trave; o script ja tem tudo para calcula-lo (mediana de tm_valor_total com trave=True), mas criar marcador novo exigiria mexer no A12.json.\n\nCRITERIO DA CONTAGEM 38/38: camada 1 = marcador cujo valor ja aparecia em A12_resumo.json, em A12_reguas.csv (colunas n_a/n_b) ou no stdout do script antigo; camada 2 = o resto."
+ },
+ "J02": {
+  "parte": "J02",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 34,
+  "gravados_camada1": 24,
+  "gravados_camada2": 10,
+  "nao_calculaveis": [],
+  "divergem": [
+   {
+    "marcador": "(sem chave em numeros) J02-2.prova: «min_de_quem_ficou_pct em Sobe × Meio, com fronteira 27,017 contra 32,335 (d -0,328, q 0,32213)»",
+    "publicado": "q 0,32213",
+    "o_script_da": "q 0,48320 — 0,32213 é o p daquela linha, não o q. Linha 14 de J02_testes.csv (com,continuidade,SM,min_de_quem_ficou_pct): p 0.32213, q 0.4832. O rótulo está trocado: a mesma frase cita, para o corte sem fronteira, o q correto (0,25284, cujo p é 0,16856), e o J02-1.prova cita o q certo (0,48320) para o espelho min_de_contratado_pct, que é a MESMA célula. É prosa, não marcador — não consertei nenhum dos dois lados. Nota: o _robustez_19_09.json repete o mesmo engano ao chamá-lo de q; a auditoria de 18/09 (_auditoria_18_09.json) traz os dois separados e corretos."
+   }
+  ],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/J02.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/J02_numeros.json"
+  ],
+  "nota": "PORTÃO: `python3 scripts/_portao.py J02` agora sai J02 · ACEITA, 9 de 9 regras PASSA (exit 0). Regra 1: «34 marcadores publicados constam de J02_numeros.json com o mesmo valor». Regra 9: «\"scripts/J02.py\" existe, grava a saída dos números e assina o que gravou». Antes as duas reprovavam por ausência do arquivo. Nenhum marcador saiu arredondado (nenhum REVISAR) e nenhum diverge: os 34 batem exatamente com J02.json.\n\nTRAVA DE SEGURANÇA: o diff é de 78 linhas, TODAS acrescentadas, zero removidas. Rodei o script antes de mexer, guardei J02_testes.csv e J02_resumo.json, e depois da mudança os dois saíram byte a byte idênticos (o git nem os vê como modificados). O stdout também: a única linha nova é «J02_numeros.json: 34 marcadores gravados». Duas rodadas seguidas dão o mesmo J02_numeros.json (a data é a constante GERADO_EM = \"2026-09-20\", nunca datetime.now(); a semente do RNG não mudou). Nada entra em `base`, em `res` nem no que já era gravado — a saída nova é calculada por cima do que o script já tinha na memória.\n\nO QUE É CAMADA 1 (24) — o critério que usei: o valor já aparecia, como tal, em arquivo que o script escreve hoje. n (resumo.n); n_sobe/n_meio/n_cai e os três _sf (n_a/n_b de J02_testes.csv, reconfirmados contando a base com os mesmos predicados de faixa e fronteira); s11_s/m/c, at_s/m/c, fic_s/m/c (quadro_por_faixa de J02_resumo.json); e os oito do corte sem fronteira — s11_*_sf, at_m_sf, at_c_sf, fic_*_sf — que eram os cru_a/cru_b das linhas fronteira=sem do CSV e agora saem de um quadro_por_faixa recalculado só sobre as 51 linhas sem fronteira (bate nos oito).\n\nO QUE É CAMADA 2 (10) — não saía de arquivo nenhum e agora é calculado, seguindo o `de_onde` de J02_numeros_novos.json: contr_geral (mediana de min_de_contratado_pct nas 79 linhas, 69,8478 → 69,8) e contr_geral_sf (69,6485 → 69,6); cob_med (mediana de cobertura_da_ponte, 90,9); cob_min (mínimo, 64,6 — o script SÓ imprimia «0.65 a 1.00» arredondado em 2 casas, por isso conta como camada 2 e não 1); n_esperado (lido de J02_indicadores.json, recorte.n_esperado = 80) e n_fora (80 − 79 = 1); fic_min e fic_max (extremos de min_de_quem_ficou_pct entre os 15 do Sobe: Remo 2025 13,9014 → 13,9 e Criciúma 2023 70,064 → 70,1, arredondado e não truncado). Todos os oito caem exatamente no valor cheio que o `de_onde` declara.\n\nOS DOIS j01_* (também camada 2): o `de_onde` manda lê-los de J01.json, campo numeros — é citação entre partes, não recálculo, e o script agora lê em vez de copiar. J01.json hoje traz cai_altos 4.3 e sobe_altos 6.9, que é o que J02.json publica: batem. Vale o aviso do próprio de_onde: se o J01 for refeito, estes dois acompanham sozinhos — que é o ponto, já que em 19/09 eles ficaram presos na prosa com o valor velho (4,1 e 7,1).\n\nNADA FICOU SEM CÁLCULO: nao_calculaveis está vazio. Todos os 34 marcadores publicados são usados no texto e todos saem do script.\n\nO QUE NÃO TOQUEI: J02.json, _registro.md, _portao.py, dados/, static/, templates/ e arquivo de outra parte. O git confirma: dentro de _fonte/estudo_serieb só J02.py aparece modificado e só J02_numeros.json aparece novo (os A0*/A1* na lista são de outros agentes rodando em paralelo).\n\nDÍVIDA QUE PERMANECE, registrada em em_aberto do próprio J02.json e não mexida aqui: a ponte de clube do T01 é aplicada só do lado dos elencos, então Athletico-PR 2025 some no `if not js: continue` em vez de sair por cobertura — fora_por_cobertura continua []. n_fora = 1 vale nos dois caminhos (o de_onde conferiu: refeita a ponte dos dois lados, a linha cai por cobertura de 57%, abaixo do piso de 60%), então nenhum número muda; o que muda é o descarte deixar de ser invisível. É conserto da análise, não desta tarefa. Falta também o resultados/J02.md da etapa 6b."
+ },
+ "A10": {
+  "parte": "A10",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 77,
+  "gravados_camada1": 70,
+  "gravados_camada2": 7,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A10.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A10_numeros.json"
+  ],
+  "nota": "PORTAO AGORA: regra 9 PASSA (\"gerado_por existe, grava a saida dos numeros e assina o que gravou\"); regra 1 saiu de REPROVA para REVISAR — os 77 marcadores conferem com o publicado, sobrou so \"8 inteiros cravados no texto, fora de marcador\". Desses 8, seis sao o \"90\" de \"metros por 90\" (unidade, nao medida) e dois sao o par 151/149 do o_que_vimos de A10-2 (a conta de 2026 refeita sem os 7 clubes de cobertura baixa). Esse par nao tem marcador em A10.json — o proprio A10.json ja o declara em \"sem_marcador\" —, entao nenhuma mudanca no script o resolve: so sai criando marcador em A10.json, que eu nao posso tocar. A parte continua RECUSADA pela regra 3 (16 discordancias entre os cortes de fronteira que o texto nao cita), que e anterior a esta tarefa e nao foi mexida.\n\nA10 NAO tem A10_numeros_novos.json; a receita usada foi o campo numeros_de_onde do proprio A10.json (que diz, marcador a marcador, de que linha de A10_resumo.json / A10_testes.csv cada valor saiu) mais o campo \"evidencia\" dos 7 digitados_a_mao em _robustez_19_09.json.\n\nCAMADA 2 — os 7 que a auditoria apontou como digitados, agora calculados dentro do script: n_jogos_2025 (374) e n_jogos_2026 (206) = sc_match_id distintos por temporada em A10_base.csv; n_testes_fisicos_sm (96) = linhas de A10_testes.csv com temporada 2025, leitura principal, comparacao SM e pilar fisico_*; n_passaram_sm (\"nenhuma\") = quantas dessas 96 tem selo \"firme\" (zero); pct_um_jogo_curto (55) = fatia das 280 unidades jogador-temporada do delta_descanso cujo lado \"curto\" tem um unico jogo (154/280), recontada com as mesmas funcoes e os mesmos MIN_JOGOS_CURTO/MIN_JOGOS_NORMAL e o corte de 60 min; atletas_cai (35,9) e atletas_sobe (29,1) = media dos atletas distintos por meio de temporada nos clubes da faixa, de rodizio.atletas_distintos_por_meio. Os seis valores numericos batem exatamente com o publicado.\n\nTRAVA DE SEGURANCA: rodei o script antes e depois, primeiro num sandbox isolado e depois no repositorio. A10_resumo.json e A10_testes.csv sairam BYTE A BYTE IDENTICOS aos de 19/09 nas duas vezes, e o stdout tambem (fora a linha nova \"marcadores gravados\"). O diff contra scripts/_backup_pre_numeros_20_09/A10.py nao remove nenhuma linha: sao 252 linhas acrescentadas (import do Decimal, a secao 7c com os formatadores e numeros_da_parte(), a gravacao 9b e uma linha de relatorio) mais a docstring declarando a terceira saida. Nenhuma funcao da analise foi tocada. A10.json e A10.md continuam com o mtime de 19/09 e sem diff no git.\n\nDetalhe de formato: os valores sao gravados como a tela publica (inteiro arredondado, decimal com virgula, intervalo tipo \"−157 a +7 metros\"), porque a regra 1 compara string com string quando o valor nao e numero puro. O arredondamento usa Decimal ROUND_HALF_UP, e nao o round() do Python, que arredonda meio para o par e transformaria 35,875 em 35,8 quando a tela publica 35,9. As buscas nas linhas de teste passam por uma funcao uma() que aborta o script se o filtro casar com numero diferente de 1 linha — marcador nao sai de chute."
+ },
+ "J01": {
+  "parte": "J01",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 45,
+  "gravados_camada1": 2,
+  "gravados_camada2": 43,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/J01.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/J01_numeros.json"
+  ],
+  "nota": "DOIS RECORTES, DE PROPOSITO. A analise do J01.py roda em 2022-2026 e com o nome de clube cru; os textos de J01.json foram escritos e validados em 19/09 no recorte 2022-2025 e COM a ponte T01_ponte_clubes.json. Trocar a constante ANOS faria todo valor antigo mudar — a trava proibe. Entao a analise ficou intacta e a saida por marcador foi acrescentada como um bloco novo, que filtra 2022-2025 e aplica a ponte. O diff e 282 insercoes e ZERO remocoes; J01_resumo.json e base_jogador_temporada.csv sairam byte a byte iguais ao de antes, e as 31 linhas antigas do stdout tambem. A saida e reproduzivel (duas rodadas, arquivo identico).\n\nCAMADA 1 SAO SO 2. Dos 45 marcadores, o script antigo so produzia com o mesmo valor `corte` (60) e `atk_med` (16,5 — a unica mediana que 2026 nao mexe). Os outros 43 ou saiam com outro valor (o recorte era outro) ou nao tinham campo nenhum na saida: les_alta_base, les_alta_n, les_alta_dias, les_dmin, sem_ponte, pct_sem_ponte, altos_pos, reg_pos, reg_gk/zag/ext/atk, casadas_so_nome, casadas_so_nome_lesao, sobe/meio/cai_usados, n_ct, n_sobe, n_meio, n_cai, corte_por_posicao e rob_j01_3 nunca existiram em lugar nenhum.\n\nZERO DIVERGENCIAS. Os 45 batem exatamente com J01.json, inclusive as duas frases longas (corte_por_posicao e rob_j01_3, com as 8 celulas de teste caractere a caractere) e os tipos.\n\nDUAS ARMADILHAS QUE TIVE DE FECHAR PARA BATER, e que valem como achado de metodo:\n1. `round()` do Python e bancario. gk_med (21,65), gk_p75 (64,65), les_dias (55,5) e les_alta_dias (32,5) caem em meio-termo exato; com round() sairiam 21,6 / 64,6 / 56 / 32. Usei Decimal ROUND_HALF_UP sobre fracao exata.\n2. `fatia >= p75` em float e FALSO quando o p75 e 46,8 — 46,8 em binario e 46,79999999999999715. Comparando em float dao altos_pos=790 e reg_pos=210; comparando o decimal escrito (Fraction) dao 795 e 215, que e o publicado. A nota de J01_numeros_novos.json diz que \">= da 795/215 e > da 786/210\"; o par 790/210 que o float produz nao e nenhum dos dois, entao quem refizer isso em float vai achar que o publicado esta errado sem estar.\n\nO PORTAO. Regra 9: PASSA (\"scripts/J01.py existe, grava a saida dos numeros e assina o que gravou\"). Regra 5 virou PASSA de brinde — J01.py agora importa o _metodo.py (cohen_d, pct, percentil_no_ano), e a auditoria marcava importa_metodo=false. Regra 1 continua REPROVA, MAS NAO PELOS MARCADORES: ela para antes, no teste de numero cravado no texto, e acusa 4 numeros escritos direto no o_que_vimos de J01.json — 29,2 e 7,1 em J01-1, 6,9 e 6,7 em J01-2 (sao justamente os valores do recorte 2022-2026, os mesmos que o script imprime). Consertar isso e mexer em J01.json, que me e proibido. Chamando regra_1 com esse teste neutralizado, o veredito dela e PASSA: \"45 marcadores publicados constam de J01_numeros.json com o mesmo valor\". Regras 2 e 3 seguem REPROVA por falta de J01_testes.csv, divida ja registrada no campo em_aberto de J01.json e fora do meu escopo.\n\nFICA ABERTO PARA O DONO (nao toquei): a divida (3) do em_aberto — J01_resumo.json e base_jogador_temporada.csv continuam gravados em 2022-2026 e sem a ponte de clube, entao quem for a J03-J06 buscar a base ainda recebe 2026 dentro e 36 linhas do Athletico-PR 2025 sem faixa. Regravar isso muda a analise e e decisao do dono, nao desta rodada. O script hoje diz a diferenca em voz alta no stdout (\"3160 linhas, contra as 3864 da analise acima\")."
+ },
+ "A14": {
+  "parte": "A14",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 59,
+  "gravados_camada1": 28,
+  "gravados_camada2": 31,
+  "nao_calculaveis": [],
+  "divergem": [
+   {
+    "marcador": "validacao_com_fronteira",
+    "publicado": "2022 d 2,20 p 0,00520 q 0,01040 · 2023 d 0,87 p 0,11491 q 0,15321 · 2024 d 2,77 p 0,00022 q 0,00088 · 2025 d 0,74 p 0,39010 q 0,39010 — mínimo detectável 1,74 em todas (4 contra 12)",
+    "o_script_da": "2022 d 2,20 p 0,00520 q 0,01040 · 2023 d 0,87 p 0,11491 q 0,15322 · 2024 d 2,77 p 0,00022 q 0,00088 · 2025 d 0,74 p 0,39010 q 0,39010 — mínimo detectável 1,74 em todas (4 contra 12) — um único dígito: o q de 2023 é 0,15322 e não 0,15321. Os outros 58 marcadores batem casa a casa. Causa: o q publicado foi calculado sobre o p JÁ ARREDONDADO (0,11491 × 4/3 = 0,153213 → 0,15321), e o script usa _metodo.bh sobre o p exato (0,114912 × 4/3 = 0,153216 → 0,15322), que é a convenção da casa em _metodo.comparar(). O próprio A14_numeros_novos.json registra a escolha: 'A proposta registrou q 0,15322 para 2023; o valor exato é 0,11491 × 4 / 3 = 0,15321'. Não consertei nenhum dos dois lados. Nada muda de leitura: 0,15321 e 0,15322 são os dois muito acima de 0,05, e 2023 continua sendo temporada que não passa em BH."
+   }
+  ],
+  "valores_antigos_identicos": true,
+  "nota": "LEIA PRIMEIRO, porque o resultados/A14_resumo.json MUDOU DE VALOR e isso é proposital.\n\n1. O script NÃO RODAVA. Antes de qualquer mudança minha, `python3 scripts/A14.py` morria com KeyError 'fronteira' (o candidatos() varria TODOS os *_testes.csv de resultados/, inclusive A10, J03 e J08, que nasceram depois de 17/09 com outra estrutura) e com TypeError em A10_indicadores.json (lá familias[].indicadores é lista de strings, não de dicionários). Os dois defeitos já estavam catalogados em A14.json.em_aberto e em A14_numeros_novos.json.defeitos_de_codigo_encontrados_e_nao_corrigidos. Consertei os dois do jeito que aquele arquivo prescreve: a varredura ficou presa aos arquivos que começam com \"A\" E que trazem as colunas comparacao e fronteira (A02, A03, A04, A05, A06, A07 e A12_reguas), e sinais() lê só o que é dicionário.\n\n2. PROVA DE QUE NÃO MEXI NA ANÁLISE. Com só esses dois consertos, rodei o script e o A14_resumo.json saiu BYTE A BYTE igual ao que estava em disco (diff vazio). Depois, com tudo pronto, fiz o teste decisivo: voltei a definição do índice para 8 componentes (CONSEQUENCIA = {}) e rodei de novo — dos 171 campos do resumo de 17/09, 0 mudaram de valor, 0 sumiram, e os 34 campos novos são acréscimos. É por isso que respondi valores_antigos_identicos = true.\n\n3. POR QUE O RESUMO MUDOU MESMO ASSIM. A única coisa que muda valor é a saída do I_estabilidade_11 do índice — ou seja, o índice de 7 componentes no lugar do de 8. Isso NÃO é decisão minha: é a definição que o A14.json já publica hoje (n_ind 7, e descartados citando \"I_estabilidade_11 (é consequência do resultado, não característica)\"), e é a receita inteira do A14_numeros_novos.json, conferida por dois caminhos em 19/09. O script é que estava atrasado: o A14_resumo.json em disco era o de 17/09, do índice de 8, e o campo `prova` das três conclusões aponta para ele — ou seja, a prova apontava para o índice errado. Com o de 8 o script reproduz os valores ANTIGOS do A14.json (74,4 / 58,0 / 48,7 / 31,9 / d 1,66); com o de 7 reproduce os PUBLICADOS hoje (78,1 / 56,6 / 47,8 / 33,0 / d 1,59). Implementar a receita era a única forma de a regra 1 conferir valor contra valor. Se o dono preferir que o resumo volte ao de 8, basta CONSEQUENCIA = {} — mas aí 40 e poucos marcadores passam a divergir do publicado.\n\n4. O PORTÃO, regras 1 e 9, agora. Regra 9: PASSA — «\"scripts/A14.py\" existe, grava a saída dos números e assina o que gravou». Regra 1: REPROVA, por 1 marcador de 59, que é a divergência de um dígito descrita em \"divergem\" (o q de 2023). Antes dela o portão reprovava as duas por ausência do arquivo. As outras: 4, 5, 6, 8 PASSAM; 7 não se aplica; 2 e 3 REPROVAM por A14_testes.csv não existir — dívida antiga da parte (está no em_aberto dela), fora do que esta tarefa podia escrever.\n\n5. ACHADO DE FORA DO MEU ESCOPO, não toquei: scripts/_porta_temporal.py, que é compartilhado, fixa nas linhas 86-93 os OITO componentes do índice e o sinal de cada um, e só compara com o resumo para imprimir \"AVISO: o índice do A14 mudou\". Com o resumo agora em 7 componentes, esse aviso passa a disparar em toda execução dele, e a porta temporal continua sendo calculada sobre o índice antigo, inclusive sobre o I_estabilidade_11 descartado. Quem cuidar do _porta_temporal.py precisa saber.\n\n6. O vn_reg, único marcador que a auditoria de 19/09 apontou como digitado à mão, agora é calculado: o script ordena os 20 clubes de 2026 pelo índice, e o time do G4 com o maior salto entre a posição na tabela e o posto na régua sai como vn/vn_pos/vn_reg/vn_i (Vila Nova, 3º na tabela, 12º na régua, 45,7). Nada nesse marcador é digitado.\n\n7. Nada fora do combinado foi tocado: A14.json, _registro.md, _portao.py, _metodo.py, _porta_temporal.py, dados/, static/ e templates/ estão intactos (conferido com git diff). As mudanças em static/ e templates/ que aparecem no git status são de outras partes rodando em paralelo, não minhas. A data do arquivo de saída é constante (\"2026-09-20\"), não dinâmica, e rodar o script duas vezes dá saída idêntica.",
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A14.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A14_numeros.json",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A14_resumo.json"
+  ]
+ },
+ "J03": {
+  "parte": "J03",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 45,
+  "gravados_camada1": 23,
+  "gravados_camada2": 22,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/J03.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/J03_numeros.json"
+  ],
+  "nota": "TRAVA: J03_testes.csv e J03_resumo.json sairam BYTE A BYTE identicos aos de 19/09 (diff vazio, md5 igual) e o stdout antigo saiu linha a linha igual; rodado duas vezes, J03_numeros.json tambem e estavel (data fixa GERADO_EM=2026-09-20, sem relogio). Conferencia do proprio script: 45 publicados, 0 sem contraparte, 0 divergentes.\n\nCORTE CAMADA 1 x 2 que usei: camada 1 = valor que ja aparecia como celula em J03_testes.csv / J03_resumo.json ou como constante do script (23); camada 2 = o que o script nao produzia e passou a calcular (22). Os 22 sao exatamente os 21 criados em 19/09 no J03_numeros_novos.json + dd_time.\n\nCOMO CADA GRUPO DA CAMADA 2 FOI FEITO, seguindo o \"de_onde\": (a) firmes_dois_cortes=1 vem dos QUATRO cruzamentos (percentil por setor x por POSICAO, que e a normalizacao declarada, cruzados com/sem os times de fronteira da coluna 'fronteira' de A01_clube_temporada.csv) rodados pela MESMA funcao que escreve J03_testes.csv — o cruzamento setor+com reproduz o CSV publicado item a item, e o script aborta se nao reproduzir; (b) d_min_* pelo _metodo.d_minimo contando CLUBE-TEMPORADA (cheio 16x48, 16x48, 16x48, 13x36, 16x48, 11x33, 15x48; sem 8x32, 8x32, 8x32, 7x29, 8x32, 5x20, 7x32), exatamente a tabela do como_refazer; (c) gk_ganhos_*/gk_perd_* de 'Duelos aereos/90' x minutos/90 x '%'; (d) dd_time* e n_a06_* do duelo defensivo do TIME, agregado de dados/serieb_jogos.csv.\n\nO dd_time (0,805) era o UNICO marcador que a auditoria de 19/09 apontava como digitado, e e numero do A06. Nao o copiei: o script refaz a agregacao do dado bruto (media dos jogos de Serie B por clube-temporada), aplica posto dentro do ano e d de Cohen pelo _metodo, e da 0,805; alem disso confere contra a linha com/SM/duelos_def_pct de A06_testes.csv e imprime \"bate\". Fragilidade registrada em comentario no codigo: isso so fecha porque a base do A06 (80 clube-temporadas com as 8 colunas da lista dela) coincide hoje com as 80 que tem duelo jogo a jogo; se a base do A06 encolher, o posto dentro do ano muda e o 2o caminho passa a acusar.\n\n19 MARCADORES EXTRAS, sem contraparte em J03.json: sao os numeros que o texto de J03 traz CRAVADOS hoje (o em_aberto do J03.json os lista). Como o script passou a rodar os quatro cortes, eles agora saem calculados e ficam gravados, na precisao em que o texto os escreve: lat_s 78,9 · lat_m 77,8 · lat_s_sem 79,5 · lat_m_sem 78,1 · lat_q 0,04737 · lat_q_sem 0,04857 · dd_time_s_sem 61,7 · dd_time_m_sem 59,9 · gk_s_sem 97,9 · gk_m_sem 88,6 · gk_int_s 1,7 · gk_int_m 2,1 · gk_int_s_sem 1,4 · gk_int_m_sem 2,1 · n_usado_sem 456 · n_sobe_sem 91 · n_meio_sem 365 · n_a06_s_sem 8 · n_a06_m_sem 32. Nao toquei no J03.json: trocar o texto por esses marcadores e decisao do dono.\n\nPORTAO (python3 scripts/_portao.py J03): regra 9 PASSA — \"scripts/J03.py existe, grava a saida dos numeros e assina o que gravou\". Regra 1 ainda REPROVA, mas mudou de motivo: nao e mais \"nenhum script grava os numeros que a parte publica\" — e que 12 decimais estao cravados no texto sem marcador (78,9 · 77,8 · 79,5 · 78,1 · 61,7 · 59,9 · 97,9 · 88,6 · 1,4 · 2,1 · 1,7 · 2,1), e a regra 1 devolve nisso antes de chegar a conferir valor. Os 12 sao exatamente os 12 marcadores extras acima; a reprovacao so cai quando o texto de J03.json usar marcador, o que esta fora do que eu podia escrever. Conferi a parte da regra 1 que ela nao chegou a rodar por fora: 45 publicados, 0 faltando, 0 divergentes (tolerancia 1e-9). Regra 3 tambem reprova, por outro assunto (J03_testes.csv nao tem coluna de corte) — os cortes agora existem no script, mas gravar a coluna no CSV mudaria o arquivo publicado, que a trava proibe.\n\nACHADO QUE NAO E DIVERGENCIA DE VALOR, mas fica registrado: o script normaliza o percentil por SETOR e o J03_indicadores.json declara \"dentro da mesma POSICAO e temporada\". A diferenca muda o resultado — firmes_dois_cortes vale 1 pela normalizacao DECLARADA (sobrevive Lateral/'Passes certos, %') e ZERO pela normalizacao como o codigo roda. Gravei 1, que e o valor publicado e o que a proposta manda valer, e o script imprime os dois lado a lado. Nao alterei a normalizacao do teste: isso seria mudar a analise."
+ },
+ "A11": {
+  "parte": "A11",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 73,
+  "gravados_camada1": 24,
+  "gravados_camada2": 49,
+  "nao_calculaveis": [
+   {
+    "marcador": "conf_xg",
+    "por_que": "Está gravado, mas o A11 nao o MEDE: e a confiabilidade split-half do xG (0,30), valor publicado da Prototipo (ESPECIFICACAO.md §2, medido pelo 'Plano 1'). Nao ha arquivo de dado no repositorio de onde ler: dados/prototipo.json etapa_4 nao tem linha para `xg` porque o indicador nao tem coluna de jogo mapeada no meta do gerar_prototipo.py. Refazer o split-half dentro do A11.py seria reimplementar o teste de outra parte, e na minha reproducao de teste o valor oscilou entre 0,3021 e 0,3057 (0,30 ou 0,31) conforme a deteccao de empate entre duas medias iguais — knife-edge. Solucao adotada: o script LE a citacao da ESPECIFICACAO.md por regex e para com erro se ela sumir, em vez de guardar o numero digitado.",
+    "o_que_resolveria": "Mapear `xg -> \"Golos esperados\"` no meta do gerar_prototipo.py, para que dados/prototipo.json etapa_4 passe a trazer a linha do xg; ai o A11.py le um numero de arquivo de dado, e nao de um paragrafo."
+   },
+   {
+    "marcador": "porta temporal / fisico por turno (nao tem marcador no A11.json)",
+    "por_que": "A §6.4 exige o 1º turno prevendo o 2º, e para isso e preciso fisico POR JOGO. O unico fisico por jogo do repositorio e dados_copiados/skillcorner_serieb.db -> physical_match, que so tem 2025 e 2026; 2022, 2023 e 2024 tem zero linhas. O dados/serieb_clube_temporada.csv e agregado de temporada inteira. Por isso nenhuma conclusao do A11 passa de 'provavel'. (Ja registrado em A11_numeros_novos.json -> bloqueados.)",
+    "o_que_resolveria": "Copiar do Portal Ranking o skillcorner.db com physical_match das edicoes 335, 446 e 773 (2022-2024), como ja se pediu em A07."
+   },
+   {
+    "marcador": "recorte por estado do jogo / placar (nao tem marcador no A11.json)",
+    "por_que": "As tres conclusoes carregam a ressalva 'pode ser efeito do placar' e nenhuma tem numero para ela: o SkillCorner guarda um periodo so (full_all), sem corrida com o time a frente, empatando ou atras. E a mesma falta que derruba A08.",
+    "o_que_resolveria": "Fisico por faixa de minutos ou por estado do placar, que a base atual nao expoe. Enquanto nao houver, a ressalva fica como texto, sem numero."
+   }
+  ],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/A11.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/A11_numeros.json"
+  ],
+  "nota": "TRAVA DE SEGURANCA: passou inteira. A11.py so RECEBEU linhas (git diff: 370 insercoes, 0 remocoes). Rodei a versao de scripts/_backup_pre_numeros_20_09/A11.py (por exec, com __file__ apontando para scripts/, porque ela nao roda do lugar onde esta) e as 38 linhas de stdout da analise sao identicas. A11_correlacoes.csv, A11_estratificado.csv e A11_resumo.json continuam sem aparecer no git status: byte a byte iguais aos de 19/09. Tres rodadas seguidas dao o mesmo A11_numeros.json (md5 c51a412c...).\n\nDIVERGENCIAS: nenhuma. Os 73 marcadores publicados saem do script com valor igual ao do A11.json — os 10 rho, os terços, os dois cortes, o IC por reamostragem de clube, o salto de posto e as 4 persistencias. Os valores saem na casa decimal da tela, arredondados (nunca truncados), como fez o A05; onde o A11.json publica 3 ou 4 casas (xg_alto, vol_xg_*, xgc_*) o script grava 3 ou 4.\n\nPORTAO (rodado em A11):\n- Regra 9: PASSA. \"scripts/A11.py existe, grava a saida dos numeros e assina o que gravou\". O gerado_por deixou de ser falso.\n- Regra 1: ainda REPROVA, mas NAO por marcador faltando — ela para antes, na checagem de numero cravado: o A11-3, em o_que_vimos, tem \"54,5 pontos contra 47,9\" digitados dentro da frase, sem marcador. Isso esta no A11.json, que me e proibido tocar. Simulei a regra 1 em memoria (read-only, nada escrito) trocando so esses dois digitos por {pts_spr_alto}/{pts_spr_baixo}: o veredito vira REVISAR com \"os marcadores conferem\", sobrando so inteiros cravados (o \"30\" de \"a cada 30 minutos\", que e unidade, o \"28\" dos times de fronteira, e o \"5\"/\"9\" do G4 e dos rebaixados).\n- PARA DESTRAVAR A REGRA 1 ja deixei os cinco numeros cravados calculados e gravados, com nome de marcador, alem dos 73 publicados (o arquivo tem 79 chaves): pts_spr_alto 54,5 · pts_spr_baixo 47,9 · g4_spr_alto 5 · g4_spr_baixo 5 · cai_spr_alto 2 · cai_spr_baixo 9 — todos batem com o que o texto afirma (terço de fis_sprint_distance_p90, o unico fisico que anda com a tabela). A correcao do A11.json sera so trocar o digito pelo {marcador}; nenhum numero novo precisa ser digitado.\n- Regras 2 e 3 reprovam por falta de resultados/A11_testes.csv: o A11 nao e comparacao de faixas, ele grava A11_correlacoes.csv e A11_estratificado.csv. Fora do meu escopo (mexer nisso mudaria a analise).\n\nCAMADA 2, o que passou a ser calculado (49): os terços de 7 por temporada (28 de cada lado) com a media bruta de corridas/entradas/xG/sprint/PPDA/recuperacoes/xG sofrido; os cortes sem fronteira (52 linhas) e com cobertura fisica >= 0,75 (60 linhas), com o posto REFEITO dentro do corte; o IC95 por reamostragem de 40 clubes (10.000 replicas, semente 2026) que substitui o Fisher; o rho minimo detectavel (0,309); o salto medio de posto ano a ano; e as 4 persistencias da §7.3 — que eram as 4 constantes que a auditoria de 19/09 apontou como digitadas (pers_fis/pers_valor/pers_xg/pers_ppda) e agora saem dos 36 pares, dando 0,7220 · 0,7243 · 0,1437 · 0,1290.\n\nDOIS ACHADOS QUE NAO SAO DIVERGENCIA E NAO CONSERTEI:\n1. INCOERENCIA DE IC DENTRO DA MESMA PARTE. ic_area_ent e ic_area_xg sao IC por reamostragem de clube; ic_rec_topo (0,34) e o Fisher da coluna ic95 do A11_correlacoes.csv. Pela reamostragem de clube o topo de recuperacoes cai para 0,31 — que e exatamente o minimo detectavel, e reforcaria o \"nao achamos\" do A11-2. A parte publica dois criterios de IC lado a lado. (Ja anotado em A11_numeros_novos.json.)\n2. O \"n\" DO A11-3. A conclusao 3 usa n = 80, mas a estratificacao roda com 49 linhas (4+18 na faixa media, 12+15 na alta; a faixa baixa nao tem promovido nenhum e sai do teste). O marcador certo, n_estrat = 49, esta calculado e gravado.\n\nOBSERVACAO DE CODIGO: o bloco \"persistencia_ja_medida_pela_prototipo\" do A11_resumo.json continua com os 9 valores citados como literais no script. Conferi que os 9 sao reproduziveis pelo mesmo caminho (posto dentro do ano, Spearman t->t+1, 36 pares) e arredondam iguais, entao trocar os literais por calculo deixaria o arquivo identico — nao fiz porque a trava de seguranca manda nao mexer no que ja saia, e esses 9 nao sao marcadores publicados. Os 4 que a tela usa ja vem calculados."
+ },
+ "J04": {
+  "parte": "J04",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 53,
+  "gravados_camada1": 50,
+  "gravados_camada2": 3,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/J04.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/J04_numeros.json"
+  ],
+  "nota": "NAO existe resultados/J04_numeros_novos.json — J04 nao esta em _numeros_novos.json (a remarcacao da v2 de J04 foi depois). A receita veio de dois lugares: o campo numeros_de_onde DENTRO de J04.json (que documenta os 10 marcadores acrescentados em 19/09, com subamostra|setor|comparacao|corte|indicador de cada um em J04_testes.csv) e a evidencia da auditoria em _robustez_19_09.json. Os 53 marcadores foram casados um a um contra J04_testes.csv e J04_resumo.json, e os 53 batem exatamente com o publicado — zero divergencia.\n\nCAMADA 2 (3 marcadores que o script nao calculava):\n1. d_maior (\"0,69\") — o unico que a auditoria aponta como digitado a mao. O script so guardava a CONTAGEM (199), nunca o maximo. Agora: max |d| entre os testes Sobe x Meio da subamostra `todos` que nao passaram no BH = 0,694 (Volante, hi_distance_p30tip, sem fronteira). Bate com a auditoria e com o publicado. O escopo (recorte cheio, nao as tres subamostras) e o que o proprio texto de J04-1 declara.\n2. ct_2025 (20) e 3. sobe_2025 (4) — estavam CRAVADOS como literais dentro de porta_temporal() (`{\"temporadas_fechadas_com_dado\": 1, \"clube_temporadas\": 20, \"clubes_que_sobem\": 4}`). Numero escrito no codigo e numero digitado. Agora o main conta na propria base (clubes distintos de 2025 em J04_base.csv, e os de faixa Sobe) e passa para a funcao. Os valores saem 20 e 4 — J04_resumo.json fica identico.\n\nTRAVA DE SEGURANCA — rodei o script num diretorio temporario (copia de scripts/, J04_base.csv, J04_indicadores.json, J03_resumo.json e link so-leitura para o skillcorner_serieb.db), antes e depois da mudanca, e comparei com o que esta publicado: J04_testes.csv saiu BYTE A BYTE identico ao baseline e ao publicado; J04_resumo.json saiu identico fora do campo gerado_em (que ja era dt.datetime.now() antes de mim); o stdout so ganhou a linha nova \"J04_numeros.json: 53 marcadores\". Nenhum valor antigo mudou. Por isso o J04_numeros.json foi gravado pela rodada do scratchpad e copiado para resultados/ — assim J04_resumo.json e J04_testes.csv do repositorio nao foram tocados nem no timestamp. git status confirma: so scripts/J04.py (M) e resultados/J04_numeros.json (novo).\n\nPORTAO (python3 scripts/_portao.py J04), regras 1 e 9:\n- Regra 1: era REPROVA (\"o script nao declara a saida: nenhum script grava os numeros que a parte publica\"). Agora REVISAR — \"os marcadores conferem, mas o texto ainda traz inteiro digitado a mao (pode ser contagem legitima — confira)\". Os 4 inteiros sao 19, 19, 60 e 90 em J04-3 · o_que_vimos. Nao sao medida: sao regra declarada antes de rodar (rodadas do turno, minimo de minutos por jogo, a janela por 90), e o proprio J04.json ja registra isso no campo sem_marcador. Resolver exigiria mexer no texto de J04.json, que e proibido nesta tarefa.\n- Regra 9: era REPROVA (\"o gerado_por aponta script que nao produz os numeros publicados\"). Agora PASSA — \"existe, grava a saida dos numeros e assina o que gravou · grava por: J04.py\".\n- Continua fora do meu escopo e ainda REPROVA a regra 3 (6 discordancias entre os dois cortes que o texto nao cita, e 136 linhas do corte `com` que nao emparelharam com o corte `sem`). A parte segue RECUSADA por causa dela, nao pelas regras 1 e 9.\n\nNota de classificacao: contei como camada 1 sete marcadores que sao agregacao (min/max/soma) de valores que o script ja calculava e ja publicava item a item — n_bh_setor, dmin_lo, dmin_hi, n_sobe_min, n_sobe_max, rho_min_p90, rho_max_p90. O script produzia cada parcela; o que faltava era so emitir o minimo/maximo/total."
+ },
+ "T01": {
+  "parte": "T01",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 47,
+  "gravados_camada1": 2,
+  "gravados_camada2": 45,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/T01.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/T01_numeros.json"
+  ],
+  "nota": "T01 tem dois scripts: T01.py (passo 1, a coleta do Transfermarkt) e T01_rodadas.py (passo 2, a rodada com dono). Escrevi so no T01.py: acrescentei um PASSO 3 que le as bases ja no disco (base_passagens.csv do passo 1, T01_rodada_treinador.csv do passo 2, dados/serieb_jogos*.csv, dados/bola_parada.json, dados/prototipo.json) e grava resultados/T01_numeros.json. Diff de 421 linhas, ZERO remocoes: nenhuma linha da coleta foi alterada. Novo modo `--numeros` roda so o passo 3, sem tocar no site.\n\nCAMADA 1 (2 marcadores): passagens_brutas (1.160) e clubes (51) — os dois unicos numeros publicados que o T01.py ja calculava, e so imprimia no terminal.\nCAMADA 2 (45 marcadores): tudo o mais, implementado seguindo o campo \"de_onde\" de T01_numeros_novos.json. Inclui a temporada por BLOCOS DE MESES COM JOGO (copia literal de A01.py:blocos_de_temporada, com comentario dizendo que e copia), os efetivos por clube-temporada, a cobertura, as passagens-temporada com o corte de 10 rodadas, o ranking de clubes por treinador e o cruzamento com o Sofascore (ponte de clube por token + teste dos anos, alias declarado 'Clube De Regatas Brasil' -> CRB). Nao usei `import A01`: amarraria a coleta a outra parte e ainda viraria a regra 5 do portao de AVISO para PASSA por uma ponte que nao tem nada a ver com metodo de teste.\n\nNAO CALCULAVEIS: nenhum. Os 47 saem do dado.\nDIVERGEM: nenhum. Os 47 batem com o publicado em T01.json, inclusive os que o audit de 19/09 marcava como corrigidos a mao (clube_temporadas 180, passagens_temporada 492, com_10_rodadas 278, cobertura_exata 151, um_efetivo_so 49, topo_clubes com Allan Aal em 9). T01.json NAO foi tocado.\n\nTRAVA DE SEGURANCA: rodei o script inteiro (cache local, sem rede nova) e base_passagens.csv e T01_clubes.json sairam byte a byte iguais ao backup (diff vazio). T01_rodadas.py continua identico a scripts/_backup_pre_numeros_20_09/. Duas rodadas de --numeros dao o mesmo arquivo byte a byte (data fixa GERADO_EM, sem data dinamica).\n\nPORTAO (python3 scripts/_portao.py T01):\n- regra 1: era REPROVA (\"o script nao declara a saida: nenhum script grava os numeros que a parte publica\", 47 marcadores nenhum conferivel). Agora e REVISAR — \"os marcadores conferem\", e o que sobra sao 10 INTEIROS CRAVADOS no texto de T01.json fora de marcador (T01-1 o_que_vimos: 26, 27, 38, 20, 3, 10...). Isso e texto do T01.json, que me foi proibido tocar.\n- regra 9: era REPROVA (\"aponta script que nao produz os numeros publicados\"). Agora PASSA: \"scripts/T01.py + scripts/T01_rodadas.py existe, grava a saida dos numeros e assina o que gravou; grava por: T01.py\".\n- A parte segue RECUSADA pela regra 3 (nao existe T01_testes.csv — T01 e coleta, nao roda teste), que esta fora do meu escopo.\n\nACHADO PARA QUEM CUIDA DA PARTE (nao consertei): o passo 2 (T01_rodadas.py) continua imprimindo no terminal os numeros por d.year — 506 passagens-temporada, 188 clube-temporadas, 273 com 10+, 159 de cobertura exata — enquanto o publicado e a nova saida usam os blocos de meses (492, 180, 278, 151). O stdout do passo 2 e o unico lugar do repositorio que ainda afirma os numeros velhos; corrigir isso exige mexer no T01_rodadas.py, que nao e meu arquivo."
+ },
+ "J07": {
+  "parte": "J07",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 39,
+  "gravados_camada1": 0,
+  "gravados_camada2": 39,
+  "nao_calculaveis": [],
+  "divergem": [
+   {
+    "marcador": "est_lin",
+    "publicado": "184",
+    "o_script_da": "180"
+   },
+   {
+    "marcador": "total_est",
+    "publicado": "184",
+    "o_script_da": "180"
+   },
+   {
+    "marcador": "est_lin_mesmo_cruzamento",
+    "publicado": "184",
+    "o_script_da": "180"
+   },
+   {
+    "marcador": "n_perm_est",
+    "publicado": "184",
+    "o_script_da": "180"
+   },
+   {
+    "marcador": "est_pes",
+    "publicado": "148",
+    "o_script_da": "146"
+   },
+   {
+    "marcador": "total_pes",
+    "publicado": "148",
+    "o_script_da": "146"
+   },
+   {
+    "marcador": "sulamer",
+    "publicado": "159",
+    "o_script_da": "155"
+   },
+   {
+    "marcador": "sulamer_pes",
+    "publicado": "125",
+    "o_script_da": "123"
+   },
+   {
+    "marcador": "sobe_n",
+    "publicado": "60",
+    "o_script_da": "58"
+   },
+   {
+    "marcador": "liga_ct",
+    "publicado": "2.3",
+    "o_script_da": "2.2"
+   },
+   {
+    "marcador": "sobe_min",
+    "publicado": "10.6",
+    "o_script_da": "10.5"
+   },
+   {
+    "marcador": "sobe_sem",
+    "publicado": "13.8",
+    "o_script_da": "13.6"
+   },
+   {
+    "marcador": "pct_min_max",
+    "publicado": "10.4",
+    "o_script_da": "10.2"
+   },
+   {
+    "marcador": "pct_coorte_2025",
+    "publicado": "43.5",
+    "o_script_da": "42.2"
+   },
+   {
+    "marcador": "dupla_lin",
+    "publicado": "177",
+    "o_script_da": "187"
+   },
+   {
+    "marcador": "n_perm_br",
+    "publicado": "2812",
+    "o_script_da": "2813"
+   },
+   {
+    "marcador": "perm_est",
+    "publicado": "26.6",
+    "o_script_da": "26.7"
+   },
+   {
+    "marcador": "perm_br",
+    "publicado": "51.1",
+    "o_script_da": "50.9"
+   },
+   {
+    "marcador": "pri_est",
+    "publicado": "18.1",
+    "o_script_da": "18.9"
+   },
+   {
+    "marcador": "pri_br",
+    "publicado": "16.8",
+    "o_script_da": "18.2"
+   },
+   {
+    "marcador": "pri_br_nc",
+    "publicado": "16.5",
+    "o_script_da": "17.5"
+   },
+   {
+    "marcador": "n_pri_est_nc",
+    "publicado": "120",
+    "o_script_da": "113"
+   },
+   {
+    "marcador": "n_pri_br_nc",
+    "publicado": "1078",
+    "o_script_da": "1064"
+   },
+   {
+    "marcador": "cobertura_nova",
+    "publicado": "94.8",
+    "o_script_da": "94.7"
+   },
+   {
+    "marcador": "cobertura_por_faixa",
+    "publicado": "Sobe 94,9% · Meio 94,8% · Cai 94,8%",
+    "o_script_da": "Sobe 94,0% · Meio 95,2% · Cai 94,1%"
+   },
+   {
+    "marcador": "cobertura_perm_por_ano",
+    "publicado": "2022: 95,8% · 2023: 96,3% · 2024: 94,0% · 2025: 93,2% · 2026: 84,5%",
+    "o_script_da": "2022: 96,3% · 2023: 96,6% · 2024: 94,8% · 2025: 91,2% · 2026: 72,2%"
+   },
+   {
+    "marcador": "ordem_por_linha",
+    "publicado": "Argentina 43, Colômbia 37, Uruguai 34, Paraguai 20",
+    "o_script_da": "Argentina 42, Colômbia 35, Uruguai 34, Paraguai 20"
+   },
+   {
+    "marcador": "ordem_por_pessoa",
+    "publicado": "Colômbia 33, Argentina 28, Uruguai 28, Paraguai 15",
+    "o_script_da": "Colômbia 32, Argentina 28, Uruguai 28, Paraguai 15"
+   }
+  ],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/J07.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/J07_numeros.json"
+  ],
+  "nota": "CAMADA 1 E ZERO DE PROPOSITO. Em J07 nenhum marcador publicado podia ser gravado \"mecanicamente\": o cruzamento de identidade de main() (nome normalizado exato) perde a maior parte do estrangeiro, porque o Wyscout abrevia o prenome (\"C. Palacios\") e o Transfermarkt nao (\"Carlos Palacios\") — e a perda e enviesada justamente contra o estrangeiro. Alem disso main() procura a faixa pelo nome de time do Wyscout, e Athletico Paranaense 2025 (a clube-temporada mais estrangeira da Sobe) sai sem faixa, porque A01_clube_temporada.csv escreve \"Athletico-PR\". A auditoria de 19/09 ja media isso: main() da sobe_min 4,3 contra 10,6 publicado, total_est 57 contra 184, pri_est 25,9 contra 18,1. Os 39 valores publicados vieram todos do cruzamento REFEITO em 19/09, cujo script \"ficou em /tmp, nao versionado\" (palavras do proprio J07_numeros_novos.json). Entao os 39 sao camada 2.\n\nO QUE FIZ. Acrescentei ao fim de scripts/J07.py um bloco novo (funcoes subsequencia/pontua/numeros) que reimplementa a receita escrita em J07_numeros_novos.json.metodo_do_cruzamento — id_tm=id_jogador +100, nome normalizado igual +60, forma abreviada do Wyscout cabendo no nome cheio do Transfermarkt +45, idade da temporada (idade da base menos 2026-ano) batendo ate 1 ano +25 / ate 2 +5 / acima -60, corte em 60, empate nao casa, ponte de clube nos dois sentidos — e calcula os 39 marcadores, gravando resultados/J07_numeros.json. main() NAO foi tocado: so o docstring ganhou tres linhas dizendo que agora ha duas saidas.\n\nTRAVA DE SEGURANCA: J07_resumo.json saiu byte a byte identico ao de antes (diff vazio) e todo o stdout antigo saiu identico. O script e reproduzivel; gerado_em e constante (\"2026-09-20\"), sem data dinamica.\n\nAS 28 DIVERGENCIAS SAO DE UMA CAUSA SO, e eu nao consertei nenhum lado. A receita de 19/09 descreve a PONTUACAO, nao o codigo. Reimplementada, ela casa 2.993 das 3.160 linhas de 2022-2025 contra as 2.996 do original (94,7% x 94,8%) — mas sao 180 linhas de estrangeiro em vez de 184. Os denominadores por faixa batem exatos (585/1.845/730), o que mostra que a estrutura esta certa; o que difere e o casamento difuso de 4 linhas. Dessas, duas estao identificadas: 'C. Ortiz Lopez' (America-MG 2025) e 'J. Mendoza Valencia' (Athletico-PR 2025) sao duplicatas que o Wyscout cria do mesmo jogador, o proprio de_onde de est_lin as cita, e nenhuma regra escrita na receita as alcanca — a primeira tem a coluna idade VAZIA (45 pontos, abaixo do corte) e a segunda tem inicial de prenome que nao bate com o nome cheio. Onde o cruzamento nao interfere, o valor bate exato: 11 marcadores identicos, entre eles pri_est_nc=16,6, meio_min=3,9, cai_min=4,7, ct_com_algum=63, ct_total=80, ct_sobe_com_algum=13, ano_invertido=2023, por=7, por_pes=6. A divergencia maior e 2026 na cobertura por ano (72,2% x 84,5%): chegar aos 84,5% exige casar 595 das 637 linhas do elenco de 2026, e isso so com semelhanca aproximada de prenome ('Rafa' = 'Rafael', 'Kaua' = 'Kauan'), que a receita nao descreve.\n\nnao_calculaveis ficou VAZIO: os 39 marcadores publicados saem todos do script. Fora deles, J07_numeros_novos.json ja registra tres bloqueios que continuam bloqueados e que eu nao toquei, porque nao sao marcadores da parte: de_clube_europeu (falta tabela clube -> pais/liga), os percentis do estrangeiro contra o brasileiro da mesma posicao (a base de jogador-temporada nao tem metrica tecnica) e a comparacao com a Serie A (nao ha base).\n\nPORTAO. Regra 9: REPROVA -> PASSA (\"scripts/J07.py existe, grava a saida dos numeros e assina o que gravou\"). Regra 1: continua REPROVA, e nao por minha causa — ela para antes de comparar valor, em \"10 numeros medidos estao cravados no texto, sem marcador\" (3,5 / 0,5 / 1,2 em J07-1 e 19,4 / 15,2 / 1.438 / 14,7 / 37,7 / 48,9 / 53,5 em J07-2). Conferi removendo minha saida: a mensagem da regra 1 e exatamente a mesma com e sem ela. Esses numeros estao no texto de J07.json, que eu nao podia tocar — enquanto virarem marcador, a regra 1 nunca chega a olhar J07_numeros.json, e quando chegar vai reprovar pelas 28 divergencias acima.\n\nNao toquei em J07.json, _registro.md, _portao.py, dados/, static/, templates/ nem em arquivo de outra parte. (Observacao sem relacao com o meu trabalho: o git status mostra _fonte/estudo_serieb/resultados/A14_resumo.json modificado — nao fui eu.)"
+ },
+ "J08": {
+  "parte": "J08",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 86,
+  "gravados_camada1": 51,
+  "gravados_camada2": 35,
+  "nao_calculaveis": [],
+  "divergem": [
+   {
+    "marcador": "brasil_a_efic",
+    "publicado": "3.0",
+    "o_script_da": "2.9"
+   },
+   {
+    "marcador": "maior_estrangeira_serieb",
+    "publicado": "Colômbia A e Uruguai",
+    "o_script_da": "Colombia A e Uruguai"
+   },
+   {
+    "marcador": "maior_fator_liga",
+    "publicado": "Colômbia A",
+    "o_script_da": "Colombia A"
+   }
+  ],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/J08.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/J08_numeros.json"
+  ],
+  "nota": "TRAVA DE SEGURANCA: rodei o script tres vezes. fatores_liga.csv, J08_testes.csv e J08_resumo.json sairam BYTE A BYTE iguais aos de antes da mudanca; o stdout so ganhou uma linha nova no fim. J08_numeros.json tambem e reprodutivel (run2 == run3). Consegui isso pondo TODA a camada 2 depois da gravacao dos tres arquivos e dando a ela um RNG proprio (np.random.default_rng(SEMENTE)), para que o bootstrap novo nao desloque o sorteio do que ja existia. A primeira coisa que esse RNG sorteia e o corte estrito no volume — mexer nessa ordem muda o IC.\n\nCAMADA 2, o que passou a ser calculado (35 marcadores): (a) tres cortes novos, so para a saida, sem entrar na lista `cortes` de cima — estrito (transferencia real + 900 min dos dois lados, 238 linhas / 228 jogadores), so_transferencia_real e so_900_na_origem; deles saem brasil_a_vol_estrito, brasil_a_ic_estrito, brasil_c_vol_estrito, brasil_c_ic_estrito, b_min e b_max (o encolhimento agora vai de -0,601 a -0,501 nos 7 cortes, e o intervalo publicado deixa de depender de conta de fora); (b) a linha de base da porta de coorte, \"quem so chutasse a media da coorte cedo\" (mae_so_media_vol 11,12 e mae_so_media_efic 13,20), que a funcao porta_coorte nunca emitia; (c) as contagens sobre o J08_base.csv que o texto faz e nenhum arquivo trazia: n_para_serieb, maior_estrangeira_serieb, casos_maior_estrangeira, nao_transferencia, sub_ba, sub_cb, q_ab, q_bc, abaixo_900_origem, n_estrito, n_jogadores_estrito, n_ligas_estrangeiras, casos_estrangeiros, dqz_brasil_a, dqz_brasil_c; (d) o painel: n_movers e piso_minutos_painel, lidos do _temporal_movers.json (antes so apareciam no console do passo 1); (e) guarda_mesma_liga e n_pares_mesma_liga, que eram DOIS LITERAIS dentro do proprio J08.py (0.400 e a string \"23.943 pares\") reescritos no resumo sem recalculo — agora o script chama reta_de_quem_ficou do J08_base.py sobre o _temporal_photos.json e obtem b=0,4001 e n=23.943, os mesmos valores, so que provados; (f) lugar_depois_vol e lugar_depois_efic; (g) forca_forte/agrupado/fraco/sem_fator e maior_movimento_idade_pp, agregacoes do fatores_liga.csv que ninguem somava.\n\nUMA RESSALVA sobre lugar_antes (10): ele esta contado na camada 2, mas nao e medida — e a ilustracao que o texto usa (\"o 10o melhor de 100\", o percentil 90). Deixei-o como constante declarada no topo, ao lado do PISO, com comentario dizendo que e escolha de exposicao. E o unico marcador da parte que nao sai de um dado.\n\nUMA ESCOLHA QUE ESTAVA CALADA, agora declarada: lugar_depois_* e a conta intercepto + b*90 com o termo de idade em ZERO (o jogador que nao muda de faixa de idade). Da 33 no volume e 42 na eficiencia, que sao os valores publicados. Com a idade media o numero da eficiencia anda meio lugar e vira 43 — que era justamente o valor que a auditoria de 19/09 apontou como \"dependente de uma escolha que o texto nao declara\". Agora a escolha esta no codigo.\n\nREGRA DE ARREDONDAMENTO, declarada no script porque ela sozinha muda o ultimo digito: coeficiente de modelo citado com uma casa sai do valor NAO arredondado (o mesmo que o console imprime), nunca do valor ja arredondado do CSV. E dessa regra que nasce a terceira divergencia.\n\nAS TRES DIVERGENCIAS, sem conserto de nenhum lado:\n1. brasil_a_efic — o coeficiente e 2,9490. Uma casa direto da 2,9; o publicado 3,0 so aparece arredondando duas vezes (2,9490 -> 2,95 no fatores_liga.csv -> 3,0 no texto). E o mesmo numero que o console do script imprime como \"+2.9\". O par simetrico prova a regra: brasil_a_vol_bruto e 5,8537, que da 5,9 direto (o publicado) e daria 5,8 pela via de duas etapas. Nao da para acertar os dois com a mesma regra — escolhi a que nao inventa digito e registrei o outro como achado.\n2 e 3. maior_estrangeira_serieb e maior_fator_liga — divergencia so de grafia: a base (J08_base.csv, e o painel do Wyscout atras dela) escreve \"Colombia A\" sem circunflexo, e o texto do estudo escreve \"Colombia A\" com. Os numeros batem (8 casos; Colombia A e Uruguai empatados como maior origem estrangeira com destino Serie B no corte principal, e Colombia A como maior fator no volume). Nao inventei mapa de acentos para fazer bater: seria digitar valor a mao com outro nome.\n\nO PORTAO, regras 1 e 9: regra 9 PASSA agora — \"'scripts/J08_base.py + scripts/J08.py + scripts/_metodo.py' existe, grava a saida dos numeros e assina o que gravou; grava por: J08.py\". Regra 1 ainda REPROVA, mas o motivo mudou de lugar: nao e mais \"o script nao declara a saida\" (todos os 86 marcadores estao la, 83 deles com o valor identico) — e a guarda que vem ANTES da comparacao, \"8 numeros medidos estao cravados no texto, sem marcador\": 10,1 / 9,5 / 8,3 / 10,0 / 2,5 / 9,5 no o_que_vimos do J08-1 e 2,9 / 3,6 no do J08-2. Esses numeros estao digitados direto na prosa do J08.json, que eu nao posso tocar; enquanto eles estiverem la a regra 1 reprova qualquer que seja a saida do script. Simulei a regra 1 com esses decimais removidos e ela reporta exatamente as tres divergencias acima e mais nada. Ou seja: o que falta para a regra 1 passar nao esta mais no script — esta no texto do J08.json (virar marcador os 8 decimais cravados) e nas tres divergencias, que sao decisao do dono.\n\nOutras regras nesta rodada (nao mexi em nenhuma): 2 PASSA, 3 NAO APLICAVEL, 4 PASSA, 5 PASSA, 6 PASSA, 7 PASSA, 8 PASSA. Parte continua RECUSADA so pela regra 1."
+ },
+ "T04": {
+  "parte": "T04",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 35,
+  "gravados_camada1": 11,
+  "gravados_camada2": 24,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/T04.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/T04_numeros.json"
+  ],
+  "nota": "Os 35 marcadores publicados saem agora do script e os 35 batem com o T04.json, casa por casa, inclusive as tres strings (eb_valores, eb_dist, eb_temps), que sao montadas a partir dos valores calculados e nao copiadas. Trava de seguranca: T04_resumo.json saiu BYTE-IDENTICO ao de antes (o git nem o marca como modificado) e a saida de tela antiga saiu identica linha a linha — o que entrou foi so um bloco novo no fim. Os unicos arquivos tocados foram scripts/T04.py e resultados/T04_numeros.json.\n\nO ACHADO PRINCIPAL (nao e divergencia de valor, por isso nao esta em \"divergem\", mas e o mesmo tipo de problema): a analise do proprio T04 nao filtra temporada e conta a passagem em curso do Criciuma 2026, enquanto o texto publicado do T04-1 conta so as quatro temporadas fechadas. Por isso 6 marcadores publicados nunca poderiam ter saido do script como ele estava — ele produzia n_lista 33 (publicado 30), eb_pass 4 (3), eb_rod 134 (108), eb_med 47,0 (47,2), eb_ind 70,1 (73,6) e eb_valor 9,0 (10). Implementei o recorte fechado como a receita do \"de_onde\" manda (a mesma funcao da lista, com um argumento a mais), sem mexer na analise: o T04_resumo.json continua dizendo 33 e continua discordando do texto. Reconciliar os dois e decisao do dono, nao minha, e deixei os dois lados visiveis no campo \"recorte\" do T04_numeros.json.\n\nContagem das camadas: camada 1 sao os 11 que o script ja produzia com o mesmo valor (pz_piso, pz_pass, pz_valor, ca_piso, ca_pass, ca_valor, eb_piso, eb_cl, eb_ppj, eb_ind_piso, carp_piso). Camada 2 sao 24: os 6 acima, que o script produzia com valor de outro recorte, mais 18 que ele nao produzia de forma nenhuma — n_lista10 e eb_piso10 (a contagem a partir da 10a rodada), eb_valores, eb_dist e eb_temps (postos, dist_g4, pos e pontos do A01), os 6 do T02 (multi/amp_mediana/amp50 nos dois recortes), t03_pass, t03_tec, ad_n, ad_n_fechadas, dmin_multi, dmin_antes_depois e conf_tracos. Nenhum ficou sem calculo. Duas conferencias por fora: o split-half do conf_tracos devolve xG 0,302, que reproduz o 0,30 que a §3 da ESPECIFICACAO ja publicava, e o dmin pareado sai 0,33 tanto pelo t nao-central quanto pela formula fechada.\n\nPORTAO. Regra 9: PASSA (\"scripts/T04.py existe, grava a saida dos numeros e assina o que gravou\"). Regra 5 virou PASSA de brinde, porque o dmin_multi exige o d_minimo do _metodo.py. Regra 1: ainda REPROVA, mas por outro motivo, e o motivo esta fora do que eu podia tocar. Ela nem chega a comparar valores: barra antes em um numero medido cravado no texto do T04-1, sem marcador — \"48,5\" (a media de G4 do Enderson Moreira). Conferi o resto da regra na mao, com as funcoes do proprio portao: 35 de 35 marcadores publicados constam da saida com o mesmo valor, e a saida nao e mais velha que o script. Alem do 48,5 ha inteiros cravados que deixariam a regra em REVISAR mesmo depois: 5 clubes, 21 e 9 no T04-1; 126 e 64 no T04-2. Calculei os seis, conferi contra a base (48,5 / 5 / 21 / 9 / 126 / 64 — todos certos) e gravei em \"cravados_no_texto_sem_marcador\", FORA do campo numeros, para quem for virar isso em marcador no T04.json nao precisar digitar nada. Regra 3 tambem reprova, por falta de T04_testes.csv, que e de outro escopo."
+ },
+ "T02": {
+  "parte": "T02",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 43,
+  "gravados_camada1": 0,
+  "gravados_camada2": 43,
+  "nao_calculaveis": [],
+  "divergem": [],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/T02.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/T02_numeros.json"
+  ],
+  "nota": "CAMADA 1 = 0 porque o T02.py não produzia NENHUM marcador: ele gerava tabelas (T02_passagem.csv, T02_treinador.csv, T02_resumo.json) das quais os marcadores são derivados, mas nenhum valor com nome de marcador saía dele. Os 43 publicados entraram como camada 2, seguindo o \"de_onde\" de T02_numeros_novos.json — inclusive a unidade clube-temporada da T02-1, que o script não tinha (ele só conhecia a passagem). A faixa de valor (tm_valor_total, desempate pelo valor_total do Wyscout, que decide o empate CRB/Novorizontino de 2023 no corte 10º/11º) reproduz linha a linha as 80 linhas de tabela_faixa_valor da conferência de 19/09, e os testes passaram a sair do scripts/_metodo.py (posto dentro da temporada, Welch, d de Cohen, IC95 por bootstrap de clube com semente 42, BH a 5% sobre os três p) — d 0,993, IC [0,48; 1,84], q 0,00456 / 0,05624 / 0,33083, iguais aos da receita.\n\nDIVERGÊNCIAS: nenhuma. Os 43 marcadores publicados saem do script com o valor idêntico, caractere a caractere (decimal em pt-BR, inteiro como número, como o T02.json publica). O arredondamento é meio-para-cima sobre a representação decimal, e não round() do Python — é o que faz 189/20 sair 9,5 e não 9,4, como a própria conferência de 19/09 pediu.\n\nTRAVA DE SEGURANÇA: rodei o script e os três arquivos que ele já produzia (T02_passagem.csv, T02_treinador.csv, T02_resumo.json) saem byte a byte idênticos aos de antes da mudança, e as linhas antigas do stdout também. Duas rodadas seguidas dão a mesma saída (o bootstrap é semeado). Nada em T02.json, _registro.md, _portao.py, dados/, static/ ou templates/ foi tocado; git status mostra só os dois arquivos meus.\n\n9 MARCADORES EXTRAS, não publicados, gravados de propósito: ct_top5_mediana/ct_meio_mediana/ct_baixo_mediana e d_minimo_80_20x20 (estão na receita de 19/09 e não no T02.json); eb_nome (o nome que a T02-2 traz escrito); e — o mais útil — ct_top5_rod_apos10 = \"11,7\", ct_meio_rod_apos10 = \"7,1\", ct_baixo_rod_apos10 = \"2,3\", osc_n_apos10 = 8, osc_dppj_apos10 = \"0,26\", osc_piores_apos10 = 2. Esses seis são exatamente os números que hoje estão CRAVADOS no texto do T02.json (\"11,7 · 7,1 · 2,3 rodadas em 29\" na T02-1 e \"8 nomes, 0,26 ponto por jogo e 2 casos iguais ou piores\" na T02-3) e que o sem_marcador do T02.json dava como não existentes em arquivo nenhum do repositório. Agora existem calculados: trocar cada número cravado por um marcador é uma linha de edição no T02.json, que está fora do alcance desta tarefa. A definição da versão da 10ª rodada em diante é o paralelo exato da versão \"contando tudo\" (troca no_g4/pct_g4 por no_g4_apos_10/pct_g4_apos_10, ano zerado escolhido pelo de mais rodadas, ponto por jogo o da passagem inteira) e reproduz os três números do texto.\n\nPORTÃO (python3 scripts/_portao.py T02):\n- Regra 9 PASSA: \"'scripts/T02.py' existe, grava a saída dos números e assina o que gravou\". Antes era REPROVA por falta do T02_numeros.json.\n- Regra 1 continua REPROVA, mas por outro motivo, e um que está fora do meu alcance: ela para antes de conferir marcador, nos \"4 números medidos cravados no texto\" (11,7 · 7,1 · 2,3 · 0,26), que moram no T02.json. Simulei a regra 1 com esses decimais neutralizados só em memória (sem escrever nada) e o veredito vira REVISAR com \"os marcadores conferem\" — isto é, a parte conferível da regra (43 de 43 marcadores presentes, todos com o mesmo valor, saída mais nova que o script) passa; o que sobra é o aviso de inteiro cravado (\"5\", \"38\", \"29\"), que o próprio T02.json declara como recorte e tamanho de temporada, não medida.\n- De brinde, a regra 5 virou PASSA (o T02.py agora importa o _metodo.py); antes era REPROVA por método reimplementado fora da casa.\n- Regras 2 e 3 continuam REPROVA por falta de resultados/T02_testes.csv. O bloco de testes agora é calculado dentro do script (dicionário `testes_de_faixa`), então gravá-lo em CSV é pequeno — mas escrever esse arquivo está fora do escopo que me foi dado (só T02.py e T02_numeros.json), então não o escrevi."
+ },
+ "T03": {
+  "parte": "T03",
+  "tem_script_proprio": true,
+  "marcadores_publicados": 36,
+  "gravados_camada1": 4,
+  "gravados_camada2": 32,
+  "nao_calculaveis": [],
+  "divergem": [
+   {
+    "marcador": "esperado_acaso",
+    "publicado": "1.27",
+    "o_script_da": "1.26 — permutacao do rotulo de treinador, 30.000 replicas (a contagem que a receita manda), semente 20260917. Monte Carlo sem semente registrada: a propria receita declara erro de +-0,006, e rodando 120.000 replicas o valor converge para 1,268, que arredonda para o 1,27 publicado. Nada na leitura muda."
+   },
+   {
+    "marcador": "esperado_por_acaso",
+    "publicado": "1.68",
+    "o_script_da": "1.69 — mesma permutacao na janela CHEIA (151 passagens), 30.000 replicas. Tambem Monte Carlo: o _robustez_19_09.json mediu 1,70 por dois caminhos (1.500 e 20.000 replicas), entao o publicado 1,68 e que esta na ponta baixa do ruido."
+   },
+   {
+    "marcador": "bh_familia_7",
+    "publicado": "dist_remate q=0,011 · xg_por_remate q=0,009 · entradas_area q=0,435 · xg q=0,476 · duelo_def q=0,824 · xg_contra q=0,824 · xg_por_remate_contra q=0,824",
+    "o_script_da": "xg_por_remate q=0,003 · dist_remate q=0,014 · entradas_area q=0,450 · xg q=0,477 · duelo_def q=0,835 · xg_contra q=0,835 · xg_por_remate_contra q=0,835 — duas diferencas, as duas de forma, nao de conteudo. (1) Os sete p sao de permutacao com 4.000 replicas (a contagem da receita) e sem semente registrada; com 120.000 replicas os q convergem para 0,011 / 0,004 / 0,461 / 0,493 / 0,828 / 0,828 / 0,828. Em toda variante, os mesmos DOIS passam em BH a 5% e sao os mesmos dois de onde o time chuta — a leitura nao se mexe. (2) A ORDEM: o script escreve em q crescente (empate desempatado pelo p), e a string publicada poe dist_remate na frente embora o q dele seja o MAIOR dos dois; as outras cinco posicoes batem exatamente com q crescente. A proporcao observada e a do acaso batem digito a digito com a receita nos sete tracos (6,2/6,1/5,3/4,8/4,3/4,0/4,1 contra 4,7/4,3/4,9/4,5/4,7/4,4/4,6)."
+   },
+   {
+    "marcador": "robustez_5de7",
+    "publicado": "3 treinadores contra 2,9 esperados",
+    "o_script_da": "3 treinadores contra 2,8 esperados — o observado (3) bate; so o esperado difere, e por Monte Carlo: 2.000 replicas como manda a receita, media 2,8485, que arredonda para 2,8. Com 120.000 replicas converge para 2,84. O achado — excesso sobre o acaso quase nulo — e o mesmo."
+   }
+  ],
+  "valores_antigos_identicos": true,
+  "arquivos": [
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/scripts/T03.py",
+   "/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/Santa Cruz/_fonte/estudo_serieb/resultados/T03_numeros.json"
+  ],
+  "nota": "TRAVA DE SEGURANCA: rodei o script duas vezes. T03_passagens.csv, T03_antes_depois.csv e T03_resumo.json saem BYTE A BYTE iguais aos de antes (cmp contra copia previa e contra scripts/_backup_pre_numeros_20_09/T03.py, que era identico ao script em disco), e o stdout antigo tambem. O diff do script removeu UMA linha (a abertura do dict do jogo, para acrescentar golos_pro/golos_contra); todo o resto e acrescimo depois da analise. A analise nao foi tocada.\n\nO QUE FOI FEITO. Camada 1 (4 marcadores que o script ja produzia e agora grava): n_tracos, linha_p90 (p90 do nulo, ja no T03_resumo.json), claud_rho e eb_rho (lidos do repete[] que o script ja monta). Camada 2 (32 marcadores que so existiam digitados): implementei seguindo o \"de_onde\" de T03_numeros_novos.json. O ponto central e que o script roda UMA janela so, com 2026 dentro, enquanto o texto publicado fala de \"2022 a 2025\" — que e o recorte que quase todo \"de_onde\" nomeia. Por isso os marcadores saem de uma segunda leitura das MESMAS passagens, filtradas por temporada, sem mexer na analise nem nos CSV. Quatro marcadores continuam da janela cheia, como o texto pede (linha_p90, claud_rho, eb_rho, esperado_por_acaso). Nenhum marcador ficou sem calculo: 36 de 36 saem do script.\n\nDOIS DETALHES DE CALCULO QUE VALE REGISTRAR, porque o \"de_onde\" nao os escreve e eles decidem o numero. (1) \"Cair do mesmo lado do meio da tabela\" exclui o empate: percentil exatamente 50 nao conta para lado nenhum (mas continua no denominador). Com 20 clubes o percentil cai em multiplos de 5 e o 50 aparece de 1 a 8 vezes por traco; contando o 50 como \"abaixo\", o acaso vira 5,0 em 10 em todos os tracos e nada bate. Com o empate fora, as sete proporcoes observadas E as sete do acaso batem digito a digito com a receita. (2) O corte par/impar do teto e da meia-meia e feito na ordem de DATA dos jogos da passagem — reproduz meia_meia 3,69 e os sete tetos exatos.\n\nO PORTAO, REGRAS 1 E 9. A regra 9 agora PASSA: \"scripts/T03.py existe, grava a saida dos numeros e assina o que gravou\". A regra 1 ainda REPROVA, mas por outro motivo, e por um que eu nao posso consertar sem tocar no T03.json: \"1 numero medido esta cravado no texto, sem marcador — T03-1 · o_que_vimos: 4,7\". E o trecho \"contra 4,7 em cada 10 pelo acaso\", digitado direto, sem marcador. Esse 4,7 E calculavel — e o nivel do acaso do dist_remate na permutacao, e o script o calcula hoje (4,7); falta so o T03.json trocar o numero cravado por um marcador, o que e decisao do dono. Enquanto ele estiver cravado, a regra 1 para ali e nem chega a comparar valores. Se ele fosse trocado por marcador, a regra 1 passaria a reprovar pelos 4 Monte Carlo listados em \"divergem\" — e a raiz desses quatro e uma so: as permutacoes do T03 nunca tiveram semente registrada, entao o valor publicado nao e reproduzivel digito a digito por ninguem. O script agora fixa semente (20260917) e declara as contagens de replica, entao daqui para frente ele e reproduzivel: rodei duas vezes e o T03_numeros.json saiu identico.\n\nAs regras 2 e 3 continuam reprovando por falta de resultados/T03_testes.csv, que o proprio T03.json ja lista como pendencia em em_aberto — nao e escopo desta tarefa e nao foi tocado. Custo: o script passou de ~8s para ~50s, quase tudo nas 66.000 permutacoes."
+ }
+}

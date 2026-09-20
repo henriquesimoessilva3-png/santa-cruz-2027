@@ -43,6 +43,20 @@ R = os.path.join(ESTUDO, "resultados")
 RNG = np.random.default_rng(20260917)
 ANOS = {"2022", "2023", "2024", "2025"}
 TIPOS = ("esc", "fd", "fi", "lat")
+# Constante, e não a data de hoje: o script é reprodutível, e data dinâmica faria a saída mudar
+# sem que o dado tivesse mudado.
+GERADO_EM = "2026-09-20"
+
+# Casas decimais com que cada marcador aparece na tela do A04. Marcador que não está aqui é
+# publicado como número cru — o inteiro da contagem ou o valor de 3 casas do quadro_por_faixa.
+CASAS_DO_MARCADOR = {
+    "c_aer": 1, "c_aer_m": 1, "c_aer_com": 1, "c_aer_m_com": 1, "c_aer_dif": 1,
+    "saldo_sobe_38": 1, "pct_min": 1, "pct_q1": 1, "pct_q3": 1, "pct_max": 1,
+    "cai_cantos": 1, "meio_cantos": 1,
+    "dmin_sm_com": 2, "dmin_sm_sem": 2,
+    "c_pro_com": 2, "c_pro_m_com": 2, "c_sof_com": 2, "c_sof_m_com": 2, "c_sal_com": 2,
+    "c_sal_m_com": 0,
+}
 
 
 def norm(t):
@@ -91,6 +105,108 @@ def _iniciais(nome):
     """CRB <-> Clube De Regatas Brasil: as iniciais das palavras com 3+ letras."""
     ps = [x for x in re.split(r"[^A-Za-zÀ-ÿ]+", str(nome)) if len(x) >= 3]
     return "".join(norm(x)[0] for x in ps) if len(ps) > 1 else norm(nome)
+
+
+def br(v, casas):
+    """O número como a tela escreve: vírgula decimal, casas fixas, sem “-0”."""
+    t = f"{float(v):.{casas}f}"
+    if t.startswith("-") and float(t) == 0:
+        t = t[1:]
+    return t.replace(".", ",")
+
+
+def numeros_da_aba(base, res, quadro, inds, placar):
+    """Marcador -> valor, com TODO número que a aba do A04 publica.
+
+    Etapa 6 do PLANO.md, regras 1 e 9 do portão: nenhum número da tela pode ser digitado à mão, e
+    o script que a parte declara em `gerado_por` tem de ser o que os produz. Isto NÃO é análise
+    nova: são as mesmas contas que já alimentavam o `A04_resumo.json` e o `A04_testes.csv`, agora
+    escritas com o nome do marcador ao lado, mais doze que até aqui só existiam digitados — os
+    totais de gol por tipo, os quartis da fatia, a diferença do duelo aéreo, as duas leituras
+    "numa temporada de 38 jogos" e a contagem dos indicadores de trabalho.
+
+    A receita de cada um dos doze está em `resultados/A04_numeros_novos.json`, campo `de_onde`.
+    """
+    def linha(corte, comparacao, indicador):
+        for it in res:
+            if (it["fronteira"] == corte and it["comparacao"] == comparacao
+                    and it["indicador"] == indicador):
+                return it
+        raise SystemExit(f"A04: {corte}/{comparacao}/{indicador} não saiu dos testes — sem essa "
+                         "linha um marcador publicado ficaria sem conta, e isso é reprovação")
+
+    conta = lambda f: sum(1 for l in base if f(l))
+    sobe = lambda l: l["faixa"] == "Sobe"
+    meio = lambda l: l["faixa"] == "Meio"
+    cai = lambda l: l["faixa"] == "Cai"
+    colados_fora = lambda f: (lambda l: f(l) and not l["fronteira"])
+    mediana = lambda f, c: float(np.median([l[c] for l in base if f(l)]))
+    pcts = [l["bp_pro_pct"] for l in base]
+
+    def cm(indicador, corte="com"):
+        """As duas medianas de Cai × Meio, CRUAS, e conferidas contra a linha dos testes.
+
+        Por que cruas e não a coluna `cru_a` do CSV: ela já vem arredondada a 3 casas, e
+        arredondar de novo para a tela arredonda duas vezes — 0,3552632 vira 0,355 e depois 0,35,
+        quando o número é 0,36. É a mesma mediana, só sem a parada no meio do caminho; a conferência
+        abaixo garante que é a mesma, e para se não for.
+        """
+        f_a, f_b = (cai, meio) if corte == "com" else (colados_fora(cai), colados_fora(meio))
+        a, b = mediana(f_a, indicador), mediana(f_b, indicador)
+        it = linha(corte, "CM", indicador)
+        if (round(a, 3), round(b, 3)) != (it["cru_a"], it["cru_b"]):
+            raise SystemExit(f"A04: a mediana crua de {indicador} ({corte}) não bate com a linha "
+                             f"dos testes ({a}, {b} contra {it['cru_a']}, {it['cru_b']})")
+        return a, b
+
+    aer_a, aer_b = cm("duelos_aereos_pct")
+    pro_a, pro_b = cm("bp_pro_90")
+    sof_a, sof_b = cm("bp_sof_90")
+    sal_a, sal_b = cm("bp_saldo_90")
+    can_a, can_b = cm("cantos")
+    aer_sf_a, aer_sf_b = cm("duelos_aereos_pct", "sem")
+
+    crus = {
+        # quanto da produção vem de bola parada, por faixa (o mesmo quadro_por_faixa)
+        "n_total": len(base),
+        "liga_pct": quadro["Liga"]["bp_pro_pct"],
+        "liga_bp90": quadro["Liga"]["bp_pro_90"],
+        "sobe_pct": quadro["Sobe"]["bp_pro_pct"],
+        "meio_pct": quadro["Meio"]["bp_pro_pct"],
+        "trave_pct": quadro["Trave"]["bp_pro_pct"],
+        "cai_pct": quadro["Cai"]["bp_pro_pct"],
+        # tamanho de cada grupo, nos dois cortes de fronteira
+        "n_sobe_com": conta(sobe), "n_meio_com": conta(meio), "n_cai_com": conta(cai),
+        "n_trave": conta(lambda l: l["trave"]),
+        "n_sobe_sf": conta(colados_fora(sobe)), "n_meio_sf": conta(colados_fora(meio)),
+        "n_cai_sf": conta(colados_fora(cai)),
+        # o que o desenho enxergaria em Sobe × Meio (igual nas 13 linhas de cada corte)
+        "dmin_sm_com": linha("com", "SM", "bp_pro_90")["d_minimo_80"],
+        "dmin_sm_sem": linha("sem", "SM", "bp_pro_90")["d_minimo_80"],
+        # indicadores de TRABALHO: os 13 menos os 5 que a lista branca declara placar redescrito
+        "n_ind_carac": sum(1 for i in inds if i["id"] not in placar),
+        # a fatia dos gols que vem de bola parada, entre os 80 clube-temporadas
+        "pct_min": min(pcts), "pct_max": max(pcts),
+        "pct_q1": float(np.percentile(pcts, 25)), "pct_q3": float(np.percentile(pcts, 75)),
+        # o mesmo por-jogo lido numa temporada inteira de 38 jogos
+        "liga_bp_38": int(round(mediana(lambda l: True, "bp_pro_90") * 38)),
+        "saldo_sobe_38": mediana(sobe, "bp_saldo_90") * 38,
+        # totais de gol por tipo no recorte inteiro (lateral fecha a soma e não vai à tela)
+        "tot_esc": sum(l["esc_pro"] for l in base),
+        "tot_falta": sum(l["falta_pro"] for l in base),
+        "tot_pen": sum(l["pen_pro"] for l in base),
+        "tot_bp": sum(l["bp_pro"] for l in base),
+        # Cai × Meio no corte COM fronteira, que é o n que o A04-3 declara
+        "c_aer_com": aer_a, "c_aer_m_com": aer_b, "c_aer_dif": aer_b - aer_a,
+        "c_pro_com": pro_a, "c_pro_m_com": pro_b,
+        "c_sof_com": sof_a, "c_sof_m_com": sof_b,
+        "c_sal_com": sal_a, "c_sal_m_com": sal_b,
+        "cai_cantos": can_a, "meio_cantos": can_b,
+        # e o mesmo duelo aéreo no corte SEM os colados na linha
+        "c_aer": aer_sf_a, "c_aer_m": aer_sf_b,
+    }
+    return {m: (br(v, CASAS_DO_MARCADOR[m]) if m in CASAS_DO_MARCADOR else v)
+            for m, v in crus.items()}
 
 
 def main():
@@ -228,6 +344,14 @@ def main():
         m = " ⚑" if it["placar_redescrito"] else ""
         print(f"{it['familia']:10s} {it['indicador'][:20]:20s} {it['comparacao']:3s} "
               f"{it['cru_a']:8.2f} {it['cru_b']:8.2f} {it['d']:+6.2f} {it['q']:8.4f}  {it['selo']}{m}")
+
+    # Os números da tela, gravados por quem os calcula (etapa 6, regras 1 e 9 do portão).
+    numeros = numeros_da_aba(base, res, quadro, inds, placar)
+    json.dump({"gerado_por": "scripts/A04.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(os.path.join(R, "A04_numeros.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"\n{'='*92}\nNÚMEROS DA ABA\n{'='*92}")
+    print(f"  {len(numeros)} marcadores → A04_numeros.json")
 
 
 if __name__ == "__main__":

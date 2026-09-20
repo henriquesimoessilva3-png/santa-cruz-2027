@@ -23,6 +23,17 @@ antes de rodar.
 O CLAUDE.md manda sinalizar temporada sem público em qualquer leitura de casa e fora. O recorte aqui
 é 2022–2025, todo com público: a regra não morde. Ela morde na segunda parte (2018–2021).
 
+## A saída por marcador (20/09)
+
+Além do `A03_testes.csv` e do `A03_resumo.json`, este script passou a gravar
+`resultados/A03_numeros.json`: o valor de **cada marcador** que o `A03.json` publica, com o nome do
+marcador como chave. Antes, a procedência dos 37 números da tela era disciplina — alguém lia o CSV e
+copiava. Agora é mecanismo, e a regra 1 do `scripts/_portao.py` confere.
+
+Essa saída é a **conferência** do que está publicado, não a substituição: onde o `A03.json` mostra
+menos casas decimais do que o script produz, o portão acusa, e acusar é o que se quer. A análise não
+mudou — nada acima do bloco marcado foi tocado.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/A03.py
 """
@@ -46,6 +57,9 @@ RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
 DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
 RNG = np.random.default_rng(20260917)
+# Constante, não data do relógio: com a RNG semeada o script é reprodutível, e uma data dinâmica
+# faria a saída mudar todo dia sem que número nenhum tivesse mudado.
+GERADO_EM = "2026-09-20"
 ANOS = {"2022", "2023", "2024", "2025"}
 PONTOS = {"V": 3, "E": 1, "D": 0}
 
@@ -151,15 +165,101 @@ def main():
                                               "dif_dd")}
               for nome_f, f in faixas.items()}
 
+    poder = {"16x48": d_minimo(16, 48), "8x32": d_minimo(8, 32),
+             "16x16": d_minimo(16, 16), "8x7": d_minimo(8, 7)}
     json.dump({"quadro_por_faixa": quadro,
-               "poder_por_desenho": {"16x48": d_minimo(16, 48), "8x32": d_minimo(8, 32),
-                                     "16x16": d_minimo(16, 16), "8x7": d_minimo(8, 7)},
+               "poder_por_desenho": poder,
                "n": {"total": len(base),
                      "sobe_sf": sum(1 for l in base if l["faixa"] == "Sobe" and not l["fronteira"]),
                      "meio_sf": sum(1 for l in base if l["faixa"] == "Meio" and not l["fronteira"]),
                      "cai_sf": sum(1 for l in base if l["faixa"] == "Cai" and not l["fronteira"])}},
               open(os.path.join(R, "A03_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
+
+    # ==========================================================================================
+    # A saída por marcador — resultados/A03_numeros.json
+    # ==========================================================================================
+    # Daqui para baixo só se LÊ o que já foi calculado (`res`, `quadro`, `poder`) e se escreve.
+    # Nenhuma linha acima mudou: o A03_testes.csv e o A03_resumo.json saem idênticos aos de 19/09.
+    #
+    # Os valores saem no arredondamento que o próprio script já usa nas suas saídas — mediana com 3
+    # casas (`comparar` e `med`), d com 3, d mínimo com 2. Arredondar outra vez aqui inventaria um
+    # terceiro número, que é exatamente o defeito que a auditoria de 19/09 achou.
+
+    def linha(fronteira, familia, comparacao, indicador):
+        """A linha do A03_testes.csv. Erra alto se sumir: marcador sem linha é marcador sem número."""
+        for it in res:
+            if (it["fronteira"] == fronteira and it["familia"] == familia
+                    and it["comparacao"] == comparacao and it["indicador"] == indicador):
+                return it
+        raise KeyError(f"A03: sem linha {fronteira}|{familia}|{comparacao}|{indicador}")
+
+    asm = [it for it in res if it["familia"] == "assimetria"]
+
+    numeros = {
+        # -- A vantagem de casa em pontos por jogo (mediana de dif_pj = casa − fora) -------------
+        "dif_liga": quadro["Liga"]["dif_pj"],
+        "dif_sobe": quadro["Sobe"]["dif_pj"],
+
+        # -- Assimetria Sobe × Meio, corte COM fronteira (cru_a = Sobe, cru_b = Meio) ------------
+        "dif_xg_sobe": linha("com", "assimetria", "SM", "dif_xg")["cru_a"],
+        "dif_xg_meio": linha("com", "assimetria", "SM", "dif_xg")["cru_b"],
+        "dif_xgc_sobe": linha("com", "assimetria", "SM", "dif_xgc")["cru_a"],
+        "dif_xgc_meio": linha("com", "assimetria", "SM", "dif_xgc")["cru_b"],
+        "dif_dd_sobe": linha("com", "assimetria", "SM", "dif_dd")["cru_a"],
+        "dif_dd_meio": linha("com", "assimetria", "SM", "dif_dd")["cru_b"],
+
+        # -- A trave (grupo B da comparação ST), nos dois cortes ---------------------------------
+        "dif_pj_trave_com": linha("com", "assimetria", "ST", "dif_pj")["cru_b"],
+        "dif_pj_trave_sem": linha("sem", "assimetria", "ST", "dif_pj")["cru_b"],
+
+        # -- Em casa, Sobe × Meio: xG sofrido e duelo defensivo ----------------------------------
+        "xgc_casa_s": linha("com", "casa", "SM", "xgc_casa")["cru_a"],
+        "xgc_casa_m": linha("com", "casa", "SM", "xgc_casa")["cru_b"],
+        "dd_casa_s": linha("com", "casa", "SM", "dd_casa")["cru_a"],
+        "dd_casa_m": linha("com", "casa", "SM", "dd_casa")["cru_b"],
+
+        # -- Fora, Sobe × Meio -------------------------------------------------------------------
+        "xgc_fora_s": linha("com", "fora", "SM", "xgc_fora")["cru_a"],
+        "xgc_fora_m": linha("com", "fora", "SM", "xgc_fora")["cru_b"],
+        "dd_fora_s": linha("com", "fora", "SM", "dd_fora")["cru_a"],
+        "dd_fora_m": linha("com", "fora", "SM", "dd_fora")["cru_b"],
+
+        # -- Quem cai × Meio: xG criado em casa e xG sofrido fora, nos dois cortes ---------------
+        "c_xgcasa_c": linha("com", "casa", "CM", "xg_casa")["cru_a"],
+        "c_xgcasa_m": linha("com", "casa", "CM", "xg_casa")["cru_b"],
+        "c_xgcfora_c": linha("com", "fora", "CM", "xgc_fora")["cru_a"],
+        "c_xgcfora_m": linha("com", "fora", "CM", "xgc_fora")["cru_b"],
+        "c_xgcfora_c_sem": linha("sem", "fora", "CM", "xgc_fora")["cru_a"],
+        "c_xgcfora_m_sem": linha("sem", "fora", "CM", "xgc_fora")["cru_b"],
+
+        # -- Poder por desenho: o menor d detectável a 80% ---------------------------------------
+        "d_min_com": poder["16x48"],
+        "d_min_sem": poder["8x32"],
+
+        # -- Os n de cada faixa, nos dois cortes -------------------------------------------------
+        "n_sobe_com": linha("com", "casa", "SM", "pj_casa")["n_a"],
+        "n_meio_com": linha("com", "casa", "SM", "pj_casa")["n_b"],
+        "n_trave_com": linha("com", "casa", "ST", "pj_casa")["n_b"],
+        "n_cai_com": linha("com", "casa", "CM", "pj_casa")["n_a"],
+        "n_sobe_sem": linha("sem", "casa", "SM", "pj_casa")["n_a"],
+        "n_meio_sf": linha("sem", "casa", "SM", "pj_casa")["n_b"],
+        "n_trave_sem": linha("sem", "casa", "ST", "pj_casa")["n_b"],
+        "n_cai_sf": linha("sem", "casa", "CM", "pj_casa")["n_a"],
+
+        # -- Contagens sobre a família assimetria ------------------------------------------------
+        # Estas três eram texto congelado até 19/09 (o _robustez_19_09.json apontou asm_testes e
+        # asm_firmes como digitadas). Agora saem da própria tabela: acrescente um indicador à
+        # família e elas se mexem sozinhas, que era o risco apontado.
+        "asm_testes": len(asm),
+        "asm_firmes": sum(1 for it in asm if it["selo"] == "firme"),
+        "maior_d_asm": round(max(abs(it["d"]) for it in asm), 3),
+    }
+
+    json.dump({"gerado_por": "scripts/A03.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(os.path.join(R, "A03_numeros.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"A03_numeros.json: {len(numeros)} marcadores gravados")
 
     print(f"\n{'='*84}\nO QUADRO POR FAIXA (medianas)\n{'='*84}")
     print(f"{'faixa':6s} {'pts/j casa':>10s} {'pts/j fora':>10s} {'dif':>6s} {'xG casa':>8s} "

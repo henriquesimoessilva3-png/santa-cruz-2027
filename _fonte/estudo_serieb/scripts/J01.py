@@ -23,31 +23,292 @@ nome normalizado + clube + ano. Caso ambíguo é LISTADO, nunca adivinhado, como
 Minutagem alta em time do Cai pode ser falta de opção, não qualidade. A faixa do time entra na base
 para a leitura poder separar as duas coisas.
 
+## Os DOIS recortes deste arquivo, e por que são dois
+
+A análise (a base `base_jogador_temporada.csv` e o `J01_resumo.json`) roda em **2022-2026**, com o
+nome de clube cru da minutagem: é o que ela sempre rodou, e não muda aqui. Mexer nela mudaria todo
+número que este script já produzia, e a regra desta rodada é o contrário — acrescentar, nunca
+alterar.
+
+A **saída por marcador** (`J01_numeros.json`, regra 1 do portão) roda em **2022-2025 e com a ponte
+de clube** `T01_ponte_clubes.json`, porque é nesse recorte que os textos de J01.json foram escritos
+e validados em 19/09: o CLAUDE.md reserva 2026 para teste, e sem a ponte as 36 linhas de "Athletico
+Paranaense" 2025 ficam sem faixa e o Sobe perde um clube-temporada de 16. Os dois recortes convivem
+de propósito, e a diferença entre eles está dita em cada leitura do stdout.
+
+Fica aberto, e **não** é decisão deste script: o `J01_resumo.json` ainda está gravado em 2022-2026,
+como a própria dívida (3) do campo `em_aberto` de J01.json registra. Regravá-lo no recorte que vale
+muda a análise e é decisão do dono.
+
+## A saída por marcador
+
+`resultados/J01_numeros.json` é a CONFERÊNCIA dos números que a aba publica, não a substituição
+deles: J01.json não é tocado aqui. Todo marcador sai de uma conta sobre o dado bruto — nenhum é
+copiado do que está publicado.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/J01.py
 """
 import collections
 import csv
 import json
+import math
 import os
 import re
 import statistics as st
+import sys
 import unicodedata
+from decimal import ROUND_HALF_UP, Decimal
+from fractions import Fraction
 
 import numpy as np
+from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+from _metodo import cohen_d, pct, percentil_no_ano  # noqa: E402
+
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
 DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
 ANOS = {"2022", "2023", "2024", "2025", "2026"}
 
+# --- só a saída por marcador usa daqui para baixo -------------------------------------------------
+# As temporadas fechadas. 2026 está em curso e o CLAUDE.md a reserva para teste; é o recorte em que
+# os textos de J01.json foram escritos.
+FECHADAS = ("2022", "2023", "2024", "2025")
+PONTE_CLUBES = os.path.join(R, "T01_ponte_clubes.json")
+CLUBE_TEMPORADA = os.path.join(R, "A01_clube_temporada.csv")
+NUMEROS_JSON = os.path.join(R, "J01_numeros.json")
+# Data fixa: o script é reproduzível — roda hoje e daqui a um ano com o mesmo resultado, e data
+# dinâmica só faria o arquivo mudar sem o número mudar.
+GERADO_EM = "2026-09-20"
+
 
 def norm(t):
     t = unicodedata.normalize("NFD", str(t or ""))
     t = "".join(c for c in t if unicodedata.category(c) != "Mn").lower()
     return re.sub(r"[^a-z0-9 ]", " ", t).strip()
+
+
+# --------------------------------------------------------------------------------------------------
+# Contas exatas. Por que não bastam float e round():
+#   - `round()` do Python é bancário: round(32.5) devolve 32, e a regra da casa é meio-termo para
+#     cima (32,5 -> 33). Três marcadores caem exatamente em meio-termo (gk_med 21,65, gk_p75 64,65,
+#     les_dias 55,5, les_alta_dias 32,5).
+#   - a fatia 46,8 em binário é 46,79999999999999715..., então `fatia >= p75` dá FALSO quando o p75
+#     é o próprio 46,8. Comparar em Fraction sobre o decimal escrito é o que faz altos_pos fechar em
+#     795 e não em 790 — cinco linhas que estão na régua e o float deixava de fora.
+# --------------------------------------------------------------------------------------------------
+def fr(x):
+    """O número como ele está escrito, não como o binário o guarda: 46,8 é 234/5."""
+    return Fraction(Decimal(str(x)))
+
+
+def arred(x, casas=0):
+    """Arredonda, nunca trunca, e meio-termo para cima."""
+    d = Decimal(x.numerator) / Decimal(x.denominator) if isinstance(x, Fraction) else Decimal(str(x))
+    q = d.quantize(Decimal(1).scaleb(-casas), rounding=ROUND_HALF_UP)
+    return float(q) if casas else int(q)
+
+
+def mediana_exata(valores):
+    v = sorted(fr(x) for x in valores)
+    n = len(v)
+    return v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2
+
+
+def percentil_exato(valores, p):
+    """O mesmo percentil do np.percentile (interpolação linear), em fração exata."""
+    v = sorted(fr(x) for x in valores)
+    i = Fraction(p, 100) * (len(v) - 1)
+    lo, hi = math.floor(i), math.ceil(i)
+    return v[lo] + (i - lo) * (v[hi] - v[lo])
+
+
+def br(x, casas=1, sinal=False):
+    """12.3 -> "12,3"; com sinal, 1.1 -> "+1,10". Só para os marcadores que são frase."""
+    t = f"{arred(x, casas):+.{casas}f}" if sinal else f"{arred(x, casas):.{casas}f}"
+    return t.replace(".", ",")
+
+
+# --------------------------------------------------------------------------------------------------
+# A saída por marcador (regra 1 do portão, etapa 6 do PLANO.md)
+# --------------------------------------------------------------------------------------------------
+def marcadores(linhas, elencos, corte):
+    """Os 45 marcadores que J01.json publica, cada um recalculado aqui a partir do dado bruto.
+
+    Recorte 2022-2025 e ponte de clube, como explica o cabeçalho. Esta função **não lê J01.json**:
+    ela é a contraparte independente dele, e é isso que dá sentido a comparar as duas.
+    """
+    ponte = json.load(open(PONTE_CLUBES, encoding="utf-8"))
+    ct = [r for r in csv.DictReader(open(CLUBE_TEMPORADA, encoding="utf-8"))
+          if r["temporada"] in FECHADAS]
+    faixa = {(r["temporada"], r["clube"]): r["faixa"] for r in ct}
+    fronteira = {(r["temporada"], r["clube"]): r["fronteira"] == "1" for r in ct}
+    ct_da_faixa = collections.defaultdict(list)
+    for r in ct:
+        ct_da_faixa[r["faixa"]].append((r["temporada"], r["clube"]))
+
+    # (nome, ano, clube) que o elenco tem, com o clube do elenco passado pela ponte para bater com
+    # o nome que a minutagem usa. Serve a um marcador só: casadas_so_nome.
+    elenco_nac = set()
+    with open(os.path.join(DADOS, "serieb_elencos.csv"), encoding="utf-8-sig") as f:
+        for r in csv.DictReader(f):
+            elenco_nac.add((norm(r["jogador"]), r["ano"], ponte.get(r["clube"], r["clube"])))
+
+    L = []
+    for l in linhas:
+        if l["ano"] not in FECHADAS:
+            continue
+        clube = ponte.get(l["time"], l["time"])
+        ids = set(elencos.get((norm(l["jogador"]), l["ano"]), []))
+        L.append({"ano": l["ano"], "jogador": l["jogador"], "clube": clube, "grupo": l["grupo"],
+                  "fatia": l["fatia_pct"], "faixa": faixa.get((l["ano"], clube)),
+                  "id": l["id_tm"], "ambiguo": len(ids) > 1, "dias": l["lesao_dias"]})
+
+    # ---- a distribuição por posição, no recorte dos textos ----
+    grupos = sorted({x["grupo"] for x in L if x["grupo"]})
+    fatias = {g: [x["fatia"] for x in L if x["grupo"] == g and x["fatia"] is not None]
+              for g in grupos}
+    p75 = {g: percentil_exato(v, 75) for g, v in fatias.items()}
+    med = {g: mediana_exata(v) for g, v in fatias.items()}
+    acima = {g: Fraction(sum(1 for y in v if y >= corte), len(v)) * 100 for g, v in fatias.items()}
+    frase_corte = " · ".join(f"{g} {br(p75[g])}%"
+                             for g in sorted(grupos, key=lambda g: p75[g], reverse=True))
+
+    # ---- regularidade nos DOIS cortes: o único de 60% e o da própria posição ----
+    # Mesma regra do corpo do script: fatia alta em 2 das 3 temporadas da janela [ano-2, ano] do
+    # próprio jogador, com pelo menos 2 temporadas com dado na janela. Conta-se a LINHA.
+    por_nome, por_nome_pos = collections.defaultdict(dict), collections.defaultdict(dict)
+    for x in L:
+        if x["fatia"] is not None:
+            por_nome[x["jogador"]][x["ano"]] = x["fatia"]
+            por_nome_pos[x["jogador"]][x["ano"]] = fr(x["fatia"]) >= p75[x["grupo"]]
+    for x in L:
+        f = x["fatia"]
+        jan = range(int(x["ano"]) - 2, int(x["ano"]) + 1)
+        tem = sum(1 for a in por_nome[x["jogador"]] if int(a) in jan)
+        x["alta"] = f is not None and f >= corte
+        x["alta_pos"] = f is not None and fr(f) >= p75[x["grupo"]]
+        x["regular"] = tem >= 2 and sum(
+            1 for a, v in por_nome[x["jogador"]].items() if int(a) in jan and v >= corte) >= 2
+        x["regular_pos"] = tem >= 2 and sum(
+            1 for a, v in por_nome_pos[x["jogador"]].items() if int(a) in jan and v) >= 2
+    reg_grupo = collections.Counter(x["grupo"] for x in L if x["regular"])
+
+    # ---- lesão: os dois lados, com o denominador de cada um ----
+    baixa = [x for x in L if x["fatia"] is not None and x["fatia"] < corte and x["id"]]
+    alta = [x for x in L if x["alta"] and x["id"]]
+    baixa_les = [x for x in baixa if x["dias"]]
+    alta_les = [x for x in alta if x["dias"]]
+    # O menor efeito que este desenho enxergaria, pela lógica da §6.7 da ESPECIFICACAO.md. Lá é o d
+    # de Cohen; aqui a medida é proporção, então o tamanho de efeito é o h de Cohen.
+    h_min = (stats.norm.ppf(0.975) + stats.norm.ppf(0.80)) * math.sqrt(1 / len(baixa) + 1 / len(alta))
+    les_dmin = math.sin(h_min / 2 + math.asin(math.sqrt(len(alta_les) / len(alta)))) ** 2 * 100
+
+    # ---- a cobertura da ponte, e o que ela casa sem olhar o clube ----
+    sem_id = sum(1 for x in L if x["id"] is None and not x["ambiguo"])
+    ambiguos = sum(1 for x in L if x["ambiguo"])
+    casadas = [x for x in L if x["id"]]
+    so_nome = [x for x in casadas if (norm(x["jogador"]), x["ano"], x["clube"]) not in elenco_nac]
+
+    # ---- quantos jogadores cada faixa usou, e quantos passaram do corte ----
+    # "Jogadores usados" é a contagem de LINHAS do clube na temporada: há 19 pares (ano, time,
+    # jogador) repetidos em 2022-2025 (homônimos no mesmo elenco), e contar nomes os perderia.
+    usados = collections.Counter((x["ano"], x["clube"]) for x in L)
+    altos_ct = collections.Counter((x["ano"], x["clube"]) for x in L if x["alta"])
+
+    def por_clube_temporada(conta, fx):
+        ks = ct_da_faixa[fx]
+        return Fraction(sum(conta[k] for k in ks), len(ks))
+
+    # ---- a robustez de J01-3, pelo método da casa e nos dois cortes da fronteira ----
+    base_ct = [{"temporada": t, "clube": c, "faixa": faixa[(t, c)], "fronteira": fronteira[(t, c)],
+                "usados": usados[(t, c)], "altos": altos_ct[(t, c)]}
+               for r in ct for t, c in [(r["temporada"], r["clube"])]]
+
+    def welch(base):
+        """Posto dentro da temporada, d de Cohen e t de Welch bilateral (scripts/_metodo.py)."""
+        ls = [dict(l) for l in base]
+        percentil_no_ano(ls, ["usados", "altos"])
+        saida = {}
+        for ind in ("usados", "altos"):
+            for a in ("Cai", "Sobe"):
+                va = [l[pct(ind)] for l in ls if l["faixa"] == a]
+                vb = [l[pct(ind)] for l in ls if l["faixa"] == "Meio"]
+                saida[ind, a] = (cohen_d(va, vb),
+                                 float(stats.ttest_ind(va, vb, equal_var=False).pvalue))
+        return saida
+
+    # "Sem fronteira" recalcula o posto DEPOIS de tirar as 28 linhas — é a leitura que o campo
+    # `prova` de J01-3 fixa. Calcular sobre os 20 do ano e filtrar depois muda quatro células.
+    com, sem = welch(base_ct), welch([l for l in base_ct if not l["fronteira"]])
+    rob = (
+        f"jogadores usados Cai x Meio d {br(com['usados', 'Cai'][0], 2, True)} "
+        f"(p {br(com['usados', 'Cai'][1], 4)}) com fronteira e "
+        f"{br(sem['usados', 'Cai'][0], 2, True)} (p {br(sem['usados', 'Cai'][1], 4)}) sem; "
+        f"Sobe x Meio p {br(com['usados', 'Sobe'][1], 2)} e {br(sem['usados', 'Sobe'][1], 2)} "
+        f"(nao separa); fatias altas Cai x Meio d {br(com['altos', 'Cai'][0], 2, True)} "
+        f"(p {br(com['altos', 'Cai'][1], 4)}) e {br(sem['altos', 'Cai'][0], 2, True)} "
+        f"(p {br(sem['altos', 'Cai'][1], 4)}); fatias altas Sobe x Meio "
+        f"p {br(com['altos', 'Sobe'][1], 4)} com e {br(sem['altos', 'Sobe'][1], 4)} sem")
+
+    numeros = {
+        # a régua e o tamanho da base
+        "corte": corte,
+        "n": len(L),
+        # a distribuição por posição
+        "gk_60": arred(acima["Goleiro"], 1),
+        "zag_60": arred(acima["Zaga"], 1),
+        "ext_60": arred(acima["Extremo"], 1),
+        "atk_60": arred(acima["Atacante"], 1),
+        "gk_med": arred(med["Goleiro"], 1),
+        "atk_med": arred(med["Atacante"], 1),
+        "gk_p75": arred(p75["Goleiro"], 1),
+        "atk_p75": arred(p75["Atacante"], 1),
+        "corte_por_posicao": frase_corte,
+        # quem passa da régua, no corte único e no corte da própria posição
+        "altos": sum(1 for x in L if x["alta"]),
+        "altos_pos": sum(1 for x in L if x["alta_pos"]),
+        "regulares": sum(1 for x in L if x["regular"]),
+        "reg_pos": sum(1 for x in L if x["regular_pos"]),
+        "reg_gk": reg_grupo["Goleiro"],
+        "reg_zag": reg_grupo["Zaga"],
+        "reg_ext": reg_grupo["Extremo"],
+        "reg_atk": reg_grupo["Atacante"],
+        # lesão: os dois lados, cada um com o seu denominador
+        "les_base": len(baixa),
+        "les_n": len(baixa_les),
+        "les_baixa_pct": arred(Fraction(len(baixa_les), len(baixa)) * 100, 1),
+        "les_alta_base": len(alta),
+        "les_alta_n": len(alta_les),
+        "les_alta_pct": arred(Fraction(len(alta_les), len(alta)) * 100, 1),
+        "les_dias": arred(mediana_exata([x["dias"] for x in baixa_les])),
+        "les_alta_dias": arred(mediana_exata([x["dias"] for x in alta_les])),
+        "les_dmin": arred(les_dmin, 1),
+        # a cobertura da ponte
+        "casadas_so_nome": len(so_nome),
+        "casadas_so_nome_lesao": sum(1 for x in so_nome if x["dias"]),
+        "sem_ponte": sem_id + ambiguos,
+        "sem_id": sem_id,
+        "ambiguos": ambiguos,
+        "pct_sem_ponte": arred(Fraction(sem_id + ambiguos, len(L)) * 100),
+        # quantos jogadores cada faixa usou, e quantos passaram do corte
+        "sobe_usados": arred(por_clube_temporada(usados, "Sobe"), 1),
+        "meio_usados": arred(por_clube_temporada(usados, "Meio"), 1),
+        "cai_usados": arred(por_clube_temporada(usados, "Cai"), 1),
+        "sobe_altos": arred(por_clube_temporada(altos_ct, "Sobe"), 1),
+        "meio_altos": arred(por_clube_temporada(altos_ct, "Meio"), 1),
+        "cai_altos": arred(por_clube_temporada(altos_ct, "Cai"), 1),
+        "n_ct": len(ct),
+        "n_sobe": len(ct_da_faixa["Sobe"]),
+        "n_meio": len(ct_da_faixa["Meio"]),
+        "n_cai": len(ct_da_faixa["Cai"]),
+        "rob_j01_3": rob,
+    }
+    return numeros, L, casadas
 
 
 def main():
@@ -199,6 +460,27 @@ def main():
               f"clube-temporada · fatia mediana {d['fatia_mediana']}%")
     print(f"\n  regulares (fatia alta em 2+ das últimas 3 temporadas): "
           f"{sum(1 for l in linhas if l['regular'])} de {len(linhas)}")
+
+    # ---- a saída por marcador: a conferência do que a aba publica ----
+    # Regra 1 do portão: todo marcador de J01.json tem de sair daqui. A análise acima não muda —
+    # esta parte só acrescenta, e no recorte em que os textos da aba foram escritos (2022-2025 e a
+    # ponte de clube). J01.json NÃO é tocado: divergência entre os dois lados é achado, não conserto.
+    numeros, L, casadas = marcadores(linhas, elencos, CORTE)
+    json.dump({"gerado_por": "scripts/J01.py", "gerado_em": GERADO_EM,
+               "recorte": "2022-2025 (as temporadas fechadas) com a ponte de clube "
+                          "resultados/T01_ponte_clubes.json",
+               "numeros": numeros},
+              open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"\n{'='*92}\nJ01_numeros.json: {len(numeros)} marcadores, recorte 2022-2025 + ponte "
+          f"de clube\n{'='*92}")
+    print(f"  base do marcador: {numeros['n']} linhas, contra as {len(linhas)} da análise acima "
+          f"(a diferença são as {len(linhas) - numeros['n']} de 2026)")
+    print(f"  ponte de clube: {len(L)} linhas com faixa, "
+          f"{sum(1 for x in L if x['faixa'] is None)} sem — sem a ponte, as 36 do Athletico-PR "
+          f"2025 ficariam de fora")
+    print(f"  ponte de lesão: {len(casadas)} linhas casadas, {numeros['sem_ponte']} sem ficha "
+          f"({numeros['pct_sem_ponte']}%)")
+    print(f"  corte por posição (p75 de cada grupo): {numeros['corte_por_posicao']}")
 
 
 if __name__ == "__main__":

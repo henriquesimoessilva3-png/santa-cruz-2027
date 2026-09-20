@@ -83,6 +83,36 @@ ED_2025 = 1061
 RODADAS_TURNO = 19                                   # Série B: 38 rodadas, turno = as 19 primeiras
 MIN_JOGOS_TURNO = 5                                  # para o jogador entrar na porta
 
+# A saída por marcador: todo número que J04.json publica sai daqui, com o mesmo nome (regra 1 do
+# portão, etapa 6 do PLANO.md). Data fixa porque o script é reprodutível — roda hoje e daqui a um
+# ano com o mesmo resultado, e data dinâmica só faria o arquivo mudar sem o número mudar.
+# Esta saída CONFERE o publicado; ela não o substitui, e J04.json não é tocado aqui.
+NUMEROS_JSON = os.path.join(R, "J04_numeros.json")
+GERADO_EM = "2026-09-20"
+ANO_DA_PORTA = "2025"                                # a única temporada fechada com físico por jogo
+
+
+# ------------------------------------------------------ o texto da aba: número vira frase em pt-BR
+def n_br(v, casas):
+    """10030.61 com 0 casas -> 10031; 27.92 com 1 -> "27,9". Formatação, não cálculo."""
+    return round(v) if casas == 0 else f"{v:.{casas}f}".replace(".", ",")
+
+
+def d_br(v):
+    """O d de Cohen e o rho vão com o sinal na frente: +0,66, -0,85. Duas casas, como no texto."""
+    return f"{v:+.2f}".replace(".", ",")
+
+
+def q_br(v):
+    """O q vai com DUAS casas significativas: 0,55 · 0,27 · 0,034 · 0,013 — a régua do texto."""
+    casas = 2 if not v else max(2, 1 - math.floor(math.log10(abs(v))))
+    return f"{v:.{casas}f}".replace(".", ",")
+
+
+def par_n(it):
+    """O n de uma comparação como o texto o escreve: "21 contra 50"."""
+    return f"{it['n_a']} contra {it['n_b']}"
+
 
 # ------------------------------------------------------------------------------ ler a base
 def ler_base(inds, cols_m60):
@@ -152,8 +182,12 @@ def conferir_j03(base, anos_recorte):
 
 
 # ---------------------------------------------------------------- porta temporal (tentativa)
-def porta_temporal(inds):
-    """Tenta a porta em 2025, no jogador: o 1º turno repete no 2º? Relata o n, não força."""
+def porta_temporal(inds, ct_da_porta, sobe_da_porta):
+    """Tenta a porta em 2025, no jogador: o 1º turno repete no 2º? Relata o n, não força.
+
+    `ct_da_porta` e `sobe_da_porta` são contados na base pelo main (clube-temporadas de 2025 e
+    quantos subiram): estavam escritos como 20 e 4 dentro desta função, que é número digitado.
+    """
     if not os.path.exists(DB):
         return {"rodou": False, "motivo": "banco copiado não encontrado"}
     con = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
@@ -225,8 +259,9 @@ def porta_temporal(inds):
                                          "em mais de uma temporada e o desfecho do ano. O "
                                          "physical_match tem zero linha em 2022, 2023 e 2024 — na "
                                          "fonte também."),
-            "n_se_fosse_tentada": {"temporadas_fechadas_com_dado": 1, "clube_temporadas": 20,
-                                   "clubes_que_sobem": 4},
+            "n_se_fosse_tentada": {"temporadas_fechadas_com_dado": 1,
+                                   "clube_temporadas": ct_da_porta,
+                                   "clubes_que_sobem": sobe_da_porta},
             "indicadores_fora": (f"{len(fora)} dos {len(inds)} não existem jogo a jogo em "
                                  "temporada nenhuma: todos os _p30tip / _p30otip e o psv99_top5."),
         },
@@ -412,7 +447,12 @@ def main():
     print(f"testes: {len(res)} linhas em J04_testes.csv "
           f"({sum(1 for r in res if r['passou_bh'])} passaram no BH)")
 
-    porta = porta_temporal(inds)
+    # 2025 é a única temporada fechada com físico jogo a jogo: quantos clube-temporadas ela tem e
+    # quantos subiram sai da base, não de número escrito no código.
+    clubes_da_porta = {l["clube"] for l in base if l["temporada"] == ANO_DA_PORTA}
+    sobe_da_porta = {l["clube"] for l in base
+                     if l["temporada"] == ANO_DA_PORTA and l["faixa"] == "Sobe"}
+    porta = porta_temporal(inds, len(clubes_da_porta), len(sobe_da_porta))
     m60 = sensibilidade_m60(base, cols_m60)
 
     sm = [it for it in res if it["comparacao"] == "SM" and it["subamostra"] == "todos"]
@@ -618,6 +658,107 @@ def main():
               f"n {v['n']}  {'SE REPETE' if v['se_repete'] else 'não se repete'}")
     print(f"  NÃO roda: {porta['o_que_NAO_roda']['a_porta_da_especificacao']}")
     print(f"  teto de confiança desta parte: {porta['teto_de_confianca']}")
+
+    # -------------------------------------------------- os números por marcador, do próprio script
+    # Regra 1 do portão: todo marcador que J04.json publica tem de sair daqui, com o mesmo valor.
+    # Nada é digitado — cada linha abaixo lê a tabela de testes que este script acabou de montar,
+    # a contagem de titulares conferida contra J03, o n e poder por posição, ou a porta temporal.
+    def t(sub, setor, comp, fronteira, indicador):
+        """Uma linha de J04_testes.csv, pelo nome dos cinco eixos. Levanta se não existir."""
+        achado = next((x for x in res if x["subamostra"] == sub and x["setor"] == setor
+                       and x["comparacao"] == comp and x["fronteira"] == fronteira
+                       and x["indicador"] == indicador), None)
+        if achado is None:
+            raise SystemExit(f"J04_numeros: não há linha {sub}|{setor}|{comp}|{fronteira}|"
+                             f"{indicador} — o desenho mudou e o marcador ficou órfão.")
+        return achado
+
+    vol_dist = t("todos", "Volante", "SM", "com", "distance_p90")
+    ext_spr = t("todos", "Extremo", "SM", "com", "sprint_count_p90")
+    zag_dist = t("todos", "Zaga", "SM", "com", "distance_p90")
+    vol_psv = t("todos", "Volante", "SM", "com", "psv99")
+    vol_psv_sf = t("todos", "Volante", "SM", "sem", "psv99")
+    vol_psv_cob = t("sem_cobertura_baixa", "Volante", "SM", "com", "psv99")
+    vol_psv_id = t("sem_identidade_marcada", "Volante", "SM", "com", "psv99")
+    zag_sem = t("todos", "Zaga", "SM", "sem", "distance_p90")
+    zag_cob = t("sem_cobertura_baixa", "Zaga", "SM", "sem", "distance_p90")
+    zag_id = t("sem_identidade_marcada", "Zaga", "SM", "sem", "distance_p90")
+    zag_cai_com = t("todos", "Zaga", "CM", "com", "distance_p90")
+    zag_cai_sem = t("todos", "Zaga", "CM", "sem", "distance_p90")
+
+    # o d mínimo detectável, e o n de quem sobe, varrendo as seis posições nos dois cortes
+    dmins = [d[c] for d in nao_existe["d_minimo_sobe_x_meio_por_posicao"].values()
+             for c in ("com_fronteira", "sem_fronteira")]
+    n_sobes = [n_por_setor[s][rot]["n_sobe"] for s in setores for rot in ("com", "sem")]
+    # o maior efeito entre os que NÃO passaram, no recorte cheio — o escopo que o texto declara
+    d_maior = max(abs(it["d"]) for it in sm if not it["passou_bh"])
+    # a repetição turno a turno: os nove indicadores por 90 min de um lado, o PSV-99 do outro
+    rhos_p90 = [v["rho"] for i, v in porta["por_indicador"].items() if i.endswith("_p90")]
+
+    numeros = {
+        # o tamanho da base e do desenho
+        "n_tit": conf["total_recalculado_2022_2025"],
+        "n_fis": len(titulares),
+        "n_ind": len(inds),
+        "n_pos": len(setores),
+        "n_testes": len(sm),
+        "n_bh_setor": sum(1 for it in sm if it["passou_bh"]),
+        "n_nao": nao_existe["destes_com_efeito_menor_que_o_d_minimo"],
+        "ct_2025": len(clubes_da_porta),
+        "sobe_2025": len(sobe_da_porta),
+        # J04-1: os dois exemplos da manchete, e o que o desenho enxerga
+        "vol_dist_s": n_br(vol_dist["cru_a"], 0),
+        "vol_dist_m": n_br(vol_dist["cru_b"], 0),
+        "ext_spr_s": n_br(ext_spr["cru_a"], 1),
+        "ext_spr_m": n_br(ext_spr["cru_b"], 1),
+        "zag_dist_s": n_br(zag_dist["cru_a"], 0),
+        "zag_dist_m": n_br(zag_dist["cru_b"], 0),
+        "n_sobe_min": min(n_sobes),
+        "n_sobe_max": max(n_sobes),
+        "dmin_lo": n_br(min(dmins), 2),
+        "dmin_hi": n_br(max(dmins), 2),
+        "d_maior": n_br(d_maior, 2),
+        # J04-2, volante: o pico de velocidade que só aparece COM os times de fronteira
+        "vol_psv_s": n_br(vol_psv["cru_a"], 1),
+        "vol_psv_m": n_br(vol_psv["cru_b"], 1),
+        "vol_n": par_n(vol_psv),
+        "vol_psv_sf_s": n_br(vol_psv_sf["cru_a"], 1),
+        "vol_psv_sf_m": n_br(vol_psv_sf["cru_b"], 1),
+        "vol_d_sem": d_br(vol_psv_sf["d"]),
+        "vol_q_sem": q_br(vol_psv_sf["q"]),
+        "vol_psv_cob_s": n_br(vol_psv_cob["cru_a"], 1),
+        "vol_psv_cob_m": n_br(vol_psv_cob["cru_b"], 1),
+        "vol_d_cob": d_br(vol_psv_cob["d"]),
+        "vol_q_cob": q_br(vol_psv_cob["q"]),
+        "vol_psv_id_s": n_br(vol_psv_id["cru_a"], 1),
+        "vol_psv_id_m": n_br(vol_psv_id["cru_b"], 1),
+        "vol_d_ident": d_br(vol_psv_id["d"]),
+        "vol_q_ident": q_br(vol_psv_id["q"]),
+        # J04-2, zaga: o volume que só aparece SEM os times de fronteira
+        "zag_sem_s": n_br(zag_sem["cru_a"], 0),
+        "zag_sem_m": n_br(zag_sem["cru_b"], 0),
+        "zag_n": par_n(zag_sem),
+        "zag_d_sem": d_br(zag_sem["d"]),
+        "zag_q_sem": q_br(zag_sem["q"]),
+        "zag_cob_s": n_br(zag_cob["cru_a"], 0),
+        "zag_cob_m": n_br(zag_cob["cru_b"], 0),
+        "zag_q_cob": q_br(zag_cob["q"]),
+        "zag_n_cob": par_n(zag_cob),
+        "zag_id_s": n_br(zag_id["cru_a"], 0),
+        "zag_id_m": n_br(zag_id["cru_b"], 0),
+        "zag_n_id": par_n(zag_id),
+        # o zagueiro de quem CAI, que corre menos nos dois cortes
+        "zag_cai_com": n_br(zag_cai_com["cru_a"], 0),
+        "zag_cai_sem": n_br(zag_cai_sem["cru_a"], 0),
+        # J04-3: a repetição do 1º para o 2º turno em 2025
+        "n_rep": porta["n_jogadores"],
+        "rho_min_p90": d_br(min(rhos_p90)),
+        "rho_max_p90": d_br(max(rhos_p90)),
+        "rho_psv": d_br(porta["por_indicador"]["psv99"]["rho"]),
+    }
+    json.dump({"gerado_por": "scripts/J04.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"\n  J04_numeros.json: {len(numeros)} marcadores")
 
 
 if __name__ == "__main__":

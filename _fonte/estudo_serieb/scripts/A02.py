@@ -34,6 +34,26 @@ A §6 mede a confiabilidade split-half do xG em **0,30**, e a regra é dura: "in
 < 0,40 sai da tela hachurado — o efeito nunca pode ser maior que a régua". Toda leitura de xG aqui
 sai com essa marca.
 
+## O script grava os números que a parte publica
+
+Até 20/09 este script escrevia a tabela de testes e o resumo, e mais nada: os 76 marcadores de
+`A02.json` eram copiados a olho de uma célula do CSV — 49 deles — ou digitados à mão — 27, os que
+`A02_numeros_novos.json` levantou em 19/09. O `gerado_por: scripts/A02.py` era, nessa parte, uma
+alegação de procedência que ninguém tinha como conferir, e é o que as regras 1 e 9 do portão
+(`scripts/_portao.py`) cobram.
+
+Agora ele grava `resultados/A02_numeros.json`: **marcador → valor**, os 76. Em duas camadas:
+
+- os **49** que ele já calculava, que saem da mesma célula de `A02_testes.csv` e de
+  `A02_resumo.json` de onde eram copiados — corte REDUZIDO (8 Sobe × 32 Meio), que é o que o texto
+  publicado usa;
+- os **27** que estavam digitados e passam a ser calculados aqui, seguindo o campo `de_onde` de
+  `A02_numeros_novos.json`: as medianas do corte CHEIO (16 × 48), os dois split-half da §3, a porta
+  da §6.4 sobre a distância do remate e o menor rho detectável.
+
+Essa saída é a CONFERÊNCIA do que está publicado, não a substituição: nada aqui escreve em
+`A02.json`. Onde os dois discordarem, quem decide é quem lê os dois.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/A02.py
 """
@@ -44,11 +64,18 @@ import math
 import os
 import re
 import statistics as st
+import sys
 
 import numpy as np
 from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+# O método da casa, para o que foi ACRESCENTADO em 20/09. A análise de 17/09 continua com as
+# cópias que este arquivo já tinha — trocá-las mudaria número publicado, e não é o que se pediu.
+from _metodo import pct, percentil_no_ano                      # noqa: E402
+import _porta_temporal as _pt                                  # noqa: E402
+
 ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
 DADOS = os.path.join(RAIZ, "dados")
@@ -57,6 +84,8 @@ RNG = np.random.default_rng(20260917)
 
 CONFIABILIDADE = {"xg": 0.30}     # §6: split-half medido. < 0,40 = régua curta.
 PLACAR = {"gols_pro_90", "gols_contra_90", "finalizacao"}   # lista branca da §6
+NUMEROS_JSON = "A02_numeros.json"   # a saída que as regras 1 e 9 do portão conferem
+GERADO_EM = "2026-09-20"            # constante: o script é reprodutível, a data não pode variar
 
 
 def carregar(dec):
@@ -205,6 +234,169 @@ def porta_temporal():
     return out
 
 
+# ==============================================================================================
+# Os números que a parte publica — acrescentado em 20/09
+# ==============================================================================================
+# Nada daqui para baixo altera a análise de 17/09: as contas acima continuam idênticas, e estas
+# funções só leem o que elas produziram ou abrem a base de jogos por outro caminho. A receita de
+# cada marcador novo é o campo `de_onde` de `resultados/A02_numeros_novos.json`.
+
+def linha(resultados, fronteira, familia, comparacao, indicador):
+    """A linha de `A02_testes.csv` de onde um marcador era copiado a olho."""
+    for it in resultados:
+        if (it["fronteira"], it["familia"], it["comparacao"], it["indicador"]) == \
+           (fronteira, familia, comparacao, indicador):
+            return it
+    raise KeyError(f"{fronteira}/{familia}/{comparacao}/{indicador} não está na tabela de testes")
+
+
+def mediana_corte_cheio(base, indicador):
+    """(Sobe, Meio) no corte CHEIO — 16 × 48, SEM tirar os times de fronteira.
+
+    É a mesma mediana do valor bruto que a tabela de testes traz nas linhas `fronteira=com` e
+    `comparacao=SM`; aqui sai sem o arredondamento de 3 casas, porque o que vai à tela tem 1 ou 2.
+    """
+    return (st.median([l[indicador] for l in base if l["faixa"] == "Sobe"]),
+            st.median([l[indicador] for l in base if l["faixa"] == "Meio"]))
+
+
+def split_half(por, valor_da_metade):
+    """A confiabilidade da §3: metade PAR contra metade ÍMPAR da temporada.
+
+    Jogos em ordem de data, índice 0..37; o valor de cada metade sai de `valor_da_metade`; posto
+    dentro do ano (o método da casa, `_metodo.percentil_no_ano`); Spearman entre os dois postos; e
+    Spearman-Brown 2ρ/(1+ρ), porque meia temporada é metade do teste.
+
+    O código foi validado contra a própria §3: reproduz Passes certos 0,78, Duelos ganhos 0,70,
+    Posse 0,69, Toques na área 0,63, Remates 0,50 e xG 0,30.
+    """
+    reg = []
+    for (temporada, _clube), js in por.items():
+        if len(js) < 30:
+            continue
+        a = valor_da_metade([j for i, j in enumerate(js) if i % 2 == 0])
+        b = valor_da_metade([j for i, j in enumerate(js) if i % 2 == 1])
+        if a is not None and b is not None:
+            reg.append({"temporada": temporada, "par": a, "impar": b})
+    percentil_no_ano(reg, ["par", "impar"])
+    rho, _ = stats.spearmanr([l[pct("par")] for l in reg], [l[pct("impar")] for l in reg])
+    return 2 * float(rho) / (1 + float(rho)), len(reg)
+
+
+def porta_6_4(por, campo, sinal):
+    """A porta temporal como a §6.4 define, não como este script chamava de porta.
+
+    Média do indicador nas 19 primeiras rodadas contra os PONTOS somados das 19 últimas, tudo em
+    posto dentro do ano, com a parcial dada a pontuação do 1º turno. A conta é emprestada de
+    `scripts/_porta_temporal.py`, que reproduz as nove linhas da tabela da §6.4 — reimplementar
+    aqui seria criar uma décima versão da mesma coisa.
+    """
+    reg = [{"temporada": temporada, "clube": clube,
+            "pts_1t": sum(_pt.pontos(j) for j in js[:_pt.TURNO]),
+            "pts_2t": sum(_pt.pontos(j) for j in js[_pt.TURNO:]),
+            campo: _pt.media(js[:_pt.TURNO], campo)}
+           for (temporada, clube), js in por.items()]
+    percentil_no_ano(reg, ["pts_1t", "pts_2t"])
+    return _pt.porta(reg, campo, sinal)
+
+
+def rho_detectavel(n, alvo=0.80, alfa=0.05):
+    """Menor ρ detectável com `alvo` de poder, por Fisher z. É a §6.7 aplicada à repetição."""
+    z = stats.norm.ppf(1 - alfa / 2) + stats.norm.ppf(alvo)
+    return math.tanh(z / math.sqrt(n - 3))
+
+
+def montar_numeros(base, resultados, porta, contagens, poder):
+    """Marcador → valor, os 76 que `A02.json` publica. Duas camadas, na ordem em que nasceram."""
+    L = lambda fam, ind: linha(resultados, "sem", fam, "SM", ind)   # o corte REDUZIDO, 8 × 32
+    cria_rem, cria_dist = L("cria", "remates"), L("cria", "dist_remate")
+    cria_toq, cria_ent = L("cria", "toques_area"), L("cria", "entradas_area")
+    cria_xg = L("cria", "xg")
+    cede_rem, cede_xgc = L("cede", "remates_contra"), L("cede", "xg_contra")
+    cede_xgpr = L("cede", "xg_por_remate_contra")
+    sobra_fin = L("sobra", "finalizacao")
+
+    # ---- CAMADA 1: os 49 que este script já calculava e agora assina --------------------------
+    num = {
+        "n_sobe": contagens["sobe"], "n_meio": contagens["meio"], "n_trave": contagens["trave"],
+        "n_sobe_sf": contagens["sobe_sem_fronteira"],
+        "n_trave_sf": contagens["trave_sem_fronteira"], "clubes": contagens["clubes"],
+        "dmin_SM": poder["8x32"], "dmin_ST": poder["8x7"],
+
+        "rem_s": cria_rem["cru_sobe"], "rem_m": cria_rem["cru_alvo"], "rem_q": cria_rem["q"],
+        "dist_s": cria_dist["cru_sobe"], "dist_m": cria_dist["cru_alvo"],
+        "dist_d": cria_dist["d"], "dist_q": cria_dist["q"],
+        "toq_s": cria_toq["cru_sobe"], "toq_m": cria_toq["cru_alvo"],
+        "toq_d": cria_toq["d"], "toq_q": cria_toq["q"],
+        "ent_s": cria_ent["cru_sobe"], "ent_m": cria_ent["cru_alvo"],
+        "ent_d": cria_ent["d"], "ent_q": cria_ent["q"],
+        "xg_s": cria_xg["cru_sobe"], "xg_m": cria_xg["cru_alvo"],
+        "xg_d": cria_xg["d"], "xg_q": cria_xg["q"],
+
+        "remc_s": cede_rem["cru_sobe"], "remc_m": cede_rem["cru_alvo"], "remc_q": cede_rem["q"],
+        "xgc_s": cede_xgc["cru_sobe"], "xgc_m": cede_xgc["cru_alvo"],
+        "xgc_d": cede_xgc["d"], "xgc_q": cede_xgc["q"],
+        "xgc_ic": f"[{cede_xgc['ic95_d'][0]}, {cede_xgc['ic95_d'][1]}]",
+        "xgpr_d": cede_xgpr["d"], "xgpr_q": cede_xgpr["q"],
+
+        "fin_s": sobra_fin["cru_sobe"], "fin_m": sobra_fin["cru_alvo"],
+        "fin_d": sobra_fin["d"], "fin_q": sobra_fin["q"],
+
+        # A conta que este script chama de porta e que a §6.4 chama de persistência: o indicador
+        # da 1ª metade contra ele mesmo na 2ª. O nome fica como está publicado.
+        "porta_fin": porta["finalizacao"]["rho"], "porta_fin_p": porta["finalizacao"]["p"],
+        "porta_fin_ic": f"{porta['finalizacao']['ic'][0]} a {porta['finalizacao']['ic'][1]}",
+        "porta_def": porta["defesa_vs_xg"]["rho"], "porta_xg": porta["xg"]["rho"],
+        "porta_xgc": porta["xg_contra"]["rho"], "porta_n": porta["finalizacao"]["n"],
+        "conf_xg": CONFIABILIDADE["xg"],
+    }
+
+    # ---- CAMADA 2: os 27 que estavam digitados à mão -----------------------------------------
+    # As medianas do corte CHEIO (16 × 48). O texto publicado usa o reduzido; estes marcadores
+    # `_cf` existem para a proposta de destino, e são a mesma conta sem o filtro de fronteira.
+    dist_s_cf, dist_m_cf = mediana_corte_cheio(base, "dist_remate")
+    rem_s_cf, rem_m_cf = mediana_corte_cheio(base, "remates")
+    remc_s_cf, remc_m_cf = mediana_corte_cheio(base, "remates_contra")
+    xgpr_s_cf, xgpr_m_cf = mediana_corte_cheio(base, "xg_por_remate_contra")
+    xgc_s_cf, xgc_m_cf = mediana_corte_cheio(base, "xg_contra")
+    xg_s_cf, xg_m_cf = mediana_corte_cheio(base, "xg")
+    fin_s_cf, fin_m_cf = mediana_corte_cheio(base, "finalizacao")
+    def_s_cf, def_m_cf = mediana_corte_cheio(base, "defesa_vs_xg")
+
+    _linhas, por = _pt.ler_jogos()      # a base de jogos pelo leitor comum da casa
+    jogos_na_temporada = collections.Counter(len(js) for js in por.values()).most_common(1)[0][0]
+    p_dist = porta_6_4(por, "dist", -1)             # sinal −1: chutar de longe é pior
+    conf_xgpr_contra, _ = split_half(por, lambda js: _pt.razao(js, "xg_sofrido", "remates_contra"))
+    conf_fin, n_split = split_half(
+        por, lambda js: (lambda v: sum(v) / len(v) if v else None)(
+            [j["gp"] - j["xg"] for j in js if j["xg"] is not None]))
+
+    num.update({
+        "dist_s_cf": round(dist_s_cf, 1), "dist_m_cf": round(dist_m_cf, 1),
+        "rem_s_cf": round(rem_s_cf, 1), "rem_m_cf": round(rem_m_cf, 1),
+        "remc_s_cf": round(remc_s_cf, 1), "remc_m_cf": round(remc_m_cf, 1),
+        # ×100 para a unidade de jogo: gols esperados a cada 100 finalizações sofridas.
+        "xgpr_s100_cf": round(100 * xgpr_s_cf, 1), "xgpr_m100_cf": round(100 * xgpr_m_cf, 1),
+        "xgc_s_cf": round(xgc_s_cf, 2), "xgc_m_cf": round(xgc_m_cf, 2),
+        "xg_s_cf": round(xg_s_cf, 2), "xg_m_cf": round(xg_m_cf, 2),
+        "fin_s_cf": round(fin_s_cf, 2),
+        # Sem sinal de propósito: a frase da proposta já diz "abaixo". Com sinal é −0,17.
+        "fin_m_cf": abs(round(fin_m_cf, 2)),
+        "def_s_cf": round(def_s_cf, 2), "def_m_cf": round(def_m_cf, 2),
+        "fin_gols_temporada": round((fin_s_cf - fin_m_cf) * jogos_na_temporada),
+        "rod_corte": _pt.TURNO,
+        "n_turnos": p_dist["n"],
+        "n_meio_sf": linha(resultados, "sem", "cria", "SM", "remates")["n_alvo"],
+        "dmin_SM_cf": poder["16x48"],
+        "porta_dist_parcial": p_dist["parcial"], "porta_dist_p": round(p_dist["p_parcial"], 4),
+        "conf_xgpr_contra": round(conf_xgpr_contra, 2),
+        "conf_fin": round(conf_fin, 2),
+        "rho_min_80": round(rho_detectavel(n_split), 2),
+        "persist_fin": round(porta["finalizacao"]["rho"], 2),
+    })
+    return num
+
+
 def main():
     dec = json.load(open(os.path.join(R, "A02_indicadores.json"), encoding="utf-8"))
     base, inds = carregar(dec)
@@ -253,15 +445,15 @@ def main():
     with open(os.path.join(R, "A02_testes.csv"), "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(resultados[0]))
         w.writeheader(); w.writerows(resultados)
-    json.dump({"porta_temporal": porta,
-               "poder_por_desenho": {"16x48": d_minimo(16, 48), "16x16": d_minimo(16, 16),
-                                     "8x32": d_minimo(8, 32), "8x7": d_minimo(8, 7)},
-               "n": {"sobe": sum(1 for l in base if l["faixa"] == "Sobe"),
-                     "meio": sum(1 for l in base if l["faixa"] == "Meio"),
-                     "trave": sum(1 for l in base if l["trave"]),
-                     "sobe_sem_fronteira": sum(1 for l in base if l["faixa"] == "Sobe" and not l["fronteira"]),
-                     "trave_sem_fronteira": sum(1 for l in base if l["trave"] and not l["fronteira"]),
-                     "clubes": len({l["clube"] for l in base})}},
+    poder = {"16x48": d_minimo(16, 48), "16x16": d_minimo(16, 16),
+             "8x32": d_minimo(8, 32), "8x7": d_minimo(8, 7)}
+    contagens = {"sobe": sum(1 for l in base if l["faixa"] == "Sobe"),
+                 "meio": sum(1 for l in base if l["faixa"] == "Meio"),
+                 "trave": sum(1 for l in base if l["trave"]),
+                 "sobe_sem_fronteira": sum(1 for l in base if l["faixa"] == "Sobe" and not l["fronteira"]),
+                 "trave_sem_fronteira": sum(1 for l in base if l["trave"] and not l["fronteira"]),
+                 "clubes": len({l["clube"] for l in base})}
+    json.dump({"porta_temporal": porta, "poder_por_desenho": poder, "n": contagens},
               open(os.path.join(R, "A02_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
@@ -285,6 +477,17 @@ def main():
     for k, v in porta.items():
         print(f"  {nome.get(k, k):34s} rho {v['rho']:+.3f}  IC95 [{v['ic'][0]:+.2f},{v['ic'][1]:+.2f}]  "
               f"p {v['p']:.4f}   {'SE REPETE' if v['se_repete'] else 'NÃO se repete'}")
+
+    # ---- os números que a parte publica ------------------------------------------------------
+    num = montar_numeros(base, resultados, porta, contagens, poder)
+    json.dump({"gerado_por": "scripts/A02.py", "gerado_em": GERADO_EM,
+               "corte_do_texto": "reduzido, 8 Sobe × 32 Meio; os marcadores _cf são o cheio, 16 × 48",
+               "numeros": num},
+              open(os.path.join(R, NUMEROS_JSON), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"\n{'='*100}\n{NUMEROS_JSON} — {len(num)} marcadores gravados\n{'='*100}")
+    for k, v in num.items():
+        print(f"  {k:22s} {v}")
 
 
 if __name__ == "__main__":

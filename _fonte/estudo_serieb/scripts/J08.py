@@ -5,11 +5,15 @@ Escreve, e só:
     resultados/fatores_liga.csv   entregável nomeado no CLAUDE.md (liga, fator, casos, força)
     resultados/J08_testes.csv     todo teste rodado, inclusive o que não passou
     resultados/J08_resumo.json    os números que a conclusão vai citar por marcador
+    resultados/J08_numeros.json   marcador -> valor: a saída que CONFERE o J08.json (regra 1)
 Lê, e não altera:
     resultados/J08_base.csv          (passo 1)
     resultados/J08_indicadores.json  (lista pré-declarada, fechada antes de calcular)
     dados_copiados/wyscout/_temporal_aging.json   (só o meta: confiabilidade do qz)
+    dados_copiados/wyscout/_temporal_movers.json  (o painel de quem mudou: n e piso de minutos)
+    dados_copiados/wyscout/_temporal_photos.json  (a reta de quem FICOU na mesma liga)
     scripts/_metodo.py                            (bh, d_minimo, cohen_d, ic_por_clube)
+    scripts/J08_base.py                           (reta_de_quem_ficou: reuso, não cópia)
 
 Nada em `dados/`, `static/`, `templates/` nem no `_registro.md` é tocado.
 
@@ -125,6 +129,7 @@ from scipy import stats
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from _metodo import bh, cohen_d, d_minimo, ic_por_clube  # noqa: E402
+from J08_base import reta_de_quem_ficou  # noqa: E402  (reuso do passo 1, nada reimplementado)
 
 ESTUDO = os.path.dirname(AQUI)
 R = os.path.join(ESTUDO, "resultados")
@@ -133,6 +138,9 @@ COP = os.path.join(ESTUDO, "dados_copiados", "wyscout")
 BASE = os.path.join(R, "J08_base.csv")
 IND = os.path.join(R, "J08_indicadores.json")
 AGING = os.path.join(COP, "_temporal_aging.json")
+MOVERS = os.path.join(COP, "_temporal_movers.json")
+FOTOS = os.path.join(COP, "_temporal_photos.json")
+NUMEROS = os.path.join(R, "J08_numeros.json")
 
 ANCORA = "Brasil B"            # nível 0 da régua; é a liga da pergunta
 PISO = 10                      # CLAUDE.md: "quando houver casos suficientes (ex.: 10 ou mais)"
@@ -141,6 +149,15 @@ REPS_BOOT = 2000               # §6.6: 2.000 réplicas, como no resto da casa
 REPS_GARIMPO = 400
 COORTE_CORTE = 2024            # porta: estima até 2024, confere em 2025–2026
 SEMENTE = 8
+
+# A saída por marcador. Data fixa: o script é reprodutível (semente fechada), e data dinâmica só
+# faria o arquivo mudar sem nenhum número mudar.
+GERADO_EM = "2026-09-20"
+
+# A ilustração que o texto usa para mostrar o encolhimento: "o 10º melhor de 100" na liga de
+# origem, isto é, o percentil 90. É uma escolha de exposição declarada aqui, não uma medida —
+# por isso vive ao lado do PISO e não dentro de uma conta.
+LUGAR_ANTES = 10
 
 # O agrupamento PROPOSTO no passo 1, a partir da mediana do dqz_liquido com o destino
 # descontado. O passo 2 estima origem e destino JUNTOS, e o que ele mede pode discordar.
@@ -565,6 +582,7 @@ def main():
     # ---- nulo do garimpo ---------------------------------------------------
     estrangeiras_no_piso = [g for g in acima_do_piso if not g.startswith("Brasil")]
     garimpos = {}
+    maior_observado = {}      # o mesmo par (liga, pp) SEM arredondar, para a saída por marcador
     for fid, _ in fams:
         g = garimpo(P, mapa, [fid + "__antes", "idade_pp"], fid, estrangeiras_no_piso, rng)
         m2 = guardado[("principal", "S2_selecao_idade", fid)]
@@ -580,6 +598,7 @@ def main():
                            "supera" if maior[1] > g["maior_fator_por_sorteio_p95"]
                            else "NÃO supera", len(obs), g["maior_fator_por_sorteio_p95"]))
         garimpos[fid] = g
+        maior_observado[fid] = maior
 
     # ---- sensibilidade: o encolhimento fixado pela confiabilidade do qz ----
     # O coeficiente de seleção é estimado livremente em S2. Se a régua de origem é medida com
@@ -758,6 +777,12 @@ def main():
                                          round(float(m2["hi"][ii, j]), 3)],
         }
 
+    # A reta de quem FICOU na mesma liga, refeita aqui pela função do passo 1 em vez de copiada.
+    # O b e o n estavam literais neste arquivo — o resumo reescrevia dois números que ninguém
+    # recalculava, e então ele não era prova deles.
+    _retas_ficou, reta_ficou = reta_de_quem_ficou(json.load(open(FOTOS, encoding="utf-8")))
+    _a_ficou, b_ficou, n_pares_ficou = reta_ficou
+
     et11 = json.load(open(os.path.join(os.path.dirname(os.path.dirname(ESTUDO)),
                                        "dados", "prototipo.json"),
                          encoding="utf-8"))["etapa_11"]["tecnico"]
@@ -769,9 +794,10 @@ def main():
         "aqui_eficiencia": encolhimento["eficiencia"]["b_implicito_de_quem_fica"],
         "etapa_11_quem_mudou_de_clube": et11["rho_mediano_mudou"],
         "etapa_11_quem_ficou": et11["rho_mediano_ficou"],
-        "reta_de_quem_ficou_na_mesma_liga_qz": 0.400,
+        "reta_de_quem_ficou_na_mesma_liga_qz": round(b_ficou, 3),
         "fonte_da_reta": "emenda do passo 1 (J08_indicadores.json): qz(t+1)=a+b·qz(t) em "
-                         "23.943 pares de quem permaneceu na mesma liga",
+                         "%s pares de quem permaneceu na mesma liga"
+                         % format(n_pares_ficou, ",").replace(",", "."),
         "confiabilidade_do_qz": meta_aging.get("reliability"),
     }
 
@@ -904,6 +930,230 @@ def main():
     json.dump(resumo, open(os.path.join(R, "J08_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
+    # ---- os números por marcador, do próprio script ------------------------
+    # Regra 1 do portão (etapa 6 do PLANO.md): todo marcador que J08.json publica tem de sair
+    # DAQUI, com o mesmo valor. Nada abaixo é digitado — cada linha lê a base, um dos modelos que
+    # este script acabou de ajustar, ou um dos três arquivos que ele acabou de gravar.
+    #
+    # Esta saída CONFERE o publicado; não o substitui. O J08.json não é tocado por este script, e
+    # onde os dois discordarem a divergência é achado, não erro para acertar aqui.
+    #
+    # Regra de arredondamento, declarada porque ela sozinha muda o último dígito: coeficiente de
+    # modelo citado com uma casa sai do valor NÃO arredondado (o mesmo que o console imprime), e
+    # nunca do valor já arredondado do CSV — arredondar duas vezes inventa dígito. Número que o
+    # resumo já publica com casas de sobra é usado como está.
+
+    # Os cortes que faltavam. De propósito NÃO entram na lista `cortes` lá de cima: assim o
+    # fatores_liga.csv, o J08_testes.csv e o J08_resumo.json continuam byte a byte os mesmos de
+    # antes desta saída existir. Aqui eles servem só para responder "e se a conta fosse só com
+    # quem de fato trocou de clube?", que é a pergunta que o texto faz e o script não respondia.
+    transferencia_real = lambda l: l["clube_antes"] != l["clube_depois"]
+    jogou_900_origem = lambda l: l["menos_900_na_origem"] == 0
+    jogou_900_destino = lambda l: l["menos_900_no_destino"] == 0
+    e_estrito = lambda l: (completo(l) and transferencia_real(l)
+                           and jogou_900_destino(l) and jogou_900_origem(l))
+    cortes_extra = [
+        ("so_transferencia_real", lambda l: completo(l) and transferencia_real(l)),
+        ("so_900_na_origem", lambda l: completo(l) and jogou_900_origem(l)),
+        ("estrito", e_estrito),
+    ]
+    ESTRITO = [l for l in linhas if e_estrito(l)]
+
+    # RNG próprio, fechado na mesma semente: o bootstrap daqui não pode depender de quantas
+    # réplicas o resto do script sorteou antes, senão esta saída deixa de ser reprodutível
+    # sozinha. A PRIMEIRA coisa que ele sorteia é o corte estrito no volume — mexer nesta ordem
+    # muda o IC que sai no marcador.
+    rng_num = np.random.default_rng(SEMENTE)
+    mod_estrito = rodar_modelo(ESTRITO, mapa, ["volume__antes", "idade_pp"], ["volume"],
+                               rng_num, reps=REPS_BOOT)
+    a_estrito = coef_de(mod_estrito, "Brasil A", "volume")
+    c_estrito = coef_de(mod_estrito, "Brasil C", "volume")
+
+    # O encolhimento em TODOS os cortes que existem: os quatro que o script já rodava (lidos do
+    # que ele guardou, sem reajustar nada) mais os três de cima. É daqui que saem b_min e b_max,
+    # que antes só fechavam somando dois cortes que nenhum script rodava.
+    b_por_corte = {}
+    for nome_corte, _ in cortes:
+        m = guardado[(nome_corte, "S2_selecao_idade", "volume")]
+        b_por_corte[nome_corte] = float(m["coef"][m["nomes"].index("volume__antes"),
+                                                  m["respostas"].index("volume")])
+    for nome_corte, filtro in cortes_extra:
+        m = (mod_estrito if nome_corte == "estrito" else
+             rodar_modelo([l for l in linhas if filtro(l)], mapa,
+                          ["volume__antes", "idade_pp"], ["volume"], rng_num, reps=400))
+        b_por_corte[nome_corte] = float(m["coef"][m["nomes"].index("volume__antes"),
+                                                  m["respostas"].index("volume")])
+
+    # A linha de base da porta de coorte: quem só chutasse a média da coorte cedo erraria quanto?
+    # Sem ela, "erra 9,58 lugares" não diz se o modelo ajuda — é a comparação que faltava.
+    mae_so_media = {}
+    for fid, _ in fams:
+        ctrl = [fid + "__antes", "idade_pp"]
+        ok = [l for l in P if l[fid] is not None and all(l[c] is not None for c in ctrl)]
+        cedo = [l[fid] for l in ok if l["coorte_chegada"] <= COORTE_CORTE]
+        tarde = [l[fid] for l in ok if l["coorte_chegada"] > COORTE_CORTE]
+        mae_so_media[fid] = float(np.mean(np.abs(np.array(tarde) - float(np.mean(cedo)))))
+
+    # Os coeficientes publicados, sem arredondar, num lugar só.
+    enc = {}
+    for fid, _ in fams:
+        m2 = guardado[("principal", "S2_selecao_idade", fid)]
+        j = m2["respostas"].index(fid)
+        i_idade = m2["nomes"].index("idade_pp")
+        enc[fid] = {
+            "intercepto": float(m2["coef"][0, j]),
+            "b": float(m2["coef"][m2["nomes"].index(fid + "__antes"), j]),
+            "coef_idade": float(m2["coef"][i_idade, j]),
+            "ic_idade": (float(m2["lo"][i_idade, j]), float(m2["hi"][i_idade, j])),
+        }
+
+    # As contagens que o texto faz e nenhum arquivo trazia.
+    para_serieb = [l for l in P if l["liga_destino"] == ANCORA]
+    origens_serieb = collections.Counter(l["liga_origem"] for l in para_serieb
+                                         if not l["liga_origem"].startswith("Brasil"))
+    topo_serieb = max(origens_serieb.values())
+    maiores_serieb = sorted(g for g, n in origens_serieb.items() if n == topo_serieb)
+    nao_transf = [l for l in P if not transferencia_real(l)]
+    pares_nao_transf = collections.Counter((l["liga_origem"], l["liga_destino"])
+                                           for l in nao_transf)
+    estrangeiras_com_caso = [g for g in casos_origem if not g.startswith("Brasil")]
+
+    # O painel de quem mudou de liga: o n e o piso de minutos que o texto cita e que só existiam
+    # no console do passo 1. (A reta de quem ficou já foi refeita acima, para o resumo.)
+    movers = json.load(open(MOVERS, encoding="utf-8"))
+
+    def fator(liga, fid, modelo="S2_selecao_idade"):
+        """O degrau liga → Brasil B, sem arredondar. O destino é a âncora, logo é o coeficiente."""
+        return float(coef_de(guardado[("principal", modelo, fid)], liga, fid)[0])
+
+    def ic_do_fator(liga, fid):
+        _c, _p, lo, hi = coef_de(guardado[("principal", "S2_selecao_idade", fid)], liga, fid)
+        return "%+.1f a %+.1f" % (lo, hi)
+
+    def dqz_medio(origem):
+        """Média simples de dqz na base inteira: é OUTRA conta que o coeficiente do modelo, e o
+        texto cita as duas. Fica com nome próprio para as duas não se confundirem de novo."""
+        v = [l["dqz"] for l in linhas if l["liga_destino"] == ANCORA
+             and l["liga_origem"] == origem and l["dqz"] is not None]
+        return float(np.mean(v))
+
+    def lugar_depois(fid):
+        """O encolhimento contado como lugar na fila: o LUGAR_ANTES-ésimo de 100 vira qual lugar?
+        O termo de idade entra com envelhecimento esperado ZERO — o jogador que não muda de faixa
+        de idade —, que é a leitura que o texto ilustra; com a idade média o número anda meio
+        lugar, e essa escolha estava calada no número publicado."""
+        pct = 100.0 - LUGAR_ANTES
+        return int(round(100.0 - (pct + enc[fid]["intercepto"] + enc[fid]["b"] * pct)))
+
+    def e_lista(nomes):
+        return nomes[0] if len(nomes) == 1 else ", ".join(nomes[:-1]) + " e " + nomes[-1]
+
+    numeros = {
+        # o painel, e o que sobra dele
+        "n_movers": len(movers),
+        "piso_minutos_painel": min(min(m["min_from"], m["min_to"]) for m in movers),
+        "n_linhas": len(linhas),
+        "n_principal": len(P),
+        "n_jogadores": len({l["nkey"] for l in P}),
+        "n_estrito": len(ESTRITO),
+        "n_jogadores_estrito": len({l["nkey"] for l in ESTRITO}),
+        # quem chega à Série B, e de onde
+        "n_para_serieb": len(para_serieb),
+        "maior_estrangeira_serieb": e_lista(maiores_serieb),
+        "casos_maior_estrangeira": topo_serieb,
+        # o piso, as ligas e os casos
+        "piso": PISO,
+        "n_ligas_no_piso": len(estrangeiras_no_piso),
+        "n_ligas_abaixo_piso": sum(1 for g in estrangeiras_com_caso if casos_origem[g] < PISO),
+        "casos_abaixo_piso": sum(casos_origem[g] for g in estrangeiras_com_caso
+                                 if casos_origem[g] < PISO),
+        "n_ligas_sem_caso": sum(1 for r in linhas_csv if r["forca"] == "sem fator"),
+        "n_ligas_estrangeiras": len(estrangeiras_com_caso),
+        "casos_estrangeiros": sum(casos_origem[g] for g in estrangeiras_com_caso),
+        # o maior degrau estrangeiro contra o que a busca produz por sorteio
+        "maior_fator_liga": maior_observado["volume"][0],
+        "maior_fator_pp": "%.1f" % maior_observado["volume"][1],
+        "maior_fator_efic_liga": maior_observado["eficiencia"][0],
+        "maior_fator_efic_pp": "%.1f" % maior_observado["eficiencia"][1],
+        "sorteio_p95_pp": "%.1f" % garimpos["volume"]["maior_fator_por_sorteio_p95"],
+        "sorteio_p95_efic_pp": "%.1f" % garimpos["eficiencia"]["maior_fator_por_sorteio_p95"],
+        # a escada brasileira
+        "casos_brasil_a": casos_origem["Brasil A"],
+        "casos_brasil_c": casos_origem["Brasil C"],
+        "brasil_a_vol": "%.1f" % fator("Brasil A", "volume"),
+        "brasil_a_efic": "%.1f" % fator("Brasil A", "eficiencia"),
+        "brasil_a_ic": ic_do_fator("Brasil A", "volume"),
+        "brasil_c_vol": "%.1f" % fator("Brasil C", "volume"),
+        "brasil_c_efic": "%.1f" % fator("Brasil C", "eficiencia"),
+        "brasil_c_ic": ic_do_fator("Brasil C", "volume"),
+        "brasil_a_vol_bruto": "%.1f" % fator("Brasil A", "volume", "S0_bruto"),
+        "brasil_c_vol_bruto": "%.1f" % fator("Brasil C", "volume", "S0_bruto"),
+        "brasil_a_vol_estrito": "%.1f" % a_estrito[0],
+        "brasil_a_ic_estrito": "%+.1f a %+.1f" % (a_estrito[2], a_estrito[3]),
+        "brasil_c_vol_estrito": "%.1f" % c_estrito[0],
+        "brasil_c_ic_estrito": "%+.1f a %+.1f" % (c_estrito[2], c_estrito[3]),
+        "dqz_brasil_a": "%+.3f" % dqz_medio("Brasil A"),
+        "dqz_brasil_c": "%+.3f" % dqz_medio("Brasil C"),
+        # o que NÃO é transferência: o jogador ficou e o clube é que mudou de divisão
+        "nao_transferencia": len(nao_transf),
+        "sub_ba": pares_nao_transf[("Brasil B", "Brasil A")],
+        "sub_cb": pares_nao_transf[("Brasil C", "Brasil B")],
+        "q_ab": pares_nao_transf[("Brasil A", "Brasil B")],
+        "q_bc": pares_nao_transf[("Brasil B", "Brasil C")],
+        "abaixo_900_origem": sum(1 for l in P if not jogou_900_origem(l)),
+        "abaixo_900_destino": sum(1 for l in P if not jogou_900_destino(l)),
+        # o encolhimento
+        "lugar_antes": LUGAR_ANTES,
+        "lugar_depois_vol": lugar_depois("volume"),
+        "lugar_depois_efic": lugar_depois("eficiencia"),
+        "guarda_vol": "%.2f" % (1.0 + enc["volume"]["b"]),
+        "guarda_efic": "%.2f" % (1.0 + enc["eficiencia"]["b"]),
+        "b_vol": "%.3f" % enc["volume"]["b"],
+        "b_efic": "%.3f" % enc["eficiencia"]["b"],
+        "b_min": "%.2f" % min(b_por_corte.values()),
+        "b_max": "%.2f" % max(b_por_corte.values()),
+        "intercepto_vol": "%.2f" % enc["volume"]["intercepto"],
+        "intercepto_efic": "%.2f" % enc["eficiencia"]["intercepto"],
+        # as quatro contas de fora que o encolhimento tem de bater
+        "guarda_etapa11_mudou": "%.2f" % et11["rho_mediano_mudou"],
+        "guarda_etapa11_ficou": "%.2f" % et11["rho_mediano_ficou"],
+        "guarda_mesma_liga": "%.2f" % b_ficou,
+        "n_pares_mesma_liga": n_pares_ficou,
+        "confiabilidade": "%.3f" % float(meta_aging.get("reliability")),
+        # a idade
+        "coef_idade_vol": "%.3f" % enc["volume"]["coef_idade"],
+        "ic_idade_vol": "%.3f a %.3f" % enc["volume"]["ic_idade"],
+        "coef_idade_efic": "%.3f" % enc["eficiencia"]["coef_idade"],
+        "ic_idade_efic": "%.3f a %.3f" % enc["eficiencia"]["ic_idade"],
+        "maior_movimento_idade_pp": "%.2f" % max(abs(float(r["quanto_era_idade"]))
+                                                 for r in linhas_csv
+                                                 if r["quanto_era_idade"] != ""),
+        # a porta de coorte
+        "n_cedo": portas["volume"]["n_cedo"],
+        "n_tarde": portas["volume"]["n_tarde"],
+        "acerto_vol": "%.2f" % portas["volume"]["rho_previsto_observado"],
+        "acerto_efic": "%.2f" % portas["eficiencia"]["rho_previsto_observado"],
+        "mae_com_vol": "%.2f" % portas["volume"]["mae_com_liga"],
+        "mae_sem_vol": "%.2f" % portas["volume"]["mae_sem_liga"],
+        "mae_so_media_vol": "%.2f" % mae_so_media["volume"],
+        "mae_com_efic": "%.2f" % portas["eficiencia"]["mae_com_liga"],
+        "mae_sem_efic": "%.2f" % portas["eficiencia"]["mae_sem_liga"],
+        "mae_so_media_efic": "%.2f" % mae_so_media["eficiencia"],
+        "ganho_efic": "%.2f" % portas["eficiencia"]["ganho_mae"],
+        # o poder: com quantos casos o desenho enxerga o quê
+        "poder_4": "%.1f" % poder["volume"]["com_4_casos_ve_a_partir_de_pp"],
+        "poder_8": "%.1f" % poder["volume"]["com_8_casos_ve_a_partir_de_pp"],
+        "poder_10": "%.1f" % poder["volume"]["com_10_casos_ve_a_partir_de_pp"],
+        # o entregável
+        "linhas_csv": len(linhas_csv),
+        "forca_forte": sum(1 for r in linhas_csv if r["forca"] == "forte"),
+        "forca_agrupado": sum(1 for r in linhas_csv if r["forca"] == "agrupado"),
+        "forca_fraco": sum(1 for r in linhas_csv if r["forca"] == "fraco"),
+        "forca_sem_fator": sum(1 for r in linhas_csv if r["forca"] == "sem fator"),
+    }
+    json.dump({"gerado_por": "scripts/J08.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(NUMEROS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
     # ---- console -----------------------------------------------------------
     print("J08 — fator de conversão de liga")
     print("base %d linhas · principal %d · %d jogadores distintos"
@@ -937,6 +1187,10 @@ def main():
         print()
     print("escrito: fatores_liga.csv (%d linhas), J08_testes.csv (%d linhas), J08_resumo.json"
           % (len(linhas_csv), len(saida_testes)))
+    print("escrito: J08_numeros.json (%d marcadores) — corte estrito %d linhas, %d jogadores; "
+          "encolhimento de %.3f a %.3f nos %d cortes"
+          % (len(numeros), len(ESTRITO), len({l["nkey"] for l in ESTRITO}),
+             min(b_por_corte.values()), max(b_por_corte.values()), len(b_por_corte)))
 
 
 if __name__ == "__main__":

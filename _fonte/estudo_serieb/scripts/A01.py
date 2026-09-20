@@ -67,10 +67,35 @@ APP = os.path.join(RAIZ, "static", "app.js")
 TEMPORADAS = [2022, 2023, 2024, 2025, 2026]
 EM_CURSO = 2026
 
+# A saída por marcador: todo número que A01.json publica sai daqui, com o mesmo nome (regra 1 do
+# portão, etapa 6 do PLANO.md). Data fixa porque o script é reprodutível — roda hoje e daqui a um
+# ano com o mesmo resultado, e data dinâmica só faria o arquivo mudar sem o número mudar.
+NUMEROS_JSON = os.path.join(RESULTADOS, "A01_numeros.json")
+GERADO_EM = "2026-09-20"
+
+# A temporada em que o acesso saiu na contagem de vitórias, com o 4º e o 5º empatados em pontos.
+# É o caso que o texto cita pelo nome (marcadores pontos_4o_2024, v_4o_2024, v_5o_2024).
+ANO_DESEMPATE = 2024
+
 
 def faixa(pos, n):
     """Sobe 1º-4º · Meio 5º-16º · Cai 17º-20º, como na especificação."""
     return "Sobe" if pos <= 4 else ("Cai" if pos >= n - 3 else "Meio")
+
+
+def limpo(v):
+    """60,5 continua 60,5; 63.0 vira 63. O portão compara por valor, mas gente lê este arquivo."""
+    return int(v) if isinstance(v, float) and v.is_integer() else v
+
+
+def frase_por_ano(pares):
+    """[(2022, 62), (2023, 64)] -> "62 (2022) e 64 (2023)".
+
+    O texto da aba precisa da frase, não do dict: o repr Python ({2022: 62, ...}) renderiza
+    quebrado no meio de uma frase, e foi de onde saíram os marcadores montados à mão.
+    """
+    ps = [f"{v} ({a})" for a, v in pares]
+    return ps[0] if len(ps) == 1 else ", ".join(ps[:-1]) + " e " + ps[-1]
 
 
 def tabela_oficial():
@@ -276,6 +301,75 @@ def main():
     print(f"  fronteira: {fron} de 80 clube-temporadas ({resumo['fronteira']['pct']}%)")
     print(f"\n  jogos faltando na base: {len(faltantes)} "
           f"({resumo['clube_temporadas_incompletos']} clube-temporadas marcados)")
+
+    # ---- 4. os números por marcador, do próprio script ----
+    # Regra 1 do portão: todo marcador que A01.json publica tem de sair daqui, com o mesmo valor.
+    # Nada é digitado — cada linha abaixo lê as três tabelas que este script acabou de gravar.
+    # Esta saída CONFERE o publicado; ela não o substitui, e A01.json não é tocado aqui.
+    fech_ct = [c for c in clube_temp if c["temporada"] != EM_CURSO]
+    trave_ct = [c for c in fech_ct if c["trave"]]
+    sobe_ct = [c for c in fech_ct if c["faixa"] == "Sobe"]
+    corte_mediana = st.median(p4s)
+    r_curso = next(r for r in regua if r["temporada"] == EM_CURSO)
+    pos_curso = {c["pos"]: c for c in clube_temp if c["temporada"] == EM_CURSO}
+    pos_desempate = {c["pos"]: c for c in clube_temp if c["temporada"] == ANO_DESEMPATE}
+    rodadas_cheias = 2 * (r_curso["times"] - 1)   # turno e returno, para o ritmo de quem está em curso
+
+    numeros = {
+        # a janela
+        "temporadas": len(fechadas),
+        "anos": " · ".join(str(r["temporada"]) for r in fechadas),
+        # o corte do G4
+        "corte_min": min(p4s),
+        "corte_max": max(p4s),
+        "corte_mediana": corte_mediana,
+        "corte_amplitude": max(p4s) - min(p4s),
+        "corte_por_ano_frase": frase_por_ano([(r["temporada"], r["pontos_4o"]) for r in fechadas]),
+        # empate não garante vaga: um elenco da mediana só entra se fizer MAIS que o 4º do ano
+        "anos_falha_63": sum(1 for r in fechadas if corte_mediana <= r["pontos_4o"]),
+        "aprov_min": min(r["aproveit_4o_pct"] for r in fechadas),
+        "aprov_max": max(r["aproveit_4o_pct"] for r in fechadas),
+        "vit_min": min(r["vitorias_4o"] for r in fechadas),
+        "vit_max": max(r["vitorias_4o"] for r in fechadas),
+        # a margem do 4º para o 5º
+        "margens_frase": frase_por_ano([(r["temporada"], r["margem_4o_5o"]) for r in fechadas]),
+        "margem_max": max(r["margem_4o_5o"] for r in fechadas),
+        "anos_ate_1pt": sum(1 for r in fechadas if r["margem_4o_5o"] <= 1),
+        "pontos_4o_2024": next(r["pontos_4o"] for r in regua if r["temporada"] == ANO_DESEMPATE),
+        "v_4o_2024": pos_desempate[4]["V"],
+        "v_5o_2024": pos_desempate[5]["V"],
+        # o corte do Z4
+        "corte_z4_min": min(p17s),
+        "corte_z4_max": max(p17s),
+        "corte_z4_mediana": st.median(p17s),
+        # quem termina colado numa das linhas
+        "fronteira_n": fron,
+        "fronteira_de": resumo["fronteira"]["de"],
+        "fronteira_pct": resumo["fronteira"]["pct"],
+        "sobe_fronteira": sum(1 for c in sobe_ct if c["fronteira_g4"]),
+        "sobe_de": len(sobe_ct),
+        # a Trave (5º a 8º)
+        "trave_min": min(c["pontos"] for c in trave_ct),
+        "trave_max": max(c["pontos"] for c in trave_ct),
+        "trave_mediana": st.median(c["pontos"] for c in trave_ct),
+        # o texto escreve "{trave_dist_mediana} pontos abaixo do corte": a palavra "abaixo"
+        # carrega o sinal, então o marcador vai em módulo — nunca o sinal cru.
+        "trave_dist_mediana": abs(st.median(c["dist_g4"] for c in trave_ct)),
+        "trave_fronteira": sum(1 for c in trave_ct if c["fronteira_g4"]),
+        "trave_de": len(trave_ct),
+        # o tamanho da base
+        "clube_temporadas": len(clube_temp),
+        "linhas_rodada": len(linhas_rodada),
+        "jogos_faltando": len(faltantes),
+        # a temporada em curso, projetada no ritmo dela
+        "ritmo_4o_2026": round(r_curso["pontos_4o"] / r_curso["rodadas"] * rodadas_cheias),
+        "clube_4o_2026": pos_curso[4]["clube"],
+        "rodada_2026": r_curso["rodadas"],
+    }
+    json.dump({"gerado_por": "scripts/A01.py", "gerado_em": GERADO_EM,
+               "numeros": {k: limpo(v) for k, v in numeros.items()}},
+              open(NUMEROS_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"\n  A01_numeros.json: {len(numeros)} marcadores")
 
 
 if __name__ == "__main__":

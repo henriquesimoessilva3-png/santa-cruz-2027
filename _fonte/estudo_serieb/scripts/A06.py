@@ -39,6 +39,7 @@ from scipy import stats
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
+import _porta_temporal as porta_6_4  # noqa: E402  (a §6.4, onde ela está implementada e conferida)
 from _metodo import comparar, d_minimo, pct, percentil_no_ano  # noqa: E402
 
 ESTUDO = os.path.dirname(AQUI)
@@ -47,6 +48,25 @@ DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
 RNG = np.random.default_rng(20260917)
 ANOS = {"2022", "2023", "2024", "2025"}
+# Data fixa, de propósito: o script é reprodutível (mesma base, mesma semente, mesma saída), e
+# carimbo de relógio faria a saída "mudar" a cada rodada sem que número nenhum tivesse mudado.
+GERADO_EM = "2026-09-20"
+
+
+def br(v, casas):
+    """O número em pt-BR, como o marcador é publicado: vírgula decimal, sem sinal."""
+    return f"{v:.{casas}f}".replace(".", ",")
+
+
+def br_sinal(v, casas):
+    """Idem, com o sinal sempre à mostra (+0,092 / -0,103)."""
+    return f"{v:+.{casas}f}".replace(".", ",")
+
+
+def ic_br(ic):
+    """O IC95 do d como a tela o escreve: “+0,99 a +2,37”."""
+    lo, hi = ic
+    return f"{lo:+.2f} a {hi:+.2f}".replace(".", ",")
 
 
 def jogos_serieb():
@@ -116,7 +136,11 @@ def main():
              "duelos_def_pct": (sum(dd) / len(dd)) if dd else None,
              "xg_por_remate_contra": num("xg_por_remate_contra"),
              "remates_contra_aj": (num("remates_contra") / fator) if fator else None,
-             "xg_contra_aj": (num("xg_contra") / fator) if fator else None}
+             "xg_contra_aj": (num("xg_contra") / fator) if fator else None,
+             # Fora da lista pré-declarada: não entra em teste nenhum, não é rankeado e não
+             # filtra a base. Só alimenta marcador de tela (rc_*, pts_trave_*).
+             "remates_contra": num("remates_contra"),
+             "pontos": float(a["pontos"]) if a.get("pontos") not in (None, "") else None}
         base.append(l)
 
     faltas = {i["id"]: sum(1 for l in base if l[i["id"]] is None) for i in inds}
@@ -205,6 +229,184 @@ def main():
               f"p {v['p']:.4f}  n {v['n']}   {'SE REPETE' if v['se_repete'] else 'NÃO se repete'}")
     print(f"\nPPDA × valor do elenco: rho {rho_v:+.3f} (p {p_v:.4f}, n {len(pares)}) — "
           f"ressalva, nunca desconto")
+
+    # ==========================================================================================
+    # A SAÍDA DOS NÚMEROS — resultados/A06_numeros.json
+    # ==========================================================================================
+    # Etapa 6 do PLANO.md, regras 1 e 9 do portão: todo marcador que A06.json publica tem de SAIR
+    # daqui, com o nome do marcador como chave. Nada abaixo muda a análise — as medianas, os d, os
+    # q e os selos são os que já foram calculados acima. O que se acrescenta é (a) gravar, e
+    # (b) calcular os marcadores que até 19/09 só existiam digitados no <ID>.json.
+    #
+    # Os que faltavam, e de onde saem (o campo `de_onde` de A06_numeros_novos.json):
+    #   n_trave_sai, pts_trave_sai, pts_trave_fica → coluna `pontos` de A01_clube_temporada.csv,
+    #       nas linhas trave=1, separadas por fronteira.
+    #   rc_s_com, rc_m_com → `remates_contra` SEM o ajuste de posse (o par bruto do rca_*).
+    #   conf_xgpr → confiabilidade meia-metade do xg_por_remate_contra: rodadas ímpares contra
+    #       pares, razão de somas (xG do adversário ÷ remates contra) em cada metade, posto dentro
+    #       do ano, Spearman e correção de Spearman-Brown.
+    #   porta_dd, porta_dd_p, porta_ppda, porta_int, porta_xgpr_parcial, porta_xgpr_p, porta_n →
+    #       a porta temporal da §6.4 DE VERDADE: indicador das 19 primeiras rodadas contra os
+    #       PONTOS das 19 últimas, parcial dada aos pontos do 1º turno. Vem de
+    #       scripts/_porta_temporal.py, que é onde ela está implementada e conferida (9 de 9
+    #       linhas da tabela da §6.4 idênticas) — não se reimplementa teste aqui.
+    #       ATENÇÃO: o que este script chama de `porta_temporal` lá em cima é PERSISTÊNCIA
+    #       (o indicador prevendo a si mesmo entre as duas metades), que é outra medida. São as
+    #       persistências que porta_rec e porta_posse publicam.
+    T = {(r["fronteira"], r["familia"], r["comparacao"], r["indicador"]): r for r in res}
+    grupos = {
+        "S_com": lambda l: l["faixa"] == "Sobe",
+        "M_com": lambda l: l["faixa"] == "Meio",
+        "S_sem": lambda l: l["faixa"] == "Sobe" and not l["fronteira"],
+        "M_sem": lambda l: l["faixa"] == "Meio" and not l["fronteira"],
+        "T_sem": lambda l: l["trave"] and not l["fronteira"],
+    }
+
+    def med(campo, grupo, casas):
+        v = [l[campo] for l in base if grupos[grupo](l) and l[campo] is not None]
+        return round(float(np.median(v)), casas)
+
+    def med_pontos(so_os_que_saem):
+        v = [l["pontos"] for l in base
+             if l["trave"] and l["fronteira"] == so_os_que_saem and l["pontos"] is not None]
+        m = float(np.median(v))
+        return int(m) if m.is_integer() else round(m, 1)
+
+    # ---- a porta da §6.4, pelos quatro indicadores que o A06 cita ----
+    _, por_ct = porta_6_4.ler_jogos()
+    reg64 = []
+    for (temporada, clube), js in por_ct.items():
+        t1, t2 = js[:porta_6_4.TURNO], js[porta_6_4.TURNO:]
+        reg64.append({"temporada": temporada, "clube": clube,
+                      "pts_1t": sum(porta_6_4.pontos(j) for j in t1),
+                      "pts_2t": sum(porta_6_4.pontos(j) for j in t2),
+                      "duelos_def_pct": porta_6_4.media(t1, "dd"),
+                      "ppda": porta_6_4.media(t1, "ppda"),
+                      "intensidade": porta_6_4.media(t1, "intensidade"),
+                      "xg_por_remate_contra": porta_6_4.razao(t1, "xg_sofrido",
+                                                              "remates_contra")})
+    percentil_no_ano(reg64, ["pts_1t", "pts_2t"])
+    p64 = {c: porta_6_4.porta(reg64, c, s) for c, s in (("duelos_def_pct", 1), ("ppda", 1),
+                                                        ("intensidade", 1),
+                                                        ("xg_por_remate_contra", -1))}
+
+    # ---- confiabilidade meia-metade do xg_por_remate_contra ----
+    meias = []
+    for (temporada, clube), js in por_ct.items():
+        impares = porta_6_4.razao(js[0::2], "xg_sofrido", "remates_contra")
+        pares = porta_6_4.razao(js[1::2], "xg_sofrido", "remates_contra")
+        if impares is None or pares is None:
+            continue
+        meias.append({"temporada": temporada, "clube": clube,
+                      "meia_a": impares, "meia_b": pares})
+    percentil_no_ano(meias, ["meia_a", "meia_b"])
+    r_meias, _ = stats.spearmanr([l[pct("meia_a")] for l in meias],
+                                 [l[pct("meia_b")] for l in meias])
+    conf_xgpr = 2 * float(r_meias) / (1 + float(r_meias))          # Spearman-Brown
+
+    numeros = {
+        # quantos são
+        "n_sobe_com": T[("com", "pressao", "SM", "ppda")]["n_a"],
+        "n_meio_com": T[("com", "pressao", "SM", "ppda")]["n_b"],
+        "n_sobe_sf": T[("sem", "pressao", "SM", "ppda")]["n_a"],
+        "n_meio_sf": T[("sem", "pressao", "SM", "ppda")]["n_b"],
+        "n_trave": T[("com", "pressao", "ST", "ppda")]["n_b"],
+        "n_trave_sf": T[("sem", "pressao", "ST", "ppda")]["n_b"],
+        "n_trave_sai": sum(1 for l in base if l["trave"] and l["fronteira"]),
+        "pts_trave_sai": med_pontos(True),
+        "pts_trave_fica": med_pontos(False),
+        # o menor efeito que cada desenho enxerga
+        "dmin_SM_com": T[("com", "pressao", "SM", "ppda")]["d_minimo_80"],
+        "dmin_SM": T[("sem", "pressao", "SM", "ppda")]["d_minimo_80"],
+        "dmin_ST": T[("sem", "pressao", "ST", "ppda")]["d_minimo_80"],
+        # duelo defensivo — A06-1 (Sobe × Meio) e A06-2 (Sobe × trave)
+        "dd_s_com": med("duelos_def_pct", "S_com", 2),
+        "dd_m_com": med("duelos_def_pct", "M_com", 2),
+        "dd_s_sem": med("duelos_def_pct", "S_sem", 2),
+        "dd_m_sem": med("duelos_def_pct", "M_sem", 2),
+        "dd_s": med("duelos_def_pct", "S_sem", 3),
+        "dd_m": med("duelos_def_pct", "M_sem", 3),
+        "dd_d": T[("sem", "duelo", "SM", "duelos_def_pct")]["d"],
+        "dd_q_com": br(T[("com", "duelo", "SM", "duelos_def_pct")]["q"], 5),
+        "dd_q": T[("sem", "duelo", "SM", "duelos_def_pct")]["q"],
+        "dd_ic": ic_br(T[("sem", "duelo", "SM", "duelos_def_pct")]["ic95_d"]),
+        "ddt_t_sem": med("duelos_def_pct", "T_sem", 2),
+        "ddt_t": med("duelos_def_pct", "T_sem", 3),
+        "ddt_d": T[("sem", "duelo", "ST", "duelos_def_pct")]["d"],
+        "ddt_q": br(T[("sem", "duelo", "ST", "duelos_def_pct")]["q"], 5),
+        "ddt_ic": ic_br(T[("sem", "duelo", "ST", "duelos_def_pct")]["ic95_d"]),
+        "dd_q_com_ST": br(T[("com", "duelo", "ST", "duelos_def_pct")]["q"], 5),
+        "selo_dd_com_ST": T[("com", "duelo", "ST", "duelos_def_pct")]["selo"],
+        # duelo aéreo
+        "da_d": br(T[("sem", "duelo", "SM", "duelos_aereos_pct")]["d"], 3),
+        "da_q": br(T[("sem", "duelo", "SM", "duelos_aereos_pct")]["q"], 5),
+        # pressão
+        "ppda_s_com": med("ppda", "S_com", 2),
+        "ppda_m_com": med("ppda", "M_com", 2),
+        "ppda_s": med("ppda", "S_sem", 3),
+        "ppda_m": med("ppda", "M_sem", 3),
+        "ppda_d": T[("sem", "pressao", "SM", "ppda")]["d"],
+        "ppda_q": br(T[("sem", "pressao", "SM", "ppda")]["q"], 5),
+        "rec_s_com": med("recuperacoes", "S_com", 2),
+        "rec_m_com": med("recuperacoes", "M_com", 2),
+        "rec_d": br(T[("sem", "pressao", "SM", "recuperacoes")]["d"], 3),
+        "rec_q": br(T[("sem", "pressao", "SM", "recuperacoes")]["q"], 5),
+        "int_s_com": med("intensidade", "S_com", 2),
+        "int_m_com": med("intensidade", "M_com", 2),
+        "int_d": T[("sem", "pressao", "SM", "intensidade")]["d"],
+        "int_q": br(T[("sem", "pressao", "SM", "intensidade")]["q"], 5),
+        # o que se cede
+        "rc_s_com": med("remates_contra", "S_com", 2),
+        "rc_m_com": med("remates_contra", "M_com", 2),
+        "rca_s_com": med("remates_contra_aj", "S_com", 2),
+        "rca_m_com": med("remates_contra_aj", "M_com", 2),
+        "rca_s": med("remates_contra_aj", "S_sem", 3),
+        "rca_m": med("remates_contra_aj", "M_sem", 3),
+        "rca_d": br(T[("sem", "cede_ajustado", "SM", "remates_contra_aj")]["d"], 3),
+        "rca_q": br(T[("sem", "cede_ajustado", "SM", "remates_contra_aj")]["q"], 5),
+        "xgpr_s_com": br(med("xg_por_remate_contra", "S_com", 3), 3),
+        "xgpr_m_com": br(med("xg_por_remate_contra", "M_com", 3), 3),
+        "xgpr_d": br(T[("sem", "cede_ajustado", "SM", "xg_por_remate_contra")]["d"], 3),
+        "xgpr_q": br(T[("sem", "cede_ajustado", "SM", "xg_por_remate_contra")]["q"], 5),
+        "xgca_d": br(T[("sem", "cede_ajustado", "SM", "xg_contra_aj")]["d"], 3),
+        "xgca_q": br(T[("sem", "cede_ajustado", "SM", "xg_contra_aj")]["q"], 5),
+        "conf_xgpr": round(conf_xgpr, 2),
+        # persistência dentro da temporada (é o que estes dois marcadores publicam)
+        "porta_rec": porta["recuperacoes"]["rho"],
+        "porta_posse": porta["posse"]["rho"],
+        # a porta temporal da §6.4
+        "porta_dd": br_sinal(p64["duelos_def_pct"]["parcial"], 3),
+        "porta_dd_p": br(p64["duelos_def_pct"]["p_parcial"], 3),
+        "porta_ppda": br_sinal(p64["ppda"]["parcial"], 3),
+        "porta_int": br_sinal(p64["intensidade"]["parcial"], 3),
+        "porta_xgpr_parcial": br_sinal(p64["xg_por_remate_contra"]["parcial"], 3),
+        "porta_xgpr_p": br(p64["xg_por_remate_contra"]["p_parcial"], 4),
+        "porta_n": p64["duelos_def_pct"]["n"],
+        # a ressalva do elenco
+        "ppda_valor": br_sinal(float(rho_v), 3),
+    }
+
+    json.dump({"gerado_por": "scripts/A06.py", "gerado_em": GERADO_EM, "numeros": numeros},
+              open(os.path.join(R, "A06_numeros.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+
+    # ---- conferência contra o publicado. Divergir é ACHADO: nada é consertado aqui, e este
+    # script não escreve em A06.json. ----
+    caminho_pub = os.path.join(R, "A06.json")
+    publicados = (json.load(open(caminho_pub, encoding="utf-8")).get("numeros", {})
+                  if os.path.exists(caminho_pub) else {})
+    faltam = sorted(set(publicados) - set(numeros))
+    divergem = [(m, publicados[m], numeros[m]) for m in publicados
+                if m in numeros and str(numeros[m]) != str(publicados[m])]
+    print(f"\n{'='*96}\nNÚMEROS — {len(numeros)} marcadores gravados em A06_numeros.json\n{'='*96}")
+    print(f"  publicados em A06.json: {len(publicados)} · sem contraparte no script: {len(faltam)}"
+          f" · divergentes: {len(divergem)}")
+    for m in faltam:
+        print(f"  FALTA   {m}: publicado {publicados[m]!r} e o script não o produz")
+    for m, pubv, calc in divergem:
+        print(f"  DIVERGE {m}: publicado {pubv!r} · o script dá {calc!r}")
+    if not faltam and not divergem:
+        print("  todos batem")
 
 
 if __name__ == "__main__":

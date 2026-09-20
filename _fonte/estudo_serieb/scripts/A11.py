@@ -9,6 +9,30 @@ A tensão que motiva: o A07 mostrou que correr não separa quem sobe, mas a §7.
 ano a ano e o físico é a coisa mais repetível depois do valor do elenco (0,722 contra 0,724). É um
 traço estável do clube que não anda com o desfecho — A11 pergunta onde a corrida vai parar.
 
+## A saída por marcador (20/09)
+
+Além do `A11_correlacoes.csv`, do `A11_estratificado.csv` e do `A11_resumo.json`, este script passou
+a gravar `resultados/A11_numeros.json`: o valor de **cada um dos marcadores** que o `A11.json`
+publica, com o nome do marcador como chave. Antes, 49 dos 73 números da tela não saíam de script
+nenhum — a procedência era disciplina, e o `gerado_por: "scripts/A11.py"` era, nessa parte, falso.
+Agora é mecanismo, e a regra 1 do `scripts/_portao.py` confere.
+
+Duas camadas entraram:
+  * **1** — os 24 que o script já calculava (os 10 rho, os n, os selos, o d mínimo) passam a ser
+    gravados em vez de lidos à mão do CSV.
+  * **2** — os 49 que só existiam digitados passam a ser calculados aqui, seguindo o campo
+    `de_onde` de `resultados/A11_numeros_novos.json` (escrito em 19/09 e conferido por dois
+    caminhos): os terços, os cortes sem fronteira e sem cobertura baixa, o IC por reamostragem de
+    clube, o mínimo detectável, o salto de posto e as quatro persistências ano a ano — que eram
+    quatro constantes digitadas e agora saem dos 36 pares.
+
+Essa saída é a **conferência** do que está publicado, não a substituição: nada em `A11.json` é
+tocado, e divergência entre o que o script calcula e o que a parte publica é achado, não conserto.
+Os valores saem na casa decimal em que a tela os lê, arredondados (nunca truncados).
+
+**Nada acima do bloco marcado mudou.** O `A11_correlacoes.csv`, o `A11_estratificado.csv` e o
+`A11_resumo.json` saem idênticos aos de 19/09 — é a trava desta alteração.
+
 Uso:
     python3 _fonte/estudo_serieb/scripts/A11.py
 """
@@ -17,6 +41,7 @@ import csv
 import json
 import math
 import os
+import re
 import sys
 
 import numpy as np
@@ -30,6 +55,160 @@ ESTUDO = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(os.path.dirname(ESTUDO))
 DADOS = os.path.join(RAIZ, "dados")
 R = os.path.join(ESTUDO, "resultados")
+
+# Constantes da saída por marcador. Data fixa, não relógio: o script é reprodutível (a única
+# aleatoriedade é a reamostragem, semeada), e data dinâmica faria a saída mudar todo dia sem que
+# número nenhum tivesse mudado.
+GERADO_EM = "2026-09-20"
+SEMENTE_IC = 2026          # a semente do IC por clube, como em A11_numeros_novos.json
+REPS_IC = 10000
+K_TERCO = 7                # 7 de cada lado POR TEMPORADA: 20 ÷ 3 arredondado, 28 clube-temporada
+CORTE_COBERTURA = 0.75     # fis_minutos ÷ (J × 11 × 90), o mesmo corte do A07
+ESPECIFICACAO = os.path.join(RAIZ, "_fonte", "prototipo", "ESPECIFICACAO.md")
+
+
+# ==============================================================================================
+# Os cálculos da saída por marcador. Nada aqui é usado pela análise acima — só pelo bloco final.
+# Cada função leva, no comentário, a receita do campo `de_onde` de A11_numeros_novos.json.
+# ==============================================================================================
+
+def bruto(tec, l, coluna):
+    """O valor bruto de uma coluna do clube-temporada, venha ela da base montada ou do CSV.
+
+    Só a leitura: as colunas que a análise usa já estão em `base`; as outras (fis_minutos, J,
+    tm_valor_total, fis_m_per_min) são lidas aqui, FORA do filtro que monta a base, para que
+    acrescentar um cálculo não mude quantas linhas entram na análise."""
+    if coluna in l:
+        return float(l[coluna])
+    return float(tec[(l["temporada"], l["clube"])][coluna])
+
+
+def terco(base, ind, k=K_TERCO):
+    """Os k primeiros e os k últimos de CADA temporada no posto do indicador.
+
+    Por que não 80÷3 = 26 num bolo só: cada posto dentro da temporada aparece 4 vezes (4 anos ×
+    20 times), então o corte em 26 parte um empate de 4 no meio e o grupo passa a depender da
+    ordem das linhas do arquivo. Com 7 por temporada o grupo é único e qualquer pessoa refaz."""
+    alto, baixo = [], []
+    for ano in sorted({l["temporada"] for l in base}):
+        g = sorted((l for l in base if l["temporada"] == ano), key=lambda l: l[ind])
+        baixo += g[:k]
+        alto += g[-k:]
+    return alto, baixo
+
+
+def media(g, coluna):
+    return float(np.mean([l[coluna] for l in g]))
+
+
+def cobertura(tec, l):
+    """Quanto dos minutos do time está coberto por atleta com dado físico: a conta do A07."""
+    t = tec[(l["temporada"], l["clube"])]
+    return float(t["fis_minutos"]) / (float(t["J"]) * 11 * 90)
+
+
+def rho_no_corte(linhas, x, y):
+    """Spearman com o posto REFEITO dentro da temporada sobre o subconjunto — não o posto dos 80.
+
+    Cópia rasa de cada linha: `percentil_no_ano` grava `<ind>::pct`, e reescrever isso na base
+    original mudaria as correlações da análise."""
+    sub = [dict(l) for l in linhas]
+    percentil_no_ano(sub, [x, y])
+    rho, p = stats.spearmanr([l[pct(x)] for l in sub], [l[pct(y)] for l in sub])
+    return float(rho), float(p)
+
+
+def ic_spearman_por_clube(base, x, y, semente=SEMENTE_IC, reps=REPS_IC):
+    """IC95 do rho reamostrando CLUBES, não linhas: 80 linhas são 40 clubes (§6.6).
+
+    Fisher supõe 80 observações independentes, e elas não são. Mesma ideia do
+    `_metodo.ic_por_clube`, que é do d de Cohen; aqui o que se reamostra é a correlação."""
+    por_clube = collections.defaultdict(list)
+    for l in base:
+        por_clube[l["clube"]].append(l)
+    clubes = list(por_clube)
+    rng = np.random.default_rng(semente)
+    saida = []
+    for _ in range(reps):
+        am = [l for c in rng.choice(clubes, len(clubes), replace=True) for l in por_clube[c]]
+        rho, _ = stats.spearmanr([l[pct(x)] for l in am], [l[pct(y)] for l in am])
+        if not math.isnan(rho):
+            saida.append(float(rho))
+    return (round(float(np.percentile(saida, 2.5)), 2),
+            round(float(np.percentile(saida, 97.5)), 2))
+
+
+def pares_ano_a_ano(base):
+    """Os clubes que repetem em temporadas seguidas: 2022→23, 23→24, 24→25. São 36 pares."""
+    anos_ord = sorted({l["temporada"] for l in base})
+    pares = []
+    for a, b in zip(anos_ord, anos_ord[1:]):
+        em_a = {l["clube"] for l in base if l["temporada"] == a}
+        em_b = {l["clube"] for l in base if l["temporada"] == b}
+        pares += [((a, c), (b, c)) for c in sorted(em_a & em_b)]
+    return pares
+
+
+def posto_no_ano(base, tec, coluna):
+    """O posto de 1 a 20 dentro da temporada. É o posto que a §7.3 usa, não o valor bruto."""
+    postos = {}
+    for ano in sorted({l["temporada"] for l in base}):
+        g = [l for l in base if l["temporada"] == ano]
+        r = stats.rankdata([bruto(tec, l, coluna) for l in g])
+        for l, rr in zip(g, r):
+            postos[(l["temporada"], l["clube"])] = float(rr)
+    return postos
+
+
+def persistencia(base, tec, coluna):
+    """Spearman t → t+1 no posto dentro do ano, nos 36 pares: a persistência da §7.3.
+
+    Eram quatro constantes digitadas no `numeros` do A11.json (pers_fis, pers_valor, pers_xg,
+    pers_ppda) — a auditoria de 19/09 as apontou como digitadas à mão. Agora saem daqui."""
+    postos = posto_no_ano(base, tec, coluna)
+    pares = pares_ano_a_ano(base)
+    rho, _ = stats.spearmanr([postos[a] for a, b in pares], [postos[b] for a, b in pares])
+    return float(rho)
+
+
+def salto_de_posto(base, tec, coluna):
+    """Média do |salto| de posto de um ano para o outro: a persistência dita em posições."""
+    postos = posto_no_ano(base, tec, coluna)
+    return float(np.mean([abs(postos[a] - postos[b]) for a, b in pares_ano_a_ano(base)]))
+
+
+def rho_minimo_detectavel(n, alfa=0.05, poder=0.80):
+    """Poder por desenho da correlação: o menor rho detectável, por z de Fisher."""
+    z_a = stats.norm.ppf(1 - alfa / 2)
+    z_b = stats.norm.ppf(poder)
+    return float(math.tanh((z_a + z_b) / math.sqrt(n - 3)))
+
+
+def conf_xg_citada():
+    """A confiabilidade split-half do xG, LIDA da ESPECIFICACAO.md — A11 cita, não mede.
+
+    O número é da Protótipo (Plano 1). Não dá para recalculá-lo aqui: `dados/prototipo.json`
+    etapa_4 não tem linha para `xg` (o indicador não tem coluna de jogo mapeada no meta do
+    gerador), e refazer o split-half dentro do A11 seria reimplementar o teste de outra parte —
+    numa reprodução de teste o valor oscilou entre 0,30 e 0,31 conforme a detecção de empate
+    entre duas médias iguais. Então lê-se a fonte, em vez de digitar o número: se a citação
+    sumir da especificação, o script para, que é o certo."""
+    txt = open(ESPECIFICACAO, encoding="utf-8").read()
+    m = re.search(r"Confiabilidade \(split-half.*?xG (\d+),(\d+)", txt, re.S)
+    if not m:
+        raise SystemExit("A11: a ESPECIFICACAO.md não traz mais o split-half do xG "
+                         "(parágrafo 'Confiabilidade (split-half, Spearman-Brown)')")
+    return float(f"{m.group(1)}.{m.group(2)}")
+
+
+def arred(v, casas):
+    """Arredonda (nunca trunca) para a casa decimal em que a tela lê o número. casas=0 dá int."""
+    return round(float(v), casas) if casas else int(round(float(v)))
+
+
+def br(v, casas):
+    """O número como o texto da parte o escreve: vírgula decimal."""
+    return f"{v:.{casas}f}".replace(".", ",")
 
 
 def main():
@@ -170,6 +349,197 @@ def main():
     for e in estrat:
         print(f"{e['faixa_tecnica']:7s} {e['indicador'][:28]:28s} {f'{e[chr(110)+chr(95)+chr(115)+chr(111)+chr(98)+chr(101)]}x{e['n_meio']}':>7s} "
               f"{e['d']:+6.2f} {e['q']:8.4f} {e['d_minimo_80']:5.2f}  {e['selo']}")
+
+    # ==========================================================================================
+    # A saída por marcador — resultados/A11_numeros.json        (acrescentado em 20/09)
+    # ==========================================================================================
+    # Daqui para baixo a análise não é refeita: `linhas`, `estrat` e `base` já estão prontos e só
+    # se LEEM. O que se acrescenta são os cálculos que faltavam (camada 2), que rodam sobre a
+    # MESMA base de 80 linhas, com cópias rasas onde precisam de posto próprio, e não mexem em
+    # nenhuma variável usada acima. Os arquivos de 19/09 saem idênticos — é a trava.
+
+    corr = {(l["esforco"], l["efeito"]): l for l in linhas}
+    est = {}
+    for e in estrat:
+        est.setdefault(e["faixa_tecnica"], e)
+    niveis_testados = sorted(est)
+
+    def do_nivel(ft, faixa):
+        return [l for l in base if l["faixa_tecnica"] == ft and l["faixa"] == faixa]
+
+    # -- os terços: quem mais corre contra quem menos corre, no valor bruto ---------------------
+    area_alto, area_baixo = terco(base, "fis_runs_penalty_area_p30tip")
+    vol_alto, vol_baixo = terco(base, "fis_m_per_min_tip")
+    spr_cima, spr_baixo = terco(base, "fis_sprint_distance_p30otip")
+    spr90_alto, spr90_baixo = terco(base, "fis_sprint_distance_p90")
+
+    def pontos_de(l):
+        """Os pontos do clube na temporada, do A01_clube_temporada.csv (a régua da parte A01)."""
+        return int(a01[(l["temporada"], l["clube"])]["pontos"])
+
+    # -- os dois cortes de robustez: sem fronteira e sem cobertura física baixa -----------------
+    sem_fronteira = [l for l in base if not l["fronteira"]]
+    com_cobertura = [l for l in base if cobertura(tec, l) >= CORTE_COBERTURA]
+
+    sf_area_ent = rho_no_corte(sem_fronteira, "fis_runs_penalty_area_p30tip", "entradas_area")
+    sf_area_xg = rho_no_corte(sem_fronteira, "fis_runs_penalty_area_p30tip", "xg")
+    cob_area_ent = rho_no_corte(com_cobertura, "fis_runs_penalty_area_p30tip", "entradas_area")
+    cob_area_xg = rho_no_corte(com_cobertura, "fis_runs_penalty_area_p30tip", "xg")
+    sf_spr_ppda = rho_no_corte(sem_fronteira, "fis_sprint_distance_p30otip", "ppda")
+    sf_mpm_ppda = rho_no_corte(sem_fronteira, "fis_m_per_min_otip", "ppda")
+    sf_mpm_rec = rho_no_corte(sem_fronteira, "fis_m_per_min_otip", "recuperacoes")
+    sf_spr_rec = rho_no_corte(sem_fronteira, "fis_sprint_distance_p30otip", "recuperacoes")
+
+    # -- o IC honesto: reamostragem de clube, no lugar do Fisher da coluna ic95 -----------------
+    ic_ent = ic_spearman_por_clube(base, "fis_runs_penalty_area_p30tip", "entradas_area")
+    ic_xg = ic_spearman_por_clube(base, "fis_runs_penalty_area_p30tip", "xg")
+
+    # -- o físico dentro do nível técnico, em metros por jogo -----------------------------------
+    d_sobe_alta = media(do_nivel("alta", "Sobe"), "fis_distance_p90")
+    d_meio_alta = media(do_nivel("alta", "Meio"), "fis_distance_p90")
+    d_sobe_media = media(do_nivel("média", "Sobe"), "fis_distance_p90")
+    d_meio_media = media(do_nivel("média", "Meio"), "fis_distance_p90")
+
+    numeros = {
+        # -- CAMADA 1: o que o script já calculava, agora gravado ------------------------------
+        "n": len(base),
+        "n_corr": len(linhas),
+        "n_firmes": sum(1 for l in linhas if l["selo"] == "firme"),
+        # os dez rho que o texto cita, na casa de 3 que o A11_correlacoes.csv já usa
+        "area_ent": corr[("fis_runs_penalty_area_p30tip", "entradas_area")]["rho"],
+        "area_xg": corr[("fis_runs_penalty_area_p30tip", "xg")]["rho"],
+        "mpm_ent": corr[("fis_m_per_min_tip", "entradas_area")]["rho"],
+        "spr_ent": corr[("fis_sprint_distance_p30tip", "entradas_area")]["rho"],
+        "mpm_xg": corr[("fis_m_per_min_tip", "xg")]["rho"],
+        "spr_ppda": corr[("fis_sprint_distance_p30otip", "ppda")]["rho"],
+        "mpm_ppda": corr[("fis_m_per_min_otip", "ppda")]["rho"],
+        "spr_rec": corr[("fis_sprint_distance_p30otip", "recuperacoes")]["rho"],
+        "mpm_rec": corr[("fis_m_per_min_otip", "recuperacoes")]["rho"],
+        "mpm_xgc": corr[("fis_m_per_min_otip", "xg_contra")]["rho"],
+        # o topo do IC de recuperações: o "nem no melhor caso" da conclusão 2
+        "ic_rec_topo": corr[("fis_m_per_min_otip", "recuperacoes")]["ic95"][1],
+        # a estratificação
+        "estrat_firmes": sum(1 for e in estrat if e["selo"] == "firme"),
+        "estrat_testes": len(estrat),
+        "niveis": ", ".join(niveis_testados),
+        "n_estrat": sum(est[ft]["n_sobe"] + est[ft]["n_meio"] for ft in niveis_testados),
+        "n_sobe_media": est["média"]["n_sobe"],
+        "n_meio_media": est["média"]["n_meio"],
+        "n_sobe_alta": est["alta"]["n_sobe"],
+        "n_meio_alta": est["alta"]["n_meio"],
+        "d_min_alta": est["alta"]["d_minimo_80"],
+        "d_min_media": est["média"]["d_minimo_80"],
+
+        # -- CAMADA 2: o que só existia digitado, agora calculado ------------------------------
+        # A corrida para a área vira entrada na área e vira xG (conclusão 1)
+        "n_terco": len(area_alto),
+        "corr_alto": arred(media(area_alto, "fis_runs_penalty_area_p30tip"), 1),
+        "corr_baixo": arred(media(area_baixo, "fis_runs_penalty_area_p30tip"), 1),
+        "ent_alto": arred(media(area_alto, "entradas_area"), 1),
+        "ent_baixo": arred(media(area_baixo, "entradas_area"), 1),
+        "xg_alto": arred(media(area_alto, "xg"), 3),
+        "xg_baixo": arred(media(area_baixo, "xg"), 3),
+        # quantos do terço que mais corre para a área estão na metade de cima em entradas
+        "ent_metade_alto": sum(1 for l in area_alto if l[pct("entradas_area")] >= 50),
+        "ent_metade_baixo": sum(1 for l in area_baixo if l[pct("entradas_area")] >= 50),
+        # o contraste: correr MUITO com a bola (volume) não produz o mesmo
+        "vol_ent_alto": arred(media(vol_alto, "entradas_area"), 1),
+        "vol_ent_baixo": arred(media(vol_baixo, "entradas_area"), 1),
+        "vol_xg_alto": arred(media(vol_alto, "xg"), 4),
+        "vol_xg_baixo": arred(media(vol_baixo, "xg"), 4),
+        # os dois cortes de robustez da conclusão 1
+        "n_sf": len(sem_fronteira),
+        "n_cob": len(com_cobertura),
+        "n_cob_fora": len(base) - len(com_cobertura),
+        "rho_sf_area_ent": arred(sf_area_ent[0], 3),
+        "rho_sf_area_xg": arred(sf_area_xg[0], 3),
+        "rho_cob_area_ent": arred(cob_area_ent[0], 3),
+        "rho_cob_area_xg": arred(cob_area_xg[0], 3),
+        "ic_area_ent": f"[{br(ic_ent[0], 2)}; {br(ic_ent[1], 2)}]",
+        "ic_area_xg": f"[{br(ic_xg[0], 2)}; {br(ic_xg[1], 2)}]",
+        "rho_min_det": arred(rho_minimo_detectavel(len(base)), 3),
+        "conf_xg": conf_xg_citada(),
+        # A corrida sem bola vira pressão, e só (conclusão 2)
+        "spr_alto": arred(media(spr_cima, "fis_sprint_distance_p30otip"), 0),
+        "spr_baixo": arred(media(spr_baixo, "fis_sprint_distance_p30otip"), 0),
+        "ppda_alto": arred(media(spr_cima, "ppda"), 1),
+        "ppda_baixo": arred(media(spr_baixo, "ppda"), 1),
+        "rec_alto": arred(media(spr_cima, "recuperacoes"), 1),
+        "rec_baixo": arred(media(spr_baixo, "recuperacoes"), 1),
+        "xgc_alto": arred(media(spr_cima, "xg_contra"), 3),
+        "xgc_baixo": arred(media(spr_baixo, "xg_contra"), 3),
+        "rho_sf_spr_ppda": arred(sf_spr_ppda[0], 3),
+        "rho_sf_mpm_ppda": arred(sf_mpm_ppda[0], 3),
+        "rec_sf_frase": (f"{br(sf_mpm_rec[0], 3)} (p = {br(sf_mpm_rec[1], 5)}) e "
+                         f"{br(sf_spr_rec[0], 3)} (p = {br(sf_spr_rec[1], 5)})"),
+        # O físico não separa quem sobe dentro do mesmo nível técnico (conclusão 3)
+        "dist_sobe_alta": arred(d_sobe_alta, 0),
+        "dist_meio_alta": arred(d_meio_alta, 0),
+        "dif_alta": arred(d_sobe_alta - d_meio_alta, 0),
+        "dist_sobe_media": arred(d_sobe_media, 0),
+        "dist_meio_media": arred(d_meio_media, 0),
+        "dif_media": arred(d_sobe_media - d_meio_media, 0),
+        "sf_alta": (f"{sum(1 for l in do_nivel('alta', 'Sobe') if not l['fronteira'])} contra "
+                    f"{sum(1 for l in do_nivel('alta', 'Meio') if not l['fronteira'])}"),
+        # o traço estável: quanto o posto anda de um ano para o outro, e a persistência da §7.3
+        "pos_corrida": arred(salto_de_posto(base, tec, "fis_distance_p90"), 1),
+        "pos_xg": arred(salto_de_posto(base, tec, "xg"), 1),
+        "pos_ppda": arred(salto_de_posto(base, tec, "ppda"), 1),
+        "pers_fis": arred(persistencia(base, tec, "fis_distance_p90"), 3),
+        "pers_valor": arred(persistencia(base, tec, "tm_valor_total"), 3),
+        "pers_xg": arred(persistencia(base, tec, "xg"), 3),
+        "pers_ppda": arred(persistencia(base, tec, "ppda"), 3),
+
+        # -- Os cinco números que o A11-3 traz CRAVADOS no texto, sem marcador ------------------
+        # "o terço que mais sprinta somou 54,5 pontos contra 47,9", "os mesmos 5 times no G4" e
+        # "9 rebaixados contra 2" estão digitados dentro da frase, e por isso o portão nem chega
+        # a conferi-los (regra 1 para antes: número medido sem marcador não tem o que conferir).
+        # Ficam calculados aqui, com nome de marcador, para que a correção do A11.json seja só
+        # trocar o dígito pelo {marcador} — nenhum número novo precisará ser digitado.
+        # O terço é o de fis_sprint_distance_p90, o único físico que anda com a tabela (rho 0,288
+        # com dist_g4, a única linha firme da família "resultado").
+        "pts_spr_alto": arred(np.mean([pontos_de(l) for l in spr90_alto]), 1),
+        "pts_spr_baixo": arred(np.mean([pontos_de(l) for l in spr90_baixo]), 1),
+        "g4_spr_alto": sum(1 for l in spr90_alto if l["faixa"] == "Sobe"),
+        "g4_spr_baixo": sum(1 for l in spr90_baixo if l["faixa"] == "Sobe"),
+        "cai_spr_alto": sum(1 for l in spr90_alto if l["faixa"] == "Cai"),
+        "cai_spr_baixo": sum(1 for l in spr90_baixo if l["faixa"] == "Cai"),
+    }
+
+    json.dump({"parte": "A11", "gerado_por": "scripts/A11.py", "gerado_em": GERADO_EM,
+               "semente": SEMENTE_IC,
+               "nota": "Conferência dos números publicados em A11.json, não substituição. "
+                       "Valores na casa decimal da tela, arredondados (nunca truncados). "
+                       "conf_xg não é medido aqui: é a citação da ESPECIFICACAO.md, lida do "
+                       "arquivo em vez de digitada.",
+               "numeros": numeros},
+              open(os.path.join(R, "A11_numeros.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+    print(f"\n{'='*94}\nA11_numeros.json: {len(numeros)} marcadores gravados\n{'='*94}")
+
+    # -- a conferência contra o publicado. Divergência é ACHADO; este script não conserta nada. --
+    pub = json.load(open(os.path.join(R, "A11.json"), encoding="utf-8")).get("numeros", {})
+    faltam = sorted(set(pub) - set(numeros))
+    sobram = sorted(set(numeros) - set(pub))
+    divergem = []
+    for m in sorted(set(pub) & set(numeros)):
+        a, b = numeros[m], pub[m]
+        igual = (abs(float(a) - float(b)) <= 1e-9
+                 if isinstance(a, (int, float)) and isinstance(b, (int, float))
+                 else str(a).strip() == str(b).strip())
+        if not igual:
+            divergem.append((m, b, a))
+    print(f"  publicados em A11.json: {len(pub)} · conferidos: {len(set(pub) & set(numeros))}")
+    if faltam:
+        print(f"  SEM CÁLCULO AQUI ({len(faltam)}): {', '.join(faltam)}")
+    if sobram:
+        print(f"  gravados e não publicados ({len(sobram)}): {', '.join(sobram)}")
+    if divergem:
+        for m, p, c in divergem:
+            print(f"  DIVERGE  {m}: publicado {p!r} · o script dá {c!r}")
+    else:
+        print("  nenhuma divergência: todo marcador publicado sai deste script com o mesmo valor")
+    return numeros
 
 
 if __name__ == "__main__":
