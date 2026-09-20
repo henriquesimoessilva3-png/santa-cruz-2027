@@ -1,0 +1,279 @@
+#!/usr/bin/env python3
+"""A lista por POSIÇÃO, ordenada por aderência à ficha — e não por passar ou não passar nela.
+
+POR QUE ELA EXISTE. A ficha de J05 é uma CONJUNÇÃO: o jogador precisa cruzar 4 a 6 pisos ao mesmo
+tempo. O próprio J06 mediu o que isso custa — dos livres com rodagem, 23 caem só no estilo técnico,
+18 só no duelo de corpo, 10 só no físico, e sobram 2. Um filtro assim responde "quem é perfeito" e
+joga fora toda a informação de QUÃO PERTO cada um está. Quem monta elenco precisa da segunda
+pergunta, não da primeira.
+
+O QUE ESTA LISTA MEDE, com todas as letras: o quanto cada jogador **se parece com o titular de
+quem subiu**, na ficha da posição dele. Isso NÃO é probabilidade de dar certo. O J05-1 diz na
+manchete que o perfil "descreve quem subiu e não promete quem vai subir", e o backtest da §8.6 não
+autorizou publicar nome como alvo. Uma lista ordenada é mais sedutora que uma lista binária, e por
+isso o aviso tem de andar junto dela.
+
+AS DUAS COLUNAS QUE RESPONDEM A PERGUNTA:
+  - `atende` / `com_dado` — quantos critérios da posição ele cruza, de quantos foram medidos.
+  - `aderencia` — a média do percentil dele nos critérios da posição, de 0 a 100, já orientada
+    ("quanto maior, melhor", como o J06 faz: percentil bruto quando maior é melhor, 100 − p quando
+    menor é melhor). É a mesma escala dos pisos, então dá para ler lado a lado.
+  - `folga` — a média de (percentil − piso). Negativa quer dizer que, em média, ele fica abaixo do
+    que a ficha pede; positiva, acima.
+
+DE ONDE VEM CADA LADO:
+  - Série B: reaproveita o `base_do_jogador()`, o `percentilar()` e o `julgar()` do próprio J06 —
+    é a MESMA conta que produziu o funil publicado, e o script confere isso contra o
+    `J06_funil.csv` antes de gravar.
+  - Exterior: `J09_base.csv`, com o percentil **ajustado pelo fator de liga de J08** (`__adj`), que
+    já sai orientado. O ajuste tem força variável (`forca_do_fator`, `casos_do_fator`) e a lista
+    carrega isso: estrangeiro de liga com fator fraco é palpite mais frouxo que brasileiro da B.
+
+O QUE A LISTA NÃO DIZ: se o jogador é bom, se cabe no modelo de jogo, se o salário fecha, se o
+clube libera, e se o físico dele foi verificado (muita liga de origem não tem dado físico). Custo
+e disponibilidade ficam para validação externa, como manda o CLAUDE.md.
+
+Uso:
+    python3 _fonte/estudo_serieb/scripts/J06_ranking.py
+"""
+import csv
+import json
+import os
+import statistics
+import sys
+from pathlib import Path
+
+SCRIPTS = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPTS))
+
+import J06  # noqa: E402  — reaproveita a ficha, a base e o julgar() da própria parte
+
+RESULTADOS = SCRIPTS.parent / "resultados"
+SAIDA_CSV = RESULTADOS / "J06_ranking_aderencia.csv"
+SAIDA_JSON = RESULTADOS / "J06_ranking_aderencia.json"
+
+ORDEM = ["Goleiro", "Zaga", "Lateral", "Volante", "Meia", "Extremo", "Atacante"]
+COLUNAS = ["setor", "origem", "posto", "jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
+           "com_dado", "atende", "aderencia", "folga", "contrato", "livre", "estrangeiro",
+           "fisico_verificado", "forca_do_fator", "detalhe"]
+
+
+def media(vs):
+    vs = [v for v in vs if v is not None]
+    return round(statistics.fmean(vs), 1) if vs else None
+
+
+def pontuar(detalhe):
+    """De uma lista de critérios julgados para as três medidas da lista.
+
+    `detalhe` é o que o julgar() do J06 devolve: um item por critério, com o percentil já
+    orientado e o piso da posição. Critério sem piso e critério marcado como não utilizável entram
+    na aderência (dizem onde o jogador está) e ficam fora da conta de atendidos (não são
+    exigência) — é a mesma regra que o J06 aplica ao contar `violados`."""
+    com_piso = [d for d in detalhe if d.get("piso_pct") is not None and d.get("utilizavel")]
+    return {
+        "com_dado": len(com_piso),
+        "atende": sum(1 for d in com_piso if d.get("atende")),
+        "aderencia": media([d["percentil"] for d in detalhe]),
+        "folga": media([d["percentil"] - d["piso_pct"] for d in com_piso]),
+        "detalhe": "; ".join(
+            f"{d['nome']} {d['percentil']:.0f}" + (f"/{d['piso_pct']:.0f}" if d.get("piso_pct") is not None else "")
+            for d in detalhe),
+    }
+
+
+def serie_b(ficha_dec, setores):
+    """Os jogadores da Série B de 2026, pela MESMA conta que produziu o funil publicado.
+
+    Reaproveita as funções de módulo do J06 — base_do_jogador, percentilar, minutagem,
+    contratos_e_lesoes e julgar — em vez de reimplementar. O `main()` do J06 monta exatamente
+    isto e guarda o `detalhe` de cada jogador no dicionário, mas não o grava no CSV: é esse
+    detalhe, critério a critério, que esta lista precisa e que se perdia."""
+    ids_fis = [{"id": i} for i in sorted({x["indicador"] for v in ficha_dec.values() for x in v
+                                          if x["bloco"] == "fisico"})]
+    ids_tec = [{"id": i} for i in sorted({x["indicador"] for v in ficha_dec.values() for x in v
+                                          if x["bloco"] != "fisico"})]
+    base, _cont = J06.base_do_jogador(ids_fis, ids_tec, setores)
+    J06.percentilar(base, ids_fis + ids_tec)
+    mi = J06.minutagem(("2022", "2023", "2024", "2025"))
+    elencos, lesoes = J06.contratos_e_lesoes()
+    fichas_mi = mi["por_jogador_ano"]
+
+    saida = []
+    for l in (x for x in base if x["ano"] == J06.ANO_ALVO):
+        e = J06.casar_elenco(l["jogador"], elencos)
+        ct_tm = J06.data_br(e["contrato_ate"]) if e else None
+        ct_wy = J06.data_br(l["ct_wyscout"])
+        m = fichas_mi.get((J06.ANO_ALVO, l["jogador"]))
+        v = J06.julgar(l, ficha_dec.get(l["setor"], []), l["setor"])
+        if v["indicadores_com_dado"] < 2:
+            continue
+        nota = pontuar(v["detalhe"])
+        if not nota["com_dado"]:
+            continue
+        saida.append({
+            "setor": l["setor"], "origem": "Série B", "jogador": l["jogador"],
+            "clube": l["clube"], "liga": "Série B", "idade": l["idade_na_temporada"],
+            "minutos": l["minutos"], "fatia_pct": m["fatia"] if m else None,
+            "contrato": (e["contrato_ate"] if e else "") or l["ct_wyscout"],
+            "livre": bool(J06.na_janela(ct_tm) or J06.na_janela(ct_wy)),
+            "estrangeiro": bool(l["nascido_em"]) and l["nascido_em"] != "Brazil",
+            "fisico_verificado": bool(l["tem_fisico"]),
+            "forca_do_fator": "",
+            "minutagem_regular": bool(m and m["regular"]),
+            "_violados_j06": v["violados"], "_com_dado_j06": v["indicadores_com_dado"],
+            **nota})
+    return saida
+
+
+def conferir_contra_o_funil(linhas):
+    """Falha fechada: a conta desta lista tem de bater, jogador a jogador, com o funil publicado.
+
+    Lista que não reproduz o número que a parte já publicou é alegação sobre si mesma — é onde o
+    estudo se enganou antes, e é o que o portão de entrega existe para impedir."""
+    caminho = RESULTADOS / "J06_funil.csv"
+    if not caminho.exists():
+        return ["falta o J06_funil.csv: sem ele não há contra o que conferir"]
+    pub = {(r["jogador"], r["clube"]): r for r in csv.DictReader(caminho.open(encoding="utf-8"))}
+    erros = []
+    for l in linhas:
+        r = pub.get((l["jogador"], l["clube"]))
+        if r is None:
+            erros.append(f"{l['jogador']} ({l['clube']}) não está no funil publicado")
+            continue
+        if int(r["violados"] or 0) != l["_violados_j06"]:
+            erros.append(f"{l['jogador']}: violados {l['_violados_j06']} aqui, "
+                         f"{r['violados']} no funil")
+        if int(r["indicadores_com_dado"] or 0) != l["_com_dado_j06"]:
+            erros.append(f"{l['jogador']}: indicadores_com_dado {l['_com_dado_j06']} aqui, "
+                         f"{r['indicadores_com_dado']} no funil")
+    return erros
+
+
+def exterior(ficha):
+    """Os candidatos de fora, com o percentil já ajustado pelo fator de liga de J08."""
+    caminho = RESULTADOS / "J09_base.csv"
+    if not caminho.exists():
+        return []
+    fora = []
+    for r in csv.DictReader(caminho.open(encoding="utf-8")):
+        setor = r.get("setor")
+        itens = [i for i in ficha.get(setor, []) if i.get("no_perfil_curto")]
+        detalhe = []
+        for i in itens:
+            ind = i["indicador"]
+            # O `__adj` ja sai orientado ("maior e melhor"): o J09 aplica o sinal ANTES de ranquear.
+            p = J06.num(r.get(f"{ind}__adj")) or J06.num(r.get(f"{ind}__pct"))
+            if p is None:
+                continue
+            detalhe.append({"indicador": ind, "nome": i["nome"], "bloco": i["bloco"],
+                            "percentil": round(p, 1), "piso_pct": i["piso_pct"],
+                            "utilizavel": (setor, ind) not in J06.NAO_UTILIZAVEL,
+                            "atende": None if i["piso_pct"] is None else bool(p >= i["piso_pct"])})
+        if len(detalhe) < 2:
+            continue
+        nota = pontuar(detalhe)
+        if nota["com_dado"] < 2:
+            continue
+        fora.append({
+            "setor": setor, "origem": "exterior", "jogador": r.get("jogador"),
+            "clube": r.get("time"), "liga": r.get("liga"),
+            "idade": J06.num(r.get("idade")), "minutos": J06.num(r.get("minutos")),
+            "fatia_pct": J06.num(r.get("fatia_pct")), "contrato": r.get("contrato"),
+            "livre": r.get("contrato_na_janela") in ("True", "true", "1"),
+            "estrangeiro": True,
+            "fisico_verificado": r.get("fisico_rastreado") in ("True", "true", "1"),
+            "forca_do_fator": r.get("forca_do_fator") or "",
+            "minutagem_regular": r.get("minutagem_regular") in ("True", "true", "1"),
+            "regularidade_verificavel": r.get("regularidade_verificavel") in ("True", "true", "1"),
+            **nota})
+    # A ficha nao e medida la fora (1 a 2 criterios de 4 a 6), entao a ordem NAO pode ser a
+    # aderencia: seria ranquear pelo terco do perfil que existe. O que o J09 estabeleceu e outra
+    # coisa — "estrangeiro que ja rodava joga mais no primeiro ano de Serie B" —, e e essa a
+    # peneira. So entra quem tem minutagem regular VERIFICAVEL na liga de origem.
+    fora = [x for x in fora if x["minutagem_regular"] and x["regularidade_verificavel"]]
+    return fora
+
+
+def main():
+    ficha = {}
+    for l in csv.DictReader((RESULTADOS / "J05_perfil.csv").open(encoding="utf-8")):
+        ficha.setdefault(l["setor"], []).append({
+            "indicador": l["indicador"], "nome": l["nome"], "bloco": l["bloco"],
+            "sentido": l["sentido"], "piso_pct": J06.num(l["piso_pct"]),
+            "no_perfil_curto": l["no_perfil_curto"] == "1",
+        })
+
+    dec = json.load((RESULTADOS / "J06_indicadores.json").open(encoding="utf-8"))
+    ficha_dec = dict(dec["perfil_herdado_de_J05"]["por_setor"])
+    setores = dec["setores"]
+
+    print("montando a base da Série B (mesma conta do J06)…")
+    b = serie_b(ficha_dec, setores)
+    erros = conferir_contra_o_funil(b)
+    if erros:
+        print(f"A lista NÃO foi gravada — {len(erros)} divergência(s) contra o funil publicado:",
+              file=sys.stderr)
+        for e in erros[:12]:
+            print(f"  {e}", file=sys.stderr)
+        return 1
+    print(f"  {len(b)} jogadores com dois ou mais critérios medidos, conferidos contra o funil")
+
+    fora = exterior(ficha)
+    # A ficha do exterior mede, no maximo, 2 dos 4 a 6 criterios com piso — o dado fisico das ligas
+    # de origem nao existe e o fator de J08 so converte parte do tecnico. Ranquear os dois juntos
+    # poria o estrangeiro no topo por ser medido em menos coisa, entao eles vao SEPARADOS e a lista
+    # de fora diz, em cada linha, quantos criterios sustentam a nota.
+    print(f"  {len(fora)} candidatos de fora, com cobertura parcial da ficha")
+
+    saida = {"gerado_por": "scripts/J06_ranking.py",
+             "o_que_e": ("Ordena por ADERÊNCIA à ficha da posição — o quanto o jogador se parece "
+                         "com o titular de quem subiu. NÃO é probabilidade de dar certo: o perfil "
+                         "descreve quem subiu e não promete quem vai subir (J05-1), e o backtest "
+                         "da §8.6 não autorizou publicar nome como alvo."),
+             "serie_b": [], "exterior": []}
+
+    linhas_csv = []
+    for grupo, chave in ((b, "serie_b"), (fora, "exterior")):
+        for setor in ORDEM:
+            gente = sorted([x for x in grupo if x["setor"] == setor],
+                           key=lambda x: (-(x["atende"] or 0), -(x["aderencia"] or 0)))
+            if chave == "exterior":
+                # Ordem de fora: rodagem primeiro (o achado do J09), e so depois o pouco de ficha
+                # que existe. Cortada em 15 por posicao — lista longa sobre dado fino engana.
+                gente = sorted(gente, key=lambda x: (-(x["fatia_pct"] or 0), -(x["atende"] or 0),
+                                                     -(x["aderencia"] or 0)))[:15]
+            if not gente:
+                continue
+            saida[chave].append({
+                "posicao": setor,
+                "criterios_da_ficha": max((x["com_dado"] for x in gente), default=0),
+                "quantos": len(gente),
+                "jogadores": [{k: x.get(k) for k in
+                               ("jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
+                                "com_dado", "atende", "aderencia", "folga", "contrato", "livre",
+                                "estrangeiro", "fisico_verificado", "forca_do_fator",
+                                "minutagem_regular", "detalhe")}
+                              for x in gente],
+            })
+            for i, x in enumerate(gente, 1):
+                linhas_csv.append({**{k: x.get(k) for k in COLUNAS if k != "posto"}, "posto": i})
+
+    with SAIDA_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=COLUNAS, extrasaction="ignore")
+        w.writeheader()
+        for r in linhas_csv:
+            w.writerow(r)
+    SAIDA_JSON.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+    print(f"\n{SAIDA_CSV.name}: {len(linhas_csv)} linhas")
+    for bloco in saida["serie_b"]:
+        top = bloco["jogadores"][0]
+        print(f"  {bloco['posicao']:9} {bloco['quantos']:3} jogadores · "
+              f"1º {top['jogador']} ({top['clube']}) "
+              f"atende {top['atende']}/{top['com_dado']} · aderência {top['aderencia']}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -318,6 +318,81 @@
       '</section>';
   }
 
+  /* A lista por posição ORDENADA POR ADERÊNCIA, e não por passar ou não passar na ficha.
+     A ficha de J05 é uma conjunção de 4 a 6 pisos: ela responde "quem é perfeito" e joga fora a
+     informação de quão perto cada um está, que é a que serve para montar elenco. Aqui a nota é a
+     média do percentil do jogador nos critérios da posição, na mesma escala dos pisos. */
+  function rankingHtml() {
+    const K = D.ranking;
+    if (!K || !K.serie_b || !K.serie_b.length) return '';
+    const fmt = (v, c) => v == null ? '—' :
+      Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
+    const linha = (j, i) => {
+      const sel = j.atende === j.com_dado ? ' class="esb-forte"' : '';
+      return '<tr' + sel + '><td class="esb-num">' + i + '</td>' +
+        '<td>' + esc(j.jogador) +
+        (j.estrangeiro ? ' <span class="esb-flag" title="estrangeiro: ocupa vaga">⚑</span>' : '') +
+        (j.minutagem_regular ? ' <span class="esb-roda" title="minutagem alta e repetida">roda</span>' : '') +
+        '</td><td>' + esc(j.clube || '—') + '</td>' +
+        (K.exterior && K.exterior.length ? '' : '') +
+        '<td class="esb-num">' + fmt(j.idade, 0) + '</td>' +
+        '<td class="esb-num"><b>' + j.atende + '</b>/' + j.com_dado + '</td>' +
+        '<td class="esb-num">' + fmt(j.aderencia, 1) + '</td>' +
+        '<td class="esb-num ' + ((j.folga || 0) < 0 ? 'esb-neg' : '') + '">' +
+          (j.folga > 0 ? '+' : '') + fmt(j.folga, 1) + '</td>' +
+        '<td>' + (j.livre ? '<span class="esb-ct-ok">vencendo</span>' : '—') + '</td>' +
+        '<td class="esb-suave esb-mini" title="' + esc(j.detalhe || '') + '">' +
+          esc((j.detalhe || '').split(';').slice(0, 2).join(' ·')) + '…</td></tr>';
+    };
+    const bloco = (b, prefixo) => {
+      const vis = b.jogadores.slice(0, 10);
+      const resto = b.jogadores.slice(10);
+      const cab = '<tr><th class="esb-num">#</th><th>jogador</th><th>clube</th>' +
+        '<th class="esb-num">idade</th><th class="esb-num" title="critérios que ele cruza, ' +
+        'de quantos foram medidos">atende</th>' +
+        '<th class="esb-num" title="média do percentil dele nos critérios da posição, 0 a 100">aderência</th>' +
+        '<th class="esb-num" title="média de (percentil − piso): negativo é abaixo do que a ficha pede">folga</th>' +
+        '<th>contrato</th><th>onde ele está na ficha</th></tr>';
+      return '<div class="esb-pos"><h4>' + esc(b.posicao) +
+        '<span class="esb-conta">' + b.quantos + ' com dado · ficha de ' +
+        b.criterios_da_ficha + ' critérios</span></h4>' +
+        '<table class="esb-tab-tec"><thead>' + cab + '</thead><tbody>' +
+        vis.map((j, i) => linha(j, i + 1)).join('') + '</tbody></table>' +
+        (resto.length
+          ? '<details class="esb-graf-tabela"><summary>ver os outros ' + resto.length +
+            '</summary><table class="esb-tab-tec"><tbody>' +
+            resto.map((j, i) => linha(j, i + 11)).join('') + '</tbody></table></details>'
+          : '') + '</div>';
+    };
+    const fora = (K.exterior && K.exterior.length)
+      ? '<h3 id="esb-ranking-fora">E os de fora, que a ficha quase não mede' +
+        '<span class="esb-conta">' + K.exterior.reduce((a, b) => a + b.quantos, 0) +
+        ' com rodagem na liga de origem</span></h3>' +
+        '<p class="esb-aviso-forte"><b>Esta lista é mais fraca que a de cima, e a ordem dela é ' +
+        'outra.</b> A base das ligas de origem mede no máximo 2 dos 4 a 6 critérios da ficha — o ' +
+        'dado físico quase não existe fora daqui e o fator de conversão só traduz parte do ' +
+        'técnico. Ordenar por aderência seria ordenar por um terço do perfil, e quem é medido em ' +
+        'menos coisa erra menos. Então aqui a ordem é a <b>rodagem na liga de origem</b>, que é o ' +
+        'que o J09 mostrou valer: estrangeiro que já vinha jogando muito fez mais minutos no ' +
+        'primeiro ano de Série B. A coluna “atende” diz de quantos critérios a nota sai.</p>' +
+        K.exterior.map(b => bloco(b, 'fora')).join('')
+      : '';
+    return '<section class="esb-secao esb-ranking" id="esb-ranking">' +
+      '<h3>Quem mais se parece com o titular de quem subiu<span class="esb-conta">' +
+      K.serie_b.reduce((a, b) => a + b.quantos, 0) + ' da Série B com dado</span></h3>' +
+      '<p class="esb-aviso-forte"><b>Isto mede semelhança com o passado, não chance de dar certo.</b> ' +
+      'A ficha de cada posição descreve o titular de quem subiu — e o J05 diz na manchete que ela ' +
+      '“descreve quem subiu e não promete quem vai subir”. A ordem existe porque a ficha é uma ' +
+      'conjunção de 4 a 6 pisos: exigir todos ao mesmo tempo responde quem é perfeito e esconde ' +
+      'quem está perto. <b>atende</b> é quantos critérios ele cruza; <b>aderência</b> é a média do ' +
+      'percentil dele nesses critérios, na mesma escala dos pisos; <b>folga</b> é o quanto ele ' +
+      'fica acima ou abaixo do que a ficha pede.</p>' +
+      K.serie_b.map(b => bloco(b, 'b')).join('') + fora +
+      '<p class="esb-nota">Custo, disponibilidade e encaixe no modelo de jogo ficam para validação ' +
+      'externa. O selo <b>roda</b> é minutagem alta e repetida; ⚑ é estrangeiro, que ocupa vaga.</p>' +
+      '</section>';
+  }
+
   function treinadoresHtml() {
     const T = D.treinadores;
     if (!T || !T.lista || !T.lista.length) return '';
@@ -389,6 +464,7 @@
       treinadoresHtml() +
       secaoHtml('Quem contratar', 'J') +
       livresHtml() +
+      rankingHtml() +
       negativasHtml() +
       sabemosHtml() +
       tarefasHtml();

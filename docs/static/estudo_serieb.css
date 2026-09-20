@@ -270,3 +270,11 @@ body:not(.claro) #pgEstudo .esb-tab-tec .esb-suave { color: #83817a; }
   content: ' · a mais forte'; font-weight: 400; font-size: 11px; color: #eb6834;
 }
 #pgEstudo .esb-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+#pgEstudo .esb-roda {
+  font-size: 9px; text-transform: uppercase; letter-spacing: .04em; background: #1baf7a;
+  color: #04150f; border-radius: 3px; padding: 0 4px; font-weight: 700; vertical-align: middle;
+}
+#pgEstudo .esb-neg { color: #eb6834; }
+#pgEstudo .esb-mini { font-size: 11px; max-width: 220px; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; }
+#pgEstudo .esb-ranking .esb-pos { margin-bottom: 22px; }

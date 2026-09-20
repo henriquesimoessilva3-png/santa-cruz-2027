@@ -304,12 +304,22 @@ def main():
                 "fora_por_ser_consequencia": a14.get("fora_por_ser_consequencia") or [],
             }
 
+    # A lista por posição ordenada por ADERÊNCIA à ficha (scripts/J06_ranking.py). Existe porque a
+    # ficha é uma conjunção de 4 a 6 pisos e responde "quem é perfeito", jogando fora a informação
+    # de quão perto cada um está — que é o que serve para montar elenco.
+    ranking = None
+    caminho_rk = os.path.join(RESULTADOS, "J06_ranking_aderencia.json")
+    if os.path.exists(caminho_rk):
+        with open(caminho_rk, encoding="utf-8") as f:
+            ranking = json.load(f)
+
     dado = {
         "gerado_em": dt.date.today().isoformat(),
         "partes": partes,
         "elenco_livre": livres,
         "treinadores": treinadores,
         "regua": regua,
+        "ranking": ranking,
         "validadas": validadas[:7],   # "O que decidimos" mostra ate 7
         "negativas": negativas,
         "contagem": {
