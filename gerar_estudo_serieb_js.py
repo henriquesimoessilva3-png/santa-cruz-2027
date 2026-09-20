@@ -105,6 +105,51 @@ def trocar(texto, numeros, onde, erros):
     return re.sub(r"\{(\w+)\}", um, texto or "")
 
 
+def resolver_grafico(g, numeros, onde, erros):
+    """Resolve os marcadores do grafico em valores, como o trocar() faz com o texto.
+
+    A aba nao calcula nada — nem o grafico. Se um marcador do grafico nao tiver valor,
+    isso e erro aqui, do mesmo jeito que um marcador de texto sem valor: o gerador para.
+    """
+    if not g:
+        return None
+
+    def serie(s):
+        if "valor" in s and s["valor"] is not None:
+            return {"nome": s.get("nome"), "valor": s["valor"]}
+        m = s.get("marcador")
+        if m in numeros:
+            return {"nome": s.get("nome"), "valor": numeros[m]}
+        erros.append(f"{onde}: o grafico usa o marcador {{{m}}}, que nao esta em numeros")
+        return {"nome": s.get("nome"), "valor": None}
+
+    out = {"tipo": g.get("tipo"), "titulo": g.get("titulo"), "unidade": g.get("unidade")}
+    if g.get("series"):
+        out["series"] = [serie(s) for s in g["series"]]
+    if g.get("cortes"):
+        out["cortes"] = [{"rotulo": c.get("rotulo"),
+                          "series": [serie(s) for s in c.get("series", [])]}
+                         for c in g["cortes"]]
+    if g.get("linhas"):
+        ls = []
+        for l in g["linhas"]:
+            it = {"nome": l.get("nome")}
+            for lado in ("turno", "returno"):
+                m = l.get(lado)
+                if m in numeros:
+                    it[lado] = numeros[m]
+                else:
+                    erros.append(f"{onde}: o grafico usa {{{m}}}, que nao esta em numeros")
+                    it[lado] = None
+            ls.append(it)
+        out["linhas"] = ls
+    if g.get("barras"):
+        out["barras"] = [serie(b) for b in g["barras"]]
+    if g.get("linha_de_corte") is not None:
+        out["linha_de_corte"] = g["linha_de_corte"]
+    return out
+
+
 def main():
     por_id, erros = {}, []
     for caminho in sorted(glob.glob(os.path.join(RESULTADOS, "*.json"))):
@@ -137,6 +182,7 @@ def main():
                 "n": trocar(c.get("n"), numeros, onde, erros),
                 "prova": c.get("prova"), "status": c.get("status", "rascunho"),
                 "negativa": bool(c.get("negativa")),
+                "grafico": resolver_grafico(c.get("grafico"), numeros, onde, erros),
             }
             concl.append(item)
             if item["negativa"]:

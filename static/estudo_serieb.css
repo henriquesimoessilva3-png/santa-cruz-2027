@@ -108,3 +108,32 @@
   #pgEstudo .esb-concl h4 { font-size: 14.5px; }
   #pgEstudo .esb-gerado { margin-left: 0; width: 100%; }
 }
+
+/* ---- gráficos (20/09) ------------------------------------------------------
+   Um por conclusão, como o CLAUDE.md do estudo manda. O desenho vem do
+   estudo_serieb_grafico.js, lendo o campo `grafico` de cada conclusão. */
+#pgEstudo .esb-graf { margin: 14px 0 4px; padding: 0; }
+#pgEstudo .esb-graf figcaption {
+  font-size: 11px; letter-spacing: .02em; text-transform: uppercase;
+  color: #52514e; margin-bottom: 6px;
+}
+#pgEstudo .esb-graf svg { display: block; overflow: visible; }
+#pgEstudo .esb-graf-tabela { margin-top: 6px; }
+#pgEstudo .esb-graf-tabela summary {
+  font-size: 11px; color: #52514e; cursor: pointer; list-style: revert;
+}
+#pgEstudo .esb-graf-tabela summary:hover { color: #0b0b0b; }
+#pgEstudo .esb-graf-tabela table { border-collapse: collapse; margin-top: 6px; font-size: 12px; }
+#pgEstudo .esb-graf-tabela th,
+#pgEstudo .esb-graf-tabela td { padding: 2px 12px 2px 0; text-align: left; font-weight: 400; }
+#pgEstudo .esb-graf-tabela th { color: #52514e; }
+#pgEstudo .esb-graf-tabela td { color: #0b0b0b; font-variant-numeric: tabular-nums; }
+
+@media (prefers-color-scheme: dark) {
+  #pgEstudo .esb-graf figcaption,
+  #pgEstudo .esb-graf-tabela summary,
+  #pgEstudo .esb-graf-tabela th { color: #c3c2b7; }
+  #pgEstudo .esb-graf-tabela summary:hover,
+  #pgEstudo .esb-graf-tabela td { color: #ffffff; }
+}
+@media print { #pgEstudo .esb-graf-tabela[open] summary { display: none; } }

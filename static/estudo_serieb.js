@@ -49,6 +49,7 @@
     return '<article class="esb-concl">' +
       '<h4>' + esc(c.manchete) + '</h4>' +
       '<p class="esb-vimos">' + esc(c.o_que_vimos) + '</p>' +
+      (c.grafico ? '<div class="esb-graf-slot" data-concl="' + esc(c.id || '') + '"></div>' : '') +
       '<p class="esb-uso"><b>Para o Santa Cruz:</b> ' + esc(c.para_o_santa_cruz) + '</p>' +
       prem +
       '<div class="esb-rodape">' + selos +
@@ -162,6 +163,23 @@
       tarefasHtml();
   }
 
+  /* Os graficos sao elementos, e a tela e montada como texto: por isso o encaixe vazio
+     no HTML e esta passada depois. Sem o estudo_serieb_grafico.js a aba segue funcionando,
+     so sem desenho — nada aqui depende dele para renderizar o texto. */
+  function montarGraficos(alvo) {
+    if (!window.ESB_GRAFICO || !D) return;
+    const porId = {};
+    (D.partes || []).forEach(function (p) {
+      (p.conclusoes || []).forEach(function (c) { if (c.id) porId[c.id] = c; });
+    });
+    alvo.querySelectorAll('.esb-graf-slot').forEach(function (slot) {
+      const c = porId[slot.dataset.concl];
+      if (!c) return;
+      const fig = window.ESB_GRAFICO.montar(c, {}, slot.clientWidth || 560);
+      if (fig) slot.appendChild(fig); else slot.remove();
+    });
+  }
+
   function render() {
     const alvo = document.getElementById('esCorpoPagina');
     if (!alvo) return;
@@ -172,6 +190,7 @@
     }
     if (alvo.dataset.montado) return;   // a tela é estática; montar uma vez basta
     alvo.innerHTML = casca();
+    montarGraficos(alvo);
     alvo.dataset.montado = '1';
   }
 
