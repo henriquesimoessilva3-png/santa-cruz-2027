@@ -265,9 +265,16 @@ body:not(.claro) #pgEstudo .esb-tab-livres td { border-bottom-color: #26251f; }
 body:not(.claro) #pgEstudo .esb-tab-tec th { color: #c3c2b7; border-bottom-color: #333330; }
 body:not(.claro) #pgEstudo .esb-tab-tec td { border-bottom-color: #26251f; }
 body:not(.claro) #pgEstudo .esb-tab-tec .esb-suave { color: #83817a; }
+/* "a mais forte" e legenda da REGUA (qual peca pesa mais no indice do A14). A tabela do ranking
+   usa a mesma classe .esb-forte para marcar quem cruza todos os criterios medidos, e sem escopo
+   a legenda vazava para la — tres goleiros apareciam como "a mais forte", que nao quer dizer nada
+   naquela lista. */
 #pgEstudo .esb-tab-tec tr.esb-forte td { font-weight: 600; }
-#pgEstudo .esb-tab-tec tr.esb-forte td:first-child::after {
+#pgEstudo .esb-regua .esb-tab-tec tr.esb-forte td:first-child::after {
   content: ' · a mais forte'; font-weight: 400; font-size: 11px; color: #eb6834;
+}
+#pgEstudo .esb-ranking .esb-tab-tec tr.esb-forte td:nth-child(5)::after {
+  content: ' ✓'; color: #1baf7a;
 }
 #pgEstudo .esb-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
 #pgEstudo .esb-roda {
