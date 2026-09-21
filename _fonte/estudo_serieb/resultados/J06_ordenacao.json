@@ -1,0 +1,54 @@
+{
+ "de": "scripts/J06_ranking.py",
+ "decidido_em": "2026-09-21",
+ "o_que_mudou": "A lista da Série B deixou de ser ordenada por QUANTOS pisos o jogador cruza e passou a ser: minutagem ELIMINA, o resto ORDENA.",
+ "por_que": [
+  "O J06-1 mediu que nenhum nome sai da parte por falha da ficha — como conjunção de 4 a 6 pisos, ela reprova praticamente todo mundo (13 de 240 cruzam tudo). Ordenar por `atende` é ordenar por uma régua que o próprio estudo mostrou não separar.",
+  "O J05-3 concluiu que o ÚNICO requisito que a base sustenta por posição é minutagem alta e regular. Requisito que se sustenta elimina; o que não se sustenta, no máximo ordena. Era isso que estava trocado.",
+  "O eixo da ordem é a qualidade da chance, que é o único traço firme do estudo (A02-1) e o único que acompanha o treinador na troca de clube (T03-1) e que dá para treinar (A12-1). O A15-1 confirmou o eixo dentro do próprio time, na unidade do jogo."
+ ],
+ "elimina": {
+  "criterio": "minutagem alta e repetida (o selo `roda`)",
+  "de": "J05-3",
+  "campo": "minutagem_regular",
+  "vale_para": "só a lista da Série B — a do exterior já eliminava por rodagem verificável na liga de origem desde o J09",
+  "o_que_isto_nao_e": "não é dizer que quem jogou pouco é pior. Minutagem baixa por LESÃO é outra coisa, e o J01-2 mediu que a ficha de lesão não distingue os dois casos. Quem cai aqui cai por não ser verificável nesta base, e o número de quem caiu vai publicado."
+ },
+ "ordena": {
+  "chave_1": {
+   "nome": "eixo da qualidade da chance",
+   "campo": "aderencia_eixo",
+   "indicadores": [
+    "Toques na área/90",
+    "Passes progressivos/90"
+   ],
+   "por_que_estes": "São a tradução, no jogador, de 'chegar a finalizar de dentro': levar a bola ao terço final e estar dentro da área. São os dois indicadores da ficha que ficam nesse eixo.",
+   "de": "A02-1 (firme), A12-1, T03-1, A15-1",
+   "como_e_medido": "No MESMO percentil do resto (dentro de temporada × setor, só quem tem 900+ minutos), orientado pelo `sentido` declarado em J05_perfil.csv. Os dois entram SEM piso: `Toques na área/90` tem piso na ficha de J05 mas ficou de fora do perfil CURTO que o J06 herda, e transformá-lo em exigência aqui mudaria `atende` e `com_dado` e quebraria a conferência contra o funil publicado — a trava que garante que esta lista é a mesma conta do J06. Então ele descreve e ordena, e não vira exigência nova. É a mesma regra que o J06 aplica a métrica sem piso.",
+   "nao_vale_para_o_exterior": "A base das ligas de origem mede no máximo 2 dos 4 a 6 critérios da ficha e não traz os dois do eixo. A lista de fora continua ordenada por rodagem na liga de origem, que é o achado do J09-1, e a tela diz isso em cima dela."
+  },
+  "chave_2": {
+   "nome": "físico e duelo",
+   "campo": "aderencia_desempate",
+   "blocos": [
+    "fisico",
+    "duelo_corpo"
+   ],
+   "papel": "desempate",
+   "de": "A06-1 (duelo no chão) e J04-2 (o pouco de físico que sobreviveu)"
+  },
+  "chave_3": {
+   "nome": "aderência geral à ficha",
+   "campo": "aderencia",
+   "papel": "último desempate, para a ordem ser determinística"
+  }
+ },
+ "fora_do_eixo": {
+  "Passes certos, %": "é controle de bola, não qualidade da chance. Continua medido e mostrado na tabela, entra na aderência geral, e não manda na ordem."
+ },
+ "o_que_a_ordem_continua_nao_sendo": [
+  "Probabilidade de dar certo. O J05-1 diz na manchete que o perfil descreve quem subiu e não promete quem vai subir, e o backtest da §8.6 não autorizou publicar nome como alvo.",
+  "Um número único de encaixe. A §8.2 proíbe somar as três notas da Protótipo num só número, e esta ordem não as soma: usa uma como chave e as outras como desempate, em camadas, com cada coluna à vista.",
+  "Custo, disponibilidade e encaixe no modelo de jogo, que ficam para validação externa."
+ ]
+}

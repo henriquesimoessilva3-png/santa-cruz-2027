@@ -448,7 +448,10 @@
     const fmt = (v, c) => v == null ? '—' :
       Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
     const linha = (j, i, cols) => {
-      const sel = j.atende === j.com_dado ? ' class="esb-forte"' : '';
+      /* O destaque era “cruza TODOS os pisos” — a conjuncao que o proprio J06-1 mediu reprovar
+         quase todo mundo (13 de 240). Desde 21/09 a regra e outra: minutagem elimina, o eixo da
+         qualidade da chance ordena. Quem se destaca e quem esta no terco de cima do eixo. */
+      const sel = (j.aderencia_eixo != null && j.aderencia_eixo >= 66.7) ? ' class="esb-forte"' : '';
       const meus = {};
       criteriosDe(j.detalhe).forEach(c => { meus[c.nome] = c; });
       const celulas = (cols || []).map(nome => {
@@ -471,8 +474,11 @@
         '</td><td>' + esc(j.clube || '—') + '</td>' +
         (K.exterior && K.exterior.length ? '' : '') +
         '<td class="esb-num">' + fmt(j.idade, 0) + '</td>' +
-        '<td class="esb-num"><b>' + j.atende + '</b>/' + j.com_dado + '</td>' +
-        '<td class="esb-num">' + fmt(j.aderencia, 1) + '</td>' +
+        '<td class="esb-num"' + (j.eixo_detalhe ? ' title="' + esc(j.eixo_detalhe) + '"' : '') +
+        '><b>' + (j.aderencia_eixo == null ? '—' : fmt(j.aderencia_eixo, 1)) + '</b></td>' +
+        '<td class="esb-num">' + (j.aderencia_desempate == null ? '—' : fmt(j.aderencia_desempate, 1)) + '</td>' +
+        '<td class="esb-num esb-suave">' + j.atende + '/' + j.com_dado + '</td>' +
+        '<td class="esb-num esb-suave">' + fmt(j.aderencia, 1) + '</td>' +
         '<td class="esb-num ' + ((j.folga || 0) < 0 ? 'esb-neg' : '') + '">' +
           (j.folga > 0 ? '+' : '') + fmt(j.folga, 1) + '</td>' +
         '<td>' + (j.livre ? '<span class="esb-ct-ok">vencendo</span>' : '—') + '</td>' +
@@ -501,9 +507,16 @@
                (p == null ? '' : '<span class="esb-crit-piso"> ' + fmt(p, 0) + '</span>') + '</th>';
       }).join('');
       const cab = '<tr><th class="esb-num">#</th><th>jogador</th><th>clube</th>' +
-        '<th class="esb-num">idade</th><th class="esb-num" title="critérios que ele cruza, ' +
-        'de quantos foram medidos">atende</th>' +
-        '<th class="esb-num" title="média do percentil dele nos critérios da posição, 0 a 100">aderência</th>' +
+        '<th class="esb-num">idade</th>' +
+        '<th class="esb-num" title="MANDA NA ORDEM: média do percentil dele em toques na área e ' +
+        'passes progressivos — o eixo da qualidade da chance, o único traço firme do estudo. ' +
+        'Passe o mouse no ? para ver os dois separados.">eixo</th>' +
+        '<th class="esb-num" title="DESEMPATE: média do percentil dele nos critérios de físico e ' +
+        'de duelo da ficha da posição">físico e duelo</th>' +
+        '<th class="esb-num esb-suave" title="critérios que ele cruza, de quantos foram medidos. ' +
+        'NÃO manda na ordem: como conjunção, a ficha reprova quase todo mundo (J06-1).">atende</th>' +
+        '<th class="esb-num esb-suave" title="média do percentil dele em TODOS os critérios da ' +
+        'posição, 0 a 100">aderência</th>' +
         '<th class="esb-num" title="média de (percentil − piso): negativo é abaixo do que a ficha pede">folga</th>' +
         '<th>contrato</th>' +
         '<th class="esb-num" title="valor de mercado no Transfermarkt' +
@@ -517,7 +530,8 @@
         ? ' · ficha de ' + esc(b.ficha_de) + ', ' + b.criterios_da_ficha + ' critérios'
         : ' · ficha de ' + b.criterios_da_ficha + ' critérios';
       return '<div class="esb-pos"><h4>' + esc(b.posicao) +
-        '<span class="esb-conta">' + b.quantos + ' com dado' + deQuem + '</span></h4>' +
+        '<span class="esb-conta">' + b.quantos +
+        (prefixo === 'fora' ? ' com dado' : ' com rodagem') + deQuem + '</span></h4>' +
         '<table class="esb-tab-tec"><thead>' + cab + '</thead><tbody>' +
         vis.map((j, i) => linha(j, i + 1, cols)).join('') + '</tbody></table>' +
         (resto.length
@@ -539,19 +553,26 @@
         'primeiro ano de Série B. A coluna “atende” diz de quantos critérios a nota sai.</p>' +
         K.exterior.map(b => bloco(b, 'fora')).join('')
       : '';
+    const corte = K.corte_de_minutagem;
     return '<section class="esb-secao esb-ranking" id="esb-ranking">' +
-      '<h3>Quem mais se parece com o titular de quem subiu<span class="esb-conta">' +
-      K.serie_b.reduce((a, b) => a + b.quantos, 0) + ' da Série B com dado</span></h3>' +
-      '<p class="esb-aviso-forte"><b>Isto mede semelhança com o passado, não chance de dar certo.</b> ' +
-      'A ficha de cada posição descreve o titular de quem subiu — e o J05 diz na manchete que ela ' +
-      '“descreve quem subiu e não promete quem vai subir”. A ordem existe porque a ficha é uma ' +
-      'conjunção de 4 a 6 pisos: exigir todos ao mesmo tempo responde quem é perfeito e esconde ' +
-      'quem está perto. <b>atende</b> é quantos critérios ele cruza; <b>aderência</b> é a média do ' +
-      'percentil dele nesses critérios, na mesma escala dos pisos; <b>folga</b> é o quanto ele ' +
-      'fica acima ou abaixo do que a ficha pede.</p>' +
+      '<h3>Quem roda, na ordem do eixo do modelo<span class="esb-conta">' +
+      K.serie_b.reduce((a, b) => a + b.quantos, 0) + ' da Série B com rodagem' +
+      (corte ? ' · ' + corte['saíram'] + ' saíram no corte' : '') + '</span></h3>' +
+      '<p class="esb-aviso-forte"><b>Minutagem elimina; o resto ordena.</b> Só entra aqui quem tem ' +
+      'minutagem alta e repetida — o <i>único</i> requisito que a base sustenta por posição ' +
+      '(J05-3). A ordem é o <b>eixo</b>: toques na área e passes progressivos, a tradução no ' +
+      'jogador de “chegar a finalizar de dentro”, que é o único traço firme do estudo (A02-1) e o ' +
+      'que o A15-1 confirmou dentro do próprio time. <b>Físico e duelo</b> desempatam. ' +
+      '<b>atende</b> e <b>aderência</b> ficam na tabela e não mandam na ordem: como conjunção de ' +
+      '4 a 6 pisos, a ficha reprova quase todo mundo, e foi isso que o J06-1 mediu. ' +
+      '<b>Isto mede semelhança com o passado, não chance de dar certo</b> — o J05 diz na manchete ' +
+      'que o perfil “descreve quem subiu e não promete quem vai subir”. Quem jogou pouco por ' +
+      '<i>lesão</i> cai no corte junto com quem jogou pouco por escolha: o J01-2 mediu que a base ' +
+      'não distingue os dois, e por isso o número de quem saiu vai à vista, no topo.</p>' +
       K.serie_b.map(b => bloco(b, 'b')).join('') + fora +
       '<p class="esb-nota">Custo, disponibilidade e encaixe no modelo de jogo ficam para validação ' +
-      'externa. O selo <b>roda</b> é minutagem alta e repetida; ⚑ é estrangeiro, que ocupa vaga.</p>' +
+      'externa. Na lista da Série B, o selo <b>roda</b> está em todos — ele é a porta de entrada; ' +
+      'na de fora, a rodagem é na liga de origem. ⚑ é estrangeiro, que ocupa vaga.</p>' +
       '</section>';
   }
 

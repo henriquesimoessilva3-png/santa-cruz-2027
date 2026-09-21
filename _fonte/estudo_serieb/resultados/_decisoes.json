@@ -69,7 +69,7 @@
    "conclusao": "J05-3",
    "decisao": "Usar minutagem alta e regular como PRIMEIRO filtro, e só depois olhar o resto.",
    "porque": "É o único requisito que a base sustenta por posição (J05-3). O corte de minutagem de quem subiu varia muito entre posições: Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%.",
-   "ressalva": "A ficha completa NÃO deve ser filtro eliminatório: como conjunção de pisos, ela reprova todo mundo — o J06-1 é exatamente isso, \"nenhum nome sai desta parte por falha da ficha\". O resto da ficha ordena, não elimina.",
+   "ressalva": "A ficha completa NÃO deve ser filtro eliminatório: como conjunção de pisos, ela reprova todo mundo — o J06-1 é exatamente isso, \"nenhum nome sai desta parte por falha da ficha\". O resto da ficha ordena, não elimina. Desde 21/09 a lista desta aba funciona assim: a minutagem corta, e o que sobra é ordenado pelo eixo da qualidade da chance, com físico e duelo desempatando (a regra está em J06_ordenacao.json). Quem jogou pouco por LESÃO cai junto com quem jogou pouco por escolha — o J01-2 mediu que a base não distingue os dois —, e por isso o número de quem saiu no corte vai à vista.",
    "confianca": "indício"
   },
   {

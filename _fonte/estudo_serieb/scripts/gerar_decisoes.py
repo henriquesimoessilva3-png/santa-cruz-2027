@@ -126,7 +126,12 @@ DECISOES = [
         "de": "J05", "conclusao": "J05-3",
         "ressalva": ("A ficha completa NÃO deve ser filtro eliminatório: como conjunção de pisos, "
                      "ela reprova todo mundo — o J06-1 é exatamente isso, \"nenhum nome sai desta "
-                     "parte por falha da ficha\". O resto da ficha ordena, não elimina."),
+                     "parte por falha da ficha\". O resto da ficha ordena, não elimina. Desde "
+                     "21/09 a lista desta aba funciona assim: a minutagem corta, e o que sobra é "
+                     "ordenado pelo eixo da qualidade da chance, com físico e duelo desempatando "
+                     "(a regra está em J06_ordenacao.json). Quem jogou pouco por LESÃO cai junto "
+                     "com quem jogou pouco por escolha — o J01-2 mediu que a base não distingue "
+                     "os dois —, e por isso o número de quem saiu no corte vai à vista."),
     },
     {
         "id": "D6", "grupo": "Contratação",
