@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 31 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 32 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -2067,6 +2067,159 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas. (1) O preço do traço. Esta parte mede o que o traço RENDE e não o que ele CUSTA: treinador, treino e jogador que sustentam a solidez têm preço, e sem ele a comparação com o elenco é de um lado só. A folha salarial por clube-temporada resolveria, e não está na base. (2) O instantâneo do Transfermarkt. O valor não tem data conhecida, então não dá para saber se ele foi medido antes ou depois do resultado — e é disso que depende a leitura da A16-2. Um valor por rodada, ou ao menos por turno, é a coleta que mais renderia a esta pergunta.",
    "feita_em": null,
    "prova_arquivos": "scripts/A16.py + scripts/_porta_temporal.py + scripts/A14.py"
+  },
+  {
+   "id": "J10",
+   "bloco": "J",
+   "secao": "Quem contratar",
+   "pergunta": "A corrida para dentro da área vira requisito de contratação por posição?",
+   "status": "validada",
+   "titulo": "Corrida para a área: a ponte do eixo até o jogador, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "J10-1",
+     "parte": "J10",
+     "bloco": "J",
+     "manchete": "Correr para a área não separa o titular de quem sobe",
+     "o_que_vimos": "Nenhum dos 18 testes de corrida para a área separa o titular de quem sobe nos dois cortes. No volante o sinal aponta para o lado certo, +0,43, e ainda assim fica abaixo do que este desenho enxerga, 0,74.",
+     "para_o_santa_cruz": "Corrida para a área NÃO entra na ficha de contratação. A ideia era boa e a base existia — a tabela de corridas sem bola nunca tinha sido usada —, e a resposta é que ela não sustenta requisito por posição. Isso protege de um erro caro: montar a ficha em cima de um número de rastreamento que parece técnico, é vendido como diferencial e, nesta liga, não distingue o titular de quem subiu do titular do meio. O eixo da qualidade da chance continua valendo — ele só não se compra por aqui. Leia junto com o J10-3.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Confirma J03-1, J04-1 e J05-3 numa medida nova: mais uma família de indicadores de jogador que descreve quem subiu e não separa o titular. Não sugere premissa nova; fecha uma porta que estava aberta.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável, e resultado NEGATIVO. (a) Correção para múltiplos testes a 5% por família × comparação × setor: 0 de 18 testes da família da corrida para a área passam nos dois cortes. Na família de controle — corrida no total, corrida forte e distância média —, 2 de 18 passam, e as duas são do volante (J10-2). (b) Anterioridade: NÃO É CALCULÁVEL, e foi declarado antes de rodar — a tabela tem uma linha por jogador-temporada, sem recorte por rodada, ao contrário da tabela física por jogo. Teto da parte: provável. (c) PODER, e esta é a parte que muda a leitura. No volante os três indicadores de corrida para a área apontam para o lado certo — corrida perigosa +0,43, corrida que vira finalização +0,41 e corrida para a área +0,39 — e todos ficam abaixo do mínimo que o desenho enxerga, 0,74, com 21 contra 50. Então isto NÃO é “não existe”: é “este desenho não veria”. Com mais temporadas rastreadas a pergunta merece voltar. (d) Os dois cortes concordam: nenhum indicador da família passa em nenhum dos dois. (e) A subamostra sem os clubes de cobertura baixa não muda nada — nada passa nos dois cortes nela tampouco —, e nela 3 comparações de setor ficaram fora por não chegar ao piso de n. (f) Efeito do time, não do jogador: corrida para a área depende de como o TIME joga. A unidade por 30 min de posse desconta parte disso e não desconta o modelo de jogo.",
+     "n": "697 titulares com corrida medida, 2022 a 2025 (40 clubes): 141 de quem subiu, 414 do meio e 142 de quem caiu, em 6 setores. 0 titulares ficaram fora por não terem linha na tabela de corridas.",
+     "prova": "J10_testes.csv; J10_resumo.json; J10_indicadores.json; J10.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "O que não separou: a corrida do volante para a área, por 30 min de posse",
+      "unidade": "corridas por 30 min de posse do time",
+      "cortes": [
+       {
+        "rotulo": "corridas para a grande área",
+        "series": [
+         {
+          "nome": "quem subiu",
+          "valor": 1.18
+         },
+         {
+          "nome": "o meio",
+          "valor": 0.7
+         }
+        ]
+       },
+       {
+        "rotulo": "corridas que viraram finalização em 10 s",
+        "series": [
+         {
+          "nome": "quem subiu",
+          "valor": 0.48
+         },
+         {
+          "nome": "o meio",
+          "valor": 0.3
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "J10-2",
+     "parte": "J10",
+     "bloco": "J",
+     "manchete": "Só o volante de quem sobe corre diferente, e é em volume",
+     "o_que_vimos": "O volante de quem sobe faz 3,23 corridas fortes por meia hora de posse, contra 1,88 do meio, e corre 12,44 metros por corrida contra 11,30. É volume e alcance, não destino.",
+     "para_o_santa_cruz": "É o único requisito de corrida que esta parte sustenta, e ele vale para UMA posição: o volante. O que se procura é o jogador que cobre mais chão por corrida e repete corrida forte quando o time tem a bola — não o que ataca a área. Entra como desempate na ficha do volante, abaixo da minutagem, que continua sendo o único corte eliminatório (J05-3). E combina com o J04-2, que já tinha achado sinal físico no volante e em nenhuma outra posição: é a mesma posição aparecendo de novo, em medida diferente, o que é mais forte do que um achado isolado.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Reforça o J04-2 — dos dois sinais físicos que sobraram naquela parte, um era do volante. Aqui ele reaparece numa medida independente (corrida sem bola, por posse, em vez de física por 90). Sugere uma premissa estreita: na Série B, o volante é a posição em que o físico do titular de quem sobe se distingue.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável. (a) Correção para múltiplos testes dentro da família de controle: as duas passam nos DOIS cortes — distância média da corrida com q 0,0034 e efeito +0,80 (fica +0,72 sem os times colados na linha), e corrida acima da alta velocidade com q 0,0120 e efeito +0,69, que sobe para +0,78 sem esses times. Os dois estão acima do mínimo que o desenho enxerga no volante, 0,74. IC95 por clube: +0,24 a +1,54 e +0,15 a +1,35. (b) Anterioridade: não é calculável nesta tabela. Teto: provável. (c) A ironia, e ela tem de ir escrita: os dois indicadores que passaram são da família de CONTROLE, a que existia para testar se o achado era “para onde ele corre” ou “quanto ele corre”. Deu quanto. A hipótese que motivou a parte não se confirmou; o que sobrou foi o contrário dela. (d) n pequeno: 21 volantes de quem subiu contra 50 do meio. Na subamostra sem os clubes de cobertura baixa o volante nem chega ao piso de n no corte reduzido, e por isso o achado não foi conferido ali. (e) Efeito do time: volante de time que ataca mais corre mais atrás da bola. A unidade por 30 min de posse desconta parte disso, não tudo.",
+     "n": "21 volantes de quem subiu contra 50 do meio, dentro dos 697 titulares com corrida medida de 2022 a 2025.",
+     "prova": "J10_testes.csv; J10_resumo.json; J10.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Corridas acima da alta velocidade do volante, por 30 min de posse",
+      "unidade": "corridas por 30 min de posse do time",
+      "cortes": [
+       {
+        "rotulo": "com todos os times",
+        "series": [
+         {
+          "nome": "quem subiu",
+          "valor": 3.23
+         },
+         {
+          "nome": "o meio",
+          "valor": 1.88
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os times colados na linha",
+        "series": [
+         {
+          "nome": "quem subiu",
+          "valor": 3.25
+         },
+         {
+          "nome": "o meio",
+          "valor": 1.88
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "J10-3",
+     "parte": "J10",
+     "bloco": "J",
+     "manchete": "A qualidade da chance se compra no treinador, não no jogador",
+     "o_que_vimos": "O eixo da qualidade da chance é firme no TIME e não aparece no jogador: de 18 testes de corrida para a área, passam 0. Antes já não aparecia no número técnico nem na corrida por 90.",
+     "para_o_santa_cruz": "É a conclusão de orçamento desta parte, e ela fecha com a A16. O traço que mais rende ponto nesta liga é do time — modelo de jogo e treinador —, e quatro partes seguidas tentaram achá-lo no jogador e não acharam: nem no número técnico por setor, nem na corrida por 90, nem na ficha completa, nem agora na corrida para a área. Onde gastar, então: em treinador e em treino, que é onde o eixo mora; e, no jogador, em minutagem alta e regular, que é o único requisito que a base sustenta. O que NÃO fazer é pagar prêmio por um número de rastreamento apresentado como “ele ataca a área”: nesta base, esse número não distingue quem subiu.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa de método para o clube: traço firme no time não vira, sozinho, requisito de jogador — a tradução tem de ser medida, e aqui ela falhou em quatro medidas independentes. Não contradiz nenhuma conclusão; junta quatro delas.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, de propósito: é a leitura de quatro resultados negativos juntos, não um teste novo. Os quatro: J03-1 (nenhum número técnico separa o titular por setor), J04-1 (nenhuma medida de corrida por 90 separa), J05-3 (o único requisito que a base sustenta é minutagem alta e regular) e J10-1, aqui, com 0 de 18. Do outro lado, o eixo é firme no time: A02-1 é a única conclusão FIRME do estudo, o A11-1 ligou correr para dentro da área a entrar na área no nível do clube, e o A15-1 confirmou o eixo dentro do próprio time, jogo a jogo. O que esta conclusão NÃO diz: que o jogador não importa, nem que a corrida para a área não exista — o J10-1 mostra que, no volante, o sinal aponta para o lado certo e o desenho não tem tamanho para vê-lo. Diz que, com esta base, a tradução do eixo para uma ficha de posição não se sustenta, e que por isso o dinheiro do eixo é mais bem gasto em treinador e treino, como o A16-1 mediu em ponto e em euro.",
+     "n": "697 titulares com corrida medida em 6 setores, mais as partes J03, J04 e J05 que a conclusão lê junto.",
+     "prova": "J10_resumo.json; J03.json; J04.json; J05.json; J10.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Testes de corrida que viram requisito de posição",
+      "unidade": "testes que passam nos dois cortes",
+      "barras": [
+       {
+        "nome": "corrida para a área",
+        "valor": 0
+       },
+       {
+        "nome": "corrida procurada",
+        "valor": 0
+       },
+       {
+        "nome": "volume de corrida",
+        "valor": 2
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas. (1) O poder. No volante os três indicadores de corrida para a área apontam para o lado certo e ficam abaixo do mínimo detectável; com mais temporadas rastreadas — ou com a Série B de anos anteriores no SkillCorner — a pergunta merece voltar, e a lista já está declarada de antes. (2) O corte por jogo. A tabela de corridas é por temporada fechada; a física por jogo existe (physical_match) e a de corrida não. Com corrida por jogo daria para rodar a anterioridade e para cruzar com o A15, que mediu o jogo. É a mesma compra que a A08 e a A09 já pediram, agora com um terceiro motivo.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/J10.py + scripts/_metodo.py"
   },
   {
    "id": "T01",
@@ -10675,6 +10828,26 @@ const ESTUDO_SERIEB = {
     "confianca": "indício"
    },
    {
+    "id": "D15",
+    "grupo": "Contratação",
+    "de": "J10",
+    "conclusao": "J10-1",
+    "decisao": "Não pagar prêmio por número de corrida para a área.",
+    "porque": "A ponte entre o eixo do modelo e a ficha do jogador foi medida e não paga: de 18 testes de corrida para a área por setor, 0 separam o titular de quem sobe nos dois cortes. É a quarta medida de jogador a dar negativo, depois do número técnico (J03-1), da corrida por 90 (J04-1) e da ficha completa (J05-3).",
+    "ressalva": "\"Não separa\" aqui é \"este desenho não veria\": no volante os três indicadores apontam para o lado certo — o maior é +0,43 — e ficam abaixo do mínimo detectável de 0,74, com 21 contra 50. Com mais temporadas rastreadas a pergunta merece voltar, e a lista já está declarada de antes.",
+    "confianca": "provável"
+   },
+   {
+    "id": "D16",
+    "grupo": "Contratação",
+    "de": "J10",
+    "conclusao": "J10-2",
+    "decisao": "No volante, usar corrida forte e corrida longa como desempate.",
+    "porque": "É o único requisito de corrida que o estudo sustenta, e vale para uma posição só. O volante de quem sobe faz 3,23 corridas fortes por meia hora de posse contra 1,88 do meio, e cobre 12,44 m por corrida contra 11,30. O J04-2 já tinha achado sinal físico no volante e em nenhuma outra posição.",
+    "ressalva": "Desempate, nunca corte: o único filtro eliminatório continua sendo minutagem alta e regular (D5). E os dois indicadores que passaram são da família de CONTROLE da parte — é volume e alcance, não destino, o contrário da hipótese que motivou a análise.",
+    "confianca": "provável"
+   },
+   {
     "id": "D6",
     "grupo": "Contratação",
     "de": "J06",
@@ -12144,9 +12317,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 29,
+  "total": 30,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 29
+  "validada": 30
  }
 };

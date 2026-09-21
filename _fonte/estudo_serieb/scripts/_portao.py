@@ -25,7 +25,7 @@ com o que ele devolve, e nenhum script do estudo aceita ser rodado em modo de co
 A seção "O que o portão ainda NÃO consegue provar" no fim de cada rodada repete este aviso.
 
 Como se usa:
-    python3 scripts/_portao.py             as 29 partes
+    python3 scripts/_portao.py             as 30 partes
     python3 scripts/_portao.py A06 J04     só essas
     python3 scripts/_portao.py --json      a mesma conferência, legível por máquina
 
@@ -59,7 +59,7 @@ PROTOTIPO = RAIZ / "_fonte" / "prototipo"         # onde mora a ESPECIFICACAO.md
 # UNIDADE_INFERIDA abaixo. A regra 7 já previa isso — sem a unidade declarada, `ppda` do A06 e
 # `ppda` do A15 seriam lidos como o mesmo indicador com dois q, que é exatamente o que ela caça.
 PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12",
-          "A13", "A14", "A15", "A16", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
+          "A13", "A14", "A15", "A16", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09", "J10",
           "T01", "T02", "T03", "T04"]
 
 # Vereditos. Só REPROVA impede a parte de ser aceita; AVISO e REVISAR pedem olho humano.
@@ -88,7 +88,7 @@ UNIDADE_INFERIDA = {
     "A07": "clube-temporada", "A10": "clube-temporada", "A11": "clube-temporada",
     "A12": "clube-temporada", "A13": "clube-temporada", "A14": "clube-temporada",
     "J01": "jogador-temporada", "J02": "clube-temporada", "J03": "jogador-temporada",
-    "J04": "jogador-temporada", "J07": "jogador-temporada", "J08": "liga-transferencia",
+    "J04": "jogador-temporada", "J07": "jogador-temporada", "J10": "jogador-temporada", "J08": "liga-transferencia",
     "T01": "treinador-passagem", "T02": "treinador-passagem", "T03": "treinador-passagem",
     "T04": "treinador-passagem",
 }

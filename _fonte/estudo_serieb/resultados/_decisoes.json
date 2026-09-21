@@ -93,6 +93,26 @@
    "confianca": "indício"
   },
   {
+   "id": "D15",
+   "grupo": "Contratação",
+   "de": "J10",
+   "conclusao": "J10-1",
+   "decisao": "Não pagar prêmio por número de corrida para a área.",
+   "porque": "A ponte entre o eixo do modelo e a ficha do jogador foi medida e não paga: de 18 testes de corrida para a área por setor, 0 separam o titular de quem sobe nos dois cortes. É a quarta medida de jogador a dar negativo, depois do número técnico (J03-1), da corrida por 90 (J04-1) e da ficha completa (J05-3).",
+   "ressalva": "\"Não separa\" aqui é \"este desenho não veria\": no volante os três indicadores apontam para o lado certo — o maior é +0,43 — e ficam abaixo do mínimo detectável de 0,74, com 21 contra 50. Com mais temporadas rastreadas a pergunta merece voltar, e a lista já está declarada de antes.",
+   "confianca": "provável"
+  },
+  {
+   "id": "D16",
+   "grupo": "Contratação",
+   "de": "J10",
+   "conclusao": "J10-2",
+   "decisao": "No volante, usar corrida forte e corrida longa como desempate.",
+   "porque": "É o único requisito de corrida que o estudo sustenta, e vale para uma posição só. O volante de quem sobe faz 3,23 corridas fortes por meia hora de posse contra 1,88 do meio, e cobre 12,44 m por corrida contra 11,30. O J04-2 já tinha achado sinal físico no volante e em nenhuma outra posição.",
+   "ressalva": "Desempate, nunca corte: o único filtro eliminatório continua sendo minutagem alta e regular (D5). E os dois indicadores que passaram são da família de CONTROLE da parte — é volume e alcance, não destino, o contrário da hipótese que motivou a análise.",
+   "confianca": "provável"
+  },
+  {
    "id": "D6",
    "grupo": "Contratação",
    "de": "J06",

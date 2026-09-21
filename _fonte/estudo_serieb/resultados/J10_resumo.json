@@ -1,0 +1,204 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "jogador-temporada",
+ "fonte": "off_ball_runs (skillcorner_serieb.db), ponte pelo J04_base.csv",
+ "n": {
+  "titulares_com_corrida": 697,
+  "clubes": 40,
+  "sem_linha_na_tabela": 0,
+  "sem_sc_player_id": 210,
+  "por_faixa": {
+   "Sobe": 141,
+   "Cai": 142,
+   "Meio": 414
+  },
+  "por_setor": {
+   "Atacante": 123,
+   "Lateral": 133,
+   "Meia": 130,
+   "Volante": 89,
+   "Zaga": 134,
+   "Extremo": 88
+  }
+ },
+ "n_por_setor": {
+  "Atacante": {
+   "com": {
+    "n_sobe": 23,
+    "n_meio": 76,
+    "n_cai": 24,
+    "clubes": 36,
+    "d_minimo_80_sobe_x_meio": 0.67
+   },
+   "sem": {
+    "n_sobe": 12,
+    "n_meio": 54,
+    "n_cai": 18,
+    "clubes": 29,
+    "d_minimo_80_sobe_x_meio": 0.91
+   }
+  },
+  "Extremo": {
+   "com": {
+    "n_sobe": 17,
+    "n_meio": 53,
+    "n_cai": 18,
+    "clubes": 31,
+    "d_minimo_80_sobe_x_meio": 0.79
+   },
+   "sem": {
+    "n_sobe": 8,
+    "n_meio": 32,
+    "n_cai": 15,
+    "clubes": 23,
+    "d_minimo_80_sobe_x_meio": 1.14
+   }
+  },
+  "Lateral": {
+   "com": {
+    "n_sobe": 27,
+    "n_meio": 79,
+    "n_cai": 27,
+    "clubes": 40,
+    "d_minimo_80_sobe_x_meio": 0.63
+   },
+   "sem": {
+    "n_sobe": 14,
+    "n_meio": 53,
+    "n_cai": 21,
+    "clubes": 32,
+    "d_minimo_80_sobe_x_meio": 0.85
+   }
+  },
+  "Meia": {
+   "com": {
+    "n_sobe": 28,
+    "n_meio": 75,
+    "n_cai": 27,
+    "clubes": 39,
+    "d_minimo_80_sobe_x_meio": 0.63
+   },
+   "sem": {
+    "n_sobe": 15,
+    "n_meio": 48,
+    "n_cai": 20,
+    "clubes": 30,
+    "d_minimo_80_sobe_x_meio": 0.84
+   }
+  },
+  "Volante": {
+   "com": {
+    "n_sobe": 21,
+    "n_meio": 50,
+    "n_cai": 18,
+    "clubes": 36,
+    "d_minimo_80_sobe_x_meio": 0.74
+   },
+   "sem": {
+    "n_sobe": 12,
+    "n_meio": 40,
+    "n_cai": 13,
+    "clubes": 29,
+    "d_minimo_80_sobe_x_meio": 0.94
+   }
+  },
+  "Zaga": {
+   "com": {
+    "n_sobe": 25,
+    "n_meio": 81,
+    "n_cai": 28,
+    "clubes": 40,
+    "d_minimo_80_sobe_x_meio": 0.65
+   },
+   "sem": {
+    "n_sobe": 13,
+    "n_meio": 54,
+    "n_cai": 21,
+    "clubes": 32,
+    "d_minimo_80_sobe_x_meio": 0.88
+   }
+  }
+ },
+ "comparacoes_fora_por_n": [
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Extremo",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 25,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Volante",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 31,
+   "minimo": "8 de um lado, 16 do outro"
+  },
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Volante",
+   "comparacao": "CM",
+   "fronteira": "sem",
+   "n_a": 6,
+   "n_b": 31,
+   "minimo": "8 de um lado, 16 do outro"
+  }
+ ],
+ "passam_nos_dois_cortes_sobe_x_meio": [
+  {
+   "setor": "Volante",
+   "indicador": "runs_above_hsr_p30tip",
+   "familia": "volume_de_corrida",
+   "nome": "Corridas acima da alta velocidade, por 30 min de posse",
+   "d_com": 0.69,
+   "d_sem": 0.776,
+   "q_com": 0.01198,
+   "q_sem": 0.03196,
+   "cru_sobe": 3.23,
+   "cru_meio": 1.875,
+   "ic_com": [
+    0.15,
+    1.35
+   ]
+  },
+  {
+   "setor": "Volante",
+   "indicador": "runs_avg_distance",
+   "familia": "volume_de_corrida",
+   "nome": "Distância média da corrida (m)",
+   "d_com": 0.799,
+   "d_sem": 0.719,
+   "q_com": 0.00338,
+   "q_sem": 0.03196,
+   "cru_sobe": 12.44,
+   "cru_meio": 11.305,
+   "ic_com": [
+    0.24,
+    1.54
+   ]
+  }
+ ],
+ "por_familia_sobe_x_meio": {
+  "para_a_area": {
+   "testes": 18,
+   "passam_nos_dois": 0
+  },
+  "procurado": {
+   "testes": 12,
+   "passam_nos_dois": 0
+  },
+  "volume_de_corrida": {
+   "testes": 18,
+   "passam_nos_dois": 2
+  }
+ },
+ "porta_temporal_nao_calculavel": {
+  "parcial": null,
+  "passa": false,
+  "por_que": "A off_ball_runs tem UMA linha por jogador-temporada, sem recorte por rodada nem por jogo — ao contrário da physical_match, que tem. Sem valor de 1º turno não há 'antes'. Declarado em J10_indicadores.json antes de rodar. Teto da parte: provável."
+ }
+}

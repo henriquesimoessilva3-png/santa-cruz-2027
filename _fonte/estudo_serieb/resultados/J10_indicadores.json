@@ -1,0 +1,67 @@
+{
+ "parte": "J10",
+ "pergunta": "A corrida para dentro da área separa o titular de quem sobe, e dá para virar requisito de contratação por posição?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "por_que_esta_parte": "O eixo firme do estudo é a qualidade da chance (A02-1), e no time o A11-1 já mediu que quem entra mais na área é quem CORRE PARA DENTRO DELA, não quem corre mais. A ponte disso para o jogador existe na base e nunca tinha sido usada: a tabela `off_ball_runs` do skillcorner_serieb.db, com 3.876 linhas de jogador-temporada. O J04 mediu corrida como VOLUME e intensidade e achou quase nada; aqui a pergunta é outra — para ONDE ele corre.",
+ "recorte": {
+  "temporadas": [2022, 2023, 2024, 2025],
+  "unidade": "jogador-temporada",
+  "quem_entra": "titular elegível, no recorte, como o J04 define (resultados/J04_base.csv)",
+  "goleiro": "FORA: a tabela não traz corrida sem bola de goleiro, e a pergunta não faz sentido para a posição.",
+  "2026": "fora das conclusões, como manda o CLAUDE.md"
+ },
+ "fonte_do_dado": {
+  "tabela": "off_ball_runs do _fonte/estudo_serieb/dados_copiados/skillcorner_serieb.db",
+  "ponte": "sc_player_id × sc_competition_edition_id, pela tabela competitions; o par jogador-temporada vem do J04_base.csv, que já resolveu a identidade SkillCorner × Wyscout",
+  "a_unidade_da_metrica": "p30tip = por 30 minutos de bola com o TIME em posse, não por 90 de jogo. É a unidade certa para corrida sem bola (o jogador só corre para receber quando o time tem a bola) e é DIFERENTE da do J04, que é por 90. Os dois não se comparam número a número.",
+  "runs_avg_distance": "é distância média por corrida, em metros, e não uma taxa: entra sem normalização."
+ },
+ "comparacoes": [
+  {"id": "SM", "nome": "Titular de quem sobe × titular do meio", "papel": "padrão"},
+  {"id": "CM", "nome": "Titular de quem cai × titular do meio", "papel": "secundária"}
+ ],
+ "repetir_sem_fronteira": true,
+ "subamostras": {
+  "todos": "todos os titulares com corrida medida",
+  "sem_cobertura_baixa": "sem os jogadores de clube-temporada com cobertura de rastreamento baixa, como o CLAUDE.md manda fazer com dado físico"
+ },
+ "percentil": "dentro de setor × temporada, como no J04 — nunca entre setores, porque zagueiro e atacante correm para a área em escalas diferentes",
+ "n_minimo_por_setor": "8 de um lado e 16 do outro, o mesmo piso do J04",
+ "familias": [
+  {"id": "para_a_area", "nome": "Corre para dentro da área",
+   "indicadores": [
+    {"id": "runs_penalty_area_p30tip", "nome": "Corridas para a grande área, por 30 min de posse", "sinal": 1, "apelidos": ["corrida para a área", "corridas para a área", "corre para a área"]},
+    {"id": "runs_dangerous_p30tip", "nome": "Corridas perigosas, por 30 min de posse", "sinal": 1, "apelidos": ["corrida perigosa", "corridas perigosas"]},
+    {"id": "runs_shot_within_10s_p30tip", "nome": "Corridas que viraram finalização em 10 s, por 30 min de posse", "sinal": 1, "apelidos": ["corrida que vira finalização", "corridas que viram finalização"]}
+   ]},
+  {"id": "procurado", "nome": "O time procura essa corrida",
+   "indicadores": [
+    {"id": "runs_targeted_p30tip", "nome": "Corridas em que o passe foi tentado, por 30 min de posse", "sinal": 1, "apelidos": ["corrida procurada", "corridas procuradas"]},
+    {"id": "runs_received_p30tip", "nome": "Corridas em que a bola chegou, por 30 min de posse", "sinal": 1, "apelidos": ["corrida em que a bola chega", "corridas em que a bola chega"]}
+   ]},
+  {"id": "volume_de_corrida", "nome": "Corre muito (o controle)",
+   "por_que_existe": "É o controle da pergunta. Se o volume separar tanto quanto a corrida para a área, o achado não é 'para onde ele corre' — é 'quanto ele corre', que o J04 já mediu e o A07-1 já negou no time.",
+   "indicadores": [
+    {"id": "runs_p30tip", "nome": "Corridas sem bola no total, por 30 min de posse", "sinal": 1, "apelidos": ["corrida no total", "corridas no total", "corre mais"]},
+    {"id": "runs_above_hsr_p30tip", "nome": "Corridas acima da alta velocidade, por 30 min de posse", "sinal": 1, "apelidos": ["corrida forte", "corridas fortes"]},
+    {"id": "runs_avg_distance", "nome": "Distância média da corrida (m)", "sinal": 1, "apelidos": ["distância da corrida", "corrida longa"]}
+   ]}
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py — o mesmo do J04",
+  "teste": "t de Welch no posto dentro de setor × temporada; d de Cohen; BH a 5% por família × comparação × setor; IC95 por bootstrap de clube; poder por desenho",
+  "porta_temporal": "NÃO É CALCULÁVEL, e está declarado antes de rodar: a tabela `off_ball_runs` tem UMA linha por jogador-temporada, sem recorte por rodada nem por jogo — ao contrário da `physical_match`, que tem. Sem valor de 1º turno não há 'antes'. Teto desta parte: PROVÁVEL. É limite de dado, não reprovação, e coleta por jogo resolveria."
+ },
+ "ressalvas_declaradas": [
+  "Efeito do time, não do jogador. Corrida para a área depende de como o TIME joga: um time que ataca muito dá mais corrida a todo mundo. Esta parte não separa o jogador do sistema em que ele jogava, e por isso o achado, se houver, vale como descrição de quem subiu e não como promessa sobre o jogador noutro clube.",
+  "A unidade é por 30 min de POSSE (p30tip). Isso já desconta em parte o quanto o time tem a bola, mas não desconta o modelo de jogo.",
+  "Cobertura de rastreamento: o SkillCorner não cobre todos os jogos de todos os clubes. A subamostra sem cobertura baixa roda ao lado, como o CLAUDE.md manda.",
+  "O J08-3 mediu que quem chega de outra liga guarda menos da metade do destaque que tinha. Qualquer piso que saia daqui vale para jogador da própria Série B; fora dela, o ajuste de nível é fraco e tem de ir escrito."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que a corrida para a área CAUSA o acesso. Não há anterioridade nesta base.",
+  "Que quem não corre para a área não serve: o d mínimo de cada setor vai publicado, e abaixo dele o desenho não enxerga.",
+  "Que o piso funciona fora da Série B."
+ ]
+}

@@ -366,6 +366,23 @@ que são as propostas de elenco; e as notas de encaixe da `etapa_13`. O backtest
 **Regra:** como as vagas são limitadas, priorizar as posições de oferta escassa apontadas em J06.
 **Entrega:** 3–5 nomes por posição priorizada, com liga, idade, contrato, minutagem, percentis ajustados, força do fator da liga, se o físico foi verificado e riscos de adaptação (ex.: primeira saída do país, idade). Custo e disponibilidade ficam para validação externa.
 
+### J10 — Corrida para a área como requisito de contratação
+**Pergunta:** a corrida para dentro da área separa o titular de quem sobe, e vira requisito por
+posição?
+**Por que existe:** o eixo firme é a qualidade da chance (A02-1) e, no time, o A11-1 ligou correr
+para dentro da área a entrar na área. A ponte para o jogador estava na base e nunca tinha sido
+usada: a tabela `off_ball_runs` do `skillcorner_serieb.db`.
+**Unidade:** jogador-temporada, titulares de 2022–2025, pela ponte do `J04_base.csv`. Goleiro
+fora: a tabela não traz corrida sem bola de goleiro.
+**A unidade da métrica é p30tip** — por 30 min de bola com o TIME em posse, e não por 90 de jogo,
+que é a do J04. Os números das duas partes não se comparam um a um.
+**A família de controle é parte do desenho:** `volume_de_corrida` existe para testar se o achado
+é "para onde ele corre" ou "quanto ele corre". Sem ela, o resultado não seria interpretável.
+**Teto: provável**, declarado antes de rodar. A `off_ball_runs` tem uma linha por
+jogador-temporada, sem recorte por rodada — ao contrário da `physical_match` —, então não há 1º
+turno e não há anterioridade.
+**Depende de:** J04 (a base e a ponte de identidade) e A11.
+
 ## O que a base não tem
 
 Conferido contra o repositório em 17/09/2026, antes de qualquer parte rodar. São lacunas de **dado**,

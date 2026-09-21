@@ -165,6 +165,38 @@ DECISOES = [
                      "os dois —, e por isso o número de quem saiu no corte vai à vista."),
     },
     {
+        "id": "D15", "grupo": "Contratação",
+        "decisao": "Não pagar prêmio por número de corrida para a área.",
+        "porque": ("A ponte entre o eixo do modelo e a ficha do jogador foi medida e não paga: de "
+                   "{J10.testes_area} testes de corrida para a área por setor, "
+                   "{J10.passam_area} separam o titular de quem sobe nos dois cortes. É a quarta "
+                   "medida de jogador a dar negativo, depois do número técnico (J03-1), da "
+                   "corrida por 90 (J04-1) e da ficha completa (J05-3)."),
+        "de": "J10", "conclusao": "J10-1",
+        "ressalva": ("\"Não separa\" aqui é \"este desenho não veria\": no volante os três "
+                     "indicadores apontam para o lado certo — o maior é "
+                     "{J10.dsm_volante_runs_dangerous_p30tip} — e ficam abaixo do mínimo "
+                     "detectável de {J10.dminsm_volante_runs_dangerous_p30tip}, com "
+                     "{J10.nsobe_volante} contra {J10.nmeio_volante}. Com mais temporadas "
+                     "rastreadas a pergunta merece voltar, e a lista já está declarada de antes."),
+    },
+    {
+        "id": "D16", "grupo": "Contratação",
+        "decisao": "No volante, usar corrida forte e corrida longa como desempate.",
+        "porque": ("É o único requisito de corrida que o estudo sustenta, e vale para uma posição "
+                   "só. O volante de quem sobe faz {J10.sobe_volante_runs_above_hsr_p30tip} "
+                   "corridas fortes por meia hora de posse contra "
+                   "{J10.meio_volante_runs_above_hsr_p30tip} do meio, e cobre "
+                   "{J10.sobe_volante_runs_avg_distance} m por corrida contra "
+                   "{J10.meio_volante_runs_avg_distance}. O J04-2 já tinha achado sinal físico no "
+                   "volante e em nenhuma outra posição."),
+        "de": "J10", "conclusao": "J10-2",
+        "ressalva": ("Desempate, nunca corte: o único filtro eliminatório continua sendo "
+                     "minutagem alta e regular (D5). E os dois indicadores que passaram são da "
+                     "família de CONTROLE da parte — é volume e alcance, não destino, o contrário "
+                     "da hipótese que motivou a análise."),
+    },
+    {
         "id": "D6", "grupo": "Contratação",
         "decisao": "Não contar com o mercado de livres: ele é curto demais.",
         "porque": ("Em TODA a Série B há {J06.oferta_livres_regulares} jogadores livres com "

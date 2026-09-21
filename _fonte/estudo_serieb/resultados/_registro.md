@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**29 das 29 perguntas respondidas** · **80 conclusões** (54 indício · 25 provável · 1 firme) · **80 validadas**.
+**30 das 30 perguntas respondidas** · **83 conclusões** (55 indício · 27 provável · 1 firme) · **83 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -79,6 +79,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J08-1 | Nenhum país de fora chega ao mínimo de casos com destino na Série B | indício | {n_principal} mudanças de liga, {n_jogadores} jogadores; {casos_estrangeiros} delas com origem estrangeira, em {n_ligas_estrangeiras} países; {n_para_serieb} chegadas à Série B, nenhuma origem estrangeira com mais de {casos_maior_estrangeira} casos |
 | J08-2 | O degrau da divisão de origem muda de tamanho conforme quem entra na conta | indício | {n_principal} linhas no corte principal (Brasil A {casos_brasil_a} casos, Brasil C {casos_brasil_c}), {n_estrito} no corte estrito com {n_jogadores_estrito} jogadores; {nao_transferencia} das {n_principal} não são transferência e {abaixo_900_origem} estão abaixo de 900 minutos na origem |
 | J08-3 | Quem chega de outra liga guarda menos da metade do destaque que tinha | indício | {n_principal} mudanças de liga, {n_jogadores} jogadores distintos; {n_cedo} chegadas até 2024 preveem as {n_tarde} de 2025 e 2026 |
+| J10-1 | Correr para a área não separa o titular de quem sobe | provável | {n} titulares com corrida medida, 2022 a 2025 ({n_clubes} clubes): {n_sobe} de quem subiu, {n_meio} do meio e {n_cai} de quem caiu, em {n_setores} setores. {sem_linha} titulares ficaram fora por não terem linha na tabela de corridas. |
+| J10-2 | Só o volante de quem sobe corre diferente, e é em volume | provável | {nsobe_volante} volantes de quem subiu contra {nmeio_volante} do meio, dentro dos {n} titulares com corrida medida de 2022 a 2025. |
+| J10-3 | A qualidade da chance se compra no treinador, não no jogador | indício | {n} titulares com corrida medida em {n_setores} setores, mais as partes J03, J04 e J05 que a conclusão lê junto. |
 | J09-1 | Estrangeiro que já rodava joga mais no primeiro ano de Série B | indício | {bt_chegadas} chegadas do exterior à Série B em 2023 a 2026, {ma_n_a_com} com minutagem alta na origem contra {ma_n_b_com} sem; {bt_testes} testes entraram na tabela e {bt_fora_por_n} recortes por setor ficaram fora por não chegar a {bt_piso_do_lado} de cada lado |
 | J09-2 | Nenhum volante e nenhum extremo de fora passa nos {pri_vol_exig} pisos juntos | indício | {elegiveis_com_dado} elegíveis com dado em {ligas_que_entram} das {ligas_lidas} ligas lidas; {pri_vol_cand} volantes e {pri_ext_cand} extremos nas posições prioritárias, dos quais {pri_vol_com_fisico} e {pri_ext_com_fisico} com linha física |
 | J09-3 | No gol a base não tem como apontar um nome | indício | {gk_na_base} goleiros na base, {gk_com_minutagem_alta} com minutagem alta e {pri_gol_com_fisico} com linha física, em {ligas_que_entram} ligas |
@@ -114,7 +117,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A13 | validada | 3 | sim |
 | A14 | validada | 3 | sim |
 | A15 | validada | 3 | sim |
-| A16 | validada | 3 | **não** |
+| A16 | validada | 3 | sim |
 | J01 | validada | 3 | sim |
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |
@@ -123,6 +126,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J06 | validada | 3 | sim |
 | J07 | validada | 3 | sim |
 | J08 | validada | 3 | sim |
+| J10 | validada | 3 | **não** |
 | J09 | validada | 3 | sim |
 | T01 | validada | 3 | sim |
 | T02 | validada | 3 | sim |
