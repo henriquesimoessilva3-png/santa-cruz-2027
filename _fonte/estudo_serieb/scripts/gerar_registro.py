@@ -17,8 +17,11 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 RES = AQUI.parent / "resultados"
+# A15 entrou em 21/09 (a pergunta na unidade do jogo). Esta lista e a do _portao.py são a mesma
+# lista em dois lugares — parte fora de uma delas fica publicada sem conferência, que foi o que
+# aconteceu com J05, J06 e J09 até 20/09.
 PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11",
-          "A12", "A13", "A14", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08",
+          "A12", "A13", "A14", "A15", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08",
           "J09", "T01", "T02", "T03", "T04"]
 TAREFAS = {"E00": "feita (17/09)", "R01": "pendente"}
 SENTINELA = ("> **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. "

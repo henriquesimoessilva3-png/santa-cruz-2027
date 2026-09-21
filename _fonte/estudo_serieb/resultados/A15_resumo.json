@@ -1,0 +1,243 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "clube-jogo",
+ "n": {
+  "linhas": 3036,
+  "jogos": 1518,
+  "clubes": 40,
+  "clube_temporadas": 80,
+  "pontuou": 1961,
+  "perdeu": 1075,
+  "venceu": 1075,
+  "empatou": 886
+ },
+ "buracos_por_indicador": {
+  "xg": 0,
+  "xg_por_remate": 0,
+  "dist_remate": 0,
+  "toques_area": 0,
+  "xg_contra": 0,
+  "xg_por_remate_contra": 0,
+  "dist_remate_contra": 0,
+  "remates_contra": 0,
+  "posse": 0,
+  "passes_certos_pct": 0,
+  "passes_terco_final": 0,
+  "passes_por_posse": 0,
+  "contra_ataques": 0,
+  "ataques_posicionais": 0,
+  "ppda": 0,
+  "recuperacoes": 0,
+  "duelos_def_pct": 0,
+  "duelos_aereos_pct": 0,
+  "intensidade": 0,
+  "bolas_paradas_com_remates": 0,
+  "cantos": 0
+ },
+ "equivalencia_do_bootstrap": {
+  "conta": "fechada por somas de clube × concatenação",
+  "sorteios": 60,
+  "maior_diferenca": 1.27675647831893e-15,
+  "igual": true
+ },
+ "o_teste_de_linha_x_o_de_clube": {
+  "o_que_e": "quantos dos 21 indicadores sairiam com selo firme se o p viesse do t de Welch sobre as 3.036 linhas, contra quantos saem com o p do bootstrap de clube que esta parte usa",
+  "PD_com": {
+   "linha": 18,
+   "clube": 17
+  },
+  "PDC_com": {
+   "linha": 18,
+   "clube": 19
+  },
+  "PD_sem": {
+   "linha": 18,
+   "clube": 17
+  },
+  "PDC_sem": {
+   "linha": 19,
+   "clube": 20
+  }
+ },
+ "o_que_o_desenho_enxerga": {
+  "limiar_visivel_mediano": 0.08,
+  "limiar_visivel_pior": 0.13,
+  "d_minimo_80_se_fosse_linha": 0.11,
+  "leitura": "o limiar é a meia-largura do IC95 por clube: o menor |d| que esta amostra separa do zero. Abaixo dele, 'não separa' NÃO quer dizer 'não existe'. O último número é o que um teste sobre as 3.036 linhas fingiria enxergar."
+ },
+ "diferenca_dentro_do_clube": {
+  "xg|com": {
+   "mediana_da_diferenca": 0.22,
+   "celulas": 159
+  },
+  "xg|sem": {
+   "mediana_da_diferenca": 0.34,
+   "celulas": 158
+  },
+  "xg_por_remate|com": {
+   "mediana_da_diferenca": 0.023,
+   "celulas": 159
+  },
+  "xg_por_remate|sem": {
+   "mediana_da_diferenca": 0.034,
+   "celulas": 158
+  },
+  "dist_remate|com": {
+   "mediana_da_diferenca": -0.661,
+   "celulas": 159
+  },
+  "dist_remate|sem": {
+   "mediana_da_diferenca": -1.028,
+   "celulas": 158
+  },
+  "toques_area|com": {
+   "mediana_da_diferenca": -0.412,
+   "celulas": 159
+  },
+  "toques_area|sem": {
+   "mediana_da_diferenca": -0.869,
+   "celulas": 158
+  },
+  "xg_contra|com": {
+   "mediana_da_diferenca": -0.262,
+   "celulas": 159
+  },
+  "xg_contra|sem": {
+   "mediana_da_diferenca": -0.325,
+   "celulas": 158
+  },
+  "xg_por_remate_contra|com": {
+   "mediana_da_diferenca": -0.027,
+   "celulas": 159
+  },
+  "xg_por_remate_contra|sem": {
+   "mediana_da_diferenca": -0.03,
+   "celulas": 158
+  },
+  "dist_remate_contra|com": {
+   "mediana_da_diferenca": 0.854,
+   "celulas": 159
+  },
+  "dist_remate_contra|sem": {
+   "mediana_da_diferenca": 0.817,
+   "celulas": 158
+  },
+  "remates_contra|com": {
+   "mediana_da_diferenca": 0.048,
+   "celulas": 159
+  },
+  "remates_contra|sem": {
+   "mediana_da_diferenca": 0.35,
+   "celulas": 158
+  },
+  "posse|com": {
+   "mediana_da_diferenca": -6.179,
+   "celulas": 159
+  },
+  "posse|sem": {
+   "mediana_da_diferenca": -7.86,
+   "celulas": 158
+  },
+  "passes_certos_pct|com": {
+   "mediana_da_diferenca": -1.535,
+   "celulas": 159
+  },
+  "passes_certos_pct|sem": {
+   "mediana_da_diferenca": -1.541,
+   "celulas": 158
+  },
+  "passes_terco_final|com": {
+   "mediana_da_diferenca": -8.929,
+   "celulas": 159
+  },
+  "passes_terco_final|sem": {
+   "mediana_da_diferenca": -11.383,
+   "celulas": 158
+  },
+  "passes_por_posse|com": {
+   "mediana_da_diferenca": -0.439,
+   "celulas": 159
+  },
+  "passes_por_posse|sem": {
+   "mediana_da_diferenca": -0.479,
+   "celulas": 158
+  },
+  "contra_ataques|com": {
+   "mediana_da_diferenca": 0.571,
+   "celulas": 159
+  },
+  "contra_ataques|sem": {
+   "mediana_da_diferenca": 0.742,
+   "celulas": 158
+  },
+  "ataques_posicionais|com": {
+   "mediana_da_diferenca": -4.678,
+   "celulas": 159
+  },
+  "ataques_posicionais|sem": {
+   "mediana_da_diferenca": -5.225,
+   "celulas": 158
+  },
+  "ppda|com": {
+   "mediana_da_diferenca": 0.912,
+   "celulas": 159
+  },
+  "ppda|sem": {
+   "mediana_da_diferenca": 1.42,
+   "celulas": 158
+  },
+  "recuperacoes|com": {
+   "mediana_da_diferenca": 0.308,
+   "celulas": 159
+  },
+  "recuperacoes|sem": {
+   "mediana_da_diferenca": -0.133,
+   "celulas": 158
+  },
+  "duelos_def_pct|com": {
+   "mediana_da_diferenca": -0.519,
+   "celulas": 159
+  },
+  "duelos_def_pct|sem": {
+   "mediana_da_diferenca": -0.811,
+   "celulas": 158
+  },
+  "duelos_aereos_pct|com": {
+   "mediana_da_diferenca": 1.051,
+   "celulas": 159
+  },
+  "duelos_aereos_pct|sem": {
+   "mediana_da_diferenca": 1.766,
+   "celulas": 158
+  },
+  "intensidade|com": {
+   "mediana_da_diferenca": -0.265,
+   "celulas": 159
+  },
+  "intensidade|sem": {
+   "mediana_da_diferenca": -0.257,
+   "celulas": 158
+  },
+  "bolas_paradas_com_remates|com": {
+   "mediana_da_diferenca": -0.378,
+   "celulas": 159
+  },
+  "bolas_paradas_com_remates|sem": {
+   "mediana_da_diferenca": -0.469,
+   "celulas": 158
+  },
+  "cantos|com": {
+   "mediana_da_diferenca": -0.885,
+   "celulas": 159
+  },
+  "cantos|sem": {
+   "mediana_da_diferenca": -1.113,
+   "celulas": 158
+  }
+ },
+ "porta_temporal_nao_calculavel": {
+  "parcial": null,
+  "passa": false,
+  "por_que": "A porta da §6.4 é o indicador do 1º turno contra os PONTOS do 2º. Dentro de um jogo, indicador e pontos são simultâneos: não existe 'antes'. Declarado em A15_indicadores.json ANTES de rodar. Teto da parte: provável."
+ }
+}

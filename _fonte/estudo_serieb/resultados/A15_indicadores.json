@@ -1,0 +1,326 @@
+{
+ "parte": "A15",
+ "pergunta": "O que um time faz NUM JOGO que aumenta a chance de pontuar?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidade": "clube-jogo",
+  "fonte": "dados/serieb_jogos.csv, só Competição = 'Brazil. Serie B'",
+  "n_esperado": {
+   "linhas": 3036,
+   "jogos": 1518,
+   "clubes": 40,
+   "clube_temporadas": 80,
+   "pontuou": 1961,
+   "perdeu": 1075
+  }
+ },
+ "por_que_esta_parte_nao_e_o_bloco_A_com_mais_linhas": [
+  "A pergunta MUDA. 'O que aumenta a chance de pontuar NESTE jogo' não é 'o que separa quem sobe na temporada'. Um time pode pontuar com o que não o faz subir. As duas valem, e a nova não substitui nenhuma conclusão de A02 a A14.",
+  "Jogo não é unidade independente: o mesmo clube reaparece 38 vezes por ano. O erro é reamostrado por CLUBE (scripts/_metodo.py: ic_por_clube), e o p também — ver `criterio.teste`."
+ ],
+ "comparacoes": [
+  {
+   "id": "PD",
+   "nome": "Jogo em que pontuou × jogo em que perdeu, entre todos os times",
+   "papel": "padrão",
+   "o_que_mede": "como é um jogo pontuado na Série B. Boa parte da diferença é só que time bom pontua mais E joga melhor sempre — esta leitura NÃO separa as duas coisas."
+  },
+  {
+   "id": "PDC",
+   "nome": "O mesmo clube contra ele mesmo, no mesmo mando",
+   "papel": "padrão",
+   "o_que_mede": "o que ESTE time fez diferente no jogo em que pontuou. O indicador entra centrado na média do próprio clube naquela temporada E naquele mando, o que tira de uma vez o nível do elenco e a vantagem de jogar em casa. É a pergunta nova."
+  }
+ ],
+ "criterio_de_subir": "Conclusão só sobe se aparece nas DUAS leituras e nos DOIS cortes. Achado que só existe na leitura entre times é diferença de time, não de jogo.",
+ "repetir_sem_fronteira": true,
+ "cortes": [
+  {
+   "id": "com",
+   "nome": "todos os 3.036 jogos",
+   "papel": "principal"
+  },
+  {
+   "id": "sem",
+   "nome": "sem os empates (vitória × derrota)",
+   "papel": "robustez",
+   "por_que": "O empate é a forma mais fraca de 'pontuou' — é o jogo colado na linha. Tirá-lo afasta os grupos por construção, exatamente como tirar os times de fronteira afasta as faixas vizinhas (resultados/_metodo_fronteira.md). Por isso ele é teste de robustez, e não recorte melhor: firme é firme nos dois."
+  }
+ ],
+ "familias": [
+  {
+   "id": "chance_criada",
+   "nome": "A qualidade da chance criada",
+   "indicadores": [
+    {
+     "id": "xg",
+     "nome": "Gols esperados",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Golos esperados'",
+     "apelidos": [
+      "gols esperados",
+      "gol esperado"
+     ]
+    },
+    {
+     "id": "xg_por_remate",
+     "nome": "Gol esperado por finalização",
+     "sinal": 1,
+     "fonte": "'Golos esperados' ÷ 'Remates'",
+     "apelidos": [
+      "gol esperado por finalização criada"
+     ]
+    },
+    {
+     "id": "dist_remate",
+     "nome": "Distância média da finalização (m)",
+     "sinal": -1,
+     "fonte": "serieb_jogos.csv: 'Distância média do remate'",
+     "apelidos": [
+      "distância do chute",
+      "chuta de mais perto",
+      "mais perto"
+     ]
+    },
+    {
+     "id": "toques_area",
+     "nome": "Toques na área",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Toques na área'",
+     "apelidos": [
+      "toques na área",
+      "toque na área"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chance_cedida",
+   "nome": "A qualidade da chance cedida",
+   "indicadores": [
+    {
+     "id": "xg_contra",
+     "nome": "Gols esperados sofridos",
+     "sinal": -1,
+     "fonte": "'Golos esperados' da linha do ADVERSÁRIO no mesmo jogo",
+     "apelidos": [
+      "gols esperados sofridos",
+      "gol esperado sofrido"
+     ]
+    },
+    {
+     "id": "xg_por_remate_contra",
+     "nome": "Gol esperado por finalização sofrida",
+     "sinal": -1,
+     "fonte": "xG do adversário ÷ 'Remates contra'",
+     "apelidos": [
+      "gol esperado por finalização sofrida",
+      "chance cedida"
+     ]
+    },
+    {
+     "id": "dist_remate_contra",
+     "nome": "Distância média da finalização sofrida (m)",
+     "sinal": 1,
+     "fonte": "'Distância média do remate' da linha do adversário",
+     "apelidos": [
+      "distância do chute sofrido",
+      "chute do adversário",
+      "cede de mais longe"
+     ]
+    },
+    {
+     "id": "remates_contra",
+     "nome": "Finalizações sofridas",
+     "sinal": -1,
+     "fonte": "serieb_jogos.csv: 'Remates contra'",
+     "apelidos": [
+      "finalizações sofridas",
+      "finalização sofrida",
+      "menos chute"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "com_bola",
+   "nome": "O que faz com a bola",
+   "nota_de_sinal": "Família de ESTILO: o sinal é convenção de leitura, não 'melhor'. Todos entram sem inversão (+1), como manda a seção Definições fixas do CLAUDE.md.",
+   "indicadores": [
+    {
+     "id": "posse",
+     "nome": "Posse de bola (%)",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Posse, %'",
+     "apelidos": [
+      "posse",
+      "posse de bola",
+      "menos bola"
+     ]
+    },
+    {
+     "id": "passes_certos_pct",
+     "nome": "Passes certos (%)",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Passes certos, %'",
+     "apelidos": [
+      "passes certos",
+      "passe certo"
+     ]
+    },
+    {
+     "id": "passes_terco_final",
+     "nome": "Passes para o terço final",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Passes para terço final'",
+     "apelidos": [
+      "passes ao terço final",
+      "passe ao terço final"
+     ]
+    },
+    {
+     "id": "passes_por_posse",
+     "nome": "Passes por posse",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Média de passes por posse'",
+     "apelidos": [
+      "passes por posse"
+     ]
+    },
+    {
+     "id": "contra_ataques",
+     "nome": "Contra-ataques",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Contra-ataques'",
+     "apelidos": [
+      "contra-ataques",
+      "contra-ataque"
+     ]
+    },
+    {
+     "id": "ataques_posicionais",
+     "nome": "Ataques posicionais",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Ataques posicionais'",
+     "apelidos": [
+      "ataques posicionais",
+      "ataque posicional"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sem_bola",
+   "nome": "O que faz sem a bola",
+   "indicadores": [
+    {
+     "id": "ppda",
+     "nome": "Passes do adversário por ação defensiva",
+     "sinal": -1,
+     "fonte": "serieb_jogos.csv: 'PPDA'",
+     "apelidos": [
+      "pressão alta",
+      "pressiona"
+     ]
+    },
+    {
+     "id": "recuperacoes",
+     "nome": "Recuperações",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Recuperações'",
+     "apelidos": [
+      "recuperações",
+      "recuperação"
+     ]
+    },
+    {
+     "id": "duelos_def_pct",
+     "nome": "Divididas no chão ganhas (%)",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Duelos defensivos ganhos, %'",
+     "apelidos": [
+      "dividida no chão",
+      "divididas no chão"
+     ]
+    },
+    {
+     "id": "duelos_aereos_pct",
+     "nome": "Divididas pelo alto ganhas (%)",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Duelos aéreos ganhos, %'",
+     "apelidos": [
+      "dividida pelo alto",
+      "divididas pelo alto"
+     ]
+    },
+    {
+     "id": "intensidade",
+     "nome": "Intensidade de jogo",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Intensidade de jogo'",
+     "apelidos": [
+      "intensidade de jogo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bola_parada",
+   "nome": "Bola parada",
+   "indicadores": [
+    {
+     "id": "bolas_paradas_com_remates",
+     "nome": "Bolas paradas que viraram finalização",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Bolas paradas com remates'",
+     "apelidos": [
+      "bola parada",
+      "bolas paradas"
+     ]
+    },
+    {
+     "id": "cantos",
+     "nome": "Escanteios",
+     "sinal": 1,
+     "fonte": "serieb_jogos.csv: 'Cantos'",
+     "apelidos": [
+      "escanteios",
+      "escanteio"
+     ]
+    }
+   ]
+  }
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py — com UMA troca, declarada abaixo e implementada em scripts/_metodo_jogo.py.",
+  "normalizacao": "Posto dentro da temporada (percentil 0–100 entre os 760 clube-jogos do ano), como manda a casa. Na leitura PDC o posto é ainda centrado na média do clube naquela temporada e naquele mando.",
+  "teste": "d de Cohen no posto; BH a 5% por família × comparação; IC95 por bootstrap de CLUBE (2.000 reamostragens).",
+  "a_troca_e_por_que": "O p NÃO vem do t de Welch sobre as 3.036 linhas. Com 40 clubes reaparecendo 76 vezes cada, o t de linha trata pseudorréplica como amostra e devolve p minúsculo para qualquer coisa. O p desta parte sai do MESMO bootstrap de clube que já dá o IC95: a proporção de reamostragens em que o d troca de lado, dobrada (bilateral), com piso em 1/2000. É régua mais apertada que a da casa, não mais frouxa — e a parte publica quantos indicadores o teste de linha teria carimbado de firme, para que o tamanho do conserto fique medido e não alegado.",
+  "poder": "d mínimo detectável calculado sobre o número de CLUBES de cada lado, não de jogos. O d mínimo de linha também é publicado, como medida do engano que se evitou.",
+  "porta_temporal": "NÃO É CALCULÁVEL nesta unidade, e isto está declarado ANTES de rodar. A porta da §6.4 é o indicador do 1º turno contra os PONTOS do 2º; dentro de um jogo, indicador e pontos são simultâneos, e não existe 'antes'. Teto desta parte: PROVÁVEL. É limite de dado, não reprovação."
+ },
+ "o_que_a_base_nao_tem": [
+  "Minuto do evento. Nenhuma das 119 colunas de serieb_jogos.csv traz tempo — é a mesma lacuna que a A09 mediu. Sem ela não dá para recortar por estado do jogo DENTRO do jogo, que é justamente o que a ressalva do placar pediria aqui.",
+  "Físico por jogo antes de 2025 (A10: physical_match tem zero linha em 2022–2024). Esta parte é só técnica.",
+  "Contra-ataque sofrido. Existe só o do próprio time, como a A06 já registrou.",
+  "Escalação e substituição. Não dá para separar o que o time fez do quem entrou."
+ ],
+ "ressalvas_declaradas": [
+  "EFEITO DO PLACAR, e aqui ele é MUITO pior que no clube-temporada. Time que abre o placar recua, entrega a bola e passa a sofrer finalização; time que perde ataca até o fim e termina o jogo com mais posse, mais escanteio e mais entrada na área. Na unidade jogo, metade dos indicadores pode estar medindo a REAÇÃO ao resultado, e a base não tem minuto para recortar. Nenhuma conclusão desta parte passa de provável, e as de estilo saem marcadas como possível efeito do placar.",
+  "A leitura PD (entre times) mistura 'o que o time fez neste jogo' com 'que time é'. Ela entra para se ver o tamanho da mistura, comparada com a PDC — nunca sozinha.",
+  "Simultaneidade: gols esperados e pontos no mesmo jogo são quase a mesma medida contada duas vezes. xG e xG sofrido entram porque o estudo inteiro gira em torno da qualidade da chance, mas a leitura deles aqui é descritiva, e o que carrega uso prático são os indicadores de COMO se chega à chance (distância da finalização, toques na área, o que se cede)."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que o indicador CAUSA o ponto. Não há anterioridade nenhuma dentro de um jogo.",
+  "Que o que rende ponto num jogo faz subir na temporada. É outra pergunta, e quem a responde é A02–A14.",
+  "Que o indicador que não separou aqui não separa: o d mínimo desta parte está publicado, e abaixo dele o desenho não enxerga."
+ ],
+ "apelidos_por_que": "A tabela nomeia a medida como a base a nomeia e o texto a nomeia como o clube fala. A ponte entre os dois é DADO e mora aqui, auditável linha a linha, nunca escondida no portão — é a mesma regra que o A06 e o J08 já seguem."
+}

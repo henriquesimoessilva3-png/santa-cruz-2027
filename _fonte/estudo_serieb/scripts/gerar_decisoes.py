@@ -92,6 +92,33 @@ DECISOES = [
                      "de que não importa — é aviso de que não dá para apostar nisso."),
     },
     {
+        "id": "D11", "grupo": "Modelo de jogo",
+        "decisao": "Defender empurrando a finalização para fora da área, e não tentando reduzir "
+                   "o número de finalizações do adversário.",
+        "porque": ("Medido dentro do PRÓPRIO time, no mesmo mando: no jogo em que pontua, ele "
+                   "empurra o chute do adversário {A15.dentro_abs_dist_remate_contra_com} metro "
+                   "para trás e NÃO sofre menos finalização ({A15.d_remates_contra_pdc_com} no "
+                   "corte com todos os jogos, sem separar). É o mesmo eixo do D3, agora no lado "
+                   "defensivo e dentro do time, não entre times."),
+        "de": "A15", "conclusao": "A15-1",
+        "ressalva": ("Dentro de um jogo não existe anterioridade: o que o time faz e o ponto "
+                     "acontecem juntos, então nenhuma conclusão de jogo passa de provável. O "
+                     "efeito do placar aqui joga CONTRA o achado — quem está à frente recua e "
+                     "costuma ceder chute de mais perto —, o que o reforça, mas não o prova."),
+    },
+    {
+        "id": "D12", "grupo": "Modelo de jogo",
+        "decisao": "Tirar posse, passe ao terço final e escanteio da lista de metas de jogo.",
+        "porque": ("No jogo em que o próprio time pontua, ele tem {A15.dentro_abs_posse_com} "
+                   "pontos de posse A MENOS e dá {A15.dentro_abs_passes_terco_final_com} passes "
+                   "a menos ao terço final, com {A15.dentro_abs_cantos_com} escanteio a menos. "
+                   "Subir esses números não é o mesmo que somar ponto."),
+        "de": "A15", "conclusao": "A15-2",
+        "ressalva": ("Boa parte disso é reação ao placar: quem está atrás ataca mais, e a base "
+                     "não tem o minuto do gol para separar as duas coisas. Por isso o uso é só "
+                     "negativo — não perseguir esses números —, e não vira \"jogue sem a bola\"."),
+    },
+    {
         "id": "D5", "grupo": "Contratação",
         "decisao": "Usar minutagem alta e regular como PRIMEIRO filtro, e só depois olhar o resto.",
         "porque": ("É o único requisito que a base sustenta por posição (J05-3). O corte de "

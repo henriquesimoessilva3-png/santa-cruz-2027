@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 29 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 30 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -1761,6 +1761,155 @@ const ESTUDO_SERIEB = {
    "em_aberto": "O índice inclui H_dinheiro, o valor do elenco, que não se escolhe e é a peça de maior efeito: separar a parte escolhível da não escolhível exigiria residualizar pelo valor, e a decisão de 15/09 foi não descontar o dinheiro, só ressalvar. Continuam abertos, fora do alcance desta rodada: (1) resultados/A14.md não existe e A14_testes.csv também não, então o índice nunca entrou numa família de correção e a prova desta parte ainda aponta para o A14_resumo.json de 17/09, que é o do índice de oito componentes; (2) A14.py precisa de uma execução corrigida — prender candidatos() aos arquivos do Bloco A (hoje quebra com KeyError em J03_testes.csv e J08_testes.csv e com TypeError em A10_indicadores.json), tirar I_estabilidade_11, passar as três comparações pelos dois cortes de fronteira (o campo já é gravado e nunca é usado), emitir vn_reg em vez de contar à mão e regravar o A14_resumo.json; (3) a base de 2026 está sem três jogos, um deles do Vila Nova, que é o contraexemplo da A14-3. E duas das sete peças nascem de xG, cuja régua reproduz 30% de si mesma (_cruzar_19_09.md, achado 6).",
    "feita_em": null,
    "prova_arquivos": "scripts/A14.py"
+  },
+  {
+   "id": "A15",
+   "bloco": "A",
+   "secao": "Que time montar",
+   "pergunta": "O que um time faz num jogo que aumenta a chance de pontuar?",
+   "status": "validada",
+   "titulo": "O que o time faz num jogo que rende ponto, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "A15-1",
+     "parte": "A15",
+     "bloco": "A",
+     "manchete": "O time pontua cedendo chute pior, não cedendo menos chute",
+     "o_que_vimos": "O mesmo time, no jogo em que pontua, chuta 0,66 metro mais perto e empurra o chute do adversário 0,85 metro para trás. E não sofre menos finalização. Recuar com o placar a favor daria o contrário.",
+     "para_o_santa_cruz": "O eixo do modelo de jogo é a distância do chute, nos dois lados, e não o volume. Defender bem um jogo não é reduzir o número de finalizações do adversário — é empurrá-las para fora da área; o time que pontua sofre a mesma quantidade de chute, de mais longe. No ataque, a mesma régua: aproximar a finalização vale mais do que finalizar mais vezes. Isso vale para treino e para escolha de jogador (quem arrasta a jogada para dentro da área, quem protege a área em vez de bloquear chute de fora). O que esta parte NÃO autoriza é vender isso como causa: dentro de um jogo, o que o time faz e o ponto acontecem ao mesmo tempo.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Confirma, na unidade do jogo, a premissa que A02-1 e A06-3 montaram na temporada: o que separa é a qualidade da chance, e no lado defensivo ela é a distância do chute cedido, não o número de chutes cedidos. O acréscimo desta parte é que o achado sobrevive DENTRO do mesmo time, o que a unidade clube-temporada não conseguia mostrar.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável porque passa num critério e o outro não existe nesta unidade. (a) Correção para múltiplos testes a 5% dentro da família: PASSA nas duas leituras e nos dois cortes. A distância do chute dá q 0,0001 e a distância do chute sofrido q 0,0001 na leitura de dentro do clube, com efeito +0,18 e +0,30 (o intervalo de 95% por clube vai de +0,12 a +0,25 e de +0,25 a +0,36). O gol esperado por finalização sofrida é o maior efeito da parte, +0,54. (b) O teste de anterioridade da §6.4 NÃO É CALCULÁVEL aqui, e isso foi declarado em A15_indicadores.json antes de rodar: ele é o indicador do 1º turno contra os PONTOS do 2º, e dentro de um jogo não existe 'antes'. Teto da parte: provável. É limite de dado, não reprovação. (c) Os dois cortes. As finalizações sofridas são a discordância: -0,06 com todos os jogos, onde não separam, e -0,11 sem os empates, onde separam — nos dois casos o sinal é o mesmo, o time que pontua sofre finalização igual ou a mais, nunca a menos, e é por isso que a manchete diz 'não cedendo menos chute'. As recuperações também trocam de sinal entre os cortes, +0,05 e -0,04, e em nenhum dos dois separam: é oscilação em volta do zero, não achado. (d) O que o desenho enxerga: o intervalo de 95% por clube tem meia-largura mediana de 0,08, e abaixo disso 'não separa' não quer dizer 'não existe'. (e) Efeito do placar. Ele é a ressalva principal desta parte e aqui joga CONTRA o achado, o que o reforça: time com o placar a favor recua e costuma ceder chute de mais perto, e o que se mediu foi o contrário. Nos indicadores de volume a ressalva continua de pé, e é o assunto de A15-2.",
+     "n": "3.036 clube-jogos de Série B de 2022 a 2025 — 40 clubes, 80 clube-temporadas, 1.518 jogos: 1.961 com ponto contra 1.075 sem. Sem os empates, 1.075 contra 1.075. O erro é reamostrado por clube, 10.000 vezes.",
+     "prova": "A15_testes.csv; A15_resumo.json; A15_indicadores.json; A15.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Distância do chute, o mesmo time comparado com ele mesmo",
+      "unidade": "metros a mais no jogo em que pontuou",
+      "cortes": [
+       {
+        "rotulo": "todos os jogos",
+        "series": [
+         {
+          "nome": "chute do próprio time",
+          "valor": -0.661
+         },
+         {
+          "nome": "chute do adversário",
+          "valor": 0.854
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os empates",
+        "series": [
+         {
+          "nome": "chute do próprio time",
+          "valor": -1.028
+         },
+         {
+          "nome": "chute do adversário",
+          "valor": 0.817
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A15-2",
+     "parte": "A15",
+     "bloco": "A",
+     "manchete": "No jogo em que pontua, o time tem menos bola",
+     "o_que_vimos": "O mesmo time fica com 6,18 pontos de posse a menos no jogo em que pontua, e dá 8,93 passes a menos ao terço final. Bate com os 4,68 ataques posicionais e o escanteio a menos. Correr atrás do placar infla tudo isso.",
+     "para_o_santa_cruz": "Não montar o time para ter a bola, e não ler 'teve menos bola' como jogo ruim: na Série B, o jogo em que o próprio time pontua é o jogo em que ele tem menos posse, menos passe ao terço final, menos ataque posicional e menos escanteio. A leitura honesta é que volume de ataque é, em boa parte, reação ao placar — quem está atrás ataca mais — e não receita. O uso prático é defensivo: tirar posse, passe ao terço final e escanteio da lista de metas de jogo e da ficha de contratação, porque subir esses números não é o mesmo que somar ponto. Isso não diz que ter a bola atrapalha; diz que ter a bola não é o que está pagando o ponto.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Confirma A05-1 (nenhum jeito de construir a jogada separa quem sobe) e dá contexto a A05-2 (os promovidos com menos da metade da bola): na unidade do jogo o sinal é o mesmo e mais forte. Não sugere premissa nova — sugere aposentar a leitura de posse como meta.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável, e com uma ressalva que pesa mais que o número. (a) Correção para múltiplos testes: PASSA com folga nas duas leituras e nos dois cortes. A posse dá q 0,0001 e efeito -0,65 dentro do clube, indo a -0,88 sem os empates — o maior efeito de toda a parte; passes ao terço final -0,57 e ataques posicionais -0,45 vão no mesmo sentido, e os escanteios também, -0,27. (b) Anterioridade: não é calculável na unidade do jogo (ver A15-1). Teto: provável. (c) EFEITO DO PLACAR, e esta é a ressalva séria. Time que abre o placar entrega a bola; time que perde ataca até o fim. A base não tem o minuto do gol — é a mesma lacuna que a A09 mediu —, então não dá para recortar por estado do jogo e separar as duas coisas. O sinal de que é reação, e não receita, está no desenho do resultado: TODA a família de volume anda junto para baixo, que é a assinatura de quem corre atrás do resultado. Por isso a conclusão é escrita como descrição do que acontece, e o uso prático é só negativo: não perseguir esses números. (d) Os dois cortes concordam, e tirar os empates aumenta o efeito em todos eles, como se espera de um corte que afasta os grupos por construção. (e) Este achado NÃO diz que o que rende ponto num jogo é o que faz subir na temporada: são perguntas diferentes, e quem responde a segunda é o bloco A de A02 a A14.",
+     "n": "3.036 clube-jogos de Série B de 2022 a 2025 — 40 clubes, 80 clube-temporadas: 1.961 com ponto contra 1.075 sem; sem os empates, 1.075 contra 1.075. Cada indicador entra centrado no próprio clube, naquela temporada e naquele mando.",
+     "prova": "A15_testes.csv; A15_resumo.json; A15.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Posse de bola no jogo em que pontuou e no jogo em que perdeu",
+      "unidade": "% de posse",
+      "cortes": [
+       {
+        "rotulo": "todos os jogos",
+        "series": [
+         {
+          "nome": "pontuou",
+          "valor": "48,16"
+         },
+         {
+          "nome": "perdeu",
+          "valor": "52,96"
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os empates",
+        "series": [
+         {
+          "nome": "venceu",
+          "valor": "47,04"
+         },
+         {
+          "nome": "perdeu",
+          "valor": "52,96"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A15-3",
+     "parte": "A15",
+     "bloco": "A",
+     "manchete": "Descer ao jogo mede melhor e não prova mais",
+     "o_que_vimos": "As 3.036 linhas são os mesmos 40 clubes. Trocar o teste que conta linha pelo que conta clube move 18 indicadores para 19, quase nada. O que morre de vez é o 'antes': num jogo, o que o time faz e o ponto acontecem juntos.",
+     "para_o_santa_cruz": "Vale descer ao jogo, mas pelo motivo certo. O ganho é de precisão: comparar o time com ele mesmo em 38 jogos mede muito melhor do que um número por temporada, e foi isso que deixou esta parte separar o que o time FAZ do que o time É. O ganho que não existe é de prova: o número de provas independentes continua sendo o de clubes, e o critério mais duro da casa, o de vir antes do resultado, deixa de ser calculável — nenhuma conclusão de jogo pode passar de provável. Na prática: usar o nível do jogo para afinar o modelo de jogo e a ficha de contratação, e continuar decidindo acesso pela temporada. E não encomendar mais coleta de jogo esperando que ela transforme indício em certeza.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa de método, não de futebol: nesta base, mais linha compra precisão e não compra prova, porque o número de clubes não muda. Ela explica por que as conclusões de jogo entram no teto de provável e serve de resposta pronta à próxima proposta de descer de unidade.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e de propósito: isto não é um teste, é a medida do que o desenho consegue e do que não consegue. Os números: o intervalo de 95% por clube tem meia-largura mediana de 0,08 e no pior caso 0,13, contra os 0,11 que um teste de linha fingiria enxergar; na leitura de dentro do clube, 18 indicadores sairiam como firme pelo teste de linha e 19 saem pelo de clube, e na leitura entre times 18 contra 17. Ou seja: o teste de linha, que é o errado nesta unidade, aqui dava quase a mesma resposta — não porque ele esteja certo, mas porque os efeitos medidos são grandes e do mesmo sinal nos 40 clubes. Foi o de clube que rodou; o de linha está na tabela ao lado só para que o tamanho do conserto ficasse medido e não alegado. O que a ida para o jogo NÃO compra é o critério de anterioridade, e essa perda é estrutural, não da base: nenhuma coleta a resolve.",
+     "n": "21 indicadores em 5 famílias, sobre 3.036 clube-jogos de 40 clubes; 10.000 reamostragens de clube em cada célula.",
+     "prova": "A15_resumo.json; A15_testes.csv; _metodo_jogo.py",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Dos 21 indicadores, quantos saem como firme em cada teste",
+      "unidade": "indicadores",
+      "barras": [
+       {
+        "nome": "teste de linha",
+        "valor": 18
+       },
+       {
+        "nome": "teste de clube",
+        "valor": 19
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas coisas ficaram medidas e sem dono. (1) A dividida no chão: o A06-1 acha que ganhá-la separa quem sobe na temporada, e aqui, dentro do mesmo time, ela anda de leve para o lado contrário nos dois cortes — é efeito pequeno e pode ser o placar (quem está à frente disputa menos), mas a tensão entre as duas unidades tem de ser resolvida antes de a dividida virar requisito de contratação. (2) O estado do jogo: sem minuto do gol não dá para separar o que o time escolheu fazer do que ele fez porque estava ganhando. É a mesma coleta que a A09 deixou pendente — o primeiro gol de cada jogo — e ela resolveria as duas de uma vez. Continua sem resposta, e agora com preço: é a compra que mais renderia ao estudo.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/A15.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
   },
   {
    "id": "T01",
@@ -13080,6 +13229,26 @@ const ESTUDO_SERIEB = {
     "confianca": "indício"
    },
    {
+    "id": "D11",
+    "grupo": "Modelo de jogo",
+    "de": "A15",
+    "conclusao": "A15-1",
+    "decisao": "Defender empurrando a finalização para fora da área, e não tentando reduzir o número de finalizações do adversário.",
+    "porque": "Medido dentro do PRÓPRIO time, no mesmo mando: no jogo em que pontua, ele empurra o chute do adversário 0,85 metro para trás e NÃO sofre menos finalização (-0,06 no corte com todos os jogos, sem separar). É o mesmo eixo do D3, agora no lado defensivo e dentro do time, não entre times.",
+    "ressalva": "Dentro de um jogo não existe anterioridade: o que o time faz e o ponto acontecem juntos, então nenhuma conclusão de jogo passa de provável. O efeito do placar aqui joga CONTRA o achado — quem está à frente recua e costuma ceder chute de mais perto —, o que o reforça, mas não o prova.",
+    "confianca": "provável"
+   },
+   {
+    "id": "D12",
+    "grupo": "Modelo de jogo",
+    "de": "A15",
+    "conclusao": "A15-2",
+    "decisao": "Tirar posse, passe ao terço final e escanteio da lista de metas de jogo.",
+    "porque": "No jogo em que o próprio time pontua, ele tem 6,18 pontos de posse A MENOS e dá 8,93 passes a menos ao terço final, com 0,89 escanteio a menos. Subir esses números não é o mesmo que somar ponto.",
+    "ressalva": "Boa parte disso é reação ao placar: quem está atrás ataca mais, e a base não tem o minuto do gol para separar as duas coisas. Por isso o uso é só negativo — não perseguir esses números —, e não vira \"jogue sem a bola\".",
+    "confianca": "provável"
+   },
+   {
     "id": "D5",
     "grupo": "Contratação",
     "de": "J05",
@@ -14559,9 +14728,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 27,
+  "total": 28,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 27
+  "validada": 28
  }
 };

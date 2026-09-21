@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**27 das 27 perguntas respondidas** · **74 conclusões** (52 indício · 21 provável · 1 firme) · **74 validadas**.
+**28 das 28 perguntas respondidas** · **77 conclusões** (53 indício · 23 provável · 1 firme) · **77 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -49,6 +49,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A14-1 | A régua de {n_ind} indicadores põe no alto quem subiu | provável | {n_base} clube-temporadas: {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram; sem os times colados na linha, {n_sobe_sf} contra {n_meio_sf} |
 | A14-2 | Um ano sozinho não tem times suficientes para dizer se a régua vale | indício | 4 temporadas fechadas, 4 promovidos contra 12 do meio em cada; sem os times colados na linha, {ano_forte1} fica 4 contra 9 e {ano_fraco2} fica 2 contra 8, e {ano_fraco1} e {ano_forte2} ficam com 1 promovido, sem comparação |
 | A14-3 | Em 2026 a régua troca a ordem no topo e erra times do G4 | indício | {n26} times de 2026 na rodada {rodada26}, com 11 rodadas por jogar; nas temporadas fechadas, {pp_n12} times-temporada em 1º–2º contra {pp_n36} em 3º–6º — e, sem os times colados na linha, 6 contra 4 |
+| A15-1 | O time pontua cedendo chute pior, não cedendo menos chute | provável | {n_linhas} clube-jogos de Série B de 2022 a 2025 — {n_clubes} clubes, {n_ct} clube-temporadas, {n_jogos} jogos: {n_pontuou} com ponto contra {n_perdeu} sem. Sem os empates, {n_venceu} contra {n_perdeu}. O erro é reamostrado por clube, {reps} vezes. |
+| A15-2 | No jogo em que pontua, o time tem menos bola | provável | {n_linhas} clube-jogos de Série B de 2022 a 2025 — {n_clubes} clubes, {n_ct} clube-temporadas: {n_pontuou} com ponto contra {n_perdeu} sem; sem os empates, {n_venceu} contra {n_perdeu}. Cada indicador entra centrado no próprio clube, naquela temporada e naquele mando. |
+| A15-3 | Descer ao jogo mede melhor e não prova mais | indício | {n_indicadores} indicadores em {n_familias} famílias, sobre {n_linhas} clube-jogos de {n_clubes} clubes; {reps} reamostragens de clube em cada célula. |
 | J01-1 | O corte único de minutagem passa {gk_60}% dos goleiros e só {atk_60}% dos atacantes | indício | {n} jogador-temporadas (2022-2025) |
 | J01-2 | A ficha de lesão não distingue quem jogou pouco de quem jogou muito | indício | {les_base} de minutagem baixa e {les_alta_base} de minutagem alta, com ponte ao Transfermarkt (2022-2025) |
 | J01-3 | Time que cai roda o elenco, {cai_usados} jogadores em média contra {meio_usados} do meio | provável | {n_ct} clubes-temporada (2022-2025): {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram; sem os times de fronteira, 8, 32 e 12 |
@@ -107,6 +110,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A12 | validada | 3 | sim |
 | A13 | validada | 3 | sim |
 | A14 | validada | 3 | sim |
+| A15 | validada | 3 | sim |
 | J01 | validada | 3 | sim |
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |

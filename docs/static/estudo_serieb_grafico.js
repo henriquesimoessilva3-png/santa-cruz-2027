@@ -56,8 +56,12 @@
     if (typeof v === 'number') return v;
     if (v == null) return null;
     var s = String(v).trim().replace(/\s/g, '');
-    if (/^-?\d{1,3}(\.\d{3})+,\d+$/.test(s)) s = s.replace(/\./g, '').replace(',', '.');
-    else if (/^-?[\d]+,[\d]+$/.test(s)) s = s.replace(',', '.');
+    /* O SINAL DE MAIS. As duas regras abaixo aceitavam so "-"; um marcador publicado como
+       "+0,85" nao casava com nenhuma, caia no parseFloat, que le "+0" e devolve 0 — numero
+       errado na tela, em silencio, e o pior tipo: plausivel. Achado em 21/09 no A15, cujo
+       grafico publica diferenca com sinal dos dois lados. */
+    if (/^[-+]?\d{1,3}(\.\d{3})+,\d+$/.test(s)) s = s.replace(/\./g, '').replace(',', '.');
+    else if (/^[-+]?[\d]+,[\d]+$/.test(s)) s = s.replace(',', '.');
     var n = parseFloat(s);
     return isNaN(n) ? null : n;
   }

@@ -25,7 +25,7 @@ com o que ele devolve, e nenhum script do estudo aceita ser rodado em modo de co
 A seção "O que o portão ainda NÃO consegue provar" no fim de cada rodada repete este aviso.
 
 Como se usa:
-    python3 scripts/_portao.py             as 22 partes
+    python3 scripts/_portao.py             as 28 partes
     python3 scripts/_portao.py A06 J04     só essas
     python3 scripts/_portao.py --json      a mesma conferência, legível por máquina
 
@@ -54,8 +54,12 @@ PROTOTIPO = RAIZ / "_fonte" / "prototipo"         # onde mora a ESPECIFICACAO.md
 # J05, J06 e J09 entraram no mesmo dia, e a entrada delas era dívida: estavam publicadas como
 # decididas sem conferência automática nenhuma. Tinham <ID>_testes.csv e <ID>_numeros.json desde
 # sempre — o que faltava era estarem NESTA LISTA, e ninguém tinha percebido.
+# A15 entrou em 21/09: é a primeira parte numa unidade abaixo do clube-temporada (clube-jogo), e
+# por isso é a primeira que DECLARA a unidade na própria tabela de testes em vez de depender do
+# UNIDADE_INFERIDA abaixo. A regra 7 já previa isso — sem a unidade declarada, `ppda` do A06 e
+# `ppda` do A15 seriam lidos como o mesmo indicador com dois q, que é exatamente o que ela caça.
 PARTES = ["A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12",
-          "A13", "A14", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
+          "A13", "A14", "A15", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
           "T01", "T02", "T03", "T04"]
 
 # Vereditos. Só REPROVA impede a parte de ser aceita; AVISO e REVISAR pedem olho humano.

@@ -152,7 +152,7 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 - E00 (criar a aba) e A01 vêm primeiro; A01 é pré-requisito de todas as análises.
 - T01 e J01–J02 podem rodar logo depois de A01; T02 logo depois de T01.
 - A12 depende das réguas da Protótipo (§7.2) e de A05–A07.
-- A14 só depois de A02–A13.
+- A14 só depois de A02–A13. A15 depende de A02, A05 e A06, com que dialoga, e de mais nada.
 - T03–T04 dependem de A14.
 - J03–J04 dependem de J01. J05–J06 dependem de A14, J03, J04 e das notas de encaixe da Protótipo (§8 — a §8.2 proíbe somar as três num número único; são três notas, nunca uma); se T04 já existir, o perfil de jogador deve servir ao modelo do treinador escolhido.
 - J07 depende de J01. J08 depende de J01 e da base das ligas de origem. J09 depende de J05, J06 e J08.
@@ -257,6 +257,27 @@ sobram A, E e F; ampliar o Cenário Barato se houver valor de elenco para 2018�
 ### A14 — Síntese e teste 2026
 **Pergunta:** quais indicadores e réguas mais separam Sobe de Meio, e onde os times de 2026 estão nessa régua?
 **Método:** partir do índice contínuo da §7.2, item (c), e do que as partes acrescentaram ao `_registro.md`; descartar redundâncias; validar deixando uma temporada de fora; aplicar a 2026 informando a rodada. Como em 2026 só 1º–2º sobem direto, verificar também se a régua separa 1º–2º de 3º–6º; com só 8 times-temporada em 1º–2º, tratar como indicativo.
+
+### A15 — O que o time faz num jogo que rende ponto
+**Pergunta:** o que um time faz **num jogo** que aumenta a chance de pontuar?
+**Unidade:** clube-jogo — 3.036 linhas de `dados/serieb_jogos.csv` (só Série B, 2022–2025), 40
+clubes. **Não precisa de coleta:** o técnico por jogo já está na base; o que falta por jogo é o
+físico, que é a A08 e está fechada.
+**A pergunta é OUTRA, e isso vale escrito:** "o que aumenta a chance de pontuar neste jogo" não é
+"o que separa quem sobe na temporada". Um time pode pontuar com o que não o faz subir. A15 não
+substitui nenhuma conclusão de A02 a A14.
+**Duas leituras, e conclusão só sobe nas duas:** entre times (PD) e dentro do clube (PDC, com o
+indicador centrado na média do próprio clube naquela temporada **e naquele mando**).
+**Duas trocas que a unidade obriga**, em `scripts/_metodo_jogo.py` (que importa o `_metodo.py` e
+não altera nada dele):
+1. O **p** sai do bootstrap de clube, não do t de Welch sobre linhas — 3.036 linhas são 40 clubes,
+   e o t de linha trata pseudorréplica como prova. Régua mais apertada, nunca mais frouxa.
+2. O **corte de fronteira não existe** nesta unidade; no lugar dele, o corte de robustez é **sem
+   os empates** (o empate é o jogo colado na linha).
+**Teto: provável**, declarado antes de rodar. A porta temporal da §6.4 não é calculável dentro de
+um jogo — indicador e pontos são simultâneos. É limite de dado, não reprovação.
+**Ressalva principal:** efeito do placar, aqui muito pior que no clube-temporada, e sem minuto do
+gol para recortar por estado do jogo (a mesma lacuna que a A09 mediu).
 
 ## Bloco T — Treinadores
 

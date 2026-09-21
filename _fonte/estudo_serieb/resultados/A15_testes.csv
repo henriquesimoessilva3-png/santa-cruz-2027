@@ -1,0 +1,85 @@
+fronteira,familia,comparacao,indicador,unidade,n_a,n_b,clubes_a,clubes_b,cru_a,cru_b,d,ic95_d,p,limiar_visivel,d_minimo_80_se_fosse_linha,q,selo,poder_suficiente,q_linha,selo_linha,nome
+com,chance_criada,PD,xg,clube-jogo,1961,1075,40,40,1.21,0.9,0.477,"[0.38, 0.58]",0.0001,0.1,0.11,0.0001,firme,True,0.0,firme,Gols esperados
+com,chance_criada,PD,xg_por_remate,clube-jogo,1961,1075,40,40,0.096,0.077,0.497,"[0.41, 0.59]",0.0001,0.09,0.11,0.0001,firme,True,0.0,firme,Gol esperado por finalização
+com,chance_criada,PD,dist_remate,clube-jogo,1961,1075,40,40,20.01,20.94,0.307,"[0.24, 0.38]",0.0001,0.07,0.11,0.0001,firme,True,0.0,firme,Distância média da finalização (m)
+com,chance_criada,PD,toques_area,clube-jogo,1961,1075,40,40,14.0,13.0,0.17,"[0.09, 0.25]",0.0001,0.08,0.11,0.0001,firme,True,7.84e-06,firme,Toques na área
+com,chance_cedida,PD,xg_contra,clube-jogo,1961,1075,40,40,0.94,1.38,0.644,"[0.57, 0.72]",0.0001,0.075,0.11,0.0001,firme,True,0.0,firme,Gols esperados sofridos
+com,chance_cedida,PD,xg_por_remate_contra,clube-jogo,1961,1075,40,40,0.08,0.107,0.641,"[0.58, 0.71]",0.0001,0.065,0.11,0.0001,firme,True,0.0,firme,Gol esperado por finalização sofrida
+com,chance_cedida,PD,dist_remate_contra,clube-jogo,1961,1075,40,40,20.75,19.6,0.392,"[0.33, 0.45]",0.0001,0.06,0.11,0.0001,firme,True,0.0,firme,Distância média da finalização sofrida (m)
+com,chance_cedida,PD,remates_contra,clube-jogo,1961,1075,40,40,11.0,12.0,0.202,"[0.12, 0.29]",0.0001,0.085,0.11,0.0001,firme,True,6e-08,firme,Finalizações sofridas
+com,com_bola,PD,posse,clube-jogo,1961,1075,40,40,48.16,52.96,-0.47,"[-0.56, -0.38]",0.0001,0.09,0.11,0.0001,firme,True,0.0,firme,Posse de bola (%)
+com,com_bola,PD,passes_certos_pct,clube-jogo,1961,1075,40,40,81.68,82.78,-0.264,"[-0.34, -0.19]",0.0001,0.075,0.11,0.0001,firme,True,0.0,firme,Passes certos (%)
+com,com_bola,PD,passes_terco_final,clube-jogo,1961,1075,40,40,48.0,54.0,-0.351,"[-0.44, -0.27]",0.0001,0.085,0.11,0.0001,firme,True,0.0,firme,Passes para o terço final
+com,com_bola,PD,passes_por_posse,clube-jogo,1961,1075,40,40,3.4,3.73,-0.381,"[-0.47, -0.29]",0.0001,0.09,0.11,0.0001,firme,True,0.0,firme,Passes por posse
+com,com_bola,PD,contra_ataques,clube-jogo,1961,1075,40,40,1.0,0.0,0.339,"[0.26, 0.42]",0.0001,0.08,0.11,0.0001,firme,True,0.0,firme,Contra-ataques
+com,com_bola,PD,ataques_posicionais,clube-jogo,1961,1075,40,40,27.0,29.0,-0.183,"[-0.26, -0.11]",0.0001,0.075,0.11,0.0001,firme,True,1.59e-06,firme,Ataques posicionais
+com,sem_bola,PD,ppda,clube-jogo,1961,1075,40,40,9.48,9.61,-0.007,"[-0.1, 0.08]",0.8264,0.09,0.11,0.8264,sem diferença clara,False,0.85642305,sem diferença clara,Passes do adversário por ação defensiva
+com,sem_bola,PD,recuperacoes,clube-jogo,1961,1075,40,40,78.0,76.0,0.093,"[0.01, 0.18]",0.0352,0.085,0.11,0.058667,pode ser sorte,True,0.02505846,firme,Recuperações
+com,sem_bola,PD,duelos_def_pct,clube-jogo,1961,1075,40,40,59.68,60.0,-0.024,"[-0.09, 0.06]",0.5282,0.075,0.11,0.66025,sem diferença clara,False,0.66716861,sem diferença clara,Divididas no chão ganhas (%)
+com,sem_bola,PD,duelos_aereos_pct,clube-jogo,1961,1075,40,40,46.15,44.83,0.169,"[0.08, 0.25]",0.0002,0.085,0.11,0.0005,firme,True,2.528e-05,firme,Divididas pelo alto ganhas (%)
+com,sem_bola,PD,intensidade,clube-jogo,1961,1075,40,40,15.52,15.71,-0.191,"[-0.28, -0.11]",0.0001,0.085,0.11,0.0005,firme,True,1.47e-06,firme,Intensidade de jogo
+com,bola_parada,PD,bolas_paradas_com_remates,clube-jogo,1961,1075,40,40,3.0,3.0,0.017,"[-0.06, 0.1]",0.6914,0.08,0.11,0.6914,sem diferença clara,False,0.66302989,sem diferença clara,Bolas paradas que viraram finalização
+com,bola_parada,PD,cantos,clube-jogo,1961,1075,40,40,5.0,5.0,-0.104,"[-0.18, -0.03]",0.0076,0.075,0.11,0.0152,firme,True,0.01402055,firme,Escanteios
+sem,chance_criada,PD,xg,clube-jogo,1075,1075,40,40,1.38,0.9,0.746,"[0.62, 0.88]",0.0001,0.13,0.12,0.0001,firme,True,0.0,firme,Gols esperados
+sem,chance_criada,PD,xg_por_remate,clube-jogo,1075,1075,40,40,0.107,0.077,0.76,"[0.65, 0.88]",0.0001,0.115,0.12,0.0001,firme,True,0.0,firme,Gol esperado por finalização
+sem,chance_criada,PD,dist_remate,clube-jogo,1075,1075,40,40,19.6,20.94,0.456,"[0.37, 0.54]",0.0001,0.085,0.12,0.0001,firme,True,0.0,firme,Distância média da finalização (m)
+sem,chance_criada,PD,toques_area,clube-jogo,1075,1075,40,40,14.0,13.0,0.249,"[0.15, 0.35]",0.0001,0.1,0.12,0.0001,firme,True,1e-08,firme,Toques na área
+sem,chance_cedida,PD,xg_contra,clube-jogo,1075,1075,40,40,0.9,1.38,0.746,"[0.67, 0.82]",0.0001,0.075,0.12,0.0001,firme,True,0.0,firme,Gols esperados sofridos
+sem,chance_cedida,PD,xg_por_remate_contra,clube-jogo,1075,1075,40,40,0.077,0.107,0.76,"[0.69, 0.83]",0.0001,0.07,0.12,0.0001,firme,True,0.0,firme,Gol esperado por finalização sofrida
+sem,chance_cedida,PD,dist_remate_contra,clube-jogo,1075,1075,40,40,20.94,19.6,0.456,"[0.38, 0.53]",0.0001,0.075,0.12,0.0001,firme,True,0.0,firme,Distância média da finalização sofrida (m)
+sem,chance_cedida,PD,remates_contra,clube-jogo,1075,1075,40,40,11.0,12.0,0.233,"[0.13, 0.34]",0.0001,0.105,0.12,0.0001,firme,True,8e-08,firme,Finalizações sofridas
+sem,com_bola,PD,posse,clube-jogo,1075,1075,40,40,47.04,52.96,-0.628,"[-0.74, -0.51]",0.0001,0.115,0.12,0.0001,firme,True,0.0,firme,Posse de bola (%)
+sem,com_bola,PD,passes_certos_pct,clube-jogo,1075,1075,40,40,81.65,82.78,-0.247,"[-0.33, -0.16]",0.0001,0.085,0.12,0.0001,firme,True,1e-08,firme,Passes certos (%)
+sem,com_bola,PD,passes_terco_final,clube-jogo,1075,1075,40,40,47.0,54.0,-0.472,"[-0.58, -0.36]",0.0001,0.11,0.12,0.0001,firme,True,0.0,firme,Passes para o terço final
+sem,com_bola,PD,passes_por_posse,clube-jogo,1075,1075,40,40,3.38,3.73,-0.405,"[-0.51, -0.31]",0.0001,0.1,0.12,0.0001,firme,True,0.0,firme,Passes por posse
+sem,com_bola,PD,contra_ataques,clube-jogo,1075,1075,40,40,1.0,0.0,0.464,"[0.37, 0.56]",0.0001,0.095,0.12,0.0001,firme,True,0.0,firme,Contra-ataques
+sem,com_bola,PD,ataques_posicionais,clube-jogo,1075,1075,40,40,27.0,29.0,-0.229,"[-0.32, -0.15]",0.0001,0.085,0.12,0.0001,firme,True,1.2e-07,firme,Ataques posicionais
+sem,sem_bola,PD,ppda,clube-jogo,1075,1075,40,40,9.83,9.61,-0.105,"[-0.2, -0.01]",0.0364,0.095,0.12,0.060667,pode ser sorte,True,0.02423987,firme,Passes do adversário por ação defensiva
+sem,sem_bola,PD,recuperacoes,clube-jogo,1075,1075,40,40,77.0,76.0,0.019,"[-0.08, 0.12]",0.7148,0.1,0.12,0.7148,sem diferença clara,False,0.72319541,sem diferença clara,Recuperações
+sem,sem_bola,PD,duelos_def_pct,clube-jogo,1075,1075,40,40,59.68,60.0,-0.015,"[-0.1, 0.07]",0.7134,0.085,0.12,0.7148,sem diferença clara,False,0.72319541,sem diferença clara,Divididas no chão ganhas (%)
+sem,sem_bola,PD,duelos_aereos_pct,clube-jogo,1075,1075,40,40,46.81,44.83,0.218,"[0.13, 0.3]",0.0001,0.085,0.12,0.0005,firme,True,2.22e-06,firme,Divididas pelo alto ganhas (%)
+sem,sem_bola,PD,intensidade,clube-jogo,1075,1075,40,40,15.51,15.71,-0.17,"[-0.27, -0.07]",0.001,0.1,0.12,0.0025,firme,True,0.00021334,firme,Intensidade de jogo
+sem,bola_parada,PD,bolas_paradas_com_remates,clube-jogo,1075,1075,40,40,3.0,3.0,0.006,"[-0.08, 0.1]",0.9194,0.09,0.12,0.9194,sem diferença clara,False,0.88139634,sem diferença clara,Bolas paradas que viraram finalização
+sem,bola_parada,PD,cantos,clube-jogo,1075,1075,40,40,5.0,5.0,-0.156,"[-0.26, -0.06]",0.0008,0.1,0.12,0.0016,firme,True,0.00060263,firme,Escanteios
+com,chance_criada,PDC,xg,clube-jogo,1961,1075,40,40,1.21,0.9,0.268,"[0.18, 0.36]",0.0001,0.09,0.11,0.000133,firme,True,0.0,firme,Gols esperados
+com,chance_criada,PDC,xg_por_remate,clube-jogo,1961,1075,40,40,0.096,0.077,0.391,"[0.31, 0.48]",0.0001,0.085,0.11,0.000133,firme,True,0.0,firme,Gol esperado por finalização
+com,chance_criada,PDC,dist_remate,clube-jogo,1961,1075,40,40,20.01,20.94,0.183,"[0.12, 0.25]",0.0001,0.065,0.11,0.000133,firme,True,2.37e-06,firme,Distância média da finalização (m)
+com,chance_criada,PDC,toques_area,clube-jogo,1961,1075,40,40,14.0,13.0,-0.098,"[-0.17, -0.03]",0.0066,0.07,0.11,0.0066,firme,True,0.01051205,firme,Toques na área
+com,chance_cedida,PDC,xg_contra,clube-jogo,1961,1075,40,40,0.94,1.38,0.42,"[0.36, 0.48]",0.0001,0.06,0.11,0.000133,firme,True,0.0,firme,Gols esperados sofridos
+com,chance_cedida,PDC,xg_por_remate_contra,clube-jogo,1961,1075,40,40,0.08,0.107,0.542,"[0.48, 0.6]",0.0001,0.06,0.11,0.000133,firme,True,0.0,firme,Gol esperado por finalização sofrida
+com,chance_cedida,PDC,dist_remate_contra,clube-jogo,1961,1075,40,40,20.75,19.6,0.303,"[0.25, 0.36]",0.0001,0.055,0.11,0.000133,firme,True,0.0,firme,Distância média da finalização sofrida (m)
+com,chance_cedida,PDC,remates_contra,clube-jogo,1961,1075,40,40,11.0,12.0,-0.06,"[-0.13, 0.01]",0.0876,0.07,0.11,0.0876,sem diferença clara,False,0.1098118,sem diferença clara,Finalizações sofridas
+com,com_bola,PDC,posse,clube-jogo,1961,1075,40,40,48.16,52.96,-0.651,"[-0.72, -0.58]",0.0001,0.07,0.11,0.0001,firme,True,0.0,firme,Posse de bola (%)
+com,com_bola,PDC,passes_certos_pct,clube-jogo,1961,1075,40,40,81.68,82.78,-0.366,"[-0.43, -0.3]",0.0001,0.065,0.11,0.0001,firme,True,0.0,firme,Passes certos (%)
+com,com_bola,PDC,passes_terco_final,clube-jogo,1961,1075,40,40,48.0,54.0,-0.57,"[-0.64, -0.5]",0.0001,0.07,0.11,0.0001,firme,True,0.0,firme,Passes para o terço final
+com,com_bola,PDC,passes_por_posse,clube-jogo,1961,1075,40,40,3.4,3.73,-0.53,"[-0.6, -0.45]",0.0001,0.075,0.11,0.0001,firme,True,0.0,firme,Passes por posse
+com,com_bola,PDC,contra_ataques,clube-jogo,1961,1075,40,40,1.0,0.0,0.305,"[0.23, 0.38]",0.0001,0.075,0.11,0.0001,firme,True,0.0,firme,Contra-ataques
+com,com_bola,PDC,ataques_posicionais,clube-jogo,1961,1075,40,40,27.0,29.0,-0.45,"[-0.53, -0.38]",0.0001,0.075,0.11,0.0001,firme,True,0.0,firme,Ataques posicionais
+com,sem_bola,PDC,ppda,clube-jogo,1961,1075,40,40,9.48,9.61,-0.195,"[-0.27, -0.12]",0.0001,0.075,0.11,0.00025,firme,True,9.1e-07,firme,Passes do adversário por ação defensiva
+com,sem_bola,PDC,recuperacoes,clube-jogo,1961,1075,40,40,78.0,76.0,0.048,"[-0.02, 0.12]",0.1748,0.07,0.11,0.1748,sem diferença clara,False,0.21419463,sem diferença clara,Recuperações
+com,sem_bola,PDC,duelos_def_pct,clube-jogo,1961,1075,40,40,59.68,60.0,-0.078,"[-0.14, -0.01]",0.0246,0.065,0.11,0.03075,firme,True,0.05241414,sem diferença clara,Divididas no chão ganhas (%)
+com,sem_bola,PDC,duelos_aereos_pct,clube-jogo,1961,1075,40,40,46.15,44.83,0.111,"[0.03, 0.19]",0.005,0.08,0.11,0.008333,firme,True,0.0060177,firme,Divididas pelo alto ganhas (%)
+com,sem_bola,PDC,intensidade,clube-jogo,1961,1075,40,40,15.52,15.71,-0.246,"[-0.32, -0.17]",0.0001,0.075,0.11,0.00025,firme,True,0.0,firme,Intensidade de jogo
+com,bola_parada,PDC,bolas_paradas_com_remates,clube-jogo,1961,1075,40,40,3.0,3.0,-0.113,"[-0.18, -0.03]",0.0048,0.075,0.11,0.0048,firme,True,0.00283681,firme,Bolas paradas que viraram finalização
+com,bola_parada,PDC,cantos,clube-jogo,1961,1075,40,40,5.0,5.0,-0.269,"[-0.34, -0.2]",0.0001,0.07,0.11,0.0002,firme,True,0.0,firme,Escanteios
+sem,chance_criada,PDC,xg,clube-jogo,1075,1075,40,40,1.38,0.9,0.434,"[0.33, 0.55]",0.0001,0.11,0.12,0.000133,firme,True,0.0,firme,Gols esperados
+sem,chance_criada,PDC,xg_por_remate,clube-jogo,1075,1075,40,40,0.107,0.077,0.601,"[0.51, 0.7]",0.0001,0.095,0.12,0.000133,firme,True,0.0,firme,Gol esperado por finalização
+sem,chance_criada,PDC,dist_remate,clube-jogo,1075,1075,40,40,19.6,20.94,0.28,"[0.21, 0.35]",0.0001,0.07,0.12,0.000133,firme,True,0.0,firme,Distância média da finalização (m)
+sem,chance_criada,PDC,toques_area,clube-jogo,1075,1075,40,40,14.0,13.0,-0.125,"[-0.2, -0.05]",0.0024,0.075,0.12,0.0024,firme,True,0.00386972,firme,Toques na área
+sem,chance_cedida,PDC,xg_contra,clube-jogo,1075,1075,40,40,0.9,1.38,0.438,"[0.37, 0.51]",0.0001,0.07,0.12,0.000133,firme,True,0.0,firme,Gols esperados sofridos
+sem,chance_cedida,PDC,xg_por_remate_contra,clube-jogo,1075,1075,40,40,0.077,0.107,0.623,"[0.55, 0.69]",0.0001,0.07,0.12,0.000133,firme,True,0.0,firme,Gol esperado por finalização sofrida
+sem,chance_cedida,PDC,dist_remate_contra,clube-jogo,1075,1075,40,40,20.94,19.6,0.331,"[0.27, 0.4]",0.0001,0.065,0.12,0.000133,firme,True,0.0,firme,Distância média da finalização sofrida (m)
+sem,chance_cedida,PDC,remates_contra,clube-jogo,1075,1075,40,40,11.0,12.0,-0.113,"[-0.2, -0.02]",0.0126,0.09,0.12,0.0126,firme,True,0.00877416,firme,Finalizações sofridas
+sem,com_bola,PDC,posse,clube-jogo,1075,1075,40,40,47.04,52.96,-0.875,"[-0.96, -0.79]",0.0001,0.085,0.12,0.0001,firme,True,0.0,firme,Posse de bola (%)
+sem,com_bola,PDC,passes_certos_pct,clube-jogo,1075,1075,40,40,81.65,82.78,-0.375,"[-0.44, -0.31]",0.0001,0.065,0.12,0.0001,firme,True,0.0,firme,Passes certos (%)
+sem,com_bola,PDC,passes_terco_final,clube-jogo,1075,1075,40,40,47.0,54.0,-0.771,"[-0.85, -0.69]",0.0001,0.08,0.12,0.0001,firme,True,0.0,firme,Passes para o terço final
+sem,com_bola,PDC,passes_por_posse,clube-jogo,1075,1075,40,40,3.38,3.73,-0.589,"[-0.66, -0.51]",0.0001,0.075,0.12,0.0001,firme,True,0.0,firme,Passes por posse
+sem,com_bola,PDC,contra_ataques,clube-jogo,1075,1075,40,40,1.0,0.0,0.421,"[0.34, 0.5]",0.0001,0.08,0.12,0.0001,firme,True,0.0,firme,Contra-ataques
+sem,com_bola,PDC,ataques_posicionais,clube-jogo,1075,1075,40,40,27.0,29.0,-0.594,"[-0.68, -0.51]",0.0001,0.085,0.12,0.0001,firme,True,0.0,firme,Ataques posicionais
+sem,sem_bola,PDC,ppda,clube-jogo,1075,1075,40,40,9.83,9.61,-0.367,"[-0.45, -0.28]",0.0001,0.085,0.12,0.00025,firme,True,0.0,firme,Passes do adversário por ação defensiva
+sem,sem_bola,PDC,recuperacoes,clube-jogo,1075,1075,40,40,77.0,76.0,-0.041,"[-0.11, 0.03]",0.2532,0.07,0.12,0.2532,sem diferença clara,False,0.3404819,sem diferença clara,Recuperações
+sem,sem_bola,PDC,duelos_def_pct,clube-jogo,1075,1075,40,40,59.68,60.0,-0.086,"[-0.15, -0.02]",0.0178,0.065,0.12,0.02225,firme,True,0.05724723,sem diferença clara,Divididas no chão ganhas (%)
+sem,sem_bola,PDC,duelos_aereos_pct,clube-jogo,1075,1075,40,40,46.81,44.83,0.139,"[0.06, 0.22]",0.0006,0.08,0.12,0.001,firme,True,0.00209435,firme,Divididas pelo alto ganhas (%)
+sem,sem_bola,PDC,intensidade,clube-jogo,1075,1075,40,40,15.51,15.71,-0.234,"[-0.32, -0.15]",0.0001,0.085,0.12,0.00025,firme,True,1.7e-07,firme,Intensidade de jogo
+sem,bola_parada,PDC,bolas_paradas_com_remates,clube-jogo,1075,1075,40,40,3.0,3.0,-0.176,"[-0.25, -0.09]",0.0002,0.08,0.12,0.0002,firme,True,4.696e-05,firme,Bolas paradas que viraram finalização
+sem,bola_parada,PDC,cantos,clube-jogo,1075,1075,40,40,5.0,5.0,-0.381,"[-0.47, -0.3]",0.0001,0.085,0.12,0.0002,firme,True,0.0,firme,Escanteios

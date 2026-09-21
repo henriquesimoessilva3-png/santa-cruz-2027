@@ -54,6 +54,7 @@ ROTEIRO = [
     ("A12", "A", "Em quais réguas os promovidos se concentram, e o Cenário Barato se sustenta?"),
     ("A13", "A", "Quem cai já estava mal no 1º turno ou despencou no 2º?"),
     ("A14", "A", "Quais indicadores mais separam quem sobe, e onde 2026 está nessa régua?"),
+    ("A15", "A", "O que um time faz num jogo que aumenta a chance de pontuar?"),
     ("T01", "T", "Quem comandou cada time da Série B, em quais rodadas, de 2018 a 2026?"),
     ("T02", "T", "Quais treinadores mantêm seus times mais rodadas no G4?"),
     ("T03", "T", "Os times do treinador mostram os traços de quem sobe, em clubes diferentes?"),
