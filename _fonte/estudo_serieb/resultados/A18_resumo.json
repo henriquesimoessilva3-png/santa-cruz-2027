@@ -1,0 +1,89 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "clube-jogo",
+ "n": {
+  "linhas": 3036,
+  "clubes": 40,
+  "clube_temporadas": 80,
+  "temporadas_com_valor": 80
+ },
+ "H1_soma_zero": {
+  "rho": -0.9999,
+  "p": 0.0,
+  "n": 3036,
+  "soma_mediana": 100.0,
+  "soma_desvio": 0.08,
+  "leitura": "as duas medidas são o complemento uma da outra: a dividida defensiva ganha pelo time é a dividida ofensiva PERDIDA pelo adversário, no mesmo lance"
+ },
+ "H2_variancia": {
+  "clube_temporada": 0.066,
+  "adversario_temporada": 0.07,
+  "mando": 0.004,
+  "clube_e_adversario": 0.523,
+  "celulas_por_agrupamento": {
+   "clube_temporada": 80,
+   "adv_temporada": 80,
+   "mando": 2,
+   "clube_temporada|adv_temporada": 1520
+  },
+  "linhas_por_celula": {
+   "clube_temporada": 37.95,
+   "adv_temporada": 37.95,
+   "mando": 1518.0,
+   "clube_temporada|adv_temporada": 2.0
+  },
+  "aviso": "os agrupamentos se sobrepõem; as parcelas NÃO somam 100%",
+  "aviso_do_par": "o agrupamento clube × adversário tem cerca de duas linhas por célula: com tão poucos jogos por par, ele ajusta ruído e o valor dele NÃO se lê como 'o par explica metade'. Fica publicado para que a inflação seja visível, e não é usado em conclusão nenhuma."
+ },
+ "H3_controle_do_adversario": {
+  "sem_o_adversario": {
+   "com": {
+    "d": -0.078,
+    "q": 0.03075,
+    "ic": [
+     -0.14,
+     -0.01
+    ]
+   },
+   "sem": {
+    "d": -0.086,
+    "q": 0.02225,
+    "ic": [
+     -0.15,
+     -0.02
+    ]
+   }
+  },
+  "com_o_adversario": {
+   "com": {
+    "d": -0.078,
+    "q": 0.0216,
+    "ic": [
+     -0.14,
+     -0.01
+    ]
+   },
+   "sem": {
+    "d": -0.093,
+    "q": 0.0102,
+    "ic": [
+     -0.16,
+     -0.02
+    ]
+   }
+  }
+ },
+ "H4_dinheiro": {
+  "rho": 0.112,
+  "p": 0.32108,
+  "n": 80,
+  "convencao": "posto alto = ganha mais dividida; rho positivo = elenco caro ganha mais",
+  "nunca_desconto": "decisão de 15/09: o valor do elenco descreve ao lado, não desconta"
+ },
+ "porta_temporal_nao_calculavel": {
+  "parcial": null,
+  "passa": false,
+  "por_que": "unidade jogo: indicador e ponto são simultâneos, como a A15 declarou"
+ },
+ "o_que_a_base_nao_tem": "escalação por jogo — não há nome de jogador em serieb_jogos.csv, então não dá para saber quem eram os zagueiros em cada jogo, só quem eram no ano"
+}

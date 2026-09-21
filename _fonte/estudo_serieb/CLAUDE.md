@@ -317,6 +317,23 @@ das 19 primeiras rodadas contra o ALVO das 19 últimas, com parcial dada ao alvo
 **Firme = BH nos dois cortes E porta do eixo.** Nenhum par cumpriu os dois.
 **O dinheiro entra ao lado de cada preditor**, medido, como ressalva e nunca como desconto.
 
+### A18 — A dividida no chão mede o time ou o adversário?
+**Pergunta:** por que a dividida no chão separa quem sobe na temporada (A06-1) e anda para o lado
+contrário dentro do próprio time, jogo a jogo (A15)?
+**Existe para resolver uma tensão**, não para achar coisa nova. Enquanto ela durasse, a dividida
+não podia virar requisito de contratação.
+**As quatro hipóteses vão declaradas ANTES de rodar**, com o teste de cada uma escrito ao lado
+— é o molde para qualquer parte que nasça de uma contradição entre duas outras.
+**O achado que fecha a conta:** a dividida ganha pelo time e a perdida pelo adversário somam cem
+no mesmo lance. Não é correlação, é identidade — são a mesma medida contada dos dois lados. Por
+isso um indicador de PORCENTAGEM de duelo é relacional por construção, e só vira traço de time
+depois de médio sobre muitos adversários.
+**Regra 7 na prática:** a célula que o A15 já tinha publicado é CITADA daqui, com o q do dono. O
+que é desta parte é a comparação com o adversário no centro e os dois indicadores novos.
+**Teto: provável** — unidade jogo, sem anterioridade, como a A15 declarou.
+**A base NÃO tem escalação por jogo:** `serieb_jogos.csv` não traz nome de jogador nenhum, só o
+sistema tático. Dá para saber quem eram os zagueiros do ano, não os do jogo.
+
 ## Bloco T — Treinadores
 
 ### T01 — Coleta de passagens

@@ -93,6 +93,16 @@
    "confianca": "indício"
   },
   {
+   "id": "D18",
+   "grupo": "Contratação",
+   "de": "A18",
+   "conclusao": "A18-1",
+   "decisao": "A dividida no chão volta à ficha — medida na TEMPORADA, nunca por jogo.",
+   "porque": "A fração de divididas ganhas num jogo é relacional: ela soma 100,0 com a do adversário no mesmo lance, e de um jogo para o outro quem o time enfrentou explica 7,0% da variação contra 6,6% de quem o time é. Na temporada, a média sobre trinta e oito adversários cancela isso e o que sobra é o traço do time — que é o que o A06-1 mede, e que a A16 precifica em ponto a dinheiro igual. E ele não vem com o elenco caro: anda +0,11 com o valor da folha.",
+   "ressalva": "Não serve para julgar um jogo. Quem disser \"ganhamos pouca dividida sábado\" está falando mais do adversário de sábado do que do time. E no jogo que rende ponto o time DISPUTA mais dividida (+0,35) e ganha fração praticamente igual (-0,08) — administrar resultado, não perder a disputa.",
+   "confianca": "provável"
+  },
+  {
    "id": "D5",
    "grupo": "Contratação",
    "de": "J05",

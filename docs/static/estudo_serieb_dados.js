@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 33 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 34 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -1907,7 +1907,7 @@ const ESTUDO_SERIEB = {
      }
     }
    ],
-   "em_aberto": "Duas coisas ficaram medidas e sem dono. (1) A dividida no chão: o A06-1 acha que ganhá-la separa quem sobe na temporada, e aqui, dentro do mesmo time, ela anda de leve para o lado contrário nos dois cortes — é efeito pequeno e pode ser o placar (quem está à frente disputa menos), mas a tensão entre as duas unidades tem de ser resolvida antes de a dividida virar requisito de contratação. (2) O estado do jogo: sem minuto do gol não dá para separar o que o time escolheu fazer do que ele fez porque estava ganhando. É a mesma coleta que a A09 deixou pendente — o primeiro gol de cada jogo — e ela resolveria as duas de uma vez. Continua sem resposta, e agora com preço: é a compra que mais renderia ao estudo.",
+   "em_aberto": "A tensão da dividida no chão FOI RESOLVIDA em 21/09, pelo A18: num jogo, a fração de divididas ganhas é medida relacional — ela soma cem com a do adversário, e quem o time enfrentou explica mais da variação do que quem o time é. Na temporada, a média sobre trinta e oito adversários cancela isso e o que sobra é o traço do time, que é o que o A06-1 mede. As duas leituras valem, para decisões diferentes. Continua em aberto o ESTADO DO JOGO: sem minuto do gol não dá para separar o que o time escolheu fazer do que ele fez porque estava ganhando. É a mesma coleta que a A09 deixou pendente — o primeiro gol de cada jogo — e agora com quatro partes pedindo por ela. Continua sem resposta, e com preço: é a compra que mais renderia ao estudo.",
    "feita_em": null,
    "prova_arquivos": "scripts/A15.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
   },
@@ -2216,6 +2216,145 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas. (1) A lista pode ser curta. São 17 os preditores que esta base mede por clube-temporada e por jogo; treino, comissão técnica, escalação por rodada e bola parada ensaiada não estão nela, e é ali que um treinador diria que a alavanca mora. (2) O contraste entre a conta da temporada e a do jogo pede um terceiro nível — o mesmo TREINADOR em clubes diferentes —, que o T03 tentou e a base não sustentou. Enquanto isso não existir, “o eixo se compra no treinador” fica sendo a leitura mais bem sustentada e não uma medida.",
    "feita_em": null,
    "prova_arquivos": "scripts/A17.py + scripts/_metodo_jogo.py + scripts/_porta_temporal.py"
+  },
+  {
+   "id": "A18",
+   "bloco": "A",
+   "secao": "Que time montar",
+   "pergunta": "A dividida no chão mede o time ou o adversário?",
+   "status": "validada",
+   "titulo": "A dividida no chão: o que ela mede no ano e o que mede no jogo, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "A18-1",
+     "parte": "A18",
+     "bloco": "A",
+     "manchete": "No jogo a dividida mede o adversário; no ano, mede o time",
+     "o_que_vimos": "A dividida ganha pelo time e a perdida pelo adversário somam 100,0 no mesmo lance: é a mesma medida, contada dos dois lados. De um jogo para o outro, quem o time enfrentou explica 7,0% da variação e quem o time é explica 6,6%.",
+     "para_o_santa_cruz": "A tensão entre o A06-1 e a leitura de jogo do A15 se desfaz, e as duas ficam de pé — porque medem coisas diferentes. Num jogo, a fração de divididas ganhas é uma medida RELACIONAL: ela soma cem com a do adversário, e o que mais explica a variação de um jogo para o outro é quem estava do outro lado, não quem é o time. Na temporada, a média sobre trinta e oito adversários faz o adversário se cancelar, e o que sobra é o traço do time — que é o que o A06-1 mediu. Na prática: a dividida VOLTA a poder ser requisito de elenco e de contratação, medida na temporada; e NÃO serve como meta de jogo nem para julgar o desempenho de um jogo isolado. Quem disser “ganhamos pouca dividida sábado” está falando mais do adversário de sábado do que do time.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Ajusta a leitura da A06 e da A15 sem derrubar nenhuma das duas, e acrescenta uma regra de leitura para qualquer indicador de porcentagem de duelo: ele é relacional por construção, e por isso só vira traço de time depois de médio sobre muitos adversários.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável. (a) A soma zero não é correlação, é identidade: a dividida defensiva ganha pelo time e a ofensiva ganha pelo adversário somam 100,0, com desvio 0,1, nas 3.036 linhas — e a correlação entre as duas dá 1,000 em módulo. Não é achado estatístico; é o dado dizendo que são a mesma medida. É por isso que as duas linhas da tabela de testes saem com o mesmo efeito e o mesmo q: publicá-las juntas é a demonstração, não contagem dupla. (b) A variação de jogo para jogo: quem o time enfrentou explica 7,0%, quem o time é explica 6,6% e o mando 0,4%. O resto é jogo a jogo. Os agrupamentos se sobrepõem e as parcelas não somam cem. O agrupamento clube × adversário sai publicado em A18_resumo.json com 52,3%, e NÃO é usado em conclusão nenhuma: ele tem duas linhas por célula e ajusta ruído — fica lá para que a inflação seja visível. (c) Correção para múltiplos testes: a comparação de dentro do clube e do mando é a MESMA célula que o A15 publicou — o efeito sai idêntico —, então esta parte mede, publica o efeito e CITA o q do dono, q 0,0307 e 0,0222. Dois q para a mesma medida seria o defeito que a regra 7 do portão caça, e a decisão de quem é dono está declarada em A18_indicadores.json. O que é desta parte é a comparação com o adversário no centro e os dois indicadores novos, corrigidos aqui. (d) Anterioridade: não é calculável na unidade do jogo, como a A15 declarou. Teto: provável. (e) O que isto NÃO diz: que a dividida não importa no jogo. Diz que a FRAÇÃO ganha num jogo não é leitura do time — e o A18-2 mostra o que, nesse mesmo jogo, é.",
+     "n": "3.036 clube-jogos de Série B de 2022 a 2025, 40 clubes e 80 clube-temporadas, cada linha com a linha do adversário no mesmo jogo ao lado.",
+     "prova": "A18_testes.csv; A18_resumo.json; A18_indicadores.json; A18.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Quanto cada coisa explica da dividida ganha, de um jogo para o outro",
+      "unidade": "% da variação",
+      "barras": [
+       {
+        "nome": "quem o time enfrentou",
+        "valor": 7.0
+       },
+       {
+        "nome": "quem o time é",
+        "valor": 6.6
+       },
+       {
+        "nome": "o mando",
+        "valor": 0.4
+       }
+      ]
+     }
+    },
+    {
+     "id": "A18-2",
+     "parte": "A18",
+     "bloco": "A",
+     "manchete": "No jogo que rende ponto o time disputa mais divididas",
+     "o_que_vimos": "Dentro do próprio time, o jogo em que ele pontua é o jogo em que DISPUTA mais dividida, +0,35 — efeito bem maior que o da fração ganha, -0,08. Pôr o adversário no centro não muda: -0,08.",
+     "para_o_santa_cruz": "O sinal negativo que assustava era pequeno e estava sozinho. Ao lado dele, o mesmo jogo traz um efeito muito maior no NÚMERO de divididas defensivas disputadas. Junto com o A15-1 — o time que pontua sofre a mesma quantidade de finalização, de mais longe — o retrato fecha: no jogo que rende ponto o time defende MAIS vezes, empurra a finalização para fora e ganha uma fração de dividida praticamente igual. Isso é administrar resultado, não perder a disputa. Para o modelo de jogo, a leitura é: não tratar “disputou muita dividida” como sinal de jogo ruim, e não pedir ao time que reduza o número de disputas.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Fecha com o A15-1 e tira da mesa a leitura de que o time que pontua perde a dividida. Não sugere premissa nova; corrige uma leitura que o sinal isolado permitia.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável. (a) Correção para múltiplos testes dentro da família: o número de divididas disputadas passa nos dois cortes com q 0,0003 e 0,0003, efeito +0,35 e +0,40, IC95 por clube +0,26 a +0,43. A fração ganha também passa, com efeito muito menor e de sinal contrário: -0,08 e -0,09, IC95 -0,14 a -0,01. (b) O controle do adversário era a hipótese H3 declarada antes de rodar, e ela REPROVA: centrando também na média do adversário, a fração ganha fica em -0,08 e -0,09, praticamente igual. O sinal negativo não é o adversário. (c) Anterioridade: não é calculável na unidade do jogo. Teto: provável. (d) Efeito do placar, e aqui ele é a explicação mais simples: quem está à frente recua e defende mais vezes. A base não tem minuto do gol para separar — a mesma lacuna da A09 —, e por isso o uso prático é só negativo: não ler muita dividida como jogo ruim.",
+     "n": "3.036 clube-jogos de 2022 a 2025, 40 clubes, com o indicador centrado no próprio clube-temporada e no mesmo mando, e depois também na média do adversário.",
+     "prova": "A18_testes.csv; A18_resumo.json; A18.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Dividida no chão no jogo em que o time pontua, contra ele mesmo",
+      "unidade": "efeito, dentro do clube e do mando",
+      "cortes": [
+       {
+        "rotulo": "todos os jogos",
+        "series": [
+         {
+          "nome": "quantas disputou",
+          "valor": 0.349
+         },
+         {
+          "nome": "que fração ganhou",
+          "valor": -0.078
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os empates",
+        "series": [
+         {
+          "nome": "quantas disputou",
+          "valor": 0.398
+         },
+         {
+          "nome": "que fração ganhou",
+          "valor": -0.086
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A18-3",
+     "parte": "A18",
+     "bloco": "A",
+     "manchete": "Ganhar dividida no chão não se compra com folha",
+     "o_que_vimos": "Na temporada, ganhar dividida no chão anda +0,11 com o valor do elenco, sobre 80 clube-temporadas — perto de zero. A pressão alta, para comparar, anda junto com elenco caro.",
+     "para_o_santa_cruz": "É a melhor notícia desta parte para um clube sem folha de top-5. O traço que o A06-1 aponta como o que mais separa quem sobe NÃO vem com o elenco caro — ao contrário da pressão alta, que o A06 mediu andando junto com o dinheiro. Isso fecha com a A16, que mediu quanto a dividida paga a dinheiro igual: o salto de um quarto de tabela vale pontos, e fora de casa vale mais. Traduzido: é um traço comprável por scouting e treino, não por folha — e por isso ele volta à ficha de contratação, medido na TEMPORADA, como o A18-1 estabelece.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Reforça o A06-1 e a A16-3 por um caminho novo: o traço não é elenco caro com outro nome. Era a ressalva que o A06 tinha deixado aberta ao medir o PPDA contra o dinheiro e não a dividida.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e resultado NEGATIVO: o que se mediu é a AUSÊNCIA de relação com o dinheiro. Spearman entre o posto da dividida e o posto do valor do elenco, dentro da temporada: +0,11, com p 0,3211 sobre 80 clube-temporadas. Isto NÃO prova que não há relação — prova que este desenho não a vê, e com 80 linhas ele só veria uma relação de tamanho médio para cima. A ressalva de sempre: o valor do elenco descreve ao lado e nunca desconta (decisão de 15/09), e o instantâneo do Transfermarkt não tem data conhecida, como a A16 registra. A comparação com a pressão alta vem do A06 e é citada, não recalculada aqui.",
+     "n": "80 clube-temporadas de 2022 a 2025, com valor de elenco do Transfermarkt.",
+     "prova": "A18_resumo.json; A06.json; A16_testes.csv; A18.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "O que explica a dividida ganha entre jogos, e o que não explica",
+      "unidade": "% da variação",
+      "barras": [
+       {
+        "nome": "quem o time enfrentou",
+        "valor": 7.0
+       },
+       {
+        "nome": "quem o time é",
+        "valor": 6.6
+       },
+       {
+        "nome": "o mando",
+        "valor": 0.4
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas. (1) O estado do jogo. A explicação mais simples do A18-2 é o placar — quem está à frente recua e defende mais vezes —, e sem o minuto do gol não dá para separar isso do que o time escolheu fazer. É a mesma coleta que a A09, a A15 e a A17 já pediram. (2) Quem eram os defensores. A base NÃO tem escalação por jogo: serieb_jogos.csv não traz nome de jogador nenhum, só o sistema tático. Dá para saber quem eram os zagueiros do ano, não os do jogo — então ligar a dividida de um jogo aos jogadores que estavam em campo não roda com esta base.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/A18.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
   },
   {
    "id": "J10",
@@ -10977,6 +11116,16 @@ const ESTUDO_SERIEB = {
     "confianca": "indício"
    },
    {
+    "id": "D18",
+    "grupo": "Contratação",
+    "de": "A18",
+    "conclusao": "A18-1",
+    "decisao": "A dividida no chão volta à ficha — medida na TEMPORADA, nunca por jogo.",
+    "porque": "A fração de divididas ganhas num jogo é relacional: ela soma 100,0 com a do adversário no mesmo lance, e de um jogo para o outro quem o time enfrentou explica 7,0% da variação contra 6,6% de quem o time é. Na temporada, a média sobre trinta e oito adversários cancela isso e o que sobra é o traço do time — que é o que o A06-1 mede, e que a A16 precifica em ponto a dinheiro igual. E ele não vem com o elenco caro: anda +0,11 com o valor da folha.",
+    "ressalva": "Não serve para julgar um jogo. Quem disser \"ganhamos pouca dividida sábado\" está falando mais do adversário de sábado do que do time. E no jogo que rende ponto o time DISPUTA mais dividida (+0,35) e ganha fração praticamente igual (-0,08) — administrar resultado, não perder a disputa.",
+    "confianca": "provável"
+   },
+   {
     "id": "D5",
     "grupo": "Contratação",
     "de": "J05",
@@ -12476,9 +12625,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 31,
+  "total": 32,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 31
+  "validada": 32
  }
 };

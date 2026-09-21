@@ -1,0 +1,107 @@
+{
+ "parte": "A18",
+ "pergunta": "Por que a dividida no chão separa quem sobe na temporada e anda para o lado contrário dentro do próprio time, jogo a jogo?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "a_tensao": {
+  "de_um_lado": "A06-1: quem sobe ganha mais a dividida no chão que o meio — d 0,81 com todos os times e 1,59 sem os colados na linha, o maior efeito do estudo. 60,8% contra 59,8%.",
+  "do_outro": "A15 (leitura PDC): dentro do próprio clube-temporada e do mesmo mando, no jogo em que o time pontua ele ganha DE LEVE MENOS dividida no chão — d −0,08 com todos os jogos e −0,09 sem os empates, passando na correção nos dois cortes.",
+  "por_que_isto_importa": "Enquanto não se resolver, a dividida não pode virar requisito de contratação: ou ela é traço de time que rende ponto, ou é medida que depende de quem está do outro lado."
+ },
+ "hipoteses_declaradas_antes_de_rodar": [
+  {
+   "id": "H1",
+   "nome": "Soma zero",
+   "o_que_diz": "No mesmo jogo, a dividida defensiva ganha de um time é o complemento da dividida ofensiva ganha do outro. Se for, a variação de jogo a jogo mede o ADVERSÁRIO tanto quanto o time.",
+   "como_se_testa": "correlação entre o % de divididas defensivas ganhas do time e o % de divididas ofensivas ganhas do adversário, no mesmo jogo"
+  },
+  {
+   "id": "H2",
+   "nome": "O adversário manda na variação",
+   "o_que_diz": "A variação do indicador entre jogos se explica mais por quem é o adversário do que por quem é o time.",
+   "como_se_testa": "quanto da variância do indicador por jogo cada agrupamento explica — clube-temporada, adversário-temporada e mando, cada um por si"
+  },
+  {
+   "id": "H3",
+   "nome": "O controle do adversário desfaz o sinal",
+   "o_que_diz": "Tirando também a média do adversário, o sinal negativo dentro do clube some ou vira ruído.",
+   "como_se_testa": "a mesma comparação da A15 (pontuou × perdeu) com o indicador centrado no clube-temporada, no mando E no adversário-temporada"
+  },
+  {
+   "id": "H4",
+   "nome": "É dinheiro",
+   "o_que_diz": "Na temporada, ganhar dividida anda com o valor do elenco, e o que A06-1 mediu seria elenco caro com outro nome.",
+   "como_se_testa": "correlação entre o posto do indicador e o posto do valor do elenco, dentro da temporada. Ressalva, nunca desconto (decisão de 15/09)."
+  }
+ ],
+ "recorte": {
+  "temporadas": [
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "unidades": [
+   "clube-jogo (3.036 linhas)",
+   "clube-temporada (80 linhas)"
+  ],
+  "clubes": 40
+ },
+ "indicadores": [
+  {
+   "id": "duelos_def_pct",
+   "nome": "Divididas no chão ganhas (%)",
+   "sinal": 1,
+   "coluna": "Duelos defensivos ganhos, %",
+   "apelidos": [
+    "dividida no chão",
+    "divididas no chão"
+   ],
+   "citado_de": "A15"
+  },
+  {
+   "id": "duelos_of_pct_adv",
+   "nome": "Divididas no chão ganhas pelo ADVERSÁRIO no ataque (%)",
+   "sinal": -1,
+   "coluna": "'Duelos ofensivos ganhos, %' da linha do adversário",
+   "apelidos": [
+    "dividida do adversário",
+    "divididas do adversário"
+   ]
+  },
+  {
+   "id": "duelos_def_n",
+   "nome": "Divididas defensivas disputadas",
+   "sinal": 1,
+   "coluna": "Duelos defensivos",
+   "apelidos": [
+    "quantas divididas",
+    "número de divididas"
+   ]
+  }
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py e scripts/_metodo_jogo.py",
+  "teste": "d de Cohen no posto dentro da temporada, com IC95 e p por bootstrap de CLUBE (a mesma máquina da A15). Os dois cortes: todos os jogos e sem os empates.",
+  "porta_temporal": "Não é calculável na unidade do jogo, como a A15 declarou. Teto desta parte: PROVÁVEL.",
+  "o_que_esta_parte_decide": "Não é um achado novo sobre o acesso. É resolver qual das duas leituras da dividida vale para qual decisão — e, se as duas valerem, dizer para quê cada uma serve."
+ },
+ "ressalvas_declaradas": [
+  "Um indicador de PORCENTAGEM de duelo é relativo por construção: ele depende de quem disputa do outro lado. Isto não é defeito do dado; é o que ele é, e a parte existe para medir o tamanho disso.",
+  "Efeito do placar: quem está à frente disputa menos e de outro jeito. Sem minuto do gol não dá para recortar por estado do jogo — a mesma lacuna da A09.",
+  "A escalação por jogo NÃO existe na base: não dá para saber QUEM eram os zagueiros em cada jogo, só quem eram no ano. Qualquer leitura de jogador aqui é de temporada."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que ganhar dividida causa ponto, em qualquer dos dois níveis.",
+  "Que a dividida no chão não serve como requisito: ela diz em que nível o requisito faz sentido.",
+  "Que o adversário explica tudo — a decomposição publica quanto cada parte explica, e o resto fica à vista."
+ ],
+ "citados_doc": {
+  "duelos_def_pct": {
+   "dono": "A15",
+   "comparacao": "PDC",
+   "por_que": "A comparação de dentro do clube e do mando, neste indicador e nesta unidade, é a MESMA célula que o A15 publicou — o efeito sai idêntico. O que mudaria seria só o q, porque a família daqui tem três indicadores e a de lá tem cinco, e o Benjamini-Hochberg divide o crédito entre os vizinhos. Dois q para a mesma medida é o defeito que a regra 7 do portão caça. O A15 é o dono; esta parte mede, publica o efeito e cita o q dele. O que é DESTA parte é a comparação com o adversário no centro (PDCA) e os dois indicadores novos.",
+   "decidido_em": "2026-09-21"
+  }
+ }
+}

@@ -181,6 +181,24 @@ DECISOES = [
                      "conta dentro do time antes de aceitar a conta entre times."),
     },
     {
+        "id": "D18", "grupo": "Contratação",
+        "decisao": "A dividida no chão volta à ficha — medida na TEMPORADA, nunca por jogo.",
+        "porque": ("A fração de divididas ganhas num jogo é relacional: ela soma "
+                   "{A18.h1_soma} com a do adversário no mesmo lance, e de um jogo para o outro "
+                   "quem o time enfrentou explica {A18.h2_adv}% da variação contra "
+                   "{A18.h2_clube}% de quem o time é. Na temporada, a média sobre trinta e oito "
+                   "adversários cancela isso e o que sobra é o traço do time — que é o que o "
+                   "A06-1 mede, e que a A16 precifica em ponto a dinheiro igual. E ele não vem "
+                   "com o elenco caro: anda {A18.h4_rho} com o valor da folha."),
+        "de": "A18", "conclusao": "A18-1",
+        "ressalva": ("Não serve para julgar um jogo. Quem disser \"ganhamos pouca dividida "
+                     "sábado\" está falando mais do adversário de sábado do que do time. E no "
+                     "jogo que rende ponto o time DISPUTA mais dividida "
+                     "({A18.d_duelos_def_n_pdc_com}) e ganha fração praticamente igual "
+                     "({A18.d_duelos_def_pct_pdc_com}) — administrar resultado, não perder a "
+                     "disputa."),
+    },
+    {
         "id": "D5", "grupo": "Contratação",
         "decisao": "Usar minutagem alta e regular como PRIMEIRO filtro, e só depois olhar o resto.",
         "porque": ("É o único requisito que a base sustenta por posição (J05-3). O corte de "
