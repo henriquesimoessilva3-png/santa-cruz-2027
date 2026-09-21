@@ -120,19 +120,30 @@ DECISOES = [
     },
     {
         "id": "D13", "grupo": "Orçamento",
-        "decisao": "Gastar em modelo de jogo antes de gastar em folha.",
-        "porque": ("A dinheiro igual, subir do quarto de baixo para o quarto de cima da liga em "
-                   "solidez vale {A16.pts_F_solidez_pv_com} pontos na temporada — mais do que os "
-                   "{A16.ptsdin_F_solidez_pv_com} que o mesmo salto no valor do elenco paga, e "
-                   "esse salto de elenco custa {A16.degrau_eur} de euro. Jogar assim equivale a "
-                   "{A16.eur_F_solidez_pv_com} de elenco; a qualidade da chance, a "
-                   "{A16.eur_E_qualidade_chance_pv_com}."),
+        "decisao": "Gastar em modelo de jogo antes de folha. O modelo são quatro coisas medidas, "
+                   "nesta ordem: finalizar de mais perto, não ceder chance em casa, obrigar o "
+                   "adversário a finalizar de fora da área e ganhar a dividida no chão FORA.",
+        "porque": ("A dinheiro igual, cada uma paga — e o salto é pequeno em campo e grande na "
+                   "tabela. Encurtar a distância média da própria finalização de "
+                   "{A16.pior_dist_remate} m para {A16.melhor_dist_remate} m vale "
+                   "{A16.ptsabs_dist_remate_pv_com} pontos na temporada. Baixar o gol esperado "
+                   "sofrido em casa de {A16.pior_xgc_casa} para {A16.melhor_xgc_casa} por jogo "
+                   "vale {A16.ptsabs_xgc_casa_pv_com}. Baixar o gol esperado por finalização "
+                   "sofrida de {A16.pior_xg_por_remate_contra} para "
+                   "{A16.melhor_xg_por_remate_contra} vale "
+                   "{A16.ptsabs_xg_por_remate_contra_pv_com}. Ganhar a dividida no chão fora de "
+                   "casa, de {A16.pior_dd_fora}% para {A16.melhor_dd_fora}%, vale "
+                   "{A16.ptsabs_dd_fora_pv_com}. Para comparar: o mesmo salto de um quarto de "
+                   "tabela no VALOR DO ELENCO paga {A16.ptsdin_dist_remate_pv_com} pontos e "
+                   "custa {A16.degrau_eur} de euro."),
         "de": "A16", "conclusao": "A16-1",
-        "ressalva": ("Duas, e as duas pesam. O estudo mede o que o traço RENDE, não o que ele "
-                     "CUSTA: treinador, treino e jogador têm preço e não estão na conta. E o "
-                     "A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do "
-                     "que subiu — a receita existe, mas quem a tentou com elenco barato saiu "
-                     "pior."),
+        "ressalva": ("Três, e as três pesam. Primeira: NÃO é reduzir o número de finalizações do "
+                     "adversário — o A15-1 mediu que o time que pontua sofre a mesma quantidade "
+                     "de chute, de mais longe. Segunda: o estudo mede o que o traço RENDE, não o "
+                     "que ele CUSTA; treinador, treino e jogador têm preço e não estão na conta. "
+                     "Terceira: o A12-2 mediu que quem jogou como os que subiram SEM dinheiro "
+                     "caiu mais do que subiu — a receita existe, mas quem a tentou com elenco "
+                     "barato saiu pior."),
     },
     {
         "id": "D14", "grupo": "Modelo de jogo",
@@ -148,6 +159,26 @@ DECISOES = [
                      "Transfermarkt é da temporada inteira, sem data conhecida — se foi "
                      "atualizado no meio do ano, ele carrega parte do resultado e o controle "
                      "fica forte demais. É um teto para a anterioridade, não a medida dela."),
+    },
+    {
+        "id": "D17", "grupo": "Modelo de jogo",
+        "decisao": "Não dar ao treinador meta de estilo — cruzar mais, ter mais a bola, pressionar "
+                   "mais alto — esperando que dali saia finalização de perto.",
+        "porque": ("Dos {A17.testes} pares de jeito de jogar e chance boa, {A17.sobrevivem} "
+                   "sobrevive aos dois cortes e {A17.porta_passam} vem antes da chance boa — e "
+                   "não é o mesmo par. Nenhum dos {A17.n_preditores} jeitos de jogar medidos "
+                   "cumpre os dois critérios: posse, passe longo, passe progressivo, ataque "
+                   "posicional, contra-ataque, cruzamento, pressão alta, recuperação, "
+                   "intensidade, dividida e bola parada."),
+        "de": "A17", "conclusao": "A17-1",
+        "ressalva": ("Não é \"a alavanca não existe\" — é \"ela não está entre estas "
+                     "{A17.n_preditores}\". Treino, comissão técnica, escalação por rodada e bola "
+                     "parada ensaiada não estão na base, e é ali que um treinador diria que ela "
+                     "mora. O que a parte mostra é o mecanismo do engano: cruzar mais anda "
+                     "{A17.rho_dist_remate_cruzamentos} com finalizar de perto ENTRE times e "
+                     "{A17.jogo_dist_remate_cruzamentos} dentro do mesmo time, e anda "
+                     "{A17.dinheiro_cruzamentos} com o valor do elenco. Regra prática: peça a "
+                     "conta dentro do time antes de aceitar a conta entre times."),
     },
     {
         "id": "D5", "grupo": "Contratação",
@@ -238,15 +269,30 @@ DECISOES = [
     },
     {
         "id": "D10", "grupo": "Treinador",
-        "decisao": "Escolher treinador pelo PISO das passagens, não pela melhor delas.",
-        "porque": ("Treinador de clube do top-5 de valor entrega {T02.ct_top5_rod} rodadas no G4, "
-                   "contra {T02.ct_baixo_rod} de quem trabalha nos {T02.ct_baixo_n} clubes mais "
-                   "baratos — e {T02.ct_baixo_zero} desses nunca chegaram ao G4. Resultado de "
-                   "treinador vem colado ao elenco que ele pegou."),
-        "de": "T02", "conclusao": None,
-        "ressalva": ("Por isso o T04 ordena pelo piso: a melhor passagem de um treinador diz mais "
-                     "sobre o clube dele do que sobre ele. E o T04-2 mediu que esta base NÃO "
-                     "mostra o histórico do treinador reaparecendo no clube seguinte."),
+        "decisao": "Não pagar por currículo de G4 nem por modelo de jogo. A lista de treinadores "
+                   "serve para reduzir a conversa, e a escolha se faz por entrevista, comissão e "
+                   "projeto.",
+        "porque": ("Resultado de treinador vem colado ao elenco que ele pegou: quem trabalha em "
+                   "clube do top-5 de valor entrega {T02.ct_top5_rod} rodadas no G4, contra "
+                   "{T02.ct_baixo_rod} de quem trabalha nos {T02.ct_baixo_n} clubes mais baratos, "
+                   "e {T02.ct_baixo_zero} desses nunca chegaram ao G4. E o histórico não viaja: "
+                   "entre os {T04.t02_multi_fechadas} treinadores que passaram por dois clubes ou "
+                   "mais, a diferença típica entre a melhor e a pior passagem é de "
+                   "{T04.t02_amp_mediana_fechadas} pontos percentuais de tempo no G4, e o jeito "
+                   "de jogar também não acompanha (T03)."),
+        "de": "T04", "conclusao": "T04-2",
+        "ressalva": ("OS NOMES, para reduzir a conversa e não para decidir. Pela pior passagem "
+                     "lideram Paulo Pezzolano ({T04.pz_piso}% do tempo no G4) e Fábio Carille "
+                     "({T04.ca_piso}%) — e cada um tem {T04.pz_pass} passagem só, em clube de "
+                     "elenco {T04.pz_valor}º e {T04.ca_valor}º mais caro do ano, que é justamente "
+                     "o viés medido acima. O 3º é Eduardo Baptista, {T04.eb_pass} passagens em "
+                     "{T04.eb_cl} clubes e {T04.eb_rod} rodadas, o mais regular da base "
+                     "({T04.eb_temps}) — e que nunca subiu; trocar a pior passagem pela média "
+                     "leva-o de {T04.eb_piso}% a {T04.eb_med}% e já muda o terceiro lugar. Por "
+                     "isso a regra do piso NÃO vira critério de escolha: o T04-1 mediu que ela "
+                     "põe na frente quem nunca subiu e deixa de fora os dois que subiram com "
+                     "clubes diferentes. A lista inteira, com as passagens de cada um, está em "
+                     "T04_resumo.json."),
     },
 ]
 

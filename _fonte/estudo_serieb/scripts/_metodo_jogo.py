@@ -255,3 +255,80 @@ def _conferir_equivalencia(base, campo, grupo_a, grupo_b, sinal, semente=7, reps
     rapido = (ma - mb) / s * sinal
     pior = float(np.nanmax(np.abs(np.array(lento) - rapido)))
     return pior <= tol, pior, reps
+
+
+def correlacionar_por_clube(base, familias, alvos, filtros, rng, sinal_de, campo_de=pct,
+                            unidade="clube-temporada", reps=10000):
+    """Spearman entre o posto do preditor e o posto do ALVO, com IC95 e p por bootstrap de CLUBE.
+
+    Acrescentado em 21/09 para a A17. Por que não serve o `comparar` do `_metodo.py`: ali a
+    pergunta é "as duas faixas diferem?", com t de Welch e d de Cohen entre dois grupos. Aqui a
+    pergunta é "isto anda junto com aquilo?", numa régua contínua, e o teste é outro. O que NÃO
+    muda é a unidade de reamostragem: 80 linhas são 40 clubes, e o p tem de vir do clube, como a
+    §6.6 já mandava para o IC.
+
+    Mesma forma de saída das outras tabelas da casa — `d` guarda o rho, e `medida_nome` diz isso
+    em cada linha, para que ninguém leia como d de Cohen. O BH é por família × alvo.
+    """
+    saida = []
+    for rot_f, filtro in filtros:
+        for alvo_id, alvo_campo, alvo_sinal in alvos:
+            for fam_id, ids in familias:
+                ps, itens = [], []
+                for ind in ids:
+                    linhas = [l for l in base if filtro(l)
+                              and l.get(campo_de(ind)) is not None
+                              and l.get(alvo_campo) is not None]
+                    if len(linhas) < 20 or ind == alvo_id:
+                        continue
+                    x = [l[campo_de(ind)] * sinal_de(ind) for l in linhas]
+                    y = [l[alvo_campo] * alvo_sinal for l in linhas]
+                    rho, _ = stats.spearmanr(x, y)
+                    am = _amostras_de_rho_por_clube(linhas, campo_de(ind), alvo_campo,
+                                                    sinal_de(ind), alvo_sinal, rng, reps)
+                    ic, p = ic_e_p(am, reps)
+                    meia = (round((ic[1] - ic[0]) / 2, 3)
+                            if ic[0] is not None and ic[1] is not None else None)
+                    itens.append({
+                        "fronteira": rot_f, "familia": fam_id, "comparacao": alvo_id,
+                        "indicador": ind, "unidade": unidade,
+                        "medida_nome": "correlação de posto com o alvo (Spearman), sinal alinhado",
+                        "n_a": len(linhas), "n_b": len(linhas),
+                        "clubes_a": len({l["clube"] for l in linhas}),
+                        "clubes_b": len({l["clube"] for l in linhas}),
+                        "cru_a": round(float(np.median([l[ind] for l in linhas])), 3),
+                        "cru_b": round(float(np.median([l[alvo_id] for l in linhas])), 3),
+                        "d": round(float(rho), 3), "ic95_d": [ic[0], ic[1]],
+                        "p": round(float(p), 6), "limiar_visivel": meia,
+                    })
+                    ps.append(float(p))
+                for it, q in zip(itens, bh(ps)):
+                    it["q"] = round(q, 6)
+                    it["selo"] = ("firme" if q < 0.05 else
+                                  ("pode ser sorte" if it["p"] < 0.05 else "sem diferença clara"))
+                    it["poder_suficiente"] = (it["limiar_visivel"] is not None
+                                              and abs(it["d"]) >= it["limiar_visivel"])
+                saida += itens
+    return saida
+
+
+def _amostras_de_rho_por_clube(linhas, campo, alvo, sinal, alvo_sinal, rng, reps):
+    """A distribuição do rho reamostrando CLUBES.
+
+    Aqui não há conta fechada como no d: o Spearman rankeia a amostra inteira a cada sorteio.
+    Para não custar caro, os pares vão para arrays por clube e a reamostragem é de índices.
+    """
+    por_clube = collections.defaultdict(list)
+    for l in linhas:
+        por_clube[l["clube"]].append((l[campo] * sinal, l[alvo] * alvo_sinal))
+    clubes = list(por_clube)
+    blocos = {c: np.array(v, dtype=float) for c, v in por_clube.items()}
+    saida = []
+    for _ in range(reps):
+        am = np.vstack([blocos[clubes[i]] for i in rng.integers(0, len(clubes), len(clubes))])
+        if len(am) < 5:
+            continue
+        r, _p = stats.spearmanr(am[:, 0], am[:, 1])
+        if r == r:
+            saida.append(float(r))
+    return np.array(saida, dtype=float)

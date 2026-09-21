@@ -1,0 +1,323 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "clube-temporada",
+ "n": {
+  "total": 80,
+  "clubes": 40,
+  "sem_fronteira": 52,
+  "porta_n": 80,
+  "jogos": 3036
+ },
+ "sobrevivem_nos_dois_cortes": [
+  {
+   "alvo": "dist_remate",
+   "indicador": "duelos_aereos_pct",
+   "nome": "Divididas pelo alto ganhas (%)",
+   "familia": "sem_bola",
+   "rho_com": 0.375,
+   "rho_sem": 0.427,
+   "q_com": 0.001,
+   "q_sem": 0.006,
+   "ic_com": [
+    0.18,
+    0.56
+   ],
+   "porta": 0.194,
+   "porta_p": 0.08531,
+   "porta_passa": false,
+   "selo": "provável",
+   "rho_no_jogo": 0.063,
+   "ic_no_jogo": [
+    0.02,
+    0.1
+   ],
+   "rho_com_dinheiro": 0.177
+  }
+ ],
+ "porta_do_eixo": {
+  "definicao": "preditor nas 19 primeiras rodadas × ALVO nas 19 últimas, com parcial dada ao alvo do 1º turno; a receita da §6.4 com o alvo trocado",
+  "quantos_passam": 1,
+  "de": 34,
+  "por_par": {
+   "dist_remate|posse": {
+    "parcial": 0.115,
+    "p": 0.31109,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|passes_pct": {
+    "parcial": 0.024,
+    "p": 0.83591,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|passe_longo_pct": {
+    "parcial": 0.07,
+    "p": 0.53579,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|compr_passe": {
+    "parcial": -0.035,
+    "p": 0.75832,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|passes_progressivos": {
+    "parcial": 0.143,
+    "p": 0.20478,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|passes_terco_final": {
+    "parcial": 0.153,
+    "p": 0.17405,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|atq_posicional": {
+    "parcial": 0.214,
+    "p": 0.05721,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|contra_ataques": {
+    "parcial": 0.017,
+    "p": 0.87792,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|cruzamentos": {
+    "parcial": 0.106,
+    "p": 0.35066,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|cruz_certos_pct": {
+    "parcial": -0.017,
+    "p": 0.88138,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|ppda": {
+    "parcial": 0.184,
+    "p": 0.10161,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|recuperacoes": {
+    "parcial": 0.216,
+    "p": 0.05418,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|intensidade": {
+    "parcial": 0.037,
+    "p": 0.74718,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|duelos_pct": {
+    "parcial": 0.127,
+    "p": 0.2601,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|duelos_aereos_pct": {
+    "parcial": 0.194,
+    "p": 0.08531,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|bolas_paradas": {
+    "parcial": -0.014,
+    "p": 0.90402,
+    "n": 80,
+    "passa": false
+   },
+   "dist_remate|cantos": {
+    "parcial": 0.255,
+    "p": 0.02264,
+    "n": 80,
+    "passa": true
+   },
+   "xg_por_remate_contra|posse": {
+    "parcial": 0.116,
+    "p": 0.30753,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|passes_pct": {
+    "parcial": 0.177,
+    "p": 0.1158,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|passe_longo_pct": {
+    "parcial": -0.126,
+    "p": 0.26613,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|compr_passe": {
+    "parcial": -0.022,
+    "p": 0.84911,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|passes_progressivos": {
+    "parcial": 0.035,
+    "p": 0.75505,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|passes_terco_final": {
+    "parcial": 0.011,
+    "p": 0.92564,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|atq_posicional": {
+    "parcial": -0.067,
+    "p": 0.55365,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|contra_ataques": {
+    "parcial": -0.079,
+    "p": 0.4841,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|cruzamentos": {
+    "parcial": 0.055,
+    "p": 0.63054,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|cruz_certos_pct": {
+    "parcial": -0.047,
+    "p": 0.68079,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|ppda": {
+    "parcial": 0.008,
+    "p": 0.94701,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|recuperacoes": {
+    "parcial": -0.098,
+    "p": 0.38952,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|intensidade": {
+    "parcial": -0.028,
+    "p": 0.80197,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|duelos_pct": {
+    "parcial": -0.054,
+    "p": 0.6333,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|duelos_aereos_pct": {
+    "parcial": 0.091,
+    "p": 0.42276,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|bolas_paradas": {
+    "parcial": 0.114,
+    "p": 0.31483,
+    "n": 80,
+    "passa": false
+   },
+   "xg_por_remate_contra|cantos": {
+    "parcial": 0.162,
+    "p": 0.15016,
+    "n": 80,
+    "passa": false
+   }
+  }
+ },
+ "preditor_x_dinheiro": {
+  "posse": {
+   "rho": 0.544,
+   "p": 0.0
+  },
+  "passes_pct": {
+   "rho": 0.358,
+   "p": 0.00112
+  },
+  "passe_longo_pct": {
+   "rho": -0.47,
+   "p": 1e-05
+  },
+  "compr_passe": {
+   "rho": -0.281,
+   "p": 0.01162
+  },
+  "passes_progressivos": {
+   "rho": 0.142,
+   "p": 0.20978
+  },
+  "passes_terco_final": {
+   "rho": 0.431,
+   "p": 7e-05
+  },
+  "atq_posicional": {
+   "rho": 0.395,
+   "p": 0.00029
+  },
+  "contra_ataques": {
+   "rho": -0.033,
+   "p": 0.76969
+  },
+  "cruzamentos": {
+   "rho": 0.26,
+   "p": 0.01963
+  },
+  "cruz_certos_pct": {
+   "rho": 0.266,
+   "p": 0.01718
+  },
+  "ppda": {
+   "rho": 0.545,
+   "p": 0.0
+  },
+  "recuperacoes": {
+   "rho": 0.077,
+   "p": 0.49676
+  },
+  "intensidade": {
+   "rho": 0.107,
+   "p": 0.34271
+  },
+  "duelos_pct": {
+   "rho": -0.047,
+   "p": 0.67622
+  },
+  "duelos_aereos_pct": {
+   "rho": 0.177,
+   "p": 0.11624
+  },
+  "bolas_paradas": {
+   "rho": -0.048,
+   "p": 0.67416
+  },
+  "cantos": {
+   "rho": 0.373,
+   "p": 0.00066
+  }
+ },
+ "leitura_do_jogo": {
+  "o_que_e": "A mesma correlação no nível do JOGO, dentro do próprio clube-temporada e do mesmo mando — a máquina do A15. Responde 'quando ESTE time finalizou de mais perto, o que ele estava fazendo diferente?'",
+  "onde": "A17_jogo.csv",
+  "sem_q": "Ela CONFIRMA direção e precisão, não testa de novo: publicar um segundo q para o mesmo indicador é o defeito que a regra 7 do portão caça. A tabela com correção é a de clube-temporada."
+ }
+}

@@ -67,9 +67,9 @@
    "grupo": "Orçamento",
    "de": "A16",
    "conclusao": "A16-1",
-   "decisao": "Gastar em modelo de jogo antes de gastar em folha.",
-   "porque": "A dinheiro igual, subir do quarto de baixo para o quarto de cima da liga em solidez vale +8,9 pontos na temporada — mais do que os 7,0 que o mesmo salto no valor do elenco paga, e esse salto de elenco custa 9,9 mi de euro. Jogar assim equivale a 12,6 mi de elenco; a qualidade da chance, a 17,3 mi.",
-   "ressalva": "Duas, e as duas pesam. O estudo mede o que o traço RENDE, não o que ele CUSTA: treinador, treino e jogador têm preço e não estão na conta. E o A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior.",
+   "decisao": "Gastar em modelo de jogo antes de folha. O modelo são quatro coisas medidas, nesta ordem: finalizar de mais perto, não ceder chance em casa, obrigar o adversário a finalizar de fora da área e ganhar a dividida no chão FORA.",
+   "porque": "A dinheiro igual, cada uma paga — e o salto é pequeno em campo e grande na tabela. Encurtar a distância média da própria finalização de 20,8 m para 20,0 m vale 8,0 pontos na temporada. Baixar o gol esperado sofrido em casa de 1,09 para 0,86 por jogo vale 7,1. Baixar o gol esperado por finalização sofrida de 0,10 para 0,09 vale 6,2. Ganhar a dividida no chão fora de casa, de 58,2% para 61,0%, vale 4,9. Para comparar: o mesmo salto de um quarto de tabela no VALOR DO ELENCO paga 6,5 pontos e custa 9,9 mi de euro.",
+   "ressalva": "Três, e as três pesam. Primeira: NÃO é reduzir o número de finalizações do adversário — o A15-1 mediu que o time que pontua sofre a mesma quantidade de chute, de mais longe. Segunda: o estudo mede o que o traço RENDE, não o que ele CUSTA; treinador, treino e jogador têm preço e não estão na conta. Terceira: o A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior.",
    "confianca": "provável"
   },
   {
@@ -80,6 +80,16 @@
    "decisao": "Não prometer que mudar o jeito de jogar no meio do ano traz os pontos do returno.",
    "porque": "O teste de anterioridade passava para a distância do chute (+0,289) e para a régua da qualidade da chance (+0,254). Pondo o dinheiro no mesmo desconto, caem para +0,198 e +0,057, e nenhum dos 8 traços passa.",
    "ressalva": "Isto não derruba o D13: a associação a dinheiro igual continua de pé. Derruba a frase \"jogue assim e os pontos vêm depois\". E o valor do Transfermarkt é da temporada inteira, sem data conhecida — se foi atualizado no meio do ano, ele carrega parte do resultado e o controle fica forte demais. É um teto para a anterioridade, não a medida dela.",
+   "confianca": "indício"
+  },
+  {
+   "id": "D17",
+   "grupo": "Modelo de jogo",
+   "de": "A17",
+   "conclusao": "A17-1",
+   "decisao": "Não dar ao treinador meta de estilo — cruzar mais, ter mais a bola, pressionar mais alto — esperando que dali saia finalização de perto.",
+   "porque": "Dos 34 pares de jeito de jogar e chance boa, 1 sobrevive aos dois cortes e 1 vem antes da chance boa — e não é o mesmo par. Nenhum dos 17 jeitos de jogar medidos cumpre os dois critérios: posse, passe longo, passe progressivo, ataque posicional, contra-ataque, cruzamento, pressão alta, recuperação, intensidade, dividida e bola parada.",
+   "ressalva": "Não é \"a alavanca não existe\" — é \"ela não está entre estas 17\". Treino, comissão técnica, escalação por rodada e bola parada ensaiada não estão na base, e é ali que um treinador diria que ela mora. O que a parte mostra é o mecanismo do engano: cruzar mais anda +0,33 com finalizar de perto ENTRE times e +0,02 dentro do mesmo time, e anda +0,26 com o valor do elenco. Regra prática: peça a conta dentro do time antes de aceitar a conta entre times.",
    "confianca": "indício"
   },
   {
@@ -155,12 +165,12 @@
   {
    "id": "D10",
    "grupo": "Treinador",
-   "de": "T02",
-   "conclusao": null,
-   "decisao": "Escolher treinador pelo PISO das passagens, não pela melhor delas.",
-   "porque": "Treinador de clube do top-5 de valor entrega 14,6 rodadas no G4, contra 3,2 de quem trabalha nos 40 clubes mais baratos — e 22 desses nunca chegaram ao G4. Resultado de treinador vem colado ao elenco que ele pegou.",
-   "ressalva": "Por isso o T04 ordena pelo piso: a melhor passagem de um treinador diz mais sobre o clube dele do que sobre ele. E o T04-2 mediu que esta base NÃO mostra o histórico do treinador reaparecendo no clube seguinte.",
-   "confianca": null
+   "de": "T04",
+   "conclusao": "T04-2",
+   "decisao": "Não pagar por currículo de G4 nem por modelo de jogo. A lista de treinadores serve para reduzir a conversa, e a escolha se faz por entrevista, comissão e projeto.",
+   "porque": "Resultado de treinador vem colado ao elenco que ele pegou: quem trabalha em clube do top-5 de valor entrega 14,6 rodadas no G4, contra 3,2 de quem trabalha nos 40 clubes mais baratos, e 22 desses nunca chegaram ao G4. E o histórico não viaja: entre os 28 treinadores que passaram por dois clubes ou mais, a diferença típica entre a melhor e a pior passagem é de 21,7 pontos percentuais de tempo no G4, e o jeito de jogar também não acompanha (T03).",
+   "ressalva": "OS NOMES, para reduzir a conversa e não para decidir. Pela pior passagem lideram Paulo Pezzolano (89,5% do tempo no G4) e Fábio Carille (89,2%) — e cada um tem 1 passagem só, em clube de elenco 3º e 1º mais caro do ano, que é justamente o viés medido acima. O 3º é Eduardo Baptista, 3 passagens em 2 clubes e 108 rodadas, o mais regular da base (2023 Novorizontino, 5º com 63 pontos · 2024 Novorizontino, 5º com 64 · 2025 Criciúma, 5º com 61) — e que nunca subiu; trocar a pior passagem pela média leva-o de 37,5% a 47,2% e já muda o terceiro lugar. Por isso a regra do piso NÃO vira critério de escolha: o T04-1 mediu que ela põe na frente quem nunca subiu e deixa de fora os dois que subiram com clubes diferentes. A lista inteira, com as passagens de cada um, está em T04_resumo.json.",
+   "confianca": "indício"
   }
  ],
  "como_ler": "Cada decisão leva o selo da conclusão que a sustenta. FIRME passou na correção para múltiplos testes E na porta temporal; PROVÁVEL passou em um dos dois; INDÍCIO em nenhum, e a frase diz por quê. Decisão com selo fraco não é decisão errada — é decisão que se toma sabendo o tamanho da aposta."

@@ -153,7 +153,8 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 - T01 e J01–J02 podem rodar logo depois de A01; T02 logo depois de T01.
 - A12 depende das réguas da Protótipo (§7.2) e de A05–A07.
 - A14 só depois de A02–A13. A15 depende de A02, A05 e A06, com que dialoga, e de mais
-  nada. A16 depende de A14 (herda a lista) e do `_porta_temporal.py`.
+  nada. A16 depende de A14 (herda a lista) e do `_porta_temporal.py`. A17 depende de
+  A02 e A16 (o alvo dela é o que a A16 precificou) e usa a máquina da A15.
 - T03–T04 dependem de A14.
 - J03–J04 dependem de J01. J05–J06 dependem de A14, J03, J04 e das notas de encaixe da Protótipo (§8 — a §8.2 proíbe somar as três num número único; são três notas, nunca uma); se T04 já existir, o perfil de jogador deve servir ao modelo do treinador escolhido.
 - J07 depende de J01. J08 depende de J01 e da base das ligas de origem. J09 depende de J05, J06 e J08.
@@ -299,6 +300,22 @@ tem).
 **Ressalva que vem do próprio estudo:** o A12-2 já achou que quem jogou como os que subiram sem
 dinheiro caiu mais do que subiu. A resposta podia ser desconfortável, e em parte foi: a
 anterioridade some quando o dinheiro entra no controle.
+
+### A17 — Que jeito de jogar produz a chance boa
+**Pergunta:** o que um time faz que o leva a finalizar de mais perto e a ceder finalização pior?
+**Não é a pergunta do A05.** Ali o alvo é o acesso; aqui o alvo é o próprio eixo. O A05 responde
+"o estilo separa quem sobe?"; a A17 responde "o estilo PRODUZ a chance boa?".
+**Unidade:** clube-temporada, 80 linhas, com uma segunda leitura em clube-jogo (3.036), dentro do
+próprio clube e do mesmo mando — a máquina da A15.
+**Fora da lista, e escrito:** toques e entradas na área, finalizações e gols. Não são jeito de
+jogar; são a própria chegada, e predizer a distância da finalização com o número de toques na
+área é medir a mesma coisa duas vezes (é a ressalva que o D3 já carrega).
+**Três contas:** (a) correlação de posto com IC95 e p por bootstrap de CLUBE, BH por família ×
+alvo, nos dois cortes; (b) a **porta do eixo** — a receita da §6.4 com o alvo trocado: o preditor
+das 19 primeiras rodadas contra o ALVO das 19 últimas, com parcial dada ao alvo do 1º turno;
+(c) a leitura do jogo, **sem q**, que confirma direção e não testa de novo (regra 7 do portão).
+**Firme = BH nos dois cortes E porta do eixo.** Nenhum par cumpriu os dois.
+**O dinheiro entra ao lado de cada preditor**, medido, como ressalva e nunca como desconto.
 
 ## Bloco T — Treinadores
 

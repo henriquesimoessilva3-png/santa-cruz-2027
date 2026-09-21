@@ -1,0 +1,75 @@
+{
+ "parte": "A17",
+ "pergunta": "Que jeito de jogar produz a chance boa — finalizar de mais perto e obrigar o adversário a finalizar pior?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "por_que_esta_parte": "A D13 manda gastar em modelo de jogo e diz QUANTO cada coisa paga; ela não diz COMO se chega lá. O A05 testou se o jeito de construir a jogada separa quem sobe, e não separa — mas isso é outra pergunta. Aqui o alvo não é o acesso: é o próprio eixo. O que um time faz que o leva a finalizar de mais perto e a ceder finalização pior?",
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada",
+             "n_esperado": {"total": 80, "clubes": 40}},
+ "alvos": [
+  {"id": "dist_remate", "nome": "Distância média da própria finalização (m)", "sinal": -1,
+   "de": "A02-1, o único traço firme do estudo"},
+  {"id": "xg_por_remate_contra", "nome": "Gol esperado por finalização sofrida", "sinal": -1,
+   "de": "A02-2 e A06-3"}
+ ],
+ "comparacoes": [
+  {"id": "ALVO_dist", "nome": "O que anda junto com finalizar de mais perto", "papel": "padrão"},
+  {"id": "ALVO_xgprc", "nome": "O que anda junto com ceder finalização pior", "papel": "padrão"}
+ ],
+ "repetir_sem_fronteira": true,
+ "fora_da_lista_e_por_que": {
+  "toques_area, entradas_area, remates, remates_baliza": "Não são jeito de jogar: são a própria chegada. A ressalva do D3 já diz que toques e entradas na área vêm junto por construção, não por prova própria. Predizer a distância da finalização com o número de toques na área seria medir a mesma coisa duas vezes.",
+  "xg, gols, pontos": "Resultado, não característica (a lista CONSEQUENCIA do ranking_gaps.py).",
+  "valor do elenco": "Não é jeito de jogar. Ele entra como ressalva, medido ao lado: se o preditor que andar com o alvo também andar com o dinheiro, isso vai escrito."
+ },
+ "familias": [
+  {"id": "construcao", "nome": "Como leva a bola", "indicadores": [
+    {"id": "posse", "nome": "Posse de bola (%)", "sinal": 1, "apelidos": ["posse", "ter a bola"]},
+    {"id": "passes_pct", "nome": "Passes certos (%)", "sinal": 1, "apelidos": ["passes certos"]},
+    {"id": "passe_longo_pct", "nome": "Passe longo (% dos passes)", "sinal": 1, "apelidos": ["passe longo", "jogo direto"]},
+    {"id": "compr_passe", "nome": "Comprimento médio do passe (m)", "sinal": 1, "apelidos": ["comprimento do passe", "passe curto"]},
+    {"id": "passes_progressivos", "nome": "Passes progressivos por jogo", "sinal": 1, "apelidos": ["passe progressivo", "passes progressivos"]},
+    {"id": "passes_terco_final", "nome": "Passes para o terço final por jogo", "sinal": 1, "apelidos": ["passe ao terço final", "passes ao terço final"]}
+  ]},
+  {"id": "como_ataca", "nome": "Que tipo de ataque", "indicadores": [
+    {"id": "atq_posicional", "nome": "Ataques posicionais por jogo", "sinal": 1, "apelidos": ["ataque posicional", "ataques posicionais"]},
+    {"id": "contra_ataques", "nome": "Contra-ataques por jogo", "sinal": 1, "apelidos": ["contra-ataque", "contra-ataques", "transição"]},
+    {"id": "cruzamentos", "nome": "Cruzamentos por jogo", "sinal": 1, "apelidos": ["cruzamento", "cruzamentos"]},
+    {"id": "cruz_certos_pct", "nome": "Cruzamentos certos (%)", "sinal": 1, "apelidos": ["cruzamento certo", "cruzamentos certos"]}
+  ]},
+  {"id": "sem_bola", "nome": "O que faz sem a bola", "indicadores": [
+    {"id": "ppda", "nome": "Passes do adversário por ação defensiva", "sinal": -1, "apelidos": ["pressão alta", "pressiona alto"]},
+    {"id": "recuperacoes", "nome": "Recuperações por jogo", "sinal": 1, "apelidos": ["recuperação", "recuperações"]},
+    {"id": "intensidade", "nome": "Intensidade de jogo", "sinal": 1, "apelidos": ["intensidade"]},
+    {"id": "duelos_pct", "nome": "Divididas ganhas (%)", "sinal": 1, "apelidos": ["dividida ganha", "divididas ganhas"]},
+    {"id": "duelos_aereos_pct", "nome": "Divididas pelo alto ganhas (%)", "sinal": 1, "apelidos": ["dividida pelo alto", "divididas pelo alto"]}
+  ]},
+  {"id": "bola_parada", "nome": "Bola parada", "indicadores": [
+    {"id": "bolas_paradas", "nome": "Bolas paradas por jogo", "sinal": 1, "apelidos": ["bola parada", "bolas paradas"]},
+    {"id": "cantos", "nome": "Escanteios por jogo", "sinal": 1, "apelidos": ["escanteio", "escanteios"]}
+  ]}
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py e scripts/_metodo_jogo.py",
+  "a_medida": "Spearman entre o posto do preditor e o posto do ALVO, dentro da temporada, com o sinal de cada um alinhado (alto = melhor). O IC95 e o p saem do bootstrap de CLUBE — 80 linhas são 40 clubes, e o teste de linha supõe uma independência que o painel não tem.",
+  "correcao": "Benjamini-Hochberg a 5% por família × alvo.",
+  "porta_temporal": "NÃO SE APLICA como a §6.4 a define, e está declarado antes de rodar: ali o alvo são os PONTOS do returno, e aqui o alvo é o próprio eixo, não o resultado. O que se roda no lugar é a MESMA receita com o alvo do 2º turno: o preditor nas 19 primeiras rodadas contra o alvo nas 19 últimas, com parcial dada ao alvo do 1º turno. Passar nela quer dizer que o jeito de jogar vem antes da chance boa, e não que os dois são a mesma medida contada duas vezes.",
+  "firme": "passa no BH nos dois cortes E na porta do eixo"
+ },
+ "segunda_leitura": {
+  "o_que_e": "A mesma correlação no nível do JOGO, dentro do próprio clube-temporada e do mesmo mando — a máquina do A15. Responde 'quando ESTE time finalizou de mais perto, o que ele estava fazendo diferente?'",
+  "onde_sai": "A17_jogo.csv, sem q",
+  "por_que_sem_q": "Ela CONFIRMA direção e precisão, não testa de novo: publicar um segundo q para o mesmo indicador é o defeito que a regra 7 do portão caça. A tabela com correção é a de clube-temporada."
+ },
+ "ressalvas_declaradas": [
+  "Correlação não é receita. Andar junto com finalizar de perto não quer dizer que fazer aquilo faça o time finalizar de perto — a porta do eixo é o que separa as duas leituras, e onde ela reprovar a frase tem de dizer.",
+  "Valor do elenco: qualquer preditor que apareça vai com a medida de quanto ele anda com o dinheiro ao lado, como a A06 faz com o PPDA. Não vira desconto (decisão de 15/09).",
+  "Efeito do placar: posse, contra-ataque e pressão mudam com o resultado. Na leitura da temporada isso se dilui; na do jogo, não — e o A15-2 mediu o tamanho disso.",
+  "O alvo defensivo (gol esperado por finalização sofrida) depende do que o adversário faz. Um time pode ceder finalização ruim por jogar contra ataques ruins."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que o jeito de jogar CAUSA a chance boa. A porta do eixo é o mais perto disso que a base chega.",
+  "Que o jeito de jogar que produz a chance boa também faz subir: quem responde isso é o A05, e ele diz que nenhum jeito de construir a jogada separa quem sobe.",
+  "Que o que não apareceu não serve: o d mínimo e a largura do IC95 vão publicados."
+ ]
+}

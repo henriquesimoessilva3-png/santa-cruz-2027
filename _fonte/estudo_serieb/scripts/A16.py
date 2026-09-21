@@ -326,6 +326,30 @@ def main():
     json.dump(resumo, open(os.path.join(R, "A16_resumo.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
+    # ------------------------------------------------------------------------------------------
+    # O SALTO NA UNIDADE DO JOGO. A régua da parte é o posto, e "subir 50 postos" não diz a
+    # ninguém o que o time tem de FAZER. Aqui o mesmo salto sai em metro, em gol esperado e em
+    # por cento: o valor bruto no quartil pior e no quartil melhor, mediana das quatro
+    # temporadas. É o que transforma "gastar em modelo de jogo" em instrução.
+    quartis = {}
+    for t in ids:
+        piores, melhores = [], []
+        for ano in sorted(ANOS):
+            vs = sorted(((l[t] * sinal[t]), l[t]) for l in base
+                        if l["temporada"] == ano and l.get(t) is not None)
+            if len(vs) < 8:
+                continue
+            piores.append(vs[len(vs) // 4][1])          # quartil de baixo na escala alinhada
+            melhores.append(vs[(3 * len(vs)) // 4][1])  # quartil de cima
+        if piores:
+            quartis[t] = {"pior": round(float(np.median(piores)), 3),
+                          "melhor": round(float(np.median(melhores)), 3),
+                          "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, "
+                                     "mediana das quatro temporadas"}
+    resumo["salto_na_unidade_do_jogo"] = quartis
+    json.dump(resumo, open(os.path.join(R, "A16_resumo.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
+
     numeros = {
         "n": len(base), "n_clubes": len({l["clube"] for l in base}),
         "n_sem": resumo["n"]["sem_fronteira"], "n_tracos": len(ids), "n_familias": len(dec["familias"]),
@@ -344,6 +368,7 @@ def main():
                 numeros[f"q_{p}"] = br(it["q"], 4)
                 numeros[f"rho_{p}"] = br_sinal(it["rho_sem_controle"], 3)
                 numeros[f"pts_{p}"] = br_sinal(it["pontos_por_50pct"], 1)
+                numeros[f"ptsabs_{p}"] = br(abs(it["pontos_por_50pct"]), 1)
                 numeros[f"selo_{p}"] = it["selo"]
                 numeros[f"ptsdin_{p}"] = br(it["pontos_do_dinheiro_por_50pct"], 1)
                 # os marcadores de GRÁFICO vão como número: pt-BR é decisão de tela, e texto
@@ -364,6 +389,10 @@ def main():
         numeros[f"porta64p_{t}"] = ("—" if it["porta_p_sem_dinheiro"] is None
                                     else br(it["porta_p_sem_dinheiro"], 4))
         numeros[f"graf_pts_{t}"] = round(it["pontos_por_50pct"], 2)
+        if t in quartis:
+            casas = 2 if abs(quartis[t]["melhor"]) < 10 else 1
+            numeros[f"pior_{t}"] = br(quartis[t]["pior"], casas)
+            numeros[f"melhor_{t}"] = br(quartis[t]["melhor"], casas)
         if it["porta_parcial"] is not None:
             numeros[f"graf_porta_{t}"] = it["porta_parcial"]
             numeros[f"graf_porta64_{t}"] = it["porta_sem_dinheiro"]

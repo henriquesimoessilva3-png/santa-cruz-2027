@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 32 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 33 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -2067,6 +2067,155 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas. (1) O preço do traço. Esta parte mede o que o traço RENDE e não o que ele CUSTA: treinador, treino e jogador que sustentam a solidez têm preço, e sem ele a comparação com o elenco é de um lado só. A folha salarial por clube-temporada resolveria, e não está na base. (2) O instantâneo do Transfermarkt. O valor não tem data conhecida, então não dá para saber se ele foi medido antes ou depois do resultado — e é disso que depende a leitura da A16-2. Um valor por rodada, ou ao menos por turno, é a coleta que mais renderia a esta pergunta.",
    "feita_em": null,
    "prova_arquivos": "scripts/A16.py + scripts/_porta_temporal.py + scripts/A14.py"
+  },
+  {
+   "id": "A17",
+   "bloco": "A",
+   "secao": "Que time montar",
+   "pergunta": "Que jeito de jogar produz a chance boa: finalizar de perto e ceder chance ruim?",
+   "status": "validada",
+   "titulo": "Que jeito de jogar produz a chance boa, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "A17-1",
+     "parte": "A17",
+     "bloco": "A",
+     "manchete": "Nenhum jeito de jogar medido produz a chance boa",
+     "o_que_vimos": "De 34 pares testados, 1 sobrevive aos dois cortes e 1 vem antes da chance boa — e não é o mesmo. Nenhum dos 17 jeitos de jogar cumpre os dois critérios.",
+     "para_o_santa_cruz": "A D13 diz o que o time tem de ENTREGAR e quanto isso paga. Esta parte foi procurar a alavanca que entrega, entre os 17 jeitos de jogar que a base mede — posse, passe longo, passe progressivo, ataque posicional, contra-ataque, cruzamento, pressão alta, recuperação, intensidade, dividida e bola parada — e não achou. Na prática: não dê ao treinador uma meta de estilo (“cruze mais”, “tenha mais a bola”, “pressione mais alto”) esperando que dali saia finalização de perto. O eixo não é escolha de estilo isolada; é o conjunto, e é por isso que ele se compra em treinador e treino, como a A16-1 mediu em ponto e em euro. O que esta parte NÃO diz é que a alavanca não existe — diz que ela não está entre estas 17.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa nova, e ela é de método: traço que o estudo sabe premiar não vem com uma receita de estilo pronta. O A05 já tinha dito que nenhum jeito de construir a jogada separa quem sobe; aqui se mostra o passo seguinte — nenhum deles sequer produz o eixo.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e resultado NEGATIVO no formato das outras. Os dois critérios, e por que são dois: (a) correção para múltiplos testes a 5% por família × alvo, nos dois cortes de fronteira — passa 1 de 34; (b) a porta do eixo, que é a receita da §6.4 com o alvo trocado (o preditor nas 19 primeiras rodadas contra o ALVO nas 19 últimas, com parcial dada ao alvo do 1º turno) — passa 1 de 34, e é OUTRO par. Sem a porta, correlação de temporada não distingue “isto produz aquilo” de “as duas coisas são a mesma medida contada duas vezes”. O único que sobrevive aos dois cortes é a dividida pelo alto, e o A17-2 explica por que ela não sobe de provável. O único que passa na porta são os escanteios, com parcial +0,255 e p 0,0226 — e eles não sobrevivem à correção, com q 0,1096. Houve um QUASE, e ele tem de ir escrito: as divididas ganhas contra o gol esperado por finalização sofrida dão +0,37 com todos os times e +0,39 sem os colados na linha — efeito praticamente igual —, e mesmo assim passam na correção num corte só, q 0,0045 contra 0,0530. Não entram na conta porque a regra da casa é firme nos DOIS cortes, e achado que só aparece num corte é suspeito, não promovido. O que isto NÃO prova: que não existe jeito de jogar que produza a chance boa. A lista é de 17 preditores, declarada antes de rodar, e o IC95 de cada um está publicado — abaixo da largura dele o desenho não enxerga. Ressalva do placar: na leitura da temporada ele se dilui; na leitura de jogo, que entra como confirmação, não — e o A15-2 mediu o tamanho disso.",
+     "n": "80 clube-temporadas de 2022 a 2025 (40 clubes); sem os times colados na linha, 52. 17 preditores em 4 famílias contra 2 alvos. A leitura de jogo usa as 3.036 linhas clube-jogo.",
+     "prova": "A17_testes.csv; A17_jogo.csv; A17_resumo.json; A17_indicadores.json; A17.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Dos 34 pares de jeito de jogar e chance boa, quantos sobrevivem",
+      "unidade": "pares",
+      "barras": [
+       {
+        "nome": "sobrevivem aos dois cortes",
+        "valor": 1
+       },
+       {
+        "nome": "vêm antes da chance boa",
+        "valor": 1
+       },
+       {
+        "nome": "os dois ao mesmo tempo",
+        "valor": 0
+       }
+      ]
+     }
+    },
+    {
+     "id": "A17-2",
+     "parte": "A17",
+     "bloco": "A",
+     "manchete": "A dividida pelo alto anda com finalizar de perto, e some dentro do time",
+     "o_que_vimos": "Entre times, quem ganha mais dividida pelo alto finaliza de mais perto: +0,38, e +0,43 sem os colados na linha. Dentro do próprio time, jogo a jogo, sobra +0,06.",
+     "para_o_santa_cruz": "É o único candidato a alavanca que a parte achou, e ele não serve como meta de jogo. A diferença entre os dois números diz o porquê: entre times a relação é forte, dentro do mesmo time ela quase não existe — ou seja, times que ganham a bola alta também finalizam de perto, mas o time que ganhou mais bola alta NAQUELE jogo não finalizou de mais perto. Isso é perfil de elenco, não instrução de treino. Onde ele cabe: como característica a procurar no elenco, junto com o que o A06-1 já dizia da dividida no chão — e não como ordem para cruzar mais ou disputar mais bola alta.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Acrescenta à A06, que mediu a dividida no time sem ligá-la ao eixo. A ponte existe entre times e não dentro do time, e essa distinção é o que impede a leitura de receita.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável. (a) Correção para múltiplos testes: PASSA nos dois cortes, q 0,0010 com todos os times e, sem os colados na linha, a correlação sobe para +0,43. IC95 por clube: +0,18 a +0,56. É o único dos 34 pares a conseguir isso. (b) A porta do eixo: REPROVA — parcial +0,194 com p 0,0853. A dividida pelo alto do 1º turno não antecipa a distância da finalização do 2º. Um sim e um não = provável. (c) A leitura do jogo, dentro do próprio clube e do mesmo mando, dá +0,06 — positivo e pequeno demais para virar meta. Ela sai sem correção de propósito: confirma direção, e quem corrige é a tabela de clube-temporada. (d) O dinheiro ao lado, como ressalva e nunca como desconto: a dividida pelo alto anda +0,18 com o valor do elenco. Elenco mais caro tende a ganhar mais bola alta, e o estudo não separa as duas coisas.",
+     "n": "80 clube-temporadas de 2022 a 2025; 52 sem os times colados na linha. A leitura de jogo usa 3.036 linhas clube-jogo, centradas no próprio clube e no mesmo mando.",
+     "prova": "A17_testes.csv; A17_jogo.csv; A17.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Dividida pelo alto e distância da finalização: entre times e dentro do time",
+      "unidade": "correlação de posto, sinal alinhado",
+      "cortes": [
+       {
+        "rotulo": "entre times, na temporada",
+        "series": [
+         {
+          "nome": "com todos os times",
+          "valor": 0.375
+         },
+         {
+          "nome": "sem os colados na linha",
+          "valor": 0.427
+         }
+        ]
+       },
+       {
+        "rotulo": "o mesmo time contra ele mesmo, jogo a jogo",
+        "series": [
+         {
+          "nome": "dentro do clube e do mando",
+          "valor": 0.063
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A17-3",
+     "parte": "A17",
+     "bloco": "A",
+     "manchete": "O que parece receita entre times some dentro do time",
+     "o_que_vimos": "Entre times, cruzar mais anda com finalizar de perto: +0,33. Dentro do próprio time, jogo a jogo, +0,02. E cruzar anda +0,26 com o valor do elenco.",
+     "para_o_santa_cruz": "É a armadilha que esta parte existe para evitar, e ela vale para qualquer número de estilo que alguém traga numa reunião. Entre times, cruzar mais parece produzir finalização de perto; dentro do mesmo time, jogo a jogo, não produz nada — e a relação de fora anda junto com o dinheiro, ou seja, é em boa parte “times melhores fazem as duas coisas”. Regra prática para ler qualquer proposta de modelo de jogo: peça a conta DENTRO do time antes de aceitar a conta entre times. Se o número só existe comparando clubes diferentes, ele descreve que clube é aquele, não o que o seu pode fazer na segunda-feira.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa de método, gêmea da do A15-3: correlação entre clubes responde “que time é esse”, e só a conta dentro do clube responde “o que este time pode mudar”. As duas valem, e confundi-las é o que transforma descrição em receita.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício: é a leitura do contraste entre duas contas, não um teste novo. Os números do exemplo: cruzamentos dão +0,33 entre times (q 0,0096) e +0,02 dentro do time; cruzamentos certos, +0,36 contra +0,18. Os dois andam com o dinheiro, +0,26 e +0,27. O padrão se repete em toda a tabela e não é escolha de exemplo: a coluna do jogo e a coluna da temporada estão publicadas lado a lado em A17_testes.csv e A17_jogo.csv, preditor a preditor. A ressalva que vai junto: a conta dentro do time é mais exigente por construção — ela joga fora tudo o que o clube tem de estável, que é justamente parte do que um modelo de jogo é. Por isso a leitura certa não é “cruzar não serve”, e sim “esta base não sustenta cruzar como alavanca”. E o efeito do placar continua de pé na conta do jogo, como o A15-2 mediu.",
+     "n": "80 clube-temporadas contra 3.036 clube-jogos, os mesmos 40 clubes.",
+     "prova": "A17_testes.csv; A17_jogo.csv; A17_resumo.json; A17.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Cruzamento e distância da finalização: as três leituras",
+      "unidade": "correlação de posto",
+      "cortes": [
+       {
+        "rotulo": "entre times, na temporada",
+        "series": [
+         {
+          "nome": "cruzamentos",
+          "valor": 0.333
+         },
+         {
+          "nome": "cruzamentos certos",
+          "valor": 0.365
+         }
+        ]
+       },
+       {
+        "rotulo": "o mesmo time contra ele mesmo, jogo a jogo",
+        "series": [
+         {
+          "nome": "cruzamentos",
+          "valor": 0.021
+         },
+         {
+          "nome": "cruzamentos certos",
+          "valor": 0.183
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas. (1) A lista pode ser curta. São 17 os preditores que esta base mede por clube-temporada e por jogo; treino, comissão técnica, escalação por rodada e bola parada ensaiada não estão nela, e é ali que um treinador diria que a alavanca mora. (2) O contraste entre a conta da temporada e a do jogo pede um terceiro nível — o mesmo TREINADOR em clubes diferentes —, que o T03 tentou e a base não sustentou. Enquanto isso não existir, “o eixo se compra no treinador” fica sendo a leitura mais bem sustentada e não uma medida.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/A17.py + scripts/_metodo_jogo.py + scripts/_porta_temporal.py"
   },
   {
    "id": "J10",
@@ -10802,9 +10951,9 @@ const ESTUDO_SERIEB = {
     "grupo": "Orçamento",
     "de": "A16",
     "conclusao": "A16-1",
-    "decisao": "Gastar em modelo de jogo antes de gastar em folha.",
-    "porque": "A dinheiro igual, subir do quarto de baixo para o quarto de cima da liga em solidez vale +8,9 pontos na temporada — mais do que os 7,0 que o mesmo salto no valor do elenco paga, e esse salto de elenco custa 9,9 mi de euro. Jogar assim equivale a 12,6 mi de elenco; a qualidade da chance, a 17,3 mi.",
-    "ressalva": "Duas, e as duas pesam. O estudo mede o que o traço RENDE, não o que ele CUSTA: treinador, treino e jogador têm preço e não estão na conta. E o A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior.",
+    "decisao": "Gastar em modelo de jogo antes de folha. O modelo são quatro coisas medidas, nesta ordem: finalizar de mais perto, não ceder chance em casa, obrigar o adversário a finalizar de fora da área e ganhar a dividida no chão FORA.",
+    "porque": "A dinheiro igual, cada uma paga — e o salto é pequeno em campo e grande na tabela. Encurtar a distância média da própria finalização de 20,8 m para 20,0 m vale 8,0 pontos na temporada. Baixar o gol esperado sofrido em casa de 1,09 para 0,86 por jogo vale 7,1. Baixar o gol esperado por finalização sofrida de 0,10 para 0,09 vale 6,2. Ganhar a dividida no chão fora de casa, de 58,2% para 61,0%, vale 4,9. Para comparar: o mesmo salto de um quarto de tabela no VALOR DO ELENCO paga 6,5 pontos e custa 9,9 mi de euro.",
+    "ressalva": "Três, e as três pesam. Primeira: NÃO é reduzir o número de finalizações do adversário — o A15-1 mediu que o time que pontua sofre a mesma quantidade de chute, de mais longe. Segunda: o estudo mede o que o traço RENDE, não o que ele CUSTA; treinador, treino e jogador têm preço e não estão na conta. Terceira: o A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior.",
     "confianca": "provável"
    },
    {
@@ -10815,6 +10964,16 @@ const ESTUDO_SERIEB = {
     "decisao": "Não prometer que mudar o jeito de jogar no meio do ano traz os pontos do returno.",
     "porque": "O teste de anterioridade passava para a distância do chute (+0,289) e para a régua da qualidade da chance (+0,254). Pondo o dinheiro no mesmo desconto, caem para +0,198 e +0,057, e nenhum dos 8 traços passa.",
     "ressalva": "Isto não derruba o D13: a associação a dinheiro igual continua de pé. Derruba a frase \"jogue assim e os pontos vêm depois\". E o valor do Transfermarkt é da temporada inteira, sem data conhecida — se foi atualizado no meio do ano, ele carrega parte do resultado e o controle fica forte demais. É um teto para a anterioridade, não a medida dela.",
+    "confianca": "indício"
+   },
+   {
+    "id": "D17",
+    "grupo": "Modelo de jogo",
+    "de": "A17",
+    "conclusao": "A17-1",
+    "decisao": "Não dar ao treinador meta de estilo — cruzar mais, ter mais a bola, pressionar mais alto — esperando que dali saia finalização de perto.",
+    "porque": "Dos 34 pares de jeito de jogar e chance boa, 1 sobrevive aos dois cortes e 1 vem antes da chance boa — e não é o mesmo par. Nenhum dos 17 jeitos de jogar medidos cumpre os dois critérios: posse, passe longo, passe progressivo, ataque posicional, contra-ataque, cruzamento, pressão alta, recuperação, intensidade, dividida e bola parada.",
+    "ressalva": "Não é \"a alavanca não existe\" — é \"ela não está entre estas 17\". Treino, comissão técnica, escalação por rodada e bola parada ensaiada não estão na base, e é ali que um treinador diria que ela mora. O que a parte mostra é o mecanismo do engano: cruzar mais anda +0,33 com finalizar de perto ENTRE times e +0,02 dentro do mesmo time, e anda +0,26 com o valor do elenco. Regra prática: peça a conta dentro do time antes de aceitar a conta entre times.",
     "confianca": "indício"
    },
    {
@@ -10890,12 +11049,12 @@ const ESTUDO_SERIEB = {
    {
     "id": "D10",
     "grupo": "Treinador",
-    "de": "T02",
-    "conclusao": null,
-    "decisao": "Escolher treinador pelo PISO das passagens, não pela melhor delas.",
-    "porque": "Treinador de clube do top-5 de valor entrega 14,6 rodadas no G4, contra 3,2 de quem trabalha nos 40 clubes mais baratos — e 22 desses nunca chegaram ao G4. Resultado de treinador vem colado ao elenco que ele pegou.",
-    "ressalva": "Por isso o T04 ordena pelo piso: a melhor passagem de um treinador diz mais sobre o clube dele do que sobre ele. E o T04-2 mediu que esta base NÃO mostra o histórico do treinador reaparecendo no clube seguinte.",
-    "confianca": null
+    "de": "T04",
+    "conclusao": "T04-2",
+    "decisao": "Não pagar por currículo de G4 nem por modelo de jogo. A lista de treinadores serve para reduzir a conversa, e a escolha se faz por entrevista, comissão e projeto.",
+    "porque": "Resultado de treinador vem colado ao elenco que ele pegou: quem trabalha em clube do top-5 de valor entrega 14,6 rodadas no G4, contra 3,2 de quem trabalha nos 40 clubes mais baratos, e 22 desses nunca chegaram ao G4. E o histórico não viaja: entre os 28 treinadores que passaram por dois clubes ou mais, a diferença típica entre a melhor e a pior passagem é de 21,7 pontos percentuais de tempo no G4, e o jeito de jogar também não acompanha (T03).",
+    "ressalva": "OS NOMES, para reduzir a conversa e não para decidir. Pela pior passagem lideram Paulo Pezzolano (89,5% do tempo no G4) e Fábio Carille (89,2%) — e cada um tem 1 passagem só, em clube de elenco 3º e 1º mais caro do ano, que é justamente o viés medido acima. O 3º é Eduardo Baptista, 3 passagens em 2 clubes e 108 rodadas, o mais regular da base (2023 Novorizontino, 5º com 63 pontos · 2024 Novorizontino, 5º com 64 · 2025 Criciúma, 5º com 61) — e que nunca subiu; trocar a pior passagem pela média leva-o de 37,5% a 47,2% e já muda o terceiro lugar. Por isso a regra do piso NÃO vira critério de escolha: o T04-1 mediu que ela põe na frente quem nunca subiu e deixa de fora os dois que subiram com clubes diferentes. A lista inteira, com as passagens de cada um, está em T04_resumo.json.",
+    "confianca": "indício"
    }
   ],
   "como_ler": "Cada decisão leva o selo da conclusão que a sustenta. FIRME passou na correção para múltiplos testes E na porta temporal; PROVÁVEL passou em um dos dois; INDÍCIO em nenhum, e a frase diz por quê. Decisão com selo fraco não é decisão errada — é decisão que se toma sabendo o tamanho da aposta."
@@ -12317,9 +12476,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 30,
+  "total": 31,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 30
+  "validada": 31
  }
 };

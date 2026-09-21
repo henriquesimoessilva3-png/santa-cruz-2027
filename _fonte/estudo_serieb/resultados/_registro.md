@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**30 das 30 perguntas respondidas** · **83 conclusões** (55 indício · 27 provável · 1 firme) · **83 validadas**.
+**31 das 31 perguntas respondidas** · **86 conclusões** (57 indício · 28 provável · 1 firme) · **86 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -55,6 +55,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A16-1 | A dinheiro igual, o jeito de jogar rende mais que o elenco | provável | {n} clube-temporadas de 2022 a 2025 ({n_clubes} clubes); sem os times colados na linha, {n_sem}. {n_tracos} traços em {n_familias} famílias, herdados da lista do A14. |
 | A16-2 | Com o dinheiro na conta, nenhum traço prova vir antes do ponto | indício | {n} clube-temporadas de 2022 a 2025, com o traço medido só nas 19 primeiras rodadas e os pontos somados das 19 últimas. |
 | A16-3 | A dividida no chão só paga ponto fora de casa | provável | {n} clube-temporadas de 2022 a 2025 ({n_clubes} clubes); sem os times colados na linha, {n_sem}. |
+| A17-1 | Nenhum jeito de jogar medido produz a chance boa | indício | {n} clube-temporadas de 2022 a 2025 ({n_clubes} clubes); sem os times colados na linha, {n_sem}. {n_preditores} preditores em {n_familias} famílias contra {n_alvos} alvos. A leitura de jogo usa as {n_jogos} linhas clube-jogo. |
+| A17-2 | A dividida pelo alto anda com finalizar de perto, e some dentro do time | provável | {n} clube-temporadas de 2022 a 2025; {n_sem} sem os times colados na linha. A leitura de jogo usa {n_jogos} linhas clube-jogo, centradas no próprio clube e no mesmo mando. |
+| A17-3 | O que parece receita entre times some dentro do time | indício | {n} clube-temporadas contra {n_jogos} clube-jogos, os mesmos {n_clubes} clubes. |
 | J01-1 | O corte único de minutagem passa {gk_60}% dos goleiros e só {atk_60}% dos atacantes | indício | {n} jogador-temporadas (2022-2025) |
 | J01-2 | A ficha de lesão não distingue quem jogou pouco de quem jogou muito | indício | {les_base} de minutagem baixa e {les_alta_base} de minutagem alta, com ponte ao Transfermarkt (2022-2025) |
 | J01-3 | Time que cai roda o elenco, {cai_usados} jogadores em média contra {meio_usados} do meio | provável | {n_ct} clubes-temporada (2022-2025): {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram; sem os times de fronteira, 8, 32 e 12 |
@@ -118,6 +121,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A14 | validada | 3 | sim |
 | A15 | validada | 3 | sim |
 | A16 | validada | 3 | sim |
+| A17 | validada | 3 | **não** |
 | J01 | validada | 3 | sim |
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |
@@ -126,7 +130,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J06 | validada | 3 | sim |
 | J07 | validada | 3 | sim |
 | J08 | validada | 3 | sim |
-| J10 | validada | 3 | **não** |
+| J10 | validada | 3 | sim |
 | J09 | validada | 3 | sim |
 | T01 | validada | 3 | sim |
 | T02 | validada | 3 | sim |

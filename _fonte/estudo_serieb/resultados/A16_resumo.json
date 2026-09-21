@@ -111,5 +111,47 @@
     "passa": false
    }
   }
+ },
+ "salto_na_unidade_do_jogo": {
+  "dist_remate": {
+   "pior": 20.751,
+   "melhor": 20.042,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "E_qualidade_chance": {
+   "pior": 32.237,
+   "melhor": 71.711,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "xg_por_remate_contra": {
+   "pior": 0.102,
+   "melhor": 0.092,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "xgc_casa": {
+   "pior": 1.086,
+   "melhor": 0.862,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "F_solidez": {
+   "pior": 33.333,
+   "melhor": 70.614,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "duelos_def_pct": {
+   "pior": 58.934,
+   "melhor": 61.378,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "dd_casa": {
+   "pior": 58.977,
+   "melhor": 61.775,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  },
+  "dd_fora": {
+   "pior": 58.157,
+   "melhor": 60.985,
+   "o_que_e": "valor bruto no quartil pior e no quartil melhor da liga, mediana das quatro temporadas"
+  }
  }
 }
