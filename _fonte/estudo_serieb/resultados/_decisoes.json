@@ -1,0 +1,107 @@
+{
+ "_doc": "As decisões que o estudo sustenta, com o número e a parte de origem de cada uma. Gerado por scripts/gerar_decisoes.py a partir dos <ID>_numeros.json — os mesmos arquivos que o portão confere. Nenhum número é digitado aqui.",
+ "gerado_em": "2026-09-21",
+ "decisoes": [
+  {
+   "id": "D1",
+   "grupo": "Orçamento",
+   "de": "A01",
+   "conclusao": "A01-1",
+   "decisao": "Montar o elenco para 64 pontos, e planejar 65.",
+   "porque": "O 4º colocado fechou entre 62 e 64 pontos nas quatro temporadas do recorte, e 63 teria ficado fora do G4 em 2 delas. 64 apenas EMPATOU com o 4º em 3 das 8 temporadas medidas — e empate não dá vaga.",
+   "ressalva": "A linha de baixo é bem mais frouxa: o 17º ficou entre 38 e 42. Escapar do rebaixamento custa muito menos do que subir — são duas decisões de orçamento, não a mesma com margem.",
+   "confianca": "indício"
+  },
+  {
+   "id": "D2",
+   "grupo": "Orçamento",
+   "de": "T01",
+   "conclusao": null,
+   "decisao": "Orçar duas comissões técnicas no ano.",
+   "porque": "A Série B trocou de treinador 1,3 vez por clube-temporada, em média, nas temporadas fechadas. Planejar uma só é planejar o caso raro.",
+   "ressalva": "É média de troca, não recomendação de trocar: o T03-2 mediu que trocar de treinador NÃO muda o jeito de jogar do time.",
+   "confianca": null
+  },
+  {
+   "id": "D3",
+   "grupo": "Modelo de jogo",
+   "de": "A02",
+   "conclusao": "A02-1",
+   "decisao": "Guiar o modelo pela qualidade da chance: chegar a finalizar de dentro, e obrigar o adversário a finalizar de fora.",
+   "porque": "É o ÚNICO traço firme do estudo, e três partes independentes chegaram nele. Quem sobe finaliza a 19,5 m do gol contra 20,5 m do meio; é o único traço que acompanha o treinador quando ele troca de clube; e é a única das diferenças de quem sobe que dá para treinar.",
+   "ressalva": "O que carrega o sinal é a DISTÂNCIA do chute, não a régua inteira: sem ela, a régua de qualidade de chance perde a porta temporal (parcial +0,191, p 0,0895). Toques e entradas na área vêm junto por construção, não por prova própria.",
+   "confianca": "firme"
+  },
+  {
+   "id": "D4",
+   "grupo": "Modelo de jogo",
+   "de": "A04",
+   "conclusao": "A04-1",
+   "decisao": "Não montar o time por bola parada, por pressão alta nem por volume de corrida.",
+   "porque": "Foram testados e nenhum separa quem sobe do meio: nada do trabalho de bola parada (A04-1), nada do jogo sem bola (A06-2), e correr mais não separou (A07-1). Também não separa depender de casa (A03-1) nem o jeito de construir a jogada (A05-1).",
+   "ressalva": "\"Não separa\" aqui quer dizer \"este desenho não conseguiria ver\": com 16 promovidos contra 48 do meio, só uma vantagem grande apareceria. Não é prova de que não importa — é aviso de que não dá para apostar nisso.",
+   "confianca": "indício"
+  },
+  {
+   "id": "D5",
+   "grupo": "Contratação",
+   "de": "J05",
+   "conclusao": "J05-3",
+   "decisao": "Usar minutagem alta e regular como PRIMEIRO filtro, e só depois olhar o resto.",
+   "porque": "É o único requisito que a base sustenta por posição (J05-3). O corte de minutagem de quem subiu varia muito entre posições: Goleiro 64,7% · Zaga 56,8% · Volante 51,0% · Lateral 46,8% · Meia 42,5% · Atacante 34,2% · Extremo 32,4%.",
+   "ressalva": "A ficha completa NÃO deve ser filtro eliminatório: como conjunção de pisos, ela reprova todo mundo — o J06-1 é exatamente isso, \"nenhum nome sai desta parte por falha da ficha\". O resto da ficha ordena, não elimina.",
+   "confianca": "indício"
+  },
+  {
+   "id": "D6",
+   "grupo": "Contratação",
+   "de": "J06",
+   "conclusao": "J06-3",
+   "decisao": "Não contar com o mercado de livres: ele é curto demais.",
+   "porque": "Em TODA a Série B há 51 jogadores livres com minutagem alta e regular. Por posição: Meia 13 · Lateral 9 · Zaga 8 · Atacante 8 · Volante 6 · Extremo 6 · Goleiro 1.",
+   "ressalva": "No gol são 1. Posição escassa não se resolve esperando a janela — se resolve antes dela, ou por outro caminho.",
+   "confianca": "indício"
+  },
+  {
+   "id": "D7",
+   "grupo": "Contratação",
+   "de": "J09",
+   "conclusao": "J09-3",
+   "decisao": "Escolher goleiro por vídeo e olho, não por esta base.",
+   "porque": "O J09-3 fechou assim: no gol a base não tem como apontar um nome. Dos 584 candidatos, 0 chegaram ao fim do funil. E o SkillCorner não rastreia goleiro.",
+   "ressalva": "Isto não é opinião sobre goleiro: é limite de dado, medido. Vale enquanto a base for esta.",
+   "confianca": "indício"
+  },
+  {
+   "id": "D8",
+   "grupo": "Elenco",
+   "de": "J02",
+   "conclusao": "J02-3",
+   "decisao": "Concentrar minutos em um núcleo fixo, e planejar a janela do meio desde já.",
+   "porque": "Quem sobe concentra 68,1% dos minutos nos onze mais usados, contra 63,1% do meio. E 69,8% dos minutos da Série B são de jogador que chegou naquele mesmo ano — a janela do meio não é exceção, é como a liga funciona.",
+   "ressalva": "Manter a base do ano anterior NÃO aparece como vantagem de quem sobe (J02-2). O que separa é concentrar minutos, não a origem do jogador.",
+   "confianca": "provável"
+  },
+  {
+   "id": "D9",
+   "grupo": "Temporada",
+   "de": "A13",
+   "conclusao": "A13-3",
+   "decisao": "Tratar a metade do campeonato como alarme, não como sentença.",
+   "porque": "Na rodada 19, 10 dos 16 acessos já estavam no G4 — e o resto virou depois. Quem cai já está 5,5 pontos atrás do meio na metade.",
+   "ressalva": "A tabela da metade dá vantagem, não garante a vaga (A13-3). Decisão de meio de ano tomada como se a tabela fosse definitiva erra nos dois lados.",
+   "confianca": "provável"
+  },
+  {
+   "id": "D10",
+   "grupo": "Treinador",
+   "de": "T02",
+   "conclusao": null,
+   "decisao": "Escolher treinador pelo PISO das passagens, não pela melhor delas.",
+   "porque": "Treinador de clube do top-5 de valor entrega 14,6 rodadas no G4, contra 3,2 de quem trabalha nos 40 clubes mais baratos — e 22 desses nunca chegaram ao G4. Resultado de treinador vem colado ao elenco que ele pegou.",
+   "ressalva": "Por isso o T04 ordena pelo piso: a melhor passagem de um treinador diz mais sobre o clube dele do que sobre ele. E o T04-2 mediu que esta base NÃO mostra o histórico do treinador reaparecendo no clube seguinte.",
+   "confianca": null
+  }
+ ],
+ "como_ler": "Cada decisão leva o selo da conclusão que a sustenta. FIRME passou na correção para múltiplos testes E na porta temporal; PROVÁVEL passou em um dos dois; INDÍCIO em nenhum, e a frase diz por quê. Decisão com selo fraco não é decisão errada — é decisão que se toma sabendo o tamanho da aposta."
+}

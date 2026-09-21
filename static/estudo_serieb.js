@@ -604,6 +604,54 @@
       '</section>';
   }
 
+  /* ============================ A PÁGINA DE DECISÕES ============================
+     O estudo responde 27 perguntas e tem 74 conclusões. Quem decide não lê 74 conclusões, e
+     nem deveria: a decisão já está lá dentro, só espalhada. Esta seção traz a decisão para a
+     frente e deixa as perguntas como o anexo que a sustenta.
+
+     Três coisas que ela faz de propósito, e que a separam de um slide:
+
+     1. **Cada decisão leva o selo da conclusão de origem.** "Monte para 64 pontos" (indício) e
+        "o eixo do modelo é a qualidade da chance" (firme) não têm o mesmo peso de prova, e
+        quem decide precisa saber em qual dos dois está pisando. Esconder isso seria vender
+        certeza que não existe.
+     2. **Cada decisão leva a RESSALVA junto**, no mesmo bloco, não num rodapé. A ressalva é a
+        primeira coisa que morre quando se resume — e numa página que vai para a diretoria ela
+        é justamente o que evita a decisão errada.
+     3. **Nenhum número é digitado aqui.** Eles vêm resolvidos do gerar_decisoes.py, que lê os
+        mesmos <ID>_numeros.json que o portão confere e FALHA se um marcador não existir. */
+  function decisoesHtml() {
+    const D2 = D.decisoes;
+    if (!D2 || !D2.decisoes || !D2.decisoes.length) return '';
+    const grupos = [];
+    D2.decisoes.forEach(d => {
+      let g = grupos.find(x => x.nome === d.grupo);
+      if (!g) { g = { nome: d.grupo, itens: [] }; grupos.push(g); }
+      g.itens.push(d);
+    });
+    const item = d =>
+      '<article class="esb-dec" id="esb-' + esc(d.id) + '">' +
+        '<div class="esb-dec-topo">' +
+          '<span class="esb-dec-id">' + esc(d.id) + '</span>' +
+          '<h4>' + esc(d.decisao) + '</h4>' +
+          '<span class="' + classeSelo(d.confianca) + '">' + selo(d.confianca) + '</span>' +
+        '</div>' +
+        '<p class="esb-dec-porque">' + esc(d.porque) + '</p>' +
+        '<p class="esb-dec-ressalva"><b>Mas:</b> ' + esc(d.ressalva) + '</p>' +
+        '<div class="esb-dec-pe">' +
+          (d.conclusao
+            ? '<a href="#esb-' + esc(d.conclusao) + '">' + esc(d.conclusao) + '</a>'
+            : '<span>' + esc(d.de) + '</span>') +
+          '<span class="esb-dec-de">' + esc(d.de) + '</span></div>' +
+      '</article>';
+    return '<section class="esb-secao esb-decisoes" id="esb-decisoes">' +
+      '<h3>O que fazer<span class="esb-conta">' + D2.decisoes.length + ' decisões</span></h3>' +
+      '<p class="esb-nota">' + esc(D2.como_ler) + '</p>' +
+      grupos.map(g => '<div class="esb-dec-grupo"><h4 class="esb-dec-gnome">' + esc(g.nome) +
+        '</h4>' + g.itens.map(item).join('') + '</div>').join('') +
+      '</section>';
+  }
+
   function casca() {
     const c = D.contagem;
     return '<div class="esb-topo">' +
@@ -626,6 +674,7 @@
         '<a href="#" data-ir="serieb">Análise Série B</a> · ' +
         '<a href="#" data-ir="prototipo">Protótipo</a></p>' +
       '</div>' +
+      decisoesHtml() +
       sumarioHtml() +
       filtroHtml() +
       decidimosHtml() +

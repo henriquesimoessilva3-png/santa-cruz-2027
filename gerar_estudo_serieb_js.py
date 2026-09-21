@@ -327,6 +327,11 @@ def main():
         "treinadores": treinadores,
         "regua": regua,
         "ranking": ranking,
+        # A pagina de decisoes, gerada por scripts/gerar_decisoes.py. Ela vem PRONTA: os
+        # numeros ja foram resolvidos la, contra os <ID>_numeros.json, e aquele script falha
+        # quando um marcador nao existe. Aqui so se carrega.
+        "decisoes": json.load(open(os.path.join(RESULTADOS, "_decisoes.json"), encoding="utf-8"))
+                    if os.path.exists(os.path.join(RESULTADOS, "_decisoes.json")) else None,
         "validadas": validadas[:7],   # "O que decidimos" mostra ate 7
         "negativas": negativas,
         "contagem": {

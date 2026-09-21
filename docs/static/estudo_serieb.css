@@ -348,3 +348,31 @@ body:not(.claro) #pgEstudo .esb-auxiliar a:hover { color: #ffffff; }
 /* Valor que veio do Wyscout, e não do Transfermarkt: as duas não são da mesma data. */
 #pgEstudo .esb-vm-wy { opacity: .7; }
 #pgEstudo .esb-vm-fnt { font-style: normal; font-size: 8px; opacity: .7; margin-left: 2px; }
+
+/* ---- a página de decisões (21/09) ------------------------------------------
+   Vem antes de tudo: quem decide não lê 74 conclusões. A ressalva fica DENTRO
+   do bloco, não em rodapé — ela é a primeira coisa que morre num resumo, e é
+   justamente o que evita a decisão errada. */
+#pgEstudo .esb-decisoes { border: 1px solid var(--borda2, #e6e5e1); border-radius: 10px;
+  padding: 14px 16px 6px; margin-bottom: 18px; }
+#pgEstudo .esb-dec-grupo { margin-top: 14px; }
+#pgEstudo .esb-dec-gnome { margin: 0 0 6px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .05em; color: #52514e; font-weight: 700; }
+#pgEstudo .esb-dec { border-left: 3px solid var(--borda2, #e6e5e1); padding: 6px 0 8px 12px;
+  margin-bottom: 10px; }
+#pgEstudo .esb-dec-topo { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+#pgEstudo .esb-dec-topo h4 { margin: 0; font-size: 15px; line-height: 1.3; flex: 1 1 280px; }
+#pgEstudo .esb-dec-id { font-size: 10px; font-weight: 700; color: #52514e;
+  font-variant-numeric: tabular-nums; }
+#pgEstudo .esb-dec-porque { margin: 5px 0 0; font-size: 13px; line-height: 1.5; }
+#pgEstudo .esb-dec-ressalva { margin: 4px 0 0; font-size: 12px; line-height: 1.45;
+  color: #52514e; }
+#pgEstudo .esb-dec-ressalva b { color: #b45309; }
+#pgEstudo .esb-dec-pe { margin-top: 4px; font-size: 10px; color: #7a7975; display: flex; gap: 8px; }
+#pgEstudo .esb-dec-pe a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+body:not(.claro) #pgEstudo .esb-decisoes { border-color: #3a3a36; }
+body:not(.claro) #pgEstudo .esb-dec { border-left-color: #3a3a36; }
+body:not(.claro) #pgEstudo .esb-dec-gnome,
+body:not(.claro) #pgEstudo .esb-dec-ressalva { color: #c3c2b7; }
+body:not(.claro) #pgEstudo .esb-dec-ressalva b { color: #f0a640; }
