@@ -1,0 +1,57 @@
+{
+ "parte": "A16",
+ "pergunta": "Dentro do que o dinheiro compra, qual traço dá mais ponto por real?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada",
+             "n_esperado": {"total": 80, "clubes": 40}},
+ "de_onde_vem_a_lista": {
+  "regra": "A lista NÃO é escolhida aqui. São os candidatos do A14 — tudo que saiu firme nos DOIS cortes em Sobe × Meio e não é placar redescrito —, menos duas coisas: o H_dinheiro, que aqui é o CONTROLE e não pode ser traço, e o I_estabilidade_11, que o próprio A14 tirou por ser consequência do resultado.",
+  "por_que": "Escolher indicador depois de ver qual dá mais ponto por real seria garimpo com outro nome. Herdando a lista do A14, a escolha é de antes e está versionada lá."
+ },
+ "o_controle": {
+  "o_que_e": "o valor do elenco, em EURO, do Transfermarkt (`tm_valor_total` de dados/serieb_clube_temporada.csv), em posto dentro da temporada",
+  "por_que_nao_vira_desconto": "Decisão de 15/09 na especificação: o valor do elenco aparece ao lado, nunca como desconto. Aqui ele não desconta conclusão nenhuma — ele é a pergunta: o que sobra DEPOIS do dinheiro.",
+  "a_moeda": "A base do Transfermarkt é em EURO. A pergunta foi feita em real; a resposta sai em euro, porque converter exigiria uma taxa e uma data que a base não tem. Inventar a taxa seria pior que trocar a moeda."
+ },
+ "comparacoes": [
+  {"id": "PV", "nome": "Pontos × traço, dado o valor total do elenco", "papel": "padrão"},
+  {"id": "PR", "nome": "Pontos × traço, dada a régua do dinheiro (H_dinheiro: valor total e valor mediano juntos)", "papel": "robustez do controle"}
+ ],
+ "repetir_sem_fronteira": true,
+ "familias": [
+  {"id": "criar", "nome": "O que o time cria", "indicadores": [
+    {"id": "dist_remate", "nome": "Distância média da finalização (m)", "sinal": -1, "de": "A02", "apelidos": ["distância do chute", "chuta de mais perto", "finalizar de dentro"]},
+    {"id": "E_qualidade_chance", "nome": "Régua da qualidade da chance", "sinal": 1, "de": "A12", "apelidos": ["qualidade da chance", "régua da qualidade da chance"]}
+  ]},
+  {"id": "ceder", "nome": "O que o time cede", "indicadores": [
+    {"id": "xg_por_remate_contra", "nome": "Gol esperado por finalização sofrida", "sinal": -1, "de": "A02", "apelidos": ["gol esperado por finalização sofrida", "chance cedida"]},
+    {"id": "xgc_casa", "nome": "Gols esperados sofridos em casa", "sinal": -1, "de": "A03", "apelidos": ["cede em casa", "gols esperados sofridos em casa"]},
+    {"id": "F_solidez", "nome": "Régua da solidez", "sinal": 1, "de": "A12", "apelidos": ["régua da solidez", "solidez"]}
+  ]},
+  {"id": "disputa", "nome": "A disputa da bola", "indicadores": [
+    {"id": "duelos_def_pct", "nome": "Divididas no chão ganhas (%)", "sinal": 1, "de": "A06", "apelidos": ["dividida no chão", "divididas no chão"]},
+    {"id": "dd_casa", "nome": "Divididas no chão ganhas em casa (%)", "sinal": 1, "de": "A03", "apelidos": ["dividida no chão em casa", "divididas no chão em casa"]},
+    {"id": "dd_fora", "nome": "Divididas no chão ganhas fora (%)", "sinal": 1, "de": "A03", "apelidos": ["dividida no chão fora", "divididas no chão fora"]}
+  ]}
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py e scripts/_porta_temporal.py",
+  "a_medida": "correlação PARCIAL entre o posto do traço e o posto dos pontos, dado o posto do dinheiro. A receita do resíduo é a MESMA da §6.4 (`_porta_temporal.parcial`): resíduo por MQO contra o controle, depois Spearman entre os resíduos. A coluna `d` da tabela guarda essa parcial, e a coluna `medida_nome` diz isso em cada linha — não é d de Cohen, e não se lê como tal.",
+  "correcao": "Benjamini-Hochberg a 5% por família × comparação.",
+  "porta_temporal": "A §6.4 COM UM CONTROLE A MAIS: o traço nas 19 primeiras rodadas contra os PONTOS das 19 últimas, com parcial dada à pontuação do 1º turno E ao dinheiro. É régua mais apertada que a da casa, nunca mais frouxa, e é a porta certa para esta pergunta — sem o dinheiro no controle, a porta não distingue 'este traço vem antes' de 'quem tem este traço é rico'.",
+  "firme": "passa no BH nos dois cortes E na porta com dinheiro",
+  "o_numero_de_decisao": "Além da parcial, uma regressão dos pontos sobre o posto do traço e o posto do dinheiro, para responder em PONTOS e em EURO: quanto vale sair do percentil 25 para o 75 no traço, e a quanto de elenco isso equivale."
+ },
+ "ressalvas_declaradas": [
+  "O A12-2 já achou que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu. A resposta desta parte pode ser desconfortável, e se for, é assim que ela sai.",
+  "Traço e pontos são da mesma temporada: a parcial não prova anterioridade. Quem prova é a porta, e por isso ela é o segundo critério e não um enfeite.",
+  "O valor do Transfermarkt é um instantâneo sem data conhecida (a mesma ressalva que o _porta_temporal.json já registra para o H_dinheiro): pode ter sido atualizado no meio da temporada, e nesse caso ele já carrega parte do resultado.",
+  "Equivalência em euro é ARITMÉTICA de duas inclinações, não promessa de mercado: ela diz o quanto de elenco daria o mesmo número de pontos NESTA base, e não que exista um elenco à venda por esse preço."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que o traço é de graça. Jogar de um jeito custa treinador, treino e jogador — e nada disso está medido aqui.",
+  "Que o dinheiro não importa: ele é o controle porque importa, e o quanto ele compra sai publicado.",
+  "Que o traço funciona para qualquer clube. O recorte é a Série B de 2022 a 2025, com 40 clubes."
+ ]
+}

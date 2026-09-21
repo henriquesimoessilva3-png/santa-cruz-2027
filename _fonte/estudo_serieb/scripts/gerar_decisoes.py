@@ -119,6 +119,37 @@ DECISOES = [
                      "negativo — não perseguir esses números —, e não vira \"jogue sem a bola\"."),
     },
     {
+        "id": "D13", "grupo": "Orçamento",
+        "decisao": "Gastar em modelo de jogo antes de gastar em folha.",
+        "porque": ("A dinheiro igual, subir do quarto de baixo para o quarto de cima da liga em "
+                   "solidez vale {A16.pts_F_solidez_pv_com} pontos na temporada — mais do que os "
+                   "{A16.ptsdin_F_solidez_pv_com} que o mesmo salto no valor do elenco paga, e "
+                   "esse salto de elenco custa {A16.degrau_eur} de euro. Jogar assim equivale a "
+                   "{A16.eur_F_solidez_pv_com} de elenco; a qualidade da chance, a "
+                   "{A16.eur_E_qualidade_chance_pv_com}."),
+        "de": "A16", "conclusao": "A16-1",
+        "ressalva": ("Duas, e as duas pesam. O estudo mede o que o traço RENDE, não o que ele "
+                     "CUSTA: treinador, treino e jogador têm preço e não estão na conta. E o "
+                     "A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do "
+                     "que subiu — a receita existe, mas quem a tentou com elenco barato saiu "
+                     "pior."),
+    },
+    {
+        "id": "D14", "grupo": "Modelo de jogo",
+        "decisao": "Não prometer que mudar o jeito de jogar no meio do ano traz os pontos do returno.",
+        "porque": ("O teste de anterioridade passava para a distância do chute "
+                   "({A16.porta64_dist_remate}) e para a régua da qualidade da chance "
+                   "({A16.porta64_E_qualidade_chance}). Pondo o dinheiro no mesmo desconto, caem "
+                   "para {A16.porta_dist_remate} e {A16.porta_E_qualidade_chance}, e nenhum dos "
+                   "{A16.n_tracos} traços passa."),
+        "de": "A16", "conclusao": "A16-2",
+        "ressalva": ("Isto não derruba o D13: a associação a dinheiro igual continua de pé. "
+                     "Derruba a frase \"jogue assim e os pontos vêm depois\". E o valor do "
+                     "Transfermarkt é da temporada inteira, sem data conhecida — se foi "
+                     "atualizado no meio do ano, ele carrega parte do resultado e o controle "
+                     "fica forte demais. É um teto para a anterioridade, não a medida dela."),
+    },
+    {
         "id": "D5", "grupo": "Contratação",
         "decisao": "Usar minutagem alta e regular como PRIMEIRO filtro, e só depois olhar o resto.",
         "porque": ("É o único requisito que a base sustenta por posição (J05-3). O corte de "

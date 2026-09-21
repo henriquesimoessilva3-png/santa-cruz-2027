@@ -63,6 +63,26 @@
    "confianca": "provável"
   },
   {
+   "id": "D13",
+   "grupo": "Orçamento",
+   "de": "A16",
+   "conclusao": "A16-1",
+   "decisao": "Gastar em modelo de jogo antes de gastar em folha.",
+   "porque": "A dinheiro igual, subir do quarto de baixo para o quarto de cima da liga em solidez vale +8,9 pontos na temporada — mais do que os 7,0 que o mesmo salto no valor do elenco paga, e esse salto de elenco custa 9,9 mi de euro. Jogar assim equivale a 12,6 mi de elenco; a qualidade da chance, a 17,3 mi.",
+   "ressalva": "Duas, e as duas pesam. O estudo mede o que o traço RENDE, não o que ele CUSTA: treinador, treino e jogador têm preço e não estão na conta. E o A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior.",
+   "confianca": "provável"
+  },
+  {
+   "id": "D14",
+   "grupo": "Modelo de jogo",
+   "de": "A16",
+   "conclusao": "A16-2",
+   "decisao": "Não prometer que mudar o jeito de jogar no meio do ano traz os pontos do returno.",
+   "porque": "O teste de anterioridade passava para a distância do chute (+0,289) e para a régua da qualidade da chance (+0,254). Pondo o dinheiro no mesmo desconto, caem para +0,198 e +0,057, e nenhum dos 8 traços passa.",
+   "ressalva": "Isto não derruba o D13: a associação a dinheiro igual continua de pé. Derruba a frase \"jogue assim e os pontos vêm depois\". E o valor do Transfermarkt é da temporada inteira, sem data conhecida — se foi atualizado no meio do ano, ele carrega parte do resultado e o controle fica forte demais. É um teto para a anterioridade, não a medida dela.",
+   "confianca": "indício"
+  },
+  {
    "id": "D5",
    "grupo": "Contratação",
    "de": "J05",

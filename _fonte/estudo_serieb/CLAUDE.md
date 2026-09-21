@@ -152,7 +152,8 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 - E00 (criar a aba) e A01 vêm primeiro; A01 é pré-requisito de todas as análises.
 - T01 e J01–J02 podem rodar logo depois de A01; T02 logo depois de T01.
 - A12 depende das réguas da Protótipo (§7.2) e de A05–A07.
-- A14 só depois de A02–A13. A15 depende de A02, A05 e A06, com que dialoga, e de mais nada.
+- A14 só depois de A02–A13. A15 depende de A02, A05 e A06, com que dialoga, e de mais
+  nada. A16 depende de A14 (herda a lista) e do `_porta_temporal.py`.
 - T03–T04 dependem de A14.
 - J03–J04 dependem de J01. J05–J06 dependem de A14, J03, J04 e das notas de encaixe da Protótipo (§8 — a §8.2 proíbe somar as três num número único; são três notas, nunca uma); se T04 já existir, o perfil de jogador deve servir ao modelo do treinador escolhido.
 - J07 depende de J01. J08 depende de J01 e da base das ligas de origem. J09 depende de J05, J06 e J08.
@@ -278,6 +279,26 @@ não altera nada dele):
 um jogo — indicador e pontos são simultâneos. É limite de dado, não reprovação.
 **Ressalva principal:** efeito do placar, aqui muito pior que no clube-temporada, e sem minuto do
 gol para recortar por estado do jogo (a mesma lacuna que a A09 mediu).
+
+### A16 — Ponto por real
+**Pergunta:** dentro do que o dinheiro compra, qual traço dá mais ponto por real?
+**Unidade:** clube-temporada, 80 linhas de 2022–2025.
+**A lista NÃO é escolhida aqui:** são os candidatos do A14 (firmes nos dois cortes em Sobe × Meio,
+sem placar redescrito), menos o `H_dinheiro`, que aqui é o CONTROLE, e o `I_estabilidade_11`, que
+o A14 tirou por ser consequência do resultado. O script confere isso contra o `A14_resumo.json` e
+para se não bater — escolher indicador depois de ver qual dá mais ponto por real é garimpo.
+**O dinheiro é controle, nunca desconto** (decisão de 15/09 na especificação): ele não desconta
+conclusão nenhuma; a pergunta É o que sobra depois dele.
+**Duas contas:** (a) correlação PARCIAL entre o posto do traço e o posto dos pontos, dado o posto
+do dinheiro, pela receita da §6.4 (`_porta_temporal.parcial`), com BH a 5% por família; (b) a
+porta da §6.4 **com um controle a mais**, o dinheiro — sem ele, a porta não distingue "este traço
+vem antes" de "quem tem este traço é rico".
+**O número de decisão:** uma regressão dos pontos sobre os dois postos, para responder em PONTOS e
+em EURO (a moeda da base do Transfermarkt; converter para real exigiria taxa e data que a base não
+tem).
+**Ressalva que vem do próprio estudo:** o A12-2 já achou que quem jogou como os que subiram sem
+dinheiro caiu mais do que subiu. A resposta podia ser desconfortável, e em parte foi: a
+anterioridade some quando o dinheiro entra no controle.
 
 ## Bloco T — Treinadores
 

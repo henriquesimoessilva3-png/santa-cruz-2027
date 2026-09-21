@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**28 das 28 perguntas respondidas** · **77 conclusões** (53 indício · 23 provável · 1 firme) · **77 validadas**.
+**29 das 29 perguntas respondidas** · **80 conclusões** (54 indício · 25 provável · 1 firme) · **80 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -52,6 +52,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A15-1 | O time pontua cedendo chute pior, não cedendo menos chute | provável | {n_linhas} clube-jogos de Série B de 2022 a 2025 — {n_clubes} clubes, {n_ct} clube-temporadas, {n_jogos} jogos: {n_pontuou} com ponto contra {n_perdeu} sem. Sem os empates, {n_venceu} contra {n_perdeu}. O erro é reamostrado por clube, {reps} vezes. |
 | A15-2 | No jogo em que pontua, o time tem menos bola | provável | {n_linhas} clube-jogos de Série B de 2022 a 2025 — {n_clubes} clubes, {n_ct} clube-temporadas: {n_pontuou} com ponto contra {n_perdeu} sem; sem os empates, {n_venceu} contra {n_perdeu}. Cada indicador entra centrado no próprio clube, naquela temporada e naquele mando. |
 | A15-3 | Descer ao jogo mede melhor e não prova mais | indício | {n_indicadores} indicadores em {n_familias} famílias, sobre {n_linhas} clube-jogos de {n_clubes} clubes; {reps} reamostragens de clube em cada célula. |
+| A16-1 | A dinheiro igual, o jeito de jogar rende mais que o elenco | provável | {n} clube-temporadas de 2022 a 2025 ({n_clubes} clubes); sem os times colados na linha, {n_sem}. {n_tracos} traços em {n_familias} famílias, herdados da lista do A14. |
+| A16-2 | Com o dinheiro na conta, nenhum traço prova vir antes do ponto | indício | {n} clube-temporadas de 2022 a 2025, com o traço medido só nas 19 primeiras rodadas e os pontos somados das 19 últimas. |
+| A16-3 | A dividida no chão só paga ponto fora de casa | provável | {n} clube-temporadas de 2022 a 2025 ({n_clubes} clubes); sem os times colados na linha, {n_sem}. |
 | J01-1 | O corte único de minutagem passa {gk_60}% dos goleiros e só {atk_60}% dos atacantes | indício | {n} jogador-temporadas (2022-2025) |
 | J01-2 | A ficha de lesão não distingue quem jogou pouco de quem jogou muito | indício | {les_base} de minutagem baixa e {les_alta_base} de minutagem alta, com ponte ao Transfermarkt (2022-2025) |
 | J01-3 | Time que cai roda o elenco, {cai_usados} jogadores em média contra {meio_usados} do meio | provável | {n_ct} clubes-temporada (2022-2025): {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram; sem os times de fronteira, 8, 32 e 12 |
@@ -111,6 +114,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A13 | validada | 3 | sim |
 | A14 | validada | 3 | sim |
 | A15 | validada | 3 | sim |
+| A16 | validada | 3 | **não** |
 | J01 | validada | 3 | sim |
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |

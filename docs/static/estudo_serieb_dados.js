@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 30 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 31 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, J01, J02, J03, J04, J05, J06, J07, J08, J09, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -1910,6 +1910,163 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas coisas ficaram medidas e sem dono. (1) A dividida no chão: o A06-1 acha que ganhá-la separa quem sobe na temporada, e aqui, dentro do mesmo time, ela anda de leve para o lado contrário nos dois cortes — é efeito pequeno e pode ser o placar (quem está à frente disputa menos), mas a tensão entre as duas unidades tem de ser resolvida antes de a dividida virar requisito de contratação. (2) O estado do jogo: sem minuto do gol não dá para separar o que o time escolheu fazer do que ele fez porque estava ganhando. É a mesma coleta que a A09 deixou pendente — o primeiro gol de cada jogo — e ela resolveria as duas de uma vez. Continua sem resposta, e agora com preço: é a compra que mais renderia ao estudo.",
    "feita_em": null,
    "prova_arquivos": "scripts/A15.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
+  },
+  {
+   "id": "A16",
+   "bloco": "A",
+   "secao": "Que time montar",
+   "pergunta": "Dentro do que o dinheiro compra, qual traço dá mais ponto por real?",
+   "status": "validada",
+   "titulo": "Ponto por real: o que sobra depois do dinheiro, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "A16-1",
+     "parte": "A16",
+     "bloco": "A",
+     "manchete": "A dinheiro igual, o jeito de jogar rende mais que o elenco",
+     "o_que_vimos": "Subir do quarto de baixo para o quarto de cima da liga em solidez vale +8,9 pontos. O mesmo salto no valor do elenco vale 7,0 e custa 9,9 mi de euro. Jogar assim equivale a 12,6 mi de elenco.",
+     "para_o_santa_cruz": "Este é o número para levar a reunião de orçamento. Com o dinheiro controlado, os traços do modelo continuam de pé, e o salto de um quarto de tabela em solidez ou em qualidade da chance paga mais ponto do que o mesmo salto na folha. Traduzido: o que se compra com treinador, treino e modelo de jogo vale, nesta liga, dezenas de milhões de elenco — e o clube que não vai ter folha de top-5 tem aí onde competir. Duas travas. A primeira: isto NÃO diz que jogar assim é de graça; custa treinador, treino e jogador, e nada disso está medido. A segunda: o A12-2 já mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior, e é isso que separa este achado de uma promessa.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Confirma a premissa que A02-1 e A12-1 montaram e acrescenta o preço: o eixo da qualidade da chance e a solidez continuam separando depois de descontado o dinheiro, e agora com quanto valem em ponto e em elenco. Não sugere premissa nova.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável porque passa num critério e falha no outro. (a) Correção para múltiplos testes a 5% dentro da família: PASSA nos dois cortes e com os dois controles. Solidez dá q 0,0000 com todos os times e 0,0010 sem os colados na linha; a parcial vai de +0,521 para +0,480. A régua da qualidade da chance dá q 0,0002 e a distância do chute q 0,0001. Trocando o controle pela régua do dinheiro (valor total e valor mediano juntos), a solidez dá q 0,0000: o achado não depende de qual medida de dinheiro entra. (b) Anterioridade: REPROVA, e é o assunto de A16-2. Teto: provável. (c) Poder: com 80 clube-temporadas o desenho enxerga a partir de 0,45, e as parciais publicadas estão acima disso. (d) A equivalência em euro é ARITMÉTICA de duas inclinações da mesma regressão, não promessa de mercado: ela diz quanto de elenco daria o mesmo número de pontos NESTA base, e não que exista elenco à venda por esse preço. O degrau de referência — do 25º ao 75º percentil de valor — é 9,9 mi de euro na mediana das quatro temporadas. (e) A moeda é o EURO, do Transfermarkt. A pergunta foi feita em real; converter exigiria uma taxa e uma data que a base não tem, e inventar a taxa seria pior que trocar a moeda. (f) O valor do Transfermarkt é um instantâneo sem data conhecida e pode ter sido atualizado no meio da temporada — nesse caso ele já carrega parte do resultado, e o controle fica forte demais, não fraco. O erro, se existe, é contra o achado.",
+     "n": "80 clube-temporadas de 2022 a 2025 (40 clubes); sem os times colados na linha, 52. 8 traços em 3 famílias, herdados da lista do A14.",
+     "prova": "A16_testes.csv; A16_resumo.json; A16_indicadores.json; A16.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Pontos que valem 50 postos de subida, a dinheiro igual",
+      "unidade": "pontos na temporada",
+      "barras": [
+       {
+        "nome": "solidez",
+        "valor": 8.87
+       },
+       {
+        "nome": "qualidade da chance",
+        "valor": 8.51
+       },
+       {
+        "nome": "distância do chute",
+        "valor": 7.97
+       },
+       {
+        "nome": "elenco mais caro",
+        "valor": 6.95
+       }
+      ]
+     }
+    },
+    {
+     "id": "A16-2",
+     "parte": "A16",
+     "bloco": "A",
+     "manchete": "Com o dinheiro na conta, nenhum traço prova vir antes do ponto",
+     "o_que_vimos": "A distância do chute do 1º turno previa os pontos do returno com +0,289. Pondo o dinheiro no mesmo desconto, cai para +0,198 e deixa de valer. Dos 8 traços, 2 passavam e 0 passam agora.",
+     "para_o_santa_cruz": "É o freio do A16-1, e tem de andar colado nele. O que o estudo chamava de traço que vem antes do resultado carregava dinheiro dentro: quando o elenco caro entra no mesmo desconto, a anterioridade some. Na prática isso não derruba o modelo de jogo — a associação a dinheiro igual continua de pé —, mas derruba a frase “jogue assim e os pontos vêm depois”. O que se pode prometer à diretoria é que times que jogam assim pontuam mais com o mesmo elenco; o que NÃO se pode prometer é que mudar o jeito de jogar no meio do ano traga os pontos do returno. Para decidir contratação e treinador isso basta; para decidir troca de treinador no meio da temporada, não basta.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "AJUSTA a premissa que o _porta_temporal.md registrou: a porta da §6.4 passava para a distância do chute e para a régua da qualidade da chance, e esse resultado foi reproduzido aqui número a número. O que muda é que ela não sobrevive a pôr o dinheiro no mesmo desconto — e o estudo nunca tinha rodado a porta com esse controle.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e por escolha. Isto é um resultado NEGATIVO sobre o critério de anterioridade, não um achado que passou em teste: o que ele mostra é que um teste que passava deixa de passar quando o controle fica certo. Os números: sem o dinheiro, a distância do chute dá +0,289 com p 0,0094 e a régua da qualidade da chance +0,254 com p 0,0228 — os mesmos valores que o _porta_temporal.json publica para a §6.4, reproduzidos aqui pela mesma função, o que é a conferência de que esta parte roda a conta da casa e não uma parecida. Com o dinheiro no controle, +0,198 com p 0,0789 e +0,057 com p 0,6152. Nenhum dos 8 traços passa. Por que o controle a mais é mais apertado e não mais frouxo: sem ele, a porta não distingue “este traço vem antes” de “quem tem este traço é rico”. Ressalva do sinal contrário: o valor do Transfermarkt é da temporada inteira, não do 1º turno, e o _porta_temporal.json já registra que ele pode ter sido atualizado no meio do ano — se foi, ele carrega parte do resultado e o controle fica forte demais. Então este achado é um TETO para a anterioridade, não uma medida dela.",
+     "n": "80 clube-temporadas de 2022 a 2025, com o traço medido só nas 19 primeiras rodadas e os pontos somados das 19 últimas.",
+     "prova": "A16_testes.csv; A16_resumo.json; _porta_temporal.json; A16.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "O teste de anterioridade, sem e com o dinheiro no controle",
+      "unidade": "correlação parcial com os pontos do returno",
+      "cortes": [
+       {
+        "rotulo": "só descontando a pontuação do 1º turno",
+        "series": [
+         {
+          "nome": "distância do chute",
+          "valor": 0.289
+         },
+         {
+          "nome": "qualidade da chance",
+          "valor": 0.254
+         }
+        ]
+       },
+       {
+        "rotulo": "descontando também o dinheiro",
+        "series": [
+         {
+          "nome": "distância do chute",
+          "valor": 0.198
+         },
+         {
+          "nome": "qualidade da chance",
+          "valor": 0.057
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A16-3",
+     "parte": "A16",
+     "bloco": "A",
+     "manchete": "A dividida no chão só paga ponto fora de casa",
+     "o_que_vimos": "Ganhar mais dividida no chão FORA vale +4,9 pontos a dinheiro igual. Em casa, +0,2, e some na correção. A conta do total, somando os dois mandos, dá +3,6 e esconde essa diferença.",
+     "para_o_santa_cruz": "Se a dividida no chão entrar na ficha de contratação, ela entra como exigência para o jogo FORA de casa — é lá que ela paga. Em casa o estudo não acha efeito nenhum depois do dinheiro, nos dois cortes. Isso muda o que se procura: não o zagueiro que ganha duelo em qualquer cenário, mas o time que sustenta a disputa quando joga sem o campo a favor. Vale como critério de modelo de jogo para o jogo fora e como desempate na contratação — o eixo principal continua sendo a qualidade da chance, que rende o dobro.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "AJUSTA a A03-2, que diz que quem sobe ganha mais dividida NOS DOIS mandos. Continua verdade que quem sobe ganha mais nos dois; o que esta parte acrescenta é que, descontado o dinheiro, só a de fora vira ponto. As duas leituras convivem: uma descreve quem subiu, a outra diz o que paga.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável. (a) Correção para múltiplos testes dentro da família da disputa: a dividida no chão fora passa nos dois cortes, q 0,0131 com todos os times e 0,0498 sem os colados na linha, com parcial +0,316 e +0,305. A de casa não passa em nenhum dos dois, q 0,4919 e 0,2308, com parcial +0,078 e +0,169 — os dois cortes concordam, e é por isso que a diferença entre os mandos sobe como conclusão em vez de ficar como ruído. Com a régua do dinheiro no lugar do valor total, o mesmo: 0,0100 contra 0,3646. (b) Anterioridade: REPROVA, como em toda esta parte (A16-2). Teto: provável. (c) O que isto NÃO prova: que ganhar dividida em casa não serve. O desenho enxerga a partir de 0,45, e a parcial da dividida em casa está abaixo disso — “não separa” aqui quer dizer “este desenho não veria”, e não “não existe”. (d) Efeito do placar: quem está ganhando disputa menos, e isso vale mais em casa, onde se ganha mais. Parte da diferença entre os mandos pode ser isso, e a base não tem minuto do gol para separar — a mesma lacuna que a A09 mediu.",
+     "n": "80 clube-temporadas de 2022 a 2025 (40 clubes); sem os times colados na linha, 52.",
+     "prova": "A16_testes.csv; A16_indicadores.json; A16.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "O que a dividida no chão rende, a dinheiro igual",
+      "unidade": "pontos na temporada, por 50 postos de subida",
+      "cortes": [
+       {
+        "rotulo": "com todos os times",
+        "series": [
+         {
+          "nome": "fora de casa",
+          "valor": 4.86
+         },
+         {
+          "nome": "em casa",
+          "valor": 0.18
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os times colados na linha",
+        "series": [
+         {
+          "nome": "fora de casa",
+          "valor": 4.16
+         },
+         {
+          "nome": "em casa",
+          "valor": 1.6
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas. (1) O preço do traço. Esta parte mede o que o traço RENDE e não o que ele CUSTA: treinador, treino e jogador que sustentam a solidez têm preço, e sem ele a comparação com o elenco é de um lado só. A folha salarial por clube-temporada resolveria, e não está na base. (2) O instantâneo do Transfermarkt. O valor não tem data conhecida, então não dá para saber se ele foi medido antes ou depois do resultado — e é disso que depende a leitura da A16-2. Um valor por rodada, ou ao menos por turno, é a coleta que mais renderia a esta pergunta.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/A16.py + scripts/_porta_temporal.py + scripts/A14.py"
   },
   {
    "id": "T01",
@@ -10488,6 +10645,26 @@ const ESTUDO_SERIEB = {
     "confianca": "provável"
    },
    {
+    "id": "D13",
+    "grupo": "Orçamento",
+    "de": "A16",
+    "conclusao": "A16-1",
+    "decisao": "Gastar em modelo de jogo antes de gastar em folha.",
+    "porque": "A dinheiro igual, subir do quarto de baixo para o quarto de cima da liga em solidez vale +8,9 pontos na temporada — mais do que os 7,0 que o mesmo salto no valor do elenco paga, e esse salto de elenco custa 9,9 mi de euro. Jogar assim equivale a 12,6 mi de elenco; a qualidade da chance, a 17,3 mi.",
+    "ressalva": "Duas, e as duas pesam. O estudo mede o que o traço RENDE, não o que ele CUSTA: treinador, treino e jogador têm preço e não estão na conta. E o A12-2 mediu que quem jogou como os que subiram SEM dinheiro caiu mais do que subiu — a receita existe, mas quem a tentou com elenco barato saiu pior.",
+    "confianca": "provável"
+   },
+   {
+    "id": "D14",
+    "grupo": "Modelo de jogo",
+    "de": "A16",
+    "conclusao": "A16-2",
+    "decisao": "Não prometer que mudar o jeito de jogar no meio do ano traz os pontos do returno.",
+    "porque": "O teste de anterioridade passava para a distância do chute (+0,289) e para a régua da qualidade da chance (+0,254). Pondo o dinheiro no mesmo desconto, caem para +0,198 e +0,057, e nenhum dos 8 traços passa.",
+    "ressalva": "Isto não derruba o D13: a associação a dinheiro igual continua de pé. Derruba a frase \"jogue assim e os pontos vêm depois\". E o valor do Transfermarkt é da temporada inteira, sem data conhecida — se foi atualizado no meio do ano, ele carrega parte do resultado e o controle fica forte demais. É um teto para a anterioridade, não a medida dela.",
+    "confianca": "indício"
+   },
+   {
     "id": "D5",
     "grupo": "Contratação",
     "de": "J05",
@@ -11967,9 +12144,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 28,
+  "total": 29,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 28
+  "validada": 29
  }
 };

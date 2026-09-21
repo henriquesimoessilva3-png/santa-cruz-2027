@@ -1,0 +1,115 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "clube-temporada",
+ "n": {
+  "total": 80,
+  "clubes": 40,
+  "sem_fronteira": 52
+ },
+ "lista_herdada_de": {
+  "parte": "A14",
+  "candidatos": [
+   "H_dinheiro",
+   "dist_remate",
+   "E_qualidade_chance",
+   "xg_por_remate_contra",
+   "duelos_def_pct",
+   "dd_fora",
+   "I_estabilidade_11",
+   "xgc_casa",
+   "F_solidez",
+   "dd_casa"
+  ],
+  "fora": [
+   "H_dinheiro",
+   "I_estabilidade_11"
+  ],
+  "usados": [
+   "E_qualidade_chance",
+   "F_solidez",
+   "dd_casa",
+   "dd_fora",
+   "dist_remate",
+   "duelos_def_pct",
+   "xg_por_remate_contra",
+   "xgc_casa"
+  ]
+ },
+ "conferencia_da_parcial": {
+  "contra": "_porta_temporal.parcial (a §6.4)",
+  "maior_diferenca": 0.0,
+  "identica": true
+ },
+ "preco_do_elenco": {
+  "degrau_25_75_por_ano_eur": {
+   "2022": 10250000,
+   "2023": 7250000,
+   "2024": 10300000,
+   "2025": 9518750
+  },
+  "degrau_mediano_eur": 9884375,
+  "o_que_e": "quanto custa, em elenco, subir do quarto de baixo para o quarto de cima da liga naquele ano"
+ },
+ "poder_por_desenho": {
+  "d_minimo_80_80x80": 0.45
+ },
+ "porta_com_dinheiro": {
+  "definicao": "traço nas 19 primeiras rodadas × PONTOS das 19 últimas, com parcial dada à pontuação do 1º turno E ao dinheiro",
+  "por_que_um_controle_a_mais": "sem o dinheiro ali, a porta não distingue 'este traço vem antes' de 'quem tem este traço é rico'",
+  "parcial": 0.198,
+  "p_parcial": 0.07888,
+  "passa": false,
+  "quantos_passam_com_dinheiro": 0,
+  "quantos_passam_sem_dinheiro": 2,
+  "por_traco": {
+   "dist_remate": {
+    "parcial": 0.198,
+    "sem_dinheiro": 0.289,
+    "p": 0.07888,
+    "passa": false
+   },
+   "E_qualidade_chance": {
+    "parcial": 0.057,
+    "sem_dinheiro": 0.254,
+    "p": 0.61517,
+    "passa": false
+   },
+   "xg_por_remate_contra": {
+    "parcial": -0.028,
+    "sem_dinheiro": -0.026,
+    "p": 0.80725,
+    "passa": false
+   },
+   "xgc_casa": {
+    "parcial": 0.148,
+    "sem_dinheiro": 0.134,
+    "p": 0.18899,
+    "passa": false
+   },
+   "F_solidez": {
+    "parcial": 0.098,
+    "sem_dinheiro": 0.129,
+    "p": 0.3879,
+    "passa": false
+   },
+   "duelos_def_pct": {
+    "parcial": 0.104,
+    "sem_dinheiro": 0.092,
+    "p": 0.35675,
+    "passa": false
+   },
+   "dd_casa": {
+    "parcial": 0.004,
+    "sem_dinheiro": -0.026,
+    "p": 0.97119,
+    "passa": false
+   },
+   "dd_fora": {
+    "parcial": 0.1,
+    "sem_dinheiro": 0.106,
+    "p": 0.37635,
+    "passa": false
+   }
+  }
+ }
+}
