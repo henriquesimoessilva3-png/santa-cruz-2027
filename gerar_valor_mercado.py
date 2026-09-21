@@ -51,8 +51,24 @@ def normal(t):
     return " ".join(t.lower().replace("-", " ").split())
 
 
+PONTE = os.path.join(AQUI, "_fonte", "estudo_serieb", "resultados", "T01_ponte_clubes.json")
+
+
+def nomes_do_clube(clube, ponte):
+    """O nome do clube como o Transfermarkt escreve E como a tela escreve.
+
+    Sem isto, 11 jogadores da Série B ficavam sem valor na tela por causa do NOME: o arquivo
+    diz "Atlético Goianiense" e a tela diz "Atlético-GO". A ponte é a do T01, que já existia.
+    """
+    fora = {clube}
+    if clube in ponte:
+        fora.add(ponte[clube])
+    return fora
+
+
 def main():
     linhas = list(csv.DictReader(open(ENTRADA, encoding="utf-8")))
+    ponte = json.load(open(PONTE, encoding="utf-8")) if os.path.exists(PONTE) else {}
     col_ano = "﻿ano" if "﻿ano" in linhas[0] else "ano"
     anos = sorted({l[col_ano] for l in linhas})
     recente = anos[-1]
@@ -76,7 +92,8 @@ def main():
         v = (l["valor_eur"] or "").strip()
         if v in ("", "0"):
             continue
-        jogadores[f"{normal(l['jogador'])}|{normal(l['clube'])}"] = float(v)
+        for nome_clube in nomes_do_clube(l["clube"], ponte):
+            jogadores[f"{normal(l['jogador'])}|{normal(nome_clube)}"] = float(v)
     somente_nome = {}
     for nome, ls in por_nome.items():
         if len({normal(x["clube"]) for x in ls}) == 1:

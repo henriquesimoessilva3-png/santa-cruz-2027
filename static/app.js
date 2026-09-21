@@ -192,8 +192,13 @@ function novoEstado() {
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 
+/* O formato curto tinha uma casa só, a dos milhares: R$ 2.000.000 saía "R$ 2000k", que é
+   longo e ainda obriga a converter de cabeça. Ganhou a casa dos milhões — 20/09. */
 function brl(n, curto) {
   n = Number(n) || 0;
+  if (curto && Math.abs(n) >= 1e6) {
+    return 'R$ ' + (n / 1e6).toFixed(Math.abs(n) >= 1e7 ? 1 : 2).replace('.', ',') + ' mi';
+  }
   if (curto && Math.abs(n) >= 1000) {
     return 'R$ ' + (n / 1000).toFixed(Math.abs(n) >= 100000 ? 0 : 1).replace('.', ',') + 'k';
   }
@@ -1000,13 +1005,45 @@ function normVM(t) {
 /* O euro do Transfermarkt, ou null. Null é "não sei", nunca zero: somar zero por quem não
    tem ficha faria o elenco parecer mais barato do que é, e essa era a armadilha que o
    gerar_prototipo.py já tinha registrado. */
+/* DUAS FONTES, e a tela tem de dizer qual é qual — 20/09.
+
+   O arquivo do Transfermarkt cobre só a Série B 2026, e o elenco montado tem gente de todo
+   lado: dos 120 atletas de um cenário real, 68 são de outras ligas (Brasil A, Brasil C,
+   Portugal, México). Para eles existe o `mv` do Wyscout, que a base do app já carrega para
+   as 40 mil linhas.
+
+   Elas NÃO são o mesmo número: nos 61 jogadores presentes nas duas, a razão mediana é 1,33,
+   porque são datas diferentes. Misturar sem dizer faria a soma do elenco parecer uma conta
+   só. Então a função devolve o VALOR e a FONTE, e quem mostra escreve de onde veio. */
 function valorMercado(j) {
-  if (!VM || !j) return null;
-  const nome = normVM(j.nome), clube = normVM(j.clube);
-  const v = VM.jogadores[nome + '|' + clube];
-  if (v != null) return v;
-  const so = VM.por_nome[nome];
-  return so == null ? null : so;
+  if (!j) return null;
+  if (VM) {
+    const nome = normVM(j.nome), clube = normVM(j.clube);
+    const v = VM.jogadores[nome + '|' + clube];
+    if (v != null) return v;
+    const so = VM.por_nome[nome];
+    if (so != null) return so;
+  }
+  const w = mvWyscout(j);
+  return w == null ? null : w;
+}
+
+/* A fonte do número que valorMercado() devolveu: 'tm' (Transfermarkt, Série B 2026) ou
+   'wy' (Wyscout, o retrato do dia da exportação da base). */
+function fonteValor(j) {
+  if (!j) return null;
+  if (VM) {
+    const nome = normVM(j.nome), clube = normVM(j.clube);
+    if (VM.jogadores[nome + '|' + clube] != null || VM.por_nome[nome] != null) return 'tm';
+  }
+  return mvWyscout(j) == null ? null : 'wy';
+}
+
+function mvWyscout(j) {
+  if (typeof BASE === 'undefined' || !BASE) return null;
+  const alvo = j.jid != null ? BASE.find(x => x.id === j.jid)
+             : (j.pk ? BASE.find(x => primaryKey(x) === j.pk) : null);
+  return alvo && alvo.mv ? alvo.mv : null;
 }
 
 function eur(n, curto) {
@@ -1023,15 +1060,16 @@ const NIVEIS_NA_CONTA = ['Main', 'Squad', 'Youth'];
 function valorDoElenco() {
   const jg = todosJogadores();
   const dentro = jg.filter(j => NIVEIS_NA_CONTA.indexOf(empDados(empChave(j)).status) >= 0);
-  let eurTot = 0, comValor = 0;
+  let eurTot = 0, comValor = 0, doTm = 0, doWy = 0, nTm = 0, nWy = 0;
   const porNivel = { Main: 0, Squad: 0, Youth: 0 };
   dentro.forEach(j => {
     const v = valorMercado(j);
     if (v == null) return;
     eurTot += v; comValor += 1;
     porNivel[empDados(empChave(j)).status] += v;
+    if (fonteValor(j) === 'tm') { doTm += v; nTm += 1; } else { doWy += v; nWy += 1; }
   });
-  return { eur: eurTot, n: dentro.length, comValor, porNivel };
+  return { eur: eurTot, n: dentro.length, comValor, porNivel, doTm, doWy, nTm, nWy };
 }
 
 /* Em que posição o elenco montado entraria na lista de valor dos clubes da Série B. */
@@ -1077,10 +1115,14 @@ function cardJog(cod, j) {
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
     /* Valor de mercado do Transfermarkt, em EURO. Quem não tem ficha NÃO ganha um zero:
        fica sem a etiqueta, porque "não sei" e "não vale nada" são coisas diferentes. */
-    ((v => v == null ? '' :
-      '<span class="m-vm" title="valor de mercado no Transfermarkt (' +
-      esc((VM && VM.coletado_em) || '') + '): ' + eur(v) + '">' + eur(v, true) + '</span>'
-     )(valorMercado(j))) +
+    ((v => v == null ? '' : (fnt => '<span class="m-vm' + (fnt === 'wy' ? ' vm-wy' : '') +
+      '" title="' + (fnt === 'tm'
+        ? 'Valor de mercado no Transfermarkt (' + esc((VM && VM.coletado_em) || '') + '): ' + eur(v)
+        : 'Valor de mercado do Wyscout: ' + eur(v) + ' — este jogador não está no elenco da ' +
+          'Série B ' + esc((VM && VM.temporada) || '') + ', que é o que a coleta do Transfermarkt ' +
+          'cobre. É o retrato do dia da exportação da base, e não da mesma data do outro.') +
+      '">' + eur(v, true) + (fnt === 'wy' ? '<i class="vm-fnt">w</i>' : '') + '</span>'
+     )(fonteValor(j)))(valorMercado(j))) +
     barraMinutos(histDoElenco(j)) +
     (j.posOrig && j.posOrig !== cod ? '<span class="m-pos" title="posição de origem">' +
       sig(j.posOrig) + '</span>' : '');
@@ -1340,17 +1382,23 @@ function renderOrc() {
   if ($('#inFator') && foco !== $('#inFator')) $('#inFator').value = fmtFator(estado.fator);
   if ($('#inEuro') && foco !== $('#inEuro')) $('#inEuro').value = String(estado.cotacaoEuro).replace('.', ',');
 
-  $('#kDisp').textContent = brl(disp);
-  $('#kAlocado').textContent = brl(tot);
+  /* Os quatro tiles de dinheiro passam a usar o formato curto — 20/09. A barra ficou
+     embolada quando o valor de mercado entrou, e "R$ 2.000.000" gasta doze caracteres para
+     dizer o que "R$ 2,00 mi" diz em nove. O valor CHEIO não se perde: vai no title de cada
+     um, porque quem confere orçamento precisa do centavo. */
+  const cheio = (el, v) => { el.title = brl(v); };
+  const kD = $('#kDisp'), kA = $('#kAlocado');
+  kD.textContent = brl(disp, true); cheio(kD, disp);
+  kA.textContent = brl(tot, true); cheio(kA, tot);
 
   const saldo = disp - tot;
   const kS = $('#kSaldo');
-  kS.textContent = brl(saldo);
+  kS.textContent = brl(saldo, true); cheio(kS, saldo);
   kS.className = 'v ' + (saldo < 0 ? 'estouro' : saldo < disp * 0.05 ? 'alerta' : 'ok');
 
   const ct = custoTotal();
   const kCT = $('#kCustoTotal');
-  kCT.textContent = brl(ct);
+  kCT.textContent = brl(ct, true); cheio(kCT, ct);
   kCT.className = 'v ' + (ct > estado.teto ? 'estouro' : 'ok');
   $('#kTeto').textContent = 'de ' + brl(estado.teto, true);
   $('#kAtletas').textContent = n;
@@ -1372,6 +1420,10 @@ function renderOrc() {
     vm.n + ' atletas marcados como Main, Squad ou Youth — ' + vm.comValor + ' deles têm ficha.\n' +
     'Main ' + eur(vm.porNivel.Main, true) + ' · Squad ' + eur(vm.porNivel.Squad, true) +
     ' · Youth ' + eur(vm.porNivel.Youth, true) + '\n' +
+    /* As duas fontes aparecem separadas de propósito: elas NÃO são a mesma data, e a razão
+       mediana entre elas nos jogadores em comum é 1,33. Somar sem dizer esconderia isso. */
+    'Fontes: Transfermarkt ' + eur(vm.doTm, true) + ' (' + vm.nTm + ' atletas) · ' +
+    'Wyscout ' + eur(vm.doWy, true) + ' (' + vm.nWy + ', de fora da Série B — outra data)\n' +
     (pst ? 'Com este valor o time entraria em ' + pst.posto + 'º numa lista de ' + pst.de +
            ' — os ' + pst.clubes + ' clubes da Série B ' + VM.temporada + ' mais ele (do ' +
            pst.maior.clube + ', ' +

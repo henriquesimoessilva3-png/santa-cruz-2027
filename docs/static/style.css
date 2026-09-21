@@ -3550,3 +3550,7 @@ td.pt-td-frase{text-align:left;white-space:normal}
   font-size: 10px; padding: 1px 4px; border-radius: 4px;
   background: rgba(120,120,120,.16); color: var(--tinta3, #666); white-space: nowrap;
 }
+/* Valor que veio do Wyscout e nao do Transfermarkt: mesma etiqueta, com um "w" discreto.
+   As duas fontes nao sao da mesma data, e a tela nao pode fingir que sao. */
+.jog-meta .m-vm.vm-wy { opacity: .78; }
+.jog-meta .m-vm .vm-fnt { font-style: normal; font-size: 8px; opacity: .7; margin-left: 2px; }
