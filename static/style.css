@@ -3543,3 +3543,10 @@ td.pt-td-frase{text-align:left;white-space:normal}
 .fc-est-nota { font-variant-numeric: tabular-nums; }
 .fc-est-nota.fc-est-ok { color: #1baf7a; }
 .fc-est-frac { font-size: 10px; color: #8a8880; margin-left: 3px; }
+
+/* Valor de mercado no card do campograma (20/09). Discreto: é contexto, não decisão —
+   quem decide é salário e ficha. Em EURO, como o Transfermarkt publica. */
+.jog-meta .m-vm {
+  font-size: 10px; padding: 1px 4px; border-radius: 4px;
+  background: rgba(120,120,120,.16); color: var(--tinta3, #666); white-space: nowrap;
+}

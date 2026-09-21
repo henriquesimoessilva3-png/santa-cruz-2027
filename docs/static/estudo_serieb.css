@@ -325,3 +325,23 @@ body:not(.claro) #pgEstudo .esb-motivo-corpo { border-left-color: #3a3a36; }
 #pgEstudo .esb-auxiliar a:hover { color: #0b0b0b; }
 body:not(.claro) #pgEstudo .esb-auxiliar { color: #c3c2b7; }
 body:not(.claro) #pgEstudo .esb-auxiliar a:hover { color: #ffffff; }
+
+/* ---- a ficha aberta em colunas (20/09) --------------------------------------
+   Era um campo de texto só, cortado em dois, com o resto no tooltip. Não dava
+   para comparar dois jogadores no mesmo critério — que é o que a lista serve
+   para fazer — e sobrava largura à direita da tabela. */
+#pgEstudo .esb-crit-cab {
+  font-size: 10px; line-height: 1.25; font-weight: 600; letter-spacing: .01em;
+  max-width: 92px; white-space: normal; vertical-align: bottom;
+}
+#pgEstudo .esb-crit { font-variant-numeric: tabular-nums; white-space: nowrap; }
+#pgEstudo .esb-crit-piso { font-size: 9px; opacity: .55; font-weight: 400; }
+/* Verde e vermelho só onde a ficha EXIGE. Critério medido sem piso sai neutro:
+   pintar seria inventar uma exigência que a ficha não faz. */
+#pgEstudo .esb-crit-ok { color: #1baf7a; }
+#pgEstudo .esb-crit-fraco { color: #eb6834; }
+#pgEstudo .esb-crit-neutro { color: inherit; opacity: .75; }
+
+/* Valor de mercado nas listas (20/09). Em EURO, como o Transfermarkt publica — e por isso
+   nunca somado com salário, que é em R$. Quem não tem ficha sai com traço, não com zero. */
+#pgEstudo .esb-vm { font-variant-numeric: tabular-nums; white-space: nowrap; opacity: .85; }

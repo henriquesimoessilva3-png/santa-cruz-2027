@@ -979,6 +979,71 @@ function abrirManual(j) {
   setTimeout(() => $('#mnNome').focus(), 60);
 }
 
+/* ============================ VALOR DE MERCADO (20/09) ============================
+   Vem do Transfermarkt, por `static/valor_mercado.js` (gerado por gerar_valor_mercado.py),
+   e em EURO. NÃO somar com salário, que é em R$.
+
+   Por que não o `j.mv` que a base já tinha: ele vem da coluna "Market value" do Wyscout e
+   é o retrato do dia da exportação. Nos 61 jogadores presentes nas duas fontes a razão
+   mediana é 1,33 — não é câmbio (euro para real daria ~6), são datas diferentes do mesmo
+   número em euro. E a cobertura é pior: 258 dos 1.136 da Série B, contra 488 de 637.
+
+   A busca é por nome + clube; nome sozinho só vale quando ele é ÚNICO na temporada, e o
+   gerador já descartou os 24 ambíguos. Homônimo não é adivinhado. */
+const VM = (typeof VALOR_MERCADO !== 'undefined') ? VALOR_MERCADO : null;
+
+function normVM(t) {
+  return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/-/g, ' ').split(/\s+/).filter(Boolean).join(' ');
+}
+
+/* O euro do Transfermarkt, ou null. Null é "não sei", nunca zero: somar zero por quem não
+   tem ficha faria o elenco parecer mais barato do que é, e essa era a armadilha que o
+   gerar_prototipo.py já tinha registrado. */
+function valorMercado(j) {
+  if (!VM || !j) return null;
+  const nome = normVM(j.nome), clube = normVM(j.clube);
+  const v = VM.jogadores[nome + '|' + clube];
+  if (v != null) return v;
+  const so = VM.por_nome[nome];
+  return so == null ? null : so;
+}
+
+function eur(n, curto) {
+  n = Number(n) || 0;
+  if (curto && Math.abs(n) >= 1e6) return '€ ' + (n / 1e6).toFixed(1).replace('.', ',') + ' mi';
+  if (curto && Math.abs(n) >= 1000) return '€ ' + Math.round(n / 1000) + ' mil';
+  return '€ ' + n.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+}
+
+/* Os três níveis que o usuário mandou contar: Main (titular), Squad (o "backup" do elenco
+   principal) e Youth. Quem não tem nível gravado fica de fora — é alvo, não elenco. */
+const NIVEIS_NA_CONTA = ['Main', 'Squad', 'Youth'];
+
+function valorDoElenco() {
+  const jg = todosJogadores();
+  const dentro = jg.filter(j => NIVEIS_NA_CONTA.indexOf(empDados(empChave(j)).status) >= 0);
+  let eurTot = 0, comValor = 0;
+  const porNivel = { Main: 0, Squad: 0, Youth: 0 };
+  dentro.forEach(j => {
+    const v = valorMercado(j);
+    if (v == null) return;
+    eurTot += v; comValor += 1;
+    porNivel[empDados(empChave(j)).status] += v;
+  });
+  return { eur: eurTot, n: dentro.length, comValor, porNivel };
+}
+
+/* Em que posição o elenco montado entraria na lista de valor dos clubes da Série B. */
+function postoDeValor(eurTot) {
+  if (!VM || !VM.por_clube || !VM.por_clube.length) return null;
+  const acima = VM.por_clube.filter(c => c.eur > eurTot).length;
+  /* A lista de comparação passa a ter 21: os 20 clubes MAIS o time montado. Dizer
+     "21º entre os 20" é contradição na cara do leitor. */
+  return { posto: acima + 1, de: VM.por_clube.length + 1, clubes: VM.por_clube.length,
+           maior: VM.por_clube[0], menor: VM.por_clube[VM.por_clube.length - 1] };
+}
+
 function cardJog(cod, j) {
   const el = document.createElement('div');
   /* O NÍVEL pinta o card: verde o Main, amarelo o Squad, azul claro o Youth. Era a
@@ -1010,6 +1075,12 @@ function cardJog(cod, j) {
             '">' + esc(mesAnoCurto(j.contrato)) + '</span>'
          : '<span class="m-ct sem" title="contrato não informado">sem contrato</span>') +
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
+    /* Valor de mercado do Transfermarkt, em EURO. Quem não tem ficha NÃO ganha um zero:
+       fica sem a etiqueta, porque "não sei" e "não vale nada" são coisas diferentes. */
+    ((v => v == null ? '' :
+      '<span class="m-vm" title="valor de mercado no Transfermarkt (' +
+      esc((VM && VM.coletado_em) || '') + '): ' + eur(v) + '">' + eur(v, true) + '</span>'
+     )(valorMercado(j))) +
     barraMinutos(histDoElenco(j)) +
     (j.posOrig && j.posOrig !== cod ? '<span class="m-pos" title="posição de origem">' +
       sig(j.posOrig) + '</span>' : '');
@@ -1283,6 +1354,32 @@ function renderOrc() {
   kCT.className = 'v ' + (ct > estado.teto ? 'estouro' : 'ok');
   $('#kTeto').textContent = 'de ' + brl(estado.teto, true);
   $('#kAtletas').textContent = n;
+
+  /* ---- valor de mercado do elenco montado, e onde ele entraria na Série B (20/09) ----
+     Conta Main + Squad + Youth, como o usuário pediu. Quem está no campo sem nível gravado
+     é ALVO, não elenco, e fica de fora.
+
+     A ressalva vai no title, e ela não é detalhe: a cobertura do Transfermarkt não é cheia,
+     então tanto esta soma quanto a de cada clube da Série B são PISO. O posto compara piso
+     com piso, o que é honesto, mas um clube com mais fichas preenchidas parece mais caro. */
+  const vm = valorDoElenco();
+  const pst = postoDeValor(vm.eur);
+  const kVm = $('#kVm');
+  kVm.textContent = vm.eur ? eur(vm.eur, true) : '€ 0';
+  $('#kVmPosto').textContent = pst && vm.eur ? 'seria o ' + pst.posto + 'º de ' + pst.de : '';
+  kVm.title = !VM ? 'valor de mercado não carregou' : (
+    'Soma do valor de mercado (Transfermarkt, ' + (VM.coletado_em || '') + ') dos ' +
+    vm.n + ' atletas marcados como Main, Squad ou Youth — ' + vm.comValor + ' deles têm ficha.\n' +
+    'Main ' + eur(vm.porNivel.Main, true) + ' · Squad ' + eur(vm.porNivel.Squad, true) +
+    ' · Youth ' + eur(vm.porNivel.Youth, true) + '\n' +
+    (pst ? 'Com este valor o time entraria em ' + pst.posto + 'º numa lista de ' + pst.de +
+           ' — os ' + pst.clubes + ' clubes da Série B ' + VM.temporada + ' mais ele (do ' +
+           pst.maior.clube + ', ' +
+           eur(pst.maior.eur, true) + ', ao ' + pst.menor.clube + ', ' +
+           eur(pst.menor.eur, true) + ').\n' : '') +
+    'RESSALVA: a cobertura do Transfermarkt é de ' + (VM.cobertura ? VM.cobertura.pct : '?') +
+    '% dos jogadores, então esta soma e a de cada clube são um PISO — e clube com mais ' +
+    'fichas preenchidas parece mais caro. Valor em EURO; não somar com salário, que é em R$.');
 
   const nE = contaEstrangeiros(), lim = estado.limiteEstrangeiros || 0;
   const kE = $('#kEstr');
@@ -2711,7 +2808,13 @@ async function montarFicha(j, modo) {
     ['Pé', j.pe || '—', ''],
     ['Nacionalidade', j.nac || '—', ''],
     ['Jogos · minutos', (j.jog || 0) + ' · ' + milhar(j.min), ''],
-    ['Valor de mercado', j.mv ? brl(j.mv, true) : '—', j.xtv ? 'xTV ' + brl(j.xtv, true) : ''],
+    /* O valor de mercado é em EURO, e esta linha imprimia com brl() — rotulava euro como
+       real. Agora mostra o do Transfermarkt quando existe (mais novo e mais coberto) e,
+       abaixo, o do Wyscout como segunda fonte, os dois com €. */
+    ['Valor de mercado',
+     (vmFicha => vmFicha != null ? eur(vmFicha, true) : (j.mv ? eur(j.mv, true) : '—'))(
+        valorMercado({ nome: j.n || j.nome, clube: j.t || j.clube })),
+     (j.mv ? 'Wyscout ' + eur(j.mv, true) : '') + (j.xtv ? ' · xTV ' + eur(j.xtv, true) : '')],
   ].map(([r, v, obs]) => '<div class="fi-dado"><div class="r">' + r + '</div>' +
     '<div class="v' + (String(v).length > 9 ? ' pq' : '') + '">' + esc(v) + '</div>' +
     (obs ? '<div class="o">' + esc(obs) + '</div>' : '') + '</div>').join('');

@@ -246,7 +246,9 @@
       Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
     const cab = '<tr><th>jogador</th><th>clube</th><th class="esb-num">idade</th>' +
       '<th class="esb-num">minutos</th><th class="esb-num">jogos</th>' +
-      '<th class="esb-num">fatia</th><th>contrato</th><th>ficha</th></tr>';
+      '<th class="esb-num">fatia</th><th>contrato</th>' +
+      '<th class="esb-num" title="valor de mercado no Transfermarkt, em EURO">valor</th>' +
+      '<th>ficha</th></tr>';
     const bloco = b => {
       if (!b.quantos) {
         return '<div class="esb-pos esb-pos-vazia"><h4>' + esc(b.posicao) +
@@ -283,6 +285,9 @@
             ? '<span class="esb-ct-ok" title="as duas fontes concordam na data">confirmado</span>'
             : '<span class="esb-ct-fraco" title="as fontes divergem na data do contrato">uma fonte só</span>') +
           '</td>' +
+          ((v => '<td class="esb-num esb-vm"' +
+              (v == null ? ' title="sem ficha de valor no Transfermarkt"' : '') + '>' +
+              eurCurto(v) + '</td>')(valorDe(j.jogador, j.clube))) +
           '<td>' + (j.atende_perfil ? '<b>atende</b>'
                    : (String(j.indicadores_com_dado) === '0'
                       ? '<span class="esb-semdado">sem dado</span>'
@@ -367,13 +372,78 @@
      A ficha de J05 é uma conjunção de 4 a 6 pisos: ela responde "quem é perfeito" e joga fora a
      informação de quão perto cada um está, que é a que serve para montar elenco. Aqui a nota é a
      média do percentil do jogador nos critérios da posição, na mesma escala dos pisos. */
+  /* Valor de mercado do Transfermarkt, em EURO (20/09). A aba carrega o mesmo
+     static/valor_mercado.js que o app, mas NÃO depende do app.js — ela é autocontida por
+     desenho. Quem não tem ficha fica sem número, e não com zero: "não sei" e "não vale
+     nada" são coisas diferentes, e somar zero por quem falta barateia o elenco de mentira. */
+  const VMER = (typeof VALOR_MERCADO !== 'undefined') ? VALOR_MERCADO : null;
+
+  const normVm = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/-/g, ' ').split(/\s+/).filter(Boolean).join(' ');
+
+  function valorDe(nome, clube) {
+    if (!VMER) return null;
+    const n = normVm(nome);
+    const v = VMER.jogadores[n + '|' + normVm(clube)];
+    if (v != null) return v;
+    const so = VMER.por_nome[n];
+    return so == null ? null : so;
+  }
+
+  const eurCurto = n => n == null ? '—'
+    : (Math.abs(n) >= 1e6 ? '€ ' + (n / 1e6).toFixed(1).replace('.', ',') + ' mi'
+                          : '€ ' + Math.round(n / 1000) + ' mil');
+
+  /* A ficha de cada posição, aberta em colunas — 20/09.
+
+     Antes, os critérios vinham num campo de texto só, cortado em dois e com o resto no title=:
+     "Velocidade de pico, média dos 5 melhores jogos (k…". Não dava para comparar dois jogadores
+     no mesmo critério, que é justamente o que a lista serve para fazer, e a tela sobrava largura
+     à direita. Agora é uma coluna por critério, na mesma ordem para todos do bloco.
+
+     O texto continua sendo a fonte: ele vem do gerador como "<nome> <percentil>/<piso>", separado
+     por ponto e vírgula, e alguns critérios não têm piso (medidos, mas sem exigência). A leitura
+     é feita do FIM para o começo, porque o nome tem vírgula, "%" e "/90" dentro dele — partir
+     pelo primeiro separador quebraria "Passes progressivos/90". */
+  const RE_FICHA = /^(.*?)\s+(\d+(?:[.,]\d+)?)(?:\/(\d+(?:[.,]\d+)?))?$/;
+
+  function criteriosDe(detalhe) {
+    return String(detalhe || '').split(';').map(t => t.trim()).filter(Boolean).map(t => {
+      const m = RE_FICHA.exec(t);
+      if (!m) return { nome: t, pct: null, piso: null };
+      return { nome: m[1].trim(), pct: Number(String(m[2]).replace(',', '.')),
+               piso: m[3] == null ? null : Number(String(m[3]).replace(',', '.')) };
+    });
+  }
+
+  /* O cabeçalho precisa caber: "Velocidade de pico, média dos 5 melhores jogos (km/h)" vira
+     "Velocidade de pico". O nome inteiro fica no title da coluna, não se perde. */
+  function nomeCurto(nome) {
+    return String(nome).replace(/\s*\([^)]*\)/g, '').split(',')[0].replace(/\/90$/, '').trim();
+  }
+
   function rankingHtml() {
     const K = D.ranking;
     if (!K || !K.serie_b || !K.serie_b.length) return '';
     const fmt = (v, c) => v == null ? '—' :
       Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
-    const linha = (j, i) => {
+    const linha = (j, i, cols) => {
       const sel = j.atende === j.com_dado ? ' class="esb-forte"' : '';
+      const meus = {};
+      criteriosDe(j.detalhe).forEach(c => { meus[c.nome] = c; });
+      const celulas = (cols || []).map(nome => {
+        const c = meus[nome];
+        if (!c || c.pct == null) return '<td class="esb-num esb-crit esb-suave">—</td>';
+        /* Sem piso o critério foi MEDIDO e não é exigido: não pode sair verde nem vermelho,
+           senão a tela inventa uma exigência que a ficha não faz. */
+        const cls = c.piso == null ? 'esb-crit-neutro'
+                  : (c.pct >= c.piso ? 'esb-crit-ok' : 'esb-crit-fraco');
+        const piso = c.piso == null ? '' : '<span class="esb-crit-piso">/' + fmt(c.piso, 0) + '</span>';
+        const t = c.nome + ': ' + fmt(c.pct, 0) +
+                  (c.piso == null ? ' (medido, sem piso na ficha)' : ' · a ficha pede ' + fmt(c.piso, 0));
+        return '<td class="esb-num esb-crit ' + cls + '" title="' + esc(t) + '">' +
+               fmt(c.pct, 0) + piso + '</td>';
+      }).join('');
       return '<tr' + sel + '><td class="esb-num">' + i + '</td>' +
         '<td>' + esc(j.jogador) +
         (j.estrangeiro ? ' <span class="esb-flag" title="estrangeiro: ocupa vaga">⚑</span>' : '') +
@@ -386,18 +456,42 @@
         '<td class="esb-num ' + ((j.folga || 0) < 0 ? 'esb-neg' : '') + '">' +
           (j.folga > 0 ? '+' : '') + fmt(j.folga, 1) + '</td>' +
         '<td>' + (j.livre ? '<span class="esb-ct-ok">vencendo</span>' : '—') + '</td>' +
-        '<td class="esb-suave esb-mini" title="' + esc(j.detalhe || '') + '">' +
-          esc((j.detalhe || '').split(';').slice(0, 2).join(' ·')) + '…</td></tr>';
+        ((v => '<td class="esb-num esb-vm"' +
+            (v == null ? ' title="sem ficha de valor no Transfermarkt"' : '') + '>' +
+            eurCurto(v) + '</td>')(valorDe(j.jogador, j.clube))) +
+        celulas + '</tr>';
     };
     const bloco = (b, prefixo) => {
       const vis = b.jogadores.slice(0, 10);
       const resto = b.jogadores.slice(10);
+      /* As colunas da ficha, na ordem em que o gerador as escreve, e pela UNIÃO de todos os
+         jogadores do bloco: quem tem um critério a menos ganha um traço na coluna, e não some da
+         comparação. A ordem sai do primeiro que tiver cada nome, para a tabela não trocar de
+         ordem entre blocos. */
+      const cols = [];
+      b.jogadores.forEach(j => criteriosDe(j.detalhe).forEach(c => {
+        if (c.nome && cols.indexOf(c.nome) < 0) cols.push(c.nome);
+      }));
+      const pisos = {};
+      b.jogadores.forEach(j => criteriosDe(j.detalhe).forEach(c => {
+        if (c.piso != null && pisos[c.nome] == null) pisos[c.nome] = c.piso;
+      }));
+      const cabCrit = cols.map(n => {
+        const p = pisos[n];
+        const t = n + (p == null ? ' — medido, mas a ficha não exige piso'
+                                 : ' — a ficha pede ' + fmt(p, 0) + ' de percentil');
+        return '<th class="esb-num esb-crit-cab" title="' + esc(t) + '">' + esc(nomeCurto(n)) +
+               (p == null ? '' : '<span class="esb-crit-piso"> ' + fmt(p, 0) + '</span>') + '</th>';
+      }).join('');
       const cab = '<tr><th class="esb-num">#</th><th>jogador</th><th>clube</th>' +
         '<th class="esb-num">idade</th><th class="esb-num" title="critérios que ele cruza, ' +
         'de quantos foram medidos">atende</th>' +
         '<th class="esb-num" title="média do percentil dele nos critérios da posição, 0 a 100">aderência</th>' +
         '<th class="esb-num" title="média de (percentil − piso): negativo é abaixo do que a ficha pede">folga</th>' +
-        '<th>contrato</th><th>onde ele está na ficha</th></tr>';
+        '<th>contrato</th>' +
+        '<th class="esb-num" title="valor de mercado no Transfermarkt' +
+          (VMER ? ', ' + esc(VMER.coletado_em) : '') + ' — em EURO. Quem não tem ficha sai ' +
+          'com traço, e não com zero.">valor</th>' + cabCrit + '</tr>';
       /* A lista é dividida por lado e por função (lateral esquerdo e direito, médio e meia
          ofensivo), mas a FICHA continua sendo uma por setor. Quando as duas não coincidem, o
          cabeçalho diz de qual ficha o bloco está sendo julgado — sem isso, quem lê "Lateral
@@ -408,11 +502,11 @@
       return '<div class="esb-pos"><h4>' + esc(b.posicao) +
         '<span class="esb-conta">' + b.quantos + ' com dado' + deQuem + '</span></h4>' +
         '<table class="esb-tab-tec"><thead>' + cab + '</thead><tbody>' +
-        vis.map((j, i) => linha(j, i + 1)).join('') + '</tbody></table>' +
+        vis.map((j, i) => linha(j, i + 1, cols)).join('') + '</tbody></table>' +
         (resto.length
           ? '<details class="esb-graf-tabela"><summary>ver os outros ' + resto.length +
             '</summary><table class="esb-tab-tec"><tbody>' +
-            resto.map((j, i) => linha(j, i + 11)).join('') + '</tbody></table></details>'
+            resto.map((j, i) => linha(j, i + 11, cols)).join('') + '</tbody></table></details>'
           : '') + '</div>';
     };
     const fora = (K.exterior && K.exterior.length)
