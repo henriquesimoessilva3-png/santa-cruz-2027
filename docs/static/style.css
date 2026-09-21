@@ -250,6 +250,12 @@ main{display:flex;flex:1;min-height:0;overflow:hidden}
   display:flex;align-items:center;gap:6px;padding:4px 9px 6px;font-size:11px;
 }
 .pos-pe .tot{font-weight:700;font-variant-numeric:tabular-nums;margin-left:auto}
+/* Valor de mercado da posicao, em EURO, ao lado da folha em R$. Fica ANTES do total e mais
+   discreto: sao moedas diferentes, e a folha e que decide. O `margin-left:auto` do .tot
+   continua empurrando ele para a direita, entao o valor cai no meio, separado dos dois. */
+.pos-pe .tot-vm{font-size:9.5px;color:var(--tinta3);font-variant-numeric:tabular-nums;
+  margin-left:auto;padding-right:6px;opacity:.85}
+.pos-pe .tot-vm + .tot{margin-left:0}
 .pos-pe .pct{font-size:9.5px;color:var(--tinta3);font-variant-numeric:tabular-nums}
 
 /* ---------- painel lateral ---------- */

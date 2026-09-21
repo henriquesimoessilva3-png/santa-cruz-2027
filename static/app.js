@@ -917,6 +917,17 @@ function cardPos(cod) {
     '<div class="jogs"></div>' +
     '<button class="pos-add">+ adicionar</button>' +
     '<div class="pos-pe"><span class="pct">' + pct.toFixed(1).replace('.', ',') + '% da massa</span>' +
+      /* Valor de mercado da posição, ao lado da folha. São moedas diferentes — € e R$ — e
+         por isso ficam visivelmente separados: somar os dois seria erro de conta. */
+      ((v => v.com === 0 ? '' :
+        '<span class="tot-vm" title="Valor de mercado do ELENCO nesta posição: ' + eur(v.eur) +
+        ', de ' + v.com + ' dos ' + v.de + ' marcados como Main, Squad ou Youth' +
+        (v.nWy ? ' (' + v.nWy + ' vindos do Wyscout, que é outra data)' : '') + '.\n' +
+        'Somando as onze posições dá o total da barra de cima — os dois contam a mesma gente.\n' +
+        'Com os alvos desta caixa junto seriam ' + eur(v.eurTudo) + ' (' + v.comTudo +
+        ' de ' + v.naCaixa + ' com ficha), mas alvo não é elenco.">' +
+        eur(v.eur, true) + '</span>'
+       )(valorDaPosicao(cod))) +
       '<span class="tot">' + brl(tot) + '</span></div>';
 
   const jogs = el.querySelector('.jogs');
@@ -1056,6 +1067,33 @@ function eur(n, curto) {
 /* Os três níveis que o usuário mandou contar: Main (titular), Squad (o "backup" do elenco
    principal) e Youth. Quem não tem nível gravado fica de fora — é alvo, não elenco. */
 const NIVEIS_NA_CONTA = ['Main', 'Squad', 'Youth'];
+
+/* O valor de mercado de UMA posição — e ele conta os MESMOS jogadores que a barra de cima:
+   Main, Squad e Youth. Quem está na caixa sem nível é ALVO, não elenco.
+
+   A primeira versão somava todo mundo da caixa, e o resultado foi duas somas em euro na
+   mesma tela que não fechavam: € 52,5 mi no pé das caixas contra € 2,8 mi na barra, 19
+   vezes de diferença. As duas estavam certas e respondiam perguntas diferentes — mas quem
+   olha a tela não lê tooltip antes de comparar dois números iguais em aparência. Agora a
+   soma das onze caixas dá exatamente o número da barra, e isso é conferível de cabeça.
+
+   O total COM os alvos continua existindo, no title: é informação boa para quem está
+   escolhendo, só não pode disputar a leitura com o número do elenco. */
+function valorDaPosicao(cod) {
+  const lista = estado.elenco[cod] || [];
+  let eurTot = 0, com = 0, nWy = 0, noElenco = 0, eurTudo = 0, comTudo = 0;
+  lista.forEach(j => {
+    const v = valorMercado(j);
+    const dentro = NIVEIS_NA_CONTA.indexOf(empDados(empChave(j)).status) >= 0;
+    if (dentro) noElenco += 1;
+    if (v == null) return;
+    eurTudo += v; comTudo += 1;
+    if (!dentro) return;
+    eurTot += v; com += 1;
+    if (fonteValor(j) === 'wy') nWy += 1;
+  });
+  return { eur: eurTot, com, de: noElenco, nWy, eurTudo, comTudo, naCaixa: lista.length };
+}
 
 function valorDoElenco() {
   const jg = todosJogadores();
