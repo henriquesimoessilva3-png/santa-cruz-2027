@@ -345,3 +345,6 @@ body:not(.claro) #pgEstudo .esb-auxiliar a:hover { color: #ffffff; }
 /* Valor de mercado nas listas (20/09). Em EURO, como o Transfermarkt publica — e por isso
    nunca somado com salário, que é em R$. Quem não tem ficha sai com traço, não com zero. */
 #pgEstudo .esb-vm { font-variant-numeric: tabular-nums; white-space: nowrap; opacity: .85; }
+/* Valor que veio do Wyscout, e não do Transfermarkt: as duas não são da mesma data. */
+#pgEstudo .esb-vm-wy { opacity: .7; }
+#pgEstudo .esb-vm-fnt { font-style: normal; font-size: 8px; opacity: .7; margin-left: 2px; }

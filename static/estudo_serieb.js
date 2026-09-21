@@ -285,9 +285,7 @@
             ? '<span class="esb-ct-ok" title="as duas fontes concordam na data">confirmado</span>'
             : '<span class="esb-ct-fraco" title="as fontes divergem na data do contrato">uma fonte só</span>') +
           '</td>' +
-          ((v => '<td class="esb-num esb-vm"' +
-              (v == null ? ' title="sem ficha de valor no Transfermarkt"' : '') + '>' +
-              eurCurto(v) + '</td>')(valorDe(j.jogador, j.clube))) +
+          celulaValor(j.jogador, j.clube) +
           '<td>' + (j.atende_perfil ? '<b>atende</b>'
                    : (String(j.indicadores_com_dado) === '0'
                       ? '<span class="esb-semdado">sem dado</span>'
@@ -381,18 +379,40 @@
   const normVm = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/-/g, ' ').split(/\s+/).filter(Boolean).join(' ');
 
+  /* DUAS FONTES, e a lista tem de dizer qual é qual. A coleta do Transfermarkt cobre a
+     Série B; as listas do exterior (J09) são de outras ligas e ficavam quase todas com
+     traço. O `mv` do Wyscout cobre as 40 mil linhas da base e entra como SEGUNDA fonte —
+     separada, nunca misturada: nos jogadores presentes nas duas a razão mediana é 1,33,
+     porque são datas diferentes. */
   function valorDe(nome, clube) {
     if (!VMER) return null;
-    const n = normVm(nome);
-    const v = VMER.jogadores[n + '|' + normVm(clube)];
-    if (v != null) return v;
+    const n = normVm(nome), c = normVm(clube);
+    const v = VMER.jogadores[n + '|' + c];
+    if (v != null) return { eur: v, fonte: 'tm' };
     const so = VMER.por_nome[n];
-    return so == null ? null : so;
+    if (so != null) return { eur: so, fonte: 'tm' };
+    const w = VMER.wyscout ? VMER.wyscout[n + '|' + c] : null;
+    return w == null ? null : { eur: w, fonte: 'wy' };
   }
 
   const eurCurto = n => n == null ? '—'
     : (Math.abs(n) >= 1e6 ? '€ ' + (n / 1e6).toFixed(1).replace('.', ',') + ' mi'
                           : '€ ' + Math.round(n / 1000) + ' mil');
+
+  /* A célula, com a fonte marcada. Quem veio do Wyscout ganha um "w" discreto e o title
+     explica por quê — sem isso a lista somaria maçã com laranja em silêncio. */
+  function celulaValor(nome, clube) {
+    const v = valorDe(nome, clube);
+    if (!v) return '<td class="esb-num esb-vm" title="sem valor de mercado em nenhuma das ' +
+      'duas fontes: nem no Transfermarkt da Série B, nem na base do Wyscout">—</td>';
+    const t = v.fonte === 'tm'
+      ? 'Transfermarkt, Série B ' + (VMER.temporada || '') + ' (' + (VMER.coletado_em || '') + ')'
+      : 'Wyscout — este jogador não está no elenco da Série B, que é o que a coleta do ' +
+        'Transfermarkt cobre. É outra data, e por isso vem marcado.';
+    return '<td class="esb-num esb-vm' + (v.fonte === 'wy' ? ' esb-vm-wy' : '') +
+      '" title="' + esc(t) + '">' + eurCurto(v.eur) +
+      (v.fonte === 'wy' ? '<i class="esb-vm-fnt">w</i>' : '') + '</td>';
+  }
 
   /* A ficha de cada posição, aberta em colunas — 20/09.
 
@@ -456,10 +476,7 @@
         '<td class="esb-num ' + ((j.folga || 0) < 0 ? 'esb-neg' : '') + '">' +
           (j.folga > 0 ? '+' : '') + fmt(j.folga, 1) + '</td>' +
         '<td>' + (j.livre ? '<span class="esb-ct-ok">vencendo</span>' : '—') + '</td>' +
-        ((v => '<td class="esb-num esb-vm"' +
-            (v == null ? ' title="sem ficha de valor no Transfermarkt"' : '') + '>' +
-            eurCurto(v) + '</td>')(valorDe(j.jogador, j.clube))) +
-        celulas + '</tr>';
+        celulaValor(j.jogador, j.clube) + celulas + '</tr>';
     };
     const bloco = (b, prefixo) => {
       const vis = b.jogadores.slice(0, 10);

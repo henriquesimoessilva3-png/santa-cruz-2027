@@ -116,6 +116,19 @@ def main():
         d["posto"] = i
         d["cobertura_pct"] = round(100 * d["com_valor"] / d["plantel"], 1)
 
+    # ---- a segunda fonte: o Wyscout, para quem nao e da Serie B --------------------------
+    # As listas do exterior (J09) e o elenco montado tem gente de outras ligas, e a coleta do
+    # Transfermarkt so cobre a Serie B. O `mv` de dados/jogadores.json cobre as 40 mil linhas da
+    # base. Entra como fonte SEPARADA, nunca misturada: a tela marca de onde veio.
+    wyscout = {}
+    caminho_base = os.path.join(DADOS, "jogadores.json")
+    if os.path.exists(caminho_base):
+        for j in json.load(open(caminho_base, encoding="utf-8"))["jogadores"]:
+            if not j.get("mv"):
+                continue
+            wyscout[f"{normal(j.get('n'))}|{normal(j.get('t'))}"] = j["mv"]
+    print(f"segunda fonte (Wyscout): {len(wyscout)} jogadores de todas as ligas")
+
     vals = [float(l["valor_eur"]) for l in do_ano
             if (l["valor_eur"] or "").strip() not in ("", "0")]
     saida = {
@@ -133,6 +146,13 @@ def main():
         "por_clube": ordem,
         "jogadores": jogadores,
         "por_nome": somente_nome,
+        "wyscout": wyscout,
+        "wyscout_doc": (
+            "Segunda fonte, para quem NAO esta no elenco da Serie B: o `mv` de "
+            "dados/jogadores.json, que vem da coluna Market value do Wyscout e cobre todas as "
+            "ligas da base. Tambem em EURO. NAO e o mesmo numero do Transfermarkt — nos "
+            "jogadores presentes nos dois a razao mediana e 1,33, porque sao datas diferentes. "
+            "Quem usa TEM de dizer de qual fonte veio."),
     }
     json.dump(saida, open(SAIDA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     with open(SAIDA_JS, "w", encoding="utf-8") as fh:
