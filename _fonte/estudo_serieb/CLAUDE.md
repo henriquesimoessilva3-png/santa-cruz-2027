@@ -445,6 +445,23 @@ fica fora deste repositório (ver abaixo).
 **T01 a T04.** Nenhuma base tem nome de treinador — `dados/serieb_tecnico.csv` é export do Wyscout de
 **jogadores**. Por isso T01 é coleta (feita em 17/09; ver `scripts/T01.py`).
 
+**A metade DEFENSIVA do eixo não tem como ser achada no jogador, e isso foi contado em 21/09.**
+O A15-1 e o D11 dizem que defender bem é empurrar a finalização do adversário para fora da área,
+e não reduzir o número dela. Para achar o jogador que faz isso seria preciso saber ONDE a ação
+defensiva aconteceu — e o export do Wyscout não diz: das **118 colunas** de jogador, **16** nomeiam
+alguma zona do campo (área, terço final, profundidade), e das **6 colunas defensivas** (ações
+defensivas com êxito, duelos defensivos e %, cortes, cortes de carrinho ajustados à posse e
+interseções) **nenhuma** nomeia zona nenhuma. A base mede QUANTO o jogador defende, não ONDE.
+
+A metade OFENSIVA existe: `Toques na área/90`, `Passes para a área de penálti/90`, `Passes em
+profundidade/90`, `Corridas progressivas/90` e `Cruzamentos em profundidade recebidos/90` dizem
+quem leva a bola para dentro da área — e é com as duas primeiras que a lista por posição passou a
+ser ordenada em 21/09 (`J06_ordenacao.json`). Fica desigual de propósito: o lado ofensivo se
+identifica, o defensivo não, e a tela tem de dizer isso em vez de fingir simetria.
+
+Só coleta resolve: evento com coordenada, ou o dado de posicionamento defensivo do SkillCorner,
+que não está neste repositório.
+
 ### Onde está o que falta
 
 O **Portal Ranking** do Botafogo Analytics (porta 5053, `portal_ranking_botafogo.py`, pasta

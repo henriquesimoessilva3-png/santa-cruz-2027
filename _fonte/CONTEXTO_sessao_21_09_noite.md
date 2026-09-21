@@ -117,6 +117,11 @@ Sai do "em aberto" das três partes novas. Em ordem de valor:
 4. **Corrida por jogo.** A `physical_match` existe por jogo; a `off_ball_runs` não. Com ela
    rodaria a anterioridade do J10 e daria para cruzar com o A15.
 5. **Mais temporadas rastreadas**, para o poder do J10 no volante.
+6. **Onde a ação defensiva aconteceu.** Contado em 21/09: das 118 colunas de jogador do Wyscout,
+   16 nomeiam uma zona do campo e **nenhuma das 6 defensivas** nomeia. Sem isso não há como achar
+   o jogador que "protege a área em vez de bloquear chute de fora", que é a metade defensiva do
+   eixo (A15-1, D11). O lado ofensivo já se identifica e virou a ordem da lista em 21/09; o
+   defensivo depende de evento com coordenada ou do posicionamento defensivo do SkillCorner.
 
 ## 6. A ordem de publicação, como comando
 
