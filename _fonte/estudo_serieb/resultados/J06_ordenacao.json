@@ -11,7 +11,7 @@
   "criterio": "minutagem alta e repetida (o selo `roda`)",
   "de": "J05-3",
   "campo": "minutagem_regular",
-  "vale_para": "só a lista da Série B — a do exterior já eliminava por rodagem verificável na liga de origem desde o J09",
+  "vale_para": "as duas listas. Na Série B, minutagem alta e repetida; no exterior, rodagem verificável na liga de origem, que é o achado do J09-1 e já era a porta de entrada de lá desde sempre. O goleiro não aparece na lista de fora porque nenhum dos 854 goleiros do J09_base tem regularidade verificável — é a mesma lacuna que o J09-3 registrou.",
   "o_que_isto_nao_e": "não é dizer que quem jogou pouco é pior. Minutagem baixa por LESÃO é outra coisa, e o J01-2 mediu que a ficha de lesão não distingue os dois casos. Quem cai aqui cai por não ser verificável nesta base, e o número de quem caiu vai publicado."
  },
  "ordena": {
@@ -25,7 +25,8 @@
    "por_que_estes": "São a tradução, no jogador, de 'chegar a finalizar de dentro': levar a bola ao terço final e estar dentro da área. São os dois indicadores da ficha que ficam nesse eixo.",
    "de": "A02-1 (firme), A12-1, T03-1, A15-1",
    "como_e_medido": "No MESMO percentil do resto (dentro de temporada × setor, só quem tem 900+ minutos), orientado pelo `sentido` declarado em J05_perfil.csv. Os dois entram SEM piso: `Toques na área/90` tem piso na ficha de J05 mas ficou de fora do perfil CURTO que o J06 herda, e transformá-lo em exigência aqui mudaria `atende` e `com_dado` e quebraria a conferência contra o funil publicado — a trava que garante que esta lista é a mesma conta do J06. Então ele descreve e ordena, e não vira exigência nova. É a mesma regra que o J06 aplica a métrica sem piso.",
-   "nao_vale_para_o_exterior": "A base das ligas de origem mede no máximo 2 dos 4 a 6 critérios da ficha e não traz os dois do eixo. A lista de fora continua ordenada por rodagem na liga de origem, que é o achado do J09-1, e a tela diz isso em cima dela."
+   "nao_vale_para_o_exterior": "CORRIGIDO EM 21/09, e o motivo importa. Esta frase dizia que a base das ligas de origem mede no máximo 2 dos 4 a 6 critérios da ficha e não traz nenhum dos dois do eixo. Era efeito de um DEFEITO, não do dado: o `exterior()` procurava a coluna do J09_base pelo NOME do indicador na ficha ('Duelos defensivos ganhos, %') e a coluna se chama pelo ID ('duelos_def_ganhos_pct'), então só os indicadores FÍSICOS eram encontrados — os ids deles por acaso são iguais ao prefixo da coluna. Medido: 9.833 das 11.023 linhas do J09_base têm o técnico e só 2.892 têm o psv5, ou seja, lá fora o técnico é o dado ABUNDANTE e o físico é o raro. O defeito derrubava todo ZAGUEIRO da lista (a ficha dele tem um físico só, então ficava com menos de dois critérios) e julgava o resto apenas pelo físico. Com o mapa certo, lá fora se medem 4 a 6 critérios, como aqui dentro, e UM dos dois do eixo.",
+   "o_eixo_la_fora_e_meio_eixo": "`Passes progressivos/90` existe na base das ligas de origem; `Toques na área/90` NÃO existe — a J09_base não traz coluna nenhuma de área. Então a aderência do eixo lá fora sai de um critério só, e o campo `criterios_do_eixo` diz isso em cada linha. A lista de fora usa a MESMA ordem da de dentro, com essa ressalva à vista."
   },
   "chave_2": {
    "nome": "físico e duelo",

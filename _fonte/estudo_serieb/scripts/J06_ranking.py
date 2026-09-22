@@ -53,6 +53,7 @@ from pathlib import Path
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 
+import J09                      # o NOME2ID declarado la: nome da ficha -> coluna do J09_base
 import J06  # noqa: E402
 import J06_livres  # noqa: E402  — reaproveita a resolucao da chave do app  — reaproveita a ficha, a base e o julgar() da própria parte
 
@@ -208,7 +209,7 @@ def conferir_contra_o_funil(linhas):
     return erros
 
 
-def exterior(ficha):
+def exterior(ficha, eixo=()):
     """Os candidatos de fora, com o percentil já ajustado pelo fator de liga de J08."""
     caminho = RESULTADOS / "J09_base.csv"
     if not caminho.exists():
@@ -219,18 +220,39 @@ def exterior(ficha):
         itens = [i for i in ficha.get(setor, []) if i.get("no_perfil_curto")]
         detalhe = []
         for i in itens:
-            ind = i["indicador"]
+            # A COLUNA NAO SE CHAMA COMO A FICHA. A ficha de J05 nomeia o indicador tecnico como o
+            # Wyscout o nomeia ("Duelos defensivos ganhos, %"); o J09_base.csv guarda a coluna pelo
+            # ID ("duelos_def_ganhos_pct"). Ate 21/09 esta funcao procurava a coluna pelo NOME, que
+            # nunca bate — e o efeito era silencioso e grave: so os indicadores FISICOS eram
+            # encontrados, porque o id deles (psv5, t_spr, t505_90, expl, spr_n) por acaso e igual
+            # ao prefixo da coluna. Consequencias medidas: todo ZAGUEIRO saia da lista (a ficha
+            # dele tem um fisico so, entao ficava com menos de dois criterios) e todo GOLEIRO
+            # tambem (a ficha dele nao tem fisico nenhum); e o resto era julgado SO pelo fisico,
+            # que e justamente o dado raro la fora — 9.833 das 11.023 linhas tem o tecnico e so
+            # 2.892 tem o psv5. O mapa e o NOME2ID do proprio J09, que e onde ele foi declarado.
+            ind = J09.NOME2ID.get(i["indicador"], i["indicador"])
             # O `__adj` ja sai orientado ("maior e melhor"): o J09 aplica o sinal ANTES de ranquear.
             p = J06.num(r.get(f"{ind}__adj")) or J06.num(r.get(f"{ind}__pct"))
             if p is None:
                 continue
-            detalhe.append({"indicador": ind, "nome": i["nome"], "bloco": i["bloco"],
+            detalhe.append({"indicador": i["indicador"], "coluna": ind,
+                            "nome": i["nome"], "bloco": i["bloco"],
                             "percentil": round(p, 1), "piso_pct": i["piso_pct"],
                             "utilizavel": (setor, ind) not in J06.NAO_UTILIZAVEL,
                             "atende": None if i["piso_pct"] is None else bool(p >= i["piso_pct"])})
         if len(detalhe) < 2:
             continue
-        nota = pontuar(detalhe)
+        # O EIXO LA FORA E MEIO EIXO, e isso vai escrito em vez de escondido. Dos dois
+        # indicadores do eixo da qualidade da chance, `Passes progressivos/90` existe na base das
+        # ligas de origem e `Toques na area/90` NAO existe — a J09_base nao traz coluna nenhuma de
+        # area. Entao a aderencia do eixo sai de um criterio so, e o `criterios_do_eixo` diz isso
+        # em cada linha, para que ninguem leia a lista de fora como se fosse a de dentro.
+        eixo_pcts = {}
+        for ei in eixo:
+            col = J09.NOME2ID.get(ei["nome"], J09.NOME2ID.get(ei["indicador"], ei["indicador"]))
+            pv = J06.num(r.get(f"{col}__adj")) or J06.num(r.get(f"{col}__pct"))
+            eixo_pcts[ei["nome"]] = (None if pv is None else round(pv, 1))
+        nota = pontuar(detalhe, eixo_pcts, ("fisico", "duelo_corpo"))
         if nota["com_dado"] < 2:
             continue
         fora.append({
@@ -323,7 +345,7 @@ def main():
     print(f"  corte de minutagem ({ordem['elimina']['criterio']}): "
           f"{len(sem_rodagem)} saíram, {len(b)} ficaram")
 
-    fora = exterior(ficha)
+    fora = exterior(ficha, eixo)
     # A ficha do exterior mede, no maximo, 2 dos 4 a 6 criterios com piso — o dado fisico das ligas
     # de origem nao existe e o fator de J08 so converte parte do tecnico. Ranquear os dois juntos
     # poria o estrangeiro no topo por ser medido em menos coisa, entao eles vao SEPARADOS e a lista
@@ -373,10 +395,14 @@ def main():
             for x in gente:
                 x["bloco"] = bloco_nome
             if chave == "exterior":
-                # Ordem de fora: rodagem primeiro (o achado do J09), e so depois o pouco de ficha
-                # que existe. Cortada em 15 por posicao — lista longa sobre dado fino engana.
-                gente = sorted(gente, key=lambda x: (-(x["fatia_pct"] or 0), -(x["atende"] or 0),
-                                                     -(x["aderencia"] or 0)))[:15]
+                # ATE 21/09 a ordem de fora era a rodagem, porque "a ficha la fora mede no maximo
+                # 2 dos 4 a 6 criterios". Essa premissa era efeito de um DEFEITO, nao do dado: a
+                # busca da coluna pelo nome so encontrava os indicadores fisicos. Com o mapa
+                # certo, la fora se medem 4 a 6 criterios como aqui dentro, e um dos dois do eixo.
+                # Entao a ordem passa a ser a MESMA da Serie B — minutagem ja eliminou, o eixo
+                # ordena —, com o corte em 15 por posicao, que continua: lista longa sobre dado
+                # fino engana. A rodagem continua sendo a porta de entrada (o achado do J09-1).
+                gente = sorted(gente, key=chave_de_ordem)[:15]
             if not gente:
                 continue
             saida[chave].append({

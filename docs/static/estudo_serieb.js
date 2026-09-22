@@ -541,16 +541,22 @@
           : '') + '</div>';
     };
     const fora = (K.exterior && K.exterior.length)
-      ? '<h3 id="esb-ranking-fora">E os de fora, que a ficha quase não mede' +
+      ? '<h3 id="esb-ranking-fora">E os de fora, na mesma ordem' +
         '<span class="esb-conta">' + K.exterior.reduce((a, b) => a + b.quantos, 0) +
         ' com rodagem na liga de origem</span></h3>' +
-        '<p class="esb-aviso-forte"><b>Esta lista é mais fraca que a de cima, e a ordem dela é ' +
-        'outra.</b> A base das ligas de origem mede no máximo 2 dos 4 a 6 critérios da ficha — o ' +
-        'dado físico quase não existe fora daqui e o fator de conversão só traduz parte do ' +
-        'técnico. Ordenar por aderência seria ordenar por um terço do perfil, e quem é medido em ' +
-        'menos coisa erra menos. Então aqui a ordem é a <b>rodagem na liga de origem</b>, que é o ' +
-        'que o J09 mostrou valer: estrangeiro que já vinha jogando muito fez mais minutos no ' +
-        'primeiro ano de Série B. A coluna “atende” diz de quantos critérios a nota sai.</p>' +
+        '<p class="esb-aviso-forte"><b>Esta lista passou a seguir a mesma regra da de cima em ' +
+        '21/09, e o motivo é um defeito que foi consertado.</b> Até então ela dizia que a base ' +
+        'das ligas de origem mede no máximo dois critérios da ficha, e ordenava por rodagem. Era ' +
+        'efeito de um erro de código, não do dado: a coluna era procurada pelo nome do indicador ' +
+        'e o arquivo a guarda pelo identificador, então só o dado FÍSICO era encontrado. Lá fora ' +
+        'é o contrário — o técnico cobre quase toda a base e o físico é o raro —, e por causa do ' +
+        'erro nenhum <b>zagueiro</b> aparecia aqui. Agora se medem de 4 a 6 critérios, como na ' +
+        'Série B, e a ordem é a mesma: a rodagem na liga de origem elimina (é o achado do J09-1, ' +
+        'estrangeiro que já vinha jogando fez mais minutos no primeiro ano), o eixo ordena. ' +
+        '<b>O eixo aqui é meio eixo:</b> dos dois indicadores dele, passes progressivos existe ' +
+        'lá fora e toques na área não — a coluna “eixo” sai de um critério só, e o número ao ' +
+        'lado dela diz isso. Goleiro não aparece: nenhum dos goleiros da base tem regularidade ' +
+        'verificável, que é a mesma lacuna do J09-3.</p>' +
         K.exterior.map(b => bloco(b, 'fora')).join('')
       : '';
     const corte = K.corte_de_minutagem;
