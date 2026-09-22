@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**34 das 34 perguntas respondidas** · **95 conclusões** (63 indício · 31 provável · 1 firme) · **95 validadas**.
+**35 das 35 perguntas respondidas** · **98 conclusões** (66 indício · 31 provável · 1 firme) · **98 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -64,6 +64,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A19-1 | Nenhuma formação muda o resultado do jogo | indício | {n} clube-jogos de Série B de 2022 a 2025 nas {n_formacoes} formações com 150 jogos ou mais ({n_clubes} clubes, {n_ct} clube-temporadas). Ficaram fora {n_fora} jogos em {n_formacoes_fora} formações, por número de jogos. |
 | A19-2 | O corte que parecia mais limpo é o que escolhe pelo resultado | indício | {sel_n_inteiro} jogos em que o time ficou o tempo todo numa formação e {sel_n_trocou} em que trocou, dentro dos {n} clube-jogos da parte. |
 | A19-3 | O time da Série B não tem um sistema | indício | {n_ct} clube-temporadas de 2022 a 2025, {n_clubes} clubes, {n} clube-jogos. |
+| A20-1 | O onze médio é o que menos separa; a desigualdade é o que mais | indício | {n} clube-temporadas de 2022 a 2025 ({n_clubes} clubes): {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram, sobre {n_jogadores} jogadores com físico. O onze é fixo em {onze} por clube-temporada. |
+| A20-2 | A desigualdade passa no corte cheio, e o reduzido não tem tamanho | indício | {n} clube-temporadas: {n_sobe} que subiram contra {n_meio} do meio; sem os times colados na linha, o desenho só enxerga a partir de {dmin_sem}. |
+| A20-3 | Ter o jogador mais rápido do campeonato não separa quem sobe | indício | {n} clube-temporadas, {n_sobe} que subiram contra {n_meio} do meio, onze fixo por clube. |
 | J01-1 | O corte único de minutagem passa {gk_60}% dos goleiros e só {atk_60}% dos atacantes | indício | {n} jogador-temporadas (2022-2025) |
 | J01-2 | A ficha de lesão não distingue quem jogou pouco de quem jogou muito | indício | {les_base} de minutagem baixa e {les_alta_base} de minutagem alta, com ponte ao Transfermarkt (2022-2025) |
 | J01-3 | Time que cai roda o elenco, {cai_usados} jogadores em média contra {meio_usados} do meio | provável | {n_ct} clubes-temporada (2022-2025): {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram; sem os times de fronteira, 8, 32 e 12 |
@@ -133,6 +136,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A17 | validada | 3 | sim |
 | A18 | validada | 3 | sim |
 | A19 | validada | 3 | sim |
+| A20 | validada | 3 | sim |
 | J01 | validada | 3 | sim |
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |

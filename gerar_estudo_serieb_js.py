@@ -59,6 +59,7 @@ ROTEIRO = [
     ("A17", "A", "Que jeito de jogar produz a chance boa: finalizar de perto e ceder chance ruim?"),
     ("A18", "A", "A dividida no chão mede o time ou o adversário?"),
     ("A19", "A", "A formação do time muda o resultado do jogo?"),
+    ("A20", "A", "O que separa é o titular médio ou ter um ou dois muito acima?"),
     ("J10", "J", "A corrida para dentro da área vira requisito de contratação por posição?"),
     ("J11", "J", "O titular de quem sobe corre proporcionalmente mais sem a bola?"),
     ("T01", "T", "Quem comandou cada time da Série B, em quais rodadas, de 2018 a 2026?"),

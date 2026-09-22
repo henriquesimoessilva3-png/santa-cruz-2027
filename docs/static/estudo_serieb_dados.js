@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 36 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 37 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, J11, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, J11, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -2518,6 +2518,189 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas, e as duas são a mesma coleta que quatro partes já pediram. (1) A formação do ADVERSÁRIO não entra como controle, e o A18 mediu que num jogo o adversário explica mais da variação do que o próprio time — é o primeiro acréscimo se a parte voltar, e roda com a base que já existe. (2) O minuto do gol: sem ele não dá para saber se a formação veio antes ou depois do primeiro gol, e é disso que depende toda a leitura. Enquanto não houver, o A19-2 é o teto do que esta pergunta consegue responder.",
    "feita_em": null,
    "prova_arquivos": "scripts/A19.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
+  },
+  {
+   "id": "A20",
+   "bloco": "A",
+   "secao": "Que time montar",
+   "pergunta": "O que separa é o titular médio ou ter um ou dois muito acima?",
+   "status": "validada",
+   "titulo": "A forma do elenco: o onze médio, o melhor e a distância entre eles, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "A20-1",
+     "parte": "A20",
+     "bloco": "A",
+     "manchete": "O onze médio é o que menos separa; a desigualdade é o que mais",
+     "o_que_vimos": "Na corrida, o onze médio de quem sobe está no percentil 43,2 e o do meio no 44,8 — igual. O melhor deles está em 89,4 contra 82,7, e o último em 4,6 contra 7,6.",
+     "para_o_santa_cruz": "Muda o que se olha ao montar elenco. Comparar o titular médio — que é o que o estudo vinha fazendo em seis partes — é comparar justamente a medida que menos separa: os onzes de quem sobe e do meio estão no mesmo lugar da régua de corrida. A diferença, tal como aparece, está nas PONTAS, e nas duas: o elenco de quem sobe tem alguém mais acima E alguém mais abaixo. Lido em português de vestiário, isso é especialização — um motor e alguém que não corre, mas faz outra coisa —, e não um elenco de onze atletas parecidos. A ressalva é dura e vem logo abaixo, no A20-2: isso não passa na régua da casa. Serve para mudar a PERGUNTA que se faz do dado físico, não para virar critério de contratação hoje.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa a testar, não a adotar: o que o físico tem a dizer sobre quem sobe pode estar na forma do elenco, e não no nível do titular médio. Se confirmada, explica por que seis partes seguidas de média deram negativo.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e o teto da parte é indício: nenhum dos 18 indicadores passa nos DOIS cortes, em nenhuma das duas comparações. Os números por família, em quem sobe contra o meio: nível 0 de seis, topo 0 de seis, desigualdade 0 de seis. (a) O NÍVEL é o que menos separa, e com folga: os efeitos vão de -0,21 a +0,28, todos com q 0,9721. Não é falta de poder: é ausência de diferença no tamanho que o desenho enxerga. (b) O TOPO separa mais que o nível e não chega lá: o melhor do onze em velocidade de pico dá +0,57 com q 0,1446, e em metros por minuto +0,51. (c) A DESIGUALDADE é a que mais separa, e é o assunto do A20-2. (d) A decomposição das pontas NÃO é teste e não foi corrigida: min, mediana e máximo são aritmética da amplitude que já estava declarada (o mínimo é o máximo menos a amplitude). Ela entra para dizer DE QUE PONTA vem a diferença, e não como achado próprio. (e) A armadilha da pergunta foi resolvida por construção, não por controle: o máximo de uma amostra cresce com o tamanho dela, e os clubes têm de 20 a 46 jogadores rastreados (mediana 29,5). Fixando o elenco em 11 para todo mundo, o máximo deixa de depender de quantos foram rastreados. (f) E cada jogador entra pelo percentil dentro do SETOR e da temporada: sem isso, a desigualdade de um elenco mediria a mistura de posições.",
+     "n": "80 clube-temporadas de 2022 a 2025 (40 clubes): 16 que subiram, 48 do meio e 16 que caíram, sobre 2.458 jogadores com físico. O onze é fixo em 11 por clube-temporada.",
+     "prova": "A20_testes.csv; A20_resumo.json; A20_indicadores.json; A20.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Distância percorrida: onde está o onze de quem sobe e o do meio",
+      "unidade": "percentil dentro da posição, 0 a 100",
+      "cortes": [
+       {
+        "rotulo": "quem subiu",
+        "series": [
+         {
+          "nome": "o melhor do onze",
+          "valor": 89.4
+         },
+         {
+          "nome": "o onze médio",
+          "valor": 43.2
+         },
+         {
+          "nome": "o último do onze",
+          "valor": 4.6
+         }
+        ]
+       },
+       {
+        "rotulo": "o meio da tabela",
+        "series": [
+         {
+          "nome": "o melhor do onze",
+          "valor": 82.7
+         },
+         {
+          "nome": "o onze médio",
+          "valor": 44.8
+         },
+         {
+          "nome": "o último do onze",
+          "valor": 7.6
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A20-2",
+     "parte": "A20",
+     "bloco": "A",
+     "manchete": "A desigualdade passa no corte cheio, e o reduzido não tem tamanho",
+     "o_que_vimos": "A distância entre o melhor e o último do onze na corrida dá +0,80 com todos os times e +0,81 sem os colados na linha — o mesmo efeito. O que muda é o que o corte menor consegue ver: de 0,82 para 1,14.",
+     "para_o_santa_cruz": "Este é o achado mais promissor do bloco físico, e ele ainda não é critério. A diferença entre ele e os outros que falharam está no MOTIVO da falha: aqui o efeito não muda entre os cortes, só a capacidade de enxergá-lo. Um efeito desse tamanho não tinha como passar no corte reduzido, porque ali o desenho só vê a partir de um valor maior que ele. Isso não o promove — a regra da casa é firme nos dois cortes, e ela fica —, mas diz o que fazer: é a primeira coisa a rodar quando houver mais temporadas rastreadas, e não uma pista morta. Enquanto isso, entra como pergunta na avaliação de elenco, não como piso.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Não altera premissa nenhuma. Registra uma distinção que o estudo vai precisar: falhar o segundo corte por o efeito sumir e falhar por o corte não ter tamanho são coisas diferentes, e o IC95 e o d mínimo são o que as separa.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e o selo está certo: a regra da casa é firme nos DOIS cortes, e esta não é. O que esta conclusão acrescenta é o DIAGNÓSTICO da falha, com número. (a) Com todos os times, a amplitude da corrida dá +0,80 com q 0,0128 — passa na correção —, e a de metros por minuto +0,81 com q 0,0128. As duas são quase a mesma medida (metros por minuto é distância dividida por tempo) e por isso saem juntas; contam como um achado, não dois. (b) Sem os times colados na linha, o efeito é o MESMO ou maior: +0,81 e +0,84, com q 0,1696. O que mudou foi o n, e com ele o mínimo detectável, que vai de 0,82 para 1,14. Um efeito de +0,80 está abaixo de 1,14: o corte reduzido não tinha como vê-lo. (c) Por que isso NÃO é desculpa para promover: o corte reduzido existe justamente porque achado que depende dos times de fronteira é suspeito, e não saber se este depende ou não é parte do problema. O que se pode afirmar é que ele não foi CONTRADITO ali — e não que foi confirmado. (d) É o contrário do que aconteceu no J11, e vale comparar: lá o efeito INCHAVA no corte reduzido, que é sinal de estimativa instável. Aqui ele não se mexe. (e) O dinheiro ao lado, como ressalva e nunca como desconto: a amplitude da corrida anda +0,24 com o valor do elenco. Elenco caro é um pouco mais desigual, e o estudo não separa as duas coisas. (f) Anterioridade: não é calculável — a tabela física é por temporada fechada. (g) Na comparação de quem cai há a mesma coisa, e ela tem de ir citada: a amplitude da velocidade de pico dá +0,85 com q 0,0101 com todos os times e +0,65 com q 0,2360 sem os colados na linha — passa num corte e não no outro, com o efeito caindo, que é o padrão oposto ao da corrida acima. Não sobrevive.",
+     "n": "80 clube-temporadas: 16 que subiram contra 48 do meio; sem os times colados na linha, o desenho só enxerga a partir de 1,14.",
+     "prova": "A20_testes.csv; A20_resumo.json; A20.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "A distância entre o melhor e o último do onze, nos dois cortes",
+      "unidade": "efeito, quem subiu contra o meio",
+      "cortes": [
+       {
+        "rotulo": "com todos os times",
+        "series": [
+         {
+          "nome": "na corrida",
+          "valor": 0.796
+         },
+         {
+          "nome": "em metros por minuto",
+          "valor": 0.809
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os times colados na linha",
+        "series": [
+         {
+          "nome": "na corrida",
+          "valor": 0.813
+         },
+         {
+          "nome": "em metros por minuto",
+          "valor": 0.837
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A20-3",
+     "parte": "A20",
+     "bloco": "A",
+     "manchete": "Ter o jogador mais rápido do campeonato não separa quem sobe",
+     "o_que_vimos": "O mais rápido do onze de quem sobe está no percentil 96,4 e o do meio no 92,5: efeito +0,57, que não passa na correção. Em velocidade, quem sobe está um pouco à frente nas três pontas.",
+     "para_o_santa_cruz": "Não pagar prêmio por ter o homem mais rápido. A velocidade de pico é a medida física mais vendida no mercado e a mais fácil de checar, e ela não distingue quem subiu — nem no melhor do elenco, nem no onze médio, nem no mais lento. O padrão dela é diferente do da corrida: em velocidade quem sobe está levemente à frente nas TRÊS pontas, o que é retrato de elenco um pouco melhor, não de elenco com forma diferente. Some isso ao J05-2, que já tinha medido que metade do perfil físico usado pelo app não sobrevive à correção, e ao J04-1: velocidade é descrição, não requisito.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Confirma J04-1 e J05-2 numa forma nova — no elenco inteiro, e não jogador a jogador. Não sugere premissa nova.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e resultado NEGATIVO. O melhor do onze em velocidade de pico dá +0,57 com q 0,1446 com todos os times, e +0,61 com q 0,3952 sem os colados na linha — não passa em nenhum dos dois. O onze médio dá +0,28 e a desigualdade +0,11, também sem passar. O que isto NÃO prova: que velocidade não importa. O desenho só enxerga a partir de 0,82 com todos os times, e o efeito do topo está abaixo disso — “não separa” aqui quer dizer “este desenho não veria”. E a cobertura da velocidade é a pior da base física: o estudo usa o PSV-99 justamente porque a velocidade de pico bruta tem cobertura zero em três das quatro temporadas, como o CLAUDE.md registra. A leitura do padrão — à frente nas três pontas — é descrição, não teste: ela vem da decomposição aritmética da amplitude, que não é corrigida.",
+     "n": "80 clube-temporadas, 16 que subiram contra 48 do meio, onze fixo por clube.",
+     "prova": "A20_testes.csv; A20_resumo.json; A20.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Velocidade de pico: as três pontas do onze",
+      "unidade": "percentil dentro da posição, 0 a 100",
+      "cortes": [
+       {
+        "rotulo": "quem subiu",
+        "series": [
+         {
+          "nome": "o mais rápido do onze",
+          "valor": 96.4
+         },
+         {
+          "nome": "o onze médio",
+          "valor": 57.4
+         },
+         {
+          "nome": "o menos rápido do onze",
+          "valor": 16.6
+         }
+        ]
+       },
+       {
+        "rotulo": "o meio da tabela",
+        "series": [
+         {
+          "nome": "o mais rápido do onze",
+          "valor": 92.5
+         },
+         {
+          "nome": "o onze médio",
+          "valor": 52.8
+         },
+         {
+          "nome": "o menos rápido do onze",
+          "valor": 12.6
+         }
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas, e a primeira é a mais importante do bloco físico inteiro. (1) A desigualdade do elenco tem efeito grande e idêntico nos dois cortes, e falha só porque o corte reduzido não tem tamanho para vê-lo. Isso se resolve com MAIS TEMPORADAS rastreadas, não com mais testes nas mesmas — e é a primeira coisa a rodar quando houver. (2) O onze físico é o mais usado com dado, não o onze tático. Com escalação por rodada daria para usar o onze que de fato jogou, e a base não tem: serieb_jogos.csv não traz nome de jogador nenhum.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/A20.py + scripts/_metodo.py"
   },
   {
    "id": "J10",
@@ -12949,9 +13132,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 34,
+  "total": 35,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 34
+  "validada": 35
  }
 };

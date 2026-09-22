@@ -1,0 +1,80 @@
+{
+ "parte": "A20",
+ "pergunta": "O que separa quem sobe é o titular médio ou ter um ou dois jogadores muito acima?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "por_que_esta_parte": "Todo o estudo compara MÉDIA: o A07 e o A11 usaram a média do time, o J04, o J10 e o J11 compararam jogador contra jogador. Montar elenco não é ter onze médios — pode ser ter um ou dois muito acima e o resto normal. Ninguém mediu o máximo, a dispersão nem a distância entre o melhor e o último do onze.",
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-temporada",
+             "n_esperado": {"total": 80, "clubes": 40}},
+ "o_onze_fisico": {
+  "o_que_e": "os 11 jogadores com mais minutos RASTREADOS de cada clube-temporada, entre os que têm físico",
+  "por_que_11_fixo_e_nao_o_elenco_inteiro": "ESTA É A ARMADILHA PRINCIPAL DA PERGUNTA, e ela se resolve por construção em vez de por controle. O máximo de uma amostra cresce com o tamanho dela: um clube que rodou mais jogadores rastreados teria máximo maior sem ter ninguém melhor. Fixando o número de jogadores em 11 para todo mundo, o máximo deixa de depender de quantos foram rastreados.",
+  "viabilidade": "os 80 clube-temporadas têm de 20 a 46 jogadores com físico (mediana 29,5), então nenhum fica de fora por falta de gente",
+  "o_que_ele_NAO_e": "não é o onze tático. É o onze mais usado com dado físico, e pode ter três zagueiros. Ver a normalização abaixo."
+ },
+ "normalizacao": {
+  "regra": "cada jogador entra pelo PERCENTIL dele dentro de setor × temporada — a mesma régua do J04, do J10 e do J11 —, e só depois se calculam as três estatísticas do onze.",
+  "por_que": "sem isso, a dispersão de um elenco mediria a mistura de posições: atacante corre diferente de zagueiro, e um onze com mais extremos teria mais dispersão sem ter ninguém excepcional. Com o percentil por setor, o máximo passa a ser 'o jogador mais excepcional PARA A POSIÇÃO DELE', que é a pergunta.",
+  "o_bruto": "os valores na unidade da métrica saem publicados para a tela, e não entram em teste nenhum."
+ },
+ "comparacoes": [
+  {"id": "SM", "nome": "Sobe × Meio", "papel": "padrão"},
+  {"id": "CM", "nome": "Cai × Meio", "papel": "secundária"}
+ ],
+ "repetir_sem_fronteira": true,
+ "subamostras": {
+  "todos": "os 80 clube-temporadas",
+  "sem_cobertura_baixa": "sem os clube-temporadas de cobertura de rastreamento baixa, como o CLAUDE.md manda com dado físico"
+ },
+ "metricas": ["distance_p90", "hi_distance_p90", "sprint_count_p90", "high_accel_p90", "psv99", "m_per_min"],
+ "familias": [
+  {"id": "nivel", "nome": "O onze médio",
+   "o_que_e": "a mediana do percentil do onze — o time típico",
+   "indicadores": [
+    {"id": "med_distance_p90", "nome": "Distância: o onze médio", "sinal": 1, "apelidos": ["onze médio na distância", "distância do onze médio"]},
+    {"id": "med_hi_distance_p90", "nome": "Alta intensidade: o onze médio", "sinal": 1, "apelidos": ["onze médio na alta intensidade"]},
+    {"id": "med_sprint_count_p90", "nome": "Sprints: o onze médio", "sinal": 1, "apelidos": ["onze médio nos sprints"]},
+    {"id": "med_high_accel_p90", "nome": "Arrancadas fortes: o onze médio", "sinal": 1, "apelidos": ["onze médio nas arrancadas"]},
+    {"id": "med_psv99", "nome": "Velocidade de pico: o onze médio", "sinal": 1, "apelidos": ["onze médio na velocidade"]},
+    {"id": "med_m_per_min", "nome": "Metros por minuto: o onze médio", "sinal": 1, "apelidos": ["onze médio nos metros por minuto"]}
+   ]},
+  {"id": "topo", "nome": "O melhor do onze",
+   "o_que_e": "o maior percentil do onze — o jogador mais excepcional para a posição dele",
+   "indicadores": [
+    {"id": "max_distance_p90", "nome": "Distância: o melhor do onze", "sinal": 1, "apelidos": ["melhor do onze na distância"]},
+    {"id": "max_hi_distance_p90", "nome": "Alta intensidade: o melhor do onze", "sinal": 1, "apelidos": ["melhor do onze na alta intensidade"]},
+    {"id": "max_sprint_count_p90", "nome": "Sprints: o melhor do onze", "sinal": 1, "apelidos": ["melhor do onze nos sprints"]},
+    {"id": "max_high_accel_p90", "nome": "Arrancadas fortes: o melhor do onze", "sinal": 1, "apelidos": ["melhor do onze nas arrancadas"]},
+    {"id": "max_psv99", "nome": "Velocidade de pico: o melhor do onze", "sinal": 1, "apelidos": ["melhor do onze na velocidade", "o mais rápido do onze"]},
+    {"id": "max_m_per_min", "nome": "Metros por minuto: o melhor do onze", "sinal": 1, "apelidos": ["melhor do onze nos metros por minuto"]}
+   ]},
+  {"id": "distancia", "nome": "A distância entre o melhor e o último",
+   "o_que_e": "o maior percentil menos o menor, dentro do onze — é 'ter um muito acima' medido na unidade da régua",
+   "nota_de_sinal": "O sinal é CONVENÇÃO DE LEITURA, não 'melhor': elenco mais desigual não é bom nem ruim em si. Todos entram com +1, como a casa faz com métrica de estilo.",
+   "indicadores": [
+    {"id": "amp_distance_p90", "nome": "Distância: do melhor ao último do onze", "sinal": 1, "apelidos": ["elenco desigual na distância", "distância entre o melhor e o último"]},
+    {"id": "amp_hi_distance_p90", "nome": "Alta intensidade: do melhor ao último do onze", "sinal": 1, "apelidos": ["elenco desigual na alta intensidade"]},
+    {"id": "amp_sprint_count_p90", "nome": "Sprints: do melhor ao último do onze", "sinal": 1, "apelidos": ["elenco desigual nos sprints"]},
+    {"id": "amp_high_accel_p90", "nome": "Arrancadas fortes: do melhor ao último do onze", "sinal": 1, "apelidos": ["elenco desigual nas arrancadas"]},
+    {"id": "amp_psv99", "nome": "Velocidade de pico: do melhor ao último do onze", "sinal": 1, "apelidos": ["elenco desigual na velocidade"]},
+    {"id": "amp_m_per_min", "nome": "Metros por minuto: do melhor ao último do onze", "sinal": 1, "apelidos": ["elenco desigual nos metros por minuto"]}
+   ]}
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py",
+  "teste": "t de Welch no posto dentro da temporada; d de Cohen; BH a 5% por família × comparação; IC95 por bootstrap de clube; poder por desenho",
+  "o_que_decide_a_pergunta": "se o TOPO separar e o NÍVEL não, a resposta é 'um ou dois muito acima'. Se os dois separarem, o topo pode ser só reflexo do nível — e é a família da DISTÂNCIA que desempata, porque ela é alta só quando o elenco é desigual.",
+  "porta_temporal": "NÃO É CALCULÁVEL: a tabela `physical` é por temporada fechada, sem recorte por rodada. Teto desta parte: PROVÁVEL. Declarado antes de rodar."
+ },
+ "ressalvas_declaradas": [
+  "O onze físico é o mais usado COM DADO, não o onze tático. Clube com rastreamento irregular pode ter um onze diferente do que jogou — por isso a subamostra sem cobertura baixa roda ao lado.",
+  "As três estatísticas do mesmo elenco andam juntas por construção: quem tem o onze médio alto tende a ter o máximo alto. Elas vão em famílias separadas de propósito, para que o BH não trate como independentes coisas que não são, e a leitura conjunta está no critério acima.",
+  "Onze é pouco para medir dispersão: a amplitude de 11 números é ruidosa. O d mínimo por desenho vai publicado, e ele é o que diz se 'não separa' quer dizer 'não existe' ou 'não veríamos'.",
+  "Valor do elenco: elenco caro pode ter mais atletas excepcionais. A correlação entre cada indicador e o valor do elenco vai medida ao lado — ressalva, nunca desconto (decisão de 15/09)."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que ter um jogador excepcional CAUSA o acesso: não há anterioridade nesta base.",
+  "Que a dispersão não importa se não aparecer — o d mínimo está publicado.",
+  "Que o onze físico é o time que jogou."
+ ]
+}

@@ -1,0 +1,253 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "clube-temporada",
+ "o_onze_fisico": {
+  "o_que_e": "os 11 jogadores com mais minutos RASTREADOS de cada clube-temporada, entre os que têm físico",
+  "por_que_11_fixo_e_nao_o_elenco_inteiro": "ESTA É A ARMADILHA PRINCIPAL DA PERGUNTA, e ela se resolve por construção em vez de por controle. O máximo de uma amostra cresce com o tamanho dela: um clube que rodou mais jogadores rastreados teria máximo maior sem ter ninguém melhor. Fixando o número de jogadores em 11 para todo mundo, o máximo deixa de depender de quantos foram rastreados.",
+  "viabilidade": "os 80 clube-temporadas têm de 20 a 46 jogadores com físico (mediana 29,5), então nenhum fica de fora por falta de gente",
+  "o_que_ele_NAO_e": "não é o onze tático. É o onze mais usado com dado físico, e pode ter três zagueiros. Ver a normalização abaixo."
+ },
+ "n": {
+  "clube_temporadas": 80,
+  "clubes": 40,
+  "jogadores_com_fisico": 2458,
+  "rastreados_min": 20,
+  "rastreados_max": 46,
+  "rastreados_mediana": 29.5,
+  "por_faixa": {
+   "Sobe": 16,
+   "Cai": 16,
+   "Meio": 48
+  },
+  "sem_cobertura_baixa": 55
+ },
+ "passam_nos_dois_cortes": {
+  "SM": [],
+  "CM": []
+ },
+ "por_familia": {
+  "nivel": {
+   "testes": 6,
+   "passam_nos_dois_SM": 0,
+   "passam_nos_dois_CM": 0
+  },
+  "topo": {
+   "testes": 6,
+   "passam_nos_dois_SM": 0,
+   "passam_nos_dois_CM": 0
+  },
+  "distancia": {
+   "testes": 6,
+   "passam_nos_dois_SM": 0,
+   "passam_nos_dois_CM": 0
+  }
+ },
+ "cada_indicador_x_dinheiro": {
+  "med_distance_p90": {
+   "rho": 0.149,
+   "p": 0.18734,
+   "n": 80
+  },
+  "med_hi_distance_p90": {
+   "rho": 0.256,
+   "p": 0.02201,
+   "n": 80
+  },
+  "med_sprint_count_p90": {
+   "rho": 0.139,
+   "p": 0.21716,
+   "n": 80
+  },
+  "med_high_accel_p90": {
+   "rho": -0.103,
+   "p": 0.36329,
+   "n": 80
+  },
+  "med_psv99": {
+   "rho": 0.111,
+   "p": 0.32672,
+   "n": 80
+  },
+  "med_m_per_min": {
+   "rho": 0.149,
+   "p": 0.18734,
+   "n": 80
+  },
+  "max_distance_p90": {
+   "rho": 0.33,
+   "p": 0.00284,
+   "n": 80
+  },
+  "max_hi_distance_p90": {
+   "rho": 0.197,
+   "p": 0.07994,
+   "n": 80
+  },
+  "max_sprint_count_p90": {
+   "rho": 0.165,
+   "p": 0.14285,
+   "n": 80
+  },
+  "max_high_accel_p90": {
+   "rho": 0.041,
+   "p": 0.71509,
+   "n": 80
+  },
+  "max_psv99": {
+   "rho": 0.151,
+   "p": 0.18016,
+   "n": 80
+  },
+  "max_m_per_min": {
+   "rho": 0.332,
+   "p": 0.0026,
+   "n": 80
+  },
+  "amp_distance_p90": {
+   "rho": 0.237,
+   "p": 0.03404,
+   "n": 80
+  },
+  "amp_hi_distance_p90": {
+   "rho": 0.12,
+   "p": 0.29047,
+   "n": 80
+  },
+  "amp_sprint_count_p90": {
+   "rho": 0.148,
+   "p": 0.19116,
+   "n": 80
+  },
+  "amp_high_accel_p90": {
+   "rho": -0.064,
+   "p": 0.57516,
+   "n": 80
+  },
+  "amp_psv99": {
+   "rho": 0.064,
+   "p": 0.57398,
+   "n": 80
+  },
+  "amp_m_per_min": {
+   "rho": 0.24,
+   "p": 0.03198,
+   "n": 80
+  }
+ },
+ "de_que_ponta_vem_a_amplitude": {
+  "o_que_e": "decomposição ARITMÉTICA da amplitude declarada (min = max − amplitude), não indicador novo e não testada. Serve para dizer se o elenco de quem sobe é mais esticado por cima, por baixo ou pelos dois lados.",
+  "por_metrica": {
+   "distance_p90": {
+    "min": {
+     "Sobe": 4.6,
+     "Meio": 7.6,
+     "Cai": 5.4
+    },
+    "med": {
+     "Sobe": 43.2,
+     "Meio": 44.8,
+     "Cai": 40.4
+    },
+    "max": {
+     "Sobe": 89.4,
+     "Meio": 82.7,
+     "Cai": 85.9
+    }
+   },
+   "hi_distance_p90": {
+    "min": {
+     "Sobe": 7.0,
+     "Meio": 8.7,
+     "Cai": 3.7
+    },
+    "med": {
+     "Sobe": 46.2,
+     "Meio": 43.1,
+     "Cai": 39.2
+    },
+    "max": {
+     "Sobe": 87.6,
+     "Meio": 87.0,
+     "Cai": 78.1
+    }
+   },
+   "sprint_count_p90": {
+    "min": {
+     "Sobe": 10.1,
+     "Meio": 8.1,
+     "Cai": 4.2
+    },
+    "med": {
+     "Sobe": 49.2,
+     "Meio": 47.7,
+     "Cai": 43.8
+    },
+    "max": {
+     "Sobe": 90.2,
+     "Meio": 90.6,
+     "Cai": 82.9
+    }
+   },
+   "high_accel_p90": {
+    "min": {
+     "Sobe": 10.5,
+     "Meio": 7.3,
+     "Cai": 6.5
+    },
+    "med": {
+     "Sobe": 39.0,
+     "Meio": 45.8,
+     "Cai": 41.8
+    },
+    "max": {
+     "Sobe": 83.2,
+     "Meio": 88.9,
+     "Cai": 81.7
+    }
+   },
+   "psv99": {
+    "min": {
+     "Sobe": 16.6,
+     "Meio": 12.6,
+     "Cai": 9.4
+    },
+    "med": {
+     "Sobe": 57.4,
+     "Meio": 52.8,
+     "Cai": 53.0
+    },
+    "max": {
+     "Sobe": 96.4,
+     "Meio": 92.5,
+     "Cai": 94.4
+    }
+   },
+   "m_per_min": {
+    "min": {
+     "Sobe": 4.6,
+     "Meio": 7.6,
+     "Cai": 5.4
+    },
+    "med": {
+     "Sobe": 43.4,
+     "Meio": 44.8,
+     "Cai": 40.4
+    },
+    "max": {
+     "Sobe": 89.4,
+     "Meio": 82.7,
+     "Cai": 85.9
+    }
+   }
+  }
+ },
+ "poder_por_desenho": {
+  "d_minimo_80_sobe_x_meio": 0.82,
+  "d_minimo_80_sem_fronteira": 1.14
+ },
+ "porta_temporal_nao_calculavel": {
+  "parcial": null,
+  "passa": false,
+  "por_que": "a tabela `physical` é por temporada fechada, sem recorte por rodada. Declarado em A20_indicadores.json antes de rodar. Teto: provável."
+ }
+}

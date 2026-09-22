@@ -155,7 +155,8 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 - A14 só depois de A02–A13. A15 depende de A02, A05 e A06, com que dialoga, e de mais
   nada. A16 depende de A14 (herda a lista) e do `_porta_temporal.py`. A17 depende de
   A02 e A16 (o alvo dela é o que a A16 precificou) e usa a máquina da A15. A18 resolve uma
-  tensão entre A06 e A15. A19 não depende de nenhuma e usa a máquina da A15.
+  tensão entre A06 e A15. A19 não depende de nenhuma e usa a máquina da A15. A20 depende do
+  J04 (a base e a ponte de identidade) e responde à pergunta que A07 e A11 deixaram.
 - T03–T04 dependem de A14.
 - J03–J04 dependem de J01. J05–J06 dependem de A14, J03, J04 e das notas de encaixe da Protótipo (§8 — a §8.2 proíbe somar as três num número único; são três notas, nunca uma); se T04 já existir, o perfil de jogador deve servir ao modelo do treinador escolhido.
 - J07 depende de J01. J08 depende de J01 e da base das ligas de origem. J09 depende de J05, J06 e J08.
@@ -355,6 +356,27 @@ resultado são do mesmo jogo).
 **Limite escrito:** a formação do ADVERSÁRIO não entra como controle, e o A18 mediu que num jogo o
 adversário explica mais da variação do que o próprio time. É o primeiro acréscimo se a parte
 voltar, e roda com a base que já existe.
+
+### A20 — A forma do elenco: o onze médio, o melhor e a distância entre eles
+**Pergunta:** o que separa quem sobe é o titular médio ou ter um ou dois muito acima?
+**Por que existe:** todo o estudo compara MÉDIA — A07 e A11 pela média do time, J04/J10/J11
+jogador contra jogador. Ninguém tinha medido máximo nem dispersão.
+**A armadilha resolvida POR CONSTRUÇÃO, e não por controle:** o máximo de uma amostra cresce com
+o tamanho dela. O elenco é fixado em ONZE para todo mundo (os 11 com mais minutos rastreados), e
+com isso o máximo deixa de depender de quantos foram rastreados. Os 80 clube-temporadas têm de 20
+a 46 jogadores com físico, então ninguém fica de fora.
+**A normalização é o que faz a pergunta ser a pergunta:** cada jogador entra pelo percentil dentro
+de SETOR × temporada. Sem isso, a dispersão do elenco mediria a mistura de posições.
+**O que decide:** se o TOPO separar e o NÍVEL não, a resposta é "um ou dois muito acima"; se os
+dois separarem, a família da DISTÂNCIA desempata.
+**Teto: provável** — a tabela `physical` é por temporada fechada, sem anterioridade.
+**A distinção que esta parte obriga o estudo a fazer:** falhar o segundo corte porque o EFEITO
+some e falhar porque o CORTE não tem tamanho são coisas diferentes. Aqui o efeito da desigualdade
+é idêntico nos dois cortes (+0,80 e +0,81) e o mínimo detectável salta de 0,82 para 1,14. Isso
+NÃO promove o achado — firme continua sendo firme nos dois cortes —, mas muda o que fazer com
+ele: é falta de temporada, não pista morta.
+**O mínimo por ponta é DESCRIÇÃO, não indicador:** ele é aritmética da amplitude declarada (min =
+máximo − amplitude) e não entra em teste nem em correção.
 
 ## Bloco T — Treinadores
 
