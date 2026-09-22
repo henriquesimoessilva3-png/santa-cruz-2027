@@ -2206,14 +2206,49 @@ async function cenNuvemLer() {
   }
 }
 
+/* Confere se o documento na nuvem mudou depois que este grupo foi aberto. Devolve o dado de
+   quem gravou, ou null quando esta tudo em ordem. Nao decide nada: quem decide e' o humano. */
+async function cenNuvemMaisNovo(cen) {
+  if (!FB.pronto || !FB.usuario || !cen.id) return null;
+  try {
+    const snap = await FB.db.collection(FB_COLECAO).doc(cen.id).get();
+    if (!snap.exists) return null;
+    const r = snap.data() || {};
+    const base = cen.baseNuvem || '';
+    if (!r.atualizado || !base || r.atualizado <= base) return null;
+    return { atualizado: r.atualizado, por: r.porEmail || 'alguém',
+             atletas: Object.values(r.elenco || {}).reduce((a, v) => a + (v ? v.length : 0), 0) };
+  } catch (e) { return null; }      /* sem rede nao se bloqueia o salvar */
+}
+
 async function cenNuvemGravar(cen) {
   if (!FB.pronto || !FB.usuario) return false;
+  /* AVISO ANTES DE ATROPELAR. O grupo compartilhado e' um documento so', e o Salvar grava por
+     cima dele inteiro — nao existe fusao de mudancas. Sem esta conferencia, duas pessoas
+     editando o mesmo grupo se apagam em silencio, e a que perdeu o trabalho nao fica sabendo.
+     Aqui ela FICA: o app diz quem gravou, quando, e com quantos atletas, e so' segue se a
+     pessoa confirmar. */
+  const outro = await cenNuvemMaisNovo(cen);
+  if (outro) {
+    const quando = new Date(outro.atualizado).toLocaleString('pt-BR');
+    const meus = Object.values(cen.elenco || {}).reduce((a, v) => a + (v ? v.length : 0), 0);
+    const ok = confirm(
+      'ATENÇÃO — alguém salvou este grupo depois que você o abriu.\n\n' +
+      'Na nuvem agora: ' + outro.atletas + ' atletas, salvo por ' + outro.por + '\n' +
+      'em ' + quando + '.\n\n' +
+      'O seu: ' + meus + ' atletas.\n\n' +
+      'Salvar vai APAGAR a versão dessa pessoa — não há como juntar as duas.\n' +
+      'Para não perder nenhuma das duas, cancele e use “Salvar como novo grupo…”.\n\n' +
+      'Gravar por cima mesmo assim?');
+    if (!ok) { toast('Nada foi gravado — o grupo da nuvem continua como estava'); return false; }
+  }
   try {
     const doc = JSON.parse(JSON.stringify(cen));
     delete doc.origem;
     doc.id = cen.id;
     doc.porEmail = (FB.usuario && FB.usuario.email) || '';
     await FB.db.collection(FB_COLECAO).doc(cen.id).set(doc);
+    cen.baseNuvem = doc.atualizado || '';   /* a partir daqui, e' esta a versao conhecida */
     return true;
   } catch (e) {
     toast(((e && e.code) === 'permission-denied')
@@ -2315,6 +2350,12 @@ async function gravarCenario() {
   if (ESTATICO) {
     id = estado.id || ((FB.usuario ? 'nuv-' : 'nav-') + Date.now().toString(36));
     estado.id = id;
+    /* A base da conferencia, antes de carimbar por cima. Quem abriu o grupo pelo seletor ja'
+       tem `baseNuvem`; quem apenas reabriu o site e continuou de onde parou, nao — e' a
+       brecha por onde o atropelo passaria sem aviso. Para esses, a base e' o carimbo da
+       ultima gravacao conhecida, que serve igual: se a nuvem estiver mais nova que ela,
+       alguem gravou no meio do caminho. */
+    if (!estado.baseNuvem) estado.baseNuvem = estado.atualizado || '';
     estado.atualizado = new Date().toISOString();
     /* COM LOGIN a nuvem manda: e o unico jeito de "salvou, todos veem". Se a gravacao
        falhar (regra, rede), NAO cai calado para o localStorage — isso seria o pior dos
@@ -2391,6 +2432,11 @@ async function abrirCenario(id) {
     dados = await r.json();
   }
   estado = Object.assign(novoEstado(), dados);
+  /* O CARIMBO COM QUE ESTE GRUPO FOI ABERTO. E' o que permite, na hora de salvar, saber se
+     alguem gravou por cima enquanto voce trabalhava. Em 22/09 isso aconteceu de verdade: uma
+     lista de 343 atletas virou uma de 120, salva por outra pessoa, sem aviso nenhum para
+     ninguem — e so' se descobriu porque o numero na tela nao batia. */
+  estado.baseNuvem = dados.atualizado || '';
   POSICOES.forEach(p => { if (!Array.isArray(estado.elenco[p.c])) estado.elenco[p.c] = []; });
   migrar();
   salvarLocal(); render(); sincronizarBotoes();
