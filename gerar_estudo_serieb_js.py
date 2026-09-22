@@ -340,6 +340,13 @@ def main():
         # quando um marcador nao existe. Aqui so se carrega.
         "decisoes": json.load(open(os.path.join(RESULTADOS, "_decisoes.json"), encoding="utf-8"))
                     if os.path.exists(os.path.join(RESULTADOS, "_decisoes.json")) else None,
+        # As regras de leitura (scripts/gerar_regras.py) e a secao de fisico
+        # (scripts/gerar_fisico.py). Mesmo contrato das decisoes: vem prontas, com os numeros ja
+        # resolvidos contra os <ID>_numeros.json, e o gerador de la falha se um marcador sumir.
+        "regras": json.load(open(os.path.join(RESULTADOS, "_regras.json"), encoding="utf-8"))
+                  if os.path.exists(os.path.join(RESULTADOS, "_regras.json")) else None,
+        "fisico": json.load(open(os.path.join(RESULTADOS, "_fisico.json"), encoding="utf-8"))
+                  if os.path.exists(os.path.join(RESULTADOS, "_fisico.json")) else None,
         "validadas": validadas[:7],   # "O que decidimos" mostra ate 7
         "negativas": negativas,
         "contagem": {

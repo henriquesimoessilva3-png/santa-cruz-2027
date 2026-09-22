@@ -12083,6 +12083,148 @@ const ESTUDO_SERIEB = {
   ],
   "como_ler": "Cada decisão leva o selo da conclusão que a sustenta. FIRME passou na correção para múltiplos testes E na porta temporal; PROVÁVEL passou em um dos dois; INDÍCIO em nenhum, e a frase diz por quê. Decisão com selo fraco não é decisão errada — é decisão que se toma sabendo o tamanho da aposta."
  },
+ "regras": {
+  "_doc": "As regras de leitura do estudo, cada uma com a conta que a produziu. Gerado por scripts/gerar_regras.py a partir dos <ID>_numeros.json — os mesmos arquivos que o portão confere. Nenhum número é digitado aqui. Espelho da §6 do _fonte/CONTEXTO_sessao_21_09_noite.md e do CLAUDE.md.",
+  "gerado_em": "2026-09-21",
+  "regras": [
+   {
+    "id": "R1",
+    "de": "A17",
+    "conclusao": "A17-1",
+    "decisao": "D17",
+    "regra": "Peça a conta DENTRO do time antes de aceitar a conta ENTRE times.",
+    "evita": "Transformar em meta de treino um número que só descreve que clube é aquele — quase sempre, quanto ele custou.",
+    "conta": "Cruzar mais anda +0,33 com finalizar de perto quando se comparam clubes DIFERENTES, e +0,02 quando se compara o MESMO time consigo mesmo de um jogo para o outro. A ponte entre os dois números é o dinheiro: cruzar mais anda +0,26 com o valor do elenco. O time que cruza muito finaliza de perto porque é caro, não porque cruza.",
+    "confianca": "indício"
+   },
+   {
+    "id": "R2",
+    "de": "A19",
+    "conclusao": "A19-1",
+    "decisao": null,
+    "regra": "Recorte cujo critério pode ser consequência do desfecho não é robustez, é seleção.",
+    "evita": "Publicar como \"olha só nos jogos limpos\" um filtro que, na prática, já sabe quem ganhou — e por isso devolve o efeito que se queria achar.",
+    "conta": "Ficar com os jogos em que o time manteve o desenho de cinco defensores até o fim dá 1,75 ponto por jogo (76 jogos); os jogos em que ele trocou dão 0,86 (85 jogos). O filtro não mediu a formação: mediu quem estava ganhando, porque quem está perdendo é que mexe no time.",
+    "confianca": "indício"
+   },
+   {
+    "id": "R3",
+    "de": "A20",
+    "conclusao": "A20-2",
+    "decisao": null,
+    "regra": "Falhar porque o efeito SOME é diferente de falhar porque o corte não tem TAMANHO.",
+    "evita": "Enterrar como \"não separa\" um achado que só precisa de mais temporada rastreada — e tratar como promissor um que evaporou quando o recorte mudou.",
+    "conta": "Os dois falham no mesmo critério. A desigualdade do elenco dá +0,80 com todos os times e +0,81 sem os colados na linha — o MESMO efeito —, e o que muda é o que o desenho enxerga: de 0,82 para 1,14. Já o extremo do J11 vai de +0,47 para +1,00 conforme o recorte, com mínimo detectável de 0,79: aí o que mudou foi o efeito, não a régua. O primeiro é fila de coleta; o segundo, não.",
+    "confianca": "indício"
+   },
+   {
+    "id": "R4",
+    "de": "T04",
+    "conclusao": "T04-1",
+    "decisao": "D10",
+    "regra": "Decisão com nome de régua é decisão vaga; decisão que contradiz a parte que ela cita é pior.",
+    "evita": "Levar para a reunião um \"guiar pelo eixo da qualidade da chance\" que ninguém sabe executar — ou um critério que a própria análise de origem já reprovou.",
+    "conta": "Medido na própria página de decisões: a D10 mandava escolher treinador pelo PISO das passagens, e o T04-1 mede que esse critério põe em 3º lugar quem nunca subiu — trocar o piso pela média leva-o de 37,5% a 47,2% de tempo no G4 e já muda o pódio. Decisão que cita uma parte tem de sobreviver à leitura dessa parte.",
+    "confianca": "indício"
+   }
+  ],
+  "como_ler": "Quatro regras, e nenhuma é conselho genérico: cada uma nasceu de um número deste estudo que teria enganado a casa. Valem para ler o que está nesta página e também para ler o número que chegar de fora — de um empresário, de uma apresentação, de outro clube."
+ },
+ "fisico": {
+  "_doc": "O que oito partes sabem sobre físico, num lugar só. Gerado por scripts/gerar_fisico.py a partir dos <ID>_numeros.json — os mesmos arquivos que o portão confere. Nenhum número é digitado aqui.",
+  "gerado_em": "2026-09-21",
+  "partes": [
+   "A07",
+   "A10",
+   "A11",
+   "A20",
+   "J04",
+   "J05",
+   "J10",
+   "J11"
+  ],
+  "blocos": [
+   {
+    "id": "F1",
+    "titulo": "Correr mais não separa quem sobe — nem o time, nem o jogador",
+    "de": "A07 · A11 · J04",
+    "conclusao": "A07-1",
+    "texto": "O time mediano de quem subiu percorreu 9644 metros por jogo contra 9598 do meio, e 669 em alta intensidade contra 652: nenhum dos 12 indicadores físicos declarados separou quem sobe nos dois cortes. Entre times de nível TÉCNICO parecido também não: na faixa alta quem subiu correu 9614 metros contra 9620 do meio. No jogador, 204 comparações em 17 medidas de corrida e 6 posições, e nenhuma sobrevive aos dois cortes.",
+    "confianca": "indício"
+   },
+   {
+    "id": "F2",
+    "titulo": "Onde o físico aparece é na linha de BAIXO",
+    "de": "A07 · A10 · J11",
+    "conclusao": "A07-2",
+    "texto": "A cada trinta minutos sem a bola, o time mediano dos rebaixados correu 91,1 metros em sprint contra 100,0 do meio — descontado o rodízio de elenco, é o único número físico que continua separando quem cai. E não é cansaço: já no 1º turno de 2025 os rebaixados corriam 618 metros em alta intensidade contra 690 do meio. No jogador, o lateral de quem caiu faz 3,16 arrancadas fortes por meia hora sem a bola contra 3,35 do meio, e passa nos dois cortes. Serve para reconhecer risco no elenco que já se tem, não para escolher alvo.",
+    "confianca": "provável"
+   },
+   {
+    "id": "F3",
+    "titulo": "A única posição com sinal próprio é o volante",
+    "de": "J04 · J10",
+    "conclusao": "J10-2",
+    "texto": "O volante de quem sobe faz 3,23 corridas fortes por meia hora de posse contra 1,88 do meio, e cobre 12,44 metros por corrida contra 11,30 — 21 contra 50. É volume e alcance, não destino: das corridas PARA A ÁREA, 0 de 18 testes passam. O J04-2 já tinha achado pico de velocidade no volante (27,9 km/h contra 27,5) e em nenhuma outra posição, mas só num dos recortes.",
+    "confianca": "provável"
+   },
+   {
+    "id": "F4",
+    "titulo": "O que mais separa não é o nível do onze, é a DESIGUALDADE dentro dele",
+    "de": "A20",
+    "conclusao": "A20-2",
+    "texto": "O onze médio de quem sobe está no percentil 43,2 de corrida e o do meio no 44,8 — igual. A distância entre o melhor e o último do onze dá +0,80 com todos os times e +0,81 sem os colados na linha, o mesmo efeito nos dois cortes. Ele falha por TAMANHO, não por ausência: o mínimo que o desenho enxerga sobe de 0,82 para 1,14 quando o recorte encolhe. É a fila de coleta, não pista morta — e ter o jogador mais rápido do campeonato não é a resposta (+0,57, que não passa na correção).",
+    "confianca": "indício"
+   },
+   {
+    "id": "F5",
+    "titulo": "Correr com destino vira ação; correr muito, não",
+    "de": "A11",
+    "conclusao": "A11-1",
+    "texto": "O terço que mais corre PARA DENTRO DA ÁREA faz 23,4 entradas na área por jogo contra 20,4, e cria 1,3 de gol esperado contra 1,1. O terço que mais percorre METROS faz 21,9 entradas contra 21,6, e cria o mesmo xG. Correr sem a bola sobe a linha de pressão — o adversário dá 9,3 passes por ação defensiva contra 11,2 —, mas não aparece em bola recuperada (77,9 contra 77,6).",
+    "confianca": "provável"
+   },
+   {
+    "id": "F6",
+    "titulo": "Returno e semana de três jogos: não dá para montar elenco por isso",
+    "de": "A10",
+    "conclusao": "A10-2",
+    "texto": "Do 1º para o 2º turno o mesmo jogador perde 74 metros por noventa minutos, 0,8% do que corria — e a perda não separa quem subiu do meio. No jogo com menos de quatro dias de descanso, as duas temporadas medidas dizem o contrário uma da outra: em 2025 o jogador correu igual ou um pouco mais, em 2026 corre 174 metros por 90 a menos — e o ponto não cai (1,37 no jogo curto contra 1,36 no normal).",
+    "confianca": "indício"
+   },
+   {
+    "id": "F7",
+    "titulo": "Um quinto do jeito de correr é do clube, não do jogador",
+    "de": "J11",
+    "conclusao": "J11-3",
+    "texto": "O clube em que o jogador estava explica 20,8% de quanto ele corre sem a bola em relação a com a bola, e a razão anda +0,28 com a posse do time. Nas outras medidas o clube explica de 6,4% a 13,8%. Número físico de jogador carrega o time de onde ele veio: comparar dois candidatos de clubes diferentes pela corrida bruta compara também os dois clubes.",
+    "confianca": "indício"
+   },
+   {
+    "id": "F8",
+    "titulo": "O que isso muda na ficha de contratação",
+    "de": "J05 · J10 · J11",
+    "conclusao": "J05-3",
+    "texto": "Filtro eliminatório, um só: minutagem alta e regular, com o corte mudando por posição — 64,7% no goleiro contra 34,2% no atacante, o que devolve 215 jogador-temporadas em quatro anos. Físico entra como DESEMPATE, e só onde foi medido: corrida forte e corrida longa no volante, e arrancada sem a bola do lateral como sinal de alerta para descartar. E o perfil físico que a tela já mostrava não serve inteiro: dos 18 números por setor, 9 passam na correção para muitos testes, e na zaga e no lateral não passa nenhum dos 4.",
+    "confianca": "indício"
+   }
+  ],
+  "limites": [
+   {
+    "titulo": "O dado físico é o mais escasso do estudo.",
+    "texto": "O SkillCorner não rastreia goleiro, e o rastreamento cobre 2022 a 2025 — quatro temporadas, 16 promovidos contra 48 do meio. É desenho que só enxerga vantagem grande."
+   },
+   {
+    "titulo": "Duas partes falharam por falta de tamanho, não por ausência de efeito.",
+    "texto": "A desigualdade do elenco (A20) e o extremo (J11). Mais temporadas rastreadas destravam as duas, e é a compra de dado que mais renderia depois do minuto do gol."
+   },
+   {
+    "titulo": "Físico é o assunto em que a diferença entre \"não separa\" e \"não importa\" mais custa caro.",
+    "texto": "Nenhuma conclusão desta seção diz que preparação física não importa. Elas dizem que, nesta base, correr mais não é o que distingue quem sobe — e que pagar prêmio por volume de corrida não tem número que o sustente."
+   }
+  ],
+  "como_ler": "Oito partes mediram corrida — quatro no time e quatro no jogador — e nenhuma responde sozinha se o físico importa. Cada bloco leva o selo da conclusão que o sustenta: juntar quatro indícios não faz uma conclusão firme."
+ },
  "validadas": [
   {
    "id": "A01-1",

@@ -31,6 +31,11 @@ import json
 import os
 import sys
 
+# O resolvedor de marcador e o mesmo do gerar_regras.py e do gerar_fisico.py: uma
+# copia por pagina divergiria em silencio, e divergir aqui e numero sem conferencia.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _texto import numeros_da_parte, selo_da_conclusao, trocar  # noqa: E402
+
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ESTUDO = os.path.dirname(AQUI)
 R = os.path.join(ESTUDO, "resultados")
@@ -313,47 +318,6 @@ DECISOES = [
                      "T04_resumo.json."),
     },
 ]
-
-
-def numeros_da_parte(pid, cache):
-    if pid not in cache:
-        caminho = os.path.join(R, f"{pid}_numeros.json")
-        if not os.path.exists(caminho):
-            cache[pid] = {}
-        else:
-            d = json.load(open(caminho, encoding="utf-8"))
-            cache[pid] = d.get("numeros", d)
-    return cache[pid]
-
-
-def selo_da_conclusao(cid, cache):
-    """A força da conclusão de origem. Decisão sem selo sai como '—', nunca como firme."""
-    if not cid:
-        return None
-    pid = cid.split("-")[0]
-    if pid not in cache:
-        caminho = os.path.join(R, f"{pid}.json")
-        cache[pid] = json.load(open(caminho, encoding="utf-8")) if os.path.exists(caminho) else {}
-    for c in (cache[pid].get("conclusoes") or []):
-        if c.get("id") == cid:
-            return c.get("confianca")
-    return None
-
-
-def trocar(texto, cache, onde, faltando):
-    """Resolve {PARTE.marcador}. Marcador que não existe é ERRO, não espaço em branco."""
-    import re
-    def um(m):
-        pid, chave = m.group(1), m.group(2)
-        n = numeros_da_parte(pid, cache)
-        if chave not in n:
-            faltando.append(f"{onde}: {{{pid}.{chave}}} não existe em {pid}_numeros.json")
-            return m.group(0)
-        v = n[chave]
-        if isinstance(v, float):
-            return f"{v:.1f}".replace(".", ",") if v != int(v) else str(int(v))
-        return str(v)
-    return re.sub(r"\{([AJT]\d\d)\.([a-zA-Z0-9_]+)\}", um, texto or "")
 
 
 def main():

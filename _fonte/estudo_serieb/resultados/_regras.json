@@ -1,0 +1,47 @@
+{
+ "_doc": "As regras de leitura do estudo, cada uma com a conta que a produziu. Gerado por scripts/gerar_regras.py a partir dos <ID>_numeros.json — os mesmos arquivos que o portão confere. Nenhum número é digitado aqui. Espelho da §6 do _fonte/CONTEXTO_sessao_21_09_noite.md e do CLAUDE.md.",
+ "gerado_em": "2026-09-21",
+ "regras": [
+  {
+   "id": "R1",
+   "de": "A17",
+   "conclusao": "A17-1",
+   "decisao": "D17",
+   "regra": "Peça a conta DENTRO do time antes de aceitar a conta ENTRE times.",
+   "evita": "Transformar em meta de treino um número que só descreve que clube é aquele — quase sempre, quanto ele custou.",
+   "conta": "Cruzar mais anda +0,33 com finalizar de perto quando se comparam clubes DIFERENTES, e +0,02 quando se compara o MESMO time consigo mesmo de um jogo para o outro. A ponte entre os dois números é o dinheiro: cruzar mais anda +0,26 com o valor do elenco. O time que cruza muito finaliza de perto porque é caro, não porque cruza.",
+   "confianca": "indício"
+  },
+  {
+   "id": "R2",
+   "de": "A19",
+   "conclusao": "A19-1",
+   "decisao": null,
+   "regra": "Recorte cujo critério pode ser consequência do desfecho não é robustez, é seleção.",
+   "evita": "Publicar como \"olha só nos jogos limpos\" um filtro que, na prática, já sabe quem ganhou — e por isso devolve o efeito que se queria achar.",
+   "conta": "Ficar com os jogos em que o time manteve o desenho de cinco defensores até o fim dá 1,75 ponto por jogo (76 jogos); os jogos em que ele trocou dão 0,86 (85 jogos). O filtro não mediu a formação: mediu quem estava ganhando, porque quem está perdendo é que mexe no time.",
+   "confianca": "indício"
+  },
+  {
+   "id": "R3",
+   "de": "A20",
+   "conclusao": "A20-2",
+   "decisao": null,
+   "regra": "Falhar porque o efeito SOME é diferente de falhar porque o corte não tem TAMANHO.",
+   "evita": "Enterrar como \"não separa\" um achado que só precisa de mais temporada rastreada — e tratar como promissor um que evaporou quando o recorte mudou.",
+   "conta": "Os dois falham no mesmo critério. A desigualdade do elenco dá +0,80 com todos os times e +0,81 sem os colados na linha — o MESMO efeito —, e o que muda é o que o desenho enxerga: de 0,82 para 1,14. Já o extremo do J11 vai de +0,47 para +1,00 conforme o recorte, com mínimo detectável de 0,79: aí o que mudou foi o efeito, não a régua. O primeiro é fila de coleta; o segundo, não.",
+   "confianca": "indício"
+  },
+  {
+   "id": "R4",
+   "de": "T04",
+   "conclusao": "T04-1",
+   "decisao": "D10",
+   "regra": "Decisão com nome de régua é decisão vaga; decisão que contradiz a parte que ela cita é pior.",
+   "evita": "Levar para a reunião um \"guiar pelo eixo da qualidade da chance\" que ninguém sabe executar — ou um critério que a própria análise de origem já reprovou.",
+   "conta": "Medido na própria página de decisões: a D10 mandava escolher treinador pelo PISO das passagens, e o T04-1 mede que esse critério põe em 3º lugar quem nunca subiu — trocar o piso pela média leva-o de 37,5% a 47,2% de tempo no G4 e já muda o pódio. Decisão que cita uma parte tem de sobreviver à leitura dessa parte.",
+   "confianca": "indício"
+  }
+ ],
+ "como_ler": "Quatro regras, e nenhuma é conselho genérico: cada uma nasceu de um número deste estudo que teria enganado a casa. Valem para ler o que está nesta página e também para ler o número que chegar de fora — de um empresário, de uma apresentação, de outro clube."
+}

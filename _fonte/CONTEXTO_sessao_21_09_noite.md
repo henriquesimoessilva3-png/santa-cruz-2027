@@ -87,7 +87,7 @@ nomeava o indicador que a sustenta (J11).
 
 ## 6. As quatro regras de leitura que a sessão produziu
 
-Estão no `CLAUDE.md`, e **ainda não estão no app** — é o item 1 da fila.
+Estão no `CLAUDE.md` e, desde 21/09, **na aba Estudo** — seção "Como ler um número daqui", gerada por `scripts/gerar_regras.py` com o número de cada uma preso à parte de origem.
 
 1. **Peça a conta DENTRO do time antes de aceitar a conta entre times.** Cruzar mais anda +0,33
    com finalizar de perto entre times e +0,02 dentro do mesmo time, e +0,26 com o dinheiro. Se o
@@ -100,10 +100,14 @@ Estão no `CLAUDE.md`, e **ainda não estão no app** — é o item 1 da fila.
 
 ## 7. A fila da próxima sessão
 
-### 7.1 Subir o aprendizado para o app — o item 1, e é barato
-As conclusões novas já estão na aba. O que **não** está são as quatro regras da seção 6 e uma
-**seção de físico** que junte o que oito partes sabem (A07, A10, A11, J04, J05-2, J10, J11, A20),
-hoje espalhado. Sem isso, a próxima reunião repete as perguntas que esta sessão já respondeu.
+### 7.1 Subir o aprendizado para o app — FEITO em 21/09
+As quatro regras da seção 6 viraram a seção **"Como ler um número daqui"**
+(`scripts/gerar_regras.py` → `_regras.json`), e o que oito partes sabem de físico (A07, A10, A11,
+A20, J04, J05, J10, J11) virou **"O que sabemos do físico"** (`scripts/gerar_fisico.py` →
+`_fisico.json`), em oito blocos que terminam na ficha de contratação, mais três limites. As duas
+seguem o contrato da página de decisões: texto da casa, número vindo dos `<ID>_numeros.json`, e o
+gerador FALHA se um marcador sumir. O resolvedor de marcador saiu do `gerar_decisoes.py` para o
+`scripts/_texto.py`, usado pelos três (saída das decisões conferida idêntica antes e depois).
 
 ### 7.2 O que analisar, em ordem de valor
 1. **O primeiro gol de cada jogo.** Quatro partes pedindo (A09, A15, A17, A18). Fecha a ressalva
@@ -132,6 +136,14 @@ hoje espalhado. Sem isso, a próxima reunião repete as perguntas que esta sess�
   JOGO — 3.036 pontos em vez de 80 —, mas o agrupamento provável ali é o estado do placar, o que
   torna a pergunta circular para prever resultado.
 
+### 7.4 O alvo, dito pelo dono em 21/09 — e que reordena a fila
+O fim de qualquer parte é sempre **treinador e jogador sugeridos para contratação**. Parte que
+para no traço do time está na metade. O mercado, em ordem de foco: (1) Série B; (2) Série A, de
+onde alguns nomes não podem ser descartados; (3) brasileiros e sul-americanos que jogam no
+exterior; (4) campeonatos sul-americanos — Argentina, Uruguai, Colômbia e vizinhos, e este item
+foi marcado como principal. A lista por posição hoje é 65 na Série B e 120 no exterior, e o
+exterior ainda aparece como anexo — é o que muda.
+
 ## 8. A ordem de publicação, como comando
 
 ```bash
@@ -142,6 +154,8 @@ python3 _fonte/estudo_serieb/scripts/A20.py
 python3 _fonte/estudo_serieb/scripts/J11.py
 python3 _fonte/estudo_serieb/scripts/J06_ranking.py      # 0. se mexer na lista por posição
 python3 _fonte/estudo_serieb/scripts/gerar_decisoes.py   # 0b. se mexer nas decisões
+python3 _fonte/estudo_serieb/scripts/gerar_regras.py     # 0b'. se mexer nas regras de leitura
+python3 _fonte/estudo_serieb/scripts/gerar_fisico.py     # 0b''. se mexer na seção de físico
 python3 gerar_valor_mercado.py                           # 0c. se mexer no valor de mercado
 python3 gerar_estudo_serieb_js.py                        # 1. o dado da aba
 python3 _fonte/estudo_serieb/scripts/gerar_registro.py   # 2. o registro

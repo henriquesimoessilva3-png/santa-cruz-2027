@@ -679,6 +679,67 @@
       '</section>';
   }
 
+  /* As quatro regras de leitura. Por que elas estao NA TELA, e nao so no CLAUDE.md: o CLAUDE.md
+     e o manual de quem RODA a analise, e quem le a analise nunca abriu esse arquivo. Cada regra
+     nasceu de um numero que este estudo produziu e que teria enganado a casa — por isso vem com
+     a conta junto, e nao como decalogo de metodo. O texto e os numeros chegam prontos do
+     scripts/gerar_regras.py, que falha se um marcador sumir. */
+  function regrasHtml() {
+    const G = D.regras;
+    if (!G || !G.regras || !G.regras.length) return '';
+    const item = r =>
+      '<article class="esb-regra" id="esb-' + esc(r.id) + '">' +
+        '<div class="esb-regra-topo">' +
+          '<span class="esb-regra-n">' + esc(r.id.replace('R', '')) + '</span>' +
+          '<h4>' + esc(r.regra) + '</h4>' +
+        '</div>' +
+        '<p class="esb-regra-evita"><b>Evita:</b> ' + esc(r.evita) + '</p>' +
+        '<p class="esb-regra-conta">' + esc(r.conta) + '</p>' +
+        '<div class="esb-dec-pe">' +
+          (r.conclusao
+            ? '<a href="#esb-' + esc(r.conclusao) + '">' + esc(r.conclusao) + '</a>'
+            : '<span>' + esc(r.de) + '</span>') +
+          '<span class="esb-dec-de">' + esc(r.de) +
+          (r.decisao ? ' · ' + esc(r.decisao) : '') + '</span></div>' +
+      '</article>';
+    return '<section class="esb-secao esb-regras" id="esb-regras">' +
+      '<h3>Como ler um número daqui<span class="esb-conta">' + G.regras.length +
+      ' regras</span></h3>' +
+      '<p class="esb-nota">' + esc(G.como_ler) + '</p>' +
+      G.regras.map(item).join('') + '</section>';
+  }
+
+  /* A secao de fisico. Oito partes mediram corrida (A07, A10, A11, A20 no time; J04, J05, J10,
+     J11 no jogador) e nenhuma responde sozinha "afinal o fisico importa?": quem le so a A07
+     conclui que nao, quem le so o J10-2 conclui que se contrata volante por corrida forte. As
+     duas leituras estao erradas. Junta-se aqui porque e o assunto em que a casa mais gasta sem
+     numero, e termina na ficha de contratacao porque e nisso que toda parte tem de terminar. */
+  function fisicoHtml() {
+    const F = D.fisico;
+    if (!F || !F.blocos || !F.blocos.length) return '';
+    const bloco = b =>
+      '<article class="esb-fis" id="esb-' + esc(b.id) + '">' +
+        '<div class="esb-fis-topo">' +
+          '<h4>' + esc(b.titulo) + '</h4>' +
+          '<span class="' + classeSelo(b.confianca) + '">' + selo(b.confianca) + '</span>' +
+        '</div>' +
+        '<p class="esb-fis-texto">' + esc(b.texto) + '</p>' +
+        '<div class="esb-dec-pe">' +
+          (b.conclusao
+            ? '<a href="#esb-' + esc(b.conclusao) + '">' + esc(b.conclusao) + '</a>'
+            : '<span>' + esc(b.de) + '</span>') +
+          '<span class="esb-dec-de">' + esc(b.de) + '</span></div>' +
+      '</article>';
+    return '<section class="esb-secao esb-fisico" id="esb-fisico">' +
+      '<h3>O que sabemos do físico<span class="esb-conta">' +
+      (F.partes || []).length + ' partes</span></h3>' +
+      '<p class="esb-nota">' + esc(F.como_ler) + '</p>' +
+      F.blocos.map(bloco).join('') +
+      '<div class="esb-fis-limites"><h4>Os limites desta seção</h4>' +
+      (F.limites || []).map(l => '<p><b>' + esc(l.titulo) + '</b> ' + esc(l.texto) + '</p>').join('') +
+      '</div></section>';
+  }
+
   function casca() {
     const c = D.contagem;
     return '<div class="esb-topo">' +
@@ -697,11 +758,13 @@
          apagaria a prova. Viram material auxiliar deste estudo, a um clique daqui. O botão
          original continua no index.html, escondido — é dele que o irParaAba() do app.js depende
          para trocar de página, e chamá-lo é o mesmo caminho da barra, sem duplicar nada. */
+      '<p class="esb-atalhos">Atalhos: <a href="#esb-decisoes">o que fazer</a> · <a href="#esb-regras">como ler um número</a> · <a href="#esb-fisico">o físico</a></p>' +
       '<p class="esb-auxiliar">Material de onde este estudo partiu, fora da barra de abas: ' +
         '<a href="#" data-ir="serieb">Análise Série B</a> · ' +
         '<a href="#" data-ir="prototipo">Protótipo</a></p>' +
       '</div>' +
       decisoesHtml() +
+      regrasHtml() +
       sumarioHtml() +
       filtroHtml() +
       decidimosHtml() +
@@ -709,6 +772,7 @@
       reguaHtml() +
       secaoHtml('Que treinador buscar', 'T') +
       treinadoresHtml() +
+      fisicoHtml() +
       secaoHtml('Quem contratar', 'J') +
       livresHtml() +
       rankingHtml() +

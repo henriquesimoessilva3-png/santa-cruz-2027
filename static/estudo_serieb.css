@@ -376,3 +376,53 @@ body:not(.claro) #pgEstudo .esb-dec { border-left-color: #3a3a36; }
 body:not(.claro) #pgEstudo .esb-dec-gnome,
 body:not(.claro) #pgEstudo .esb-dec-ressalva { color: #c3c2b7; }
 body:not(.claro) #pgEstudo .esb-dec-ressalva b { color: #f0a640; }
+
+/* ---- as regras de leitura e a seção de físico (21/09) -----------------------
+   As duas nasceram do mesmo buraco: o aprendizado da casa vivia no CLAUDE.md,
+   que é o manual de quem RODA a análise, e quem LÊ a análise nunca abriu esse
+   arquivo. Sem elas na tela, a reunião seguinte repete as perguntas já
+   respondidas. Estilo deliberadamente igual ao da página de decisões: é o mesmo
+   tipo de conteúdo — texto da casa com o número preso à parte de origem. */
+#pgEstudo .esb-atalhos { margin: 6px 0 0; font-size: 11px; color: #52514e; }
+#pgEstudo .esb-atalhos a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+#pgEstudo .esb-atalhos a:hover { color: #0b0b0b; }
+
+#pgEstudo .esb-regras, #pgEstudo .esb-fisico {
+  border: 1px solid var(--borda2, #e6e5e1); border-radius: 10px;
+  padding: 14px 16px 10px; margin-bottom: 18px; }
+
+#pgEstudo .esb-regra { border-left: 3px solid var(--borda2, #e6e5e1); padding: 6px 0 8px 12px;
+  margin-top: 12px; }
+#pgEstudo .esb-regra-topo { display: flex; align-items: baseline; gap: 8px; }
+#pgEstudo .esb-regra-topo h4 { margin: 0; font-size: 15px; line-height: 1.3; flex: 1 1 280px; }
+#pgEstudo .esb-regra-n { font-size: 10px; font-weight: 700; color: #52514e;
+  font-variant-numeric: tabular-nums; }
+#pgEstudo .esb-regra-evita { margin: 5px 0 0; font-size: 12px; line-height: 1.45; color: #52514e; }
+#pgEstudo .esb-regra-evita b { color: #b45309; }
+#pgEstudo .esb-regra-conta { margin: 4px 0 0; font-size: 13px; line-height: 1.5; }
+
+#pgEstudo .esb-fis { border-left: 3px solid var(--borda2, #e6e5e1); padding: 6px 0 8px 12px;
+  margin-top: 12px; }
+#pgEstudo .esb-fis-topo { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+#pgEstudo .esb-fis-topo h4 { margin: 0; font-size: 15px; line-height: 1.3; flex: 1 1 280px; }
+#pgEstudo .esb-fis-texto { margin: 5px 0 0; font-size: 13px; line-height: 1.5; }
+#pgEstudo .esb-fis-limites { margin-top: 16px; border-top: 1px solid var(--borda2, #e6e5e1);
+  padding-top: 10px; }
+#pgEstudo .esb-fis-limites h4 { margin: 0 0 6px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .05em; color: #52514e; font-weight: 700; }
+#pgEstudo .esb-fis-limites p { margin: 0 0 6px; font-size: 12px; line-height: 1.45;
+  color: #52514e; max-width: 74ch; }
+#pgEstudo .esb-fis-limites b { color: #0b0b0b; }
+
+body:not(.claro) #pgEstudo .esb-regras,
+body:not(.claro) #pgEstudo .esb-fisico { border-color: #3a3a36; }
+body:not(.claro) #pgEstudo .esb-regra,
+body:not(.claro) #pgEstudo .esb-fis { border-left-color: #3a3a36; }
+body:not(.claro) #pgEstudo .esb-fis-limites { border-top-color: #3a3a36; }
+body:not(.claro) #pgEstudo .esb-atalhos,
+body:not(.claro) #pgEstudo .esb-regra-evita,
+body:not(.claro) #pgEstudo .esb-fis-limites h4,
+body:not(.claro) #pgEstudo .esb-fis-limites p { color: #c3c2b7; }
+body:not(.claro) #pgEstudo .esb-atalhos a:hover,
+body:not(.claro) #pgEstudo .esb-fis-limites b { color: #ffffff; }
+body:not(.claro) #pgEstudo .esb-regra-evita b { color: #f0a640; }
