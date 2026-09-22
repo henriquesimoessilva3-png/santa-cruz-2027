@@ -1,0 +1,18 @@
+id,nome,n,r,r_parcial_fatia
+dist,Distância por 90,478,0.076,0.086
+expl,Arrancadas explosivas por 90,478,-0.09,-0.078
+spr_tip,Sprint por 30 min COM a bola,478,-0.092,-0.076
+hsr_otip,Alta velocidade por 30 min SEM a bola,478,0.059,0.069
+cod,Mudanças de direção por 90,478,0.038,0.056
+acc,Acelerações fortes por 90,478,-0.063,-0.046
+spr_n,Sprints por 90,478,-0.061,-0.045
+spr_d,Sprint por 90,478,-0.055,-0.04
+hsr,Alta velocidade por 90,478,0.019,0.035
+hi_n,Ações de alta intensidade por 90,478,-0.046,-0.026
+t_spr,PSV-99 média dos 5 melhores jogos,478,-0.004,-0.018
+hsr_tip,Alta velocidade por 30 min COM a bola,478,-0.031,-0.012
+runs_area,Corridas para a área por 30 min com posse,478,-0.007,-0.008
+spr_otip,Sprint por 30 min SEM a bola,478,-0.006,0.008
+runs,Corridas sem bola por 30 min com posse,478,-0.011,0.004
+runs_per,Corridas perigosas por 30 min com posse,478,-0.006,-0.003
+psv,Velocidade de pico (PSV-99),478,0.001,-0.001

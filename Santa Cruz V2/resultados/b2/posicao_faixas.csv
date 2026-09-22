@@ -1,0 +1,425 @@
+posicao,indicador,qtd_ref,qtd_outros,ref_p25,ref_p50,ref_p75,outros_p50,dif_pct
+GOL,Defesas %,19,40,75.37,77.27,78.99,76.32,1.3
+GOL,Gols sofridos/90,19,40,0.68,0.72,0.86,0.9,-20.4
+GOL,xG sofrido/90,19,40,0.7,0.83,0.92,1.02,-18.2
+GOL,Gols evitados (xG − gols)/90,19,40,-0.02,0.06,0.16,0.07,-22.8
+GOL,Jogos sem sofrer gol,19,40,11.0,13.0,16.5,11.0,18.2
+GOL,Saídas/90,19,40,1.52,1.7,1.97,1.68,0.9
+GOL,Passes certos %,19,40,81.15,83.86,89.34,84.22,-0.4
+GOL,Passes longos/90,19,40,4.44,5.91,6.78,5.74,3.1
+GOL,Passes longos certos %,19,40,61.72,63.46,65.16,61.07,3.9
+GOL,Duelos aéreos ganhos %,19,40,88.73,92.86,100.0,89.09,4.2
+LD,Gols/90,7,29,0.0,0.03,0.04,0.03,0.0
+LD,xG/90,7,29,0.02,0.04,0.04,0.03,33.3
+LD,Assistências/90,7,29,0.03,0.06,0.1,0.04,50.0
+LD,xA/90,7,29,0.06,0.07,0.12,0.09,-22.2
+LD,Finalizações/90,7,29,0.48,0.71,0.84,0.58,22.4
+LD,Finalizações no alvo %,7,29,22.18,26.92,35.84,26.92,0.0
+LD,Conversão %,7,29,0.0,1.96,7.5,5.88,-66.7
+LD,Toques na área/90,7,29,0.71,0.85,0.98,0.67,26.9
+LD,Corridas progressivas/90,7,29,1.53,1.9,2.28,1.49,27.5
+LD,Acelerações c/ bola/90,7,29,0.48,0.59,0.86,0.36,63.9
+LD,Dribles/90,7,29,1.81,2.49,3.06,1.96,27.0
+LD,Dribles certos %,7,29,56.4,58.62,64.66,55.41,5.8
+LD,Duelos ofensivos/90,7,29,3.99,5.06,6.32,4.7,7.7
+LD,Duelos ofensivos ganhos %,7,29,50.54,51.56,52.66,45.68,12.9
+LD,Passes/90,7,29,34.38,36.49,40.75,36.51,-0.1
+LD,Passes certos %,7,29,75.7,77.66,81.11,77.92,-0.3
+LD,Passes p/ frente/90,7,29,13.76,14.42,16.22,14.15,1.9
+LD,Passes p/ frente certos %,7,29,65.18,69.67,74.74,70.44,-1.1
+LD,Passes longos/90,7,29,4.44,4.78,5.22,4.26,12.2
+LD,Passes longos certos %,7,29,50.4,51.27,51.44,48.87,4.9
+LD,Passes progressivos/90,7,29,7.97,9.04,9.23,8.31,8.8
+LD,Passes progressivos certos %,7,29,72.03,77.19,78.54,73.32,5.3
+LD,Passes terço final/90,7,29,4.12,5.24,7.38,4.92,6.5
+LD,Passes terço final certos %,7,29,63.84,68.89,77.17,68.18,1.0
+LD,Passes p/ área/90,7,29,2.69,2.9,3.54,2.87,1.0
+LD,Passes inteligentes/90,7,29,0.06,0.09,0.19,0.1,-10.0
+LD,Passes chave/90,7,29,0.34,0.41,0.44,0.31,32.3
+LD,Passes em profundidade/90,7,29,0.32,0.47,0.48,0.33,42.4
+LD,Passes p/ finalização/90,7,29,0.64,0.78,1.0,0.84,-7.1
+LD,Cruzamentos/90,7,29,2.77,3.15,3.63,3.16,-0.3
+LD,Cruzamentos certos %,7,29,29.22,37.79,40.25,35.54,6.3
+LD,Passes recebidos/90,7,29,23.56,26.24,29.76,25.85,1.5
+LD,Recepções em profundidade/90,7,29,0.32,0.39,0.62,0.4,-2.5
+LD,Ações defensivas c/ êxito/90,7,29,7.26,8.72,9.32,8.51,2.5
+LD,Duelos defensivos/90,7,29,5.48,6.11,6.56,6.79,-10.0
+LD,Duelos defensivos ganhos %,7,29,58.31,59.57,63.24,62.03,-4.0
+LD,Duelos aéreos ganhos %,7,29,45.64,52.45,53.62,47.54,10.3
+LD,Desarmes/90,7,29,0.14,0.16,0.42,0.27,-40.7
+LD,Desarmes ajust. posse,7,29,0.19,0.21,0.66,0.37,-43.2
+LD,Interceptações/90,7,29,3.72,4.59,5.05,3.96,15.9
+LD,Interceptações ajust. posse,7,29,5.66,6.92,6.94,5.42,27.7
+LD,Bloqueios/90,7,29,0.17,0.2,0.26,0.21,-4.8
+LD,Faltas/90,7,29,0.75,0.91,1.14,1.13,-19.5
+LD,Amarelos/90,7,29,0.12,0.15,0.2,0.17,-11.8
+LD,Gols de cabeça/90,7,29,0.0,0.0,0.02,0.0,
+LD,Faltas sofridas/90,7,29,0.98,1.24,1.38,0.91,36.3
+ZD,Gols/90,21,34,0.03,0.05,0.09,0.04,25.0
+ZD,xG/90,21,34,0.04,0.05,0.07,0.05,0.0
+ZD,Assistências/90,21,34,0.0,0.03,0.04,0.0,
+ZD,xA/90,21,34,0.0,0.01,0.02,0.01,0.0
+ZD,Finalizações/90,21,34,0.29,0.43,0.68,0.32,34.4
+ZD,Finalizações no alvo %,21,34,27.78,31.25,41.67,28.57,9.4
+ZD,Conversão %,21,34,5.56,15.0,18.75,11.56,29.8
+ZD,Toques na área/90,21,34,0.36,0.5,0.68,0.48,3.1
+ZD,Corridas progressivas/90,21,34,0.37,0.87,1.48,0.67,29.9
+ZD,Acelerações c/ bola/90,21,34,0.0,0.04,0.12,0.03,33.3
+ZD,Dribles/90,21,34,0.14,0.32,0.55,0.22,42.2
+ZD,Dribles certos %,21,34,60.0,66.67,77.78,65.16,2.3
+ZD,Duelos ofensivos/90,21,34,0.73,1.07,1.57,0.91,17.6
+ZD,Duelos ofensivos ganhos %,21,34,46.15,52.38,57.14,52.68,-0.6
+ZD,Passes/90,21,34,35.99,39.35,47.44,39.93,-1.5
+ZD,Passes certos %,21,34,83.65,85.44,88.64,87.72,-2.6
+ZD,Passes p/ frente/90,21,34,15.36,16.89,18.85,16.12,4.8
+ZD,Passes p/ frente certos %,21,34,71.04,74.55,78.04,75.6,-1.4
+ZD,Passes longos/90,21,34,5.06,6.43,7.66,5.7,12.9
+ZD,Passes longos certos %,21,34,49.57,52.12,56.57,52.6,-0.9
+ZD,Passes progressivos/90,21,34,6.72,8.01,9.47,7.08,13.1
+ZD,Passes progressivos certos %,21,34,65.22,74.65,77.81,69.16,7.9
+ZD,Passes terço final/90,21,34,4.08,5.71,6.64,4.78,19.6
+ZD,Passes terço final certos %,21,34,57.4,66.78,68.48,66.78,0.0
+ZD,Passes p/ área/90,21,34,0.4,0.59,0.88,0.42,42.2
+ZD,Passes inteligentes/90,21,34,0.0,0.05,0.09,0.0,
+ZD,Passes chave/90,21,34,0.03,0.05,0.07,0.03,66.7
+ZD,Passes em profundidade/90,21,34,0.25,0.34,0.62,0.27,25.9
+ZD,Passes p/ finalização/90,21,34,0.06,0.11,0.14,0.08,29.4
+ZD,Cruzamentos/90,21,34,0.0,0.09,0.2,0.08,12.5
+ZD,Cruzamentos certos %,21,34,0.0,12.5,25.0,31.66,-60.5
+ZD,Passes recebidos/90,21,34,21.69,26.51,34.44,25.44,4.2
+ZD,Recepções em profundidade/90,21,34,0.11,0.15,0.23,0.11,42.9
+ZD,Ações defensivas c/ êxito/90,21,34,7.06,8.41,8.85,8.23,2.2
+ZD,Duelos defensivos/90,21,34,3.66,4.32,5.31,4.31,0.2
+ZD,Duelos defensivos ganhos %,21,34,65.19,67.24,71.27,68.1,-1.3
+ZD,Duelos aéreos ganhos %,21,34,58.65,62.35,65.89,62.83,-0.8
+ZD,Desarmes/90,21,34,0.05,0.18,0.26,0.24,-23.4
+ZD,Desarmes ajust. posse,21,34,0.07,0.29,0.41,0.34,-14.7
+ZD,Interceptações/90,21,34,4.05,4.97,5.19,5.03,-1.1
+ZD,Interceptações ajust. posse,21,34,5.82,6.74,7.32,6.85,-1.6
+ZD,Bloqueios/90,21,34,0.43,0.57,0.64,0.65,-12.3
+ZD,Faltas/90,21,34,0.53,0.8,1.0,0.88,-9.1
+ZD,Amarelos/90,21,34,0.12,0.14,0.18,0.16,-12.5
+ZD,Gols de cabeça/90,21,34,0.03,0.03,0.06,0.03,0.0
+ZD,Faltas sofridas/90,21,34,0.29,0.4,0.72,0.42,-4.8
+ZE,Gols/90,18,36,0.0,0.03,0.07,0.03,0.0
+ZE,xG/90,18,36,0.05,0.08,0.09,0.04,87.5
+ZE,Assistências/90,18,36,0.0,0.0,0.03,0.0,
+ZE,xA/90,18,36,0.0,0.01,0.02,0.01,0.0
+ZE,Finalizações/90,18,36,0.35,0.5,0.6,0.32,58.7
+ZE,Finalizações no alvo %,18,36,25.0,33.41,48.22,27.92,19.7
+ZE,Conversão %,18,36,0.81,8.89,13.35,8.33,6.7
+ZE,Toques na área/90,18,36,0.47,0.56,0.7,0.46,22.8
+ZE,Corridas progressivas/90,18,36,0.39,0.92,1.18,0.68,37.0
+ZE,Acelerações c/ bola/90,18,36,0.03,0.06,0.14,0.04,85.7
+ZE,Dribles/90,18,36,0.18,0.31,0.5,0.2,55.0
+ZE,Dribles certos %,18,36,59.12,63.96,74.43,66.67,-4.1
+ZE,Duelos ofensivos/90,18,36,0.72,1.16,1.75,0.91,28.0
+ZE,Duelos ofensivos ganhos %,18,36,41.39,46.9,51.01,53.71,-12.7
+ZE,Passes/90,18,36,35.44,42.54,47.1,40.83,4.2
+ZE,Passes certos %,18,36,84.79,85.84,86.64,88.79,-3.3
+ZE,Passes p/ frente/90,18,36,13.58,17.84,19.55,16.24,9.9
+ZE,Passes p/ frente certos %,18,36,71.37,73.62,76.29,77.2,-4.6
+ZE,Passes longos/90,18,36,4.93,6.57,7.19,4.96,32.5
+ZE,Passes longos certos %,18,36,49.44,51.5,54.36,52.92,-2.7
+ZE,Passes progressivos/90,18,36,6.0,8.14,9.14,6.78,20.1
+ZE,Passes progressivos certos %,18,36,64.03,67.36,72.92,70.93,-5.0
+ZE,Passes terço final/90,18,36,4.48,5.78,6.21,4.48,29.1
+ZE,Passes terço final certos %,18,36,58.41,64.0,68.21,68.47,-6.5
+ZE,Passes p/ área/90,18,36,0.27,0.55,0.86,0.4,37.0
+ZE,Passes inteligentes/90,18,36,0.0,0.02,0.06,0.0,
+ZE,Passes chave/90,18,36,0.03,0.03,0.06,0.0,
+ZE,Passes em profundidade/90,18,36,0.22,0.36,0.48,0.28,28.6
+ZE,Passes p/ finalização/90,18,36,0.08,0.15,0.21,0.08,87.5
+ZE,Cruzamentos/90,18,36,0.03,0.11,0.32,0.08,31.3
+ZE,Cruzamentos certos %,18,36,0.0,22.5,33.33,8.34,169.9
+ZE,Passes recebidos/90,18,36,24.05,29.48,32.78,27.12,8.7
+ZE,Recepções em profundidade/90,18,36,0.07,0.12,0.17,0.12,0.0
+ZE,Ações defensivas c/ êxito/90,18,36,7.36,7.6,8.06,7.52,1.1
+ZE,Duelos defensivos/90,18,36,4.09,4.54,5.36,4.3,5.6
+ZE,Duelos defensivos ganhos %,18,36,64.36,65.44,70.1,68.86,-5.0
+ZE,Duelos aéreos ganhos %,18,36,59.71,63.36,65.25,61.69,2.7
+ZE,Desarmes/90,18,36,0.12,0.2,0.27,0.14,44.4
+ZE,Desarmes ajust. posse,18,36,0.16,0.27,0.34,0.2,35.0
+ZE,Interceptações/90,18,36,3.99,4.47,4.87,4.41,1.4
+ZE,Interceptações ajust. posse,18,36,5.61,5.98,6.77,6.08,-1.7
+ZE,Bloqueios/90,18,36,0.4,0.5,0.55,0.66,-24.4
+ZE,Faltas/90,18,36,0.75,1.06,1.31,0.73,45.9
+ZE,Amarelos/90,18,36,0.12,0.18,0.26,0.16,19.4
+ZE,Gols de cabeça/90,18,36,0.0,0.0,0.04,0.02,-100.0
+ZE,Faltas sofridas/90,18,36,0.24,0.48,0.58,0.44,6.7
+LE,Gols/90,13,34,0.03,0.07,0.09,0.0,
+LE,xG/90,13,34,0.04,0.05,0.09,0.03,66.7
+LE,Assistências/90,13,34,0.03,0.04,0.08,0.06,-27.3
+LE,xA/90,13,34,0.05,0.08,0.09,0.07,14.3
+LE,Finalizações/90,13,34,0.51,0.74,0.93,0.58,27.6
+LE,Finalizações no alvo %,13,34,26.92,30.77,41.18,24.57,25.2
+LE,Conversão %,13,34,5.26,7.69,11.76,0.0,
+LE,Toques na área/90,13,34,0.45,0.89,1.18,0.68,30.9
+LE,Corridas progressivas/90,13,34,1.42,1.5,1.98,1.27,18.6
+LE,Acelerações c/ bola/90,13,34,0.36,0.46,0.52,0.34,35.3
+LE,Dribles/90,13,34,1.37,1.62,2.16,1.65,-1.8
+LE,Dribles certos %,13,34,47.62,54.44,63.83,57.79,-5.8
+LE,Duelos ofensivos/90,13,34,2.67,3.93,4.49,3.82,2.7
+LE,Duelos ofensivos ganhos %,13,34,40.74,42.57,48.25,47.0,-9.4
+LE,Passes/90,13,34,31.91,37.46,38.7,37.25,0.6
+LE,Passes certos %,13,34,75.1,78.32,79.7,78.9,-0.7
+LE,Passes p/ frente/90,13,34,12.09,14.37,16.58,15.78,-9.0
+LE,Passes p/ frente certos %,13,34,66.47,71.01,75.54,71.52,-0.7
+LE,Passes longos/90,13,34,4.08,4.4,5.14,4.14,6.3
+LE,Passes longos certos %,13,34,44.26,49.61,53.66,46.46,6.8
+LE,Passes progressivos/90,13,34,7.24,8.08,9.24,8.24,-1.9
+LE,Passes progressivos certos %,13,34,73.33,75.78,76.98,71.72,5.7
+LE,Passes terço final/90,13,34,4.46,4.91,5.71,5.48,-10.3
+LE,Passes terço final certos %,13,34,61.82,69.62,72.33,68.12,2.2
+LE,Passes p/ área/90,13,34,2.11,2.69,3.54,2.6,3.3
+LE,Passes inteligentes/90,13,34,0.03,0.08,0.22,0.1,-15.8
+LE,Passes chave/90,13,34,0.25,0.33,0.38,0.3,8.2
+LE,Passes em profundidade/90,13,34,0.26,0.36,0.56,0.36,-1.4
+LE,Passes p/ finalização/90,13,34,0.69,0.9,1.11,0.72,25.0
+LE,Cruzamentos/90,13,34,2.06,3.11,3.28,2.86,8.9
+LE,Cruzamentos certos %,13,34,33.33,35.56,40.38,35.25,0.9
+LE,Passes recebidos/90,13,34,21.71,25.75,29.22,26.54,-3.0
+LE,Recepções em profundidade/90,13,34,0.24,0.4,0.51,0.36,11.1
+LE,Ações defensivas c/ êxito/90,13,34,7.25,7.83,8.17,8.27,-5.3
+LE,Duelos defensivos/90,13,34,5.54,6.13,6.67,6.5,-5.7
+LE,Duelos defensivos ganhos %,13,34,58.72,60.66,61.96,63.78,-4.9
+LE,Duelos aéreos ganhos %,13,34,44.23,50.0,55.24,51.67,-3.2
+LE,Desarmes/90,13,34,0.03,0.18,0.29,0.22,-20.0
+LE,Desarmes ajust. posse,13,34,0.04,0.26,0.4,0.34,-23.5
+LE,Interceptações/90,13,34,3.32,3.69,3.91,4.32,-14.6
+LE,Interceptações ajust. posse,13,34,5.06,5.34,5.8,5.76,-7.3
+LE,Bloqueios/90,13,34,0.14,0.18,0.29,0.26,-29.4
+LE,Faltas/90,13,34,0.72,0.92,1.21,1.04,-11.1
+LE,Amarelos/90,13,34,0.1,0.15,0.18,0.16,-6.3
+LE,Gols de cabeça/90,13,34,0.0,0.0,0.03,0.0,
+LE,Faltas sofridas/90,13,34,0.33,0.58,0.94,0.76,-23.2
+VOL,Gols/90,8,36,0.02,0.07,0.1,0.04,75.0
+VOL,xG/90,8,36,0.02,0.04,0.05,0.04,-12.5
+VOL,Assistências/90,8,36,0.0,0.0,0.03,0.0,
+VOL,xA/90,8,36,0.03,0.03,0.05,0.02,50.0
+VOL,Finalizações/90,8,36,0.48,0.6,0.66,0.72,-16.1
+VOL,Finalizações no alvo %,8,36,25.82,28.57,33.08,26.38,8.3
+VOL,Conversão %,8,36,3.57,10.4,17.31,5.26,97.7
+VOL,Toques na área/90,8,36,0.4,0.57,0.71,0.44,29.5
+VOL,Corridas progressivas/90,8,36,0.29,0.5,1.19,0.63,-19.8
+VOL,Acelerações c/ bola/90,8,36,0.06,0.12,0.28,0.11,9.5
+VOL,Dribles/90,8,36,0.5,0.78,1.07,0.92,-15.1
+VOL,Dribles certos %,8,36,57.17,60.38,67.97,59.41,1.6
+VOL,Duelos ofensivos/90,8,36,2.6,3.11,4.35,3.3,-5.6
+VOL,Duelos ofensivos ganhos %,8,36,41.18,46.82,50.66,48.62,-3.7
+VOL,Passes/90,8,36,35.05,40.72,45.79,40.5,0.6
+VOL,Passes certos %,8,36,84.55,86.75,88.35,85.02,2.0
+VOL,Passes p/ frente/90,8,36,11.54,12.74,13.21,13.16,-3.2
+VOL,Passes p/ frente certos %,8,36,71.81,76.62,79.39,73.54,4.2
+VOL,Passes longos/90,8,36,2.38,3.02,4.01,3.94,-23.6
+VOL,Passes longos certos %,8,36,47.68,57.86,67.89,57.62,0.4
+VOL,Passes progressivos/90,8,36,5.55,5.88,6.72,6.36,-7.5
+VOL,Passes progressivos certos %,8,36,74.11,76.89,80.2,75.68,1.6
+VOL,Passes terço final/90,8,36,5.67,6.1,7.3,6.92,-11.8
+VOL,Passes terço final certos %,8,36,73.44,77.57,80.44,72.74,6.6
+VOL,Passes p/ área/90,8,36,0.9,1.14,1.22,1.02,12.3
+VOL,Passes inteligentes/90,8,36,0.09,0.18,0.18,0.1,75.0
+VOL,Passes chave/90,8,36,0.04,0.11,0.15,0.09,22.2
+VOL,Passes em profundidade/90,8,36,0.2,0.3,0.42,0.4,-25.3
+VOL,Passes p/ finalização/90,8,36,0.39,0.46,0.56,0.46,2.2
+VOL,Cruzamentos/90,8,36,0.25,0.32,1.1,0.44,-28.4
+VOL,Cruzamentos certos %,8,36,25.69,33.85,43.64,38.46,-12.0
+VOL,Passes recebidos/90,8,36,21.97,27.16,32.09,27.4,-0.9
+VOL,Recepções em profundidade/90,8,36,0.18,0.32,0.44,0.36,-11.3
+VOL,Ações defensivas c/ êxito/90,8,36,8.18,8.46,8.82,9.6,-11.9
+VOL,Duelos defensivos/90,8,36,5.99,6.4,7.4,7.12,-10.0
+VOL,Duelos defensivos ganhos %,8,36,55.72,57.7,59.86,59.77,-3.5
+VOL,Duelos aéreos ganhos %,8,36,50.93,53.9,57.73,48.46,11.2
+VOL,Desarmes/90,8,36,0.21,0.3,0.45,0.42,-28.9
+VOL,Desarmes ajust. posse,8,36,0.26,0.39,0.61,0.57,-31.6
+VOL,Interceptações/90,8,36,4.0,4.18,4.47,4.63,-9.7
+VOL,Interceptações ajust. posse,8,36,5.43,5.54,5.75,6.38,-13.0
+VOL,Bloqueios/90,8,36,0.16,0.24,0.27,0.37,-33.8
+VOL,Faltas/90,8,36,1.32,1.48,1.6,1.5,-2.0
+VOL,Amarelos/90,8,36,0.17,0.22,0.26,0.26,-17.0
+VOL,Gols de cabeça/90,8,36,0.0,0.0,0.03,0.0,
+VOL,Faltas sofridas/90,8,36,0.71,0.9,1.33,1.05,-14.3
+MED,Gols/90,22,36,0.0,0.03,0.1,0.06,-50.0
+MED,xG/90,22,36,0.04,0.08,0.1,0.07,7.1
+MED,Assistências/90,22,36,0.03,0.06,0.1,0.04,50.0
+MED,xA/90,22,36,0.04,0.07,0.12,0.04,75.0
+MED,Finalizações/90,22,36,0.82,1.14,1.47,0.92,22.7
+MED,Finalizações no alvo %,22,36,19.47,29.08,31.5,26.68,9.0
+MED,Conversão %,22,36,0.0,3.59,7.12,5.56,-35.4
+MED,Toques na área/90,22,36,0.54,0.85,1.18,0.65,30.8
+MED,Corridas progressivas/90,22,36,0.58,0.71,1.12,0.84,-15.0
+MED,Acelerações c/ bola/90,22,36,0.08,0.18,0.37,0.13,38.5
+MED,Dribles/90,22,36,1.02,1.3,1.74,1.01,28.7
+MED,Dribles certos %,22,36,47.75,53.88,61.76,56.44,-4.5
+MED,Duelos ofensivos/90,22,36,3.76,4.54,5.77,4.33,5.0
+MED,Duelos ofensivos ganhos %,22,36,40.9,43.13,50.2,45.1,-4.4
+MED,Passes/90,22,36,29.64,33.52,40.1,37.61,-10.9
+MED,Passes certos %,22,36,80.91,84.25,85.31,85.54,-1.5
+MED,Passes p/ frente/90,22,36,9.3,9.94,12.82,11.73,-15.2
+MED,Passes p/ frente certos %,22,36,68.51,72.49,74.86,74.56,-2.8
+MED,Passes longos/90,22,36,2.72,3.48,3.98,3.0,16.4
+MED,Passes longos certos %,22,36,50.71,55.2,57.79,56.9,-3.0
+MED,Passes progressivos/90,22,36,4.69,5.54,6.45,5.51,0.5
+MED,Passes progressivos certos %,22,36,73.97,76.29,78.15,76.96,-0.9
+MED,Passes terço final/90,22,36,4.87,6.3,7.56,5.86,7.4
+MED,Passes terço final certos %,22,36,71.1,73.8,74.97,75.32,-2.0
+MED,Passes p/ área/90,22,36,1.1,1.58,1.92,1.36,16.2
+MED,Passes inteligentes/90,22,36,0.07,0.16,0.31,0.16,-3.0
+MED,Passes chave/90,22,36,0.08,0.22,0.29,0.14,60.7
+MED,Passes em profundidade/90,22,36,0.35,0.48,0.74,0.38,28.0
+MED,Passes p/ finalização/90,22,36,0.47,0.77,1.31,0.62,23.2
+MED,Cruzamentos/90,22,36,0.54,1.02,1.35,0.56,79.6
+MED,Cruzamentos certos %,22,36,28.66,32.6,41.3,31.58,3.2
+MED,Passes recebidos/90,22,36,19.34,22.38,27.94,25.82,-13.3
+MED,Recepções em profundidade/90,22,36,0.35,0.47,0.64,0.38,25.3
+MED,Ações defensivas c/ êxito/90,22,36,6.78,7.43,8.22,7.44,-0.2
+MED,Duelos defensivos/90,22,36,5.07,6.4,7.15,6.37,0.5
+MED,Duelos defensivos ganhos %,22,36,55.62,59.03,62.19,58.87,0.3
+MED,Duelos aéreos ganhos %,22,36,33.73,41.74,48.81,47.17,-11.5
+MED,Desarmes/90,22,36,0.2,0.25,0.38,0.28,-9.1
+MED,Desarmes ajust. posse,22,36,0.27,0.36,0.53,0.38,-5.3
+MED,Interceptações/90,22,36,2.93,3.52,3.74,3.42,2.8
+MED,Interceptações ajust. posse,22,36,3.9,5.16,5.54,4.73,9.0
+MED,Bloqueios/90,22,36,0.17,0.22,0.35,0.26,-15.7
+MED,Faltas/90,22,36,0.96,1.23,1.7,1.38,-11.6
+MED,Amarelos/90,22,36,0.11,0.2,0.25,0.18,10.8
+MED,Gols de cabeça/90,22,36,0.0,0.0,0.0,0.0,
+MED,Faltas sofridas/90,22,36,0.72,1.04,1.36,1.08,-4.2
+ED,Gols/90,11,17,0.08,0.12,0.16,0.14,-14.3
+ED,xG/90,11,17,0.11,0.15,0.19,0.13,15.4
+ED,Assistências/90,11,17,0.04,0.06,0.16,0.13,-53.8
+ED,xA/90,11,17,0.06,0.1,0.18,0.12,-16.7
+ED,Finalizações/90,11,17,1.11,1.73,2.18,1.95,-11.3
+ED,Finalizações no alvo %,11,17,28.94,29.85,31.48,39.02,-23.5
+ED,Conversão %,11,17,5.34,7.69,9.82,7.32,5.1
+ED,Toques na área/90,11,17,1.52,2.02,2.68,2.34,-13.7
+ED,Corridas progressivas/90,11,17,1.18,1.86,2.4,2.45,-24.1
+ED,Acelerações c/ bola/90,11,17,0.34,0.48,0.76,0.59,-18.6
+ED,Dribles/90,11,17,2.32,3.76,5.46,4.56,-17.5
+ED,Dribles certos %,11,17,45.24,50.0,56.95,60.0,-16.7
+ED,Duelos ofensivos/90,11,17,7.8,9.42,12.54,11.63,-19.0
+ED,Duelos ofensivos ganhos %,11,17,39.97,41.4,43.22,45.52,-9.1
+ED,Passes/90,11,17,22.44,26.76,29.74,26.15,2.3
+ED,Passes certos %,11,17,73.26,78.07,82.44,76.75,1.7
+ED,Passes p/ frente/90,11,17,5.44,6.62,8.52,6.63,-0.2
+ED,Passes p/ frente certos %,11,17,63.5,69.29,71.79,67.72,2.3
+ED,Passes longos/90,11,17,1.32,1.72,3.23,1.53,12.4
+ED,Passes longos certos %,11,17,51.14,53.57,58.92,55.56,-3.6
+ED,Passes progressivos/90,11,17,4.0,4.46,5.04,4.42,0.9
+ED,Passes progressivos certos %,11,17,73.04,79.69,84.99,76.67,3.9
+ED,Passes terço final/90,11,17,2.24,3.27,3.8,2.42,35.1
+ED,Passes terço final certos %,11,17,67.54,70.71,72.77,72.73,-2.8
+ED,Passes p/ área/90,11,17,2.07,2.69,3.22,2.93,-8.2
+ED,Passes inteligentes/90,11,17,0.16,0.4,0.51,0.3,33.3
+ED,Passes chave/90,11,17,0.29,0.34,0.53,0.41,-17.1
+ED,Passes em profundidade/90,11,17,0.32,0.54,0.72,0.53,1.9
+ED,Passes p/ finalização/90,11,17,0.9,1.03,1.38,1.05,-1.9
+ED,Cruzamentos/90,11,17,1.94,2.24,2.87,2.16,3.7
+ED,Cruzamentos certos %,11,17,27.74,34.25,47.22,31.0,10.5
+ED,Passes recebidos/90,11,17,15.68,18.22,22.31,20.75,-12.2
+ED,Recepções em profundidade/90,11,17,0.6,0.82,1.23,0.92,-10.9
+ED,Ações defensivas c/ êxito/90,11,17,4.1,5.95,7.14,4.85,22.7
+ED,Duelos defensivos/90,11,17,4.16,5.17,6.38,4.71,9.8
+ED,Duelos defensivos ganhos %,11,17,56.39,59.34,62.21,55.81,6.3
+ED,Duelos aéreos ganhos %,11,17,27.35,32.0,35.39,32.35,-1.1
+ED,Desarmes/90,11,17,0.12,0.24,0.32,0.21,14.3
+ED,Desarmes ajust. posse,11,17,0.18,0.36,0.42,0.29,24.1
+ED,Interceptações/90,11,17,1.58,2.06,2.98,2.22,-7.2
+ED,Interceptações ajust. posse,11,17,2.38,2.86,4.36,3.22,-11.2
+ED,Bloqueios/90,11,17,0.04,0.07,0.08,0.09,-22.2
+ED,Faltas/90,11,17,0.67,1.42,1.68,1.0,42.0
+ED,Amarelos/90,11,17,0.13,0.18,0.26,0.17,5.9
+ED,Gols de cabeça/90,11,17,0.0,0.0,0.02,0.0,
+ED,Faltas sofridas/90,11,17,1.58,1.76,2.2,1.85,-4.9
+EE,Gols/90,8,15,0.18,0.26,0.29,0.18,44.4
+EE,xG/90,8,15,0.19,0.24,0.25,0.17,38.2
+EE,Assistências/90,8,15,0.07,0.09,0.12,0.1,-10.0
+EE,xA/90,8,15,0.09,0.1,0.14,0.12,-16.7
+EE,Finalizações/90,8,15,1.64,1.92,2.11,2.0,-3.7
+EE,Finalizações no alvo %,8,15,37.22,38.67,41.33,35.29,9.6
+EE,Conversão %,8,15,11.3,12.7,14.26,10.0,27.0
+EE,Toques na área/90,8,15,2.51,2.82,2.92,2.57,9.9
+EE,Corridas progressivas/90,8,15,1.24,1.59,2.14,2.22,-28.4
+EE,Acelerações c/ bola/90,8,15,0.46,0.59,0.81,0.5,18.0
+EE,Dribles/90,8,15,2.57,3.46,4.2,4.16,-16.8
+EE,Dribles certos %,8,15,46.5,53.04,56.28,51.4,3.2
+EE,Duelos ofensivos/90,8,15,7.2,8.98,10.95,10.87,-17.4
+EE,Duelos ofensivos ganhos %,8,15,35.78,42.28,46.2,40.61,4.1
+EE,Passes/90,8,15,20.27,22.6,24.13,25.64,-11.8
+EE,Passes certos %,8,15,70.37,73.21,79.46,75.65,-3.2
+EE,Passes p/ frente/90,8,15,4.33,5.3,6.63,5.6,-5.4
+EE,Passes p/ frente certos %,8,15,59.75,62.19,68.25,63.91,-2.7
+EE,Passes longos/90,8,15,1.02,1.16,1.44,1.94,-40.2
+EE,Passes longos certos %,8,15,48.27,50.0,54.51,56.1,-10.9
+EE,Passes progressivos/90,8,15,2.81,3.12,4.0,3.62,-13.8
+EE,Passes progressivos certos %,8,15,68.2,75.5,80.63,77.6,-2.7
+EE,Passes terço final/90,8,15,1.72,2.06,2.4,2.51,-17.9
+EE,Passes terço final certos %,8,15,60.39,62.2,66.12,65.41,-4.9
+EE,Passes p/ área/90,8,15,1.72,1.97,2.44,2.58,-23.6
+EE,Passes inteligentes/90,8,15,0.26,0.32,0.43,0.24,35.4
+EE,Passes chave/90,8,15,0.28,0.42,0.5,0.44,-5.7
+EE,Passes em profundidade/90,8,15,0.28,0.34,0.62,0.4,-15.0
+EE,Passes p/ finalização/90,8,15,0.79,0.95,1.06,1.03,-7.8
+EE,Cruzamentos/90,8,15,1.85,1.99,2.6,2.62,-24.0
+EE,Cruzamentos certos %,8,15,27.58,32.23,37.3,31.58,2.1
+EE,Passes recebidos/90,8,15,15.02,16.8,19.18,18.97,-11.5
+EE,Recepções em profundidade/90,8,15,0.64,0.79,0.9,0.86,-8.1
+EE,Ações defensivas c/ êxito/90,8,15,4.62,5.09,6.1,4.94,3.0
+EE,Duelos defensivos/90,8,15,4.01,5.44,6.24,4.72,15.3
+EE,Duelos defensivos ganhos %,8,15,52.36,54.56,55.9,56.91,-4.1
+EE,Duelos aéreos ganhos %,8,15,26.32,37.6,41.21,33.33,12.8
+EE,Desarmes/90,8,15,0.03,0.07,0.3,0.07,0.0
+EE,Desarmes ajust. posse,8,15,0.04,0.1,0.44,0.1,0.0
+EE,Interceptações/90,8,15,1.96,2.21,2.49,2.36,-6.4
+EE,Interceptações ajust. posse,8,15,2.64,3.1,3.63,3.24,-4.2
+EE,Bloqueios/90,8,15,0.03,0.05,0.09,0.08,-37.5
+EE,Faltas/90,8,15,1.05,1.44,1.5,0.81,78.4
+EE,Amarelos/90,8,15,0.12,0.15,0.16,0.13,11.5
+EE,Gols de cabeça/90,8,15,0.0,0.06,0.09,0.0,
+EE,Faltas sofridas/90,8,15,1.5,1.8,2.3,1.42,27.1
+CA,Gols/90,13,20,0.24,0.29,0.37,0.28,3.6
+CA,xG/90,13,20,0.22,0.34,0.4,0.3,11.5
+CA,Assistências/90,13,20,0.06,0.07,0.12,0.09,-22.2
+CA,xA/90,13,20,0.05,0.07,0.1,0.06,16.7
+CA,Finalizações/90,13,20,1.7,1.89,2.25,1.91,-1.0
+CA,Finalizações no alvo %,13,20,36.84,42.86,44.16,41.73,2.7
+CA,Conversão %,13,20,12.5,18.18,20.0,15.33,18.6
+CA,Toques na área/90,13,20,2.48,2.89,3.37,2.58,12.2
+CA,Corridas progressivas/90,13,20,0.47,0.7,0.79,0.56,23.9
+CA,Acelerações c/ bola/90,13,20,0.15,0.2,0.31,0.11,81.8
+CA,Dribles/90,13,20,1.31,1.58,2.63,1.41,12.1
+CA,Dribles certos %,13,20,39.62,43.68,52.34,53.75,-18.7
+CA,Duelos ofensivos/90,13,20,6.14,7.12,8.72,7.34,-2.9
+CA,Duelos ofensivos ganhos %,13,20,29.27,31.09,36.43,34.22,-9.1
+CA,Passes/90,13,20,13.69,15.35,19.34,19.01,-19.3
+CA,Passes certos %,13,20,73.46,75.2,78.95,77.04,-2.4
+CA,Passes p/ frente/90,13,20,2.77,3.86,5.1,4.72,-18.3
+CA,Passes p/ frente certos %,13,20,55.81,61.46,68.75,58.14,5.7
+CA,Passes longos/90,13,20,0.62,0.82,1.44,0.78,5.1
+CA,Passes longos certos %,13,20,50.0,54.24,61.9,55.14,-1.6
+CA,Passes progressivos/90,13,20,1.24,1.69,2.45,2.37,-28.7
+CA,Passes progressivos certos %,13,20,64.71,70.59,80.0,74.74,-5.5
+CA,Passes terço final/90,13,20,1.37,1.88,2.23,1.8,4.7
+CA,Passes terço final certos %,13,20,61.11,66.67,70.97,62.76,6.2
+CA,Passes p/ área/90,13,20,0.87,1.07,2.01,1.42,-24.6
+CA,Passes inteligentes/90,13,20,0.18,0.3,0.5,0.16,87.5
+CA,Passes chave/90,13,20,0.26,0.32,0.43,0.3,4.9
+CA,Passes em profundidade/90,13,20,0.25,0.35,0.65,0.24,48.9
+CA,Passes p/ finalização/90,13,20,0.58,0.74,0.87,0.72,3.5
+CA,Cruzamentos/90,13,20,0.4,0.63,1.07,0.8,-21.3
+CA,Cruzamentos certos %,13,20,22.22,25.93,41.07,27.12,-4.4
+CA,Passes recebidos/90,13,20,9.82,10.33,12.05,13.82,-25.3
+CA,Recepções em profundidade/90,13,20,0.46,0.66,0.91,0.64,2.3
+CA,Ações defensivas c/ êxito/90,13,20,2.37,3.06,3.73,3.36,-9.1
+CA,Duelos defensivos/90,13,20,1.95,3.03,3.75,3.18,-4.7
+CA,Duelos defensivos ganhos %,13,20,48.42,50.63,56.0,53.28,-5.0
+CA,Duelos aéreos ganhos %,13,20,28.15,30.88,31.37,32.42,-4.8
+CA,Desarmes/90,13,20,0.06,0.11,0.18,0.13,-15.4
+CA,Desarmes ajust. posse,13,20,0.09,0.17,0.26,0.18,-8.1
+CA,Interceptações/90,13,20,1.2,1.47,1.9,1.56,-5.8
+CA,Interceptações ajust. posse,13,20,2.01,2.36,2.73,2.38,-0.8
+CA,Bloqueios/90,13,20,0.06,0.08,0.11,0.04,128.6
+CA,Faltas/90,13,20,0.63,0.92,1.55,1.08,-14.4
+CA,Amarelos/90,13,20,0.08,0.1,0.19,0.16,-39.4
+CA,Gols de cabeça/90,13,20,0.04,0.04,0.06,0.04,0.0
+CA,Faltas sofridas/90,13,20,1.03,1.38,1.51,1.49,-7.4

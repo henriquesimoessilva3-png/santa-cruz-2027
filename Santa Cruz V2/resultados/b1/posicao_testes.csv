@@ -1,0 +1,103 @@
+setor,id,nome,n,n_ref,r,ic_baixo,ic_alto,p_boot
+Atacante,dist,Distância por 90,28,10,0.189,-0.157,0.461,0.1175
+Atacante,hsr,Alta velocidade por 90,28,10,0.068,-0.314,0.415,0.3835
+Atacante,spr_d,Sprint por 90,28,10,0.28,-0.074,0.638,0.0595
+Atacante,spr_n,Sprints por 90,28,10,0.219,-0.147,0.554,0.12
+Atacante,hi_n,Ações de alta intensidade por 90,28,10,0.166,-0.193,0.499,0.1925
+Atacante,acc,Acelerações fortes por 90,28,10,-0.034,-0.401,0.389,0.435
+Atacante,expl,Arrancadas explosivas por 90,28,10,0.116,-0.254,0.502,0.284
+Atacante,psv,Velocidade de pico (PSV-99),28,10,0.23,-0.111,0.561,0.098
+Atacante,spr_otip,Sprint por 30 min SEM a bola,28,10,0.169,-0.208,0.517,0.1825
+Atacante,spr_tip,Sprint por 30 min COM a bola,28,10,0.256,-0.107,0.618,0.0895
+Atacante,hsr_otip,Alta velocidade por 30 min SEM a bola,28,10,-0.129,-0.516,0.22,0.2385
+Atacante,hsr_tip,Alta velocidade por 30 min COM a bola,28,10,0.17,-0.219,0.535,0.205
+Atacante,runs,Corridas sem bola por 30 min com posse,28,10,0.197,-0.127,0.47,0.1145
+Atacante,runs_area,Corridas para a área por 30 min com posse,28,10,0.404,0.115,0.647,0.0055
+Atacante,runs_per,Corridas perigosas por 30 min com posse,28,10,0.365,-0.002,0.648,0.0255
+Atacante,cod,Mudanças de direção por 90,28,10,0.299,0.001,0.555,0.025
+Atacante,t_spr,PSV-99 média dos 5 melhores jogos,28,10,0.247,-0.077,0.519,0.061
+Extremo,dist,Distância por 90,46,17,-0.142,-0.418,0.157,0.164
+Extremo,hsr,Alta velocidade por 90,46,17,0.01,-0.273,0.309,0.48
+Extremo,spr_d,Sprint por 90,46,17,-0.166,-0.35,0.078,0.072
+Extremo,spr_n,Sprints por 90,46,17,-0.176,-0.354,0.056,0.0605
+Extremo,hi_n,Ações de alta intensidade por 90,46,17,-0.14,-0.403,0.194,0.1985
+Extremo,acc,Acelerações fortes por 90,46,17,-0.143,-0.423,0.169,0.2015
+Extremo,expl,Arrancadas explosivas por 90,46,17,-0.098,-0.321,0.157,0.2415
+Extremo,psv,Velocidade de pico (PSV-99),46,17,-0.194,-0.424,0.099,0.077
+Extremo,spr_otip,Sprint por 30 min SEM a bola,46,17,-0.389,-0.577,-0.191,0.0005
+Extremo,spr_tip,Sprint por 30 min COM a bola,46,17,-0.044,-0.296,0.225,0.355
+Extremo,hsr_otip,Alta velocidade por 30 min SEM a bola,46,17,-0.122,-0.349,0.122,0.1695
+Extremo,hsr_tip,Alta velocidade por 30 min COM a bola,46,17,-0.002,-0.317,0.306,0.4755
+Extremo,runs,Corridas sem bola por 30 min com posse,46,17,-0.058,-0.29,0.197,0.3025
+Extremo,runs_area,Corridas para a área por 30 min com posse,46,17,0.12,-0.192,0.389,0.23
+Extremo,runs_per,Corridas perigosas por 30 min com posse,46,17,0.056,-0.248,0.336,0.3795
+Extremo,cod,Mudanças de direção por 90,46,17,-0.111,-0.328,0.145,0.2015
+Extremo,t_spr,PSV-99 média dos 5 melhores jogos,46,17,-0.051,-0.318,0.248,0.3475
+Lateral,dist,Distância por 90,72,19,0.143,-0.142,0.396,0.1585
+Lateral,hsr,Alta velocidade por 90,72,19,0.215,0.004,0.398,0.023
+Lateral,spr_d,Sprint por 90,72,19,0.15,-0.071,0.362,0.0825
+Lateral,spr_n,Sprints por 90,72,19,0.117,-0.111,0.332,0.1415
+Lateral,hi_n,Ações de alta intensidade por 90,72,19,0.151,-0.076,0.354,0.092
+Lateral,acc,Acelerações fortes por 90,72,19,-0.067,-0.308,0.208,0.336
+Lateral,expl,Arrancadas explosivas por 90,72,19,-0.009,-0.26,0.234,0.4765
+Lateral,psv,Velocidade de pico (PSV-99),72,19,-0.046,-0.289,0.2,0.3605
+Lateral,spr_otip,Sprint por 30 min SEM a bola,72,19,-0.035,-0.286,0.196,0.3825
+Lateral,spr_tip,Sprint por 30 min COM a bola,72,19,0.185,-0.019,0.372,0.036
+Lateral,hsr_otip,Alta velocidade por 30 min SEM a bola,72,19,0.115,-0.124,0.322,0.1595
+Lateral,hsr_tip,Alta velocidade por 30 min COM a bola,72,19,0.221,-0.01,0.441,0.026
+Lateral,runs,Corridas sem bola por 30 min com posse,72,19,0.114,-0.131,0.334,0.164
+Lateral,runs_area,Corridas para a área por 30 min com posse,72,19,0.165,-0.11,0.417,0.1115
+Lateral,runs_per,Corridas perigosas por 30 min com posse,72,19,0.159,-0.113,0.428,0.116
+Lateral,cod,Mudanças de direção por 90,72,19,0.002,-0.208,0.207,0.481
+Lateral,t_spr,PSV-99 média dos 5 melhores jogos,72,19,-0.006,-0.247,0.244,0.496
+Meia,dist,Distância por 90,60,24,0.151,-0.106,0.406,0.129
+Meia,hsr,Alta velocidade por 90,60,24,0.164,-0.155,0.404,0.131
+Meia,spr_d,Sprint por 90,60,24,0.116,-0.177,0.351,0.2125
+Meia,spr_n,Sprints por 90,60,24,0.096,-0.176,0.342,0.24
+Meia,hi_n,Ações de alta intensidade por 90,60,24,0.116,-0.189,0.371,0.2245
+Meia,acc,Acelerações fortes por 90,60,24,0.069,-0.213,0.316,0.3205
+Meia,expl,Arrancadas explosivas por 90,60,24,0.197,-0.017,0.438,0.037
+Meia,psv,Velocidade de pico (PSV-99),60,24,0.064,-0.131,0.244,0.239
+Meia,spr_otip,Sprint por 30 min SEM a bola,60,24,0.039,-0.148,0.26,0.334
+Meia,spr_tip,Sprint por 30 min COM a bola,60,24,0.155,-0.164,0.405,0.1525
+Meia,hsr_otip,Alta velocidade por 30 min SEM a bola,60,24,0.009,-0.205,0.248,0.4805
+Meia,hsr_tip,Alta velocidade por 30 min COM a bola,60,24,0.228,-0.091,0.494,0.0785
+Meia,runs,Corridas sem bola por 30 min com posse,60,24,0.215,-0.082,0.453,0.068
+Meia,runs_area,Corridas para a área por 30 min com posse,60,24,0.233,-0.07,0.477,0.063
+Meia,runs_per,Corridas perigosas por 30 min com posse,60,24,0.201,-0.115,0.448,0.088
+Meia,cod,Mudanças de direção por 90,60,24,0.159,-0.165,0.444,0.1655
+Meia,t_spr,PSV-99 média dos 5 melhores jogos,60,24,0.029,-0.167,0.226,0.3795
+Volante,dist,Distância por 90,38,5,0.024,-0.367,0.382,0.456
+Volante,hsr,Alta velocidade por 90,38,5,-0.002,-0.303,0.276,0.4885
+Volante,spr_d,Sprint por 90,38,5,0.046,-0.199,0.332,0.344
+Volante,spr_n,Sprints por 90,38,5,0.086,-0.156,0.364,0.235
+Volante,hi_n,Ações de alta intensidade por 90,38,5,-0.018,-0.316,0.275,0.4545
+Volante,acc,Acelerações fortes por 90,38,5,0.141,-0.246,0.583,0.227
+Volante,expl,Arrancadas explosivas por 90,38,5,0.336,0.064,0.634,0.008
+Volante,psv,Velocidade de pico (PSV-99),38,5,0.129,-0.059,0.371,0.091
+Volante,spr_otip,Sprint por 30 min SEM a bola,38,5,-0.105,-0.341,0.211,0.241
+Volante,spr_tip,Sprint por 30 min COM a bola,38,5,0.218,-0.04,0.464,0.0555
+Volante,hsr_otip,Alta velocidade por 30 min SEM a bola,38,5,-0.203,-0.465,0.095,0.0855
+Volante,hsr_tip,Alta velocidade por 30 min COM a bola,38,5,0.17,-0.157,0.465,0.1445
+Volante,runs,Corridas sem bola por 30 min com posse,38,5,0.12,-0.233,0.408,0.259
+Volante,runs_area,Corridas para a área por 30 min com posse,38,5,0.089,-0.251,0.445,0.303
+Volante,runs_per,Corridas perigosas por 30 min com posse,38,5,0.066,-0.296,0.452,0.3525
+Volante,cod,Mudanças de direção por 90,38,5,-0.229,-0.564,0.16,0.1295
+Volante,t_spr,PSV-99 média dos 5 melhores jogos,38,5,0.101,-0.188,0.418,0.248
+Zaga,dist,Distância por 90,88,30,0.006,-0.276,0.246,0.488
+Zaga,hsr,Alta velocidade por 90,88,30,0.099,-0.145,0.298,0.2135
+Zaga,spr_d,Sprint por 90,88,30,0.111,-0.096,0.306,0.138
+Zaga,spr_n,Sprints por 90,88,30,0.075,-0.128,0.263,0.234
+Zaga,hi_n,Ações de alta intensidade por 90,88,30,0.091,-0.125,0.28,0.198
+Zaga,acc,Acelerações fortes por 90,88,30,-0.045,-0.235,0.14,0.3245
+Zaga,expl,Arrancadas explosivas por 90,88,30,-0.007,-0.222,0.215,0.4655
+Zaga,psv,Velocidade de pico (PSV-99),88,30,0.085,-0.13,0.315,0.2105
+Zaga,spr_otip,Sprint por 30 min SEM a bola,88,30,0.084,-0.12,0.289,0.2085
+Zaga,spr_tip,Sprint por 30 min COM a bola,88,30,0.166,-0.088,0.412,0.1015
+Zaga,hsr_otip,Alta velocidade por 30 min SEM a bola,88,30,0.062,-0.196,0.282,0.331
+Zaga,hsr_tip,Alta velocidade por 30 min COM a bola,88,30,0.111,-0.136,0.326,0.1905
+Zaga,runs,Corridas sem bola por 30 min com posse,88,30,0.056,-0.2,0.301,0.345
+Zaga,runs_area,Corridas para a área por 30 min com posse,88,30,0.283,0.107,0.434,0.002
+Zaga,runs_per,Corridas perigosas por 30 min com posse,88,30,0.251,0.072,0.413,0.0045
+Zaga,cod,Mudanças de direção por 90,88,30,0.223,-0.008,0.408,0.03
+Zaga,t_spr,PSV-99 média dos 5 melhores jogos,88,30,0.134,-0.086,0.359,0.116

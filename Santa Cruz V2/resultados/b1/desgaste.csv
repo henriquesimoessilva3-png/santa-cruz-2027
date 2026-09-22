@@ -1,0 +1,161 @@
+ano,team_name,indicador,queda_media,n_jog
+2025,AC Goianiense,hsr_distance_p90,20.0,16
+2025,Amazonas FC,hsr_distance_p90,34.8,16
+2025,América Mineiro FC,hsr_distance_p90,-13.2,14
+2025,Associação Ferroviária de Esportes,hsr_distance_p90,-10.9,20
+2025,Athletic Club (Minas Gerais),hsr_distance_p90,-28.2,15
+2025,Avaí Futebol Clube,hsr_distance_p90,-3.8,15
+2025,Botafogo FC Ribeirão Preto,hsr_distance_p90,-36.6,18
+2025,Chapecoense AF,hsr_distance_p90,-29.7,14
+2025,Club Athletico Paranaense,hsr_distance_p90,-2.0,16
+2025,Clube de Regatas Brasil,hsr_distance_p90,-20.9,14
+2025,Clube do Remo,hsr_distance_p90,-6.5,18
+2025,Coritiba FBC,hsr_distance_p90,-26.0,16
+2025,Criciuma EC,hsr_distance_p90,10.3,16
+2025,Cuiaba Esporte Club,hsr_distance_p90,3.7,17
+2025,Goiás EC,hsr_distance_p90,-36.5,19
+2025,Grêmio Novorizontino,hsr_distance_p90,3.2,20
+2025,Operário Ferroviário EC,hsr_distance_p90,7.6,15
+2025,Paysandu SC,hsr_distance_p90,35.8,23
+2025,Vila Nova FC,hsr_distance_p90,-3.7,17
+2025,Volta Redonda FC,hsr_distance_p90,20.1,14
+2025,AC Goianiense,sprint_distance_p90,-21.8,16
+2025,Amazonas FC,sprint_distance_p90,33.5,16
+2025,América Mineiro FC,sprint_distance_p90,7.7,14
+2025,Associação Ferroviária de Esportes,sprint_distance_p90,-6.3,20
+2025,Athletic Club (Minas Gerais),sprint_distance_p90,-14.7,15
+2025,Avaí Futebol Clube,sprint_distance_p90,12.8,15
+2025,Botafogo FC Ribeirão Preto,sprint_distance_p90,-9.7,18
+2025,Chapecoense AF,sprint_distance_p90,-0.6,14
+2025,Club Athletico Paranaense,sprint_distance_p90,-0.1,16
+2025,Clube de Regatas Brasil,sprint_distance_p90,-8.9,14
+2025,Clube do Remo,sprint_distance_p90,-1.0,18
+2025,Coritiba FBC,sprint_distance_p90,-25.1,16
+2025,Criciuma EC,sprint_distance_p90,31.3,16
+2025,Cuiaba Esporte Club,sprint_distance_p90,-21.3,17
+2025,Goiás EC,sprint_distance_p90,-2.1,19
+2025,Grêmio Novorizontino,sprint_distance_p90,5.7,20
+2025,Operário Ferroviário EC,sprint_distance_p90,7.6,15
+2025,Paysandu SC,sprint_distance_p90,20.5,23
+2025,Vila Nova FC,sprint_distance_p90,-1.6,17
+2025,Volta Redonda FC,sprint_distance_p90,-0.2,14
+2025,AC Goianiense,distance_p90,334.3,16
+2025,Amazonas FC,distance_p90,-317.1,16
+2025,América Mineiro FC,distance_p90,-198.2,14
+2025,Associação Ferroviária de Esportes,distance_p90,-252.7,20
+2025,Athletic Club (Minas Gerais),distance_p90,-116.8,15
+2025,Avaí Futebol Clube,distance_p90,-149.2,15
+2025,Botafogo FC Ribeirão Preto,distance_p90,-471.7,18
+2025,Chapecoense AF,distance_p90,-287.7,14
+2025,Club Athletico Paranaense,distance_p90,40.8,16
+2025,Clube de Regatas Brasil,distance_p90,-176.5,14
+2025,Clube do Remo,distance_p90,-379.5,18
+2025,Coritiba FBC,distance_p90,-59.7,16
+2025,Criciuma EC,distance_p90,-576.3,16
+2025,Cuiaba Esporte Club,distance_p90,270.8,17
+2025,Goiás EC,distance_p90,-109.5,19
+2025,Grêmio Novorizontino,distance_p90,16.2,20
+2025,Operário Ferroviário EC,distance_p90,224.3,15
+2025,Paysandu SC,distance_p90,-53.1,23
+2025,Vila Nova FC,distance_p90,-85.0,17
+2025,Volta Redonda FC,distance_p90,214.5,14
+2025,AC Goianiense,psv99,-0.8,16
+2025,Amazonas FC,psv99,0.3,16
+2025,América Mineiro FC,psv99,0.2,14
+2025,Associação Ferroviária de Esportes,psv99,-0.1,20
+2025,Athletic Club (Minas Gerais),psv99,-0.2,15
+2025,Avaí Futebol Clube,psv99,0.6,15
+2025,Botafogo FC Ribeirão Preto,psv99,0.2,18
+2025,Chapecoense AF,psv99,0.1,14
+2025,Club Athletico Paranaense,psv99,0.3,16
+2025,Clube de Regatas Brasil,psv99,-0.2,14
+2025,Clube do Remo,psv99,-0.5,18
+2025,Coritiba FBC,psv99,-0.0,16
+2025,Criciuma EC,psv99,0.2,16
+2025,Cuiaba Esporte Club,psv99,-0.4,17
+2025,Goiás EC,psv99,0.0,19
+2025,Grêmio Novorizontino,psv99,0.3,20
+2025,Operário Ferroviário EC,psv99,-0.0,15
+2025,Paysandu SC,psv99,0.1,23
+2025,Vila Nova FC,psv99,-0.1,17
+2025,Volta Redonda FC,psv99,-0.3,14
+2026,AC Goianiense,hsr_distance_p90,-69.5,9
+2026,América Mineiro FC,hsr_distance_p90,14.9,7
+2026,Athletic Club (Minas Gerais),hsr_distance_p90,45.6,6
+2026,Avaí Futebol Clube,hsr_distance_p90,78.7,6
+2026,Botafogo FC Ribeirão Preto,hsr_distance_p90,36.0,13
+2026,Ceará Sporting Club,hsr_distance_p90,22.5,9
+2026,Clube Náutico Capibaribe,hsr_distance_p90,-36.7,9
+2026,Clube de Regatas Brasil,hsr_distance_p90,67.3,10
+2026,Criciuma EC,hsr_distance_p90,-62.8,8
+2026,Cuiaba Esporte Club,hsr_distance_p90,-14.0,13
+2026,Fortaleza EC,hsr_distance_p90,17.9,12
+2026,Goiás EC,hsr_distance_p90,19.7,12
+2026,Grêmio Novorizontino,hsr_distance_p90,-5.7,9
+2026,Juventude RS,hsr_distance_p90,-113.6,6
+2026,Londrina EC,hsr_distance_p90,47.1,8
+2026,Operário Ferroviário EC,hsr_distance_p90,-1.0,13
+2026,Ponte Preta,hsr_distance_p90,-6.3,8
+2026,SC do Recife,hsr_distance_p90,2.7,11
+2026,São Bernardo FC,hsr_distance_p90,11.7,11
+2026,Vila Nova FC,hsr_distance_p90,39.9,9
+2026,AC Goianiense,sprint_distance_p90,-38.5,9
+2026,América Mineiro FC,sprint_distance_p90,41.4,7
+2026,Athletic Club (Minas Gerais),sprint_distance_p90,119.2,6
+2026,Avaí Futebol Clube,sprint_distance_p90,-49.1,6
+2026,Botafogo FC Ribeirão Preto,sprint_distance_p90,29.7,13
+2026,Ceará Sporting Club,sprint_distance_p90,10.0,9
+2026,Clube Náutico Capibaribe,sprint_distance_p90,14.5,9
+2026,Clube de Regatas Brasil,sprint_distance_p90,-16.0,10
+2026,Criciuma EC,sprint_distance_p90,65.0,8
+2026,Cuiaba Esporte Club,sprint_distance_p90,12.8,13
+2026,Fortaleza EC,sprint_distance_p90,12.5,12
+2026,Goiás EC,sprint_distance_p90,34.2,12
+2026,Grêmio Novorizontino,sprint_distance_p90,16.5,9
+2026,Juventude RS,sprint_distance_p90,-46.7,6
+2026,Londrina EC,sprint_distance_p90,-10.3,8
+2026,Operário Ferroviário EC,sprint_distance_p90,-28.5,13
+2026,Ponte Preta,sprint_distance_p90,-17.2,8
+2026,SC do Recife,sprint_distance_p90,21.7,11
+2026,São Bernardo FC,sprint_distance_p90,-39.4,11
+2026,Vila Nova FC,sprint_distance_p90,14.6,9
+2026,AC Goianiense,distance_p90,-374.5,9
+2026,América Mineiro FC,distance_p90,-316.5,7
+2026,Athletic Club (Minas Gerais),distance_p90,561.4,6
+2026,Avaí Futebol Clube,distance_p90,1258.9,6
+2026,Botafogo FC Ribeirão Preto,distance_p90,-95.2,13
+2026,Ceará Sporting Club,distance_p90,-81.5,9
+2026,Clube Náutico Capibaribe,distance_p90,-351.6,9
+2026,Clube de Regatas Brasil,distance_p90,822.0,10
+2026,Criciuma EC,distance_p90,223.8,8
+2026,Cuiaba Esporte Club,distance_p90,-155.0,13
+2026,Fortaleza EC,distance_p90,-159.8,12
+2026,Goiás EC,distance_p90,25.9,12
+2026,Grêmio Novorizontino,distance_p90,-30.5,9
+2026,Juventude RS,distance_p90,-499.0,6
+2026,Londrina EC,distance_p90,-42.5,8
+2026,Operário Ferroviário EC,distance_p90,120.9,13
+2026,Ponte Preta,distance_p90,-109.8,8
+2026,SC do Recife,distance_p90,133.1,11
+2026,São Bernardo FC,distance_p90,-103.0,11
+2026,Vila Nova FC,distance_p90,195.3,9
+2026,AC Goianiense,psv99,-1.1,9
+2026,América Mineiro FC,psv99,-0.1,7
+2026,Athletic Club (Minas Gerais),psv99,1.2,6
+2026,Avaí Futebol Clube,psv99,-0.5,6
+2026,Botafogo FC Ribeirão Preto,psv99,0.6,13
+2026,Ceará Sporting Club,psv99,-0.1,9
+2026,Clube Náutico Capibaribe,psv99,0.3,9
+2026,Clube de Regatas Brasil,psv99,0.2,10
+2026,Criciuma EC,psv99,0.2,8
+2026,Cuiaba Esporte Club,psv99,0.0,13
+2026,Fortaleza EC,psv99,0.1,12
+2026,Goiás EC,psv99,0.5,12
+2026,Grêmio Novorizontino,psv99,0.4,9
+2026,Juventude RS,psv99,0.0,6
+2026,Londrina EC,psv99,-0.0,8
+2026,Operário Ferroviário EC,psv99,-1.0,13
+2026,Ponte Preta,psv99,-0.6,8
+2026,SC do Recife,psv99,0.8,11
+2026,São Bernardo FC,psv99,-0.6,11
+2026,Vila Nova FC,psv99,0.4,9

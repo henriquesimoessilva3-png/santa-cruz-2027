@@ -1,0 +1,16 @@
+id,indicador,nome,n,r,ic_baixo,ic_alto,p_boot,top_menos_fundo_ppj,top_menos_fundo_pts38
+runs_area,runs_area,Corridas para a área por 30 min com posse,80,0.354,0.143,0.536,0.0008,0.251,9.6
+spr_n,spr_n,Sprints por 90,80,0.345,0.122,0.538,0.0025,0.241,9.2
+hi_n,hi_n,Ações de alta intensidade por 90,80,0.32,0.099,0.513,0.0022,0.232,8.8
+spr_d,spr_d,Sprint por 90,80,0.311,0.067,0.523,0.0065,0.211,8.0
+spr_otip,spr_otip,Sprint por 30 min SEM a bola,80,0.283,0.112,0.447,0.0002,0.207,7.9
+psv,psv,Velocidade de pico (PSV-99),80,0.266,0.051,0.478,0.0098,0.218,8.3
+hsr,hsr,Alta velocidade por 90,80,0.259,0.01,0.475,0.0192,0.162,6.2
+runs_per,runs_per,Corridas perigosas por 30 min com posse,80,0.256,0.038,0.447,0.0132,0.219,8.3
+expl,expl,Arrancadas explosivas por 90,80,0.221,0.019,0.412,0.0152,0.173,6.6
+hsr_otip,hsr_otip,Alta velocidade por 30 min SEM a bola,80,0.194,-0.018,0.386,0.038,0.154,5.8
+hsr_tip,hsr_tip,Alta velocidade por 30 min COM a bola,80,0.175,-0.069,0.408,0.0798,0.135,5.1
+spr_tip,spr_tip,Sprint por 30 min COM a bola,80,0.152,-0.087,0.391,0.1038,0.137,5.2
+dist,dist,Distância por 90,80,0.108,-0.151,0.349,0.2142,0.102,3.9
+runs,runs,Corridas sem bola por 30 min com posse,80,0.066,-0.185,0.303,0.3038,0.026,1.0
+acc,acc,Acelerações fortes por 90,80,0.024,-0.215,0.253,0.417,0.056,2.1

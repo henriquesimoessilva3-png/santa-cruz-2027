@@ -1,0 +1,181 @@
+indicador,posicao,mediana_posicao,mediana_linha,dif_pct
+Distância/90 (m),LD,9663.83,9723.97,-0.6
+Distância/90 (m),ZD,8850.77,9723.97,-9.0
+Distância/90 (m),ZE,8860.48,9723.97,-8.9
+Distância/90 (m),LE,9578.79,9723.97,-1.5
+Distância/90 (m),VOL,10045.54,9723.97,3.3
+Distância/90 (m),MED,10247.83,9723.97,5.4
+Distância/90 (m),MEI,10182.81,9723.97,4.7
+Distância/90 (m),ED,9969.71,9723.97,2.5
+Distância/90 (m),EE,9860.87,9723.97,1.4
+Distância/90 (m),CA,9563.07,9723.97,-1.7
+Alta velocidade/90 (m),LD,546.89,522.55,4.7
+Alta velocidade/90 (m),ZD,313.72,522.55,-40.0
+Alta velocidade/90 (m),ZE,314.36,522.55,-39.8
+Alta velocidade/90 (m),LE,531.05,522.55,1.6
+Alta velocidade/90 (m),VOL,455.05,522.55,-12.9
+Alta velocidade/90 (m),MED,510.28,522.55,-2.3
+Alta velocidade/90 (m),MEI,543.63,522.55,4.0
+Alta velocidade/90 (m),ED,624.56,522.55,19.5
+Alta velocidade/90 (m),EE,614.64,522.55,17.6
+Alta velocidade/90 (m),CA,545.73,522.55,4.4
+Sprint/90 (m),LD,206.34,165.9,24.4
+Sprint/90 (m),ZD,98.68,165.9,-40.5
+Sprint/90 (m),ZE,96.85,165.9,-41.6
+Sprint/90 (m),LE,196.82,165.9,18.6
+Sprint/90 (m),VOL,113.82,165.9,-31.4
+Sprint/90 (m),MED,125.89,165.9,-24.1
+Sprint/90 (m),MEI,143.2,165.9,-13.7
+Sprint/90 (m),ED,236.45,165.9,42.5
+Sprint/90 (m),EE,247.11,165.9,49.0
+Sprint/90 (m),CA,197.52,165.9,19.1
+Sprints/90,LD,10.61,8.7,22.0
+Sprints/90,ZD,5.36,8.7,-38.4
+Sprints/90,ZE,5.03,8.7,-42.2
+Sprints/90,LE,10.03,8.7,15.3
+Sprints/90,VOL,5.73,8.7,-34.1
+Sprints/90,MED,6.48,8.7,-25.5
+Sprints/90,MEI,7.7,8.7,-11.4
+Sprints/90,ED,12.05,8.7,38.5
+Sprints/90,EE,13.0,8.7,49.4
+Sprints/90,CA,10.73,8.7,23.3
+Ações alta intensidade/90,LD,63.4,58.52,8.3
+Ações alta intensidade/90,ZD,35.83,58.52,-38.8
+Ações alta intensidade/90,ZE,34.73,58.52,-40.6
+Ações alta intensidade/90,LE,61.41,58.52,4.9
+Ações alta intensidade/90,VOL,47.57,58.52,-18.7
+Ações alta intensidade/90,MED,52.42,58.52,-10.4
+Ações alta intensidade/90,MEI,56.36,58.52,-3.7
+Ações alta intensidade/90,ED,72.76,58.52,24.3
+Ações alta intensidade/90,EE,75.55,58.52,29.1
+Ações alta intensidade/90,CA,64.52,58.52,10.3
+Acelerações fortes/90,LD,7.7,6.71,14.8
+Acelerações fortes/90,ZD,5.01,6.71,-25.3
+Acelerações fortes/90,ZE,4.99,6.71,-25.6
+Acelerações fortes/90,LE,7.29,6.71,8.6
+Acelerações fortes/90,VOL,4.79,6.71,-28.6
+Acelerações fortes/90,MED,4.97,6.71,-25.9
+Acelerações fortes/90,MEI,5.86,6.71,-12.7
+Acelerações fortes/90,ED,8.29,6.71,23.5
+Acelerações fortes/90,EE,8.12,6.71,21.0
+Acelerações fortes/90,CA,8.03,6.71,19.7
+Desacelerações fortes/90,LD,17.4,15.67,11.0
+Desacelerações fortes/90,ZD,10.26,15.67,-34.5
+Desacelerações fortes/90,ZE,10.02,15.67,-36.1
+Desacelerações fortes/90,LE,17.01,15.67,8.6
+Desacelerações fortes/90,VOL,13.46,15.67,-14.1
+Desacelerações fortes/90,MED,13.72,15.67,-12.4
+Desacelerações fortes/90,MEI,14.38,15.67,-8.2
+Desacelerações fortes/90,ED,19.47,15.67,24.3
+Desacelerações fortes/90,EE,19.5,15.67,24.4
+Desacelerações fortes/90,CA,16.87,15.67,7.7
+Arrancadas explosivas/90,LD,1.7,1.18,44.1
+Arrancadas explosivas/90,ZD,0.76,1.18,-35.2
+Arrancadas explosivas/90,ZE,0.7,1.18,-40.7
+Arrancadas explosivas/90,LE,1.52,1.18,28.8
+Arrancadas explosivas/90,VOL,0.59,1.18,-50.0
+Arrancadas explosivas/90,MED,0.62,1.18,-47.5
+Arrancadas explosivas/90,MEI,0.9,1.18,-23.3
+Arrancadas explosivas/90,ED,1.94,1.18,64.4
+Arrancadas explosivas/90,EE,1.96,1.18,66.1
+Arrancadas explosivas/90,CA,1.57,1.18,33.1
+Mudanças de direção/90,LD,30.27,32.44,-6.7
+Mudanças de direção/90,ZD,18.2,32.44,-43.9
+Mudanças de direção/90,ZE,17.7,32.44,-45.4
+Mudanças de direção/90,LE,28.98,32.44,-10.7
+Mudanças de direção/90,VOL,32.06,32.44,-1.1
+Mudanças de direção/90,MED,34.68,32.44,6.9
+Mudanças de direção/90,MEI,34.44,32.44,6.2
+Mudanças de direção/90,ED,40.48,32.44,24.8
+Mudanças de direção/90,EE,40.18,32.44,23.9
+Mudanças de direção/90,CA,35.19,32.44,8.5
+PSV-99 (km/h),LD,29.11,28.58,1.9
+PSV-99 (km/h),ZD,28.6,28.58,0.1
+PSV-99 (km/h),ZE,28.45,28.58,-0.5
+PSV-99 (km/h),LE,29.2,28.58,2.2
+PSV-99 (km/h),VOL,27.44,28.58,-4.0
+PSV-99 (km/h),MED,27.48,28.58,-3.8
+PSV-99 (km/h),MEI,27.74,28.58,-2.9
+PSV-99 (km/h),ED,29.21,28.58,2.2
+PSV-99 (km/h),EE,29.48,28.58,3.1
+PSV-99 (km/h),CA,28.68,28.58,0.4
+PSV-99 top5 (km/h),LD,30.78,30.42,1.2
+PSV-99 top5 (km/h),ZD,30.45,30.42,0.1
+PSV-99 top5 (km/h),ZE,30.44,30.42,0.1
+PSV-99 top5 (km/h),LE,30.82,30.42,1.3
+PSV-99 top5 (km/h),VOL,29.57,30.42,-2.8
+PSV-99 top5 (km/h),MED,29.36,30.42,-3.5
+PSV-99 top5 (km/h),MEI,29.44,30.42,-3.2
+PSV-99 top5 (km/h),ED,31.18,30.42,2.5
+PSV-99 top5 (km/h),EE,30.94,30.42,1.7
+PSV-99 top5 (km/h),CA,30.47,30.42,0.2
+Sprint/30min com bola (m),LD,127.39,96.22,32.4
+Sprint/30min com bola (m),ZD,29.62,96.22,-69.2
+Sprint/30min com bola (m),ZE,29.79,96.22,-69.0
+Sprint/30min com bola (m),LE,117.3,96.22,21.9
+Sprint/30min com bola (m),VOL,40.92,96.22,-57.5
+Sprint/30min com bola (m),MED,59.46,96.22,-38.2
+Sprint/30min com bola (m),MEI,88.44,96.22,-8.1
+Sprint/30min com bola (m),ED,163.28,96.22,69.7
+Sprint/30min com bola (m),EE,171.91,96.22,78.7
+Sprint/30min com bola (m),CA,123.93,96.22,28.8
+Sprint/30min sem bola (m),LD,117.17,99.26,18.0
+Sprint/30min sem bola (m),ZD,86.66,99.26,-12.7
+Sprint/30min sem bola (m),ZE,80.74,99.26,-18.7
+Sprint/30min sem bola (m),LE,112.47,99.26,13.3
+Sprint/30min sem bola (m),VOL,87.95,99.26,-11.4
+Sprint/30min sem bola (m),MED,87.94,99.26,-11.4
+Sprint/30min sem bola (m),MEI,75.65,99.26,-23.8
+Sprint/30min sem bola (m),ED,112.63,99.26,13.5
+Sprint/30min sem bola (m),EE,118.19,99.26,19.1
+Sprint/30min sem bola (m),CA,100.5,99.26,1.2
+Alta vel./30min com bola (m),LD,308.8,290.7,6.2
+Alta vel./30min com bola (m),ZD,102.94,290.7,-64.6
+Alta vel./30min com bola (m),ZE,101.02,290.7,-65.2
+Alta vel./30min com bola (m),LE,286.1,290.7,-1.6
+Alta vel./30min com bola (m),VOL,171.22,290.7,-41.1
+Alta vel./30min com bola (m),MED,236.08,290.7,-18.8
+Alta vel./30min com bola (m),MEI,324.12,290.7,11.5
+Alta vel./30min com bola (m),ED,392.54,290.7,35.0
+Alta vel./30min com bola (m),EE,391.12,290.7,34.5
+Alta vel./30min com bola (m),CA,323.98,290.7,11.4
+Alta vel./30min sem bola (m),LD,348.03,333.28,4.4
+Alta vel./30min sem bola (m),ZD,253.35,333.28,-24.0
+Alta vel./30min sem bola (m),ZE,254.01,333.28,-23.8
+Alta vel./30min sem bola (m),LE,341.81,333.28,2.6
+Alta vel./30min sem bola (m),VOL,380.88,333.28,14.3
+Alta vel./30min sem bola (m),MED,373.55,333.28,12.1
+Alta vel./30min sem bola (m),MEI,320.62,333.28,-3.8
+Alta vel./30min sem bola (m),ED,346.72,333.28,4.0
+Alta vel./30min sem bola (m),EE,345.12,333.28,3.6
+Alta vel./30min sem bola (m),CA,319.45,333.28,-4.1
+Corridas sem bola/30min posse,LD,25.84,27.41,-5.7
+Corridas sem bola/30min posse,ZD,7.1,27.41,-74.1
+Corridas sem bola/30min posse,ZE,6.94,27.41,-74.7
+Corridas sem bola/30min posse,LE,24.07,27.41,-12.2
+Corridas sem bola/30min posse,VOL,20.4,27.41,-25.6
+Corridas sem bola/30min posse,MED,27.3,27.41,-0.4
+Corridas sem bola/30min posse,MEI,35.07,27.41,27.9
+Corridas sem bola/30min posse,ED,35.32,27.41,28.9
+Corridas sem bola/30min posse,EE,34.39,27.41,25.5
+Corridas sem bola/30min posse,CA,32.13,27.41,17.2
+Corridas p/ área/30min posse,LD,1.31,2.35,-44.3
+Corridas p/ área/30min posse,ZD,0.18,2.35,-92.1
+Corridas p/ área/30min posse,ZE,0.2,2.35,-91.5
+Corridas p/ área/30min posse,LE,1.28,2.35,-45.5
+Corridas p/ área/30min posse,VOL,0.8,2.35,-65.7
+Corridas p/ área/30min posse,MED,1.77,2.35,-24.7
+Corridas p/ área/30min posse,MEI,4.08,2.35,73.4
+Corridas p/ área/30min posse,ED,4.98,2.35,111.9
+Corridas p/ área/30min posse,EE,5.52,2.35,134.9
+Corridas p/ área/30min posse,CA,8.62,2.35,267.0
+Corridas perigosas/30min posse,LD,3.42,6.85,-50.0
+Corridas perigosas/30min posse,ZD,0.31,6.85,-95.5
+Corridas perigosas/30min posse,ZE,0.38,6.85,-94.5
+Corridas perigosas/30min posse,LE,4.41,6.85,-35.6
+Corridas perigosas/30min posse,VOL,2.45,6.85,-64.3
+Corridas perigosas/30min posse,MED,5.5,6.85,-19.7
+Corridas perigosas/30min posse,MEI,11.97,6.85,74.7
+Corridas perigosas/30min posse,ED,12.41,6.85,81.2
+Corridas perigosas/30min posse,EE,14.22,6.85,107.6
+Corridas perigosas/30min posse,CA,19.63,6.85,186.6

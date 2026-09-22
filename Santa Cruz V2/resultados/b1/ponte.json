@@ -1,0 +1,42 @@
+{
+ "gerado_em": "2026-09-22",
+ "skillcorner_linhas": 3616,
+ "casadas": 2994,
+ "por_ano": {
+  "2022": {
+   "skillcorner": 736,
+   "casadas": 614,
+   "wyscout": 676
+  },
+  "2023": {
+   "skillcorner": 725,
+   "casadas": 613,
+   "wyscout": 667
+  },
+  "2024": {
+   "skillcorner": 719,
+   "casadas": 614,
+   "wyscout": 675
+  },
+  "2025": {
+   "skillcorner": 747,
+   "casadas": 626,
+   "wyscout": 698
+  },
+  "2026": {
+   "skillcorner": 689,
+   "casadas": 527,
+   "wyscout": 606
+  }
+ },
+ "ambiguos_wyscout_descartados": 246,
+ "titulares_60pct_com_fisico": 418,
+ "por_setor_titulares": {
+  "Atacante": 35,
+  "Extremo": 53,
+  "Lateral": 88,
+  "Meia": 79,
+  "Volante": 50,
+  "Zaga": 113
+ }
+}
