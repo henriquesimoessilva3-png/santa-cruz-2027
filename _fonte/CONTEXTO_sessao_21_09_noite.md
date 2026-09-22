@@ -191,6 +191,7 @@ python3 gerar_estudo_serieb_js.py                        # 1. o dado da aba
 python3 _fonte/estudo_serieb/scripts/gerar_registro.py   # 2. o registro
 python3 _fonte/estudo_serieb/scripts/_portao.py          # 3. o portão (só lê)
 python3 publicar_site.py                                 # 4. monta docs/ — SEM --push
+python3 gerar_prompt_projeto.py                          # 4b. o prompt do projeto inteiro (_fonte/PROMPT_PROJETO.md)
 git add -A && git commit                                 # 5. um commit só
 git push origin main                                     # 6. e conferir:
 git log --oneline origin/main..HEAD                      #    tem de sair vazio

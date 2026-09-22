@@ -4392,7 +4392,7 @@ const ESTUDO_SERIEB = {
    "secao": "Quem contratar",
    "pergunta": "Quais estrangeiros atendem o perfil, depois do ajuste de liga?",
    "status": "validada",
-   "titulo": "Alvos no exterior, e por que as três posições que faltam não têm nenhum",
+   "titulo": "Alvos no exterior: quatro passam a ficha na origem, nenhum sobrevive ao desconto, e o gol segue sem nome",
    "tipo": "analise",
    "conclusoes": [
     {
