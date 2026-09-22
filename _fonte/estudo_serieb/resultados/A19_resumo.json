@@ -1,0 +1,66 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "clube-jogo",
+ "n": {
+  "linhas": 2638,
+  "clubes": 40,
+  "clube_temporadas": 80,
+  "fora_da_lista": 398,
+  "jogos_inteiros": 1531
+ },
+ "formacoes_fora": {
+  "4-5-1": 33,
+  "5-3-2": 59,
+  "4-4-1-1": 122,
+  "4-1-3-2": 31,
+  "3-5-2": 33,
+  "4-2-2-2": 3,
+  "3-4-2-1": 49,
+  "4-3-2-1": 6,
+  "4-3-1-2": 33,
+  "3-4-1-2": 27,
+  "4-2-1-3": 2
+ },
+ "passam_nos_dois_cortes": {
+  "ET": [],
+  "DC": []
+ },
+ "pontos_por_jogo": {
+  "4-2-3-1": {
+   "com_a_formacao": 1.352,
+   "nas_outras": 1.381,
+   "jogos": 1083
+  },
+  "4-4-2": {
+   "com_a_formacao": 1.417,
+   "nas_outras": 1.354,
+   "jogos": 616
+  },
+  "4-3-3": {
+   "com_a_formacao": 1.332,
+   "nas_outras": 1.374,
+   "jogos": 325
+  },
+  "4-1-4-1": {
+   "com_a_formacao": 1.382,
+   "nas_outras": 1.367,
+   "jogos": 301
+  },
+  "5-4-1": {
+   "com_a_formacao": 1.28,
+   "nas_outras": 1.375,
+   "jogos": 161
+  },
+  "3-4-3": {
+   "com_a_formacao": 1.441,
+   "nas_outras": 1.364,
+   "jogos": 152
+  }
+ },
+ "porta_temporal_nao_calculavel": {
+  "parcial": null,
+  "passa": false,
+  "por_que": "formação e resultado são do mesmo jogo; não existe 'antes'. Declarado em A19_indicadores.json antes de rodar. Teto: provável."
+ },
+ "a_ressalva_que_manda": "A FORMAÇÃO É ESCOLHIDA, e escolhida com informação que o teste não tem: o adversário, o elenco disponível naquele dia e o PLACAR. O dado é do jogo inteiro, então o time que virou três na defesa aos 30 do segundo tempo, perdendo, entra na conta como 3-4-3. Isto é seleção, não tratamento: nenhuma leitura daqui é 'jogar assim produz isto', e sim 'quando este time jogou assim, saiu isto'. É a mesma família de ressalva do A15-2, e aqui ela é pior, porque a escolha da formação responde ao placar de forma mais direta que a posse."
+}

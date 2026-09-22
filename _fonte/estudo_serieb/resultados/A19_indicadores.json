@@ -1,0 +1,57 @@
+{
+ "parte": "A19",
+ "pergunta": "A formação do time muda o resultado do jogo?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "por_que_esta_parte": "A coluna `Sistema` de serieb_jogos.csv traz a formação de cada clube em cada jogo, e o estudo nunca a usou — nem o A05, que perguntou pelo jeito de construir a jogada, nem a A17, que procurou a alavanca do eixo. É a pergunta mais comum de vestiário e de diretoria, e até hoje o estudo não tinha número para ela.",
+ "recorte": {"temporadas": [2022, 2023, 2024, 2025], "unidade": "clube-jogo",
+             "n_esperado": {"linhas": 3036, "clubes": 40, "clube_temporadas": 80}},
+ "a_coluna": {
+  "formato": "'4-2-3-1 (100.0%)' — a formação dominante e a fatia do jogo em que o time esteve nela",
+  "formacoes_distintas": 17,
+  "mediana_do_tempo_na_dominante": "100%; em 1.314 dos 3.036 jogos o time não ficou o jogo inteiro numa só, e em 666 ficou menos de 70% do tempo",
+  "quantas_cada_time_usa": "mediana de 7 formações distintas por clube-temporada, de 4 a 11 — o time da Série B troca muito"
+ },
+ "formacoes_que_entram": {
+  "regra": "as que aparecem em 150 jogos ou mais no recorte, declarada antes de olhar resultado nenhum",
+  "lista": ["4-2-3-1", "4-4-2", "4-3-3", "4-1-4-1", "5-4-1", "3-4-3"],
+  "cobertura": "2.638 dos 3.036 clube-jogos (86,9%)",
+  "o_resto": "as 11 formações restantes ficam de fora do teste e são contadas; usá-las com 30 a 60 jogos seria testar ruído"
+ },
+ "desfecho": {"campo": "pontos no jogo (3, 1 ou 0)",
+              "normalizacao": "posto dentro da temporada, como manda a casa"},
+ "comparacoes": [
+  {"id": "F4231", "nome": "4-2-3-1 contra as outras cinco"},
+  {"id": "F442", "nome": "4-4-2 contra as outras cinco"},
+  {"id": "F433", "nome": "4-3-3 contra as outras cinco"},
+  {"id": "F4141", "nome": "4-1-4-1 contra as outras cinco"},
+  {"id": "F541", "nome": "5-4-1 contra as outras cinco"},
+  {"id": "F343", "nome": "3-4-3 contra as outras cinco"}
+ ],
+ "leituras": [
+  {"id": "ET", "nome": "Entre times", "o_que_mede": "que formação aparece nos jogos que rendem ponto, misturando todo mundo. Boa parte da diferença é só que time bom usa uma formação e time ruim usa outra — esta leitura NÃO separa as duas coisas."},
+  {"id": "DC", "nome": "Dentro do clube", "o_que_mede": "o MESMO clube-temporada, no mesmo mando, comparando os jogos em que usou aquela formação com os jogos em que usou outra. Tira de uma vez o nível do elenco e o mando. É a pergunta nova, e 49 dos 80 clube-temporadas usaram duas formações ou mais em oito jogos ou mais cada."}
+ ],
+ "repetir_sem_fronteira": true,
+ "cortes": [
+  {"id": "com", "nome": "todos os jogos", "papel": "principal"},
+  {"id": "sem", "nome": "só os jogos em que o time ficou 100% do tempo numa formação", "papel": "robustez",
+   "por_que": "O jogo em que o time trocou de sistema no meio é o jogo colado na linha: ele está rotulado com a formação dominante e foi, na prática, dois jogos. Tirá-lo afasta os grupos por construção, como o corte de fronteira faz com as faixas vizinhas — por isso é teste de robustez e não recorte melhor."}
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py e scripts/_metodo_jogo.py",
+  "teste": "d de Cohen no posto dos pontos, com IC95 e p por bootstrap de CLUBE (a máquina da A15). BH a 5% entre as seis formações, dentro de cada leitura e cada corte.",
+  "porta_temporal": "NÃO É CALCULÁVEL: formação e resultado são do mesmo jogo. Teto desta parte: PROVÁVEL. Declarado antes de rodar."
+ },
+ "a_ressalva_que_manda_nesta_parte": "A FORMAÇÃO É ESCOLHIDA, e escolhida com informação que o teste não tem: o adversário, o elenco disponível naquele dia e o PLACAR. O dado é do jogo inteiro, então o time que virou três na defesa aos 30 do segundo tempo, perdendo, entra na conta como 3-4-3. Isto é seleção, não tratamento: nenhuma leitura daqui é 'jogar assim produz isto', e sim 'quando este time jogou assim, saiu isto'. É a mesma família de ressalva do A15-2, e aqui ela é pior, porque a escolha da formação responde ao placar de forma mais direta que a posse.",
+ "ressalvas_declaradas": [
+  "O A18 mediu que, num jogo, quem o time enfrentou explica mais da variação de um indicador do que quem o time é. A formação do adversário não entra como controle nesta parte — fica escrito como limite, e é a primeira coisa a acrescentar se a parte for revisitada.",
+  "Sem minuto do gol não dá para saber se a formação veio antes ou depois do primeiro gol. É a mesma lacuna que a A09, a A15, a A17 e a A18 já pediram.",
+  "Escalação por jogo não existe na base: sabe-se o desenho, não quem o ocupava."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que a formação causa o resultado — nem no sentido contrário, que o resultado causa a formação. Sem minuto do gol não há como separar.",
+  "Que as formações fora da lista não importam: elas ficaram fora por número de jogos, e isso está contado.",
+  "Que o que vale na Série B vale em outra liga."
+ ]
+}

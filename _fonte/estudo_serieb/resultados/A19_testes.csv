@@ -1,0 +1,25 @@
+fronteira,familia,comparacao,indicador,unidade,formacao,leitura,medida_nome,n_a,n_b,clubes_a,clubes_b,cru_a,cru_b,d,ic95_d,p,limiar_visivel,d_minimo_80_se_fosse_linha,q,selo
+com,formacao,F4231,pontos,clube-jogo,4-2-3-1,ET,"efeito nos pontos do jogo, formação contra as outras",1083,1555,39,40,1.352,1.381,-0.02,"[-0.11, 0.07]",0.6916,0.09,0.11,0.82992,sem diferença clara
+com,formacao,F442,pontos,clube-jogo,4-4-2,ET,"efeito nos pontos do jogo, formação contra as outras",616,2022,39,40,1.417,1.354,0.048,"[-0.06, 0.15]",0.3556,0.105,0.13,0.82992,sem diferença clara
+com,formacao,F433,pontos,clube-jogo,4-3-3,ET,"efeito nos pontos do jogo, formação contra as outras",325,2313,39,40,1.332,1.374,-0.03,"[-0.14, 0.08]",0.569,0.11,0.17,0.82992,sem diferença clara
+com,formacao,F4141,pontos,clube-jogo,4-1-4-1,ET,"efeito nos pontos do jogo, formação contra as outras",301,2337,36,40,1.382,1.367,0.004,"[-0.12, 0.12]",0.9358,0.12,0.17,0.9358,sem diferença clara
+com,formacao,F541,pontos,clube-jogo,5-4-1,ET,"efeito nos pontos do jogo, formação contra as outras",161,2477,30,40,1.28,1.375,-0.091,"[-0.29, 0.03]",0.149,0.16,0.23,0.82992,sem diferença clara
+com,formacao,F343,pontos,clube-jogo,3-4-3,ET,"efeito nos pontos do jogo, formação contra as outras",152,2486,31,40,1.441,1.364,0.078,"[-0.12, 0.26]",0.4326,0.19,0.23,0.82992,sem diferença clara
+com,formacao,F4231,pontos,clube-jogo,4-2-3-1,DC,"efeito nos pontos do jogo, formação contra as outras",1083,1555,39,40,1.352,1.381,-0.032,"[-0.12, 0.05]",0.4358,0.085,0.11,0.5058,sem diferença clara
+com,formacao,F442,pontos,clube-jogo,4-4-2,DC,"efeito nos pontos do jogo, formação contra as outras",616,2022,39,40,1.417,1.354,0.076,"[-0.02, 0.16]",0.1116,0.09,0.13,0.5058,sem diferença clara
+com,formacao,F433,pontos,clube-jogo,4-3-3,DC,"efeito nos pontos do jogo, formação contra as outras",325,2313,39,40,1.332,1.374,-0.049,"[-0.15, 0.05]",0.3384,0.1,0.17,0.5058,sem diferença clara
+com,formacao,F4141,pontos,clube-jogo,4-1-4-1,DC,"efeito nos pontos do jogo, formação contra as outras",301,2337,36,40,1.382,1.367,0.046,"[-0.06, 0.15]",0.3808,0.105,0.17,0.5058,sem diferença clara
+com,formacao,F541,pontos,clube-jogo,5-4-1,DC,"efeito nos pontos do jogo, formação contra as outras",161,2477,30,40,1.28,1.375,-0.044,"[-0.19, 0.07]",0.4576,0.13,0.23,0.5058,sem diferença clara
+com,formacao,F343,pontos,clube-jogo,3-4-3,DC,"efeito nos pontos do jogo, formação contra as outras",152,2486,31,40,1.441,1.364,-0.051,"[-0.16, 0.11]",0.5058,0.135,0.23,0.5058,sem diferença clara
+sem,formacao,F4231,pontos,clube-jogo,4-2-3-1,ET,"efeito nos pontos do jogo, formação contra as outras",708,823,39,40,1.328,1.448,-0.089,"[-0.19, 0.02]",0.0904,0.105,0.14,0.2712,sem diferença clara
+sem,formacao,F442,pontos,clube-jogo,4-4-2,ET,"efeito nos pontos do jogo, formação contra as outras",323,1208,39,40,1.35,1.404,-0.051,"[-0.19, 0.09]",0.4738,0.14,0.18,0.56856,sem diferença clara
+sem,formacao,F433,pontos,clube-jogo,4-3-3,ET,"efeito nos pontos do jogo, formação contra as outras",180,1351,34,40,1.478,1.381,0.075,"[-0.08, 0.21]",0.3394,0.145,0.22,0.5091,sem diferença clara
+sem,formacao,F4141,pontos,clube-jogo,4-1-4-1,ET,"efeito nos pontos do jogo, formação contra as outras",157,1374,32,40,1.51,1.379,0.095,"[-0.08, 0.27]",0.2708,0.175,0.24,0.5091,sem diferença clara
+sem,formacao,F541,pontos,clube-jogo,5-4-1,ET,"efeito nos pontos do jogo, formação contra as outras",76,1455,20,40,1.75,1.374,0.315,"[0.07, 0.46]",0.0198,0.195,0.33,0.1188,pode ser sorte
+sem,formacao,F343,pontos,clube-jogo,3-4-3,ET,"efeito nos pontos do jogo, formação contra as outras",87,1444,25,40,1.379,1.393,-0.013,"[-0.25, 0.23]",0.8776,0.24,0.31,0.8776,sem diferença clara
+sem,formacao,F4231,pontos,clube-jogo,4-2-3-1,DC,"efeito nos pontos do jogo, formação contra as outras",708,823,39,40,1.328,1.448,-0.101,"[-0.2, -0.0]",0.0398,0.1,0.14,0.1194,pode ser sorte
+sem,formacao,F442,pontos,clube-jogo,4-4-2,DC,"efeito nos pontos do jogo, formação contra as outras",323,1208,39,40,1.35,1.404,-0.012,"[-0.13, 0.11]",0.829,0.12,0.18,0.829,sem diferença clara
+sem,formacao,F433,pontos,clube-jogo,4-3-3,DC,"efeito nos pontos do jogo, formação contra as outras",180,1351,34,40,1.478,1.381,0.031,"[-0.11, 0.15]",0.6504,0.13,0.22,0.78048,sem diferença clara
+sem,formacao,F4141,pontos,clube-jogo,4-1-4-1,DC,"efeito nos pontos do jogo, formação contra as outras",157,1374,32,40,1.51,1.379,0.12,"[-0.04, 0.27]",0.125,0.155,0.24,0.25,sem diferença clara
+sem,formacao,F541,pontos,clube-jogo,5-4-1,DC,"efeito nos pontos do jogo, formação contra as outras",76,1455,20,40,1.75,1.374,0.37,"[0.19, 0.5]",0.0026,0.155,0.33,0.0156,firme
+sem,formacao,F343,pontos,clube-jogo,3-4-3,DC,"efeito nos pontos do jogo, formação contra as outras",87,1444,25,40,1.379,1.393,-0.082,"[-0.26, 0.17]",0.5256,0.215,0.31,0.78048,sem diferença clara
