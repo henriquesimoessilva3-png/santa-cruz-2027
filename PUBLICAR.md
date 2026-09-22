@@ -166,3 +166,61 @@ $PY preparar_kpis.py set26     # indicadores da ficha
 $PY dividir_kpis.py            # quebra por posição (é o que a web usa)
 $PY publicar_site.py --push    # leva a base nova para o site
 ```
+
+## A rotina que sincroniza as listas
+
+**O problema que ela resolve.** O site é estático: quem abre **sem login** vê uma *foto* do
+elenco, gravada em `docs/dados/`. A lista de trabalho vive no Firestore e muda toda vez que
+alguém salva no app. As duas andavam separadas — em 22/09/2026 o site mostrava 120 atletas
+enquanto o Cenário 1 2027 já tinha 343.
+
+A rotina lê a nuvem e reescreve a foto, **sem abrir nada**: as regras do `firestore.rules`
+continuam fechadas na lista de e-mails, e nenhum salário fica legível para quem está de fora.
+
+Ela roda sozinha a cada 10 minutos pelo GitHub Actions (`.github/workflows/atualizar-listas.yml`)
+e também na mão:
+
+```bash
+python3 atualizar_listas.py           # mostra o que mudou, sem enviar
+python3 atualizar_listas.py --push    # atualiza e envia
+```
+
+### Gerar a chave — feito uma vez
+
+A rotina precisa de uma **chave de conta de serviço** do projeto Firebase. Ela nunca entra no
+repositório.
+
+1. Abra o console do Firebase, projeto **santa-cruz-data-scout**.
+2. Engrenagem ⚙ → **Configurações do projeto** → aba **Contas de serviço**.
+3. **Gerar nova chave privada** → confirmar. Baixa um arquivo `.json`.
+4. **Para rodar no seu Mac**, guarde-o fora do repositório:
+   ```bash
+   mkdir -p ~/.config/santa-cruz
+   mv ~/Downloads/santa-cruz-data-scout-*.json ~/.config/santa-cruz/chave.json
+   chmod 600 ~/.config/santa-cruz/chave.json
+   pip install firebase-admin
+   ```
+5. **Para rodar no GitHub**, no repositório `santa-cruz-2027`:
+   Settings → Secrets and variables → Actions → **New repository secret**
+   · nome: `FIREBASE_KEY`
+   · valor: o **conteúdo inteiro** do arquivo `.json`, colado.
+
+Depois disso, Actions → *Atualizar listas* → **Run workflow** confirma que funcionou.
+
+### O que ela faz e o que não faz
+
+Toca **três arquivos**: `dados/cenarios.json`, `docs/dados/cenarios_publicados.json` e
+`docs/dados/elenco_inicial.json` — os dois últimos escritos pela mesma função do
+`publicar_site.py`, para as duas não divergirem. Não mexe em HTML, CSS, JS nem nos dados de
+análise, e **não remonta o site**.
+
+**Não apaga grupo.** Se um grupo sumir da nuvem, ele continua no repositório e a rotina avisa
+na saída. Apagar por sincronia automática é o tipo de coisa que ninguém desfaz depois.
+
+**Sem a chave, ela para** e explica — nunca grava pela metade. Se a nuvem responder vazia,
+também para, em vez de apagar a lista boa com uma lista vazia.
+
+### O que continua manual
+
+Mudança de código, de estilo ou de dado de análise: essas seguem pelo `publicar_site.py --push`,
+como sempre.

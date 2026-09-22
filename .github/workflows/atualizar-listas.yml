@@ -1,0 +1,64 @@
+# Mantem a foto do site igual a lista de trabalho.
+#
+# Por que existe: o site e' estatico, e quem abre SEM login ve os arquivos de docs/dados/.
+# Eles so' mudavam quando alguem republicava a mao — e foi assim que o site ficou
+# mostrando 120 atletas enquanto a lista salva no app ja' tinha 343.
+#
+# Esta rotina le' o Firestore com uma chave de servico e commita se algo mudou. As regras
+# do firestore.rules continuam FECHADAS: nada fica legivel para quem nao esta na lista de
+# e-mails. O que vai para o site e' a mesma foto de sempre, so' que sempre atual.
+#
+# A chave mora no secret FIREBASE_KEY (o JSON inteiro da conta de servico). Sem ele o
+# passo falha com a mensagem do proprio script, em vez de commitar pela metade.
+
+name: Atualizar listas
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"      # a cada 10 minutos (o GitHub costuma atrasar alguns minutos)
+  workflow_dispatch:            # e o botao "Run workflow", para quando nao se quer esperar
+
+concurrency:
+  group: atualizar-listas
+  cancel-in-progress: false     # duas rodadas commitando ao mesmo tempo dariam conflito
+
+permissions:
+  contents: write               # o unico poder que ela precisa: commitar de volta
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar o cliente do Firebase
+        run: pip install --quiet firebase-admin
+
+      # Enquanto o secret nao existir a rotina PULA, em vez de falhar. Uma tarefa agendada
+      # que falha a cada 10 minutos vira um dilúvio de e-mail e ensina a ignorar o aviso —
+      # que e' o contrario do que um alarme deve fazer. O log diz, em uma linha, por que
+      # pulou, e o resumo do job repete.
+      - name: Escrever a chave fora do repositorio
+        id: chave
+        env:
+          FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
+        run: |
+          if [ -z "$FIREBASE_KEY" ]; then
+            echo "sem_chave=1" >> "$GITHUB_OUTPUT"
+            echo "PULADO: o secret FIREBASE_KEY ainda não foi criado — veja PUBLICAR.md, seção “A rotina que sincroniza as listas”." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          mkdir -p "$RUNNER_TEMP/sc"
+          printf '%s' "$FIREBASE_KEY" > "$RUNNER_TEMP/sc/chave.json"
+          echo "SC_FIREBASE_KEY=$RUNNER_TEMP/sc/chave.json" >> "$GITHUB_ENV"
+
+      - name: Sincronizar e enviar
+        if: steps.chave.outputs.sem_chave != '1'
+        run: |
+          git config user.name  "rotina de listas"
+          git config user.email "actions@users.noreply.github.com"
+          python3 atualizar_listas.py --push

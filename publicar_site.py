@@ -105,6 +105,29 @@ def montar():
     with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(html)
 
+    escrever_cenarios(dados_dest)
+
+    # o Pages nao deve passar a pasta pelo Jekyll (nomes com _ sumiriam)
+    open(os.path.join(DOCS, ".nojekyll"), "w").close()
+
+    tam = sum(os.path.getsize(os.path.join(r, f))
+              for r, _d, fs in os.walk(DOCS) for f in fs) / 1024 / 1024
+    print(f"docs/ montado: {tam:.1f} MB")
+    return tam
+
+
+def atletas_do_cenario(c):
+    return sum(len(v) for v in (c.get("elenco") or {}).values())
+
+
+def escrever_cenarios(dados_dest):
+    """Os dois arquivos de cenario que o site publicado le.
+
+    Saiu de dentro do montar() em 22/09 porque a rotina que sincroniza com a nuvem
+    (atualizar_listas.py) precisa escrever exatamente os MESMOS dois arquivos. Com o codigo
+    em dois lugares eles divergiriam em silencio, e divergir aqui quer dizer site mostrando
+    uma lista que nao existe — que e' justamente o defeito que esta rotina veio consertar.
+    """
     # --- elenco de partida ---
     # Quem abre o site nao tem nada no navegador e veria o campo vazio. Vai junto o
     # cenario com mais atletas (o que esta sendo trabalhado), como estado inicial. O
@@ -115,8 +138,7 @@ def montar():
         with open(cen, encoding="utf-8") as fh:
             todos = json.load(fh)
         lista = list(todos.values()) if isinstance(todos, dict) else todos
-        def atletas(c):
-            return sum(len(v) for v in (c.get("elenco") or {}).values())
+        atletas = atletas_do_cenario
         escolhido = max(lista, key=atletas, default=None)
         if escolhido and atletas(escolhido) > 0:
             with open(os.path.join(dados_dest, "elenco_inicial.json"), "w",
@@ -141,13 +163,6 @@ def montar():
             json.dump(uteis, fh, ensure_ascii=False, separators=(",", ":"))
         print(f"cenarios publicados: {len(uteis)} ({', '.join(c['nome'][:24] for c in uteis)})")
 
-    # o Pages nao deve passar a pasta pelo Jekyll (nomes com _ sumiriam)
-    open(os.path.join(DOCS, ".nojekyll"), "w").close()
-
-    tam = sum(os.path.getsize(os.path.join(r, f))
-              for r, _d, fs in os.walk(DOCS) for f in fs) / 1024 / 1024
-    print(f"docs/ montado: {tam:.1f} MB")
-    return tam
 
 
 def publicar():
