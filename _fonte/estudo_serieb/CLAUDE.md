@@ -154,7 +154,8 @@ static/estudo_serieb_dados.js    gerado; nunca editar à mão
 - A12 depende das réguas da Protótipo (§7.2) e de A05–A07.
 - A14 só depois de A02–A13. A15 depende de A02, A05 e A06, com que dialoga, e de mais
   nada. A16 depende de A14 (herda a lista) e do `_porta_temporal.py`. A17 depende de
-  A02 e A16 (o alvo dela é o que a A16 precificou) e usa a máquina da A15.
+  A02 e A16 (o alvo dela é o que a A16 precificou) e usa a máquina da A15. A18 resolve uma
+  tensão entre A06 e A15. A19 não depende de nenhuma e usa a máquina da A15.
 - T03–T04 dependem de A14.
 - J03–J04 dependem de J01. J05–J06 dependem de A14, J03, J04 e das notas de encaixe da Protótipo (§8 — a §8.2 proíbe somar as três num número único; são três notas, nunca uma); se T04 já existir, o perfil de jogador deve servir ao modelo do treinador escolhido.
 - J07 depende de J01. J08 depende de J01 e da base das ligas de origem. J09 depende de J05, J06 e J08.
@@ -333,6 +334,27 @@ que é desta parte é a comparação com o adversário no centro e os dois indic
 **Teto: provável** — unidade jogo, sem anterioridade, como a A15 declarou.
 **A base NÃO tem escalação por jogo:** `serieb_jogos.csv` não traz nome de jogador nenhum, só o
 sistema tático. Dá para saber quem eram os zagueiros do ano, não os do jogo.
+
+### A19 — A formação do time muda o resultado do jogo?
+**Pergunta:** a pergunta mais comum de vestiário e de diretoria, e o estudo não tinha número para
+ela. A coluna `Sistema` de `serieb_jogos.csv` traz a formação dominante de cada jogo, com a fatia
+de tempo, e nunca tinha sido usada.
+**Unidade:** clube-jogo. Seis formações (as com 150 jogos ou mais, 86,9% dos jogos), duas leituras
+(entre times e dentro do clube, no mesmo mando) e dois cortes.
+**A RESSALVA MANDA NESTA PARTE, e por isso vem antes do método:** a formação é ESCOLHIDA, com
+informação que o teste não tem — o adversário, o elenco do dia e o PLACAR. O dado é do jogo
+inteiro, então o time que virou três na defesa perdendo entra com o desenho novo. É seleção, não
+tratamento.
+**O corte de robustez desta parte é ele mesmo suspeito, e isso foi MEDIDO.** Deixar só os jogos em
+que o time ficou 100% do tempo numa formação parece limpar e na verdade seleciona pelo desfecho: o
+time só troca quando precisa, e precisar é estar perdendo. Medido: 1,75 ponto por jogo contra 0,86
+no desenho de cinco defensores. **Regra que sai daqui e vale para o estudo inteiro:** recorte cujo
+critério pode ser consequência do desfecho não é robustez, é seleção.
+**Teto: indício** — nada passa em critério nenhum, e a anterioridade não é calculável (formação e
+resultado são do mesmo jogo).
+**Limite escrito:** a formação do ADVERSÁRIO não entra como controle, e o A18 mediu que num jogo o
+adversário explica mais da variação do que o próprio time. É o primeiro acréscimo se a parte
+voltar, e roda com a base que já existe.
 
 ## Bloco T — Treinadores
 

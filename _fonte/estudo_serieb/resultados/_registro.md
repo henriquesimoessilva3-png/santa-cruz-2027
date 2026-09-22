@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**32 das 32 perguntas respondidas** · **89 conclusões** (58 indício · 30 provável · 1 firme) · **89 validadas**.
+**33 das 33 perguntas respondidas** · **92 conclusões** (61 indício · 30 provável · 1 firme) · **92 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -61,6 +61,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A18-1 | No jogo a dividida mede o adversário; no ano, mede o time | provável | {n} clube-jogos de Série B de 2022 a 2025, {n_clubes} clubes e {n_ct} clube-temporadas, cada linha com a linha do adversário no mesmo jogo ao lado. |
 | A18-2 | No jogo que rende ponto o time disputa mais divididas | provável | {n} clube-jogos de 2022 a 2025, {n_clubes} clubes, com o indicador centrado no próprio clube-temporada e no mesmo mando, e depois também na média do adversário. |
 | A18-3 | Ganhar dividida no chão não se compra com folha | indício | {h4_n} clube-temporadas de 2022 a 2025, com valor de elenco do Transfermarkt. |
+| A19-1 | Nenhuma formação muda o resultado do jogo | indício | {n} clube-jogos de Série B de 2022 a 2025 nas {n_formacoes} formações com 150 jogos ou mais ({n_clubes} clubes, {n_ct} clube-temporadas). Ficaram fora {n_fora} jogos em {n_formacoes_fora} formações, por número de jogos. |
+| A19-2 | O corte que parecia mais limpo é o que escolhe pelo resultado | indício | {sel_n_inteiro} jogos em que o time ficou o tempo todo numa formação e {sel_n_trocou} em que trocou, dentro dos {n} clube-jogos da parte. |
+| A19-3 | O time da Série B não tem um sistema | indício | {n_ct} clube-temporadas de 2022 a 2025, {n_clubes} clubes, {n} clube-jogos. |
 | J01-1 | O corte único de minutagem passa {gk_60}% dos goleiros e só {atk_60}% dos atacantes | indício | {n} jogador-temporadas (2022-2025) |
 | J01-2 | A ficha de lesão não distingue quem jogou pouco de quem jogou muito | indício | {les_base} de minutagem baixa e {les_alta_base} de minutagem alta, com ponte ao Transfermarkt (2022-2025) |
 | J01-3 | Time que cai roda o elenco, {cai_usados} jogadores em média contra {meio_usados} do meio | provável | {n_ct} clubes-temporada (2022-2025): {n_sobe} que subiram, {n_meio} do meio e {n_cai} que caíram; sem os times de fronteira, 8, 32 e 12 |
@@ -126,6 +129,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | A16 | validada | 3 | sim |
 | A17 | validada | 3 | sim |
 | A18 | validada | 3 | sim |
+| A19 | validada | 3 | sim |
 | J01 | validada | 3 | sim |
 | J02 | validada | 3 | sim |
 | J03 | validada | 3 | sim |

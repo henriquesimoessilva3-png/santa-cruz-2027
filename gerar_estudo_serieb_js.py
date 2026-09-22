@@ -58,6 +58,7 @@ ROTEIRO = [
     ("A16", "A", "Dentro do que o dinheiro compra, qual traço dá mais ponto por real?"),
     ("A17", "A", "Que jeito de jogar produz a chance boa: finalizar de perto e ceder chance ruim?"),
     ("A18", "A", "A dividida no chão mede o time ou o adversário?"),
+    ("A19", "A", "A formação do time muda o resultado do jogo?"),
     ("J10", "J", "A corrida para dentro da área vira requisito de contratação por posição?"),
     ("T01", "T", "Quem comandou cada time da Série B, em quais rodadas, de 2018 a 2026?"),
     ("T02", "T", "Quais treinadores mantêm seus times mais rodadas no G4?"),

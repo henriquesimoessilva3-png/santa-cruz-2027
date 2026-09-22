@@ -160,8 +160,50 @@ def main():
     print("\npassam nos dois cortes — entre times:", nos_dois["ET"] or "nenhuma",
           "· dentro do clube:", nos_dois["DC"] or "nenhuma")
 
+    # ---- O CORTE DE ROBUSTEZ SELECIONA PELO DESFECHO? ----------------------------------------
+    # A declaração dizia que o jogo em que o time trocou de sistema é "o jogo colado na linha".
+    # É mais que isso, e tem de ser medido: o time só troca quando PRECISA trocar, e precisar
+    # trocar é estar perdendo. Se for, o corte reduzido escolhe pelo resultado, e nada que só
+    # aparece nele pode ser lido.
+    def media_pts(ls):
+        return round(float(np.mean([l["pontos"] for l in ls])), 3) if ls else None
+    inteiros = [l for l in base if l["inteira"]]
+    trocou = [l for l in base if not l["inteira"]]
+    selecao = {"pontos_jogo_inteiro": media_pts(inteiros), "pontos_trocou": media_pts(trocou),
+               "n_inteiro": len(inteiros), "n_trocou": len(trocou),
+               "por_formacao": {f: {"inteiro": media_pts([l for l in base if l["formacao"] == f and l["inteira"]]),
+                                    "trocou": media_pts([l for l in base if l["formacao"] == f and not l["inteira"]]),
+                                    "n_inteiro": sum(1 for l in base if l["formacao"] == f and l["inteira"]),
+                                    "n_trocou": sum(1 for l in base if l["formacao"] == f and not l["inteira"])}
+                                for f in entram},
+               "leitura": ("o time troca de sistema quando PRECISA trocar, e precisar trocar é "
+                           "estar perdendo. O corte reduzido não é só mais limpo: ele escolhe "
+                           "pelo desfecho, e nada que só aparece nele pode ser lido.")}
+    print(f"\nseleção do corte: jogo inteiro {selecao['pontos_jogo_inteiro']} pts · "
+          f"trocou {selecao['pontos_trocou']} pts")
+    for f in entram:
+        v = selecao["por_formacao"][f]
+        print(f"  {f:10s} inteiro {v['inteiro']:.2f} ({v['n_inteiro']}) · "
+              f"trocou {v['trocou']:.2f} ({v['n_trocou']})")
+
+    # ---- quantas formações cada time usa ------------------------------------------------------
+    por_ct = collections.defaultdict(list)
+    for l in base:
+        por_ct[(l["temporada"], l["clube"])].append(l["formacao"])
+    distintas = sorted(len(set(v)) for v in por_ct.values())
+    fatia = sorted(collections.Counter(v).most_common(1)[0][1] / len(v) for v in por_ct.values())
+    troca = {"formacoes_por_clube_temporada_mediana": float(np.median(distintas)),
+             "minimo": distintas[0], "maximo": distintas[-1],
+             "fatia_na_mais_usada_mediana": round(100 * float(np.median(fatia)), 1),
+             "nota": "contado só nas seis formações da lista; com as dezessete, a mediana sobe"}
+    print(f"troca de sistema: mediana de {troca['formacoes_por_clube_temporada_mediana']:.0f} "
+          f"formações por clube-temporada · a mais usada cobre "
+          f"{troca['fatia_na_mais_usada_mediana']}% dos jogos")
+
     resumo = {
         "gerado_em": GERADO_EM, "unidade": "clube-jogo",
+        "o_corte_seleciona_pelo_desfecho": selecao,
+        "troca_de_sistema": troca,
         "n": {"linhas": len(base), "clubes": len({l["clube"] for l in base}),
               "clube_temporadas": len({(l["temporada"], l["clube"]) for l in base}),
               "fora_da_lista": sum(fora.values()),
@@ -186,7 +228,25 @@ def main():
         "n_fora": resumo["n"]["fora_da_lista"], "n_inteiros": resumo["n"]["jogos_inteiros"],
         "n_formacoes": len(entram), "n_formacoes_fora": len(fora),
         "passam_et": len(nos_dois["ET"]), "passam_dc": len(nos_dois["DC"]),
+        "sel_inteiro": br(selecao["pontos_jogo_inteiro"], 2),
+        "sel_trocou": br(selecao["pontos_trocou"], 2),
+        "sel_n_inteiro": selecao["n_inteiro"], "sel_n_trocou": selecao["n_trocou"],
+        "graf_sel_inteiro": selecao["pontos_jogo_inteiro"],
+        "graf_sel_trocou": selecao["pontos_trocou"],
+        "troca_mediana": int(troca["formacoes_por_clube_temporada_mediana"]),
+        "troca_min": troca["minimo"], "troca_max": troca["maximo"],
+        "troca_fatia": br(troca["fatia_na_mais_usada_mediana"], 1),
+        "graf_troca_fatia": troca["fatia_na_mais_usada_mediana"],
     }
+    for f in entram:
+        k = f.replace("-", "")
+        v = selecao["por_formacao"][f]
+        numeros[f"sel_inteiro_{k}"] = br(v["inteiro"], 2)
+        numeros[f"sel_trocou_{k}"] = br(v["trocou"], 2)
+        numeros[f"sel_n_inteiro_{k}"] = v["n_inteiro"]
+        numeros[f"sel_n_trocou_{k}"] = v["n_trocou"]
+        numeros[f"graf_sel_inteiro_{k}"] = v["inteiro"]
+        numeros[f"graf_sel_trocou_{k}"] = v["trocou"]
     for f in entram:
         k = f.replace("-", "")
         for rot in ("com", "sem"):

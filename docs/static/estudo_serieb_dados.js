@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 34 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 35 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -2355,6 +2355,169 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas. (1) O estado do jogo. A explicação mais simples do A18-2 é o placar — quem está à frente recua e defende mais vezes —, e sem o minuto do gol não dá para separar isso do que o time escolheu fazer. É a mesma coleta que a A09, a A15 e a A17 já pediram. (2) Quem eram os defensores. A base NÃO tem escalação por jogo: serieb_jogos.csv não traz nome de jogador nenhum, só o sistema tático. Dá para saber quem eram os zagueiros do ano, não os do jogo — então ligar a dividida de um jogo aos jogadores que estavam em campo não roda com esta base.",
    "feita_em": null,
    "prova_arquivos": "scripts/A18.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
+  },
+  {
+   "id": "A19",
+   "bloco": "A",
+   "secao": "Que time montar",
+   "pergunta": "A formação do time muda o resultado do jogo?",
+   "status": "validada",
+   "titulo": "A formação do time muda o resultado do jogo, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "A19-1",
+     "parte": "A19",
+     "bloco": "A",
+     "manchete": "Nenhuma formação muda o resultado do jogo",
+     "o_que_vimos": "Das 6 formações testadas, 0 separam o resultado entre times e 0 dentro do próprio clube, nos dois cortes. Em 2.638 jogos de 40 clubes, o desenho do time não aparece no placar.",
+     "para_o_santa_cruz": "Não escolher treinador pelo desenho que ele usa, e não tratar a mudança de sistema como decisão de peso. A pergunta mais comum de vestiário e de diretoria tem, nesta base, resposta seca: dos seis desenhos mais usados da Série B, nenhum rende mais ponto que os outros — nem comparando times, nem comparando o mesmo time consigo mesmo no mesmo mando. Isso fecha com o T03-2, que mediu que trocar de treinador não muda o jeito de jogar do time, e com a A17, que não achou jeito de jogar que produza a chance boa. O que decide continua sendo o que o D13 lista, e nenhum daqueles quatro itens é um desenho tático.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa nova e barata de aplicar: na Série B, o desenho tático não é variável de decisão. Não contradiz nada; preenche um vazio que o estudo tinha.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e o teto da parte é indício — está certo que seja. Quando NADA passa em critério nenhum, nada pode subir, e é este o caso: (a) correção para múltiplos testes a 5% entre as 6 formações, dentro de cada leitura e cada corte — nenhuma passa em corte nenhum, em nenhuma das duas leituras. Dentro do próprio clube e do mesmo mando, com todos os jogos, os efeitos vão de +0,08 a -0,03 e todos os intervalos cruzam o zero — o do desenho mais usado é -0,12 a +0,05. (b) Anterioridade: NÃO É CALCULÁVEL, e foi declarado antes de rodar — formação e resultado são do mesmo jogo. Teto: provável. (c) A RESSALVA QUE MANDA NESTA PARTE: a formação é ESCOLHIDA, com informação que o teste não tem — o adversário, o elenco daquele dia e o placar. O dado é do jogo inteiro, então o time que virou três na defesa perdendo entra na conta com o desenho novo. Isto é seleção, não tratamento, e o A19-2 mede o tamanho disso. (d) A formação do ADVERSÁRIO não entra como controle, e o A18 mediu que num jogo o adversário explica mais da variação do que o próprio time. É o primeiro acréscimo se a parte voltar. (e) O que isto NÃO prova: que o desenho não importa. Prova que, medido assim, ele não aparece — e o IC95 de cada linha diz o tamanho do que o desenho enxergaria.",
+     "n": "2.638 clube-jogos de Série B de 2022 a 2025 nas 6 formações com 150 jogos ou mais (40 clubes, 80 clube-temporadas). Ficaram fora 398 jogos em 11 formações, por número de jogos.",
+     "prova": "A19_testes.csv; A19_resumo.json; A19_indicadores.json; A19.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Pontos por jogo de cada desenho, entre times",
+      "unidade": "pontos por jogo",
+      "barras": [
+       {
+        "nome": "4-2-3-1",
+        "valor": 1.352
+       },
+       {
+        "nome": "4-4-2",
+        "valor": 1.417
+       },
+       {
+        "nome": "4-3-3",
+        "valor": 1.332
+       },
+       {
+        "nome": "4-1-4-1",
+        "valor": 1.382
+       },
+       {
+        "nome": "5-4-1",
+        "valor": 1.28
+       },
+       {
+        "nome": "3-4-3",
+        "valor": 1.441
+       }
+      ]
+     }
+    },
+    {
+     "id": "A19-2",
+     "parte": "A19",
+     "bloco": "A",
+     "manchete": "O corte que parecia mais limpo é o que escolhe pelo resultado",
+     "o_que_vimos": "Quando o time ficou no mesmo desenho o jogo inteiro rendeu 1,39 ponto por jogo; quando trocou, 1,34. No desenho de cinco defensores a diferença é 1,75 contra 0,86 — quem troca é quem está perdendo.",
+     "para_o_santa_cruz": "É um aviso de leitura que vale muito além desta parte, e vale para qualquer número que alguém traga filtrado. Filtrar “só os jogos em que o time manteve o plano” parece limpar o dado e na verdade seleciona pelo desfecho: o time só mexe quando precisa mexer, e precisar mexer é estar perdendo. Qualquer sistema fica ótimo nesse filtro. Regra prática: antes de aceitar um recorte, pergunte se o que define o recorte poderia ter sido causado pelo resultado. Se puder, o recorte não limpa — ele escolhe.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa de método: recorte cujo critério pode ser consequência do desfecho não é robustez, é seleção. Vale a releitura de qualquer outro corte do estudo que dependa de algo que aconteceu DURANTE a temporada.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e é uma medida de viés, não um achado sobre futebol — o teto da parte é indício, porque nada nela passa em critério nenhum. Os números: no conjunto, ficar no mesmo desenho o jogo inteiro rende 1,39 ponto por jogo em 1.531 jogos, contra 1,34 em 1.107 — diferença pequena. Mas ela NÃO é uniforme, e é aí que está a armadilha: no desenho de cinco defensores vai de 1,75 (76 jogos) a 0,86 (85), e em dois outros desenhos ela vai para o lado contrário. A consequência direta: no corte reduzido, o desenho de cinco defensores sai com efeito +0,37 e q 0,0156 dentro do clube — o único carimbo desta parte inteira. Com todos os jogos, o mesmo desenho dá -0,04 com q 0,5058, e o sinal troca. A regra da casa já barraria isso sozinha (firme é firme nos dois cortes); o que esta conclusão acrescenta é POR QUE, medido. O que isto não prova: que ficar no mesmo desenho não ajude. Diz que, com este dado, não dá para separar ficar no desenho de não precisar sair dele. Sobre os dois cortes, e vale para a parte inteira: quatro dos seis desenhos TROCAM DE SINAL entre eles — nos pontos do jogo, o de dois volantes vai de +0,08 a -0,01, o de três atacantes de -0,05 a +0,03, o de cinco defensores de -0,04 a +0,37 e o de três zagueiros de -0,05 a -0,08. Nenhum dos dois cortes separa em nenhum deles, então o que virou foi o sinal de uma não-diferença — oscilação em volta do zero, e não discordância que o texto tenha de escolher.",
+     "n": "1.531 jogos em que o time ficou o tempo todo numa formação e 1.107 em que trocou, dentro dos 2.638 clube-jogos da parte.",
+     "prova": "A19_resumo.json; A19_testes.csv; A19.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Pontos por jogo: ficou no mesmo desenho o jogo inteiro, ou trocou",
+      "unidade": "pontos por jogo",
+      "cortes": [
+       {
+        "rotulo": "todos os desenhos",
+        "series": [
+         {
+          "nome": "ficou no mesmo",
+          "valor": 1.393
+         },
+         {
+          "nome": "trocou no meio",
+          "valor": 1.336
+         }
+        ]
+       },
+       {
+        "rotulo": "no desenho de cinco defensores",
+        "series": [
+         {
+          "nome": "ficou no mesmo",
+          "valor": 1.75
+         },
+         {
+          "nome": "trocou no meio",
+          "valor": 0.859
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "A19-3",
+     "parte": "A19",
+     "bloco": "A",
+     "manchete": "O time da Série B não tem um sistema",
+     "o_que_vimos": "O clube usa a mediana de 4 formações diferentes na temporada, de 3 a 6, e a mais usada cobre 50,0% dos jogos. Isso contando só as 6 mais comuns; com as outras 11, sobe.",
+     "para_o_santa_cruz": "Contratar “o treinador do 4-3-3” é comprar uma coisa que quase não existe: na Série B o time muda de desenho o tempo todo, e o mais usado não chega a cobrir dois terços dos jogos. Isso ajuda a entender por que o A19-1 não acha diferença — não há times de um sistema para comparar — e casa com o T03-1, que mediu que o perfil de jogo não acompanha o treinador na troca de clube. Na entrevista com um candidato, a pergunta útil não é qual é o sistema dele, e sim o que ele faz das quatro coisas do D13.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Dá contexto ao A19-1 e ao T03-1: “o sistema do treinador” é categoria que a Série B não sustenta. É descrição, não teste, e entra como tal.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e por escolha: é contagem, não teste. Não há correção para múltiplos testes nem anterioridade a aplicar — o que existe é a distribuição, e ela está publicada em A19_resumo.json com o mínimo, a mediana e o máximo. Duas ressalvas de leitura. Primeira: a conta é feita só nas 6 formações da lista; incluindo as 11 que ficaram de fora por número de jogos, a troca é ainda maior. Segunda: a coluna traz a formação DOMINANTE do jogo, com a fatia de tempo; um time que fica 50,0% dos jogos num desenho pode estar mais ou menos nele dentro de cada jogo, e isso o dado diz por jogo e não foi agregado aqui.",
+     "n": "80 clube-temporadas de 2022 a 2025, 40 clubes, 2.638 clube-jogos.",
+     "prova": "A19_resumo.json; A19_testes.csv; A19.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Jogos de cada desenho na Série B, 2022 a 2025",
+      "unidade": "jogos",
+      "barras": [
+       {
+        "nome": "4-2-3-1",
+        "valor": 1083
+       },
+       {
+        "nome": "4-4-2",
+        "valor": 616
+       },
+       {
+        "nome": "4-3-3",
+        "valor": 325
+       },
+       {
+        "nome": "4-1-4-1",
+        "valor": 301
+       },
+       {
+        "nome": "5-4-1",
+        "valor": 161
+       },
+       {
+        "nome": "3-4-3",
+        "valor": 152
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas, e as duas são a mesma coleta que quatro partes já pediram. (1) A formação do ADVERSÁRIO não entra como controle, e o A18 mediu que num jogo o adversário explica mais da variação do que o próprio time — é o primeiro acréscimo se a parte voltar, e roda com a base que já existe. (2) O minuto do gol: sem ele não dá para saber se a formação veio antes ou depois do primeiro gol, e é disso que depende toda a leitura. Enquanto não houver, o A19-2 é o teto do que esta pergunta consegue responder.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/A19.py + scripts/_metodo_jogo.py + scripts/_metodo.py"
   },
   {
    "id": "J10",
@@ -12625,9 +12788,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 32,
+  "total": 33,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 32
+  "validada": 33
  }
 };

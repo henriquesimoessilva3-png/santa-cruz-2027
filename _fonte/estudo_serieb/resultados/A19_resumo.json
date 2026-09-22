@@ -1,6 +1,58 @@
 {
  "gerado_em": "2026-09-21",
  "unidade": "clube-jogo",
+ "o_corte_seleciona_pelo_desfecho": {
+  "pontos_jogo_inteiro": 1.393,
+  "pontos_trocou": 1.336,
+  "n_inteiro": 1531,
+  "n_trocou": 1107,
+  "por_formacao": {
+   "4-2-3-1": {
+    "inteiro": 1.328,
+    "trocou": 1.397,
+    "n_inteiro": 708,
+    "n_trocou": 375
+   },
+   "4-4-2": {
+    "inteiro": 1.35,
+    "trocou": 1.491,
+    "n_inteiro": 323,
+    "n_trocou": 293
+   },
+   "4-3-3": {
+    "inteiro": 1.478,
+    "trocou": 1.152,
+    "n_inteiro": 180,
+    "n_trocou": 145
+   },
+   "4-1-4-1": {
+    "inteiro": 1.51,
+    "trocou": 1.243,
+    "n_inteiro": 157,
+    "n_trocou": 144
+   },
+   "5-4-1": {
+    "inteiro": 1.75,
+    "trocou": 0.859,
+    "n_inteiro": 76,
+    "n_trocou": 85
+   },
+   "3-4-3": {
+    "inteiro": 1.379,
+    "trocou": 1.523,
+    "n_inteiro": 87,
+    "n_trocou": 65
+   }
+  },
+  "leitura": "o time troca de sistema quando PRECISA trocar, e precisar trocar é estar perdendo. O corte reduzido não é só mais limpo: ele escolhe pelo desfecho, e nada que só aparece nele pode ser lido."
+ },
+ "troca_de_sistema": {
+  "formacoes_por_clube_temporada_mediana": 4.5,
+  "minimo": 3,
+  "maximo": 6,
+  "fatia_na_mais_usada_mediana": 50.0,
+  "nota": "contado só nas seis formações da lista; com as dezessete, a mediana sobe"
+ },
  "n": {
   "linhas": 2638,
   "clubes": 40,
