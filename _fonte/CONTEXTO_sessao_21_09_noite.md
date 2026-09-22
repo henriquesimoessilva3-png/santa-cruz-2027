@@ -144,6 +144,36 @@ exterior; (4) campeonatos sul-americanos — Argentina, Uruguai, Colômbia e viz
 foi marcado como principal. A lista por posição hoje é 65 na Série B e 120 no exterior, e o
 exterior ainda aparece como anexo — é o que muda.
 
+### 7.5 O que a conferência da cobertura achou em 22/09 — e o que ficou para o Portal
+
+A pergunta era por que só 66 sul-americanos tinham rodagem. **A cobertura das fotos está
+completa** (as 12 ligas têm as três temporadas da janela). Eram dois defeitos:
+
+1. **A chave do cruzamento, que discriminava por idioma.** O `_temporal_photos.json` guarda o
+   nome sem pontuação (`i russo`, via `J08_base.nkey`) e o J09 procurava com o `nm()` dele,
+   que mantém o ponto (`i. russo`). Só casava quem tem o nome escrito por extenso — o
+   brasileiro. Argentina A casava **8 de 437**; Brasil A, 182 de 337. Consertado usando a mesma
+   função dos dois lados. Sul-americanos com rodagem: 87 → **720**; exterior: 951 → 3.021.
+   **Isto derrubou o J09-1**, que foi reescrito: o achado "estrangeiro que já rodava joga mais
+   no primeiro ano" era artefato do recorte enviesado (q 0,0015 → 0,437; d 1,02 → 0,226 contra
+   mínimo de 0,65; IC passou a incluir o zero). O filtro de rodagem nos mercados de fora
+   **continua**, mas declarado como critério prático da casa, e não como achado medido — e a
+   tela diz isso. O J09-2 também virou: 4 nomes passam a ficha na ORIGEM e nenhum sobrevive ao
+   desconto de conversão (Portugal, Romênia, Polônia, Eslováquia — nenhum sul-americano).
+
+2. **Rótulo de liga errado na fonte, fora deste repositório.** As fotos rotuladas `Peru` em
+   2024 trazem times **equatorianos** e em 2025 trazem times **paraguaios**, idênticos aos do
+   próprio Paraguai; só 2023 e jun26 são Peru. Por isso o Peru fica em 7 de 269 mesmo depois do
+   conserto. A varredura achou **6 liga-temporada** assim: Peru 2024 e 2025, Sérvia 2024, e
+   Dinamarca, Equador B e Portugal A em 2023 — dessas, só Peru e Sérvia caem na janela da
+   regularidade. O arquivo é **copiado do Portal Ranking** (`_copiar_wyscout_ligas.py`), então o
+   conserto é lá. **Vale conferir o J08 antes de confiar nos fatores de Peru, Paraguai e
+   Equador**, porque os fatores de liga saem do mesmo painel.
+
+**O padrão, pela terceira vez em dois dias:** os três defeitos (zagueiro, meio eixo e agora a
+chave) são da mesma família — a tela afirmava um limite que era de CÓDIGO e não de dado. Vale
+desconfiar de toda frase publicada que diga "essa base não tem".
+
 ## 8. A ordem de publicação, como comando
 
 ```bash

@@ -1,15 +1,29 @@
 grupo,desfecho,fronteira,setor,n_a,n_b,cru_a,cru_b,d,ic95_lo,ic95_hi,p,q,selo,d_minimo_80,poder_suficiente
-minutagem_alta,minutos,com,Todos,30,18,1393.0,1073.8,1.02,0.38,1.88,0.00145,0.00145,firme,0.85,True
-minutagem_alta,minutos,sem,Todos,18,14,1599.6,1005.8,1.177,0.47,2.16,0.00214,0.00214,firme,1.03,True
-minutagem_alta,jogou_900,com,Todos,30,18,0.7,0.4,0.733,0.1,1.55,0.0226,0.0226,firme,0.85,False
-minutagem_alta,jogou_900,sem,Todos,18,14,0.8,0.4,1.091,0.42,2.25,0.0068,0.0068,firme,1.03,True
-minutagem_alta_e_regular,minutos,com,Todos,8,40,1302.1,1267.6,0.363,-0.5,1.2,0.34111,0.34111,sem diferença clara,1.11,False
-minutagem_alta_e_regular,jogou_900,com,Todos,8,40,0.8,0.6,0.353,-0.3,0.95,0.35729,0.35729,sem diferença clara,1.11,False
-duelo_corpo,minutos,com,Todos,14,34,1199.3,1303.8,0.11,-0.76,0.98,0.75634,0.75634,sem diferença clara,0.91,False
-duelo_corpo,minutos,sem,Todos,10,22,1341.2,1339.2,0.334,-0.56,1.39,0.41325,0.41325,sem diferença clara,1.1,False
-duelo_corpo,jogou_900,com,Todos,14,34,0.6,0.6,0.109,-0.67,0.82,0.73271,0.73271,sem diferença clara,0.91,False
-duelo_corpo,jogou_900,sem,Todos,10,22,0.7,0.6,0.219,-0.75,1.08,0.56613,0.56613,sem diferença clara,1.1,False
-estilo_tecnico,minutos,com,Todos,18,30,1109.9,1371.4,-0.294,-1.22,0.43,0.35005,0.35005,sem diferença clara,0.85,False
-estilo_tecnico,minutos,sem,Todos,14,18,1185.7,1459.7,-0.22,-1.19,0.71,0.54251,0.54251,sem diferença clara,1.03,False
-estilo_tecnico,jogou_900,com,Todos,18,30,0.6,0.6,-0.156,-1.01,0.52,0.60764,0.60764,sem diferença clara,0.85,False
-estilo_tecnico,jogou_900,sem,Todos,14,18,0.6,0.7,-0.191,-1.12,0.49,0.59825,0.59825,sem diferença clara,1.03,False
+minutagem_alta,minutos,com,Todos,48,31,1307.0,1073.4,0.226,-0.32,0.76,0.34151,0.43733,sem diferença clara,0.65,False
+minutagem_alta,minutos,com,Extremo,11,8,1479.9,739.9,0.438,-0.37,1.63,0.35744,0.43733,sem diferença clara,1.38,False
+minutagem_alta,minutos,com,Zaga,8,13,1001.6,1371.8,-0.322,-1.27,0.48,0.43733,0.43733,sem diferença clara,1.33,False
+minutagem_alta,minutos,sem,Todos,29,25,1427.8,1053.4,0.452,-0.18,1.12,0.10373,0.10373,sem diferença clara,0.78,False
+minutagem_alta,jogou_900,com,Todos,48,31,0.7,0.5,0.537,-0.07,1.26,0.02604,0.06401,pode ser sorte,0.65,False
+minutagem_alta,jogou_900,com,Extremo,11,8,0.7,0.2,1.026,-0.05,2.77,0.04268,0.06401,pode ser sorte,1.38,False
+minutagem_alta,jogou_900,com,Zaga,8,13,0.6,0.6,0.019,-1.26,1.3,0.96731,0.96731,sem diferença clara,1.33,False
+minutagem_alta,jogou_900,sem,Todos,29,25,0.8,0.4,0.771,0.06,1.62,0.00782,0.00782,firme,0.78,False
+minutagem_alta_e_regular,minutos,com,Todos,15,64,1522.3,1143.4,0.198,-0.53,0.78,0.47227,0.47227,sem diferença clara,0.81,False
+minutagem_alta_e_regular,minutos,sem,Todos,10,44,1415.0,1218.0,0.324,-0.43,0.85,0.26529,0.26529,sem diferença clara,1.0,False
+minutagem_alta_e_regular,jogou_900,com,Todos,15,64,0.8,0.6,0.489,-0.08,0.99,0.06682,0.06682,sem diferença clara,0.81,False
+minutagem_alta_e_regular,jogou_900,sem,Todos,10,44,0.9,0.6,0.7,-0.14,1.25,0.01513,0.01513,firme,1.0,False
+duelo_corpo,minutos,com,Todos,20,59,1259.0,1200.5,0.006,-0.51,0.53,0.9809,0.9809,sem diferença clara,0.73,False
+duelo_corpo,minutos,com,Atacante,12,10,941.4,943.4,-0.164,-1.02,0.61,0.70254,0.9809,sem diferença clara,1.26,False
+duelo_corpo,minutos,sem,Todos,13,41,1278.0,1247.0,0.187,-0.42,0.95,0.56287,0.56287,sem diferença clara,0.91,False
+duelo_corpo,jogou_900,com,Todos,20,59,0.7,0.6,0.115,-0.42,0.71,0.65777,0.71314,sem diferença clara,0.73,False
+duelo_corpo,jogou_900,com,Atacante,12,10,0.6,0.5,0.16,-0.75,1.23,0.71314,0.71314,sem diferença clara,1.26,False
+duelo_corpo,jogou_900,sem,Todos,13,41,0.7,0.6,0.168,-0.49,0.81,0.59752,0.59752,sem diferença clara,0.91,False
+estilo_tecnico,minutos,com,Todos,28,51,1205.2,1220.8,-0.224,-0.79,0.26,0.3426,0.5139,sem diferença clara,0.67,False
+estilo_tecnico,minutos,com,Atacante,14,8,950.1,928.8,-0.832,-2.22,0.14,0.08733,0.26198,sem diferença clara,1.31,False
+estilo_tecnico,minutos,com,Zaga,8,13,1368.6,1146.0,-0.107,-1.36,1.39,0.82635,0.82635,sem diferença clara,1.33,False
+estilo_tecnico,minutos,sem,Todos,21,33,1200.3,1288.9,-0.071,-0.69,0.61,0.79671,0.82121,sem diferença clara,0.8,False
+estilo_tecnico,minutos,sem,Zaga,8,8,1368.6,1161.4,0.115,-1.13,1.48,0.82121,0.82121,sem diferença clara,1.51,False
+estilo_tecnico,jogou_900,com,Todos,28,51,0.6,0.6,-0.001,-0.4,0.45,0.99523,0.99523,sem diferença clara,0.67,False
+estilo_tecnico,jogou_900,com,Atacante,14,8,0.6,0.5,0.137,-0.88,1.38,0.76418,0.99523,sem diferença clara,1.31,False
+estilo_tecnico,jogou_900,com,Zaga,8,13,0.5,0.7,-0.384,-1.8,0.62,0.41984,0.99523,sem diferença clara,1.33,False
+estilo_tecnico,jogou_900,sem,Todos,21,33,0.6,0.6,-0.035,-0.53,0.45,0.90069,0.90069,sem diferença clara,0.8,False
+estilo_tecnico,jogou_900,sem,Zaga,8,8,0.5,0.8,-0.5,-1.98,0.6,0.33462,0.66924,sem diferença clara,1.51,False

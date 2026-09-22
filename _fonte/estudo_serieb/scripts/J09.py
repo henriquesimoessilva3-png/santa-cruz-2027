@@ -28,6 +28,12 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _metodo  # noqa: E402  o método da casa: cohen_d, bh, ic_por_clube, d_minimo
+# A CHAVE DA FOTO. O `nkey` do painel temporal e' gerado pelo J08_base.nkey, que TIRA pontuacao:
+# "I. Russo" vira "i russo". O nm() daqui embaixo mantem o ponto ("i. russo"), e por isso o
+# cruzamento com a foto so' funcionava para quem tem o nome escrito por extenso — o brasileiro.
+# Nas ligas de lingua espanhola, onde o Wyscout abrevia o primeiro nome, ele falhava quase
+# sempre. Usar a MESMA funcao dos dois lados e' a unica forma de a chave nao divergir de novo.
+from J08_base import nkey as nkey_foto  # noqa: E402
 
 SCRIPTS = Path(__file__).resolve().parent
 ESTUDO = SCRIPTS.parent
@@ -440,7 +446,7 @@ for _temp, _linhas in fotos.items():
             FATIA_FOTO[(_liga, _temp, r["nkey"])] = 100 * r["minutes"] / tempo
 
 for l in base:
-    k = (l["liga"], nm(l["jogador"]))
+    k = (l["liga"], nkey_foto(l["jogador"]))
     hist = {} if k in ambiguos else alta_por_temporada.get(k, {})
     l["temporadas_com_dado"] = len(hist)
     l["temporadas_altas"] = sum(1 for v in hist.values() if v)
@@ -585,7 +591,7 @@ j08 = [l for l in csv.DictReader(open(RES / "J08_base.csv", encoding="utf-8"))
 def fatia_na_origem(liga, ano, jogador):
     """A fatia do ano de origem. `jun26` é a foto de 2026 no painel temporal."""
     chave = "jun26" if str(ano) == "2026" else str(ano)
-    return FATIA_FOTO.get((liga, chave, nm(jogador)))
+    return FATIA_FOTO.get((liga, chave, nkey_foto(jogador)))
 
 
 def regular_na_origem(liga, ano, jogador, setor):
@@ -799,6 +805,20 @@ for rot, t in (("com", j9_com), ("sem", j9_sem)):
     N[f"ma900_q_{rot}"] = t["q"] if t else None
     N[f"ma900_a_{rot}"] = round(100 * t["cru_a"]) if t else None
     N[f"ma900_b_{rot}"] = round(100 * t["cru_b"]) if t else None
+# O FILTRO CHEIO no desfecho de 900 minutos. Ele nao tinha marcador ate 22/09, e por isso a
+# discordancia entre os dois cortes de fronteira nao tinha como ser CITADA no texto sem digitar
+# numero a mao — que a regra da casa proibe. A regra 3 do portao pede a citacao; publicar o
+# numero e' o que torna a citacao possivel.
+f9_com = achar("minutagem_alta_e_regular", "jogou_900", "Todos", "com")
+f9_sem = achar("minutagem_alta_e_regular", "jogou_900", "Todos", "sem")
+for rot, t in (("com", f9_com), ("sem", f9_sem)):
+    N[f"filtro900_d_{rot}"] = t["d"] if t else None
+    N[f"filtro900_q_{rot}"] = t["q"] if t else None
+    N[f"filtro900_a_{rot}"] = round(100 * t["cru_a"]) if t else None
+    N[f"filtro900_b_{rot}"] = round(100 * t["cru_b"]) if t else None
+    N[f"filtro900_n_a_{rot}"] = t["n_a"] if t else None
+    N[f"filtro900_n_b_{rot}"] = t["n_b"] if t else None
+
 for rot, t in (("com", mo_com), ("sem", mo_sem)):
     N[f"mo_d_{rot}"] = t["d"] if t else None
     N[f"mo_q_{rot}"] = t["q"] if t else None

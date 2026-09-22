@@ -9,34 +9,65 @@ Eduardo Brock,Zaga,Paraguai,2025,Avaí,False,False,49.9,1,False,False,4,True,Tru
 João Pedro,Atacante,Grecia,2025,Remo,True,False,56.8,2,True,True,4,True,True,True,946.0,1.0
 André Luis,Atacante,Portugal A,2025,Vila Nova,False,False,66.9,2,True,True,4,True,True,True,1267.0,1.0
 Willian,Extremo,Grecia,2026,América-MG,False,False,12.9,1,False,False,4,False,False,False,419.0,0.0
+J. Quintero,Zaga,Colombia A,2024,Vila Nova,False,False,51.7,2,False,False,4,False,False,False,1482.0,1.0
 Paulinho Bóia,Extremo,Japao A,2024,Paysandu,False,False,6.4,1,False,False,4,False,False,False,1198.0,1.0
 Diego Pituca,Volante,Japao A,2024,Santos,False,False,86.2,1,True,False,4,False,False,False,3416.0,1.0
 Perotti,Atacante,Japao A,2024,Chapecoense,False,False,9.1,1,False,False,4,True,True,False,719.0,0.0
 Pedrinho,Atacante,Coreia B,2026,São Bernardo,False,False,26.4,1,False,False,4,True,True,False,342.0,0.0
+Y. González,Atacante,Portugal A,2024,Paysandu,False,False,100.0,1,True,False,4,True,True,False,473.0,0.0
 Anderson,Zaga,Portugal A,2026,Vila Nova,True,False,100.0,2,True,True,4,False,False,False,547.0,0.0
+J. Benítez,Atacante,Paraguai,2025,Paysandu,False,False,81.8,1,True,False,4,True,True,False,994.0,1.0
+Á. Rodríguez,Atacante,Colombia A,2024,Goiás,True,False,85.2,1,True,False,4,False,False,False,409.0,0.0
+G. Mastriani,Atacante,Equador A,2026,América-MG,False,False,35.8,1,True,False,4,False,False,False,954.0,1.0
+F. Barceló,Atacante,Paraguai,2024,Ceará,True,False,56.4,1,True,False,4,True,False,False,1011.0,1.0
+M. Castro,Extremo,Uruguai,2026,Juventude,True,False,27.3,1,False,False,4,False,False,False,676.0,0.0
+F. Martínez,Extremo,Uruguai,2025,Atlético-GO,False,False,70.2,2,True,True,4,False,False,False,1911.0,1.0
+M. Segovia,Extremo,Emirados,2026,América-MG,False,False,15.8,1,False,False,4,False,False,False,571.0,0.0
+F. Labandeira,Extremo,Uruguai,2023,Sport,True,False,56.0,1,True,False,4,False,False,False,1112.0,1.0
+A. Martínez,Extremo,Mexico,2025,Cuiabá,False,False,47.0,2,True,True,4,False,False,False,1432.0,1.0
+E. Rodríguez,Extremo,Venezuela,2026,Londrina,False,False,36.1,1,True,False,4,False,False,False,340.0,0.0
+G. Benavídez,Lateral,Argentina A,2025,Athletico-PR,False,False,94.7,3,True,True,4,True,True,True,1735.0,1.0
 Nathan,Lateral,Portugal A,2025,Remo,True,False,59.8,1,True,False,4,True,True,False,1029.0,1.0
+N. Castrillón,Lateral,Colombia A,2025,Amazonas,False,False,37.5,1,False,False,4,False,False,False,1698.0,1.0
+W. Clar,Lateral,Paraguai,2025,Chapecoense,True,False,100.0,2,True,True,4,True,True,True,3795.0,1.0
 Val Soares,Volante,Portugal A,2024,Paysandu,False,False,79.6,1,True,False,4,False,False,False,1073.0,1.0
 Lucas Gazal,Zaga,China,2026,Fortaleza,True,False,62.3,1,True,False,4,False,False,False,919.0,1.0
+J. Cuenú,Zaga,Colombia A,2026,Operário-PR,False,False,28.4,3,False,False,4,False,False,False,903.0,1.0
+J. Barreto,Zaga,Paraguai,2026,Atlético-GO,False,False,47.7,3,False,False,4,False,True,False,671.0,0.0
 Léo Coelho,Zaga,Uruguai,2025,Amazonas,False,False,55.3,3,False,False,4,False,False,False,1315.0,1.0
+E. Brítez,Zaga,Argentina A,2026,Fortaleza,True,False,42.7,1,False,False,4,False,False,False,1017.0,1.0
+J. Novillo,Zaga,Chile,2025,Paysandu,False,False,16.9,1,False,False,4,False,True,False,1361.0,1.0
+L. Segovia,Zaga,Belgica A,2024,CRB,False,False,77.5,1,True,False,4,False,True,False,1229.0,1.0
+J. Aguirre,Zaga,Colombia A,2025,Athletico-PR,False,False,62.0,2,True,True,4,False,False,False,1310.0,1.0
+F. Avenatti,Atacante,Uruguai,2026,Avaí,True,False,38.1,2,True,False,4,True,True,False,381.0,0.0
+K. Viveros,Atacante,Colombia A,2025,Athletico-PR,False,False,75.9,2,True,True,4,False,False,False,1855.0,1.0
 Hernandes,Atacante,Coreia A,2026,Cuiabá,False,False,76.9,1,True,False,4,False,True,False,390.0,0.0
 Rafa Silva,Atacante,Coreia A,2026,Vila Nova,True,False,42.0,1,True,False,4,False,False,False,432.0,0.0
 Sandro Lima,Atacante,Coreia A,2025,Atlético-GO,False,False,24.5,1,False,False,4,False,True,False,1203.0,1.0
+R. Carrillo,Atacante,Portugal A,2025,Botafogo-SP,True,False,49.3,1,True,False,4,False,True,False,987.0,1.0
+J. Miritello,Atacante,Argentina A,2026,Fortaleza,True,False,56.2,1,True,False,4,False,False,False,636.0,0.0
 Alisson Safira,Atacante,Portugal B,2025,Cuiabá,False,False,29.7,1,False,False,4,False,True,False,1742.0,1.0
 Fábio Lima,Extremo,Bulgaria,2026,Juventude,True,False,19.5,1,False,False,4,False,False,False,513.0,0.0
 Pedro Vitor,Extremo,Coreia B,2026,São Bernardo,False,False,61.0,1,True,False,4,False,False,False,647.0,0.0
 Jader,Extremo,Chile,2025,Cuiabá,False,False,14.8,1,False,False,4,False,False,False,700.0,0.0
+D. Vera,Extremo,Equador A,2026,Athletic,False,False,75.7,3,True,True,4,False,False,False,379.0,0.0
 Jefferson Nem,Extremo,Portugal C,2025,Botafogo-SP,True,False,68.9,2,True,True,4,False,False,False,2512.0,1.0
 Carlos Akapo,Lateral,EUA,2025,Amazonas,False,False,54.2,2,True,True,4,True,True,True,1062.0,1.0
 Ruan,Lateral,EUA,2025,Atlético-GO,False,False,85.5,2,True,True,4,True,True,True,1040.0,1.0
 Léo Alaba,Lateral,Portugal B,2025,Criciúma,True,False,70.0,2,True,True,4,False,False,False,884.0,0.0
 Lucas Lovat,Lateral,Eslovaquia,2025,Goiás,True,False,25.4,2,False,False,4,True,True,False,836.0,0.0
+G. Cabezas,Volante,Colombia A,2026,Athletic,False,False,19.3,3,False,False,4,False,False,False,572.0,0.0
 João Schmidt,Volante,Japao A,2024,Santos,False,False,60.7,1,True,False,4,False,False,False,3154.0,1.0
 Luizão,Volante,Polonia,2025,Atlético-GO,False,False,72.8,2,True,True,4,False,False,False,2159.0,1.0
 João Basso,Zaga,Portugal A,2024,Santos,False,False,100.0,1,True,False,4,True,True,False,687.0,0.0
+L. Haquín,Zaga,Colombia A,2024,Ponte Preta,False,False,39.2,1,False,False,4,False,False,False,603.0,0.0
+C. Terán,Zaga,EUA,2025,Athletico-PR,False,False,44.9,2,False,False,4,False,False,False,837.0,0.0
 Matheus Costa,Zaga,Portugal B,2024,Botafogo-SP,False,False,100.0,1,True,False,4,False,False,False,1775.0,1.0
+Y. Quintana,Zaga,Uruguai,2024,Paysandu,False,False,34.1,1,False,False,4,False,True,False,2143.0,1.0
 Wallace,Zaga,Emirados,2025,Atlético-GO,False,False,47.7,1,False,False,4,False,True,False,728.0,0.0
 Ronaldo Tavares,Atacante,Portugal A,2025,Athletic,False,False,53.8,1,True,False,4,True,True,False,2037.0,1.0
 Thiaguinho,Extremo,Bahrain,2025,CRB,False,False,60.3,1,True,False,4,False,False,False,2730.0,1.0
+J. Torres,Extremo,Chile,2025,Amazonas,False,False,18.2,1,False,False,4,False,False,False,1413.0,1.0
 Guilherme Marques,Extremo,China,2026,Atlético-GO,False,False,32.2,1,False,False,4,False,False,False,429.0,0.0
 Jája Silva,Extremo,Emirados,2025,Goiás,True,False,100.0,1,True,False,4,False,False,False,1486.0,1.0
 Diego Zabala,Extremo,Uruguai,2025,Amazonas,False,False,45.7,1,True,False,4,False,False,False,906.0,1.0

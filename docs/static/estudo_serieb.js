@@ -602,6 +602,17 @@
       '<p class="esb-nota">Custo, disponibilidade e encaixe no modelo de jogo ficam para validação ' +
       'externa. Na Série B a rodagem é no próprio campeonato; nos outros três mercados, na liga ' +
       'de origem.</p>' +
+      /* 22/09. O filtro de rodagem nos mercados de fora PERDEU a justificacao medida, e a
+         tela tem de dizer isso em vez de continuar citando o achado que caiu. */
+      '<p class="esb-nota"><b>Por que a rodagem elimina, e o que mudou em 22/09.</b> Até ' +
+      'ontem esta tela dizia que o filtro vinha de um achado medido — o J09-1, “estrangeiro ' +
+      'que já rodava joga mais no primeiro ano”. Aquele achado <b>caiu</b>: ele era efeito ' +
+      'de um defeito na chave que cruza a base com o painel de temporadas, que só casava ' +
+      'nomes escritos por extenso — ou seja, brasileiros. Com a chave certa o efeito ' +
+      'desaparece (o J09-1 reescrito mostra os números). A rodagem <b>continua ' +
+      'eliminando</b>, mas como critério prático da casa: quem não joga na liga dele não é ' +
+      'alvo. É uma regra de triagem, e não um número — e é assim que ela deve ser ' +
+      'defendida numa reunião.</p>' +
       '</section>';
   }
 
