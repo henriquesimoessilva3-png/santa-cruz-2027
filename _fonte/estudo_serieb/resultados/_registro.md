@@ -3,7 +3,7 @@
 > **Gerado por `scripts/gerar_registro.py` a partir dos `<ID>.json`. Não editar à mão.**
 > A prosa curada vive em `_registro_notas.md`; as tabelas saem sempre do dado.
 
-**33 das 33 perguntas respondidas** · **92 conclusões** (61 indício · 30 provável · 1 firme) · **92 validadas**.
+**34 das 34 perguntas respondidas** · **95 conclusões** (63 indício · 31 provável · 1 firme) · **95 validadas**.
 
 Removidas, com o motivo no próprio JSON: A10-2.
 
@@ -91,6 +91,9 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J10-1 | Correr para a área não separa o titular de quem sobe | provável | {n} titulares com corrida medida, 2022 a 2025 ({n_clubes} clubes): {n_sobe} de quem subiu, {n_meio} do meio e {n_cai} de quem caiu, em {n_setores} setores. {sem_linha} titulares ficaram fora por não terem linha na tabela de corridas. |
 | J10-2 | Só o volante de quem sobe corre diferente, e é em volume | provável | {nsobe_volante} volantes de quem subiu contra {nmeio_volante} do meio, dentro dos {n} titulares com corrida medida de 2022 a 2025. |
 | J10-3 | A qualidade da chance se compra no treinador, não no jogador | indício | {n} titulares com corrida medida em {n_setores} setores, mais as partes J03, J04 e J05 que a conclusão lê junto. |
+| J11-1 | Nenhuma razão entre as fases sobrevive aos dois cortes | indício | {n} titulares com físico, 2022 a 2025, {n_clubes} clubes: {n_sobe} de quem subiu, {n_meio} do meio e {n_cai} de quem caiu, em {n_setores} setores. Cobertura de {n} em {n} nas três unidades da tabela física. |
+| J11-2 | O lateral de quem cai arranca menos sem a bola | provável | {n_cai} titulares de quem caiu contra {n_meio} do meio, dentro dos {n} com físico; no lateral, {nsobe_lateral} contra {nmeio_lateral} na comparação de cima. |
+| J11-3 | Um quinto do jeito de correr é do time, não do jogador | indício | {n} titulares com físico em {n_clubes} clubes, 2022 a 2025. |
 | J09-1 | Estrangeiro que já rodava joga mais no primeiro ano de Série B | indício | {bt_chegadas} chegadas do exterior à Série B em 2023 a 2026, {ma_n_a_com} com minutagem alta na origem contra {ma_n_b_com} sem; {bt_testes} testes entraram na tabela e {bt_fora_por_n} recortes por setor ficaram fora por não chegar a {bt_piso_do_lado} de cada lado |
 | J09-2 | Nenhum volante e nenhum extremo de fora passa nos {pri_vol_exig} pisos juntos | indício | {elegiveis_com_dado} elegíveis com dado em {ligas_que_entram} das {ligas_lidas} ligas lidas; {pri_vol_cand} volantes e {pri_ext_cand} extremos nas posições prioritárias, dos quais {pri_vol_com_fisico} e {pri_ext_com_fisico} com linha física |
 | J09-3 | No gol a base não tem como apontar um nome | indício | {gk_na_base} goleiros na base, {gk_com_minutagem_alta} com minutagem alta e {pri_gol_com_fisico} com linha física, em {ligas_que_entram} ligas |
@@ -139,6 +142,7 @@ Removidas, com o motivo no próprio JSON: A10-2.
 | J07 | validada | 3 | sim |
 | J08 | validada | 3 | sim |
 | J10 | validada | 3 | sim |
+| J11 | validada | 3 | sim |
 | J09 | validada | 3 | sim |
 | T01 | validada | 3 | sim |
 | T02 | validada | 3 | sim |

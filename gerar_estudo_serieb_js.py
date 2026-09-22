@@ -60,6 +60,7 @@ ROTEIRO = [
     ("A18", "A", "A dividida no chão mede o time ou o adversário?"),
     ("A19", "A", "A formação do time muda o resultado do jogo?"),
     ("J10", "J", "A corrida para dentro da área vira requisito de contratação por posição?"),
+    ("J11", "J", "O titular de quem sobe corre proporcionalmente mais sem a bola?"),
     ("T01", "T", "Quem comandou cada time da Série B, em quais rodadas, de 2018 a 2026?"),
     ("T02", "T", "Quais treinadores mantêm seus times mais rodadas no G4?"),
     ("T03", "T", "Os times do treinador mostram os traços de quem sobe, em clubes diferentes?"),

@@ -1,0 +1,207 @@
+{
+ "gerado_em": "2026-09-21",
+ "unidade": "jogador-temporada",
+ "n": {
+  "titulares": 697,
+  "clubes": 40,
+  "por_faixa": {
+   "Sobe": 141,
+   "Cai": 142,
+   "Meio": 414
+  },
+  "por_setor": {
+   "Atacante": 123,
+   "Lateral": 133,
+   "Meia": 130,
+   "Volante": 89,
+   "Zaga": 134,
+   "Extremo": 88
+  },
+  "sem_linha_na_physical": 0,
+  "sem_sc_player_id": 210
+ },
+ "n_por_setor": {
+  "Atacante": {
+   "com": {
+    "n_sobe": 23,
+    "n_meio": 76,
+    "n_cai": 24,
+    "clubes": 36,
+    "d_minimo_80_sobe_x_meio": 0.67
+   },
+   "sem": {
+    "n_sobe": 12,
+    "n_meio": 54,
+    "n_cai": 18,
+    "clubes": 29,
+    "d_minimo_80_sobe_x_meio": 0.91
+   }
+  },
+  "Extremo": {
+   "com": {
+    "n_sobe": 17,
+    "n_meio": 53,
+    "n_cai": 18,
+    "clubes": 31,
+    "d_minimo_80_sobe_x_meio": 0.79
+   },
+   "sem": {
+    "n_sobe": 8,
+    "n_meio": 32,
+    "n_cai": 15,
+    "clubes": 23,
+    "d_minimo_80_sobe_x_meio": 1.14
+   }
+  },
+  "Lateral": {
+   "com": {
+    "n_sobe": 27,
+    "n_meio": 79,
+    "n_cai": 27,
+    "clubes": 40,
+    "d_minimo_80_sobe_x_meio": 0.63
+   },
+   "sem": {
+    "n_sobe": 14,
+    "n_meio": 53,
+    "n_cai": 21,
+    "clubes": 32,
+    "d_minimo_80_sobe_x_meio": 0.85
+   }
+  },
+  "Meia": {
+   "com": {
+    "n_sobe": 28,
+    "n_meio": 75,
+    "n_cai": 27,
+    "clubes": 39,
+    "d_minimo_80_sobe_x_meio": 0.63
+   },
+   "sem": {
+    "n_sobe": 15,
+    "n_meio": 48,
+    "n_cai": 20,
+    "clubes": 30,
+    "d_minimo_80_sobe_x_meio": 0.84
+   }
+  },
+  "Volante": {
+   "com": {
+    "n_sobe": 21,
+    "n_meio": 50,
+    "n_cai": 18,
+    "clubes": 36,
+    "d_minimo_80_sobe_x_meio": 0.74
+   },
+   "sem": {
+    "n_sobe": 12,
+    "n_meio": 40,
+    "n_cai": 13,
+    "clubes": 29,
+    "d_minimo_80_sobe_x_meio": 0.94
+   }
+  },
+  "Zaga": {
+   "com": {
+    "n_sobe": 25,
+    "n_meio": 81,
+    "n_cai": 28,
+    "clubes": 40,
+    "d_minimo_80_sobe_x_meio": 0.65
+   },
+   "sem": {
+    "n_sobe": 13,
+    "n_meio": 54,
+    "n_cai": 21,
+    "clubes": 32,
+    "d_minimo_80_sobe_x_meio": 0.88
+   }
+  }
+ },
+ "comparacoes_fora_por_n": [
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Extremo",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 25
+  },
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Volante",
+   "comparacao": "SM",
+   "fronteira": "sem",
+   "n_a": 7,
+   "n_b": 31
+  },
+  {
+   "subamostra": "sem_cobertura_baixa",
+   "setor": "Volante",
+   "comparacao": "CM",
+   "fronteira": "sem",
+   "n_a": 6,
+   "n_b": 31
+  }
+ ],
+ "passam_nos_dois_cortes_sobe_x_meio": [],
+ "passam_nos_dois_cortes_cai_x_meio": [
+  {
+   "setor": "Lateral",
+   "indicador": "high_accel_p30otip",
+   "d_com": -0.625,
+   "d_sem": -0.641
+  }
+ ],
+ "por_familia_sobe_x_meio": {
+  "razao": {
+   "testes": 30,
+   "passam_nos_dois": 0
+  },
+  "nivel_com_bola": {
+   "testes": 18,
+   "passam_nos_dois": 0
+  },
+  "nivel_sem_bola": {
+   "testes": 18,
+   "passam_nos_dois": 0
+  }
+ },
+ "a_razao_e_do_time_ou_do_jogador": {
+  "r_distance": {
+   "rho_com_a_posse_do_time": 0.278,
+   "p": 0.0,
+   "n": 697,
+   "variancia_explicada_pelo_clube": 0.208
+  },
+  "r_hi_distance": {
+   "rho_com_a_posse_do_time": 0.189,
+   "p": 0.0,
+   "n": 697,
+   "variancia_explicada_pelo_clube": 0.088
+  },
+  "r_sprint_count": {
+   "rho_com_a_posse_do_time": 0.176,
+   "p": 3e-06,
+   "n": 697,
+   "variancia_explicada_pelo_clube": 0.082
+  },
+  "r_high_accel": {
+   "rho_com_a_posse_do_time": 0.209,
+   "p": 0.0,
+   "n": 697,
+   "variancia_explicada_pelo_clube": 0.138
+  },
+  "r_cod_count": {
+   "rho_com_a_posse_do_time": 0.1,
+   "p": 0.008368,
+   "n": 697,
+   "variancia_explicada_pelo_clube": 0.064
+  }
+ },
+ "porta_temporal_nao_calculavel": {
+  "parcial": null,
+  "passa": false,
+  "por_que": "a tabela physical tem uma linha por jogador-temporada, sem recorte por rodada. Declarado em J11_indicadores.json antes de rodar."
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "parte": "J11",
+ "pergunta": "O titular de quem sobe corre proporcionalmente mais SEM a bola do que COM a bola?",
+ "declarado_em": "2026-09-21",
+ "declarado_antes_de_calcular": true,
+ "o_que_o_J04_ja_fez_e_esta_parte_NAO_refaz": {
+  "o_que_ele_testou": "20 medidas físicas por posição, uma a uma — inclusive SEIS em TIP/OTIP: m_per_min_tip, m_per_min_otip, hi_distance_p30tip, hi_distance_p30otip, sprint_count_p30tip e sprint_count_p30otip.",
+  "o_que_ele_achou": "J04-1: nenhuma medida de corrida separa o titular de quem sobe. J04-2: sobram dois sinais, um no volante e um na zaga, cada um num recorte só.",
+  "o_que_ele_NAO_fez": "a RAZÃO entre as duas fases. O J04 testou o nível com a bola e o nível sem a bola como indicadores separados, cada um corrigido dentro da família dele. Ele nunca perguntou se o jogador corre proporcionalmente mais numa fase que na outra — e é isso que distingue o jogador que persegue do jogador que ataca, dois perfis que o nível por 90 e até o nível por fase deixam idênticos.",
+  "os_seis_do_J04_ficam_fora_desta_lista": "para que nenhum indicador saia com dois q (regra 7 do portão). Onde esta parte precisar deles, cita o J04."
+ },
+ "recorte": {
+  "temporadas": [2022, 2023, 2024, 2025],
+  "unidade": "jogador-temporada",
+  "quem_entra": "titular elegível e no recorte, como o J04 define (resultados/J04_base.csv)",
+  "n": "697 titulares com físico — Zaga 134, Lateral 133, Meia 130, Atacante 123, Volante 89, Extremo 88",
+  "goleiro": "FORA: o SkillCorner não o rastreia",
+  "cobertura": "697 de 697 têm as três unidades na tabela `physical`; não há buraco a declarar"
+ },
+ "fonte_do_dado": {
+  "tabela": "physical do _fonte/estudo_serieb/dados_copiados/skillcorner_serieb.db",
+  "ponte": "sc_player_id × temporada, pelo J04_base.csv, que já resolveu a identidade SkillCorner × Wyscout",
+  "as_tres_unidades": "cada métrica vem por 90 minutos de jogo, por 30 min COM o time em posse (p30tip) e por 30 min SEM a posse (p30otip). A normalização por fase já desconta a exposição: um jogador de time que fica pouco com a bola não ganha p30tip maior por isso.",
+  "regra_dura_herdada_do_J04": "NUNCA comparar _p30tip com _p90: são réguas diferentes. Aqui a razão é sempre otip ÷ tip, as duas na mesma régua."
+ },
+ "comparacoes": [
+  {"id": "SM", "nome": "Titular de quem sobe × titular do meio", "papel": "padrão"},
+  {"id": "CM", "nome": "Titular de quem cai × titular do meio", "papel": "secundária"}
+ ],
+ "repetir_sem_fronteira": true,
+ "subamostras": {
+  "todos": "todos os titulares com físico",
+  "sem_cobertura_baixa": "sem os jogadores de clube-temporada com cobertura de rastreamento baixa, como o CLAUDE.md manda com dado físico"
+ },
+ "percentil": "dentro de setor × temporada, como no J04 e no J10",
+ "n_minimo_por_setor": "8 de um lado e 16 do outro, o mesmo piso do J04",
+ "familias": [
+  {"id": "razao", "nome": "Corre mais sem a bola do que com a bola?",
+   "nota_de_sinal": "O sinal é CONVENÇÃO DE LEITURA, não 'melhor'. Correr proporcionalmente mais sem a bola não é bom nem ruim em si: é um perfil. Todos entram com +1, como a casa faz com métrica de estilo.",
+   "o_que_e": "otip ÷ tip da mesma métrica, as duas por 30 minutos da fase",
+   "indicadores": [
+    {"id": "r_distance", "nome": "Distância: sem a bola dividido por com a bola", "sinal": 1, "fonte": "distance_p30otip ÷ distance_p30tip", "apelidos": ["corre mais sem a bola", "distância sem a bola sobre com a bola"]},
+    {"id": "r_hi_distance", "nome": "Alta intensidade: sem a bola dividido por com a bola", "sinal": 1, "fonte": "hi_distance_p30otip ÷ hi_distance_p30tip", "apelidos": ["alta intensidade sem a bola"]},
+    {"id": "r_sprint_count", "nome": "Sprints: sem a bola dividido por com a bola", "sinal": 1, "fonte": "sprint_count_p30otip ÷ sprint_count_p30tip", "apelidos": ["sprint sem a bola", "sprints sem a bola"]},
+    {"id": "r_high_accel", "nome": "Arrancadas fortes: sem a bola dividido por com a bola", "sinal": 1, "fonte": "high_accel_p30otip ÷ high_accel_p30tip", "apelidos": ["arrancada sem a bola", "arrancadas sem a bola"]},
+    {"id": "r_cod_count", "nome": "Mudanças de direção: sem a bola dividido por com a bola", "sinal": 1, "fonte": "cod_count_p30otip ÷ cod_count_p30tip", "apelidos": ["mudança de direção sem a bola", "mudanças de direção sem a bola"]}
+   ]},
+  {"id": "nivel_com_bola", "nome": "Quanto corre COM a bola",
+   "o_que_e": "níveis por 30 min com o time em posse que o J04 não testou",
+   "indicadores": [
+    {"id": "distance_p30tip", "nome": "Distância com a bola, por 30 min de posse", "sinal": 1, "apelidos": ["distância com a bola"]},
+    {"id": "high_accel_p30tip", "nome": "Arrancadas fortes com a bola, por 30 min de posse", "sinal": 1, "apelidos": ["arrancada com a bola", "arrancadas com a bola"]},
+    {"id": "cod_count_p30tip", "nome": "Mudanças de direção com a bola, por 30 min de posse", "sinal": 1, "apelidos": ["mudança de direção com a bola"]}
+   ]},
+  {"id": "nivel_sem_bola", "nome": "Quanto corre SEM a bola",
+   "o_que_e": "os mesmos três, na fase sem posse",
+   "indicadores": [
+    {"id": "distance_p30otip", "nome": "Distância sem a bola, por 30 min sem posse", "sinal": 1, "apelidos": ["distância sem a bola"]},
+    {"id": "high_accel_p30otip", "nome": "Arrancadas fortes sem a bola, por 30 min sem posse", "sinal": 1, "apelidos": ["arrancada forte sem a bola"]},
+    {"id": "cod_count_p30otip", "nome": "Mudanças de direção sem a bola, por 30 min sem posse", "sinal": 1, "apelidos": ["mudança de direção sem bola"]}
+   ]}
+ ],
+ "criterio": {
+  "referencia": "§6 da ESPECIFICACAO.md, via scripts/_metodo.py — o mesmo do J04 e do J10",
+  "teste": "t de Welch no posto dentro de setor × temporada; d de Cohen; BH a 5% por família × comparação × setor; IC95 por bootstrap de clube; poder por desenho",
+  "porta_temporal": "NÃO É CALCULÁVEL, declarado antes de rodar: a tabela `physical` tem uma linha por jogador-temporada, sem recorte por rodada. Teto desta parte: PROVÁVEL."
+ },
+ "ressalvas_declaradas": [
+  "A RAZÃO PODE SER DO TIME, NÃO DO JOGADOR. Time que fica pouco com a bola dá mais minutos sem posse a todo mundo. A normalização por fase desconta a exposição, mas não desconta o modelo de jogo — e a parte MEDE isso: a correlação entre a razão de cada jogador e a posse do time dele vai publicada ao lado, como a A06 faz com o PPDA e o dinheiro. Ressalva, nunca desconto.",
+  "A razão varia pouco entre jogadores da mesma posição: no levantamento de viabilidade, o desvio da razão da distância ficou entre 0,045 e 0,070 sobre mediana perto de 1,05. Se ela for quase constante, não há o que separar — e é o próprio d mínimo de cada setor que dirá isso.",
+  "Cobertura de rastreamento: a subamostra sem os clubes de cobertura baixa roda ao lado.",
+  "O J08-3 mediu que quem chega de outra liga guarda menos da metade do destaque que tinha: qualquer piso daqui vale para jogador da própria Série B."
+ ],
+ "o_que_esta_parte_nao_prova": [
+  "Que o perfil de corrida CAUSA o acesso: não há anterioridade nesta base.",
+  "Que o que não apareceu não existe: o d mínimo por setor vai publicado.",
+  "Que a razão é escolha do jogador — ela é, em parte, do time em que ele jogava, e a parte mede quanto."
+ ]
+}

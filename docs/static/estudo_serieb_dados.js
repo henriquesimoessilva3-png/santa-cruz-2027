@@ -1,12 +1,12 @@
 /* GERADO POR gerar_estudo_serieb_js.py - NAO EDITE A MAO.
 
-   O Estudo Serie B como a aba le: o roteiro das 35 perguntas com o status de cada uma, e as
+   O Estudo Serie B como a aba le: o roteiro das 36 perguntas com o status de cada uma, e as
    conclusoes das partes ja respondidas, com os numeros ja trocados pelos valores medidos.
 
    Fonte: _fonte/estudo_serieb/resultados/*.json
    Para mudar um numero: mexa no <ID>.json da parte e rode `python3 gerar_estudo_serieb_js.py`.
 
-   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, T01, T02, T03, T04
+   Gerado em: 2026-09-21 - partes respondidas: A01, A02, A03, A04, A05, A06, A07, A08, A09, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, J01, J02, J03, J04, J05, J06, J07, J08, J09, J10, J11, T01, T02, T03, T04
 */
 const ESTUDO_SERIEB = {
  "gerado_em": "2026-09-21",
@@ -2671,6 +2671,167 @@ const ESTUDO_SERIEB = {
    "em_aberto": "Duas. (1) O poder. No volante os três indicadores de corrida para a área apontam para o lado certo e ficam abaixo do mínimo detectável; com mais temporadas rastreadas — ou com a Série B de anos anteriores no SkillCorner — a pergunta merece voltar, e a lista já está declarada de antes. (2) O corte por jogo. A tabela de corridas é por temporada fechada; a física por jogo existe (physical_match) e a de corrida não. Com corrida por jogo daria para rodar a anterioridade e para cruzar com o A15, que mediu o jogo. É a mesma compra que a A08 e a A09 já pediram, agora com um terceiro motivo.",
    "feita_em": null,
    "prova_arquivos": "scripts/J10.py + scripts/_metodo.py"
+  },
+  {
+   "id": "J11",
+   "bloco": "J",
+   "secao": "Quem contratar",
+   "pergunta": "O titular de quem sobe corre proporcionalmente mais sem a bola?",
+   "status": "validada",
+   "titulo": "Correr com a bola e correr sem a bola: a razão entre as fases, 2022 a 2025",
+   "tipo": "analise",
+   "conclusoes": [
+    {
+     "id": "J11-1",
+     "parte": "J11",
+     "bloco": "J",
+     "manchete": "Nenhuma razão entre as fases sobrevive aos dois cortes",
+     "o_que_vimos": "Das 66 comparações de quem sobe contra o meio, 0 sobrevivem aos dois cortes. O que mais chegou perto foi o EXTREMO, e na direção esperada: quem sobe corre proporcionalmente mais sem a bola, +1,00 na alta intensidade — só que no corte reduzido.",
+     "para_o_santa_cruz": "A razão entre correr sem a bola e correr com a bola ainda não vira requisito de contratação, mas esta é a pista mais promissora que o físico deu no estudo inteiro, e ela é do extremo. A direção é a que se esperava — o extremo de quem sobe corre proporcionalmente mais na fase sem a bola —, o efeito é grande, e ele fica mais forte quando saem os clubes de cobertura de rastreamento baixa, que é justamente o corte que o método da casa manda rodar com dado físico. O que impede de usar é o n: são 17 extremos de quem sobe contra 53 do meio no corte cheio, e oito contra trinta e dois no reduzido. Na prática: não vira piso agora, e vira a primeira coisa a rodar quando houver mais temporadas rastreadas. O único requisito de elenco que a base sustenta continua sendo minutagem alta e regular.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Não confirma nem contradiz o J04-1: acrescenta uma medida que ele não tinha e uma direção que ele não podia ver. Sugere uma premissa a TESTAR, não a adotar — na Série B, o extremo de quem sobe seria o que corre proporcionalmente mais sem a bola.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e é o selo certo mesmo com efeito grande — porque a regra da casa é firme nos DOIS cortes, e aqui não é. (a) O extremo, item a item. Com todos os times: distância +0,72 (q 0,0559), alta intensidade +0,47 (q 0,2848) e sprints +0,30 (q 0,3748) — nenhum passa. Sem os times colados na linha, os três passam: +0,91, +1,00 e +0,82, todos com q 0,0177. É exatamente a discordância entre cortes que a casa manda tratar como suspeita, e não como promoção. (b) Por que ela acontece aqui: n pequeno. No extremo são 17 contra 53 com todos os times, e o desenho só enxerga a partir de 0,79; no corte reduzido sobram oito de um lado, e o mínimo detectável sobe junto. Efeito grande com n pequeno é o retrato de estimativa instável, não de achado forte. (c) A subamostra sem cobertura baixa, que o CLAUDE.md manda rodar com dado físico, reforça a direção — mas nela o corte reduzido do extremo não chega ao piso de n e a linha fica sem par: 3 comparações de setor ficaram fora por isso, e o portão marca a parte como REVISAR por causa delas. Está certo que marque. (d) O VOLANTE vai para o outro lado, e isso tem de ir escrito. Nele, quem sobe corre proporcionalmente mais COM a bola: a razão de sprints dá -0,69 com q 0,0272 e cai para -0,49 com q 0,4329; a de alta intensidade, -0,65 com q 0,0272 e -0,60 com q 0,2985. Duas posições com sinais opostos, nenhuma sobrevivendo aos dois cortes — se houvesse um padrão único de “correr sem a bola”, ele não teria sinal trocado entre posições. (e) O PADRÃO DAS DISCORDÂNCIAS, e ele é o que fecha a leitura. Em TODAS as posições em que a razão discorda entre os cortes, o efeito é MAIOR no corte reduzido — e isso é exatamente o que o método da casa prevê dele, porque tirar os times colados na linha afasta as faixas vizinhas por construção. Na zaga, a razão de distância vai de +0,40 a +1,15; no extremo, de +0,72 a +0,91. Na subamostra sem cobertura baixa o mesmo acontece no lateral, e em cinco medidas: alta intensidade de +0,41 a +0,91, sprints de +0,48 a +1,07, arrancadas de +0,58 a +1,31, mudanças de direção de +0,46 a +0,95 e o nível de arrancada com a bola de -0,33 a -0,96; e na zaga, de +0,42 a +1,09. Na comparação de quem cai, os dois casos vão ao contrário — a distância com a bola da zaga de -0,61 a -0,60 e a distância sem a bola de -0,61 a -0,40 —, e nenhum deles sobrevive. Quando a discordância tem sempre o mesmo sentido e sempre no corte que é enviesado por construção, a leitura não é “achamos no corte limpo”: é “o corte pequeno estica tudo”. (f) Anterioridade: NÃO É CALCULÁVEL, declarado antes de rodar — a tabela tem uma linha por jogador-temporada, sem recorte por rodada. (g) E o J11-3 mede que parte desta razão é do clube, não do jogador.",
+     "n": "697 titulares com físico, 2022 a 2025, 40 clubes: 141 de quem subiu, 414 do meio e 142 de quem caiu, em 6 setores. Cobertura de 697 em 697 nas três unidades da tabela física.",
+     "prova": "J11_testes.csv; J11_resumo.json; J11_indicadores.json; J11.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "O extremo: quanto corre sem a bola em relação a com a bola",
+      "unidade": "efeito, titular de quem sobe contra o do meio",
+      "cortes": [
+       {
+        "rotulo": "com todos os times",
+        "series": [
+         {
+          "nome": "distância",
+          "valor": 0.716
+         },
+         {
+          "nome": "alta intensidade",
+          "valor": 0.472
+         },
+         {
+          "nome": "sprints",
+          "valor": 0.296
+         }
+        ]
+       },
+       {
+        "rotulo": "sem os times colados na linha",
+        "series": [
+         {
+          "nome": "distância",
+          "valor": 0.911
+         },
+         {
+          "nome": "alta intensidade",
+          "valor": 1.003
+         },
+         {
+          "nome": "sprints",
+          "valor": 0.817
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "J11-2",
+     "parte": "J11",
+     "bloco": "J",
+     "manchete": "O lateral de quem cai arranca menos sem a bola",
+     "o_que_vimos": "O lateral de quem caiu faz 3,16 arrancadas fortes por meia hora sem a bola, contra 3,35 do meio. Passa nos dois cortes, -0,62 e -0,64.",
+     "para_o_santa_cruz": "É o único achado desta parte que sobrevive aos dois cortes, e ele está do lado de BAIXO da tabela: serve para reconhecer risco, não para escolher alvo. Lateral que não arranca forte na fase defensiva é característica de quem caiu, e não o contrário — o mesmo indicador não distingue quem sobe do meio. Na prática entra como sinal de alerta na avaliação do elenco atual e como desempate para descartar, nunca como piso de contratação. Vale lembrar que o estudo inteiro mede pouco na linha de baixo: o A01-3 já mostrou que escapar do rebaixamento custa muito menos do que subir, e são decisões diferentes.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Acrescenta ao J04, que tinha achado dois sinais físicos, nenhum no lateral. Sugere uma premissa estreita e de um lado só: na Série B, a arrancada do lateral na fase sem bola é característica de quem cai.",
+     "confianca": "provável",
+     "confianca_motivo": "Provável. O indicador é a arrancada forte sem a bola, por 30 minutos da fase sem posse. (a) Correção para múltiplos testes: passa nos DOIS cortes, q 0,0125 com todos os times e 0,0280 sem os colados na linha, com efeito -0,62 e -0,64 — praticamente igual nos dois, que é o que se quer de um achado estável. IC95 por clube: -1,07 a -0,22. O efeito está acima do mínimo que o desenho enxerga no lateral, 0,63. (b) Anterioridade: não é calculável nesta tabela. Teto: provável. (c) O mesmo indicador NÃO separa quem sobe do meio: ali ele dá +0,14 com q 0,6697. As duas coisas convivem — a linha de baixo e a de cima não são a mesma pergunta —, e é por isso que este achado não vira piso de contratação. (d) Efeito do time: arrancada na fase sem bola depende de quanto o time passa sem a bola e de como ele defende. A unidade por 30 minutos da fase desconta a exposição, não o modelo de jogo, e o J11-3 mede o tamanho disso.",
+     "n": "142 titulares de quem caiu contra 414 do meio, dentro dos 697 com físico; no lateral, 27 contra 79 na comparação de cima.",
+     "prova": "J11_testes.csv; J11_resumo.json; J11.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "dois_cortes",
+      "titulo": "Arrancadas fortes sem a bola do lateral, por 30 min sem posse",
+      "unidade": "arrancadas por 30 min sem posse",
+      "cortes": [
+       {
+        "rotulo": "quem caiu",
+        "series": [
+         {
+          "nome": "lateral",
+          "valor": 3.16
+         }
+        ]
+       },
+       {
+        "rotulo": "o meio da tabela",
+        "series": [
+         {
+          "nome": "lateral",
+          "valor": 3.35
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "J11-3",
+     "parte": "J11",
+     "bloco": "J",
+     "manchete": "Um quinto do jeito de correr é do time, não do jogador",
+     "o_que_vimos": "O clube em que o jogador estava explica 20,8% de quanto ele corre sem a bola em relação a com a bola. E a razão anda +0,28 com a posse do time. Nas outras medidas o clube explica de 6,4% a 13,8%.",
+     "para_o_santa_cruz": "É um aviso para ler ficha física de qualquer fornecedor. Número por FASE — com a bola, sem a bola — parece medir o jogador e mede, em parte, o time em que ele jogava: um time que fica pouco com a bola dá mais corrida sem bola a todo mundo. Isso não invalida o indicador; muda o que se pode concluir dele. Na prática: ao comparar dois jogadores por número de fase, pergunte primeiro se os times deles tinham a bola de forma parecida — e desconfie de diferença pequena entre jogadores de times com posse muito diferente. É a mesma ressalva que o J08-3 faz para quem vem de outra liga, agora dentro da própria Série B.",
+     "premissa": null,
+     "premissa_titulo": null,
+     "premissa_grupo": null,
+     "premissa_motivo": "Sugere uma premissa de leitura para o dado físico: indicador por fase carrega o modelo de jogo do clube. Não contradiz nada; qualifica o J04, o J10 e esta parte.",
+     "confianca": "indício",
+     "confianca_motivo": "Indício, e por escolha: é decomposição de variância e correlação, não teste de faixa. Os números: o clube-temporada explica 20,8% da variação da razão de distância, 13,8% da de arrancadas, 8,8% da de alta intensidade, 8,2% da de sprints e 6,4% da de mudanças de direção. E a correlação de cada razão com a posse do time vai de +0,10 a +0,28. O que isto NÃO diz: que o resto é do jogador. O que sobra inclui o adversário, a posição dentro do setor, a temporada e o acaso — e o A18 já mediu, no nível do jogo, que o adversário explica mais que o próprio time. A ressalva de sempre: isto descreve ao lado e NUNCA desconta, como a casa decidiu em 15/09 para o valor do elenco. A normalização por 30 minutos da fase já tira a exposição; o que ela não tira é o modelo de jogo, e é esse resto que está medido aqui.",
+     "n": "697 titulares com físico em 40 clubes, 2022 a 2025.",
+     "prova": "J11_resumo.json; J11_testes.csv; J11.md",
+     "status": "validada",
+     "negativa": false,
+     "grafico": {
+      "tipo": "barras",
+      "titulo": "Quanto da razão entre as duas fases é explicado pelo clube",
+      "unidade": "% da variação",
+      "barras": [
+       {
+        "nome": "distância",
+        "valor": 20.8
+       },
+       {
+        "nome": "arrancadas",
+        "valor": 13.8
+       },
+       {
+        "nome": "alta intensidade",
+        "valor": 8.8
+       },
+       {
+        "nome": "sprints",
+        "valor": 8.2
+       },
+       {
+        "nome": "mudanças de direção",
+        "valor": 6.4
+       }
+      ]
+     }
+    }
+   ],
+   "em_aberto": "Duas. (1) O volante. É a TERCEIRA parte seguida em que ele é a única posição a dar sinal físico (J04-2, J10-2 e J11-1), e nenhuma delas o sustenta nos dois cortes. Ou é característica real da posição, ou é o efeito de testá-la muitas vezes — e separar as duas coisas exige mais temporadas rastreadas, não mais testes nas mesmas. Antes de qualquer conclusão sobre volante, isso tem de ser resolvido. (2) O modelo de jogo dentro do indicador de fase. O J11-3 mede que o clube explica parte da razão; controlar por ele exigiria comparar jogadores dentro do mesmo clube, e aí o n por setor cai a dois ou três. Com a physical_match de 2025 daria para tentar por jogo, com uma temporada só.",
+   "feita_em": null,
+   "prova_arquivos": "scripts/J11.py + scripts/_metodo.py"
   },
   {
    "id": "T01",
@@ -12788,9 +12949,9 @@ const ESTUDO_SERIEB = {
   }
  ],
  "contagem": {
-  "total": 33,
+  "total": 34,
   "pendente": 0,
   "rascunho": 0,
-  "validada": 33
+  "validada": 34
  }
 };

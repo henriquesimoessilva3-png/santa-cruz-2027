@@ -439,6 +439,23 @@ jogador-temporada, sem recorte por rodada — ao contrário da `physical_match` 
 turno e não há anterioridade.
 **Depende de:** J04 (a base e a ponte de identidade) e A11.
 
+### J11 — Correr com a bola e correr sem a bola
+**Pergunta:** o titular de quem sobe corre proporcionalmente mais SEM a bola do que COM a bola?
+**O que o J04 já fez, e esta parte não refaz:** ele testou 20 medidas por posição, entre elas SEIS
+já em TIP/OTIP. O que ele nunca fez foi a RAZÃO entre as duas fases — testou o nível de cada uma
+como indicador separado. Os seis dele ficam FORA desta lista, para que nenhum saia com dois q.
+**Unidade:** jogador-temporada, 697 titulares de 2022–2025, pela ponte do `J04_base.csv`.
+Cobertura de 697 em 697 nas três unidades da tabela `physical`.
+**A ressalva é MEDIDA, não alegada:** a razão pode ser do TIME. O clube-temporada explica 20,8% da
+variação da razão de distância, e ela anda +0,28 com a posse do time. Descreve ao lado, nunca
+desconta.
+**Teto: provável** — a tabela `physical` tem uma linha por jogador-temporada, sem recorte por
+rodada, então não há anterioridade.
+**O padrão das discordâncias entre cortes vale como aviso geral:** em todas as posições em que a
+razão discorda, o efeito é MAIOR no corte reduzido. É o que o método prevê dele (tirar os times
+colados na linha afasta as faixas por construção), e é por isso que achado que só aparece ali não
+sobe.
+
 ## O que a base não tem
 
 Conferido contra o repositório em 17/09/2026, antes de qualquer parte rodar. São lacunas de **dado**,
