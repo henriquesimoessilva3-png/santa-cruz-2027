@@ -442,23 +442,34 @@
     return String(nome).replace(/\s*\([^)]*\)/g, '').split(',')[0].replace(/\/90$/, '').trim();
   }
 
+  /* A LISTA, com os quatro mercados no mesmo plano (21/09, 2ª rodada).
+
+     Ate entao a lista de fora vinha embaixo, como anexo, por duas premissas que se mostraram
+     DEFEITO e nao dado: (1) "la fora a ficha mede no maximo 2 criterios" — era a busca da coluna
+     pelo nome, consertada de manha; (2) "o eixo la fora e' meio eixo, porque toques na area nao
+     existe" — a coluna esta nos 115 cabecalhos de TODAS as ligas, e o que faltava era extrai-la.
+     Sem premissa que as separe, elas viram uma lista so' por posicao.
+
+     O QUE A TELA TEM DE DIZER, e diz: o ajuste de liga de J08 tem TETO ARITMETICO. Na familia do
+     eixo ele para em 76,4, enquanto a Serie B vai a 100 — entao o topo de cada lista e' da Serie B
+     por construcao do ajuste, nao por merito medido. Por isso cada linha de fora leva o percentil
+     de ORIGEM ao lado do ajustado e o desconto entre os dois: sem esses dois numeros, a lista
+     afirma que um atacante da Serie B e' melhor apostar que Neymar, quando o que ela mediu foi o
+     desconto de 24,6 pontos que a conversao aplica. */
   function rankingHtml() {
     const K = D.ranking;
-    if (!K || !K.serie_b || !K.serie_b.length) return '';
+    if (!K || !K.lista || !K.lista.length) return '';
     const fmt = (v, c) => v == null ? '—' :
       Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
+    const TETO = (K.teto_do_ajuste || {}).volume;
+    const CLASSE_MERC = { 'Série B': 'b', 'Série A': 'a', 'Sul-americano': 'sa', 'Exterior': 'ex' };
     const linha = (j, i, cols) => {
-      /* O destaque era “cruza TODOS os pisos” — a conjuncao que o proprio J06-1 mediu reprovar
-         quase todo mundo (13 de 240). Desde 21/09 a regra e outra: minutagem elimina, o eixo da
-         qualidade da chance ordena. Quem se destaca e quem esta no terco de cima do eixo. */
       const sel = (j.aderencia_eixo != null && j.aderencia_eixo >= 66.7) ? ' class="esb-forte"' : '';
       const meus = {};
       criteriosDe(j.detalhe).forEach(c => { meus[c.nome] = c; });
       const celulas = (cols || []).map(nome => {
         const c = meus[nome];
         if (!c || c.pct == null) return '<td class="esb-num esb-crit esb-suave">—</td>';
-        /* Sem piso o critério foi MEDIDO e não é exigido: não pode sair verde nem vermelho,
-           senão a tela inventa uma exigência que a ficha não faz. */
         const cls = c.piso == null ? 'esb-crit-neutro'
                   : (c.pct >= c.piso ? 'esb-crit-ok' : 'esb-crit-fraco');
         const piso = c.piso == null ? '' : '<span class="esb-crit-piso">/' + fmt(c.piso, 0) + '</span>';
@@ -467,15 +478,35 @@
         return '<td class="esb-num esb-crit ' + cls + '" title="' + esc(t) + '">' +
                fmt(c.pct, 0) + piso + '</td>';
       }).join('');
+      /* O desconto de liga, na propria celula do eixo. Linha da Serie B nao tem desconto: ela JA
+         esta na escala. Linha que encostou no teto ganha marca, porque ali a ordem parou de
+         medir merito e passou a medir o limite da conversao. */
+      const noTeto = (j.aderencia_eixo != null && TETO != null && j.aderencia_eixo >= TETO - 0.2);
+      const origem = (j.aderencia_eixo_origem == null) ? '' :
+        '<span class="esb-orig" title="percentil na liga de origem, antes do desconto de ' +
+        'conversão de J08">' + fmt(j.aderencia_eixo_origem, 0) + '→</span>';
+      const desconto = (j.desconto_do_eixo == null) ? '' :
+        '<span class="esb-desc" title="o que a conversão de liga de J08 desconta deste jogador">' +
+        fmt(j.desconto_do_eixo, 1) + '</span>';
+      const merc = j.mercado || 'Série B';
       return '<tr' + sel + '><td class="esb-num">' + i + '</td>' +
         '<td>' + esc(j.jogador) +
         (j.estrangeiro ? ' <span class="esb-flag" title="estrangeiro: ocupa vaga">⚑</span>' : '') +
-        (j.minutagem_regular ? ' <span class="esb-roda" title="minutagem alta e repetida">roda</span>' : '') +
-        '</td><td>' + esc(j.clube || '—') + '</td>' +
-        (K.exterior && K.exterior.length ? '' : '') +
+        (j.passaporte ? ' <span class="esb-pass" title="passaporte ' + esc(j.passaporte) +
+          (j.estrangeiro ? '' : ' — não ocupa vaga de estrangeiro') + '">' +
+          esc(j.passaporte) + '</span>' : '') +
+        '</td>' +
+        '<td><span class="esb-merc esb-merc-' + (CLASSE_MERC[merc] || 'ex') + '">' + esc(merc) +
+        '</span></td>' +
+        '<td>' + esc(j.clube || '—') +
+        (merc === 'Série B' ? '' : ' <span class="esb-liga" title="liga de origem' +
+          (j.forca_do_fator ? ' · fator de conversão ' + esc(j.forca_do_fator) : '') + '">' +
+          esc(j.liga || '') + '</span>') + '</td>' +
         '<td class="esb-num">' + fmt(j.idade, 0) + '</td>' +
-        '<td class="esb-num"' + (j.eixo_detalhe ? ' title="' + esc(j.eixo_detalhe) + '"' : '') +
-        '><b>' + (j.aderencia_eixo == null ? '—' : fmt(j.aderencia_eixo, 1)) + '</b></td>' +
+        '<td class="esb-num' + (noTeto ? ' esb-no-teto' : '') + '"' +
+          (j.eixo_detalhe ? ' title="' + esc(j.eixo_detalhe) + '"' : '') + '>' +
+          origem + '<b>' + (j.aderencia_eixo == null ? '—' : fmt(j.aderencia_eixo, 1)) + '</b>' +
+          desconto + '</td>' +
         '<td class="esb-num">' + (j.aderencia_desempate == null ? '—' : fmt(j.aderencia_desempate, 1)) + '</td>' +
         '<td class="esb-num esb-suave">' + j.atende + '/' + j.com_dado + '</td>' +
         '<td class="esb-num esb-suave">' + fmt(j.aderencia, 1) + '</td>' +
@@ -484,13 +515,9 @@
         '<td>' + (j.livre ? '<span class="esb-ct-ok">vencendo</span>' : '—') + '</td>' +
         celulaValor(j.jogador, j.clube) + celulas + '</tr>';
     };
-    const bloco = (b, prefixo) => {
-      const vis = b.jogadores.slice(0, 10);
-      const resto = b.jogadores.slice(10);
-      /* As colunas da ficha, na ordem em que o gerador as escreve, e pela UNIÃO de todos os
-         jogadores do bloco: quem tem um critério a menos ganha um traço na coluna, e não some da
-         comparação. A ordem sai do primeiro que tiver cada nome, para a tabela não trocar de
-         ordem entre blocos. */
+    const bloco = (b) => {
+      const vis = b.jogadores.slice(0, 12);
+      const resto = b.jogadores.slice(12);
       const cols = [];
       b.jogadores.forEach(j => criteriosDe(j.detalhe).forEach(c => {
         if (c.nome && cols.indexOf(c.nome) < 0) cols.push(c.nome);
@@ -506,11 +533,12 @@
         return '<th class="esb-num esb-crit-cab" title="' + esc(t) + '">' + esc(nomeCurto(n)) +
                (p == null ? '' : '<span class="esb-crit-piso"> ' + fmt(p, 0) + '</span>') + '</th>';
       }).join('');
-      const cab = '<tr><th class="esb-num">#</th><th>jogador</th><th>clube</th>' +
-        '<th class="esb-num">idade</th>' +
+      const cab = '<tr><th class="esb-num">#</th><th>jogador</th><th>mercado</th>' +
+        '<th>clube</th><th class="esb-num">idade</th>' +
         '<th class="esb-num" title="MANDA NA ORDEM: média do percentil dele em toques na área e ' +
         'passes progressivos — o eixo da qualidade da chance, o único traço firme do estudo. ' +
-        'Passe o mouse no ? para ver os dois separados.">eixo</th>' +
+        'Em quem vem de fora, o número pequeno à esquerda é o percentil na liga de origem e o da ' +
+        'direita é o desconto que a conversão de J08 aplica.">eixo</th>' +
         '<th class="esb-num" title="DESEMPATE: média do percentil dele nos critérios de físico e ' +
         'de duelo da ficha da posição">físico e duelo</th>' +
         '<th class="esb-num esb-suave" title="critérios que ele cruza, de quantos foram medidos. ' +
@@ -522,48 +550,28 @@
         '<th class="esb-num" title="valor de mercado no Transfermarkt' +
           (VMER ? ', ' + esc(VMER.coletado_em) : '') + ' — em EURO. Quem não tem ficha sai ' +
           'com traço, e não com zero.">valor</th>' + cabCrit + '</tr>';
-      /* A lista é dividida por lado e por função (lateral esquerdo e direito, médio e meia
-         ofensivo), mas a FICHA continua sendo uma por setor. Quando as duas não coincidem, o
-         cabeçalho diz de qual ficha o bloco está sendo julgado — sem isso, quem lê "Lateral
-         esquerdo · ficha de 4 critérios" supõe que a ficha distingue o lado, e ela não distingue. */
       const deQuem = (b.ficha_de && b.ficha_de !== b.posicao)
         ? ' · ficha de ' + esc(b.ficha_de) + ', ' + b.criterios_da_ficha + ' critérios'
         : ' · ficha de ' + b.criterios_da_ficha + ' critérios';
+      const comp = Object.keys(b.por_mercado || {})
+        .map(m => esc(m) + ' ' + b.por_mercado[m]).join(' · ');
       return '<div class="esb-pos"><h4>' + esc(b.posicao) +
-        '<span class="esb-conta">' + b.quantos +
-        (prefixo === 'fora' ? ' com dado' : ' com rodagem') + deQuem + '</span></h4>' +
+        '<span class="esb-conta">' + b.quantos + ' com rodagem' + deQuem +
+        (comp ? '<span class="esb-comp">' + comp + '</span>' : '') + '</span></h4>' +
         '<table class="esb-tab-tec"><thead>' + cab + '</thead><tbody>' +
         vis.map((j, i) => linha(j, i + 1, cols)).join('') + '</tbody></table>' +
         (resto.length
           ? '<details class="esb-graf-tabela"><summary>ver os outros ' + resto.length +
             '</summary><table class="esb-tab-tec"><tbody>' +
-            resto.map((j, i) => linha(j, i + 11, cols)).join('') + '</tbody></table></details>'
+            resto.map((j, i) => linha(j, i + 13, cols)).join('') + '</tbody></table></details>'
           : '') + '</div>';
     };
-    const fora = (K.exterior && K.exterior.length)
-      ? '<h3 id="esb-ranking-fora">E os de fora, na mesma ordem' +
-        '<span class="esb-conta">' + K.exterior.reduce((a, b) => a + b.quantos, 0) +
-        ' com rodagem na liga de origem</span></h3>' +
-        '<p class="esb-aviso-forte"><b>Esta lista passou a seguir a mesma regra da de cima em ' +
-        '21/09, e o motivo é um defeito que foi consertado.</b> Até então ela dizia que a base ' +
-        'das ligas de origem mede no máximo dois critérios da ficha, e ordenava por rodagem. Era ' +
-        'efeito de um erro de código, não do dado: a coluna era procurada pelo nome do indicador ' +
-        'e o arquivo a guarda pelo identificador, então só o dado FÍSICO era encontrado. Lá fora ' +
-        'é o contrário — o técnico cobre quase toda a base e o físico é o raro —, e por causa do ' +
-        'erro nenhum <b>zagueiro</b> aparecia aqui. Agora se medem de 4 a 6 critérios, como na ' +
-        'Série B, e a ordem é a mesma: a rodagem na liga de origem elimina (é o achado do J09-1, ' +
-        'estrangeiro que já vinha jogando fez mais minutos no primeiro ano), o eixo ordena. ' +
-        '<b>O eixo aqui é meio eixo:</b> dos dois indicadores dele, passes progressivos existe ' +
-        'lá fora e toques na área não — a coluna “eixo” sai de um critério só, e o número ao ' +
-        'lado dela diz isso. Goleiro não aparece: nenhum dos goleiros da base tem regularidade ' +
-        'verificável, que é a mesma lacuna do J09-3.</p>' +
-        K.exterior.map(b => bloco(b, 'fora')).join('')
-      : '';
     const corte = K.corte_de_minutagem;
+    const total = K.lista.reduce((a, b) => a + b.quantos, 0);
     return '<section class="esb-secao esb-ranking" id="esb-ranking">' +
       '<h3>Quem roda, na ordem do eixo do modelo<span class="esb-conta">' +
-      K.serie_b.reduce((a, b) => a + b.quantos, 0) + ' da Série B com rodagem' +
-      (corte ? ' · ' + corte['saíram'] + ' saíram no corte' : '') + '</span></h3>' +
+      total + ' nomes em quatro mercados' +
+      (corte ? ' · ' + corte['saíram'] + ' saíram no corte da Série B' : '') + '</span></h3>' +
       '<p class="esb-aviso-forte"><b>Minutagem elimina; o resto ordena.</b> Só entra aqui quem tem ' +
       'minutagem alta e repetida — o <i>único</i> requisito que a base sustenta por posição ' +
       '(J05-3). A ordem é o <b>eixo</b>: toques na área e passes progressivos, a tradução no ' +
@@ -575,10 +583,25 @@
       'que o perfil “descreve quem subiu e não promete quem vai subir”. Quem jogou pouco por ' +
       '<i>lesão</i> cai no corte junto com quem jogou pouco por escolha: o J01-2 mediu que a base ' +
       'não distingue os dois, e por isso o número de quem saiu vai à vista, no topo.</p>' +
-      K.serie_b.map(b => bloco(b, 'b')).join('') + fora +
+      '<p class="esb-aviso-forte"><b>Os quatro mercados estão na MESMA lista desde 21/09, e a ' +
+      'régua tem um teto que muda como ela se lê.</b> Série B, Série A, sul-americanos e o resto ' +
+      'do exterior seguem a mesma regra e a mesma ordem. Quem vem de fora tem o percentil ' +
+      'convertido para a escala da Série B pelo fator de liga do J08 — e essa conversão tem ' +
+      '<b>teto aritmético' + (TETO != null ? ' de ' + fmt(TETO, 1) : '') + '</b> na família do ' +
+      'eixo, enquanto quem já está na Série B pode chegar a 100. <b>Por isso o topo de cada ' +
+      'posição é da Série B por construção, não por mérito medido.</b> Para que a ordem seja ' +
+      'legível em vez de absurda, cada linha de fora traz o percentil <i>na liga de origem</i> à ' +
+      'esquerda e o <i>desconto</i> à direita: é assim que se vê que um atacante que aparece ' +
+      'abaixo de outro tinha 98 em casa e levou 25 pontos de desconto na conversão. Entram os ' +
+      (K.teto_por_mercado_de_fora || 10) + ' primeiros de cada mercado de fora, em cada posição, ' +
+      'e a Série B entra inteira — ela é o mercado de foco e é onde a ficha foi medida. ' +
+      '<b>Passaporte à vista:</b> quem tem passaporte brasileiro não ocupa vaga de estrangeiro, ' +
+      'jogue onde jogar, e ⚑ marca quem ocupa. No <b>gol</b> só há Série B: nenhum goleiro de ' +
+      'fora tem regularidade verificável, que é a mesma lacuna do J09-3.</p>' +
+      K.lista.map(bloco).join('') +
       '<p class="esb-nota">Custo, disponibilidade e encaixe no modelo de jogo ficam para validação ' +
-      'externa. Na lista da Série B, o selo <b>roda</b> está em todos — ele é a porta de entrada; ' +
-      'na de fora, a rodagem é na liga de origem. ⚑ é estrangeiro, que ocupa vaga.</p>' +
+      'externa. Na Série B a rodagem é no próprio campeonato; nos outros três mercados, na liga ' +
+      'de origem.</p>' +
       '</section>';
   }
 

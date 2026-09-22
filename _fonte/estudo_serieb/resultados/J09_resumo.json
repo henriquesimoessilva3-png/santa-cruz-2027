@@ -50,6 +50,7 @@
  "ligas": [
   {
    "liga": "Alemanha A",
+   "mercado": "Exterior",
    "linhas": 297,
    "times": 18,
    "jogos_max": 34,
@@ -60,6 +61,7 @@
   },
   {
    "liga": "Alemanha B",
+   "mercado": "Exterior",
    "linhas": 293,
    "times": 18,
    "jogos_max": 34,
@@ -70,6 +72,7 @@
   },
   {
    "liga": "Arabia Saudita A",
+   "mercado": "Exterior",
    "linhas": 282,
    "times": 18,
    "jogos_max": 34,
@@ -80,11 +83,13 @@
   },
   {
    "liga": "Arabia Saudita B",
+   "mercado": "Exterior",
    "linhas": 0,
    "veredito": "arquivo vazio"
   },
   {
    "liga": "Austria",
+   "mercado": "Exterior",
    "linhas": 183,
    "times": 12,
    "jogos_max": 35,
@@ -95,6 +100,7 @@
   },
   {
    "liga": "Bahrain",
+   "mercado": "Exterior",
    "linhas": 207,
    "times": 12,
    "jogos_max": 21,
@@ -105,6 +111,7 @@
   },
   {
    "liga": "Belgica A",
+   "mercado": "Exterior",
    "linhas": 255,
    "times": 16,
    "jogos_max": 41,
@@ -115,6 +122,7 @@
   },
   {
    "liga": "Belgica B",
+   "mercado": "Exterior",
    "linhas": 258,
    "times": 17,
    "jogos_max": 36,
@@ -125,6 +133,7 @@
   },
   {
    "liga": "Bulgaria",
+   "mercado": "Exterior",
    "linhas": 263,
    "times": 16,
    "jogos_max": 37,
@@ -135,6 +144,7 @@
   },
   {
    "liga": "Catar",
+   "mercado": "Exterior",
    "linhas": 201,
    "times": 12,
    "jogos_max": 22,
@@ -145,6 +155,7 @@
   },
   {
    "liga": "China",
+   "mercado": "Exterior",
    "linhas": 249,
    "times": 16,
    "jogos_max": 15,
@@ -155,6 +166,7 @@
   },
   {
    "liga": "Croacia",
+   "mercado": "Exterior",
    "linhas": 167,
    "times": 10,
    "jogos_max": 36,
@@ -165,6 +177,7 @@
   },
   {
    "liga": "Dinamarca",
+   "mercado": "Exterior",
    "linhas": 99,
    "times": 9,
    "jogos_max": 7,
@@ -175,6 +188,7 @@
   },
   {
    "liga": "Emirados",
+   "mercado": "Exterior",
    "linhas": 233,
    "times": 14,
    "jogos_max": 26,
@@ -185,6 +199,7 @@
   },
   {
    "liga": "Escocia",
+   "mercado": "Exterior",
    "linhas": 191,
    "times": 12,
    "jogos_max": 38,
@@ -195,6 +210,7 @@
   },
   {
    "liga": "Eslovaquia",
+   "mercado": "Exterior",
    "linhas": 205,
    "times": 12,
    "jogos_max": 32,
@@ -205,6 +221,7 @@
   },
   {
    "liga": "Espanha A",
+   "mercado": "Exterior",
    "linhas": 341,
    "times": 20,
    "jogos_max": 38,
@@ -215,6 +232,7 @@
   },
   {
    "liga": "Espanha B",
+   "mercado": "Exterior",
    "linhas": 367,
    "times": 22,
    "jogos_max": 43,
@@ -225,6 +243,7 @@
   },
   {
    "liga": "Espanha C",
+   "mercado": "Exterior",
    "linhas": 704,
    "times": 40,
    "jogos_max": 38,
@@ -235,6 +254,7 @@
   },
   {
    "liga": "França A",
+   "mercado": "Exterior",
    "linhas": 293,
    "times": 18,
    "jogos_max": 34,
@@ -245,6 +265,7 @@
   },
   {
    "liga": "França B",
+   "mercado": "Exterior",
    "linhas": 292,
    "times": 18,
    "jogos_max": 36,
@@ -255,6 +276,7 @@
   },
   {
    "liga": "Grecia",
+   "mercado": "Exterior",
    "linhas": 230,
    "times": 14,
    "jogos_max": 35,
@@ -265,6 +287,7 @@
   },
   {
    "liga": "Holanda",
+   "mercado": "Exterior",
    "linhas": 272,
    "times": 18,
    "jogos_max": 36,
@@ -275,6 +298,7 @@
   },
   {
    "liga": "Hungria",
+   "mercado": "Exterior",
    "linhas": 250,
    "times": 12,
    "jogos_max": 33,
@@ -285,6 +309,7 @@
   },
   {
    "liga": "Inglaterra A",
+   "mercado": "Exterior",
    "linhas": 338,
    "times": 20,
    "jogos_max": 38,
@@ -295,6 +320,7 @@
   },
   {
    "liga": "Inglaterra B",
+   "mercado": "Exterior",
    "linhas": 369,
    "times": 24,
    "jogos_max": 49,
@@ -305,6 +331,7 @@
   },
   {
    "liga": "Israel",
+   "mercado": "Exterior",
    "linhas": 229,
    "times": 14,
    "jogos_max": 35,
@@ -315,6 +342,7 @@
   },
   {
    "liga": "Italia A",
+   "mercado": "Exterior",
    "linhas": 333,
    "times": 20,
    "jogos_max": 38,
@@ -325,6 +353,7 @@
   },
   {
    "liga": "Italia B",
+   "mercado": "Exterior",
    "linhas": 319,
    "times": 20,
    "jogos_max": 42,
@@ -335,6 +364,7 @@
   },
   {
    "liga": "Italia C",
+   "mercado": "Exterior",
    "linhas": 500,
    "times": 59,
    "jogos_max": 44,
@@ -345,6 +375,7 @@
   },
   {
    "liga": "Marrocos",
+   "mercado": "Exterior",
    "linhas": 267,
    "times": 16,
    "jogos_max": 22,
@@ -355,6 +386,7 @@
   },
   {
    "liga": "Mexico",
+   "mercado": "Exterior",
    "linhas": 240,
    "times": 18,
    "jogos_max": 52,
@@ -365,6 +397,7 @@
   },
   {
    "liga": "Noruega",
+   "mercado": "Exterior",
    "linhas": 226,
    "times": 16,
    "jogos_max": 13,
@@ -375,6 +408,7 @@
   },
   {
    "liga": "Polonia",
+   "mercado": "Exterior",
    "linhas": 296,
    "times": 18,
    "jogos_max": 34,
@@ -385,6 +419,7 @@
   },
   {
    "liga": "Portugal A",
+   "mercado": "Exterior",
    "linhas": 300,
    "times": 18,
    "jogos_max": 34,
@@ -395,6 +430,7 @@
   },
   {
    "liga": "Portugal B",
+   "mercado": "Exterior",
    "linhas": 308,
    "times": 18,
    "jogos_max": 34,
@@ -405,6 +441,7 @@
   },
   {
    "liga": "Portugal C",
+   "mercado": "Exterior",
    "linhas": 308,
    "times": 20,
    "jogos_max": 32,
@@ -415,6 +452,7 @@
   },
   {
    "liga": "Romenia",
+   "mercado": "Exterior",
    "linhas": 274,
    "times": 16,
    "jogos_max": 40,
@@ -425,6 +463,7 @@
   },
   {
    "liga": "Russia",
+   "mercado": "Exterior",
    "linhas": 248,
    "times": 16,
    "jogos_max": 30,
@@ -435,6 +474,7 @@
   },
   {
    "liga": "Servia",
+   "mercado": "Exterior",
    "linhas": 278,
    "times": 16,
    "jogos_max": 37,
@@ -445,6 +485,7 @@
   },
   {
    "liga": "Suecia",
+   "mercado": "Exterior",
    "linhas": 228,
    "times": 16,
    "jogos_max": 11,
@@ -455,6 +496,7 @@
   },
   {
    "liga": "Suiça",
+   "mercado": "Exterior",
    "linhas": 200,
    "times": 12,
    "jogos_max": 38,
@@ -465,6 +507,7 @@
   },
   {
    "liga": "Tcheca",
+   "mercado": "Exterior",
    "linhas": 272,
    "times": 16,
    "jogos_max": 35,
@@ -475,6 +518,7 @@
   },
   {
    "liga": "Turquia",
+   "mercado": "Exterior",
    "linhas": 299,
    "times": 18,
    "jogos_max": 34,
@@ -485,6 +529,7 @@
   },
   {
    "liga": "Ucrania",
+   "mercado": "Exterior",
    "linhas": 263,
    "times": 16,
    "jogos_max": 30,
@@ -495,6 +540,7 @@
   },
   {
    "liga": "Argentina A",
+   "mercado": "Sul-americano",
    "linhas": 437,
    "times": 30,
    "jogos_max": 25,
@@ -505,6 +551,7 @@
   },
   {
    "liga": "Argentina B",
+   "mercado": "Sul-americano",
    "linhas": 500,
    "times": 36,
    "jogos_max": 25,
@@ -515,6 +562,7 @@
   },
   {
    "liga": "Bolivia",
+   "mercado": "Sul-americano",
    "linhas": 260,
    "times": 16,
    "jogos_max": 15,
@@ -524,7 +572,19 @@
    "veredito": "entra"
   },
   {
+   "liga": "Brasil A",
+   "mercado": "Série A",
+   "linhas": 337,
+   "times": 20,
+   "jogos_max": 23,
+   "razao_denominador": 0.998,
+   "forca_do_fator": "forte",
+   "casos_j08": 156.0,
+   "veredito": "entra"
+  },
+  {
    "liga": "Chile",
+   "mercado": "Sul-americano",
    "linhas": 262,
    "times": 16,
    "jogos_max": 19,
@@ -535,6 +595,7 @@
   },
   {
    "liga": "Colombia A",
+   "mercado": "Sul-americano",
    "linhas": 307,
    "times": 20,
    "jogos_max": 27,
@@ -545,6 +606,7 @@
   },
   {
    "liga": "Colombia B",
+   "mercado": "Sul-americano",
    "linhas": 215,
    "times": 16,
    "jogos_max": 25,
@@ -555,6 +617,7 @@
   },
   {
    "liga": "Coreia A",
+   "mercado": "Exterior",
    "linhas": 201,
    "times": 12,
    "jogos_max": 23,
@@ -565,6 +628,7 @@
   },
   {
    "liga": "Coreia B",
+   "mercado": "Exterior",
    "linhas": 270,
    "times": 17,
    "jogos_max": 21,
@@ -575,6 +639,7 @@
   },
   {
    "liga": "EUA",
+   "mercado": "Exterior",
    "linhas": 458,
    "times": 30,
    "jogos_max": 20,
@@ -585,6 +650,7 @@
   },
   {
    "liga": "Equador A",
+   "mercado": "Sul-americano",
    "linhas": 268,
    "times": 16,
    "jogos_max": 25,
@@ -595,6 +661,7 @@
   },
   {
    "liga": "Equador B",
+   "mercado": "Sul-americano",
    "linhas": 186,
    "times": 12,
    "jogos_max": 20,
@@ -605,6 +672,7 @@
   },
   {
    "liga": "Japao A",
+   "mercado": "Exterior",
    "linhas": 263,
    "times": 20,
    "jogos_max": 2,
@@ -615,6 +683,7 @@
   },
   {
    "liga": "Japao B",
+   "mercado": "Exterior",
    "linhas": 258,
    "times": 20,
    "jogos_max": 2,
@@ -625,6 +694,7 @@
   },
   {
    "liga": "Paraguai",
+   "mercado": "Sul-americano",
    "linhas": 193,
    "times": 12,
    "jogos_max": 27,
@@ -635,6 +705,7 @@
   },
   {
    "liga": "Peru",
+   "mercado": "Sul-americano",
    "linhas": 269,
    "times": 18,
    "jogos_max": 22,
@@ -645,6 +716,7 @@
   },
   {
    "liga": "Uruguai",
+   "mercado": "Sul-americano",
    "linhas": 262,
    "times": 16,
    "jogos_max": 25,
@@ -655,6 +727,7 @@
   },
   {
    "liga": "Venezuela",
+   "mercado": "Sul-americano",
    "linhas": 195,
    "times": 14,
    "jogos_max": 23,

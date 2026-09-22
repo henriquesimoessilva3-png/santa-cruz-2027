@@ -43,6 +43,7 @@ e disponibilidade ficam para validação externa, como manda o CLAUDE.md.
 Uso:
     python3 _fonte/estudo_serieb/scripts/J06_ranking.py
 """
+import collections
 import csv
 import json
 import os
@@ -62,6 +63,13 @@ SAIDA_CSV = RESULTADOS / "J06_ranking_aderencia.csv"
 SAIDA_JSON = RESULTADOS / "J06_ranking_aderencia.json"
 
 ORDEM = ["Goleiro", "Zaga", "Lateral", "Volante", "Meia", "Extremo", "Atacante"]
+
+# Quantos de CADA mercado de fora entram em cada bloco da lista. A Série B entra inteira: é o
+# mercado de foco e é onde a ficha foi medida. O teto é por mercado, e não um teto único, para
+# que o Exterior — que é dez vezes maior — não empurre Série A e sul-americanos para fora da
+# tela só por tamanho de base.
+TETO_FORA = 10
+TETO_AJUSTE = {}
 
 # Como a LISTA é dividida na tela — decisão do dono em 20/09. Lateral esquerdo e direito não são
 # a mesma vaga, e médio e meia ofensivo não são a mesma função: uma lista só de "Lateral" obriga
@@ -84,8 +92,10 @@ LISTA = [
     ("Extremo", "Extremo", None),
     ("Atacante", "Atacante", None),
 ]
-COLUNAS = ["setor", "bloco", "posicao_wy", "origem", "posto", "jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
-           "com_dado", "atende", "aderencia_eixo", "aderencia_desempate", "aderencia", "folga",
+COLUNAS = ["setor", "bloco", "posicao_wy", "origem", "mercado", "passaporte", "posto",
+           "jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
+           "com_dado", "atende", "aderencia_eixo", "aderencia_eixo_origem", "desconto_do_eixo",
+           "aderencia_desempate", "aderencia", "folga",
            "criterios_do_eixo", "eixo_detalhe", "contrato", "livre", "estrangeiro",
            "fisico_verificado", "forca_do_fator", "detalhe"]
 
@@ -209,8 +219,15 @@ def conferir_contra_o_funil(linhas):
     return erros
 
 
-def exterior(ficha, eixo=()):
-    """Os candidatos de fora, com o percentil já ajustado pelo fator de liga de J08."""
+def mercados(ficha, eixo=()):
+    """Os candidatos de FORA da Série B, com o percentil já na escala da Série B pelo fator de J08.
+
+    Desde 21/09 isto cobre três mercados e não um: **Série A** (que o J09 passou a ler, e cujo
+    fator de conversão é o mais forte da tabela — 156 casos), **sul-americanos** e o **resto do
+    exterior**. Cada linha diz de qual mercado veio, qual a força do fator daquela liga e qual o
+    passaporte, porque as três coisas mudam o tamanho da aposta e nenhuma delas se deduz do nome
+    do jogador.
+    """
     caminho = RESULTADOS / "J09_base.csv"
     if not caminho.exists():
         return []
@@ -247,22 +264,46 @@ def exterior(ficha, eixo=()):
         # ligas de origem e `Toques na area/90` NAO existe — a J09_base nao traz coluna nenhuma de
         # area. Entao a aderencia do eixo sai de um criterio so, e o `criterios_do_eixo` diz isso
         # em cada linha, para que ninguem leia a lista de fora como se fosse a de dentro.
-        eixo_pcts = {}
+        # O EIXO CHEIO, e nao mais metade dele. Ate 21/09 a tela afirmava que `Toques na
+        # area/90` nao existia em liga de origem: nao era verdade — a coluna esta nos 115
+        # cabecalhos de TODOS os arquivos, e o que faltava era a extracao. O J09 passou a
+        # carrega-la (`eixo_toques_area`, `eixo_passes_progressivos`), ja percentilada dentro de
+        # (liga, setor) e ajustada para a escala da Serie B pela familia `volume` de J08. E' o
+        # que permite ordenar todos os mercados na MESMA lista: sem isso, quem vem de fora seria
+        # ordenado por meia regua contra a regua inteira de quem esta aqui.
+        eixo_pcts, eixo_origem = {}, {}
         for ei in eixo:
-            col = J09.NOME2ID.get(ei["nome"], J09.NOME2ID.get(ei["indicador"], ei["indicador"]))
-            pv = J06.num(r.get(f"{col}__adj")) or J06.num(r.get(f"{col}__pct"))
+            col = EIXO_J09.get(ei["nome"])
+            po = J06.num(r.get(f"{col}__pct")) if col else None
+            pv = (J06.num(r.get(f"{col}__adj")) if col else None)
+            if pv is None:
+                pv = po
             eixo_pcts[ei["nome"]] = (None if pv is None else round(pv, 1))
+            eixo_origem[ei["nome"]] = (None if po is None else round(po, 1))
         nota = pontuar(detalhe, eixo_pcts, ("fisico", "duelo_corpo"))
         if nota["com_dado"] < 2:
             continue
+        # O DESCONTO DE LIGA, a vista. O ajuste de J08 tem teto aritmetico (76,4 na familia
+        # `volume`, que e' a do eixo): nenhum jogador de fora pode passar dele, enquanto a Serie B
+        # vai ate 100. Sem o numero de ORIGEM ao lado, a lista unica afirma que um volante da
+        # Serie B e' melhor que um extremo da Espanha — quando o que ela mediu foi o desconto.
+        # Publicar os dois e' o que torna a ordem legivel em vez de absurda.
+        nota["aderencia_eixo_origem"] = media([v for v in eixo_origem.values()])
+        nota["desconto_do_eixo"] = (
+            None if nota["aderencia_eixo"] is None or nota["aderencia_eixo_origem"] is None
+            else round(nota["aderencia_eixo"] - nota["aderencia_eixo_origem"], 1))
         fora.append({
             "setor": setor, "posicao_wy": (r.get("posicao") or "").strip(),
-            "origem": "exterior", "jogador": r.get("jogador"),
+            "origem": "exterior", "mercado": r.get("mercado") or "Exterior",
+            "passaporte": (r.get("passaporte") or "").split(",")[0].strip(),
+            "jogador": r.get("jogador"),
             "clube": r.get("time"), "liga": r.get("liga"),
             "idade": J06.num(r.get("idade")), "minutos": J06.num(r.get("minutos")),
             "fatia_pct": J06.num(r.get("fatia_pct")), "contrato": r.get("contrato"),
             "livre": r.get("contrato_na_janela") in ("True", "true", "1"),
-            "estrangeiro": True,
+            # Quem tem passaporte brasileiro NAO ocupa vaga de estrangeiro, jogue ele onde
+            # jogar — e' a coluna que o J09 publica, nao uma suposicao pelo nome da liga.
+            "estrangeiro": r.get("ocupa_vaga_de_estrangeiro") in ("True", "true", "1"),
             "fisico_verificado": r.get("fisico_rastreado") in ("True", "true", "1"),
             "forca_do_fator": r.get("forca_do_fator") or "",
             "minutagem_regular": r.get("minutagem_regular") in ("True", "true", "1"),
@@ -274,6 +315,11 @@ def exterior(ficha, eixo=()):
     # peneira. So entra quem tem minutagem regular VERIFICAVEL na liga de origem.
     fora = [x for x in fora if x["minutagem_regular"] and x["regularidade_verificavel"]]
     return fora
+
+
+# nome do indicador na ficha -> coluna que o J09 publica para o eixo
+EIXO_J09 = {"Toques na área/90": "eixo_toques_area",
+            "Passes progressivos/90": "eixo_passes_progressivos"}
 
 
 def main():
@@ -308,6 +354,11 @@ def main():
                      "sentido": achado["sentido"]})
     blocos_desempate = tuple(ordem["ordena"]["chave_2"]["blocos"])
     campo_elimina = ordem["elimina"]["campo"]
+
+    # O teto aritmetico do ajuste de J08, LIDO da saida do J09 e nunca digitado aqui.
+    global TETO_AJUSTE
+    TETO_AJUSTE = json.load((RESULTADOS / "J09_resumo.json").open(
+        encoding="utf-8"))["teto_aritmetico_do_ajuste"]
 
     print("montando a base da Série B (mesma conta do J06)…")
     b = serie_b(ficha_dec, setores, eixo, blocos_desempate)
@@ -345,12 +396,19 @@ def main():
     print(f"  corte de minutagem ({ordem['elimina']['criterio']}): "
           f"{len(sem_rodagem)} saíram, {len(b)} ficaram")
 
-    fora = exterior(ficha, eixo)
-    # A ficha do exterior mede, no maximo, 2 dos 4 a 6 criterios com piso — o dado fisico das ligas
-    # de origem nao existe e o fator de J08 so converte parte do tecnico. Ranquear os dois juntos
-    # poria o estrangeiro no topo por ser medido em menos coisa, entao eles vao SEPARADOS e a lista
-    # de fora diz, em cada linha, quantos criterios sustentam a nota.
-    print(f"  {len(fora)} candidatos de fora, com cobertura parcial da ficha")
+    for x in b:
+        x["mercado"] = "Série B"
+        x["passaporte"] = ""
+    fora = mercados(ficha, eixo)
+    # ATE 21/09 a lista de fora ia SEPARADA, embaixo, com a justificativa de que "a ficha la fora
+    # mede no maximo 2 dos 4 a 6 criterios" e de que o eixo la e' meio eixo. As duas premissas
+    # eram efeito de DEFEITO, nao do dado: a primeira caiu com o NOME2ID (4 a 6 criterios, como
+    # aqui), e a segunda com a extracao de `Toques na area/90`, que existe em toda liga. Sem
+    # premissa que as separe, elas passam a ser UMA lista por posicao, na mesma ordem — que e' o
+    # que responde "quem e' o melhor volante disponivel" numa leitura so'.
+    por_mercado = collections.Counter(x["mercado"] for x in fora)
+    print(f"  {len(fora)} candidatos fora da Série B: "
+          + " · ".join(f"{k} {v}" for k, v in por_mercado.most_common()))
 
     saida = {"gerado_por": "scripts/J06_ranking.py",
              "o_que_e": ("Minutagem ELIMINA, o resto ORDENA. Só entra quem tem minutagem alta e "
@@ -362,10 +420,14 @@ def main():
              "regra": ordem,
              "corte_de_minutagem": {"saíram": len(sem_rodagem), "ficaram": len(b),
                                     "criterio": ordem["elimina"]["criterio"]},
-             "serie_b": [], "exterior": []}
+             "mercados": ["Série B", "Série A", "Sul-americano", "Exterior"],
+             "teto_por_mercado_de_fora": TETO_FORA,
+             "teto_do_ajuste": TETO_AJUSTE,
+             "lista": []}
 
     linhas_csv = []
-    for grupo, chave in ((b, "serie_b"), (fora, "exterior")):
+    if True:
+        grupo = b + fora
         for bloco_nome, setor, codigos in LISTA:
             # Quem tem setor certo mas código de posição que não conheço (ou nenhum) NÃO some da
             # tela: cai no primeiro bloco daquele setor, e é melhor aparecer no lado errado do que
@@ -394,7 +456,20 @@ def main():
             gente = sorted([x for x in grupo if no_bloco(x)], key=chave_de_ordem)
             for x in gente:
                 x["bloco"] = bloco_nome
-            if chave == "exterior":
+            # O TETO por mercado de fora. A Serie B entra inteira — ela e' o mercado de foco e a
+            # base em que a ficha foi medida. Cada mercado de fora entra com os TETO_FORA
+            # primeiros daquele bloco: lista longa sobre dado fino engana, e o teto e' por
+            # mercado para que um mercado grande nao empurre um pequeno para fora da tela.
+            corte = []
+            vistos = collections.Counter()
+            for x in gente:
+                if x["mercado"] != "Série B":
+                    if vistos[x["mercado"]] >= TETO_FORA:
+                        continue
+                    vistos[x["mercado"]] += 1
+                corte.append(x)
+            gente = corte
+            if False:
                 # ATE 21/09 a ordem de fora era a rodagem, porque "a ficha la fora mede no maximo
                 # 2 dos 4 a 6 criterios". Essa premissa era efeito de um DEFEITO, nao do dado: a
                 # busca da coluna pelo nome so encontrava os indicadores fisicos. Com o mapa
@@ -405,13 +480,16 @@ def main():
                 gente = sorted(gente, key=chave_de_ordem)[:15]
             if not gente:
                 continue
-            saida[chave].append({
+            saida["lista"].append({
                 "posicao": bloco_nome,
                 "ficha_de": setor,
                 "criterios_da_ficha": max((x["com_dado"] for x in gente), default=0),
                 "quantos": len(gente),
+                "por_mercado": dict(collections.Counter(x["mercado"] for x in gente)),
                 "jogadores": [{k: x.get(k) for k in
-                               ("jogador", "clube", "liga", "idade", "minutos", "fatia_pct",
+                               ("jogador", "clube", "liga", "mercado", "passaporte",
+                                "aderencia_eixo_origem", "desconto_do_eixo",
+                                "idade", "minutos", "fatia_pct",
                                 "com_dado", "atende", "aderencia_eixo", "aderencia_desempate",
                                 "criterios_do_eixo", "eixo_detalhe", "aderencia", "folga",
                                 "contrato", "livre",
@@ -430,11 +508,11 @@ def main():
     SAIDA_JSON.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     print(f"\n{SAIDA_CSV.name}: {len(linhas_csv)} linhas")
-    for bloco in saida["serie_b"]:
+    for bloco in saida["lista"]:
         top = bloco["jogadores"][0]
-        print(f"  {bloco['posicao']:9} {bloco['quantos']:3} jogadores · "
-              f"1º {top['jogador']} ({top['clube']}) "
-              f"atende {top['atende']}/{top['com_dado']} · aderência {top['aderencia']}")
+        comp = " · ".join(f"{k} {v}" for k, v in bloco["por_mercado"].items())
+        print(f"  {bloco['posicao']:15} {bloco['quantos']:3} · 1º {top['jogador']} "
+              f"({top['clube']}, {top['mercado']}) eixo {top['aderencia_eixo']}   [{comp}]")
     return 0
 
 

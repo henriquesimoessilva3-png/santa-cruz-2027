@@ -16,7 +16,7 @@
   "consequencia": "O teto de confiança de TODA conclusão desta parte é indício, declarado antes de rodar. Nenhuma frase do J09 pode afirmar que um nome vai render: essa afirmação foi testada em J06 e reprovou. O que J09 pode afirmar é contagem (quantos existem, onde, com que dado) e ordenação entre estrangeiros (autorizada por J08-3)."
  },
  "recorte": {
-  "universo": "Os Excels de dados_copiados/wyscout/xlsx_ago26/, aba BASE, excluindo Brasil A, Brasil B, Brasil C (não são exterior) e Argentina RESERVAS (competição de reservas, não é liga de origem de contratação).",
+  "universo": "Os Excels de dados_copiados/wyscout/xlsx_ago26/, aba BASE, excluindo Brasil B (é a própria Série B, a base de dentro), Brasil C e Argentina RESERVAS (competição de reservas, não é liga de origem de contratação). Brasil A ENTRA desde 21/09/2026 — ver `emenda_21_09_os_mercados` abaixo.",
   "periodo": "ago26, a foto mais recente copiada em 19/09/2026 (65 ligas, 18.460 jogadores).",
   "unidade": "jogador-liga",
   "corte_de_liga_utilizavel": "A liga entra se o maior número de jogos de um jogador dela for >= 15. Abaixo disso a temporada mal começou e a fatia de minutos não mede rodagem. Declarado antes de olhar quais ligas caem.",
@@ -331,5 +331,14 @@
    "e_o_goleiro": "Não muda nada para o goleiro: o SkillCorner quase não o rastreia. Medido aqui: 28 dos 585 goleiros com minutagem alta têm linha física. O goleiro continua em nível C.",
    "tambem_entra_como_descricao": "a faixa salarial do TransferRoom (campo `sal`, 9.289 dos 11.023) e o valor de mercado (`mv`). DESCRIÇÃO, nunca filtro e nunca ordenação — entrar como ordenação seria escolher o critério depois de ver a lista."
   }
- ]
+ ],
+ "emenda_21_09_os_mercados": {
+  "declarado_em": "2026-09-21",
+  "o_que_mudou": "Brasil A entrou no universo da BASE publicada, e duas colunas novas passaram a ser extraídas: os dois indicadores do eixo da qualidade da chance (`Touches in box per 90` e `Progressive passes per 90`) e o `Passport country`.",
+  "por_que_o_brasil_a": "A pergunta da casa é quem contratar, e o mercado é, em ordem de foco: Série B, Série A, brasileiros e sul-americanos que jogam no exterior, e os campeonatos sul-americanos. A Série A estava fora por construção, porque esta parte nasceu perguntando por ESTRANGEIRO — e ela é o mercado com o fator de conversão mais forte da tabela inteira: 156 casos, força forte, eficiência com selo firme, contra 28 da Argentina A e 22 do Uruguai.",
+  "por_que_o_eixo": "Até 21/09 a tela afirmava que `Toques na área/90` não existe em liga de origem, e por isso a lista de fora era ordenada por meio eixo. A afirmação é falsa: a coluna está nos 115 cabeçalhos de TODOS os arquivos — o que faltava era a extração aqui. É a mesma classe do defeito do zagueiro, consertado de manhã: a tela anunciava um limite que o dado não tem.",
+  "o_que_NAO_mudou": "As conclusões desta parte (J09-1, J09-2, J09-3) continuam medidas SÓ no estrangeiro. Todo contador que uma conclusão cita passa pelo filtro `EH_FORA`, que tira a Série A. Conferido depois de rodar: dos números publicados em J09_numeros.json, ZERO mudaram de valor, e os únicos acréscimos são chaves novas (base_linhas_serie_a, eixo_com_*).",
+  "onde_o_eixo_e_usado": "Só na LISTA por posição (scripts/J06_ranking.py). Ele não entra na ficha de J05, não tem piso, e não sustenta conclusão nenhuma desta parte.",
+  "o_teto_que_a_lista_tem_de_dizer": "O ajuste de J08 tem teto aritmético — 76,4 na família `volume`, que é a do eixo —, enquanto quem já está na Série B chega a 100. O topo de cada posição é da Série B por construção do ajuste, não por mérito medido, e por isso a lista publica o percentil de ORIGEM e o DESCONTO ao lado do ajustado."
+ }
 }

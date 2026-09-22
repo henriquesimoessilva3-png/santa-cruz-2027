@@ -70,7 +70,40 @@ PRIORIZADAS = DECL["posicoes_priorizadas"]["lista"]
 CONTA = DECL["ajuste_de_j08"]["por_familia"]
 LIGA_MIN_JOGOS = 15
 REGUA_MIN = 10          # jogadores de 900+ por (liga, setor) para a régua existir
-LIGAS_FORA = {"Brasil A", "Brasil B", "Brasil C", "Argentina RESERVAS"}
+# Brasil A SAIU desta lista em 21/09. Ela e' a Serie A: o mercado com o fator de conversao mais
+# FORTE da tabela inteira (156 casos, forca forte, eficiencia com selo firme — contra 28 da
+# Argentina A e 22 do Uruguai), e estava excluida por construcao porque esta parte nasceu
+# perguntando por ESTRANGEIRO. A pergunta da casa e' outra: quem contratar. As CONCLUSOES desta
+# parte continuam medidas so' no estrangeiro (a lista FORA, abaixo) — o que muda e' a base
+# publicada, que a lista por posicao le.
+LIGAS_FORA = {"Brasil B", "Brasil C", "Argentina RESERVAS"}
+
+# O mercado de cada liga, na ordem de foco que o dono declarou em 21/09: Serie B primeiro (que
+# nao esta aqui — e' a base de dentro), Serie A, sul-americanos, e o resto do exterior.
+SULAMERICANAS = {"Argentina A", "Argentina B", "Uruguai", "Colombia A", "Colombia B", "Chile",
+                 "Paraguai", "Peru", "Equador A", "Equador B", "Bolivia", "Venezuela"}
+
+
+def mercado_da_liga(liga):
+    if liga == "Brasil A":
+        return "Série A"
+    return "Sul-americano" if liga in SULAMERICANAS else "Exterior"
+
+
+def EH_FORA(l):
+    """O recorte das CONCLUSOES desta parte: estrangeiro, como sempre foi. A Serie A entra na
+    base publicada e fica FORA de todo numero que uma conclusao cita."""
+    return l["mercado"] != "Série A"
+
+
+# Os dois indicadores do eixo da qualidade da chance (J06_ordenacao.json). Eles NAO entram na
+# ficha de J05 e nao tocam conclusao nenhuma desta parte: existem para a LISTA por posicao poder
+# ordenar quem vem de fora pela mesma regua de quem esta na Serie B. Ate 21/09 a tela afirmava
+# que `Toques na area/90` nao existia em liga de origem — nao e' verdade, a coluna esta nas 115
+# de todos os arquivos; o que nao existia era a extracao dela aqui. Familia `volume` no ajuste de
+# J08, que e' a familia das duas.
+EIXO = {"eixo_toques_area": "Touches in box per 90",
+        "eixo_passes_progressivos": "Progressive passes per 90"}
 
 IND = {}                # id -> {coluna, nome, bloco, familia_j08}
 for bloco in ("bloco_duelo_corpo", "bloco_estilo_tecnico"):
@@ -167,7 +200,9 @@ def ajustar(pct_origem, liga, familia, idade):
 # 3. A base: os Excels das ligas de fora.
 # ==================================================================================================
 COLS = ["Player", "Team within selected timeframe", "Position", "Age", "Contract expires",
-        "Matches played", "Minutes played", "Birth country", "Market value", "Foot", "Height"]
+        "Matches played", "Minutes played", "Birth country", "Passport country",
+        "Market value", "Foot", "Height"]
+COLS += list(EIXO.values())
 for it in IND.values():
     if it["familia_j08"]:
         COLS.append(it["coluna"])
@@ -189,7 +224,8 @@ for caminho in sorted(XLSX.glob("*.xlsx")):
         linhas.append({c: r[i] for c, i in ix.items()})
     wb.close()
     if not linhas:
-        diag_liga.append({"liga": liga, "linhas": 0, "veredito": "arquivo vazio"})
+        diag_liga.append({"liga": liga, "mercado": mercado_da_liga(liga), "linhas": 0,
+                          "veredito": "arquivo vazio"})
         continue
 
     por_time = collections.defaultdict(list)
@@ -207,7 +243,8 @@ for caminho in sorted(XLSX.glob("*.xlsx")):
         veredito = f"elenco cortado no export (razão {razao:.2f})"
     elif liga not in FORCA or FORCA[liga] == "sem fator":
         veredito = "liga sem fator de J08"
-    diag_liga.append({"liga": liga, "linhas": len(linhas), "times": len(por_time),
+    diag_liga.append({"liga": liga, "mercado": mercado_da_liga(liga),
+                      "linhas": len(linhas), "times": len(por_time),
                       "jogos_max": round(jogos_max), "razao_denominador": round(razao, 3),
                       "forca_do_fator": FORCA.get(liga, "sem fator"),
                       "casos_j08": CASOS.get(liga, 0), "veredito": veredito})
@@ -236,19 +273,24 @@ for caminho in sorted(XLSX.glob("*.xlsx")):
                 "elenco_cortado": cortado, "elenco_no_export": len(v),
                 "contrato": str(l.get("Contract expires") or "")[:10],
                 "nascido_em": l.get("Birth country"),
+                "passaporte": l.get("Passport country"),
+                "mercado": mercado_da_liga(liga),
                 "valor_mercado": f(l.get("Market value")),
                 "pe": l.get("Foot"), "altura": f(l.get("Height")),
                 **{i: f(l.get(IND[i]["coluna"])) for i in IND if IND[i]["familia_j08"]},
+                **{k: f(l.get(c)) for k, c in EIXO.items()},
             })
 
-N["ligas_lidas"] = len(diag_liga)
-N["ligas_que_entram"] = sum(1 for d in diag_liga if d["veredito"] == "entra")
-N["ligas_fora_por_temporada_curta"] = sum(1 for d in diag_liga if "curta" in d["veredito"])
-N["ligas_fora_por_export"] = sum(1 for d in diag_liga if "cortado" in d["veredito"])
-N["ligas_fora_sem_fator"] = sum(1 for d in diag_liga if "sem fator" in d["veredito"])
-N["base_linhas"] = len(base)
-N["times_com_elenco_cortado"] = len({(l["liga"], l["time"]) for l in base if l["elenco_cortado"]})
-N["times_na_base"] = len({(l["liga"], l["time"]) for l in base})
+N["ligas_lidas"] = sum(1 for d in diag_liga if d["mercado"] != "Série A")
+N["ligas_que_entram"] = sum(1 for d in diag_liga if d["mercado"] != "Série A" and d["veredito"] == "entra")
+N["ligas_fora_por_temporada_curta"] = sum(1 for d in diag_liga if d["mercado"] != "Série A" and "curta" in d["veredito"])
+N["ligas_fora_por_export"] = sum(1 for d in diag_liga if d["mercado"] != "Série A" and "cortado" in d["veredito"])
+N["ligas_fora_sem_fator"] = sum(1 for d in diag_liga if d["mercado"] != "Série A" and "sem fator" in d["veredito"])
+N["base_linhas"] = sum(1 for l in base if EH_FORA(l))
+N["times_com_elenco_cortado"] = len({(l["liga"], l["time"]) for l in base
+                                     if l["elenco_cortado"] and EH_FORA(l)})
+N["times_na_base"] = len({(l["liga"], l["time"]) for l in base if EH_FORA(l)})
+N["base_linhas_serie_a"] = sum(1 for l in base if not EH_FORA(l))
 
 # ==================================================================================================
 # 3b. A ponte com dados/jogadores.json (emenda 4): físico, faixa salarial e valor de mercado.
@@ -267,11 +309,11 @@ for l in base:
     v = IDX.get((nm(l["jogador"]), nm(l["time"]), nm(l["liga"])), [])
     l["na_base_do_app"] = len(v) == 1
     l["ponte_ambigua"] = len(v) > 1
-    ambiguo += len(v) > 1
+    ambiguo += (len(v) > 1) and EH_FORA(l)
     if len(v) != 1:
         l["fisico_rastreado"] = False
         continue
-    casou += 1
+    casou += EH_FORA(l)
     x = v[0]
     # §4.1: o físico exige minutos rastreados. min_tot = minutos por jogo × jogos rastreados.
     mt = (f(x.get("sc_min")) or 0) * (f(x.get("sc_n")) or 0)
@@ -279,14 +321,14 @@ for l in base:
     l["fisico_rastreado"] = bool(x.get("psv5")) and mt >= 300
     l["faixa_salarial"] = x.get("sal") or ""
     l["valor_tr"] = x.get("mv")
-    com_sal += bool(x.get("sal"))
+    com_sal += bool(x.get("sal")) and EH_FORA(l)
     if l["fisico_rastreado"]:
-        com_fis += 1
+        com_fis += EH_FORA(l)
         for i in FIS_IDS:
             l[i] = f(x.get(i))
 N["ponte_app_casou"] = casou
 N["ponte_app_ambigua"] = ambiguo
-N["ponte_app_pct"] = round(100 * casou / max(len(base), 1), 1)
+N["ponte_app_pct"] = round(100 * casou / max(sum(1 for l in base if EH_FORA(l)), 1), 1)
 N["com_fisico_rastreado"] = com_fis
 N["com_faixa_salarial"] = com_sal
 
@@ -312,8 +354,37 @@ for (liga, setor), grupo in reguas.items():
         for (v, g), r in zip(vals, ordem):
             g[f"{i}__pct"] = round(100 * (r - 1) / (len(vals) - 1), 1)
 
-N["reguas"] = len(reguas)
-N["reguas_curtas"] = sum(1 for g in reguas.values() if len(g) < REGUA_MIN)
+# O EIXO, no mesmo percentil por (liga, setor) dos 900+ e depois na escala da Serie B pelo fator
+# de J08 (familia `volume`, que e' a das duas medidas). Ele nao entra na ficha e nao toca
+# conclusao nenhuma: serve para a lista por posicao ordenar todos os mercados pela MESMA regua,
+# que e' o que "mesmo plano" quer dizer. Sem isto, quem vem de fora era ordenado por metade do
+# eixo e quem esta na Serie B pelo eixo inteiro — comparacao que a tela fazia sem dizer.
+for (liga, setor), grupo in reguas.items():
+    if len(grupo) < REGUA_MIN:
+        continue
+    for k in EIXO:
+        vals = [(g[k], g) for g in grupo if g.get(k) is not None]
+        if len(vals) < REGUA_MIN:
+            continue
+        ordem = stats.rankdata([v for v, _ in vals])
+        for (v, g), r in zip(vals, ordem):
+            g[f"{k}__pct"] = round(100 * (r - 1) / (len(vals) - 1), 1)
+
+for l in base:
+    for k in EIXO:
+        adj, delta = ajustar(l.get(f"{k}__pct"), l["liga"], "volume", l["idade"])
+        l[f"{k}__adj"] = None if adj is None else round(adj, 1)
+        l[f"{k}__delta"] = delta
+
+N["eixo_com_toques_area"] = sum(1 for l in base if l.get("eixo_toques_area__pct") is not None)
+N["eixo_com_passes_progressivos"] = sum(
+    1 for l in base if l.get("eixo_passes_progressivos__pct") is not None)
+N["eixo_com_os_dois"] = sum(1 for l in base if l.get("eixo_toques_area__pct") is not None
+                            and l.get("eixo_passes_progressivos__pct") is not None)
+
+N["reguas"] = sum(1 for (lg, _s) in reguas if mercado_da_liga(lg) != "Série A")
+N["reguas_curtas"] = sum(1 for (lg, _s), g in reguas.items()
+                         if len(g) < REGUA_MIN and mercado_da_liga(lg) != "Série A")
 
 # ==================================================================================================
 # 5. Minutagem alta e REGULAR, pelas fotos por temporada.
@@ -382,13 +453,15 @@ for l in base:
     l["regularidade_verificavel"] = (l["setor"] != "Goleiro")
     l["corte_da_posicao"] = corte
 
-N["gk_na_base"] = sum(1 for l in base if l["setor"] == "Goleiro")
-N["gk_com_minutagem_alta"] = sum(1 for l in base if l["setor"] == "Goleiro" and l["minutagem_alta"])
+N["gk_na_base"] = sum(1 for l in base if l["setor"] == "Goleiro" and EH_FORA(l))
+N["gk_com_minutagem_alta"] = sum(1 for l in base if l["setor"] == "Goleiro"
+                                 and l["minutagem_alta"] and EH_FORA(l))
 N["gk_regularidade_verificavel"] = sum(1 for l in base if l["setor"] == "Goleiro"
-                                       and l["regularidade_verificavel"])
+                                       and l["regularidade_verificavel"] and EH_FORA(l))
 N["fotos_sem_goleiro"] = sum(1 for temp in fotos for r in fotos[temp] if r.get("root") == "GK") == 0
-N["com_minutagem_alta"] = sum(1 for l in base if l["minutagem_alta"])
-N["com_minutagem_alta_e_regular"] = sum(1 for l in base if l["minutagem_alta"] and l["minutagem_regular"])
+N["com_minutagem_alta"] = sum(1 for l in base if l["minutagem_alta"] and EH_FORA(l))
+N["com_minutagem_alta_e_regular"] = sum(1 for l in base if l["minutagem_alta"]
+                                        and l["minutagem_regular"] and EH_FORA(l))
 
 # ==================================================================================================
 # 6. O ajuste de J08 e as duas leituras do piso (emenda declarada antes de rodar).
@@ -434,8 +507,10 @@ for l in base:
     l["casos_do_fator"] = CASOS.get(l["liga"], 0)
 
 # Quantos chegam ao piso em CADA leitura — a emenda manda publicar as duas contagens.
+# O ELEGIVEL das conclusoes e' so' estrangeiro, como sempre foi: a Serie A entrou na base para a
+# LISTA por posicao, nao para mudar numero que uma conclusao ja publicada cita.
 elegivel = [l for l in base if l["minutagem_alta"] and l["minutagem_regular"]
-            and l["indicadores_com_dado"] >= 2]
+            and l["indicadores_com_dado"] >= 2 and EH_FORA(l)]
 N["elegiveis_com_dado"] = len(elegivel)
 N["passa_piso_na_origem"] = sum(1 for l in elegivel if l["passa_ficha_origem"])
 N["passa_piso_no_ajustado"] = sum(1 for l in elegivel if l["passa_ficha_ajustado"])
@@ -770,7 +845,7 @@ for setor in SETORES:
     cand = [l for l in elegivel if l["setor"] == setor]
     if setor == "Goleiro":
         cand = [l for l in base if l["setor"] == "Goleiro" and l["minutagem_alta"]
-                and l["indicadores_com_dado"] >= 2]
+                and l["indicadores_com_dado"] >= 2 and EH_FORA(l)]
     com_fator = [l for l in cand if l["forca_do_fator"] != "sem fator"]
     passa = [l for l in com_fator if l["passa_ficha_origem"]]
     passa_adj = [l for l in com_fator if l["passa_ficha_ajustado"]]
@@ -880,13 +955,14 @@ def gravar_csv(caminho, linhas, campos=None):
 
 
 gravar_csv(RES / "J09_ligas.csv", diag_liga,
-           ["liga", "linhas", "times", "jogos_max", "razao_denominador", "forca_do_fator",
+           ["liga", "mercado", "linhas", "times", "jogos_max", "razao_denominador", "forca_do_fator",
             "casos_j08", "veredito"])
 campos_base = ["jogador", "liga", "time", "posicao", "setor", "idade", "minutos", "jogos",
                "fatia_pct", "corte_da_posicao", "minutagem_alta", "minutagem_regular",
                "temporadas_com_dado", "temporadas_altas", "regularidade_verificavel",
                "homonimo_na_foto", "contrato",
-               "nascido_em", "ocupa_vaga_de_estrangeiro", "valor_mercado", "pe", "altura",
+               "nascido_em", "passaporte", "mercado", "ocupa_vaga_de_estrangeiro",
+               "valor_mercado", "pe", "altura",
                "contrato_na_janela", "media_ajustada", "elenco_cortado", "elenco_no_export",
                "forca_do_fator", "casos_do_fator", "indicadores_com_dado", "exigencias_da_posicao",
                "viola_na_origem", "viola_no_ajustado", "passa_ficha_origem", "passa_ficha_ajustado",
@@ -894,6 +970,8 @@ campos_base = ["jogador", "liga", "time", "posicao", "setor", "idade", "minutos"
                "nota_fisico", "nota_duelo_corpo", "nota_estilo_tecnico", "fisico_da_posicao"]
 for i in IND:
     campos_base += [i, f"{i}__pct", f"{i}__adj", f"{i}__delta"]
+for k in EIXO:
+    campos_base += [k, f"{k}__pct", f"{k}__adj", f"{k}__delta"]
 gravar_csv(RES / "J09_base.csv", sorted(base, key=lambda l: (l["setor"], -(l["fatia_pct"] or 0))),
            campos_base)
 gravar_csv(RES / "J09_testes.csv", testes,
