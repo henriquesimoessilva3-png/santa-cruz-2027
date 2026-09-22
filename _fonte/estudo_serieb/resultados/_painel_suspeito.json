@@ -1,0 +1,147 @@
+{
+ "_doc": "As liga-temporada do painel temporal cujo rótulo não corresponde ao elenco, e as ligas que dependem delas. Gerado por scripts/conferir_painel.py. O conserto é no Portal Ranking, de onde o painel é copiado — aqui só se declara o que está comprometido, para a lista poder marcar a linha.",
+ "gerado_em": "2026-09-22",
+ "criterio": {
+  "troca de liga": "sobreposição de times com as outras temporadas ≤ 10%",
+  "divisões misturadas": "número de times ≥ 1.8× a mediana da liga",
+  "por_que_nao_mais_frouxo": "Acesso e rebaixamento trocam times todo ano. Medido: a 20% de linhas em times novos caem 26 liga-temporada, quase todas por troca normal de elenco."
+ },
+ "liga_temporada_comprometida": [
+  {
+   "liga": "Dinamarca",
+   "temporada": "2023",
+   "tipo": "divisões misturadas",
+   "times": 52,
+   "mediana_da_liga": 9,
+   "sobreposicao_pct": 21,
+   "linhas": 241
+  },
+  {
+   "liga": "Emirados",
+   "temporada": "2024",
+   "tipo": "divisões misturadas",
+   "times": 48,
+   "mediana_da_liga": 14,
+   "sobreposicao_pct": 29,
+   "linhas": 338
+  },
+  {
+   "liga": "Eslovaquia",
+   "temporada": "2023",
+   "tipo": "divisões misturadas",
+   "times": 39,
+   "mediana_da_liga": 12,
+   "sobreposicao_pct": 33,
+   "linhas": 240
+  },
+  {
+   "liga": "Mexico",
+   "temporada": "2023",
+   "tipo": "divisões misturadas",
+   "times": 38,
+   "mediana_da_liga": 18,
+   "sobreposicao_pct": 47,
+   "linhas": 326
+  },
+  {
+   "liga": "Peru",
+   "temporada": "2024",
+   "tipo": "troca de liga",
+   "times": 10,
+   "mediana_da_liga": 15,
+   "sobreposicao_pct": 0,
+   "linhas": 230
+  },
+  {
+   "liga": "Peru",
+   "temporada": "2025",
+   "tipo": "troca de liga",
+   "times": 12,
+   "mediana_da_liga": 15,
+   "sobreposicao_pct": 0,
+   "linhas": 362
+  },
+  {
+   "liga": "Portugal A",
+   "temporada": "2023",
+   "tipo": "divisões misturadas",
+   "times": 74,
+   "mediana_da_liga": 18,
+   "sobreposicao_pct": 26,
+   "linhas": 298
+  }
+ ],
+ "ligas_afetadas": [
+  {
+   "liga": "Dinamarca",
+   "por_que": "o fator de liga foi ajustado com 1 caso(s) que saem de uma temporada com o rótulo errado"
+  },
+  {
+   "liga": "Emirados",
+   "por_que": "o fator de liga foi ajustado com 4 caso(s) que saem de uma temporada com o rótulo errado"
+  },
+  {
+   "liga": "Eslovaquia",
+   "por_que": "as fotos desta liga têm elenco de outro país ou de outra divisão"
+  },
+  {
+   "liga": "Mexico",
+   "por_que": "o fator de liga foi ajustado com 3 caso(s) que saem de uma temporada com o rótulo errado"
+  },
+  {
+   "liga": "Peru",
+   "por_que": "as fotos desta liga têm elenco de outro país ou de outra divisão"
+  },
+  {
+   "liga": "Portugal A",
+   "por_que": "o fator de liga foi ajustado com 3 caso(s) que saem de uma temporada com o rótulo errado"
+  }
+ ],
+ "casos_do_j08_por_liga": {
+  "Dinamarca": 1,
+  "Emirados": 4,
+  "Mexico": 3,
+  "Portugal A": 3
+ },
+ "sensibilidade_do_fator": {
+  "medido_em": "2026-09-22",
+  "como": "J08_base.py e J08.py rodados num sandbox com o painel filtrado e os 11 casos removidos do J08_base.csv; fatores_liga.csv comparado com o publicado.",
+  "o_que_nao_e": "Não é o fator correto. Remover o caso e rotular o caso direito são coisas diferentes, e só a segunda é conserto. Isto mede o quanto o fator publicado depende de temporada comprometida.",
+  "casos_afetados": 11,
+  "casos_totais": 782,
+  "por_fator": [
+   {
+    "liga": "Portugal A",
+    "familia": "volume",
+    "publicado": 3.91,
+    "sem_os_casos": 0.58
+   },
+   {
+    "liga": "Portugal A",
+    "familia": "eficiencia",
+    "publicado": 2.59,
+    "sem_os_casos": -0.16
+   },
+   {
+    "liga": "FAIXA ACIMA",
+    "familia": "eficiencia",
+    "publicado": 6.54,
+    "sem_os_casos": 7.55
+   },
+   {
+    "liga": "FAIXA ACIMA",
+    "familia": "volume",
+    "publicado": 3.25,
+    "sem_os_casos": 3.99
+   },
+   {
+    "liga": "Dinamarca",
+    "familia": "os dois",
+    "publicado": -0.8,
+    "sem_os_casos": null
+   }
+  ],
+  "o_que_nao_se_move": "As ligas sul-americanas com fator próprio não se movem: Argentina A, Uruguai, Chile e Brasil A mudam 0,03 ou menos.",
+  "conclusoes_do_j08": "As conclusões do próprio J08 aguentam: dos 86 marcadores, 48 se movem e todos por pouco — o encolhimento, que é o achado firme da parte, vai de −0,601/−0,501 para −0,604/−0,505."
+ }
+}

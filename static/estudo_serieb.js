@@ -458,7 +458,7 @@
      desconto de 24,6 pontos que a conversao aplica. */
   function rankingHtml() {
     const K = D.ranking;
-    if (!K || !K.lista || !K.lista.length) return '';
+    if (!K || !K.listas || !K.listas.length) return '';
     const fmt = (v, c) => v == null ? '—' :
       Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
     const TETO = (K.teto_do_ajuste || {}).volume;
@@ -489,7 +489,16 @@
         '<span class="esb-desc" title="o que a conversão de liga de J08 desconta deste jogador">' +
         fmt(j.desconto_do_eixo, 1) + '</span>';
       const merc = j.mercado || 'Série B';
-      return '<tr' + sel + '><td class="esb-num">' + i + '</td>' +
+      /* O FATOR COMPROMETIDO. A conversão de liga vem do J08, que é ajustado sobre um painel em
+         que algumas liga-temporada têm o rótulo errado (elenco de outro país, ou várias divisões
+         sob um nome só). Onde isso acontece a linha ganha marca: o número dela não tem a mesma
+         confiança dos outros, e sair igual seria a tela afirmando o que não mediu. */
+      const comp = j.fator_comprometido
+        ? '<span class="esb-comp-fator" title="' + esc(j.fator_comprometido) +
+          ' — a conversão desta liga não tem a mesma confiança das outras">⚠</span>'
+        : '';
+      const cls = (sel ? ' class="esb-forte' : ' class="') + (j.fator_comprometido ? ' esb-linha-comp' : '') + '"';
+      return '<tr' + cls + '><td class="esb-num">' + i + '</td>' +
         '<td>' + esc(j.jogador) +
         (j.estrangeiro ? ' <span class="esb-flag" title="estrangeiro: ocupa vaga">⚑</span>' : '') +
         (j.passaporte ? ' <span class="esb-pass" title="passaporte ' + esc(j.passaporte) +
@@ -506,7 +515,7 @@
         '<td class="esb-num' + (noTeto ? ' esb-no-teto' : '') + '"' +
           (j.eixo_detalhe ? ' title="' + esc(j.eixo_detalhe) + '"' : '') + '>' +
           origem + '<b>' + (j.aderencia_eixo == null ? '—' : fmt(j.aderencia_eixo, 1)) + '</b>' +
-          desconto + '</td>' +
+          desconto + comp + '</td>' +
         '<td class="esb-num">' + (j.aderencia_desempate == null ? '—' : fmt(j.aderencia_desempate, 1)) + '</td>' +
         '<td class="esb-num esb-suave">' + j.atende + '/' + j.com_dado + '</td>' +
         '<td class="esb-num esb-suave">' + fmt(j.aderencia, 1) + '</td>' +
@@ -567,10 +576,10 @@
           : '') + '</div>';
     };
     const corte = K.corte_de_minutagem;
-    const total = K.lista.reduce((a, b) => a + b.quantos, 0);
+    const total = K.listas.reduce((a, L) => a + L.quantos, 0);
     return '<section class="esb-secao esb-ranking" id="esb-ranking">' +
       '<h3>Quem roda, na ordem do eixo do modelo<span class="esb-conta">' +
-      total + ' nomes em quatro mercados' +
+      total + ' nomes em três listas' +
       (corte ? ' · ' + corte['saíram'] + ' saíram no corte da Série B' : '') + '</span></h3>' +
       '<p class="esb-aviso-forte"><b>Minutagem elimina; o resto ordena.</b> Só entra aqui quem tem ' +
       'minutagem alta e repetida — o <i>único</i> requisito que a base sustenta por posição ' +
@@ -583,24 +592,77 @@
       'que o perfil “descreve quem subiu e não promete quem vai subir”. Quem jogou pouco por ' +
       '<i>lesão</i> cai no corte junto com quem jogou pouco por escolha: o J01-2 mediu que a base ' +
       'não distingue os dois, e por isso o número de quem saiu vai à vista, no topo.</p>' +
-      '<p class="esb-aviso-forte"><b>Os quatro mercados estão na MESMA lista desde 21/09, e a ' +
-      'régua tem um teto que muda como ela se lê.</b> Série B, Série A, sul-americanos e o resto ' +
-      'do exterior seguem a mesma regra e a mesma ordem. Quem vem de fora tem o percentil ' +
+      '<p class="esb-aviso-forte"><b>Três listas separadas, e uma régua com teto.</b> ' +
+      'Série B primeiro; depois os demais campeonatos sul-americanos, com a Série A dentro; e ' +
+      'por fim brasileiros e sul-americanos espalhados pelo resto do mundo. As três seguem a ' +
+      'mesma regra, e vão separadas de propósito: quem monta elenco não escolhe entre um volante ' +
+      'da Série B e um do Manchester City — escolhe dentro de um mercado por vez. ' +
+      'Quem vem de fora tem o percentil ' +
       'convertido para a escala da Série B pelo fator de liga do J08 — e essa conversão tem ' +
       '<b>teto aritmético' + (TETO != null ? ' de ' + fmt(TETO, 1) : '') + '</b> na família do ' +
       'eixo, enquanto quem já está na Série B pode chegar a 100. <b>Por isso o topo de cada ' +
       'posição é da Série B por construção, não por mérito medido.</b> Para que a ordem seja ' +
       'legível em vez de absurda, cada linha de fora traz o percentil <i>na liga de origem</i> à ' +
       'esquerda e o <i>desconto</i> à direita: é assim que se vê que um atacante que aparece ' +
-      'abaixo de outro tinha 98 em casa e levou 25 pontos de desconto na conversão. Entram os ' +
-      (K.teto_por_mercado_de_fora || 10) + ' primeiros de cada mercado de fora, em cada posição, ' +
-      'e a Série B entra inteira — ela é o mercado de foco e é onde a ficha foi medida. ' +
+      'abaixo de outro tinha 98 em casa e levou 25 pontos de desconto na conversão. ' +
       '<b>Passaporte à vista:</b> quem tem passaporte brasileiro não ocupa vaga de estrangeiro, ' +
       'jogue onde jogar, e ⚑ marca quem ocupa. No <b>gol</b> só há Série B: nenhum goleiro de ' +
       'fora tem regularidade verificável, que é a mesma lacuna do J09-3.</p>' +
-      K.lista.map(bloco).join('') +
+      /* A ressalva do painel. Ela e' montada do _painel_suspeito.json, regeneravel: quando o
+         Portal Ranking corrigir o rotulo, o arquivo esvazia e este paragrafo some sozinho. */
+      (function () {
+        const P = K.painel_suspeito;
+        if (!P || !(P.liga_temporada_comprometida || []).length) return '';
+        const marcadas = K.listas.reduce((t, L) => t + L.blocos.reduce((a, b) =>
+          a + b.jogadores.filter(j => j.fator_comprometido).length, 0), 0);
+        const ligas = P.ligas_afetadas.map(x => esc(x.liga)).join(', ');
+        const pa = (P.sensibilidade_do_fator.por_fator || [])
+          .filter(x => x.liga === 'Portugal A');
+        const conta = pa.map(x => esc(x.familia) + ' de ' + fmt(x.publicado, 2) + ' para ' +
+          fmt(x.sem_os_casos, 2)).join(' e ');
+        const lt = P.liga_temporada_comprometida.map(x =>
+          '<li><b>' + esc(x.liga) + ' ' + esc(x.temporada) + '</b> — ' + esc(x.tipo) + ': ' +
+          x.times + ' times onde a mediana da liga é ' + x.mediana_da_liga + ', e ' +
+          x.sobreposicao_pct + '% deles aparecem nessa liga em outra temporada</li>').join('');
+        return '<div class="esb-painel-aviso"><h4>⚠ ' + marcadas + ' linhas têm o fator de ' +
+          'conversão comprometido</h4>' +
+          '<p>O número que converte o percentil de fora para a escala da Série B sai do J08, que ' +
+          'é ajustado sobre o painel de temporadas do Wyscout. Em ' +
+          P.liga_temporada_comprometida.length + ' liga-temporada esse painel está com o ' +
+          '<b>rótulo errado</b> — ou o elenco é de outro país, ou várias divisões estão sob um ' +
+          'nome só. As linhas de <b>' + ligas + '</b> dependem disso e vão marcadas com ⚠.</p>' +
+          '<ul class="esb-painel-lista">' + lt + '</ul>' +
+          '<p><b>O tamanho do problema, medido.</b> Rodando o J08 sem os ' +
+          P.sensibilidade_do_fator.casos_afetados + ' casos afetados (de ' +
+          P.sensibilidade_do_fator.casos_totais + '), o fator de Portugal A vai de ' + conta +
+          ' — ou seja, o degrau positivo de Portugal é sustentado por três transferências de uma ' +
+          'temporada em que 74 times foram empilhados sob esse rótulo. ' +
+          esc(P.sensibilidade_do_fator.o_que_nao_se_move) + ' ' +
+          esc(P.sensibilidade_do_fator.conclusoes_do_j08) + '</p>' +
+          '<p class="esb-painel-pe"><b>Isto não é conserto.</b> ' +
+          esc(P.sensibilidade_do_fator.o_que_nao_e) + ' O painel é copiado do Portal Ranking, e é ' +
+          'lá que o rótulo precisa ser corrigido; além disso o percentil de cada foto já vem ' +
+          'normalizado da fonte, dentro de liga e posição, então a conta errada nasce antes de ' +
+          'chegar aqui. Enquanto isso, a marca serve para que ninguém leia estas linhas como se ' +
+          'fossem iguais às outras.</p></div>';
+      })() +
+      /* AS TRES LISTAS, 22/09. Ate entao era uma lista so' por posicao, com a Serie B
+         embolada com estrangeiro e com o exterior INTEIRO dentro — o que trouxe meio top-5
+         europeu para uma tela de montagem de elenco do Santa Cruz. Nenhum deles e' alvo, e a
+         ordem unica escondia isso atras de um numero bem calculado. */
+      K.listas.map(function (L, i) {
+        return '<div class="esb-lista-bloco" id="esb-lista-' + esc(L.chave) + '">' +
+          '<h4 class="esb-lista-titulo"><span class="esb-lista-n">' + (i + 1) + '</span>' +
+          esc(L.titulo) + '<span class="esb-conta">' + L.quantos + ' nomes' +
+          (L.candidatos && L.candidatos !== L.quantos
+            ? ' de ' + L.candidatos + ' com rodagem' : '') + '</span></h4>' +
+          '<p class="esb-lista-sub">' + esc(L.subtitulo) +
+          (L.teto_por_mercado ? ' Entram os ' + L.teto_por_mercado +
+            ' primeiros de cada mercado, por posição.' : '') + '</p>' +
+          L.blocos.map(bloco).join('') + '</div>';
+      }).join('') +
       '<p class="esb-nota">Custo, disponibilidade e encaixe no modelo de jogo ficam para validação ' +
-      'externa. Na Série B a rodagem é no próprio campeonato; nos outros três mercados, na liga ' +
+      'externa. Na Série B a rodagem é no próprio campeonato; nas outras duas listas, na liga ' +
       'de origem.</p>' +
       /* 22/09. O filtro de rodagem nos mercados de fora PERDEU a justificacao medida, e a
          tela tem de dizer isso em vez de continuar citando o achado que caiu. */

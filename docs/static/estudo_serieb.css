@@ -454,3 +454,42 @@ body:not(.claro) #pgEstudo .esb-pass,
 body:not(.claro) #pgEstudo .esb-orig,
 body:not(.claro) #pgEstudo .esb-comp { color: #9a9990; }
 body:not(.claro) #pgEstudo .esb-desc { color: #f0a640; }
+
+/* ---- a ressalva do painel comprometido (22/09) -----------------------------
+   A marca é âmbar e não vermelha: a linha não está errada, ela é menos
+   confiável — e a diferença entre as duas coisas é justamente o que o aviso
+   explica. A linha inteira ganha fundo levíssimo para que a marca não dependa
+   só de um símbolo pequeno. */
+#pgEstudo .esb-comp-fator { color: #b45309; margin-left: 3px; font-size: 10px; cursor: help; }
+#pgEstudo tr.esb-linha-comp { background: rgba(180, 83, 9, .055); }
+#pgEstudo .esb-painel-aviso { border: 1px solid #d9a441; border-radius: 8px;
+  padding: 10px 14px; margin: 14px 0 18px; background: rgba(180, 83, 9, .05); }
+#pgEstudo .esb-painel-aviso h4 { margin: 0 0 6px; font-size: 13px; color: #92400e; }
+#pgEstudo .esb-painel-aviso p { margin: 0 0 6px; font-size: 12px; line-height: 1.5;
+  max-width: 82ch; }
+#pgEstudo .esb-painel-lista { margin: 0 0 8px; padding-left: 18px; font-size: 11.5px;
+  line-height: 1.5; color: #52514e; }
+#pgEstudo .esb-painel-pe { color: #52514e; }
+
+body:not(.claro) #pgEstudo .esb-comp-fator { color: #f0a640; }
+body:not(.claro) #pgEstudo tr.esb-linha-comp { background: rgba(240, 166, 64, .07); }
+body:not(.claro) #pgEstudo .esb-painel-aviso { border-color: #7a5a1e;
+  background: rgba(240, 166, 64, .06); }
+body:not(.claro) #pgEstudo .esb-painel-aviso h4 { color: #f0a640; }
+body:not(.claro) #pgEstudo .esb-painel-lista,
+body:not(.claro) #pgEstudo .esb-painel-pe { color: #c3c2b7; }
+
+/* ---- as três listas (22/09) ------------------------------------------------
+   Separadas de propósito: quem monta elenco escolhe dentro de um mercado por
+   vez, e a lista única escondia que meio top-5 europeu tinha entrado na tela. */
+#pgEstudo .esb-lista-bloco { margin: 22px 0 0; }
+#pgEstudo .esb-lista-titulo { display: flex; align-items: baseline; gap: 8px; margin: 0 0 4px;
+  font-size: 15px; padding-bottom: 5px; border-bottom: 2px solid var(--borda2, #e6e5e1); }
+#pgEstudo .esb-lista-n { display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%; background: #52514e; color: #fff;
+  font-size: 10px; font-weight: 700; flex: none; }
+#pgEstudo .esb-lista-sub { margin: 0 0 8px; font-size: 11.5px; color: #52514e;
+  line-height: 1.5; max-width: 84ch; }
+body:not(.claro) #pgEstudo .esb-lista-titulo { border-bottom-color: #3a3a36; }
+body:not(.claro) #pgEstudo .esb-lista-n { background: #c3c2b7; color: #1a1a18; }
+body:not(.claro) #pgEstudo .esb-lista-sub { color: #c3c2b7; }
