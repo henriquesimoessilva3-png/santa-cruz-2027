@@ -493,3 +493,12 @@ body:not(.claro) #pgEstudo .esb-painel-pe { color: #c3c2b7; }
 body:not(.claro) #pgEstudo .esb-lista-titulo { border-bottom-color: #3a3a36; }
 body:not(.claro) #pgEstudo .esb-lista-n { background: #c3c2b7; color: #1a1a18; }
 body:not(.claro) #pgEstudo .esb-lista-sub { color: #c3c2b7; }
+
+/* ---- os quatro nomes que o estudo publica (22/09) --------------------------
+   Borda propria porque e' a unica lista NOMINAL autorizada, e porque o aviso
+   que vem com ela — nenhum sobrevive ao desconto de conversao — e' tao
+   importante quanto os nomes. Sem esse contraste a secao viraria "a lista de
+   alvos do estudo", que e' exatamente o que ela nao e'. */
+#pgEstudo .esb-alvos { border: 1px solid var(--borda2, #e6e5e1); border-radius: 10px;
+  padding: 14px 16px 10px; margin-bottom: 18px; }
+body:not(.claro) #pgEstudo .esb-alvos { border-color: #3a3a36; }

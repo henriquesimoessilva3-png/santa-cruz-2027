@@ -456,6 +456,79 @@
      de ORIGEM ao lado do ajustado e o desconto entre os dois: sem esses dois numeros, a lista
      afirma que um atacante da Serie B e' melhor apostar que Neymar, quando o que ela mediu foi o
      desconto de 24,6 pontos que a conversao aplica. */
+  /* OS NOMES QUE O ESTUDO PUBLICA. Sao quatro, e e' a unica lista nominal que a parte J09
+     autoriza — tudo o mais na tela e' candidato ordenado, nao alvo.
+
+     Por que so' apareceram em 22/09: antes do conserto da chave do painel temporal, o funil
+     do J09 nao deixava passar ninguem e o arquivo nem era escrito. Com a chave certa a
+     amostra foi de 960 para 3.741 e quatro nomes atravessaram.
+
+     O QUE A TELA TEM DE DIZER JUNTO, senao ela promete o que a parte nao promete: os quatro
+     passam a ficha na leitura da ORIGEM e NENHUM passa depois do desconto de conversao de
+     liga; tres dos quatro vem de liga com fator fraco; e nenhum e' sul-americano, que e' o
+     mercado de foco. Por isso o rotulo e' `rastrear`, e nao `alvo`. */
+  function alvosHtml() {
+    const A = D.alvos_fora;
+    if (!A || !A.length) return '';
+    const fmt = (v, c) => v == null ? '—' :
+      Number(v).toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c });
+    const forte = A.filter(a => a.forca_do_fator === 'forte').length;
+    /* A MESMA MARCA DA LISTA. Sem ela esta secao contradiria o resto da tela: o unico fator
+       `forte` entre os quatro e' o de Portugal A, que e' justamente o que o painel
+       comprometido sustenta com tres transferencias de uma temporada de rotulo errado.
+       Dizer "forte" ali e "comprometido" na lista de baixo seria a tela discordando de si. */
+    const COMP = {};
+    (((D.ranking || {}).painel_suspeito || {}).ligas_afetadas || [])
+      .forEach(x => { COMP[x.liga] = x.por_que; });
+    const marcados = A.filter(a => COMP[a.liga]).length;
+    const ajust = A.filter(a => a.passa_ajustado).length;
+    const linha = a =>
+      '<tr><td>' + esc(a.jogador) +
+        (a.estrangeiro ? ' <span class="esb-flag" title="estrangeiro: ocupa vaga">⚑</span>' : '') +
+        (a.nascido_em ? ' <span class="esb-pass">' + esc(a.nascido_em) + '</span>' : '') +
+      '</td>' +
+      '<td>' + esc(a.setor) + '<span class="esb-liga"> ' + esc(a.posicao || '') + '</span></td>' +
+      '<td>' + esc(a.clube || '—') + ' <span class="esb-liga">' + esc(a.liga || '') + '</span></td>' +
+      '<td class="esb-num">' + fmt(a.idade, 0) + '</td>' +
+      '<td class="esb-num">' + fmt(a.fatia_pct, 0) + '%</td>' +
+      '<td>' + (a.contrato ? esc(a.contrato) : '—') + '</td>' +
+      '<td class="esb-num">' + esc(a.criterios) + '/' + esc(a.exigencias) + '</td>' +
+      '<td><span class="' + (a.forca_do_fator === 'forte' ? 'esb-ct-ok' : 'esb-neg') + '">' +
+        esc(a.forca_do_fator) + '</span>' +
+        (a.casos_do_fator ? '<span class="esb-liga"> ' + fmt(a.casos_do_fator, 0) + ' casos</span>' : '') +
+        (COMP[a.liga] ? '<span class="esb-comp-fator" title="' + esc(COMP[a.liga]) +
+          ' — a conversão desta liga não tem a mesma confiança das outras">⚠</span>' : '') +
+      '</td>' +
+      '<td class="esb-num esb-neg">' + (a.passa_ajustado ? 'passa' : 'não') + '</td></tr>';
+    return '<section class="esb-secao esb-alvos" id="esb-alvos">' +
+      '<h3>Os nomes que o estudo publica<span class="esb-conta">' + A.length +
+      ' · rótulo <b>rastrear</b></span></h3>' +
+      '<p class="esb-aviso-forte"><b>Esta é a única lista nominal que o estudo autoriza, e ela ' +
+      'não é uma lista de alvos.</b> São os que atravessam a ficha inteira da posição na leitura ' +
+      'da liga de ORIGEM. Passado o desconto de conversão de liga, <b>' +
+      (ajust === 0 ? 'nenhum dos ' + A.length + ' sobrevive' : ajust + ' de ' + A.length +
+      ' sobrevivem') + '</b> — a última coluna mostra isso linha a linha. ' +
+      '<b>' + forte + ' de ' + A.length + '</b> vem de liga com fator de conversão forte; os ' +
+      'outros vêm de fator fraco, que é palpite mais frouxo' +
+      (marcados ? ' — e o fator de <b>' + marcados + '</b> del' + (marcados > 1 ? 'es' : 'e') +
+        ' está marcado com ⚠ porque depende de uma temporada com o rótulo errado no painel, ' +
+        'que é o mesmo aviso da lista abaixo' : '') + '. E <b>nenhum é sul-americano</b>, ' +
+      'que é o mercado de foco. Servem para começar conversa, com vídeo e olho por cima — ' +
+      'nunca para fechar contratação.</p>' +
+      '<table class="esb-tab-tec"><thead><tr><th>jogador</th><th>posição</th><th>clube</th>' +
+      '<th class="esb-num">idade</th>' +
+      '<th class="esb-num" title="fatia dos minutos do elenco na liga de origem">rodagem</th>' +
+      '<th>contrato</th>' +
+      '<th class="esb-num" title="critérios medidos, de quantos a ficha da posição exige">ficha</th>' +
+      '<th title="força do fator de conversão da liga, do J08">conversão</th>' +
+      '<th class="esb-num" title="passa a ficha depois do desconto de conversão?">ajustado</th>' +
+      '</tr></thead><tbody>' + A.map(linha).join('') + '</tbody></table>' +
+      '<p class="esb-nota">Vêm do <b>J09_alvos.csv</b>, escrito pela própria parte. Até 22/09 o ' +
+      'arquivo não existia: o funil não deixava passar ninguém, e foi o conserto da chave do ' +
+      'painel de temporadas que mudou isso.</p>' +
+      '</section>';
+  }
+
   function rankingHtml() {
     const K = D.ranking;
     if (!K || !K.listas || !K.listas.length) return '';
@@ -871,6 +944,7 @@
       fisicoHtml() +
       secaoHtml('Quem contratar', 'J') +
       livresHtml() +
+      alvosHtml() +
       rankingHtml() +
       negativasHtml() +
       sabemosHtml() +

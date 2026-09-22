@@ -199,6 +199,39 @@ def resolver_grafico(g, numeros, onde, erros):
     return out
 
 
+def alvos_de_fora():
+    """J09_alvos.csv, do jeito que a parte o escreve. O rotulo e' `rastrear`, nunca `alvo`."""
+    caminho = os.path.join(RESULTADOS, "J09_alvos.csv")
+    if not os.path.exists(caminho):
+        return None
+    import csv
+    def num(v):
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            return None
+    fora = []
+    with open(caminho, encoding="utf-8") as fh:
+        for r in csv.DictReader(fh):
+            fora.append({
+                "jogador": r.get("jogador"), "setor": r.get("setor"),
+                "posicao": r.get("posicao"), "clube": r.get("time"), "liga": r.get("liga"),
+                "idade": num(r.get("idade")), "minutos": num(r.get("minutos")),
+                "fatia_pct": num(r.get("fatia_pct")), "contrato": r.get("contrato") or "",
+                "nascido_em": r.get("nascido_em") or "",
+                "estrangeiro": r.get("ocupa_vaga_de_estrangeiro") in ("True", "true", "1"),
+                "forca_do_fator": r.get("forca_do_fator") or "",
+                "casos_do_fator": num(r.get("casos_do_fator")),
+                "criterios": r.get("indicadores_com_dado"),
+                "exigencias": r.get("exigencias_da_posicao"),
+                "passa_origem": r.get("passa_ficha_origem") in ("True", "true", "1"),
+                "passa_ajustado": r.get("passa_ficha_ajustado") in ("True", "true", "1"),
+                "viola_no_ajustado": r.get("viola_no_ajustado") or "",
+                "fisico": r.get("fisico_rastreado") in ("True", "true", "1"),
+            })
+    return fora or None
+
+
 def main():
     por_id, erros = {}, []
     premissas = premissas_por_id()
@@ -343,6 +376,11 @@ def main():
         # As regras de leitura (scripts/gerar_regras.py) e a secao de fisico
         # (scripts/gerar_fisico.py). Mesmo contrato das decisoes: vem prontas, com os numeros ja
         # resolvidos contra os <ID>_numeros.json, e o gerador de la falha se um marcador sumir.
+        # Os nomes que o J09 publica com o rotulo `rastrear`. Ate 22/09 o arquivo nao existia:
+        # a parte passava de zero nome, e por isso a aba nunca precisou le-lo. Depois do
+        # conserto da chave do painel temporal ela passou a publicar 4 — e nome publicado que
+        # nao chega a tela e' nome que nao existe para quem decide.
+        "alvos_fora": alvos_de_fora(),
         "regras": json.load(open(os.path.join(RESULTADOS, "_regras.json"), encoding="utf-8"))
                   if os.path.exists(os.path.join(RESULTADOS, "_regras.json")) else None,
         "fisico": json.load(open(os.path.join(RESULTADOS, "_fisico.json"), encoding="utf-8"))
