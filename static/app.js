@@ -6298,7 +6298,54 @@ function raioMapa() {
 const RAIO_ROT = { sup: 'SUPERIOR', sim: 'SIMILAR', bax: 'ABAIXO' };
 /* `pk` e a primary_key; devolve '' quando nao ha classificacao (goleiro, sem tracking,
    posicao sem referencia ou populacao pequena demais para um desvio confiavel). */
+/* ---------------- raio ⚡ pela FICHA V2 (Santa Cruz V2, B1) ----------------
+   Trocou a regua de 5 KPIs contra a media de quem subiu pela ficha fisica do estudo V2:
+     vermelho = reprova o piso de 27 km/h (PSV-99 abaixo de 26,5 — B1.md, conclusao 2);
+     amarelo  = no limite do piso (26,5–27) OU traco da posicao abaixo do P25 dos titulares
+                de referencia (posicao_faixas.csv) — e tambem quem passa mas nao chega ao P50;
+     verde    = passa o piso E o traco esta no P50 da referencia ou acima.
+   Sem rastreio (ou com menos de 5 jogos rastreados): icone cinza "?", fisico nao verificado.
+   A regua antiga (raioMapa) fica no codigo: e o que aparece se a ficha nao carregar. */
+const FICHA_CO = {};
+function fichaCoorte(pos) {
+  if (FICHA_CO[pos]) return FICHA_CO[pos];
+  const min = (FICHA && FICHA.min_jogos) || 5;
+  const lista = fsBase().filter(j => j.p === pos && (j.l === 'Brasil A' || j.l === 'Brasil B') &&
+                                     !j.fis_src && (Number(j.sc_n) || 0) >= min);
+  const ord = {};
+  FS_TODAS.forEach(([k]) => {
+    ord[k] = lista.map(j => j[k]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
+  });
+  return (FICHA_CO[pos] = { lista, ord });
+}
+function raioIconeV2(pk) {
+  const j = fsJogadorPk(pk);
+  if (!j || j.p === 'GOL' || !FICHA.posicoes[j.p]) return '';
+  const svg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>';
+  const f = typeof j.psv === 'number' ? fichaV2(fichaCoorte(j.p), j, j.p, false) : null;
+  if (!f || !f.piso) {
+    const porque = typeof j.psv === 'number'
+      ? 'só ' + (Number(j.sc_n) || 0) + ' jogos rastreados (a ficha pede ' + (FICHA.min_jogos || 5) + ')'
+      : 'sem rastreio do SkillCorner';
+    return '<span class="raio raio-nd" title="' + esc('Físico não verificado — ' + porque +
+      '. A régua do raio é a ficha física V2: piso de 27 km/h e traço da posição.') + '">?</span>';
+  }
+  const c = f.piso === 'reprova' ? 'bax'
+          : (f.piso === 'passa' && f.degrau != null && f.degrau >= 2) ? 'sup' : 'sim';
+  const km = f.psv.toFixed(1).replace('.', ',');
+  const porque = f.piso === 'reprova' ? 'reprova o piso: PSV-99 de ' + km + ' km/h, abaixo de 26,5'
+    : f.piso === 'limite' ? 'no limite do piso: PSV-99 de ' + km + ' km/h'
+    : c === 'sup' ? 'passa o piso (' + km + ' km/h) e o traço da posição está ' + fichaDegrauRot(f.degrau)
+    : 'passa o piso (' + km + ' km/h), mas o traço da posição está ' + fichaDegrauRot(f.degrau);
+  const t = 'Ficha física V2: ' + porque + ' · nota ' + (f.nota != null ? f.nota : '—') +
+    ' (traço ' + (f.traco != null ? f.traco : '—') + ', intensidade ' + (f.int != null ? f.int : '—') +
+    ') — verde passa o piso de 27 km/h com traço no P50 da referência, vermelho reprova o piso.' +
+    (j.fis_src ? ' Físico de ' + j.fis_src + ', não do clube atual.' : '');
+  return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>';
+}
+
 function raioIcone(pk) {
+  if (FICHA && BASE.length) return raioIconeV2(pk);
   const o = raioMapa().get(pk);
   if (!o) return '';
   const rp = RAIO.refs[o.pos] || {};
