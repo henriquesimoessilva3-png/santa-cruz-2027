@@ -1,0 +1,26 @@
+/* Aba "Bola parada · jogadores" — escopada em #pgBpJogadores. */
+#pgBpJogadores .bpj { padding: 16px 20px 48px; display: flex; flex-direction: column; gap: 12px; }
+#pgBpJogadores .bpj-topo h2 { margin: 0 0 4px; font-size: 20px; }
+#pgBpJogadores .bpj-topo p { margin: 0 0 10px; color: var(--tinta2); font-size: 13px; max-width: 90ch; line-height: 1.5; }
+#pgBpJogadores .bpj-filtros { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+#pgBpJogadores .bpj-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+#pgBpJogadores .bpj-chips button { background: var(--fundo2); border: 1px solid var(--borda2); color: var(--tinta2);
+  font: 600 12px var(--fonte); padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+#pgBpJogadores .bpj-chips button:hover { color: var(--tinta); }
+#pgBpJogadores .bpj-chips button.on { background: var(--coral); border-color: var(--coral); color: #fff; }
+#pgBpJogadores .bpj-busca { background: var(--input-bg); border: 1px solid var(--input-borda); color: var(--tinta);
+  border-radius: 8px; padding: 6px 10px; font: 13px var(--fonte); width: 220px; }
+#pgBpJogadores .bpj-tab { overflow: auto; border: 1px solid var(--borda); border-radius: 10px; }
+#pgBpJogadores table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+#pgBpJogadores th { position: sticky; top: 0; background: var(--fundo3); color: var(--tinta2); font-weight: 650;
+  font-size: 11px; text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--borda2); cursor: pointer; white-space: nowrap; }
+#pgBpJogadores th.ord { color: var(--tinta); }
+#pgBpJogadores th.sof, #pgBpJogadores td.sof { color: var(--txt-azul); }
+#pgBpJogadores td { padding: 6px 8px; border-bottom: 1px solid var(--linha1); white-space: nowrap; }
+#pgBpJogadores tr:hover td { background: var(--veu1); }
+#pgBpJogadores .n { text-align: right; }
+#pgBpJogadores td.nome { font-weight: 650; color: var(--tinta); }
+#pgBpJogadores td.clu { color: var(--tinta2); white-space: normal; min-width: 140px; }
+#pgBpJogadores td.idx { font-weight: 700; }
+#pgBpJogadores td.forte { font-weight: 700; color: var(--tinta); }
+#pgBpJogadores .bpj-nota, #pgBpJogadores .bpj-fonte { margin: 0; font-size: 11.5px; color: var(--tinta3); }
