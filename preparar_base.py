@@ -40,6 +40,203 @@ def num(v, casas=None):
     return int(f) if f == int(f) else f
 
 
+# =============================================================================================
+# FISICO QUE FALTA, PELA BASE DO ESTUDO V2 (PROMPT_ABA_FISICO.md, item 5)
+# =============================================================================================
+# O SkillCorner do Portal traz so a foto atual. Quem hoje joga numa liga sem rastreio (Japao,
+# Serie C) fica sem fisico — mesmo tendo jogado a Serie B de 2022 a 2026, que o estudo V2
+# copiou inteira em `Santa Cruz V2/bases/skillcorner/skillcorner_serieb.db`. Aqui, para quem
+# nao tem fisico, busca-se a temporada MAIS RECENTE com >= 5 jogos naquele banco.
+#
+# A identidade e' conferida em CADEIA, porque homonimo e' a armadilha classica
+# (Santa Cruz V2/ARMADILHAS.md: Ronald, Luan, Guilherme, David tem mais de um):
+#   1. nome sem pontuacao igual (a mesma `chave` do V2, dos dois lados);
+#   2. idade do app a +-1 ano da data de nascimento do SkillCorner;
+#   3. CLUBE DE PASSAGEM: o clube daquela temporada (ponte SkillCorner->Wyscout do V2,
+#      resultados/b1/base_fisico.csv) aparece nos elencos do Transfermarkt do mesmo ano com
+#      o mesmo nome e a MESMA data de nascimento (bases/serieb_elencos.csv) — segunda fonte;
+#   4. posicao compativel (zaga, lateral, meio, ataque);
+#   5. um candidato so'. Na duvida, nao casa.
+# Quem casa ganha `fis_src` ("Serie B 2025 · America-MG"): e' fisico de OUTRA temporada e de
+# outro clube, e a aba e o card dizem isso. Esse jogador NAO entra na regua (coorte) da aba.
+V2 = os.path.join(AQUI, "Santa Cruz V2")
+V2_DB = os.path.join(V2, "bases", "skillcorner", "skillcorner_serieb.db")
+POS_SETOR = {"ZD": "Zaga", "ZE": "Zaga", "LD": "Lateral", "LE": "Lateral", "VOL": "Volante",
+             "MED": "Meia", "MEI": "Meia", "ED": "Extremo", "EE": "Extremo", "CA": "Atacante"}
+GRUPOS_POS = [{"Zaga"}, {"Lateral"}, {"Volante", "Meia"}, {"Meia", "Extremo", "Atacante"}]
+# campo do app <- coluna do banco do V2 (tabela physical, e off_ball_runs para as corridas)
+CAMPOS_V2 = {"psv": "psv99", "psv5": "psv99_top5", "dist": "distance_p90", "mmin": "m_per_min",
+             "run": "running_distance_p90", "hsr": "hsr_distance_p90", "hsr_n": "hsr_count_p90",
+             "spr_km": "sprint_distance_p90", "spr_n": "sprint_count_p90", "hi": "hi_distance_p90",
+             "hi_n": "hi_count_p90", "acel": "high_accel_p90", "desa": "high_decel_p90",
+             "acel_m": "medium_accel_p90", "desa_m": "medium_decel_p90",
+             "expl": "expl_accel_sprint_p90", "cod": "cod_count_p90",
+             "mm_c": "m_per_min_tip", "mm_s": "m_per_min_otip",
+             "hi_c": "hi_distance_p30tip", "hi_s": "hi_distance_p30otip",
+             "spn_c": "sprint_count_p30tip", "spn_s": "sprint_count_p30otip"}
+CAMPOS_OBR = {"obr_hsr": "runs_above_hsr_p30tip", "obr_area": "runs_penalty_area_p30tip",
+              "obr_per": "runs_dangerous_p30tip", "obr_rec": "runs_received_p30tip",
+              "obr_rem": "runs_shot_within_10s_p30tip"}
+ANO_REF = 2026
+
+
+def completar_fisico_v2(saida):
+    """Preenche o fisico de quem nao tem, a partir do banco do V2. Devolve a contagem."""
+    if not os.path.exists(V2_DB):
+        print("    (sem o banco do V2 — fisico de outras temporadas nao preenchido)")
+        return 0
+    import csv
+    import sqlite3
+    sys.path.insert(0, os.path.join(V2, "scripts"))
+    from _comum import chave, CLUBE_TM, EDICOES   # a MESMA chave de nome do estudo V2
+
+    con = sqlite3.connect(V2_DB)
+    con.row_factory = sqlite3.Row
+    edi_ano = {int(k): v for k, v in EDICOES.items()}
+    fis = {}
+    for r in con.execute("select * from physical"):
+        fis[(r["sc_player_id"], edi_ano.get(r["sc_competition_edition_id"]))] = dict(r)
+    obr = {}
+    for r in con.execute("select * from off_ball_runs"):
+        obr[(r["sc_player_id"], edi_ano.get(r["sc_competition_edition_id"]))] = dict(r)
+    jog = {r["sc_player_id"]: dict(r) for r in con.execute("select * from players")}
+    # Variantes do nome do SkillCorner: o curto, o completo e o PRIMEIRO + ULTIMO do completo.
+    # A terceira existe porque o SkillCorner guarda "J. Costa" / "Jonathan Aparecido de Oliveira
+    # da Costa", e o app conhece "Jonathan Costa". Ela so e' segura porque a cadeia de baixo
+    # (idade, clube no ano, nascimento no Transfermarkt) continua exigida inteira.
+    def variantes(r):
+        v = {chave(r.get("short_name")), chave(r.get("nome"))}
+        partes = chave(r.get("nome")).split()
+        if len(partes) >= 2:
+            v.add(partes[0] + " " + partes[-1])
+        return v - {""}
+    por_nome = {}
+    for pid, r in jog.items():
+        for nm in variantes(r):
+            por_nome.setdefault(nm, set()).add(pid)
+
+    # clube de cada jogador-temporada, pela ponte do V2
+    passagem = {}
+    with open(os.path.join(V2, "resultados", "b1", "base_fisico.csv"), encoding="utf-8") as fh:
+        for r in csv.DictReader(fh):
+            if r.get("sc_player_id"):
+                passagem[(int(float(r["sc_player_id"])), int(r["ano"]))] = (r["clube"], r["setor"])
+    # Quem nao entrou na ponte do V2 (17% dos jogadores do banco) ainda tem o clube que o
+    # PROPRIO SkillCorner registra jogo a jogo. Serve de clube de passagem, e o Transfermarkt
+    # confere do mesmo jeito — so' que comparando palavras do nome do clube ("Avai" contra
+    # "Avai Futebol Clube"), porque os dois escrevem o clube de jeitos diferentes.
+    SC_SETOR = {"Central Defender": "Zaga", "Full Back": "Lateral", "Midfield": "Meia",
+                "Wide Attacker": "Extremo", "Center Forward": "Atacante"}
+    clube_sc = {}
+    for r in con.execute("select sc_player_id, sc_competition_edition_id, team_name, position_group, "
+                         "count(*) n from physical_match group by 1, 2, 3, 4 order by n desc"):
+        k = (r["sc_player_id"], edi_ano.get(r["sc_competition_edition_id"]))
+        if k not in clube_sc:        # o clube e a posicao mais frequentes da temporada
+            clube_sc[k] = (r["team_name"], SC_SETOR.get(r["position_group"], "Outro"))
+    # segunda fonte: elencos do Transfermarkt (nome + nascimento + clube + ano)
+    tm = set()
+    with open(os.path.join(V2, "bases", "serieb_elencos.csv"), encoding="utf-8-sig") as fh:
+        for r in csv.DictReader(fh):
+            d = (r.get("nascimento") or "").split("/")
+            if len(d) != 3:
+                continue
+            nasc = f"{d[2]}-{d[1]}-{d[0]}"
+            clube = CLUBE_TM.get(r["clube"], r["clube"])
+            tm.add((int(r["ano"]), chave(clube), chave(r["jogador"]), nasc))
+
+    tm_do_ano = {}
+    for t in tm:
+        tm_do_ano.setdefault(t[0], []).append(t)
+
+    def idade(nasc):
+        try:
+            a, m, d = (int(x) for x in nasc.split("-"))
+        except (ValueError, AttributeError):
+            return None
+        return ANO_REF - a - (1 if (m, d) > (8, 1) else 0)
+
+    casou, duvida = 0, 0
+    escolha = {}                     # id(j) -> (pid, ano, clube), antes de gravar
+    for j in saida:
+        if j.get("psv") or j.get("p") == "GOL" or j.get("p") not in POS_SETOR:
+            continue
+        cands = por_nome.get(chave(j.get("n")), set())
+        if not cands or j.get("id_") is None:
+            continue
+        ok = []
+        for pid in cands:
+            r = jog[pid]
+            ida = idade(r.get("birthdate"))
+            if ida is None or abs(ida - j["id_"]) > 1:
+                continue
+            nomes = variantes(r)
+            anos = sorted((a for (p_, a) in fis if p_ == pid and a and
+                           (fis[(p_, a)].get("matches") or 0) >= 5), reverse=True)
+            for ano in anos:
+                ps = passagem.get((pid, ano))
+                if ps:
+                    clube, setor_sc = ps
+                    confere = lambda ck: ck == chave(clube)
+                elif (pid, ano) in clube_sc:
+                    clube, setor_sc = clube_sc[(pid, ano)]
+                    palavras = set(chave(clube).split())
+                    confere = lambda ck: bool(ck) and set(ck.split()) <= palavras
+                else:
+                    continue
+                if not any(POS_SETOR[j["p"]] in g and setor_sc in g for g in GRUPOS_POS):
+                    continue
+                if not any(a == ano and nm in nomes and nasc == r.get("birthdate") and confere(ck)
+                           for (a, ck, nm, nasc) in tm_do_ano.get(ano, ())):
+                    continue
+                ok.append((pid, ano, clube))
+                break
+        if len(ok) != 1:
+            duvida += len(ok) > 1
+            continue
+        escolha[id(j)] = (j, ok[0])
+
+    # UMA PESSOA DO SKILLCORNER, UMA ENTRADA DO APP — salvo quando as entradas sao a mesma
+    # pessoa registrada duas vezes. A regra e' a do ARMADILHAS.md: mesma data de fim de
+    # contrato = mesma pessoa. Se nao for, fica so' quem joga hoje no clube daquela temporada;
+    # se nenhum joga, ninguem fica. (Caso real: dois "Ronald", 29 anos, volantes, um no
+    # Criciuma e outro no Vitoria, disputavam o fisico do Criciuma 2026.)
+    por_pid = {}
+    for jid, (j, (pid, ano, clube)) in escolha.items():
+        por_pid.setdefault(pid, []).append(jid)
+    for pid, jids in por_pid.items():
+        if len(jids) < 2:
+            continue
+        js = [escolha[x][0] for x in jids]
+        if len({j.get("ct") or "" for j in js}) == 1 and js[0].get("ct"):
+            continue                                  # a mesma pessoa, listada duas vezes
+        clube = escolha[jids[0]][1][2]
+        palavras = set(chave(clube).split())
+        ficam = [x for x in jids if set(chave(escolha[x][0].get("t")).split()) & palavras]
+        for x in jids:
+            if x not in ficam or len(ficam) != 1:
+                del escolha[x]
+                duvida += 1
+
+    for j, (pid, ano, clube) in escolha.values():
+        f = fis[(pid, ano)]
+        for campo, col in CAMPOS_V2.items():
+            v = num(f.get(col), 2)
+            if v is not None:
+                j[campo] = v
+        o = obr.get((pid, ano)) or {}
+        for campo, col in CAMPOS_OBR.items():
+            v = num(o.get(col), 2)
+            if v is not None:
+                j[campo] = v
+        j["sc_n"] = num(f.get("matches"), 0)
+        j["sc_min"] = num(f.get("minutes_played"), 0)
+        j["fis_src"] = f"Série B {ano} · {clube}"
+        casou += 1
+    print(f"    {casou} ganharam físico de outra temporada pela base do V2"
+          + (f" · {duvida} ficaram de fora por ter mais de um candidato" if duvida else ""))
+    return casou
+
+
 def main(periodo="ago26"):
     arq_fc = os.path.join(BASE_RANKING, f"fim_contrato_{periodo}.json")
     arq_rk = os.path.join(BASE_RANKING, f"rankings_{periodo}.json")
@@ -193,6 +390,8 @@ def main(periodo="ago26"):
 
         saida.append({k: v for k, v in j.items() if v not in (None, "", [])} | {"id": i, "n": nome})
         i += 1
+
+    completar_fisico_v2(saida)
 
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
     with open(SAIDA, "w", encoding="utf-8") as fh:

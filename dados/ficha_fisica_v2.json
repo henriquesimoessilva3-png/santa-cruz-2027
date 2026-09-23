@@ -96,8 +96,8 @@
      "k": "obr_area",
      "rot": "Corridas para a área (30 min com posse)",
      "p25": 1.61,
-     "p50": 1.87,
-     "p75": 2.47,
+     "p50": 1.88,
+     "p75": 2.53,
      "n_ref": 19,
      "caminho": "percentil"
     },
@@ -150,9 +150,9 @@
     {
      "k": "obr_area",
      "rot": "Corridas para a área (30 min com posse)",
-     "p25": 1.74,
-     "p50": 2.88,
-     "p75": 3.78,
+     "p25": 1.79,
+     "p50": 2.84,
+     "p75": 3.76,
      "n_ref": 24,
      "caminho": "percentil"
     },
@@ -173,9 +173,9 @@
     {
      "k": "obr_area",
      "rot": "Corridas para a área (30 min com posse)",
-     "p25": 1.74,
-     "p50": 2.88,
-     "p75": 3.78,
+     "p25": 1.79,
+     "p50": 2.84,
+     "p75": 3.76,
      "n_ref": 24,
      "caminho": "percentil"
     }
@@ -188,8 +188,8 @@
      "k": "obr_area",
      "rot": "Corridas para a área (30 min com posse)",
      "p25": 3.76,
-     "p50": 4.84,
-     "p75": 5.54,
+     "p50": 5.02,
+     "p75": 5.56,
      "n_ref": 17,
      "caminho": "percentil"
     }
@@ -202,8 +202,8 @@
      "k": "obr_area",
      "rot": "Corridas para a área (30 min com posse)",
      "p25": 3.76,
-     "p50": 4.84,
-     "p75": 5.54,
+     "p50": 5.02,
+     "p75": 5.56,
      "n_ref": 17,
      "caminho": "percentil"
     }
@@ -277,23 +277,23 @@
    "coluna_recalculo": null
   },
   "obr_area": {
-   "mediana_app": 1.9,
+   "mediana_app": 1.94,
    "mediana_v2": 2.29,
    "coluna_v2": "runs_penalty_area_p30tip",
-   "dif_pct": -17.2,
+   "dif_pct": -15.5,
    "caminho": "percentil",
    "coluna_recalculo": null
   },
   "obr_per": {
-   "mediana_app": 5.17,
+   "mediana_app": 5.26,
    "mediana_v2": 6.76,
    "coluna_v2": "runs_dangerous_p30tip",
-   "dif_pct": -23.5,
+   "dif_pct": -22.2,
    "caminho": "percentil",
    "coluna_recalculo": null
   },
   "spn_c": {
-   "mediana_app": 4.14,
+   "mediana_app": 4.15,
    "mediana_v2": 99.77,
    "coluna_v2": "sprint_distance_p30tip",
    "dif_pct": -95.8,
@@ -301,7 +301,7 @@
    "coluna_recalculo": "sprint_count_p30tip"
   },
   "spn_s": {
-   "mediana_app": 4.94,
+   "mediana_app": 4.92,
    "mediana_v2": 103.37,
    "coluna_v2": "sprint_distance_p30otip",
    "dif_pct": -95.2,
@@ -309,10 +309,10 @@
    "coluna_recalculo": "sprint_count_p30otip"
   },
   "hi_c": {
-   "mediana_app": 388.58,
+   "mediana_app": 390.51,
    "mediana_v2": 290.94,
    "coluna_v2": "hsr_distance_p30tip",
-   "dif_pct": 33.6,
+   "dif_pct": 34.2,
    "caminho": "recalculada",
    "coluna_recalculo": "hi_distance_p30tip"
   }
@@ -353,15 +353,15 @@
    "antes_sobe": 59,
    "antes_cai": 47,
    "depois_sobe": 53,
-   "depois_cai": 35,
-   "int_sobe": 51,
+   "depois_cai": 36,
+   "int_sobe": 50,
    "int_cai": 32,
    "traco_sobe": 55,
-   "traco_cai": 39,
+   "traco_cai": 40,
    "psv_sobe": 29.71,
    "psv_cai": 29.06,
    "passa": true,
-   "n_coorte": 67
+   "n_coorte": 68
   },
   {
    "pos": "LE",
@@ -380,33 +380,33 @@
   },
   {
    "pos": "VOL",
-   "antes_sobe": 62,
-   "antes_cai": 45,
+   "antes_sobe": 63,
+   "antes_cai": 46,
    "depois_sobe": 66,
    "depois_cai": 39,
    "int_sobe": 64,
-   "int_cai": 36,
-   "traco_sobe": 68,
-   "traco_cai": 42,
+   "int_cai": 35,
+   "traco_sobe": 69,
+   "traco_cai": 43,
    "psv_sobe": 27.94,
    "psv_cai": 27.37,
    "passa": true,
-   "n_coorte": 60
+   "n_coorte": 58
   },
   {
    "pos": "MED",
    "antes_sobe": 61,
    "antes_cai": 49,
    "depois_sobe": 60,
-   "depois_cai": 44,
-   "int_sobe": 61,
-   "int_cai": 41,
+   "depois_cai": 43,
+   "int_sobe": 60,
+   "int_cai": 40,
    "traco_sobe": 59,
    "traco_cai": 46,
    "psv_sobe": 27.8,
    "psv_cai": 27.7,
    "passa": true,
-   "n_coorte": 73
+   "n_coorte": 76
   },
   {
    "pos": "MEI",
@@ -425,18 +425,18 @@
   },
   {
    "pos": "ED",
-   "antes_sobe": 53,
+   "antes_sobe": 52,
    "antes_cai": 42,
-   "depois_sobe": 53,
-   "depois_cai": 44,
-   "int_sobe": 48,
-   "int_cai": 33,
-   "traco_sobe": 59,
-   "traco_cai": 54,
+   "depois_sobe": 51,
+   "depois_cai": 41,
+   "int_sobe": 46,
+   "int_cai": 32,
+   "traco_sobe": 56,
+   "traco_cai": 51,
    "psv_sobe": 29.29,
    "psv_cai": 29.1,
    "passa": true,
-   "n_coorte": 42
+   "n_coorte": 44
   },
   {
    "pos": "EE",

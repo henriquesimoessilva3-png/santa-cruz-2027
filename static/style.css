@@ -3607,3 +3607,7 @@ body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
 .raio.raio-nd { display: inline-flex; align-items: center; justify-content: center; width: 13px; height: 13px;
   border-radius: 50%; background: #9a9990; color: #fff; font-size: 9px; font-weight: 700; vertical-align: 1px;
   margin-right: 3px; cursor: help; }
+
+/* físico de outra temporada (base do estudo V2): marcado no card e na ficha */
+.raio-src { font-size: 8.5px; font-weight: 700; color: #b7791f; margin: 0 3px 0 -2px; cursor: help; }
+.fi-src { font-size: 11px; color: #b7791f; margin: 0 0 6px; }

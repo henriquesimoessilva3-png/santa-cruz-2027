@@ -2985,7 +2985,12 @@ async function montarFicha(j, modo) {
     colFis += linhaInd(rot, j[campo], e.media, e.max, casas);
     (porGrupo['Físico'] = porGrupo['Físico'] || []).push([rot, j[campo], e.media, e.max]);
   });
+  /* fis_src: o fisico veio da base do estudo V2 (Serie B de outra temporada), preenchido
+     pelo preparar_base.py — nao e do clube atual, e a ficha diz isso em cima dos numeros */
   colunas += '<div class="fi-grupo"><h4>Físico (SkillCorner)</h4>' +
+    (j.fis_src && colFis ? '<div class="fi-src" title="Preenchido pela base do estudo Santa Cruz V2: ' +
+      'é o físico de outra temporada e de outro clube, não do atual">físico de ' + esc(j.fis_src) +
+      (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     (colFis || '<div class="fi-sem">sem tracking para este jogador</div>') + '</div>';
 
   /* o radar entra na frente das colunas: e o resumo delas */
@@ -4236,8 +4241,10 @@ function fsMinJogos() { return parseInt($('#fsMin').value) || 0; }
 /* coorte da posicao nas Series A e B: a regua de todos os percentis */
 function fsCoorteAB() {
   const min = fsMinJogos();
+  /* quem tem fisico de OUTRA temporada (fis_src, base do estudo V2) nao entra na regua: a
+     coorte e a foto atual das Series A e B, e misturar anos deslocaria os percentis */
   const lista = fsBase().filter(j => j.p === fsPos && (j.l === 'Brasil A' || j.l === 'Brasil B') &&
-                                     (Number(j.sc_n) || 0) >= min);
+                                     !j.fis_src && (Number(j.sc_n) || 0) >= min);
   const ord = {};
   FS_TODAS.forEach(([k]) => {
     ord[k] = lista.map(j => j[k]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
@@ -6341,7 +6348,11 @@ function raioIconeV2(pk) {
     ' (traço ' + (f.traco != null ? f.traco : '—') + ', intensidade ' + (f.int != null ? f.int : '—') +
     ') — verde passa o piso de 27 km/h com traço no P50 da referência, vermelho reprova o piso.' +
     (j.fis_src ? ' Físico de ' + j.fis_src + ', não do clube atual.' : '');
-  return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>';
+  /* no card, quem tem fisico de outra temporada leva o ano ao lado do raio (ex.: B25) */
+  const src = j.fis_src ? '<sup class="raio-src" title="' + esc('Físico de ' + j.fis_src +
+    ' — outra temporada, outro clube (base do estudo V2)') + '">B' +
+    ((j.fis_src.match(/20(\d\d)/) || [])[1] || '') + '</sup>' : '';
+  return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>' + src;
 }
 
 function raioIcone(pk) {

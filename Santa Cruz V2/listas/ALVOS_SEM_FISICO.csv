@@ -1,66 +1,45 @@
 ﻿titular;posicao;jogador;clube;liga;idade;salario;motivo
-sim;ZE;Jonathan Costa;Guarani;Brasil C;31;60000;sem rastreio SkillCorner
-sim;MED;Kauã Diniz;RB Omiya Ardija;Japao B;22;80000;sem rastreio SkillCorner
-sim;ED;Fabinho;Coritiba;Brasil A;26;150000;sem rastreio SkillCorner
-sim;EE;Derik Lacerda;Kawasaki Frontale;Japao A;26;150000;sem rastreio SkillCorner
+;ZD;Lucão;Gyeongnam;Coreia B;24;;sem rastreio SkillCorner
+;ZD;Abner;Juventude;Brasil B;22;;sem rastreio SkillCorner
+;ZD;Edu Ribeiro;Esporte Clube Vitória;Brasil A;26;;sem rastreio SkillCorner
+;ZE;Italo;FK Ural;;24;;sem jogador na base
+;ZE;Cipriano;Brusque;Brasil C;23;;sem rastreio SkillCorner
+;ZE;Rafael Pontelo;FK Radnik Surdulica;Servia;23;;sem rastreio SkillCorner
+;ZE;Ruan Renato;Zira;;32;;sem jogador na base
+;ZE;Marcos Paulo (LCB);Juventude;Brasil B;23;;sem rastreio SkillCorner
 ;LD;L. Morales;Sportivo Luqueño;Paraguai;26;50000;sem rastreio SkillCorner
 ;LD;Anderson;Grazer AK 1902;Austria;28;;sem rastreio SkillCorner
 ;LD;Heitor Guerra;Palmeiras;;18;;sem jogador na base
 ;LD;Rodrigo Guetti;Palmeiras;Brasil A;20;;sem rastreio SkillCorner
 ;LD;Renzo Saravia;Livre;;33;;sem jogador na base
 ;LD;Mayke;Santos;Brasil A;33;;sem rastreio SkillCorner
-;LD;Kadu Santos;Botafogo;Brasil A;21;;sem rastreio SkillCorner
 ;LD;Dieguinho;Shimizu S-Pulse;Japao A;31;;sem rastreio SkillCorner
 ;LD;Vitor Ricardo;Figueirense;Brasil C;26;;sem rastreio SkillCorner
 ;LD;Matheusinho;Vitória;Brasil A;27;;sem rastreio SkillCorner
-;LD;Rodrigo Gelado;Athletic Club;Brasil B;22;;sem rastreio SkillCorner
+;LD;Rodrigo Gelado;Athletic Club;Brasil B;22;;sem jogador na base
 ;LD;Mateus Silva;Esporte Clube Vitória;Brasil A;27;;sem rastreio SkillCorner
 ;LD;Gabriel Zeca;AD Confiança;Brasil C;24;;sem rastreio SkillCorner
 ;LD;Diogo Hereda;CRB;Brasil B;27;;sem rastreio SkillCorner
 ;LD;M. Jiménez Salinas;Audax Italiano;Chile;18;;sem rastreio SkillCorner
-;ZD;Thalisson;Ceará Sporting Club;Brasil B;24;;sem rastreio SkillCorner
-;ZD;Gustavo Medina;Ferroviária;Brasil C;25;;sem rastreio SkillCorner
-;ZD;Lucão;Gyeongnam;Coreia B;24;;sem rastreio SkillCorner
-;ZD;Abner;Juventude;Brasil B;22;;sem rastreio SkillCorner
-;ZD;Renato Palm;Grêmio Novorizontino;Brasil B;34;;sem rastreio SkillCorner
-;ZD;Edu Ribeiro;Esporte Clube Vitória;Brasil A;26;;sem rastreio SkillCorner
-;ZD;Titi;Juventude;Brasil B;38;;sem rastreio SkillCorner
-;ZD;Lucas Ribeiro;Goias;Brasil B;27;;sem rastreio SkillCorner
-;ZE;Italo;FK Ural;;24;;sem jogador na base
-;ZE;Cipriano;Brusque;Brasil C;23;;sem rastreio SkillCorner
-;ZE;Rafael Pontelo;FK Radnik Surdulica;Servia;23;;sem rastreio SkillCorner
-;ZE;Lucas Adell;Volta Redonda;Brasil C;26;;sem rastreio SkillCorner
-;ZE;Ruan Renato;Zira;;32;;sem jogador na base
-;ZE;Anthony;Botafogo de Futebol e Regatas;Brasil A;21;;sem rastreio SkillCorner
-;ZE;Marcos Paulo (LCB);Juventude;Brasil B;23;;sem rastreio SkillCorner
 ;LE;J. Hernández;Botafogo;Brasil A;20;;sem rastreio SkillCorner
 ;LE;Maurício;Fortaleza;Brasil B;25;;sem jogador na base
 ;LE;Maykon;Grêmio Novorizontino;Brasil B;20;;sem jogador na base
 ;LE;Raimar;Brusque;Brasil C;24;;sem rastreio SkillCorner
 ;LE;Devid Richard;Gremio Sao Carlense;;;;sem jogador na base
 ;LE;Marlon;Remo;Brasil A;32;;sem rastreio SkillCorner
-;VOL;Luan;São Paulo;Brasil A;27;;sem rastreio SkillCorner
+;VOL;Luan;São Paulo;Brasil A;27;;sem jogador na base
 ;VOL;Fernandinho Conceição;Ferroviária;;23;;sem jogador na base
 ;VOL;Murilo Rhikman;Cruzeiro;Brasil A;20;;sem rastreio SkillCorner
-;VOL;Ronald;Fortaleza;Brasil B;23;;sem rastreio SkillCorner
-;VOL;Higor Meritão;Vila Nova Futebol Clube (GO);Brasil B;32;;sem rastreio SkillCorner
 ;VOL;André Luiz;Viettel;;31;;sem jogador na base
 ;VOL;Rodrigo Fernández Cedrés;CA Huracán;Argentina A;30;;sem rastreio SkillCorner
 ;VOL;Felipinho;Athletico-PR;Brasil A;24;;sem rastreio SkillCorner
-;VOL;Bernardo;Brusque;Brasil C;24;;sem rastreio SkillCorner
 ;VOL;Carlos Gruezo;Livre;;31;;sem jogador na base
 ;VOL;Camilo;Gremio;Brasil A;27;;sem rastreio SkillCorner
 ;MED;Rafael Coutinho;Palmeiras;Brasil A;20;;sem rastreio SkillCorner
-;MED;Alencar;Ferroviária;Brasil C;24;;sem rastreio SkillCorner
 ;MED;Guilherme Portuga;Londrina Esporte Clube (PR);Brasil B;28;;sem rastreio SkillCorner
-;MED;Gabriel Pires;Esporte Clube Juventude;Brasil B;32;;sem rastreio SkillCorner
-;MED;Arthur Rezende;Muharraq;Bahrain;32;;sem rastreio SkillCorner
-;MED;Ronald;Criciuma;Brasil B;29;;sem rastreio SkillCorner
 ;MED;João Vitor (RCMF);Londrina;Brasil B;22;;sem rastreio SkillCorner
 ;MED;Dudu;Vitória;Brasil A;27;;sem rastreio SkillCorner
-;MED;Fábio Matheus;Sport Recife;Brasil B;23;;sem rastreio SkillCorner
 ;MED;Gustavo Pereira;Jacuipense;;21;;sem jogador na base
-;MED;JP;Casa Pia AC;Portugal A;21;;sem rastreio SkillCorner
 ;MED;Japa;Mirassol;Brasil A;22;;sem rastreio SkillCorner
 ;MED;Paulinho Paula;Internacional;Brasil A;29;;sem rastreio SkillCorner
 ;MED;Pedro Peçanha;Barra;Brasil C;24;;sem rastreio SkillCorner
@@ -69,25 +48,19 @@ sim;EE;Derik Lacerda;Kawasaki Frontale;Japao A;26;150000;sem rastreio SkillCorne
 ;MEI;E. Reynoso;Deportivo Cali;Colombia A;30;;sem rastreio SkillCorner
 ;MEI;Enso Gonzalez;Wolves;;21;;sem jogador na base
 ;MEI;David;Cuiabá;Brasil B;19;;sem rastreio SkillCorner
-;MEI;Rômulo;Grêmio Novorizontino;Brasil B;24;;sem rastreio SkillCorner
 ;MEI;G. Sosa;Deportivo Maldonado;Uruguai;21;;sem rastreio SkillCorner
 ;MEI;Guilherme;Atlético Clube Goianiense;Brasil B;35;;sem rastreio SkillCorner
 ;MEI;PK;AD Confiança;Brasil C;27;;sem rastreio SkillCorner
-;MEI;Max;Associação Chapecoense de Futebol;Brasil A;25;;sem rastreio SkillCorner
 ;MEI;Yarlen;Athletic-MG;Brasil B;20;;sem rastreio SkillCorner
 ;MEI;Gonzalo Ríos;Independiente Rivadavia;;27;;sem jogador na base
-;MEI;Kauan Lindes;Athletic Club;Brasil B;22;;sem rastreio SkillCorner
 ;MEI;Geovani Soares;Atletico Goianiense;;26;;sem jogador na base
-;ED;Matheus Serafim;Daegu;Coreia B;28;;sem rastreio SkillCorner
 ;ED;Angel Torres;Operario-PR;;26;;sem jogador na base
 ;ED;Thayllon Roberth;Avaí;Brasil B;19;;sem jogador na base
 ;ED;Marcinho;Chapecoense;Brasil A;31;;sem rastreio SkillCorner
 ;ED;Welliton;Fortaleza Esporte Clube;Brasil B;26;;sem rastreio SkillCorner
-;ED;Fabrício Daniel;São Bernardo FC;Brasil B;29;;sem rastreio SkillCorner
 ;ED;Airton;Anyang;Coreia A;27;;sem rastreio SkillCorner
 ;ED;Gustavo Prado;Internacional;Brasil A;21;;sem rastreio SkillCorner
 ;ED;Kayke Queiroz;Kawasaki Frontale;Japao A;20;;sem rastreio SkillCorner
-;EE;Maurício Garcez;Chapecoense;Brasil A;29;90000;sem rastreio SkillCorner
 ;EE;Keno;Coritiba;Brasil A;36;;sem rastreio SkillCorner
 ;EE;Marcinho;Kawasaki Frontale;Japao A;31;;sem rastreio SkillCorner
 ;EE;Moisés;Santos;Brasil A;29;;sem rastreio SkillCorner
@@ -95,23 +68,16 @@ sim;EE;Derik Lacerda;Kawasaki Frontale;Japao A;26;150000;sem rastreio SkillCorne
 ;EE;Kleiton Pego;Paysandu SC;Brasil C;27;;sem rastreio SkillCorner
 ;EE;Juan Christian;Juventude;;25;;sem jogador na base
 ;EE;Carlos Alberto;Kalba FC;Emirados;24;;sem rastreio SkillCorner
-;EE;Pedrinho;Goias;Brasil B;22;;sem rastreio SkillCorner
 ;EE;Guilherme Belea;Livre;;24;;sem jogador na base
 ;EE;Justo Giani;Univesidad Catolica;;27;;sem jogador na base
-;CA;Luccas Paraizo;Leixões;Portugal B;23;;sem rastreio SkillCorner
 ;CA;T. Nasif;Platense;Argentina A;22;;sem rastreio SkillCorner
 ;CA;Diogo de Oliveira;Daejeon Citizen;Coreia A;29;;sem rastreio SkillCorner
 ;CA;Tiquinho Soares;Mirassol;Brasil A;35;;sem rastreio SkillCorner
 ;CA;F. Fagúndez;Deportivo Morón;Argentina B;27;;sem rastreio SkillCorner
 ;CA;L. Silba;Deportivo Madryn;Argentina B;36;;sem rastreio SkillCorner
-;CA;Jeh;FK Partizan Belgrade;Servia;26;;sem rastreio SkillCorner
-;CA;Rodrigo Rodrigues;Coritiba;Brasil A;30;;sem rastreio SkillCorner
-;CA;Carlão;Grêmio Novorizontino;Brasil B;34;;sem rastreio SkillCorner
-;CA;Ygor Catatau;Volta Redonda;Brasil C;31;;sem rastreio SkillCorner
 ;CA;Ítalo Carvalho;Paysandu SC;Brasil C;29;;sem rastreio SkillCorner
 ;CA;Chrigor;Selangor;;26;;sem jogador na base
 ;CA;Renan Bernabé;Barra;Brasil C;22;;sem rastreio SkillCorner
-;CA;Carlinhos;Athletic Club;Brasil B;29;;sem rastreio SkillCorner
 ;CA;Leo Jacó;Atlético GO;Brasil B;21;;sem rastreio SkillCorner
 ;CA;Hernandes;Cuiabá;Brasil B;26;;sem rastreio SkillCorner
 ;CA;Jorge Hurtado;Deportes Tolima;Colombia A;22;;sem rastreio SkillCorner
