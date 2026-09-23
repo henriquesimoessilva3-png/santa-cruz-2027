@@ -1,161 +1,262 @@
-ano,team_name,indicador,queda_media,n_jog
-2025,AC Goianiense,hsr_distance_p90,20.0,16
-2025,Amazonas FC,hsr_distance_p90,34.8,16
-2025,América Mineiro FC,hsr_distance_p90,-13.2,14
-2025,Associação Ferroviária de Esportes,hsr_distance_p90,-10.9,20
-2025,Athletic Club (Minas Gerais),hsr_distance_p90,-28.2,15
-2025,Avaí Futebol Clube,hsr_distance_p90,-3.8,15
-2025,Botafogo FC Ribeirão Preto,hsr_distance_p90,-36.6,18
-2025,Chapecoense AF,hsr_distance_p90,-29.7,14
-2025,Club Athletico Paranaense,hsr_distance_p90,-2.0,16
-2025,Clube de Regatas Brasil,hsr_distance_p90,-20.9,14
-2025,Clube do Remo,hsr_distance_p90,-6.5,18
-2025,Coritiba FBC,hsr_distance_p90,-26.0,16
-2025,Criciuma EC,hsr_distance_p90,10.3,16
-2025,Cuiaba Esporte Club,hsr_distance_p90,3.7,17
-2025,Goiás EC,hsr_distance_p90,-36.5,19
-2025,Grêmio Novorizontino,hsr_distance_p90,3.2,20
-2025,Operário Ferroviário EC,hsr_distance_p90,7.6,15
-2025,Paysandu SC,hsr_distance_p90,35.8,23
-2025,Vila Nova FC,hsr_distance_p90,-3.7,17
-2025,Volta Redonda FC,hsr_distance_p90,20.1,14
-2025,AC Goianiense,sprint_distance_p90,-21.8,16
-2025,Amazonas FC,sprint_distance_p90,33.5,16
-2025,América Mineiro FC,sprint_distance_p90,7.7,14
-2025,Associação Ferroviária de Esportes,sprint_distance_p90,-6.3,20
-2025,Athletic Club (Minas Gerais),sprint_distance_p90,-14.7,15
-2025,Avaí Futebol Clube,sprint_distance_p90,12.8,15
-2025,Botafogo FC Ribeirão Preto,sprint_distance_p90,-9.7,18
-2025,Chapecoense AF,sprint_distance_p90,-0.6,14
-2025,Club Athletico Paranaense,sprint_distance_p90,-0.1,16
-2025,Clube de Regatas Brasil,sprint_distance_p90,-8.9,14
-2025,Clube do Remo,sprint_distance_p90,-1.0,18
-2025,Coritiba FBC,sprint_distance_p90,-25.1,16
-2025,Criciuma EC,sprint_distance_p90,31.3,16
-2025,Cuiaba Esporte Club,sprint_distance_p90,-21.3,17
-2025,Goiás EC,sprint_distance_p90,-2.1,19
-2025,Grêmio Novorizontino,sprint_distance_p90,5.7,20
-2025,Operário Ferroviário EC,sprint_distance_p90,7.6,15
-2025,Paysandu SC,sprint_distance_p90,20.5,23
-2025,Vila Nova FC,sprint_distance_p90,-1.6,17
-2025,Volta Redonda FC,sprint_distance_p90,-0.2,14
-2025,AC Goianiense,distance_p90,334.3,16
-2025,Amazonas FC,distance_p90,-317.1,16
-2025,América Mineiro FC,distance_p90,-198.2,14
-2025,Associação Ferroviária de Esportes,distance_p90,-252.7,20
-2025,Athletic Club (Minas Gerais),distance_p90,-116.8,15
-2025,Avaí Futebol Clube,distance_p90,-149.2,15
-2025,Botafogo FC Ribeirão Preto,distance_p90,-471.7,18
-2025,Chapecoense AF,distance_p90,-287.7,14
-2025,Club Athletico Paranaense,distance_p90,40.8,16
-2025,Clube de Regatas Brasil,distance_p90,-176.5,14
-2025,Clube do Remo,distance_p90,-379.5,18
-2025,Coritiba FBC,distance_p90,-59.7,16
-2025,Criciuma EC,distance_p90,-576.3,16
-2025,Cuiaba Esporte Club,distance_p90,270.8,17
-2025,Goiás EC,distance_p90,-109.5,19
-2025,Grêmio Novorizontino,distance_p90,16.2,20
-2025,Operário Ferroviário EC,distance_p90,224.3,15
-2025,Paysandu SC,distance_p90,-53.1,23
-2025,Vila Nova FC,distance_p90,-85.0,17
-2025,Volta Redonda FC,distance_p90,214.5,14
-2025,AC Goianiense,psv99,-0.8,16
-2025,Amazonas FC,psv99,0.3,16
-2025,América Mineiro FC,psv99,0.2,14
-2025,Associação Ferroviária de Esportes,psv99,-0.1,20
-2025,Athletic Club (Minas Gerais),psv99,-0.2,15
-2025,Avaí Futebol Clube,psv99,0.6,15
-2025,Botafogo FC Ribeirão Preto,psv99,0.2,18
-2025,Chapecoense AF,psv99,0.1,14
-2025,Club Athletico Paranaense,psv99,0.3,16
-2025,Clube de Regatas Brasil,psv99,-0.2,14
-2025,Clube do Remo,psv99,-0.5,18
-2025,Coritiba FBC,psv99,-0.0,16
-2025,Criciuma EC,psv99,0.2,16
-2025,Cuiaba Esporte Club,psv99,-0.4,17
-2025,Goiás EC,psv99,0.0,19
-2025,Grêmio Novorizontino,psv99,0.3,20
-2025,Operário Ferroviário EC,psv99,-0.0,15
-2025,Paysandu SC,psv99,0.1,23
-2025,Vila Nova FC,psv99,-0.1,17
-2025,Volta Redonda FC,psv99,-0.3,14
-2026,AC Goianiense,hsr_distance_p90,-69.5,9
-2026,América Mineiro FC,hsr_distance_p90,14.9,7
-2026,Athletic Club (Minas Gerais),hsr_distance_p90,45.6,6
-2026,Avaí Futebol Clube,hsr_distance_p90,78.7,6
-2026,Botafogo FC Ribeirão Preto,hsr_distance_p90,36.0,13
-2026,Ceará Sporting Club,hsr_distance_p90,22.5,9
-2026,Clube Náutico Capibaribe,hsr_distance_p90,-36.7,9
-2026,Clube de Regatas Brasil,hsr_distance_p90,67.3,10
-2026,Criciuma EC,hsr_distance_p90,-62.8,8
-2026,Cuiaba Esporte Club,hsr_distance_p90,-14.0,13
-2026,Fortaleza EC,hsr_distance_p90,17.9,12
-2026,Goiás EC,hsr_distance_p90,19.7,12
-2026,Grêmio Novorizontino,hsr_distance_p90,-5.7,9
-2026,Juventude RS,hsr_distance_p90,-113.6,6
-2026,Londrina EC,hsr_distance_p90,47.1,8
-2026,Operário Ferroviário EC,hsr_distance_p90,-1.0,13
-2026,Ponte Preta,hsr_distance_p90,-6.3,8
-2026,SC do Recife,hsr_distance_p90,2.7,11
-2026,São Bernardo FC,hsr_distance_p90,11.7,11
-2026,Vila Nova FC,hsr_distance_p90,39.9,9
-2026,AC Goianiense,sprint_distance_p90,-38.5,9
-2026,América Mineiro FC,sprint_distance_p90,41.4,7
-2026,Athletic Club (Minas Gerais),sprint_distance_p90,119.2,6
-2026,Avaí Futebol Clube,sprint_distance_p90,-49.1,6
-2026,Botafogo FC Ribeirão Preto,sprint_distance_p90,29.7,13
-2026,Ceará Sporting Club,sprint_distance_p90,10.0,9
-2026,Clube Náutico Capibaribe,sprint_distance_p90,14.5,9
-2026,Clube de Regatas Brasil,sprint_distance_p90,-16.0,10
-2026,Criciuma EC,sprint_distance_p90,65.0,8
-2026,Cuiaba Esporte Club,sprint_distance_p90,12.8,13
-2026,Fortaleza EC,sprint_distance_p90,12.5,12
-2026,Goiás EC,sprint_distance_p90,34.2,12
-2026,Grêmio Novorizontino,sprint_distance_p90,16.5,9
-2026,Juventude RS,sprint_distance_p90,-46.7,6
-2026,Londrina EC,sprint_distance_p90,-10.3,8
-2026,Operário Ferroviário EC,sprint_distance_p90,-28.5,13
-2026,Ponte Preta,sprint_distance_p90,-17.2,8
-2026,SC do Recife,sprint_distance_p90,21.7,11
-2026,São Bernardo FC,sprint_distance_p90,-39.4,11
-2026,Vila Nova FC,sprint_distance_p90,14.6,9
-2026,AC Goianiense,distance_p90,-374.5,9
-2026,América Mineiro FC,distance_p90,-316.5,7
-2026,Athletic Club (Minas Gerais),distance_p90,561.4,6
-2026,Avaí Futebol Clube,distance_p90,1258.9,6
-2026,Botafogo FC Ribeirão Preto,distance_p90,-95.2,13
-2026,Ceará Sporting Club,distance_p90,-81.5,9
-2026,Clube Náutico Capibaribe,distance_p90,-351.6,9
-2026,Clube de Regatas Brasil,distance_p90,822.0,10
-2026,Criciuma EC,distance_p90,223.8,8
-2026,Cuiaba Esporte Club,distance_p90,-155.0,13
-2026,Fortaleza EC,distance_p90,-159.8,12
-2026,Goiás EC,distance_p90,25.9,12
-2026,Grêmio Novorizontino,distance_p90,-30.5,9
-2026,Juventude RS,distance_p90,-499.0,6
-2026,Londrina EC,distance_p90,-42.5,8
-2026,Operário Ferroviário EC,distance_p90,120.9,13
-2026,Ponte Preta,distance_p90,-109.8,8
-2026,SC do Recife,distance_p90,133.1,11
-2026,São Bernardo FC,distance_p90,-103.0,11
-2026,Vila Nova FC,distance_p90,195.3,9
-2026,AC Goianiense,psv99,-1.1,9
-2026,América Mineiro FC,psv99,-0.1,7
-2026,Athletic Club (Minas Gerais),psv99,1.2,6
-2026,Avaí Futebol Clube,psv99,-0.5,6
-2026,Botafogo FC Ribeirão Preto,psv99,0.6,13
-2026,Ceará Sporting Club,psv99,-0.1,9
-2026,Clube Náutico Capibaribe,psv99,0.3,9
-2026,Clube de Regatas Brasil,psv99,0.2,10
-2026,Criciuma EC,psv99,0.2,8
-2026,Cuiaba Esporte Club,psv99,0.0,13
-2026,Fortaleza EC,psv99,0.1,12
-2026,Goiás EC,psv99,0.5,12
-2026,Grêmio Novorizontino,psv99,0.4,9
-2026,Juventude RS,psv99,0.0,6
-2026,Londrina EC,psv99,-0.0,8
-2026,Operário Ferroviário EC,psv99,-1.0,13
-2026,Ponte Preta,psv99,-0.6,8
-2026,SC do Recife,psv99,0.8,11
-2026,São Bernardo FC,psv99,-0.6,11
-2026,Vila Nova FC,psv99,0.4,9
+ano,clube,indicador,queda,n_jog,faixa,rendimento,pontos
+2022,Bahia,hsr_distance_p90,30.8,17,Sobe,0.16512566879886736,62
+2022,Bahia,sprint_distance_p90,1.7,17,Sobe,0.16512566879886736,62
+2022,Bahia,distance_p90,184.1,17,Sobe,0.16512566879886736,62
+2022,Brusque,hsr_distance_p90,-35.8,33,Cai,-0.15078874981208978,34
+2022,Brusque,sprint_distance_p90,-14.5,33,Cai,-0.15078874981208978,34
+2022,Brusque,distance_p90,-53.6,33,Cai,-0.15078874981208978,34
+2022,CSA,hsr_distance_p90,-31.2,16,Cai,-0.2412591642698685,42
+2022,CSA,sprint_distance_p90,2.6,16,Cai,-0.2412591642698685,42
+2022,CSA,distance_p90,-143.7,16,Cai,-0.2412591642698685,42
+2022,Chapecoense,hsr_distance_p90,-19.2,18,Meio,-0.16469053487358654,45
+2022,Chapecoense,sprint_distance_p90,3.9,18,Meio,-0.16469053487358654,45
+2022,Chapecoense,distance_p90,-68.8,18,Meio,-0.16469053487358654,45
+2022,Criciúma,hsr_distance_p90,-51.2,17,Meio,0.3122380378239036,56
+2022,Criciúma,sprint_distance_p90,-19.1,17,Meio,0.3122380378239036,56
+2022,Criciúma,distance_p90,-125.8,17,Meio,0.3122380378239036,56
+2022,Cruzeiro,hsr_distance_p90,-26.1,17,Sobe,0.5032450477868315,78
+2022,Cruzeiro,sprint_distance_p90,-27.4,17,Sobe,0.5032450477868315,78
+2022,Cruzeiro,distance_p90,-139.3,17,Sobe,0.5032450477868315,78
+2022,Grêmio,hsr_distance_p90,-7.4,17,Sobe,0.025855751827733586,65
+2022,Grêmio,sprint_distance_p90,14.7,17,Sobe,0.025855751827733586,65
+2022,Grêmio,distance_p90,-120.5,17,Sobe,0.025855751827733586,65
+2022,Guarani,hsr_distance_p90,-25.3,17,Meio,0.053639264952930255,51
+2022,Guarani,sprint_distance_p90,-5.3,17,Meio,0.053639264952930255,51
+2022,Guarani,distance_p90,-63.2,17,Meio,0.053639264952930255,51
+2022,Ituano,hsr_distance_p90,-33.8,17,Meio,0.3504136826485551,57
+2022,Ituano,sprint_distance_p90,-4.0,17,Meio,0.3504136826485551,57
+2022,Ituano,distance_p90,-167.2,17,Meio,0.3504136826485551,57
+2022,Londrina,hsr_distance_p90,40.4,16,Meio,0.22893520831096859,52
+2022,Londrina,sprint_distance_p90,14.2,16,Meio,0.22893520831096859,52
+2022,Londrina,distance_p90,-70.4,16,Meio,0.22893520831096859,52
+2022,Novorizontino,hsr_distance_p90,-19.7,22,Meio,-0.13704714893867997,44
+2022,Novorizontino,sprint_distance_p90,2.6,22,Meio,-0.13704714893867997,44
+2022,Novorizontino,distance_p90,-75.2,22,Meio,-0.13704714893867997,44
+2022,Náutico,hsr_distance_p90,-2.5,18,Cai,-0.5603728775246417,30
+2022,Náutico,sprint_distance_p90,14.0,18,Cai,-0.5603728775246417,30
+2022,Náutico,distance_p90,-161.4,18,Cai,-0.5603728775246417,30
+2022,Operário-PR,hsr_distance_p90,-50.1,19,Cai,-0.39133416123100295,34
+2022,Operário-PR,sprint_distance_p90,2.8,19,Cai,-0.39133416123100295,34
+2022,Operário-PR,distance_p90,-8.0,19,Cai,-0.39133416123100295,34
+2022,Ponte Preta,hsr_distance_p90,43.2,17,Meio,-0.16202681237652006,49
+2022,Ponte Preta,sprint_distance_p90,25.9,17,Meio,-0.16202681237652006,49
+2022,Ponte Preta,distance_p90,-246.9,17,Meio,-0.16202681237652006,49
+2022,Sampaio Corrêa,hsr_distance_p90,7.2,31,Meio,0.4733855144264345,58
+2022,Sampaio Corrêa,sprint_distance_p90,5.5,31,Meio,0.4733855144264345,58
+2022,Sampaio Corrêa,distance_p90,-22.5,31,Meio,0.4733855144264345,58
+2022,Sport,hsr_distance_p90,-18.4,15,Meio,0.10876017669562454,57
+2022,Sport,sprint_distance_p90,-18.1,15,Meio,0.10876017669562454,57
+2022,Sport,distance_p90,-21.3,15,Meio,0.10876017669562454,57
+2022,Tombense,hsr_distance_p90,-6.0,16,Meio,0.17052437043767044,44
+2022,Tombense,sprint_distance_p90,3.9,16,Meio,0.17052437043767044,44
+2022,Tombense,distance_p90,33.7,16,Meio,0.17052437043767044,44
+2022,Vasco,hsr_distance_p90,-11.1,13,Sobe,0.0703163200791106,62
+2022,Vasco,sprint_distance_p90,5.1,13,Sobe,0.0703163200791106,62
+2022,Vasco,distance_p90,-120.5,13,Sobe,0.0703163200791106,62
+2023,ABC,hsr_distance_p90,-14.1,19,Cai,-0.5097111342256536,28
+2023,ABC,sprint_distance_p90,12.7,19,Cai,-0.5097111342256536,28
+2023,ABC,distance_p90,-415.2,19,Cai,-0.5097111342256536,28
+2023,Atlético-GO,hsr_distance_p90,-63.7,13,Sobe,0.18558960744544706,64
+2023,Atlético-GO,sprint_distance_p90,1.1,13,Sobe,0.18558960744544706,64
+2023,Atlético-GO,distance_p90,-480.8,13,Sobe,0.18558960744544706,64
+2023,Avaí,hsr_distance_p90,-14.3,17,Meio,-0.2910287894146686,44
+2023,Avaí,sprint_distance_p90,1.1,17,Meio,-0.2910287894146686,44
+2023,Avaí,distance_p90,-347.9,17,Meio,-0.2910287894146686,44
+2023,Botafogo-SP,hsr_distance_p90,-5.5,16,Meio,0.013668611812490905,47
+2023,Botafogo-SP,sprint_distance_p90,-7.3,16,Meio,0.013668611812490905,47
+2023,Botafogo-SP,distance_p90,-216.1,16,Meio,0.013668611812490905,47
+2023,CRB,hsr_distance_p90,13.8,19,Meio,0.15062576340236156,57
+2023,CRB,sprint_distance_p90,0.7,19,Meio,0.15062576340236156,57
+2023,CRB,distance_p90,-84.2,19,Meio,0.15062576340236156,57
+2023,Ceará,hsr_distance_p90,29.2,20,Meio,-0.27985821938296507,50
+2023,Ceará,sprint_distance_p90,1.1,20,Meio,-0.27985821938296507,50
+2023,Ceará,distance_p90,-120.4,20,Meio,-0.27985821938296507,50
+2023,Chapecoense,hsr_distance_p90,7.5,16,Meio,-0.3390110779505011,40
+2023,Chapecoense,sprint_distance_p90,-2.3,16,Meio,-0.3390110779505011,40
+2023,Chapecoense,distance_p90,-46.9,16,Meio,-0.3390110779505011,40
+2023,Criciúma,hsr_distance_p90,-24.7,20,Sobe,0.39874169705344986,64
+2023,Criciúma,sprint_distance_p90,-18.7,20,Sobe,0.39874169705344986,64
+2023,Criciúma,distance_p90,-199.0,20,Sobe,0.39874169705344986,64
+2023,Guarani,hsr_distance_p90,-17.6,16,Meio,0.14501311880046508,57
+2023,Guarani,sprint_distance_p90,-13.3,16,Meio,0.14501311880046508,57
+2023,Guarani,distance_p90,-193.7,16,Meio,0.14501311880046508,57
+2023,Ituano,hsr_distance_p90,-15.1,17,Meio,-0.03296053550170286,42
+2023,Ituano,sprint_distance_p90,-36.2,17,Meio,-0.03296053550170286,42
+2023,Ituano,distance_p90,91.7,17,Meio,-0.03296053550170286,42
+2023,Juventude,hsr_distance_p90,-15.5,16,Sobe,0.31095398156595455,65
+2023,Juventude,sprint_distance_p90,-13.4,16,Sobe,0.31095398156595455,65
+2023,Juventude,distance_p90,-184.3,16,Sobe,0.31095398156595455,65
+2023,Londrina,hsr_distance_p90,-5.0,12,Cai,-0.37832821317998466,31
+2023,Londrina,sprint_distance_p90,-6.4,12,Cai,-0.37832821317998466,31
+2023,Londrina,distance_p90,-61.7,12,Cai,-0.37832821317998466,31
+2023,Mirassol,hsr_distance_p90,-29.6,16,Meio,0.29025976567153844,63
+2023,Mirassol,sprint_distance_p90,-12.2,16,Meio,0.29025976567153844,63
+2023,Mirassol,distance_p90,20.6,16,Meio,0.29025976567153844,63
+2023,Novorizontino,hsr_distance_p90,-2.1,17,Meio,0.30852050024446687,63
+2023,Novorizontino,sprint_distance_p90,-5.9,17,Meio,0.30852050024446687,63
+2023,Novorizontino,distance_p90,11.0,17,Meio,0.30852050024446687,63
+2023,Ponte Preta,hsr_distance_p90,-31.5,19,Meio,-0.17472310918557565,42
+2023,Ponte Preta,sprint_distance_p90,-19.7,19,Meio,-0.17472310918557565,42
+2023,Ponte Preta,distance_p90,-339.3,19,Meio,-0.17472310918557565,42
+2023,Sampaio Corrêa,hsr_distance_p90,-23.4,16,Cai,-0.19378341316156056,39
+2023,Sampaio Corrêa,sprint_distance_p90,-20.2,16,Cai,-0.19378341316156056,39
+2023,Sampaio Corrêa,distance_p90,-341.1,16,Cai,-0.19378341316156056,39
+2023,Sport,hsr_distance_p90,-11.1,20,Meio,0.24204290072135137,63
+2023,Sport,sprint_distance_p90,-1.7,20,Meio,0.24204290072135137,63
+2023,Sport,distance_p90,-349.1,20,Meio,0.24204290072135137,63
+2023,Tombense,hsr_distance_p90,-28.8,19,Cai,-0.19349707409130368,37
+2023,Tombense,sprint_distance_p90,-7.0,19,Cai,-0.19349707409130368,37
+2023,Tombense,distance_p90,-183.8,19,Cai,-0.19349707409130368,37
+2023,Vila Nova,hsr_distance_p90,-60.4,14,Meio,0.3302481759862095,61
+2023,Vila Nova,sprint_distance_p90,-20.3,14,Meio,0.3302481759862095,61
+2023,Vila Nova,distance_p90,-512.5,14,Meio,0.3302481759862095,61
+2023,Vitória,hsr_distance_p90,7.3,20,Sobe,0.5430094217663612,72
+2023,Vitória,sprint_distance_p90,2.5,20,Sobe,0.5430094217663612,72
+2023,Vitória,distance_p90,-77.2,20,Sobe,0.5430094217663612,72
+2024,Amazonas,hsr_distance_p90,27.7,18,Meio,0.11428842155292807,52
+2024,Amazonas,sprint_distance_p90,-2.6,18,Meio,0.11428842155292807,52
+2024,Amazonas,distance_p90,104.5,18,Meio,0.11428842155292807,52
+2024,América-MG,hsr_distance_p90,6.3,15,Meio,0.040881277783413106,58
+2024,América-MG,sprint_distance_p90,-4.9,15,Meio,0.040881277783413106,58
+2024,América-MG,distance_p90,329.4,15,Meio,0.040881277783413106,58
+2024,Avaí,hsr_distance_p90,-23.1,16,Meio,-0.036790844825395075,53
+2024,Avaí,sprint_distance_p90,-29.7,16,Meio,-0.036790844825395075,53
+2024,Avaí,distance_p90,67.3,16,Meio,-0.036790844825395075,53
+2024,Botafogo-SP,hsr_distance_p90,-3.5,17,Meio,-0.06581500763510828,45
+2024,Botafogo-SP,sprint_distance_p90,-15.3,17,Meio,-0.06581500763510828,45
+2024,Botafogo-SP,distance_p90,-43.4,17,Meio,-0.06581500763510828,45
+2024,Brusque,hsr_distance_p90,-22.5,18,Cai,-0.23983179110346897,36
+2024,Brusque,sprint_distance_p90,5.2,18,Cai,-0.23983179110346897,36
+2024,Brusque,distance_p90,141.5,18,Cai,-0.23983179110346897,36
+2024,CRB,hsr_distance_p90,39.6,18,Meio,-0.21350572927073252,43
+2024,CRB,sprint_distance_p90,-0.1,18,Meio,-0.21350572927073252,43
+2024,CRB,distance_p90,234.0,18,Meio,-0.21350572927073252,43
+2024,Ceará,hsr_distance_p90,-13.0,14,Sobe,0.18345478256664194,64
+2024,Ceará,sprint_distance_p90,-10.8,14,Sobe,0.18345478256664194,64
+2024,Ceará,distance_p90,32.5,14,Sobe,0.18345478256664194,64
+2024,Chapecoense,hsr_distance_p90,-8.9,17,Meio,-0.1086443524692362,44
+2024,Chapecoense,sprint_distance_p90,0.1,17,Meio,-0.1086443524692362,44
+2024,Chapecoense,distance_p90,10.9,17,Meio,-0.1086443524692362,44
+2024,Coritiba,hsr_distance_p90,-49.3,17,Meio,-0.2531709005052454,50
+2024,Coritiba,sprint_distance_p90,-24.2,17,Meio,-0.2531709005052454,50
+2024,Coritiba,distance_p90,-316.7,17,Meio,-0.2531709005052454,50
+2024,Goiás,hsr_distance_p90,18.8,19,Meio,0.11749536721150822,63
+2024,Goiás,sprint_distance_p90,-4.0,19,Meio,0.11749536721150822,63
+2024,Goiás,distance_p90,-46.3,19,Meio,0.11749536721150822,63
+2024,Guarani,hsr_distance_p90,-12.0,18,Cai,-0.5843585163982439,33
+2024,Guarani,sprint_distance_p90,-5.8,18,Cai,-0.5843585163982439,33
+2024,Guarani,distance_p90,166.3,18,Cai,-0.5843585163982439,33
+2024,Ituano,hsr_distance_p90,-8.4,15,Cai,-0.32241815779428873,37
+2024,Ituano,sprint_distance_p90,-21.1,15,Cai,-0.32241815779428873,37
+2024,Ituano,distance_p90,-19.6,15,Cai,-0.32241815779428873,37
+2024,Mirassol,hsr_distance_p90,-7.1,15,Sobe,0.36125256707631914,67
+2024,Mirassol,sprint_distance_p90,10.3,15,Sobe,0.36125256707631914,67
+2024,Mirassol,distance_p90,-176.2,15,Sobe,0.36125256707631914,67
+2024,Novorizontino,hsr_distance_p90,-16.3,17,Meio,0.3963412340840158,64
+2024,Novorizontino,sprint_distance_p90,-9.3,17,Meio,0.3963412340840158,64
+2024,Novorizontino,distance_p90,-120.4,17,Meio,0.3963412340840158,64
+2024,Operário-PR,hsr_distance_p90,-47.7,22,Meio,0.16606984111002765,55
+2024,Operário-PR,sprint_distance_p90,-23.7,22,Meio,0.16606984111002765,55
+2024,Operário-PR,distance_p90,-216.5,22,Meio,0.16606984111002765,55
+2024,Paysandu,hsr_distance_p90,-51.4,21,Meio,-0.03216267359260172,50
+2024,Paysandu,sprint_distance_p90,6.5,21,Meio,-0.03216267359260172,50
+2024,Paysandu,distance_p90,-187.1,21,Meio,-0.03216267359260172,50
+2024,Ponte Preta,hsr_distance_p90,-30.6,19,Cai,-0.20002465159252303,38
+2024,Ponte Preta,sprint_distance_p90,-13.2,19,Cai,-0.20002465159252303,38
+2024,Ponte Preta,distance_p90,-166.9,19,Cai,-0.20002465159252303,38
+2024,Santos,hsr_distance_p90,-9.4,17,Sobe,0.03842289319675163,68
+2024,Santos,sprint_distance_p90,-19.4,17,Sobe,0.03842289319675163,68
+2024,Santos,distance_p90,6.3,17,Sobe,0.03842289319675163,68
+2024,Sport,hsr_distance_p90,15.7,17,Sobe,0.2793206962410859,66
+2024,Sport,sprint_distance_p90,-33.9,17,Sobe,0.2793206962410859,66
+2024,Sport,distance_p90,366.4,17,Sobe,0.2793206962410859,66
+2024,Vila Nova,hsr_distance_p90,-59.8,15,Meio,0.1349905938984619,55
+2024,Vila Nova,sprint_distance_p90,-16.1,15,Meio,0.1349905938984619,55
+2024,Vila Nova,distance_p90,-172.1,15,Meio,0.1349905938984619,55
+2025,Amazonas,hsr_distance_p90,34.8,16,Cai,-0.43849531608121006,36
+2025,Amazonas,sprint_distance_p90,33.5,16,Cai,-0.43849531608121006,36
+2025,Amazonas,distance_p90,-317.1,16,Cai,-0.43849531608121006,36
+2025,América-MG,hsr_distance_p90,-13.2,14,Meio,-0.2729286899575676,46
+2025,América-MG,sprint_distance_p90,7.7,14,Meio,-0.2729286899575676,46
+2025,América-MG,distance_p90,-198.2,14,Meio,-0.2729286899575676,46
+2025,Athletic,hsr_distance_p90,-28.2,15,Meio,-0.25515217038773663,44
+2025,Athletic,sprint_distance_p90,-14.7,15,Meio,-0.25515217038773663,44
+2025,Athletic,distance_p90,-116.8,15,Meio,-0.25515217038773663,44
+2025,Athletico-PR,hsr_distance_p90,-2.0,16,Sobe,0.02205482936045411,65
+2025,Athletico-PR,sprint_distance_p90,-0.1,16,Sobe,0.02205482936045411,65
+2025,Athletico-PR,distance_p90,40.8,16,Sobe,0.02205482936045411,65
+2025,Atlético-GO,hsr_distance_p90,20.0,16,Meio,-0.17129172835880957,52
+2025,Atlético-GO,sprint_distance_p90,-21.8,16,Meio,-0.17129172835880957,52
+2025,Atlético-GO,distance_p90,334.3,16,Meio,-0.17129172835880957,52
+2025,Avaí,hsr_distance_p90,-3.8,15,Meio,0.13789190342337299,56
+2025,Avaí,sprint_distance_p90,12.8,15,Meio,0.13789190342337299,56
+2025,Avaí,distance_p90,-149.2,15,Meio,0.13789190342337299,56
+2025,Botafogo-SP,hsr_distance_p90,-36.6,18,Meio,-0.16081920676051564,42
+2025,Botafogo-SP,sprint_distance_p90,-9.7,18,Meio,-0.16081920676051564,42
+2025,Botafogo-SP,distance_p90,-471.7,18,Meio,-0.16081920676051564,42
+2025,CRB,hsr_distance_p90,-20.9,14,Meio,0.026058706010148702,56
+2025,CRB,sprint_distance_p90,-8.9,14,Meio,0.026058706010148702,56
+2025,CRB,distance_p90,-176.5,14,Meio,0.026058706010148702,56
+2025,Chapecoense,hsr_distance_p90,-29.7,14,Sobe,0.3687618280363034,62
+2025,Chapecoense,sprint_distance_p90,-0.6,14,Sobe,0.3687618280363034,62
+2025,Chapecoense,distance_p90,-287.7,14,Sobe,0.3687618280363034,62
+2025,Coritiba,hsr_distance_p90,-26.0,16,Sobe,0.3020744628088641,68
+2025,Coritiba,sprint_distance_p90,-25.1,16,Sobe,0.3020744628088641,68
+2025,Coritiba,distance_p90,-59.7,16,Sobe,0.3020744628088641,68
+2025,Criciúma,hsr_distance_p90,10.3,16,Meio,0.16389233609701992,61
+2025,Criciúma,sprint_distance_p90,31.3,16,Meio,0.16389233609701992,61
+2025,Criciúma,distance_p90,-576.3,16,Meio,0.16389233609701992,61
+2025,Cuiabá,hsr_distance_p90,3.7,17,Meio,-0.047812121412182496,54
+2025,Cuiabá,sprint_distance_p90,-21.3,17,Meio,-0.047812121412182496,54
+2025,Cuiabá,distance_p90,270.8,17,Meio,-0.047812121412182496,54
+2025,Ferroviária,hsr_distance_p90,-10.9,20,Cai,-0.1029515506356915,40
+2025,Ferroviária,sprint_distance_p90,-6.3,20,Cai,-0.1029515506356915,40
+2025,Ferroviária,distance_p90,-252.7,20,Cai,-0.1029515506356915,40
+2025,Goiás,hsr_distance_p90,-36.5,19,Meio,0.18432141977477623,61
+2025,Goiás,sprint_distance_p90,-2.1,19,Meio,0.18432141977477623,61
+2025,Goiás,distance_p90,-109.5,19,Meio,0.18432141977477623,61
+2025,Novorizontino,hsr_distance_p90,3.2,20,Meio,0.23969321997361304,60
+2025,Novorizontino,sprint_distance_p90,5.7,20,Meio,0.23969321997361304,60
+2025,Novorizontino,distance_p90,16.2,20,Meio,0.23969321997361304,60
+2025,Operário-PR,hsr_distance_p90,7.6,15,Meio,-0.16974957944782654,48
+2025,Operário-PR,sprint_distance_p90,7.6,15,Meio,-0.16974957944782654,48
+2025,Operário-PR,distance_p90,224.3,15,Meio,-0.16974957944782654,48
+2025,Paysandu,hsr_distance_p90,35.8,23,Cai,-0.6162871790296546,28
+2025,Paysandu,sprint_distance_p90,20.5,23,Cai,-0.6162871790296546,28
+2025,Paysandu,distance_p90,-53.1,23,Cai,-0.6162871790296546,28
+2025,Remo,hsr_distance_p90,-6.5,18,Sobe,0.10143384811159062,62
+2025,Remo,sprint_distance_p90,-1.0,18,Sobe,0.10143384811159062,62
+2025,Remo,distance_p90,-379.5,18,Sobe,0.10143384811159062,62
+2025,Vila Nova,hsr_distance_p90,-3.7,17,Meio,-0.05517595873139092,47
+2025,Vila Nova,sprint_distance_p90,-1.6,17,Meio,-0.05517595873139092,47
+2025,Vila Nova,distance_p90,-85.0,17,Meio,-0.05517595873139092,47
+2025,Volta Redonda,hsr_distance_p90,20.1,14,Cai,-0.14732887629476143,36
+2025,Volta Redonda,sprint_distance_p90,-0.2,14,Cai,-0.14732887629476143,36
+2025,Volta Redonda,distance_p90,214.5,14,Cai,-0.14732887629476143,36
+2026,América-MG,hsr_distance_p90,14.9,7,Cai,-0.4933836878119947,17
+2026,América-MG,sprint_distance_p90,41.4,7,Cai,-0.4933836878119947,17
+2026,América-MG,distance_p90,-316.5,7,Cai,-0.4933836878119947,17
+2026,Ceará,hsr_distance_p90,22.5,9,Meio,-0.14987788654168122,31
+2026,Ceará,sprint_distance_p90,10.0,9,Meio,-0.14987788654168122,31
+2026,Ceará,distance_p90,-81.5,9,Meio,-0.14987788654168122,31
+2026,Fortaleza,hsr_distance_p90,-12.9,32,Sobe,0.18138512690691688,47
+2026,Fortaleza,sprint_distance_p90,1.1,32,Sobe,0.18138512690691688,47
+2026,Fortaleza,distance_p90,-124.7,32,Sobe,0.18138512690691688,47
+2026,Goiás,hsr_distance_p90,19.7,12,Meio,0.011863184068382937,36
+2026,Goiás,sprint_distance_p90,34.2,12,Meio,0.011863184068382937,36
+2026,Goiás,distance_p90,25.9,12,Meio,0.011863184068382937,36
+2026,Juventude,hsr_distance_p90,-98.0,22,Sobe,0.4659058330243331,50
+2026,Juventude,sprint_distance_p90,-39.3,22,Sobe,0.4659058330243331,50
+2026,Juventude,distance_p90,-486.1,22,Sobe,0.4659058330243331,50
+2026,Londrina,hsr_distance_p90,47.1,8,Cai,-0.2867380443811932,22
+2026,Londrina,sprint_distance_p90,-10.3,8,Cai,-0.2867380443811932,22
+2026,Londrina,distance_p90,-42.5,8,Cai,-0.2867380443811932,22
+2026,Náutico,hsr_distance_p90,-25.1,31,Meio,0.3989639672274665,37
+2026,Náutico,sprint_distance_p90,8.6,31,Meio,0.3989639672274665,37
+2026,Náutico,distance_p90,-257.9,31,Meio,0.3989639672274665,37
+2026,São Bernardo,hsr_distance_p90,6.4,34,Meio,0.14446558857563874,35
+2026,São Bernardo,sprint_distance_p90,-11.1,34,Meio,0.14446558857563874,35
+2026,São Bernardo,distance_p90,69.6,34,Meio,0.14446558857563874,35
+2026,Vila Nova,hsr_distance_p90,19.7,7,Sobe,0.5198230154605341,47
+2026,Vila Nova,sprint_distance_p90,21.1,7,Sobe,0.5198230154605341,47
+2026,Vila Nova,distance_p90,-126.3,7,Sobe,0.5198230154605341,47

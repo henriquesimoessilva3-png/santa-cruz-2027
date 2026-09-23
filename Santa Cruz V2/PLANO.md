@@ -86,3 +86,10 @@ Um bloco por vez, validado antes do seguinte. Scripts em `scripts/`, resultados 
 
 - Exports Wyscout por temporada (2024–2026) das ligas sul-americanas — para as listas 2 e 3.
 - Export da API física para ligas de fora — quando o Bloco 1 fixar as métricas.
+
+
+## Estado em 22/09/2026
+Blocos 1–7 rodados (`resultados/b*/B*.md`). Listas por posição nos quatro mercados em
+`listas/listas_2027.xlsx` + `listas/LISTAS.md`; conclusões em `listas/DIFERENCIAIS.md`.
+Pendente: exportar físico das ligas de fora (API) para verificar o piso de velocidade nas listas
+2–4; elenco final de 26–30 com orçamento no campograma.
