@@ -24,3 +24,25 @@
 #pgBpJogadores td.idx { font-weight: 700; }
 #pgBpJogadores td.forte { font-weight: 700; color: var(--tinta); }
 #pgBpJogadores .bpj-nota, #pgBpJogadores .bpj-fonte { margin: 0; font-size: 11.5px; color: var(--tinta3); }
+
+/* gráficos */
+#pgBpJogadores .bpg { border: 1px solid var(--borda); border-radius: 12px; padding: 14px 16px 10px; margin-bottom: 14px; background: var(--fundo2); }
+#pgBpJogadores .bpg h3 { margin: 0 0 4px; font-size: 15px; }
+#pgBpJogadores .bpg-d { margin: 0 0 8px; font-size: 12.5px; color: var(--tinta2); max-width: 95ch; line-height: 1.5; }
+#pgBpJogadores .bpg-svg { width: 100%; height: auto; display: block; font-family: var(--fonte); }
+#pgBpJogadores .bpg-svg .g { stroke: var(--linha1); stroke-width: 1; }
+#pgBpJogadores .bpg-svg .base { stroke: var(--borda2); stroke-width: 1; }
+#pgBpJogadores .bpg-svg .ax { fill: var(--tinta3); font-size: 11px; }
+#pgBpJogadores .bpg-svg .axt { fill: var(--tinta2); font-size: 11.5px; }
+#pgBpJogadores .bpg-svg .ref { stroke: var(--tinta3); stroke-width: 1.5; stroke-dasharray: 5 4; }
+#pgBpJogadores .bpg-svg .refl { fill: var(--tinta3); font-size: 11px; }
+#pgBpJogadores .bpg-svg .pt { fill: var(--tinta3); fill-opacity: .55; stroke: var(--fundo2); stroke-width: 2; cursor: pointer; }
+#pgBpJogadores .bpg-svg .pt.dest { fill: var(--coral-cl); fill-opacity: 1; }
+#pgBpJogadores .bpg-svg .pt:hover { fill-opacity: 1; stroke: var(--tinta); }
+#pgBpJogadores .bpg-svg .lab { fill: var(--tinta); font-size: 11.5px; font-weight: 600; }
+#pgBpJogadores .bpg-svg .lab2 { fill: var(--tinta); font-size: 12px; }
+#pgBpJogadores .bpg-svg .val { fill: var(--tinta2); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+#pgBpJogadores .bpg-svg .bar { fill: var(--coral-cl); cursor: pointer; }
+#pgBpJogadores .bpg-svg .bar:hover { fill-opacity: .8; }
+.bpg-tip { position: fixed; z-index: 9999; display: none; pointer-events: none; background: var(--fundo3); color: var(--tinta);
+  border: 1px solid var(--borda2); border-radius: 8px; padding: 8px 10px; font: 12px/1.45 var(--fonte); box-shadow: 0 6px 18px #0006; max-width: 320px; }

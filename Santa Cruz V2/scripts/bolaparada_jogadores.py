@@ -94,7 +94,7 @@ def main():
         return d[cols + (cobc if col == "indice_cobrador" else finc) + extra].head(n)
     merc = {"1_serie_B": sb, "1b_serie_A": lg[lg.mercado == "Série A"], "2_sul_americanas": lg[lg.mercado == "Sul-americano"],
             "3_sulam_no_exterior": lg[(lg.mercado == "Exterior") & lg.sul_americano & lg.liga.isin(ALCANCAVEIS)]}
-    md = ["# Especialistas de bola parada\n", "Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 33. Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis.\n"]
+    md = ["# Especialistas de bola parada\n", "Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 33. Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis. Série A fora das recomendações (23/09); nomes vetados e valor acima de € 2 MM fora. Na Série B, as colunas de assistências e gols de bola parada vêm do Sofascore (2024–26).\n"]
     with pd.ExcelWriter(os.path.join(out, "bola_parada_especialistas.xlsx")) as w:
         for nome, d in merc.items():
             ex = ["cobrador_2025", "escanteios_2025"] + BP_COB if nome == "1_serie_B" else []
@@ -105,18 +105,30 @@ def main():
             arred = lambda t: t.round({k: casas.get(k, 1) for k in t.columns})
             arred(c).to_excel(w, nome[:18] + "_cobr", index=False)
             arred(f_).to_excel(w, nome[:18] + "_final", index=False)
-            md.append(f"\n## {nome.replace('_', ' ')}\n\n**Cobradores**\n")
-            for _, r in c.head(10).iterrows():
-                rep = f" · 2025: {r.cobrador_2025:.0f}" if ex and pd.notna(r.get("cobrador_2025")) else ""
-                if BP_COB and nome == "1_serie_B":
-                    rep += f" · Sofascore: {r.assist_bp_2026:.0f} assistências de bola parada em 2026, {r.assist_bp_3t:.0f} em 2024–26 ({r.gols_falta_direta_3t:.0f} gols de falta direta)"
-                md.append(f"- {r.jogador} ({r.pos11}) — {r.clube}, {r.liga}, {int(r.idade)} anos, {int(r.minutos)} min · índice {r.indice_cobrador:.0f}{rep} · {n0(r.escanteios_temporada)} escanteios, {n0(r.faltas_cobradas_temporada)} faltas ({n0(r.faltas_diretas_temporada)} diretas), xA/90 {r['xA per 90']:.2f} · contrato {r.contrato if pd.notna(r.contrato) else '—'}")
-            md.append("\n**Finalizadores aéreos**\n")
-            for _, r in f_.head(10).iterrows():
-                rep = f" · 2025: {r.finalizador_2025:.0f} ({n0(r.gols_cabeca_2025)} de cabeça)" if nome == "1_serie_B" and pd.notna(r.get("finalizador_2025")) else ""
-                if BP_FIN and nome == "1_serie_B":
-                    rep += f" · Sofascore: {r.gols_bp_2026:.0f} gols de bola parada em 2026, {r.gols_bp_3t:.0f} em 2024–26 ({r.gols_bp_cabeca_3t:.0f} de cabeça; xG de bola parada 2025–26 {r.xg_bp_3t:.1f})"
-                md.append(f"- {r.jogador} ({r.pos11}) — {r.clube}, {r.liga}, {int(r.idade)} anos, {int(r.minutos)} min · índice {r.indice_finalizador:.0f}{rep} · {n0(r['Head goals'])} gols de cabeça, {n0(r['Aerial duels won, %'])}% aéreos ganhos em {r['Aerial duels per 90']:.1f}/90, {r.Height if pd.notna(r.Height) else '—'} cm · contrato {r.contrato if pd.notna(r.contrato) else '—'}")
+            TIT = {"1_serie_B": "Série B", "1b_serie_A": "Série A", "2_sul_americanas": "Ligas sul-americanas",
+                   "3_sulam_no_exterior": "Sul-americanos no exterior"}
+            if nome == "1b_serie_A":
+                continue            # Série A fora das recomendações (23/09); a planilha ainda a tem
+            sb_ = nome == "1_serie_B"
+            dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if pd.notna(c) and len(str(c)) >= 10 else "—"
+            md.append(f"\n## {TIT.get(nome, nome)}\n\n### Cobradores\n")
+            cab = ["#", "Jogador", "Pos", "Clube"] + ([] if sb_ else ["Liga"]) + ["Idade", "Índice"] + (["2025"] if sb_ else []) + \
+                  ["Escanteios", "Faltas (diretas)", "xA/90 (todos os passes)"] + (["Assist. BP 26", "Assist. BP 24–26", "Gols falta dir."] if BP_COB and sb_ else []) + ["Contrato"]
+            md.append("| " + " | ".join(cab) + " |\n|" + "---|" * len(cab))
+            for n, (_, r) in enumerate(c.head(10).iterrows(), 1):
+                cel = [str(n), f"**{r.jogador}**", r.pos11, str(r.clube)] + ([] if sb_ else [str(r.liga)]) + [str(int(r.idade)), f"{r.indice_cobrador:.0f}"] + \
+                      ([n0(r.get("cobrador_2025"))] if sb_ else []) + [n0(r.escanteios_temporada), f"{n0(r.faltas_cobradas_temporada)} ({n0(r.faltas_diretas_temporada)})", f"{r['xA per 90']:.2f}"] + \
+                      ([n0(r.assist_bp_2026), n0(r.assist_bp_3t), n0(r.gols_falta_direta_3t)] if BP_COB and sb_ else []) + [dt(r.contrato)]
+                md.append("| " + " | ".join(cel) + " |")
+            md.append("\n### Finalizadores aéreos\n")
+            cab = ["#", "Jogador", "Pos", "Clube"] + ([] if sb_ else ["Liga"]) + ["Idade", "Índice"] + (["2025"] if sb_ else []) + \
+                  ["Gols de cabeça", "Aéreos ganhos %", "Aéreos/90", "Altura"] + (["Gols BP 26", "Gols BP 24–26", "de cabeça", "xG BP 25–26"] if BP_FIN and sb_ else []) + ["Contrato"]
+            md.append("| " + " | ".join(cab) + " |\n|" + "---|" * len(cab))
+            for n, (_, r) in enumerate(f_.head(10).iterrows(), 1):
+                cel = [str(n), f"**{r.jogador}**", r.pos11, str(r.clube)] + ([] if sb_ else [str(r.liga)]) + [str(int(r.idade)), f"{r.indice_finalizador:.0f}"] + \
+                      ([n0(r.get("finalizador_2025"))] if sb_ else []) + [n0(r['Head goals']), n0(r['Aerial duels won, %']), f"{r['Aerial duels per 90']:.1f}", n0(r.Height)] + \
+                      ([n0(r.gols_bp_2026), n0(r.gols_bp_3t), n0(r.gols_bp_cabeca_3t), f"{r.xg_bp_3t:.1f}"] if BP_FIN and sb_ else []) + [dt(r.contrato)]
+                md.append("| " + " | ".join(cel) + " |")
     open(os.path.join(out, "BOLA_PARADA.md"), "w").write("\n".join(md))
     print("\n".join(md[:60]))
 

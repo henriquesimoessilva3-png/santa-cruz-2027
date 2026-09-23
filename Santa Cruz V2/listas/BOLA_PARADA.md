@@ -1,116 +1,100 @@
 # Especialistas de bola parada
 
-Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 33. Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis.
+Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 33. Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis. Série A fora das recomendações (23/09); nomes vetados e valor acima de € 2 MM fora. Na Série B, as colunas de assistências e gols de bola parada vêm do Sofascore (2024–26).
 
 
-## 1 serie B
+## Série B
 
-**Cobradores**
+### Cobradores
 
-- Rómulo Otero (ED) — Criciúma, Série B, 33 anos, 1477 min · índice 96 · Sofascore: 2 assistências de bola parada em 2026, 4 em 2024–26 (5 gols de falta direta) · 86 escanteios, 54 faltas (23 diretas), xA/90 0.30 · contrato 2026-12-31
-- Rafael Gava (MED) — Botafogo-SP, Série B, 33 anos, 1987 min · índice 96 · 2025: 93 · Sofascore: 4 assistências de bola parada em 2026, 9 em 2024–26 (2 gols de falta direta) · 97 escanteios, 45 faltas (8 diretas), xA/90 0.20 · contrato 2026-11-30
-- Miraíma (VOL) — São Bernardo, Série B, 26 anos, 2106 min · índice 95 · Sofascore: 1 assistências de bola parada em 2026, 1 em 2024–26 (1 gols de falta direta) · 52 escanteios, 44 faltas (8 diretas), xA/90 0.17 · contrato 2027-12-31
-- Iago Teles (EE) — Londrina, Série B, 26 anos, 1103 min · índice 92 · Sofascore: 0 assistências de bola parada em 2026, 0 em 2024–26 (0 gols de falta direta) · 37 escanteios, 20 faltas (4 diretas), xA/90 0.12 · contrato 2027-06-30
-- Dodô (MEI) — Náutico, Série B, 25 anos, 1516 min · índice 92 · 2025: 95 · Sofascore: 2 assistências de bola parada em 2026, 5 em 2024–26 (2 gols de falta direta) · 98 escanteios, 42 faltas (9 diretas), xA/90 0.34 · contrato 2026-11-30
-- Pepê (MED) — Cuiabá, Série B, 28 anos, 1571 min · índice 91 · Sofascore: 3 assistências de bola parada em 2026, 3 em 2024–26 (0 gols de falta direta) · 65 escanteios, 28 faltas (3 diretas), xA/90 0.13 · contrato 2027-12-31
-- M. Segovia (ED) — América-MG, Série B, 23 anos, 1303 min · índice 90 · Sofascore: 2 assistências de bola parada em 2026, 2 em 2024–26 (0 gols de falta direta) · 31 escanteios, 12 faltas (3 diretas), xA/90 0.25 · contrato 2026-12-31
-- D. Vera (EE) — Athletic, Série B, 23 anos, 1011 min · índice 90 · Sofascore: 0 assistências de bola parada em 2026, 0 em 2024–26 (0 gols de falta direta) · 22 escanteios, 14 faltas (3 diretas), xA/90 0.17 · contrato 2026-12-31
-- Chrystian Barletta (ED) — Sport, Série B, 25 anos, 1991 min · índice 90 · Sofascore: 0 assistências de bola parada em 2026, 2 em 2024–26 (0 gols de falta direta) · 50 escanteios, 18 faltas (3 diretas), xA/90 0.22 · contrato 2029-07-31
-- Maílton (LD) — Fortaleza, Série B, 28 anos, 1838 min · índice 90 · 2025: 91 · Sofascore: 1 assistências de bola parada em 2026, 1 em 2024–26 (2 gols de falta direta) · 67 escanteios, 38 faltas (8 diretas), xA/90 0.22 · contrato 2027-12-31
+| # | Jogador | Pos | Clube | Idade | Índice | 2025 | Escanteios | Faltas (diretas) | xA/90 (todos os passes) | Assist. BP 26 | Assist. BP 24–26 | Gols falta dir. | Contrato |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **Rómulo Otero** | ED | Criciúma | 33 | 96 | — | 86 | 54 (23) | 0.30 | 2 | 4 | 5 | 31/12/26 |
+| 2 | **Rafael Gava** | MED | Botafogo-SP | 33 | 96 | 93 | 97 | 45 (8) | 0.20 | 4 | 9 | 2 | 30/11/26 |
+| 3 | **Miraíma** | VOL | São Bernardo | 26 | 95 | — | 52 | 44 (8) | 0.17 | 1 | 1 | 1 | 31/12/27 |
+| 4 | **Iago Teles** | EE | Londrina | 26 | 92 | — | 37 | 20 (4) | 0.12 | 0 | 0 | 0 | 30/06/27 |
+| 5 | **Dodô** | MEI | Náutico | 25 | 92 | 95 | 98 | 42 (9) | 0.34 | 2 | 5 | 2 | 30/11/26 |
+| 6 | **Pepê** | MED | Cuiabá | 28 | 91 | — | 65 | 28 (3) | 0.13 | 3 | 3 | 0 | 31/12/27 |
+| 7 | **M. Segovia** | ED | América-MG | 23 | 90 | — | 31 | 12 (3) | 0.25 | 2 | 2 | 0 | 31/12/26 |
+| 8 | **D. Vera** | EE | Athletic | 23 | 90 | — | 22 | 14 (3) | 0.17 | 0 | 0 | 0 | 31/12/26 |
+| 9 | **Chrystian Barletta** | ED | Sport | 25 | 90 | — | 50 | 18 (3) | 0.22 | 0 | 2 | 0 | 31/07/29 |
+| 10 | **Maílton** | LD | Fortaleza | 28 | 90 | 91 | 67 | 38 (8) | 0.22 | 1 | 1 | 2 | 31/12/27 |
 
-**Finalizadores aéreos**
+### Finalizadores aéreos
 
-- Luiz Otávio (ZE) — Ceará, Série B, 33 anos, 1988 min · índice 92 · Sofascore: 2 gols de bola parada em 2026, 5 em 2024–26 (4 de cabeça; xG de bola parada 2025–26 1.4) · 2 gols de cabeça, 63% aéreos ganhos em 5.5/90, 194.0 cm · contrato 2026-12-31
-- Vilar (ZE) — Botafogo-SP, Série B, 26 anos, 2612 min · índice 91 · 2025: 90 (1 de cabeça) · Sofascore: 3 gols de bola parada em 2026, 4 em 2024–26 (3 de cabeça; xG de bola parada 2025–26 4.0) · 2 gols de cabeça, 67% aéreos ganhos em 5.0/90, 190.0 cm · contrato 2026-11-30
-- Alisson Safira (CA) — Juventude, Série B, 31 anos, 1585 min · índice 88 · 2025: 56 (0 de cabeça) · Sofascore: 2 gols de bola parada em 2026, 2 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 2.4) · 3 gols de cabeça, 52% aéreos ganhos em 6.3/90, 185.0 cm · contrato 2027-12-31
-- Matheus Bianqui (MED) — Novorizontino, Série B, 28 anos, 1299 min · índice 88 · Sofascore: 2 gols de bola parada em 2026, 2 em 2024–26 (2 de cabeça; xG de bola parada 2025–26 2.4) · 1 gols de cabeça, 66% aéreos ganhos em 5.3/90, 187.0 cm · contrato 2026-12-31
-- Yago Lincoln (ZD) — Londrina, Série B, 23 anos, 2039 min · índice 85 · Sofascore: 1 gols de bola parada em 2026, 1 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 1.9) · 1 gols de cabeça, 68% aéreos ganhos em 4.5/90, 190.0 cm · contrato 2030-06-30
-- Dudu (VOL) — Vila Nova, Série B, 24 anos, 1685 min · índice 84 · Sofascore: 3 gols de bola parada em 2026, 3 em 2024–26 (2 de cabeça; xG de bola parada 2025–26 1.1) · 2 gols de cabeça, 57% aéreos ganhos em 4.2/90, 180.0 cm · contrato 2029-11-30
-- Messias (ZD) — Juventude, Série B, 31 anos, 1645 min · índice 84 · 2025: 91 (2 de cabeça) · Sofascore: 1 gols de bola parada em 2026, 3 em 2024–26 (3 de cabeça; xG de bola parada 2025–26 1.6) · 1 gols de cabeça, 67% aéreos ganhos em 3.7/90, 192.0 cm · contrato 2027-12-31
-- Gabriel Pinheiro (ZD) — Juventude, Série B, 29 anos, 1236 min · índice 83 · 2025: 82 (1 de cabeça) · Sofascore: 1 gols de bola parada em 2026, 1 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 0.8) · 1 gols de cabeça, 70% aéreos ganhos em 3.1/90, — cm · contrato 2026-12-31
-- Kadu (EE) — Goiás, Série B, 24 anos, 1348 min · índice 82 · Sofascore: 2 gols de bola parada em 2026, 2 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 0.7) · 2 gols de cabeça, 40% aéreos ganhos em 5.0/90, — cm · contrato 2026-12-15
-- Mikael (CA) — CRB, Série B, 27 anos, 2236 min · índice 81 · 2025: 76 (3 de cabeça) · Sofascore: 3 gols de bola parada em 2026, 4 em 2024–26 (3 de cabeça; xG de bola parada 2025–26 2.6) · 5 gols de cabeça, 48% aéreos ganhos em 3.3/90, 184.0 cm · contrato 2027-11-30
+| # | Jogador | Pos | Clube | Idade | Índice | 2025 | Gols de cabeça | Aéreos ganhos % | Aéreos/90 | Altura | Gols BP 26 | Gols BP 24–26 | de cabeça | xG BP 25–26 | Contrato |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **Luiz Otávio** | ZE | Ceará | 33 | 92 | — | 2 | 63 | 5.5 | 194 | 2 | 5 | 4 | 1.4 | 31/12/26 |
+| 2 | **Vilar** | ZE | Botafogo-SP | 26 | 91 | 90 | 2 | 67 | 5.0 | 190 | 3 | 4 | 3 | 4.0 | 30/11/26 |
+| 3 | **Alisson Safira** | CA | Juventude | 31 | 88 | 56 | 3 | 52 | 6.3 | 185 | 2 | 2 | 1 | 2.4 | 31/12/27 |
+| 4 | **Matheus Bianqui** | MED | Novorizontino | 28 | 88 | — | 1 | 66 | 5.3 | 187 | 2 | 2 | 2 | 2.4 | 31/12/26 |
+| 5 | **Yago Lincoln** | ZD | Londrina | 23 | 85 | — | 1 | 68 | 4.5 | 190 | 1 | 1 | 1 | 1.9 | 30/06/30 |
+| 6 | **Dudu** | VOL | Vila Nova | 24 | 84 | — | 2 | 57 | 4.2 | 180 | 3 | 3 | 2 | 1.1 | 30/11/29 |
+| 7 | **Messias** | ZD | Juventude | 31 | 84 | 91 | 1 | 67 | 3.7 | 192 | 1 | 3 | 3 | 1.6 | 31/12/27 |
+| 8 | **Gabriel Pinheiro** | ZD | Juventude | 29 | 83 | 82 | 1 | 70 | 3.1 | — | 1 | 1 | 1 | 0.8 | 31/12/26 |
+| 9 | **Kadu** | EE | Goiás | 24 | 82 | — | 2 | 40 | 5.0 | — | 2 | 2 | 1 | 0.7 | 15/12/26 |
+| 10 | **Mikael** | CA | CRB | 27 | 81 | 76 | 5 | 48 | 3.3 | 184 | 3 | 4 | 3 | 2.6 | 30/11/27 |
 
-## 1b serie A
+## Ligas sul-americanas
 
-**Cobradores**
+### Cobradores
 
-- R. Garro (MEI) — Corinthians, Brasil A, 28 anos, 1682 min · índice 96 · 63 escanteios, 36 faltas (8 diretas), xA/90 0.19 · contrato 2028-12-31
-- Andreas Pereira (MED) — Palmeiras, Brasil A, 30 anos, 1920 min · índice 95 · 88 escanteios, 32 faltas (5 diretas), xA/90 0.19 · contrato 2028-12-31
-- Giorgian de Arrascaeta (MEI) — Flamengo, Brasil A, 32 anos, 1061 min · índice 94 · 30 escanteios, 23 faltas (3 diretas), xA/90 0.25 · contrato 2028-12-31
-- Matheus Pereira (MEI) — Cruzeiro, Brasil A, 30 anos, 1914 min · índice 92 · 73 escanteios, 30 faltas (9 diretas), xA/90 0.21 · contrato 2028-12-31
-- Vitor Bueno (CA) — Remo, Brasil A, 31 anos, 980 min · índice 92 · 35 escanteios, 13 faltas (4 diretas), xA/90 0.18 · contrato 2027-12-31
-- Luciano Juba (LE) — Bahia, Brasil A, 26 anos, 1736 min · índice 89 · 25 escanteios, 18 faltas (4 diretas), xA/90 0.09 · contrato 2029-12-31
-- L. Esquivel (ZE) — Athletico Paranaense, Brasil A, 24 anos, 1456 min · índice 87 · 35 escanteios, 29 faltas (6 diretas), xA/90 0.13 · contrato 2029-06-30
-- Pedro Gabriel (LE) — Grêmio, Brasil A, 19 anos, 933 min · índice 85 · 9 escanteios, 7 faltas (1 diretas), xA/90 0.09 · contrato 2028-12-31
-- J. Rojas (CA) — Vasco da Gama, Brasil A, 23 anos, 934 min · índice 84 · 27 escanteios, 6 faltas (1 diretas), xA/90 0.12 · contrato 2028-06-30
-- Matheuzinho (EE) — Vitória, Brasil A, 28 anos, 1433 min · índice 84 · 20 escanteios, 16 faltas (1 diretas), xA/90 0.05 · contrato 2029-12-31
+| # | Jogador | Pos | Clube | Liga | Idade | Índice | Escanteios | Faltas (diretas) | xA/90 (todos os passes) | Contrato |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **N. Schelotto** | MED | Gimnasia La Plata | Argentina A | 19 | 96 | 62 | 48 (11) | 0.17 | 31/12/27 |
+| 2 | **H. Villamayor** | ED | Sportivo San Lorenzo | Paraguai | 31 | 96 | 38 | 35 (6) | 0.29 | — |
+| 3 | **A. Montero** | MED | Estudiantes de Mérida | Venezuela | 32 | 96 | 40 | 24 (3) | 0.18 | 31/12/26 |
+| 4 | **J. Sornoza** | MED | Independiente del Valle | Equador A | 32 | 96 | 75 | 20 (9) | 0.23 | 31/12/26 |
+| 5 | **F. Espinal** | EE | Zamora | Venezuela | 28 | 95 | 42 | 29 (6) | 0.30 | 31/12/26 |
+| 6 | **E. Cardona** | MEI | Atlético Nacional | Colombia A | 33 | 95 | 37 | 18 (7) | 0.22 | 30/06/27 |
+| 7 | **K. Álvarez** | MEI | Patriotas Boyacá | Colombia B | 21 | 95 | 58 | 26 (8) | 0.12 | — |
+| 8 | **S. Villa** | CA | Boca Juniors | Argentina A | 30 | 95 | 52 | 41 (6) | 0.35 | 31/12/30 |
+| 9 | **Y. Guzmán** | CA | América de Cali | Colombia A | 28 | 94 | 50 | 33 (9) | 0.18 | 31/12/28 |
+| 10 | **N. Quagliata** | MEI | Melgar | Peru | 27 | 94 | 60 | 35 (16) | 0.40 | 31/12/29 |
 
-**Finalizadores aéreos**
+### Finalizadores aéreos
 
-- David Duarte (ZD) — Bahia, Brasil A, 31 anos, 1633 min · índice 97 · 2 gols de cabeça, 80% aéreos ganhos em 4.8/90, 193 cm · contrato 2027-12-31
-- João Victor (ZD) — Mirassol, Brasil A, 28 anos, 2261 min · índice 94 · 2 gols de cabeça, 71% aéreos ganhos em 4.2/90, 188 cm · contrato 2027-12-31
-- Ignácio (ZD) — Fluminense, Brasil A, 29 anos, 920 min · índice 94 · 2 gols de cabeça, 63% aéreos ganhos em 4.0/90, 190 cm · contrato 2028-06-30
-- Tiago Cóser (ZD) — Coritiba, Brasil A, 22 anos, 1549 min · índice 90 · 2 gols de cabeça, 64% aéreos ganhos em 3.2/90, 187 cm · contrato 2027-12-31
-- Cauan Barros (MED) — Vasco da Gama, Brasil A, 22 anos, 1435 min · índice 86 · 2 gols de cabeça, 58% aéreos ganhos em 4.5/90, 175 cm · contrato 2027-12-31
-- Willian Machado (ZE) — Mirassol, Brasil A, 29 anos, 1694 min · índice 86 · 1 gols de cabeça, 72% aéreos ganhos em 3.8/90, 186 cm · contrato 2028-12-31
-- Jacy (ZE) — Coritiba, Brasil A, 29 anos, 1711 min · índice 86 · 1 gols de cabeça, 60% aéreos ganhos em 4.6/90, 192 cm · contrato 2028-12-31
-- J. Aguirre (ZD) — Athletico Paranaense, Brasil A, 29 anos, 1708 min · índice 84 · 1 gols de cabeça, 64% aéreos ganhos em 4.0/90, 185 cm · contrato 2027-12-31
-- Léo Ortiz (ZD) — Flamengo, Brasil A, 30 anos, 1618 min · índice 84 · 1 gols de cabeça, 69% aéreos ganhos em 3.0/90, 185 cm · contrato 2028-12-31
-- Viery (ZE) — Grêmio, Brasil A, 21 anos, 1323 min · índice 82 · 1 gols de cabeça, 57% aéreos ganhos em 3.1/90, 187 cm · contrato 2031-06-30
+| # | Jogador | Pos | Clube | Liga | Idade | Índice | Gols de cabeça | Aéreos ganhos % | Aéreos/90 | Altura | Contrato |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **G. Fratta** | ZD | Deportivo Táchira | Venezuela | 30 | 97 | 3 | 78 | 4.1 | 188 | 31/12/26 |
+| 2 | **B. Duarte** | ZE | UTC Cajamarca | Peru | 31 | 95 | 2 | 75 | 5.7 | 190 | — |
+| 3 | **F. Molina** | ZD | Unión Magdalena | Colombia B | 22 | 94 | 4 | 59 | 5.5 | 185 | 31/12/26 |
+| 4 | **K. Ceceri** | ZE | San Miguel | Argentina B | 30 | 94 | 2 | 70 | 6.8 | 190 | 31/12/26 |
+| 5 | **S. Morales** | ZE | Aucas | Equador A | 24 | 92 | 2 | 64 | 3.6 | 189 | 31/12/26 |
+| 6 | **M. Guanini** | ZE | Gimnasia y Tiro | Argentina B | 30 | 92 | 2 | 80 | 5.0 | 191 | 31/12/26 |
+| 7 | **M. Estrada** | CA | LDU Quito | Equador A | 30 | 92 | 3 | 56 | 5.0 | 187 | 30/06/27 |
+| 8 | **A. Macelli** | VOL | Cerro | Uruguai | 28 | 92 | 3 | 72 | 5.2 | 178 | 31/12/26 |
+| 9 | **J. Rodríguez Silva** | ZE | Comerciantes Unidos | Peru | 29 | 92 | 2 | 64 | 4.8 | 184 | 31/12/26 |
+| 10 | **Y. Mosquera** | ZD | Jaguares de Córdoba | Colombia A | 31 | 91 | 1 | 67 | 3.7 | 192 | — |
 
-## 2 sul americanas
+## Sul-americanos no exterior
 
-**Cobradores**
+### Cobradores
 
-- N. Schelotto (MED) — Gimnasia La Plata, Argentina A, 19 anos, 1422 min · índice 96 · 62 escanteios, 48 faltas (11 diretas), xA/90 0.17 · contrato 2027-12-31
-- H. Villamayor (ED) — Sportivo San Lorenzo, Paraguai, 31 anos, 1060 min · índice 96 · 38 escanteios, 35 faltas (6 diretas), xA/90 0.29 · contrato —
-- A. Montero (MED) — Estudiantes de Mérida, Venezuela, 32 anos, 939 min · índice 96 · 40 escanteios, 24 faltas (3 diretas), xA/90 0.18 · contrato 2026-12-31
-- J. Sornoza (MED) — Independiente del Valle, Equador A, 32 anos, 1589 min · índice 96 · 75 escanteios, 20 faltas (9 diretas), xA/90 0.23 · contrato 2026-12-31
-- F. Espinal (EE) — Zamora, Venezuela, 28 anos, 1085 min · índice 95 · 42 escanteios, 29 faltas (6 diretas), xA/90 0.30 · contrato 2026-12-31
-- E. Cardona (MEI) — Atlético Nacional, Colombia A, 33 anos, 1128 min · índice 95 · 37 escanteios, 18 faltas (7 diretas), xA/90 0.22 · contrato 2027-06-30
-- K. Álvarez (MEI) — Patriotas Boyacá, Colombia B, 21 anos, 1369 min · índice 95 · 58 escanteios, 26 faltas (8 diretas), xA/90 0.12 · contrato —
-- S. Villa (CA) — Boca Juniors, Argentina A, 30 anos, 1478 min · índice 95 · 52 escanteios, 41 faltas (6 diretas), xA/90 0.35 · contrato 2030-12-31
-- Y. Guzmán (CA) — América de Cali, Colombia A, 28 anos, 2055 min · índice 94 · 50 escanteios, 33 faltas (9 diretas), xA/90 0.18 · contrato 2028-12-31
-- N. Quagliata (MEI) — Melgar, Peru, 27 anos, 1510 min · índice 94 · 60 escanteios, 35 faltas (16 diretas), xA/90 0.40 · contrato 2029-12-31
+| # | Jogador | Pos | Clube | Liga | Idade | Índice | Escanteios | Faltas (diretas) | xA/90 (todos os passes) | Contrato |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **Hernani** | MEI | Monza | Italia B | 32 | 95 | 47 | 36 (10) | 0.12 | 30/06/27 |
+| 2 | **Caio Ferreira** | ED | Argeș | Romenia | 25 | 95 | 32 | 23 (5) | 0.21 | 31/12/28 |
+| 3 | **J. Brunetta** | MEI | Tigres UANL | Mexico | 29 | 95 | 96 | 56 (14) | 0.17 | 31/12/27 |
+| 4 | **Robson** | MED | A'Ali | Bahrain | 30 | 94 | 44 | 39 (13) | 0.10 | — |
+| 5 | **A. Palavecino** | MED | Cruz Azul | Mexico | 29 | 94 | 106 | 48 (8) | 0.21 | 31/12/29 |
+| 6 | **Heitor** | LD | Portimonense | Portugal B | 25 | 94 | 34 | 29 (5) | 0.15 | 30/06/26 |
+| 7 | **D. González** | ED | Atlas | Mexico | 23 | 94 | 65 | 82 (14) | 0.22 | 30/06/28 |
+| 8 | **Evander** | MEI | Cincinnati | EUA | 28 | 93 | 64 | 30 (9) | 0.32 | 31/12/27 |
+| 9 | **J. Bartolo** | CA | Asteras Tripolis | Grecia | 30 | 93 | 104 | 52 (8) | 0.21 | 30/06/26 |
+| 10 | **Arthur Rezende** | MED | Muharraq | Bahrain | 32 | 93 | 56 | 24 (9) | 0.16 | — |
 
-**Finalizadores aéreos**
+### Finalizadores aéreos
 
-- G. Fratta (ZD) — Deportivo Táchira, Venezuela, 30 anos, 1528 min · índice 97 · 3 gols de cabeça, 78% aéreos ganhos em 4.1/90, 188 cm · contrato 2026-12-31
-- B. Duarte (ZE) — UTC Cajamarca, Peru, 31 anos, 1992 min · índice 95 · 2 gols de cabeça, 75% aéreos ganhos em 5.7/90, 190 cm · contrato —
-- F. Molina (ZD) — Unión Magdalena, Colombia B, 22 anos, 2177 min · índice 94 · 4 gols de cabeça, 59% aéreos ganhos em 5.5/90, 185 cm · contrato 2026-12-31
-- K. Ceceri (ZE) — San Miguel, Argentina B, 30 anos, 2099 min · índice 94 · 2 gols de cabeça, 70% aéreos ganhos em 6.8/90, 190 cm · contrato 2026-12-31
-- S. Morales (ZE) — Aucas, Equador A, 24 anos, 1911 min · índice 92 · 2 gols de cabeça, 64% aéreos ganhos em 3.6/90, 189 cm · contrato 2026-12-31
-- M. Guanini (ZE) — Gimnasia y Tiro, Argentina B, 30 anos, 2131 min · índice 92 · 2 gols de cabeça, 80% aéreos ganhos em 5.0/90, 191 cm · contrato 2026-12-31
-- M. Estrada (CA) — LDU Quito, Equador A, 30 anos, 1133 min · índice 92 · 3 gols de cabeça, 56% aéreos ganhos em 5.0/90, 187 cm · contrato 2027-06-30
-- A. Macelli (VOL) — Cerro, Uruguai, 28 anos, 2232 min · índice 92 · 3 gols de cabeça, 72% aéreos ganhos em 5.2/90, 178 cm · contrato 2026-12-31
-- J. Rodríguez Silva (ZE) — Comerciantes Unidos, Peru, 29 anos, 1975 min · índice 92 · 2 gols de cabeça, 64% aéreos ganhos em 4.8/90, 184 cm · contrato 2026-12-31
-- Y. Mosquera (ZD) — Jaguares de Córdoba, Colombia A, 31 anos, 1112 min · índice 91 · 1 gols de cabeça, 67% aéreos ganhos em 3.7/90, 192 cm · contrato —
-
-## 3 sulam no exterior
-
-**Cobradores**
-
-- Hernani (MEI) — Monza, Italia B, 32 anos, 1382 min · índice 95 · 47 escanteios, 36 faltas (10 diretas), xA/90 0.12 · contrato 2027-06-30
-- Caio Ferreira (ED) — Argeș, Romenia, 25 anos, 1326 min · índice 95 · 32 escanteios, 23 faltas (5 diretas), xA/90 0.21 · contrato 2028-12-31
-- J. Brunetta (MEI) — Tigres UANL, Mexico, 29 anos, 3548 min · índice 95 · 96 escanteios, 56 faltas (14 diretas), xA/90 0.17 · contrato 2027-12-31
-- Robson (MED) — A'Ali, Bahrain, 30 anos, 1896 min · índice 94 · 44 escanteios, 39 faltas (13 diretas), xA/90 0.10 · contrato —
-- A. Palavecino (MED) — Cruz Azul, Mexico, 29 anos, 3557 min · índice 94 · 106 escanteios, 48 faltas (8 diretas), xA/90 0.21 · contrato 2029-12-31
-- Heitor (LD) — Portimonense, Portugal B, 25 anos, 1413 min · índice 94 · 34 escanteios, 29 faltas (5 diretas), xA/90 0.15 · contrato 2026-06-30
-- D. González (ED) — Atlas, Mexico, 23 anos, 2899 min · índice 94 · 65 escanteios, 82 faltas (14 diretas), xA/90 0.22 · contrato 2028-06-30
-- Evander (MEI) — Cincinnati, EUA, 28 anos, 1683 min · índice 93 · 64 escanteios, 30 faltas (9 diretas), xA/90 0.32 · contrato 2027-12-31
-- J. Bartolo (CA) — Asteras Tripolis, Grecia, 30 anos, 2529 min · índice 93 · 104 escanteios, 52 faltas (8 diretas), xA/90 0.21 · contrato 2026-06-30
-- Arthur Rezende (MED) — Muharraq, Bahrain, 32 anos, 1839 min · índice 93 · 56 escanteios, 24 faltas (9 diretas), xA/90 0.16 · contrato —
-
-**Finalizadores aéreos**
-
-- Leonardo Rocha (CA) — Raków Częstochowa, Polonia, 29 anos, 1437 min · índice 94 · 3 gols de cabeça, 52% aéreos ganhos em 9.2/90, 200 cm · contrato 2028-06-30
-- Maurides (CA) — Radomiak Radom, Polonia, 32 anos, 2371 min · índice 94 · 6 gols de cabeça, 52% aéreos ganhos em 11.3/90, 189 cm · contrato 2028-06-30
-- Mascote (CA) — Botev Plovdiv, Bulgaria, 29 anos, 2034 min · índice 94 · 7 gols de cabeça, 56% aéreos ganhos em 9.6/90, 188 cm · contrato 2028-06-30
-- Rubén Alves (ZE) — Córdoba, Espanha B, 31 anos, 1834 min · índice 92 · 2 gols de cabeça, 65% aéreos ganhos em 4.5/90, 184 cm · contrato 2028-06-30
-- B. Carabalí (ZD) — Beitar Jerusalem, Israel, 27 anos, 3268 min · índice 92 · 2 gols de cabeça, 71% aéreos ganhos em 4.5/90, 188 cm · contrato 2028-06-30
-- M. Capasso (ZD) — Atlas, Mexico, 30 anos, 1947 min · índice 92 · 2 gols de cabeça, 68% aéreos ganhos em 4.3/90, 188 cm · contrato 2028-12-31
-- Arthur Bonaldo (ZD) — Sabadell, Espanha C, 30 anos, 3729 min · índice 91 · 3 gols de cabeça, 61% aéreos ganhos em 8.0/90, 181 cm · contrato —
-- Derick (ZE) — Varzim, Portugal C, 24 anos, 1172 min · índice 91 · 1 gols de cabeça, 64% aéreos ganhos em 5.9/90, 193 cm · contrato 2027-06-30
-- Joaquim (ZD) — Tigres UANL, Mexico, 27 anos, 2833 min · índice 91 · 2 gols de cabeça, 68% aéreos ganhos em 4.9/90, 190 cm · contrato 2027-06-30
-- Guilherme Garutti (ZD) — Argeș, Romenia, 32 anos, 1567 min · índice 90 · 1 gols de cabeça, 63% aéreos ganhos em 7.0/90, 194 cm · contrato —
+| # | Jogador | Pos | Clube | Liga | Idade | Índice | Gols de cabeça | Aéreos ganhos % | Aéreos/90 | Altura | Contrato |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **Leonardo Rocha** | CA | Raków Częstochowa | Polonia | 29 | 94 | 3 | 52 | 9.2 | 200 | 30/06/28 |
+| 2 | **Maurides** | CA | Radomiak Radom | Polonia | 32 | 94 | 6 | 52 | 11.3 | 189 | 30/06/28 |
+| 3 | **Mascote** | CA | Botev Plovdiv | Bulgaria | 29 | 94 | 7 | 56 | 9.6 | 188 | 30/06/28 |
+| 4 | **Rubén Alves** | ZE | Córdoba | Espanha B | 31 | 92 | 2 | 65 | 4.5 | 184 | 30/06/28 |
+| 5 | **B. Carabalí** | ZD | Beitar Jerusalem | Israel | 27 | 92 | 2 | 71 | 4.5 | 188 | 30/06/28 |
+| 6 | **M. Capasso** | ZD | Atlas | Mexico | 30 | 92 | 2 | 68 | 4.3 | 188 | 31/12/28 |
+| 7 | **Arthur Bonaldo** | ZD | Sabadell | Espanha C | 30 | 91 | 3 | 61 | 8.0 | 181 | — |
+| 8 | **Derick** | ZE | Varzim | Portugal C | 24 | 91 | 1 | 64 | 5.9 | 193 | 30/06/27 |
+| 9 | **Joaquim** | ZD | Tigres UANL | Mexico | 27 | 91 | 2 | 68 | 4.9 | 190 | 30/06/27 |
+| 10 | **Guilherme Garutti** | ZD | Argeș | Romenia | 32 | 90 | 1 | 63 | 7.0 | 194 | — |

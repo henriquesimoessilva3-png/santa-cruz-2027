@@ -11,53 +11,36 @@ em dois pontos onde ela é melhor que a B — goleiro e zagueiro pela direita jo
 estrangeiros no máximo; a B usa 2,2.
 
 ## Onze
-**Jandrei** (Juventude, 33) — nota 83, 1º goleiro da B. Alternativa argentina: **M. Miño**
-(Barracas Central, 28) — 73, 2º goleiro da Argentina A, R$ ~60. Vídeo decide (B2-5).
 
-**Ewerthon** (Atlético-GO, 25) LD — 56, 2.014 min, psv ok. Sem LD forte entre os livres: é o ponto
-fraco do mercado. Argentino: **A. Steimbach** (Gimnasia, 24) — 54, 5º LD da liga, jovem.
-
-**Gabriel Bahia** (Novorizontino, 27) ZD — 61, livre mar/27, rodou 2025 e 2026, psv ok. Titular.
-**Gabriel Pinheiro** (Juventude, 29) ZD — 57, psv ok, finalizador aéreo (índice 83, 70% aéreos).
-**C. Ferreira** (Atlético Tucumán, 23, paraguaio) ZD — 64, 4º ZD da Argentina A, N2. Terceiro
-zagueiro ou aposta de valorização.
-
-**Vilar** (Botafogo-SP, 26) ZE — 66, 2.612 min, psv ok, finalizador que repete (90 → 91). Titular.
-**A. Osella** (Independiente Rivadavia, 25) ZE — 3º ZE da Argentina A, 3 gols de cabeça, índice de
-finalizador 91; aderência baixa (36 ajustada) — é finalizador de bola parada, não o perfil de
-saída. Reserva e arma aérea.
-
-**Patrick Brey** (Botafogo-SP, 29) LE — 69, 1º LE da B, psv ok, rodou 2025. Titular.
-**Marcelo Hermes** (Criciúma, 31) LE — 56, 2.610 min. Reserva.
-
-**André Luiz** (Londrina, 31) VOL — 70, psv ok, finalizador aéreo (79 → 87). Titular.
-**Wenderson** (Náutico, 28) VOL — 61 (aderência 78, nível 44), 2.388 min. Titular ao lado.
-**Zé Gabriel** (Sport, 27) VOL — aderência 82, mas abaixo do piso de velocidade: exceção só
-com vídeo. **Patrick De Lucca** (CRB, 26) — 59, também abaixo do piso. A Argentina A não tem
-volante livre que valha (melhor nota 44).
-
-**Danielzinho** (CRB, 30) MED — 72 (87/56), cobrador; abaixo do piso, exceção assumida. Titular.
-**Crystopher** (CRB, 28) MED — 65, psv ok. **Rafael Gava** (Botafogo-SP, 33) — 61, o cobrador mais
-regular da B (93 → 96). Argentino: **I. Tapia** (Barracas Central, 27, passaporte italiano) — MED,
-cobrador índice 94 (29 escanteios + 39 faltas em 1.629 min), não ocupa vaga. Um dos dois cobradores
-reservas.
-
-**Dodô** (Náutico, 25) MEI — 71, 1º MEI da B, cobrador que repete (95 → 92), bola parada 64 no
-ranking. Contratação nº 1. Sem MEI livre na Argentina A acima de 35.
-
-**Pedro Vitor** (São Bernardo, 28) ED — 63, psv ok. Titular. **Bruno José** (Atlético-GO, 28) —
-59, finalizador aéreo (83 → 91). Argentino: **H. López** (Argentinos Juniors, 25) — 59, mas 1º ED
-da Argentina A no ranking (nível 71): é o ED de maior nível entre todos os livres, com aderência
-mediana. Se quiser nível, é ele.
-
-**Dadá Belmonte** (CRB, 29) EE — 70 (89/51), psv ok, rodou 2025 e 2026. Titular.
-**Iago Teles** (Londrina, 26) EE — 67, cobrador (índice 92), psv ok; contrato jun/27. Segundo EE.
-A Argentina A não tem outro EE livre com nível (o seguinte tem nota 45).
-
-**William Pottker** (Londrina, 32) CA — 58, psv ok, rodou 2025. Titular por falta de melhor: Mikael
-tem contrato até nov/27 e não entra aqui. A Argentina A não tem centroavante livre com nível
-(R. Auzmendi, 35º CA da liga): o reserva sai da lista sul-americana (M. Estrada, LDU; A. Alcaraz,
-Olimpia).
+| Pos | Papel | Jogador | Clube | Idade | Nota | Por quê |
+|---|---|---|---|---|---|---|
+| GOL | Titular | **Jandrei** | Juventude | 33 | 83 | 1º goleiro da B. Vídeo decide (B2-5) |
+| GOL | Alternativa | **M. Miño** | Barracas Central (ARG) | 28 | 73 | 2º goleiro da Argentina A, R$ ~60 |
+| LD | Titular | **Ewerthon** | Atlético-GO | 25 | 56 | 2.014 min, psv ok. LD é o ponto fraco do mercado de livres |
+| LD | Alternativa | **A. Steimbach** | Gimnasia (ARG) | 24 | 54 | 5º LD da liga, jovem |
+| ZD | Titular | **Gabriel Bahia** | Novorizontino | 27 | 61 | livre mar/27, rodou 2025 e 2026, psv ok |
+| ZD | Reserva | **Gabriel Pinheiro** | Juventude | 29 | 57 | psv ok, finalizador aéreo (índice 83, 70% aéreos) |
+| ZD | Aposta | **C. Ferreira** | Atlético Tucumán (ARG) | 23 | 64 | paraguaio, 4º ZD da Argentina A, N2 |
+| ZE | Titular | **Vilar** | Botafogo-SP | 26 | 66 | 2.612 min, psv ok, finalizador que repete (90 → 91) |
+| ZE | Reserva | **A. Osella** | Independiente Rivadavia (ARG) | 25 | — | 3 gols de cabeça, finalizador 91; arma aérea, não o perfil de saída |
+| LE | Titular | **Patrick Brey** | Botafogo-SP | 29 | 69 | 1º LE da B, psv ok, rodou 2025 |
+| LE | Reserva | **Marcelo Hermes** | Criciúma | 31 | 56 | 2.610 min |
+| VOL | Titular | **André Luiz** | Londrina | 31 | 70 | psv ok, finalizador aéreo (79 → 87) |
+| VOL | Titular | **Wenderson** | Náutico | 28 | 61 | aderência 78, 2.388 min |
+| VOL | Exceção | **Zé Gabriel** | Sport | 27 | — | aderência 82, abaixo do piso de velocidade: só com vídeo |
+| VOL | Exceção | **Patrick De Lucca** | CRB | 26 | 59 | também abaixo do piso |
+| MED | Titular | **Danielzinho** | CRB | 30 | 72 | cobrador; abaixo do piso, exceção assumida |
+| MED | Reserva | **Crystopher** | CRB | 28 | 65 | psv ok |
+| MED | Cobrador | **Rafael Gava** | Botafogo-SP | 33 | 61 | o cobrador mais regular da B (93 → 96), 9 assist. de BP em 2024–26 |
+| MED | Cobrador | **I. Tapia** | Barracas Central (ARG) | 27 | — | cobrador índice 94, passaporte italiano (não ocupa vaga) |
+| MEI | Titular | **Dodô** | Náutico | 25 | 71 | 1º MEI da B, cobrador que repete (95 → 92). Contratação nº 1 |
+| ED | Titular | **Pedro Vitor** | São Bernardo | 28 | 63 | psv ok |
+| ED | Reserva | **Bruno José** | Atlético-GO | 28 | 59 | finalizador aéreo (83 → 91) |
+| ED | Alternativa | **H. López** | Argentinos Juniors (ARG) | 25 | 59 | 1º ED da Argentina A no ranking (nível 71) |
+| EE | Titular | **Dadá Belmonte** | CRB | 29 | 70 | psv ok, rodou 2025 e 2026 |
+| EE | Reserva | **Iago Teles** | Londrina | 26 | 67 | cobrador (índice 92), contrato jun/27 |
+| CA | Titular | **William Pottker** | Londrina | 32 | 58 | psv ok, rodou 2025. Titular por falta de melhor livre |
+| CA | Reserva | **M. Estrada** / **A. Alcaraz** | LDU (ECU) / Olimpia (PAR) | 30 / 26 | 68 / 65 | a Argentina A não tem CA livre com nível |
 
 ## Conta
 23 contratações (11 titulares + 12 opções) + 5 mantidos = 28. Estrangeiros: Ferreira, Osella

@@ -15,7 +15,7 @@
   const ler = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
   const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
-  const st = Object.assign({ vis: 'esp', merc: 'Série B', tipo: 'cobr', pos: '', anos: 'u3', busca: '',
+  const st = Object.assign({ vis: 'graf', merc: 'Série B', tipo: 'cobr', pos: '', anos: 'u3', busca: '',
                              ordE: null, dirE: -1, ordP: 'assist_bp', dirP: -1 }, ler('bpjEstado') || {});
 
   /* rótulo, casas decimais e explicação de cada coluna das planilhas */
@@ -26,7 +26,7 @@
     escanteios_temporada: ['Escanteios', 0, 'escanteios cobrados na temporada'],
     faltas_cobradas_temporada: ['Faltas', 0, 'faltas cobradas na temporada'],
     faltas_diretas_temporada: ['Faltas dir.', 0, 'faltas diretas na temporada'],
-    'Direct free kicks on target, %': ['F. dir. no alvo %', 0], 'xA per 90': ['xA/90', 2], 'Accurate crosses, %': ['Cruz. certo %', 0],
+    'Direct free kicks on target, %': ['F. dir. no alvo %', 0], 'xA per 90': ['xA/90 (total)', 2, 'xA por 90 de TODOS os passes (Wyscout não separa bola parada); a produção real de bola parada está nas colunas azuis'], 'Accurate crosses, %': ['Cruz. certo %', 0],
     cobrador_2025: ['Índice 2025', 0, 'o mesmo índice em 2025: quem repete'], escanteios_2025: ['Esc. 2025', 0],
     assist_bp_2026: ['Assist. BP 26', 0, 'assistências em lances de bola parada na Série B 2026 (Sofascore)'],
     assist_bp_3t: ['Assist. BP 24–26', 0, 'assistências em bola parada, Série B 2024–2026 (Sofascore)'],
@@ -137,7 +137,8 @@
       '<div class="bpj-topo"><h2>Bola parada · jogadores</h2>' +
       '<p>Quem cobra e quem finaliza. Um gol de saldo de bola parada vale 0,73 ponto na temporada, e o que repete ' +
       'de um ano para o outro são as pessoas: o cobrador e o finalizador aéreo (estudo V2, Bloco 3).</p>' +
-      chips('vis', [['esp', 'Especialistas por mercado'], ['prod', 'Produção na Série B (Sofascore)']], st.vis) + '</div>' +
+      chips('vis', [['graf', 'Gráficos · Série B'], ['esp', 'Especialistas por mercado'], ['prod', 'Produção na Série B (Sofascore)']], st.vis) + '</div>' +
+      (st.vis === 'graf' ? '<div id="bpgCorpo"></div>' :
       '<div class="bpj-filtros">' +
       (st.vis === 'esp'
         ? chips('merc', D.especialistas.filter(e => e.tipo === 'cobr').map(e => [e.mercado, e.mercado]), st.merc) +
@@ -145,8 +146,9 @@
         : chips('anos', [['u3', '2024–26'], ['2026', '2026'], ['2025', '2025'], ['2024', '2024'], ['2023', '2023'], ['2022', '2022'], ['todos', '2022–26']], st.anos) +
           '<input class="bpj-busca" placeholder="Jogador ou clube…" value="' + esc(st.busca) + '">') +
       chips('pos', POS, st.pos) + '</div>' +
-      (st.vis === 'esp' ? especialistas() : producao()) +
+      (st.vis === 'esp' ? especialistas() : producao())) +
       '<p class="bpj-fonte">' + esc(D.fonte) + ' · gerado em ' + esc(D.gerado.split('-').reverse().join('/')) + '</p>';
+    if (st.vis === 'graf' && window.bpGraficos) window.bpGraficos(alvo.querySelector('#bpgCorpo'));
     const muda = (k, v) => { st[k] = v; gravar('bpjEstado', st); render(); };
     alvo.querySelectorAll('[data-vis]').forEach(b => b.onclick = () => muda('vis', b.dataset.vis));
     alvo.querySelectorAll('[data-merc]').forEach(b => b.onclick = () => { st.ordE = null; muda('merc', b.dataset.merc); });
