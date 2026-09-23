@@ -1,0 +1,89 @@
+mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nascido_em,passaporte,aderencia,aderencia_ajustada,nivel_overall,rank_na_liga,nota,nivel_bola_parada,nivel_fisico,criterios_com_dado,sul_americano,ocupa_vaga_estrangeiro,On loan,livre_2027,nivel
+Série A,Brasil A,GOL,Ronaldo,Bahia,29.0,1382,2029-12-31,1200000,Brazil,Brazil,84.1,100.0,73.03,1.0,86.5,0.0,,5,True,False,sim,False,N1
+Série A,Brasil A,GOL,Tiago Volpi,Red Bull Bragantino,35.0,1534,2026-12-31,1500000,Brazil,Brazil,70.5,86.5,71.13,2.0,78.8,0.0,,5,True,False,sim,True,N1
+Série A,Brasil A,GOL,Carlos Miguel,Palmeiras,27.0,2243,2027-06-30,0,Brazil,Brazil,67.0,83.0,65.68,5.0,74.3,0.0,,5,True,False,sim,True,N1
+Série A,Brasil A,GOL,Lucas Arcanjo,Vitória,28.0,1963,2028-12-31,1000000,Brazil,Brazil,53.4,69.4,64.9,6.0,67.2,0.0,,5,True,False,sim,False,N1
+Série A,Brasil A,GOL,Léo Vieira,Bahia,35.0,1584,2026-12-31,100000,Brazil,Brazil,65.3,81.3,49.93,14.0,65.6,0.0,,5,True,False,sim,True,N1
+Série A,Brasil A,GOL,Pedro Rangel,Coritiba,26.0,1623,2028-12-31,600000,Brazil,Brazil,56.8,72.8,50.87,11.0,61.8,0.0,,5,True,False,sim,False,N1
+Série A,Brasil A,GOL,Otávio Costa,Cruzeiro,20.0,1026,2028-12-31,0,Brazil,Brazil,67.6,83.6,39.88,19.0,61.7,0.0,,5,True,False,sim,False,N2 jovem
+Série A,Brasil A,GOL,Santos,Athletico Paranaense,36.0,2256,2026-12-31,1000000,Brazil,Brazil,48.3,64.3,58.44,7.0,61.4,0.0,,5,True,False,sim,True,N1
+Série A,Brasil A,LD,J. Rodríguez,Vasco da Gama,29.0,1199,2027-12-31,2500000,Uruguay,Uruguay,70.5,86.5,53.93,4.0,70.2,0.0,35.39,6,True,True,sim,False,N1
+Série A,Brasil A,LD,Lucas Ramon,São Paulo,32.0,1492,2027-12-31,250000,Brazil,Brazil,74.6,90.6,42.91,11.0,66.8,0.0,37.7,6,True,False,sim,False,N1
+Série A,Brasil A,LD,Igor Formiga,Mirassol,27.0,1683,2026-12-31,400000,Brazil,Brazil,65.2,81.2,49.52,6.0,65.4,0.0,41.45,6,True,False,sim,True,N1
+Série A,Brasil A,LD,Paulo Henrique,Vasco da Gama,30.0,1085,2027-12-31,1000000,Brazil,Brazil,68.9,84.9,40.04,16.0,62.5,0.0,46.11,6,True,False,sim,False,N1
+Série A,Brasil A,LD,Gilberto,Athletico Paranaense,33.0,994,2027-12-31,3000000,Brazil,Brazil,56.1,72.1,49.27,7.0,60.7,0.0,32.65,6,True,False,sim,False,N1
+Série A,Brasil A,LD,Marcelinho,Remo,28.0,1668,,0,Brazil,Brazil,54.5,70.5,39.95,17.0,55.2,0.0,38.5,6,True,False,sim,True,N1
+Série A,Brasil A,LD,Guga,Fluminense,27.0,1109,2029-12-31,3000000,Brazil,"Brazil, Portugal",50.8,66.8,42.26,14.0,54.5,0.0,37.97,6,True,False,sim,False,N1
+Série A,Brasil A,LD,A. Giay,Palmeiras,22.0,1339,2030-12-31,0,Argentina,Argentina,52.1,68.1,36.46,23.0,52.3,0.0,39.24,6,True,True,sim,False,N2 jovem
+Série A,Brasil A,ZD,Léo Ortiz,Flamengo,30.0,1618,2028-12-31,0,Brazil,Brazil,73.3,89.3,68.33,1.0,78.8,0.0,28.19,7,True,False,sim,False,N1
+Série A,Brasil A,ZD,David Duarte,Bahia,31.0,1633,2027-12-31,1000000,Brazil,Brazil,71.9,87.9,60.5,3.0,74.2,0.0,28.49,7,True,False,sim,False,N1
+Série A,Brasil A,ZD,Fabricio Bruno,Cruzeiro,30.0,2013,2030-12-31,0,Brazil,Brazil,76.4,92.4,52.42,13.0,72.4,0.0,28.39,7,True,False,sim,False,N1
+Série A,Brasil A,ZD,Bruno Gomes,Internacional,25.0,2098,2027-12-31,2500000,Brazil,"Brazil, Italy",55.2,71.2,,,71.2,,,7,True,False,sim,False,N1/N2
+Série A,Brasil A,ZD,Ignácio,Fluminense,29.0,920,2028-06-30,1500000,Brazil,Brazil,58.3,74.3,58.91,4.0,66.6,0.0,30.92,7,True,False,sim,False,N1
+Série A,Brasil A,ZD,Alix,Red Bull Bragantino,26.0,1620,2028-12-31,1000000,Brazil,Brazil,59.4,75.4,53.33,12.0,64.4,0.0,36.22,7,True,False,sim,False,N1
+Série A,Brasil A,ZD,Ruan Tressoldi,Atlético Mineiro,27.0,1875,2030-06-30,2500000,Brazil,Brazil,52.5,68.5,56.48,8.0,62.5,0.0,33.07,7,True,False,sim,False,N1
+Série A,Brasil A,ZD,João Victor,Mirassol,28.0,2261,2027-12-31,250000,Brazil,Brazil,54.3,70.3,49.99,15.0,60.1,0.0,28.65,7,True,False,sim,False,N1
+Série A,Brasil A,ZE,Alexander Barboza,Palmeiras,31.0,1445,2028-12-31,2500000,Argentina,"Argentina, Uruguay",86.4,100.0,62.54,3.0,81.3,0.0,28.22,7,True,True,sim,False,N1
+Série A,Brasil A,ZE,Viery,Grêmio,21.0,1323,2031-06-30,0,Brazil,Brazil,59.1,75.1,69.88,1.0,72.5,0.0,31.76,7,True,False,sim,False,N2 jovem
+Série A,Brasil A,ZE,Robert Renan,Vasco da Gama,22.0,2227,2028-06-30,0,Brazil,Brazil,62.9,78.9,61.56,4.0,70.2,0.0,24.25,7,True,False,sim,False,N2 jovem
+Série A,Brasil A,ZE,Léo Pereira,Flamengo,30.0,1816,2027-12-31,0,Brazil,Brazil,52.5,68.5,68.62,2.0,68.6,0.0,27.1,7,True,False,sim,False,N1
+Série A,Brasil A,ZE,J. Freytes,Fluminense,26.0,1776,2028-12-31,800000,Argentina,Argentina,64.0,80.0,55.81,10.0,67.9,0.0,28.66,7,True,True,sim,False,N1
+Série A,Brasil A,ZE,L. Esquivel,Athletico Paranaense,24.0,1456,2029-06-30,0,Argentina,Argentina,51.1,67.1,,,67.1,,,7,True,True,sim,False,N1/N2
+Série A,Brasil A,ZE,Luan Peres,Santos,32.0,1476,2027-12-31,1300000,Brazil,Brazil,59.1,75.1,56.19,8.0,65.6,0.0,23.89,7,True,False,sim,False,N1
+Série A,Brasil A,ZE,Willian Machado,Mirassol,29.0,1694,2028-12-31,100000,Brazil,Brazil,58.5,74.5,55.88,9.0,65.2,0.0,26.16,7,True,False,sim,False,N1
+Série A,Brasil A,LE,Cuiabano,Vasco da Gama,23.0,1148,2029-06-30,0,Brazil,Brazil,89.2,100.0,58.3,2.0,79.2,0.0,34.35,6,True,False,sim,False,N2 jovem
+Série A,Brasil A,LE,Renan Lodi,Atlético Mineiro,28.0,1973,2030-12-31,0,Brazil,"Brazil, Italy",75.0,91.0,42.47,15.0,66.7,0.0,47.17,6,True,False,sim,False,N1
+Série A,Brasil A,LE,Matheus Bidu,Corinthians,27.0,1753,2027-12-31,2000000,Brazil,Brazil,70.0,86.0,43.94,12.0,65.0,0.0,45.19,6,True,False,sim,False,N1
+Série A,Brasil A,LE,Juninho Capixaba,Red Bull Bragantino,29.0,1916,2028-12-31,3000000,Brazil,Brazil,58.8,74.8,49.78,6.0,62.3,0.0,44.25,6,True,False,sim,False,N1
+Série A,Brasil A,LE,Kaiki,Cruzeiro,23.0,1615,2027-12-31,0,Brazil,Brazil,64.2,80.2,44.23,11.0,62.2,0.0,41.79,6,True,False,sim,False,N2 jovem
+Série A,Brasil A,LE,Luciano Juba,Bahia,26.0,1736,2029-12-31,0,Brazil,Brazil,47.5,63.5,55.1,3.0,59.3,0.0,35.76,6,True,False,sim,False,N1
+Série A,Brasil A,LE,Guilherme Arana,Fluminense,29.0,979,2029-12-31,0,Brazil,Brazil,50.2,66.2,43.26,14.0,54.7,0.0,36.14,6,True,False,sim,False,N1
+Série A,Brasil A,LE,Matheus Bahia,Internacional,27.0,1152,2027-12-31,1200000,Brazil,Brazil,55.0,71.0,37.3,24.0,54.2,0.0,45.2,6,True,False,sim,False,N1
+Série A,Brasil A,VOL,Zé Vitor,Vitória,26.0,1133,2027-04-10,0,Brazil,Brazil,70.1,86.1,,,86.1,,,6,True,False,sim,True,N1
+Série A,Brasil A,VOL,Gerson,Cruzeiro,29.0,1705,2030-12-31,0,Brazil,Brazil,56.8,72.8,,,72.8,,,6,True,False,sim,False,N1
+Série A,Brasil A,VOL,José Aldo,Mirassol,28.0,1373,2027-12-31,50000,Brazil,Brazil,58.0,74.0,54.46,3.0,64.2,0.0,23.95,6,True,False,sim,False,N1
+Série A,Brasil A,VOL,E. Noriega,Grêmio,24.0,1345,2028-12-31,400000,Peru,Peru,75.0,91.0,34.9,21.0,63.0,0.0,19.27,6,True,True,sim,False,N1/N2
+Série A,Brasil A,VOL,Zé Welison,Remo,31.0,1341,2026-12-31,2000000,Brazil,Brazil,79.3,95.3,28.62,30.0,62.0,0.0,24.31,6,True,False,sim,True,N1
+Série A,Brasil A,VOL,Danielzinho,São Paulo,31.0,1582,2027-12-31,300000,Brazil,Brazil,67.3,83.3,40.23,13.0,61.8,0.0,27.07,6,True,False,sim,False,N1
+Série A,Brasil A,VOL,Martinelli,Fluminense,24.0,1424,2030-12-31,0,Brazil,"Brazil, Italy",59.0,75.0,42.67,9.0,58.8,0.0,25.1,6,True,False,sim,False,N1/N2
+Série A,Brasil A,VOL,C. Medina,Botafogo,24.0,1425,2029-12-31,0,Argentina,Argentina,40.1,56.1,,,56.1,,,6,True,True,sim,False,N1/N2
+Série A,Brasil A,MED,C. Oliva,Santos,30.0,1088,2028-12-31,0,Uruguay,Uruguay,64.3,80.3,,,80.3,,,6,True,True,sim,False,N1
+Série A,Brasil A,MED,Andreas Pereira,Palmeiras,30.0,1920,2028-12-31,0,Belgium,"Belgium, Brazil",81.2,97.2,51.85,8.0,74.5,0.0,46.52,6,True,False,sim,False,N1
+Série A,Brasil A,MED,Danilo,Botafogo,25.0,1495,2029-06-30,0,Brazil,Brazil,73.4,89.4,54.69,4.0,72.0,0.0,41.61,6,True,False,sim,False,N1/N2
+Série A,Brasil A,MED,Marcos Antônio,São Paulo,26.0,1415,2030-12-31,0,Brazil,Brazil,67.2,83.2,59.59,2.0,71.4,0.0,41.57,6,True,False,sim,False,N1
+Série A,Brasil A,MED,D. Bobadilla,São Paulo,25.0,1300,2027-12-31,2500000,Paraguay,Paraguay,70.5,86.5,51.87,7.0,69.2,0.0,42.78,6,True,True,sim,False,N1/N2
+Série A,Brasil A,MED,Tchê Tchê,Vasco da Gama,33.0,1133,2026-12-31,1800000,Brazil,Brazil,54.9,70.9,47.72,9.0,59.3,0.0,43.3,6,True,False,sim,True,N1
+Série A,Brasil A,MED,Paulinho,Internacional,29.0,968,2027-12-31,1000000,Brazil,Brazil,55.8,71.8,45.09,13.0,58.4,0.0,46.77,6,True,False,sim,False,N1
+Série A,Brasil A,MED,Jean Lucas,Bahia,28.0,1649,2028-12-31,0,Brazil,Brazil,52.9,68.9,45.1,12.0,57.0,0.0,47.29,6,True,False,sim,False,N1
+Série A,Brasil A,MEI,Giorgian de Arrascaeta,Flamengo,32.0,1061,2028-12-31,0,Uruguay,"Uruguay, Italy",87.0,100.0,65.85,2.0,82.9,71.8,28.66,7,True,True,sim,False,N1
+Série A,Brasil A,MEI,L. Acosta,Fluminense,32.0,1315,2029-12-31,0,Argentina,"Argentina, United States",89.0,100.0,59.39,4.0,79.7,7.17,32.88,7,True,True,sim,False,N1
+Série A,Brasil A,MEI,Matheus Pereira,Cruzeiro,30.0,1914,2028-12-31,0,Brazil,"Brazil, Portugal",77.3,93.3,55.08,7.0,74.2,32.74,40.8,7,True,False,sim,False,N1
+Série A,Brasil A,MEI,R. Garro,Corinthians,28.0,1682,2028-12-31,0,Argentina,"Argentina, Italy",65.6,81.6,55.83,6.0,68.7,41.98,36.99,7,True,True,sim,False,N1
+Série A,Brasil A,MEI,Bernard,Atlético Mineiro,33.0,1103,2027-12-31,2500000,Brazil,"Brazil, Spain",58.4,74.4,41.54,19.0,58.0,12.81,45.6,7,True,False,sim,False,N1
+Série A,Brasil A,MEI,Lucas Barbosa,Red Bull Bragantino,25.0,2021,2029-12-31,2000000,Brazil,Brazil,47.4,63.4,40.89,21.0,52.1,0.0,43.91,7,True,False,sim,False,N1/N2
+Série A,Brasil A,MEI,Victor Hugo,Atlético Mineiro,22.0,1575,2030-12-31,0,Brazil,Brazil,43.5,59.5,41.66,18.0,50.6,3.02,36.19,7,True,False,sim,False,N2 jovem
+Série A,Brasil A,MEI,Luciano,São Paulo,33.0,1432,2028-12-31,2500000,Brazil,Brazil,35.1,51.1,44.87,16.0,48.0,12.56,34.13,7,True,False,sim,False,N1
+Série A,Brasil A,ED,J. Carrascal,Flamengo,28.0,957,2029-06-30,0,Colombia,Colombia,72.7,88.7,,,88.7,,,6,True,True,sim,False,N1
+Série A,Brasil A,ED,Negueba,Mirassol,26.0,907,2027-12-31,450000,Brazil,Brazil,67.3,83.3,58.64,2.0,71.0,0.0,38.9,6,True,False,sim,False,N1
+Série A,Brasil A,ED,Keny Arroyo,Cruzeiro,20.0,1196,2029-12-31,0,Ecuador,Ecuador,63.2,79.2,55.44,5.0,67.3,0.0,48.91,6,True,True,sim,False,N2 jovem
+Série A,Brasil A,ED,Lucas Ronier,Coritiba,21.0,1579,2027-12-31,0,Brazil,Brazil,63.4,79.4,50.1,13.0,64.8,0.0,45.03,6,True,False,sim,False,N2 jovem
+Série A,Brasil A,ED,Gabriel Bontempo,Santos,21.0,1392,2030-12-31,0,Brazil,Brazil,66.8,82.8,44.97,16.0,63.9,0.0,37.28,6,True,False,sim,False,N2 jovem
+Série A,Brasil A,ED,Ademir,Bahia,31.0,1029,2026-12-31,3000000,Brazil,Brazil,62.3,78.3,46.58,15.0,62.4,0.0,54.14,6,True,False,sim,True,N1
+Série A,Brasil A,ED,Lucas Paquetà,Flamengo,28.0,1029,2030-12-31,0,Brazil,"Brazil, Portugal",45.9,61.9,,,61.9,,,6,True,False,sim,False,N1
+Série A,Brasil A,ED,J. Herrera,Red Bull Bragantino,23.0,1039,2029-12-31,0,Argentina,Argentina,62.7,78.7,43.76,17.0,61.2,0.0,43.5,6,True,True,sim,False,N2 jovem
+Série A,Brasil A,EE,Samuel Lino,Flamengo,26.0,1521,2029-12-31,0,Brazil,Brazil,78.9,94.9,65.58,1.0,80.2,0.0,52.75,6,True,False,sim,False,N1
+Série A,Brasil A,EE,A. Gómez,Vasco da Gama,23.0,1715,2031-01-31,0,Colombia,Colombia,81.7,97.7,57.58,4.0,77.6,0.0,64.04,6,True,True,sim,False,N2 jovem
+Série A,Brasil A,EE,T. Cuello,Atlético Mineiro,26.0,1526,2028-12-31,3000000,Argentina,Argentina,92.2,100.0,54.83,5.0,77.4,0.0,56.01,6,True,True,sim,False,N1
+Série A,Brasil A,EE,Henry Mosquera,Red Bull Bragantino,24.0,1298,2027-12-31,0,Colombia,Colombia,71.1,87.1,50.89,6.0,69.0,0.0,64.96,6,True,True,sim,False,N1/N2
+Série A,Brasil A,EE,K. Serna,Fluminense,28.0,1382,2028-12-31,1200000,Colombia,"Colombia, Peru",67.5,83.5,43.07,14.0,63.3,0.0,54.97,6,True,True,sim,False,N1
+Série A,Brasil A,EE,Breno Lopes,Coritiba,30.0,1527,2029-12-31,1800000,Brazil,Brazil,53.9,69.9,50.29,7.0,60.1,0.0,48.23,6,True,False,sim,False,N1
+Série A,Brasil A,EE,Jája Silva,Remo,27.0,1341,2028-12-31,500000,Brazil,Brazil,58.6,74.6,41.86,21.0,58.2,0.0,51.08,6,True,False,sim,False,N1
+Série A,Brasil A,EE,Alesson,Mirassol,27.0,1459,2028-12-31,550000,Brazil,Brazil,50.3,66.3,47.79,11.0,57.0,0.0,54.65,6,True,False,sim,False,N1
+Série A,Brasil A,CA,J. Carbonero,Internacional,27.0,1683,2029-12-31,2200000,Colombia,Colombia,64.2,80.2,62.35,2.0,71.3,0.0,55.33,6,True,True,sim,False,N1
+Série A,Brasil A,CA,Pedro,Flamengo,29.0,1904,2027-12-31,0,Brazil,Brazil,71.0,87.0,53.61,4.0,70.3,0.0,47.3,6,True,False,sim,False,N1
+Série A,Brasil A,CA,K. Viveros,Athletico Paranaense,26.0,2216,2028-06-30,0,Colombia,Colombia,71.5,87.5,45.49,9.0,66.5,0.0,61.98,6,True,True,sim,False,N1
+Série A,Brasil A,CA,R. Sosa,Palmeiras,26.0,1078,2030-06-30,0,Paraguay,"Paraguay, Argentina",50.0,66.0,,,66.0,,,6,True,True,sim,False,N1
+Série A,Brasil A,CA,Renê,Vitória,22.0,1184,2029-12-31,0,Brazil,Brazil,65.9,81.9,40.02,16.0,61.0,0.0,62.51,6,True,False,sim,False,N2 jovem
+Série A,Brasil A,CA,Kaio Jorge,Cruzeiro,24.0,1398,2030-12-31,0,Brazil,Brazil,63.4,79.4,41.24,14.0,60.3,0.0,63.98,6,True,False,sim,False,N1/N2
+Série A,Brasil A,CA,Flaco López,Palmeiras,25.0,1622,2029-12-31,0,Argentina,Argentina,45.7,61.7,48.54,8.0,55.1,0.0,55.02,6,True,True,sim,False,N1/N2
+Série A,Brasil A,CA,Alerrandro,Internacional,26.0,1077,2027-12-31,3000000,Brazil,Brazil,52.0,68.0,36.51,21.0,52.3,0.0,56.73,6,True,False,sim,False,N1

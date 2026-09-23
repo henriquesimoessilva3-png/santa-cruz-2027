@@ -49,6 +49,31 @@ def main():
     sb = indices(t[t.ano == 2026]); sb25 = indices(t[t.ano == 2025])[["chave", "idade", "indice_cobrador", "indice_finalizador", "escanteios_temporada", "Head goals"]]
     sb25["idade"] += 1; sb25 = sb25.rename(columns={"indice_cobrador": "cobrador_2025", "indice_finalizador": "finalizador_2025", "escanteios_temporada": "escanteios_2025", "Head goals": "gols_cabeca_2025"})
     sb = sb.merge(sb25.drop_duplicates(["chave", "idade"]), on=["chave", "idade"], how="left")
+    # Produção real em bola parada, pelo Sofascore (b3_bp_jogadores_sofascore.py): gols e
+    # assistências em lances de bola parada, 2026 e as três últimas temporadas (2024–2026).
+    bpf = os.path.join(BASES, "coletas", "bp_jogador_temporada.csv")
+    BP_COB, BP_FIN = [], []
+    if os.path.exists(bpf):
+        bp = pd.read_csv(bpf).dropna(subset=["chave"])
+        a26 = bp[bp.ano == 2026].groupby(["chave", "clube_wyscout"])[["assist_bp", "gols_bp", "xg_bp"]].sum().reset_index()
+        a26 = a26.rename(columns={"clube_wyscout": "clube", "assist_bp": "assist_bp_2026", "gols_bp": "gols_bp_2026", "xg_bp": "xg_bp_2026"})
+        # 2024–26 somado pela PESSOA do Sofascore (id), não pelo nome: homônimos em clubes diferentes
+        # não se misturam. O id vem do jogo de 2026 no mesmo clube; sem 2026, do nome se ele for de
+        # um id só em 2024–25.
+        b3 = bp[bp.ano >= 2024]
+        ids26 = bp[bp.ano == 2026].groupby(["chave", "clube_wyscout"]).sid.apply(set).to_dict()
+        ids_nome = b3.groupby("chave").sid.apply(set).to_dict()
+        C3 = ["assist_bp", "assist_escanteio", "gols_falta_direta", "gols_bp", "gols_bp_cabeca", "xg_bp"]
+        def tres(r):
+            ids = ids26.get((r.chave, r.clube)) or (ids_nome.get(r.chave) if len(ids_nome.get(r.chave, ())) == 1 else set())
+            x = b3[b3.sid.isin(ids or [])]
+            return pd.Series({c + "_3t": x[c].sum() for c in C3})
+        sb = sb.merge(a26, on=["chave", "clube"], how="left")
+        sb = pd.concat([sb, sb.apply(tres, axis=1)], axis=1)
+        for c in [c for c in sb.columns if c.endswith("_2026") or c.endswith("_3t")]:
+            sb[c] = sb[c].fillna(0)
+        BP_COB = ["assist_bp_2026", "assist_bp_3t", "assist_escanteio_3t", "gols_falta_direta_3t"]
+        BP_FIN = ["gols_bp_2026", "gols_bp_3t", "gols_bp_cabeca_3t", "xg_bp_3t"]  # xG: o Sofascore só tem 2025+
     rows = []
     for f in sorted(glob.glob(os.path.join(BASES, "wyscout_ligas", "xlsx_ago26", "*.xlsx"))):
         liga = os.path.basename(f).split("_", 1)[1].replace(".xlsx", "")
@@ -70,8 +95,8 @@ def main():
     md = ["# Especialistas de bola parada\n", "Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 33. Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis.\n"]
     with pd.ExcelWriter(os.path.join(out, "bola_parada_especialistas.xlsx")) as w:
         for nome, d in merc.items():
-            ex = ["cobrador_2025", "escanteios_2025"] if nome == "1_serie_B" else []
-            c = topo(d, "indice_cobrador", 25, ex); f_ = topo(d, "indice_finalizador", 25, ["finalizador_2025", "gols_cabeca_2025"] if nome == "1_serie_B" else [])
+            ex = ["cobrador_2025", "escanteios_2025"] + BP_COB if nome == "1_serie_B" else []
+            c = topo(d, "indice_cobrador", 25, ex); f_ = topo(d, "indice_finalizador", 25, ["finalizador_2025", "gols_cabeca_2025"] + BP_FIN if nome == "1_serie_B" else [])
             # taxas por 90 com 2 casas: arredondar tudo a 1 casa deixava xA/90 e gols de cabeça/90
             # em 0,1 / 0,2 / 0,3 (o índice sempre usou o valor cheio; só a planilha perdia a casa)
             casas = {k: 2 for k in ("xA per 90", "Head goals per 90", "Aerial duels per 90")}
@@ -81,10 +106,14 @@ def main():
             md.append(f"\n## {nome.replace('_', ' ')}\n\n**Cobradores**\n")
             for _, r in c.head(10).iterrows():
                 rep = f" · 2025: {r.cobrador_2025:.0f}" if ex and pd.notna(r.get("cobrador_2025")) else ""
+                if BP_COB and nome == "1_serie_B":
+                    rep += f" · Sofascore: {r.assist_bp_2026:.0f} assistências de bola parada em 2026, {r.assist_bp_3t:.0f} em 2024–26 ({r.gols_falta_direta_3t:.0f} gols de falta direta)"
                 md.append(f"- {r.jogador} ({r.pos11}) — {r.clube}, {r.liga}, {int(r.idade)} anos, {int(r.minutos)} min · índice {r.indice_cobrador:.0f}{rep} · {n0(r.escanteios_temporada)} escanteios, {n0(r.faltas_cobradas_temporada)} faltas ({n0(r.faltas_diretas_temporada)} diretas), xA/90 {r['xA per 90']:.2f} · contrato {r.contrato if pd.notna(r.contrato) else '—'}")
             md.append("\n**Finalizadores aéreos**\n")
             for _, r in f_.head(10).iterrows():
                 rep = f" · 2025: {r.finalizador_2025:.0f} ({n0(r.gols_cabeca_2025)} de cabeça)" if nome == "1_serie_B" and pd.notna(r.get("finalizador_2025")) else ""
+                if BP_FIN and nome == "1_serie_B":
+                    rep += f" · Sofascore: {r.gols_bp_2026:.0f} gols de bola parada em 2026, {r.gols_bp_3t:.0f} em 2024–26 ({r.gols_bp_cabeca_3t:.0f} de cabeça; xG de bola parada 2025–26 {r.xg_bp_3t:.1f})"
                 md.append(f"- {r.jogador} ({r.pos11}) — {r.clube}, {r.liga}, {int(r.idade)} anos, {int(r.minutos)} min · índice {r.indice_finalizador:.0f}{rep} · {n0(r['Head goals'])} gols de cabeça, {n0(r['Aerial duels won, %'])}% aéreos ganhos em {r['Aerial duels per 90']:.1f}/90, {r.Height if pd.notna(r.Height) else '—'} cm · contrato {r.contrato if pd.notna(r.contrato) else '—'}")
     open(os.path.join(out, "BOLA_PARADA.md"), "w").write("\n".join(md))
     print("\n".join(md[:60]))

@@ -1,0 +1,111 @@
+mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nascido_em,passaporte,aderencia,aderencia_ajustada,nivel_overall,rank_na_liga,nota,nivel_bola_parada,nivel_fisico,criterios_com_dado,sul_americano,ocupa_vaga_estrangeiro,On loan,livre_2027,nivel
+Exterior,Eslovaquia,GOL,A. Katić,Trenčín,24.0,2513,2027-06-30,0,Serbia,Serbia,85.3,70.3,92.84,1.0,81.6,0.0,,5,False,True,sim,True,N1/N2
+Exterior,Escocia,GOL,C. Ward,Motherwell,25.0,3612,2027-05-31,250000,England,England,85.2,70.2,87.81,1.0,79.0,0.0,,5,False,True,sim,True,N1/N2
+Exterior,Marrocos,GOL,M. Al Harrar,Raja Casablanca,25.0,2134,2027-06-30,150000,Morocco,Morocco,82.0,67.0,89.43,1.0,78.2,0.0,,5,False,True,sim,True,N1/N2
+Exterior,Suiça,GOL,A. Racioppi,Sion,27.0,3693,2029-06-30,1500000,Switzerland,"Switzerland, France",81.7,66.7,88.32,1.0,77.5,0.0,,5,False,True,sim,False,N1
+Exterior,Inglaterra B,GOL,V. Johansson,Stoke City,27.0,2486,2030-06-30,0,Sweden,Sweden,92.5,77.5,77.0,2.0,77.2,0.0,,5,False,True,sim,False,N1
+Exterior,Russia,GOL,M. Borisko,Baltika,26.0,2288,2028-06-10,400000,Russia,Russia,80.6,65.6,88.84,1.0,77.2,0.0,,5,False,True,sim,False,N1
+Exterior,EUA,GOL,B. Schwake,Nashville SC,24.0,1915,2026-12-31,200000,United States,"United States, Luxembourg",86.7,71.7,82.78,1.0,77.2,0.0,,5,False,True,sim,True,N1/N2
+Exterior,França B,GOL,Simon Ngapandouetnbu,Montpellier,23.0,3042,2028-06-30,300000,Cameroon,"Cameroon, France",81.8,66.8,84.71,1.0,75.8,0.0,,5,False,True,sim,False,N2 jovem
+Exterior,Holanda,GOL,J. De Busser,Go Ahead Eagles,26.0,3310,2027-06-30,500000,Belgium,Belgium,80.7,65.7,85.8,1.0,75.8,0.0,,5,False,True,sim,True,N1
+Exterior,Suecia,GOL,R. Wallinder,Mjällby,27.0,977,2029-12-31,300000,Sweden,Sweden,86.1,71.1,80.57,2.0,75.8,0.0,,5,False,True,sim,False,N1
+Exterior,Noruega,LD,F. Sjøvold,Bodø / Glimt,22.0,1005,2028-12-31,0,Norway,Norway,85.7,70.7,70.74,1.0,70.7,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Romenia,LD,C. Mora,Universitatea Craiova,25.0,2219,2028-06-30,400000,Costa Rica,Costa Rica,76.2,61.2,74.2,1.0,67.7,0.0,,6,False,True,sim,False,N1/N2
+Exterior,Israel,LD,Heriberto Tavares,Maccabi Netanya,29.0,2430,2027-06-30,500000,Portugal,"Portugal, Cape Verde Islands",78.0,63.0,71.91,1.0,67.5,0.0,,6,False,True,sim,True,N1
+Exterior,Alemanha B,LD,P. Joly,Kaiserslautern,25.0,2265,2027-06-30,0,France,France,82.9,67.9,61.6,2.0,64.8,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Alemanha B,LD,C. Lannert,Arminia Bielefeld,27.0,1740,2027-06-30,300000,Germany,Germany,85.7,70.7,58.43,4.0,64.6,0.0,,6,False,True,sim,True,N1
+Exterior,Tcheca,LD,A. Memić,Viktoria Plzeň,25.0,2545,2029-06-30,0,Bosnia and Herzegovina,Bosnia and Herzegovina,79.9,64.9,62.54,2.0,63.7,0.0,,6,False,True,sim,False,N1/N2
+Exterior,Grecia,LD,Costinha,Olympiacos Piraeus,26.0,1855,2029-06-30,0,Portugal,Portugal,83.1,68.1,56.82,3.0,62.5,0.0,45.59,6,False,True,sim,False,N1
+Exterior,Servia,LD,N. Stanković,Crvena Zvezda,23.0,1052,2029-06-30,0,Serbia,Serbia,71.8,56.8,67.89,1.0,62.3,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Suiça,LD,S. Janko,Young Boys,30.0,1802,2027-06-30,600000,Switzerland,"Switzerland, Gambia",79.8,64.8,58.92,3.0,61.9,0.0,52.34,6,False,True,sim,True,N1
+Exterior,Mexico,LD,R. Ledezma,Guadalajara,25.0,2458,2029-06-30,0,United States,"United States, Mexico",73.6,58.599999999999994,64.48,1.0,61.5,0.0,33.17,6,False,True,sim,False,N1/N2
+Exterior,Croacia,ZD,Sergi Domínguez,Dinamo Zagreb,21.0,2772,2029-06-30,0,Spain,Spain,84.4,69.4,79.57,1.0,74.5,0.0,,7,False,True,sim,False,N2 jovem
+Exterior,Bulgaria,ZD,L. Dellova,CSKA Sofia,27.0,2788,2027-06-30,0,Kosovo,Kosovo,77.8,62.8,69.63,2.0,66.2,0.0,,7,False,True,sim,True,N1
+Exterior,Holanda,ZD,M. van der Hoorn,Utrecht,33.0,2606,2026-06-30,1200000,Netherlands,Netherlands,81.3,66.3,63.56,3.0,64.9,0.0,29.0,7,False,True,sim,True,N1
+Exterior,Croacia,ZD,A. Majstorović,Rijeka,32.0,2897,2027-06-30,400000,Croatia,Croatia,82.0,67.0,62.5,5.0,64.8,0.0,,7,False,True,sim,True,N1
+Exterior,Romenia,ZD,O. Romanchuk,Universitatea Craiova,26.0,2957,2028-06-30,0,Ukraine,Ukraine,71.2,56.2,73.17,1.0,64.7,0.0,,7,False,True,sim,False,N1
+Exterior,Inglaterra B,ZD,T. Harwood-Bellis,Southampton,24.0,4288,2028-06-30,0,England,England,67.6,52.599999999999994,76.38,1.0,64.5,0.0,29.9,7,False,True,sim,False,N1/N2
+Exterior,Hungria,ZD,A. Temesvári,Nyíregyháza Spartacus,26.0,2150,2027-06-30,250000,Hungary,Hungary,81.9,66.9,61.49,3.0,64.2,0.0,,7,False,True,no,True,N1
+Exterior,Belgica B,ZD,B. De Kerf,Lierse Kempenzonen,22.0,1662,2029-06-30,0,Belgium,Belgium,78.2,63.2,64.07,5.0,63.6,0.0,,7,False,True,sim,False,N2 jovem
+Exterior,Marrocos,ZD,M. Louadni,FAR Rabat,31.0,1708,2027-06-30,650000,Morocco,Morocco,79.4,64.4,62.82,2.0,63.6,0.0,,7,False,True,sim,True,N1
+Exterior,Austria,ZD,D. Baumgartner,Wolfsberger AC,29.0,2375,2026-06-30,800000,Austria,Austria,73.4,58.400000000000006,68.6,2.0,63.5,0.0,31.01,7,False,True,sim,True,N1
+Exterior,Portugal B,ZE,D. Collard,Lusitania FC Lourosa,26.0,1915,2027-06-30,300000,Australia,"Australia, Mauritius",91.2,76.2,67.74,2.0,72.0,0.0,22.64,7,False,True,sim,True,N1
+Exterior,Ucrania,ZE,E. Sarapiy,Polissya,27.0,2762,2030-06-30,1500000,Ukraine,Ukraine,93.4,78.4,64.53,3.0,71.5,0.0,22.15,7,False,True,sim,False,N1
+Exterior,Eslovaquia,ZE,P. Volanakis,Zemplín Michalovce,23.0,980,2028-06-30,0,Greece,Greece,91.7,76.7,64.38,3.0,70.5,0.0,,7,False,True,sim,False,N2 jovem
+Exterior,China,ZE,E. Sorokin,Chengdu Rongcheng,30.0,1549,2026-12-31,800000,Russia,Russia,82.0,67.0,73.77,1.0,70.4,0.0,,7,False,True,sim,True,N1
+Exterior,Tcheca,ZE,D. Krčík,Viktoria Plzeň,26.0,3313,2029-06-30,200000,Slovakia,Slovakia,88.1,73.1,66.84,2.0,70.0,0.0,,7,False,True,sim,False,N1
+Exterior,Belgica B,ZE,L. Mbe Soh,Beerschot VA,24.0,1758,,0,Cameroon,"Cameroon, France",79.4,64.4,74.85,1.0,69.6,0.0,,7,False,True,sim,True,N1/N2
+Exterior,Hungria,ZE,G. Szalai,Ferencváros,26.0,2766,,0,Hungary,Hungary,82.6,67.6,70.68,1.0,69.1,0.0,,7,False,True,no,True,N1
+Exterior,Italia C,ZE,R. Nessi,Ospitaletto,25.0,3578,2027-06-30,125000,Italy,Italy,86.5,71.5,65.97,2.0,68.7,0.0,,7,False,True,sim,True,N1/N2
+Exterior,Bulgaria,ZE,Vasco Oliveira,Dobrudzha 1919,26.0,1388,2026-06-30,500000,Portugal,Portugal,89.2,74.2,62.68,7.0,68.4,0.0,,7,False,True,sim,True,N1
+Exterior,Turquia,ZE,R. van Drongelen,Samsunspor,27.0,3103,2028-06-30,1400000,Netherlands,Netherlands,73.4,58.400000000000006,75.14,1.0,66.8,0.0,28.43,7,False,True,sim,False,N1
+Exterior,Espanha B,LE,Diego Bri,Córdoba,23.0,1347,2027-06-30,500000,Spain,Spain,87.2,72.2,68.82,1.0,70.5,0.0,49.43,6,False,True,sim,True,N2 jovem
+Exterior,Servia,LE,A. Avdić,Crvena Zvezda,18.0,1588,2030-06-30,0,Serbia,"Serbia, Bosnia and Herzegovina",83.4,68.4,69.87,1.0,69.1,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Suiça,LE,R. Fernandes,Luzern,23.0,1643,2029-06-30,0,Switzerland,"Switzerland, Portugal",85.3,70.3,63.28,2.0,66.8,0.0,49.06,6,False,True,sim,False,N2 jovem
+Exterior,Romenia,LE,N. Bancu,Universitatea Craiova,33.0,2481,2028-06-30,1500000,Romania,Romania,80.0,65.0,67.31,1.0,66.2,0.0,,6,False,True,sim,False,N1
+Exterior,Portugal B,LE,Rodrigo Rêgo,Benfica II,21.0,1413,2028-06-30,0,Portugal,Portugal,83.2,68.2,62.57,1.0,65.4,0.0,50.0,6,False,True,sim,False,N2 jovem
+Exterior,Hungria,LE,M. Zeke,Paksi FC,25.0,1878,2029-06-30,300000,Hungary,Hungary,84.7,69.7,60.25,2.0,65.0,0.0,,6,False,True,no,False,N1/N2
+Exterior,Israel,LE,R. Revivo,Maccabi Tel Aviv,23.0,2750,2027-06-30,0,Israel,Israel,83.9,68.9,60.16,1.0,64.5,0.0,,6,False,True,sim,True,N2 jovem
+Exterior,Belgica B,LE,S. de Grand,Lommel SK,21.0,3143,2028-06-30,0,Netherlands,Netherlands,73.1,58.099999999999994,69.44,1.0,63.8,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Coreia A,LE,Tae-Hyeon Kim,Jeonbuk Motors,29.0,984,,500000,Korea Republic,Korea Republic,84.3,69.3,58.29,3.0,63.8,0.0,,6,False,True,sim,True,N1
+Exterior,Austria,LE,M. Ouédraogo,Rheindorf Altach,23.0,2688,2027-06-30,0,Burkina Faso,Burkina Faso,81.3,66.3,59.9,2.0,63.1,0.0,47.51,6,False,True,sim,True,N2 jovem
+Exterior,China,VOL,M. Edjouma,Qingdao Hainiu,29.0,1170,2026-06-30,550000,France,"France, Morocco",89.7,74.7,68.38,1.0,71.5,0.0,,6,False,True,sim,True,N1
+Exterior,Coreia A,VOL,D. Bojanić,Ulsan Hyundai,31.0,1432,2027-12-31,1400000,Sweden,"Sweden, Bosnia and Herzegovina",83.3,68.3,73.08,2.0,70.7,0.0,,6,False,True,sim,False,N1
+Exterior,Espanha C,VOL,A. Cerarols,Sabadell,28.0,3616,2027-06-30,0,Spain,Spain,92.7,77.7,59.51,3.0,68.6,0.0,,6,False,True,sim,True,N1
+Exterior,Bulgaria,VOL,A. Bouras,Levski Sofia,24.0,2215,2028-06-30,0,Algeria,Algeria,74.5,59.5,73.38,1.0,66.4,0.0,,6,False,True,sim,False,N1/N2
+Exterior,Belgica B,VOL,W. Asselman,Gent II,21.0,1913,2029-06-30,0,Belgium,Belgium,78.6,63.599999999999994,68.93,1.0,66.3,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Suecia,VOL,M. Lindberg,Sirius,25.0,977,2028-06-30,400000,Denmark,Denmark,91.7,76.7,55.87,2.0,66.3,0.0,,6,False,True,sim,False,N1/N2
+Exterior,Tcheca,VOL,O. Kričfaluši,Baník Ostrava,22.0,2478,2029-06-30,0,Czech Republic,Czech Republic,87.9,72.9,59.04,5.0,66.0,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Holanda,VOL,J. van Overeem,Heerenveen,32.0,3306,2027-06-30,800000,Netherlands,Netherlands,73.1,58.099999999999994,70.75,1.0,64.4,0.0,31.82,6,False,True,sim,True,N1
+Exterior,Ucrania,VOL,I. Kalyuzhnyi,Metalist 1925 Kharkiv,28.0,2600,2028-06-30,400000,Ukraine,Ukraine,86.2,71.2,56.91,3.0,64.1,0.0,28.46,6,False,True,sim,False,N1
+Exterior,Italia C,VOL,A. Mandelli,AlbinoLeffe,28.0,3217,2027-06-30,100000,Italy,Italy,79.2,64.2,63.5,3.0,63.8,0.0,,6,False,True,sim,True,N1
+Exterior,Bulgaria,MED,J. Eto'o,CSKA Sofia,25.0,2554,,0,Cameroon,"Cameroon, Bulgaria",87.6,72.6,74.6,1.0,73.6,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Croacia,MED,A. Jagušić,Slaven Belupo,20.0,1876,2030-06-30,0,Croatia,Croatia,87.6,72.6,74.46,3.0,73.5,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Inglaterra B,MED,H. Hackney,Middlesbrough,23.0,3609,2027-06-30,0,England,"England, Scotland",83.9,68.9,75.89,1.0,72.4,0.0,46.58,6,False,True,sim,True,N2 jovem
+Exterior,Alemanha B,MED,M. Wanitzek,Karlsruher SC,33.0,3285,2029-06-30,1200000,Germany,"Germany, Poland",88.9,73.9,68.21,1.0,71.1,0.0,,6,False,True,sim,False,N1
+Exterior,Croacia,MED,L. Stojković,Dinamo Zagreb,22.0,1941,2028-06-19,1500000,Croatia,Croatia,77.7,62.7,79.39,1.0,71.0,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Escocia,MED,L. McCowan,Celtic,28.0,1375,2028-05-31,600000,Scotland,Scotland,83.7,68.7,72.5,1.0,70.6,0.0,,6,False,True,sim,False,N1
+Exterior,Israel,MED,D. Haziza,Maccabi Haifa,30.0,1522,2027-06-30,1200000,Israel,"Israel, France",92.8,77.8,62.85,5.0,70.3,0.0,,6,False,True,sim,True,N1
+Exterior,Eslovaquia,MED,Samuel Ramos,Zemplín Michalovce,25.0,1839,2026-06-30,25000,Spain,Spain,84.5,69.5,70.62,1.0,70.1,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Servia,MED,M. Vukotić,Partizan,23.0,3030,2029-06-30,0,Montenegro,Montenegro,88.3,73.3,66.47,2.0,69.9,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Escocia,MED,B. Spittal,Hearts,30.0,1263,2027-05-31,850000,Scotland,Scotland,92.4,77.4,60.93,3.0,69.2,0.0,,6,False,True,sim,True,N1
+Exterior,Suiça,MEI,M. Di Giusto,Luzern,25.0,3446,2028-06-30,1200000,Switzerland,"Switzerland, Italy",94.5,79.5,74.63,1.0,77.1,62.82,50.4,7,False,True,sim,False,N1/N2
+Exterior,Espanha B,MEI,Sergio Arribas,Almería,24.0,3753,2029-06-30,0,Spain,Spain,92.7,77.7,74.28,1.0,76.0,62.31,,7,False,True,sim,False,N1/N2
+Exterior,Mexico,MEI,E. Álvarez,Guadalajara,23.0,2730,2026-06-30,0,United States,"United States, Mexico",91.7,76.7,73.47,1.0,75.1,47.03,37.04,7,False,True,sim,True,N2 jovem
+Exterior,Servia,MEI,V. Kostov,Crvena Zvezda,18.0,2756,2028-06-30,0,Serbia,"Serbia, North Macedonia",89.1,74.1,74.97,1.0,74.5,61.44,,7,False,True,sim,False,N2 jovem
+Exterior,Tcheca,MEI,L. Provod,Slavia Praha,29.0,2744,2031-06-30,0,Czech Republic,Czech Republic,88.4,73.4,69.74,1.0,71.6,6.21,,7,False,True,sim,False,N1
+Exterior,Coreia A,MEI,Jin-Su Seo,Daejeon Citizen,25.0,1238,,400000,Korea Republic,Korea Republic,81.8,66.8,76.48,1.0,71.6,21.26,,7,False,True,sim,True,N1/N2
+Exterior,Bulgaria,MEI,P. Stanić,Ludogorets,24.0,2655,2028-06-30,1000000,Serbia,Serbia,83.0,68.0,70.12,1.0,69.1,54.55,,7,False,True,sim,False,N1/N2
+Exterior,Austria,MEI,D. Zukić,Wolfsberger AC,25.0,2724,2027-06-30,0,Serbia,Serbia,86.7,71.7,65.9,2.0,68.8,66.78,42.45,7,False,True,sim,True,N1/N2
+Exterior,Italia C,MEI,K. Jiménez,Catania,23.0,2474,2028-06-30,0,Italy,"Italy, Spain",82.7,67.7,67.84,1.0,67.8,67.32,,6,False,True,sim,False,N2 jovem
+Exterior,Belgica A,MEI,P. Pflücke,Charleroi,29.0,2853,2027-06-30,1200000,Germany,Germany,93.8,78.8,56.66,5.0,67.7,44.29,41.57,7,False,True,sim,True,N1
+Exterior,Italia C,ED,D. Lamesta,Benevento,26.0,3190,2027-06-30,500000,Italy,Italy,82.6,67.6,89.77,1.0,78.7,0.0,,6,False,True,sim,True,N1
+Exterior,Italia B,ED,F. Ghedjemis,Frosinone,23.0,3248,2028-06-30,0,France,"France, Algeria",95.5,80.5,76.45,2.0,78.5,0.0,51.94,6,False,True,sim,False,N2 jovem
+Exterior,Servia,ED,V. Lučić,Crvena Zvezda,24.0,1158,2027-06-30,0,Serbia,Serbia,76.6,61.599999999999994,78.99,1.0,70.3,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Portugal C,ED,Picas,Fafe,25.0,1983,2026-06-30,0,Angola,Angola,84.2,69.2,69.74,1.0,69.5,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Polonia,ED,A. Gholizadeh,Lech Poznań,30.0,1221,2027-06-30,1200000,Iran,Iran,70.8,55.8,82.36,1.0,69.1,0.0,,6,False,True,sim,True,N1
+Exterior,Espanha B,ED,Cristian Carracedo,Córdoba,30.0,3287,2028-06-30,400000,Spain,Spain,77.4,62.400000000000006,73.36,1.0,67.9,0.0,41.19,6,False,True,sim,False,N1
+Exterior,Alemanha B,ED,D. Yokota,Hannover 96,25.0,1965,2027-06-30,0,Japan,Japan,81.2,66.2,69.03,2.0,67.6,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Israel,ED,D. Biton,Hapoel Be'er Sheva,30.0,2304,2027-06-30,1000000,Israel,Israel,76.2,61.2,73.77,1.0,67.5,0.0,,6,False,True,sim,True,N1
+Exterior,Suiça,ED,I. Chouaref,Sion,25.0,3057,2028-06-30,800000,France,"France, Morocco",74.2,59.2,75.28,1.0,67.2,0.0,46.66,6,False,True,sim,False,N1/N2
+Exterior,Bahrain,ED,Abdoul Karim Diarra,Muharraq,20.0,919,,0,Mali,"Mali, Bahrain",78.8,63.8,70.18,2.0,67.0,0.0,,6,False,True,sim,True,N2 jovem
+Exterior,Austria,EE,K. Alajbegović,Salzburg,18.0,2016,2029-06-30,0,Germany,"Germany, Bosnia and Herzegovina",82.5,67.5,91.81,1.0,79.7,0.0,48.6,6,False,True,sim,False,N2 jovem
+Exterior,Tcheca,EE,L. Haraslín,Sparta Praha,30.0,1930,,0,Slovakia,Slovakia,90.8,75.8,76.6,1.0,76.2,0.0,,6,False,True,sim,True,N1
+Exterior,Suiça,EE,J. Kadile,Servette,23.0,1167,,0,France,France,88.6,73.6,75.49,1.0,74.5,0.0,68.54,6,False,True,sim,True,N2 jovem
+Exterior,Italia B,EE,G. Kvernadze,Frosinone,23.0,2642,2028-06-30,800000,Georgia,Georgia,80.0,65.0,82.21,2.0,73.6,0.0,53.5,6,False,True,sim,False,N2 jovem
+Exterior,Bahrain,EE,S. Bouhra,Khalidiya ,26.0,1522,,550000,Morocco,Morocco,84.0,69.0,75.15,1.0,72.1,0.0,,6,False,True,sim,True,N1
+Exterior,Coreia A,EE,Lee Seung-Woo,Jeonbuk Motors,28.0,1455,,700000,Korea Republic,Korea Republic,92.9,77.9,62.92,2.0,70.4,0.0,,6,False,True,sim,True,N1
+Exterior,França B,EE,M. Detourbet,Troyes,19.0,2146,2028-06-30,0,France,France,75.7,60.7,78.1,1.0,69.4,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Italia C,EE,C. Capone,Trento,27.0,2795,2027-06-30,200000,Italy,Italy,74.3,59.3,78.41,1.0,68.9,0.0,,6,False,True,sim,True,N1
+Exterior,Hungria,EE,Szabolcs Schön,Győri ETO,25.0,1874,2028-06-30,900000,Hungary,Hungary,84.3,69.3,67.8,3.0,68.6,0.0,,6,False,True,no,False,N1/N2
+Exterior,Italia B,EE,F. Ruocco,Mantova,25.0,1747,2028-06-30,500000,Italy,Italy,70.0,55.0,82.21,1.0,68.6,0.0,56.49,6,False,True,sim,False,N1/N2
+Exterior,Escocia,CA,Cláudio Braga,Hearts,26.0,3063,2028-05-31,325000,Portugal,Portugal,85.7,70.7,68.62,2.0,69.7,0.0,,6,False,True,sim,False,N1
+Exterior,Belgica B,CA,T. Ambrose,Kortrijk,29.0,2814,2027-06-30,0,France,"France, Guadeloupe",78.4,63.400000000000006,74.92,1.0,69.2,0.0,,6,False,True,sim,True,N1
+Exterior,Bulgaria,CA,M. Sangaré,Levski Sofia,27.0,1426,2027-06-30,0,France,"France, Senegal",92.4,77.4,59.98,3.0,68.7,0.0,,6,False,True,sim,True,N1
+Exterior,Escocia,CA,Youssef Chermiti,Rangers,22.0,2142,2029-06-30,0,Portugal,"Portugal, Tunisia",88.0,73.0,61.64,4.0,67.3,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Eslovaquia,CA,R. Čerepkai,FC Košice,24.0,2451,2027-06-30,0,Slovakia,Slovakia,78.6,63.599999999999994,68.47,1.0,66.0,0.0,,6,False,True,sim,True,N1/N2
+Exterior,Romenia,CA,Ş. Baiaram,Universitatea Craiova,23.0,2176,2028-06-30,0,Romania,Romania,78.4,63.400000000000006,67.68,1.0,65.5,0.0,,6,False,True,sim,False,N2 jovem
+Exterior,Israel,CA,Y. Shua,Beitar Jerusalem,27.0,2658,2028-06-30,1500000,Israel,Israel,68.1,53.099999999999994,77.66,1.0,65.4,0.0,,6,False,True,sim,False,N1
+Exterior,Austria,CA,M. Usor,LASK,24.0,2415,2028-06-30,0,Nigeria,Nigeria,65.7,50.7,75.94,1.0,63.3,0.0,63.71,6,False,True,sim,False,N1/N2
+Exterior,Austria,CA,S. Adeniran,LASK,27.0,2190,2028-05-31,1500000,United States,"United States, Nigeria",89.4,74.4,51.5,6.0,63.0,0.0,62.85,6,False,True,sim,False,N1
+Exterior,Tcheca,CA,M. Chytil,Slavia Praha,27.0,1640,2029-06-30,0,Czech Republic,Czech Republic,82.0,67.0,56.83,4.0,61.9,0.0,,6,False,True,sim,False,N1

@@ -7,29 +7,29 @@
 
 **Cobradores**
 
-- Rómulo Otero (ED) — Criciúma, Série B, 33 anos, 1477 min · índice 96 · 86 escanteios, 54 faltas (23 diretas), xA/90 0.30 · contrato 2026-12-31
-- Rafael Gava (MED) — Botafogo-SP, Série B, 33 anos, 1987 min · índice 96 · 2025: 93 · 97 escanteios, 45 faltas (8 diretas), xA/90 0.20 · contrato 2026-11-30
-- Miraíma (VOL) — São Bernardo, Série B, 26 anos, 2106 min · índice 95 · 52 escanteios, 44 faltas (8 diretas), xA/90 0.17 · contrato 2027-12-31
-- Rômulo (MEI) — Novorizontino, Série B, 24 anos, 2289 min · índice 93 · 2025: 74 · 98 escanteios, 44 faltas (4 diretas), xA/90 0.35 · contrato 2028-12-31
-- Iago Teles (EE) — Londrina, Série B, 26 anos, 1103 min · índice 92 · 37 escanteios, 20 faltas (4 diretas), xA/90 0.12 · contrato 2027-06-30
-- Dodô (MEI) — Náutico, Série B, 25 anos, 1516 min · índice 92 · 2025: 95 · 98 escanteios, 42 faltas (9 diretas), xA/90 0.34 · contrato 2026-11-30
-- Pepê (MED) — Cuiabá, Série B, 28 anos, 1571 min · índice 91 · 65 escanteios, 28 faltas (3 diretas), xA/90 0.13 · contrato 2027-12-31
-- M. Segovia (ED) — América-MG, Série B, 23 anos, 1303 min · índice 90 · 31 escanteios, 12 faltas (3 diretas), xA/90 0.25 · contrato 2026-12-31
-- D. Vera (EE) — Athletic, Série B, 23 anos, 1011 min · índice 90 · 22 escanteios, 14 faltas (3 diretas), xA/90 0.17 · contrato 2026-12-31
-- Chrystian Barletta (ED) — Sport, Série B, 25 anos, 1991 min · índice 90 · 50 escanteios, 18 faltas (3 diretas), xA/90 0.22 · contrato 2029-07-31
+- Rómulo Otero (ED) — Criciúma, Série B, 33 anos, 1477 min · índice 96 · Sofascore: 2 assistências de bola parada em 2026, 4 em 2024–26 (5 gols de falta direta) · 86 escanteios, 54 faltas (23 diretas), xA/90 0.30 · contrato 2026-12-31
+- Rafael Gava (MED) — Botafogo-SP, Série B, 33 anos, 1987 min · índice 96 · 2025: 93 · Sofascore: 4 assistências de bola parada em 2026, 9 em 2024–26 (2 gols de falta direta) · 97 escanteios, 45 faltas (8 diretas), xA/90 0.20 · contrato 2026-11-30
+- Miraíma (VOL) — São Bernardo, Série B, 26 anos, 2106 min · índice 95 · Sofascore: 1 assistências de bola parada em 2026, 1 em 2024–26 (1 gols de falta direta) · 52 escanteios, 44 faltas (8 diretas), xA/90 0.17 · contrato 2027-12-31
+- Rômulo (MEI) — Novorizontino, Série B, 24 anos, 2289 min · índice 93 · 2025: 74 · Sofascore: 3 assistências de bola parada em 2026, 4 em 2024–26 (0 gols de falta direta) · 98 escanteios, 44 faltas (4 diretas), xA/90 0.35 · contrato 2028-12-31
+- Iago Teles (EE) — Londrina, Série B, 26 anos, 1103 min · índice 92 · Sofascore: 0 assistências de bola parada em 2026, 0 em 2024–26 (0 gols de falta direta) · 37 escanteios, 20 faltas (4 diretas), xA/90 0.12 · contrato 2027-06-30
+- Dodô (MEI) — Náutico, Série B, 25 anos, 1516 min · índice 92 · 2025: 95 · Sofascore: 2 assistências de bola parada em 2026, 5 em 2024–26 (2 gols de falta direta) · 98 escanteios, 42 faltas (9 diretas), xA/90 0.34 · contrato 2026-11-30
+- Pepê (MED) — Cuiabá, Série B, 28 anos, 1571 min · índice 91 · Sofascore: 3 assistências de bola parada em 2026, 3 em 2024–26 (0 gols de falta direta) · 65 escanteios, 28 faltas (3 diretas), xA/90 0.13 · contrato 2027-12-31
+- M. Segovia (ED) — América-MG, Série B, 23 anos, 1303 min · índice 90 · Sofascore: 2 assistências de bola parada em 2026, 2 em 2024–26 (0 gols de falta direta) · 31 escanteios, 12 faltas (3 diretas), xA/90 0.25 · contrato 2026-12-31
+- D. Vera (EE) — Athletic, Série B, 23 anos, 1011 min · índice 90 · Sofascore: 0 assistências de bola parada em 2026, 0 em 2024–26 (0 gols de falta direta) · 22 escanteios, 14 faltas (3 diretas), xA/90 0.17 · contrato 2026-12-31
+- Chrystian Barletta (ED) — Sport, Série B, 25 anos, 1991 min · índice 90 · Sofascore: 0 assistências de bola parada em 2026, 2 em 2024–26 (0 gols de falta direta) · 50 escanteios, 18 faltas (3 diretas), xA/90 0.22 · contrato 2029-07-31
 
 **Finalizadores aéreos**
 
-- Luiz Otávio (ZE) — Ceará, Série B, 33 anos, 1988 min · índice 92 · 2 gols de cabeça, 63% aéreos ganhos em 5.5/90, 194.0 cm · contrato 2026-12-31
-- Vilar (ZE) — Botafogo-SP, Série B, 26 anos, 2612 min · índice 91 · 2025: 90 (1 de cabeça) · 2 gols de cabeça, 67% aéreos ganhos em 5.0/90, 190.0 cm · contrato 2026-11-30
-- João Basso (ZD) — Cuiabá, Série B, 29 anos, 2542 min · índice 88 · 2 gols de cabeça, 65% aéreos ganhos em 4.5/90, 187.0 cm · contrato 2026-11-30
-- Alisson Safira (CA) — Juventude, Série B, 31 anos, 1585 min · índice 88 · 2025: 56 (0 de cabeça) · 3 gols de cabeça, 52% aéreos ganhos em 6.3/90, 185.0 cm · contrato 2027-12-31
-- Matheus Bianqui (MED) — Novorizontino, Série B, 28 anos, 1299 min · índice 88 · 1 gols de cabeça, 66% aéreos ganhos em 5.3/90, 187.0 cm · contrato 2026-12-31
-- Yago Lincoln (ZD) — Londrina, Série B, 23 anos, 2039 min · índice 85 · 1 gols de cabeça, 68% aéreos ganhos em 4.5/90, 190.0 cm · contrato 2030-06-30
-- Messias (ZD) — Juventude, Série B, 31 anos, 1645 min · índice 84 · 2025: 91 (2 de cabeça) · 1 gols de cabeça, 67% aéreos ganhos em 3.7/90, 192.0 cm · contrato 2027-12-31
-- Dudu (VOL) — Vila Nova, Série B, 24 anos, 1685 min · índice 84 · 2 gols de cabeça, 57% aéreos ganhos em 4.2/90, 180.0 cm · contrato 2029-11-30
-- Gabriel Pinheiro (ZD) — Juventude, Série B, 29 anos, 1236 min · índice 83 · 2025: 82 (1 de cabeça) · 1 gols de cabeça, 70% aéreos ganhos em 3.1/90, — cm · contrato 2026-12-31
-- Kadu (EE) — Goiás, Série B, 24 anos, 1348 min · índice 82 · 2 gols de cabeça, 40% aéreos ganhos em 5.0/90, — cm · contrato 2026-12-15
+- Luiz Otávio (ZE) — Ceará, Série B, 33 anos, 1988 min · índice 92 · Sofascore: 2 gols de bola parada em 2026, 5 em 2024–26 (4 de cabeça; xG de bola parada 2025–26 1.4) · 2 gols de cabeça, 63% aéreos ganhos em 5.5/90, 194.0 cm · contrato 2026-12-31
+- Vilar (ZE) — Botafogo-SP, Série B, 26 anos, 2612 min · índice 91 · 2025: 90 (1 de cabeça) · Sofascore: 3 gols de bola parada em 2026, 4 em 2024–26 (3 de cabeça; xG de bola parada 2025–26 4.0) · 2 gols de cabeça, 67% aéreos ganhos em 5.0/90, 190.0 cm · contrato 2026-11-30
+- João Basso (ZD) — Cuiabá, Série B, 29 anos, 2542 min · índice 88 · Sofascore: 2 gols de bola parada em 2026, 4 em 2024–26 (2 de cabeça; xG de bola parada 2025–26 1.2) · 2 gols de cabeça, 65% aéreos ganhos em 4.5/90, 187.0 cm · contrato 2026-11-30
+- Alisson Safira (CA) — Juventude, Série B, 31 anos, 1585 min · índice 88 · 2025: 56 (0 de cabeça) · Sofascore: 2 gols de bola parada em 2026, 2 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 2.4) · 3 gols de cabeça, 52% aéreos ganhos em 6.3/90, 185.0 cm · contrato 2027-12-31
+- Matheus Bianqui (MED) — Novorizontino, Série B, 28 anos, 1299 min · índice 88 · Sofascore: 2 gols de bola parada em 2026, 2 em 2024–26 (2 de cabeça; xG de bola parada 2025–26 2.4) · 1 gols de cabeça, 66% aéreos ganhos em 5.3/90, 187.0 cm · contrato 2026-12-31
+- Yago Lincoln (ZD) — Londrina, Série B, 23 anos, 2039 min · índice 85 · Sofascore: 1 gols de bola parada em 2026, 1 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 1.9) · 1 gols de cabeça, 68% aéreos ganhos em 4.5/90, 190.0 cm · contrato 2030-06-30
+- Messias (ZD) — Juventude, Série B, 31 anos, 1645 min · índice 84 · 2025: 91 (2 de cabeça) · Sofascore: 1 gols de bola parada em 2026, 3 em 2024–26 (3 de cabeça; xG de bola parada 2025–26 1.6) · 1 gols de cabeça, 67% aéreos ganhos em 3.7/90, 192.0 cm · contrato 2027-12-31
+- Dudu (VOL) — Vila Nova, Série B, 24 anos, 1685 min · índice 84 · Sofascore: 3 gols de bola parada em 2026, 3 em 2024–26 (2 de cabeça; xG de bola parada 2025–26 1.1) · 2 gols de cabeça, 57% aéreos ganhos em 4.2/90, 180.0 cm · contrato 2029-11-30
+- Gabriel Pinheiro (ZD) — Juventude, Série B, 29 anos, 1236 min · índice 83 · 2025: 82 (1 de cabeça) · Sofascore: 1 gols de bola parada em 2026, 1 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 0.8) · 1 gols de cabeça, 70% aéreos ganhos em 3.1/90, — cm · contrato 2026-12-31
+- Kadu (EE) — Goiás, Série B, 24 anos, 1348 min · índice 82 · Sofascore: 2 gols de bola parada em 2026, 2 em 2024–26 (1 de cabeça; xG de bola parada 2025–26 0.7) · 2 gols de cabeça, 40% aéreos ganhos em 5.0/90, — cm · contrato 2026-12-15
 
 ## 1b serie A
 
