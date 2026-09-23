@@ -1052,8 +1052,9 @@ function fonteValor(j) {
 
 function mvWyscout(j) {
   if (typeof BASE === 'undefined' || !BASE) return null;
-  const alvo = j.jid != null ? BASE.find(x => x.id === j.jid)
-             : (j.pk ? BASE.find(x => primaryKey(x) === j.pk) : null);
+  /* pk primeiro: sobrevive a regeracao da base; o id nao */
+  const alvo = (j.pk ? BASE.find(x => primaryKey(x) === j.pk) : null) ||
+               (j.jid != null ? BASE.find(x => x.id === j.jid && x.n === j.nome) : null);
   return alvo && alvo.mv ? alvo.mv : null;
 }
 
@@ -1984,7 +1985,13 @@ function reancorar() {
   POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(j => {
     if (j.manual) return;
     const tinha = j.jid != null;
-    if (j.pk && BASE.some(x => primaryKey(x) === j.pk)) return;
+    /* pk ainda existe: o jogador e o mesmo, mas o `id` pode ter mudado na regeracao da base
+       (23/09: os ids do Cenario 1 apontavam para outros atletas — o valor de mercado lido
+       por id vinha do jogador errado). Atualiza o id pela pk. */
+    if (j.pk) {
+      const pelaPk = BASE.find(x => primaryKey(x) === j.pk);
+      if (pelaPk) { if (j.jid !== pelaPk.id) { j.jid = pelaPk.id; ajustados++; } return; }
+    }
 
     const mesmos = porNome[chave(j.nome)] || [];
     const achado =

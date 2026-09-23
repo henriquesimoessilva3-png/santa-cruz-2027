@@ -102,8 +102,8 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 | # | Jogador | Situação | Por quê |
 |---|---|---|---|
 | 1 | **Matheus Frizzo** | Suwon, Coreia B, 28, brasileiro, livre | 85 (85/85), nota mais alta de todos os mercados no MEI; repatriação, sem vaga de estrangeiro. Com o Dodô fora (foi para a Coreia, 23/09), é o MEI nº 1. N1, ~90. |
-| 2 | **Boschilia** | Operário-PR, 30, contrato nov/27 (e) | 53, mas o melhor finalizador de bola parada da B (7 gols de BP em 2025–26, 5 de falta direta em 2024–26) e cobrador de volume (374 cobranças). Não é livre: negociar. N1. |
-| 3 | **Caleb** | Atlético CP, Portugal C, 33, brasileiro, livre | 63, veterano. ~40. Sul-americano: **J. Barrera** (Real Cartagena, COL B, 30, livre) — 68. |
+| 2 | **J. Barrera** | Real Cartagena, Colômbia B, 30, livre | 68, sul-americano; vaga de estrangeiro. Vídeo decide. N1, ~40. |
+| 3 | **Caleb** | Atlético CP, Portugal C, 33, brasileiro, livre | 63, veterano. ~40. Na B, o livre de maior nota é o Marrony (Atlético-GO, 48): o MEI é a posição mais fraca do mercado. |
 
 ### Extremo pela direita — o que defende e cria, não o finalizador (B2-4)
 
@@ -137,7 +137,7 @@ com opção. Folha estimada dos 23 novos: R$ 1,3–1,5 MM/mês nas faixas acima,
 R$ 0,5–0,7 MM para os cinco mantidos e a base — dentro dos R$ 2,0 MM, se as faixas estiverem
 certas (e é aí que o vídeo e o mercado corrigem o número).
 
-Bola parada montada: cobradores Frizzo/Boschilia, Danielzinho, Gava (e Segovia/Iago Teles); finalizadores
+Bola parada montada: cobradores Frizzo, Danielzinho, Gava (e Segovia/Iago Teles); finalizadores
 Luiz Otávio, G. Pinheiro, Vilar, André Luiz, Bruno José, Mikael/Estrada. É o que separa +5 de −5 no saldo (7 pontos).
 
 ## 5. O que o dado não mostra e precisa de vídeo antes de fechar
