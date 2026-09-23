@@ -3793,7 +3793,7 @@ const SUL_CAMP = '@sul';  /* opcao "sul-americanos, sem o Brasil" — GRUPOS_LIG
    pacote de fsPacote(). A escolha fica no navegador. */
 let FS_VISAO = 'matriz';
 try { FS_VISAO = localStorage.getItem('sc2027_fs_visao') || 'matriz'; } catch (e) {}
-const FS_VISAO_ROT = { matriz: 'Matriz', mapa: 'Mapa', reguas: 'Réguas', tiras: 'Tiras' };
+const FS_VISAO_ROT = { matriz: 'Matriz', mapa: 'Mapa', reguas: 'Réguas', tiras: 'Tiras', onze: 'Onze físico' };
 function fsTrocarVisao(v) {
   FS_VISAO = FS_VISAO_ROT[v] ? v : 'matriz';
   try { localStorage.setItem('sc2027_fs_visao', FS_VISAO); } catch (e) {}
@@ -4056,6 +4056,18 @@ function fsLigarPalco() {
 function fsDesenharVisao(co, colunas) {
   const tab = $('#fsMatriz'), palco = $('#fsPalco'), chips = $('#fsChips');
   if (!palco) return;
+  /* O Onze fisico nao depende da posicao escolhida nem das referencias do raio: le o
+     cenario aberto no campograma. Por isso e desenhado antes de tudo o resto. */
+  if (FS_VISAO === 'onze') {
+    tab.style.display = 'none';
+    palco.hidden = false;
+    if (chips) chips.hidden = true;
+    palco.className = 'fs-palco fs-vis-onze';
+    const dica0 = $('#fsDica'); if (dica0) dica0.hidden = true;
+    const foco0 = $('#fsFoco'); if (foco0) foco0.hidden = true;
+    fsOnzeFisico(palco);
+    return;
+  }
   const alt = FS_VISAO !== 'matriz' && window.FS_VISOES && FS_VISOES[FS_VISAO];
   tab.style.display = alt ? 'none' : '';
   palco.hidden = !alt;
@@ -4090,6 +4102,79 @@ function fsDesenharVisao(co, colunas) {
     palco.innerHTML = '<div class="fs-palco-aviso">Esta forma de ver quebrou ao desenhar: ' +
       esc(String(e)) + '</div>';
   }
+}
+
+/* ---------------- ONZE FISICO (estudo V2, B1.md, conclusao 2) ----------------
+   O achado mais forte do Bloco 1 nao e sobre um jogador, e sobre o ONZE: o que rende e nao
+   ter jogador lento, nao ter o mais rapido. A distancia em km/h entre o mais rapido e o mais
+   lento dos titulares anda contra o rendimento nas cinco temporadas; o quartil mais estreito
+   (2,7 km/h) fez 55 pontos, e quem cai tem 4,0 a 4,35 km/h. O elo lento costuma ser meia ou
+   volante. Esta forma de ver pega os 10 titulares de linha (estrela) do cenario aberto e
+   mostra exatamente isso: quem esta abaixo de 27 km/h, a amplitude, e quanto ela cai sem o
+   elo lento. Quem nao tem rastreio aparece como "fisico nao verificado" — nunca como zero. */
+let FS_PK_TUDO = null;
+function fsJogadorPk(pk) {
+  if (!FS_PK_TUDO) FS_PK_TUDO = new Map(BASE.map(j => [primaryKey(j), j]));
+  return FS_PK_TUDO.get(pk) || null;
+}
+function fsOnzeFisico(palco) {
+  const piso = (FICHA && FICHA.piso) || { passa: 27, limite: 26.5 };
+  const amp = (FICHA && FICHA.amplitude) || { boa: 2.7, cai: 4.0 };
+  const tit = [];
+  POSICOES.forEach(p => {
+    if (p.c === 'GOL') return;
+    (estado.elenco[p.c] || []).forEach(e => { if (e && e.titular) tit.push({ pos: p.c, e }); });
+  });
+  const com = [], sem = [];
+  tit.forEach(t => {
+    const j = t.e.pk ? fsJogadorPk(t.e.pk) : null;
+    const v = j && typeof j.psv === 'number' ? j.psv : null;
+    (v == null ? sem : com).push({ pos: t.pos, nome: t.e.nome || (j && j.n) || '?', v,
+                                   src: j && j.fis_src, sc_n: j && j.sc_n });
+  });
+  if (!tit.length) {
+    palco.innerHTML = '<div class="fs-palco-aviso">O cenário aberto não tem titular marcado (★) ' +
+      'no campograma — marque os onze para ver a velocidade do onze.</div>';
+    return;
+  }
+  com.sort((a, b) => a.v - b.v);
+  const vs = com.map(x => x.v);
+  const ampl = vs.length >= 2 ? Math.max(...vs) - Math.min(...vs) : null;
+  const lento = com[0] || null;
+  const semLento = vs.length >= 3 ? Math.max(...vs) - vs[1] : null;
+  const lo = Math.min(25.5, (vs.length ? Math.min(...vs) : 27) - 0.5);
+  const hi = Math.max(31.5, (vs.length ? Math.max(...vs) : 30) + 0.3);
+  const x = v => ((v - lo) / (hi - lo) * 100).toFixed(1);
+  const classe = ampl == null ? '' : ampl <= amp.boa ? 'ok' : ampl < amp.cai ? 'lim' : 'rep';
+  const fmt = v => v == null ? '—' : v.toFixed(1).replace('.', ',');
+  const barras = com.map(c => {
+    const cl = c.v >= piso.passa ? 'ok' : c.v >= piso.limite ? 'lim' : 'rep';
+    return '<div class="fo-l' + (c === lento && ampl > amp.boa ? ' lento' : '') + '">' +
+      '<span class="fo-pos">' + esc(c.pos) + '</span>' +
+      '<span class="fo-nome" title="' + esc(c.nome + (c.sc_n ? ' · ' + c.sc_n + ' jogos rastreados' : '') +
+        (c.src ? ' · físico de ' + c.src : '')) + '">' + esc(c.nome) +
+        (c.src ? ' <small class="fo-src">' + esc(c.src) + '</small>' : '') + '</span>' +
+      '<span class="fo-trilho"><i class="fo-barra ' + cl + '" style="width:' + x(c.v) + '%"></i>' +
+        '<i class="fo-piso" style="left:' + x(piso.passa) + '%"></i></span>' +
+      '<span class="fo-v">' + fmt(c.v) + ' km/h</span></div>';
+  }).join('');
+  palco.innerHTML = '<div class="fo">' +
+    '<h3>Onze físico · ' + esc(estado.nome || 'cenário aberto') + '</h3>' +
+    '<p class="fo-d">Os titulares de linha (★) do campograma pela velocidade de pico (PSV-99). ' +
+      'A linha é o piso de ' + fmt(piso.passa) + ' km/h. O que rende não é ter o mais rápido: é não ter ' +
+      'jogador lento — Santa Cruz V2, B1.md, conclusão 2.</p>' +
+    '<div class="fo-resumo ' + classe + '"><div><b>' + (ampl == null ? '—' : fmt(ampl) + ' km/h') +
+      '</b><small>amplitude: mais rápido − mais lento</small></div>' +
+      '<div><b>' + fmt(amp.boa) + '</b><small>o quartil que mais pontuou (55 pontos)</small></div>' +
+      '<div><b>' + fmt(amp.cai) + '</b><small>quem cai (4,0 a 4,35)</small></div>' +
+      (lento ? '<div><b>' + esc(lento.nome) + '</b><small>elo lento · ' + esc(lento.pos) + ' · ' +
+        fmt(lento.v) + ' km/h' + (semLento != null ? ' — sem ele, ' + fmt(semLento) + ' km/h' : '') +
+        '</small></div>' : '') + '</div>' +
+    '<div class="fo-barras">' + (barras || '<p class="fo-d">Nenhum titular com rastreio.</p>') + '</div>' +
+    (sem.length ? '<div class="fo-sem"><b>Físico não verificado (' + sem.length + ')</b> — sem rastreio do ' +
+      'SkillCorner: ' + sem.map(s => esc(s.nome) + ' (' + esc(s.pos) + ')').join(', ') +
+      '. A amplitude acima é só de quem tem dado.</div>' : '') +
+    '</div>';
 }
 
 let FS_ABERTOS = new Set();

@@ -144,9 +144,12 @@
        deles que o irParaAba do app.js depende para mostrar e esconder as páginas. -->
   <button class="aba aba-auxiliar" data-aba="serieb" hidden>Análise Série B</button>
   <button class="aba aba-auxiliar" data-aba="prototipo" hidden>Protótipo</button>
+  <!-- 23/09: o Estudo Série B antigo vira auxiliar como os dois acima; na barra fica o V2
+       (estudo Santa Cruz V2), que leva a eles pelo link no alto (static/estudo_v2.js). -->
+  <button class="aba aba-auxiliar" data-aba="estudo" hidden>Estudo Série B V1</button>
   <button class="aba" data-aba="bolaparada">Bola parada por treinador</button>
   <button class="aba" data-aba="minutagem">Minutagem Série B</button>
-  <button class="aba" data-aba="estudo">Estudo Série B</button>
+  <button class="aba" data-aba="estudo2">Estudo Série B V2</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -400,7 +403,7 @@
             <button class="fs-recolher" id="fsRecolher"
                     title="Esconder os filtros e devolver a altura para a matriz">filtros</button>
             <span class="fs-visao" id="fsVisao" title="Trocar a forma de ver a comparação">
-              <button data-v="matriz">Matriz</button><button data-v="mapa">Mapa</button><button data-v="reguas">Réguas</button><button data-v="tiras">Tiras</button>
+              <button data-v="matriz">Matriz</button><button data-v="mapa">Mapa</button><button data-v="reguas">Réguas</button><button data-v="tiras">Tiras</button><button data-v="onze" title="Os 10 titulares de linha do cenário aberto, pela velocidade de pico">Onze físico</button>
             </span>
           </div>
         </div>
@@ -553,15 +556,13 @@
          saber dela. A aba é o roteiro do estudo: mostra as 29 perguntas com o status de cada
          uma, mesmo antes de haver resposta. -->
     <section class="pagina oculta" id="pgEstudo">
-      <!-- Duas subabas (static/estudo_v2.js): V2 = estudo Santa Cruz V2 (set/26), lido dos .md
-           da pasta por gerar_estudo_v2_js.py; V1 = o estudo antigo, como era. -->
-      <div class="esv-subbar">
-        <button class="esv-sub-bt on" data-sub="v2">Estudo Série B V2<small>set/26 · atual</small></button>
-        <button class="esv-sub-bt" data-sub="v1">Estudo Série B V1<small>antigo</small></button>
-      </div>
-      <div class="esv-wrap" id="esV2Wrap"><div id="esV2Corpo"></div></div>
-      <div class="emp-rolagem" id="esV1Wrap" hidden><div class="esb" id="esCorpoPagina"></div></div>
+      <div class="emp-rolagem"><div class="esb" id="esCorpoPagina"></div></div>
     </section>
+
+    <!-- A aba Estudo Série B V2: o estudo Santa Cruz V2, lido dos .md da pasta por
+         gerar_estudo_v2_js.py (static/estudo_v2_dados.js) e desenhado por static/estudo_v2.js,
+         que se mostra e se esconde acompanhando o botão, como as de cima. -->
+    <section class="pagina oculta" id="pgEstudoV2"><div id="esV2Corpo"></div></section>
 
     <section class="pagina oculta" id="pgIndicados">
       <div class="emp-topo">

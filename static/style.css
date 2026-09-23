@@ -3577,3 +3577,28 @@ td.pt-td-frase{text-align:left;white-space:normal}
 #fsMatriz tr.fv-det > td:first-child { border-top: 2px solid var(--borda2, #e6e5e1); }
 body:not(.claro) .fv-legenda { color: #c3c2b7; }
 body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
+
+/* ---- Onze físico (B1.md, conclusão 2) ------------------------------------ */
+.fs-vis-onze .fo { max-width: 860px; padding: 12px 4px; }
+.fo h3 { margin: 0 0 4px; font-size: 16px; }
+.fo-d { margin: 0 0 12px; font-size: 12px; color: var(--tinta2, #52514e); max-width: 80ch; }
+.fo-resumo { display: flex; gap: 22px; flex-wrap: wrap; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--borda2, #e6e5e1); margin-bottom: 14px; }
+.fo-resumo div { display: flex; flex-direction: column; }
+.fo-resumo b { font-size: 18px; }
+.fo-resumo small { font-size: 10.5px; color: #7a7975; }
+.fo-resumo.ok > div:first-child b { color: #1f8a4c; }
+.fo-resumo.lim > div:first-child b { color: #b7791f; }
+.fo-resumo.rep > div:first-child b { color: #c0392b; }
+.fo-l { display: grid; grid-template-columns: 38px 190px 1fr 78px; align-items: center; gap: 8px;
+  padding: 4px 6px; border-radius: 5px; }
+.fo-l.lento { background: rgba(192, 57, 43, .12); outline: 1px solid rgba(192, 57, 43, .5); }
+.fo-pos { font-size: 10px; font-weight: 700; color: #7a7975; }
+.fo-nome { font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fo-src { font-size: 9.5px; color: #b7791f; }
+.fo-trilho { position: relative; height: 12px; background: rgba(127,127,127,.15); border-radius: 3px; }
+.fo-barra { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+.fo-barra.ok { background: #1f8a4c; } .fo-barra.lim { background: #d9a441; } .fo-barra.rep { background: #c0392b; }
+.fo-piso { position: absolute; top: -3px; bottom: -3px; width: 2px; background: currentColor; opacity: .7; }
+.fo-v { font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.fo-sem { margin-top: 12px; font-size: 12px; color: #7a7975; }
