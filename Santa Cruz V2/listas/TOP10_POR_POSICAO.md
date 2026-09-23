@@ -113,15 +113,15 @@ Critério (23/09): **sem Série A** e sem os nomes tirados pelo clube (`EXCLUIDO
 | # | Jogador | Clube | Liga | Idade | Contrato | Nota | Scouts |
 |---|---|---|---|---|---|---|---|
 | 1 | **Matheus Frizzo** | Suwon | Coreia B | 28 | — | 85 |  |
-| 2 | **Dodô** | Náutico | Série B | 25 | 30/11/26 | 71 |  |
-| 3 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 31/12/26 | 68 |  |
-| 4 | **D. Pazmiño** | Leones del Norte | Equador A | 26 | 31/12/26 | 67 |  |
-| 5 | **Caleb** | Atlético CP | Portugal C | 33 | 30/06/26 | 63 |  |
-| 6 | **E. Cardona** | Atlético Nacional | Colombia A | 33 | 30/06/27 | 63 |  |
-| 7 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | — | 62 |  |
-| 8 | **E. Batalla Martinez** | Atlético Bucaramanga | Colombia A | 25 | — | 62 | ★ média ≥6,5 |
-| 9 | **J. Padilla** | Gualaceo | Equador B | 28 | 31/12/26 | 61 |  |
-| 10 | **J. Rodríguez** | Atlanta | Argentina B | 27 | 31/12/26 | 59 |  |
+| 2 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 31/12/26 | 68 |  |
+| 3 | **D. Pazmiño** | Leones del Norte | Equador A | 26 | 31/12/26 | 67 |  |
+| 4 | **Caleb** | Atlético CP | Portugal C | 33 | 30/06/26 | 63 |  |
+| 5 | **E. Cardona** | Atlético Nacional | Colombia A | 33 | 30/06/27 | 63 |  |
+| 6 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | — | 62 |  |
+| 7 | **E. Batalla Martinez** | Atlético Bucaramanga | Colombia A | 25 | — | 62 | ★ média ≥6,5 |
+| 8 | **J. Padilla** | Gualaceo | Equador B | 28 | 31/12/26 | 61 |  |
+| 9 | **J. Rodríguez** | Atlanta | Argentina B | 27 | 31/12/26 | 59 |  |
+| 10 | **Bruno Nazário** | Henan | China | 31 | 31/12/26 | 55 |  |
 
 ### Extremo pela direita
 

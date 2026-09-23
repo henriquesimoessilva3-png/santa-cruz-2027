@@ -10,7 +10,7 @@ scouts TransferRoom).
 27,8, o mais lento aceitável), e isso já é melhor que a versão de ontem, que tinha o Eduardo a
 26,6. O problema agora é outro: **o dinheiro está onde o dado é mais fraco.** Os três maiores
 salários (Mateus Carvalho e Robson, R$ 180 mil; Luccas Claro, Keno, Feliciano e André Luis,
-R$ 150 mil) vão para quem tem 34–36 anos ou nota abaixo de 50 — e falta o meia (MEI) titular.
+R$ 150 mil) vão para quem tem 34–36 anos ou nota abaixo de 50 — e falta o meia (MEI) titular (o Dodô, que o estudo apontava, foi para a Coreia).
 
 ## Titulares, um a um
 
@@ -23,7 +23,7 @@ R$ 150 mil) vão para quem tem 34–36 anos ou nota abaixo de 50 — e falta o m
 | LE | **Gabriel Feliciano** | Operário-PR | 25 | 150 | **50** | 30,1 ✓ | 0 g · 0 a | 6,8 (6) | Os scouts gostam, o dado não (nota 50). R$ 150 mil é salário de titular de nota 65+. **Patrick Brey** (69, livre) |
 | VOL | **Mateus Carvalho** | Vasco (A) | 24 | **180** | fora da B | 28,4 (de 2022, Náutico) | — | sem relatório | **O maior salário do grupo com a menor evidência**: sem minutos na base de 2026 e físico de quatro anos atrás. E é o único volante titular |
 | MED | **Crystopher** | CRB | 28 | 120 | **65** | 27,8 ✓ (o mais lento do onze) | 1 g · 0 a | 6,0 (1) | Coerente com o estudo. Contrato: set/27 numa fonte, dez/26 na outra — confirmar |
-| MEI | — | | | | | | | | **Sem titular.** Dodô (71, livre, 1º MEI da B, 5 assistências de bola parada) é a contratação nº 1 do estudo. Mörschel (reserva) não tem dado |
+| MEI | — | | | | | | | | **Sem titular.** O Dodô, 1º MEI da B, foi para a Coreia (23/09). O nº 1 agora é **Matheus Frizzo** (Suwon, Coreia B, nota 85, brasileiro, livre); **Boschilia** (Operário, contrato nov/27) é o melhor finalizador de bola parada da B. Mörschel (reserva) não tem dado |
 | ED | **André Luis** | Vila Nova | 29 | 150 | **47** | 30,8 ✓ · arrancadas 2,7 | 2 g · 1 a | 9,0 (2) | Físico excelente e olho dos scouts; 871 min e nota baixa. **Pedro Vitor** (63, livre) |
 | EE | **Keno** | Coritiba (A) | 36 | 150 | fora da B | sem dado | — | 6,0 (1) | 36 anos, sem minutos na base. **Dadá Belmonte** (70, livre) é o EE do estudo |
 | CA | **Robson** | Novorizontino | 35 | **180** | **71** | 29,2 ✓ · área 14,7 (ref. 9,7) | **3 g · 3 a** | 5,7 (6) | O dado sustenta: melhor CA livre da B por nota, corre para a área e participa da bola parada. Risco é a idade |
@@ -35,7 +35,7 @@ piso de 27 km/h; ref. = mediana dos titulares dos times que renderam acima do di
 
 | Posição | Hoje | Troca | Por quê | Salário |
 |---|---|---|---|---|
-| MEI | vazio | **Dodô** (Náutico, 25) | contratação nº 1 do estudo; cobrador que repete | +90–110 |
+| MEI | vazio | **Matheus Frizzo** (Suwon, 28) | nota 85, a maior do MEI em todos os mercados; repatriação sem vaga de estrangeiro | +90 |
 | ZE | Luccas Claro | **Vilar** (já no grupo) | ZE do estudo, finalizador aéreo, 4 gols de BP | −80 |
 | VOL | Mateus Carvalho | **André Luiz** (Londrina, 31) + 2º volante | nota 70, finalizador aéreo; o 4-2-3-1 pede dois | −120 |
 | EE | Keno | **Dadá Belmonte** (CRB, 29) | nota 70, psv ok, rodou 2025 e 2026 | ≈ 0 |
@@ -43,7 +43,7 @@ piso de 27 km/h; ref. = mediana dos titulares dos times que renderam acima do di
 | GOL | Paulo Vítor | **Jandrei** (Juventude, 33) | 1º goleiro da B; vídeo decide | +10–20 |
 
 Com essas trocas o onze fica com 7 livres da própria Série B, o mais velho com 35 (Robson), e a
-folha volta para perto dos R$ 2,0 MM — o que sai com Carvalho, Claro e Keno paga o Dodô.
+folha volta para perto dos R$ 2,0 MM — o que sai com Carvalho, Claro e Keno paga o Frizzo.
 
 ## A conferir
 - **Robson (35) e Marllon (34):** o estudo não vê a idade como problema (§10), mas a dimensão

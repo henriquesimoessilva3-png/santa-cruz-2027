@@ -39,8 +39,49 @@ def indices(d, liga="liga"):
     d["faltas_diretas_temporada"] = (d["Direct free kicks per 90"] * d.minutos / 90).round(0)
     return d
 
-def n0(v):
-    return '—' if pd.isna(v) else f'{v:.0f}'
+def sofascore_sulam(lg):
+    """Gols e assistências de bola parada do Sofascore (2025–26) nas ligas sul-americanas,
+    casados por liga, clube (parecido) e nome — o Wyscout abrevia ("J. Pérez"), então vale
+    inicial + sobrenome, e só se for um candidato no time."""
+    import difflib
+    f = os.path.join(BASES, "coletas", "bp_sulam_jogador_temporada.csv")
+    if not os.path.exists(f):
+        return lg
+    bp = pd.read_csv(f)
+    bp["kt"] = bp.time.map(chave); bp["kn"] = bp.nome.map(chave)
+    C = ["assist_bp", "assist_escanteio", "gols_falta_direta", "gols_bp", "gols_bp_cabeca", "xg_bp"]
+    def achar(liga, clube, jogador):
+        b = bp[bp.liga == liga]
+        if b.empty: return None
+        kc = chave(clube); times = b.kt.unique().tolist()
+        m = [t for t in times if kc and (kc in t or t in kc)] or difflib.get_close_matches(kc, times, n=1, cutoff=0.6)
+        if not m: return None
+        bt = b[b.kt == m[0]]
+        kj = chave(jogador).split()
+        if not kj: return None
+        ini = kj[0] if len(kj[0]) == 1 else None
+        sob = kj[-1]
+        def ok(n):
+            t = n.split()
+            if not t: return False
+            if ini: return t[0].startswith(ini) and sob in t[1:]
+            return " ".join(kj) == n or (len(kj) == 1 and kj[0] in t)
+        ids = bt[bt.kn.map(ok)].sid.unique()
+        if len(ids) != 1: return None
+        x = bp[(bp.sid == ids[0])]                       # a pessoa, em qualquer time (2025–26)
+        r = {c + "_3t": x[c].sum() for c in C}
+        r.update({"assist_bp_2026": x[x.ano == 2026].assist_bp.sum(), "gols_bp_2026": x[x.ano == 2026].gols_bp.sum()})
+        return r
+    rows = [achar(l, c, j) if l in set(bp.liga) else None for l, c, j in zip(lg.liga, lg.clube, lg.jogador)]
+    add = pd.DataFrame([r or {} for r in rows], index=lg.index)
+    print("Sofascore sul-americano casado:", int(add.notna().any(axis=1).sum()), "de", int(lg.liga.isin(set(bp.liga)).sum()))
+    for c in add.columns:
+        lg[c] = add[c]
+    return lg
+
+
+def n0(v, casas=0):
+    return '—' if v is None or pd.isna(v) else f'{v:.{casas}f}'
 
 def main():
     out = os.path.join(RAIZ, "listas")
@@ -84,6 +125,7 @@ def main():
     lg["mercado"] = np.where(lg.liga == "Brasil A", "Série A", np.where(lg.liga.isin(SULAM), "Sul-americano", "Exterior"))
     lg["sul_americano"] = lg.nascido_em.isin(PAIS_SA) | lg.passaporte.fillna("").apply(lambda s: any(p in s for p in PAIS_SA))
     lg = indices(lg)
+    lg = sofascore_sulam(lg)
     cols = ["liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "passaporte"]
     cobc = ["indice_cobrador", "escanteios_temporada", "faltas_cobradas_temporada", "faltas_diretas_temporada", "Direct free kicks on target, %", "xA per 90", "Accurate crosses, %"]
     finc = ["indice_finalizador", "Head goals", "Head goals per 90", "Aerial duels per 90", "Aerial duels won, %", "Height"]
@@ -97,8 +139,9 @@ def main():
     md = ["# Especialistas de bola parada\n", "Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 33. Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis. Série A fora das recomendações (23/09); nomes vetados e valor acima de € 2 MM fora. Na Série B, as colunas de assistências e gols de bola parada vêm do Sofascore (2024–26).\n"]
     with pd.ExcelWriter(os.path.join(out, "bola_parada_especialistas.xlsx")) as w:
         for nome, d in merc.items():
-            ex = ["cobrador_2025", "escanteios_2025"] + BP_COB if nome == "1_serie_B" else []
-            c = topo(d, "indice_cobrador", 25, ex); f_ = topo(d, "indice_finalizador", 25, ["finalizador_2025", "gols_cabeca_2025"] + BP_FIN if nome == "1_serie_B" else [])
+            ex = ["cobrador_2025", "escanteios_2025"] + BP_COB if nome == "1_serie_B" else ([c for c in BP_COB if c in d] if nome.startswith("2_") else [])
+            exf = ["finalizador_2025", "gols_cabeca_2025"] + BP_FIN if nome == "1_serie_B" else ([c for c in BP_FIN if c in d] if nome.startswith("2_") else [])
+            c = topo(d, "indice_cobrador", 25, ex); f_ = topo(d, "indice_finalizador", 25, exf)
             # taxas por 90 com 2 casas: arredondar tudo a 1 casa deixava xA/90 e gols de cabeça/90
             # em 0,1 / 0,2 / 0,3 (o índice sempre usou o valor cheio; só a planilha perdia a casa)
             casas = {k: 2 for k in ("xA per 90", "Head goals per 90", "Aerial duels per 90")}
@@ -111,23 +154,25 @@ def main():
                 continue            # Série A fora das recomendações (23/09); a planilha ainda a tem
             sb_ = nome == "1_serie_B"
             dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if pd.notna(c) and len(str(c)) >= 10 else "—"
+            bc = "assist_bp_3t" in c.columns; bf = "gols_bp_3t" in f_.columns
+            per = "24–26" if sb_ else "25–26"
             md.append(f"\n## {TIT.get(nome, nome)}\n\n### Cobradores\n")
             cab = ["#", "Jogador", "Pos", "Clube"] + ([] if sb_ else ["Liga"]) + ["Idade", "Índice"] + (["2025"] if sb_ else []) + \
-                  ["Escanteios", "Faltas (diretas)", "xA/90 (todos os passes)"] + (["Assist. BP 26", "Assist. BP 24–26", "Gols falta dir."] if BP_COB and sb_ else []) + ["Contrato"]
+                  ["Escanteios", "Faltas (diretas)", "xA/90 (todos os passes)"] + (["Assist. BP 26", "Assist. BP " + per, "Gols falta dir."] if bc else []) + ["Contrato"]
             md.append("| " + " | ".join(cab) + " |\n|" + "---|" * len(cab))
             for n, (_, r) in enumerate(c.head(10).iterrows(), 1):
                 cel = [str(n), f"**{r.jogador}**", r.pos11, str(r.clube)] + ([] if sb_ else [str(r.liga)]) + [str(int(r.idade)), f"{r.indice_cobrador:.0f}"] + \
                       ([n0(r.get("cobrador_2025"))] if sb_ else []) + [n0(r.escanteios_temporada), f"{n0(r.faltas_cobradas_temporada)} ({n0(r.faltas_diretas_temporada)})", f"{r['xA per 90']:.2f}"] + \
-                      ([n0(r.assist_bp_2026), n0(r.assist_bp_3t), n0(r.gols_falta_direta_3t)] if BP_COB and sb_ else []) + [dt(r.contrato)]
+                      ([n0(r.get("assist_bp_2026")), n0(r.get("assist_bp_3t")), n0(r.get("gols_falta_direta_3t"))] if bc else []) + [dt(r.contrato)]
                 md.append("| " + " | ".join(cel) + " |")
             md.append("\n### Finalizadores aéreos\n")
             cab = ["#", "Jogador", "Pos", "Clube"] + ([] if sb_ else ["Liga"]) + ["Idade", "Índice"] + (["2025"] if sb_ else []) + \
-                  ["Gols de cabeça", "Aéreos ganhos %", "Aéreos/90", "Altura"] + (["Gols BP 26", "Gols BP 24–26", "de cabeça", "xG BP 25–26"] if BP_FIN and sb_ else []) + ["Contrato"]
+                  ["Gols de cabeça", "Aéreos ganhos %", "Aéreos/90", "Altura"] + (["Gols BP 26", "Gols BP " + per, "de cabeça", "xG BP 25–26"] if bf else []) + ["Contrato"]
             md.append("| " + " | ".join(cab) + " |\n|" + "---|" * len(cab))
             for n, (_, r) in enumerate(f_.head(10).iterrows(), 1):
                 cel = [str(n), f"**{r.jogador}**", r.pos11, str(r.clube)] + ([] if sb_ else [str(r.liga)]) + [str(int(r.idade)), f"{r.indice_finalizador:.0f}"] + \
                       ([n0(r.get("finalizador_2025"))] if sb_ else []) + [n0(r['Head goals']), n0(r['Aerial duels won, %']), f"{r['Aerial duels per 90']:.1f}", n0(r.Height)] + \
-                      ([n0(r.gols_bp_2026), n0(r.gols_bp_3t), n0(r.gols_bp_cabeca_3t), f"{r.xg_bp_3t:.1f}"] if BP_FIN and sb_ else []) + [dt(r.contrato)]
+                      ([n0(r.get("gols_bp_2026")), n0(r.get("gols_bp_3t")), n0(r.get("gols_bp_cabeca_3t")), n0(r.get("xg_bp_3t"), 1)] if bf else []) + [dt(r.contrato)]
                 md.append("| " + " | ".join(cel) + " |")
     open(os.path.join(out, "BOLA_PARADA.md"), "w").write("\n".join(md))
     print("\n".join(md[:60]))

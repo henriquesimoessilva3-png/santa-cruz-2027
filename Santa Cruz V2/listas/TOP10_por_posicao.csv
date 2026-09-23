@@ -70,15 +70,15 @@ ordem,mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nota,sinal_s
 9,Sul-americano,Paraguai,MED,M. Acosta,Rubio Ñú,25.0,1265,2026-12-31,250000.0,65.9,,,,65.9,True
 10,Sul-americano,Colombia A,MED,N. Ospina,Llaneros,23.0,1253,,0.0,64.9,,,,64.9,True
 1,Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0.0,84.8,,,,84.8,True
-2,Série B,Série B,MEI,Dodô,Náutico,25.0,1516,2026-11-30,,71.0,,,,71.0,True
-3,Sul-americano,Colombia B,MEI,J. Barrera,Real Cartagena,30.0,1042,2026-12-31,700000.0,68.2,,,,68.2,True
-4,Sul-americano,Equador A,MEI,D. Pazmiño,Leones del Norte,26.0,1106,2026-12-31,50000.0,66.7,,,,66.7,True
-5,Exterior,Portugal C,MEI,Caleb,Atlético CP,33.0,1349,2026-06-30,0.0,62.9,,,,62.9,True
-6,Sul-americano,Colombia A,MEI,E. Cardona,Atlético Nacional,33.0,1128,2027-06-30,800000.0,62.6,,,,62.6,True
-7,Sul-americano,Colombia B,MEI,K. Álvarez,Patriotas Boyacá,21.0,1369,,0.0,62.1,,,,62.1,True
-8,Sul-americano,Colombia A,MEI,E. Batalla Martinez,Atlético Bucaramanga,25.0,1388,,0.0,59.8,"média ≥6,5",3.0,6.7,61.8,True
-9,Sul-americano,Equador B,MEI,J. Padilla,Gualaceo,28.0,1009,2026-12-31,50000.0,65.8,,,,60.8,True
-10,Sul-americano,Argentina B,MEI,J. Rodríguez,Atlanta,27.0,1433,2026-12-31,150000.0,64.2,,,,59.2,True
+2,Sul-americano,Colombia B,MEI,J. Barrera,Real Cartagena,30.0,1042,2026-12-31,700000.0,68.2,,,,68.2,True
+3,Sul-americano,Equador A,MEI,D. Pazmiño,Leones del Norte,26.0,1106,2026-12-31,50000.0,66.7,,,,66.7,True
+4,Exterior,Portugal C,MEI,Caleb,Atlético CP,33.0,1349,2026-06-30,0.0,62.9,,,,62.9,True
+5,Sul-americano,Colombia A,MEI,E. Cardona,Atlético Nacional,33.0,1128,2027-06-30,800000.0,62.6,,,,62.6,True
+6,Sul-americano,Colombia B,MEI,K. Álvarez,Patriotas Boyacá,21.0,1369,,0.0,62.1,,,,62.1,True
+7,Sul-americano,Colombia A,MEI,E. Batalla Martinez,Atlético Bucaramanga,25.0,1388,,0.0,59.8,"média ≥6,5",3.0,6.7,61.8,True
+8,Sul-americano,Equador B,MEI,J. Padilla,Gualaceo,28.0,1009,2026-12-31,50000.0,65.8,,,,60.8,True
+9,Sul-americano,Argentina B,MEI,J. Rodríguez,Atlanta,27.0,1433,2026-12-31,150000.0,64.2,,,,59.2,True
+10,Exterior,China,MEI,Bruno Nazário,Henan,31.0,1127,2026-12-31,1300000.0,55.1,,,,55.1,True
 1,Sul-americano,Equador A,ED,A. Rodríguez,Independiente del Valle,27.0,1246,,850000.0,69.8,,,,69.8,True
 2,Sul-americano,Peru,ED,C. Souza,Cienciano,30.0,1436,2026-12-31,300000.0,69.4,,,,69.4,True
 3,Exterior,Romenia,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,27.0,2919,2027-06-30,200000.0,68.4,,,,68.4,True

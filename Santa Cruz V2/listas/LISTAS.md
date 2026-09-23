@@ -82,11 +82,11 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 | # | Jogador | Clube | Idade | Min | Contrato | Nota | Aderência | Nível | N | PSV ok | Rodou 2025 | Livre 2027 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Dodô** | Náutico | 25 | 1.516 | 30/11/26 | 71 | 76 | 66 | N1/N2 | — | ✓ | ✓ |
-| 2 | **Boschilia** | Operário-PR | 30 | 2.396 | 30/11/27 | 53 | 46 | 60 | N1 | ✓ | ✓ | — |
-| 3 | **Marrony** | Atlético-GO | 27 | 1.956 | 31/12/26 | 48 | 56 | 40 | N1 | — | ✓ | ✓ |
-| 4 | **Jean Lucas** | Avaí | 31 | 1.972 | 31/12/26 | 45 | 51 | 40 | N1 | ✓ | — | ✓ |
-| 5 | **Fábio Lima** | Juventude | 29 | 1.360 | 30/11/26 | 44 | 52 | 36 | N1 | — | — | ✓ |
+| 1 | **Boschilia** | Operário-PR | 30 | 2.396 | 30/11/27 | 53 | 46 | 60 | N1 | ✓ | ✓ | — |
+| 2 | **Marrony** | Atlético-GO | 27 | 1.956 | 31/12/26 | 48 | 56 | 40 | N1 | — | ✓ | ✓ |
+| 3 | **Jean Lucas** | Avaí | 31 | 1.972 | 31/12/26 | 45 | 51 | 40 | N1 | ✓ | — | ✓ |
+| 4 | **Fábio Lima** | Juventude | 29 | 1.360 | 30/11/26 | 44 | 52 | 36 | N1 | — | — | ✓ |
+| 5 | **Luiz Fernando** | Fortaleza | 29 | 1.803 | 31/12/27 | 44 | 44 | — | N1 | — | ✓ | — |
 
 ### Extremo pela direita
 

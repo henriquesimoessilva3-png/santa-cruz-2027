@@ -33,7 +33,7 @@ estrangeiros no máximo; a B usa 2,2.
 | MED | Reserva | **Crystopher** | CRB | 28 | 65 | psv ok |
 | MED | Cobrador | **Rafael Gava** | Botafogo-SP | 33 | 61 | o cobrador mais regular da B (93 → 96), 9 assist. de BP em 2024–26 |
 | MED | Cobrador | **I. Tapia** | Barracas Central (ARG) | 27 | — | cobrador índice 94, passaporte italiano (não ocupa vaga) |
-| MEI | Titular | **Dodô** | Náutico | 25 | 71 | 1º MEI da B, cobrador que repete (95 → 92). Contratação nº 1 |
+| MEI | Titular | **Marrony** | Atlético-GO | 27 | 48 | o MEI livre de maior nota da B com o Dodô fora (foi para a Coreia); fraco — é a posição a resolver fora deste recorte (Frizzo, Coreia B, 85) |
 | ED | Titular | **Pedro Vitor** | São Bernardo | 28 | 63 | psv ok |
 | ED | Reserva | **Bruno José** | Atlético-GO | 28 | 59 | finalizador aéreo (83 → 91) |
 | ED | Alternativa | **H. López** | Argentinos Juniors (ARG) | 25 | 59 | 1º ED da Argentina A no ranking (nível 71) |
@@ -45,7 +45,7 @@ estrangeiros no máximo; a B usa 2,2.
 ## Conta
 23 contratações (11 titulares + 12 opções) + 5 mantidos = 28. Estrangeiros: Ferreira, Osella
 (2) — Tapia e Miño têm passaporte europeu ou entram no lugar. Folha estimada dos 23:
-R$ 1,2–1,4 MM. Bola parada: cobradores Dodô, Danielzinho, Gava/Tapia; finalizadores Vilar, G. Pinheiro,
+R$ 1,2–1,4 MM. Bola parada: cobradores Danielzinho, Gava/Tapia; finalizadores Vilar, G. Pinheiro,
 Osella, André Luiz, Bruno José.
 
 ## Onde este recorte perde
