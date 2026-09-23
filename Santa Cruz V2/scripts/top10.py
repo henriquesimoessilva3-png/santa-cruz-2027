@@ -57,14 +57,16 @@ def main():
             ["livre", "nota_final"], ascending=[False, False]).head(10)
         x = x.assign(ordem=range(1, len(x) + 1))
         out.append(x)
-        itens = []
+        linhas = ["| # | Jogador | Clube | Liga | Idade | Contrato | Nota | Scouts |",
+                  "|---|---|---|---|---|---|---|---|"]
         for r in x.itertuples():
-            pais = "" if r.mercado == "Série B" else " (" + PAIS.get(str(r.liga).split(" ")[0], str(r.liga)) + \
-                   (" B" if str(r.liga).endswith(" B") and r.mercado != "Série B" else "") + ")"
-            est = f" ★ {r.sinal_scouts}" if isinstance(r.sinal_scouts, str) else ""
-            itens.append(f"{r.ordem}. {r.jogador} — {r.clube}{pais}, {int(r.idade)}{'' if r.livre else ' (e)'} · "
-                         f"nota {r.nota_final:.0f}{est}")
-        md.append(f"\n**{nome}**" + (f" ({sub})" if sub else "") + "\n" + " · ".join(itens))
+            liga = "Série B" if r.mercado == "Série B" else str(r.liga)
+            ct = str(r.contrato)[:10] if isinstance(r.contrato, str) and r.contrato else "—"
+            if ct != "—": ct = ct[8:10] + "/" + ct[5:7] + "/" + ct[2:4]
+            est = f"★ {r.sinal_scouts}" if isinstance(r.sinal_scouts, str) else ""
+            linhas.append(f"| {r.ordem} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {liga} | "
+                          f"{int(r.idade)} | {ct} | {r.nota_final:.0f} | {est} |")
+        md.append(f"\n### {nome}" + (f" — {sub}" if sub else "") + "\n\n" + "\n".join(linhas))
     t = pd.concat(out)
     cols = ["ordem", "mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nota",
             "sinal_scouts", "avaliacoes", "nota_media", "nota_final", "livre"]
