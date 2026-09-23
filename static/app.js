@@ -6018,7 +6018,10 @@ function raioMapa() {
        jogador so deixava a regua refem do outlier: o Medina estava no percentil 91 dos
        medios e so 2,9% ficavam verdes; o Alex Telles, no 25 dos laterais, deixava 65%.
        Media de grupo achata isso. Cai para a media MUNDO quando nao ha lista Brasil. */
-    const grupo = RAIO.refs[pos].brasil || RAIO.refs[pos].mundo;
+    /* set/26: a barra passou a ser a MEDIA DE QUEM SUBIU da Serie B na posicao (1o-4o,
+       2022-2025, `sobe` do raio_ref.json, gerado por gerar_raio_serieb.py) — decisao do
+       usuario. Cai para Brasil/Mundo so se a posicao nao tiver `sobe`. */
+    const grupo = RAIO.refs[pos].sobe || RAIO.refs[pos].brasil || RAIO.refs[pos].mundo;
     if (!grupo || !grupo.valores) return;
     const rv = grupo.valores;
     if (!KP.every(k => typeof rv[k] === 'number')) return;
@@ -6070,10 +6073,12 @@ const RAIO_ROT = { sup: 'SUPERIOR', sim: 'SIMILAR', bax: 'ABAIXO' };
 function raioIcone(pk) {
   const o = raioMapa().get(pk);
   if (!o) return '';
-  const g = (RAIO.refs[o.pos] || {}).brasil || (RAIO.refs[o.pos] || {}).mundo || {};
-  const ref = 'média de ' + (g.n || '?') + ' referências' +
-              ((RAIO.refs[o.pos] || {}).brasil ? ' do Brasil' : ' do mundo') +
-              (g.nomes ? ': ' + g.nomes.join(', ') : '');
+  const rp = RAIO.refs[o.pos] || {};
+  const g = rp.sobe || rp.brasil || rp.mundo || {};
+  const ref = rp.sobe
+    ? 'média de ' + (g.n || '?') + ' jogadores da posição nos times que SUBIRAM da Série B (1º–4º, 2022–2025)'
+    : 'média de ' + (g.n || '?') + ' referências' + (rp.brasil ? ' do Brasil' : ' do mundo') +
+      (g.nomes ? ': ' + g.nomes.join(', ') : '');
   const sinal = o.z > 0 ? '+' : '';
   const curto = o.n < RAIO.params.dom_min_npp;
   let t = 'Físico ' + RAIO_ROT[o.c] + ' à referência da posição (' + ref + ')' +
