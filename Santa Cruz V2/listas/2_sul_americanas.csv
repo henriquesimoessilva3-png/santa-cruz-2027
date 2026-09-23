@@ -107,11 +107,9 @@ Sul-americano,Equador A,ED,A. Londoño,Universidad Católica,25.0,1218,2026-12-3
 Sul-americano,Venezuela,ED,C. Sosa,Deportivo Táchira,31.0,1460,2027-12-31,275000,Venezuela,Venezuela,61.8,46.8,77.87,1.0,62.3,0.0,,6,True,True,sim,False,N1
 Sul-americano,Colombia B,ED,K. Cuellar,Real Soacha Cundinamarca,22.0,1004,,0,Colombia,Colombia,77.3,62.3,61.45,2.0,61.9,0.0,,6,True,True,sim,True,N2 jovem
 Sul-americano,Argentina A,ED,J. Fernández,Rosario Central,22.0,1014,2027-12-31,0,Argentina,Argentina,80.3,65.3,56.59,3.0,60.9,0.0,40.16,6,True,True,sim,False,N2 jovem
-Sul-americano,Equador A,EE,E. Pata,Independiente del Valle,22.0,1550,,0,Ecuador,Ecuador,86.1,71.1,72.45,1.0,71.8,0.0,53.79,6,True,True,sim,True,N2 jovem
 Sul-americano,Venezuela,EE,E. Tortolero,Carabobo,28.0,995,2027-12-31,0,Venezuela,Venezuela,84.4,69.4,70.64,1.0,70.0,0.0,,6,True,True,sim,False,N1
 Sul-americano,Bolivia,EE,J. Maraude,Always Ready,18.0,993,,0,Bolivia,Bolivia,95.0,80.0,58.84,3.0,69.4,0.0,,6,True,True,sim,True,N2 jovem
 Sul-americano,Argentina B,EE,M. Lago,Colón,24.0,2172,2027-12-31,0,Argentina,Argentina,88.5,73.5,59.94,2.0,66.7,0.0,,6,True,True,sim,False,N1/N2
-Sul-americano,Argentina A,EE,J. Campaz,Rosario Central,26.0,1144,2026-12-31,0,Colombia,Colombia,85.6,70.6,58.73,3.0,64.7,0.0,51.95,6,True,True,sim,True,N1
 Sul-americano,Peru,EE,P. Magallanes,Sport Huancayo,25.0,1186,2027-12-31,0,Peru,Peru,75.8,60.8,63.1,2.0,62.0,0.0,44.13,6,True,True,sim,False,N1/N2
 Sul-americano,Colombia A,EE,A. Sarmiento,Atlético Nacional,28.0,1567,2027-12-31,700000,Colombia,Colombia,86.9,71.9,51.84,7.0,61.9,0.0,53.62,6,True,True,sim,False,N1
 Sul-americano,Colombia B,EE,D. Dawson,Envigado,20.0,1024,,0,Panama,Panama,67.1,52.099999999999994,71.32,1.0,61.7,0.0,,6,False,True,sim,True,N2 jovem
@@ -119,6 +117,8 @@ Sul-americano,Uruguai,EE,N. Lopez,Progreso,19.0,1402,2027-12-31,0,Uruguay,Urugua
 Sul-americano,Equador B,EE,Jonny Uchuari,Cuenca Juniors,32.0,1054,2026-12-31,450000,Ecuador,Ecuador,73.3,58.3,62.39,1.0,60.3,0.0,,6,True,True,sim,True,N1
 Sul-americano,Colombia B,EE,J. Campaña,Patriotas Boyacá,23.0,1228,,350000,Colombia,Colombia,72.5,57.5,62.28,2.0,59.9,0.0,,6,True,True,sim,True,N2 jovem
 Sul-americano,Argentina A,EE,T. Aranda,Boca Juniors,19.0,1228,2029-12-31,0,Argentina,Argentina,65.6,50.599999999999994,68.77,1.0,59.7,0.0,45.57,6,True,True,sim,False,N2 jovem
+Sul-americano,Argentina B,EE,M. Roseti,Midland,29.0,1809,2027-12-31,0,Argentina,Argentina,66.5,51.5,67.96,1.0,59.7,0.0,,6,True,True,sim,False,N1
+Sul-americano,Argentina A,EE,A. Luna,Instituto,22.0,1735,2029-12-31,0,Argentina,Argentina,84.4,69.4,49.14,6.0,59.3,0.0,50.99,6,True,True,sim,False,N2 jovem
 Sul-americano,Equador A,CA,M. Estrada,LDU Quito,30.0,1133,2027-06-30,0,Ecuador,Ecuador,94.3,79.3,56.8,3.0,68.0,0.0,51.49,6,True,True,sim,True,N1
 Sul-americano,Peru,CA,A. Valera,Universitario,30.0,1713,2026-12-31,0,Peru,Peru,92.9,77.9,53.34,7.0,65.6,0.0,58.9,6,True,True,sim,True,N1
 Sul-americano,Paraguai,CA,A. Alcaraz,Olimpia,26.0,1124,2026-12-31,0,Paraguay,Paraguay,93.4,78.4,51.22,5.0,64.8,0.0,56.6,6,True,True,sim,True,N1

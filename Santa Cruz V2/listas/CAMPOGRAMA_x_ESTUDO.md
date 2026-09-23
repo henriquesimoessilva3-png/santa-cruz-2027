@@ -48,7 +48,7 @@ Reserva Crystopher (CRB, R$ 70 mil): nota 65, psv ok, livre. OK.
 **MEI — Eduardo (Mirassol, 36), R$ 120 mil.** 857 min na A (abaixo do mínimo), nível 32, 25º meia
 da Série A; scouts: 18 avaliações no Mirassol com 6,7, última em nov/24; 2 no Bragantino 7,5
 (jan/26). Aos 36, é pilar de liderança, não de rendimento — e custa como titular. O estudo tem
-Dodô (Náutico, livre, 1º MEI da B, cobrador que repete) e Rômulo (Novorizontino, empréstimo).
+Dodô (Náutico, livre, 1º MEI da B, cobrador que repete).
 **Divergência: pago pelo nome.** Reserva H. Mörschel (Vizela, 29, dominicano, R$ 70 mil): 2.926
 min em Portugal B, vaga de estrangeiro, sem avaliação dos scouts.
 

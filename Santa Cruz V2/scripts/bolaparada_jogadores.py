@@ -88,7 +88,9 @@ def main():
     cobc = ["indice_cobrador", "escanteios_temporada", "faltas_cobradas_temporada", "faltas_diretas_temporada", "Direct free kicks on target, %", "xA per 90", "Accurate crosses, %"]
     finc = ["indice_finalizador", "Head goals", "Head goals per 90", "Aerial duels per 90", "Aerial duels won, %", "Height"]
     def topo(d, col, n, extra=[]):
-        d = d[(d.idade <= 33)].sort_values(col, ascending=False)
+        fora = excluidos()   # listas/EXCLUIDOS.csv
+        d = d[(d.idade <= 33) & [not fora(j, c) for j, c in zip(d.jogador, d.clube)]]
+        d = d[~caro(d)].sort_values(col, ascending=False)   # valor > € 2 MM: inalcançável
         return d[cols + (cobc if col == "indice_cobrador" else finc) + extra].head(n)
     merc = {"1_serie_B": sb, "1b_serie_A": lg[lg.mercado == "Série A"], "2_sul_americanas": lg[lg.mercado == "Sul-americano"],
             "3_sulam_no_exterior": lg[(lg.mercado == "Exterior") & lg.sul_americano & lg.liga.isin(ALCANCAVEIS)]}

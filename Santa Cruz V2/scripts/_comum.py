@@ -105,3 +105,42 @@ def clube_temporada():
     c["ppj_esperado"] = b[0] * c["log_valor"] + b[1]
     c["rendimento"] = c["ppj"] - c["ppj_esperado"]   # pontos por jogo acima do que o elenco pagava
     return c
+
+
+def excluidos():
+    """Nomes que o clube tirou das recomendações (listas/EXCLUIDOS.csv): nome + clube (vazio =
+    qualquer clube). Devolve uma função que diz se (jogador, clube) está fora."""
+    f = os.path.join(RAIZ, "listas", "EXCLUIDOS.csv")
+    if not os.path.exists(f):
+        return lambda j, c: False
+    e = pd.read_csv(f).fillna("")
+    regras = [(chave(r.jogador), chave(r.clube)) for r in e.itertuples()]
+    def fora(j, c):
+        kj, kc = chave(j), chave(c)
+        # jogador "*" = o clube inteiro fora
+        return any((kj == rj or rj == "") and (not rc or rc in kc or kc in rc) and (rj or rc) for rj, rc in regras)
+    return fora
+
+
+TETO_VALOR = 2_000_000   # € — acima disso o jogador é inalcançável para a Série B (decisão do clube, 23/09)
+
+
+def valor_tm():
+    """Valor de mercado do Transfermarkt pela base do app (../dados/jogadores.json, campo mv),
+    por nome|clube. Serve para completar o valor que o Wyscout deixa em 0 (sem dado)."""
+    import json
+    f = os.path.join(os.path.dirname(RAIZ), "dados", "jogadores.json")
+    if not os.path.exists(f):
+        return {}
+    L = json.load(open(f, encoding="utf-8"))
+    L = L if isinstance(L, list) else (L.get("jogadores") or [])
+    return {chave(j.get("n")) + "|" + chave(j.get("t")): j.get("mv") for j in L if j.get("mv")}
+
+
+def caro(df, col_jog="jogador", col_clube="clube", col_valor="valor"):
+    """True para quem vale mais que TETO_VALOR (valor do Wyscout; se vier 0/vazio, o do Transfermarkt)."""
+    tm = valor_tm()
+    v = pd.to_numeric(df[col_valor], errors="coerce").fillna(0)
+    alt = [tm.get(chave(j) + "|" + chave(c)) or 0 for j, c in zip(df[col_jog], df[col_clube])]
+    v = v.where(v > 0, pd.Series(alt, index=df.index))
+    return v > TETO_VALOR

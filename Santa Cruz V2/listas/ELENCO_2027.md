@@ -1,8 +1,9 @@
 # Quem eu contrataria — Santa Cruz, Série B 2027
 
 Veredito em uma linha: **um elenco de 28 nomes, com 5 titulares mantidos de 2026, 11 contratações
-principais a passe zero da própria Série B, dois estrangeiros de bola parada, quatro jovens de
-Série A por empréstimo — e Léo Condé no comando, contratado para ficar o ano inteiro.**
+principais a passe zero da própria Série B, sul-americanos e brasileiros de ligas mais fracas nas
+posições em que a B não tem livre à altura — e Léo Condé no comando, contratado para ficar o ano
+inteiro.**
 
 Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
 minutagem regular elimina; aderência ao modelo que rende e nível contra a referência mundial
@@ -33,25 +34,30 @@ de G4 (Carpini, Guto: elencos top-5).
 
 ## 3. O elenco — 4-2-3-1, por posição
 
+Revisado em 23/09: sem Série A e sem os nomes que o clube tirou (`EXCLUIDOS.csv`); foco em
+Série B, sul-americanos e brasileiros em ligas mais fracas, valor de mercado até € 2 MM.
+
 Legenda: **N1** pilar/rendimento · **N2** jovem ≤ 23 · faixa salarial estimada (R$ mil/mês, bruto
 ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 
 ### Goleiro — vídeo decide (B2-5), mas dois nomes se destacam nas duas notas
 1. **Jandrei** (Juventude, 33, livre dez/26) — nota 83 (83/83), 1º goleiro da B no ranking. N1, ~70–90.
-2. **Carlos Miguel** (Palmeiras, 27, contrato jun/27) — 74 (83/66), reserva na A: empréstimo ou
-   livre no meio do ano. N1, ~60–80.
-3. Base: **Airton** (Criciúma, 32, livre) — 66, rodou 2025 e 2026. ~40.
+2. **Airton** (Criciúma, 32, livre nov/26) — 66, rodou 2025 e 2026. N1, ~40–50.
+3. **Rodolfo** (Central Español, Uruguai, 35, brasileiro, livre dez/26) — 78, não ocupa vaga de
+   estrangeiro; veterano para disputar com o Jandrei. ~40. Sul-americanos: M. Miño (Barracas
+   Central, ARG, 28) — 73.
 
 ### Lateral direito
-1. **Igor Formiga** (Mirassol, 27, livre dez/26) — 65 (81/50), 3 passes longos e cruzamento; da
-   Série A, que chega acima da mediana na B (B6-5). N1, ~60.
+1. **Lucas Soto** (Everton, Chile, 23, livre) — 64, ★ urgência dos scouts. N2 estrangeiro, ~30–40.
 2. **Ewerthon** (Atlético-GO, 25, livre) — 56 (68/45), 2.014 min, psv ok. N1/N2, ~35.
-3. Manter um da base ou Diogo Batista (Athletic, 23, livre) como N2.
+3. **Rodrigo Soares** (Goiás, 33, livre nov/26) — 57, psv ok, rodou 2025. N1, ~40. O melhor LD da B
+   (Willean Lepo, Criciúma) tem contrato até dez/27: só se o Criciúma liberar.
 
 ### Zagueiro pela direita — o que cria e ganha no alto (B2-4)
-1. **João Basso** (Cuiabá, 29, livre nov/26) — 65 (71/59), 2.542 min, psv ok, 2 gols de cabeça,
-   65% aéreos ganhos, 1,87 m. Titular e finalizador de bola parada. N1, ~80–100.
-2. **Gabriel Bahia** (Novorizontino, 27, livre mar/27) — 61 (68/54), rodou 2025 e 2026, psv ok. N1, ~50.
+1. **Gabriel Bahia** (Novorizontino, 27, livre mar/27) — 61 (68/54), rodou 2025 e 2026, psv ok,
+   ★ scouts. Titular. N1, ~50–60.
+2. **Gabriel Pinheiro** (Juventude, 29, livre dez/26) — 57, psv ok, rodou 2025, finalizador aéreo
+   (índice 83, 70% aéreos). N1, ~45. Sul-americano: **G. Vargas** (Olimpia, PAR, 24, livre) — 65.
 3. **F. Molina** (Unión Magdalena, 22, venezuelano, livre dez/26, emprestado) — 4 gols de cabeça,
    saída longa e progressiva percentil 95+, mas duelo defensivo fraco (percentil 19 na Colômbia B).
    Terceiro zagueiro e arma de bola parada, com vídeo. N2, ~30, ocupa vaga de estrangeiro.
@@ -60,14 +66,17 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 1. **Vilar** (Botafogo-SP, 26, livre nov/26) — 66, 2.612 min, psv ok, rodou 2025, finalizador
    aéreo que repete (índice 90 → 91, 1,90 m, 67% aéreos). Titular. N1, ~70–90.
 2. **Wallace** (Botafogo-SP, 31, livre nov/26) — 64 (73/56). Cobertura. N1, ~50.
-3. **Robert Renan** (Vasco, 22, contrato 2028) — 70 (79/62): pedir empréstimo com opção. N2.
+3. **Luiz Otávio** (Ceará, 33, livre dez/26) — 58, 1º finalizador aéreo da B (índice 92), 5 gols
+   de bola parada em 2024–26. Veterano e arma aérea. N1, ~50. Sul-americano: **S. Morales** (Aucas,
+   ECU, 24, livre) — 67.
 
 ### Lateral esquerdo — o que chega ao gol (B2-4)
 1. **Patrick Brey** (Botafogo-SP, 29, livre nov/26) — 69 (72/65), 1º LE da B no ranking, psv ok,
    rodou 2025 e 2026. Titular. N1, ~70–90.
-2. **Cuiabano** (Vasco, 23, contrato 2029) — 79 (100/58), a aderência mais alta de todo o LE:
-   empréstimo com opção é a jogada de maior retorno do elenco. N2.
-3. **Marcelo Hermes** (Criciúma, 31, livre dez/26) — 56, 2.610 min. Se Cuiabano não vier. N1, ~50.
+2. **Maicon** (Levski Sofia, Bulgária, 26, brasileiro, livre jun/27) — 69, repatriação sem vaga de
+   estrangeiro. N1, ~50.
+3. **Marcelo Hermes** (Criciúma, 31, livre dez/26) — 56, 2.610 min. N1, ~50. Sul-americano:
+   **J. Pérez** (Carabobo, VEN, 27, livre) — 69.
 
 ### Volantes (2) — duelo aéreo, corrida progressiva, interceptação; arrancadas (B2-4, B1-3)
 1. **André Luiz** (Londrina, 31, livre nov/26) — 70, psv ok, rodou 2025, finalizador aéreo
@@ -92,7 +101,8 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
    liga. **Contratação nº 1 do elenco.** N1, ~90–110.
 2. **Matheus Frizzo** (Suwon, Coreia B, 28, brasileiro, livre) — 85 (85/85), nota mais alta de
    todos os mercados no MEI; repatriação, sem vaga de estrangeiro. Se o custo couber. N1, ~90.
-3. **Rômulo** (Novorizontino, 24, contrato 2028) — 71, cobrador em ascensão (74 → 93): empréstimo. N2.
+3. **Caleb** (Atlético CP, Portugal C, 33, brasileiro, livre) — 63, veterano. ~40. Sul-americano:
+   **J. Barrera** (Real Cartagena, COL B, 30, livre) — 68.
 
 ### Extremo pela direita — o que defende e cria, não o finalizador (B2-4)
 1. **Pedro Vitor** (São Bernardo, 28, livre dez/26) — 63 (68/59), psv ok. N1, ~40.
@@ -104,8 +114,8 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 1. **Dadá Belmonte** (CRB, 29, livre nov/26) — 70 (89/51), a maior aderência da posição, psv ok,
    rodou 2025 e 2026. Titular. N1, ~70–90.
 2. **Iago Teles** (Londrina, 26, contrato jun/27) — 65 (75/55), cobrador (índice 92), psv ok. N1, ~45.
-3. **E. Pata** (Independiente del Valle, 22, equatoriano, sem contrato registrado) — 72 (71/72),
-   N2 estrangeiro; ARG/COL/URU/ECU de extremo é onde o estrangeiro funciona na B (B6-4). ~40.
+3. **M. Moreno** (Paredes, Portugal C, 22, livre jun/27) — 64, N2 estrangeiro; extremo é onde o
+   estrangeiro funciona na B (B6-4). ~30. Conferir nacionalidade e vídeo.
 
 ### Centroavante — acelera, chega à área, cabeceia, sprinta com e sem bola (B2-4, B1-3)
 1. **Mikael** (CRB, 27, contrato nov/27) — 79 (94/64), a maior nota de todo o elenco, psv ok,
@@ -114,19 +124,19 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
    de atacante. Pilar veterano. N1, ~60.
 3. **M. Estrada** (LDU Quito, 30, equatoriano, contrato jun/27) — 68 (79/57), 3 gols de cabeça,
    finalizador aéreo (índice 92). Se Mikael não sair do CRB. N1, ~60, vaga de estrangeiro.
-4. **Paulo Victor** (América-MG, 25, livre dez/26) — 57, psv ok. N1/N2, ~35.
+4. **A. Alcaraz** (Olimpia, Paraguai, 26, livre) — 65. N1, ~50, vaga de estrangeiro.
 
 ## 4. Conta de fechamento
-28 nomes: 5 mantidos + 23 acima (11 titulares, 12 opções). Estrangeiros: 2 a 3 (Molina, Pata,
-Estrada) — a B usa 2,2 em média e quem sobe dá 10% dos minutos a eles (B6-4); contrato de um ano
+28 nomes: 5 mantidos + 23 acima (11 titulares, 12 opções). Estrangeiros: 3 a 4 (Molina, Lucas Soto,
+Estrada, Moreno/Alcaraz) — a B usa 2,2 em média e quem sobe dá 10% dos minutos a eles (B6-4); contrato de um ano
 com opção. Folha estimada dos 23 novos: R$ 1,3–1,5 MM/mês nas faixas acima, o que deixa
 R$ 0,5–0,7 MM para os cinco mantidos e a base — dentro dos R$ 2,0 MM, se as faixas estiverem
 certas (e é aí que o vídeo e o mercado corrigem o número).
 
 Bola parada montada: cobradores Dodô, Danielzinho, Gava (e Segovia/Iago Teles); finalizadores
-Basso, Vilar, André Luiz, Bruno José, Mikael/Estrada. É o que separa +5 de −5 no saldo (7 pontos).
+Luiz Otávio, G. Pinheiro, Vilar, André Luiz, Bruno José, Mikael/Estrada. É o que separa +5 de −5 no saldo (7 pontos).
 
 ## 5. O que o dado não mostra e precisa de vídeo antes de fechar
 Goleiro inteiro (B2-5); duelo defensivo do Molina; Zé Gabriel e Danielzinho abaixo do piso de
-velocidade; liderança e mentalidade dos N1 (Pottker, Gava, Jandrei); adaptação de Pata, Estrada
-e Frizzo. E o salário real de cada um — o estudo não tem folha.
+velocidade; liderança e mentalidade dos N1 (Pottker, Gava, Jandrei); adaptação de Lucas Soto,
+Estrada, Moreno e Frizzo. E o salário real de cada um — o estudo não tem folha.

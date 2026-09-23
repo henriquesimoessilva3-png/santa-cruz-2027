@@ -7,8 +7,7 @@ estimativa minha (R$ mil/mês); contrato e situação a confirmar. Base: `1_seri
 `argentina_A_livres.csv` (98 livres elegíveis), `bola_parada_especialistas.xlsx`.
 
 **Veredito:** dá para montar os 11 titulares inteiros com livres da Série B; a Argentina A entra
-em três pontos onde ela é melhor que a B — goleiro, zagueiro pela direita jovem e o extremo pela
-esquerda — e nas duas vagas de bola parada (Tapia cobrador, Osella finalizador). Quatro
+em dois pontos onde ela é melhor que a B — goleiro e zagueiro pela direita jovem — e nas duas vagas de bola parada (Tapia cobrador, Osella finalizador). Quatro
 estrangeiros no máximo; a B usa 2,2.
 
 ## Onze
@@ -18,7 +17,8 @@ estrangeiros no máximo; a B usa 2,2.
 **Ewerthon** (Atlético-GO, 25) LD — 56, 2.014 min, psv ok. Sem LD forte entre os livres: é o ponto
 fraco do mercado. Argentino: **A. Steimbach** (Gimnasia, 24) — 54, 5º LD da liga, jovem.
 
-**João Basso** (Cuiabá, 29) ZD — 65, 2.542 min, psv ok, 65% aéreos, 2 de cabeça. Titular.
+**Gabriel Bahia** (Novorizontino, 27) ZD — 61, livre mar/27, rodou 2025 e 2026, psv ok. Titular.
+**Gabriel Pinheiro** (Juventude, 29) ZD — 57, psv ok, finalizador aéreo (índice 83, 70% aéreos).
 **C. Ferreira** (Atlético Tucumán, 23, paraguaio) ZD — 64, 4º ZD da Argentina A, N2. Terceiro
 zagueiro ou aposta de valorização.
 
@@ -51,20 +51,21 @@ da Argentina A no ranking (nível 71): é o ED de maior nível entre todos os li
 mediana. Se quiser nível, é ele.
 
 **Dadá Belmonte** (CRB, 29) EE — 70 (89/51), psv ok, rodou 2025 e 2026. Titular.
-**J. Campaz** (Rosario Central, 26, colombiano) EE — 65 (71/59), 3º EE da Argentina A; extremo
-sul-americano é onde o estrangeiro funciona na B (B6-4). Segundo EE, vaga de estrangeiro.
+**Iago Teles** (Londrina, 26) EE — 67, cobrador (índice 92), psv ok; contrato jun/27. Segundo EE.
+A Argentina A não tem outro EE livre com nível (o seguinte tem nota 45).
 
 **William Pottker** (Londrina, 32) CA — 58, psv ok, rodou 2025. Titular por falta de melhor: Mikael
-tem contrato até nov/27 e não entra aqui. **Paulo Victor** (América-MG, 25) — 57, psv ok. A
-Argentina A não tem centroavante livre com nível (R. Auzmendi, 35º CA da liga).
+tem contrato até nov/27 e não entra aqui. A Argentina A não tem centroavante livre com nível
+(R. Auzmendi, 35º CA da liga): o reserva sai da lista sul-americana (M. Estrada, LDU; A. Alcaraz,
+Olimpia).
 
 ## Conta
-23 contratações (11 titulares + 12 opções) + 5 mantidos = 28. Estrangeiros: Ferreira, Campaz,
-Osella (3) — Tapia e Miño têm passaporte europeu ou entram no lugar. Folha estimada dos 23:
-R$ 1,2–1,4 MM. Bola parada: cobradores Dodô, Danielzinho, Gava/Tapia; finalizadores Basso, Vilar,
+23 contratações (11 titulares + 12 opções) + 5 mantidos = 28. Estrangeiros: Ferreira, Osella
+(2) — Tapia e Miño têm passaporte europeu ou entram no lugar. Folha estimada dos 23:
+R$ 1,2–1,4 MM. Bola parada: cobradores Dodô, Danielzinho, Gava/Tapia; finalizadores Vilar, G. Pinheiro,
 Osella, André Luiz, Bruno José.
 
 ## Onde este recorte perde
-Centroavante e lateral direito. Os dois melhores CA da B (Mikael, Bruno Santos) e o melhor LD
-(Willean Lepo, Maílton) têm contrato além de 2027. Se abrir uma exceção ao passe zero, é nessas
-duas posições — ou na Série A (Igor Formiga, livre dez/26, resolve o LD).
+Centroavante e lateral direito. O melhor CA da B (Mikael) e os melhores LD (Willean Lepo, Maílton) têm contrato
+além de 2027. Se abrir uma exceção ao passe zero, é nessas duas posições. (23/09: Série A fora das
+recomendações.)

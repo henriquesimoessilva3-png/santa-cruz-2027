@@ -107,6 +107,8 @@ def ranking():
 
 def main():
     out = os.path.join(RAIZ, "listas"); os.makedirs(out, exist_ok=True)
+    global FORA
+    FORA = excluidos()
     sb = serie_b(); lg = ligas(); rk = ranking()
     if "chave" not in sb: sb["chave"] = sb.jogador.map(chave)
     lg["chave"] = lg.jogador.map(chave)
@@ -124,6 +126,8 @@ def main():
     lgc = lg[cols + ["sul_americano", "ocupa_vaga_estrangeiro", "On loan"]].copy(); lgc["livre_2027"] = livre(lgc.contrato)
     def top(df, n=12, filtro=None, teto_valor=None):
         d = df if filtro is None else df[filtro]
+        d = d[[not FORA(j, c) for j, c in zip(d.jogador, d.clube)]]   # listas/EXCLUIDOS.csv
+        d = d[~caro(d)]   # valor > € 2 MM (Wyscout, ou Transfermarkt quando o Wyscout não tem): inalcançável
         d = d[((d.idade <= 33) | ((d.pos11 == "GOL") & (d.idade <= 37))) & (d.criterios_com_dado >= 3) & (d.pos11 != "Outro")]
         if teto_valor is not None:
             v = d.valor.fillna(0)

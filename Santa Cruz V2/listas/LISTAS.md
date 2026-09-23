@@ -26,11 +26,11 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 **Zagueiro pela direita**
 
-- João Basso — Cuiabá, 29 anos, 2542 min, contrato 2026-11-30 · nota 65 (aderência 71, nível 59) · N1 · psv ok: sim · rodou 2025: não · livre 2027: sim
 - Gabriel Bahia — Novorizontino, 27 anos, 1246 min, contrato 2027-03-31 · nota 61 (aderência 68, nível 54) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: sim
 - Gabriel Pinheiro — Juventude, 29 anos, 1236 min, contrato 2026-12-31 · nota 57 (aderência 58, nível 56) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: sim
 - Benevenuto — Sport, 30 anos, 1733 min, contrato 2026-11-30 · nota 56 (aderência 56, nível 57) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: sim
 - Henri — CRB, 24 anos, 1300 min, contrato 2027-12-31 · nota 55 (aderência 52, nível 58) · N1/N2 · psv ok: sim · rodou 2025: sim · livre 2027: não
+- Léo Índio — Náutico, 30 anos, 1009 min, contrato 2026-11-30 · nota 54 (aderência 54, nível —) · N1 · psv ok: sem dado · rodou 2025: não · livre 2027: sim
 
 **Zagueiro pela esquerda**
 
@@ -67,10 +67,10 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 **Meia**
 
 - Dodô — Náutico, 25 anos, 1516 min, contrato 2026-11-30 · nota 71 (aderência 76, nível 66) · N1/N2 · psv ok: sem dado · rodou 2025: sim · livre 2027: sim
-- Rômulo — Novorizontino, 24 anos, 2289 min, contrato 2028-12-31 · nota 71 (aderência 82, nível 60) · N1/N2 · psv ok: sim · rodou 2025: sim · livre 2027: não
 - Boschilia — Operário-PR, 30 anos, 2396 min, contrato 2027-11-30 · nota 53 (aderência 46, nível 60) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: não
 - Marrony — Atlético-GO, 27 anos, 1956 min, contrato 2026-12-31 · nota 48 (aderência 56, nível 40) · N1 · psv ok: sem dado · rodou 2025: sim · livre 2027: sim
 - Jean Lucas — Avaí, 31 anos, 1972 min, contrato 2026-12-31 · nota 45 (aderência 51, nível 40) · N1 · psv ok: sim · rodou 2025: não · livre 2027: sim
+- Fábio Lima — Juventude, 29 anos, 1360 min, contrato 2026-11-30 · nota 44 (aderência 52, nível 36) · N1 · psv ok: sem dado · rodou 2025: não · livre 2027: sim
 
 **Extremo pela direita**
 
@@ -91,10 +91,10 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 **Centroavante**
 
 - Mikael — CRB, 27 anos, 2236 min, contrato 2027-11-30 · nota 79 (aderência 94, nível 64) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: não
-- Bruno Santos — Londrina, 29 anos, 1539 min, contrato 2028-12-31 · nota 66 (aderência 74, nível 59) · N1 · psv ok: sim · rodou 2025: não · livre 2027: não
 - Derek — Náutico, 28 anos, 1526 min, contrato 2027-12-31 · nota 61 (aderência 83, nível 39) · N1 · psv ok: sim · rodou 2025: não · livre 2027: não
 - William Pottker — Londrina, 32 anos, 1425 min, contrato 2026-11-30 · nota 58 (aderência 66, nível 50) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: sim
-- Paulo Victor — América-MG, 25 anos, 1104 min, contrato 2026-12-31 · nota 57 (aderência 66, nível 47) · N1/N2 · psv ok: sim · rodou 2025: não · livre 2027: sim
+- Alisson Safira — Juventude, 31 anos, 1585 min, contrato 2027-12-31 · nota 54 (aderência 63, nível 46) · N1 · psv ok: sim · rodou 2025: sim · livre 2027: não
+- Ian Luccas — Athletic, 23 anos, 1433 min, contrato 2030-06-30 · nota 51 (aderência 52, nível 50) · N2 jovem · psv ok: sim · rodou 2025: não · livre 2027: não
 
 ## 1b. Série A (2026)
 
@@ -103,41 +103,41 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 - Ronaldo — Bahia (Brasil A), 29 anos, 1382 min, contrato 2029-12-31 · nota 86 (aderência 100, nível 73) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - Tiago Volpi — Red Bull Bragantino (Brasil A), 35 anos, 1534 min, contrato 2026-12-31 · nota 79 (aderência 86, nível 71) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
-- Carlos Miguel — Palmeiras (Brasil A), 27 anos, 2243 min, contrato 2027-06-30 · nota 74 (aderência 83, nível 66) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
 - Lucas Arcanjo — Vitória (Brasil A), 28 anos, 1963 min, contrato 2028-12-31 · nota 67 (aderência 69, nível 65) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - Léo Vieira — Bahia (Brasil A), 35 anos, 1584 min, contrato 2026-12-31 · nota 66 (aderência 81, nível 50) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
+- Pedro Rangel — Coritiba (Brasil A), 26 anos, 1623 min, contrato 2028-12-31 · nota 62 (aderência 73, nível 51) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Lateral direito**
 
-- J. Rodríguez — Vasco da Gama (Brasil A), 29 anos, 1199 min, contrato 2027-12-31 · nota 70 (aderência 86, nível 54) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Lucas Ramon — São Paulo (Brasil A), 32 anos, 1492 min, contrato 2027-12-31 · nota 67 (aderência 91, nível 43) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- Igor Formiga — Mirassol (Brasil A), 27 anos, 1683 min, contrato 2026-12-31 · nota 65 (aderência 81, nível 50) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
 - Paulo Henrique — Vasco da Gama (Brasil A), 30 anos, 1085 min, contrato 2027-12-31 · nota 62 (aderência 85, nível 40) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- Gilberto — Athletico Paranaense (Brasil A), 33 anos, 994 min, contrato 2027-12-31 · nota 61 (aderência 72, nível 49) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
+- Marcelinho — Remo (Brasil A), 28 anos, 1668 min, contrato — · nota 55 (aderência 70, nível 40) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
+- A. Giay — Palmeiras (Brasil A), 22 anos, 1339 min, contrato 2030-12-31 · nota 52 (aderência 68, nível 36) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: sim
+- Everton — Chapecoense (Brasil A), 31 anos, 1340 min, contrato 2026-12-31 · nota 51 (aderência 68, nível 33) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
 
 **Zagueiro pela direita**
 
 - Léo Ortiz — Flamengo (Brasil A), 30 anos, 1618 min, contrato 2028-12-31 · nota 79 (aderência 89, nível 68) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - David Duarte — Bahia (Brasil A), 31 anos, 1633 min, contrato 2027-12-31 · nota 74 (aderência 88, nível 60) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - Fabricio Bruno — Cruzeiro (Brasil A), 30 anos, 2013 min, contrato 2030-12-31 · nota 72 (aderência 92, nível 52) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- Bruno Gomes — Internacional (Brasil A), 25 anos, 2098 min, contrato 2027-12-31 · nota 71 (aderência 71, nível —) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: não
 - Ignácio — Fluminense (Brasil A), 29 anos, 920 min, contrato 2028-06-30 · nota 67 (aderência 74, nível 59) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
+- Alix — Red Bull Bragantino (Brasil A), 26 anos, 1620 min, contrato 2028-12-31 · nota 64 (aderência 75, nível 53) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Zagueiro pela esquerda**
 
-- Alexander Barboza — Palmeiras (Brasil A), 31 anos, 1445 min, contrato 2028-12-31 · nota 81 (aderência 100, nível 63) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Viery — Grêmio (Brasil A), 21 anos, 1323 min, contrato 2031-06-30 · nota 72 (aderência 75, nível 70) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: não
-- Robert Renan — Vasco da Gama (Brasil A), 22 anos, 2227 min, contrato 2028-06-30 · nota 70 (aderência 79, nível 62) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: não
 - Léo Pereira — Flamengo (Brasil A), 30 anos, 1816 min, contrato 2027-12-31 · nota 69 (aderência 68, nível 69) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - J. Freytes — Fluminense (Brasil A), 26 anos, 1776 min, contrato 2028-12-31 · nota 68 (aderência 80, nível 56) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
+- L. Esquivel — Athletico Paranaense (Brasil A), 24 anos, 1456 min, contrato 2029-06-30 · nota 67 (aderência 67, nível —) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: sim
+- Luan Peres — Santos (Brasil A), 32 anos, 1476 min, contrato 2027-12-31 · nota 66 (aderência 75, nível 56) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Lateral esquerdo**
 
-- Cuiabano — Vasco da Gama (Brasil A), 23 anos, 1148 min, contrato 2029-06-30 · nota 79 (aderência 100, nível 58) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: não
 - Renan Lodi — Atlético Mineiro (Brasil A), 28 anos, 1973 min, contrato 2030-12-31 · nota 67 (aderência 91, nível 42) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - Matheus Bidu — Corinthians (Brasil A), 27 anos, 1753 min, contrato 2027-12-31 · nota 65 (aderência 86, nível 44) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- Juninho Capixaba — Red Bull Bragantino (Brasil A), 29 anos, 1916 min, contrato 2028-12-31 · nota 62 (aderência 75, nível 50) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - Kaiki — Cruzeiro (Brasil A), 23 anos, 1615 min, contrato 2027-12-31 · nota 62 (aderência 80, nível 44) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: não
+- Luciano Juba — Bahia (Brasil A), 26 anos, 1736 min, contrato 2029-12-31 · nota 59 (aderência 64, nível 55) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
+- Guilherme Arana — Fluminense (Brasil A), 29 anos, 979 min, contrato 2029-12-31 · nota 55 (aderência 66, nível 43) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Volante**
 
@@ -153,7 +153,7 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 - Andreas Pereira — Palmeiras (Brasil A), 30 anos, 1920 min, contrato 2028-12-31 · nota 74 (aderência 97, nível 52) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - Danilo — Botafogo (Brasil A), 25 anos, 1495 min, contrato 2029-06-30 · nota 72 (aderência 89, nível 55) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: não
 - Marcos Antônio — São Paulo (Brasil A), 26 anos, 1415 min, contrato 2030-12-31 · nota 71 (aderência 83, nível 60) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- D. Bobadilla — São Paulo (Brasil A), 25 anos, 1300 min, contrato 2027-12-31 · nota 69 (aderência 86, nível 52) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: sim
+- Tchê Tchê — Vasco da Gama (Brasil A), 33 anos, 1133 min, contrato 2026-12-31 · nota 59 (aderência 71, nível 48) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
 
 **Meia**
 
@@ -161,7 +161,7 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 - L. Acosta — Fluminense (Brasil A), 32 anos, 1315 min, contrato 2029-12-31 · nota 80 (aderência 100, nível 59) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Matheus Pereira — Cruzeiro (Brasil A), 30 anos, 1914 min, contrato 2028-12-31 · nota 74 (aderência 93, nível 55) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - R. Garro — Corinthians (Brasil A), 28 anos, 1682 min, contrato 2028-12-31 · nota 69 (aderência 82, nível 56) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
-- Bernard — Atlético Mineiro (Brasil A), 33 anos, 1103 min, contrato 2027-12-31 · nota 58 (aderência 74, nível 42) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
+- Lucas Barbosa — Red Bull Bragantino (Brasil A), 25 anos, 2021 min, contrato 2029-12-31 · nota 52 (aderência 63, nível 41) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Extremo pela direita**
 
@@ -175,17 +175,17 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 - Samuel Lino — Flamengo (Brasil A), 26 anos, 1521 min, contrato 2029-12-31 · nota 80 (aderência 95, nível 66) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - A. Gómez — Vasco da Gama (Brasil A), 23 anos, 1715 min, contrato 2031-01-31 · nota 78 (aderência 98, nível 58) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: sim
-- T. Cuello — Atlético Mineiro (Brasil A), 26 anos, 1526 min, contrato 2028-12-31 · nota 77 (aderência 100, nível 55) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Henry Mosquera — Red Bull Bragantino (Brasil A), 24 anos, 1298 min, contrato 2027-12-31 · nota 69 (aderência 87, nível 51) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: sim
 - K. Serna — Fluminense (Brasil A), 28 anos, 1382 min, contrato 2028-12-31 · nota 63 (aderência 84, nível 43) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
+- Breno Lopes — Coritiba (Brasil A), 30 anos, 1527 min, contrato 2029-12-31 · nota 60 (aderência 70, nível 50) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Centroavante**
 
-- J. Carbonero — Internacional (Brasil A), 27 anos, 1683 min, contrato 2029-12-31 · nota 71 (aderência 80, nível 62) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Pedro — Flamengo (Brasil A), 29 anos, 1904 min, contrato 2027-12-31 · nota 70 (aderência 87, nível 54) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - K. Viveros — Athletico Paranaense (Brasil A), 26 anos, 2216 min, contrato 2028-06-30 · nota 66 (aderência 88, nível 45) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - R. Sosa — Palmeiras (Brasil A), 26 anos, 1078 min, contrato 2030-06-30 · nota 66 (aderência 66, nível —) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Renê — Vitória (Brasil A), 22 anos, 1184 min, contrato 2029-12-31 · nota 61 (aderência 82, nível 40) · N2 jovem · livre 2027: não · ocupa vaga estrangeiro: não
+- Kaio Jorge — Cruzeiro (Brasil A), 24 anos, 1398 min, contrato 2030-12-31 · nota 60 (aderência 79, nível 41) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: não
 
 ## 2. Campeonatos sul-americanos
 
@@ -264,11 +264,11 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 **Extremo pela esquerda**
 
-- E. Pata — Independiente del Valle (Equador A), 22 anos, 1550 min, contrato — · nota 72 (aderência 71, nível 72) · N2 jovem · livre 2027: sim · ocupa vaga estrangeiro: sim
 - E. Tortolero — Carabobo (Venezuela), 28 anos, 995 min, contrato 2027-12-31 · nota 70 (aderência 69, nível 71) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - J. Maraude — Always Ready (Bolivia), 18 anos, 993 min, contrato — · nota 69 (aderência 80, nível 59) · N2 jovem · livre 2027: sim · ocupa vaga estrangeiro: sim
 - M. Lago — Colón (Argentina B), 24 anos, 2172 min, contrato 2027-12-31 · nota 67 (aderência 74, nível 60) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: sim
-- J. Campaz — Rosario Central (Argentina A), 26 anos, 1144 min, contrato 2026-12-31 · nota 65 (aderência 71, nível 59) · N1 · livre 2027: sim · ocupa vaga estrangeiro: sim
+- P. Magallanes — Sport Huancayo (Peru), 25 anos, 1186 min, contrato 2027-12-31 · nota 62 (aderência 61, nível 63) · N1/N2 · livre 2027: não · ocupa vaga estrangeiro: sim
+- A. Sarmiento — Atlético Nacional (Colombia A), 28 anos, 1567 min, contrato 2027-12-31 · nota 62 (aderência 72, nível 52) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 
 **Centroavante**
 
@@ -359,15 +359,15 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 - B. Rodríguez — América (Mexico), 26 anos, 2669 min, contrato 2029-06-30 · nota 66 (aderência 71, nível 62) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Guilherme — Houston Dynamo (EUA), 31 anos, 1774 min, contrato 2028-06-30 · nota 65 (aderência 58, nível 73) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - M. Moreno — Paredes (Portugal C), 22 anos, 1639 min, contrato 2027-06-30 · nota 64 (aderência 66, nível 62) · N2 jovem · livre 2027: sim · ocupa vaga estrangeiro: sim
-- Guilherme Bala — Shabab Al Ahli Dubai (Emirados), 24 anos, 2093 min, contrato — · nota 62 (aderência 49, nível 75) · N1/N2 · livre 2027: sim · ocupa vaga estrangeiro: não
+- Reinaldo — Chaves (Portugal B), 24 anos, 2672 min, contrato 2026-06-30 · nota 62 (aderência 70, nível 54) · N1/N2 · livre 2027: sim · ocupa vaga estrangeiro: não
 
 **Centroavante**
 
 - Juninho — Muharraq (Bahrain), 27 anos, 1543 min, contrato 2028-06-30 · nota 69 (aderência 71, nível 68) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- Bruno Duarte — Crvena Zvezda (Servia), 30 anos, 1761 min, contrato 2027-06-30 · nota 68 (aderência 71, nível 64) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
 - Nicolás Souza — Atlético CP (Portugal C), 25 anos, 1732 min, contrato 2027-06-30 · nota 62 (aderência 75, nível 50) · N1/N2 · livre 2027: sim · ocupa vaga estrangeiro: não
 - Á. Correa — Tigres UANL (Mexico), 31 anos, 3942 min, contrato 2030-06-30 · nota 62 (aderência 58, nível 67) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Yago Cariello — Ulsan Hyundai (Coreia A), 27 anos, 1288 min, contrato — · nota 60 (aderência 70, nível 49) · N1 · livre 2027: sim · ocupa vaga estrangeiro: não
+- Rafael Ratão — Shanghai Shenhua (China), 30 anos, 1480 min, contrato 2028-12-31 · nota 59 (aderência 71, nível 48) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 ## 4. Outras ligas
 
