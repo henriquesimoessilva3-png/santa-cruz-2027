@@ -1035,6 +1035,9 @@
         'static/estudo_serieb_dados.js (rode o gerar_estudo_serieb_js.py).</p>';
       return;
     }
+    /* com a subaba V1 escondida nao monta: os graficos medem a largura. estudo_v2.js chama
+       window.esRender de novo quando a V1 aparece. */
+    if (alvo.offsetParent === null) return;
     if (alvo.dataset.montado) return;   // a tela é estática; montar uma vez basta
     alvo.innerHTML = casca();
     alvo.querySelectorAll('[data-ir]').forEach(a => {
