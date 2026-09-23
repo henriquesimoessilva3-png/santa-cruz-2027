@@ -99,8 +99,8 @@
 - Heitor (LD) — Portimonense, Portugal B, 25 anos, 1413 min · índice 94 · 34 escanteios, 29 faltas (5 diretas), xA/90 0.15 · contrato 2026-06-30
 - D. González (ED) — Atlas, Mexico, 23 anos, 2899 min · índice 94 · 65 escanteios, 82 faltas (14 diretas), xA/90 0.22 · contrato 2028-06-30
 - Evander (MEI) — Cincinnati, EUA, 28 anos, 1683 min · índice 93 · 64 escanteios, 30 faltas (9 diretas), xA/90 0.32 · contrato 2027-12-31
-- Arthur Rezende (MED) — Muharraq, Bahrain, 32 anos, 1839 min · índice 93 · 56 escanteios, 24 faltas (9 diretas), xA/90 0.16 · contrato —
 - J. Bartolo (CA) — Asteras Tripolis, Grecia, 30 anos, 2529 min · índice 93 · 104 escanteios, 52 faltas (8 diretas), xA/90 0.21 · contrato 2026-06-30
+- Arthur Rezende (MED) — Muharraq, Bahrain, 32 anos, 1839 min · índice 93 · 56 escanteios, 24 faltas (9 diretas), xA/90 0.16 · contrato —
 
 **Finalizadores aéreos**
 

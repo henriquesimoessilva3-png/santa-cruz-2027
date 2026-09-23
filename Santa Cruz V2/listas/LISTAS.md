@@ -358,8 +358,8 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 - Léo Scienza — Southampton (Inglaterra B), 27 anos, 2761 min, contrato 2029-06-30 · nota 69 (aderência 76, nível 62) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 - B. Rodríguez — América (Mexico), 26 anos, 2669 min, contrato 2029-06-30 · nota 66 (aderência 71, nível 62) · N1 · livre 2027: não · ocupa vaga estrangeiro: sim
 - Guilherme — Houston Dynamo (EUA), 31 anos, 1774 min, contrato 2028-06-30 · nota 65 (aderência 58, nível 73) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
-- M. Moreno — Paredes (Portugal C), 22 anos, 1639 min, contrato 2027-06-30 · nota 64 (aderência 66, nível 62) · N2 jovem · livre 2027: sim · ocupa vaga estrangeiro: sim
 - Reinaldo — Chaves (Portugal B), 24 anos, 2672 min, contrato 2026-06-30 · nota 62 (aderência 70, nível 54) · N1/N2 · livre 2027: sim · ocupa vaga estrangeiro: não
+- Jeffinho — Liaoning Tieren (China), 26 anos, 1248 min, contrato 2028-12-31 · nota 62 (aderência 58, nível 66) · N1 · livre 2027: não · ocupa vaga estrangeiro: não
 
 **Centroavante**
 

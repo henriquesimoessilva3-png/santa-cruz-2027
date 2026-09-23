@@ -110,7 +110,6 @@ Exterior,Bulgaria,ED,Erick Marcus,Ludogorets,22.0,2098,2028-06-30,0,Brazil,Brazi
 Exterior,Inglaterra B,EE,Léo Scienza,Southampton,27.0,2761,2029-06-30,0,Brazil,"Brazil, Luxembourg",90.6,75.6,61.74,3.0,68.7,0.0,53.0,6,True,False,sim,False,N1
 Exterior,Mexico,EE,B. Rodríguez,América,26.0,2669,2029-06-30,0,Uruguay,Uruguay,85.8,70.8,62.19,4.0,66.5,0.0,50.93,6,True,True,sim,False,N1
 Exterior,EUA,EE,Guilherme,Houston Dynamo,31.0,1774,2028-06-30,1000000,Brazil,Brazil,72.9,57.900000000000006,72.77,1.0,65.3,0.0,59.16,6,True,False,sim,False,N1
-Exterior,Portugal C,EE,M. Moreno,Paredes,22.0,1639,2027-06-30,0,Colombia,Colombia,81.5,66.5,61.8,2.0,64.2,0.0,,6,True,True,sim,True,N2 jovem
 Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000,Brazil,Brazil,85.2,70.2,53.96,10.0,62.1,0.0,64.86,6,True,False,sim,True,N1/N2
 Exterior,China,EE,Jeffinho,Liaoning Tieren,26.0,1248,2028-12-31,0,Brazil,Brazil,72.9,57.900000000000006,65.63,1.0,61.8,0.0,53.65,6,True,False,sim,False,N1
 Exterior,EUA,EE,M. Almirón,Atlanta United,32.0,1214,2027-12-31,0,Paraguay,Paraguay,71.9,56.900000000000006,59.2,5.0,58.0,0.0,48.65,6,True,True,sim,False,N1
@@ -119,6 +118,7 @@ Exterior,Portugal B,EE,Werton,Leixões,22.0,1605,2028-06-30,600000,Brazil,Brazil
 Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0,Brazil,Brazil,60.4,45.4,62.88,1.0,54.1,0.0,,6,True,False,sim,True,N1
 Exterior,Coreia A,EE,Jefferson Galego,Bucheon 1995,29.0,1989,,200000,Brazil,Brazil,72.5,57.5,50.59,8.0,54.0,0.0,,6,True,False,sim,True,N1
 Exterior,Coreia A,EE,Anderson Oliveira,Seoul,28.0,1431,,450000,Brazil,Brazil,52.9,37.9,69.21,1.0,53.6,0.0,,6,True,False,sim,True,N1
+Exterior,Coreia B,EE,L. Mina,Gimpo Citizen,33.0,2076,,750000,Colombia,Colombia,77.1,62.099999999999994,45.17,10.0,53.6,0.0,,6,True,True,sim,True,N1
 Exterior,Bahrain,CA,Juninho,Muharraq,27.0,1543,2028-06-30,0,Brazil,Brazil,86.3,71.3,67.58,1.0,69.4,0.0,,6,True,False,sim,False,N1
 Exterior,Portugal C,CA,Nicolás Souza,Atlético CP,25.0,1732,2027-06-30,0,Brazil,Brazil,90.2,75.2,49.78,4.0,62.5,0.0,,6,True,False,sim,True,N1/N2
 Exterior,Mexico,CA,Á. Correa,Tigres UANL,31.0,3942,2030-06-30,0,Argentina,"Argentina, Spain",72.5,57.5,66.54,2.0,62.0,0.0,57.48,6,True,True,sim,False,N1

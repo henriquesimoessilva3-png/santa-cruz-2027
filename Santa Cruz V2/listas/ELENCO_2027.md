@@ -114,8 +114,8 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 1. **Dadá Belmonte** (CRB, 29, livre nov/26) — 70 (89/51), a maior aderência da posição, psv ok,
    rodou 2025 e 2026. Titular. N1, ~70–90.
 2. **Iago Teles** (Londrina, 26, contrato jun/27) — 65 (75/55), cobrador (índice 92), psv ok. N1, ~45.
-3. **M. Moreno** (Paredes, Portugal C, 22, livre jun/27) — 64, N2 estrangeiro; extremo é onde o
-   estrangeiro funciona na B (B6-4). ~30. Conferir nacionalidade e vídeo.
+3. **Reinaldo** (Chaves, Portugal B, 24, brasileiro, livre) — 62, repatriação sem vaga de
+   estrangeiro. N1/N2, ~30. Aposta: conferir em vídeo.
 
 ### Centroavante — acelera, chega à área, cabeceia, sprinta com e sem bola (B2-4, B1-3)
 1. **Mikael** (CRB, 27, contrato nov/27) — 79 (94/64), a maior nota de todo o elenco, psv ok,
@@ -128,7 +128,7 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 
 ## 4. Conta de fechamento
 28 nomes: 5 mantidos + 23 acima (11 titulares, 12 opções). Estrangeiros: 3 a 4 (Molina, Lucas Soto,
-Estrada, Moreno/Alcaraz) — a B usa 2,2 em média e quem sobe dá 10% dos minutos a eles (B6-4); contrato de um ano
+Estrada, Alcaraz) — a B usa 2,2 em média e quem sobe dá 10% dos minutos a eles (B6-4); contrato de um ano
 com opção. Folha estimada dos 23 novos: R$ 1,3–1,5 MM/mês nas faixas acima, o que deixa
 R$ 0,5–0,7 MM para os cinco mantidos e a base — dentro dos R$ 2,0 MM, se as faixas estiverem
 certas (e é aí que o vídeo e o mercado corrigem o número).
@@ -139,4 +139,4 @@ Luiz Otávio, G. Pinheiro, Vilar, André Luiz, Bruno José, Mikael/Estrada. É o
 ## 5. O que o dado não mostra e precisa de vídeo antes de fechar
 Goleiro inteiro (B2-5); duelo defensivo do Molina; Zé Gabriel e Danielzinho abaixo do piso de
 velocidade; liderança e mentalidade dos N1 (Pottker, Gava, Jandrei); adaptação de Lucas Soto,
-Estrada, Moreno e Frizzo. E o salário real de cada um — o estudo não tem folha.
+Estrada, Reinaldo e Frizzo. E o salário real de cada um — o estudo não tem folha.

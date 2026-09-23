@@ -92,13 +92,13 @@ ordem,mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nota,sinal_s
 1,Série B,Série B,EE,Dadá Belmonte,CRB,29.0,2285,2026-11-30,,70.0,,,,70.0,True
 2,Série B,Série B,EE,Iago Teles,Londrina,26.0,1103,2027-06-30,,64.9,"média ≥6,5",10.0,6.8,66.9,True
 3,Sul-americano,Bolivia,EE,J. Maraude,Always Ready,18.0,993,,0.0,69.4,,,,64.4,True
-4,Exterior,Portugal C,EE,M. Moreno,Paredes,22.0,1639,2027-06-30,0.0,64.2,,,,64.2,True
-5,Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000.0,62.1,,,,62.1,True
-6,Sul-americano,Colombia B,EE,D. Dawson,Envigado,20.0,1024,,0.0,61.7,,,,61.7,True
-7,Sul-americano,Colombia B,EE,J. Campaña,Patriotas Boyacá,23.0,1228,,350000.0,59.9,,,,59.9,True
-8,Série B,Série B,EE,Kadu,Goiás,24.0,1348,2026-12-15,,55.3,,,,55.3,True
-9,Sul-americano,Equador B,EE,Jonny Uchuari,Cuenca Juniors,32.0,1054,2026-12-31,450000.0,60.3,,,,55.3,True
-10,Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0.0,54.1,,,,54.1,True
+4,Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000.0,62.1,,,,62.1,True
+5,Sul-americano,Colombia B,EE,D. Dawson,Envigado,20.0,1024,,0.0,61.7,,,,61.7,True
+6,Sul-americano,Colombia B,EE,J. Campaña,Patriotas Boyacá,23.0,1228,,350000.0,59.9,,,,59.9,True
+7,Série B,Série B,EE,Kadu,Goiás,24.0,1348,2026-12-15,,55.3,,,,55.3,True
+8,Sul-americano,Equador B,EE,Jonny Uchuari,Cuenca Juniors,32.0,1054,2026-12-31,450000.0,60.3,,,,55.3,True
+9,Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0.0,54.1,,,,54.1,True
+10,Exterior,Coreia B,EE,L. Mina,Gimpo Citizen,33.0,2076,,750000.0,53.6,,,,53.6,True
 1,Sul-americano,Equador A,CA,M. Estrada,LDU Quito,30.0,1133,2027-06-30,0.0,68.0,,,,68.0,True
 2,Sul-americano,Peru,CA,A. Valera,Universitario,30.0,1713,2026-12-31,0.0,65.6,,,,65.6,True
 3,Sul-americano,Paraguai,CA,A. Alcaraz,Olimpia,26.0,1124,2026-12-31,0.0,64.8,,,,64.8,True
