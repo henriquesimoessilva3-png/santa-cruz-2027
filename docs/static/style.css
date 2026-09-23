@@ -3586,6 +3586,8 @@ body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
   border: 1px solid var(--borda2, #e6e5e1); margin-bottom: 14px; }
 .fo-resumo div { display: flex; flex-direction: column; }
 .fo-resumo b { font-size: 18px; }
+.fo-resumo .fo-sec b { font-size: 14px; color: var(--tinta2); }
+.fo-resumo .fo-sec small { max-width: 30ch; }
 .fo-resumo small { font-size: 10.5px; color: #7a7975; }
 .fo-resumo.ok > div:first-child b { color: #1f8a4c; }
 .fo-resumo.lim > div:first-child b { color: #b7791f; }

@@ -17,11 +17,12 @@
   ],
   "de": "B1.md conclusão 1; B1_perfis.md §3"
  },
- "nota": "50% traço da posição + 50% intensidade, em percentil na coorte da posição. O piso não entra na nota: é selo à parte.",
+ "nota": "50% traço da posição + 50% intensidade, em percentil na Série B da posição (ED/EE: só traço; MEI: sem nota, só o piso). O piso não entra na nota: é selo à parte.",
  "min_jogos": 5,
  "posicoes": {
   "ZD": {
    "setor": "Zaga",
+   "intensidade": true,
    "traco": [
     {
      "k": "expl",
@@ -45,6 +46,7 @@
   },
   "ZE": {
    "setor": "Zaga",
+   "intensidade": true,
    "traco": [
     {
      "k": "expl",
@@ -68,6 +70,7 @@
   },
   "LD": {
    "setor": "Lateral",
+   "intensidade": true,
    "traco": [
     {
      "k": "spr_n",
@@ -91,6 +94,7 @@
   },
   "LE": {
    "setor": "Lateral",
+   "intensidade": true,
    "traco": [
     {
      "k": "obr_area",
@@ -114,6 +118,7 @@
   },
   "VOL": {
    "setor": "Volante",
+   "intensidade": true,
    "traco": [
     {
      "k": "expl",
@@ -137,6 +142,7 @@
   },
   "MED": {
    "setor": "Meia",
+   "intensidade": true,
    "traco": [
     {
      "k": "expl",
@@ -169,20 +175,12 @@
   },
   "MEI": {
    "setor": "Meia",
-   "traco": [
-    {
-     "k": "obr_area",
-     "rot": "Corridas para a área (30 min com posse)",
-     "p25": 1.79,
-     "p50": 2.84,
-     "p75": 3.76,
-     "n_ref": 24,
-     "caminho": "percentil"
-    }
-   ]
+   "intensidade": false,
+   "traco": []
   },
   "ED": {
    "setor": "Extremo",
+   "intensidade": false,
    "traco": [
     {
      "k": "obr_area",
@@ -197,6 +195,7 @@
   },
   "EE": {
    "setor": "Extremo",
+   "intensidade": false,
    "traco": [
     {
      "k": "obr_area",
@@ -211,6 +210,7 @@
   },
   "CA": {
    "setor": "Atacante",
+   "intensidade": true,
    "traco": [
     {
      "k": "spr_n",
@@ -320,155 +320,252 @@
  "validacao_sobe_cai": [
   {
    "pos": "ZD",
-   "antes_sobe": 48,
-   "antes_cai": 49,
-   "depois_sobe": 42,
-   "depois_cai": 42,
-   "int_sobe": 39,
-   "int_cai": 38,
-   "traco_sobe": 46,
-   "traco_cai": 46,
+   "antes_sobe": 50,
+   "antes_cai": 51,
+   "depois_sobe": 46,
+   "depois_cai": 46,
+   "int_sobe": 44,
+   "int_cai": 42,
+   "traco_sobe": 49,
+   "traco_cai": 50,
    "psv_sobe": 28.61,
    "psv_cai": 28.77,
    "passa": false,
-   "n_coorte": 70
+   "n_coorte": 38
   },
   {
    "pos": "ZE",
-   "antes_sobe": 59,
-   "antes_cai": 43,
-   "depois_sobe": 54,
-   "depois_cai": 39,
-   "int_sobe": 46,
-   "int_cai": 30,
-   "traco_sobe": 62,
-   "traco_cai": 48,
+   "antes_sobe": 63,
+   "antes_cai": 49,
+   "depois_sobe": 61,
+   "depois_cai": 49,
+   "int_sobe": 54,
+   "int_cai": 41,
+   "traco_sobe": 68,
+   "traco_cai": 56,
    "psv_sobe": 28.74,
    "psv_cai": 28.41,
    "passa": true,
-   "n_coorte": 49
+   "n_coorte": 24
   },
   {
    "pos": "LD",
-   "antes_sobe": 59,
-   "antes_cai": 47,
-   "depois_sobe": 53,
-   "depois_cai": 36,
-   "int_sobe": 50,
+   "antes_sobe": 62,
+   "antes_cai": 50,
+   "depois_sobe": 54,
+   "depois_cai": 37,
+   "int_sobe": 52,
    "int_cai": 32,
-   "traco_sobe": 55,
-   "traco_cai": 40,
+   "traco_sobe": 57,
+   "traco_cai": 42,
    "psv_sobe": 29.71,
    "psv_cai": 29.06,
    "passa": true,
-   "n_coorte": 68
+   "n_coorte": 37
   },
   {
    "pos": "LE",
-   "antes_sobe": 48,
-   "antes_cai": 42,
-   "depois_sobe": 42,
-   "depois_cai": 34,
-   "int_sobe": 41,
-   "int_cai": 38,
-   "traco_sobe": 44,
-   "traco_cai": 31,
+   "antes_sobe": 46,
+   "antes_cai": 40,
+   "depois_sobe": 34,
+   "depois_cai": 26,
+   "int_sobe": 29,
+   "int_cai": 27,
+   "traco_sobe": 38,
+   "traco_cai": 26,
    "psv_sobe": 29.19,
    "psv_cai": 29.07,
    "passa": true,
-   "n_coorte": 61
+   "n_coorte": 29
   },
   {
    "pos": "VOL",
-   "antes_sobe": 63,
-   "antes_cai": 46,
-   "depois_sobe": 66,
-   "depois_cai": 39,
-   "int_sobe": 64,
-   "int_cai": 35,
-   "traco_sobe": 69,
-   "traco_cai": 43,
+   "antes_sobe": 59,
+   "antes_cai": 38,
+   "depois_sobe": 62,
+   "depois_cai": 32,
+   "int_sobe": 60,
+   "int_cai": 26,
+   "traco_sobe": 64,
+   "traco_cai": 38,
    "psv_sobe": 27.94,
    "psv_cai": 27.37,
    "passa": true,
-   "n_coorte": 58
+   "n_coorte": 26
   },
   {
    "pos": "MED",
-   "antes_sobe": 61,
-   "antes_cai": 49,
-   "depois_sobe": 60,
-   "depois_cai": 43,
-   "int_sobe": 60,
-   "int_cai": 40,
-   "traco_sobe": 59,
-   "traco_cai": 46,
+   "antes_sobe": 65,
+   "antes_cai": 50,
+   "depois_sobe": 66,
+   "depois_cai": 47,
+   "int_sobe": 72,
+   "int_cai": 46,
+   "traco_sobe": 60,
+   "traco_cai": 47,
    "psv_sobe": 27.8,
    "psv_cai": 27.7,
    "passa": true,
-   "n_coorte": 76
+   "n_coorte": 39
   },
   {
    "pos": "MEI",
-   "antes_sobe": 46,
-   "antes_cai": 54,
-   "depois_sobe": 33,
-   "depois_cai": 43,
-   "int_sobe": 36,
-   "int_cai": 48,
-   "traco_sobe": 29,
-   "traco_cai": 39,
+   "antes_sobe": 48,
+   "antes_cai": 58,
+   "depois_sobe": null,
+   "depois_cai": null,
+   "int_sobe": null,
+   "int_cai": null,
+   "traco_sobe": null,
+   "traco_cai": null,
    "psv_sobe": 27.89,
    "psv_cai": 27.8,
    "passa": false,
-   "n_coorte": 42
+   "n_coorte": 17
   },
   {
    "pos": "ED",
-   "antes_sobe": 52,
-   "antes_cai": 42,
-   "depois_sobe": 51,
-   "depois_cai": 41,
-   "int_sobe": 46,
-   "int_cai": 32,
-   "traco_sobe": 56,
-   "traco_cai": 51,
+   "antes_sobe": 53,
+   "antes_cai": 44,
+   "depois_sobe": 77,
+   "depois_cai": 73,
+   "int_sobe": null,
+   "int_cai": null,
+   "traco_sobe": 77,
+   "traco_cai": 73,
    "psv_sobe": 29.29,
    "psv_cai": 29.1,
    "passa": true,
-   "n_coorte": 44
+   "n_coorte": 23
   },
   {
    "pos": "EE",
-   "antes_sobe": 56,
-   "antes_cai": 49,
-   "depois_sobe": 57,
-   "depois_cai": 45,
-   "int_sobe": 50,
-   "int_cai": 46,
-   "traco_sobe": 64,
-   "traco_cai": 43,
+   "antes_sobe": 60,
+   "antes_cai": 55,
+   "depois_sobe": 71,
+   "depois_cai": 48,
+   "int_sobe": null,
+   "int_cai": null,
+   "traco_sobe": 71,
+   "traco_cai": 48,
    "psv_sobe": 29.99,
    "psv_cai": 29.5,
    "passa": true,
-   "n_coorte": 45
+   "n_coorte": 22
   },
   {
    "pos": "CA",
-   "antes_sobe": 56,
-   "antes_cai": 44,
-   "depois_sobe": 57,
-   "depois_cai": 36,
-   "int_sobe": 57,
-   "int_cai": 37,
-   "traco_sobe": 58,
-   "traco_cai": 36,
+   "antes_sobe": 52,
+   "antes_cai": 41,
+   "depois_sobe": 51,
+   "depois_cai": 31,
+   "int_sobe": 48,
+   "int_cai": 32,
+   "traco_sobe": 55,
+   "traco_cai": 30,
    "psv_sobe": 29.03,
    "psv_cai": 28.59,
    "passa": true,
-   "n_coorte": 63
+   "n_coorte": 28
   }
  ],
+ "validacao_referencia": [
+  {
+   "pos": "ZD",
+   "ref": 49,
+   "n_ref": 17,
+   "demais": 40,
+   "n_demais": 26,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "ZE",
+   "ref": 55,
+   "n_ref": 13,
+   "demais": 47,
+   "n_demais": 32,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "LD",
+   "ref": 48,
+   "n_ref": 7,
+   "demais": 38,
+   "n_demais": 23,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "LE",
+   "ref": 41,
+   "n_ref": 12,
+   "demais": 37,
+   "n_demais": 30,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "VOL",
+   "ref": 53,
+   "n_ref": 5,
+   "demais": 41,
+   "n_demais": 33,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "MED",
+   "ref": 62,
+   "n_ref": 18,
+   "demais": 51,
+   "n_demais": 28,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "MEI",
+   "ref": null,
+   "n_ref": 0,
+   "demais": null,
+   "n_demais": 0,
+   "passa": false,
+   "sem_nota": true
+  },
+  {
+   "pos": "ED",
+   "ref": 46,
+   "n_ref": 10,
+   "demais": 50,
+   "n_demais": 16,
+   "passa": false,
+   "sem_nota": false
+  },
+  {
+   "pos": "EE",
+   "ref": 71,
+   "n_ref": 7,
+   "demais": 47,
+   "n_demais": 13,
+   "passa": true,
+   "sem_nota": false
+  },
+  {
+   "pos": "CA",
+   "ref": 46,
+   "n_ref": 10,
+   "demais": 25,
+   "n_demais": 18,
+   "passa": true,
+   "sem_nota": false
+  }
+ ],
+ "coorte": "Série B, >= 5 jogos rastreados, sem físico de outra temporada",
+ "onze": {
+  "lento_ref": 27.4,
+  "de": "B1.md conclusão 2: no quartil que mais pontuou o mais lento do onze tinha 27,4 km/h"
+ },
  "conclusoes": [
   "Piso de velocidade: nenhum titular de linha abaixo de ~27 km/h de PSV-99 — é o achado mais forte.",
   "Intensidade acima da mediana: quem sobe fica no percentil 60–68, quem cai no 33–41; vale 4–6 pontos a dinheiro igual.",

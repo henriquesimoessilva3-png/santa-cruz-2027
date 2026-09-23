@@ -66,10 +66,21 @@ TRACO = {
     "ZD": ["expl", "obr_area"], "ZE": ["expl", "obr_area"],
     "LD": ["spr_n", "spn_c"], "LE": ["obr_area", "hi_c"],
     "VOL": ["expl", "hi_c"], "MED": ["expl", "obr_area", "hi_c"],
-    "MEI": ["obr_area"], "ED": ["obr_area"], "EE": ["obr_area"],
+    # MEI sem traço físico: em B1_perfis.md §2 o MEI (e o extremo) dos times que rendem corre
+    # MENOS (sprint −10/−13%, arrancadas −10/−26%). Para ele o físico é só o piso; decide o técnico.
+    # Revisão de 23/09 (Cowork), decidida pelo texto do B1, não pela validação.
+    "MEI": [], "ED": ["obr_area"], "EE": ["obr_area"],
     "CA": ["spr_n", "spn_s", "obr_area", "obr_per"],
 }
 INTENSIDADE = ["spr_n", "hi_n"]
+# Intensidade entra na nota só onde o B1 não diz o contrário: em MEI, ED e EE o titular dos times
+# que rendem sprinta MENOS (B1_perfis.md §2). Lá a nota é só o traço (ED/EE) ou não há nota (MEI).
+SEM_INTENSIDADE = {"MEI", "ED", "EE"}
+# app -> coluna do V2 com a MESMA definição (para validar contra os titulares de referência)
+V2_DO_APP = {"psv": "psv99", "spr_n": "sprint_count_p90", "hi_n": "hi_count_p90",
+             "expl": "expl_accel_sprint_p90", "obr_area": "runs_penalty_area_p30tip",
+             "obr_per": "runs_dangerous_p30tip", "spn_c": "sprint_count_p30tip",
+             "spn_s": "sprint_count_p30otip", "hi_c": "hi_distance_p30tip"}
 ROTULO = {
     "psv": "Velocidade de pico (PSV-99)", "spr_n": "Sprints por 90", "hi_n": "Ações de alta intensidade por 90",
     "expl": "Arrancadas explosivas por 90", "obr_area": "Corridas para a área (30 min com posse)",
@@ -107,8 +118,9 @@ def base_app():
 
 
 def coorte(L, pos):
-    """A MESMA coorte da aba: posição, Séries A e B, >= 5 jogos rastreados."""
-    return [x for x in L if x.get("p") == pos and x.get("l") in ("Brasil A", "Brasil B")
+    """A régua da ficha: a posição na SÉRIE B, >= 5 jogos rastreados. O estudo mede contra a
+    mediana da Série B (é a liga que o Santa Cruz vai jogar); revisão de 23/09 — antes era A + B."""
+    return [x for x in L if x.get("p") == pos and x.get("l") == "Brasil B"
             and (x.get("sc_n") or 0) >= MIN_JOGOS]
 
 
@@ -189,7 +201,7 @@ def faixas():
 def nota_ficha(co, obj, pos):
     ords = {k: np.sort([x[k] for x in co if isinstance(x.get(k), (int, float))]) for k in
             set(INTENSIDADE + TRACO[pos])}
-    ints = [pct(ords[k], obj.get(k)) for k in INTENSIDADE]
+    ints = [] if pos in SEM_INTENSIDADE else [pct(ords[k], obj.get(k)) for k in INTENSIDADE]
     ints = [p for p in ints if p is not None]
     tr = [pct(ords[k], obj.get(k)) for k in TRACO[pos]]
     tr = [p for p in tr if p is not None]
@@ -202,6 +214,35 @@ def nota_ficha(co, obj, pos):
     if i is None:
         return round(t), i, t
     return round(0.5 * t + 0.5 * i), i, t
+
+
+def validar_referencia(L):
+    """A validação que responde à MESMA pergunta das faixas: titulares dos times que renderam acima
+    do dinheiro (time_referencia do B1) contra os demais titulares, 2022–2025, por posição.
+    As colunas "Quem sobe/cai" do raio_ref.json separam por tabela SEM descontar o dinheiro —
+    ficam como leitura secundária."""
+    per = pd.read_csv(os.path.join(B1, "perfis", "jogadores.csv"))
+    b = pd.read_csv(os.path.join(B1, "base_fisico.csv"))
+    per = per[(per.titular == 1) | (per.titular == True)] if "titular" in per else per  # noqa: E712
+    m = per[["ano", "clube", "jogador", "pos11", "time_referencia"]].merge(
+        b, on=["ano", "clube", "jogador"], how="inner")
+    m = m[m.ano <= 2025]
+    out = []
+    for pos in POS_SETOR:
+        co = coorte(L, pos)
+        sub = m[m.pos11 == pos]
+        notas = {True: [], False: []}
+        for _, r in sub.iterrows():
+            obj = {k: (float(r[c]) if c in r and pd.notna(r[c]) else None) for k, c in V2_DO_APP.items()}
+            n, _, _ = nota_ficha(co, obj, pos)
+            if n is not None:
+                notas[bool(r.time_referencia)].append(n)
+        a, d = notas[True], notas[False]
+        out.append({"pos": pos, "ref": round(float(np.mean(a))) if a else None, "n_ref": len(a),
+                    "demais": round(float(np.mean(d))) if d else None, "n_demais": len(d),
+                    "passa": bool(a and d and np.mean(a) > np.mean(d)),
+                    "sem_nota": pos == "MEI"})
+    return out
 
 
 def indice_hoje(co, obj):
@@ -241,9 +282,10 @@ def main():
             "n_coorte": len(co),
         })
 
+    validacao_ref = validar_referencia(L)
     por_pos = {}
     for pos, setor in POS_SETOR.items():
-        por_pos[pos] = {"setor": setor, "traco": [
+        por_pos[pos] = {"setor": setor, "intensidade": pos not in SEM_INTENSIDADE, "traco": [
             {"k": k, "rot": ROTULO[k], **(fx.get((setor, k)) or {"p25": None, "p50": None, "p75": None,
                                                                   "n_ref": 0, "caminho": "sem faixa"})}
             for k in TRACO[pos]]}
@@ -256,12 +298,15 @@ def main():
                  "de": "B1.md, conclusão 2"},
         "intensidade": {"campos": INTENSIDADE, "rot": [ROTULO[k] for k in INTENSIDADE],
                         "de": "B1.md conclusão 1; B1_perfis.md §3"},
-        "nota": "50% traço da posição + 50% intensidade, em percentil na coorte da posição. "
-                "O piso não entra na nota: é selo à parte.",
+        "nota": "50% traço da posição + 50% intensidade, em percentil na Série B da posição "
+                "(ED/EE: só traço; MEI: sem nota, só o piso). O piso não entra na nota: é selo à parte.",
         "min_jogos": MIN_JOGOS,
         "posicoes": por_pos,
         "conferencia_definicao": conferencia,
         "validacao_sobe_cai": validacao,
+        "validacao_referencia": validacao_ref,
+        "coorte": "Série B, >= 5 jogos rastreados, sem físico de outra temporada",
+        "onze": {"lento_ref": 27.4, "de": "B1.md conclusão 2: no quartil que mais pontuou o mais lento do onze tinha 27,4 km/h"},
         "conclusoes": [
             "Piso de velocidade: nenhum titular de linha abaixo de ~27 km/h de PSV-99 — é o achado mais forte.",
             "Intensidade acima da mediana: quem sobe fica no percentil 60–68, quem cai no 33–41; vale 4–6 pontos a dinheiro igual.",
@@ -281,8 +326,12 @@ def main():
     print(f"  {'pos':4} {'antes S':>8} {'antes C':>8} │ {'depois S':>9} {'depois C':>9}  │ int S/C   traço S/C  │ psv S/C")
     for v in validacao:
         print(f"  {v['pos']:4} {str(v['antes_sobe']):>8} {str(v['antes_cai']):>8} │ {str(v['depois_sobe']):>9} "
-              f"{str(v['depois_cai']):>9}  │ {v['int_sobe']}/{v['int_cai']:<6} {v['traco_sobe']}/{v['traco_cai']:<6}  │ "
+              f"{str(v['depois_cai']):>9}  │ {v['int_sobe']}/{str(v['int_cai']):<6} {v['traco_sobe']}/{str(v['traco_cai']):<6}  │ "
               f"{v['psv_sobe']}/{v['psv_cai']}  {'PASSA' if v['passa'] else 'NÃO PASSA'}")
+    print("\nvalidação principal: titulares dos times de referência (acima do dinheiro) × demais, 2022–2025:")
+    for v in validacao_ref:
+        print(f"  {v['pos']:4} ref {str(v['ref']):>4} (n {v['n_ref']:3}) × demais {str(v['demais']):>4} (n {v['n_demais']:3})  "
+              f"{'sem nota (MEI: só piso)' if v['sem_nota'] else ('PASSA' if v['passa'] else 'NÃO PASSA')}")
     print(f"\n{os.path.relpath(SAIDA, AQUI)} gravado")
 
 
