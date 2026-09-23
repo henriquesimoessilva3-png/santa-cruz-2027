@@ -84,5 +84,7 @@ corridas para a área. Não pagar por distância percorrida."
 - Comentário no código em português, dizendo de onde vem cada régua (arquivo do V2).
 - Rode `python3 preparar_base.py` e `python3 publicar_site.py`; abra a aba e confira.
 - Git: `git add` só dos arquivos que mexeu (nunca `git add .`), um commit por item acima.
+- Antes de começar, rode `git push`: há dois commits locais meus ainda não enviados (subabas do
+  Estudo Série B V2/V1 e este prompt). No fim, `git push` de novo para o site no ar receber tudo.
 - Ao terminar, me traga: a tabela sobe × cai por posição, o Onze físico do Cenário 1, quantos
   alvos ganharam físico pela base do V2 e quantos ficaram na lista para levantar.
