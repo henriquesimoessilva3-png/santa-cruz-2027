@@ -3560,3 +3560,54 @@ td.pt-td-frase{text-align:left;white-space:normal}
    As duas fontes nao sao da mesma data, e a tela nao pode fingir que sao. */
 .jog-meta .m-vm.vm-wy { opacity: .78; }
 .jog-meta .m-vm .vm-fnt { font-style: normal; font-size: 8px; opacity: .7; margin-left: 2px; }
+
+/* ---- ficha física V2 (estudo Santa Cruz V2, Bloco 1) ----------------------
+   Os selos do piso são a única coisa em cor forte na matriz: reprovar o piso de
+   27 km/h é o achado mais forte do estudo, e tem de saltar aos olhos. */
+.fv-legenda { font-size: 11.5px; line-height: 1.45; margin: 6px 0 8px; color: var(--tinta2, #52514e); }
+.fv-legenda ol { margin: 3px 0 0; padding-left: 18px; }
+.fv-selo { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; }
+.fv-selo.ok  { background: #1f8a4c; color: #fff; }
+.fv-selo.lim { background: #d9a441; color: #1a1a18; }
+.fv-selo.rep { background: #c0392b; color: #fff; }
+.fv-selo.nd  { color: #7a7975; }
+#fsMatriz td.fv-piso-c { text-align: center; }
+#fsMatriz tr.fv-sub td.fs-rot { padding-left: 18px; }
+#fsMatriz tr.fv-linha > td:first-child b { color: #1f8a4c; }
+#fsMatriz tr.fv-det > td:first-child { border-top: 2px solid var(--borda2, #e6e5e1); }
+body:not(.claro) .fv-legenda { color: #c3c2b7; }
+body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
+
+/* ---- Onze físico (B1.md, conclusão 2) ------------------------------------ */
+.fs-vis-onze .fo { max-width: 860px; padding: 12px 4px; }
+.fo h3 { margin: 0 0 4px; font-size: 16px; }
+.fo-d { margin: 0 0 12px; font-size: 12px; color: var(--tinta2, #52514e); max-width: 80ch; }
+.fo-resumo { display: flex; gap: 22px; flex-wrap: wrap; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--borda2, #e6e5e1); margin-bottom: 14px; }
+.fo-resumo div { display: flex; flex-direction: column; }
+.fo-resumo b { font-size: 18px; }
+.fo-resumo small { font-size: 10.5px; color: #7a7975; }
+.fo-resumo.ok > div:first-child b { color: #1f8a4c; }
+.fo-resumo.lim > div:first-child b { color: #b7791f; }
+.fo-resumo.rep > div:first-child b { color: #c0392b; }
+.fo-l { display: grid; grid-template-columns: 38px 190px 1fr 78px; align-items: center; gap: 8px;
+  padding: 4px 6px; border-radius: 5px; }
+.fo-l.lento { background: rgba(192, 57, 43, .12); outline: 1px solid rgba(192, 57, 43, .5); }
+.fo-pos { font-size: 10px; font-weight: 700; color: #7a7975; }
+.fo-nome { font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fo-src { font-size: 9.5px; color: #b7791f; }
+.fo-trilho { position: relative; height: 12px; background: rgba(127,127,127,.15); border-radius: 3px; }
+.fo-barra { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+.fo-barra.ok { background: #1f8a4c; } .fo-barra.lim { background: #d9a441; } .fo-barra.rep { background: #c0392b; }
+.fo-piso { position: absolute; top: -3px; bottom: -3px; width: 2px; background: currentColor; opacity: .7; }
+.fo-v { font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.fo-sem { margin-top: 12px; font-size: 12px; color: #7a7975; }
+
+/* raio ⚡ sem rastreio: "físico não verificado" (ficha V2) */
+.raio.raio-nd { display: inline-flex; align-items: center; justify-content: center; width: 13px; height: 13px;
+  border-radius: 50%; background: #9a9990; color: #fff; font-size: 9px; font-weight: 700; vertical-align: 1px;
+  margin-right: 3px; cursor: help; }
+
+/* físico de outra temporada (base do estudo V2): marcado no card e na ficha */
+.raio-src { font-size: 8.5px; font-weight: 700; color: #b7791f; margin: 0 3px 0 -2px; cursor: help; }
+.fi-src { font-size: 11px; color: #b7791f; margin: 0 0 6px; }

@@ -2985,7 +2985,12 @@ async function montarFicha(j, modo) {
     colFis += linhaInd(rot, j[campo], e.media, e.max, casas);
     (porGrupo['Físico'] = porGrupo['Físico'] || []).push([rot, j[campo], e.media, e.max]);
   });
+  /* fis_src: o fisico veio da base do estudo V2 (Serie B de outra temporada), preenchido
+     pelo preparar_base.py — nao e do clube atual, e a ficha diz isso em cima dos numeros */
   colunas += '<div class="fi-grupo"><h4>Físico (SkillCorner)</h4>' +
+    (j.fis_src && colFis ? '<div class="fi-src" title="Preenchido pela base do estudo Santa Cruz V2: ' +
+      'é o físico de outra temporada e de outro clube, não do atual">físico de ' + esc(j.fis_src) +
+      (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     (colFis || '<div class="fi-sem">sem tracking para este jogador</div>') + '</div>';
 
   /* o radar entra na frente das colunas: e o resumo delas */
@@ -3793,7 +3798,7 @@ const SUL_CAMP = '@sul';  /* opcao "sul-americanos, sem o Brasil" — GRUPOS_LIG
    pacote de fsPacote(). A escolha fica no navegador. */
 let FS_VISAO = 'matriz';
 try { FS_VISAO = localStorage.getItem('sc2027_fs_visao') || 'matriz'; } catch (e) {}
-const FS_VISAO_ROT = { matriz: 'Matriz', mapa: 'Mapa', reguas: 'Réguas', tiras: 'Tiras' };
+const FS_VISAO_ROT = { matriz: 'Matriz', mapa: 'Mapa', reguas: 'Réguas', tiras: 'Tiras', onze: 'Onze físico' };
 function fsTrocarVisao(v) {
   FS_VISAO = FS_VISAO_ROT[v] ? v : 'matriz';
   try { localStorage.setItem('sc2027_fs_visao', FS_VISAO); } catch (e) {}
@@ -4056,6 +4061,18 @@ function fsLigarPalco() {
 function fsDesenharVisao(co, colunas) {
   const tab = $('#fsMatriz'), palco = $('#fsPalco'), chips = $('#fsChips');
   if (!palco) return;
+  /* O Onze fisico nao depende da posicao escolhida nem das referencias do raio: le o
+     cenario aberto no campograma. Por isso e desenhado antes de tudo o resto. */
+  if (FS_VISAO === 'onze') {
+    tab.style.display = 'none';
+    palco.hidden = false;
+    if (chips) chips.hidden = true;
+    palco.className = 'fs-palco fs-vis-onze';
+    const dica0 = $('#fsDica'); if (dica0) dica0.hidden = true;
+    const foco0 = $('#fsFoco'); if (foco0) foco0.hidden = true;
+    fsOnzeFisico(palco);
+    return;
+  }
   const alt = FS_VISAO !== 'matriz' && window.FS_VISOES && FS_VISOES[FS_VISAO];
   tab.style.display = alt ? 'none' : '';
   palco.hidden = !alt;
@@ -4090,6 +4107,79 @@ function fsDesenharVisao(co, colunas) {
     palco.innerHTML = '<div class="fs-palco-aviso">Esta forma de ver quebrou ao desenhar: ' +
       esc(String(e)) + '</div>';
   }
+}
+
+/* ---------------- ONZE FISICO (estudo V2, B1.md, conclusao 2) ----------------
+   O achado mais forte do Bloco 1 nao e sobre um jogador, e sobre o ONZE: o que rende e nao
+   ter jogador lento, nao ter o mais rapido. A distancia em km/h entre o mais rapido e o mais
+   lento dos titulares anda contra o rendimento nas cinco temporadas; o quartil mais estreito
+   (2,7 km/h) fez 55 pontos, e quem cai tem 4,0 a 4,35 km/h. O elo lento costuma ser meia ou
+   volante. Esta forma de ver pega os 10 titulares de linha (estrela) do cenario aberto e
+   mostra exatamente isso: quem esta abaixo de 27 km/h, a amplitude, e quanto ela cai sem o
+   elo lento. Quem nao tem rastreio aparece como "fisico nao verificado" — nunca como zero. */
+let FS_PK_TUDO = null;
+function fsJogadorPk(pk) {
+  if (!FS_PK_TUDO) FS_PK_TUDO = new Map(BASE.map(j => [primaryKey(j), j]));
+  return FS_PK_TUDO.get(pk) || null;
+}
+function fsOnzeFisico(palco) {
+  const piso = (FICHA && FICHA.piso) || { passa: 27, limite: 26.5 };
+  const amp = (FICHA && FICHA.amplitude) || { boa: 2.7, cai: 4.0 };
+  const tit = [];
+  POSICOES.forEach(p => {
+    if (p.c === 'GOL') return;
+    (estado.elenco[p.c] || []).forEach(e => { if (e && e.titular) tit.push({ pos: p.c, e }); });
+  });
+  const com = [], sem = [];
+  tit.forEach(t => {
+    const j = t.e.pk ? fsJogadorPk(t.e.pk) : null;
+    const v = j && typeof j.psv === 'number' ? j.psv : null;
+    (v == null ? sem : com).push({ pos: t.pos, nome: t.e.nome || (j && j.n) || '?', v,
+                                   src: j && j.fis_src, sc_n: j && j.sc_n });
+  });
+  if (!tit.length) {
+    palco.innerHTML = '<div class="fs-palco-aviso">O cenário aberto não tem titular marcado (★) ' +
+      'no campograma — marque os onze para ver a velocidade do onze.</div>';
+    return;
+  }
+  com.sort((a, b) => a.v - b.v);
+  const vs = com.map(x => x.v);
+  const ampl = vs.length >= 2 ? Math.max(...vs) - Math.min(...vs) : null;
+  const lento = com[0] || null;
+  const semLento = vs.length >= 3 ? Math.max(...vs) - vs[1] : null;
+  const lo = Math.min(25.5, (vs.length ? Math.min(...vs) : 27) - 0.5);
+  const hi = Math.max(31.5, (vs.length ? Math.max(...vs) : 30) + 0.3);
+  const x = v => ((v - lo) / (hi - lo) * 100).toFixed(1);
+  const classe = ampl == null ? '' : ampl <= amp.boa ? 'ok' : ampl < amp.cai ? 'lim' : 'rep';
+  const fmt = v => v == null ? '—' : v.toFixed(1).replace('.', ',');
+  const barras = com.map(c => {
+    const cl = c.v >= piso.passa ? 'ok' : c.v >= piso.limite ? 'lim' : 'rep';
+    return '<div class="fo-l' + (c === lento && ampl > amp.boa ? ' lento' : '') + '">' +
+      '<span class="fo-pos">' + esc(c.pos) + '</span>' +
+      '<span class="fo-nome" title="' + esc(c.nome + (c.sc_n ? ' · ' + c.sc_n + ' jogos rastreados' : '') +
+        (c.src ? ' · físico de ' + c.src : '')) + '">' + esc(c.nome) +
+        (c.src ? ' <small class="fo-src">' + esc(c.src) + '</small>' : '') + '</span>' +
+      '<span class="fo-trilho"><i class="fo-barra ' + cl + '" style="width:' + x(c.v) + '%"></i>' +
+        '<i class="fo-piso" style="left:' + x(piso.passa) + '%"></i></span>' +
+      '<span class="fo-v">' + fmt(c.v) + ' km/h</span></div>';
+  }).join('');
+  palco.innerHTML = '<div class="fo">' +
+    '<h3>Onze físico · ' + esc(estado.nome || 'cenário aberto') + '</h3>' +
+    '<p class="fo-d">Os titulares de linha (★) do campograma pela velocidade de pico (PSV-99). ' +
+      'A linha é o piso de ' + fmt(piso.passa) + ' km/h. O que rende não é ter o mais rápido: é não ter ' +
+      'jogador lento — Santa Cruz V2, B1.md, conclusão 2.</p>' +
+    '<div class="fo-resumo ' + classe + '"><div><b>' + (ampl == null ? '—' : fmt(ampl) + ' km/h') +
+      '</b><small>amplitude: mais rápido − mais lento</small></div>' +
+      '<div><b>' + fmt(amp.boa) + '</b><small>o quartil que mais pontuou (55 pontos)</small></div>' +
+      '<div><b>' + fmt(amp.cai) + '</b><small>quem cai (4,0 a 4,35)</small></div>' +
+      (lento ? '<div><b>' + esc(lento.nome) + '</b><small>elo lento · ' + esc(lento.pos) + ' · ' +
+        fmt(lento.v) + ' km/h' + (semLento != null ? ' — sem ele, ' + fmt(semLento) + ' km/h' : '') +
+        '</small></div>' : '') + '</div>' +
+    '<div class="fo-barras">' + (barras || '<p class="fo-d">Nenhum titular com rastreio.</p>') + '</div>' +
+    (sem.length ? '<div class="fo-sem"><b>Físico não verificado (' + sem.length + ')</b> — sem rastreio do ' +
+      'SkillCorner: ' + sem.map(s => esc(s.nome) + ' (' + esc(s.pos) + ')').join(', ') +
+      '. A amplitude acima é só de quem tem dado.</div>' : '') +
+    '</div>';
 }
 
 let FS_ABERTOS = new Set();
@@ -4151,8 +4241,10 @@ function fsMinJogos() { return parseInt($('#fsMin').value) || 0; }
 /* coorte da posicao nas Series A e B: a regua de todos os percentis */
 function fsCoorteAB() {
   const min = fsMinJogos();
+  /* quem tem fisico de OUTRA temporada (fis_src, base do estudo V2) nao entra na regua: a
+     coorte e a foto atual das Series A e B, e misturar anos deslocaria os percentis */
   const lista = fsBase().filter(j => j.p === fsPos && (j.l === 'Brasil A' || j.l === 'Brasil B') &&
-                                     (Number(j.sc_n) || 0) >= min);
+                                     !j.fis_src && (Number(j.sc_n) || 0) >= min);
   const ord = {};
   FS_TODAS.forEach(([k]) => {
     ord[k] = lista.map(j => j[k]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
@@ -4204,6 +4296,58 @@ function fsIndices(co, j) {
 const FS_N_IDX = FS_GRUPOS.filter(g => !g.fora).length;
 const FS_ROT_IDX = 'média dos ' + ['zero','um','dois','três','quatro','cinco','seis','sete','oito']
   [FS_N_IDX] + ' grupos da régua por 90';
+/* ---------------- FICHA FISICA V2 (estudo Santa Cruz V2, Bloco 1) ----------------
+   Substitui o "Indice fisico geral" como linha de cima da matriz. O indice geral era a media
+   de oito grupos, com volume, aceleracoes e giro dentro — e no meia dava 46 para quem subiu e
+   54 para quem caiu: ordenava ao contrario. O estudo V2 concluiu (B1.md):
+     - PISO: nenhum titular de linha abaixo de ~27 km/h de PSV-99 (conclusao 2, a mais forte);
+     - INTENSIDADE acima da mediana: sprints e acoes de alta intensidade (conclusao 1, B1_perfis §3);
+     - TRACO DA POSICAO: arrancadas e corridas para a area (conclusao 3; faixas em
+       resultados/b1/posicao_faixas.csv, convertidas para a definicao do app por
+       gerar_ficha_fisica.py, que diz qual caminho cada indicador tomou);
+     - distancia, aceleracoes, giro e returno nao rendem ponto (conclusoes 1 e 5).
+   A NOTA (so para ordenar) = 50% traco + 50% intensidade, em percentil na coorte. O piso nao
+   entra na nota: e selo a parte, e quem reprova fica marcado, nao some. Goleiro fica fora
+   (SkillCorner nao rastreia), e jogador com menos de 5 jogos rastreados tambem. */
+let FICHA = null;
+/* Onde o valor cai na faixa dos titulares de referencia: 0 abaixo do P25, 1 entre P25 e P50,
+   2 entre P50 e P75, 3 acima do P75. */
+function fichaDegrau(v, f) {
+  if (typeof v !== 'number' || !f || f.p25 == null) return null;
+  return v < f.p25 ? 0 : v < f.p50 ? 1 : v < f.p75 ? 2 : 3;
+}
+function fichaV2(co, j, pos, ehObjeto) {
+  if (!FICHA || !j) return null;
+  pos = pos || j.p || fsPos;
+  const P = FICHA.posicoes[pos];
+  if (!P) return null;                                        /* goleiro */
+  if (!ehObjeto && (Number(j.sc_n) || 0) < (FICHA.min_jogos || 5)) return null;
+  const psv = typeof j.psv === 'number' ? j.psv : null;
+  const piso = psv == null ? null : psv >= FICHA.piso.passa ? 'passa'
+             : psv >= FICHA.piso.limite ? 'limite' : 'reprova';
+  const med = a => { const x = a.filter(v => v != null); return x.length ? x.reduce((s, v) => s + v, 0) / x.length : null; };
+  const inten = med(FICHA.intensidade.campos.map(k => fsPct(co, k, j[k])));
+  const tr = P.traco.map(t => ({ k: t.k, rot: t.rot, v: typeof j[t.k] === 'number' ? j[t.k] : null,
+                                 p: fsPct(co, t.k, j[t.k]), d: fichaDegrau(j[t.k], t), f: t }));
+  const traco = med(tr.map(t => t.p));
+  const degrau = med(tr.map(t => t.d));
+  const nota = traco == null && inten == null ? null
+             : traco == null ? inten : inten == null ? traco : 0.5 * traco + 0.5 * inten;
+  return { psv, piso, int: inten == null ? null : Math.round(inten),
+           traco: traco == null ? null : Math.round(traco), degrau, tr,
+           nota: nota == null ? null : Math.round(nota) };
+}
+function fichaSelo(piso) {
+  return piso === 'passa' ? '<span class="fv-selo ok" title="PSV-99 ≥ 27 km/h: passa o piso">passa</span>'
+       : piso === 'limite' ? '<span class="fv-selo lim" title="PSV-99 entre 26,5 e 27 km/h: no limite">no limite</span>'
+       : piso === 'reprova' ? '<span class="fv-selo rep" title="PSV-99 abaixo de 26,5 km/h: reprova o piso (fica marcado, não some)">reprova</span>'
+       : '<span class="fv-selo nd" title="sem PSV-99 rastreado">—</span>';
+}
+function fichaDegrauRot(d) {
+  if (d == null) return 'sem dado';
+  return d < 1 ? 'abaixo do P25 da referência' : d < 2 ? 'entre P25 e P50' : d < 3 ? 'entre P50 e P75' : 'acima do P75';
+}
+
 /* A COR do preenchimento e a MESMA pergunta do contorno: em que nivel o jogador joga
    contra as medias das duas series. Antes era a faixa de percentil, e a celula dizia
    duas coisas ao mesmo tempo — o Bruninho batia as duas medias (contorno azul) com a
@@ -4465,12 +4609,18 @@ function fsRender() {
   if (fsPintarRecolher) fsPintarRecolher();
   if (!BASE.length || !$('#fsMatriz')) return;
   const co = fsCoorteAB();
+  /* A legenda da ficha V2: as quatro conclusoes do B1, uma linha cada, no topo da matriz */
+  const leg = $('#fsLegendaV2');
+  if (leg) leg.innerHTML = FICHA ? '<b>Ficha física V2</b> · estudo Santa Cruz V2, Bloco 1' +
+    '<ol>' + FICHA.conclusoes.map(t => '<li>' + esc(t) + '</li>').join('') + '</ol>' : '';
   const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
   const extraSet = new Set(fsExtras);
   const top = liga => co.lista
     .filter(j => j.l === liga && !fsOcultos.has(primaryKey(j)) && !extraSet.has(primaryKey(j)))
-    .map(j => ({ j, idx: fsIndices(co, j) })).filter(x => x.idx.geral != null)
-    .sort((a, b) => b.idx.geral - a.idx.geral).slice(0, 5);
+    .map(j => ({ j, idx: fsIndices(co, j), f: fichaV2(co, j, fsPos, false) }))
+    .filter(x => (x.f ? x.f.nota : x.idx.geral) != null)
+    /* pela NOTA DA FICHA V2 quando ela existe: o indice geral ordenava o meia ao contrario */
+    .sort((a, b) => (b.f ? b.f.nota : b.idx.geral) - (a.f ? a.f.nota : a.idx.geral)).slice(0, 5);
 
   const colunas = extras.map(j => ({ j, tipo: 'extra' }));
   if ($('#fsTopA').checked) top('Brasil A').forEach(x => colunas.push({ j: x.j, tipo: 'A' }));
@@ -4482,9 +4632,9 @@ function fsRender() {
   if (quantosFiltro) {
     const jaTem = new Set(colunas.map(c => primaryKey(c.j)));
     pool.filter(j => !jaTem.has(primaryKey(j)) && !fsOcultos.has(primaryKey(j)))
-      .map(j => ({ j, idx: fsIndices(co, j) }))
-      .filter(x => x.idx.geral != null)
-      .sort((a, b) => b.idx.geral - a.idx.geral)
+      .map(j => ({ j, idx: fsIndices(co, j), f: fichaV2(co, j, fsPos, false) }))
+      .filter(x => (x.f ? x.f.nota : x.idx.geral) != null)
+      .sort((a, b) => (b.f ? b.f.nota : b.idx.geral) - (a.f ? a.f.nota : a.idx.geral))
       .slice(0, quantosFiltro)
       .forEach(x => colunas.push({ j: x.j, tipo: 'filtro' }));
   }
@@ -4679,45 +4829,124 @@ function fsRender() {
            ' e da ref. mundo em ' + c.mu + ' de ' + c.n;
   };
 
-  b += linhaResumo('Índice físico geral', FS_ROT_IDX, x => x && x.geral, null,
-                   o => notaRef(contaRef(o, FS_TODAS)));
+  /* Uma linha de indicador, igual para qualquer grupo. Saiu de dentro do laco dos grupos
+     porque a ficha V2 desenha as mesmas linhas (PSV-99, sprints, traco) fora dele. */
+  const linhaInd = (k, rot, un, casas, menor, extra) => {
+    const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));
+    const validos = vals.filter(v => v != null);
+    const melhor = validos.length ? (menor ? Math.min.apply(null, validos) : Math.max.apply(null, validos)) : null;
+    const mA = co.A.m[k], mB = co.B.m[k];
+    const rBR = refPos.brasil && refPos.brasil.valores[k];
+    const rMU = refPos.mundo && refPos.mundo.valores[k];
+    /* a escala da linha inclui TUDO o que sera desenhado nela — medias, referencias e
+       jogadores —, senao cada bloco teria a sua regua e a comparacao visual mentiria */
+    const naLinha = validos.concat([mA, mB, rBR, rMU]
+      .filter(x => typeof x === 'number' && !isNaN(x)));
+    FS_ESCALA = naLinha.length
+      ? { max: Math.max.apply(null, naLinha), min: Math.min.apply(null, naLinha) } : null;
+    const medTd = medias.map(m => {
+      const venc = medias.length === 2 && typeof mA === 'number' && typeof mB === 'number' &&
+                   mA !== mB && ((m.rot.endsWith('A')) === melhorQue(mA, mB, menor));
+      return fsCelulaMedia(co, k, m.d.m[k], casas, menor, venc);
+    }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, menor) : '') +
+      refTd(k, casas, menor);
+    return '<tr' + (extra && extra.cls ? ' class="' + extra.cls + '"' : '') +
+      '><td class="fs-rot" title="' + esc(rot + ' · ' + un + (extra && extra.tit ? ' · ' + extra.tit : '')) +
+      '">' + esc(rot) + '<small>' + esc(un) + (extra && extra.sub ? ' · ' + esc(extra.sub) : '') +
+      '</small></td>' + medTd +
+      colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
+        melhor != null && vals[i] === melhor && validos.length > 1,
+        rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(mA, casas) +
+        ' · média B ' + fsFmt(mB, casas) +
+        (typeof rBR === 'number' ? ' · ref. Brasil ' + fsFmt(rBR, casas) : '') +
+        (typeof rMU === 'number' ? ' · ref. Mundo ' + fsFmt(rMU, casas) : '') +
+        (extra && extra.cel ? extra.cel(vals[i]) : ''),
+        mA, mB, rBR, rMU)).join('') +
+      tdVagas + '</tr>';
+  };
+  const grupoAberto = (g, gi) => {
+    let x = linhaResumo(g.t, g.d, o => o && o.grupos[gi], 'g' + gi, o => notaRef(contaRef(o, g.m)));
+    if (FS_ABERTOS.has('g' + gi)) g.m.forEach(([k, rot, un, casas, menor]) => { x += linhaInd(k, rot, un, casas, menor); });
+    return x;
+  };
 
-  FS_GRUPOS.forEach((g, gi) => {
-    b += linhaResumo(g.t, g.d, x => x && x.grupos[gi], 'g' + gi,
-                     o => notaRef(contaRef(o, g.m)));
-    if (!FS_ABERTOS.has('g' + gi)) return;
-    g.m.forEach(([k, rot, un, casas, menor]) => {
-      const vals = colunas.map(c => (typeof c.j[k] === 'number' ? c.j[k] : null));
-      const validos = vals.filter(v => v != null);
-      const melhor = validos.length ? (menor ? Math.min.apply(null, validos) : Math.max.apply(null, validos)) : null;
-      const mA = co.A.m[k], mB = co.B.m[k];
-      const rBR = refPos.brasil && refPos.brasil.valores[k];
-      const rMU = refPos.mundo && refPos.mundo.valores[k];
-      /* a escala da linha inclui TUDO o que sera desenhado nela — medias, referencias e
-         jogadores —, senao cada bloco teria a sua regua e a comparacao visual mentiria */
-      const naLinha = validos.concat([mA, mB, rBR, rMU]
-        .filter(x => typeof x === 'number' && !isNaN(x)));
-      FS_ESCALA = naLinha.length
-        ? { max: Math.max.apply(null, naLinha), min: Math.min.apply(null, naLinha) } : null;
-      const medTd = medias.map(m => {
-        const venc = medias.length === 2 && typeof mA === 'number' && typeof mB === 'number' &&
-                     mA !== mB && ((m.rot.endsWith('A')) === melhorQue(mA, mB, menor));
-        return fsCelulaMedia(co, k, m.d.m[k], casas, menor, venc);
-      }).join('') + (medias.length === 2 ? fsQuemGanha(mA, mB, menor) : '') +
-        refTd(k, casas, menor);
-
-      b += '<tr><td class="fs-rot" title="' + esc(rot + ' · ' + un) + '">' + esc(rot) +
-        '<small>' + esc(un) + '</small></td>' + medTd +
-        colunas.map((c, i) => fsCelula(co, k, vals[i], casas, menor,
-          melhor != null && vals[i] === melhor && validos.length > 1,
-          rot + ': ' + fsFmt(vals[i], casas) + ' · média A ' + fsFmt(mA, casas) +
-          ' · média B ' + fsFmt(mB, casas) +
-          (typeof rBR === 'number' ? ' · ref. Brasil ' + fsFmt(rBR, casas) : '') +
-          (typeof rMU === 'number' ? ' · ref. Mundo ' + fsFmt(rMU, casas) : ''),
-          mA, mB, rBR, rMU)).join('') +
-        tdVagas + '</tr>';
+  /* ---------- FICHA FISICA V2 — as tres linhas de cima, sempre abertas ----------
+     Medias e referencias tambem ganham ficha: sao mapas indicador->valor, e e contra a
+     coluna "Quem SOBE" x "Quem CAI" que a ficha foi validada (gerar_ficha_fisica.py). */
+  if (FICHA && FICHA.posicoes[fsPos]) {
+    const fcol = colunas.map(c => fichaV2(co, c.j, fsPos, false));
+    const fmed = medias.map(m => fichaV2(co, m.d.m, fsPos, true));
+    const fref = refCols.map(r => fichaV2(co, r.d.valores, fsPos, true));
+    const linhaV2 = (rot, sub, pegar, tit) =>
+      '<tr class="fs-grupo geral fv-linha"><td title="' + esc(rot + ' — ' + sub) + '"><b>' + esc(rot) +
+      '</b><span>' + esc(sub) + '</span></td>' +
+      fmed.map(f => fsChip(pegar(f), tit(f))).join('') + (medias.length === 2 ? '<td></td>' : '') +
+      fref.map(f => fsChip(pegar(f), tit(f))).join('') +
+      fcol.map(f => (f ? fsChip(pegar(f), tit(f))
+                       : '<td><span class="fs-sem" title="goleiro, ou menos de ' +
+                         (FICHA.min_jogos || 5) + ' jogos rastreados">sem ficha</span></td>')).join('') +
+      tdVagas + '</tr>';
+    b += linhaV2('Nota da ficha física', '50% traço da posição + 50% intensidade · estudo V2',
+                 f => f && f.nota,
+                 f => 'Nota da ficha: ' + (f && f.nota != null ? f.nota : '—') + ' · traço ' +
+                      (f && f.traco != null ? f.traco : '—') + ' · intensidade ' +
+                      (f && f.int != null ? f.int : '—') + ' (percentil na posição). O piso não entra na nota.');
+    /* PISO: selo por coluna + a linha do PSV-99 */
+    const seloTd = f => '<td class="fv-piso-c">' + fichaSelo(f && f.piso) + '</td>';
+    b += '<tr class="fs-grupo geral fv-linha"><td title="Piso de velocidade — B1.md, conclusão 2"><b>Piso</b>' +
+      '<span>PSV-99 ≥ 27 km/h · 26,5–27 no limite</span></td>' +
+      fmed.map(seloTd).join('') + (medias.length === 2 ? '<td></td>' : '') +
+      fref.map(seloTd).join('') + fcol.map(seloTd).join('') + tdVagas + '</tr>';
+    b += linhaInd('psv', 'PSV-99 por partida', 'km/h', 2, false,
+                  { cls: 'fv-sub', cel: v => (typeof v === 'number' ? (v >= 27 ? ' · passa o piso'
+                    : v >= 26.5 ? ' · no limite do piso' : ' · REPROVA o piso de 27 km/h') : '') });
+    /* INTENSIDADE */
+    b += linhaV2('Intensidade', 'sprints e ações de alta intensidade · percentil na posição',
+                 f => f && f.int, f => 'Intensidade: ' + (f && f.int != null ? f.int : '—') +
+                 ' — quem sobe fica no percentil 60–68, quem cai no 33–41 (B1_perfis.md §3)');
+    b += linhaInd('spr_n', 'Número de sprints', 'por 90', 1, false, { cls: 'fv-sub' });
+    b += linhaInd('hi_n', 'Ações de alta intensidade', 'por 90', 1, false, { cls: 'fv-sub' });
+    /* TRACO DA POSICAO, com a faixa dos titulares de referencia na propria linha */
+    b += linhaV2('Traço da posição', 'o que o titular dos times que rendem tem a mais',
+                 f => f && f.traco, f => 'Traço: ' + (f && f.traco != null ? f.traco : '—') +
+                 ' (percentil na posição) · ' + fichaDegrauRot(f && f.degrau) + ' — B1.md, conclusão 3');
+    FICHA.posicoes[fsPos].traco.forEach(t => {
+      const def = FS_TODAS.find(m => m[0] === t.k) || [t.k, t.rot, '', 2];
+      const faixa = t.p25 != null ? 'ref. ' + fsFmt(t.p25, def[3]) + ' · ' + fsFmt(t.p50, def[3]) +
+                    ' · ' + fsFmt(t.p75, def[3]) : 'sem faixa';
+      b += linhaInd(t.k, def[1], def[2], def[3], false, {
+        cls: 'fv-sub', sub: faixa,
+        tit: 'faixa P25/P50/P75 dos titulares de referência (' + t.n_ref + ') — caminho: ' + t.caminho,
+        cel: v => ' · ' + fichaDegrauRot(fichaDegrau(v, t)),
+      });
     });
-  });
+  } else {
+    b += linhaResumo('Índice físico geral', FS_ROT_IDX, x => x && x.geral, null,
+                     o => notaRef(contaRef(o, FS_TODAS)));
+  }
+
+  /* Os grupos que o estudo V2 nao descarta ficam como estavam: Velocidade, Uso da
+     velocidade e Corridas sem bola. */
+  [0, 1, 6].forEach(gi => { if (FS_GRUPOS[gi]) b += grupoAberto(FS_GRUPOS[gi], gi); });
+
+  /* DETALHE — NAO RENDE PONTO. Volume, arranque e frenagem, giro e com/sem bola: o B1
+     mediu que nao rendem ponto (conclusoes 1 e 5). Nada foi apagado: estao aqui, fechados,
+     junto com o indice geral antigo, para quem quiser conferir. */
+  if (FICHA) {
+    const abertoDet = FS_ABERTOS.has('det');
+    b += '<tr class="fs-grupo abrivel fv-det' + (abertoDet ? ' aberto' : '') + '" data-g="det"><td ' +
+      'title="Volume, arranque e frenagem, giro e com/sem bola — o estudo V2 (B1) mediu que não rendem ponto">' +
+      '<i class="fs-seta">▸</i><b>Detalhe — não rende ponto</b><span>estudo V2, B1 · clique para abrir</span></td>' +
+      '<td colspan="' + (medias.length + (medias.length === 2 ? 1 : 0) + refCols.length + colunas.length +
+      vagas.length) + '"></td></tr>';
+    if (abertoDet) {
+      b += linhaResumo('Índice físico geral (antigo)', FS_ROT_IDX, x => x && x.geral, null,
+                       o => notaRef(contaRef(o, FS_TODAS)));
+      [2, 3, 4, 5].forEach(gi => { if (FS_GRUPOS[gi]) b += grupoAberto(FS_GRUPOS[gi], gi); });
+    }
+  } else {
+    [2, 3, 4, 5].forEach(gi => { if (FS_GRUPOS[gi]) b += grupoAberto(FS_GRUPOS[gi], gi); });
+  }
   b += '</tbody>';
   const tab = $('#fsMatriz');
   tab.innerHTML = h + b;
@@ -6003,6 +6232,12 @@ async function raioCarregar() {
     if (!r.ok) throw new Error(r.status);
     RAIO = await r.json();
   } catch (e) { RAIO = null; RAIO_FALHOU = true; console.warn('raio_ref.json indisponível', e); }
+  /* a ficha fisica V2 (gerar_ficha_fisica.py, a partir de Santa Cruz V2/resultados/b1/) */
+  try {
+    const v = window.__verDados ? '?v=' + window.__verDados : '';
+    const r2 = await fetch('dados/ficha_fisica_v2.json' + v);
+    FICHA = r2.ok ? await r2.json() : null;
+  } catch (e) { FICHA = null; }
   RAIO_MAPA = null;
 }
 
@@ -6070,7 +6305,58 @@ function raioMapa() {
 const RAIO_ROT = { sup: 'SUPERIOR', sim: 'SIMILAR', bax: 'ABAIXO' };
 /* `pk` e a primary_key; devolve '' quando nao ha classificacao (goleiro, sem tracking,
    posicao sem referencia ou populacao pequena demais para um desvio confiavel). */
+/* ---------------- raio ⚡ pela FICHA V2 (Santa Cruz V2, B1) ----------------
+   Trocou a regua de 5 KPIs contra a media de quem subiu pela ficha fisica do estudo V2:
+     vermelho = reprova o piso de 27 km/h (PSV-99 abaixo de 26,5 — B1.md, conclusao 2);
+     amarelo  = no limite do piso (26,5–27) OU traco da posicao abaixo do P25 dos titulares
+                de referencia (posicao_faixas.csv) — e tambem quem passa mas nao chega ao P50;
+     verde    = passa o piso E o traco esta no P50 da referencia ou acima.
+   Sem rastreio (ou com menos de 5 jogos rastreados): icone cinza "?", fisico nao verificado.
+   A regua antiga (raioMapa) fica no codigo: e o que aparece se a ficha nao carregar. */
+const FICHA_CO = {};
+function fichaCoorte(pos) {
+  if (FICHA_CO[pos]) return FICHA_CO[pos];
+  const min = (FICHA && FICHA.min_jogos) || 5;
+  const lista = fsBase().filter(j => j.p === pos && (j.l === 'Brasil A' || j.l === 'Brasil B') &&
+                                     !j.fis_src && (Number(j.sc_n) || 0) >= min);
+  const ord = {};
+  FS_TODAS.forEach(([k]) => {
+    ord[k] = lista.map(j => j[k]).filter(v => typeof v === 'number' && !isNaN(v)).sort((a, b) => a - b);
+  });
+  return (FICHA_CO[pos] = { lista, ord });
+}
+function raioIconeV2(pk) {
+  const j = fsJogadorPk(pk);
+  if (!j || j.p === 'GOL' || !FICHA.posicoes[j.p]) return '';
+  const svg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>';
+  const f = typeof j.psv === 'number' ? fichaV2(fichaCoorte(j.p), j, j.p, false) : null;
+  if (!f || !f.piso) {
+    const porque = typeof j.psv === 'number'
+      ? 'só ' + (Number(j.sc_n) || 0) + ' jogos rastreados (a ficha pede ' + (FICHA.min_jogos || 5) + ')'
+      : 'sem rastreio do SkillCorner';
+    return '<span class="raio raio-nd" title="' + esc('Físico não verificado — ' + porque +
+      '. A régua do raio é a ficha física V2: piso de 27 km/h e traço da posição.') + '">?</span>';
+  }
+  const c = f.piso === 'reprova' ? 'bax'
+          : (f.piso === 'passa' && f.degrau != null && f.degrau >= 2) ? 'sup' : 'sim';
+  const km = f.psv.toFixed(1).replace('.', ',');
+  const porque = f.piso === 'reprova' ? 'reprova o piso: PSV-99 de ' + km + ' km/h, abaixo de 26,5'
+    : f.piso === 'limite' ? 'no limite do piso: PSV-99 de ' + km + ' km/h'
+    : c === 'sup' ? 'passa o piso (' + km + ' km/h) e o traço da posição está ' + fichaDegrauRot(f.degrau)
+    : 'passa o piso (' + km + ' km/h), mas o traço da posição está ' + fichaDegrauRot(f.degrau);
+  const t = 'Ficha física V2: ' + porque + ' · nota ' + (f.nota != null ? f.nota : '—') +
+    ' (traço ' + (f.traco != null ? f.traco : '—') + ', intensidade ' + (f.int != null ? f.int : '—') +
+    ') — verde passa o piso de 27 km/h com traço no P50 da referência, vermelho reprova o piso.' +
+    (j.fis_src ? ' Físico de ' + j.fis_src + ', não do clube atual.' : '');
+  /* no card, quem tem fisico de outra temporada leva o ano ao lado do raio (ex.: B25) */
+  const src = j.fis_src ? '<sup class="raio-src" title="' + esc('Físico de ' + j.fis_src +
+    ' — outra temporada, outro clube (base do estudo V2)') + '">B' +
+    ((j.fis_src.match(/20(\d\d)/) || [])[1] || '') + '</sup>' : '';
+  return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>' + src;
+}
+
 function raioIcone(pk) {
+  if (FICHA && BASE.length) return raioIconeV2(pk);
   const o = raioMapa().get(pk);
   if (!o) return '';
   const rp = RAIO.refs[o.pos] || {};
