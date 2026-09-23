@@ -50,7 +50,7 @@ def montar():
     dados_dest = os.path.join(DOCS, "dados")
     os.makedirs(dados_dest)
     for nome in ("jogadores.json", "historico.json", "premissas.json", "raio_ref.json",
-                 "posicao_overrides.json", "firebase.json"):
+                 "posicao_overrides.json", "firebase.json", "ficha_fisica_v2.json"):
         origem = os.path.join(AQUI, "dados", nome)
         if os.path.exists(origem):
             shutil.copy2(origem, os.path.join(dados_dest, nome))
@@ -80,7 +80,7 @@ def montar():
     # navegador nao servir raio_ref.json velho com app.js novo
     vd = str(max(int(versao(os.path.join(AQUI, "dados", n)))
                  for n in ("jogadores.json", "historico.json", "premissas.json",
-                           "raio_ref.json", "posicao_overrides.json", "cenarios.json")
+                           "raio_ref.json", "posicao_overrides.json", "cenarios.json", "ficha_fisica_v2.json")
                  if os.path.exists(os.path.join(AQUI, "dados", n))))
     html = (html.replace("{{ ver }}", v).replace("{{ verDados }}", vd)
                 .replace("{{ver}}", v).replace("{{verDados}}", vd))
