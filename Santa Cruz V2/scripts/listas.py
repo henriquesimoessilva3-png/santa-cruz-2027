@@ -145,6 +145,9 @@ def main():
         l1.round(1).to_excel(w, "1_serie_B", index=False); l1a.round(1).to_excel(w, "1b_serie_A", index=False)
         l2.round(1).to_excel(w, "2_sul_americanas", index=False); l3.round(1).to_excel(w, "3_sulam_no_exterior", index=False); l4.round(1).to_excel(w, "4_outras_ligas", index=False)
         sbc.round(1).to_excel(w, "base_serie_B_2026", index=False)
+    # base inteira dos brasileiros e sul-americanos no exterior (sem filtro de nota): serve para
+    # cruzar com a minutagem da temporada europeia atual (quem joga pouco = empréstimo)
+    lgc[(lgc.mercado == "Exterior") & lgc.sul_americano].round(1).to_csv(os.path.join(out, "base_sulam_exterior.csv"), index=False)
     for nome, d in (("1_serie_B", l1), ("1b_serie_A", l1a), ("2_sul_americanas", l2), ("3_sulam_no_exterior", l3), ("4_outras_ligas", l4)):
         d.to_csv(os.path.join(out, nome + ".csv"), index=False)
     print("Série B 2026 elegíveis:", len(sbc), "| A:", (lgc.mercado == "Série A").sum(), "| SA:", (lgc.mercado == "Sul-americano").sum(), "| SA no exterior:", ((lgc.mercado == "Exterior") & lgc.sul_americano).sum(), "| outras:", ((lgc.mercado == "Exterior") & ~lgc.sul_americano).sum())

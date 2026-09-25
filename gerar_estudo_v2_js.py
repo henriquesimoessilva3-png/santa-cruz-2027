@@ -27,6 +27,7 @@ DOCS = [
     ("Recomendação", "bolaparada", "listas/BOLA_PARADA.md", "Especialistas de bola parada"),
     ("Recomendação", "listas", "listas/LISTAS.md", "Listas por posição"),
     ("Recomendação", "campograma", "listas/CAMPOGRAMA_x_ESTUDO.md", "Campograma × estudo"),
+    ("Recomendação", "emprestimos", "listas/EMPRESTIMOS_EXTERIOR.md", "Empréstimos do exterior"),
     ("Blocos", "b1", "resultados/b1/B1.md", "1 · Físico"),
     ("Blocos", "b1p", "resultados/b1/B1_perfis.md", "1 · Físico por posição"),
     ("Blocos", "b2", "resultados/b2/B2.md", "2 · Técnico"),
