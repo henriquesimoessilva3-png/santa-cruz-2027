@@ -43,14 +43,14 @@ body.claro #pgBolaParada{--bp-bom:#0f6f9e;--bp-ruim:#c2650d;--bp-ponto:#6b7482}
 
 /* a tabela tem 13 colunas: esta aba ganha mais largura que a Série B (1020 px), para caber
    inteira a partir de ~1280 px de janela sem rolagem lateral */
-#pgBolaParada .sb{max-width:1240px}
+#pgBolaParada .sb{max-width:100%}
 .bp-tabwrap{overflow-x:auto;background:var(--fundo2);border:1px solid var(--borda);border-radius:8px}
 .sb-tab.bp-tab{min-width:1060px}
 .bp-tab th,.bp-tab td{padding:7px 6px}
 /* titulos quebram em 2 linhas: em maiusculas e espacados, sem quebra eles empurravam a ultima
    coluna (xG contra) para fora da tela */
 .bp-tab thead th{line-height:1.25;white-space:normal;letter-spacing:.05em}
-.bp-tab tbody td{white-space:nowrap}
+.bp-tab tbody td{white-space:normal;overflow-wrap:anywhere}
 .bp-tab tbody td:first-child{white-space:normal}
 .bp-tab thead tr.grupo th{text-align:center;border-bottom:1px solid var(--borda2);padding-bottom:4px}
 .bp-tab thead th[data-k]{cursor:pointer;user-select:none;vertical-align:bottom}

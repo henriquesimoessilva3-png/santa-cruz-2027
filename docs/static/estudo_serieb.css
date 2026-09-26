@@ -5,7 +5,7 @@
    10 segundos, o "o que vimos" e o uso prático a quem tem 2 minutos, e a tabela de provas a quem
    quer conferir. O CSS segue isso: manchete grande, uso prático destacado, prova em corpo menor. */
 
-#pgEstudo .esb { display: flex; flex-direction: column; gap: 22px; padding: 18px 20px 48px; max-width: 1080px; }
+#pgEstudo .esb { display: flex; flex-direction: column; gap: 22px; padding: 18px 20px 48px; max-width: 100%; }
 
 /* ---------------- topo ---------------- */
 #pgEstudo .esb-topo h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.015em; }

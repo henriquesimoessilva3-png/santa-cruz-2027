@@ -14,7 +14,7 @@
 #fsPainelEstudo .fse-nota { margin: 6px 0 0; font-size: 11px; color: var(--tinta3); }
 #fsPainelEstudo .fse-t { border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; margin-bottom: 4px; }
 #fsPainelEstudo .fse-t th { text-align: left; color: var(--tinta2); font-weight: 600; font-size: 11px; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--borda2); }
-#fsPainelEstudo .fse-t td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--linha1); white-space: nowrap; }
+#fsPainelEstudo .fse-t td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--linha1); white-space: normal; overflow-wrap: anywhere; }
 #fsPainelEstudo .n { text-align: right; }
 #fsPainelEstudo .fse-u { color: var(--tinta3); font-size: 11px; }
 #fsPainelEstudo .fse-top { color: var(--txt-verde); font-weight: 700; }

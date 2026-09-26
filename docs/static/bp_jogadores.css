@@ -10,13 +10,14 @@
 #pgBpJogadores .bpj-chips button.on { background: var(--coral); border-color: var(--coral); color: #fff; }
 #pgBpJogadores .bpj-busca { background: var(--input-bg); border: 1px solid var(--input-borda); color: var(--tinta);
   border-radius: 8px; padding: 6px 10px; font: 13px var(--fonte); width: 220px; }
-#pgBpJogadores .bpj-tab { overflow: auto; border: 1px solid var(--borda); border-radius: 10px; }
+#pgBpJogadores .bpj-tab { overflow: auto; max-width: 100%; border: 1px solid var(--borda); border-radius: 10px; }
 #pgBpJogadores table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
 #pgBpJogadores th { position: sticky; top: 0; background: var(--fundo3); color: var(--tinta2); font-weight: 650;
   font-size: 11px; text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--borda2); cursor: pointer; white-space: nowrap; }
 #pgBpJogadores th.ord { color: var(--tinta); }
 #pgBpJogadores th.sof, #pgBpJogadores td.sof { color: var(--txt-azul); }
-#pgBpJogadores td { padding: 6px 8px; border-bottom: 1px solid var(--linha1); white-space: nowrap; }
+#pgBpJogadores td { padding: 6px 8px; border-bottom: 1px solid var(--linha1); white-space: normal; overflow-wrap: anywhere; }
+#pgBpJogadores td.n { white-space: nowrap; }
 #pgBpJogadores tr:hover td { background: var(--veu1); }
 #pgBpJogadores .n { text-align: right; }
 #pgBpJogadores td.nome { font-weight: 650; color: var(--tinta); }

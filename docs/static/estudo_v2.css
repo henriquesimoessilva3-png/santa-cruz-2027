@@ -16,7 +16,7 @@
 
 #pgEstudoV2 { overflow-x: hidden; max-width: 100%; }
 #pgEstudoV2 .esv-leitura { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; padding: 18px 28px 60px; }
-#pgEstudoV2 .esv-doc { max-width: min(110ch, 100%); font-size: 14px; line-height: 1.62; color: var(--tinta); }
+#pgEstudoV2 .esv-doc { max-width: 100%; font-size: 14px; line-height: 1.62; color: var(--tinta); }
 #pgEstudoV2 .esv-doc-meta { font-size: 11px; color: var(--tinta3); margin-bottom: 6px; }
 #pgEstudoV2 .esv-doc h2 { font-size: 22px; letter-spacing: -.015em; margin: 0 0 14px; line-height: 1.25; }
 #pgEstudoV2 .esv-doc h3 { font-size: 16px; margin: 26px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--borda); }
@@ -28,8 +28,11 @@
 #pgEstudoV2 .esv-doc pre { background: var(--fundo2); border: 1px solid var(--borda); border-radius: 8px; padding: 10px 12px; overflow: auto; font-size: 12px; }
 #pgEstudoV2 .esv-doc pre code { background: none; padding: 0; }
 /* tabela larga rola dentro dela mesma, nunca a página (26/09) */
-#pgEstudoV2 .esv-doc table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 6px 0 14px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+#pgEstudoV2 .esv-doc table { display: table; width: 100%; max-width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 12px; font-variant-numeric: tabular-nums; table-layout: auto; }
+#pgEstudoV2 .esv-doc th, #pgEstudoV2 .esv-doc td { white-space: normal; overflow-wrap: anywhere; }
+/* texto corrido continua legível em coluna de 90ch; só as tabelas usam a largura toda */
+#pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc ul, #pgEstudoV2 .esv-doc ol, #pgEstudoV2 .esv-doc h2, #pgEstudoV2 .esv-doc h3 { max-width: 100ch; }
 #pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc li { overflow-wrap: anywhere; }
-#pgEstudoV2 .esv-doc th, #pgEstudoV2 .esv-doc td { border-bottom: 1px solid var(--borda); padding: 5px 12px 5px 0; text-align: left; }
+#pgEstudoV2 .esv-doc th, #pgEstudoV2 .esv-doc td { border-bottom: 1px solid var(--borda); padding: 5px 8px 5px 0; text-align: left; vertical-align: top; }
 #pgEstudoV2 .esv-doc th { color: var(--tinta2); font-weight: 600; }
 #pgEstudoV2 .esv-vazio { padding: 20px; color: var(--tinta3); }
