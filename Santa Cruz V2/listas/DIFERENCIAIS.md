@@ -18,7 +18,7 @@ onde esse rendimento nasce.
 ## 2. Estabilidade é o maior diferencial que não custa folha
 Os três traços mais fortes de rendimento a dinheiro igual não são de jogo: 30 jogadores usados
 (quem cai usa 39,5), zero trocas de treinador (quem cai troca 2), 67% dos minutos nos 11 mais
-usados (quem cai, 60%). Nenhum anda com o valor do elenco. Pela escalação real (B15-2): 31 titulares distintos no ano e 71% das titularidades nos 11 mais escalados, contra 39 e 62% de quem cai — o traço mais forte de toda a base (r −0,66). E manter a base: quem sobe tem 45%
+usados (quem cai, 60%). Nenhum anda com o valor do elenco. Pela escalação real (B14-2): 31 titulares distintos no ano e 71% das titularidades nos 11 mais escalados, contra 39 e 62% de quem cai — o traço mais forte de toda a base (r −0,66). E manter a base: quem sobe tem 45%
 dos minutos com quem já estava no clube e 5 titulares repetidos; quem cai, 24% e 1,5. Os dois
 promovidos baratos são exatamente isto — elenco curto, onze fixo, treinador o ano inteiro,
 metade do elenco mantido — e em jogo não faziam nada acima da liga.
@@ -30,7 +30,7 @@ dentro) e xG por finalização sofrida (empurrar o adversário para fora da áre
 ataque posicional, cruzamentos e passes ao terço final rendem pouco entre times e viram
 negativos dentro do clube: são placar. Pressão alta, recuperações, interceptações e carrinhos
 não rendem nada. Duelo aéreo rende entre times (9 pontos), não dentro do jogo: é elenco.
-Grandes chances criadas e cedidas por jogo (Sofascore, B15) rendem nas duas contas e resumem o eixo: ≥ 1,6 criadas, ≤ 1,25 cedidas. Formação tática e estilo não mudam resultado. Entre passagens de treinador (B11), cruzamento e entrada na área **descrevem** o time que rende, mas não sobrevivem à conta dentro do clube: continuam fora da meta.
+Grandes chances criadas e cedidas por jogo (Sofascore, B14) rendem nas duas contas e resumem o eixo: ≥ 1,6 criadas, ≤ 1,25 cedidas. Formação tática e estilo não mudam resultado. Entre passagens de treinador (B10), cruzamento e entrada na área **descrevem** o time que rende, mas não sobrevivem à conta dentro do clube: continuam fora da meta.
 
 ## 4. Bola parada é a alavanca mais barata
 Um gol de saldo de bola parada vale 0,73 ponto na temporada (bola rolando, 0,51) e anda pouco
@@ -49,7 +49,7 @@ de linha (PSV-99 ~27 km/h): a distância entre o mais rápido e o mais lento do 
 rendimento em todas as cinco temporadas, e o elo lento é quase sempre um meia ou volante. Por
 posição, o titular dos times que rendem não corre mais nem é mais rápido — tem mais arrancadas
 explosivas e corridas para a área (zaga, meio, centroavante). Desgaste no returno: 2%, sem
-padrão. Físico não prevê disponibilidade. E a Série B já corre como a Série A (B14): mesma velocidade de pico, sprints e alta
+padrão. Físico não prevê disponibilidade. E a Série B já corre como a Série A (B13): mesma velocidade de pico, sprints e alta
 intensidade; a diferença física está só nas cinco grandes ligas. O patamar de A na B é técnico.
 
 ## 6. Por posição, o que procurar (ficha do Bloco 2, com físico e bola parada)
@@ -72,13 +72,13 @@ Estrangeiros na Série B são poucos e sul-americanos (ARG, COL, URU, PAR), de e
 atacante — para zaga e volante quase não há precedente. O estreante estrangeiro joga tanto quanto
 o brasileiro, mas só 37% seguem na liga: contrato de um ano com opção. Quem vem de fora chega ao
 meio da tabela seja qual for o destaque na origem (percentil 90 → 54–61; p50 → 46): não pagar por ranking de
-outra liga. Nas listas a aderência de fora é convertida por essa reta (B12), não por desconto fixo; por país não
+outra liga. Nas listas a aderência de fora é convertida por essa reta (B11), não por desconto fixo; por país não
 dá para separar (n de 3 a 5). Origem que chega acima da mediana: Série A (p50 → 62).
 
 ## 8. Treinador
 O rendimento não viaja entre clubes (r 0,01 em 69 pares); trocar no meio do ano "funciona" em
-55 de 88 porque se troca no fundo do poço. O critério que a base sustenta é não trocar. O que viaja com o treinador é a **ideia de jogo** (passe longo, pressão, contra-ataque: r 0,26–0,38 entre clubes); o físico, o jogo aéreo e a posse ficam com o elenco (B11). Escolher treinador e montar elenco são a mesma decisão: o onze recomendado é direto e aéreo (perfil Baptista/Tencati) com intensidade mediana (perfil Condé); Mozart, de posse, é o que menos encaixa. Para
-reduzir a conversa: Eduardo Baptista (o mais regular e o maior xPts por jogo, 1,59 — rende pelo jogo, B13),
+55 de 88 porque se troca no fundo do poço. O critério que a base sustenta é não trocar. O que viaja com o treinador é a **ideia de jogo** (passe longo, pressão, contra-ataque: r 0,26–0,38 entre clubes); o físico, o jogo aéreo e a posse ficam com o elenco (B10). Escolher treinador e montar elenco são a mesma decisão: o onze recomendado é direto e aéreo (perfil Baptista/Tencati) com intensidade mediana (perfil Condé); Mozart, de posse, é o que menos encaixa. Para
+reduzir a conversa: Eduardo Baptista (o mais regular e o maior xPts por jogo, 1,59 — rende pelo jogo, B12),
 Léo Condé (rendeu acima do elenco em três clubes, livre; +0,21 ponto por jogo de sorte, que não repete),
 Mozart (dois acessos), Tencati (elenco barato). Escolha por entrevista,
 comissão e projeto.

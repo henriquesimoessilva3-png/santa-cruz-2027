@@ -22,7 +22,7 @@
 | EE | **Keno** | Coritiba (A) | 36 | 150 | sem dado | sem dado | — | — | 36 anos, sem minutos na base. **Dadá Belmonte** (70, livre, já no grupo a R$ 90) é o EE do estudo |
 | CA | **Robson** | Novorizontino | 35 | **180** | **71** | 29,1 ✓ · área 14,1 (ref. 9,7) | Motor de volume ✓ | **3 g · 3 a** | O dado sustenta: melhor CA livre da B, tipo físico de quem sobe, corre para a área e produz bola parada. Risco é a idade |
 
-Legenda: salário em R$ mil/mês; nota V2 só existe para quem jogou a Série B 2026 (\* = só aderência); ✓ = passa o piso de 27 km/h; ref. = mediana dos titulares dos times que renderam acima do dinheiro; tipo ✓ = tipo físico que quem sobe mais usa (B10), ✗ = tipo de quem cai.
+Legenda: salário em R$ mil/mês; nota V2 só existe para quem jogou a Série B 2026 (\* = só aderência); ✓ = passa o piso de 27 km/h; ref. = mediana dos titulares dos times que renderam acima do dinheiro; tipo ✓ = tipo físico que quem sobe mais usa (B15), ✗ = tipo de quem cai.
 
 ## Reservas com salário (11)
 

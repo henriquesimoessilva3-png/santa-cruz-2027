@@ -1,4 +1,4 @@
-"""Bloco 11 — Treinador e modelo de jogo. Que time cada treinador monta, se o estilo viaja com ele,
+"""Bloco 10 — Treinador e modelo de jogo. Que time cada treinador monta, se o estilo viaja com ele,
 e se estilo explica resultado.
 
 Base: jogos da Série B 2022–2026 (serieb_jogos.csv, Wyscout, por time e jogo) + físico do time por jogo
@@ -11,7 +11,7 @@ import os
 import numpy as np, pandas as pd
 from _comum import *
 
-OUT = os.path.join(RES, "b11"); os.makedirs(OUT, exist_ok=True)
+OUT = os.path.join(RES, "b10"); os.makedirs(OUT, exist_ok=True)
 EST = {  # coluna -> (rótulo, sentido)
     "posse": "Posse %", "passes_posse": "Passes por posse", "passe_longo": "% de passe longo", "ppda": "PPDA (maior = pressiona menos)",
     "rec_altas": "Recuperações no campo de ataque", "cruz": "Cruzamentos", "contra": "Contra-ataques", "posic": "Ataques posicionais",

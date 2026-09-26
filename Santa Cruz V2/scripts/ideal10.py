@@ -1,7 +1,7 @@
 """Os meus dez por posição — 2027. Os três mercados juntos (Série B, campeonatos sul-americanos e
 sul-americanos/brasileiros no exterior em ligas compatíveis com a B), ordenados do mais aderente
 ao menos: pontuação = nota do estudo (aderência ao modelo que rende na B + nível do ranking)
-+ 3 se é do tipo físico de quem sobe (B10) + 3 se é especialista de bola parada (índice ≥ 85, B3)
++ 3 se é do tipo físico de quem sobe (B15) + 3 se é especialista de bola parada (índice ≥ 85, B3)
 + bônus dos scouts + crivo de liga fraca. Filtros: ≥ 900 min, idade ≤ 35 (GOL ≤ 37), PSV-99 ≥ 27
 quando há rastreio, sem vetados, valor ≤ € 2 MM, nota com as duas partes ou aderência ≥ 65.
 Saídas: listas/IDEAL_2027.md, listas/IDEAL_2027.csv"""
@@ -42,14 +42,14 @@ def main():
     d["k"] = d.jogador.map(chave) + "|" + d.clube.map(chave)
     d["scouts"] = d.k.map(sinal)
     # tipo físico e PSV (Série B tem psv99; fora, o do Portal via tipos_todos)
-    tt = pd.read_csv(os.path.join(RAIZ, "resultados", "b10", "tipos_todos.csv"))
+    tt = pd.read_csv(os.path.join(RAIZ, "resultados", "b15", "tipos_todos.csv"))
     tt["k"] = tt.chave + "|" + tt.clube.map(chave); tt = tt.drop_duplicates("k").set_index("k")
     d["tipo"] = d.k.map(tt.tipo); d["tipo_pref"] = d.k.map(tt.tipo_pref).fillna(False).astype(bool)
     d["psv"] = d.psv99 if "psv99" in d else np.nan
     d["psv"] = d.psv.fillna(d.k.map(tt.psv99))
     d = d[d.psv.isna() | (d.psv >= 27) | (d.pos11 == "GOL")]
-    # Sofascore 2026 (B15): nota média, xG+xA/90 e velocidade máxima — colunas, não ordenação
-    sj = pd.read_csv(os.path.join(RAIZ, "resultados", "b15", "jogador_temporada.csv"))
+    # Sofascore 2026 (B14): nota média, xG+xA/90 e velocidade máxima — colunas, não ordenação
+    sj = pd.read_csv(os.path.join(RAIZ, "resultados", "b14", "jogador_temporada.csv"))
     sj = sj[(sj.ano == 2026) & (sj.minutos >= 450)].sort_values("minutos", ascending=False).drop_duplicates("chave").set_index("chave")
     kk = d.jogador.map(chave)
     d["sofa_nota"] = np.where(d.mercado_l == "Série B", kk.map(sj.nota_media), np.nan)
@@ -64,9 +64,9 @@ def main():
     md = ["# Os meus dez por posição — 2027", "",
           "*Dado: Wyscout e contratos de ago/26; físico SkillCorner (Série B) e do Portal (fora) até set/26; bola parada Wyscout/Sofascore; scouts TransferRoom · 25/09/2026.*", "",
           "Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **brasileiros e sul-americanos no exterior** em ligas compatíveis com a B (Portugal B/C, Leste Europeu, Golfo, Ásia B) — ordenados do mais aderente ao menos. "
-          "**Pontuação** = nota do estudo (aderência ao modelo que rende na Série B + nível do ranking) + 3 se é do tipo físico que quem sobe mais usa (B10) + 3 se é especialista de bola parada (índice ≥ 85) + bônus dos scouts, com −5 para Equador B, Bolívia e Argentina B. "
+          "**Pontuação** = nota do estudo (aderência ao modelo que rende na Série B + nível do ranking) + 3 se é do tipo físico que quem sobe mais usa (B15) + 3 se é especialista de bola parada (índice ≥ 85) + bônus dos scouts, com −5 para Equador B, Bolívia e Argentina B. "
           "Filtros: ≥ 900 min, idade ≤ 35, fora os clubes grandes das ligas fracas (Olympiacos, Ludogorets, Maccabi, clubes do Golfo…), PSV-99 ≥ 27 km/h quando há rastreio, sem os vetados, valor ≤ € 2 MM, nota com as duas partes (ou aderência ≥ 65). "
-          "Nas ligas de fora a aderência já está convertida pela reta de liga (B12: p90 na origem → 58 na B). **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27. **vmax Sofa**, **Nota Sofa** e **xG+xA/90** vêm do Sofascore 2026 (B15), só para a Série B: descrevem, não ordenam (a nota não repete de um ano para o outro, r 0,36). A vmax é pico de um jogo (r 0,33 com o PSV-99) e não substitui o piso: só abaixo de 32 km/h é alerta.", ""]
+          "Nas ligas de fora a aderência já está convertida pela reta de liga (B11: p90 na origem → 58 na B). **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27. **vmax Sofa**, **Nota Sofa** e **xG+xA/90** vêm do Sofascore 2026 (B14), só para a Série B: descrevem, não ordenam (a nota não repete de um ano para o outro, r 0,36). A vmax é pico de um jogo (r 0,33 com o PSV-99) e não substitui o piso: só abaixo de 32 km/h é alerta.", ""]
     out = []
     for p, nome, sub in POS:
         x = d[d.pos11 == p].head(10).assign(ordem=lambda t: range(1, len(t) + 1)); out.append(x)

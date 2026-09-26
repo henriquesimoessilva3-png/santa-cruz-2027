@@ -1,4 +1,4 @@
-"""Bloco 10 — Sugestões pelo tipo físico de quem sobe.
+"""Bloco 15 — Sugestões pelo tipo físico de quem sobe.
 
 Para cada setor, o tipo físico (Bloco 8) que mais aparece em quem SUBIU em relação a quem CAIU
 (maior diferença Subiu − Caiu; um segundo tipo entra se a diferença dele for ≥ 10 pontos). Depois,
@@ -12,7 +12,7 @@ import numpy as np, pandas as pd
 from _comum import *
 from b8_fisico_tecnico import base, tipos, SETORES
 
-OUT = os.path.join(RES, "b10"); os.makedirs(OUT, exist_ok=True)
+OUT = os.path.join(RES, "b15"); os.makedirs(OUT, exist_ok=True)
 CORE = ["psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "distance_p90", "runs_p30tip"]
 APP = {"psv": "psv99", "spr_n": "sprint_count_p90", "hi_n": "hi_count_p90", "expl": "expl_accel_sprint_p90",
        "dist": "distance_p90", "obr": "runs_p30tip"}
@@ -96,14 +96,14 @@ def main():
     dt = lambda c: (str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 7 else "—"
     NOMEP = {"ZD": "Zagueiro pela direita", "ZE": "Zagueiro pela esquerda", "LD": "Lateral direito", "LE": "Lateral esquerdo",
              "VOL": "Volante", "MED": "Médio", "MEI": "Meia", "ED": "Extremo pela direita", "EE": "Extremo pela esquerda", "CA": "Centroavante"}
-    md = ["# Bloco 10 — Sugestões pelo tipo físico de quem sobe", "", "*Dado: Série B 2026 e ligas de fora (ago/26), físico do Portal · revisão 25/09/2026.*", "",
+    md = ["# Bloco 15 — Sugestões pelo tipo físico de quem sobe", "", "*Dado: Série B 2026 e ligas de fora (ago/26), físico do Portal · revisão 25/09/2026.*", "",
           "Para cada setor, o tipo físico (Bloco 8) que mais aparece nos times que **subiram** em relação aos que **caíram**; "
           "um segundo tipo entra quando a diferença dele também passa de 10 pontos. Os tipos são formados só pelo **físico** "
           "(velocidade, sprints, ações de alta intensidade, arrancadas, distância e corridas sem bola); o técnico entra na "
           "**ordem**: a nota do estudo = aderência ao modelo que rende na B + nível do ranking.",
           "", "Filtros: piso de 27 km/h, até 32 anos, sem os nomes vetados, valor ≤ € 2 MM, ≥ 900 min. Jogador de fora é "
           "encaixado no tipo pelo perfil médio de cada tipo na Série B (mesmos indicadores do SkillCorner); nas ligas "
-          "sul-americanas a aderência já está convertida pela reta de liga (B12). (e) = contrato além de jun/27. "
+          "sul-americanas a aderência já está convertida pela reta de liga (B11). (e) = contrato além de jun/27. "
           "**\\*** = não é do tipo preferido do setor: entra só para completar os 10 (ordem pela nota).", "",
           "| Setor | Tipo(s) de quem sobe | Subiu | Caiu |", "|---|---|---|---|"]
     for s in SETORES:
@@ -125,7 +125,7 @@ def main():
                 ad = r.aderencia_ajustada if pd.notna(getattr(r, "aderencia_ajustada", np.nan)) else r.aderencia
                 md.append(f"| {i} | **{r.jogador}**{'' if r.livre_2027 else ' (e)'} | {r.clube} |{liga} {int(r.idade)} | {dt(r.contrato)} | {r.tipo}{'' if r.tipo_pref else ' *'} | "
                           f"{f(r.psv99)} | {f(r.sprint_count_p90)} | {f(r.expl_accel_sprint_p90,2)} | **{f(r.nota,0)}** | {f(ad,0)} | {f(r.nivel_overall,0)} |")
-    open(os.path.join(OUT, "B10.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
+    open(os.path.join(OUT, "B15.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(P); print(A.groupby(["pos11", "mercado_l"]).size().unstack())
 
 

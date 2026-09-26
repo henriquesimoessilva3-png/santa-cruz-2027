@@ -3,7 +3,7 @@
 Aderência = média ponderada do percentil do jogador dentro de (liga × posição), só entre quem
 tem >= 900 minutos, nos indicadores da ficha da posição (volume pesa mais que eficiência — B2-6).
 Mercados de fora recebem o desconto de conversão do Bloco 6 (percentil de origem chega ao meio
-da tabela: reta do B12 — fora do Brasil 31 + 0,30·p, Série A 48 + 0,28·p) — mostrado ao lado, nunca
+da tabela: reta do B11 — fora do Brasil 31 + 0,30·p, Série A 48 + 0,28·p) — mostrado ao lado, nunca
 escondido. Série B traz ainda físico (piso PSV-99, arrancadas, corrida para a área) e bola parada.
 Escreve listas/listas_2027.xlsx e listas/*.csv
 """
@@ -36,7 +36,7 @@ SULAM = ["Argentina A", "Argentina B", "Uruguai", "Colombia A", "Colombia B", "C
 PAIS_SA = {"Brazil", "Argentina", "Uruguay", "Colombia", "Paraguay", "Chile", "Ecuador", "Peru", "Bolivia", "Venezuela"}
 ALCANCAVEIS = {"Portugal B", "Portugal C", "Espanha B", "Espanha C", "Italia B", "Italia C", "Alemanha B", "Inglaterra B", "França B", "Belgica B", "Coreia B", "Japao B",
                "Bulgaria", "Romenia", "Polonia", "Eslovaquia", "Servia", "Hungria", "Tcheca", "Bahrain", "Israel", "Grecia", "Suecia", "Noruega", "Dinamarca", "Croacia", "Escocia", "Austria", "Suiça", "China", "Marrocos", "EUA", "Mexico"}
-# Conversão de liga (B6-5, revista no B12): quem chega de fora guarda pouco do destaque da origem.
+# Conversão de liga (B6-5, revista no B11): quem chega de fora guarda pouco do destaque da origem.
 # Em vez de um desconto fixo, a reta ajustada nos 210 pares origem -> Série B (percentil na
 # origem -> percentil na B), com a inclinação encolhida para 0,3 (n pequeno fora do Brasil):
 #   Série A (n=115): 48 + 0,28·p   (p90 -> 73, p50 -> 62)

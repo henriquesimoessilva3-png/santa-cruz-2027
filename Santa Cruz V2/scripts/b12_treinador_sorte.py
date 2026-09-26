@@ -1,11 +1,11 @@
-"""Bloco 13 — Treinador: sorte × mérito. Pontos esperados (xPts) por passagem, a partir do xG a favor e
+"""Bloco 12 — Treinador: sorte × mérito. Pontos esperados (xPts) por passagem, a partir do xG a favor e
 contra de cada jogo (Poisson), contra os pontos reais. O que sobra (pontos − xPts) é o que o xG não
-explica: finalização, goleiro e sorte — e não repete. Prova: resultados/b13/passagens_xpts.csv"""
+explica: finalização, goleiro e sorte — e não repete. Prova: resultados/b12/passagens_xpts.csv"""
 import os, numpy as np, pandas as pd
 from math import exp, factorial
 from _comum import RAIZ
-from b11_treinador_modelo import jogos, sp
-OUT = os.path.join(RAIZ, "resultados", "b13"); os.makedirs(OUT, exist_ok=True)
+from b10_treinador_modelo import jogos, sp
+OUT = os.path.join(RAIZ, "resultados", "b12"); os.makedirs(OUT, exist_ok=True)
 RES = os.path.join(RAIZ, "resultados")
 
 def xpts(xg, xga, k=8):
@@ -42,7 +42,7 @@ def main():
     agg = agg[agg.passagens >= 2].sort_values("xppj", ascending=False); agg.to_csv(os.path.join(OUT, "treinadores_xpts.csv"))
     F = ["Léo Condé", "Eduardo Baptista", "Mozart", "Claudio Tencati", "Guto Ferreira", "Thiago Carpini", "Enderson Moreira"]
     f = lambda v, c=2: f"{v:.{c}f}".replace(".", ",").replace("-", "−")
-    md = ["# Bloco 13 — Treinador: sorte × mérito", "", "*Dado: Wyscout por jogo 2022–2026 e passagens do Bloco 4 · 25/09/2026.*", "",
+    md = ["# Bloco 12 — Treinador: sorte × mérito", "", "*Dado: Wyscout por jogo 2022–2026 e passagens do Bloco 4 · 25/09/2026.*", "",
           "Pontos esperados (xPts) de cada jogo pelo xG a favor e contra (Poisson); a diferença entre pontos reais e xPts é o que o xG não explica — finalização, goleiro e sorte. "
           f"Base: {len(d)} passagens com ≥ 10 jogos.", "",
           "## 1 · O que repete de uma passagem para a seguinte do mesmo treinador",
@@ -64,7 +64,7 @@ def main():
     top = agg.head(12)
     md += ["", "## 4 · Os 12 de maior xPts por jogo (2+ passagens)", "", "| Treinador | Passagens | Pontos/j | xPts/j | Sorte/j |", "|---|---|---|---|---|"]
     for t, r in top.iterrows(): md.append(f"| {t} | {int(r.passagens)} | {f(r.ppj)} | {f(r.xppj)} | {f(r.sorte)} |")
-    open(os.path.join(OUT, "B13.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
+    open(os.path.join(OUT, "B12.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(rep); print(agg.loc[[t for t in F if t in agg.index]])
 
 if __name__ == "__main__":

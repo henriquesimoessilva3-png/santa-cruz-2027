@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Aba "Consulta de jogador": digita um nome, o app diz se ele adere ao modelo que rende na Série B
 (técnico + físico) e onde ele está nas listas. Gera static/consulta_dados.js a partir das bases do
-estudo V2 (Wyscout ago/26 de 66 ligas + Série B 2026, físico SkillCorner/Portal, tipos físicos B8/B10,
-bola parada B3, patamar de A B14, Sofascore B15, "Os meus dez", vetados e teto de valor)."""
+estudo V2 (Wyscout ago/26 de 66 ligas + Série B 2026, físico SkillCorner/Portal, tipos físicos B8/B15,
+bola parada B3, patamar de A B13, Sofascore B14, "Os meus dez", vetados e teto de valor)."""
 import os, sys, json, numpy as np, pandas as pd
 AQUI = os.path.dirname(os.path.abspath(__file__))
 V2 = os.path.join(AQUI, "Santa Cruz V2"); sys.path.insert(0, os.path.join(V2, "scripts"))
@@ -33,12 +33,12 @@ def main():
     med = D.groupby(["liga", "pos11"]).nivel_overall.transform("median").fillna(D.nivel_overall.median())
     D["nota"] = ((D.aderencia_ajustada + D.nivel_overall.fillna(med)) / 2).round(1)
     D["k"] = D.chave + "|" + D.clube.map(chave)
-    # físico: Série B (SkillCorner do estudo) e fora (Portal), tipos do B10
-    tt = pd.read_csv(os.path.join(RES, "b10", "tipos_todos.csv")); tt["k"] = tt.chave + "|" + tt.clube.map(chave); tt = tt.drop_duplicates("k").set_index("k")
+    # físico: Série B (SkillCorner do estudo) e fora (Portal), tipos do B15
+    tt = pd.read_csv(os.path.join(RES, "b15", "tipos_todos.csv")); tt["k"] = tt.chave + "|" + tt.clube.map(chave); tt = tt.drop_duplicates("k").set_index("k")
     for c in ["tipo", "tipo_pref", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "distance_p90"]:
         D[c] = D.k.map(tt[c]) if c in tt else np.nan
     if "psv99_x" in D: D["psv99"] = D.psv99_x.fillna(D.psv99_y)
-    # tipos preferidos e faixas físicas de referência por setor (B10/B8)
+    # tipos preferidos e faixas físicas de referência por setor (B15/B8)
     G = pd.read_csv(os.path.join(RES, "b8", "tipos_fisicos.csv"))
     pref = {}
     for s, g in G.groupby("setor"):
@@ -52,10 +52,10 @@ def main():
         for r in d.itertuples():
             k = chave(r.jogador) + "|" + chave(str(r.clube)); v = getattr(r, col)
             if pd.notna(v): bp.setdefault(k, {})["cobrador" if "cobr" in sh else "finalizador"] = round(float(v))
-    # patamar de A (B14) — só Série B
-    pa = pd.read_csv(os.path.join(RES, "b14", "patamar_A_pool.csv")); pa["k"] = pa.jogador.map(chave) + "|" + pa.clube.map(chave); pa = pa[pa.liga == "Brasil B"].drop_duplicates("k").set_index("k")
+    # patamar de A (B13) — só Série B
+    pa = pd.read_csv(os.path.join(RES, "b13", "patamar_A_pool.csv")); pa["k"] = pa.jogador.map(chave) + "|" + pa.clube.map(chave); pa = pa[pa.liga == "Brasil B"].drop_duplicates("k").set_index("k")
     # sofascore 2026
-    sj = pd.read_csv(os.path.join(RES, "b15", "jogador_temporada.csv")); sj = sj[(sj.ano == 2026) & (sj.minutos >= 450)].sort_values("minutos", ascending=False).drop_duplicates("chave").set_index("chave")
+    sj = pd.read_csv(os.path.join(RES, "b14", "jogador_temporada.csv")); sj = sj[(sj.ano == 2026) & (sj.minutos >= 450)].sort_values("minutos", ascending=False).drop_duplicates("chave").set_index("chave")
     # os meus dez
     ideal = pd.read_csv(os.path.join(LI, "IDEAL_2027.csv")); ideal["k"] = ideal.jogador.map(chave) + "|" + ideal.clube.map(chave); ideal = ideal.drop_duplicates("k").set_index("k")
     # faixas de referência físicas por posição (B1)

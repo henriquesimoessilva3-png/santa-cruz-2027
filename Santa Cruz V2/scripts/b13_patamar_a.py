@@ -1,13 +1,13 @@
-"""Bloco 14 — Patamar de Série A: físico e técnico por posição, Série B × Série A × cinco grandes ligas
+"""Bloco 13 — Patamar de Série A: físico e técnico por posição, Série B × Série A × cinco grandes ligas
 × Argentina A. Onde a B está abaixo, quanto, e quem (nos três mercados) já joga no patamar da A.
 Físico: SkillCorner do Portal (temporada atual, dados/jogadores.json). Técnico: Wyscout ago/26, os
 indicadores da ficha de cada posição (listas.FICHA). Percentil "de A" = posição do jogador dentro da
-distribuição da Série A na mesma posição. Saídas: resultados/b14/*.csv, B14.md"""
+distribuição da Série A na mesma posição. Saídas: resultados/b13/*.csv, B13.md"""
 import os, json, numpy as np, pandas as pd
 from _comum import RAIZ, chave, excluidos, caro
 import listas as L
 from top10 import FRACAS
-OUT = os.path.join(RAIZ, "resultados", "b14"); os.makedirs(OUT, exist_ok=True)
+OUT = os.path.join(RAIZ, "resultados", "b13"); os.makedirs(OUT, exist_ok=True)
 BIG5 = {"Inglaterra A", "Espanha A", "Italia A", "Alemanha A", "França A"}
 GRUPO = lambda l: "Série B" if l in ("Brasil B", "Série B") else ("Série A" if l == "Brasil A" else ("5 grandes" if l in BIG5 else ("Argentina A" if l == "Argentina A" else None)))
 FIS = {"psv": "PSV-99 (km/h)", "spr_n": "Sprints/90", "hi_n": "Alta intensidade/90", "expl": "Arrancadas/90", "dist": "Distância/90 (m)", "hsr_n": "Corridas HSR/90"}
@@ -65,8 +65,8 @@ def main():
     P = P[P.psv.isna() | (P.psv >= 27) | (P.pos11 == "GOL")]
     P["livre"] = P.livre_2027.astype(str) == "True" if "livre_2027" in P else (pd.to_datetime(P.contrato, errors="coerce").isna() | (pd.to_datetime(P.contrato, errors="coerce") <= "2027-06-30"))
     P.sort_values("patamar_A", ascending=False)[["pos11", "jogador", "clube", "liga", "mercado", "idade", "minutos", "contrato", "livre", "tec_A", "fis_A", "patamar_A", "psv", "aderencia"]].to_csv(os.path.join(OUT, "patamar_A_pool.csv"), index=False)
-    # --- B14.md ---
-    md = ["# Bloco 14 — Patamar de Série A: físico e técnico por posição", "",
+    # --- B13.md ---
+    md = ["# Bloco 13 — Patamar de Série A: físico e técnico por posição", "",
           "*Dado: SkillCorner do Portal (temporada atual, ≥ 600 min, ≥ 5 jogos rastreados) e Wyscout ago/26 (≥ 900 min) · 25/09/2026.*", "",
           "Pergunta: o que é \"jogar no patamar da Série A\" em número, posição a posição — e quem, na Série B, nas ligas sul-americanas e no exterior alcançável, já joga nele. "
           "Ressalva do B1: na B, correr mais não rende ponto; o físico é piso e traço de posição. Este bloco serve para **calibrar a régua** e para **achar nomes**, não para virar meta de volume.", "",
@@ -114,7 +114,7 @@ def main():
         md.append("")
     md += ["## 3 · Quem, na Série B 2026, já joga no patamar da A", "",
            "**tec A** = percentil do jogador dentro da Série A na ficha da posição (50 = mediana da A); **fís A** = idem no físico (PSV, sprints, alta intensidade, arrancadas); **patamar** = média dos dois. "
-           "Só Série B: o número cru de outra liga não é comparável ao da A sem a conversão do B12 (um atacante da Argentina B apareceria acima de todos). Mesmos filtros de \"Os meus dez\" (≥ 900 min, ≤ 35 anos, piso 27 km/h, sem vetados, ≤ € 2 MM). Sem físico rastreado, o patamar é só o técnico. (e) = contrato além de jun/27.", ""]
+           "Só Série B: o número cru de outra liga não é comparável ao da A sem a conversão do B11 (um atacante da Argentina B apareceria acima de todos). Mesmos filtros de \"Os meus dez\" (≥ 900 min, ≤ 35 anos, piso 27 km/h, sem vetados, ≤ € 2 MM). Sem físico rastreado, o patamar é só o técnico. (e) = contrato além de jun/27.", ""]
     for p in ORDEM:
         x = P[(P.pos11 == p) & (P.liga == "Brasil B") & P.patamar_A.notna()].sort_values(["patamar_A", "tec_A"], ascending=False).head(10)
         if x.empty: continue
@@ -142,7 +142,7 @@ def main():
            "- O técnico é onde a diferença de divisão está: o \"time de A na B\" é o que cria e cede chance como a A (B2-1), e os nomes da seção 3 são os que já produzem nesse nível na ficha da posição.",
            "- Cruzar com `Os meus dez`: quem aparece nas duas listas é alvo prioritário; quem está só aqui é aposta de patamar sem a aderência ao que rende na B.",
            "- Em aberto: físico das ligas de fora cobre parte dos nomes; times da Série A (xG, distância do remate) precisam do export de equipes."]
-    open(os.path.join(OUT, "B14.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
+    open(os.path.join(OUT, "B13.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(nb); print(gaps); print(q)
 
 if __name__ == "__main__":

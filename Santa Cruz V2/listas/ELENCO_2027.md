@@ -7,7 +7,7 @@ principais a passe zero da própria Série B, sul-americanos e brasileiros de li
 posições em que a B não tem livre à altura — e Eduardo Baptista ou Léo Condé no comando, contratado para ficar o ano
 inteiro.**
 
-A ordem completa, os três mercados juntos, está em `Os meus dez por posição` (IDEAL_2027.md); este documento é a montagem do elenco a partir dela. Desde 25/09 a aderência de quem vem de fora é convertida pela reta do B12 (p90 na origem → 58 na B), e não por um desconto fixo: os nomes de fora que ficam são os de nível alto no ranking. Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
+A ordem completa, os três mercados juntos, está em `Os meus dez por posição` (IDEAL_2027.md); este documento é a montagem do elenco a partir dela. Desde 25/09 a aderência de quem vem de fora é convertida pela reta do B11 (p90 na origem → 58 na B), e não por um desconto fixo: os nomes de fora que ficam são os de nível alto no ranking. Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
 minutagem regular elimina; aderência ao modelo que rende e nível contra a referência mundial
 ordenam; bola parada, piso de velocidade e continuidade decidem entre iguais. Salários não estão
 na base: estimei faixas pela Série B; "livre" = contrato até jun/2027 no dado de ago/26 — tudo a
@@ -30,13 +30,13 @@ confirmar antes de qualquer contato.
 **Léo Condé.** Livre desde 15/09 (Remo). Rendeu acima do elenco em três clubes diferentes
 (Sampaio Corrêa 2022, Vitória 2023 campeão com o 9º elenco, Ceará 2024 acesso assumindo em 8º),
 pior passagem +0,30, elenco mediano 10º em valor — é o único da base com esse perfil de render
-com folha de meio de tabela sem afundar (B4-2). Plano B — e pelo B13 quase empatado: **Eduardo Baptista** (o mais regular, +0,31 na pior passagem, o maior xPts por jogo entre os nomes em foco, 1,59; sem acesso em 5 passagens; no Criciúma). O Condé tem +0,21 ponto por jogo acima do que o xG dos times dele sustenta — parte do currículo é finalização e sorte, que não repetem. Não contratar por currículo
+com folha de meio de tabela sem afundar (B4-2). Plano B — e pelo B12 quase empatado: **Eduardo Baptista** (o mais regular, +0,31 na pior passagem, o maior xPts por jogo entre os nomes em foco, 1,59; sem acesso em 5 passagens; no Criciúma). O Condé tem +0,21 ponto por jogo acima do que o xG dos times dele sustenta — parte do currículo é finalização e sorte, que não repetem. Não contratar por currículo
 de G4 (Carpini, Guto: elencos top-5).
 
-**O custo da escolha (B11-6).** Os times do Condé correm pouco (distância −1,3 a −1,7 desvios) e ele adapta o
+**O custo da escolha (B10-6).** Os times do Condé correm pouco (distância −1,3 a −1,7 desvios) e ele adapta o
 estilo ao elenco; os do Baptista são diretos, aéreos e intensos — e o onze abaixo é exatamente isso, menos a
 intensidade (mediana). Com Condé, aceita-se que o físico do elenco não vira diferencial (o estudo diz que ele é
-piso, não alavanca); com Baptista, trocam-se 2–3 peças por tipos mais intensos (B10). Mozart não fecha com este
+piso, não alavanca); com Baptista, trocam-se 2–3 peças por tipos mais intensos (B15). Mozart não fecha com este
 elenco.
 
 ## 3. O elenco — 4-2-3-1, por posição

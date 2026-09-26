@@ -70,7 +70,7 @@ Base: 266 passagens não interinas com ≥ 10 jogos de Série B, 2018–2026 (`r
 - **Marcinho:** Ituano 2023 (30j, 1.17)
 - **Alex:** Operário-PR 2025 (26j, 1.31), Athletic 2026 (27j, 1.37)
 
-## Sorte × mérito (B13)
+## Sorte × mérito (B12)
 Pontos esperados pelo xG por passagem: Baptista 1,59 xPts/j (o maior entre os em foco), Condé 1,53 (+0,21 de sorte), Guto 1,43 (+0,30), Carpini 1,47 (+0,31), Tencati 1,44, Mozart 1,43, Enderson Moreira 1,62 (−0,18: jogo melhor que o placar). O xPts repete entre passagens (r 0,14); a sorte não (0,08).
 
 ## Como ler

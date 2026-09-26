@@ -1,8 +1,8 @@
 /* Aba "Consulta de jogador" — digita um nome e o app diz se ele adere ao modelo que rende na
    Série B (técnico + físico) e onde ele está nas listas do estudo V2.
    Dado: static/consulta_dados.js (gerar_consulta_js.py): 15 mil jogadores com ≥ 900 min nas 66
-   ligas do Wyscout (ago/26) + Série B 2026, físico SkillCorner/Portal, tipo físico (B8/B10), bola
-   parada (B3), patamar de A (B14), Sofascore 2026 (B15), "Os meus dez", vetados e teto de valor.
+   ligas do Wyscout (ago/26) + Série B 2026, físico SkillCorner/Portal, tipo físico (B8/B15), bola
+   parada (B3), patamar de A (B13), Sofascore 2026 (B14), "Os meus dez", vetados e teto de valor.
    Arquivo próprio, sem encostar no app.js: observa o botão da aba, como as outras abas do estudo. */
 (function () {
   'use strict';
@@ -48,7 +48,7 @@
       if (j.tipo) { if (j.tpref) pontos.push('tipo físico de quem sobe (' + j.tipo + ')'); else contra.push('tipo físico "' + j.tipo + '" — quem sobe usa ' + pref.join(' / ')); }
     }
     if (j.bp) { const b = []; if (j.bp.cobrador >= 85) b.push('cobrador ' + j.bp.cobrador); if (j.bp.finalizador >= 85) b.push('finalizador aéreo ' + j.bp.finalizador); if (b.length) pontos.push('especialista de bola parada (' + b.join(', ') + ')'); }
-    if (j.m !== 'Série B') vazios.push('vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B, B12); vídeo obrigatório');
+    if (j.m !== 'Série B') vazios.push('vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B, B11); vídeo obrigatório');
     let nivel, cls;
     if (j.vet || j.caro) { nivel = 'Fora'; cls = 'fora'; }
     else if (j.dez && j.dez.ordem <= 3) { nivel = 'Ideal'; cls = 'ideal'; }
@@ -82,7 +82,7 @@
     else h += '<table><tr><td>PSV-99</td><td class="b"><b>' + num(j.psv, 1) + ' km/h</b> ' + (j.psv >= D.regua.psv ? '<span class="cs-ok">≥ 27 ✓</span>' : '<span class="cs-nao">abaixo do piso</span>') + '</td></tr>' +
       '<tr><td>Sprints/90</td><td class="b">' + num(j.spr, 1) + '</td></tr><tr><td>Alta intensidade/90</td><td class="b">' + num(j.hi, 1) + '</td></tr><tr><td>Arrancadas/90</td><td class="b">' + num(j.expl, 2) + '</td></tr>' +
       '<tr><td>Tipo físico</td><td class="b">' + (j.tipo ? '<b>' + esc(j.tipo) + '</b> ' + (j.tpref ? '<span class="cs-ok">de quem sobe ✓</span>' : '<span class="cs-nao">quem sobe usa ' + esc(pref.join(' / ')) + '</span>') : '—') + '</td></tr></table>';
-    if (j.pa) h += '<p class="cs-nota">Patamar de Série A (B14): técnico ' + (j.pa.tec == null ? '—' : j.pa.tec) + ' · físico ' + (j.pa.fis == null ? '—' : j.pa.fis) + ' (percentil dentro da A).</p>';
+    if (j.pa) h += '<p class="cs-nota">Patamar de Série A (B13): técnico ' + (j.pa.tec == null ? '—' : j.pa.tec) + ' · físico ' + (j.pa.fis == null ? '—' : j.pa.fis) + ' (percentil dentro da A).</p>';
     h += '</div>';
     if (j.bp || j.sofa) {
       h += '<div class="cs-bloco"><h4>Bola parada e Sofascore</h4><table>';
@@ -120,7 +120,7 @@
     h += '<div class="cs-grade">' + ORDEM.map(cartao).join('') + '</div>';
     const ab = st.aberto != null && st.sel[st.aberto] != null ? D.jogadores[st.sel[st.aberto]] : null;
     if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div>';
-    else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (B12); bola parada do B3; patamar de A do B14; Sofascore do B15. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
+    else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (B11); bola parada do B3; patamar de A do B13; Sofascore do B14. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
     alvo.innerHTML = h;
     alvo.querySelectorAll('.cs-busca').forEach(bu => bu.oninput = () => {
       const pos = bu.dataset.pos; st.busca[pos] = bu.value; const p = bu.selectionStart;

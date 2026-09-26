@@ -1,14 +1,14 @@
-"""Bloco 15 — Sofascore jogo a jogo (Série B 2022–2026, 1.807 jogos): escalações com minutos, nota e
+"""Bloco 14 — Sofascore jogo a jogo (Série B 2022–2026, 1.807 jogos): escalações com minutos, nota e
 estatísticas por jogador; estatísticas de time por tempo (grandes chances, chutes na área, entradas no
 terço final, posse por período); momentum minuto a minuto; desfalques com motivo. Em 2025–26 traz ainda
 xG/xA por jogador e físico do próprio Sofascore (velocidade máxima, km, sprints).
 Entrada: bases/coletas/sofascore_serieb_jogos.json.gz (+ bola_parada_jogadores_sofascore.json para o mapa evento → ano/clubes).
-Saídas: resultados/b15/{time_jogo,jogador_jogo,momentum,desfalques,clube_temporada,jogador_temporada,testes}.csv e B15.md"""
+Saídas: resultados/b14/{time_jogo,jogador_jogo,momentum,desfalques,clube_temporada,jogador_temporada,testes}.csv e B14.md"""
 import os, gzip, json, numpy as np, pandas as pd
 from _comum import RAIZ, chave, tecnico
 from b3_bp_jogadores_sofascore import TIMES
-from b11_treinador_modelo import sp
-OUT = os.path.join(RAIZ, "resultados", "b15"); os.makedirs(OUT, exist_ok=True)
+from b10_treinador_modelo import sp
+OUT = os.path.join(RAIZ, "resultados", "b14"); os.makedirs(OUT, exist_ok=True)
 RES = os.path.join(RAIZ, "resultados"); COL = os.path.join(RAIZ, "bases", "coletas")
 MOTIVO = {1: "lesão", 3: "suspensão", 11: "outro", 13: "outro"}
 
