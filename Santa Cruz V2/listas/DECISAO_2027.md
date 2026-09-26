@@ -4,13 +4,23 @@
 
 ## 1 · Treinador
 
-| Ordem | Nome | Por quê (B4, B10, B12, B14) | Custo |
-|---|---|---|---|
-| 1 | **Eduardo Baptista** | o modelo mais alinhado ao eixo (linha de 3, jogo direto, aéreo, intenso); o maior xPts por jogo entre os nomes em foco (1,59: rende pelo jogo, não pela sorte); cede 1,22 grande chance por jogo; pior passagem +0,31 acima do elenco; nunca trocou no meio do ano | no Criciúma: liberação |
-| 2 | **Léo Condé** | rendeu acima do elenco em três clubes (o único), 4-2-3-1, adapta o estilo ao elenco, cede 1,14 grande chance por jogo (o menor); mas +0,21 ponto por jogo de sorte, que não repete; times dele correm pouco | livre |
-| 3 | **Claudio Tencati** | elenco barato (15º), jogo direto, alinhado com Baptista (0,66); pontos e xPts iguais (sem sorte); 1,17 grande chance cedida | Botafogo-SP |
-| fora | Guto Ferreira, Thiago Carpini | currículo de G4 com elencos top-5, +0,30 de sorte por jogo e 1,6–1,8 grandes chances cedidas: o placar é do elenco | — |
-| fora | Mozart | modelo de posse com baixa intensidade: o oposto do elenco abaixo | — |
+Os dez de melhor **rendimento acima do elenco** (pontos por jogo além do que o valor do elenco previa, 2022–2026, 2+ passagens ou 1 passagem inteira) com tudo o que os outros blocos medem de cada um: sorte (pontos − xPts), grandes chances cedidas por jogo (Sofascore), formação e situação. Depois, os pedidos à parte.
+
+| # | Treinador | Passagens (clubes) | Jogos | Pontos/j | Rend. médio | Pior | Clubes + | Elenco médio | Acessos | xPts/j | Sorte/j | G. chances cedidas/j | Formação | Leitura |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **Paulo Pezzolano** | 1 (1) | 38 | 2,05 | +0,50 | +0,50 | 1 | 3º | 1 | — | — | 1,27 | 3-4-3 | nunca rendeu abaixo do elenco; elencos caros; a confirmar |
+| 2 | **Léo Condé** | 4 (3) | 132 | 1,67 | +0,46 | +0,30 | 3 | 10º | 1 | 1,53 | +0,21 | 1,14 | 4-2-3-1 | pontos acima do que o jogo sustenta; nunca rendeu abaixo do elenco; cede pouca chance clara; livre (saiu do Remo em 15/09) |
+| 3 | **Thiago Carpini** | 3 (3) | 72 | 1,72 | +0,36 | +0,07 | 2 | 3º | 0 | 1,47 | +0,31 | 1,81 | 4-4-2 | pontos acima do que o jogo sustenta; elencos caros; cede muita chance clara; Remo (Série A) |
+| 4 | **Eduardo Baptista** | 5 (3) | 152 | 1,66 | +0,34 | +0,31 | 2 | 10º | 0 | 1,59 | +0,11 | 1,22 | 5-4-1 | nunca rendeu abaixo do elenco; cede pouca chance clara; Criciúma |
+| 5 | **Guto Ferreira** | 6 (6) | 119 | 1,74 | +0,28 | −0,32 | 4 | 5º | 0 | 1,43 | +0,30 | 1,63 | 4-2-3-1 | pontos acima do que o jogo sustenta; elencos caros; cede muita chance clara; a confirmar |
+| 6 | **Claudio Tencati** | 6 (4) | 160 | 1,43 | +0,26 | +0,00 | 2 | 15º | 1 | 1,44 | −0,01 | 1,17 | 4-3-1-2 | cede pouca chance clara; Botafogo-SP |
+| 7 | **Mozart** | 10 (7) | 222 | 1,63 | +0,23 | −0,26 | 4 | 7º | 2 | 1,43 | +0,07 | 1,30 | 4-1-4-1 | —; Goiás |
+| 8 | **Adilson Batista** | 2 (2) | 50 | 1,40 | +0,21 | +0,16 | 2 | 16º | 0 | 1,24 | +0,15 | 1,22 | 4-2-3-1 | cede pouca chance clara; a confirmar |
+| 9 | **Jair Ventura** | 2 (2) | 46 | 1,61 | +0,21 | +0,03 | 2 | 8º | 0 | 1,46 | +0,20 | 1,60 | 4-4-2 | pontos acima do que o jogo sustenta; cede muita chance clara; a confirmar |
+| 10 | **Vinícius** | 2 (2) | 36 | 1,39 | +0,18 | +0,08 | 2 | 17º | 0 | 1,20 | +0,28 | 2,08 | 4-2-3-1 | pontos acima do que o jogo sustenta; cede muita chance clara; a confirmar |
+| — | **Fábio Matias** (pedido) | 2 (2) | 17 | 1,00 | — | — | 0 | 2º | 0 | 1,48 | −0,48 | — | 4-4-2 / 4-2-3-1 | amostra curta, abaixo do mínimo do estudo (10 jogos por passagem); nas duas passagens ficou abaixo do que o elenco previa (Coritiba 2024 esperava 1,57, Atlético-GO 2025 esperava 1,54). Coritiba 2024: 8 jogos, 0,75 pts/j, xPts 1,39, xG 1,25 × 1,32 sofrido; Atlético-GO 2025: 9 jogos, 1,22 pts/j, xPts 1,56, xG 1,18 × 0,85 sofrido |
+
+**Ordem de preferência para o Santa Cruz:** 1. **Eduardo Baptista** — o modelo mais alinhado ao eixo (linha de 3, jogo direto, aéreo, intenso), o maior xPts entre os regulares, pior passagem +0,31, nunca trocou no meio do ano; no Criciúma, pede liberação. 2. **Léo Condé** — o único que rendeu acima do elenco em três clubes, 4-2-3-1, cede a menor quantidade de grandes chances (1,14/j); +0,21 de sorte por jogo e times que correm pouco; livre. 3. **Claudio Tencati** — elenco barato, jogo direto, sem sorte no placar; Botafogo-SP. 4. **Enderson Moreira** — o maior xPts da liga (1,62) com −0,18 de sorte: o jogo era melhor que o placar; Novorizontino. **Fora:** Guto Ferreira e Thiago Carpini (currículo de G4 com elencos top-5, +0,30 de sorte e 1,6–1,8 grandes chances cedidas), Mozart (posse com baixa intensidade, o oposto do elenco abaixo).
 
 **Regra que vale mais que o nome:** contratar para ficar o ano (0 trocas em quem sobe, 2 em quem cai — B5-1). Quem for escolhido define 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está.
 
