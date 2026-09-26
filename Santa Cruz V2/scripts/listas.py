@@ -26,7 +26,7 @@ FICHA = {
  "EE":  [("xG per 90", 3), ("Touches in box per 90", 2), ("Fouls suffered per 90", 1), ("Progressive runs per 90", 2), ("Shots per 90", 1), ("Key passes per 90", 1)],
  "CA":  [("Accelerations per 90", 2), ("Touches in box per 90", 3), ("xG per 90", 3), ("Head goals per 90", 1), ("Aerial duels won, %", 2), ("Shots per 90", 1)],
 }
-PT = {"Prevented goals per 90": "Golos expectáveis defendidos por 90´", "Save rate, %": "Defesas, %", "Exits per 90": "Saídas/90", "Accurate passes, %": "Passes certos, %",
+PT = {"xG": "Golos esperados", "Goals": "Golos", "Prevented goals per 90": "Golos expectáveis defendidos por 90´", "Save rate, %": "Defesas, %", "Exits per 90": "Saídas/90", "Accurate passes, %": "Passes certos, %",
       "Long passes per 90": "Passes longos/90", "Crosses per 90": "Cruzamentos/90", "xA per 90": "Assistências esperadas/90", "Defensive duels won, %": "Duelos defensivos ganhos, %",
       "Progressive runs per 90": "Corridas progressivas/90", "Aerial duels won, %": "Duelos aéreos ganhos, %", "xG per 90": "Golos esperados/90", "Touches in box per 90": "Toques na área/90",
       "Key passes per 90": "Passes chave/90", "Smart passes per 90": "Passes inteligentes/90", "Head goals per 90": "Golos de cabeça/90", "Progressive passes per 90": "Passes progressivos/90",
@@ -155,7 +155,10 @@ def main():
         d["nota"] = ((d.aderencia_ajustada + d.nivel_overall.fillna(med)) / 2).round(1)
         d["nota_completa"] = d.nivel_overall.notna()   # False = nível imputado pela mediana da liga × posição: nota parcial
         padj(d)
-    cols = ["mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nascido_em", "passaporte", "aderencia", "aderencia_ajustada", "nivel_overall", "rank_na_liga", "nota", "nota_completa", "nivel_bola_parada", "nivel_fisico", "criterios_com_dado", "posse_est", "Duelos def/90 PAdj", "Aéreos/90 PAdj", "Duelos of/90 PAdj"]
+    cols = ["mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nascido_em", "passaporte", "aderencia", "aderencia_ajustada", "nivel_overall", "rank_na_liga", "nota", "nota_completa", "nivel_bola_parada", "nivel_fisico", "criterios_com_dado", "posse_est", "Duelos def/90 PAdj", "Aéreos/90 PAdj", "Duelos of/90 PAdj", "xG per 90", "Goals per 90", "xG", "Goals"]
+    for c in ("xG per 90", "Goals per 90", "xG", "Goals"):
+        if c not in sb: sb[c] = np.nan
+        if c not in lg: lg[c] = np.nan
     sbc = sb[cols + ["fatia", "rodou_2025", "psv99", "psv_ok", "expl_accel_sprint_p90", "runs_penalty_area_p30tip", "Corners per 90", "Free kicks per 90", "Head goals per 90", "Aerial duels won, %"]].copy()
     def vencido(c):
         # contrato que já acabou na data do dado (ago/26): renovou ou está livre — a confirmar

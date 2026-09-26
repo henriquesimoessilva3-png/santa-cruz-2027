@@ -47,6 +47,8 @@
       else pontos.push('passa o piso de velocidade (' + num(j.psv, 1) + ' km/h)');
       if (j.tipo) { if (j.tpref) pontos.push('tipo físico de quem sobe (' + j.tipo + ')'); else contra.push('tipo físico "' + j.tipo + '" — quem sobe usa ' + pref.join(' / ')); }
     }
+    if (['LD', 'ZD', 'ZE', 'LE', 'VOL'].includes(j.p) && j.xg_p != null) { if (j.xg_p >= 90) pontos.push('gol de defesa: xG/90 ' + num(j.xg, 2) + ', decil de cima da posição (rende e não custa, B7-1)'); else if (j.xg_p >= 75) pontos.push('chega ao gol: xG/90 ' + num(j.xg, 2) + ', quartil de cima da posição'); }
+    if (['LD', 'LE', 'VOL', 'MED', 'MEI', 'ED', 'EE'].includes(j.p) && j.area_p != null) { if (j.area_p >= 90) pontos.push('corre para a área: ' + num(j.area, 1) + ' corridas/30 min, decil de cima (o físico que mais anda com participação em gol, B8-2)'); else if (j.area_p <= 25) contra.push('corre pouco para a área (' + num(j.area, 1) + '/30 min, quartil de baixo da posição)'); }
     if (j.bp) { const b = []; if (j.bp.cobrador >= 85) b.push('cobrador ' + j.bp.cobrador); if (j.bp.finalizador >= 85) b.push('finalizador aéreo ' + j.bp.finalizador); if (b.length) pontos.push('especialista de bola parada (' + b.join(', ') + ')'); }
     if (j.m !== 'Série B') vazios.push('vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B, B11); vídeo obrigatório');
     let nivel, cls;
@@ -113,6 +115,7 @@
     else if (j.psv == null) h += '<p class="cs-nota">Sem rastreio SkillCorner' + (j.sofa && j.sofa.vmax ? '; velocidade máxima Sofascore 2026: ' + num(j.sofa.vmax, 1) + ' km/h (pico de um jogo, r 0,33 com o PSV — só abaixo de 32 é alerta).' : '.') + '</p>';
     else h += '<table><tr><td>PSV-99</td><td class="b"><b>' + num(j.psv, 1) + ' km/h</b> ' + (j.psv >= D.regua.psv ? '<span class="cs-ok">≥ 27 ✓</span>' : '<span class="cs-nao">abaixo do piso</span>') + '</td></tr>' +
       '<tr><td>Sprints/90</td><td class="b">' + num(j.spr, 1) + '</td></tr><tr><td>Alta intensidade/90</td><td class="b">' + num(j.hi, 1) + '</td></tr><tr><td>Arrancadas/90</td><td class="b">' + num(j.expl, 2) + '</td></tr>' +
+      '<tr><td>Corridas para a área/30 min</td><td class="b">' + num(j.area, 1) + (j.area_p != null ? ' <small>P' + j.area_p + ' na posição</small>' : '') + '</td></tr>' +
       '<tr><td>Tipo físico</td><td class="b">' + (j.tipo ? '<b>' + esc(j.tipo) + '</b> ' + (j.tpref ? '<span class="cs-ok">de quem sobe ✓</span>' : '<span class="cs-nao">quem sobe usa ' + esc(pref.join(' / ')) + '</span>') : '—') + '</td></tr></table>';
     if (j.pa) h += '<p class="cs-nota">Patamar de Série A (B13): técnico ' + (j.pa.tec == null ? '—' : j.pa.tec) + ' · físico ' + (j.pa.fis == null ? '—' : j.pa.fis) + ' (percentil dentro da A).</p>';
     h += '</div>';

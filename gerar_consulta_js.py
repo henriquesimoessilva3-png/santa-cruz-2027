@@ -36,7 +36,7 @@ def main():
     D["k"] = D.chave + "|" + D.clube.map(chave)
     # físico: Série B (SkillCorner do estudo) e fora (Portal), tipos do B15
     tt = pd.read_csv(os.path.join(RES, "b15", "tipos_todos.csv")); tt["k"] = tt.chave + "|" + tt.clube.map(chave); tt = tt.drop_duplicates("k").set_index("k")
-    for c in ["tipo", "tipo_pref", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "distance_p90"]:
+    for c in ["tipo", "tipo_pref", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "distance_p90", "runs_penalty_area_p30tip"]:
         D[c] = D.k.map(tt[c]) if c in tt else np.nan
     if "psv99_x" in D: D["psv99"] = D.psv99_x.fillna(D.psv99_y)
     # tipos preferidos e faixas físicas de referência por setor (B15/B8)
@@ -62,6 +62,10 @@ def main():
     # faixas de referência físicas por posição (B1)
     fx = pd.read_csv(os.path.join(RES, "b1", "posicao_faixas.csv")) if os.path.exists(os.path.join(RES, "b1", "posicao_faixas.csv")) else None
     ficha = {p: [(en, w) for en, w in v] for p, v in L.FICHA.items()}
+    # gol de defesa (B7-1) e corrida para a área (B8-2): percentil dentro da posição, todos os mercados
+    D["xg90"] = pd.to_numeric(D.get("xG"), errors="coerce") / D.minutos * 90
+    D["xg_p"] = D.groupby("pos11").xg90.rank(pct=True) * 100
+    D["area_p"] = D.groupby("pos11").runs_penalty_area_p30tip.rank(pct=True) * 100
     rows = []
     for r in D.itertuples():
         f = ficha.get(r.pos11, [])
@@ -75,6 +79,8 @@ def main():
                    crit=int(r.criterios_com_dado), ficha=pct,
                    psv=(None if pd.isna(r.psv99) else round(float(r.psv99), 1)), spr=(None if pd.isna(r.sprint_count_p90) else round(float(r.sprint_count_p90), 1)),
                    hi=(None if pd.isna(r.hi_count_p90) else round(float(r.hi_count_p90), 1)), expl=(None if pd.isna(r.expl_accel_sprint_p90) else round(float(r.expl_accel_sprint_p90), 2)),
+                   area=(None if pd.isna(r.runs_penalty_area_p30tip) else round(float(r.runs_penalty_area_p30tip), 1)), area_p=(None if pd.isna(r.area_p) else round(float(r.area_p))),
+                   xg=(None if pd.isna(r.xg90) else round(float(r.xg90), 2)), xg_p=(None if pd.isna(r.xg_p) else round(float(r.xg_p))),
                    tipo=(None if pd.isna(r.tipo) else r.tipo), tpref=(bool(r.tipo_pref) if pd.notna(r.tipo_pref) else None),
                    alc=bool((r.liga == "Brasil B") or (r.mercado == "Sul-americano") or (r.mercado == "Exterior" and r.liga in L.ALCANCAVEIS and bool(r.sul_americano))) and r.clube not in GRANDES,
                    bp=bp.get(r.k), vet=bool(fora(r.jogador, r.clube)), caro=bool(v > TETO_VALOR) if pd.notna(v) else False,

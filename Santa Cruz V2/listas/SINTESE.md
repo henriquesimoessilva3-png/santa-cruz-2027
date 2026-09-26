@@ -30,6 +30,7 @@
 | 3 | **Nota do estudo** = aderência ao modelo que rende na posição + nível do ranking; de fora, a aderência convertida pela reta de liga (p90 na origem → 58 na B) | ordena | B2-4, B11, LISTAS |
 | 4 | **Tipo físico de quem sobe** por setor (zaga e CA *Motor de volume*; laterais e extremos *Explosivo e rápido*; volante *Mais intenso/Intermediário*; meia *Médio em tudo*) | ordena | B8-4, B15 |
 | 5 | **Bola parada**: 1 cobrador (MEI/ED/MED) + 3 finalizadores aéreos (ZD, ZE, CA) — volume repete (r 0,72–0,82), gol não | decide entre iguais | B3-3 |
+| 5b | **Gol de defesa** (zagueiro, volante, lateral com xG/90 no decil de cima) e **corrida para a área** (lateral, volante, meia, extremo no decil de cima) — rendem e não custam | pontos extras na ordem | B7-1, B8-2 |
 | 6 | **Valor de mercado ≤ € 2 MM**; sem Série A; sem os vetados | corte do clube | EXCLUIDOS |
 | 7 | Contrato até jun/27 (livre) primeiro; estrangeiro: ARG/COL/URU, extremo/meia/atacante, 1 ano com opção | preferência | B6-4 |
 

@@ -15,7 +15,7 @@ from b8_fisico_tecnico import base, tipos, SETORES
 OUT = os.path.join(RES, "b15"); os.makedirs(OUT, exist_ok=True)
 CORE = ["psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "distance_p90", "runs_p30tip"]
 APP = {"psv": "psv99", "spr_n": "sprint_count_p90", "hi_n": "hi_count_p90", "expl": "expl_accel_sprint_p90",
-       "dist": "distance_p90", "obr": "runs_p30tip"}
+       "dist": "distance_p90", "obr": "runs_p30tip", "obr_area": "runs_penalty_area_p30tip"}
 SET = {"ZD": "Zaga", "ZE": "Zaga", "LD": "Lateral", "LE": "Lateral", "VOL": "Volante", "MED": "Meia", "MEI": "Meia",
        "ED": "Extremo", "EE": "Extremo", "CA": "Atacante"}
 SUL = {"Argentina A", "Argentina B", "Uruguai", "Colombia A", "Colombia B", "Chile", "Paraguai", "Equador A", "Equador B",
@@ -69,7 +69,7 @@ def main():
     bases = pd.concat([pd.read_csv(os.path.join(RAIZ, "listas", "base_sul_americanas.csv")),
                        pd.read_csv(os.path.join(RAIZ, "listas", "base_sulam_exterior.csv"))])
     bases["chave"] = bases.jogador.map(chave); bases["kt"] = bases.clube.map(chave)
-    E = J[["chave", "kt", "p", "setor", "tipo", "mv"] + CORE].merge(bases, on=["chave", "kt"], how="inner")
+    E = J[["chave", "kt", "p", "setor", "tipo", "mv", "runs_penalty_area_p30tip"] + CORE].merge(bases.drop(columns=["runs_penalty_area_p30tip"], errors="ignore"), on=["chave", "kt"], how="inner")
     E = E.rename(columns={"p": "pos_fis"})
     # valor: o do Wyscout, e quando ele vem 0/vazio, o do Transfermarkt que está no app (mv)
     v = pd.to_numeric(E.valor, errors="coerce").fillna(0); mv = pd.to_numeric(E.mv, errors="coerce").fillna(0)
@@ -82,7 +82,7 @@ def main():
     A["livre_2027"] = A.livre_2027.astype(str) == "True"
     A = A.sort_values("nota", ascending=False).drop_duplicates(["chave", "clube"])
     # classificação de todos (Série B + fora) — alimenta a coluna "tipo físico" das listas e do Top 10
-    A[["chave", "kt", "jogador", "clube", "liga", "pos11", "setor", "tipo", "psv99"] + CORE].assign(
+    A[["chave", "kt", "jogador", "clube", "liga", "pos11", "setor", "tipo", "psv99", "runs_penalty_area_p30tip"] + CORE].assign(
         tipo_pref=A.apply(lambda r: r.tipo in P.get(r.setor, []), axis=1)).to_csv(os.path.join(OUT, "tipos_todos.csv"), index=False)
     A["tipo_pref"] = A.apply(lambda r: r.tipo in P.get(r.setor, []), axis=1)
     A = A[(A.psv99 >= 27) & (A.idade <= 35)]

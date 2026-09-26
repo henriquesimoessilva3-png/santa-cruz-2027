@@ -21,7 +21,7 @@ def main():
     s = pd.read_csv(os.path.join(LI, "base_sul_americanas.csv")); s["mercado_l"] = "Sul-americanas"
     e = pd.read_csv(os.path.join(LI, "base_sulam_exterior.csv")); e = e[e.liga.isin(L.ALCANCAVEIS) & ~e.clube.isin(GRANDES)]; e["mercado_l"] = "Brasileiros e sul-americanos no exterior"
     B = pd.concat([sb, s, e], ignore_index=True); B["k"] = B.jogador.map(chave) + "|" + B.clube.map(chave)
-    B = B.drop(columns=[c for c in PESO if c in B], errors="ignore").merge(t[["k", "pos11", "tipo", "tipo_pref"] + list(PESO)].rename(columns={"pos11": "pos_fis"}), on="k", how="inner")
+    B = B.drop(columns=[c for c in list(PESO) + ["runs_penalty_area_p30tip"] if c in B], errors="ignore").merge(t[["k", "pos11", "tipo", "tipo_pref", "runs_penalty_area_p30tip"] + list(PESO)].rename(columns={"pos11": "pos_fis"}), on="k", how="inner")
     B["pos11"] = B.pos_fis
     B = B[(B.minutos >= 900) & (B.idade <= 35) & (B.psv99 >= 27)]
     B = B[[not fora(j, c) for j, c in zip(B.jogador, B.clube)]]; B = B[~caro(B)]
@@ -42,14 +42,14 @@ def main():
             x = B[(B.pos11 == p) & (B.mercado_l == merc)].head(20)
             md += [f"**{merc}**" + (" — sem jogador com físico" if x.empty else ""), ""]
             if x.empty: continue
-            md += ["| # | Jogador | Clube |" + (" Liga |" if merc != "Série B" else "") + " Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Tipo | Nota |",
-                   "|---|---|---|" + ("---|" if merc != "Série B" else "") + "---|---|---|---|---|---|---|---|---|---|"]
+            md += ["| # | Jogador | Clube |" + (" Liga |" if merc != "Série B" else "") + " Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |",
+                   "|---|---|---|" + ("---|" if merc != "Série B" else "") + "---|---|---|---|---|---|---|---|---|---|---|"]
             for i, r in enumerate(x.itertuples(), 1):
                 md.append(f"| {i} | **{r.jogador}**{' (BR)' if r.br and merc != 'Série B' else ''}{'' if r.livre else ' (e)'} | {r.clube} |" + (f" {r.liga} |" if merc != "Série B" else "") +
-                          f" {int(r.idade)} | {dt(r.contrato)} | **{f(r.fisico)}** | {f(r.psv99, 1)} | {f(r.sprint_count_p90, 1)} | {f(r.hi_count_p90, 0)} | {f(r.expl_accel_sprint_p90, 2)} | {f(r.runs_p30tip, 1)} | {r.tipo}{' ✓' if r.tipo_pref else ''} | {f(r.nota)} |")
+                          f" {int(r.idade)} | {dt(r.contrato)} | **{f(r.fisico)}** | {f(r.psv99, 1)} | {f(r.sprint_count_p90, 1)} | {f(r.hi_count_p90, 0)} | {f(r.expl_accel_sprint_p90, 2)} | {f(r.runs_p30tip, 1)} | {f(r.runs_penalty_area_p30tip, 1)} | {r.tipo}{' ✓' if r.tipo_pref else ''} | {f(r.nota)} |")
             md.append("")
     open(os.path.join(LI, "RANKING_FISICO.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
-    B.groupby(["pos11", "mercado_l"]).head(20)[["pos11", "mercado_l", "jogador", "clube", "liga", "idade", "minutos", "contrato", "livre", "br", "fisico", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "runs_p30tip", "tipo", "tipo_pref", "nota"]].round(2).to_csv(os.path.join(LI, "RANKING_FISICO.csv"), index=False)
+    B.groupby(["pos11", "mercado_l"]).head(20)[["pos11", "mercado_l", "jogador", "clube", "liga", "idade", "minutos", "contrato", "livre", "br", "fisico", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "runs_p30tip", "runs_penalty_area_p30tip", "tipo", "tipo_pref", "nota"]].round(2).to_csv(os.path.join(LI, "RANKING_FISICO.csv"), index=False)
     print(B.groupby(["pos11", "mercado_l"]).size().unstack().fillna(0).astype(int))
     print(B.groupby("pos11").head(2)[["pos11", "mercado_l", "jogador", "clube", "fisico", "psv99", "sprint_count_p90", "tipo", "nota"]].to_string(index=False))
 
