@@ -9,16 +9,16 @@ ordem,mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nota,nota_co
 8,Sul-americano,Argentina B,GOL,M. Bergia,Atlético Rafaela,25.0,2433,2026-12-31,0.0,69.7,True,False,,,,,64.7,True
 9,Sul-americano,Bolivia,GOL,C. Martínez,Real Potosí,29.0,927,,0.0,68.8,True,False,,,,,63.8,True
 10,Sul-americano,Equador B,GOL,J. Mero,Atletico FC,31.0,1712,2026-12-31,50000.0,68.8,True,False,,,,,63.8,True
-1,Exterior,Grecia,LD,Rodinei,Olympiacos Piraeus,34.0,1866,2027-06-30,1500000.0,70.1,True,False,,,,,70.1,True
-2,Sul-americano,Chile,LD,Lucas Soto,Everton,23.0,1148,2026-12-31,0.0,56.5,True,False,,urgência,5.0,7.0,60.5,True
-3,Série B,Série B,LD,Rodrigo Soares,Goiás,33.0,1415,2026-11-30,1000000.0,57.1,True,False,28.18,,,,57.1,True
-4,Sul-americano,Colombia B,LD,C. Graciano,Real Cartagena,23.0,2025,,0.0,56.7,True,False,,,,,56.7,True
-5,Série B,Série B,LD,Rafael Ramos,Ceará,31.0,902,2026-12-31,500000.0,56.4,True,False,29.73,,,,56.4,True
-6,Série B,Série B,LD,Ewerthon,Atlético-GO,25.0,2014,2026-12-31,750000.0,56.2,True,False,30.0,,,,56.2,True
-7,Sul-americano,Paraguai,LD,A. Benítez,Club Libertad,32.0,969,2026-12-31,0.0,56.2,True,False,,,,,56.2,True
-8,Sul-americano,Equador A,LD,D. Romero,Independiente del Valle,25.0,1343,,300000.0,55.1,True,False,,,,,55.1,True
-9,Exterior,Hungria,LD,Cadu,Ferencváros,28.0,1043,,1200000.0,54.6,True,False,,,,,54.6,True
-10,Sul-americano,Venezuela,LD,K. Silva,UCV,32.0,1867,2026-12-31,275000.0,54.3,True,False,,,,,54.3,True
+1,Sul-americano,Chile,LD,Lucas Soto,Everton,23.0,1148,2026-12-31,0.0,56.5,True,False,,urgência,5.0,7.0,60.5,True
+2,Série B,Série B,LD,Rodrigo Soares,Goiás,33.0,1415,2026-11-30,1000000.0,57.1,True,False,28.18,,,,57.1,True
+3,Sul-americano,Colombia B,LD,C. Graciano,Real Cartagena,23.0,2025,,0.0,56.7,True,False,,,,,56.7,True
+4,Série B,Série B,LD,Rafael Ramos,Ceará,31.0,902,2026-12-31,500000.0,56.4,True,False,29.73,,,,56.4,True
+5,Série B,Série B,LD,Ewerthon,Atlético-GO,25.0,2014,2026-12-31,750000.0,56.2,True,False,30.0,,,,56.2,True
+6,Sul-americano,Paraguai,LD,A. Benítez,Club Libertad,32.0,969,2026-12-31,0.0,56.2,True,False,,,,,56.2,True
+7,Sul-americano,Equador A,LD,D. Romero,Independiente del Valle,25.0,1343,,300000.0,55.1,True,False,,,,,55.1,True
+8,Exterior,Hungria,LD,Cadu,Ferencváros,28.0,1043,,1200000.0,54.6,True,False,,,,,54.6,True
+9,Sul-americano,Venezuela,LD,K. Silva,UCV,32.0,1867,2026-12-31,275000.0,54.3,True,False,,,,,54.3,True
+10,Série B,Série B,LD,Reginaldo,Náutico,33.0,1377,2026-11-30,300000.0,54.1,True,False,29.55,,,,54.1,True
 1,Série B,Série B,ZD,Ricardo Silva,América-MG,34.0,1252,2026-11-30,300000.0,68.0,True,False,28.07,,,,68.0,True
 2,Sul-americano,Paraguai,ZD,G. Vargas,Olimpia,24.0,1315,2026-12-31,400000.0,66.7,True,False,,,,,66.7,True
 3,Exterior,Grecia,ZD,Fabiano,Aris,34.0,2024,2027-06-30,800000.0,63.7,True,False,,,,,63.7,True

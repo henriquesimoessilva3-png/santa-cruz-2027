@@ -83,8 +83,8 @@
 | 6 | **Heitor** | LD | Portimonense | Portugal B | 25 | 94 | 34 | 29 (5) | 0.15 | 30/06/26 |
 | 7 | **D. González** | ED | Atlas | Mexico | 23 | 94 | 65 | 82 (14) | 0.22 | 30/06/28 |
 | 8 | **Evander** | MEI | Cincinnati | EUA | 28 | 93 | 64 | 30 (9) | 0.32 | 31/12/27 |
-| 9 | **Arthur Rezende** | MED | Muharraq | Bahrain | 32 | 93 | 56 | 24 (9) | 0.16 | — |
-| 10 | **J. Bartolo** | CA | Asteras Tripolis | Grecia | 30 | 93 | 104 | 52 (8) | 0.21 | 30/06/26 |
+| 9 | **J. Bartolo** | CA | Asteras Tripolis | Grecia | 30 | 93 | 104 | 52 (8) | 0.21 | 30/06/26 |
+| 10 | **Arthur Rezende** | MED | Muharraq | Bahrain | 32 | 93 | 56 | 24 (9) | 0.16 | — |
 
 ### Finalizadores aéreos
 

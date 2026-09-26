@@ -24,16 +24,16 @@ Critério (23/09): **sem Série A** e sem os nomes tirados pelo clube (`EXCLUIDO
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Nota | PSV | Tipo | Scouts |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | **Rodinei** | Olympiacos Piraeus | Grecia | 34 | 30/06/27 | 70 | — | Baixa intensidade * |  |
-| 2 | **Lucas Soto** | Everton | Chile | 23 | 31/12/26 | 60 | — | — | ★ urgência |
-| 3 | **Rodrigo Soares** | Goiás | Série B | 33 | 30/11/26 | 57 | 28,2 | Médio em tudo * |  |
-| 4 | **C. Graciano** | Real Cartagena | Colombia B | 23 | — | 57 | — | — |  |
-| 5 | **Rafael Ramos** | Ceará | Série B | 31 | 31/12/26 | 56 | 29,7 | Explosivo e rápido |  |
-| 6 | **Ewerthon** | Atlético-GO | Série B | 25 | 31/12/26 | 56 | 30,0 | Baixa intensidade * |  |
-| 7 | **A. Benítez** | Club Libertad | Paraguai | 32 | 31/12/26 | 56 | — | Explosivo e rápido |  |
-| 8 | **D. Romero** | Independiente del Valle | Equador A | 25 | — | 55 | — | Explosivo e rápido |  |
-| 9 | **Cadu** | Ferencváros | Hungria | 28 | — | 55 | — | — |  |
-| 10 | **K. Silva** | UCV | Venezuela | 32 | 31/12/26 | 54 | — | — |  |
+| 1 | **Lucas Soto** | Everton | Chile | 23 | 31/12/26 | 60 | — | — | ★ urgência |
+| 2 | **Rodrigo Soares** | Goiás | Série B | 33 | 30/11/26 | 57 | 28,2 | Médio em tudo * |  |
+| 3 | **C. Graciano** | Real Cartagena | Colombia B | 23 | — | 57 | — | — |  |
+| 4 | **Rafael Ramos** | Ceará | Série B | 31 | 31/12/26 | 56 | 29,7 | Explosivo e rápido |  |
+| 5 | **Ewerthon** | Atlético-GO | Série B | 25 | 31/12/26 | 56 | 30,0 | Baixa intensidade * |  |
+| 6 | **A. Benítez** | Club Libertad | Paraguai | 32 | 31/12/26 | 56 | — | Explosivo e rápido |  |
+| 7 | **D. Romero** | Independiente del Valle | Equador A | 25 | — | 55 | — | Explosivo e rápido |  |
+| 8 | **Cadu** | Ferencváros | Hungria | 28 | — | 55 | — | — |  |
+| 9 | **K. Silva** | UCV | Venezuela | 32 | 31/12/26 | 54 | — | — |  |
+| 10 | **Reginaldo** | Náutico | Série B | 33 | 30/11/26 | 54 | 29,6 | Explosivo e rápido |  |
 
 ### Zagueiro pela direita
 
