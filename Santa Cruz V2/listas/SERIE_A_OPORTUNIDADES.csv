@@ -1,13 +1,9 @@
 pos11,jogador,clube,idade,minutos,contrato,livre,grupo,valor,aderencia,adc,nivel_overall,nota,psv,tipo,sal
 CA,Everaldo,Bahia,35,776,2026-12-31,True,veterano em fim de contrato,650000.0,74.9,68.97200000000001,40.9,55.0,28.03,—,200K - 280K
 CA,Renato Kayzer,Vitória,30,873,2027-03-31,True,veterano em fim de contrato,1000000.0,36.1,58.108000000000004,37.7,48.0,28.24,—,500K - 680K
-CA,J. Rojas,Vasco da Gama,23,934,2028-06-30,False,jovem não aproveitado,0.0,30.5,56.54,,47.0,28.55,—,250K - 350K
 CA,Pedro Rocha,Coritiba,31,1868,2026-12-31,True,veterano em fim de contrato,1500000.0,35.5,57.94,31.93,45.0,28.6,—,600K - 800K
-ED,J. Herrera,Red Bull Bragantino,23,1039,2029-12-31,False,jovem não aproveitado,0.0,57.8,64.184,43.76,54.0,28.94,—,500K - 680K
 ED,Yago Pikachu,Remo,34,1476,2026-12-31,True,veterano em fim de contrato,1200000.0,26.6,55.448,40.68,48.0,28.82,—,500K - 680K
 EE,Marcinho,Chapecoense,31,1275,2026-11-30,True,veterano em fim de contrato,50000.0,32.8,57.184,38.68,48.0,,—,
-EE,Italo,Chapecoense,23,831,2027-11-30,False,jovem não aproveitado,,19.6,53.488,27.19,40.0,,—,
-GOL,Tiago Volpi,Red Bull Bragantino,35,1534,2026-12-31,True,veterano em fim de contrato,1500000.0,69.2,67.376,71.13,69.0,,—,600K - 800K
 GOL,Léo Vieira,Bahia,35,1584,2026-12-31,True,veterano em fim de contrato,100000.0,63.9,65.892,49.93,58.0,,—,500K - 680K
 LD,Marcelinho,Remo,28,1668,,True,Remo/Chape em fim de contrato,0.0,55.1,63.428000000000004,39.95,52.0,30.01,—,60K - 90K
 LD,Tinga,Coritiba,32,1368,2026-12-31,True,veterano em fim de contrato,1200000.0,47.4,61.272,35.22,48.0,27.19,—,500K - 680K
@@ -16,7 +12,6 @@ LD,Marcos Vinicius,Chapecoense,29,656,2026-12-31,True,Remo/Chape em fim de contr
 LD,Mateo Ponte,Botafogo,23,688,2028-06-30,False,jovem não aproveitado,1500000.0,23.1,54.468,34.7,45.0,31.8,—,150K - 220K
 LD,João Pedro Chermont,Coritiba,20,859,2027-12-31,False,jovem não aproveitado,0.0,34.2,57.576,31.09,44.0,29.48,—,100K - 150K
 LE,Reinaldo,Mirassol,36,1791,2026-12-31,True,veterano em fim de contrato,500000.0,67.7,66.956,47.47,57.0,28.69,—,250K - 350K
-LE,Pedro Gabriel,Grêmio,19,933,2028-12-31,False,jovem não aproveitado,0.0,40.7,59.396,38.91,49.0,30.2,—,250K - 350K
 LE,Léo Derik,Athletico Paranaense,21,631,2029-12-31,False,jovem não aproveitado,0.0,50.0,62.0,35.73,49.0,30.95,—,250K - 350K
 LE,Bruno Pacheco,Chapecoense,34,1079,2026-12-31,True,veterano em fim de contrato,450000.0,50.3,62.084,31.62,47.0,28.04,—,600K - 800K
 LE,Arthur Gabriel,Palmeiras,20,973,2029-12-31,False,jovem não aproveitado,0.0,43.3,60.124,32.19,46.0,29.14,—,300K - 420K
@@ -28,7 +23,6 @@ MED,Gustavo Henrique,Santos,21,729,,True,jovem não aproveitado,0.0,46.9,61.1320
 MED,T. Pérez,Atlético Mineiro,20,865,2029-06-30,False,jovem não aproveitado,0.0,24.1,54.748000000000005,29.78,42.0,27.17,—,50K - 75K
 MEI,Josué,Coritiba,35,1744,2026-12-31,True,veterano em fim de contrato,600000.0,59.5,64.66,59.72,62.0,27.95,—,150K - 220K
 MEI,Zé Ricardo,Remo,27,1420,2026-12-31,True,Remo/Chape em fim de contrato,500000.0,25.2,55.056,33.99,45.0,27.12,—,
-MEI,Gabriel Mec,Grêmio,18,821,2027-06-30,True,jovem não aproveitado,0.0,32.2,57.016000000000005,26.55,42.0,28.78,—,30K - 45K
 MEI,Dudu Kogitzki,Athletico Paranaense,20,776,2029-12-31,False,jovem não aproveitado,0.0,31.0,56.68,25.34,41.0,27.18,—,60K - 90K
 VOL,Neto Moura,Mirassol,30,861,2026-12-31,True,veterano em fim de contrato,800000.0,77.5,69.7,37.95,54.0,27.06,—,250K - 350K
 VOL,Patrick,Remo,34,1409,2026-12-31,True,veterano em fim de contrato,2000000.0,56.8,63.903999999999996,37.92,51.0,27.09,—,250K - 350K

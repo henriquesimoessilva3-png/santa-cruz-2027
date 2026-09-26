@@ -8,8 +8,7 @@ Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 
 
 | # | Jogador | Clube | Idade | Min 2026 | Contrato | Grupo | Nota | Ader. (A → B) | Nível | PSV | Tipo | Valor | Salário (Capology) | defesas % | gols evitados/90 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Tiago Volpi** | Red Bull Bragantino | 35 | 1534 | 31/12/26 | veterano em fim de contrato | **69** | 69 → 67 | 71 | — | — | € 1,5 MM | 600K - 800K | 76,92 | 0,21 |
-| 2 | **Léo Vieira** | Bahia | 35 | 1584 | 31/12/26 | veterano em fim de contrato | **58** | 64 → 66 | 50 | — | — | € 0,1 MM | 500K - 680K | 75,53 | 0,00 |
+| 1 | **Léo Vieira** | Bahia | 35 | 1584 | 31/12/26 | veterano em fim de contrato | **58** | 64 → 66 | 50 | — | — | € 0,1 MM | 500K - 680K | 75,53 | 0,00 |
 
 ### Lateral direito
 
@@ -35,11 +34,10 @@ Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 
 | # | Jogador | Clube | Idade | Min 2026 | Contrato | Grupo | Nota | Ader. (A → B) | Nível | PSV | Tipo | Valor | Salário (Capology) | xG/90 | toques área/90 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Reinaldo** | Mirassol | 36 | 1791 | 31/12/26 | veterano em fim de contrato | **57** | 68 → 67 | 47 | 28,7 | — | € 0,5 MM | 250K - 350K | 0,07 | 1,01 |
-| 2 | **Pedro Gabriel** | Grêmio | 19 | 933 | 31/12/28 | jovem não aproveitado | **49** | 41 → 59 | 39 | 30,2 | — | — | 250K - 350K | 0,02 | 0,00 |
-| 3 | **Léo Derik** | Athletico Paranaense | 21 | 631 | 31/12/29 | jovem não aproveitado | **49** | 50 → 62 | 36 | 30,9 | — | — | 250K - 350K | 0,01 | 0,71 |
-| 4 | **Bruno Pacheco** | Chapecoense | 34 | 1079 | 31/12/26 | veterano em fim de contrato | **47** | 50 → 62 | 32 | 28,0 | — | € 0,5 MM | 600K - 800K | 0,01 | 1,00 |
-| 5 | **Arthur Gabriel** | Palmeiras | 20 | 973 | 31/12/29 | jovem não aproveitado | **46** | 43 → 60 | 32 | 29,1 | — | — | 300K - 420K | 0,04 | 0,83 |
-| 6 | **Bruno Melo** | Coritiba | 33 | 1798 | 31/12/26 | veterano em fim de contrato | **44** | 39 → 59 | 30 | 28,0 | — | € 0,4 MM | 150K - 220K | 0,07 | 0,75 |
+| 2 | **Léo Derik** | Athletico Paranaense | 21 | 631 | 31/12/29 | jovem não aproveitado | **49** | 50 → 62 | 36 | 30,9 | — | — | 250K - 350K | 0,01 | 0,71 |
+| 3 | **Bruno Pacheco** | Chapecoense | 34 | 1079 | 31/12/26 | veterano em fim de contrato | **47** | 50 → 62 | 32 | 28,0 | — | € 0,5 MM | 600K - 800K | 0,01 | 1,00 |
+| 4 | **Arthur Gabriel** | Palmeiras | 20 | 973 | 31/12/29 | jovem não aproveitado | **46** | 43 → 60 | 32 | 29,1 | — | — | 300K - 420K | 0,04 | 0,83 |
+| 5 | **Bruno Melo** | Coritiba | 33 | 1798 | 31/12/26 | veterano em fim de contrato | **44** | 39 → 59 | 30 | 28,0 | — | € 0,4 MM | 150K - 220K | 0,07 | 0,75 |
 
 ### Volante
 
@@ -69,22 +67,19 @@ Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Josué** | Coritiba | 35 | 1744 | 31/12/26 | veterano em fim de contrato | **62** | 60 → 65 | 60 | 27,9 | — | € 0,6 MM | 150K - 220K | 0,23 | 0,72 |
 | 2 | **Zé Ricardo** | Remo | 27 | 1420 | 31/12/26 | Remo/Chape em fim de contrato | **45** | 25 → 55 | 34 | 27,1 | — | € 0,5 MM | — | 0,04 | 0,63 |
-| 3 | **Gabriel Mec** | Grêmio | 18 | 821 | 30/06/27 | jovem não aproveitado | **42** | 32 → 57 | 27 | 28,8 | — | — | 30K - 45K | 0,02 | 1,86 |
-| 4 | **Dudu Kogitzki** | Athletico Paranaense | 20 | 776 | 31/12/29 | jovem não aproveitado | **41** | 31 → 57 | 25 | 27,2 | — | — | 60K - 90K | 0,04 | 1,39 |
+| 3 | **Dudu Kogitzki** | Athletico Paranaense | 20 | 776 | 31/12/29 | jovem não aproveitado | **41** | 31 → 57 | 25 | 27,2 | — | — | 60K - 90K | 0,04 | 1,39 |
 
 ### Extremo pela direita
 
 | # | Jogador | Clube | Idade | Min 2026 | Contrato | Grupo | Nota | Ader. (A → B) | Nível | PSV | Tipo | Valor | Salário (Capology) | duelos def. % | passes chave/90 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **J. Herrera** | Red Bull Bragantino | 23 | 1039 | 31/12/29 | jovem não aproveitado | **54** | 58 → 64 | 44 | 28,9 | — | — | 500K - 680K | 54,93 | 0,61 |
-| 2 | **Yago Pikachu** | Remo | 34 | 1476 | 31/12/26 | veterano em fim de contrato | **48** | 27 → 55 | 41 | 28,8 | — | € 1,2 MM | 500K - 680K | 53,70 | 0,43 |
+| 1 | **Yago Pikachu** | Remo | 34 | 1476 | 31/12/26 | veterano em fim de contrato | **48** | 27 → 55 | 41 | 28,8 | — | € 1,2 MM | 500K - 680K | 53,70 | 0,43 |
 
 ### Extremo pela esquerda
 
 | # | Jogador | Clube | Idade | Min 2026 | Contrato | Grupo | Nota | Ader. (A → B) | Nível | PSV | Tipo | Valor | Salário (Capology) | xG/90 | toques área/90 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Marcinho** | Chapecoense | 31 | 1275 | 30/11/26 | veterano em fim de contrato | **48** | 33 → 57 | 39 | — | — | € 0,1 MM | — | 0,12 | 2,40 |
-| 2 | **Italo** | Chapecoense | 23 | 831 | 30/11/27 | jovem não aproveitado | **40** | 20 → 53 | 27 | — | — | — | — | 0,10 | 2,17 |
 
 ### Centroavante
 
@@ -92,6 +87,5 @@ Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Everaldo** | Bahia | 35 | 776 | 31/12/26 | veterano em fim de contrato | **55** | 75 → 69 | 41 | 28,0 | — | € 0,7 MM | 200K - 280K | 0,37 | 56,41 |
 | 2 | **Renato Kayzer** | Vitória | 30 | 873 | 31/03/27 | veterano em fim de contrato | **48** | 36 → 58 | 38 | 28,2 | — | € 1,0 MM | 500K - 680K | 0,35 | 17,86 |
-| 3 | **J. Rojas** | Vasco da Gama | 23 | 934 | 30/06/28 | jovem não aproveitado | **47** * | 30 → 57 | — | 28,6 | — | — | 250K - 350K | 0,13 | 11,76 |
-| 4 | **Pedro Rocha** | Coritiba | 31 | 1868 | 31/12/26 | veterano em fim de contrato | **45** | 36 → 58 | 32 | 28,6 | — | € 1,5 MM | 600K - 800K | 0,26 | 30,56 |
+| 3 | **Pedro Rocha** | Coritiba | 31 | 1868 | 31/12/26 | veterano em fim de contrato | **45** | 36 → 58 | 32 | 28,6 | — | € 1,5 MM | 600K - 800K | 0,26 | 30,56 |
 

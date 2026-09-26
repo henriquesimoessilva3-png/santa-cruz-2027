@@ -1,12 +1,12 @@
 mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nascido_em,passaporte,aderencia,aderencia_ajustada,nivel_overall,rank_na_liga,nota,nota_completa,nivel_bola_parada,nivel_fisico,criterios_com_dado,posse_est,Duelos def/90 PAdj,Aéreos/90 PAdj,Duelos of/90 PAdj,sul_americano,ocupa_vaga_estrangeiro,On loan,livre_2027,contrato_vencido,nivel
 Série A,Brasil A,GOL,Ronaldo,Bahia,29.0,1382,2029-12-31,1200000,Brazil,Brazil,84.1,71.5,73.03,1.0,72.3,True,0.0,,5,51.64102379640151,0.0,0.27,0.07,True,False,sim,False,False,N1
-Série A,Brasil A,GOL,Tiago Volpi,Red Bull Bragantino,35.0,1534,2026-12-31,1500000,Brazil,Brazil,70.5,67.7,71.13,2.0,69.4,True,0.0,,5,45.17078610266897,0.11,0.05,0.07,True,False,sim,True,False,N1
 Série A,Brasil A,GOL,Lucas Arcanjo,Vitória,28.0,1963,2028-12-31,1000000,Brazil,Brazil,53.4,63.0,64.9,6.0,64.0,True,0.0,,5,43.447476814299,0.08,0.16,0.06,True,False,sim,False,False,N1
 Série A,Brasil A,GOL,Santos,Athletico Paranaense,36.0,2256,2026-12-31,1000000,Brazil,Brazil,48.3,61.5,58.44,7.0,60.0,True,0.0,,5,46.78461922992882,0.04,0.08,0.09,True,False,sim,True,False,N1
 Série A,Brasil A,GOL,Léo Vieira,Bahia,35.0,1584,2026-12-31,100000,Brazil,Brazil,65.3,66.3,49.93,14.0,58.1,True,0.0,,5,51.64102379640151,0.24,0.24,0.11,True,False,sim,True,False,N1
 Série A,Brasil A,GOL,Pedro Rangel,Coritiba,26.0,1623,2028-12-31,600000,Brazil,Brazil,56.8,63.9,50.87,11.0,57.4,True,0.0,,5,39.465441363643464,0.14,0.5,0.08,True,False,sim,False,False,N1
 Série A,Brasil A,GOL,Éverson,Atlético Mineiro,36.0,2201,2027-12-31,1800000,Brazil,Brazil,48.9,61.7,50.83,12.0,56.3,True,0.0,,5,49.34747558401895,0.04,0.33,0.16,True,False,sim,False,False,N1
 Série A,Brasil A,GOL,Rafael,São Paulo,37.0,2265,2027-12-31,800000,Brazil,Brazil,49.1,61.7,50.76,13.0,56.2,True,0.0,,5,53.813508898842734,0.09,0.26,0.07,True,False,sim,False,False,N1
+Série A,Brasil A,GOL,Hugo Souza,Corinthians,27.0,2160,2030-12-31,0,Brazil,Brazil,36.4,58.2,52.61,10.0,55.4,True,0.0,,5,51.03554580235096,0.13,0.0,0.08,True,False,sim,False,False,N1
 Série A,Brasil A,LD,Lucas Ramon,São Paulo,32.0,1492,2027-12-31,250000,Brazil,Brazil,74.6,68.9,42.91,11.0,55.9,True,0.0,37.7,6,53.813508898842734,6.59,2.02,3.47,True,False,sim,False,False,N1
 Série A,Brasil A,LD,Marcelinho,Remo,28.0,1668,,0,Brazil,Brazil,54.5,63.3,39.95,17.0,51.6,True,0.0,38.5,6,42.365621952788864,3.09,2.85,5.85,True,False,sim,True,False,N1
 Série A,Brasil A,LD,José Andrés Hurtado,Red Bull Bragantino,24.0,1250,2027-12-31,1800000,Ecuador,Ecuador,44.7,60.5,39.04,20.0,49.8,True,0.0,40.24,6,45.17078610266897,4.07,2.17,2.31,True,True,sim,False,False,N1/N2
@@ -69,8 +69,8 @@ Série A,Brasil A,ED,Lucas Ronier,Coritiba,21.0,1579,2027-12-31,0,Brazil,Brazil,
 Série A,Brasil A,ED,Allan Elias,Palmeiras,22.0,1605,2029-12-31,0,Brazil,Brazil,48.6,61.6,51.56,9.0,56.6,True,0.0,43.86,6,52.37274175730717,5.94,0.94,11.78,True,False,sim,False,False,N2 jovem
 Série A,Brasil A,ED,Lucas Paquetà,Flamengo,28.0,1029,2030-12-31,0,Brazil,"Brazil, Portugal",45.9,60.9,,,55.9,False,,,6,66.9727100788408,10.46,3.97,8.03,True,False,sim,False,False,N1
 Série A,Brasil A,ED,Gabriel Bontempo,Santos,21.0,1392,2030-12-31,0,Brazil,Brazil,66.8,66.7,44.97,16.0,55.8,True,0.0,37.28,6,48.36239258297843,3.76,1.69,5.48,True,False,sim,False,False,N2 jovem
-Série A,Brasil A,ED,J. Herrera,Red Bull Bragantino,23.0,1039,2029-12-31,0,Argentina,Argentina,62.7,65.6,43.76,17.0,54.7,True,0.0,43.5,6,45.17078610266897,5.61,2.22,7.57,True,True,sim,False,False,N2 jovem
 Série A,Brasil A,ED,Nuno Moreira,Vasco da Gama,27.0,1005,2027-12-31,1000000,Portugal,Portugal,34.5,57.7,50.19,12.0,53.9,True,0.0,36.89,6,56.17267017593401,4.6,1.22,4.78,False,True,sim,False,False,N1
+Série A,Brasil A,ED,J. Enamorado,Grêmio,27.0,975,2028-12-31,0,Colombia,Colombia,63.6,65.8,39.86,22.0,52.8,True,0.0,52.46,6,48.262357716166086,6.33,0.44,11.86,True,True,sim,False,False,N1
 Série A,Brasil A,EE,Samuel Lino,Flamengo,26.0,1521,2029-12-31,0,Brazil,Brazil,78.9,70.1,65.58,1.0,67.8,True,0.0,52.75,6,66.9727100788408,9.49,1.79,6.41,True,False,sim,False,False,N1
 Série A,Brasil A,EE,A. Gómez,Vasco da Gama,23.0,1715,2031-01-31,0,Colombia,Colombia,81.7,70.9,57.58,4.0,64.2,True,0.0,64.04,6,56.17267017593401,6.47,1.62,14.67,True,True,sim,False,False,N2 jovem
 Série A,Brasil A,EE,Henry Mosquera,Red Bull Bragantino,24.0,1298,2027-12-31,0,Colombia,Colombia,71.1,67.9,50.89,6.0,59.4,True,0.0,64.96,6,45.17078610266897,3.54,0.57,17.89,True,True,sim,False,False,N1/N2
