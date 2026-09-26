@@ -44,6 +44,7 @@ DOCS = [
     ("Blocos", "b11", "resultados/b11/B11.md", "11 · Treinador e modelo de jogo"),
     ("Blocos", "b12", "resultados/b12/B12.md", "12 · Conversão de liga"),
     ("Blocos", "b13", "resultados/b13/B13.md", "13 · Treinador: sorte × mérito"),
+    ("Blocos", "b14", "resultados/b14/B14.md", "14 · Patamar de Série A"),
     ("Método", "plano", "PLANO.md", "Plano do estudo"),
     ("Método", "armadilhas", "ARMADILHAS.md", "Armadilhas dos dados"),
 ]

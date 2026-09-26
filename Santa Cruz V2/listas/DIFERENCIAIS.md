@@ -49,7 +49,8 @@ de linha (PSV-99 ~27 km/h): a distância entre o mais rápido e o mais lento do 
 rendimento em todas as cinco temporadas, e o elo lento é quase sempre um meia ou volante. Por
 posição, o titular dos times que rendem não corre mais nem é mais rápido — tem mais arrancadas
 explosivas e corridas para a área (zaga, meio, centroavante). Desgaste no returno: 2%, sem
-padrão. Físico não prevê disponibilidade.
+padrão. Físico não prevê disponibilidade. E a Série B já corre como a Série A (B14): mesma velocidade de pico, sprints e alta
+intensidade; a diferença física está só nas cinco grandes ligas. O patamar de A na B é técnico.
 
 ## 6. Por posição, o que procurar (ficha do Bloco 2, com físico e bola parada)
 - **GOL:** a base não distingue goleiro bom de defesa boa; defesas % não repete (r 0,13). Vídeo.

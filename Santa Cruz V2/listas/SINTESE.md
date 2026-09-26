@@ -30,6 +30,8 @@
 | 6 | **Valor de mercado ≤ € 2 MM**; sem Série A; sem os vetados | corte do clube | EXCLUIDOS |
 | 7 | Contrato até jun/27 (livre) primeiro; estrangeiro: ARG/COL/URU, extremo/meia/atacante, 1 ano com opção | preferência | B6-4 |
 
+**Patamar de Série A (B14):** fisicamente a B já é a A (mesma velocidade de pico, mesmos sprints e alta intensidade; só as cinco grandes ligas correm +15–20%). O que separa as divisões é técnico: a régua para "jogar como um time de A" é a qualidade da chance, com o físico como piso.
+
 **Não pagar por:** posse, cruzamento, pressão alta, distância percorrida, velocista, altura, idade, artilheiro, percentil de outra liga, "aguenta o returno", ficha de lesão (B1, B2, B5, B6, B7).
 
 ## 3 · Por posição, em uma linha
