@@ -29,7 +29,9 @@
 #pgEstudoV2 .esv-doc pre code { background: none; padding: 0; }
 /* tabela larga rola dentro dela mesma, nunca a página (26/09) */
 #pgEstudoV2 .esv-doc table { display: table; width: 100%; max-width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 12px; font-variant-numeric: tabular-nums; table-layout: auto; }
-#pgEstudoV2 .esv-doc th, #pgEstudoV2 .esv-doc td { white-space: normal; overflow-wrap: anywhere; }
+#pgEstudoV2 .esv-doc td { white-space: normal; overflow-wrap: break-word; }
+#pgEstudoV2 .esv-doc th { white-space: nowrap; }
+#pgEstudoV2 .esv-doc td:first-child, #pgEstudoV2 .esv-doc td > strong:only-child { white-space: nowrap; }
 /* texto corrido continua legível em coluna de 90ch; só as tabelas usam a largura toda */
 #pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc ul, #pgEstudoV2 .esv-doc ol, #pgEstudoV2 .esv-doc h2, #pgEstudoV2 .esv-doc h3 { max-width: 100ch; }
 #pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc li { overflow-wrap: anywhere; }

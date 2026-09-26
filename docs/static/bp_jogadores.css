@@ -16,7 +16,7 @@
   font-size: 11px; text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--borda2); cursor: pointer; white-space: nowrap; }
 #pgBpJogadores th.ord { color: var(--tinta); }
 #pgBpJogadores th.sof, #pgBpJogadores td.sof { color: var(--txt-azul); }
-#pgBpJogadores td { padding: 6px 8px; border-bottom: 1px solid var(--linha1); white-space: normal; overflow-wrap: anywhere; }
+#pgBpJogadores td { padding: 6px 8px; border-bottom: 1px solid var(--linha1); white-space: normal; overflow-wrap: break-word; }
 #pgBpJogadores td.n { white-space: nowrap; }
 #pgBpJogadores tr:hover td { background: var(--veu1); }
 #pgBpJogadores .n { text-align: right; }

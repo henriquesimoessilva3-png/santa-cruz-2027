@@ -50,7 +50,7 @@ body.claro #pgBolaParada{--bp-bom:#0f6f9e;--bp-ruim:#c2650d;--bp-ponto:#6b7482}
 /* titulos quebram em 2 linhas: em maiusculas e espacados, sem quebra eles empurravam a ultima
    coluna (xG contra) para fora da tela */
 .bp-tab thead th{line-height:1.25;white-space:normal;letter-spacing:.05em}
-.bp-tab tbody td{white-space:normal;overflow-wrap:anywhere}
+.bp-tab tbody td{white-space:normal;overflow-wrap:break-word}
 .bp-tab tbody td:first-child{white-space:normal}
 .bp-tab thead tr.grupo th{text-align:center;border-bottom:1px solid var(--borda2);padding-bottom:4px}
 .bp-tab thead th[data-k]{cursor:pointer;user-select:none;vertical-align:bottom}
