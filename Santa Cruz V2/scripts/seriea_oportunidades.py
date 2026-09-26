@@ -1,5 +1,5 @@
-"""Série A — quem pode servir à Série B: (a) não aproveitados em 2026 (200 a 1.100 min) e (b) fim de contrato
-(até jun/27) com 30+ anos. Aderência calculada entre os CA/posição da A com ≥ 200 min (o corte de 900 tiraria
+"""Série A — quem pode servir à Série B: (a) jovens (≤ 23) não aproveitados em 2026 (200 a 1.100 min), (b) veteranos
+(30+) em fim de contrato (até jun/27) e (c) Remo/Chapecoense em fim de contrato. Aderência calculada entre os CA/posição da A com ≥ 200 min (o corte de 900 tiraria
 justamente quem joga pouco), convertida pela reta do B11 (Série A: 48 + 0,28·p); nível do ranking; físico do Portal.
 Filtros: sem vetados, valor ≤ € 2 MM, PSV ≥ 27 quando há rastreio, idade ≤ 36. Saídas: listas/SERIE_A_OPORTUNIDADES.md/.csv"""
 import os, glob, json, numpy as np, pandas as pd
@@ -28,7 +28,11 @@ def main():
     med = d.groupby("pos11").nivel_overall.transform("median")
     d["nota"] = ((d.adc + d.nivel_overall.fillna(med)) / 2).round(0); d["nota_completa"] = d.nivel_overall.notna()
     ct = pd.to_datetime(d.contrato, errors="coerce"); d["livre"] = ct.isna() | (ct <= "2027-06-30")
-    d["grupo"] = np.where(d.minutos <= 1100, "não aproveitado", np.where(d.livre & (d.idade >= 30), "fim de contrato, 30+", ""))
+    # foco do clube (26/09): jovens não aproveitados, veteranos em fim de contrato, e Remo/Chapecoense acabando contrato
+    REBAIXADOS = {"Remo", "Chapecoense"}
+    d["grupo"] = np.where((d.idade <= 23) & (d.minutos <= 1100), "jovem não aproveitado",
+                 np.where(d.livre & (d.idade >= 30), "veterano em fim de contrato",
+                 np.where(d.livre & d.clube.isin(REBAIXADOS), "Remo/Chape em fim de contrato", "")))
     d = d[d.grupo != ""]
     d = d[[not fora(j, c) for j, c in zip(d.jogador, d.clube)]]; d = d[d.idade <= 36]
     # físico, valor de mercado (Transfermarkt) e faixa salarial (Capology) do Portal
@@ -56,7 +60,7 @@ def main():
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
     md = ["# Série A — não aproveitados e fim de contrato que servem à Série B", "",
           "*Dado: Wyscout ago/26 (Série A 2026, ≥ 200 min), ranking do Portal, físico do Portal · 26/09/2026. A Série A está fora das recomendações por decisão do clube (23/09); esta é a lista de exceção, para as posições em que a B e os mercados de fora não fecham.*", "",
-          "Dois grupos: **não aproveitado** (200 a 1.100 min em 2026 — reserva ou saiu do time: empréstimo em janeiro) e **fim de contrato, 30+** (contrato até jun/27 e 30 anos ou mais — chega livre). "
+          "Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 a 1.100 min em 2026 — empréstimo em janeiro), **veterano em fim de contrato** (30+ e contrato até jun/27 — chega livre) e **Remo/Chape em fim de contrato** (qualquer idade, contrato até jun/27). "
           "Aderência calculada entre os jogadores da A da posição com ≥ 200 min e convertida pela reta do B11 (quem vem da A chega acima da mediana da B: p50 → 62); nota = média com o nível do ranking (\\* = nível imputado). "
           "Filtros: sem vetados, valor ≤ € 2 MM, faixa salarial (Capology) com teto até R$ 800 mil/mês (empréstimo com divisão de salário; a faixa aparece na tabela para o clube decidir), PSV-99 ≥ 27 quando há rastreio, até 36 anos. **O que o B2-6 manda lembrar:** gols e conversão do passado não repetem; volume (toques na área, aéreos, passes chave) repete — as duas colunas de destaque são de volume.", ""]
     for p in ORDEM:
