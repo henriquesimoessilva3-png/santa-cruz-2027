@@ -91,8 +91,9 @@ Um bloco por vez, validado antes do seguinte. Scripts em `scripts/`, resultados 
 
 
 ## Estado em 25/09/2026
-Blocos 1–11 rodados (`resultados/b*/B*.md`): 8 físico × técnico, 9 duelos e posse, 10 sugestões pelo tipo
-físico, 11 treinador e modelo de jogo. Listas por posição nos mercados Série B, sul-americanas e exterior
+Blocos 1–13 rodados (`resultados/b*/B*.md`): 8 físico × técnico, 9 duelos e posse, 10 sugestões pelo tipo
+físico, 11 treinador e modelo de jogo, 12 conversão de liga revista (reta em vez de desconto fixo), 13 sorte × mérito
+dos treinadores (xPts). Lista única ordenada nos três mercados em `listas/IDEAL_2027.md`. Listas por posição nos mercados Série B, sul-americanas e exterior
 (`listas/`), sem Série A e sem os nomes vetados (`EXCLUIDOS.csv`), teto de € 2 MM e idade ≤ 35. Bola parada por
 jogador com Sofascore (Série B). Conclusões em `DIFERENCIAIS.md`; régua e filtros em `SINTESE.md`.
 Pendente: bola parada Sofascore das ligas sul-americanas (coleta bloqueada); físico das ligas de fora vem do

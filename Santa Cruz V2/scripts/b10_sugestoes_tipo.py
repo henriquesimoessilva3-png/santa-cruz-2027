@@ -103,7 +103,7 @@ def main():
           "**ordem**: a nota do estudo = aderência ao modelo que rende na B + nível do ranking.",
           "", "Filtros: piso de 27 km/h, até 32 anos, sem os nomes vetados, valor ≤ € 2 MM, ≥ 900 min. Jogador de fora é "
           "encaixado no tipo pelo perfil médio de cada tipo na Série B (mesmos indicadores do SkillCorner); nas ligas "
-          "sul-americanas a nota já tem o desconto de conversão (−15). (e) = contrato além de jun/27. "
+          "sul-americanas a aderência já está convertida pela reta de liga (B12). (e) = contrato além de jun/27. "
           "**\\*** = não é do tipo preferido do setor: entra só para completar os 10 (ordem pela nota).", "",
           "| Setor | Tipo(s) de quem sobe | Subiu | Caiu |", "|---|---|---|---|"]
     for s in SETORES:

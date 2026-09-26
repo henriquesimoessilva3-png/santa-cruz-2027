@@ -59,7 +59,7 @@ def main():
           "Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **brasileiros e sul-americanos no exterior** em ligas compatíveis com a B (Portugal B/C, Leste Europeu, Golfo, Ásia B) — ordenados do mais aderente ao menos. "
           "**Pontuação** = nota do estudo (aderência ao modelo que rende na Série B + nível do ranking) + 3 se é do tipo físico que quem sobe mais usa (B10) + 3 se é especialista de bola parada (índice ≥ 85) + bônus dos scouts, com −5 para Equador B, Bolívia e Argentina B. "
           "Filtros: ≥ 900 min, idade ≤ 35, fora os clubes grandes das ligas fracas (Olympiacos, Ludogorets, Maccabi, clubes do Golfo…), PSV-99 ≥ 27 km/h quando há rastreio, sem os vetados, valor ≤ € 2 MM, nota com as duas partes (ou aderência ≥ 65). "
-          "Nas ligas de fora a nota já tem o desconto de conversão (−15). **L** = livre (contrato até jun/27 ou sem contrato); **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27.", ""]
+          "Nas ligas de fora a aderência já está convertida pela reta de liga (B12: p90 na origem → 58 na B). **L** = livre (contrato até jun/27 ou sem contrato); **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27.", ""]
     out = []
     for p, nome, sub in POS:
         x = d[d.pos11 == p].head(10).assign(ordem=lambda t: range(1, len(t) + 1)); out.append(x)

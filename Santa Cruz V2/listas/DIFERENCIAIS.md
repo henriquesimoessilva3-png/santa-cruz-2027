@@ -70,14 +70,16 @@ no alvo 0,07): contratar pelo que o jogador faz, não pelo que deu certo.
 Estrangeiros na Série B são poucos e sul-americanos (ARG, COL, URU, PAR), de extremo, meia e
 atacante — para zaga e volante quase não há precedente. O estreante estrangeiro joga tanto quanto
 o brasileiro, mas só 37% seguem na liga: contrato de um ano com opção. Quem vem de fora chega ao
-meio da tabela seja qual for o destaque na origem (percentil 90 → 60): não pagar por ranking de
-outra liga. Origem que chega acima da mediana: Série A (+16 percentis).
+meio da tabela seja qual for o destaque na origem (percentil 90 → 54–61; p50 → 46): não pagar por ranking de
+outra liga. Nas listas a aderência de fora é convertida por essa reta (B12), não por desconto fixo; por país não
+dá para separar (n de 3 a 5). Origem que chega acima da mediana: Série A (p50 → 62).
 
 ## 8. Treinador
 O rendimento não viaja entre clubes (r 0,01 em 69 pares); trocar no meio do ano "funciona" em
 55 de 88 porque se troca no fundo do poço. O critério que a base sustenta é não trocar. O que viaja com o treinador é a **ideia de jogo** (passe longo, pressão, contra-ataque: r 0,26–0,38 entre clubes); o físico, o jogo aéreo e a posse ficam com o elenco (B11). Escolher treinador e montar elenco são a mesma decisão: o onze recomendado é direto e aéreo (perfil Baptista/Tencati) com intensidade mediana (perfil Condé); Mozart, de posse, é o que menos encaixa. Para
-reduzir a conversa: Léo Condé (rendeu acima do elenco em três clubes, livre), Eduardo Baptista
-(o mais regular), Mozart (dois acessos), Tencati (elenco barato). Escolha por entrevista,
+reduzir a conversa: Eduardo Baptista (o mais regular e o maior xPts por jogo, 1,59 — rende pelo jogo, B13),
+Léo Condé (rendeu acima do elenco em três clubes, livre; +0,21 ponto por jogo de sorte, que não repete),
+Mozart (dois acessos), Tencati (elenco barato). Escolha por entrevista,
 comissão e projeto.
 
 ## 9. Temporada

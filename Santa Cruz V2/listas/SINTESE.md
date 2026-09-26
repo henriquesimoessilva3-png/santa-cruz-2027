@@ -24,7 +24,7 @@
 |---|---|---|---|
 | 1 | **Minutagem regular** (≥ 900 min, de preferência dois anos) | elimina | B1-4, B2-6 |
 | 2 | **Piso de velocidade**: PSV-99 ≥ 27 km/h para todo titular de linha | elimina (exceção só com vídeo) | B1-2 |
-| 3 | **Nota do estudo** = aderência ao modelo que rende na posição + nível do ranking | ordena | B2-4, LISTAS |
+| 3 | **Nota do estudo** = aderência ao modelo que rende na posição + nível do ranking; de fora, a aderência convertida pela reta de liga (p90 na origem → 58 na B) | ordena | B2-4, B12, LISTAS |
 | 4 | **Tipo físico de quem sobe** por setor (zaga e CA *Motor de volume*; laterais e extremos *Explosivo e rápido*; volante *Mais intenso/Intermediário*; meia *Médio em tudo*) | ordena | B8-4, B10 |
 | 5 | **Bola parada**: 1 cobrador (MEI/ED/MED) + 3 finalizadores aéreos (ZD, ZE, CA) — volume repete (r 0,72–0,82), gol não | decide entre iguais | B3-3 |
 | 6 | **Valor de mercado ≤ € 2 MM**; sem Série A; sem os vetados | corte do clube | EXCLUIDOS |
@@ -52,9 +52,10 @@
 
 - O rendimento **não viaja** entre clubes (r 0,01); a **ideia de jogo** viaja (passe longo, pressão, contra-ataque). O físico e o jogo aéreo ficam com o elenco (B4-1, B11-3).
 - O que todos os que rendem têm: **ceder pouca chance clara**. Formação e posse variam (B11-5).
-- Para o onze recomendado (direto, aéreo, intensidade mediana): **Léo Condé** (rende com elenco mediano, 4-2-3-1, não exige intensidade) ou **Eduardo Baptista** (o modelo mais alinhado ao eixo; pede 2–3 peças mais intensas). Mozart não fecha com este elenco (B11-6).
+- Pontos esperados pelo xG (xPts) repetem entre passagens; a sorte não. Baptista 1,59 xPts/j, Condé 1,53 (+0,21 de sorte), Guto/Carpini +0,30 de sorte (B13).
+- Recomendação: **Eduardo Baptista** (o modelo mais alinhado ao eixo e o mais sustentável) ou **Léo Condé** (rende com elenco mediano, 4-2-3-1, adapta-se). O elenco de "Os meus dez" é intenso e de campo — encaixa em Condé/Tencati; com Baptista pede zaga e 9 fortes no alto. Mozart não fecha (B11-6).
 - Contratar para ficar o ano inteiro (B5-1).
 
 ## 5 · Onde estão os nomes
 
-`Quem eu contrataria` (onze + opções) · `Dez alvos por posição` (Top 10 com PSV e tipo físico) · `Listas por posição` (5 por mercado) · `Sugestões pelo tipo físico` (B10, 3 listas de 10) · `Especialistas de bola parada` · `Empréstimos do exterior` · `Campograma × estudo` (o cenário do clube contra tudo isso).
+`Os meus dez por posição` (a ordem, três mercados juntos) · `Quem eu contrataria` (onze + opções) · `Dez alvos por posição` (Top 10 com PSV e tipo físico) · `Listas por posição` (5 por mercado) · `Sugestões pelo tipo físico` (B10, 3 listas de 10) · `Especialistas de bola parada` · `Empréstimos do exterior` · `Campograma × estudo` (o cenário do clube contra tudo isso).

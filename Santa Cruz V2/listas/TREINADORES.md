@@ -70,8 +70,11 @@ Base: 266 passagens não interinas com ≥ 10 jogos de Série B, 2018–2026 (`r
 - **Marcinho:** Ituano 2023 (30j, 1.17)
 - **Alex:** Operário-PR 2025 (26j, 1.31), Athletic 2026 (27j, 1.37)
 
+## Sorte × mérito (B13)
+Pontos esperados pelo xG por passagem: Baptista 1,59 xPts/j (o maior entre os em foco), Condé 1,53 (+0,21 de sorte), Guto 1,43 (+0,30), Carpini 1,47 (+0,31), Tencati 1,44, Mozart 1,43, Enderson Moreira 1,62 (−0,18: jogo melhor que o placar). O xPts repete entre passagens (r 0,14); a sorte não (0,08).
+
 ## Como ler
-- **Perfil Santa Cruz** (render com elenco de meio de tabela, sem afundar): Léo Condé, Eduardo Baptista, Claudio Tencati, Adilson Batista.
+- **Perfil Santa Cruz** (render com elenco de meio de tabela, sem afundar): Eduardo Baptista (o mais sustentável pelo xPts e o modelo mais alinhado ao eixo), Léo Condé (o que mais rendeu, com parte de sorte), Claudio Tencati, Adilson Batista. Enderson Moreira pelo xPts.
 - **Acessos com elenco caro** (o número diz o caixa): Carpini, Guto Ferreira, Mozart, Pezzolano.
 - **Uma passagem só, alta**: Carlos Pimentel (Ituano 2022), Pepa, Maurício Barbieri, Mariano Soso — apostas.
 - Situação atual pesquisada só para os seis primeiros; os demais precisam de conferência antes de contato.

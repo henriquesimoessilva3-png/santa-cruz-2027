@@ -1,133 +1,133 @@
 mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nascido_em,passaporte,aderencia,aderencia_ajustada,nivel_overall,rank_na_liga,nota,nota_completa,nivel_bola_parada,nivel_fisico,criterios_com_dado,posse_est,Duelos def/90 PAdj,Aéreos/90 PAdj,Duelos of/90 PAdj,sul_americano,ocupa_vaga_estrangeiro,On loan,livre_2027,contrato_vencido,nivel
-Exterior,Italia B,GOL,L. Chichizola,Modena,36.0,3164,2027-06-30,400000,Argentina,"Argentina, Italy",77.8,62.8,74.31,3.0,68.6,True,0.0,,5,49.86272447832056,0.14,0.51,0.17,True,True,sim,True,False,N1
-Exterior,Portugal B,GOL,Lucas Paes,Torreense,28.0,3085,2026-06-30,200000,Brazil,Brazil,73.0,58.0,73.12,4.0,65.6,True,0.0,,5,51.29529838337363,0.12,0.45,0.06,True,False,sim,True,True,N1
-Exterior,Portugal B,GOL,Mateus Pasinato,Felgueiras 1932,33.0,1198,2026-06-30,300000,Brazil,"Brazil, Italy",79.0,64.0,67.08,6.0,65.5,True,0.0,,5,45.88622597245101,0.0,0.63,0.09,True,False,sim,True,True,N1
-Exterior,EUA,GOL,Daniel,Dallas,32.0,1606,2026-12-31,1200000,Brazil,Brazil,77.0,62.0,66.83,8.0,64.4,True,0.0,,5,38.6026566507044,0.14,0.41,0.36,True,False,sim,True,False,N1
-Exterior,Espanha C,GOL,L. García,Cartagena,28.0,2671,2027-06-30,200000,Colombia,"Colombia, Spain",72.0,57.0,71.22,5.0,64.1,True,0.0,,5,55.335368294547614,0.03,0.53,0.03,True,True,sim,True,False,N1
-Exterior,Belgica A,GOL,M. Peano,La Louvière,27.0,3387,2028-06-30,350000,Argentina,Argentina,73.3,58.3,63.71,7.0,61.0,True,0.0,,5,36.15470811480777,0.19,0.38,0.33,True,True,sim,False,False,N1
-Exterior,Portugal A,GOL,Adriel,AVS ,25.0,1577,2026-12-31,1500000,Brazil,Brazil,71.2,56.2,65.69,7.0,60.9,True,0.0,,5,35.477675869769435,0.13,0.36,0.24,True,False,sim,True,False,N1/N2
-Exterior,Arabia Saudita A,GOL,Samuel Portugal,Al Akhdoud,32.0,2684,2027-06-30,1500000,Brazil,Brazil,70.0,55.0,63.31,4.0,59.2,True,0.0,,5,43.61899340907279,0.2,0.24,0.11,True,False,sim,True,False,N1
-Exterior,Grecia,GOL,L. Cháves,Panetolikos FC,30.0,1491,2027-12-31,1200000,Argentina,Argentina,71.7,56.7,56.55,7.0,56.6,True,0.0,,5,46.3685488455794,0.06,0.9,0.52,True,True,sim,False,False,N1
-Exterior,Inglaterra B,GOL,L. Vigouroux,Swansea City,32.0,4420,2028-06-30,300000,England,"England, Chile",61.2,46.2,60.08,8.0,53.1,True,0.0,,5,58.57768155711612,0.0,0.66,0.15,True,True,sim,False,False,N1
-Exterior,Espanha C,GOL,J. Flere,Europa,28.0,3451,,100000,Argentina,"Argentina, Italy",60.9,45.9,53.54,28.0,49.7,True,0.0,,5,45.024929095853395,0.12,0.42,0.32,True,True,sim,True,False,N1
-Exterior,Turquia,GOL,Marcos Felipe,Eyüpspor,30.0,1868,2027-12-31,2000000,Brazil,Brazil,68.8,53.8,45.0,15.0,49.4,True,0.0,,5,46.462271890215064,0.05,0.36,0.11,True,False,sim,False,False,N1
-Exterior,Grecia,LD,Rodinei,Olympiacos Piraeus,34.0,1866,2027-06-30,1500000,Brazil,Brazil,82.7,67.7,84.32,1.0,76.0,True,0.0,33.23,6,57.4724344777545,6.13,3.17,5.75,True,False,sim,True,False,N1
-Exterior,Russia,LD,J. Cáceres,Dinamo Moskva,25.0,2253,2029-12-31,800000,Argentina,"Argentina, Paraguay",80.2,65.2,56.91,1.0,61.1,True,0.0,37.57,6,56.6209952378443,8.38,4.46,3.77,True,True,sim,False,False,N1/N2
-Exterior,Tcheca,LD,Á. Preciado,Sparta Praha,28.0,1062,2029-12-31,0,Ecuador,Ecuador,72.7,57.7,57.5,4.0,57.6,True,0.0,,6,66.79288290684481,5.87,2.94,8.18,True,True,sim,False,False,N1
-Exterior,Tcheca,LD,O. Sonne,Sparta Praha,25.0,1162,2029-06-30,2000000,Denmark,"Denmark, Peru",66.9,51.900000000000006,61.6,3.0,56.8,True,0.0,,6,66.79288290684481,6.88,3.49,2.43,True,True,sim,False,False,N1/N2
-Exterior,Hungria,LD,Cadu,Ferencváros,28.0,1043,,1200000,Brazil,Brazil,71.9,56.900000000000006,56.56,1.0,56.7,True,0.0,,6,56.39006367834913,5.94,1.39,4.21,True,False,no,True,False,N1
-Exterior,Portugal B,LD,Italo,Vizela,23.0,1529,2027-06-30,0,Brazil,Brazil,75.6,60.599999999999994,51.35,5.0,56.0,True,0.0,43.15,6,54.11337121602303,9.82,2.69,9.57,True,False,sim,True,False,N2 jovem
-Exterior,Italia C,LD,T. Casasola,Catania,30.0,3687,2027-06-30,800000,Argentina,"Argentina, Italy",67.7,52.7,55.8,2.0,54.2,True,0.0,,6,46.740837581016045,4.42,1.92,6.27,True,True,sim,True,False,N1
-Exterior,Mexico,LD,K. Rosero,Necaxa,27.0,2663,2027-06-30,500000,Colombia,Colombia,62.0,47.0,57.15,3.0,52.1,True,0.0,42.5,6,46.21405205360088,4.3,1.54,10.97,True,True,sim,True,False,N1
-Exterior,EUA,LD,É. Ocampo,Vancouver Whitecaps,22.0,1499,2027-12-31,0,Colombia,Colombia,66.8,51.8,46.2,7.0,49.0,True,0.0,48.58,6,56.409119883795775,7.43,1.03,4.73,True,True,sim,False,False,N2 jovem
-Exterior,Russia,LD,A. Arroyo,Rubin Kazan',26.0,1962,2029-06-30,800000,Colombia,Colombia,69.8,54.8,42.45,15.0,48.6,True,0.0,43.24,6,45.84411148324538,5.34,3.94,7.41,True,True,sim,False,False,N1
-Exterior,Italia C,LD,B. Valenti,Monopoli,23.0,3017,2028-06-30,125000,Argentina,"Argentina, Italy",66.1,51.099999999999994,45.94,10.0,48.5,True,0.0,,6,49.91371900155999,5.09,1.43,6.54,True,True,sim,False,False,N2 jovem
-Exterior,EUA,LD,E. Echenique,Cincinnati,22.0,1202,2028-12-31,350000,Venezuela,Venezuela,60.8,45.8,50.92,4.0,48.4,True,0.0,54.77,6,46.50099492150759,3.5,1.33,8.13,True,True,sim,False,False,N2 jovem
-Exterior,Grecia,ZD,Fabiano,Aris,34.0,2024,2027-06-30,800000,Brazil,Brazil,81.8,66.8,71.98,1.0,69.4,True,0.0,31.01,7,50.16249730452494,3.26,4.37,0.53,True,False,sim,True,False,N1
-Exterior,China,ZD,Lucão,Chongqing Tongliang Long,30.0,1430,,400000,Brazil,Brazil,81.6,66.6,68.09,2.0,67.3,True,0.0,32.13,7,60.1380208550186,4.74,5.21,0.94,True,False,sim,True,False,N1
-Exterior,Israel,ZD,B. Carabalí,Beitar Jerusalem,27.0,3268,2028-06-30,250000,Colombia,Colombia,70.2,55.2,70.7,2.0,63.0,True,0.0,,7,59.64174654406269,5.05,5.53,2.05,True,True,sim,False,False,N1
-Exterior,Italia C,ZD,Gregorio Tanco,Lecco,26.0,2368,2026-06-30,100000,Argentina,"Argentina, Spain",77.0,62.0,63.17,1.0,62.6,True,0.0,,7,61.722344917267485,6.26,4.86,1.11,True,True,sim,True,True,N1
-Exterior,Turquia,ZD,Gabriel Paulista,Beşiktaş,35.0,954,2027-12-31,2000000,Brazil,"Brazil, Spain",76.7,61.7,63.06,5.0,62.4,True,0.0,32.9,7,56.82250415403909,4.37,4.15,0.75,True,False,sim,False,False,N1
-Exterior,Ucrania,ZD,Jordan,Zorya,27.0,2644,2028-06-30,800000,Brazil,Brazil,75.2,60.2,63.25,4.0,61.7,True,0.0,28.39,7,53.19166522797107,5.38,4.95,2.17,True,False,sim,False,False,N1
-Exterior,Emirados,ZD,Iago Santos,Dibba Al Fujairah,33.0,1554,2026-06-30,1000000,Brazil,Brazil,73.9,58.900000000000006,60.99,5.0,59.9,True,0.0,22.76,7,36.910200004808544,2.98,3.76,1.72,True,False,sim,True,True,N1
-Exterior,Coreia B,ZD,Lucão,Gyeongnam,24.0,1159,,0,Brazil,Brazil,77.4,62.400000000000006,54.99,10.0,58.7,True,0.0,,7,49.16786558875069,4.28,6.27,2.29,True,False,sim,True,False,N1/N2
-Exterior,Mexico,ZD,M. Capasso,Atlas,30.0,1947,2028-12-31,1000000,Argentina,"Argentina, Italy",69.9,54.900000000000006,61.81,4.0,58.4,True,0.0,25.01,7,44.991918788282014,4.62,3.91,1.08,True,True,sim,False,False,N1
-Exterior,Portugal B,ZD,F. Romero,Farense,31.0,1477,2026-12-31,500000,Uruguay,Uruguay,73.9,58.900000000000006,56.7,8.0,57.8,True,0.0,22.45,7,48.45413246964675,3.42,3.67,0.88,True,True,sim,True,False,N1
-Exterior,Mexico,ZD,Joaquim,Tigres UANL,27.0,2833,2027-06-30,0,Brazil,Brazil,71.6,56.599999999999994,58.71,10.0,57.7,True,0.0,25.13,7,55.66098437820196,5.12,5.55,2.08,True,False,sim,True,False,N1
-Exterior,Portugal B,ZD,Mateus Sarará,Portimonense,23.0,1794,2026-06-30,400000,Brazil,Brazil,67.8,52.8,58.2,7.0,55.5,True,0.0,29.66,7,44.73398402471456,3.49,3.76,2.36,True,False,sim,True,True,N2 jovem
-Exterior,Espanha B,ZE,Rubén Alves,Córdoba,31.0,1834,2028-06-30,800000,Brazil,"Brazil, Spain",80.7,65.7,65.97,4.0,65.8,True,0.0,26.32,7,50.775569592540016,5.78,4.54,1.21,True,False,sim,False,False,N1
-Exterior,Israel,ZE,Heitor,Maccabi Tel Aviv,26.0,1775,2028-06-30,250000,Brazil,Brazil,82.0,67.0,60.86,6.0,63.9,True,0.0,,7,50.190992568159956,4.18,3.81,1.71,True,False,sim,False,False,N1
-Exterior,França B,ZE,J. Guevara,Bastia,24.0,2172,2026-06-30,0,Colombia,Colombia,81.8,66.8,59.31,9.0,63.1,True,0.0,,7,44.47797197062894,5.64,4.77,3.63,True,True,sim,True,True,N1/N2
-Exterior,Mexico,ZE,F. Pereira,Toluca,26.0,3128,2028-06-30,0,Uruguay,Uruguay,75.8,60.8,64.09,2.0,62.4,True,0.0,24.08,7,60.84802556037767,8.2,5.91,1.21,True,True,sim,False,False,N1
-Exterior,Israel,ZE,Chico,Hapoel Tel Aviv,27.0,3055,2029-06-30,500000,Brazil,Brazil,73.5,58.5,62.11,4.0,60.3,True,0.0,,7,46.3700005826133,3.24,2.33,1.47,True,False,sim,False,False,N1
-Exterior,Holanda,ZE,R. Hillen,NAC Breda,23.0,2070,2029-06-30,500000,Netherlands,"Netherlands, Brazil",76.1,61.099999999999994,56.91,16.0,59.0,True,0.0,31.64,7,48.50124634524693,5.86,4.89,2.56,True,False,sim,False,False,N2 jovem
-Exterior,Espanha A,ZE,L. Cabrera,Espanyol,34.0,3681,2027-06-30,1200000,Uruguay,"Uruguay, Spain",76.0,61.0,55.29,9.0,58.1,True,0.0,23.94,7,39.76203143134313,3.33,3.92,0.89,True,True,sim,True,False,N1
-Exterior,Bulgaria,ZE,C. Makoun,Levski Sofia,26.0,2133,2027-06-30,0,Venezuela,"Venezuela, Cameroon",60.0,45.0,69.42,1.0,57.2,True,0.0,,7,60.84483357621762,4.74,3.88,1.39,True,True,sim,True,False,N1
-Exterior,Mexico,ZE,S. Homenchenko,Querétaro,22.0,2721,2027-12-31,500000,Uruguay,Uruguay,69.1,54.099999999999994,60.2,6.0,57.2,True,0.0,23.28,7,34.876233839897836,5.77,2.03,4.21,True,True,sim,False,False,N2 jovem
-Exterior,Catar,ZE,J. Murillo,Al Shamal,34.0,1733,2026-06-30,800000,Colombia,"Colombia, Spain",78.4,63.400000000000006,49.22,14.0,56.3,True,0.0,22.17,7,49.661687205555076,3.71,3.04,1.31,True,True,sim,True,True,N1
-Exterior,Portugal C,ZE,Tiago Caveira,Sporting Covilhã,25.0,916,,0,Brazil,Brazil,68.4,53.400000000000006,58.1,5.0,55.8,True,0.0,,7,46.411329838942855,2.57,6.51,2.22,True,False,sim,True,False,N1/N2
-Exterior,Emirados,ZE,Yuri Matias,Ajman,31.0,1928,,1200000,Brazil,Brazil,72.3,57.3,53.88,9.0,55.6,True,0.0,20.1,7,43.07852353545128,3.44,4.51,0.97,True,False,sim,True,False,N1
-Exterior,Bahrain,LE,Samuel Toscas,Al Riffa,26.0,2048,2031-06-30,0,Brazil,Brazil,94.5,79.5,83.22,1.0,81.4,True,0.0,,6,70.0,6.52,3.15,4.84,True,False,sim,False,False,N1
-Exterior,Bulgaria,LE,Maicon,Levski Sofia,26.0,2951,2027-06-30,0,Brazil,Brazil,80.0,65.0,72.86,1.0,68.9,True,0.0,,6,60.84483357621762,8.1,2.68,6.11,True,False,sim,True,False,N1
-Exterior,Espanha A,LE,Germán Valera,Elche,24.0,3085,2027-06-30,2000000,Spain,"Spain, Venezuela",73.3,58.3,70.99,2.0,64.6,True,0.0,57.86,6,56.74404555704151,5.59,1.04,8.1,True,True,sim,True,False,N1/N2
-Exterior,Romenia,LE,Conrado,Oţelul,29.0,2529,2026-06-30,300000,Brazil,"Brazil, Italy",85.6,70.6,57.42,2.0,64.0,True,0.0,,6,51.07581186289999,7.31,2.43,7.53,True,False,sim,True,True,N1
-Exterior,Italia B,LE,Paulo Azzi,Monza,31.0,3426,2027-06-30,1000000,Brazil,"Brazil, Italy",83.0,68.0,57.37,2.0,62.7,True,0.0,52.38,6,55.55553621607599,6.83,2.01,7.07,True,False,sim,True,False,N1
-Exterior,Bahrain,LE,G. Olivera,Muharraq,25.0,1588,,300000,Uruguay,Uruguay,80.9,65.9,57.45,2.0,61.7,True,0.0,,6,56.07172285001273,6.58,3.74,4.7,True,True,sim,True,False,N1/N2
-Exterior,Emirados,LE,Marcus Meloni,Al Jazira,25.0,1359,2030-06-30,2000000,Brazil,"Brazil, United Arab Emirates",71.7,56.7,65.59,1.0,61.1,True,0.0,37.64,6,53.28324176332181,9.22,2.62,6.65,True,False,sim,False,False,N1/N2
-Exterior,Polonia,LE,Jean Carlos,Raków Częstochowa,30.0,1618,2027-12-31,800000,Brazil,"Brazil, Spain",75.0,60.0,59.43,1.0,59.7,True,0.0,,6,51.30960560093238,4.63,2.52,9.6,True,False,sim,False,False,N1
-Exterior,Bulgaria,LE,Matheus Leoni,Dobrudzha 1919,34.0,1842,,250000,Brazil,"Brazil, Italy",78.3,63.3,54.11,6.0,58.7,True,0.0,,6,49.86322302798112,9.07,2.78,5.88,True,False,sim,True,False,N1
-Exterior,Polonia,LE,Adriano,Raków Częstochowa,24.0,1600,2028-06-30,0,Brazil,Brazil,75.7,60.7,56.09,3.0,58.4,True,0.0,,6,51.30960560093238,6.36,3.12,14.97,True,False,sim,False,False,N1/N2
-Exterior,EUA,LE,J. Sanabria,Real Salt Lake,26.0,1397,2030-06-30,0,Uruguay,"Uruguay, Spain",75.2,60.2,48.36,4.0,54.3,True,0.0,46.77,6,52.68762663512671,6.19,2.25,1.77,True,True,sim,False,False,N1
-Exterior,EUA,LE,I. Angulo,Orlando City,27.0,1835,2026-12-31,2000000,Colombia,Colombia,63.3,48.3,55.45,1.0,51.9,True,0.0,62.97,6,45.000802267980426,5.39,0.4,8.01,True,True,sim,True,False,N1
-Exterior,Bulgaria,VOL,Pedro Naressi,Ludogorets,28.0,1859,2026-06-30,0,Brazil,Brazil,71.1,56.099999999999994,72.02,2.0,64.1,True,0.0,,6,62.77768972256704,7.48,4.23,2.62,True,False,sim,True,True,N1
-Exterior,Bahrain,VOL,Rodrigo Yuri,Al Riffa,32.0,1958,,0,Brazil,Brazil,58.3,43.3,77.68,1.0,60.5,True,0.0,,6,70.0,7.43,2.98,3.45,True,False,sim,True,False,N1
-Exterior,Italia C,VOL,G. Capomaggio,Salernitana,29.0,3101,2028-06-30,0,Argentina,"Argentina, Italy",80.4,65.4,50.46,13.0,57.9,True,0.0,,6,48.5374047127769,5.07,3.78,4.15,True,True,sim,False,False,N1
-Exterior,Italia B,VOL,G. Brugman,Pescara,33.0,1476,2026-06-30,2000000,Uruguay,"Uruguay, Italy",58.8,43.8,67.37,1.0,55.6,True,0.0,29.15,6,49.0340178257905,6.64,1.43,3.67,True,True,sim,True,True,N1
-Exterior,Portugal B,VOL,Cláudio Falcão,Farense,31.0,2806,2029-06-30,1000000,Brazil,"Brazil, Portugal",75.0,60.0,49.08,6.0,54.5,True,0.0,25.06,6,48.45413246964675,6.41,3.86,3.45,True,False,sim,False,False,N1
-Exterior,Portugal B,VOL,Léo Azevedo,Torreense,22.0,2548,2027-06-30,0,Brazil,Brazil,75.5,60.5,46.09,8.0,53.3,True,0.0,28.6,6,51.29529838337363,7.07,3.22,4.61,True,False,sim,True,False,N2 jovem
-Exterior,Mexico,VOL,P. Vite,Pumas UNAM,24.0,3292,2029-07-18,0,Ecuador,Ecuador,57.4,42.4,60.3,3.0,51.4,True,0.0,27.77,6,50.245302578232746,4.91,1.05,5.04,True,True,sim,False,False,N1/N2
-Exterior,Bulgaria,VOL,Lucas Araújo,Botev Plovdiv,27.0,1307,2027-06-30,400000,Brazil,Brazil,60.7,45.7,56.28,5.0,51.0,True,0.0,,6,53.136084411732625,7.91,2.85,4.53,True,False,sim,True,False,N1
-Exterior,Suiça,VOL,M. Reichmuth,Zürich,22.0,1195,,0,Switzerland,"Switzerland, Chile",44.6,29.6,68.4,1.0,49.0,True,0.0,41.63,6,46.034891284286246,7.33,1.19,7.94,True,True,sim,True,False,N2 jovem
-Exterior,Suiça,VOL,Baltazar Costa,Sion,26.0,2818,2028-06-30,500000,Brazil,Brazil,64.3,49.3,47.4,7.0,48.3,True,0.0,29.86,6,54.25089447966434,6.32,4.44,3.56,True,False,sim,False,False,N1
-Exterior,Mexico,VOL,J. Caicedo,Pumas UNAM,23.0,1452,2030-06-30,0,Colombia,Colombia,64.7,49.7,46.16,6.0,47.9,True,0.0,,6,50.245302578232746,4.98,2.86,1.97,True,True,sim,False,False,N2 jovem
-Exterior,Israel,VOL,Lucas Ventura,Hapoel Be'er Sheva,28.0,3068,2028-06-30,500000,Brazil,Brazil,66.9,51.900000000000006,38.01,13.0,45.0,True,0.0,,6,59.121581025352704,7.03,1.3,6.57,True,False,sim,False,False,N1
-Exterior,EUA,MED,R. De Paul,Inter Miami,32.0,1539,2029-12-31,0,Argentina,"Argentina, Italy",91.5,76.5,74.02,1.0,75.3,True,0.0,46.34,6,57.21163864216231,3.48,0.21,4.5,True,True,sim,False,False,N1
-Exterior,Mexico,MED,A. Palavecino,Cruz Azul,29.0,3557,2029-12-31,1800000,Argentina,"Argentina, Spain",96.4,81.4,68.4,3.0,74.9,True,0.0,44.01,6,54.28441341279396,6.92,1.66,6.69,True,True,sim,False,False,N1
-Exterior,Bahrain,MED,G. Wilson Da Silva Moreira,Khalidiya ,30.0,1437,2026-06-30,0,Brazil,Brazil,81.2,66.2,71.98,1.0,69.1,True,0.0,,6,56.44853015183786,6.61,2.23,7.65,True,False,sim,True,True,N1
-Exterior,Bahrain,MED,Arthur Rezende,Muharraq,32.0,1839,,500000,Brazil,Brazil,78.4,63.400000000000006,69.13,2.0,66.3,True,0.0,,6,56.07172285001273,5.41,1.39,6.33,True,False,sim,True,False,N1
-Exterior,Coreia B,MED,Bruno Lamas,Cheonan City,32.0,2161,,600000,Brazil,"Brazil, Italy",86.9,71.9,53.7,4.0,62.8,True,0.0,,6,50.45780153025018,3.61,1.89,4.25,True,False,sim,True,False,N1
-Exterior,Portugal B,MED,Raphael Guzzo,Marítimo,31.0,2472,2027-06-30,600000,Brazil,"Brazil, Portugal",81.6,66.6,58.71,2.0,62.7,True,0.0,41.18,6,52.7482821296865,5.7,1.2,3.45,True,False,sim,True,False,N1
-Exterior,Polonia,MED,J. Elitim,Legia Warszawa,26.0,2071,2026-06-30,1800000,Colombia,"Colombia, Spain",84.2,69.2,55.85,10.0,62.5,True,0.0,,6,52.26376962948417,4.83,0.91,6.32,True,True,sim,True,True,N1
-Exterior,Emirados,MED,M. Palacios,Al Ain,24.0,2482,2029-06-30,1200000,Argentina,"Argentina, Italy",71.7,56.7,63.72,2.0,60.2,True,0.0,45.62,6,57.93510787121971,4.74,1.94,3.75,True,True,sim,False,False,N1/N2
-Exterior,Portugal B,MED,Rayan Lucas,Sporting CP II,21.0,1544,2028-10-29,0,Brazil,Brazil,76.4,61.400000000000006,56.34,4.0,58.9,True,0.0,37.61,6,63.15390762485952,7.99,3.16,4.16,True,False,sim,False,False,N2 jovem
-Exterior,Espanha C,MED,Fabricio,Tenerife,28.0,2203,2028-06-30,0,Brazil,Brazil,79.1,64.1,51.75,5.0,57.9,True,0.0,,6,56.368518278293564,6.89,2.06,3.48,True,False,sim,False,False,N1
-Exterior,Espanha B,MED,Dalisson,Córdoba,26.0,1213,2027-06-30,250000,Spain,"Spain, Brazil",73.3,58.3,57.25,5.0,57.8,True,0.0,53.21,6,50.775569592540016,5.8,2.27,7.24,True,False,sim,True,False,N1
-Exterior,Italia B,MED,N. Schiavi,Carrarese,31.0,2299,2027-06-30,500000,Argentina,"Argentina, Italy",73.2,58.2,51.22,12.0,54.7,True,0.0,42.28,6,51.23919570345689,6.71,2.12,3.09,True,True,sim,True,False,N1
-Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0,Brazil,Brazil,100.0,85.0,84.52,1.0,84.8,True,76.98,,7,51.69300105780587,3.3,2.04,6.94,True,False,sim,True,False,N1
-Exterior,EUA,MEI,Evander,Cincinnati,28.0,1683,2027-12-31,0,Brazil,Brazil,80.0,65.0,70.37,1.0,67.7,True,85.78,30.85,7,46.50099492150759,3.1,0.4,12.83,True,False,sim,False,False,N1
-Exterior,Portugal C,MEI,Caleb,Atlético CP,33.0,1349,2026-06-30,0,Brazil,Brazil,78.0,63.0,62.87,1.0,62.9,True,14.59,,7,57.97358031332468,4.37,1.75,10.19,True,False,sim,True,True,N1
-Exterior,Mexico,MEI,J. Brunetta,Tigres UANL,29.0,3548,2027-12-31,0,Argentina,"Argentina, Italy",62.4,47.4,70.88,2.0,59.1,True,74.73,32.52,7,55.66098437820196,3.72,0.91,7.0,True,True,sim,False,False,N1
-Exterior,Ucrania,MEI,Bruninho,Karpaty,26.0,2179,2028-06-30,1000000,Brazil,Brazil,63.6,48.6,68.11,2.0,58.4,True,92.11,43.13,7,50.12281815345307,2.74,1.07,9.48,True,False,sim,False,False,N1
-Exterior,China,MEI,Bruno Nazário,Henan,31.0,1127,2026-12-31,1300000,Brazil,Brazil,64.1,49.099999999999994,61.17,2.0,55.1,True,60.61,36.32,7,48.653518274213674,4.12,3.18,8.94,True,False,sim,True,False,N1
-Exterior,China,MEI,Serginho,Beijing Guoan,31.0,1312,2028-12-31,2000000,Brazil,Brazil,61.6,46.6,55.68,6.0,51.1,True,10.18,28.89,7,61.4508853858731,4.36,4.45,4.58,True,False,sim,False,False,N1
-Exterior,Grecia,MEI,G. Balzi,Levadiakos,24.0,1703,2027-12-31,175000,Argentina,Argentina,60.6,45.6,53.88,5.0,49.7,True,10.05,41.78,7,54.176596808237804,6.81,1.96,9.03,True,True,sim,False,False,N1/N2
-Exterior,Bulgaria,MEI,B. Sobrero,CSKA 1948 Sofia,27.0,2760,2028-06-30,300000,Argentina,Argentina,60.2,45.2,48.31,10.0,46.8,True,0.08,,7,52.20683242156817,4.98,2.52,6.74,True,True,sim,False,False,N1
-Exterior,Croacia,MEI,R. Gonzales,Vukovar,27.0,3171,,0,Colombia,Colombia,49.7,34.7,58.44,4.0,46.6,True,50.33,,7,40.05878080259769,3.84,1.07,13.32,True,True,sim,True,False,N1
-Exterior,Italia B,MEI,Hernani,Monza,32.0,1382,2027-06-30,2000000,Brazil,Brazil,47.1,32.1,59.33,3.0,45.7,True,39.89,38.85,7,55.55553621607599,6.52,3.15,10.03,True,False,sim,True,False,N1
-Exterior,Portugal A,MEI,Klismahn,Santa Clara,26.0,1163,2027-06-30,550000,Brazil,Brazil,60.3,45.3,45.56,7.0,45.4,True,9.31,38.64,7,46.95867441033737,4.31,1.46,7.17,True,False,sim,True,False,N1
-Exterior,Bulgaria,ED,Caio Vidal,Ludogorets,25.0,1531,2029-06-30,0,Brazil,Brazil,92.0,77.0,78.06,1.0,77.5,True,0.0,,6,62.77768972256704,4.97,2.06,13.01,True,False,sim,False,False,N1/N2
-Exterior,Bahrain,ED,Wellington Machado,Al Riffa,27.0,1669,2030-06-30,0,Brazil,Brazil,79.8,64.8,75.68,1.0,70.2,True,0.0,,6,70.0,7.63,3.23,9.82,True,False,sim,False,False,N1
-Exterior,Romenia,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,27.0,2919,2027-06-30,200000,Brazil,Brazil,79.8,64.8,71.9,1.0,68.4,True,0.0,,6,38.61808056717733,4.75,1.33,21.88,True,False,sim,True,False,N1
-Exterior,Tcheca,ED,J. Mercado,Sparta Praha,24.0,1910,2029-06-30,0,Ecuador,Ecuador,81.8,66.8,65.69,2.0,66.2,True,0.0,,6,66.79288290684481,6.67,3.82,8.78,True,True,sim,False,False,N1/N2
-Exterior,Polonia,ED,C. Mena,Lechia Gdańsk,23.0,2958,2028-06-30,0,Colombia,Colombia,90.2,75.2,54.85,3.0,65.0,True,0.0,,6,49.420296597858,5.95,0.99,10.53,True,True,sim,False,False,N2 jovem
-Exterior,Coreia B,ED,Euller,Seoul E-Land,31.0,1483,2028-12-31,350000,Brazil,Brazil,61.4,46.4,78.98,1.0,62.7,True,0.0,,6,55.969217265712395,4.13,1.73,8.62,True,False,sim,False,False,N1
-Exterior,China,ED,Wellington Silva,Chengdu Rongcheng,33.0,1460,,400000,Brazil,"Brazil, Spain",78.8,63.8,59.0,3.0,61.4,True,0.0,35.18,6,58.33358052846191,3.48,0.52,7.4,True,False,sim,True,False,N1
-Exterior,Coreia B,ED,Matheus Serafim,Daegu,28.0,1948,2026-12-31,0,Brazil,Brazil,68.8,53.8,66.14,4.0,60.0,True,0.0,,6,50.29881665171092,2.18,2.32,12.99,True,False,sim,True,False,N1
-Exterior,Espanha B,ED,Lucas Ribeiro,Cultural Leonesa,27.0,1557,2026-06-30,0,Brazil,Brazil,65.5,50.5,69.27,3.0,59.9,True,0.0,43.97,6,52.26692671519495,4.66,1.94,15.48,True,False,sim,True,True,N1
-Exterior,Mexico,ED,Kenedy,Pachuca,30.0,2253,2027-06-30,2000000,Brazil,Brazil,64.8,49.8,69.19,3.0,59.5,True,0.0,46.99,6,49.92795358906938,3.47,1.12,12.96,True,False,sim,True,False,N1
-Exterior,Coreia B,ED,Luan Dias,Gimpo Citizen,29.0,1319,,600000,Brazil,Brazil,62.2,47.2,70.61,3.0,58.9,True,0.0,,6,52.368377671078676,4.29,0.79,11.72,True,False,sim,True,False,N1
-Exterior,Bulgaria,ED,Erick Marcus,Ludogorets,22.0,2098,2028-06-30,0,Brazil,Brazil,67.0,52.0,63.68,4.0,57.8,True,0.0,,6,62.77768972256704,6.69,2.31,9.8,True,False,sim,False,False,N2 jovem
-Exterior,Inglaterra B,EE,Léo Scienza,Southampton,27.0,2761,2029-06-30,0,Brazil,"Brazil, Luxembourg",90.6,75.6,61.74,3.0,68.7,True,0.0,53.0,6,61.51971377373885,4.27,2.12,12.45,True,False,sim,False,False,N1
-Exterior,Mexico,EE,B. Rodríguez,América,26.0,2669,2029-06-30,0,Uruguay,Uruguay,85.8,70.8,62.19,4.0,66.5,True,0.0,50.93,6,64.45780775942394,3.36,1.28,8.79,True,True,sim,False,False,N1
-Exterior,EUA,EE,Guilherme,Houston Dynamo,31.0,1774,2028-06-30,1000000,Brazil,Brazil,72.9,57.900000000000006,72.77,1.0,65.3,True,0.0,59.16,6,46.747120016922835,2.81,1.24,13.4,True,False,sim,False,False,N1
-Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000,Brazil,Brazil,85.2,70.2,53.96,10.0,62.1,True,0.0,64.86,6,56.74978276486774,4.52,2.22,12.7,True,False,sim,True,True,N1/N2
-Exterior,China,EE,Davidson,Qingdao West Coast,35.0,1537,,850000,Brazil,Brazil,73.8,58.8,65.16,2.0,62.0,True,0.0,49.44,6,41.201874586497375,6.07,3.44,16.48,True,False,sim,True,False,N1
-Exterior,China,EE,Jeffinho,Liaoning Tieren,26.0,1248,2028-12-31,0,Brazil,Brazil,72.9,57.900000000000006,65.63,1.0,61.8,True,0.0,53.65,6,52.90415541908598,7.27,2.76,14.24,True,False,sim,False,False,N1
-Exterior,EUA,EE,M. Almirón,Atlanta United,32.0,1214,2027-12-31,0,Paraguay,Paraguay,71.9,56.900000000000006,59.2,5.0,58.0,True,0.0,48.65,6,51.985373569910735,2.08,1.38,8.56,True,True,sim,False,False,N1
-Exterior,Grecia,EE,T. Nuss,OFI,25.0,2120,2028-06-30,450000,Argentina,Argentina,82.2,67.2,43.99,13.0,55.6,True,0.0,48.37,6,44.78767698028984,5.84,2.73,14.03,True,True,sim,False,False,N1/N2
-Exterior,Portugal B,EE,Werton,Leixões,22.0,1605,2028-06-30,600000,Brazil,Brazil,68.0,53.0,58.27,3.0,55.6,True,0.0,55.65,6,50.43228759089719,5.38,1.36,14.07,True,False,sim,False,False,N2 jovem
-Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0,Brazil,Brazil,60.4,45.4,62.88,1.0,54.1,True,0.0,,6,60.84483357621762,3.93,3.08,7.83,True,False,sim,True,False,N1
-Exterior,Coreia A,EE,Jefferson Galego,Bucheon 1995,29.0,1989,,200000,Brazil,Brazil,72.5,57.5,50.59,8.0,54.0,True,0.0,,6,37.02266519724558,2.8,1.87,11.25,True,False,sim,True,False,N1
-Exterior,Coreia A,EE,Anderson Oliveira,Seoul,28.0,1431,,450000,Brazil,Brazil,52.9,37.9,69.21,1.0,53.6,True,0.0,,6,51.61860178042937,4.62,1.3,11.88,True,False,sim,True,False,N1
-Exterior,Bahrain,CA,Juninho,Muharraq,27.0,1543,2028-06-30,0,Brazil,Brazil,86.3,71.3,67.58,1.0,69.4,True,0.0,,6,56.07172285001273,2.06,3.98,7.7,True,False,sim,False,False,N1
-Exterior,Portugal C,CA,Nicolás Souza,Atlético CP,25.0,1732,2027-06-30,0,Brazil,Brazil,90.2,75.2,49.78,4.0,62.5,True,0.0,,6,57.97358031332468,5.38,10.95,7.89,True,False,sim,True,False,N1/N2
-Exterior,Mexico,CA,Á. Correa,Tigres UANL,31.0,3942,2030-06-30,0,Argentina,"Argentina, Spain",72.5,57.5,66.54,2.0,62.0,True,0.0,57.48,6,55.66098437820196,4.76,1.03,10.85,True,True,sim,False,False,N1
-Exterior,Coreia A,CA,Yago Cariello,Ulsan Hyundai,27.0,1288,,550000,Brazil,Brazil,85.4,70.4,48.55,5.0,59.5,True,0.0,,6,51.922414913391684,3.63,7.05,10.23,True,False,sim,True,False,N1
-Exterior,China,CA,Rafael Ratão,Shanghai Shenhua,30.0,1480,2028-12-31,0,Brazil,Brazil,85.8,70.8,47.96,4.0,59.4,True,0.0,63.61,6,52.06157866713801,2.98,2.41,8.06,True,False,sim,False,False,N1
-Exterior,Portugal C,CA,Caio Santana,Atlético CP,22.0,1040,2027-06-30,0,Brazil,Brazil,74.9,59.900000000000006,53.81,2.0,56.9,True,0.0,,6,57.97358031332468,6.79,5.15,10.07,True,False,sim,True,False,N2 jovem
-Exterior,Mexico,CA,D. Cambindo,León,30.0,2570,2027-12-31,0,Colombia,Colombia,78.4,63.400000000000006,48.08,10.0,55.7,True,0.0,60.55,6,51.95879504401811,2.84,4.74,8.19,True,True,sim,False,False,N1
-Exterior,Israel,CA,Matheus Davó,Maccabi Netanya,26.0,2359,2027-06-30,900000,Brazil,Brazil,72.2,57.2,53.97,3.0,55.6,True,0.0,,6,53.07020029218706,2.44,1.79,9.53,True,False,sim,True,False,N1
-Exterior,Coreia B,CA,Danrlei,Daegu,30.0,1003,,150000,Brazil,Brazil,84.0,69.0,40.88,10.0,54.9,True,0.0,,6,50.29881665171092,1.45,9.02,6.78,True,False,sim,True,False,N1
-Exterior,Mexico,CA,G. Berterame,Monterrey,27.0,2276,2029-06-30,0,Argentina,Argentina,79.7,64.7,43.94,14.0,54.3,True,0.0,57.75,6,58.46757085046176,2.24,3.48,3.62,True,True,sim,False,False,N1
-Exterior,Russia,CA,J. Boselli,Krasnodar,26.0,1804,2028-06-30,700000,Uruguay,"Uruguay, Italy",53.6,38.6,69.9,1.0,54.2,True,0.0,57.34,6,56.70726085482811,3.8,4.09,11.61,True,True,sim,False,False,N1
-Exterior,Portugal C,CA,Kibe,AD Marco 09,26.0,1163,2026-12-31,150000,Brazil,Brazil,80.3,65.3,42.28,18.0,53.8,True,0.0,,6,46.535196952290306,1.37,6.0,14.63,True,False,sim,True,False,N1
+Exterior,Italia B,GOL,L. Chichizola,Modena,36.0,3164,2027-06-30,400000,Argentina,"Argentina, Italy",77.8,54.3,74.31,3.0,64.3,True,0.0,,5,49.86272447832056,0.14,0.51,0.17,True,True,sim,True,False,N1
+Exterior,Portugal B,GOL,Lucas Paes,Torreense,28.0,3085,2026-06-30,200000,Brazil,Brazil,73.0,52.9,73.12,4.0,63.0,True,0.0,,5,51.29529838337363,0.12,0.45,0.06,True,False,sim,True,True,N1
+Exterior,Espanha C,GOL,L. García,Cartagena,28.0,2671,2027-06-30,200000,Colombia,"Colombia, Spain",72.0,52.6,71.22,5.0,61.9,True,0.0,,5,55.335368294547614,0.03,0.53,0.03,True,True,sim,True,False,N1
+Exterior,Portugal B,GOL,Mateus Pasinato,Felgueiras 1932,33.0,1198,2026-06-30,300000,Brazil,"Brazil, Italy",79.0,54.7,67.08,6.0,60.9,True,0.0,,5,45.88622597245101,0.0,0.63,0.09,True,False,sim,True,True,N1
+Exterior,EUA,GOL,Daniel,Dallas,32.0,1606,2026-12-31,1200000,Brazil,Brazil,77.0,54.1,66.83,8.0,60.5,True,0.0,,5,38.6026566507044,0.14,0.41,0.36,True,False,sim,True,False,N1
+Exterior,Portugal A,GOL,Adriel,AVS ,25.0,1577,2026-12-31,1500000,Brazil,Brazil,71.2,52.4,65.69,7.0,59.0,True,0.0,,5,35.477675869769435,0.13,0.36,0.24,True,False,sim,True,False,N1/N2
+Exterior,Belgica A,GOL,M. Peano,La Louvière,27.0,3387,2028-06-30,350000,Argentina,Argentina,73.3,53.0,63.71,7.0,58.4,True,0.0,,5,36.15470811480777,0.19,0.38,0.33,True,True,sim,False,False,N1
+Exterior,Arabia Saudita A,GOL,Samuel Portugal,Al Akhdoud,32.0,2684,2027-06-30,1500000,Brazil,Brazil,70.0,52.0,63.31,4.0,57.7,True,0.0,,5,43.61899340907279,0.2,0.24,0.11,True,False,sim,True,False,N1
+Exterior,Inglaterra B,GOL,L. Vigouroux,Swansea City,32.0,4420,2028-06-30,300000,England,"England, Chile",61.2,49.4,60.08,8.0,54.7,True,0.0,,5,58.57768155711612,0.0,0.66,0.15,True,True,sim,False,False,N1
+Exterior,Grecia,GOL,L. Cháves,Panetolikos FC,30.0,1491,2027-12-31,1200000,Argentina,Argentina,71.7,52.5,56.55,7.0,54.5,True,0.0,,5,46.3685488455794,0.06,0.9,0.52,True,True,sim,False,False,N1
+Exterior,Espanha C,GOL,J. Flere,Europa,28.0,3451,,100000,Argentina,"Argentina, Italy",60.9,49.3,53.54,28.0,51.4,True,0.0,,5,45.024929095853395,0.12,0.42,0.32,True,True,sim,True,False,N1
+Exterior,Bulgaria,GOL,Arthur,Beroe,24.0,2240,2028-06-30,0,Brazil,Brazil,56.5,48.0,54.67,15.0,51.3,True,0.0,,5,41.36105766427316,0.1,0.2,0.05,True,False,sim,False,False,N1/N2
+Exterior,Grecia,LD,Rodinei,Olympiacos Piraeus,34.0,1866,2027-06-30,1500000,Brazil,Brazil,82.7,55.8,84.32,1.0,70.1,True,0.0,33.23,6,57.4724344777545,6.13,3.17,5.75,True,False,sim,True,False,N1
+Exterior,Tcheca,LD,O. Sonne,Sparta Praha,25.0,1162,2029-06-30,2000000,Denmark,"Denmark, Peru",66.9,51.1,61.6,3.0,56.4,True,0.0,,6,66.79288290684481,6.88,3.49,2.43,True,True,sim,False,False,N1/N2
+Exterior,Russia,LD,J. Cáceres,Dinamo Moskva,25.0,2253,2029-12-31,800000,Argentina,"Argentina, Paraguay",80.2,55.1,56.91,1.0,56.0,True,0.0,37.57,6,56.6209952378443,8.38,4.46,3.77,True,True,sim,False,False,N1/N2
+Exterior,Tcheca,LD,Á. Preciado,Sparta Praha,28.0,1062,2029-12-31,0,Ecuador,Ecuador,72.7,52.8,57.5,4.0,55.2,True,0.0,,6,66.79288290684481,5.87,2.94,8.18,True,True,sim,False,False,N1
+Exterior,Hungria,LD,Cadu,Ferencváros,28.0,1043,,1200000,Brazil,Brazil,71.9,52.6,56.56,1.0,54.6,True,0.0,,6,56.39006367834913,5.94,1.39,4.21,True,False,no,True,False,N1
+Exterior,Italia C,LD,T. Casasola,Catania,30.0,3687,2027-06-30,800000,Argentina,"Argentina, Italy",67.7,51.3,55.8,2.0,53.6,True,0.0,,6,46.740837581016045,4.42,1.92,6.27,True,True,sim,True,False,N1
+Exterior,Mexico,LD,K. Rosero,Necaxa,27.0,2663,2027-06-30,500000,Colombia,Colombia,62.0,49.6,57.15,3.0,53.4,True,0.0,42.5,6,46.21405205360088,4.3,1.54,10.97,True,True,sim,True,False,N1
+Exterior,Portugal B,LD,Italo,Vizela,23.0,1529,2027-06-30,0,Brazil,Brazil,75.6,53.7,51.35,5.0,52.5,True,0.0,43.15,6,54.11337121602303,9.82,2.69,9.57,True,False,sim,True,False,N2 jovem
+Exterior,EUA,LD,E. Echenique,Cincinnati,22.0,1202,2028-12-31,350000,Venezuela,Venezuela,60.8,49.2,50.92,4.0,50.1,True,0.0,54.77,6,46.50099492150759,3.5,1.33,8.13,True,True,sim,False,False,N2 jovem
+Exterior,EUA,LD,É. Ocampo,Vancouver Whitecaps,22.0,1499,2027-12-31,0,Colombia,Colombia,66.8,51.0,46.2,7.0,48.6,True,0.0,48.58,6,56.409119883795775,7.43,1.03,4.73,True,True,sim,False,False,N2 jovem
+Exterior,Italia C,LD,B. Valenti,Monopoli,23.0,3017,2028-06-30,125000,Argentina,"Argentina, Italy",66.1,50.8,45.94,10.0,48.4,True,0.0,,6,49.91371900155999,5.09,1.43,6.54,True,True,sim,False,False,N2 jovem
+Exterior,Bulgaria,LD,Pastor,CSKA Sofia,26.0,2596,2028-06-30,1000000,Brazil,Brazil,60.7,49.2,47.21,9.0,48.2,True,0.0,,6,51.48657481829188,5.97,2.07,5.92,True,False,sim,False,False,N1
+Exterior,Grecia,ZD,Fabiano,Aris,34.0,2024,2027-06-30,800000,Brazil,Brazil,81.8,55.5,71.98,1.0,63.7,True,0.0,31.01,7,50.16249730452494,3.26,4.37,0.53,True,False,sim,True,False,N1
+Exterior,China,ZD,Lucão,Chongqing Tongliang Long,30.0,1430,,400000,Brazil,Brazil,81.6,55.5,68.09,2.0,61.8,True,0.0,32.13,7,60.1380208550186,4.74,5.21,0.94,True,False,sim,True,False,N1
+Exterior,Israel,ZD,B. Carabalí,Beitar Jerusalem,27.0,3268,2028-06-30,250000,Colombia,Colombia,70.2,52.1,70.7,2.0,61.4,True,0.0,,7,59.64174654406269,5.05,5.53,2.05,True,True,sim,False,False,N1
+Exterior,Italia C,ZD,Gregorio Tanco,Lecco,26.0,2368,2026-06-30,100000,Argentina,"Argentina, Spain",77.0,54.1,63.17,1.0,58.6,True,0.0,,7,61.722344917267485,6.26,4.86,1.11,True,True,sim,True,True,N1
+Exterior,Turquia,ZD,Gabriel Paulista,Beşiktaş,35.0,954,2027-12-31,2000000,Brazil,"Brazil, Spain",76.7,54.0,63.06,5.0,58.5,True,0.0,32.9,7,56.82250415403909,4.37,4.15,0.75,True,False,sim,False,False,N1
+Exterior,Ucrania,ZD,Jordan,Zorya,27.0,2644,2028-06-30,800000,Brazil,Brazil,75.2,53.6,63.25,4.0,58.4,True,0.0,28.39,7,53.19166522797107,5.38,4.95,2.17,True,False,sim,False,False,N1
+Exterior,Emirados,ZD,Iago Santos,Dibba Al Fujairah,33.0,1554,2026-06-30,1000000,Brazil,Brazil,73.9,53.2,60.99,5.0,57.1,True,0.0,22.76,7,36.910200004808544,2.98,3.76,1.72,True,False,sim,True,True,N1
+Exterior,Mexico,ZD,M. Capasso,Atlas,30.0,1947,2028-12-31,1000000,Argentina,"Argentina, Italy",69.9,52.0,61.81,4.0,56.9,True,0.0,25.01,7,44.991918788282014,4.62,3.91,1.08,True,True,sim,False,False,N1
+Exterior,Hungria,ZD,M. Gómez,Ferencváros,27.0,1336,2028-06-30,300000,Argentina,Argentina,57.5,48.2,64.45,2.0,56.3,True,0.0,,7,56.39006367834913,7.11,4.63,1.07,True,True,no,False,False,N1
+Exterior,Mexico,ZD,Joaquim,Tigres UANL,27.0,2833,2027-06-30,0,Brazil,Brazil,71.6,52.5,58.71,10.0,55.6,True,0.0,25.13,7,55.66098437820196,5.12,5.55,2.08,True,False,sim,True,False,N1
+Exterior,Italia C,ZD,M. Curado,Ascoli,31.0,3802,2027-06-30,350000,Argentina,"Argentina, Italy",63.0,49.9,60.82,5.0,55.4,True,0.0,,7,62.47432543416467,7.75,7.13,1.14,True,True,sim,True,False,N1
+Exterior,Mexico,ZD,W. Ditta,Cruz Azul,28.0,4311,2028-06-30,0,Colombia,Colombia,65.7,50.7,59.6,8.0,55.2,True,0.0,35.8,7,54.28441341279396,5.77,3.57,1.54,True,True,sim,False,False,N1
+Exterior,Espanha B,ZE,Rubén Alves,Córdoba,31.0,1834,2028-06-30,800000,Brazil,"Brazil, Spain",80.7,55.2,65.97,4.0,60.6,True,0.0,26.32,7,50.775569592540016,5.78,4.54,1.21,True,False,sim,False,False,N1
+Exterior,Bulgaria,ZE,C. Makoun,Levski Sofia,26.0,2133,2027-06-30,0,Venezuela,"Venezuela, Cameroon",60.0,49.0,69.42,1.0,59.2,True,0.0,,7,60.84483357621762,4.74,3.88,1.39,True,True,sim,True,False,N1
+Exterior,Mexico,ZE,F. Pereira,Toluca,26.0,3128,2028-06-30,0,Uruguay,Uruguay,75.8,53.7,64.09,2.0,58.9,True,0.0,24.08,7,60.84802556037767,8.2,5.91,1.21,True,True,sim,False,False,N1
+Exterior,Israel,ZE,Heitor,Maccabi Tel Aviv,26.0,1775,2028-06-30,250000,Brazil,Brazil,82.0,55.6,60.86,6.0,58.2,True,0.0,,7,50.190992568159956,4.18,3.81,1.71,True,False,sim,False,False,N1
+Exterior,Israel,ZE,Chico,Hapoel Tel Aviv,27.0,3055,2029-06-30,500000,Brazil,Brazil,73.5,53.0,62.11,4.0,57.6,True,0.0,,7,46.3700005826133,3.24,2.33,1.47,True,False,sim,False,False,N1
+Exterior,França B,ZE,J. Guevara,Bastia,24.0,2172,2026-06-30,0,Colombia,Colombia,81.8,55.5,59.31,9.0,57.4,True,0.0,,7,44.47797197062894,5.64,4.77,3.63,True,True,sim,True,True,N1/N2
+Exterior,Mexico,ZE,S. Homenchenko,Querétaro,22.0,2721,2027-12-31,500000,Uruguay,Uruguay,69.1,51.7,60.2,6.0,56.0,True,0.0,23.28,7,34.876233839897836,5.77,2.03,4.21,True,True,sim,False,False,N2 jovem
+Exterior,Holanda,ZE,R. Hillen,NAC Breda,23.0,2070,2029-06-30,500000,Netherlands,"Netherlands, Brazil",76.1,53.8,56.91,16.0,55.4,True,0.0,31.64,7,48.50124634524693,5.86,4.89,2.56,True,False,sim,False,False,N2 jovem
+Exterior,China,ZE,Lucas Maia,Henan,33.0,1533,,800000,Brazil,Brazil,66.7,51.0,59.31,7.0,55.2,True,0.0,25.64,7,48.653518274213674,4.58,6.69,0.3,True,False,sim,True,False,N1
+Exterior,Espanha B,ZE,A. Sienra,Castellón,26.0,1879,2026-06-30,125000,Argentina,Argentina,56.6,48.0,62.13,7.0,55.1,True,0.0,36.59,7,53.53221220865907,6.6,4.33,1.17,True,True,sim,True,True,N1
+Exterior,Portugal C,ZE,Tiago Caveira,Sporting Covilhã,25.0,916,,0,Brazil,Brazil,68.4,51.5,58.1,5.0,54.8,True,0.0,,7,46.411329838942855,2.57,6.51,2.22,True,False,sim,True,False,N1/N2
+Exterior,EUA,ZE,M. Laborda,Vancouver Whitecaps,26.0,1644,2026-12-31,1500000,Uruguay,Uruguay,68.4,51.5,57.71,3.0,54.6,True,0.0,34.92,7,56.409119883795775,5.02,3.52,1.21,True,True,sim,True,False,N1
+Exterior,Bahrain,LE,Samuel Toscas,Al Riffa,26.0,2048,2031-06-30,0,Brazil,Brazil,94.5,59.4,83.22,1.0,71.3,True,0.0,,6,70.0,6.52,3.15,4.84,True,False,sim,False,False,N1
+Exterior,Bulgaria,LE,Maicon,Levski Sofia,26.0,2951,2027-06-30,0,Brazil,Brazil,80.0,55.0,72.86,1.0,63.9,True,0.0,,6,60.84483357621762,8.1,2.68,6.11,True,False,sim,True,False,N1
+Exterior,Espanha A,LE,Germán Valera,Elche,24.0,3085,2027-06-30,2000000,Spain,"Spain, Venezuela",73.3,53.0,70.99,2.0,62.0,True,0.0,57.86,6,56.74404555704151,5.59,1.04,8.1,True,True,sim,True,False,N1/N2
+Exterior,Emirados,LE,Marcus Meloni,Al Jazira,25.0,1359,2030-06-30,2000000,Brazil,"Brazil, United Arab Emirates",71.7,52.5,65.59,1.0,59.0,True,0.0,37.64,6,53.28324176332181,9.22,2.62,6.65,True,False,sim,False,False,N1/N2
+Exterior,Romenia,LE,Conrado,Oţelul,29.0,2529,2026-06-30,300000,Brazil,"Brazil, Italy",85.6,56.7,57.42,2.0,57.1,True,0.0,,6,51.07581186289999,7.31,2.43,7.53,True,False,sim,True,True,N1
+Exterior,Italia B,LE,Paulo Azzi,Monza,31.0,3426,2027-06-30,1000000,Brazil,"Brazil, Italy",83.0,55.9,57.37,2.0,56.6,True,0.0,52.38,6,55.55553621607599,6.83,2.01,7.07,True,False,sim,True,False,N1
+Exterior,Polonia,LE,Jean Carlos,Raków Częstochowa,30.0,1618,2027-12-31,800000,Brazil,"Brazil, Spain",75.0,53.5,59.43,1.0,56.5,True,0.0,,6,51.30960560093238,4.63,2.52,9.6,True,False,sim,False,False,N1
+Exterior,Bahrain,LE,G. Olivera,Muharraq,25.0,1588,,300000,Uruguay,Uruguay,80.9,55.3,57.45,2.0,56.4,True,0.0,,6,56.07172285001273,6.58,3.74,4.7,True,True,sim,True,False,N1/N2
+Exterior,Polonia,LE,Adriano,Raków Częstochowa,24.0,1600,2028-06-30,0,Brazil,Brazil,75.7,53.7,56.09,3.0,54.9,True,0.0,,6,51.30960560093238,6.36,3.12,14.97,True,False,sim,False,False,N1/N2
+Exterior,Bulgaria,LE,Matheus Leoni,Dobrudzha 1919,34.0,1842,,250000,Brazil,"Brazil, Italy",78.3,54.5,54.11,6.0,54.3,True,0.0,,6,49.86322302798112,9.07,2.78,5.88,True,False,sim,True,False,N1
+Exterior,Croacia,LE,M. Pérez Vinlof,Dinamo Zagreb,20.0,1730,2029-06-30,0,Sweden,"Sweden, Peru",58.0,48.4,57.15,3.0,52.8,True,0.0,,6,60.871566970897085,8.37,2.2,6.03,True,True,sim,False,False,N2 jovem
+Exterior,Mexico,LE,J. Sanabria,Atlético de San Luis,26.0,1927,2030-06-30,0,Uruguay,"Uruguay, Spain",44.5,44.4,61.26,2.0,52.8,True,0.0,46.77,6,46.82514774702272,5.8,2.33,2.5,True,True,sim,False,False,N1
+Exterior,Bahrain,VOL,Rodrigo Yuri,Al Riffa,32.0,1958,,0,Brazil,Brazil,58.3,48.5,77.68,1.0,63.1,True,0.0,,6,70.0,7.43,2.98,3.45,True,False,sim,True,False,N1
+Exterior,Bulgaria,VOL,Pedro Naressi,Ludogorets,28.0,1859,2026-06-30,0,Brazil,Brazil,71.1,52.3,72.02,2.0,62.2,True,0.0,,6,62.77768972256704,7.48,4.23,2.62,True,False,sim,True,True,N1
+Exterior,Italia B,VOL,G. Brugman,Pescara,33.0,1476,2026-06-30,2000000,Uruguay,"Uruguay, Italy",58.8,48.6,67.37,1.0,58.0,True,0.0,29.15,6,49.0340178257905,6.64,1.43,3.67,True,True,sim,True,True,N1
+Exterior,Suiça,VOL,M. Reichmuth,Zürich,22.0,1195,,0,Switzerland,"Switzerland, Chile",44.6,44.4,68.4,1.0,56.4,True,0.0,41.63,6,46.034891284286246,7.33,1.19,7.94,True,True,sim,True,False,N2 jovem
+Exterior,Mexico,VOL,P. Vite,Pumas UNAM,24.0,3292,2029-07-18,0,Ecuador,Ecuador,57.4,48.2,60.3,3.0,54.2,True,0.0,27.77,6,50.245302578232746,4.91,1.05,5.04,True,True,sim,False,False,N1/N2
+Exterior,Italia C,VOL,G. Capomaggio,Salernitana,29.0,3101,2028-06-30,0,Argentina,"Argentina, Italy",80.4,55.1,50.46,13.0,52.8,True,0.0,,6,48.5374047127769,5.07,3.78,4.15,True,True,sim,False,False,N1
+Exterior,Bulgaria,VOL,Lucas Araújo,Botev Plovdiv,27.0,1307,2027-06-30,400000,Brazil,Brazil,60.7,49.2,56.28,5.0,52.7,True,0.0,,6,53.136084411732625,7.91,2.85,4.53,True,False,sim,True,False,N1
+Exterior,Mexico,VOL,F. Gorriarán,Tigres UANL,31.0,3117,2026-12-31,0,Uruguay,Uruguay,45.6,44.7,58.62,4.0,51.7,True,0.0,25.94,6,55.66098437820196,6.35,1.66,3.94,True,True,sim,True,False,N1
+Exterior,Italia C,VOL,L. Felippe,Potenza,26.0,2975,2027-06-30,175000,Brazil,"Brazil, Spain",30.0,40.0,63.1,4.0,51.6,True,0.0,,6,47.76513623094081,5.06,0.55,6.08,True,False,sim,True,False,N1
+Exterior,Portugal B,VOL,Cláudio Falcão,Farense,31.0,2806,2029-06-30,1000000,Brazil,"Brazil, Portugal",75.0,53.5,49.08,6.0,51.3,True,0.0,25.06,6,48.45413246964675,6.41,3.86,3.45,True,False,sim,False,False,N1
+Exterior,Italia B,VOL,T. Reinhart,Reggiana,25.0,2647,2026-06-30,300000,Argentina,"Argentina, Italy",43.9,44.2,56.89,6.0,50.5,True,0.0,34.07,6,41.273195240031654,4.46,0.84,5.15,True,True,sim,True,True,N1/N2
+Exterior,Portugal B,VOL,Dani Borges,União de Leiria,23.0,2186,2030-06-30,0,Brazil,Brazil,50.5,46.2,54.39,4.0,50.3,True,0.0,28.79,6,51.641369856182806,5.45,6.26,5.94,True,False,sim,False,False,N2 jovem
+Exterior,EUA,MED,R. De Paul,Inter Miami,32.0,1539,2029-12-31,0,Argentina,"Argentina, Italy",91.5,58.4,74.02,1.0,66.2,True,0.0,46.34,6,57.21163864216231,3.48,0.21,4.5,True,True,sim,False,False,N1
+Exterior,Mexico,MED,A. Palavecino,Cruz Azul,29.0,3557,2029-12-31,1800000,Argentina,"Argentina, Spain",96.4,59.9,68.4,3.0,64.2,True,0.0,44.01,6,54.28441341279396,6.92,1.66,6.69,True,True,sim,False,False,N1
+Exterior,Bahrain,MED,G. Wilson Da Silva Moreira,Khalidiya ,30.0,1437,2026-06-30,0,Brazil,Brazil,81.2,55.4,71.98,1.0,63.7,True,0.0,,6,56.44853015183786,6.61,2.23,7.65,True,False,sim,True,True,N1
+Exterior,Bahrain,MED,Arthur Rezende,Muharraq,32.0,1839,,500000,Brazil,Brazil,78.4,54.5,69.13,2.0,61.8,True,0.0,,6,56.07172285001273,5.41,1.39,6.33,True,False,sim,True,False,N1
+Exterior,Emirados,MED,M. Palacios,Al Ain,24.0,2482,2029-06-30,1200000,Argentina,"Argentina, Italy",71.7,52.5,63.72,2.0,58.1,True,0.0,45.62,6,57.93510787121971,4.74,1.94,3.75,True,True,sim,False,False,N1/N2
+Exterior,Portugal B,MED,Raphael Guzzo,Marítimo,31.0,2472,2027-06-30,600000,Brazil,"Brazil, Portugal",81.6,55.5,58.71,2.0,57.1,True,0.0,41.18,6,52.7482821296865,5.7,1.2,3.45,True,False,sim,True,False,N1
+Exterior,Polonia,MED,J. Elitim,Legia Warszawa,26.0,2071,2026-06-30,1800000,Colombia,"Colombia, Spain",84.2,56.3,55.85,10.0,56.1,True,0.0,,6,52.26376962948417,4.83,0.91,6.32,True,True,sim,True,True,N1
+Exterior,Coreia B,MED,Bruno Lamas,Cheonan City,32.0,2161,,600000,Brazil,"Brazil, Italy",86.9,57.1,53.7,4.0,55.4,True,0.0,,6,50.45780153025018,3.61,1.89,4.25,True,False,sim,True,False,N1
+Exterior,Espanha B,MED,Dalisson,Córdoba,26.0,1213,2027-06-30,250000,Spain,"Spain, Brazil",73.3,53.0,57.25,5.0,55.1,True,0.0,53.21,6,50.775569592540016,5.8,2.27,7.24,True,False,sim,True,False,N1
+Exterior,Portugal B,MED,Rayan Lucas,Sporting CP II,21.0,1544,2028-10-29,0,Brazil,Brazil,76.4,53.9,56.34,4.0,55.1,True,0.0,37.61,6,63.15390762485952,7.99,3.16,4.16,True,False,sim,False,False,N2 jovem
+Exterior,Marrocos,MED,R. Vaca,Wydad Casablanca,26.0,901,2029-06-30,0,Bolivia,Bolivia,63.6,50.1,58.94,3.0,54.5,True,0.0,,6,45.94151561237997,2.4,0.74,3.16,True,True,sim,False,False,N1
+Exterior,Espanha C,MED,Fabricio,Tenerife,28.0,2203,2028-06-30,0,Brazil,Brazil,79.1,54.7,51.75,5.0,53.2,True,0.0,,6,56.368518278293564,6.89,2.06,3.48,True,False,sim,False,False,N1
+Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0,Brazil,Brazil,100.0,61.0,84.52,1.0,72.8,True,76.98,,7,51.69300105780587,3.3,2.04,6.94,True,False,sim,True,False,N1
+Exterior,EUA,MEI,Evander,Cincinnati,28.0,1683,2027-12-31,0,Brazil,Brazil,80.0,55.0,70.37,1.0,62.7,True,85.78,30.85,7,46.50099492150759,3.1,0.4,12.83,True,False,sim,False,False,N1
+Exterior,Mexico,MEI,J. Brunetta,Tigres UANL,29.0,3548,2027-12-31,0,Argentina,"Argentina, Italy",62.4,49.7,70.88,2.0,60.3,True,74.73,32.52,7,55.66098437820196,3.72,0.91,7.0,True,True,sim,False,False,N1
+Exterior,Ucrania,MEI,Bruninho,Karpaty,26.0,2179,2028-06-30,1000000,Brazil,Brazil,63.6,50.1,68.11,2.0,59.1,True,92.11,43.13,7,50.12281815345307,2.74,1.07,9.48,True,False,sim,False,False,N1
+Exterior,Portugal C,MEI,Caleb,Atlético CP,33.0,1349,2026-06-30,0,Brazil,Brazil,78.0,54.4,62.87,1.0,58.6,True,14.59,,7,57.97358031332468,4.37,1.75,10.19,True,False,sim,True,True,N1
+Exterior,China,MEI,Bruno Nazário,Henan,31.0,1127,2026-12-31,1300000,Brazil,Brazil,64.1,50.2,61.17,2.0,55.7,True,60.61,36.32,7,48.653518274213674,4.12,3.18,8.94,True,False,sim,True,False,N1
+Exterior,China,MEI,Serginho,Beijing Guoan,31.0,1312,2028-12-31,2000000,Brazil,Brazil,61.6,49.5,55.68,6.0,52.6,True,10.18,28.89,7,61.4508853858731,4.36,4.45,4.58,True,False,sim,False,False,N1
+Exterior,Croacia,MEI,R. Gonzales,Vukovar,27.0,3171,,0,Colombia,Colombia,49.7,45.9,58.44,4.0,52.2,True,50.33,,7,40.05878080259769,3.84,1.07,13.32,True,True,sim,True,False,N1
+Exterior,Italia B,MEI,Hernani,Monza,32.0,1382,2027-06-30,2000000,Brazil,Brazil,47.1,45.1,59.33,3.0,52.2,True,39.89,38.85,7,55.55553621607599,6.52,3.15,10.03,True,False,sim,True,False,N1
+Exterior,Grecia,MEI,G. Balzi,Levadiakos,24.0,1703,2027-12-31,175000,Argentina,Argentina,60.6,49.2,53.88,5.0,51.5,True,10.05,41.78,7,54.176596808237804,6.81,1.96,9.03,True,True,sim,False,False,N1/N2
+Exterior,Bulgaria,MEI,B. Sobrero,CSKA 1948 Sofia,27.0,2760,2028-06-30,300000,Argentina,Argentina,60.2,49.1,48.31,10.0,48.7,True,0.08,,7,52.20683242156817,4.98,2.52,6.74,True,True,sim,False,False,N1
+Exterior,Grecia,MEI,J. Añor,Volos NFC,32.0,2106,2026-06-30,450000,Venezuela,"Venezuela, Spain",41.4,43.4,53.16,7.0,48.3,True,71.9,34.27,7,45.9079956131778,3.44,0.83,9.17,True,True,sim,True,True,N1
+Exterior,Bulgaria,ED,Caio Vidal,Ludogorets,25.0,1531,2029-06-30,0,Brazil,Brazil,92.0,58.6,78.06,1.0,68.3,True,0.0,,6,62.77768972256704,4.97,2.06,13.01,True,False,sim,False,False,N1/N2
+Exterior,Bahrain,ED,Wellington Machado,Al Riffa,27.0,1669,2030-06-30,0,Brazil,Brazil,79.8,54.9,75.68,1.0,65.3,True,0.0,,6,70.0,7.63,3.23,9.82,True,False,sim,False,False,N1
+Exterior,Coreia B,ED,Euller,Seoul E-Land,31.0,1483,2028-12-31,350000,Brazil,Brazil,61.4,49.4,78.98,1.0,64.2,True,0.0,,6,55.969217265712395,4.13,1.73,8.62,True,False,sim,False,False,N1
+Exterior,Romenia,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,27.0,2919,2027-06-30,200000,Brazil,Brazil,79.8,54.9,71.9,1.0,63.4,True,0.0,,6,38.61808056717733,4.75,1.33,21.88,True,False,sim,True,False,N1
+Exterior,Tcheca,ED,J. Mercado,Sparta Praha,24.0,1910,2029-06-30,0,Ecuador,Ecuador,81.8,55.5,65.69,2.0,60.6,True,0.0,,6,66.79288290684481,6.67,3.82,8.78,True,True,sim,False,False,N1/N2
+Exterior,Coreia B,ED,Gabriel Honório,Busan I'Park,30.0,1443,,175000,Brazil,Brazil,56.8,48.0,72.82,2.0,60.4,True,0.0,,6,49.72542779046109,4.53,1.11,14.8,True,False,sim,True,False,N1
+Exterior,Coreia B,ED,Luan Dias,Gimpo Citizen,29.0,1319,,600000,Brazil,Brazil,62.2,49.7,70.61,3.0,60.2,True,0.0,,6,52.368377671078676,4.29,0.79,11.72,True,False,sim,True,False,N1
+Exterior,Espanha B,ED,Lucas Ribeiro,Cultural Leonesa,27.0,1557,2026-06-30,0,Brazil,Brazil,65.5,50.6,69.27,3.0,59.9,True,0.0,43.97,6,52.26692671519495,4.66,1.94,15.48,True,False,sim,True,True,N1
+Exterior,Mexico,ED,Kenedy,Pachuca,30.0,2253,2027-06-30,2000000,Brazil,Brazil,64.8,50.4,69.19,3.0,59.8,True,0.0,46.99,6,49.92795358906938,3.47,1.12,12.96,True,False,sim,True,False,N1
+Exterior,Coreia B,ED,Matheus Serafim,Daegu,28.0,1948,2026-12-31,0,Brazil,Brazil,68.8,51.6,66.14,4.0,58.9,True,0.0,,6,50.29881665171092,2.18,2.32,12.99,True,False,sim,True,False,N1
+Exterior,Mexico,ED,J. Paradela,Cruz Azul,27.0,3542,2029-06-30,0,Argentina,Argentina,57.6,48.3,67.86,4.0,58.1,True,0.0,37.97,6,54.28441341279396,4.51,1.06,9.16,True,True,sim,False,False,N1
+Exterior,Suiça,ED,N. Reichmuth,Thun,24.0,1570,2028-06-30,200000,Switzerland,"Switzerland, Chile",58.3,48.5,66.45,3.0,57.5,True,0.0,58.67,6,40.311423613599516,8.7,2.55,13.66,True,True,sim,False,False,N1/N2
+Exterior,EUA,EE,Guilherme,Houston Dynamo,31.0,1774,2028-06-30,1000000,Brazil,Brazil,72.9,52.9,72.77,1.0,62.8,True,0.0,59.16,6,46.747120016922835,2.81,1.24,13.4,True,False,sim,False,False,N1
+Exterior,Inglaterra B,EE,Léo Scienza,Southampton,27.0,2761,2029-06-30,0,Brazil,"Brazil, Luxembourg",90.6,58.2,61.74,3.0,60.0,True,0.0,53.0,6,61.51971377373885,4.27,2.12,12.45,True,False,sim,False,False,N1
+Exterior,Mexico,EE,B. Rodríguez,América,26.0,2669,2029-06-30,0,Uruguay,Uruguay,85.8,56.7,62.19,4.0,59.4,True,0.0,50.93,6,64.45780775942394,3.36,1.28,8.79,True,True,sim,False,False,N1
+Exterior,China,EE,Jeffinho,Liaoning Tieren,26.0,1248,2028-12-31,0,Brazil,Brazil,72.9,52.9,65.63,1.0,59.3,True,0.0,53.65,6,52.90415541908598,7.27,2.76,14.24,True,False,sim,False,False,N1
+Exterior,China,EE,Davidson,Qingdao West Coast,35.0,1537,,850000,Brazil,Brazil,73.8,53.1,65.16,2.0,59.1,True,0.0,49.44,6,41.201874586497375,6.07,3.44,16.48,True,False,sim,True,False,N1
+Exterior,Coreia A,EE,Anderson Oliveira,Seoul,28.0,1431,,450000,Brazil,Brazil,52.9,46.9,69.21,1.0,58.1,True,0.0,,6,51.61860178042937,4.62,1.3,11.88,True,False,sim,True,False,N1
+Exterior,Mexico,EE,N. Castro,Toluca,25.0,2691,2028-06-30,0,Argentina,Argentina,51.3,46.4,67.94,2.0,57.2,True,0.0,40.68,6,60.84802556037767,6.19,0.51,5.97,True,True,sim,False,False,N1/N2
+Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0,Brazil,Brazil,60.4,49.1,62.88,1.0,56.0,True,0.0,,6,60.84483357621762,3.93,3.08,7.83,True,False,sim,True,False,N1
+Exterior,EUA,EE,M. Almirón,Atlanta United,32.0,1214,2027-12-31,0,Paraguay,Paraguay,71.9,52.6,59.2,5.0,55.9,True,0.0,48.65,6,51.985373569910735,2.08,1.38,8.56,True,True,sim,False,False,N1
+Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000,Brazil,Brazil,85.2,56.6,53.96,10.0,55.3,True,0.0,64.86,6,56.74978276486774,4.52,2.22,12.7,True,False,sim,True,True,N1/N2
+Exterior,Portugal B,EE,Werton,Leixões,22.0,1605,2028-06-30,600000,Brazil,Brazil,68.0,51.4,58.27,3.0,54.8,True,0.0,55.65,6,50.43228759089719,5.38,1.36,14.07,True,False,sim,False,False,N2 jovem
+Exterior,Coreia B,EE,D. Silva,Chungnam Asan,28.0,1867,,300000,Brazil,Brazil,55.0,47.5,61.46,2.0,54.5,True,0.0,,6,51.83138890391046,3.8,2.1,6.84,True,False,sim,True,False,N1
+Exterior,Bahrain,CA,Juninho,Muharraq,27.0,1543,2028-06-30,0,Brazil,Brazil,86.3,56.9,67.58,1.0,62.2,True,0.0,,6,56.07172285001273,2.06,3.98,7.7,True,False,sim,False,False,N1
+Exterior,Mexico,CA,Á. Correa,Tigres UANL,31.0,3942,2030-06-30,0,Argentina,"Argentina, Spain",72.5,52.8,66.54,2.0,59.7,True,0.0,57.48,6,55.66098437820196,4.76,1.03,10.85,True,True,sim,False,False,N1
+Exterior,Russia,CA,J. Boselli,Krasnodar,26.0,1804,2028-06-30,700000,Uruguay,"Uruguay, Italy",53.6,47.1,69.9,1.0,58.5,True,0.0,57.34,6,56.70726085482811,3.8,4.09,11.61,True,True,sim,False,False,N1
+Exterior,Portugal C,CA,Nicolás Souza,Atlético CP,25.0,1732,2027-06-30,0,Brazil,Brazil,90.2,58.1,49.78,4.0,53.9,True,0.0,,6,57.97358031332468,5.38,10.95,7.89,True,False,sim,True,False,N1/N2
+Exterior,Portugal C,CA,Caio Santana,Atlético CP,22.0,1040,2027-06-30,0,Brazil,Brazil,74.9,53.5,53.81,2.0,53.7,True,0.0,,6,57.97358031332468,6.79,5.15,10.07,True,False,sim,True,False,N2 jovem
+Exterior,EUA,CA,N. Fernández Mercau,New York City,26.0,1737,2029-12-31,0,Argentina,"Argentina, Spain",40.4,43.1,64.35,2.0,53.7,True,0.0,63.51,6,57.91825296564235,7.2,2.03,9.84,True,True,sim,False,False,N1
+Exterior,Israel,CA,Matheus Davó,Maccabi Netanya,26.0,2359,2027-06-30,900000,Brazil,Brazil,72.2,52.7,53.97,3.0,53.3,True,0.0,,6,53.07020029218706,2.44,1.79,9.53,True,False,sim,True,False,N1
+Exterior,Grecia,CA,Angelo Chagal,Larissa,33.0,1972,2026-06-30,650000,Chile,Chile,42.0,43.6,62.13,3.0,52.9,True,0.0,59.21,6,44.87288852567328,3.76,2.11,13.58,True,True,sim,True,True,N1
+Exterior,Coreia A,CA,Yago Cariello,Ulsan Hyundai,27.0,1288,,550000,Brazil,Brazil,85.4,56.6,48.55,5.0,52.6,True,0.0,,6,51.922414913391684,3.63,7.05,10.23,True,False,sim,True,False,N1
+Exterior,China,CA,Rafael Ratão,Shanghai Shenhua,30.0,1480,2028-12-31,0,Brazil,Brazil,85.8,56.7,47.96,4.0,52.3,True,0.0,63.61,6,52.06157866713801,2.98,2.41,8.06,True,False,sim,False,False,N1
+Exterior,Alemanha B,CA,O. Batista Meier,Preußen Münster,25.0,2415,,500000,Germany,"Germany, Brazil",29.8,39.9,64.23,1.0,52.1,True,0.0,,6,55.45564663316212,3.3,1.21,8.64,True,False,sim,True,False,N1/N2
+Exterior,Grecia,CA,J. Bartolo,Asteras Tripolis,30.0,2529,2026-06-30,600000,Argentina,"Argentina, Italy",40.7,43.2,60.89,4.0,52.0,True,0.0,59.04,6,42.726507526445836,3.29,1.24,8.54,True,True,sim,True,True,N1

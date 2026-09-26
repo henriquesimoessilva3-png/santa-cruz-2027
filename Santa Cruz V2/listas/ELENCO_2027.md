@@ -4,10 +4,10 @@
 
 Veredito em uma linha: **um elenco de 28 nomes, com 5 titulares mantidos de 2026, 11 contratações
 principais a passe zero da própria Série B, sul-americanos e brasileiros de ligas mais fracas nas
-posições em que a B não tem livre à altura — e Léo Condé no comando, contratado para ficar o ano
+posições em que a B não tem livre à altura — e Eduardo Baptista ou Léo Condé no comando, contratado para ficar o ano
 inteiro.**
 
-Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
+A ordem completa, os três mercados juntos, está em `Os meus dez por posição` (IDEAL_2027.md); este documento é a montagem do elenco a partir dela. Desde 25/09 a aderência de quem vem de fora é convertida pela reta do B12 (p90 na origem → 58 na B), e não por um desconto fixo: os nomes de fora que ficam são os de nível alto no ranking. Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
 minutagem regular elimina; aderência ao modelo que rende e nível contra a referência mundial
 ordenam; bola parada, piso de velocidade e continuidade decidem entre iguais. Salários não estão
 na base: estimei faixas pela Série B; "livre" = contrato até jun/2027 no dado de ago/26 — tudo a
@@ -30,8 +30,7 @@ confirmar antes de qualquer contato.
 **Léo Condé.** Livre desde 15/09 (Remo). Rendeu acima do elenco em três clubes diferentes
 (Sampaio Corrêa 2022, Vitória 2023 campeão com o 9º elenco, Ceará 2024 acesso assumindo em 8º),
 pior passagem +0,30, elenco mediano 10º em valor — é o único da base com esse perfil de render
-com folha de meio de tabela sem afundar (B4-2). Plano B: **Eduardo Baptista** (o mais regular,
-+0,31 na pior passagem, mas sem acesso em 5 passagens; no Criciúma). Não contratar por currículo
+com folha de meio de tabela sem afundar (B4-2). Plano B — e pelo B13 quase empatado: **Eduardo Baptista** (o mais regular, +0,31 na pior passagem, o maior xPts por jogo entre os nomes em foco, 1,59; sem acesso em 5 passagens; no Criciúma). O Condé tem +0,21 ponto por jogo acima do que o xG dos times dele sustenta — parte do currículo é finalização e sorte, que não repetem. Não contratar por currículo
 de G4 (Carpini, Guto: elencos top-5).
 
 **O custo da escolha (B11-6).** Os times do Condé correm pouco (distância −1,3 a −1,7 desvios) e ele adapta o
@@ -68,7 +67,8 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 
 | # | Jogador | Situação | Por quê |
 |---|---|---|---|
-| 1 | **Gabriel Bahia** | Novorizontino, 27, livre mar/27 | 61 (68/54), rodou 2025 e 2026, psv ok, ★ scouts. Titular. N1, ~50–60. |
+| 1 | **Ricardo Silva** | América-MG, 34, livre nov/26 | 68 (76/60), o ZD de maior nota da B, psv ok, rodou 2025, tipo *Motor de volume*, 97º percentil em duelo aéreo. Estava fora pelo teto de idade. Titular por um ano. N1, ~60. |
+| 1b | **Gabriel Bahia** | Novorizontino, 27, livre mar/27 | 61 (68/54), rodou 2025 e 2026, psv ok, ★ scouts. Titular se a idade do Ricardo Silva pesar. N1, ~50–60. |
 | 2 | **Gabriel Pinheiro** | Juventude, 29, livre dez/26 | 57, psv ok, rodou 2025, finalizador aéreo (índice 83, 70% aéreos). N1, ~45. Sul-americano: **G. Vargas** (Olimpia, PAR, 24, livre) — 65. |
 | 3 | **F. Molina** | Unión Magdalena, 22, venezuelano, livre dez/26, emprestado | 4 gols de cabeça, saída longa e progressiva percentil 95+, mas duelo defensivo fraco (percentil 19 na Colômbia B). Terceiro zagueiro e arma de bola parada, com vídeo. N2, ~30, ocupa vaga de estrangeiro. |
 
@@ -109,7 +109,7 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 
 | # | Jogador | Situação | Por quê |
 |---|---|---|---|
-| 1 | **Matheus Frizzo** | Suwon, Coreia B, 28, brasileiro, livre | 85 (85/85), nota mais alta de todos os mercados no MEI; repatriação, sem vaga de estrangeiro. Com o Dodô fora (foi para a Coreia, 23/09), é o MEI nº 1. N1, ~90. |
+| 1 | **Matheus Frizzo** | Suwon, Coreia B, 28, brasileiro, livre | 73 (61 convertida / 85 de nível), o MEI de maior nível do ranking entre os alcançáveis; repatriação, sem vaga de estrangeiro. Com o Dodô fora (foi para a Coreia, 23/09), é o MEI nº 1 — o F. Carrizo (Libertad, nível 91) tem 35 anos. N1, ~90. |
 | 2 | **J. Barrera** | Real Cartagena, Colômbia B, 30, livre | 68, sul-americano; vaga de estrangeiro. Vídeo decide. N1, ~40. |
 | 3 | **Caleb** | Atlético CP, Portugal C, 33, brasileiro, livre | 63, veterano. ~40. Na B, o livre de maior nota é o Marrony (Atlético-GO, 48): o MEI é a posição mais fraca do mercado. |
 

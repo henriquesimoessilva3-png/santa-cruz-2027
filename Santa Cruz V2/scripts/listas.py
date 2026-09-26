@@ -3,7 +3,7 @@
 Aderência = média ponderada do percentil do jogador dentro de (liga × posição), só entre quem
 tem >= 900 minutos, nos indicadores da ficha da posição (volume pesa mais que eficiência — B2-6).
 Mercados de fora recebem o desconto de conversão do Bloco 6 (percentil de origem chega ao meio
-da tabela: −15 para sul-americanas e outras ligas; +16 para a Série A) — mostrado ao lado, nunca
+da tabela: reta do B12 — fora do Brasil 31 + 0,30·p, Série A 48 + 0,28·p) — mostrado ao lado, nunca
 escondido. Série B traz ainda físico (piso PSV-99, arrancadas, corrida para a área) e bola parada.
 Escreve listas/listas_2027.xlsx e listas/*.csv
 """
@@ -36,7 +36,14 @@ SULAM = ["Argentina A", "Argentina B", "Uruguai", "Colombia A", "Colombia B", "C
 PAIS_SA = {"Brazil", "Argentina", "Uruguay", "Colombia", "Paraguay", "Chile", "Ecuador", "Peru", "Bolivia", "Venezuela"}
 ALCANCAVEIS = {"Portugal B", "Portugal C", "Espanha B", "Espanha C", "Italia B", "Italia C", "Alemanha B", "Inglaterra B", "França B", "Belgica B", "Coreia B", "Japao B",
                "Bulgaria", "Romenia", "Polonia", "Eslovaquia", "Servia", "Hungria", "Tcheca", "Bahrain", "Israel", "Grecia", "Suecia", "Noruega", "Dinamarca", "Croacia", "Escocia", "Austria", "Suiça", "China", "Marrocos", "EUA", "Mexico"}
-DESCONTO = {"Série B": 0, "Série A": +16, "Sul-americano": -15, "Exterior": -15}
+# Conversão de liga (B6-5, revista no B12): quem chega de fora guarda pouco do destaque da origem.
+# Em vez de um desconto fixo, a reta ajustada nos 210 pares origem -> Série B (percentil na
+# origem -> percentil na B), com a inclinação encolhida para 0,3 (n pequeno fora do Brasil):
+#   Série A (n=115): 48 + 0,28·p   (p90 -> 73, p50 -> 62)
+#   fora do Brasil (n=47): 31 + 0,30·p   (p90 -> 58, p50 -> 46)
+CONVERSAO = {"Série B": (0.0, 1.0), "Série A": (48.0, 0.28), "Sul-americano": (31.0, 0.30), "Exterior": (31.0, 0.30)}
+def converter(mercado, ader):
+    a, b = CONVERSAO.get(mercado, (0.0, 1.0)); return a + b * ader
 
 SHIFT = {"Direct free kicks per 90": "Free kicks per 90", "Direct free kicks on target, %": "Direct free kicks per 90", "Corners per 90": "Direct free kicks on target, %",
          "Penalties taken": "Corners per 90", "Penalty conversion, %": "Penalties taken", "Conversão de penaltis, %": "Penalty conversion, %"}
@@ -133,11 +140,14 @@ def main():
     sb["idade"] = sb.idade.astype(float); lg["idade"] = lg.idade.astype(float)
     sb = sb.merge(rk, on=["chave", "liga", "pos11", "idade"], how="left"); lg = lg.merge(rk, on=["chave", "liga", "pos11", "idade"], how="left")
     print("nível casado: Série B", sb.nivel_overall.notna().mean().round(2), "| ligas", lg.nivel_overall.notna().mean().round(2))
-    lg["aderencia_ajustada"] = (lg.aderencia + lg.mercado.map(DESCONTO)).clip(0, 100)
+    lg["aderencia_ajustada"] = np.array([converter(m, a) for m, a in zip(lg.mercado, lg.aderencia)]).clip(0, 100).round(1)
     sb["aderencia_ajustada"] = sb.aderencia
     for d in (sb, lg):
-        d["nota"] = ((d.aderencia_ajustada + d.nivel_overall.fillna(d.aderencia_ajustada)) / 2).round(1)
-        d["nota_completa"] = d.nivel_overall.notna()   # False = só aderência (sem nível do ranking): nota parcial
+        # sem nível do ranking, entra a mediana do nível na mesma liga × posição (não a própria
+        # aderência, que puxava a nota para cima de quem tem as duas partes)
+        med = d.groupby(["liga", "pos11"]).nivel_overall.transform("median").fillna(d.nivel_overall.median())
+        d["nota"] = ((d.aderencia_ajustada + d.nivel_overall.fillna(med)) / 2).round(1)
+        d["nota_completa"] = d.nivel_overall.notna()   # False = nível imputado pela mediana da liga × posição: nota parcial
         padj(d)
     cols = ["mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nascido_em", "passaporte", "aderencia", "aderencia_ajustada", "nivel_overall", "rank_na_liga", "nota", "nota_completa", "nivel_bola_parada", "nivel_fisico", "criterios_com_dado", "posse_est", "Duelos def/90 PAdj", "Aéreos/90 PAdj", "Duelos of/90 PAdj"]
     sbc = sb[cols + ["fatia", "rodou_2025", "psv99", "psv_ok", "expl_accel_sprint_p90", "runs_penalty_area_p30tip", "Corners per 90", "Free kicks per 90", "Head goals per 90", "Aerial duels won, %"]].copy()
