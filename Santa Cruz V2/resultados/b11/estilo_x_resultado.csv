@@ -1,0 +1,18 @@
+estilo,k,n,r_rendimento,r_ppj
+xG sofrido,xg_sof,93,-0.45,-0.52
+Distância média do remate (m),dist_rem,93,-0.38,-0.45
+Bolas paradas,bp,93,-0.14,-0.22
+PPDA (maior = pressiona menos),ppda,93,-0.1,-0.2
+Distância/90 (físico),dist,93,0.0,-0.02
+Contra-ataques,contra,93,0.09,0.06
+Ações de alta intensidade/90 (físico),hi,93,0.12,0.16
+Posse %,posse,93,0.12,0.23
+Passes por posse,passes_posse,93,0.12,0.25
+Recuperações no campo de ataque,rec_altas,93,0.14,0.23
+Sprints/90 (físico),spr,93,0.15,0.22
+% de passe longo,passe_longo,93,0.16,0.0
+Ataques posicionais,posic,93,0.19,0.29
+Entradas na área,entradas,93,0.28,0.39
+Cruzamentos,cruz,93,0.31,0.35
+Duelos aéreos ganhos %,aereos,93,0.38,0.38
+xG a favor,xg,93,0.43,0.51
