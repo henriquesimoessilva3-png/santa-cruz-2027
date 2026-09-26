@@ -11,7 +11,6 @@ Exterior,Inglaterra B,GOL,L. Vigouroux,Swansea City,32.0,4420,2028-06-30,300000,
 Exterior,Grecia,GOL,L. Cháves,Panetolikos FC,30.0,1491,2027-12-31,1200000,Argentina,Argentina,71.7,52.5,56.55,7.0,54.5,True,0.0,,5,46.3685488455794,0.06,0.9,0.52,True,True,sim,False,False,N1
 Exterior,Espanha C,GOL,J. Flere,Europa,28.0,3451,,100000,Argentina,"Argentina, Italy",60.9,49.3,53.54,28.0,51.4,True,0.0,,5,45.024929095853395,0.12,0.42,0.32,True,True,sim,True,False,N1
 Exterior,Bulgaria,GOL,Arthur,Beroe,24.0,2240,2028-06-30,0,Brazil,Brazil,56.5,48.0,54.67,15.0,51.3,True,0.0,,5,41.36105766427316,0.1,0.2,0.05,True,False,sim,False,False,N1/N2
-Exterior,Grecia,LD,Rodinei,Olympiacos Piraeus,34.0,1866,2027-06-30,1500000,Brazil,Brazil,82.7,55.8,84.32,1.0,70.1,True,0.0,33.23,6,57.4724344777545,6.13,3.17,5.75,True,False,sim,True,False,N1
 Exterior,Tcheca,LD,O. Sonne,Sparta Praha,25.0,1162,2029-06-30,2000000,Denmark,"Denmark, Peru",66.9,51.1,61.6,3.0,56.4,True,0.0,,6,66.79288290684481,6.88,3.49,2.43,True,True,sim,False,False,N1/N2
 Exterior,Russia,LD,J. Cáceres,Dinamo Moskva,25.0,2253,2029-12-31,800000,Argentina,"Argentina, Paraguay",80.2,55.1,56.91,1.0,56.0,True,0.0,37.57,6,56.6209952378443,8.38,4.46,3.77,True,True,sim,False,False,N1/N2
 Exterior,Tcheca,LD,Á. Preciado,Sparta Praha,28.0,1062,2029-12-31,0,Ecuador,Ecuador,72.7,52.8,57.5,4.0,55.2,True,0.0,,6,66.79288290684481,5.87,2.94,8.18,True,True,sim,False,False,N1
@@ -23,6 +22,7 @@ Exterior,EUA,LD,E. Echenique,Cincinnati,22.0,1202,2028-12-31,350000,Venezuela,Ve
 Exterior,EUA,LD,É. Ocampo,Vancouver Whitecaps,22.0,1499,2027-12-31,0,Colombia,Colombia,66.8,51.0,46.2,7.0,48.6,True,0.0,48.58,6,56.409119883795775,7.43,1.03,4.73,True,True,sim,False,False,N2 jovem
 Exterior,Italia C,LD,B. Valenti,Monopoli,23.0,3017,2028-06-30,125000,Argentina,"Argentina, Italy",66.1,50.8,45.94,10.0,48.4,True,0.0,,6,49.91371900155999,5.09,1.43,6.54,True,True,sim,False,False,N2 jovem
 Exterior,Bulgaria,LD,Pastor,CSKA Sofia,26.0,2596,2028-06-30,1000000,Brazil,Brazil,60.7,49.2,47.21,9.0,48.2,True,0.0,,6,51.48657481829188,5.97,2.07,5.92,True,False,sim,False,False,N1
+Exterior,Mexico,LD,Gustavo Ferrareis,Atlas,30.0,3142,2027-06-30,2000000,Brazil,"Brazil, Italy",63.4,50.0,45.74,10.0,47.9,True,0.0,38.51,6,44.991918788282014,4.37,1.41,4.33,True,False,sim,True,False,N1
 Exterior,Grecia,ZD,Fabiano,Aris,34.0,2024,2027-06-30,800000,Brazil,Brazil,81.8,55.5,71.98,1.0,63.7,True,0.0,31.01,7,50.16249730452494,3.26,4.37,0.53,True,False,sim,True,False,N1
 Exterior,China,ZD,Lucão,Chongqing Tongliang Long,30.0,1430,,400000,Brazil,Brazil,81.6,55.5,68.09,2.0,61.8,True,0.0,32.13,7,60.1380208550186,4.74,5.21,0.94,True,False,sim,True,False,N1
 Exterior,Israel,ZD,B. Carabalí,Beitar Jerusalem,27.0,3268,2028-06-30,250000,Colombia,Colombia,70.2,52.1,70.7,2.0,61.4,True,0.0,,7,59.64174654406269,5.05,5.53,2.05,True,True,sim,False,False,N1

@@ -250,11 +250,11 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 | Estrangeiro |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Rodinei** | Olympiacos Piraeus | Grecia | 34 | 1.866 | 30/06/27 | 70 | 56 | 84 | Baixa intensidade * | N1 | ✓ | — |
-| 2 | **O. Sonne** | Sparta Praha | Tcheca | 25 | 1.162 | 30/06/29 | 56 | 51 | 62 | — | N1/N2 | — | ✓ |
-| 3 | **J. Cáceres** | Dinamo Moskva | Russia | 25 | 2.253 | 31/12/29 | 56 | 55 | 57 | — | N1/N2 | — | ✓ |
-| 4 | **Á. Preciado** | Sparta Praha | Tcheca | 28 | 1.062 | 31/12/29 | 55 | 53 | 58 | — | N1 | — | ✓ |
-| 5 | **Cadu** | Ferencváros | Hungria | 28 | 1.043 | — | 55 | 53 | 57 | — | N1 | ✓ | — |
+| 1 | **O. Sonne** | Sparta Praha | Tcheca | 25 | 1.162 | 30/06/29 | 56 | 51 | 62 | — | N1/N2 | — | ✓ |
+| 2 | **J. Cáceres** | Dinamo Moskva | Russia | 25 | 2.253 | 31/12/29 | 56 | 55 | 57 | — | N1/N2 | — | ✓ |
+| 3 | **Á. Preciado** | Sparta Praha | Tcheca | 28 | 1.062 | 31/12/29 | 55 | 53 | 58 | — | N1 | — | ✓ |
+| 4 | **Cadu** | Ferencváros | Hungria | 28 | 1.043 | — | 55 | 53 | 57 | — | N1 | ✓ | — |
+| 5 | **T. Casasola** | Catania | Italia C | 30 | 3.687 | 30/06/27 | 54 | 51 | 56 | — | N1 | ✓ | ✓ |
 
 ### Zagueiro pela direita
 
