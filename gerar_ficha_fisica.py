@@ -314,6 +314,12 @@ def main():
             "Distância, acelerações, giro e aguentar o returno não rendem ponto.",
         ],
         "amplitude": {"boa": 2.7, "cai": 4.0, "de": "B1.md, conclusão 2"},
+        # faixa de INTENSIDADE do titular dos times de referência, por setor (posicao_faixas.csv) —
+        # para a legenda dizer o número da posição, não o percentil do time
+        "intensidade_faixas": {st: {r.id: {"p25": round(float(r.ref_p25), 2), "p50": round(float(r.ref_p50), 2),
+                                           "p75": round(float(r.ref_p75), 2), "demais": round(float(r.outros_p50), 2)}
+                                    for r in pd.read_csv(os.path.join(B1, "posicao_faixas.csv")).query("setor == @st and id in ['spr_n', 'hi_n']").itertuples()}
+                               for st in sorted(set(POS_SETOR.values()))},
     }
     with open(SAIDA, "w", encoding="utf-8") as fh:
         json.dump(saida, fh, ensure_ascii=False, indent=1)

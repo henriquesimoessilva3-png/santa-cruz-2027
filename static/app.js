@@ -4365,6 +4365,33 @@ function fsOrdem(x) {
   if (x.f) return x.f.nota != null ? x.f.nota : (x.f.soPiso && x.f.psv != null ? x.f.psv : null);
   return x.idx.geral;
 }
+function fichaLegendaPos(pos) {
+  const P = FICHA.posicoes[pos]; if (!P) return '<p>Goleiro: sem ficha física (o SkillCorner não rastreia).</p>';
+  const rp = (RAIO && RAIO.refs && RAIO.refs[pos]) || {};
+  const so = (rp.sobe || {}).valores || {}, ca = (rp.cai || {}).valores || {};
+  const f1 = (v, c) => typeof v === 'number' ? v.toFixed(c).replace('.', ',') : '—';
+  const sc = (k, c) => ' — quem subiu ' + f1(so[k], c) + ', quem caiu ' + f1(ca[k], c) +
+    ' (média dos jogadores da posição nos clubes 1º–4º e 17º–20º, 2022–25)';
+  const it = [];
+  it.push('<b>Piso de velocidade:</b> PSV-99 de pelo menos ' + f1(FICHA.piso.passa, 1) + ' km/h (26,5–27 fica no limite)' + sc('psv', 1) +
+    '. É o critério mais forte do estudo e vale para toda posição de linha.');
+  const fx = (FICHA.intensidade_faixas || {})[P.setor] || {};
+  if (P.intensidade === false) {
+    it.push('<b>Intensidade:</b> não entra na nota desta posição — o titular dos times que rendem acima do dinheiro ' +
+      (pos === 'MEI' ? 'no meia' : 'no extremo') + ' sprinta <i>menos</i> que os demais (B1_perfis §2). Sprints/90' + sc('spr_n', 1) + '.');
+  } else {
+    const r = (k, n) => fx[k] ? n + ' ' + f1(fx[k].p25, 1) + '–' + f1(fx[k].p75, 1) + ' (mediana ' + f1(fx[k].p50, 1) + '; demais titulares ' + f1(fx[k].demais, 1) + ')' : '';
+    it.push('<b>Intensidade</b> = sprints/90 e ações de alta intensidade/90, em percentil na Série B da posição. Faixa do titular dos times que rendem (' +
+      esc(P.setor.toLowerCase()) + '): ' + r('spr_n', 'sprints') + '; ' + r('hi_n', 'ações de alta intensidade') + '. Mínimo de referência = o primeiro número (P25). Sprints/90' + sc('spr_n', 1) + '.');
+  }
+  if (P.traco.length) {
+    it.push('<b>Traço da posição:</b> ' + P.traco.map(t => esc(t.rot) + ' ' + (t.p25 != null ? f1(t.p25, 2) + '–' + f1(t.p75, 2) : 'sem faixa')).join('; ') +
+      ' (faixa P25–P75 do titular dos times que rendem).');
+  } else it.push('<b>Traço da posição:</b> nenhum — no meia o físico é só o piso; o que decide é o técnico.');
+  it.push('<b>Não rende ponto:</b> distância, acelerações, giro e "aguentar o returno" (ficam no bloco recolhido lá embaixo).');
+  it.push('<span style="opacity:.75">Os números "percentil 60–68 de quem sobe" do estudo são do <b>time</b> (média dos onze), não de um jogador: por isso não batem com as colunas Quem sobe / Quem cai de cada posição.</span>');
+  return '<ol>' + it.map(t => '<li>' + t + '</li>').join('') + '</ol>';
+}
 function fichaSelo(piso) {
   return piso === 'passa' ? '<span class="fv-selo ok" title="PSV-99 ≥ 27 km/h: passa o piso">passa</span>'
        : piso === 'limite' ? '<span class="fv-selo lim" title="PSV-99 entre 26,5 e 27 km/h: no limite">no limite</span>'
@@ -4639,11 +4666,13 @@ function fsRender() {
   const co = fsCoorteAB();
   /* A legenda da ficha V2: as quatro conclusoes do B1, uma linha cada, no topo da matriz */
   const leg = $('#fsLegendaV2');
-  /* recolhida por padrao: quatro linhas de texto roubavam altura da matriz (23/09) */
-  if (leg && !leg.dataset.feito) {
-    leg.innerHTML = FICHA ? '<details><summary><b>Ficha física V2</b> · o que a régua mede (estudo V2, Bloco 1)</summary>' +
-      '<ol>' + FICHA.conclusoes.map(t => '<li>' + esc(t) + '</li>').join('') + '</ol></details>' : '';
-    leg.dataset.feito = '1';
+  /* recolhida por padrao (23/09) e POR POSICAO (25/09): o texto geral misturava o percentil do
+     TIME com o numero do jogador e confundia — no meia, "intensidade de quem sobe" aparecia menor
+     que a de quem cai. Agora diz o que vale na posicao escolhida, em unidade de jogo. */
+  if (leg) {
+    const aberto = !!(leg.querySelector('details') || {}).open;
+    leg.innerHTML = FICHA ? '<details' + (aberto ? ' open' : '') + '><summary><b>Ficha física V2 · ' + esc(sig(fsPos)) +
+      '</b> · o que a régua mede nesta posição (estudo V2, Bloco 1)</summary>' + fichaLegendaPos(fsPos) + '</details>' : '';
   }
   const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
   const extraSet = new Set(fsExtras);
