@@ -18,7 +18,7 @@ onde esse rendimento nasce.
 ## 2. Estabilidade é o maior diferencial que não custa folha
 Os três traços mais fortes de rendimento a dinheiro igual não são de jogo: 30 jogadores usados
 (quem cai usa 39,5), zero trocas de treinador (quem cai troca 2), 67% dos minutos nos 11 mais
-usados (quem cai, 60%). Nenhum anda com o valor do elenco. E manter a base: quem sobe tem 45%
+usados (quem cai, 60%). Nenhum anda com o valor do elenco. Pela escalação real (B15-2): 31 titulares distintos no ano e 71% das titularidades nos 11 mais escalados, contra 39 e 62% de quem cai — o traço mais forte de toda a base (r −0,66). E manter a base: quem sobe tem 45%
 dos minutos com quem já estava no clube e 5 titulares repetidos; quem cai, 24% e 1,5. Os dois
 promovidos baratos são exatamente isto — elenco curto, onze fixo, treinador o ano inteiro,
 metade do elenco mantido — e em jogo não faziam nada acima da liga.
@@ -30,7 +30,7 @@ dentro) e xG por finalização sofrida (empurrar o adversário para fora da áre
 ataque posicional, cruzamentos e passes ao terço final rendem pouco entre times e viram
 negativos dentro do clube: são placar. Pressão alta, recuperações, interceptações e carrinhos
 não rendem nada. Duelo aéreo rende entre times (9 pontos), não dentro do jogo: é elenco.
-Formação tática e estilo não mudam resultado. Entre passagens de treinador (B11), cruzamento e entrada na área **descrevem** o time que rende, mas não sobrevivem à conta dentro do clube: continuam fora da meta.
+Grandes chances criadas e cedidas por jogo (Sofascore, B15) rendem nas duas contas e resumem o eixo: ≥ 1,6 criadas, ≤ 1,25 cedidas. Formação tática e estilo não mudam resultado. Entre passagens de treinador (B11), cruzamento e entrada na área **descrevem** o time que rende, mas não sobrevivem à conta dentro do clube: continuam fora da meta.
 
 ## 4. Bola parada é a alavanca mais barata
 Um gol de saldo de bola parada vale 0,73 ponto na temporada (bola rolando, 0,51) e anda pouco

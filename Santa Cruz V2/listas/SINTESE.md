@@ -13,9 +13,12 @@
 | Saldo de gols de bola parada | **≥ +5** | +5,5 | −5 | B3-1 |
 | Gols por escanteio | **≥ 3%** | 3,2% | 2,2% | B3-4 |
 | Duelos aéreos ganhos | **≥ 46%** | 46,4% | 45,1% | B2-3, B9-1 |
+| Grandes chances criadas / cedidas por jogo (Sofascore) | **≥ 1,6 / ≤ 1,25** | 1,60 / 1,23 | 1,17 / 1,67 | B15-1 |
 | Jogadores usados no ano | **≤ 30** | 30 | 39,5 | B5-1 |
+| Titulares distintos no ano (escalação real) | **≤ 31** | 31 | 39 | B15-2 |
 | Trocas de treinador | **0** | 0 | 2 | B5-1, B4-1 |
 | Minutos nos 11 mais usados | **≥ 67%** | 67,5% | 60% | B5-1 |
+| Titularidades dos 11 mais escalados | **≥ 70%** | 71% | 62% | B15-2 |
 | Titulares mantidos de 2026 | **5** | 5 | 1,5 | B6-3 |
 
 ## 2 · Os filtros de contratação, em ordem
@@ -54,6 +57,7 @@
 
 - O rendimento **não viaja** entre clubes (r 0,01); a **ideia de jogo** viaja (passe longo, pressão, contra-ataque). O físico e o jogo aéreo ficam com o elenco (B4-1, B11-3).
 - O que todos os que rendem têm: **ceder pouca chance clara**. Formação e posse variam (B11-5).
+- Grandes chances cedidas por passagem (Sofascore, B11-9): Condé 1,14, Tencati 1,17, Baptista 1,22, Enderson 1,28, Mozart 1,30 (régua ≤ 1,25); Guto 1,63 e Carpini 1,82 cedem muito mais — o currículo de G4 deles é elenco caro.
 - Pontos esperados pelo xG (xPts) repetem entre passagens; a sorte não. Baptista 1,59 xPts/j, Condé 1,53 (+0,21 de sorte), Guto/Carpini +0,30 de sorte (B13).
 - Recomendação: **Eduardo Baptista** (o modelo mais alinhado ao eixo e o mais sustentável) ou **Léo Condé** (rende com elenco mediano, 4-2-3-1, adapta-se). O elenco de "Os meus dez" é intenso e de campo — encaixa em Condé/Tencati; com Baptista pede zaga e 9 fortes no alto. Mozart não fecha (B11-6).
 - Contratar para ficar o ano inteiro (B5-1).

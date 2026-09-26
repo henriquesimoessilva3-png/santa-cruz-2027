@@ -48,6 +48,13 @@ def main():
     d["psv"] = d.psv99 if "psv99" in d else np.nan
     d["psv"] = d.psv.fillna(d.k.map(tt.psv99))
     d = d[d.psv.isna() | (d.psv >= 27) | (d.pos11 == "GOL")]
+    # Sofascore 2026 (B15): nota média, xG+xA/90 e velocidade máxima — colunas, não ordenação
+    sj = pd.read_csv(os.path.join(RAIZ, "resultados", "b15", "jogador_temporada.csv"))
+    sj = sj[(sj.ano == 2026) & (sj.minutos >= 450)].sort_values("minutos", ascending=False).drop_duplicates("chave").set_index("chave")
+    kk = d.jogador.map(chave)
+    d["sofa_nota"] = np.where(d.mercado_l == "Série B", kk.map(sj.nota_media), np.nan)
+    d["sofa_xgxa"] = np.where(d.mercado_l == "Série B", kk.map(sj.expectedGoals_p90.fillna(0) + sj.expectedAssists_p90.fillna(0)), np.nan)
+    d["sofa_vmax"] = np.where(d.mercado_l == "Série B", kk.map(sj.topSpeed), np.nan)
     bp = bp_indices(); d["bp"] = d.k.map(bp).fillna(0)
     d["livre"] = d.livre_2027.astype(str) == "True"
     d["score"] = (d.nota + 3 * d.tipo_pref + 3 * (d.bp >= 85) + d.scouts.map(BONUS).fillna(0) + d.liga.map(CRIVO).fillna(0)).round(1)
@@ -59,19 +66,19 @@ def main():
           "Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **brasileiros e sul-americanos no exterior** em ligas compatíveis com a B (Portugal B/C, Leste Europeu, Golfo, Ásia B) — ordenados do mais aderente ao menos. "
           "**Pontuação** = nota do estudo (aderência ao modelo que rende na Série B + nível do ranking) + 3 se é do tipo físico que quem sobe mais usa (B10) + 3 se é especialista de bola parada (índice ≥ 85) + bônus dos scouts, com −5 para Equador B, Bolívia e Argentina B. "
           "Filtros: ≥ 900 min, idade ≤ 35, fora os clubes grandes das ligas fracas (Olympiacos, Ludogorets, Maccabi, clubes do Golfo…), PSV-99 ≥ 27 km/h quando há rastreio, sem os vetados, valor ≤ € 2 MM, nota com as duas partes (ou aderência ≥ 65). "
-          "Nas ligas de fora a aderência já está convertida pela reta de liga (B12: p90 na origem → 58 na B). **L** = livre (contrato até jun/27 ou sem contrato); **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27.", ""]
+          "Nas ligas de fora a aderência já está convertida pela reta de liga (B12: p90 na origem → 58 na B). **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27. **vmax Sofa**, **Nota Sofa** e **xG+xA/90** vêm do Sofascore 2026 (B15), só para a Série B: descrevem, não ordenam (a nota não repete de um ano para o outro, r 0,36). A vmax é pico de um jogo (r 0,33 com o PSV-99) e não substitui o piso: só abaixo de 32 km/h é alerta.", ""]
     out = []
     for p, nome, sub in POS:
         x = d[d.pos11 == p].head(10).assign(ordem=lambda t: range(1, len(t) + 1)); out.append(x)
         md += [f"\n### {nome}" + (f" — {sub}" if sub else ""), "",
-               "| # | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |",
-               "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+               "| # | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | vmax Sofa | Tipo físico | BP | Nota Sofa | xG+xA/90 | Scouts |",
+               "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for r in x.itertuples():
             liga = "Série B" if r.mercado_l == "Série B" else str(r.liga)
             tipo = "—" if pd.isna(r.tipo) else str(r.tipo) + ("" if r.tipo_pref else " *")
-            md.append(f"| {r.ordem} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {liga} | {int(r.idade)} | {dt(r.contrato)}{' *' if str(r.contrato_vencido) == 'True' else ''} | **{f(r.score)}** | {f(r.nota)}{'' if str(r.nota_completa) == 'True' else ' *'} | {f(r.aderencia_ajustada)} | {f(r.nivel_overall)} | {f(r.psv, 1)} | {tipo} | {f(r.bp) if r.bp else '—'} | {('★ ' + str(r.scouts)) if isinstance(r.scouts, str) else ''} |")
+            md.append(f"| {r.ordem} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {liga} | {int(r.idade)} | {dt(r.contrato)}{' *' if str(r.contrato_vencido) == 'True' else ''} | **{f(r.score)}** | {f(r.nota)}{'' if str(r.nota_completa) == 'True' else ' *'} | {f(r.aderencia_ajustada)} | {f(r.nivel_overall)} | {f(r.psv, 1)} | {f(r.sofa_vmax, 1)} | {tipo} | {f(r.bp) if r.bp else '—'} | {f(r.sofa_nota, 2)} | {f(r.sofa_xgxa, 2)} | {('★ ' + str(r.scouts)) if isinstance(r.scouts, str) else ''} |")
     t = pd.concat(out)
-    t[["ordem", "pos11", "jogador", "clube", "liga", "mercado_l", "idade", "minutos", "contrato", "livre", "valor", "nota", "aderencia_ajustada", "nivel_overall", "psv", "tipo", "tipo_pref", "bp", "scouts", "score"]].to_csv(os.path.join(L, "IDEAL_2027.csv"), index=False)
+    t[["ordem", "pos11", "jogador", "clube", "liga", "mercado_l", "idade", "minutos", "contrato", "livre", "valor", "nota", "aderencia_ajustada", "nivel_overall", "psv", "sofa_vmax", "tipo", "tipo_pref", "bp", "sofa_nota", "sofa_xgxa", "scouts", "score"]].to_csv(os.path.join(L, "IDEAL_2027.csv"), index=False)
     open(os.path.join(L, "IDEAL_2027.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(t.groupby("pos11").mercado_l.value_counts().unstack().fillna(0).astype(int).to_string())
     print(t[["ordem", "pos11", "jogador", "clube", "score", "nota", "psv", "tipo", "bp", "livre"]].head(60).to_string(index=False))

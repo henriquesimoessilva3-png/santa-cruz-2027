@@ -1,0 +1,148 @@
+ano,clube,treinador,jogos,bc_criadas,bc_cedidas,chutes_area,chutes_area_adv,rendimento
+2022,Londrina,Adilson Batista,37,0.97,1.52,5.81,6.19,0.23
+2023,Botafogo-SP,Adilson Batista,13,0.67,0.92,6.15,7.23,0.16
+2022,CSA,Alberto Valentim,10,1.38,1.62,6.5,9.0,-0.65
+2023,Atlético-GO,Alberto Valentim,12,1.58,1.25,8.58,7.0,-0.25
+2024,Ituano,Alberto Valentim,32,0.96,1.71,5.91,10.22,-0.33
+2025,América-MG,Alberto Valentim,17,1.82,1.88,5.82,6.94,-0.01
+2025,Operário-PR,Alex,26,1.62,1.33,6.65,5.77,-0.13
+2026,Athletic,Alex,27,1.93,2.04,6.41,9.11,0.05
+2022,Novorizontino,Allan Aal,13,1.08,1.17,6.54,6.0,-0.22
+2022,Vila Nova,Allan Aal,22,1.38,0.88,5.32,5.41,0.36
+2023,ABC,Allan Aal,19,1.05,0.89,4.68,7.47,-0.46
+2024,Guarani,Allan Aal,20,0.73,1.13,5.9,5.25,-0.35
+2025,Botafogo-SP,Allan Aal,22,1.2,2.3,5.52,7.95,-0.18
+2026,Avaí,Allan Aal,11,1.91,1.91,7.0,7.27,0.25
+2025,Remo,António Oliveira,15,1.33,1.93,5.53,8.8,-0.26
+2023,ABC,Argel Fuchs,11,0.8,1.4,6.27,8.09,-0.43
+2022,Tombense,Bruno Pivetti,31,1.16,1.16,5.71,7.9,0.24
+2023,Guarani,Bruno Pivetti,10,2.1,1.6,8.5,8.6,0.15
+2025,Operário-PR,Bruno Pivetti,12,2.0,1.42,6.83,5.75,-0.27
+2022,Ituano,Carlos Pimentel,21,1.74,2.05,7.52,7.57,0.71
+2024,América-MG,Cauan de Almeida,23,1.39,1.0,7.52,6.3,0.04
+2026,Avaí,Cauan de Almeida,15,1.13,2.6,6.33,9.0,-0.34
+2022,Operário-PR,Claudinei Oliveira,19,1.12,1.94,5.0,8.58,-0.23
+2022,Sport,Claudinei Oliveira,18,1.65,0.94,8.5,5.56,0.28
+2023,Chapecoense,Claudinei Oliveira,17,1.14,1.07,7.18,7.76,-0.16
+2023,Vila Nova,Claudinei Oliveira,21,1.65,1.15,9.05,5.9,0.39
+2022,Criciúma,Claudio Tencati,38,1.73,1.15,7.76,6.97,0.31
+2023,Criciúma,Claudio Tencati,38,1.46,1.06,7.74,7.16,0.4
+2026,Botafogo-SP,Claudio Tencati,27,2.04,1.3,7.81,7.07,0.0
+2022,Náutico,Dado Cavalcanti,13,0.92,1.77,4.38,9.23,-0.66
+2022,CRB,Daniel Paulista,30,1.39,1.11,5.5,7.9,0.15
+2023,CRB,Daniel Paulista,30,1.39,1.36,7.47,6.57,0.38
+2024,CRB,Daniel Paulista,24,1.3,1.55,6.46,7.04,-0.3
+2025,Remo,Daniel Paulista,10,2.5,1.6,7.6,8.8,0.17
+2026,Ceará,Daniel Paulista,12,1.42,2.5,7.08,8.08,-0.18
+2026,Goiás,Daniel Paulista,14,1.77,2.23,7.14,7.21,-0.04
+2023,Novorizontino,Eduardo Baptista,38,1.55,1.09,9.42,5.32,0.31
+2024,Novorizontino,Eduardo Baptista,38,1.27,0.73,7.0,5.87,0.4
+2025,Criciúma,Eduardo Baptista,32,2.1,1.55,7.38,6.69,0.31
+2026,Criciúma,Eduardo Baptista,26,2.0,1.5,8.19,7.04,0.37
+2023,Avaí,Eduardo Barroca,23,1.53,1.16,5.39,8.96,-0.01
+2023,Ceará,Eduardo Barroca,12,1.5,1.8,6.42,10.17,0.15
+2025,CRB,Eduardo Barroca,38,2.14,2.35,8.87,7.84,0.03
+2026,CRB,Eduardo Barroca,16,2.0,2.38,9.12,8.25,-0.11
+2025,Cuiabá,Eduardo Barros,17,2.0,1.56,10.0,6.94,-0.12
+2026,Cuiabá,Eduardo Barros,27,1.88,1.28,7.41,5.3,0.19
+2023,Londrina,Eduardo Souza,12,1.0,1.6,5.75,7.58,-0.44
+2026,Atlético-GO,Eduardo Souza,13,2.77,2.15,8.23,7.38,0.12
+2022,Bahia,Enderson Moreira,17,1.25,1.19,8.65,6.0,-0.05
+2023,Sport,Enderson Moreira,37,1.81,1.19,7.62,6.7,0.21
+2024,Avaí,Enderson Moreira,19,1.35,1.06,6.26,7.0,0.04
+2025,América-MG,Enderson Moreira,11,1.91,1.55,7.73,7.0,-0.76
+2025,Novorizontino,Enderson Moreira,15,2.79,1.14,8.33,5.67,0.26
+2026,Novorizontino,Enderson Moreira,27,2.81,1.52,9.41,6.52,0.51
+2023,Ponte Preta,Felipe Moreira,18,1.19,1.5,6.17,7.94,-0.06
+2024,Santos,Fábio Carille,37,1.42,0.87,8.06,5.0,0.09
+2022,Chapecoense,Gilmar Dal Pozzo,11,1.82,1.82,8.73,6.0,0.11
+2022,Sport,Gilmar Dal Pozzo,14,0.75,0.83,5.43,5.36,0.11
+2023,Chapecoense,Gilmar Dal Pozzo,11,1.7,1.7,6.73,8.36,-0.48
+2024,Avaí,Gilmar Dal Pozzo,16,1.31,1.0,7.25,6.25,0.07
+2024,Chapecoense,Gilmar Dal Pozzo,15,1.0,1.25,6.4,8.8,0.3
+2025,Chapecoense,Gilmar Dal Pozzo,38,2.0,1.89,7.82,7.76,0.37
+2026,Sport,Gilmar Dal Pozzo,11,2.89,2.0,9.18,7.82,-0.31
+2022,Brusque,Gilson Kleina,11,1.0,1.44,7.73,7.36,-0.5
+2022,Chapecoense,Gilson Kleina,15,1.54,1.15,6.87,7.2,-0.15
+2025,Amazonas,Guilherme Alves,11,1.82,1.82,7.0,9.73,-0.2
+2022,Bahia,Guto Ferreira,14,1.45,0.91,7.36,5.64,0.32
+2023,Ceará,Guto Ferreira,11,1.0,1.8,7.27,6.64,-0.32
+2025,Cuiabá,Guto Ferreira,21,1.95,1.67,8.05,6.05,0.01
+2025,Remo,Guto Ferreira,10,1.8,1.6,5.8,8.2,0.77
+2026,Vila Nova,Guto Ferreira,25,2.0,2.18,6.6,6.24,0.55
+2022,Ponte Preta,Hélio dos Anjos,38,0.88,1.48,6.32,6.89,-0.16
+2024,CRB,Hélio dos Anjos,11,1.1,1.3,6.82,6.18,0.2
+2026,Náutico,Hélio dos Anjos,27,2.11,2.7,9.85,7.11,0.4
+2023,Atlético-GO,Jair Ventura,19,1.31,1.56,7.74,6.21,0.45
+2025,Avaí,Jair Ventura,27,1.92,1.65,7.41,7.0,0.03
+2022,Vasco,Jorginho,10,2.11,2.0,7.2,7.9,0.14
+2024,Coritiba,Jorginho,19,1.19,1.12,6.95,7.37,0.01
+2023,Tombense,João Burse,12,0.91,2.09,7.33,7.75,-0.25
+2024,América-MG,Lisca,14,1.54,1.0,7.21,6.29,-0.06
+2022,Brusque,Luan Carlos,20,1.47,1.12,7.2,5.95,0.0
+2024,Vila Nova,Luizinho Lopes,26,1.12,1.12,6.62,7.92,0.23
+2024,Brusque,Luizinho Vieira,19,1.33,1.53,5.58,8.74,-0.19
+2022,Sampaio Corrêa,Léo Condé,38,1.56,1.61,6.97,7.37,0.47
+2023,Vitória,Léo Condé,38,1.51,1.09,7.34,7.24,0.54
+2024,Ceará,Léo Condé,25,1.17,0.71,8.6,5.04,0.3
+2022,Chapecoense,Marcelo Cabo,10,1.5,1.62,4.9,6.9,-0.25
+2024,Brusque,Marcelo Cabo,13,1.1,1.3,5.31,6.62,-0.19
+2023,Botafogo-SP,Marcelo Chamusca,23,0.57,1.67,6.43,6.91,-0.09
+2023,Tombense,Marcelo Chamusca,10,1.2,1.0,9.2,6.8,-0.57
+2023,Ituano,Marcinho,30,1.18,1.54,6.73,7.0,0.03
+2024,Sport,Mariano Soso,14,1.77,1.08,8.0,6.07,0.26
+2022,Operário-PR,Matheus Costa,16,0.58,2.0,5.88,8.62,-0.47
+2026,Juventude,Maurício Barbieri,27,2.0,1.23,7.48,6.15,0.41
+2022,Ituano,Mazola Júnior,17,1.35,1.35,8.18,6.18,-0.09
+2022,Novorizontino,Mazola Júnior,10,1.56,1.44,8.6,6.5,-0.19
+2023,Tombense,Moacir Júnior,14,1.36,1.09,6.0,7.86,0.05
+2022,CSA,Mozart,12,1.1,1.3,6.58,6.58,-0.26
+2022,Guarani,Mozart,23,1.33,1.19,7.26,6.87,0.36
+2023,Mirassol,Mozart,35,1.84,0.9,7.03,5.03,0.26
+2024,Mirassol,Mozart,38,1.23,1.03,6.21,6.61,0.36
+2025,Coritiba,Mozart,38,1.62,1.24,7.53,6.05,0.3
+2026,Ceará,Mozart,11,2.27,2.09,8.27,6.73,-0.16
+2026,Goiás,Mozart,13,1.33,1.33,5.85,6.85,0.06
+2023,Sampaio Corrêa,Márcio Fernandes,22,1.1,1.38,6.27,6.91,-0.17
+2026,Sport,Márcio Goiano,14,2.64,2.43,8.86,8.5,0.23
+2024,Botafogo-SP,Márcio Zanardi,10,0.78,1.78,5.0,7.4,0.05
+2024,Goiás,Márcio Zanardi,18,1.81,0.94,6.83,7.0,-0.15
+2025,Amazonas,Márcio Zanardi,19,2.06,1.94,6.0,7.26,-0.44
+2026,Ponte Preta,Márcio Zanardi,12,1.58,3.5,4.83,11.33,-0.86
+2024,Ponte Preta,Nelsinho Baptista,25,0.91,1.65,7.04,7.84,-0.04
+2025,Athletico-PR,Odair Hellmann,30,2.46,1.32,9.07,5.53,0.14
+2024,Botafogo-SP,Paulo Gomes,28,0.74,1.44,7.0,7.18,-0.11
+2022,Cruzeiro,Paulo Pezzolano,38,1.52,1.27,7.84,6.11,0.5
+2024,Sport,Pepa,17,1.76,0.71,8.82,5.65,0.54
+2023,Ponte Preta,Pintado,11,1.33,1.89,4.36,8.82,-0.28
+2022,Novorizontino,Rafael Guanaes,15,1.29,1.43,7.53,7.73,-0.03
+2024,Operário-PR,Rafael Guanaes,37,1.07,1.23,6.51,6.24,0.17
+2024,Amazonas,Rafael Lacerda,31,1.04,1.04,8.0,6.87,0.17
+2025,Atlético-GO,Rafael Lacerda,21,1.81,2.05,7.05,7.05,-0.11
+2025,Vila Nova,Rafael Lacerda,11,1.7,1.1,7.82,6.18,0.16
+2022,Grêmio,Renato Gaúcho,10,1.7,0.8,8.4,4.2,0.12
+2026,São Bernardo,Ricardo Catalá,20,1.95,1.6,6.4,8.0,0.15
+2022,CSA,Roberto Fernandes,11,1.4,1.2,7.82,6.91,-0.16
+2022,Náutico,Roberto Fernandes,16,1.31,1.62,7.12,7.94,-0.22
+2023,Londrina,Roberto Fonseca,11,1.36,2.0,6.91,10.55,-0.19
+2026,Ponte Preta,Rodrigo Santana,10,2.1,1.9,7.3,10.0,-0.33
+2022,Grêmio,Roger Machado,27,1.5,1.04,7.37,5.81,-0.06
+2025,Athletic,Roger Silva,10,1.6,1.8,6.9,8.2,-0.81
+2026,Atlético-GO,Roger Silva,10,2.25,1.75,8.4,6.9,0.62
+2025,Volta Redonda,Rogério Corrêa,38,1.26,2.03,7.03,7.7,-0.15
+2026,Londrina,Rogério Micale,18,2.44,1.94,7.56,7.94,-0.19
+2025,Athletic,Rui Duarte,28,2.07,1.57,7.54,6.46,-0.06
+2023,Juventude,Thiago Carpini,32,1.32,1.07,7.19,5.91,0.54
+2026,Fortaleza,Thiago Carpini,19,1.83,2.56,8.32,7.37,0.07
+2023,Guarani,Umberto Louzer,26,1.3,1.15,6.35,7.12,0.22
+2024,Chapecoense,Umberto Louzer,18,1.06,1.5,7.28,7.78,-0.24
+2025,Novorizontino,Umberto Louzer,22,1.75,1.75,7.0,7.09,0.25
+2026,América-MG,Umberto Louzer,12,1.75,3.0,6.42,9.92,-0.46
+2023,Ceará,Vagner Mancini,13,1.45,1.55,7.15,6.54,-0.44
+2024,Ceará,Vagner Mancini,12,1.83,1.42,9.08,5.58,-0.17
+2024,Goiás,Vagner Mancini,20,1.53,0.76,8.11,7.63,0.36
+2025,Goiás,Vagner Mancini,32,1.94,1.74,7.97,6.81,0.2
+2025,Avaí,Vinícius,11,2.0,1.73,6.0,8.18,0.39
+2025,Ferroviária,Vinícius,25,1.61,2.43,6.36,8.88,0.08
+2025,América-MG,William Batista,10,1.9,1.3,7.3,6.0,-0.18
+2022,Vasco,Zé Ricardo,10,1.88,1.5,7.9,6.6,0.24
