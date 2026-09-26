@@ -23,6 +23,7 @@ DOCS = [
     ("Conclusões", "diferenciais", "listas/DIFERENCIAIS.md", "O que faz subir"),
     ("Recomendação", "elenco", "listas/ELENCO_2027.md", "Quem eu contrataria"),
     ("Recomendação", "treinadores", "listas/TREINADORES.md", "Treinadores"),
+    ("Recomendação", "ideal", "listas/IDEAL_2027.md", "Os meus dez por posição"),
     ("Recomendação", "top10", "listas/TOP10_POR_POSICAO.md", "Dez alvos por posição"),
     ("Recomendação", "livres", "listas/ELENCO_2027_LIVRES_B_ARG.md", "Só livres (B + ARG)"),
     ("Recomendação", "bolaparada", "listas/BOLA_PARADA.md", "Especialistas de bola parada"),

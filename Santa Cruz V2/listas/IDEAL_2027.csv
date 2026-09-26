@@ -1,0 +1,111 @@
+ordem,pos11,jogador,clube,liga,mercado_l,idade,minutos,contrato,livre,valor,nota,aderencia_ajustada,nivel_overall,psv,tipo,tipo_pref,bp,scouts,score
+1,GOL,Jandrei,Juventude,Série B,Série B,33.0,2395,2026-12-31,True,400000.0,83.2,83.2,83.2,,,False,0.0,,83.2
+2,GOL,E. Valencia,San Antonio,Equador B,Sul-americanas,23.0,1485,,True,0.0,83.3,75.9,90.7,,,False,0.0,,78.3
+3,GOL,Rodolfo,Central Español,Uruguai,Sul-americanas,35.0,2113,2026-12-31,True,0.0,77.7,68.6,86.8,,,False,0.0,,77.7
+4,GOL,Jean,América de Cali,Colombia A,Sul-americanas,30.0,1613,2026-12-31,True,2000000.0,75.4,64.8,85.9,,,False,0.0,,75.4
+5,GOL,D. Ospina,Atlético Nacional,Colombia A,Sul-americanas,37.0,1177,2026-12-31,True,2000000.0,73.0,60.0,85.9,,,False,0.0,,73.0
+6,GOL,M. Miño,Barracas Central,Argentina A,Sul-americanas,28.0,1551,2026-12-31,True,300000.0,72.7,72.9,72.4,,,False,0.0,,72.7
+7,GOL,T. Cardozo,Belgrano,Argentina A,Sul-americanas,30.0,2387,2028-12-31,False,800000.0,72.2,62.1,82.4,,,False,0.0,,72.2
+8,GOL,G. Castellón,Universidad de Chile,Chile,Sul-americanas,32.0,1934,2027-12-31,False,800000.0,72.1,55.0,89.1,,,False,0.0,,72.1
+9,GOL,G. Napa,Guayaquil City,Equador A,Sul-americanas,23.0,2305,2026-12-31,True,300000.0,71.8,69.7,73.8,,,False,0.0,,71.8
+10,GOL,W. Cuesta,Internacional Palmira,Colombia B,Sul-americanas,33.0,1934,2026-12-31,True,150000.0,71.0,60.0,81.9,,,False,0.0,,71.0
+1,LD,Willean Lepo,Criciúma,Série B,Série B,29.0,1710,2027-12-31,False,450000.0,66.3,77.8,54.8,29.7,Explosivo e rápido,True,0.0,"média ≥6,5",71.3
+2,LD,Maílton,Fortaleza,Série B,Série B,28.0,1838,2027-12-31,False,,64.8,71.0,58.6,29.8,Baixa intensidade,False,89.5,,67.8
+3,LD,E. Mena,Medellín,Colombia A,Sul-americanas,28.0,1599,2028-06-30,False,450000.0,64.7,66.6,62.8,30.25,Explosivo e rápido,True,0.0,,67.7
+4,LD,Lucas Soto,Everton,Chile,Sul-americanas,23.0,1148,2026-12-31,True,0.0,59.9,60.4,59.5,,,False,0.0,urgência,63.9
+5,LD,C. Graciano,Real Cartagena,Colombia B,Sul-americanas,23.0,2025,,True,0.0,61.9,65.6,58.2,,,False,0.0,,61.9
+6,LD,M. Ruidías,Cusco,Peru,Sul-americanas,27.0,1461,2027-12-31,False,400000.0,61.8,68.2,55.4,27.02,Médio em tudo,False,0.0,,61.8
+7,LD,D. Romero,Independiente del Valle,Equador A,Sul-americanas,25.0,1343,,True,300000.0,58.4,60.0,56.8,30.21,Explosivo e rápido,True,0.0,,61.4
+8,LD,G. Cuellar,Universitario de Vinto,Bolivia,Sul-americanas,27.0,1260,,True,0.0,65.0,71.9,58.2,,,False,0.0,,60.0
+9,LD,Rafael Ramos,Ceará,Série B,Série B,31.0,902,2026-12-31,True,500000.0,56.4,72.1,40.8,29.7,Explosivo e rápido,True,0.0,,59.4
+10,LD,E. Cabal,Atlético Vinotinto,Equador B,Sul-americanas,22.0,1349,2026-12-31,True,0.0,64.2,72.1,56.2,,,False,0.0,,59.2
+1,ZD,Lucão,Chongqing Tongliang Long,China,Exterior,30.0,1430,,True,400000.0,67.3,66.6,68.1,28.68,Motor de volume,True,85.2,,73.3
+2,ZD,F. Álvarez,Argentinos Juniors,Argentina A,Sul-americanas,26.0,2307,2029-12-31,False,0.0,66.2,62.6,69.7,27.64,Motor de volume,True,89.7,,72.2
+3,ZD,Ricardo Silva,América-MG,Série B,Série B,34.0,1252,2026-11-30,True,300000.0,68.0,76.3,59.8,28.1,Motor de volume,True,0.0,,71.0
+4,ZD,Bruno Alves,Criciúma,Série B,Série B,35.0,1146,2027-12-31,False,600000.0,63.2,67.3,59.1,28.8,Motor de volume,True,90.7,,69.2
+5,ZD,G. Vargas,Olimpia,Paraguai,Sul-americanas,24.0,1315,2026-12-31,True,400000.0,65.4,47.0,83.8,29.03,Motor de volume,True,0.0,,68.4
+6,ZD,G. Fratta,Deportivo Táchira,Venezuela,Sul-americanas,30.0,1528,2026-12-31,True,500000.0,64.6,61.2,67.9,,,False,96.8,,67.6
+7,ZD,Jemerson,São Bernardo,Série B,Série B,34.0,1706,2026-11-30,True,1700000.0,66.8,66.8,,28.9,Baixa intensidade,False,81.0,,66.8
+8,ZD,B. Carabalí,Beitar Jerusalem,Israel,Exterior,27.0,3268,2028-06-30,False,250000.0,63.0,55.2,70.7,,,False,91.9,,66.0
+9,ZD,C. Ferreira,Atlético Tucumán,Argentina A,Sul-americanas,23.0,1303,2026-12-31,True,0.0,64.4,64.7,64.1,28.02,Baixa intensidade,False,0.0,,64.4
+10,ZD,Gabriel Bahia,Novorizontino,Série B,Série B,27.0,1246,2027-03-31,True,,61.2,68.3,54.0,30.9,Explosivo e rápido,False,0.0,"média ≥6,5",63.2
+1,ZE,M. Gamarra,Olimpia,Paraguai,Sul-americanas,25.0,1774,2027-12-31,False,2000000.0,72.4,69.5,75.3,28.83,Motor de volume,True,0.0,,75.4
+2,ZE,Vilar,Botafogo-SP,Série B,Série B,26.0,2612,2026-11-30,True,,65.5,65.5,,30.2,Motor de volume,True,90.7,,71.5
+3,ZE,Marcos Paulo,Juventude,Série B,Série B,23.0,2295,2028-12-31,False,,70.5,70.5,,,,False,0.0,,70.5
+4,ZE,S. Morales,Aucas,Equador A,Sul-americanas,24.0,1911,2026-12-31,True,0.0,67.3,69.4,65.3,27.17,Baixa intensidade,False,92.4,,70.3
+5,ZE,J. Díaz,Universidad Católica,Chile,Sul-americanas,28.0,1229,,True,500000.0,64.6,62.8,66.4,28.93,Motor de volume,True,0.0,,67.6
+6,ZE,Zé Marcos,Sport,Série B,Série B,28.0,1173,2027-12-31,False,600000.0,64.2,68.7,59.8,28.2,Baixa intensidade,False,0.0,"média ≥6,5",66.2
+7,ZE,N. Olivera,Wanderers,Uruguai,Sul-americanas,33.0,1528,2027-06-30,True,200000.0,64.7,66.9,62.5,27.4,Baixa intensidade,False,0.0,,64.7
+8,ZE,J. Rodríguez Silva,Comerciantes Unidos,Peru,Sul-americanas,29.0,1975,2026-12-31,True,10000.0,61.4,60.8,62.1,27.9,Baixa intensidade,False,91.6,,64.4
+9,ZE,Wallace,Botafogo-SP,Série B,Série B,31.0,1046,2026-11-30,True,1000000.0,64.4,72.5,56.4,,,False,0.0,,64.4
+10,ZE,D. Marmolejo,Leones,Colombia B,Sul-americanas,22.0,1362,2027-12-31,False,0.0,64.0,63.6,64.3,,,False,0.0,,64.0
+1,LE,Samuel Toscas,Al Riffa,Bahrain,Exterior,26.0,2048,2031-06-30,False,0.0,81.4,79.5,83.2,,,False,0.0,,81.4
+2,LE,M. Del Blanco,Unión Santa Fe,Argentina A,Sul-americanas,22.0,1700,2031-06-30,False,0.0,68.9,67.3,70.6,29.39,Explosivo e rápido,True,93.4,,74.9
+3,LE,J. Carabalí,Universitario,Peru,Sul-americanas,29.0,1077,2029-12-31,False,600000.0,71.4,70.3,72.5,31.03,Explosivo e rápido,True,0.0,,74.4
+4,LE,C. Cuevas,Universidad Católica,Chile,Sul-americanas,31.0,1476,2026-12-31,True,750000.0,66.2,75.0,57.4,28.99,Explosivo e rápido,True,0.0,,69.2
+5,LE,J. Pérez,Carabobo,Venezuela,Sul-americanas,27.0,1462,2026-12-31,True,300000.0,69.1,73.2,65.0,,,False,0.0,,69.1
+6,LE,Maicon,Levski Sofia,Bulgaria,Exterior,26.0,2951,2027-06-30,True,0.0,68.9,65.0,72.9,,,False,0.0,,68.9
+7,LE,Patrick Brey,Botafogo-SP,Série B,Série B,29.0,2301,2026-11-30,True,125000.0,68.6,72.3,64.8,28.6,Médio em tudo,False,84.5,,68.6
+8,LE,Diogo Barbosa,Juventude,Série B,Série B,34.0,1586,2026-11-30,True,600000.0,65.2,65.2,,29.9,Explosivo e rápido,True,0.0,,68.2
+9,LE,J. Mohor,Macará,Equador A,Sul-americanas,25.0,958,2026-12-31,True,100000.0,67.7,70.0,65.4,29.21,Médio em tudo,False,0.0,,67.7
+10,LE,A. Fretes,Club Libertad,Paraguai,Sul-americanas,20.0,1363,2028-12-31,False,0.0,64.4,63.9,64.9,30.11,Explosivo e rápido,True,0.0,,67.4
+1,VOL,André Luiz,Londrina,Série B,Série B,31.0,1438,2026-11-30,True,,70.2,70.2,,27.5,Intermediário,True,74.8,,73.2
+2,VOL,K. Salazar,Unión Magdalena,Colombia B,Sul-americanas,28.0,1413,,True,300000.0,66.0,72.3,59.8,,,False,0.0,,66.0
+3,VOL,Biel,Sport,Série B,Série B,24.0,1737,2028-07-31,False,200000.0,56.9,65.2,48.6,28.0,Mais intenso,True,0.0,"média ≥6,5",61.9
+4,VOL,M. Cova,Carabobo,Venezuela,Sul-americanas,34.0,1598,2026-12-31,True,0.0,61.4,47.8,74.9,,,False,0.0,,61.4
+5,VOL,Wenderson,Náutico,Série B,Série B,28.0,2388,2026-11-30,True,,61.2,78.3,44.1,,,False,0.0,,61.2
+6,VOL,F. Charrupí,Atlético Bucaramanga,Colombia A,Sul-americanas,25.0,1558,,True,250000.0,57.7,62.4,53.0,28.0,Intermediário,True,0.0,,60.7
+7,VOL,R. Ramírez,Nacional Asunción,Paraguai,Sul-americanas,26.0,1665,2026-12-31,True,150000.0,57.6,63.1,52.1,28.36,Intermediário,True,0.0,,60.6
+8,VOL,Cláudio Falcão,Farense,Portugal B,Exterior,31.0,2806,2029-06-30,False,1000000.0,54.5,60.0,49.1,28.13,Intermediário,True,86.8,,60.5
+9,VOL,Rodrigo Yuri,Al Riffa,Bahrain,Exterior,32.0,1958,,True,0.0,60.5,43.3,77.7,,,False,0.0,,60.5
+10,VOL,J. Caicedo,Deportivo Pasto,Colombia A,Sul-americanas,22.0,1443,2027-12-31,False,0.0,56.0,57.9,54.1,27.38,Mais intenso,True,0.0,,59.0
+1,MED,Rodriguinho,Fortaleza,Série B,Série B,23.0,1351,2027-12-31,False,,79.4,79.4,,,,False,0.0,,79.4
+2,MED,J. Concha,Universitario,Peru,Sul-americanas,27.0,1616,2026-12-31,True,0.0,67.3,63.8,70.9,28.22,Médio em tudo,True,0.0,,70.3
+3,MED,F. Gaibor,Alianza Lima,Peru,Sul-americanas,34.0,1236,2026-12-31,True,650000.0,70.0,69.8,70.1,27.5,Baixa intensidade,False,0.0,,70.0
+4,MED,Arthur Rezende,Muharraq,Bahrain,Exterior,32.0,1839,,True,500000.0,66.3,63.4,69.1,,,False,92.6,,69.3
+5,MED,G. Wilson Da Silva Moreira,Khalidiya ,Bahrain,Exterior,30.0,1437,2026-06-30,True,0.0,69.1,66.2,72.0,,,False,0.0,,69.1
+6,MED,A. Alfonso,Bogotá,Colombia B,Sul-americanas,21.0,1219,,True,0.0,68.1,76.3,59.9,,,False,0.0,,68.1
+7,MED,J. Meneses,Deportes Limache,Chile,Sul-americanas,33.0,1762,2026-12-31,True,0.0,68.0,68.5,67.5,28.98,Explosivo e rápido,False,0.0,,68.0
+8,MED,Crystopher,CRB,Série B,Série B,28.0,2138,2026-12-31,True,50000.0,64.7,75.0,54.4,27.7,Médio em tudo,True,0.0,,67.7
+9,MED,J. Castellanos,Deportivo La Guaira,Venezuela,Sul-americanas,30.0,941,2026-12-31,True,300000.0,67.6,71.4,63.8,,,False,0.0,,67.6
+10,MED,M. Miranda,Macará,Equador A,Sul-americanas,26.0,1403,2026-12-31,True,100000.0,60.8,71.5,50.1,28.12,Médio em tudo,True,0.0,média ≥7,66.8
+1,MEI,F. Carrizo,Club Libertad,Paraguai,Sul-americanas,35.0,1335,2026-12-31,True,500000.0,88.0,85.0,90.9,27.22,Médio em tudo,True,0.0,,91.0
+2,MEI,Matheus Frizzo,Suwon,Coreia B,Exterior,28.0,1919,,True,0.0,84.8,85.0,84.5,,,False,0.0,,84.8
+3,MEI,Jean Carlos,Náutico,Série B,Série B,34.0,960,2027-12-31,False,750000.0,75.9,75.9,,,,False,96.5,,78.9
+4,MEI,N. Quagliata,Melgar,Peru,Sul-americanas,27.0,1510,2029-12-31,False,0.0,70.8,75.9,65.6,27.64,Explosivo e rápido,False,94.4,,73.8
+5,MEI,M. Palavecino,Universidad Católica,Chile,Sul-americanas,28.0,1126,2028-12-31,False,0.0,68.8,73.6,64.0,28.11,Médio em tudo,True,0.0,,71.8
+6,MEI,A. Hohberg,Cienciano,Peru,Sul-americanas,35.0,1787,2027-12-31,False,400000.0,67.1,66.8,67.4,27.58,Baixa intensidade,False,95.3,,70.1
+7,MEI,D. Pazmiño,Leones del Norte,Equador A,Sul-americanas,26.0,1106,2026-12-31,True,50000.0,66.7,68.8,64.5,27.25,Médio em tudo,True,0.0,,69.7
+8,MEI,L. González,Monagas,Venezuela,Sul-americanas,35.0,915,2026-12-31,True,500000.0,68.6,71.4,65.8,,,False,0.0,,68.6
+9,MEI,J. Barrera,Real Cartagena,Colombia B,Sul-americanas,30.0,1042,2026-12-31,True,700000.0,68.2,69.8,66.6,,,False,0.0,,68.2
+10,MEI,N. Wunsch,Defensor Sporting,Uruguai,Sul-americanas,23.0,1379,2028-12-31,False,0.0,65.7,65.7,,28.96,Explosivo e rápido,False,0.0,,65.7
+1,ED,Vinícius,Náutico,Série B,Série B,33.0,1750,2027-12-31,False,1000000.0,84.6,90.9,78.3,,,False,0.0,,84.6
+2,ED,Chrystian Barletta,Sport,Série B,Série B,25.0,1991,2029-07-31,False,,66.0,68.2,63.9,30.7,Explosivo e rápido,True,90.1,urgência,76.0
+3,ED,F. González,O'Higgins,Chile,Sul-americanas,25.0,1256,2028-12-31,False,0.0,70.4,70.7,70.1,30.92,Explosivo e rápido,True,0.0,,73.4
+4,ED,B. Palacios,Al Wasl,Emirados,Exterior,23.0,907,2030-06-30,False,0.0,69.9,74.8,64.9,31.11,Explosivo e rápido,True,0.0,,72.9
+5,ED,C. Souza,Cienciano,Peru,Sul-americanas,30.0,1436,2026-12-31,True,300000.0,69.4,77.5,61.3,30.92,Explosivo e rápido,True,0.0,,72.4
+6,ED,Kevin Méndez,Unión La Calera,Chile,Sul-americanas,30.0,1481,,True,700000.0,64.6,55.1,74.2,29.41,Explosivo e rápido,True,0.0,média ≥7,70.6
+7,ED,Wellington Machado,Al Riffa,Bahrain,Exterior,27.0,1669,2030-06-30,False,0.0,70.2,64.8,75.7,,,False,0.0,,70.2
+8,ED,A. Rodríguez,Independiente del Valle,Equador A,Sul-americanas,27.0,1246,,True,850000.0,69.8,72.1,67.4,29.83,Baixa intensidade,False,0.0,,69.8
+9,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,Romenia,Exterior,27.0,2919,2027-06-30,True,200000.0,68.4,64.8,71.9,,,False,0.0,,68.4
+10,ED,R. Ivey,Estudiantes de Mérida,Venezuela,Sul-americanas,32.0,1465,2027-12-31,False,400000.0,68.4,73.2,63.6,,,False,0.0,,68.4
+1,EE,Soares,Atlético-GO,Série B,Série B,26.0,1935,2029-08-25,False,,67.2,82.1,52.2,31.1,Explosivo e rápido,True,0.0,,70.2
+2,EE,E. Tortolero,Carabobo,Venezuela,Sul-americanas,28.0,995,2027-12-31,False,0.0,70.0,69.4,70.6,,,False,0.0,,70.0
+3,EE,Dadá Belmonte,CRB,Série B,Série B,29.0,2285,2026-11-30,True,,70.0,88.8,51.2,29.8,Baixa intensidade,False,81.8,,70.0
+4,EE,Iago Teles,Londrina,Série B,Série B,26.0,1103,2027-06-30,True,,64.9,74.7,55.0,28.6,Baixa intensidade,False,92.0,"média ≥6,5",69.9
+5,EE,Luanzinho,Al Sharjah,Emirados,Exterior,26.0,1345,2027-06-30,True,0.0,65.9,59.4,72.3,28.05,Baixa intensidade,False,0.0,,65.9
+6,EE,Janderson,Vila Nova,Série B,Série B,27.0,2279,2027-11-30,False,900000.0,65.3,81.2,49.3,29.9,Baixa intensidade,False,0.0,,65.3
+7,EE,Reinaldo,Chaves,Portugal B,Exterior,24.0,2672,2026-06-30,True,400000.0,62.1,70.2,54.0,30.39,Explosivo e rápido,True,0.0,,65.1
+8,EE,M. Lago,Colón,Argentina B,Sul-americanas,24.0,2172,2027-12-31,False,0.0,66.7,73.5,59.9,,,False,94.2,,64.7
+9,EE,J. Maraude,Always Ready,Bolivia,Sul-americanas,18.0,993,,True,0.0,69.4,80.0,58.8,,,False,0.0,,64.4
+10,EE,P. Magallanes,Sport Huancayo,Peru,Sul-americanas,25.0,1186,2027-12-31,False,0.0,62.0,60.8,63.1,29.17,Baixa intensidade,False,0.0,,62.0
+1,CA,Mikael,CRB,Série B,Série B,27.0,2236,2027-11-30,False,300000.0,78.9,94.0,63.8,29.6,Baixa intensidade,False,80.8,,78.9
+2,CA,Robson,Novorizontino,Série B,Série B,35.0,2272,2026-12-31,True,900000.0,70.8,81.9,59.6,29.1,Motor de volume,True,76.4,,73.8
+3,CA,M. Estrada,LDU Quito,Equador A,Sul-americanas,30.0,1133,2027-06-30,True,0.0,68.0,79.3,56.8,29.96,Baixa intensidade,False,92.1,,71.0
+4,CA,Juninho,Muharraq,Bahrain,Exterior,27.0,1543,2028-06-30,False,0.0,69.4,71.3,67.6,,,False,0.0,,69.4
+5,CA,L. Melgarejo,Club Libertad,Paraguai,Sul-americanas,35.0,1622,2027-06-30,True,800000.0,69.3,70.5,68.2,29.56,Explosivo e rápido,False,0.0,,69.3
+6,CA,A. Alcaraz,Olimpia,Paraguai,Sul-americanas,26.0,1124,2026-12-31,True,0.0,64.8,78.4,51.2,29.6,Explosivo e rápido,False,88.7,,67.8
+7,CA,A. Valera,Universitario,Peru,Sul-americanas,30.0,1713,2026-12-31,True,0.0,65.6,77.9,53.3,30.65,Explosivo e rápido,False,0.0,,65.6
+8,CA,Nicolás Souza,Atlético CP,Portugal C,Exterior,25.0,1732,2027-06-30,True,0.0,62.5,75.2,49.8,,,False,86.6,,65.5
+9,CA,M. Gómez,Nacional,Uruguai,Sul-americanas,30.0,1782,2027-12-31,False,0.0,61.4,68.8,54.0,29.18,Baixa intensidade,False,91.1,,64.4
+10,CA,A. Morelos,Atlético Nacional,Colombia A,Sul-americanas,30.0,1955,2028-12-31,False,0.0,61.8,66.6,56.9,28.2,Baixa intensidade,False,0.0,,61.8
