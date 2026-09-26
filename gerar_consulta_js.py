@@ -9,6 +9,7 @@ V2 = os.path.join(AQUI, "Santa Cruz V2"); sys.path.insert(0, os.path.join(V2, "s
 from _comum import RAIZ, chave, excluidos, caro, TETO_VALOR
 import listas as L
 from top10 import FRACAS
+from ideal10 import GRANDES
 SAIDA = os.path.join(AQUI, "static", "consulta_dados.js")
 RES = os.path.join(V2, "resultados"); LI = os.path.join(V2, "listas")
 ROT = {"xG per 90": "xG/90", "Shots per 90": "Finalizações/90", "Long passes per 90": "Passes longos/90", "Progressive passes per 90": "Passes progressivos/90",
@@ -75,6 +76,7 @@ def main():
                    psv=(None if pd.isna(r.psv99) else round(float(r.psv99), 1)), spr=(None if pd.isna(r.sprint_count_p90) else round(float(r.sprint_count_p90), 1)),
                    hi=(None if pd.isna(r.hi_count_p90) else round(float(r.hi_count_p90), 1)), expl=(None if pd.isna(r.expl_accel_sprint_p90) else round(float(r.expl_accel_sprint_p90), 2)),
                    tipo=(None if pd.isna(r.tipo) else r.tipo), tpref=(bool(r.tipo_pref) if pd.notna(r.tipo_pref) else None),
+                   alc=bool((r.liga == "Brasil B") or (r.mercado == "Sul-americano") or (r.mercado == "Exterior" and r.liga in L.ALCANCAVEIS and bool(r.sul_americano))) and r.clube not in GRANDES,
                    bp=bp.get(r.k), vet=bool(fora(r.jogador, r.clube)), caro=bool(v > TETO_VALOR) if pd.notna(v) else False,
                    pa=(None if r.k not in pa.index else {"tec": (None if pd.isna(pa.loc[r.k].tec_A) else round(float(pa.loc[r.k].tec_A))), "fis": (None if pd.isna(pa.loc[r.k].fis_A) else round(float(pa.loc[r.k].fis_A)))}),
                    sofa=(None if (r.liga != "Brasil B" or r.chave not in sj.index) else {"nota": round(float(sj.loc[r.chave].nota_media), 2), "xgxa": round(float(sj.loc[r.chave].expectedGoals_p90 or 0) + float(sj.loc[r.chave].expectedAssists_p90 or 0), 2), "vmax": (None if pd.isna(sj.loc[r.chave].topSpeed) else round(float(sj.loc[r.chave].topSpeed), 1)), "tit": int(sj.loc[r.chave].titularidades), "jogos": int(sj.loc[r.chave].jogos)}),

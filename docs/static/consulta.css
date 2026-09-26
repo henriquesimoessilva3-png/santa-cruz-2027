@@ -67,3 +67,11 @@
 /* nome clicável nas tabelas do Estudo V2 */
 #pgEstudoV2 .esv-doc .esv-jog { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
 #pgEstudoV2 .esv-doc .esv-jog:hover { color: var(--coral); }
+
+/* similares */
+.cs-esc .cs-sim { grid-column: 1 / -1; }
+.cs-esc .cs-sim th { text-align: left; font-size: 10.5px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .04em; padding: 2px 6px 4px 0; }
+.cs-esc .cs-sim tr.cs-sim-l { cursor: pointer; }
+.cs-esc .cs-sim tr.cs-sim-l:hover td { background: var(--veu1); }
+.cs-esc .cs-sim td small { color: var(--tinta3); }
+.cs-esc .cs-sim td.b { width: 22%; }

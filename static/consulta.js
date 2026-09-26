@@ -64,6 +64,38 @@
     return '<span class="cs-barra"><i class="' + c + '" style="width:' + Math.max(2, Math.min(100, v)) + '%"></i></span><b>' + Math.round(v) + '</b>';
   }
 
+  /* Similares: mesma posição, entre os aderentes (nota ≥ 55, sem vetados/caros, piso ok), pela distância
+     do perfil — percentis da ficha técnica (peso da ficha) e, quando os dois têm rastreio, físico
+     (PSV, sprints, alta intensidade, arrancadas, padronizados dentro da posição). */
+  const FIS = ['psv', 'spr', 'hi', 'expl']; const fisStat = {};
+  function stat(pos) {
+    if (fisStat[pos]) return fisStat[pos];
+    const o = {}; FIS.forEach(k => { const v = D.jogadores.filter(x => x.p === pos && x[k] != null).map(x => x[k]); const m = v.reduce((a, b) => a + b, 0) / (v.length || 1); const sd = Math.sqrt(v.reduce((a, b) => a + (b - m) * (b - m), 0) / (v.length || 1)) || 1; o[k] = [m, sd]; });
+    return fisStat[pos] = o;
+  }
+  function similares(j, n) {
+    const R = D.regua, st_ = stat(j.p), temFis = FIS.every(k => j[k] != null);
+    const out = [];
+    for (const x of D.jogadores) {
+      if (x === j || x.p !== j.p || x.vet || x.caro || !x.alc || x.nota == null || x.nota < R.nota_ok) continue;
+      if (x.psv != null && x.psv < R.psv && x.p !== 'GOL') continue;
+      let s = 0, w = 0;
+      for (let i = 0; i < j.ficha.length; i++) { const a = j.ficha[i][1], b = (x.ficha[i] || [])[1], pw = j.ficha[i][2]; if (a == null || b == null) continue; s += pw * (a - b) * (a - b); w += pw; }
+      if (w < 3) continue;
+      let dt = Math.sqrt(s / w) / 100, df = null;
+      if (temFis && FIS.every(k => x[k] != null)) { let q = 0; FIS.forEach(k => { const z = (j[k] - x[k]) / st_[k][1]; q += z * z; }); df = Math.sqrt(q / FIS.length) / 3; }
+      const d = df == null ? dt : 0.7 * dt + 0.3 * Math.min(1, df);
+      out.push([x, Math.round(100 * (1 - Math.min(1, d)))]);
+    }
+    return out.sort((a, b) => b[1] - a[1] || (b[0].nota || 0) - (a[0].nota || 0)).slice(0, n || 8);
+  }
+  function blocoSimilares(j) {
+    const sim = similares(j, 8); if (!sim.length) return '';
+    return '<div class="cs-bloco cs-sim"><h4>Similares a ' + esc(j.n) + ' — entre os aderentes da posição</h4><table><tr><th>Jogador</th><th>Clube</th><th>Idade</th><th>Contrato</th><th>Nota</th><th>PSV</th><th>Tipo</th><th>Semelhança</th></tr>' +
+      sim.map(([x, p]) => '<tr class="cs-sim-l" data-n="' + esc(x.n) + '" data-c="' + esc(x.c) + '"><td><b>' + esc(x.n) + '</b>' + (x.dez ? ' <small>' + x.dez.ordem + 'º dez</small>' : '') + '</td><td>' + esc(x.c) + ' <small>' + esc(x.l) + '</small></td><td>' + (x.i == null ? '—' : x.i) + '</td><td>' + dt(x.ct) + '</td><td><b>' + x.nota + '</b></td><td>' + (x.psv == null ? '—' : num(x.psv, 1)) + '</td><td>' + (x.tipo ? esc(x.tipo) + (x.tpref ? ' ✓' : '') : '—') + '</td><td class="b">' + barra(p) + '</td></tr>').join('') +
+      '</table><p class="cs-nota">Semelhança = distância do perfil na ficha da posição (percentis, com os pesos) e no físico quando os dois têm rastreio; 100 = perfil igual. Só entram os mercados alcançáveis (Série B, ligas sul-americanas, brasileiros e sul-americanos em ligas de fora ao alcance), nota ≥ 55, sem vetados, sem valor acima de € 2 MM e com o piso de velocidade. Clique para abrir.</p></div>';
+  }
+
   function ficha(j) {
     const v = veredito(j), pref = D.pref[SET[j.p]] || [];
     let h = '<div class="cs-cab"><div><h3>' + esc(j.n) + ' <span class="cs-sel ' + v.cls + '">' + v.nivel + '</span></h3>' +
@@ -91,6 +123,7 @@
       h += '</table><p class="cs-nota">A nota Sofascore não repete de um ano para o outro (r 0,36): descreve, não prevê.</p></div>';
     }
     h += '</div>';
+    h += blocoSimilares(j);
     return h;
   }
 
@@ -130,6 +163,7 @@
     });
     alvo.querySelectorAll('.cs-item').forEach(b => b.onclick = () => { const pos = b.dataset.pos; st.sel[pos] = +b.dataset.i; st.busca[pos] = D.jogadores[+b.dataset.i].n; st.aberto = pos; gravar('csEstado', st); render(); });
     alvo.querySelectorAll('[data-abre]').forEach(b => b.onclick = () => { st.aberto = b.dataset.abre; gravar('csEstado', st); render(); document.querySelector('#csCorpo .cs-ficha') && document.querySelector('#csCorpo .cs-ficha').scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+    alvo.querySelectorAll('.cs-sim-l').forEach(tr => tr.onclick = () => window.csJanela(tr.dataset.n, tr.dataset.c));
     alvo.querySelectorAll('[data-limpa]').forEach(b => b.onclick = () => { const pos = b.dataset.limpa; delete st.sel[pos]; st.busca[pos] = ''; if (st.aberto === pos) st.aberto = null; gravar('csEstado', st); render(); });
   }
 
@@ -158,6 +192,7 @@
     const fechar = () => { m.remove(); document.removeEventListener('keydown', esc_); };
     const esc_ = e => { if (e.key === 'Escape') fechar(); };
     m.querySelector('.cs-modal-fundo').onclick = fechar; m.querySelector('.cs-modal-x').onclick = fechar; document.addEventListener('keydown', esc_);
+    m.querySelectorAll('.cs-sim-l').forEach(tr => tr.onclick = () => window.csJanela(tr.dataset.n, tr.dataset.c));
     m.querySelector('.cs-modal-ir').onclick = e => { e.preventDefault(); fechar(); const p = j.p; st.busca[p] = j.n; st.sel[p] = D.jogadores.indexOf(j); st.aberto = p; gravar('csEstado', st); const bt = document.querySelector('.aba[data-aba="consulta"]'); if (bt) bt.click(); render(); };
     return true;
   };
