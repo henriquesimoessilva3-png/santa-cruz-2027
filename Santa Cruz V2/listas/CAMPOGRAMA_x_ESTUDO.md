@@ -1,10 +1,10 @@
 # Campograma × estudo — Cenário 1 (salvo em 25/09)
 
-*Grupo lido da nuvem em 25/09/2026, 20h08: "Cenário 1 2027 · 343 (recuperado 22/09)" — 354 atletas, 11 titulares (★), 22 com salário, folha de **R$ 2,205 MM/mês**: R$ 205 mil acima dos R$ 2,0 MM da premissa. Cada titular contra o estudo V2 (nota = aderência ao modelo que rende na B + nível do ranking; físico SkillCorner; bola parada Sofascore 2024–26; tipo físico do Bloco 8). Versão anterior: 23/09.*
+*Grupo lido da nuvem em 25/09/2026, 20h08: "Cenário 1 2027" (renomeado; antes "· 343 (recuperado 22/09)") — 354 atletas, 11 titulares (★), 22 com salário, folha de **R$ 2,205 MM/mês**: R$ 205 mil acima dos R$ 2,0 MM da premissa. Cada titular contra o estudo V2 (nota = aderência ao modelo que rende na B + nível do ranking; físico SkillCorner; bola parada Sofascore 2024–26; tipo físico do Bloco 8). Versão anterior: 23/09.*
 
 **O que mudou desde 23/09:** saíram do onze Luccas Claro, Marllon e Crystopher (virou reserva); entraram Vitor Mendes (ZE), Rodriguinho (MED) e Heinz Mörschel (MEI). Três dos seis nomes mais caros de 23/09 já não são titulares — o grupo caminhou na direção do estudo.
 
-**Veredito:** o onze passa no piso físico (ninguém abaixo de 27 km/h entre os rastreados) e tem 4 titulares que o estudo aprova sem ressalva (Lepo, Vilar, Robson, Rodriguinho). O problema segue o mesmo, menor: **R$ 480 mil/mês (22% da folha) em três nomes sem dado de Série B** — Mateus Carvalho (180), Keno (150) e Feliciano (150, nota 50) — enquanto os nomes do estudo para as mesmas posições (André Luiz, Dadá Belmonte, Patrick Brey) estão livres e no próprio grupo ou na lista.
+**Veredito:** o onze passa no piso físico (ninguém abaixo de 27 km/h entre os rastreados) e tem 4 titulares que o estudo aprova sem ressalva (Lepo, Vilar, Robson, Rodriguinho). O problema segue o mesmo, menor: **R$ 480 mil/mês (22% da folha) em três nomes que o dado não sustenta** — Mateus Carvalho (180) e Keno (150), sem minutos de Série B em 2026, e Gabriel Feliciano (150), titular do Operário com 1.543 min e dado completo, mas nota 50 (aderência 49, nível 50) e tipo físico de quem cai — enquanto os nomes do estudo para as mesmas posições (André Luiz, Dadá Belmonte, Patrick Brey) estão livres e no próprio grupo ou na lista.
 
 ## Titulares, um a um
 
@@ -57,4 +57,3 @@ Com as trocas, 8 dos 11 titulares são livres da própria Série B e a folha cai
 - **Robson (35):** a idade não custa ponto no estudo (B5-3), mas contrato de um ano.
 - **Lepo e Rodriguinho:** contratos até dez/27 — os dois titulares que não são passe zero.
 - **Mateus Carvalho, Keno, Mörschel:** sem minutos de Série B; se ficarem, é por informação que o estudo não tem (vídeo, scouts).
-- **Nome do grupo na nuvem** ainda é "Cenário 1 2027 · 343 (recuperado 22/09)"; o grupo "Cenário 1 2027" (120 atletas, 23/09) é o antigo.
