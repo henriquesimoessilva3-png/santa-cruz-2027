@@ -2,13 +2,13 @@ ordem,mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nota,nota_co
 1,Série B,Série B,GOL,Jandrei,Juventude,33.0,2395,2026-12-31,400000.0,83.2,True,False,,,,,83.2,True
 2,Sul-americano,Uruguai,GOL,Rodolfo,Central Español,35.0,2113,2026-12-31,0.0,71.5,True,False,,,,,71.5,True
 3,Sul-americano,Colombia A,GOL,Jean,América de Cali,30.0,1613,2026-12-31,2000000.0,70.4,True,False,,,,,70.4,True
-4,Sul-americano,Colombia A,GOL,D. Ospina,Atlético Nacional,37.0,1177,2026-12-31,2000000.0,69.7,True,False,,,,,69.7,True
-5,Sul-americano,Equador B,GOL,E. Valencia,San Antonio,23.0,1485,,0.0,74.5,True,False,,,,,69.5,True
-6,Sul-americano,Paraguai,GOL,G. Olveira,Olimpia,33.0,2203,2026-12-31,800000.0,68.2,True,False,,,,,68.2,True
-7,Série B,Série B,GOL,Airton,Criciúma,32.0,1797,2026-11-30,250000.0,66.0,True,False,,,,,66.0,True
-8,Sul-americano,Argentina B,GOL,B. Galván,Almirante Brown,32.0,2344,2026-12-31,75000.0,70.1,True,False,,,,,65.1,True
-9,Sul-americano,Argentina B,GOL,M. Bergia,Atlético Rafaela,25.0,2433,2026-12-31,0.0,69.7,True,False,,,,,64.7,True
-10,Sul-americano,Bolivia,GOL,C. Martínez,Real Potosí,29.0,927,,0.0,68.8,True,False,,,,,63.8,True
+4,Sul-americano,Equador B,GOL,E. Valencia,San Antonio,23.0,1485,,0.0,74.5,True,False,,,,,69.5,True
+5,Sul-americano,Paraguai,GOL,G. Olveira,Olimpia,33.0,2203,2026-12-31,800000.0,68.2,True,False,,,,,68.2,True
+6,Série B,Série B,GOL,Airton,Criciúma,32.0,1797,2026-11-30,250000.0,66.0,True,False,,,,,66.0,True
+7,Sul-americano,Argentina B,GOL,B. Galván,Almirante Brown,32.0,2344,2026-12-31,75000.0,70.1,True,False,,,,,65.1,True
+8,Sul-americano,Argentina B,GOL,M. Bergia,Atlético Rafaela,25.0,2433,2026-12-31,0.0,69.7,True,False,,,,,64.7,True
+9,Sul-americano,Bolivia,GOL,C. Martínez,Real Potosí,29.0,927,,0.0,68.8,True,False,,,,,63.8,True
+10,Sul-americano,Equador B,GOL,J. Mero,Atletico FC,31.0,1712,2026-12-31,50000.0,68.8,True,False,,,,,63.8,True
 1,Exterior,Grecia,LD,Rodinei,Olympiacos Piraeus,34.0,1866,2027-06-30,1500000.0,70.1,True,False,,,,,70.1,True
 2,Sul-americano,Chile,LD,Lucas Soto,Everton,23.0,1148,2026-12-31,0.0,56.5,True,False,,urgência,5.0,7.0,60.5,True
 3,Série B,Série B,LD,Rodrigo Soares,Goiás,33.0,1415,2026-11-30,1000000.0,57.1,True,False,28.18,,,,57.1,True

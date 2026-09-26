@@ -3,12 +3,12 @@ ordem,pos11,jogador,clube,liga,mercado_l,idade,minutos,contrato,livre,valor,nota
 2,GOL,Rodolfo,Central Español,Uruguai,Sul-americanas,35.0,2113,2026-12-31,True,0.0,71.5,56.1,86.8,,,,False,0.0,,,,71.5
 3,GOL,G. Castellón,Universidad de Chile,Chile,Sul-americanas,32.0,1934,2027-12-31,False,800000.0,70.6,52.0,89.1,,,,False,0.0,,,,70.6
 4,GOL,Jean,América de Cali,Colombia A,Sul-americanas,30.0,1613,2026-12-31,True,2000000.0,70.4,54.9,85.9,,,,False,0.0,,,,70.4
-5,GOL,D. Ospina,Atlético Nacional,Colombia A,Sul-americanas,37.0,1177,2026-12-31,True,2000000.0,69.7,53.5,85.9,,,,False,0.0,,,,69.7
-6,GOL,E. Valencia,San Antonio,Equador B,Sul-americanas,23.0,1485,,True,0.0,74.5,58.3,90.7,,,,False,0.0,,,,69.5
+5,GOL,E. Valencia,San Antonio,Equador B,Sul-americanas,23.0,1485,,True,0.0,74.5,58.3,90.7,,,,False,0.0,,,,69.5
+6,GOL,G. Olveira,Olimpia,Paraguai,Sul-americanas,33.0,2203,2026-12-31,True,800000.0,68.2,51.0,85.5,,,,False,0.0,,,,68.2
 7,GOL,T. Cardozo,Belgrano,Argentina A,Sul-americanas,30.0,2387,2028-12-31,False,800000.0,68.2,54.1,82.4,,,,False,0.0,,,,68.2
-8,GOL,G. Olveira,Olimpia,Paraguai,Sul-americanas,33.0,2203,2026-12-31,True,800000.0,68.2,51.0,85.5,,,,False,0.0,,,,68.2
-9,GOL,W. Cuesta,Internacional Palmira,Colombia B,Sul-americanas,33.0,1934,2026-12-31,True,150000.0,67.7,53.5,81.9,,,,False,0.0,,,,67.7
-10,GOL,J. Reyes Alberti,Portuguesa,Venezuela,Sul-americanas,31.0,1823,2026-12-31,True,125000.0,67.1,53.9,80.2,,,,False,0.0,,,,67.1
+8,GOL,W. Cuesta,Internacional Palmira,Colombia B,Sul-americanas,33.0,1934,2026-12-31,True,150000.0,67.7,53.5,81.9,,,,False,0.0,,,,67.7
+9,GOL,J. Reyes Alberti,Portuguesa,Venezuela,Sul-americanas,31.0,1823,2026-12-31,True,125000.0,67.1,53.9,80.2,,,,False,0.0,,,,67.1
+10,GOL,G. Servio,Guaraní,Paraguai,Sul-americanas,34.0,2478,2026-12-31,True,600000.0,66.6,49.8,83.5,,,,False,0.0,,,,66.6
 1,LD,Willean Lepo,Criciúma,Série B,Série B,29.0,1710,2027-12-31,False,450000.0,66.3,77.8,54.8,29.7,33.81,Explosivo e rápido,True,0.0,6.891,0.238,"média ≥6,5",71.3
 2,LD,Maílton,Fortaleza,Série B,Série B,28.0,1838,2027-12-31,False,,64.8,71.0,58.6,29.8,35.16,Baixa intensidade,False,89.5,7.104,0.40900000000000003,,67.8
 3,LD,E. Mena,Medellín,Colombia A,Sul-americanas,28.0,1599,2028-06-30,False,450000.0,59.1,55.5,62.8,30.25,,Explosivo e rápido,True,0.0,,,,62.1
@@ -36,8 +36,8 @@ ordem,pos11,jogador,clube,liga,mercado_l,idade,minutos,contrato,livre,valor,nota
 5,ZE,S. Morales,Aucas,Equador A,Sul-americanas,24.0,1911,2026-12-31,True,0.0,60.8,56.3,65.3,27.17,,Baixa intensidade,False,92.4,,,,63.8
 6,ZE,J. Díaz,Universidad Católica,Chile,Sul-americanas,28.0,1229,,True,500000.0,60.4,54.3,66.4,28.93,,Motor de volume,True,0.0,,,,63.4
 7,ZE,Patrick,Novorizontino,Série B,Série B,27.0,2357,2027-12-31,False,,63.1,69.2,57.0,,34.33,,False,0.0,7.115,0.08600000000000001,,63.1
-8,ZE,T. Viera Alegre,Nacional,Uruguai,Sul-americanas,20.0,1079,2028-12-31,False,0.0,58.4,51.0,65.7,28.41,,Motor de volume,True,0.0,,,,61.4
-9,ZE,Luiz Otávio,Ceará,Série B,Série B,33.0,1988,2026-12-31,True,900000.0,58.4,66.7,50.2,,33.42,,False,92.5,6.926,0.109,,61.4
+8,ZE,Luiz Otávio,Ceará,Série B,Série B,33.0,1988,2026-12-31,True,900000.0,58.4,66.7,50.2,,33.42,,False,92.5,6.926,0.109,,61.4
+9,ZE,T. Viera Alegre,Nacional,Uruguai,Sul-americanas,20.0,1079,2028-12-31,False,0.0,58.4,51.0,65.7,28.41,,Motor de volume,True,0.0,,,,61.4
 10,ZE,Marcos Paulo,Juventude,Série B,Série B,23.0,2295,2028-12-31,False,,61.3,70.5,,,32.86,,False,0.0,7.104,0.11699999999999999,,61.3
 1,LE,Samuel Toscas,Al Riffa,Bahrain,Exterior,26.0,2048,2031-06-30,False,0.0,71.3,59.4,83.2,,,,False,0.0,,,,71.3
 2,LE,M. Del Blanco,Unión Santa Fe,Argentina A,Sul-americanas,22.0,1700,2031-06-30,False,0.0,63.1,55.7,70.6,29.39,,Explosivo e rápido,True,93.4,,,,69.1
@@ -87,8 +87,8 @@ ordem,pos11,jogador,clube,liga,mercado_l,idade,minutos,contrato,livre,valor,nota
 6,ED,Wellington Machado,Al Riffa,Bahrain,Exterior,27.0,1669,2030-06-30,False,0.0,65.2,54.8,75.7,,,,False,0.0,,,,65.2
 7,ED,B. Palacios,Al Wasl,Emirados,Exterior,23.0,907,2030-06-30,False,0.0,61.4,57.9,64.9,31.11,,Explosivo e rápido,True,0.0,,,,64.4
 8,ED,C. Sosa,Deportivo Táchira,Venezuela,Sul-americanas,31.0,1460,2027-12-31,False,275000.0,63.7,49.5,77.9,,,,False,0.0,,,,63.7
-9,ED,Pedro Vitor,São Bernardo,Série B,Série B,28.0,1164,2026-12-31,True,,63.4,67.6,59.2,28.9,33.02,Motor de volume,False,0.0,6.936,0.375,,63.4
-10,ED,Gabriel Honório,Busan I'Park,Coreia B,Exterior,30.0,1443,,True,175000.0,60.4,48.0,72.8,,,,False,91.7,,,,63.4
+9,ED,Gabriel Honório,Busan I'Park,Coreia B,Exterior,30.0,1443,,True,175000.0,60.4,48.0,72.8,,,,False,91.7,,,,63.4
+10,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,Romenia,Exterior,27.0,2919,2027-06-30,True,200000.0,63.4,54.9,71.9,,,,False,0.0,,,,63.4
 1,EE,Soares,Atlético-GO,Série B,Série B,26.0,1935,2029-08-25,False,,67.2,82.1,52.2,31.1,,Explosivo e rápido,True,0.0,,,,70.2
 2,EE,Dadá Belmonte,CRB,Série B,Série B,29.0,2285,2026-11-30,True,,70.0,88.8,51.2,29.8,33.51,Baixa intensidade,False,81.8,7.348,0.478,,70.0
 3,EE,Iago Teles,Londrina,Série B,Série B,26.0,1103,2027-06-30,True,,64.9,74.7,55.0,28.6,34.52,Baixa intensidade,False,92.0,6.969,0.33099999999999996,"média ≥6,5",69.9
@@ -106,6 +106,6 @@ ordem,pos11,jogador,clube,liga,mercado_l,idade,minutos,contrato,livre,valor,nota
 5,CA,J. Torres,Tolima,Colombia A,Sul-americanas,22.0,1393,2029-06-30,False,0.0,58.2,44.6,71.8,27.77,,Motor de volume,True,0.0,,,,61.2
 6,CA,Derek,Náutico,Série B,Série B,28.0,1526,2027-12-31,False,800000.0,61.1,82.8,39.3,29.4,,Explosivo e rápido,False,0.0,,,,61.1
 7,CA,M. Estrada,LDU Quito,Equador A,Sul-americanas,30.0,1133,2027-06-30,True,0.0,58.0,59.3,56.8,29.96,,Baixa intensidade,False,92.1,,,,61.0
-8,CA,M. Gómez,Nacional,Uruguai,Sul-americanas,30.0,1782,2027-12-31,False,0.0,55.1,56.1,54.0,29.18,,Baixa intensidade,False,91.1,,,,58.1
-9,CA,A. Alcaraz,Olimpia,Paraguai,Sul-americanas,26.0,1124,2026-12-31,True,0.0,55.1,59.0,51.2,29.6,,Explosivo e rápido,False,88.7,,,,58.1
+8,CA,A. Alcaraz,Olimpia,Paraguai,Sul-americanas,26.0,1124,2026-12-31,True,0.0,55.1,59.0,51.2,29.6,,Explosivo e rápido,False,88.7,,,,58.1
+9,CA,M. Gómez,Nacional,Uruguai,Sul-americanas,30.0,1782,2027-12-31,False,0.0,55.1,56.1,54.0,29.18,,Baixa intensidade,False,91.1,,,,58.1
 10,CA,Y. Guzmán,América de Cali,Colombia A,Sul-americanas,28.0,2055,2028-12-31,False,0.0,51.9,40.7,63.0,27.82,,Motor de volume,True,94.5,,,,57.9

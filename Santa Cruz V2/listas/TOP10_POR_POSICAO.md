@@ -12,13 +12,13 @@ Critério (23/09): **sem Série A** e sem os nomes tirados pelo clube (`EXCLUIDO
 | 1 | **Jandrei** | Juventude | Série B | 33 | 31/12/26 | 83 | — | — |  |
 | 2 | **Rodolfo** | Central Español | Uruguai | 35 | 31/12/26 | 72 | — | — |  |
 | 3 | **Jean** | América de Cali | Colombia A | 30 | 31/12/26 | 70 | — | — |  |
-| 4 | **D. Ospina** | Atlético Nacional | Colombia A | 37 | 31/12/26 | 70 | — | — |  |
-| 5 | **E. Valencia** | San Antonio | Equador B | 23 | — | 70 | — | — |  |
-| 6 | **G. Olveira** | Olimpia | Paraguai | 33 | 31/12/26 | 68 | — | — |  |
-| 7 | **Airton** | Criciúma | Série B | 32 | 30/11/26 | 66 | — | — |  |
-| 8 | **B. Galván** | Almirante Brown | Argentina B | 32 | 31/12/26 | 65 | — | — |  |
-| 9 | **M. Bergia** | Atlético Rafaela | Argentina B | 25 | 31/12/26 | 65 | — | — |  |
-| 10 | **C. Martínez** | Real Potosí | Bolivia | 29 | — | 64 | — | — |  |
+| 4 | **E. Valencia** | San Antonio | Equador B | 23 | — | 70 | — | — |  |
+| 5 | **G. Olveira** | Olimpia | Paraguai | 33 | 31/12/26 | 68 | — | — |  |
+| 6 | **Airton** | Criciúma | Série B | 32 | 30/11/26 | 66 | — | — |  |
+| 7 | **B. Galván** | Almirante Brown | Argentina B | 32 | 31/12/26 | 65 | — | — |  |
+| 8 | **M. Bergia** | Atlético Rafaela | Argentina B | 25 | 31/12/26 | 65 | — | — |  |
+| 9 | **C. Martínez** | Real Potosí | Bolivia | 29 | — | 64 | — | — |  |
+| 10 | **J. Mero** | Atletico FC | Equador B | 31 | 31/12/26 | 64 | — | — |  |
 
 ### Lateral direito
 

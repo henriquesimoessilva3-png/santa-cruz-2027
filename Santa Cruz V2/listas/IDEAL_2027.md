@@ -13,12 +13,12 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 2 | **Rodolfo** | Central Español | Uruguai | 35 | 31/12/26 | **72** | 72 | 56 | 87 | — | — | — | — | — | — |  |
 | 3 | **G. Castellón** (e) | Universidad de Chile | Chile | 32 | 31/12/27 | **71** | 71 | 52 | 89 | — | — | — | — | — | — |  |
 | 4 | **Jean** | América de Cali | Colombia A | 30 | 31/12/26 | **70** | 70 | 55 | 86 | — | — | — | — | — | — |  |
-| 5 | **D. Ospina** | Atlético Nacional | Colombia A | 37 | 31/12/26 | **70** | 70 | 54 | 86 | — | — | — | — | — | — |  |
-| 6 | **E. Valencia** | San Antonio | Equador B | 23 | — | **70** | 74 | 58 | 91 | — | — | — | — | — | — |  |
+| 5 | **E. Valencia** | San Antonio | Equador B | 23 | — | **70** | 74 | 58 | 91 | — | — | — | — | — | — |  |
+| 6 | **G. Olveira** | Olimpia | Paraguai | 33 | 31/12/26 | **68** | 68 | 51 | 86 | — | — | — | — | — | — |  |
 | 7 | **T. Cardozo** (e) | Belgrano | Argentina A | 30 | 31/12/28 | **68** | 68 | 54 | 82 | — | — | — | — | — | — |  |
-| 8 | **G. Olveira** | Olimpia | Paraguai | 33 | 31/12/26 | **68** | 68 | 51 | 86 | — | — | — | — | — | — |  |
-| 9 | **W. Cuesta** | Internacional Palmira | Colombia B | 33 | 31/12/26 | **68** | 68 | 54 | 82 | — | — | — | — | — | — |  |
-| 10 | **J. Reyes Alberti** | Portuguesa | Venezuela | 31 | 31/12/26 | **67** | 67 | 54 | 80 | — | — | — | — | — | — |  |
+| 8 | **W. Cuesta** | Internacional Palmira | Colombia B | 33 | 31/12/26 | **68** | 68 | 54 | 82 | — | — | — | — | — | — |  |
+| 9 | **J. Reyes Alberti** | Portuguesa | Venezuela | 31 | 31/12/26 | **67** | 67 | 54 | 80 | — | — | — | — | — | — |  |
+| 10 | **G. Servio** | Guaraní | Paraguai | 34 | 31/12/26 | **67** | 67 | 50 | 84 | — | — | — | — | — | — |  |
 
 ### Lateral direito
 
@@ -61,8 +61,8 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 5 | **S. Morales** | Aucas | Equador A | 24 | 31/12/26 | **64** | 61 | 56 | 65 | 27,2 | — | Baixa intensidade * | 92 | — | — |  |
 | 6 | **J. Díaz** | Universidad Católica | Chile | 28 | — | **63** | 60 | 54 | 66 | 28,9 | — | Motor de volume | — | — | — |  |
 | 7 | **Patrick** (e) | Novorizontino | Série B | 27 | 31/12/27 | **63** | 63 | 69 | 57 | — | 34,3 | — | — | 7,12 | 0,09 |  |
-| 8 | **T. Viera Alegre** (e) | Nacional | Uruguai | 20 | 31/12/28 | **61** | 58 | 51 | 66 | 28,4 | — | Motor de volume | — | — | — |  |
-| 9 | **Luiz Otávio** | Ceará | Série B | 33 | 31/12/26 | **61** | 58 | 67 | 50 | — | 33,4 | — | 92 | 6,93 | 0,11 |  |
+| 8 | **Luiz Otávio** | Ceará | Série B | 33 | 31/12/26 | **61** | 58 | 67 | 50 | — | 33,4 | — | 92 | 6,93 | 0,11 |  |
+| 9 | **T. Viera Alegre** (e) | Nacional | Uruguai | 20 | 31/12/28 | **61** | 58 | 51 | 66 | 28,4 | — | Motor de volume | — | — | — |  |
 | 10 | **Marcos Paulo** (e) | Juventude | Série B | 23 | 31/12/28 | **61** | 61 * | 70 | — | — | 32,9 | — | — | 7,10 | 0,12 |  |
 
 ### Lateral esquerdo
@@ -137,8 +137,8 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 6 | **Wellington Machado** (e) | Al Riffa | Bahrain | 27 | 30/06/30 | **65** | 65 | 55 | 76 | — | — | — | — | — | — |  |
 | 7 | **B. Palacios** (e) | Al Wasl | Emirados | 23 | 30/06/30 | **64** | 61 | 58 | 65 | 31,1 | — | Explosivo e rápido | — | — | — |  |
 | 8 | **C. Sosa** (e) | Deportivo Táchira | Venezuela | 31 | 31/12/27 | **64** | 64 | 50 | 78 | — | — | — | — | — | — |  |
-| 9 | **Pedro Vitor** | São Bernardo | Série B | 28 | 31/12/26 | **63** | 63 | 68 | 59 | 28,9 | 33,0 | Motor de volume * | — | 6,94 | 0,38 |  |
-| 10 | **Gabriel Honório** | Busan I'Park | Coreia B | 30 | — | **63** | 60 | 48 | 73 | — | — | — | 92 | — | — |  |
+| 9 | **Gabriel Honório** | Busan I'Park | Coreia B | 30 | — | **63** | 60 | 48 | 73 | — | — | — | 92 | — | — |  |
+| 10 | **Anderson Ceará** | Csikszereda Miercurea Ciuc | Romenia | 27 | 30/06/27 | **63** | 63 | 55 | 72 | — | — | — | — | — | — |  |
 
 ### Extremo pela esquerda
 
@@ -166,6 +166,6 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 5 | **J. Torres** (e) | Tolima | Colombia A | 22 | 30/06/29 | **61** | 58 | 45 | 72 | 27,8 | — | Motor de volume | — | — | — |  |
 | 6 | **Derek** (e) | Náutico | Série B | 28 | 31/12/27 | **61** | 61 | 83 | 39 | 29,4 | — | Explosivo e rápido * | — | — | — |  |
 | 7 | **M. Estrada** | LDU Quito | Equador A | 30 | 30/06/27 | **61** | 58 | 59 | 57 | 30,0 | — | Baixa intensidade * | 92 | — | — |  |
-| 8 | **M. Gómez** (e) | Nacional | Uruguai | 30 | 31/12/27 | **58** | 55 | 56 | 54 | 29,2 | — | Baixa intensidade * | 91 | — | — |  |
-| 9 | **A. Alcaraz** | Olimpia | Paraguai | 26 | 31/12/26 | **58** | 55 | 59 | 51 | 29,6 | — | Explosivo e rápido * | 89 | — | — |  |
+| 8 | **A. Alcaraz** | Olimpia | Paraguai | 26 | 31/12/26 | **58** | 55 | 59 | 51 | 29,6 | — | Explosivo e rápido * | 89 | — | — |  |
+| 9 | **M. Gómez** (e) | Nacional | Uruguai | 30 | 31/12/27 | **58** | 55 | 56 | 54 | 29,2 | — | Baixa intensidade * | 91 | — | — |  |
 | 10 | **Y. Guzmán** (e) | América de Cali | Colombia A | 28 | 31/12/28 | **58** | 52 | 41 | 63 | 27,8 | — | Motor de volume | 94 | — | — |  |

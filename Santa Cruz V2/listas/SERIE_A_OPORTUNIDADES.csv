@@ -1,0 +1,89 @@
+pos11,jogador,clube,idade,minutos,contrato,livre,grupo,valor,aderencia,adc,nivel_overall,nota,psv,tipo,sal
+CA,Everaldo,Bahia,35,776,2026-12-31,True,não aproveitado,650000.0,74.9,68.97200000000001,40.9,55.0,28.03,—,200K - 280K
+CA,R. Castillo,Fluminense,27,703,2030-12-31,False,não aproveitado,0.0,63.5,65.78,44.66,55.0,28.78,—,600K - 800K
+CA,Giovanni Augusto,Chapecoense,36,883,2027-12-31,False,não aproveitado,300000.0,20.8,53.824,49.93,52.0,28.36,—,500K - 680K
+CA,N. Villarreal,Cruzeiro,21,635,2030-12-31,False,não aproveitado,0.0,71.2,67.936,36.85,52.0,30.33,—,500K - 680K
+CA,Eduardo Sasha,Red Bull Bragantino,34,1089,2027-12-31,False,não aproveitado,1800000.0,63.2,65.696,35.97,51.0,28.12,—,600K - 800K
+CA,R. Sosa,Palmeiras,26,1078,2030-06-30,False,não aproveitado,0.0,48.7,61.636,,50.0,30.12,—,400K - 550K
+CA,Gabriel Taliari,Remo,29,804,2028-12-31,False,não aproveitado,600000.0,52.4,62.672,35.02,49.0,28.16,—,500K - 680K
+CA,Renato Kayzer,Vitória,30,873,2027-03-31,True,não aproveitado,1000000.0,36.1,58.108000000000004,37.7,48.0,28.24,—,500K - 680K
+CA,J. Rojas,Vasco da Gama,23,934,2028-06-30,False,não aproveitado,0.0,30.5,56.54,,47.0,28.55,—,250K - 350K
+CA,Vitor Bueno,Remo,31,980,2027-12-31,False,não aproveitado,0.0,23.0,54.44,,46.0,28.18,—,600K - 800K
+CA,Pedro Rocha,Coritiba,31,1868,2026-12-31,True,"fim de contrato, 30+",1500000.0,35.5,57.94,31.93,45.0,28.6,—,600K - 800K
+CA,Thaciano,Santos,31,740,2028-12-31,False,não aproveitado,2000000.0,36.8,58.304,31.65,45.0,28.06,—,150K - 220K
+CA,David,Vasco da Gama,30,998,2027-12-31,False,não aproveitado,2000000.0,30.8,56.624,28.95,43.0,29.27,—,250K - 350K
+ED,Negueba,Mirassol,26,907,2027-12-31,False,não aproveitado,450000.0,64.6,66.088,58.64,62.0,28.52,—,120K - 175K
+ED,J. Carrascal,Flamengo,28,957,2029-06-30,False,não aproveitado,0.0,69.8,67.544,,59.0,28.81,—,300K - 420K
+ED,Lucas Paquetà,Flamengo,28,1029,2030-12-31,False,não aproveitado,,42.5,59.9,,55.0,,—,
+ED,Enio,Chapecoense,25,875,2028-12-31,False,não aproveitado,200000.0,42.2,59.816,49.37,55.0,27.84,—,150K - 220K
+ED,L. Villalba,Botafogo,25,653,2029-12-31,False,não aproveitado,0.0,69.8,67.544,41.54,55.0,31.72,—,400K - 550K
+ED,J. Herrera,Red Bull Bragantino,23,1039,2029-12-31,False,não aproveitado,0.0,57.8,64.184,43.76,54.0,28.94,—,500K - 680K
+ED,Nuno Moreira,Vasco da Gama,27,1005,2027-12-31,False,não aproveitado,1000000.0,32.8,57.184,50.19,54.0,27.18,—,350K - 480K
+ED,J. Enamorado,Grêmio,27,975,2028-12-31,False,não aproveitado,0.0,63.0,65.64,39.86,53.0,31.17,—,500K - 680K
+ED,Yago Pikachu,Remo,34,1476,2026-12-31,True,"fim de contrato, 30+",1200000.0,26.6,55.448,40.68,48.0,28.82,—,500K - 680K
+ED,Carlos Eduardo,Mirassol,29,658,2026-12-31,True,não aproveitado,900000.0,32.5,57.1,31.79,44.0,30.21,—,120K - 175K
+EE,D. Tarzia,Vitória,23,745,2027-12-31,False,não aproveitado,0.0,53.2,62.896,42.33,53.0,28.74,—,30K - 45K
+EE,Julimar,Athletico Paranaense,25,813,2028-12-31,False,não aproveitado,0.0,44.0,60.32,42.23,51.0,28.68,—,400K - 550K
+EE,Marcinho,Chapecoense,31,1275,2026-11-30,True,"fim de contrato, 30+",50000.0,32.8,57.184,38.68,48.0,,—,
+EE,Italo,Chapecoense,23,831,2027-11-30,False,não aproveitado,,19.6,53.488,27.19,40.0,,—,
+GOL,Tiago Volpi,Red Bull Bragantino,35,1534,2026-12-31,True,"fim de contrato, 30+",1500000.0,69.2,67.376,71.13,69.0,,—,600K - 800K
+GOL,Pedro Morisco,Coritiba,22,710,2027-12-31,False,não aproveitado,0.0,89.4,73.03200000000001,58.41,66.0,,—,250K - 350K
+GOL,Léo Vieira,Bahia,35,1584,2026-12-31,True,"fim de contrato, 30+",100000.0,63.9,65.892,49.93,58.0,,—,500K - 680K
+GOL,Otávio Costa,Cruzeiro,20,1026,2028-12-31,False,não aproveitado,0.0,65.9,66.452,39.88,53.0,,—,10K - 15K
+GOL,Anthoni,Internacional,24,912,2029-12-31,False,não aproveitado,800000.0,32.7,57.156000000000006,28.08,43.0,,—,120K - 175K
+GOL,Raul Steffens,Botafogo,29,787,2027-12-31,False,não aproveitado,100000.0,41.8,59.704,26.19,43.0,25.1,—,100K - 150K
+GOL,Anderson,Chapecoense,28,835,2027-12-31,False,não aproveitado,200000.0,18.8,53.264,15.25,34.0,,—,250K - 350K
+LD,Braian Aguirre,Internacional,26,645,2028-12-31,False,não aproveitado,2000000.0,68.0,67.04,58.23,63.0,30.09,—,300K - 420K
+LD,Paulo Henrique,Vasco da Gama,30,1085,2027-12-31,False,não aproveitado,1000000.0,67.4,66.872,40.04,53.0,32.17,—,600K - 800K
+LD,R. Gómez,Bahia,22,891,2030-12-31,False,não aproveitado,0.0,37.2,58.416000000000004,42.51,50.0,29.97,—,400K - 550K
+LD,Tinga,Coritiba,32,1368,2026-12-31,True,"fim de contrato, 30+",1200000.0,47.4,61.272,35.22,48.0,27.19,—,500K - 680K
+LD,Everton,Chapecoense,31,1340,2026-12-31,True,"fim de contrato, 30+",0.0,52.5,62.7,32.85,48.0,30.74,—,350K - 480K
+LD,Marcos Vinicius,Chapecoense,29,656,2026-12-31,True,não aproveitado,0.0,58.1,64.268,30.9,48.0,29.68,—,100K - 150K
+LD,Á. Preciado,Atlético Mineiro,28,704,2029-12-31,False,não aproveitado,,36.1,58.108000000000004,33.42,46.0,,—,
+LD,Mateo Ponte,Botafogo,23,688,2028-06-30,False,não aproveitado,1500000.0,23.1,54.468,34.7,45.0,31.8,—,150K - 220K
+LD,João Pedro Chermont,Coritiba,20,859,2027-12-31,False,não aproveitado,0.0,34.2,57.576,31.09,44.0,29.48,—,100K - 150K
+LE,Reinaldo,Mirassol,36,1791,2026-12-31,True,"fim de contrato, 30+",500000.0,67.7,66.956,47.47,57.0,28.69,—,250K - 350K
+LE,W. Clar,Chapecoense,31,864,2028-12-31,False,não aproveitado,500000.0,48.8,61.664,42.09,52.0,28.42,—,250K - 350K
+LE,Pedro Gabriel,Grêmio,19,933,2028-12-31,False,não aproveitado,0.0,40.7,59.396,38.91,49.0,30.2,—,250K - 350K
+LE,Léo Derik,Athletico Paranaense,21,631,2029-12-31,False,não aproveitado,0.0,50.0,62.0,35.73,49.0,30.95,—,250K - 350K
+LE,Bruno Pacheco,Chapecoense,34,1079,2026-12-31,True,não aproveitado,450000.0,50.3,62.084,31.62,47.0,28.04,—,600K - 800K
+LE,Arthur Gabriel,Palmeiras,20,973,2029-12-31,False,não aproveitado,0.0,43.3,60.124,32.19,46.0,29.14,—,300K - 420K
+LE,Jamerson,Vitória,27,772,2026-12-31,True,não aproveitado,1000000.0,45.0,60.6,31.56,46.0,30.48,—,600K - 800K
+LE,Felipe Jonatan,Coritiba,28,755,2027-12-31,False,não aproveitado,2000000.0,38.0,58.64,32.48,46.0,27.98,—,400K - 550K
+LE,Bruno Melo,Coritiba,33,1798,2026-12-31,True,"fim de contrato, 30+",400000.0,39.0,58.92,29.7,44.0,27.97,—,150K - 220K
+MED,Gustavo Neves,Red Bull Bragantino,22,760,2029-12-31,False,não aproveitado,0.0,79.9,70.372,52.43,61.0,27.64,—,120K - 175K
+MED,João Vitor,Chapecoense,28,677,2026-12-31,True,não aproveitado,100000.0,73.5,68.58,43.37,56.0,,—,60K - 90K
+MED,Tchê Tchê,Vasco da Gama,33,1133,2026-12-31,True,"fim de contrato, 30+",1800000.0,54.3,63.204,47.72,55.0,27.66,—,300K - 420K
+MED,Paulinho,Internacional,29,968,2027-12-31,False,não aproveitado,1000000.0,53.2,62.896,45.09,54.0,29.18,—,600K - 800K
+MED,Bruno Henrique,Internacional,36,1277,2026-12-31,True,"fim de contrato, 30+",500000.0,65.2,66.256,38.41,52.0,28.16,—,250K - 350K
+MED,Vini Paulista,Coritiba,25,997,2027-12-31,False,não aproveitado,500000.0,37.7,58.556,31.58,45.0,29.32,—,100K - 150K
+MED,Gustavo Henrique,Santos,21,729,,True,não aproveitado,0.0,46.9,61.132000000000005,29.82,45.0,27.88,—,250K - 350K
+MED,Higor Meritão,Chapecoense,32,700,2027-11-30,False,não aproveitado,1300000.0,28.1,55.868,31.81,44.0,28.61,—,150K - 220K
+MED,T. Pérez,Atlético Mineiro,20,865,2029-06-30,False,não aproveitado,0.0,24.1,54.748000000000005,29.78,42.0,27.17,—,50K - 75K
+MEI,Josué,Coritiba,35,1744,2026-12-31,True,"fim de contrato, 30+",600000.0,59.5,64.66,59.72,62.0,27.95,—,150K - 220K
+MEI,João Cruz,Athletico Paranaense,20,752,2028-12-31,False,não aproveitado,0.0,67.4,66.872,51.03,59.0,27.82,—,500K - 680K
+MEI,Jean Carlos,Chapecoense,34,783,2027-12-31,False,não aproveitado,750000.0,58.7,64.436,45.8,55.0,28.18,—,150K - 220K
+MEI,Shaylon,Mirassol,29,1028,2026-12-31,True,não aproveitado,0.0,28.5,55.980000000000004,35.0,45.0,28.94,—,120K - 175K
+MEI,Gabriel Mec,Grêmio,18,821,2027-06-30,True,não aproveitado,0.0,32.2,57.016000000000005,26.55,42.0,28.78,—,30K - 45K
+MEI,Dudu Kogitzki,Athletico Paranaense,20,776,2029-12-31,False,não aproveitado,0.0,31.0,56.68,25.34,41.0,27.18,—,60K - 90K
+VOL,Matheus Pereira,Corinthians,28,656,2027-12-31,False,não aproveitado,1200000.0,77.6,69.72800000000001,47.07,58.0,27.22,—,200K - 280K
+VOL,Matheus Fernandes,Red Bull Bragantino,28,848,2027-12-31,False,não aproveitado,2000000.0,78.1,69.868,45.02,57.0,28.56,—,250K - 350K
+VOL,Neto Moura,Mirassol,30,861,2026-12-31,True,não aproveitado,800000.0,77.5,69.7,37.95,54.0,27.06,—,250K - 350K
+VOL,Patrick,Remo,34,1409,2026-12-31,True,"fim de contrato, 30+",2000000.0,56.8,63.903999999999996,37.92,51.0,27.09,—,250K - 350K
+VOL,Zé Welison,Remo,31,1341,2026-12-31,True,"fim de contrato, 30+",2000000.0,76.0,69.28,28.62,49.0,27.52,—,600K - 800K
+VOL,Evertton,Flamengo,23,1074,2028-12-31,False,não aproveitado,,45.6,60.768,36.37,49.0,,—,
+VOL,Wallisson,Mirassol,28,655,2028-12-31,False,não aproveitado,500000.0,60.3,64.884,33.86,49.0,28.69,—,350K - 480K
+VOL,Rodriguinho,Red Bull Bragantino,22,654,2030-12-31,False,não aproveitado,0.0,26.4,55.392,42.62,49.0,28.49,—,400K - 550K
+VOL,A. Carrillo,Corinthians,35,1045,2026-12-31,True,não aproveitado,1500000.0,44.7,60.516000000000005,,48.0,27.67,—,350K - 480K
+VOL,Denilson,Mirassol,25,957,2028-12-31,False,não aproveitado,0.0,35.3,57.884,37.71,48.0,27.27,—,350K - 480K
+VOL,Thiago Santos,Coritiba,36,929,2026-12-31,True,não aproveitado,250000.0,51.0,62.28,34.26,48.0,27.11,—,500K - 680K
+VOL,L. Picco,Remo,27,1077,2028-12-31,False,não aproveitado,800000.0,55.7,63.596000000000004,23.83,44.0,27.01,—,400K - 550K
+ZD,Ignácio,Fluminense,29,920,2028-06-30,False,não aproveitado,1500000.0,55.9,63.652,58.91,61.0,29.89,—,350K - 480K
+ZD,A. Saldivia,Vasco da Gama,24,1078,2028-12-31,False,não aproveitado,0.0,46.0,60.88,54.53,58.0,29.52,—,500K - 680K
+ZD,R. Arboleda,São Paulo,34,783,2027-12-31,False,não aproveitado,1200000.0,54.8,63.344,47.13,55.0,28.19,—,500K - 680K
+ZD,Gabriel Justino,Botafogo,20,774,2028-11-30,False,não aproveitado,0.0,41.1,59.508,48.81,54.0,30.13,—,300K - 420K
+ZD,Bruno Leonardo,Chapecoense,30,1478,,True,"fim de contrato, 30+",0.0,34.9,57.772,45.04,51.0,28.53,—,500K - 680K
+ZD,Victor Caetano,Chapecoense,28,719,2027-12-15,False,não aproveitado,0.0,46.7,61.076,41.11,51.0,27.75,—,60K - 90K
+ZD,Marllon,Remo,34,2138,2026-12-31,True,"fim de contrato, 30+",500000.0,38.7,58.836,40.44,50.0,30.94,—,600K - 800K
+ZE,L. Villalba,Cruzeiro,31,968,2026-12-31,True,não aproveitado,2000000.0,39.2,58.976,51.21,55.0,27.62,—,350K - 480K
+ZE,Wagner Leonardo,Grêmio,27,785,2028-12-31,False,não aproveitado,1500000.0,29.0,56.120000000000005,40.99,49.0,28.76,—,300K - 420K
