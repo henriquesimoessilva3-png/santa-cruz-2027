@@ -141,6 +141,26 @@
     new MutationObserver(sync).observe(bt, { attributes: true, attributeFilter: ['class'] });
     sync();
   }
+  /* ficha em janela, para outras abas (Estudo V2): clique no nome de um jogador */
+  const achar = (nome, clube) => {
+    const n = semAc(nome), c = semAc(clube || '');
+    let r = D.jogadores.filter(j => semAc(j.n) === n);
+    if (c && r.length > 1) { const rc = r.filter(j => semAc(j.c) === c || semAc(j.c).includes(c) || c.includes(semAc(j.c))); if (rc.length) r = rc; }
+    return r.sort((a, b) => (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.min || 0) - (a.min || 0))[0] || null;
+  };
+  window.csExiste = (nome, clube) => !!achar(nome, clube);
+  window.csJanela = (nome, clube) => {
+    const j = achar(nome, clube); if (!j) return false;
+    let m = document.getElementById('csModal');
+    if (!m) { m = document.createElement('div'); m.id = 'csModal'; m.className = 'cs-esc cs-modal'; document.body.appendChild(m); }
+    m.innerHTML = '<div class="cs-modal-fundo"></div><div class="cs-modal-caixa"><button class="cs-modal-x" title="fechar">×</button>' +
+      '<div class="cs-ficha">' + ficha(j) + '</div><p class="cs-nota">Abrir na aba <a href="#" class="cs-modal-ir">Consulta de jogador</a> para comparar com outros.</p></div>';
+    const fechar = () => { m.remove(); document.removeEventListener('keydown', esc_); };
+    const esc_ = e => { if (e.key === 'Escape') fechar(); };
+    m.querySelector('.cs-modal-fundo').onclick = fechar; m.querySelector('.cs-modal-x').onclick = fechar; document.addEventListener('keydown', esc_);
+    m.querySelector('.cs-modal-ir').onclick = e => { e.preventDefault(); fechar(); const p = j.p; st.busca[p] = j.n; st.sel[p] = D.jogadores.indexOf(j); st.aberto = p; gravar('csEstado', st); const bt = document.querySelector('.aba[data-aba="consulta"]'); if (bt) bt.click(); render(); };
+    return true;
+  };
   window.csConsultar = (nome, pos) => { const r = procurar(nome, pos || 'CA'); if (!r.length) return; const p = pos || r[0].p; st.busca[p] = nome; st.sel[p] = D.jogadores.indexOf(r[0]); st.aberto = p; render(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
 })();

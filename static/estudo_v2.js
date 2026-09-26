@@ -58,6 +58,14 @@
         render();
       };
     });
+    /* nome em negrito dentro de tabela = jogador: clique abre a ficha da Consulta (26/09) */
+    if (window.csJanela) alvo.querySelectorAll('.esv-doc table td > strong, .esv-doc table td > b').forEach(el => {
+      const td = el.parentElement, tr = td.parentElement;
+      const nome = el.textContent.trim(); if (nome.length < 3 || /^\d/.test(nome)) return;
+      const prox = td.nextElementSibling ? td.nextElementSibling.textContent.trim() : '';
+      if (!window.csExiste(nome, prox)) return;
+      el.classList.add('esv-jog'); el.title = 'ver ficha'; el.onclick = () => window.csJanela(nome, prox);
+    });
     alvo.querySelectorAll('[data-ir]').forEach(a => {
       a.onclick = e => {
         e.preventDefault();

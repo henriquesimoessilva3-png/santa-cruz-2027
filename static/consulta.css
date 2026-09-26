@@ -1,57 +1,69 @@
-/* Aba "Consulta de jogador" — escopada em #pgConsulta. */
-#pgConsulta .cs { padding: 16px 20px 48px; display: flex; flex-direction: column; gap: 14px; max-width: 1100px; }
-#pgConsulta .cs-topo h2 { margin: 0 0 4px; font-size: 20px; }
-#pgConsulta .cs-topo p { margin: 0 0 10px; color: var(--tinta2); font-size: 13px; max-width: 90ch; line-height: 1.5; }
-#pgConsulta .cs-busca { background: var(--input-bg); border: 1px solid var(--input-borda); color: var(--tinta); border-radius: 10px; padding: 10px 14px; font: 15px var(--fonte); width: 100%; max-width: 520px; }
-#pgConsulta .cs-lista { display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow: auto; border: 1px solid var(--borda); border-radius: 10px; }
-#pgConsulta .cs-item { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--linha1); color: var(--tinta); font: 13px var(--fonte); padding: 7px 12px; cursor: pointer; }
-#pgConsulta .cs-item:hover, #pgConsulta .cs-item.on { background: var(--veu1); }
-#pgConsulta .cs-item b { min-width: 170px; }
-#pgConsulta .cs-item span { color: var(--tinta3); flex: 1; }
-#pgConsulta .cs-item em, #pgConsulta .cs-sel { font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--fundo3); color: var(--tinta2); white-space: nowrap; }
-#pgConsulta .ideal { background: #1f8f4e; color: #fff; } #pgConsulta .bom { background: #2f6fd6; color: #fff; } #pgConsulta .meio { background: #b8860b; color: #fff; }
-#pgConsulta .ruim { background: #8a3a3a; color: #fff; } #pgConsulta .fora { background: #444; color: #ddd; }
-#pgConsulta .cs-ficha { border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px; background: var(--fundo2); }
-#pgConsulta .cs-cab { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 12px; }
-#pgConsulta .cs-cab h3 { margin: 0 0 4px; font-size: 20px; display: flex; gap: 10px; align-items: center; }
-#pgConsulta .cs-cab p { margin: 0; color: var(--tinta2); font-size: 13px; }
-#pgConsulta .cs-notas { display: flex; gap: 10px; }
-#pgConsulta .cs-notas div { background: var(--fundo3); border-radius: 10px; padding: 6px 12px; text-align: center; min-width: 64px; }
-#pgConsulta .cs-notas small { display: block; font-size: 10px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; }
-#pgConsulta .cs-notas b { font-size: 20px; }
-#pgConsulta .cs-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-#pgConsulta .cs-bloco { border: 1px solid var(--borda); border-radius: 10px; padding: 10px 14px; }
-#pgConsulta .cs-bloco h4 { margin: 0 0 8px; font-size: 13px; color: var(--tinta2); }
-#pgConsulta .cs-bloco ul { margin: 0 0 8px; padding-left: 18px; font-size: 13px; line-height: 1.5; }
-#pgConsulta li.ok { color: #58b97a; } #pgConsulta li.nao { color: #e07070; } #pgConsulta li.sem { color: var(--tinta3); }
-#pgConsulta .cs-bloco table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
-#pgConsulta .cs-bloco td { padding: 4px 6px 4px 0; border-bottom: 1px solid var(--linha1); vertical-align: middle; }
-#pgConsulta .cs-bloco td small { color: var(--tinta3); font-size: 10px; }
-#pgConsulta td.b { width: 55%; white-space: nowrap; }
-#pgConsulta .cs-barra { display: inline-block; width: 70%; height: 8px; background: var(--fundo3); border-radius: 4px; vertical-align: middle; margin-right: 8px; overflow: hidden; }
-#pgConsulta .cs-barra i { display: block; height: 100%; border-radius: 4px; }
-#pgConsulta .cs-barra i.alto { background: #1f8f4e; } #pgConsulta .cs-barra i.meio { background: #b8860b; } #pgConsulta .cs-barra i.baixo { background: #8a3a3a; }
-#pgConsulta .cs-ok { color: #58b97a; font-size: 11px; font-weight: 700; } #pgConsulta .cs-nao { color: #e07070; font-size: 11px; font-weight: 700; }
-#pgConsulta .cs-nota, #pgConsulta .cs-vazio { font-size: 11.5px; color: var(--tinta3); margin: 6px 0 0; }
-#pgConsulta .cs-legenda { border: 1px dashed var(--borda); border-radius: 10px; padding: 10px 14px; max-width: 80ch; font-size: 13px; }
-#pgConsulta .cs-legenda h4 { margin: 0 0 6px; } #pgConsulta .cs-legenda ul { margin: 0; padding-left: 18px; line-height: 1.5; }
+/* Aba "Consulta de jogador" — escopada em .cs-esc. */
+.cs-esc .cs { padding: 16px 20px 48px; display: flex; flex-direction: column; gap: 14px; max-width: 1100px; }
+.cs-esc .cs-topo h2 { margin: 0 0 4px; font-size: 20px; }
+.cs-esc .cs-topo p { margin: 0 0 10px; color: var(--tinta2); font-size: 13px; max-width: 90ch; line-height: 1.5; }
+.cs-esc .cs-busca { background: var(--input-bg); border: 1px solid var(--input-borda); color: var(--tinta); border-radius: 10px; padding: 10px 14px; font: 15px var(--fonte); width: 100%; max-width: 520px; }
+.cs-esc .cs-lista { display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow: auto; border: 1px solid var(--borda); border-radius: 10px; }
+.cs-esc .cs-item { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--linha1); color: var(--tinta); font: 13px var(--fonte); padding: 7px 12px; cursor: pointer; }
+.cs-esc .cs-item:hover, .cs-esc .cs-item.on { background: var(--veu1); }
+.cs-esc .cs-item b { min-width: 170px; }
+.cs-esc .cs-item span { color: var(--tinta3); flex: 1; }
+.cs-esc .cs-item em, .cs-esc .cs-sel { font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--fundo3); color: var(--tinta2); white-space: nowrap; }
+.cs-esc .ideal { background: #1f8f4e; color: #fff; } .cs-esc .bom { background: #2f6fd6; color: #fff; } .cs-esc .meio { background: #b8860b; color: #fff; }
+.cs-esc .ruim { background: #8a3a3a; color: #fff; } .cs-esc .fora { background: #444; color: #ddd; }
+.cs-esc .cs-ficha { border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px; background: var(--fundo2); }
+.cs-esc .cs-cab { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 12px; }
+.cs-esc .cs-cab h3 { margin: 0 0 4px; font-size: 20px; display: flex; gap: 10px; align-items: center; }
+.cs-esc .cs-cab p { margin: 0; color: var(--tinta2); font-size: 13px; }
+.cs-esc .cs-notas { display: flex; gap: 10px; }
+.cs-esc .cs-notas div { background: var(--fundo3); border-radius: 10px; padding: 6px 12px; text-align: center; min-width: 64px; }
+.cs-esc .cs-notas small { display: block; font-size: 10px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; }
+.cs-esc .cs-notas b { font-size: 20px; }
+.cs-esc .cs-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.cs-esc .cs-bloco { border: 1px solid var(--borda); border-radius: 10px; padding: 10px 14px; }
+.cs-esc .cs-bloco h4 { margin: 0 0 8px; font-size: 13px; color: var(--tinta2); }
+.cs-esc .cs-bloco ul { margin: 0 0 8px; padding-left: 18px; font-size: 13px; line-height: 1.5; }
+.cs-esc li.ok { color: #58b97a; } .cs-esc li.nao { color: #e07070; } .cs-esc li.sem { color: var(--tinta3); }
+.cs-esc .cs-bloco table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.cs-esc .cs-bloco td { padding: 4px 6px 4px 0; border-bottom: 1px solid var(--linha1); vertical-align: middle; }
+.cs-esc .cs-bloco td small { color: var(--tinta3); font-size: 10px; }
+.cs-esc td.b { width: 55%; white-space: nowrap; }
+.cs-esc .cs-barra { display: inline-block; width: 70%; height: 8px; background: var(--fundo3); border-radius: 4px; vertical-align: middle; margin-right: 8px; overflow: hidden; }
+.cs-esc .cs-barra i { display: block; height: 100%; border-radius: 4px; }
+.cs-esc .cs-barra i.alto { background: #1f8f4e; } .cs-esc .cs-barra i.meio { background: #b8860b; } .cs-esc .cs-barra i.baixo { background: #8a3a3a; }
+.cs-esc .cs-ok { color: #58b97a; font-size: 11px; font-weight: 700; } .cs-esc .cs-nao { color: #e07070; font-size: 11px; font-weight: 700; }
+.cs-esc .cs-nota, .cs-esc .cs-vazio { font-size: 11.5px; color: var(--tinta3); margin: 6px 0 0; }
+.cs-esc .cs-legenda { border: 1px dashed var(--borda); border-radius: 10px; padding: 10px 14px; max-width: 80ch; font-size: 13px; }
+.cs-esc .cs-legenda h4 { margin: 0 0 6px; } .cs-esc .cs-legenda ul { margin: 0; padding-left: 18px; line-height: 1.5; }
 
 /* 11 campos, um por posição */
-#pgConsulta .cs-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
-#pgConsulta .cs-slot { border: 1px solid var(--borda); border-radius: 10px; padding: 8px 10px 10px; background: var(--fundo2); display: flex; flex-direction: column; gap: 6px; position: relative; }
-#pgConsulta .cs-slot.on { border-color: var(--coral); box-shadow: inset 3px 0 0 var(--coral); }
-#pgConsulta .cs-slot-t { display: flex; gap: 8px; align-items: baseline; font-size: 11px; color: var(--tinta3); }
-#pgConsulta .cs-slot-t b { font-size: 13px; color: var(--tinta); }
-#pgConsulta .cs-x { margin-left: auto; background: none; border: 0; color: var(--tinta3); font-size: 16px; cursor: pointer; line-height: 1; }
-#pgConsulta .cs-x:hover { color: var(--tinta); }
-#pgConsulta .cs-slot-j { text-align: left; background: var(--fundo3); border: 0; border-radius: 8px; padding: 8px 10px; cursor: pointer; color: var(--tinta); font: 13px var(--fonte); display: flex; flex-direction: column; gap: 3px; }
-#pgConsulta .cs-slot-j:hover { outline: 1px solid var(--borda2); }
-#pgConsulta .cs-slot-j > b { font-size: 14px; }
-#pgConsulta .cs-slot-j > span { color: var(--tinta3); font-size: 12px; }
-#pgConsulta .cs-slot-j > em { align-self: flex-start; }
-#pgConsulta .cs-slot-j > small { color: var(--tinta2); font-size: 11.5px; }
-#pgConsulta .cs-slot-j > small.cs-aviso { color: #e0a050; }
-#pgConsulta .cs-slot .cs-busca { max-width: none; padding: 7px 10px; font-size: 13px; }
-#pgConsulta .cs-slot .cs-lista { max-height: 200px; }
-#pgConsulta .cs-slot .cs-item b { min-width: 0; }
-#pgConsulta .cs-slot .cs-item { flex-wrap: wrap; gap: 4px 8px; }
+.cs-esc .cs-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.cs-esc .cs-slot { border: 1px solid var(--borda); border-radius: 10px; padding: 8px 10px 10px; background: var(--fundo2); display: flex; flex-direction: column; gap: 6px; position: relative; }
+.cs-esc .cs-slot.on { border-color: var(--coral); box-shadow: inset 3px 0 0 var(--coral); }
+.cs-esc .cs-slot-t { display: flex; gap: 8px; align-items: baseline; font-size: 11px; color: var(--tinta3); }
+.cs-esc .cs-slot-t b { font-size: 13px; color: var(--tinta); }
+.cs-esc .cs-x { margin-left: auto; background: none; border: 0; color: var(--tinta3); font-size: 16px; cursor: pointer; line-height: 1; }
+.cs-esc .cs-x:hover { color: var(--tinta); }
+.cs-esc .cs-slot-j { text-align: left; background: var(--fundo3); border: 0; border-radius: 8px; padding: 8px 10px; cursor: pointer; color: var(--tinta); font: 13px var(--fonte); display: flex; flex-direction: column; gap: 3px; }
+.cs-esc .cs-slot-j:hover { outline: 1px solid var(--borda2); }
+.cs-esc .cs-slot-j > b { font-size: 14px; }
+.cs-esc .cs-slot-j > span { color: var(--tinta3); font-size: 12px; }
+.cs-esc .cs-slot-j > em { align-self: flex-start; }
+.cs-esc .cs-slot-j > small { color: var(--tinta2); font-size: 11.5px; }
+.cs-esc .cs-slot-j > small.cs-aviso { color: #e0a050; }
+.cs-esc .cs-slot .cs-busca { max-width: none; padding: 7px 10px; font-size: 13px; }
+.cs-esc .cs-slot .cs-lista { max-height: 200px; }
+.cs-esc .cs-slot .cs-item b { min-width: 0; }
+.cs-esc .cs-slot .cs-item { flex-wrap: wrap; gap: 4px 8px; }
+
+/* janela de ficha aberta de outras abas */
+.cs-modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow: auto; }
+.cs-modal-fundo { position: fixed; inset: 0; background: rgba(0,0,0,.55); }
+.cs-modal-caixa { position: relative; width: min(1000px, 100%); background: var(--fundo); border: 1px solid var(--borda2); border-radius: 14px; padding: 14px 16px 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.cs-modal-x { position: absolute; top: 8px; right: 12px; background: none; border: 0; color: var(--tinta3); font-size: 22px; cursor: pointer; line-height: 1; }
+.cs-modal-x:hover { color: var(--tinta); }
+.cs-modal .cs-ficha { border: 0; padding: 4px 0 0; background: none; }
+.cs-modal .cs-nota a { color: var(--coral); }
+/* nome clicável nas tabelas do Estudo V2 */
+#pgEstudoV2 .esv-doc .esv-jog { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
+#pgEstudoV2 .esv-doc .esv-jog:hover { color: var(--coral); }
