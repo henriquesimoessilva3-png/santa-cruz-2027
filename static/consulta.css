@@ -1,0 +1,37 @@
+/* Aba "Consulta de jogador" — escopada em #pgConsulta. */
+#pgConsulta .cs { padding: 16px 20px 48px; display: flex; flex-direction: column; gap: 14px; max-width: 1100px; }
+#pgConsulta .cs-topo h2 { margin: 0 0 4px; font-size: 20px; }
+#pgConsulta .cs-topo p { margin: 0 0 10px; color: var(--tinta2); font-size: 13px; max-width: 90ch; line-height: 1.5; }
+#pgConsulta .cs-busca { background: var(--input-bg); border: 1px solid var(--input-borda); color: var(--tinta); border-radius: 10px; padding: 10px 14px; font: 15px var(--fonte); width: 100%; max-width: 520px; }
+#pgConsulta .cs-lista { display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow: auto; border: 1px solid var(--borda); border-radius: 10px; }
+#pgConsulta .cs-item { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--linha1); color: var(--tinta); font: 13px var(--fonte); padding: 7px 12px; cursor: pointer; }
+#pgConsulta .cs-item:hover, #pgConsulta .cs-item.on { background: var(--veu1); }
+#pgConsulta .cs-item b { min-width: 170px; }
+#pgConsulta .cs-item span { color: var(--tinta3); flex: 1; }
+#pgConsulta .cs-item em, #pgConsulta .cs-sel { font-style: normal; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--fundo3); color: var(--tinta2); white-space: nowrap; }
+#pgConsulta .ideal { background: #1f8f4e; color: #fff; } #pgConsulta .bom { background: #2f6fd6; color: #fff; } #pgConsulta .meio { background: #b8860b; color: #fff; }
+#pgConsulta .ruim { background: #8a3a3a; color: #fff; } #pgConsulta .fora { background: #444; color: #ddd; }
+#pgConsulta .cs-ficha { border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px; background: var(--fundo2); }
+#pgConsulta .cs-cab { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 12px; }
+#pgConsulta .cs-cab h3 { margin: 0 0 4px; font-size: 20px; display: flex; gap: 10px; align-items: center; }
+#pgConsulta .cs-cab p { margin: 0; color: var(--tinta2); font-size: 13px; }
+#pgConsulta .cs-notas { display: flex; gap: 10px; }
+#pgConsulta .cs-notas div { background: var(--fundo3); border-radius: 10px; padding: 6px 12px; text-align: center; min-width: 64px; }
+#pgConsulta .cs-notas small { display: block; font-size: 10px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; }
+#pgConsulta .cs-notas b { font-size: 20px; }
+#pgConsulta .cs-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+#pgConsulta .cs-bloco { border: 1px solid var(--borda); border-radius: 10px; padding: 10px 14px; }
+#pgConsulta .cs-bloco h4 { margin: 0 0 8px; font-size: 13px; color: var(--tinta2); }
+#pgConsulta .cs-bloco ul { margin: 0 0 8px; padding-left: 18px; font-size: 13px; line-height: 1.5; }
+#pgConsulta li.ok { color: #58b97a; } #pgConsulta li.nao { color: #e07070; } #pgConsulta li.sem { color: var(--tinta3); }
+#pgConsulta .cs-bloco table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+#pgConsulta .cs-bloco td { padding: 4px 6px 4px 0; border-bottom: 1px solid var(--linha1); vertical-align: middle; }
+#pgConsulta .cs-bloco td small { color: var(--tinta3); font-size: 10px; }
+#pgConsulta td.b { width: 55%; white-space: nowrap; }
+#pgConsulta .cs-barra { display: inline-block; width: 70%; height: 8px; background: var(--fundo3); border-radius: 4px; vertical-align: middle; margin-right: 8px; overflow: hidden; }
+#pgConsulta .cs-barra i { display: block; height: 100%; border-radius: 4px; }
+#pgConsulta .cs-barra i.alto { background: #1f8f4e; } #pgConsulta .cs-barra i.meio { background: #b8860b; } #pgConsulta .cs-barra i.baixo { background: #8a3a3a; }
+#pgConsulta .cs-ok { color: #58b97a; font-size: 11px; font-weight: 700; } #pgConsulta .cs-nao { color: #e07070; font-size: 11px; font-weight: 700; }
+#pgConsulta .cs-nota, #pgConsulta .cs-vazio { font-size: 11.5px; color: var(--tinta3); margin: 6px 0 0; }
+#pgConsulta .cs-legenda { border: 1px dashed var(--borda); border-radius: 10px; padding: 10px 14px; max-width: 80ch; font-size: 13px; }
+#pgConsulta .cs-legenda h4 { margin: 0 0 6px; } #pgConsulta .cs-legenda ul { margin: 0; padding-left: 18px; line-height: 1.5; }

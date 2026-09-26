@@ -69,17 +69,17 @@ ordem,mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nota,nota_co
 8,Exterior,Bahrain,MED,Arthur Rezende,Muharraq,32.0,1839,,500000.0,61.8,True,False,,,,,61.8,True
 9,Série B,Série B,MED,Rafael Gava,Botafogo-SP,33.0,1987,2026-11-30,600000.0,60.7,True,False,27.59,,,,60.7,True
 10,Sul-americano,Paraguai,MED,A. Molinas,Club Libertad,20.0,997,2026-12-31,0.0,60.5,True,False,,,,,60.5,True
-1,Sul-americano,Paraguai,MEI,F. Carrizo,Club Libertad,35.0,1335,2026-12-31,500000.0,76.0,True,False,,,,,76.0,True
-2,Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0.0,72.8,True,False,,,,,72.8,True
+1,Sul-americano,Paraguai,MEI,F. Carrizo,Club Libertad,35.0,1335,2026-12-31,500000.0,68.4,True,False,,,,,68.4,True
+2,Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0.0,68.2,True,False,,,,,68.2,True
 3,Série B,Série B,MEI,Élvis,Ponte Preta,35.0,1505,2026-11-30,350000.0,65.7,True,False,25.67,,,,65.7,True
-4,Sul-americano,Equador A,MEI,M. Díaz,Universidad Católica,35.0,1528,,300000.0,62.6,True,False,,,,,62.6,True
-5,Sul-americano,Colombia B,MEI,K. Álvarez,Patriotas Boyacá,21.0,1369,,0.0,62.3,True,False,,,,,62.3,True
-6,Sul-americano,Colombia B,MEI,J. Barrera,Real Cartagena,30.0,1042,2026-12-31,700000.0,61.5,True,False,,,,,61.5,True
-7,Sul-americano,Venezuela,MEI,L. González,Monagas,35.0,915,2026-12-31,500000.0,61.3,True,False,,,,,61.3,True
-8,Sul-americano,Equador A,MEI,D. Pazmiño,Leones del Norte,26.0,1106,2026-12-31,50000.0,60.3,True,False,,,,,60.3,True
-9,Sul-americano,Colombia A,MEI,E. Cardona,Atlético Nacional,33.0,1128,2027-06-30,800000.0,60.2,True,False,,,,,60.2,True
+4,Sul-americano,Colombia B,MEI,K. Álvarez,Patriotas Boyacá,21.0,1369,,0.0,62.2,True,False,,,,,62.2,True
+5,Sul-americano,Equador A,MEI,M. Díaz,Universidad Católica,35.0,1528,,300000.0,61.9,True,False,,,,,61.9,True
+6,Sul-americano,Colombia B,MEI,J. Barrera,Real Cartagena,30.0,1042,2026-12-31,700000.0,61.1,True,False,,,,,61.1,True
+7,Sul-americano,Colombia A,MEI,E. Cardona,Atlético Nacional,33.0,1128,2027-06-30,800000.0,60.2,True,False,,,,,60.2,True
+8,Sul-americano,Venezuela,MEI,L. González,Monagas,35.0,915,2026-12-31,500000.0,59.8,True,False,,,,,59.8,True
+9,Sul-americano,Equador A,MEI,D. Pazmiño,Leones del Norte,26.0,1106,2026-12-31,50000.0,59.6,True,False,,,,,59.6,True
 10,Série B,Série B,MEI,Guilherme Marques,Atlético-GO,35.0,956,2026-11-30,650000.0,59.0,True,False,28.03,,,,59.0,True
-1,Sul-americano,Chile,ED,Kevin Méndez,Unión La Calera,30.0,1481,,700000.0,63.1,True,False,,média ≥7,3.0,8.0,66.1,True
+1,Sul-americano,Chile,ED,Kevin Méndez,Unión La Calera,30.0,1481,,700000.0,65.0,True,False,,média ≥7,3.0,8.0,68.0,True
 2,Série B,Série B,ED,Pedro Vitor,São Bernardo,28.0,1164,2026-12-31,,63.4,True,False,28.94,,,,63.4,True
 3,Exterior,Romenia,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,27.0,2919,2027-06-30,200000.0,63.4,True,False,,,,,63.4,True
 4,Sul-americano,Equador A,ED,A. Rodríguez,Independiente del Valle,27.0,1246,,850000.0,62.3,True,False,,,,,62.3,True
@@ -92,13 +92,13 @@ ordem,mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nota,nota_co
 1,Série B,Série B,EE,Dadá Belmonte,CRB,29.0,2285,2026-11-30,,70.0,True,False,29.76,,,,70.0,True
 2,Série B,Série B,EE,Iago Teles,Londrina,26.0,1103,2027-06-30,,64.9,True,False,28.65,"média ≥6,5",10.0,6.8,66.9,True
 3,Sul-americano,Colombia B,EE,D. Dawson,Envigado,20.0,1024,,0.0,61.2,True,False,,,,,61.2,True
-4,Exterior,China,EE,Davidson,Qingdao West Coast,35.0,1537,,850000.0,59.1,True,False,,,,,59.1,True
-5,Sul-americano,Venezuela,EE,G. Salega,Portuguesa,27.0,1001,,0.0,59.0,True,False,,,,,59.0,True
+4,Sul-americano,Venezuela,EE,G. Salega,Portuguesa,27.0,1001,,0.0,59.3,True,False,,,,,59.3,True
+5,Exterior,China,EE,Davidson,Qingdao West Coast,35.0,1537,,850000.0,59.1,True,False,,,,,59.1,True
 6,Sul-americano,Colombia B,EE,J. Campaña,Patriotas Boyacá,23.0,1228,,350000.0,57.5,True,False,,,,,57.5,True
-7,Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0.0,56.0,True,False,,,,,56.0,True
-8,Série B,Série B,EE,Kadu,Goiás,24.0,1348,2026-12-15,,55.3,True,False,30.73,,,,55.3,True
-9,Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000.0,55.3,True,True,,,,,55.3,True
-10,Sul-americano,Bolivia,EE,J. Maraude,Always Ready,18.0,993,,0.0,59.2,True,False,,,,,54.2,True
+7,Sul-americano,Peru,EE,J. Betancourt,FC Cajamarca,31.0,942,2026-12-31,250000.0,56.1,True,False,,,,,56.1,True
+8,Exterior,Bulgaria,EE,Everton Bala,Levski Sofia,27.0,2691,2027-06-30,0.0,56.0,True,False,,,,,56.0,True
+9,Série B,Série B,EE,Kadu,Goiás,24.0,1348,2026-12-15,,55.3,True,False,30.73,,,,55.3,True
+10,Exterior,Portugal B,EE,Reinaldo,Chaves,24.0,2672,2026-06-30,400000.0,55.3,True,True,,,,,55.3,True
 1,Série B,Série B,CA,Robson,Novorizontino,35.0,2272,2026-12-31,900000.0,70.8,True,False,29.08,,,,70.8,True
 2,Sul-americano,Paraguai,CA,L. Melgarejo,Club Libertad,35.0,1622,2027-06-30,800000.0,62.4,True,False,,,,,62.4,True
 3,Sul-americano,Equador A,CA,M. Estrada,LDU Quito,30.0,1133,2027-06-30,0.0,58.0,True,False,,,,,58.0,True

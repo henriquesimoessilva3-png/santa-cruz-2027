@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/static/estudo_serieb.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/estudo_v2.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/bp_jogadores.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/consulta.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/fisico_estudo.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
@@ -153,6 +154,7 @@
   <button class="aba" data-aba="bpjogadores">Bola parada · jogadores</button>
   <button class="aba" data-aba="minutagem">Minutagem Série B</button>
   <button class="aba" data-aba="estudo2">Estudo Série B V2</button>
+  <button class="aba" data-aba="consulta">Consulta de jogador</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -569,6 +571,12 @@
          que se mostra e se esconde acompanhando o botão, como as de cima. -->
     <section class="pagina oculta" id="pgEstudoV2"><div id="esV2Corpo"></div></section>
 
+    <!-- A aba Consulta de jogador: static/consulta.js com o dado de static/consulta_dados.js
+         (gerar_consulta_js.py) — digita o nome, o estudo V2 diz se adere (técnico + físico). -->
+    <section class="pagina oculta" id="pgConsulta">
+      <div class="emp-rolagem"><div class="cs" id="csCorpo"></div></div>
+    </section>
+
     <!-- A aba Bola parada · jogadores: static/bp_jogadores.js com o dado de
          static/bp_jogadores_dados.js (gerar_bp_jogadores_js.py) — especialistas por mercado e a
          produção em bola parada na Série B pelo Sofascore. Se mostra sozinha, como as de cima. -->
@@ -815,6 +823,8 @@
 <script src="/static/fisico_estudo.js?v={{ ver }}"></script>
 <script src="/static/bp_graficos.js?v={{ ver }}"></script>
 <script src="/static/bp_jogadores.js?v={{ ver }}"></script>
+<script src="/static/consulta_dados.js?v={{ ver }}"></script>
+<script src="/static/consulta.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>

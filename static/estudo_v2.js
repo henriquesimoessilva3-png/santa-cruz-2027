@@ -34,6 +34,8 @@
     }
     if (!D.docs.some(d => d.id === docAtual)) docAtual = D.docs[0].id;
     const d = D.docs.find(x => x.id === docAtual);
+    /* o menu e' remontado a cada clique: guarda onde ele estava rolado, senao volta ao topo (26/09) */
+    const menuAntes = alvo.querySelector('.esv-menu'); const rolMenu = menuAntes ? menuAntes.scrollTop : 0;
     alvo.innerHTML =
       '<nav class="esv-menu">' +
         '<div class="esv-cab"><b>Santa Cruz V2</b><span>estudo novo, do zero · Série B 2022–2026</span>' +
@@ -47,6 +49,8 @@
       '<div class="esv-leitura"><article class="esv-doc">' +
         '<div class="esv-doc-meta">' + esc(d.grupo) + ' · <code>' + esc(d.arquivo) + '</code> · ' +
         dataBR(d.data) + '</div><h2>' + esc(d.titulo) + '</h2>' + d.html + '</article></div>';
+    const menuDepois = alvo.querySelector('.esv-menu'); if (menuDepois) menuDepois.scrollTop = rolMenu;
+    const leitura = alvo.querySelector('.esv-leitura'); if (leitura) leitura.scrollTop = 0;   /* o documento novo comeca do inicio; o menu fica onde estava */
     alvo.querySelectorAll('button.esv-item').forEach(b => {
       b.onclick = () => {
         docAtual = b.dataset.doc;

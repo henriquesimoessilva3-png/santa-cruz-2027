@@ -114,22 +114,22 @@ Critério (23/09): **sem Série A** e sem os nomes tirados pelo clube (`EXCLUIDO
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Nota | PSV | Tipo | Scouts |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | **F. Carrizo** | Club Libertad | Paraguai | 35 | 31/12/26 | 76 | — | Médio em tudo |  |
-| 2 | **Matheus Frizzo** | Suwon | Coreia B | 28 | — | 73 | — | — |  |
+| 1 | **F. Carrizo** | Club Libertad | Paraguai | 35 | 31/12/26 | 68 | — | Médio em tudo |  |
+| 2 | **Matheus Frizzo** | Suwon | Coreia B | 28 | — | 68 | — | — |  |
 | 3 | **Élvis** | Ponte Preta | Série B | 35 | 30/11/26 | 66 | 25,7 ⚠ | Baixa intensidade * |  |
-| 4 | **M. Díaz** | Universidad Católica | Equador A | 35 | — | 63 | — | Baixa intensidade * |  |
-| 5 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | — | 62 | — | — |  |
-| 6 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 31/12/26 | 62 | — | — |  |
-| 7 | **L. González** | Monagas | Venezuela | 35 | 31/12/26 | 61 | — | — |  |
-| 8 | **D. Pazmiño** | Leones del Norte | Equador A | 26 | 31/12/26 | 60 | — | Médio em tudo |  |
-| 9 | **E. Cardona** | Atlético Nacional | Colombia A | 33 | 30/06/27 | 60 | — | Baixa intensidade * |  |
+| 4 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | — | 62 | — | — |  |
+| 5 | **M. Díaz** | Universidad Católica | Equador A | 35 | — | 62 | — | Baixa intensidade * |  |
+| 6 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 31/12/26 | 61 | — | — |  |
+| 7 | **E. Cardona** | Atlético Nacional | Colombia A | 33 | 30/06/27 | 60 | — | Baixa intensidade * |  |
+| 8 | **L. González** | Monagas | Venezuela | 35 | 31/12/26 | 60 | — | — |  |
+| 9 | **D. Pazmiño** | Leones del Norte | Equador A | 26 | 31/12/26 | 60 | — | Médio em tudo |  |
 | 10 | **Guilherme Marques** | Atlético-GO | Série B | 35 | 30/11/26 | 59 | 28,0 | Médio em tudo |  |
 
 ### Extremo pela direita
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Nota | PSV | Tipo | Scouts |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | **Kevin Méndez** | Unión La Calera | Chile | 30 | — | 66 | — | Explosivo e rápido | ★ média ≥7 |
+| 1 | **Kevin Méndez** | Unión La Calera | Chile | 30 | — | 68 | — | Explosivo e rápido | ★ média ≥7 |
 | 2 | **Pedro Vitor** | São Bernardo | Série B | 28 | 31/12/26 | 63 | 28,9 | Motor de volume * |  |
 | 3 | **Anderson Ceará** | Csikszereda Miercurea Ciuc | Romenia | 27 | 30/06/27 | 63 | — | — |  |
 | 4 | **A. Rodríguez** | Independiente del Valle | Equador A | 27 | — | 62 | — | Baixa intensidade * |  |
@@ -147,13 +147,13 @@ Critério (23/09): **sem Série A** e sem os nomes tirados pelo clube (`EXCLUIDO
 | 1 | **Dadá Belmonte** | CRB | Série B | 29 | 30/11/26 | 70 | 29,8 | Baixa intensidade * |  |
 | 2 | **Iago Teles** | Londrina | Série B | 26 | 30/06/27 | 67 | 28,6 | Baixa intensidade * | ★ média ≥6,5 |
 | 3 | **D. Dawson** | Envigado | Colombia B | 20 | — | 61 | — | — |  |
-| 4 | **Davidson** | Qingdao West Coast | China | 35 | — | 59 | — | Baixa intensidade * |  |
-| 5 | **G. Salega** | Portuguesa | Venezuela | 27 | — | 59 | — | — |  |
+| 4 | **G. Salega** | Portuguesa | Venezuela | 27 | — | 59 | — | — |  |
+| 5 | **Davidson** | Qingdao West Coast | China | 35 | — | 59 | — | Baixa intensidade * |  |
 | 6 | **J. Campaña** | Patriotas Boyacá | Colombia B | 23 | — | 58 | — | — |  |
-| 7 | **Everton Bala** | Levski Sofia | Bulgaria | 27 | 30/06/27 | 56 | — | — |  |
-| 8 | **Kadu** | Goiás | Série B | 24 | 15/12/26 | 55 | 30,7 | Explosivo e rápido |  |
-| 9 | **Reinaldo** | Chaves | Portugal B | 24 | 30/06/26 * | 55 | — | Explosivo e rápido |  |
-| 10 | **J. Maraude** | Always Ready | Bolivia | 18 | — | 54 | — | — |  |
+| 7 | **J. Betancourt** | FC Cajamarca | Peru | 31 | 31/12/26 | 56 | — | Baixa intensidade * |  |
+| 8 | **Everton Bala** | Levski Sofia | Bulgaria | 27 | 30/06/27 | 56 | — | — |  |
+| 9 | **Kadu** | Goiás | Série B | 24 | 15/12/26 | 55 | 30,7 | Explosivo e rápido |  |
+| 10 | **Reinaldo** | Chaves | Portugal B | 24 | 30/06/26 * | 55 | — | Explosivo e rápido |  |
 
 ### Centroavante
 

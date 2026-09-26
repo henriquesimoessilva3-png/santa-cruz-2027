@@ -58,9 +58,15 @@ def pos11(p): return POS11.get(str(p).split(",")[0].strip(), "Outro")
 
 def aderir(df, liga_col="liga"):
     df = df[df.minutos >= 900].copy()
+    # percentil dentro de liga × posição; quando a liga tem menos de 10 jogadores na posição (Coreia B,
+    # Bahrain…), o percentil sai todo 100 — nesses casos o percentil é dentro do mercado × posição
+    grp = df["mercado"] if "mercado" in df.columns else pd.Series("Série B", index=df.index)
+    n_lp = df.groupby([liga_col, "pos11"])["pos11"].transform("size")
     for en, _ in {x for v in FICHA.values() for x in v}:
         if en in df.columns:
-            df[en + "_pct"] = df.groupby([liga_col, "pos11"])[en].rank(pct=True).mul(100)
+            p_liga = df.groupby([liga_col, "pos11"])[en].rank(pct=True).mul(100)
+            p_merc = df.groupby([grp, df["pos11"]])[en].rank(pct=True).mul(100)
+            df[en + "_pct"] = np.where(n_lp >= 10, p_liga, p_merc)
     ad = []
     for _, r in df.iterrows():
         f = FICHA.get(r.pos11); 

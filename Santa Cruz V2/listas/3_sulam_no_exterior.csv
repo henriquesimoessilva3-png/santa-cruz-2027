@@ -83,20 +83,20 @@ Exterior,Espanha B,MED,Dalisson,Córdoba,26.0,1213,2027-06-30,250000,Spain,"Spai
 Exterior,Portugal B,MED,Rayan Lucas,Sporting CP II,21.0,1544,2028-10-29,0,Brazil,Brazil,76.4,53.9,56.34,4.0,55.1,True,0.0,37.61,6,63.15390762485952,7.99,3.16,4.16,True,False,sim,False,False,N2 jovem
 Exterior,Marrocos,MED,R. Vaca,Wydad Casablanca,26.0,901,2029-06-30,0,Bolivia,Bolivia,63.6,50.1,58.94,3.0,54.5,True,0.0,,6,45.94151561237997,2.4,0.74,3.16,True,True,sim,False,False,N1
 Exterior,Espanha C,MED,Fabricio,Tenerife,28.0,2203,2028-06-30,0,Brazil,Brazil,79.1,54.7,51.75,5.0,53.2,True,0.0,,6,56.368518278293564,6.89,2.06,3.48,True,False,sim,False,False,N1
-Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0,Brazil,Brazil,100.0,61.0,84.52,1.0,72.8,True,76.98,,7,51.69300105780587,3.3,2.04,6.94,True,False,sim,True,False,N1
+Exterior,Coreia B,MEI,Matheus Frizzo,Suwon,28.0,1919,,0,Brazil,Brazil,69.7,51.9,84.52,1.0,68.2,True,76.98,,7,51.69300105780587,3.3,2.04,6.94,True,False,sim,True,False,N1
 Exterior,EUA,MEI,Evander,Cincinnati,28.0,1683,2027-12-31,0,Brazil,Brazil,80.0,55.0,70.37,1.0,62.7,True,85.78,30.85,7,46.50099492150759,3.1,0.4,12.83,True,False,sim,False,False,N1
 Exterior,Mexico,MEI,J. Brunetta,Tigres UANL,29.0,3548,2027-12-31,0,Argentina,"Argentina, Italy",62.4,49.7,70.88,2.0,60.3,True,74.73,32.52,7,55.66098437820196,3.72,0.91,7.0,True,True,sim,False,False,N1
-Exterior,Ucrania,MEI,Bruninho,Karpaty,26.0,2179,2028-06-30,1000000,Brazil,Brazil,63.6,50.1,68.11,2.0,59.1,True,92.11,43.13,7,50.12281815345307,2.74,1.07,9.48,True,False,sim,False,False,N1
 Exterior,Portugal C,MEI,Caleb,Atlético CP,33.0,1349,2026-06-30,0,Brazil,Brazil,78.0,54.4,62.87,1.0,58.6,True,14.59,,7,57.97358031332468,4.37,1.75,10.19,True,False,sim,True,True,N1
-Exterior,China,MEI,Bruno Nazário,Henan,31.0,1127,2026-12-31,1300000,Brazil,Brazil,64.1,50.2,61.17,2.0,55.7,True,60.61,36.32,7,48.653518274213674,4.12,3.18,8.94,True,False,sim,True,False,N1
-Exterior,China,MEI,Serginho,Beijing Guoan,31.0,1312,2028-12-31,2000000,Brazil,Brazil,61.6,49.5,55.68,6.0,52.6,True,10.18,28.89,7,61.4508853858731,4.36,4.45,4.58,True,False,sim,False,False,N1
+Exterior,China,MEI,Bruno Nazário,Henan,31.0,1127,2026-12-31,1300000,Brazil,Brazil,80.9,55.3,61.17,2.0,58.2,True,60.61,36.32,7,48.653518274213674,4.12,3.18,8.94,True,False,sim,True,False,N1
+Exterior,Ucrania,MEI,Bruninho,Karpaty,26.0,2179,2028-06-30,1000000,Brazil,Brazil,49.0,45.7,68.11,2.0,56.9,True,92.11,43.13,7,50.12281815345307,2.74,1.07,9.48,True,False,sim,False,False,N1
+Exterior,China,MEI,Serginho,Beijing Guoan,31.0,1312,2028-12-31,2000000,Brazil,Brazil,80.9,55.3,55.68,6.0,55.5,True,10.18,28.89,7,61.4508853858731,4.36,4.45,4.58,True,False,sim,False,False,N1
 Exterior,Croacia,MEI,R. Gonzales,Vukovar,27.0,3171,,0,Colombia,Colombia,49.7,45.9,58.44,4.0,52.2,True,50.33,,7,40.05878080259769,3.84,1.07,13.32,True,True,sim,True,False,N1
 Exterior,Italia B,MEI,Hernani,Monza,32.0,1382,2027-06-30,2000000,Brazil,Brazil,47.1,45.1,59.33,3.0,52.2,True,39.89,38.85,7,55.55553621607599,6.52,3.15,10.03,True,False,sim,True,False,N1
-Exterior,Grecia,MEI,G. Balzi,Levadiakos,24.0,1703,2027-12-31,175000,Argentina,Argentina,60.6,49.2,53.88,5.0,51.5,True,10.05,41.78,7,54.176596808237804,6.81,1.96,9.03,True,True,sim,False,False,N1/N2
+Exterior,Grecia,MEI,G. Balzi,Levadiakos,24.0,1703,2027-12-31,175000,Argentina,Argentina,64.4,50.3,53.88,5.0,52.1,True,10.05,41.78,7,54.176596808237804,6.81,1.96,9.03,True,True,sim,False,False,N1/N2
+Exterior,Grecia,MEI,J. Añor,Volos NFC,32.0,2106,2026-06-30,450000,Venezuela,"Venezuela, Spain",44.7,44.4,53.16,7.0,48.8,True,71.9,34.27,7,45.9079956131778,3.44,0.83,9.17,True,True,sim,True,True,N1
 Exterior,Bulgaria,MEI,B. Sobrero,CSKA 1948 Sofia,27.0,2760,2028-06-30,300000,Argentina,Argentina,60.2,49.1,48.31,10.0,48.7,True,0.08,,7,52.20683242156817,4.98,2.52,6.74,True,True,sim,False,False,N1
-Exterior,Grecia,MEI,J. Añor,Volos NFC,32.0,2106,2026-06-30,450000,Venezuela,"Venezuela, Spain",41.4,43.4,53.16,7.0,48.3,True,71.9,34.27,7,45.9079956131778,3.44,0.83,9.17,True,True,sim,True,True,N1
 Exterior,Bulgaria,ED,Caio Vidal,Ludogorets,25.0,1531,2029-06-30,0,Brazil,Brazil,92.0,58.6,78.06,1.0,68.3,True,0.0,,6,62.77768972256704,4.97,2.06,13.01,True,False,sim,False,False,N1/N2
-Exterior,Bahrain,ED,Wellington Machado,Al Riffa,27.0,1669,2030-06-30,0,Brazil,Brazil,79.8,54.9,75.68,1.0,65.3,True,0.0,,6,70.0,7.63,3.23,9.82,True,False,sim,False,False,N1
+Exterior,Bahrain,ED,Wellington Machado,Al Riffa,27.0,1669,2030-06-30,0,Brazil,Brazil,79.3,54.8,75.68,1.0,65.2,True,0.0,,6,70.0,7.63,3.23,9.82,True,False,sim,False,False,N1
 Exterior,Coreia B,ED,Euller,Seoul E-Land,31.0,1483,2028-12-31,350000,Brazil,Brazil,61.4,49.4,78.98,1.0,64.2,True,0.0,,6,55.969217265712395,4.13,1.73,8.62,True,False,sim,False,False,N1
 Exterior,Romenia,ED,Anderson Ceará,Csikszereda Miercurea Ciuc,27.0,2919,2027-06-30,200000,Brazil,Brazil,79.8,54.9,71.9,1.0,63.4,True,0.0,,6,38.61808056717733,4.75,1.33,21.88,True,False,sim,True,False,N1
 Exterior,Tcheca,ED,J. Mercado,Sparta Praha,24.0,1910,2029-06-30,0,Ecuador,Ecuador,81.8,55.5,65.69,2.0,60.6,True,0.0,,6,66.79288290684481,6.67,3.82,8.78,True,True,sim,False,False,N1/N2

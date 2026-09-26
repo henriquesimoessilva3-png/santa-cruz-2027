@@ -139,9 +139,9 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **J. Alarcón** | Sport Boys | Peru | 24 | 1.141 | 31/12/27 | 60 | 49 | 71 | Médio em tudo * | N1/N2 | — | ✓ |
 | 2 | **E. Mena** | Medellín | Colombia A | 28 | 1.599 | 30/06/28 | 59 | 56 | 63 | Explosivo e rápido | N1 | — | ✓ |
-| 3 | **G. Cuellar** | Universitario de Vinto | Bolivia | 27 | 1.260 | — | 58 | 57 | 58 | — | N1 | ✓ | ✓ |
-| 4 | **C. Graciano** | Real Cartagena | Colombia B | 23 | 2.025 | — | 57 | 55 | 58 | — | N2 | ✓ | ✓ |
-| 5 | **E. Cabal** | Atlético Vinotinto | Equador B | 22 | 1.349 | 31/12/26 | 57 | 57 | 56 | — | N2 | ✓ | ✓ |
+| 3 | **C. Graciano** | Real Cartagena | Colombia B | 23 | 2.025 | — | 57 | 55 | 58 | — | N2 | ✓ | ✓ |
+| 4 | **E. Cabal** | Atlético Vinotinto | Equador B | 22 | 1.349 | 31/12/26 | 57 | 57 | 56 | — | N2 | ✓ | ✓ |
+| 5 | **Lucas Soto** | Everton | Chile | 23 | 1.148 | 31/12/26 | 56 | 54 | 59 | — | N2 | ✓ | ✓ |
 
 ### Zagueiro pela direita
 
@@ -180,8 +180,8 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 | 1 | **M. Cova** | Carabobo | Venezuela | 34 | 1.598 | 31/12/26 | 62 | 50 | 75 | — | N1 | ✓ | ✓ |
 | 2 | **D. Carabaño** | Sport Huancayo | Peru | 28 | 1.003 | 31/12/27 | 59 | 45 | 74 | Menos intenso * | N1 | — | ✓ |
 | 3 | **J. Mercado** | Unión Magdalena | Colombia B | 22 | 1.344 | — | 59 | 46 | 72 | — | N2 | ✓ | ✓ |
-| 4 | **K. Charcopa** | San Antonio | Equador B | 19 | 1.506 | — | 59 | 47 | 72 | — | N2 | ✓ | ✓ |
-| 5 | **S. Vasquez** | Orense | Equador A | 22 | 2.439 | — | 59 | 45 | 73 | Intermediário | N2 | ✓ | ✓ |
+| 4 | **S. Vasquez** | Orense | Equador A | 22 | 2.439 | — | 59 | 45 | 73 | Intermediário | N2 | ✓ | ✓ |
+| 5 | **K. Salazar** | Unión Magdalena | Colombia B | 28 | 1.413 | — | 58 | 57 | 60 | — | N1 | ✓ | ✓ |
 
 ### Médio
 
@@ -197,31 +197,31 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 | Estrangeiro |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **F. Carrizo** | Club Libertad | Paraguai | 35 | 1.335 | 31/12/26 | 76 | 61 | 91 | Médio em tudo | N1 | ✓ | ✓ |
-| 2 | **M. Díaz** | Universidad Católica | Equador A | 35 | 1.528 | — | 63 | 56 | 69 | Baixa intensidade * | N1 | ✓ | ✓ |
-| 3 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | 1.369 | — | 62 | 51 | 74 | — | N2 | ✓ | ✓ |
-| 4 | **N. Quagliata** | Melgar | Peru | 27 | 1.510 | 31/12/29 | 62 | 58 | 66 | Explosivo e rápido * | N1 | — | ✓ |
-| 5 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 1.042 | 31/12/26 | 62 | 56 | 67 | — | N1 | ✓ | ✓ |
+| 1 | **F. Carrizo** | Club Libertad | Paraguai | 35 | 1.335 | 31/12/26 | 68 | 46 | 91 | Médio em tudo | N1 | ✓ | ✓ |
+| 2 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | 1.369 | — | 62 | 50 | 74 | — | N2 | ✓ | ✓ |
+| 3 | **M. Díaz** | Universidad Católica | Equador A | 35 | 1.528 | — | 62 | 54 | 69 | Baixa intensidade * | N1 | ✓ | ✓ |
+| 4 | **N. Quagliata** | Melgar | Peru | 27 | 1.510 | 31/12/29 | 62 | 57 | 66 | Explosivo e rápido * | N1 | — | ✓ |
+| 5 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 1.042 | 31/12/26 | 61 | 56 | 67 | — | N1 | ✓ | ✓ |
 
 ### Extremo pela direita
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 | Estrangeiro |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Reixon Saya** | El Nacional | Equador B | 18 | 1.321 | — | 64 | 55 | 73 | — | N2 | ✓ | ✓ |
+| 1 | **Kevin Méndez** | Unión La Calera | Chile | 30 | 1.481 | — | 65 | 56 | 74 | Explosivo e rápido | N1 | ✓ | ✓ |
 | 2 | **C. Sosa** | Deportivo Táchira | Venezuela | 31 | 1.460 | 31/12/27 | 64 | 50 | 78 | — | N1 | — | ✓ |
 | 3 | **F. González** | O'Higgins | Chile | 25 | 1.256 | 31/12/28 | 63 | 57 | 70 | Explosivo e rápido | N1/N2 | — | ✓ |
-| 4 | **Kevin Méndez** | Unión La Calera | Chile | 30 | 1.481 | — | 63 | 52 | 74 | Explosivo e rápido | N1 | ✓ | ✓ |
-| 5 | **J. Martínez** | Deportivo Cali | Colombia A | 24 | 1.626 | 30/06/29 | 63 | 48 | 77 | Baixa intensidade * | N1/N2 | — | ✓ |
+| 4 | **J. Martínez** | Deportivo Cali | Colombia A | 24 | 1.626 | 30/06/29 | 63 | 48 | 77 | Baixa intensidade * | N1/N2 | — | ✓ |
+| 5 | **Reixon Saya** | El Nacional | Equador B | 18 | 1.321 | — | 63 | 52 | 73 | — | N2 | ✓ | ✓ |
 
 ### Extremo pela esquerda
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 | Estrangeiro |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **E. Tortolero** | Carabobo | Venezuela | 28 | 995 | 31/12/27 | 64 | 56 | 71 | — | N1 | — | ✓ |
+| 1 | **E. Tortolero** | Carabobo | Venezuela | 28 | 995 | 31/12/27 | 63 | 56 | 71 | — | N1 | — | ✓ |
 | 2 | **D. Dawson** | Envigado | Colombia B | 20 | 1.024 | — | 61 | 51 | 71 | — | N2 | ✓ | ✓ |
 | 3 | **M. Roseti** | Midland | Argentina B | 29 | 1.809 | 31/12/27 | 60 | 51 | 68 | — | N1 | — | ✓ |
-| 4 | **J. Maraude** | Always Ready | Bolivia | 18 | 993 | — | 59 | 60 | 59 | — | N2 | ✓ | ✓ |
-| 5 | **G. Salega** | Portuguesa | Venezuela | 27 | 1.001 | — | 59 | 50 | 68 | — | N1 | ✓ | ✓ |
+| 4 | **G. Salega** | Portuguesa | Venezuela | 27 | 1.001 | — | 59 | 51 | 68 | — | N1 | ✓ | ✓ |
+| 5 | **M. Lago** | Colón | Argentina B | 24 | 2.172 | 31/12/27 | 59 | 58 | 60 | — | N1/N2 | — | ✓ |
 
 ### Centroavante
 
@@ -310,11 +310,11 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 | Estrangeiro |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Matheus Frizzo** | Suwon | Coreia B | 28 | 1.919 | — | 73 | 61 | 85 | — | N1 | ✓ | — |
+| 1 | **Matheus Frizzo** | Suwon | Coreia B | 28 | 1.919 | — | 68 | 52 | 85 | — | N1 | ✓ | — |
 | 2 | **Evander** | Cincinnati | EUA | 28 | 1.683 | 31/12/27 | 63 | 55 | 70 | — | N1 | — | — |
 | 3 | **J. Brunetta** | Tigres UANL | Mexico | 29 | 3.548 | 31/12/27 | 60 | 50 | 71 | — | N1 | — | ✓ |
-| 4 | **Bruninho** | Karpaty | Ucrania | 26 | 2.179 | 30/06/28 | 59 | 50 | 68 | — | N1 | — | — |
-| 5 | **Caleb** | Atlético CP | Portugal C | 33 | 1.349 | 30/06/26 * | 59 | 54 | 63 | — | N1 | ✓ | — |
+| 4 | **Caleb** | Atlético CP | Portugal C | 33 | 1.349 | 30/06/26 * | 59 | 54 | 63 | — | N1 | ✓ | — |
+| 5 | **Bruno Nazário** | Henan | China | 31 | 1.127 | 31/12/26 | 58 | 55 | 61 | Médio em tudo | N1 | ✓ | — |
 
 ### Extremo pela direita
 
@@ -363,8 +363,8 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **C. Mora** | Universitatea Craiova | Romenia | 25 | 2.219 | 30/06/28 | 64 | 54 | 74 | — | N1/N2 | — |
-| 2 | **F. Sjøvold** | Bodø / Glimt | Noruega | 22 | 1.005 | 31/12/28 | 64 | 57 | 71 | — | N2 | — |
+| 1 | **F. Sjøvold** | Bodø / Glimt | Noruega | 22 | 1.005 | 31/12/28 | 65 | 59 | 71 | — | N2 | — |
+| 2 | **C. Mora** | Universitatea Craiova | Romenia | 25 | 2.219 | 30/06/28 | 64 | 54 | 74 | — | N1/N2 | — |
 | 3 | **Heriberto Tavares** | Maccabi Netanya | Israel | 29 | 2.430 | 30/06/27 | 63 | 54 | 72 | — | N1 | ✓ |
 | 4 | **Miguel Barandas** | Atlético CP | Portugal C | 26 | 1.733 | 30/06/26 * | 62 | 49 | 75 | — | N1 | ✓ |
 | 5 | **N. Stanković** | Crvena Zvezda | Servia | 23 | 1.052 | 30/06/29 | 60 | 52 | 68 | — | N2 | — |
@@ -404,10 +404,10 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Paul Anton** | Győri ETO | Hungria | 35 | 1.248 | 30/06/27 | 65 | 53 | 77 | — | N1 | ✓ |
-| 2 | **D. Bojanić** | Ulsan Hyundai | Coreia A | 31 | 1.432 | 31/12/27 | 64 | 56 | 73 | — | N1 | — |
-| 3 | **A. Bouras** | Levski Sofia | Bulgaria | 24 | 2.215 | 30/06/28 | 63 | 53 | 73 | — | N1/N2 | — |
+| 2 | **A. Bouras** | Levski Sofia | Bulgaria | 24 | 2.215 | 30/06/28 | 63 | 53 | 73 | — | N1/N2 | — |
+| 3 | **D. Bojanić** | Ulsan Hyundai | Coreia A | 31 | 1.432 | 31/12/27 | 63 | 54 | 73 | — | N1 | — |
 | 4 | **M. Edjouma** | Qingdao Hainiu | China | 29 | 1.170 | 30/06/26 * | 63 | 58 | 68 | — | N1 | ✓ |
-| 5 | **J. Kim** | Jeonbuk Motors | Coreia A | 29 | 1.849 | 31/12/26 | 63 | 49 | 76 | — | N1 | ✓ |
+| 5 | **W. Asselman** | Gent II | Belgica B | 21 | 1.913 | 30/06/29 | 62 | 55 | 69 | — | N2 | — |
 
 ### Médio
 
@@ -427,27 +427,27 @@ Duas notas por jogador. **Aderência**: percentil médio ponderado, dentro de li
 | 2 | **Sergio Arribas** | Almería | Espanha B | 24 | 3.753 | 30/06/29 | 66 | 59 | 74 | — | N1/N2 | — |
 | 3 | **V. Kostov** | Crvena Zvezda | Servia | 18 | 2.756 | 30/06/28 | 66 | 58 | 75 | — | N2 | — |
 | 4 | **E. Álvarez** | Guadalajara | Mexico | 23 | 2.730 | 30/06/26 * | 66 | 58 | 73 | — | N2 | ✓ |
-| 5 | **Jin-Su Seo** | Daejeon Citizen | Coreia A | 25 | 1.238 | — | 66 | 56 | 76 | — | N1/N2 | ✓ |
+| 5 | **Téji Savanier** | Montpellier | França B | 34 | 1.521 | 30/06/26 * | 65 | 50 | 79 | — | N1 | ✓ |
 
 ### Extremo pela direita
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **D. Lamesta** | Benevento | Italia C | 26 | 3.190 | 30/06/27 | 73 | 56 | 90 | — | N1 | ✓ |
-| 2 | **F. Ghedjemis** | Frosinone | Italia B | 23 | 3.248 | 30/06/28 | 68 | 60 | 76 | — | N2 | — |
-| 3 | **A. Gholizadeh** | Lech Poznań | Polonia | 30 | 1.221 | 30/06/27 | 67 | 52 | 82 | — | N1 | ✓ |
-| 4 | **V. Lučić** | Crvena Zvezda | Servia | 24 | 1.158 | 30/06/27 | 66 | 54 | 79 | — | N1/N2 | ✓ |
-| 5 | **D. Bragantini** | Mantova | Italia B | 22 | 1.349 | 30/06/29 | 66 | 47 | 85 | — | N2 | — |
+| 2 | **A. Gholizadeh** | Lech Poznań | Polonia | 30 | 1.221 | 30/06/27 | 67 | 52 | 82 | — | N1 | ✓ |
+| 3 | **V. Lučić** | Crvena Zvezda | Servia | 24 | 1.158 | 30/06/27 | 66 | 54 | 79 | — | N1/N2 | ✓ |
+| 4 | **D. Bragantini** | Mantova | Italia B | 22 | 1.349 | 30/06/29 | 65 | 45 | 85 | — | N2 | — |
+| 5 | **I. Chouaref** | Sion | Suiça | 25 | 3.057 | 30/06/28 | 64 | 53 | 75 | — | N1/N2 | — |
 
 ### Extremo pela esquerda
 
 | # | Jogador | Clube | Liga | Idade | Min | Contrato | Nota | Aderência | Nível | Tipo | N | Livre 2027 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **K. Alajbegović** | Salzburg | Austria | 18 | 2.016 | 30/06/29 | 74 | 56 | 92 | — | N2 | — |
-| 2 | **G. Kvernadze** | Frosinone | Italia B | 23 | 2.642 | 30/06/28 | 69 | 55 | 82 | — | N2 | — |
-| 3 | **L. Haraslín** | Sparta Praha | Tcheca | 30 | 1.930 | — | 67 | 58 | 77 | — | N1 | ✓ |
-| 4 | **F. Ruocco** | Mantova | Italia B | 25 | 1.747 | 30/06/28 | 67 | 52 | 82 | — | N1/N2 | — |
-| 5 | **J. Kadile** | Servette | Suiça | 23 | 1.167 | — | 66 | 58 | 75 | — | N2 | ✓ |
+| 1 | **K. Alajbegović** | Salzburg | Austria | 18 | 2.016 | 30/06/29 | 72 | 52 | 92 | — | N2 | — |
+| 2 | **L. Haraslín** | Sparta Praha | Tcheca | 30 | 1.930 | — | 67 | 58 | 77 | — | N1 | ✓ |
+| 3 | **J. Kadile** | Servette | Suiça | 23 | 1.167 | — | 66 | 58 | 75 | — | N2 | ✓ |
+| 4 | **G. Kvernadze** | Frosinone | Italia B | 23 | 2.642 | 30/06/28 | 66 | 50 | 82 | — | N2 | — |
+| 5 | **F. Ruocco** | Mantova | Italia B | 25 | 1.747 | 30/06/28 | 66 | 50 | 82 | — | N1/N2 | — |
 
 ### Centroavante
 
