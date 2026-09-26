@@ -33,7 +33,7 @@
 #pgEstudoV2 .esv-doc th { white-space: nowrap; }
 #pgEstudoV2 .esv-doc td:first-child, #pgEstudoV2 .esv-doc td > strong:only-child { white-space: nowrap; }
 /* texto corrido continua legível em coluna de 90ch; só as tabelas usam a largura toda */
-#pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc ul, #pgEstudoV2 .esv-doc ol, #pgEstudoV2 .esv-doc h2, #pgEstudoV2 .esv-doc h3 { max-width: 100ch; }
+#pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc ul, #pgEstudoV2 .esv-doc ol { max-width: 100ch; }
 #pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc li { overflow-wrap: anywhere; }
 #pgEstudoV2 .esv-doc th, #pgEstudoV2 .esv-doc td { border-bottom: 1px solid var(--borda); padding: 5px 8px 5px 0; text-align: left; vertical-align: top; }
 #pgEstudoV2 .esv-doc th { color: var(--tinta2); font-weight: 600; }
