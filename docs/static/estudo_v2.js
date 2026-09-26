@@ -32,7 +32,7 @@
         '<code>python3 gerar_estudo_v2_js.py</code>.</p>';
       return;
     }
-    if (!D.docs.some(d => d.id === docAtual)) docAtual = D.docs.some(d => d.id === 'sintese') ? 'sintese' : D.docs[0].id;   /* abre na Síntese */
+    if (!D.docs.some(d => d.id === docAtual)) docAtual = D.docs.some(d => d.id === 'ap_roteiro') ? 'ap_roteiro' : D.docs[0].id;   /* abre no roteiro da apresentação */
     const d = D.docs.find(x => x.id === docAtual);
     /* o menu e' remontado a cada clique: guarda onde ele estava rolado, senao volta ao topo (26/09) */
     const menuAntes = alvo.querySelector('.esv-menu'); const rolMenu = menuAntes ? menuAntes.scrollTop : 0;

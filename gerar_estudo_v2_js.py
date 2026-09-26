@@ -22,6 +22,12 @@ DOCS = [
     # Ordem de leitura (26/09): do dado à decisão — físico, técnico, treinadores, modelo de jogo,
     # conclusões e, por último, as recomendações de nomes. Sem número no menu: o número do bloco
     # fica no título do documento (é o nome da pasta em resultados/).
+    ("Apresentação", "ap_roteiro", "apresentacao/01_ROTEIRO.md", "Roteiro em 10 telas"),
+    ("Apresentação", "ap_frases", "apresentacao/02_UMA_FRASE_POR_BLOCO.md", "Uma frase por bloco"),
+    ("Apresentação", "ap_notas", "apresentacao/03_AS_NOTAS.md", "As notas, explicadas"),
+    ("Apresentação", "ap_mercado", "apresentacao/04_MERCADO.md", "Mercado: de onde vêm os nomes"),
+    ("Apresentação", "ap_listas", "apresentacao/05_A_LISTA_E_SEUS_CORTES.md", "A lista e seus cortes"),
+    ("Apresentação", "ap_montagem", "apresentacao/06_A_MONTAGEM.md", "A montagem do elenco"),
     ("Físico", "b1", "resultados/b1/B1.md", "O que rende ponto (B1)"),
     ("Físico", "b1p", "resultados/b1/B1_perfis.md", "Perfil por posição (B1)"),
     ("Físico", "b8", "resultados/b8/B8.md", "Físico × técnico e tipos físicos (B8)"),
