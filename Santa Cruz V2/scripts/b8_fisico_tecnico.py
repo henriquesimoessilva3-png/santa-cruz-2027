@@ -137,6 +137,12 @@ def tipos(d):
         comp = sub.groupby(["setor", "tipo"]).size() / sub.groupby("setor").size()
         G["pct_" + f_.lower()] = [round(float(comp.get((s_, t_), 0)), 3) for s_, t_ in zip(G.setor, G.tipo)]
         G["n_" + f_.lower()] = [int(((sub.setor == s_)).sum()) for s_ in G.setor]
+    # concentração (26/09): de todos os jogadores do tipo, que fatia está em quem subiu / caiu, contra o esperado
+    # (quem sobe e quem cai são 20% dos times cada): 1,6 = 60% acima do esperado
+    tot = T25.groupby(["setor", "tipo"]).size()
+    for f_ in ("Sobe", "Cai"):
+        fat = T25[T25.faixa == f_].groupby(["setor", "tipo"]).size() / tot
+        G["conc_" + f_.lower()] = [round(float(fat.get((s_, t_), 0)) / 0.20, 2) for s_, t_ in zip(G.setor, G.tipo)]
     G.to_csv(os.path.join(OUT, "tipos_fisicos.csv"), index=False)
     T[["ano", "clube", "jogador", "pos11", "setor", "tipo", "minutos"] + fis_u + tec_u].to_csv(os.path.join(OUT, "jogadores_tipo.csv"), index=False)
     return G, T

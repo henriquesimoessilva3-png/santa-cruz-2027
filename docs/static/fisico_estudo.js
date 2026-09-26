@@ -53,10 +53,10 @@
       return '<td class="n' + cls + '">' + num(100 * me, 0) + '%</td>'; };
     return '<p class="fse-d">Os jogadores do setor (≥ 900 min, 2022–2025) separados em três tipos pelo perfil físico. <b>Subiu / Meio / Caiu</b>: de cada 100 jogadores ' +
       'do setor naquela faixa da tabela, quantos são de cada tipo (' + r0[i('n_sobe')] + ' em quem subiu, ' + r0[i('n_meio')] + ' no meio, ' + r0[i('n_cai')] +
-      ' em quem caiu). <b>Referência</b>: parcela do tipo nos times que renderam acima do que o elenco custava (média ~27%). Diferença menor que ~15 pontos é ruído.</p>' +
-      '<table class="fse-t"><thead><tr><th>Tipo</th><th class="n">Subiu</th><th class="n">Meio</th><th class="n">Caiu</th><th class="n">Referência</th>' + C.map(c => '<th class="n">' + c[1] + '</th>').join('') + '</tr></thead><tbody>' +
+      ' em quem caiu). <b>Referência</b>: parcela do tipo nos times que renderam acima do que o elenco custava (média ~27%). Diferença menor que ~15 pontos é ruído. <b>Concentra ×</b>: lê a linha — de todos os jogadores do tipo na liga, a fatia em quem subiu dividida pelo esperado (20%); 1,6 = 60% acima, 0,4 = quem sobe evita.</p>' +
+      '<table class="fse-t"><thead><tr><th>Tipo</th><th class="n">Subiu</th><th class="n">Meio</th><th class="n">Caiu</th><th class="n">Referência</th><th class="n" title="de todos os jogadores do tipo na liga, a fatia que estava em quem subiu, dividida pelo esperado (20%): 1,6 = 60% acima">Concentra ×</th>' + C.map(c => '<th class="n">' + c[1] + '</th>').join('') + '</tr></thead><tbody>' +
       L.map(r => '<tr><td><b>' + esc(r[i('tipo')]) + '</b></td>' + faixa(r, 'pct_sobe') + faixa(r, 'pct_meio') + faixa(r, 'pct_cai') + '<td class="n">' +
-        num(100 * r[i('referencia')], 0) + '%</td>' + C.map(c => '<td class="n">' + (c[0] === 'distance_p90' ? num(r[i(c[0])] / 1000, 1) + ' km' : num(r[i(c[0])], c[2])) + '</td>').join('') + '</tr>').join('') +
+        num(100 * r[i('referencia')], 0) + '%</td><td class="n">' + (r[i('conc_sobe')] >= 1.3 || r[i('conc_sobe')] <= 0.7 ? '<b>' + num(r[i('conc_sobe')], 1) + '</b>' : num(r[i('conc_sobe')], 1)) + '</td>' + C.map(c => '<td class="n">' + (c[0] === 'distance_p90' ? num(r[i(c[0])] / 1000, 1) + ' km' : num(r[i(c[0])], c[2])) + '</td>').join('') + '</tr>').join('') +
       '</tbody></table>';
   }
 
