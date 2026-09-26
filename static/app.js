@@ -4639,8 +4639,12 @@ function fsRender() {
   const co = fsCoorteAB();
   /* A legenda da ficha V2: as quatro conclusoes do B1, uma linha cada, no topo da matriz */
   const leg = $('#fsLegendaV2');
-  if (leg) leg.innerHTML = FICHA ? '<b>Ficha física V2</b> · estudo Santa Cruz V2, Bloco 1' +
-    '<ol>' + FICHA.conclusoes.map(t => '<li>' + esc(t) + '</li>').join('') + '</ol>' : '';
+  /* recolhida por padrao: quatro linhas de texto roubavam altura da matriz (23/09) */
+  if (leg && !leg.dataset.feito) {
+    leg.innerHTML = FICHA ? '<details><summary><b>Ficha física V2</b> · o que a régua mede (estudo V2, Bloco 1)</summary>' +
+      '<ol>' + FICHA.conclusoes.map(t => '<li>' + esc(t) + '</li>').join('') + '</ol></details>' : '';
+    leg.dataset.feito = '1';
+  }
   const extras = fsExtras.map(pk => fsMapaPk.get(pk)).filter(Boolean);
   const extraSet = new Set(fsExtras);
   const top = liga => co.lista
@@ -5483,6 +5487,8 @@ function fsPerfilNota() {
   }).length;
   el.textContent = f.itens.length + ' indicadores · ' + passam + ' de ' + pool.length +
     ' passam · barra de quem subiu (' + f.n_sobe + ' atletas)';
+  /* a nota nao aparece mais embaixo (tomava 3 linhas): vira o balao do bloco */
+  const campo = $('#fsPerfilCampo'); if (campo) campo.title = el.textContent;
 }
 
 /* `pular` desliga filtros por nome — `{perfil:1}` ou `{contrato:1}`. Era um booleano

@@ -1,23 +1,23 @@
 /* Painel "Perfil físico por posição" (aba Físico) */
-#fsEstudo { margin: 0 0 10px; flex: none; max-height: 60vh; overflow: auto; }
-#fsEstudo .fse { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); }
-#fsEstudo .fse > summary { cursor: pointer; padding: 10px 14px; font-size: 13px; color: var(--tinta); list-style: revert; }
-#fsEstudo .fse > summary span { color: var(--tinta3); font-size: 12px; margin-left: 6px; }
-#fsEstudo .fse-corpo { padding: 0 14px 12px; }
-#fsEstudo .fse-chips { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0 10px; }
-#fsEstudo .fse-chips button { background: var(--fundo3); border: 1px solid var(--borda2); color: var(--tinta2); font: 600 12px var(--fonte);
+#fsPainelEstudo { margin: 0 0 10px; flex: none; max-height: 60vh; overflow: auto; }
+#fsPainelEstudo .fse { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); }
+#fsPainelEstudo .fse > summary { cursor: pointer; padding: 10px 14px; font-size: 13px; color: var(--tinta); list-style: revert; }
+#fsPainelEstudo .fse > summary span { color: var(--tinta3); font-size: 12px; margin-left: 6px; }
+#fsPainelEstudo .fse-corpo { padding: 0 14px 12px; }
+#fsPainelEstudo .fse-chips { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0 10px; }
+#fsPainelEstudo .fse-chips button { background: var(--fundo3); border: 1px solid var(--borda2); color: var(--tinta2); font: 600 12px var(--fonte);
   padding: 5px 12px; border-radius: 999px; cursor: pointer; }
-#fsEstudo .fse-chips button.on { background: var(--coral); border-color: var(--coral); color: #fff; }
-#fsEstudo .fse-sec { border-top: 1px solid var(--borda); padding: 6px 0; }
-#fsEstudo .fse-sec > summary { cursor: pointer; font-weight: 650; font-size: 13px; padding: 4px 0; color: var(--tinta); }
-#fsEstudo .fse-d { margin: 4px 0 8px; font-size: 12.5px; color: var(--tinta2); max-width: 110ch; line-height: 1.5; }
-#fsEstudo .fse-nota { margin: 6px 0 0; font-size: 11px; color: var(--tinta3); }
-#fsEstudo .fse-t { border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; margin-bottom: 4px; }
-#fsEstudo .fse-t th { text-align: left; color: var(--tinta2); font-weight: 600; font-size: 11px; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--borda2); }
-#fsEstudo .fse-t td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--linha1); white-space: nowrap; }
-#fsEstudo .n { text-align: right; }
-#fsEstudo .fse-u { color: var(--tinta3); font-size: 11px; }
-#fsEstudo .fse-top { color: var(--txt-verde); font-weight: 700; }
-#fsEstudo .fse-neg { color: var(--txt-vermelho); font-weight: 700; }
-#fsEstudo .fse-bar { display: inline-block; height: 8px; border-radius: 4px; background: var(--verde); vertical-align: middle; }
-#fsEstudo .fse-bar.neg { background: var(--coral-cl); }
+#fsPainelEstudo .fse-chips button.on { background: var(--coral); border-color: var(--coral); color: #fff; }
+#fsPainelEstudo .fse-sec { border-top: 1px solid var(--borda); padding: 6px 0; }
+#fsPainelEstudo .fse-sec > summary { cursor: pointer; font-weight: 650; font-size: 13px; padding: 4px 0; color: var(--tinta); }
+#fsPainelEstudo .fse-d { margin: 4px 0 8px; font-size: 12.5px; color: var(--tinta2); max-width: 110ch; line-height: 1.5; }
+#fsPainelEstudo .fse-nota { margin: 6px 0 0; font-size: 11px; color: var(--tinta3); }
+#fsPainelEstudo .fse-t { border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; margin-bottom: 4px; }
+#fsPainelEstudo .fse-t th { text-align: left; color: var(--tinta2); font-weight: 600; font-size: 11px; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--borda2); }
+#fsPainelEstudo .fse-t td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--linha1); white-space: nowrap; }
+#fsPainelEstudo .n { text-align: right; }
+#fsPainelEstudo .fse-u { color: var(--tinta3); font-size: 11px; }
+#fsPainelEstudo .fse-top { color: var(--txt-verde); font-weight: 700; }
+#fsPainelEstudo .fse-neg { color: var(--txt-vermelho); font-weight: 700; }
+#fsPainelEstudo .fse-bar { display: inline-block; height: 8px; border-radius: 4px; background: var(--verde); vertical-align: middle; }
+#fsPainelEstudo .fse-bar.neg { background: var(--coral-cl); }

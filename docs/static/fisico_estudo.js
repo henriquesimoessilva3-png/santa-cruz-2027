@@ -80,7 +80,7 @@
     ['tipos', 'Tipos físicos e o que cada um produz', tipos], ['lig', 'O que o físico produz no técnico', ligacoes], ['dest', 'Destaques da Série B 2026', destaques]];
 
   function render() {
-    const el = document.getElementById('fsEstudo'); if (!el || !D) return;
+    const el = document.getElementById('fsPainelEstudo'); if (!el || !D) return;
     const aberto = ler('fseAberto', '0') === '1';
     const abertas = new Set(ler('fseSecoes', 'sobe').split(','));
     el.innerHTML = '<details class="fse"' + (aberto ? ' open' : '') + '><summary><b>Perfil físico por posição</b> — estudo V2 ' +

@@ -3613,3 +3613,14 @@ body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
 /* físico de outra temporada (base do estudo V2): marcado no card e na ficha */
 .raio-src { font-size: 8.5px; font-weight: 700; color: #b7791f; margin: 0 3px 0 -2px; cursor: help; }
 .fi-src { font-size: 11px; color: #b7791f; margin: 0 0 6px; }
+
+/* 23/09 — filtros da aba Físico mais baixos: "quem aparece" numa fileira, o "perfil de quem sobe"
+   so mostra a barra quando ligado e a nota vira balao; a legenda da ficha V2 fica recolhida. */
+.fs-quem > .chk{margin-right:9px}
+.fs-quem > .rk-chk-sb{border-left:none;padding-left:0;border-top:none;margin-top:0;padding-top:0;display:inline-flex}
+.fs-perfil-campo .fs-perfil-nota{display:none}
+#fsPerfilCampo:not(:has(#fsPerfil:checked)) .fs-perfil-bar{display:none}
+.fv-legenda{margin:2px 0 4px}
+.fv-legenda details > summary{cursor:pointer;font-size:11.5px;color:var(--tinta2)}
+.fv-legenda details ol{margin:3px 0 4px}
+@media (max-width:1380px){ .fs-quem > .rk-chk-sb{border-top:none;margin-top:0;padding-top:0;display:inline-flex} }
