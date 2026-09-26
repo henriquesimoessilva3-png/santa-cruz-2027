@@ -199,6 +199,28 @@
     m.querySelector('.cs-modal-ir').onclick = e => { e.preventDefault(); fechar(); const p = j.p; st.busca[p] = j.n; st.sel[p] = D.jogadores.indexOf(j); st.aberto = p; gravar('csEstado', st); const bt = document.querySelector('.aba[data-aba="consulta"]'); if (bt) bt.click(); render(); };
     return true;
   };
+  /* jogadores de um tipo físico num setor (Bloco 8): clique no nome do tipo abre esta janela */
+  const TIPOS = ['Motor de volume', 'Baixa intensidade', 'Explosivo e rápido', 'Médio em tudo', 'Intermediário', 'Mais intenso', 'Menos intenso'];
+  window.csTipos = TIPOS;
+  window.csTipoJanela = (setor, tipo) => {
+    const pref = (D.pref[setor] || []).includes(tipo);
+    let lista = D.jogadores.filter(j => j.tipo === tipo && SET[j.p] === setor && !j.vet);
+    lista.sort((a, b) => (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.nota || 0) - (a.nota || 0));
+    const merc = { 'Série B': [], 'Sul-americano': [], 'Exterior': [], 'Série A': [] };
+    lista.forEach(j => (merc[j.m] || merc['Exterior']).push(j));
+    let m = document.getElementById('csModal');
+    if (!m) { m = document.createElement('div'); m.id = 'csModal'; m.className = 'cs-esc cs-modal'; document.body.appendChild(m); }
+    const tab = (nome, arr) => !arr.length ? '' : '<h4>' + esc(nome) + ' <small>' + arr.length + '</small></h4><table><tr><th>Jogador</th><th>Clube</th><th>Pos</th><th>Idade</th><th>Contrato</th><th>Nota</th><th>PSV</th><th>Sprints</th><th>Alta int.</th><th>Arranc.</th><th>Veredito</th></tr>' +
+      arr.slice(0, 60).map(j => { const v = veredito(j); return '<tr class="cs-sim-l" data-n="' + esc(j.n) + '" data-c="' + esc(j.c) + '"><td><b>' + esc(j.n) + '</b></td><td>' + esc(j.c) + (j.m !== 'Série B' ? ' <small>' + esc(j.l) + '</small>' : '') + '</td><td>' + j.p + '</td><td>' + (j.i == null ? '—' : j.i) + '</td><td>' + dt(j.ct) + '</td><td><b>' + (j.nota == null ? '—' : j.nota) + '</b></td><td>' + num(j.psv, 1) + '</td><td>' + num(j.spr, 1) + '</td><td>' + num(j.hi, 0) + '</td><td>' + num(j.expl, 2) + '</td><td><em class="cs-sel ' + v.cls + '">' + v.nivel + '</em></td></tr>'; }).join('') + '</table>' + (arr.length > 60 ? '<p class="cs-nota">mostrando 60 de ' + arr.length + ', por nota</p>' : '');
+    m.innerHTML = '<div class="cs-modal-fundo"></div><div class="cs-modal-caixa"><button class="cs-modal-x" title="fechar">×</button><div class="cs-ficha cs-tipo"><h3>' + esc(tipo) + ' — ' + esc(setor) + ' <span class="cs-sel ' + (pref ? 'bom' : 'ruim') + '">' + (pref ? 'tipo de quem sobe' : 'quem sobe usa ' + esc((D.pref[setor] || []).join(' / '))) + '</span></h3>' +
+      '<p class="cs-nota">Jogadores com ≥ 900 min e rastreio físico, classificados no tipo pelo perfil médio dos tipos da Série B (B8/B15). Ordem: Série B primeiro, depois por nota. Clique para abrir a ficha.</p>' +
+      tab('Série B', merc['Série B']) + tab('Campeonatos sul-americanos', merc['Sul-americano']) + tab('Exterior', merc['Exterior']) + tab('Série A', merc['Série A']) + '</div></div>';
+    const fechar = () => { m.remove(); document.removeEventListener('keydown', esc_); };
+    const esc_ = e => { if (e.key === 'Escape') fechar(); };
+    m.querySelector('.cs-modal-fundo').onclick = fechar; m.querySelector('.cs-modal-x').onclick = fechar; document.addEventListener('keydown', esc_);
+    m.querySelectorAll('.cs-sim-l').forEach(tr => tr.onclick = () => window.csJanela(tr.dataset.n, tr.dataset.c));
+    return true;
+  };
   window.csConsultar = (nome, pos) => { const r = procurar(nome, pos || 'CA'); if (!r.length) return; const p = pos || r[0].p; st.busca[p] = nome; st.sel[p] = D.jogadores.indexOf(r[0]); st.aberto = p; render(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
 })();

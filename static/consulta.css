@@ -75,3 +75,12 @@
 .cs-esc .cs-sim tr.cs-sim-l:hover td { background: var(--veu1); }
 .cs-esc .cs-sim td small { color: var(--tinta3); }
 .cs-esc .cs-sim td.b { width: 22%; }
+
+.cs-modal .cs-tipo h4 { margin: 14px 0 6px; font-size: 13px; color: var(--tinta2); }
+.cs-modal .cs-tipo table { border-collapse: collapse; width: 100%; font-size: 12px; font-variant-numeric: tabular-nums; }
+.cs-modal .cs-tipo th { text-align: left; font-size: 10.5px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .04em; padding: 2px 6px 4px 0; }
+.cs-modal .cs-tipo td { padding: 4px 6px 4px 0; border-bottom: 1px solid var(--linha1); }
+.cs-modal .cs-tipo tr.cs-sim-l { cursor: pointer; }
+.cs-modal .cs-tipo tr.cs-sim-l:hover td { background: var(--veu1); }
+#pgEstudoV2 .esv-doc .esv-tipo { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
+#pgEstudoV2 .esv-doc .esv-tipo:hover { color: var(--coral); }

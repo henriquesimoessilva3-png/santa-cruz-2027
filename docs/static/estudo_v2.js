@@ -66,6 +66,15 @@
       if (!window.csExiste(nome, prox)) return;
       el.classList.add('esv-jog'); el.title = 'ver ficha'; el.onclick = () => window.csJanela(nome, prox);
     });
+    /* nome de um tipo físico dentro de tabela (Bloco 8, 15): clique abre quem está no tipo, naquele setor */
+    if (window.csTipoJanela) alvo.querySelectorAll('.esv-doc table td > strong').forEach(el => {
+      const tipo = el.textContent.trim(); if (!window.csTipos.includes(tipo)) return;
+      let setor = null, n = el.closest('table');
+      while (n && !setor) { n = n.previousElementSibling; const st = n && n.querySelector && n.querySelector('strong'); const t = st && st.textContent.trim(); if (t && ['Zaga', 'Lateral', 'Volante', 'Meia', 'Extremo', 'Atacante'].includes(t)) setor = t; }
+      if (!setor) { const tr = el.closest('tr'); const c0 = tr && tr.cells[0] && tr.cells[0].textContent.trim(); if (['Zaga', 'Lateral', 'Volante', 'Meia', 'Extremo', 'Atacante'].includes(c0)) setor = c0; }
+      if (!setor) return;
+      el.classList.add('esv-tipo'); el.title = 'ver quem está neste tipo'; el.onclick = () => window.csTipoJanela(setor, tipo);
+    });
     alvo.querySelectorAll('[data-ir]').forEach(a => {
       a.onclick = e => {
         e.preventDefault();

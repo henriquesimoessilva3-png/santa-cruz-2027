@@ -32,6 +32,7 @@ DOCS = [
     ("Recomendação", "emprestimos", "listas/EMPRESTIMOS_EXTERIOR.md", "Empréstimos do exterior"),
     ("Recomendação", "seriea", "listas/SERIE_A_OPORTUNIDADES.md", "Série A: não aproveitados e fim de contrato"),
     ("Recomendação", "fisico", "listas/RANKING_FISICO.md", "Ranking físico por posição"),
+    ("Recomendação", "nao", "listas/NAO_CONTRATAR.md", "Quem não contratar"),
     ("Blocos", "b1", "resultados/b1/B1.md", "1 · Físico"),
     ("Blocos", "b1p", "resultados/b1/B1_perfis.md", "1 · Físico por posição"),
     ("Blocos", "b2", "resultados/b2/B2.md", "2 · Técnico"),
