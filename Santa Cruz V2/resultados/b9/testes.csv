@@ -1,0 +1,83 @@
+parte,setor,indicador,n,r_cru,r_ajustado,alvo
+1 posse x volume,Zaga,Duelos defensivos/90,333,-0.08,0.14,
+1 posse x volume,Zaga,Interseções/90,333,-0.21,0.15,
+1 posse x volume,Zaga,Duelos ofensivos/90,333,0.07,-0.03,
+1 posse x volume,Lateral,Duelos defensivos/90,333,-0.14,0.14,
+1 posse x volume,Lateral,Interseções/90,333,-0.18,0.11,
+1 posse x volume,Lateral,Duelos ofensivos/90,333,0.01,-0.12,
+1 posse x volume,Volante,Duelos defensivos/90,164,0.01,0.23,
+1 posse x volume,Volante,Interseções/90,164,-0.06,0.18,
+1 posse x volume,Volante,Duelos ofensivos/90,164,0.12,-0.01,
+1 posse x volume,Meia,Duelos defensivos/90,280,-0.08,0.09,
+1 posse x volume,Meia,Interseções/90,280,-0.12,0.01,
+1 posse x volume,Meia,Duelos ofensivos/90,280,0.12,-0.01,
+1 posse x volume,Extremo,Duelos defensivos/90,263,0.06,0.24,
+1 posse x volume,Extremo,Interseções/90,263,-0.09,0.12,
+1 posse x volume,Extremo,Duelos ofensivos/90,263,0.12,-0.08,
+1 posse x volume,Atacante,Duelos defensivos/90,209,-0.12,0.05,
+1 posse x volume,Atacante,Interseções/90,209,-0.11,0.06,
+1 posse x volume,Atacante,Duelos ofensivos/90,209,-0.09,-0.28,
+2 time,zaga+volante,duelos_def_cru,72,-0.01,,rendimento
+2 time,zaga+volante,duelos_def_cru,72,0.02,,pontos
+2 time,zaga+volante,duelos_def_cru,72,-0.04,,gc
+2 time,zaga+volante,duelos_def_padj,72,0.01,,rendimento
+2 time,zaga+volante,duelos_def_padj,72,0.11,,pontos
+2 time,zaga+volante,duelos_def_padj,72,-0.09,,gc
+2 time,zaga+volante,duelos_def_pct,72,-0.1,,rendimento
+2 time,zaga+volante,duelos_def_pct,72,-0.01,,pontos
+2 time,zaga+volante,duelos_def_pct,72,-0.05,,gc
+2 time,zaga+volante,aereos_pct,72,0.32,,rendimento
+2 time,zaga+volante,aereos_pct,72,0.33,,pontos
+2 time,zaga+volante,aereos_pct,72,-0.36,,gc
+2 time,zaga+volante,duelos_pct,72,0.09,,rendimento
+2 time,zaga+volante,duelos_pct,72,0.11,,pontos
+2 time,zaga+volante,duelos_pct,72,-0.21,,gc
+2 time,zaga+volante,intercep_padj,72,0.08,,rendimento
+2 time,zaga+volante,intercep_padj,72,-0.01,,pontos
+2 time,zaga+volante,intercep_padj,72,-0.29,,gc
+2 time,zaga+volante,duelos_of_padj,72,0.07,,rendimento
+2 time,zaga+volante,duelos_of_padj,72,0.0,,pontos
+2 time,zaga+volante,duelos_of_padj,72,-0.06,,gc
+2 time,zaga+volante,duelos_of_pct,72,-0.04,,rendimento
+2 time,zaga+volante,duelos_of_pct,72,-0.13,,pontos
+2 time,zaga+volante,duelos_of_pct,72,0.13,,gc
+2 time,todos os titulares,duelos_def_cru,80,-0.18,,rendimento
+2 time,todos os titulares,duelos_def_cru,80,-0.14,,pontos
+2 time,todos os titulares,duelos_def_cru,80,0.02,,gc
+2 time,todos os titulares,duelos_def_padj,80,-0.12,,rendimento
+2 time,todos os titulares,duelos_def_padj,80,-0.01,,pontos
+2 time,todos os titulares,duelos_def_padj,80,-0.07,,gc
+2 time,todos os titulares,duelos_def_pct,80,0.06,,rendimento
+2 time,todos os titulares,duelos_def_pct,80,0.11,,pontos
+2 time,todos os titulares,duelos_def_pct,80,-0.26,,gc
+2 time,todos os titulares,aereos_pct,80,0.18,,rendimento
+2 time,todos os titulares,aereos_pct,80,0.13,,pontos
+2 time,todos os titulares,aereos_pct,80,-0.43,,gc
+2 time,todos os titulares,duelos_pct,80,0.07,,rendimento
+2 time,todos os titulares,duelos_pct,80,0.02,,pontos
+2 time,todos os titulares,duelos_pct,80,-0.3,,gc
+2 time,todos os titulares,intercep_padj,80,0.09,,rendimento
+2 time,todos os titulares,intercep_padj,80,0.03,,pontos
+2 time,todos os titulares,intercep_padj,80,-0.36,,gc
+2 time,todos os titulares,duelos_of_padj,80,0.02,,rendimento
+2 time,todos os titulares,duelos_of_padj,80,0.04,,pontos
+2 time,todos os titulares,duelos_of_padj,80,0.17,,gc
+2 time,todos os titulares,duelos_of_pct,80,-0.06,,rendimento
+2 time,todos os titulares,duelos_of_pct,80,-0.18,,pontos
+2 time,todos os titulares,duelos_of_pct,80,-0.05,,gc
+3 jogador,Zaga,Duelos defensivos/90 PAdj,109,0.14,,rendimento
+3 jogador,Zaga,"Duelos defensivos ganhos, %",109,-0.2,,rendimento
+3 jogador,Volante,Duelos defensivos/90 PAdj,44,-0.04,,rendimento
+3 jogador,Volante,"Duelos defensivos ganhos, %",44,-0.19,,rendimento
+3 jogador,Lateral,Duelos defensivos/90 PAdj,83,-0.06,,rendimento
+3 jogador,Lateral,"Duelos defensivos ganhos, %",83,-0.15,,rendimento
+3 jogador,Meia,Duelos defensivos/90 PAdj,77,-0.12,,rendimento
+3 jogador,Meia,"Duelos defensivos ganhos, %",77,0.09,,rendimento
+3 jogador,Extremo,Duelos ofensivos/90 PAdj,51,-0.09,,rendimento
+3 jogador,Extremo,"Duelos ofensivos ganhos, %",51,-0.13,,rendimento
+3 jogador,Atacante,Duelos ofensivos/90 PAdj,33,-0.03,,rendimento
+3 jogador,Atacante,"Duelos ofensivos ganhos, %",33,-0.18,,rendimento
+4 jogo (dentro do clube),time,"Duelos defensivos ganhos, %",3570,-0.01,,pontos no jogo
+4 jogo (dentro do clube),time,"Duelos ganhos, %",3570,0.06,,pontos no jogo
+4 jogo (dentro do clube),time,"Duelos aéreos ganhos, %",3570,0.06,,pontos no jogo
+4 jogo (dentro do clube),time,"Duelos ofensivos ganhos, %",3570,-0.0,,pontos no jogo
