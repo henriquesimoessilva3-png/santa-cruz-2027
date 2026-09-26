@@ -1,0 +1,45 @@
+pos11,jogador,clube,idade,contrato,livre,tec_A,fis_A,patamar_A,psv
+ZD,Gabriel Bahia,Novorizontino,27.0,2027-03-31,True,63.0,95.0,79.0,30.86
+CA,Derek,Náutico,28.0,2027-12-31,False,78.0,79.0,78.0,29.16
+ED,Vinícius,Náutico,33.0,2027-12-31,False,80.0,76.0,78.0,30.44
+ZE,Patrick,Novorizontino,27.0,2027-12-31,False,63.0,93.0,78.0,30.55
+LD,Willean Lepo,Criciúma,29.0,2027-12-31,False,75.0,79.0,77.0,29.58
+MEI,Fábio Lima,Juventude,29.0,2026-11-30,True,53.0,100.0,76.0,31.77
+CA,Hygor,Botafogo-SP,34.0,2026-11-30,True,59.0,92.0,76.0,29.7
+VOL,Dudu,Vila Nova,24.0,2029-11-30,False,55.0,98.0,76.0,30.73
+VOL,João Miguel,Athletic,22.0,2026-11-30,True,61.0,90.0,76.0,28.65
+LD,Rafael Ramos,Ceará,31.0,2026-12-31,True,72.0,75.0,74.0,29.73
+ZE,Vilar,Botafogo-SP,26.0,2026-11-30,True,66.0,79.0,72.0,30.2
+CA,Robson,Novorizontino,35.0,2026-12-31,True,77.0,63.0,70.0,29.18
+LE,Felipinho,Sport,29.0,2027-12-31,False,68.0,70.0,69.0,30.61
+MEI,Jean Carlos,Náutico,34.0,2027-12-31,False,72.0,63.0,68.0,29.93
+LE,Kevyson,Ponte Preta,22.0,2027-12-31,False,67.0,68.0,68.0,29.96
+CA,William Pottker,Londrina,32.0,2026-11-30,True,59.0,78.0,68.0,30.04
+LE,Diogo Barbosa,Juventude,34.0,2026-11-30,True,68.0,67.0,68.0,29.79
+LE,Enzo,Athletic,24.0,2027-12-31,False,55.0,82.0,68.0,30.1
+MED,Jota,Athletic,22.0,2029-03-31,False,66.0,68.0,67.0,27.63
+LE,Moraes,Operário-PR,28.0,2026-11-30,True,54.0,79.0,66.0,30.07
+CA,Gustavo Coutinho,Atlético-GO,27.0,2027-12-31,False,54.0,78.0,66.0,29.73
+MED,Matheus Bianqui,Novorizontino,28.0,2026-12-31,True,57.0,76.0,66.0,27.89
+ED,Victor Hugo,Londrina,23.0,2029-12-31,False,62.0,68.0,65.0,29.7
+LE,DG,Avaí,25.0,2026-11-30,True,61.0,69.0,65.0,30.22
+VOL,Wenderson,Náutico,28.0,2026-11-30,True,66.0,63.0,64.0,27.84
+LE,Patrick Brey,Botafogo-SP,29.0,2026-11-30,True,74.0,55.0,64.0,28.75
+EE,Soares,Atlético-GO,26.0,2029-08-25,False,56.0,73.0,64.0,31.03
+LD,Reginaldo,Náutico,33.0,2026-11-30,True,55.0,68.0,62.0,29.65
+ED,Chrystian Barletta,Sport,25.0,2029-07-31,False,59.0,64.0,62.0,30.71
+LE,Marcelo Hermes,Criciúma,31.0,2026-12-31,True,70.0,52.0,61.0,29.29
+ZD,Ricardo Silva,América-MG,34.0,2026-11-30,True,69.0,51.0,60.0,28.36
+ED,Reidiney,Novorizontino,19.0,,True,54.0,65.0,60.0,29.67
+MED,Yago,América-MG,20.0,2028-12-31,False,54.0,67.0,60.0,28.41
+EE,Kadu,Goiás,24.0,2026-12-15,True,59.0,61.0,60.0,30.51
+MED,Rodriguinho,Fortaleza,23.0,2027-12-31,False,67.0,54.0,60.0,29.62
+ZE,Wallace,Botafogo-SP,31.0,2026-11-30,True,66.0,55.0,60.0,28.12
+LD,Mikael Doka,Operário-PR,26.0,2027-12-31,False,67.0,51.0,59.0,29.98
+VOL,André Luiz,Londrina,31.0,2026-11-30,True,56.0,60.0,58.0,27.53
+ED,Bruno José,Atlético-GO,28.0,2026-11-30,True,60.0,56.0,58.0,29.85
+ZD,Bruno Alves,Criciúma,35.0,2027-12-31,False,58.0,53.0,56.0,28.74
+LD,Matheus Ribeiro,Náutico,33.0,2026-11-30,True,57.0,51.0,54.0,28.89
+ZE,Vitor Mendes,Cuiabá,27.0,2026-11-30,True,53.0,56.0,54.0,28.62
+LE,Gabriel Feliciano,Operário-PR,25.0,2026-12-31,True,52.0,53.0,52.0,30.12
+ZD,Allyson,Avaí,35.0,2026-11-30,True,52.0,53.0,52.0,29.1

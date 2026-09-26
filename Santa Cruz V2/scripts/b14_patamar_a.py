@@ -127,6 +127,16 @@ def main():
     q = P[P.liga == "Brasil B"].groupby("pos11").apply(lambda x: pd.Series({"n": len(x), "tec≥50": int((x.tec_A >= 50).sum()), "fís≥50": int((x.fis_A >= 50).sum()), "ambos": int(((x.tec_A >= 50) & (x.fis_A >= 50)).sum())})).reindex(ORDEM).dropna()
     md += ["## 4 · Quantos jogadores da Série B 2026 já estão acima da mediana da A", "", "| Pos | n | técnico ≥ 50 | físico ≥ 50 | os dois |", "|---|---|---|---|---|"]
     for p, r in q.iterrows(): md.append(f"| {p} | {int(r.n)} | {int(r['tec≥50'])} | {int(r['fís≥50'])} | **{int(r.ambos)}** |")
+    # os nomes: quem está acima da mediana da A nas duas coisas, por posição
+    ideal = pd.read_csv(os.path.join(RAIZ, "listas", "IDEAL_2027.csv")); ideal["k"] = ideal.jogador.map(chave) + "|" + ideal.clube.map(chave)
+    nos10 = set(ideal.k)
+    md += ["", "Os nomes, por posição (ordem pelo patamar; **✓ dez** = também está em \"Os meus dez\"; (e) = contrato além de jun/27):", ""]
+    amb = P[(P.liga == "Brasil B") & (P.tec_A >= 50) & (P.fis_A >= 50)].sort_values("patamar_A", ascending=False)
+    for p in ORDEM:
+        x = amb[amb.pos11 == p]
+        if x.empty: continue
+        md.append(f"- **{p}** ({len(x)}): " + "; ".join(f"{r.jogador}{'' if r.livre else ' (e)'} ({r.clube}, {int(r.idade)}, tec {r.tec_A:.0f}/fís {r.fis_A:.0f}){' ✓ dez' if r.k in nos10 else ''}" for r in x.itertuples()))
+    amb[["pos11", "jogador", "clube", "idade", "contrato", "livre", "tec_A", "fis_A", "patamar_A", "psv"]].to_csv(os.path.join(OUT, "patamar_A_serie_b.csv"), index=False)
     md += ["", "## 5 · O que entra na montagem", "",
            "- A régua física do onze passa a ter dois níveis: **piso da B** (27 km/h, B1-2) e **patamar da A** (mediana da Série A por posição em sprints, alta intensidade e arrancadas) — o segundo como alvo para 6–7 titulares de linha, não para todos.",
            "- O técnico é onde a diferença de divisão está: o \"time de A na B\" é o que cria e cede chance como a A (B2-1), e os nomes da seção 3 são os que já produzem nesse nível na ficha da posição.",
