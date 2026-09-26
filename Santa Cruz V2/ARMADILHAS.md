@@ -1,5 +1,7 @@
 # Armadilhas conhecidas dos dados (do estudo anterior)
 
+*Escrito em 20/09 · revisão 25/09/2026.*
+
 Este arquivo NÃO traz conclusões do estudo anterior. Só o que ele descobriu sobre os próprios
 dados e sobre desenho de análise — para o V2 não pisar no mesmo buraco. Fonte: `../_fonte/PROMPT_PROJETO.md`.
 

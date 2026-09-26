@@ -1,133 +1,133 @@
-mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nascido_em,passaporte,aderencia,aderencia_ajustada,nivel_overall,rank_na_liga,nota,nivel_bola_parada,nivel_fisico,criterios_com_dado,sul_americano,ocupa_vaga_estrangeiro,On loan,livre_2027,nivel
-Sul-americano,Equador B,GOL,E. Valencia,San Antonio,23.0,1485,,0,Ecuador,Ecuador,90.9,75.9,90.74,1.0,83.3,0.0,,5,True,True,sim,True,N2 jovem
-Sul-americano,Uruguai,GOL,Rodolfo,Central Español,35.0,2113,2026-12-31,0,Brazil,Brazil,83.6,68.6,86.84,1.0,77.7,0.0,,5,True,False,sim,True,N1
-Sul-americano,Colombia A,GOL,Jean,América de Cali,30.0,1613,2026-12-31,2000000,Brazil,Brazil,79.8,64.8,85.94,2.0,75.4,0.0,,5,True,False,sim,True,N1
-Sul-americano,Bolivia,GOL,C. Martínez,Real Potosí,29.0,927,,0,Argentina,Argentina,84.1,69.1,81.44,1.0,75.3,0.0,,5,True,True,sim,True,N1
-Sul-americano,Equador B,GOL,J. Mero,Atletico FC,31.0,1712,2026-12-31,50000,Ecuador,Ecuador,84.1,69.1,81.44,2.0,75.3,0.0,,5,True,True,sim,True,N1
-Sul-americano,Argentina B,GOL,B. Galván,Almirante Brown,32.0,2344,2026-12-31,75000,Argentina,Argentina,77.8,62.8,85.89,1.0,74.3,0.0,,5,True,True,sim,True,N1
-Sul-americano,Argentina B,GOL,M. Bergia,Atlético Rafaela,25.0,2433,2026-12-31,0,Argentina,Argentina,76.1,61.099999999999994,85.51,2.0,73.3,0.0,,5,True,True,sim,True,N1/N2
-Sul-americano,Colombia A,GOL,D. Ospina,Atlético Nacional,37.0,1177,2026-12-31,2000000,Colombia,"Colombia, France",75.0,60.0,85.94,1.0,73.0,0.0,,5,True,True,sim,True,N1
-Sul-americano,Argentina A,GOL,M. Miño,Barracas Central,28.0,1551,2026-12-31,300000,Argentina,Argentina,87.9,72.9,72.45,2.0,72.7,0.0,,5,True,True,sim,True,N1
-Sul-americano,Argentina A,GOL,T. Cardozo,Belgrano,30.0,2387,2028-12-31,800000,Uruguay,Uruguay,77.1,62.099999999999994,82.35,1.0,72.2,0.0,,5,True,True,sim,False,N1
-Sul-americano,Chile,GOL,G. Castellón,Universidad de Chile,32.0,1934,2027-12-31,800000,Chile,Chile,70.0,55.0,89.12,1.0,72.1,0.0,,5,True,True,sim,False,N1
-Sul-americano,Argentina B,GOL,J. Bigo,Tristán Suárez,28.0,2128,2026-12-31,25000,Argentina,Argentina,76.2,61.2,82.7,3.0,72.0,0.0,,5,True,True,sim,True,N1
-Sul-americano,Bolivia,LD,G. Cuellar,Universitario de Vinto,27.0,1260,,0,Bolivia,Bolivia,86.9,71.9,58.16,1.0,65.0,0.0,,6,True,True,sim,True,N1
-Sul-americano,Colombia A,LD,E. Mena,Medellín,28.0,1599,2028-06-30,450000,Colombia,Colombia,81.6,66.6,62.75,1.0,64.7,0.0,38.99,6,True,True,sim,False,N1
-Sul-americano,Equador B,LD,E. Cabal,Atlético Vinotinto,22.0,1349,2026-12-31,0,Ecuador,Ecuador,87.1,72.1,56.2,2.0,64.2,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Argentina B,LD,L. Arce,Godoy Cruz,29.0,1338,2026-12-31,0,Argentina,Argentina,85.2,70.2,53.56,6.0,61.9,0.0,,6,True,True,sim,True,N1
-Sul-americano,Colombia B,LD,C. Graciano,Real Cartagena,23.0,2025,,0,Colombia,Colombia,80.6,65.6,58.21,1.0,61.9,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Peru,LD,M. Ruidías,Cusco,27.0,1461,2027-12-31,400000,Peru,Peru,83.2,68.2,55.44,2.0,61.8,0.0,26.55,6,True,True,sim,False,N1
-Sul-americano,Argentina B,LD,M. Peinipil,Colón,27.0,2114,2026-12-31,0,Argentina,"Argentina, Italy",81.4,66.4,55.21,3.0,60.8,0.0,,6,True,True,sim,True,N1
-Sul-americano,Chile,LD,Lucas Soto,Everton,23.0,1148,2026-12-31,0,Chile,Chile,75.4,60.400000000000006,59.46,3.0,59.9,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Peru,LD,J. Alarcón,Sport Boys,24.0,1141,2027-12-31,550000,Peru,Peru,61.5,46.5,70.85,1.0,58.7,0.0,30.25,6,True,True,sim,False,N1/N2
-Sul-americano,Equador A,LD,D. Romero,Independiente del Valle,25.0,1343,,300000,Ecuador,Ecuador,75.0,60.0,56.75,1.0,58.4,0.0,36.52,6,True,True,sim,True,N1/N2
-Sul-americano,Peru,LD,J. González,Sporting Cristal,30.0,966,2026-12-31,650000,Argentina,Argentina,79.4,64.4,50.3,5.0,57.4,0.0,37.32,6,True,True,sim,True,N1
-Sul-americano,Argentina A,LD,G. Cerato,Instituto,28.0,2056,2027-12-31,0,Argentina,"Argentina, Italy",74.1,59.099999999999994,53.96,2.0,56.5,0.0,38.76,6,True,True,sim,False,N1
-Sul-americano,Argentina A,ZD,F. Álvarez,Argentinos Juniors,26.0,2307,2029-12-31,0,Argentina,Argentina,77.6,62.599999999999994,69.73,2.0,66.2,0.0,29.19,7,True,True,sim,False,N1
-Sul-americano,Paraguai,ZD,G. Vargas,Olimpia,24.0,1315,2026-12-31,400000,Paraguay,Paraguay,62.0,47.0,83.85,1.0,65.4,0.0,31.66,7,True,True,sim,True,N1/N2
-Sul-americano,Bolivia,ZD,C. Áñez,Guabirá,31.0,1204,,500000,Bolivia,Bolivia,76.4,61.400000000000006,68.3,1.0,64.8,0.0,,7,True,True,sim,True,N1
-Sul-americano,Equador B,ZD,E. Chichande Márquez,9 de Octubre,23.0,1190,2026-12-31,0,Ecuador,Ecuador,77.7,62.7,66.97,2.0,64.8,0.0,,7,True,True,sim,True,N2 jovem
-Sul-americano,Venezuela,ZD,G. Fratta,Deportivo Táchira,30.0,1528,2026-12-31,500000,Uruguay,Uruguay,76.2,61.2,67.9,1.0,64.6,0.0,,7,True,True,sim,True,N1
-Sul-americano,Argentina A,ZD,C. Ferreira,Atlético Tucumán,23.0,1303,2026-12-31,0,Paraguay,Paraguay,79.7,64.7,64.14,4.0,64.4,0.0,27.18,7,True,True,sim,True,N2 jovem
-Sul-americano,Argentina B,ZD,J. Rodriguez,Los Andes,26.0,1808,2026-12-31,250000,Argentina,Argentina,82.5,67.5,60.38,7.0,63.9,0.0,,7,True,True,sim,True,N1
-Sul-americano,Peru,ZD,H. González,Los Chankas,33.0,1082,2026-12-31,75000,Argentina,Argentina,78.2,63.2,63.92,3.0,63.6,0.0,21.04,7,True,True,sim,True,N1
-Sul-americano,Colombia A,ZD,Y. Díaz,Fortaleza,29.0,2206,,250000,Colombia,Colombia,76.2,61.2,64.05,1.0,62.6,0.0,33.75,7,True,True,sim,True,N1
-Sul-americano,Peru,ZD,G. Rizzo,Los Chankas,30.0,973,2026-12-31,400000,Uruguay,Uruguay,76.3,61.3,63.61,4.0,62.5,0.0,33.3,7,True,True,sim,True,N1
-Sul-americano,Colombia B,ZD,G. Meneses,Leones,24.0,1642,,75000,Colombia,Colombia,78.2,63.2,61.63,2.0,62.4,0.0,,7,True,True,sim,True,N1/N2
-Sul-americano,Argentina B,ZD,G. Cepeda,Midland,26.0,2142,,0,Argentina,Argentina,80.5,65.5,58.22,9.0,61.9,0.0,,7,True,True,sim,True,N1
-Sul-americano,Paraguai,ZE,M. Gamarra,Olimpia,25.0,1774,2027-12-31,2000000,Paraguay,Paraguay,84.5,69.5,75.32,1.0,72.4,0.0,32.14,7,True,True,sim,False,N1/N2
-Sul-americano,Argentina B,ZE,F. Rivero,Colegiales,33.0,1850,,0,Argentina,Argentina,89.9,74.9,59.83,5.0,67.4,0.0,,7,True,True,sim,True,N1
-Sul-americano,Equador A,ZE,S. Morales,Aucas,24.0,1911,2026-12-31,0,Argentina,Argentina,84.4,69.4,65.28,1.0,67.3,0.0,20.22,7,True,True,sim,True,N1/N2
-Sul-americano,Uruguai,ZE,N. Olivera,Wanderers,33.0,1528,2027-06-30,200000,Uruguay,Uruguay,81.9,66.9,62.51,2.0,64.7,0.0,21.96,7,True,True,sim,True,N1
-Sul-americano,Chile,ZE,J. Díaz,Universidad Católica,28.0,1229,,500000,Argentina,Argentina,77.8,62.8,66.4,1.0,64.6,0.0,26.06,7,True,True,sim,True,N1
-Sul-americano,Colombia B,ZE,D. Marmolejo,Leones,22.0,1362,2027-12-31,0,Colombia,Colombia,78.6,63.599999999999994,64.31,1.0,64.0,0.0,,7,True,True,sim,False,N2 jovem
-Sul-americano,Chile,ZE,M. Brizuela,O'Higgins,29.0,1340,2027-12-31,600000,Argentina,Argentina,77.1,62.099999999999994,62.9,2.0,62.5,0.0,22.82,7,True,True,sim,False,N1
-Sul-americano,Colombia A,ZE,D. Londoño,Once Caldas,31.0,1296,2028-12-31,450000,Colombia,Colombia,75.2,60.2,62.93,3.0,61.6,0.0,25.11,7,True,True,sim,False,N1
-Sul-americano,Peru,ZE,J. Alcantar,Melgar,23.0,1127,2026-12-31,500000,Mexico,Mexico,77.8,62.8,60.36,10.0,61.6,0.0,22.35,7,False,True,sim,True,N2 jovem
-Sul-americano,Colombia A,ZE,C. Haydar,Atlético Nacional,25.0,1544,,800000,Colombia,Colombia,68.7,53.7,69.04,1.0,61.4,0.0,29.31,7,True,True,sim,True,N1/N2
-Sul-americano,Peru,ZE,J. Rodríguez Silva,Comerciantes Unidos,29.0,1975,2026-12-31,10000,Uruguay,Uruguay,75.8,60.8,62.07,5.0,61.4,0.0,22.79,7,True,True,sim,True,N1
-Sul-americano,Argentina A,ZE,R. De Jesús,Lanús,25.0,950,2027-12-31,0,Paraguay,"Paraguay, Brazil",74.3,59.3,62.96,1.0,61.1,0.0,27.35,7,True,False,sim,False,N1/N2
-Sul-americano,Peru,LE,J. Carabalí,Universitario,29.0,1077,2029-12-31,600000,Ecuador,Ecuador,85.3,70.3,72.48,1.0,71.4,0.0,52.36,6,True,True,sim,False,N1
-Sul-americano,Venezuela,LE,J. Pérez,Carabobo,27.0,1462,2026-12-31,300000,Venezuela,"Venezuela, Colombia",88.2,73.2,64.96,1.0,69.1,0.0,,6,True,True,sim,True,N1
-Sul-americano,Argentina A,LE,M. Del Blanco,Unión Santa Fe,22.0,1700,2031-06-30,0,Argentina,Argentina,82.3,67.3,70.55,1.0,68.9,0.0,42.67,6,True,True,sim,False,N2 jovem
-Sul-americano,Equador A,LE,J. Mohor,Macará,25.0,958,2026-12-31,100000,Ecuador,Ecuador,85.0,70.0,65.37,1.0,67.7,0.0,39.51,6,True,True,sim,True,N1/N2
-Sul-americano,Chile,LE,C. Cuevas,Universidad Católica,31.0,1476,2026-12-31,750000,Chile,Chile,90.0,75.0,57.41,4.0,66.2,0.0,40.4,6,True,True,sim,True,N1
-Sul-americano,Paraguai,LE,A. Fretes,Club Libertad,20.0,1363,2028-12-31,0,Paraguay,Paraguay,78.9,63.900000000000006,64.91,2.0,64.4,0.0,49.45,6,True,True,sim,False,N2 jovem
-Sul-americano,Chile,LE,M. Morales,Universidad de Chile,23.0,1257,2027-12-31,0,Chile,Chile,79.4,64.4,60.73,1.0,62.6,0.0,38.83,6,True,True,sim,False,N2 jovem
-Sul-americano,Argentina B,LE,T. Ortega,Quilmes,25.0,1750,2026-12-31,150000,Argentina,Argentina,79.1,64.1,58.9,1.0,61.5,0.0,,6,True,True,sim,True,N1/N2
-Sul-americano,Venezuela,LE,J. Yendis,Caracas,28.0,1211,,225000,Venezuela,Venezuela,80.0,65.0,57.11,2.0,61.1,0.0,,6,True,True,sim,True,N1
-Sul-americano,Equador A,LE,M. Perea,Mushuc Runa,26.0,1740,2026-12-31,150000,Ecuador,Ecuador,80.4,65.4,56.63,4.0,61.0,0.0,42.42,6,True,True,sim,True,N1
-Sul-americano,Peru,LE,M. Gonzales Vigil,Melgar,19.0,1564,,0,Peru,Peru,78.2,63.2,57.26,2.0,60.2,0.0,40.62,6,True,True,sim,True,N2 jovem
-Sul-americano,Paraguai,LE,M. Espinoza,Club Libertad,28.0,1884,2026-12-31,0,Paraguay,Paraguay,69.4,54.400000000000006,65.52,1.0,60.0,0.0,34.29,6,True,True,sim,True,N1
-Sul-americano,Colombia B,VOL,K. Salazar,Unión Magdalena,28.0,1413,,300000,Colombia,Colombia,87.3,72.3,59.79,2.0,66.0,0.0,,6,True,True,sim,True,N1
-Sul-americano,Bolivia,VOL,M. Abisab,Blooming,32.0,1161,2026-12-31,275000,Uruguay,Uruguay,77.8,62.8,57.06,2.0,59.9,0.0,,6,True,True,sim,True,N1
-Sul-americano,Colombia A,VOL,F. Charrupí,Atlético Bucaramanga,25.0,1558,,250000,Colombia,Colombia,77.4,62.400000000000006,53.01,6.0,57.7,0.0,28.9,6,True,True,sim,True,N1/N2
-Sul-americano,Paraguai,VOL,R. Ramírez,Nacional Asunción,26.0,1665,2026-12-31,150000,Paraguay,Paraguay,78.1,63.099999999999994,52.14,5.0,57.6,0.0,33.14,6,True,True,sim,True,N1
-Sul-americano,Colombia A,VOL,J. Caicedo,Deportivo Pasto,22.0,1443,2027-12-31,0,Colombia,Colombia,72.9,57.900000000000006,54.14,4.0,56.0,0.0,30.62,6,True,True,sim,False,N2 jovem
-Sul-americano,Venezuela,VOL,G. González,Academia Puerto Cabello,30.0,1586,2026-12-31,325000,Venezuela,Venezuela,77.1,62.099999999999994,49.62,3.0,55.9,0.0,,6,True,True,sim,True,N1
-Sul-americano,Colombia A,VOL,L. Flores,Atlético Bucaramanga,31.0,1181,2027-12-31,400000,Venezuela,Venezuela,60.1,45.1,66.6,1.0,55.8,0.0,21.18,6,True,True,sim,False,N1
-Sul-americano,Peru,VOL,N. Da Campo,Sport Boys,32.0,1888,2027-12-31,175000,Argentina,Argentina,86.5,71.5,39.86,10.0,55.7,0.0,28.36,6,True,True,sim,False,N1
-Sul-americano,Equador B,VOL,K. Charcopa,San Antonio,19.0,1506,,0,Ecuador,Ecuador,52.1,37.1,71.77,1.0,54.4,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Colombia B,VOL,J. Mercado,Unión Magdalena,22.0,1344,,0,Colombia,Colombia,51.4,36.4,72.21,1.0,54.3,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Colombia A,VOL,Larry Vásquez,Inter Bogotá,33.0,2336,2026-12-31,650000,Colombia,"Colombia, Venezuela",78.4,63.400000000000006,44.94,12.0,54.2,0.0,24.62,6,True,True,sim,True,N1
-Sul-americano,Argentina A,VOL,S. Sosa,Racing Club,27.0,1972,2029-12-31,0,Argentina,"Argentina, Croatia",85.3,70.3,37.51,14.0,53.9,0.0,19.69,6,True,True,sim,False,N1
-Sul-americano,Argentina B,MED,F. Rodríguez,Los Andes,26.0,1343,,0,Argentina,Argentina,93.3,78.3,63.83,2.0,71.1,0.0,,6,True,True,sim,True,N1
-Sul-americano,Argentina B,MED,E. Hoyos,Ferro Carril Oeste,26.0,1388,2027-12-31,0,Argentina,Argentina,82.5,67.5,74.34,1.0,70.9,0.0,,6,True,True,sim,False,N1
-Sul-americano,Argentina A,MED,A. Molinas,Defensa y Justicia,25.0,1465,2027-12-31,0,Argentina,"Argentina, Italy",89.7,74.7,62.26,1.0,68.5,0.0,34.74,6,True,True,sim,False,N1/N2
-Sul-americano,Colombia B,MED,A. Alfonso,Bogotá,21.0,1219,,0,Colombia,Colombia,91.3,76.3,59.87,3.0,68.1,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Chile,MED,J. Meneses,Deportes Limache,33.0,1762,2026-12-31,0,Chile,Chile,83.5,68.5,67.53,1.0,68.0,0.0,48.85,6,True,True,sim,True,N1
-Sul-americano,Venezuela,MED,J. Castellanos,Deportivo La Guaira,30.0,941,2026-12-31,300000,Venezuela,Venezuela,86.4,71.4,63.8,1.0,67.6,0.0,,6,True,True,sim,True,N1
-Sul-americano,Peru,MED,J. Concha,Universitario,27.0,1616,2026-12-31,0,Peru,Peru,78.8,63.8,70.86,1.0,67.3,0.0,42.82,6,True,True,sim,True,N1
-Sul-americano,Paraguai,MED,M. Acosta,Rubio Ñú,25.0,1265,2026-12-31,250000,Paraguay,Paraguay,88.5,73.5,58.32,3.0,65.9,0.0,48.62,6,True,True,sim,True,N1/N2
-Sul-americano,Colombia A,MED,N. Ospina,Llaneros,23.0,1253,,0,Colombia,Colombia,86.4,71.4,58.4,2.0,64.9,0.0,43.44,6,True,True,sim,True,N2 jovem
-Sul-americano,Peru,MED,J. Vélez,Alianza Lima,31.0,1929,2028-12-31,700000,Ecuador,Ecuador,82.6,67.6,59.77,3.0,63.7,0.0,45.31,6,True,True,sim,False,N1
-Sul-americano,Paraguai,MED,A. Molinas,Club Libertad,20.0,997,2026-12-31,0,Paraguay,Paraguay,74.2,59.2,67.77,2.0,63.5,0.0,38.06,6,True,True,sim,True,N2 jovem
-Sul-americano,Colombia A,MED,R. Carrascal,América de Cali,33.0,2225,2027-12-31,500000,Colombia,Colombia,82.1,67.1,58.36,3.0,62.7,0.0,37.15,6,True,True,sim,False,N1
-Sul-americano,Peru,MEI,N. Quagliata,Melgar,27.0,1510,2029-12-31,0,Uruguay,"Uruguay, Italy",90.9,75.9,65.64,2.0,70.8,69.87,37.38,7,True,True,sim,False,N1
-Sul-americano,Chile,MEI,M. Palavecino,Universidad Católica,28.0,1126,2028-12-31,0,Argentina,"Argentina, Italy",88.6,73.6,64.01,1.0,68.8,41.81,31.52,7,True,True,sim,False,N1
-Sul-americano,Colombia B,MEI,J. Barrera,Real Cartagena,30.0,1042,2026-12-31,700000,Colombia,Colombia,84.8,69.8,66.57,2.0,68.2,40.54,,7,True,True,sim,True,N1
-Sul-americano,Equador A,MEI,D. Pazmiño,Leones del Norte,26.0,1106,2026-12-31,50000,Ecuador,Ecuador,83.8,68.8,64.51,2.0,66.7,27.81,35.78,7,True,True,sim,True,N1
-Sul-americano,Bolivia,MEI,A. Terrazas,San Antonio Bulo Bulo,25.0,1180,2027-12-31,750000,Bolivia,Bolivia,81.8,66.8,66.37,2.0,66.6,63.91,,7,True,True,sim,False,N1/N2
-Sul-americano,Equador B,MEI,J. Padilla,Gualaceo,28.0,1009,2026-12-31,50000,Ecuador,Ecuador,79.5,64.5,67.11,3.0,65.8,40.02,,7,True,True,sim,True,N1
-Sul-americano,Uruguai,MEI,N. Wunsch,Defensor Sporting,23.0,1379,2028-12-31,0,Uruguay,Uruguay,80.7,65.7,,,65.7,,,7,True,True,sim,False,N2 jovem
-Sul-americano,Argentina B,MEI,J. Rodríguez,Atlanta,27.0,1433,2026-12-31,150000,Argentina,Argentina,80.2,65.2,63.3,3.0,64.2,19.26,,7,True,True,sim,True,N1
-Sul-americano,Colombia A,MEI,E. Cardona,Atlético Nacional,33.0,1128,2027-06-30,800000,Colombia,Colombia,72.7,57.7,67.52,1.0,62.6,45.85,25.45,7,True,True,sim,True,N1
-Sul-americano,Colombia B,MEI,K. Álvarez,Patriotas Boyacá,21.0,1369,,0,Colombia,Colombia,65.2,50.2,73.92,1.0,62.1,84.74,,7,True,True,sim,True,N2 jovem
-Sul-americano,Peru,MEI,I. Colman,Cusco,31.0,1676,2027-12-31,400000,Argentina,Argentina,73.7,58.7,61.53,3.0,60.1,33.48,33.97,7,True,True,sim,False,N1
-Sul-americano,Colombia A,MEI,E. Batalla Martinez,Atlético Bucaramanga,25.0,1388,,0,Colombia,Colombia,72.4,57.400000000000006,62.19,4.0,59.8,28.08,40.69,7,True,True,sim,True,N1/N2
-Sul-americano,Chile,ED,F. González,O'Higgins,25.0,1256,2028-12-31,0,Argentina,Argentina,85.7,70.7,70.09,2.0,70.4,0.0,58.47,6,True,True,sim,False,N1/N2
-Sul-americano,Equador A,ED,A. Rodríguez,Independiente del Valle,27.0,1246,,850000,Ecuador,Ecuador,87.1,72.1,67.42,3.0,69.8,0.0,42.42,6,True,True,sim,True,N1
-Sul-americano,Peru,ED,C. Souza,Cienciano,30.0,1436,2026-12-31,300000,Uruguay,"Uruguay, Italy",92.5,77.5,61.32,1.0,69.4,0.0,50.82,6,True,True,sim,True,N1
-Sul-americano,Equador B,ED,Reixon Saya,El Nacional,18.0,1321,,0,Ecuador,Ecuador,80.7,65.7,72.71,1.0,69.2,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Venezuela,ED,R. Ivey,Estudiantes de Mérida,32.0,1465,2027-12-31,400000,Panama,Panama,88.2,73.2,63.59,2.0,68.4,0.0,,6,False,True,sim,False,N1
-Sul-americano,Colombia A,ED,Jhon Vásquez,Llaneros,31.0,1865,2026-12-31,800000,Colombia,Colombia,85.5,70.5,62.71,2.0,66.6,0.0,38.23,6,True,True,sim,True,N1
-Sul-americano,Equador A,ED,M. Perelló,Independiente del Valle,24.0,1137,2029-12-31,0,Argentina,Argentina,76.6,61.599999999999994,68.78,2.0,65.2,0.0,45.2,6,True,True,sim,False,N1/N2
-Sul-americano,Chile,ED,Kevin Méndez,Unión La Calera,30.0,1481,,700000,Uruguay,"Uruguay, Italy",70.1,55.099999999999994,74.15,1.0,64.6,0.0,55.86,6,True,True,sim,True,N1
-Sul-americano,Equador A,ED,A. Londoño,Universidad Católica,25.0,1218,2026-12-31,0,Panama,Panama,75.6,60.599999999999994,64.31,4.0,62.5,0.0,38.97,6,False,True,sim,True,N1/N2
-Sul-americano,Venezuela,ED,C. Sosa,Deportivo Táchira,31.0,1460,2027-12-31,275000,Venezuela,Venezuela,61.8,46.8,77.87,1.0,62.3,0.0,,6,True,True,sim,False,N1
-Sul-americano,Colombia B,ED,K. Cuellar,Real Soacha Cundinamarca,22.0,1004,,0,Colombia,Colombia,77.3,62.3,61.45,2.0,61.9,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Argentina A,ED,J. Fernández,Rosario Central,22.0,1014,2027-12-31,0,Argentina,Argentina,80.3,65.3,56.59,3.0,60.9,0.0,40.16,6,True,True,sim,False,N2 jovem
-Sul-americano,Venezuela,EE,E. Tortolero,Carabobo,28.0,995,2027-12-31,0,Venezuela,Venezuela,84.4,69.4,70.64,1.0,70.0,0.0,,6,True,True,sim,False,N1
-Sul-americano,Bolivia,EE,J. Maraude,Always Ready,18.0,993,,0,Bolivia,Bolivia,95.0,80.0,58.84,3.0,69.4,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Argentina B,EE,M. Lago,Colón,24.0,2172,2027-12-31,0,Argentina,Argentina,88.5,73.5,59.94,2.0,66.7,0.0,,6,True,True,sim,False,N1/N2
-Sul-americano,Peru,EE,P. Magallanes,Sport Huancayo,25.0,1186,2027-12-31,0,Peru,Peru,75.8,60.8,63.1,2.0,62.0,0.0,44.13,6,True,True,sim,False,N1/N2
-Sul-americano,Colombia A,EE,A. Sarmiento,Atlético Nacional,28.0,1567,2027-12-31,700000,Colombia,Colombia,86.9,71.9,51.84,7.0,61.9,0.0,53.62,6,True,True,sim,False,N1
-Sul-americano,Colombia B,EE,D. Dawson,Envigado,20.0,1024,,0,Panama,Panama,67.1,52.099999999999994,71.32,1.0,61.7,0.0,,6,False,True,sim,True,N2 jovem
-Sul-americano,Uruguai,EE,N. Lopez,Progreso,19.0,1402,2027-12-31,0,Uruguay,Uruguay,80.8,65.8,57.28,3.0,61.5,0.0,51.95,6,True,True,sim,False,N2 jovem
-Sul-americano,Equador B,EE,Jonny Uchuari,Cuenca Juniors,32.0,1054,2026-12-31,450000,Ecuador,Ecuador,73.3,58.3,62.39,1.0,60.3,0.0,,6,True,True,sim,True,N1
-Sul-americano,Colombia B,EE,J. Campaña,Patriotas Boyacá,23.0,1228,,350000,Colombia,Colombia,72.5,57.5,62.28,2.0,59.9,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Argentina A,EE,T. Aranda,Boca Juniors,19.0,1228,2029-12-31,0,Argentina,Argentina,65.6,50.599999999999994,68.77,1.0,59.7,0.0,45.57,6,True,True,sim,False,N2 jovem
-Sul-americano,Argentina B,EE,M. Roseti,Midland,29.0,1809,2027-12-31,0,Argentina,Argentina,66.5,51.5,67.96,1.0,59.7,0.0,,6,True,True,sim,False,N1
-Sul-americano,Argentina A,EE,A. Luna,Instituto,22.0,1735,2029-12-31,0,Argentina,Argentina,84.4,69.4,49.14,6.0,59.3,0.0,50.99,6,True,True,sim,False,N2 jovem
-Sul-americano,Equador A,CA,M. Estrada,LDU Quito,30.0,1133,2027-06-30,0,Ecuador,Ecuador,94.3,79.3,56.8,3.0,68.0,0.0,51.49,6,True,True,sim,True,N1
-Sul-americano,Peru,CA,A. Valera,Universitario,30.0,1713,2026-12-31,0,Peru,Peru,92.9,77.9,53.34,7.0,65.6,0.0,58.9,6,True,True,sim,True,N1
-Sul-americano,Paraguai,CA,A. Alcaraz,Olimpia,26.0,1124,2026-12-31,0,Paraguay,Paraguay,93.4,78.4,51.22,5.0,64.8,0.0,56.6,6,True,True,sim,True,N1
-Sul-americano,Equador B,CA,K. Valencia,Cuenca Juniors,26.0,1567,2026-12-31,50000,Ecuador,Ecuador,93.9,78.9,45.25,9.0,62.1,0.0,,6,True,True,sim,True,N1
-Sul-americano,Colombia A,CA,A. Morelos,Atlético Nacional,30.0,1955,2028-12-31,0,Colombia,Colombia,81.6,66.6,56.94,7.0,61.8,0.0,50.34,6,True,True,sim,False,N1
-Sul-americano,Colombia A,CA,R. Contreras,Millonarios,30.0,1592,2026-12-31,0,Argentina,Argentina,87.8,72.8,50.38,9.0,61.6,0.0,54.19,6,True,True,sim,True,N1
-Sul-americano,Uruguai,CA,M. Gómez,Nacional,30.0,1782,2027-12-31,0,Uruguay,Uruguay,83.8,68.8,54.04,3.0,61.4,0.0,51.32,6,True,True,sim,False,N1
-Sul-americano,Argentina B,CA,A. Spetale,Quilmes,26.0,1146,2026-12-31,0,Argentina,Argentina,92.4,77.4,43.93,18.0,60.7,0.0,,6,True,True,sim,True,N1
-Sul-americano,Peru,CA,E. Castillo,Alianza Lima,31.0,1871,2028-12-31,600000,Ecuador,Ecuador,79.2,64.2,56.74,3.0,60.5,0.0,60.21,6,True,True,sim,False,N1
-Sul-americano,Colombia B,CA,A. Carreño,Unión Magdalena,23.0,1570,,0,Colombia,Colombia,79.4,64.4,55.31,4.0,59.9,0.0,,6,True,True,sim,True,N2 jovem
-Sul-americano,Colombia A,CA,A. Estupiñán,Millonarios,32.0,1740,2026-12-31,350000,Colombia,Colombia,74.6,59.599999999999994,58.0,6.0,58.8,0.0,52.14,6,True,True,sim,True,N1
-Sul-americano,Argentina B,CA,F. Fagúndez,Deportivo Morón,27.0,1642,2028-12-31,0,Uruguay,"Uruguay, Argentina",65.9,50.900000000000006,65.17,1.0,58.0,0.0,,6,True,True,sim,False,N1
+mercado,liga,pos11,jogador,clube,idade,minutos,contrato,valor,nascido_em,passaporte,aderencia,aderencia_ajustada,nivel_overall,rank_na_liga,nota,nota_completa,nivel_bola_parada,nivel_fisico,criterios_com_dado,posse_est,Duelos def/90 PAdj,Aéreos/90 PAdj,Duelos of/90 PAdj,sul_americano,ocupa_vaga_estrangeiro,On loan,livre_2027,contrato_vencido,nivel
+Sul-americano,Equador B,GOL,E. Valencia,San Antonio,23.0,1485,,0,Ecuador,Ecuador,90.9,75.9,90.74,1.0,83.3,True,0.0,,5,53.27617328413389,0.06,1.1,0.06,True,True,sim,True,False,N2 jovem
+Sul-americano,Uruguai,GOL,Rodolfo,Central Español,35.0,2113,2026-12-31,0,Brazil,Brazil,83.6,68.6,86.84,1.0,77.7,True,0.0,,5,37.360287414233724,0.17,0.38,0.51,True,False,sim,True,False,N1
+Sul-americano,Colombia A,GOL,Jean,América de Cali,30.0,1613,2026-12-31,2000000,Brazil,Brazil,79.8,64.8,85.94,2.0,75.4,True,0.0,,5,63.694456450935576,0.23,0.77,0.09,True,False,sim,True,False,N1
+Sul-americano,Bolivia,GOL,C. Martínez,Real Potosí,29.0,927,,0,Argentina,Argentina,84.1,69.1,81.44,1.0,75.3,True,0.0,,5,44.60289214891715,0.0,0.17,0.11,True,True,sim,True,False,N1
+Sul-americano,Equador B,GOL,J. Mero,Atletico FC,31.0,1712,2026-12-31,50000,Ecuador,Ecuador,84.1,69.1,81.44,2.0,75.3,True,0.0,,5,54.05471357611597,0.28,0.58,0.24,True,True,sim,True,False,N1
+Sul-americano,Argentina B,GOL,B. Galván,Almirante Brown,32.0,2344,2026-12-31,75000,Argentina,Argentina,77.8,62.8,85.89,1.0,74.3,True,0.0,,5,49.239665405247024,0.0,0.45,0.08,True,True,sim,True,False,N1
+Sul-americano,Argentina B,GOL,M. Bergia,Atlético Rafaela,25.0,2433,2026-12-31,0,Argentina,Argentina,76.1,61.099999999999994,85.51,2.0,73.3,True,0.0,,5,41.262500798279596,0.03,0.22,0.18,True,True,sim,True,False,N1/N2
+Sul-americano,Colombia A,GOL,D. Ospina,Atlético Nacional,37.0,1177,2026-12-31,2000000,Colombia,"Colombia, France",75.0,60.0,85.94,1.0,73.0,True,0.0,,5,56.687399673222785,0.0,0.53,0.07,True,True,sim,True,False,N1
+Sul-americano,Argentina A,GOL,M. Miño,Barracas Central,28.0,1551,2026-12-31,300000,Argentina,Argentina,87.9,72.9,72.45,2.0,72.7,True,0.0,,5,41.54368743705308,0.05,0.35,0.28,True,True,sim,True,False,N1
+Sul-americano,Argentina A,GOL,T. Cardozo,Belgrano,30.0,2387,2028-12-31,800000,Uruguay,Uruguay,77.1,62.099999999999994,82.35,1.0,72.2,True,0.0,,5,50.33707035248826,0.15,0.41,0.15,True,True,sim,False,False,N1
+Sul-americano,Chile,GOL,G. Castellón,Universidad de Chile,32.0,1934,2027-12-31,800000,Chile,Chile,70.0,55.0,89.12,1.0,72.1,True,0.0,,5,57.59181476483694,0.17,0.27,0.2,True,True,sim,False,False,N1
+Sul-americano,Argentina B,GOL,J. Bigo,Tristán Suárez,28.0,2128,2026-12-31,25000,Argentina,Argentina,76.2,61.2,82.7,3.0,72.0,True,0.0,,5,52.52914084545573,0.04,0.44,0.45,True,True,sim,True,False,N1
+Sul-americano,Bolivia,LD,G. Cuellar,Universitario de Vinto,27.0,1260,,0,Bolivia,Bolivia,86.9,71.9,58.16,1.0,65.0,True,0.0,,6,55.62271401338699,5.15,1.61,6.74,True,True,sim,True,False,N1
+Sul-americano,Colombia A,LD,E. Mena,Medellín,28.0,1599,2028-06-30,450000,Colombia,Colombia,81.6,66.6,62.75,1.0,64.7,True,0.0,38.99,6,48.95902906309901,3.86,1.93,4.42,True,True,sim,False,False,N1
+Sul-americano,Equador B,LD,E. Cabal,Atlético Vinotinto,22.0,1349,2026-12-31,0,Ecuador,Ecuador,87.1,72.1,56.2,2.0,64.2,True,0.0,,6,49.22876505631394,4.33,1.9,10.84,True,True,sim,True,False,N2 jovem
+Sul-americano,Argentina B,LD,L. Arce,Godoy Cruz,29.0,1338,2026-12-31,0,Argentina,Argentina,85.2,70.2,53.56,6.0,61.9,True,0.0,,6,60.18039385054685,8.61,1.95,3.13,True,True,sim,True,False,N1
+Sul-americano,Colombia B,LD,C. Graciano,Real Cartagena,23.0,2025,,0,Colombia,Colombia,80.6,65.6,58.21,1.0,61.9,True,0.0,,6,54.483535444145254,6.73,2.24,4.77,True,True,sim,True,False,N2 jovem
+Sul-americano,Peru,LD,M. Ruidías,Cusco,27.0,1461,2027-12-31,400000,Peru,Peru,83.2,68.2,55.44,2.0,61.8,True,0.0,26.55,6,64.24226180115942,7.66,1.99,2.11,True,True,sim,False,False,N1
+Sul-americano,Argentina B,LD,M. Peinipil,Colón,27.0,2114,2026-12-31,0,Argentina,"Argentina, Italy",81.4,66.4,55.21,3.0,60.8,True,0.0,,6,53.787353932238595,4.37,2.67,1.42,True,True,sim,True,False,N1
+Sul-americano,Chile,LD,Lucas Soto,Everton,23.0,1148,2026-12-31,0,Chile,Chile,75.4,60.400000000000006,59.46,3.0,59.9,True,0.0,,6,45.31742588417135,6.38,1.87,9.08,True,True,sim,True,False,N2 jovem
+Sul-americano,Peru,LD,J. Alarcón,Sport Boys,24.0,1141,2027-12-31,550000,Peru,Peru,61.5,46.5,70.85,1.0,58.7,True,0.0,30.25,6,46.6144384764371,3.4,0.81,7.19,True,True,sim,False,False,N1/N2
+Sul-americano,Equador A,LD,D. Romero,Independiente del Valle,25.0,1343,,300000,Ecuador,Ecuador,75.0,60.0,56.75,1.0,58.4,True,0.0,36.52,6,63.07231894005964,4.81,1.99,2.34,True,True,sim,True,False,N1/N2
+Sul-americano,Peru,LD,J. González,Sporting Cristal,30.0,966,2026-12-31,650000,Argentina,Argentina,79.4,64.4,50.3,5.0,57.4,True,0.0,37.32,6,62.73833406446738,9.88,2.5,3.79,True,True,sim,True,False,N1
+Sul-americano,Argentina A,LD,G. Cerato,Instituto,28.0,2056,2027-12-31,0,Argentina,"Argentina, Italy",74.1,59.099999999999994,53.96,2.0,56.5,True,0.0,38.76,6,46.15438027172621,6.91,1.59,2.04,True,True,sim,False,False,N1
+Sul-americano,Argentina A,ZD,F. Álvarez,Argentinos Juniors,26.0,2307,2029-12-31,0,Argentina,Argentina,77.6,62.599999999999994,69.73,2.0,66.2,True,0.0,29.19,7,60.33083833201971,7.32,8.26,1.26,True,True,sim,False,False,N1
+Sul-americano,Paraguai,ZD,G. Vargas,Olimpia,24.0,1315,2026-12-31,400000,Paraguay,Paraguay,62.0,47.0,83.85,1.0,65.4,True,0.0,31.66,7,55.66224907205915,5.71,7.25,1.1,True,True,sim,True,False,N1/N2
+Sul-americano,Bolivia,ZD,C. Áñez,Guabirá,31.0,1204,,500000,Bolivia,Bolivia,76.4,61.400000000000006,68.3,1.0,64.8,True,0.0,,7,50.859793486656024,4.95,2.28,2.05,True,True,sim,True,False,N1
+Sul-americano,Equador B,ZD,E. Chichande Márquez,9 de Octubre,23.0,1190,2026-12-31,0,Ecuador,Ecuador,77.7,62.7,66.97,2.0,64.8,True,0.0,,7,55.36381340981495,4.57,3.81,0.89,True,True,sim,True,False,N2 jovem
+Sul-americano,Venezuela,ZD,G. Fratta,Deportivo Táchira,30.0,1528,2026-12-31,500000,Uruguay,Uruguay,76.2,61.2,67.9,1.0,64.6,True,0.0,,7,48.43614956806169,4.92,3.94,1.16,True,True,sim,True,False,N1
+Sul-americano,Argentina A,ZD,C. Ferreira,Atlético Tucumán,23.0,1303,2026-12-31,0,Paraguay,Paraguay,79.7,64.7,64.14,4.0,64.4,True,0.0,27.18,7,39.941236271412386,3.4,6.73,2.08,True,True,sim,True,False,N2 jovem
+Sul-americano,Argentina B,ZD,J. Rodriguez,Los Andes,26.0,1808,2026-12-31,250000,Argentina,Argentina,82.5,67.5,60.38,7.0,63.9,True,0.0,,7,51.577392026622086,6.06,3.29,1.15,True,True,sim,True,False,N1
+Sul-americano,Peru,ZD,H. González,Los Chankas,33.0,1082,2026-12-31,75000,Argentina,Argentina,78.2,63.2,63.92,3.0,63.6,True,0.0,21.04,7,44.354034897349095,2.77,3.51,1.41,True,True,sim,True,False,N1
+Sul-americano,Colombia A,ZD,Y. Díaz,Fortaleza,29.0,2206,,250000,Colombia,Colombia,76.2,61.2,64.05,1.0,62.6,True,0.0,33.75,7,55.00569880081893,4.9,2.36,1.11,True,True,sim,True,False,N1
+Sul-americano,Peru,ZD,G. Rizzo,Los Chankas,30.0,973,2026-12-31,400000,Uruguay,Uruguay,76.3,61.3,63.61,4.0,62.5,True,0.0,33.3,7,44.354034897349095,6.24,2.99,2.82,True,True,sim,True,False,N1
+Sul-americano,Colombia B,ZD,G. Meneses,Leones,24.0,1642,,75000,Colombia,Colombia,78.2,63.2,61.63,2.0,62.4,True,0.0,,7,50.343756699162824,4.63,2.27,1.47,True,True,sim,True,False,N1/N2
+Sul-americano,Argentina B,ZD,G. Cepeda,Midland,26.0,2142,,0,Argentina,Argentina,80.5,65.5,58.22,9.0,61.9,True,0.0,,7,50.897478034595636,5.26,7.19,0.9,True,True,sim,True,False,N1
+Sul-americano,Paraguai,ZE,M. Gamarra,Olimpia,25.0,1774,2027-12-31,2000000,Paraguay,Paraguay,84.5,69.5,75.32,1.0,72.4,True,0.0,32.14,7,55.66224907205915,4.75,5.27,1.37,True,True,sim,False,False,N1/N2
+Sul-americano,Argentina B,ZE,F. Rivero,Colegiales,33.0,1850,,0,Argentina,Argentina,89.9,74.9,59.83,5.0,67.4,True,0.0,,7,47.38229957184611,5.68,4.99,1.65,True,True,sim,True,False,N1
+Sul-americano,Equador A,ZE,S. Morales,Aucas,24.0,1911,2026-12-31,0,Argentina,Argentina,84.4,69.4,65.28,1.0,67.3,True,0.0,20.22,7,60.004902926617696,5.54,4.48,0.55,True,True,sim,True,False,N1/N2
+Sul-americano,Uruguai,ZE,N. Olivera,Wanderers,33.0,1528,2027-06-30,200000,Uruguay,Uruguay,81.9,66.9,62.51,2.0,64.7,True,0.0,21.96,7,45.75948403026608,5.6,2.55,0.78,True,True,sim,True,False,N1
+Sul-americano,Chile,ZE,J. Díaz,Universidad Católica,28.0,1229,,500000,Argentina,Argentina,77.8,62.8,66.4,1.0,64.6,True,0.0,26.06,7,52.859895874917214,6.36,5.21,1.17,True,True,sim,True,False,N1
+Sul-americano,Colombia B,ZE,D. Marmolejo,Leones,22.0,1362,2027-12-31,0,Colombia,Colombia,78.6,63.599999999999994,64.31,1.0,64.0,True,0.0,,7,50.343756699162824,3.99,2.06,0.92,True,True,sim,False,False,N2 jovem
+Sul-americano,Chile,ZE,M. Brizuela,O'Higgins,29.0,1340,2027-12-31,600000,Argentina,Argentina,77.1,62.099999999999994,62.9,2.0,62.5,True,0.0,22.82,7,53.276241818493205,2.66,5.39,0.95,True,True,sim,False,False,N1
+Sul-americano,Colombia A,ZE,D. Londoño,Once Caldas,31.0,1296,2028-12-31,450000,Colombia,Colombia,75.2,60.2,62.93,3.0,61.6,True,0.0,25.11,7,54.32090941372286,3.64,1.98,1.34,True,True,sim,False,False,N1
+Sul-americano,Peru,ZE,J. Alcantar,Melgar,23.0,1127,2026-12-31,500000,Mexico,Mexico,77.8,62.8,60.36,10.0,61.6,True,0.0,22.35,7,58.93784586657747,4.37,5.64,0.81,False,True,sim,True,False,N2 jovem
+Sul-americano,Colombia A,ZE,C. Haydar,Atlético Nacional,25.0,1544,,800000,Colombia,Colombia,68.7,53.7,69.04,1.0,61.4,True,0.0,29.31,7,56.687399673222785,4.24,1.95,1.96,True,True,sim,True,False,N1/N2
+Sul-americano,Peru,ZE,J. Rodríguez Silva,Comerciantes Unidos,29.0,1975,2026-12-31,10000,Uruguay,Uruguay,75.8,60.8,62.07,5.0,61.4,True,0.0,22.79,7,42.26236753428143,3.2,4.14,2.21,True,True,sim,True,False,N1
+Sul-americano,Argentina A,ZE,R. De Jesús,Lanús,25.0,950,2027-12-31,0,Paraguay,"Paraguay, Brazil",74.3,59.3,62.96,1.0,61.1,True,0.0,27.35,7,64.91198849765725,6.61,7.15,1.17,True,False,sim,False,False,N1/N2
+Sul-americano,Peru,LE,J. Carabalí,Universitario,29.0,1077,2029-12-31,600000,Ecuador,Ecuador,85.3,70.3,72.48,1.0,71.4,True,0.0,52.36,6,57.87477079232248,6.24,3.07,5.42,True,True,sim,False,False,N1
+Sul-americano,Venezuela,LE,J. Pérez,Carabobo,27.0,1462,2026-12-31,300000,Venezuela,"Venezuela, Colombia",88.2,73.2,64.96,1.0,69.1,True,0.0,,6,56.39110341896443,6.71,2.55,4.69,True,True,sim,True,False,N1
+Sul-americano,Argentina A,LE,M. Del Blanco,Unión Santa Fe,22.0,1700,2031-06-30,0,Argentina,Argentina,82.3,67.3,70.55,1.0,68.9,True,0.0,42.67,6,48.24361696352757,6.6,2.45,8.45,True,True,sim,False,False,N2 jovem
+Sul-americano,Equador A,LE,J. Mohor,Macará,25.0,958,2026-12-31,100000,Ecuador,Ecuador,85.0,70.0,65.37,1.0,67.7,True,0.0,39.51,6,47.2198593031832,7.47,1.96,6.97,True,True,sim,True,False,N1/N2
+Sul-americano,Colombia A,LE,F. Fabra,Medellín,35.0,1014,2027-06-30,500000,Colombia,"Colombia, Argentina",90.6,75.6,57.5,3.0,66.6,True,0.0,38.18,6,48.95902906309901,5.39,2.0,7.43,True,True,sim,True,False,N1
+Sul-americano,Chile,LE,C. Cuevas,Universidad Católica,31.0,1476,2026-12-31,750000,Chile,Chile,90.0,75.0,57.41,4.0,66.2,True,0.0,40.4,6,52.859895874917214,5.89,2.78,4.84,True,True,sim,True,False,N1
+Sul-americano,Paraguai,LE,A. Fretes,Club Libertad,20.0,1363,2028-12-31,0,Paraguay,Paraguay,78.9,63.900000000000006,64.91,2.0,64.4,True,0.0,49.45,6,54.848652900990636,6.66,3.43,7.05,True,True,sim,False,False,N2 jovem
+Sul-americano,Chile,LE,M. Morales,Universidad de Chile,23.0,1257,2027-12-31,0,Chile,Chile,79.4,64.4,60.73,1.0,62.6,True,0.0,38.83,6,57.59181476483694,6.08,3.37,4.41,True,True,sim,False,False,N2 jovem
+Sul-americano,Argentina B,LE,T. Ortega,Quilmes,25.0,1750,2026-12-31,150000,Argentina,Argentina,79.1,64.1,58.9,1.0,61.5,True,0.0,,6,52.52069987264648,7.15,2.93,2.79,True,True,sim,True,False,N1/N2
+Sul-americano,Venezuela,LE,J. Yendis,Caracas,28.0,1211,,225000,Venezuela,Venezuela,80.0,65.0,57.11,2.0,61.1,True,0.0,,6,56.97807865195156,6.22,2.34,4.69,True,True,sim,True,False,N1
+Sul-americano,Equador A,LE,M. Perea,Mushuc Runa,26.0,1740,2026-12-31,150000,Ecuador,Ecuador,80.4,65.4,56.63,4.0,61.0,True,0.0,42.42,6,45.03330213580773,1.88,0.99,7.35,True,True,sim,True,False,N1
+Sul-americano,Peru,LE,M. Gonzales Vigil,Melgar,19.0,1564,,0,Peru,Peru,78.2,63.2,57.26,2.0,60.2,True,0.0,40.62,6,58.93784586657747,5.32,3.36,5.67,True,True,sim,True,False,N2 jovem
+Sul-americano,Colombia B,VOL,K. Salazar,Unión Magdalena,28.0,1413,,300000,Colombia,Colombia,87.3,72.3,59.79,2.0,66.0,True,0.0,,6,55.5606451348963,9.38,1.64,3.44,True,True,sim,True,False,N1
+Sul-americano,Venezuela,VOL,M. Cova,Carabobo,34.0,1598,2026-12-31,0,Venezuela,Venezuela,62.8,47.8,74.93,1.0,61.4,True,0.0,,6,56.39110341896443,6.33,1.62,4.29,True,True,sim,True,False,N1
+Sul-americano,Bolivia,VOL,M. Abisab,Blooming,32.0,1161,2026-12-31,275000,Uruguay,Uruguay,77.8,62.8,57.06,2.0,59.9,True,0.0,,6,65.8746682957608,11.47,0.91,4.47,True,True,sim,True,False,N1
+Sul-americano,Colombia A,VOL,F. Charrupí,Atlético Bucaramanga,25.0,1558,,250000,Colombia,Colombia,77.4,62.400000000000006,53.01,6.0,57.7,True,0.0,28.9,6,55.146427251599086,9.34,3.41,4.3,True,True,sim,True,False,N1/N2
+Sul-americano,Paraguai,VOL,R. Ramírez,Nacional Asunción,26.0,1665,2026-12-31,150000,Paraguay,Paraguay,78.1,63.099999999999994,52.14,5.0,57.6,True,0.0,33.14,6,52.22182422455572,7.52,2.61,3.42,True,True,sim,True,False,N1
+Sul-americano,Colombia A,VOL,J. Caicedo,Deportivo Pasto,22.0,1443,2027-12-31,0,Colombia,Colombia,72.9,57.900000000000006,54.14,4.0,56.0,True,0.0,30.62,6,51.21342782895581,6.71,3.39,4.38,True,True,sim,False,False,N2 jovem
+Sul-americano,Venezuela,VOL,G. González,Academia Puerto Cabello,30.0,1586,2026-12-31,325000,Venezuela,Venezuela,77.1,62.099999999999994,49.62,3.0,55.9,True,0.0,,6,59.07393298010489,5.2,1.73,4.27,True,True,sim,True,False,N1
+Sul-americano,Colombia A,VOL,L. Flores,Atlético Bucaramanga,31.0,1181,2027-12-31,400000,Venezuela,Venezuela,60.1,45.1,66.6,1.0,55.8,True,0.0,21.18,6,55.146427251599086,7.22,1.27,4.35,True,True,sim,False,False,N1
+Sul-americano,Peru,VOL,N. Da Campo,Sport Boys,32.0,1888,2027-12-31,175000,Argentina,Argentina,86.5,71.5,39.86,10.0,55.7,True,0.0,28.36,6,46.6144384764371,5.63,2.41,4.45,True,True,sim,False,False,N1
+Sul-americano,Equador B,VOL,K. Charcopa,San Antonio,19.0,1506,,0,Ecuador,Ecuador,52.1,37.1,71.77,1.0,54.4,True,0.0,,6,53.27617328413389,5.76,1.66,8.3,True,True,sim,True,False,N2 jovem
+Sul-americano,Colombia B,VOL,J. Mercado,Unión Magdalena,22.0,1344,,0,Colombia,Colombia,51.4,36.4,72.21,1.0,54.3,True,0.0,,6,55.5606451348963,5.81,1.88,5.18,True,True,sim,True,False,N2 jovem
+Sul-americano,Colombia A,VOL,Larry Vásquez,Inter Bogotá,33.0,2336,2026-12-31,650000,Colombia,"Colombia, Venezuela",78.4,63.400000000000006,44.94,12.0,54.2,True,0.0,24.62,6,46.5510373598415,5.41,2.27,3.23,True,True,sim,True,False,N1
+Sul-americano,Argentina B,MED,F. Rodríguez,Los Andes,26.0,1343,,0,Argentina,Argentina,93.3,78.3,63.83,2.0,71.1,True,0.0,,6,51.577392026622086,6.92,1.1,2.79,True,True,sim,True,False,N1
+Sul-americano,Argentina B,MED,E. Hoyos,Ferro Carril Oeste,26.0,1388,2027-12-31,0,Argentina,Argentina,82.5,67.5,74.34,1.0,70.9,True,0.0,,6,47.65504764465053,4.71,3.47,12.11,True,True,sim,False,False,N1
+Sul-americano,Peru,MED,F. Gaibor,Alianza Lima,34.0,1236,2026-12-31,650000,Ecuador,Ecuador,84.8,69.8,70.12,2.0,70.0,True,0.0,38.79,6,57.00345105471285,5.0,1.27,3.83,True,True,sim,True,False,N1
+Sul-americano,Argentina A,MED,A. Molinas,Defensa y Justicia,25.0,1465,2027-12-31,0,Argentina,"Argentina, Italy",89.7,74.7,62.26,1.0,68.5,True,0.0,34.74,6,49.3828160631,3.09,0.67,5.54,True,True,sim,False,False,N1/N2
+Sul-americano,Colombia B,MED,A. Alfonso,Bogotá,21.0,1219,,0,Colombia,Colombia,91.3,76.3,59.87,3.0,68.1,True,0.0,,6,53.57900577058908,6.68,1.83,6.13,True,True,sim,True,False,N2 jovem
+Sul-americano,Chile,MED,J. Meneses,Deportes Limache,33.0,1762,2026-12-31,0,Chile,Chile,83.5,68.5,67.53,1.0,68.0,True,0.0,48.85,6,44.954056623142755,5.52,1.06,11.7,True,True,sim,True,False,N1
+Sul-americano,Venezuela,MED,J. Castellanos,Deportivo La Guaira,30.0,941,2026-12-31,300000,Venezuela,Venezuela,86.4,71.4,63.8,1.0,67.6,True,0.0,,6,55.980123928115255,3.69,0.98,3.93,True,True,sim,True,False,N1
+Sul-americano,Peru,MED,J. Concha,Universitario,27.0,1616,2026-12-31,0,Peru,Peru,78.8,63.8,70.86,1.0,67.3,True,0.0,42.82,6,57.87477079232248,4.83,1.39,6.74,True,True,sim,True,False,N1
+Sul-americano,Paraguai,MED,M. Acosta,Rubio Ñú,25.0,1265,2026-12-31,250000,Paraguay,Paraguay,88.5,73.5,58.32,3.0,65.9,True,0.0,48.62,6,44.556550616462474,3.98,4.04,5.82,True,True,sim,True,False,N1/N2
+Sul-americano,Colombia A,MED,N. Ospina,Llaneros,23.0,1253,,0,Colombia,Colombia,86.4,71.4,58.4,2.0,64.9,True,0.0,43.44,6,45.65709542597909,3.51,1.39,5.9,True,True,sim,True,False,N2 jovem
+Sul-americano,Peru,MED,J. Vélez,Alianza Lima,31.0,1929,2028-12-31,700000,Ecuador,Ecuador,82.6,67.6,59.77,3.0,63.7,True,0.0,45.31,6,57.00345105471285,7.11,3.2,8.96,True,True,sim,False,False,N1
+Sul-americano,Paraguai,MED,A. Molinas,Club Libertad,20.0,997,2026-12-31,0,Paraguay,Paraguay,74.2,59.2,67.77,2.0,63.5,True,0.0,38.06,6,54.848652900990636,7.4,2.5,8.72,True,True,sim,True,False,N2 jovem
+Sul-americano,Paraguai,MEI,F. Carrizo,Club Libertad,35.0,1335,2026-12-31,500000,Argentina,Argentina,100.0,85.0,90.93,1.0,88.0,True,51.22,33.8,7,54.848652900990636,3.13,0.74,3.93,True,True,sim,True,False,N1
+Sul-americano,Peru,MEI,N. Quagliata,Melgar,27.0,1510,2029-12-31,0,Uruguay,"Uruguay, Italy",90.9,75.9,65.64,2.0,70.8,True,69.87,37.38,7,58.93784586657747,3.48,0.44,6.68,True,True,sim,False,False,N1
+Sul-americano,Chile,MEI,M. Palavecino,Universidad Católica,28.0,1126,2028-12-31,0,Argentina,"Argentina, Italy",88.6,73.6,64.01,1.0,68.8,True,41.81,31.52,7,52.859895874917214,3.05,1.19,7.03,True,True,sim,False,False,N1
+Sul-americano,Equador A,MEI,M. Díaz,Universidad Católica,35.0,1528,,300000,Argentina,"Argentina, United States",82.8,67.8,69.49,1.0,68.6,True,39.32,20.38,7,59.56245011128337,3.5,0.73,5.93,True,True,sim,True,False,N1
+Sul-americano,Venezuela,MEI,L. González,Monagas,35.0,915,2026-12-31,500000,Venezuela,Venezuela,86.4,71.4,65.78,2.0,68.6,True,55.12,,7,58.08077883589426,2.58,0.7,7.2,True,True,sim,True,False,N1
+Sul-americano,Colombia B,MEI,J. Barrera,Real Cartagena,30.0,1042,2026-12-31,700000,Colombia,Colombia,84.8,69.8,66.57,2.0,68.2,True,40.54,,7,54.483535444145254,3.03,1.7,8.87,True,True,sim,True,False,N1
+Sul-americano,Peru,MEI,A. Hohberg,Cienciano,35.0,1787,2027-12-31,400000,Peru,"Peru, Uruguay",81.8,66.8,67.43,1.0,67.1,True,88.57,34.76,7,47.40525893143292,1.67,1.34,4.62,True,True,sim,False,False,N1
+Sul-americano,Equador A,MEI,D. Pazmiño,Leones del Norte,26.0,1106,2026-12-31,50000,Ecuador,Ecuador,83.8,68.8,64.51,2.0,66.7,True,27.81,35.78,7,43.87633206204592,3.99,0.87,7.98,True,True,sim,True,False,N1
+Sul-americano,Bolivia,MEI,A. Terrazas,San Antonio Bulo Bulo,25.0,1180,2027-12-31,750000,Bolivia,Bolivia,81.8,66.8,66.37,2.0,66.6,True,63.91,,7,46.425803664149726,3.63,1.06,6.9,True,True,sim,False,False,N1/N2
+Sul-americano,Equador B,MEI,J. Padilla,Gualaceo,28.0,1009,2026-12-31,50000,Ecuador,Ecuador,79.5,64.5,67.11,3.0,65.8,True,40.02,,7,54.681668289289725,4.68,2.58,9.73,True,True,sim,True,False,N1
+Sul-americano,Uruguai,MEI,N. Wunsch,Defensor Sporting,23.0,1379,2028-12-31,0,Uruguay,Uruguay,80.7,65.7,,,65.7,False,,,7,55.95257958156641,4.96,1.26,7.76,True,True,sim,False,False,N2 jovem
+Sul-americano,Argentina B,MEI,J. Rodríguez,Atlanta,27.0,1433,2026-12-31,150000,Argentina,Argentina,80.2,65.2,63.3,3.0,64.2,True,19.26,,7,56.171850108208865,7.31,2.86,9.28,True,True,sim,True,False,N1
+Sul-americano,Chile,ED,F. González,O'Higgins,25.0,1256,2028-12-31,0,Argentina,Argentina,85.7,70.7,70.09,2.0,70.4,True,0.0,58.47,6,53.276241818493205,3.3,2.38,12.51,True,True,sim,False,False,N1/N2
+Sul-americano,Equador A,ED,A. Rodríguez,Independiente del Valle,27.0,1246,,850000,Ecuador,Ecuador,87.1,72.1,67.42,3.0,69.8,True,0.0,42.42,6,63.07231894005964,5.28,0.79,5.61,True,True,sim,True,False,N1
+Sul-americano,Peru,ED,C. Souza,Cienciano,30.0,1436,2026-12-31,300000,Uruguay,"Uruguay, Italy",92.5,77.5,61.32,1.0,69.4,True,0.0,50.82,6,47.40525893143292,3.57,0.77,9.06,True,True,sim,True,False,N1
+Sul-americano,Equador B,ED,Reixon Saya,El Nacional,18.0,1321,,0,Ecuador,Ecuador,80.7,65.7,72.71,1.0,69.2,True,0.0,,6,47.68576895313847,5.53,1.3,14.07,True,True,sim,True,False,N2 jovem
+Sul-americano,Venezuela,ED,R. Ivey,Estudiantes de Mérida,32.0,1465,2027-12-31,400000,Panama,Panama,88.2,73.2,63.59,2.0,68.4,True,0.0,,6,54.27290403197396,3.42,2.42,11.15,False,True,sim,False,False,N1
+Sul-americano,Colombia A,ED,Jhon Vásquez,Llaneros,31.0,1865,2026-12-31,800000,Colombia,Colombia,85.5,70.5,62.71,2.0,66.6,True,0.0,38.23,6,45.65709542597909,2.8,2.4,15.59,True,True,sim,True,False,N1
+Sul-americano,Equador A,ED,M. Perelló,Independiente del Valle,24.0,1137,2029-12-31,0,Argentina,Argentina,76.6,61.599999999999994,68.78,2.0,65.2,True,0.0,45.2,6,63.07231894005964,4.82,0.43,3.64,True,True,sim,False,False,N1/N2
+Sul-americano,Chile,ED,Kevin Méndez,Unión La Calera,30.0,1481,,700000,Uruguay,"Uruguay, Italy",70.1,55.099999999999994,74.15,1.0,64.6,True,0.0,55.86,6,53.0163825078108,6.2,1.75,9.8,True,True,sim,True,False,N1
+Sul-americano,Equador A,ED,A. Londoño,Universidad Católica,25.0,1218,2026-12-31,0,Panama,Panama,75.6,60.599999999999994,64.31,4.0,62.5,True,0.0,38.97,6,59.56245011128337,4.12,1.92,10.42,False,True,sim,True,False,N1/N2
+Sul-americano,Venezuela,ED,C. Sosa,Deportivo Táchira,31.0,1460,2027-12-31,275000,Venezuela,Venezuela,61.8,46.8,77.87,1.0,62.3,True,0.0,,6,48.43614956806169,4.84,0.48,15.59,True,True,sim,False,False,N1
+Sul-americano,Colombia B,ED,K. Cuellar,Real Soacha Cundinamarca,22.0,1004,,0,Colombia,Colombia,77.3,62.3,61.45,2.0,61.9,True,0.0,,6,49.46997015368251,5.41,2.31,7.34,True,True,sim,True,False,N2 jovem
+Sul-americano,Argentina A,ED,J. Fernández,Rosario Central,22.0,1014,2027-12-31,0,Argentina,Argentina,80.3,65.3,56.59,3.0,60.9,True,0.0,40.16,6,54.5887679169818,4.59,1.56,11.3,True,True,sim,False,False,N2 jovem
+Sul-americano,Venezuela,EE,E. Tortolero,Carabobo,28.0,995,2027-12-31,0,Venezuela,Venezuela,84.4,69.4,70.64,1.0,70.0,True,0.0,,6,56.39110341896443,4.36,3.31,7.54,True,True,sim,False,False,N1
+Sul-americano,Bolivia,EE,J. Maraude,Always Ready,18.0,993,,0,Bolivia,Bolivia,95.0,80.0,58.84,3.0,69.4,True,0.0,,6,47.63370312962758,3.98,0.78,9.51,True,True,sim,True,False,N2 jovem
+Sul-americano,Argentina B,EE,M. Lago,Colón,24.0,2172,2027-12-31,0,Argentina,Argentina,88.5,73.5,59.94,2.0,66.7,True,0.0,,6,53.787353932238595,4.85,2.28,11.05,True,True,sim,False,False,N1/N2
+Sul-americano,Peru,EE,P. Magallanes,Sport Huancayo,25.0,1186,2027-12-31,0,Peru,Peru,75.8,60.8,63.1,2.0,62.0,True,0.0,44.13,6,53.07524857278618,3.88,1.69,12.73,True,True,sim,False,False,N1/N2
+Sul-americano,Colombia A,EE,A. Sarmiento,Atlético Nacional,28.0,1567,2027-12-31,700000,Colombia,Colombia,86.9,71.9,51.84,7.0,61.9,True,0.0,53.62,6,56.687399673222785,4.91,1.33,9.22,True,True,sim,False,False,N1
+Sul-americano,Argentina B,EE,F. Molina,Gimnasia Jujuy,35.0,1699,,50000,Argentina,Argentina,83.5,68.5,55.12,3.0,61.8,True,0.0,,6,62.66204363188357,4.47,2.06,10.4,True,True,sim,True,False,N1
+Sul-americano,Colombia B,EE,D. Dawson,Envigado,20.0,1024,,0,Panama,Panama,67.1,52.099999999999994,71.32,1.0,61.7,True,0.0,,6,44.04490152660856,5.5,1.18,18.75,False,True,sim,True,False,N2 jovem
+Sul-americano,Uruguai,EE,N. Lopez,Progreso,19.0,1402,2027-12-31,0,Uruguay,Uruguay,80.8,65.8,57.28,3.0,61.5,True,0.0,51.95,6,42.154986436814944,4.11,2.39,13.25,True,True,sim,False,False,N2 jovem
+Sul-americano,Equador B,EE,Jonny Uchuari,Cuenca Juniors,32.0,1054,2026-12-31,450000,Ecuador,Ecuador,73.3,58.3,62.39,1.0,60.3,True,0.0,,6,45.72125122501792,3.69,1.49,7.57,True,True,sim,True,False,N1
+Sul-americano,Colombia B,EE,J. Campaña,Patriotas Boyacá,23.0,1228,,350000,Colombia,Colombia,72.5,57.5,62.28,2.0,59.9,True,0.0,,6,61.35148493938682,6.73,0.85,11.41,True,True,sim,True,False,N2 jovem
+Sul-americano,Argentina B,EE,M. Roseti,Midland,29.0,1809,2027-12-31,0,Argentina,Argentina,66.5,51.5,67.96,1.0,59.7,True,0.0,,6,50.897478034595636,4.31,1.52,15.49,True,True,sim,False,False,N1
+Sul-americano,Argentina A,EE,A. Luna,Instituto,22.0,1735,2029-12-31,0,Argentina,Argentina,84.4,69.4,49.14,6.0,59.3,True,0.0,50.99,6,46.15438027172621,4.62,1.21,19.16,True,True,sim,False,False,N2 jovem
+Sul-americano,Paraguai,CA,L. Melgarejo,Club Libertad,35.0,1622,2027-06-30,800000,Paraguay,Paraguay,85.5,70.5,68.17,3.0,69.3,True,0.0,55.76,6,54.848652900990636,1.47,4.12,8.91,True,True,sim,True,False,N1
+Sul-americano,Equador A,CA,M. Estrada,LDU Quito,30.0,1133,2027-06-30,0,Ecuador,Ecuador,94.3,79.3,56.8,3.0,68.0,True,0.0,51.49,6,47.24651786070829,2.63,4.74,8.66,True,True,sim,True,False,N1
+Sul-americano,Peru,CA,A. Valera,Universitario,30.0,1713,2026-12-31,0,Peru,Peru,92.9,77.9,53.34,7.0,65.6,True,0.0,58.9,6,57.87477079232248,2.3,6.67,7.35,True,True,sim,True,False,N1
+Sul-americano,Paraguai,CA,A. Alcaraz,Olimpia,26.0,1124,2026-12-31,0,Paraguay,Paraguay,93.4,78.4,51.22,5.0,64.8,True,0.0,56.6,6,55.66224907205915,2.8,10.21,8.34,True,True,sim,True,False,N1
+Sul-americano,Equador B,CA,K. Valencia,Cuenca Juniors,26.0,1567,2026-12-31,50000,Ecuador,Ecuador,93.9,78.9,45.25,9.0,62.1,True,0.0,,6,45.72125122501792,1.48,6.77,8.35,True,True,sim,True,False,N1
+Sul-americano,Colombia A,CA,A. Morelos,Atlético Nacional,30.0,1955,2028-12-31,0,Colombia,Colombia,81.6,66.6,56.94,7.0,61.8,True,0.0,50.34,6,56.687399673222785,2.55,3.56,6.7,True,True,sim,False,False,N1
+Sul-americano,Colombia A,CA,R. Contreras,Millonarios,30.0,1592,2026-12-31,0,Argentina,Argentina,87.8,72.8,50.38,9.0,61.6,True,0.0,54.19,6,45.7616060129313,2.92,4.58,11.85,True,True,sim,True,False,N1
+Sul-americano,Uruguai,CA,M. Gómez,Nacional,30.0,1782,2027-12-31,0,Uruguay,Uruguay,83.8,68.8,54.04,3.0,61.4,True,0.0,51.32,6,49.75420271590323,1.51,7.74,10.81,True,True,sim,False,False,N1
+Sul-americano,Argentina B,CA,A. Spetale,Quilmes,26.0,1146,2026-12-31,0,Argentina,Argentina,92.4,77.4,43.93,18.0,60.7,True,0.0,,6,52.52069987264648,3.31,13.24,8.97,True,True,sim,True,False,N1
+Sul-americano,Peru,CA,E. Castillo,Alianza Lima,31.0,1871,2028-12-31,600000,Ecuador,Ecuador,79.2,64.2,56.74,3.0,60.5,True,0.0,60.21,6,57.00345105471285,2.19,1.85,8.14,True,True,sim,False,False,N1
+Sul-americano,Colombia B,CA,A. Carreño,Unión Magdalena,23.0,1570,,0,Colombia,Colombia,79.4,64.4,55.31,4.0,59.9,True,0.0,,6,55.5606451348963,2.13,5.55,5.83,True,True,sim,True,False,N2 jovem
+Sul-americano,Peru,CA,F. Callejo,Cusco,34.0,1383,2027-12-31,350000,Argentina,Argentina,88.1,73.1,46.28,12.0,59.7,True,0.0,53.38,6,64.24226180115942,2.1,6.28,1.07,True,True,sim,False,False,N1

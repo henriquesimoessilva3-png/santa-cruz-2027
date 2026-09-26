@@ -1,5 +1,7 @@
 # Santa Cruz V2 — Recomendação de treinador e jogadores para a Série B 2027
 
+*Escrito em 20/09 · revisão 25/09/2026.*
+
 Estudo novo, do zero: nenhuma conclusão do estudo anterior entra aqui — só as armadilhas de dado e de desenho que ele revelou (`ARMADILHAS.md`). Objetivo único: **nomes** — o treinador e 26 a 30 jogadores, por posição,
 para o Santa Cruz disputar a Série B de 2027. Tudo que não termina em nome é etapa intermediária.
 
@@ -88,8 +90,10 @@ Um bloco por vez, validado antes do seguinte. Scripts em `scripts/`, resultados 
 - Export da API física para ligas de fora — quando o Bloco 1 fixar as métricas.
 
 
-## Estado em 22/09/2026
-Blocos 1–7 rodados (`resultados/b*/B*.md`). Listas por posição nos quatro mercados em
-`listas/listas_2027.xlsx` + `listas/LISTAS.md`; conclusões em `listas/DIFERENCIAIS.md`.
-Pendente: exportar físico das ligas de fora (API) para verificar o piso de velocidade nas listas
-2–4; elenco final de 26–30 com orçamento no campograma.
+## Estado em 25/09/2026
+Blocos 1–11 rodados (`resultados/b*/B*.md`): 8 físico × técnico, 9 duelos e posse, 10 sugestões pelo tipo
+físico, 11 treinador e modelo de jogo. Listas por posição nos mercados Série B, sul-americanas e exterior
+(`listas/`), sem Série A e sem os nomes vetados (`EXCLUIDOS.csv`), teto de € 2 MM e idade ≤ 35. Bola parada por
+jogador com Sofascore (Série B). Conclusões em `DIFERENCIAIS.md`; régua e filtros em `SINTESE.md`.
+Pendente: bola parada Sofascore das ligas sul-americanas (coleta bloqueada); físico das ligas de fora vem do
+Portal (SkillCorner) e cobre parte dos nomes.

@@ -1,5 +1,7 @@
 # Bloco 1 — Camada descritiva: jogadores, posições e equipes
 
+*Dado: SkillCorner 2022–2026 · revisão 25/09/2026.*
+
 Arquivos em `perfis/` (e `perfis/perfis.xlsx`, uma aba por tabela):
 - `jogadores.csv` — 2.994 jogador-temporadas (2022–2026) com físico, minutos, fatia, posição do
   campograma, ordem de minutagem no clube, percentil dentro de temporada × posição e o
@@ -60,10 +62,10 @@ nas duas fases.
 | PSV-99 top5 | 34 | 54 | 68 |
 | Sprint sem bola/30min | 34 | 56 | 61 |
 | Corridas para a área/30min | 41 | 52 | 64 |
-| Acelerações fortes/90 | 49 | 56 | 45 |
 
 Quem sobe está no percentil 60–68 em intensidade, velocidade e corridas para a área; quem cai,
-no 33–41. Distância separa pouco (48 → 58). Acelerações e desacelerações não separam nada.
+no 33–41. Distância separa pouco (48 → 58). Acelerações e desacelerações fortes não separam nada — por equipe o indicador
+chega a aparecer ao contrário e por posição não diz nada (B8-5); ficou fora da tabela e da ficha.
 Ressalva do `B1.md`: parte dessa vantagem de quem sobe é dinheiro; descontado o elenco, o que
 sobra é intensidade (4–6 pontos) e o piso de velocidade do onze.
 

@@ -10,6 +10,7 @@ Saídas:   listas/TOP10_por_posicao.csv e listas/TOP10_POR_POSICAO.md
 """
 import os
 import numpy as np, pandas as pd
+from listas_md import tipo_de
 from _comum import RAIZ, chave, excluidos, caro
 
 L = os.path.join(RAIZ, "listas")
@@ -44,32 +45,36 @@ def main():
     d = d.join(sinal, on="k")
     d["livre"] = d.livre_2027.astype(str) == "True"
     d["nota_final"] = (d.nota + d.sinal_scouts.map(BONUS).fillna(0) + d.liga.map(CRIVO).fillna(0)).round(1)
-    out, md = [], ["# Dez alvos por posição — 2027, prioridade a livres\n",
+    out, md = [], ["# Dez alvos por posição — 2027, prioridade a livres\n\n*Dado: Wyscout e contratos de ago/26, físico SkillCorner até set/26; scouts TransferRoom set/26 · revisão 25/09/2026.*\n",
         "Critério (23/09): **sem Série A** e sem os nomes tirados pelo clube (`EXCLUIDOS.csv`); foco na **Série B** "
         "e nos **sul-americanos**; do exterior, só brasileiros e sul-americanos de **ligas mais fracas** (Portugal B/C, "
         "Leste Europeu, Oriente Médio, Ásia B), no máximo três por posição. Livres (contrato até jun/27 ou sem contrato) "
         "primeiro; valor de mercado até € 2 MM (acima disso é inalcançável); dentro deles, a nota do estudo (aderência + nível) com bônus dos scouts. Equador B, Bolívia e "
         "Argentina B só entram quando não há melhor. ★ = visto e aprovado pelos scouts. (e) = não é livre: "
-        "empréstimo ou compra. Base: `TOP10_por_posicao.csv`, gerado por `scripts/top10.py`.\n"]
+        "empréstimo ou compra. **Nota \\*** = só aderência, sem nível do ranking. **Contrato \\*** = já vencido no dado de ago/26 (renovou ou está livre: confirmar). **PSV** = velocidade de pico (piso 27 km/h; ⚠ = abaixo do piso, só com vídeo; — = sem rastreio). **Tipo** = tipo físico do Bloco 8/10 (\\* = não é o tipo preferido de quem sobe). Idade até 35 (B5-3). Base: `TOP10_por_posicao.csv`, gerado por `scripts/top10.py`.\n"]
     for p, nome, sub in POS:
         x = d[d.pos11 == p].sort_values(["livre", "nota_final"], ascending=[False, False])
         x = pd.concat([x[x.mercado != "Exterior"], x[x.mercado == "Exterior"].head(3)]).sort_values(
             ["livre", "nota_final"], ascending=[False, False]).head(10)
         x = x.assign(ordem=range(1, len(x) + 1))
         out.append(x)
-        linhas = ["| # | Jogador | Clube | Liga | Idade | Contrato | Nota | Scouts |",
-                  "|---|---|---|---|---|---|---|---|"]
+        linhas = ["| # | Jogador | Clube | Liga | Idade | Contrato | Nota | PSV | Tipo | Scouts |",
+                  "|---|---|---|---|---|---|---|---|---|---|"]
         for r in x.itertuples():
             liga = "Série B" if r.mercado == "Série B" else str(r.liga)
             ct = str(r.contrato)[:10] if isinstance(r.contrato, str) and r.contrato else "—"
             if ct != "—": ct = ct[8:10] + "/" + ct[5:7] + "/" + ct[2:4]
             est = f"★ {r.sinal_scouts}" if isinstance(r.sinal_scouts, str) else ""
+            if str(getattr(r, "contrato_vencido", "")) == "True": ct += " *"
+            nt = f"{r.nota_final:.0f}" + ("" if str(getattr(r, "nota_completa", True)) == "True" else " *")
+            psv = r.psv99 if "psv99" in x else float("nan")
+            psv = "—" if pd.isna(psv) else (f"{psv:.1f}".replace(".", ",") + ("" if psv >= 27 else " ⚠"))
             linhas.append(f"| {r.ordem} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {liga} | "
-                          f"{int(r.idade)} | {ct} | {r.nota_final:.0f} | {est} |")
+                          f"{int(r.idade)} | {ct} | {nt} | {psv} | {tipo_de(r.jogador, r.clube)} | {est} |")
         md.append(f"\n### {nome}" + (f" — {sub}" if sub else "") + "\n\n" + "\n".join(linhas))
     t = pd.concat(out)
     cols = ["ordem", "mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nota",
-            "sinal_scouts", "avaliacoes", "nota_media", "nota_final", "livre"]
+            "nota_completa", "contrato_vencido", "psv99", "sinal_scouts", "avaliacoes", "nota_media", "nota_final", "livre"]
     t[[c for c in cols if c in t]].to_csv(os.path.join(L, "TOP10_por_posicao.csv"), index=False)
     open(os.path.join(L, "TOP10_POR_POSICAO.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(t.mercado.value_counts().to_dict(), "| livres:", int(t.livre.sum()), "de", len(t))

@@ -1,5 +1,7 @@
 # Brasileiros no exterior jogando pouco — alvos de empréstimo
 
+*Dado: minutagem FotMob de set/26; nota Wyscout da temporada 2025/26; valor Transfermarkt · revisão 25/09/2026.*
+
 Base: levantamento de minutagem da temporada atual (FotMob, 772 brasileiros em 34 ligas, set/26), cruzado com o estudo V2 (nota Wyscout da temporada passada e overall do ranking) e o valor de mercado (Transfermarkt).
 
 **Filtro:** até 29 anos; menos de 40% dos minutos possíveis do time, com o time tendo jogado pelo menos 3 jogos; sem lesão anotada; valor até € 2 MM; fora das ligas de salário inalcançável (Premier League, LaLiga, Serie A, Bundesliga, Ligue 1, Saudi Pro League) e sem os nomes e clubes vetados. Sobram **187** jogadores.

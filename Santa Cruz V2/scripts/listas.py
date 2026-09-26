@@ -105,6 +105,24 @@ def ranking():
     r = r[~r.duplicated(["chave", "liga", "pos11", "idade"], keep=False)]
     return r[["chave", "liga", "pos11", "idade", "nivel_overall", "rank_na_liga", "nivel_ofensivo", "nivel_defensivo", "nivel_passe", "nivel_bola_parada", "nivel_fisico"]]
 
+IDADE_MAX = 35
+
+def padj(d):
+    """Duelos ajustados à posse (B9). Fora da Série B não há posse do time: estimativa pela fatia de passes do
+    clube na liga (passes/90 do elenco ponderados por minutos ÷ média da liga × 50)."""
+    pp = pd.to_numeric(d.get("Passes per 90", d.get("Passes/90")), errors="coerce")
+    mn = pd.to_numeric(d.minutos, errors="coerce").fillna(0)
+    g = pd.DataFrame({"liga": d.liga, "clube": d.clube, "w": pp * mn, "m": mn})
+    t = g.groupby(["liga", "clube"]).agg(w=("w", "sum"), m=("m", "sum")); t["p90"] = t.w / t.m.replace(0, np.nan)
+    t["posse_est"] = (50 * t.p90 / t.groupby("liga").p90.transform("mean")).clip(30, 70)
+    d["posse_est"] = d.set_index(["liga", "clube"]).index.map(t.posse_est).values
+    dd = pd.to_numeric(d.get("Defensive duels per 90", d.get("Duelos defensivos/90")), errors="coerce")
+    ae = pd.to_numeric(d.get("Aerial duels per 90", d.get("Duelos aéreos/90")), errors="coerce")
+    do = pd.to_numeric(d.get("Offensive duels per 90", d.get("Duelos ofensivos/90")), errors="coerce")
+    d["Duelos def/90 PAdj"] = (dd * 50 / (100 - d.posse_est)).round(2)
+    d["Aéreos/90 PAdj"] = (ae * 50 / (100 - d.posse_est)).round(2)
+    d["Duelos of/90 PAdj"] = (do * 50 / d.posse_est).round(2)
+
 def main():
     out = os.path.join(RAIZ, "listas"); os.makedirs(out, exist_ok=True)
     global FORA
@@ -117,18 +135,24 @@ def main():
     print("nível casado: Série B", sb.nivel_overall.notna().mean().round(2), "| ligas", lg.nivel_overall.notna().mean().round(2))
     lg["aderencia_ajustada"] = (lg.aderencia + lg.mercado.map(DESCONTO)).clip(0, 100)
     sb["aderencia_ajustada"] = sb.aderencia
-    for d in (sb, lg): d["nota"] = ((d.aderencia_ajustada + d.nivel_overall.fillna(d.aderencia_ajustada)) / 2).round(1)
-    cols = ["mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nascido_em", "passaporte", "aderencia", "aderencia_ajustada", "nivel_overall", "rank_na_liga", "nota", "nivel_bola_parada", "nivel_fisico", "criterios_com_dado"]
+    for d in (sb, lg):
+        d["nota"] = ((d.aderencia_ajustada + d.nivel_overall.fillna(d.aderencia_ajustada)) / 2).round(1)
+        d["nota_completa"] = d.nivel_overall.notna()   # False = só aderência (sem nível do ranking): nota parcial
+        padj(d)
+    cols = ["mercado", "liga", "pos11", "jogador", "clube", "idade", "minutos", "contrato", "valor", "nascido_em", "passaporte", "aderencia", "aderencia_ajustada", "nivel_overall", "rank_na_liga", "nota", "nota_completa", "nivel_bola_parada", "nivel_fisico", "criterios_com_dado", "posse_est", "Duelos def/90 PAdj", "Aéreos/90 PAdj", "Duelos of/90 PAdj"]
     sbc = sb[cols + ["fatia", "rodou_2025", "psv99", "psv_ok", "expl_accel_sprint_p90", "runs_penalty_area_p30tip", "Corners per 90", "Free kicks per 90", "Head goals per 90", "Aerial duels won, %"]].copy()
+    def vencido(c):
+        # contrato que já acabou na data do dado (ago/26): renovou ou está livre — a confirmar
+        s = pd.to_datetime(c, errors="coerce"); return s.notna() & (s < pd.Timestamp("2026-08-01"))
     def livre(c):
         s = pd.to_datetime(c, errors="coerce"); return s.isna() | (s <= pd.Timestamp("2027-06-30"))
-    sbc["livre_2027"] = livre(sbc.contrato)
-    lgc = lg[cols + ["sul_americano", "ocupa_vaga_estrangeiro", "On loan"]].copy(); lgc["livre_2027"] = livre(lgc.contrato)
+    sbc["livre_2027"] = livre(sbc.contrato); sbc["contrato_vencido"] = vencido(sbc.contrato)
+    lgc = lg[cols + ["sul_americano", "ocupa_vaga_estrangeiro", "On loan"]].copy(); lgc["livre_2027"] = livre(lgc.contrato); lgc["contrato_vencido"] = vencido(lgc.contrato)
     def top(df, n=12, filtro=None, teto_valor=None):
         d = df if filtro is None else df[filtro]
         d = d[[not FORA(j, c) for j, c in zip(d.jogador, d.clube)]]   # listas/EXCLUIDOS.csv
         d = d[~caro(d)]   # valor > € 2 MM (Wyscout, ou Transfermarkt quando o Wyscout não tem): inalcançável
-        d = d[((d.idade <= 33) | ((d.pos11 == "GOL") & (d.idade <= 37))) & (d.criterios_com_dado >= 3) & (d.pos11 != "Outro")]
+        d = d[((d.idade <= IDADE_MAX) | ((d.pos11 == "GOL") & (d.idade <= 37))) & (d.criterios_com_dado >= 3) & (d.pos11 != "Outro")]   # idade não rende nem custa ponto (B5-3): teto alto, idade fica como coluna
         if teto_valor is not None:
             v = d.valor.fillna(0)
             d = d[((v > 0) & (v <= teto_valor)) | ((v == 0) & d.liga.isin(ALCANCAVEIS | set(SULAM) | {"Brasil A"}))]

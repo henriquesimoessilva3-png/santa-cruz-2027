@@ -1,5 +1,7 @@
 # Treinadores — lista para avaliação
 
+*Dado: treinador por rodada e valor de elenco até set/26; situação dos nomes pesquisada na web em 22/09 · revisão 25/09/2026.*
+
 Base: 266 passagens não interinas com ≥ 10 jogos de Série B, 2018–2026 (`resultados/b4`). Rendimento = pontos/jogo acima do esperado pelo valor do elenco (só de 2022 em diante). Ordenado por número de clubes diferentes em que rendeu acima do elenco e, depois, pelo rendimento médio. Lembrete do Bloco 4: rendimento não viaja entre clubes (r 0,01) — a lista reduz a conversa; a escolha é por entrevista, comissão, projeto e disposição de ficar o ano (Bloco 5: quem sobe não troca).
 
 | treinador | passagens (clubes) | jogos | pts/j | rend. médio | pior | clubes + | elenco médio | acessos | temp. inteiras | xG sof. | dist. final. | situação (web, a confirmar) |

@@ -1,5 +1,7 @@
 # O que diferencia quem sobe para a Série A — conclusões do estudo Santa Cruz V2
 
+*Dado: Wyscout, SkillCorner, Sofascore e Transfermarkt até ago–set/26 · revisão 25/09/2026. A régua e os filtros, em uma página: `Síntese`.*
+
 Base: Série B 2022–2026 — 100 clube-temporadas, 3.570 jogos, 3.866 jogador-temporadas
 (Wyscout), 49.731 jogador-jogo físicos (SkillCorner), gols por origem (Sofascore), treinadores
 por rodada 2018–2026, 66 ligas de fora. Régua principal: rendimento acima do que o elenco
@@ -28,7 +30,7 @@ dentro) e xG por finalização sofrida (empurrar o adversário para fora da áre
 ataque posicional, cruzamentos e passes ao terço final rendem pouco entre times e viram
 negativos dentro do clube: são placar. Pressão alta, recuperações, interceptações e carrinhos
 não rendem nada. Duelo aéreo rende entre times (9 pontos), não dentro do jogo: é elenco.
-Formação tática e estilo não mudam resultado.
+Formação tática e estilo não mudam resultado. Entre passagens de treinador (B11), cruzamento e entrada na área **descrevem** o time que rende, mas não sobrevivem à conta dentro do clube: continuam fora da meta.
 
 ## 4. Bola parada é a alavanca mais barata
 Um gol de saldo de bola parada vale 0,73 ponto na temporada (bola rolando, 0,51) e anda pouco
@@ -73,7 +75,7 @@ outra liga. Origem que chega acima da mediana: Série A (+16 percentis).
 
 ## 8. Treinador
 O rendimento não viaja entre clubes (r 0,01 em 69 pares); trocar no meio do ano "funciona" em
-55 de 88 porque se troca no fundo do poço. O critério que a base sustenta é não trocar. Para
+55 de 88 porque se troca no fundo do poço. O critério que a base sustenta é não trocar. O que viaja com o treinador é a **ideia de jogo** (passe longo, pressão, contra-ataque: r 0,26–0,38 entre clubes); o físico, o jogo aéreo e a posse ficam com o elenco (B11). Escolher treinador e montar elenco são a mesma decisão: o onze recomendado é direto e aéreo (perfil Baptista/Tencati) com intensidade mediana (perfil Condé); Mozart, de posse, é o que menos encaixa. Para
 reduzir a conversa: Léo Condé (rendeu acima do elenco em três clubes, livre), Eduardo Baptista
 (o mais regular), Mozart (dois acessos), Tencati (elenco barato). Escolha por entrevista,
 comissão e projeto.

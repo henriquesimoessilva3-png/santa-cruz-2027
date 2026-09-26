@@ -1,5 +1,7 @@
 # Elenco 2027 — só fim de contrato, Série B + Argentina A
 
+*Recorte de 22/09 (contratos de ago/26), mantido como referência. A recomendação atual é `Quem eu contrataria`: o MEI passou a ser Matheus Frizzo (Coreia B, livre), o CA nº 2 é Robson (Novorizontino, livre) e a Argentina entrou nas listas do Top 10. Revisão 25/09/2026.*
+
 Regra: contrato até jun/2027 no dado de ago/26 (ou sem contrato registrado), idade ≤ 33
 (goleiro ≤ 37), ≥ 900 min. Ordem: nota (aderência ao modelo que rende na B + nível do ranking),
 com bola parada, piso de velocidade e continuidade como desempate. Faixas salariais são
@@ -33,7 +35,7 @@ estrangeiros no máximo; a B usa 2,2.
 | MED | Reserva | **Crystopher** | CRB | 28 | 65 | psv ok |
 | MED | Cobrador | **Rafael Gava** | Botafogo-SP | 33 | 61 | o cobrador mais regular da B (93 → 96), 9 assist. de BP em 2024–26 |
 | MED | Cobrador | **I. Tapia** | Barracas Central (ARG) | 27 | — | cobrador índice 94, passaporte italiano (não ocupa vaga) |
-| MEI | Titular | **Marrony** | Atlético-GO | 27 | 48 | o MEI livre de maior nota da B com o Dodô fora (foi para a Coreia); fraco — é a posição a resolver fora deste recorte (Frizzo, Coreia B, 85) |
+| MEI | Titular | **Marrony** | Atlético-GO | 27 | 48 | o MEI livre de maior nota da B com o Dodô fora; fraco — resolvido fora deste recorte com **Matheus Frizzo** (Coreia B, 85, brasileiro, livre), ver `Quem eu contrataria` |
 | ED | Titular | **Pedro Vitor** | São Bernardo | 28 | 63 | psv ok |
 | ED | Reserva | **Bruno José** | Atlético-GO | 28 | 59 | finalizador aéreo (83 → 91) |
 | ED | Alternativa | **H. López** | Argentinos Juniors (ARG) | 25 | 59 | 1º ED da Argentina A no ranking (nível 71) |

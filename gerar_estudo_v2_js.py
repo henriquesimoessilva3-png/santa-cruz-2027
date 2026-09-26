@@ -19,6 +19,7 @@ SAIDA = os.path.join(AQUI, "static", "estudo_v2_dados.js")
 
 # (grupo, id, arquivo, rotulo curto no menu)
 DOCS = [
+    ("Conclusões", "sintese", "listas/SINTESE.md", "Síntese: régua e filtros"),
     ("Conclusões", "diferenciais", "listas/DIFERENCIAIS.md", "O que faz subir"),
     ("Recomendação", "elenco", "listas/ELENCO_2027.md", "Quem eu contrataria"),
     ("Recomendação", "treinadores", "listas/TREINADORES.md", "Treinadores"),

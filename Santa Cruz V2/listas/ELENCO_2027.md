@@ -1,5 +1,7 @@
 # Quem eu contrataria — Santa Cruz, Série B 2027
 
+*Dado: contratos e valores de ago/26; físico e técnico da Série B 2026 até set/26 · revisão 25/09/2026.*
+
 Veredito em uma linha: **um elenco de 28 nomes, com 5 titulares mantidos de 2026, 11 contratações
 principais a passe zero da própria Série B, sul-americanos e brasileiros de ligas mais fracas nas
 posições em que a B não tem livre à altura — e Léo Condé no comando, contratado para ficar o ano
@@ -31,6 +33,12 @@ pior passagem +0,30, elenco mediano 10º em valor — é o único da base com es
 com folha de meio de tabela sem afundar (B4-2). Plano B: **Eduardo Baptista** (o mais regular,
 +0,31 na pior passagem, mas sem acesso em 5 passagens; no Criciúma). Não contratar por currículo
 de G4 (Carpini, Guto: elencos top-5).
+
+**O custo da escolha (B11-6).** Os times do Condé correm pouco (distância −1,3 a −1,7 desvios) e ele adapta o
+estilo ao elenco; os do Baptista são diretos, aéreos e intensos — e o onze abaixo é exatamente isso, menos a
+intensidade (mediana). Com Condé, aceita-se que o físico do elenco não vira diferencial (o estudo diz que ele é
+piso, não alavanca); com Baptista, trocam-se 2–3 peças por tipos mais intensos (B10). Mozart não fecha com este
+elenco.
 
 ## 3. O elenco — 4-2-3-1, por posição
 
@@ -126,9 +134,10 @@ ao jogador) · (ader/nível) = aderência ao modelo / overall do ranking.
 | # | Jogador | Situação | Por quê |
 |---|---|---|---|
 | 1 | **Mikael** | CRB, 27, contrato nov/27 | 79 (94/64), a maior nota de todo o elenco, psv ok, rodou 2025 e 2026. Não é livre: negociar. N1, ~100–120. |
-| 2 | **William Pottker** | Londrina, 32, livre nov/26 | 58, psv ok, rodou 2025, 4/4 na ficha antiga de atacante. Pilar veterano. N1, ~60. |
-| 3 | **M. Estrada** | LDU Quito, 30, equatoriano, contrato jun/27 | 68 (79/57), 3 gols de cabeça, finalizador aéreo (índice 92). Se Mikael não sair do CRB. N1, ~60, vaga de estrangeiro. |
-| 4 | **A. Alcaraz** | Olimpia, Paraguai, 26, livre | 65. N1, ~50, vaga de estrangeiro. |
+| 2 | **Robson** | Novorizontino, 35, livre dez/26 | 71 (a maior nota de CA livre da B), psv ok, corre para a área (P92), 3 gols e 3 assist. de bola parada em 2024–26. Estava fora das listas pelo teto de idade, que o estudo não sustenta (B5-3). Risco é a idade: 1 ano. N1, ~100. |
+| 3 | **William Pottker** | Londrina, 32, livre nov/26 | 58, psv ok, rodou 2025, 4/4 na ficha antiga de atacante. Pilar veterano. N1, ~60. |
+| 4 | **M. Estrada** | LDU Quito, 30, equatoriano, contrato jun/27 | 68 (79/57), 3 gols de cabeça, finalizador aéreo (índice 92). Se Mikael não sair do CRB. N1, ~60, vaga de estrangeiro. |
+| 5 | **A. Alcaraz** | Olimpia, Paraguai, 26, livre | 65. N1, ~50, vaga de estrangeiro. |
 
 ## 4. Conta de fechamento
 28 nomes: 5 mantidos + 23 acima (11 titulares, 12 opções). Estrangeiros: 3 a 4 (Molina, Lucas Soto,
