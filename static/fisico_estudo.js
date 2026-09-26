@@ -44,12 +44,18 @@
     const C = [['psv99', 'PSV-99', 1], ['sprint_count_p90', 'Sprints/90', 1], ['expl_accel_sprint_p90', 'Arrancadas/90', 2], ['distance_p90', 'Distância', 0],
       ['Duelos/90', 'Duelos/90', 1], ['Duelos defensivos ganhos, %', 'Duelos def. ganhos %', 0], ['Duelos aéreos ganhos, %', 'Aéreos ganhos %', 0],
       ['Dribles/90', 'Dribles/90', 2], ['Toques na área/90', 'Toques na área/90', 2], ['Acções atacantes com sucesso/90', 'Ações of. certas/90', 2], ['xgxa90', 'xG+xA/90', 2]];
-    const L = t.linhas.slice().sort((a, b) => b[i('referencia')] - a[i('referencia')]);
-    return '<p class="fse-d">Os titulares do setor separados em três tipos pelo perfil físico (agrupamento automático em velocidade, sprints, ' +
-      'ações de alta intensidade, arrancadas, distância e corridas sem bola). Para cada tipo: quanto dele está nos times que renderam acima do ' +
-      'dinheiro (a média do setor é ~27%) e o que produz no técnico (mediana).</p>' +
-      '<table class="fse-t"><thead><tr><th>Tipo</th><th class="n">n</th><th class="n">Em times de referência</th>' + C.map(c => '<th class="n">' + c[1] + '</th>').join('') + '</tr></thead><tbody>' +
-      L.map(r => '<tr><td><b>' + esc(r[i('tipo')]) + '</b></td><td class="n">' + r[i('n')] + '</td><td class="n' + (r[i('referencia')] >= 0.35 ? ' fse-top' : r[i('referencia')] <= 0.2 ? ' fse-neg' : '') + '">' +
+    const L = t.linhas.slice().sort((a, b) => b[i('pct_sobe')] - a[i('pct_sobe')]);
+    const r0 = L[0] || [];
+    /* Subiu / Meio / Caiu = de cada 100 jogadores do setor naquela faixa, quantos sao do tipo (25/09).
+       Destaque quando a faixa passa as outras duas por 15 pontos ou mais. */
+    const faixa = (r, k) => { const v = ['pct_sobe', 'pct_meio', 'pct_cai'].map(x => r[i(x)]); const me = r[i(k)];
+      const outros = v.filter(x => x !== me); const cls = outros.every(x => me - x >= 0.15) ? ' fse-top' : outros.every(x => x - me >= 0.15) ? ' fse-neg' : '';
+      return '<td class="n' + cls + '">' + num(100 * me, 0) + '%</td>'; };
+    return '<p class="fse-d">Os jogadores do setor (≥ 900 min, 2022–2025) separados em três tipos pelo perfil físico. <b>Subiu / Meio / Caiu</b>: de cada 100 jogadores ' +
+      'do setor naquela faixa da tabela, quantos são de cada tipo (' + r0[i('n_sobe')] + ' em quem subiu, ' + r0[i('n_meio')] + ' no meio, ' + r0[i('n_cai')] +
+      ' em quem caiu). <b>Referência</b>: parcela do tipo nos times que renderam acima do que o elenco custava (média ~27%). Diferença menor que ~15 pontos é ruído.</p>' +
+      '<table class="fse-t"><thead><tr><th>Tipo</th><th class="n">Subiu</th><th class="n">Meio</th><th class="n">Caiu</th><th class="n">Referência</th>' + C.map(c => '<th class="n">' + c[1] + '</th>').join('') + '</tr></thead><tbody>' +
+      L.map(r => '<tr><td><b>' + esc(r[i('tipo')]) + '</b></td>' + faixa(r, 'pct_sobe') + faixa(r, 'pct_meio') + faixa(r, 'pct_cai') + '<td class="n">' +
         num(100 * r[i('referencia')], 0) + '%</td>' + C.map(c => '<td class="n">' + (c[0] === 'distance_p90' ? num(r[i(c[0])] / 1000, 1) + ' km' : num(r[i(c[0])], c[2])) + '</td>').join('') + '</tr>').join('') +
       '</tbody></table>';
   }

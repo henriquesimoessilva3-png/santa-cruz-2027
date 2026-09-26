@@ -125,9 +125,18 @@ def tipos(d):
              "Dribles/90", "Corridas progressivas/90", "Toques na área/90", "Acções atacantes com sucesso/90", "xgxa90", "ga90", "Interseções/90"]
     orig = d.set_index(["ano", "clube", "chave"])
     T = T.drop(columns=[c for c in fis_u + tec_u if c in T]).join(orig[fis_u + tec_u], on=["ano", "clube", "chave"])
+    if "faixa" not in T: T["faixa"] = None
     G = T.groupby(["setor", "tipo"]).agg(n=("chave", "size"), referencia=("time_referencia", "mean"),
                                          rendimento=("rendimento", "median"),
                                          **{c: (c, "median") for c in fis_u + tec_u}).reset_index()
+    # composição por faixa da tabela (2022–2025): de cada 100 jogadores do setor nos times que SUBIRAM,
+    # quantos são de cada tipo — e o mesmo para o meio e para quem CAIU (pedido de 25/09)
+    T25 = T[T.ano <= 2025]
+    for f_ in ("Sobe", "Meio", "Cai"):
+        sub = T25[T25.faixa == f_]
+        comp = sub.groupby(["setor", "tipo"]).size() / sub.groupby("setor").size()
+        G["pct_" + f_.lower()] = [round(float(comp.get((s_, t_), 0)), 3) for s_, t_ in zip(G.setor, G.tipo)]
+        G["n_" + f_.lower()] = [int(((sub.setor == s_)).sum()) for s_ in G.setor]
     G.to_csv(os.path.join(OUT, "tipos_fisicos.csv"), index=False)
     T[["ano", "clube", "jogador", "pos11", "setor", "tipo", "minutos"] + fis_u + tec_u].to_csv(os.path.join(OUT, "jogadores_tipo.csv"), index=False)
     return G, T
