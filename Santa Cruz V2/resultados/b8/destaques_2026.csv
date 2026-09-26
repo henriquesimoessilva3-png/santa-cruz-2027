@@ -1,0 +1,37 @@
+setor,jogador,clube,pos,idade,minutos,fis1,v_fis1,fis2,v_fis2,tec1,v_tec1,tec2,v_tec2,z_fis,z_tec
+Zaga,Rodrigo Sam,Juventude,ZD,31.0,2267,cod_count_p90,27.14,hi_count_p90,48.5,Duelos defensivos/90,6.47,Duelos ofensivos/90,2.22,1.67,2.11
+Zaga,Sergio Palacios,Ponte Preta,ZD,21.0,1053,cod_count_p90,24.0,hi_count_p90,60.42,Duelos defensivos/90,5.81,Duelos ofensivos/90,2.22,1.93,1.8
+Zaga,Calebe Costa,Cuiabá,ZD,23.0,2318,cod_count_p90,30.31,hi_count_p90,50.7,Duelos defensivos/90,3.92,Duelos ofensivos/90,2.33,2.21,0.98
+Zaga,Danilo Barcelos,Ponte Preta,ZE,35.0,1365,cod_count_p90,24.9,hi_count_p90,49.37,Duelos defensivos/90,4.81,Duelos ofensivos/90,2.31,1.42,1.39
+Zaga,Luciano Castán,Criciúma,ZE,36.0,1841,cod_count_p90,23.9,hi_count_p90,51.23,Duelos defensivos/90,4.99,Duelos ofensivos/90,1.47,1.4,0.8
+Zaga,Betão,Náutico,ZE,27.0,1416,cod_count_p90,23.74,hi_count_p90,58.32,Duelos defensivos/90,4.39,Duelos ofensivos/90,1.33,1.78,0.41
+Lateral,Willean Lepo,Criciúma,LD,29.0,1710,runs_penalty_area_p30tip,3.54,hi_count_p90,77.74,Toques na área/90,2.68,Duelos/90,20.74,1.66,2.85
+Lateral,Patrick Brey,Botafogo-SP,LE,29.0,2301,runs_penalty_area_p30tip,5.92,hi_count_p90,68.46,Toques na área/90,2.19,Duelos/90,19.56,2.04,2.19
+Lateral,Moraes,Operário-PR,LE,28.0,1876,runs_penalty_area_p30tip,4.65,hi_count_p90,77.5,Toques na área/90,1.82,Duelos/90,12.95,2.11,0.74
+Lateral,Matheus Ribeiro,Náutico,LD,33.0,912,runs_penalty_area_p30tip,3.93,hi_count_p90,74.76,Toques na área/90,1.88,Duelos/90,11.64,1.62,0.58
+Lateral,DG,Avaí,LE,25.0,1886,runs_penalty_area_p30tip,1.67,hi_count_p90,67.63,Toques na área/90,1.19,Duelos/90,19.57,0.2,1.24
+Lateral,Kevyson,Ponte Preta,LE,22.0,1345,runs_penalty_area_p30tip,2.5,hi_count_p90,67.24,Toques na área/90,1.0,Duelos/90,18.2,0.52,0.84
+Volante,Romisson,São Bernardo,VOL,29.0,1924,runs_penalty_area_p30tip,4.7,sprint_distance_p30tip,138.67,Toques na área/90,1.36,xgxa90,0.22,2.35,1.47
+Volante,João Vieira,Vila Nova,VOL,28.0,2081,runs_penalty_area_p30tip,5.94,sprint_distance_p30tip,79.63,Toques na área/90,1.25,xgxa90,0.29,1.84,1.78
+Volante,Biel,Sport,VOL,24.0,1737,runs_penalty_area_p30tip,3.97,sprint_distance_p30tip,101.01,Toques na área/90,1.5,xgxa90,0.19,1.53,1.45
+Volante,Luís Oyama,Novorizontino,VOL,29.0,1906,runs_penalty_area_p30tip,3.05,sprint_distance_p30tip,97.63,Toques na área/90,0.99,xgxa90,0.22,1.17,1.03
+Volante,Dudu,Vila Nova,VOL,24.0,1685,runs_penalty_area_p30tip,2.33,sprint_distance_p30tip,92.36,Toques na área/90,1.07,xgxa90,0.1,0.85,0.38
+Volante,Léo Naldi,Novorizontino,VOL,25.0,1795,runs_penalty_area_p30tip,2.57,sprint_distance_p30tip,56.07,Toques na área/90,1.1,xgxa90,0.16,0.36,0.79
+Meia,Guilherme Marques,Atlético-GO,MEI,35.0,956,runs_penalty_area_p30tip,8.12,sprint_distance_p30tip,150.28,xgxa90,0.34,Toques na área/90,2.35,2.29,1.44
+Meia,Matheus Araújo,Ceará,MEI,24.0,1023,runs_penalty_area_p30tip,10.41,sprint_distance_p30tip,124.11,xgxa90,0.18,Toques na área/90,2.55,2.42,1.01
+Meia,Matheus Bianqui,Novorizontino,MED,28.0,1299,runs_penalty_area_p30tip,4.98,sprint_distance_p30tip,111.5,xgxa90,0.3,Toques na área/90,2.36,1.02,1.31
+Meia,Marquinhos Gabriel,Vila Nova,MEI,36.0,2055,runs_penalty_area_p30tip,3.9,sprint_distance_p30tip,90.11,xgxa90,0.39,Toques na área/90,2.1,0.47,1.44
+Meia,Everton Morelli,Botafogo-SP,MED,28.0,2420,runs_penalty_area_p30tip,3.98,sprint_distance_p30tip,85.33,xgxa90,0.21,Toques na área/90,2.53,0.42,1.11
+Meia,Fellipe Mateus,Criciúma,MEI,35.0,1906,runs_penalty_area_p30tip,4.53,sprint_distance_p30tip,95.96,xgxa90,0.2,Toques na área/90,1.42,0.69,0.28
+Extremo,Chrystian Barletta,Sport,ED,25.0,1991,runs_penalty_area_p30tip,3.98,psv99,30.73,Toques na área/90,2.44,Golos esperados/90,0.39,0.44,1.84
+Extremo,Kadu,Goiás,EE,24.0,1348,runs_penalty_area_p30tip,5.69,psv99,30.73,Toques na área/90,2.67,Golos esperados/90,0.27,0.94,1.19
+Extremo,Vinícius Paiva,Novorizontino,EE,25.0,1342,runs_penalty_area_p30tip,7.3,psv99,31.13,Toques na área/90,2.55,Golos esperados/90,0.14,1.6,0.14
+Extremo,Thayllon Roberth,Avaí,ED,20.0,1917,runs_penalty_area_p30tip,8.1,psv99,29.8,Toques na área/90,2.72,Golos esperados/90,0.16,1.19,0.44
+Extremo,Bruno José,Atlético-GO,ED,28.0,960,runs_penalty_area_p30tip,4.81,psv99,29.62,Toques na área/90,2.72,Golos esperados/90,0.26,0.15,1.16
+Extremo,Soares,Atlético-GO,EE,26.0,1935,runs_penalty_area_p30tip,3.0,psv99,31.12,Toques na área/90,2.65,Golos esperados/90,0.21,0.34,0.74
+Atacante,Ian Luccas,Athletic,CA,23.0,1433,sprint_distance_p30tip,177.09,distance_p90,10674.97,Corridas progressivas/90,1.32,Duelos defensivos/90,5.34,1.31,1.6
+Atacante,Kauan Cristtyan,Cuiabá,CA,20.0,1285,sprint_distance_p30tip,192.85,distance_p90,10608.05,Corridas progressivas/90,1.12,Duelos defensivos/90,4.2,1.42,0.88
+Atacante,Daniel Penha,Avaí,CA,27.0,1313,sprint_distance_p30tip,126.45,distance_p90,10606.84,Corridas progressivas/90,1.71,Duelos defensivos/90,3.98,0.72,1.38
+Atacante,William Pottker,Londrina,CA,32.0,1425,sprint_distance_p30tip,179.86,distance_p90,9920.17,Corridas progressivas/90,1.39,Duelos defensivos/90,2.72,0.7,0.48
+Atacante,Robson,Novorizontino,CA,35.0,2272,sprint_distance_p30tip,158.29,distance_p90,10183.51,Corridas progressivas/90,0.75,Duelos defensivos/90,3.64,0.7,0.25
+Atacante,Waguininho,Criciúma,CA,36.0,1881,sprint_distance_p30tip,139.37,distance_p90,9947.01,Corridas progressivas/90,1.15,Duelos defensivos/90,2.58,0.3,0.18

@@ -1,0 +1,1321 @@
+setor,fisico,tecnico,n,r,r_time_igual
+Zaga,psv99,Duelos/90,280,0.305,0.295
+Zaga,psv99,"Duelos ganhos, %",280,0.047,0.061
+Zaga,psv99,Duelos defensivos/90,280,0.248,0.266
+Zaga,psv99,"Duelos defensivos ganhos, %",280,0.124,0.115
+Zaga,psv99,Duelos aéreos/90,280,0.083,0.055
+Zaga,psv99,"Duelos aéreos ganhos, %",280,-0.002,-0.026
+Zaga,psv99,Duelos ofensivos/90,280,0.332,0.296
+Zaga,psv99,"Duelos ofensivos ganhos, %",280,-0.116,-0.087
+Zaga,psv99,Interseções/90,280,0.07,0.076
+Zaga,psv99,Dribles/90,280,0.247,0.246
+Zaga,psv99,Corridas progressivas/90,280,-0.03,-0.003
+Zaga,psv99,Toques na área/90,280,0.102,0.113
+Zaga,psv99,Acções atacantes com sucesso/90,280,0.171,0.178
+Zaga,psv99,Golos esperados/90,280,0.089,0.112
+Zaga,psv99,Assistências esperadas/90,280,0.019,0.018
+Zaga,psv99,ga90,280,0.004,0.029
+Zaga,psv99,xgxa90,280,0.092,0.104
+Zaga,psv99,Passes progressivos/90,280,-0.12,-0.1
+Zaga,psv99,Faltas sofridas/90,280,0.105,0.094
+Zaga,psv99,Passes chave/90,280,-0.048,-0.022
+Zaga,sprint_count_p90,Duelos/90,280,0.395,0.339
+Zaga,sprint_count_p90,"Duelos ganhos, %",280,-0.069,-0.105
+Zaga,sprint_count_p90,Duelos defensivos/90,280,0.38,0.35
+Zaga,sprint_count_p90,"Duelos defensivos ganhos, %",280,0.024,0.015
+Zaga,sprint_count_p90,Duelos aéreos/90,280,0.04,-0.023
+Zaga,sprint_count_p90,"Duelos aéreos ganhos, %",280,-0.08,-0.155
+Zaga,sprint_count_p90,Duelos ofensivos/90,280,0.42,0.409
+Zaga,sprint_count_p90,"Duelos ofensivos ganhos, %",280,-0.125,-0.117
+Zaga,sprint_count_p90,Interseções/90,280,0.11,0.101
+Zaga,sprint_count_p90,Dribles/90,280,0.354,0.367
+Zaga,sprint_count_p90,Corridas progressivas/90,280,0.101,0.134
+Zaga,sprint_count_p90,Toques na área/90,280,0.07,0.079
+Zaga,sprint_count_p90,Acções atacantes com sucesso/90,280,0.235,0.24
+Zaga,sprint_count_p90,Golos esperados/90,280,0.069,0.077
+Zaga,sprint_count_p90,Assistências esperadas/90,280,0.061,0.073
+Zaga,sprint_count_p90,ga90,280,0.084,0.073
+Zaga,sprint_count_p90,xgxa90,280,0.089,0.094
+Zaga,sprint_count_p90,Passes progressivos/90,280,-0.09,-0.059
+Zaga,sprint_count_p90,Faltas sofridas/90,280,0.19,0.174
+Zaga,sprint_count_p90,Passes chave/90,280,0.056,0.081
+Zaga,hi_count_p90,Duelos/90,280,0.382,0.327
+Zaga,hi_count_p90,"Duelos ganhos, %",280,-0.099,-0.137
+Zaga,hi_count_p90,Duelos defensivos/90,280,0.381,0.355
+Zaga,hi_count_p90,"Duelos defensivos ganhos, %",280,-0.017,-0.033
+Zaga,hi_count_p90,Duelos aéreos/90,280,0.018,-0.05
+Zaga,hi_count_p90,"Duelos aéreos ganhos, %",280,-0.091,-0.16
+Zaga,hi_count_p90,Duelos ofensivos/90,280,0.412,0.411
+Zaga,hi_count_p90,"Duelos ofensivos ganhos, %",280,-0.089,-0.084
+Zaga,hi_count_p90,Interseções/90,280,0.095,0.083
+Zaga,hi_count_p90,Dribles/90,280,0.363,0.382
+Zaga,hi_count_p90,Corridas progressivas/90,280,0.13,0.161
+Zaga,hi_count_p90,Toques na área/90,280,0.044,0.042
+Zaga,hi_count_p90,Acções atacantes com sucesso/90,280,0.248,0.244
+Zaga,hi_count_p90,Golos esperados/90,280,0.059,0.051
+Zaga,hi_count_p90,Assistências esperadas/90,280,0.088,0.09
+Zaga,hi_count_p90,ga90,280,0.1,0.066
+Zaga,hi_count_p90,xgxa90,280,0.083,0.071
+Zaga,hi_count_p90,Passes progressivos/90,280,-0.049,-0.016
+Zaga,hi_count_p90,Faltas sofridas/90,280,0.209,0.187
+Zaga,hi_count_p90,Passes chave/90,280,0.099,0.111
+Zaga,expl_accel_sprint_p90,Duelos/90,280,0.231,0.228
+Zaga,expl_accel_sprint_p90,"Duelos ganhos, %",280,0.072,0.059
+Zaga,expl_accel_sprint_p90,Duelos defensivos/90,280,0.239,0.248
+Zaga,expl_accel_sprint_p90,"Duelos defensivos ganhos, %",280,0.081,0.079
+Zaga,expl_accel_sprint_p90,Duelos aéreos/90,280,-0.04,-0.066
+Zaga,expl_accel_sprint_p90,"Duelos aéreos ganhos, %",280,-0.003,-0.031
+Zaga,expl_accel_sprint_p90,Duelos ofensivos/90,280,0.345,0.334
+Zaga,expl_accel_sprint_p90,"Duelos ofensivos ganhos, %",280,0.04,0.037
+Zaga,expl_accel_sprint_p90,Interseções/90,280,0.207,0.189
+Zaga,expl_accel_sprint_p90,Dribles/90,280,0.302,0.318
+Zaga,expl_accel_sprint_p90,Corridas progressivas/90,280,-0.003,0.038
+Zaga,expl_accel_sprint_p90,Toques na área/90,280,0.042,0.014
+Zaga,expl_accel_sprint_p90,Acções atacantes com sucesso/90,280,0.211,0.23
+Zaga,expl_accel_sprint_p90,Golos esperados/90,280,0.045,0.03
+Zaga,expl_accel_sprint_p90,Assistências esperadas/90,280,0.036,0.061
+Zaga,expl_accel_sprint_p90,ga90,280,0.021,0.026
+Zaga,expl_accel_sprint_p90,xgxa90,280,0.05,0.042
+Zaga,expl_accel_sprint_p90,Passes progressivos/90,280,-0.119,-0.11
+Zaga,expl_accel_sprint_p90,Faltas sofridas/90,280,0.167,0.159
+Zaga,expl_accel_sprint_p90,Passes chave/90,280,0.046,0.092
+Zaga,distance_p90,Duelos/90,280,0.193,0.155
+Zaga,distance_p90,"Duelos ganhos, %",280,-0.12,-0.16
+Zaga,distance_p90,Duelos defensivos/90,280,0.255,0.225
+Zaga,distance_p90,"Duelos defensivos ganhos, %",280,-0.164,-0.18
+Zaga,distance_p90,Duelos aéreos/90,280,0.035,-0.023
+Zaga,distance_p90,"Duelos aéreos ganhos, %",280,-0.008,-0.076
+Zaga,distance_p90,Duelos ofensivos/90,280,0.102,0.158
+Zaga,distance_p90,"Duelos ofensivos ganhos, %",280,-0.059,-0.047
+Zaga,distance_p90,Interseções/90,280,-0.006,-0.002
+Zaga,distance_p90,Dribles/90,280,0.102,0.156
+Zaga,distance_p90,Corridas progressivas/90,280,0.225,0.254
+Zaga,distance_p90,Toques na área/90,280,0.039,0.017
+Zaga,distance_p90,Acções atacantes com sucesso/90,280,0.091,0.061
+Zaga,distance_p90,Golos esperados/90,280,0.007,-0.017
+Zaga,distance_p90,Assistências esperadas/90,280,0.038,0.047
+Zaga,distance_p90,ga90,280,0.002,-0.047
+Zaga,distance_p90,xgxa90,280,-0.0,-0.021
+Zaga,distance_p90,Passes progressivos/90,280,0.121,0.153
+Zaga,distance_p90,Faltas sofridas/90,280,0.044,0.048
+Zaga,distance_p90,Passes chave/90,280,0.072,0.024
+Zaga,high_accel_p90,Duelos/90,280,0.186,0.174
+Zaga,high_accel_p90,"Duelos ganhos, %",280,-0.005,-0.024
+Zaga,high_accel_p90,Duelos defensivos/90,280,0.228,0.207
+Zaga,high_accel_p90,"Duelos defensivos ganhos, %",280,0.072,0.073
+Zaga,high_accel_p90,Duelos aéreos/90,280,-0.057,-0.093
+Zaga,high_accel_p90,"Duelos aéreos ganhos, %",280,-0.099,-0.127
+Zaga,high_accel_p90,Duelos ofensivos/90,280,0.269,0.276
+Zaga,high_accel_p90,"Duelos ofensivos ganhos, %",280,0.032,0.037
+Zaga,high_accel_p90,Interseções/90,280,0.091,0.11
+Zaga,high_accel_p90,Dribles/90,280,0.243,0.29
+Zaga,high_accel_p90,Corridas progressivas/90,280,0.013,0.067
+Zaga,high_accel_p90,Toques na área/90,280,-0.042,-0.041
+Zaga,high_accel_p90,Acções atacantes com sucesso/90,280,0.164,0.186
+Zaga,high_accel_p90,Golos esperados/90,280,-0.03,-0.022
+Zaga,high_accel_p90,Assistências esperadas/90,280,0.005,0.045
+Zaga,high_accel_p90,ga90,280,0.035,0.026
+Zaga,high_accel_p90,xgxa90,280,-0.025,-0.005
+Zaga,high_accel_p90,Passes progressivos/90,280,-0.057,-0.017
+Zaga,high_accel_p90,Faltas sofridas/90,280,0.152,0.128
+Zaga,high_accel_p90,Passes chave/90,280,0.027,0.089
+Zaga,cod_count_p90,Duelos/90,280,0.395,0.354
+Zaga,cod_count_p90,"Duelos ganhos, %",280,-0.092,-0.133
+Zaga,cod_count_p90,Duelos defensivos/90,280,0.45,0.415
+Zaga,cod_count_p90,"Duelos defensivos ganhos, %",280,0.021,-0.007
+Zaga,cod_count_p90,Duelos aéreos/90,280,0.014,-0.036
+Zaga,cod_count_p90,"Duelos aéreos ganhos, %",280,-0.123,-0.178
+Zaga,cod_count_p90,Duelos ofensivos/90,280,0.371,0.411
+Zaga,cod_count_p90,"Duelos ofensivos ganhos, %",280,-0.029,-0.04
+Zaga,cod_count_p90,Interseções/90,280,0.097,0.112
+Zaga,cod_count_p90,Dribles/90,280,0.347,0.402
+Zaga,cod_count_p90,Corridas progressivas/90,280,0.119,0.149
+Zaga,cod_count_p90,Toques na área/90,280,0.043,0.05
+Zaga,cod_count_p90,Acções atacantes com sucesso/90,280,0.26,0.245
+Zaga,cod_count_p90,Golos esperados/90,280,0.068,0.043
+Zaga,cod_count_p90,Assistências esperadas/90,280,0.048,0.047
+Zaga,cod_count_p90,ga90,280,0.032,0.001
+Zaga,cod_count_p90,xgxa90,280,0.084,0.051
+Zaga,cod_count_p90,Passes progressivos/90,280,-0.019,-0.012
+Zaga,cod_count_p90,Faltas sofridas/90,280,0.237,0.231
+Zaga,cod_count_p90,Passes chave/90,280,0.095,0.114
+Zaga,runs_p30tip,Duelos/90,280,0.084,0.111
+Zaga,runs_p30tip,"Duelos ganhos, %",280,-0.221,-0.215
+Zaga,runs_p30tip,Duelos defensivos/90,280,0.079,0.085
+Zaga,runs_p30tip,"Duelos defensivos ganhos, %",280,-0.142,-0.14
+Zaga,runs_p30tip,Duelos aéreos/90,280,-0.039,-0.058
+Zaga,runs_p30tip,"Duelos aéreos ganhos, %",280,-0.141,-0.142
+Zaga,runs_p30tip,Duelos ofensivos/90,280,0.194,0.229
+Zaga,runs_p30tip,"Duelos ofensivos ganhos, %",280,-0.065,-0.034
+Zaga,runs_p30tip,Interseções/90,280,-0.143,-0.137
+Zaga,runs_p30tip,Dribles/90,280,0.197,0.227
+Zaga,runs_p30tip,Corridas progressivas/90,280,0.383,0.386
+Zaga,runs_p30tip,Toques na área/90,280,0.076,0.034
+Zaga,runs_p30tip,Acções atacantes com sucesso/90,280,0.248,0.226
+Zaga,runs_p30tip,Golos esperados/90,280,0.099,0.06
+Zaga,runs_p30tip,Assistências esperadas/90,280,0.155,0.153
+Zaga,runs_p30tip,ga90,280,0.088,0.046
+Zaga,runs_p30tip,xgxa90,280,0.122,0.071
+Zaga,runs_p30tip,Passes progressivos/90,280,0.19,0.185
+Zaga,runs_p30tip,Faltas sofridas/90,280,0.072,0.127
+Zaga,runs_p30tip,Passes chave/90,280,0.126,0.126
+Zaga,runs_penalty_area_p30tip,Duelos/90,280,0.146,0.093
+Zaga,runs_penalty_area_p30tip,"Duelos ganhos, %",280,-0.082,-0.098
+Zaga,runs_penalty_area_p30tip,Duelos defensivos/90,280,0.054,-0.014
+Zaga,runs_penalty_area_p30tip,"Duelos defensivos ganhos, %",280,-0.015,-0.003
+Zaga,runs_penalty_area_p30tip,Duelos aéreos/90,280,0.034,-0.011
+Zaga,runs_penalty_area_p30tip,"Duelos aéreos ganhos, %",280,-0.064,-0.093
+Zaga,runs_penalty_area_p30tip,Duelos ofensivos/90,280,0.234,0.253
+Zaga,runs_penalty_area_p30tip,"Duelos ofensivos ganhos, %",280,-0.046,-0.072
+Zaga,runs_penalty_area_p30tip,Interseções/90,280,0.039,0.029
+Zaga,runs_penalty_area_p30tip,Dribles/90,280,0.191,0.209
+Zaga,runs_penalty_area_p30tip,Corridas progressivas/90,280,0.201,0.182
+Zaga,runs_penalty_area_p30tip,Toques na área/90,280,0.297,0.279
+Zaga,runs_penalty_area_p30tip,Acções atacantes com sucesso/90,280,0.26,0.229
+Zaga,runs_penalty_area_p30tip,Golos esperados/90,280,0.234,0.217
+Zaga,runs_penalty_area_p30tip,Assistências esperadas/90,280,0.207,0.155
+Zaga,runs_penalty_area_p30tip,ga90,280,0.19,0.17
+Zaga,runs_penalty_area_p30tip,xgxa90,280,0.274,0.25
+Zaga,runs_penalty_area_p30tip,Passes progressivos/90,280,0.097,0.025
+Zaga,runs_penalty_area_p30tip,Faltas sofridas/90,280,0.084,0.093
+Zaga,runs_penalty_area_p30tip,Passes chave/90,280,0.1,0.068
+Zaga,sprint_distance_p30tip,Duelos/90,280,0.303,0.252
+Zaga,sprint_distance_p30tip,"Duelos ganhos, %",280,-0.118,-0.13
+Zaga,sprint_distance_p30tip,Duelos defensivos/90,280,0.311,0.24
+Zaga,sprint_distance_p30tip,"Duelos defensivos ganhos, %",280,-0.067,-0.083
+Zaga,sprint_distance_p30tip,Duelos aéreos/90,280,-0.007,-0.066
+Zaga,sprint_distance_p30tip,"Duelos aéreos ganhos, %",280,-0.105,-0.162
+Zaga,sprint_distance_p30tip,Duelos ofensivos/90,280,0.357,0.382
+Zaga,sprint_distance_p30tip,"Duelos ofensivos ganhos, %",280,-0.123,-0.087
+Zaga,sprint_distance_p30tip,Interseções/90,280,0.041,-0.008
+Zaga,sprint_distance_p30tip,Dribles/90,280,0.299,0.371
+Zaga,sprint_distance_p30tip,Corridas progressivas/90,280,0.122,0.211
+Zaga,sprint_distance_p30tip,Toques na área/90,280,0.081,0.064
+Zaga,sprint_distance_p30tip,Acções atacantes com sucesso/90,280,0.208,0.261
+Zaga,sprint_distance_p30tip,Golos esperados/90,280,0.018,0.023
+Zaga,sprint_distance_p30tip,Assistências esperadas/90,280,0.033,0.072
+Zaga,sprint_distance_p30tip,ga90,280,0.039,0.024
+Zaga,sprint_distance_p30tip,xgxa90,280,0.017,0.03
+Zaga,sprint_distance_p30tip,Passes progressivos/90,280,-0.099,-0.053
+Zaga,sprint_distance_p30tip,Faltas sofridas/90,280,0.119,0.155
+Zaga,sprint_distance_p30tip,Passes chave/90,280,0.026,0.057
+Zaga,sprint_distance_p30otip,Duelos/90,280,0.361,0.289
+Zaga,sprint_distance_p30otip,"Duelos ganhos, %",280,-0.066,-0.089
+Zaga,sprint_distance_p30otip,Duelos defensivos/90,280,0.357,0.334
+Zaga,sprint_distance_p30otip,"Duelos defensivos ganhos, %",280,0.016,0.038
+Zaga,sprint_distance_p30otip,Duelos aéreos/90,280,0.049,-0.012
+Zaga,sprint_distance_p30otip,"Duelos aéreos ganhos, %",280,-0.066,-0.129
+Zaga,sprint_distance_p30otip,Duelos ofensivos/90,280,0.374,0.309
+Zaga,sprint_distance_p30otip,"Duelos ofensivos ganhos, %",280,-0.122,-0.136
+Zaga,sprint_distance_p30otip,Interseções/90,280,0.034,0.065
+Zaga,sprint_distance_p30otip,Dribles/90,280,0.277,0.255
+Zaga,sprint_distance_p30otip,Corridas progressivas/90,280,0.139,0.064
+Zaga,sprint_distance_p30otip,Toques na área/90,280,0.088,0.12
+Zaga,sprint_distance_p30otip,Acções atacantes com sucesso/90,280,0.174,0.138
+Zaga,sprint_distance_p30otip,Golos esperados/90,280,0.058,0.064
+Zaga,sprint_distance_p30otip,Assistências esperadas/90,280,0.092,0.062
+Zaga,sprint_distance_p30otip,ga90,280,0.059,0.06
+Zaga,sprint_distance_p30otip,xgxa90,280,0.088,0.077
+Zaga,sprint_distance_p30otip,Passes progressivos/90,280,-0.016,-0.029
+Zaga,sprint_distance_p30otip,Faltas sofridas/90,280,0.161,0.125
+Zaga,sprint_distance_p30otip,Passes chave/90,280,0.097,0.053
+Lateral,psv99,Duelos/90,272,0.239,0.28
+Lateral,psv99,"Duelos ganhos, %",272,0.065,0.082
+Lateral,psv99,Duelos defensivos/90,272,0.035,0.068
+Lateral,psv99,"Duelos defensivos ganhos, %",272,0.117,0.14
+Lateral,psv99,Duelos aéreos/90,272,0.079,0.142
+Lateral,psv99,"Duelos aéreos ganhos, %",272,0.018,0.045
+Lateral,psv99,Duelos ofensivos/90,272,0.261,0.262
+Lateral,psv99,"Duelos ofensivos ganhos, %",272,0.052,0.055
+Lateral,psv99,Interseções/90,272,0.137,0.14
+Lateral,psv99,Dribles/90,272,0.264,0.276
+Lateral,psv99,Corridas progressivas/90,272,0.185,0.156
+Lateral,psv99,Toques na área/90,272,0.214,0.193
+Lateral,psv99,Acções atacantes com sucesso/90,272,0.231,0.211
+Lateral,psv99,Golos esperados/90,272,0.054,0.037
+Lateral,psv99,Assistências esperadas/90,272,-0.022,-0.074
+Lateral,psv99,ga90,272,0.039,-0.002
+Lateral,psv99,xgxa90,272,0.007,-0.021
+Lateral,psv99,Passes progressivos/90,272,-0.076,-0.105
+Lateral,psv99,Faltas sofridas/90,272,0.216,0.223
+Lateral,psv99,Passes chave/90,272,0.143,0.084
+Lateral,sprint_count_p90,Duelos/90,272,0.363,0.36
+Lateral,sprint_count_p90,"Duelos ganhos, %",272,-0.111,-0.078
+Lateral,sprint_count_p90,Duelos defensivos/90,272,0.18,0.181
+Lateral,sprint_count_p90,"Duelos defensivos ganhos, %",272,0.066,0.081
+Lateral,sprint_count_p90,Duelos aéreos/90,272,0.1,0.104
+Lateral,sprint_count_p90,"Duelos aéreos ganhos, %",272,-0.125,-0.081
+Lateral,sprint_count_p90,Duelos ofensivos/90,272,0.336,0.318
+Lateral,sprint_count_p90,"Duelos ofensivos ganhos, %",272,-0.023,-0.012
+Lateral,sprint_count_p90,Interseções/90,272,0.157,0.172
+Lateral,sprint_count_p90,Dribles/90,272,0.32,0.319
+Lateral,sprint_count_p90,Corridas progressivas/90,272,0.249,0.212
+Lateral,sprint_count_p90,Toques na área/90,272,0.4,0.325
+Lateral,sprint_count_p90,Acções atacantes com sucesso/90,272,0.299,0.276
+Lateral,sprint_count_p90,Golos esperados/90,272,0.151,0.067
+Lateral,sprint_count_p90,Assistências esperadas/90,272,0.035,0.003
+Lateral,sprint_count_p90,ga90,272,0.015,-0.045
+Lateral,sprint_count_p90,xgxa90,272,0.103,0.05
+Lateral,sprint_count_p90,Passes progressivos/90,272,-0.167,-0.183
+Lateral,sprint_count_p90,Faltas sofridas/90,272,0.227,0.233
+Lateral,sprint_count_p90,Passes chave/90,272,0.157,0.111
+Lateral,hi_count_p90,Duelos/90,272,0.382,0.374
+Lateral,hi_count_p90,"Duelos ganhos, %",272,-0.154,-0.111
+Lateral,hi_count_p90,Duelos defensivos/90,272,0.218,0.215
+Lateral,hi_count_p90,"Duelos defensivos ganhos, %",272,0.042,0.06
+Lateral,hi_count_p90,Duelos aéreos/90,272,0.082,0.092
+Lateral,hi_count_p90,"Duelos aéreos ganhos, %",272,-0.145,-0.1
+Lateral,hi_count_p90,Duelos ofensivos/90,272,0.356,0.335
+Lateral,hi_count_p90,"Duelos ofensivos ganhos, %",272,-0.029,-0.009
+Lateral,hi_count_p90,Interseções/90,272,0.159,0.181
+Lateral,hi_count_p90,Dribles/90,272,0.327,0.327
+Lateral,hi_count_p90,Corridas progressivas/90,272,0.239,0.212
+Lateral,hi_count_p90,Toques na área/90,272,0.407,0.337
+Lateral,hi_count_p90,Acções atacantes com sucesso/90,272,0.317,0.3
+Lateral,hi_count_p90,Golos esperados/90,272,0.162,0.077
+Lateral,hi_count_p90,Assistências esperadas/90,272,0.074,0.05
+Lateral,hi_count_p90,ga90,272,0.029,-0.027
+Lateral,hi_count_p90,xgxa90,272,0.142,0.089
+Lateral,hi_count_p90,Passes progressivos/90,272,-0.188,-0.201
+Lateral,hi_count_p90,Faltas sofridas/90,272,0.229,0.235
+Lateral,hi_count_p90,Passes chave/90,272,0.174,0.134
+Lateral,expl_accel_sprint_p90,Duelos/90,272,0.193,0.211
+Lateral,expl_accel_sprint_p90,"Duelos ganhos, %",272,0.002,-0.006
+Lateral,expl_accel_sprint_p90,Duelos defensivos/90,272,0.038,0.034
+Lateral,expl_accel_sprint_p90,"Duelos defensivos ganhos, %",272,0.1,0.127
+Lateral,expl_accel_sprint_p90,Duelos aéreos/90,272,0.086,0.108
+Lateral,expl_accel_sprint_p90,"Duelos aéreos ganhos, %",272,-0.078,-0.055
+Lateral,expl_accel_sprint_p90,Duelos ofensivos/90,272,0.202,0.204
+Lateral,expl_accel_sprint_p90,"Duelos ofensivos ganhos, %",272,-0.017,-0.023
+Lateral,expl_accel_sprint_p90,Interseções/90,272,0.134,0.121
+Lateral,expl_accel_sprint_p90,Dribles/90,272,0.2,0.211
+Lateral,expl_accel_sprint_p90,Corridas progressivas/90,272,0.133,0.122
+Lateral,expl_accel_sprint_p90,Toques na área/90,272,0.203,0.155
+Lateral,expl_accel_sprint_p90,Acções atacantes com sucesso/90,272,0.188,0.177
+Lateral,expl_accel_sprint_p90,Golos esperados/90,272,-0.002,-0.038
+Lateral,expl_accel_sprint_p90,Assistências esperadas/90,272,-0.032,-0.078
+Lateral,expl_accel_sprint_p90,ga90,272,-0.035,-0.054
+Lateral,expl_accel_sprint_p90,xgxa90,272,-0.034,-0.067
+Lateral,expl_accel_sprint_p90,Passes progressivos/90,272,-0.122,-0.125
+Lateral,expl_accel_sprint_p90,Faltas sofridas/90,272,0.134,0.149
+Lateral,expl_accel_sprint_p90,Passes chave/90,272,0.174,0.126
+Lateral,distance_p90,Duelos/90,272,0.191,0.191
+Lateral,distance_p90,"Duelos ganhos, %",272,-0.199,-0.147
+Lateral,distance_p90,Duelos defensivos/90,272,0.136,0.153
+Lateral,distance_p90,"Duelos defensivos ganhos, %",272,0.002,-0.001
+Lateral,distance_p90,Duelos aéreos/90,272,0.062,0.047
+Lateral,distance_p90,"Duelos aéreos ganhos, %",272,-0.096,-0.113
+Lateral,distance_p90,Duelos ofensivos/90,272,0.175,0.176
+Lateral,distance_p90,"Duelos ofensivos ganhos, %",272,-0.093,-0.022
+Lateral,distance_p90,Interseções/90,272,0.084,0.126
+Lateral,distance_p90,Dribles/90,272,0.172,0.168
+Lateral,distance_p90,Corridas progressivas/90,272,0.048,0.066
+Lateral,distance_p90,Toques na área/90,272,0.343,0.331
+Lateral,distance_p90,Acções atacantes com sucesso/90,272,0.199,0.185
+Lateral,distance_p90,Golos esperados/90,272,0.238,0.171
+Lateral,distance_p90,Assistências esperadas/90,272,0.073,0.085
+Lateral,distance_p90,ga90,272,0.097,0.079
+Lateral,distance_p90,xgxa90,272,0.186,0.162
+Lateral,distance_p90,Passes progressivos/90,272,-0.104,-0.163
+Lateral,distance_p90,Faltas sofridas/90,272,0.059,0.104
+Lateral,distance_p90,Passes chave/90,272,0.088,0.09
+Lateral,high_accel_p90,Duelos/90,272,0.271,0.233
+Lateral,high_accel_p90,"Duelos ganhos, %",272,-0.002,0.009
+Lateral,high_accel_p90,Duelos defensivos/90,272,0.133,0.055
+Lateral,high_accel_p90,"Duelos defensivos ganhos, %",272,0.061,0.107
+Lateral,high_accel_p90,Duelos aéreos/90,272,0.157,0.184
+Lateral,high_accel_p90,"Duelos aéreos ganhos, %",272,-0.031,-0.015
+Lateral,high_accel_p90,Duelos ofensivos/90,272,0.197,0.175
+Lateral,high_accel_p90,"Duelos ofensivos ganhos, %",272,-0.041,-0.033
+Lateral,high_accel_p90,Interseções/90,272,0.117,0.082
+Lateral,high_accel_p90,Dribles/90,272,0.234,0.223
+Lateral,high_accel_p90,Corridas progressivas/90,272,0.131,0.094
+Lateral,high_accel_p90,Toques na área/90,272,0.213,0.186
+Lateral,high_accel_p90,Acções atacantes com sucesso/90,272,0.178,0.167
+Lateral,high_accel_p90,Golos esperados/90,272,0.018,-0.011
+Lateral,high_accel_p90,Assistências esperadas/90,272,-0.061,-0.089
+Lateral,high_accel_p90,ga90,272,-0.094,-0.092
+Lateral,high_accel_p90,xgxa90,272,-0.04,-0.067
+Lateral,high_accel_p90,Passes progressivos/90,272,-0.132,-0.138
+Lateral,high_accel_p90,Faltas sofridas/90,272,0.117,0.136
+Lateral,high_accel_p90,Passes chave/90,272,0.087,0.038
+Lateral,cod_count_p90,Duelos/90,272,0.444,0.45
+Lateral,cod_count_p90,"Duelos ganhos, %",272,-0.158,-0.126
+Lateral,cod_count_p90,Duelos defensivos/90,272,0.33,0.32
+Lateral,cod_count_p90,"Duelos defensivos ganhos, %",272,-0.021,-0.014
+Lateral,cod_count_p90,Duelos aéreos/90,272,0.08,0.13
+Lateral,cod_count_p90,"Duelos aéreos ganhos, %",272,-0.103,-0.079
+Lateral,cod_count_p90,Duelos ofensivos/90,272,0.368,0.37
+Lateral,cod_count_p90,"Duelos ofensivos ganhos, %",272,-0.027,-0.003
+Lateral,cod_count_p90,Interseções/90,272,0.2,0.235
+Lateral,cod_count_p90,Dribles/90,272,0.301,0.309
+Lateral,cod_count_p90,Corridas progressivas/90,272,0.141,0.156
+Lateral,cod_count_p90,Toques na área/90,272,0.305,0.334
+Lateral,cod_count_p90,Acções atacantes com sucesso/90,272,0.212,0.236
+Lateral,cod_count_p90,Golos esperados/90,272,0.145,0.143
+Lateral,cod_count_p90,Assistências esperadas/90,272,0.002,0.039
+Lateral,cod_count_p90,ga90,272,-0.012,-0.001
+Lateral,cod_count_p90,xgxa90,272,0.077,0.101
+Lateral,cod_count_p90,Passes progressivos/90,272,-0.218,-0.232
+Lateral,cod_count_p90,Faltas sofridas/90,272,0.266,0.266
+Lateral,cod_count_p90,Passes chave/90,272,0.066,0.068
+Lateral,runs_p30tip,Duelos/90,271,0.146,0.119
+Lateral,runs_p30tip,"Duelos ganhos, %",271,-0.131,-0.152
+Lateral,runs_p30tip,Duelos defensivos/90,271,0.025,0.017
+Lateral,runs_p30tip,"Duelos defensivos ganhos, %",271,0.094,0.07
+Lateral,runs_p30tip,Duelos aéreos/90,271,-0.017,-0.015
+Lateral,runs_p30tip,"Duelos aéreos ganhos, %",271,-0.193,-0.179
+Lateral,runs_p30tip,Duelos ofensivos/90,271,0.213,0.182
+Lateral,runs_p30tip,"Duelos ofensivos ganhos, %",271,-0.022,-0.043
+Lateral,runs_p30tip,Interseções/90,271,-0.052,-0.046
+Lateral,runs_p30tip,Dribles/90,271,0.229,0.216
+Lateral,runs_p30tip,Corridas progressivas/90,271,0.181,0.159
+Lateral,runs_p30tip,Toques na área/90,271,0.28,0.257
+Lateral,runs_p30tip,Acções atacantes com sucesso/90,271,0.271,0.252
+Lateral,runs_p30tip,Golos esperados/90,271,0.169,0.117
+Lateral,runs_p30tip,Assistências esperadas/90,271,0.121,0.139
+Lateral,runs_p30tip,ga90,271,0.047,0.056
+Lateral,runs_p30tip,xgxa90,271,0.185,0.159
+Lateral,runs_p30tip,Passes progressivos/90,271,-0.078,-0.098
+Lateral,runs_p30tip,Faltas sofridas/90,271,0.086,0.056
+Lateral,runs_p30tip,Passes chave/90,271,0.145,0.162
+Lateral,runs_penalty_area_p30tip,Duelos/90,271,0.196,0.161
+Lateral,runs_penalty_area_p30tip,"Duelos ganhos, %",271,-0.231,-0.261
+Lateral,runs_penalty_area_p30tip,Duelos defensivos/90,271,0.031,0.0
+Lateral,runs_penalty_area_p30tip,"Duelos defensivos ganhos, %",271,-0.025,-0.088
+Lateral,runs_penalty_area_p30tip,Duelos aéreos/90,271,0.075,0.097
+Lateral,runs_penalty_area_p30tip,"Duelos aéreos ganhos, %",271,-0.214,-0.175
+Lateral,runs_penalty_area_p30tip,Duelos ofensivos/90,271,0.225,0.182
+Lateral,runs_penalty_area_p30tip,"Duelos ofensivos ganhos, %",271,-0.039,-0.06
+Lateral,runs_penalty_area_p30tip,Interseções/90,271,-0.063,-0.031
+Lateral,runs_penalty_area_p30tip,Dribles/90,271,0.165,0.118
+Lateral,runs_penalty_area_p30tip,Corridas progressivas/90,271,0.102,0.051
+Lateral,runs_penalty_area_p30tip,Toques na área/90,271,0.68,0.63
+Lateral,runs_penalty_area_p30tip,Acções atacantes com sucesso/90,271,0.161,0.109
+Lateral,runs_penalty_area_p30tip,Golos esperados/90,271,0.482,0.464
+Lateral,runs_penalty_area_p30tip,Assistências esperadas/90,271,0.047,0.03
+Lateral,runs_penalty_area_p30tip,ga90,271,0.146,0.118
+Lateral,runs_penalty_area_p30tip,xgxa90,271,0.3,0.307
+Lateral,runs_penalty_area_p30tip,Passes progressivos/90,271,-0.275,-0.283
+Lateral,runs_penalty_area_p30tip,Faltas sofridas/90,271,0.185,0.147
+Lateral,runs_penalty_area_p30tip,Passes chave/90,271,-0.014,-0.05
+Lateral,sprint_distance_p30tip,Duelos/90,271,0.275,0.298
+Lateral,sprint_distance_p30tip,"Duelos ganhos, %",271,-0.095,-0.069
+Lateral,sprint_distance_p30tip,Duelos defensivos/90,271,0.074,0.075
+Lateral,sprint_distance_p30tip,"Duelos defensivos ganhos, %",271,0.062,0.084
+Lateral,sprint_distance_p30tip,Duelos aéreos/90,271,0.057,0.078
+Lateral,sprint_distance_p30tip,"Duelos aéreos ganhos, %",271,-0.17,-0.117
+Lateral,sprint_distance_p30tip,Duelos ofensivos/90,271,0.32,0.336
+Lateral,sprint_distance_p30tip,"Duelos ofensivos ganhos, %",271,0.041,0.043
+Lateral,sprint_distance_p30tip,Interseções/90,271,0.016,0.029
+Lateral,sprint_distance_p30tip,Dribles/90,271,0.353,0.384
+Lateral,sprint_distance_p30tip,Corridas progressivas/90,271,0.323,0.301
+Lateral,sprint_distance_p30tip,Toques na área/90,271,0.378,0.37
+Lateral,sprint_distance_p30tip,Acções atacantes com sucesso/90,271,0.341,0.352
+Lateral,sprint_distance_p30tip,Golos esperados/90,271,0.193,0.143
+Lateral,sprint_distance_p30tip,Assistências esperadas/90,271,0.112,0.051
+Lateral,sprint_distance_p30tip,ga90,271,0.029,-0.002
+Lateral,sprint_distance_p30tip,xgxa90,271,0.176,0.126
+Lateral,sprint_distance_p30tip,Passes progressivos/90,271,-0.175,-0.175
+Lateral,sprint_distance_p30tip,Faltas sofridas/90,271,0.205,0.242
+Lateral,sprint_distance_p30tip,Passes chave/90,271,0.197,0.174
+Lateral,sprint_distance_p30otip,Duelos/90,271,0.295,0.312
+Lateral,sprint_distance_p30otip,"Duelos ganhos, %",271,-0.062,-0.001
+Lateral,sprint_distance_p30otip,Duelos defensivos/90,271,0.189,0.253
+Lateral,sprint_distance_p30otip,"Duelos defensivos ganhos, %",271,0.066,0.066
+Lateral,sprint_distance_p30otip,Duelos aéreos/90,271,0.132,0.119
+Lateral,sprint_distance_p30otip,"Duelos aéreos ganhos, %",271,-0.057,-0.003
+Lateral,sprint_distance_p30otip,Duelos ofensivos/90,271,0.21,0.198
+Lateral,sprint_distance_p30otip,"Duelos ofensivos ganhos, %",271,-0.066,-0.026
+Lateral,sprint_distance_p30otip,Interseções/90,271,0.116,0.212
+Lateral,sprint_distance_p30otip,Dribles/90,271,0.151,0.13
+Lateral,sprint_distance_p30otip,Corridas progressivas/90,271,0.11,0.044
+Lateral,sprint_distance_p30otip,Toques na área/90,271,0.274,0.136
+Lateral,sprint_distance_p30otip,Acções atacantes com sucesso/90,271,0.159,0.112
+Lateral,sprint_distance_p30otip,Golos esperados/90,271,0.102,-0.007
+Lateral,sprint_distance_p30otip,Assistências esperadas/90,271,-0.026,-0.043
+Lateral,sprint_distance_p30otip,ga90,271,0.069,-0.02
+Lateral,sprint_distance_p30otip,xgxa90,271,0.033,-0.033
+Lateral,sprint_distance_p30otip,Passes progressivos/90,271,-0.1,-0.107
+Lateral,sprint_distance_p30otip,Faltas sofridas/90,271,0.198,0.204
+Lateral,sprint_distance_p30otip,Passes chave/90,271,0.054,-0.012
+Volante,psv99,Duelos/90,143,0.184,0.176
+Volante,psv99,"Duelos ganhos, %",143,0.033,-0.004
+Volante,psv99,Duelos defensivos/90,143,0.152,0.149
+Volante,psv99,"Duelos defensivos ganhos, %",143,0.125,0.113
+Volante,psv99,Duelos aéreos/90,143,0.083,0.114
+Volante,psv99,"Duelos aéreos ganhos, %",143,-0.055,-0.04
+Volante,psv99,Duelos ofensivos/90,143,0.109,0.109
+Volante,psv99,"Duelos ofensivos ganhos, %",143,-0.013,-0.062
+Volante,psv99,Interseções/90,143,0.094,0.161
+Volante,psv99,Dribles/90,143,0.195,0.171
+Volante,psv99,Corridas progressivas/90,143,0.283,0.185
+Volante,psv99,Toques na área/90,143,0.326,0.266
+Volante,psv99,Acções atacantes com sucesso/90,143,0.152,0.084
+Volante,psv99,Golos esperados/90,143,0.186,0.15
+Volante,psv99,Assistências esperadas/90,143,0.116,0.09
+Volante,psv99,ga90,143,0.149,0.096
+Volante,psv99,xgxa90,143,0.166,0.143
+Volante,psv99,Passes progressivos/90,143,-0.169,-0.147
+Volante,psv99,Faltas sofridas/90,143,0.06,0.076
+Volante,psv99,Passes chave/90,143,0.116,0.055
+Volante,sprint_count_p90,Duelos/90,143,0.326,0.334
+Volante,sprint_count_p90,"Duelos ganhos, %",143,-0.055,-0.053
+Volante,sprint_count_p90,Duelos defensivos/90,143,0.261,0.267
+Volante,sprint_count_p90,"Duelos defensivos ganhos, %",143,0.159,0.14
+Volante,sprint_count_p90,Duelos aéreos/90,143,0.092,0.131
+Volante,sprint_count_p90,"Duelos aéreos ganhos, %",143,-0.172,-0.134
+Volante,sprint_count_p90,Duelos ofensivos/90,143,0.194,0.219
+Volante,sprint_count_p90,"Duelos ofensivos ganhos, %",143,-0.087,-0.071
+Volante,sprint_count_p90,Interseções/90,143,0.037,0.074
+Volante,sprint_count_p90,Dribles/90,143,0.311,0.307
+Volante,sprint_count_p90,Corridas progressivas/90,143,0.301,0.233
+Volante,sprint_count_p90,Toques na área/90,143,0.489,0.457
+Volante,sprint_count_p90,Acções atacantes com sucesso/90,143,0.269,0.228
+Volante,sprint_count_p90,Golos esperados/90,143,0.329,0.295
+Volante,sprint_count_p90,Assistências esperadas/90,143,0.202,0.157
+Volante,sprint_count_p90,ga90,143,0.207,0.151
+Volante,sprint_count_p90,xgxa90,143,0.3,0.253
+Volante,sprint_count_p90,Passes progressivos/90,143,-0.196,-0.198
+Volante,sprint_count_p90,Faltas sofridas/90,143,0.07,0.15
+Volante,sprint_count_p90,Passes chave/90,143,0.188,0.124
+Volante,hi_count_p90,Duelos/90,143,0.341,0.347
+Volante,hi_count_p90,"Duelos ganhos, %",143,-0.129,-0.121
+Volante,hi_count_p90,Duelos defensivos/90,143,0.279,0.278
+Volante,hi_count_p90,"Duelos defensivos ganhos, %",143,0.086,0.073
+Volante,hi_count_p90,Duelos aéreos/90,143,0.061,0.077
+Volante,hi_count_p90,"Duelos aéreos ganhos, %",143,-0.234,-0.176
+Volante,hi_count_p90,Duelos ofensivos/90,143,0.219,0.258
+Volante,hi_count_p90,"Duelos ofensivos ganhos, %",143,-0.118,-0.1
+Volante,hi_count_p90,Interseções/90,143,0.023,0.015
+Volante,hi_count_p90,Dribles/90,143,0.332,0.333
+Volante,hi_count_p90,Corridas progressivas/90,143,0.308,0.246
+Volante,hi_count_p90,Toques na área/90,143,0.535,0.509
+Volante,hi_count_p90,Acções atacantes com sucesso/90,143,0.32,0.29
+Volante,hi_count_p90,Golos esperados/90,143,0.371,0.343
+Volante,hi_count_p90,Assistências esperadas/90,143,0.274,0.211
+Volante,hi_count_p90,ga90,143,0.225,0.181
+Volante,hi_count_p90,xgxa90,143,0.363,0.311
+Volante,hi_count_p90,Passes progressivos/90,143,-0.124,-0.139
+Volante,hi_count_p90,Faltas sofridas/90,143,0.064,0.149
+Volante,hi_count_p90,Passes chave/90,143,0.244,0.177
+Volante,expl_accel_sprint_p90,Duelos/90,143,0.229,0.233
+Volante,expl_accel_sprint_p90,"Duelos ganhos, %",143,0.046,-0.023
+Volante,expl_accel_sprint_p90,Duelos defensivos/90,143,0.113,0.064
+Volante,expl_accel_sprint_p90,"Duelos defensivos ganhos, %",143,0.152,0.117
+Volante,expl_accel_sprint_p90,Duelos aéreos/90,143,0.096,0.13
+Volante,expl_accel_sprint_p90,"Duelos aéreos ganhos, %",143,-0.001,0.017
+Volante,expl_accel_sprint_p90,Duelos ofensivos/90,143,0.136,0.168
+Volante,expl_accel_sprint_p90,"Duelos ofensivos ganhos, %",143,-0.015,-0.033
+Volante,expl_accel_sprint_p90,Interseções/90,143,0.061,0.111
+Volante,expl_accel_sprint_p90,Dribles/90,143,0.218,0.217
+Volante,expl_accel_sprint_p90,Corridas progressivas/90,143,0.2,0.149
+Volante,expl_accel_sprint_p90,Toques na área/90,143,0.328,0.309
+Volante,expl_accel_sprint_p90,Acções atacantes com sucesso/90,143,0.241,0.206
+Volante,expl_accel_sprint_p90,Golos esperados/90,143,0.241,0.266
+Volante,expl_accel_sprint_p90,Assistências esperadas/90,143,0.195,0.154
+Volante,expl_accel_sprint_p90,ga90,143,0.167,0.176
+Volante,expl_accel_sprint_p90,xgxa90,143,0.257,0.246
+Volante,expl_accel_sprint_p90,Passes progressivos/90,143,-0.158,-0.172
+Volante,expl_accel_sprint_p90,Faltas sofridas/90,143,0.061,0.145
+Volante,expl_accel_sprint_p90,Passes chave/90,143,0.194,0.171
+Volante,distance_p90,Duelos/90,143,0.234,0.291
+Volante,distance_p90,"Duelos ganhos, %",143,-0.28,-0.28
+Volante,distance_p90,Duelos defensivos/90,143,0.182,0.208
+Volante,distance_p90,"Duelos defensivos ganhos, %",143,-0.091,-0.122
+Volante,distance_p90,Duelos aéreos/90,143,0.01,-0.045
+Volante,distance_p90,"Duelos aéreos ganhos, %",143,-0.3,-0.253
+Volante,distance_p90,Duelos ofensivos/90,143,0.221,0.327
+Volante,distance_p90,"Duelos ofensivos ganhos, %",143,-0.187,-0.135
+Volante,distance_p90,Interseções/90,143,0.049,-0.027
+Volante,distance_p90,Dribles/90,143,0.247,0.324
+Volante,distance_p90,Corridas progressivas/90,143,0.209,0.208
+Volante,distance_p90,Toques na área/90,143,0.257,0.266
+Volante,distance_p90,Acções atacantes com sucesso/90,143,0.237,0.289
+Volante,distance_p90,Golos esperados/90,143,0.144,0.123
+Volante,distance_p90,Assistências esperadas/90,143,0.224,0.136
+Volante,distance_p90,ga90,143,0.093,0.074
+Volante,distance_p90,xgxa90,143,0.212,0.154
+Volante,distance_p90,Passes progressivos/90,143,0.096,0.029
+Volante,distance_p90,Faltas sofridas/90,143,0.038,0.125
+Volante,distance_p90,Passes chave/90,143,0.239,0.157
+Volante,high_accel_p90,Duelos/90,143,0.132,0.176
+Volante,high_accel_p90,"Duelos ganhos, %",143,0.109,0.093
+Volante,high_accel_p90,Duelos defensivos/90,143,0.055,0.061
+Volante,high_accel_p90,"Duelos defensivos ganhos, %",143,0.132,0.108
+Volante,high_accel_p90,Duelos aéreos/90,143,0.061,0.153
+Volante,high_accel_p90,"Duelos aéreos ganhos, %",143,0.097,0.172
+Volante,high_accel_p90,Duelos ofensivos/90,143,0.066,0.075
+Volante,high_accel_p90,"Duelos ofensivos ganhos, %",143,0.093,0.055
+Volante,high_accel_p90,Interseções/90,143,0.038,0.141
+Volante,high_accel_p90,Dribles/90,143,0.184,0.148
+Volante,high_accel_p90,Corridas progressivas/90,143,0.232,0.159
+Volante,high_accel_p90,Toques na área/90,143,0.263,0.256
+Volante,high_accel_p90,Acções atacantes com sucesso/90,143,0.218,0.146
+Volante,high_accel_p90,Golos esperados/90,143,0.227,0.221
+Volante,high_accel_p90,Assistências esperadas/90,143,0.113,0.065
+Volante,high_accel_p90,ga90,143,0.142,0.137
+Volante,high_accel_p90,xgxa90,143,0.193,0.165
+Volante,high_accel_p90,Passes progressivos/90,143,-0.144,-0.145
+Volante,high_accel_p90,Faltas sofridas/90,143,-0.008,0.074
+Volante,high_accel_p90,Passes chave/90,143,0.087,0.033
+Volante,cod_count_p90,Duelos/90,143,0.418,0.447
+Volante,cod_count_p90,"Duelos ganhos, %",143,-0.22,-0.192
+Volante,cod_count_p90,Duelos defensivos/90,143,0.392,0.377
+Volante,cod_count_p90,"Duelos defensivos ganhos, %",143,0.021,0.014
+Volante,cod_count_p90,Duelos aéreos/90,143,-0.009,-0.002
+Volante,cod_count_p90,"Duelos aéreos ganhos, %",143,-0.293,-0.259
+Volante,cod_count_p90,Duelos ofensivos/90,143,0.278,0.344
+Volante,cod_count_p90,"Duelos ofensivos ganhos, %",143,-0.179,-0.123
+Volante,cod_count_p90,Interseções/90,143,0.038,-0.003
+Volante,cod_count_p90,Dribles/90,143,0.303,0.369
+Volante,cod_count_p90,Corridas progressivas/90,143,0.252,0.264
+Volante,cod_count_p90,Toques na área/90,143,0.383,0.432
+Volante,cod_count_p90,Acções atacantes com sucesso/90,143,0.34,0.383
+Volante,cod_count_p90,Golos esperados/90,143,0.324,0.334
+Volante,cod_count_p90,Assistências esperadas/90,143,0.298,0.235
+Volante,cod_count_p90,ga90,143,0.206,0.188
+Volante,cod_count_p90,xgxa90,143,0.377,0.336
+Volante,cod_count_p90,Passes progressivos/90,143,-0.01,-0.118
+Volante,cod_count_p90,Faltas sofridas/90,143,0.076,0.164
+Volante,cod_count_p90,Passes chave/90,143,0.325,0.267
+Volante,runs_p30tip,Duelos/90,143,0.081,0.105
+Volante,runs_p30tip,"Duelos ganhos, %",143,-0.299,-0.296
+Volante,runs_p30tip,Duelos defensivos/90,143,-0.044,-0.038
+Volante,runs_p30tip,"Duelos defensivos ganhos, %",143,-0.022,-0.053
+Volante,runs_p30tip,Duelos aéreos/90,143,-0.322,-0.309
+Volante,runs_p30tip,"Duelos aéreos ganhos, %",143,-0.335,-0.285
+Volante,runs_p30tip,Duelos ofensivos/90,143,0.394,0.4
+Volante,runs_p30tip,"Duelos ofensivos ganhos, %",143,-0.134,-0.123
+Volante,runs_p30tip,Interseções/90,143,-0.372,-0.428
+Volante,runs_p30tip,Dribles/90,143,0.37,0.345
+Volante,runs_p30tip,Corridas progressivas/90,143,0.396,0.353
+Volante,runs_p30tip,Toques na área/90,143,0.406,0.434
+Volante,runs_p30tip,Acções atacantes com sucesso/90,143,0.489,0.478
+Volante,runs_p30tip,Golos esperados/90,143,0.339,0.333
+Volante,runs_p30tip,Assistências esperadas/90,143,0.493,0.432
+Volante,runs_p30tip,ga90,143,0.344,0.288
+Volante,runs_p30tip,xgxa90,143,0.456,0.415
+Volante,runs_p30tip,Passes progressivos/90,143,0.207,0.182
+Volante,runs_p30tip,Faltas sofridas/90,143,0.214,0.232
+Volante,runs_p30tip,Passes chave/90,143,0.496,0.461
+Volante,runs_penalty_area_p30tip,Duelos/90,143,0.126,0.167
+Volante,runs_penalty_area_p30tip,"Duelos ganhos, %",143,-0.261,-0.236
+Volante,runs_penalty_area_p30tip,Duelos defensivos/90,143,-0.023,-0.033
+Volante,runs_penalty_area_p30tip,"Duelos defensivos ganhos, %",143,0.018,0.068
+Volante,runs_penalty_area_p30tip,Duelos aéreos/90,143,-0.136,-0.08
+Volante,runs_penalty_area_p30tip,"Duelos aéreos ganhos, %",143,-0.292,-0.283
+Volante,runs_penalty_area_p30tip,Duelos ofensivos/90,143,0.263,0.311
+Volante,runs_penalty_area_p30tip,"Duelos ofensivos ganhos, %",143,-0.16,-0.116
+Volante,runs_penalty_area_p30tip,Interseções/90,143,-0.196,-0.19
+Volante,runs_penalty_area_p30tip,Dribles/90,143,0.416,0.424
+Volante,runs_penalty_area_p30tip,Corridas progressivas/90,143,0.433,0.39
+Volante,runs_penalty_area_p30tip,Toques na área/90,143,0.741,0.746
+Volante,runs_penalty_area_p30tip,Acções atacantes com sucesso/90,143,0.494,0.486
+Volante,runs_penalty_area_p30tip,Golos esperados/90,143,0.613,0.594
+Volante,runs_penalty_area_p30tip,Assistências esperadas/90,143,0.4,0.301
+Volante,runs_penalty_area_p30tip,ga90,143,0.409,0.387
+Volante,runs_penalty_area_p30tip,xgxa90,143,0.587,0.499
+Volante,runs_penalty_area_p30tip,Passes progressivos/90,143,-0.097,-0.048
+Volante,runs_penalty_area_p30tip,Faltas sofridas/90,143,0.096,0.147
+Volante,runs_penalty_area_p30tip,Passes chave/90,143,0.427,0.364
+Volante,sprint_distance_p30tip,Duelos/90,143,0.167,0.209
+Volante,sprint_distance_p30tip,"Duelos ganhos, %",143,-0.139,-0.191
+Volante,sprint_distance_p30tip,Duelos defensivos/90,143,0.019,0.029
+Volante,sprint_distance_p30tip,"Duelos defensivos ganhos, %",143,0.09,0.05
+Volante,sprint_distance_p30tip,Duelos aéreos/90,143,-0.102,-0.091
+Volante,sprint_distance_p30tip,"Duelos aéreos ganhos, %",143,-0.195,-0.207
+Volante,sprint_distance_p30tip,Duelos ofensivos/90,143,0.34,0.389
+Volante,sprint_distance_p30tip,"Duelos ofensivos ganhos, %",143,-0.059,-0.075
+Volante,sprint_distance_p30tip,Interseções/90,143,-0.267,-0.225
+Volante,sprint_distance_p30tip,Dribles/90,143,0.439,0.46
+Volante,sprint_distance_p30tip,Corridas progressivas/90,143,0.437,0.416
+Volante,sprint_distance_p30tip,Toques na área/90,143,0.615,0.581
+Volante,sprint_distance_p30tip,Acções atacantes com sucesso/90,143,0.509,0.509
+Volante,sprint_distance_p30tip,Golos esperados/90,143,0.505,0.474
+Volante,sprint_distance_p30tip,Assistências esperadas/90,143,0.393,0.386
+Volante,sprint_distance_p30tip,ga90,143,0.38,0.33
+Volante,sprint_distance_p30tip,xgxa90,143,0.515,0.467
+Volante,sprint_distance_p30tip,Passes progressivos/90,143,-0.08,-0.004
+Volante,sprint_distance_p30tip,Faltas sofridas/90,143,0.18,0.235
+Volante,sprint_distance_p30tip,Passes chave/90,143,0.438,0.401
+Volante,sprint_distance_p30otip,Duelos/90,143,0.278,0.251
+Volante,sprint_distance_p30otip,"Duelos ganhos, %",143,-0.039,0.019
+Volante,sprint_distance_p30otip,Duelos defensivos/90,143,0.277,0.31
+Volante,sprint_distance_p30otip,"Duelos defensivos ganhos, %",143,0.118,0.125
+Volante,sprint_distance_p30otip,Duelos aéreos/90,143,0.162,0.231
+Volante,sprint_distance_p30otip,"Duelos aéreos ganhos, %",143,-0.125,-0.026
+Volante,sprint_distance_p30otip,Duelos ofensivos/90,143,0.039,-0.021
+Volante,sprint_distance_p30otip,"Duelos ofensivos ganhos, %",143,-0.089,-0.066
+Volante,sprint_distance_p30otip,Interseções/90,143,0.124,0.227
+Volante,sprint_distance_p30otip,Dribles/90,143,0.153,0.108
+Volante,sprint_distance_p30otip,Corridas progressivas/90,143,0.122,0.014
+Volante,sprint_distance_p30otip,Toques na área/90,143,0.292,0.254
+Volante,sprint_distance_p30otip,Acções atacantes com sucesso/90,143,0.061,-0.015
+Volante,sprint_distance_p30otip,Golos esperados/90,143,0.157,0.123
+Volante,sprint_distance_p30otip,Assistências esperadas/90,143,0.055,0.01
+Volante,sprint_distance_p30otip,ga90,143,0.095,0.009
+Volante,sprint_distance_p30otip,xgxa90,143,0.118,0.088
+Volante,sprint_distance_p30otip,Passes progressivos/90,143,-0.18,-0.233
+Volante,sprint_distance_p30otip,Faltas sofridas/90,143,-0.006,0.006
+Volante,sprint_distance_p30otip,Passes chave/90,143,0.008,-0.055
+Meia,psv99,Duelos/90,227,0.224,0.236
+Meia,psv99,"Duelos ganhos, %",227,-0.108,-0.054
+Meia,psv99,Duelos defensivos/90,227,0.129,0.188
+Meia,psv99,"Duelos defensivos ganhos, %",227,0.056,0.073
+Meia,psv99,Duelos aéreos/90,227,-0.012,0.002
+Meia,psv99,"Duelos aéreos ganhos, %",227,-0.102,-0.082
+Meia,psv99,Duelos ofensivos/90,227,0.189,0.169
+Meia,psv99,"Duelos ofensivos ganhos, %",227,-0.18,-0.126
+Meia,psv99,Interseções/90,227,-0.032,-0.006
+Meia,psv99,Dribles/90,227,0.236,0.225
+Meia,psv99,Corridas progressivas/90,227,0.246,0.23
+Meia,psv99,Toques na área/90,227,0.219,0.167
+Meia,psv99,Acções atacantes com sucesso/90,227,0.145,0.115
+Meia,psv99,Golos esperados/90,227,0.069,0.017
+Meia,psv99,Assistências esperadas/90,227,0.005,-0.048
+Meia,psv99,ga90,227,-0.017,-0.066
+Meia,psv99,xgxa90,227,0.031,-0.019
+Meia,psv99,Passes progressivos/90,227,-0.318,-0.286
+Meia,psv99,Faltas sofridas/90,227,0.035,0.045
+Meia,psv99,Passes chave/90,227,0.068,0.045
+Meia,sprint_count_p90,Duelos/90,227,0.222,0.245
+Meia,sprint_count_p90,"Duelos ganhos, %",227,-0.245,-0.185
+Meia,sprint_count_p90,Duelos defensivos/90,227,0.079,0.144
+Meia,sprint_count_p90,"Duelos defensivos ganhos, %",227,0.06,0.082
+Meia,sprint_count_p90,Duelos aéreos/90,227,-0.064,-0.016
+Meia,sprint_count_p90,"Duelos aéreos ganhos, %",227,-0.234,-0.197
+Meia,sprint_count_p90,Duelos ofensivos/90,227,0.218,0.22
+Meia,sprint_count_p90,"Duelos ofensivos ganhos, %",227,-0.311,-0.24
+Meia,sprint_count_p90,Interseções/90,227,-0.142,-0.066
+Meia,sprint_count_p90,Dribles/90,227,0.285,0.289
+Meia,sprint_count_p90,Corridas progressivas/90,227,0.273,0.265
+Meia,sprint_count_p90,Toques na área/90,227,0.433,0.385
+Meia,sprint_count_p90,Acções atacantes com sucesso/90,227,0.229,0.214
+Meia,sprint_count_p90,Golos esperados/90,227,0.241,0.195
+Meia,sprint_count_p90,Assistências esperadas/90,227,0.094,0.019
+Meia,sprint_count_p90,ga90,227,0.065,0.017
+Meia,sprint_count_p90,xgxa90,227,0.185,0.119
+Meia,sprint_count_p90,Passes progressivos/90,227,-0.445,-0.426
+Meia,sprint_count_p90,Faltas sofridas/90,227,0.002,0.046
+Meia,sprint_count_p90,Passes chave/90,227,0.151,0.107
+Meia,hi_count_p90,Duelos/90,227,0.212,0.213
+Meia,hi_count_p90,"Duelos ganhos, %",227,-0.256,-0.206
+Meia,hi_count_p90,Duelos defensivos/90,227,0.077,0.126
+Meia,hi_count_p90,"Duelos defensivos ganhos, %",227,0.083,0.106
+Meia,hi_count_p90,Duelos aéreos/90,227,-0.072,-0.042
+Meia,hi_count_p90,"Duelos aéreos ganhos, %",227,-0.261,-0.222
+Meia,hi_count_p90,Duelos ofensivos/90,227,0.204,0.211
+Meia,hi_count_p90,"Duelos ofensivos ganhos, %",227,-0.33,-0.274
+Meia,hi_count_p90,Interseções/90,227,-0.124,-0.051
+Meia,hi_count_p90,Dribles/90,227,0.274,0.281
+Meia,hi_count_p90,Corridas progressivas/90,227,0.262,0.247
+Meia,hi_count_p90,Toques na área/90,227,0.458,0.414
+Meia,hi_count_p90,Acções atacantes com sucesso/90,227,0.233,0.219
+Meia,hi_count_p90,Golos esperados/90,227,0.248,0.211
+Meia,hi_count_p90,Assistências esperadas/90,227,0.126,0.056
+Meia,hi_count_p90,ga90,227,0.093,0.061
+Meia,hi_count_p90,xgxa90,227,0.214,0.154
+Meia,hi_count_p90,Passes progressivos/90,227,-0.444,-0.429
+Meia,hi_count_p90,Faltas sofridas/90,227,-0.028,0.012
+Meia,hi_count_p90,Passes chave/90,227,0.174,0.141
+Meia,expl_accel_sprint_p90,Duelos/90,227,0.21,0.208
+Meia,expl_accel_sprint_p90,"Duelos ganhos, %",227,-0.186,-0.12
+Meia,expl_accel_sprint_p90,Duelos defensivos/90,227,0.036,0.049
+Meia,expl_accel_sprint_p90,"Duelos defensivos ganhos, %",227,0.03,0.098
+Meia,expl_accel_sprint_p90,Duelos aéreos/90,227,-0.084,-0.054
+Meia,expl_accel_sprint_p90,"Duelos aéreos ganhos, %",227,-0.19,-0.161
+Meia,expl_accel_sprint_p90,Duelos ofensivos/90,227,0.266,0.263
+Meia,expl_accel_sprint_p90,"Duelos ofensivos ganhos, %",227,-0.216,-0.147
+Meia,expl_accel_sprint_p90,Interseções/90,227,-0.174,-0.113
+Meia,expl_accel_sprint_p90,Dribles/90,227,0.272,0.283
+Meia,expl_accel_sprint_p90,Corridas progressivas/90,227,0.269,0.297
+Meia,expl_accel_sprint_p90,Toques na área/90,227,0.283,0.262
+Meia,expl_accel_sprint_p90,Acções atacantes com sucesso/90,227,0.205,0.205
+Meia,expl_accel_sprint_p90,Golos esperados/90,227,0.114,0.076
+Meia,expl_accel_sprint_p90,Assistências esperadas/90,227,0.046,0.03
+Meia,expl_accel_sprint_p90,ga90,227,0.03,-0.016
+Meia,expl_accel_sprint_p90,xgxa90,227,0.086,0.055
+Meia,expl_accel_sprint_p90,Passes progressivos/90,227,-0.251,-0.259
+Meia,expl_accel_sprint_p90,Faltas sofridas/90,227,0.075,0.087
+Meia,expl_accel_sprint_p90,Passes chave/90,227,0.089,0.074
+Meia,distance_p90,Duelos/90,227,0.072,0.138
+Meia,distance_p90,"Duelos ganhos, %",227,-0.061,-0.096
+Meia,distance_p90,Duelos defensivos/90,227,0.112,0.145
+Meia,distance_p90,"Duelos defensivos ganhos, %",227,0.171,0.12
+Meia,distance_p90,Duelos aéreos/90,227,0.016,0.108
+Meia,distance_p90,"Duelos aéreos ganhos, %",227,-0.078,-0.06
+Meia,distance_p90,Duelos ofensivos/90,227,-0.022,0.034
+Meia,distance_p90,"Duelos ofensivos ganhos, %",227,-0.201,-0.181
+Meia,distance_p90,Interseções/90,227,0.14,0.138
+Meia,distance_p90,Dribles/90,227,-0.059,-0.009
+Meia,distance_p90,Corridas progressivas/90,227,-0.03,-0.07
+Meia,distance_p90,Toques na área/90,227,0.11,0.147
+Meia,distance_p90,Acções atacantes com sucesso/90,227,-0.069,-0.034
+Meia,distance_p90,Golos esperados/90,227,0.017,0.067
+Meia,distance_p90,Assistências esperadas/90,227,-0.003,-0.031
+Meia,distance_p90,ga90,227,-0.014,0.018
+Meia,distance_p90,xgxa90,227,0.005,0.033
+Meia,distance_p90,Passes progressivos/90,227,-0.18,-0.224
+Meia,distance_p90,Faltas sofridas/90,227,-0.051,-0.013
+Meia,distance_p90,Passes chave/90,227,-0.04,-0.068
+Meia,high_accel_p90,Duelos/90,227,0.152,0.163
+Meia,high_accel_p90,"Duelos ganhos, %",227,-0.205,-0.149
+Meia,high_accel_p90,Duelos defensivos/90,227,-0.083,-0.051
+Meia,high_accel_p90,"Duelos defensivos ganhos, %",227,0.019,0.066
+Meia,high_accel_p90,Duelos aéreos/90,227,-0.071,-0.041
+Meia,high_accel_p90,"Duelos aéreos ganhos, %",227,-0.232,-0.177
+Meia,high_accel_p90,Duelos ofensivos/90,227,0.249,0.266
+Meia,high_accel_p90,"Duelos ofensivos ganhos, %",227,-0.176,-0.111
+Meia,high_accel_p90,Interseções/90,227,-0.21,-0.146
+Meia,high_accel_p90,Dribles/90,227,0.328,0.361
+Meia,high_accel_p90,Corridas progressivas/90,227,0.253,0.291
+Meia,high_accel_p90,Toques na área/90,227,0.366,0.333
+Meia,high_accel_p90,Acções atacantes com sucesso/90,227,0.299,0.304
+Meia,high_accel_p90,Golos esperados/90,227,0.187,0.145
+Meia,high_accel_p90,Assistências esperadas/90,227,0.089,0.057
+Meia,high_accel_p90,ga90,227,0.071,0.046
+Meia,high_accel_p90,xgxa90,227,0.175,0.133
+Meia,high_accel_p90,Passes progressivos/90,227,-0.348,-0.369
+Meia,high_accel_p90,Faltas sofridas/90,227,0.082,0.134
+Meia,high_accel_p90,Passes chave/90,227,0.131,0.103
+Meia,cod_count_p90,Duelos/90,227,0.28,0.279
+Meia,cod_count_p90,"Duelos ganhos, %",227,-0.158,-0.12
+Meia,cod_count_p90,Duelos defensivos/90,227,0.213,0.25
+Meia,cod_count_p90,"Duelos defensivos ganhos, %",227,0.105,0.144
+Meia,cod_count_p90,Duelos aéreos/90,227,-0.031,-0.028
+Meia,cod_count_p90,"Duelos aéreos ganhos, %",227,-0.218,-0.217
+Meia,cod_count_p90,Duelos ofensivos/90,227,0.192,0.204
+Meia,cod_count_p90,"Duelos ofensivos ganhos, %",227,-0.239,-0.21
+Meia,cod_count_p90,Interseções/90,227,0.004,0.055
+Meia,cod_count_p90,Dribles/90,227,0.231,0.251
+Meia,cod_count_p90,Corridas progressivas/90,227,0.197,0.145
+Meia,cod_count_p90,Toques na área/90,227,0.284,0.244
+Meia,cod_count_p90,Acções atacantes com sucesso/90,227,0.147,0.148
+Meia,cod_count_p90,Golos esperados/90,227,0.11,0.093
+Meia,cod_count_p90,Assistências esperadas/90,227,0.06,0.012
+Meia,cod_count_p90,ga90,227,0.046,0.019
+Meia,cod_count_p90,xgxa90,227,0.096,0.055
+Meia,cod_count_p90,Passes progressivos/90,227,-0.387,-0.419
+Meia,cod_count_p90,Faltas sofridas/90,227,0.012,0.048
+Meia,cod_count_p90,Passes chave/90,227,0.119,0.057
+Meia,runs_p30tip,Duelos/90,227,0.029,0.017
+Meia,runs_p30tip,"Duelos ganhos, %",227,-0.377,-0.369
+Meia,runs_p30tip,Duelos defensivos/90,227,-0.297,-0.276
+Meia,runs_p30tip,"Duelos defensivos ganhos, %",227,0.01,0.028
+Meia,runs_p30tip,Duelos aéreos/90,227,-0.254,-0.225
+Meia,runs_p30tip,"Duelos aéreos ganhos, %",227,-0.432,-0.398
+Meia,runs_p30tip,Duelos ofensivos/90,227,0.369,0.365
+Meia,runs_p30tip,"Duelos ofensivos ganhos, %",227,-0.265,-0.277
+Meia,runs_p30tip,Interseções/90,227,-0.475,-0.401
+Meia,runs_p30tip,Dribles/90,227,0.402,0.405
+Meia,runs_p30tip,Corridas progressivas/90,227,0.356,0.342
+Meia,runs_p30tip,Toques na área/90,227,0.612,0.568
+Meia,runs_p30tip,Acções atacantes com sucesso/90,227,0.46,0.445
+Meia,runs_p30tip,Golos esperados/90,227,0.38,0.345
+Meia,runs_p30tip,Assistências esperadas/90,227,0.409,0.37
+Meia,runs_p30tip,ga90,227,0.315,0.306
+Meia,runs_p30tip,xgxa90,227,0.462,0.425
+Meia,runs_p30tip,Passes progressivos/90,227,-0.326,-0.283
+Meia,runs_p30tip,Faltas sofridas/90,227,0.138,0.161
+Meia,runs_p30tip,Passes chave/90,227,0.374,0.358
+Meia,runs_penalty_area_p30tip,Duelos/90,227,0.056,0.122
+Meia,runs_penalty_area_p30tip,"Duelos ganhos, %",227,-0.512,-0.497
+Meia,runs_penalty_area_p30tip,Duelos defensivos/90,227,-0.375,-0.325
+Meia,runs_penalty_area_p30tip,"Duelos defensivos ganhos, %",227,-0.072,-0.067
+Meia,runs_penalty_area_p30tip,Duelos aéreos/90,227,-0.16,-0.076
+Meia,runs_penalty_area_p30tip,"Duelos aéreos ganhos, %",227,-0.53,-0.502
+Meia,runs_penalty_area_p30tip,Duelos ofensivos/90,227,0.395,0.431
+Meia,runs_penalty_area_p30tip,"Duelos ofensivos ganhos, %",227,-0.342,-0.326
+Meia,runs_penalty_area_p30tip,Interseções/90,227,-0.509,-0.429
+Meia,runs_penalty_area_p30tip,Dribles/90,227,0.407,0.444
+Meia,runs_penalty_area_p30tip,Corridas progressivas/90,227,0.368,0.365
+Meia,runs_penalty_area_p30tip,Toques na área/90,227,0.801,0.779
+Meia,runs_penalty_area_p30tip,Acções atacantes com sucesso/90,227,0.55,0.549
+Meia,runs_penalty_area_p30tip,Golos esperados/90,227,0.588,0.564
+Meia,runs_penalty_area_p30tip,Assistências esperadas/90,227,0.454,0.401
+Meia,runs_penalty_area_p30tip,ga90,227,0.469,0.461
+Meia,runs_penalty_area_p30tip,xgxa90,227,0.625,0.582
+Meia,runs_penalty_area_p30tip,Passes progressivos/90,227,-0.424,-0.397
+Meia,runs_penalty_area_p30tip,Faltas sofridas/90,227,0.105,0.182
+Meia,runs_penalty_area_p30tip,Passes chave/90,227,0.423,0.407
+Meia,sprint_distance_p30tip,Duelos/90,227,0.159,0.22
+Meia,sprint_distance_p30tip,"Duelos ganhos, %",227,-0.335,-0.309
+Meia,sprint_distance_p30tip,Duelos defensivos/90,227,-0.158,-0.087
+Meia,sprint_distance_p30tip,"Duelos defensivos ganhos, %",227,0.058,0.044
+Meia,sprint_distance_p30tip,Duelos aéreos/90,227,-0.2,-0.121
+Meia,sprint_distance_p30tip,"Duelos aéreos ganhos, %",227,-0.388,-0.363
+Meia,sprint_distance_p30tip,Duelos ofensivos/90,227,0.407,0.435
+Meia,sprint_distance_p30tip,"Duelos ofensivos ganhos, %",227,-0.279,-0.235
+Meia,sprint_distance_p30tip,Interseções/90,227,-0.394,-0.319
+Meia,sprint_distance_p30tip,Dribles/90,227,0.442,0.485
+Meia,sprint_distance_p30tip,Corridas progressivas/90,227,0.419,0.476
+Meia,sprint_distance_p30tip,Toques na área/90,227,0.595,0.564
+Meia,sprint_distance_p30tip,Acções atacantes com sucesso/90,227,0.465,0.489
+Meia,sprint_distance_p30tip,Golos esperados/90,227,0.381,0.346
+Meia,sprint_distance_p30tip,Assistências esperadas/90,227,0.333,0.292
+Meia,sprint_distance_p30tip,ga90,227,0.261,0.25
+Meia,sprint_distance_p30tip,xgxa90,227,0.402,0.373
+Meia,sprint_distance_p30tip,Passes progressivos/90,227,-0.396,-0.326
+Meia,sprint_distance_p30tip,Faltas sofridas/90,227,0.163,0.217
+Meia,sprint_distance_p30tip,Passes chave/90,227,0.341,0.342
+Meia,sprint_distance_p30otip,Duelos/90,227,0.144,0.148
+Meia,sprint_distance_p30otip,"Duelos ganhos, %",227,0.106,0.122
+Meia,sprint_distance_p30otip,Duelos defensivos/90,227,0.398,0.426
+Meia,sprint_distance_p30otip,"Duelos defensivos ganhos, %",227,0.114,0.111
+Meia,sprint_distance_p30otip,Duelos aéreos/90,227,0.1,0.097
+Meia,sprint_distance_p30otip,"Duelos aéreos ganhos, %",227,0.137,0.151
+Meia,sprint_distance_p30otip,Duelos ofensivos/90,227,-0.2,-0.181
+Meia,sprint_distance_p30otip,"Duelos ofensivos ganhos, %",227,-0.147,-0.126
+Meia,sprint_distance_p30otip,Interseções/90,227,0.267,0.299
+Meia,sprint_distance_p30otip,Dribles/90,227,-0.171,-0.15
+Meia,sprint_distance_p30otip,Corridas progressivas/90,227,-0.125,-0.144
+Meia,sprint_distance_p30otip,Toques na área/90,227,-0.106,-0.112
+Meia,sprint_distance_p30otip,Acções atacantes com sucesso/90,227,-0.256,-0.272
+Meia,sprint_distance_p30otip,Golos esperados/90,227,-0.153,-0.159
+Meia,sprint_distance_p30otip,Assistências esperadas/90,227,-0.257,-0.332
+Meia,sprint_distance_p30otip,ga90,227,-0.274,-0.307
+Meia,sprint_distance_p30otip,xgxa90,227,-0.244,-0.293
+Meia,sprint_distance_p30otip,Passes progressivos/90,227,-0.207,-0.257
+Meia,sprint_distance_p30otip,Faltas sofridas/90,227,-0.202,-0.2
+Meia,sprint_distance_p30otip,Passes chave/90,227,-0.233,-0.254
+Extremo,psv99,Duelos/90,223,0.056,0.031
+Extremo,psv99,"Duelos ganhos, %",223,0.016,0.01
+Extremo,psv99,Duelos defensivos/90,223,-0.137,-0.168
+Extremo,psv99,"Duelos defensivos ganhos, %",223,0.045,0.005
+Extremo,psv99,Duelos aéreos/90,223,0.066,0.063
+Extremo,psv99,"Duelos aéreos ganhos, %",223,0.149,0.134
+Extremo,psv99,Duelos ofensivos/90,223,0.124,0.08
+Extremo,psv99,"Duelos ofensivos ganhos, %",223,0.049,0.058
+Extremo,psv99,Interseções/90,223,-0.005,-0.01
+Extremo,psv99,Dribles/90,223,0.275,0.235
+Extremo,psv99,Corridas progressivas/90,223,0.33,0.33
+Extremo,psv99,Toques na área/90,223,0.365,0.379
+Extremo,psv99,Acções atacantes com sucesso/90,223,0.303,0.278
+Extremo,psv99,Golos esperados/90,223,0.134,0.182
+Extremo,psv99,Assistências esperadas/90,223,-0.008,-0.017
+Extremo,psv99,ga90,223,0.085,0.099
+Extremo,psv99,xgxa90,223,0.095,0.133
+Extremo,psv99,Passes progressivos/90,223,-0.235,-0.253
+Extremo,psv99,Faltas sofridas/90,223,-0.087,-0.086
+Extremo,psv99,Passes chave/90,223,0.142,0.129
+Extremo,sprint_count_p90,Duelos/90,223,0.054,0.027
+Extremo,sprint_count_p90,"Duelos ganhos, %",223,-0.034,-0.081
+Extremo,sprint_count_p90,Duelos defensivos/90,223,0.029,-0.024
+Extremo,sprint_count_p90,"Duelos defensivos ganhos, %",223,-0.007,-0.044
+Extremo,sprint_count_p90,Duelos aéreos/90,223,0.076,0.069
+Extremo,sprint_count_p90,"Duelos aéreos ganhos, %",223,0.105,0.082
+Extremo,sprint_count_p90,Duelos ofensivos/90,223,0.033,0.013
+Extremo,sprint_count_p90,"Duelos ofensivos ganhos, %",223,0.027,-0.004
+Extremo,sprint_count_p90,Interseções/90,223,0.098,0.07
+Extremo,sprint_count_p90,Dribles/90,223,0.163,0.141
+Extremo,sprint_count_p90,Corridas progressivas/90,223,0.238,0.258
+Extremo,sprint_count_p90,Toques na área/90,223,0.353,0.358
+Extremo,sprint_count_p90,Acções atacantes com sucesso/90,223,0.147,0.132
+Extremo,sprint_count_p90,Golos esperados/90,223,0.143,0.173
+Extremo,sprint_count_p90,Assistências esperadas/90,223,-0.162,-0.157
+Extremo,sprint_count_p90,ga90,223,-0.019,-0.009
+Extremo,sprint_count_p90,xgxa90,223,0.013,0.045
+Extremo,sprint_count_p90,Passes progressivos/90,223,-0.316,-0.337
+Extremo,sprint_count_p90,Faltas sofridas/90,223,-0.099,-0.114
+Extremo,sprint_count_p90,Passes chave/90,223,0.001,-0.028
+Extremo,hi_count_p90,Duelos/90,223,0.06,0.03
+Extremo,hi_count_p90,"Duelos ganhos, %",223,-0.085,-0.129
+Extremo,hi_count_p90,Duelos defensivos/90,223,0.12,0.055
+Extremo,hi_count_p90,"Duelos defensivos ganhos, %",223,-0.013,-0.052
+Extremo,hi_count_p90,Duelos aéreos/90,223,0.075,0.066
+Extremo,hi_count_p90,"Duelos aéreos ganhos, %",223,0.061,0.04
+Extremo,hi_count_p90,Duelos ofensivos/90,223,-0.007,-0.021
+Extremo,hi_count_p90,"Duelos ofensivos ganhos, %",223,-0.031,-0.06
+Extremo,hi_count_p90,Interseções/90,223,0.166,0.134
+Extremo,hi_count_p90,Dribles/90,223,0.088,0.074
+Extremo,hi_count_p90,Corridas progressivas/90,223,0.17,0.198
+Extremo,hi_count_p90,Toques na área/90,223,0.306,0.318
+Extremo,hi_count_p90,Acções atacantes com sucesso/90,223,0.047,0.045
+Extremo,hi_count_p90,Golos esperados/90,223,0.103,0.131
+Extremo,hi_count_p90,Assistências esperadas/90,223,-0.215,-0.193
+Extremo,hi_count_p90,ga90,223,-0.097,-0.073
+Extremo,hi_count_p90,xgxa90,223,-0.05,-0.008
+Extremo,hi_count_p90,Passes progressivos/90,223,-0.318,-0.341
+Extremo,hi_count_p90,Faltas sofridas/90,223,-0.093,-0.113
+Extremo,hi_count_p90,Passes chave/90,223,-0.077,-0.093
+Extremo,expl_accel_sprint_p90,Duelos/90,223,0.094,0.056
+Extremo,expl_accel_sprint_p90,"Duelos ganhos, %",223,-0.011,-0.012
+Extremo,expl_accel_sprint_p90,Duelos defensivos/90,223,-0.098,-0.103
+Extremo,expl_accel_sprint_p90,"Duelos defensivos ganhos, %",223,-0.028,-0.067
+Extremo,expl_accel_sprint_p90,Duelos aéreos/90,223,0.014,0.001
+Extremo,expl_accel_sprint_p90,"Duelos aéreos ganhos, %",223,0.087,0.074
+Extremo,expl_accel_sprint_p90,Duelos ofensivos/90,223,0.177,0.123
+Extremo,expl_accel_sprint_p90,"Duelos ofensivos ganhos, %",223,0.082,0.084
+Extremo,expl_accel_sprint_p90,Interseções/90,223,-0.023,-0.013
+Extremo,expl_accel_sprint_p90,Dribles/90,223,0.298,0.26
+Extremo,expl_accel_sprint_p90,Corridas progressivas/90,223,0.341,0.334
+Extremo,expl_accel_sprint_p90,Toques na área/90,223,0.299,0.311
+Extremo,expl_accel_sprint_p90,Acções atacantes com sucesso/90,223,0.289,0.267
+Extremo,expl_accel_sprint_p90,Golos esperados/90,223,0.068,0.131
+Extremo,expl_accel_sprint_p90,Assistências esperadas/90,223,-0.018,-0.033
+Extremo,expl_accel_sprint_p90,ga90,223,-0.017,0.017
+Extremo,expl_accel_sprint_p90,xgxa90,223,0.031,0.086
+Extremo,expl_accel_sprint_p90,Passes progressivos/90,223,-0.244,-0.252
+Extremo,expl_accel_sprint_p90,Faltas sofridas/90,223,0.026,-0.004
+Extremo,expl_accel_sprint_p90,Passes chave/90,223,0.08,0.09
+Extremo,distance_p90,Duelos/90,223,-0.147,-0.112
+Extremo,distance_p90,"Duelos ganhos, %",223,-0.11,-0.153
+Extremo,distance_p90,Duelos defensivos/90,223,0.246,0.238
+Extremo,distance_p90,"Duelos defensivos ganhos, %",223,0.014,-0.031
+Extremo,distance_p90,Duelos aéreos/90,223,0.056,0.014
+Extremo,distance_p90,"Duelos aéreos ganhos, %",223,0.028,-0.001
+Extremo,distance_p90,Duelos ofensivos/90,223,-0.332,-0.279
+Extremo,distance_p90,"Duelos ofensivos ganhos, %",223,-0.163,-0.208
+Extremo,distance_p90,Interseções/90,223,0.365,0.343
+Extremo,distance_p90,Dribles/90,223,-0.351,-0.319
+Extremo,distance_p90,Corridas progressivas/90,223,-0.282,-0.218
+Extremo,distance_p90,Toques na área/90,223,-0.053,-0.064
+Extremo,distance_p90,Acções atacantes com sucesso/90,223,-0.357,-0.342
+Extremo,distance_p90,Golos esperados/90,223,-0.053,-0.096
+Extremo,distance_p90,Assistências esperadas/90,223,-0.159,-0.165
+Extremo,distance_p90,ga90,223,-0.227,-0.236
+Extremo,distance_p90,xgxa90,223,-0.128,-0.156
+Extremo,distance_p90,Passes progressivos/90,223,0.052,0.024
+Extremo,distance_p90,Faltas sofridas/90,223,-0.197,-0.197
+Extremo,distance_p90,Passes chave/90,223,-0.143,-0.21
+Extremo,high_accel_p90,Duelos/90,223,0.181,0.111
+Extremo,high_accel_p90,"Duelos ganhos, %",223,0.001,-0.018
+Extremo,high_accel_p90,Duelos defensivos/90,223,-0.035,-0.047
+Extremo,high_accel_p90,"Duelos defensivos ganhos, %",223,-0.013,-0.063
+Extremo,high_accel_p90,Duelos aéreos/90,223,0.141,0.149
+Extremo,high_accel_p90,"Duelos aéreos ganhos, %",223,0.135,0.151
+Extremo,high_accel_p90,Duelos ofensivos/90,223,0.196,0.116
+Extremo,high_accel_p90,"Duelos ofensivos ganhos, %",223,0.062,0.041
+Extremo,high_accel_p90,Interseções/90,223,0.028,0.035
+Extremo,high_accel_p90,Dribles/90,223,0.266,0.218
+Extremo,high_accel_p90,Corridas progressivas/90,223,0.287,0.263
+Extremo,high_accel_p90,Toques na área/90,223,0.27,0.295
+Extremo,high_accel_p90,Acções atacantes com sucesso/90,223,0.198,0.183
+Extremo,high_accel_p90,Golos esperados/90,223,0.068,0.139
+Extremo,high_accel_p90,Assistências esperadas/90,223,-0.211,-0.177
+Extremo,high_accel_p90,ga90,223,-0.087,-0.034
+Extremo,high_accel_p90,xgxa90,223,-0.091,-0.02
+Extremo,high_accel_p90,Passes progressivos/90,223,-0.344,-0.327
+Extremo,high_accel_p90,Faltas sofridas/90,223,0.056,0.024
+Extremo,high_accel_p90,Passes chave/90,223,-0.113,-0.062
+Extremo,cod_count_p90,Duelos/90,223,0.089,0.075
+Extremo,cod_count_p90,"Duelos ganhos, %",223,-0.118,-0.136
+Extremo,cod_count_p90,Duelos defensivos/90,223,0.346,0.319
+Extremo,cod_count_p90,"Duelos defensivos ganhos, %",223,0.041,0.017
+Extremo,cod_count_p90,Duelos aéreos/90,223,-0.016,-0.002
+Extremo,cod_count_p90,"Duelos aéreos ganhos, %",223,-0.11,-0.099
+Extremo,cod_count_p90,Duelos ofensivos/90,223,-0.015,-0.025
+Extremo,cod_count_p90,"Duelos ofensivos ganhos, %",223,-0.165,-0.188
+Extremo,cod_count_p90,Interseções/90,223,0.265,0.27
+Extremo,cod_count_p90,Dribles/90,223,0.001,-0.005
+Extremo,cod_count_p90,Corridas progressivas/90,223,0.035,0.076
+Extremo,cod_count_p90,Toques na área/90,223,0.129,0.106
+Extremo,cod_count_p90,Acções atacantes com sucesso/90,223,-0.098,-0.096
+Extremo,cod_count_p90,Golos esperados/90,223,-0.024,-0.004
+Extremo,cod_count_p90,Assistências esperadas/90,223,-0.242,-0.265
+Extremo,cod_count_p90,ga90,223,-0.154,-0.184
+Extremo,cod_count_p90,xgxa90,223,-0.172,-0.165
+Extremo,cod_count_p90,Passes progressivos/90,223,-0.142,-0.156
+Extremo,cod_count_p90,Faltas sofridas/90,223,-0.11,-0.147
+Extremo,cod_count_p90,Passes chave/90,223,-0.213,-0.247
+Extremo,runs_p30tip,Duelos/90,223,-0.132,-0.151
+Extremo,runs_p30tip,"Duelos ganhos, %",223,-0.228,-0.325
+Extremo,runs_p30tip,Duelos defensivos/90,223,0.034,-0.027
+Extremo,runs_p30tip,"Duelos defensivos ganhos, %",223,-0.134,-0.165
+Extremo,runs_p30tip,Duelos aéreos/90,223,0.057,0.025
+Extremo,runs_p30tip,"Duelos aéreos ganhos, %",223,-0.046,-0.083
+Extremo,runs_p30tip,Duelos ofensivos/90,223,-0.241,-0.211
+Extremo,runs_p30tip,"Duelos ofensivos ganhos, %",223,-0.118,-0.193
+Extremo,runs_p30tip,Interseções/90,223,0.134,0.067
+Extremo,runs_p30tip,Dribles/90,223,-0.272,-0.26
+Extremo,runs_p30tip,Corridas progressivas/90,223,-0.179,-0.151
+Extremo,runs_p30tip,Toques na área/90,223,0.127,0.176
+Extremo,runs_p30tip,Acções atacantes com sucesso/90,223,-0.292,-0.283
+Extremo,runs_p30tip,Golos esperados/90,223,0.171,0.168
+Extremo,runs_p30tip,Assistências esperadas/90,223,-0.188,-0.189
+Extremo,runs_p30tip,ga90,223,-0.157,-0.134
+Extremo,runs_p30tip,xgxa90,223,0.029,0.024
+Extremo,runs_p30tip,Passes progressivos/90,223,-0.161,-0.234
+Extremo,runs_p30tip,Faltas sofridas/90,223,-0.074,-0.091
+Extremo,runs_p30tip,Passes chave/90,223,-0.165,-0.208
+Extremo,runs_penalty_area_p30tip,Duelos/90,223,0.017,-0.006
+Extremo,runs_penalty_area_p30tip,"Duelos ganhos, %",223,-0.29,-0.395
+Extremo,runs_penalty_area_p30tip,Duelos defensivos/90,223,0.047,-0.042
+Extremo,runs_penalty_area_p30tip,"Duelos defensivos ganhos, %",223,-0.184,-0.197
+Extremo,runs_penalty_area_p30tip,Duelos aéreos/90,223,0.242,0.232
+Extremo,runs_penalty_area_p30tip,"Duelos aéreos ganhos, %",223,-0.013,-0.048
+Extremo,runs_penalty_area_p30tip,Duelos ofensivos/90,223,-0.145,-0.128
+Extremo,runs_penalty_area_p30tip,"Duelos ofensivos ganhos, %",223,-0.133,-0.235
+Extremo,runs_penalty_area_p30tip,Interseções/90,223,0.035,0.003
+Extremo,runs_penalty_area_p30tip,Dribles/90,223,-0.178,-0.195
+Extremo,runs_penalty_area_p30tip,Corridas progressivas/90,223,-0.168,-0.187
+Extremo,runs_penalty_area_p30tip,Toques na área/90,223,0.409,0.422
+Extremo,runs_penalty_area_p30tip,Acções atacantes com sucesso/90,223,-0.223,-0.265
+Extremo,runs_penalty_area_p30tip,Golos esperados/90,223,0.365,0.317
+Extremo,runs_penalty_area_p30tip,Assistências esperadas/90,223,-0.211,-0.219
+Extremo,runs_penalty_area_p30tip,ga90,223,0.032,-0.011
+Extremo,runs_penalty_area_p30tip,xgxa90,223,0.148,0.098
+Extremo,runs_penalty_area_p30tip,Passes progressivos/90,223,-0.404,-0.466
+Extremo,runs_penalty_area_p30tip,Faltas sofridas/90,223,-0.06,-0.081
+Extremo,runs_penalty_area_p30tip,Passes chave/90,223,-0.099,-0.157
+Extremo,sprint_distance_p30tip,Duelos/90,223,0.022,0.026
+Extremo,sprint_distance_p30tip,"Duelos ganhos, %",223,-0.048,-0.094
+Extremo,sprint_distance_p30tip,Duelos defensivos/90,223,-0.117,-0.132
+Extremo,sprint_distance_p30tip,"Duelos defensivos ganhos, %",223,-0.042,-0.076
+Extremo,sprint_distance_p30tip,Duelos aéreos/90,223,0.092,0.073
+Extremo,sprint_distance_p30tip,"Duelos aéreos ganhos, %",223,0.127,0.089
+Extremo,sprint_distance_p30tip,Duelos ofensivos/90,223,0.006,0.025
+Extremo,sprint_distance_p30tip,"Duelos ofensivos ganhos, %",223,0.063,0.039
+Extremo,sprint_distance_p30tip,Interseções/90,223,-0.003,-0.041
+Extremo,sprint_distance_p30tip,Dribles/90,223,0.152,0.174
+Extremo,sprint_distance_p30tip,Corridas progressivas/90,223,0.235,0.281
+Extremo,sprint_distance_p30tip,Toques na área/90,223,0.373,0.442
+Extremo,sprint_distance_p30tip,Acções atacantes com sucesso/90,223,0.161,0.186
+Extremo,sprint_distance_p30tip,Golos esperados/90,223,0.183,0.188
+Extremo,sprint_distance_p30tip,Assistências esperadas/90,223,-0.104,-0.106
+Extremo,sprint_distance_p30tip,ga90,223,0.019,0.007
+Extremo,sprint_distance_p30tip,xgxa90,223,0.086,0.079
+Extremo,sprint_distance_p30tip,Passes progressivos/90,223,-0.345,-0.385
+Extremo,sprint_distance_p30tip,Faltas sofridas/90,223,-0.09,-0.101
+Extremo,sprint_distance_p30tip,Passes chave/90,223,0.103,0.064
+Extremo,sprint_distance_p30otip,Duelos/90,223,0.111,0.058
+Extremo,sprint_distance_p30otip,"Duelos ganhos, %",223,0.05,0.012
+Extremo,sprint_distance_p30otip,Duelos defensivos/90,223,0.208,0.143
+Extremo,sprint_distance_p30otip,"Duelos defensivos ganhos, %",223,0.064,0.016
+Extremo,sprint_distance_p30otip,Duelos aéreos/90,223,0.071,0.059
+Extremo,sprint_distance_p30otip,"Duelos aéreos ganhos, %",223,0.112,0.06
+Extremo,sprint_distance_p30otip,Duelos ofensivos/90,223,0.056,-0.001
+Extremo,sprint_distance_p30otip,"Duelos ofensivos ganhos, %",223,-0.016,-0.01
+Extremo,sprint_distance_p30otip,Interseções/90,223,0.173,0.153
+Extremo,sprint_distance_p30otip,Dribles/90,223,0.131,0.103
+Extremo,sprint_distance_p30otip,Corridas progressivas/90,223,0.11,0.185
+Extremo,sprint_distance_p30otip,Toques na área/90,223,0.135,0.121
+Extremo,sprint_distance_p30otip,Acções atacantes com sucesso/90,223,0.107,0.101
+Extremo,sprint_distance_p30otip,Golos esperados/90,223,-0.018,0.012
+Extremo,sprint_distance_p30otip,Assistências esperadas/90,223,-0.142,-0.14
+Extremo,sprint_distance_p30otip,ga90,223,-0.053,-0.046
+Extremo,sprint_distance_p30otip,xgxa90,223,-0.102,-0.052
+Extremo,sprint_distance_p30otip,Passes progressivos/90,223,-0.166,-0.177
+Extremo,sprint_distance_p30otip,Faltas sofridas/90,223,-0.011,-0.064
+Extremo,sprint_distance_p30otip,Passes chave/90,223,-0.079,-0.072
+Atacante,psv99,Duelos/90,183,0.146,0.16
+Atacante,psv99,"Duelos ganhos, %",183,-0.076,-0.079
+Atacante,psv99,Duelos defensivos/90,183,0.165,0.182
+Atacante,psv99,"Duelos defensivos ganhos, %",183,-0.067,-0.012
+Atacante,psv99,Duelos aéreos/90,183,0.079,0.049
+Atacante,psv99,"Duelos aéreos ganhos, %",183,-0.09,-0.12
+Atacante,psv99,Duelos ofensivos/90,183,0.13,0.177
+Atacante,psv99,"Duelos ofensivos ganhos, %",183,-0.055,-0.07
+Atacante,psv99,Interseções/90,183,0.026,0.019
+Atacante,psv99,Dribles/90,183,0.334,0.34
+Atacante,psv99,Corridas progressivas/90,183,0.357,0.352
+Atacante,psv99,Toques na área/90,183,0.3,0.33
+Atacante,psv99,Acções atacantes com sucesso/90,183,0.193,0.21
+Atacante,psv99,Golos esperados/90,183,0.07,0.027
+Atacante,psv99,Assistências esperadas/90,183,-0.091,-0.023
+Atacante,psv99,ga90,183,0.006,-0.014
+Atacante,psv99,xgxa90,183,0.007,0.011
+Atacante,psv99,Passes progressivos/90,183,-0.228,-0.171
+Atacante,psv99,Faltas sofridas/90,183,-0.125,-0.12
+Atacante,psv99,Passes chave/90,183,-0.046,0.006
+Atacante,sprint_count_p90,Duelos/90,183,0.108,0.124
+Atacante,sprint_count_p90,"Duelos ganhos, %",183,-0.08,-0.117
+Atacante,sprint_count_p90,Duelos defensivos/90,183,0.284,0.301
+Atacante,sprint_count_p90,"Duelos defensivos ganhos, %",183,-0.032,0.001
+Atacante,sprint_count_p90,Duelos aéreos/90,183,0.048,0.028
+Atacante,sprint_count_p90,"Duelos aéreos ganhos, %",183,-0.12,-0.168
+Atacante,sprint_count_p90,Duelos ofensivos/90,183,0.03,0.066
+Atacante,sprint_count_p90,"Duelos ofensivos ganhos, %",183,-0.035,-0.046
+Atacante,sprint_count_p90,Interseções/90,183,0.065,0.05
+Atacante,sprint_count_p90,Dribles/90,183,0.28,0.275
+Atacante,sprint_count_p90,Corridas progressivas/90,183,0.354,0.351
+Atacante,sprint_count_p90,Toques na área/90,183,0.298,0.314
+Atacante,sprint_count_p90,Acções atacantes com sucesso/90,183,0.15,0.148
+Atacante,sprint_count_p90,Golos esperados/90,183,-0.014,-0.028
+Atacante,sprint_count_p90,Assistências esperadas/90,183,-0.034,0.018
+Atacante,sprint_count_p90,ga90,183,-0.073,-0.108
+Atacante,sprint_count_p90,xgxa90,183,-0.05,-0.036
+Atacante,sprint_count_p90,Passes progressivos/90,183,-0.137,-0.086
+Atacante,sprint_count_p90,Faltas sofridas/90,183,-0.192,-0.175
+Atacante,sprint_count_p90,Passes chave/90,183,-0.026,-0.009
+Atacante,hi_count_p90,Duelos/90,183,0.098,0.106
+Atacante,hi_count_p90,"Duelos ganhos, %",183,-0.043,-0.083
+Atacante,hi_count_p90,Duelos defensivos/90,183,0.341,0.365
+Atacante,hi_count_p90,"Duelos defensivos ganhos, %",183,0.016,0.028
+Atacante,hi_count_p90,Duelos aéreos/90,183,0.023,-0.008
+Atacante,hi_count_p90,"Duelos aéreos ganhos, %",183,-0.131,-0.175
+Atacante,hi_count_p90,Duelos ofensivos/90,183,-0.002,0.036
+Atacante,hi_count_p90,"Duelos ofensivos ganhos, %",183,-0.005,-0.0
+Atacante,hi_count_p90,Interseções/90,183,0.118,0.107
+Atacante,hi_count_p90,Dribles/90,183,0.261,0.257
+Atacante,hi_count_p90,Corridas progressivas/90,183,0.335,0.34
+Atacante,hi_count_p90,Toques na área/90,183,0.264,0.258
+Atacante,hi_count_p90,Acções atacantes com sucesso/90,183,0.152,0.146
+Atacante,hi_count_p90,Golos esperados/90,183,-0.063,-0.079
+Atacante,hi_count_p90,Assistências esperadas/90,183,0.029,0.044
+Atacante,hi_count_p90,ga90,183,-0.11,-0.161
+Atacante,hi_count_p90,xgxa90,183,-0.067,-0.068
+Atacante,hi_count_p90,Passes progressivos/90,183,-0.051,-0.009
+Atacante,hi_count_p90,Faltas sofridas/90,183,-0.196,-0.168
+Atacante,hi_count_p90,Passes chave/90,183,-0.022,-0.027
+Atacante,expl_accel_sprint_p90,Duelos/90,183,0.017,0.023
+Atacante,expl_accel_sprint_p90,"Duelos ganhos, %",183,-0.055,-0.112
+Atacante,expl_accel_sprint_p90,Duelos defensivos/90,183,0.175,0.172
+Atacante,expl_accel_sprint_p90,"Duelos defensivos ganhos, %",183,-0.061,-0.015
+Atacante,expl_accel_sprint_p90,Duelos aéreos/90,183,-0.035,-0.044
+Atacante,expl_accel_sprint_p90,"Duelos aéreos ganhos, %",183,-0.122,-0.174
+Atacante,expl_accel_sprint_p90,Duelos ofensivos/90,183,0.048,0.066
+Atacante,expl_accel_sprint_p90,"Duelos ofensivos ganhos, %",183,0.001,-0.049
+Atacante,expl_accel_sprint_p90,Interseções/90,183,0.064,0.022
+Atacante,expl_accel_sprint_p90,Dribles/90,183,0.273,0.233
+Atacante,expl_accel_sprint_p90,Corridas progressivas/90,183,0.294,0.243
+Atacante,expl_accel_sprint_p90,Toques na área/90,183,0.276,0.304
+Atacante,expl_accel_sprint_p90,Acções atacantes com sucesso/90,183,0.17,0.138
+Atacante,expl_accel_sprint_p90,Golos esperados/90,183,0.073,0.051
+Atacante,expl_accel_sprint_p90,Assistências esperadas/90,183,-0.127,-0.082
+Atacante,expl_accel_sprint_p90,ga90,183,-0.007,-0.034
+Atacante,expl_accel_sprint_p90,xgxa90,183,-0.024,-0.006
+Atacante,expl_accel_sprint_p90,Passes progressivos/90,183,-0.165,-0.15
+Atacante,expl_accel_sprint_p90,Faltas sofridas/90,183,-0.148,-0.158
+Atacante,expl_accel_sprint_p90,Passes chave/90,183,-0.084,-0.071
+Atacante,distance_p90,Duelos/90,183,0.194,0.167
+Atacante,distance_p90,"Duelos ganhos, %",183,0.192,0.111
+Atacante,distance_p90,Duelos defensivos/90,183,0.482,0.517
+Atacante,distance_p90,"Duelos defensivos ganhos, %",183,0.133,0.088
+Atacante,distance_p90,Duelos aéreos/90,183,-0.047,-0.1
+Atacante,distance_p90,"Duelos aéreos ganhos, %",183,-0.06,-0.142
+Atacante,distance_p90,Duelos ofensivos/90,183,0.082,0.093
+Atacante,distance_p90,"Duelos ofensivos ganhos, %",183,0.205,0.193
+Atacante,distance_p90,Interseções/90,183,0.37,0.332
+Atacante,distance_p90,Dribles/90,183,0.209,0.216
+Atacante,distance_p90,Corridas progressivas/90,183,0.263,0.318
+Atacante,distance_p90,Toques na área/90,183,-0.114,-0.169
+Atacante,distance_p90,Acções atacantes com sucesso/90,183,0.181,0.196
+Atacante,distance_p90,Golos esperados/90,183,-0.237,-0.271
+Atacante,distance_p90,Assistências esperadas/90,183,0.172,0.17
+Atacante,distance_p90,ga90,183,-0.238,-0.254
+Atacante,distance_p90,xgxa90,183,-0.135,-0.184
+Atacante,distance_p90,Passes progressivos/90,183,0.266,0.306
+Atacante,distance_p90,Faltas sofridas/90,183,0.111,0.075
+Atacante,distance_p90,Passes chave/90,183,0.097,0.14
+Atacante,high_accel_p90,Duelos/90,183,0.104,0.013
+Atacante,high_accel_p90,"Duelos ganhos, %",183,-0.104,-0.132
+Atacante,high_accel_p90,Duelos defensivos/90,183,0.12,0.088
+Atacante,high_accel_p90,"Duelos defensivos ganhos, %",183,0.015,-0.006
+Atacante,high_accel_p90,Duelos aéreos/90,183,0.142,0.038
+Atacante,high_accel_p90,"Duelos aéreos ganhos, %",183,-0.085,-0.124
+Atacante,high_accel_p90,Duelos ofensivos/90,183,-0.007,-0.015
+Atacante,high_accel_p90,"Duelos ofensivos ganhos, %",183,-0.08,-0.063
+Atacante,high_accel_p90,Interseções/90,183,0.028,-0.023
+Atacante,high_accel_p90,Dribles/90,183,0.119,0.086
+Atacante,high_accel_p90,Corridas progressivas/90,183,0.136,0.073
+Atacante,high_accel_p90,Toques na área/90,183,0.296,0.316
+Atacante,high_accel_p90,Acções atacantes com sucesso/90,183,0.004,-0.024
+Atacante,high_accel_p90,Golos esperados/90,183,0.065,0.056
+Atacante,high_accel_p90,Assistências esperadas/90,183,-0.136,-0.12
+Atacante,high_accel_p90,ga90,183,-0.02,-0.032
+Atacante,high_accel_p90,xgxa90,183,-0.038,-0.014
+Atacante,high_accel_p90,Passes progressivos/90,183,-0.245,-0.244
+Atacante,high_accel_p90,Faltas sofridas/90,183,-0.122,-0.148
+Atacante,high_accel_p90,Passes chave/90,183,-0.139,-0.157
+Atacante,cod_count_p90,Duelos/90,183,0.042,0.022
+Atacante,cod_count_p90,"Duelos ganhos, %",183,0.072,0.022
+Atacante,cod_count_p90,Duelos defensivos/90,183,0.408,0.431
+Atacante,cod_count_p90,"Duelos defensivos ganhos, %",183,0.122,0.088
+Atacante,cod_count_p90,Duelos aéreos/90,183,-0.128,-0.176
+Atacante,cod_count_p90,"Duelos aéreos ganhos, %",183,-0.122,-0.177
+Atacante,cod_count_p90,Duelos ofensivos/90,183,0.001,0.024
+Atacante,cod_count_p90,"Duelos ofensivos ganhos, %",183,0.093,0.114
+Atacante,cod_count_p90,Interseções/90,183,0.227,0.21
+Atacante,cod_count_p90,Dribles/90,183,0.238,0.22
+Atacante,cod_count_p90,Corridas progressivas/90,183,0.253,0.226
+Atacante,cod_count_p90,Toques na área/90,183,0.138,0.105
+Atacante,cod_count_p90,Acções atacantes com sucesso/90,183,0.168,0.152
+Atacante,cod_count_p90,Golos esperados/90,183,-0.039,-0.05
+Atacante,cod_count_p90,Assistências esperadas/90,183,0.128,0.102
+Atacante,cod_count_p90,ga90,183,-0.08,-0.128
+Atacante,cod_count_p90,xgxa90,183,0.015,0.003
+Atacante,cod_count_p90,Passes progressivos/90,183,0.069,0.071
+Atacante,cod_count_p90,Faltas sofridas/90,183,-0.08,-0.069
+Atacante,cod_count_p90,Passes chave/90,183,0.019,0.015
+Atacante,runs_p30tip,Duelos/90,183,-0.084,-0.121
+Atacante,runs_p30tip,"Duelos ganhos, %",183,0.054,0.025
+Atacante,runs_p30tip,Duelos defensivos/90,183,0.192,0.192
+Atacante,runs_p30tip,"Duelos defensivos ganhos, %",183,0.093,0.128
+Atacante,runs_p30tip,Duelos aéreos/90,183,-0.171,-0.251
+Atacante,runs_p30tip,"Duelos aéreos ganhos, %",183,-0.142,-0.195
+Atacante,runs_p30tip,Duelos ofensivos/90,183,-0.017,-0.001
+Atacante,runs_p30tip,"Duelos ofensivos ganhos, %",183,0.13,0.149
+Atacante,runs_p30tip,Interseções/90,183,0.162,0.111
+Atacante,runs_p30tip,Dribles/90,183,0.23,0.217
+Atacante,runs_p30tip,Corridas progressivas/90,183,0.248,0.283
+Atacante,runs_p30tip,Toques na área/90,183,0.046,0.04
+Atacante,runs_p30tip,Acções atacantes com sucesso/90,183,0.168,0.168
+Atacante,runs_p30tip,Golos esperados/90,183,-0.169,-0.13
+Atacante,runs_p30tip,Assistências esperadas/90,183,0.212,0.205
+Atacante,runs_p30tip,ga90,183,-0.153,-0.183
+Atacante,runs_p30tip,xgxa90,183,-0.071,-0.031
+Atacante,runs_p30tip,Passes progressivos/90,183,0.239,0.262
+Atacante,runs_p30tip,Faltas sofridas/90,183,-0.058,-0.028
+Atacante,runs_p30tip,Passes chave/90,183,0.158,0.172
+Atacante,runs_penalty_area_p30tip,Duelos/90,183,-0.068,-0.042
+Atacante,runs_penalty_area_p30tip,"Duelos ganhos, %",183,-0.426,-0.438
+Atacante,runs_penalty_area_p30tip,Duelos defensivos/90,183,-0.365,-0.332
+Atacante,runs_penalty_area_p30tip,"Duelos defensivos ganhos, %",183,-0.167,-0.163
+Atacante,runs_penalty_area_p30tip,Duelos aéreos/90,183,0.307,0.276
+Atacante,runs_penalty_area_p30tip,"Duelos aéreos ganhos, %",183,0.012,-0.001
+Atacante,runs_penalty_area_p30tip,Duelos ofensivos/90,183,-0.29,-0.243
+Atacante,runs_penalty_area_p30tip,"Duelos ofensivos ganhos, %",183,-0.346,-0.322
+Atacante,runs_penalty_area_p30tip,Interseções/90,183,-0.235,-0.242
+Atacante,runs_penalty_area_p30tip,Dribles/90,183,-0.347,-0.354
+Atacante,runs_penalty_area_p30tip,Corridas progressivas/90,183,-0.392,-0.367
+Atacante,runs_penalty_area_p30tip,Toques na área/90,183,0.401,0.381
+Atacante,runs_penalty_area_p30tip,Acções atacantes com sucesso/90,183,-0.393,-0.407
+Atacante,runs_penalty_area_p30tip,Golos esperados/90,183,0.345,0.353
+Atacante,runs_penalty_area_p30tip,Assistências esperadas/90,183,-0.312,-0.343
+Atacante,runs_penalty_area_p30tip,ga90,183,0.084,0.028
+Atacante,runs_penalty_area_p30tip,xgxa90,183,0.182,0.177
+Atacante,runs_penalty_area_p30tip,Passes progressivos/90,183,-0.472,-0.455
+Atacante,runs_penalty_area_p30tip,Faltas sofridas/90,183,-0.262,-0.215
+Atacante,runs_penalty_area_p30tip,Passes chave/90,183,-0.148,-0.214
+Atacante,sprint_distance_p30tip,Duelos/90,183,0.099,0.059
+Atacante,sprint_distance_p30tip,"Duelos ganhos, %",183,-0.088,-0.116
+Atacante,sprint_distance_p30tip,Duelos defensivos/90,183,0.206,0.209
+Atacante,sprint_distance_p30tip,"Duelos defensivos ganhos, %",183,-0.043,0.011
+Atacante,sprint_distance_p30tip,Duelos aéreos/90,183,0.031,-0.045
+Atacante,sprint_distance_p30tip,"Duelos aéreos ganhos, %",183,-0.138,-0.201
+Atacante,sprint_distance_p30tip,Duelos ofensivos/90,183,0.095,0.113
+Atacante,sprint_distance_p30tip,"Duelos ofensivos ganhos, %",183,-0.025,-0.051
+Atacante,sprint_distance_p30tip,Interseções/90,183,0.064,0.033
+Atacante,sprint_distance_p30tip,Dribles/90,183,0.359,0.355
+Atacante,sprint_distance_p30tip,Corridas progressivas/90,183,0.416,0.424
+Atacante,sprint_distance_p30tip,Toques na área/90,183,0.316,0.376
+Atacante,sprint_distance_p30tip,Acções atacantes com sucesso/90,183,0.245,0.235
+Atacante,sprint_distance_p30tip,Golos esperados/90,183,-0.032,-0.046
+Atacante,sprint_distance_p30tip,Assistências esperadas/90,183,-0.017,0.083
+Atacante,sprint_distance_p30tip,ga90,183,-0.028,-0.071
+Atacante,sprint_distance_p30tip,xgxa90,183,-0.061,-0.018
+Atacante,sprint_distance_p30tip,Passes progressivos/90,183,-0.095,-0.065
+Atacante,sprint_distance_p30tip,Faltas sofridas/90,183,-0.172,-0.192
+Atacante,sprint_distance_p30tip,Passes chave/90,183,0.034,0.081
+Atacante,sprint_distance_p30otip,Duelos/90,183,0.07,0.162
+Atacante,sprint_distance_p30otip,"Duelos ganhos, %",183,-0.045,-0.09
+Atacante,sprint_distance_p30otip,Duelos defensivos/90,183,0.235,0.287
+Atacante,sprint_distance_p30otip,"Duelos defensivos ganhos, %",183,-0.072,-0.041
+Atacante,sprint_distance_p30otip,Duelos aéreos/90,183,0.074,0.12
+Atacante,sprint_distance_p30otip,"Duelos aéreos ganhos, %",183,-0.017,-0.076
+Atacante,sprint_distance_p30otip,Duelos ofensivos/90,183,-0.051,0.006
+Atacante,sprint_distance_p30otip,"Duelos ofensivos ganhos, %",183,-0.027,-0.034
+Atacante,sprint_distance_p30otip,Interseções/90,183,0.06,0.057
+Atacante,sprint_distance_p30otip,Dribles/90,183,0.13,0.157
+Atacante,sprint_distance_p30otip,Corridas progressivas/90,183,0.205,0.215
+Atacante,sprint_distance_p30otip,Toques na área/90,183,0.225,0.209
+Atacante,sprint_distance_p30otip,Acções atacantes com sucesso/90,183,0.02,0.037
+Atacante,sprint_distance_p30otip,Golos esperados/90,183,-0.043,-0.051
+Atacante,sprint_distance_p30otip,Assistências esperadas/90,183,-0.062,-0.066
+Atacante,sprint_distance_p30otip,ga90,183,-0.108,-0.136
+Atacante,sprint_distance_p30otip,xgxa90,183,-0.083,-0.092
+Atacante,sprint_distance_p30otip,Passes progressivos/90,183,-0.157,-0.104
+Atacante,sprint_distance_p30otip,Faltas sofridas/90,183,-0.167,-0.127
+Atacante,sprint_distance_p30otip,Passes chave/90,183,-0.099,-0.118

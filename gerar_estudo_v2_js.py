@@ -36,6 +36,7 @@ DOCS = [
     ("Blocos", "b5", "resultados/b5/B5.md", "5 · Padrão de equipes"),
     ("Blocos", "b6", "resultados/b6/B6.md", "6 · Temporada e elenco"),
     ("Blocos", "b7", "resultados/b7/B7.md", "7 · O que faltava olhar"),
+    ("Blocos", "b8", "resultados/b8/B8.md", "8 · Físico × técnico"),
     ("Método", "plano", "PLANO.md", "Plano do estudo"),
     ("Método", "armadilhas", "ARMADILHAS.md", "Armadilhas dos dados"),
 ]
