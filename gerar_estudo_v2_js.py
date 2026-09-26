@@ -38,8 +38,8 @@ DOCS = [
     ("Blocos", "b7", "resultados/b7/B7.md", "7 · O que faltava olhar"),
     ("Blocos", "b8", "resultados/b8/B8.md", "8 · Físico × técnico"),
     ("Blocos", "b9", "resultados/b9/B9.md", "9 · Duelos e posse"),
+    ("Blocos", "b10", "resultados/b10/B10.md", "10 · Sugestões pelo tipo físico"),
     ("Blocos", "b11", "resultados/b11/B11.md", "11 · Treinador e modelo de jogo"),
-    ("Recomendação", "b10", "resultados/b10/B10.md", "Sugestões pelo tipo físico"),
     ("Método", "plano", "PLANO.md", "Plano do estudo"),
     ("Método", "armadilhas", "ARMADILHAS.md", "Armadilhas dos dados"),
 ]
