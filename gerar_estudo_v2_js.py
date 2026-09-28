@@ -54,7 +54,7 @@ DOCS = [
     ("Listas · Jogadores", "seriea", "listas/SERIE_A_OPORTUNIDADES.md", "7. Série A: jovens, veteranos, Remo/Chape"),
     ("Listas · Jogadores", "emprestimos", "listas/EMPRESTIMOS_EXTERIOR.md", "8. Empréstimos do exterior"),
     ("Listas · Jogadores", "bolaparada", "listas/BOLA_PARADA.md", "9. Especialistas de bola parada"),
-    ("Listas · Jogadores", "nao", "listas/NAO_CONTRATAR.md", "10. Quem não contratar"),
+    ("Listas · Jogadores", "nao", "listas/NAO_CONTRATAR.md", "10. Alertas do dado: contra e a favor (Série B)"),
     ("Decisão", "decisao", "listas/DECISAO_2027.md", "Treinador e elenco 2027"),
     ("Decisão", "elenco", "listas/ELENCO_2027.md", "Quem eu contrataria (a montagem)"),
     ("Decisão", "campograma", "listas/CAMPOGRAMA_x_ESTUDO.md", "Campograma × estudo"),

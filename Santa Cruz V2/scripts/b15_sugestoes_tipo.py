@@ -42,6 +42,10 @@ def main():
         est[s] = (a[CORE].mean(), a[CORE].std())
         z = (a[CORE] - est[s][0]) / est[s][1]
         cen[s] = z.groupby(a.tipo).mean()
+    # centróides para o app (letra A/B/C no campograma para quem tem físico mas não está nas listas)
+    json.dump({s: {"media": [float(v) for v in est[s][0]], "desvio": [float(v) for v in est[s][1]],
+                   "tipos": {t: [float(v) for v in cen[s].loc[t]] for t in cen[s].index}} for s in SETORES} | {"_core": CORE, "_app": {v: k for k, v in APP.items() if v in CORE}},
+              open(os.path.join(OUT, "centroides.json"), "w", encoding="utf-8"), ensure_ascii=False)
     fora = excluidos()
 
     # --- Série B 2026 (tipo já atribuído no F2) ---

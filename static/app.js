@@ -6454,10 +6454,24 @@ function tipoDe(j) {
   return TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || TIPO_IDX.n.get(tipoNorm(j.n)) || null;
 }
 var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
+/* quem tem físico mas não está nas listas (Série A, ligas de fora do recorte, < 900 min): o tipo é
+   calculado aqui, pelo centróide mais próximo do setor (os mesmos seis indicadores do F2, em z da Série B) */
+const TIPO_SET = { ZD: 'Zaga', ZE: 'Zaga', LD: 'Lateral', LE: 'Lateral', VOL: 'Volante', MED: 'Meia', MEI: 'Meia', ED: 'Extremo', EE: 'Extremo', CA: 'Atacante' };
+function tipoCalc(j) {
+  const C = window.CONSULTA && window.CONSULTA.cen; const s = C && C[TIPO_SET[j.p]]; if (!s) return null;
+  if (typeof j.psv !== 'number' || (Number(j.sc_n) || 0) < 5) return null;
+  const core = C._core, app = C._app;                     /* ex.: psv99 → psv */
+  const z = core.map((c, i) => { const v = Number(j[app[c]]); return isFinite(v) && j[app[c]] != null ? (v - s.media[i]) / s.desvio[i] : null; });
+  if (z.filter(v => v != null).length < 3) return null;
+  let melhor = null, dmin = Infinity;
+  Object.entries(s.tipos).forEach(([t, c]) => { let d = 0; z.forEach((v, i) => { if (v != null) d += (c[i] - v) ** 2; }); if (d < dmin) { dmin = d; melhor = t; } });
+  return melhor;
+}
 function tipoBadge(pk) {
   if (!BASE.length || !window.CONSULTA) return '';
   const j = fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
-  const x = tipoDe(j); if (!x || !x.tipo) return '';
+  let x = tipoDe(j);
+  if (!x || !x.tipo) { const t = tipoCalc(j); if (!t) return ''; x = { tipo: t, p: j.p, calc: true }; }
   const D = window.CONSULTA, pos = x.p || j.p;
   const pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
   let g, leitura;
@@ -6465,7 +6479,7 @@ function tipoBadge(pk) {
   else if (cai.includes(x.tipo)) { g = 'C'; leitura = 'o tipo de quem cai no ' + (TIPO_POSN[pos] || pos) + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : ''); }
   else if (!pref.length) { g = 'B'; leitura = 'no ' + (TIPO_POSN[pos] || pos) + ' o físico não separa quem sobe de quem cai (F2-4)'; }
   else { g = 'B'; leitura = 'nem o tipo de quem sobe (' + pref.join(' / ') + ') nem o de quem cai no ' + (TIPO_POSN[pos] || pos); }
-  return '<span class="tipo-abc tipo-' + g + '" title="' + esc('Tipo físico: ' + x.tipo + ' — ' + leitura + '. A = tipo de quem sobe, B = outro tipo ou posição sem sinal, C = tipo de quem cai (Estudo V2, F2-4).') + '">' + g + '</span>';
+  return '<span class="tipo-abc tipo-' + g + '" title="' + esc('Tipo físico: ' + x.tipo + ' — ' + leitura + '. A = tipo de quem sobe, B = outro tipo ou posição sem sinal, C = tipo de quem cai (Estudo V2, F2-4).' + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '')) + '">' + g + '</span>';
 }
 
 function raioIcone(pk) {

@@ -1,4 +1,4 @@
-"""Quem não contratar — Série B 2026 (o mercado onde o clube mais olha): jogadores com ≥ 900 min que o estudo
+"""Alertas do dado — Série B 2026 (o mercado onde o clube mais olha): jogadores com ≥ 900 min que o estudo
 reprova, com o motivo. Motivos: abaixo do piso de velocidade (F1-2); tipo físico de quem cai na posição (F2-4, por
 posição: médio em tudo no LD, baixa intensidade no ZE/LE/CA, menos intenso no VOL, motor de volume no EE); nota baixa (< 50: aderência + nível);
 corre pouco para a área quando a posição pede (F2-2, quartil de baixo, lateral/volante/meia/extremo). Entra na lista
@@ -31,19 +31,30 @@ def main():
         if piso or (len(m) >= 2 and (pd.isna(r.nota) or r.nota < 60)) or (pd.notna(r.nota) and r.nota < 45):
             rows.append(dict(pos11=r.pos11, jogador=r.jogador, clube=r.clube, idade=r.idade, minutos=r.minutos, contrato=r.contrato, nota=r.nota, psv=r.psv99, tipo=r.tipo, motivos="; ".join(m)))
     d = pd.DataFrame(rows).sort_values(["pos11", "minutos"], ascending=[True, False])
+    # o que o dado tem A FAVOR: sinal dos scouts (TransferRoom), lugar no ranking físico, lugar em "Os meus dez"
+    sc = pd.read_csv(os.path.join(RAIZ, "scout", "alvos_scouts.csv")); sc["k"] = sc.jogador.map(chave) + "|" + sc.clube.map(chave)
+    sinal = sc.drop_duplicates("k").set_index("k").sinal_scouts
+    rf = pd.read_csv(os.path.join(LI, "RANKING_FISICO.csv")); rf = rf[rf.mercado_l == "Série B"].copy(); rf["k"] = rf.jogador.map(chave) + "|" + rf.clube.map(chave)
+    rf["rank_fis"] = rf.groupby("pos11").cumcount() + 1; rfi = rf.drop_duplicates("k").set_index("k")
+    po = pd.read_csv(os.path.join(LI, "POOL_2027.csv")).set_index("k")
+    d["k"] = d.jogador.map(chave) + "|" + d.clube.map(chave)
+    d["scouts"] = d.k.map(sinal); d["rank_fis"] = d.k.map(rfi.rank_fis); d["fisico"] = d.k.map(rfi.fisico); d["geral"] = d.k.map(po.ordem_geral)
+    d["favor"] = [", ".join(x for x in [("★ scouts: " + str(r.scouts)) if isinstance(r.scouts, str) else "", f"{int(r.rank_fis)}º físico da posição na B ({r.fisico:.0f})" if pd.notna(r.rank_fis) and r.rank_fis <= 10 else ""] if x) for r in d.itertuples()]
     d.to_csv(os.path.join(LI, "NAO_CONTRATAR.csv"), index=False)
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
-    md = ["# Quem não contratar — Série B 2026", "", "*Dado: Wyscout ago/26, SkillCorner até set/26, tipos físicos do F2 · 26/09/2026.*", "",
-          "Jogadores da Série B 2026 com ≥ 900 min que o estudo **reprova**, com o motivo. Entra na lista quem está abaixo do piso de velocidade (F1-2), ou tem nota abaixo de 60 e dois motivos entre: tipo físico de quem cai na posição (F2-4, por posição: médio em tudo no lateral direito; baixa intensidade no zagueiro pela esquerda, lateral esquerdo e centroavante; menos intenso no volante; motor de volume no extremo pela esquerda — nas demais o físico não separa), nota baixa (< 50), corre pouco para a área quando a posição pede (F2-2); ou nota abaixo de 45. "
-          "Ordem: minutos jogados — quem mais aparece na Série B e por isso mais chega ao clube como sugestão. Um nome aqui não é veredito de vídeo: é o dado dizendo que ele não é o perfil que sobe. Clique no nome para abrir a ficha.", ""]
-    for p in ORDEM:
-        x = d[d.pos11 == p]
-        if x.empty: continue
-        md += [f"### {NOMES[p]} ({len(x)})", "", "| Jogador | Clube | Idade | Min | Contrato | Nota | PSV | Tipo | Por quê |", "|---|---|---|---|---|---|---|---|---|"]
-        for r in x.itertuples():
-            md.append(f"| **{r.jogador}** | {r.clube} | {int(r.idade)} | {int(r.minutos)} | {dt(r.contrato)} | {f(r.nota)} | {f(r.psv, 1)} | {r.tipo if isinstance(r.tipo, str) else '—'} | {r.motivos} |")
-        md.append("")
+    md = ["# Alertas do dado — Série B 2026", "", "*Dado: Wyscout ago/26, SkillCorner até set/26, tipos físicos do F2, scouts TransferRoom · 28/09/2026.*", "",
+          "Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que chega como sugestão — e, na última coluna, o que tem **a favor** (o sinal dos scouts e o lugar no ranking físico), para a conversa ser com os dois lados na mesa. Quem tem algo a favor está na seção 1; quem só tem contra, na 2. Jogadores da Série B 2026 com ≥ 900 min. Entra na lista quem está abaixo do piso de velocidade (F1-2), ou tem nota abaixo de 60 e dois motivos entre: tipo físico de quem cai na posição (F2-4, por posição: médio em tudo no lateral direito; baixa intensidade no zagueiro pela esquerda, lateral esquerdo e centroavante; menos intenso no volante; motor de volume no extremo pela esquerda — nas demais o físico não separa), nota baixa (< 50), corre pouco para a área quando a posição pede (F2-2); ou nota abaixo de 45. "
+          "Ordem: minutos jogados — quem mais aparece na Série B e por isso mais chega ao clube como sugestão. **Geral** = lugar em `Os meus dez` (— = não entra). Clique no nome para abrir a ficha.", ""]
+    for titulo, cond in [("## 1 · O dado alerta, mas há algo a favor — vídeo decide", d.favor != ""), ("## 2 · Só contra: o dado não vê o perfil que sobe", d.favor == "")]:
+        md += [titulo, ""]
+        for p in ORDEM:
+            x = d[(d.pos11 == p) & cond]
+            if x.empty: continue
+            md += [f"### {NOMES[p]} ({len(x)})", "", "| Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+            for r in x.itertuples():
+                md.append(f"| **{r.jogador}** | {r.clube} | {int(r.idade)} | {int(r.minutos)} | {dt(r.contrato)} | {f(r.nota)} | {'—' if pd.isna(r.geral) else str(int(r.geral)) + 'º'} | {f(r.psv, 1)} | {r.tipo if isinstance(r.tipo, str) else '—'} | {r.motivos} | {r.favor or '—'} |")
+            md.append("")
     md += ["## Vetados pelo clube (EXCLUIDOS.csv)", "", "| Jogador | Clube | Motivo | Data |", "|---|---|---|---|"]
     for r in ex.itertuples(): md.append(f"| {r.jogador} | {r.clube if isinstance(r.clube, str) else '—'} | {r.motivo} | {r.data} |")
     open(os.path.join(LI, "NAO_CONTRATAR.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")

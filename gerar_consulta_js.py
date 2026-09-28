@@ -3,7 +3,7 @@
 (técnico + físico) e onde ele está nas listas. Gera static/consulta_dados.js a partir das bases do
 estudo V2 (Wyscout ago/26 de 66 ligas + Série B 2026, físico SkillCorner/Portal, tipos físicos F2/F2,
 bola parada T2, patamar de A F3, Sofascore M3, "Os meus dez", vetados e teto de valor)."""
-import os, sys, json, numpy as np, pandas as pd
+import os, json, sys, numpy as np, pandas as pd
 AQUI = os.path.dirname(os.path.abspath(__file__))
 V2 = os.path.join(AQUI, "Santa Cruz V2"); sys.path.insert(0, os.path.join(V2, "scripts"))
 from _comum import RAIZ, chave, excluidos, caro, TETO_VALOR
@@ -87,7 +87,8 @@ def main():
                    sofa=(None if (r.liga != "Brasil B" or r.chave not in sj.index) else {"nota": round(float(sj.loc[r.chave].nota_media), 2), "xgxa": round(float(sj.loc[r.chave].expectedGoals_p90 or 0) + float(sj.loc[r.chave].expectedAssists_p90 or 0), 2), "vmax": (None if pd.isna(sj.loc[r.chave].topSpeed) else round(float(sj.loc[r.chave].topSpeed), 1)), "tit": int(sj.loc[r.chave].titularidades), "jogos": int(sj.loc[r.chave].jogos)}),
                    dez=(None if r.k not in ideal.index else {"ordem": int(ideal.loc[r.k].ordem), "pontos": float(ideal.loc[r.k].score)}))
         rows.append(rec)
-    out = {"gerado_em": pd.Timestamp.now().strftime("%Y-%m-%d"), "n": len(rows), "pref": pref, "cai": cai, "teto": TETO_VALOR,
+    cen = json.load(open(os.path.join(V2, "resultados", "b15", "centroides.json"), encoding="utf-8"))
+    out = {"gerado_em": pd.Timestamp.now().strftime("%Y-%m-%d"), "n": len(rows), "pref": pref, "cai": cai, "cen": cen, "teto": TETO_VALOR,
            "regua": {"psv": 27, "ader_bom": 65, "ader_ok": 50, "nota_bom": 65, "nota_ok": 55},
            "jogadores": rows}
     with open(SAIDA, "w", encoding="utf-8") as fh:
