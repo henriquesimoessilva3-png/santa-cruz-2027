@@ -29,3 +29,13 @@ dados/_serieb_jogos_html/
 _fonte/estudo_serieb/resultados/_backup_pre_correcoes_19_09/
 _fonte/estudo_serieb/resultados/_backup_pre_v2_19_09/
 _fonte/estudo_serieb/scripts/_backup_pre_numeros_20_09/
+
+# material de trabalho que fica fora do repositório público (28/09): scouts, ranking, planilhas
+# extraídas do Wyscout, PDF e saídas do Claude. Os scripts leem daqui; nada disso é código.
+Claude outputs/
+Scout jogos/
+Santa Cruz V2/scout/
+Santa Cruz V2/bases/wyscout_ligas/rankings_ago26.json
+Santa Cruz V2/bases/_extraidos/tsb/*.xlsx
+Santa Cruz V2/*.pdf
+_fonte/serie_b_jogos_2018_2021/*.xlsx

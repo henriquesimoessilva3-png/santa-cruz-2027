@@ -108,13 +108,13 @@ A premissa m1 passou de "Time físico" para "Time rápido e explosivo", com o te
 - Na coluna "Quem cai", o meia tem **mais** corrida para a área (5,10 × 4,33) e mais sprint (7,96 ×
   7,41). O prompt define o traço do MEI só pela corrida para a área, então o traço aponta para o lado
   de quem cai.
-- Isso **bate com o próprio `B1_perfis.md` §2**: o meia e o extremo dos times que rendem correm
-  *menos* (sprint −10/−13%, arrancadas −10/−26%). Ou seja, o prompt pede um traço que o próprio B1
+- Isso **bate com o próprio `B1_perfis.md` 2**: o meia e o extremo dos times que rendem correm
+  *menos* (sprint −10/−13%, arrancadas −10/−26%). Ou seja, o prompt pede um traço que o próprio F1
   diz não ser o do MEI.
 - O que o meia de quem sobe tem a mais é **arrancada** (1,02 × 0,82).
 - **Não troquei o traço**: escolhê-lo depois de ver o resultado da validação é seleção.
-- **Proposta:** decidir o traço do MEI pelo B1, antes de olhar a validação. Talvez o MEI não deva
-  ter traço físico nenhum, e sim técnico (Bloco 2).
+- **Proposta:** decidir o traço do MEI pelo F1, antes de olhar a validação. Talvez o MEI não deva
+  ter traço físico nenhum, e sim técnico (T1).
 
 **ZD (42 × 42).**
 - Sobe e cai são iguais em sprint (5,25 × 5,23) e em corrida para a área (0,197 × 0,190). Em
@@ -132,7 +132,7 @@ A premissa m1 passou de "Time físico" para "Time rápido e explosivo", com o te
 
 ### B. "Mediana da Série B" no texto, coorte das Séries A e B na conta
 
-- A premissa nova e o B1 falam em intensidade "acima da **mediana da Série B**".
+- A premissa nova e o F1 falam em intensidade "acima da **mediana da Série B**".
 - A ficha, porém, calcula o percentil na **coorte da aba, que é Séries A + B**. No MEI, por exemplo,
   são 25 da Série A e 17 da B. O percentil 50 dessa coorte não é a mediana da Série B.
 - Mantive a coorte da aba porque o prompt pedia "na coorte da posição (a mesma da aba)".
@@ -145,7 +145,7 @@ A premissa m1 passou de "Time físico" para "Time rápido e explosivo", com o te
   Lacerda (31,3) virou o mais rápido; o Eduardo (26,6) continua o elo lento. Sem o Eduardo, a
   amplitude fica em 3,0.
 - **4,7 está acima da faixa de quem caiu** (4,0–4,35).
-- Pela conclusão 2 do B1, o critério é o piso e não o teto — ter um jogador rápido não ajuda.
+- Pela conclusão 2 do F1, o critério é o piso e não o teto — ter um jogador rápido não ajuda.
   Então o que pesa aqui é o Eduardo, o único titular abaixo de 27 km/h. O Derik alarga a amplitude
   sem mudar isso.
 - A conta de amplitude pune ter um jogador muito rápido. Se a regra é o piso, talvez o Onze devesse
@@ -163,7 +163,7 @@ A premissa m1 passou de "Time físico" para "Time rápido e explosivo", com o te
 - **Sprint com e sem bola:** o V2 mede metros; o app mede contagem. Recalculei a faixa com a
   contagem, que bate a −3% e 0%.
 - **"Alta velocidade com bola":** o app **não tem** HSR por fase. O mais próximo é `hi_c`, alta
-  intensidade (HSR + sprint). O traço de LE, VOL e MED usa esse primo, e não a métrica que o B1
+  intensidade (HSR + sprint). O traço de LE, VOL e MED usa esse primo, e não a métrica que o F1
   mediu. Fica declarado no código e no JSON.
 - **Nomes:** o prompt fala em `obr_area` e `obr_per`; o `posicao_faixas.csv` chama os mesmos
   indicadores de `runs_area` e `runs_per`. A tradução está no gerador.
@@ -199,11 +199,11 @@ A premissa m1 passou de "Time físico" para "Time rápido e explosivo", com o te
   - **Dois atletas do Cenário 1 perderam o vínculo: Rodrigo Gelado e Luan** (mudaram de clube na
     base). Precisam ser religados no campograma.
 - **O `B1.md` e o `desgaste.csv` estão modificados e não commitados** na árvore, por outra sessão.
-  O `CLAUDE.md` do V2 diz que os resultados do B1 foram calculados antes do `physical_match` cobrir
+  O `CLAUDE.md` do V2 diz que os resultados do F1 foram calculados antes do `physical_match` cobrir
   as 5 temporadas e que é preciso "refazer o que usa physical_match".
   - As faixas que usei (`posicao_faixas.csv`) vêm da tabela `physical`, não do `physical_match`, e
     não devem mudar.
-  - Se o B1 for refeito, rodar de novo `python3 gerar_ficha_fisica.py` e `publicar_site.py`.
+  - Se o F1 for refeito, rodar de novo `python3 gerar_ficha_fisica.py` e `publicar_site.py`.
 - **Outra sessão commita na mesma árvore ao mesmo tempo.** O commit `e83fcb1` (Estudo V2 vira aba
   própria) entrou no meio dos meus. Não houve conflito, mas vale combinar quem publica o `docs/`.
 
