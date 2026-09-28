@@ -1815,7 +1815,7 @@ function passaNacao(j, modo) {
    Antes o <thead> vivia no HTML e as <td> no JS, e bastava uma coluna nova para
    tudo desalinhar. */
 const COLUNAS = [
-  { c: 'n',   r: 'Jogador',  w: 23,  cel: j => raioIcone(primaryKey(j)) + '<b>' + esc(j.n) + '</b>' +
+  { c: 'n',   r: 'Jogador',  w: 23,  cel: j => raioIcone(primaryKey(j), null, j) + '<b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
       (j.rk_ok ? '' : ' <span class="sem-ind" title="sem indicadores: minutagem baixa">·</span>') +
       ' <button class="ver-ficha" title="Ver o detalhe do jogador">+</button>' },
@@ -6546,10 +6546,12 @@ function tipoBadge(pk, obj) {
   return '<span class="tipo-abc tipo-' + g + '" title="' + esc(t) + '">' + g + '</span>';
 }
 
-function raioIcone(pk, card) {
+function raioIcone(pk, card, objBase) {
   /* `card` = o jogador do elenco (estado.elenco): quando ele tem dados colados à mão (card.dados),
-     o objeto montado por dadosDoCard substitui o da base no raio, na letra e nos sinais */
-  const obj = card && card.dados ? dadosDoCard(card) : null;
+     o objeto montado por dadosDoCard substitui o da base no raio, na letra e nos sinais.
+     `objBase` = o próprio registro da base (a busca passa a linha): evita pegar, pela chave nome-clube-liga,
+     outro registro do mesmo jogador em outra posição */
+  const obj = card && card.dados ? dadosDoCard(card) : (objBase || null);
   const r = raioIconeBase(pk, obj);
   try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
