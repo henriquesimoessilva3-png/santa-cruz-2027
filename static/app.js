@@ -1801,7 +1801,7 @@ function passaNacao(j, modo) {
    Antes o <thead> vivia no HTML e as <td> no JS, e bastava uma coluna nova para
    tudo desalinhar. */
 const COLUNAS = [
-  { c: 'n',   r: 'Jogador',  w: 23,  cel: j => '<b>' + esc(j.n) + '</b>' +
+  { c: 'n',   r: 'Jogador',  w: 23,  cel: j => raioIcone(primaryKey(j)) + '<b>' + esc(j.n) + '</b>' +
       (ehEstrangeiroBase(j) ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
       (j.rk_ok ? '' : ' <span class="sem-ind" title="sem indicadores: minutagem baixa">·</span>') +
       ' <button class="ver-ficha" title="Ver o detalhe do jogador">+</button>' },
