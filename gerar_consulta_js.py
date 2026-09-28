@@ -85,6 +85,21 @@ def main():
     D["aer_dp"] = np.where(lin & (D["Aerial duels per 90"] >= 2.5), D["Aerial duels won, %_aer"], np.nan)
     m25 = lin & (D["Aerial duels per 90"] >= 2.5)
     D.loc[m25, "aer_dp"] = D[m25].groupby("liga")["Aerial duels won, %"].rank(pct=True) * 100
+    # cobrador (T2): percentil na liga em escanteios/90 (3), faltas cobradas/90 (3), faltas diretas/90 (1), faltas diretas no alvo % (1), xA/90 (1), cruzamento certo % (1)
+    COB = [("Corners per 90", 3), ("Free kicks per 90", 3), ("Direct free kicks per 90", 1), ("Direct free kicks on target, %", 1), ("xA per 90", 1), ("Accurate crosses, %", 1)]
+    PTC = {"Cantos/90": "Corners per 90", "Livres/90": "Free kicks per 90", "Livres directos/90": "Direct free kicks per 90", "Pontapés livres directos à baliza, %": "Direct free kicks on target, %", "Assistências esperadas/90": "xA per 90", "Cruzamentos certos, %": "Accurate crosses, %"}
+    T26c = L.tecnico(); T26c = T26c[T26c.ano == 2026].rename(columns=PTC); T26c["k"] = T26c.chave + "|" + T26c.clube.map(chave); T26c = T26c.drop_duplicates("k").set_index("k")
+    for en, _ in COB:
+        if en not in D: D[en] = np.nan
+        D[en] = pd.to_numeric(D[en], errors="coerce")
+        if en in T26c:
+            m = (D.mercado == "Série B") & D[en].isna(); D.loc[m, en] = pd.to_numeric(D.loc[m, "k"].map(T26c[en]), errors="coerce")
+        D[en + "_cob"] = D.groupby("liga")[en].rank(pct=True) * 100
+    def cob_idx(r):
+        v = [(r[en + "_cob"], w) for en, w in COB if pd.notna(r.get(en + "_cob"))]
+        return round(sum(a * w for a, w in v) / sum(w for _, w in v)) if len(v) >= 2 else np.nan
+    D["cob"] = [cob_idx(r) for _, r in D.iterrows()]
+    D["cob_esc"] = (D["Corners per 90"] * pd.to_numeric(D.minutos, errors="coerce") / 90).round(0); D["cob_fal"] = (D["Free kicks per 90"] * pd.to_numeric(D.minutos, errors="coerce") / 90).round(0)
     D["aer_won"] = D["Aerial duels won, %"]; D["aer_n"] = D["Aerial duels per 90"]; D["aer_g"] = D["Head goals"]
     rows = []
     for r in D.itertuples():
@@ -103,7 +118,7 @@ def main():
                    xg=(None if pd.isna(r.xg90) else round(float(r.xg90), 2)), xg_p=(None if pd.isna(r.xg_p) else round(float(r.xg_p))),
                    tipo=(None if pd.isna(r.tipo) else r.tipo), tpref=(bool(r.tipo_pref) if pd.notna(r.tipo_pref) else None),
                    alc=bool((r.liga == "Brasil B") or (r.mercado == "Sul-americano") or (r.mercado == "Exterior" and r.liga in L.ALCANCAVEIS and bool(r.sul_americano))) and r.clube not in GRANDES,
-                   bp=bp.get(r.k), aer=(None if pd.isna(r.aer) else int(r.aer)), aer_won=(None if pd.isna(r.aer_won) else round(float(r.aer_won))), aer_n=(None if pd.isna(r.aer_n) else round(float(r.aer_n), 1)), aer_g=(None if pd.isna(r.aer_g) else int(r.aer_g)), aer_dp=(None if pd.isna(r.aer_dp) else int(round(r.aer_dp))), vet=bool(fora(r.jogador, r.clube)), caro=bool(v > TETO_VALOR) if pd.notna(v) else False,
+                   bp=bp.get(r.k), aer=(None if pd.isna(r.aer) else int(r.aer)), aer_won=(None if pd.isna(r.aer_won) else round(float(r.aer_won))), aer_n=(None if pd.isna(r.aer_n) else round(float(r.aer_n), 1)), aer_g=(None if pd.isna(r.aer_g) else int(r.aer_g)), aer_dp=(None if pd.isna(r.aer_dp) else int(round(r.aer_dp))), cob=(None if pd.isna(r.cob) else int(r.cob)), cob_esc=(None if pd.isna(r.cob_esc) else int(r.cob_esc)), cob_fal=(None if pd.isna(r.cob_fal) else int(r.cob_fal)), vet=bool(fora(r.jogador, r.clube)), caro=bool(v > TETO_VALOR) if pd.notna(v) else False,
                    pa=(None if r.k not in pa.index else {"tec": (None if pd.isna(pa.loc[r.k].tec_A) else round(float(pa.loc[r.k].tec_A))), "fis": (None if pd.isna(pa.loc[r.k].fis_A) else round(float(pa.loc[r.k].fis_A)))}),
                    sofa=(None if (r.liga != "Brasil B" or r.chave not in sj.index) else {"nota": round(float(sj.loc[r.chave].nota_media), 2), "xgxa": round(float(sj.loc[r.chave].expectedGoals_p90 or 0) + float(sj.loc[r.chave].expectedAssists_p90 or 0), 2), "vmax": (None if pd.isna(sj.loc[r.chave].topSpeed) else round(float(sj.loc[r.chave].topSpeed), 1)), "tit": int(sj.loc[r.chave].titularidades), "jogos": int(sj.loc[r.chave].jogos)}),
                    dez=(None if r.k not in ideal.index else {"ordem": int(ideal.loc[r.k].ordem), "pontos": float(ideal.loc[r.k].score)}))

@@ -1753,6 +1753,8 @@ function filtrar() {
   const nacao = $('#fNacao').value;
   const ligaUnica = $('#fLiga').value;
   const ligas = ligaUnica ? null : ligasDoGrupo();
+  const fTipo = ($('#fTipo') || {}).value || '', fAer = ($('#fAereo') || {}).value || '', fCob = ($('#fCobrador') || {}).value || '';
+  const comSinal = fTipo || fAer || fCob;
 
   return BASE.filter(j => {
     if (pos && j.p !== pos) return false;
@@ -1765,6 +1767,14 @@ function filtrar() {
     if (minMin && (Number(j.min) || 0) < minMin) return false;
     if (ctAte) {
       if (!j.ct || j.ct.slice(0, 7) > ctAte) return false;
+    }
+    if (comSinal) {
+      const s = sinaisDe(j);
+      if (fTipo && s.letra !== fTipo) return false;
+      if (fAer === 'def' && !s.def) return false;
+      if (fAer === 'fin' && !s.aer) return false;
+      if (fAer === 'ambos' && !(s.def && s.aer)) return false;
+      if (fCob && !s.cob) return false;
     }
     return true;
   });
@@ -6484,6 +6494,27 @@ function tipoCalc(j) {
   Object.entries(s.tipos).forEach(([t, c]) => { let d = 0; z.forEach((v, i) => { if (v != null) d += (c[i] - v) ** 2; }); if (d < dmin) { dmin = d; melhor = t; } });
   return melhor;
 }
+/* ⚑ = cobrador de bola parada: índice do cobrador (T2) ≥ 80 — percentil na liga em escanteios/90, faltas
+   cobradas/90 (peso 3), faltas diretas/90, no alvo %, xA/90 e cruzamento certo % (1) */
+function cobradorBadge(j) {
+  const x = csRegistro(j, x => x.cob != null); if (!x || x.cob < 80) return '';
+  const t = 'Cobrador de bola parada: índice ' + x.cob + ' na liga' + (x.cob_esc != null ? ' — ' + x.cob_esc + ' escanteios e ' + x.cob_fal + ' faltas cobradas na temporada' : '') +
+    '. Escanteios/90 e faltas cobradas/90 pesam 3; faltas diretas, no alvo %, xA/90 e cruzamento certo % pesam 1 (T2). ⚑ = índice ≥ 80.';
+  return '<span class="cob-badge" title="' + esc(t) + '">⚑</span>';
+}
+/* a letra A/B/C de um jogador da base, como dado (a busca filtra por ela) */
+function tipoLetra(j) {
+  if (!j || j.p === 'GOL' || !window.CONSULTA) return null;
+  let x = tipoDe(j);
+  if (!x || !x.tipo) { const t = tipoCalc(j); if (!t) return null; x = { tipo: t, p: j.p, calc: true }; }
+  const D = window.CONSULTA, pos = x.p || j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
+  return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) ? 'C' : 'B';
+}
+function sinaisDe(j) {
+  /* { letra, aer (▲), def (△), cob (⚑) } — o que a busca filtra */
+  const x = csRegistro(j) || {};
+  return { letra: tipoLetra(j), aer: (x.aer || 0) >= 80, def: (x.aer_dp || 0) >= 80, cob: (x.cob || 0) >= 80 };
+}
 function tipoBadge(pk) {
   if (!BASE.length || !window.CONSULTA) return '';
   const j = fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
@@ -6506,7 +6537,7 @@ function tipoBadge(pk) {
 
 function raioIcone(pk) {
   const r = raioIconeBase(pk);
-  try { const j = BASE.length ? fsJogadorPk(pk) : null; return r + tipoBadge(pk) + (j ? aereoBadge(j) + aereoDefBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
+  try { const j = BASE.length ? fsJogadorPk(pk) : null; return r + tipoBadge(pk) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
 function raioIconeBase(pk) {
   if (FICHA && BASE.length) return raioIconeV2(pk);
@@ -6782,6 +6813,7 @@ function ligar() {
   $('#fNacao').innerHTML = NACAO_MODOS.map(m =>
     '<option value="' + m.v + '">' + esc(m.r) + '</option>').join('');
   $('#fNacao').onchange = renderTabela;
+  ['#fTipo', '#fAereo', '#fCobrador'].forEach(s => { if ($(s)) $(s).onchange = renderTabela; });
   $('#fLiga').onchange = () => {
     /* liga específica manda: os atalhos de grupo ficam apagados */
     $$('#chipsLiga .chip').forEach(x => x.classList.toggle('apagado', !!$('#fLiga').value));
@@ -6790,6 +6822,7 @@ function ligar() {
   $('#fLimpar').onclick = () => {
     ['#fTexto','#fIdadeMin','#fIdadeMax','#fOvMin','#fMinMin','#fContrato'].forEach(s => { $(s).value = ''; });
     $('#fNacao').value = '';
+    ['#fTipo', '#fAereo', '#fCobrador'].forEach(s => { if ($(s)) $(s).value = ''; });
     $('#fLiga').value = '';
     $('#fPos').value = posAtual || '';
     renderTabela();
