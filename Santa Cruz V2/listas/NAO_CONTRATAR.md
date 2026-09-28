@@ -6,15 +6,13 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 
 ## 1 · O dado alerta, mas há algo a favor — vídeo decide
 
-### Lateral direito (5)
+### Lateral direito (3)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **Gabriel Inocêncio** | Botafogo-SP | 32 | 1676 | 30/11/26 | 47 | — | 30,1 | Explosivo e rápido | nota baixa (47); corre pouco para a área (quartil de baixo) | 2º físico da posição na B (79) |
-| **Mádson** | Novorizontino | 34 | 1458 | 30/11/26 | 34 | 198º | 30,7 | Explosivo e rápido | nota baixa (34) | 7º físico da posição na B (74) |
-| **Hayner** | Vila Nova | 30 | 1276 | 31/12/26 | 29 | 255º | 29,8 | Explosivo e rápido | nota baixa (29) | 8º físico da posição na B (72) |
-| **A. De Freitas** | Sport | 18 | 1202 | 31/08/27 | 41 | 130º | 29,0 | Explosivo e rápido | nota baixa (41) | 9º físico da posição na B (71) |
-| **Thalys** | Ponte Preta | 26 | 1006 | 30/11/26 | 39 | 150º | 30,1 | Explosivo e rápido | nota baixa (39); corre pouco para a área (quartil de baixo) | 6º físico da posição na B (75) |
+| **Gabriel Inocêncio** | Botafogo-SP | 32 | 1676 | 30/11/26 | 47 | — | 30,1 | Explosivo e rápido | nota baixa (47); corre pouco para a área (quartil de baixo) | 6º físico da posição na B (78) |
+| **Mádson** | Novorizontino | 34 | 1458 | 30/11/26 | 34 | 198º | 30,7 | Explosivo e rápido | nota baixa (34) | 9º físico da posição na B (74) |
+| **Thalys** | Ponte Preta | 26 | 1006 | 30/11/26 | 39 | 150º | 30,1 | Explosivo e rápido | nota baixa (39); corre pouco para a área (quartil de baixo) | 10º físico da posição na B (74) |
 
 ### Zagueiro pela direita (1)
 
@@ -27,78 +25,69 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **Miranda** | Operário-PR | 26 | 1945 | 30/11/26 | 47 | 133º | 28,1 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (47) | ★ scouts: média ≥7 |
-| **Márcio** | Ponte Preta | 25 | 1261 | 30/06/27 | 38 | 230º | 29,5 | Motor de volume | nota baixa (38) | 4º físico da posição na B (79) |
-| **B. Baldini** | Avaí | 19 | 938 | 31/12/28 | 39 | 206º | 29,5 | Motor de volume | nota baixa (39) | 5º físico da posição na B (78) |
-| **Lyncon** | CRB | 21 | 916 | 30/11/26 | 45 | — | 28,9 | Motor de volume | nota baixa (45) | 2º físico da posição na B (87) |
+| **Márcio** | Ponte Preta | 25 | 1261 | 30/06/27 | 38 | 230º | 29,5 | Motor de volume | nota baixa (38) | 6º físico da posição na B (78) |
+| **B. Baldini** | Avaí | 19 | 938 | 31/12/28 | 39 | 206º | 29,5 | Motor de volume | nota baixa (39) | 8º físico da posição na B (77) |
+| **Lyncon** | CRB | 21 | 916 | 30/11/26 | 45 | — | 28,9 | Motor de volume | nota baixa (45) | 3º físico da posição na B (86) |
 
-### Lateral esquerdo (4)
+### Lateral esquerdo (3)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **Pará** | São Bernardo | 31 | 2238 | 31/03/27 | 41 | — | 29,0 | Médio em tudo | nota baixa (41) | 10º físico da posição na B (54) |
 | **Maurício** | Fortaleza | 25 | 1739 | 30/11/28 | 44 | 120º | — | — | nota baixa (44) | ★ scouts: média ≥6,5 |
 | **Gabriel Feliciano** | Operário-PR | 25 | 1543 | 31/12/26 | 50 | 44º | 30,0 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (50); corre pouco para a área (quartil de baixo) | ★ scouts: urgência |
-| **Dalbert** | América-MG | 32 | 1423 | 30/11/26 | 37 | 169º | 30,5 | Explosivo e rápido | nota baixa (37); corre pouco para a área (quartil de baixo) | ★ scouts: média ≥7, 4º físico da posição na B (81) |
+| **Dalbert** | América-MG | 32 | 1423 | 30/11/26 | 37 | 169º | 30,5 | Explosivo e rápido | nota baixa (37); corre pouco para a área (quartil de baixo) | ★ scouts: média ≥7, 5º físico da posição na B (82) |
 
 ### Volante (8)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **João Miguel** | Athletic | 22 | 2249 | 30/11/26 | 48 | 23º | 28,6 | Intermediário | nota baixa (48); corre pouco para a área (quartil de baixo) | ★ scouts: urgência, 7º físico da posição na B (78) |
-| **João Vieira** | Vila Nova | 28 | 2081 | 31/12/27 | 31 | 112º | 28,2 | Mais intenso | nota baixa (31) | 6º físico da posição na B (80) |
+| **João Miguel** | Athletic | 22 | 2249 | 30/11/26 | 48 | 23º | 28,6 | Intermediário | nota baixa (48); corre pouco para a área (quartil de baixo) | ★ scouts: urgência, 8º físico da posição na B (78) |
+| **João Vieira** | Vila Nova | 28 | 2081 | 31/12/27 | 31 | 112º | 28,2 | Mais intenso | nota baixa (31) | 5º físico da posição na B (82) |
 | **Matheus Trindade** | Operário-PR | 30 | 2067 | 30/11/26 | 36 | — | 26,7 | Menos intenso | abaixo do piso de velocidade (26,7 km/h); tipo físico de quem cai (Menos intenso); nota baixa (36); corre pouco para a área (quartil de baixo) | ★ scouts: média ≥6,5 |
-| **Foguinho** | São Bernardo | 34 | 1914 | 30/11/26 | 27 | 166º | 28,1 | Mais intenso | nota baixa (27) | 5º físico da posição na B (80) |
-| **Luís Oyama** | Novorizontino | 29 | 1906 | 31/12/27 | 42 | — | 28,0 | Mais intenso | nota baixa (42) | 8º físico da posição na B (78) |
+| **Foguinho** | São Bernardo | 34 | 1914 | 30/11/26 | 27 | 166º | 28,1 | Mais intenso | nota baixa (27) | 6º físico da posição na B (81) |
+| **Luís Oyama** | Novorizontino | 29 | 1906 | 31/12/27 | 42 | — | 28,0 | Mais intenso | nota baixa (42) | 7º físico da posição na B (79) |
 | **Filipe Machado** | Goiás | 30 | 1855 | 31/12/27 | 56 | — | 26,9 | Menos intenso | abaixo do piso de velocidade (26,9 km/h); tipo físico de quem cai (Menos intenso); corre pouco para a área (quartil de baixo) | ★ scouts: média ≥6,5 |
-| **Zé Lucas** | Sport | 18 | 1087 | 30/06/31 | 37 | 117º | 28,2 | Mais intenso | nota baixa (37) | 9º físico da posição na B (72) |
+| **Zé Lucas** | Sport | 18 | 1087 | 30/06/31 | 37 | 117º | 28,2 | Mais intenso | nota baixa (37) | 9º físico da posição na B (73) |
 | **Samuel** | Náutico | 22 | 957 | 31/12/27 | 43 | — | 28,4 | Intermediário | nota baixa (43) | 4º físico da posição na B (82) |
 
-### Médio (8)
+### Médio (7)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **Everton Morelli** | Botafogo-SP | 28 | 2420 | 31/12/28 | 43 | 147º | 28,6 | Explosivo e rápido | nota baixa (43) | 4º físico da posição na B (71) |
+| **Everton Morelli** | Botafogo-SP | 28 | 2420 | 31/12/28 | 43 | 147º | 28,6 | Explosivo e rápido | nota baixa (43) | 6º físico da posição na B (69) |
 | **Vinicius Diniz** | Operário-PR | 27 | 2353 | 31/12/27 | 39 | 125º | 27,1 | Médio em tudo | nota baixa (39) | ★ scouts: média ≥7 |
-| **Joao Gabriel** | Ceará | 20 | 1727 | 31/12/28 | 43 | 128º | 29,0 | Médio em tudo | nota baixa (43) | 7º físico da posição na B (60) |
+| **Joao Gabriel** | Ceará | 20 | 1727 | 31/12/28 | 43 | 128º | 29,0 | Médio em tudo | nota baixa (43) | 10º físico da posição na B (58) |
 | **Lucas Mineiro** | Juventude | 30 | 1570 | 31/12/26 | 28 | — | 26,2 | Baixa intensidade | abaixo do piso de velocidade (26,2 km/h); nota baixa (28) | ★ scouts: média ≥6,5 |
-| **Eduardo** | Criciúma | 29 | 1239 | 30/11/26 | 31 | 274º | 28,0 | Explosivo e rápido | nota baixa (31) | 2º físico da posição na B (81) |
+| **Eduardo** | Criciúma | 29 | 1239 | 30/11/26 | 31 | 274º | 28,0 | Explosivo e rápido | nota baixa (31) | 3º físico da posição na B (79) |
 | **Lucas Rodrigues** | Goiás | 18 | 1069 | 31/12/29 | 37 | 178º | — | — | nota baixa (37) | ★ scouts: urgência |
-| **G. Cabezas** | Athletic | 23 | 996 | 30/06/28 | 32 | 245º | 28,1 | Médio em tudo | nota baixa (32); corre pouco para a área (quartil de baixo) | 9º físico da posição na B (56) |
-| **Léo Gomes** | Ponte Preta | 29 | 908 | 30/11/26 | 23 | 283º | 28,5 | Médio em tudo | nota baixa (23); corre pouco para a área (quartil de baixo) | 6º físico da posição na B (62) |
+| **Léo Gomes** | Ponte Preta | 29 | 908 | 30/11/26 | 23 | 283º | 28,5 | Médio em tudo | nota baixa (23); corre pouco para a área (quartil de baixo) | 8º físico da posição na B (59) |
 
-### Meia (3)
-
-| Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **Fellipe Mateus** | Criciúma | 35 | 1906 | 31/12/26 | 42 | — | 27,0 | Médio em tudo | nota baixa (42) | 4º físico da posição na B (29) |
-| **Lourenço** | Goiás | 29 | 1435 | 30/11/26 | 36 | — | 29,4 | Baixa intensidade | nota baixa (36); corre pouco para a área (quartil de baixo) | 5º físico da posição na B (22) |
-| **Matheus Araújo** | Ceará | 24 | 1023 | 31/12/27 | 39 | 59º | 28,3 | Explosivo e rápido | nota baixa (39) | ★ scouts: média ≥7, 1º físico da posição na B (68) |
-
-### Extremo pela direita (2)
+### Meia (1)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **Thayllon Roberth** | Avaí | 20 | 1917 | 30/12/29 | 42 | — | 29,8 | Motor de volume | nota baixa (42) | 3º físico da posição na B (68) |
-| **Ryan Lima** | Vila Nova | 25 | 1467 | 30/11/28 | 43 | 151º | 29,0 | Baixa intensidade | nota baixa (43) | 8º físico da posição na B (45) |
+| **Matheus Araújo** | Ceará | 24 | 1023 | 31/12/27 | 39 | 59º | 28,3 | Explosivo e rápido | nota baixa (39) | ★ scouts: média ≥7, 8º físico da posição na B (64) |
 
-### Extremo pela esquerda (6)
-
-| Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **Echaporã** | São Bernardo | 26 | 1215 | 30/11/26 | 36 | 168º | 29,4 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (36) | 7º físico da posição na B (67) |
-| **Clayson** | Sport | 31 | 1133 | 30/11/26 | 41 | 108º | 28,5 | Explosivo e rápido | nota baixa (41) | 5º físico da posição na B (75) |
-| **D. Vera** | Athletic | 23 | 1011 | 31/12/26 | 43 | 95º | 29,4 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (43) | 10º físico da posição na B (52) |
-| **G. Barros** | América-MG | 24 | 991 | 31/12/27 | 44 | 77º | 29,7 | Explosivo e rápido | nota baixa (44) | 2º físico da posição na B (88) |
-| **Pablo Dyego** | Londrina | 32 | 960 | 30/11/26 | 31 | 158º | 29,5 | Explosivo e rápido | nota baixa (31) | 3º físico da posição na B (84) |
-| **Wesley Pinheiro** | Botafogo-SP | 26 | 903 | — | 36 | — | 29,8 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (36) | 9º físico da posição na B (55) |
-
-### Centroavante (3)
+### Extremo pela direita (1)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
-| **Felipe Garcia** | São Bernardo | 35 | 1526 | 30/11/26 | 30 | 346º | 29,8 | Explosivo e rápido | nota baixa (30) | 9º físico da posição na B (72) |
-| **Cadu** | Goiás | 22 | 1235 | 31/12/27 | 33 | 329º | 29,8 | Explosivo e rápido | nota baixa (33) | 2º físico da posição na B (92) |
-| **Brandão** | Ponte Preta | 22 | 1020 | 31/12/26 | 33 | 327º | 30,0 | Explosivo e rápido | nota baixa (33) | 3º físico da posição na B (85) |
+| **Thayllon Roberth** | Avaí | 20 | 1917 | 30/12/29 | 42 | — | 29,8 | Motor de volume | nota baixa (42) | 4º físico da posição na B (69) |
+
+### Extremo pela esquerda (3)
+
+| Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Clayson** | Sport | 31 | 1133 | 30/11/26 | 41 | 108º | 28,5 | Explosivo e rápido | nota baixa (41) | 7º físico da posição na B (75) |
+| **G. Barros** | América-MG | 24 | 991 | 31/12/27 | 44 | 77º | 29,7 | Explosivo e rápido | nota baixa (44) | 4º físico da posição na B (87) |
+| **Pablo Dyego** | Londrina | 32 | 960 | 30/11/26 | 31 | 158º | 29,5 | Explosivo e rápido | nota baixa (31) | 5º físico da posição na B (83) |
+
+### Centroavante (2)
+
+| Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Cadu** | Goiás | 22 | 1235 | 31/12/27 | 33 | 329º | 29,8 | Explosivo e rápido | nota baixa (33) | 2º físico da posição na B (93) |
+| **Brandão** | Ponte Preta | 22 | 1020 | 31/12/26 | 33 | 327º | 30,0 | Explosivo e rápido | nota baixa (33) | 4º físico da posição na B (85) |
 
 ## 2 · Só contra: o dado não vê o perfil que sobe
 
@@ -113,7 +102,7 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | **Diogo Silva** | Ponte Preta | 40 | 1421 | 30/11/26 | 36 | — | — | — | nota baixa (36) | — |
 | **Bruno Ferreira** | Avaí | 32 | 1195 | 31/12/27 | 33 | 213º | — | — | nota baixa (33) | — |
 
-### Lateral direito (9)
+### Lateral direito (11)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -121,6 +110,8 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | **Wallison** | Avaí | 25 | 1436 | 30/11/26 | 47 | 126º | 28,8 | Médio em tudo | tipo físico de quem cai (Médio em tudo); nota baixa (47) | — |
 | **Hereda** | CRB | 27 | 1404 | 31/12/26 | 52 | 56º | 29,9 | Médio em tudo | tipo físico de quem cai (Médio em tudo); corre pouco para a área (quartil de baixo) | — |
 | **Kauê Leonardo** | Londrina | 21 | 1281 | 30/11/26 | 26 | 274º | 28,8 | Médio em tudo | tipo físico de quem cai (Médio em tudo); nota baixa (26) | — |
+| **Hayner** | Vila Nova | 30 | 1276 | 31/12/26 | 29 | 255º | 29,8 | Explosivo e rápido | nota baixa (29) | — |
+| **A. De Freitas** | Sport | 18 | 1202 | 31/08/27 | 41 | 130º | 29,0 | Explosivo e rápido | nota baixa (41) | — |
 | **Nathan Camargo** | Vila Nova | 21 | 1147 | 31/12/27 | 25 | 276º | 27,1 | Baixa intensidade | nota baixa (25) | — |
 | **Alex Silva** | América-MG | 32 | 1084 | 30/11/27 | 41 | 184º | 28,0 | Baixa intensidade | nota baixa (41) | — |
 | **Júlio** | Ponte Preta | 19 | 1059 | — | 42 | 173º | 28,7 | Médio em tudo | tipo físico de quem cai (Médio em tudo); nota baixa (42) | — |
@@ -144,10 +135,11 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | **Luisão** | Goiás | 23 | 1220 | 31/12/28 | 43 | — | — | — | nota baixa (43) | — |
 | **Anderson** | Vila Nova | 31 | 946 | 30/11/26 | 39 | 255º | 28,6 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (39) | — |
 
-### Lateral esquerdo (6)
+### Lateral esquerdo (7)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
+| **Pará** | São Bernardo | 31 | 2238 | 31/03/27 | 41 | — | 29,0 | Médio em tudo | nota baixa (41) | — |
 | **Lucas Lovat** | CRB | 29 | 1941 | 31/12/26 | 36 | 255º | 29,6 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (36) | — |
 | **Higor** | Vila Nova | 21 | 1921 | 30/11/26 | 44 | 153º | 29,3 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (44) | — |
 | **Nicolas** | Goiás | 29 | 1720 | 30/11/26 | 43 | 170º | — | — | nota baixa (43) | — |
@@ -172,7 +164,7 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | **Willian Maranhão** | Vila Nova | 30 | 973 | 30/11/27 | 43 | 93º | 27,2 | Menos intenso | tipo físico de quem cai (Menos intenso); nota baixa (43) | — |
 | **Patrick De Lucca** | CRB | 26 | 968 | 30/11/26 | 59 | — | 26,1 | Menos intenso | abaixo do piso de velocidade (26,1 km/h); tipo físico de quem cai (Menos intenso) | — |
 
-### Médio (10)
+### Médio (11)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -186,33 +178,40 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | **Pepê** | Cuiabá | 28 | 1571 | 31/12/27 | 55 | — | 26,6 | Médio em tudo | abaixo do piso de velocidade (26,6 km/h) | — |
 | **Paulo Vitor** | Avaí | 22 | 1515 | 31/12/27 | 37 | — | — | — | nota baixa (37) | — |
 | **João Vitor** | Londrina | 22 | 1269 | 31/12/26 | 42 | — | — | — | nota baixa (42) | — |
+| **G. Cabezas** | Athletic | 23 | 996 | 30/06/28 | 32 | 245º | 28,1 | Médio em tudo | nota baixa (32); corre pouco para a área (quartil de baixo) | — |
 
-### Meia (3)
+### Meia (5)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
+| **Fellipe Mateus** | Criciúma | 35 | 1906 | 31/12/26 | 42 | — | 27,0 | Médio em tudo | nota baixa (42) | — |
 | **Élvis** | Ponte Preta | 35 | 1505 | 30/11/26 | 66 | — | 25,7 | Baixa intensidade | abaixo do piso de velocidade (25,7 km/h); corre pouco para a área (quartil de baixo) | — |
+| **Lourenço** | Goiás | 29 | 1435 | 30/11/26 | 36 | — | 29,4 | Baixa intensidade | nota baixa (36); corre pouco para a área (quartil de baixo) | — |
 | **Fábio Lima** | Juventude | 29 | 1360 | 30/11/26 | 44 | 60º | — | — | nota baixa (44) | — |
 | **Vitinho** | Fortaleza | 25 | 1348 | 31/12/26 | 45 | — | — | — | nota baixa (45) | — |
 
-### Extremo pela direita (2)
+### Extremo pela direita (3)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
+| **Ryan Lima** | Vila Nova | 25 | 1467 | 30/11/28 | 43 | 151º | 29,0 | Baixa intensidade | nota baixa (43) | — |
 | **Max** | Athletic | 24 | 1376 | 30/11/26 | 38 | 187º | — | — | nota baixa (38) | — |
 | **Jean Carlos** | Goiás | 21 | 1364 | 31/12/28 | 37 | 192º | — | — | nota baixa (37) | — |
 
-### Extremo pela esquerda (5)
+### Extremo pela esquerda (8)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **Aylon** | Operário-PR | 34 | 1431 | 30/11/26 | 37 | 164º | 29,0 | Baixa intensidade | nota baixa (37) | — |
 | **Kelvin** | Botafogo-SP | 29 | 1400 | 30/11/26 | 43 | — | 28,4 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (43) | — |
+| **Echaporã** | São Bernardo | 26 | 1215 | 30/11/26 | 36 | 168º | 29,4 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (36) | — |
 | **Paulinho Moccelin** | Londrina | 32 | 1117 | 30/11/26 | 43 | — | 28,2 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (43) | — |
 | **Victor Andrade** | Náutico | 30 | 1054 | 30/11/26 | 49 | 84º | 28,2 | Baixa intensidade | nota baixa (49); corre pouco para a área (quartil de baixo) | — |
 | **Gegé** | Goiás | 32 | 1015 | 31/12/26 | 35 | — | 26,7 | Motor de volume | abaixo do piso de velocidade (26,7 km/h); tipo físico de quem cai (Motor de volume); nota baixa (35) | — |
+| **D. Vera** | Athletic | 23 | 1011 | 31/12/26 | 43 | 95º | 29,4 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (43) | — |
+| **Wesley Pinheiro** | Botafogo-SP | 26 | 903 | — | 36 | — | 29,8 | Motor de volume | tipo físico de quem cai (Motor de volume); nota baixa (36) | — |
 
-### Centroavante (10)
+### Centroavante (11)
 
 | Jogador | Clube | Idade | Min | Contrato | Nota | Geral | PSV | Tipo | Contra | A favor |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -220,6 +219,7 @@ Não é uma lista de veto: é o **dado dizendo o que tem contra** cada nome que 
 | **Pablo** | Operário-PR | 34 | 1912 | 30/11/26 | 38 | 270º | 27,0 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (38) | — |
 | **Waguininho** | Criciúma | 36 | 1881 | 30/11/26 | 40 | — | 28,5 | Motor de volume | nota baixa (40) | — |
 | **J. Miritello** | Fortaleza | 27 | 1800 | 31/12/26 | 47 | 114º | 28,2 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (47) | — |
+| **Felipe Garcia** | São Bernardo | 35 | 1526 | 30/11/26 | 30 | 346º | 29,8 | Explosivo e rápido | nota baixa (30) | — |
 | **G. Mastriani** | América-MG | 33 | 1408 | 31/12/26 | 34 | 310º | 28,0 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (34) | — |
 | **Daniel Penha** | Avaí | 27 | 1313 | 31/12/26 | 36 | — | 28,2 | Motor de volume | nota baixa (36) | — |
 | **Lucca** | Ceará | 23 | 1200 | 31/12/27 | 46 | 134º | 27,9 | Baixa intensidade | tipo físico de quem cai (Baixa intensidade); nota baixa (46) | — |

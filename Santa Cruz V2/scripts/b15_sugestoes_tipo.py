@@ -90,7 +90,7 @@ def main():
     A["tipo_pref"] = A.apply(lambda r: r.tipo in P.get(r.pos11, []), axis=1)
     # mesma base e mesma pontuação de "Os meus dez" (POOL_2027.csv): filtros iguais, ordem igual
     PO = pd.read_csv(os.path.join(RAIZ, "listas", "POOL_2027.csv")).set_index("k")
-    A["k"] = A.chave + "|" + A.kt
+    A["k"] = A.chave + "|" + A.clube.map(chave)
     A = A[A.k.isin(PO.index)]
     A["score"] = A.k.map(PO.score); A["ordem_geral"] = A.k.map(PO.ordem_geral)
     # tipo preferido primeiro; os demais tipos só completam a lista até 10, marcados
@@ -117,6 +117,10 @@ def main():
         for tp in P[pos]:
             r = GP[(GP.pos11 == pos) & (GP.tipo == tp)].iloc[0]
             md.append(f"| {pos} | **{tp}** | {f(100*r.pct_sobe,0)}% | {f(100*r.pct_cai,0)}% |")
+    from ranking_fisico import curtos
+    CU = curtos(); CU = CU[(CU.idade.isna() | (CU.idade <= 35)) & (CU.psv99 >= 27)]
+    CU["mercado_l"] = CU.mercado_l.replace({"Brasileiros e sul-americanos no exterior": "Exterior (ligas mais fracas)"})
+    md.insert(md.index("| Posição | Tipo(s) de quem sobe | Subiu | Caiu |"), "Abaixo de cada tabela, **amostra curta (~)**: quem tem 600 a 899 min e físico rastreado, do tipo de quem sobe — fora das listas técnicas (a nota pede 900 min), mas o físico já é confiável.")
     for pos in ORDEM:
         md.append(f"\n## {NOMEP[pos]} — {' ou '.join(P[pos]) if P.get(pos) else 'nenhum tipo separa (ordem pela nota)'}\n")
         for merc in ["Série B", "Sul-americanas", "Exterior (ligas mais fracas)"]:
@@ -131,6 +135,8 @@ def main():
                 ad = r.aderencia_ajustada if pd.notna(getattr(r, "aderencia_ajustada", np.nan)) else r.aderencia
                 md.append(f"| {i} | {int(r.ordem_geral)}º | **{r.jogador}**{'' if r.livre_2027 else ' (e)'} | {r.clube} |{liga} {int(r.idade)} | {dt(r.contrato)} | {r.tipo}{'' if r.tipo_pref else ' *'} | "
                           f"{f(r.psv99)} | {f(r.sprint_count_p90)} | {f(r.expl_accel_sprint_p90,2)} | **{f(r.score,0)}** | {f(r.nota,0)} | {f(ad,0)} | {f(r.nivel_overall,0)} |")
+            cu = CU[(CU.pos11 == pos) & (CU.mercado_l == merc) & CU.tipo.isin(P.get(pos, []))].sort_values("psv99", ascending=False)
+            if len(cu): md.append("\nAmostra curta (~, 600–899 min): " + "; ".join(f"*{r.jogador}* ({r.clube}, {int(r.minutos)} min, {r.tipo.lower()}, PSV {f(r.psv99)})" for r in cu.itertuples()))
     open(os.path.join(OUT, "B15.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(P); print(A.groupby(["pos11", "mercado_l"]).size().unstack())
 
