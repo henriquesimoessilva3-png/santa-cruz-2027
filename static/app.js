@@ -6440,18 +6440,29 @@ function raioIconeV2(pk) {
    (sem rastreio) não aparece nada. Passar o mouse mostra o tipo e a leitura. */
 var TIPO_IDX = null;
 function tipoNorm(t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
-function tipoDe(j) {
+function csRegistro(j, filtro) {
+  /* o registro da Consulta (consulta_dados.js) deste jogador: nome + clube, ou nome quando é único */
   const D = window.CONSULTA; if (!D || !j) return null;
   if (!TIPO_IDX) {
     TIPO_IDX = { nc: new Map(), n: new Map() };
     D.jogadores.forEach(x => {
-      if (!x.tipo) return;
       const kn = tipoNorm(x.n);
       TIPO_IDX.nc.set(kn + '|' + tipoNorm(x.c), x);
       TIPO_IDX.n.set(kn, TIPO_IDX.n.has(kn) ? null : x);   /* nome só vale se for único */
     });
   }
-  return TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || TIPO_IDX.n.get(tipoNorm(j.n)) || null;
+  const x = TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || TIPO_IDX.n.get(tipoNorm(j.n)) || null;
+  return x && (!filtro || filtro(x)) ? x : null;
+}
+function tipoDe(j) { return csRegistro(j, x => !!x.tipo); }
+/* jogo aéreo (T2): ▲ quando o índice do finalizador aéreo (percentil na liga: gols de cabeça, duelos aéreos
+   ganhos, duelos/90, altura) é ≥ 80 — ganhar duelo aéreo e gol de bola parada estão entre o que faz subir */
+function aereoBadge(j) {
+  const x = csRegistro(j, x => x.aer != null); if (!x || x.aer < 80) return '';
+  const t = 'Destaque no jogo aéreo: índice ' + x.aer + ' na liga (percentil entre jogadores de linha com ≥ 2,5 duelos aéreos/90) — ' +
+    (x.aer_won != null ? x.aer_won + '% dos duelos aéreos ganhos, ' : '') + (x.aer_n != null ? x.aer_n + ' por jogo, ' : '') + (x.aer_g != null ? x.aer_g + ' gol(s) de cabeça' : '') +
+    '. Ganhar duelo aéreo e gol de bola parada estão entre o que faz subir (T1, T2); ▲ = índice ≥ 80.';
+  return '<span class="aer-badge" title="' + esc(t) + '">▲</span>';
 }
 var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
 /* quem tem físico mas não está nas listas (Série A, ligas de fora do recorte, < 900 min): o tipo é
@@ -6484,7 +6495,7 @@ function tipoBadge(pk) {
 
 function raioIcone(pk) {
   const r = raioIconeBase(pk);
-  try { return r + tipoBadge(pk); } catch (e) { console.warn('tipoBadge', e); return r; }
+  try { const j = BASE.length ? fsJogadorPk(pk) : null; return r + tipoBadge(pk) + (j ? aereoBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
 function raioIconeBase(pk) {
   if (FICHA && BASE.length) return raioIconeV2(pk);
