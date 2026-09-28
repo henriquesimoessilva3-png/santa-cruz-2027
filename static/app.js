@@ -6429,10 +6429,8 @@ function raioIconeV2(pk) {
     ') — verde passa o piso de 27 km/h com traço no P50 da referência, vermelho reprova o piso.' +
     (j.fis_src ? ' Físico de ' + j.fis_src + ', não do clube atual.' : '');
   /* no card, quem tem fisico de outra temporada leva o ano ao lado do raio (ex.: B25) */
-  const src = j.fis_src ? '<sup class="raio-src" title="' + esc('Físico de ' + j.fis_src +
-    ' — outra temporada, outro clube (base do estudo V2)') + '">B' +
-    ((j.fis_src.match(/20(\d\d)/) || [])[1] || '') + '</sup>' : '';
-  return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>' + src;
+  /* a origem do físico (outra temporada) fica só no título do raio — o sobrescrito "B25" confundia (28/09) */
+  return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>';
 }
 
 /* ---------------- tipo físico A/B/C ao lado do raio (Santa Cruz V2, F2-4) ----------------
