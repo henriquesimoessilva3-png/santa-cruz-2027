@@ -84,11 +84,13 @@ def main():
     A[["chave", "kt", "jogador", "clube", "liga", "pos11", "setor", "tipo", "psv99", "runs_penalty_area_p30tip"] + CORE].assign(
         tipo_pref=A.apply(lambda r: r.tipo in P.get(r.pos11, []), axis=1)).to_csv(os.path.join(OUT, "tipos_todos.csv"), index=False)
     A["tipo_pref"] = A.apply(lambda r: r.tipo in P.get(r.pos11, []), axis=1)
-    A = A[(A.psv99 >= 27) & (A.idade <= 35)]
-    A = A[[not fora(j, c) for j, c in zip(A.jogador, A.clube)]]
-    A = A[~caro(A)]
+    # mesma base e mesma pontuação de "Os meus dez" (POOL_2027.csv): filtros iguais, ordem igual
+    PO = pd.read_csv(os.path.join(RAIZ, "listas", "POOL_2027.csv")).set_index("k")
+    A["k"] = A.chave + "|" + A.kt
+    A = A[A.k.isin(PO.index)]
+    A["score"] = A.k.map(PO.score); A["ordem_geral"] = A.k.map(PO.ordem_geral)
     # tipo preferido primeiro; os demais tipos só completam a lista até 10, marcados
-    A = A.sort_values(["tipo_pref", "nota"], ascending=[False, False])
+    A = A.sort_values(["tipo_pref", "score"], ascending=[False, False])
     A[A.tipo_pref].to_csv(os.path.join(OUT, "sugestoes.csv"), index=False)
 
     f = lambda v, c=1: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
@@ -99,11 +101,11 @@ def main():
           "Para cada **posição**, o tipo físico (Bloco 8) que mais aparece nos times que **subiram** em relação aos que **caíram** — entra quando a diferença passa de 10 pontos; "
           "posição em que nenhum tipo separa (ZD, MEI, ED) segue só pela nota. Os tipos são formados só pelo **físico** "
           "(velocidade, sprints, ações de alta intensidade, arrancadas, distância e corridas sem bola); o técnico entra na "
-          "**ordem**: a nota do estudo = aderência ao modelo que rende na B + nível do ranking.",
-          "", "Filtros: piso de 27 km/h, até 32 anos, sem os nomes vetados, valor ≤ € 2 MM, ≥ 900 min. Jogador de fora é "
+          "**ordem**: os pontos de `Os meus dez` (nota do estudo + bônus).",
+          "", "Filtros e pontuação são os de `Os meus dez por posição` (≥ 900 min, até 35 anos, piso de 27 km/h, sem vetados, valor ≤ € 2 MM); **Geral** = lugar na ordem de `Os meus dez`. Jogador de fora é "
           "encaixado no tipo pelo perfil médio de cada tipo na Série B (mesmos indicadores do SkillCorner); nas ligas "
           "sul-americanas a aderência já está convertida pela reta de liga (B11). (e) = contrato além de jun/27. "
-          "**\\*** = não é do tipo preferido da posição: entra só para completar os 10 (ordem pela nota).", "",
+          "**\\*** = não é do tipo preferido da posição: entra só para completar os 10 (ordem pelos pontos).", "",
           "| Posição | Tipo(s) de quem sobe | Subiu | Caiu |", "|---|---|---|---|"]
     GP = pd.read_csv(os.path.join(RES, "b8", "tipos_fisicos_pos.csv"))
     for pos in ORDEM:
@@ -118,13 +120,13 @@ def main():
             x = x[x.tipo_pref | (x.tipo_pref.cumsum() < 10)]
             md.append(f"\n**{merc}**" + (" — nenhum jogador do tipo com dado" if x.empty else "") + "\n")
             if x.empty: continue
-            cab = "| # | Jogador | Clube |" + (" Liga |" if merc != "Série B" else "") + " Idade | Contrato | Tipo | PSV-99 | Sprints/90 | Arrancadas/90 | Nota | Aderência | Nível |"
+            cab = "| # | Geral | Jogador | Clube |" + (" Liga |" if merc != "Série B" else "") + " Idade | Contrato | Tipo | PSV-99 | Sprints/90 | Arrancadas/90 | Pontos | Nota | Aderência | Nível |"
             md += [cab, "|" + "---|" * (cab.count("|") - 1)]
             for i, r in enumerate(x.itertuples(), 1):
                 liga = f" {r.liga} |" if merc != "Série B" else ""
                 ad = r.aderencia_ajustada if pd.notna(getattr(r, "aderencia_ajustada", np.nan)) else r.aderencia
-                md.append(f"| {i} | **{r.jogador}**{'' if r.livre_2027 else ' (e)'} | {r.clube} |{liga} {int(r.idade)} | {dt(r.contrato)} | {r.tipo}{'' if r.tipo_pref else ' *'} | "
-                          f"{f(r.psv99)} | {f(r.sprint_count_p90)} | {f(r.expl_accel_sprint_p90,2)} | **{f(r.nota,0)}** | {f(ad,0)} | {f(r.nivel_overall,0)} |")
+                md.append(f"| {i} | {int(r.ordem_geral)}º | **{r.jogador}**{'' if r.livre_2027 else ' (e)'} | {r.clube} |{liga} {int(r.idade)} | {dt(r.contrato)} | {r.tipo}{'' if r.tipo_pref else ' *'} | "
+                          f"{f(r.psv99)} | {f(r.sprint_count_p90)} | {f(r.expl_accel_sprint_p90,2)} | **{f(r.score,0)}** | {f(r.nota,0)} | {f(ad,0)} | {f(r.nivel_overall,0)} |")
     open(os.path.join(OUT, "B15.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print(P); print(A.groupby(["pos11", "mercado_l"]).size().unstack())
 

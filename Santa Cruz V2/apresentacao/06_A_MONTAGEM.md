@@ -1,6 +1,6 @@
 # A montagem — o elenco de 2027 a partir da Decisão
 
-*Reescrita a partir de "Decisão 2027" (26/09). A ordem dos nomes é a da Decisão; aqui entra o que ela não tem: quem manter, quantos, folha e estrangeiros. Salários são estimativa (o estudo não tem folha).*
+*Gerada de `Quem eu contrataria` (28/09), que sai de `Os meus dez por posição`: uma regra, um nome. Salários não estão na base.*
 
 ## 1 · Antes de contratar
 
@@ -13,32 +13,30 @@
 
 **Eduardo Baptista** (1º) ou **Léo Condé** (2º). A escolha muda 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o onze abaixo serve como está. Tencati é o 3º; Guto, Carpini e Mozart ficam fora (Decisão §1).
 
-## 3 · O onze (4-2-3-1) e as opções
+## 3 · O elenco (4-2-3-1): as vagas, na ordem de `Os meus dez`, livres primeiro
 
-| Pos | Titular | Situação | Por quê (resumo da Decisão) | Opções, na ordem |
-|---|---|---|---|---|
-| GOL | **Jandrei** | Juventude, 33, livre dez/26 | nota 83, patamar de A 84; vídeo decide (B2-5) | Rodolfo (Central Español, brasileiro, livre) |
-| LD | **Willean Lepo** | Criciúma, 29, contrato dez/27 | nota 66, explosivo (tipo de quem sobe), patamar de A 77; o melhor LD da B — depende do Criciúma | Maílton (Fortaleza, contrato; cobrador 90) · J. Alarcón (Sport Boys) |
-| ZD | **Ricardo Silva** | América-MG, 34, livre nov/26 | nota 68, motor de volume, gol de defesa, 97º percentil no aéreo; um ano | Bruno Alves (Criciúma) · G. Vargas (Olimpia, 24, livre, nível 84) |
-| ZE | **Vilar** | Botafogo-SP, 26, livre nov/26 | motor de volume, finalizador aéreo 91, 4 gols de bola parada, gol de defesa | Zé Marcos (Sport) · M. Gamarra (Olimpia) |
-| LE | **Patrick Brey** | Botafogo-SP, 29, livre nov/26 | nota 69, o 1º LE da B, gol de defesa, corre para a área (P100), cobrador 85 | Felipinho (Sport) · M. Del Blanco (Unión Santa Fe, 22) |
-| VOL | **Biel** | Sport, 24, contrato jul/28 | tipo *mais intenso*, gol de defesa, corre para a área; negociar | **André Luiz** (Londrina, livre; finalizador aéreo) · Wenderson (Náutico, livre) · Rodrigo Yuri (Al Riffa, livre) |
-| VOL | **André Luiz** | Londrina, 31, livre nov/26 | nota 70, aéreo 93º percentil | — |
-| MED | **Crystopher** | CRB, 28, livre dez/26 | nota 65, médio em tudo (tipo de quem sobe), 2.138 min | Rafael Gava (Botafogo-SP, livre; cobrador 96) · Luan Gonçalves (Juventude, livre) |
-| MEI | **Matheus Frizzo** | Suwon (COR B), 28, brasileiro, livre | nível 85, o maior do MEI ao alcance; repatriação sem vaga | F. Carrizo (Libertad, 35, nível 91) · Jean Carlos (Náutico, 34, cobrador 97) |
-| ED | **Vinícius** | Náutico, 33, contrato dez/27 | nota 85, patamar de A 78; negociar | Chrystian Barletta (Sport, cobrador 90) · Kevin Méndez (La Calera, livre) |
-| EE | **Dadá Belmonte** | CRB, 29, livre nov/26 | nota 70 (aderência 89), Sofascore 7,3 | Soares (Atlético-GO, explosivo) · Iago Teles (Londrina, livre, cobrador 92) |
-| CA | **Mikael** | CRB, 27, contrato nov/27 | nota 79, a maior de todos os CA; negociar (€ 300 mil) | **Robson** (Novorizontino, 35, livre; motor de volume, bola parada) · Derek (Náutico) · M. Estrada (LDU) / A. Valera (Universitario, livre) |
+| Pos | Contratações (Geral em `Os meus dez`) | Só se liberar | Alternativas livres |
+|---|---|---|---|
+| GOL | **Jandrei** (Juventude, 1º, 83) · **Rodolfo** (Central Español, 2º, 72) | — | Jean (América de Cali, 4º) · E. Valencia (San Antonio, 5º) |
+| LD | **A. Benítez** (Club Libertad, 4º, 63) · **Rodrigo Soares** (Goiás, 14º, 58) | Willean Lepo (Criciúma, 1º, contrato 12/27) | G. Graciani (Ñublense, 6º) · Lucas Soto (Everton, 7º) |
+| ZD | **Ricardo Silva** (América-MG, 1º, 71) · **Gabriel Bahia** (Novorizontino, 5º, 66) | Bruno Alves (Criciúma, 2º, contrato 12/27) | G. Fratta (Deportivo Táchira, 3º) · G. Vargas (Olimpia, 4º) |
+| ZE | **Vilar** (Botafogo-SP, 3º, 68) · **Wallace** (Botafogo-SP, 4º, 65) | Zé Marcos (Sport, 1º, contrato 12/27) | S. Morales (Aucas, 5º) · Luiz Otávio (Ceará, 6º) |
+| LE | **Patrick Brey** (Botafogo-SP, 1º, 75) · **Maicon** (Levski Sofia, 7º, 65) | Samuel Toscas (Al Riffa, 2º, contrato 06/31) | M. Gonzales Vigil (Melgar, 8º) · M. Espinoza (Club Libertad, 9º) |
+| VOL | **Rodrigo Yuri** (Al Riffa, 2º, 66) · **M. Cova** (Carabobo, 3º, 65) · **Wenderson** (Náutico, 5º, 61) | Biel (Sport, 1º, contrato 07/28) | S. Vasquez (Orense, 4º) · J. Mercado (Unión Magdalena, 7º) |
+| MED | **Crystopher** (CRB, 1º, 68) · **Rafael Gava** (Botafogo-SP, 2º, 67) | — | Luan Gonçalves (Juventude, 3º) · J. Concha (Universitario, 4º) |
+| MEI | **F. Carrizo** (Club Libertad, 2º, 68) · **Matheus Frizzo** (Suwon, 3º, 68) | Jean Carlos (Náutico, 1º, contrato 12/27) | K. Álvarez (Patriotas Boyacá, 4º) · Guilherme Marques (Atlético-GO, 7º) |
+| ED | **Kevin Méndez** (Unión La Calera, 3º, 68) · **Pedro Vitor** (São Bernardo, 9º, 63) | Vinícius (Náutico, 1º, contrato 12/27) | Gabriel Honório (Busan I'Park, 10º) · Anderson Ceará (Csikszereda Miercurea Ciuc, 11º) |
+| EE | **Dadá Belmonte** (CRB, 2º, 70) · **Iago Teles** (Londrina, 3º, 70) | Soares (Atlético-GO, 1º, contrato 08/29) | Luanzinho (Al Sharjah, 6º) · D. Dawson (Envigado, 7º) |
+| CA | **Robson** (Novorizontino, 2º, 74) · **William Pottker** (Londrina, 11º, 58) | Mikael (CRB, 1º, contrato 11/27) | L. Melgarejo (Club Libertad, 3º) · M. Estrada (LDU Quito, 7º) |
 
-Bola parada montada: cobradores Gava, Barletta, Iago Teles, Maílton; finalizadores Vilar, Bruno Alves, André Luiz, Mikael/Robson, Estrada.
+Bola parada montada (índice ≥ 85): Vilar (91), Rafael Gava (96), Iago Teles (92).
 
 ## 4 · Conta
 
-- **Contratações**: 11 titulares + 12 opções = 23; com 5 mantidos, **28**.
-- **Livres**: 8 dos 11 titulares chegam a passe zero (Jandrei, Ricardo Silva, Vilar, Brey, André Luiz, Crystopher, Frizzo, Dadá). Os três que não são: Lepo, Biel e Vinícius (empréstimo ou compra) — Mikael idem.
-- **Estrangeiros**: 0 no onze; até 3 nas opções (Vargas, Gamarra/Del Blanco, Estrada/Valera). A B usa 2,2 em média; quem sobe dá 10% dos minutos a eles.
-- **Folha**: com as faixas estimadas da Série B (R$ 40–120 mil para titulares desta nota, Mikael e Frizzo a R$ 90–120 mil), os 23 novos ficam entre R$ 1,3 e 1,5 MM/mês; sobram R$ 0,5–0,7 MM para os 5 mantidos e a base, dentro dos R$ 2,0 MM. O número real é vídeo e mercado.
+- **Contratações**: 23 a passe zero (23 vagas: 2 GOL, 2 LD, 2 ZD, 2 ZE, 2 LE, 3 VOL, 2 MED, 2 MEI, 2 ED, 2 EE, 2 CA); com 5 mantidos, **28**.
+- **Estrangeiros**: 4 (A. Benítez, M. Cova, F. Carrizo, Kevin Méndez) — teto de 4 (a B usa 2,2; quem sobe dá 10% dos minutos a eles, B6-4): G. Fratta → Gabriel Bahia, S. Vasquez → Wenderson, G. Graciani → Rodrigo Soares, L. Melgarejo → William Pottker.
+- **Folha**: não está na base; a conta se faz com o mercado. Regra do estudo: elenco de 28–30, cada vaga além disso é folha que não rende ponto (B5-1).
 
 ## 5 · O que ainda é decisão humana
 
-Goleiro (vídeo); Lepo, Biel, Vinícius e Mikael (negociação); Frizzo e os sul-americanos (adaptação, vídeo); Ricardo Silva e Robson (idade: um ano); os cinco a manter.
+Goleiro (vídeo, B2-5); os *só se liberar* (negociação); os que vêm de fora (A. Benítez, M. Cova, F. Carrizo, Kevin Méndez: adaptação, vídeo); sem rastreio físico (Wallace, Maicon, Rodrigo Yuri, M. Cova, Wenderson, Matheus Frizzo); os cinco a manter; contrato e situação de cada nome (dado de ago/26).

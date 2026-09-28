@@ -30,26 +30,28 @@ def main():
     B["fisico"] = B.fisico.round(0)
     B["livre"] = B.livre_2027.astype(str) == "True"
     B["br"] = B.nascido_em.eq("Brazil") | B.passaporte.fillna("").str.contains("Brazil")
+    PO = pd.read_csv(os.path.join(LI, "POOL_2027.csv")).set_index("k")
+    B["score"] = B.k.map(PO.score); B["ordem_geral"] = B.k.map(PO.ordem_geral)
     B = B.sort_values(["pos11", "fisico"], ascending=[True, False])
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
     md = ["# Ranking físico por posição", "", "*Dado: SkillCorner (Série B, estudo) e Portal (fora), temporada atual; Wyscout ago/26 para minutos, contrato e nota · 26/09/2026.*", "",
           "Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercados. **Físico** = média ponderada dos percentis dentro da posição, todos os mercados juntos: sprints/90 (peso 2), ações de alta intensidade/90 (2), arrancadas explosivas/90 (2), PSV-99 (1), corridas sem bola por 30 min (1); distância fica fora (não rende ponto, B1-1). "
-          "**Nota** é a técnica (aderência + nível), para não confundir: este ranking é só o físico. **Tipo** com ✓ = tipo físico que quem sobe mais usa (B8/B15). Filtros: ≥ 900 min, piso 27 km/h, sem vetados, valor ≤ € 2 MM, até 35 anos. (BR) = brasileiro. Clique no nome para abrir a ficha.", ""]
+          "**Pontos** e **Geral** são os de `Os meus dez por posição` (a lista que vale; — = não entra nela, por nota ou filtro): este ranking é só o físico, para achar o piso e o tipo. **Tipo** com ✓ = tipo físico que quem sobe mais usa (B8/B15). Filtros: ≥ 900 min, piso 27 km/h, sem vetados, valor ≤ € 2 MM, até 35 anos. (BR) = brasileiro. Clique no nome para abrir a ficha.", ""]
     for p in ORDEM:
         md += [f"## {NOMES[p]}", ""]
         for merc in ["Série B", "Sul-americanas", "Brasileiros e sul-americanos no exterior"]:
             x = B[(B.pos11 == p) & (B.mercado_l == merc)].head(20)
             md += [f"**{merc}**" + (" — sem jogador com físico" if x.empty else ""), ""]
             if x.empty: continue
-            md += ["| # | Jogador | Clube |" + (" Liga |" if merc != "Série B" else "") + " Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |",
-                   "|---|---|---|" + ("---|" if merc != "Série B" else "") + "---|---|---|---|---|---|---|---|---|---|---|"]
+            md += ["| # | Jogador | Clube |" + (" Liga |" if merc != "Série B" else "") + " Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Pontos | Geral |",
+                   "|---|---|---|" + ("---|" if merc != "Série B" else "") + "---|---|---|---|---|---|---|---|---|---|---|---|"]
             for i, r in enumerate(x.itertuples(), 1):
                 md.append(f"| {i} | **{r.jogador}**{' (BR)' if r.br and merc != 'Série B' else ''}{'' if r.livre else ' (e)'} | {r.clube} |" + (f" {r.liga} |" if merc != "Série B" else "") +
-                          f" {int(r.idade)} | {dt(r.contrato)} | **{f(r.fisico)}** | {f(r.psv99, 1)} | {f(r.sprint_count_p90, 1)} | {f(r.hi_count_p90, 0)} | {f(r.expl_accel_sprint_p90, 2)} | {f(r.runs_p30tip, 1)} | {f(r.runs_penalty_area_p30tip, 1)} | {r.tipo}{' ✓' if r.tipo_pref else ''} | {f(r.nota)} |")
+                          f" {int(r.idade)} | {dt(r.contrato)} | **{f(r.fisico)}** | {f(r.psv99, 1)} | {f(r.sprint_count_p90, 1)} | {f(r.hi_count_p90, 0)} | {f(r.expl_accel_sprint_p90, 2)} | {f(r.runs_p30tip, 1)} | {f(r.runs_penalty_area_p30tip, 1)} | {r.tipo}{' ✓' if r.tipo_pref else ''} | {f(r.score)} | {'—' if pd.isna(r.ordem_geral) else str(int(r.ordem_geral)) + 'º'} |")
             md.append("")
     open(os.path.join(LI, "RANKING_FISICO.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
-    B.groupby(["pos11", "mercado_l"]).head(20)[["pos11", "mercado_l", "jogador", "clube", "liga", "idade", "minutos", "contrato", "livre", "br", "fisico", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "runs_p30tip", "runs_penalty_area_p30tip", "tipo", "tipo_pref", "nota"]].round(2).to_csv(os.path.join(LI, "RANKING_FISICO.csv"), index=False)
+    B.groupby(["pos11", "mercado_l"]).head(20)[["pos11", "mercado_l", "jogador", "clube", "liga", "idade", "minutos", "contrato", "livre", "br", "fisico", "psv99", "sprint_count_p90", "hi_count_p90", "expl_accel_sprint_p90", "runs_p30tip", "runs_penalty_area_p30tip", "tipo", "tipo_pref", "nota", "score", "ordem_geral"]].round(2).to_csv(os.path.join(LI, "RANKING_FISICO.csv"), index=False)
     print(B.groupby(["pos11", "mercado_l"]).size().unstack().fillna(0).astype(int))
     print(B.groupby("pos11").head(2)[["pos11", "mercado_l", "jogador", "clube", "fisico", "psv99", "sprint_count_p90", "tipo", "nota"]].to_string(index=False))
 

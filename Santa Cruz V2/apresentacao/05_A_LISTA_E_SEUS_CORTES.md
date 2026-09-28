@@ -8,12 +8,16 @@ Uma só, os três mercados juntos, 10 por posição, ordenada por **pontos** (no
 
 ## Os cortes (a mesma lista, vista de um jeito)
 
+Todas saem da mesma base pontuada (`POOL_2027.csv`): mesmos filtros, mesma ordem. A coluna **Geral** em cada uma é o lugar do jogador em "Os meus dez" — se um nome é 3º numa lista, é 3º em todas.
+
 | Documento | O que é | Quando usar |
 |---|---|---|
 | **Decisão 2027** | os 3 primeiros de cada posição (5 no volante, 4 no CA) com as razões escritas, e os dez treinadores | a reunião de decisão |
-| **Listas por posição e mercado** | 5 por posição em cada mercado separado (Série B, sul-americanas, exterior) | quando se quer olhar um mercado só |
-| **Ranking físico por posição** | os 20 melhores só pelo físico, por mercado | montar o piso físico; achar o lateral explosivo |
-| **Sugestões pelo tipo físico** | os 10 do tipo que quem sobe usa, por posição e mercado | quando o treinador pede um tipo |
+| **Quem eu contrataria** (e "A montagem", aqui na apresentação) | as vagas de cada posição preenchidas na ordem de "Os meus dez", livres primeiro, no máximo 4 estrangeiros; quem tem contrato aparece como "só se liberar" | a montagem do elenco |
+| **Os dez por posição e mercado** | a mesma lista, separada em Série B, sul-americanos e exterior | quando se quer olhar um mercado só |
+| **Só fim de contrato** | a mesma lista, só quem chega livre, por mercado | a lista do passe zero |
+| **Os tipos de quem sobe: quem está neles** | os 10 do tipo físico que quem sobe usa, por posição e mercado, na ordem de "Os meus dez" | quando o treinador pede um tipo |
+| **Ranking físico por posição** | os 20 melhores só pelo físico, por mercado, com o lugar em "Os meus dez" ao lado | montar o piso físico; achar o lateral explosivo |
 | **Especialistas de bola parada** | cobradores e finalizadores aéreos, por mercado | fechar o cobrador e os 3 finalizadores |
 | **Quem não contratar** | os da Série B que o estudo reprova, com o motivo | responder a sugestões de fora do estudo |
 
@@ -21,9 +25,8 @@ Uma só, os três mercados juntos, 10 por posição, ordenada por **pontos** (no
 
 | Documento | Por quê está separado |
 |---|---|
-| **Série A: jovens, veteranos, Remo/Chape** | a Série A está fora das recomendações por decisão do clube; é a exceção, para GOL e CA |
+| **Série A: jovens, veteranos, Remo/Chape** | a Série A está fora das recomendações por decisão do clube; é a exceção, para as posições em que a B e os mercados de fora não fecham |
 | **Empréstimos do exterior** | brasileiros jogando pouco na temporada atual (FotMob): sinal de janeiro, sem dado completo |
-| **Dez alvos por posição** e **Só livres (B + ARG)** | versões anteriores (livres primeiro; recorte B + Argentina): superadas por "Os meus dez", mantidas para consulta |
 | **Treinadores: lista para avaliação** | os 30 treinadores da base; a decisão usa os 10 primeiros |
 
 ## Como ler qualquer uma delas

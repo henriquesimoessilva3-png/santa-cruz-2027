@@ -23,7 +23,8 @@ def bp_indices():
             if pd.notna(v): out[k] = max(out.get(k, 0), float(v))
     return out
 
-def main():
+def pool():
+    """Todos os candidatos pontuados (os três mercados) — a base única de todas as listas de jogadores."""
     fora = excluidos()
     b = pd.read_excel(os.path.join(L, "listas_2027.xlsx"), "base_serie_B_2026"); b["mercado_l"] = "Série B"
     s = pd.read_csv(os.path.join(L, "base_sul_americanas.csv")); s["mercado_l"] = "Sul-americanas"
@@ -73,6 +74,12 @@ def main():
     d["area_pts"] = np.where(d.pos11.isin(AREA), np.where(d.area_p >= 90, 3, np.where(d.area_p >= 75, 1, 0)), 0)
     d["score"] = (d.nota + 3 * d.tipo_pref + 3 * (d.bp >= 85) + d.gol_def_pts + d.area_pts + d.scouts.map(BONUS).fillna(0) + d.liga.map(CRIVO).fillna(0)).round(1)
     d = d.sort_values("score", ascending=False).drop_duplicates(["k"])
+    d["ordem_geral"] = d.groupby("pos11").cumcount() + 1   # posição em "Os meus dez" (ordem geral da posição)
+    d[["ordem_geral", "pos11", "k", "jogador", "clube", "liga", "mercado_l", "idade", "minutos", "contrato", "contrato_vencido", "livre", "valor", "nota", "nota_completa", "aderencia_ajustada", "nivel_overall", "psv", "sofa_vmax", "tipo", "tipo_pref", "bp", "xg90", "gol_def", "area", "chega_area", "sofa_nota", "sofa_xgxa", "scouts", "score"]].to_csv(os.path.join(L, "POOL_2027.csv"), index=False)
+    return d
+
+def main():
+    d = pool()
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     md = ["# Os meus dez por posição — 2027", "",
