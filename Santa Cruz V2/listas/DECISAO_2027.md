@@ -22,11 +22,11 @@ Os dez de melhor **rendimento acima do elenco** (pontos por jogo além do que o 
 
 **Ordem de preferência para o Santa Cruz:** 1. **Eduardo Baptista** — o modelo mais alinhado ao eixo (linha de 3, jogo direto, aéreo, intenso), o maior xPts entre os regulares, pior passagem +0,31, nunca trocou no meio do ano; no Criciúma, pede liberação. 2. **Léo Condé** — o único que rendeu acima do elenco em três clubes, 4-2-3-1, cede a menor quantidade de grandes chances (1,14/j); +0,21 de sorte por jogo e times que correm pouco; livre. 3. **Claudio Tencati** — elenco barato, jogo direto, sem sorte no placar; Botafogo-SP. 4. **Enderson Moreira** — o maior xPts da liga (1,62) com −0,18 de sorte: o jogo era melhor que o placar; Novorizontino. **Fora:** Guto Ferreira e Thiago Carpini (currículo de G4 com elencos top-5, +0,30 de sorte e 1,6–1,8 grandes chances cedidas), Mozart (posse com baixa intensidade, o oposto do elenco abaixo).
 
-**Regra que vale mais que o nome:** contratar para ficar o ano (0 trocas em quem sobe, 2 em quem cai — B5-1). Quem for escolhido define 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está.
+**Regra que vale mais que o nome:** contratar para ficar o ano (0 trocas em quem sobe, 2 em quem cai — M1-1). Quem for escolhido define 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está.
 
 ## 2 · Elenco: titular e opções por posição
 
-Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corrida para a área + scouts). (e) = contrato além de jun/27: empréstimo ou compra. **Regra de montagem (B5/B6/B14):** 28–30 nomes, 5 titulares mantidos de 2026, onze fixo (≥ 70% das titularidades nos 11), estrangeiros de meio para a frente com 1 ano e opção.
+Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corrida para a área + scouts). (e) = contrato além de jun/27: empréstimo ou compra. **Regra de montagem (M1/M2/M3):** 28–30 nomes, 5 titulares mantidos de 2026, onze fixo (≥ 70% das titularidades nos 11), estrangeiros de meio para a frente com 1 ano e opção.
 
 ### Goleiro
 
@@ -40,7 +40,7 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
-| 1 | **Willean Lepo** (e) | Criciúma · Série B | 29 | 31/12/27 | **73** | nota 66 (aderência 78, nível 55); piso ok (29,7 km/h); tipo físico de quem sobe: Explosivo e rápido; patamar de A 77; Sofascore 6,89; 1710 min; ★ scouts: média ≥6,5 |
+| 1 | **Willean Lepo** (e) | Criciúma · Série B | 29 | 31/12/27 | **75** | nota 66 (aderência 78, nível 55); piso ok (29,7 km/h); tipo físico de quem sobe: Explosivo e rápido; patamar de A 77; Sofascore 6,89; 1710 min; ★ scouts: média ≥6,5 |
 | 2 | **Maílton** (e) | Fortaleza · Série B | 28 | 31/12/27 | **71** | nota 65 (aderência 71, nível 59); piso ok (29,8 km/h); especialista de bola parada (90); gol de defesa (xG/90 0,16); patamar de A 54; Sofascore 7,10; 1838 min · **Atenção:** tipo físico fora do de quem sobe: Baixa intensidade |
 | 3 | **J. Alarcón** (e) | Sport Boys · Peru | 24 | 31/12/27 | **66** | nota 60 (aderência 49, nível 71); piso ok (27,2 km/h); gol de defesa (xG/90 0,17); corre para a área (4,0/30 min); 1141 min · **Atenção:** tipo físico fora do de quem sobe: Médio em tudo; de fora: vídeo obrigatório e vaga de estrangeiro |
 
@@ -56,9 +56,9 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
-| 1 | **Zé Marcos** (e) | Sport · Série B | 28 | 31/12/27 | **69** | nota 64 (aderência 69, nível 60); piso ok (28,2 km/h); gol de defesa (xG/90 0,15); patamar de A 42; Sofascore 6,92; 1173 min; ★ scouts: média ≥6,5 · **Atenção:** tipo físico fora do de quem sobe: Baixa intensidade |
-| 2 | **M. Gamarra** (e) | Olimpia · Paraguai | 25 | 31/12/27 | **69** | nota 66 (aderência 56, nível 75); piso ok (28,8 km/h); tipo físico de quem sobe: Motor de volume; 1774 min · **Atenção:** de fora: vídeo obrigatório e vaga de estrangeiro |
-| 3 | **Vilar** | Botafogo-SP · Série B | 26 | 30/11/26 | **68** | nota 59 (aderência 66, nível —); piso ok (30,2 km/h); tipo físico de quem sobe: Motor de volume; especialista de bola parada (91); gol de defesa (xG/90 0,12); patamar de A 72; Sofascore 6,87; 2612 min |
+| 1 | **M. Gamarra** (e) | Olimpia · Paraguai | 25 | 31/12/27 | **71** | nota 66 (aderência 56, nível 75); piso ok (28,8 km/h); tipo físico de quem sobe: Motor de volume; 1774 min · **Atenção:** de fora: vídeo obrigatório e vaga de estrangeiro |
+| 2 | **Vilar** | Botafogo-SP · Série B | 26 | 30/11/26 | **70** | nota 59 (aderência 66, nível —); piso ok (30,2 km/h); tipo físico de quem sobe: Motor de volume; especialista de bola parada (91); gol de defesa (xG/90 0,12); patamar de A 72; Sofascore 6,87; 2612 min |
+| 3 | **Zé Marcos** (e) | Sport · Série B | 28 | 31/12/27 | **69** | nota 64 (aderência 69, nível 60); piso ok (28,2 km/h); gol de defesa (xG/90 0,15); patamar de A 42; Sofascore 6,92; 1173 min; ★ scouts: média ≥6,5 · **Atenção:** tipo físico fora do de quem sobe: Baixa intensidade |
 
 ### Lateral esquerdo
 
@@ -106,7 +106,7 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
-| 1 | **Soares** (e) | Atlético-GO · Série B | 26 | 25/08/29 | **70** | nota 67 (aderência 82, nível 52); piso ok (31,1 km/h); tipo físico de quem sobe: Explosivo e rápido; patamar de A 64; 1935 min |
+| 1 | **Soares** (e) | Atlético-GO · Série B | 26 | 25/08/29 | **72** | nota 67 (aderência 82, nível 52); piso ok (31,1 km/h); tipo físico de quem sobe: Explosivo e rápido; patamar de A 64; 1935 min |
 | 2 | **Dadá Belmonte** | CRB · Série B | 29 | 30/11/26 | **70** | nota 70 (aderência 89, nível 51); piso ok (29,8 km/h); patamar de A 46; Sofascore 7,35; 2285 min · **Atenção:** tipo físico fora do de quem sobe: Baixa intensidade |
 | 3 | **Iago Teles** | Londrina · Série B | 26 | 30/06/27 | **70** | nota 65 (aderência 75, nível 55); piso ok (28,6 km/h); especialista de bola parada (92); patamar de A 28; Sofascore 6,97; 1103 min; ★ scouts: média ≥6,5 · **Atenção:** tipo físico fora do de quem sobe: Baixa intensidade |
 
@@ -121,7 +121,7 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 
 ## 3 · O que o dado não decide
 
-- Goleiro: a base não separa goleiro bom de defesa boa (B2-5) — vídeo.
+- Goleiro: a base não separa goleiro bom de defesa boa (T1-5) — vídeo.
 - Quem vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B); só vídeo e minutagem confirmam.
 - Salário: o estudo não tem folha; as faixas são estimativa. Valor de mercado ≤ € 2 MM é o corte.
 - Os nomes que o clube já descartou estão em `Quem não contratar` (com os motivos) e em `EXCLUIDOS.csv`.

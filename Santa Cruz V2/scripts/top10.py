@@ -51,7 +51,7 @@ def main():
         "Leste Europeu, Oriente Médio, Ásia B), no máximo três por posição. Livres (contrato até jun/27 ou sem contrato) "
         "primeiro; valor de mercado até € 2 MM (acima disso é inalcançável); dentro deles, a nota do estudo (aderência + nível) com bônus dos scouts. Equador B, Bolívia e "
         "Argentina B só entram quando não há melhor. ★ = visto e aprovado pelos scouts. (e) = não é livre: "
-        "empréstimo ou compra. **Nota \\*** = só aderência, sem nível do ranking. **Contrato \\*** = já vencido no dado de ago/26 (renovou ou está livre: confirmar). **PSV** = velocidade de pico (piso 27 km/h; ⚠ = abaixo do piso, só com vídeo; — = sem rastreio). **Tipo** = tipo físico do Bloco 8/10 (\\* = não é o tipo preferido de quem sobe). Idade até 35 (B5-3). Base: `TOP10_por_posicao.csv`, gerado por `scripts/top10.py`.\n"]
+        "empréstimo ou compra. **Nota \\*** = só aderência, sem nível do ranking. **Contrato \\*** = já vencido no dado de ago/26 (renovou ou está livre: confirmar). **PSV** = velocidade de pico (piso 27 km/h; ⚠ = abaixo do piso, só com vídeo; — = sem rastreio). **Tipo** = tipo físico do F2/10 (\\* = não é o tipo preferido de quem sobe). Idade até 35 (M1-3). Base: `TOP10_por_posicao.csv`, gerado por `scripts/top10.py`.\n"]
     for p, nome, sub in POS:
         x = d[d.pos11 == p].sort_values(["livre", "nota_final"], ascending=[False, False])
         x = pd.concat([x[x.mercado != "Exterior"], x[x.mercado == "Exterior"].head(3)]).sort_values(

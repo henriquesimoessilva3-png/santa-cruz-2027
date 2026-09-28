@@ -1,4 +1,4 @@
-"""Bloco 9 — Duelos ajustados à posse. Volume de duelo ou aproveitamento: o que anda com time vencedor?
+"""T3 — Duelos ajustados à posse. Volume de duelo ou aproveitamento: o que anda com time vencedor?
 
 Ajuste à posse (padrão Wyscout/StatsBomb): ação defensiva × 50 / (100 − posse do time); ação ofensiva
 × 50 / posse. Um zagueiro de time que tem 40% de bola defende 60% do tempo: o volume cru dele sobe só

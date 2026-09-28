@@ -1,6 +1,6 @@
 """Série A — quem pode servir à Série B: (a) jovens (≤ 23) não aproveitados em 2026 (200 a 1.100 min), (b) veteranos
 (30+) em fim de contrato (até jun/27) e (c) Remo/Chapecoense em fim de contrato. Aderência calculada entre os CA/posição da A com ≥ 200 min (o corte de 900 tiraria
-justamente quem joga pouco), convertida pela reta do B11 (Série A: 48 + 0,28·p); nível do ranking; físico do Portal.
+justamente quem joga pouco), convertida pela reta do T4 (Série A: 48 + 0,28·p); nível do ranking; físico do Portal.
 Filtros: sem vetados, valor ≤ € 2 MM, PSV ≥ 27 quando há rastreio, idade ≤ 36. Saídas: listas/SERIE_A_OPORTUNIDADES.md/.csv"""
 import os, glob, json, numpy as np, pandas as pd
 from _comum import RAIZ, chave, excluidos, caro
@@ -61,8 +61,8 @@ def main():
     md = ["# Série A — não aproveitados e fim de contrato que servem à Série B", "",
           "*Dado: Wyscout ago/26 (Série A 2026, ≥ 200 min), ranking do Portal, físico do Portal · 26/09/2026. A Série A está fora das recomendações por decisão do clube (23/09); esta é a lista de exceção, para as posições em que a B e os mercados de fora não fecham.*", "",
           "Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 a 1.100 min em 2026 — empréstimo em janeiro), **veterano em fim de contrato** (30+ e contrato até jun/27 — chega livre) e **Remo/Chape em fim de contrato** (qualquer idade, contrato até jun/27). "
-          "Aderência calculada entre os jogadores da A da posição com ≥ 200 min e convertida pela reta do B11 (quem vem da A chega acima da mediana da B: p50 → 62); nota = média com o nível do ranking (\\* = nível imputado). "
-          "Filtros: sem vetados, valor ≤ € 2 MM, faixa salarial (Capology) com teto até R$ 800 mil/mês (empréstimo com divisão de salário; a faixa aparece na tabela para o clube decidir), PSV-99 ≥ 27 quando há rastreio, até 36 anos. **O que o B2-6 manda lembrar:** gols e conversão do passado não repetem; volume (toques na área, aéreos, passes chave) repete — as duas colunas de destaque são de volume.", ""]
+          "Aderência calculada entre os jogadores da A da posição com ≥ 200 min e convertida pela reta do T4 (quem vem da A chega acima da mediana da B: p50 → 62); nota = média com o nível do ranking (\\* = nível imputado). "
+          "Filtros: sem vetados, valor ≤ € 2 MM, faixa salarial (Capology) com teto até R$ 800 mil/mês (empréstimo com divisão de salário; a faixa aparece na tabela para o clube decidir), PSV-99 ≥ 27 quando há rastreio, até 36 anos. **O que o T1-6 manda lembrar:** gols e conversão do passado não repetem; volume (toques na área, aéreos, passes chave) repete — as duas colunas de destaque são de volume.", ""]
     for p in ORDEM:
         x = d[d.pos11 == p].head(10)
         if x.empty: continue

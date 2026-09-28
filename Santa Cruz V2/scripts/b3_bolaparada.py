@@ -1,4 +1,4 @@
-"""Bloco 3 — Bola parada.
+"""T2 — Bola parada.
 
 Bases: coleta Sofascore de gols por origem (escanteio, falta direta, falta indireta, lateral,
 pênalti) por trabalho de treinador, agregada aqui em clube-temporada; Wyscout por jogo (bolas

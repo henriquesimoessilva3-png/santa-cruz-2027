@@ -1,4 +1,4 @@
-"""Bloco 12 — Treinador: sorte × mérito. Pontos esperados (xPts) por passagem, a partir do xG a favor e
+"""TR2 — Treinador: sorte × mérito. Pontos esperados (xPts) por passagem, a partir do xG a favor e
 contra de cada jogo (Poisson), contra os pontos reais. O que sobra (pontos − xPts) é o que o xG não
 explica: finalização, goleiro e sorte — e não repete. Prova: resultados/b12/passagens_xpts.csv"""
 import os, numpy as np, pandas as pd
@@ -42,12 +42,12 @@ def main():
     agg = agg[agg.passagens >= 2].sort_values("xppj", ascending=False); agg.to_csv(os.path.join(OUT, "treinadores_xpts.csv"))
     F = ["Léo Condé", "Eduardo Baptista", "Mozart", "Claudio Tencati", "Guto Ferreira", "Thiago Carpini", "Enderson Moreira"]
     f = lambda v, c=2: f"{v:.{c}f}".replace(".", ",").replace("-", "−")
-    md = ["# Bloco 12 — Treinador: sorte × mérito", "", "*Dado: Wyscout por jogo 2022–2026 e passagens do Bloco 4 · 25/09/2026.*", "",
+    md = ["# TR2 — Treinador: sorte × mérito", "", "*Dado: Wyscout por jogo 2022–2026 e passagens do TR1 · 25/09/2026.*", "",
           "Pontos esperados (xPts) de cada jogo pelo xG a favor e contra (Poisson); a diferença entre pontos reais e xPts é o que o xG não explica — finalização, goleiro e sorte. "
           f"Base: {len(d)} passagens com ≥ 10 jogos.", "",
           "## 1 · O que repete de uma passagem para a seguinte do mesmo treinador",
           "", "| Medida | r entre passagens seguidas | Leitura |", "|---|---|---|",
-          f"| Pontos por jogo | {f(rep['ppj'])} | quase nada (B4-1) |",
+          f"| Pontos por jogo | {f(rep['ppj'])} | quase nada (TR1-1) |",
           f"| **xPts por jogo** | **{f(rep['xppj'])}** | o que o time cria e cede — repete mais que o placar |",
           f"| Sorte (pontos − xPts) | {f(rep['sorte'])} | não repete: não pagar por ela |",
           f"", f"n = {rep['n']} pares.", "",

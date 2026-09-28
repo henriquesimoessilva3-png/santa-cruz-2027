@@ -2,7 +2,7 @@
 
 *Dado: Wyscout ago/26; Sofascore 2024–26 (Série B) coletado em 23/09 · revisão 25/09/2026.*
 
-Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 35 (B5-3: idade não rende nem custa ponto). Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis. Série A fora das recomendações (23/09); nomes vetados e valor acima de € 2 MM fora. Na Série B, as colunas de assistências e gols de bola parada vêm do Sofascore (2024–26).
+Índice do cobrador: percentil dentro da liga em escanteios/90 e faltas cobradas/90 (peso 3), faltas diretas/90, faltas diretas no alvo %, xA/90 e cruzamento certo % (peso 1). Índice do finalizador aéreo: percentil dentro da liga, entre jogadores de linha com ≥ 2,5 duelos aéreos/90, em gols de cabeça/90 (peso 3), gols de cabeça (2), duelos aéreos ganhos % (2), duelos aéreos/90 (2) e altura (1). ≥ 900 minutos, idade ≤ 35 (M1-3: idade não rende nem custa ponto). Série B mostra o índice de 2025 ao lado, para ver quem repete. Nos mercados de fora, só ligas alcançáveis. Série A fora das recomendações (23/09); nomes vetados e valor acima de € 2 MM fora. Na Série B, as colunas de assistências e gols de bola parada vêm do Sofascore (2024–26).
 
 
 ## Série B

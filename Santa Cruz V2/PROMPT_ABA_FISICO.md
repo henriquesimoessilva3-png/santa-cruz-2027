@@ -8,7 +8,7 @@ raio ⚡ em "raio físico", ~linha 5981), `preparar_base.py` monta `dados/jogado
 
 ## Por que mudar
 O "Índice físico geral" é a média de 8 grupos, com volume, acelerações e giro dentro. No meia, ele
-dá 46 para quem subiu e 54 para quem caiu: ordena ao contrário. O estudo V2 (B1) concluiu:
+dá 46 para quem subiu e 54 para quem caiu: ordena ao contrário. O estudo V2 (F1) concluiu:
 1. **Piso de velocidade**: nenhum titular de linha abaixo de ~27 km/h de PSV-99. É o achado mais
    forte (a amplitude do onze anda contra o rendimento nas 5 temporadas; quartil mais estreito
    2,7 km/h = 55 pts; quem cai 4,0–4,35 km/h). O elo lento costuma ser meia ou volante.
@@ -45,7 +45,7 @@ Três selos, na ordem, para jogador de linha com ≥ 5 jogos rastreados (`sc_n`)
 
 ### 2. Matriz reorganizada
 Abertos por padrão: Piso, Intensidade, Traço da posição. Volume, Arranque e frenagem, Giro e
-Com/sem bola vão para um bloco recolhido "Detalhe — não rende ponto (estudo V2, B1)". Nada é
+Com/sem bola vão para um bloco recolhido "Detalhe — não rende ponto (estudo V2, F1)". Nada é
 apagado. Legenda curta no topo com as quatro conclusões acima, em uma linha cada.
 
 ### 3. Nova forma de ver: "Onze físico"

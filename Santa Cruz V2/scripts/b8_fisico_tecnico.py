@@ -1,4 +1,4 @@
-"""Bloco 8 — Físico × técnico. O físico do jogador tem a ver com o que ele produz em campo?
+"""F2 — Físico × técnico. O físico do jogador tem a ver com o que ele produz em campo?
 
 Base: jogador-temporada da Série B 2022–2026 com físico (SkillCorner, resultados/b1/perfis/jogadores.csv)
 casado com o técnico do Wyscout (serieb_tecnico.csv) pelo mesmo ano, clube e nome. ≥ 900 min,

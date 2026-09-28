@@ -1,4 +1,4 @@
-# Bloco 1 — Camada descritiva: jogadores, posições e equipes
+# F1 — Camada descritiva: jogadores, posições e equipes
 
 *Dado: SkillCorner 2022–2026 · revisão 25/09/2026.*
 
@@ -45,7 +45,7 @@ tipo de esforço:
   e alta velocidade com bola +17%. Sem bola, nenhum dos dois se destaca.
 - **Extremos e MEI:** os únicos em que o titular dos times que rendem corre MENOS — sprint
   −10/−13%, arrancadas −10/−26%, sem bola −18/−17%. O extremo dos times de referência não é o
-  mais explosivo da liga; provavelmente é mais técnico (a conferir no Bloco 2).
+  mais explosivo da liga; provavelmente é mais técnico (a conferir no T1).
 
 Leitura: em nenhuma posição a diferença está na distância (0 a 3%) nem na velocidade de pico
 (±3%). Está em arrancada, sprint com bola e corrida para a área — e no ataque, em correr forte
@@ -65,7 +65,7 @@ nas duas fases.
 
 Quem sobe está no percentil 60–68 em intensidade, velocidade e corridas para a área; quem cai,
 no 33–41. Distância separa pouco (48 → 58). Acelerações e desacelerações fortes não separam nada — por equipe o indicador
-chega a aparecer ao contrário e por posição não diz nada (B8-5); ficou fora da tabela e da ficha.
+chega a aparecer ao contrário e por posição não diz nada (F2-5); ficou fora da tabela e da ficha.
 Ressalva do `B1.md`: parte dessa vantagem de quem sobe é dinheiro; descontado o elenco, o que
 sobra é intensidade (4–6 pontos) e o piso de velocidade do onze.
 

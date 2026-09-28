@@ -1,7 +1,7 @@
 """Ranking físico por posição — os 20 melhores pelos indicadores físicos, em três mercados (Série B, campeonatos
 sul-americanos, brasileiros e sul-americanos no exterior alcançável). Pontuação física = média ponderada dos
 percentis dentro da posição (todos os mercados juntos): sprints/90 (2), alta intensidade/90 (2), arrancadas/90 (2),
-PSV-99 (1), corridas sem bola/30 min (1). Distância fica fora (não rende ponto, B1-1). Filtros: ≥ 900 min, piso 27
+PSV-99 (1), corridas sem bola/30 min (1). Distância fica fora (não rende ponto, F1-1). Filtros: ≥ 900 min, piso 27
 km/h, sem vetados, valor ≤ € 2 MM, ≤ 35 anos. Saídas: listas/RANKING_FISICO.md/.csv"""
 import os, numpy as np, pandas as pd
 from _comum import RAIZ, chave, excluidos, caro
@@ -35,11 +35,12 @@ def main():
     B = B.sort_values(["pos11", "fisico"], ascending=[True, False])
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
-    md = ["# Ranking físico por posição", "", "*Dado: SkillCorner (Série B, estudo) e Portal (fora), temporada atual; Wyscout ago/26 para minutos, contrato e nota · 26/09/2026.*", "",
-          "Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercados. **Físico** = média ponderada dos percentis dentro da posição, todos os mercados juntos: sprints/90 (peso 2), ações de alta intensidade/90 (2), arrancadas explosivas/90 (2), PSV-99 (1), corridas sem bola por 30 min (1); distância fica fora (não rende ponto, B1-1). "
-          "**Pontos** e **Geral** são os de `Os meus dez por posição` (a lista que vale; — = não entra nela, por nota ou filtro): este ranking é só o físico, para achar o piso e o tipo. **Tipo** com ✓ = tipo físico que quem sobe mais usa (B8/B15). Filtros: ≥ 900 min, piso 27 km/h, sem vetados, valor ≤ € 2 MM, até 35 anos. (BR) = brasileiro. Clique no nome para abrir a ficha.", ""]
+    PREF = pd.read_csv(os.path.join(RAIZ, "resultados", "b8", "tipos_preferidos_pos.csv")).set_index("pos11").preferidos.fillna("")
+    md = ["# Só o físico: ranking por posição", "", "*Dado: SkillCorner (Série B, estudo) e Portal (fora), temporada atual; Wyscout ago/26 para minutos, contrato e nota · 26/09/2026.*", "",
+          "A visão só física — o par de `Os meus dez` (que junta técnico e físico). Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercados. **Físico** = média ponderada dos percentis dentro da posição, todos os mercados juntos: sprints/90 (peso 2), ações de alta intensidade/90 (2), arrancadas explosivas/90 (2), PSV-99 (1), corridas sem bola por 30 min (1); distância fica fora (não rende ponto, F1-1). "
+          "**Pontos** e **Geral** são os de `Os meus dez por posição` (a lista que vale; — = não entra nela, por nota ou filtro): este ranking é só o físico, para achar o piso e o tipo. **Tipo** com ✓ = tipo físico que quem sobe mais usa (F2/F2). Filtros: ≥ 900 min, piso 27 km/h, sem vetados, valor ≤ € 2 MM, até 35 anos. (BR) = brasileiro. Clique no nome para abrir a ficha.", ""]
     for p in ORDEM:
-        md += [f"## {NOMES[p]}", ""]
+        md += [f"## {NOMES[p]}" + (f" — tipo de quem sobe: **{PREF.get(p, '')}**" if PREF.get(p, "") else " — o físico não separa quem sobe de quem cai (F2-4)"), ""]
         for merc in ["Série B", "Sul-americanas", "Brasileiros e sul-americanos no exterior"]:
             x = B[(B.pos11 == p) & (B.mercado_l == merc)].head(20)
             md += [f"**{merc}**" + (" — sem jogador com físico" if x.empty else ""), ""]

@@ -1,4 +1,4 @@
-"""Bloco 1, pergunta 5 — desgaste: turno × returno e semana de três jogos (physical_match, 2025 e 2026).
+"""F1, pergunta 5 — desgaste: turno × returno e semana de três jogos (physical_match, 2025 e 2026).
 Escreve resultados/b1/desgaste.csv"""
 import os
 import numpy as np, pandas as pd

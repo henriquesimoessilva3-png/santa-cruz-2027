@@ -1,7 +1,7 @@
 """Os meus dez por posição — 2027. Os três mercados juntos (Série B, campeonatos sul-americanos e
 sul-americanos/brasileiros no exterior em ligas compatíveis com a B), ordenados do mais aderente
 ao menos: pontuação = nota do estudo (aderência ao modelo que rende na B + nível do ranking)
-+ 3 se é do tipo físico de quem sobe (B15) + 3 se é especialista de bola parada (índice ≥ 85, B3)
++ 3 se é do tipo físico de quem sobe (F2) + 3 se é especialista de bola parada (índice ≥ 85, T2)
 + bônus dos scouts + crivo de liga fraca. Filtros: ≥ 900 min, idade ≤ 35 (GOL ≤ 37), PSV-99 ≥ 27
 quando há rastreio, sem vetados, valor ≤ € 2 MM, nota com as duas partes ou aderência ≥ 65.
 Saídas: listas/IDEAL_2027.md, listas/IDEAL_2027.csv"""
@@ -46,10 +46,14 @@ def pool():
     tt = pd.read_csv(os.path.join(RAIZ, "resultados", "b15", "tipos_todos.csv"))
     tt["k"] = tt.chave + "|" + tt.clube.map(chave); tt = tt.drop_duplicates("k").set_index("k")
     d["tipo"] = d.k.map(tt.tipo); d["tipo_pref"] = d.k.map(tt.tipo_pref).fillna(False).astype(bool)
+    # bônus do tipo pela força do sinal na posição (F2-4): Sobe − Cai ≥ 25 pontos → +5; tipo de quem sobe → +3; posição sem sinal → 0
+    gp = pd.read_csv(os.path.join(RAIZ, "resultados", "b8", "tipos_fisicos_pos.csv"))
+    forte = {(r.pos11, r.tipo) for r in gp.itertuples() if r.dif >= 0.25}
+    d["tipo_pts"] = [5 if (p, t) in forte else (3 if pref else 0) for p, t, pref in zip(d.pos11, d.tipo, d.tipo_pref)]
     d["psv"] = d.psv99 if "psv99" in d else np.nan
     d["psv"] = d.psv.fillna(d.k.map(tt.psv99))
     d = d[d.psv.isna() | (d.psv >= 27) | (d.pos11 == "GOL")]
-    # Sofascore 2026 (B14): nota média, xG+xA/90 e velocidade máxima — colunas, não ordenação
+    # Sofascore 2026 (M3): nota média, xG+xA/90 e velocidade máxima — colunas, não ordenação
     sj = pd.read_csv(os.path.join(RAIZ, "resultados", "b14", "jogador_temporada.csv"))
     sj = sj[(sj.ano == 2026) & (sj.minutos >= 450)].sort_values("minutos", ascending=False).drop_duplicates("chave").set_index("chave")
     kk = d.jogador.map(chave)
@@ -58,7 +62,7 @@ def pool():
     d["sofa_vmax"] = np.where(d.mercado_l == "Série B", kk.map(sj.topSpeed), np.nan)
     bp = bp_indices(); d["bp"] = d.k.map(bp).fillna(0)
     d["livre"] = d.livre_2027.astype(str) == "True"
-    # gol de defesa (B7-1): gols de zagueiro, volante e lateral rendem e não custam — xG/90 no quartil de cima da posição
+    # gol de defesa (M4-1): gols de zagueiro, volante e lateral rendem e não custam — xG/90 no quartil de cima da posição
     DEF = {"LD", "ZD", "ZE", "LE", "VOL"}
     # xG/90 com precisão: o export arredonda "xG per 90" a uma casa (0,0 / 0,1); o xG total não
     d["xg90"] = (pd.to_numeric(d.get("xG"), errors="coerce") / pd.to_numeric(d.minutos, errors="coerce") * 90)
@@ -66,16 +70,16 @@ def pool():
     d["xg_p"] = d.groupby("pos11").xg90.rank(pct=True) * 100
     d["gol_def"] = d.pos11.isin(DEF) & (d.xg_p >= 90)          # ⚽ = decil de cima da posição
     d["gol_def_pts"] = np.where(d.pos11.isin(DEF), np.where(d.xg_p >= 90, 3, np.where(d.xg_p >= 75, 1, 0)), 0)
-    # corrida para a área (B8-2): o físico que mais anda com participação em gol no meia, volante, lateral e extremo
+    # corrida para a área (F2-2): o físico que mais anda com participação em gol no meia, volante, lateral e extremo
     AREA = {"LD", "LE", "VOL", "MED", "MEI", "ED", "EE"}
     d["area"] = pd.to_numeric(d.get("runs_penalty_area_p30tip"), errors="coerce").fillna(d.k.map(tt.runs_penalty_area_p30tip) if "runs_penalty_area_p30tip" in tt else np.nan)
     d["area_p"] = d.groupby("pos11").area.rank(pct=True) * 100
     d["chega_area"] = d.pos11.isin(AREA) & (d.area_p >= 90)     # ➚ = decil de cima da posição
     d["area_pts"] = np.where(d.pos11.isin(AREA), np.where(d.area_p >= 90, 3, np.where(d.area_p >= 75, 1, 0)), 0)
-    d["score"] = (d.nota + 3 * d.tipo_pref + 3 * (d.bp >= 85) + d.gol_def_pts + d.area_pts + d.scouts.map(BONUS).fillna(0) + d.liga.map(CRIVO).fillna(0)).round(1)
+    d["score"] = (d.nota + d.tipo_pts + 3 * (d.bp >= 85) + d.gol_def_pts + d.area_pts + d.scouts.map(BONUS).fillna(0) + d.liga.map(CRIVO).fillna(0)).round(1)
     d = d.sort_values("score", ascending=False).drop_duplicates(["k"])
     d["ordem_geral"] = d.groupby("pos11").cumcount() + 1   # posição em "Os meus dez" (ordem geral da posição)
-    d[["ordem_geral", "pos11", "k", "jogador", "clube", "liga", "mercado_l", "idade", "minutos", "contrato", "contrato_vencido", "livre", "valor", "nota", "nota_completa", "aderencia_ajustada", "nivel_overall", "psv", "sofa_vmax", "tipo", "tipo_pref", "bp", "xg90", "gol_def", "area", "chega_area", "sofa_nota", "sofa_xgxa", "scouts", "score"]].to_csv(os.path.join(L, "POOL_2027.csv"), index=False)
+    d[["ordem_geral", "pos11", "k", "jogador", "clube", "liga", "mercado_l", "idade", "minutos", "contrato", "contrato_vencido", "livre", "valor", "nota", "nota_completa", "aderencia_ajustada", "nivel_overall", "psv", "sofa_vmax", "tipo", "tipo_pref", "tipo_pts", "bp", "xg90", "gol_def", "area", "chega_area", "sofa_nota", "sofa_xgxa", "scouts", "score"]].to_csv(os.path.join(L, "POOL_2027.csv"), index=False)
     return d
 
 def main():
@@ -85,9 +89,9 @@ def main():
     md = ["# Os meus dez por posição — 2027", "",
           "*Dado: Wyscout e contratos de ago/26; físico SkillCorner (Série B) e do Portal (fora) até set/26; bola parada Wyscout/Sofascore; scouts TransferRoom · 25/09/2026.*", "",
           "Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **brasileiros e sul-americanos no exterior** em ligas compatíveis com a B (Portugal B/C, Leste Europeu, Golfo, Ásia B) — ordenados do mais aderente ao menos. "
-          "**Pontuação** = nota do estudo (aderência ao modelo que rende na Série B + nível do ranking) + 3 se é do tipo físico que quem sobe mais usa (B15) + 3 se é especialista de bola parada (índice ≥ 85) + 3 se é defensor ou volante com xG/90 no decil de cima da posição, 1 no quartil (⚽, gol de defesa: rende e não custa, B7-1) + 3 se é lateral, volante, meia ou extremo com corridas para a área no decil de cima da posição, 1 no quartil (➚, B8-2: o físico que mais anda com participação em gol) + bônus dos scouts, com −5 para Equador B, Bolívia e Argentina B. "
+          "**Pontuação** = nota do estudo (aderência ao modelo que rende na Série B + nível do ranking) + 3 se é do tipo físico de quem sobe na posição, **+5 onde o tipo separa muito** (Sobe − Cai ≥ 25 pontos: lateral direito e extremo esquerdo explosivos, zagueiro esquerdo motor de volume — F2-4; zero em ZD, MEI e ED, onde o físico não separa) + 3 se é especialista de bola parada (índice ≥ 85) + 3 se é defensor ou volante com xG/90 no decil de cima da posição, 1 no quartil (⚽, gol de defesa: rende e não custa, M4-1) + 3 se é lateral, volante, meia ou extremo com corridas para a área no decil de cima da posição, 1 no quartil (➚, F2-2: o físico que mais anda com participação em gol) + bônus dos scouts, com −5 para Equador B, Bolívia e Argentina B. "
           "Filtros: ≥ 900 min, idade ≤ 35, fora os clubes grandes das ligas fracas (Olympiacos, Ludogorets, Maccabi, clubes do Golfo…), PSV-99 ≥ 27 km/h quando há rastreio, sem os vetados, valor ≤ € 2 MM, nota com as duas partes (ou aderência ≥ 65). "
-          "Nas ligas de fora a aderência já está convertida pela reta de liga (B11: p90 na origem → 58 na B). **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27. **vmax Sofa**, **Nota Sofa** e **xG+xA/90** vêm do Sofascore 2026 (B14), só para a Série B: descrevem, não ordenam (a nota não repete de um ano para o outro, r 0,36). A vmax é pico de um jogo (r 0,33 com o PSV-99) e não substitui o piso: só abaixo de 32 km/h é alerta.", ""]
+          "Nas ligas de fora a aderência já está convertida pela reta de liga (T4: p90 na origem → 58 na B). **BP** = índice de cobrador/finalizador; ★ = scouts; (e) = contrato além de jun/27. **vmax Sofa**, **Nota Sofa** e **xG+xA/90** vêm do Sofascore 2026 (M3), só para a Série B: descrevem, não ordenam (a nota não repete de um ano para o outro, r 0,36). A vmax é pico de um jogo (r 0,33 com o PSV-99) e não substitui o piso: só abaixo de 32 km/h é alerta.", ""]
     out = []
     for p, nome, sub in POS:
         x = d[d.pos11 == p].head(10).assign(ordem=lambda t: range(1, len(t) + 1)); out.append(x)

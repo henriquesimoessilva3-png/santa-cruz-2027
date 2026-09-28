@@ -1,8 +1,8 @@
 /* Aba "Consulta de jogador" — digita um nome e o app diz se ele adere ao modelo que rende na
    Série B (técnico + físico) e onde ele está nas listas do estudo V2.
    Dado: static/consulta_dados.js (gerar_consulta_js.py): 15 mil jogadores com ≥ 900 min nas 66
-   ligas do Wyscout (ago/26) + Série B 2026, físico SkillCorner/Portal, tipo físico (B8/B15), bola
-   parada (B3), patamar de A (B13), Sofascore 2026 (B14), "Os meus dez", vetados e teto de valor.
+   ligas do Wyscout (ago/26) + Série B 2026, físico SkillCorner/Portal, tipo físico (F2/F2), bola
+   parada (T2), patamar de A (F3), Sofascore 2026 (M3), "Os meus dez", vetados e teto de valor.
    Arquivo próprio, sem encostar no app.js: observa o botão da aba, como as outras abas do estudo. */
 (function () {
   'use strict';
@@ -13,9 +13,9 @@
   const dt = c => c ? c.slice(8, 10) + '/' + c.slice(5, 7) + '/' + c.slice(2, 4) : '—';
   const SET = { GOL: 'Goleiro', LD: 'Lateral', LE: 'Lateral', ZD: 'Zaga', ZE: 'Zaga', VOL: 'Volante', MED: 'Meia', MEI: 'Meia', ED: 'Extremo', EE: 'Extremo', CA: 'Atacante' };
   const POS = { GOL: 'Goleiro', LD: 'Lateral direito', ZD: 'Zagueiro pela direita', ZE: 'Zagueiro pela esquerda', LE: 'Lateral esquerdo', VOL: 'Volante', MED: 'Médio', MEI: 'Meia', ED: 'Extremo pela direita', EE: 'Extremo pela esquerda', CA: 'Centroavante' };
-  const PEDE = { GOL: 'vídeo decide: a base não distingue goleiro bom de defesa boa (B2-5)', LD: 'passe longo, cruzamento, xA, duelo defensivo (B2-4)', LE: 'chega ao gol (xG, toques na área) e cruza (B2-4)',
-    ZD: 'cria (passes chave, longos) e ganha no alto (B2-4)', ZE: 'finaliza, sai jogando longo e progressivo, ganha no alto — o maior sinal do estudo (B2-4)', VOL: 'duelo aéreo, corrida progressiva, interceptação; arrancadas (B2-4, B1-3)',
-    MED: 'criador (xA, passes chave, passes para a área) que ganha duelo (B2-4)', MEI: 'cria e chega à área; cobrador de bola parada (B2-4, B3-3)', ED: 'defende e cria — não o finalizador (B2-4)', EE: 'decide: xG, gols, toques na área, faltas sofridas (B2-4)', CA: 'toca menos, acelera mais, chega à área, cabeceia (B2-4, B1-3)' };
+  const PEDE = { GOL: 'vídeo decide: a base não distingue goleiro bom de defesa boa (T1-5)', LD: 'passe longo, cruzamento, xA, duelo defensivo (T1-4)', LE: 'chega ao gol (xG, toques na área) e cruza (T1-4)',
+    ZD: 'cria (passes chave, longos) e ganha no alto (T1-4)', ZE: 'finaliza, sai jogando longo e progressivo, ganha no alto — o maior sinal do estudo (T1-4)', VOL: 'duelo aéreo, corrida progressiva, interceptação; arrancadas (T1-4, F1-3)',
+    MED: 'criador (xA, passes chave, passes para a área) que ganha duelo (T1-4)', MEI: 'cria e chega à área; cobrador de bola parada (T1-4, T2-3)', ED: 'defende e cria — não o finalizador (T1-4)', EE: 'decide: xG, gols, toques na área, faltas sofridas (T1-4)', CA: 'toca menos, acelera mais, chega à área, cabeceia (T1-4, F1-3)' };
   const ORDEM = ['GOL', 'LD', 'ZD', 'ZE', 'LE', 'VOL', 'MED', 'MEI', 'ED', 'EE', 'CA'];
   const ler = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
   const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
@@ -45,12 +45,12 @@
       if (j.psv == null) vazios.push('sem rastreio físico: piso de velocidade não verificado');
       else if (j.psv < R.psv) contra.push('abaixo do piso de velocidade (' + num(j.psv, 1) + ' km/h < 27): só com vídeo');
       else pontos.push('passa o piso de velocidade (' + num(j.psv, 1) + ' km/h)');
-      if (j.tipo) { if (j.tpref) pontos.push('tipo físico de quem sobe na posição (' + j.tipo + ')'); else if (cai.includes(j.tipo)) contra.push('tipo físico de quem cai na posição (' + j.tipo + ')' + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : '')); else if (pref.length) contra.push('tipo físico "' + j.tipo + '" — quem sobe na posição usa ' + pref.join(' / ')); else vazios.push('tipo físico ' + j.tipo + ' — nesta posição o físico não separa quem sobe de quem cai (B8-4)'); }
+      if (j.tipo) { if (j.tpref) pontos.push('tipo físico de quem sobe na posição (' + j.tipo + ')'); else if (cai.includes(j.tipo)) contra.push('tipo físico de quem cai na posição (' + j.tipo + ')' + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : '')); else if (pref.length) contra.push('tipo físico "' + j.tipo + '" — quem sobe na posição usa ' + pref.join(' / ')); else vazios.push('tipo físico ' + j.tipo + ' — nesta posição o físico não separa quem sobe de quem cai (F2-4)'); }
     }
-    if (['LD', 'ZD', 'ZE', 'LE', 'VOL'].includes(j.p) && j.xg_p != null) { if (j.xg_p >= 90) pontos.push('gol de defesa: xG/90 ' + num(j.xg, 2) + ', decil de cima da posição (rende e não custa, B7-1)'); else if (j.xg_p >= 75) pontos.push('chega ao gol: xG/90 ' + num(j.xg, 2) + ', quartil de cima da posição'); }
-    if (['LD', 'LE', 'VOL', 'MED', 'MEI', 'ED', 'EE'].includes(j.p) && j.area_p != null) { if (j.area_p >= 90) pontos.push('corre para a área: ' + num(j.area, 1) + ' corridas/30 min, decil de cima (o físico que mais anda com participação em gol, B8-2)'); else if (j.area_p <= 25) contra.push('corre pouco para a área (' + num(j.area, 1) + '/30 min, quartil de baixo da posição)'); }
+    if (['LD', 'ZD', 'ZE', 'LE', 'VOL'].includes(j.p) && j.xg_p != null) { if (j.xg_p >= 90) pontos.push('gol de defesa: xG/90 ' + num(j.xg, 2) + ', decil de cima da posição (rende e não custa, M4-1)'); else if (j.xg_p >= 75) pontos.push('chega ao gol: xG/90 ' + num(j.xg, 2) + ', quartil de cima da posição'); }
+    if (['LD', 'LE', 'VOL', 'MED', 'MEI', 'ED', 'EE'].includes(j.p) && j.area_p != null) { if (j.area_p >= 90) pontos.push('corre para a área: ' + num(j.area, 1) + ' corridas/30 min, decil de cima (o físico que mais anda com participação em gol, F2-2)'); else if (j.area_p <= 25) contra.push('corre pouco para a área (' + num(j.area, 1) + '/30 min, quartil de baixo da posição)'); }
     if (j.bp) { const b = []; if (j.bp.cobrador >= 85) b.push('cobrador ' + j.bp.cobrador); if (j.bp.finalizador >= 85) b.push('finalizador aéreo ' + j.bp.finalizador); if (b.length) pontos.push('especialista de bola parada (' + b.join(', ') + ')'); }
-    if (j.m !== 'Série B') vazios.push('vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B, B11); vídeo obrigatório');
+    if (j.m !== 'Série B') vazios.push('vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B, T4); vídeo obrigatório');
     let nivel, cls;
     if (j.vet || j.caro) { nivel = 'Fora'; cls = 'fora'; }
     else if (j.dez && j.dez.ordem <= 3) { nivel = 'Ideal'; cls = 'ideal'; }
@@ -117,7 +117,7 @@
       '<tr><td>Sprints/90</td><td class="b">' + num(j.spr, 1) + '</td></tr><tr><td>Alta intensidade/90</td><td class="b">' + num(j.hi, 1) + '</td></tr><tr><td>Arrancadas/90</td><td class="b">' + num(j.expl, 2) + '</td></tr>' +
       '<tr><td>Corridas para a área/30 min</td><td class="b">' + num(j.area, 1) + (j.area_p != null ? ' <small>P' + j.area_p + ' na posição</small>' : '') + '</td></tr>' +
       '<tr><td>Tipo físico</td><td class="b">' + (j.tipo ? '<b>' + esc(j.tipo) + '</b> ' + (j.tpref ? '<span class="cs-ok">de quem sobe ✓</span>' : '<span class="cs-nao">quem sobe usa ' + esc(pref.join(' / ')) + '</span>') : '—') + '</td></tr></table>';
-    if (j.pa) h += '<p class="cs-nota">Patamar de Série A (B13): técnico ' + (j.pa.tec == null ? '—' : j.pa.tec) + ' · físico ' + (j.pa.fis == null ? '—' : j.pa.fis) + ' (percentil dentro da A).</p>';
+    if (j.pa) h += '<p class="cs-nota">Patamar de Série A (F3): técnico ' + (j.pa.tec == null ? '—' : j.pa.tec) + ' · físico ' + (j.pa.fis == null ? '—' : j.pa.fis) + ' (percentil dentro da A).</p>';
     h += '</div>';
     if (j.bp || j.sofa) {
       h += '<div class="cs-bloco"><h4>Bola parada e Sofascore</h4><table>';
@@ -156,7 +156,7 @@
     h += '<div class="cs-grade">' + ORDEM.map(cartao).join('') + '</div>';
     const ab = st.aberto != null && st.sel[st.aberto] != null ? D.jogadores[st.sel[st.aberto]] : null;
     if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div>';
-    else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (B11); bola parada do B3; patamar de A do B13; Sofascore do B14. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
+    else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (T4); bola parada do T2; patamar de A do F3; Sofascore do M3. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
     alvo.innerHTML = h;
     alvo.querySelectorAll('.cs-busca').forEach(bu => bu.oninput = () => {
       const pos = bu.dataset.pos; st.busca[pos] = bu.value; const p = bu.selectionStart;
@@ -199,7 +199,7 @@
     m.querySelector('.cs-modal-ir').onclick = e => { e.preventDefault(); fechar(); const p = j.p; st.busca[p] = j.n; st.sel[p] = D.jogadores.indexOf(j); st.aberto = p; gravar('csEstado', st); const bt = document.querySelector('.aba[data-aba="consulta"]'); if (bt) bt.click(); render(); };
     return true;
   };
-  /* jogadores de um tipo físico num setor (Bloco 8): clique no nome do tipo abre esta janela */
+  /* jogadores de um tipo físico num setor (F2): clique no nome do tipo abre esta janela */
   const TIPOS = ['Motor de volume', 'Baixa intensidade', 'Explosivo e rápido', 'Médio em tudo', 'Intermediário', 'Mais intenso', 'Menos intenso'];
   window.csTipos = TIPOS;
   window.csTipoJanela = (setor, tipo, pos) => {
@@ -214,7 +214,7 @@
     const tab = (nome, arr) => !arr.length ? '' : '<h4>' + esc(nome) + ' <small>' + arr.length + '</small></h4><table><tr><th>Jogador</th><th>Clube</th><th>Pos</th><th>Idade</th><th>Contrato</th><th>Nota</th><th>PSV</th><th>Sprints</th><th>Alta int.</th><th>Arranc.</th><th>Veredito</th></tr>' +
       arr.slice(0, 60).map(j => { const v = veredito(j); return '<tr class="cs-sim-l" data-n="' + esc(j.n) + '" data-c="' + esc(j.c) + '"><td><b>' + esc(j.n) + '</b></td><td>' + esc(j.c) + (j.m !== 'Série B' ? ' <small>' + esc(j.l) + '</small>' : '') + '</td><td>' + j.p + '</td><td>' + (j.i == null ? '—' : j.i) + '</td><td>' + dt(j.ct) + '</td><td><b>' + (j.nota == null ? '—' : j.nota) + '</b></td><td>' + num(j.psv, 1) + '</td><td>' + num(j.spr, 1) + '</td><td>' + num(j.hi, 0) + '</td><td>' + num(j.expl, 2) + '</td><td><em class="cs-sel ' + v.cls + '">' + v.nivel + '</em></td></tr>'; }).join('') + '</table>' + (arr.length > 60 ? '<p class="cs-nota">mostrando 60 de ' + arr.length + ', por nota</p>' : '');
     m.innerHTML = '<div class="cs-modal-fundo"></div><div class="cs-modal-caixa"><button class="cs-modal-x" title="fechar">×</button><div class="cs-ficha cs-tipo"><h3>' + esc(tipo) + ' — ' + esc(pos ? (POS[pos] || pos) : setor) + ' <span class="cs-sel ' + (pref ? 'bom' : cai ? 'ruim' : 'meio') + '">' + (pref ? 'tipo de quem sobe' : cai ? 'tipo de quem cai' : prefs.length ? 'quem sobe usa ' + esc(prefs.join(' / ')) : 'o físico não separa nesta posição') + '</span></h3>' +
-      '<p class="cs-nota">Jogadores com ≥ 900 min e rastreio físico, classificados no tipo pelo perfil médio dos tipos da Série B (B8/B15). Ordem: Série B primeiro, depois por nota. Clique para abrir a ficha.</p>' +
+      '<p class="cs-nota">Jogadores com ≥ 900 min e rastreio físico, classificados no tipo pelo perfil médio dos tipos da Série B (F2/F2). Ordem: Série B primeiro, depois por nota. Clique para abrir a ficha.</p>' +
       tab('Série B', merc['Série B']) + tab('Campeonatos sul-americanos', merc['Sul-americano']) + tab('Exterior', merc['Exterior']) + tab('Série A', merc['Série A']) + '</div></div>';
     const fechar = () => { m.remove(); document.removeEventListener('keydown', esc_); };
     const esc_ = e => { if (e.key === 'Escape') fechar(); };

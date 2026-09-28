@@ -1,6 +1,6 @@
-"""Bloco 15 — Sugestões pelo tipo físico de quem sobe.
+"""F2 — Sugestões pelo tipo físico de quem sobe.
 
-Para cada setor, o tipo físico (Bloco 8) que mais aparece em quem SUBIU em relação a quem CAIU
+Para cada setor, o tipo físico (F2) que mais aparece em quem SUBIU em relação a quem CAIU
 (maior diferença Subiu − Caiu; um segundo tipo entra se a diferença dele for ≥ 10 pontos). Depois,
 por posição, os jogadores desse tipo, ordenados pela nota do estudo (aderência ao modelo que rende +
 nível do ranking), em três mercados: Série B 2026, ligas sul-americanas, e brasileiros/sul-americanos
@@ -26,7 +26,7 @@ ORDEM = ["ZD", "ZE", "LD", "LE", "VOL", "MED", "MEI", "ED", "EE", "CA"]
 
 
 def preferidos(G):
-    """Tipos de quem sobe, POR POSIÇÃO (28/09): diferença sobe − cai ≥ 10 pontos (tipos_preferidos_pos.csv, B8-4).
+    """Tipos de quem sobe, POR POSIÇÃO (28/09): diferença sobe − cai ≥ 10 pontos (tipos_preferidos_pos.csv, F2-4).
     Posição sem tipo que separe (ZD, MEI, ED) fica sem preferido: o físico não soma ponto ali."""
     T = pd.read_csv(os.path.join(RES, "b8", "tipos_preferidos_pos.csv"))
     return {r.pos11: ([t.strip() for t in r.preferidos.split("/")] if isinstance(r.preferidos, str) and r.preferidos else []) for r in T.itertuples()}
@@ -44,7 +44,7 @@ def main():
         cen[s] = z.groupby(a.tipo).mean()
     fora = excluidos()
 
-    # --- Série B 2026 (tipo já atribuído no Bloco 8) ---
+    # --- Série B 2026 (tipo já atribuído no F2) ---
     sb = pd.read_excel(os.path.join(RAIZ, "listas", "listas_2027.xlsx"), "base_serie_B_2026")
     sb["chave"] = sb.jogador.map(chave)
     t26 = T[T.ano == 2026][["chave", "clube", "pos11", "setor", "tipo"] + CORE]
@@ -97,14 +97,14 @@ def main():
     dt = lambda c: (str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 7 else "—"
     NOMEP = {"ZD": "Zagueiro pela direita", "ZE": "Zagueiro pela esquerda", "LD": "Lateral direito", "LE": "Lateral esquerdo",
              "VOL": "Volante", "MED": "Médio", "MEI": "Meia", "ED": "Extremo pela direita", "EE": "Extremo pela esquerda", "CA": "Centroavante"}
-    md = ["# Bloco 15 — Sugestões pelo tipo físico de quem sobe", "", "*Dado: Série B 2026 e ligas de fora (ago/26), físico do Portal · revisão 25/09/2026.*", "",
-          "Para cada **posição**, o tipo físico (Bloco 8) que mais aparece nos times que **subiram** em relação aos que **caíram** — entra quando a diferença passa de 10 pontos; "
+    md = ["# Os tipos de quem sobe: quem está neles", "", "*Dado: Série B 2026 e ligas de fora (ago/26), físico do Portal · revisão 25/09/2026.*", "",
+          "Para cada **posição**, o tipo físico (F2) que mais aparece nos times que **subiram** em relação aos que **caíram** — entra quando a diferença passa de 10 pontos; "
           "posição em que nenhum tipo separa (ZD, MEI, ED) segue só pela nota. Os tipos são formados só pelo **físico** "
           "(velocidade, sprints, ações de alta intensidade, arrancadas, distância e corridas sem bola); o técnico entra na "
           "**ordem**: os pontos de `Os meus dez` (nota do estudo + bônus).",
           "", "Filtros e pontuação são os de `Os meus dez por posição` (≥ 900 min, até 35 anos, piso de 27 km/h, sem vetados, valor ≤ € 2 MM); **Geral** = lugar na ordem de `Os meus dez`. Jogador de fora é "
           "encaixado no tipo pelo perfil médio de cada tipo na Série B (mesmos indicadores do SkillCorner); nas ligas "
-          "sul-americanas a aderência já está convertida pela reta de liga (B11). (e) = contrato além de jun/27. "
+          "sul-americanas a aderência já está convertida pela reta de liga (T4). (e) = contrato além de jun/27. "
           "**\\*** = não é do tipo preferido da posição: entra só para completar os 10 (ordem pelos pontos).", "",
           "| Posição | Tipo(s) de quem sobe | Subiu | Caiu |", "|---|---|---|---|"]
     GP = pd.read_csv(os.path.join(RES, "b8", "tipos_fisicos_pos.csv"))

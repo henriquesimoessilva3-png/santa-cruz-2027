@@ -1,4 +1,4 @@
-"""Bloco 13 — Patamar de Série A: físico e técnico por posição, Série B × Série A × cinco grandes ligas
+"""F3 — Patamar de Série A: físico e técnico por posição, Série B × Série A × cinco grandes ligas
 × Argentina A. Onde a B está abaixo, quanto, e quem (nos três mercados) já joga no patamar da A.
 Físico: SkillCorner do Portal (temporada atual, dados/jogadores.json). Técnico: Wyscout ago/26, os
 indicadores da ficha de cada posição (listas.FICHA). Percentil "de A" = posição do jogador dentro da
@@ -66,10 +66,10 @@ def main():
     P["livre"] = P.livre_2027.astype(str) == "True" if "livre_2027" in P else (pd.to_datetime(P.contrato, errors="coerce").isna() | (pd.to_datetime(P.contrato, errors="coerce") <= "2027-06-30"))
     P.sort_values("patamar_A", ascending=False)[["pos11", "jogador", "clube", "liga", "mercado", "idade", "minutos", "contrato", "livre", "tec_A", "fis_A", "patamar_A", "psv", "aderencia"]].to_csv(os.path.join(OUT, "patamar_A_pool.csv"), index=False)
     # --- B13.md ---
-    md = ["# Bloco 13 — Patamar de Série A: físico e técnico por posição", "",
+    md = ["# F3 — Patamar de Série A: físico e técnico por posição", "",
           "*Dado: SkillCorner do Portal (temporada atual, ≥ 600 min, ≥ 5 jogos rastreados) e Wyscout ago/26 (≥ 900 min) · 25/09/2026.*", "",
           "Pergunta: o que é \"jogar no patamar da Série A\" em número, posição a posição — e quem, na Série B, nas ligas sul-americanas e no exterior alcançável, já joga nele. "
-          "Ressalva do B1: na B, correr mais não rende ponto; o físico é piso e traço de posição. Este bloco serve para **calibrar a régua** e para **achar nomes**, não para virar meta de volume.", "",
+          "Ressalva do F1: na B, correr mais não rende ponto; o físico é piso e traço de posição. Este bloco serve para **calibrar a régua** e para **achar nomes**, não para virar meta de volume.", "",
           "## 1 · Físico: mediana por posição e grupo", ""]
     grupos = ["Série B", "Série A", "5 grandes", "Argentina A"]
     for c, nome in FIS.items():
@@ -101,7 +101,7 @@ def main():
            f"| 5 grandes ligas | {pc('psv','5 grandes')} | {pc('spr_n','5 grandes')} | {pc('hi_n','5 grandes')} | {pc('expl','5 grandes')} |",
            f"| Argentina A | {pc('psv','Argentina A')} | {pc('spr_n','Argentina A')} | {pc('hi_n','Argentina A')} | {pc('expl','Argentina A')} |", "",
            "**Fisicamente, a Série B já é a Série A**: mesma velocidade de pico, mesma repetição de sprints e de alta intensidade, arrancadas um pouco abaixo (zagueiros). A diferença de patamar físico está nas cinco grandes ligas (+15–20% de sprints e alta intensidade), e a Argentina A corre menos que a B. "
-           "Conclusão que fecha com o B1: **o que separa a A da B não é físico, é técnico** (seção 2). Um \"time de A na B\" se monta pela qualidade da chance criada e cedida, com o físico como piso.", "",
+           "Conclusão que fecha com o F1: **o que separa a A da B não é físico, é técnico** (seção 2). Um \"time de A na B\" se monta pela qualidade da chance criada e cedida, com o físico como piso.", "",
            "## 2 · Técnico: a ficha de cada posição, mediana por grupo", ""]
     for p in ORDEM:
         fi = L.FICHA.get(p, [])
@@ -114,7 +114,7 @@ def main():
         md.append("")
     md += ["## 3 · Quem, na Série B 2026, já joga no patamar da A", "",
            "**tec A** = percentil do jogador dentro da Série A na ficha da posição (50 = mediana da A); **fís A** = idem no físico (PSV, sprints, alta intensidade, arrancadas); **patamar** = média dos dois. "
-           "Só Série B: o número cru de outra liga não é comparável ao da A sem a conversão do B11 (um atacante da Argentina B apareceria acima de todos). Mesmos filtros de \"Os meus dez\" (≥ 900 min, ≤ 35 anos, piso 27 km/h, sem vetados, ≤ € 2 MM). Sem físico rastreado, o patamar é só o técnico. (e) = contrato além de jun/27.", ""]
+           "Só Série B: o número cru de outra liga não é comparável ao da A sem a conversão do T4 (um atacante da Argentina B apareceria acima de todos). Mesmos filtros de \"Os meus dez\" (≥ 900 min, ≤ 35 anos, piso 27 km/h, sem vetados, ≤ € 2 MM). Sem físico rastreado, o patamar é só o técnico. (e) = contrato além de jun/27.", ""]
     for p in ORDEM:
         x = P[(P.pos11 == p) & (P.liga == "Brasil B") & P.patamar_A.notna()].sort_values(["patamar_A", "tec_A"], ascending=False).head(10)
         if x.empty: continue
@@ -138,8 +138,8 @@ def main():
         md.append(f"- **{p}** ({len(x)}): " + "; ".join(f"{r.jogador}{'' if r.livre else ' (e)'} ({r.clube}, {int(r.idade)}, tec {r.tec_A:.0f}/fís {r.fis_A:.0f}){' ✓ dez' if r.k in nos10 else ''}" for r in x.itertuples()))
     amb[["pos11", "jogador", "clube", "idade", "contrato", "livre", "tec_A", "fis_A", "patamar_A", "psv"]].to_csv(os.path.join(OUT, "patamar_A_serie_b.csv"), index=False)
     md += ["", "## 5 · O que entra na montagem", "",
-           "- A régua física do onze passa a ter dois níveis: **piso da B** (27 km/h, B1-2) e **patamar da A** (mediana da Série A por posição em sprints, alta intensidade e arrancadas) — o segundo como alvo para 6–7 titulares de linha, não para todos.",
-           "- O técnico é onde a diferença de divisão está: o \"time de A na B\" é o que cria e cede chance como a A (B2-1), e os nomes da seção 3 são os que já produzem nesse nível na ficha da posição.",
+           "- A régua física do onze passa a ter dois níveis: **piso da B** (27 km/h, F1-2) e **patamar da A** (mediana da Série A por posição em sprints, alta intensidade e arrancadas) — o segundo como alvo para 6–7 titulares de linha, não para todos.",
+           "- O técnico é onde a diferença de divisão está: o \"time de A na B\" é o que cria e cede chance como a A (T1-1), e os nomes da seção 3 são os que já produzem nesse nível na ficha da posição.",
            "- Cruzar com `Os meus dez`: quem aparece nas duas listas é alvo prioritário; quem está só aqui é aposta de patamar sem a aderência ao que rende na B.",
            "- Em aberto: físico das ligas de fora cobre parte dos nomes; times da Série A (xG, distância do remate) precisam do export de equipes."]
     open(os.path.join(OUT, "B13.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")

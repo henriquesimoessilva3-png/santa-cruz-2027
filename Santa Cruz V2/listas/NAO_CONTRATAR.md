@@ -1,8 +1,8 @@
 # Quem não contratar — Série B 2026
 
-*Dado: Wyscout ago/26, SkillCorner até set/26, tipos físicos do Bloco 8 · 26/09/2026.*
+*Dado: Wyscout ago/26, SkillCorner até set/26, tipos físicos do F2 · 26/09/2026.*
 
-Jogadores da Série B 2026 com ≥ 900 min que o estudo **reprova**, com o motivo. Entra na lista quem está abaixo do piso de velocidade (B1-2), ou tem nota abaixo de 60 e dois motivos entre: tipo físico de quem cai na posição (B8-4, por posição: médio em tudo no lateral direito; baixa intensidade no zagueiro pela esquerda, lateral esquerdo e centroavante; menos intenso no volante; motor de volume no extremo pela esquerda — nas demais o físico não separa), nota baixa (< 50), corre pouco para a área quando a posição pede (B8-2); ou nota abaixo de 45. Ordem: minutos jogados — quem mais aparece na Série B e por isso mais chega ao clube como sugestão. Um nome aqui não é veredito de vídeo: é o dado dizendo que ele não é o perfil que sobe. Clique no nome para abrir a ficha.
+Jogadores da Série B 2026 com ≥ 900 min que o estudo **reprova**, com o motivo. Entra na lista quem está abaixo do piso de velocidade (F1-2), ou tem nota abaixo de 60 e dois motivos entre: tipo físico de quem cai na posição (F2-4, por posição: médio em tudo no lateral direito; baixa intensidade no zagueiro pela esquerda, lateral esquerdo e centroavante; menos intenso no volante; motor de volume no extremo pela esquerda — nas demais o físico não separa), nota baixa (< 50), corre pouco para a área quando a posição pede (F2-2); ou nota abaixo de 45. Ordem: minutos jogados — quem mais aparece na Série B e por isso mais chega ao clube como sugestão. Um nome aqui não é veredito de vídeo: é o dado dizendo que ele não é o perfil que sobe. Clique no nome para abrir a ficha.
 
 ### Goleiro (6)
 

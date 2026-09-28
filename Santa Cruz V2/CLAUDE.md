@@ -26,8 +26,8 @@ Santa Cruz V2/
 │   └── coletas/                  # treinador por rodada, classificacao por rodada, gols por minuto
 ├── scripts/
 │   ├── _comum.py                 # leitura das bases, chave de nome, setor, classificacao, valor de elenco
-│   ├── b1_*.py                   # Bloco 1 (fisico): base -> time / posicao / desgaste / perfis
-│   ├── b2_*.py                   # Bloco 2 (tecnico): time / posicao
+│   ├── b1_*.py                   # F1 (fisico): base -> time / posicao / desgaste / perfis
+│   ├── b2_*.py                   # T1 (tecnico): time / posicao
 │   └── copiar_skillcorner.py     # refaz a copia do banco fisico (le o Portal Skillcorner so em leitura)
 ├── resultados/b1/, b2/           # CSVs + o texto do bloco (B1.md, B1_perfis.md)
 ├── blocos/ e listas/             # ainda vazias: entregas finais por bloco e as listas por posicao

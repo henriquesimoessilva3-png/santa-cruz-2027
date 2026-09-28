@@ -1,4 +1,4 @@
-"""Bloco 1, passo 0 — base jogador-temporada com físico (SkillCorner) + clube, posição e minutos (Wyscout).
+"""F1, passo 0 — base jogador-temporada com físico (SkillCorner) + clube, posição e minutos (Wyscout).
 
 Ponte: nome normalizado + idade (nascimento do SkillCorner contra idade na temporada do Wyscout,
 janela -2..+3). (ano, nome) ambíguo em qualquer lado é descartado, nunca adivinhado.

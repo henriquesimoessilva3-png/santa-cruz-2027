@@ -16,7 +16,7 @@ estrangeiros no máximo; a B usa 2,2.
 
 | Pos | Papel | Jogador | Clube | Idade | Nota | Por quê |
 |---|---|---|---|---|---|---|
-| GOL | Titular | **Jandrei** | Juventude | 33 | 83 | 1º goleiro da B. Vídeo decide (B2-5) |
+| GOL | Titular | **Jandrei** | Juventude | 33 | 83 | 1º goleiro da B. Vídeo decide (T1-5) |
 | GOL | Alternativa | **M. Miño** | Barracas Central (ARG) | 28 | 73 | 2º goleiro da Argentina A, R$ ~60 |
 | LD | Titular | **Ewerthon** | Atlético-GO | 25 | 56 | 2.014 min, psv ok. LD é o ponto fraco do mercado de livres |
 | LD | Alternativa | **A. Steimbach** | Gimnasia (ARG) | 24 | 54 | 5º LD da liga, jovem |

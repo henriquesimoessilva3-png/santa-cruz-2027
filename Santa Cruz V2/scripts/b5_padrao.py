@@ -1,9 +1,9 @@
-"""Bloco 5 — Padrão de equipes: o que os times que renderam acima do dinheiro têm em comum.
+"""M1 — Padrão de equipes: o que os times que renderam acima do dinheiro têm em comum.
 
 Unidade: clube-temporada 2022-2025 (80). Referência = quartil de cima em rendimento (20).
 Traços: elenco (idade dos titulares, jogadores usados, concentração de minutos nos 11, % de
-minutos de quem chegou no ano, estrangeiros), técnico do time (Bloco 2), bola parada (Bloco 3),
-físico (Bloco 1), treinador (trocas no ano), e custo (valor de mercado dos 11 mais usados).
+minutos de quem chegou no ano, estrangeiros), técnico do time (T1), bola parada (T2),
+físico (F1), treinador (trocas no ano), e custo (valor de mercado dos 11 mais usados).
 Escreve resultados/b5/clube_temporada.csv, testes.csv, referencia.csv, regua.csv
 """
 import os

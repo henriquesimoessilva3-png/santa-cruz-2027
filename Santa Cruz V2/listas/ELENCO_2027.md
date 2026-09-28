@@ -7,7 +7,7 @@ principais a passe zero da própria Série B, sul-americanos e brasileiros de li
 posições em que a B não tem livre à altura — e Eduardo Baptista ou Léo Condé no comando, contratado para ficar o ano
 inteiro.**
 
-A ordem completa, os três mercados juntos, está em `Os meus dez por posição` (IDEAL_2027.md); este documento é a montagem do elenco a partir dela. Desde 25/09 a aderência de quem vem de fora é convertida pela reta do B11 (p90 na origem → 58 na B), e não por um desconto fixo: os nomes de fora que ficam são os de nível alto no ranking. Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
+A ordem completa, os três mercados juntos, está em `Os meus dez por posição` (IDEAL_2027.md); este documento é a montagem do elenco a partir dela. Desde 25/09 a aderência de quem vem de fora é convertida pela reta do T4 (p90 na origem → 58 na B), e não por um desconto fixo: os nomes de fora que ficam são os de nível alto no ranking. Tudo aqui sai do estudo (`DIFERENCIAIS.md`, `LISTAS.md`, `BOLA_PARADA.md`, `TREINADORES.md`):
 minutagem regular elimina; aderência ao modelo que rende e nível contra a referência mundial
 ordenam; bola parada, piso de velocidade e continuidade decidem entre iguais. Salários não estão
 na base: estimei faixas pela Série B; "livre" = contrato até jun/2027 no dado de ago/26 — tudo a
@@ -16,24 +16,24 @@ confirmar antes de qualquer contato.
 ## 1. Antes de contratar: o que o estudo manda fazer com o elenco atual
 
 - **Manter 5 titulares de 2026.** Quem sobe tem 45% dos minutos com quem já estava e 5 titulares
-  repetidos; quem cai, 24% e 1,5 (B6-3). Não tenho os dados do Santa Cruz 2026 na base — a ficha
+  repetidos; quem cai, 24% e 1,5 (M2-3). Não tenho os dados do Santa Cruz 2026 na base — a ficha
   por posição do `listas_2027.xlsx` (aba `ficha_por_posicao`) é a régua para escolher os cinco.
 - **Elenco de 28, não 35.** Jogadores usados é o traço mais forte de rendimento a dinheiro igual
-  (r −0,63; referência 30, quem cai 39,5). Cada vaga além de 30 é folha que não rende ponto (B5-1).
+  (r −0,63; referência 30, quem cai 39,5). Cada vaga além de 30 é folha que não rende ponto (M1-1).
 - **Treinador para o ano.** Zero trocas na referência, duas em quem cai. Orçar rescisão, mas não
-  planejar a troca (B5-1, B4-1).
-- **Nenhum titular de linha abaixo de ~27 km/h de PSV-99** (B1-2). É o único filtro físico que
-  a base sustenta; volume de corrida, não (B1-1).
+  planejar a troca (M1-1, TR1-1).
+- **Nenhum titular de linha abaixo de ~27 km/h de PSV-99** (F1-2). É o único filtro físico que
+  a base sustenta; volume de corrida, não (F1-1).
 
 ## 2. Treinador
 
-A ordem é a de `Decisão 2027`: **1. Eduardo Baptista** — o modelo mais alinhado ao eixo do estudo (linha de 3, jogo direto, aéreo, intenso), o maior xPts por jogo entre os regulares (1,59), pior passagem +0,31, nunca trocou no meio do ano; está no Criciúma, pede liberação. **2. Léo Condé** — o único que rendeu acima do elenco em três clubes diferentes, cede a menor quantidade de chances claras (1,14 por jogo), 4-2-3-1 e adapta o estilo ao elenco; +0,21 ponto por jogo acima do que o xG sustenta (parte é sorte, que não repete); livre desde 15/09. Tencati é o 3º; Guto, Carpini e Mozart ficam fora (Decisão §1). A escolha muda 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está (B10-6).
+A ordem é a de `Decisão 2027`: **1. Eduardo Baptista** — o modelo mais alinhado ao eixo do estudo (linha de 3, jogo direto, aéreo, intenso), o maior xPts por jogo entre os regulares (1,59), pior passagem +0,31, nunca trocou no meio do ano; está no Criciúma, pede liberação. **2. Léo Condé** — o único que rendeu acima do elenco em três clubes diferentes, cede a menor quantidade de chances claras (1,14 por jogo), 4-2-3-1 e adapta o estilo ao elenco; +0,21 ponto por jogo acima do que o xG sustenta (parte é sorte, que não repete); livre desde 15/09. Tencati é o 3º; Guto, Carpini e Mozart ficam fora (Decisão §1). A escolha muda 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está (TR3-6).
 
 ## 3. O elenco — 4-2-3-1, por posição
 
-Regra única: as vagas de cada posição são preenchidas **na ordem de `Os meus dez por posição`**, quem chega **livre** primeiro — a montagem é a passe zero. Quem tem contrato e está acima na lista aparece como *só se liberar*. No máximo 4 estrangeiros (B6-4): passado isso, entra o próximo brasileiro livre da posição. **Geral** = lugar em `Os meus dez`; (ader/nível) = as duas partes da nota; ★ = scouts. Sem Série A e sem os vetados; valor ≤ € 2 MM.
+Regra única: as vagas de cada posição são preenchidas **na ordem de `Os meus dez por posição`**, quem chega **livre** primeiro — a montagem é a passe zero. Quem tem contrato e está acima na lista aparece como *só se liberar*. No máximo 4 estrangeiros (M2-4): passado isso, entra o próximo brasileiro livre da posição. **Geral** = lugar em `Os meus dez`; (ader/nível) = as duas partes da nota; ★ = scouts. Sem Série A e sem os vetados; valor ≤ € 2 MM.
 
-### Goleiro — vídeo decide (B2-5); os dois nomes vêm das duas notas
+### Goleiro — vídeo decide (T1-5); os dois nomes vêm das duas notas
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -42,17 +42,17 @@ Regra única: as vagas de cada posição são preenchidas **na ordem de `Os meus
 
 Alternativas livres, na ordem: **Jean** (América de Cali, 4º, 70), **E. Valencia** (San Antonio, 5º, 70)
 
-### Lateral direito — explosivo e rápido é o tipo de quem sobe (B8-4); chega ao gol (➚)
+### Lateral direito — explosivo e rápido é o tipo de quem sobe (F2-4); chega ao gol (➚)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
-| 1 | 4º | **A. Benítez** | Club Libertad, Paraguai, 32, livre (12/26) | **63** | nota 56 (49/63); tipo de quem sobe: explosivo e rápido; chega à área ➚; PSV 30,9 |
-| 2 | 14º | **Rodrigo Soares** | Goiás, 33, livre (11/26) | **58** | nota 57 (70/44); tipo médio em tudo; PSV 28,2 |
-| — | 1º | **Willean Lepo** *(só se liberar)* | Criciúma, 29, contrato até 12/27 | **73** | nota 66 (78/55); tipo de quem sobe: explosivo e rápido; ★ média ≥6,5; PSV 29,7 |
+| 1 | 4º | **A. Benítez** | Club Libertad, Paraguai, 32, livre (12/26) | **65** | nota 56 (49/63); tipo de quem sobe: explosivo e rápido; chega à área ➚; PSV 30,9 |
+| 2 | 6º | **G. Graciani** | Ñublense, Chile, 32, livre | **64** | nota 53 (46/60); tipo de quem sobe: explosivo e rápido; gol de defesa ⚽; chega à área ➚; PSV 29,7 |
+| — | 1º | **Willean Lepo** *(só se liberar)* | Criciúma, 29, contrato até 12/27 | **75** | nota 66 (78/55); tipo de quem sobe: explosivo e rápido; ★ média ≥6,5; PSV 29,7 |
 
-Alternativas livres, na ordem: **G. Graciani** (Ñublense, 6º, 62), **Lucas Soto** (Everton, 7º, 62)
+Alternativas livres, na ordem: **Lucas Soto** (Everton, 7º, 62), **Rafael Ramos** (Ceará, 8º, 61)
 
-### Zagueiro pela direita — o que cria e ganha no alto (B2-4); o físico não separa aqui
+### Zagueiro pela direita — o que cria e ganha no alto (T1-4); o físico não separa aqui
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -62,17 +62,17 @@ Alternativas livres, na ordem: **G. Graciani** (Ñublense, 6º, 62), **Lucas Sot
 
 Alternativas livres, na ordem: **G. Fratta** (Deportivo Táchira, 3º, 67), **G. Vargas** (Olimpia, 4º, 67)
 
-### Zagueiro pela esquerda — o que finaliza e sai jogando (B2-4); motor de volume é o tipo de quem sobe (B8-4)
+### Zagueiro pela esquerda — o que finaliza e sai jogando (T1-4); motor de volume é o tipo de quem sobe (F2-4)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
-| 1 | 3º | **Vilar** | Botafogo-SP, 26, livre (11/26) | **68** | nota 59 (66/—); tipo de quem sobe: motor de volume; bola parada 91; gol de defesa ⚽; PSV 30,2 |
-| 2 | 4º | **Wallace** | Botafogo-SP, 31, livre (11/26) | **65** | nota 64 (72/56); sem rastreio físico |
-| — | 1º | **Zé Marcos** *(só se liberar)* | Sport, 28, contrato até 12/27 | **69** | nota 64 (69/60); tipo baixa intensidade; gol de defesa ⚽; ★ média ≥6,5; PSV 28,2 |
+| 1 | 2º | **Vilar** | Botafogo-SP, 26, livre (11/26) | **70** | nota 59 (66/—); tipo de quem sobe: motor de volume; bola parada 91; gol de defesa ⚽; PSV 30,2 |
+| 2 | 5º | **Wallace** | Botafogo-SP, 31, livre (11/26) | **65** | nota 64 (72/56); sem rastreio físico |
+| — | 1º | **M. Gamarra** *(só se liberar)* | Olimpia, Paraguai, 25, contrato até 12/27 | **71** | nota 66 (56/75); tipo de quem sobe: motor de volume; PSV 28,8 |
 
-Alternativas livres, na ordem: **S. Morales** (Aucas, 5º, 65), **Luiz Otávio** (Ceará, 6º, 64)
+Alternativas livres, na ordem: **J. Díaz** (Universidad Católica, 4º, 65), **A. Osella** (Independiente Rivadavia, 6º, 65)
 
-### Lateral esquerdo — o que chega ao gol (B2-4, ➚); explosivo e rápido (B8-4)
+### Lateral esquerdo — o que chega ao gol (T1-4, ➚); explosivo e rápido (F2-4)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -82,7 +82,7 @@ Alternativas livres, na ordem: **S. Morales** (Aucas, 5º, 65), **Luiz Otávio**
 
 Alternativas livres, na ordem: **M. Gonzales Vigil** (Melgar, 8º, 65), **M. Espinoza** (Club Libertad, 9º, 65)
 
-### Volante — duelo aéreo, corrida progressiva, interceptação (B2-4); mais intenso / intermediário (B8-4)
+### Volante — duelo aéreo, corrida progressiva, interceptação (T1-4); mais intenso / intermediário (F2-4)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -93,7 +93,7 @@ Alternativas livres, na ordem: **M. Gonzales Vigil** (Melgar, 8º, 65), **M. Esp
 
 Alternativas livres, na ordem: **S. Vasquez** (Orense, 4º, 63), **J. Mercado** (Unión Magdalena, 7º, 60)
 
-### Médio — o criador que ganha duelo (B2-4) e cobrador nº 1 (B3-3); médio em tudo (B8-4)
+### Médio — o criador que ganha duelo (T1-4) e cobrador nº 1 (T2-3); médio em tudo (F2-4)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -102,7 +102,7 @@ Alternativas livres, na ordem: **S. Vasquez** (Orense, 4º, 63), **J. Mercado** 
 
 Alternativas livres, na ordem: **Luan Gonçalves** (Juventude, 3º, 66), **J. Concha** (Universitario, 4º, 66)
 
-### Meia — cria, chega à área, cobra (B2-4, B3-3); o físico não separa
+### Meia — cria, chega à área, cobra (T1-4, T2-3); o físico não separa
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -112,27 +112,27 @@ Alternativas livres, na ordem: **Luan Gonçalves** (Juventude, 3º, 66), **J. Co
 
 Alternativas livres, na ordem: **K. Álvarez** (Patriotas Boyacá, 4º, 65), **Guilherme Marques** (Atlético-GO, 7º, 63)
 
-### Extremo pela direita — o que defende e cria, não o finalizador (B2-4); o físico não separa
+### Extremo pela direita — o que defende e cria, não o finalizador (T1-4); o físico não separa
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
-| 1 | 3º | **Kevin Méndez** | Unión La Calera, Chile, 30, livre | **68** | nota 65 (56/74); tipo explosivo e rápido; ★ média ≥7; PSV 29,4 |
-| 2 | 9º | **Pedro Vitor** | São Bernardo, 28, livre (12/26) | **63** | nota 63 (68/59); tipo motor de volume; PSV 28,9 |
+| 1 | 10º | **Pedro Vitor** | São Bernardo, 28, livre (12/26) | **63** | nota 63 (68/59); tipo motor de volume; PSV 28,9 |
+| 2 | 9º | **Gabriel Honório** | Busan I'Park, Coreia B, 30, livre | **63** | nota 60 (48/73); bola parada 92; sem rastreio físico |
 | — | 1º | **Vinícius** *(só se liberar)* | Náutico, 33, contrato até 12/27 | **85** | nota 85 (91/78); sem rastreio físico |
 
-Alternativas livres, na ordem: **Gabriel Honório** (Busan I'Park, 10º, 63), **Anderson Ceará** (Csikszereda Miercurea Ciuc, 11º, 63)
+Alternativas livres, na ordem: **Kevin Méndez** (Unión La Calera, 3º, 68), **Anderson Ceará** (Csikszereda Miercurea Ciuc, 11º, 63)
 
-### Extremo pela esquerda — o que decide (B2-4); explosivo e rápido (B8-4)
+### Extremo pela esquerda — o que decide (T1-4); explosivo e rápido (F2-4)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
 | 1 | 2º | **Dadá Belmonte** | CRB, 29, livre (11/26) | **70** | nota 70 (89/51); tipo baixa intensidade; PSV 29,8 |
 | 2 | 3º | **Iago Teles** | Londrina, 26, livre (06/27) | **70** | nota 65 (75/55); tipo baixa intensidade; bola parada 92; ★ média ≥6,5; PSV 28,6 |
-| — | 1º | **Soares** *(só se liberar)* | Atlético-GO, 26, contrato até 08/29 | **70** | nota 67 (82/52); tipo de quem sobe: explosivo e rápido; PSV 31,1 |
+| — | 1º | **Soares** *(só se liberar)* | Atlético-GO, 26, contrato até 08/29 | **72** | nota 67 (82/52); tipo de quem sobe: explosivo e rápido; PSV 31,1 |
 
 Alternativas livres, na ordem: **Luanzinho** (Al Sharjah, 6º, 63), **D. Dawson** (Envigado, 7º, 61)
 
-### Centroavante — acelera, chega à área, cabeceia (B2-4, B1-3); motor de volume (B8-4)
+### Centroavante — acelera, chega à área, cabeceia (T1-4, F1-3); motor de volume (F2-4)
 
 | # | Geral | Jogador | Situação | Pontos | Por quê |
 |---|---|---|---|---|---|
@@ -144,12 +144,12 @@ Alternativas livres, na ordem: **L. Melgarejo** (Club Libertad, 3º, 62), **M. E
 
 ## 4. Conta de fechamento
 
-**28 nomes**: 5 mantidos de 2026 + 23 contratações a passe zero acima (23 vagas: 2 GOL, 2 LD, 2 ZD, 2 ZE, 2 LE, 3 VOL, 2 MED, 2 MEI, 2 ED, 2 EE, 2 CA). Estrangeiros: 4 (A. Benítez, M. Cova, F. Carrizo, Kevin Méndez) — a B usa 2,2 estrangeiros em média e quem sobe dá 10% dos minutos a eles (B6-4): contrato de um ano com opção, e não mais que 4 no mesmo elenco — por isso G. Fratta deu lugar a Gabriel Bahia (ZD), S. Vasquez deu lugar a Wenderson (VOL), G. Graciani deu lugar a Rodrigo Soares (LD), L. Melgarejo deu lugar a William Pottker (CA).
+**28 nomes**: 5 mantidos de 2026 + 23 contratações a passe zero acima (23 vagas: 2 GOL, 2 LD, 2 ZD, 2 ZE, 2 LE, 3 VOL, 2 MED, 2 MEI, 2 ED, 2 EE, 2 CA). Estrangeiros: 4 (A. Benítez, G. Graciani, M. Cova, F. Carrizo) — a B usa 2,2 estrangeiros em média e quem sobe dá 10% dos minutos a eles (M2-4): contrato de um ano com opção, e não mais que 4 no mesmo elenco — por isso J. Díaz deu lugar a Wallace (ZE), G. Fratta deu lugar a Gabriel Bahia (ZD), S. Vasquez deu lugar a Wenderson (VOL), L. Melgarejo deu lugar a William Pottker (CA), Kevin Méndez deu lugar a Pedro Vitor (ED).
 
-Bola parada montada (índice ≥ 85, B3): Vilar (91), Rafael Gava (96), Iago Teles (92). É o que separa +5 de −5 no saldo (7 pontos, B3-1).
+Bola parada montada (índice ≥ 85, T2): Vilar (91), Rafael Gava (96), Gabriel Honório (92), Iago Teles (92). É o que separa +5 de −5 no saldo (7 pontos, T2-1).
 
 Salário não está na base: a conta da folha se faz com o mercado, não com o estudo.
 
 ## 5. O que o dado não mostra e precisa de vídeo antes de fechar
 
-Goleiro inteiro (B2-5); sem rastreio físico, piso de velocidade não verificado: Wallace, Maicon, Rodrigo Yuri, M. Cova, Wenderson, Matheus Frizzo; adaptação dos que vêm de fora (A. Benítez, M. Cova, F. Carrizo, Kevin Méndez); liderança e mentalidade dos mais velhos; contrato e situação de cada um (o dado é de ago/26). E o salário real — o estudo não tem folha.
+Goleiro inteiro (T1-5); sem rastreio físico, piso de velocidade não verificado: Wallace, Maicon, Rodrigo Yuri, M. Cova, Wenderson, Matheus Frizzo, Gabriel Honório; adaptação dos que vêm de fora (A. Benítez, G. Graciani, M. Cova, F. Carrizo); liderança e mentalidade dos mais velhos; contrato e situação de cada um (o dado é de ago/26). E o salário real — o estudo não tem folha.

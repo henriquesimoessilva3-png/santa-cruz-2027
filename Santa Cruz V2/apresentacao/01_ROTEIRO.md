@@ -10,11 +10,11 @@ Estudamos as cinco últimas Séries B (2022–2026): 100 clube-temporadas, 3.570
 
 ## Tela 2 · A resposta em cinco frases
 
-1. **O placar nasce da qualidade da chance, dos dois lados**: ceder pouca chance clara e finalizar de perto. Não de posse, cruzamento ou pressão. (B2, B14)
-2. **Estabilidade é o maior diferencial que não custa folha**: 30 jogadores no ano, onze fixo, treinador o ano inteiro. (B5, B14)
-3. **Bola parada é a alavanca mais barata**: 10 gols de saldo separam quem sobe de quem cai — 7 pontos. (B3)
-4. **Físico é piso e tipo por posição, não volume**: correr mais não rende ponto; ter o lateral explosivo e não ter o volante lento, sim. (B1, B8)
-5. **Quem vem de fora chega ao meio da tabela**: o destaque na origem quase não sobrevive; o que vale é o nível, não o percentil. (B6, B11)
+1. **O placar nasce da qualidade da chance, dos dois lados**: ceder pouca chance clara e finalizar de perto. Não de posse, cruzamento ou pressão. (T1, M3)
+2. **Estabilidade é o maior diferencial que não custa folha**: 30 jogadores no ano, onze fixo, treinador o ano inteiro. (M1, M3)
+3. **Bola parada é a alavanca mais barata**: 10 gols de saldo separam quem sobe de quem cai — 7 pontos. (T2)
+4. **Físico é piso e tipo por posição, não volume**: correr mais não rende ponto; ter o lateral explosivo e não ter o volante lento, sim. (F1, F2)
+5. **Quem vem de fora chega ao meio da tabela**: o destaque na origem quase não sobrevive; o que vale é o nível, não o percentil. (M2, T4)
 
 ## Tela 3 · Os mitos que o dado derruba
 

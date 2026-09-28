@@ -1,4 +1,4 @@
-"""Bloco 1, físico por JOGO (5 temporadas, desde 22/09/2026) — três perguntas:
+"""F1, físico por JOGO (5 temporadas, desde 22/09/2026) — três perguntas:
  1) Anterioridade: a intensidade do time no 1º turno prevê os pontos do 2º turno, descontando os
     pontos do 1º turno e o valor do elenco? (porta temporal)
  2) Dentro do mesmo clube, o jogo em que corre mais forte é o jogo em que pontua?

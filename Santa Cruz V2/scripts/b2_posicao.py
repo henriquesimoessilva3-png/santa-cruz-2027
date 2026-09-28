@@ -1,4 +1,4 @@
-"""Bloco 2, perguntas 2 e 3 — perfil técnico por posição (11 do campograma) e estabilidade.
+"""T1, perguntas 2 e 3 — perfil técnico por posição (11 do campograma) e estabilidade.
 
 Titulares: fatia >= 60% e >= 900 minutos, 2022-2025. Para cada posição e indicador:
   - correlação do posto do jogador (dentro de temporada × posição) com o rendimento do clube,

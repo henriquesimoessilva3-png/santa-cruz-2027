@@ -66,7 +66,7 @@
       if (!window.csExiste(nome, prox)) return;
       el.classList.add('esv-jog'); el.title = 'ver ficha'; el.onclick = () => window.csJanela(nome, prox);
     });
-    /* nome de um tipo físico dentro de tabela (Bloco 8, 15): clique abre quem está no tipo, naquele setor */
+    /* nome de um tipo físico dentro de tabela (F2, 15): clique abre quem está no tipo, naquele setor */
     if (window.csTipoJanela) alvo.querySelectorAll('.esv-doc table td > strong').forEach(el => {
       const tipo = el.textContent.trim(); if (!window.csTipos.includes(tipo)) return;
       const POSN = { 'Lateral direito': ['LD', 'Lateral'], 'Zagueiro pela direita': ['ZD', 'Zaga'], 'Zagueiro pela esquerda': ['ZE', 'Zaga'], 'Lateral esquerdo': ['LE', 'Lateral'], 'Volante': ['VOL', 'Volante'], 'Médio': ['MED', 'Meia'], 'Meia': ['MEI', 'Meia'], 'Extremo pela direita': ['ED', 'Extremo'], 'Extremo pela esquerda': ['EE', 'Extremo'], 'Centroavante': ['CA', 'Atacante'] };

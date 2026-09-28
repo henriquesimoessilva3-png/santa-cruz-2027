@@ -1,4 +1,4 @@
-"""Bloco 1, pergunta 1 e 2 — físico do TIME contra rendimento, a dinheiro igual; e a forma do elenco.
+"""F1, pergunta 1 e 2 — físico do TIME contra rendimento, a dinheiro igual; e a forma do elenco.
 
 Unidade: clube-temporada, 2022-2025 fechadas (2026 como teste à parte).
 Físico do time = média dos jogadores ponderada pelos minutos rastreados.

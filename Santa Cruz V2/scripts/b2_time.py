@@ -1,4 +1,4 @@
-"""Bloco 2, pergunta 1 — indicadores técnicos do TIME contra rendimento, a dinheiro igual.
+"""T1, pergunta 1 — indicadores técnicos do TIME contra rendimento, a dinheiro igual.
 
 Duas contas, sempre as duas:
   (a) TEMPORADA: 80 clube-temporadas 2022-2025, indicador médio por jogo × rendimento

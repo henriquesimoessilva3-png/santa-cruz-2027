@@ -1,4 +1,4 @@
-"""Bloco 14 — Sofascore jogo a jogo (Série B 2022–2026, 1.807 jogos): escalações com minutos, nota e
+"""M3 — Sofascore jogo a jogo (Série B 2022–2026, 1.807 jogos): escalações com minutos, nota e
 estatísticas por jogador; estatísticas de time por tempo (grandes chances, chutes na área, entradas no
 terço final, posse por período); momentum minuto a minuto; desfalques com motivo. Em 2025–26 traz ainda
 xG/xA por jogador e físico do próprio Sofascore (velocidade máxima, km, sprints).

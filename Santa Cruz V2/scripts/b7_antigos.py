@@ -1,4 +1,4 @@
-"""Bloco 7 — o que os dois estudos antigos (Análise Série B e Protótipo) mediram e o V2 ainda não:
+"""M4 — o que os dois estudos antigos (Análise Série B e Protótipo) mediram e o V2 ainda não:
 concentração de gols (artilheiro), resiliência (pontos após derrota, sequência sem vencer), lesões.
 Escreve resultados/b7/testes.csv, clube_temporada.csv
 """

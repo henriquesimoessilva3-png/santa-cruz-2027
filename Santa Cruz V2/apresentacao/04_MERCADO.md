@@ -4,7 +4,7 @@
 
 ## 1 · Regra geral: quem chega de fora chega ao meio
 
-210 chegadas à Série B com 900 minutos nos dois lados (B6-5, B11):
+210 chegadas à Série B com 900 minutos nos dois lados (M2-5, T4):
 
 | Origem | Percentil médio na origem → na B | O p90 da origem vira | Leitura |
 |---|---|---|---|
@@ -15,7 +15,7 @@
 
 Por isso a **aderência de fora é convertida** (31 + 0,30 × aderência na origem) e o que decide a ordem de um nome de fora é o **nível** contra o mundo, não o percentil na liga dele. Por país não dá para separar (3 a 5 casos cada).
 
-## 2 · Estrangeiro na Série B (B6-4)
+## 2 · Estrangeiro na Série B (M2-4)
 
 - São poucos: 190 jogador-temporadas em quatro anos, 135 sul-americanos (Argentina 33, Colômbia 33, Uruguai 26, Paraguai 20).
 - De **meio para a frente**: extremo 49, meia 48, atacante 31; zaga 20, volante 13, goleiro 1 — para zaga e volante quase não há precedente.

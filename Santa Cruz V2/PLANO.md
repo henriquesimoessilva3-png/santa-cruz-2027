@@ -1,5 +1,7 @@
 # Santa Cruz V2 — Recomendação de treinador e jogadores para a Série B 2027
 
+*Códigos dos blocos: **F** = Físico (F1–F3), **T** = Técnico (T1–T4), **TR** = Treinadores (TR1–TR3), **M** = Modelo de jogo (M1–M4); o número depois do hífen é o item dentro do bloco (F2-4 = Físico, bloco 2, item 4). As pastas em `resultados/` mantêm os nomes antigos (b1…b15).*
+
 *Escrito em 20/09 · revisão 25/09/2026.*
 
 Estudo novo, do zero: nenhuma conclusão do estudo anterior entra aqui — só as armadilhas de dado e de desenho que ele revelou (`ARMADILHAS.md`). Objetivo único: **nomes** — o treinador e 26 a 30 jogadores, por posição,
@@ -24,7 +26,7 @@ para o Santa Cruz disputar a Série B de 2027. Tudo que não termina em nome é 
 Cada bloco responde: (a) o que rende ponto, (b) o que isso exige de cada posição, (c) que
 métricas entram na ficha de contratação e em que faixa. A ficha ordena; só minutagem regular elimina.
 
-### Bloco 1 — Físico
+### F1 — Físico
 Base: `skillcorner_serieb.db` (2022–2026) cruzada com minutagem e posição do Wyscout.
 1. **No time:** volume, intensidade, velocidade e corridas sem bola rendem ponto, a dinheiro igual? Contínuo, 80 clube-temporadas, com e sem os clubes de cobertura baixa.
 2. **Forma do elenco:** o que rende mais — um onze homogêneo ou um onze com "motores" e especialistas? Dispersão física dentro do onze contra pontos.
@@ -33,7 +35,7 @@ Base: `skillcorner_serieb.db` (2022–2026) cruzada com minutagem e posição do
 5. **Desgaste:** returno e semana de três jogos (2025–2026), por posição.
 **Entrega:** perfil físico por posição em faixas, os requisitos que se sustentam, e lista de quem está na faixa na Série B 2025–2026.
 
-### Bloco 2 — Técnico
+### T1 — Técnico
 Base: `serieb_tecnico.csv` e `serieb_jogos.csv`.
 1. **No time:** que indicadores técnicos rendem ponto a dinheiro igual (criação, finalização, defesa, duelos, progressão, pressão), na temporada e dentro do mesmo clube jogo a jogo.
 2. **Perfil por posição dos titulares desses times:** faixas de 4–6 indicadores ligados ao eixo (toques na área, passes progressivos, xG por finalização, duelos defensivos e aéreos, passes ao terço final), como descrição, não como piso.
@@ -41,27 +43,27 @@ Base: `serieb_tecnico.csv` e `serieb_jogos.csv`.
 4. **Goleiro à parte:** defesas %, gols sofridos contra esperados, jogos sem sofrer, saídas, bola alta.
 **Entrega:** perfil técnico por posição em faixas e ranking de aderência (ordena, não elimina) de todos os jogadores da Série B 2024–2026 com minutagem regular.
 
-### Bloco 3 — Bola parada
+### T2 — Bola parada
 Base: `serieb_jogos.csv` (bolas paradas, cantos, livres, pênaltis com remate; gols pró e contra), `serieb_tecnico.csv` (livres/90, cantos/90, gols de cabeça, duelos aéreos), altura dos elencos.
 1. **Quanto vale em pontos** um saldo de bola parada positivo, a dinheiro igual — e quanto custa (salário dos cobradores e finalizadores dos times que mais produzem).
 2. **Quem produz:** cobradores (xA de bola parada, escanteios com remate) e finalizadores (gols de cabeça, toques na área em bola parada) da Série B, por temporada, com repetição entre anos.
 3. **Quem defende:** os times que menos sofrem de bola parada — altura, duelo aéreo da zaga e do volante, e goleiro nas saídas.
 **Entrega:** requisito de bola parada por posição (1 cobrador no MEI ou lateral, 3 finalizadores em ZD/ZE/VOL/CA) e lista de nomes com custo.
 
-### Bloco 4 — Treinador
+### TR1 — Treinador
 Base: `coletas/T01_rodada_treinador.csv` + `classificacao_rodada.csv` + `serieb_jogos.csv` + valor de elenco + web.
 1. **Rendimento acima do esperado:** pontos por jogo de cada passagem descontado o valor do elenco e a posição ao assumir, 2018–2026 — quem entrega mais do que o elenco pagava, e repete em mais de um clube.
-2. **O que os times dele fazem durante a passagem** (indicadores dos blocos 1–3) — e o que acompanha o treinador quando muda de clube.
+2. **O que os times dele fazem durante a passagem** (indicadores dos bloco F1, T1 e T2) — e o que acompanha o treinador quando muda de clube.
 3. **Estabilidade e contexto:** rodadas por passagem, elenco barato ou caro, promoção ou queda, interinos.
 4. **Validação externa (web):** situação atual, contrato, comissão fixa, projetos anteriores com SAF ou clube em reconstrução.
 **Entrega:** 5 a 8 nomes com o que cada um é, custo e disponibilidade, e 2–3 recomendados — decisão final por entrevista, comissão e projeto.
 
-### Bloco 5 — Padrão de equipes
+### M1 — Padrão de equipes
 Base: tudo acima, no clube-temporada (80 fechadas + 2026).
-1. **Os times que renderam acima do dinheiro** (o resíduo do Bloco 2): o que tinham em comum em idade, minutos concentrados, estrangeiros, bola parada, físico e treinador — e quantos subiram.
-2. **A régua de 2027:** quantos pontos o G4 exige e os 6–8 números de time que o Santa Cruz precisa entregar, saídos dos blocos 1–3.
+1. **Os times que renderam acima do dinheiro** (o resíduo do T1): o que tinham em comum em idade, minutos concentrados, estrangeiros, bola parada, físico e treinador — e quantos subiram.
+2. **A régua de 2027:** quantos pontos o G4 exige e os 6–8 números de time que o Santa Cruz precisa entregar, saídos dos bloco F1, T1 e T2.
 3. **Custo do traço:** com a folha estimada dos titulares (Transfermarkt como proxy), quanto custa o onze dos times de referência contra os R$ 2,0 MM.
-**Entrega:** o modelo de jogo alvo em números, e a ficha final por posição (física + técnica + bola parada) que fecha os blocos 1–3.
+**Entrega:** o modelo de jogo alvo em números, e a ficha final por posição (física + técnica + bola parada) que fecha os bloco F1, T1 e T2.
 
 ## As três listas por posição
 
@@ -72,14 +74,14 @@ titular + 2 opções por posição, custo estimado, contrato, nível N1/N2/N3, f
 2. **Ligas sul-americanas** — Argentina, Uruguai, Colômbia, Chile, Paraguai, Equador, Peru, Bolívia, Venezuela; ficha técnica com desconto de conversão de liga explícito, físico "não verificado" até export da API.
 3. **Sul-americanos no exterior** — Europa, Ásia, México, EUA; mesmo tratamento, com risco de adaptação e custo de repatriação.
 
-Goleiro é tratado à parte nas três listas: dados de goleiro do Bloco 2 + vídeo.
+Goleiro é tratado à parte nas três listas: dados de goleiro do T1 + vídeo.
 
 Fecho: elenco de 26–30 dentro dos R$ 2,0 MM, com o treinador, no campograma do app.
 
 ## Ordem de trabalho
 
-1. Bloco 1 Físico → 2. Bloco 2 Técnico → 3. Bloco 3 Bola parada → 4. Bloco 5 Padrão (fecha a ficha)
-→ 5. Bloco 4 Treinador → 6. Listas 1, 2 e 3 → 7. Elenco final e orçamento.
+1. F1 Físico → 2. T1 Técnico → 3. T2 Bola parada → 4. M1 Padrão (fecha a ficha)
+→ 5. TR1 Treinador → 6. Listas 1, 2 e 3 → 7. Elenco final e orçamento.
 
 Um bloco por vez, validado antes do seguinte. Scripts em `scripts/`, resultados em
 `resultados/<bloco>/`, listas em `listas/`.
@@ -87,11 +89,11 @@ Um bloco por vez, validado antes do seguinte. Scripts em `scripts/`, resultados 
 ## Pendências de dado (ver `bases/INVENTARIO.md`)
 
 - Exports Wyscout por temporada (2024–2026) das ligas sul-americanas — para as listas 2 e 3.
-- Export da API física para ligas de fora — quando o Bloco 1 fixar as métricas.
+- Export da API física para ligas de fora — quando o F1 fixar as métricas.
 
 
 ## Estado em 25/09/2026
-Blocos 1–13 rodados (`resultados/b*/B*.md`): 8 físico × técnico, 9 duelos e posse, 10 sugestões pelo tipo
+F1 a F3 rodados (`resultados/b*/B*.md`): 8 físico × técnico, 9 duelos e posse, 10 sugestões pelo tipo
 físico, 11 treinador e modelo de jogo, 12 conversão de liga revista (reta em vez de desconto fixo), 13 sorte × mérito
 dos treinadores (xPts), 14 patamar de Série A (físico e técnico por posição, B × A × 5 grandes × Argentina).
 15 Sofascore jogo a jogo (escalações, grandes chances, momentum, desfalques; xG e físico em 2025–26). Lista única ordenada nos três mercados em `listas/IDEAL_2027.md`. Listas por posição nos mercados Série B, sul-americanas e exterior

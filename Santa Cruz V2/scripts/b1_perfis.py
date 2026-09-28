@@ -1,4 +1,4 @@
-"""Bloco 1, camada descritiva — jogadores, posições do campograma e equipes.
+"""F1, camada descritiva — jogadores, posições do campograma e equipes.
 
 Posições (11): GOL, LD, LE, ZD, ZE, VOL, MED (meia central), MEI (meia ofensivo), ED, EE, CA.
 Mapa pela primeira posição do Wyscout: RCB→ZD, LCB→ZE, CB→ZD; RB/RWB→LD, LB/LWB→LE; DMF/LDMF/RDMF→VOL;

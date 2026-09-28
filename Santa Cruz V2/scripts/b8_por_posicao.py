@@ -1,4 +1,4 @@
-"""Bloco 8, por posição (28/09): os três tipos físicos continuam definidos no setor (zaga, lateral, volante, meia,
+"""F2, por posição (28/09): os três tipos físicos continuam definidos no setor (zaga, lateral, volante, meia,
 extremo, atacante — é onde há jogadores para formar tipos), mas a leitura passa a ser nas dez posições do
 campograma: quanto cada tipo pesa em quem subiu / meio / caiu em cada lado, e onde está concentrado.
 Escreve resultados/b8/tipos_fisicos_pos.csv e reescreve os itens 4 e 6 do B8.md."""
@@ -48,13 +48,13 @@ def main():
     md += ["Leitura, posição a posição:", ""]
     L = {"LD": "o lado direito é o mais físico da B: **76%** dos LD de quem subiu são explosivos (46% em quem caiu); o LD \"médio em tudo\" é de quem cai (8% × 38%).",
          "LE": "no esquerdo o sinal é menor mas na mesma direção: explosivo 45% × 24%; o LE de **baixa intensidade** é de quem cai (27% × 48%).",
-         "ZD": "**nada separa fisicamente** o zagueiro pela direita (baixa intensidade 54% × 55%): é a posição em que o tipo físico não decide — o B2 diz que o ZD dos times que rendem cria (passes chave, longos).",
-         "ZE": "o zagueiro pela esquerda é o contrário: **motor de volume 68% × 32%**, e baixa intensidade 21% × 52%. Fecha com o B2 e o B3 (o ZE que finaliza e sai jogando).",
+         "ZD": "**nada separa fisicamente** o zagueiro pela direita (baixa intensidade 54% × 55%): é a posição em que o tipo físico não decide — o T1 diz que o ZD dos times que rendem cria (passes chave, longos).",
+         "ZE": "o zagueiro pela esquerda é o contrário: **motor de volume 68% × 32%**, e baixa intensidade 21% × 52%. Fecha com o T1 e o T2 (o ZE que finaliza e sai jogando).",
          "VOL": "o volante **menos intenso** é o tipo de quem cai (12% × 48%); intermediário e mais intenso dividem quem sobe.",
          "MED": "o médio \"médio em tudo\" pesa mais em quem sobe (57% × 46%); baixa intensidade é de quem cai (21% × 32%). Sinal moderado.",
          "MEI": "o meia não separa por físico (médio em tudo 50% × 50%); amostra pequena (14 e 10). Decide o técnico e a bola parada.",
-         "ED": "o extremo pela direita **não separa por físico** (baixa intensidade 44% × 40%); o B2 diz que o ED que rende é o que defende e cria.",
-         "EE": "o extremo pela esquerda é o oposto: **explosivo 47% × 14%**, e motor de volume é de quem cai (16% × 43%). É onde o físico mais pesa entre os extremos — e é o lado que decide (B2).",
+         "ED": "o extremo pela direita **não separa por físico** (baixa intensidade 44% × 40%); o T1 diz que o ED que rende é o que defende e cria.",
+         "EE": "o extremo pela esquerda é o oposto: **explosivo 47% × 14%**, e motor de volume é de quem cai (16% × 43%). É onde o físico mais pesa entre os extremos — e é o lado que decide (T1).",
          "CA": "centroavante motor de volume 36% × 19%; baixa intensidade é de quem cai (29% × 44%)."}
     md += [f"- **{p}** — {L[p]}" for p in ORDEM] + [""]
     md += ["O que muda em relação à leitura por setor: **lateral** e **extremo** têm um lado onde o físico separa muito (LD, EE) e um lado onde separa pouco ou nada (LE, ED); na **zaga**, o motor de volume é traço do ZE, não do ZD. Por isso as listas passam a usar o tipo preferido **por posição** (`tipos_preferidos_pos.csv`), e nas posições em que nenhum tipo separa (ZD, MEI, ED) o físico não soma ponto — só o piso de velocidade vale.", ""]

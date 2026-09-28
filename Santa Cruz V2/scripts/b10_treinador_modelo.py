@@ -1,4 +1,4 @@
-"""Bloco 10 — Treinador e modelo de jogo. Que time cada treinador monta, se o estilo viaja com ele,
+"""TR3 — Treinador e modelo de jogo. Que time cada treinador monta, se o estilo viaja com ele,
 e se estilo explica resultado.
 
 Base: jogos da Série B 2022–2026 (serieb_jogos.csv, Wyscout, por time e jogo) + físico do time por jogo

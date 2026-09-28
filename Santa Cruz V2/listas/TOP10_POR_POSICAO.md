@@ -20,7 +20,7 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 6 | 46º | **Helton Leite** | Vila Nova | Série B | 35 | 30/11/26 | **60** | 60 | 62 | 59 | — | — | — |  |
 | 7 | 65º | **Luan Polli** | Athletic | Série B | 33 | 30/11/26 | **58** | 58 | 54 | 62 | — | — | — |  |
 | 8 | 68º | **Léo Aragão** (e) | Avaí | Série B | 24 | 31/12/27 | **57** | 57 | 57 | 57 | — | — | — |  |
-| 9 | 75º | **Thiago Rodrigues** | Goiás | Série B | 37 | 30/11/26 | **56** | 56 | 58 | 54 | — | — | — |  |
+| 9 | 76º | **Thiago Rodrigues** | Goiás | Série B | 37 | 30/11/26 | **56** | 56 | 58 | 54 | — | — | — |  |
 | 10 | 114º | **Richard** | Ceará | Série B | 35 | 31/12/26 | **49** | 49 | 51 | 48 | — | — | — |  |
 
 **Campeonatos sul-americanos**
@@ -44,12 +44,12 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 29º | **Lucas Paes** | Torreense | Portugal B | 28 | 30/06/26 * | **63** | 63 | 53 | 73 | — | — | — |  |
 | 2 | 34º | **L. García** | Cartagena | Espanha C | 28 | 30/06/27 | **62** | 62 | 53 | 71 | — | — | — |  |
-| 3 | 41º | **Mateus Pasinato** | Felgueiras 1932 | Portugal B | 33 | 30/06/26 * | **61** | 61 | 55 | 67 | — | — | — |  |
+| 3 | 40º | **Mateus Pasinato** | Felgueiras 1932 | Portugal B | 33 | 30/06/26 * | **61** | 61 | 55 | 67 | — | — | — |  |
 | 4 | 82º | **L. Cháves** (e) | Panetolikos FC | Grecia | 30 | 31/12/27 | **54** | 54 | 52 | 57 | — | — | — |  |
 | 5 | 95º | **J. Flere** | Europa | Espanha C | 28 | — | **51** | 51 | 49 | 54 | — | — | — |  |
 | 6 | 98º | **Arthur** (e) | Beroe | Bulgaria | 24 | 30/06/28 | **51** | 51 | 48 | 55 | — | — | — |  |
-| 7 | 107º | **Felipe Scheibig** | Felgueiras 1932 | Portugal B | 26 | 30/06/26 * | **50** | 50 | 47 | 54 | — | — | — |  |
-| 8 | 122º | **G. Gazzaniga** | Real Murcia | Espanha C | 32 | 30/06/27 | **48** | 48 | 46 | 51 | — | — | — |  |
+| 7 | 106º | **Felipe Scheibig** | Felgueiras 1932 | Portugal B | 26 | 30/06/26 * | **50** | 50 | 47 | 54 | — | — | — |  |
+| 8 | 121º | **G. Gazzaniga** | Real Murcia | Espanha C | 32 | 30/06/27 | **48** | 48 | 46 | 51 | — | — | — |  |
 | 9 | 123º | **Gustavo Galil** | Sporting Covilhã | Portugal C | 28 | 30/06/26 * | **48** | 48 | 45 | 52 | — | — | — |  |
 | 10 | 125º | **Vitor Hugo** (e) | Lusitania FC Lourosa | Portugal B | 24 | 30/06/28 | **48** | 48 | 44 | 52 | — | — | — |  |
 
@@ -59,46 +59,46 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 1º | **Willean Lepo** (e) | Criciúma | Série B | 29 | 31/12/27 | **73** | 66 | 78 | 55 | 29,7 | Explosivo e rápido | — | ★ média ≥6,5 |
+| 1 | 1º | **Willean Lepo** (e) | Criciúma | Série B | 29 | 31/12/27 | **75** | 66 | 78 | 55 | 29,7 | Explosivo e rápido | — | ★ média ≥6,5 |
 | 2 | 2º | **Maílton** (e) | Fortaleza | Série B | 28 | 31/12/27 | **71** | 65 | 71 | 59 | 29,8 | Baixa intensidade * | 90 |  |
-| 3 | 9º | **Rafael Ramos** | Ceará | Série B | 31 | 31/12/26 | **59** | 56 | 72 | 41 | 29,7 | Explosivo e rápido | — |  |
-| 4 | 13º | **Mikael Doka** (e) | Operário-PR | Série B | 26 | 31/12/27 | **58** | 56 | 68 | 43 | 29,8 | Baixa intensidade * | 83 | ★ média ≥7 |
-| 5 | 14º | **Rodrigo Soares** | Goiás | Série B | 33 | 30/11/26 | **58** | 57 | 70 | 44 | 28,2 | Médio em tudo * | — |  |
-| 6 | 18º | **Reginaldo** | Náutico | Série B | 33 | 30/11/26 | **57** | 54 | 59 | 49 | 29,6 | Explosivo e rápido | — |  |
-| 7 | 23º | **Ewerthon** | Atlético-GO | Série B | 25 | 31/12/26 | **56** | 56 | 68 | 45 | 30,0 | Baixa intensidade * | — |  |
-| 8 | 32º | **Matheus Ribeiro** | Náutico | Série B | 33 | 30/11/26 | **55** | 48 | 57 | 39 | 28,9 | Explosivo e rápido | — |  |
-| 9 | 47º | **Rodrigo Ferreira** | São Bernardo | Série B | 31 | 30/11/26 | **53** | 47 | 48 | 46 | 29,6 | Explosivo e rápido | — |  |
-| 10 | 52º | **Hereda** | CRB | Série B | 27 | 31/12/26 | **52** | 52 | 63 | 40 | 29,9 | Médio em tudo * | — |  |
+| 3 | 8º | **Rafael Ramos** | Ceará | Série B | 31 | 31/12/26 | **61** | 56 | 72 | 41 | 29,7 | Explosivo e rápido | — |  |
+| 4 | 15º | **Reginaldo** | Náutico | Série B | 33 | 30/11/26 | **59** | 54 | 59 | 49 | 29,6 | Explosivo e rápido | — |  |
+| 5 | 16º | **Mikael Doka** (e) | Operário-PR | Série B | 26 | 31/12/27 | **58** | 56 | 68 | 43 | 29,8 | Baixa intensidade * | 83 | ★ média ≥7 |
+| 6 | 18º | **Rodrigo Soares** | Goiás | Série B | 33 | 30/11/26 | **58** | 57 | 70 | 44 | 28,2 | Médio em tudo * | — |  |
+| 7 | 24º | **Matheus Ribeiro** | Náutico | Série B | 33 | 30/11/26 | **57** | 48 | 57 | 39 | 28,9 | Explosivo e rápido | — |  |
+| 8 | 29º | **Ewerthon** | Atlético-GO | Série B | 25 | 31/12/26 | **56** | 56 | 68 | 45 | 30,0 | Baixa intensidade * | — |  |
+| 9 | 41º | **Rodrigo Ferreira** | São Bernardo | Série B | 31 | 30/11/26 | **55** | 47 | 48 | 46 | 29,6 | Explosivo e rápido | — |  |
+| 10 | 56º | **Hereda** | CRB | Série B | 27 | 31/12/26 | **52** | 52 | 63 | 40 | 29,9 | Médio em tudo * | — |  |
 
 **Campeonatos sul-americanos**
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 3º | **J. Alarcón** (e) | Sport Boys | Peru | 24 | 31/12/27 | **66** | 60 | 49 | 71 | 27,2 | Médio em tudo * | — |  |
-| 2 | 4º | **A. Benítez** | Club Libertad | Paraguai | 32 | 31/12/26 | **63** | 56 | 49 | 63 | 30,9 | Explosivo e rápido | — |  |
-| 3 | 5º | **E. Mena** (e) | Medellín | Colombia A | 28 | 30/06/28 | **63** | 59 | 56 | 63 | 30,2 | Explosivo e rápido | — |  |
-| 4 | 6º | **G. Graciani** | Ñublense | Chile | 32 | — | **62** | 53 | 46 | 60 | 29,7 | Explosivo e rápido | — |  |
+| 2 | 4º | **A. Benítez** | Club Libertad | Paraguai | 32 | 31/12/26 | **65** | 56 | 49 | 63 | 30,9 | Explosivo e rápido | — |  |
+| 3 | 5º | **E. Mena** (e) | Medellín | Colombia A | 28 | 30/06/28 | **65** | 59 | 56 | 63 | 30,2 | Explosivo e rápido | — |  |
+| 4 | 6º | **G. Graciani** | Ñublense | Chile | 32 | — | **64** | 53 | 46 | 60 | 29,7 | Explosivo e rápido | — |  |
 | 5 | 7º | **Lucas Soto** | Everton | Chile | 23 | 31/12/26 | **62** | 56 | 54 | 60 | — | — | — | ★ urgência |
-| 6 | 8º | **Francisco Salinas** | Coquimbo Unido | Chile | 26 | 31/12/26 | **60** | 50 | 50 | 50 | 29,3 | Médio em tudo * | — | ★ urgência |
-| 7 | 10º | **C. Cabello** (e) | Cienciano | Peru | 28 | 31/12/27 | **59** | 52 | 52 | 53 | 30,8 | Explosivo e rápido | — |  |
-| 8 | 11º | **D. Romero** | Independiente del Valle | Equador A | 25 | — | **59** | 55 | 54 | 57 | 30,2 | Explosivo e rápido | — |  |
-| 9 | 12º | **F. Hormazábal** (e) | Universidad de Chile | Chile | 30 | 31/12/28 | **59** | 52 | 46 | 58 | 29,0 | Explosivo e rápido | — |  |
-| 10 | 15º | **E. Giménez** (e) | Rosario Central | Argentina A | 28 | 31/12/27 | **58** | 49 | 47 | 50 | 29,3 | Explosivo e rápido | — |  |
+| 6 | 9º | **C. Cabello** (e) | Cienciano | Peru | 28 | 31/12/27 | **61** | 52 | 52 | 53 | 30,8 | Explosivo e rápido | — |  |
+| 7 | 10º | **D. Romero** | Independiente del Valle | Equador A | 25 | — | **61** | 55 | 54 | 57 | 30,2 | Explosivo e rápido | — |  |
+| 8 | 11º | **F. Hormazábal** (e) | Universidad de Chile | Chile | 30 | 31/12/28 | **61** | 52 | 46 | 58 | 29,0 | Explosivo e rápido | — |  |
+| 9 | 12º | **Francisco Salinas** | Coquimbo Unido | Chile | 26 | 31/12/26 | **60** | 50 | 50 | 50 | 29,3 | Médio em tudo * | — | ★ urgência |
+| 10 | 13º | **E. Giménez** (e) | Rosario Central | Argentina A | 28 | 31/12/27 | **60** | 49 | 47 | 50 | 29,3 | Explosivo e rápido | — |  |
 
 **Brasileiros e sul-americanos no exterior (ligas compatíveis com a B)**
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 21º | **T. Casasola** | Catania | Italia C | 30 | 30/06/27 | **57** | 54 | 51 | 56 | — | — | — |  |
-| 2 | 27º | **Italo** | Vizela | Portugal B | 23 | 30/06/27 | **56** | 52 | 54 | 51 | 30,6 | Explosivo e rápido | — |  |
-| 3 | 38º | **Heitor** | Portimonense | Portugal B | 25 | 30/06/26 * | **54** | 47 | 51 | 43 | 29,0 | Explosivo e rápido | 94 |  |
-| 4 | 80º | **Anilson** | Paços de Ferreira | Portugal B | 24 | 30/06/27 | **49** | 46 | 44 | 48 | 30,7 | Explosivo e rápido | — |  |
-| 5 | 95º | **B. Valenti** (e) | Monopoli | Italia C | 23 | 30/06/28 | **48** | 48 | 51 | 46 | — | — | — |  |
-| 6 | 96º | **A. Cova** | Lokomotiv Plovdiv | Bulgaria | 25 | 30/06/27 | **48** | 47 | 47 | 48 | — | — | — |  |
-| 7 | 99º | **Pastor** (e) | CSKA Sofia | Bulgaria | 26 | 30/06/28 | **48** | 48 | 49 | 47 | — | — | — |  |
-| 8 | 128º | **Edson Farias** | Académica | Portugal C | 34 | 30/06/26 * | **46** | 46 | 49 | 43 | — | — | — |  |
-| 9 | 130º | **Gustavo Cascardo** | Arda | Bulgaria | 29 | 30/06/26 * | **46** | 46 | 49 | 43 | — | — | — |  |
-| 10 | 133º | **Edney** | Portimonense | Portugal B | 21 | 30/06/27 | **45** | 42 | 45 | 40 | 30,6 | Explosivo e rápido | — |  |
+| 1 | 20º | **Italo** | Vizela | Portugal B | 23 | 30/06/27 | **58** | 52 | 54 | 51 | 30,6 | Explosivo e rápido | — |  |
+| 2 | 27º | **T. Casasola** | Catania | Italia C | 30 | 30/06/27 | **57** | 54 | 51 | 56 | — | — | — |  |
+| 3 | 32º | **Heitor** | Portimonense | Portugal B | 25 | 30/06/26 * | **56** | 47 | 51 | 43 | 29,0 | Explosivo e rápido | 94 |  |
+| 4 | 65º | **Anilson** | Paços de Ferreira | Portugal B | 24 | 30/06/27 | **51** | 46 | 44 | 48 | 30,7 | Explosivo e rápido | — |  |
+| 5 | 100º | **B. Valenti** (e) | Monopoli | Italia C | 23 | 30/06/28 | **48** | 48 | 51 | 46 | — | — | — |  |
+| 6 | 101º | **A. Cova** | Lokomotiv Plovdiv | Bulgaria | 25 | 30/06/27 | **48** | 47 | 47 | 48 | — | — | — |  |
+| 7 | 102º | **Pastor** (e) | CSKA Sofia | Bulgaria | 26 | 30/06/28 | **48** | 48 | 49 | 47 | — | — | — |  |
+| 8 | 117º | **Edney** | Portimonense | Portugal B | 21 | 30/06/27 | **47** | 42 | 45 | 40 | 30,6 | Explosivo e rápido | — |  |
+| 9 | 120º | **Luiz Gustavo** | Feirense | Portugal B | 26 | 30/06/26 * | **47** | 42 | 43 | 41 | 29,4 | Explosivo e rápido | — |  |
+| 10 | 124º | **Douglas Borel** (e) | UD Oliveirense | Portugal B | 24 | 30/06/28 | **47** | 42 | 44 | 40 | 29,7 | Explosivo e rápido | — |  |
 
 ## Zagueiro pela direita
 
@@ -111,10 +111,10 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 3 | 5º | **Gabriel Bahia** | Novorizontino | Série B | 27 | 31/03/27 | **66** | 61 | 68 | 54 | 30,9 | Explosivo e rápido * | — | ★ média ≥6,5 |
 | 4 | 12º | **Jemerson** | São Bernardo | Série B | 34 | 30/11/26 | **61** | 60 * | 67 | — | 28,9 | Baixa intensidade * | 81 |  |
 | 5 | 19º | **Yago Lincoln** (e) | Londrina | Série B | 23 | 30/06/30 | **59** | 53 | 53 | 53 | 30,3 | Motor de volume * | 85 |  |
-| 6 | 28º | **Gabriel Pinheiro** | Juventude | Série B | 29 | 31/12/26 | **57** | 57 | 58 | 56 | 28,6 | Motor de volume * | 83 |  |
+| 6 | 29º | **Gabriel Pinheiro** | Juventude | Série B | 29 | 31/12/26 | **57** | 57 | 58 | 56 | 28,6 | Motor de volume * | 83 |  |
 | 7 | 37º | **Benevenuto** | Sport | Série B | 30 | 30/11/26 | **56** | 56 | 56 | 57 | 28,5 | Baixa intensidade * | 78 |  |
 | 8 | 40º | **César Martins** | Criciúma | Série B | 33 | 30/11/26 | **56** | 53 | 49 | 57 | 31,3 | Explosivo e rápido * | — |  |
-| 9 | 41º | **Bressan** (e) | CRB | Série B | 33 | 30/11/27 | **56** | 53 | 48 | 59 | 27,2 | Motor de volume * | — |  |
+| 9 | 42º | **Bressan** (e) | CRB | Série B | 33 | 30/11/27 | **56** | 53 | 48 | 59 | 27,2 | Motor de volume * | — |  |
 | 10 | 54º | **Henri** (e) | CRB | Série B | 24 | 31/12/27 | **55** | 55 | 52 | 58 | 28,7 | Baixa intensidade * | — |  |
 
 **Campeonatos sul-americanos**
@@ -125,10 +125,10 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 2 | 4º | **G. Vargas** | Olimpia | Paraguai | 24 | 31/12/26 | **67** | 67 | 50 | 84 | 29,0 | Motor de volume * | — |  |
 | 3 | 6º | **F. Álvarez** (e) | Argentinos Juniors | Argentina A | 26 | 31/12/29 | **66** | 62 | 54 | 70 | 27,6 | Motor de volume * | 90 |  |
 | 4 | 9º | **R. Garcés** (e) | Alianza Lima | Peru | 30 | 31/12/28 | **64** | 61 | 50 | 72 | 27,3 | Baixa intensidade * | — |  |
-| 5 | 10º | **C. Ferreira** | Atlético Tucumán | Argentina A | 23 | 31/12/26 | **62** | 60 | 55 | 64 | 28,0 | Baixa intensidade * | — |  |
-| 6 | 11º | **F. Molina** | Unión Magdalena | Colombia B | 22 | 31/12/26 | **62** | 56 | 48 | 66 | — | — | 94 |  |
-| 7 | 13º | **F. Romero** | Peñarol | Uruguai | 31 | 31/12/26 | **60** | 56 | 48 | 65 | — | — | 89 |  |
-| 8 | 14º | **Luis Cáceres** | Sportivo San Lorenzo | Paraguai | 30 | 31/12/26 | **60** | 54 | 48 | 61 | 28,5 | Motor de volume * | 91 |  |
+| 5 | 10º | **F. Molina** | Unión Magdalena | Colombia B | 22 | 31/12/26 | **62** | 56 | 48 | 66 | — | — | 94 |  |
+| 6 | 11º | **C. Ferreira** | Atlético Tucumán | Argentina A | 23 | 31/12/26 | **62** | 60 | 55 | 64 | 28,0 | Baixa intensidade * | — |  |
+| 7 | 13º | **Luis Cáceres** | Sportivo San Lorenzo | Paraguai | 30 | 31/12/26 | **60** | 54 | 48 | 61 | 28,5 | Motor de volume * | 91 |  |
+| 8 | 14º | **F. Romero** | Peñarol | Uruguai | 31 | 31/12/26 | **60** | 56 | 48 | 65 | — | — | 89 |  |
 | 9 | 15º | **G. Rizzo** | Los Chankas | Peru | 30 | 31/12/26 | **60** | 59 | 54 | 64 | 29,8 | Explosivo e rápido * | — |  |
 | 10 | 16º | **N. Marotta** | Deportivo Recoleta | Paraguai | 29 | 31/12/26 | **59** | 58 | 49 | 68 | 28,3 | Motor de volume * | — |  |
 
@@ -141,7 +141,7 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 3 | 20º | **Iago Maidana** | Henan | China | 30 | 31/12/26 | **59** | 53 | 48 | 58 | 28,4 | Baixa intensidade * | 85 |  |
 | 4 | 21º | **Gregorio Tanco** | Lecco | Italia C | 26 | 30/06/26 * | **59** | 59 | 54 | 63 | — | — | — |  |
 | 5 | 25º | **Mateus Sarará** | Portimonense | Portugal B | 23 | 30/06/26 * | **58** | 55 | 51 | 58 | 28,1 | Motor de volume * | — |  |
-| 6 | 29º | **Iago Santos** | Dibba Al Fujairah | Emirados | 33 | 30/06/26 * | **57** | 57 | 53 | 61 | 27,7 | Baixa intensidade * | — |  |
+| 6 | 28º | **Iago Santos** | Dibba Al Fujairah | Emirados | 33 | 30/06/26 * | **57** | 57 | 53 | 61 | 27,7 | Baixa intensidade * | — |  |
 | 7 | 30º | **Guilherme Garutti** | Argeș | Romenia | 32 | — | **57** | 53 | 49 | 57 | — | — | 90 |  |
 | 8 | 38º | **M. Curado** | Ascoli | Italia C | 31 | 30/06/27 | **56** | 55 | 50 | 61 | — | — | — |  |
 | 9 | 49º | **L. Spatz** | Villarreal B | Espanha C | 24 | 30/06/27 | **55** | 54 | 51 | 58 | — | — | — |  |
@@ -153,46 +153,46 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 1º | **Zé Marcos** (e) | Sport | Série B | 28 | 31/12/27 | **69** | 64 | 69 | 60 | 28,2 | Baixa intensidade * | — | ★ média ≥6,5 |
-| 2 | 3º | **Vilar** | Botafogo-SP | Série B | 26 | 30/11/26 | **68** | 59 * | 66 | — | 30,2 | Motor de volume | 91 |  |
-| 3 | 4º | **Wallace** | Botafogo-SP | Série B | 31 | 30/11/26 | **65** | 64 | 72 | 56 | — | — | — |  |
-| 4 | 6º | **Luiz Otávio** | Ceará | Série B | 33 | 31/12/26 | **64** | 58 | 67 | 50 | — | — | 92 |  |
-| 5 | 7º | **Patrick** (e) | Novorizontino | Série B | 27 | 31/12/27 | **64** | 63 | 69 | 57 | — | — | — |  |
-| 6 | 12º | **Marcos Paulo** (e) | Juventude | Série B | 23 | 31/12/28 | **62** | 61 * | 70 | — | — | — | — |  |
-| 7 | 44º | **Fabio Alemão** | CRB | Série B | 29 | 30/11/26 | **56** | 53 | 45 | 61 | 28,4 | Motor de volume | — |  |
-| 8 | 55º | **Lucas Gazal** (e) | Fortaleza | Série B | 27 | 31/12/28 | **55** | 55 | 60 | 51 | 27,7 | Baixa intensidade * | — |  |
-| 9 | 60º | **Augusto** | São Bernardo | Série B | 29 | 30/11/26 | **55** | 55 | 55 | 55 | 27,8 | Baixa intensidade * | — |  |
-| 10 | 61º | **Vitor Mendes** | Cuiabá | Série B | 27 | 30/11/26 | **55** | 52 | 57 | 47 | 28,7 | Motor de volume | — |  |
+| 1 | 2º | **Vilar** | Botafogo-SP | Série B | 26 | 30/11/26 | **70** | 59 * | 66 | — | 30,2 | Motor de volume | 91 |  |
+| 2 | 3º | **Zé Marcos** (e) | Sport | Série B | 28 | 31/12/27 | **69** | 64 | 69 | 60 | 28,2 | Baixa intensidade * | — | ★ média ≥6,5 |
+| 3 | 5º | **Wallace** | Botafogo-SP | Série B | 31 | 30/11/26 | **65** | 64 | 72 | 56 | — | — | — |  |
+| 4 | 8º | **Luiz Otávio** | Ceará | Série B | 33 | 31/12/26 | **64** | 58 | 67 | 50 | — | — | 92 |  |
+| 5 | 10º | **Patrick** (e) | Novorizontino | Série B | 27 | 31/12/27 | **64** | 63 | 69 | 57 | — | — | — |  |
+| 6 | 15º | **Marcos Paulo** (e) | Juventude | Série B | 23 | 31/12/28 | **62** | 61 * | 70 | — | — | — | — |  |
+| 7 | 36º | **Fabio Alemão** | CRB | Série B | 29 | 30/11/26 | **58** | 53 | 45 | 61 | 28,4 | Motor de volume | — |  |
+| 8 | 46º | **Vitor Mendes** | Cuiabá | Série B | 27 | 30/11/26 | **57** | 52 | 57 | 47 | 28,7 | Motor de volume | — |  |
+| 9 | 59º | **Lucas Gazal** (e) | Fortaleza | Série B | 27 | 31/12/28 | **55** | 55 | 60 | 51 | 27,7 | Baixa intensidade * | — |  |
+| 10 | 67º | **Augusto** | São Bernardo | Série B | 29 | 30/11/26 | **55** | 55 | 55 | 55 | 27,8 | Baixa intensidade * | — |  |
 
 **Campeonatos sul-americanos**
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 2º | **M. Gamarra** (e) | Olimpia | Paraguai | 25 | 31/12/27 | **69** | 66 | 56 | 75 | 28,8 | Motor de volume | — |  |
-| 2 | 5º | **S. Morales** | Aucas | Equador A | 24 | 31/12/26 | **65** | 61 | 56 | 65 | 27,2 | Baixa intensidade * | 92 |  |
-| 3 | 8º | **J. Rodríguez Silva** | Comerciantes Unidos | Peru | 29 | 31/12/26 | **64** | 58 | 54 | 62 | 27,9 | Baixa intensidade * | 92 |  |
-| 4 | 9º | **J. Díaz** | Universidad Católica | Chile | 28 | — | **63** | 60 | 54 | 66 | 28,9 | Motor de volume | — |  |
-| 5 | 10º | **A. Osella** | Independiente Rivadavia | Argentina A | 25 | 31/12/26 | **63** | 54 | 46 | 62 | 27,9 | Motor de volume | 90 |  |
-| 6 | 11º | **G. de los Santos** | Defensor Sporting | Uruguai | 35 | 31/12/26 | **62** | 56 | 51 | 62 | 29,7 | Motor de volume | — |  |
-| 7 | 13º | **T. Viera Alegre** (e) | Nacional | Uruguai | 20 | 31/12/28 | **61** | 58 | 51 | 66 | 28,4 | Motor de volume | — |  |
-| 8 | 16º | **C. Haydar** | Atlético Nacional | Colombia A | 25 | — | **60** | 60 | 52 | 69 | 30,7 | Explosivo e rápido * | — |  |
-| 9 | 17º | **J. Alcantar** | Melgar | Peru | 23 | 31/12/26 | **60** | 57 | 54 | 60 | 28,5 | Baixa intensidade * | — |  |
-| 10 | 20º | **F. Álvarez** | Racing | Uruguai | 22 | — | **60** | 56 | 52 | 60 | 28,9 | Motor de volume | — |  |
+| 1 | 1º | **M. Gamarra** (e) | Olimpia | Paraguai | 25 | 31/12/27 | **71** | 66 | 56 | 75 | 28,8 | Motor de volume | — |  |
+| 2 | 4º | **J. Díaz** | Universidad Católica | Chile | 28 | — | **65** | 60 | 54 | 66 | 28,9 | Motor de volume | — |  |
+| 3 | 6º | **A. Osella** | Independiente Rivadavia | Argentina A | 25 | 31/12/26 | **65** | 54 | 46 | 62 | 27,9 | Motor de volume | 90 |  |
+| 4 | 7º | **S. Morales** | Aucas | Equador A | 24 | 31/12/26 | **65** | 61 | 56 | 65 | 27,2 | Baixa intensidade * | 92 |  |
+| 5 | 9º | **G. de los Santos** | Defensor Sporting | Uruguai | 35 | 31/12/26 | **64** | 56 | 51 | 62 | 29,7 | Motor de volume | — |  |
+| 6 | 11º | **J. Rodríguez Silva** | Comerciantes Unidos | Peru | 29 | 31/12/26 | **64** | 58 | 54 | 62 | 27,9 | Baixa intensidade * | 92 |  |
+| 7 | 12º | **T. Viera Alegre** (e) | Nacional | Uruguai | 20 | 31/12/28 | **63** | 58 | 51 | 66 | 28,4 | Motor de volume | — |  |
+| 8 | 16º | **F. Álvarez** | Racing | Uruguai | 22 | — | **62** | 56 | 52 | 60 | 28,9 | Motor de volume | — |  |
+| 9 | 17º | **S. Valencia** | Ñublense | Chile | 26 | — | **61** | 56 | 53 | 59 | 30,3 | Motor de volume | — |  |
+| 10 | 18º | **Andrea Falabella** (e) | Sportivo Ameliano | Paraguai | 27 | 31/12/27 | **61** | 55 | 52 | 59 | 28,4 | Motor de volume | — |  |
 
 **Brasileiros e sul-americanos no exterior (ligas compatíveis com a B)**
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 14º | **Lucas Maia** | Henan | China | 33 | — | **61** | 55 | 51 | 59 | 27,6 | Motor de volume | — |  |
-| 2 | 15º | **Gabriel Vareta** | Al Wasl | Emirados | 21 | — | **61** | 55 | 56 | 54 | 28,6 | Motor de volume | — |  |
-| 3 | 18º | **Adryelson** (e) | Al Wasl | Emirados | 28 | 30/06/28 | **60** | 57 | 51 | 63 | 29,6 | Baixa intensidade * | — | ★ média ≥6,5 |
-| 4 | 19º | **C. Makoun** | Levski Sofia | Bulgaria | 26 | 30/06/27 | **60** | 59 | 49 | 69 | — | — | — |  |
-| 5 | 32º | **Rezende** | Qingdao West Coast | China | 31 | 31/12/26 | **58** | 54 | 44 | 63 | 27,6 | Motor de volume | — |  |
-| 6 | 34º | **Chico** (e) | Hapoel Tel Aviv | Israel | 27 | 30/06/29 | **58** | 58 | 53 | 62 | — | — | — |  |
-| 7 | 46º | **Felipe Silva** (e) | Porto II | Portugal B | 24 | 30/06/29 | **56** | 53 | 48 | 58 | 27,9 | Motor de volume | — |  |
-| 8 | 63º | **Tiago Caveira** | Sporting Covilhã | Portugal C | 25 | — | **55** | 55 | 52 | 58 | — | — | — |  |
-| 9 | 67º | **Derick** | Varzim | Portugal C | 24 | 30/06/27 | **54** | 52 | 49 | 54 | — | — | 91 |  |
-| 10 | 68º | **Venicio** | Seongnam | Coreia B | 32 | — | **54** | 50 | 50 | 51 | — | — | 88 |  |
+| 1 | 13º | **Lucas Maia** | Henan | China | 33 | — | **63** | 55 | 51 | 59 | 27,6 | Motor de volume | — |  |
+| 2 | 14º | **Gabriel Vareta** | Al Wasl | Emirados | 21 | — | **63** | 55 | 56 | 54 | 28,6 | Motor de volume | — |  |
+| 3 | 22º | **C. Makoun** | Levski Sofia | Bulgaria | 26 | 30/06/27 | **60** | 59 | 49 | 69 | — | — | — |  |
+| 4 | 23º | **Adryelson** (e) | Al Wasl | Emirados | 28 | 30/06/28 | **60** | 57 | 51 | 63 | 29,6 | Baixa intensidade * | — | ★ média ≥6,5 |
+| 5 | 26º | **Rezende** | Qingdao West Coast | China | 31 | 31/12/26 | **60** | 54 | 44 | 63 | 27,6 | Motor de volume | — |  |
+| 6 | 37º | **Felipe Silva** (e) | Porto II | Portugal B | 24 | 30/06/29 | **58** | 53 | 48 | 58 | 27,9 | Motor de volume | — |  |
+| 7 | 40º | **Chico** (e) | Hapoel Tel Aviv | Israel | 27 | 30/06/29 | **58** | 58 | 53 | 62 | — | — | — |  |
+| 8 | 50º | **Pedro Barcelos** | Académico de Viseu F.C. | Portugal B | 30 | 30/06/27 | **56** | 51 | 46 | 56 | 27,2 | Motor de volume | — |  |
+| 9 | 68º | **Tiago Caveira** | Sporting Covilhã | Portugal C | 25 | — | **55** | 55 | 52 | 58 | — | — | — |  |
+| 10 | 71º | **Derick** | Varzim | Portugal C | 24 | 30/06/27 | **54** | 52 | 49 | 54 | — | — | 91 |  |
 
 ## Lateral esquerdo
 
@@ -207,8 +207,8 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 5 | 21º | **Marcelo Hermes** | Criciúma | Série B | 31 | 31/12/26 | **58** | 56 | 68 | 44 | 29,2 | Médio em tudo * | — |  |
 | 6 | 28º | **Moraes** | Operário-PR | Série B | 28 | 30/11/26 | **57** | 48 | 54 | 42 | 30,3 | Explosivo e rápido | — |  |
 | 7 | 29º | **Kevyson** (e) | Ponte Preta | Série B | 22 | 31/12/27 | **56** | 52 | 64 | 42 | 30,0 | Explosivo e rápido | — |  |
-| 8 | 31º | **DG** | Avaí | Série B | 25 | 30/11/26 | **56** | 52 | 59 | 45 | 30,1 | Explosivo e rápido | — |  |
-| 9 | 40º | **Igor Fernandes** | Náutico | Série B | 34 | 30/11/26 | **54** | 53 | 60 | 46 | 29,1 | Médio em tudo * | 78 |  |
+| 8 | 32º | **DG** | Avaí | Série B | 25 | 30/11/26 | **56** | 52 | 59 | 45 | 30,1 | Explosivo e rápido | — |  |
+| 9 | 39º | **Igor Fernandes** | Náutico | Série B | 34 | 30/11/26 | **54** | 53 | 60 | 46 | 29,1 | Médio em tudo * | 78 |  |
 | 10 | 44º | **Gabriel Feliciano** | Operário-PR | Série B | 25 | 31/12/26 | **54** | 50 | 49 | 50 | 30,0 | Baixa intensidade * | — | ★ urgência |
 
 **Campeonatos sul-americanos**
@@ -239,7 +239,7 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 7 | 33º | **Adriano** (e) | Raków Częstochowa | Polonia | 24 | 30/06/28 | **56** | 55 | 54 | 56 | — | — | — |  |
 | 8 | 43º | **F. Vezzoni** (e) | Vis Pesaro | Italia C | 24 | 30/06/28 | **54** | 51 | 49 | 54 | — | — | — |  |
 | 9 | 49º | **Derick Poloni** | Farense | Portugal B | 32 | 30/06/26 * | **52** | 46 | 52 | 41 | 30,4 | Baixa intensidade * | 91 |  |
-| 10 | 53º | **M. Llano** | Casertana | Italia C | 26 | 30/06/26 * | **52** | 49 | 49 | 49 | — | — | — |  |
+| 10 | 55º | **M. Llano** | Casertana | Italia C | 26 | 30/06/26 * | **52** | 49 | 49 | 49 | — | — | — |  |
 
 ## Volante
 
@@ -254,9 +254,9 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 5 | 14º | **André Luiz** | Londrina | Série B | 31 | 30/11/26 | **57** | 54 * | 70 | — | 27,5 | Intermediário | 75 |  |
 | 6 | 21º | **Dudu** (e) | Vila Nova | Série B | 24 | 30/11/29 | **56** | 51 | 64 | 37 | 30,8 | Mais intenso | 84 |  |
 | 7 | 23º | **João Miguel** | Athletic | Série B | 22 | 30/11/26 | **55** | 48 | 68 | 27 | 28,6 | Intermediário | — | ★ urgência |
-| 8 | 74º | **Cristiano** (e) | Atlético-GO | Série B | 26 | 23/12/28 | **45** | 45 | 44 | 46 | — | — | — |  |
+| 8 | 73º | **Cristiano** (e) | Atlético-GO | Série B | 26 | 23/12/28 | **45** | 45 | 44 | 46 | — | — | — |  |
 | 9 | 93º | **Willian Maranhão** (e) | Vila Nova | Série B | 30 | 30/11/27 | **43** | 43 | 56 | 29 | 27,2 | Menos intenso * | — |  |
-| 10 | 112º | **Zé Ricardo** | Avaí | Série B | 30 | 31/12/26 | **40** | 37 | 44 | 30 | 27,4 | Intermediário | — |  |
+| 10 | 112º | **João Vieira** (e) | Vila Nova | Série B | 28 | 31/12/27 | **40** | 31 | 20 | 42 | 28,2 | Mais intenso | — |  |
 
 **Campeonatos sul-americanos**
 
@@ -298,11 +298,11 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 2 | 2º | **Rafael Gava** | Botafogo-SP | Série B | 33 | 30/11/26 | **67** | 61 | 74 | 48 | 27,6 | Médio em tudo | 96 |  |
 | 3 | 3º | **Luan Gonçalves** | Juventude | Série B | 26 | 31/12/26 | **66** | 63 | 80 | 47 | 28,1 | Médio em tudo | — |  |
 | 4 | 9º | **Raí** | Juventude | Série B | 24 | 31/12/26 | **62** | 59 | 70 | 48 | — | — | 87 |  |
-| 5 | 17º | **Rodriguinho** (e) | Fortaleza | Série B | 23 | 31/12/27 | **60** | 60 * | 79 | — | — | — | — |  |
+| 5 | 16º | **Rodriguinho** (e) | Fortaleza | Série B | 23 | 31/12/27 | **60** | 60 * | 79 | — | — | — | — |  |
 | 6 | 30º | **Jota** (e) | Athletic | Série B | 22 | 31/03/29 | **56** | 56 | 71 | 41 | 27,7 | Explosivo e rápido * | — |  |
-| 7 | 56º | **Pedro Castro** | CRB | Série B | 33 | 30/11/26 | **52** | 49 | 58 | 40 | 27,7 | Médio em tudo | — |  |
+| 7 | 57º | **Pedro Castro** | CRB | Série B | 33 | 30/11/26 | **52** | 49 | 58 | 40 | 27,7 | Médio em tudo | — |  |
 | 8 | 72º | **Matheus Bianqui** | Novorizontino | Série B | 28 | 31/12/26 | **50** | 46 | 58 | 35 | 28,0 | Explosivo e rápido * | 88 |  |
-| 9 | 84º | **Yago** (e) | América-MG | Série B | 20 | 31/12/28 | **49** | 49 | 54 | 44 | 28,4 | Explosivo e rápido * | — |  |
+| 9 | 87º | **Yago** (e) | América-MG | Série B | 20 | 31/12/28 | **49** | 49 | 54 | 44 | 28,4 | Explosivo e rápido * | — |  |
 | 10 | 92º | **Guilherme Lobo** (e) | Criciúma | Série B | 26 | 31/12/27 | **48** | 45 | 52 | 39 | 27,5 | Médio em tudo | — |  |
 
 **Campeonatos sul-americanos**
@@ -318,7 +318,7 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 7 | 13º | **M. Acosta** | Rubio Ñú | Paraguai | 25 | 31/12/26 | **61** | 58 | 58 | 58 | 27,7 | Explosivo e rápido * | — |  |
 | 8 | 14º | **J. Castellanos** | Deportivo La Guaira | Venezuela | 30 | 31/12/26 | **60** | 60 | 57 | 64 | — | — | — |  |
 | 9 | 15º | **A. Montero** | Estudiantes de Mérida | Venezuela | 32 | 31/12/26 | **60** | 57 | 55 | 59 | — | — | 96 |  |
-| 10 | 16º | **E. Hoyos** (e) | Ferro Carril Oeste | Argentina B | 26 | 31/12/27 | **60** | 65 | 56 | 74 | — | — | — |  |
+| 10 | 17º | **E. Hoyos** (e) | Ferro Carril Oeste | Argentina B | 26 | 31/12/27 | **60** | 65 | 56 | 74 | — | — | — |  |
 
 **Brasileiros e sul-americanos no exterior (ligas compatíveis com a B)**
 
@@ -385,14 +385,14 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 1º | **Vinícius** (e) | Náutico | Série B | 33 | 31/12/27 | **85** | 85 | 91 | 78 | — | — | — |  |
 | 2 | 2º | **Chrystian Barletta** (e) | Sport | Série B | 25 | 31/07/29 | **73** | 66 | 68 | 64 | 30,7 | Explosivo e rápido * | 90 | ★ urgência |
-| 3 | 9º | **Pedro Vitor** | São Bernardo | Série B | 28 | 31/12/26 | **63** | 63 | 68 | 59 | 28,9 | Motor de volume * | — |  |
+| 3 | 10º | **Pedro Vitor** | São Bernardo | Série B | 28 | 31/12/26 | **63** | 63 | 68 | 59 | 28,9 | Motor de volume * | — |  |
 | 4 | 22º | **Bruno José** | Atlético-GO | Série B | 28 | 30/11/26 | **59** | 59 | 65 | 54 | 29,6 | Baixa intensidade * | — |  |
 | 5 | 24º | **M. Segovia** | América-MG | Série B | 23 | 31/12/26 | **59** | 56 | 54 | 57 | 28,6 | Motor de volume * | 90 |  |
 | 6 | 33º | **Victor Hugo** (e) | Londrina | Série B | 23 | 31/12/29 | **57** | 57 | 65 | 48 | — | — | — |  |
-| 7 | 34º | **Zé Hugo** (e) | Botafogo-SP | Série B | 26 | 31/12/27 | **56** | 56 | 65 | 48 | 29,9 | Baixa intensidade * | — |  |
+| 7 | 35º | **Zé Hugo** (e) | Botafogo-SP | Série B | 26 | 31/12/27 | **56** | 56 | 65 | 48 | 29,9 | Baixa intensidade * | — |  |
 | 8 | 43º | **Rómulo Otero** | Criciúma | Série B | 33 | 31/12/26 | **54** | 51 | 47 | 55 | 27,9 | Baixa intensidade * | 96 |  |
 | 9 | 54º | **Reidiney** | Novorizontino | Série B | 19 | — | **52** | 52 | 60 | 44 | — | — | — |  |
-| 10 | 76º | **Hildeberto Pereira** | Operário-PR | Série B | 30 | 30/11/26 | **50** | 50 | 49 | 52 | 30,2 | Explosivo e rápido * | — |  |
+| 10 | 77º | **Hildeberto Pereira** | Operário-PR | Série B | 30 | 30/11/26 | **50** | 50 | 49 | 52 | 30,2 | Explosivo e rápido * | — |  |
 
 **Campeonatos sul-americanos**
 
@@ -415,12 +415,12 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 4º | **Euller** (e) | Seoul E-Land | Coreia B | 31 | 31/12/28 | **67** | 64 | 49 | 79 | — | — | 92 |  |
 | 2 | 5º | **Wellington Machado** (e) | Al Riffa | Bahrain | 27 | 30/06/30 | **65** | 65 | 55 | 76 | — | — | — |  |
-| 3 | 10º | **Gabriel Honório** | Busan I'Park | Coreia B | 30 | — | **63** | 60 | 48 | 73 | — | — | 92 |  |
+| 3 | 9º | **Gabriel Honório** | Busan I'Park | Coreia B | 30 | — | **63** | 60 | 48 | 73 | — | — | 92 |  |
 | 4 | 11º | **Anderson Ceará** | Csikszereda Miercurea Ciuc | Romenia | 27 | 30/06/27 | **63** | 63 | 55 | 72 | — | — | — |  |
 | 5 | 14º | **B. Palacios** (e) | Al Wasl | Emirados | 23 | 30/06/30 | **61** | 61 | 58 | 65 | 31,1 | Explosivo e rápido * | — |  |
 | 6 | 18º | **Luan Dias** | Gimpo Citizen | Coreia B | 29 | — | **60** | 60 | 50 | 71 | — | — | — |  |
 | 7 | 25º | **Matheus Serafim** | Daegu | Coreia B | 28 | 31/12/26 | **59** | 59 | 52 | 66 | — | — | — |  |
-| 8 | 35º | **C. Mena** (e) | Lechia Gdańsk | Polonia | 23 | 30/06/28 | **56** | 56 | 58 | 55 | — | — | — |  |
+| 8 | 34º | **C. Mena** (e) | Lechia Gdańsk | Polonia | 23 | 30/06/28 | **56** | 56 | 58 | 55 | — | — | — |  |
 | 9 | 41º | **S. Palacios** | Levadiakos | Grecia | 34 | 30/06/26 * | **54** | 53 | 48 | 58 | 30,0 | Explosivo e rápido * | — |  |
 | 10 | 79º | **Caio Ferreira** (e) | Argeș | Romenia | 25 | 31/12/28 | **50** | 47 | 47 | 48 | — | — | 95 |  |
 
@@ -430,16 +430,16 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 1º | **Soares** (e) | Atlético-GO | Série B | 26 | 25/08/29 | **70** | 67 | 82 | 52 | 31,1 | Explosivo e rápido | — |  |
+| 1 | 1º | **Soares** (e) | Atlético-GO | Série B | 26 | 25/08/29 | **72** | 67 | 82 | 52 | 31,1 | Explosivo e rápido | — |  |
 | 2 | 2º | **Dadá Belmonte** | CRB | Série B | 29 | 30/11/26 | **70** | 70 | 89 | 51 | 29,8 | Baixa intensidade * | 82 |  |
 | 3 | 3º | **Iago Teles** | Londrina | Série B | 26 | 30/06/27 | **70** | 65 | 75 | 55 | 28,6 | Baixa intensidade * | 92 | ★ média ≥6,5 |
 | 4 | 4º | **Janderson** (e) | Vila Nova | Série B | 27 | 30/11/27 | **65** | 65 | 81 | 49 | 29,9 | Baixa intensidade * | — |  |
-| 5 | 13º | **Kadu** | Goiás | Série B | 24 | 15/12/26 | **58** | 55 | 72 | 39 | 30,7 | Explosivo e rápido | 82 |  |
-| 6 | 31º | **Vinícius Paiva** | Novorizontino | Série B | 25 | 31/12/26 | **55** | 51 | 57 | 44 | 31,1 | Explosivo e rápido | — |  |
-| 7 | 81º | **Victor Andrade** | Náutico | Série B | 30 | 30/11/26 | **49** | 49 | 58 | 40 | 28,2 | Baixa intensidade * | — |  |
-| 8 | 89º | **G. Barros** (e) | América-MG | Série B | 24 | 31/12/27 | **48** | 44 | 48 | 41 | 29,7 | Explosivo e rápido | — |  |
-| 9 | 90º | **D. Vera** | Athletic | Série B | 23 | 31/12/26 | **47** | 43 | 46 | 41 | 29,4 | Motor de volume * | 90 |  |
-| 10 | 122º | **Clayson** | Sport | Série B | 31 | 30/11/26 | **44** | 41 | 39 | 43 | 28,5 | Explosivo e rápido | 81 |  |
+| 5 | 9º | **Kadu** | Goiás | Série B | 24 | 15/12/26 | **60** | 55 | 72 | 39 | 30,7 | Explosivo e rápido | 82 |  |
+| 6 | 24º | **Vinícius Paiva** | Novorizontino | Série B | 25 | 31/12/26 | **57** | 51 | 57 | 44 | 31,1 | Explosivo e rápido | — |  |
+| 7 | 77º | **G. Barros** (e) | América-MG | Série B | 24 | 31/12/27 | **50** | 44 | 48 | 41 | 29,7 | Explosivo e rápido | — |  |
+| 8 | 84º | **Victor Andrade** | Náutico | Série B | 30 | 30/11/26 | **49** | 49 | 58 | 40 | 28,2 | Baixa intensidade * | — |  |
+| 9 | 95º | **D. Vera** | Athletic | Série B | 23 | 31/12/26 | **47** | 43 | 46 | 41 | 29,4 | Motor de volume * | 90 |  |
+| 10 | 108º | **Clayson** | Sport | Série B | 31 | 30/11/26 | **46** | 41 | 39 | 43 | 28,5 | Explosivo e rápido | 81 |  |
 
 **Campeonatos sul-americanos**
 
@@ -447,29 +447,29 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 5º | **E. Tortolero** (e) | Carabobo | Venezuela | 28 | 31/12/27 | **63** | 63 | 56 | 71 | — | — | — |  |
 | 2 | 7º | **D. Dawson** | Envigado | Colombia B | 20 | — | **61** | 61 | 51 | 71 | — | — | — |  |
-| 3 | 8º | **G. Salega** | Portuguesa | Venezuela | 27 | — | **59** | 59 | 51 | 68 | — | — | — |  |
-| 4 | 12º | **P. Magallanes** (e) | Sport Huancayo | Peru | 25 | 31/12/27 | **58** | 58 | 54 | 63 | 29,2 | Baixa intensidade * | — |  |
-| 5 | 15º | **J. Cuesta** (e) | UCV | Venezuela | 24 | 30/06/28 | **58** | 58 | 53 | 63 | — | — | — |  |
-| 6 | 16º | **Kelvin Flórez** | Tolima | Colombia A | 22 | — | **58** | 52 | 53 | 51 | 29,8 | Explosivo e rápido | — |  |
-| 7 | 18º | **M. Roseti** (e) | Midland | Argentina B | 29 | 31/12/27 | **58** | 60 | 51 | 68 | — | — | 94 |  |
-| 8 | 19º | **J. Campaña** | Patriotas Boyacá | Colombia B | 23 | — | **58** | 58 | 53 | 62 | — | — | — |  |
-| 9 | 20º | **M. Añasco** | Cerro Largo | Uruguai | 25 | 31/12/26 | **57** | 54 | 51 | 58 | 30,1 | Explosivo e rápido | — |  |
-| 10 | 21º | **Pipe Gómez** (e) | Once Caldas | Colombia A | 26 | 30/06/29 | **57** | 57 | 53 | 61 | 28,9 | Baixa intensidade * | — |  |
+| 3 | 10º | **Kelvin Flórez** | Tolima | Colombia A | 22 | — | **60** | 52 | 53 | 51 | 29,8 | Explosivo e rápido | — |  |
+| 4 | 12º | **G. Salega** | Portuguesa | Venezuela | 27 | — | **59** | 59 | 51 | 68 | — | — | — |  |
+| 5 | 15º | **M. Añasco** | Cerro Largo | Uruguai | 25 | 31/12/26 | **59** | 54 | 51 | 58 | 30,1 | Explosivo e rápido | — |  |
+| 6 | 17º | **P. Magallanes** (e) | Sport Huancayo | Peru | 25 | 31/12/27 | **58** | 58 | 54 | 63 | 29,2 | Baixa intensidade * | — |  |
+| 7 | 18º | **J. Cuesta** (e) | UCV | Venezuela | 24 | 30/06/28 | **58** | 58 | 53 | 63 | — | — | — |  |
+| 8 | 19º | **J. Klinger** | Macará | Equador A | 21 | 31/12/26 | **58** | 53 | 48 | 57 | 31,0 | Explosivo e rápido | — |  |
+| 9 | 20º | **M. Roseti** (e) | Midland | Argentina B | 29 | 31/12/27 | **58** | 60 | 51 | 68 | — | — | 94 |  |
+| 10 | 21º | **J. Campaña** | Patriotas Boyacá | Colombia B | 23 | — | **58** | 58 | 53 | 62 | — | — | — |  |
 
 **Brasileiros e sul-americanos no exterior (ligas compatíveis com a B)**
 
 | # | Geral | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | Tipo físico | BP | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 6º | **Luanzinho** | Al Sharjah | Emirados | 26 | 30/06/27 | **63** | 63 | 53 | 72 | 28,1 | Baixa intensidade * | — |  |
-| 2 | 9º | **Jeffinho** (e) | Liaoning Tieren | China | 26 | 31/12/28 | **59** | 59 | 53 | 66 | 28,7 | Motor de volume * | — |  |
-| 3 | 10º | **Davidson** | Qingdao West Coast | China | 35 | — | **59** | 59 | 53 | 65 | 29,4 | Baixa intensidade * | — |  |
-| 4 | 11º | **Everton Bala** | Levski Sofia | Bulgaria | 27 | 30/06/27 | **59** | 56 | 49 | 63 | — | — | 92 |  |
-| 5 | 14º | **Reinaldo** | Chaves | Portugal B | 24 | 30/06/26 * | **58** | 55 | 57 | 54 | 30,4 | Explosivo e rápido | — |  |
-| 6 | 17º | **Werton** (e) | Leixões | Portugal B | 22 | 30/06/28 | **58** | 55 | 51 | 58 | 29,8 | Explosivo e rápido | — |  |
-| 7 | 30º | **Diogo Bezerra** (e) | OFK Beograd | Servia | 23 | 30/06/30 | **55** | 50 | 47 | 53 | — | — | 91 | ★ média ≥6,5 |
-| 8 | 33º | **D. Silva** | Chungnam Asan | Coreia B | 28 | — | **54** | 54 | 48 | 62 | — | — | — |  |
-| 9 | 39º | **T. Nuss** (e) | OFI | Grecia | 25 | 30/06/28 | **54** | 50 | 56 | 44 | 29,5 | Explosivo e rápido | — |  |
-| 10 | 43º | **Vinícius Vargas** (e) | Al Riffa | Bahrain | 30 | 30/06/30 | **53** | 53 | 49 | 57 | — | — | — |  |
+| 2 | 8º | **Reinaldo** | Chaves | Portugal B | 24 | 30/06/26 * | **60** | 55 | 57 | 54 | 30,4 | Explosivo e rápido | — |  |
+| 3 | 11º | **Werton** (e) | Leixões | Portugal B | 22 | 30/06/28 | **60** | 55 | 51 | 58 | 29,8 | Explosivo e rápido | — |  |
+| 4 | 13º | **Jeffinho** (e) | Liaoning Tieren | China | 26 | 31/12/28 | **59** | 59 | 53 | 66 | 28,7 | Motor de volume * | — |  |
+| 5 | 14º | **Davidson** | Qingdao West Coast | China | 35 | — | **59** | 59 | 53 | 65 | 29,4 | Baixa intensidade * | — |  |
+| 6 | 16º | **Everton Bala** | Levski Sofia | Bulgaria | 27 | 30/06/27 | **59** | 56 | 49 | 63 | — | — | 92 |  |
+| 7 | 29º | **T. Nuss** (e) | OFI | Grecia | 25 | 30/06/28 | **56** | 50 | 56 | 44 | 29,5 | Explosivo e rápido | — |  |
+| 8 | 34º | **Diogo Bezerra** (e) | OFK Beograd | Servia | 23 | 30/06/30 | **55** | 50 | 47 | 53 | — | — | 91 | ★ média ≥6,5 |
+| 9 | 36º | **D. Silva** | Chungnam Asan | Coreia B | 28 | — | **54** | 54 | 48 | 62 | — | — | — |  |
+| 10 | 41º | **M. Lacava** | Vizela | Portugal B | 23 | — | **54** | 49 | 45 | 52 | 31,6 | Explosivo e rápido | — |  |
 
 ## Centroavante
 
@@ -483,7 +483,7 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 4 | 11º | **William Pottker** | Londrina | Série B | 32 | 30/11/26 | **58** | 58 | 66 | 50 | 30,3 | Explosivo e rápido * | — |  |
 | 5 | 13º | **Alisson Safira** (e) | Juventude | Série B | 31 | 31/12/27 | **57** | 54 | 63 | 46 | 28,3 | Baixa intensidade * | 88 |  |
 | 6 | 30º | **Ian Luccas** (e) | Athletic | Série B | 23 | 30/06/30 | **54** | 51 | 52 | 50 | 30,0 | Motor de volume | — |  |
-| 7 | 68º | **Kauan Cristtyan** | Cuiabá | Série B | 20 | 30/11/26 | **50** | 47 | 48 | 46 | 29,0 | Motor de volume | — |  |
+| 7 | 70º | **Kauan Cristtyan** | Cuiabá | Série B | 20 | 30/11/26 | **50** | 47 | 48 | 46 | 29,0 | Motor de volume | — |  |
 | 8 | 73º | **Hygor** | Botafogo-SP | Série B | 34 | 30/11/26 | **49** | 49 | 63 | 36 | 29,8 | Explosivo e rápido * | 82 |  |
 | 9 | 80º | **Gustavo Coutinho** (e) | Atlético-GO | Série B | 27 | 31/12/27 | **49** | 49 | 57 | 41 | 29,7 | Explosivo e rápido * | — |  |
 | 10 | 106º | **André Luis** | Vila Nova | Série B | 29 | 30/11/26 | **47** | 47 | 54 | 40 | 30,8 | Explosivo e rápido * | — |  |
@@ -495,8 +495,8 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 1 | 3º | **L. Melgarejo** | Club Libertad | Paraguai | 35 | 30/06/27 | **62** | 62 | 57 | 68 | 29,6 | Explosivo e rápido * | — |  |
 | 2 | 5º | **J. Torres** (e) | Tolima | Colombia A | 22 | 30/06/29 | **61** | 58 | 45 | 72 | 27,8 | Motor de volume | — |  |
 | 3 | 7º | **M. Estrada** | LDU Quito | Equador A | 30 | 30/06/27 | **61** | 58 | 59 | 57 | 30,0 | Baixa intensidade * | 92 |  |
-| 4 | 8º | **A. Alcaraz** | Olimpia | Paraguai | 26 | 31/12/26 | **58** | 55 | 59 | 51 | 29,6 | Explosivo e rápido * | 89 |  |
-| 5 | 9º | **M. Gómez** (e) | Nacional | Uruguai | 30 | 31/12/27 | **58** | 55 | 56 | 54 | 29,2 | Baixa intensidade * | 91 |  |
+| 4 | 8º | **M. Gómez** (e) | Nacional | Uruguai | 30 | 31/12/27 | **58** | 55 | 56 | 54 | 29,2 | Baixa intensidade * | 91 |  |
+| 5 | 9º | **A. Alcaraz** | Olimpia | Paraguai | 26 | 31/12/26 | **58** | 55 | 59 | 51 | 29,6 | Explosivo e rápido * | 89 |  |
 | 6 | 10º | **Y. Guzmán** (e) | América de Cali | Colombia A | 28 | 31/12/28 | **58** | 52 | 41 | 63 | 27,8 | Motor de volume | 94 |  |
 | 7 | 12º | **A. González** | Deportivo Recoleta | Paraguai | 29 | 31/12/26 | **57** | 57 | 46 | 68 | 31,1 | Explosivo e rápido * | — |  |
 | 8 | 15º | **M. Bermúdez** | Orense | Equador A | 20 | 31/12/26 | **57** | 54 | 51 | 56 | 29,0 | Motor de volume | — |  |
@@ -513,7 +513,7 @@ A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Sé
 | 4 | 34º | **Caio Santana** | Atlético CP | Portugal C | 22 | 30/06/27 | **54** | 54 | 54 | 54 | — | — | — |  |
 | 5 | 36º | **Matheus Davó** | Maccabi Netanya | Israel | 26 | 30/06/27 | **53** | 53 | 53 | 54 | — | — | — |  |
 | 6 | 39º | **Angelo Chagal** | Larissa | Grecia | 33 | 30/06/26 * | **53** | 53 | 44 | 62 | 28,9 | Explosivo e rápido * | — |  |
-| 7 | 42º | **F. Pedrozo** | Levadiakos | Grecia | 33 | 30/06/26 * | **52** | 49 | 51 | 47 | 28,1 | Motor de volume | — |  |
+| 7 | 43º | **F. Pedrozo** | Levadiakos | Grecia | 33 | 30/06/26 * | **52** | 49 | 51 | 47 | 28,1 | Motor de volume | — |  |
 | 8 | 45º | **N. Reniero** | Lugo | Espanha C | 31 | 30/06/27 | **52** | 52 | 52 | 52 | — | — | — |  |
 | 9 | 48º | **P. Villero** | Seongnam | Coreia B | 27 | 31/12/26 | **52** | 49 | 43 | 54 | — | — | 92 |  |
 | 10 | 59º | **Andre Clóvis** (e) | Académico de Viseu F.C. | Portugal B | 28 | 30/06/28 | **50** | 50 | 53 | 48 | 29,9 | Explosivo e rápido * | — |  |

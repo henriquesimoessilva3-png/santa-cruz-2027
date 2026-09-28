@@ -1,4 +1,4 @@
-"""Bloco 4 — Treinador: rendimento por passagem, 2018–2026.
+"""TR1 — Treinador: rendimento por passagem, 2018–2026.
 
 Passagem = treinador × clube × temporada, não interina, com ≥ 10 jogos de Série B.
 Para cada passagem: pontos/jogo, posição ao assumir e ao sair, e (2022+) rendimento acima do

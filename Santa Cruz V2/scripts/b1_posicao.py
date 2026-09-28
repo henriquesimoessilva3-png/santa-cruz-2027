@@ -1,4 +1,4 @@
-"""Bloco 1, perguntas 3 e 4 — perfil físico por posição e físico × disponibilidade.
+"""F1, perguntas 3 e 4 — perfil físico por posição e físico × disponibilidade.
 
 3) Titulares (>= 60% dos minutos do clube) 2022-2025. Para cada setor e métrica: correlação entre o
    posto do jogador (dentro de ano × setor) e o rendimento do clube (a dinheiro igual), IC por

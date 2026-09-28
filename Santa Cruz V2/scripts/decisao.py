@@ -1,6 +1,6 @@
 """Decisão 2027 — treinador e elenco, juntando tudo o que o estudo mediu: nota técnica (aderência + nível), tipo
-físico e piso de velocidade (B1/B8), bola parada (B3), gol de defesa (B7) e corrida para a área (B8), minutagem e
-regularidade, patamar de Série A (B13), Sofascore 2026 (B14), scouts, mercado e contrato. Um documento só, gerado
+físico e piso de velocidade (F1/F2), bola parada (T2), gol de defesa (M4) e corrida para a área (F2), minutagem e
+regularidade, patamar de Série A (F3), Sofascore 2026 (M3), scouts, mercado e contrato. Um documento só, gerado
 de listas/IDEAL_2027.csv (a ordem) com as razões escritas critério a critério. Saída: listas/DECISAO_2027.md"""
 import os, numpy as np, pandas as pd
 from _comum import RAIZ, chave
@@ -32,7 +32,7 @@ def tabela_treinadores():
         if r.treinador in C.index and C[r.treinador] >= 1.5: leit.append("cede muita chance clara")
         out.append(f"| {i} | **{r.treinador}** | {int(r.passagens)} ({int(r.clubes)}) | {int(r.jogos)} | {g(r.ppj)} | {f(r.rendimento_medio)} | {f(r.rendimento_pior)} | {int(r.clubes_com_rendimento_positivo)} | {int(round(r.posto_valor_medio))}º | {int(r.acessos)} | "
                    f"{g(x.xppj) if x is not None else '—'} | {f(x.sorte) if x is not None else '—'} | {g(C.get(r.treinador, np.nan))} | {E.get(r.treinador, '—')} | {'; '.join(leit) or '—'}; {SIT.get(r.treinador, 'a confirmar')} |")
-    # Fábio Matias, pedido à parte (26/09): 17 jogos na B, abaixo do mínimo de 10 por passagem do B4
+    # Fábio Matias, pedido à parte (26/09): 17 jogos na B, abaixo do mínimo de 10 por passagem do TR1
     gj = jogos(); gj["xpts"] = [xpts(a, b) for a, b in zip(gj.xg, gj.xg_sof)]
     t = pd.read_csv(os.path.join(RAIZ, "bases", "coletas", "T01_rodada_treinador.csv")); t["data"] = pd.to_datetime(t.data)
     m = t[t.treinador.str.contains("Matias", na=False)]
@@ -76,9 +76,9 @@ def main():
     md += tabela_treinadores()
     md += ["",
           "**Ordem de preferência para o Santa Cruz:** 1. **Eduardo Baptista** — o modelo mais alinhado ao eixo (linha de 3, jogo direto, aéreo, intenso), o maior xPts entre os regulares, pior passagem +0,31, nunca trocou no meio do ano; no Criciúma, pede liberação. 2. **Léo Condé** — o único que rendeu acima do elenco em três clubes, 4-2-3-1, cede a menor quantidade de grandes chances (1,14/j); +0,21 de sorte por jogo e times que correm pouco; livre. 3. **Claudio Tencati** — elenco barato, jogo direto, sem sorte no placar; Botafogo-SP. 4. **Enderson Moreira** — o maior xPts da liga (1,62) com −0,18 de sorte: o jogo era melhor que o placar; Novorizontino. **Fora:** Guto Ferreira e Thiago Carpini (currículo de G4 com elencos top-5, +0,30 de sorte e 1,6–1,8 grandes chances cedidas), Mozart (posse com baixa intensidade, o oposto do elenco abaixo).", "",
-          "**Regra que vale mais que o nome:** contratar para ficar o ano (0 trocas em quem sobe, 2 em quem cai — B5-1). Quem for escolhido define 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está.", "",
+          "**Regra que vale mais que o nome:** contratar para ficar o ano (0 trocas em quem sobe, 2 em quem cai — M1-1). Quem for escolhido define 2–3 peças: com Baptista, zaga e 9 fortes no alto e um volante *mais intenso*; com Condé, o elenco abaixo serve como está.", "",
           "## 2 · Elenco: titular e opções por posição", "",
-          "Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corrida para a área + scouts). (e) = contrato além de jun/27: empréstimo ou compra. **Regra de montagem (B5/B6/B14):** 28–30 nomes, 5 titulares mantidos de 2026, onze fixo (≥ 70% das titularidades nos 11), estrangeiros de meio para a frente com 1 ano e opção.", ""]
+          "Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corrida para a área + scouts). (e) = contrato além de jun/27: empréstimo ou compra. **Regra de montagem (M1/M2/M3):** 28–30 nomes, 5 titulares mantidos de 2026, onze fixo (≥ 70% das titularidades nos 11), estrangeiros de meio para a frente com 1 ano e opção.", ""]
     for p in ORDEM:
         x = d[d.pos11 == p].head(N_OP.get(p, 3))
         md += [f"### {NOMES[p]}", "", "| # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |", "|---|---|---|---|---|---|---|"]
@@ -86,7 +86,7 @@ def main():
             md.append(f"| {r.ordem} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} · {r.liga} | {int(r.idade)} | {dt(r.contrato)} | **{f(r.score)}** | {razoes(r)} |")
         md.append("")
     md += ["## 3 · O que o dado não decide", "",
-           "- Goleiro: a base não separa goleiro bom de defesa boa (B2-5) — vídeo.",
+           "- Goleiro: a base não separa goleiro bom de defesa boa (T1-5) — vídeo.",
            "- Quem vem de fora: aderência convertida pela reta de liga (p90 na origem → 58 na B); só vídeo e minutagem confirmam.",
            "- Salário: o estudo não tem folha; as faixas são estimativa. Valor de mercado ≤ € 2 MM é o corte.",
            "- Os nomes que o clube já descartou estão em `Quem não contratar` (com os motivos) e em `EXCLUIDOS.csv`.", ""]

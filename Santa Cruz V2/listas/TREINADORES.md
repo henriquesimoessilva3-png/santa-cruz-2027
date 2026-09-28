@@ -2,7 +2,7 @@
 
 *Dado: treinador por rodada e valor de elenco até set/26; situação dos nomes pesquisada na web em 22/09 · revisão 25/09/2026.*
 
-Base: 266 passagens não interinas com ≥ 10 jogos de Série B, 2018–2026 (`resultados/b4`). Rendimento = pontos/jogo acima do esperado pelo valor do elenco (só de 2022 em diante). Ordenado por número de clubes diferentes em que rendeu acima do elenco e, depois, pelo rendimento médio. Lembrete do Bloco 4: rendimento não viaja entre clubes (r 0,01) — a lista reduz a conversa; a escolha é por entrevista, comissão, projeto e disposição de ficar o ano (Bloco 5: quem sobe não troca).
+Base: 266 passagens não interinas com ≥ 10 jogos de Série B, 2018–2026 (`resultados/b4`). Rendimento = pontos/jogo acima do esperado pelo valor do elenco (só de 2022 em diante). Ordenado por número de clubes diferentes em que rendeu acima do elenco e, depois, pelo rendimento médio. Lembrete do TR1: rendimento não viaja entre clubes (r 0,01) — a lista reduz a conversa; a escolha é por entrevista, comissão, projeto e disposição de ficar o ano (M1: quem sobe não troca).
 
 | treinador | passagens (clubes) | jogos | pts/j | rend. médio | pior | clubes + | elenco médio | acessos | temp. inteiras | xG sof. | dist. final. | situação (web, a confirmar) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -70,7 +70,7 @@ Base: 266 passagens não interinas com ≥ 10 jogos de Série B, 2018–2026 (`r
 - **Marcinho:** Ituano 2023 (30j, 1.17)
 - **Alex:** Operário-PR 2025 (26j, 1.31), Athletic 2026 (27j, 1.37)
 
-## Sorte × mérito (B12)
+## Sorte × mérito (TR2)
 Pontos esperados pelo xG por passagem: Baptista 1,59 xPts/j (o maior entre os em foco), Condé 1,53 (+0,21 de sorte), Guto 1,43 (+0,30), Carpini 1,47 (+0,31), Tencati 1,44, Mozart 1,43, Enderson Moreira 1,62 (−0,18: jogo melhor que o placar). O xPts repete entre passagens (r 0,14); a sorte não (0,08).
 
 ## Como ler

@@ -16,8 +16,8 @@ Todas saem da mesma base pontuada (`POOL_2027.csv`): mesmos filtros, mesma ordem
 | **Quem eu contrataria** (e "A montagem", aqui na apresentação) | as vagas de cada posição preenchidas na ordem de "Os meus dez", livres primeiro, no máximo 4 estrangeiros; quem tem contrato aparece como "só se liberar" | a montagem do elenco |
 | **Os dez por posição e mercado** | a mesma lista, separada em Série B, sul-americanos e exterior | quando se quer olhar um mercado só |
 | **Só fim de contrato** | a mesma lista, só quem chega livre, por mercado | a lista do passe zero |
-| **Os tipos de quem sobe: quem está neles** | os 10 do tipo físico que quem sobe usa, por posição e mercado, na ordem de "Os meus dez" | quando o treinador pede um tipo |
-| **Ranking físico por posição** | os 20 melhores só pelo físico, por mercado, com o lugar em "Os meus dez" ao lado | montar o piso físico; achar o lateral explosivo |
+| **Só o físico: os tipos de quem sobe, quem está neles** | os 10 do tipo físico que quem sobe usa, por posição e mercado, na ordem de "Os meus dez" | quando o treinador pede um tipo |
+| **Só o físico: ranking por posição** | os 20 melhores só pelo físico, por mercado, com o lugar em "Os meus dez" ao lado | montar o piso físico; achar o lateral explosivo |
 | **Especialistas de bola parada** | cobradores e finalizadores aéreos, por mercado | fechar o cobrador e os 3 finalizadores |
 | **Quem não contratar** | os da Série B que o estudo reprova, com o motivo | responder a sugestões de fora do estudo |
 

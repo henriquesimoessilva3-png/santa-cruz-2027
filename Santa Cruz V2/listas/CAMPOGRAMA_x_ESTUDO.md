@@ -1,6 +1,6 @@
 # Campograma × estudo — Cenário 1 (salvo em 25/09)
 
-*Grupo lido da nuvem em 25/09/2026, 20h08: "Cenário 1 2027" (renomeado; antes "· 343 (recuperado 22/09)") — 354 atletas, 11 titulares (★), 22 com salário, folha de **R$ 2,205 MM/mês**: R$ 205 mil acima dos R$ 2,0 MM da premissa. Cada titular contra o estudo V2 (nota = aderência ao modelo que rende na B + nível do ranking; físico SkillCorner; bola parada Sofascore 2024–26; tipo físico do Bloco 8). Versão anterior: 23/09.*
+*Grupo lido da nuvem em 25/09/2026, 20h08: "Cenário 1 2027" (renomeado; antes "· 343 (recuperado 22/09)") — 354 atletas, 11 titulares (★), 22 com salário, folha de **R$ 2,205 MM/mês**: R$ 205 mil acima dos R$ 2,0 MM da premissa. Cada titular contra o estudo V2 (nota = aderência ao modelo que rende na B + nível do ranking; físico SkillCorner; bola parada Sofascore 2024–26; tipo físico do F2). Versão anterior: 23/09.*
 
 **O que mudou desde 23/09:** saíram do onze Luccas Claro, Marllon e Crystopher (virou reserva); entraram Vitor Mendes (ZE), Rodriguinho (MED) e Heinz Mörschel (MEI). Três dos seis nomes mais caros de 23/09 já não são titulares — o grupo caminhou na direção do estudo.
 
@@ -8,7 +8,7 @@
 
 ## Titulares, um a um
 
-| Pos | Jogador | Clube | Idade | Salário | Nota V2 | Físico (PSV-99) | Tipo físico (B8) | Bola parada 24–26 | Leitura |
+| Pos | Jogador | Clube | Idade | Salário | Nota V2 | Físico (PSV-99) | Tipo físico (F2) | Bola parada 24–26 | Leitura |
 |---|---|---|---|---|---|---|---|---|---|
 | GOL | **Paulo Vítor** | Atlético-GO | 37 | 70 | 61 | sem rastreio | — | 1 g | 5º goleiro da B. Barato. **Jandrei** (83, livre dez/26) é o nº 1 do estudo |
 | LD | **Willean Lepo** | Criciúma | 29 | 120 | **66** | 29,7 ✓ · arrancadas 2,5 (ref. 1,6) | Explosivo e rápido ✓ | 1 g · 1 a | O melhor LD da B, no tipo físico de quem sobe. **Contrato até dez/27**: depende do Criciúma |
@@ -22,7 +22,7 @@
 | EE | **Keno** | Coritiba (A) | 36 | 150 | sem dado | sem dado | — | — | 36 anos, sem minutos na base. **Dadá Belmonte** (70, livre, já no grupo a R$ 90) é o EE do estudo |
 | CA | **Robson** | Novorizontino | 35 | **180** | **71** | 29,1 ✓ · área 14,1 (ref. 9,7) | Motor de volume ✓ | **3 g · 3 a** | O dado sustenta: melhor CA livre da B, tipo físico de quem sobe, corre para a área e produz bola parada. Risco é a idade |
 
-Legenda: salário em R$ mil/mês; nota V2 só existe para quem jogou a Série B 2026 (\* = só aderência); ✓ = passa o piso de 27 km/h; ref. = mediana dos titulares dos times que renderam acima do dinheiro; tipo ✓ = tipo físico que quem sobe mais usa (B15), ✗ = tipo de quem cai.
+Legenda: salário em R$ mil/mês; nota V2 só existe para quem jogou a Série B 2026 (\* = só aderência); ✓ = passa o piso de 27 km/h; ref. = mediana dos titulares dos times que renderam acima do dinheiro; tipo ✓ = tipo físico que quem sobe mais usa (F2), ✗ = tipo de quem cai.
 
 ## Reservas com salário (11)
 
@@ -54,6 +54,6 @@ Legenda: salário em R$ mil/mês; nota V2 só existe para quem jogou a Série B 
 Com as trocas, 8 dos 11 titulares são livres da própria Série B e a folha cai para perto de **R$ 1,95 MM** — o que sai com Carvalho, Keno e Mörschel paga Frizzo, André Luiz e Brey.
 
 ## A conferir
-- **Robson (35):** a idade não custa ponto no estudo (B5-3), mas contrato de um ano.
+- **Robson (35):** a idade não custa ponto no estudo (M1-3), mas contrato de um ano.
 - **Lepo e Rodriguinho:** contratos até dez/27 — os dois titulares que não são passe zero.
 - **Mateus Carvalho, Keno, Mörschel:** sem minutos de Série B; se ficarem, é por informação que o estudo não tem (vídeo, scouts).
