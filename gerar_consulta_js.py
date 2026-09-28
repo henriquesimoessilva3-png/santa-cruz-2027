@@ -100,6 +100,22 @@ def main():
         return round(sum(a * w for a, w in v) / sum(w for _, w in v)) if len(v) >= 2 else np.nan
     D["cob"] = [cob_idx(r) for _, r in D.iterrows()]
     D["cob_esc"] = (D["Corners per 90"] * pd.to_numeric(D.minutos, errors="coerce") / 90).round(0); D["cob_fal"] = (D["Free kicks per 90"] * pd.to_numeric(D.minutos, errors="coerce") / 90).round(0)
+    # quantis por liga (0..100) dos indicadores do jogo aéreo e do cobrador — o app calcula o índice de um jogador
+    # colado à mão (físico/técnico atualizado) contra a mesma régua
+    Q = {}
+    grid = np.arange(0, 1.0001, 0.01)
+    for liga, g in D.groupby("liga"):
+        if len(g) < 30: continue
+        e = {}
+        for en, _ in FIN:
+            v = g.loc[g.pos11 != "GOL", en].dropna()
+            if len(v) >= 20: e[en] = [round(float(x), 3) for x in v.quantile(grid)]
+        v = g.loc[(g.pos11 != "GOL") & (g["Aerial duels per 90"] >= 2.5), "Aerial duels won, %"].dropna()
+        if len(v) >= 20: e["won25"] = [round(float(x), 3) for x in v.quantile(grid)]
+        for en, _ in COB:
+            v = g[en].dropna()
+            if len(v) >= 20: e[en] = [round(float(x), 3) for x in v.quantile(grid)]
+        Q["Série B" if liga == "Brasil B" else liga] = e
     D["aer_won"] = D["Aerial duels won, %"]; D["aer_n"] = D["Aerial duels per 90"]; D["aer_g"] = D["Head goals"]
     rows = []
     for r in D.itertuples():
@@ -124,7 +140,7 @@ def main():
                    dez=(None if r.k not in ideal.index else {"ordem": int(ideal.loc[r.k].ordem), "pontos": float(ideal.loc[r.k].score)}))
         rows.append(rec)
     cen = json.load(open(os.path.join(V2, "resultados", "b15", "centroides.json"), encoding="utf-8"))
-    out = {"gerado_em": pd.Timestamp.now().strftime("%Y-%m-%d"), "n": len(rows), "pref": pref, "cai": cai, "cen": cen, "teto": TETO_VALOR,
+    out = {"gerado_em": pd.Timestamp.now().strftime("%Y-%m-%d"), "n": len(rows), "pref": pref, "cai": cai, "cen": cen, "q": Q, "teto": TETO_VALOR,
            "regua": {"psv": 27, "ader_bom": 65, "ader_ok": 50, "nota_bom": 65, "nota_ok": 55},
            "jogadores": rows}
     with open(SAIDA, "w", encoding="utf-8") as fh:

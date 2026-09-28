@@ -984,6 +984,7 @@ function abrirManual(j) {
   manualEditando = j ? j.uid : null;
   $('#mnTitulo').textContent = j ? 'Editar ' + j.nome : 'Jogador fora da base';
   $('#btManualOk').textContent = j ? 'Salvar' : 'Adicionar';
+  if ($('#btManualDados')) $('#btManualDados').style.display = j ? 'none' : '';
   $('#mnNome').value = j ? j.nome : '';
   $('#mnClube').value = j ? (j.clube === 'sem clube' ? '' : j.clube) : '';
   $('#mnIdade').value = j && j.idade ? j.idade : '';
@@ -1173,7 +1174,7 @@ function cardJog(cod, j) {
          card inteiro isso virou repetição — a mesma informação em dois lugares, gastando
          espaço do nome no card mais disputado da tela. Quem define o nível é o menu ⋯,
          em Status. */
-      raioIcone(j.pk) +
+      raioIcone(j.pk, j) +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
       '<span class="nm">' + esc(nomeCurto(j.nome, limiteNome(j, cod))) + '</span>' + '</div>' +
@@ -1352,6 +1353,7 @@ function abrirMenuJogador(botao, cod, j) {
   m.innerHTML =
     (j.jid != null ? '<button data-a="ficha">Ver ficha do jogador</button>' : '') +
     (j.manual ? '<button data-a="editar">Editar dados do jogador</button>' : '') +
+    '<button data-a="dados">Físico e técnico' + (j.dados ? ' <i class="menu-nota">colados à mão' + (j.dados.em ? ' em ' + j.dados.em : '') + '</i>' : ' <i class="menu-nota">colar SkillCorner / Wyscout</i>') + '</button>' +
     '<button data-a="empresario">Empresário e contato</button>' +
     '<button data-a="estrangeiro">' + (j.estrangeiro ? 'Marcar como brasileiro' : 'Marcar como estrangeiro') + '</button>' +
     /* DOIS status, e os nomes precisam separa-los: "Status" e o nivel do atleta no elenco
@@ -1400,6 +1402,8 @@ function abrirMenuJogador(botao, cod, j) {
       return moverJogador({ pos: cod, uid: j.uid }, a.slice(3), null, false);
     } else if (a === 'editar') {
       m.remove(); abrirManual(j); return;
+    } else if (a === 'dados') {
+      m.remove(); abrirDados(cod, j.uid); return;
     } else if (a === 'remover') {
       estado.elenco[cod] = estado.elenco[cod].filter(x => x.uid !== j.uid);
     }
@@ -6407,8 +6411,8 @@ function fichaCoorte(pos) {
   });
   return (FICHA_CO[pos] = { lista, ord });
 }
-function raioIconeV2(pk) {
-  const j = fsJogadorPk(pk);
+function raioIconeV2(pk, obj) {
+  const j = obj || fsJogadorPk(pk);
   if (!j || j.p === 'GOL' || !FICHA.posicoes[j.p]) return '';
   const svg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>';
   const f = typeof j.psv === 'number' ? fichaV2(fichaCoorte(j.p), j, j.p, false) : null;
@@ -6453,6 +6457,7 @@ function tipoNorm(t) { return String(t || '').normalize('NFD').replace(/[\u0300-
 function csRegistro(j, filtro) {
   /* o registro da Consulta (consulta_dados.js) deste jogador: nome + clube, ou nome quando é único */
   const D = window.CONSULTA; if (!D || !j) return null;
+  if (j._card && j._card.dados && j._card.dados.tec) { const m = indicesManuais(j._card); return m && (!filtro || filtro(m)) ? m : null; }
   if (!TIPO_IDX) {
     TIPO_IDX = { nc: new Map(), n: new Map() };
     D.jogadores.forEach(x => {
@@ -6472,13 +6477,13 @@ function aereoBadge(j) {
   const t = 'Destaque no jogo aéreo: índice ' + x.aer + ' na liga (percentil entre jogadores de linha com ≥ 2,5 duelos aéreos/90) — ' +
     (x.aer_won != null ? x.aer_won + '% dos duelos aéreos ganhos, ' : '') + (x.aer_n != null ? x.aer_n + ' por jogo, ' : '') + (x.aer_g != null ? x.aer_g + ' gol(s) de cabeça' : '') +
     '. Ganhar duelo aéreo e gol de bola parada estão entre o que faz subir (T1, T2); ▲ = índice ≥ 80.';
-  return '<span class="aer-badge" title="' + esc(t) + '">▲</span>';
+  return '<span class="aer-badge" title="' + esc(t + (x.manual ? ' (dado colado à mão)' : '')) + '">▲</span>';
 }
 /* △ = ganha duelo aéreo: % de duelos aéreos ganhos no percentil ≥ 80 da liga (entre jogadores de linha com ≥ 2,5 duelos/90) */
 function aereoDefBadge(j) {
   const x = csRegistro(j, x => x.aer_dp != null); if (!x || x.aer_dp < 80) return '';
   const t = 'Ganha duelo aéreo: ' + x.aer_won + '% dos duelos aéreos ganhos (' + x.aer_n + ' por jogo) — percentil ' + x.aer_dp + ' da liga entre jogadores de linha com ≥ 2,5 duelos/90. △ = percentil ≥ 80 (T1: ganhar duelo aéreo está entre o que faz subir).';
-  return '<span class="aer-badge aer-def" title="' + esc(t) + '">△</span>';
+  return '<span class="aer-badge aer-def" title="' + esc(t + (x.manual ? ' (dado colado à mão)' : '')) + '">△</span>';
 }
 var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
 /* quem tem físico mas não está nas listas (Série A, ligas de fora do recorte, < 900 min): o tipo é
@@ -6500,7 +6505,7 @@ function cobradorBadge(j) {
   const x = csRegistro(j, x => x.cob != null); if (!x || x.cob < 80) return '';
   const t = 'Cobrador de bola parada: índice ' + x.cob + ' na liga' + (x.cob_esc != null ? ' — ' + x.cob_esc + ' escanteios e ' + x.cob_fal + ' faltas cobradas na temporada' : '') +
     '. Escanteios/90 e faltas cobradas/90 pesam 3; faltas diretas, no alvo %, xA/90 e cruzamento certo % pesam 1 (T2). ⚑ = índice ≥ 80.';
-  return '<span class="cob-badge" title="' + esc(t) + '">⚑</span>';
+  return '<span class="cob-badge" title="' + esc(t + (x.manual ? ' (dado colado à mão)' : '')) + '">⚑</span>';
 }
 /* a letra A/B/C de um jogador da base, como dado (a busca filtra por ela) */
 function tipoLetra(j) {
@@ -6515,9 +6520,9 @@ function sinaisDe(j) {
   const x = csRegistro(j) || {};
   return { letra: tipoLetra(j), aer: (x.aer || 0) >= 80, def: (x.aer_dp || 0) >= 80, cob: (x.cob || 0) >= 80 };
 }
-function tipoBadge(pk) {
+function tipoBadge(pk, obj) {
   if (!BASE.length || !window.CONSULTA) return '';
-  const j = fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
+  const j = obj || fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
   let x = tipoDe(j);
   if (!x || !x.tipo) { const t = tipoCalc(j); if (!t) return ''; x = { tipo: t, p: j.p, calc: true }; }
   const D = window.CONSULTA, pos = x.p || j.p;
@@ -6535,12 +6540,48 @@ function tipoBadge(pk) {
   return '<span class="tipo-abc tipo-' + g + '" title="' + esc(t) + '">' + g + '</span>';
 }
 
-function raioIcone(pk) {
-  const r = raioIconeBase(pk);
-  try { const j = BASE.length ? fsJogadorPk(pk) : null; return r + tipoBadge(pk) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
+function raioIcone(pk, card) {
+  /* `card` = o jogador do elenco (estado.elenco): quando ele tem dados colados à mão (card.dados),
+     o objeto montado por dadosDoCard substitui o da base no raio, na letra e nos sinais */
+  const obj = card && card.dados ? dadosDoCard(card) : null;
+  const r = raioIconeBase(pk, obj);
+  try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
-function raioIconeBase(pk) {
-  if (FICHA && BASE.length) return raioIconeV2(pk);
+/* ---------------- físico e técnico colados à mão (card.dados) ----------------
+   card.dados = { liga, fis: {psv, spr_n, hi_n, expl, dist, obr, obr_area, sc_n, min}, tec: {aer_won, aer_n, aer_g90, aer_g, alt,
+   cor90, fk90, dfk90, dfk_on, xa90, cross_pct}, em: 'aaaa-mm-dd' }. O físico entra no objeto do jogador (raio, tipo); o técnico vira
+   índice do jogo aéreo e do cobrador contra os quantis da liga (CONSULTA.q). */
+function dadosDoCard(card) {
+  const base = (card.pk && fsJogadorPk(card.pk)) || null;
+  const o = Object.assign({}, base || { n: card.nome, t: card.clube || '', l: card.liga || (card.dados && card.dados.liga) || 'Série B', p: card.posOrig || card.pos || '', nac: card.nac || '' });
+  if (!o.p && card.posOrig) o.p = card.posOrig;
+  const d = card.dados || {};
+  if (d.fis) { Object.keys(d.fis).forEach(k => { if (d.fis[k] != null) o[k] = d.fis[k]; }); o.fis_src = null; }
+  if (d.liga) o.l = d.liga;
+  o._card = card;
+  return o;
+}
+function pctQ(liga, ind, v) {
+  /* percentil de v contra os quantis (0..100) da liga em CONSULTA.q; null se a liga/indicador não existe */
+  const Q = window.CONSULTA && window.CONSULTA.q; const q = Q && (Q[liga] || Q['Série B']) && (Q[liga] || Q['Série B'])[ind];
+  if (!q || v == null || !isFinite(v)) return null;
+  let n = 0; for (const x of q) { if (x < v) n++; else break; }
+  return Math.min(100, n);
+}
+function indicesManuais(card) {
+  /* os mesmos campos do registro da Consulta (aer, aer_dp, cob…), calculados do técnico colado */
+  const d = card.dados, t = d && d.tec; if (!t) return null;
+  const liga = d.liga || card.liga || 'Série B';
+  const FIN = [['Head goals per 90', t.aer_g90, 3], ['Head goals', t.aer_g, 2], ['Aerial duels won, %', t.aer_won, 2], ['Aerial duels per 90', t.aer_n, 2], ['Height', t.alt, 1]];
+  const COB = [['Corners per 90', t.cor90, 3], ['Free kicks per 90', t.fk90, 3], ['Direct free kicks per 90', t.dfk90, 1], ['Direct free kicks on target, %', t.dfk_on, 1], ['xA per 90', t.xa90, 1], ['Accurate crosses, %', t.cross_pct, 1]];
+  const idx = lst => { let sw = 0, sv = 0, n = 0; lst.forEach(([ind, v, w]) => { const p = pctQ(liga, ind, v); if (p != null) { sv += p * w; sw += w; n++; } }); return n >= 2 ? Math.round(sv / sw) : null; };
+  const aer = (t.aer_n != null && t.aer_n >= 2.5) ? idx(FIN) : null;
+  const aer_dp = (t.aer_n != null && t.aer_n >= 2.5) ? pctQ(liga, 'won25', t.aer_won) : null;
+  return { aer, aer_dp, aer_won: t.aer_won != null ? Math.round(t.aer_won) : null, aer_n: t.aer_n, aer_g: t.aer_g, cob: idx(COB), cob_esc: t.cor90 != null && t.min ? Math.round(t.cor90 * t.min / 90) : null, cob_fal: t.fk90 != null && t.min ? Math.round(t.fk90 * t.min / 90) : null, manual: true };
+}
+function raioIconeBase(pk, obj) {
+  if (FICHA && BASE.length) return raioIconeV2(pk, obj);
+  if (obj) return '';
   const o = raioMapa().get(pk);
   if (!o) return '';
   const rp = RAIO.refs[o.pos] || {};
@@ -7042,6 +7083,7 @@ function ligar() {
   };
 
   $('#btManual').onclick = () => abrirManual(null);
+  ligarDados();
   $('#btManualOk').onclick = () => {
     const nome = $('#mnNome').value.trim();
     if (!nome) { toast('Informe o nome', 'ruim'); return; }
@@ -7076,6 +7118,124 @@ function ligar() {
     $('#modalManual').classList.remove('aberto');
     salvarLocal(); render();
     toast(nome + ' adicionado em ' + sig(posAtual), 'bom');
+  };
+}
+
+/* ---------------- modal "Físico e técnico" (dados colados à mão) ---------------- */
+let dadosEditando = null;   /* { cod, uid } */
+const MD_FIS = { psv: ['PSV-99'], spr_n: ['Sprint Count P90'], hi_n: ['HI Count P90'], expl: ['Explosive Acceleration to Sprint Count P90'], dist: ['Distance P90'],
+                 min: ['Minutes'], sc_n: ['Count Performances (Physical Check passed)', 'Count Performances'] };
+const MD_TEC = { aer_won: ['Aerial duels won, %', 'Duelos aéreos ganhos, %'], aer_n: ['Aerial duels per 90', 'Duelos aéreos/90'], aer_g90: ['Head goals per 90', 'Golos de cabeça/90', 'Gols de cabeça/90'],
+                 aer_g: ['Head goals', 'Golos de cabeça', 'Gols de cabeça'], alt: ['Height', 'Altura'], cor90: ['Corners per 90', 'Cantos/90', 'Escanteios/90'], fk90: ['Free kicks per 90', 'Livres/90', 'Faltas cobradas/90'],
+                 dfk90: ['Direct free kicks per 90', 'Livres directos/90', 'Faltas diretas/90'], dfk_on: ['Direct free kicks on target, %', 'Pontapés livres directos à baliza, %', 'Faltas diretas no alvo, %'],
+                 xa90: ['xA per 90', 'Assistências esperadas/90'], cross_pct: ['Accurate crosses, %', 'Cruzamentos certos, %'], min: ['Minutes played', 'Minutos jogados'] };
+const MD_ROT = { psv: 'PSV-99', spr_n: 'sprints/90', hi_n: 'alta int./90', expl: 'arrancadas/90', dist: 'distância/90', min: 'min', sc_n: 'jogos', obr: 'corridas s/ bola', obr_area: 'p/ área',
+                 aer_won: 'aéreos ganhos %', aer_n: 'aéreos/90', aer_g90: 'gols cabeça/90', aer_g: 'gols cabeça', alt: 'altura', cor90: 'escanteios/90', fk90: 'faltas/90', dfk90: 'diretas/90', dfk_on: 'diretas no alvo %', xa90: 'xA/90', cross_pct: 'cruz. certos %' };
+let mdFis = null, mdTec = null;
+function mdNum(v) { if (v == null) return null; const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : null; }
+function mdLinhas(texto, sep) {
+  /* CSV simples com aspas: devolve [[cabeçalho...], [linha...], ...] */
+  const out = []; let campo = '', linha = [], q = false;
+  for (let i = 0; i < texto.length; i++) {
+    const c = texto[i];
+    if (q) { if (c === '"' && texto[i + 1] === '"') { campo += '"'; i++; } else if (c === '"') q = false; else campo += c; }
+    else if (c === '"') q = true;
+    else if (c === sep) { linha.push(campo); campo = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && texto[i + 1] === '\n') i++; linha.push(campo); if (linha.some(x => x !== '')) out.push(linha); linha = []; campo = ''; }
+    else campo += c;
+  }
+  linha.push(campo); if (linha.some(x => x !== '')) out.push(linha);
+  return out;
+}
+function mdSep(texto) { const l = texto.split(/\r?\n/)[0] || ''; return (l.match(/;/g) || []).length >= (l.match(/,/g) || []).length ? ';' : ','; }
+function mdMapear(cab, linha, MAPA) {
+  const idx = {}; cab.forEach((c, i) => idx[tipoNorm(c)] = i);
+  const o = {}; let n = 0;
+  Object.entries(MAPA).forEach(([k, nomes]) => { for (const nm of nomes) { const i = idx[tipoNorm(nm)]; if (i != null) { const v = mdNum(linha[i]); if (v != null) { o[k] = v; n++; } break; } } });
+  return n ? o : null;
+}
+function mdEscolherLinha(linhas, nome) {
+  /* várias linhas: a do jogador (nome parecido), senão a primeira com números */
+  if (linhas.length <= 1) return linhas[0] || null;
+  const alvo = tipoNorm(nome || '');
+  const achada = alvo ? linhas.find(l => l.some(c => tipoNorm(c) === alvo || (alvo.length > 6 && tipoNorm(c).includes(alvo)))) : null;
+  return achada || linhas[0];
+}
+function mdPrevia(o, MAPA, el, rot) {
+  if (!o) { el.innerHTML = '<span style="color:#e57373">não reconheci as colunas — confira o cabeçalho</span>'; return; }
+  el.innerHTML = rot + ': ' + Object.keys(MAPA).filter(k => o[k] != null).map(k => '<b>' + esc(MD_ROT[k] || k) + '</b> ' + o[k]).join(' · ');
+}
+function mdLerFis(texto) {
+  const L = mdLinhas(texto.trim(), mdSep(texto)); if (L.length < 2) return null;
+  const linha = mdEscolherLinha(L.slice(1), $('#mdTitulo').dataset.nome);
+  return mdMapear(L[0], linha, MD_FIS);
+}
+function mdLerTec(texto) {
+  const L = mdLinhas(texto.trim(), mdSep(texto)); if (L.length < 2) return null;
+  return mdMapear(L[0], mdEscolherLinha(L.slice(1), $('#mdTitulo').dataset.nome), MD_TEC);
+}
+async function mdXlsx(arq) {
+  /* SheetJS carregado só quando alguém envia um .xlsx */
+  if (!window.XLSX) await new Promise((ok, erro) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'; sc.onload = ok; sc.onerror = erro; document.head.appendChild(sc); });
+  const buf = await arq.arrayBuffer(); const wb = XLSX.read(buf, { type: 'array' }); const ws = wb.Sheets[wb.SheetNames[0]];
+  const A = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: '' }).filter(l => l.some(x => x !== ''));
+  if (A.length < 2) return null;
+  return mdMapear(A[0].map(String), mdEscolherLinha(A.slice(1), $('#mdTitulo').dataset.nome).map(x => x == null ? '' : String(x)), MD_TEC);
+}
+function cardPor(cod, uid) { return (estado.elenco[cod] || []).find(x => x.uid === uid) || null; }
+function abrirDados(cod, uid) {
+  const j = cardPor(cod, uid); if (!j) return;
+  dadosEditando = { cod, uid }; mdFis = null; mdTec = null;
+  const t = $('#mdTitulo'); t.textContent = 'Físico e técnico · ' + j.nome; t.dataset.nome = j.nome;
+  const Q = (window.CONSULTA && window.CONSULTA.q) || {};
+  const ligas = Object.keys(Q).sort((a, b) => a === 'Série B' ? -1 : b === 'Série B' ? 1 : a.localeCompare(b));
+  const atual = (j.dados && j.dados.liga) || j.liga || 'Série B';
+  $('#mdLiga').innerHTML = ligas.map(l => '<option value="' + esc(l) + '"' + (l === atual ? ' selected' : '') + '>' + esc(l) + '</option>').join('');
+  if (!ligas.includes(atual)) $('#mdLiga').insertAdjacentHTML('afterbegin', '<option value="' + esc(atual) + '" selected>' + esc(atual) + '</option>');
+  $('#mdFisCsv').value = ''; $('#mdFisArq').value = ''; $('#mdTecArq').value = ''; $('#mdFisPrev').innerHTML = ''; $('#mdTecPrev').innerHTML = '';
+  $('#mdObr').value = j.dados && j.dados.fis && j.dados.fis.obr != null ? j.dados.fis.obr : ''; $('#mdObrArea').value = j.dados && j.dados.fis && j.dados.fis.obr_area != null ? j.dados.fis.obr_area : '';
+  const d = j.dados;
+  $('#mdAtual').innerHTML = d ? 'Hoje: dados colados em <b>' + esc(d.em || '?') + '</b>' + (d.fis ? ' · físico: ' + Object.keys(MD_FIS).concat(['obr', 'obr_area']).filter(k => d.fis[k] != null).map(k => (MD_ROT[k] || k) + ' ' + d.fis[k]).join(', ') : '') + (d.tec ? ' · técnico: ' + Object.keys(MD_TEC).filter(k => d.tec[k] != null).map(k => (MD_ROT[k] || k) + ' ' + d.tec[k]).join(', ') : '') + '. O que você colar agora substitui só a parte enviada.'
+    : 'Hoje: ' + (j.pk && fsJogadorPk(j.pk) ? 'números da base (' + esc(j.clube || '') + ')' : 'sem físico e sem técnico — o card não tem raio nem letra') + '.';
+  $('#mdLimpar').style.display = d ? '' : 'none';
+  $('#modalDados').classList.add('aberto');
+}
+function ligarDados() {
+  $('#mdFisCsv').oninput = () => { const v = $('#mdFisCsv').value; if (!v.trim()) { mdFis = null; $('#mdFisPrev').innerHTML = ''; return; } mdFis = mdLerFis(v); mdPrevia(mdFis, MD_FIS, $('#mdFisPrev'), 'Físico lido'); };
+  $('#mdFisArq').onchange = async () => { const a = $('#mdFisArq').files[0]; if (!a) return; mdFis = mdLerFis(await a.text()); mdPrevia(mdFis, MD_FIS, $('#mdFisPrev'), 'Físico lido de ' + a.name); };
+  $('#mdTecArq').onchange = async () => {
+    const a = $('#mdTecArq').files[0]; if (!a) return;
+    try { mdTec = /\.xlsx?$/i.test(a.name) ? await mdXlsx(a) : mdLerTec(await a.text()); }
+    catch (e) { console.warn(e); mdTec = null; }
+    mdPrevia(mdTec, MD_TEC, $('#mdTecPrev'), 'Técnico lido de ' + a.name);
+  };
+  $('#mdOk').onclick = () => {
+    if (!dadosEditando) return;
+    const j = cardPor(dadosEditando.cod, dadosEditando.uid); if (!j) return;
+    const obr = mdNum($('#mdObr').value), obrA = mdNum($('#mdObrArea').value);
+    if (!mdFis && !mdTec && obr == null && obrA == null) { toast('Cole o físico ou envie o técnico', 'ruim'); return; }
+    const d = Object.assign({}, j.dados || {});
+    d.liga = $('#mdLiga').value; d.em = new Date().toISOString().slice(0, 10);
+    if (mdFis) d.fis = Object.assign({}, d.fis || {}, mdFis);
+    if (obr != null || obrA != null) d.fis = Object.assign({}, d.fis || {}, obr != null ? { obr } : {}, obrA != null ? { obr_area: obrA } : {});
+    if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(5, Math.round(d.fis.min / 90));   /* sem contagem de jogos, estima pelos minutos */
+    if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
+    j.dados = d;
+    $('#modalDados').classList.remove('aberto'); dadosEditando = null;
+    salvarLocal(); render();
+    toast(j.nome + ': físico/técnico atualizados', 'bom');
+  };
+  $('#mdLimpar').onclick = () => {
+    if (!dadosEditando) return;
+    const j = cardPor(dadosEditando.cod, dadosEditando.uid); if (!j) return;
+    delete j.dados; $('#modalDados').classList.remove('aberto'); dadosEditando = null; salvarLocal(); render();
+    toast(j.nome + ': volta aos números da base', 'bom');
+  };
+  $('#btManualDados').onclick = () => {
+    const antes = new Set((estado.elenco[posAtual] || []).map(x => x.uid)), cod = posAtual;
+    $('#btManualOk').click();
+    const novo = (estado.elenco[cod] || []).find(x => !antes.has(x.uid));
+    if (novo) { $('#modalManual').classList.remove('aberto'); abrirDados(cod, novo.uid); }
   };
 }
 
