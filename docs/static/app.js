@@ -6508,11 +6508,18 @@ function cobradorBadge(j) {
   return '<span class="cob-badge" title="' + esc(t + (x.manual ? ' (dado colado à mão)' : '')) + '">⚑</span>';
 }
 /* a letra A/B/C de um jogador da base, como dado (a busca filtra por ela) */
+/* o tipo que vale para a posição do APP: o do estudo só serve se for do mesmo setor (os tipos têm nomes por setor —
+   "motor de volume" é de zaga/atacante, "mais intenso" é de volante); se o estudo o tem em outro setor (ex.: ZD no
+   Wyscout, DM aqui), recalcula pelo centróide do setor da posição do app */
+function tipoResolvido(j) {
+  const x = tipoDe(j);
+  if (x && x.tipo && TIPO_SET[x.p] === TIPO_SET[j.p]) return x;
+  const t = tipoCalc(j); return t ? { tipo: t, p: j.p, calc: true } : null;
+}
 function tipoLetra(j) {
   if (!j || j.p === 'GOL' || !window.CONSULTA) return null;
-  let x = tipoDe(j);
-  if (!x || !x.tipo) { const t = tipoCalc(j); if (!t) return null; x = { tipo: t, p: j.p, calc: true }; }
-  const D = window.CONSULTA, pos = x.p || j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
+  const x = tipoResolvido(j); if (!x) return null;
+  const D = window.CONSULTA, pos = j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
   return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) ? 'C' : 'B';
 }
 function sinaisDe(j) {
@@ -6523,9 +6530,8 @@ function sinaisDe(j) {
 function tipoBadge(pk, obj) {
   if (!BASE.length || !window.CONSULTA) return '';
   const j = obj || fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
-  let x = tipoDe(j);
-  if (!x || !x.tipo) { const t = tipoCalc(j); if (!t) return ''; x = { tipo: t, p: j.p, calc: true }; }
-  const D = window.CONSULTA, pos = x.p || j.p;
+  const x = tipoResolvido(j); if (!x) return '';
+  const D = window.CONSULTA, pos = j.p;   /* a posição é a do app (onde ele joga aqui), não a do estudo */
   const pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
   let g, leitura;
   if (pref.includes(x.tipo)) { g = 'A'; leitura = 'o tipo que quem sobe usa no ' + (TIPO_POSN[pos] || pos); }
