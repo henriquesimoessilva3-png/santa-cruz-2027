@@ -81,6 +81,10 @@ def main():
         v = [(r[en + "_aer"], w) for en, w in FIN if pd.notna(r.get(en + "_aer"))]
         return round(sum(a * w for a, w in v) / sum(w for _, w in v)) if len(v) >= 2 else np.nan
     D["aer"] = [aer_idx(r) for _, r in D.iterrows()]
+    # duelo aéreo defensivo/geral: só o % de duelos aéreos ganhos, percentil na liga entre jogadores de linha com ≥ 2,5 duelos/90
+    D["aer_dp"] = np.where(lin & (D["Aerial duels per 90"] >= 2.5), D["Aerial duels won, %_aer"], np.nan)
+    m25 = lin & (D["Aerial duels per 90"] >= 2.5)
+    D.loc[m25, "aer_dp"] = D[m25].groupby("liga")["Aerial duels won, %"].rank(pct=True) * 100
     D["aer_won"] = D["Aerial duels won, %"]; D["aer_n"] = D["Aerial duels per 90"]; D["aer_g"] = D["Head goals"]
     rows = []
     for r in D.itertuples():
@@ -99,7 +103,7 @@ def main():
                    xg=(None if pd.isna(r.xg90) else round(float(r.xg90), 2)), xg_p=(None if pd.isna(r.xg_p) else round(float(r.xg_p))),
                    tipo=(None if pd.isna(r.tipo) else r.tipo), tpref=(bool(r.tipo_pref) if pd.notna(r.tipo_pref) else None),
                    alc=bool((r.liga == "Brasil B") or (r.mercado == "Sul-americano") or (r.mercado == "Exterior" and r.liga in L.ALCANCAVEIS and bool(r.sul_americano))) and r.clube not in GRANDES,
-                   bp=bp.get(r.k), aer=(None if pd.isna(r.aer) else int(r.aer)), aer_won=(None if pd.isna(r.aer_won) else round(float(r.aer_won))), aer_n=(None if pd.isna(r.aer_n) else round(float(r.aer_n), 1)), aer_g=(None if pd.isna(r.aer_g) else int(r.aer_g)), vet=bool(fora(r.jogador, r.clube)), caro=bool(v > TETO_VALOR) if pd.notna(v) else False,
+                   bp=bp.get(r.k), aer=(None if pd.isna(r.aer) else int(r.aer)), aer_won=(None if pd.isna(r.aer_won) else round(float(r.aer_won))), aer_n=(None if pd.isna(r.aer_n) else round(float(r.aer_n), 1)), aer_g=(None if pd.isna(r.aer_g) else int(r.aer_g)), aer_dp=(None if pd.isna(r.aer_dp) else int(round(r.aer_dp))), vet=bool(fora(r.jogador, r.clube)), caro=bool(v > TETO_VALOR) if pd.notna(v) else False,
                    pa=(None if r.k not in pa.index else {"tec": (None if pd.isna(pa.loc[r.k].tec_A) else round(float(pa.loc[r.k].tec_A))), "fis": (None if pd.isna(pa.loc[r.k].fis_A) else round(float(pa.loc[r.k].fis_A)))}),
                    sofa=(None if (r.liga != "Brasil B" or r.chave not in sj.index) else {"nota": round(float(sj.loc[r.chave].nota_media), 2), "xgxa": round(float(sj.loc[r.chave].expectedGoals_p90 or 0) + float(sj.loc[r.chave].expectedAssists_p90 or 0), 2), "vmax": (None if pd.isna(sj.loc[r.chave].topSpeed) else round(float(sj.loc[r.chave].topSpeed), 1)), "tit": int(sj.loc[r.chave].titularidades), "jogos": int(sj.loc[r.chave].jogos)}),
                    dez=(None if r.k not in ideal.index else {"ordem": int(ideal.loc[r.k].ordem), "pontos": float(ideal.loc[r.k].score)}))

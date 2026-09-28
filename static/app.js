@@ -6464,6 +6464,12 @@ function aereoBadge(j) {
     '. Ganhar duelo aéreo e gol de bola parada estão entre o que faz subir (T1, T2); ▲ = índice ≥ 80.';
   return '<span class="aer-badge" title="' + esc(t) + '">▲</span>';
 }
+/* △ = ganha duelo aéreo: % de duelos aéreos ganhos no percentil ≥ 80 da liga (entre jogadores de linha com ≥ 2,5 duelos/90) */
+function aereoDefBadge(j) {
+  const x = csRegistro(j, x => x.aer_dp != null); if (!x || x.aer_dp < 80) return '';
+  const t = 'Ganha duelo aéreo: ' + x.aer_won + '% dos duelos aéreos ganhos (' + x.aer_n + ' por jogo) — percentil ' + x.aer_dp + ' da liga entre jogadores de linha com ≥ 2,5 duelos/90. △ = percentil ≥ 80 (T1: ganhar duelo aéreo está entre o que faz subir).';
+  return '<span class="aer-badge aer-def" title="' + esc(t) + '">△</span>';
+}
 var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
 /* quem tem físico mas não está nas listas (Série A, ligas de fora do recorte, < 900 min): o tipo é
    calculado aqui, pelo centróide mais próximo do setor (os mesmos seis indicadores do F2, em z da Série B) */
@@ -6495,7 +6501,7 @@ function tipoBadge(pk) {
 
 function raioIcone(pk) {
   const r = raioIconeBase(pk);
-  try { const j = BASE.length ? fsJogadorPk(pk) : null; return r + tipoBadge(pk) + (j ? aereoBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
+  try { const j = BASE.length ? fsJogadorPk(pk) : null; return r + tipoBadge(pk) + (j ? aereoBadge(j) + aereoDefBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
 function raioIconeBase(pk) {
   if (FICHA && BASE.length) return raioIconeV2(pk);

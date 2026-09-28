@@ -3629,3 +3629,4 @@ body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
 .tipo-abc { display: inline-flex; align-items: center; justify-content: center; min-width: 14px; height: 14px; padding: 0 3px; margin: 0 3px 0 1px; border-radius: 3px; font: 700 10px/1 system-ui, sans-serif; color: #fff; vertical-align: middle; cursor: help; }
 .tipo-A { background: #22c55e; } .tipo-B { background: #eab308; color: #1a1a1a; } .tipo-C { background: #ef4444; }
 .aer-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 14px; height: 14px; margin: 0 3px 0 0; border-radius: 3px; background: #1e3a8a; color: #fff; font: 700 9px/1 system-ui, sans-serif; vertical-align: middle; cursor: help; }
+.aer-badge.aer-def { background: #fff; color: #1e3a8a; border: 1px solid #1e3a8a; }
