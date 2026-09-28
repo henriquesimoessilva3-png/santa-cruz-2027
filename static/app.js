@@ -1731,6 +1731,7 @@ function abrirBusca(cod) {
   $('#mbTitulo').textContent = 'Escolher jogador · ' + p.nome;
   $('#mbSub').textContent = '(' + (estado.elenco[cod] || []).length + ' de ' + metaPos(cod) + ' vagas preenchidas)';
   $('#fPos').value = cod;
+  $('#fTexto').value = '';   /* a busca abre limpa: o nome digitado na vaga anterior não fica guardado */
   $('#modalBusca').classList.add('aberto');
   renderTabela();
   setTimeout(() => $('#fTexto').focus(), 60);
