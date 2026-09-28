@@ -2780,6 +2780,11 @@ async function abrirFicha(ref) {
      ao fechar. */
   $('#pgCampo').classList.add('com-ficha');
   $('#fiCorpo').innerHTML = '<div class="fi-sem" style="padding:14px">carregando indicadores…</div>';
+  let bt = $('#fiDados');
+  if (!bt) { bt = document.createElement('button'); bt.id = 'fiDados'; bt.className = 'bt mini'; $('#fiBase').insertAdjacentElement('afterend', bt); }
+  bt.textContent = dadosColados(primaryKey(j), null) ? '✎ físico/técnico colados' : '+ físico/técnico';
+  bt.title = 'Colar o físico (CSV do SkillCorner) e o técnico (xlsx/csv do Wyscout) deste jogador — vale no campograma e na busca (raio, letra A/B/C, ▲ △ ⚑)';
+  bt.onclick = () => abrirDadosBase(j);
   await renderFicha();
   ajustarCampo();
   $('#ficha').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -6457,7 +6462,7 @@ function tipoNorm(t) { return String(t || '').normalize('NFD').replace(/[\u0300-
 function csRegistro(j, filtro) {
   /* o registro da Consulta (consulta_dados.js) deste jogador: nome + clube, ou nome quando é único */
   const D = window.CONSULTA; if (!D || !j) return null;
-  if (j._card && j._card.dados && j._card.dados.tec) { const m = indicesManuais(j._card); return m && (!filtro || filtro(m)) ? m : null; }
+  if (j._dados && j._dados.tec) { const m = indicesManuais(j._card, j._dados); return m && (!filtro || filtro(m)) ? m : null; }
   if (!TIPO_IDX) {
     TIPO_IDX = { nc: new Map(), n: new Map() };
     D.jogadores.forEach(x => {
@@ -6549,12 +6554,17 @@ function tipoBadge(pk, obj) {
   return '<span class="tipo-abc tipo-' + g + '" title="' + esc(t) + '">' + g + '</span>';
 }
 
+/* dados colados à mão: no card (card.dados) ou, para qualquer jogador da base, em estado.dadosJog[pk] */
+function dadosColados(pk, card) {
+  if (card && card.dados) return card.dados;
+  return (pk && estado && estado.dadosJog && estado.dadosJog[pk]) || null;
+}
 function raioIcone(pk, card, objBase) {
-  /* `card` = o jogador do elenco (estado.elenco): quando ele tem dados colados à mão (card.dados),
-     o objeto montado por dadosDoCard substitui o da base no raio, na letra e nos sinais.
-     `objBase` = o próprio registro da base (a busca passa a linha): evita pegar, pela chave nome-clube-liga,
-     outro registro do mesmo jogador em outra posição */
-  const obj = card && card.dados ? dadosDoCard(card) : (objBase || null);
+  /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
+     Quando há dados colados à mão (no card ou em estado.dadosJog[pk]), o objeto montado por dadosDoCard
+     substitui o da base no raio, na letra e nos sinais */
+  const d = dadosColados(pk, card);
+  const obj = d ? dadosDoCard(card || { pk, dados: d }, objBase) : (objBase || null);
   const r = raioIconeBase(pk, obj);
   try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
@@ -6562,14 +6572,14 @@ function raioIcone(pk, card, objBase) {
    card.dados = { liga, fis: {psv, spr_n, hi_n, expl, dist, obr, obr_area, sc_n, min}, tec: {aer_won, aer_n, aer_g90, aer_g, alt,
    cor90, fk90, dfk90, dfk_on, xa90, cross_pct}, em: 'aaaa-mm-dd' }. O físico entra no objeto do jogador (raio, tipo); o técnico vira
    índice do jogo aéreo e do cobrador contra os quantis da liga (CONSULTA.q). */
-function dadosDoCard(card) {
-  const base = (card.pk && fsJogadorPk(card.pk)) || null;
+function dadosDoCard(card, objBase) {
+  const base = objBase || (card.pk && fsJogadorPk(card.pk)) || null;
   const o = Object.assign({}, base || { n: card.nome, t: card.clube || '', l: card.liga || (card.dados && card.dados.liga) || 'Série B', p: card.posOrig || card.pos || '', nac: card.nac || '' });
   if (!o.p && card.posOrig) o.p = card.posOrig;
-  const d = card.dados || {};
+  const d = card.dados || dadosColados(card.pk, null) || {};
   if (d.fis) { Object.keys(d.fis).forEach(k => { if (d.fis[k] != null) o[k] = d.fis[k]; }); o.fis_src = null; }
   if (d.liga) o.l = d.liga;
-  o._card = card;
+  o._card = card; o._dados = d;
   return o;
 }
 function pctQ(liga, ind, v) {
@@ -6579,9 +6589,9 @@ function pctQ(liga, ind, v) {
   let n = 0; for (const x of q) { if (x < v) n++; else break; }
   return Math.min(100, n);
 }
-function indicesManuais(card) {
+function indicesManuais(card, dd) {
   /* os mesmos campos do registro da Consulta (aer, aer_dp, cob…), calculados do técnico colado */
-  const d = card.dados, t = d && d.tec; if (!t) return null;
+  const d = dd || (card && card.dados), t = d && d.tec; if (!t) return null;
   const liga = d.liga || card.liga || 'Série B';
   const FIN = [['Head goals per 90', t.aer_g90, 3], ['Head goals', t.aer_g, 2], ['Aerial duels won, %', t.aer_won, 2], ['Aerial duels per 90', t.aer_n, 2], ['Height', t.alt, 1]];
   const COB = [['Corners per 90', t.cor90, 3], ['Free kicks per 90', t.fk90, 3], ['Direct free kicks per 90', t.dfk90, 1], ['Direct free kicks on target, %', t.dfk_on, 1], ['xA per 90', t.xa90, 1], ['Accurate crosses, %', t.cross_pct, 1]];
@@ -7194,9 +7204,25 @@ async function mdXlsx(arq) {
   return mdMapear(A[0].map(String), mdEscolherLinha(A.slice(1), $('#mdTitulo').dataset.nome).map(x => x == null ? '' : String(x)), MD_TEC);
 }
 function cardPor(cod, uid) { return (estado.elenco[cod] || []).find(x => x.uid === uid) || null; }
+function alvoDados() {
+  /* o objeto que recebe os dados: o card do elenco, ou um "card virtual" do jogador da base (estado.dadosJog[pk]) */
+  if (!dadosEditando) return null;
+  if (dadosEditando.uid) return cardPor(dadosEditando.cod, dadosEditando.uid);
+  const b = fsJogadorPk(dadosEditando.pk); if (!b) return null;
+  estado.dadosJog = estado.dadosJog || {};
+  return { nome: b.n, clube: b.t, liga: b.l, pk: dadosEditando.pk, posOrig: b.p, get dados() { return estado.dadosJog[dadosEditando.pk]; }, set dados(v) { if (v) estado.dadosJog[dadosEditando.pk] = v; else delete estado.dadosJog[dadosEditando.pk]; } };
+}
+function abrirDadosBase(j) {
+  /* da ficha: qualquer jogador da base, esteja ou não no elenco (se está, usa o card) */
+  const pk = primaryKey(j); let achado = null;
+  POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(x => { if (x.pk === pk) achado = { cod: p.c, uid: x.uid }; }));
+  if (achado) return abrirDados(achado.cod, achado.uid);
+  dadosEditando = { pk }; abrirDados();
+}
 function abrirDados(cod, uid) {
-  const j = cardPor(cod, uid); if (!j) return;
-  dadosEditando = { cod, uid }; mdFis = null; mdTec = null;
+  if (cod) dadosEditando = { cod, uid };
+  const j = alvoDados(); if (!j) return;
+  mdFis = null; mdTec = null;
   const t = $('#mdTitulo'); t.textContent = 'Físico e técnico · ' + j.nome; t.dataset.nome = j.nome;
   const Q = (window.CONSULTA && window.CONSULTA.q) || {};
   const ligas = Object.keys(Q).sort((a, b) => a === 'Série B' ? -1 : b === 'Série B' ? 1 : a.localeCompare(b));
@@ -7221,8 +7247,7 @@ function ligarDados() {
     mdPrevia(mdTec, MD_TEC, $('#mdTecPrev'), 'Técnico lido de ' + a.name);
   };
   $('#mdOk').onclick = () => {
-    if (!dadosEditando) return;
-    const j = cardPor(dadosEditando.cod, dadosEditando.uid); if (!j) return;
+    const j = alvoDados(); if (!j) return;
     const obr = mdNum($('#mdObr').value), obrA = mdNum($('#mdObrArea').value);
     if (!mdFis && !mdTec && obr == null && obrA == null) { toast('Cole o físico ou envie o técnico', 'ruim'); return; }
     const d = Object.assign({}, j.dados || {});
@@ -7234,12 +7259,14 @@ function ligarDados() {
     j.dados = d;
     $('#modalDados').classList.remove('aberto'); dadosEditando = null;
     salvarLocal(); render();
+    if (fichaAtual) renderFicha();
     toast(j.nome + ': físico/técnico atualizados', 'bom');
   };
   $('#mdLimpar').onclick = () => {
-    if (!dadosEditando) return;
-    const j = cardPor(dadosEditando.cod, dadosEditando.uid); if (!j) return;
-    delete j.dados; $('#modalDados').classList.remove('aberto'); dadosEditando = null; salvarLocal(); render();
+    const j = alvoDados(); if (!j) return;
+    if (j.uid) delete j.dados; else j.dados = null;
+    $('#modalDados').classList.remove('aberto'); dadosEditando = null; salvarLocal(); render();
+    if (fichaAtual) renderFicha();
     toast(j.nome + ': volta aos números da base', 'bom');
   };
   $('#btManualDados').onclick = () => {
