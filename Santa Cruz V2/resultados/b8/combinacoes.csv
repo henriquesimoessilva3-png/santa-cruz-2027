@@ -1,0 +1,50 @@
+par,combo,n,pS,pC,dif
+ZE + EE,Motor de volume | Explosivo e rápido,12,45.45454545454545,0.0,45.45454545454545
+LD + EE,Explosivo e rápido | Explosivo e rápido,9,50.0,8.333333333333332,41.66666666666667
+ZE + MEI,Motor de volume | Médio em tudo,15,50.0,11.11111111111111,38.888888888888886
+LE + EE,Explosivo e rápido | Explosivo e rápido,9,38.46153846153847,7.6923076923076925,30.769230769230774
+ZD + EE,Baixa intensidade | Baixa intensidade,11,38.46153846153847,9.090909090909092,29.370629370629374
+LD + VOL,Explosivo e rápido | Mais intenso,7,28.57142857142857,0.0,28.57142857142857
+LD + CA,Explosivo e rápido | Explosivo e rápido,18,38.88888888888889,11.76470588235294,27.12418300653595
+ZD + ED,Baixa intensidade | Baixa intensidade,13,33.33333333333333,7.142857142857142,26.190476190476186
+EE + CA,Explosivo e rápido | Motor de volume,7,25.0,0.0,25.0
+LD + MEI,Explosivo e rápido | Explosivo e rápido,6,25.0,0.0,25.0
+ED + EE,Baixa intensidade | Explosivo e rápido,10,33.33333333333333,9.090909090909092,24.242424242424235
+ZD + MED,Baixa intensidade | Médio em tudo,17,40.0,17.647058823529413,22.352941176470587
+LD + LE,Explosivo e rápido | Explosivo e rápido,9,27.77777777777778,5.555555555555555,22.22222222222222
+LD + ED,Explosivo e rápido | Baixa intensidade,13,36.36363636363637,14.285714285714285,22.077922077922082
+ZD + LE,Baixa intensidade | Explosivo e rápido,17,27.77777777777778,5.88235294117647,21.895424836601308
+ZD + VOL,Baixa intensidade | Mais intenso,8,21.428571428571427,0.0,21.428571428571427
+MED + EE,Explosivo e rápido | Explosivo e rápido,6,30.0,9.090909090909092,20.909090909090907
+MED + EE,Médio em tudo | Baixa intensidade,8,30.0,9.090909090909092,20.909090909090907
+LD + ZE,Explosivo e rápido | Motor de volume,13,26.666666666666668,5.88235294117647,20.784313725490197
+VOL + EE,Intermediário | Baixa intensidade,6,20.0,0.0,20.0
+VOL + EE,Menos intenso | Motor de volume,8,0.0,20.0,-20.0
+ZE + ED,Baixa intensidade | Motor de volume,9,0.0,20.0,-20.0
+ZD + VOL,Motor de volume | Intermediário,12,7.142857142857142,27.27272727272727,-20.129870129870127
+ZD + ED,Explosivo e rápido | Baixa intensidade,6,0.0,21.428571428571427,-21.428571428571427
+LE + VOL,Baixa intensidade | Menos intenso,9,7.142857142857142,28.57142857142857,-21.428571428571427
+MED + ED,Baixa intensidade | Baixa intensidade,9,0.0,21.428571428571427,-21.428571428571427
+ED + CA,Explosivo e rápido | Baixa intensidade,10,0.0,21.428571428571427,-21.428571428571427
+LE + MEI,Baixa intensidade | Explosivo e rápido,7,8.333333333333332,30.0,-21.666666666666668
+ZE + VOL,Motor de volume | Intermediário,15,16.666666666666664,38.46153846153847,-21.794871794871803
+LE + MED,Baixa intensidade | Baixa intensidade,9,0.0,22.22222222222222,-22.22222222222222
+LD + ZE,Médio em tudo | Motor de volume,19,6.666666666666667,29.411764705882355,-22.745098039215687
+LE + EE,Médio em tudo | Motor de volume,11,0.0,23.076923076923077,-23.076923076923077
+ZE + MEI,Baixa intensidade | Explosivo e rápido,8,10.0,33.33333333333333,-23.33333333333333
+MEI + ED,Médio em tudo | Motor de volume,7,12.5,37.5,-25.0
+MED + CA,Baixa intensidade | Explosivo e rápido,8,0.0,25.0,-25.0
+LD + EE,Explosivo e rápido | Motor de volume,10,0.0,25.0,-25.0
+LD + EE,Médio em tudo | Motor de volume,9,0.0,25.0,-25.0
+ZE + EE,Motor de volume | Motor de volume,9,0.0,25.0,-25.0
+ZE + EE,Baixa intensidade | Motor de volume,12,0.0,25.0,-25.0
+VOL + ED,Menos intenso | Baixa intensidade,11,10.0,36.36363636363637,-26.363636363636367
+MED + EE,Médio em tudo | Motor de volume,11,0.0,27.27272727272727,-27.27272727272727
+ED + EE,Motor de volume | Motor de volume,12,0.0,27.27272727272727,-27.27272727272727
+ZD + EE,Baixa intensidade | Motor de volume,8,0.0,27.27272727272727,-27.27272727272727
+VOL + MEI,Menos intenso | Explosivo e rápido,6,0.0,28.57142857142857,-28.57142857142857
+LD + VOL,Médio em tudo | Intermediário,7,0.0,33.33333333333333,-33.33333333333333
+EE + CA,Motor de volume | Explosivo e rápido,10,0.0,33.33333333333333,-33.33333333333333
+ZE + VOL,Baixa intensidade | Menos intenso,16,16.666666666666664,53.84615384615385,-37.17948717948718
+LD + MEI,Médio em tudo | Médio em tudo,7,0.0,37.5,-37.5
+VOL + EE,Intermediário | Motor de volume,10,0.0,40.0,-40.0
