@@ -1,0 +1,26 @@
+grupo,trio,sobe,meio,cai,dif
+Meio,Intermediário + Médio em tudo + Médio em tudo,3,1,1,0.111
+Meio,Explosivo e rápido + Intermediário + Médio em tudo,1,4,0,0.056
+Meio,Baixa intensidade + Menos intenso + Médio em tudo,1,4,1,0.0
+Meio,Explosivo e rápido + Intermediário + Mais intenso,2,0,2,0.0
+Meio,Médio em tudo + Médio em tudo + Médio em tudo,1,2,1,0.0
+Meio,Baixa intensidade + Explosivo e rápido + Intermediário,1,1,1,0.0
+Meio,Baixa intensidade + Explosivo e rápido + Menos intenso,1,1,1,0.0
+Meio,Explosivo e rápido + Médio em tudo + Médio em tudo,1,1,1,0.0
+Meio,Baixa intensidade + Explosivo e rápido + Médio em tudo,0,4,1,-0.056
+Meio,Intermediário + Menos intenso + Médio em tudo,0,3,1,-0.056
+Meio,Explosivo e rápido + Menos intenso + Médio em tudo,0,3,2,-0.111
+Meio,Baixa intensidade + Baixa intensidade + Médio em tudo,0,1,2,-0.111
+Ataque,Baixa intensidade + Explosivo e rápido · CA Explosivo e rápido,3,4,1,0.196
+Ataque,Baixa intensidade + Explosivo e rápido · CA Baixa intensidade,1,6,0,0.091
+Ataque,Explosivo e rápido + Motor de volume · CA Motor de volume,1,4,0,0.091
+Ataque,Baixa intensidade + Baixa intensidade · CA Baixa intensidade,1,2,0,0.091
+Ataque,Explosivo e rápido + Motor de volume · CA Explosivo e rápido,1,2,0,0.091
+Ataque,Explosivo e rápido + Explosivo e rápido · CA Baixa intensidade,1,2,1,0.014
+Ataque,Motor de volume + Motor de volume · CA Motor de volume,0,4,0,0.0
+Ataque,Baixa intensidade + Motor de volume · CA Explosivo e rápido,1,6,2,-0.063
+Ataque,Explosivo e rápido + Motor de volume · CA Baixa intensidade,0,7,1,-0.077
+Ataque,Motor de volume + Motor de volume · CA Baixa intensidade,0,4,1,-0.077
+Ataque,Baixa intensidade + Motor de volume · CA Baixa intensidade,0,3,1,-0.077
+Ataque,Baixa intensidade + Baixa intensidade · CA Explosivo e rápido,1,1,3,-0.14
+Ataque,Motor de volume + Motor de volume · CA Explosivo e rápido,0,1,2,-0.154
