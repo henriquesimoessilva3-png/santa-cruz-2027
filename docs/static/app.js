@@ -1762,7 +1762,8 @@ function filtrar() {
 
   return BASE.filter(j => {
     if (pos && j.p !== pos) return false;
-    if (ligaUnica) { if (j.l !== ligaUnica) return false; }
+    if (j.manual) { /* jogador cadastrado à mão: aparece em qualquer grupo de ligas */ }
+    else if (ligaUnica) { if (j.l !== ligaUnica) return false; }
     else if (ligas && !ligas.has(j.l)) return false;
     if (nacao && !passaNacao(j, nacao)) return false;
     if (txt && !(fsNorm(j.n).includes(txt) || fsNorm(j.t).includes(txt))) return false;
@@ -1896,10 +1897,10 @@ function renderTabela() {
     ' · clique para adicionar em <b>' + sig(posAtual) + '</b>';
 
   $$('#tbody tr[data-id]').forEach(tr => {
-    tr.onclick = () => adicionarDaBase(parseInt(tr.dataset.id));
+    tr.onclick = () => adicionarDaBase(idDeLinha(tr.dataset.id));
     tr.querySelector('.ver-ficha').onclick = e => {
       e.stopPropagation();
-      alternarDetalhe(tr, parseInt(tr.dataset.id));
+      alternarDetalhe(tr, idDeLinha(tr.dataset.id));
     };
   });
 }
@@ -1947,6 +1948,8 @@ function adicionarDaBase(id) {
     sugerido: 0,
     nac: j.nac || '', psp: j.psp || '', estrangeiro: ehEstrangeiroBase(j),
     status: 'alvo', titular: lista.length === 0,
+    /* cadastrado à mão: o card continua editável e os dados colados seguem no registro geral */
+    ...(j.manual ? { manual: 1, muid: j.muid, salario: 0 } : {}),
   });
   salvarLocal(); render();
   $('#mbSub').textContent = '(' + lista.length + ' de ' + metaPos(posAtual) + ' vagas preenchidas)';
@@ -2174,6 +2177,7 @@ async function fbIniciar() {
       FB.erro = '';
       fbBotao();
       listarCenarios();
+      manuaisCarregar();
     });
     return true;
   } catch (e) { FB.erro = String((e && e.message) || e); return false; }
@@ -2217,7 +2221,7 @@ async function cenNuvemLer() {
   if (!FB.pronto || !FB.usuario) return [];
   try {
     const q = await FB.db.collection(FB_COLECAO).get();
-    return q.docs.map(d => Object.assign({}, d.data(), { id: d.id }));
+    return q.docs.filter(d => d.id !== MAN_DOC).map(d => Object.assign({}, d.data(), { id: d.id }));
   } catch (e) {
     /* `permission-denied` aqui quer dizer "entrou, mas o e-mail nao esta na lista das
        regras" — o erro mais provavel de todos, e o que mais confunde se ficar mudo */
@@ -2746,9 +2750,11 @@ function mesAno(iso) {
 
 /* Acha o jogador na base. O id muda quando a base e regerada, entao a primary_key
    (nome - time - liga) manda; o id fica so como atalho. */
+/* id da base: número, ou 'm:…' para o jogador cadastrado à mão */
+function idDeLinha(v) { return typeof v === 'string' && v.startsWith('m:') ? v : parseInt(v); }
 function acharNaBase(ref) {
   if (!ref) return null;
-  if (typeof ref === 'number') return BASE.find(x => x.id === ref) || null;
+  if (typeof ref === 'number' || (typeof ref === 'string' && ref.startsWith('m:'))) return BASE.find(x => x.id === ref) || null;
   if (ref.pk) {
     const porPk = BASE.find(x => primaryKey(x) === ref.pk);
     if (porPk) return porPk;
@@ -2947,6 +2953,9 @@ function radarDaFicha(porGrupo, nomeJog) {
 }
 
 async function montarFicha(j, modo) {
+  /* físico colado à mão (card, estado.dadosJog ou registro manual) entra na ficha no lugar do da base */
+  const dc = dadosColados(primaryKey(j), null);
+  if (dc && dc.fis) { const o = Object.assign({}, j); Object.keys(dc.fis).forEach(k => { if (dc.fis[k] != null) o[k] = dc.fis[k]; }); o.fis_src = null; o._colado = dc.em || 'sim'; j = o; }
   const lista = coorte(j, modo);
   const ex = ehEstrangeiroBase(j);
   const fx = faixaSalarioTR(j);
@@ -3015,6 +3024,7 @@ async function montarFicha(j, modo) {
   /* fis_src: o fisico veio da base do estudo V2 (Serie B de outra temporada), preenchido
      pelo preparar_base.py — nao e do clube atual, e a ficha diz isso em cima dos numeros */
   colunas += '<div class="fi-grupo"><h4>Físico (SkillCorner)</h4>' +
+    (j._colado ? '<div class="fi-src" title="Físico colado à mão (SkillCorner), não o da base">físico colado à mão' + (j._colado !== 'sim' ? ' em ' + esc(j._colado) : '') + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     (j.fis_src && colFis ? '<div class="fi-src" title="Preenchido pela base do estudo Santa Cruz V2: ' +
       'é o físico de outra temporada e de outro clube, não do atual">físico de ' + esc(j.fis_src) +
       (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
@@ -3615,7 +3625,7 @@ function fcRender() {
     ' · clique na linha para levar ao campograma, escolhendo a posição';
 
   $$('#fcTbody tr').forEach(tr => {
-    const id = parseInt(tr.dataset.id);
+    const id = idDeLinha(tr.dataset.id);
     /* Mesmo menu da aba Fisico: a posicao do jogador vem marcada, mas da para mandar
        para outra sem ter que mover o card depois. Ancorado no que foi clicado — a
        linha inteira ou o botao. `fcRender` depois, para a linha ganhar a marca de
@@ -6557,7 +6567,66 @@ function tipoBadge(pk, obj) {
 /* dados colados à mão: no card (card.dados) ou, para qualquer jogador da base, em estado.dadosJog[pk] */
 function dadosColados(pk, card) {
   if (card && card.dados) return card.dados;
-  return (pk && estado && estado.dadosJog && estado.dadosJog[pk]) || null;
+  if (pk && estado && estado.dadosJog && estado.dadosJog[pk]) return estado.dadosJog[pk];
+  const b = pk && BASE.length ? fsJogadorPk(pk) : null;   /* jogador cadastrado à mão: os dados vivem no registro */
+  return (b && b.dados) || null;
+}
+/* ---------------- jogadores cadastrados à mão: base geral, para todos os grupos ----------------
+   Quem entra por "Jogador fora da base" vira um registro da base (id 'm:…', liga 'Manual'), com o físico e o
+   técnico colados; fica em Firestore (cenarios/_manuais) quando há login, e neste navegador sempre — e por isso
+   aparece na busca de qualquer grupo, com raio, letra e sinais. */
+const MAN_DOC = '_manuais', MAN_LOCAL = 'sc_manuais_v1';
+let MANUAIS = [];
+function manuaisLocalLer() { try { const l = JSON.parse(localStorage.getItem(MAN_LOCAL)); return Array.isArray(l) ? l : []; } catch (e) { return []; } }
+function manuaisLocalGravar() { try { localStorage.setItem(MAN_LOCAL, JSON.stringify(MANUAIS)); } catch (e) {} }
+function manualRegistro(m) {
+  /* o registro que entra na BASE (mesmos campos que a busca e a ficha usam) */
+  const r = { id: 'm:' + m.uid, n: m.nome, nc: m.nome, t: m.clube || 'sem clube', l: 'Manual', p: m.p || 'CA', pw: '', id_: m.idade || null, ct: m.contrato || '', nac: m.nac || 'Brazil',
+              min: (m.dados && m.dados.fis && m.dados.fis.min) || null, ov: null, rk_ok: false, manual: 1, muid: m.uid, dados: m.dados || null };
+  if (m.dados && m.dados.fis) Object.keys(m.dados.fis).forEach(k => { if (m.dados.fis[k] != null) r[k] = m.dados.fis[k]; });
+  if (m.dados && m.dados.liga) r.l = m.dados.liga;   /* a liga de referência escolhida vira a liga do registro */
+  return r;
+}
+function manuaisAplicar() {
+  BASE = BASE.filter(x => !x.manual).concat(MANUAIS.map(manualRegistro));
+  FS_PK_TUDO = null;
+}
+async function manuaisCarregar() {
+  let lista = manuaisLocalLer();
+  if (FB.pronto && FB.usuario) {
+    try { const snap = await FB.db.collection(FB_COLECAO).doc(MAN_DOC).get(); if (snap.exists && Array.isArray(snap.data().lista)) lista = snap.data().lista; }
+    catch (e) { console.warn('manuais: nuvem indisponível', e); }
+  }
+  MANUAIS = lista; manuaisLocalGravar();
+  if (BASE.length) { manuaisAplicar(); manuaisSincronizarElenco(); render(); }
+}
+async function manuaisGravar() {
+  manuaisLocalGravar();
+  if (FB.pronto && FB.usuario && !FB.erro) {
+    try { await FB.db.collection(FB_COLECAO).doc(MAN_DOC).set({ lista: JSON.parse(JSON.stringify(MANUAIS)), atualizado: new Date().toISOString(), porEmail: FB.usuario.email || '' }); }
+    catch (e) { toast('Jogador manual salvo só neste navegador: ' + ((e && e.message) || e), 'ruim'); }
+  }
+  manuaisAplicar();
+}
+function manualPorCard(card) {
+  return MANUAIS.find(m => m.uid === card.muid || (card.jid == null && tipoNorm(m.nome) === tipoNorm(card.nome) && tipoNorm(m.clube) === tipoNorm(card.clube))) || null;
+}
+async function manuaisRegistrar(card, cod) {
+  /* card criado à mão → registro na base geral (uma vez); o card passa a apontar para ele */
+  let m = manualPorCard(card);
+  if (!m) { m = { uid: card.uid, nome: card.nome, clube: card.clube, p: cod || card.posOrig, idade: card.idade, contrato: card.contrato, nac: card.nac, dados: card.dados || null, em: new Date().toISOString().slice(0, 10) }; MANUAIS.push(m); }
+  else { Object.assign(m, { nome: card.nome, clube: card.clube, idade: card.idade, contrato: card.contrato, nac: card.nac }); if (card.dados) m.dados = card.dados; }
+  card.muid = m.uid; card.jid = 'm:' + m.uid;
+  await manuaisGravar();
+  card.pk = primaryKey(manualRegistro(m));
+  return m;
+}
+function manuaisSincronizarElenco() {
+  /* cards manuais de grupos antigos (sem registro) entram na base geral */
+  let novos = 0;
+  POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(c => { if (c.manual && !manualPorCard(c)) { MANUAIS.push({ uid: c.uid, nome: c.nome, clube: c.clube, p: p.c, idade: c.idade, contrato: c.contrato, nac: c.nac, dados: c.dados || null, em: new Date().toISOString().slice(0, 10) }); novos++; }
+    const m = c.manual ? manualPorCard(c) : null; if (m) { c.muid = m.uid; c.jid = 'm:' + m.uid; c.pk = primaryKey(manualRegistro(m)); } }));
+  if (novos) manuaisGravar();
 }
 function raioIcone(pk, card, objBase) {
   /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
@@ -7124,7 +7193,7 @@ function ligar() {
       POSICOES.forEach(p => (estado.elenco[p.c] || []).forEach(x => {
         if (x.uid === manualEditando) j = x;
       }));
-      if (j) Object.assign(j, campos);
+      if (j) { Object.assign(j, campos); if (j.manual) manuaisRegistrar(j, null); }
       $('#modalManual').classList.remove('aberto');
       manualEditando = null;
       salvarLocal(); render();
@@ -7132,10 +7201,12 @@ function ligar() {
       return;
     }
     const lista = estado.elenco[posAtual];
-    lista.push(Object.assign({
+    const novoCard = Object.assign({
       uid: uid(), jid: null, manual: 1, liga: '', ov: null, posOrig: posAtual,
       psp: '', status: 'alvo', titular: lista.length === 0,
-    }, campos));
+    }, campos);
+    lista.push(novoCard);
+    manuaisRegistrar(novoCard, posAtual).then(() => { salvarLocal(); render(); });
     $('#modalManual').classList.remove('aberto');
     salvarLocal(); render();
     toast(nome + ' adicionado em ' + sig(posAtual), 'bom');
@@ -7257,6 +7328,8 @@ function ligarDados() {
     if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(5, Math.round(d.fis.min / 90));   /* sem contagem de jogos, estima pelos minutos */
     if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
     j.dados = d;
+    if (j.manual) manuaisRegistrar(j, dadosEditando.cod || null);
+    else if (j.jid && String(j.jid).startsWith('m:')) { const m = MANUAIS.find(x => 'm:' + x.uid === j.jid); if (m) { m.dados = d; manuaisGravar(); } }
     $('#modalDados').classList.remove('aberto'); dadosEditando = null;
     salvarLocal(); render();
     if (fichaAtual) renderFicha();
@@ -7330,6 +7403,7 @@ async function iniciar() {
     }
     console.log('base carregada:', BASE.length, 'jogadores · período', d.periodo);
     await aplicarOverridesPosicao();
+    await manuaisCarregar();
     await raioCarregar();
     /* se a aba Fisico ja estava aberta numa forma alternativa, ela estava esperando
        as referencias — redesenha agora, em vez de esperar o usuario mexer */
