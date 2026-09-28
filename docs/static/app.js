@@ -6496,7 +6496,12 @@ function tipoBadge(pk) {
   else if (cai.includes(x.tipo)) { g = 'C'; leitura = 'o tipo de quem cai no ' + (TIPO_POSN[pos] || pos) + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : ''); }
   else if (!pref.length) { g = 'B'; leitura = 'no ' + (TIPO_POSN[pos] || pos) + ' o físico não separa quem sobe de quem cai (F2-4)'; }
   else { g = 'B'; leitura = 'nem o tipo de quem sobe (' + pref.join(' / ') + ') nem o de quem cai no ' + (TIPO_POSN[pos] || pos); }
-  return '<span class="tipo-abc tipo-' + g + '" title="' + esc('Tipo físico: ' + x.tipo + ' — ' + leitura + '. A = tipo de quem sobe, B = outro tipo ou posição sem sinal, C = tipo de quem cai (Estudo V2, F2-4).' + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '')) + '">' + g + '</span>';
+  const posn = TIPO_POSN[pos] || pos;
+  const legenda = pref.length
+    ? 'No ' + posn + ': A = ' + pref.join(' / ') + ' (o tipo de quem sobe); C = ' + (cai.length ? cai.join(' / ') : 'nenhum') + ' (o tipo de quem cai); B = os outros tipos.'
+    : 'No ' + posn + ' o físico não separa quem sobe de quem cai: todos ficam em B.';
+  const t = 'Tipo físico deste jogador: ' + x.tipo + ' → ' + g + '. ' + legenda + ' (Estudo V2, F2-4.)' + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '');
+  return '<span class="tipo-abc tipo-' + g + '" title="' + esc(t) + '">' + g + '</span>';
 }
 
 function raioIcone(pk) {
