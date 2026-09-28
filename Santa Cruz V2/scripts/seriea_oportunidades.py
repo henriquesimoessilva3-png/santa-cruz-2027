@@ -54,14 +54,25 @@ def main():
     d["sal_max"] = d.sal.map(sal_max)
     d = d[d.sal_max.isna() | (d.sal_max <= 800_000)]
     d = d[d.psv.isna() | (d.psv >= 27) | (d.pos11 == "GOL")]
-    d["tipo"] = [tipo_de(j, c) for j, c in zip(d.jogador, d.clube)]
+    # tipo físico: pelo centróide do setor (F2), com o físico do Portal — a Série A não está em tipos_todos.csv
+    from ranking_fisico import tipo_centroide
+    SETOR = {"ZD": "Zaga", "ZE": "Zaga", "LD": "Lateral", "LE": "Lateral", "VOL": "Volante", "MED": "Meia", "MEI": "Meia", "ED": "Extremo", "EE": "Extremo", "CA": "Atacante"}
+    PREFP = pd.read_csv(os.path.join(RAIZ, "resultados", "b8", "tipos_preferidos_pos.csv")).set_index("pos11")
+    tc = pd.DataFrame({"setor": d.pos11.map(SETOR), "psv99": d.psv, "sprint_count_p90": d.spr, "hi_count_p90": pega("hi_n"), "expl_accel_sprint_p90": d.expl, "distance_p90": pega("dist"), "runs_p30tip": pega("obr")})
+    tc = tc.astype({c: float for c in tc.columns if c != "setor"})
+    d["tipo"] = tipo_centroide(tc)
+    def rot(p, t):
+        if not isinstance(t, str): return "—"
+        pref = str(PREFP.preferidos.get(p, "") or "").split(" / "); cai = str(PREFP.de_quem_cai.get(p, "") or "").split(" / ")
+        return t + (" ✓" if t in pref else (" ✗" if t in cai else ""))
+    d["tipo_rot"] = [rot(p, t) for p, t in zip(d.pos11, d.tipo)]
     d = d.sort_values(["pos11", "nota"], ascending=[True, False])
     f_ = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
     md = ["# Série A — não aproveitados e fim de contrato que servem à Série B", "",
           "*Dado: Wyscout ago/26 (Série A 2026, ≥ 200 min), ranking do Portal, físico do Portal · 26/09/2026. A Série A está fora das recomendações por decisão do clube (23/09); esta é a lista de exceção, para as posições em que a B e os mercados de fora não fecham.*", "",
           "Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 a 1.100 min em 2026 — empréstimo em janeiro), **veterano em fim de contrato** (30+ e contrato até jun/27 — chega livre) e **Remo/Chape em fim de contrato** (qualquer idade, contrato até jun/27). "
-          "Aderência calculada entre os jogadores da A da posição com ≥ 200 min e convertida pela reta do T4 (quem vem da A chega acima da mediana da B: p50 → 62); nota = média com o nível do ranking (\\* = nível imputado). "
+          "Aderência calculada entre os jogadores da A da posição com ≥ 200 min e convertida pela reta do T4 (quem vem da A chega acima da mediana da B: p50 → 62); nota = média com o nível do ranking (\\* = nível imputado). **Tipo** = tipo físico pelo centróide do setor (F2), com o físico do Portal: ✓ = o tipo de quem sobe na posição, ✗ = o tipo de quem cai, sem marca = outro tipo ou posição em que o físico não separa. "
           "Filtros: sem vetados, valor ≤ € 2 MM, faixa salarial (Capology) com teto até R$ 800 mil/mês (empréstimo com divisão de salário; a faixa aparece na tabela para o clube decidir), PSV-99 ≥ 27 quando há rastreio, até 36 anos. **O que o T1-6 manda lembrar:** gols e conversão do passado não repetem; volume (toques na área, aéreos, passes chave) repete — as duas colunas de destaque são de volume.", ""]
     for p in ORDEM:
         x = d[d.pos11 == p].head(10)
@@ -69,7 +80,7 @@ def main():
         de = DEST[p]
         md += [f"### {NOMES[p]}", "", f"| # | Jogador | Clube | Idade | Min 2026 | Contrato | Grupo | Nota | Ader. (A → B) | Nível | PSV | Tipo | Valor | Salário (Capology) | {ROT[de[0]]} | {ROT[de[1]]} |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for i, r in enumerate(x.itertuples(), 1):
-            md.append(f"| {i} | **{r.jogador}** | {r.clube} | {int(r.idade)} | {int(r.minutos)} | {dt(r.contrato)} | {r.grupo} | **{f_(r.nota)}**{'' if r.nota_completa else ' *'} | {f_(r.aderencia)} → {f_(r.adc)} | {f_(r.nivel_overall)} | {f_(r.psv, 1)} | {r.tipo} | {('€ ' + f_(r.valor / 1e6, 1) + ' MM') if pd.notna(r.valor) and r.valor > 0 else '—'} | {r.sal if isinstance(r.sal, str) else '—'} | {f_(getattr(r, '_' + str(list(x.columns).index(de[0]) + 1)), 2)} | {f_(getattr(r, '_' + str(list(x.columns).index(de[1]) + 1)), 2)} |")
+            md.append(f"| {i} | **{r.jogador}** | {r.clube} | {int(r.idade)} | {int(r.minutos)} | {dt(r.contrato)} | {r.grupo} | **{f_(r.nota)}**{'' if r.nota_completa else ' *'} | {f_(r.aderencia)} → {f_(r.adc)} | {f_(r.nivel_overall)} | {f_(r.psv, 1)} | {r.tipo_rot} | {('€ ' + f_(r.valor / 1e6, 1) + ' MM') if pd.notna(r.valor) and r.valor > 0 else '—'} | {r.sal if isinstance(r.sal, str) else '—'} | {f_(getattr(r, '_' + str(list(x.columns).index(de[0]) + 1)), 2)} | {f_(getattr(r, '_' + str(list(x.columns).index(de[1]) + 1)), 2)} |")
         md.append("")
     open(os.path.join(L_, "SERIE_A_OPORTUNIDADES.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     d[["pos11", "jogador", "clube", "idade", "minutos", "contrato", "livre", "grupo", "valor", "aderencia", "adc", "nivel_overall", "nota", "psv", "tipo", "sal"]].to_csv(os.path.join(L_, "SERIE_A_OPORTUNIDADES.csv"), index=False)
