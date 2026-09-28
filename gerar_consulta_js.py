@@ -40,11 +40,10 @@ def main():
         D[c] = D.k.map(tt[c]) if c in tt else np.nan
     if "psv99_x" in D: D["psv99"] = D.psv99_x.fillna(D.psv99_y)
     # tipos preferidos e faixas físicas de referência por setor (B15/B8)
-    G = pd.read_csv(os.path.join(RES, "b8", "tipos_fisicos.csv"))
-    pref = {}
-    for s, g in G.groupby("setor"):
-        g = g.assign(dif=g.pct_sobe - g.pct_cai).sort_values("dif", ascending=False)
-        pref[s] = [g.iloc[0].tipo] + ([g.iloc[1].tipo] if len(g) > 1 and g.iloc[1].dif >= 0.10 else [])
+    # tipos de quem sobe e de quem cai, POR POSIÇÃO (B8-4, 28/09)
+    T = pd.read_csv(os.path.join(RES, "b8", "tipos_preferidos_pos.csv"))
+    pref = {r.pos11: ([t.strip() for t in r.preferidos.split("/")] if isinstance(r.preferidos, str) and r.preferidos else []) for r in T.itertuples()}
+    cai = {r.pos11: ([t.strip() for t in r.de_quem_cai.split("/")] if isinstance(r.de_quem_cai, str) and r.de_quem_cai else []) for r in T.itertuples()}
     # bola parada
     bp = {}
     x = pd.ExcelFile(os.path.join(LI, "bola_parada_especialistas.xlsx"))
@@ -88,7 +87,7 @@ def main():
                    sofa=(None if (r.liga != "Brasil B" or r.chave not in sj.index) else {"nota": round(float(sj.loc[r.chave].nota_media), 2), "xgxa": round(float(sj.loc[r.chave].expectedGoals_p90 or 0) + float(sj.loc[r.chave].expectedAssists_p90 or 0), 2), "vmax": (None if pd.isna(sj.loc[r.chave].topSpeed) else round(float(sj.loc[r.chave].topSpeed), 1)), "tit": int(sj.loc[r.chave].titularidades), "jogos": int(sj.loc[r.chave].jogos)}),
                    dez=(None if r.k not in ideal.index else {"ordem": int(ideal.loc[r.k].ordem), "pontos": float(ideal.loc[r.k].score)}))
         rows.append(rec)
-    out = {"gerado_em": pd.Timestamp.now().strftime("%Y-%m-%d"), "n": len(rows), "pref": pref, "teto": TETO_VALOR,
+    out = {"gerado_em": pd.Timestamp.now().strftime("%Y-%m-%d"), "n": len(rows), "pref": pref, "cai": cai, "teto": TETO_VALOR,
            "regua": {"psv": 27, "ader_bom": 65, "ader_ok": 50, "nota_bom": 65, "nota_ok": 55},
            "jogadores": rows}
     with open(SAIDA, "w", encoding="utf-8") as fh:

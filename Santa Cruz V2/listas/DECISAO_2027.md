@@ -48,9 +48,9 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
-| 1 | **Ricardo Silva** | América-MG · Série B | 34 | 30/11/26 | **74** | nota 68 (aderência 76, nível 60); piso ok (28,1 km/h); tipo físico de quem sobe: Motor de volume; gol de defesa (xG/90 0,13); patamar de A 60; Sofascore 7,06; 1252 min |
-| 2 | **Bruno Alves** (e) | Criciúma · Série B | 35 | 31/12/27 | **70** | nota 63 (aderência 67, nível 59); piso ok (28,8 km/h); tipo físico de quem sobe: Motor de volume; especialista de bola parada (91); patamar de A 56; Sofascore 6,93; 1146 min |
-| 3 | **G. Vargas** | Olimpia · Paraguai | 24 | 31/12/26 | **70** | nota 67 (aderência 50, nível 84); piso ok (29,0 km/h); tipo físico de quem sobe: Motor de volume; 1315 min · **Atenção:** de fora: vídeo obrigatório e vaga de estrangeiro |
+| 1 | **Ricardo Silva** | América-MG · Série B | 34 | 30/11/26 | **71** | nota 68 (aderência 76, nível 60); piso ok (28,1 km/h); gol de defesa (xG/90 0,13); patamar de A 60; Sofascore 7,06; 1252 min · **Atenção:** tipo físico fora do de quem sobe: Motor de volume |
+| 2 | **Bruno Alves** (e) | Criciúma · Série B | 35 | 31/12/27 | **67** | nota 63 (aderência 67, nível 59); piso ok (28,8 km/h); especialista de bola parada (91); patamar de A 56; Sofascore 6,93; 1146 min · **Atenção:** tipo físico fora do de quem sobe: Motor de volume |
+| 3 | **G. Fratta** | Deportivo Táchira · Venezuela | 30 | 31/12/26 | **67** | nota 61 (aderência 54, nível 68); especialista de bola parada (97); gol de defesa (xG/90 0,15); 1528 min · **Atenção:** sem rastreio físico; de fora: vídeo obrigatório e vaga de estrangeiro |
 
 ### Zagueiro pela esquerda
 
@@ -90,8 +90,8 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
-| 1 | **F. Carrizo** | Club Libertad · Paraguai | 35 | 31/12/26 | **71** | nota 68 (aderência 46, nível 91); piso ok (27,2 km/h); tipo físico de quem sobe: Médio em tudo; 1335 min · **Atenção:** de fora: vídeo obrigatório e vaga de estrangeiro |
-| 2 | **Jean Carlos** (e) | Náutico · Série B | 34 | 31/12/27 | **68** | nota 66 (aderência 76, nível —); especialista de bola parada (96); patamar de A 68; Sofascore 6,71; 960 min · **Atenção:** sem rastreio físico |
+| 1 | **Jean Carlos** (e) | Náutico · Série B | 34 | 31/12/27 | **68** | nota 66 (aderência 76, nível —); especialista de bola parada (96); patamar de A 68; Sofascore 6,71; 960 min · **Atenção:** sem rastreio físico |
+| 2 | **F. Carrizo** | Club Libertad · Paraguai | 35 | 31/12/26 | **68** | nota 68 (aderência 46, nível 91); piso ok (27,2 km/h); 1335 min · **Atenção:** tipo físico fora do de quem sobe: Médio em tudo; de fora: vídeo obrigatório e vaga de estrangeiro |
 | 3 | **Matheus Frizzo** | Suwon · Coreia B | 28 | sem contrato | **68** | nota 68 (aderência 52, nível 84); 1919 min · **Atenção:** sem rastreio físico; de fora: vídeo obrigatório |
 
 ### Extremo pela direita
@@ -99,8 +99,8 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
 | 1 | **Vinícius** (e) | Náutico · Série B | 33 | 31/12/27 | **85** | nota 85 (aderência 91, nível 78); patamar de A 78; Sofascore 7,09; 1750 min · **Atenção:** sem rastreio físico |
-| 2 | **Chrystian Barletta** (e) | Sport · Série B | 25 | 31/07/29 | **76** | nota 66 (aderência 68, nível 64); piso ok (30,7 km/h); tipo físico de quem sobe: Explosivo e rápido; especialista de bola parada (90); patamar de A 62; Sofascore 7,27; 1991 min; ★ scouts: urgência |
-| 3 | **Kevin Méndez** | Unión La Calera · Chile | 30 | sem contrato | **71** | nota 65 (aderência 56, nível 74); piso ok (29,4 km/h); tipo físico de quem sobe: Explosivo e rápido; 1481 min; ★ scouts: média ≥7 · **Atenção:** de fora: vídeo obrigatório e vaga de estrangeiro |
+| 2 | **Chrystian Barletta** (e) | Sport · Série B | 25 | 31/07/29 | **73** | nota 66 (aderência 68, nível 64); piso ok (30,7 km/h); especialista de bola parada (90); patamar de A 62; Sofascore 7,27; 1991 min; ★ scouts: urgência · **Atenção:** tipo físico fora do de quem sobe: Explosivo e rápido |
+| 3 | **Kevin Méndez** | Unión La Calera · Chile | 30 | sem contrato | **68** | nota 65 (aderência 56, nível 74); piso ok (29,4 km/h); 1481 min; ★ scouts: média ≥7 · **Atenção:** tipo físico fora do de quem sobe: Explosivo e rápido; de fora: vídeo obrigatório e vaga de estrangeiro |
 
 ### Extremo pela esquerda
 

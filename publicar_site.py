@@ -41,14 +41,13 @@ def versao(caminho):
 
 
 def montar():
-    if os.path.exists(DOCS):
-        shutil.rmtree(DOCS)
-    os.makedirs(DOCS)
+    # sobrescreve em vez de apagar (a pasta pode estar sem permissão de apagar)
+    os.makedirs(DOCS, exist_ok=True)
 
     # --- estaticos e dados ---
-    shutil.copytree(os.path.join(AQUI, "static"), os.path.join(DOCS, "static"))
+    shutil.copytree(os.path.join(AQUI, "static"), os.path.join(DOCS, "static"), dirs_exist_ok=True)
     dados_dest = os.path.join(DOCS, "dados")
-    os.makedirs(dados_dest)
+    os.makedirs(dados_dest, exist_ok=True)
     for nome in ("jogadores.json", "historico.json", "premissas.json", "raio_ref.json",
                  "posicao_overrides.json", "firebase.json", "ficha_fisica_v2.json"):
         origem = os.path.join(AQUI, "dados", nome)
@@ -56,7 +55,7 @@ def montar():
             shutil.copy2(origem, os.path.join(dados_dest, nome))
     kpis = os.path.join(AQUI, "dados", "kpis")
     if os.path.isdir(kpis):
-        shutil.copytree(kpis, os.path.join(dados_dest, "kpis"))
+        shutil.copytree(kpis, os.path.join(dados_dest, "kpis"), dirs_exist_ok=True)
 
     # --- escudo: no Flask e uma rota, aqui vira arquivo ---
     escudo_ext = None

@@ -31,7 +31,7 @@
   }
 
   function veredito(j) {
-    const R = D.regua, pref = D.pref[SET[j.p]] || [];
+    const R = D.regua, pref = D.pref[j.p] || [], cai = (D.cai && D.cai[j.p]) || [];
     const pontos = [], contra = [], vazios = [];
     if (j.vet) contra.push('vetado pelo clube (EXCLUIDOS)');
     if (j.caro) contra.push('valor de mercado acima de € 2 MM: inalcançável');
@@ -45,7 +45,7 @@
       if (j.psv == null) vazios.push('sem rastreio físico: piso de velocidade não verificado');
       else if (j.psv < R.psv) contra.push('abaixo do piso de velocidade (' + num(j.psv, 1) + ' km/h < 27): só com vídeo');
       else pontos.push('passa o piso de velocidade (' + num(j.psv, 1) + ' km/h)');
-      if (j.tipo) { if (j.tpref) pontos.push('tipo físico de quem sobe (' + j.tipo + ')'); else contra.push('tipo físico "' + j.tipo + '" — quem sobe usa ' + pref.join(' / ')); }
+      if (j.tipo) { if (j.tpref) pontos.push('tipo físico de quem sobe na posição (' + j.tipo + ')'); else if (cai.includes(j.tipo)) contra.push('tipo físico de quem cai na posição (' + j.tipo + ')' + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : '')); else if (pref.length) contra.push('tipo físico "' + j.tipo + '" — quem sobe na posição usa ' + pref.join(' / ')); else vazios.push('tipo físico ' + j.tipo + ' — nesta posição o físico não separa quem sobe de quem cai (B8-4)'); }
     }
     if (['LD', 'ZD', 'ZE', 'LE', 'VOL'].includes(j.p) && j.xg_p != null) { if (j.xg_p >= 90) pontos.push('gol de defesa: xG/90 ' + num(j.xg, 2) + ', decil de cima da posição (rende e não custa, B7-1)'); else if (j.xg_p >= 75) pontos.push('chega ao gol: xG/90 ' + num(j.xg, 2) + ', quartil de cima da posição'); }
     if (['LD', 'LE', 'VOL', 'MED', 'MEI', 'ED', 'EE'].includes(j.p) && j.area_p != null) { if (j.area_p >= 90) pontos.push('corre para a área: ' + num(j.area, 1) + ' corridas/30 min, decil de cima (o físico que mais anda com participação em gol, B8-2)'); else if (j.area_p <= 25) contra.push('corre pouco para a área (' + num(j.area, 1) + '/30 min, quartil de baixo da posição)'); }
@@ -99,7 +99,7 @@
   }
 
   function ficha(j) {
-    const v = veredito(j), pref = D.pref[SET[j.p]] || [];
+    const v = veredito(j), pref = D.pref[j.p] || [];
     let h = '<div class="cs-cab"><div><h3>' + esc(j.n) + ' <span class="cs-sel ' + v.cls + '">' + v.nivel + '</span></h3>' +
       '<p>' + esc(j.c) + ' · ' + esc(j.l) + ' · ' + esc(POS[j.p] || j.p) + ' · ' + (j.i != null ? j.i + ' anos' : '') + ' · ' + num(j.min, 0) + ' min · contrato ' + dt(j.ct) +
       (j.val ? ' · € ' + num(j.val / 1e6, 1) + ' MM' : '') + '</p></div>' +
@@ -202,9 +202,10 @@
   /* jogadores de um tipo físico num setor (Bloco 8): clique no nome do tipo abre esta janela */
   const TIPOS = ['Motor de volume', 'Baixa intensidade', 'Explosivo e rápido', 'Médio em tudo', 'Intermediário', 'Mais intenso', 'Menos intenso'];
   window.csTipos = TIPOS;
-  window.csTipoJanela = (setor, tipo) => {
-    const pref = (D.pref[setor] || []).includes(tipo);
-    let lista = D.jogadores.filter(j => j.tipo === tipo && SET[j.p] === setor && !j.vet);
+  window.csTipoJanela = (setor, tipo, pos) => {
+    const prefs = pos ? (D.pref[pos] || []) : [...new Set(Object.keys(D.pref).filter(p => SET[p] === setor).flatMap(p => D.pref[p]))];
+    const pref = prefs.includes(tipo), cai = pos ? ((D.cai && D.cai[pos]) || []).includes(tipo) : false;
+    let lista = D.jogadores.filter(j => j.tipo === tipo && (pos ? j.p === pos : SET[j.p] === setor) && !j.vet);
     lista.sort((a, b) => (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.nota || 0) - (a.nota || 0));
     const merc = { 'Série B': [], 'Sul-americano': [], 'Exterior': [], 'Série A': [] };
     lista.forEach(j => (merc[j.m] || merc['Exterior']).push(j));
@@ -212,7 +213,7 @@
     if (!m) { m = document.createElement('div'); m.id = 'csModal'; m.className = 'cs-esc cs-modal'; document.body.appendChild(m); }
     const tab = (nome, arr) => !arr.length ? '' : '<h4>' + esc(nome) + ' <small>' + arr.length + '</small></h4><table><tr><th>Jogador</th><th>Clube</th><th>Pos</th><th>Idade</th><th>Contrato</th><th>Nota</th><th>PSV</th><th>Sprints</th><th>Alta int.</th><th>Arranc.</th><th>Veredito</th></tr>' +
       arr.slice(0, 60).map(j => { const v = veredito(j); return '<tr class="cs-sim-l" data-n="' + esc(j.n) + '" data-c="' + esc(j.c) + '"><td><b>' + esc(j.n) + '</b></td><td>' + esc(j.c) + (j.m !== 'Série B' ? ' <small>' + esc(j.l) + '</small>' : '') + '</td><td>' + j.p + '</td><td>' + (j.i == null ? '—' : j.i) + '</td><td>' + dt(j.ct) + '</td><td><b>' + (j.nota == null ? '—' : j.nota) + '</b></td><td>' + num(j.psv, 1) + '</td><td>' + num(j.spr, 1) + '</td><td>' + num(j.hi, 0) + '</td><td>' + num(j.expl, 2) + '</td><td><em class="cs-sel ' + v.cls + '">' + v.nivel + '</em></td></tr>'; }).join('') + '</table>' + (arr.length > 60 ? '<p class="cs-nota">mostrando 60 de ' + arr.length + ', por nota</p>' : '');
-    m.innerHTML = '<div class="cs-modal-fundo"></div><div class="cs-modal-caixa"><button class="cs-modal-x" title="fechar">×</button><div class="cs-ficha cs-tipo"><h3>' + esc(tipo) + ' — ' + esc(setor) + ' <span class="cs-sel ' + (pref ? 'bom' : 'ruim') + '">' + (pref ? 'tipo de quem sobe' : 'quem sobe usa ' + esc((D.pref[setor] || []).join(' / '))) + '</span></h3>' +
+    m.innerHTML = '<div class="cs-modal-fundo"></div><div class="cs-modal-caixa"><button class="cs-modal-x" title="fechar">×</button><div class="cs-ficha cs-tipo"><h3>' + esc(tipo) + ' — ' + esc(pos ? (POS[pos] || pos) : setor) + ' <span class="cs-sel ' + (pref ? 'bom' : cai ? 'ruim' : 'meio') + '">' + (pref ? 'tipo de quem sobe' : cai ? 'tipo de quem cai' : prefs.length ? 'quem sobe usa ' + esc(prefs.join(' / ')) : 'o físico não separa nesta posição') + '</span></h3>' +
       '<p class="cs-nota">Jogadores com ≥ 900 min e rastreio físico, classificados no tipo pelo perfil médio dos tipos da Série B (B8/B15). Ordem: Série B primeiro, depois por nota. Clique para abrir a ficha.</p>' +
       tab('Série B', merc['Série B']) + tab('Campeonatos sul-americanos', merc['Sul-americano']) + tab('Exterior', merc['Exterior']) + tab('Série A', merc['Série A']) + '</div></div>';
     const fechar = () => { m.remove(); document.removeEventListener('keydown', esc_); };

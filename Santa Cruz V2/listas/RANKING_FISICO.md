@@ -79,21 +79,21 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 | 2 | **Sergio Palacios** (e) | Ponte Preta | 21 | 31/08/29 | **98** | 31,9 | 12,4 | 60 | 2,47 | 8,5 | 0,2 | Explosivo e rápido | 44 |
 | 3 | **Gabriel Bahia** | Novorizontino | 27 | 31/03/27 | **93** | 30,9 | 8,7 | 47 | 1,74 | 7,3 | 0,0 | Explosivo e rápido | 61 |
 | 4 | **Rodrigo Sam** (e) | Juventude | 31 | 31/12/27 | **92** | 29,1 | 8,5 | 48 | 1,50 | 16,9 | 0,6 | Explosivo e rápido | 50 |
-| 5 | **Yago Lincoln** (e) | Londrina | 23 | 30/06/30 | **80** | 30,3 | 6,8 | 40 | 1,24 | 6,5 | 0,1 | Motor de volume ✓ | 53 |
-| 6 | **Tito** (e) | Atlético-GO | 26 | 30/11/28 | **77** | 29,1 | 6,1 | 40 | 1,36 | 7,3 | 0,1 | Motor de volume ✓ | 47 |
-| 7 | **Ericson** | Botafogo-SP | 27 | 30/11/26 | **75** | 29,7 | 6,8 | 41 | 1,05 | 5,6 | 0,4 | Motor de volume ✓ | 52 |
-| 8 | **Bruno Alves** (e) | Criciúma | 35 | 31/12/27 | **72** | 28,8 | 5,8 | 39 | 1,38 | 6,5 | 0,2 | Motor de volume ✓ | 63 |
-| 9 | **Calebe Costa** | Cuiabá | 23 | 30/11/26 | **67** | 27,6 | 7,0 | 51 | 0,58 | 30,9 | 1,9 | Motor de volume ✓ | 50 |
-| 10 | **Jhonatan Silva** | Athletic | 27 | 30/11/26 | **65** | 29,4 | 5,4 | 38 | 1,14 | 6,2 | 0,0 | Motor de volume ✓ | 45 |
-| 11 | **Allyson** | Avaí | 35 | 30/11/26 | **65** | 29,1 | 6,5 | 40 | 0,86 | 5,2 | 0,1 | Motor de volume ✓ | 52 |
+| 5 | **Yago Lincoln** (e) | Londrina | 23 | 30/06/30 | **80** | 30,3 | 6,8 | 40 | 1,24 | 6,5 | 0,1 | Motor de volume | 53 |
+| 6 | **Tito** (e) | Atlético-GO | 26 | 30/11/28 | **77** | 29,1 | 6,1 | 40 | 1,36 | 7,3 | 0,1 | Motor de volume | 47 |
+| 7 | **Ericson** | Botafogo-SP | 27 | 30/11/26 | **75** | 29,7 | 6,8 | 41 | 1,05 | 5,6 | 0,4 | Motor de volume | 52 |
+| 8 | **Bruno Alves** (e) | Criciúma | 35 | 31/12/27 | **72** | 28,8 | 5,8 | 39 | 1,38 | 6,5 | 0,2 | Motor de volume | 63 |
+| 9 | **Calebe Costa** | Cuiabá | 23 | 30/11/26 | **67** | 27,6 | 7,0 | 51 | 0,58 | 30,9 | 1,9 | Motor de volume | 50 |
+| 10 | **Jhonatan Silva** | Athletic | 27 | 30/11/26 | **65** | 29,4 | 5,4 | 38 | 1,14 | 6,2 | 0,0 | Motor de volume | 45 |
+| 11 | **Allyson** | Avaí | 35 | 30/11/26 | **65** | 29,1 | 6,5 | 40 | 0,86 | 5,2 | 0,1 | Motor de volume | 52 |
 | 12 | **Marcelo Ajul** (e) | Sport | 24 | 31/12/27 | **60** | 27,7 | 5,1 | 35 | 1,77 | 9,9 | 0,5 | Baixa intensidade | 47 |
-| 13 | **Gabriel Pinheiro** | Juventude | 29 | 31/12/26 | **56** | 28,6 | 5,5 | 35 | 0,83 | 10,7 | 0,5 | Motor de volume ✓ | 57 |
-| 14 | **Lucas Cunha** | Ponte Preta | 29 | 31/12/26 | **55** | 28,4 | 5,5 | 37 | 0,75 | 7,3 | 0,0 | Motor de volume ✓ | 44 |
-| 15 | **Ricardo Silva** | América-MG | 34 | 30/11/26 | **52** | 28,1 | 4,5 | 35 | 1,17 | 10,3 | 0,1 | Motor de volume ✓ | 68 |
+| 13 | **Gabriel Pinheiro** | Juventude | 29 | 31/12/26 | **56** | 28,6 | 5,5 | 35 | 0,83 | 10,7 | 0,5 | Motor de volume | 57 |
+| 14 | **Lucas Cunha** | Ponte Preta | 29 | 31/12/26 | **55** | 28,4 | 5,5 | 37 | 0,75 | 7,3 | 0,0 | Motor de volume | 44 |
+| 15 | **Ricardo Silva** | América-MG | 34 | 30/11/26 | **52** | 28,1 | 4,5 | 35 | 1,17 | 10,3 | 0,1 | Motor de volume | 68 |
 | 16 | **Jemerson** | São Bernardo | 34 | 30/11/26 | **46** | 28,9 | 5,0 | 34 | 0,67 | 8,5 | 0,2 | Baixa intensidade | 60 |
 | 17 | **Éder** | Ceará | 31 | 31/12/26 | **40** | 28,5 | 4,2 | 30 | 0,89 | 8,5 | 0,5 | Baixa intensidade | 34 |
 | 18 | **Henri** (e) | CRB | 24 | 31/12/27 | **38** | 28,7 | 4,4 | 31 | 0,69 | 8,9 | 0,2 | Baixa intensidade | 55 |
-| 19 | **Bressan** (e) | CRB | 33 | 30/11/27 | **37** | 27,2 | 4,8 | 37 | 0,39 | 10,5 | 0,4 | Motor de volume ✓ | 53 |
+| 19 | **Bressan** (e) | CRB | 33 | 30/11/27 | **37** | 27,2 | 4,8 | 37 | 0,39 | 10,5 | 0,4 | Motor de volume | 53 |
 | 20 | **J. Cuenú** | Operário-PR | 31 | 30/11/26 | **37** | 29,0 | 4,3 | 33 | 0,50 | 7,7 | 0,3 | Baixa intensidade | 51 |
 
 **Sul-americanas**
@@ -112,24 +112,24 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 | 10 | **M. Cagua** | Técnico Universitario | Equador A | 22 | 31/12/26 | **84** | 30,2 | 7,7 | 42 | 1,93 | 3,6 | 0,0 | Explosivo e rápido | 46 |
 | 11 | **L. Quintana** (e) | Cerro Porteño | Paraguai | 21 | 31/12/28 | **84** | 29,1 | 7,5 | 43 | 1,23 | 7,1 | 0,0 | Explosivo e rápido | 56 |
 | 12 | **F. Wiechniak** | Sportivo Luqueño | Paraguai | 23 | 31/12/26 | **83** | 30,1 | 7,8 | 43 | 1,81 | 3,0 | 0,2 | Explosivo e rápido | 48 |
-| 13 | **V. Vidal** | Everton | Chile | 22 | 31/12/26 | **81** | 28,9 | 7,1 | 43 | 1,17 | 7,3 | 0,1 | Motor de volume ✓ | 43 |
-| 14 | **S. Núñez** (e) | Estudiantes | Argentina A | 26 | 31/12/28 | **80** | 29,8 | 6,7 | 40 | 1,31 | 6,2 | 0,3 | Motor de volume ✓ | 52 |
-| 15 | **R. Cáseres** | Unión La Calera | Chile | 28 | 31/12/26 | **80** | 28,3 | 7,0 | 46 | 1,05 | 10,8 | 0,2 | Motor de volume ✓ | 56 |
-| 16 | **R. Orihuela** | Sarmiento | Argentina A | 25 | 31/12/26 | **79** | 29,2 | 6,7 | 42 | 1,15 | 6,8 | 0,2 | Motor de volume ✓ | 46 |
+| 13 | **V. Vidal** | Everton | Chile | 22 | 31/12/26 | **81** | 28,9 | 7,1 | 43 | 1,17 | 7,3 | 0,1 | Motor de volume | 43 |
+| 14 | **S. Núñez** (e) | Estudiantes | Argentina A | 26 | 31/12/28 | **80** | 29,8 | 6,7 | 40 | 1,31 | 6,2 | 0,3 | Motor de volume | 52 |
+| 15 | **R. Cáseres** | Unión La Calera | Chile | 28 | 31/12/26 | **80** | 28,3 | 7,0 | 46 | 1,05 | 10,8 | 0,2 | Motor de volume | 56 |
+| 16 | **R. Orihuela** | Sarmiento | Argentina A | 25 | 31/12/26 | **79** | 29,2 | 6,7 | 42 | 1,15 | 6,8 | 0,2 | Motor de volume | 46 |
 | 17 | **J. Angulo** | Tolima | Colombia A | 25 | — | **79** | 30,3 | 6,9 | 39 | 1,75 | 4,7 | 0,0 | Explosivo e rápido | 50 |
-| 18 | **I. Villalba** (e) | Independiente Rivadavia | Argentina A | 31 | 31/12/27 | **78** | 28,9 | 6,8 | 43 | 1,26 | 6,1 | 0,8 | Motor de volume ✓ | 42 |
-| 19 | **G. Vargas** | Olimpia | Paraguai | 24 | 31/12/26 | **78** | 29,0 | 6,6 | 42 | 1,13 | 7,3 | 0,5 | Motor de volume ✓ | 67 |
+| 18 | **I. Villalba** (e) | Independiente Rivadavia | Argentina A | 31 | 31/12/27 | **78** | 28,9 | 6,8 | 43 | 1,26 | 6,1 | 0,8 | Motor de volume | 42 |
+| 19 | **G. Vargas** | Olimpia | Paraguai | 24 | 31/12/26 | **78** | 29,0 | 6,6 | 42 | 1,13 | 7,3 | 0,5 | Motor de volume | 67 |
 | 20 | **A. Moralez** | Llaneros | Colombia A | 25 | 31/12/26 | **77** | 29,9 | 6,3 | 39 | 1,55 | 6,0 | 0,2 | Explosivo e rápido | 47 |
 
 **Brasileiros e sul-americanos no exterior**
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Lucão** (BR) | Chongqing Tongliang Long | China | 30 | — | **72** | 28,7 | 6,9 | 42 | 0,94 | — | — | Motor de volume ✓ | 62 |
-| 2 | **Marlon Júnior** (BR) | Portimonense | Portugal B | 20 | 30/06/27 | **71** | 29,1 | 8,2 | 50 | 0,65 | — | — | Motor de volume ✓ | 44 |
-| 3 | **Mateus Sarará** (BR) | Portimonense | Portugal B | 23 | 30/06/26 | **60** | 28,1 | 5,8 | 38 | 1,00 | — | — | Motor de volume ✓ | 55 |
+| 1 | **Lucão** (BR) | Chongqing Tongliang Long | China | 30 | — | **72** | 28,7 | 6,9 | 42 | 0,94 | — | — | Motor de volume | 62 |
+| 2 | **Marlon Júnior** (BR) | Portimonense | Portugal B | 20 | 30/06/27 | **71** | 29,1 | 8,2 | 50 | 0,65 | — | — | Motor de volume | 44 |
+| 3 | **Mateus Sarará** (BR) | Portimonense | Portugal B | 23 | 30/06/26 | **60** | 28,1 | 5,8 | 38 | 1,00 | — | — | Motor de volume | 55 |
 | 4 | **Jarleysom** (BR) (e) | Portimonense | Portugal B | 22 | 30/06/28 | **58** | 28,7 | 5,5 | 36 | 1,00 | — | — | Baixa intensidade | 44 |
-| 5 | **Volnei** (BR) | Panserraikos | Grecia | 26 | 30/06/26 | **52** | 29,0 | 5,4 | 36 | 0,81 | — | — | Motor de volume ✓ | 52 |
+| 5 | **Volnei** (BR) | Panserraikos | Grecia | 26 | 30/06/26 | **52** | 29,0 | 5,4 | 36 | 0,81 | — | — | Motor de volume | 52 |
 | 6 | **Alysson** (BR) | Farense | Portugal B | 23 | 30/06/26 | **48** | 27,2 | 5,7 | 38 | 0,79 | — | — | Baixa intensidade | 44 |
 | 7 | **Kauan Ferreira** (BR) | Paços de Ferreira | Portugal B | 23 | 30/06/26 | **36** | 27,4 | 4,3 | 32 | 1,07 | — | — | Baixa intensidade | 40 |
 | 8 | **Iago Maidana** (BR) | Henan | China | 30 | 31/12/26 | **29** | 28,4 | 4,2 | 30 | 0,63 | — | — | Baixa intensidade | 53 |
@@ -386,9 +386,9 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 | # | Jogador | Clube | Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Matheus Araújo** (e) | Ceará | 24 | 31/12/27 | **68** | 28,3 | 11,0 | 73 | 0,57 | 56,0 | 10,4 | Explosivo e rápido | 39 |
-| 2 | **Guilherme Marques** | Atlético-GO | 35 | 30/11/26 | **49** | 28,0 | 9,3 | 61 | 0,27 | 42,5 | 8,1 | Médio em tudo ✓ | 59 |
-| 3 | **Jean Lucas** | Avaí | 31 | 31/12/26 | **44** | 27,5 | 7,0 | 57 | 1,14 | 31,1 | 1,6 | Médio em tudo ✓ | 45 |
-| 4 | **Fellipe Mateus** | Criciúma | 35 | 31/12/26 | **29** | 27,1 | 6,7 | 59 | 0,14 | 42,4 | 4,5 | Médio em tudo ✓ | 42 |
+| 2 | **Guilherme Marques** | Atlético-GO | 35 | 30/11/26 | **49** | 28,0 | 9,3 | 61 | 0,27 | 42,5 | 8,1 | Médio em tudo | 59 |
+| 3 | **Jean Lucas** | Avaí | 31 | 31/12/26 | **44** | 27,5 | 7,0 | 57 | 1,14 | 31,1 | 1,6 | Médio em tudo | 45 |
+| 4 | **Fellipe Mateus** | Criciúma | 35 | 31/12/26 | **29** | 27,1 | 6,7 | 59 | 0,14 | 42,4 | 4,5 | Médio em tudo | 42 |
 | 5 | **Lourenço** | Goiás | 29 | 30/11/26 | **22** | 29,4 | 6,0 | 42 | 0,57 | 18,6 | 0,6 | Baixa intensidade | 36 |
 
 **Sul-americanas**
@@ -411,10 +411,10 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 | 14 | **D. González** | Deportivo Cuenca | Equador A | 23 | 31/12/26 | **59** | 28,1 | 8,2 | 57 | 1,09 | 44,1 | 2,0 | Explosivo e rápido | 47 |
 | 15 | **J. Del Castillo** | Alianza Atlético | Peru | 21 | 31/12/26 | **59** | 28,0 | 8,2 | 56 | 1,19 | 55,6 | 6,0 | Explosivo e rápido | 40 |
 | 16 | **F. Muñoa** (e) | Boston River | Uruguai | 22 | 30/06/28 | **58** | 27,4 | 8,7 | 59 | 1,01 | 46,1 | 8,5 | Explosivo e rápido | 49 |
-| 17 | **F. Gulli** (e) | San Lorenzo | Argentina A | 20 | 31/12/28 | **52** | 28,5 | 7,7 | 54 | 1,18 | 34,4 | 3,0 | Médio em tudo ✓ | 35 |
+| 17 | **F. Gulli** (e) | San Lorenzo | Argentina A | 20 | 31/12/28 | **52** | 28,5 | 7,7 | 54 | 1,18 | 34,4 | 3,0 | Médio em tudo | 35 |
 | 18 | **J. Rengifo** (e) | Atlético Nacional | Colombia A | 21 | 31/12/28 | **52** | 27,6 | 7,8 | 58 | 0,95 | 49,1 | 3,2 | Explosivo e rápido | 53 |
-| 19 | **J. Quiñónez** (e) | Barcelona | Equador A | 28 | 31/12/27 | **51** | 27,9 | 8,0 | 57 | 1,15 | 30,0 | 4,6 | Médio em tudo ✓ | 51 |
-| 20 | **F. Guch** (e) | Newell's Old Boys | Argentina A | 19 | 31/12/29 | **50** | 27,3 | 8,1 | 66 | 0,91 | 37,8 | 1,3 | Médio em tudo ✓ | 39 |
+| 19 | **J. Quiñónez** (e) | Barcelona | Equador A | 28 | 31/12/27 | **51** | 27,9 | 8,0 | 57 | 1,15 | 30,0 | 4,6 | Médio em tudo | 51 |
+| 20 | **F. Guch** (e) | Newell's Old Boys | Argentina A | 19 | 31/12/29 | **50** | 27,3 | 8,1 | 66 | 0,91 | 37,8 | 1,3 | Médio em tudo | 39 |
 
 **Brasileiros e sul-americanos no exterior**
 
@@ -422,7 +422,7 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Gustavo Sauer** (BR) | Wuhan Three Towns | China | 33 | 31/12/26 | **74** | 29,1 | 10,1 | 61 | 1,62 | — | — | Explosivo e rápido | 48 |
 | 2 | **G. Balzi** (e) | Levadiakos | Grecia | 24 | 31/12/27 | **63** | 28,1 | 10,9 | 74 | 0,85 | 32,0 | 2,7 | Explosivo e rápido | 52 |
-| 3 | **Bruno Nazário** (BR) | Henan | China | 31 | 31/12/26 | **46** | 27,4 | 8,3 | 61 | 0,68 | — | — | Médio em tudo ✓ | 58 |
+| 3 | **Bruno Nazário** (BR) | Henan | China | 31 | 31/12/26 | **46** | 27,4 | 8,3 | 61 | 0,68 | — | — | Médio em tudo | 58 |
 
 ## Extremo pela direita
 
@@ -430,8 +430,8 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 
 | # | Jogador | Clube | Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Hildeberto Pereira** | Operário-PR | 30 | 30/11/26 | **78** | 30,2 | 14,5 | 75 | 3,22 | 35,2 | 5,2 | Explosivo e rápido ✓ | 50 |
-| 2 | **Chrystian Barletta** (e) | Sport | 25 | 31/07/29 | **70** | 30,7 | 12,7 | 70 | 3,31 | 36,0 | 4,0 | Explosivo e rápido ✓ | 66 |
+| 1 | **Hildeberto Pereira** | Operário-PR | 30 | 30/11/26 | **78** | 30,2 | 14,5 | 75 | 3,22 | 35,2 | 5,2 | Explosivo e rápido | 50 |
+| 2 | **Chrystian Barletta** (e) | Sport | 25 | 31/07/29 | **70** | 30,7 | 12,7 | 70 | 3,31 | 36,0 | 4,0 | Explosivo e rápido | 66 |
 | 3 | **Thayllon Roberth** (e) | Avaí | 20 | 30/12/29 | **68** | 29,8 | 13,8 | 82 | 1,37 | 43,8 | 8,1 | Motor de volume | 42 |
 | 4 | **M. Segovia** | América-MG | 23 | 31/12/26 | **64** | 28,6 | 14,3 | 84 | 1,44 | 43,0 | 4,4 | Motor de volume | 56 |
 | 5 | **Bruno José** | Atlético-GO | 28 | 30/11/26 | **58** | 29,6 | 12,9 | 68 | 2,25 | 29,9 | 4,8 | Baixa intensidade | 59 |
@@ -445,32 +445,32 @@ Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercad
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **F. González** (e) | O'Higgins | Chile | 25 | 31/12/28 | **97** | 30,9 | 20,1 | 94 | 3,50 | 44,9 | 6,1 | Explosivo e rápido ✓ | 63 |
-| 2 | **J. Córdoba** (e) | Instituto | Argentina A | 26 | 30/06/29 | **94** | 29,9 | 18,5 | 91 | 3,91 | 51,3 | 7,9 | Explosivo e rápido ✓ | 46 |
-| 3 | **E. Obregón** (e) | Torque | Uruguai | 24 | 31/12/27 | **94** | 30,0 | 19,2 | 99 | 3,18 | 42,4 | 7,7 | Explosivo e rápido ✓ | 52 |
-| 4 | **F. de León** | Progreso | Uruguai | 22 | 31/12/26 | **91** | 30,7 | 18,2 | 94 | 3,80 | 32,9 | 8,4 | Explosivo e rápido ✓ | 41 |
-| 5 | **Mario Briceño** (e) | Huachipato | Chile | 30 | 31/12/27 | **90** | 30,3 | 17,6 | 89 | 3,42 | 36,5 | 5,5 | Explosivo e rápido ✓ | 54 |
-| 6 | **F. Perez** (e) | Estudiantes | Argentina A | 20 | 31/12/27 | **89** | 29,5 | 19,1 | 100 | 2,75 | 37,9 | 6,5 | Explosivo e rápido ✓ | 51 |
-| 7 | **A. Jara** (e) | Concepción | Chile | 25 | 31/12/28 | **88** | 30,1 | 16,2 | 85 | 3,47 | 41,3 | 3,3 | Explosivo e rápido ✓ | 52 |
-| 8 | **Kevin Méndez** | Unión La Calera | Chile | 30 | — | **86** | 29,4 | 17,6 | 95 | 3,45 | 33,3 | 3,8 | Explosivo e rápido ✓ | 65 |
-| 9 | **H. Toledo** | Albion | Uruguai | 30 | 31/12/26 | **86** | 30,4 | 17,9 | 96 | 3,08 | 29,3 | 3,9 | Explosivo e rápido ✓ | 47 |
-| 10 | **D. Moncada** (e) | Inter Bogotá | Colombia A | 18 | 30/06/31 | **84** | 31,3 | 18,8 | 92 | 3,31 | 22,1 | 9,0 | Explosivo e rápido ✓ | 44 |
-| 11 | **J. Gutiérrez** | La Serena | Chile | 24 | 31/12/26 | **83** | 29,8 | 16,4 | 86 | 2,33 | 39,5 | 5,9 | Explosivo e rápido ✓ | 34 |
-| 12 | **C. Souza** | Cienciano | Peru | 30 | 31/12/26 | **83** | 30,9 | 15,3 | 77 | 3,70 | 32,7 | 3,5 | Explosivo e rápido ✓ | 60 |
-| 13 | **S. Solari** (e) | Racing Club | Argentina A | 28 | 31/12/27 | **82** | 29,5 | 19,1 | 95 | 2,38 | 30,8 | 8,7 | Explosivo e rápido ✓ | 49 |
-| 14 | **M. Guerrero** (e) | Universidad de Chile | Chile | 26 | 31/12/28 | **82** | 29,4 | 16,1 | 91 | 2,24 | 42,1 | 9,2 | Explosivo e rápido ✓ | 55 |
-| 15 | **A. Torterolo Del Arco** (e) | Defensor Sporting | Uruguai | 18 | 31/07/27 | **82** | 30,4 | 16,4 | 87 | 2,88 | 30,3 | 9,8 | Explosivo e rápido ✓ | 42 |
-| 16 | **D. Camacho** | UTC Cajamarca | Peru | 29 | 31/12/26 | **79** | 29,0 | 15,3 | 90 | 2,58 | 35,9 | 12,6 | Explosivo e rápido ✓ | 41 |
-| 17 | **L. Suhr** | Boston River | Uruguai | 28 | 31/12/26 | **79** | 30,0 | 16,7 | 85 | 1,94 | 34,8 | 9,1 | Explosivo e rápido ✓ | 44 |
-| 18 | **J. Palacios** | Unión Santa Fe | Argentina A | 27 | 31/12/26 | **78** | 29,1 | 14,5 | 80 | 2,61 | 49,4 | 4,0 | Explosivo e rápido ✓ | 59 |
-| 19 | **J. Contrera** (e) | Sarmiento | Argentina A | 23 | 31/12/27 | **73** | 29,1 | 15,1 | 81 | 2,40 | 30,8 | 3,7 | Explosivo e rápido ✓ | 41 |
+| 1 | **F. González** (e) | O'Higgins | Chile | 25 | 31/12/28 | **97** | 30,9 | 20,1 | 94 | 3,50 | 44,9 | 6,1 | Explosivo e rápido | 63 |
+| 2 | **J. Córdoba** (e) | Instituto | Argentina A | 26 | 30/06/29 | **94** | 29,9 | 18,5 | 91 | 3,91 | 51,3 | 7,9 | Explosivo e rápido | 46 |
+| 3 | **E. Obregón** (e) | Torque | Uruguai | 24 | 31/12/27 | **94** | 30,0 | 19,2 | 99 | 3,18 | 42,4 | 7,7 | Explosivo e rápido | 52 |
+| 4 | **F. de León** | Progreso | Uruguai | 22 | 31/12/26 | **91** | 30,7 | 18,2 | 94 | 3,80 | 32,9 | 8,4 | Explosivo e rápido | 41 |
+| 5 | **Mario Briceño** (e) | Huachipato | Chile | 30 | 31/12/27 | **90** | 30,3 | 17,6 | 89 | 3,42 | 36,5 | 5,5 | Explosivo e rápido | 54 |
+| 6 | **F. Perez** (e) | Estudiantes | Argentina A | 20 | 31/12/27 | **89** | 29,5 | 19,1 | 100 | 2,75 | 37,9 | 6,5 | Explosivo e rápido | 51 |
+| 7 | **A. Jara** (e) | Concepción | Chile | 25 | 31/12/28 | **88** | 30,1 | 16,2 | 85 | 3,47 | 41,3 | 3,3 | Explosivo e rápido | 52 |
+| 8 | **Kevin Méndez** | Unión La Calera | Chile | 30 | — | **86** | 29,4 | 17,6 | 95 | 3,45 | 33,3 | 3,8 | Explosivo e rápido | 65 |
+| 9 | **H. Toledo** | Albion | Uruguai | 30 | 31/12/26 | **86** | 30,4 | 17,9 | 96 | 3,08 | 29,3 | 3,9 | Explosivo e rápido | 47 |
+| 10 | **D. Moncada** (e) | Inter Bogotá | Colombia A | 18 | 30/06/31 | **84** | 31,3 | 18,8 | 92 | 3,31 | 22,1 | 9,0 | Explosivo e rápido | 44 |
+| 11 | **J. Gutiérrez** | La Serena | Chile | 24 | 31/12/26 | **83** | 29,8 | 16,4 | 86 | 2,33 | 39,5 | 5,9 | Explosivo e rápido | 34 |
+| 12 | **C. Souza** | Cienciano | Peru | 30 | 31/12/26 | **83** | 30,9 | 15,3 | 77 | 3,70 | 32,7 | 3,5 | Explosivo e rápido | 60 |
+| 13 | **S. Solari** (e) | Racing Club | Argentina A | 28 | 31/12/27 | **82** | 29,5 | 19,1 | 95 | 2,38 | 30,8 | 8,7 | Explosivo e rápido | 49 |
+| 14 | **M. Guerrero** (e) | Universidad de Chile | Chile | 26 | 31/12/28 | **82** | 29,4 | 16,1 | 91 | 2,24 | 42,1 | 9,2 | Explosivo e rápido | 55 |
+| 15 | **A. Torterolo Del Arco** (e) | Defensor Sporting | Uruguai | 18 | 31/07/27 | **82** | 30,4 | 16,4 | 87 | 2,88 | 30,3 | 9,8 | Explosivo e rápido | 42 |
+| 16 | **D. Camacho** | UTC Cajamarca | Peru | 29 | 31/12/26 | **79** | 29,0 | 15,3 | 90 | 2,58 | 35,9 | 12,6 | Explosivo e rápido | 41 |
+| 17 | **L. Suhr** | Boston River | Uruguai | 28 | 31/12/26 | **79** | 30,0 | 16,7 | 85 | 1,94 | 34,8 | 9,1 | Explosivo e rápido | 44 |
+| 18 | **J. Palacios** | Unión Santa Fe | Argentina A | 27 | 31/12/26 | **78** | 29,1 | 14,5 | 80 | 2,61 | 49,4 | 4,0 | Explosivo e rápido | 59 |
+| 19 | **J. Contrera** (e) | Sarmiento | Argentina A | 23 | 31/12/27 | **73** | 29,1 | 15,1 | 81 | 2,40 | 30,8 | 3,7 | Explosivo e rápido | 41 |
 | 20 | **R. Tesuri** (e) | Atlético Tucumán | Argentina A | 30 | 31/12/28 | **72** | 28,9 | 14,8 | 88 | 1,84 | 36,1 | 10,8 | Motor de volume | 40 |
 
 **Brasileiros e sul-americanos no exterior**
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Físico | PSV-99 | Sprints/90 | Alta int./90 | Arrancadas/90 | Corridas s/ bola | Área/30' | Tipo | Nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **S. Palacios** | Levadiakos | Grecia | 34 | 30/06/26 | **77** | 30,0 | 14,7 | 80 | 2,08 | 37,1 | 6,1 | Explosivo e rápido ✓ | 53 |
+| 1 | **S. Palacios** | Levadiakos | Grecia | 34 | 30/06/26 | **77** | 30,0 | 14,7 | 80 | 2,08 | 37,1 | 6,1 | Explosivo e rápido | 53 |
 | 2 | **João Adriano** (BR) | UD Oliveirense | Portugal B | 23 | 30/06/26 | **55** | 27,6 | 12,5 | 78 | 1,95 | — | — | Motor de volume | 35 |
 | 3 | **Wellington Carvalho** (BR) | Chaves | Portugal B | 33 | 30/06/26 | **41** | 28,0 | 9,1 | 68 | 2,14 | — | — | Motor de volume | 37 |
 | 4 | **M. González** (e) | Volos NFC | Grecia | 24 | 30/06/28 | **37** | 28,0 | 10,9 | 72 | 1,23 | 30,7 | 7,3 | Motor de volume | 45 |

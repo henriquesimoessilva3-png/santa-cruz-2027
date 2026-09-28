@@ -69,11 +69,12 @@
     /* nome de um tipo físico dentro de tabela (Bloco 8, 15): clique abre quem está no tipo, naquele setor */
     if (window.csTipoJanela) alvo.querySelectorAll('.esv-doc table td > strong').forEach(el => {
       const tipo = el.textContent.trim(); if (!window.csTipos.includes(tipo)) return;
-      let setor = null, n = el.closest('table');
-      while (n && !setor) { n = n.previousElementSibling; const st = n && n.querySelector && n.querySelector('strong'); const t = st && st.textContent.trim(); if (t && ['Zaga', 'Lateral', 'Volante', 'Meia', 'Extremo', 'Atacante'].includes(t)) setor = t; }
-      if (!setor) { const tr = el.closest('tr'); const c0 = tr && tr.cells[0] && tr.cells[0].textContent.trim(); if (['Zaga', 'Lateral', 'Volante', 'Meia', 'Extremo', 'Atacante'].includes(c0)) setor = c0; }
+      const POSN = { 'Lateral direito': ['LD', 'Lateral'], 'Zagueiro pela direita': ['ZD', 'Zaga'], 'Zagueiro pela esquerda': ['ZE', 'Zaga'], 'Lateral esquerdo': ['LE', 'Lateral'], 'Volante': ['VOL', 'Volante'], 'Médio': ['MED', 'Meia'], 'Meia': ['MEI', 'Meia'], 'Extremo pela direita': ['ED', 'Extremo'], 'Extremo pela esquerda': ['EE', 'Extremo'], 'Centroavante': ['CA', 'Atacante'] };
+      let setor = null, pos = null, n = el.closest('table');
+      while (n && !setor) { n = n.previousElementSibling; const st = n && n.querySelector && n.querySelector('strong'); const t = st && st.textContent.trim(); if (t && POSN[t]) { pos = POSN[t][0]; setor = POSN[t][1]; } else if (t && ['Zaga', 'Lateral', 'Volante', 'Meia', 'Extremo', 'Atacante'].includes(t)) setor = t; }
+      if (!setor) { const tr = el.closest('tr'); const c0 = tr && tr.cells[0] && tr.cells[0].textContent.trim(); if (POSN[c0]) { pos = POSN[c0][0]; setor = POSN[c0][1]; } else if (['Zaga', 'Lateral', 'Volante', 'Meia', 'Extremo', 'Atacante'].includes(c0)) setor = c0; else { const f = Object.entries(POSN).find(v => v[1][0] === c0); if (f) { pos = f[1][0]; setor = f[1][1]; } } }
       if (!setor) return;
-      el.classList.add('esv-tipo'); el.title = 'ver quem está neste tipo'; el.onclick = () => window.csTipoJanela(setor, tipo);
+      el.classList.add('esv-tipo'); el.title = 'ver quem está neste tipo'; el.onclick = () => window.csTipoJanela(setor, tipo, pos);
     });
     alvo.querySelectorAll('[data-ir]').forEach(a => {
       a.onclick = e => {

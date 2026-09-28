@@ -39,16 +39,16 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | vmax Sofa | Tipo físico | BP | xG/90 | Área/30' | Nota Sofa | xG+xA/90 | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Ricardo Silva** | América-MG | Série B | 34 | 30/11/26 | **74** | 68 | 76 | 60 | 28,1 | 34,8 | Motor de volume | — | 0,13 ⚽ | 0,1 | 7,06 | 0,10 |  |
-| 2 | **Bruno Alves** (e) | Criciúma | Série B | 35 | 31/12/27 | **70** | 63 | 67 | 59 | 28,8 | 35,2 | Motor de volume | 91 | 0,09 | 0,2 | 6,93 | 0,08 |  |
-| 3 | **G. Vargas** | Olimpia | Paraguai | 24 | 31/12/26 | **70** | 67 | 50 | 84 | 29,0 | — | Motor de volume | — | 0,05 | 0,5 | — | — |  |
-| 4 | **F. Álvarez** (e) | Argentinos Juniors | Argentina A | 26 | 31/12/29 | **69** | 62 | 54 | 70 | 27,6 | — | Motor de volume | 90 | 0,07 | 0,7 | — | — |  |
-| 5 | **Lucão** | Chongqing Tongliang Long | China | 30 | — | **68** | 62 | 56 | 68 | 28,7 | — | Motor de volume | 85 | 0,04 | — | — | — |  |
-| 6 | **G. Fratta** | Deportivo Táchira | Venezuela | 30 | 31/12/26 | **67** | 61 | 54 | 68 | — | — | — | 97 | 0,15 ⚽ | — | — | — |  |
-| 7 | **Gabriel Bahia** | Novorizontino | Série B | 27 | 31/03/27 | **66** | 61 | 68 | 54 | 30,9 | 34,6 | Explosivo e rápido * | — | 0,14 ⚽ | 0,0 | 7,06 | 0,14 | ★ média ≥6,5 |
-| 8 | **B. Carabalí** (e) | Beitar Jerusalem | Israel | 27 | 30/06/28 | **65** | 61 | 52 | 71 | — | — | — | 92 | 0,09 | — | — | — |  |
+| 1 | **Ricardo Silva** | América-MG | Série B | 34 | 30/11/26 | **71** | 68 | 76 | 60 | 28,1 | 34,8 | Motor de volume * | — | 0,13 ⚽ | 0,1 | 7,06 | 0,10 |  |
+| 2 | **Bruno Alves** (e) | Criciúma | Série B | 35 | 31/12/27 | **67** | 63 | 67 | 59 | 28,8 | 35,2 | Motor de volume * | 91 | 0,09 | 0,2 | 6,93 | 0,08 |  |
+| 3 | **G. Fratta** | Deportivo Táchira | Venezuela | 30 | 31/12/26 | **67** | 61 | 54 | 68 | — | — | — | 97 | 0,15 ⚽ | — | — | — |  |
+| 4 | **G. Vargas** | Olimpia | Paraguai | 24 | 31/12/26 | **67** | 67 | 50 | 84 | 29,0 | — | Motor de volume * | — | 0,05 | 0,5 | — | — |  |
+| 5 | **Gabriel Bahia** | Novorizontino | Série B | 27 | 31/03/27 | **66** | 61 | 68 | 54 | 30,9 | 34,6 | Explosivo e rápido * | — | 0,14 ⚽ | 0,0 | 7,06 | 0,14 | ★ média ≥6,5 |
+| 6 | **F. Álvarez** (e) | Argentinos Juniors | Argentina A | 26 | 31/12/29 | **66** | 62 | 54 | 70 | 27,6 | — | Motor de volume * | 90 | 0,07 | 0,7 | — | — |  |
+| 7 | **B. Carabalí** (e) | Beitar Jerusalem | Israel | 27 | 30/06/28 | **65** | 61 | 52 | 71 | — | — | — | 92 | 0,09 | — | — | — |  |
+| 8 | **Lucão** | Chongqing Tongliang Long | China | 30 | — | **65** | 62 | 56 | 68 | 28,7 | — | Motor de volume * | 85 | 0,04 | — | — | — |  |
 | 9 | **R. Garcés** (e) | Alianza Lima | Peru | 30 | 31/12/28 | **64** | 61 | 50 | 72 | 27,3 | — | Baixa intensidade * | — | 0,12 ⚽ | 0,2 | — | — |  |
-| 10 | **Luis Cáceres** | Sportivo San Lorenzo | Paraguai | 30 | 31/12/26 | **63** | 54 | 48 | 61 | 28,5 | — | Motor de volume | 91 | 0,10 ⚽ | 0,3 | — | — |  |
+| 10 | **C. Ferreira** | Atlético Tucumán | Argentina A | 23 | 31/12/26 | **62** | 60 | 55 | 64 | 28,0 | — | Baixa intensidade * | — | 0,17 ⚽ | 0,4 | — | — |  |
 
 ### Zagueiro pela esquerda
 
@@ -108,37 +108,37 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 7 | **F. Gaibor** | Alianza Lima | Peru | 34 | 31/12/26 | **63** | 63 | 56 | 70 | 27,5 | — | Baixa intensidade * | — | 0,08 | 0,9 | — | — |  |
 | 8 | **Agustín Arce** (e) | Universidad de Chile | Chile | 21 | 31/12/27 | **62** | 56 | 52 | 60 | 27,0 | — | Médio em tudo | — | 0,28 | 4,3 | — | — | ★ média ≥6,5 |
 | 9 | **Raí** | Juventude | Série B | 24 | 31/12/26 | **62** | 59 | 70 | 48 | — | 35,1 | — | 87 | 0,08 | — | 7,26 | 0,22 |  |
-| 10 | **J. Vélez** (e) | Alianza Lima | Peru | 31 | 31/12/28 | **62** | 58 | 56 | 60 | 28,0 | — | Médio em tudo | — | 0,14 | 4,8 | — | — |  |
+| 10 | **J. Meneses** | Deportes Limache | Chile | 33 | 31/12/26 | **62** | 62 | 56 | 68 | 29,0 | — | Explosivo e rápido * | — | 0,09 | 2,7 | — | — |  |
 
 ### Meia
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | vmax Sofa | Tipo físico | BP | xG/90 | Área/30' | Nota Sofa | xG+xA/90 | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **F. Carrizo** | Club Libertad | Paraguai | 35 | 31/12/26 | **71** | 68 | 46 | 91 | 27,2 | — | Médio em tudo | — | 0,12 | 1,6 | — | — |  |
-| 2 | **Jean Carlos** (e) | Náutico | Série B | 34 | 31/12/27 | **68** | 66 * | 76 | — | — | 34,9 | — | 96 | 0,23 | — | 6,71 | 0,24 |  |
+| 1 | **Jean Carlos** (e) | Náutico | Série B | 34 | 31/12/27 | **68** | 66 * | 76 | — | — | 34,9 | — | 96 | 0,23 | — | 6,71 | 0,24 |  |
+| 2 | **F. Carrizo** | Club Libertad | Paraguai | 35 | 31/12/26 | **68** | 68 | 46 | 91 | 27,2 | — | Médio em tudo * | — | 0,12 | 1,6 | — | — |  |
 | 3 | **Matheus Frizzo** | Suwon | Coreia B | 28 | — | **68** | 68 | 52 | 84 | — | — | — | — | 0,37 | — | — | — |  |
-| 4 | **Guilherme Marques** | Atlético-GO | Série B | 35 | 30/11/26 | **66** | 59 | 63 | 56 | 28,0 | 34,9 | Médio em tudo | 90 | 0,18 | 8,1 | 6,88 | 0,57 |  |
-| 5 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | — | **65** | 62 | 50 | 74 | — | — | — | 95 | 0,33 | — | — | — |  |
-| 6 | **A. Hohberg** (e) | Cienciano | Peru | 35 | 31/12/27 | **65** | 61 | 55 | 67 | 27,6 | — | Baixa intensidade * | 95 | 0,66 | 7,8 | — | — |  |
-| 7 | **N. Quagliata** (e) | Melgar | Peru | 27 | 31/12/29 | **64** | 62 | 57 | 66 | 27,6 | — | Explosivo e rápido * | 94 | 0,28 | 5,5 | — | — |  |
-| 8 | **D. Pazmiño** | Leones del Norte | Equador A | 26 | 31/12/26 | **64** | 60 | 55 | 64 | 27,2 | — | Médio em tudo | — | 0,26 | 8,5 | — | — |  |
-| 9 | **M. Palavecino** (e) | Universidad Católica | Chile | 28 | 31/12/28 | **62** | 59 | 55 | 64 | 28,1 | — | Médio em tudo | — | 0,13 | 1,3 | — | — |  |
-| 10 | **L. Berdugo** (e) | Cúcuta Deportivo | Colombia A | 24 | 31/12/27 | **62** | 56 | 50 | 62 | 27,3 | — | Médio em tudo | 94 | 0,23 | 2,9 | — | — |  |
+| 4 | **K. Álvarez** | Patriotas Boyacá | Colombia B | 21 | — | **65** | 62 | 50 | 74 | — | — | — | 95 | 0,33 | — | — | — |  |
+| 5 | **A. Hohberg** (e) | Cienciano | Peru | 35 | 31/12/27 | **65** | 61 | 55 | 67 | 27,6 | — | Baixa intensidade * | 95 | 0,66 | 7,8 | — | — |  |
+| 6 | **N. Quagliata** (e) | Melgar | Peru | 27 | 31/12/29 | **64** | 62 | 57 | 66 | 27,6 | — | Explosivo e rápido * | 94 | 0,28 | 5,5 | — | — |  |
+| 7 | **Guilherme Marques** | Atlético-GO | Série B | 35 | 30/11/26 | **63** | 59 | 63 | 56 | 28,0 | 34,9 | Médio em tudo * | 90 | 0,18 | 8,1 | 6,88 | 0,57 |  |
+| 8 | **J. Barrera** | Real Cartagena | Colombia B | 30 | 31/12/26 | **61** | 61 | 56 | 67 | — | — | — | — | 0,22 | — | — | — |  |
+| 9 | **D. Pazmiño** | Leones del Norte | Equador A | 26 | 31/12/26 | **61** | 60 | 55 | 64 | 27,2 | — | Médio em tudo * | — | 0,26 | 8,5 | — | — |  |
+| 10 | **E. Batalla Martinez** | Atlético Bucaramanga | Colombia A | 25 | — | **60** | 57 | 53 | 62 | 29,5 | — | Explosivo e rápido * | — | 0,27 | 7,2 | — | — | ★ média ≥6,5 |
 
 ### Extremo pela direita
 
 | # | Jogador | Clube | Liga | Idade | Contrato | Pontos | Nota | Ader. | Nível | PSV | vmax Sofa | Tipo físico | BP | xG/90 | Área/30' | Nota Sofa | xG+xA/90 | Scouts |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | **Vinícius** (e) | Náutico | Série B | 33 | 31/12/27 | **85** | 85 | 91 | 78 | — | 35,0 | — | — | 0,28 | — | 7,09 | 0,45 |  |
-| 2 | **Chrystian Barletta** (e) | Sport | Série B | 25 | 31/07/29 | **76** | 66 | 68 | 64 | 30,7 | 35,1 | Explosivo e rápido | 90 | 0,38 | 4,0 | 7,27 | 0,65 | ★ urgência |
-| 3 | **Kevin Méndez** | Unión La Calera | Chile | 30 | — | **71** | 65 | 56 | 74 | 29,4 | — | Explosivo e rápido | — | 0,12 | 3,8 | — | — | ★ média ≥7 |
-| 4 | **F. González** (e) | O'Higgins | Chile | 25 | 31/12/28 | **67** | 63 | 57 | 70 | 30,9 | — | Explosivo e rápido | — | 0,15 | 6,1 | — | — |  |
-| 5 | **Euller** (e) | Seoul E-Land | Coreia B | 31 | 31/12/28 | **67** | 64 | 49 | 79 | — | — | — | 92 | 0,32 | — | — | — |  |
-| 6 | **Wellington Machado** (e) | Al Riffa | Bahrain | 27 | 30/06/30 | **65** | 65 | 55 | 76 | — | — | — | — | 0,25 | — | — | — |  |
-| 7 | **M. Perelló** (e) | Independiente del Valle | Equador A | 24 | 31/12/29 | **64** | 61 | 54 | 69 | 30,5 | — | Baixa intensidade * | — | 0,51 | 9,2 ➚ | — | — |  |
-| 8 | **B. Palacios** (e) | Al Wasl | Emirados | 23 | 30/06/30 | **64** | 61 | 58 | 65 | 31,1 | — | Explosivo e rápido | — | 0,24 | — | — | — |  |
-| 9 | **C. Sosa** (e) | Deportivo Táchira | Venezuela | 31 | 31/12/27 | **64** | 64 | 50 | 78 | — | — | — | — | 0,06 | — | — | — |  |
-| 10 | **Anderson Ceará** | Csikszereda Miercurea Ciuc | Romenia | 27 | 30/06/27 | **63** | 63 | 55 | 72 | — | — | — | — | 0,12 | — | — | — |  |
+| 2 | **Chrystian Barletta** (e) | Sport | Série B | 25 | 31/07/29 | **73** | 66 | 68 | 64 | 30,7 | 35,1 | Explosivo e rápido * | 90 | 0,38 | 4,0 | 7,27 | 0,65 | ★ urgência |
+| 3 | **Kevin Méndez** | Unión La Calera | Chile | 30 | — | **68** | 65 | 56 | 74 | 29,4 | — | Explosivo e rápido * | — | 0,12 | 3,8 | — | — | ★ média ≥7 |
+| 4 | **Euller** (e) | Seoul E-Land | Coreia B | 31 | 31/12/28 | **67** | 64 | 49 | 79 | — | — | — | 92 | 0,32 | — | — | — |  |
+| 5 | **Wellington Machado** (e) | Al Riffa | Bahrain | 27 | 30/06/30 | **65** | 65 | 55 | 76 | — | — | — | — | 0,25 | — | — | — |  |
+| 6 | **M. Perelló** (e) | Independiente del Valle | Equador A | 24 | 31/12/29 | **64** | 61 | 54 | 69 | 30,5 | — | Baixa intensidade * | — | 0,51 | 9,2 ➚ | — | — |  |
+| 7 | **F. González** (e) | O'Higgins | Chile | 25 | 31/12/28 | **64** | 63 | 57 | 70 | 30,9 | — | Explosivo e rápido * | — | 0,15 | 6,1 | — | — |  |
+| 8 | **C. Sosa** (e) | Deportivo Táchira | Venezuela | 31 | 31/12/27 | **64** | 64 | 50 | 78 | — | — | — | — | 0,06 | — | — | — |  |
+| 9 | **Pedro Vitor** | São Bernardo | Série B | 28 | 31/12/26 | **63** | 63 | 68 | 59 | 28,9 | 33,0 | Motor de volume * | — | 0,29 | 3,6 | 6,94 | 0,38 |  |
+| 10 | **Gabriel Honório** | Busan I'Park | Coreia B | 30 | — | **63** | 60 | 48 | 73 | — | — | — | 92 | 0,27 | — | — | — |  |
 
 ### Extremo pela esquerda
 
@@ -151,8 +151,8 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 5 | **E. Tortolero** (e) | Carabobo | Venezuela | 28 | 31/12/27 | **63** | 63 | 56 | 71 | — | — | — | — | 0,47 | — | — | — |  |
 | 6 | **Luanzinho** | Al Sharjah | Emirados | 26 | 30/06/27 | **63** | 63 | 53 | 72 | 28,1 | — | Baixa intensidade * | — | 0,31 | — | — | — |  |
 | 7 | **D. Dawson** | Envigado | Colombia B | 20 | — | **61** | 61 | 51 | 71 | — | — | — | — | 0,21 | — | — | — |  |
-| 8 | **Jeffinho** (e) | Liaoning Tieren | China | 26 | 31/12/28 | **59** | 59 | 53 | 66 | 28,7 | — | Motor de volume * | — | 0,30 | — | — | — |  |
-| 9 | **G. Salega** | Portuguesa | Venezuela | 27 | — | **59** | 59 | 51 | 68 | — | — | — | — | 0,21 | — | — | — |  |
+| 8 | **G. Salega** | Portuguesa | Venezuela | 27 | — | **59** | 59 | 51 | 68 | — | — | — | — | 0,21 | — | — | — |  |
+| 9 | **Jeffinho** (e) | Liaoning Tieren | China | 26 | 31/12/28 | **59** | 59 | 53 | 66 | 28,7 | — | Motor de volume * | — | 0,30 | — | — | — |  |
 | 10 | **Davidson** | Qingdao West Coast | China | 35 | — | **59** | 59 | 53 | 65 | 29,4 | — | Baixa intensidade * | — | 0,41 | — | — | — |  |
 
 ### Centroavante
@@ -166,6 +166,6 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 5 | **J. Torres** (e) | Tolima | Colombia A | 22 | 30/06/29 | **61** | 58 | 45 | 72 | 27,8 | — | Motor de volume | — | 0,36 | 3,6 | — | — |  |
 | 6 | **Derek** (e) | Náutico | Série B | 28 | 31/12/27 | **61** | 61 | 83 | 39 | 29,4 | — | Explosivo e rápido * | — | 0,49 | 10,1 | — | — |  |
 | 7 | **M. Estrada** | LDU Quito | Equador A | 30 | 30/06/27 | **61** | 58 | 59 | 57 | 30,0 | — | Baixa intensidade * | 92 | 0,49 | 8,2 | — | — |  |
-| 8 | **M. Gómez** (e) | Nacional | Uruguai | 30 | 31/12/27 | **58** | 55 | 56 | 54 | 29,2 | — | Baixa intensidade * | 91 | 0,65 | 6,0 | — | — |  |
-| 9 | **A. Alcaraz** | Olimpia | Paraguai | 26 | 31/12/26 | **58** | 55 | 59 | 51 | 29,6 | — | Explosivo e rápido * | 89 | 0,74 | 7,3 | — | — |  |
+| 8 | **A. Alcaraz** | Olimpia | Paraguai | 26 | 31/12/26 | **58** | 55 | 59 | 51 | 29,6 | — | Explosivo e rápido * | 89 | 0,74 | 7,3 | — | — |  |
+| 9 | **M. Gómez** (e) | Nacional | Uruguai | 30 | 31/12/27 | **58** | 55 | 56 | 54 | 29,2 | — | Baixa intensidade * | 91 | 0,65 | 6,0 | — | — |  |
 | 10 | **Y. Guzmán** (e) | América de Cali | Colombia A | 28 | 31/12/28 | **58** | 52 | 41 | 63 | 27,8 | — | Motor de volume | 94 | 0,39 | 4,6 | — | — |  |

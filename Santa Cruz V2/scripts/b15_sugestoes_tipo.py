@@ -26,11 +26,10 @@ ORDEM = ["ZD", "ZE", "LD", "LE", "VOL", "MED", "MEI", "ED", "EE", "CA"]
 
 
 def preferidos(G):
-    P = {}
-    for s in SETORES:
-        g = G[G.setor == s].assign(dif=lambda v: v.pct_sobe - v.pct_cai).sort_values("dif", ascending=False)
-        P[s] = [g.iloc[0].tipo] + ([g.iloc[1].tipo] if g.iloc[1].dif >= 0.10 else [])
-    return P
+    """Tipos de quem sobe, POR POSIÇÃO (28/09): diferença sobe − cai ≥ 10 pontos (tipos_preferidos_pos.csv, B8-4).
+    Posição sem tipo que separe (ZD, MEI, ED) fica sem preferido: o físico não soma ponto ali."""
+    T = pd.read_csv(os.path.join(RES, "b8", "tipos_preferidos_pos.csv"))
+    return {r.pos11: ([t.strip() for t in r.preferidos.split("/")] if isinstance(r.preferidos, str) and r.preferidos else []) for r in T.itertuples()}
 
 
 def main():
@@ -83,8 +82,8 @@ def main():
     A = A.sort_values("nota", ascending=False).drop_duplicates(["chave", "clube"])
     # classificação de todos (Série B + fora) — alimenta a coluna "tipo físico" das listas e do Top 10
     A[["chave", "kt", "jogador", "clube", "liga", "pos11", "setor", "tipo", "psv99", "runs_penalty_area_p30tip"] + CORE].assign(
-        tipo_pref=A.apply(lambda r: r.tipo in P.get(r.setor, []), axis=1)).to_csv(os.path.join(OUT, "tipos_todos.csv"), index=False)
-    A["tipo_pref"] = A.apply(lambda r: r.tipo in P.get(r.setor, []), axis=1)
+        tipo_pref=A.apply(lambda r: r.tipo in P.get(r.pos11, []), axis=1)).to_csv(os.path.join(OUT, "tipos_todos.csv"), index=False)
+    A["tipo_pref"] = A.apply(lambda r: r.tipo in P.get(r.pos11, []), axis=1)
     A = A[(A.psv99 >= 27) & (A.idade <= 35)]
     A = A[[not fora(j, c) for j, c in zip(A.jogador, A.clube)]]
     A = A[~caro(A)]
@@ -97,22 +96,23 @@ def main():
     NOMEP = {"ZD": "Zagueiro pela direita", "ZE": "Zagueiro pela esquerda", "LD": "Lateral direito", "LE": "Lateral esquerdo",
              "VOL": "Volante", "MED": "Médio", "MEI": "Meia", "ED": "Extremo pela direita", "EE": "Extremo pela esquerda", "CA": "Centroavante"}
     md = ["# Bloco 15 — Sugestões pelo tipo físico de quem sobe", "", "*Dado: Série B 2026 e ligas de fora (ago/26), físico do Portal · revisão 25/09/2026.*", "",
-          "Para cada setor, o tipo físico (Bloco 8) que mais aparece nos times que **subiram** em relação aos que **caíram**; "
-          "um segundo tipo entra quando a diferença dele também passa de 10 pontos. Os tipos são formados só pelo **físico** "
+          "Para cada **posição**, o tipo físico (Bloco 8) que mais aparece nos times que **subiram** em relação aos que **caíram** — entra quando a diferença passa de 10 pontos; "
+          "posição em que nenhum tipo separa (ZD, MEI, ED) segue só pela nota. Os tipos são formados só pelo **físico** "
           "(velocidade, sprints, ações de alta intensidade, arrancadas, distância e corridas sem bola); o técnico entra na "
           "**ordem**: a nota do estudo = aderência ao modelo que rende na B + nível do ranking.",
           "", "Filtros: piso de 27 km/h, até 32 anos, sem os nomes vetados, valor ≤ € 2 MM, ≥ 900 min. Jogador de fora é "
           "encaixado no tipo pelo perfil médio de cada tipo na Série B (mesmos indicadores do SkillCorner); nas ligas "
           "sul-americanas a aderência já está convertida pela reta de liga (B11). (e) = contrato além de jun/27. "
-          "**\\*** = não é do tipo preferido do setor: entra só para completar os 10 (ordem pela nota).", "",
-          "| Setor | Tipo(s) de quem sobe | Subiu | Caiu |", "|---|---|---|---|"]
-    for s in SETORES:
-        for tp in P[s]:
-            r = G[(G.setor == s) & (G.tipo == tp)].iloc[0]
-            md.append(f"| {s} | **{tp}** | {f(100*r.pct_sobe,0)}% | {f(100*r.pct_cai,0)}% |")
+          "**\\*** = não é do tipo preferido da posição: entra só para completar os 10 (ordem pela nota).", "",
+          "| Posição | Tipo(s) de quem sobe | Subiu | Caiu |", "|---|---|---|---|"]
+    GP = pd.read_csv(os.path.join(RES, "b8", "tipos_fisicos_pos.csv"))
     for pos in ORDEM:
-        s = SET[pos]
-        md.append(f"\n## {NOMEP[pos]} — {' ou '.join(P[s])}\n")
+        if not P.get(pos): md.append(f"| {pos} | nenhum tipo separa — ordem só pela nota | — | — |"); continue
+        for tp in P[pos]:
+            r = GP[(GP.pos11 == pos) & (GP.tipo == tp)].iloc[0]
+            md.append(f"| {pos} | **{tp}** | {f(100*r.pct_sobe,0)}% | {f(100*r.pct_cai,0)}% |")
+    for pos in ORDEM:
+        md.append(f"\n## {NOMEP[pos]} — {' ou '.join(P[pos]) if P.get(pos) else 'nenhum tipo separa (ordem pela nota)'}\n")
         for merc in ["Série B", "Sul-americanas", "Exterior (ligas mais fracas)"]:
             x = A[(A.pos11 == pos) & (A.mercado_l == merc)].head(10)
             x = x[x.tipo_pref | (x.tipo_pref.cumsum() < 10)]
