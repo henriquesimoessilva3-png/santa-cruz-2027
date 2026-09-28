@@ -1,0 +1,37 @@
+setor,dupla,sobe,meio,cai,pct_sobe,pct_cai,dif,conc
+Zaga,Explosivo e rápido + Motor de volume,3,9,1,0.176,0.056,0.121,1.25
+Zaga,Baixa intensidade + Motor de volume,6,18,5,0.353,0.278,0.075,1.12
+Zaga,Baixa intensidade + Baixa intensidade,4,12,3,0.235,0.167,0.069,1.14
+Zaga,Motor de volume + Motor de volume,2,14,4,0.118,0.222,-0.105,0.54
+Zaga,Baixa intensidade + Explosivo e rápido,2,4,5,0.118,0.278,-0.16,0.98
+Lateral,Explosivo e rápido + Explosivo e rápido,5,4,2,0.263,0.1,0.163,2.2
+Lateral,Baixa intensidade + Explosivo e rápido,5,10,3,0.263,0.15,0.113,1.35
+Lateral,Explosivo e rápido + Médio em tudo,6,23,6,0.316,0.3,0.016,0.83
+Lateral,Baixa intensidade + Baixa intensidade,2,5,2,0.105,0.1,0.005,1.08
+Lateral,Baixa intensidade + Médio em tudo,1,6,4,0.053,0.2,-0.147,0.44
+Lateral,Médio em tudo + Médio em tudo,0,5,3,0.0,0.15,-0.15,0.0
+Extremo,Baixa intensidade + Explosivo e rápido,5,10,2,0.385,0.133,0.251,1.7
+Extremo,Explosivo e rápido + Motor de volume,3,13,1,0.231,0.067,0.164,1.02
+Extremo,Explosivo e rápido + Explosivo e rápido,1,2,1,0.077,0.067,0.01,1.44
+Extremo,Baixa intensidade + Baixa intensidade,2,3,3,0.154,0.2,-0.046,1.44
+Extremo,Baixa intensidade + Motor de volume,2,10,5,0.154,0.333,-0.179,0.68
+Extremo,Motor de volume + Motor de volume,0,9,3,0.0,0.2,-0.2,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Médio em tudo + Médio em tudo,3,3,1,0.158,0.053,0.105,2.08
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Intermediário + Mais intenso,4,2,2,0.211,0.105,0.105,2.42
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Mais intenso + Mais intenso,2,1,0,0.105,0.0,0.105,3.23
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Mais intenso + Médio em tudo,1,2,0,0.053,0.0,0.053,1.61
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Baixa intensidade + Baixa intensidade,2,2,1,0.105,0.053,0.053,1.94
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Explosivo e rápido + Intermediário,0,1,0,0.0,0.0,0.0,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Explosivo e rápido + Menos intenso,1,1,1,0.053,0.053,0.0,1.61
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Explosivo e rápido + Médio em tudo,1,5,1,0.053,0.053,0.0,0.69
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Intermediário + Médio em tudo,2,4,2,0.105,0.105,0.0,1.21
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Baixa intensidade + Mais intenso,0,2,0,0.0,0.0,0.0,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Mais intenso + Menos intenso,0,5,0,0.0,0.0,0.0,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Baixa intensidade + Intermediário,1,1,1,0.053,0.053,0.0,1.61
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Menos intenso + Menos intenso,0,3,0,0.0,0.0,0.0,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Intermediário + Intermediário,0,2,0,0.0,0.0,0.0,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Baixa intensidade + Explosivo e rápido,0,4,1,0.0,0.053,-0.053,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Intermediário + Menos intenso,0,3,1,0.0,0.053,-0.053,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Baixa intensidade + Médio em tudo,1,6,3,0.053,0.158,-0.105,0.48
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Baixa intensidade + Menos intenso,0,3,2,0.0,0.105,-0.105,0.0
+"Meio (volante + médio — tipos de dois setores, só como curiosidade)",Menos intenso + Médio em tudo,1,4,3,0.053,0.158,-0.105,0.61
