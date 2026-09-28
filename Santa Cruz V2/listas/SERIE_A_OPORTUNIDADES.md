@@ -25,9 +25,9 @@ Três grupos, pelo foco do clube: **jovem não aproveitado** (até 23 anos, 200 
 
 | # | Jogador | Clube | Idade | Min 2026 | Contrato | Grupo | Nota | Ader. (A → B) | Nível | PSV | Tipo | Valor | Salário (Capology) | passes chave/90 | aéreos % |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | **Gabriel Justino** | Botafogo | 20 | 774 | 30/11/28 | jovem não aproveitado | **54** | 41 → 60 | 49 | 30,1 | Explosivo e rápido | — | 300K - 420K | 0,12 | 45,16 |
+| 1 | **Gabriel Justino** | Botafogo | 20 | 774 | 30/11/28 | jovem não aproveitado | **54** | 41 → 60 | 49 | 30,1 | Explosivo e rápido ✓ | — | 300K - 420K | 0,12 | 45,16 |
 | 2 | **Bruno Leonardo** | Chapecoense | 30 | 1478 | — | veterano em fim de contrato | **51** | 35 → 58 | 45 | 28,5 | Motor de volume | — | 500K - 680K | 0,00 | 63,64 |
-| 3 | **Marllon** | Remo | 34 | 2138 | 31/12/26 | veterano em fim de contrato | **50** | 39 → 59 | 40 | 30,9 | Explosivo e rápido | € 0,5 MM | 600K - 800K | 0,04 | 55,77 |
+| 3 | **Marllon** | Remo | 34 | 2138 | 31/12/26 | veterano em fim de contrato | **50** | 39 → 59 | 40 | 30,9 | Explosivo e rápido ✓ | € 0,5 MM | 600K - 800K | 0,04 | 55,77 |
 
 ### Lateral esquerdo
 

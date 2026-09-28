@@ -29,6 +29,13 @@ def main():
     # tipos preferidos e de quem cai, por posição (diferença sobe − cai; ≥ 10 pontos entra, ≤ −15 é "de quem cai")
     pref = {p: G[(G.pos11 == p) & (G.dif >= 0.10)].sort_values("dif", ascending=False).tipo.tolist() for p in ORDEM}
     cai = {p: G[(G.pos11 == p) & (G.dif <= -0.15)].sort_values("dif").tipo.tolist() for p in ORDEM}
+    # preferência do clube (listas/PREFERENCIAS_CLUBE.csv): entra como tipo A onde o dado não separa — decisão de modelo, não achado
+    pc = os.path.join(RAIZ, "listas", "PREFERENCIAS_CLUBE.csv"); clube = {}
+    if os.path.exists(pc):
+        for r in pd.read_csv(pc).itertuples():
+            if r.tipo not in pref[r.pos11]: pref[r.pos11] = pref[r.pos11] + [r.tipo]
+            if r.tipo in cai[r.pos11]: cai[r.pos11].remove(r.tipo)
+            clube[r.pos11] = r.tipo
     pd.DataFrame([dict(pos11=p, preferidos=" / ".join(pref[p]), de_quem_cai=" / ".join(cai[p])) for p in ORDEM]).to_csv(os.path.join(OUT, "tipos_preferidos_pos.csv"), index=False)
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     # ---- item 4 ----
@@ -38,7 +45,7 @@ def main():
           "Amostra: 14 a 32 jogadores por posição em cada faixa — diferença abaixo de ~15 pontos é ruído.", ""]
     for p in ORDEM:
         x = G[G.pos11 == p].sort_values("pct_sobe", ascending=False); r0 = x.iloc[0]
-        md += [f"**{NOMES[p]}** ({SET[p]}) — {r0.n_sobe} nos times que subiram, {r0.n_meio} no meio, {r0.n_cai} nos que caíram" + (f" · **tipo de quem sobe: {' / '.join(pref[p])}**" if pref[p] else " · **nenhum tipo separa: aqui decide o técnico**"), "",
+        md += [f"**{NOMES[p]}** ({SET[p]}) — {r0.n_sobe} nos times que subiram, {r0.n_meio} no meio, {r0.n_cai} nos que caíram" + (f" · **tipo de quem sobe: {' / '.join(pref[p])}**" + (" *(preferência do clube — o dado não separa)*" if p in clube else "") if pref[p] else " · **nenhum tipo separa: aqui decide o técnico**"), "",
                "| Tipo | Subiu | Meio | Caiu | Sobe − Cai | Concentra × | " + " | ".join(v[0] for v in FIS.values()) + " | " + " | ".join(v[0] for v in TEC.values()) + " |",
                "|---|" + "---|" * (5 + len(FIS) + len(TEC))]
         for _, r in x.iterrows():

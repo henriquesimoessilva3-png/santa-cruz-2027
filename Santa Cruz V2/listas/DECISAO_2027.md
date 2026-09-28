@@ -49,8 +49,8 @@ Ordem de `Os meus dez` (nota + tipo físico + bola parada + gol de defesa + corr
 | # | Jogador | Clube · liga | Idade | Contrato | Pontos | Razões |
 |---|---|---|---|---|---|---|
 | 1 | **Ricardo Silva** | América-MG · Série B | 34 | 30/11/26 | **71** | nota 68 (aderência 76, nível 60); piso ok (28,1 km/h); gol de defesa (xG/90 0,13); patamar de A 60; Sofascore 7,06; 1252 min · **Atenção:** tipo físico fora do de quem sobe: Motor de volume |
-| 2 | **Bruno Alves** (e) | Criciúma · Série B | 35 | 31/12/27 | **67** | nota 63 (aderência 67, nível 59); piso ok (28,8 km/h); especialista de bola parada (91); patamar de A 56; Sofascore 6,93; 1146 min · **Atenção:** tipo físico fora do de quem sobe: Motor de volume |
-| 3 | **G. Fratta** | Deportivo Táchira · Venezuela | 30 | 31/12/26 | **67** | nota 61 (aderência 54, nível 68); especialista de bola parada (97); gol de defesa (xG/90 0,15); 1528 min · **Atenção:** sem rastreio físico; de fora: vídeo obrigatório e vaga de estrangeiro |
+| 2 | **Gabriel Bahia** | Novorizontino · Série B | 27 | 31/03/27 | **69** | nota 61 (aderência 68, nível 54); piso ok (30,9 km/h); tipo físico de quem sobe: Explosivo e rápido; gol de defesa (xG/90 0,14); patamar de A 79; Sofascore 7,06; 1246 min; ★ scouts: média ≥6,5 |
+| 3 | **Bruno Alves** (e) | Criciúma · Série B | 35 | 31/12/27 | **67** | nota 63 (aderência 67, nível 59); piso ok (28,8 km/h); especialista de bola parada (91); patamar de A 56; Sofascore 6,93; 1146 min · **Atenção:** tipo físico fora do de quem sobe: Motor de volume |
 
 ### Zagueiro pela esquerda
 
