@@ -6435,7 +6435,42 @@ function raioIconeV2(pk) {
   return '<span class="raio raio-' + c + (j.fis_src ? ' raio-curto' : '') + '" title="' + esc(t) + '">' + svg + '</span>' + src;
 }
 
-function raioIcone(pk) {
+/* ---------------- tipo físico A/B/C ao lado do raio (Santa Cruz V2, F2-4) ----------------
+   A (verde) = o tipo físico que quem sobe usa na posição; C (vermelho) = o tipo de quem cai;
+   B (amarelo) = outro tipo, ou posição em que o físico não separa (ZD, MEI, ED). O tipo vem
+   do dado da Consulta (static/consulta_dados.js, gerado por gerar_consulta_js.py); sem tipo
+   (sem rastreio) não aparece nada. Passar o mouse mostra o tipo e a leitura. */
+let TIPO_IDX = null;
+function tipoNorm(t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+function tipoDe(j) {
+  const D = window.CONSULTA; if (!D || !j) return null;
+  if (!TIPO_IDX) {
+    TIPO_IDX = { nc: new Map(), n: new Map() };
+    D.jogadores.forEach(x => {
+      if (!x.tipo) return;
+      const kn = tipoNorm(x.n);
+      TIPO_IDX.nc.set(kn + '|' + tipoNorm(x.c), x);
+      TIPO_IDX.n.set(kn, TIPO_IDX.n.has(kn) ? null : x);   /* nome só vale se for único */
+    });
+  }
+  return TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || TIPO_IDX.n.get(tipoNorm(j.n)) || null;
+}
+const TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
+function tipoBadge(pk) {
+  const j = fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
+  const x = tipoDe(j); if (!x || !x.tipo) return '';
+  const D = window.CONSULTA, pos = x.p || j.p;
+  const pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
+  let g, leitura;
+  if (pref.includes(x.tipo)) { g = 'A'; leitura = 'o tipo que quem sobe usa no ' + (TIPO_POSN[pos] || pos); }
+  else if (cai.includes(x.tipo)) { g = 'C'; leitura = 'o tipo de quem cai no ' + (TIPO_POSN[pos] || pos) + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : ''); }
+  else if (!pref.length) { g = 'B'; leitura = 'no ' + (TIPO_POSN[pos] || pos) + ' o físico não separa quem sobe de quem cai (F2-4)'; }
+  else { g = 'B'; leitura = 'nem o tipo de quem sobe (' + pref.join(' / ') + ') nem o de quem cai no ' + (TIPO_POSN[pos] || pos); }
+  return '<span class="tipo-abc tipo-' + g + '" title="' + esc('Tipo físico: ' + x.tipo + ' — ' + leitura + '. A = tipo de quem sobe, B = outro tipo ou posição sem sinal, C = tipo de quem cai (Estudo V2, F2-4).') + '">' + g + '</span>';
+}
+
+function raioIcone(pk) { return raioIconeBase(pk) + tipoBadge(pk); }
+function raioIconeBase(pk) {
   if (FICHA && BASE.length) return raioIconeV2(pk);
   const o = raioMapa().get(pk);
   if (!o) return '';
