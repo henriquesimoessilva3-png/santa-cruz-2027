@@ -1743,7 +1743,7 @@ function ligasDoGrupo() {
 }
 
 function filtrar() {
-  const txt = $('#fTexto').value.trim().toLowerCase();
+  const txt = fsNorm($('#fTexto').value.trim());   /* sem acento: 'andre' acha 'André' */
   const pos = $('#fPos').value;
   const idMin = parseFloat($('#fIdadeMin').value) || 0;
   const idMax = parseFloat($('#fIdadeMax').value) || 99;
@@ -1759,7 +1759,7 @@ function filtrar() {
     if (ligaUnica) { if (j.l !== ligaUnica) return false; }
     else if (ligas && !ligas.has(j.l)) return false;
     if (nacao && !passaNacao(j, nacao)) return false;
-    if (txt && !(j.n.toLowerCase().includes(txt) || (j.t || '').toLowerCase().includes(txt))) return false;
+    if (txt && !(fsNorm(j.n).includes(txt) || fsNorm(j.t).includes(txt))) return false;
     if (!passaIdade(j.id_, idMin, idMax)) return false;
     if (ovMin && (Number(j.ov) || 0) < ovMin) return false;
     if (minMin && (Number(j.min) || 0) < minMin) return false;
@@ -7225,7 +7225,7 @@ function empRender() {
     if (empSoFalta && !empVazio(d)) return false;
     if (!termo) return true;
     return [l.nome, l.clube, d.empresario, d.empresa].some(
-      v => String(v || '').toLowerCase().includes(termo));
+      v => fsNorm(v).includes(fsNorm(termo)));
   };
   const lista = todas.filter(passa);
 
@@ -7545,7 +7545,7 @@ function indRender() {
     if (indFiltroAval && (i.avaliacao || '') !== indFiltroAval) return false;
     if (!termo) return true;
     return ['atleta', 'clube', 'indicacao', 'pais', 'responsavel', 'recepcao']
-      .some(k => String(i[k] || '').toLowerCase().includes(termo));
+      .some(k => fsNorm(i[k]).includes(fsNorm(termo)));
   });
 
   /* o seletor de avaliação mostra a contagem de cada uma: é o resumo da fila */
