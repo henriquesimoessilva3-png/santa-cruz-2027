@@ -6466,7 +6466,10 @@ function csRegistro(j, filtro) {
       TIPO_IDX.n.set(kn, TIPO_IDX.n.has(kn) ? null : x);   /* nome só vale se for único */
     });
   }
-  const x = TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || TIPO_IDX.n.get(tipoNorm(j.n)) || null;
+  /* nome + clube; sem o clube igual (grafias diferentes entre as bases), só pelo nome quando ele é único E a posição bate —
+     senão o Raul de um clube herdaria o aéreo e o cobrador de outro Raul */
+  const so = TIPO_IDX.n.get(tipoNorm(j.n));
+  const x = TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || (so && so.p === j.p ? so : null);
   return x && (!filtro || filtro(x)) ? x : null;
 }
 function tipoDe(j) { return csRegistro(j, x => !!x.tipo); }
