@@ -19,6 +19,7 @@ Todas saem da mesma base pontuada (`POOL_2027.csv`): mesmos filtros, mesma ordem
 | **Só o físico: os tipos de quem sobe, quem está neles** | os 10 do tipo físico que quem sobe usa, por posição e mercado, na ordem de "Os meus dez" | quando o treinador pede um tipo |
 | **Só o físico: ranking por posição** | os 20 melhores só pelo físico, por mercado, com o lugar em "Os meus dez" ao lado | montar o piso físico; achar o lateral explosivo |
 | **Especialistas de bola parada** | cobradores e finalizadores aéreos, por mercado | fechar o cobrador e os 3 finalizadores |
+| **Patamar de Série A: quem já joga nele** | tec A e fís A contra a mediana da Série A, nos três mercados (fora do Brasil, técnico convertido pelo T4) | achar quem já produz no nível de cima |
 | **Quem não contratar** | os da Série B que o estudo reprova, com o motivo | responder a sugestões de fora do estudo |
 
 ## As fontes complementares (nomes que não estão na lista)

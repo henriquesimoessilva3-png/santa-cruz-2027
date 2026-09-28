@@ -61,14 +61,19 @@ def main():
     m = (P.liga == "Brasil B") & P.fis_A.isna()
     for c in ["fis_A", "psv"] + [x + "_pA" for x in FIS]:
         P.loc[m, c] = P.loc[m, "jogador"].map(chave).map(JB[c])
+    # fora do Brasil, o número cru é inflado pela liga: converte pela reta do T4 (31 + 0,30·p), a mesma das listas
+    P["tec_A_cru"] = P.tec_A
+    P.loc[P.liga != "Brasil B", "tec_A"] = (31 + 0.30 * P.loc[P.liga != "Brasil B", "tec_A"]).round(0)
     P["patamar_A"] = P[["tec_A", "fis_A"]].mean(axis=1).round(0)
+    PO = pd.read_csv(os.path.join(RAIZ, "listas", "POOL_2027.csv")).set_index("k")
+    P["ordem_geral"] = P.k.map(PO.ordem_geral)
     P = P[P.psv.isna() | (P.psv >= 27) | (P.pos11 == "GOL")]
     P["livre"] = P.livre_2027.astype(str) == "True" if "livre_2027" in P else (pd.to_datetime(P.contrato, errors="coerce").isna() | (pd.to_datetime(P.contrato, errors="coerce") <= "2027-06-30"))
-    P.sort_values("patamar_A", ascending=False)[["pos11", "jogador", "clube", "liga", "mercado", "idade", "minutos", "contrato", "livre", "tec_A", "fis_A", "patamar_A", "psv", "aderencia"]].to_csv(os.path.join(OUT, "patamar_A_pool.csv"), index=False)
+    P.sort_values("patamar_A", ascending=False)[["pos11", "jogador", "clube", "liga", "mercado", "idade", "minutos", "contrato", "livre", "tec_A_cru", "tec_A", "fis_A", "patamar_A", "psv", "aderencia", "ordem_geral"]].to_csv(os.path.join(OUT, "patamar_A_pool.csv"), index=False)
     # --- B13.md ---
     md = ["# F3 — Patamar de Série A: físico e técnico por posição", "",
           "*Dado: SkillCorner do Portal (temporada atual, ≥ 600 min, ≥ 5 jogos rastreados) e Wyscout ago/26 (≥ 900 min) · 25/09/2026.*", "",
-          "Pergunta: o que é \"jogar no patamar da Série A\" em número, posição a posição — e quem, na Série B, nas ligas sul-americanas e no exterior alcançável, já joga nele. "
+          "Pergunta: o que é \"jogar no patamar da Série A\" em número, posição a posição (seções 1 e 2) — e quem, na Série B, nas ligas sul-americanas e no exterior alcançável, já joga nele (seção 3). "
           "Ressalva do F1: na B, correr mais não rende ponto; o físico é piso e traço de posição. Este bloco serve para **calibrar a régua** e para **achar nomes**, não para virar meta de volume.", "",
           "## 1 · Físico: mediana por posição e grupo", ""]
     grupos = ["Série B", "Série A", "5 grandes", "Argentina A"]
@@ -112,17 +117,23 @@ def main():
             gap = (vals[0] / vals[1] - 1) * 100 if pd.notna(vals[0]) and pd.notna(vals[1]) and vals[1] else np.nan
             md.append(f"| {en} | " + " | ".join(f(v, 2) for v in vals) + f" | {'+' if gap >= 0 else ''}{f(gap, 0)}% |")
         md.append("")
-    md += ["## 3 · Quem, na Série B 2026, já joga no patamar da A", "",
-           "**tec A** = percentil do jogador dentro da Série A na ficha da posição (50 = mediana da A); **fís A** = idem no físico (PSV, sprints, alta intensidade, arrancadas); **patamar** = média dos dois. "
-           "Só Série B: o número cru de outra liga não é comparável ao da A sem a conversão do T4 (um atacante da Argentina B apareceria acima de todos). Mesmos filtros de \"Os meus dez\" (≥ 900 min, ≤ 35 anos, piso 27 km/h, sem vetados, ≤ € 2 MM). Sem físico rastreado, o patamar é só o técnico. (e) = contrato além de jun/27.", ""]
+    md += ["## 3 · Quem já joga no patamar da A — Série B, campeonatos sul-americanos e exterior", "",
+           "**tec A** = percentil do jogador dentro da Série A na ficha da posição (50 = mediana da A); **fís A** = idem no físico (PSV, sprints, alta intensidade, arrancadas — o físico do Portal é comparável entre ligas); **patamar** = média dos dois. "
+           "Fora do Brasil o número técnico cru é inflado pela liga: entra **convertido pela reta do T4** (31 + 0,30 × percentil), a mesma conversão das listas — o valor cru fica no CSV. Mesmos filtros de \"Os meus dez\" (≥ 900 min, ≤ 35 anos, piso 27 km/h, sem vetados, ≤ € 2 MM); **Geral** = lugar em `Os meus dez` (— = não entra nela). Sem físico rastreado, o patamar é só o técnico. (e) = contrato além de jun/27.", ""]
+    MERC3 = [("Série B", lambda P: P.liga == "Brasil B"), ("Campeonatos sul-americanos", lambda P: P.mercado == "Sul-americano"), ("Brasileiros e sul-americanos no exterior", lambda P: P.mercado == "Exterior")]
+    NOMEP = {"GOL": "Goleiro", "LD": "Lateral direito", "ZD": "Zagueiro pela direita", "ZE": "Zagueiro pela esquerda", "LE": "Lateral esquerdo", "VOL": "Volante", "MED": "Médio", "MEI": "Meia", "ED": "Extremo pela direita", "EE": "Extremo pela esquerda", "CA": "Centroavante"}
     for p in ORDEM:
-        x = P[(P.pos11 == p) & (P.liga == "Brasil B") & P.patamar_A.notna()].sort_values(["patamar_A", "tec_A"], ascending=False).head(10)
-        if x.empty: continue
-        md += [f"### {p}", "", "| # | Jogador | Clube | Liga | Idade | Contrato | tec A | fís A | Patamar | PSV |", "|---|---|---|---|---|---|---|---|---|---|"]
-        for i, r in enumerate(x.itertuples(), 1):
-            ct = (str(r.contrato)[8:10] + "/" + str(r.contrato)[5:7] + "/" + str(r.contrato)[2:4]) if isinstance(r.contrato, str) and len(str(r.contrato)) >= 10 else "—"
-            md.append(f"| {i} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {'Série B' if r.liga == 'Brasil B' else r.liga} | {int(r.idade)} | {ct} | {f(r.tec_A, 0)} | {f(r.fis_A, 0)} | **{f(r.patamar_A, 0)}** | {f(r.psv, 1)} |")
-        md.append("")
+        md += [f"### {NOMEP[p]}", ""]
+        for nome, cond in MERC3:
+            x = P[(P.pos11 == p) & cond(P) & P.patamar_A.notna()].sort_values(["patamar_A", "tec_A"], ascending=False).head(10)
+            md += [f"**{nome}**" + (" — ninguém passa nos filtros" if x.empty else ""), ""]
+            if x.empty: continue
+            md += ["| # | Geral | Jogador | Clube | Liga | Idade | Contrato | tec A | fís A | Patamar | PSV |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+            for i, r in enumerate(x.itertuples(), 1):
+                ct = (str(r.contrato)[8:10] + "/" + str(r.contrato)[5:7] + "/" + str(r.contrato)[2:4]) if isinstance(r.contrato, str) and len(str(r.contrato)) >= 10 else "—"
+                ge = "—" if pd.isna(r.ordem_geral) else f"{int(r.ordem_geral)}º"
+                md.append(f"| {i} | {ge} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {'Série B' if r.liga == 'Brasil B' else r.liga} | {int(r.idade)} | {ct} | {f(r.tec_A, 0)} | {f(r.fis_A, 0)} | **{f(r.patamar_A, 0)}** | {f(r.psv, 1)} |")
+            md.append("")
     # quantos da B estão acima da mediana da A
     q = P[P.liga == "Brasil B"].groupby("pos11").apply(lambda x: pd.Series({"n": len(x), "tec≥50": int((x.tec_A >= 50).sum()), "fís≥50": int((x.fis_A >= 50).sum()), "ambos": int(((x.tec_A >= 50) & (x.fis_A >= 50)).sum())})).reindex(ORDEM).dropna()
     md += ["## 4 · Quantos jogadores da Série B 2026 já estão acima da mediana da A", "", "| Pos | n | técnico ≥ 50 | físico ≥ 50 | os dois |", "|---|---|---|---|---|"]
