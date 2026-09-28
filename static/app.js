@@ -4127,7 +4127,7 @@ function fsDesenharVisao(co, colunas) {
    elo lento. Quem nao tem rastreio aparece como "fisico nao verificado" — nunca como zero. */
 let FS_PK_TUDO = null;
 function fsJogadorPk(pk) {
-  if (!FS_PK_TUDO) FS_PK_TUDO = new Map(BASE.map(j => [primaryKey(j), j]));
+  if (!FS_PK_TUDO || !FS_PK_TUDO.size) FS_PK_TUDO = new Map(BASE.map(j => [primaryKey(j), j]));   /* não guarda mapa vazio: a base pode chegar depois */
   return FS_PK_TUDO.get(pk) || null;
 }
 function fsOnzeFisico(palco) {
@@ -6440,7 +6440,7 @@ function raioIconeV2(pk) {
    B (amarelo) = outro tipo, ou posição em que o físico não separa (ZD, MEI, ED). O tipo vem
    do dado da Consulta (static/consulta_dados.js, gerado por gerar_consulta_js.py); sem tipo
    (sem rastreio) não aparece nada. Passar o mouse mostra o tipo e a leitura. */
-let TIPO_IDX = null;
+var TIPO_IDX = null;
 function tipoNorm(t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
 function tipoDe(j) {
   const D = window.CONSULTA; if (!D || !j) return null;
@@ -6455,8 +6455,9 @@ function tipoDe(j) {
   }
   return TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || TIPO_IDX.n.get(tipoNorm(j.n)) || null;
 }
-const TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
+var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zagueiro pela esquerda', LE: 'lateral esquerdo', VOL: 'volante', MED: 'médio', MEI: 'meia', ED: 'extremo pela direita', EE: 'extremo pela esquerda', CA: 'centroavante' };
 function tipoBadge(pk) {
+  if (!BASE.length || !window.CONSULTA) return '';
   const j = fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
   const x = tipoDe(j); if (!x || !x.tipo) return '';
   const D = window.CONSULTA, pos = x.p || j.p;
@@ -6469,7 +6470,10 @@ function tipoBadge(pk) {
   return '<span class="tipo-abc tipo-' + g + '" title="' + esc('Tipo físico: ' + x.tipo + ' — ' + leitura + '. A = tipo de quem sobe, B = outro tipo ou posição sem sinal, C = tipo de quem cai (Estudo V2, F2-4).') + '">' + g + '</span>';
 }
 
-function raioIcone(pk) { return raioIconeBase(pk) + tipoBadge(pk); }
+function raioIcone(pk) {
+  const r = raioIconeBase(pk);
+  try { return r + tipoBadge(pk); } catch (e) { console.warn('tipoBadge', e); return r; }
+}
 function raioIconeBase(pk) {
   if (FICHA && BASE.length) return raioIconeV2(pk);
   const o = raioMapa().get(pk);
