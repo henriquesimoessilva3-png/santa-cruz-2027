@@ -2821,8 +2821,14 @@ function marcarFichaAberta(jid) {
 /* Os indicadores vivem num arquivo por posicao (0,1 a 2,6 MB). Busca so o da
    posicao aberta e guarda em memoria — no servidor nao fica nada carregado. */
 const cachePosKpis = {};
+/* rótulo da ficha → nome da coluna no export do Wyscout (inverso do ROTULO de preparar_kpis.py) */
+const KPI_EN = {"Duelos /90": "Duels per 90", "Duelos ganhos /90": "Duels won per 90", "Duelos %": "Duels won, %", "Duelos def. /90": "Defensive duels won per 90", "Duelos def. %": "Defensive duels won, %", "Aéreos ganhos /90": "Aerial duels won per 90", "Aéreos %": "Aerial duels won, %", "Interceptações (PAdj)": "PAdj Interceptions", "Amarelos /90": "Yellow cards per 90", "Ações ofensivas /90": "Successful attacking actions per 90", "Remates /90": "Shots per 90", "Remates no alvo %": "Shots on target, %", "Remates no alvo": "Accurate shots on target", "Dribles certos /90": "Successful dribbles per 90", "Dribles %": "Successful dribbles, %", "Duelos ofens. /90": "Ofensive duels won per 90", "Toques na área /90": "Touches in box per 90", "Corridas prog. /90": "Progressive runs per 90", "Acelerações /90": "Accelerations per 90", "Passes recebidos /90": "Received passes per 90", "Deep completions /90": "Deep completions per 90", "Faltas sofridas /90": "Fouls suffered per 90", "Passes /90": "Passes per 90", "Passes certos": "Accurate passes", "Passes certos %": "Accurate passes, %", "Passes à frente": "Accurate forward passes", "Passes longos %": "Accurate long passes, %", "Smart passes": "Accurate smart passes", "Passes em profundidade": "Accurate through passes", "Cruzamentos certos": "Accurate crosses", "Cruzamentos %": "Accurate crosses, %", "Passes ao último terço": "Accurate passes to final third", "Passes à área": "Accurate passes to penalty area", "Passes progressivos": "Accurate progressive passes", "Gols /90": "Goals per 90", "Gols s/ pênalti /90": "Non-penalty goals per 90", "xG /90": "xG per 90", "Conversão %": "Goal conversion, %", "Assistências /90": "Assists per 90", "xA /90": "xA per 90", "2ª assistência /90": "Second assists per 90", "3ª assistência /90": "Third assists per 90"};
+/* liga do app a partir do nome usado na régua do estudo (CONSULTA.q) */
+function ligaApp(l) { return ({ 'Série B': 'Brasil B', 'Série A': 'Brasil A', 'Série C': 'Brasil C' })[l] || l; }
 async function kpisDe(j) {
   if (!j || !j.p) return null;
+  const dc = dadosColados(primaryKey(j), null) || j._dadosFicha;
+  if (dc && dc.tec_raw) return kpisColados(j, dc);
   if (!cachePosKpis[j.p]) {
     cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json' + (window.__verDados ? '?v=' + window.__verDados : ''))
       .then(r => (r.ok ? r.json() : null))
@@ -2833,6 +2839,25 @@ async function kpisDe(j) {
   const linhas = base.jogadores[primaryKey(j)];
   if (!linhas) return null;
   return { ok: true, periodo: base.periodo, nomes: base.kpis, linhas };
+}
+
+/* indicadores do export colado: valor do jogador; média e melhor da mesma liga × posição (tirados de quem já está no kpis) */
+async function kpisColados(j, dc) {
+  if (!cachePosKpis[j.p]) cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json' + (window.__verDados ? '?v=' + window.__verDados : '')).then(r => (r.ok ? r.json() : null)).catch(() => null);
+  const base = await cachePosKpis[j.p]; if (!base) return null;
+  const nk = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();   /* mantém o % ("Accurate passes" ≠ "Accurate passes, %") */
+  const raw = {}; Object.keys(dc.tec_raw).forEach(k => raw[nk(k)] = dc.tec_raw[k]);
+  const liga = ligaApp(dc.liga || j.l);
+  const ref = {};   /* id → [média, melhor] da liga */
+  for (const pk in base.jogadores) { if (!pk.endsWith(' - ' + liga)) continue; base.jogadores[pk].forEach(([id, v, med, mx]) => { if (!ref[id]) ref[id] = [med, mx]; }); if (Object.keys(ref).length >= base.kpis.length) break; }
+  const linhas = [];
+  base.kpis.forEach(([g, rot], id) => {
+    const en = KPI_EN[rot] || rot; const v = raw[nk(en)] ?? raw[nk(rot)];
+    if (v == null) return;
+    const r = ref[id] || [null, null];
+    linhas.push([id, v, r[0], r[1] != null ? Math.max(r[1], v) : v]);
+  });
+  return linhas.length ? { ok: true, periodo: 'colado ' + (dc.em || ''), nomes: base.kpis, linhas, colado: true } : null;
 }
 
 /* coorte para os indicadores que nao vem do kpis (notas e fisico) */
@@ -2955,7 +2980,15 @@ function radarDaFicha(porGrupo, nomeJog) {
 async function montarFicha(j, modo) {
   /* físico colado à mão (card, estado.dadosJog ou registro manual) entra na ficha no lugar do da base */
   const dc = dadosColados(primaryKey(j), null);
-  if (dc && dc.fis) { const o = Object.assign({}, j); Object.keys(dc.fis).forEach(k => { if (dc.fis[k] != null) o[k] = dc.fis[k]; }); o.fis_src = null; o._colado = dc.em || 'sim'; j = o; }
+  if (dc && (dc.fis || dc.tec_raw)) {
+    const o = Object.assign({}, j);
+    if (dc.fis) { Object.keys(dc.fis).forEach(k => { if (dc.fis[k] != null && k !== 'min') o[k] = dc.fis[k]; }); o.fis_src = null; o._colado = dc.em || 'sim'; }
+    const mt = dc.tec && dc.tec.min; if (mt) o.min = mt; else if (dc.fis && dc.fis.min) o.min = dc.fis.min;
+    if (dc.fis && dc.fis.sc_n && !o.jog) o.jog = dc.fis.sc_n;
+    if (o.manual) o.l = ligaApp(o.l);
+    if (dc.tec_raw) { o.rk_ok = true; if (dc.tec_raw.Height && !o.alt) o.alt = dc.tec_raw.Height; }
+    o._dadosFicha = dc; j = o;
+  }
   const lista = coorte(j, modo);
   const ex = ehEstrangeiroBase(j);
   const fx = faixaSalarioTR(j);
@@ -6584,7 +6617,7 @@ function manualRegistro(m) {
   const r = { id: 'm:' + m.uid, n: m.nome, nc: m.nome, t: m.clube || 'sem clube', l: 'Manual', p: m.p || 'CA', pw: '', id_: m.idade || null, ct: m.contrato || '', nac: m.nac || 'Brazil',
               min: (m.dados && m.dados.fis && m.dados.fis.min) || null, ov: null, rk_ok: false, manual: 1, muid: m.uid, dados: m.dados || null };
   if (m.dados && m.dados.fis) Object.keys(m.dados.fis).forEach(k => { if (m.dados.fis[k] != null) r[k] = m.dados.fis[k]; });
-  if (m.dados && m.dados.liga) r.l = m.dados.liga;   /* a liga de referência escolhida vira a liga do registro */
+  if (m.dados && m.dados.liga) r.l = ligaApp(m.dados.liga);   /* a liga de referência escolhida vira a liga do registro (nome do app: Brasil B…) */
   return r;
 }
 function manuaisAplicar() {
@@ -7216,12 +7249,14 @@ function ligar() {
 /* ---------------- modal "Físico e técnico" (dados colados à mão) ---------------- */
 let dadosEditando = null;   /* { cod, uid } */
 const MD_FIS = { psv: ['PSV-99'], spr_n: ['Sprint Count P90'], hi_n: ['HI Count P90'], expl: ['Explosive Acceleration to Sprint Count P90'], dist: ['Distance P90'],
+                 vmax3: ['TOP 5 PSV-99', 'TOP 3 PSV-99'], mmin: ['M/min P90'], hi: ['HI Distance P90'], hsr: ['HSR Distance P90'], spr_km: ['Sprint Distance P90'],
+                 acel: ['High Acceleration Count P90'], desa: ['High Deceleration Count P90'],
                  min: ['Minutes'], sc_n: ['Count Performances (Physical Check passed)', 'Count Performances'] };
 const MD_TEC = { aer_won: ['Aerial duels won, %', 'Duelos aéreos ganhos, %'], aer_n: ['Aerial duels per 90', 'Duelos aéreos/90'], aer_g90: ['Head goals per 90', 'Golos de cabeça/90', 'Gols de cabeça/90'],
                  aer_g: ['Head goals', 'Golos de cabeça', 'Gols de cabeça'], alt: ['Height', 'Altura'], cor90: ['Corners per 90', 'Cantos/90', 'Escanteios/90'], fk90: ['Free kicks per 90', 'Livres/90', 'Faltas cobradas/90'],
                  dfk90: ['Direct free kicks per 90', 'Livres directos/90', 'Faltas diretas/90'], dfk_on: ['Direct free kicks on target, %', 'Pontapés livres directos à baliza, %', 'Faltas diretas no alvo, %'],
                  xa90: ['xA per 90', 'Assistências esperadas/90'], cross_pct: ['Accurate crosses, %', 'Cruzamentos certos, %'], min: ['Minutes played', 'Minutos jogados'] };
-const MD_ROT = { psv: 'PSV-99', spr_n: 'sprints/90', hi_n: 'alta int./90', expl: 'arrancadas/90', dist: 'distância/90', min: 'min', sc_n: 'jogos', obr: 'corridas s/ bola', obr_area: 'p/ área',
+const MD_ROT = { vmax3: 'PSV top 5', mmin: 'm/min', hi: 'dist. alta int.', hsr: 'dist. 15–20', spr_km: 'dist. sprint', acel: 'acel. fortes', desa: 'desac. fortes', psv: 'PSV-99', spr_n: 'sprints/90', hi_n: 'alta int./90', expl: 'arrancadas/90', dist: 'distância/90', min: 'min', sc_n: 'jogos', obr: 'corridas s/ bola', obr_area: 'p/ área',
                  aer_won: 'aéreos ganhos %', aer_n: 'aéreos/90', aer_g90: 'gols cabeça/90', aer_g: 'gols cabeça', alt: 'altura', cor90: 'escanteios/90', fk90: 'faltas/90', dfk90: 'diretas/90', dfk_on: 'diretas no alvo %', xa90: 'xA/90', cross_pct: 'cruz. certos %' };
 let mdFis = null, mdTec = null;
 function mdNum(v) { if (v == null) return null; const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : null; }
@@ -7240,7 +7275,13 @@ function mdLinhas(texto, sep) {
   return out;
 }
 function mdSep(texto) { const l = texto.split(/\r?\n/)[0] || ''; return (l.match(/;/g) || []).length >= (l.match(/,/g) || []).length ? ';' : ','; }
+let mdTecRaw = null;
+function mdBruto(cab, linha) {
+  /* todas as colunas numéricas do export (nome original → valor): a ficha usa para os indicadores do ranking */
+  const o = {}; cab.forEach((c, i) => { const v = mdNum(linha[i]); if (v != null && c) o[String(c).trim()] = v; }); return o;
+}
 function mdMapear(cab, linha, MAPA) {
+  if (MAPA === MD_TEC) mdTecRaw = mdBruto(cab, linha);
   const idx = {}; cab.forEach((c, i) => idx[tipoNorm(c)] = i);
   const o = {}; let n = 0;
   Object.entries(MAPA).forEach(([k, nomes]) => { for (const nm of nomes) { const i = idx[tipoNorm(nm)]; if (i != null) { const v = mdNum(linha[i]); if (v != null) { o[k] = v; n++; } break; } } });
@@ -7293,7 +7334,7 @@ function abrirDadosBase(j) {
 function abrirDados(cod, uid) {
   if (cod) dadosEditando = { cod, uid };
   const j = alvoDados(); if (!j) return;
-  mdFis = null; mdTec = null;
+  mdFis = null; mdTec = null; mdTecRaw = null;
   const t = $('#mdTitulo'); t.textContent = 'Físico e técnico · ' + j.nome; t.dataset.nome = j.nome;
   const Q = (window.CONSULTA && window.CONSULTA.q) || {};
   const ligas = Object.keys(Q).sort((a, b) => a === 'Série B' ? -1 : b === 'Série B' ? 1 : a.localeCompare(b));
@@ -7328,6 +7369,7 @@ function ligarDados() {
     if (mdFis && mdFis.min != null && mdFis.sc_n != null && mdFis.min <= 130) { d.fis.min_jogo = mdFis.min; d.fis.min = Math.round(mdFis.min * mdFis.sc_n); }   /* o CSV do SkillCorner traz minutos POR JOGO */
     if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(1, Math.round(d.fis.min / 90));
     if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
+    if (mdTec && mdTecRaw) d.tec_raw = mdTecRaw;
     j.dados = d;
     if (j.manual) manuaisRegistrar(j, dadosEditando.cod || null);
     else if (j.jid && String(j.jid).startsWith('m:')) { const m = MANUAIS.find(x => 'm:' + x.uid === j.jid); if (m) { m.dados = d; manuaisGravar(); } }
