@@ -6430,7 +6430,7 @@ function raioIconeV2(pk, obj) {
   const j = obj || fsJogadorPk(pk);
   if (!j || j.p === 'GOL' || !FICHA.posicoes[j.p]) return '';
   const svg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>';
-  const f = typeof j.psv === 'number' ? fichaV2(fichaCoorte(j.p), j, j.p, false) : null;
+  const f = typeof j.psv === 'number' ? fichaV2(fichaCoorte(j.p), j, j.p, !!j._dados) : null;   /* colado à mão: vale mesmo com poucos jogos */
   if (!f || !f.piso) {
     const porque = typeof j.psv === 'number'
       ? 'só ' + (Number(j.sc_n) || 0) + ' jogos rastreados (a ficha pede ' + (FICHA.min_jogos || 5) + ')'
@@ -6453,7 +6453,7 @@ function raioIconeV2(pk, obj) {
     c = f.int >= 50 ? 'sup' : 'sim';
     porque = 'passa o piso (' + km + ' km/h); traço não medido nesta liga, intensidade no percentil ' + f.int + ' da Série B';
   } else { c = 'sup'; porque = 'passa o piso (' + km + ' km/h); traço não medido nesta liga'; }
-  const t = 'Ficha física V2: ' + porque + ' · nota ' + (f.nota != null ? f.nota : '—') +
+  const t = (j._dados ? 'Físico colado à mão' + ((Number(j.sc_n) || 0) < (FICHA.min_jogos || 5) ? ' — amostra curta: ' + (Number(j.sc_n) || 0) + ' jogos' : '') + '. ' : '') + 'Ficha física V2: ' + porque + ' · nota ' + (f.nota != null ? f.nota : '—') +
     ' (traço ' + (f.traco != null ? f.traco : '—') + ', intensidade ' + (f.int != null ? f.int : '—') +
     ') — verde passa o piso de 27 km/h com traço no P50 da referência, vermelho reprova o piso.' +
     (j.fis_src ? ' Físico de ' + j.fis_src + ', não do clube atual.' : '');
@@ -6509,7 +6509,7 @@ var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zague
 const TIPO_SET = { ZD: 'Zaga', ZE: 'Zaga', LD: 'Lateral', LE: 'Lateral', VOL: 'Volante', MED: 'Meia', MEI: 'Meia', ED: 'Extremo', EE: 'Extremo', CA: 'Atacante' };
 function tipoCalc(j) {
   const C = window.CONSULTA && window.CONSULTA.cen; const s = C && C[TIPO_SET[j.p]]; if (!s) return null;
-  if (typeof j.psv !== 'number' || (Number(j.sc_n) || 0) < 5) return null;
+  if (typeof j.psv !== 'number' || (!j._dados && (Number(j.sc_n) || 0) < 5)) return null;
   const core = C._core, app = C._app;                     /* ex.: psv99 → psv */
   const z = core.map((c, i) => { const v = Number(j[app[c]]); return isFinite(v) && j[app[c]] != null ? (v - s.media[i]) / s.desvio[i] : null; });
   if (z.filter(v => v != null).length < 3) return null;
@@ -7325,7 +7325,8 @@ function ligarDados() {
     d.liga = $('#mdLiga').value; d.em = new Date().toISOString().slice(0, 10);
     if (mdFis) d.fis = Object.assign({}, d.fis || {}, mdFis);
     if (obr != null || obrA != null) d.fis = Object.assign({}, d.fis || {}, obr != null ? { obr } : {}, obrA != null ? { obr_area: obrA } : {});
-    if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(5, Math.round(d.fis.min / 90));   /* sem contagem de jogos, estima pelos minutos */
+    if (mdFis && mdFis.min != null && mdFis.sc_n != null && mdFis.min <= 130) { d.fis.min_jogo = mdFis.min; d.fis.min = Math.round(mdFis.min * mdFis.sc_n); }   /* o CSV do SkillCorner traz minutos POR JOGO */
+    if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(1, Math.round(d.fis.min / 90));
     if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
     j.dados = d;
     if (j.manual) manuaisRegistrar(j, dadosEditando.cod || null);
