@@ -2458,6 +2458,7 @@ async function abrirCenario(id) {
     dados = await r.json();
   }
   estado = Object.assign(novoEstado(), dados);
+  if (BASE.length) manuaisSincronizarElenco();
   /* O CARIMBO COM QUE ESTE GRUPO FOI ABERTO. E' o que permite, na hora de salvar, saber se
      alguem gravou por cima enquanto voce trabalhava. Em 22/09 isso aconteceu de verdade: uma
      lista de 343 atletas virou uma de 120, salva por outra pessoa, sem aviso nenhum para
@@ -6631,7 +6632,21 @@ async function manuaisCarregar() {
     catch (e) { console.warn('manuais: nuvem indisponível', e); }
   }
   MANUAIS = lista; manuaisLocalGravar();
-  if (BASE.length) { manuaisAplicar(); manuaisSincronizarElenco(); render(); }
+  if (BASE.length) { manuaisAplicar(); await manuaisVarrerGrupos(); manuaisSincronizarElenco(); render(); }
+}
+/* varre TODOS os grupos salvos (nuvem e navegador): todo card criado à mão em qualquer grupo entra no cadastro geral */
+async function manuaisVarrerGrupos() {
+  let grupos = [];
+  try { grupos = typeof cenTodos === 'function' ? await cenTodos() : []; } catch (e) { grupos = []; }
+  try { grupos = grupos.concat(cenLocalLer()); } catch (e) {}
+  let novos = 0;
+  grupos.forEach(g => Object.entries((g && g.elenco) || {}).forEach(([cod, lista]) => (lista || []).forEach(c => {
+    if (!c || !c.manual || !c.nome) return;
+    if (manualPorCard(c)) { const m = manualPorCard(c); if (c.dados && !m.dados) { m.dados = c.dados; novos++; } return; }
+    MANUAIS.push({ uid: c.muid || c.uid, nome: c.nome, clube: c.clube, p: cod, idade: c.idade, contrato: c.contrato, nac: c.nac, dados: c.dados || null, em: new Date().toISOString().slice(0, 10) });
+    novos++;
+  })));
+  if (novos) { await manuaisGravar(); console.log('manuais: ' + novos + ' cadastrados a partir dos grupos'); }
 }
 async function manuaisGravar() {
   manuaisLocalGravar();
