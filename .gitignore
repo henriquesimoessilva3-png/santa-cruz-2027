@@ -39,3 +39,7 @@ Santa Cruz V2/bases/wyscout_ligas/rankings_ago26.json
 Santa Cruz V2/bases/_extraidos/tsb/*.xlsx
 Santa Cruz V2/*.pdf
 _fonte/serie_b_jogos_2018_2021/*.xlsx
+
+# planilha de alvos com empresários (30/09) — não vai para o repositório público
+alvos_santa_cruz.xlsx
+alvos - santa cruz.xlsx
