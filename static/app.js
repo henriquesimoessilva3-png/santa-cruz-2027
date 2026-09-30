@@ -2172,6 +2172,9 @@ async function fbIniciar() {
     FB.pronto = true;
     /* dispara tambem na volta de um login antigo: e o que faz a pessoa continuar
        logada ao reabrir o site, sem precisar clicar em Entrar de novo */
+    /* volta do login por redirecionamento (celular): mostra o erro, se houver */
+    FB.auth.getRedirectResult().catch(e => toast('Não deu para entrar: ' + ((e && e.code) === 'auth/unauthorized-domain'
+      ? 'falta autorizar ' + location.hostname + ' no Firebase' : ((e && e.message) || e)), 'ruim'));
     FB.auth.onAuthStateChanged(u => {
       FB.usuario = u || null;
       FB.erro = '';
@@ -2185,11 +2188,19 @@ async function fbIniciar() {
 
 async function fbEntrar() {
   if (!FB.pronto) { toast('A nuvem não está ligada neste site', 'ruim'); return; }
+  const prov = new firebase.auth.GoogleAuthProvider();
+  /* no celular a janelinha (popup) costuma ser bloqueada ou abrir numa aba solta que não devolve o login:
+     lá o login vai por redirecionamento (a página sai e volta já logada) */
+  const celular = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.matchMedia('(pointer:coarse)').matches;
   try {
-    await FB.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    if (celular) { await FB.auth.signInWithRedirect(prov); return; }
+    await FB.auth.signInWithPopup(prov);
   } catch (e) {
     /* fechar a janelinha do Google e desistencia, nao erro: nao merece toast vermelho */
     const c = (e && e.code) || '';
+    if (c === 'auth/popup-blocked' || c === 'auth/operation-not-supported-in-this-environment') {
+      try { await FB.auth.signInWithRedirect(prov); return; } catch (e2) { /* segue para a mensagem */ }
+    }
     if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request') return;
     /* `unauthorized-domain` e o tropeco numero 1 de quem liga o Firebase num site que nao
        e do proprio Firebase: por padrao so `localhost` e os dominios `*.firebaseapp.com` /
@@ -2336,7 +2347,10 @@ async function listarCenarios() {
       const nuv = lista.filter(c => c.origem === 'nuvem');
       const meus = lista.filter(c => c.origem === 'navegador');
       const pub = lista.filter(c => c.origem === 'publicado');
-      sel.innerHTML = '<option value="">— grupo não salvo —</option>' +
+      /* sem login os compartilhados não aparecem — e isso precisa estar escrito, senão parece que sumiram (celular, 30/09) */
+      const aviso = (FB.pronto && !FB.usuario) ? '<optgroup label="Compartilhados: entre com o Google (botão “Entrar para compartilhar”) para ver"></optgroup>'
+                  : (FB.erro ? '<optgroup label="Compartilhados: este e-mail não está liberado"></optgroup>' : '');
+      sel.innerHTML = '<option value="">— grupo não salvo —</option>' + aviso +
         (nuv.length ? '<optgroup label="Compartilhados (todos veem)">' + nuv.map(opt).join('') + '</optgroup>' : '') +
         (meus.length ? '<optgroup label="Salvos só neste navegador">' + meus.map(opt).join('') + '</optgroup>' : '') +
         (pub.length ? '<optgroup label="Publicados (ponto de partida)">' + pub.map(opt).join('') + '</optgroup>' : '');
