@@ -34,7 +34,7 @@ def sit(r):
     return f"{r.clube}{liga}, {int(r.idade)}, " + ("livre" + ("" if dt(r.contrato) == "sem contrato" else f" ({dt(r.contrato)})") if r.livre else f"contrato até {dt(r.contrato)}")
 
 def main():
-    d = pool()
+    d = pool(); d = d[d.mercado_l != "Série A"]   # a montagem segue sem Série A (decisão do clube)
     old = open(os.path.join(L, "ELENCO_2027.md"), encoding="utf-8").read()
     cab = old[:old.index("## 2.")]
     cab += """## 2. Treinador

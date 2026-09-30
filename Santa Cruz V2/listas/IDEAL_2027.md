@@ -14,8 +14,8 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 3 | **G. Castellón** (e) | Universidad de Chile | Chile | 32 | 31/12/27 | **71** | 71 | 52 | 89 | — | — | — | — | 0,00 | — | — | — |  |
 | 4 | **Jean** | América de Cali | Colombia A | 30 | 31/12/26 | **70** | 70 | 55 | 86 | — | — | — | — | 0,00 | — | — | — |  |
 | 5 | **E. Valencia** | San Antonio | Equador B | 23 | — | **70** | 74 | 58 | 91 | — | — | — | — | 0,00 | — | — | — |  |
-| 6 | **G. Olveira** | Olimpia | Paraguai | 33 | 31/12/26 | **68** | 68 | 51 | 86 | — | — | — | — | 0,00 | — | — | — |  |
-| 7 | **T. Cardozo** (e) | Belgrano | Argentina A | 30 | 31/12/28 | **68** | 68 | 54 | 82 | — | — | — | — | 0,00 | — | — | — |  |
+| 6 | **T. Cardozo** (e) | Belgrano | Argentina A | 30 | 31/12/28 | **68** | 68 | 54 | 82 | — | — | — | — | 0,00 | — | — | — |  |
+| 7 | **G. Olveira** | Olimpia | Paraguai | 33 | 31/12/26 | **68** | 68 | 51 | 86 | — | — | — | — | 0,00 | — | — | — |  |
 | 8 | **W. Cuesta** | Internacional Palmira | Colombia B | 33 | 31/12/26 | **68** | 68 | 54 | 82 | — | — | — | — | 0,00 | — | — | — |  |
 | 9 | **J. Reyes Alberti** | Portuguesa | Venezuela | 31 | 31/12/26 | **67** | 67 | 54 | 80 | — | — | — | — | 0,00 | — | — | — |  |
 | 10 | **G. Servio** | Guaraní | Paraguai | 34 | 31/12/26 | **67** | 67 | 50 | 84 | — | — | — | — | 0,08 | — | — | — |  |
@@ -57,8 +57,8 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 1 | **M. Gamarra** (e) | Olimpia | Paraguai | 25 | 31/12/27 | **71** | 66 | 56 | 75 | 28,8 | — | Motor de volume | — | 0,05 | 0,9 | — | — |  |
 | 2 | **Vilar** | Botafogo-SP | Série B | 26 | 30/11/26 | **70** | 59 * | 66 | — | 30,2 | 35,4 | Motor de volume | 91 | 0,12 ⚽ | 0,2 | 6,87 | 0,13 |  |
 | 3 | **Zé Marcos** (e) | Sport | Série B | 28 | 31/12/27 | **69** | 64 | 69 | 60 | 28,2 | 33,4 | Baixa intensidade * | — | 0,15 ⚽ | 0,0 | 6,92 | 0,10 | ★ média ≥6,5 |
-| 4 | **Wallace** | Botafogo-SP | Série B | 31 | 30/11/26 | **65** | 64 | 72 | 56 | — | 34,0 | — | — | 0,08 | — | 6,67 | 0,04 |  |
-| 5 | **J. Díaz** | Universidad Católica | Chile | 28 | — | **65** | 60 | 54 | 66 | 28,9 | — | Motor de volume | — | 0,04 | 0,2 | — | — |  |
+| 4 | **J. Díaz** | Universidad Católica | Chile | 28 | — | **65** | 60 | 54 | 66 | 28,9 | — | Motor de volume | — | 0,04 | 0,2 | — | — |  |
+| 5 | **Wallace** | Botafogo-SP | Série B | 31 | 30/11/26 | **65** | 64 | 72 | 56 | — | 34,0 | — | — | 0,08 | — | 6,67 | 0,04 |  |
 | 6 | **A. Osella** | Independiente Rivadavia | Argentina A | 25 | 31/12/26 | **65** | 54 | 46 | 62 | 27,9 | — | Motor de volume | 90 | 0,20 ⚽ | 1,2 | — | — |  |
 | 7 | **S. Morales** | Aucas | Equador A | 24 | 31/12/26 | **65** | 61 | 56 | 65 | 27,2 | — | Baixa intensidade * | 92 | 0,09 | 0,3 | — | — |  |
 | 8 | **Luiz Otávio** | Ceará | Série B | 33 | 31/12/26 | **64** | 58 | 67 | 50 | — | 33,4 | — | 92 | 0,10 ⚽ | — | 6,93 | 0,11 |  |
@@ -108,7 +108,7 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 7 | **F. Gaibor** | Alianza Lima | Peru | 34 | 31/12/26 | **63** | 63 | 56 | 70 | 27,5 | — | Baixa intensidade * | — | 0,08 | 0,9 | — | — |  |
 | 8 | **Agustín Arce** (e) | Universidad de Chile | Chile | 21 | 31/12/27 | **62** | 56 | 52 | 60 | 27,0 | — | Médio em tudo | — | 0,28 | 4,3 | — | — | ★ média ≥6,5 |
 | 9 | **Raí** | Juventude | Série B | 24 | 31/12/26 | **62** | 59 | 70 | 48 | — | 35,1 | — | 87 | 0,08 | — | 7,26 | 0,22 |  |
-| 10 | **J. Meneses** | Deportes Limache | Chile | 33 | 31/12/26 | **62** | 62 | 56 | 68 | 29,0 | — | Explosivo e rápido * | — | 0,09 | 2,7 | — | — |  |
+| 10 | **J. Vélez** (e) | Alianza Lima | Peru | 31 | 31/12/28 | **62** | 58 | 56 | 60 | 28,0 | — | Médio em tudo | — | 0,14 | 4,8 | — | — |  |
 
 ### Meia
 
@@ -137,7 +137,7 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 6 | **F. González** (e) | O'Higgins | Chile | 25 | 31/12/28 | **64** | 63 | 57 | 70 | 30,9 | — | Explosivo e rápido * | — | 0,15 | 6,1 | — | — |  |
 | 7 | **M. Perelló** (e) | Independiente del Valle | Equador A | 24 | 31/12/29 | **64** | 61 | 54 | 69 | 30,5 | — | Baixa intensidade * | — | 0,51 | 9,2 ➚ | — | — |  |
 | 8 | **C. Sosa** (e) | Deportivo Táchira | Venezuela | 31 | 31/12/27 | **64** | 64 | 50 | 78 | — | — | — | — | 0,06 | — | — | — |  |
-| 9 | **Anderson Ceará** | Csikszereda Miercurea Ciuc | Romenia | 27 | 30/06/27 | **63** | 63 | 55 | 72 | — | — | — | — | 0,12 | — | — | — |  |
+| 9 | **Pedro Vitor** | São Bernardo | Série B | 28 | 31/12/26 | **63** | 63 | 68 | 59 | 28,9 | 33,0 | Motor de volume * | — | 0,29 | 3,6 | 6,94 | 0,38 |  |
 | 10 | **Gabriel Honório** | Busan I'Park | Coreia B | 30 | — | **63** | 60 | 48 | 73 | — | — | — | 92 | 0,27 | — | — | — |  |
 
 ### Extremo pela esquerda
@@ -151,8 +151,8 @@ Os três mercados juntos — **Série B**, **campeonatos sul-americanos** e **br
 | 5 | **E. Tortolero** (e) | Carabobo | Venezuela | 28 | 31/12/27 | **63** | 63 | 56 | 71 | — | — | — | — | 0,47 | — | — | — |  |
 | 6 | **Luanzinho** | Al Sharjah | Emirados | 26 | 30/06/27 | **63** | 63 | 53 | 72 | 28,1 | — | Baixa intensidade * | — | 0,31 | — | — | — |  |
 | 7 | **D. Dawson** | Envigado | Colombia B | 20 | — | **61** | 61 | 51 | 71 | — | — | — | — | 0,21 | — | — | — |  |
-| 8 | **Kadu** | Goiás | Série B | 24 | 15/12/26 | **60** | 55 | 72 | 39 | 30,7 | 36,1 | Explosivo e rápido | 82 | 0,27 | 5,7 | 6,92 | 0,31 |  |
-| 9 | **Reinaldo** | Chaves | Portugal B | 24 | 30/06/26 * | **60** | 55 | 57 | 54 | 30,4 | — | Explosivo e rápido | — | 0,24 | — | — | — |  |
+| 8 | **Reinaldo** | Chaves | Portugal B | 24 | 30/06/26 * | **60** | 55 | 57 | 54 | 30,4 | — | Explosivo e rápido | — | 0,24 | — | — | — |  |
+| 9 | **Kadu** | Goiás | Série B | 24 | 15/12/26 | **60** | 55 | 72 | 39 | 30,7 | 36,1 | Explosivo e rápido | 82 | 0,27 | 5,7 | 6,92 | 0,31 |  |
 | 10 | **Kelvin Flórez** | Tolima | Colombia A | 22 | — | **60** | 52 | 53 | 51 | 29,8 | — | Explosivo e rápido | — | 0,33 | 9,0 ➚ | — | — |  |
 
 ### Centroavante

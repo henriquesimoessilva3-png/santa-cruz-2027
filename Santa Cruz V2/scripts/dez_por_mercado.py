@@ -9,7 +9,7 @@ from top10 import POS
 from ideal10 import pool
 
 L = os.path.join(RAIZ, "listas")
-MERC = [("Série B", "Série B"), ("Sul-americanas", "Campeonatos sul-americanos"), ("Exterior", "Brasileiros e sul-americanos no exterior (ligas compatíveis com a B)")]
+MERC = [("Série B", "Série B"), ("Sul-americanas", "Campeonatos sul-americanos"), ("Exterior", "Brasileiros e sul-americanos no exterior (ligas compatíveis com a B)"), ("Série A", "Série A do Brasil (fora de \"Os meus dez\"; aderência convertida pela reta do T4)")]
 dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
 f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
 
@@ -19,7 +19,7 @@ def tabela(x):
     for i, r in enumerate(x.itertuples(), 1):
         liga = "Série B" if r.mercado_l == "Série B" else str(r.liga)
         tipo = "—" if pd.isna(r.tipo) else str(r.tipo) + ("" if r.tipo_pref else " *")
-        md.append(f"| {i} | {r.ordem_geral}º | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {liga} | {int(r.idade)} | {dt(r.contrato)}{' *' if str(r.contrato_vencido) == 'True' else ''} | **{f(r.score)}** | {f(r.nota)}{'' if str(r.nota_completa) == 'True' else ' *'} | {f(r.aderencia_ajustada)} | {f(r.nivel_overall)} | {f(r.psv, 1)} | {tipo} | {f(r.bp) if r.bp else '—'} | {('★ ' + str(r.scouts)) if isinstance(r.scouts, str) else ''} |")
+        md.append(f"| {i} | {'—' if pd.isna(r.ordem_geral) else str(int(r.ordem_geral)) + 'º'} | **{r.jogador}**{'' if r.livre else ' (e)'} | {r.clube} | {liga} | {int(r.idade)} | {dt(r.contrato)}{' *' if str(r.contrato_vencido) == 'True' else ''} | **{f(r.score)}** | {f(r.nota)}{'' if str(r.nota_completa) == 'True' else ' *'} | {f(r.aderencia_ajustada)} | {f(r.nivel_overall)} | {f(r.psv, 1)} | {tipo} | {f(r.bp) if r.bp else '—'} | {('★ ' + str(r.scouts)) if isinstance(r.scouts, str) else ''} |")
     return md
 
 def doc(d, titulo, intro, arquivo, so_livres):
@@ -39,10 +39,10 @@ def doc(d, titulo, intro, arquivo, so_livres):
 def main():
     d = pool()
     doc(d, "Os dez por posição e mercado — 2027",
-        "A mesma lista de `Os meus dez por posição`, separada nos três mercados: **Série B**, **campeonatos sul-americanos** e **brasileiros e sul-americanos no exterior** em ligas compatíveis com a B. Serve para olhar um mercado só; a ordem dentro de cada mercado é a mesma da lista geral.",
+        "A mesma lista de `Os meus dez por posição`, separada nos quatro mercados: **Série B**, **campeonatos sul-americanos**, **brasileiros e sul-americanos no exterior** em ligas compatíveis com a B e **Série A do Brasil** (esta fora da lista geral, por decisão do clube; Geral = —). Serve para olhar um mercado só; a ordem dentro de cada mercado é a mesma da lista geral.",
         "TOP10_POR_POSICAO.md", False)
     doc(d, "Os dez por posição e mercado — só fim de contrato",
-        "Só quem chega **livre** (contrato até jun/27 ou sem contrato registrado no dado de ago/26), nos três mercados, na mesma ordem de `Os meus dez por posição`. É a lista do passe zero; contrato e situação a confirmar antes de qualquer contato.",
+        "Só quem chega **livre** (contrato até jun/27 ou sem contrato registrado no dado de ago/26), nos quatro mercados (Série A inclusive), na mesma ordem de `Os meus dez por posição`. É a lista do passe zero; contrato e situação a confirmar antes de qualquer contato.",
         "LIVRES_2027.md", True)
     print(d[d.livre].groupby(["pos11", "mercado_l"]).size().unstack().fillna(0).astype(int))
 

@@ -43,12 +43,12 @@ def curtos():
     J = json.load(open(os.path.join(os.path.dirname(RAIZ), "dados", "jogadores.json"), encoding="utf-8"))
     J = pd.DataFrame(J if isinstance(J, list) else J["jogadores"])
     J["min"] = pd.to_numeric(J["min"], errors="coerce"); J["sc_n"] = pd.to_numeric(J.sc_n, errors="coerce")
-    J = J[J.p.isin(SETOR) & J.psv.notna() & (J.sc_n >= 5) & (J["min"] >= MIN_CURTO) & (J["min"] < MIN_CHEIO) & (J.l.isin(SUL) | J.l.isin(FRACAS))]
+    J = J[J.p.isin(SETOR) & J.psv.notna() & (J.sc_n >= 5) & (J["min"] >= MIN_CURTO) & (J["min"] < MIN_CHEIO) & (J.l.isin(SUL) | J.l.isin(FRACAS) | (J.l == "Brasil A"))]
     if "fis_src" in J: J = J[J.fis_src.isna()]
     SA = {"Brazil", "Brasil", "Argentina", "Uruguay", "Uruguai", "Colombia", "Colômbia", "Chile", "Paraguay", "Paraguai", "Ecuador", "Equador", "Peru", "Bolivia", "Bolívia", "Venezuela"}
     nac = J.nac.fillna("").astype(str)
-    J = J[J.l.isin(SUL) | nac.apply(lambda x: any(n in x for n in SA))]; nac = J.nac.fillna("").astype(str)
-    e = pd.DataFrame({"jogador": J.n, "clube": J.t, "liga": J.l, "mercado_l": np.where(J.l.isin(SUL), "Sul-americanas", "Brasileiros e sul-americanos no exterior"), "pos11": J.p,
+    J = J[J.l.isin(SUL) | (J.l == "Brasil A") | nac.apply(lambda x: any(n in x for n in SA))]; nac = J.nac.fillna("").astype(str)
+    e = pd.DataFrame({"jogador": J.n, "clube": J.t, "liga": J.l, "mercado_l": np.where(J.l.isin(SUL), "Sul-americanas", np.where(J.l == "Brasil A", "Série A", "Brasileiros e sul-americanos no exterior")), "pos11": J.p,
                       "idade": pd.to_numeric(J.id_, errors="coerce"), "minutos": J["min"], "contrato": J.ct.astype(str).str[:10], "valor": pd.to_numeric(J.mv, errors="coerce"),
                       "psv99": J.psv, "sprint_count_p90": J.spr_n, "hi_count_p90": J.hi_n, "expl_accel_sprint_p90": J.expl, "distance_p90": J.dist, "runs_p30tip": J.obr,
                       "runs_penalty_area_p30tip": J.obr_area, "br": nac.str.contains("Bra")})
@@ -66,7 +66,8 @@ def main():
     sb = pd.read_excel(os.path.join(LI, "listas_2027.xlsx"), "base_serie_B_2026"); sb["mercado_l"] = "Série B"
     s = pd.read_csv(os.path.join(LI, "base_sul_americanas.csv")); s["mercado_l"] = "Sul-americanas"
     e = pd.read_csv(os.path.join(LI, "base_sulam_exterior.csv")); e = e[e.liga.isin(L.ALCANCAVEIS) & ~e.clube.isin(GRANDES)]; e["mercado_l"] = "Brasileiros e sul-americanos no exterior"
-    B = pd.concat([sb, s, e], ignore_index=True); B["k"] = B.jogador.map(chave) + "|" + B.clube.map(chave)
+    a = pd.read_csv(os.path.join(LI, "base_serie_A.csv")); a["mercado_l"] = "Série A"
+    B = pd.concat([sb, s, e, a], ignore_index=True); B["k"] = B.jogador.map(chave) + "|" + B.clube.map(chave)
     B = B.drop(columns=[c for c in list(PESO) + ["runs_penalty_area_p30tip"] if c in B], errors="ignore").merge(t[["k", "pos11", "tipo", "tipo_pref", "runs_penalty_area_p30tip"] + list(PESO)].rename(columns={"pos11": "pos_fis"}), on="k", how="inner")
     B["pos11"] = B.pos_fis
     B = B[(B.minutos >= 900) & (B.idade <= 35) & (B.psv99 >= 27)]
@@ -89,11 +90,11 @@ def main():
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
     PREF = pd.read_csv(os.path.join(RAIZ, "resultados", "b8", "tipos_preferidos_pos.csv")).set_index("pos11").preferidos.fillna("")
     md = ["# Só o físico: ranking por posição", "", "*Dado: SkillCorner (Série B, estudo) e Portal (fora), temporada atual; Wyscout ago/26 para minutos, contrato e nota · 26/09/2026.*", "",
-          "A visão só física — o par de `Os meus dez` (que junta técnico e físico). Os 20 melhores de cada posição **pelos indicadores físicos**, em três mercados. **Físico** = média ponderada dos percentis dentro da posição, todos os mercados juntos: sprints/90 (peso 2), ações de alta intensidade/90 (2), arrancadas explosivas/90 (2), PSV-99 (1), corridas sem bola por 30 min (1); distância fica fora (não rende ponto, F1-1). "
+          "A visão só física — o par de `Os meus dez` (que junta técnico e físico). Os 20 melhores de cada posição **pelos indicadores físicos**, em quatro mercados (Série B, sul-americanos, exterior e Série A). **Físico** = média ponderada dos percentis dentro da posição, todos os mercados juntos: sprints/90 (peso 2), ações de alta intensidade/90 (2), arrancadas explosivas/90 (2), PSV-99 (1), corridas sem bola por 30 min (1); distância fica fora (não rende ponto, F1-1). "
           "**Pontos** e **Geral** são os de `Os meus dez por posição` (a lista que vale; — = não entra nela, por nota ou filtro): este ranking é só o físico, para achar o piso e o tipo. **Corte de minutos**: as listas técnicas pedem **900 min** (a nota precisa desse volume); aqui entram também os de **600 a 899 min**, em *itálico* e com **~** — amostra curta, o físico já é confiável (≥ 7 jogos), a nota não existe. **Tipo** com ✓ = tipo físico que quem sobe mais usa (F2/F2). Filtros: ≥ 900 min, piso 27 km/h, sem vetados, valor ≤ € 2 MM, até 35 anos. (BR) = brasileiro. Clique no nome para abrir a ficha.", ""]
     for p in ORDEM:
         md += [f"## {NOMES[p]}" + (f" — tipo de quem sobe: **{PREF.get(p, '')}**" if PREF.get(p, "") else " — o físico não separa quem sobe de quem cai (F2-4)"), ""]
-        for merc in ["Série B", "Sul-americanas", "Brasileiros e sul-americanos no exterior"]:
+        for merc in ["Série B", "Sul-americanas", "Brasileiros e sul-americanos no exterior", "Série A"]:
             x = B[(B.pos11 == p) & (B.mercado_l == merc)].head(20)
             md += [f"**{merc}**" + (" — sem jogador com físico" if x.empty else ""), ""]
             if x.empty: continue
@@ -101,7 +102,7 @@ def main():
                    "|---|---|---|" + ("---|" if merc != "Série B" else "") + "---|---|---|---|---|---|---|---|---|---|---|---|---|"]
             for i, r in enumerate(x.itertuples(), 1):
                 nome = (f"*{r.jogador}* ~" if r.curto else f"**{r.jogador}**")
-                md.append(f"| {i} | {nome}{' (BR)' if r.br and merc != 'Série B' else ''}{'' if r.livre else ' (e)'} | {r.clube} |" + (f" {r.liga} |" if merc != "Série B" else "") +
+                md.append(f"| {i} | {nome}{' (BR)' if r.br and merc not in ('Série B', 'Série A') else ''}{'' if r.livre else ' (e)'} | {r.clube} |" + (f" {r.liga} |" if merc != "Série B" else "") +
                           f" {'—' if pd.isna(r.idade) else int(r.idade)} | {dt(r.contrato)} | **{f(r.fisico)}** | {f(r.psv99, 1)} | {f(r.sprint_count_p90, 1)} | {f(r.hi_count_p90, 0)} | {f(r.expl_accel_sprint_p90, 2)} | {f(r.runs_p30tip, 1)} | {f(r.runs_penalty_area_p30tip, 1)} | {r.tipo}{' ✓' if r.tipo_pref else ''} | {int(r.minutos)}{'~' if r.curto else ''} | {f(r.score)} | {'—' if pd.isna(r.ordem_geral) else str(int(r.ordem_geral)) + 'º'} |")
             md.append("")
     open(os.path.join(LI, "RANKING_FISICO.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")

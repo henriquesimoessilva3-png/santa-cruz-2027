@@ -70,14 +70,15 @@ def main():
     J["tipo"] = J.apply(classifica, axis=1)
     J["chave"] = J.n.map(chave); J["kt"] = J.t.map(chave)
     bases = pd.concat([pd.read_csv(os.path.join(RAIZ, "listas", "base_sul_americanas.csv")),
-                       pd.read_csv(os.path.join(RAIZ, "listas", "base_sulam_exterior.csv"))])
+                       pd.read_csv(os.path.join(RAIZ, "listas", "base_sulam_exterior.csv")),
+                       pd.read_csv(os.path.join(RAIZ, "listas", "base_serie_A.csv"))])
     bases["chave"] = bases.jogador.map(chave); bases["kt"] = bases.clube.map(chave)
     E = J[["chave", "kt", "p", "setor", "tipo", "mv", "runs_penalty_area_p30tip"] + CORE].merge(bases.drop(columns=["runs_penalty_area_p30tip"], errors="ignore"), on=["chave", "kt"], how="inner")
     E = E.rename(columns={"p": "pos_fis"})
     # valor: o do Wyscout, e quando ele vem 0/vazio, o do Transfermarkt que está no app (mv)
     v = pd.to_numeric(E.valor, errors="coerce").fillna(0); mv = pd.to_numeric(E.mv, errors="coerce").fillna(0)
     E["valor"] = np.where(v > 0, v, mv)
-    E["mercado_l"] = np.where(E.liga.isin(SUL), "Sul-americanas", np.where(E.liga.isin(FRACAS), "Exterior (ligas mais fracas)", None))
+    E["mercado_l"] = np.where(E.liga.isin(SUL), "Sul-americanas", np.where(E.liga.isin(FRACAS), "Exterior (ligas mais fracas)", np.where(E.liga == "Brasil A", "Série A", None)))
     E = E[E.mercado_l.notna()]
     E["pos11"] = E.pos_fis
 
@@ -123,7 +124,7 @@ def main():
     md.insert(md.index("| Posição | Tipo(s) de quem sobe | Subiu | Caiu |"), "Abaixo de cada tabela, **amostra curta (~)**: quem tem 600 a 899 min e físico rastreado, do tipo de quem sobe — fora das listas técnicas (a nota pede 900 min), mas o físico já é confiável.")
     for pos in ORDEM:
         md.append(f"\n## {NOMEP[pos]} — {' ou '.join(P[pos]) if P.get(pos) else 'nenhum tipo separa (ordem pela nota)'}\n")
-        for merc in ["Série B", "Sul-americanas", "Exterior (ligas mais fracas)"]:
+        for merc in ["Série B", "Sul-americanas", "Exterior (ligas mais fracas)", "Série A"]:
             x = A[(A.pos11 == pos) & (A.mercado_l == merc)].head(10)
             x = x[x.tipo_pref | (x.tipo_pref.cumsum() < 10)]
             md.append(f"\n**{merc}**" + (" — nenhum jogador do tipo com dado" if x.empty else "") + "\n")
@@ -133,7 +134,7 @@ def main():
             for i, r in enumerate(x.itertuples(), 1):
                 liga = f" {r.liga} |" if merc != "Série B" else ""
                 ad = r.aderencia_ajustada if pd.notna(getattr(r, "aderencia_ajustada", np.nan)) else r.aderencia
-                md.append(f"| {i} | {int(r.ordem_geral)}º | **{r.jogador}**{'' if r.livre_2027 else ' (e)'} | {r.clube} |{liga} {int(r.idade)} | {dt(r.contrato)} | {r.tipo}{'' if r.tipo_pref else ' *'} | "
+                md.append(f"| {i} | {'—' if pd.isna(r.ordem_geral) else str(int(r.ordem_geral)) + 'º'} | **{r.jogador}**{'' if r.livre_2027 else ' (e)'} | {r.clube} |{liga} {int(r.idade)} | {dt(r.contrato)} | {r.tipo}{'' if r.tipo_pref else ' *'} | "
                           f"{f(r.psv99)} | {f(r.sprint_count_p90)} | {f(r.expl_accel_sprint_p90,2)} | **{f(r.score,0)}** | {f(r.nota,0)} | {f(ad,0)} | {f(r.nivel_overall,0)} |")
             cu = CU[(CU.pos11 == pos) & (CU.mercado_l == merc) & CU.tipo.isin(P.get(pos, []))].sort_values("psv99", ascending=False)
             if len(cu): md.append("\nAmostra curta (~, 600–899 min): " + "; ".join(f"*{r.jogador}* ({r.clube}, {int(r.minutos)} min, {r.tipo.lower()}, PSV {f(r.psv99)})" for r in cu.itertuples()))

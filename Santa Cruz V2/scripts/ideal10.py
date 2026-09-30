@@ -29,7 +29,8 @@ def pool():
     b = pd.read_excel(os.path.join(L, "listas_2027.xlsx"), "base_serie_B_2026"); b["mercado_l"] = "Série B"
     s = pd.read_csv(os.path.join(L, "base_sul_americanas.csv")); s["mercado_l"] = "Sul-americanas"
     e = pd.read_csv(os.path.join(L, "base_sulam_exterior.csv")); e = e[e.liga.isin(FRACAS)]; e["mercado_l"] = "Exterior"
-    d = pd.concat([b, s, e], ignore_index=True)
+    a = pd.read_csv(os.path.join(L, "base_serie_A.csv")); a["mercado_l"] = "Série A"   # visão Série A (30/09): fica fora de "Os meus dez", entra nas visões por mercado
+    d = pd.concat([b, s, e, a], ignore_index=True)
     d = d[(d.minutos >= 900) & (d.criterios_com_dado >= 3) & (d.pos11 != "Outro")]
     d = d[((d.idade <= 35) | ((d.pos11 == "GOL") & (d.idade <= 37)))]
     d = d[[not fora(j, c) for j, c in zip(d.jogador, d.clube)]]
@@ -78,12 +79,15 @@ def pool():
     d["area_pts"] = np.where(d.pos11.isin(AREA), np.where(d.area_p >= 90, 3, np.where(d.area_p >= 75, 1, 0)), 0)
     d["score"] = (d.nota + d.tipo_pts + 3 * (d.bp >= 85) + d.gol_def_pts + d.area_pts + d.scouts.map(BONUS).fillna(0) + d.liga.map(CRIVO).fillna(0)).round(1)
     d = d.sort_values("score", ascending=False).drop_duplicates(["k"])
-    d["ordem_geral"] = d.groupby("pos11").cumcount() + 1   # posição em "Os meus dez" (ordem geral da posição)
+    fa = d.mercado_l != "Série A"
+    d["ordem_geral"] = np.nan
+    d.loc[fa, "ordem_geral"] = d[fa].groupby("pos11").cumcount() + 1   # posição em "Os meus dez" (sem a Série A, decisão do clube de 23/09)
+    d.loc[~fa, "ordem_a"] = d[~fa].groupby("pos11").cumcount() + 1
     d[["ordem_geral", "pos11", "k", "jogador", "clube", "liga", "mercado_l", "idade", "minutos", "contrato", "contrato_vencido", "livre", "valor", "nota", "nota_completa", "aderencia_ajustada", "nivel_overall", "psv", "sofa_vmax", "tipo", "tipo_pref", "tipo_pts", "bp", "xg90", "gol_def", "area", "chega_area", "sofa_nota", "sofa_xgxa", "scouts", "score"]].to_csv(os.path.join(L, "POOL_2027.csv"), index=False)
     return d
 
 def main():
-    d = pool()
+    d = pool(); d = d[d.mercado_l != "Série A"]
     dt = lambda c: (str(c)[8:10] + "/" + str(c)[5:7] + "/" + str(c)[2:4]) if isinstance(c, str) and len(c) >= 10 else "—"
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")
     md = ["# Os meus dez por posição — 2027", "",
