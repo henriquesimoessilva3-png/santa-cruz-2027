@@ -1370,6 +1370,7 @@ function abrirMenuJogador(botao, cod, j) {
     '<div class="menu-sep">Status negociação</div>' +
     STATUS.map(st => '<button data-a="st:' + st + '"' +
       ((j.status || 'alvo') === st ? ' class="atual"' : '') + '>' + STATUS_ROT[st] + '</button>').join('') +
+    '<button data-a="clonar">Copiar para outro campograma <i class="menu-nota">escolhe o grupo e a posição</i></button>' +
     '<div class="menu-sep">Mover para</div>' +
     '<div class="menu-pos">' + POSICOES.filter(p => p.c !== cod).map(p =>
       '<button data-a="mv:' + p.c + '" title="' + esc(p.nome) + '">' + p.sig + '</button>').join('') + '</div>' +
@@ -1404,6 +1405,8 @@ function abrirMenuJogador(botao, cod, j) {
       m.remove(); abrirManual(j); return;
     } else if (a === 'dados') {
       m.remove(); abrirDados(cod, j.uid); return;
+    } else if (a === 'clonar') {
+      m.remove(); abrirClonar(cod, j); return;
     } else if (a === 'remover') {
       estado.elenco[cod] = estado.elenco[cod].filter(x => x.uid !== j.uid);
     }
@@ -7272,6 +7275,48 @@ function ligar() {
     $('#modalManual').classList.remove('aberto');
     salvarLocal(); render();
     toast(nome + ' adicionado em ' + sig(posAtual), 'bom');
+  };
+}
+
+/* ---------------- copiar o jogador para outro campograma já gravado ----------------
+   Abre o grupo de destino (nuvem ou navegador), põe uma cópia do card na posição escolhida e grava
+   aquele grupo — o grupo aberto na tela não muda. Publicados (modelos) não recebem cópia. */
+async function abrirClonar(cod, j) {
+  let grupos = [];
+  try { grupos = (await cenTodos()).filter(g => g.origem !== 'publicado' && g.id !== estado.id); } catch (e) {}
+  if (!grupos.length) { toast('Não há outro grupo gravado' + (FB.usuario ? '' : ' — entre com o Google para ver os compartilhados'), 'ruim'); return; }
+  let m = document.getElementById('modalClonar');
+  if (!m) { m = document.createElement('div'); m.id = 'modalClonar'; m.className = 'modal'; document.body.appendChild(m); }
+  m.innerHTML = '<div class="modal-cx" style="width:min(460px,100%)"><div class="modal-topo"><h2>Copiar ' + esc(j.nome) + ' para…</h2><button class="fechar" data-fc>×</button></div>' +
+    '<div class="filtros" style="flex-direction:column;align-items:stretch;gap:10px;border:none">' +
+    '<label style="flex-direction:column;align-items:stretch;gap:3px">Campograma (grupo gravado)<select id="clGrupo">' +
+      grupos.map(g => '<option value="' + esc(g.id) + '">' + esc(g.nome) + ' · ' + (g.atletas || 0) + ' atl.' + (g.origem === 'navegador' ? ' · só neste navegador' : '') + '</option>').join('') + '</select></label>' +
+    '<label style="flex-direction:column;align-items:stretch;gap:3px">Posição<select id="clPos">' +
+      POSICOES.map(p => '<option value="' + p.c + '"' + (p.c === cod ? ' selected' : '') + '>' + p.sig + ' · ' + esc(p.nome) + '</option>').join('') + '</select></label>' +
+    '<p class="fraco" style="margin:0">Vai com o status, o salário, os dados colados e as anotações do card. O grupo aberto na tela não muda.</p></div>' +
+    '<div class="modal-pe"><div class="dir" style="margin-left:auto;display:flex;gap:8px"><button class="bt" data-fc>Cancelar</button><button class="bt primario" id="clOk">Copiar</button></div></div></div>';
+  m.classList.add('aberto');
+  m.querySelectorAll('[data-fc]').forEach(b => b.onclick = () => m.classList.remove('aberto'));
+  m.onclick = e => { if (e.target === m) m.classList.remove('aberto'); };
+  $('#clOk').onclick = async () => {
+    const g = grupos.find(x => x.id === $('#clGrupo').value), pos = $('#clPos').value;
+    if (!g) return;
+    const alvo = JSON.parse(JSON.stringify(g)); delete alvo.origem;
+    alvo.elenco = alvo.elenco || {}; POSICOES.forEach(p => { alvo.elenco[p.c] = alvo.elenco[p.c] || []; });
+    const mesmo = x => (j.pk && x.pk === j.pk) || (tipoNorm(x.nome) === tipoNorm(j.nome) && tipoNorm(x.clube) === tipoNorm(j.clube));
+    const onde = POSICOES.find(p => alvo.elenco[p.c].some(mesmo));
+    if (onde && !confirm(j.nome + ' já está em "' + alvo.nome + '" (' + onde.sig + '). Copiar mesmo assim?')) return;
+    const copia = JSON.parse(JSON.stringify(j)); copia.uid = uid(); copia.titular = alvo.elenco[pos].length === 0;
+    alvo.elenco[pos].push(copia);
+    alvo.baseNuvem = g.atualizado || ''; alvo.atualizado = new Date().toISOString();
+    alvo.atletas = POSICOES.reduce((a, p) => a + alvo.elenco[p.c].length, 0);
+    let ok = false;
+    if (g.origem === 'nuvem') ok = await cenNuvemGravar(alvo);
+    else { const lista = cenLocalLer().filter(c => c.id !== alvo.id); lista.unshift(alvo); ok = cenLocalGravar(lista); }
+    if (!ok) return;
+    m.classList.remove('aberto');
+    await listarCenarios();
+    toast(j.nome + ' copiado para "' + alvo.nome + '" (' + sig(pos) + ')', 'bom');
   };
 }
 
