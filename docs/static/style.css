@@ -3631,3 +3631,12 @@ body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
 .aer-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 14px; height: 14px; margin: 0 3px 0 0; border-radius: 3px; background: #1e3a8a; color: #fff; font: 700 9px/1 system-ui, sans-serif; vertical-align: middle; cursor: help; }
 .aer-badge.aer-def { background: #fff; color: #1e3a8a; border: 1px solid #1e3a8a; }
 .cob-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 14px; height: 14px; margin: 0 3px 0 0; border-radius: 3px; background: #7c2d12; color: #fff; font: 700 10px/1 system-ui, sans-serif; vertical-align: middle; cursor: help; }
+
+/* Empréstimo (30/09): vermelho claro, na mesma família dos outros níveis */
+.jog.niv-emprestimo{background:#fde8e8;border-color:#eea8a8}
+.jog.niv-emprestimo:hover{background:#fef0f0}
+.emp-st.st-emprestimo{color:#e05252;border-color:color-mix(in srgb,#e05252 50%,transparent)}
+.emp-chip.st-emprestimo{color:#e05252;background:color-mix(in srgb,#e05252 16%,transparent)}
+body.claro .emp-st.st-emprestimo,body.claro .emp-chip.st-emprestimo{color:#b42323}
+.m-niv.niv-emprestimo{color:#e05252;background:color-mix(in srgb,#e05252 20%,transparent)}
+@media print{ .jog.niv-emprestimo{background:#fdecec!important;border-color:#eea8a8!important} }

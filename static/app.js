@@ -1068,7 +1068,7 @@ function eur(n, curto) {
 
 /* Os três níveis que o usuário mandou contar: Main (titular), Squad (o "backup" do elenco
    principal) e Youth. Quem não tem nível gravado fica de fora — é alvo, não elenco. */
-const NIVEIS_NA_CONTA = ['Main', 'Squad', 'Youth'];
+const NIVEIS_NA_CONTA = ['Main', 'Squad', 'Youth', 'Empréstimo'];
 
 /* O valor de mercado de UMA posição — e ele conta os MESMOS jogadores que a barra de cima:
    Main, Squad e Youth. Quem está na caixa sem nível é ALVO, não elenco.
@@ -1132,7 +1132,7 @@ function cardJog(cod, j) {
   const nivel = empDados(empChave(j)).status;
   el.className = 'jog st-' + (j.status || 'alvo') +
                  (j.titular ? ' titular' : '') +
-                 (nivel ? ' niv-' + nivel.toLowerCase() : '') +
+                 (nivel ? ' niv-' + nivCls(nivel) : '') +
                  (j.estrangeiro ? ' estrangeiro' : '');
   el.dataset.uid = j.uid;
   el.dataset.pos = cod;
@@ -7587,11 +7587,13 @@ iniciar();
    CHAVE: `pk` (nome-clube-liga) quando existe, `uid:` + uid como reserva. A escolha
    importa — pk e estavel entre grupos, entao anotar o empresario do Fulano no Cenario 1
    aproveita no Cenario 2; uid e por linha do elenco e morreria na primeira troca. */
-const EMP_STATUS = ['', 'Main', 'Squad', 'Youth'];
+const EMP_STATUS = ['', 'Main', 'Squad', 'Youth', 'Empréstimo'];
 /* O que cada nível quer dizer, nas palavras do usuário. Vale escrever: "Squad" e "Youth"
    não se explicam sozinhos para quem abre a tela pela primeira vez, e a decisão de que
    Main É o titular só existe aqui. */
-const EMP_STATUS_NOTA = { Main: 'titular da posição', Squad: 'reserva', Youth: 'jovem' };
+const EMP_STATUS_NOTA = { Main: 'titular da posição (pode haver mais de um)', Squad: 'reserva', Youth: 'jovem', 'Empréstimo': 'emprestado / a emprestar' };
+/* classe CSS de um nível (sem acento: "Empréstimo" → "emprestimo") */
+function nivCls(n) { return String(n || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
 const EMP_CAMPOS = [
   /* Status vem PRIMEIRO: e a leitura que se faz varrendo a coluna de cima a baixo
      ("quem e Main nesta posicao?"), e nao um detalhe do contato. Fica colorido para
@@ -7632,14 +7634,7 @@ function empChave(j) { return j.pk ? 'pk:' + j.pk : 'uid:' + j.uid; }
 function definirNivel(cod, j, nivel) {
   const lista = estado.elenco[cod] || [];
   if (nivel === 'Main') {
-    lista.forEach(x => {
-      if (x.uid === j.uid) return;
-      if (x.titular) {
-        x.titular = false;
-        const c = empChave(x);
-        if (empDados(c).status === 'Main') { empGravar(c).status = 'Squad'; }
-      }
-    });
+    /* 30/09: pode haver mais de um Main na posição — os outros não perdem o posto */
     j.titular = true;
     empGravar(empChave(j)).status = 'Main';
   } else {
@@ -7791,7 +7786,7 @@ function empRender() {
       const d = empGravar(sel.dataset.ch);
       d[sel.dataset.k] = sel.value;
       empLimpar(sel.dataset.ch);
-      sel.className = 'emp-st st-' + String(sel.value || 'sem').toLowerCase();
+      sel.className = 'emp-st st-' + nivCls(sel.value || 'sem');
       const linha = sel.closest('.emp-linha');
       if (linha) linha.classList.toggle('falta', empVazio(d));
       salvarLocal();
@@ -7832,9 +7827,9 @@ function empRender() {
 function empResumoHtml(todas, mostrando) {
   const comEmp = todas.filter(l => empDados(l.ch).empresario).length;
   const cont = st => todas.filter(l => empDados(l.ch).status === st).length;
-  const chips = ['Main', 'Squad', 'Youth']
+  const chips = ['Main', 'Squad', 'Youth', 'Empréstimo']
     .map(st => ({ st, n: cont(st) })).filter(x => x.n)
-    .map(x => '<i class="emp-chip st-' + x.st.toLowerCase() + '">' + x.st + ' ' + x.n + '</i>').join('');
+    .map(x => '<i class="emp-chip st-' + nivCls(x.st) + '">' + x.st + ' ' + x.n + '</i>').join('');
   return '<b>' + todas.length + '</b> jogador' + (todas.length === 1 ? '' : 'es') +
     ' · <b>' + comEmp + '</b> com empresário anotado' +
     (todas.length > comEmp ? ' · faltam <b>' + (todas.length - comEmp) + '</b>' : '') +
@@ -7852,7 +7847,7 @@ function empLinhaHtml(l) {
     const v = d[c.k];
     if (c.opcoes) {
       return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
-        '<select class="emp-st st-' + esc(String(v || 'sem').toLowerCase()) + '"' +
+        '<select class="emp-st st-' + esc(nivCls(v || 'sem')) + '"' +
         ' data-ch="' + esc(l.ch) + '" data-k="' + c.k + '">' +
         c.opcoes.map(o => '<option value="' + esc(o) + '"' +
           (String(v || '') === o ? ' selected' : '') + '>' + (o || '—') + '</option>').join('') +
@@ -7911,7 +7906,7 @@ function empFicha(ch, rotulo, sub) {
     const v = d[c.k] || '';
     if (c.opcoes) {
       return '<label class="me-l"><span>' + esc(c.r) + '</span>' +
-        '<select class="emp-st st-' + esc(String(v || 'sem').toLowerCase()) + '" data-k="' + c.k + '">' +
+        '<select class="emp-st st-' + esc(nivCls(v || 'sem')) + '" data-k="' + c.k + '">' +
         c.opcoes.map(o => '<option value="' + esc(o) + '"' + (v === o ? ' selected' : '') +
           '>' + (o || '—') + '</option>').join('') + '</select></label>';
     }
@@ -7931,7 +7926,7 @@ function empFicha(ch, rotulo, sub) {
       const c = EMP_CAMPOS.find(x => x.k === el.dataset.k);
       const reg = empGravar(ch);
       reg[el.dataset.k] = c && c.num ? paraNumero(el.value) : el.value;
-      if (el.tagName === 'SELECT') el.className = 'emp-st st-' + String(el.value || 'sem').toLowerCase();
+      if (el.tagName === 'SELECT') el.className = 'emp-st st-' + nivCls(el.value || 'sem');
       empLimpar(ch);
       salvarLocal();
       /* o ☎ do card acende na hora, sem fechar a ficha: o retorno tem de ser imediato */
