@@ -3640,3 +3640,8 @@ body:not(.claro) #fsMatriz tr.fv-linha > td:first-child b { color: #5bd08b; }
 body.claro .emp-st.st-emprestimo,body.claro .emp-chip.st-emprestimo{color:#b42323}
 .m-niv.niv-emprestimo{color:#e05252;background:color-mix(in srgb,#e05252 20%,transparent)}
 @media print{ .jog.niv-emprestimo{background:#fdecec!important;border-color:#eea8a8!important} }
+
+/* zoom editável na barra (01/10) */
+.abas-info .zoom-ed{width:52px;font:inherit;font-size:11px;padding:1px 3px;border:1px solid var(--tinta3);border-radius:4px;background:transparent;color:inherit}
+.abas-info .zoom-auto{margin-left:6px;color:inherit;text-decoration:underline}
+.abas-info:hover{color:var(--tinta)}

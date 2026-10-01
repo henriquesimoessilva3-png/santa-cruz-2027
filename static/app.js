@@ -799,17 +799,55 @@ function escalaProxima() {
   estado.ajustar = prox.z === 'caber';   /* mantido: o PDF e a impressão ainda leem */
 }
 
+function zoomManual() {
+  const v = Number(estado.zoomManual);
+  return v >= 0.2 && v <= 2 ? v : 0;
+}
+/* clique no "campo em X%" abre um campo para digitar o zoom; Enter aplica, vazio = automático */
+function editarZoom() {
+  const info = $('#abasInfo');
+  if (!info || info.querySelector('input')) return;
+  const atual = zoomManual() || (parseFloat((info.textContent.match(/(\d+)%/) || [])[1]) / 100) || 0.8;
+  info.innerHTML = 'campo em <input type="number" min="20" max="200" step="5" class="zoom-ed" value="' +
+    Math.round(atual * 100) + '">% <a href="#" class="zoom-auto">automático</a>';
+  const inp = info.querySelector('input');
+  inp.focus(); inp.select();
+  let feito = false;
+  const fechar = valor => {
+    if (feito) return; feito = true;
+    estado.zoomManual = valor;
+    try { salvarLocal(); } catch (e) {}
+    info.innerHTML = '';
+    ajustarCampo();
+  };
+  inp.onkeydown = e => {
+    if (e.key === 'Enter') { const v = parseFloat(inp.value); fechar(v >= 20 && v <= 200 ? v / 100 : null); }
+    if (e.key === 'Escape') fechar(estado.zoomManual || null);
+  };
+  inp.onblur = () => setTimeout(() => { const v = parseFloat(inp.value); fechar(v >= 20 && v <= 200 ? v / 100 : null); }, 150);
+  info.querySelector('.zoom-auto').onmousedown = e => { e.preventDefault(); fechar(null); };
+}
+
 function escreverInfo(info, k, alt, disp, zFator) {
   if (!info) return;
+  if (info.querySelector('input')) return;   /* editando: não sobrescreve */
+  info.title = 'Clique para digitar o zoom do campo';
+  info.style.cursor = 'pointer';
+  if (!info.dataset.ligado) { info.dataset.ligado = '1'; info.addEventListener('click', editarZoom); }
   const z = zFator || 1;
+  if (zoomManual() && z <= 1) {
+    const cabe = alt * k <= disp + 2;
+    info.textContent = 'campo em ' + Math.round(k * 100) + '% (manual) ✎' + (cabe ? '' : ' — role para ver o resto');
+    return;
+  }
   if (z > 1) {
     info.textContent = 'ampliado ' + Math.round(z * 100) + '% — role para ver o resto';
     return;
   }
   const cabe = alt * k <= disp + 2;
   info.textContent = k < 1
-    ? 'campo em ' + Math.round(k * 100) + '%' + (cabe ? ' — cabe tudo na tela' : '')
-    : '';
+    ? 'campo em ' + Math.round(k * 100) + '% ✎' + (cabe ? ' — cabe tudo na tela' : '')
+    : 'campo em 100% ✎';
 }
 
 function ajustarCampo() {
@@ -884,8 +922,20 @@ function ajustarCampo() {
     }
   }
 
+  /* ZOOM MANUAL (01/10): o "campo em X%" da barra é editável. Com um valor digitado, ele
+     manda — inclusive acima do que cabe (aí a área rola). Vazio volta ao automático. */
+  const man = (zoom === 'caber' || zoom === 'real') ? zoomManual() : 0;
+  let kFixo = 0;
+  if (man) {
+    K_FORCADO = man;
+    if (fzMax > 1) campo.style.setProperty('--fz', Math.min(fzMax, 1 / Math.max(man, ESCALA_MIN)).toFixed(3));
+    campo.style.width = man < 1 ? (100 / man).toFixed(3) + '%' : '';
+    alt = distribuir();
+    kFixo = man;
+    k = man;
+  }
   /* elenco pequeno: mesma escala, largura de layout e fonte de um elenco cheio */
-  if (zoom === 'caber' || zoom === 'real') {
+  else if (zoom === 'caber' || zoom === 'real') {
     let kRef = escalaReferencia(campo, disp);
     if (k > kRef + 0.005) {
       /* a fonte segue a escala da referência (como no Rapha) e muda a altura dos cards:
@@ -914,6 +964,7 @@ function ajustarCampo() {
        não deixar buraco, e aqui o transbordo é justamente o que se quer */
     compensarEscala(campo, ampliado ? 1 : escala, altura);
   };
+  area.classList.toggle('ajustado', zoom === 'caber' && !ampliado && !(kFixo && alt * kFixo > disp + 2));
   aplicar(alt, k);
   /* Texto do rodape JA, sem esperar o rAF. Ele so era escrito la dentro, e quando o rAF
      nao roda (aba escondida, ou um rAF de outro modo chegou antes e o guarda barrou) o
@@ -930,7 +981,7 @@ function ajustarCampo() {
   requestAnimationFrame(() => {
     if (escalaAtual() !== zoom) return;
     const alt2 = distribuir();
-    const k2 = Math.min(1, disp / alt2);
+    const k2 = kFixo || Math.min(1, disp / alt2);
     aplicar(alt2, k2);
     atualizarNomes();
     escreverInfo(info, k2, alt2, disp, zFator);
