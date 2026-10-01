@@ -367,6 +367,18 @@ function alturaDisponivel() {
   return area ? Math.max(0, area.clientHeight - 28) : 0;
 }
 
+/* ESCALA DE REFERENCIA (01/10). No modo "caber na tela" a escala saia do tamanho do
+   elenco: com 95 jogadores o campo ficava em 80%, com a largura do layout em 125% e a
+   fonte compensada — cards largos, nomes inteiros. Com 55 ficava em 98%: sem espaco
+   extra na largura e sem compensar a fonte, os cards saiam estreitos e os nomes
+   abreviados ("Gabriel..."). Agora o campo nunca passa de ESCALA_REF nesse modo: elenco
+   pequeno ganha a mesma largura de layout e a mesma fonte do grande, e o que sobra de
+   altura vira espaco entre os cards. alturaLayout() e a altura que o layout deve
+   preencher (a da tela dividida pela escala forcada). */
+const ESCALA_REF = 0.80;
+let K_FORCADO = 1;
+function alturaLayout() { return alturaDisponivel() / K_FORCADO; }
+
 /* Posiciona todos os cards e devolve a altura que o campo precisa ter. */
 const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas */
 /* Laterais e extremos ficam no topo e na base da coluna, enquanto as colunas
@@ -459,7 +471,7 @@ function simulaEntrelacado(w, alturas, larg) {
   });
   const alt = Math.max(
     Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2,
-    paraPontas, alturaDisponivel());
+    paraPontas, alturaLayout());
 
   const caixas = [];
   cols.forEach(c => {
@@ -499,7 +511,7 @@ function simulaReto(w, alturas, larg) {
     const els = c.pos.filter(k => alturas[k]);
     return { h: els.reduce((s, k) => s + alturas[k], 0) + GAP_CARD * (els.length - 1) };
   });
-  const alt = Math.max(Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2, alturaDisponivel());
+  const alt = Math.max(Math.max.apply(null, cols.map(c => c.h)) + MARGEM_CAMPO * 2, alturaLayout());
   const n = cols.length;
   const vao = Math.max(FOLGA_COLUNA, (larg - MARGEM_CAMPO * 2 - n * w) / (n - 1));
   const cx = cols.map((c, i) => MARGEM_CAMPO + w / 2 + i * (w + vao));
@@ -593,7 +605,7 @@ function distribuir() {
         .map(o => o.h).concat([0]));
       paraPontas = Math.max(paraPontas, topo + base + vizinha + MARGEM_CAMPO * 2 + GAP_CARD * 2);
     });
-    const alt = Math.max(necessaria, paraPontas, alturaDisponivel());
+    const alt = Math.max(necessaria, paraPontas, alturaLayout());
     cols.forEach(c => {
       if (c.espalhar && c.els.length > 1) {
         /* abre nas pontas: o primeiro encosta em cima, o ultimo embaixo */
@@ -622,7 +634,7 @@ function distribuir() {
   });
   const soma = linhas.reduce((s, l) => s + l.h, 0);
   const necessaria = soma + GAP_CARD * (linhas.length - 1) + MARGEM_CAMPO * 2;
-  const alt = Math.max(necessaria, alturaDisponivel());
+  const alt = Math.max(necessaria, alturaLayout());
   /* sobrando altura, o vao entre as linhas cresce junto em vez de sobrar espaco no fim */
   const vao = (alt - MARGEM_CAMPO * 2 - soma) / Math.max(1, linhas.length - 1);
   let y = MARGEM_CAMPO;
@@ -829,6 +841,7 @@ function ajustarCampo() {
   campo.style.width = '';
   compensarEscala(campo, 1, 0);
   campo.style.minHeight = '0px';
+  K_FORCADO = 1;
 
   let alt = distribuir();
   let k = Math.min(1, disp / alt);
@@ -840,6 +853,15 @@ function ajustarCampo() {
       alt = distribuir();
       k = Math.min(1, disp / alt);
     }
+  }
+
+  /* elenco pequeno: mesma escala, largura de layout e fonte de um elenco cheio */
+  if (zoom === 'caber' && k > ESCALA_REF) {
+    K_FORCADO = ESCALA_REF;
+    campo.style.setProperty('--fz', Math.min(fzMax, 1 / ESCALA_REF).toFixed(3));
+    campo.style.width = (100 / ESCALA_REF).toFixed(3) + '%';
+    alt = distribuir();
+    k = Math.min(1, disp / alt);
   }
 
   /* sem piso aqui: o campo tem de caber, e no modo "caber na tela" a fonte ja
