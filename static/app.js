@@ -2798,6 +2798,12 @@ async function abrirFicha(ref) {
   }
   fichaAtual = j;
   marcarFichaAberta(jid);
+  /* liga com menos de 30 na posição: a régua vira a Série B (a liga que interessa); quem mexer no seletor manda */
+  const sel = $('#fiBase');
+  if (sel) {
+    if (coorte(j, 'posliga').length < 30 && j.l !== 'Brasil B') { if (sel.value === 'posliga' || sel.dataset.auto) { sel.value = 'posb'; sel.dataset.auto = '1'; } }
+    else if (sel.dataset.auto) { sel.value = 'posliga'; delete sel.dataset.auto; }
+  }
   $('#ficha').classList.remove('oculta');
   /* Enquanto a ficha esta aberta ela fica com a tela inteira: presa aos 56vh de
      antes, sobrava metade da altura para o campo e a ficha rolava. O campo volta
@@ -2843,7 +2849,7 @@ const cachePosKpis = {};
 const KPI_EN = {"Duelos /90": "Duels per 90", "Duelos ganhos /90": "Duels won per 90", "Duelos %": "Duels won, %", "Duelos def. /90": "Defensive duels won per 90", "Duelos def. %": "Defensive duels won, %", "Aéreos ganhos /90": "Aerial duels won per 90", "Aéreos %": "Aerial duels won, %", "Interceptações (PAdj)": "PAdj Interceptions", "Amarelos /90": "Yellow cards per 90", "Ações ofensivas /90": "Successful attacking actions per 90", "Remates /90": "Shots per 90", "Remates no alvo %": "Shots on target, %", "Remates no alvo": "Accurate shots on target", "Dribles certos /90": "Successful dribbles per 90", "Dribles %": "Successful dribbles, %", "Duelos ofens. /90": "Ofensive duels won per 90", "Toques na área /90": "Touches in box per 90", "Corridas prog. /90": "Progressive runs per 90", "Acelerações /90": "Accelerations per 90", "Passes recebidos /90": "Received passes per 90", "Deep completions /90": "Deep completions per 90", "Faltas sofridas /90": "Fouls suffered per 90", "Passes /90": "Passes per 90", "Passes certos": "Accurate passes", "Passes certos %": "Accurate passes, %", "Passes à frente": "Accurate forward passes", "Passes longos %": "Accurate long passes, %", "Smart passes": "Accurate smart passes", "Passes em profundidade": "Accurate through passes", "Cruzamentos certos": "Accurate crosses", "Cruzamentos %": "Accurate crosses, %", "Passes ao último terço": "Accurate passes to final third", "Passes à área": "Accurate passes to penalty area", "Passes progressivos": "Accurate progressive passes", "Gols /90": "Goals per 90", "Gols s/ pênalti /90": "Non-penalty goals per 90", "xG /90": "xG per 90", "Conversão %": "Goal conversion, %", "Assistências /90": "Assists per 90", "xA /90": "xA per 90", "2ª assistência /90": "Second assists per 90", "3ª assistência /90": "Third assists per 90"};
 /* liga do app a partir do nome usado na régua do estudo (CONSULTA.q) */
 function ligaApp(l) { return ({ 'Série B': 'Brasil B', 'Série A': 'Brasil A', 'Série C': 'Brasil C' })[l] || l; }
-async function kpisDe(j) {
+async function kpisDe(j, modo) {
   if (!j || !j.p) return null;
   const dc = dadosColados(primaryKey(j), null) || j._dadosFicha;
   if (dc && dc.tec_raw) return kpisColados(j, dc);
@@ -2854,9 +2860,26 @@ async function kpisDe(j) {
   }
   const base = await cachePosKpis[j.p];
   if (!base) return null;
-  const linhas = base.jogadores[primaryKey(j)];
-  if (!linhas) return null;
+  const linhas0 = base.jogadores[primaryKey(j)];
+  if (!linhas0) return null;
+  const linhas = (modo && modo !== 'posliga') ? kpisRecoorte(base, linhas0, modo) : linhas0;
   return { ok: true, periodo: base.periodo, nomes: base.kpis, linhas };
+}
+
+/* média e melhor de cada indicador recalculados na coorte escolhida (Série B, Brasil A/B/C, todas as ligas) —
+   o arquivo do ranking traz média e melhor só da liga do jogador, que em liga pequena (Coreia B: 14) não diz nada */
+const cacheRecoorte = {};
+function kpisRecoorte(base, linhas, modo) {
+  const ch = base.periodo + '|' + modo + '|' + (base.__pos || '');
+  let ref = cacheRecoorte[ch];
+  if (!ref) {
+    const ok = modo === 'posb' ? (pk => pk.endsWith(' - Brasil B')) : modo === 'posbr' ? (pk => / - Brasil [ABC]$/.test(pk)) : (() => true);
+    const acc = {};
+    for (const pk in base.jogadores) { if (!ok(pk)) continue; base.jogadores[pk].forEach(([id, v]) => { if (typeof v !== 'number') return; const a = acc[id] || (acc[id] = [0, 0, -Infinity]); a[0] += v; a[1]++; if (v > a[2]) a[2] = v; }); }
+    ref = {}; Object.keys(acc).forEach(id => { const a = acc[id]; ref[id] = [a[0] / a[1], a[2]]; });
+    cacheRecoorte[ch] = ref;
+  }
+  return linhas.map(([id, v, med, mx]) => ref[id] ? [id, v, ref[id][0], Math.max(ref[id][1], v)] : [id, v, med, mx]);
 }
 
 /* indicadores do export colado: valor do jogador; média e melhor da mesma liga × posição (tirados de quem já está no kpis) */
@@ -2885,6 +2908,7 @@ function coorte(j, modo) {
   if (cacheCoorte[ch]) return cacheCoorte[ch];
   let lista = BASE.filter(x => x.p === j.p);
   if (modo === 'posbr') lista = lista.filter(x => x.l.startsWith('Brasil'));
+  else if (modo === 'posb') lista = lista.filter(x => x.l === 'Brasil B');
   else if (modo === 'posliga') lista = lista.filter(x => x.l === j.l);
   cacheCoorte[ch] = lista;
   return lista;
@@ -3042,7 +3066,7 @@ async function montarFicha(j, modo) {
     '<div class="v' + (String(v).length > 9 ? ' pq' : '') + '">' + esc(v) + '</div>' +
     (obs ? '<div class="o">' + esc(obs) + '</div>' : '') + '</div>').join('');
 
-  const dados = await kpisDe(j);
+  const dados = await kpisDe(j, modo);
   let colunas = '';
   const porGrupo = {};
   if (dados && dados.ok) {
@@ -3065,9 +3089,11 @@ async function montarFicha(j, modo) {
 
   /* 5a coluna: fisico do SkillCorner, comparado com a mesma coorte */
   let colFis = '';
+  /* físico vindo da Série B (outra temporada, fis_src) é comparado com a Série B, não com a liga atual dele */
+  const listaFis = (j.fis_src && modo === 'posliga') ? coorte(j, 'posb') : lista;
   FISICO.forEach(([campo, rot, casas]) => {
     if (typeof j[campo] !== 'number') return;
-    const e = estat(lista, campo);
+    const e = estat(listaFis, campo);
     if (!e) return;
     colFis += linhaInd(rot, j[campo], e.media, e.max, casas);
     (porGrupo['Físico'] = porGrupo['Físico'] || []).push([rot, j[campo], e.media, e.max]);
@@ -3095,7 +3121,7 @@ async function montarFicha(j, modo) {
     '</div>';
 
   const rodape = 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
-    (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
+    (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posb' ? ' da Série B' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
     ' · período ' + (dados && dados.periodo ? dados.periodo : 'ago26');
 
   /* AMOSTRA CURTA. A ficha inteira — barra, média, melhor, radar — e lida contra a coorte
@@ -3111,7 +3137,7 @@ async function montarFicha(j, modo) {
     '<span class="fi-amostra ' + (nCo < 12 ? 'grave' : '') + '"' +
     ' title="' + esc('Toda a leitura desta ficha (barra, média, melhor e radar) sai desta coorte. ' +
       'Com ' + nCo + ' jogador' + (nCo === 1 ? '' : 'es') + ', um nome sozinho move a média e o melhor. ' +
-      'Troque o comparativo acima para Brasil A/B/C ou para todas as ligas.') + '">' +
+      'Troque o comparativo acima para Série B, Brasil A/B/C ou todas as ligas.') + '">' +
     (nCo < 12 ? '⚠ amostra de ' + nCo : 'amostra curta · ' + nCo) + '</span>';
 
   return { titulo, sub, cabeca, corpo, rodape, aviso };
@@ -7179,7 +7205,7 @@ function ligar() {
   window.onbeforeprint = montarImpressao;
   $('#selCenario').onchange = e => abrirCenario(e.target.value);
   $('#btComparar').onclick = abrirComparativo;
-  $('#fiBase').onchange = renderFicha;
+  $('#fiBase').onchange = () => { delete $('#fiBase').dataset.auto; renderFicha(); };
   $('#fiFechar').onclick = fecharFicha;
 
   $('#btNovo').onclick = () => {
