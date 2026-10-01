@@ -371,13 +371,42 @@ function alturaDisponivel() {
    elenco: com 95 jogadores o campo ficava em 80%, com a largura do layout em 125% e a
    fonte compensada — cards largos, nomes inteiros. Com 55 ficava em 98%: sem espaco
    extra na largura e sem compensar a fonte, os cards saiam estreitos e os nomes
-   abreviados ("Gabriel..."). Agora o campo nunca passa de ESCALA_REF nesse modo: elenco
+   abreviados ("Gabriel..."). Agora o campo nunca passa da escala que o grupo Rapha teria na mesma tela: elenco
    pequeno ganha a mesma largura de layout e a mesma fonte do grande, e o que sobra de
    altura vira espaco entre os cards. alturaLayout() e a altura que o layout deve
    preencher (a da tela dividida pela escala forcada). */
-const ESCALA_REF = 0.80;   /* = a escala do grupo Rapha (95 atletas), o modelo de referência */
 let K_FORCADO = 1;
 function alturaLayout() { return alturaDisponivel() / K_FORCADO; }
+/* A referência é o grupo Rapha (95 atletas): o campo de qualquer grupo usa a escala que o
+   Rapha teria NESTA tela. Um número fixo (0,80) só batia na tela grande; no notebook o Rapha
+   cai para ~61% e o grupo menor ficava com cards maiores que os dele. Aqui a altura do Rapha
+   é simulada com os cards reais: cada posição conta com max(atletas no grupo, atletas no Rapha). */
+const REF_VAGAS = { GOL: 4, LE: 8, ZE: 3, ZD: 6, LD: 6, VOL: 8, MED: 18, MEI: 8, EE: 11, CA: 14, ED: 9 };
+function escalaReferencia(campo, disp) {
+  const cards = {}; let linha = 0, nl = 0;
+  POSICOES.forEach(p => {
+    const el = campo.querySelector('.pos[data-pos="' + p.c + '"]');
+    if (!el) return;
+    const js = el.querySelectorAll('.jog');
+    cards[p.c] = { h: el.offsetHeight, n: js.length };
+    if (js.length >= 2) { linha += (js[js.length - 1].offsetTop - js[0].offsetTop); nl += js.length - 1; }
+  });
+  const lh = nl ? linha / nl : 26;
+  const altPos = c => { const k = cards[c]; if (!k) return 0;
+    return k.h + Math.max(0, (REF_VAGAS[c] || 0) - k.n) * lh; };
+  let alt = 0;
+  (estado.orientacao === 'horizontal' ? LAYOUT.horizontal : LAYOUT.vertical.map(l => ({ pos: l.pos, linha: true }))).forEach(c => {
+    if (c.linha) return;
+    const hs = c.pos.map(altPos).filter(h => h > 0);
+    const h = hs.reduce((a, b) => a + b, 0) + (c.espalhar ? 46 : GAP_CARD) * Math.max(0, hs.length - 1);
+    alt = Math.max(alt, h);
+  });
+  if (estado.orientacao !== 'horizontal') {
+    alt = LAYOUT.vertical.reduce((s, l) => s + Math.max.apply(null, l.pos.map(altPos).concat([0])), 0) + GAP_CARD * (LAYOUT.vertical.length - 1);
+  }
+  alt += MARGEM_CAMPO * 2;
+  return alt > 0 ? Math.min(1, disp / alt) : 1;
+}
 
 /* Posiciona todos os cards e devolve a altura que o campo precisa ter. */
 const FOLGA_COLUNA = 16;   /* espaco livre garantido entre duas colunas vizinhas */
@@ -856,12 +885,20 @@ function ajustarCampo() {
   }
 
   /* elenco pequeno: mesma escala, largura de layout e fonte de um elenco cheio */
-  if ((zoom === 'caber' || zoom === 'real') && k > ESCALA_REF) {
-    K_FORCADO = ESCALA_REF;
-    campo.style.setProperty('--fz', Math.min(fzMax, 1 / ESCALA_REF).toFixed(3));
-    campo.style.width = (100 / ESCALA_REF).toFixed(3) + '%';
-    alt = distribuir();
-    k = Math.min(1, disp / alt);
+  if (zoom === 'caber' || zoom === 'real') {
+    let kRef = escalaReferencia(campo, disp);
+    if (k > kRef + 0.005) {
+      /* a fonte segue a escala da referência (como no Rapha) e muda a altura dos cards:
+         mede de novo com ela antes de fixar */
+      if (fzMax > 1) {
+        campo.style.setProperty('--fz', Math.min(fzMax, 1 / Math.max(kRef, ESCALA_MIN)).toFixed(3));
+        kRef = escalaReferencia(campo, disp);
+      }
+      K_FORCADO = kRef;
+      campo.style.width = (100 / kRef).toFixed(3) + '%';
+      alt = distribuir();
+      k = Math.min(1, disp / alt);
+    }
   }
 
   /* sem piso aqui: o campo tem de caber, e no modo "caber na tela" a fonte ja
