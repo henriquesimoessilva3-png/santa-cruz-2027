@@ -375,7 +375,7 @@ function alturaDisponivel() {
    pequeno ganha a mesma largura de layout e a mesma fonte do grande, e o que sobra de
    altura vira espaco entre os cards. alturaLayout() e a altura que o layout deve
    preencher (a da tela dividida pela escala forcada). */
-const ESCALA_REF = 0.80;
+const ESCALA_REF = 0.70;   /* 01/10: 0,80 ainda ficava grande na tela do Henrique */
 let K_FORCADO = 1;
 function alturaLayout() { return alturaDisponivel() / K_FORCADO; }
 
@@ -856,7 +856,7 @@ function ajustarCampo() {
   }
 
   /* elenco pequeno: mesma escala, largura de layout e fonte de um elenco cheio */
-  if (zoom === 'caber' && k > ESCALA_REF) {
+  if ((zoom === 'caber' || zoom === 'real') && k > ESCALA_REF) {
     K_FORCADO = ESCALA_REF;
     campo.style.setProperty('--fz', Math.min(fzMax, 1 / ESCALA_REF).toFixed(3));
     campo.style.width = (100 / ESCALA_REF).toFixed(3) + '%';
