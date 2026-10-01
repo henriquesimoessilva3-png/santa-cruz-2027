@@ -375,7 +375,7 @@ function alturaDisponivel() {
    pequeno ganha a mesma largura de layout e a mesma fonte do grande, e o que sobra de
    altura vira espaco entre os cards. alturaLayout() e a altura que o layout deve
    preencher (a da tela dividida pela escala forcada). */
-const ESCALA_REF = 0.70;   /* 01/10: 0,80 ainda ficava grande na tela do Henrique */
+const ESCALA_REF = 0.80;   /* = a escala do grupo Rapha (95 atletas), o modelo de referência */
 let K_FORCADO = 1;
 function alturaLayout() { return alturaDisponivel() / K_FORCADO; }
 
