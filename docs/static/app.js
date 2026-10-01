@@ -2967,7 +2967,7 @@ function ligaApp(l) { return ({ 'Série B': 'Brasil B', 'Série A': 'Brasil A', 
 async function kpisDe(j, modo) {
   if (!j || !j.p) return null;
   const dc = dadosColados(primaryKey(j), null) || j._dadosFicha;
-  if (dc && dc.tec_raw) return kpisColados(j, dc);
+  if (dc && dc.tec_raw) return kpisColados(j, dc, modo);
   if (!cachePosKpis[j.p]) {
     cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json' + (window.__verDados ? '?v=' + window.__verDados : ''))
       .then(r => (r.ok ? r.json() : null))
@@ -2998,22 +2998,80 @@ function kpisRecoorte(base, linhas, modo) {
 }
 
 /* indicadores do export colado: valor do jogador; média e melhor da mesma liga × posição (tirados de quem já está no kpis) */
-async function kpisColados(j, dc) {
+async function kpisColados(j, dc, modo) {
   if (!cachePosKpis[j.p]) cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json' + (window.__verDados ? '?v=' + window.__verDados : '')).then(r => (r.ok ? r.json() : null)).catch(() => null);
   const base = await cachePosKpis[j.p]; if (!base) return null;
-  const nk = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();   /* mantém o % ("Accurate passes" ≠ "Accurate passes, %") */
+  const nk = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').replace(/golos/g, 'gols').replace(/golo/g, 'gol').replace(/accoes/g, 'acoes').trim();   /* mantém o % ("Accurate passes" ≠ "Accurate passes, %"); PT de Portugal = PT do Brasil */
   const raw = {}; Object.keys(dc.tec_raw).forEach(k => raw[nk(k)] = dc.tec_raw[k]);
+  const G = (...ns) => { for (const n of ns) { const v = raw[nk(n)]; const x = typeof v === 'number' ? v : parseFloat(String(v ?? '').replace(',', '.')); if (isFinite(x)) return x; } return null; };
+  const X = (a, b) => (a != null && b != null) ? Math.round(a * b) / 100 : null;   /* volume/90 × % certos = certos/90 (como o Portal) */
   const liga = ligaApp(dc.liga || j.l);
   const ref = {};   /* id → [média, melhor] da liga */
   for (const pk in base.jogadores) { if (!pk.endsWith(' - ' + liga)) continue; base.jogadores[pk].forEach(([id, v, med, mx]) => { if (!ref[id]) ref[id] = [med, mx]; }); if (Object.keys(ref).length >= base.kpis.length) break; }
   const linhas = [];
+  /* cada indicador da ficha a partir do export colado — inglês ou português, e os "certos /90"
+     que o Portal deriva (volume × %); antes só batia nome inglês exato e o técnico em PT não aparecia */
+  const C = {
+    'Duelos /90': () => G('Duels per 90', 'Duelos/90'),
+    'Duelos ganhos /90': () => G('Duels won per 90') ?? X(G('Duels per 90', 'Duelos/90'), G('Duels won, %', 'Duelos ganhos, %')),
+    'Duelos %': () => G('Duels won, %', 'Duelos ganhos, %'),
+    'Duelos def. /90': () => G('Defensive duels won per 90') ?? X(G('Defensive duels per 90', 'Duelos defensivos/90'), G('Defensive duels won, %', 'Duelos defensivos ganhos, %')),
+    'Duelos def. %': () => G('Defensive duels won, %', 'Duelos defensivos ganhos, %'),
+    'Aéreos ganhos /90': () => G('Aerial duels won per 90') ?? X(G('Aerial duels per 90', 'Duelos aéreos/90'), G('Aerial duels won, %', 'Duelos aéreos ganhos, %')),
+    'Aéreos %': () => G('Aerial duels won, %', 'Duelos aéreos ganhos, %'),
+    'Interceptações (PAdj)': () => G('PAdj Interceptions', 'Interceções ajust. à posse', 'Interceptações ajust. à posse'),
+    'Amarelos /90': () => G('Yellow cards per 90', 'Cartões amarelos/90'),
+    'Ações ofensivas /90': () => G('Successful attacking actions per 90', 'Acções atacantes com sucesso/90', 'Ações atacantes com sucesso/90'),
+    'Remates /90': () => G('Shots per 90', 'Remates/90', 'Finalizações/90'),
+    'Remates no alvo %': () => G('Shots on target, %', 'Remates à baliza, %', 'Finalizações no alvo, %'),
+    'Remates no alvo': () => G('Accurate shots on target') ?? X(G('Shots per 90', 'Remates/90', 'Finalizações/90'), G('Shots on target, %', 'Remates à baliza, %', 'Finalizações no alvo, %')),
+    'Dribles certos /90': () => G('Successful dribbles per 90') ?? X(G('Dribbles per 90', 'Dribles/90'), G('Successful dribbles, %', 'Dribles com sucesso, %')),
+    'Dribles %': () => G('Successful dribbles, %', 'Dribles com sucesso, %'),
+    'Duelos ofens. /90': () => G('Ofensive duels won per 90', 'Offensive duels won per 90') ?? X(G('Offensive duels per 90', 'Duelos ofensivos/90'), G('Offensive duels won, %', 'Duelos ofensivos ganhos, %')),
+    'Toques na área /90': () => G('Touches in box per 90', 'Toques na área/90'),
+    'Corridas prog. /90': () => G('Progressive runs per 90', 'Corridas progressivas/90'),
+    'Acelerações /90': () => G('Accelerations per 90', 'Acelerações/90'),
+    'Passes recebidos /90': () => G('Received passes per 90', 'Passes recebidos/90'),
+    'Deep completions /90': () => G('Deep completions per 90'),
+    'Faltas sofridas /90': () => G('Fouls suffered per 90', 'Faltas sofridas/90'),
+    'Passes /90': () => G('Passes per 90', 'Passes/90'),
+    'Passes certos': () => X(G('Passes per 90', 'Passes/90'), G('Accurate passes, %', 'Passes certos, %')),
+    'Passes certos %': () => G('Accurate passes, %', 'Passes certos, %'),
+    'Passes à frente': () => X(G('Forward passes per 90', 'Passes para a frente/90'), G('Accurate forward passes, %', 'Passes para a frente certos, %')),
+    'Passes longos %': () => G('Accurate long passes, %', 'Passes longos certos, %'),
+    'Smart passes': () => X(G('Smart passes per 90', 'Passes inteligentes/90'), G('Accurate smart passes, %', 'Passes inteligentes certos, %')),
+    'Passes em profundidade': () => X(G('Through passes per 90', 'Passes em profundidade/90'), G('Accurate through passes, %', 'Passes em profundidade certos, %')),
+    'Cruzamentos certos': () => X(G('Crosses per 90', 'Cruzamentos/90'), G('Accurate crosses, %', 'Cruzamentos certos, %')),
+    'Cruzamentos %': () => G('Accurate crosses, %', 'Cruzamentos certos, %'),
+    'Passes ao último terço': () => X(G('Passes to final third per 90', 'Passes para terço final/90', 'Passes para o terço final/90'), G('Accurate passes to final third, %', 'Passes certos para terço final, %', 'Passes certos para o terço final, %')),
+    'Passes à área': () => X(G('Passes to penalty area per 90', 'Passes para a área de penálti/90', 'Passes para a área/90'), G('Accurate passes to penalty area, %', 'Passes precisos para a área de penálti, %', 'Passes certos para a área, %')),
+    'Passes progressivos': () => X(G('Progressive passes per 90', 'Passes progressivos/90'), G('Accurate progressive passes, %', 'Passes progressivos certos, %')),
+    'Gols /90': () => G('Goals per 90', 'Golos/90'),
+    'Gols s/ pênalti /90': () => G('Non-penalty goals per 90', 'Golos sem ser por penálti/90', 'Gols sem pênalti/90'),
+    'xG /90': () => G('xG per 90', 'Golos esperados/90'),
+    'Conversão %': () => G('Goal conversion, %', 'Golos marcados, %'),
+    'Assistências /90': () => G('Assists per 90', 'Assistências/90'),
+    'xA /90': () => G('xA per 90', 'Assistências esperadas/90'),
+    '2ª assistência /90': () => G('Second assists per 90', 'Segundas assistências/90'),
+    '3ª assistência /90': () => G('Third assists per 90', 'Terceiras assistências/90'),
+  };
   base.kpis.forEach(([g, rot], id) => {
-    const en = KPI_EN[rot] || rot; const v = raw[nk(en)] ?? raw[nk(rot)];
+    const en = KPI_EN[rot] || rot;
+    let v = C[rot] ? C[rot]() : null;
+    if (v == null) v = G(en, rot);
     if (v == null) return;
     const r = ref[id] || [null, null];
     linhas.push([id, v, r[0], r[1] != null ? Math.max(r[1], v) : v]);
   });
-  return linhas.length ? { ok: true, periodo: 'colado ' + (dc.em || ''), nomes: base.kpis, linhas, colado: true } : null;
+  if (!linhas.length) return null;
+  /* a régua escolhida no seletor vale também para o colado; na "liga dele", o que faltar
+     (liga fora do ranking, como o Paraguai) vem da Série B */
+  const semRef = linhas.some(l => l[2] == null);
+  const out = (modo && modo !== 'posliga') ? kpisRecoorte(base, linhas, modo)
+    : semRef ? kpisRecoorte(base, linhas, 'posb').map((l, i) => linhas[i][2] == null ? l : linhas[i]) : linhas;
+  /* só os indicadores que a posição usa no ranking (os que têm média na coorte), como na ficha de quem está na base */
+  const usadas = out.filter(l => l[2] != null);
+  return { ok: true, periodo: 'colado ' + (dc.em || ''), nomes: base.kpis, linhas: usadas.length ? usadas : out, colado: true };
 }
 
 /* coorte para os indicadores que nao vem do kpis (notas e fisico) */
@@ -3197,9 +3255,13 @@ async function montarFicha(j, modo) {
         linhas.map(([rot, v, med, mx]) => linhaInd(rot, v, med, mx, casas)).join('') + '</div>';
     });
   } else {
-    colunas += '<div class="fi-grupo"><h4>Indicadores</h4>' +
-      '<div class="fi-sem">este jogador não tem indicadores no ranking — o cadastro vem ' +
-      'do levantamento de fim de contrato (Transfermarkt)</div></div>';
+    const dcF = j._dadosFicha;
+    const msg = dcF && dcF.tec_raw
+      ? 'o técnico colado não trouxe nenhuma coluna reconhecida (' + esc(Object.keys(dcF.tec_raw).slice(0, 6).join(', ')) + '…). Envie o export de jogadores do Wyscout (xlsx ou csv) em “✎ físico/técnico colados”.'
+      : dcF
+        ? 'só o físico foi colado. Para os indicadores técnicos, envie o export do Wyscout (xlsx ou csv) em “✎ físico/técnico colados”.'
+        : 'este jogador não tem indicadores no ranking — o cadastro vem do levantamento de fim de contrato (Transfermarkt). Envie o técnico do Wyscout em “+ físico/técnico”.';
+    colunas += '<div class="fi-grupo"><h4>Indicadores</h4><div class="fi-sem">' + msg + '</div></div>';
   }
 
   /* 5a coluna: fisico do SkillCorner, comparado com a mesma coorte */
