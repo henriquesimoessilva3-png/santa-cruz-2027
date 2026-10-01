@@ -2922,12 +2922,17 @@ async function abrirFicha(ref) {
   $('#fiCorpo').innerHTML = '<div class="fi-sem" style="padding:14px">carregando indicadores…</div>';
   let bt = $('#fiDados');
   if (!bt) { bt = document.createElement('button'); bt.id = 'fiDados'; bt.className = 'bt mini'; $('#fiBase').insertAdjacentElement('afterend', bt); }
-  bt.textContent = dadosColados(primaryKey(j), null) ? '✎ físico/técnico colados' : '+ físico/técnico';
+  rotuloFiDados(j);
   bt.title = 'Colar o físico (CSV do SkillCorner) e o técnico (xlsx/csv do Wyscout) deste jogador — vale no campograma e na busca (raio, letra A/B/C, ▲ △ ⚑)';
   bt.onclick = () => abrirDadosBase(j);
   await renderFicha();
   ajustarCampo();
   $('#ficha').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function rotuloFiDados(j) {
+  const bt = $('#fiDados'); if (!bt || !j) return;
+  bt.textContent = dadosColados(primaryKey(j), null) ? '✎ físico/técnico colados' : '+ físico/técnico';
 }
 
 function fecharFicha() {
@@ -6755,6 +6760,11 @@ function tipoBadge(pk, obj) {
 function dadosColados(pk, card) {
   if (card && card.dados) return card.dados;
   if (pk && estado && estado.dadosJog && estado.dadosJog[pk]) return estado.dadosJog[pk];
+  /* colado no card do campograma: a ficha e a busca chegam aqui só com o pk — sem isto a
+     ficha aberta do card ignorava o que acabou de ser colado (01/10, L. Morales) */
+  if (pk && estado && estado.elenco) {
+    for (const cod in estado.elenco) { const c = (estado.elenco[cod] || []).find(x => x && x.pk === pk && x.dados); if (c) return c.dados; }
+  }
   const b = pk && BASE.length ? fsJogadorPk(pk) : null;   /* jogador cadastrado à mão: os dados vivem no registro */
   return (b && b.dados) || null;
 }
@@ -7585,8 +7595,10 @@ function ligarDados() {
     else if (j.jid && String(j.jid).startsWith('m:')) { const m = MANUAIS.find(x => 'm:' + x.uid === j.jid); if (m) { m.dados = d; manuaisGravar(); } }
     $('#modalDados').classList.remove('aberto'); dadosEditando = null;
     salvarLocal(); render();
-    if (fichaAtual) renderFicha();
-    toast(j.nome + ': físico/técnico atualizados', 'bom');
+    /* dado novo = comparativos de novo: a ficha aberta é refeita (indicadores contra a coorte,
+       físico, radar) e o botão passa a dizer que há dados colados */
+    if (fichaAtual) { rotuloFiDados(fichaAtual); renderFicha(); }
+    toast(j.nome + ': físico/técnico atualizados — comparativos refeitos', 'bom');
   };
   $('#mdLimpar').onclick = () => {
     const j = alvoDados(); if (!j) return;
