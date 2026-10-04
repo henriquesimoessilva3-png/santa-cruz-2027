@@ -17,7 +17,7 @@
 |---|---|---|
 | **T1 · O que rende ponto** | O modelo de jogo cabe em quatro números: ceder pouca chance clara e finalizar de perto, dos dois lados. Posse, cruzamento e pressão são placar | xG sofrido r 0,47 (12 pontos entre quartis); posse dentro do jogo −0,36 |
 | **T2 · Bola parada** | Um gol de bola parada vale mais que um de bola rolando e custa menos; é traço de pessoas, não do clube | +5,5 × −5 de saldo = 7 pontos; cobrador repete r 0,76, clube não (0,16) |
-| **T3 · Duelos e posse** | Nem volume nem % de duelo no chão fazem time vencedor; o duelo aéreo sim | aéreo r 0,32 com rendimento; duelo no chão −0,01 |
+| **T3 · Duelos e posse** | Nem volume nem % de duelo no chão fazem time vencedor; o duelo aéreo sim — e ele está na zaga (e, como indício, no volante fixo), não nos outros setores | aéreo r 0,32 com rendimento; duelo no chão −0,01; aéreo da zaga × gols sofridos −0,35; lateral, meia e extremo ≈ 0 |
 | **T4 · Conversão de liga** | O destaque em outra liga quase não sobrevive na B | percentil 90 na origem vira 54–61; p50 vira 46 |
 
 ## Treinadores

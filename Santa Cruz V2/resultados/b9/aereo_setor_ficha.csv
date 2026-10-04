@@ -1,0 +1,82 @@
+pos11,jogador,clube,aderencia_atual,aderencia_revista,posto_atual,posto_revisto
+LD,Willean Lepo,Criciúma,77.8,83.3,1.0,1.0
+LD,Aderlan,Juventude,75.1,78.1,2.0,2.0
+LD,Rafael Ramos,Ceará,72.1,74.8,3.0,4.0
+LD,Maílton,Fortaleza,71.0,77.8,4.0,3.0
+LD,Rodrigo Soares,Goiás,70.4,68.9,5.0,6.0
+LD,Ewerthon,Atlético-GO,67.7,66.3,6.5,7.0
+LD,Mikael Doka,Operário-PR,67.7,70.0,6.5,5.0
+LD,Hereda,CRB,63.3,64.4,8.0,8.0
+LD,Reginaldo,Náutico,59.3,62.6,9.0,9.0
+LD,Matheus Ribeiro,Náutico,57.1,56.3,10.0,11.0
+LD,N. Castrillón,Novorizontino,56.2,51.9,11.0,12.0
+LD,Diogo Batista,Athletic,55.2,60.0,12.0,10.0
+LD,Gabriel Inocêncio,Botafogo-SP,52.2,49.6,13.0,13.0
+LD,Railan,Cuiabá,51.9,47.8,14.0,14.0
+LD,Kevin,CRB,48.7,47.0,15.0,15.5
+LD,Rodrigo Ferreira,São Bernardo,48.1,47.0,16.0,15.5
+LD,Wallison,Avaí,47.8,45.6,17.0,19.0
+LD,Thalys,Ponte Preta,47.1,46.3,18.0,18.0
+LD,Bryan,Ceará,43.8,46.7,19.0,17.0
+LD,Alex Silva,América-MG,42.4,39.3,20.0,23.0
+LD,Júlio,Ponte Preta,40.6,41.5,21.0,20.0
+LD,Maguinho,Operário-PR,40.4,40.7,22.0,22.0
+LD,A. De Freitas,Sport,38.4,41.1,23.0,21.0
+LD,Mádson,Novorizontino,31.6,25.9,24.5,25.0
+LD,Hayner,Vila Nova,31.6,33.0,24.5,24.0
+LD,Kauê Leonardo,Londrina,24.2,17.0,26.0,26.5
+LD,Nathan Camargo,Vila Nova,18.4,17.0,27.0,26.5
+LE,Patrick Brey,Botafogo-SP,72.3,78.6,1.0,1.0
+LE,Marcelo Hermes,Criciúma,68.5,73.9,2.0,2.0
+LE,Felipinho,Sport,66.5,64.1,3.0,6.0
+LE,Diogo Barbosa,Juventude,65.2,71.4,4.0,3.0
+LE,Kevyson,Ponte Preta,63.5,62.0,5.0,8.0
+LE,Lorenzo,Cuiabá,62.1,63.5,6.0,7.0
+LE,Sánchez,Ceará,61.9,65.4,7.0,4.0
+LE,Igor Fernandes,Náutico,60.4,59.4,8.0,10.0
+LE,DG,Avaí,59.2,56.8,9.5,11.0
+LE,Maykon,Novorizontino,59.2,59.8,9.5,9.0
+LE,Enzo,Athletic,59.0,64.5,11.0,5.0
+LE,Moraes,Operário-PR,53.5,56.4,12.0,12.0
+LE,Djalma Silva,Goiás,52.7,49.1,13.0,15.0
+LE,Guilherme,Atlético-GO,52.3,55.6,14.0,13.0
+LE,Gabriel Feliciano,Operário-PR,49.2,48.3,15.0,16.0
+LE,Marlon,Cuiabá,49.0,50.0,16.0,14.0
+LE,Heron,Londrina,47.7,42.3,17.0,19.0
+LE,Nicolas,Goiás,46.7,47.4,18.0,17.0
+LE,Gabriel Fuentes,Fortaleza,46.0,40.0,19.0,22.0
+LE,Diego Porfírio,Ponte Preta,44.6,44.4,20.0,18.0
+LE,Higor,Vila Nova,42.7,40.2,21.0,21.0
+LE,Maurício,Fortaleza,40.8,41.5,22.0,20.0
+LE,Pará,São Bernardo,37.3,33.3,23.0,23.0
+LE,Dalbert,América-MG,35.8,29.5,24.0,24.0
+LE,Lucas Lovat,CRB,31.9,28.6,25.0,25.0
+LE,Zeca,Athletic,21.9,23.9,26.0,26.0
+VOL,Zé Gabriel,Sport,81.8,81.2,1.0,1.0
+VOL,Wenderson,Náutico,78.3,78.9,2.0,2.0
+VOL,Filipe Machado,Goiás,72.2,71.1,3.0,3.0
+VOL,André Luiz,Londrina,70.2,69.8,4.0,4.0
+VOL,João Miguel,Athletic,68.5,68.5,5.0,6.0
+VOL,Biel,Sport,65.2,69.5,6.0,5.0
+VOL,Patrick De Lucca,CRB,64.6,62.0,7.0,9.0
+VOL,Dudu,Vila Nova,64.3,63.0,8.0,8.0
+VOL,Lucas Lima,São Bernardo,61.6,64.0,9.0,7.0
+VOL,Pierre,Fortaleza,61.0,57.8,10.0,10.0
+VOL,Willian Maranhão,Vila Nova,56.5,52.6,11.0,12.5
+VOL,Léo Naldi,Novorizontino,55.7,55.5,12.0,11.0
+VOL,Leandro Vilela,Atlético-GO,53.3,52.6,13.0,12.5
+VOL,Matheus Sales,Botafogo-SP,51.3,48.4,14.0,16.0
+VOL,Samuel,Náutico,48.2,46.8,15.0,19.0
+VOL,Matheus Trindade,Operário-PR,47.6,48.4,16.0,16.0
+VOL,Luís Oyama,Novorizontino,46.9,48.4,17.0,16.0
+VOL,Romisson,São Bernardo,46.3,49.7,18.0,14.0
+VOL,Luiz Felipe,Náutico,45.7,47.1,19.0,18.0
+VOL,Felipe Amaral,América-MG,45.2,44.5,20.0,20.5
+VOL,Cristiano,Atlético-GO,44.3,43.8,21.5,22.0
+VOL,Zé Ricardo,Avaí,44.3,44.5,21.5,20.5
+VOL,Zé Lucas,Sport,41.1,42.9,23.0,23.0
+VOL,Juninho,Goiás,36.0,38.0,24.0,24.0
+VOL,Miraíma,São Bernardo,32.3,34.4,25.0,25.0
+VOL,L. Maciel,Botafogo-SP,24.7,22.7,26.0,27.0
+VOL,Foguinho,São Bernardo,22.6,24.4,27.0,26.0
+VOL,João Vieira,Vila Nova,20.2,19.8,28.0,28.0
