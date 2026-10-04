@@ -6737,9 +6737,29 @@ function csRegistro(j, filtro) {
   }
   /* nome + clube; sem o clube igual (grafias diferentes entre as bases), só pelo nome quando ele é único E a posição bate —
      senão o Raul de um clube herdaria o aéreo e o cobrador de outro Raul */
-  const so = TIPO_IDX.n.get(tipoNorm(j.n));
+  let so = TIPO_IDX.n.get(tipoNorm(j.n));
+  /* homônimos NA BASE (04/10, Allan do Botafogo herdava a letra do Allan do Corinthians): se há mais de um
+     jogador com esse nome na base, o registro único da Consulta só vale para quem tem o clube parecido */
+  if (so && nomesNaBase(tipoNorm(j.n)) > 1 && !clubeParecido(j.t, so.c)) so = null;
   const x = TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || (so && so.p === j.p ? so : null);
   return x && (!filtro || filtro(x)) ? x : null;
+}
+let NOMES_BASE = null, NOMES_BASE_N = -1;
+function nomesNaBase(kn) {
+  if (!NOMES_BASE || NOMES_BASE_N !== BASE.length) {
+    NOMES_BASE = new Map(); NOMES_BASE_N = BASE.length;
+    BASE.forEach(b => { const k = tipoNorm(b.n); NOMES_BASE.set(k, (NOMES_BASE.get(k) || 0) + 1); });
+  }
+  return NOMES_BASE.get(kn) || 0;
+}
+function clubeParecido(a, b) {
+  /* "Sport" × "Sport Recife", "Atlético GO" × "Atlético-GO": um contém o outro, ou dividem uma palavra de 4+ letras que não seja genérica */
+  const na = tipoNorm(a), nb = tipoNorm(b); if (!na || !nb) return false;
+  if (na === nb || na.includes(nb) || nb.includes(na)) return true;
+  const GEN = new Set(['club', 'clube', 'futebol', 'esporte', 'sport', 'atletico', 'athletic', 'real', 'deportivo', 'sportivo', 'united', 'city', 'santa', 'nacional']);
+  const pa = String(a).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length >= 4 && !GEN.has(w));
+  const pb = new Set(String(b).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length >= 4 && !GEN.has(w)));
+  return pa.some(w => pb.has(w));
 }
 function tipoDe(j) { return csRegistro(j, x => !!x.tipo); }
 /* jogo aéreo (T2): ▲ quando o índice do finalizador aéreo (percentil na liga: gols de cabeça, duelos aéreos
