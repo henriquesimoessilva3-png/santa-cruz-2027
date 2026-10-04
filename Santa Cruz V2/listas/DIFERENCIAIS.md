@@ -29,7 +29,9 @@ referência), distância média da finalização (≤ 20 m), xG por finalizaçã
 dentro) e xG por finalização sofrida (empurrar o adversário para fora da área). Posse, passes,
 ataque posicional, cruzamentos e passes ao terço final rendem pouco entre times e viram
 negativos dentro do clube: são placar. Pressão alta, recuperações, interceptações e carrinhos
-não rendem nada. Duelo aéreo rende entre times (9 pontos), não dentro do jogo: é elenco.
+não rendem nada. Duelo aéreo rende entre times (9 pontos), não dentro do jogo: é elenco — e o que rende é o da zaga
+(menos gols sofridos, r −0,35) e, como indício, o do volante fixo; lateral, meia, extremo e atacante
+não separam (T3-4).
 Grandes chances criadas e cedidas por jogo (Sofascore, M3) rendem nas duas contas e resumem o eixo: ≥ 1,6 criadas, ≤ 1,25 cedidas. Formação tática e estilo não mudam resultado. Entre passagens de treinador (TR3), cruzamento e entrada na área **descrevem** o time que rende, mas não sobrevivem à conta dentro do clube: continuam fora da meta.
 
 ## 4. Bola parada é a alavanca mais barata
@@ -58,7 +60,7 @@ intensidade; a diferença física está só nas cinco grandes ligas. O patamar d
   área) e cruza.
 - **ZD:** o que cria (passes chave, longos) e ganha no alto. **ZE:** o que finaliza (bola
   parada), sai jogando longo e progressivo, ganha no alto — o maior sinal de todas as posições.
-- **VOL:** duelo aéreo, corrida progressiva, interceptação; físico: arrancadas.
+- **VOL:** corrida progressiva, interceptação e, no volante fixo, duelo aéreo (indício, T3-4); físico: arrancadas.
 - **MED:** criador (xA, passes chave, passes para a área, cruzamentos) que ganha duelo defensivo.
 - **MEI:** cria e chega à área; é o cobrador de bola parada.
 - **ED:** o extremo que defende (duelo defensivo) e cria — NÃO o finalizador. **EE:** o extremo

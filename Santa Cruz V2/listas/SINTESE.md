@@ -1,6 +1,6 @@
 # Síntese — a régua e os filtros em uma página
 
-*Estudo Santa Cruz V2, Série B 2022–2026. Dado: Wyscout, SkillCorner, Sofascore e Transfermarkt até ago–set/26. Revisão 25/09/2026. Cada linha aponta o bloco que a prova.*
+*Estudo Santa Cruz V2, Série B 2022–2026. Dado: Wyscout, SkillCorner, Sofascore e Transfermarkt até ago–set/26. Revisão 04/10/2026 (duelo aéreo por setor, T3-4). Cada linha aponta o bloco que a prova.*
 
 ## 1 · O que o Santa Cruz precisa entregar em 2027
 
@@ -12,7 +12,7 @@
 | xG criado por jogo | **≥ 1,25** | 1,28 | 1,15 | T1-1 |
 | Saldo de gols de bola parada | **≥ +5** | +5,5 | −5 | T2-1 |
 | Gols por escanteio | **≥ 3%** | 3,2% | 2,2% | T2-4 |
-| Duelos aéreos ganhos | **≥ 46%** | 46,4% | 45,1% | T1-3, T3-1 |
+| Duelos aéreos ganhos (vem da zaga: ≥ 61%) | **≥ 46%** | 46,4% | 45,1% | T1-3, T3-1, T3-4 |
 | Grandes chances criadas / cedidas por jogo (Sofascore) | **≥ 1,6 / ≤ 1,25** | 1,60 / 1,23 | 1,17 / 1,67 | M3-1 |
 | Jogadores usados no ano | **≤ 30** | 30 | 39,5 | M1-1 |
 | Titulares distintos no ano (escalação real) | **≤ 31** | 31 | 39 | M3-2 |
@@ -36,7 +36,7 @@
 
 **Patamar de Série A (F3):** fisicamente a B já é a A (mesma velocidade de pico, mesmos sprints e alta intensidade; só as cinco grandes ligas correm +15–20%). O que separa as divisões é técnico: a régua para "jogar como um time de A" é a qualidade da chance, com o físico como piso.
 
-**Não pagar por:** posse, cruzamento, pressão alta, distância percorrida, velocista, altura, idade, artilheiro, percentil de outra liga, "aguenta o returno", ficha de lesão (F1, T1, M1, M2, M4).
+**Não pagar por:** jogo aéreo de lateral, meia e extremo (T3-4), posse, cruzamento, pressão alta, distância percorrida, velocista, altura, idade, artilheiro, percentil de outra liga, "aguenta o returno", ficha de lesão (F1, T1, M1, M2, M4).
 
 ## 3 · Por posição, em uma linha
 
@@ -47,7 +47,7 @@
 | ZD | cria (passes chave, longos) e ganha no alto | Motor de volume | finalizador |
 | ZE | finaliza, sai jogando longo e progressivo, ganha no alto — o maior sinal do estudo | Motor de volume | finalizador |
 | LE | chega ao gol (xG, toques na área) e cruza | Explosivo e rápido | — |
-| VOL | duelo aéreo, corrida progressiva, interceptação; arrancadas | Mais intenso / Intermediário | — |
+| VOL | corrida progressiva, interceptação, duelo aéreo no volante fixo (indício, T3-4); arrancadas | Mais intenso / Intermediário | — |
 | MED | criador (xA, passes chave, passes para a área) que ganha duelo | Médio em tudo | cobrador |
 | MEI | cria e chega à área | Médio em tudo | **cobrador nº 1** |
 | ED | defende e cria — não o finalizador | Explosivo e rápido | cobrador |
