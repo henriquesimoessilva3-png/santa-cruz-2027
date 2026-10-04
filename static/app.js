@@ -3204,6 +3204,7 @@ async function montarFicha(j, modo) {
     if (dc.tec_raw) { o.rk_ok = true; if (dc.tec_raw.Height && !o.alt) o.alt = dc.tec_raw.Height; }
     o._dadosFicha = dc; j = o;
   }
+  j = comFisicoDoEstudo(j);
   const lista = coorte(j, modo);
   const ex = ehEstrangeiroBase(j);
   const fx = faixaSalarioTR(j);
@@ -3278,6 +3279,7 @@ async function montarFicha(j, modo) {
   /* fis_src: o fisico veio da base do estudo V2 (Serie B de outra temporada), preenchido
      pelo preparar_base.py — nao e do clube atual, e a ficha diz isso em cima dos numeros */
   colunas += '<div class="fi-grupo"><h4>Físico (SkillCorner)</h4>' +
+    (j._estudo ? '<div class="fi-src" title="O cadastro deste jogador não tem físico na base do app; estes números são os do estudo (SkillCorner da Série B), casados pelo nome, clube, posição e idade">físico do estudo: ' + esc(j._estudo) + '</div>' : '') +
     (j._colado ? '<div class="fi-src" title="Físico colado à mão (SkillCorner), não o da base">físico colado à mão' + (j._colado !== 'sim' ? ' em ' + esc(j._colado) : '') + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     (j.fis_src && colFis ? '<div class="fi-src" title="Preenchido pela base do estudo Santa Cruz V2: ' +
       'é o físico de outra temporada e de outro clube, não do atual">físico de ' + esc(j.fis_src) +
@@ -6741,8 +6743,39 @@ function csRegistro(j, filtro) {
   /* homônimos NA BASE (04/10, Allan do Botafogo herdava a letra do Allan do Corinthians): se há mais de um
      jogador com esse nome na base, o registro único da Consulta só vale para quem tem o clube parecido */
   if (so && nomesNaBase(tipoNorm(j.n)) > 1 && !clubeParecido(j.t, so.c)) so = null;
-  const x = TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || (so && so.p === j.p ? so : null);
+  let x = TIPO_IDX.nc.get(tipoNorm(j.n) + '|' + tipoNorm(j.t)) || (so && so.p === j.p ? so : null);
+  if (!x) x = csApelido(j);
   return x && (!filtro || filtro(x)) ? x : null;
+}
+/* O cadastro (fim de contrato) e o estudo (Wyscout) grafam o mesmo jogador de jeitos diferentes: "Maykon Jesus" × "Maykon",
+   "Dudu Miraíma" × "Miraíma", "Marcelo Benevenuto" × "Benevenuto". Vale quando o clube é parecido, a posição é a mesma, a idade
+   bate (±1), um nome contém as palavras do outro e só há UM candidato. (04/10) */
+let CS_POS = null; const CS_APELIDO = new Map();
+function csApelido(j) {
+  const D = window.CONSULTA; if (!D || !j || !j.n || !j.t) return null;
+  const ch = j.n + '|' + j.t + '|' + j.p;
+  if (CS_APELIDO.has(ch)) return CS_APELIDO.get(ch);
+  if (!CS_POS) { CS_POS = {}; D.jogadores.forEach(x => (CS_POS[x.p] = CS_POS[x.p] || []).push(x)); }
+  const tj = new Set(tipoNorm(j.n).split(' '));
+  const c = (CS_POS[j.p] || []).filter(x => {
+    const tx = tipoNorm(x.n).split(' ');
+    if (!tx.length || !(tx.every(w => tj.has(w)) || [...tj].every(w => tx.includes(w)))) return false;
+    if (j.id_ && x.i && Math.abs(x.i - j.id_) > 1) return false;
+    return clubeParecido(j.t, x.c);
+  });
+  const r = c.length === 1 ? c[0] : null;
+  CS_APELIDO.set(ch, r); return r;
+}
+/* quem está no estudo mas não tem físico na base do app (registro só de cadastro): o raio e a ficha usam o físico do estudo */
+function comFisicoDoEstudo(j) {
+  if (!j || typeof j.psv === 'number' || j._dados) return j;
+  const x = csRegistro(j); if (!x || typeof x.psv !== 'number') return j;
+  const o = Object.assign({}, j, { psv: x.psv, _estudo: x.n + ' · ' + x.c });
+  if (x.spr != null) o.spr_n = x.spr; if (x.hi != null) o.hi_n = x.hi; if (x.expl != null) o.expl = x.expl;
+  if (x.area != null) o.obr_area = x.area;
+  if (!o.min && x.min) o.min = x.min;
+  o.sc_n = Math.max(Number(o.sc_n) || 0, Math.round((x.min || 0) / 90));
+  return o;
 }
 let NOMES_BASE = null, NOMES_BASE_N = -1;
 function nomesNaBase(kn) {
@@ -6804,6 +6837,8 @@ function cobradorBadge(j) {
    "motor de volume" é de zaga/atacante, "mais intenso" é de volante); se o estudo o tem em outro setor (ex.: ZD no
    Wyscout, DM aqui), recalcula pelo centróide do setor da posição do app */
 function tipoResolvido(j) {
+  /* físico colado à mão: o tipo sai DELE (centróide), nunca do registro do estudo */
+  if (j && j._dados && j._dados.fis && typeof j.psv === 'number') { const tc = tipoCalc(j); if (tc) return { tipo: tc, p: j.p, calc: true }; }
   const x = tipoDe(j);
   if (x && x.tipo && TIPO_SET[x.p] === TIPO_SET[j.p]) return x;
   const t = tipoCalc(j); return t ? { tipo: t, p: j.p, calc: true } : null;
@@ -6926,7 +6961,8 @@ function raioIcone(pk, card, objBase) {
      Quando há dados colados à mão (no card ou em estado.dadosJog[pk]), o objeto montado por dadosDoCard
      substitui o da base no raio, na letra e nos sinais */
   const d = dadosColados(pk, card);
-  const obj = d ? dadosDoCard(card || { pk, dados: d }, objBase) : (objBase || null);
+  let obj = d ? dadosDoCard(card || { pk, dados: d }, objBase) : (objBase || null);
+  if (!d && BASE.length) { const b = obj || fsJogadorPk(pk); const e = comFisicoDoEstudo(b); if (e && e !== b) obj = e; }
   const r = raioIconeBase(pk, obj);
   try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
