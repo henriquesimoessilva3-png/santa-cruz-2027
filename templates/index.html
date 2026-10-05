@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/static/consulta.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/fisico_estudo.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/caracteristicas.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/subida.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
 <body>
@@ -137,6 +138,7 @@
   <button class="aba on" data-aba="campo">Campograma</button>
   <button class="aba" data-aba="contrato">Fim de contrato</button>
   <button class="aba" data-aba="fisico">Físico</button>
+  <button class="aba" data-aba="subida" title="Quem cumpre os mínimos do titular de quem sobe na Série B — físico e técnico">Subida</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <button class="aba" data-aba="financeiro">Financeiro</button>
   <button class="aba" data-aba="empresarios">Empresários</button>
@@ -586,6 +588,12 @@
     <!-- A aba Característica por posição: static/caracteristicas.js com o dado de
          static/caracteristicas_dados.js (gerar_caracteristicas_js.py) — o que separa o titular de
          quem sobe do de quem cai, posição a posição. Se mostra sozinha, como as de baixo. -->
+    <!-- A aba Subida: static/subida.js com o dado de static/subida_dados.js (gerar_subida_js.py) —
+         perfis de mínimos de quem sobe, lista filtrada e matriz jogador × quem sobe × quem cai. -->
+    <section class="pagina oculta" id="pgSubida">
+      <div class="emp-rolagem"><div class="sub" id="subCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgCaracteristicas">
       <div class="emp-rolagem"><div class="car" id="carCorpo"></div></div>
     </section>
@@ -894,6 +902,8 @@
 <script src="/static/bp_jogadores.js?v={{ ver }}"></script>
 <script src="/static/caracteristicas_dados.js?v={{ ver }}"></script>
 <script src="/static/caracteristicas.js?v={{ ver }}"></script>
+<script src="/static/subida_dados.js?v={{ ver }}"></script>
+<script src="/static/subida.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>

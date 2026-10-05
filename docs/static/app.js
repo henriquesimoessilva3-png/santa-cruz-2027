@@ -3298,6 +3298,8 @@ async function montarFicha(j, modo) {
       '<span class="num-leg">média</span>' +
       '<span class="num-leg forte">melhor</span>' +
     '</div>';
+  /* quadro "Quem sobe × quem cai" (static/subida.js): os indicadores da posição contra a régua do estudo */
+  const quadroSubida = (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(j, dados) : '';
 
   const rodape = 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posb' ? ' da Série B' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
@@ -3319,7 +3321,7 @@ async function montarFicha(j, modo) {
       'Troque o comparativo acima para Série B, Brasil A/B/C ou todas as ligas.') + '">' +
     (nCo < 12 ? '⚠ amostra de ' + nCo : 'amostra curta · ' + nCo) + '</span>';
 
-  return { titulo, sub, cabeca, corpo, rodape, aviso };
+  return { titulo, sub, cabeca, corpo: corpo + quadroSubida, rodape, aviso };
 }
 
 async function renderFicha() {
