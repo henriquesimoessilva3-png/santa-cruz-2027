@@ -246,7 +246,7 @@
       '<th class="sub-h cai fx3"><span class="nm">Quem cai</span><span class="cl">' + (P.n.Cai || 0) + ' titulares · mediana</span></th>' +
       js.map(j => { const a = aderencia(j, mins, ks);
         const e = j.ext || {};
-        return '<th class="sub-h"><span class="x" data-rm="' + esc(j.k) + '" title="tirar da comparação">✕</span><span class="nm">' + esc(j[0]) + '</span>' +
+        return '<th class="sub-h"><span class="x" data-rm="' + esc(j.k) + '" title="tirar da comparação">✕</span><span class="nm">' + esc(j[0]) + seloLinha(j) + '</span>' +
           (e.pos && e.pos !== E.pos ? '<span class="cl sub-fora" title="Posição dele na base — aqui é medido contra a régua de ' + esc(P.nome) + '">joga de ' + esc(SIG[e.pos] || e.pos) + (e.base && j[7] ? ' · ' + j[7] + ' min' : '') + '</span>' : (e.base && j[7] < 900 ? '<span class="cl sub-fora">' + j[7] + ' min</span>' : '')) +
           '<span class="cl">' + esc(j[2]) + ' · ' + esc(j[3]) + '</span><span class="cl">' + (j[4] != null ? j[4] + ' anos · ' : '') +
           '<span class="' + (livre(j[5]) ? 'sub-ct' : '') + '">contrato ' + mesAno(j[5]) + '</span></span>' +
@@ -278,7 +278,7 @@
     const sel = new Set(selAtual());
     if (!lista.length) return '<div class="sub-vazio">Ninguém cumpre os mínimos com estes filtros. Baixe o “cumpre pelo menos” para 80% ou 70%, desmarque um mínimo ou abra o filtro de liga.</div>';
     return lista.slice(0, 250).map(({ j, a }) => '<div class="sub-item' + (sel.has(chave(j)) ? ' on' : '') + '" data-k="' + esc(chave(j)) + '">' +
-      '<span class="nm">' + esc(j[0]) + '</span><span class="ad' + (a.n && a.ok === a.n ? ' cheio' : '') + '">' + (a.n ? a.ok + '/' + a.n : '—') + '</span>' +
+      '<span class="nm">' + esc(j[0]) + seloLinha(j) + '</span><span class="ad' + (a.n && a.ok === a.n ? ' cheio' : '') + '">' + (a.n ? a.ok + '/' + a.n : '—') + '</span>' +
       '<span class="cl">' + esc(j[2]) + ' · ' + esc(j[3]) + (j[4] != null ? ' · ' + j[4] + 'a' : '') + ' · <span class="' + (livre(j[5]) ? 'sub-ct' : '') + '">' + mesAno(j[5]) + '</span>' +
       (j[6] != null ? ' · € ' + num(j[6], 1) + ' mi' : '') + (a.sd ? ' · ' + a.sd + ' sem dado' : '') + '</span></div>').join('') +
       (lista.length > 250 ? '<div class="sub-vazio">mostrando os 250 primeiros de ' + lista.length + '</div>' : '');
@@ -438,6 +438,59 @@
     'Duelos por 90': 'Duelos /90', 'Duelos ganhos %': 'Duelos %', 'Duelos defensivos por 90': 'Defensive duels per 90', 'Duelos defensivos ganhos %': 'Duelos def. %',
     'Duelos aéreos ganhos %': 'Aéreos %', 'Ações defensivas certas por 90': 'Successful defensive actions per 90', 'Interceptações (ajustadas à posse)': 'Interceptações (PAdj)',
     'Carrinhos (ajustados à posse)': 'PAdj Sliding tackles', 'Finalizações bloqueadas por 90': 'Shots blocked per 90', 'Faltas por 90': 'Fouls per 90', 'Cartões amarelos por 90': 'Amarelos /90' };
+  /* ============ selo de subida (▲ ↔ ▼): quanto o jogador atende dos indicadores PRINCIPAIS da posição ============
+     Principais = os que mais separam quem sobe de quem cai (o mesmo perfil "Principais" da aba). Régua do selo:
+     ▲ verde = atende 60% ou mais · ↔ amarelo = de 35% a 60% · ▼ vermelho = menos de 35% · ? = falta dado (menos de 60%
+     dos principais medidos). O titular típico de quem sobe fica perto de 50%, porque cada mínimo é a mediana deles;
+     na base inteira, cerca de 1 em 4 jogadores chega ao verde e 4 em 10 ficam no vermelho. */
+  const SELO_V = 0.6, SELO_R = 0.35, SELO_DADO = 0.6;
+  function seloVals(pos, get) {
+    const m = principais(pos, N_PRI), ks = Object.keys(m).map(Number);
+    if (!ks.length) return null;
+    let ok = 0, com = 0; const falta = [], sem_ = [];
+    ks.forEach(k => { const i = D.inds[k], v = get(i); if (v == null) { sem_.push(i.rot); return; } com++; if (cumpre(i, v, m[k])) ok++; else falta.push(i.rot); });
+    const o = { ok, com, n: ks.length, falta, sem: sem_ };
+    o.c = com < SELO_DADO * ks.length ? 'n' : ok / com >= SELO_V ? 'v' : ok / com >= SELO_R ? 'a' : 'r';
+    return o;
+  }
+  function seloHtml(pos, o) {
+    if (!o) return '';
+    const nome = D.posicoes[pos].nome, sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[o.c];
+    const t = o.c === 'n'
+      ? 'Selo de subida: faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores principais de ' + nome + ' estão medidos. Sem dado: ' + o.sem.join(', ') + '.'
+      : 'Selo de subida (' + nome + '): atende ' + o.ok + ' de ' + o.com + ' indicadores principais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
+        (o.falta.length ? 'Abaixo em: ' + o.falta.join(', ') + '. ' : '') + (o.sem.length ? 'Sem dado: ' + o.sem.join(', ') + '. ' : '') + '▲ 60% ou mais · ↔ 35% a 60% · ▼ menos de 35%.';
+    return '<span class="sb-selo sb-' + o.c + '" title="' + esc(t) + '">' + sinal + '</span>';
+  }
+  let mapaSub = null;
+  function linhaSub(j) {
+    if (!mapaSub) { mapaSub = { id: new Map(), nome: new Map() }; D.ordem.forEach(c => D.posicoes[c].jog.forEach(r => { if (r[10] != null && r[10] !== -1) mapaSub.id.set(r[10] + '|' + r[3], r); const k = sem(r[0]) + '|' + r[3]; (mapaSub.nome.get(k) || mapaSub.nome.set(k, []).get(k)).push(r); })); }
+    let r = mapaSub.id.get(j.id + '|' + j.l);
+    if (!r) { const c = (mapaSub.nome.get(sem(j.n) + '|' + j.l) || []).filter(x => x[4] == null || j.id_ == null || Math.abs(x[4] - j.id_) <= 1); if (c.length === 1) r = c[0]; }
+    return r || null;
+  }
+  /* selo de um jogador da base do app (cards do campograma, busca, listas): síncrono, sem buscar arquivo —
+     técnico da base da aba (900 min ou mais) ou do export do Wyscout colado; físico do cadastro, do estudo ou colado */
+  window.subidaSelo = function (j0) {
+    try {
+      if (!D || !j0 || !D.posicoes[j0.p]) return '';
+      let j = j0;
+      const dc = j0._dados || j0._dadosFicha || (typeof dadosColados === 'function' && typeof primaryKey === 'function' ? dadosColados(primaryKey(j0), null) : null);
+      if (dc && dc.fis) { j = Object.assign({}, j0); Object.keys(dc.fis).forEach(k => { if (dc.fis[k] != null && k !== 'min') j[k] = dc.fis[k]; }); }
+      try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(j) || j; } catch (e) {}
+      const r = linhaSub(j0), raw = dc && dc.tec_raw, en = typeof KPI_EN !== 'undefined' ? KPI_EN : {};
+      const fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
+      const numero = v => { if (typeof v === 'string') v = parseFloat(v.replace(',', '.')); return typeof v === 'number' && isFinite(v) ? v : null; };
+      return seloHtml(j0.p, seloVals(j0.p, i => {
+        let v = null;
+        if (i.cat === 'fis') v = numero(j[fisK[i.k]]);
+        else if (raw && KPI[i.rot] && en[KPI[i.rot]] != null) v = numero(raw[en[KPI[i.rot]]]);
+        if (v == null && r) v = r[NC + i.k];
+        return v == null ? null : v;
+      }));
+    } catch (e) { return ''; }
+  };
+  const seloLinha = j => seloHtml(E.pos, seloVals(E.pos, i => j[NC + i.k]));
   window.subidaQuadro = function (j, dados) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';

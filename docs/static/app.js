@@ -6856,7 +6856,13 @@ function sinaisDe(j) {
   const x = csRegistro(j) || {};
   return { letra: tipoLetra(j), aer: (x.aer || 0) >= 80, def: (x.aer_dp || 0) >= 80, cob: (x.cob || 0) >= 80 };
 }
+/* letra A/B/C + selo de subida (▲ ↔ ▼, static/subida.js): saem juntos em todo lugar que mostra a letra */
 function tipoBadge(pk, obj) {
+  let selo = '';
+  try { const js = obj || (BASE.length ? fsJogadorPk(pk) : null); if (js && typeof window.subidaSelo === 'function') selo = window.subidaSelo(js); } catch (e) {}
+  return tipoBadgeLetra(pk, obj) + selo;
+}
+function tipoBadgeLetra(pk, obj) {
   if (!BASE.length || !window.CONSULTA) return '';
   const j = obj || fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
   const x = tipoResolvido(j); if (!x) return '';

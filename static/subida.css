@@ -140,3 +140,8 @@
 .sub-mat tr.bloco td.rot,.sub-mat tr.bloco td.fx2,.sub-mat tr.bloco td.fx3{background:var(--fundo3)}
 .sub-mat tr.bloco td.rot{font-size:10.5px;font-weight:700;color:var(--tinta3)}
 .sub-mat .fx2 .sub-c,.sub-mat .fx3 .sub-c{min-width:0;grid-template-columns:minmax(40px,1fr) auto}
+
+/* selo de subida (▲ ↔ ▼) — ao lado da letra A/B/C nos cards, na busca, na ficha e na aba Subida */
+.sb-selo{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;margin-left:3px;font:700 9.5px/1 var(--fonte);color:#fff;vertical-align:middle;cursor:help;flex:none}
+.sb-selo.sb-v{background:#16a34a} .sb-selo.sb-a{background:#d99a06;color:#1b1400;font-size:11px} .sb-selo.sb-r{background:#dc2626}
+.sb-selo.sb-n{background:transparent;border:1px dashed var(--tinta3);color:var(--tinta3)}
