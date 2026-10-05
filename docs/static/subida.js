@@ -114,6 +114,90 @@
     return out;
   }
   const selAtual = () => (E.sel[E.pos] = E.sel[E.pos] || []);
+
+  /* ---- jogadores de fora da lista da posição ----
+     A busca traz qualquer um: outra posição da base da aba (chave "P:POS|…") e qualquer jogador da base do app,
+     inclusive com pouca minutagem, sem indicadores ou cadastrado à mão (chave "B:<pk>"). Os números desses vêm da
+     ficha do app (kpis da posição dele + físico do cadastro), com o que foi COLADO em "físico/técnico" por cima. */
+  const appOk = () => typeof BASE !== 'undefined' && Array.isArray(BASE) && BASE.length && typeof primaryKey === 'function';
+  let idxBase = null, idsSub = null, porId = null, porNome = null;
+  function indices() {
+    if (!idsSub) { idsSub = new Set(); D.ordem.forEach(c => D.posicoes[c].jog.forEach(j => { if (j[10] != null && j[10] !== -1) idsSub.add(j[10]); })); }
+    if (appOk() && (!idxBase || idxBase.n !== BASE.length)) {
+      idxBase = { n: BASE.length, l: BASE.map(j => [sem(j.n) + ' ' + sem(j.nc) + ' ' + sem(j.t), j]) };
+      porId = new Map(BASE.map(j => [j.id, j]));
+      porNome = new Map(); BASE.forEach(j => { const k = sem(j.n) + '|' + j.l; (porNome.get(k) || porNome.set(k, []).get(k)).push(j); });
+    }
+  }
+  const ext = {};            // pk -> linha montada a partir da base do app
+  let pend = 0;
+  async function linhaBase(bj) {
+    let j = Object.assign({}, bj);
+    const dc = (typeof dadosColados === 'function') ? dadosColados(primaryKey(bj), null) : null;
+    if (dc && dc.fis) Object.keys(dc.fis).forEach(k => { if (dc.fis[k] != null && k !== 'min') j[k] = dc.fis[k]; });
+    if (dc) j._dadosFicha = dc;
+    try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(j) || j; } catch (e) {}
+    let dados = null; try { if (typeof kpisDe === 'function') dados = await kpisDe(j, 'posliga'); } catch (e) {}
+    const tec = {};
+    if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+    let nf = 0;
+    const vals = D.inds.map(i => { const v = i.cat === 'fis' ? j[FIS_ORD[nf++]] : tec[KPI[i.rot]]; return typeof v === 'number' && isFinite(v) ? v : null; });
+    const nac = j.nac === 'Brazil' ? 'BR' : '';
+    const row = [j.n, j.nc || '', j.t, j.l, j.id_ || null, String(j.ct || '').slice(0, 7), j.mv ? Math.round(j.mv / 1e4) / 100 : null, j.min || 0, nac, j.emp ? 1 : 0, j.id].concat(vals);
+    row.ext = { pos: bj.p, pk: primaryKey(bj), colado: !!dc, base: true };
+    return row;
+  }
+  function pede(bj) {
+    const pk = primaryKey(bj); if (ext[pk] !== undefined) return;
+    ext[pk] = null; pend++;
+    linhaBase(bj).then(r => { ext[pk] = r; }).catch(() => { ext[pk] = false; }).then(() => { if (--pend === 0) atualiza(); });
+  }
+  /* linha de uma chave da comparação; null enquanto a da base do app ainda carrega */
+  function linhaDe(k) {
+    if (k.slice(0, 2) === 'B:') {
+      indices(); if (!appOk()) return null;
+      const pk = k.slice(2), bj = BASE.find(x => primaryKey(x) === pk); if (!bj) return null;
+      if (ext[pk] === undefined) pede(bj);
+      return ext[pk] || null;
+    }
+    let r = null;
+    if (k.slice(0, 2) === 'P:') { const c = k.slice(2, k.indexOf('|')), kk = k.slice(k.indexOf('|') + 1), P = D.posicoes[c]; r = P && P.jog.find(j => chave(j) === kk); if (r) { r = r.slice(); r.ext = { pos: c }; } }
+    else r = D.posicoes[E.pos].jog.find(j => chave(j) === k) || null;
+    if (!r) return null;
+    /* tem cadastro no app e alguém colou físico/técnico nele: o colado entra por cima do que a base da aba tinha */
+    indices();
+    let bj = appOk() && r[10] != null && r[10] !== -1 ? porId.get(r[10]) : null;
+    /* sem id (o clube está escrito de outro jeito no cadastro: "São Bernardo" x "São Bernardo FC"): mesmo nome na
+       mesma liga, um só candidato com a idade batendo */
+    if (!bj && appOk()) { const c = (porNome.get(sem(r[0]) + '|' + r[3]) || []).filter(x => r[4] == null || x.id_ == null || Math.abs(x.id_ - r[4]) <= 1); if (c.length === 1) bj = c[0]; }
+    if (bj) {
+      const pk = primaryKey(bj), dc = typeof dadosColados === 'function' ? dadosColados(pk, null) : null;
+      r = r.slice(); r.ext = Object.assign({}, r.ext || {}, { pk });
+      let falta = false; for (let x = NC; x < r.length; x++) if (r[x] == null) { falta = true; break; }
+      /* o que foi colado entra por cima; sem nada colado, o cadastro do app só preenche o que a base da aba não tem */
+      if (dc || falta) { if (ext[pk] === undefined) pede(bj); const o = ext[pk]; if (o) { for (let x = NC; x < o.length; x++) if (o[x] != null && (dc || r[x] == null)) r[x] = o[x]; if (dc) r.ext.colado = true; } }
+    }
+    return r;
+  }
+  /* traz para a comparação todos os jogadores que estão no campograma do grupo aberto, na posição escolhida */
+  function doCampograma() {
+    indices();
+    if (!appOk() || typeof estado === 'undefined' || !estado || !estado.elenco || typeof acharNaBase !== 'function') return 'o campograma ainda não carregou';
+    const cards = estado.elenco[E.pos] || [], s = selAtual();
+    let novos = 0, fora = 0;
+    cards.forEach(c => {
+      const bj = acharNaBase(c); if (!bj) { fora++; return; }
+      let k = null;
+      const r = D.posicoes[E.pos].jog.find(j => j[10] === bj.id && j[3] === bj.l);
+      if (r) k = chave(r);
+      else for (const c2 of D.ordem) { const r2 = c2 !== E.pos && D.posicoes[c2].jog.find(j => j[10] === bj.id && j[3] === bj.l); if (r2) { k = 'P:' + c2 + '|' + chave(r2); break; } }
+      if (!k) k = 'B:' + primaryKey(bj);
+      if (!s.includes(k)) { s.push(k); novos++; }
+    });
+    return cards.length ? novos + ' de ' + cards.length + ' do campograma entraram' + (cards.length - novos - fora ? ' (' + (cards.length - novos - fora) + ' já estavam)' : '') + (fora ? ' · ' + fora + ' sem cadastro na base' : '')
+      : 'o campograma deste grupo não tem ninguém em ' + D.posicoes[E.pos].nome;
+  }
+  function limpaExt() { Object.keys(ext).forEach(k => delete ext[k]); }
   const mesAno = c => c ? c.slice(5, 7) + '/' + c.slice(2, 4) : '—';
   const livre = c => c && c <= '2027-01';
 
@@ -153,33 +237,38 @@
   const htmlPlacar = o => o.n ? '<span class="sub-pl" title="ganha = no nível de quem sobe · perde = no nível de quem cai · o resto fica entre os dois"><b class="g">' + o.v + '</b> ganha · <b class="p">' + o.r + '</b> perde <i>de ' + o.n + '</i></span>' : '<span class="sub-pl"><i>sem dado</i></span>';
   function htmlMatriz() {
     const P = D.posicoes[E.pos], mins = minsAtuais(), ks = Object.keys(mins).map(Number);
-    const mapa = {}; P.jog.forEach(j => { mapa[chave(j)] = j; });
-    const js = selAtual().map(k => mapa[k]).filter(Boolean);
+    const pares = selAtual().map(k => [k, linhaDe(k)]);
+    const carregando = pares.filter(x => !x[1] && x[0].slice(0, 2) === 'B:' && ext[x[0].slice(2)] === null).length;
+    const js = pares.filter(x => x[1]).map(x => { x[1].k = x[0]; return x[1]; });
     let h = '<table class="sub-mat"><thead><tr><th class="rot">Indicador' +
       '<label class="sub-chk" style="margin-top:4px"><input type="checkbox" id="subSoPerfil"' + (E.soPerfil ? ' checked' : '') + '> só os do perfil</label></th>' +
-      '<th class="sub-h sobe"><span class="nm">Quem sobe</span><span class="cl">' + (P.n.Sobe || 0) + ' titulares · mediana</span></th>' +
-      '<th class="sub-h cai"><span class="nm">Quem cai</span><span class="cl">' + (P.n.Cai || 0) + ' titulares · mediana</span></th>' +
+      '<th class="sub-h sobe fx2"><span class="nm">Quem sobe</span><span class="cl">' + (P.n.Sobe || 0) + ' titulares · mediana</span></th>' +
+      '<th class="sub-h cai fx3"><span class="nm">Quem cai</span><span class="cl">' + (P.n.Cai || 0) + ' titulares · mediana</span></th>' +
       js.map(j => { const a = aderencia(j, mins, ks);
-        return '<th class="sub-h"><span class="x" data-rm="' + esc(chave(j)) + '" title="tirar da comparação">✕</span><span class="nm">' + esc(j[0]) + '</span>' +
+        const e = j.ext || {};
+        return '<th class="sub-h"><span class="x" data-rm="' + esc(j.k) + '" title="tirar da comparação">✕</span><span class="nm">' + esc(j[0]) + '</span>' +
+          (e.pos && e.pos !== E.pos ? '<span class="cl sub-fora" title="Posição dele na base — aqui é medido contra a régua de ' + esc(P.nome) + '">joga de ' + esc(SIG[e.pos] || e.pos) + (e.base && j[7] ? ' · ' + j[7] + ' min' : '') + '</span>' : (e.base && j[7] < 900 ? '<span class="cl sub-fora">' + j[7] + ' min</span>' : '')) +
           '<span class="cl">' + esc(j[2]) + ' · ' + esc(j[3]) + '</span><span class="cl">' + (j[4] != null ? j[4] + ' anos · ' : '') +
           '<span class="' + (livre(j[5]) ? 'sub-ct' : '') + '">contrato ' + mesAno(j[5]) + '</span></span>' +
           (ks.length ? '<span class="ad' + (a.ok === a.n ? ' cheio' : '') + '" title="mínimos do perfil que ele cumpre">perfil ' + a.ok + '/' + a.n + '</span>' : '') +
-          '<span class="cl sub-tot">' + (E.soPerfil && ks.length ? 'no perfil: ' : 'em todos: ') + htmlPlacar(placar(j, mins)) + '</span></th>'; }).join('') +
+          '<span class="cl sub-tot">' + (E.soPerfil && ks.length ? 'no perfil: ' : 'em todos: ') + htmlPlacar(placar(j, mins)) + '</span>' +
+          (e.pk ? '<span class="sub-dados" data-dados="' + esc(e.pk) + '" title="Colar o físico (CSV do SkillCorner) e o técnico (export do Wyscout) deste jogador — o que for colado entra aqui, na ficha e no campograma">' + (e.colado ? '✎ dados colados' : '＋ incluir dados') + '</span>' : '') + '</th>'; }).join('') +
       '</tr></thead><tbody>';
     let bloco = '';
     D.inds.forEach(i => {
       const r = ref(E.pos, i.k); if (!r || r[0] == null) return;
       const lim = mins[i.k];
       if (E.soPerfil && ks.length && lim == null) return;
-      if (i.bloco !== bloco) { bloco = i.bloco; h += '<tr class="bloco" data-bl="' + esc(bloco) + '" title="Clique para ' + (E.fech[bloco] ? 'abrir' : 'recolher') + ' este grupo"><td colspan="3"><b class="pm">' + (E.fech[bloco] ? '＋' : '－') + '</b> ' + esc(bloco) + '</td>' + js.map(j => '<td class="blp">' + htmlPlacar(placar(j, mins, bloco)) + '</td>').join('') + '</tr>'; }
+      if (i.bloco !== bloco) { bloco = i.bloco; h += '<tr class="bloco" data-bl="' + esc(bloco) + '" title="Clique para ' + (E.fech[bloco] ? 'abrir' : 'recolher') + ' este grupo"><td class="rot"><b class="pm">' + (E.fech[bloco] ? '＋' : '－') + '</b> ' + esc(bloco) + '</td><td class="fx2"></td><td class="fx3"></td>' + js.map(j => '<td class="blp">' + htmlPlacar(placar(j, mins, bloco)) + '</td>').join('') + '</tr>'; }
       if (E.fech[bloco]) return;
       h += '<tr class="' + (lim != null ? 'no-perfil' : '') + '"><td class="rot">' + esc(i.rot) + (r[3] ? ' *' : '') +
         (lim != null ? '<span class="lim">' + (i.menor ? 'máx ' : 'mín ') + num(lim, i.casas) + '</span>' : '') + '</td>' +
-        '<td>' + celula(i, r, r[0], null, 'ref') + '</td><td>' + celula(i, r, r[1], null, 'ref') + '</td>' +
+        '<td class="fx2">' + celula(i, r, r[0], null, 'ref') + '</td><td class="fx3">' + celula(i, r, r[1], null, 'ref') + '</td>' +
         js.map(j => '<td>' + celula(i, r, j[NC + i.k], lim) + '</td>').join('') + '</tr>';
     });
     h += '</tbody></table>';
-    if (!js.length) h += '<div class="sub-vazio">Clique num jogador da lista ao lado (ou em “comparar os primeiros”) para colocá-lo aqui, ao lado de quem sobe e de quem cai.</div>';
+    if (carregando) h += '<div class="sub-vazio">carregando ' + carregando + ' jogador(es) da base…</div>';
+    if (!js.length && !carregando) h += '<div class="sub-vazio">Clique num jogador da lista ao lado (ou em “comparar os primeiros”) para colocá-lo aqui, ao lado de quem sobe e de quem cai.</div>';
     h += '<div class="sub-leg"><span><i style="background:var(--verde)"></i>no nível de quem sobe</span><span><i style="background:var(--ambar)"></i>entre quem cai e quem sobe</span>' +
       '<span><i style="background:#64748b"></i>no nível de quem cai</span><span><b style="color:var(--txt-vermelho)">número vermelho</b> = não cumpre o mínimo do perfil</span>' +
       '<span>tamanho da barra = percentil na posição (' + P.jog.length + ' jogadores)</span></div>';
@@ -239,8 +328,9 @@
       '<details class="sub-mins"' + (aberto ? ' open' : '') + '><summary id="subMinsRes"></summary><div class="sub-mins-corpo" id="subMins">' + htmlMins() + '</div></details>' +
       '<div class="sub-corpo"><aside class="sub-lista"><div class="sub-lista-topo"><div class="sub-conta" id="subConta"></div>' +
         '<div class="sub-lista-acoes"><button class="sub-bt" id="subTop">Comparar os primeiros</button><input type="number" id="subTopN" min="1" max="15" value="' + E.topN + '">' +
-        '<button class="sub-bt" id="subLimpar">Limpar comparação</button></div>' +
-        '<div class="sub-busca"><input type="text" id="subBusca" placeholder="Adicionar qualquer jogador da posição: nome ou clube…" autocomplete="off"><div class="sub-busca-lista" id="subBuscaLista" hidden></div></div></div>' +
+        '<button class="sub-bt" id="subLimpar">Limpar comparação</button>' +
+        '<button class="sub-bt" id="subCampo" title="Leva para a comparação todos os jogadores que estão no campograma do grupo aberto, nesta posição">＋ Trazer do campograma</button><span id="subCampoMsg" class="sub-msg"></span></div>' +
+        '<div class="sub-busca"><input type="text" id="subBusca" placeholder="Adicionar qualquer jogador da base: nome ou clube…" autocomplete="off"><div class="sub-busca-lista" id="subBuscaLista" hidden></div></div></div>' +
         '<div class="sub-itens" id="subItens"></div></aside>' +
         '<div class="sub-mat-wrap" id="subMat"></div></div>' +
       '<div class="sub-nota"><b>Como ler.</b> A régua é a mediana do titular (900 minutos ou mais) dos clubes que subiram e dos que caíram na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] +
@@ -259,16 +349,20 @@
     if (v[0] === '@') { const p = E.perfis.find(x => x.pos === E.pos && '@' + x.nome === v); if (p) { E.mins = Object.assign({}, p.mins); E.tol = p.tol || 100; E.f = Object.assign({}, F0, p.f || {}); } }
     render();
   }
+  let sujo = false;          // abriu o "incluir dados": na volta do mouse para a aba, refaz as linhas vindas da base
   function ligarEventos(R) {
+    R.addEventListener('mouseenter', () => { if (sujo) { sujo = false; limpaExt(); atualiza(); } });
     R.addEventListener('click', ev => {
       const t = ev.target, q = s => t.closest(s);
       let e;
       if ((e = q('[data-pos]'))) { E.pos = e.dataset.pos; if (E.perfil[0] === '@') E.perfil = 'fis'; E.mins = null; return render(); }
       if ((e = q('tr.bloco[data-bl]'))) { E.fech[e.dataset.bl] = !E.fech[e.dataset.bl]; return atualiza(); }
+      if ((e = q('[data-dados]'))) { indices(); const bj = appOk() && BASE.find(x => primaryKey(x) === e.dataset.dados); if (bj && typeof abrirDadosBase === 'function') { sujo = true; abrirDadosBase(bj); } return; }
       if ((e = q('[data-rm]'))) { const s = selAtual(), i = s.indexOf(e.dataset.rm); if (i >= 0) s.splice(i, 1); return atualiza(); }
       if ((e = q('.sub-item'))) { const s = selAtual(), k = e.dataset.k, i = s.indexOf(k); if (i >= 0) s.splice(i, 1); else s.push(k); return atualiza(); }
       if ((e = q('[data-add]'))) { const s = selAtual(); if (!s.includes(e.dataset.add)) s.push(e.dataset.add); R.querySelector('#subBusca').value = ''; R.querySelector('#subBuscaLista').hidden = true; return atualiza(); }
       if (t.id === 'subTop') { const s = selAtual(); ultima.slice(0, E.topN).forEach(x => { const k = chave(x.j); if (!s.includes(k)) s.push(k); }); return atualiza(); }
+      if (t.id === 'subCampo') { const m = doCampograma(); atualiza(); const el = R.querySelector('#subCampoMsg'); if (el) el.textContent = m; return; }
       if (t.id === 'subLimpar') { E.sel[E.pos] = []; return atualiza(); }
       if (t.id === 'subLivres') { E.f.ate = E.f.ate === '2026-12' ? '' : '2026-12'; return render(); }
       if (t.id === 'subRepor') { E.mins = null; return render(); }
@@ -304,9 +398,14 @@
       if (t.id === 'subBusca') {
         const q = sem(t.value.trim()), cx = R.querySelector('#subBuscaLista');
         if (q.length < 2) { cx.hidden = true; return; }
-        const ac = D.posicoes[E.pos].jog.filter(j => sem(j[0]).includes(q) || sem(j[1]).includes(q) || sem(j[2]).includes(q)).slice(0, 14);
-        cx.innerHTML = ac.length ? ac.map(j => '<div data-add="' + esc(chave(j)) + '">' + esc(j[0]) + '<small>' + esc(j[2]) + ' · ' + esc(j[3]) + (j[4] != null ? ' · ' + j[4] + 'a' : '') + '</small></div>').join('')
-          : '<div>ninguém com esse nome em ' + esc(D.posicoes[E.pos].nome) + ' (900 min ou mais)</div>';
+        indices();
+        const bate = j => sem(j[0]).includes(q) || sem(j[1]).includes(q) || sem(j[2]).includes(q);
+        const item = (k, j, extra) => '<div data-add="' + esc(k) + '">' + esc(j[0]) + '<small>' + esc(j[2]) + ' · ' + esc(j[3]) + (j[4] != null ? ' · ' + j[4] + 'a' : '') + (extra ? ' · <b>' + extra + '</b>' : '') + '</small></div>';
+        const out = D.posicoes[E.pos].jog.filter(bate).slice(0, 10).map(j => item(chave(j), j, ''));
+        D.ordem.forEach(c => { if (c === E.pos || out.length >= 22) return; D.posicoes[c].jog.filter(bate).slice(0, 6).forEach(j => { if (out.length < 22) out.push(item('P:' + c + '|' + chave(j), j, SIG[c])); }); });
+        if (appOk()) { let n = 0; for (const par of idxBase.l) { if (n >= 14) break; const j = par[1]; if (!par[0].includes(q) || idsSub.has(j.id)) continue; n++;
+          out.push(item('B:' + primaryKey(j), [j.n, j.nc, j.t, j.l, j.id_ || null], (SIG[j.p] || j.p || '?') + ' · ' + (j.min ? j.min + ' min' : 'sem minutagem') + (j.rk_ok ? '' : ' · sem indicadores'))); } }
+        cx.innerHTML = out.length ? out.join('') : '<div>ninguém com esse nome na base</div>';
         cx.hidden = false;
       }
     });
