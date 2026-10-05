@@ -19,9 +19,12 @@
     : g === '@balvo' ? (l === 'Brasil B' || ALVO.includes(l)) : g === '@sa' ? SA.includes(l) : l === g;
 
   const F0 = { liga: '', nac: '', idade: '', ate: '', valor: '', minutos: '', fis: false };
-  let E = { pos: 'VOL', perfil: 'pri', mins: null, tol: 80, soPerfil: true, topN: 5, f: Object.assign({}, F0), sel: {}, perfis: [] };
+  let E = { pos: 'VOL', perfil: 'pri', mins: null, tol: 80, soPerfil: false, fech: {}, topN: 5, f: Object.assign({}, F0), sel: {}, perfis: [] };
   try { const g = JSON.parse(localStorage.getItem(LS) || 'null'); if (g) { E = Object.assign(E, g); E.f = Object.assign({}, F0, g.f || {}); } } catch (e) {}
   if (D && !D.posicoes[E.pos]) E.pos = 'VOL';
+  /* a matriz passou a abrir com TODOS os indicadores (05/10): quem tinha o estado antigo gravado volta ao padrão novo uma vez */
+  if (!E.v2) { E.soPerfil = false; E.fech = {}; E.v2 = 1; }
+  E.fech = E.fech || {};
   const grava = () => { try { localStorage.setItem(LS, JSON.stringify(E)); } catch (e) {} };
 
   /* ---- régua ---- */
@@ -155,7 +158,8 @@
       const r = ref(E.pos, i.k); if (!r || r[0] == null) return;
       const lim = mins[i.k];
       if (E.soPerfil && ks.length && lim == null) return;
-      if (i.bloco !== bloco) { bloco = i.bloco; h += '<tr class="bloco"><td colspan="' + (3 + js.length) + '">' + esc(bloco) + '</td></tr>'; }
+      if (i.bloco !== bloco) { bloco = i.bloco; h += '<tr class="bloco" data-bl="' + esc(bloco) + '" title="Clique para ' + (E.fech[bloco] ? 'abrir' : 'recolher') + ' este grupo"><td colspan="' + (3 + js.length) + '"><b class="pm">' + (E.fech[bloco] ? '＋' : '－') + '</b> ' + esc(bloco) + '</td></tr>'; }
+      if (E.fech[bloco]) return;
       h += '<tr class="' + (lim != null ? 'no-perfil' : '') + '"><td class="rot">' + esc(i.rot) + (r[3] ? ' *' : '') +
         (lim != null ? '<span class="lim">' + (i.menor ? 'máx ' : 'mín ') + num(lim, i.casas) + '</span>' : '') + '</td>' +
         '<td>' + celula(i, r, r[0], null, 'ref') + '</td><td>' + celula(i, r, r[1], null, 'ref') + '</td>' +
@@ -247,6 +251,7 @@
       const t = ev.target, q = s => t.closest(s);
       let e;
       if ((e = q('[data-pos]'))) { E.pos = e.dataset.pos; if (E.perfil[0] === '@') E.perfil = 'fis'; E.mins = null; return render(); }
+      if ((e = q('tr.bloco[data-bl]'))) { E.fech[e.dataset.bl] = !E.fech[e.dataset.bl]; return atualiza(); }
       if ((e = q('[data-rm]'))) { const s = selAtual(), i = s.indexOf(e.dataset.rm); if (i >= 0) s.splice(i, 1); return atualiza(); }
       if ((e = q('.sub-item'))) { const s = selAtual(), k = e.dataset.k, i = s.indexOf(k); if (i >= 0) s.splice(i, 1); else s.push(k); return atualiza(); }
       if ((e = q('[data-add]'))) { const s = selAtual(); if (!s.includes(e.dataset.add)) s.push(e.dataset.add); R.querySelector('#subBusca').value = ''; R.querySelector('#subBuscaLista').hidden = true; return atualiza(); }

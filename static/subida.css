@@ -112,3 +112,7 @@
 .sq-bloco td.sq-nd{color:var(--tinta3);font-weight:400}
 .sq-bloco tr.sq-fraco td.sq-v{font-weight:600;font-size:12px;opacity:.75}
 .sq-pe{margin-top:8px;font-size:10.5px;color:var(--tinta3);line-height:1.5}
+
+.sub-mat tr.bloco{cursor:pointer}
+.sub-mat tr.bloco:hover td{color:var(--tinta)}
+.sub-mat tr.bloco .pm{display:inline-block;width:18px;font-size:13px;color:var(--tinta)}
