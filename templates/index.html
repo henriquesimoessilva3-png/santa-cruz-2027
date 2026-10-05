@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/static/bp_jogadores.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/consulta.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/fisico_estudo.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/caracteristicas.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
 <body>
@@ -154,6 +155,7 @@
   <button class="aba" data-aba="bpjogadores">Bola parada · jogadores</button>
   <button class="aba" data-aba="minutagem">Minutagem Série B</button>
   <button class="aba" data-aba="estudo2">Estudo Série B V2</button>
+  <button class="aba" data-aba="caracteristicas">Característica por posição</button>
   <button class="aba" data-aba="consulta">Consulta de jogador</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
@@ -581,6 +583,13 @@
     <!-- A aba Bola parada · jogadores: static/bp_jogadores.js com o dado de
          static/bp_jogadores_dados.js (gerar_bp_jogadores_js.py) — especialistas por mercado e a
          produção em bola parada na Série B pelo Sofascore. Se mostra sozinha, como as de cima. -->
+    <!-- A aba Característica por posição: static/caracteristicas.js com o dado de
+         static/caracteristicas_dados.js (gerar_caracteristicas_js.py) — o que separa o titular de
+         quem sobe do de quem cai, posição a posição. Se mostra sozinha, como as de baixo. -->
+    <section class="pagina oculta" id="pgCaracteristicas">
+      <div class="emp-rolagem"><div class="car" id="carCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgBpJogadores">
       <div class="emp-rolagem"><div class="bpj" id="bpjCorpo"></div></div>
     </section>
@@ -883,6 +892,8 @@
 <script src="/static/fisico_estudo.js?v={{ ver }}"></script>
 <script src="/static/bp_graficos.js?v={{ ver }}"></script>
 <script src="/static/bp_jogadores.js?v={{ ver }}"></script>
+<script src="/static/caracteristicas_dados.js?v={{ ver }}"></script>
+<script src="/static/caracteristicas.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>
