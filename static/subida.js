@@ -10,7 +10,7 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const num = (x, d) => x == null || !isFinite(x) ? '—' : Number(x).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
   const SIG = { LD: 'RB', ZD: 'RCB', ZE: 'LCB', LE: 'LB', VOL: 'DM', MED: 'CM', MEI: 'AM', ED: 'RW', EE: 'LW', CA: 'CF' };
-  const CATS = [['fis', 'Físico'], ['pas', 'Passe'], ['atq', 'Ataque'], ['def', 'Defesa'], ['all', 'Completo (todos)']];
+  const CATS = [['pri', 'Principais (os que mais separam)'], ['nuc', 'Núcleo (o mínimo do mínimo)'], ['fis', 'Físico'], ['pas', 'Passe'], ['atq', 'Ataque'], ['def', 'Defesa'], ['all', 'Completo (todos)']];
   const SA = ['Argentina A', 'Argentina B', 'Colombia A', 'Colombia B', 'Equador A', 'Equador B', 'Paraguai', 'Uruguai', 'Chile', 'Peru', 'Bolivia', 'Venezuela'];
   const ALVO = ['Argentina A', 'Argentina B', 'Paraguai', 'Colombia A', 'Colombia B', 'Equador A', 'Equador B'];
   const GRUPOS = [['', 'Todas as ligas'], ['@b', 'Série B'], ['@ab', 'Brasil A + B'], ['@alvo', 'Argentina, Paraguai, Colômbia e Equador'],
@@ -19,7 +19,7 @@
     : g === '@balvo' ? (l === 'Brasil B' || ALVO.includes(l)) : g === '@sa' ? SA.includes(l) : l === g;
 
   const F0 = { liga: '', nac: '', idade: '', ate: '', valor: '', minutos: '', fis: false };
-  let E = { pos: 'VOL', perfil: 'fis', mins: null, tol: 100, soPerfil: true, topN: 5, f: Object.assign({}, F0), sel: {}, perfis: [] };
+  let E = { pos: 'VOL', perfil: 'pri', mins: null, tol: 80, soPerfil: true, topN: 5, f: Object.assign({}, F0), sel: {}, perfis: [] };
   try { const g = JSON.parse(localStorage.getItem(LS) || 'null'); if (g) { E = Object.assign(E, g); E.f = Object.assign({}, F0, g.f || {}); } } catch (e) {}
   if (D && !D.posicoes[E.pos]) E.pos = 'VOL';
   const grava = () => { try { localStorage.setItem(LS, JSON.stringify(E)); } catch (e) {} };
@@ -38,7 +38,22 @@
   }
   /* mínimos de fábrica de um perfil: a mediana de quem sobe onde quem sobe tem mais; faltas e cartões viram máximo;
      o físico entra inteiro; volume de duelo fica fora (critério do Wyscout mudou) */
+  /* "Principais": só os indicadores que mais separam quem sobe de quem cai (0,30 desvio ou mais, sem os raros),
+     os 4 melhores do físico e os 3 melhores de passe, ataque e defesa — um perfil que dá para cumprir inteiro */
+  const N_PRI = { fis: 4, pas: 3, atq: 3, def: 3 }, N_NUC = { fis: 2, pas: 1, atq: 1, def: 1 };
+  function principais(pos, N) {
+    const m = {}, por = {};
+    D.inds.forEach(i => {
+      const r = ref(pos, i.k); if (!r || i.nm || r[0] == null || r[1] == null || r[2] == null || r[3]) return;
+      if (Math.abs(r[2]) < 0.3 || !(i.menor ? r[0] < r[1] : r[0] > r[1])) return;
+      (por[i.cat] = por[i.cat] || []).push([i.k, r[0], Math.abs(r[2])]);
+    });
+    Object.keys(por).forEach(c => por[c].sort((a, b) => b[2] - a[2]).slice(0, N[c] || 1).forEach(x => { m[x[0]] = x[1]; }));
+    return m;
+  }
   function padrao(pos, cat) {
+    if (cat === 'pri') return principais(pos, N_PRI);
+    if (cat === 'nuc') return principais(pos, N_NUC);
     const m = {};
     D.inds.forEach(i => {
       const r = ref(pos, i.k); if (!r || i.nm || r[0] == null || r[1] == null) return;
@@ -223,6 +238,7 @@
   /* ---- eventos (delegados: a lista e a matriz são redesenhadas a cada filtro) ---- */
   function trocaPerfil(v) {
     E.perfil = v; E.mins = null;
+    if (v === 'pri') E.tol = 80; else if (v === 'nuc') E.tol = 100;
     if (v[0] === '@') { const p = E.perfis.find(x => x.pos === E.pos && '@' + x.nome === v); if (p) { E.mins = Object.assign({}, p.mins); E.tol = p.tol || 100; E.f = Object.assign({}, F0, p.f || {}); } }
     render();
   }
