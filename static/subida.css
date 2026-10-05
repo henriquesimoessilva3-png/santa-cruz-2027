@@ -61,7 +61,7 @@
 .sub-mat thead .rot{z-index:4;background:var(--fundo3)}
 .sub-mat tr.no-perfil .rot{color:var(--tinta);font-weight:600}
 .sub-mat .lim{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:700;color:var(--txt-ambar);background:#f5a52422;border-radius:4px;padding:1px 5px}
-.sub-mat tr.bloco td{background:var(--fundo3);font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--tinta3);font-weight:700;position:sticky;left:0}
+.sub-mat tr.bloco td{background:var(--fundo3);font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--tinta3);font-weight:700}
 .sub-h{min-width:138px}
 .sub-h .nm{display:block;font-size:13px;font-weight:700;color:var(--tinta)}
 .sub-h .cl{display:block;font-size:10.5px;color:var(--tinta3);font-weight:500}
@@ -116,3 +116,11 @@
 .sub-mat tr.bloco{cursor:pointer}
 .sub-mat tr.bloco:hover td{color:var(--tinta)}
 .sub-mat tr.bloco .pm{display:inline-block;width:18px;font-size:13px;color:var(--tinta)}
+
+.sub-mat tr.bloco td:first-child{position:sticky;left:0;z-index:2}
+.sub-mat tr.bloco td.blp{text-transform:none;letter-spacing:0}
+.sub-pl{font-size:11.5px;font-weight:500;color:var(--tinta2);white-space:nowrap}
+.sub-pl b{font-size:15px;font-weight:700}
+.sub-pl b.g{color:var(--txt-verde)} .sub-pl b.p{color:var(--txt-vermelho)}
+.sub-pl i{font-style:normal;color:var(--tinta3)}
+.sub-h .sub-tot{margin-top:3px;font-size:10.5px}

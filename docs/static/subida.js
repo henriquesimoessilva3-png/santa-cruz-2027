@@ -139,6 +139,18 @@
     const falha = lim != null && !cumpre(i, v, lim);
     return '<div class="sub-c ' + (classeExtra || cor(i, r, v)) + (falha ? ' falha' : '') + '"><span class="bar"><i style="width:' + pct(E.pos, i.k, v) + '%"></i></span><b>' + num(v, i.casas) + '</b></div>';
   }
+  /* placar do jogador contra a régua: ganha = no nível de quem sobe · perde = no nível de quem cai · o resto fica entre os dois.
+     Conta os indicadores que estão na matriz (todos, ou só os do perfil), sem os marcados com ~ */
+  function placar(j, mins, bloco) {
+    const o = { v: 0, a: 0, r: 0, n: 0 }, so = E.soPerfil && Object.keys(mins).length;
+    D.inds.forEach(i => {
+      if (i.nm || (bloco && i.bloco !== bloco) || (so && mins[i.k] == null)) return;
+      const r = ref(E.pos, i.k), v = j[NC + i.k]; if (!r || r[0] == null || v == null) return;
+      const c = cor(i, r, v); if (c) { o[c]++; o.n++; }
+    });
+    return o;
+  }
+  const htmlPlacar = o => o.n ? '<span class="sub-pl" title="ganha = no nível de quem sobe · perde = no nível de quem cai · o resto fica entre os dois"><b class="g">' + o.v + '</b> ganha · <b class="p">' + o.r + '</b> perde <i>de ' + o.n + '</i></span>' : '<span class="sub-pl"><i>sem dado</i></span>';
   function htmlMatriz() {
     const P = D.posicoes[E.pos], mins = minsAtuais(), ks = Object.keys(mins).map(Number);
     const mapa = {}; P.jog.forEach(j => { mapa[chave(j)] = j; });
@@ -151,14 +163,15 @@
         return '<th class="sub-h"><span class="x" data-rm="' + esc(chave(j)) + '" title="tirar da comparação">✕</span><span class="nm">' + esc(j[0]) + '</span>' +
           '<span class="cl">' + esc(j[2]) + ' · ' + esc(j[3]) + '</span><span class="cl">' + (j[4] != null ? j[4] + ' anos · ' : '') +
           '<span class="' + (livre(j[5]) ? 'sub-ct' : '') + '">contrato ' + mesAno(j[5]) + '</span></span>' +
-          (ks.length ? '<span class="ad' + (a.ok === a.n ? ' cheio' : '') + '" title="mínimos do perfil que ele cumpre">' + a.ok + '/' + a.n + '</span>' : '') + '</th>'; }).join('') +
+          (ks.length ? '<span class="ad' + (a.ok === a.n ? ' cheio' : '') + '" title="mínimos do perfil que ele cumpre">perfil ' + a.ok + '/' + a.n + '</span>' : '') +
+          '<span class="cl sub-tot">' + (E.soPerfil && ks.length ? 'no perfil: ' : 'em todos: ') + htmlPlacar(placar(j, mins)) + '</span></th>'; }).join('') +
       '</tr></thead><tbody>';
     let bloco = '';
     D.inds.forEach(i => {
       const r = ref(E.pos, i.k); if (!r || r[0] == null) return;
       const lim = mins[i.k];
       if (E.soPerfil && ks.length && lim == null) return;
-      if (i.bloco !== bloco) { bloco = i.bloco; h += '<tr class="bloco" data-bl="' + esc(bloco) + '" title="Clique para ' + (E.fech[bloco] ? 'abrir' : 'recolher') + ' este grupo"><td colspan="' + (3 + js.length) + '"><b class="pm">' + (E.fech[bloco] ? '＋' : '－') + '</b> ' + esc(bloco) + '</td></tr>'; }
+      if (i.bloco !== bloco) { bloco = i.bloco; h += '<tr class="bloco" data-bl="' + esc(bloco) + '" title="Clique para ' + (E.fech[bloco] ? 'abrir' : 'recolher') + ' este grupo"><td colspan="3"><b class="pm">' + (E.fech[bloco] ? '＋' : '－') + '</b> ' + esc(bloco) + '</td>' + js.map(j => '<td class="blp">' + htmlPlacar(placar(j, mins, bloco)) + '</td>').join('') + '</tr>'; }
       if (E.fech[bloco]) return;
       h += '<tr class="' + (lim != null ? 'no-perfil' : '') + '"><td class="rot">' + esc(i.rot) + (r[3] ? ' *' : '') +
         (lim != null ? '<span class="lim">' + (i.menor ? 'máx ' : 'mín ') + num(lim, i.casas) + '</span>' : '') + '</td>' +
