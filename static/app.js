@@ -3299,7 +3299,7 @@ async function montarFicha(j, modo) {
       '<span class="num-leg forte">melhor</span>' +
     '</div>';
   /* quadro "Quem sobe × quem cai" (static/subida.js): os indicadores da posição contra a régua do estudo */
-  const posCampoF = posNoCampograma(primaryKey(j));
+  const posCampoF = posNoCampograma(primaryKey(j), j.id);
   const jSub = (posCampoF && posCampoF !== 'GOL' && j.p && j.p !== 'GOL' && posCampoF !== j.p) ? Object.assign({}, j, { p: posCampoF, _posBase: j.p }) : j;
   const quadroSubida = (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
 
@@ -6967,9 +6967,10 @@ function manuaisSincronizarElenco() {
   if (novos) manuaisGravar();
 }
 /* posição em que o jogador está no campograma (a coluna do card), quando é outra que não a do cadastro */
-function posNoCampograma(pk) {
-  if (!pk || !estado || !estado.elenco) return null;
-  for (const cod in estado.elenco) { if ((estado.elenco[cod] || []).some(x => x && x.pk === pk)) return cod; }
+function posNoCampograma(pk, jid) {
+  if ((!pk && jid == null) || !estado || !estado.elenco) return null;
+  /* card antigo pode não ter pk: vale também o id da base (jid) */
+  for (const cod in estado.elenco) { if ((estado.elenco[cod] || []).some(x => x && ((pk && x.pk === pk) || (jid != null && x.jid === jid)))) return cod; }
   return null;
 }
 function raioIcone(pk, card, objBase, posCampo) {
