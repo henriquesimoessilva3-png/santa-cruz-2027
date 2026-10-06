@@ -67,6 +67,9 @@ GOLEIRO = [("Defesas %", "Defesas, %", 1, False), ("Gols sofridos por 90", "Golo
            ("Duelos aéreos por 90", "Duelos aéreos GR/90", 2, False),
            ("Passes por 90", "Passes/90", 1, False), ("Passes certos %", "Passes certos, %", 1, False),
            ("Passes longos por 90", "Passes longos/90", 1, False), ("Passes longos certos %", "Passes longos certos, %", 1, False)]
+# Posições GÊMEAS usam a MESMA régua (decisão do Henrique, 07/10/2026): os dois zagueiros, os dois laterais e os dois
+# extremos são medidos juntos — mesmos indicadores, mesmos números de quem sobe e de quem cai. Também dobra a amostra.
+GEMEAS = {"ZD": ["ZD", "ZE"], "ZE": ["ZD", "ZE"], "LD": ["LD", "LE"], "LE": ["LD", "LE"], "ED": ["ED", "EE"], "EE": ["ED", "EE"]}
 PERFIL = [("Idade", "idade", 0, True), ("Altura (cm)", "Altura", 0, False)]
 
 
@@ -112,13 +115,14 @@ def main():
 
     posicoes = {}
     for cod, nome in POS:
-        t = T[T.pos11 == cod]
+        grupo = GEMEAS.get(cod, [cod])
+        t = T[T.pos11.isin(grupo)]
         n = {k: int(v) for k, v in t.faixa.value_counts().items()}
         blocos = []
         if cod == "GOL":
             blocos.append({"tit": "Goleiro", "fonte": "Wyscout", "linhas": linhas(t, GOLEIRO)})
         else:
-            f = F[F.pos11 == cod].copy()
+            f = F[F.pos11.isin(grupo)].copy()
             lf = linhas(f, FISICO)
             piso = (f.psv99 < 27).groupby(f.faixa).mean() * 100
             if {"Sobe", "Cai"} <= set(piso.index):
@@ -137,6 +141,7 @@ def main():
                      "linhas": [{"tipo": tp, "sobe": int(r.get("Sobe", 0)), "meio": int(r.get("Meio", 0)), "cai": int(r.get("Cai", 0))}
                                 for tp, r in ct.iterrows()]}
         posicoes[cod] = {"nome": nome, "n": n, "blocos": blocos, "tipos": tipos}
+        if len(grupo) > 1: posicoes[cod]["gemeas"] = grupo
         print(f"  {cod}: {n} · {sum(len(b['linhas']) for b in blocos)} indicadores")
 
     dados = {"gerado_em": datetime.date.today().isoformat(), "anos": list(ANOS), "min": MIN,
