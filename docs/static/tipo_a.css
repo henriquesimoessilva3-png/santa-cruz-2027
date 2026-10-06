@@ -64,3 +64,7 @@ body.ta-claro .ta-vazio{color:#888} body.ta-claro .sb-selo.sb-n{border-color:#99
   body.imp-tipoa .ta-pos h3 span,body.imp-tipoa .ta-lado h5{color:#444} body.imp-tipoa .ta-pos h3 span b,body.imp-tipoa .ta-lado h5 b{color:#000}
   body.imp-tipoa .ta-pos h3 span i,body.imp-tipoa .ta-lado h5 i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+/* barra com o nome das colunas: fundo escuro e letra branca, na tela, no tema claro e no PDF */
+.ta .ta-tab thead th,body.ta-claro .ta .ta-tab thead th,body.imp-tipoa .ta .ta-tab thead th{background:#1b2230!important;color:#fff!important;font-weight:700;font-size:10.5px;letter-spacing:.5px;padding:5px 5px!important;border-bottom:0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ta .ta-tab thead th:first-child{border-radius:4px 0 0 4px} .ta .ta-tab thead th:last-child{border-radius:0 4px 4px 0}
