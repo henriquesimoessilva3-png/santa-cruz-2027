@@ -67,7 +67,7 @@
       '<p>O que o titular de quem <b>sobe</b> faz diferente do de quem <b>cai</b> na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] +
       ' (jogadores com ' + D.min + ' minutos ou mais). Os números são a mediana de cada faixa; nos indicadores raros (gols de volante, por exemplo), a média, marcada com *.</p></div>' +
       '<div class="car-chips">' + D.ordem.map(c => '<button class="car-chip' + (c === pos ? ' on' : '') + '" data-pos="' + c + '"><b>' + SIG[c] + '</b> ' + esc(D.posicoes[c].nome) + '</button>').join('') + '</div>' +
-      (P.gemeas ? '<p class="car-gemeas">Régua comum às posições gêmeas (' + P.gemeas.map(c => esc(D.posicoes[c].nome)).join(' + ') + '): as duas são medidas juntas e têm os mesmos indicadores e os mesmos números.</p>' : '') +
+      (P.gemeas ? '<p class="car-gemeas">Régua comum às posições gêmeas (' + P.gemeas.map(c => esc(D.posicoes[c].nome)).join(' + ') + '): vale a do lado com mais indicadores que separam quem sobe de quem cai — a de <b>' + esc(D.posicoes[P.regua_de].nome) + '</b> —, igual para as duas.</p>' : '') +
       '<div class="car-amostra"><span><b>' + (n.Sobe || 0) + '</b> em times que subiram</span><span><b>' + (n.Meio || 0) + '</b> no meio da tabela</span><span><b>' + (n.Cai || 0) + '</b> em times que caíram</span></div>' +
       resumo(P) + P.blocos.map(tabela).join('') + tipos(P) +
       '<div class="car-nota"><b>Como ler.</b> "Separação" é a diferença entre quem sobe e quem cai em desvios-padrão, calculada dentro de cada ano (o Wyscout mudou critérios no período). ' +

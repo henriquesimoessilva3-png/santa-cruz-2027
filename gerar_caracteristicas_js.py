@@ -68,8 +68,25 @@ GOLEIRO = [("Defesas %", "Defesas, %", 1, False), ("Gols sofridos por 90", "Golo
            ("Passes por 90", "Passes/90", 1, False), ("Passes certos %", "Passes certos, %", 1, False),
            ("Passes longos por 90", "Passes longos/90", 1, False), ("Passes longos certos %", "Passes longos certos, %", 1, False)]
 # Posições GÊMEAS usam a MESMA régua (decisão do Henrique, 07/10/2026): os dois zagueiros, os dois laterais e os dois
-# extremos são medidos juntos — mesmos indicadores, mesmos números de quem sobe e de quem cai. Também dobra a amostra.
-GEMEAS = {"ZD": ["ZD", "ZE"], "ZE": ["ZD", "ZE"], "LD": ["LD", "LE"], "LE": ["LD", "LE"], "ED": ["ED", "EE"], "EE": ["ED", "EE"]}
+# extremos têm os mesmos indicadores e os mesmos números. Vale a régua do LADO COM A CESTA MAIOR — o que tem mais
+# indicadores que separam quem sobe de quem cai (|separação| >= 0,30) —, copiada para o outro lado.
+PARES = [("ZD", "ZE"), ("LD", "LE"), ("ED", "EE")]
+SEM_CONTA = {"Duelos por 90", "Duelos defensivos por 90", "Duelos aéreos por 90", "Ações defensivas certas por 90"}   # critério do Wyscout mudou
+BLOCOS_REGUA = ("Físico", "Passe e construção", "Ataque e criação", "Defesa e duelos")
+
+
+def cesta(P):
+    """(principais, fundamentais) de uma posição: quantos indicadores separam, e quantos deles com quem sobe tendo MAIS e sem ser raro."""
+    pri = fund = 0
+    for b in P["blocos"]:
+        if b["tit"] not in BLOCOS_REGUA: continue
+        for l in b["linhas"]:
+            if l.get("d") is None or abs(l["d"]) < 0.3 or l["rot"] in SEM_CONTA: continue
+            pri += 1
+            if not l.get("media") and l.get("sobe") is not None and l.get("cai") is not None and ((l["sobe"] < l["cai"]) if l.get("menor") else (l["sobe"] > l["cai"])): fund += 1
+    return pri, fund
+
+
 PERFIL = [("Idade", "idade", 0, True), ("Altura (cm)", "Altura", 0, False)]
 
 
@@ -115,14 +132,13 @@ def main():
 
     posicoes = {}
     for cod, nome in POS:
-        grupo = GEMEAS.get(cod, [cod])
-        t = T[T.pos11.isin(grupo)]
+        t = T[T.pos11 == cod]
         n = {k: int(v) for k, v in t.faixa.value_counts().items()}
         blocos = []
         if cod == "GOL":
             blocos.append({"tit": "Goleiro", "fonte": "Wyscout", "linhas": linhas(t, GOLEIRO)})
         else:
-            f = F[F.pos11.isin(grupo)].copy()
+            f = F[F.pos11 == cod].copy()
             lf = linhas(f, FISICO)
             piso = (f.psv99 < 27).groupby(f.faixa).mean() * 100
             if {"Sobe", "Cai"} <= set(piso.index):
@@ -141,8 +157,16 @@ def main():
                      "linhas": [{"tipo": tp, "sobe": int(r.get("Sobe", 0)), "meio": int(r.get("Meio", 0)), "cai": int(r.get("Cai", 0))}
                                 for tp, r in ct.iterrows()]}
         posicoes[cod] = {"nome": nome, "n": n, "blocos": blocos, "tipos": tipos}
-        if len(grupo) > 1: posicoes[cod]["gemeas"] = grupo
+
         print(f"  {cod}: {n} · {sum(len(b['linhas']) for b in blocos)} indicadores")
+
+    for a, b in PARES:
+        ca, cb = cesta(posicoes[a]), cesta(posicoes[b])
+        dona, outra = (a, b) if ca >= cb else (b, a)
+        for cod in (a, b):
+            posicoes[cod]["gemeas"] = [a, b]; posicoes[cod]["regua_de"] = dona
+        posicoes[outra]["blocos"] = json.loads(json.dumps(posicoes[dona]["blocos"])); posicoes[outra]["n"] = dict(posicoes[dona]["n"])
+        print(f"  gêmeas {a}/{b}: {a} {ca} · {b} {cb} → vale a régua de {dona}")
 
     dados = {"gerado_em": datetime.date.today().isoformat(), "anos": list(ANOS), "min": MIN,
              "ordem": [c for c, _ in POS], "posicoes": posicoes}
