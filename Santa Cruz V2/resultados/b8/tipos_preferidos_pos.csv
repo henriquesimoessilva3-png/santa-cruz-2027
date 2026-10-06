@@ -1,11 +1,11 @@
 pos11,preferidos,de_quem_cai
-LD,Explosivo e rápido,Médio em tudo
-ZD,Explosivo e rápido,
+LD,Explosivo e rápido,Baixa intensidade
+ZD,Explosivo e rápido,Baixa intensidade
 ZE,Explosivo e rápido,Baixa intensidade
 LE,Explosivo e rápido,Baixa intensidade
-VOL,Mais intenso / Intermediário,Menos intenso
-MED,Médio em tudo / Explosivo e rápido,
-MEI,,
-ED,Explosivo e rápido,
-EE,Explosivo e rápido,Motor de volume
-CA,Motor de volume,Baixa intensidade
+VOL,Mais intenso,Menos intenso
+MED,Explosivo e rápido,Baixa intensidade
+MEI,Explosivo e rápido,Baixa intensidade
+ED,Explosivo e rápido,Baixa intensidade
+EE,Explosivo e rápido,Baixa intensidade
+CA,Explosivo e rápido,Baixa intensidade

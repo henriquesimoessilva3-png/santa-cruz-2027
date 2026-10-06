@@ -36,6 +36,7 @@ def main():
             if int(getattr(r, "substitui", 0) or 0): pref[r.pos11] = [r.tipo]      # o clube TROCA o tipo A (ZE, 06/10/26): o do dado vira B
             elif r.tipo not in pref[r.pos11]: pref[r.pos11] = pref[r.pos11] + [r.tipo]
             if r.tipo in cai[r.pos11]: cai[r.pos11].remove(r.tipo)
+            if isinstance(getattr(r, "cai", None), str) and r.cai.strip(): cai[r.pos11] = [r.cai.strip()]   # o clube também fixa o tipo C (regra única, 06/10/26)
             clube[r.pos11] = r.tipo
     pd.DataFrame([dict(pos11=p, preferidos=" / ".join(pref[p]), de_quem_cai=" / ".join(cai[p])) for p in ORDEM]).to_csv(os.path.join(OUT, "tipos_preferidos_pos.csv"), index=False)
     f = lambda v, c=0: "—" if pd.isna(v) else f"{v:.{c}f}".replace(".", ",")

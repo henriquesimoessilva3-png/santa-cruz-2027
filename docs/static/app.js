@@ -6870,16 +6870,14 @@ function tipoBadgeLetra(pk, obj) {
   const x = tipoResolvido(j); if (!x) return '';
   const D = window.CONSULTA, pos = j.p;   /* a posição é a do app (onde ele joga aqui), não a do estudo */
   const pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
-  let g, leitura;
-  if (pref.includes(x.tipo)) { g = 'A'; leitura = 'o tipo que quem sobe usa no ' + (TIPO_POSN[pos] || pos); }
-  else if (cai.includes(x.tipo)) { g = 'C'; leitura = 'o tipo de quem cai no ' + (TIPO_POSN[pos] || pos) + (pref.length ? ' — quem sobe usa ' + pref.join(' / ') : ''); }
-  else if (!pref.length) { g = 'B'; leitura = 'no ' + (TIPO_POSN[pos] || pos) + ' o físico não separa quem sobe de quem cai (F2-4)'; }
-  else { g = 'B'; leitura = 'nem o tipo de quem sobe (' + pref.join(' / ') + ') nem o de quem cai no ' + (TIPO_POSN[pos] || pos); }
+  /* regra única do clube (06/10/2026): A = o tipo mais forte fisicamente do setor, B = o do meio, C = o de menor
+     intensidade — vale em todas as posições (listas/PREFERENCIAS_CLUBE.csv), não é mais "o tipo de quem sobe" */
+  const g = pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) ? 'C' : 'B';
   const posn = TIPO_POSN[pos] || pos;
-  const legenda = pref.length
-    ? 'No ' + posn + ': A = ' + pref.join(' / ') + ' (o tipo de quem sobe); C = ' + (cai.length ? cai.join(' / ') : 'nenhum') + ' (o tipo de quem cai); B = os outros tipos.'
-    : 'No ' + posn + ' o físico não separa quem sobe de quem cai: todos ficam em B.';
-  const t = 'Tipo físico deste jogador: ' + x.tipo + ' → ' + g + '. ' + legenda + ' (Estudo V2, F2-4.)' + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '');
+  const doSetor = Object.keys(((D.cen || {})[TIPO_SET[pos]] || {}).tipos || {});
+  const meio = doSetor.filter(tp => !pref.includes(tp) && !cai.includes(tp));
+  const legenda = 'No ' + posn + ': A = ' + pref.join(' / ') + '; B = ' + (meio.join(' / ') || '—') + '; C = ' + (cai.join(' / ') || '—') + '. Regra do clube: A é o tipo mais forte fisicamente, C o de menor intensidade.';
+  const t = 'Tipo físico deste jogador: ' + x.tipo + ' → ' + g + '. ' + legenda + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '');
   return '<span class="tipo-abc tipo-' + g + '" title="' + esc(t) + '">' + g + '</span>';
 }
 

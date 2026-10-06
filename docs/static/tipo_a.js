@@ -1,4 +1,4 @@
-/* Aba "Físico A" — todos os jogadores com letra A (o tipo físico de quem SOBE na posição), por posição, em quatro
+/* Aba "Físico A" — todos os jogadores com letra A (o tipo físico mais forte da posição, pela regra do clube), por posição, em quatro
    tabelas: Série B, Série A, campeonatos sul-americanos e brasileiros no exterior. Mesma régua da letra dos cards
    (tipoLetra do app.js: tipo do estudo, ou calculado pelo centróide do setor com 5 jogos rastreados ou mais).
    Sai em PDF pelo botão "Gerar PDF" (impressão do navegador). Arquivo próprio; observa o botão da aba. */
@@ -64,8 +64,8 @@
     const D = cache.d, C = window.CONSULTA, pref = C.pref || {};
     const conta = p => GRUPOS.reduce((s, g) => s + (E.livres ? D[p][g[0]].filter(x => livre(x.j)).length : D[p][g[0]].length), 0);
     const lista = POS.filter(p => !E.pos || p[0] === E.pos);
-    let h = '<div class="ta-topo"><h2>Jogadores A — o tipo físico de quem sobe</h2>' +
-      '<p>Todos os jogadores da base com letra <b>A</b>: o tipo físico deles é o que os times que subiram na Série B 2022–2025 usam naquela posição. Só a parte física (SkillCorner, 5 jogos rastreados ou mais). ' +
+    let h = '<div class="ta-topo"><h2>Jogadores A — o tipo físico mais forte da posição</h2>' +
+      '<p>Todos os jogadores da base com letra <b>A</b> pela regra do clube: A é o tipo mais forte fisicamente da posição (explosivo e rápido; no volante, mais intenso), B o tipo do meio e C o de menor intensidade. Só a parte física (SkillCorner, 5 jogos rastreados ou mais). ' +
       'Quatro tabelas por posição: Série B, campeonatos sul-americanos, brasileiros no exterior e Série A. Vetados ficam de fora.</p></div>' +
       '<div class="ta-ctrl"><div class="ta-chips"><button class="ta-chip' + (!E.pos ? ' on' : '') + '" data-pos="">Todas</button>' +
       POS.map(p => '<button class="ta-chip' + (E.pos === p[0] ? ' on' : '') + '" data-pos="' + p[0] + '">' + esc(p[1]) + ' <b>' + conta(p[0]) + '</b></button>').join('') + '</div>' +
@@ -79,7 +79,7 @@
       else h += GRUPOS.map(g => tabela(g[1], D[p[0]][g[0]])).join('');
       h += '</section>';
     });
-    h += '<div class="ta-nota">A letra é a mesma dos cards do campograma (Estudo V2, F2-4). * = físico de outra temporada, vindo da base do estudo. Brasileiros no exterior = fora do Brasil e fora dos campeonatos sul-americanos (quem joga na América do Sul está na tabela sul-americana). ' +
+    h += '<div class="ta-nota">A letra é a mesma dos cards do campograma (regra do clube de 06/10/2026 sobre os tipos físicos do Estudo V2). * = físico de outra temporada, vindo da base do estudo. Brasileiros no exterior = fora do Brasil e fora dos campeonatos sul-americanos (quem joga na América do Sul está na tabela sul-americana). ' +
       'Coluna Subida: ▲ atende 60% ou mais dos indicadores principais da posição · ↔ 35% a 60% · ▼ menos de 35% · ? falta dado técnico. Contrato em verde = vence até jan/2027.</div>';
     R.innerHTML = h;
     try { localStorage.setItem(LS, JSON.stringify(E)); } catch (e) {}
