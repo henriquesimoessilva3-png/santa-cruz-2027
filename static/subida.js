@@ -462,7 +462,7 @@
       ? 'Selo de subida: faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores fundamentais de ' + nome + ' estão medidos. Sem dado: ' + o.sem.join(', ') + '.'
       : 'Selo de subida (' + nome + ')' + (o.parcial ? ' — PARCIAL, só ' + o.com + ' dos ' + o.n + ' fundamentais medidos' : '') + ': atende ' + o.ok + ' de ' + o.com + ' indicadores fundamentais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
         (o.falta.length ? 'Abaixo em: ' + o.falta.join(', ') + '. ' : '') + (o.sem.length ? 'Sem dado: ' + o.sem.join(', ') + '. ' : '') + '▲ 60% ou mais · ↔ 35% a 60% · ▼ menos de 35%.';
-    return '<span class="sb-selo sb-' + o.c + (o.parcial ? ' sb-p' : '') + '" title="' + esc(t) + '">' + sinal + '</span>';
+    return '<span class="sb-selo sb-' + o.c + (o.parcial ? ' sb-parc' : '') + '" title="' + esc(t) + '">' + sinal + '</span>';
   }
   let mapaSub = null;
   function linhaSub(j) {
