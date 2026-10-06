@@ -450,7 +450,9 @@
     let ok = 0, com = 0; const falta = [], sem_ = [];
     ks.forEach(k => { const i = D.inds[k], v = get(i); if (v == null) { sem_.push(i.rot); return; } com++; if (cumpre(i, v, m[k])) ok++; else falta.push(i.rot); });
     const o = { ok, com, n: ks.length, falta, sem: sem_ };
-    o.c = com < SELO_DADO * ks.length ? 'n' : ok / com >= SELO_V ? 'v' : ok / com >= SELO_R ? 'a' : 'r';
+    /* com 4 principais medidos já sai seta; abaixo de 60% dos principais medidos ela sai marcada como PARCIAL */
+    o.c = com < Math.min(4, ks.length) ? 'n' : ok / com >= SELO_V ? 'v' : ok / com >= SELO_R ? 'a' : 'r';
+    o.parcial = o.c !== 'n' && com < SELO_DADO * ks.length;
     return o;
   }
   function seloHtml(pos, o) {
@@ -458,9 +460,9 @@
     const nome = D.posicoes[pos].nome, sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[o.c];
     const t = o.c === 'n'
       ? 'Selo de subida: faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores principais de ' + nome + ' estão medidos. Sem dado: ' + o.sem.join(', ') + '.'
-      : 'Selo de subida (' + nome + '): atende ' + o.ok + ' de ' + o.com + ' indicadores principais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
+      : 'Selo de subida (' + nome + ')' + (o.parcial ? ' — PARCIAL, só ' + o.com + ' dos ' + o.n + ' principais medidos' : '') + ': atende ' + o.ok + ' de ' + o.com + ' indicadores principais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
         (o.falta.length ? 'Abaixo em: ' + o.falta.join(', ') + '. ' : '') + (o.sem.length ? 'Sem dado: ' + o.sem.join(', ') + '. ' : '') + '▲ 60% ou mais · ↔ 35% a 60% · ▼ menos de 35%.';
-    return '<span class="sb-selo sb-' + o.c + '" title="' + esc(t) + '">' + sinal + '</span>';
+    return '<span class="sb-selo sb-' + o.c + (o.parcial ? ' sb-p' : '') + '" title="' + esc(t) + '">' + sinal + '</span>';
   }
   let mapaSub = null;
   function linhaSub(j) {
@@ -471,6 +473,32 @@
   }
   /* selo de um jogador da base do app (cards do campograma, busca, listas): síncrono, sem buscar arquivo —
      técnico da base da aba (900 min ou mais) ou do export do Wyscout colado; físico do cadastro, do estudo ou colado */
+  /* indicadores da ficha (dados/kpis/<POS>.json): valem para qualquer minutagem, não só para quem tem 900 min.
+     O arquivo é buscado uma vez por posição; quando chega, o campograma é redesenhado e o "?" vira seta. */
+  const kpiPronto = {}; let kpiPend = 0;
+  function kpisDaPosicao(pos) {
+    if (kpiPronto[pos] !== undefined) return kpiPronto[pos] || null;
+    kpiPronto[pos] = null;
+    if (typeof cachePosKpis === 'undefined') { kpiPronto[pos] = false; return null; }
+    if (!cachePosKpis[pos]) cachePosKpis[pos] = fetch('dados/kpis/' + pos + '.json' + (window.__verDados ? '?v=' + window.__verDados : '')).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    kpiPend++;
+    Promise.resolve(cachePosKpis[pos]).then(b => { kpiPronto[pos] = b || false; }, () => { kpiPronto[pos] = false; }).then(() => {
+      if (--kpiPend > 0) return;
+      try { if (typeof render === 'function') render(); else if (typeof renderCampo === 'function') renderCampo(); } catch (e) {}
+      try { window.dispatchEvent(new Event('subida-kpis')); } catch (e) {}
+    });
+    return null;
+  }
+  /* nome da coluna no export do Wyscout em português (para o técnico colado em PT) */
+  const KPI_PT = { 'Passes por 90': 'Passes/90', 'Passes certos %': 'Passes certos, %', 'Passes para frente por 90': 'Passes para a frente/90', 'Passes para frente certos %': 'Passes para a frente certos, %',
+    'Passes progressivos por 90': 'Passes progressivos/90', 'Passes progressivos certos %': 'Passes progressivos certos, %', 'Passes ao terço final por 90': 'Passes para terço final/90',
+    'Passes ao terço final certos %': 'Passes certos para terço final, %', 'Passes longos por 90': 'Passes longos/90', 'Passes longos certos %': 'Passes longos certos, %', 'Passes recebidos por 90': 'Passes recebidos/90',
+    'Conduções progressivas por 90': 'Corridas progressivas/90', 'Gols por 90': 'Golos/90', 'xG por 90': 'Golos esperados/90', 'Finalizações por 90': 'Remates/90', 'Finalizações no gol %': 'Remates à baliza, %',
+    'Toques na área por 90': 'Toques na área/90', 'Gols de cabeça por 90': 'Golos de cabeça/90', 'Assistências por 90': 'Assistências/90', 'xA por 90': 'Assistências esperadas/90', 'Passes-chave por 90': 'Passes chave/90',
+    'Passes para a área por 90': 'Passes para a área de penálti/90', 'Cruzamentos por 90': 'Cruzamentos/90', 'Cruzamentos certos %': 'Cruzamentos certos, %', 'Dribles por 90': 'Dribles/90', 'Dribles certos %': 'Dribles com sucesso, %',
+    'Duelos ofensivos ganhos %': 'Duelos ofensivos ganhos, %', 'Faltas sofridas por 90': 'Faltas sofridas/90', 'Duelos ganhos %': 'Duelos ganhos, %', 'Duelos defensivos ganhos %': 'Duelos defensivos ganhos, %',
+    'Duelos aéreos ganhos %': 'Duelos aéreos ganhos, %', 'Interceptações (ajustadas à posse)': 'Interceções ajust. à posse', 'Carrinhos (ajustados à posse)': 'Cortes de carrinho ajust. à posse',
+    'Finalizações bloqueadas por 90': 'Remates intercetados/90', 'Faltas por 90': 'Faltas/90', 'Cartões amarelos por 90': 'Cartões amarelos/90' };
   window.subidaSelo = function (j0) {
     try {
       if (!D || !j0 || !D.posicoes[j0.p]) return '';
@@ -479,13 +507,18 @@
       if (dc && dc.fis) { j = Object.assign({}, j0); Object.keys(dc.fis).forEach(k => { if (dc.fis[k] != null && k !== 'min') j[k] = dc.fis[k]; }); }
       try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(j) || j; } catch (e) {}
       const r = linhaSub(j0), raw = dc && dc.tec_raw, en = typeof KPI_EN !== 'undefined' ? KPI_EN : {};
+      /* técnico da ficha: o arquivo é o da posição do CADASTRO (é lá que o jogador está), mesmo medido em outra */
+      const tec = {}; let comFicha = false;
+      const usaFicha = () => { if (comFicha) return; comFicha = true; const b = kpisDaPosicao(j0._posBase || j0.p), ls = b && typeof primaryKey === 'function' ? b.jogadores[primaryKey(j0)] : null;
+        if (ls) ls.forEach(l => { const nm = b.kpis[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); };
       const fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
       const numero = v => { if (typeof v === 'string') v = parseFloat(v.replace(',', '.')); return typeof v === 'number' && isFinite(v) ? v : null; };
       return seloHtml(j0.p, seloVals(j0.p, i => {
         let v = null;
         if (i.cat === 'fis') v = numero(j[fisK[i.k]]);
-        else if (raw && KPI[i.rot] && en[KPI[i.rot]] != null) v = numero(raw[en[KPI[i.rot]]]);
+        else if (raw) { if (KPI[i.rot] && en[KPI[i.rot]] != null) v = numero(raw[en[KPI[i.rot]]]); if (v == null && KPI_PT[i.rot]) v = numero(raw[KPI_PT[i.rot]]); }
         if (v == null && r) v = r[NC + i.k];
+        if (v == null && i.cat !== 'fis' && KPI[i.rot]) { usaFicha(); v = numero(tec[KPI[i.rot]]); }
         return v == null ? null : v;
       }));
     } catch (e) { return ''; }
@@ -508,6 +541,10 @@
         linhas.push({ i, r, v, d: r[2], c: cor(i, r, v), chave: !i.nm && r[2] != null && Math.abs(r[2]) >= 0.3 });
       });
       if (!linhas.some(l => l.v != null)) return '';
+      /* os PRINCIPAIS (os do selo ▲ ↔ ▼ do card) são um recorte dos fundamentais: só onde quem sobe tem MAIS, sem os
+         raros, os 4 mais fortes do físico e os 3 de passe, ataque e defesa. O quadro mostra os dois números. */
+      const mp = principais(j.p, N_PRI), porK = {}; linhas.forEach(l => { porK[l.i.k] = l; l.pri = mp[l.i.k] != null; });
+      const selo = seloVals(j.p, i => (porK[i.k] ? porK[i.k].v : null));
       const com = linhas.filter(l => l.v != null && l.chave);
       const acima = com.filter(l => l.c === 'v'), abaixo = com.filter(l => l.c === 'r');
       const blocos = [];
@@ -519,7 +556,7 @@
         return '<div class="sq-bloco"><h5>' + esc(b) + (cb.length ? ' <b>' + cb.filter(l => l.c === 'v').length + '/' + cb.length + '</b>' : '') + '</h5>' +
           '<table><thead><tr><th>Indicador</th><th>Ele</th><th>Sobe</th><th>Cai</th></tr></thead><tbody>' +
           ls.map(l => '<tr class="' + (l.chave ? 'sq-chave' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
-            (paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.chave ? '★ ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
+            (paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-pri" title="Indicador principal: entra no selo ▲ ↔ ▼ do card">●</i> ' : '') + (l.chave ? '★ ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
             '<td class="sq-v ' + (l.c || 'sq-nd') + '">' + (l.v == null ? '—' : num(l.v, l.i.casas)) + '</td><td>' + num(l.r[0], l.i.casas) + '</td><td>' + num(l.r[1], l.i.casas) + '</td></tr>').join('') +
           '</tbody></table></div>';
       };
@@ -528,12 +565,13 @@
         (j._posBase && D.posicoes[j._posBase] ? '<span class="sq-troca" title="No campograma ele está nesta posição; o quadro, a letra e o selo usam a régua dela">medido como ' + esc(P.nome) + ' (posição no campograma) — no cadastro é ' + esc(D.posicoes[j._posBase].nome) + '</span>' : '') +
         '<span class="sq-res">No nível de quem sobe em <b class="v">' + acima.length + '</b> de <b>' + com.length + '</b> indicadores fundamentais' +
         (abaixo.length ? ' · no nível de quem cai em <b class="r">' + abaixo.length + '</b>' : '') + '</span>' +
+        (selo ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Selo do card: atende <b>' + selo.ok + '</b> de <b>' + selo.com + '</b> principais' + (selo.com < selo.n ? ' (' + (selo.n - selo.com) + ' sem dado)' : '') + '</span>' : '') +
         '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · ★ fundamental · ↓ quem sobe tem menos</span></div>' +
         (acima.length ? '<p class="sq-frase"><b class="v">Acima de quem sobe:</b> ' + nomes(acima) + '</p>' : '') +
         (abaixo.length ? '<p class="sq-frase"><b class="r">No nível de quem cai:</b> ' + nomes(abaixo) + '</p>' : '') +
         '<div class="sq-grid">' + blocos.map(tab).join('') + '</div>' +
         '<div class="sq-pe">Régua: mediana do titular dos clubes que subiram e dos que caíram na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', na posição. ' +
-        '★ = indicador que separa quem sobe de quem cai (0,30 desvio ou mais); a conta do topo usa só esses. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta.</div></div>';
+        '★ = indicador que separa quem sobe de quem cai (0,30 desvio ou mais), para mais ou para menos (↓); a primeira conta do topo usa todos esses. ● = principal: o recorte que o selo ▲ ↔ ▼ do card usa (só onde quem sobe tem MAIS, sem os raros; 4 do físico e 3 de passe, ataque e defesa). Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta.</div></div>';
     } catch (e) { return ''; }
   };
 })();

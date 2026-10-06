@@ -95,6 +95,7 @@
     });
     R.addEventListener('change', ev => { if (ev.target.id === 'taLivres') { E.livres = ev.target.checked; render(); } else if (ev.target.id === 'taOrd') { E.ord = ev.target.value; render(); } });
     const sync = () => { const on = bt.classList.contains('on'); pg.classList.toggle('oculta', !on); if (on) render(); };
+    window.addEventListener('subida-kpis', () => { if (bt.classList.contains('on')) render(); });
     new MutationObserver(sync).observe(bt, { attributes: true, attributeFilter: ['class'] });
     sync();
   }
