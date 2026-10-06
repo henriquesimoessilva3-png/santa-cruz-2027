@@ -41,3 +41,26 @@
   body.imp-tipoa .sb-selo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   @page{size:A4 landscape;margin:10mm}
 }
+
+/* A e B lado a lado */
+.ta-pos h3 span i,.ta-lado h5 i{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;color:#fff;font:700 11px var(--fonte);font-style:normal}
+.ta-pos h3 span i.la,.ta-A h5 i{background:#16a34a} .ta-pos h3 span i.lb,.ta-B h5 i{background:#d99a06}
+.ta-pos h3 span b{float:none;font-size:15px;color:var(--tinta);margin-left:3px}
+.ta-par{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.ta-lado h5{margin:0 0 3px;font-size:11px;color:var(--tinta2)} .ta-lado h5 b{font-size:15px;color:var(--tinta);margin-left:4px}
+.ta-lado .ta-tab{font-size:11px} .ta-lado .ta-tab td,.ta-lado .ta-tab th{padding:3px 4px}
+.ta-lado .ta-tab td.f{font-size:12px} .ta-tab td.cl{max-width:210px;overflow:hidden;text-overflow:ellipsis} .ta-tab td.cl em{font-style:normal;color:var(--tinta3)}
+.ta-tab td.nm{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+/* tema claro do PDF (classe posta no body na hora de gerar) */
+body.ta-claro{background:#fff!important}
+body.ta-claro .ta{color:#111;background:#fff} body.ta-claro .ta-topo p,body.ta-claro .ta-nota,body.ta-claro .ta-grupo h4,body.ta-claro .ta-lado h5,body.ta-claro .ta-pos h3 span{color:#444}
+body.ta-claro .ta-tab th{color:#555;border-color:#aaa} body.ta-claro .ta-tab td{color:#222;border-color:#e2e2e2}
+body.ta-claro .ta-tab td.nm,body.ta-claro .ta-tab td.f,body.ta-claro .ta-lado h5 b,body.ta-claro .ta-pos h3 span b,body.ta-claro .ta-pos h3{color:#000}
+body.ta-claro .ta-tab td.i,body.ta-claro .ta-tab td.cl em{color:#888} body.ta-claro .ta-tab td.lv{color:#0a7a35} body.ta-claro .ta-tab td.nm small{color:#9a6a00}
+body.ta-claro .ta-vazio{color:#888} body.ta-claro .sb-selo.sb-n{border-color:#999;color:#999}
+@media print{
+  body.imp-tipoa .ta-par{gap:10px} body.imp-tipoa .ta-lado .ta-tab{font-size:8px} body.imp-tipoa .ta-lado .ta-tab td,body.imp-tipoa .ta-lado .ta-tab th{padding:1.5px 3px}
+  body.imp-tipoa .ta-lado .ta-tab td.f{font-size:8.5px} body.imp-tipoa .ta-tab td.cl em{color:#777}
+  body.imp-tipoa .ta-pos h3 span,body.imp-tipoa .ta-lado h5{color:#444} body.imp-tipoa .ta-pos h3 span b,body.imp-tipoa .ta-lado h5 b{color:#000}
+  body.imp-tipoa .ta-pos h3 span i,body.imp-tipoa .ta-lado h5 i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
