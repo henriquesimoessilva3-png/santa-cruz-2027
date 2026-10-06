@@ -497,8 +497,7 @@
       const P = D.posicoes[j.p], tec = {};
       if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
       /* o que a ficha não traz para a posição (o kpis muda de posição para posição) vem da base da aba Subida */
-      const nk = sem(j.n) + '|' + sem(j.t);
-      const base = P.jog.find(x => x[3] === j.l && sem(x[0]) + '|' + sem(x[2]) === nk) || P.jog.find(x => x[3] === j.l && sem(x[0]) === sem(j.n)) || null;
+      const base = linhaSub(j);
       let nf = 0;
       const linhas = [];
       D.inds.forEach(i => {
@@ -526,6 +525,7 @@
       };
       const nomes = a => a.slice().sort((x, y) => Math.abs(y.d) - Math.abs(x.d)).slice(0, 7).map(l => esc(l.i.rot)).join(' · ');
       return '<div class="sq"><div class="sq-topo"><h4>Quem sobe × quem cai · ' + esc(P.nome) + '</h4>' +
+        (j._posBase && D.posicoes[j._posBase] ? '<span class="sq-troca" title="No campograma ele está nesta posição; o quadro, a letra e o selo usam a régua dela">medido como ' + esc(P.nome) + ' (posição no campograma) — no cadastro é ' + esc(D.posicoes[j._posBase].nome) + '</span>' : '') +
         '<span class="sq-res">No nível de quem sobe em <b class="v">' + acima.length + '</b> de <b>' + com.length + '</b> indicadores fundamentais' +
         (abaixo.length ? ' · no nível de quem cai em <b class="r">' + abaixo.length + '</b>' : '') + '</span>' +
         '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · ★ fundamental · ↓ quem sobe tem menos</span></div>' +

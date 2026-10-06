@@ -1284,7 +1284,7 @@ function cardJog(cod, j) {
          card inteiro isso virou repetição — a mesma informação em dois lugares, gastando
          espaço do nome no card mais disputado da tela. Quem define o nível é o menu ⋯,
          em Status. */
-      raioIcone(j.pk, j) +
+      raioIcone(j.pk, j, undefined, cod) +
       (j.estrangeiro ? '<span class="selo-ex" title="Estrangeiro — ' + esc(j.nac || '') + '">' + esc(sigla(j.nac)) + '</span>' : '') +
       /* a estrela de titular e o selo de estrangeiro comem espaco: o limite cai junto */
       '<span class="nm">' + esc(nomeCurto(j.nome, limiteNome(j, cod))) + '</span>' + '</div>' +
@@ -3299,7 +3299,9 @@ async function montarFicha(j, modo) {
       '<span class="num-leg forte">melhor</span>' +
     '</div>';
   /* quadro "Quem sobe × quem cai" (static/subida.js): os indicadores da posição contra a régua do estudo */
-  const quadroSubida = (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(j, dados) : '';
+  const posCampoF = posNoCampograma(primaryKey(j));
+  const jSub = (posCampoF && posCampoF !== 'GOL' && j.p && j.p !== 'GOL' && posCampoF !== j.p) ? Object.assign({}, j, { p: posCampoF, _posBase: j.p }) : j;
+  const quadroSubida = (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
 
   const rodape = 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posb' ? ' da Série B' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
@@ -6964,13 +6966,25 @@ function manuaisSincronizarElenco() {
     const m = c.manual ? manualPorCard(c) : null; if (m) { c.muid = m.uid; c.jid = 'm:' + m.uid; c.pk = primaryKey(manualRegistro(m)); } }));
   if (novos) manuaisGravar();
 }
-function raioIcone(pk, card, objBase) {
+/* posição em que o jogador está no campograma (a coluna do card), quando é outra que não a do cadastro */
+function posNoCampograma(pk) {
+  if (!pk || !estado || !estado.elenco) return null;
+  for (const cod in estado.elenco) { if ((estado.elenco[cod] || []).some(x => x && x.pk === pk)) return cod; }
+  return null;
+}
+function raioIcone(pk, card, objBase, posCampo) {
   /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
      Quando há dados colados à mão (no card ou em estado.dadosJog[pk]), o objeto montado por dadosDoCard
      substitui o da base no raio, na letra e nos sinais */
   const d = dadosColados(pk, card);
   let obj = d ? dadosDoCard(card || { pk, dados: d }, objBase) : (objBase || null);
   if (!d && BASE.length) { const b = obj || fsJogadorPk(pk); const e = comFisicoDoEstudo(b); if (e && e !== b) obj = e; }
+  /* trocou de posição no campograma: raio, letra A/B/C e selo de subida são refeitos pela régua da posição NOVA
+     (o tipo físico é recalculado pelo centróide do setor novo; o selo usa os indicadores principais dela) */
+  if (posCampo && posCampo !== 'GOL' && BASE.length) {
+    const b = obj || fsJogadorPk(pk);
+    if (b && b.p && b.p !== 'GOL' && b.p !== posCampo) obj = Object.assign({}, b, { p: posCampo, _posBase: b.p });
+  }
   const r = raioIconeBase(pk, obj);
   try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }

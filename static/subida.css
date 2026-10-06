@@ -145,3 +145,5 @@
 .sb-selo{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;margin-left:3px;font:700 9.5px/1 var(--fonte);color:#fff;vertical-align:middle;cursor:help;flex:none}
 .sb-selo.sb-v{background:#16a34a} .sb-selo.sb-a{background:#d99a06;color:#1b1400;font-size:11px} .sb-selo.sb-r{background:#dc2626}
 .sb-selo.sb-n{background:transparent;border:1px dashed var(--tinta3);color:var(--tinta3)}
+
+.sq-troca{font-size:11.5px;color:var(--txt-ambar);font-weight:600}
