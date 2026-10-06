@@ -1,0 +1,43 @@
+/* Aba "Físico A" (static/tipo_a.js) */
+.ta{padding:14px 16px 40px;color:var(--tinta)}
+.ta-topo h2{margin:0 0 3px;font-size:18px}
+.ta-topo p{margin:0 0 12px;font-size:12.5px;color:var(--tinta2);line-height:1.5;max-width:130ch}
+.ta-ctrl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-bottom:14px}
+.ta-chips{display:flex;flex-wrap:wrap;gap:5px}
+.ta-chip{padding:6px 10px;border-radius:7px;background:var(--fundo3);border:1px solid var(--borda2);color:var(--tinta2);font:12px var(--fonte);cursor:pointer}
+.ta-chip b{color:var(--tinta);margin-left:3px}
+.ta-chip.on{background:var(--coral);border-color:var(--coral);color:#fff} .ta-chip.on b{color:#fff}
+.ta-chk{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--tinta2)}
+.ta-chk select{background:var(--input-bg);border:1px solid var(--input-borda);color:var(--tinta);border-radius:6px;padding:4px 7px;font:12.5px var(--fonte)}
+.ta-bt{background:var(--coral);border:0;color:#fff;border-radius:6px;padding:7px 14px;font:700 12.5px var(--fonte);cursor:pointer}
+.ta-pos{margin-bottom:22px}
+.ta-pos h3{margin:0 0 8px;font-size:16px;border-bottom:2px solid var(--coral);padding-bottom:5px}
+.ta-pos h3 span{font-size:12px;font-weight:500;color:var(--tinta2);margin-left:8px}
+.ta-pos h3 b{float:right;font-size:20px}
+.ta-grupo{margin:0 0 14px}
+.ta-grupo h4{margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta2)}
+.ta-grupo h4 b{font-size:16px;color:var(--tinta);margin-left:6px;letter-spacing:0}
+.ta-tab{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+.ta-tab th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--tinta3);font-weight:600;padding:4px 6px;border-bottom:1px solid var(--borda2);white-space:nowrap}
+.ta-tab td{padding:3.5px 6px;border-bottom:1px solid var(--linha1);color:var(--tinta2);white-space:nowrap}
+.ta-tab .n{text-align:right} .ta-tab td.i{color:var(--tinta3)}
+.ta-tab td.nm{color:var(--tinta);font-weight:650}
+.ta-tab td.nm small{font-weight:500;color:var(--txt-ambar);margin-left:4px}
+.ta-tab td.f{font-weight:700;font-size:13px;color:var(--tinta)}
+.ta-tab td.lv{color:var(--txt-verde);font-weight:700}
+.ta-vazio{font-size:12px;color:var(--tinta3);margin:2px 0 10px}
+.ta-nota{font-size:11.5px;color:var(--tinta3);line-height:1.55;max-width:140ch}
+@media print{
+  body.imp-tipoa #impressao,body.imp-tipoa .imp-topo,body.imp-tipoa .ficha,body.imp-tipoa .ta-ctrl,body.imp-tipoa footer{display:none!important}
+  body.imp-tipoa .pagina:not(#pgTipoA){display:none!important}
+  body.imp-tipoa #pgTipoA,body.imp-tipoa #pgTipoA .emp-rolagem{display:block!important;overflow:visible!important;height:auto!important;padding:0}
+  body.imp-tipoa .ta{padding:0;color:#111}
+  body.imp-tipoa .ta-topo p,body.imp-tipoa .ta-nota,body.imp-tipoa .ta-pos h3 span,body.imp-tipoa .ta-grupo h4{color:#444}
+  body.imp-tipoa .ta-tab{font-size:9px} body.imp-tipoa .ta-tab th{color:#555;border-color:#999;font-size:7.5px}
+  body.imp-tipoa .ta-tab td{color:#222;border-color:#ddd;padding:2px 4px} body.imp-tipoa .ta-tab td.nm,body.imp-tipoa .ta-tab td.f,body.imp-tipoa .ta-grupo h4 b,body.imp-tipoa .ta-pos h3 b{color:#000}
+  body.imp-tipoa .ta-tab td.f{font-size:10px} body.imp-tipoa .ta-tab td.lv{color:#0a7a35} body.imp-tipoa .ta-tab td.nm small{color:#9a6a00}
+  body.imp-tipoa .ta-pos{page-break-before:always} body.imp-tipoa .ta-pos:first-of-type{page-break-before:auto}
+  body.imp-tipoa .ta-tab thead{display:table-header-group} body.imp-tipoa .ta-tab tr{page-break-inside:avoid}
+  body.imp-tipoa .sb-selo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4 landscape;margin:10mm}
+}

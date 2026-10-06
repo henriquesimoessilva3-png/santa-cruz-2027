@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/static/fisico_estudo.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/caracteristicas.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/subida.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/tipo_a.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
 <body>
@@ -139,6 +140,7 @@
   <button class="aba" data-aba="contrato">Fim de contrato</button>
   <button class="aba" data-aba="fisico">Físico</button>
   <button class="aba" data-aba="subida" title="Quem cumpre os mínimos do titular de quem sobe na Série B — físico e técnico">Subida</button>
+  <button class="aba" data-aba="tipoa" title="Todos os jogadores com letra A (o tipo físico de quem sobe), por posição — com PDF">Físico A</button>
   <button class="aba" data-aba="analise">Análise do elenco</button>
   <button class="aba" data-aba="financeiro">Financeiro</button>
   <button class="aba" data-aba="empresarios">Empresários</button>
@@ -594,6 +596,10 @@
       <div class="emp-rolagem"><div class="sub" id="subCorpo"></div></div>
     </section>
 
+    <section class="pagina oculta" id="pgTipoA">
+      <div class="emp-rolagem"><div class="ta" id="taCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgCaracteristicas">
       <div class="emp-rolagem"><div class="car" id="carCorpo"></div></div>
     </section>
@@ -904,6 +910,7 @@
 <script src="/static/caracteristicas.js?v={{ ver }}"></script>
 <script src="/static/subida_dados.js?v={{ ver }}"></script>
 <script src="/static/subida.js?v={{ ver }}"></script>
+<script src="/static/tipo_a.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>
