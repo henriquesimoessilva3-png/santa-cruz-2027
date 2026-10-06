@@ -33,7 +33,8 @@ def main():
     pc = os.path.join(RAIZ, "listas", "PREFERENCIAS_CLUBE.csv"); clube = {}
     if os.path.exists(pc):
         for r in pd.read_csv(pc).itertuples():
-            if r.tipo not in pref[r.pos11]: pref[r.pos11] = pref[r.pos11] + [r.tipo]
+            if int(getattr(r, "substitui", 0) or 0): pref[r.pos11] = [r.tipo]      # o clube TROCA o tipo A (ZE, 06/10/26): o do dado vira B
+            elif r.tipo not in pref[r.pos11]: pref[r.pos11] = pref[r.pos11] + [r.tipo]
             if r.tipo in cai[r.pos11]: cai[r.pos11].remove(r.tipo)
             clube[r.pos11] = r.tipo
     pd.DataFrame([dict(pos11=p, preferidos=" / ".join(pref[p]), de_quem_cai=" / ".join(cai[p])) for p in ORDEM]).to_csv(os.path.join(OUT, "tipos_preferidos_pos.csv"), index=False)
