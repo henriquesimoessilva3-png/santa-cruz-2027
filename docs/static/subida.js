@@ -10,7 +10,7 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const num = (x, d) => x == null || !isFinite(x) ? '—' : Number(x).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
   const SIG = { LD: 'RB', ZD: 'RCB', ZE: 'LCB', LE: 'LB', VOL: 'DM', MED: 'CM', MEI: 'AM', ED: 'RW', EE: 'LW', CA: 'CF' };
-  const CATS = [['pri', 'Principais (os que mais separam)'], ['nuc', 'Núcleo (o mínimo do mínimo)'], ['fis', 'Físico'], ['pas', 'Passe'], ['atq', 'Ataque'], ['def', 'Defesa'], ['all', 'Completo (todos)']];
+  const CATS = [['pri', 'Fundamentais (os que mais separam)'], ['nuc', 'Núcleo (o mínimo do mínimo)'], ['fis', 'Físico'], ['pas', 'Passe'], ['atq', 'Ataque'], ['def', 'Defesa'], ['all', 'Completo (todos)']];
   const SA = ['Argentina A', 'Argentina B', 'Colombia A', 'Colombia B', 'Equador A', 'Equador B', 'Paraguai', 'Uruguai', 'Chile', 'Peru', 'Bolivia', 'Venezuela'];
   const ALVO = ['Argentina A', 'Argentina B', 'Paraguai', 'Colombia A', 'Colombia B', 'Equador A', 'Equador B'];
   const GRUPOS = [['', 'Todas as ligas'], ['@b', 'Série B'], ['@ab', 'Brasil A + B'], ['@alvo', 'Argentina, Paraguai, Colômbia e Equador'],
@@ -459,8 +459,8 @@
     if (!o) return '';
     const nome = D.posicoes[pos].nome, sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[o.c];
     const t = o.c === 'n'
-      ? 'Selo de subida: faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores principais de ' + nome + ' estão medidos. Sem dado: ' + o.sem.join(', ') + '.'
-      : 'Selo de subida (' + nome + ')' + (o.parcial ? ' — PARCIAL, só ' + o.com + ' dos ' + o.n + ' principais medidos' : '') + ': atende ' + o.ok + ' de ' + o.com + ' indicadores principais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
+      ? 'Selo de subida: faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores fundamentais de ' + nome + ' estão medidos. Sem dado: ' + o.sem.join(', ') + '.'
+      : 'Selo de subida (' + nome + ')' + (o.parcial ? ' — PARCIAL, só ' + o.com + ' dos ' + o.n + ' fundamentais medidos' : '') + ': atende ' + o.ok + ' de ' + o.com + ' indicadores fundamentais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
         (o.falta.length ? 'Abaixo em: ' + o.falta.join(', ') + '. ' : '') + (o.sem.length ? 'Sem dado: ' + o.sem.join(', ') + '. ' : '') + '▲ 60% ou mais · ↔ 35% a 60% · ▼ menos de 35%.';
     return '<span class="sb-selo sb-' + o.c + (o.parcial ? ' sb-p' : '') + '" title="' + esc(t) + '">' + sinal + '</span>';
   }
@@ -542,7 +542,7 @@
       });
       if (!linhas.some(l => l.v != null)) return '';
       /* os PRINCIPAIS (os do selo ▲ ↔ ▼ do card) são um recorte dos fundamentais: só onde quem sobe tem MAIS, sem os
-         raros, os 4 mais fortes do físico e os 3 de passe, ataque e defesa. O quadro mostra os dois números. */
+         raros, os 4 mais fortes do físico e os 3 de passe, ataque e defesa. O quadro mostra os dois números. NOMES (07/10): os do selo se chamam FUNDAMENTAIS (azul) e o conjunto todo, PRINCIPAIS (amarelo). */
       const mp = principais(j.p, N_PRI), porK = {}; linhas.forEach(l => { porK[l.i.k] = l; l.pri = mp[l.i.k] != null; });
       const selo = seloVals(j.p, i => (porK[i.k] ? porK[i.k].v : null));
       const com = linhas.filter(l => l.v != null && l.chave);
@@ -550,28 +550,28 @@
       const blocos = [];
       D.inds.forEach(i => { if (!blocos.includes(i.bloco)) blocos.push(i.bloco); });
       const tab = b => {
-        const ls = linhas.filter(l => l.i.bloco === b).sort((a, c) => Math.abs(c.d == null ? 0 : c.d) - Math.abs(a.d == null ? 0 : a.d));
+        const ls = linhas.filter(l => l.i.bloco === b).sort((a, c) => ((c.pri ? 2 : c.chave ? 1 : 0) - (a.pri ? 2 : a.chave ? 1 : 0)) || (Math.abs(c.d == null ? 0 : c.d) - Math.abs(a.d == null ? 0 : a.d)));
         if (!ls.length) return '';
         const cb = ls.filter(l => l.chave && l.v != null);
         return '<div class="sq-bloco"><h5>' + esc(b) + (cb.length ? ' <b>' + cb.filter(l => l.c === 'v').length + '/' + cb.length + '</b>' : '') + '</h5>' +
           '<table><thead><tr><th>Indicador</th><th>Ele</th><th>Sobe</th><th>Cai</th></tr></thead><tbody>' +
-          ls.map(l => '<tr class="' + (l.chave ? 'sq-chave' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
-            (paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-pri" title="Indicador principal: entra no selo ▲ ↔ ▼ do card">●</i> ' : '') + (l.chave ? '★ ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
+          ls.map(l => '<tr class="' + (l.pri ? 'sq-chave sq-lf' : l.chave ? 'sq-chave sq-lp' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
+            (paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
             '<td class="sq-v ' + (l.c || 'sq-nd') + '">' + (l.v == null ? '—' : num(l.v, l.i.casas)) + '</td><td>' + num(l.r[0], l.i.casas) + '</td><td>' + num(l.r[1], l.i.casas) + '</td></tr>').join('') +
           '</tbody></table></div>';
       };
       const nomes = a => a.slice().sort((x, y) => Math.abs(y.d) - Math.abs(x.d)).slice(0, 7).map(l => esc(l.i.rot)).join(' · ');
       return '<div class="sq"><div class="sq-topo"><h4>Quem sobe × quem cai · ' + esc(P.nome) + '</h4>' +
         (j._posBase && D.posicoes[j._posBase] ? '<span class="sq-troca" title="No campograma ele está nesta posição; o quadro, a letra e o selo usam a régua dela">medido como ' + esc(P.nome) + ' (posição no campograma) — no cadastro é ' + esc(D.posicoes[j._posBase].nome) + '</span>' : '') +
-        '<span class="sq-res">No nível de quem sobe em <b class="v">' + acima.length + '</b> de <b>' + com.length + '</b> indicadores fundamentais' +
+        '<span class="sq-res">No nível de quem sobe em <b class="v">' + acima.length + '</b> de <b>' + com.length + '</b> indicadores principais' +
         (abaixo.length ? ' · no nível de quem cai em <b class="r">' + abaixo.length + '</b>' : '') + '</span>' +
-        (selo ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Selo do card: atende <b>' + selo.ok + '</b> de <b>' + selo.com + '</b> principais' + (selo.com < selo.n ? ' (' + (selo.n - selo.com) + ' sem dado)' : '') + '</span>' : '') +
-        '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · ★ fundamental · ↓ quem sobe tem menos</span></div>' +
+        (selo ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Selo do card: atende <b>' + selo.ok + '</b> de <b>' + selo.com + '</b> fundamentais' + (selo.com < selo.n ? ' (' + (selo.n - selo.com) + ' sem dado)' : '') + '</span>' : '') +
+        '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · <i class="sq-m sq-fund">F</i> fundamental (selo) · <i class="sq-m sq-princ">P</i> principal · ↓ quem sobe tem menos</span></div>' +
         (acima.length ? '<p class="sq-frase"><b class="v">Acima de quem sobe:</b> ' + nomes(acima) + '</p>' : '') +
         (abaixo.length ? '<p class="sq-frase"><b class="r">No nível de quem cai:</b> ' + nomes(abaixo) + '</p>' : '') +
         '<div class="sq-grid">' + blocos.map(tab).join('') + '</div>' +
         '<div class="sq-pe">Régua: mediana do titular dos clubes que subiram e dos que caíram na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', na posição. ' +
-        '★ = indicador que separa quem sobe de quem cai (0,30 desvio ou mais), para mais ou para menos (↓); a primeira conta do topo usa todos esses. ● = principal: o recorte que o selo ▲ ↔ ▼ do card usa (só onde quem sobe tem MAIS, sem os raros; 4 do físico e 3 de passe, ataque e defesa). Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta.</div></div>';
+        'Principais (azul e amarelo): todos os indicadores que separam quem sobe de quem cai (0,30 desvio ou mais), para mais ou para menos (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta.</div></div>';
     } catch (e) { return ''; }
   };
 })();

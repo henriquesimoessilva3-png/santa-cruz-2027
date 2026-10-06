@@ -82,7 +82,7 @@
       h += '</section>';
     });
     h += '<div class="ta-nota">A letra é a mesma dos cards do campograma (regra do clube de 06/10/2026 sobre os tipos físicos do Estudo V2). PSV = velocidade máxima (km/h) · Spr = sprints por 90 · Arr = arrancadas explosivas por 90 · AI = ações de alta intensidade por 90. ' +
-      'Sub: ▲ atende 60% ou mais dos indicadores principais da posição · ↔ 35% a 60% · ▼ menos de 35% · ? falta dado técnico. Contrato em verde = vence até jan/2027. As segundas divisões de Argentina, Colômbia e Equador não têm dado físico.</div>';
+      'Sub: ▲ atende 60% ou mais dos indicadores fundamentais da posição · ↔ 35% a 60% · ▼ menos de 35% · ? falta dado técnico. Contrato em verde = vence até jan/2027. As segundas divisões de Argentina, Colômbia e Equador não têm dado físico.</div>';
     R.innerHTML = h;
     try { localStorage.setItem(LS, JSON.stringify(E)); } catch (e) {}
   }

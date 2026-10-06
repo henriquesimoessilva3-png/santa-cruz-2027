@@ -153,3 +153,10 @@
 
 .sq-pri{font-style:normal;color:var(--txt-azul);font-size:9px}
 .sq-selo{border-left:1px solid var(--borda2);padding-left:14px}
+
+/* quadro da ficha: fundamentais (azul, entram no selo) e principais (amarelo, os demais que separam) */
+.sq-m{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:3px;font:700 8.5px/1 var(--fonte);font-style:normal;margin-right:2px;vertical-align:middle}
+.sq-m.sq-fund{background:#2563eb;color:#fff} .sq-m.sq-princ{background:#d99a06;color:#1b1400}
+.sq-bloco tr.sq-lf td:first-child{box-shadow:inset 3px 0 0 #2563eb;padding-left:8px;background:#2563eb14}
+.sq-bloco tr.sq-lp td:first-child{box-shadow:inset 3px 0 0 #d99a06;padding-left:8px;background:#d99a0612}
+.sq-leg .sq-m{margin:0 3px 0 8px}
