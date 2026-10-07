@@ -94,3 +94,19 @@
 .cs-det .sq{margin:10px 14px 12px}
 .cs-det .fi-grid{grid-template-columns:repeat(auto-fit,minmax(262px,1fr))}
 .cs-det .sq-grid{grid-template-columns:repeat(auto-fit,minmax(350px,1fr))}
+
+/* avaliações dos scouts (só no app local) */
+.cs-av-res{display:flex;flex-wrap:wrap;gap:8px;padding:8px 14px}
+.cs-av-res>div{background:var(--fundo3);border:1px solid var(--borda);border-radius:8px;padding:8px 14px;min-width:110px}
+.cs-av-res b{display:block;font-size:22px;color:var(--tinta)} .cs-av-res b.pq{font-size:13px;padding:5px 0}
+.cs-av-res b.v{color:var(--txt-verde)} .cs-av-res b.a{color:var(--txt-ambar)} .cs-av-res b.r{color:var(--txt-vermelho)}
+.cs-av-res small{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta3)}
+.cs-av-scouts{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px;font-size:11.5px;color:var(--tinta2)}
+.cs-av-scouts span{border:1px solid var(--borda2);border-radius:6px;padding:3px 9px} .cs-av-scouts b{color:var(--tinta)}
+.cs-av-lista{padding:0 14px 12px;max-height:70vh;overflow:auto}
+.cs-av{border-top:1px dashed var(--linha1);padding:9px 0}
+.cs-av-cab{font-size:11.5px;color:var(--tinta3)} .cs-av-cab b{color:var(--tinta)}
+.cs-av-cab i{display:inline-block;min-width:22px;text-align:center;font-style:normal;font-weight:700;color:#fff;border-radius:4px;padding:1px 6px;margin:0 3px}
+.cs-av-cab i.v{background:#16a34a} .cs-av-cab i.a{background:#d97706} .cs-av-cab i.r{background:#dc2626}
+.cs-av-cab em{font-style:normal;border:1px solid var(--borda2);border-radius:4px;padding:0 6px;margin-left:3px;color:var(--tinta2)} .cs-av-cab em.ov{border-color:var(--ambar);color:var(--txt-ambar)}
+.cs-av p{margin:4px 0 0;font-size:13.5px;color:var(--tinta);line-height:1.5} .cs-av p .sem{color:var(--tinta3);font-size:12px}

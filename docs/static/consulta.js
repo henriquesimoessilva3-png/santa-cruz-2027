@@ -173,16 +173,47 @@
       '<div class="det"><div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo + '<div class="det-pe">' + esc(f.rodape) + '</div></div>';
   }
 
+  /* avaliações dos scouts (TransferRoom Scout): só no app LOCAL — o site publicado não tem a rota nem o dado */
+  let avalSeq = 0;
+  async function avaliacoes(x) {
+    const el = document.getElementById('csAval'); if (!el) return;
+    el.innerHTML = '';
+    if (window.__estatico) return;
+    const seq = ++avalSeq, j = jogadorDaBase(x) || {};
+    let r = null;
+    try { r = await fetch('/api/avaliacoes?nome=' + encodeURIComponent(x.n || '') + '&nc=' + encodeURIComponent(j.nc || '') + '&clube=' + encodeURIComponent(j.t || x.c || '') + '&idade=' + encodeURIComponent(j.id_ || x.id || '')).then(q => q.ok ? q.json() : null); } catch (e) { r = null; }
+    if (seq !== avalSeq || !document.getElementById('csAval') || !r || !r.disponivel) return;
+    const A = r.avaliacoes || [];
+    const data = d => d ? d.slice(8, 10) + '/' + d.slice(5, 7) + '/' + d.slice(0, 4) : '—';
+    const cor = n => n >= 7 ? 'v' : n >= 6 ? 'a' : 'r';
+    if (!A.length) { el.innerHTML = '<div class="cs-det-tit"><h3>Avaliações dos scouts</h3><span>nenhuma avaliação deste jogador no TransferRoom Scout</span></div>'; return; }
+    const notas = A.map(a => parseFloat(a.fr_match_rating)).filter(v => isFinite(v));
+    const media = notas.length ? notas.reduce((s, v) => s + v, 0) / notas.length : null;
+    const porScout = {}; A.forEach(a => { (porScout[a.scout || '—'] = porScout[a.scout || '—'] || []).push(parseFloat(a.fr_match_rating)); });
+    const comTexto = A.filter(a => (a.notes || '').trim()).length;
+    const melhor = (k, ordem) => { const v = A.map(a => a[k]).filter(Boolean); return v.length ? v.sort((p, q) => ordem.indexOf(p) - ordem.indexOf(q))[0] : '—'; };
+    el.innerHTML = '<div class="cs-det-tit"><h3>Avaliações dos scouts</h3><span>TransferRoom Scout · só neste computador, não vai para o site</span></div>' +
+      '<div class="cs-av-res"><div><b>' + A.length + '</b><small>avaliações</small></div><div><b class="' + (media != null ? cor(media) : '') + '">' + (media != null ? media.toFixed(2).replace('.', ',') : '—') + '</b><small>nota média do jogo</small></div>' +
+      '<div><b>' + (notas.length ? Math.min.apply(null, notas) + '–' + Math.max.apply(null, notas) : '—') + '</b><small>mín–máx</small></div><div><b>' + esc(melhor('fr_points', ['A', 'B', 'C', 'D', 'E'])) + '</b><small>melhor points</small></div>' +
+      '<div><b>' + comTexto + '</b><small>com relatório escrito</small></div><div><b class="pq">' + data(A[A.length - 1].match_date) + ' → ' + data(A[0].match_date) + '</b><small>período avaliado</small></div></div>' +
+      '<div class="cs-av-scouts">' + Object.keys(porScout).map(s => { const v = porScout[s].filter(isFinite); return '<span><b>' + esc(s) + '</b> · ' + porScout[s].length + ' aval.' + (v.length ? ' · média ' + (v.reduce((p, q) => p + q, 0) / v.length).toFixed(2).replace('.', ',') : '') + '</span>'; }).join('') + '</div>' +
+      '<div class="cs-av-lista">' + A.map(a => { const n = parseFloat(a.fr_match_rating);
+        return '<div class="cs-av"><div class="cs-av-cab">' + data(a.match_date) + ' · ' + esc(a.competition || '') + ' · ' + esc(a.home || '') + ' x ' + esc(a.away || '') + ' · <b>' + esc(a.scout || '') + '</b> ' +
+          (isFinite(n) ? '<i class="' + cor(n) + '">' + esc(a.fr_match_rating) + '</i>' : '') + (a.fr_points ? ' <em title="' + esc(a.fr_points_desc || '') + '">points ' + esc(a.fr_points) + '</em>' : '') +
+          (a.fr_potential ? ' <em title="' + esc(a.fr_potential_desc || '') + '">potencial ' + esc(a.fr_potential) + '</em>' : '') + (a.overall_rating ? ' <em class="ov">' + esc(a.overall_rating) + '</em>' : '') + ' <small>' + esc(a.fr_position || a.pos1 || '') + '</small></div>' +
+          '<p>' + ((a.notes || '').trim() ? esc(a.notes) : '<span class="sem">sem relatório escrito</span>') + '</p></div>'; }).join('') + '</div>';
+  }
+
   function render(foco) {
     const alvo = document.getElementById('csCorpo'); if (!alvo) return;
     let h = '<div class="cs-topo"><h2>Consulta de jogador</h2><p>Um campo por posição: digite nome ou clube e escolha. O estudo diz se o jogador adere ao modelo que rende na Série B (técnico + físico), onde está nas listas e o que falta conferir. ' +
       D.n.toLocaleString('pt-BR') + ' jogadores com ≥ 900 min (Wyscout ago/26, 66 ligas + Série B 2026). Clique no nome para abrir a ficha completa.</p></div>';
     h += '<div class="cs-grade">' + ORDEM.map(cartao).join('') + '</div>';
     const ab = st.aberto != null && st.sel[st.aberto] != null ? D.jogadores[st.sel[st.aberto]] : null;
-    if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div><div class="cs-det" id="csDet"></div>';
+    if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div><div class="cs-det" id="csDet"></div><div class="cs-det cs-aval" id="csAval"></div>';
     else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (T4); bola parada do T2; patamar de A do F3; Sofascore do M3. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
     alvo.innerHTML = h;
-    if (ab) detalhe(ab);
+    if (ab) { detalhe(ab); avaliacoes(ab); }
     alvo.querySelectorAll('.cs-busca').forEach(bu => bu.oninput = () => {
       const pos = bu.dataset.pos; st.busca[pos] = bu.value; const p = bu.selectionStart;
       const r = procurar(bu.value, pos); if (r.length === 1) { st.sel[pos] = D.jogadores.indexOf(r[0]); st.aberto = pos; }

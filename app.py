@@ -452,6 +452,73 @@ def api_exportar():
                      mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
 
+# ---------------- avaliações dos scouts (TransferRoom Scout) — SÓ NO APP LOCAL ----------------
+# Material interno do Botafogo: fica na pasta do Portal Ranking, fora deste repositório, e NUNCA entra em docs/ nem
+# no site público (decisão do Henrique, 07/10/2026). Esta rota só responde na máquina onde o arquivo existe; na
+# hospedagem e no GitHub Pages ela não existe, e a tela simplesmente não mostra o bloco.
+ARQ_AVALIACOES = os.environ.get("SC_AVALIACOES") or os.path.normpath(os.path.join(
+    AQUI, "..", "fut", "BOTA", "Analytics", "Portal Ranking", "transferroom", "avaliacoes_matchreports.json"))
+_aval = {"mtime": None, "idx": None}
+
+
+def _nk(t):
+    import unicodedata
+    t = unicodedata.normalize("NFD", str(t or "")).encode("ascii", "ignore").decode().lower()
+    return " ".join("".join(c if c.isalnum() else " " for c in t).split())
+
+
+def _avaliacoes():
+    if not os.path.exists(ARQ_AVALIACOES):
+        return None
+    m = os.path.getmtime(ARQ_AVALIACOES)
+    if _aval["mtime"] != m:
+        with open(ARQ_AVALIACOES, encoding="utf-8") as fh:
+            dados = json.load(fh)
+        idx = {}
+        for a in dados:
+            for nome in {_nk(a.get("player_name")), _nk(a.get("player_full_name"))}:
+                if nome:
+                    idx.setdefault(nome, []).append(a)
+        _aval.update(mtime=m, idx=idx)
+    return _aval["idx"]
+
+
+@app.route("/api/avaliacoes")
+def api_avaliacoes():
+    idx = _avaliacoes()
+    if idx is None:
+        return jsonify({"disponivel": False, "avaliacoes": []})
+    nomes = [_nk(request.args.get(k)) for k in ("nome", "nc")]
+    clube = _nk(request.args.get("clube"))
+    try:
+        idade = float(request.args.get("idade") or "")
+    except ValueError:
+        idade = None
+    achou = {}
+    for n in nomes:
+        for a in idx.get(n, []) if n else []:
+            achou[a.get("rating_id") or id(a)] = a
+    lista = list(achou.values())
+    # homônimos: fica quem bate o clube (o do scout ou o dono do passe) ou, sem clube batendo, a idade (±1)
+    def clube_bate(a):
+        for c in (_nk(a.get("squad")), _nk(a.get("parent_squad"))):
+            if c and clube and (c in clube or clube in c or set(w for w in c.split() if len(w) >= 4) & set(w for w in clube.split() if len(w) >= 4)):
+                return True
+        return False
+    pessoas = {}
+    for a in lista:
+        pessoas.setdefault(a.get("player_id") or a.get("player_full_name"), []).append(a)
+    if len(pessoas) > 1:
+        ok = [k for k, v in pessoas.items() if any(clube_bate(a) for a in v)]
+        if not ok and idade is not None:
+            ok = [k for k, v in pessoas.items() if any(a.get("age") is not None and abs(float(a["age"]) - idade) <= 1 for a in v)]
+        lista = [a for k in ok for a in pessoas[k]] if len(ok) == 1 else []
+    lista.sort(key=lambda a: a.get("match_date") or "", reverse=True)
+    campos = ("match_date", "competition", "home", "away", "scout", "squad", "pos1", "fr_position", "fr_match_rating", "fr_match_rating_desc",
+              "fr_points", "fr_points_desc", "fr_potential", "fr_potential_desc", "overall_rating", "notes", "player_name", "player_full_name", "age")
+    return jsonify({"disponivel": True, "avaliacoes": [{c: a.get(c) for c in campos} for a in lista]})
+
+
 if __name__ == "__main__":
     if not os.path.exists(ARQ_JOGADORES):
         raise SystemExit("dados/jogadores.json nao existe. Rode: python3 preparar_base.py ago26")
