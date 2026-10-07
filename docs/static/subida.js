@@ -32,9 +32,10 @@
   /* lado de quem sobe: "menor é melhor" (faltas, cartões) ou indicador em que quem sobe tem menos */
   function paraBaixo(i, r) { return i.menor || (r && r[0] != null && r[1] != null && r[0] < r[1]); }
   /* v = no perfil de quem sobe · a = entre quem cai e quem sobe · r = do lado de quem cai */
-  /* % de acerto em que quem sobe tem MENOS (ex.: passes certos do lateral): é retrato do estilo do time (joga mais direto e
-     arrisca mais), não qualidade — errar mais passe não é virtude. Fica à vista, sem cor e fora da conta (07/10). */
-  function estilo(i, r) { return !i.menor && /%\s*$/.test(i.rot) && r && r[0] != null && r[1] != null && r[0] < r[1]; }
+  /* indicador em que quem sobe tem MENOS (ex.: passes certos do lateral, volume de passe do extremo): é retrato do estilo do
+     time, não qualidade — ter um número pior não pode contar a favor. Fica à vista, sem cor, fora dos principais e da conta.
+     Decisão do clube em 07/10; não vale para faltas e cartões, onde menos é mesmo melhor. */
+  function estilo(i, r) { return !i.menor && r && r[0] != null && r[1] != null && r[0] < r[1]; }
   function cor(i, r, v) {
     if (v == null || !r || r[0] == null) return '';
     if (estilo(i, r)) return '';
@@ -596,7 +597,7 @@
         return '<div class="sq-bloco"><h5>' + esc(b) + (cb.length ? ' <b>' + cb.filter(l => l.c === 'v').length + '/' + cb.length + '</b>' : '') + '</h5>' +
           '<table><thead><tr><th>Indicador</th><th>Ele</th><th>Sobe</th><th>Cai</th></tr></thead><tbody>' +
           ls.map(l => '<tr class="' + (l.pri ? 'sq-chave sq-lf' : l.chave ? 'sq-chave sq-lp' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
-            (estilo(l.i, l.r) ? ' · % de acerto menor em quem sobe: estilo do time (jogo mais direto), não entra na conta' : paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (estilo(l.i, l.r) ? ' <em class="sq-est">estilo</em>' : paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
+            (estilo(l.i, l.r) ? ' · quem sobe tem MENOS: retrato do estilo do time, não entra nos principais nem na conta' : paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (estilo(l.i, l.r) ? ' <em class="sq-est">estilo</em>' : paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
             '<td class="sq-v ' + (l.c || 'sq-nd') + '">' + (l.v == null ? '—' : num(l.v, l.i.casas)) + '</td><td>' + num(l.r[0], l.i.casas) + '</td><td>' + num(l.r[1], l.i.casas) + '</td></tr>').join('') +
           '</tbody></table></div>';
       };
@@ -606,12 +607,12 @@
         '<span class="sq-res">No nível de quem sobe em <b class="v">' + acima.length + '</b> de <b>' + com.length + '</b> indicadores principais' +
         (abaixo.length ? ' · no nível de quem cai em <b class="r">' + abaixo.length + '</b>' : '') + '</span>' +
         (selo ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Selo do card: atende <b>' + selo.ok + '</b> de <b>' + selo.com + '</b> fundamentais' + (selo.com < selo.n ? ' (' + (selo.n - selo.com) + ' sem dado)' : '') + '</span>' : '') +
-        '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · <i class="sq-m sq-fund">F</i> fundamental (selo) · <i class="sq-m sq-princ">P</i> principal · ↓ quem sobe tem menos</span></div>' +
+        '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · <i class="sq-m sq-fund">F</i> fundamental (selo) · <i class="sq-m sq-princ">P</i> principal · ↓ menor é melhor · estilo = quem sobe tem menos, fora da conta</span></div>' +
         (acima.length ? '<p class="sq-frase"><b class="v">Acima de quem sobe:</b> ' + nomes(acima) + '</p>' : '') +
         (abaixo.length ? '<p class="sq-frase"><b class="r">No nível de quem cai:</b> ' + nomes(abaixo) + '</p>' : '') +
         '<div class="sq-grid">' + blocos.map(tab).join('') + '</div>' +
         '<div class="sq-pe">Régua: mediana do titular dos clubes que subiram e dos que caíram na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', na posição. ' +
-        'Principais (azul e amarelo): todos os indicadores que separam quem sobe de quem cai (0,30 desvio ou mais), para mais ou para menos (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta. “estilo” = % de acerto em que quem sobe tem menos (time mais direto): mostrado sem cor e fora da conta, porque errar mais não é qualidade.</div></div>';
+        'Principais (azul e amarelo): os indicadores em que quem sobe tem MAIS e que separam de quem cai (0,30 desvio ou mais); em faltas e cartões vale o menor (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta. “estilo” = indicador em que quem sobe tem menos: mostrado sem cor, fora dos principais e da conta, porque um número pior não conta a favor.</div></div>';
     } catch (e) { return ''; }
   };
 })();

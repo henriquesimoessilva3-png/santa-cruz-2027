@@ -69,7 +69,7 @@ GOLEIRO = [("Defesas %", "Defesas, %", 1, False), ("Gols sofridos por 90", "Golo
            ("Passes longos por 90", "Passes longos/90", 1, False), ("Passes longos certos %", "Passes longos certos, %", 1, False)]
 # Posições GÊMEAS usam a MESMA régua (decisão do Henrique, 07/10/2026): os dois zagueiros, os dois laterais e os dois
 # extremos têm os mesmos indicadores e os mesmos números. Vale a régua do LADO COM A CESTA MAIOR — o que tem mais
-# indicadores que separam quem sobe de quem cai (|separação| >= 0,30) —, copiada para o outro lado.
+# indicadores em que quem sobe tem MAIS e que separam de quem cai (separação >= 0,30) —, copiada para o outro lado.
 PARES = [("ZD", "ZE"), ("LD", "LE"), ("ED", "EE")]
 SEM_CONTA = {"Duelos por 90", "Duelos defensivos por 90", "Duelos aéreos por 90", "Ações defensivas certas por 90"}   # critério do Wyscout mudou
 BLOCOS_REGUA = ("Físico", "Passe e construção", "Ataque e criação", "Defesa e duelos")
@@ -82,8 +82,11 @@ def cesta(P):
         if b["tit"] not in BLOCOS_REGUA: continue
         for l in b["linhas"]:
             if l.get("d") is None or abs(l["d"]) < 0.3 or l["rot"] in SEM_CONTA: continue
+            # 07/10: indicador em que quem sobe tem MENOS (um número pior) é estilo do time, não conta como principal
+            favor = l.get("sobe") is not None and l.get("cai") is not None and ((l["sobe"] < l["cai"]) if l.get("menor") else (l["sobe"] > l["cai"]))
+            if not favor: continue
             pri += 1
-            if not l.get("media") and l.get("sobe") is not None and l.get("cai") is not None and ((l["sobe"] < l["cai"]) if l.get("menor") else (l["sobe"] > l["cai"])): fund += 1
+            if not l.get("media"): fund += 1
     return pri, fund
 
 
