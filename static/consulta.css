@@ -110,3 +110,7 @@
 .cs-av-cab i.v{background:#16a34a} .cs-av-cab i.a{background:#d97706} .cs-av-cab i.r{background:#dc2626}
 .cs-av-cab em{font-style:normal;border:1px solid var(--borda2);border-radius:4px;padding:0 6px;margin-left:3px;color:var(--tinta2)} .cs-av-cab em.ov{border-color:var(--ambar);color:var(--txt-ambar)}
 .cs-av p{margin:4px 0 0;font-size:13.5px;color:var(--tinta);line-height:1.5} .cs-av p .sem{color:var(--tinta3);font-size:12px}
+
+/* jogadores fora do estudo (sem nota) e minutos na busca */
+.cs-esc .cs-min{font-style:normal;font-weight:700;color:var(--tinta2)} .cs-esc .cs-min.pouco{color:#e0a94a}
+.cs-esc em.semnota,.cs-esc .cs-sel.semnota{background:transparent;border:1px dashed var(--tinta3);color:var(--tinta3)}

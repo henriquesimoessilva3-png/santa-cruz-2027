@@ -22,15 +22,38 @@
   /* 11 campos, um por posição: texto digitado, jogador escolhido (índice na base) e qual está aberto na ficha */
   const st = Object.assign({ busca: {}, sel: {}, aberto: null }, ler('csEstado') || {});
   const IDX = D.jogadores.map((j, i) => ({ i, k: semAc(j.n) + ' ' + semAc(j.c) }));
+  /* quem está na base do app (40 mil) e ficou fora do estudo (< 900 min ou sem minutos no Wyscout) entra na busca
+     como "Sem nota", com os minutos à vista: abre a ficha completa do app, sem veredito de aderência */
+  let extrasN = -1;
+  const minTxt = m => m == null ? 'sem minutos' : num(m, 0) + ' min';
+  function garantirExtras() {
+    if (typeof BASE === 'undefined' || !BASE.length || extrasN === BASE.length) return;
+    if (extrasN >= 0) { const k = D.jogadores.findIndex(x => x.extra); if (k >= 0) { D.jogadores.length = k; IDX.length = k; } }
+    extrasN = BASE.length;
+    const tem = new Set();
+    D.jogadores.forEach(j => { const n = semAc(j.n); tem.add(n + '|' + semAc(j.c)); if (j.min) tem.add(n + '|' + j.p + '|' + Math.round(j.min)); });
+    BASE.forEach(b => {
+      if (!b || !b.n || !POS[b.p]) return;
+      const n = semAc(b.n);
+      if (tem.has(n + '|' + semAc(b.t)) || (b.min && tem.has(n + '|' + b.p + '|' + Math.round(b.min)))) return;
+      tem.add(n + '|' + semAc(b.t));
+      const x = { extra: true, _b: b, n: b.n, c: b.t || '', l: b.l || '', p: b.p, i: b.id_, min: b.min == null ? null : b.min, ct: b.ct || null, m: 'Fora do estudo', ficha: [], nota: null };
+      IDX.push({ i: D.jogadores.length, k: n + ' ' + semAc(b.nc || '') + ' ' + semAc(b.t) }); D.jogadores.push(x);
+    });
+  }
 
   function procurar(q, pos) {
+    garantirExtras();
     const t = semAc(q); if (t.length < 2) return [];
     const partes = t.split(' ');
+    /* nome que começa pelo que foi digitado vem antes de quem só tem o trecho no meio do nome ou no clube */
+    const ini = j => { const n = semAc(j.n); return n === t ? 0 : n.startsWith(t + ' ') ? 1 : n.startsWith(t) || n.includes(' ' + t) ? 2 : 3; };
     return IDX.filter(x => partes.every(p => x.k.includes(p))).map(x => D.jogadores[x.i])
-      .sort((a, b) => (a.p === pos ? 0 : 1) - (b.p === pos ? 0 : 1) || (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.nota || 0) - (a.nota || 0)).slice(0, 12);
+      .sort((a, b) => (a.p === pos ? 0 : 1) - (b.p === pos ? 0 : 1) || ini(a) - ini(b) || (a.extra ? 1 : 0) - (b.extra ? 1 : 0) || (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.nota || 0) - (a.nota || 0) || (b.min || 0) - (a.min || 0)).slice(0, 30);
   }
 
   function veredito(j) {
+    if (j.extra) return { nivel: 'Sem nota', cls: 'semnota', pontos: [], contra: [], vazios: [j.min == null ? 'sem minutos no Wyscout (ago/26): o estudo não tem como dar nota' : num(j.min, 0) + ' min no Wyscout, ' + (j.min < 900 ? 'abaixo do corte de 900' : 'em liga ou recorte fora do estudo') + ': o estudo não dá nota'] };
     const R = D.regua, pref = D.pref[j.p] || [], cai = (D.cai && D.cai[j.p]) || [];
     const pontos = [], contra = [], vazios = [];
     if (j.vet) contra.push('vetado pelo clube (EXCLUIDOS)');
@@ -99,6 +122,8 @@
   }
 
   function ficha(j) {
+    if (j.extra) return '<div class="cs-cab"><div><h3>' + esc(j.n) + ' <span class="cs-sel semnota">Sem nota</span></h3><p>' + esc(j.c) + ' · ' + esc(j.l) + ' · ' + esc(POS[j.p] || j.p) + (j.i != null ? ' · ' + j.i + ' anos' : '') + ' · <b class="cs-min">' + minTxt(j.min) + '</b> · contrato ' + dt(j.ct) + '</p></div></div>' +
+      '<p class="cs-nota">Fora do estudo: ' + (j.min == null ? 'sem minutos no Wyscout (ago/26)' : '<b>' + num(j.min, 0) + ' min</b> no Wyscout, ' + (j.min < 900 ? 'abaixo do corte de 900' : 'em liga ou recorte fora do estudo')) + '. Sem nota de aderência nem similares; abaixo vai a ficha completa do app com o que existir (físico, contrato, indicadores, quem sobe × quem cai).</p>';
     const v = veredito(j), pref = D.pref[j.p] || [];
     let h = '<div class="cs-cab"><div><h3>' + esc(j.n) + ' <span class="cs-sel ' + v.cls + '">' + v.nivel + '</span></h3>' +
       '<p>' + esc(j.c) + ' · ' + esc(j.l) + ' · ' + esc(POS[j.p] || j.p) + ' · ' + (j.i != null ? j.i + ' anos' : '') + ' · ' + num(j.min, 0) + ' min · contrato ' + dt(j.ct) +
@@ -130,13 +155,15 @@
     return h;
   }
 
+  function selDe(pos) { const i = st.sel[pos]; if (i == null) return null; const j = D.jogadores[i]; return j && (!st.selN || !st.selN[pos] || st.selN[pos] === j.n) ? j : null; }
+  const marca = pos => { st.selN = st.selN || {}; const j = D.jogadores[st.sel[pos]]; if (j) st.selN[pos] = j.n; else delete st.selN[pos]; };
   function cartao(pos) {
-    const q = st.busca[pos] || '', idx = st.sel[pos], j = idx != null ? D.jogadores[idx] : null;
+    const q = st.busca[pos] || '', idx = st.sel[pos], j = selDe(pos);
     let h = '<div class="cs-slot' + (st.aberto === pos ? ' on' : '') + '" data-pos="' + pos + '"><div class="cs-slot-t"><b>' + pos + '</b><span>' + esc(POS[pos]) + '</span>' +
       (j ? '<button class="cs-x" data-limpa="' + pos + '" title="limpar">×</button>' : '') + '</div>';
     if (j) {
       const v = veredito(j);
-      h += '<button class="cs-slot-j" data-abre="' + pos + '"><b>' + esc(j.n) + '</b><span>' + esc(j.c) + ' · ' + esc(j.l) + (j.i != null ? ' · ' + j.i : '') + '</span>' +
+      h += '<button class="cs-slot-j" data-abre="' + pos + '"><b>' + esc(j.n) + '</b><span>' + esc(j.c) + ' · ' + esc(j.l) + (j.i != null ? ' · ' + j.i : '') + ' · <i class="cs-min' + (j.min == null || j.min < 900 ? ' pouco' : '') + '">' + minTxt(j.min) + '</i></span>' +
         '<em class="' + v.cls + '">' + v.nivel + '</em>' +
         '<small>nota <b>' + (j.nota == null ? '—' : j.nota) + '</b> · ader. ' + (j.adc == null ? '—' : j.adc) + ' · nível ' + (j.niv == null ? '—' : j.niv) +
         (j.p !== 'GOL' ? ' · PSV ' + (j.psv == null ? '—' : num(j.psv, 1)) : '') + (j.tipo ? ' · ' + esc(j.tipo) + (j.tpref ? ' ✓' : '') : '') + '</small>' +
@@ -145,7 +172,7 @@
     h += '<input class="cs-busca" data-pos="' + pos + '" placeholder="' + (j ? 'trocar…' : 'nome ou clube…') + '" value="' + esc(q) + '">';
     const res = q.length >= 2 ? procurar(q, pos) : [];
     if (q.length >= 2 && !res.length) h += '<p class="cs-nota">Ninguém com esse nome.</p>';
-    if (res.length && (!j || semAc(q) !== semAc(j.n))) h += '<div class="cs-lista">' + res.map(r => { const v = veredito(r); return '<button class="cs-item" data-pos="' + pos + '" data-i="' + D.jogadores.indexOf(r) + '"><b>' + esc(r.n) + '</b><span>' + esc(r.c) + ' · ' + esc(r.l) + ' · ' + r.p + (r.i != null ? ' · ' + r.i : '') + '</span><em class="' + v.cls + '">' + v.nivel + '</em></button>'; }).join('') + '</div>';
+    if (res.length && (!j || semAc(q) !== semAc(j.n))) h += '<div class="cs-lista">' + res.map(r => { const v = veredito(r); return '<button class="cs-item" data-pos="' + pos + '" data-i="' + D.jogadores.indexOf(r) + '"><b>' + esc(r.n) + '</b><span>' + esc(r.c) + ' · ' + esc(r.l) + ' · ' + r.p + (r.i != null ? ' · ' + r.i : '') + ' · <i class="cs-min' + (r.min == null || r.min < 900 ? ' pouco' : '') + '">' + minTxt(r.min) + '</i></span><em class="' + v.cls + '">' + v.nivel + '</em></button>'; }).join('') + '</div>';
     return h + '</div>';
   }
 
@@ -153,6 +180,7 @@
      coorte e o quadro "Quem sobe × quem cai" (fundamentais em azul, principais em amarelo) — tudo numa página só */
   let detSeq = 0;
   function jogadorDaBase(x) {
+    if (x && x._b) return x._b;
     if (typeof BASE === 'undefined' || !BASE.length) return null;
     const n = semAc(x.n), c = semAc(x.c || '');
     let r = BASE.filter(j => semAc(j.n) === n);
@@ -206,21 +234,22 @@
 
   function render(foco) {
     const alvo = document.getElementById('csCorpo'); if (!alvo) return;
+    garantirExtras();
     let h = '<div class="cs-topo"><h2>Consulta de jogador</h2><p>Um campo por posição: digite nome ou clube e escolha. O estudo diz se o jogador adere ao modelo que rende na Série B (técnico + físico), onde está nas listas e o que falta conferir. ' +
-      D.n.toLocaleString('pt-BR') + ' jogadores com ≥ 900 min (Wyscout ago/26, 66 ligas + Série B 2026). Clique no nome para abrir a ficha completa.</p></div>';
+      D.n.toLocaleString('pt-BR') + ' jogadores com ≥ 900 min (Wyscout ago/26, 66 ligas + Série B 2026) têm nota; os demais da base do app também aparecem na busca, como <b>Sem nota</b> e com os minutos sinalizados. Clique no nome para abrir a ficha completa.</p></div>';
     h += '<div class="cs-grade">' + ORDEM.map(cartao).join('') + '</div>';
-    const ab = st.aberto != null && st.sel[st.aberto] != null ? D.jogadores[st.sel[st.aberto]] : null;
+    const ab = st.aberto != null ? selDe(st.aberto) : null;
     if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div><div class="cs-det" id="csDet"></div><div class="cs-det cs-aval" id="csAval"></div>';
-    else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (T4); bola parada do T2; patamar de A do F3; Sofascore do M3. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
+    else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li><li><b>Sem nota</b>: menos de 900 min ou sem minutos no Wyscout — aparece na busca com os minutos e abre a ficha do app, sem veredito.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (T4); bola parada do T2; patamar de A do F3; Sofascore do M3. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
     alvo.innerHTML = h;
     if (ab) { detalhe(ab); avaliacoes(ab); }
     alvo.querySelectorAll('.cs-busca').forEach(bu => bu.oninput = () => {
       const pos = bu.dataset.pos; st.busca[pos] = bu.value; const p = bu.selectionStart;
-      const r = procurar(bu.value, pos); if (r.length === 1) { st.sel[pos] = D.jogadores.indexOf(r[0]); st.aberto = pos; }
+      const r = procurar(bu.value, pos); if (r.length === 1) { st.sel[pos] = D.jogadores.indexOf(r[0]); marca(pos); st.aberto = pos; }
       gravar('csEstado', st); render(pos);
       const n = document.querySelector('#csCorpo .cs-busca[data-pos="' + pos + '"]'); if (n) { n.focus(); n.setSelectionRange(p, p); }
     });
-    alvo.querySelectorAll('.cs-item').forEach(b => b.onclick = () => { const pos = b.dataset.pos; st.sel[pos] = +b.dataset.i; st.busca[pos] = D.jogadores[+b.dataset.i].n; st.aberto = pos; gravar('csEstado', st); render(); });
+    alvo.querySelectorAll('.cs-item').forEach(b => b.onclick = () => { const pos = b.dataset.pos; st.sel[pos] = +b.dataset.i; marca(pos); st.busca[pos] = D.jogadores[+b.dataset.i].n; st.aberto = pos; gravar('csEstado', st); render(); });
     alvo.querySelectorAll('[data-abre]').forEach(b => b.onclick = () => { st.aberto = b.dataset.abre; gravar('csEstado', st); render(); document.querySelector('#csCorpo .cs-ficha') && document.querySelector('#csCorpo .cs-ficha').scrollIntoView({ block: 'start', behavior: 'smooth' }); });
     alvo.querySelectorAll('.cs-sim-l').forEach(tr => tr.onclick = () => window.csJanela(tr.dataset.n, tr.dataset.c));
     alvo.querySelectorAll('[data-limpa]').forEach(b => b.onclick = () => { const pos = b.dataset.limpa; delete st.sel[pos]; st.busca[pos] = ''; if (st.aberto === pos) st.aberto = null; gravar('csEstado', st); render(); });
@@ -231,6 +260,8 @@
     const pg = document.getElementById('pgConsulta');
     if (!bt || !pg) return;
     const sync = () => { const on = bt.classList.contains('on'); pg.classList.toggle('oculta', !on); if (on) render(); };
+    /* a base do app chega depois: quando chegar, refaz a tela se a aba estiver aberta e ninguém estiver digitando */
+    const esperaBase = setInterval(() => { if (typeof BASE === 'undefined' || !BASE.length) return; clearInterval(esperaBase); if (bt.classList.contains('on') && !(document.activeElement && document.activeElement.classList.contains('cs-busca'))) render(); }, 800);
     new MutationObserver(sync).observe(bt, { attributes: true, attributeFilter: ['class'] });
     sync();
   }
@@ -239,7 +270,7 @@
     const n = semAc(nome), c = semAc(clube || '');
     let r = D.jogadores.filter(j => semAc(j.n) === n);
     if (c && r.length > 1) { const rc = r.filter(j => semAc(j.c) === c || semAc(j.c).includes(c) || c.includes(semAc(j.c))); if (rc.length) r = rc; }
-    return r.sort((a, b) => (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.min || 0) - (a.min || 0))[0] || null;
+    return r.sort((a, b) => (a.extra ? 1 : 0) - (b.extra ? 1 : 0) || (a.m === 'Série B' ? 0 : 1) - (b.m === 'Série B' ? 0 : 1) || (b.min || 0) - (a.min || 0))[0] || null;
   };
   window.csExiste = (nome, clube) => !!achar(nome, clube);
   window.csJanela = (nome, clube) => {
@@ -252,7 +283,7 @@
     const esc_ = e => { if (e.key === 'Escape') fechar(); };
     m.querySelector('.cs-modal-fundo').onclick = fechar; m.querySelector('.cs-modal-x').onclick = fechar; document.addEventListener('keydown', esc_);
     m.querySelectorAll('.cs-sim-l').forEach(tr => tr.onclick = () => window.csJanela(tr.dataset.n, tr.dataset.c));
-    m.querySelector('.cs-modal-ir').onclick = e => { e.preventDefault(); fechar(); const p = j.p; st.busca[p] = j.n; st.sel[p] = D.jogadores.indexOf(j); st.aberto = p; gravar('csEstado', st); const bt = document.querySelector('.aba[data-aba="consulta"]'); if (bt) bt.click(); render(); };
+    m.querySelector('.cs-modal-ir').onclick = e => { e.preventDefault(); fechar(); const p = j.p; st.busca[p] = j.n; st.sel[p] = D.jogadores.indexOf(j); marca(p); st.aberto = p; gravar('csEstado', st); const bt = document.querySelector('.aba[data-aba="consulta"]'); if (bt) bt.click(); render(); };
     return true;
   };
   /* jogadores de um tipo físico num setor (F2): clique no nome do tipo abre esta janela */
@@ -278,6 +309,6 @@
     m.querySelectorAll('.cs-sim-l').forEach(tr => tr.onclick = () => window.csJanela(tr.dataset.n, tr.dataset.c));
     return true;
   };
-  window.csConsultar = (nome, pos) => { const r = procurar(nome, pos || 'CA'); if (!r.length) return; const p = pos || r[0].p; st.busca[p] = nome; st.sel[p] = D.jogadores.indexOf(r[0]); st.aberto = p; render(); };
+  window.csConsultar = (nome, pos) => { const r = procurar(nome, pos || 'CA'); if (!r.length) return; const p = pos || r[0].p; st.busca[p] = nome; st.sel[p] = D.jogadores.indexOf(r[0]); marca(p); st.aberto = p; render(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
 })();
