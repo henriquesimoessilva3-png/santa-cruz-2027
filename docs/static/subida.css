@@ -160,3 +160,12 @@
 .sq-bloco tr.sq-lf td:first-child{box-shadow:inset 3px 0 0 #2563eb;padding-left:8px;background:#2563eb14}
 .sq-bloco tr.sq-lp td:first-child{box-shadow:inset 3px 0 0 #d99a06;padding-left:8px;background:#d99a0612}
 .sq-leg .sq-m{margin:0 3px 0 8px}
+
+/* faixa de resumo no topo da ficha: letra do físico e selo de subida */
+.fi-resumo{display:flex;flex-wrap:wrap;gap:10px 26px;padding:10px 15px 4px}
+.fi-res{display:flex;align-items:center;gap:10px}
+.fi-res-l{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:7px;font:800 18px/1 var(--fonte);color:#fff;background:#64748b;flex:none}
+.fi-res-l.tipo-A,.fi-res-l.sel-v{background:#16a34a} .fi-res-l.tipo-B,.fi-res-l.sel-a{background:#d99a06;color:#1b1400} .fi-res-l.tipo-C,.fi-res-l.sel-r{background:#dc2626}
+.fi-res-l.sel-n,.fi-res-l.tipo-nd{background:transparent;border:1px dashed var(--tinta3);color:var(--tinta3)}
+.fi-res b{display:block;font-size:14px;color:var(--tinta)} .fi-res b i{font-style:normal;font-size:18px}
+.fi-res small{display:block;font-size:11px;color:var(--tinta3)}

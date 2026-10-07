@@ -149,15 +149,40 @@
     return h + '</div>';
   }
 
+  /* ficha completa do app logo abaixo da leitura do estudo: cadastro, todos os indicadores técnicos e físicos contra a
+     coorte e o quadro "Quem sobe × quem cai" (fundamentais em azul, principais em amarelo) — tudo numa página só */
+  let detSeq = 0;
+  function jogadorDaBase(x) {
+    if (typeof BASE === 'undefined' || !BASE.length) return null;
+    const n = semAc(x.n), c = semAc(x.c || '');
+    let r = BASE.filter(j => semAc(j.n) === n);
+    if (r.length > 1) { const rc = r.filter(j => semAc(j.t) === c || (typeof clubeParecido === 'function' && clubeParecido(j.t, x.c))); if (rc.length) r = rc; }
+    if (r.length > 1) { const rp = r.filter(j => j.p === x.p); if (rp.length) r = rp; }
+    return r.sort((a, b) => (b.min || 0) - (a.min || 0))[0] || null;
+  }
+  async function detalhe(x) {
+    const el = document.getElementById('csDet'); if (!el) return;
+    const seq = ++detSeq;
+    const j = jogadorDaBase(x);
+    if (!j || typeof montarFicha !== 'function') { el.innerHTML = typeof BASE !== 'undefined' && BASE.length ? '<p class="cs-nota">Este jogador não está na base do campograma: sem ficha detalhada.</p>' : ''; return; }
+    el.innerHTML = '<div class="det-carregando">carregando a ficha completa…</div>';
+    let f; try { f = await montarFicha(j, 'posliga'); } catch (e) { f = null; }
+    if (seq !== detSeq || !document.getElementById('csDet')) return;
+    if (!f) { el.innerHTML = ''; return; }
+    el.innerHTML = '<div class="cs-det-tit"><h3>Ficha completa</h3><span>' + esc(f.sub) + '</span>' + f.aviso + '</div>' +
+      '<div class="det"><div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo + '<div class="det-pe">' + esc(f.rodape) + '</div></div>';
+  }
+
   function render(foco) {
     const alvo = document.getElementById('csCorpo'); if (!alvo) return;
     let h = '<div class="cs-topo"><h2>Consulta de jogador</h2><p>Um campo por posição: digite nome ou clube e escolha. O estudo diz se o jogador adere ao modelo que rende na Série B (técnico + físico), onde está nas listas e o que falta conferir. ' +
       D.n.toLocaleString('pt-BR') + ' jogadores com ≥ 900 min (Wyscout ago/26, 66 ligas + Série B 2026). Clique no nome para abrir a ficha completa.</p></div>';
     h += '<div class="cs-grade">' + ORDEM.map(cartao).join('') + '</div>';
     const ab = st.aberto != null && st.sel[st.aberto] != null ? D.jogadores[st.sel[st.aberto]] : null;
-    if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div>';
+    if (ab) h += '<div class="cs-ficha">' + ficha(ab) + '</div><div class="cs-det" id="csDet"></div>';
     else h += '<div class="cs-legenda"><h4>Como ler</h4><ul><li><b>Ideal</b>: entre os 3 primeiros de "Os meus dez" na posição.</li><li><b>Aderente</b>: nota ≥ 65 (aderência ao modelo que rende na B + nível do ranking) e piso de velocidade ok, ou já está em "Os meus dez".</li><li><b>Parcial</b>: nota 55–64.</li><li><b>Não aderente</b>: nota abaixo de 55 ou abaixo do piso de 27 km/h.</li><li><b>Fora</b>: vetado pelo clube ou acima de € 2 MM.</li></ul><p class="cs-nota">Tudo é por posição: ficha, percentis, tipo físico e ordem de "Os meus dez" são os da posição em que o jogador está registrado no Wyscout. Aderência de quem vem de fora já convertida pela reta de liga (T4); bola parada do T2; patamar de A do F3; Sofascore do M3. A nota ordena; minutagem elimina; vídeo decide.</p></div>';
     alvo.innerHTML = h;
+    if (ab) detalhe(ab);
     alvo.querySelectorAll('.cs-busca').forEach(bu => bu.oninput = () => {
       const pos = bu.dataset.pos; st.busca[pos] = bu.value; const p = bu.selectionStart;
       const r = procurar(bu.value, pos); if (r.length === 1) { st.sel[pos] = D.jogadores.indexOf(r[0]); st.aberto = pos; }

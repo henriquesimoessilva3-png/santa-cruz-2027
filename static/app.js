@@ -3323,7 +3323,24 @@ async function montarFicha(j, modo) {
       'Troque o comparativo acima para Série B, Brasil A/B/C ou todas as ligas.') + '">' +
     (nCo < 12 ? '⚠ amostra de ' + nCo : 'amostra curta · ' + nCo) + '</span>';
 
-  return { titulo, sub, cabeca, corpo: corpo + quadroSubida, rodape, aviso };
+  /* faixa de resumo no topo da ficha: letra do tipo físico (A/B/C) e selo de subida com a contagem */
+  let resumoF = '';
+  try {
+    const jl = jSub.p !== 'GOL' ? jSub : null;
+    if (jl) {
+      const L = tipoLetra(jl), tx = L ? tipoResolvido(jl) : null;
+      const pref = (window.CONSULTA && CONSULTA.pref && CONSULTA.pref[jl.p]) || [];
+      const s = (typeof window.subidaSeloInfo === 'function') ? window.subidaSeloInfo(jl, dados) : null;
+      const leit = { v: 'acima — atende 60% ou mais', a: 'médio — atende de 35% a 60%', r: 'abaixo — atende menos de 35%', n: 'faltam dados' };
+      resumoF = '<div class="fi-resumo">' +
+        '<div class="fi-res"><span class="fi-res-l tipo-' + (L || 'nd') + '">' + (L || '?') + '</span><div><b>Tipo físico ' + (L || 'sem letra') + '</b><small>' +
+          (tx && tx.tipo ? esc(tx.tipo) + (L === 'A' ? ' — o tipo A da posição' : ' — o A da posição é ' + esc(pref.join(' / '))) : 'sem rastreio físico suficiente (5 jogos)') + '</small></div></div>' +
+        (s ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Subida: ' + (s.c === 'n' ? 'faltam dados' : 'atende <i>' + s.ok + '</i> de <i>' + s.com + '</i> fundamentais' + (s.com ? ' (' + Math.round(s.ok / s.com * 100) + '%)' : '')) + '</b><small>' +
+          leit[s.c] + (s.c !== 'n' && s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · régua de ' + esc(s.posNome) + '</small></div></div>' : '') +
+        '</div>';
+    }
+  } catch (e) { resumoF = ''; }
+  return { titulo, sub, cabeca, corpo: resumoF + corpo + quadroSubida, rodape, aviso };
 }
 
 async function renderFicha() {

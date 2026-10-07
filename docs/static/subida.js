@@ -524,6 +524,23 @@
     } catch (e) { return ''; }
   };
   const seloLinha = j => seloHtml(E.pos, seloVals(E.pos, i => j[NC + i.k]));
+  /* resumo do selo para o topo da ficha: mesmos valores do quadro (indicadores da ficha + físico do cadastro + base da aba) */
+  window.subidaSeloInfo = function (j, dados) {
+    try {
+      if (!D || !j || !D.posicoes[j.p]) return null;
+      const tec = {};
+      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+      const base = linhaSub(j), fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
+      const o = seloVals(j.p, i => {
+        let v = i.cat === 'fis' ? j[fisK[i.k]] : (KPI[i.rot] != null ? tec[KPI[i.rot]] : null);
+        if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
+        return v;
+      });
+      if (!o) return null;
+      o.html = seloHtml(j.p, o); o.posNome = D.posicoes[j.p].nome;
+      return o;
+    } catch (e) { return null; }
+  };
   window.subidaQuadro = function (j, dados) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';

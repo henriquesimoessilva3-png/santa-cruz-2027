@@ -84,3 +84,13 @@
 .cs-modal .cs-tipo tr.cs-sim-l:hover td { background: var(--veu1); }
 #pgEstudoV2 .esv-doc .esv-tipo { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
 #pgEstudoV2 .esv-doc .esv-tipo:hover { color: var(--coral); }
+
+/* ficha completa do app dentro da Consulta de jogador */
+.cs-det{margin-top:14px;border:1px solid var(--borda);border-radius:10px;background:var(--fundo2);overflow:hidden}
+.cs-det:empty{display:none}
+.cs-det-tit{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:11px 14px 2px}
+.cs-det-tit h3{margin:0;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta)}
+.cs-det-tit span{font-size:11.5px;color:var(--tinta3)}
+.cs-det .sq{margin:10px 14px 12px}
+.cs-det .fi-grid{grid-template-columns:repeat(auto-fit,minmax(262px,1fr))}
+.cs-det .sq-grid{grid-template-columns:repeat(auto-fit,minmax(350px,1fr))}
