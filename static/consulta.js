@@ -197,8 +197,19 @@
     let f; try { f = await montarFicha(j, 'posliga'); } catch (e) { f = null; }
     if (seq !== detSeq || !document.getElementById('csDet')) return;
     if (!f) { el.innerHTML = ''; return; }
-    el.innerHTML = '<div class="cs-det-tit"><h3>Ficha completa</h3><span>' + esc(f.sub) + '</span>' + f.aviso + '</div>' +
+    /* mesmo "+ físico/técnico" da ficha do campograma: cola o CSV do SkillCorner e o export do Wyscout; ao fechar, a ficha é refeita */
+    const podeDados = typeof abrirDadosBase === 'function' && typeof primaryKey === 'function';
+    const temDados = podeDados && typeof dadosColados === 'function' && dadosColados(primaryKey(j), null);
+    el.innerHTML = '<div class="cs-det-tit"><h3>Ficha completa</h3><span>' + esc(f.sub) + '</span>' + f.aviso +
+      (podeDados ? '<button class="bt mini cs-dados" title="Colar o físico (CSV do SkillCorner) e o técnico (xlsx/csv do Wyscout) deste jogador">' + (temDados ? '✎ físico/técnico colados' : '+ físico/técnico') + '</button>' : '') + '</div>' +
       '<div class="det"><div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo + '<div class="det-pe">' + esc(f.rodape) + '</div></div>';
+    const bd = el.querySelector('.cs-dados');
+    if (bd) bd.onclick = () => {
+      abrirDadosBase(j);
+      const md = document.getElementById('modalDados'); if (!md) return;
+      const ob = new MutationObserver(() => { if (!md.classList.contains('aberto')) { ob.disconnect(); if (document.getElementById('csDet')) detalhe(x); } });
+      ob.observe(md, { attributes: true, attributeFilter: ['class'] });
+    };
   }
 
   /* avaliações dos scouts (TransferRoom Scout): só no app LOCAL — o site publicado não tem a rota nem o dado */

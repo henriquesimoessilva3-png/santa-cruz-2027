@@ -114,3 +114,4 @@
 /* jogadores fora do estudo (sem nota) e minutos na busca */
 .cs-esc .cs-min{font-style:normal;font-weight:700;color:var(--tinta2)} .cs-esc .cs-min.pouco{color:#e0a94a}
 .cs-esc em.semnota,.cs-esc .cs-sel.semnota{background:transparent;border:1px dashed var(--tinta3);color:var(--tinta3)}
+.cs-esc .cs-det-tit .cs-dados,.cs-det-tit .cs-dados{margin-left:auto}
