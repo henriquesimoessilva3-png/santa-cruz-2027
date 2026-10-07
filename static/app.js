@@ -7658,7 +7658,8 @@ function mdBruto(cab, linha) {
 }
 function mdMapear(cab, linha, MAPA) {
   if (MAPA === MD_TEC) mdTecRaw = mdBruto(cab, linha);
-  const idx = {}; cab.forEach((c, i) => idx[tipoNorm(c)] = i);
+  /* coluna repetida no export (o Wyscout traz "Duelos aérios/90" duas vezes, a 2ª é a do goleiro e vem vazia): fica a que tem número */
+  const idx = {}; cab.forEach((c, i) => { const k = tipoNorm(c); if (idx[k] == null || mdNum(linha[idx[k]]) == null) idx[k] = i; });
   const o = {}; let n = 0;
   Object.entries(MAPA).forEach(([k, nomes]) => { for (const nm of nomes) { const i = idx[tipoNorm(nm)]; if (i != null) { const v = mdNum(linha[i]); if (v != null) { o[k] = v; n++; } break; } } });
   return n ? o : null;

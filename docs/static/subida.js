@@ -498,7 +498,23 @@
     'Passes para a área por 90': 'Passes para a área de penálti/90', 'Cruzamentos por 90': 'Cruzamentos/90', 'Cruzamentos certos %': 'Cruzamentos certos, %', 'Dribles por 90': 'Dribles/90', 'Dribles certos %': 'Dribles com sucesso, %',
     'Duelos ofensivos ganhos %': 'Duelos ofensivos ganhos, %', 'Faltas sofridas por 90': 'Faltas sofridas/90', 'Duelos ganhos %': 'Duelos ganhos, %', 'Duelos defensivos ganhos %': 'Duelos defensivos ganhos, %',
     'Duelos aéreos ganhos %': 'Duelos aéreos ganhos, %', 'Interceptações (ajustadas à posse)': 'Interceções ajust. à posse', 'Carrinhos (ajustados à posse)': 'Cortes de carrinho ajust. à posse',
-    'Finalizações bloqueadas por 90': 'Remates intercetados/90', 'Faltas por 90': 'Faltas/90', 'Cartões amarelos por 90': 'Cartões amarelos/90' };
+    'Finalizações bloqueadas por 90': 'Remates intercetados/90', 'Faltas por 90': 'Faltas/90', 'Cartões amarelos por 90': 'Cartões amarelos/90',
+    'Duelos por 90': 'Duelos/90', 'Duelos defensivos por 90': 'Duelos defensivos/90', 'Duelos aéreos por 90': ['Duelos aérios/90', 'Duelos aéreos/90'], 'Ações defensivas certas por 90': ['Ações defensivas com êxito/90', 'Acções defensivas com êxito/90'] };
+  /* técnico COLADO (export do Wyscout, em inglês ou português): devolve o valor de um indicador do estudo direto da coluna do
+     arquivo. O quadro da ficha lia só os indicadores que a ficha da posição mostra — o resto do export ficava como "—". */
+  const nkRaw = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+  function coladoDe(j) {
+    let dc = j && (j._dados || j._dadosFicha);
+    if (!dc) { try { if (typeof dadosColados === 'function' && typeof primaryKey === 'function') dc = dadosColados(primaryKey(j), null); } catch (e) { dc = null; } }
+    if (!dc || !dc.tec_raw) return null;
+    const raw = {}; Object.keys(dc.tec_raw).forEach(k => { const v = dc.tec_raw[k]; if (v != null && v !== '') raw[nkRaw(k)] = v; });
+    const en = typeof KPI_EN !== 'undefined' ? KPI_EN : {};
+    return rot => {
+      const nomes = [].concat(KPI[rot] != null && en[KPI[rot]] != null ? en[KPI[rot]] : [], KPI[rot] != null ? KPI[rot] : [], KPI_PT[rot] || []);
+      for (const n of nomes) { let v = raw[nkRaw(n)]; if (typeof v === 'string') v = parseFloat(v.replace(',', '.')); if (typeof v === 'number' && isFinite(v)) return v; }
+      return null;
+    };
+  }
   window.subidaSelo = function (j0) {
     try {
       if (!D || !j0 || !D.posicoes[j0.p]) return '';
@@ -508,7 +524,7 @@
       try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(j) || j; } catch (e) {}
       const r = linhaSub(j0), raw = dc && dc.tec_raw, en = typeof KPI_EN !== 'undefined' ? KPI_EN : {};
       /* técnico da ficha: o arquivo é o da posição do CADASTRO (é lá que o jogador está), mesmo medido em outra */
-      const tec = {}; let comFicha = false;
+      const tec = {}; let comFicha = false, colS = null;
       const usaFicha = () => { if (comFicha) return; comFicha = true; const b = kpisDaPosicao(j0._posBase || j0.p), ls = b && typeof primaryKey === 'function' ? b.jogadores[primaryKey(j0)] : null;
         if (ls) ls.forEach(l => { const nm = b.kpis[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); };
       const fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
@@ -516,7 +532,7 @@
       return seloHtml(j0.p, seloVals(j0.p, i => {
         let v = null;
         if (i.cat === 'fis') v = numero(j[fisK[i.k]]);
-        else if (raw) { if (KPI[i.rot] && en[KPI[i.rot]] != null) v = numero(raw[en[KPI[i.rot]]]); if (v == null && KPI_PT[i.rot]) v = numero(raw[KPI_PT[i.rot]]); }
+        else if (raw) { if (!colS) colS = coladoDe(Object.assign({}, j0, { _dados: dc })); v = colS ? colS(i.rot) : null; }
         if (v == null && r) v = r[NC + i.k];
         if (v == null && i.cat !== 'fis' && KPI[i.rot]) { usaFicha(); v = numero(tec[KPI[i.rot]]); }
         return v == null ? null : v;
@@ -531,8 +547,10 @@
       const tec = {};
       if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
       const base = linhaSub(j), fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
+      const col = coladoDe(j);
       const o = seloVals(j.p, i => {
         let v = i.cat === 'fis' ? j[fisK[i.k]] : (KPI[i.rot] != null ? tec[KPI[i.rot]] : null);
+        if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
         return v;
       });
@@ -547,12 +565,13 @@
       const P = D.posicoes[j.p], tec = {};
       if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
       /* o que a ficha não traz para a posição (o kpis muda de posição para posição) vem da base da aba Subida */
-      const base = linhaSub(j);
+      const base = linhaSub(j), col = coladoDe(j);
       let nf = 0;
       const linhas = [];
       D.inds.forEach(i => {
         let v = null;
         if (i.cat === 'fis') v = j[FIS_ORD[nf++]]; else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
+        if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
         const r = P.ref[i.k]; if (!r || r[0] == null || r[1] == null) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !(j._dadosFicha) && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
         linhas.push({ i, r, v, d: r[2], c: cor(i, r, v), chave: !i.nm && r[2] != null && Math.abs(r[2]) >= 0.3 });
