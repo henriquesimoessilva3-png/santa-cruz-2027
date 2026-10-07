@@ -169,3 +169,5 @@
 .fi-res-l.sel-n,.fi-res-l.tipo-nd{background:transparent;border:1px dashed var(--tinta3);color:var(--tinta3)}
 .fi-res b{display:block;font-size:14px;color:var(--tinta)} .fi-res b i{font-style:normal;font-size:18px}
 .fi-res small{display:block;font-size:11px;color:var(--tinta3)}
+
+.sq .sq-est{font-style:normal;font-size:9.5px;letter-spacing:.3px;text-transform:uppercase;color:var(--tinta3);border:1px solid var(--linha1);border-radius:4px;padding:0 4px;margin-left:4px}
