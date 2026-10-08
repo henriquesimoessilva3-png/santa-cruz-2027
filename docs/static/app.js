@@ -8542,7 +8542,9 @@ function indDoCsv(txt) {
     const o = {}; IND_COLUNAS.forEach(c => { o[c.k] = idx[c.k] != null ? (l[idx[c.k]] || '').trim() : ''; });
     if (o.pos) { const p = POSICOES.find(x => x.c === o.pos || sig(x.c) === o.pos); o.pos = p ? p.c : ''; }
     const b = indAcharNaBase(o.atleta);
-    return { ch: 'csv:' + o.atleta, atleta: o.atleta, b, data: o.data, indicacao: o.indicacao, obs: [o.obs], marcado: !ja.has(fsNorm(o.atleta)), porLink: true, ja: ja.has(fsNorm(o.atleta)), linha: o };
+    /* quem já está na lista é ATUALIZADO (não duplica): marcado, com o aviso "atualiza" na prévia */
+    const existe = ja.has(fsNorm(o.atleta));
+    return { ch: 'csv:' + o.atleta, atleta: o.atleta, b, data: o.data, indicacao: o.indicacao, obs: [o.obs], marcado: true, porLink: true, ja: false, atualiza: existe, linha: o };
   }).filter(c => c.atleta);
 }
 function indImportar() {
@@ -8558,9 +8560,10 @@ function indImportar() {
     const bruto = $('#indImpTxt').value;
     cands = /^\ufeff?"?Atleta"?;/.test(bruto.trim()) ? indDoCsv(bruto) : indCandidatos(indParseWhats(bruto));
     $('#indImpOk').disabled = !cands.some(c => c.marcado && !c.ja);
+    $('#indImpOk').textContent = cands.some(c => c.atualiza) ? 'adicionar / atualizar marcados' : 'adicionar marcados';
     $('#indImpPrev').innerHTML = !cands.length ? ($('#indImpTxt').value.trim() ? '<p class="ind-imp-nada">Nenhum jogador encontrado na conversa.</p>' : '') :
       '<table><tr><th></th><th>Atleta</th><th>Base</th><th>Indicou</th><th>Data</th><th>Comentários</th></tr>' + cands.map((c, i) =>
-        '<tr class="' + (c.ja ? 'ja' : '') + '"><td><input type="checkbox" data-i="' + i + '"' + (c.marcado && !c.ja ? ' checked' : '') + (c.ja ? ' disabled' : '') + '></td><td><b>' + esc(c.atleta) + '</b>' + (c.porLink ? '' : ' <small>nome no texto</small>') + (c.ja ? ' <small>já está na lista</small>' : '') + '</td>' +
+        '<tr class="' + (c.ja ? 'ja' : '') + '"><td><input type="checkbox" data-i="' + i + '"' + (c.marcado && !c.ja ? ' checked' : '') + (c.ja ? ' disabled' : '') + '></td><td><b>' + esc(c.atleta) + '</b>' + (c.porLink ? '' : ' <small>nome no texto</small>') + (c.ja ? ' <small>já está na lista</small>' : '') + (c.atualiza ? ' <small class="ind-atu">atualiza a linha que já existe</small>' : '') + '</td>' +
         '<td>' + (c.b ? esc(c.b.t + ' · ' + sig(c.b.p) + (c.b.id_ ? ' · ' + c.b.id_ : '')) : '<small>não achei na base</small>') + '</td><td>' + esc(c.indicacao) + '</td><td>' + esc(c.data.slice(8) + '/' + c.data.slice(5, 7)) + '</td><td class="ob">' + esc(c.obs.join(' | ')).slice(0, 400) + '</td></tr>').join('') + '</table>';
     $('#indImpPrev').querySelectorAll('input[data-i]').forEach(cb => cb.onchange = () => { cands[+cb.dataset.i].marcado = cb.checked; $('#indImpOk').disabled = !cands.some(c => c.marcado && !c.ja); });
   };
@@ -8570,7 +8573,15 @@ function indImportar() {
   m.querySelector('.ind-imp-fundo').onclick = fechar; $('#indImpX').onclick = fechar;
   $('#indImpOk').onclick = () => {
     const emp = {}; try { empLinhas().forEach(l => { const d = empDados(l.ch); if (d && d.empresario) emp[fsNorm(l.nome)] = d.empresario + (d.empresa ? ' (' + d.empresa + ')' : ''); }); } catch (e) {}
-    const novos = cands.filter(c => c.marcado && !c.ja).map(c => c.linha ? Object.assign({ uid: uid() }, c.linha) : c).map(c => {
+    /* CSV de quem já existe: Indicação, Recepção, Observações e Link vêm do arquivo; o resto só se o arquivo trouxer valor
+       (assim não se perde o que foi digitado na tela, como um clube corrigido) */
+    let atu = 0;
+    cands.filter(c => c.marcado && c.atualiza && c.linha).forEach(c => {
+      const r = indLista().find(x => fsNorm(x.atleta) === fsNorm(c.atleta)); if (!r) return;
+      IND_COLUNAS.forEach(col => { const v = c.linha[col.k]; if (['indicacao', 'recepcao', 'obs', 'link'].includes(col.k) || (v != null && v !== '')) r[col.k] = v || ''; });
+      atu++;
+    });
+    const novos = cands.filter(c => c.marcado && !c.ja && !c.atualiza).map(c => c.linha ? Object.assign({ uid: uid() }, c.linha) : c).map(c => {
       if (c.uid) return c;
       const b = c.b, ano = b && b.id_ ? String(new Date().getFullYear() - b.id_) : '';
       return { uid: uid(), atleta: c.atleta, pos: b && POSICOES.some(p => p.c === b.p) ? b.p : '', geracao: ano, pais: b && b.nac ? (b.nac === 'Brazil' ? 'Brasil' : b.nac) : '',
@@ -8578,7 +8589,7 @@ function indImportar() {
     });
     estado.indicados = novos.concat(indLista());
     salvarLocal(); fechar(); indRender();
-    toast(novos.length + ' indicado' + (novos.length === 1 ? '' : 's') + ' importado' + (novos.length === 1 ? '' : 's') + ' do WhatsApp', 'bom');
+    toast(novos.length + ' novo' + (novos.length === 1 ? '' : 's') + (atu ? ' · ' + atu + ' atualizado' + (atu === 1 ? '' : 's') : '') + ' — importado do WhatsApp', 'bom');
   };
   setTimeout(() => $('#indImpTxt').focus(), 30);
 }
