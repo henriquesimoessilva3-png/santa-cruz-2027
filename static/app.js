@@ -8326,7 +8326,7 @@ const IND_COLUNAS = [
   { k: 'empresario',  r: 'Empresário',  w: 130, ph: 'quem agencia' },
   { k: 'avaliacao',   r: 'Avaliação',   w: 132, opcoes: () => IND_AVALIACOES },
   { k: 'obs',         r: 'Observações', w: 300, ph: 'comentários, status, custo' },
-  { k: 'link',        r: 'Link',        w: 46,  link: 1 },
+  { k: 'link',        r: 'Link',        w: 110, link: 1 },
 ];
 let indBusca = '', indFiltroAval = '';
 
@@ -8384,8 +8384,10 @@ function indRender() {
   alvo.innerHTML = cab + lista.map(i => {
     const cel = c => {
       const v = i[c.k] || '';
+      /* link editável (colar/trocar o Transfermarkt) com o atalho ↗ para abrir */
       if (c.link) return '<span class="emp-campo ind-link" style="flex:' + c.w + ' 1 0;min-width:0">' +
-        (v ? '<a href="' + esc(v) + '" target="_blank" rel="noopener" title="' + esc(v) + '">TM ↗</a>' : '') + '</span>';
+        '<input data-uid="' + i.uid + '" data-k="' + c.k + '" value="' + esc(v) + '" placeholder="link TM" title="' + esc(v) + '">' +
+        (v ? '<a href="' + esc(v) + '" target="_blank" rel="noopener" title="abrir">↗</a>' : '') + '</span>';
       if (c.opcoes) {
         const cl = c.k === 'avaliacao' ? ' ind-aval ' + (IND_CLASSE[v] || 'sem') : '';
         return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
