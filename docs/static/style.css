@@ -3645,3 +3645,17 @@ body.claro .emp-st.st-emprestimo,body.claro .emp-chip.st-emprestimo{color:#b4232
 .abas-info .zoom-ed{width:52px;font:inherit;font-size:11px;padding:1px 3px;border:1px solid var(--tinta3);border-radius:4px;background:transparent;color:inherit}
 .abas-info .zoom-auto{margin-left:6px;color:inherit;text-decoration:underline}
 .abas-info:hover{color:var(--tinta)}
+
+/* Indicados: link do Transfermarkt e importar do WhatsApp */
+.ind-link a{font-size:10.5px;font-weight:700;color:var(--coral);text-decoration:none;white-space:nowrap}
+.ind-imp{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center}
+.ind-imp-fundo{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.ind-imp-caixa{position:relative;width:min(1100px,94vw);max-height:90vh;overflow:auto;background:var(--fundo2);border:1px solid var(--borda2);border-radius:12px;padding:18px 20px;color:var(--tinta)}
+.ind-imp-caixa h3{margin:0 0 6px;font-size:16px} .ind-imp-caixa p{margin:0 0 10px;font-size:12.5px;color:var(--tinta2)}
+.ind-imp-caixa textarea{width:100%;min-height:150px;box-sizing:border-box;background:var(--input-bg);border:1px solid var(--input-borda);color:var(--tinta);border-radius:8px;padding:8px;font:12px/1.4 var(--fonte)}
+.ind-imp-caixa table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px}
+.ind-imp-caixa th{text-align:left;color:var(--tinta3);font-weight:600;padding:4px 6px;border-bottom:1px solid var(--borda2)}
+.ind-imp-caixa td{padding:5px 6px;border-bottom:1px solid var(--linha1);vertical-align:top} .ind-imp-caixa td.ob{color:var(--tinta2);font-size:11.5px}
+.ind-imp-caixa tr.ja{opacity:.5} .ind-imp-caixa small{color:var(--tinta3)} .ind-imp-nada{color:var(--tinta3)}
+.ind-imp-bts{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+.ind-imp-arq{display:block;margin:8px 0 0;font-size:12px;color:var(--tinta2)} .ind-imp-arq small{color:var(--tinta3)}

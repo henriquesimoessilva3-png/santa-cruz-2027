@@ -7467,6 +7467,7 @@ function ligar() {
   if (ia) ia.onchange = () => { indFiltroAval = ia.value; indRender(); };
   const iN = $('#indNovo'); if (iN) iN.onclick = indNovo;
   const iC = $('#indCsv');  if (iC) iC.onclick = indCsv;
+  const iW = $('#indWhats'); if (iW) iW.onclick = indImportar;
 
   $('#btAjustar').onclick = () => {
     escalaProxima();
@@ -8322,7 +8323,10 @@ const IND_COLUNAS = [
   { k: 'responsavel', r: 'Responsável', w: 110, ph: 'quem avalia' },
   { k: 'recepcao',    r: 'Recepção',    w: 120, ph: 'quem recebeu' },
   { k: 'indicacao',   r: 'Indicação',   w: 130, ph: 'quem indicou' },
+  { k: 'empresario',  r: 'Empresário',  w: 130, ph: 'quem agencia' },
   { k: 'avaliacao',   r: 'Avaliação',   w: 132, opcoes: () => IND_AVALIACOES },
+  { k: 'obs',         r: 'Observações', w: 300, ph: 'comentários, status, custo' },
+  { k: 'link',        r: 'Link',        w: 46,  link: 1 },
 ];
 let indBusca = '', indFiltroAval = '';
 
@@ -8339,7 +8343,7 @@ function indRender() {
   const lista = todos.filter(i => {
     if (indFiltroAval && (i.avaliacao || '') !== indFiltroAval) return false;
     if (!termo) return true;
-    return ['atleta', 'clube', 'indicacao', 'pais', 'responsavel', 'recepcao']
+    return ['atleta', 'clube', 'indicacao', 'pais', 'responsavel', 'recepcao', 'empresario', 'obs']
       .some(k => fsNorm(i[k]).includes(fsNorm(termo)));
   });
 
@@ -8380,6 +8384,8 @@ function indRender() {
   alvo.innerHTML = cab + lista.map(i => {
     const cel = c => {
       const v = i[c.k] || '';
+      if (c.link) return '<span class="emp-campo ind-link" style="flex:' + c.w + ' 1 0;min-width:0">' +
+        (v ? '<a href="' + esc(v) + '" target="_blank" rel="noopener" title="' + esc(v) + '">TM ↗</a>' : '') + '</span>';
       if (c.opcoes) {
         const cl = c.k === 'avaliacao' ? ' ind-aval ' + (IND_CLASSE[v] || 'sem') : '';
         return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
@@ -8441,6 +8447,138 @@ function indNovo() {
   salvarLocal(); indRender();
   const p = $('#indCorpo .ind-forte');
   if (p) { p.focus(); p.scrollIntoView({ block: 'center' }); }
+}
+
+/* ---- importar do WhatsApp ----
+   Cola-se a conversa do grupo de indicações (copiada do WhatsApp: "[11:53, 07/10/2026] Fulano: texto"). O app acha
+   cada jogador indicado — link do Transfermarkt, ou nome de jogador da base escrito por extenso — e monta a linha:
+   quem indicou (o primeiro a mandar), data, clube/posição/idade/país pela base, empresário se já estiver anotado na
+   aba Empresários, e os comentários que vieram em seguida nas Observações. Mostra antes de gravar; nada entra sozinho. */
+function indParseWhats(txt) {
+  const msgs = [];
+  /* dois jeitos de o WhatsApp escrever o cabeçalho: copiado da tela "[11:53, 07/10/2026] Fulano:" (dia/mês) e
+     exportado do iPhone em inglês "[10/7/26, 11:53:54 AM] Fulano:" (mês/dia, com AM/PM) */
+  const A = /^\[(\d{1,2}):(\d{2})(?::\d{2})?,\s*(\d{1,2})\/(\d{1,2})\/(\d{2,4})\]\s*([^:]{1,60}):\s?(.*)$/;
+  const B = /^\[(\d{1,2})\/(\d{1,2})\/(\d{2,4}),\s*(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?\]\s*(?:-\s*)?([^:]{1,60}):\s?(.*)$/i;
+  const ano = a => a.length === 2 ? '20' + a : a, dd = x => String(x).padStart(2, '0');
+  String(txt || '').split(/\r?\n/).forEach(l => {
+    const t = l.replace(/[\u200e\u200f]/g, '').trim(); let m, msg = null;
+    if ((m = A.exec(t))) msg = { hora: dd(m[1]) + ':' + m[2], data: ano(m[5]) + '-' + dd(m[4]) + '-' + dd(m[3]), quem: m[6].trim(), txt: m[7] };
+    else if ((m = B.exec(t))) { let h = +m[4]; if (m[6]) { const pm = /p/i.test(m[6]); if (pm && h < 12) h += 12; if (!pm && h === 12) h = 0; }
+      const us = !!m[6];   /* com AM/PM o export é americano: mês/dia */
+      msg = { hora: dd(h) + ':' + m[5], data: ano(m[3]) + '-' + dd(us ? m[1] : m[2]) + '-' + dd(us ? m[2] : m[1]), quem: m[7].trim(), txt: m[8] }; }
+    else if (/^\[[^\]]+\]\s*-\s/.test(t)) return;   /* mensagem de sistema ("criou o grupo") */
+    if (msg) { msg.txt = msg.txt.replace(/^\[Encaminhada\]\s*/i, '').replace(/<(imagem|áudio|vídeo)[^>]*>/gi, '').trim(); msgs.push(msg); }
+    else if (msgs.length && t) msgs[msgs.length - 1].txt += '\n' + t;
+  });
+  return msgs;
+}
+function indAcharNaBase(nome, tm) {
+  if (typeof BASE === 'undefined' || !BASE.length) return null;
+  if (tm) { const b = BASE.find(x => String(x.tm || '') === String(tm)); if (b) return b; }
+  const n = fsNorm(nome); if (!n) return null;
+  const r = BASE.filter(x => fsNorm(x.n) === n || fsNorm(x.nc) === n);
+  return r.sort((a, b) => (b.min || 0) - (a.min || 0))[0] || null;
+}
+function indCandidatos(msgs) {
+  const out = [], porCh = {};
+  const nomesBase = new Map();
+  if (typeof BASE !== 'undefined') BASE.forEach(b => { if (/santa cruz/i.test(b.t || '')) return; [b.n, b.nc].forEach(n => { const k = fsNorm(n); if (k && k.includes(' ') && k.length >= 8 && !nomesBase.has(k)) nomesBase.set(k, b); }); });
+  const jaNoGrupo = new Set(indLista().map(i => fsNorm(i.atleta)));
+  let atual = null;
+  msgs.forEach((m, idx) => {
+    const achados = [];
+    const re = /https?:\/\/(?:www\.)?transfermarkt\.[a-z.]+\/([^\/\s]+)\/profil\/spieler\/(\d+)/gi; let x;
+    while ((x = re.exec(m.txt))) {
+      const slug = decodeURIComponent(x[1]).replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      achados.push({ ch: 'tm:' + x[2], nome: slug, tm: x[2], link: x[0], porLink: true });
+    }
+    /* nome por extenso de jogador da base (2+ palavras), sem link: entra desmarcado para conferir */
+    const t = ' ' + fsNorm(m.txt).replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ') + ' ';
+    if (!achados.length) nomesBase.forEach((b, k) => {
+      if (!t.includes(' ' + k + ' ')) return;
+      const dup = out.find(c => c.b === b || fsNorm(c.atleta) === k);   /* já veio por link: é o mesmo jogador */
+      achados.push(dup ? { ch: dup.ch, nome: dup.atleta, porLink: dup.porLink } : { ch: 'n:' + k, nome: b.nc && fsNorm(b.nc) === k ? b.nc : b.n, porLink: false, b });
+    });
+    const limpa = m.txt.replace(/https?:\/\/\S+/g, '').replace(/^\s*indica[cç][aã]o:?\s*/i, '').trim();
+    if (achados.length) {
+      achados.forEach(a => {
+        let c = porCh[a.ch];
+        if (!c) {
+          const b = a.b || indAcharNaBase(a.nome, a.tm);
+          c = porCh[a.ch] = { ch: a.ch, atleta: b ? (b.nc || b.n) : a.nome, link: a.link || (b && b.tm ? 'https://www.transfermarkt.com.br/x/profil/spieler/' + b.tm : ''),
+            b, data: m.data, indicacao: m.quem, obs: [], marcado: a.porLink, porLink: a.porLink, ja: false };
+          c.ja = jaNoGrupo.has(fsNorm(c.atleta));
+          out.push(c);
+        } else if (a.porLink) { c.marcado = true; c.porLink = true; }
+        if (limpa) c.obs.push(m.quem + ' (' + m.data.slice(8) + '/' + m.data.slice(5, 7) + ' ' + m.hora + '): ' + limpa);
+      });
+      atual = achados.length === 1 ? porCh[achados[0].ch] : null; atual && (atual.ult = idx);
+    } else if (atual && limpa && idx - atual.ult <= 4) {
+      /* comentário logo em seguida, sem citar outro jogador: vai para o último indicado */
+      atual.obs.push(m.quem + ' (' + m.hora + '): ' + limpa); atual.ult = idx;
+    }
+  });
+  return out;
+}
+/* CSV com as colunas da aba (o mesmo do "baixar CSV"): cada linha entra como está */
+function indDoCsv(txt) {
+  const linhas = [], L = String(txt).replace(/^\ufeff/, '');
+  let campo = '', lin = [], q = false;
+  for (let i = 0; i < L.length; i++) {
+    const ch = L[i];
+    if (q) { if (ch === '"') { if (L[i + 1] === '"') { campo += '"'; i++; } else q = false; } else campo += ch; }
+    else if (ch === '"') q = true; else if (ch === ';') { lin.push(campo); campo = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && L[i + 1] === '\n') i++; lin.push(campo); campo = ''; if (lin.some(x => x !== '')) linhas.push(lin); lin = []; }
+    else campo += ch;
+  }
+  if (campo || lin.length) { lin.push(campo); linhas.push(lin); }
+  const cab = linhas.shift() || [], idx = {};
+  cab.forEach((h, i) => { const c = IND_COLUNAS.find(x => x.r === h.trim()); if (c) idx[c.k] = i; });
+  const ja = new Set(indLista().map(i => fsNorm(i.atleta)));
+  return linhas.map(l => {
+    const o = {}; IND_COLUNAS.forEach(c => { o[c.k] = idx[c.k] != null ? (l[idx[c.k]] || '').trim() : ''; });
+    if (o.pos) { const p = POSICOES.find(x => x.c === o.pos || sig(x.c) === o.pos); o.pos = p ? p.c : ''; }
+    const b = indAcharNaBase(o.atleta);
+    return { ch: 'csv:' + o.atleta, atleta: o.atleta, b, data: o.data, indicacao: o.indicacao, obs: [o.obs], marcado: !ja.has(fsNorm(o.atleta)), porLink: true, ja: ja.has(fsNorm(o.atleta)), linha: o };
+  }).filter(c => c.atleta);
+}
+function indImportar() {
+  let m = document.getElementById('indImp');
+  if (!m) { m = document.createElement('div'); m.id = 'indImp'; m.className = 'ind-imp'; document.body.appendChild(m); }
+  m.innerHTML = '<div class="ind-imp-fundo"></div><div class="ind-imp-caixa"><h3>Importar indicações do WhatsApp</h3>' +
+    '<p>Cole a conversa do grupo (no WhatsApp: selecionar as mensagens e copiar). Cada link do Transfermarkt vira um indicado; nomes de jogadores da base escritos por extenso aparecem desmarcados para você conferir.</p>' +
+    '<textarea id="indImpTxt" placeholder="[11:53, 07/10/2026] Thairo: Indicacao: https://www.transfermarkt.com.br/…"></textarea>' +
+    '<label class="ind-imp-arq">ou escolher o arquivo: <input type="file" id="indImpArq" accept=".txt,.csv,text/plain,text/csv"> <small>conversa exportada do WhatsApp (chat.txt) ou CSV da aba</small></label>' +
+    '<div id="indImpPrev"></div><div class="ind-imp-bts"><button class="bt mini" id="indImpX">cancelar</button><button class="bt mini" id="indImpOk" disabled>adicionar marcados</button></div></div>';
+  let cands = [];
+  const prev = () => {
+    const bruto = $('#indImpTxt').value;
+    cands = /^\ufeff?"?Atleta"?;/.test(bruto.trim()) ? indDoCsv(bruto) : indCandidatos(indParseWhats(bruto));
+    $('#indImpOk').disabled = !cands.some(c => c.marcado && !c.ja);
+    $('#indImpPrev').innerHTML = !cands.length ? ($('#indImpTxt').value.trim() ? '<p class="ind-imp-nada">Nenhum jogador encontrado na conversa.</p>' : '') :
+      '<table><tr><th></th><th>Atleta</th><th>Base</th><th>Indicou</th><th>Data</th><th>Comentários</th></tr>' + cands.map((c, i) =>
+        '<tr class="' + (c.ja ? 'ja' : '') + '"><td><input type="checkbox" data-i="' + i + '"' + (c.marcado && !c.ja ? ' checked' : '') + (c.ja ? ' disabled' : '') + '></td><td><b>' + esc(c.atleta) + '</b>' + (c.porLink ? '' : ' <small>nome no texto</small>') + (c.ja ? ' <small>já está na lista</small>' : '') + '</td>' +
+        '<td>' + (c.b ? esc(c.b.t + ' · ' + sig(c.b.p) + (c.b.id_ ? ' · ' + c.b.id_ : '')) : '<small>não achei na base</small>') + '</td><td>' + esc(c.indicacao) + '</td><td>' + esc(c.data.slice(8) + '/' + c.data.slice(5, 7)) + '</td><td class="ob">' + esc(c.obs.join(' | ')).slice(0, 400) + '</td></tr>').join('') + '</table>';
+    $('#indImpPrev').querySelectorAll('input[data-i]').forEach(cb => cb.onchange = () => { cands[+cb.dataset.i].marcado = cb.checked; $('#indImpOk').disabled = !cands.some(c => c.marcado && !c.ja); });
+  };
+  const fechar = () => m.remove();
+  $('#indImpTxt').oninput = prev;
+  $('#indImpArq').onchange = async () => { const a = $('#indImpArq').files[0]; if (!a) return; $('#indImpTxt').value = await a.text(); prev(); };
+  m.querySelector('.ind-imp-fundo').onclick = fechar; $('#indImpX').onclick = fechar;
+  $('#indImpOk').onclick = () => {
+    const emp = {}; try { empLinhas().forEach(l => { const d = empDados(l.ch); if (d && d.empresario) emp[fsNorm(l.nome)] = d.empresario + (d.empresa ? ' (' + d.empresa + ')' : ''); }); } catch (e) {}
+    const novos = cands.filter(c => c.marcado && !c.ja).map(c => c.linha ? Object.assign({ uid: uid() }, c.linha) : c).map(c => {
+      if (c.uid) return c;
+      const b = c.b, ano = b && b.id_ ? String(new Date().getFullYear() - b.id_) : '';
+      return { uid: uid(), atleta: c.atleta, pos: b && POSICOES.some(p => p.c === b.p) ? b.p : '', geracao: ano, pais: b && b.nac ? (b.nac === 'Brazil' ? 'Brasil' : b.nac) : '',
+        clube: b ? b.t : '', data: c.data, responsavel: '', recepcao: '', indicacao: c.indicacao, empresario: emp[fsNorm(c.atleta)] || '', avaliacao: '', obs: c.obs.join(' | '), link: c.link || '' };
+    });
+    estado.indicados = novos.concat(indLista());
+    salvarLocal(); fechar(); indRender();
+    toast(novos.length + ' indicado' + (novos.length === 1 ? '' : 's') + ' importado' + (novos.length === 1 ? '' : 's') + ' do WhatsApp', 'bom');
+  };
+  setTimeout(() => $('#indImpTxt').focus(), 30);
 }
 
 function indCsv() {
