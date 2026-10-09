@@ -3096,8 +3096,20 @@ function estat(lista, campo) {
 /* Uma linha da ficha, na mesma leitura do Ranking:
    rotulo · valor · barra de 0 ao melhor da coorte · media · melhor.
    Verde acima da media, vermelho abaixo, azul quando o jogador e o lider. */
+/* indicadores em que MENOS é melhor (faltas cometidas, cartões): o "melhor" do arquivo é o máximo da coorte, então a
+   cor e o radar se invertem — fazer mais falta que a média é vermelho, não verde (07/10) */
+const menorMelhorInd = rot => /^(fouls per 90|faltas \/90|faltas por 90|faltas\/90|amarelos|yellow cards|cartões|red cards|vermelhos)/i.test(String(rot || '').trim());
 function linhaInd(rot, valor, media, melhor, casas) {
   if (typeof valor !== 'number' || isNaN(valor)) return '';
+  if (menorMelhorInd(rot)) {
+    const alvo = Math.max(melhor || 0, valor, 0.0001), f = n => (typeof n === 'number' ? n.toFixed(casas).replace('.', ',') : '—');
+    const classe = media == null ? 'acima' : valor <= media ? 'acima' : 'abaixo';
+    return '<div class="fi-linha ' + classe + '" title="' + esc(rot) + ': ' + f(valor) + ' · média ' + f(media) + ' · aqui MENOS é melhor (maior da coorte ' + f(melhor) + ')">' +
+      '<span class="rot">' + esc(rot) + ' ↓</span><span class="val">' + f(valor) + '</span>' +
+      '<span class="fi-barra"><i style="width:' + Math.max(0, Math.min(100, valor / alvo * 100)).toFixed(1) + '%"></i>' +
+      (media != null ? '<span class="marca" style="left:' + Math.max(0, Math.min(100, media / alvo * 100)).toFixed(1) + '%"></span>' : '') + '</span>' +
+      '<span class="med">' + f(media) + '</span><span class="mx">—</span></div>';
+  }
   const alvo = Math.max(melhor || 0, valor, 0.0001);
   const pct = Math.max(0, Math.min(100, valor / alvo * 100));
   const pctMed = Math.max(0, Math.min(100, (media || 0) / alvo * 100));
@@ -3165,7 +3177,8 @@ function radarDaFicha(porGrupo, nomeJog) {
       const vs = linhas.map(l => {
         const mx = l[3];
         if (typeof l[k] !== 'number' || typeof mx !== 'number' || mx <= 0) return null;
-        return Math.max(0, Math.min(100, l[k] / mx * 100));
+        const x = Math.max(0, Math.min(100, l[k] / mx * 100));
+        return menorMelhorInd(l[0]) ? 100 - x : x;   /* faltas/cartões: menos é melhor */
       }).filter(v => v != null);
       return vs.length ? vs.reduce((a, v) => a + v, 0) / vs.length : null;
     };
