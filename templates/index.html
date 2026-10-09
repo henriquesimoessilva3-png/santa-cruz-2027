@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/static/subida.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/tipo_a.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/novorizontino.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/ameaca.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
 <body>
@@ -163,6 +164,7 @@
   <button class="aba" data-aba="consulta">Consulta de jogador</button>
   <button class="aba" data-aba="tipoa" title="Jogadores A e B (tipo físico pela regra do clube), por posição: Série B, ligas sul-americanas e sul-americanos no exterior — com PDF">Tipo físico A e B</button>
       <button class="aba" data-aba="novoriz" title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
+      <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -598,6 +600,9 @@
       <div class="emp-rolagem"><div class="sub" id="subCorpo"></div></div>
     </section>
 
+    <section class="pagina oculta" id="pgAmeaca">
+      <div class="emp-rolagem"><div class="am" id="amCorpo"></div></div>
+    </section>
     <section class="pagina oculta" id="pgNovoriz">
       <div class="emp-rolagem"><div class="nz" id="nzCorpo"></div></div>
     </section>
@@ -919,6 +924,7 @@
 <script src="/static/tipo_a.js?v={{ ver }}"></script>
 <script src="/static/novorizontino_dados.js?v={{ ver }}"></script>
 <script src="/static/novorizontino.js?v={{ ver }}"></script>
+<script src="/static/ameaca.js?v={{ ver }}"></script>
 <script src="/static/app.js?v={{ ver }}"></script>
 </body>
 </html>
