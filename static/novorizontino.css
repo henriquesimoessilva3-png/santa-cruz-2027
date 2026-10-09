@@ -1,0 +1,50 @@
+/* Aba "Modelo Novorizontino" (static/novorizontino.js) */
+.nz{padding:14px 16px 40px;color:var(--tinta);max-width:1500px}
+.nz-topo{display:flex;gap:20px;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.nz-topo h2{margin:0 0 4px;font-size:19px} .nz-topo p{margin:0;font-size:12.5px;color:var(--tinta2);line-height:1.5;max-width:120ch}
+.nz-sec{margin:0 0 22px}
+.nz-h{margin:0 0 10px;font-size:16px;border-bottom:2px solid var(--coral);padding-bottom:5px} .nz-h small{font-size:12px;font-weight:500;color:var(--tinta2)}
+.nz-camp{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.nz-camp>div{background:var(--fundo2);border:1px solid var(--borda2);border-radius:10px;padding:8px 14px;min-width:110px}
+.nz-camp small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta3)}
+.nz-camp b{font-size:24px;line-height:1.2} .nz-camp b.nz-tr{font-size:16px} .nz-camp em{display:block;font-style:normal;font-size:11px;color:var(--tinta2)}
+.nz-ident{background:var(--fundo2);border:1px solid var(--borda2);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12.5px;line-height:1.5}
+.nz-ident h4{margin:0 0 4px;font-size:13px} .nz-ident p{margin:3px 0} .nz-ident .v{color:var(--txt-verde,#3fb36b)} .nz-ident .r{color:#e07070} .nz-leitura{color:var(--tinta2)}
+.nz-col2{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:12px}
+.nz-tabc{background:var(--fundo2);border:1px solid var(--borda2);border-radius:10px;padding:8px 10px}
+.nz-tabc h4{margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta2)}
+.nz-tabc table,.nz-el{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+.nz-tabc th,.nz-el th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--tinta3);font-weight:600;padding:3px 5px;border-bottom:1px solid var(--borda2)}
+.nz-tabc td,.nz-el td{padding:3px 5px;border-bottom:1px solid var(--linha1)}
+.nz-tabc td.nz-v b{font-size:14px} .nz-tabc td.nz-m{color:var(--tinta3)} .nz-rot{color:var(--tinta2)}
+.nz-rk{white-space:nowrap} .nz-rkb{display:inline-block;width:70px;height:6px;background:var(--fundo3);border-radius:3px;vertical-align:middle;margin-right:6px;overflow:hidden}
+.nz-rkb i{display:block;height:100%} .nz-rk b{font-size:14px}
+.top{color:#2e9e55} i.top{background:#2e9e55} .bom{color:#7cbf5a} i.bom{background:#7cbf5a} .meio{color:#c9a13a} i.meio{background:#c9a13a} .ruim{color:#d64545} i.ruim{background:#d64545}
+.nz-el tr.t td{background:color-mix(in srgb,var(--coral) 8%,transparent)} .nz-el small{color:var(--tinta3)}
+.nz-card{background:var(--fundo2);border:1px solid var(--borda2);border-radius:12px;padding:10px 14px;margin-bottom:12px;page-break-inside:avoid}
+.nz-card header{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
+.nz-card h3{margin:0;font-size:17px} .nz-pos{background:var(--coral);color:#fff;font-weight:800;font-size:11px;border-radius:5px;padding:2px 7px}
+.nz-meta{font-size:12px;color:var(--tinta2)} .nz-meta b{color:var(--tinta);font-size:13px}
+.nz-l{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;font-style:normal;font-weight:800;font-size:12px;color:#fff;vertical-align:middle}
+.nz-lA{background:#2e9e55} .nz-lB{background:#d9a227} .nz-lC{background:#d64545} .nz-l0{background:var(--fundo3);color:var(--tinta3)}
+.nz-fis{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.nz-fis>div{background:var(--fundo3);border-radius:8px;padding:4px 10px;min-width:120px} .nz-fis small{display:block;font-size:10px;color:var(--tinta3)}
+.nz-fis b{font-size:17px} .nz-fis em{font-style:normal;font-size:11px;color:var(--tinta2);margin-left:6px}
+.nz-car{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px} .nz-car h5,.nz-par h5{margin:0 0 4px;font-size:12px} .nz-car small,.nz-par h5 small{font-weight:500;color:var(--tinta3)}
+.nz-chip{display:inline-block;font-size:11.5px;border-radius:6px;padding:2px 7px;margin:0 4px 4px 0;border:1px solid} .nz-chip b{margin-left:3px}
+.nz-chip.f{border-color:#2e9e5577;background:#2e9e5518} .nz-chip.f b{color:#2e9e55} .nz-chip.r{border-color:#d6454577;background:#d6454514} .nz-chip.r b{color:#d64545}
+.nz-merc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.nz-m h6{margin:0 0 3px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta2)}
+.nz-m table{width:100%;border-collapse:collapse;font-size:12px} .nz-m td{padding:3px 4px;border-bottom:1px solid var(--linha1);vertical-align:top}
+.nz-m td.s b{font-size:15px;color:var(--coral)} .nz-m td.n small{color:var(--tinta3);font-size:10.5px}
+.nz-m .sb-selo{transform:scale(.85)}
+.nz-vz{font-size:12px;color:var(--tinta3)} .nz-nota{font-size:11.5px;color:var(--tinta3);line-height:1.55;max-width:150ch} .nz-met{margin-top:8px}
+@media (max-width:900px){.nz-merc,.nz-car{grid-template-columns:1fr}.nz-col2{grid-template-columns:1fr}}
+@media print{
+  body.imp-novoriz #impressao,body.imp-novoriz .imp-topo,body.imp-novoriz .ficha,body.imp-novoriz #nzPdf,body.imp-novoriz footer{display:none!important}
+  body.imp-novoriz .pagina:not(#pgNovoriz){display:none!important}
+  body.imp-novoriz #pgNovoriz,body.imp-novoriz #pgNovoriz .emp-rolagem{display:block!important;overflow:visible!important;height:auto!important;padding:0}
+  body.imp-novoriz .nz{color:#111;max-width:none}
+  body.imp-novoriz .nz-card,body.imp-novoriz .nz-tabc,body.imp-novoriz .nz-ident,body.imp-novoriz .nz-camp>div{background:#fff;border-color:#ccc}
+  body.imp-novoriz .nz-fis>div{background:#f2f2f2}
+}
