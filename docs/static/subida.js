@@ -28,14 +28,40 @@
   const grava = () => { try { localStorage.setItem(LS, JSON.stringify(E)); } catch (e) {} };
 
   /* ---- régua ---- */
-  const ref = (pos, k) => (D.posicoes[pos].ref[k] || null);
+  /* ---- bloco do clube para ZAGUEIRO (decisão de 09/10/2026) ----
+     Na Série B 2022–25 o zagueiro do time que sobe intercepta e bloqueia MENOS (o time defende menos) e ganha quase o mesmo
+     % de duelo — pela régua pura, a defesa quase não entra e o ataque domina. O clube quer o zagueiro julgado pela defesa:
+     estes indicadores entram nos principais à força, com a régua no MELHOR dos dois (sobe ou cai; em faltas, o menor);
+     o ataque fica nos 3 que mais separam; o selo usa 4 de físico, 3 de passe, 2 de ataque e 4 de defesa. */
+  const CLUBE = {
+    def: ['Duelos aéreos ganhos %', 'Duelos ganhos %', 'Duelos defensivos ganhos %', 'Interceptações (ajustadas à posse)', 'Finalizações bloqueadas por 90', 'Faltas por 90'],
+    selo: ['Duelos aéreos ganhos %', 'Duelos defensivos ganhos %', 'Interceptações (ajustadas à posse)', 'Finalizações bloqueadas por 90'],
+    atq: ['Passes para a área por 90', 'xG por 90', 'Gols por 90'],
+    N: { fis: 4, pas: 3, atq: 2, def: 4 }
+  };
+  const ZAG = pos => pos === 'ZD' || pos === 'ZE';
+  const refCache = {};
+  const ref = (pos, k) => {
+    const r = D.posicoes[pos].ref[k] || null;
+    if (!r || !ZAG(pos)) return r;
+    const ck = pos + '|' + k; if (refCache[ck] !== undefined) return refCache[ck];
+    const i = D.inds[k]; let o = r;
+    if (CLUBE.def.includes(i.rot) && r[0] != null && r[1] != null) {
+      const melhor = i.menor ? Math.min(r[0], r[1]) : Math.max(r[0], r[1]), pior = i.menor ? Math.max(r[0], r[1]) : Math.min(r[0], r[1]);
+      o = [melhor, pior, Math.max(0.3, Math.abs(r[2] || 0)), 0]; o.forcado = true; o.orig = r;
+    } else if (i.cat === 'atq' && !CLUBE.atq.includes(i.rot) && r[2] != null) {
+      o = r.slice(); o.fora = true; o.orig = r;   /* ataque além dos 3: fica à vista, fora dos principais */
+    }
+    return refCache[ck] = o;
+  };
+  const refOrig = (pos, k) => { const r = ref(pos, k); return r && r.orig ? r.orig : r; };
   /* lado de quem sobe: "menor é melhor" (faltas, cartões) ou indicador em que quem sobe tem menos */
   function paraBaixo(i, r) { return i.menor || (r && r[0] != null && r[1] != null && r[0] < r[1]); }
   /* v = no perfil de quem sobe · a = entre quem cai e quem sobe · r = do lado de quem cai */
   /* indicador em que quem sobe tem MENOS (ex.: passes certos do lateral, volume de passe do extremo): é retrato do estilo do
      time, não qualidade — ter um número pior não pode contar a favor. Fica à vista, sem cor, fora dos principais e da conta.
      Decisão do clube em 07/10; não vale para faltas e cartões, onde menos é mesmo melhor. */
-  function estilo(i, r) { return !i.menor && r && r[0] != null && r[1] != null && r[0] < r[1]; }
+  function estilo(i, r) { return !!r && !r.forcado && !i.menor && r[0] != null && r[1] != null && r[0] < r[1]; }
   function cor(i, r, v) {
     if (v == null || !r || r[0] == null) return '';
     if (estilo(i, r)) return '';
@@ -52,11 +78,13 @@
   function principais(pos, N) {
     const m = {}, por = {};
     D.inds.forEach(i => {
-      const r = ref(pos, i.k); if (!r || i.nm || r[0] == null || r[1] == null || r[2] == null || r[3]) return;
-      if (Math.abs(r[2]) < 0.3 || !(i.menor ? r[0] < r[1] : r[0] > r[1])) return;
+      const r = ref(pos, i.k); if (!r || i.nm || r[0] == null || r[1] == null || r[2] == null || r[3] || r.fora) return;
+      if (ZAG(pos) && i.cat === 'def' && !CLUBE.selo.includes(i.rot)) return;
+      if (!r.forcado && (Math.abs(r[2]) < 0.3 || !(i.menor ? r[0] < r[1] : r[0] > r[1]))) return;
       (por[i.cat] = por[i.cat] || []).push([i.k, r[0], Math.abs(r[2])]);
     });
-    Object.keys(por).forEach(c => por[c].sort((a, b) => b[2] - a[2]).slice(0, N[c] || 1).forEach(x => { m[x[0]] = x[1]; }));
+    const NN = ZAG(pos) ? (N === N_PRI ? CLUBE.N : { fis: 2, pas: 1, atq: 1, def: 2 }) : N;
+    Object.keys(por).forEach(c => por[c].sort((a, b) => b[2] - a[2]).slice(0, NN[c] || 1).forEach(x => { m[x[0]] = x[1]; }));
     return m;
   }
   function padrao(pos, cat) {
@@ -219,7 +247,7 @@
       const on = mins[i.k] != null, v = on ? mins[i.k] : r[0];
       return '<label class="sub-min' + (on ? ' on' : '') + '"><input type="checkbox" data-mk="' + i.k + '"' + (on ? ' checked' : '') + '>' +
         '<span>' + esc(i.rot) + (i.menor ? ' <em>(máximo)</em>' : '') + (i.nm ? ' <em title="O Wyscout mudou o critério deste indicador no período: a régua 2022–25 não vale como mínimo para 2026">~</em>' : '') +
-        '<small>sobe ' + num(r[0], i.casas) + ' · cai ' + num(r[1], i.casas) + (r[2] != null ? ' · separação ' + (r[2] > 0 ? '+' : '') + num(r[2], 2) : '') + '</small></span>' +
+        '<small>sobe ' + num((r.orig || r)[0], i.casas) + ' · cai ' + num((r.orig || r)[1], i.casas) + ((r.orig || r)[2] != null ? ' · separação ' + ((r.orig || r)[2] > 0 ? '+' : '') + num((r.orig || r)[2], 2) : '') + (r.forcado ? ' · bloco do clube: régua ' + num(r[0], i.casas) : '') + '</small></span>' +
         '<input type="number" step="any" data-mv="' + i.k + '" value="' + v + '"></label>';
     }).join('') + '</div>').join('');
   }
@@ -577,9 +605,9 @@
         let v = null;
         if (i.cat === 'fis') v = j[FIS_ORD[nf++]]; else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
-        const r = P.ref[i.k]; if (!r || r[0] == null || r[1] == null) return;
+        const r = ref(j.p, i.k); if (!r || r[0] == null || r[1] == null) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !(j._dadosFicha) && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
-        linhas.push({ i, r, v, d: r[2], c: cor(i, r, v), chave: !i.nm && !estilo(i, r) && r[2] != null && Math.abs(r[2]) >= 0.3 });
+        linhas.push({ i, r, v, d: r[2], c: cor(i, r, v), chave: !i.nm && !r.fora && !estilo(i, r) && r[2] != null && Math.abs(r[2]) >= 0.3 });
       });
       if (!linhas.some(l => l.v != null)) return '';
       /* os PRINCIPAIS (os do selo ▲ ↔ ▼ do card) são um recorte dos fundamentais: só onde quem sobe tem MAIS, sem os
@@ -597,8 +625,8 @@
         return '<div class="sq-bloco"><h5>' + esc(b) + (cb.length ? ' <b>' + cb.filter(l => l.c === 'v').length + '/' + cb.length + '</b>' : '') + '</h5>' +
           '<table><thead><tr><th>Indicador</th><th>Ele</th><th>Sobe</th><th>Cai</th></tr></thead><tbody>' +
           ls.map(l => '<tr class="' + (l.pri ? 'sq-chave sq-lf' : l.chave ? 'sq-chave sq-lp' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
-            (estilo(l.i, l.r) ? ' · quem sobe tem MENOS: retrato do estilo do time, não entra nos principais nem na conta' : paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (estilo(l.i, l.r) ? ' <em class="sq-est">estilo</em>' : paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
-            '<td class="sq-v ' + (l.c || 'sq-nd') + '">' + (l.v == null ? '—' : num(l.v, l.i.casas)) + '</td><td>' + num(l.r[0], l.i.casas) + '</td><td>' + num(l.r[1], l.i.casas) + '</td></tr>').join('') +
+            (l.r.forcado ? ' · bloco do clube (zagueiro): régua no melhor dos dois, ' + num(l.r[0], l.i.casas) : '') + (estilo(l.i, l.r) ? ' · quem sobe tem MENOS: retrato do estilo do time, não entra nos principais nem na conta' : paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (l.r.forcado ? ' <em class="sq-est sq-clube">clube</em>' : '') + (estilo(l.i, l.r) ? ' <em class="sq-est">estilo</em>' : paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
+            '<td class="sq-v ' + (l.c || 'sq-nd') + '">' + (l.v == null ? '—' : num(l.v, l.i.casas)) + '</td><td>' + num((l.r.orig || l.r)[0], l.i.casas) + '</td><td>' + num((l.r.orig || l.r)[1], l.i.casas) + '</td></tr>').join('') +
           '</tbody></table></div>';
       };
       const nomes = a => a.slice().sort((x, y) => Math.abs(y.d) - Math.abs(x.d)).slice(0, 7).map(l => esc(l.i.rot)).join(' · ');
@@ -612,7 +640,7 @@
         (abaixo.length ? '<p class="sq-frase"><b class="r">No nível de quem cai:</b> ' + nomes(abaixo) + '</p>' : '') +
         '<div class="sq-grid">' + blocos.map(tab).join('') + '</div>' +
         '<div class="sq-pe">Régua: mediana do titular dos clubes que subiram e dos que caíram na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', na posição. ' +
-        'Principais (azul e amarelo): os indicadores em que quem sobe tem MAIS e que separam de quem cai (0,30 desvio ou mais); em faltas e cartões vale o menor (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta. “estilo” = indicador em que quem sobe tem menos: mostrado sem cor, fora dos principais e da conta, porque um número pior não conta a favor.</div></div>';
+        'Principais (azul e amarelo): os indicadores em que quem sobe tem MAIS e que separam de quem cai (0,30 desvio ou mais); em faltas e cartões vale o menor (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta. “estilo” = indicador em que quem sobe tem menos: mostrado sem cor, fora dos principais e da conta, porque um número pior não conta a favor. Zagueiro: “clube” = defesa incluída por decisão do clube, com a régua no melhor dos dois (sobe ou cai); no ataque só contam passes para a área, xG e gols.</div></div>';
     } catch (e) { return ''; }
   };
 })();

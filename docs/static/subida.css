@@ -171,3 +171,4 @@
 .fi-res small{display:block;font-size:11px;color:var(--tinta3)}
 
 .sq .sq-est{font-style:normal;font-size:9.5px;letter-spacing:.3px;text-transform:uppercase;color:var(--tinta3);border:1px solid var(--linha1);border-radius:4px;padding:0 4px;margin-left:4px}
+.sq .sq-clube{color:#4a90d9;border-color:#4a90d966}
