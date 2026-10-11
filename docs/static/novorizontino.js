@@ -87,12 +87,12 @@
     if (bj) {
       let j = Object.assign({}, bj, { p: pos });
       try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(j) || j; } catch (e) {}
-      try { letra = typeof tipoLetra === 'function' ? tipoLetra(j) : null; const x = typeof tipoResolvido === 'function' ? tipoResolvido(j) : null; tipo = x && x.tipo; } catch (e) {}
+      try { letra = typeof tipoLetra === 'function' ? tipoLetra(j) : null; tipo = typeof tipoNome === 'function' ? tipoNome(j) : null; if (letra === 'A' && typeof tipoMais === 'function' && tipoMais(j)) letra = 'Ap'; } catch (e) {}
       try { selo = window.subidaSelo ? window.subidaSelo(Object.assign({}, bj, { p: pos })) : ''; } catch (e) {}
     }
     const o = { letra, tipo, selo }; memo.set(r, o); return o;
   }
-  const letraHtml = l => l ? '<i class="nz-l nz-l' + l + '" title="tipo físico ' + l + ' (regra do clube)">' + l + '</i>' : '<i class="nz-l nz-l0" title="sem rastreio físico suficiente">–</i>';
+  const letraHtml = l => l ? '<i class="nz-l nz-l' + l + '" title="tipo físico ' + (l === 'Ap' ? 'A+' : l) + ' (regra do clube)">' + (l === 'Ap' ? 'A+' : l) + '</i>' : '<i class="nz-l nz-l0" title="sem rastreio físico suficiente">–</i>';
 
   /* ---------- parecidos ---------- */
   function parecidos(t) {

@@ -32,8 +32,8 @@
         const c = porNome.get(sem(j.n) + '|' + j.l) || []; const bj = c.find(b => sem(b.t) === sem(j.c)) || (c.length === 1 ? c[0] : null);
         if (bj) {
           let x = Object.assign({}, bj, { p: j.p }); try { if (typeof comFisicoDoEstudo === 'function') x = comFisicoDoEstudo(x) || x; } catch (e) {}
-          const l = typeof tipoLetra === 'function' ? tipoLetra(x) : null;
-          o = (l ? '<i class="nz-l nz-l' + l + '">' + l + '</i>' : '') + (window.subidaSelo ? window.subidaSelo(Object.assign({}, bj, { p: j.p })) : '');
+          let l = typeof tipoLetra === 'function' ? tipoLetra(x) : null; if (l === 'A' && typeof tipoMais === 'function' && tipoMais(x)) l = 'Ap';
+          o = (l ? '<i class="nz-l nz-l' + l + '">' + (l === 'Ap' ? 'A+' : l) + '</i>' : '') + (window.subidaSelo ? window.subidaSelo(Object.assign({}, bj, { p: j.p })) : '');
         }
       }
     } catch (e) {}

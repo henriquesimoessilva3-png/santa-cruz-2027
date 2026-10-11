@@ -44,10 +44,10 @@
       const g = grupo(b); if (!g) return;
       let j = b; try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(b) || b; } catch (e) {}
       let letra = null, tipo = null;
-      try { letra = tipoLetra(j); if (letra === 'A' || letra === 'B') { const x = tipoResolvido(j); tipo = x && x.tipo; } } catch (e) {}
+      let mais = false; try { letra = tipoLetra(j); if (letra === 'A' || letra === 'B') { tipo = typeof tipoNome === 'function' ? tipoNome(j) : (tipoResolvido(j) || {}).tipo; mais = typeof tipoMais === 'function' && tipoMais(j); } } catch (e) {}
       if (letra !== 'A' && letra !== 'B') return;
       try { const r = typeof csRegistro === 'function' ? csRegistro(b) : null; if (r && r.vet) return; } catch (e) {}
-      out[b.p][letra][g].push({ j, b, tipo });
+      out[b.p][letra][g].push({ j, b, tipo, mais });
     });
     return out;
   }
@@ -90,7 +90,7 @@
     if (!cache.nacs) { const st = new Set(); POS.forEach(p => ['A', 'B'].forEach(L => GRUPOS.forEach(g => D[p[0]][L][g[0]].forEach(x => { const n = nacDe(x.j); if (n) st.add(n); })))); cache.nacs = [...st].sort((a, b) => (PAIS_SA.includes(a) ? 0 : 1) - (PAIS_SA.includes(b) ? 0 : 1) || (PAIS_PT[a] || a).localeCompare(PAIS_PT[b] || b)); }
     const nacs = cache.nacs;
     let h = '<div class="ta-topo"><h2>Jogadores A e B por posição — tipo físico</h2>' +
-      '<p>Letra pela regra do clube: <b>A</b> = o tipo mais forte fisicamente da posição (explosivo e rápido; no volante, mais intenso) · <b>B</b> = o tipo do meio (motor de volume, médio em tudo ou intermediário). O C (baixa intensidade) fica de fora. ' +
+      '<p>Letra pela regra do clube: <b>A</b> = o tipo mais forte fisicamente da posição (explosivo e rápido; no volante, mais intenso; <b>no médio, o motor de volume</b> — revisão 11/10) · <b class="ta-ap">A+</b> = A que também tem volume (fora médio e meia) · <b>B</b> = o tipo do meio (motor de volume, médio em tudo ou intermediário). O C (baixa intensidade) fica de fora. ' +
       'Só a parte física (SkillCorner, 5 jogos rastreados ou mais). Três grupos por posição: Série B, ligas sul-americanas e sul-americanos (com brasileiros) jogando fora da América do Sul. Vetados ficam de fora.</p></div>' +
       '<div class="ta-ctrl"><div class="ta-chips"><button class="ta-chip' + (!E.pos ? ' on' : '') + '" data-pos="">Todas</button>' +
       POS.map(p => '<button class="ta-chip' + (E.pos === p[0] ? ' on' : '') + '" data-pos="' + p[0] + '">' + esc(p[1]) + ' <b>' + conta(p[0], 'A') + '</b>+' + conta(p[0], 'B') + '</button>').join('') + '</div>' +
