@@ -2911,7 +2911,7 @@ async function abrirFicha(ref) {
   /* liga com menos de 30 na posição: a régua vira a Série B (a liga que interessa); quem mexer no seletor manda */
   const sel = $('#fiBase');
   if (sel) {
-    if (coorte(j, 'posliga').length < 30 && j.l !== 'Brasil B') { if (sel.value === 'posliga' || sel.dataset.auto) { sel.value = 'posb'; sel.dataset.auto = '1'; } }
+    if (coorte(comPosCampo(j), 'posliga').length < 30 && j.l !== 'Brasil B') { if (sel.value === 'posliga' || sel.dataset.auto) { sel.value = 'posb'; sel.dataset.auto = '1'; } }
     else if (sel.dataset.auto) { sel.value = 'posliga'; delete sel.dataset.auto; }
   }
   $('#ficha').classList.remove('oculta');
@@ -2968,13 +2968,25 @@ async function kpisDe(j, modo) {
   if (!j || !j.p) return null;
   const dc = dadosColados(primaryKey(j), null) || j._dadosFicha;
   if (dc && dc.tec_raw) return kpisColados(j, dc, modo);
-  if (!cachePosKpis[j.p]) {
-    cachePosKpis[j.p] = fetch('dados/kpis/' + j.p + '.json' + (window.__verDados ? '?v=' + window.__verDados : ''))
-      .then(r => (r.ok ? r.json() : null))
-      .catch(() => null);
-  }
-  const base = await cachePosKpis[j.p];
+  const carrega = pos => (cachePosKpis[pos] || (cachePosKpis[pos] = fetch('dados/kpis/' + pos + '.json' + (window.__verDados ? '?v=' + window.__verDados : ''))
+      .then(r => (r.ok ? r.json() : null)).catch(() => null)));
+  const base = await carrega(j.p);
   if (!base) return null;
+  /* posição do campograma diferente da do cadastro: os números do jogador vêm do arquivo da posição do cadastro (é lá que
+     ele está) e a média/melhor saem da posição do campograma — na liga dele (posliga) ou na coorte escolhida */
+  if (j._posBase && j._posBase !== j.p) {
+    const fonte = await carrega(j._posBase); const ls = fonte && fonte.jogadores[primaryKey(j)];
+    if (!ls) return null;
+    let ref = null;
+    if (!modo || modo === 'posliga') {
+      const acc = {}, suf = ' - ' + j.l;
+      for (const pk in base.jogadores) { if (!pk.endsWith(suf)) continue; base.jogadores[pk].forEach(([id, v]) => { if (typeof v !== 'number') return; const a = acc[id] || (acc[id] = [0, 0, -Infinity]); a[0] += v; a[1]++; if (v > a[2]) a[2] = v; }); }
+      ref = {}; Object.keys(acc).forEach(id => { ref[id] = [acc[id][0] / acc[id][1], acc[id][2]]; });
+      const linhas = ls.map(([id, v, med, mx]) => ref[id] ? [id, v, ref[id][0], Math.max(ref[id][1], v)] : [id, v, null, null]);
+      return { ok: true, periodo: base.periodo, nomes: base.kpis, linhas };
+    }
+    return { ok: true, periodo: base.periodo, nomes: base.kpis, linhas: kpisRecoorte(base, ls, modo) };
+  }
   const linhas0 = base.jogadores[primaryKey(j)];
   if (!linhas0) return null;
   const linhas = (modo && modo !== 'posliga') ? kpisRecoorte(base, linhas0, modo) : linhas0;
@@ -2983,9 +2995,12 @@ async function kpisDe(j, modo) {
 
 /* média e melhor de cada indicador recalculados na coorte escolhida (Série B, Brasil A/B/C, todas as ligas) —
    o arquivo do ranking traz média e melhor só da liga do jogador, que em liga pequena (Coreia B: 14) não diz nada */
-const cacheRecoorte = {};
+/* cache por ARQUIVO de posição (antes a chave era só período + coorte, e a média de uma posição era reaproveitada
+   na ficha de outra posição ao trocar o seletor — corrigido em 12/10) */
+const cacheRecoorteW = new WeakMap();
 function kpisRecoorte(base, linhas, modo) {
-  const ch = base.periodo + '|' + modo + '|' + (base.__pos || '');
+  const cacheRecoorte = cacheRecoorteW.get(base) || (cacheRecoorteW.set(base, {}), cacheRecoorteW.get(base));
+  const ch = base.periodo + '|' + modo;
   let ref = cacheRecoorte[ch];
   if (!ref) {
     const ok = modo === 'posb' ? (pk => pk.endsWith(' - Brasil B')) : modo === 'posbr' ? (pk => / - Brasil [ABC]$/.test(pk)) : (() => true);
@@ -3206,6 +3221,7 @@ function radarDaFicha(porGrupo, nomeJog) {
 }
 
 async function montarFicha(j, modo) {
+  j = comPosCampo(j);
   /* físico colado à mão (card, estado.dadosJog ou registro manual) entra na ficha no lugar do da base */
   const dc = dadosColados(primaryKey(j), null);
   if (dc && (dc.fis || dc.tec_raw)) {
@@ -3228,8 +3244,8 @@ async function montarFicha(j, modo) {
     (j.nc && j.nc !== j.n ? ' <span class="apelido">' + esc(j.n) + '</span>' : '') +
     (ex ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
     (j.emp ? ' <span class="selo-emp" title="emprestado">emprestado</span>' : '');
-  const sub = j.t + ' · ' + j.l + ' · ' + sig(j.p) + (j.pw ? ' (' + j.pw + ')' : '') +
-    (j.rk ? ' · #' + j.rk + ' da liga na posição' : '') +
+  const sub = j.t + ' · ' + j.l + ' · ' + sig(j.p) + (j._posBase ? ' — comparado como ' + sig(j.p) + ', a posição no campograma (cadastro: ' + sig(j._posBase) + ')' : '') + (j.pw ? ' (' + j.pw + ')' : '') +
+    (j.rk && !j._posBase ? ' · #' + j.rk + ' da liga na posição' : '') +
     (j.rk_ok ? '' : ' · sem indicadores (minutagem baixa)');
 
   const cabeca = [
@@ -6919,12 +6935,12 @@ function sinaisDe(j) {
 /* letra A/B/C + selo de subida (▲ ↔ ▼, static/subida.js): saem juntos em todo lugar que mostra a letra */
 function tipoBadge(pk, obj) {
   let selo = '';
-  try { const js = obj || (BASE.length ? fsJogadorPk(pk) : null); if (js && typeof window.subidaSelo === 'function') selo = window.subidaSelo(js); } catch (e) {}
+  try { const js = comPosCampo(obj || (BASE.length ? fsJogadorPk(pk) : null)); if (js && typeof window.subidaSelo === 'function') selo = window.subidaSelo(js); } catch (e) {}
   return tipoBadgeLetra(pk, obj) + selo;
 }
 function tipoBadgeLetra(pk, obj) {
   if (!BASE.length || !window.CONSULTA) return '';
-  const j = obj || fsJogadorPk(pk); if (!j || j.p === 'GOL') return '';
+  const j = comPosCampo(obj || fsJogadorPk(pk)); if (!j || j.p === 'GOL') return '';
   const x = tipoResolvido(j); if (!x) return '';
   const D = window.CONSULTA, pos = j.p;   /* a posição é a do app (onde ele joga aqui), não a do estudo */
   const pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
@@ -7031,6 +7047,13 @@ function posNoCampograma(pk, jid) {
   /* card antigo pode não ter pk: vale também o id da base (jid) */
   for (const cod in estado.elenco) { if ((estado.elenco[cod] || []).some(x => x && ((pk && x.pk === pk) || (jid != null && x.jid === jid)))) return cod; }
   return null;
+}
+/* posição de comparação = a do campograma (12/10/2026, regra do Henrique): quem está no mapa numa posição diferente
+   da do cadastro é comparado em TUDO (ficha técnica, físico, letra, selo, quadro de subida) como a posição do mapa */
+function comPosCampo(j) {
+  if (!j || j._posBase || !j.p || j.p === 'GOL') return j;
+  const pc = posNoCampograma(primaryKey(j), j.id);
+  return (pc && pc !== 'GOL' && pc !== j.p) ? Object.assign({}, j, { p: pc, _posBase: j.p }) : j;
 }
 function raioIcone(pk, card, objBase, posCampo) {
   /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
