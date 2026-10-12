@@ -707,7 +707,8 @@
       </select>
       <select id="fTipo" title="Tipo físico (Estudo V2, F2-4): A = o tipo de quem sobe na posição, C = o de quem cai, B = outro tipo ou posição sem sinal">
         <option value="">Tipo físico: todos</option>
-        <option value="A">A · tipo de quem sobe</option>
+        <option value="Ap">A+ · explosivo com volume</option>
+        <option value="A">A · tipo de quem sobe (inclui A+)</option>
         <option value="B">B · outro tipo</option>
         <option value="C">C · tipo de quem cai</option>
       </select>
@@ -716,6 +717,14 @@
         <option value="def">△ ganha duelo aéreo</option>
         <option value="fin">▲ finalizador aéreo</option>
         <option value="ambos">△ + ▲</option>
+      </select>
+      <select id="fSelo" title="Selo de subida: quantos indicadores fundamentais da posição o jogador atinge no nível de quem sobe (▲ 60% ou mais · ↔ 35% a 60% · ▼ menos de 35%)">
+        <option value="">Subida: todos</option>
+        <option value="v">▲ atende (60%+)</option>
+        <option value="va">▲ ou ↔</option>
+        <option value="a">↔ médio (35–60%)</option>
+        <option value="r">▼ abaixo (menos de 35%)</option>
+        <option value="n">? sem dado</option>
       </select>
       <select id="fCobrador" title="Cobrador de bola parada (T2): índice ≥ 80 na liga">
         <option value="">Cobrador: todos</option>

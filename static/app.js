@@ -1871,7 +1871,8 @@ function filtrar() {
   const ligaUnica = $('#fLiga').value;
   const ligas = ligaUnica ? null : ligasDoGrupo();
   const fTipo = ($('#fTipo') || {}).value || '', fAer = ($('#fAereo') || {}).value || '', fCob = ($('#fCobrador') || {}).value || '';
-  const comSinal = fTipo || fAer || fCob;
+  const fSelo = ($('#fSelo') || {}).value || '';
+  const comSinal = fTipo || fAer || fCob || fSelo;
 
   return BASE.filter(j => {
     if (pos && j.p !== pos) return false;
@@ -1888,7 +1889,9 @@ function filtrar() {
     }
     if (comSinal) {
       const s = sinaisDe(j);
-      if (fTipo && s.letra !== fTipo) return false;
+      if (fTipo === 'Ap') { if (!s.mais) return false; }
+      else if (fTipo && s.letra !== fTipo) return false;
+      if (fSelo) { const c = seloClasse(j); if (fSelo === 'va' ? !(c === 'v' || c === 'a') : c !== fSelo) return false; }
       if (fAer === 'def' && !s.def) return false;
       if (fAer === 'fin' && !s.aer) return false;
       if (fAer === 'ambos' && !(s.def && s.aer)) return false;
@@ -6928,9 +6931,19 @@ function tipoNome(j) {
   return x.tipo + (tipoMais(j) ? ' + volume' : '');
 }
 function sinaisDe(j) {
-  /* { letra, aer (▲), def (△), cob (⚑) } — o que a busca filtra */
+  /* { letra, mais (A+), aer (▲), def (△), cob (⚑) } — o que a busca filtra */
   const x = csRegistro(j) || {};
-  return { letra: tipoLetra(j), aer: (x.aer || 0) >= 80, def: (x.aer_dp || 0) >= 80, cob: (x.cob || 0) >= 80 };
+  return { letra: tipoLetra(j), mais: tipoMais(j), aer: (x.aer || 0) >= 80, def: (x.aer_dp || 0) >= 80, cob: (x.cob || 0) >= 80 };
+}
+/* selo de subida como classe (v ▲ · a ↔ · r ▼ · n sem dado), para o filtro da busca; guardado por jogador */
+const seloCache = new Map();
+function seloClasse(j) {
+  const k = primaryKey(j) + '|' + j.p;
+  if (seloCache.has(k)) return seloCache.get(k);
+  let c = 'n';
+  try { const h = window.subidaSelo ? window.subidaSelo(j) : ''; const m = /sb-selo sb-([varn])/.exec(h || ''); if (m) c = m[1]; } catch (e) {}
+  if (c !== 'n') seloCache.set(k, c);   /* "sem dado" pode virar seta quando o arquivo de indicadores da posição chega */
+  return c;
 }
 /* letra A/B/C + selo de subida (▲ ↔ ▼, static/subida.js): saem juntos em todo lugar que mostra a letra */
 function tipoBadge(pk, obj) {
@@ -7378,7 +7391,9 @@ function ligar() {
   $('#fNacao').innerHTML = NACAO_MODOS.map(m =>
     '<option value="' + m.v + '">' + esc(m.r) + '</option>').join('');
   $('#fNacao').onchange = renderTabela;
-  ['#fTipo', '#fAereo', '#fCobrador'].forEach(s => { if ($(s)) $(s).onchange = renderTabela; });
+  ['#fTipo', '#fAereo', '#fCobrador', '#fSelo'].forEach(s => { if ($(s)) $(s).onchange = renderTabela; });
+  /* o selo precisa do arquivo de indicadores da posição: quando ele chega, a lista filtrada por selo é refeita */
+  window.addEventListener('subida-kpis', () => { if ((($('#fSelo') || {}).value || '') && typeof renderTabela === 'function') renderTabela(); });
   $('#fLiga').onchange = () => {
     /* liga específica manda: os atalhos de grupo ficam apagados */
     $$('#chipsLiga .chip').forEach(x => x.classList.toggle('apagado', !!$('#fLiga').value));
@@ -7387,7 +7402,7 @@ function ligar() {
   $('#fLimpar').onclick = () => {
     ['#fTexto','#fIdadeMin','#fIdadeMax','#fOvMin','#fMinMin','#fContrato'].forEach(s => { $(s).value = ''; });
     $('#fNacao').value = '';
-    ['#fTipo', '#fAereo', '#fCobrador'].forEach(s => { if ($(s)) $(s).value = ''; });
+    ['#fTipo', '#fAereo', '#fCobrador', '#fSelo'].forEach(s => { if ($(s)) $(s).value = ''; });
     $('#fLiga').value = '';
     $('#fPos').value = posAtual || '';
     renderTabela();
