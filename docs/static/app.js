@@ -1888,10 +1888,10 @@ function filtrar() {
       if (!j.ct || j.ct.slice(0, 7) > ctAte) return false;
     }
     if (comSinal) {
-      const s = sinaisDe(j);
+      const jr = registroComDados(j), s = sinaisDe(jr);
       if (fTipo === 'Ap') { if (!s.mais) return false; }
       else if (fTipo && s.letra !== fTipo) return false;
-      if (fSelo) { const c = seloClasse(j); if (fSelo === 'va' ? !(c === 'v' || c === 'a') : c !== fSelo) return false; }
+      if (fSelo) { const c = seloClasse(jr); if (fSelo === 'va' ? !(c === 'v' || c === 'a') : c !== fSelo) return false; }
       if (fAer === 'def' && !s.def) return false;
       if (fAer === 'fin' && !s.aer) return false;
       if (fAer === 'ambos' && !(s.def && s.aer)) return false;
@@ -3224,7 +3224,7 @@ function radarDaFicha(porGrupo, nomeJog) {
 }
 
 async function montarFicha(j, modo) {
-  j = comPosCampo(j);
+  j = comPosCampo(registroComDados(j));
   /* físico colado à mão (card, estado.dadosJog ou registro manual) entra na ficha no lugar do da base */
   const dc = dadosColados(primaryKey(j), null);
   if (dc && (dc.fis || dc.tec_raw)) {
@@ -3247,7 +3247,7 @@ async function montarFicha(j, modo) {
     (j.nc && j.nc !== j.n ? ' <span class="apelido">' + esc(j.n) + '</span>' : '') +
     (ex ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
     (j.emp ? ' <span class="selo-emp" title="emprestado">emprestado</span>' : '');
-  const sub = j.t + ' · ' + j.l + ' · ' + sig(j.p) + (j._posBase ? ' — comparado como ' + sig(j.p) + ', a posição no campograma (cadastro: ' + sig(j._posBase) + ')' : '') + (j.pw ? ' (' + j.pw + ')' : '') +
+  const sub = (j._eqDe ? 'dados do cadastro ' + j._eqNome + ' (mesmo jogador) · ' : '') + j.t + ' · ' + j.l + ' · ' + sig(j.p) + (j._posBase ? ' — comparado como ' + sig(j.p) + ', a posição no campograma (cadastro: ' + sig(j._posBase) + ')' : '') + (j.pw ? ' (' + j.pw + ')' : '') +
     (j.rk && !j._posBase ? ' · #' + j.rk + ' da liga na posição' : '') +
     (j.rk_ok ? '' : ' · sem indicadores (minutagem baixa)');
 
@@ -6971,17 +6971,79 @@ function tipoBadgeLetra(pk, obj) {
   return '<span class="tipo-abc tipo-' + (mais ? 'Ap' : g) + '" title="' + esc(t) + '">' + g + '</span>';
 }
 
-/* dados colados à mão: no card (card.dados) ou, para qualquer jogador da base, em estado.dadosJog[pk] */
+/* ---------------- dados colados valem para TODO o sistema (12/10/2026) ----------------
+   O que é colado num card ficava só naquele grupo (card.dados / estado.dadosJog). Agora vai também para um cadastro
+   GERAL por jogador (DADOSJOG, chave = pk), gravado neste navegador e na nuvem (cenarios/_dadosjog), e todos os grupos,
+   listas, buscas e abas leem dele. Ao abrir, os grupos salvos são varridos e o que já tinha sido colado entra no geral. */
+const DJ_DOC = '_dadosjog', DJ_LOCAL = 'sc_dadosjog_v1';
+let DADOSJOG = {};
+function djLocalLer() { try { const o = JSON.parse(localStorage.getItem(DJ_LOCAL)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+function djLocalGravar() { try { localStorage.setItem(DJ_LOCAL, JSON.stringify(DADOSJOG)); } catch (e) {} }
+function djMaisNovo(a, b) { return !a ? b : !b ? a : String(b.em || '') >= String(a.em || '') ? b : a; }
+function djPor(pk) { return (pk && DADOSJOG[pk]) || null; }
+async function djGravar() {
+  djLocalGravar(); EQUIV_CACHE.clear();
+  if (typeof FB !== 'undefined' && FB.pronto && FB.usuario && !FB.erro) {
+    try { await FB.db.collection(FB_COLECAO).doc(DJ_DOC).set({ jog: JSON.parse(JSON.stringify(DADOSJOG)), atualizado: new Date().toISOString(), porEmail: FB.usuario.email || '' }); }
+    catch (e) { console.warn('dadosjog: nuvem indisponível', e); }
+  }
+}
+function djGuardar(pk, d) { if (!pk) return; if (d) DADOSJOG[pk] = d; else delete DADOSJOG[pk]; djGravar(); }
+async function djCarregar(grupos) {
+  let o = djLocalLer();
+  if (typeof FB !== 'undefined' && FB.pronto && FB.usuario) {
+    try { const snap = await FB.db.collection(FB_COLECAO).doc(DJ_DOC).get(); if (snap.exists && snap.data().jog) { const n = snap.data().jog; Object.keys(n).forEach(k => { o[k] = djMaisNovo(o[k], n[k]); }); } }
+    catch (e) { console.warn('dadosjog: nuvem indisponível', e); }
+  }
+  DADOSJOG = o;
+  /* varre os grupos (e o aberto): card com dados colados e dadosJog de cada grupo entram no geral */
+  let novos = 0;
+  const junta = (pk, d) => { if (!pk || !d || (!d.fis && !d.tec && !d.tec_raw)) return; const m = djMaisNovo(DADOSJOG[pk], d); if (m !== DADOSJOG[pk]) { DADOSJOG[pk] = m; novos++; } };
+  (grupos || []).concat(estado ? [estado] : []).forEach(g => {
+    Object.values((g && g.elenco) || {}).forEach(lista => (lista || []).forEach(c => { if (c && c.dados && c.pk && !String(c.jid || '').startsWith('m:')) junta(c.pk, c.dados); }));
+    Object.entries((g && g.dadosJog) || {}).forEach(([pk, d]) => junta(pk, d));
+  });
+  if (novos) { await djGravar(); console.log('dadosjog: ' + novos + ' jogadores com dados colados reunidos dos grupos'); }
+  EQUIV_CACHE.clear();
+}
+/* cadastro sem dado nenhum (card manual vazio, duplicata) → o cadastro do MESMO jogador que tem os dados:
+   mesmo nome (ou um contido no outro: "Fernandinho" × "Fernandinho Conceição") e mesmo clube, ou mesmo nome com
+   idade a ±1 e mesmo setor (o manual "André Luiz · Viettel" × o "André Luiz · Londrina" da base). Só quando há UM candidato. */
+const EQUIV_CACHE = new Map();
+function temDados(j) { return !!j && (!!(j.dados && (j.dados.fis || j.dados.tec)) || typeof j.psv === 'number' || !!j.rk_ok || !!djPor(primaryKey(j))); }
+function registroEquivalente(j) {
+  if (!j || temDados(j) || !BASE.length) return null;
+  const k = primaryKey(j); if (EQUIV_CACHE.has(k)) return EQUIV_CACHE.get(k);
+  const nomes = [j.n, j.nc].filter(Boolean).map(tipoNorm);
+  const mesmoNome = x => { const xs = [x.n, x.nc].filter(Boolean).map(tipoNorm); return nomes.some(a => xs.some(b => a === b || b.startsWith(a + ' ') || a.startsWith(b + ' '))); };
+  const set = TIPO_SET[j.p];
+  const c = BASE.filter(x => x !== j && temDados(x) && mesmoNome(x));
+  let r = c.filter(x => clubeParecido(x.t, j.t));
+  if (r.length !== 1) r = c.filter(x => j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!set || TIPO_SET[x.p] === set) && (!j.nac || !x.nac || x.nac === j.nac));
+  const out = r.length === 1 ? r[0] : null;
+  EQUIV_CACHE.set(k, out); return out;
+}
+/* o registro que o sistema usa para medir o jogador: ele mesmo, ou o equivalente com dados (marcado em _eqDe) */
+function registroComDados(j) {
+  const e = registroEquivalente(j);
+  return e ? Object.assign({}, e, { p: j.p || e.p, _eqDe: primaryKey(j), _eqNome: e.t + ' · ' + e.l }) : j;
+}
+/* dados colados à mão: no card, no grupo aberto, no cadastro geral (DADOSJOG) ou no registro manual — e, se este
+   cadastro está vazio, os do cadastro equivalente do mesmo jogador */
 function dadosColados(pk, card) {
   if (card && card.dados) return card.dados;
   if (pk && estado && estado.dadosJog && estado.dadosJog[pk]) return estado.dadosJog[pk];
+  if (djPor(pk)) return djPor(pk);
   /* colado no card do campograma: a ficha e a busca chegam aqui só com o pk — sem isto a
      ficha aberta do card ignorava o que acabou de ser colado (01/10, L. Morales) */
   if (pk && estado && estado.elenco) {
     for (const cod in estado.elenco) { const c = (estado.elenco[cod] || []).find(x => x && x.pk === pk && x.dados); if (c) return c.dados; }
   }
   const b = pk && BASE.length ? fsJogadorPk(pk) : null;   /* jogador cadastrado à mão: os dados vivem no registro */
-  return (b && b.dados) || null;
+  if (b && b.dados) return b.dados;
+  const e = b ? registroEquivalente(b) : null;
+  if (e) { const pe = primaryKey(e); return (estado && estado.dadosJog && estado.dadosJog[pe]) || djPor(pe) || e.dados || null; }
+  return null;
 }
 /* ---------------- jogadores cadastrados à mão: base geral, para todos os grupos ----------------
    Quem entra por "Jogador fora da base" vira um registro da base (id 'm:…', liga 'Manual'), com o físico e o
@@ -7001,7 +7063,7 @@ function manualRegistro(m) {
 }
 function manuaisAplicar() {
   BASE = BASE.filter(x => !x.manual).concat(MANUAIS.map(manualRegistro));
-  FS_PK_TUDO = null;
+  FS_PK_TUDO = null; if (typeof EQUIV_CACHE !== 'undefined') EQUIV_CACHE.clear();
 }
 async function manuaisCarregar() {
   let lista = manuaisLocalLer();
@@ -7010,6 +7072,9 @@ async function manuaisCarregar() {
     catch (e) { console.warn('manuais: nuvem indisponível', e); }
   }
   MANUAIS = lista; manuaisLocalGravar();
+  let grupos = [];
+  try { grupos = (typeof cenTodos === 'function' ? await cenTodos() : []).concat(cenLocalLer()); } catch (e) {}
+  try { await djCarregar(grupos); } catch (e) { console.warn('dadosjog', e); }
   if (BASE.length) { manuaisAplicar(); await manuaisVarrerGrupos(); manuaisSincronizarElenco(); render(); }
 }
 /* varre TODOS os grupos salvos (nuvem e navegador): todo card criado à mão em qualquer grupo entra no cadastro geral */
@@ -7072,6 +7137,7 @@ function raioIcone(pk, card, objBase, posCampo) {
   /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
      Quando há dados colados à mão (no card ou em estado.dadosJog[pk]), o objeto montado por dadosDoCard
      substitui o da base no raio, na letra e nos sinais */
+  if (!(card && card.dados) && BASE.length) { const b0 = objBase || fsJogadorPk(pk); const eq = b0 && registroEquivalente(b0); if (eq) { objBase = registroComDados(b0); pk = primaryKey(eq); } }
   const d = dadosColados(pk, card);
   let obj = d ? dadosDoCard(card || { pk, dados: d }, objBase) : (objBase || null);
   if (!d && BASE.length) { const b = obj || fsJogadorPk(pk); const e = comFisicoDoEstudo(b); if (e && e !== b) obj = e; }
@@ -7831,6 +7897,7 @@ function ligarDados() {
     if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
     if (mdTec && mdTecRaw) d.tec_raw = mdTecRaw;
     j.dados = d;
+    if (j.pk && !String(j.jid || '').startsWith('m:') && !j.manual) djGuardar(j.pk, d);   /* vale em todos os grupos */
     if (j.manual) manuaisRegistrar(j, dadosEditando.cod || null);
     else if (j.jid && String(j.jid).startsWith('m:')) { const m = MANUAIS.find(x => 'm:' + x.uid === j.jid); if (m) { m.dados = d; manuaisGravar(); } }
     $('#modalDados').classList.remove('aberto'); dadosEditando = null;
@@ -7843,6 +7910,7 @@ function ligarDados() {
   $('#mdLimpar').onclick = () => {
     const j = alvoDados(); if (!j) return;
     if (j.uid) delete j.dados; else j.dados = null;
+    if (j.pk && djPor(j.pk)) djGuardar(j.pk, null);
     $('#modalDados').classList.remove('aberto'); dadosEditando = null; salvarLocal(); render();
     if (fichaAtual) renderFicha();
     toast(j.nome + ': volta aos números da base', 'bom');
