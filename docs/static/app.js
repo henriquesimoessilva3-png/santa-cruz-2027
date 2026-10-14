@@ -7075,6 +7075,7 @@ async function manuaisCarregar() {
   let grupos = [];
   try { grupos = (typeof cenTodos === 'function' ? await cenTodos() : []).concat(cenLocalLer()); } catch (e) {}
   try { await djCarregar(grupos); } catch (e) { console.warn('dadosjog', e); }
+  try { await indCarregar(grupos); } catch (e) { console.warn('indicados', e); }
   if (BASE.length) { manuaisAplicar(); await manuaisVarrerGrupos(); manuaisSincronizarElenco(); render(); }
 }
 /* varre TODOS os grupos salvos (nuvem e navegador): todo card criado à mão em qualquer grupo entra no cadastro geral */
@@ -8480,9 +8481,49 @@ const IND_COLUNAS = [
 ];
 let indBusca = '', indFiltroAval = '';
 
+/* ---------------- Indicados: fila geral (navegador + nuvem cenarios/_indicados) ----------------
+   Ao abrir, junta o que está no navegador, na nuvem e nos indicados de TODOS os grupos salvos (pelo uid; o mesmo atleta
+   e clube não entra duas vezes). Toda edição grava no geral. */
+const IND_DOC = '_indicados', IND_LOCAL = 'sc_indicados_v1';
+let INDICADOS = null, indTimer = null;
+function indLocalLer() { try { const l = JSON.parse(localStorage.getItem(IND_LOCAL)); return Array.isArray(l) ? l : null; } catch (e) { return null; } }
+function indGravar() {
+  try { localStorage.setItem(IND_LOCAL, JSON.stringify(INDICADOS || [])); } catch (e) {}
+  clearTimeout(indTimer);
+  indTimer = setTimeout(async () => {
+    if (typeof FB !== 'undefined' && FB.pronto && FB.usuario && !FB.erro) {
+      try { await FB.db.collection(FB_COLECAO).doc(IND_DOC).set({ lista: JSON.parse(JSON.stringify(INDICADOS || [])), atualizado: new Date().toISOString(), porEmail: FB.usuario.email || '' }); }
+      catch (e) { toast('Indicados salvos só neste navegador: ' + ((e && e.message) || e), 'ruim'); }
+    }
+  }, 1200);
+}
+function indSalvar() { salvarLocal(); indGravar(); }
+async function indCarregar(grupos) {
+  const porUid = new Map(), chave = r => tipoNorm(r.atleta || '') + '|' + tipoNorm(r.clube || '');
+  const vistos = new Set();
+  const junta = lista => (lista || []).forEach(r => {
+    if (!r || !r.uid) return;
+    const k = chave(r);
+    if (porUid.has(r.uid)) { const a = porUid.get(r.uid); Object.keys(r).forEach(c => { if ((a[c] == null || a[c] === '') && r[c] != null && r[c] !== '') a[c] = r[c]; }); return; }
+    if (r.atleta && vistos.has(k)) return;
+    porUid.set(r.uid, Object.assign({}, r)); if (r.atleta) vistos.add(k);
+  });
+  junta(INDICADOS); junta(indLocalLer());
+  if (typeof FB !== 'undefined' && FB.pronto && FB.usuario) {
+    try { const snap = await FB.db.collection(FB_COLECAO).doc(IND_DOC).get(); if (snap.exists) junta(snap.data().lista); } catch (e) { console.warn('indicados: nuvem indisponível', e); }
+  }
+  (grupos || []).concat(estado ? [estado] : []).forEach(g => junta(g && g.indicados));
+  const antes = (INDICADOS || []).length;
+  INDICADOS = [...porUid.values()];
+  if (estado) estado.indicados = INDICADOS;
+  if (INDICADOS.length !== antes || !indLocalLer()) indGravar();
+  if (typeof indRender === 'function' && $('#pgIndicados') && !$('#pgIndicados').classList.contains('oculta')) indRender();
+}
 function indLista() {
-  if (!Array.isArray(estado.indicados)) estado.indicados = [];
-  return estado.indicados;
+  /* a fila é GERAL (14/10/2026): a mesma em todos os grupos — antes vivia dentro de cada grupo e "sumia" ao trocar */
+  if (!Array.isArray(INDICADOS)) INDICADOS = Array.isArray(estado.indicados) ? estado.indicados : [];
+  estado.indicados = INDICADOS;
+  return INDICADOS;
 }
 
 function indRender() {
@@ -8569,19 +8610,19 @@ function indRender() {
         indRender();   /* a contagem do filtro muda: vale refazer */
         return;
       }
-      salvarLocal();
+      indSalvar();
     };
     if (el.tagName === 'SELECT') {
       const antes = el.onchange;
-      el.onchange = () => { antes(); salvarLocal(); };
+      el.onchange = () => { antes(); indSalvar(); };
     }
   });
   alvo.querySelectorAll('.emp-x[data-uid]').forEach(b => {
     b.onclick = () => {
       const r = indLista().find(x => x.uid === b.dataset.uid);
       if (!confirm('Tirar "' + ((r && r.atleta) || 'sem nome') + '" da lista de indicados?')) return;
-      estado.indicados = indLista().filter(x => x.uid !== b.dataset.uid);
-      salvarLocal(); indRender();
+      INDICADOS = estado.indicados = indLista().filter(x => x.uid !== b.dataset.uid);
+      indSalvar(); indRender();
     };
   });
 }
@@ -8596,7 +8637,7 @@ function indNovo() {
                        data: iso, responsavel: '', recepcao: '', indicacao: '', avaliacao: '' });
   indBusca = ''; indFiltroAval = '';
   const b = $('#indBusca'); if (b) b.value = '';
-  salvarLocal(); indRender();
+  indSalvar(); indRender();
   const p = $('#indCorpo .ind-forte');
   if (p) { p.focus(); p.scrollIntoView({ block: 'center' }); }
 }
@@ -8737,8 +8778,8 @@ function indImportar() {
       return { uid: uid(), atleta: c.atleta, pos: b && POSICOES.some(p => p.c === b.p) ? b.p : '', geracao: ano, pais: b && b.nac ? (b.nac === 'Brazil' ? 'Brasil' : b.nac) : '',
         clube: b ? b.t : '', data: c.data, responsavel: '', recepcao: '', indicacao: c.indicacao, empresario: emp[fsNorm(c.atleta)] || '', avaliacao: '', obs: c.obs.join(' | '), link: c.link || '' };
     });
-    estado.indicados = novos.concat(indLista());
-    salvarLocal(); fechar(); indRender();
+    INDICADOS = estado.indicados = novos.concat(indLista());
+    indSalvar(); fechar(); indRender();
     toast(novos.length + ' novo' + (novos.length === 1 ? '' : 's') + (atu ? ' · ' + atu + ' atualizado' + (atu === 1 ? '' : 's') : '') + ' — importado do WhatsApp', 'bom');
   };
   setTimeout(() => $('#indImpTxt').focus(), 30);
