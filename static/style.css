@@ -2465,13 +2465,13 @@ body.com-zoom .campo-area.ampliado .campo{transform:none}
   background:var(--input-bg);border:1px solid var(--borda2);color:var(--tinta)}
 .emp-busca:focus{outline:none;border-color:var(--coral)}
 .bt.mini.on{background:var(--coral);border-color:var(--coral);color:#fff}
-.emp-rolagem{flex:1;overflow:auto;padding:10px 16px 20px}
+.emp-rolagem{flex:1;overflow:auto;padding:0 16px 20px}   /* sem padding no topo: o cabeçalho fixo cola na borda e a linha não aparece por cima dele */
 .emp-vazio{padding:28px;text-align:center;font-size:12px;color:var(--tinta3)}
 
 /* sem `min-width:max-content`: era ele que obrigava a linha a ter a soma das larguras e
    punha a aba inteira na rolagem lateral */
 .emp-cab,.emp-linha{display:flex;align-items:center;gap:5px;min-width:0}
-.emp-cab{position:sticky;top:0;z-index:3;background:var(--fundo);padding:6px 0;
+.emp-cab{position:sticky;top:0;z-index:6;background:var(--fundo);padding:16px 0 6px;box-shadow:0 1px 0 var(--borda),0 6px 8px -6px rgba(0,0,0,.45);
   font-size:8.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--tinta3);
   font-weight:700;border-bottom:1px solid var(--borda)}
 .emp-cab span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
