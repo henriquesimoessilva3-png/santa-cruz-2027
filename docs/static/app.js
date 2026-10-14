@@ -7031,7 +7031,16 @@ function registroComDados(j) {
 }
 /* dados colados à mão: no card, no grupo aberto, no cadastro geral (DADOSJOG) ou no registro manual — e, se este
    cadastro está vazio, os do cadastro equivalente do mesmo jogador */
-function dadosColados(pk, card) {
+/* até 14/10/2026 o físico colado gravava o "TOP 5 PSV-99" do SkillCorner no campo vmax3 (que na base é o "Top 3 Peak
+   Velocity") — a ficha mostrava 30,9 como "vel. máx. top 3" quando o pico era 33,5. Os colados antigos são acertados
+   na leitura: o valor vai para psv5 e o vmax3 fica vazio até o físico ser colado de novo. */
+function dadosCorrigir(d) {
+  if (d && d.fis && d.fis.vmax3 != null && !d.fis._v3) { if (d.fis.psv5 == null) d.fis.psv5 = d.fis.vmax3; delete d.fis.vmax3; }
+  if (d && d.fis) d.fis._v3 = 1;
+  return d;
+}
+function dadosColados(pk, card) { return dadosCorrigir(dadosColados0(pk, card)); }
+function dadosColados0(pk, card) {
   if (card && card.dados) return card.dados;
   if (pk && estado && estado.dadosJog && estado.dadosJog[pk]) return estado.dadosJog[pk];
   if (djPor(pk)) return djPor(pk);
@@ -7058,7 +7067,8 @@ function manualRegistro(m) {
   /* o registro que entra na BASE (mesmos campos que a busca e a ficha usam) */
   const r = { id: 'm:' + m.uid, n: m.nome, nc: m.nome, t: m.clube || 'sem clube', l: 'Manual', p: m.p || 'CA', pw: '', id_: m.idade || null, ct: m.contrato || '', nac: m.nac || 'Brazil',
               min: (m.dados && m.dados.fis && m.dados.fis.min) || null, ov: null, rk_ok: false, manual: 1, muid: m.uid, dados: m.dados || null };
-  if (m.dados && m.dados.fis) Object.keys(m.dados.fis).forEach(k => { if (m.dados.fis[k] != null) r[k] = m.dados.fis[k]; });
+  dadosCorrigir(m.dados);
+  if (m.dados && m.dados.fis) Object.keys(m.dados.fis).forEach(k => { if (m.dados.fis[k] != null && k !== '_v3') r[k] = m.dados.fis[k]; });
   if (m.dados && m.dados.liga) r.l = ligaApp(m.dados.liga);   /* a liga de referência escolhida vira a liga do registro (nome do app: Brasil B…) */
   return r;
 }
@@ -7160,7 +7170,7 @@ function dadosDoCard(card, objBase) {
   const base = objBase || (card.pk && fsJogadorPk(card.pk)) || null;
   const o = Object.assign({}, base || { n: card.nome, t: card.clube || '', l: card.liga || (card.dados && card.dados.liga) || 'Série B', p: card.posOrig || card.pos || '', nac: card.nac || '' });
   if (!o.p && card.posOrig) o.p = card.posOrig;
-  const d = card.dados || dadosColados(card.pk, null) || {};
+  const d = dadosCorrigir(card.dados) || dadosColados(card.pk, null) || {};
   if (d.fis) { Object.keys(d.fis).forEach(k => { if (d.fis[k] != null) o[k] = d.fis[k]; }); o.fis_src = null; }
   if (d.liga) o.l = d.liga;
   o._card = card; o._dados = d;
@@ -7780,14 +7790,14 @@ async function abrirClonar(cod, j) {
 /* ---------------- modal "Físico e técnico" (dados colados à mão) ---------------- */
 let dadosEditando = null;   /* { cod, uid } */
 const MD_FIS = { psv: ['PSV-99'], spr_n: ['Sprint Count P90'], hi_n: ['HI Count P90'], expl: ['Explosive Acceleration to Sprint Count P90'], dist: ['Distance P90'],
-                 vmax3: ['TOP 5 PSV-99', 'TOP 3 PSV-99'], mmin: ['M/min P90'], hi: ['HI Distance P90'], hsr: ['HSR Distance P90'], spr_km: ['Sprint Distance P90'],
+                 vmax3: ['TOP 3 Peak Velocity', 'Top 3 Peak Velocity'], vmax: ['Peak Velocity'], psv5: ['TOP 5 PSV-99'], mmin: ['M/min P90'], hi: ['HI Distance P90'], hsr: ['HSR Distance P90'], spr_km: ['Sprint Distance P90'],
                  acel: ['High Acceleration Count P90'], desa: ['High Deceleration Count P90'],
                  min: ['Minutes'], sc_n: ['Count Performances (Physical Check passed)', 'Count Performances'] };
 const MD_TEC = { aer_won: ['Aerial duels won, %', 'Duelos aéreos ganhos, %'], aer_n: ['Aerial duels per 90', 'Duelos aéreos/90'], aer_g90: ['Head goals per 90', 'Golos de cabeça/90', 'Gols de cabeça/90'],
                  aer_g: ['Head goals', 'Golos de cabeça', 'Gols de cabeça'], alt: ['Height', 'Altura'], cor90: ['Corners per 90', 'Cantos/90', 'Escanteios/90'], fk90: ['Free kicks per 90', 'Livres/90', 'Faltas cobradas/90'],
                  dfk90: ['Direct free kicks per 90', 'Livres directos/90', 'Faltas diretas/90'], dfk_on: ['Direct free kicks on target, %', 'Pontapés livres directos à baliza, %', 'Faltas diretas no alvo, %'],
                  xa90: ['xA per 90', 'Assistências esperadas/90'], cross_pct: ['Accurate crosses, %', 'Cruzamentos certos, %'], min: ['Minutes played', 'Minutos jogados'] };
-const MD_ROT = { vmax3: 'PSV top 5', mmin: 'm/min', hi: 'dist. alta int.', hsr: 'dist. 15–20', spr_km: 'dist. sprint', acel: 'acel. fortes', desa: 'desac. fortes', psv: 'PSV-99', spr_n: 'sprints/90', hi_n: 'alta int./90', expl: 'arrancadas/90', dist: 'distância/90', min: 'min', sc_n: 'jogos', obr: 'corridas s/ bola', obr_area: 'p/ área',
+const MD_ROT = { vmax3: 'pico top 3', vmax: 'pico', psv5: 'PSV-99 top 5', mmin: 'm/min', hi: 'dist. alta int.', hsr: 'dist. 15–20', spr_km: 'dist. sprint', acel: 'acel. fortes', desa: 'desac. fortes', psv: 'PSV-99', spr_n: 'sprints/90', hi_n: 'alta int./90', expl: 'arrancadas/90', dist: 'distância/90', min: 'min', sc_n: 'jogos', obr: 'corridas s/ bola', obr_area: 'p/ área',
                  aer_won: 'aéreos ganhos %', aer_n: 'aéreos/90', aer_g90: 'gols cabeça/90', aer_g: 'gols cabeça', alt: 'altura', cor90: 'escanteios/90', fk90: 'faltas/90', dfk90: 'diretas/90', dfk_on: 'diretas no alvo %', xa90: 'xA/90', cross_pct: 'cruz. certos %' };
 let mdFis = null, mdTec = null;
 function mdNum(v) { if (v == null) return null; const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : null; }
@@ -7896,7 +7906,8 @@ function ligarDados() {
     if (!mdFis && !mdTec && obr == null && obrA == null) { toast('Cole o físico ou envie o técnico', 'ruim'); return; }
     const d = Object.assign({}, j.dados || {});
     d.liga = $('#mdLiga').value; d.em = new Date().toISOString().slice(0, 10);
-    if (mdFis) d.fis = Object.assign({}, d.fis || {}, mdFis);
+    if (d.fis && !d.fis._v3) dadosCorrigir(d);   /* colado antigo: acerta antes de juntar com o novo */
+    if (mdFis) d.fis = Object.assign({}, d.fis || {}, mdFis, { _v3: 1 });
     if (obr != null || obrA != null) d.fis = Object.assign({}, d.fis || {}, obr != null ? { obr } : {}, obrA != null ? { obr_area: obrA } : {});
     if (mdFis && mdFis.min != null && mdFis.sc_n != null && mdFis.min <= 130) { d.fis.min_jogo = mdFis.min; d.fis.min = Math.round(mdFis.min * mdFis.sc_n); }   /* o CSV do SkillCorner traz minutos POR JOGO */
     if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(1, Math.round(d.fis.min / 90));
