@@ -7615,6 +7615,10 @@ function ligar() {
   if (ib) ib.oninput = () => { indBusca = ib.value; indRender(); };
   const ia = $('#indFiltroAval');
   if (ia) ia.onchange = () => { indFiltroAval = ia.value; indRender(); };
+  const ipo = $('#indFiltroPos'); if (ipo) ipo.onchange = () => { indFiltroPos = ipo.value; indRender(); };
+  const imn = $('#indIdMin'), imx = $('#indIdMax');
+  if (imn) imn.oninput = () => { indIdMin = imn.value.trim(); indRender(); };
+  if (imx) imx.oninput = () => { indIdMax = imx.value.trim(); indRender(); };
   const iN = $('#indNovo'); if (iN) iN.onclick = indNovo;
   const iC = $('#indCsv');  if (iC) iC.onclick = indCsv;
   const iW = $('#indWhats'); if (iW) iW.onclick = indImportar;
@@ -8466,9 +8470,10 @@ const IND_CLASSE = {
 };
 const IND_COLUNAS = [
   { k: 'atleta',      r: 'Atleta',      w: 170, forte: 1 },
+  { k: 'avaliacao',   r: 'Avaliação',   w: 132, opcoes: () => IND_AVALIACOES },
   { k: 'pos',         r: 'Posição',     w: 74,  opcoes: () => [''].concat(POSICOES.map(p => p.c)),
     rotulo: v => (v ? sig(v) : '—') },
-  { k: 'geracao',     r: 'Geração',     w: 64,  ph: '2004' },
+  { k: 'geracao',     r: 'Geração',     w: 64,  ph: '2004', idade: 1 },
   { k: 'pais',        r: 'País',        w: 96,  ph: 'Brasil' },
   { k: 'clube',       r: 'Clube',       w: 140, ph: 'Flamengo' },
   { k: 'data',        r: 'Data',        w: 96,  tipo: 'date' },
@@ -8476,11 +8481,11 @@ const IND_COLUNAS = [
   { k: 'recepcao',    r: 'Recepção',    w: 120, ph: 'quem recebeu' },
   { k: 'indicacao',   r: 'Indicação',   w: 130, ph: 'quem indicou' },
   { k: 'empresario',  r: 'Empresário',  w: 130, ph: 'quem agencia' },
-  { k: 'avaliacao',   r: 'Avaliação',   w: 132, opcoes: () => IND_AVALIACOES },
   { k: 'obs',         r: 'Observações', w: 300, ph: 'comentários, status, custo' },
   { k: 'link',        r: 'Link',        w: 110, link: 1 },
 ];
-let indBusca = '', indFiltroAval = '';
+let indBusca = '', indFiltroAval = '', indFiltroPos = '', indIdMin = '', indIdMax = '';
+const indIdade = i => { const g = parseInt(i.geracao, 10); return g > 1900 ? new Date().getFullYear() - g : null; };
 
 /* ---------------- Indicados: fila geral (navegador + nuvem cenarios/_indicados) ----------------
    Ao abrir, junta o que está no navegador, na nuvem e nos indicados de TODOS os grupos salvos (pelo uid; o mesmo atleta
@@ -8533,7 +8538,9 @@ function indRender() {
   const todos = indLista();
   const termo = indBusca.trim().toLowerCase();
   const lista = todos.filter(i => {
-    if (indFiltroAval && (i.avaliacao || '') !== indFiltroAval) return false;
+    if (indFiltroAval && (i.avaliacao || '') !== (indFiltroAval === '__sem' ? '' : indFiltroAval)) return false;
+    if (indFiltroPos && (i.pos || '') !== (indFiltroPos === '__sem' ? '' : indFiltroPos)) return false;
+    if (indIdMin !== '' || indIdMax !== '') { const id = indIdade(i); if (id == null) return false; if (indIdMin !== '' && id < +indIdMin) return false; if (indIdMax !== '' && id > +indIdMax) return false; }
     if (!termo) return true;
     return ['atleta', 'clube', 'indicacao', 'pais', 'responsavel', 'recepcao', 'empresario', 'obs']
       .some(k => fsNorm(i[k]).includes(fsNorm(termo)));
@@ -8552,6 +8559,13 @@ function indRender() {
     sel.value = indFiltroAval;
   }
 
+  const sp = $('#indFiltroPos');
+  if (sp) {
+    const cp = v => todos.filter(i => (i.pos || '') === v).length;
+    sp.innerHTML = '<option value="">Todas as posições</option>' + POSICOES.filter(p => cp(p.c)).map(p => '<option value="' + p.c + '">' + esc(sig(p.c)) + ' (' + cp(p.c) + ')</option>').join('') +
+      (cp('') ? '<option value="__sem">sem posição (' + cp('') + ')</option>' : '');
+    sp.value = indFiltroPos;
+  }
   const resumo = $('#indSub');
   if (resumo) {
     const aprov = todos.filter(i => /^Aprovado/.test(i.avaliacao || '')).length;
@@ -8570,7 +8584,7 @@ function indRender() {
   }
 
   const cab = '<div class="emp-cab ind-cab">' +
-    IND_COLUNAS.map(c => '<span style="width:' + c.w + 'px">' + esc(c.r) + '</span>').join('') +
+    IND_COLUNAS.map(c => '<span style="flex:' + c.w + ' 1 0;min-width:0">' + esc(c.r) + '</span>').join('') +
     '<span class="emp-c-x"></span></div>';
 
   alvo.innerHTML = cab + lista.map(i => {
@@ -8590,7 +8604,7 @@ function indRender() {
       }
       return '<span class="emp-campo" style="flex:' + c.w + ' 1 0;min-width:0">' +
         '<input data-uid="' + i.uid + '" data-k="' + c.k + '" value="' + esc(v) + '"' +
-        (c.tipo === 'date' ? ' type="date"' : '') +
+        (c.tipo === 'date' ? ' type="date"' : '') + (c.idade && indIdade(i) != null ? ' title="' + indIdade(i) + ' anos"' : '') +
         (c.forte ? ' class="ind-forte"' : '') +
         ' placeholder="' + esc(c.ph || '') + '"></span>';
     };
@@ -8636,7 +8650,8 @@ function indNovo() {
               '-' + String(hoje.getDate()).padStart(2, '0');
   indLista().unshift({ uid: uid(), atleta: '', pos: '', geracao: '', pais: '', clube: '',
                        data: iso, responsavel: '', recepcao: '', indicacao: '', avaliacao: '' });
-  indBusca = ''; indFiltroAval = '';
+  indBusca = ''; indFiltroAval = ''; indFiltroPos = ''; indIdMin = ''; indIdMax = '';
+  ['#indIdMin', '#indIdMax'].forEach(x => { const e = $(x); if (e) e.value = ''; });
   const b = $('#indBusca'); if (b) b.value = '';
   indSalvar(); indRender();
   const p = $('#indCorpo .ind-forte');
