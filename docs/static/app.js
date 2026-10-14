@@ -2348,7 +2348,8 @@ async function cenNuvemLer() {
   if (!FB.pronto || !FB.usuario) return [];
   try {
     const q = await FB.db.collection(FB_COLECAO).get();
-    return q.docs.filter(d => d.id !== MAN_DOC).map(d => Object.assign({}, d.data(), { id: d.id }));
+    return q.docs.filter(d => !String(d.id).startsWith('_')).map(   /* _manuais, _dadosjog, _indicados: cadastros gerais, não são grupos */
+      d => Object.assign({}, d.data(), { id: d.id }));
   } catch (e) {
     /* `permission-denied` aqui quer dizer "entrou, mas o e-mail nao esta na lista das
        regras" — o erro mais provavel de todos, e o que mais confunde se ficar mudo */
