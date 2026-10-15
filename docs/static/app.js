@@ -6916,8 +6916,18 @@ function tipoLetra(j) {
   if (!j || j.p === 'GOL' || !window.CONSULTA) return null;
   const x = tipoResolvido(j); if (!x) return null;
   const D = window.CONSULTA, pos = j.p, pref = (D.pref && D.pref[pos]) || [], cai = (D.cai && D.cai[pos]) || [];
-  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5) return 'A'; return cai.includes(x.tipo) ? 'C' : 'B'; }
-  return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) ? 'C' : 'B';
+  if (pos === 'MED') { const z = tipoEixos(j); if (z && z.vol > 0.5) return 'A'; return cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B'; }
+  return pref.includes(x.tipo) ? 'A' : cai.includes(x.tipo) && !explosivoSemVolume(j, x) ? 'C' : 'B';
+}
+/* 15/10/2026 — o C é de quem é fraco em explosão E em volume. Quem cai no tipo de baixa intensidade só pelo volume
+   (distância/corridas), mas tem explosão acima de +0,25 desvio da Série B do setor, vira B ("explosivo, pouco volume").
+   Caso que motivou: Gustavo Ferrareis (LD, Atlas), explosão +0,28 e distância −1,85. Impacto: 39 dos 941 C, nenhum da Série B. */
+const EXPL_SEM_VOL = 0.25;
+function explosivoSemVolume(j, x) {
+  x = x || tipoResolvido(j); if (!x || !j || j.p === 'GOL') return false;
+  const cai = (window.CONSULTA && CONSULTA.cai && CONSULTA.cai[j.p]) || [];
+  if (!cai.includes(x.tipo)) return false;
+  const z = tipoEixos(j); return !!(z && z.exp > EXPL_SEM_VOL);
 }
 /* A+ (azul) — 11/10/2026: tipo A que também tem volume (distância e corridas sem bola acima de +0,5 desvio).
    Vale em zaga, lateral, volante, extremo e atacante; no médio o A já é o de volume e no meia o completo não sobe. */
@@ -6929,6 +6939,7 @@ function tipoMais(j) {
 function tipoNome(j) {
   const x = tipoResolvido(j); if (!x) return null;
   if (j.p === 'MED' && tipoLetra(j) === 'A') return MED_VOLUME;
+  if (explosivoSemVolume(j, x)) return 'Explosivo, pouco volume';
   return x.tipo + (tipoMais(j) ? ' + volume' : '');
 }
 function sinaisDe(j) {
@@ -6967,6 +6978,7 @@ function tipoBadgeLetra(pk, obj) {
   const legenda = pos === 'MED'
     ? 'No médio: A = motor de volume (distância e corridas sem bola acima de +0,5 desvio); C = ' + (cai.join(' / ') || '—') + '; o resto é B. Revisão 11/10: o médio que sobe é o de volume.'
     : 'No ' + posn + ': A = ' + pref.join(' / ') + '; B = ' + (meio.join(' / ') || '—') + '; C = ' + (cai.join(' / ') || '—') + '. Regra do clube: A é o tipo mais forte fisicamente, C o de menor intensidade.' +
+      ' Quem tem o tipo do C mas explosão acima de +0,25 desvio fica B (explosivo, pouco volume).' +
       (pos !== 'MEI' ? ' A+ (azul) = A que também tem volume (distância e corridas sem bola acima de +0,5 desvio).' : '');
   const t = 'Tipo físico deste jogador: ' + tipoNome(j) + ' → ' + g + '. ' + legenda + (x.calc ? ' Tipo calculado pelo físico do Portal (fora das listas do estudo).' : '');
   return '<span class="tipo-abc tipo-' + (mais ? 'Ap' : g) + '" title="' + esc(t) + '">' + g + '</span>';
