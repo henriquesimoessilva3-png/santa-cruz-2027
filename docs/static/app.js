@@ -1137,8 +1137,68 @@ function normVM(t) {
    Elas NÃO são o mesmo número: nos 61 jogadores presentes nas duas, a razão mediana é 1,33,
    porque são datas diferentes. Misturar sem dizer faria a soma do elenco parecer uma conta
    só. Então a função devolve o VALOR e a FONTE, e quem mostra escreve de onde veio. */
+/* ---- valor editado à mão (16/10/2026, pedido do Henrique): o número do Transfermarkt vem da coleta, mas cada jogador
+   pode ter o seu valor corrigido no card (clique no €). O editado vale em todo o app — card, caixa, barra do elenco e
+   ranking de valor — e fica neste navegador e na nuvem (cenarios/_vmman), como os dados colados. Vazio = volta ao coletado. */
+const VMAN_DOC = '_vmman', VMAN_LOCAL = 'sc_vmman_v1';
+let VMAN = (() => { try { const o = JSON.parse(localStorage.getItem(VMAN_LOCAL)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } })();
+function vmChave(j) { return !j ? '' : (j.pk || (normVM(j.nome || j.n) + '|' + normVM(j.clube || j.t))); }
+function vmManual(j) { const k = vmChave(j); return k && VMAN[k] && VMAN[k].v != null ? VMAN[k] : null; }
+async function vmGravar() {
+  try { localStorage.setItem(VMAN_LOCAL, JSON.stringify(VMAN)); } catch (e) {}
+  if (typeof FB !== 'undefined' && FB.pronto && FB.usuario && !FB.erro) {
+    try { await FB.db.collection(FB_COLECAO).doc(VMAN_DOC).set({ vm: JSON.parse(JSON.stringify(VMAN)), atualizado: new Date().toISOString(), porEmail: FB.usuario.email || '' }); }
+    catch (e) { console.warn('vmman: nuvem indisponível', e); }
+  }
+}
+async function vmCarregar() {
+  if (typeof FB === 'undefined' || !FB.pronto || !FB.usuario) return;
+  try {
+    const snap = await FB.db.collection(FB_COLECAO).doc(VMAN_DOC).get();
+    const n = snap.exists && snap.data().vm;
+    if (n) Object.keys(n).forEach(k => { const a = VMAN[k], b = n[k]; if (!a || String(b.em || '') >= String(a.em || '')) VMAN[k] = b; });
+    try { localStorage.setItem(VMAN_LOCAL, JSON.stringify(VMAN)); } catch (e) {}
+  } catch (e) { console.warn('vmman: nuvem indisponível', e); }
+}
+/* "1,5 mi", "800 mil", "800k", "€ 750.000", "750000" → euros */
+function vmLer(t) {
+  t = String(t || '').toLowerCase().replace(/€|eur/g, '').trim(); if (!t) return null;
+  const mult = /milh/.test(t) ? 1e6 : /mil|k\b/.test(t) ? 1e3 : /mi|m\b/.test(t) ? 1e6 : 1;
+  let n = t.replace(/[^0-9,.]/g, '');
+  if (mult > 1) n = n.includes(',') ? n.replace(/\./g, '').replace(',', '.') : n;
+  else n = n.replace(/[.,](?=\d{3}(\D|$))/g, '').replace(',', '.');
+  const v = parseFloat(n); return isFinite(v) ? Math.round(v * mult) : NaN;
+}
+function vmEditar(span) {
+  const k = span.dataset.vmk; if (!k) return;
+  const atual = VMAN[k] && VMAN[k].v != null ? VMAN[k].v : (span.dataset.vmv ? Number(span.dataset.vmv) : null);
+  const inp = document.createElement('input');
+  inp.className = 'vm-edit'; inp.placeholder = 'ex.: 800 mil'; inp.value = atual != null ? eur(atual, true).replace('€ ', '') : '';
+  inp.title = 'Valor de mercado em euro (ex.: 800 mil, 1,2 mi). Enter grava; vazio volta ao valor coletado; Esc cancela.';
+  span.replaceWith(inp); inp.focus(); inp.select();
+  let feito = false;
+  const fim = salvar => {
+    if (feito) return; feito = true;
+    if (salvar) {
+      const v = vmLer(inp.value);
+      if (v === null) delete VMAN[k];
+      else if (isFinite(v) && v >= 0) VMAN[k] = { v, em: new Date().toISOString(), por: (typeof FB !== 'undefined' && FB.usuario && FB.usuario.email) || '' };
+      vmGravar();
+    }
+    try { render(); } catch (e) { try { renderCampo(); } catch (e2) {} }
+  };
+  inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') fim(true); else if (e.key === 'Escape') fim(false); });
+  inp.addEventListener('blur', () => fim(true));
+  ['click', 'mousedown', 'dblclick', 'pointerdown'].forEach(ev => inp.addEventListener(ev, e => e.stopPropagation()));
+}
+document.addEventListener('click', e => {
+  const s = e.target.closest && e.target.closest('.m-vm[data-vmk]'); if (!s) return;
+  e.preventDefault(); e.stopPropagation(); vmEditar(s);
+}, true);
+
 function valorMercado(j) {
   if (!j) return null;
+  const man = vmManual(j); if (man) return man.v;
   if (VM) {
     const nome = normVM(j.nome), clube = normVM(j.clube);
     const v = VM.jogadores[nome + '|' + clube];
@@ -1154,6 +1214,7 @@ function valorMercado(j) {
    'wy' (Wyscout, o retrato do dia da exportação da base). */
 function fonteValor(j) {
   if (!j) return null;
+  { const m = vmManual(j); if (m) return m.src === 'tm' ? 'tm' : 'man'; }
   if (VM) {
     const nome = normVM(j.nome), clube = normVM(j.clube);
     if (VM.jogadores[nome + '|' + clube] != null || VM.por_nome[nome] != null) return 'tm';
@@ -1265,13 +1326,17 @@ function cardJog(cod, j) {
     (j.ov ? '<span class="m-ovr">OVR ' + j.ov + '</span>' : '') +
     /* Valor de mercado do Transfermarkt, em EURO. Quem não tem ficha NÃO ganha um zero:
        fica sem a etiqueta, porque "não sei" e "não vale nada" são coisas diferentes. */
-    ((v => v == null ? '' : (fnt => '<span class="m-vm' + (fnt === 'wy' ? ' vm-wy' : '') +
-      '" title="' + (fnt === 'tm'
-        ? 'Valor de mercado no Transfermarkt (' + esc((VM && VM.coletado_em) || '') + '): ' + eur(v)
-        : 'Valor de mercado do Wyscout: ' + eur(v) + ' — este jogador não está no elenco da ' +
+    ((v => (fnt => '<span class="m-vm' + (fnt === 'wy' ? ' vm-wy' : '') + (fnt === 'man' ? ' vm-man' : '') + (v == null ? ' vm-vazio' : '') +
+      '" data-vmk="' + esc(vmChave(j)) + '" data-vmv="' + (v == null ? '' : v) + '" title="' + (fnt === 'man'
+        ? 'Valor editado à mão: ' + eur(v) + ' (' + esc(String((vmManual(j) || {}).em || '').slice(0, 10)) + '). Clique para mudar; apague para voltar ao coletado.'
+        : fnt === 'tm'
+        ? 'Valor de mercado no Transfermarkt (' + esc((vmManual(j) ? 'atualizado em ' + String(vmManual(j).em || '').slice(0, 10) : (VM && VM.coletado_em) || '')) + '): ' + eur(v) + '. Clique para editar.'
+        : fnt === 'wy'
+        ? 'Valor de mercado do Wyscout: ' + eur(v) + ' — este jogador não está no elenco da ' +
           'Série B ' + esc((VM && VM.temporada) || '') + ', que é o que a coleta do Transfermarkt ' +
-          'cobre. É o retrato do dia da exportação da base, e não da mesma data do outro.') +
-      '">' + eur(v, true) + (fnt === 'wy' ? '<i class="vm-fnt">w</i>' : '') + '</span>'
+          'cobre. É o retrato do dia da exportação da base, e não da mesma data do outro. Clique para editar.'
+        : 'Sem valor de mercado. Clique para informar.') +
+      '">' + (v == null ? '€ ?' : eur(v, true)) + (fnt === 'wy' ? '<i class="vm-fnt">w</i>' : fnt === 'man' ? '<i class="vm-fnt">✎</i>' : '') + '</span>'
      )(fonteValor(j)))(valorMercado(j))) +
     barraMinutos(histDoElenco(j)) +
     (j.posOrig && j.posOrig !== cod ? '<span class="m-pos" title="posição de origem">' +
@@ -7022,6 +7087,7 @@ async function djCarregar(grupos) {
   if (novos) { await djGravar(); console.log('dadosjog: ' + novos + ' jogadores com dados colados reunidos dos grupos'); }
   EQUIV_CACHE.clear();
   coladosNaConsulta();
+  await vmCarregar();
 }
 /* 16/10/2026 — o físico colado substitui o do ESTUDO também: o registro da Consulta (window.CONSULTA, que alimenta as
    abas Consulta de jogador, Tipo físico, listas e similares) passa a ter o físico e o tipo do colado. O original fica
