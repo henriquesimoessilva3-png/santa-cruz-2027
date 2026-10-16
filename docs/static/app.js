@@ -6868,9 +6868,12 @@ var TIPO_POSN = { LD: 'lateral direito', ZD: 'zagueiro pela direita', ZE: 'zague
 /* quem tem físico mas não está nas listas (Série A, ligas de fora do recorte, < 900 min): o tipo é
    calculado aqui, pelo centróide mais próximo do setor (os mesmos seis indicadores do F2, em z da Série B) */
 const TIPO_SET = { ZD: 'Zaga', ZE: 'Zaga', LD: 'Lateral', LE: 'Lateral', VOL: 'Volante', MED: 'Meia', MEI: 'Meia', ED: 'Extremo', EE: 'Extremo', CA: 'Atacante' };
+/* físico colado à mão vale em TODO lugar (regra do Henrique, 16/10/2026): campograma, ficha, busca — a letra sai dele.
+   O card traz o colado em j._dados; a ficha, em j._dadosFicha. */
+function fisColadoEm(j) { return !!(j && ((j._dados && j._dados.fis) || (j._dadosFicha && j._dadosFicha.fis))); }
 function tipoCalc(j) {
   const C = window.CONSULTA && window.CONSULTA.cen; const s = C && C[TIPO_SET[j.p]]; if (!s) return null;
-  if (typeof j.psv !== 'number' || (!j._dados && (Number(j.sc_n) || 0) < 5)) return null;
+  if (typeof j.psv !== 'number' || (!fisColadoEm(j) && (Number(j.sc_n) || 0) < 5)) return null;
   const core = C._core, app = C._app;                     /* ex.: psv99 → psv */
   const z = core.map((c, i) => { const v = Number(j[app[c]]); return isFinite(v) && j[app[c]] != null ? (v - s.media[i]) / s.desvio[i] : null; });
   if (z.filter(v => v != null).length < 3) return null;
@@ -6892,7 +6895,7 @@ function cobradorBadge(j) {
    Wyscout, DM aqui), recalcula pelo centróide do setor da posição do app */
 function tipoResolvido(j) {
   /* físico colado à mão: o tipo sai DELE (centróide), nunca do registro do estudo */
-  if (j && j._dados && j._dados.fis && typeof j.psv === 'number') { const tc = tipoCalc(j); if (tc) return { tipo: tc, p: j.p, calc: true }; }
+  if (j && fisColadoEm(j) && typeof j.psv === 'number') { const tc = tipoCalc(j); if (tc) return { tipo: tc, p: j.p, calc: true }; }
   const x = tipoDe(j);
   if (x && x.tipo && TIPO_SET[x.p] === TIPO_SET[j.p]) return x;
   const t = tipoCalc(j); return t ? { tipo: t, p: j.p, calc: true } : null;
@@ -7001,7 +7004,7 @@ async function djGravar() {
     catch (e) { console.warn('dadosjog: nuvem indisponível', e); }
   }
 }
-function djGuardar(pk, d) { if (!pk) return; if (d) DADOSJOG[pk] = d; else delete DADOSJOG[pk]; djGravar(); }
+function djGuardar(pk, d) { if (!pk) return; if (d) DADOSJOG[pk] = d; else delete DADOSJOG[pk]; djGravar(); try { coladosNaConsulta(); } catch (e) {} }
 async function djCarregar(grupos) {
   let o = djLocalLer();
   if (typeof FB !== 'undefined' && FB.pronto && FB.usuario) {
@@ -7018,6 +7021,27 @@ async function djCarregar(grupos) {
   });
   if (novos) { await djGravar(); console.log('dadosjog: ' + novos + ' jogadores com dados colados reunidos dos grupos'); }
   EQUIV_CACHE.clear();
+  coladosNaConsulta();
+}
+/* 16/10/2026 — o físico colado substitui o do ESTUDO também: o registro da Consulta (window.CONSULTA, que alimenta as
+   abas Consulta de jogador, Tipo físico, listas e similares) passa a ter o físico e o tipo do colado. O original fica
+   em x._estudo para voltar se o colado for apagado. */
+function coladosNaConsulta() {
+  const D = window.CONSULTA; if (!D || !BASE.length) return;
+  D.jogadores.forEach(x => { if (x._estudo) { Object.assign(x, x._estudo); delete x._estudo; } });
+  Object.keys(DADOSJOG || {}).forEach(pk => {
+    try {
+      const d = dadosColados(pk, null); if (!d || !d.fis || typeof d.fis.psv !== 'number') return;
+      const b = fsJogadorPk(pk); if (!b || b.p === 'GOL') return;
+      const x = csRegistro(Object.assign({}, b, { _dados: null })); if (!x || x._estudo) return;
+      const j = dadosDoCard({ pk, dados: d }, b); if (!j) return;
+      const r = tipoResolvido(j); if (!r || !r.tipo) return;
+      const pref = (D.pref && D.pref[x.p]) || [];
+      x._estudo = { tipo: x.tipo, tpref: x.tpref, psv: x.psv, spr: x.spr, hi: x.hi, expl: x.expl };
+      Object.assign(x, { tipo: r.tipo, tpref: tipoLetra(j) === 'A' || pref.includes(r.tipo) && !explosivoSemVolume(j, r),
+        psv: d.fis.psv, spr: d.fis.spr_n != null ? d.fis.spr_n : x.spr, hi: d.fis.hi_n != null ? d.fis.hi_n : x.hi, expl: d.fis.expl != null ? d.fis.expl : x.expl });
+    } catch (e) { console.warn('colado → consulta', pk, e); }
+  });
 }
 /* cadastro sem dado nenhum (card manual vazio, duplicata) → o cadastro do MESMO jogador que tem os dados:
    mesmo nome (ou um contido no outro: "Fernandinho" × "Fernandinho Conceição") e mesmo clube, ou mesmo nome com
