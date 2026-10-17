@@ -77,3 +77,18 @@ body.claro #pgBolaParada{--bp-bom:#0f6f9e;--bp-ruim:#c2650d;--bp-ponto:#6b7482}
 .bp-mini tr.tot td{color:var(--tinta);font-weight:700}
 .bp-mini tr.obs td{font-size:11px;color:var(--tinta3);border-bottom-style:dashed}
 .bp-obs{margin:8px 0 0;font-size:11.5px;color:var(--tinta3)}
+
+/* grupos da tabela com fundo próprio (17/10/2026): a favor verde, sofridos vermelho */
+.bp-tab .g-a{background:rgba(46,160,67,.09)}
+.bp-tab .g-s{background:rgba(218,54,51,.09)}
+.bp-tab .g-x{background:rgba(140,149,159,.07)}
+.bp-tab thead tr.grupo th.g-a{background:rgba(46,160,67,.28);color:#7ee787;font-weight:700}
+.bp-tab thead tr.grupo th.g-s{background:rgba(218,54,51,.28);color:#ffa198;font-weight:700}
+.bp-tab thead tr.grupo th.g-x{background:rgba(140,149,159,.18)}
+.bp-tab thead th.g-a{background:rgba(46,160,67,.16)}
+.bp-tab thead th.g-s{background:rgba(218,54,51,.16)}
+.bp-tab .g-a.g-ini{border-left:2px solid rgba(46,160,67,.7)} .bp-tab .g-a.g-fim{border-right:2px solid rgba(46,160,67,.7)}
+.bp-tab .g-s.g-ini{border-left:2px solid rgba(218,54,51,.7)} .bp-tab .g-s.g-fim{border-right:2px solid rgba(218,54,51,.7)}
+.bp-tab .g-x.g-ini{border-left:2px solid rgba(140,149,159,.5)} .bp-tab .g-x.g-fim{border-right:2px solid rgba(140,149,159,.5)}
+.bp-tab tbody tr.linha:hover .g-a{background:rgba(46,160,67,.16)}
+.bp-tab tbody tr.linha:hover .g-s{background:rgba(218,54,51,.16)}

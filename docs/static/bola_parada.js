@@ -397,17 +397,21 @@
       const g = COLS[i].grupo;
       let n = 1;
       while (g && i + n < COLS.length && COLS[i + n].grupo === g) n++;
-      h1 += '<th' + (n > 1 ? ' colspan="' + n + '"' : '') + '>' + (g ? GRUPOS[g] : '') + '</th>';
+      h1 += '<th' + (n > 1 ? ' colspan="' + n + '"' : '') + (g ? ' class="g-' + g + ' g-ini g-fim"' : '') + '>' + (g ? GRUPOS[g] : '') + '</th>';
       i += n;
     }
-    const h2 = COLS.map(c => '<th data-k="' + c.k + '"' + (st.ord === c.k ? ' class="ord"' : '') + '>' +
+    /* 17/10/2026: cada grupo com o seu fundo (a favor verde, sofridos vermelho, xG neutro) e borda no começo e no fim */
+    const gcls = i => { const g = COLS[i].grupo; if (!g) return '';
+      return 'g-' + g + (i === 0 || COLS[i - 1].grupo !== g ? ' g-ini' : '') + (i === COLS.length - 1 || COLS[i + 1].grupo !== g ? ' g-fim' : ''); };
+    const h2 = COLS.map((c, i) => '<th data-k="' + c.k + '" class="' + gcls(i) + (st.ord === c.k ? ' ord' : '') + '">' +
       (c.k === 'nome' && st.vis === 'trabalho' ? 'Trabalho' : c.r) + (st.ord === c.k ? (st.dir < 0 ? ' ↓' : ' ↑') : '') + '</th>').join('');
     const corpo = linhas.map(a => {
-      const tds = COLS.map(c => {
+      const tds = COLS.map((c, i) => {
         if (c.k === 'nome') return '<td>' + esc(a.rotulo) +
           (st.vis === 'treinador' ? '<small class="bp-trab">' + esc(a.trabTxt) + '</small>' : '') + '</td>';
-        if (c.div) return '<td>' + divCel(a[c.k], c.div, max) + '</td>';
-        return '<td>' + c.f(a[c.k]) + '</td>';
+        const td = '<td class="' + gcls(i) + '">';
+        if (c.div) return td + divCel(a[c.k], c.div, max) + '</td>';
+        return td + c.f(a[c.k]) + '</td>';
       }).join('');
       return '<tr class="linha' + (st.sel === a.k || st.destaque.has(a.nome) ? ' bp-sel' : '') + '" data-k="' + esc(a.k) + '">' + tds + '</tr>' +
         (st.abertos.has(a.k) ? '<tr class="bp-det"><td colspan="' + COLS.length + '">' + detalhe(a) + '</td></tr>' : '');
