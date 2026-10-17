@@ -1,0 +1,1328 @@
+ano,clube,jogador,pos11,tipo,letra,faixa
+2022,Bahia,Ignácio,ZD,Motor de volume,B,Sobe
+2022,Bahia,Luiz Otávio,ZE,Baixa intensidade,C,Sobe
+2022,Bahia,Gabriel Xavier,ZE,Motor de volume,B,Sobe
+2022,Brusque,Éverton Alemão,ZD,Baixa intensidade,C,Cai
+2022,Brusque,Bruno Aguiar,ZD,Baixa intensidade,C,Cai
+2022,CRB,Gum,ZD,Motor de volume,B,Meio
+2022,CRB,Wellington Carvalho,ZE,Motor de volume,B,Meio
+2022,CRB,Diego Ivo,ZE,Baixa intensidade,C,Meio
+2022,CRB,Gilvan,ZE,Motor de volume,B,Meio
+2022,CSA,Werley,ZE,Baixa intensidade,C,Cai
+2022,Chapecoense,Victor Ramos,ZE,Baixa intensidade,C,Meio
+2022,Chapecoense,Frazan,ZD,Baixa intensidade,C,Meio
+2022,Criciúma,Rayan,ZE,Baixa intensidade,C,Meio
+2022,Criciúma,Zé Marcos,ZE,Motor de volume,B,Meio
+2022,Cruzeiro,Eduardo Brock,ZE,Motor de volume,B,Sobe
+2022,Cruzeiro,Zé Ivaldo,ZD,Explosivo e rápido,A,Sobe
+2022,Grêmio,Pedro Geromel,ZD,Baixa intensidade,C,Sobe
+2022,Guarani,Derlan,ZE,Motor de volume,B,Meio
+2022,Guarani,Ronaldo Alves,ZE,Baixa intensidade,C,Meio
+2022,Ituano,Bernardo Schappo,ZE,Baixa intensidade,C,Meio
+2022,Ituano,Rafael Pereira,ZE,Baixa intensidade,C,Meio
+2022,Ituano,Lucas Dias,ZD,Motor de volume,B,Meio
+2022,Londrina,Vilar,ZE,Explosivo e rápido,A,Meio
+2022,Londrina,Saimon,ZD,Baixa intensidade,C,Meio
+2022,Novorizontino,Ligger,ZE,Baixa intensidade,C,Meio
+2022,Novorizontino,Rodolfo Filemon,ZD,Motor de volume,B,Meio
+2022,Novorizontino,Wálber,ZD,Motor de volume,B,Meio
+2022,Novorizontino,Joílson,ZD,Baixa intensidade,C,Meio
+2022,Náutico,Bruno Bispo,ZE,Motor de volume,B,Cai
+2022,Operário-PR,Reniê,ZE,Baixa intensidade,C,Cai
+2022,Operário-PR,Thales,ZD,Motor de volume,B,Cai
+2022,Ponte Preta,Fábio Sanches,ZE,Explosivo e rápido,A,Meio
+2022,Ponte Preta,Mateus Silva,ZD,Motor de volume,B,Meio
+2022,Sampaio Corrêa,Allan Godói,ZD,Explosivo e rápido,A,Meio
+2022,Sampaio Corrêa,Nilson Júnior,ZE,Motor de volume,B,Meio
+2022,Sampaio Corrêa,Joécio,ZE,Baixa intensidade,C,Meio
+2022,Sport,Sabino,ZE,Baixa intensidade,C,Meio
+2022,Sport,Rafael Thyere,ZD,Baixa intensidade,C,Meio
+2022,Sport,Fabio Alemão,ZD,Motor de volume,B,Meio
+2022,Tombense,Roger Carvalho,ZE,Baixa intensidade,C,Meio
+2022,Tombense,Ednei,ZD,Motor de volume,B,Meio
+2022,Tombense,Joseph,ZE,Motor de volume,B,Meio
+2022,Tombense,Marcondes,ZD,Baixa intensidade,C,Meio
+2022,Vasco,Anderson Conceição,ZE,Motor de volume,B,Sobe
+2022,Vasco,J. Quintero,ZD,Motor de volume,B,Sobe
+2022,Vasco,Danilo Boza,ZD,Explosivo e rápido,A+,Sobe
+2022,Vila Nova,Rafael Donato,ZD,Baixa intensidade,C,Meio
+2022,Vila Nova,Alisson Cassiano,ZE,Motor de volume,B,Meio
+2022,Vila Nova,Renato Palm,ZE,Baixa intensidade,C,Meio
+2023,ABC,Habraão,ZE,Baixa intensidade,C,Cai
+2023,ABC,Afonso,ZD,Motor de volume,B,Cai
+2023,ABC,Fabrício,ZE,Baixa intensidade,C,Cai
+2023,Atlético-GO,Heron,ZE,Explosivo e rápido,A+,Sobe
+2023,Atlético-GO,Lucas Gazal,ZD,Motor de volume,B,Sobe
+2023,Avaí,Alan Costa,ZD,Baixa intensidade,C,Meio
+2023,Avaí,Felipe Silva,ZE,Motor de volume,B,Meio
+2023,Botafogo-SP,Márcio,ZE,Explosivo e rápido,A,Meio
+2023,Botafogo-SP,Lucas Dias,ZD,Motor de volume,B,Meio
+2023,CRB,Ramon Menezes,ZE,Motor de volume,B,Meio
+2023,CRB,Fabio Alemão,ZD,Motor de volume,B,Meio
+2023,CRB,Anderson Conceição,ZE,Baixa intensidade,C,Meio
+2023,CRB,Saimon,ZD,Baixa intensidade,C,Meio
+2023,CRB,Gum,ZD,Baixa intensidade,C,Meio
+2023,Ceará,David Ricardo,ZE,Explosivo e rápido,A+,Meio
+2023,Ceará,Tiago Pagnussat,ZD,Motor de volume,B,Meio
+2023,Ceará,Gabriel Lacerda,ZE,Baixa intensidade,C,Meio
+2023,Chapecoense,Lucas Freitas,ZE,Baixa intensidade,C,Meio
+2023,Chapecoense,Bruno Leonardo,ZD,Motor de volume,B,Meio
+2023,Chapecoense,Rodrigo Freitas,ZD,Baixa intensidade,C,Meio
+2023,Chapecoense,Victor Ramos,ZE,Baixa intensidade,C,Meio
+2023,Criciúma,Walisson Maia,ZE,Motor de volume,B,Sobe
+2023,Criciúma,Rayan,ZE,Motor de volume,B,Sobe
+2023,Guarani,Lucão,ZE,Motor de volume,B,Meio
+2023,Guarani,Alan Santos,ZD,Baixa intensidade,C,Meio
+2023,Guarani,Wálber,ZD,Motor de volume,B,Meio
+2023,Guarani,Alexis Alvariño,ZD,Motor de volume,B,Meio
+2023,Ituano,Marcel Scalese,ZE,Motor de volume,B,Meio
+2023,Ituano,Rafael Pereira,ZE,Baixa intensidade,C,Meio
+2023,Juventude,Danilo Boza,ZD,Explosivo e rápido,A+,Sobe
+2023,Juventude,Zé Marcos,ZE,Motor de volume,B,Sobe
+2023,Juventude,Luiz Gustavo,ZD,Explosivo e rápido,A+,Sobe
+2023,Londrina,Rafael Vaz,ZE,Baixa intensidade,C,Cai
+2023,Londrina,Patrick,ZE,Explosivo e rápido,A,Cai
+2023,Mirassol,Thalisson,ZD,Baixa intensidade,C,Meio
+2023,Mirassol,Rodrigo Sam,ZD,Motor de volume,B,Meio
+2023,Novorizontino,Adriano Martins,ZD,Motor de volume,B,Meio
+2023,Novorizontino,César Martins,ZD,Explosivo e rápido,A+,Meio
+2023,Novorizontino,Ligger,ZE,Motor de volume,B,Meio
+2023,Novorizontino,Renato Palm,ZE,Motor de volume,B,Meio
+2023,Ponte Preta,Fábio Sanches,ZE,Baixa intensidade,C,Meio
+2023,Ponte Preta,Mateus Silva,ZD,Baixa intensidade,C,Meio
+2023,Sampaio Corrêa,Gustavo Henrique,ZD,Explosivo e rápido,A,Cai
+2023,Sampaio Corrêa,Gabriel Furtado,ZE,Baixa intensidade,C,Cai
+2023,Sampaio Corrêa,Ícaro,ZD,Baixa intensidade,C,Cai
+2023,Sampaio Corrêa,Joécio,ZE,Motor de volume,B,Cai
+2023,Sampaio Corrêa,Rafael Jansen,ZE,Motor de volume,B,Cai
+2023,Sport,Rafael Thyere,ZD,Baixa intensidade,C,Meio
+2023,Sport,Sabino,ZE,Baixa intensidade,C,Meio
+2023,Sport,Chico,ZE,Baixa intensidade,C,Meio
+2023,Tombense,Roger Carvalho,ZE,Baixa intensidade,C,Cai
+2023,Tombense,Augusto,ZD,Baixa intensidade,C,Cai
+2023,Tombense,Wesley Marth,ZD,Baixa intensidade,C,Cai
+2023,Vila Nova,Rafael Donato,ZD,Baixa intensidade,C,Meio
+2023,Vila Nova,Eduardo Doma,ZE,Baixa intensidade,C,Meio
+2023,Vitória,Wagner Leonardo,ZE,Baixa intensidade,C,Sobe
+2023,Vitória,Camutanga,ZD,Baixa intensidade,C,Sobe
+2023,Vitória,Yan Souto,ZD,Explosivo e rápido,A,Sobe
+2024,Amazonas,Alexis Alvariño,ZD,Baixa intensidade,C,Meio
+2024,Amazonas,Miranda,ZD,Baixa intensidade,C,Meio
+2024,América-MG,Ricardo Silva,ZD,Motor de volume,B,Meio
+2024,América-MG,Éder,ZE,Motor de volume,B,Meio
+2024,América-MG,Lucão,ZE,Motor de volume,B,Meio
+2024,Avaí,Tiago Pagnussat,ZD,Motor de volume,B,Meio
+2024,Avaí,Vilar,ZE,Motor de volume,B,Meio
+2024,Botafogo-SP,Bernardo Schappo,ZE,Motor de volume,B,Meio
+2024,Botafogo-SP,Fábio Sanches,ZD,Motor de volume,B,Meio
+2024,Botafogo-SP,Matheus Costa,ZD,Explosivo e rápido,A,Meio
+2024,Botafogo-SP,Raphael,ZD,Motor de volume,B,Meio
+2024,Brusque,Wallace,ZE,Baixa intensidade,C,Cai
+2024,Brusque,Ianson,ZD,Baixa intensidade,C,Cai
+2024,Brusque,Éverton Alemão,ZD,Baixa intensidade,C,Cai
+2024,CRB,Saimon,ZD,Baixa intensidade,C,Meio
+2024,CRB,Fabio Alemão,ZE,Motor de volume,B,Meio
+2024,CRB,Gustavo Henrique,ZD,Explosivo e rápido,A+,Meio
+2024,CRB,L. Segovia,ZE,Baixa intensidade,C,Meio
+2024,Ceará,David Ricardo,ZE,Motor de volume,B,Sobe
+2024,Ceará,Matheus Felipe,ZD,Baixa intensidade,C,Sobe
+2024,Ceará,Ramon Menezes,ZD,Baixa intensidade,C,Sobe
+2024,Ceará,Tchoca,ZD,Baixa intensidade,C,Sobe
+2024,Chapecoense,Bruno Leonardo,ZD,Motor de volume,B,Meio
+2024,Chapecoense,Eduardo Doma,ZE,Baixa intensidade,C,Meio
+2024,Chapecoense,Habraão,ZE,Motor de volume,B,Meio
+2024,Coritiba,Bruno Melo,ZE,Motor de volume,B,Meio
+2024,Coritiba,Benevenuto,ZE,Motor de volume,B,Meio
+2024,Coritiba,Maurício Antônio,ZD,Motor de volume,B,Meio
+2024,Coritiba,Thalisson,ZD,Explosivo e rápido,A+,Meio
+2024,Goiás,Lucas Ribeiro,ZE,Explosivo e rápido,A,Meio
+2024,Goiás,Messias,ZD,Baixa intensidade,C,Meio
+2024,Goiás,Edson Felipe,ZE,Baixa intensidade,C,Meio
+2024,Goiás,David Braz,ZD,Baixa intensidade,C,Meio
+2024,Guarani,Matheus Salustiano,ZE,Explosivo e rápido,A,Cai
+2024,Guarani,Douglas Bacelar,ZD,Baixa intensidade,C,Cai
+2024,Guarani,Lucas Adell,ZE,Motor de volume,B,Cai
+2024,Guarani,Léo Santos,ZE,Explosivo e rápido,A+,Cai
+2024,Ituano,Claudinho,ZE,Baixa intensidade,C,Cai
+2024,Ituano,Guilherme Mariano,ZD,Explosivo e rápido,A+,Cai
+2024,Ituano,Wálber,ZD,Motor de volume,B,Cai
+2024,Mirassol,Lucas Gazal,ZD,Baixa intensidade,C,Sobe
+2024,Novorizontino,Luisão,ZD,Explosivo e rápido,A+,Meio
+2024,Novorizontino,Rafael Donato,ZD,Baixa intensidade,C,Meio
+2024,Novorizontino,Renato Palm,ZD,Motor de volume,B,Meio
+2024,Operário-PR,Willian Machado,ZE,Baixa intensidade,C,Meio
+2024,Operário-PR,Joseph,ZD,Motor de volume,B,Meio
+2024,Operário-PR,German Fagner,ZD,Motor de volume,B,Meio
+2024,Paysandu,Lucas Maia,ZE,Motor de volume,B,Meio
+2024,Paysandu,Y. Quintana,ZD,Baixa intensidade,C,Meio
+2024,Ponte Preta,Sérgio Raphael,ZE,Motor de volume,B,Cai
+2024,Ponte Preta,Mateus Silva,ZD,Baixa intensidade,C,Cai
+2024,Ponte Preta,Joílson,ZD,Baixa intensidade,C,Cai
+2024,Santos,Gil,ZE,Baixa intensidade,C,Sobe
+2024,Santos,Jair Cunha,ZD,Motor de volume,B,Sobe
+2024,Santos,Joaquim,ZE,Motor de volume,B,Sobe
+2024,Sport,Chico,ZE,Motor de volume,B,Sobe
+2024,Sport,Rafael Thyere,ZD,Baixa intensidade,C,Sobe
+2024,Sport,Luciano Castán,ZE,Motor de volume,B,Sobe
+2024,Vila Nova,Jemmes,ZE,Explosivo e rápido,A,Meio
+2024,Vila Nova,Ralf,ZD,Motor de volume,B,Meio
+2024,Vila Nova,J. Quintero,ZD,Baixa intensidade,C,Meio
+2025,Amazonas,Alexis Alvariño,ZD,Baixa intensidade,C,Cai
+2025,Amazonas,Léo Coelho,ZE,Motor de volume,B,Cai
+2025,Amazonas,Jackson,ZD,Baixa intensidade,C,Cai
+2025,América-MG,Lucão,ZE,Motor de volume,B,Meio
+2025,América-MG,Ricardo Silva,ZD,Motor de volume,B,Meio
+2025,Athletic,Sidimar,ZE,Baixa intensidade,C,Meio
+2025,Athletic,Marcelo Ajul,ZD,Motor de volume,B,Meio
+2025,Athletico-PR,Arthur Dias,ZE,Explosivo e rápido,A,Sobe
+2025,Athletico-PR,J. Aguirre,ZD,Baixa intensidade,C,Sobe
+2025,Athletico-PR,Habraão,ZD,Motor de volume,B,Sobe
+2025,Atlético-GO,Adriano Martins,ZE,Motor de volume,B,Meio
+2025,Atlético-GO,Tito,ZD,Explosivo e rápido,A,Meio
+2025,Atlético-GO,Matheus Felipe,ZE,Baixa intensidade,C,Meio
+2025,Avaí,Eduardo Brock,ZE,Baixa intensidade,C,Meio
+2025,Botafogo-SP,Ericson,ZD,Motor de volume,B,Meio
+2025,Botafogo-SP,Rafael Milhorim,ZE,Motor de volume,B,Meio
+2025,Botafogo-SP,Edson Felipe,ZD,Baixa intensidade,C,Meio
+2025,Botafogo-SP,Vilar,ZE,Motor de volume,B,Meio
+2025,CRB,Henri,ZD,Motor de volume,B,Meio
+2025,CRB,L. Segovia,ZE,Motor de volume,B,Meio
+2025,CRB,Fabio Alemão,ZE,Motor de volume,B,Meio
+2025,Chapecoense,Eduardo Doma,ZD,Baixa intensidade,C,Sobe
+2025,Chapecoense,João Paulo,ZE,Motor de volume,B,Sobe
+2025,Chapecoense,Victor Caetano,ZD,Baixa intensidade,C,Sobe
+2025,Chapecoense,Bruno Leonardo,ZD,Motor de volume,B,Sobe
+2025,Coritiba,Maicon,ZD,Baixa intensidade,C,Sobe
+2025,Coritiba,Jacy,ZE,Motor de volume,B,Sobe
+2025,Criciúma,Rodrigo,ZD,Motor de volume,B,Meio
+2025,Criciúma,Luciano Castán,ZE,Motor de volume,B,Meio
+2025,Criciúma,Benevenuto,ZD,Motor de volume,B,Meio
+2025,Cuiabá,Bruno Alves,ZD,Baixa intensidade,C,Meio
+2025,Cuiabá,Alan Empereur,ZE,Baixa intensidade,C,Meio
+2025,Cuiabá,Calebe Costa,ZD,Explosivo e rápido,A+,Meio
+2025,Ferroviária,Ronaldo Alves,ZE,Baixa intensidade,C,Cai
+2025,Ferroviária,Gustavo Medina,ZD,Explosivo e rápido,A,Cai
+2025,Ferroviária,Maycon,ZE,Explosivo e rápido,A,Cai
+2025,Goiás,Messias,ZD,Baixa intensidade,C,Meio
+2025,Goiás,Lucas Ribeiro,ZE,Motor de volume,B,Meio
+2025,Goiás,Titi,ZE,Baixa intensidade,C,Meio
+2025,Novorizontino,César Martins,ZD,Explosivo e rápido,A+,Meio
+2025,Novorizontino,Rafael Donato,ZD,Baixa intensidade,C,Meio
+2025,Operário-PR,Miranda,ZD,Motor de volume,B,Meio
+2025,Operário-PR,Joseph,ZD,Explosivo e rápido,A+,Meio
+2025,Operário-PR,Jaime Giraldo,ZE,Motor de volume,B,Meio
+2025,Operário-PR,Allan Godói,ZD,Explosivo e rápido,A,Meio
+2025,Paysandu,Thalisson,ZD,Explosivo e rápido,A,Cai
+2025,Paysandu,Luan Freitas,ZD,Motor de volume,B,Cai
+2025,Paysandu,J. Novillo,ZE,Baixa intensidade,C,Cai
+2025,Paysandu,Maurício Antônio,ZE,Baixa intensidade,C,Cai
+2025,Paysandu,Thiago Heleno,ZE,Baixa intensidade,C,Cai
+2025,Remo,Klaus,ZD,Baixa intensidade,C,Sobe
+2025,Remo,Reynaldo,ZE,Baixa intensidade,C,Sobe
+2025,Remo,Kayky Almeida,ZE,Motor de volume,B,Sobe
+2025,Remo,Camutanga,ZD,Baixa intensidade,C,Sobe
+2025,Vila Nova,Tiago Pagnussat,ZD,Baixa intensidade,C,Meio
+2025,Vila Nova,Bernardo Schappo,ZE,Baixa intensidade,C,Meio
+2025,Vila Nova,Walisson Maia,ZE,Motor de volume,B,Meio
+2025,Volta Redonda,Gabriel Pinheiro,ZD,Motor de volume,B,Cai
+2025,Volta Redonda,Gabriel Bahia,ZE,Motor de volume,B,Cai
+2025,Volta Redonda,Lucas Adell,ZE,Motor de volume,B,Cai
+2025,Volta Redonda,Igor Morais,ZD,Motor de volume,B,Cai
+2026,América-MG,Rafael Barcelos,ZE,Baixa intensidade,C,Cai
+2026,América-MG,Ricardo Silva,ZD,Motor de volume,B,Cai
+2026,Athletic,Lucas Belezi,ZE,Motor de volume,B,Meio
+2026,Athletic,Jhonatan Silva,ZD,Motor de volume,B,Meio
+2026,Atlético-GO,J. Barreto,ZD,Baixa intensidade,C,Meio
+2026,Atlético-GO,Tito,ZD,Motor de volume,B,Meio
+2026,Atlético-GO,Adriano Martins,ZE,Motor de volume,B,Meio
+2026,Avaí,Allyson,ZD,Motor de volume,B,Cai
+2026,Avaí,B. Baldini,ZE,Motor de volume,B,Cai
+2026,Botafogo-SP,Vilar,ZE,Motor de volume,B,Meio
+2026,Botafogo-SP,Ericson,ZD,Motor de volume,B,Meio
+2026,CRB,Fabio Alemão,ZE,Motor de volume,B,Meio
+2026,CRB,Bressan,ZD,Motor de volume,B,Meio
+2026,CRB,Henri,ZD,Baixa intensidade,C,Meio
+2026,CRB,Lyncon,ZE,Motor de volume,B,Meio
+2026,Ceará,Éder,ZD,Baixa intensidade,C,Meio
+2026,Criciúma,César Martins,ZD,Explosivo e rápido,A+,Meio
+2026,Criciúma,Luciano Castán,ZE,Motor de volume,B,Meio
+2026,Criciúma,Rodrigo,ZD,Motor de volume,B,Meio
+2026,Criciúma,Bruno Alves,ZD,Motor de volume,B,Meio
+2026,Cuiabá,João Basso,ZD,Motor de volume,B,Meio
+2026,Cuiabá,Calebe Costa,ZD,Motor de volume,B,Meio
+2026,Cuiabá,Vitor Mendes,ZE,Motor de volume,B,Meio
+2026,Fortaleza,Lucas Gazal,ZE,Baixa intensidade,C,Sobe
+2026,Fortaleza,E. Brítez,ZD,Baixa intensidade,C,Sobe
+2026,Fortaleza,Luan Freitas,ZD,Baixa intensidade,C,Sobe
+2026,Goiás,Lucas Ribeiro,ZE,Motor de volume,B,Meio
+2026,Goiás,Ramon Menezes,ZE,Baixa intensidade,C,Meio
+2026,Juventude,Rodrigo Sam,ZD,Explosivo e rápido,A+,Sobe
+2026,Juventude,Messias,ZD,Baixa intensidade,C,Sobe
+2026,Juventude,Gabriel Pinheiro,ZD,Motor de volume,B,Sobe
+2026,Londrina,Yago Lincoln,ZD,Motor de volume,B,Cai
+2026,Londrina,Gabriel Lacerda,ZE,Motor de volume,B,Cai
+2026,Novorizontino,Gabriel Bahia,ZD,Explosivo e rápido,A,Sobe
+2026,Náutico,Betão,ZE,Explosivo e rápido,A+,Meio
+2026,Operário-PR,Miranda,ZE,Baixa intensidade,C,Meio
+2026,Operário-PR,J. Cuenú,ZD,Baixa intensidade,C,Meio
+2026,Operário-PR,Klaus,ZD,Baixa intensidade,C,Meio
+2026,Ponte Preta,Lucas Cunha,ZD,Motor de volume,B,Cai
+2026,Ponte Preta,Danilo Barcelos,ZE,Motor de volume,B,Cai
+2026,Ponte Preta,Márcio,ZE,Motor de volume,B,Cai
+2026,Ponte Preta,Sergio Palacios,ZD,Explosivo e rápido,A,Cai
+2026,Ponte Preta,Diego Leão,ZD,Baixa intensidade,C,Cai
+2026,Sport,Benevenuto,ZD,Baixa intensidade,C,Meio
+2026,Sport,Marcelo Ajul,ZD,Baixa intensidade,C,Meio
+2026,Sport,Zé Marcos,ZE,Baixa intensidade,C,Meio
+2026,São Bernardo,Augusto,ZE,Baixa intensidade,C,Meio
+2026,São Bernardo,Jemerson,ZD,Baixa intensidade,C,Meio
+2026,São Bernardo,Hélder Maciel,ZD,Baixa intensidade,C,Meio
+2026,Vila Nova,Tiago Pagnussat,ZD,Baixa intensidade,C,Sobe
+2026,Vila Nova,Anderson,ZE,Baixa intensidade,C,Sobe
+2022,Bahia,André Dhominique,LD,Explosivo e rápido,A,Sobe
+2022,Bahia,Matheus Bahia,LE,Explosivo e rápido,A+,Sobe
+2022,Bahia,Douglas Borel,LD,Explosivo e rápido,A+,Sobe
+2022,Brusque,Airton,LE,Baixa intensidade,C,Cai
+2022,Brusque,Alex Ruan,LE,Médio em tudo,B,Cai
+2022,Brusque,Toty,LD,Explosivo e rápido,A+,Cai
+2022,CRB,Raul Prata,LD,Médio em tudo,B,Meio
+2022,CRB,Guilherme Romão,LE,Médio em tudo,B,Meio
+2022,CSA,Diego Renan,LE,Baixa intensidade,C,Cai
+2022,CSA,Igor Inocêncio,LD,Médio em tudo,B,Cai
+2022,CSA,Lucas Marques,LD,Explosivo e rápido,A+,Cai
+2022,Chapecoense,Fernando,LE,Explosivo e rápido,A,Meio
+2022,Chapecoense,Ronei,LD,Médio em tudo,B,Meio
+2022,Chapecoense,Maílton,LD,Baixa intensidade,C,Meio
+2022,Criciúma,Marcelo Hermes,LE,Médio em tudo,B,Meio
+2022,Criciúma,Cristovam,LD,Explosivo e rápido,A+,Meio
+2022,Criciúma,Hélder Santos,LE,Médio em tudo,B,Meio
+2022,Cruzeiro,Matheus Bidu,LE,Explosivo e rápido,A+,Sobe
+2022,Cruzeiro,Geovane Jesus,LD,Baixa intensidade,C,Sobe
+2022,Cruzeiro,L. País,LD,Explosivo e rápido,A+,Sobe
+2022,Grêmio,Rodrigo Ferreira,LD,Explosivo e rápido,A+,Sobe
+2022,Grêmio,Diogo Barbosa,LE,Explosivo e rápido,A+,Sobe
+2022,Guarani,Diogo Mateus,LD,Médio em tudo,B,Meio
+2022,Guarani,Jamerson,LE,Explosivo e rápido,A,Meio
+2022,Guarani,Matheus Pereira,LE,Explosivo e rápido,A+,Meio
+2022,Guarani,Lucas Ramon,LD,Explosivo e rápido,A+,Meio
+2022,Ituano,Roberto,LE,Baixa intensidade,C,Meio
+2022,Ituano,Mário Sérgio,LE,Médio em tudo,B,Meio
+2022,Ituano,Raí Ramos,LD,Baixa intensidade,B,Meio
+2022,Ituano,Pacheco,LD,Explosivo e rápido,A,Meio
+2022,Londrina,Alan Ruschel,LE,Baixa intensidade,C,Meio
+2022,Londrina,Samuel Santos,LD,Explosivo e rápido,A,Meio
+2022,Londrina,Felipe,LE,Médio em tudo,B,Meio
+2022,Londrina,Eltinho,LE,Médio em tudo,B,Meio
+2022,Novorizontino,Willean Lepo,LD,Médio em tudo,B,Meio
+2022,Novorizontino,Felipe Albuquerque,LD,Explosivo e rápido,A,Meio
+2022,Náutico,Victor Ferraz,LD,Médio em tudo,B,Cai
+2022,Náutico,Pedro Vitor,LE,Médio em tudo,B,Cai
+2022,Náutico,Thassio,LD,Médio em tudo,B,Cai
+2022,Náutico,Júnior Tavares,LE,Médio em tudo,B,Cai
+2022,Operário-PR,Fabiano,LE,Baixa intensidade,C,Cai
+2022,Operário-PR,Arnaldo,LD,Baixa intensidade,C,Cai
+2022,Operário-PR,Lucas Mendes,LD,Explosivo e rápido,A+,Cai
+2022,Ponte Preta,Artur,LE,Baixa intensidade,B,Meio
+2022,Ponte Preta,Igor Formiga,LD,Explosivo e rápido,A,Meio
+2022,Ponte Preta,Norberto,LD,Explosivo e rápido,A,Meio
+2022,Sampaio Corrêa,Mateusinho,LD,Baixa intensidade,C,Meio
+2022,Sampaio Corrêa,Lucas Hipólito,LE,Baixa intensidade,C,Meio
+2022,Sampaio Corrêa,Maurício Maranhão,LD,Médio em tudo,B,Meio
+2022,Sport,Sander,LE,Explosivo e rápido,A,Meio
+2022,Sport,Ewerthon,LD,Baixa intensidade,C,Meio
+2022,Sport,Eduardo,LD,Baixa intensidade,C,Meio
+2022,Tombense,Manoel,LE,Explosivo e rápido,A,Meio
+2022,Tombense,David,LD,Baixa intensidade,C,Meio
+2022,Tombense,Diego Ferreira,LD,Explosivo e rápido,A,Meio
+2022,Vasco,Edimar,LE,Baixa intensidade,C,Sobe
+2022,Vasco,Léo Matos,LD,Baixa intensidade,C,Sobe
+2022,Vasco,Gabriel Dias,LD,Explosivo e rápido,A,Sobe
+2022,Vila Nova,Willian Formiga,LE,Baixa intensidade,C,Meio
+2022,Vila Nova,Alex Silva,LD,Médio em tudo,B,Meio
+2023,ABC,Gedeílson,LD,Explosivo e rápido,A,Cai
+2023,ABC,Romário,LE,Médio em tudo,B,Cai
+2023,ABC,Jhonnathan,LE,Baixa intensidade,C,Cai
+2023,ABC,Alex Silva,LD,Baixa intensidade,C,Cai
+2023,Atlético-GO,Bruno Tubarão,LD,Explosivo e rápido,A,Sobe
+2023,Atlético-GO,Rodrigo Soares,LD,Médio em tudo,B,Sobe
+2023,Atlético-GO,Lucas Esteves,LE,Baixa intensidade,C,Sobe
+2023,Atlético-GO,Jefferson,LE,Médio em tudo,B,Sobe
+2023,Avaí,Natanael,LE,Explosivo e rápido,A,Meio
+2023,Avaí,Thales Oleques,LD,Médio em tudo,B,Meio
+2023,Avaí,Igor Inocêncio,LD,Médio em tudo,B,Meio
+2023,Avaí,Bruno Cortez,LE,Médio em tudo,B,Meio
+2023,Botafogo-SP,Patrick Brey,LE,Explosivo e rápido,A,Meio
+2023,Botafogo-SP,Thassio,LD,Médio em tudo,B,Meio
+2023,Botafogo-SP,Jean Victor,LE,Médio em tudo,B,Meio
+2023,Botafogo-SP,Vidal,LD,Baixa intensidade,C,Meio
+2023,Botafogo-SP,Ericson,LD,Baixa intensidade,C,Meio
+2023,CRB,Matheus Ribeiro,LD,Médio em tudo,B,Meio
+2023,CRB,Hereda,LD,Explosivo e rápido,A,Meio
+2023,CRB,Guilherme Romão,LE,Baixa intensidade,C,Meio
+2023,CRB,Edimar,LE,Baixa intensidade,C,Meio
+2023,Ceará,Warley,LD,Explosivo e rápido,A,Meio
+2023,Ceará,Danilo Barcelos,LE,Médio em tudo,B,Meio
+2023,Chapecoense,Mancha,LE,Médio em tudo,B,Meio
+2023,Chapecoense,Ronei,LD,Médio em tudo,B,Meio
+2023,Chapecoense,Felipe Albuquerque,LD,Baixa intensidade,C,Meio
+2023,Criciúma,Marcelo Hermes,LE,Médio em tudo,B,Sobe
+2023,Criciúma,Cristovam,LD,Explosivo e rápido,A+,Sobe
+2023,Guarani,Diogo Mateus,LD,Médio em tudo,B,Meio
+2023,Guarani,Mayk,LE,Explosivo e rápido,A,Meio
+2023,Ituano,Mário Sérgio,LE,Médio em tudo,B,Meio
+2023,Ituano,Pacheco,LD,Explosivo e rápido,A,Meio
+2023,Juventude,Reginaldo,LD,Explosivo e rápido,A,Sobe
+2023,Juventude,Alan Ruschel,LE,Médio em tudo,B,Sobe
+2023,Juventude,Kelvyn,LE,Médio em tudo,B,Sobe
+2023,Juventude,Dani Bolt,LD,Explosivo e rápido,A,Sobe
+2023,Londrina,Gustavo Salomão,LE,Explosivo e rápido,A,Cai
+2023,Londrina,Marcos Pedro,LE,Explosivo e rápido,A,Cai
+2023,Mirassol,Lucas Ramon,LD,Explosivo e rápido,A,Meio
+2023,Mirassol,Guilherme Biro,LE,Médio em tudo,B,Meio
+2023,Mirassol,Manoel,LE,Médio em tudo,B,Meio
+2023,Novorizontino,Willean Lepo,LD,Explosivo e rápido,A,Meio
+2023,Novorizontino,Reverson,LE,Médio em tudo,B,Meio
+2023,Novorizontino,Léo Tocantins,LE,Explosivo e rápido,A,Meio
+2023,Ponte Preta,Artur,LE,Baixa intensidade,C,Meio
+2023,Ponte Preta,Weverton,LD,Explosivo e rápido,A+,Meio
+2023,Ponte Preta,Maílton,LD,Explosivo e rápido,A,Meio
+2023,Sampaio Corrêa,Mateus Pivô,LD,Explosivo e rápido,A,Cai
+2023,Sampaio Corrêa,Alyson,LE,Explosivo e rápido,A,Cai
+2023,Sampaio Corrêa,Pará,LE,Baixa intensidade,C,Cai
+2023,Sport,Ewerthon,LD,Baixa intensidade,C,Meio
+2023,Sport,Igor Cariús,LE,Explosivo e rápido,A+,Meio
+2023,Tombense,Pedro Costa,LD,Explosivo e rápido,A,Cai
+2023,Tombense,Egídio,LE,Médio em tudo,B,Cai
+2023,Tombense,Kevin,LD,Explosivo e rápido,A+,Cai
+2023,Tombense,Guilherme Santos,LE,Baixa intensidade,C,Cai
+2023,Vila Nova,Rodrigo Gelado,LE,Explosivo e rápido,A,Meio
+2023,Vila Nova,Léo Duarte,LD,Médio em tudo,B,Meio
+2023,Vitória,Zeca,LD,Baixa intensidade,C,Sobe
+2023,Vitória,Railan,LD,Explosivo e rápido,A,Sobe
+2023,Vitória,Marcelo,LE,Explosivo e rápido,A,Sobe
+2024,Amazonas,Fabiano,LE,Baixa intensidade,C,Meio
+2024,Amazonas,Ezequiel,LD,Baixa intensidade,C,Meio
+2024,Amazonas,Renan Castro,LE,Baixa intensidade,C,Meio
+2024,América-MG,Mateus Henrique,LD,Explosivo e rápido,A,Meio
+2024,América-MG,Daniel Borges,LD,Médio em tudo,B,Meio
+2024,Avaí,Marcos Vinicius,LD,Baixa intensidade,C,Meio
+2024,Botafogo-SP,Emerson Negueba,LD,Explosivo e rápido,A+,Meio
+2024,Botafogo-SP,Patrick Brey,LE,Explosivo e rápido,A,Meio
+2024,Botafogo-SP,Jean Victor,LE,Médio em tudo,B,Meio
+2024,Botafogo-SP,Wallison,LD,Médio em tudo,B,Meio
+2024,Botafogo-SP,Ericson,LD,Baixa intensidade,C,Meio
+2024,Brusque,Mateus Pivô,LD,Explosivo e rápido,A,Cai
+2024,Brusque,Alex Ruan,LE,Baixa intensidade,C,Cai
+2024,Brusque,Jhan Torres,LE,Baixa intensidade,C,Cai
+2024,CRB,Hereda,LD,Explosivo e rápido,A+,Meio
+2024,CRB,Willian Formiga,LE,Baixa intensidade,C,Meio
+2024,CRB,Matheus Ribeiro,LD,Médio em tudo,B,Meio
+2024,CRB,Ryan,LE,Baixa intensidade,C,Meio
+2024,Ceará,Matheus Bahia,LE,Explosivo e rápido,A,Sobe
+2024,Ceará,Rafael Ramos,LD,Explosivo e rápido,A,Sobe
+2024,Ceará,Raí Ramos,LD,Explosivo e rápido,A,Sobe
+2024,Chapecoense,Mancha,LE,Médio em tudo,B,Meio
+2024,Chapecoense,Maílton,LD,Baixa intensidade,C,Meio
+2024,Coritiba,Rodrigo Gelado,LE,Explosivo e rápido,A,Meio
+2024,Coritiba,Jamerson,LE,Explosivo e rápido,A,Meio
+2024,Goiás,Sander,LE,Explosivo e rápido,A,Meio
+2024,Guarani,Jefferson,LE,Baixa intensidade,C,Cai
+2024,Guarani,Pacheco,LD,Médio em tudo,B,Cai
+2024,Guarani,Heitor,LD,Explosivo e rápido,A,Cai
+2024,Ituano,Guilherme Lazaroni,LE,Médio em tudo,B,Cai
+2024,Ituano,Léo Oliveira,LD,Médio em tudo,B,Cai
+2024,Mirassol,Lucas Ramon,LD,Explosivo e rápido,A,Sobe
+2024,Mirassol,Zeca,LE,Baixa intensidade,C,Sobe
+2024,Mirassol,Warley,LE,Explosivo e rápido,A,Sobe
+2024,Novorizontino,Reverson,LE,Médio em tudo,B,Meio
+2024,Novorizontino,Rodrigo Soares,LD,Médio em tudo,B,Meio
+2024,Novorizontino,Igor Formiga,LD,Explosivo e rápido,A,Meio
+2024,Operário-PR,Pará,LE,Baixa intensidade,C,Meio
+2024,Operário-PR,Thales Oleques,LD,Baixa intensidade,C,Meio
+2024,Paysandu,Edílson,LD,Médio em tudo,B,Meio
+2024,Paysandu,Kevyn,LE,Explosivo e rápido,A,Meio
+2024,Ponte Preta,Igor Inocêncio,LD,Médio em tudo,B,Cai
+2024,Ponte Preta,G. Risso,LE,Explosivo e rápido,A,Cai
+2024,Ponte Preta,Luiz Felipe,LD,Explosivo e rápido,A,Cai
+2024,Ponte Preta,João Gabriel,LD,Médio em tudo,B,Cai
+2024,Santos,Gonzalo Escobar,LE,Explosivo e rápido,A,Sobe
+2024,Santos,João Pedro Chermont,LD,Explosivo e rápido,A+,Sobe
+2024,Santos,Hayner,LD,Explosivo e rápido,A+,Sobe
+2024,Sport,Dalbert,LE,Explosivo e rápido,A,Sobe
+2024,Sport,Igor Cariús,LD,Explosivo e rápido,A,Sobe
+2024,Vila Nova,Rhuan,LE,Médio em tudo,B,Meio
+2025,Amazonas,Fabiano,LE,Baixa intensidade,C,Cai
+2025,Amazonas,N. Castrillón,LD,Baixa intensidade,C,Cai
+2025,Amazonas,Carlos Akapo,LD,Baixa intensidade,C,Cai
+2025,América-MG,Júlio César,LD,Baixa intensidade,C,Meio
+2025,América-MG,Mariano,LD,Baixa intensidade,C,Meio
+2025,Athletic,Douglas Pelé,LD,Explosivo e rápido,A+,Meio
+2025,Athletic,Rodrigo Gelado,LE,Explosivo e rápido,A,Meio
+2025,Athletic,Yuri,LE,Médio em tudo,B,Meio
+2025,Athletic,Wesley Gasolina,LD,Médio em tudo,B,Meio
+2025,Athletico-PR,L. Esquivel,LE,Baixa intensidade,C,Sobe
+2025,Athletico-PR,G. Benavídez,LD,Explosivo e rápido,A+,Sobe
+2025,Athletico-PR,Kauã Moraes,LD,Explosivo e rápido,A,Sobe
+2025,Athletico-PR,Léo Derik,LE,Explosivo e rápido,A,Sobe
+2025,Atlético-GO,Guilherme Romão,LE,Baixa intensidade,C,Meio
+2025,Atlético-GO,Ruan,LD,Explosivo e rápido,A,Meio
+2025,Atlético-GO,Jean Dias,LD,Explosivo e rápido,A+,Meio
+2025,Avaí,Marcos Vinicius,LD,Baixa intensidade,C,Meio
+2025,Avaí,DG,LE,Explosivo e rápido,A,Meio
+2025,Botafogo-SP,G. Risso,LE,Baixa intensidade,C,Meio
+2025,Botafogo-SP,Jeferson,LD,Médio em tudo,B,Meio
+2025,Botafogo-SP,Wallison,LD,Explosivo e rápido,A,Meio
+2025,CRB,Matheus Ribeiro,LE,Médio em tudo,B,Meio
+2025,CRB,Léo Campos,LE,Médio em tudo,B,Meio
+2025,Chapecoense,W. Clar,LE,Médio em tudo,B,Sobe
+2025,Chapecoense,Maílton,LD,Baixa intensidade,C,Sobe
+2025,Chapecoense,Everton,LD,Explosivo e rápido,A,Sobe
+2025,Coritiba,Zeca,LE,Baixa intensidade,C,Sobe
+2025,Coritiba,Bruno Melo,LE,Baixa intensidade,C,Sobe
+2025,Coritiba,Alex Silva,LD,Médio em tudo,B,Sobe
+2025,Criciúma,Felipinho,LE,Explosivo e rápido,A+,Meio
+2025,Criciúma,Marcelo Hermes,LE,Médio em tudo,B,Meio
+2025,Criciúma,Luiz Henrique,LE,Médio em tudo,B,Meio
+2025,Cuiabá,Mateusinho,LD,Baixa intensidade,C,Meio
+2025,Cuiabá,Sander,LE,Baixa intensidade,C,Meio
+2025,Ferroviária,Zé Mário,LE,Baixa intensidade,B,Cai
+2025,Ferroviária,Edson Lucas,LE,Explosivo e rápido,A,Cai
+2025,Ferroviária,Eric,LE,Explosivo e rápido,A,Cai
+2025,Goiás,Willean Lepo,LE,Explosivo e rápido,A,Meio
+2025,Goiás,Diego Caito,LD,Médio em tudo,B,Meio
+2025,Goiás,Moraes,LE,Explosivo e rápido,A+,Meio
+2025,Novorizontino,Rodrigo Soares,LD,Médio em tudo,B,Meio
+2025,Novorizontino,Mayk,LE,Baixa intensidade,C,Meio
+2025,Novorizontino,Raí Ramos,LD,Médio em tudo,B,Meio
+2025,Novorizontino,Patrick Brey,LE,Explosivo e rápido,A,Meio
+2025,Operário-PR,Cristiano,LE,Explosivo e rápido,A,Meio
+2025,Operário-PR,Gabriel Feliciano,LE,Médio em tudo,B,Meio
+2025,Operário-PR,Diogo Mateus,LD,Médio em tudo,B,Meio
+2025,Paysandu,Reverson,LE,Baixa intensidade,C,Cai
+2025,Paysandu,Edílson,LD,Médio em tudo,B,Cai
+2025,Remo,Sávio,LE,Explosivo e rápido,A+,Sobe
+2025,Remo,Alan Rodríguez,LE,Médio em tudo,B,Sobe
+2025,Vila Nova,Willian Formiga,LE,Baixa intensidade,C,Meio
+2025,Volta Redonda,Sánchez,LE,Médio em tudo,B,Cai
+2025,Volta Redonda,Jhonny,LD,Explosivo e rápido,A,Cai
+2025,Volta Redonda,Wellington Silva,LD,Médio em tudo,B,Cai
+2026,América-MG,Dalbert,LE,Explosivo e rápido,A,Cai
+2026,América-MG,Alex Silva,LD,Baixa intensidade,C,Cai
+2026,Athletic,Zeca,LE,Baixa intensidade,C,Meio
+2026,Atlético-GO,Ewerthon,LD,Baixa intensidade,C,Meio
+2026,Avaí,DG,LE,Explosivo e rápido,A,Cai
+2026,Avaí,Wallison,LD,Médio em tudo,B,Cai
+2026,Botafogo-SP,Patrick Brey,LE,Médio em tudo,B,Meio
+2026,Botafogo-SP,Gabriel Inocêncio,LD,Explosivo e rápido,A,Meio
+2026,CRB,Lucas Lovat,LE,Baixa intensidade,C,Meio
+2026,CRB,Hereda,LD,Médio em tudo,B,Meio
+2026,CRB,Kevin,LD,Explosivo e rápido,A+,Meio
+2026,Ceará,Sánchez,LE,Médio em tudo,B,Meio
+2026,Ceará,Rafael Ramos,LD,Explosivo e rápido,A,Meio
+2026,Criciúma,Marcelo Hermes,LE,Médio em tudo,B,Meio
+2026,Criciúma,Willean Lepo,LD,Explosivo e rápido,A+,Meio
+2026,Cuiabá,Railan,LD,Médio em tudo,B,Meio
+2026,Fortaleza,Maílton,LD,Baixa intensidade,C,Sobe
+2026,Goiás,Rodrigo Soares,LD,Médio em tudo,B,Meio
+2026,Goiás,Djalma Silva,LE,Médio em tudo,B,Meio
+2026,Juventude,Diogo Barbosa,LE,Explosivo e rápido,A+,Sobe
+2026,Juventude,Aderlan,LD,Médio em tudo,B,Sobe
+2026,Londrina,Heron,LE,Médio em tudo,B,Cai
+2026,Londrina,Kauê Leonardo,LD,Médio em tudo,B,Cai
+2026,Novorizontino,Maykon,LE,Médio em tudo,B,Sobe
+2026,Novorizontino,Mádson,LD,Explosivo e rápido,A,Sobe
+2026,Novorizontino,N. Castrillón,LD,Baixa intensidade,C,Sobe
+2026,Náutico,Igor Fernandes,LE,Médio em tudo,B,Meio
+2026,Náutico,Reginaldo,LD,Explosivo e rápido,A,Meio
+2026,Náutico,Matheus Ribeiro,LD,Explosivo e rápido,A,Meio
+2026,Operário-PR,Mikael Doka,LD,Baixa intensidade,C,Meio
+2026,Operário-PR,Moraes,LE,Explosivo e rápido,A+,Meio
+2026,Operário-PR,Gabriel Feliciano,LE,Baixa intensidade,C,Meio
+2026,Operário-PR,Maguinho,LD,Médio em tudo,B,Meio
+2026,Ponte Preta,Kevyson,LE,Explosivo e rápido,A+,Cai
+2026,Ponte Preta,Júlio,LD,Médio em tudo,B,Cai
+2026,Ponte Preta,Thalys,LD,Explosivo e rápido,A+,Cai
+2026,Ponte Preta,Diego Porfírio,LE,Baixa intensidade,C,Cai
+2026,Sport,Felipinho,LE,Explosivo e rápido,A,Meio
+2026,Sport,A. De Freitas,LD,Explosivo e rápido,A,Meio
+2026,São Bernardo,Rodrigo Ferreira,LD,Explosivo e rápido,A,Meio
+2026,São Bernardo,Pará,LE,Médio em tudo,B,Meio
+2026,Vila Nova,Higor,LE,Baixa intensidade,C,Sobe
+2026,Vila Nova,Hayner,LD,Explosivo e rápido,A,Sobe
+2026,Vila Nova,Nathan Camargo,LD,Baixa intensidade,C,Sobe
+2022,Bahia,Patrick De Lucca,VOL,Intermediário,B,Sobe
+2022,Bahia,Lucas Mugni,VOL,Mais intenso,A+,Sobe
+2022,Bahia,Rezende,VOL,Mais intenso,A,Sobe
+2022,Bahia,Emerson Santos,VOL,Intermediário,B,Sobe
+2022,Brusque,Rodolfo Potiguar,VOL,Intermediário,B,Cai
+2022,Brusque,Wagner Balotelli,VOL,Mais intenso,A,Cai
+2022,Brusque,Matheus Trindade,VOL,Menos intenso,C,Cai
+2022,Brusque,Luiz Antônio,VOL,Intermediário,B,Cai
+2022,CRB,Yago Henrique,VOL,Intermediário,B,Meio
+2022,CRB,Claudinei,VOL,Menos intenso,C,Meio
+2022,CRB,Juninho Valoura,VOL,Intermediário,B,Meio
+2022,CRB,Marthã,VOL,Menos intenso,C,Meio
+2022,CRB,Uillian Correia,VOL,Intermediário,B,Meio
+2022,CSA,Geovane,VOL,Mais intenso,A,Cai
+2022,CSA,Giva,VOL,Intermediário,B,Cai
+2022,Criciúma,Marcos Serrato,VOL,Intermediário,B,Meio
+2022,Criciúma,Léo Costa,VOL,Menos intenso,C,Meio
+2022,Grêmio,M. Villasanti,VOL,Mais intenso,A,Sobe
+2022,Grêmio,Bitello,VOL,Mais intenso,A+,Sobe
+2022,Guarani,Leandro Vilela,VOL,Menos intenso,C,Meio
+2022,Guarani,Madison,VOL,Mais intenso,A,Meio
+2022,Guarani,Eduardo Person,VOL,Intermediário,B,Meio
+2022,Ituano,Lucas Siqueira,VOL,Intermediário,B,Meio
+2022,Ituano,J. Jiménez,VOL,Intermediário,B,Meio
+2022,Novorizontino,Jhony Douglas,VOL,Menos intenso,C,Meio
+2022,Náutico,Ralph,VOL,Intermediário,B,Cai
+2022,Náutico,Djavan,VOL,Intermediário,B,Cai
+2022,Operário-PR,Fernando Neto,VOL,Menos intenso,C,Cai
+2022,Operário-PR,Rafael Chorão,VOL,Menos intenso,C,Cai
+2022,Ponte Preta,Felipe Amaral,VOL,Intermediário,B,Meio
+2022,Ponte Preta,Fraga,VOL,Mais intenso,A+,Meio
+2022,Sampaio Corrêa,André Luiz,VOL,Intermediário,B,Meio
+2022,Sampaio Corrêa,Lucas Araújo,VOL,Intermediário,B,Meio
+2022,Sampaio Corrêa,Eloir,VOL,Intermediário,B,Meio
+2022,Sport,Ronaldo Henrique,VOL,Menos intenso,C,Meio
+2022,Sport,William Oliveira,VOL,Intermediário,B,Meio
+2022,Tombense,Zé Ricardo,VOL,Menos intenso,C,Meio
+2022,Tombense,Guilherme Rend,VOL,Menos intenso,C,Meio
+2022,Vasco,Andrey Santos,VOL,Mais intenso,A+,Sobe
+2022,Vasco,Yuri Lara,VOL,Intermediário,B,Sobe
+2022,Vila Nova,Arthur Rezende,VOL,Menos intenso,C,Meio
+2023,Atlético-GO,Rhaldney,VOL,Mais intenso,A+,Sobe
+2023,Atlético-GO,Matheus Sales,VOL,Intermediário,B,Sobe
+2023,Atlético-GO,Baralhas,VOL,Intermediário,B,Sobe
+2023,Atlético-GO,Renato Alves,VOL,Mais intenso,A,Sobe
+2023,Botafogo-SP,Tárik,VOL,Menos intenso,C,Meio
+2023,CRB,Falcão,VOL,Intermediário,B,Meio
+2023,Ceará,Willian Maranhão,VOL,Menos intenso,C,Meio
+2023,Ceará,Léo Santos,VOL,Intermediário,B,Meio
+2023,Criciúma,Arilson,VOL,Intermediário,B,Sobe
+2023,Criciúma,Miquéias,VOL,Intermediário,B,Sobe
+2023,Guarani,Matheus Barbosa,VOL,Mais intenso,A,Meio
+2023,Guarani,Matheus Bueno,VOL,Menos intenso,C,Meio
+2023,Guarani,Lucas Araújo,VOL,Menos intenso,C,Meio
+2023,Ituano,José Aldo,VOL,Menos intenso,C,Meio
+2023,Ituano,Rafael Carvalheira,VOL,Mais intenso,A+,Meio
+2023,Ituano,Thiago Conti,VOL,Mais intenso,A,Meio
+2023,Londrina,Moisés Gaúcho,VOL,Menos intenso,C,Cai
+2023,Mirassol,Yuri Lima,VOL,Menos intenso,C,Meio
+2023,Ponte Preta,Filipinho,VOL,Mais intenso,A,Meio
+2023,Ponte Preta,Felipe Amaral,VOL,Menos intenso,C,Meio
+2023,Sampaio Corrêa,Maurício Maranhão,VOL,Menos intenso,C,Cai
+2023,Sampaio Corrêa,Jhony Douglas,VOL,Menos intenso,C,Cai
+2023,Vitória,Rodrigo Andrade,VOL,Intermediário,B,Sobe
+2023,Vitória,Gegé,VOL,Menos intenso,C,Sobe
+2024,Amazonas,Guilherme Xavier,VOL,Menos intenso,C,Meio
+2024,América-MG,Alê,VOL,Mais intenso,A,Meio
+2024,América-MG,Moisés,VOL,Mais intenso,A+,Meio
+2024,América-MG,Felipe Amaral,VOL,Intermediário,B,Meio
+2024,Botafogo-SP,João Costa,VOL,Menos intenso,C,Meio
+2024,Brusque,Rodolfo Potiguar,VOL,Menos intenso,C,Cai
+2024,CRB,Falcão,VOL,Intermediário,B,Meio
+2024,CRB,Rômulo,VOL,Menos intenso,C,Meio
+2024,Ceará,Lourenço,VOL,Intermediário,B,Sobe
+2024,Ceará,Richardson,VOL,Intermediário,B,Sobe
+2024,Chapecoense,Tárik,VOL,Menos intenso,C,Meio
+2024,Chapecoense,Auremir,VOL,Intermediário,B,Meio
+2024,Coritiba,Vini Paulista,VOL,Mais intenso,A+,Meio
+2024,Coritiba,Zé Gabriel,VOL,Menos intenso,C,Meio
+2024,Mirassol,Neto Moura,VOL,Intermediário,B,Sobe
+2024,Operário-PR,Jacy,VOL,Intermediário,B,Meio
+2024,Operário-PR,Vinicius Diniz,VOL,Mais intenso,A,Meio
+2024,Operário-PR,Índio,VOL,Mais intenso,A,Meio
+2024,Operário-PR,R. Lindoso,VOL,Menos intenso,C,Meio
+2024,Paysandu,João Vieira,VOL,Mais intenso,A,Meio
+2024,Paysandu,Val Soares,VOL,Mais intenso,A,Meio
+2024,Paysandu,Netinho,VOL,Intermediário,B,Meio
+2024,Ponte Preta,Castro,VOL,Intermediário,B,Cai
+2024,Ponte Preta,Emerson Santos,VOL,Menos intenso,C,Cai
+2024,Ponte Preta,Dudu Vieira,VOL,Mais intenso,A+,Cai
+2024,Santos,João Schmidt,VOL,Menos intenso,C,Sobe
+2024,Vila Nova,Arilson,VOL,Intermediário,B,Meio
+2025,Athletic,Sandry,VOL,Menos intenso,C,Meio
+2025,Athletic,Fabrício Isidoro,VOL,Menos intenso,C,Meio
+2025,Athletic,Amorim,VOL,Mais intenso,A,Meio
+2025,Athletic,Fernando Martínez,VOL,Intermediário,B,Meio
+2025,Athletico-PR,Raul,VOL,Intermediário,B,Sobe
+2025,Atlético-GO,Luizão,VOL,Intermediário,B,Meio
+2025,Atlético-GO,Rhaldney,VOL,Mais intenso,A,Meio
+2025,Atlético-GO,Willian Maranhão,VOL,Intermediário,B,Meio
+2025,Avaí,Zé Ricardo,VOL,Intermediário,B,Meio
+2025,Botafogo-SP,L. Maciel,VOL,Menos intenso,C,Meio
+2025,Botafogo-SP,Gabriel Bispo,VOL,Menos intenso,C,Meio
+2025,Botafogo-SP,Wesley Dias,VOL,Intermediário,B,Meio
+2025,Botafogo-SP,S. Abdulai,VOL,Intermediário,B,Meio
+2025,CRB,Higor Meritão,VOL,Mais intenso,A+,Meio
+2025,Coritiba,Filipe Machado,VOL,Menos intenso,C,Sobe
+2025,Coritiba,Wallisson,VOL,Mais intenso,A,Sobe
+2025,Ferroviária,Ricardinho,VOL,Menos intenso,C,Cai
+2025,Goiás,Marcão,VOL,Intermediário,B,Meio
+2025,Goiás,Rodrigo Andrade,VOL,Mais intenso,A,Meio
+2025,Operário-PR,Índio,VOL,Mais intenso,A,Meio
+2025,Paysandu,Leandro Vilela,VOL,Menos intenso,C,Cai
+2025,Paysandu,Anderson Leite,VOL,Mais intenso,A,Cai
+2025,Paysandu,Ronaldo Henrique,VOL,Menos intenso,C,Cai
+2025,Remo,Caio Vinícius,VOL,Mais intenso,A,Sobe
+2025,Remo,Luan Gonçalves,VOL,Intermediário,B,Sobe
+2025,Vila Nova,João Vieira,VOL,Mais intenso,A+,Meio
+2025,Volta Redonda,André Luiz,VOL,Intermediário,B,Cai
+2025,Volta Redonda,Bruno Barra,VOL,Intermediário,B,Cai
+2026,América-MG,Felipe Amaral,VOL,Menos intenso,C,Cai
+2026,Athletic,João Miguel,VOL,Intermediário,B,Meio
+2026,Atlético-GO,Leandro Vilela,VOL,Menos intenso,C,Meio
+2026,Avaí,Zé Ricardo,VOL,Intermediário,B,Cai
+2026,Botafogo-SP,Matheus Sales,VOL,Intermediário,B,Meio
+2026,Botafogo-SP,L. Maciel,VOL,Menos intenso,C,Meio
+2026,CRB,Patrick De Lucca,VOL,Menos intenso,C,Meio
+2026,Fortaleza,Pierre,VOL,Menos intenso,C,Sobe
+2026,Goiás,Filipe Machado,VOL,Menos intenso,C,Meio
+2026,Londrina,André Luiz,VOL,Intermediário,B,Cai
+2026,Novorizontino,Luís Oyama,VOL,Mais intenso,A+,Sobe
+2026,Novorizontino,Léo Naldi,VOL,Intermediário,B,Sobe
+2026,Náutico,Samuel,VOL,Intermediário,B,Meio
+2026,Operário-PR,Matheus Trindade,VOL,Menos intenso,C,Meio
+2026,Sport,Biel,VOL,Mais intenso,A,Meio
+2026,Sport,Zé Gabriel,VOL,Menos intenso,C,Meio
+2026,Sport,Zé Lucas,VOL,Mais intenso,A+,Meio
+2026,São Bernardo,Miraíma,VOL,Menos intenso,C,Meio
+2026,São Bernardo,Romisson,VOL,Mais intenso,A+,Meio
+2026,São Bernardo,Foguinho,VOL,Mais intenso,A+,Meio
+2026,Vila Nova,João Vieira,VOL,Mais intenso,A+,Sobe
+2026,Vila Nova,Dudu,VOL,Mais intenso,A+,Sobe
+2026,Vila Nova,Willian Maranhão,VOL,Menos intenso,C,Sobe
+2022,Brusque,Zé Mateus,MED,Explosivo e rápido,B,Cai
+2022,Brusque,Álvaro,MEI,Médio em tudo,B,Cai
+2022,Brusque,Diego Jardel,MEI,Médio em tudo,B,Cai
+2022,CRB,Rafael Longuine,MEI,Médio em tudo,B,Meio
+2022,CSA,Yann Rolim,MEI,Explosivo e rápido,A,Cai
+2022,Chapecoense,Marcelo Freitas,MED,Baixa intensidade,C,Meio
+2022,Chapecoense,Matheus Bianqui,MED,Médio em tudo,A,Meio
+2022,Chapecoense,Lima,MED,Explosivo e rápido,A,Meio
+2022,Chapecoense,Pablo Oliveira,MED,Médio em tudo,B,Meio
+2022,Chapecoense,Betinho,MED,Baixa intensidade,C,Meio
+2022,Criciúma,Arilson,MED,Médio em tudo,B,Meio
+2022,Criciúma,Fellipe Mateus,MED,Médio em tudo,A,Meio
+2022,Cruzeiro,Neto Moura,MED,Baixa intensidade,C,Sobe
+2022,Cruzeiro,Willian Oliveira,MED,Baixa intensidade,C,Sobe
+2022,Cruzeiro,Filipe Machado,MED,Baixa intensidade,C,Sobe
+2022,Grêmio,J. Campaz,MEI,Explosivo e rápido,A,Sobe
+2022,Grêmio,Thiago Santos,MED,Médio em tudo,B,Sobe
+2022,Guarani,Giovanni Augusto,MEI,Médio em tudo,B,Meio
+2022,Guarani,Rodrigo Andrade,MED,Médio em tudo,B,Meio
+2022,Ituano,Gerson Magrão,MEI,Explosivo e rápido,A,Meio
+2022,Ituano,Dudu Vieira,MED,Explosivo e rápido,A,Meio
+2022,Londrina,Gegé,MED,Médio em tudo,B,Meio
+2022,Londrina,Mandaca,MED,Médio em tudo,B,Meio
+2022,Londrina,Jhonny Lucas,MED,Médio em tudo,B,Meio
+2022,Novorizontino,Gustavo Bochecha,MED,Baixa intensidade,C,Meio
+2022,Novorizontino,D. Torres,MEI,Explosivo e rápido,A,Meio
+2022,Náutico,Richard Franco,MED,Explosivo e rápido,A,Cai
+2022,Náutico,Souza,MED,Baixa intensidade,C,Cai
+2022,Náutico,Jobson,MED,Médio em tudo,B,Cai
+2022,Operário-PR,J. Reina,MEI,Explosivo e rápido,A,Cai
+2022,Operário-PR,Tomás Bastos,MED,Médio em tudo,B,Cai
+2022,Ponte Preta,Léo Naldi,MED,Médio em tudo,B,Meio
+2022,Ponte Preta,Élvis,MEI,Baixa intensidade,C,Meio
+2022,Sampaio Corrêa,Rafael Vila,MEI,Médio em tudo,B,Meio
+2022,Sport,Bruno Matias,MED,Médio em tudo,A,Meio
+2022,Sport,Pedro Naressi,MED,Médio em tudo,B,Meio
+2022,Tombense,Nenê Bonilha,MEI,Baixa intensidade,C,Meio
+2022,Vasco,Nenê,MEI,Médio em tudo,B,Sobe
+2022,Vila Nova,Ralf,MED,Baixa intensidade,C,Meio
+2022,Vila Nova,Wagner,MEI,Médio em tudo,B,Meio
+2022,Vila Nova,Sousa,MED,Baixa intensidade,C,Meio
+2023,ABC,Wallace,MED,Baixa intensidade,C,Cai
+2023,ABC,Nathan Melo,MED,Médio em tudo,B,Cai
+2023,ABC,Wellington Reis,MED,Baixa intensidade,C,Cai
+2023,Atlético-GO,Shaylon,MEI,Explosivo e rápido,A,Sobe
+2023,Avaí,Rafael Gava,MED,Explosivo e rápido,A,Meio
+2023,Avaí,Jean Cléber,MED,Médio em tudo,B,Meio
+2023,Botafogo-SP,Guilherme Madruga,MED,Explosivo e rápido,B,Meio
+2023,Botafogo-SP,Carlos Manuel,MED,Médio em tudo,B,Meio
+2023,CRB,Lucas Lima,MED,Explosivo e rápido,B,Meio
+2023,CRB,Juninho Valoura,MED,Baixa intensidade,C,Meio
+2023,CRB,Rafael Longuine,MED,Médio em tudo,B,Meio
+2023,Ceará,Chay,MEI,Médio em tudo,B,Meio
+2023,Ceará,Guilherme Castilho,MEI,Explosivo e rápido,A,Meio
+2023,Chapecoense,Giovanni Pavani,MED,Baixa intensidade,C,Meio
+2023,Chapecoense,Gustavo Cazonatti,MED,Explosivo e rápido,B,Meio
+2023,Chapecoense,Bruno Vinicius,MED,Médio em tudo,B,Meio
+2023,Chapecoense,Dudu Vieira,MED,Explosivo e rápido,B,Meio
+2023,Criciúma,Fellipe Mateus,MED,Médio em tudo,A,Sobe
+2023,Criciúma,Marquinhos Gabriel,MEI,Médio em tudo,B,Sobe
+2023,Guarani,Bruninho,MEI,Explosivo e rápido,A,Meio
+2023,Guarani,Isaque,MEI,Médio em tudo,B,Meio
+2023,Guarani,Régis,MEI,Médio em tudo,B,Meio
+2023,Guarani,Wenderson,MED,Baixa intensidade,C,Meio
+2023,Ituano,Yann Rolim,MEI,Médio em tudo,B,Meio
+2023,Ituano,Eduardo Person,MEI,Médio em tudo,B,Meio
+2023,Ituano,Marthã,MED,Baixa intensidade,C,Meio
+2023,Juventude,Nenê,MEI,Médio em tudo,B,Sobe
+2023,Juventude,Vini Paulista,MED,Explosivo e rápido,B,Sobe
+2023,Juventude,Jean Irmer,MED,Médio em tudo,B,Sobe
+2023,Juventude,Mandaca,MED,Médio em tudo,B,Sobe
+2023,Juventude,Matheus Vargas,MEI,Médio em tudo,B,Sobe
+2023,Londrina,Higor Leite,MEI,Baixa intensidade,C,Cai
+2023,Londrina,Ariel,MEI,Explosivo e rápido,A,Cai
+2023,Mirassol,Danielzinho,MED,Médio em tudo,A,Meio
+2023,Mirassol,Neto Moura,MED,Baixa intensidade,C,Meio
+2023,Novorizontino,Marlon,MED,Explosivo e rápido,B,Meio
+2023,Ponte Preta,Élvis,MEI,Baixa intensidade,C,Meio
+2023,Ponte Preta,Matheus Jesus,MEI,Médio em tudo,B,Meio
+2023,Sampaio Corrêa,Neto Paraíba,MED,Médio em tudo,B,Cai
+2023,Sampaio Corrêa,Ferreira,MED,Explosivo e rápido,B,Cai
+2023,Sport,Ronaldo Henrique,MED,Baixa intensidade,C,Meio
+2023,Sport,Fábio Matheus,MED,Baixa intensidade,C,Meio
+2023,Tombense,Matheus Frizzo,MEI,Médio em tudo,B,Cai
+2023,Tombense,João Pedro,MED,Médio em tudo,B,Cai
+2023,Tombense,Bruno Matias,MED,Médio em tudo,B,Cai
+2023,Vila Nova,Lourenço,MED,Médio em tudo,B,Meio
+2023,Vila Nova,Ralf,MED,Baixa intensidade,C,Meio
+2023,Vila Nova,Sousa,MED,Baixa intensidade,C,Meio
+2023,Vitória,Matheuzinho,MEI,Explosivo e rápido,A,Sobe
+2023,Vitória,Dudu,MED,Médio em tudo,B,Sobe
+2023,Vitória,Wellington Nem,MEI,Explosivo e rápido,A,Sobe
+2023,Vitória,Giovanni Augusto,MEI,Médio em tudo,B,Sobe
+2024,Amazonas,Cauan Barros,MED,Baixa intensidade,C,Meio
+2024,Amazonas,Erick Varão,MED,Explosivo e rápido,A,Meio
+2024,Amazonas,Rafael Tavares,MEI,Baixa intensidade,C,Meio
+2024,Amazonas,J. Jiménez,MED,Baixa intensidade,C,Meio
+2024,América-MG,F. Elizari,MED,Médio em tudo,A,Meio
+2024,Avaí,Willian Maranhão,MED,Baixa intensidade,C,Meio
+2024,Avaí,Zé Ricardo,MED,Médio em tudo,B,Meio
+2024,Avaí,Rodrigo Santos,MED,Médio em tudo,B,Meio
+2024,Botafogo-SP,Gustavo Bochecha,MED,Baixa intensidade,C,Meio
+2024,Botafogo-SP,S. Abdulai,MED,Médio em tudo,B,Meio
+2024,Botafogo-SP,Matheus Barbosa,MED,Médio em tudo,B,Meio
+2024,Botafogo-SP,Carlos Manuel,MED,Médio em tudo,B,Meio
+2024,Brusque,Marcos Serrato,MED,Médio em tudo,B,Cai
+2024,Brusque,Dionísio,MED,Médio em tudo,B,Cai
+2024,CRB,Gegé,MEI,Médio em tudo,B,Meio
+2024,Ceará,Patrick De Lucca,MED,Baixa intensidade,C,Sobe
+2024,Ceará,Lucas Mugni,MED,Explosivo e rápido,B,Sobe
+2024,Ceará,J. Recalde,MEI,Médio em tudo,B,Sobe
+2024,Chapecoense,Rafael Carvalheira,MED,Médio em tudo,A,Meio
+2024,Chapecoense,Foguinho,MED,Explosivo e rápido,A,Meio
+2024,Chapecoense,Thomás Bedinelli,MEI,Explosivo e rápido,A,Meio
+2024,Chapecoense,Giovanni Augusto,MEI,Baixa intensidade,C,Meio
+2024,Chapecoense,Marlone,MEI,Baixa intensidade,C,Meio
+2024,Coritiba,S. Gómez,MED,Médio em tudo,B,Meio
+2024,Coritiba,Matheus Frizzo,MEI,Explosivo e rápido,A,Meio
+2024,Coritiba,Everton Morelli,MED,Explosivo e rápido,A,Meio
+2024,Coritiba,Josué,MEI,Baixa intensidade,C,Meio
+2024,Goiás,Rafael Gava,MED,Médio em tudo,A,Meio
+2024,Guarani,Matheus Bueno,MED,Baixa intensidade,C,Cai
+2024,Guarani,Gabriel Bispo,MED,Baixa intensidade,C,Cai
+2024,Guarani,Anderson Leite,MED,Explosivo e rápido,A,Cai
+2024,Ituano,Miquéias,MED,Explosivo e rápido,B,Cai
+2024,Ituano,José Aldo,MED,Médio em tudo,B,Cai
+2024,Ituano,Yann Rolim,MEI,Médio em tudo,B,Cai
+2024,Mirassol,Danielzinho,MED,Médio em tudo,A,Sobe
+2024,Mirassol,Gabriel,MED,Médio em tudo,B,Sobe
+2024,Novorizontino,Eduardo,MED,Explosivo e rápido,A,Meio
+2024,Novorizontino,Willian Farias,MED,Baixa intensidade,C,Meio
+2024,Operário-PR,Boschilia,MED,Baixa intensidade,C,Meio
+2024,Paysandu,Leandro Vilela,MED,Baixa intensidade,C,Meio
+2024,Paysandu,J. Cazares,MEI,Baixa intensidade,C,Meio
+2024,Ponte Preta,Ramon,MED,Médio em tudo,B,Cai
+2024,Santos,Diego Pituca,MED,Médio em tudo,B,Sobe
+2024,Santos,Giuliano,MEI,Baixa intensidade,C,Sobe
+2024,Santos,Serginho,MEI,Explosivo e rápido,A,Sobe
+2024,Sport,F. Domínguez,MED,Explosivo e rápido,A,Sobe
+2024,Vila Nova,Igor Henrique,MED,Baixa intensidade,C,Meio
+2025,Amazonas,Larry Vásquez,MED,Baixa intensidade,C,Cai
+2025,Amazonas,Gabriel Domingos,MED,Médio em tudo,B,Cai
+2025,Amazonas,Erick Varão,MED,Explosivo e rápido,B,Cai
+2025,América-MG,Kauã Diniz,MED,Médio em tudo,B,Meio
+2025,América-MG,Miquéias,MED,Explosivo e rápido,B,Meio
+2025,América-MG,Cauan Barros,MED,Baixa intensidade,C,Meio
+2025,América-MG,Felipe Amaral,MED,Médio em tudo,B,Meio
+2025,América-MG,F. Elizari,MEI,Médio em tudo,B,Meio
+2025,América-MG,Yago,MED,Médio em tudo,B,Meio
+2025,Athletic,David Braga,MEI,Explosivo e rápido,A,Meio
+2025,Athletico-PR,B. Zapelli,MED,Médio em tudo,A,Sobe
+2025,Athletico-PR,Filipinho,MED,Médio em tudo,B,Sobe
+2025,Athletico-PR,Dudu Kogitzki,MED,Explosivo e rápido,A,Sobe
+2025,Atlético-GO,Robert,MEI,Explosivo e rápido,A,Meio
+2025,Atlético-GO,Kauan,MEI,Médio em tudo,B,Meio
+2025,Avaí,JP,MED,Médio em tudo,A,Meio
+2025,Botafogo-SP,A. Dramisino,MEI,Explosivo e rápido,A,Meio
+2025,CRB,Gegé,MED,Médio em tudo,A,Meio
+2025,CRB,Crystopher,MED,Médio em tudo,B,Meio
+2025,Chapecoense,Rafael Carvalheira,MED,Médio em tudo,A,Sobe
+2025,Chapecoense,Giovanni Augusto,MEI,Médio em tudo,B,Sobe
+2025,Chapecoense,Bruno Matias,MED,Médio em tudo,A,Sobe
+2025,Chapecoense,J. Jiménez,MED,Baixa intensidade,C,Sobe
+2025,Chapecoense,Pedro Martins,MED,Médio em tudo,B,Sobe
+2025,Coritiba,S. Gómez,MED,Explosivo e rápido,A,Sobe
+2025,Coritiba,Josué,MEI,Baixa intensidade,C,Sobe
+2025,Coritiba,Vini Paulista,MED,Explosivo e rápido,B,Sobe
+2025,Coritiba,C. de Pena,MED,Médio em tudo,A,Sobe
+2025,Criciúma,Matheus Trindade,MED,Baixa intensidade,C,Meio
+2025,Criciúma,Guilherme Lobo,MED,Médio em tudo,A,Meio
+2025,Criciúma,Léo Naldi,MED,Médio em tudo,B,Meio
+2025,Cuiabá,Patrick De Lucca,MED,Baixa intensidade,C,Meio
+2025,Cuiabá,Lucas Mineiro,MED,Baixa intensidade,C,Meio
+2025,Ferroviária,Netinho,MED,Baixa intensidade,C,Cai
+2025,Ferroviária,Alencar,MED,Médio em tudo,B,Cai
+2025,Ferroviária,Albano,MEI,Explosivo e rápido,A,Cai
+2025,Goiás,Rafael Gava,MED,Médio em tudo,B,Meio
+2025,Goiás,Wellington Rato,MEI,Explosivo e rápido,A,Meio
+2025,Novorizontino,Luís Oyama,MED,Explosivo e rápido,A,Meio
+2025,Novorizontino,Fábio Matheus,MED,Baixa intensidade,C,Meio
+2025,Novorizontino,Matheus Frizzo,MEI,Médio em tudo,B,Meio
+2025,Novorizontino,Jean Irmer,MED,Baixa intensidade,C,Meio
+2025,Novorizontino,Rômulo,MEI,Explosivo e rápido,A,Meio
+2025,Operário-PR,Juan Zuluaga,MED,Médio em tudo,B,Meio
+2025,Operário-PR,Neto Paraíba,MED,Baixa intensidade,C,Meio
+2025,Paysandu,André Lima,MED,Baixa intensidade,C,Cai
+2025,Paysandu,Denner,MEI,Médio em tudo,B,Cai
+2025,Paysandu,Matheus Vargas,MED,Baixa intensidade,C,Cai
+2025,Remo,Pedro Castro,MED,Médio em tudo,A,Sobe
+2025,Remo,Jáderson,MED,Médio em tudo,B,Sobe
+2025,Remo,Giovanni Pavani,MED,Baixa intensidade,C,Sobe
+2025,Vila Nova,Igor Henrique,MEI,Baixa intensidade,C,Meio
+2025,Vila Nova,Jean Mota,MED,Baixa intensidade,C,Meio
+2025,Volta Redonda,Pierre,MED,Médio em tudo,A,Cai
+2026,América-MG,Yago,MED,Explosivo e rápido,A,Cai
+2026,Athletic,Kauan,MED,Médio em tudo,A,Meio
+2026,Athletic,Jota,MED,Explosivo e rápido,A,Meio
+2026,Athletic,G. Cabezas,MED,Médio em tudo,B,Meio
+2026,Atlético-GO,Guilherme Marques,MEI,Médio em tudo,B,Meio
+2026,Avaí,Luiz Henrique,MED,Médio em tudo,B,Cai
+2026,Avaí,Jean Lucas,MEI,Médio em tudo,B,Cai
+2026,Botafogo-SP,Everton Morelli,MED,Explosivo e rápido,B,Meio
+2026,Botafogo-SP,Rafael Gava,MED,Médio em tudo,A,Meio
+2026,CRB,Pedro Castro,MED,Médio em tudo,A,Meio
+2026,CRB,Crystopher,MED,Médio em tudo,A,Meio
+2026,CRB,Danielzinho,MED,Médio em tudo,A,Meio
+2026,Ceará,Joao Gabriel,MED,Médio em tudo,B,Meio
+2026,Ceará,Matheus Araújo,MEI,Explosivo e rápido,A,Meio
+2026,Criciúma,Guilherme Lobo,MED,Médio em tudo,A,Meio
+2026,Criciúma,Fellipe Mateus,MEI,Médio em tudo,B,Meio
+2026,Criciúma,Eduardo,MED,Explosivo e rápido,A,Meio
+2026,Cuiabá,Raul,MED,Baixa intensidade,C,Meio
+2026,Cuiabá,Pepê,MED,Médio em tudo,A,Meio
+2026,Fortaleza,Lucas Sasha,MED,Baixa intensidade,C,Sobe
+2026,Fortaleza,Rodrigo Santos,MED,Baixa intensidade,C,Sobe
+2026,Goiás,Lourenço,MEI,Baixa intensidade,C,Meio
+2026,Juventude,Lucas Mineiro,MED,Baixa intensidade,C,Sobe
+2026,Juventude,Luan Gonçalves,MED,Médio em tudo,B,Sobe
+2026,Londrina,Lucas Marques,MED,Baixa intensidade,C,Cai
+2026,Novorizontino,Rômulo,MEI,Explosivo e rápido,A,Sobe
+2026,Novorizontino,Matheus Bianqui,MED,Explosivo e rápido,A,Sobe
+2026,Operário-PR,Boschilia,MEI,Baixa intensidade,C,Meio
+2026,Operário-PR,Vinicius Diniz,MED,Médio em tudo,B,Meio
+2026,Ponte Preta,André Lima,MED,Baixa intensidade,C,Cai
+2026,Ponte Preta,Élvis,MEI,Baixa intensidade,C,Cai
+2026,Ponte Preta,Léo Gomes,MED,Médio em tudo,B,Cai
+2026,Vila Nova,Marquinhos Gabriel,MEI,Baixa intensidade,C,Sobe
+2022,Bahia,Vitor Jacaré,EE,Explosivo e rápido,A,Sobe
+2022,Bahia,Rildo,EE,Motor de volume,B,Sobe
+2022,Brusque,Fernandinho,EE,Motor de volume,B,Cai
+2022,Brusque,Jaílson,ED,Motor de volume,B,Cai
+2022,CRB,Emerson Negueba,EE,Explosivo e rápido,A,Meio
+2022,CRB,Richard Rodrigues,EE,Motor de volume,B,Meio
+2022,CSA,Osvaldo,EE,Baixa intensidade,C,Cai
+2022,CSA,Lourenço,ED,Baixa intensidade,C,Cai
+2022,Chapecoense,Chrystian Barletta,ED,Explosivo e rápido,A,Meio
+2022,Chapecoense,Alisson Farias,EE,Motor de volume,B,Meio
+2022,Chapecoense,Willian Popp,EE,Motor de volume,B,Meio
+2022,Criciúma,Hygor,ED,Explosivo e rápido,A,Meio
+2022,Criciúma,Thiago Alagoano,EE,Motor de volume,B,Meio
+2022,Criciúma,Rafael Bilu,ED,Baixa intensidade,C,Meio
+2022,Cruzeiro,Bruno Rodrigues,EE,Explosivo e rápido,A,Sobe
+2022,Cruzeiro,Daniel Júnior,EE,Explosivo e rápido,A,Sobe
+2022,Cruzeiro,Jajá,EE,Explosivo e rápido,A,Sobe
+2022,Grêmio,Biel,ED,Explosivo e rápido,A+,Sobe
+2022,Grêmio,Janderson,ED,Motor de volume,B,Sobe
+2022,Guarani,Bruno José,ED,Explosivo e rápido,A,Meio
+2022,Guarani,Isaque,EE,Motor de volume,B,Meio
+2022,Guarani,Yago César,ED,Explosivo e rápido,A,Meio
+2022,Guarani,Júlio César,EE,Explosivo e rápido,A+,Meio
+2022,Ituano,Kaio Mendes,ED,Motor de volume,B,Meio
+2022,Ituano,G. Barros,EE,Explosivo e rápido,A+,Meio
+2022,Ituano,J. Victor,EE,Explosivo e rápido,A+,Meio
+2022,Ituano,Léo Ceará,ED,Explosivo e rápido,A,Meio
+2022,Londrina,Caprini,ED,Baixa intensidade,C,Meio
+2022,Novorizontino,Douglas Baggio,ED,Baixa intensidade,C,Meio
+2022,Operário-PR,Giovanni Pavani,EE,Baixa intensidade,C,Cai
+2022,Operário-PR,Silvinho,EE,Baixa intensidade,C,Cai
+2022,Operário-PR,Felipe Saraiva,EE,Baixa intensidade,C,Cai
+2022,Ponte Preta,Fessin,EE,Motor de volume,B,Meio
+2022,Ponte Preta,Wallisson,ED,Baixa intensidade,C,Meio
+2022,Ponte Preta,Echaporã,EE,Explosivo e rápido,A,Meio
+2022,Ponte Preta,Danilo Gomes,ED,Baixa intensidade,C,Meio
+2022,Sampaio Corrêa,Ygor Catatau,EE,Baixa intensidade,C,Meio
+2022,Sampaio Corrêa,Pimentinha,ED,Baixa intensidade,C,Meio
+2022,Sport,Luciano Juba,EE,Baixa intensidade,C,Meio
+2022,Tombense,Everton Galdino,ED,Baixa intensidade,C,Meio
+2022,Tombense,Jean Lucas,EE,Motor de volume,B,Meio
+2022,Tombense,Keké,EE,Baixa intensidade,B,Meio
+2022,Tombense,Kleiton,ED,Explosivo e rápido,A+,Meio
+2022,Vasco,Figueiredo,ED,Baixa intensidade,C,Sobe
+2022,Vasco,Gabriel Pec,EE,Explosivo e rápido,A+,Sobe
+2022,Vasco,Marlon Gomes,ED,Baixa intensidade,C,Sobe
+2022,Vila Nova,Pablo Dyego,EE,Explosivo e rápido,A+,Meio
+2022,Vila Nova,Matheuzinho,ED,Motor de volume,B,Meio
+2022,Vila Nova,Diego Tavares,ED,Explosivo e rápido,A,Meio
+2022,Vila Nova,Dentinho,ED,Motor de volume,B,Meio
+2022,Vila Nova,Kaio Nunes,EE,Baixa intensidade,C,Meio
+2023,ABC,Fábio Lima,ED,Explosivo e rápido,A,Cai
+2023,ABC,Welliton Matheus,ED,Baixa intensidade,B,Cai
+2023,Atlético-GO,Kelvin,ED,Motor de volume,B,Sobe
+2023,Avaí,Waguininho,ED,Motor de volume,B,Meio
+2023,Avaí,William Pottker,ED,Explosivo e rápido,A,Meio
+2023,Botafogo-SP,Luiz Henrique,EE,Motor de volume,B,Meio
+2023,Botafogo-SP,Lucas Cardoso,EE,Explosivo e rápido,A,Meio
+2023,Botafogo-SP,Edson Carioca,ED,Explosivo e rápido,A,Meio
+2023,CRB,Renato,EE,Baixa intensidade,C,Meio
+2023,CRB,Léo Pereira,EE,Explosivo e rápido,A,Meio
+2023,Ceará,Erick,ED,Baixa intensidade,C,Meio
+2023,Ceará,Janderson,EE,Motor de volume,B,Meio
+2023,Ceará,E. Pulga,EE,Explosivo e rápido,A,Meio
+2023,Chapecoense,Alisson Farias,EE,Motor de volume,B,Meio
+2023,Chapecoense,Felipe Ferreira,ED,Motor de volume,B,Meio
+2023,Chapecoense,M. Antônio,EE,Baixa intensidade,C,Meio
+2023,Guarani,Bruno José,ED,Baixa intensidade,C,Meio
+2023,Guarani,J. Victor,EE,Explosivo e rápido,A,Meio
+2023,Ituano,Hélio Borges,ED,Explosivo e rápido,A,Meio
+2023,Ituano,Felipe Saraiva,EE,Baixa intensidade,C,Meio
+2023,Ituano,Wesley Pomba,EE,Explosivo e rápido,A,Meio
+2023,Juventude,Jádson,ED,Motor de volume,B,Sobe
+2023,Juventude,David,EE,Explosivo e rápido,A+,Sobe
+2023,Juventude,Ruan,EE,Motor de volume,B,Sobe
+2023,Londrina,Paulinho Moccelin,EE,Motor de volume,B,Cai
+2023,Londrina,William Barbio,ED,Baixa intensidade,C,Cai
+2023,Mirassol,Negueba,ED,Motor de volume,B,Meio
+2023,Mirassol,Chico Kim,EE,Motor de volume,B,Meio
+2023,Mirassol,Fernandinho,EE,Motor de volume,B,Meio
+2023,Novorizontino,Douglas Baggio,ED,Motor de volume,B,Meio
+2023,Novorizontino,Aylon,EE,Motor de volume,B,Meio
+2023,Novorizontino,Felipe Marques,ED,Explosivo e rápido,A+,Meio
+2023,Ponte Preta,Léo Naldi,ED,Baixa intensidade,C,Meio
+2023,Ponte Preta,Pablo Dyego,EE,Explosivo e rápido,A+,Meio
+2023,Ponte Preta,Paulo Baya,EE,Explosivo e rápido,A+,Meio
+2023,Sampaio Corrêa,Pimentinha,ED,Baixa intensidade,C,Cai
+2023,Sport,Luciano Juba,EE,Baixa intensidade,C,Meio
+2023,Sport,F. Labandeira,ED,Motor de volume,B,Meio
+2023,Sport,A. Ruiz,EE,Baixa intensidade,C,Meio
+2023,Tombense,Kleiton,EE,Explosivo e rápido,A+,Cai
+2023,Tombense,Keké,ED,Explosivo e rápido,A,Cai
+2023,Tombense,Jáderson,ED,Motor de volume,B,Cai
+2023,Vila Nova,Guilherme Parede,EE,Motor de volume,B,Meio
+2023,Vila Nova,Éverton Brito,ED,Motor de volume,B,Meio
+2023,Vila Nova,Juan Christian,ED,Baixa intensidade,C,Meio
+2023,Vila Nova,Ronald,ED,Motor de volume,B,Meio
+2023,Vitória,Osvaldo,ED,Baixa intensidade,C,Sobe
+2023,Vitória,Zé Hugo,EE,Baixa intensidade,C,Sobe
+2023,Vitória,Mateus Gonçalves,EE,Baixa intensidade,B,Sobe
+2024,Amazonas,Matheus Serafim,EE,Explosivo e rápido,A,Meio
+2024,Amazonas,Enio,ED,Baixa intensidade,C,Meio
+2024,América-MG,Adyson,ED,Motor de volume,B,Meio
+2024,Avaí,Maurício Garcez,EE,Explosivo e rápido,A+,Meio
+2024,Avaí,Pedro Castro,ED,Motor de volume,B,Meio
+2024,Avaí,William Pottker,ED,Explosivo e rápido,A+,Meio
+2024,Botafogo-SP,Douglas Baggio,ED,Baixa intensidade,C,Meio
+2024,Botafogo-SP,Victor Andrade,EE,Baixa intensidade,C,Meio
+2024,Brusque,Diego Mathias,ED,Motor de volume,B,Cai
+2024,Brusque,Paulinho Moccelin,EE,Motor de volume,B,Cai
+2024,Brusque,Diego Tavares,ED,Explosivo e rápido,A,Cai
+2024,CRB,F. Labandeira,ED,Motor de volume,B,Meio
+2024,CRB,Kleiton,ED,Explosivo e rápido,A,Meio
+2024,CRB,Mike,ED,Motor de volume,B,Meio
+2024,Ceará,E. Pulga,EE,Explosivo e rápido,A,Sobe
+2024,Coritiba,Lucas Ronier,ED,Motor de volume,B,Meio
+2024,Coritiba,Figueiredo,EE,Motor de volume,B,Meio
+2024,Goiás,Welliton Matheus,ED,Baixa intensidade,C,Meio
+2024,Goiás,Paulo Baya,EE,Explosivo e rápido,A,Meio
+2024,Guarani,J. Victor,ED,Explosivo e rápido,A,Cai
+2024,Ituano,Vinícius Paiva,EE,Motor de volume,B,Cai
+2024,Ituano,Bruno Xavier,ED,Motor de volume,B,Cai
+2024,Ituano,Leozinho,ED,Motor de volume,B,Cai
+2024,Mirassol,Fernandinho,EE,Baixa intensidade,C,Sobe
+2024,Mirassol,Chico Kim,ED,Motor de volume,B,Sobe
+2024,Mirassol,Negueba,ED,Motor de volume,B,Sobe
+2024,Mirassol,Iury,EE,Baixa intensidade,C,Sobe
+2024,Novorizontino,N. Pessôa,EE,Motor de volume,B,Meio
+2024,Novorizontino,Waguininho,ED,Motor de volume,B,Meio
+2024,Novorizontino,Fabrício Daniel,ED,Motor de volume,B,Meio
+2024,Novorizontino,Paulo Vitor,ED,Explosivo e rápido,A,Meio
+2024,Novorizontino,Pablo Dyego,ED,Explosivo e rápido,A,Meio
+2024,Operário-PR,Maxwell,EE,Motor de volume,B,Meio
+2024,Operário-PR,Ronald,ED,Baixa intensidade,C,Meio
+2024,Operário-PR,Felipe Augusto,ED,Motor de volume,B,Meio
+2024,Operário-PR,Pedro Lucas,ED,Motor de volume,B,Meio
+2024,Paysandu,E. Garcia,EE,Baixa intensidade,C,Meio
+2024,Paysandu,Jean Dias,ED,Motor de volume,B,Meio
+2024,Paysandu,B. Borasi,EE,Motor de volume,B,Meio
+2024,Paysandu,Paulinho Bóia,ED,Explosivo e rápido,A,Meio
+2024,Ponte Preta,Dodô,EE,Motor de volume,B,Cai
+2024,Ponte Preta,Iago Dias,EE,Baixa intensidade,C,Cai
+2024,Ponte Preta,Matheus Régis,ED,Explosivo e rápido,A+,Cai
+2024,Ponte Preta,Éverton Brito,ED,Motor de volume,B,Cai
+2024,Santos,Guilherme,EE,Explosivo e rápido,A,Sobe
+2024,Santos,Rómulo Otero,ED,Baixa intensidade,C,Sobe
+2024,Sport,Lucas Lima,ED,Baixa intensidade,C,Sobe
+2024,Sport,Chrystian Barletta,EE,Explosivo e rápido,A,Sobe
+2024,Sport,Wellington Silva,EE,Baixa intensidade,C,Sobe
+2024,Vila Nova,Alesson,EE,Explosivo e rápido,A,Meio
+2024,Vila Nova,Juan Christian,ED,Explosivo e rápido,A,Meio
+2024,Vila Nova,Emerson Urso,EE,Explosivo e rápido,A+,Meio
+2025,Amazonas,J. Torres,ED,Baixa intensidade,C,Cai
+2025,Amazonas,Diego Zabala,EE,Baixa intensidade,C,Cai
+2025,América-MG,Miguelito,ED,Motor de volume,B,Meio
+2025,América-MG,Figueiredo,EE,Explosivo e rápido,A,Meio
+2025,América-MG,Stênio,ED,Explosivo e rápido,A,Meio
+2025,Athletic,Welinton Torrão,ED,Explosivo e rápido,A+,Meio
+2025,Athletico-PR,S. Mendoza,ED,Baixa intensidade,C,Sobe
+2025,Athletico-PR,Leozinho,ED,Motor de volume,B,Sobe
+2025,Atlético-GO,F. Martínez,ED,Motor de volume,B,Meio
+2025,Atlético-GO,Yuri Alves,EE,Baixa intensidade,C,Meio
+2025,Atlético-GO,Kelvin,ED,Baixa intensidade,C,Meio
+2025,Avaí,Marquinhos Gabriel,EE,Motor de volume,B,Meio
+2025,Avaí,Emerson Negueba,EE,Explosivo e rápido,A,Meio
+2025,Botafogo-SP,Jefferson Nem,EE,Baixa intensidade,C,Meio
+2025,Botafogo-SP,Jonathan Cafú,ED,Motor de volume,B,Meio
+2025,Botafogo-SP,G. Barros,ED,Motor de volume,B,Meio
+2025,CRB,Thiaguinho,ED,Explosivo e rápido,A,Meio
+2025,CRB,Douglas Baggio,ED,Baixa intensidade,C,Meio
+2025,CRB,Dadá Belmonte,EE,Baixa intensidade,B,Meio
+2025,Coritiba,Lucas Ronier,ED,Explosivo e rápido,A,Sobe
+2025,Coritiba,Iury,EE,Baixa intensidade,C,Sobe
+2025,Coritiba,Clayson,EE,Motor de volume,B,Sobe
+2025,Criciúma,Diego Gonçalves,EE,Motor de volume,B,Meio
+2025,Criciúma,Jhonata Robert,ED,Motor de volume,B,Meio
+2025,Criciúma,B. Borasi,EE,Explosivo e rápido,A+,Meio
+2025,Cuiabá,Juan Christian,EE,Motor de volume,B,Meio
+2025,Cuiabá,A. Martínez,ED,Motor de volume,B,Meio
+2025,Ferroviária,Thiago Lopes,ED,Baixa intensidade,C,Cai
+2025,Ferroviária,Fabrício Daniel,ED,Motor de volume,B,Cai
+2025,Goiás,Welliton Matheus,ED,Baixa intensidade,C,Meio
+2025,Goiás,Jája Silva,ED,Explosivo e rápido,A,Meio
+2025,Novorizontino,Bruno José,ED,Baixa intensidade,C,Meio
+2025,Novorizontino,Waguininho,ED,Motor de volume,B,Meio
+2025,Novorizontino,Pablo Dyego,EE,Explosivo e rápido,A,Meio
+2025,Paysandu,Maurício Garcez,EE,Explosivo e rápido,A,Cai
+2025,Paysandu,Rossi,ED,Baixa intensidade,C,Cai
+2025,Remo,Pedro Rocha,EE,Baixa intensidade,C,Sobe
+2025,Remo,Janderson,ED,Explosivo e rápido,A+,Sobe
+2025,Remo,Diego Hernández,ED,Baixa intensidade,C,Sobe
+2025,Vila Nova,Júnior Todinho,ED,Baixa intensidade,C,Meio
+2025,Vila Nova,Guilherme Parede,EE,Baixa intensidade,C,Meio
+2025,Vila Nova,Vinícius Paiva,ED,Explosivo e rápido,A,Meio
+2025,Volta Redonda,Raí,ED,Baixa intensidade,C,Cai
+2025,Volta Redonda,MV,EE,Motor de volume,B,Cai
+2026,América-MG,M. Segovia,ED,Motor de volume,B,Cai
+2026,América-MG,G. Barros,EE,Explosivo e rápido,A+,Cai
+2026,Athletic,D. Vera,EE,Motor de volume,B,Meio
+2026,Atlético-GO,Soares,EE,Explosivo e rápido,A,Meio
+2026,Atlético-GO,Bruno José,ED,Baixa intensidade,C,Meio
+2026,Avaí,Thayllon Roberth,ED,Motor de volume,B,Cai
+2026,Botafogo-SP,Zé Hugo,ED,Baixa intensidade,C,Meio
+2026,Botafogo-SP,Kelvin,EE,Motor de volume,B,Meio
+2026,Botafogo-SP,Wesley Pinheiro,EE,Motor de volume,B,Meio
+2026,CRB,Dadá Belmonte,EE,Baixa intensidade,C,Meio
+2026,Ceará,Melk,ED,Motor de volume,B,Meio
+2026,Criciúma,Rómulo Otero,ED,Baixa intensidade,C,Meio
+2026,Goiás,Kadu,EE,Explosivo e rápido,A,Meio
+2026,Goiás,Gegé,EE,Motor de volume,B,Meio
+2026,Londrina,Paulinho Moccelin,EE,Motor de volume,B,Cai
+2026,Londrina,Iago Teles,EE,Baixa intensidade,C,Cai
+2026,Londrina,Pablo Dyego,EE,Explosivo e rápido,A+,Cai
+2026,Novorizontino,Vinícius Paiva,EE,Explosivo e rápido,A+,Sobe
+2026,Náutico,Victor Andrade,EE,Baixa intensidade,C,Meio
+2026,Operário-PR,Hildeberto Pereira,ED,Explosivo e rápido,A,Meio
+2026,Operário-PR,Aylon,EE,Baixa intensidade,C,Meio
+2026,Sport,Chrystian Barletta,ED,Explosivo e rápido,A,Meio
+2026,Sport,Clayson,EE,Explosivo e rápido,A,Meio
+2026,São Bernardo,Echaporã,EE,Motor de volume,B,Meio
+2026,São Bernardo,Pedro Vitor,ED,Motor de volume,B,Meio
+2026,Vila Nova,Janderson,EE,Baixa intensidade,C,Sobe
+2026,Vila Nova,Ryan Lima,ED,Baixa intensidade,C,Sobe
+2022,Bahia,Matheus Davó,CA,Explosivo e rápido,A,Sobe
+2022,Bahia,Ricardo Goulart,CA,Baixa intensidade,C,Sobe
+2022,Brusque,Alex Sandro,CA,Explosivo e rápido,A,Cai
+2022,Brusque,Crislan,CA,Baixa intensidade,C,Cai
+2022,Brusque,Júnior Todinho,CA,Motor de volume,B,Cai
+2022,CRB,Anselmo Ramon,CA,Baixa intensidade,C,Meio
+2022,CRB,Gabriel Conceição,CA,Motor de volume,B,Meio
+2022,CSA,Lucas Barcelos,CA,Explosivo e rápido,A+,Cai
+2022,CSA,Rodrigo Rodrigues,CA,Motor de volume,B,Cai
+2022,CSA,Élton,CA,Baixa intensidade,C,Cai
+2022,Chapecoense,Perotti,CA,Baixa intensidade,C,Meio
+2022,Chapecoense,Thomás Bedinelli,CA,Motor de volume,B,Meio
+2022,Criciúma,Marquinhos Gabriel,CA,Motor de volume,B,Meio
+2022,Criciúma,Caio Dantas,CA,Baixa intensidade,C,Meio
+2022,Criciúma,Lohan,CA,Baixa intensidade,C,Meio
+2022,Cruzeiro,Edu,CA,Baixa intensidade,C,Sobe
+2022,Cruzeiro,Luvannor,CA,Motor de volume,B,Sobe
+2022,Guarani,Yuri Jonathan,CA,Explosivo e rápido,A,Meio
+2022,Guarani,Nícolas Careca,CA,Explosivo e rápido,A,Meio
+2022,Ituano,Aylon,CA,Motor de volume,B,Meio
+2022,Ituano,Rafael Elias,CA,Explosivo e rápido,A,Meio
+2022,Londrina,Douglas Coutinho,CA,Explosivo e rápido,A,Meio
+2022,Londrina,Gabriel Santos,CA,Explosivo e rápido,A,Meio
+2022,Náutico,Kieza,CA,Baixa intensidade,C,Cai
+2022,Operário-PR,Júnior Brandao,CA,Explosivo e rápido,A+,Cai
+2022,Ponte Preta,Lucca,CA,Baixa intensidade,C,Meio
+2022,Sampaio Corrêa,Gabriel Poveda,CA,Baixa intensidade,C,Meio
+2022,Sport,Vágner Love,CA,Baixa intensidade,C,Meio
+2022,Sport,Kayke,CA,Explosivo e rápido,A,Meio
+2022,Sport,J. Parraguez,CA,Motor de volume,B,Meio
+2022,Tombense,Ciel,CA,Explosivo e rápido,A,Meio
+2022,Vasco,Raniel,CA,Baixa intensidade,C,Sobe
+2022,Vasco,Eguinaldo,CA,Explosivo e rápido,A+,Sobe
+2022,Vila Nova,Daniel Amorim,CA,Motor de volume,B,Meio
+2022,Vila Nova,N. Pessôa,CA,Motor de volume,B,Meio
+2023,ABC,Matheus Anjos,CA,Motor de volume,B,Cai
+2023,ABC,Thonny Anderson,CA,Baixa intensidade,C,Cai
+2023,ABC,Paulo Sérgio,CA,Baixa intensidade,C,Cai
+2023,ABC,Wallyson,CA,Motor de volume,B,Cai
+2023,Atlético-GO,Gustavo Coutinho,CA,Explosivo e rápido,A,Sobe
+2023,Avaí,Gabriel Poveda,CA,Baixa intensidade,C,Meio
+2023,Botafogo-SP,Osman,CA,Baixa intensidade,C,Meio
+2023,Botafogo-SP,Salatiel,CA,Explosivo e rápido,A,Meio
+2023,Botafogo-SP,Edson Cariús,CA,Explosivo e rápido,A,Meio
+2023,CRB,Anselmo Ramon,CA,Baixa intensidade,C,Meio
+2023,CRB,Rômulo Souza,CA,Explosivo e rápido,A,Meio
+2023,Ceará,Nicolas,CA,Baixa intensidade,C,Meio
+2023,Ceará,Bissoli,CA,Explosivo e rápido,A+,Meio
+2023,Ceará,Saulo Mineiro,CA,Explosivo e rápido,A,Meio
+2023,Chapecoense,Bruno Nazário,CA,Motor de volume,B,Meio
+2023,Chapecoense,Kayke,CA,Explosivo e rápido,A,Meio
+2023,Criciúma,Éder,CA,Explosivo e rápido,A,Sobe
+2023,Criciúma,Felipe Vizeu,CA,Motor de volume,B,Sobe
+2023,Criciúma,Hygor,CA,Explosivo e rápido,A,Sobe
+2023,Guarani,Derek,CA,Explosivo e rápido,A,Meio
+2023,Guarani,Bruno Mendes,CA,Baixa intensidade,C,Meio
+2023,Ituano,Matheus Cadorini,CA,Baixa intensidade,C,Meio
+2023,Juventude,Rodrigo Rodrigues,CA,Motor de volume,B,Sobe
+2023,Juventude,Gabriel Taliari,CA,Baixa intensidade,C,Sobe
+2023,Londrina,Iago Dias,CA,Explosivo e rápido,A,Cai
+2023,Mirassol,Zé Roberto,CA,Baixa intensidade,C,Meio
+2023,Mirassol,Cristian Renato,CA,Explosivo e rápido,A+,Meio
+2023,Mirassol,Camilo,CA,Motor de volume,B,Meio
+2023,Novorizontino,Jenison,CA,Motor de volume,B,Meio
+2023,Ponte Preta,Jeh,CA,Explosivo e rápido,A,Meio
+2023,Sampaio Corrêa,Ytalo,CA,Baixa intensidade,C,Cai
+2023,Sampaio Corrêa,Vinícius Alves,CA,Explosivo e rápido,A,Cai
+2023,Sport,Vágner Love,CA,Baixa intensidade,C,Meio
+2023,Sport,Jorginho,CA,Motor de volume,B,Meio
+2023,Sport,Fabrício Daniel,CA,Motor de volume,B,Meio
+2023,Tombense,Fernandão,CA,Baixa intensidade,C,Cai
+2023,Tombense,Alex Sandro,CA,Explosivo e rápido,A,Cai
+2023,Vila Nova,Caio Dantas,CA,Baixa intensidade,C,Meio
+2023,Vila Nova,N. Pessôa,CA,Explosivo e rápido,A,Meio
+2023,Vila Nova,Igor Henrique,CA,Baixa intensidade,C,Meio
+2023,Vitória,Léo Gamalho,CA,Baixa intensidade,C,Sobe
+2024,Amazonas,D. Torres,CA,Baixa intensidade,C,Meio
+2024,Amazonas,Sassá,CA,Baixa intensidade,C,Meio
+2024,Amazonas,Luan Silva,CA,Baixa intensidade,C,Meio
+2024,América-MG,Renato Marques,CA,Explosivo e rápido,A,Meio
+2024,América-MG,Brenner,CA,Baixa intensidade,C,Meio
+2024,Avaí,Giovanni,CA,Baixa intensidade,C,Meio
+2024,Avaí,Vágner Love,CA,Motor de volume,B,Meio
+2024,Avaí,Hygor,CA,Explosivo e rápido,A+,Meio
+2024,Botafogo-SP,Alexandre Jesus,CA,Explosivo e rápido,A,Meio
+2024,Botafogo-SP,Alex Sandro,CA,Explosivo e rápido,A,Meio
+2024,Brusque,Guilherme Queiróz,CA,Explosivo e rápido,A,Cai
+2024,Brusque,A. González,CA,Motor de volume,B,Cai
+2024,CRB,Anselmo Ramon,CA,Baixa intensidade,C,Meio
+2024,Ceará,Aylon,CA,Motor de volume,B,Sobe
+2024,Ceará,Saulo Mineiro,CA,Explosivo e rápido,A,Sobe
+2024,Ceará,F. Barceló,CA,Motor de volume,B,Sobe
+2024,Coritiba,Robson,CA,Motor de volume,B,Meio
+2024,Coritiba,Júnior Brumado,CA,Baixa intensidade,C,Meio
+2024,Goiás,Thiago Galhardo,CA,Explosivo e rápido,A,Meio
+2024,Goiás,Breno Herculano,CA,Baixa intensidade,C,Meio
+2024,Guarani,Caio Dantas,CA,Baixa intensidade,C,Cai
+2024,Guarani,Luan Dias,CA,Motor de volume,B,Cai
+2024,Ituano,Thonny Anderson,CA,Baixa intensidade,C,Cai
+2024,Ituano,Salatiel,CA,Explosivo e rápido,A,Cai
+2024,Mirassol,Dellatorre,CA,Motor de volume,B,Sobe
+2024,Novorizontino,Rodolfo,CA,Motor de volume,B,Meio
+2024,Novorizontino,Lucca,CA,Explosivo e rápido,A,Meio
+2024,Operário-PR,Daniel Lima,CA,Explosivo e rápido,A,Meio
+2024,Operário-PR,Ronaldo,CA,Baixa intensidade,C,Meio
+2024,Paysandu,Ruan Ribeiro,CA,Explosivo e rápido,A,Meio
+2024,Ponte Preta,Élvis,CA,Baixa intensidade,C,Cai
+2024,Ponte Preta,Gabriel Novaes,CA,Explosivo e rápido,A,Cai
+2024,Ponte Preta,Jeh,CA,Explosivo e rápido,A,Cai
+2024,Santos,W. Silva,CA,Explosivo e rápido,A,Sobe
+2024,Santos,Julio Furch,CA,Baixa intensidade,C,Sobe
+2024,Santos,Willian,CA,Motor de volume,B,Sobe
+2024,Sport,Gustavo Coutinho,CA,Explosivo e rápido,A,Sobe
+2024,Sport,C. Ortiz,CA,Motor de volume,B,Sobe
+2024,Sport,Zé Roberto,CA,Baixa intensidade,C,Sobe
+2024,Vila Nova,Henrique Almeida,CA,Baixa intensidade,C,Meio
+2024,Vila Nova,Júnior Todinho,CA,Explosivo e rápido,A,Meio
+2024,Vila Nova,Luciano Naninho,CA,Baixa intensidade,C,Meio
+2025,Amazonas,Kevin Ramírez,CA,Explosivo e rápido,A,Cai
+2025,Amazonas,Henrique Almeida,CA,Baixa intensidade,C,Cai
+2025,Amazonas,Rafael Tavares,CA,Baixa intensidade,C,Cai
+2025,Amazonas,Luan Silva,CA,Baixa intensidade,C,Cai
+2025,América-MG,Willian,CA,Motor de volume,B,Meio
+2025,América-MG,Arthur Sousa,CA,Motor de volume,B,Meio
+2025,Athletic,Ronaldo Tavares,CA,Explosivo e rápido,A,Meio
+2025,Athletic,Neto Costa,CA,Baixa intensidade,C,Meio
+2025,Athletico-PR,K. Viveros,CA,Explosivo e rápido,A,Sobe
+2025,Athletico-PR,Alan Kardec,CA,Baixa intensidade,C,Sobe
+2025,Atlético-GO,Lelê,CA,Explosivo e rápido,A,Meio
+2025,Atlético-GO,Sandro Lima,CA,Explosivo e rápido,A+,Meio
+2025,Avaí,Cléber,CA,Explosivo e rápido,A,Meio
+2025,Avaí,Alef Manga,CA,Explosivo e rápido,A+,Meio
+2025,Avaí,Hygor,CA,Explosivo e rápido,A+,Meio
+2025,Botafogo-SP,Alexandre Jesus,CA,Explosivo e rápido,A,Meio
+2025,Botafogo-SP,R. Carrillo,CA,Motor de volume,B,Meio
+2025,Botafogo-SP,Léo Gamalho,CA,Baixa intensidade,C,Meio
+2025,CRB,Mikael,CA,Baixa intensidade,C,Meio
+2025,CRB,William Pottker,CA,Explosivo e rápido,A,Meio
+2025,CRB,Breno Herculano,CA,Baixa intensidade,C,Meio
+2025,Chapecoense,N. Pessôa,CA,Motor de volume,B,Sobe
+2025,Coritiba,Gustavo Coutinho,CA,Explosivo e rápido,A,Sobe
+2025,Coritiba,Dellatorre,CA,Motor de volume,B,Sobe
+2025,Criciúma,Nicolas,CA,Baixa intensidade,C,Meio
+2025,Cuiabá,Alisson Safira,CA,Baixa intensidade,C,Meio
+2025,Cuiabá,Carlos Alberto,CA,Explosivo e rápido,A,Meio
+2025,Cuiabá,Derik Lacerda,CA,Explosivo e rápido,A,Meio
+2025,Goiás,Anselmo Ramon,CA,Baixa intensidade,C,Meio
+2025,Novorizontino,Robson,CA,Motor de volume,B,Meio
+2025,Novorizontino,Nathan Fogaça,CA,Motor de volume,B,Meio
+2025,Novorizontino,Caio Dantas,CA,Baixa intensidade,C,Meio
+2025,Operário-PR,Boschilia,CA,Baixa intensidade,C,Meio
+2025,Operário-PR,Vinicius Mingotti,CA,Explosivo e rápido,A,Meio
+2025,Operário-PR,Daniel Amorim,CA,Baixa intensidade,C,Meio
+2025,Operário-PR,Ademilson,CA,Baixa intensidade,C,Meio
+2025,Paysandu,Diogo de Oliveira,CA,Explosivo e rápido,A,Cai
+2025,Paysandu,J. Benítez,CA,Baixa intensidade,C,Cai
+2025,Vila Nova,Gabriel Poveda,CA,Baixa intensidade,C,Meio
+2025,Vila Nova,André Luis,CA,Explosivo e rápido,A,Meio
+2026,América-MG,G. Mastriani,CA,Baixa intensidade,C,Cai
+2026,América-MG,Willian,CA,Baixa intensidade,C,Cai
+2026,América-MG,Paulo Victor,CA,Explosivo e rápido,A,Cai
+2026,Athletic,Ian Luccas,CA,Motor de volume,B,Meio
+2026,Atlético-GO,Gustavo Coutinho,CA,Explosivo e rápido,A,Meio
+2026,Avaí,Daniel Penha,CA,Motor de volume,B,Cai
+2026,Botafogo-SP,Hygor,CA,Explosivo e rápido,A,Meio
+2026,CRB,Mikael,CA,Baixa intensidade,C,Meio
+2026,Ceará,Lucca,CA,Baixa intensidade,C,Meio
+2026,Criciúma,Waguininho,CA,Motor de volume,B,Meio
+2026,Cuiabá,Kauan Cristtyan,CA,Motor de volume,B,Meio
+2026,Fortaleza,J. Miritello,CA,Baixa intensidade,C,Sobe
+2026,Goiás,Anselmo Ramon,CA,Baixa intensidade,C,Meio
+2026,Goiás,Cadu,CA,Explosivo e rápido,A+,Meio
+2026,Juventude,Alisson Safira,CA,Baixa intensidade,C,Sobe
+2026,Londrina,Bruno Santos,CA,Explosivo e rápido,A,Cai
+2026,Londrina,William Pottker,CA,Explosivo e rápido,A,Cai
+2026,Novorizontino,Robson,CA,Motor de volume,B,Sobe
+2026,Náutico,Derek,CA,Explosivo e rápido,A,Meio
+2026,Operário-PR,Pablo,CA,Baixa intensidade,C,Meio
+2026,Ponte Preta,Brandão,CA,Explosivo e rápido,A,Cai
+2026,Sport,Perotti,CA,Baixa intensidade,C,Meio
+2026,São Bernardo,Felipe Garcia,CA,Explosivo e rápido,A,Meio
+2026,Vila Nova,André Luis,CA,Explosivo e rápido,A,Sobe
+2026,Vila Nova,Dellatorre,CA,Motor de volume,B,Sobe

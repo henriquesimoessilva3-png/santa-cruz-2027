@@ -47,7 +47,7 @@ DOCS = [
     ("Listas · Treinadores", "treinadores", "listas/TREINADORES.md", "Treinadores: lista para avaliação"),
     ("Listas · Jogadores", "ideal", "listas/IDEAL_2027.md", "1. Os dez por posição — completo (técnico + físico)"),
     ("Listas · Jogadores", "fisico", "listas/RANKING_FISICO.md", "2. Só o físico: ranking por posição"),
-    ("Listas · Jogadores", "b15", "resultados/b15/B15.md", "3. Só o físico: os tipos de quem sobe, quem está neles"),
+    ("Físico", "b15", "resultados/b16/B16.md", "Tipos físicos A, B e C por posição"),
     ("Listas · Jogadores", "top10", "listas/TOP10_POR_POSICAO.md", "4. Os dez por posição e mercado"),
     ("Listas · Jogadores", "livres", "listas/LIVRES_2027.md", "5. Os dez por posição e mercado — só fim de contrato"),
     ("Listas · Jogadores", "b13", "resultados/b13/B13.md", "6. Patamar de Série A: quem já joga nele (F3)"),
