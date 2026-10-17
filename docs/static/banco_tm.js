@@ -189,10 +189,10 @@
         '<td>' + barra(a[iS], 'med ' + (rf[S] == null ? '—' : num(rf[S], casas(rf[S])))) + '</td></tr>');
     });
     const NOME = { selo: 'Indicadores principais da posição (os do selo)', fis: 'Tipo físico (SkillCorner)', tec: 'Técnico (Wyscout)', bp: 'Bola parada' };
-    h += '<table class="btm-ind"><thead><tr><th>Indicador</th><th class="d">Valor</th><th>Mundo (percentil na posição)</th><th>Grupo: ' + esc(d.grupo) + '</th><th>Na Série ' + S + ' (onde ele cairia)</th></tr></thead><tbody>';
+    h += '<table class="btm-ind"><thead><tr><th>Indicador</th><th class="d">Valor</th><th>Mundo (percentil na posição)</th><th>Grupo: ' + esc(d.grupo) + '</th><th>Liga destino: Série ' + S + '</th></tr></thead><tbody>';
     ['selo', 'fis', 'tec', 'bp'].forEach(k => { if (g[k].length) h += '<tr class="sec"><td colspan="5">' + NOME[k] + '</td></tr>' + g[k].join(''); });
-    h += '</tbody></table><p class="btm-nota">Percentil 0–100 dentro da mesma posição (lados direito e esquerdo juntos). Mundo = 65 ligas do Ranking; grupo = só o grupo de ligas dele; Série ' + S +
-      ' = onde o número dele cairia entre os jogadores da posição na Série ' + S + '. Número da liga de origem, sem ajuste de força de liga.' + (d.ct ? ' Contrato no Wyscout: ' + dataBR(d.ct) + '.' : '') + '</p>';
+    h += '</tbody></table><p class="btm-nota">Percentil 0–100 dentro da mesma posição (lados direito e esquerdo juntos). Mundo = 65 ligas do Ranking; grupo = só o grupo de ligas dele; liga destino (Série ' + S +
+      ') = onde o número dele cairia entre os jogadores da posição na Série ' + S + '. Número da liga de origem, sem ajuste de força de liga.' + (d.ct ? ' Contrato no Wyscout: ' + dataBR(d.ct) + '.' : '') + '</p>';
     return h;
   }
 
