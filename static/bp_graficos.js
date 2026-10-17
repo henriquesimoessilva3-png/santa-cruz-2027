@@ -122,7 +122,10 @@
       '<section class="bpg"><h3>Quem finaliza bola parada acima do esperado</h3>' +
       '<p class="bpg-d">Série B 2025–26 (o Sofascore só tem xG de bola parada desde 2025). À direita, quem recebe as melhores chances ' +
       '(xG); para cima, quem faz os gols. Acima da diagonal, fez mais gols do que as chances valiam. Sem pênaltis e sem gols contra.</p>' +
-      '<div class="bpg-c" id="bpgC"></div></section>';
+      '<div class="bpg-c" id="bpgC"></div></section>' +
+      '<section class="bpg"><h3>Acerto do finalizador: gols a cada 100 finalizações de bola parada</h3>' +
+      '<p class="bpg-d">Série B 2025–26, só quem finalizou pelo menos 15 bolas paradas — abaixo disso, um gol a mais muda tudo. ' +
+      'Sem pênaltis e sem gols contra.</p><div class="bpg-c" id="bpgD"></div></section>';
 
     dispersao(alvo.querySelector('#bpgA'), C.map(r => ({ x: r.cob, y: r.a, dest: destC.has(r.j), rot: r.j,
       html: '<b>' + esc(r.j) + '</b> · ' + esc(r.pos || '') + ' · ' + esc(r.c) + '<br>' + r.cob + ' cobranças · <b>' + r.a +
@@ -140,5 +143,14 @@
         ' de cabeça) · xG ' + n1(o.xg) + '<br>' + o.f + ' finalizações de bola parada' })),
       { titulo: 'xG × gols de bola parada', eixoX: 'xG de bola parada (qualidade das chances), 2025–26', eixoY: 'Gols de bola parada',
         linha: { a: 1, rot: 'gols = xG' } });
+
+    /* 17/10/2026: o mesmo gráfico de barras do acerto do cobrador, para os gols (conversão do finalizador) */
+    const todos = [...por.values()].filter(o => !ex.has(semAc(o.j)));
+    const taxaF = todos.reduce((s, o) => s + o.g, 0) / Math.max(1, todos.reduce((s, o) => s + o.f, 0));
+    const G = todos.filter(o => o.f >= 15).map(o => ({ ...o, t: o.g / o.f * 100 })).sort((a, b) => b.t - a.t || b.g - a.g).slice(0, 14);
+    barras(alvo.querySelector('#bpgD'), G.map(o => ({ v: o.t, rot: o.j + ' · ' + [...o.cl].join(', '), txt: n1(o.t) + ' (' + o.g + '/' + o.f + ')',
+      html: '<b>' + esc(o.j) + '</b> · ' + esc(o.pos) + ' · ' + esc([...o.cl].join(', ')) + '<br>' + o.g + ' gols de BP (' + o.gc +
+        ' de cabeça) em ' + o.f + ' finalizações · xG ' + n1(o.xg) })),
+      { titulo: 'Gols por 100 finalizações de bola parada', media: taxaF * 100, mediaRot: 'média ' + n1(taxaF * 100) });
   };
 })();
