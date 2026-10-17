@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/static/estudo_v2.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/bp_jogadores.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/consulta.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/banco_tm.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/fisico_estudo.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/caracteristicas.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/subida.css?v={{ ver }}">
@@ -162,6 +163,7 @@
   <button class="aba" data-aba="estudo2">Estudo Série B V2</button>
   <button class="aba" data-aba="caracteristicas">Característica por posição</button>
   <button class="aba" data-aba="consulta">Consulta de jogador</button>
+  <button class="aba" data-aba="bancotm" title="Banco no formato do Transfermarkt (CONMEBOL): contrato, valor, letra física, selo de subida, bola parada e o + Mais com técnico e físico comparados com o mundo e a Série B/A">Banco Transfermarkt</button>
   <button class="aba" data-aba="tipoa" title="Jogadores A e B (tipo físico pela regra do clube), por posição: Série B, ligas sul-americanas e sul-americanos no exterior — com PDF">Tipo físico A e B</button>
       <button class="aba" data-aba="novoriz" title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
       <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
@@ -582,6 +584,12 @@
          que se mostra e se esconde acompanhando o botão, como as de cima. -->
     <section class="pagina oculta" id="pgEstudoV2"><div id="esV2Corpo"></div></section>
 
+    <!-- A aba Banco Transfermarkt: static/banco_tm.js com o dado de static/banco_tm/ (gerado no
+         Portal Transfermarkt do Analytics, exportar_santacruz.py) — contrato, selos e o + Mais. -->
+    <section class="pagina oculta btm-esc" id="pgBancoTM">
+      <div class="emp-rolagem"><div class="btm" id="btmCorpo"></div></div>
+    </section>
+
     <!-- A aba Consulta de jogador: static/consulta.js com o dado de static/consulta_dados.js
          (gerar_consulta_js.py) — digita o nome, o estudo V2 diz se adere (técnico + físico). -->
     <section class="pagina oculta cs-esc" id="pgConsulta">
@@ -921,6 +929,7 @@
 <script src="/static/estudo_serieb.js?v={{ ver }}"></script>
 <script src="/static/consulta_dados.js?v={{ ver }}"></script>
 <script src="/static/consulta.js?v={{ ver }}"></script>
+<script src="/static/banco_tm.js?v={{ ver }}"></script>
 <script src="/static/estudo_v2_dados.js?v={{ ver }}"></script>
 <script src="/static/estudo_v2.js?v={{ ver }}"></script>
 <script src="/static/bp_jogadores_dados.js?v={{ ver }}"></script>
