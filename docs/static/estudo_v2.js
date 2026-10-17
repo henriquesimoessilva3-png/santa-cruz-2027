@@ -8,13 +8,18 @@
   const LS_DOC = 'esV2Doc';
   const ler = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   const gravar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
-  let docAtual = ler(LS_DOC);   /* em memoria: sem localStorage (aba privada) o clique vale igual */
+  let docAtual = ler(LS_DOC);
+  /* 17/10/2026 (Henrique): por padrão a aba mostra só o que vai ser apresentado — F2 físico × técnico e os tipos
+     físicos. O resto do estudo fica oculto, a um clique ("Mostrar o estudo completo"), sem apagar nada. */
+  const ENXUTO = ['b8', 'b15'];
+  let tudo = ler('esV2Tudo') === '1';
+  const docsVisiveis = () => tudo ? D.docs : D.docs.filter(d => ENXUTO.includes(d.id));   /* em memoria: sem localStorage (aba privada) o clique vale igual */
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const dataBR = iso => iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '';
 
   function menuHtml(atual) {
     const grupos = [];
-    D.docs.forEach(d => {
+    docsVisiveis().forEach(d => {
       let g = grupos.find(x => x.t === d.grupo);
       if (!g) grupos.push(g = { t: d.grupo, docs: [] });
       g.docs.push(d);
@@ -32,7 +37,8 @@
         '<code>python3 gerar_estudo_v2_js.py</code>.</p>';
       return;
     }
-    if (!D.docs.some(d => d.id === docAtual)) docAtual = D.docs.some(d => d.id === 'ap_roteiro') ? 'ap_roteiro' : D.docs[0].id;   /* abre no roteiro da apresentação */
+    const vis = docsVisiveis();
+    if (!vis.some(d => d.id === docAtual)) docAtual = vis.some(d => d.id === 'b8') ? 'b8' : vis[0].id;   /* abre no F2 físico × técnico */
     const d = D.docs.find(x => x.id === docAtual);
     /* o menu e' remontado a cada clique: guarda onde ele estava rolado, senao volta ao topo (26/09) */
     const menuAntes = alvo.querySelector('.esv-menu'); const rolMenu = menuAntes ? menuAntes.scrollTop : 0;
@@ -41,10 +47,11 @@
         '<div class="esv-cab"><b>Santa Cruz V2</b><span>estudo novo, do zero · Série B 2022–2026</span>' +
         '<span>gerado em ' + dataBR(D.gerado) + '</span></div>' +
         menuHtml(docAtual) +
-        '<div class="esv-grupo"><div class="esv-grupo-t">Estudos anteriores</div>' +
+        '<div class="esv-grupo"><a href="#" class="esv-item esv-aux esv-tudo">' + (tudo ? 'Mostrar só físico × técnico e tipos físicos' : 'Mostrar o estudo completo (' + D.docs.length + ' documentos)') + '</a></div>' +
+        (!tudo ? '' : '<div class="esv-grupo"><div class="esv-grupo-t">Estudos anteriores</div>' +
           '<a href="#" class="esv-item esv-aux" data-ir="estudo">Estudo Série B V1</a>' +
           '<a href="#" class="esv-item esv-aux" data-ir="serieb">Análise Série B</a>' +
-          '<a href="#" class="esv-item esv-aux" data-ir="prototipo">Protótipo</a></div>' +
+          '<a href="#" class="esv-item esv-aux" data-ir="prototipo">Protótipo</a></div>') +
       '</nav>' +
       '<div class="esv-leitura"><article class="esv-doc">' +
         '<div class="esv-doc-meta">' + esc(d.grupo) + ' · <code>' + esc(d.arquivo) + '</code> · ' +
@@ -76,6 +83,8 @@
       if (!setor) return;
       el.classList.add('esv-tipo'); el.title = 'ver quem está neste tipo'; el.onclick = () => window.csTipoJanela(setor, tipo, pos);
     });
+    const bt = alvo.querySelector('.esv-tudo');
+    if (bt) bt.onclick = e => { e.preventDefault(); tudo = !tudo; gravar('esV2Tudo', tudo ? '1' : '0'); render(); };
     alvo.querySelectorAll('[data-ir]').forEach(a => {
       a.onclick = e => {
         e.preventDefault();
