@@ -2960,7 +2960,7 @@ function painelMinutagem(j) {
         '<td class="n">' + f(tj) + '</td><td class="n">' + f(x.j) + '</td><td class="n">' + (x.min ? f(x.min) + ' <small>de ' + f(tm) + '</small>' : '<small>sem minutos</small>') + '</td>' +
         '<td class="n"><b class="mp mp-' + c + '">' + (pc == null ? '—' : pc + '%') + '</b></td></tr>';
     }).join('');
-    const pt = Math.round(mi.pct * 100), ct = mi.c;
+    const pt = Math.round(mi.pct * 100), ct = mi.c;   /* total sem destaque extra (18/10) */
     corpo = '<table class="sf-tab"><thead><tr><th>Ano</th><th>Clube</th><th>Jogos do time</th><th>Jogos dele</th><th>Minutos</th><th>% do time</th></tr></thead><tbody>' + ls + '</tbody>' +
       '<tfoot><tr><td colspan="2"><b>Total</b></td><td class="n">' + f(stj) + '</td><td class="n">' + f(sj) + '</td><td class="n">' + f(sm) + ' <small>de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + ct + ' big">' + pt + '%</b></td></tr></tfoot></table>';
   }
@@ -2971,11 +2971,12 @@ function painelBolaParada(j) {
   const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
   const T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || [];
   let x = null; try { x = csRegistro(j); } catch (e) {}
-  const idx = (rot, v, dica) => '<div class="bp-idx' + (v == null ? ' nd' : v >= 80 ? ' v' : v >= 65 ? ' a' : '') + '" title="' + esc(dica) + '"><b>' + (v == null ? '—' : v) + '</b><span>' + rot + '</span></div>';
-  const top = '<div class="bp-idxs">' +
-    idx('cobrador', x && x.cob, 'Índice de cobrador de bola parada na liga (0 a 100): escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1. ⚑ verde = 80 ou mais.' + (x && x.cob_esc != null ? ' Na temporada: ' + x.cob_esc + ' escanteios e ' + x.cob_fal + ' faltas cobradas.' : '')) +
-    idx('bola aérea no ataque', x && x.aer, 'Destaque no jogo aéreo (percentil na liga entre jogadores de linha com 2,5+ duelos aéreos/90): duelos ganhos e gols de cabeça. ▲ = 80 ou mais.') +
-    idx('ganha duelo aéreo', x && x.aer_dp, 'Percentil de % de duelos aéreos ganhos na liga (jogadores com 2,5+ duelos/90). △ = 80 ou mais.' + (x && x.aer_won != null ? ' ' + x.aer_won + '% ganhos.' : '')) + '</div>';
+  /* índices em uma linha de texto (18/10, 16h45: "não deu para entender o 35, 48, 25; chamou mais atenção que a parte de cima") */
+  const idx = (rot, v, dica) => '<span class="bp-i' + (v == null ? '' : v >= 80 ? ' v' : v >= 65 ? ' a' : '') + '" title="' + esc(dica) + '">' + rot + ' <b>' + (v == null ? '—' : v) + '</b></span>';
+  const top = '<div class="bp-linha"><small>Percentil na liga dele (0 a 100 — 35 = melhor que 35% dos jogadores; 80+ é destaque):</small> ' +
+    idx('cobrador de bola parada', x && x.cob, 'Escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1.' + (x && x.cob_esc != null ? ' Na temporada: ' + x.cob_esc + ' escanteios e ' + x.cob_fal + ' faltas cobradas.' : '')) + ' · ' +
+    idx('jogo aéreo no ataque', x && x.aer, 'Duelos aéreos ganhos e gols de cabeça, entre jogadores de linha com 2,5+ duelos aéreos/90.') + ' · ' +
+    idx('% de duelo aéreo ganho', x && x.aer_dp, 'Percentil do % de duelos aéreos ganhos (jogadores com 2,5+ duelos/90).' + (x && x.aer_won != null ? ' Ele ganha ' + x.aer_won + '%.' : '')) + '</div>';
   const n = (v, c) => (typeof v === 'number' ? v.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
   let tab = '';
   if (h && h.some(y => y && y.min)) {
