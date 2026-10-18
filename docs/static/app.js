@@ -7065,7 +7065,7 @@ function farolHtml(c, pos, letra, selo, comNome) {
   const sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[selo] || '?';
   const regra = FAROL_EXIGE[pos] ? 'nesta posição o físico pesa: precisa de A ou A+ e ▲' : 'nesta posição o físico é só piso: precisa de ▲ e não ser C';
   const t = 'Farol: ' + FAROL_NOME[c] + ' — letra ' + (letra || 'sem') + ', seta ' + sinal + '. Regra: ' + regra + '. Verde = as duas ok · amarelo = falta uma (ou falta dado) · vermelho = seta ▼ ou letra C.';
-  return '<span class="farol farol-' + c + '" title="' + esc(t) + '">' + (comNome ? '<b>' + FAROL_NOME[c] + '</b>' : '') + '</span>';
+  return '<span class="farol farol-' + c + (comNome ? '' : ' farol-barra') + '" title="' + esc(t) + '">' + (comNome ? '<b>' + FAROL_NOME[c] + '</b>' : '') + '</span>';
 }
 function farolDoJogador(j) {
   if (!j || j.p === 'GOL') return null;
@@ -7079,7 +7079,8 @@ function tipoBadge(pk, obj) {
   let selo = '', farol = '';
   try { const js = comPosCampo(obj || (BASE.length ? fsJogadorPk(pk) : null)); if (js && typeof window.subidaSelo === 'function') selo = window.subidaSelo(js);
     if (js && window.VISAO_NOVA) { const f = farolDoJogador(js); if (f) farol = f.html; } } catch (e) {}
-  return tipoBadgeLetra(pk, obj) + selo + farol;
+  /* o farol vem PRIMEIRO (18/10): é o veredito; a letra e a seta são o porquê */
+  return farol + tipoBadgeLetra(pk, obj) + selo;
 }
 function tipoBadgeLetra(pk, obj) {
   if (!BASE.length || !window.CONSULTA) return '';

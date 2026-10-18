@@ -3671,8 +3671,13 @@ body.claro .emp-st.st-emprestimo,body.claro .emp-chip.st-emprestimo{color:#b4232
 .jog-meta input.vm-edit { width: 70px; font: inherit; font-size: 10px; padding: 0 3px; border-radius: 3px; border: 1px solid #f5b942; background: #111; color: #fff; }
 /* 18/10 — "Disponível p/ salários" editável no cabeçalho */
 .kpi input.kpi-edit{width:92px;font:inherit;font-size:12px;padding:0 4px;border:1px solid var(--coral);border-radius:4px;background:var(--fundo);color:var(--tinta)}
-/* 18/10 — farol (visão nova): o veredito que junta letra e seta */
+/* 18/10 — farol (visão nova): o veredito que junta letra e seta. Nas listas: bolinha + palavra.
+   No card do campograma (.farol-barra): uma barra vertical, o PRIMEIRO item da linha do nome, mais alta que os chips */
 .farol{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;margin-left:3px;cursor:help}
 .farol::before{content:"";width:11px;height:11px;border-radius:50%;flex:none;box-shadow:0 0 0 1px #0004 inset}
+.farol.farol-barra{margin:0 5px 0 0}
+.farol.farol-barra::before{width:6px;height:18px;border-radius:3px;box-shadow:0 0 0 1px #0003 inset,0 0 6px -1px currentColor}
+.farol-barra.farol-v{color:#16a34a} .farol-barra.farol-a{color:#eab308} .farol-barra.farol-r{color:#dc2626}
+.jog-nome .farol-barra{vertical-align:-4px}
 .farol-v::before{background:#16a34a} .farol-a::before{background:#eab308} .farol-r::before{background:#dc2626}
 .farol b{font:700 11px var(--fonte)} .farol-v b{color:#22c55e} .farol-a b{color:#eab308} .farol-r b{color:#ef4444}
