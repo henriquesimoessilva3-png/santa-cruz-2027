@@ -88,3 +88,11 @@ body.visao-nova nav.vn-sub {
 /* o cabeçalho fixo (thead th é sticky no app) cola na borda da área que rola, não 18px abaixo dela */
 #pgVnFisico thead th { top: -18px; }
 #pgVnFisico .vnf-eixos thead th { position: static; }
+#pgVnFisico .vnf-outros { margin-top: 10px; border-top: 1px solid var(--borda); padding-top: 8px; }
+#pgVnFisico .vnf-outros > summary { cursor: pointer; font: 600 12.5px var(--fonte); color: var(--tinta); }
+#pgVnFisico .vnf-outros > summary b { font-size: 14px; }
+#pgVnFisico .vnf-outros p { margin: 8px 0; font-size: 11.5px; color: var(--tinta3); line-height: 1.5; }
+#pgVnFisico .vnf-outros table { table-layout: auto; font-size: 11.5px; }
+#pgVnFisico .vnf-outros th, #pgVnFisico .vnf-outros td { padding: 4px 10px 4px 0; }
+#pgVnFisico .vnf-outros thead th { position: static; }
+#pgVnFisico .vnf-outros td.n { text-align: right; font-weight: 700; color: var(--tinta); font-variant-numeric: tabular-nums; }

@@ -140,8 +140,15 @@
       '<td>A média dos 4 desvios é a <b>explosão</b>: define o tipo <i>Explosivo e rápido</i> (A); acima de <b>+0,5</b> entra no A+; acima de <b>+0,25</b> tira do C ("explosivo, pouco volume").</td></tr>' +
       '<tr><th>Volume<small><b>2</b> indicadores</small></th><td><ul><li>Distância percorrida</li><li>Corridas sem bola (por 30 min com posse)</li></ul></td>' +
       '<td>A média dos 2 desvios é o <b>volume</b>: define o <i>Motor de volume</i>; acima de <b>+0,5</b> dá o A+ (com explosão) e o A do médio.</td></tr>' +
-      '</tbody></table><p>Cada indicador vira um desvio em relação à Série B do setor; o tipo é o centróide mais próximo nos 6. ' +
-      'Os outros 11 indicadores do SkillCorner repetem estes (metros por minuto = distância, distância de sprint = sprints…) e ficaram de fora para não contar duas vezes.</p></div></div>' +
+      '</tbody></table><p>Cada indicador vira um desvio em relação à Série B do setor; o tipo é o centróide mais próximo nos 6.</p>' +
+      '<details class="vnf-outros"><summary>Os outros <b>15</b> indicadores do SkillCorner — por que ficaram de fora</summary>' +
+      '<p>Cada um deles repete um dos seis (correlação nos <b>1.328</b> titulares da Série B 2022–25, dentro do setor). Entrar com eles seria contar a mesma coisa duas vezes: o sprint, por exemplo, entraria por cinco nomes. O que menos se repete (frear e mudar de direção) foi testado como terceiro eixo em 18/10 e não separa quem sobe de quem cai.</p>' +
+      '<table><thead><tr><th>Indicador</th><th>Repete</th><th>r</th></tr></thead><tbody>' +
+      [['Metros por minuto', 'Distância', '1,00'], ['Corridas HSR (20–25 km/h), contagem', 'Ações de alta intensidade', '1,00'], ['Distância em sprint (> 25 km/h)', 'Sprints', '0,95'], ['Velocidade de pico', 'PSV-99', '0,95'],
+       ['Distância em alta intensidade (> 20 km/h)', 'Ações de alta intensidade', '0,95'], ['Distância em corrida (15–20 km/h)', 'Distância', '0,89'], ['PSV-99, média dos 5 melhores', 'PSV-99', '0,88'], ['Distância HSR', 'Ações de alta intensidade', '0,84'],
+       ['Arrancadas explosivas até HSR', 'Arrancadas explosivas', '0,78'], ['Mudanças de direção', 'Ações de alta intensidade', '0,69'], ['Desacelerações fortes (< −3 m/s²)', 'Ações de alta intensidade', '0,69'], ['Acelerações fortes (> +3 m/s²)', 'Arrancadas explosivas', '0,68'],
+       ['Acelerações médias (1,5 a 3 m/s²)', 'Ações de alta intensidade', '0,56'], ['Corridas para a área (por 30 min com posse)', 'Corridas sem bola', '0,54'], ['Desacelerações médias', 'Distância', '0,52']].map(x => '<tr><td>' + x[0] + '</td><td>' + x[1] + '</td><td class="n">' + x[2] + '</td></tr>').join('') +
+      '</tbody></table></details></div></div>' +
       '<div id="vnfMatriz"></div>' +
       '<div id="vnfPainel"></div>' +
       (b15 ? '<article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div><h2>' + esc(b15.titulo) + '</h2>' + b15.html + '</article>' : '<p class="esv-vazio">O estudo V2 não carregou (static/estudo_v2_dados.js).</p>') +
