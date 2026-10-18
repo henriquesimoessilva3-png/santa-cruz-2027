@@ -32,6 +32,9 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 - Ficha da visão nova = quadro único contra a MÉDIA DA SÉRIE B (gêmeas juntas; `serieB`/`subidaFicha` em subida.js): verde ≥ média · amarelo até 10% abaixo · vermelho · azul = melhor da Série B; ● fundamental técnico, ◆ indicador da letra. Botão "⇄ comparar com a liga dele" (`fichaComp`); a parte de baixo saiu.
 - Seta técnica por CONTAGEM (b22, `b22_seta_contagem.py`): fundamentais = separação ≥ 0,15 (zagueiro com defesa à força); cor contra a média da Série B (no histórico, a do ano); pontos = (verdes − vermelhos) ÷ medidos; ▲/▼ pelas medianas de quem sobe/cai. CA 11 fundamentais. AUC 0,637.
 
+- Físico da ficha: 16 indicadores em 2 grupos empilhados (Velocidade e explosão · Volume), contra a média da Série B (`fisicoSerieBHtml` em app.js); ◆ = os 6 da letra (4 de explosão, 2 de volume).
+- Minutagem: `dados/minutagem_complemento.csv` (levantamento de 18/10, 175 jogadores) preenche anos vazios via `preparar_complemento_minutagem.py` (chamado no fim do preparar_historico.py). Defeito conhecido em `combina()`: idade dos Excels 2024/25 é a de hoje (rejeita casamentos de 2024).
+
 ## Pendências
 - Henrique conferir na tela o card novo (largura, nome, minutagem) — não foi visto em tela cheia.
 - Decidir a regra do zagueiro (defesa forçada custa previsão).

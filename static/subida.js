@@ -746,7 +746,8 @@
     return out;
   };
   const FIS_LETRA = { psv: 'velocidade máxima', spr_n: 'sprints', hi_n: 'alta intensidade', expl: 'arrancadas explosivas', dist: 'distância', obr: 'corridas sem bola' };
-  window.subidaFicha = function (j, dados) {
+  window.subidaFicha = function (j, dados, op) {
+    op = op || {};
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';
       const P = D.posicoes[j.p], tec = {};
@@ -784,7 +785,7 @@
         return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont" title="' + (b === 'Físico' ? 'indicadores da letra' : 'fundamentais') + ' na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
           '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
       };
-      return '<div class="fi-grid sf-grid">' + blocos.map(bloco).join('') + '</div>' +
+      return '<div class="fi-grid sf-grid">' + (op.fisico != null ? op.fisico + blocos.filter(b => b !== 'Físico').map(bloco).join('') : blocos.map(bloco).join('')) + '</div>' +
         '<div class="fi-leg"><span><i class="v"></i>na média da Série B ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
         '<span><i class="m"></i>traço = média da Série B</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
         '<span class="num-leg">média e melhor = jogadores da Série B na posição' + (GEMEAS[j.p] ? ' (os dois lados juntos)' : '') + ', temporada atual, 900 min ou mais</span></div>';

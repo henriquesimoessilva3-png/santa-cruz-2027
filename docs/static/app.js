@@ -2929,6 +2929,41 @@ const FISICO = [
   ['cod',    'Mudanças dir. /90', 1],
 ];
 let fichaAtual = null;
+/* 18/10 — visão nova: o físico da ficha em DOIS grupos empilhados, contra a média da Série B na posição (gêmeas juntas).
+   ◆ = os 6 que formam a letra (tipoEixos): explosão = PSV-99, sprints, ações de alta intensidade, arrancadas explosivas;
+   volume = distância e corridas sem bola. */
+const FIS_GRUPOS = [
+  ['Velocidade e explosão', [['psv', 'PSV-99 (km/h)', 1, 1], ['spr_n', 'Sprints /90', 1, 1], ['hi_n', 'Ações de alta intensidade /90', 0, 1], ['expl', 'Arrancadas explosivas /90', 2, 1],
+    ['vmax', 'Velocidade máxima', 1], ['vmax3', 'Vel. máx. TOP3', 1], ['spr_km', 'KM +20 (sprint) /90', 0], ['acel', 'Acelerações fortes /90', 1], ['desa', 'Desacelerações fortes /90', 1], ['cod', 'Mudanças de direção /90', 1]]],
+  ['Volume', [['dist', 'Distância /90 (m)', 0, 1], ['obr', 'Corridas sem bola /30 min de posse', 1, 1],
+    ['mmin', 'Metros por minuto', 1], ['hi', 'Alta intensidade /90 (m)', 0], ['hsr', 'KM 15–20 /90', 0], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
+];
+const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
+function fisicoSerieBHtml(j) {
+  const ps = FIS_GEMEAS[j.p] || [j.p], lista = BASE.filter(x => x.l === 'Brasil B' && ps.includes(x.p)).map(x => { try { return comFisicoDoEstudo(x) || x; } catch (e) { return x; } });
+  const f = (n, c) => (typeof n === 'number' ? n.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
+  let nL = 0, okL = 0;
+  const grupo = ([nome, inds]) => {
+    const ls = inds.map(([campo, rot, casas, letra]) => {
+      const vs = lista.map(x => x[campo]).filter(v => typeof v === 'number' && isFinite(v));
+      if (vs.length < 5) return '';
+      const med = vs.reduce((a, b) => a + b, 0) / vs.length, best = Math.max.apply(null, vs), v = typeof j[campo] === 'number' ? j[campo] : null;
+      const c = v == null ? 'neutro' : v >= best ? 'lider' : v >= med ? 'acima' : v >= med * 0.9 ? 'perto' : 'abaixo';
+      if (letra && v != null) { nL++; if (c === 'acima' || c === 'lider') okL++; }
+      const alvo = Math.max(v || 0, best, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
+      return '<div class="fi-linha sf ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + ': ' + (v == null ? 'sem dado' : f(v, casas)) + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
+        '<span class="rot">' + (letra ? '<i class="sf-f">◆</i>' : '') + esc(rot) + '</span><span class="val">' + f(v, casas) + '</span>' +
+        '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(med) + '%"></span></span>' +
+        '<span class="med">' + f(med, casas) + '</span><span class="mx">' + f(best, casas) + '</span></div>';
+    }).join('');
+    return ls ? '<div class="sf-sub">' + esc(nome) + '</div>' + ls : '';
+  };
+  const corpo = FIS_GRUPOS.map(grupo).join('');
+  if (!corpo) return '';
+  return '<div class="fi-grupo"><h4>Físico' + (nL ? ' <b class="sf-cont" title="indicadores da letra (◆) na média da Série B ou acima">' + okL + '/' + nL + '</b>' : '') + '</h4>' +
+    (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
+    '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
+}
 
 function primaryKey(j) { return j.n + ' - ' + j.t + ' - ' + j.l; }
 
@@ -3463,7 +3498,7 @@ async function montarFicha(j, modo) {
   const jSub = (posCampoF && posCampoF !== 'GOL' && j.p && j.p !== 'GOL' && posCampoF !== j.p) ? Object.assign({}, j, { p: posCampoF, _posBase: j.p }) : j;
   const compSobe = VN && fichaComp() === 'sobe';
   const quadroSubida = VN ? '' : (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
-  if (compSobe && typeof window.subidaFicha === 'function') { const q = window.subidaFicha(jSub, dados); if (q) corpo = q; }
+  if (compSobe && typeof window.subidaFicha === 'function') { const q = window.subidaFicha(jSub, dados, { fisico: fisicoSerieBHtml(jSub) }); if (q) corpo = q; }
 
   const rodape = compSobe ? 'Comparado com a média e o melhor da Série B na posição (' + sig(jSub.p) + '). Fundamentais (●) = os que separam quem sobe de quem cai na Série B 2022–2025; ◆ = os da letra física. O botão ao lado de “físico/técnico” troca para a liga dele.' : 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posb' ? ' da Série B' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +

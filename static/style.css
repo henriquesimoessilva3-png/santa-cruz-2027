@@ -3744,3 +3744,4 @@ body.visao-nova .jpainel{flex:none}
 .fi-linha.sf.lider .fi-barra i{background:var(--fi-azul,#3b82f6)} .fi-linha.sf.lider .val{color:#60a5fa}
 .fi-linha.sf.acima .fi-barra i{background:var(--fi-verde,#22c55e)}
 .fi-linha.sf.abaixo .fi-barra i{background:var(--fi-vermelho,#ef4444)}
+.sf-sub{font-size:10px;font-weight:700;color:var(--tinta2);margin:8px 0 3px;padding-left:2px;border-left:2px solid var(--borda2);padding-left:6px}
