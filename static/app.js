@@ -3499,7 +3499,7 @@ async function montarFicha(j, modo) {
     (obs ? '<div class="o">' + esc(obs) + '</div>' : '') + '</div>').join('');
 
   const dados = await kpisDe(j, modo);
-  try { const pc0 = posNoCampograma(primaryKey(j), j.id), p0 = (pc0 && pc0 !== 'GOL' && j.p !== 'GOL') ? pc0 : j.p;
+  try { const pc0 = posNoCampograma(j._eqDe || primaryKey(j), j._eqDe ? j._eqId : j.id), p0 = (pc0 && pc0 !== 'GOL' && j.p !== 'GOL') ? pc0 : j.p;
     FUND_FICHA = (window.VISAO_NOVA && typeof window.subidaFundRots === 'function') ? window.subidaFundRots(p0) : null; } catch (e) { FUND_FICHA = null; }
   let colunas = '';
   const porGrupo = {};
@@ -3574,7 +3574,7 @@ async function montarFicha(j, modo) {
       '<span class="num-leg forte">melhor</span>' +
     '</div>';
   /* quadro "Quem sobe × quem cai" (static/subida.js): os indicadores da posição contra a régua do estudo */
-  const posCampoF = posNoCampograma(primaryKey(j), j.id);
+  const posCampoF = posNoCampograma(j._eqDe || primaryKey(j), j._eqDe ? j._eqId : j.id);
   const jSub = (posCampoF && posCampoF !== 'GOL' && j.p && j.p !== 'GOL' && posCampoF !== j.p) ? Object.assign({}, j, { p: posCampoF, _posBase: j.p }) : j;
   const compSobe = VN && fichaComp() === 'sobe';
   const quadroSubida = VN ? '' : (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
@@ -7421,7 +7421,7 @@ function registroEquivalente(j) {
 /* o registro que o sistema usa para medir o jogador: ele mesmo, ou o equivalente com dados (marcado em _eqDe) */
 function registroComDados(j) {
   const e = registroEquivalente(j);
-  return e ? Object.assign({}, e, { p: j.p || e.p, _eqDe: primaryKey(j), _eqNome: e.t + ' · ' + e.l }) : j;
+  return e ? Object.assign({}, e, { p: j.p || e.p, _eqDe: primaryKey(j), _eqId: j.id, _eqNome: e.t + ' · ' + e.l }) : j;
 }
 /* dados colados à mão: no card, no grupo aberto, no cadastro geral (DADOSJOG) ou no registro manual — e, se este
    cadastro está vazio, os do cadastro equivalente do mesmo jogador */
@@ -7536,7 +7536,7 @@ function posNoCampograma(pk, jid) {
    da do cadastro é comparado em TUDO (ficha técnica, físico, letra, selo, quadro de subida) como a posição do mapa */
 function comPosCampo(j) {
   if (!j || j._posBase || !j.p || j.p === 'GOL') return j;
-  const pc = posNoCampograma(primaryKey(j), j.id);
+  const pc = posNoCampograma(j._eqDe || primaryKey(j), j._eqDe ? j._eqId : j.id);
   return (pc && pc !== 'GOL' && pc !== j.p) ? Object.assign({}, j, { p: pc, _posBase: j.p }) : j;
 }
 function raioIcone(pk, card, objBase, posCampo) {
