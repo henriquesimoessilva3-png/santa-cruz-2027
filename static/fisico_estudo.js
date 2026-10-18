@@ -1,7 +1,8 @@
 /* Painel recolhível "Perfil físico por posição — estudo V2" no alto da aba Físico.
    Dado: static/fisico_estudo_dados.js (gerar_fisico_estudo_js.py, a partir de Santa Cruz V2/resultados b1 e b8).
-   Cinco leituras por setor: sobe × meio × cai; titular dos times que rendem × demais; tipos físicos e o
-   que cada um produz; ligações físico → técnico; destaques da Série B 2026. */
+   Quatro leituras por setor: sobe × meio × cai; tipos físicos e o que cada um produz; ligações físico → técnico;
+   destaques da Série B 2026. (18/10/2026: a leitura "times que renderam acima do dinheiro" saiu — Henrique só quer
+   quem sobe, quem fica e quem cai; a função referencia() fica, sem uso, como prova do que foi calculado.) */
 (function () {
   'use strict';
   const D = window.FISICO_ESTUDO;
@@ -53,10 +54,9 @@
       return '<td class="n' + cls + '">' + num(100 * me, 0) + '%</td>'; };
     return '<p class="fse-d">Os jogadores do setor (≥ 900 min, 2022–2025) separados em três tipos pelo perfil físico. <b>Subiu / Meio / Caiu</b>: de cada 100 jogadores ' +
       'do setor naquela faixa da tabela, quantos são de cada tipo (' + r0[i('n_sobe')] + ' em quem subiu, ' + r0[i('n_meio')] + ' no meio, ' + r0[i('n_cai')] +
-      ' em quem caiu). <b>Referência</b>: parcela do tipo nos times que renderam acima do que o elenco custava (média ~27%). Diferença menor que ~15 pontos é ruído. <b>Concentra ×</b>: lê a linha — de todos os jogadores do tipo na liga, a fatia em quem subiu dividida pelo esperado (20%); 1,6 = 60% acima, 0,4 = quem sobe evita.</p>' +
-      '<table class="fse-t"><thead><tr><th>Tipo</th><th class="n">Subiu</th><th class="n">Meio</th><th class="n">Caiu</th><th class="n">Referência</th><th class="n" title="de todos os jogadores do tipo na liga, a fatia que estava em quem subiu, dividida pelo esperado (20%): 1,6 = 60% acima">Concentra ×</th>' + C.map(c => '<th class="n">' + c[1] + '</th>').join('') + '</tr></thead><tbody>' +
-      L.map(r => '<tr><td><b>' + esc(r[i('tipo')]) + '</b></td>' + faixa(r, 'pct_sobe') + faixa(r, 'pct_meio') + faixa(r, 'pct_cai') + '<td class="n">' +
-        num(100 * r[i('referencia')], 0) + '%</td><td class="n">' + (r[i('conc_sobe')] >= 1.3 || r[i('conc_sobe')] <= 0.7 ? '<b>' + num(r[i('conc_sobe')], 1) + '</b>' : num(r[i('conc_sobe')], 1)) + '</td>' + C.map(c => '<td class="n">' + (c[0] === 'distance_p90' ? num(r[i(c[0])] / 1000, 1) + ' km' : num(r[i(c[0])], c[2])) + '</td>').join('') + '</tr>').join('') +
+      ' em quem caiu). Diferença menor que ~15 pontos é ruído. <b>Concentra ×</b>: lê a linha — de todos os jogadores do tipo na liga, a fatia em quem subiu dividida pelo esperado (20%); 1,6 = 60% acima, 0,4 = quem sobe evita.</p>' +
+      '<table class="fse-t"><thead><tr><th>Tipo</th><th class="n">Subiu</th><th class="n">Meio</th><th class="n">Caiu</th><th class="n" title="de todos os jogadores do tipo na liga, a fatia que estava em quem subiu, dividida pelo esperado (20%): 1,6 = 60% acima">Concentra ×</th>' + C.map(c => '<th class="n">' + c[1] + '</th>').join('') + '</tr></thead><tbody>' +
+      L.map(r => '<tr><td><b>' + esc(r[i('tipo')]) + '</b></td>' + faixa(r, 'pct_sobe') + faixa(r, 'pct_meio') + faixa(r, 'pct_cai') + '<td class="n">' + (r[i('conc_sobe')] >= 1.3 || r[i('conc_sobe')] <= 0.7 ? '<b>' + num(r[i('conc_sobe')], 1) + '</b>' : num(r[i('conc_sobe')], 1)) + '</td>' + C.map(c => '<td class="n">' + (c[0] === 'distance_p90' ? num(r[i(c[0])] / 1000, 1) + ' km' : num(r[i(c[0])], c[2])) + '</td>').join('') + '</tr>').join('') +
       '</tbody></table>';
   }
 
@@ -82,7 +82,7 @@
         [r[6], r[8], r[10], r[12]].map(v => '<td class="n">' + num(v, v > 1000 ? 0 : v > 20 ? 1 : 2) + '</td>').join('') + '</tr>').join('') + '</tbody></table>';
   }
 
-  const SEC = [['sobe', 'Quem sobe × quem cai, por posição', sobeCai], ['ref', 'O titular dos times que rendem × os demais', referencia],
+  const SEC = [['sobe', 'Quem sobe × quem cai, por posição', sobeCai],
     ['tipos', 'Tipos físicos e o que cada um produz', tipos], ['lig', 'O que o físico produz no técnico', ligacoes], ['dest', 'Destaques da Série B 2026', destaques]];
 
   function render() {
@@ -90,7 +90,7 @@
     const aberto = ler('fseAberto', '0') === '1';
     const abertas = new Set(ler('fseSecoes', 'sobe').split(','));
     el.innerHTML = '<details class="fse"' + (aberto ? ' open' : '') + '><summary><b>Perfil físico por posição</b> — estudo V2 ' +
-      '<span>sobe × cai, tipos físicos, o que o físico produz, destaques</span></summary><div class="fse-corpo">' +
+      '<span>sobe × fica × cai, tipos físicos, o que o físico produz, destaques</span></summary><div class="fse-corpo">' +
       '<div class="fse-chips">' + D.setores.map(s => '<button data-s="' + s + '"' + (s === setor ? ' class="on"' : '') + '>' + s + '</button>').join('') + '</div>' +
       SEC.map(([k, t, f]) => '<details class="fse-sec" data-k="' + k + '"' + (abertas.has(k) ? ' open' : '') + '><summary>' + t + '</summary>' + f(setor) + '</details>').join('') +
       '<p class="fse-nota">Fonte: Santa Cruz V2, blocos 1 e 8 (SkillCorner + Wyscout, Série B 2022–2026). Gerado em ' + esc(D.gerado.split('-').reverse().join('/')) + '.</p></div></details>';
