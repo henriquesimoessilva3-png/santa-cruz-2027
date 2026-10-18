@@ -12,7 +12,7 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 **4 Jogador** (Consulta).
 
 ## Regras em vigor
-- **Letra física** (A+/A/B/C): regra de sempre (6 indicadores SkillCorner, explosão × volume). Testes b17/b18/b19 não mudaram nada.
+- **Letra física** (A+/A/B/C): 18/10 à noite, decisão do Henrique — **5 indicadores** (sem as corridas sem bola, que o SkillCorner só entrega na América do Sul): explosão = PSV-99, sprints, ações de alta intensidade, arrancadas; volume = distância. Teste b23: separa 13 × 11 pontos; muda 2% das letras (no grupo, só Luisão A→B). Feito em app.js (tipoCalc, tipoEixos, tipoResolvido recalcula) e b16. Falta: banco do Portal Transfermarkt (letra pré-calculada no export).
 - **Seta técnica** (só na visão nova, `static/subida.js` → `notaVals`): nota por grupo do b21
   (`Santa Cruz V2/scripts/b21_seta_tecnica.py` → `static/tecnico_grupos_dados.js`). 4 grupos (Defensivo, Passe, Ofensivo,
   Participação em gols); entra o que separa sobe × cai ≥ 0,30 e ainda ≥ 0,20 "a time igual"; peso = separação a time igual;

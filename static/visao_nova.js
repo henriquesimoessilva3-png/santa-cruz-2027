@@ -137,16 +137,16 @@
       '<div><span class="tipo-abc tipo-A">A</span><span><b>O tipo mais forte da posição</b> — explosivo e rápido; no volante, o "mais intenso"; no médio, o <i>motor de volume</i> (volume acima de +0,5).</span></div>' +
       '<div><span class="tipo-abc tipo-B">B</span><span><b>O do meio</b> — motor de volume, médio em tudo ou intermediário. Também o "explosivo, pouco volume": seria C pelo volume, mas tem explosão acima de +0,25.</span></div>' +
       '<div><span class="tipo-abc tipo-C">C</span><span><b>Baixa intensidade</b> (no volante, "menos intenso") — fraco em explosão <i>e</i> em volume.</span></div>' +
-      '<p>Como é calculado: seis indicadores (PSV-99, sprints/90, ações de alta intensidade/90, arrancadas explosivas/90, distância/90 e corridas por 30 min com posse) viram desvios em relação à Série B do setor; o jogador recebe o tipo físico mais próximo (centróide do estudo V2) e a letra vem da regra do clube para a posição. ' +
-      'Físico colado na ficha vale sobre o do estudo, em todo o app. Em 18/10 foi testada uma letra por duas notas 0–100 (explosão e volume), com peso do físico por posição (b17); separava melhor quem sobe, mas mudava <b>446</b> letras já analisadas — decisão: <b>fica a regra atual</b>.</p></div>' +
+      '<p>Como é calculado: cinco indicadores (PSV-99, sprints/90, ações de alta intensidade/90, arrancadas explosivas/90 e distância/90) viram desvios em relação à Série B do setor; o jogador recebe o tipo físico mais próximo (centróide do estudo V2) e a letra vem da regra do clube para a posição. ' +
+      'Físico colado na ficha vale sobre o do estudo, em todo o app. Em 18/10 foi testada uma letra por duas notas 0–100 (explosão e volume), com peso do físico por posição (b17); separava melhor quem sobe, mas mudava <b>446</b> letras já analisadas — decisão: <b>fica a regra atual</b>. <b>18/10, à noite:</b> saem as corridas sem bola — o SkillCorner só as entrega na América do Sul (25% da base), e o resto do mercado era julgado sem elas; sem elas a letra separa igual ou melhor quem sobe de quem cai (<b>13</b> × <b>11</b> pontos de A+/A, b23) e muda <b>2%</b> das letras.</p></div>' +
       /* 18/10 — os dois grupos de indicadores, ao lado da regra: quais são, quantos e o que cada um compõe */
-      '<div class="vnf-eixos"><h4>Os <b>6</b> indicadores, em dois grupos</h4>' +
+      '<div class="vnf-eixos"><h4>Os <b>5</b> indicadores, em dois grupos</h4>' +
       '<table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Grupo</th><th>Indicadores (SkillCorner, por 90 min)</th><th>Compõe</th></tr></thead><tbody>' +
       '<tr><th>Explosão e rapidez<small><b>4</b> indicadores</small></th><td><ul><li>Velocidade máxima (PSV-99)</li><li>Sprints</li><li>Ações de alta intensidade</li><li>Arrancadas explosivas</li></ul></td>' +
       '<td>A média dos 4 desvios é a <b>explosão</b>: define o tipo <i>Explosivo e rápido</i> (A); acima de <b>+0,5</b> entra no A+; acima de <b>+0,25</b> tira do C ("explosivo, pouco volume").</td></tr>' +
-      '<tr><th>Volume<small><b>2</b> indicadores</small></th><td><ul><li>Distância percorrida</li><li>Corridas sem bola (por 30 min com posse)</li></ul></td>' +
-      '<td>A média dos 2 desvios é o <b>volume</b>: define o <i>Motor de volume</i>; acima de <b>+0,5</b> dá o A+ (com explosão) e o A do médio.</td></tr>' +
-      '</tbody></table><p>Cada indicador vira um desvio em relação à Série B do setor; o tipo é o centróide mais próximo nos 6.</p>' +
+      '<tr><th>Volume<small><b>1</b> indicador</small></th><td><ul><li>Distância percorrida</li></ul><small>As corridas sem bola saíram em 18/10 (só existem na América do Sul).</small></td>' +
+      '<td>O desvio da distância é o <b>volume</b>: define o <i>Motor de volume</i>; acima de <b>+0,5</b> dá o A+ (com explosão) e o A do médio.</td></tr>' +
+      '</tbody></table><p>Cada indicador vira um desvio em relação à Série B do setor; o tipo é o centróide mais próximo nos 5.</p>' +
       '<details class="vnf-outros"><summary>Os outros <b>15</b> indicadores do SkillCorner — por que ficaram de fora</summary>' +
       '<p>Cada um deles repete um dos seis (correlação nos <b>1.328</b> titulares da Série B 2022–25, dentro do setor). Entrar com eles seria contar a mesma coisa duas vezes: o sprint, por exemplo, entraria por cinco nomes. O que menos se repete (frear e mudar de direção) foi testado como terceiro eixo em 18/10 e não separa quem sobe de quem cai.</p>' +
       '<table><thead><tr><th>Indicador</th><th>Repete</th><th>r</th></tr></thead><tbody>' +

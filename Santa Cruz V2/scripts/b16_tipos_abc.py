@@ -16,10 +16,21 @@ NOME = {"LD": "Lateral direito", "ZD": "Zagueiro pela direita", "ZE": "Zagueiro 
         "MED": "Médio", "MEI": "Meia", "ED": "Extremo pela direita", "EE": "Extremo pela esquerda", "CA": "Centroavante"}
 ORDEM = ["LD", "ZD", "ZE", "LE", "VOL", "MED", "MEI", "ED", "EE", "CA"]
 
-def eixos(r):
+def zs(r):
     s = C[SET[r.pos11]]; z = [(r[c] - s["media"][i]) / s["desvio"][i] if pd.notna(r[c]) else np.nan for i, c in enumerate(CORE)]
-    e = [v for v in z[:4] if not np.isnan(v)]
-    return (np.mean(e) if len(e) >= 3 else np.nan), (np.nanmean(z[4:]) if not np.isnan(z[4]) else np.nan)
+    z[5] = np.nan   # 18/10: corridas sem bola fora da letra (só existem na América do Sul) — 5 indicadores
+    return z
+
+def tipo5(r):
+    """tipo pelo centróide mais próximo nos 5 indicadores (sem as corridas sem bola)"""
+    z = np.array(zs(r)[:5], dtype=float); ok = ~np.isnan(z)
+    if ok.sum() < 3: return r.tipo
+    cen = C[SET[r.pos11]]["tipos"]
+    return min(cen, key=lambda t: float(np.sum((np.array(cen[t][:5])[ok] - z[ok]) ** 2)))
+
+def eixos(r):
+    z = zs(r); e = [v for v in z[:4] if not np.isnan(v)]
+    return (np.mean(e) if len(e) >= 3 else np.nan), (z[4] if not np.isnan(z[4]) else np.nan)
 
 def letra(r):
     a, c = PREF.loc[r.pos11, "tipo"], PREF.loc[r.pos11, "cai"]; exp, vol = eixos(r)
@@ -33,6 +44,7 @@ def letra(r):
 J = pd.read_csv(os.path.join(RES, "b8", "jogadores_tipo.csv"))
 ti = pd.read_csv(os.path.join(RES, "b2", "time_indicadores.csv"))[["ano", "clube", "faixa"]]
 J = J.merge(ti, on=["ano", "clube"], how="left"); J = J[J.faixa.notna() & J.pos11.isin(SET)]
+J["tipo"] = J.apply(tipo5, axis=1)
 J["letra"] = J.apply(letra, axis=1)
 J[["ano", "clube", "jogador", "pos11", "tipo", "letra", "faixa"]].to_csv(os.path.join(OUT, "letras_titulares.csv"), index=False)
 
@@ -41,13 +53,13 @@ pc = lambda v: f"{100*v:.0f}%"
 md = ["# Tipos físicos A, B e C por posição", "",
       "*Regra do clube (Henrique, 06/10/2026), com os ajustes de 11/10, 15/10 e 16/10 · titulares da Série B 2022–2025 (≥ 900 min, SkillCorner) · revisão 17/10/2026.*", "",
       "## A regra", "",
-      "O tipo físico sai de **seis indicadores do SkillCorner** — velocidade máxima (PSV-99), sprints, ações de alta intensidade, arrancadas (explosão) e distância e corridas sem bola (volume) —, comparados com os jogadores do mesmo setor na Série B. Cada jogador cai no tipo do setor de que está mais perto. A letra vem do tipo:", "",
+      "O tipo físico sai de **cinco indicadores do SkillCorner** — velocidade máxima (PSV-99), sprints, ações de alta intensidade, arrancadas (explosão) e distância (volume; as corridas sem bola saíram em 18/10, porque só existem na América do Sul) —, comparados com os jogadores do mesmo setor na Série B. Cada jogador cai no tipo do setor de que está mais perto. A letra vem do tipo:", "",
       "- **A** = o tipo **mais forte fisicamente** do setor: **Explosivo e rápido** (no volante, **Mais intenso**).",
       "- **B** = o tipo **do meio**: Motor de volume (zaga, extremo, atacante), Médio em tudo (lateral, médio, meia), Intermediário (volante).",
       "- **C** = o tipo de **menor intensidade**: **Baixa intensidade** (no volante, **Menos intenso**).", "",
       "Vale para todas as posições, mesmo onde o dado de sobe × cai apontava outro tipo — baixa intensidade nunca é o tipo bom.", "",
       "**Ajustes depois da regra:**", "",
-      "- **11/10 — A+ (azul):** o A que também tem **volume** (distância e corridas sem bola acima de **+0,5 desvio**) e explosão acima de +0,5 — o perfil completo. Vale em zaga, lateral, volante, extremo e atacante.",
+      "- **11/10 — A+ (azul):** o A que também tem **volume** (distância acima de **+0,5 desvio**) e explosão acima de +0,5 — o perfil completo. Vale em zaga, lateral, volante, extremo e atacante.",
       "- **11/10 — Médio (CM):** no médio, o **A é o motor de volume** (volume acima de +0,5 desvio): o médio que sobe é o de volume. **C** continua sendo a baixa intensidade; o resto é B. No meia (AM) não há A+.",
       "- **15/10 — explosivo, pouco volume:** quem cai no tipo C só pelo volume, mas tem **explosão acima de +0,25 desvio**, fica **B** (\"Explosivo, pouco volume\") — o C é de quem é fraco nas duas coisas.",
       "- **16/10 — físico colado:** quando um físico é colado à mão no app, ele substitui o do estudo e é dele que sai a letra, em todo o app.", ""]

@@ -2937,7 +2937,7 @@ const FIS_GRUPOS = [
     ['psv5', 'PSV-99, média dos 5 melhores', 1], ['vmax', 'Velocidade de pico', 1], ['spr_km', 'Distância em sprint /90 (>25 km/h)', 0], ['hsr_n', 'Corridas HSR /90 (20–25 km/h)', 1],
     ['hsr', 'Distância HSR /90', 0], ['hi', 'Distância em alta intensidade /90', 0], ['acel', 'Acelerações fortes /90', 1], ['acel_m', 'Acelerações médias /90', 1],
     ['desa', 'Desacelerações fortes /90', 1], ['cod', 'Mudanças de direção /90', 1]]],
-  ['Volume', [['dist', 'Distância /90 (m)', 0, 1], ['obr', 'Corridas sem bola /30 min de posse', 1, 1],
+  ['Volume', [['dist', 'Distância /90 (m)', 0, 1], ['obr', 'Corridas sem bola /30 min de posse', 1],
     ['mmin', 'Metros por minuto', 1], ['run', 'Distância em corrida /90 (15–20 km/h)', 0], ['desa_m', 'Desacelerações médias /90', 1], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
 ];
 const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
@@ -7154,7 +7154,9 @@ function tipoCalc(j) {
   const C = window.CONSULTA && window.CONSULTA.cen; const s = C && C[TIPO_SET[j.p]]; if (!s) return null;
   if (typeof j.psv !== 'number' || (!fisColadoEm(j) && (Number(j.sc_n) || 0) < 5)) return null;
   const core = C._core, app = C._app;                     /* ex.: psv99 → psv */
-  const z = core.map((c, i) => { const v = Number(j[app[c]]); return isFinite(v) && j[app[c]] != null ? (v - s.media[i]) / s.desvio[i] : null; });
+  /* 18/10 (decisão do Henrique): a letra sai sem as corridas sem bola (o SkillCorner só entrega na América do Sul) —
+     5 indicadores: 4 de explosão + distância no volume. Teste b23: separa sobe × cai igual ou melhor (13 × 11 pontos). */
+  const z = core.map((c, i) => { if (c === 'runs_p30tip') return null; const v = Number(j[app[c]]); return isFinite(v) && j[app[c]] != null ? (v - s.media[i]) / s.desvio[i] : null; });
   if (z.filter(v => v != null).length < 3) return null;
   let melhor = null, dmin = Infinity;
   Object.entries(s.tipos).forEach(([t, c]) => { let d = 0; z.forEach((v, i) => { if (v != null) d += (c[i] - v) ** 2; }); if (d < dmin) { dmin = d; melhor = t; } });
@@ -7175,6 +7177,9 @@ function cobradorBadge(j) {
 function tipoResolvido(j) {
   /* físico colado à mão: o tipo sai DELE (centróide), nunca do registro do estudo */
   if (j && fisColadoEm(j) && typeof j.psv === 'number') { const tc = tipoCalc(j); if (tc) return { tipo: tc, p: j.p, calc: true }; }
+  /* 18/10: o tipo é recalculado sem as corridas sem bola sempre que há físico; o do estudo (feito com elas) fica de reserva */
+  let jj = j; try { jj = (typeof comFisicoDoEstudo === 'function' ? comFisicoDoEstudo(j) : j) || j; } catch (e) {}
+  if (jj && typeof jj.psv === 'number') { const tc = tipoCalc(jj); if (tc) return { tipo: tc, p: j.p, calc: true }; }
   const x = tipoDe(j);
   if (x && x.tipo && TIPO_SET[x.p] === TIPO_SET[j.p]) return x;
   const t = tipoCalc(j); return t ? { tipo: t, p: j.p, calc: true } : null;
@@ -7184,7 +7189,7 @@ function tipoResolvido(j) {
 function tipoEixos(j) {
   const C = window.CONSULTA && window.CONSULTA.cen; const s = C && C[TIPO_SET[j && j.p]]; if (!s) return null;
   const jj = (typeof comFisicoDoEstudo === 'function' ? comFisicoDoEstudo(j) : j) || j;
-  const z = C._core.map((c, i) => { const v = Number(jj[C._app[c]]); return jj[C._app[c]] != null && isFinite(v) ? (v - s.media[i]) / s.desvio[i] : null; });
+  const z = C._core.map((c, i) => { if (c === 'runs_p30tip') return null; const v = Number(jj[C._app[c]]); return jj[C._app[c]] != null && isFinite(v) ? (v - s.media[i]) / s.desvio[i] : null; });
   const m = a => { const v = a.filter(x => x != null); return v.length ? v.reduce((p, q) => p + q, 0) / v.length : null; };
   const e = z.slice(0, 4), v = z.slice(4);
   if (e.filter(x => x != null).length < 3 || v[0] == null) return null;

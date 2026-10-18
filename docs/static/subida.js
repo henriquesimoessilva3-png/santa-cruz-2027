@@ -755,7 +755,7 @@
     R.entra.forEach(e => { if (KPI[e.rot] != null) out.add(KPI[e.rot]); });
     return out;
   };
-  const FIS_LETRA = { psv: 'velocidade máxima', spr_n: 'sprints', hi_n: 'alta intensidade', expl: 'arrancadas explosivas', dist: 'distância', obr: 'corridas sem bola' };
+  const FIS_LETRA = { psv: 'velocidade máxima', spr_n: 'sprints', hi_n: 'alta intensidade', expl: 'arrancadas explosivas', dist: 'distância' };
   window.subidaFicha = function (j, dados, op) {
     op = op || {};
     try {
