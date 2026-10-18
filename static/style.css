@@ -3816,3 +3816,14 @@ body.visao-nova .jpainel{flex:none}
 .sf-sub{background:#7e22ce55;color:#f3e8ff}
 .sf-sub b{background:#00000030} .sf-sub small,.sf-gh small{font-weight:400;opacity:.8;font-size:10px}
 .sf-tab tr.falta td{color:var(--tinta3)}
+/* 18/10 (17h) — minutagem e bola parada: card de resultado (como tipo físico/técnico) + tabela compacta */
+.sf-extra{margin-top:20px;gap:30px;align-items:start}
+.sf-painel{border-top:none;padding:0}
+.sf-painel .fi-res{margin-bottom:8px}
+.fi-res-l.sf-res-pct{width:auto;min-width:44px;padding:0 8px;font-size:17px}
+.sf-painel .sf-tab{width:auto;min-width:0;font-size:12.5px;margin:0 0 0 2px}
+.sf-painel .sf-tab th{padding:3px 12px 3px 0;font-size:9px}
+.sf-painel .sf-tab td{padding:3px 12px 3px 0;white-space:nowrap}
+.sf-painel .sf-tab td small{margin-left:2px}
+.sf-painel .sf-tab tfoot td{font-weight:700}
+.sf-painel .mp{font-size:12.5px}
