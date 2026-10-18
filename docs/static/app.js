@@ -7054,11 +7054,51 @@ function seloClasse(j) {
    verde = Validado · amarelo = Dúvida (falta uma das duas, ou falta dado) · vermelho = Alerta (▼ ou C). */
 const FAROL_EXIGE = { LD: 1, LE: 1, EE: 1, VOL: 1, MED: 1 };
 const FAROL_NOME = { v: 'Validado', a: 'Dúvida', r: 'Alerta' };
-function farolDe(letra, selo, pos) {
+function farolDe(letra, selo, pos, minut) {
   if (!letra && (!selo || selo === 'n')) return null;
   if (selo === 'r' || letra === 'C') return 'r';
   const fisOk = letra ? (FAROL_EXIGE[pos] ? (letra === 'A' || letra === 'A+') : true) : false;
-  return (selo === 'v' && fisOk) ? 'v' : 'a';
+  /* minutagem baixa (18/10) não derruba, mas tira o Validado: quem não jogou é dúvida */
+  return (selo === 'v' && fisOk && minut !== 'r') ? 'v' : 'a';
+}
+/* ---------------- minutagem e bola parada do card (18/10, visão nova) ----------------
+   Minutagem: a última temporada inteira (min ÷ 3.400) ou a atual (min ÷ 2.100, temporada em andamento), a maior das duas.
+   verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Bola parada: o índice do cobrador na liga (T2) — ⚑ verde ≥ 80, amarelo 65 a 79. */
+const MIN_ATUAL = 2100;
+function minutagemDe(j) {
+  const pk = j && (j.pk || (typeof primaryKey === 'function' ? primaryKey(j) : null));
+  const h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
+  if (!h || !h.some(x => x && x.fonte !== 'ogol' && x.min)) return null;
+  const n = h.length, ult = h[n - 1], ant = h[n - 2];
+  const pA = ult && ult.fonte !== 'ogol' && ult.min ? ult.min / MIN_ATUAL : 0;
+  const pB = ant && ant.fonte !== 'ogol' && ant.min ? ant.min / MIN_TEMPORADA : 0;
+  const pct = Math.min(1, Math.max(pA, pB));
+  const c = pct >= 0.6 ? 'v' : pct >= 0.3 ? 'a' : 'r';
+  const txt = h.map((x, i) => (HIST.temporadas[i] || '?') + ': ' + (!x ? 'sem dado' : x.fonte === 'ogol' ? (x.j || 0) + ' jogos (oGol)' : milhar(x.min || 0) + ' min em ' + (x.j || 0) + ' jogos')).join(' · ');
+  return { c, pct, txt: 'Minutagem: ' + Math.round(pct * 100) + '% de uma temporada inteira (a maior entre a última temporada ÷ 3.400 e a atual ÷ 2.100) — ' + txt + '. Verde 60%+, amarelo 30% a 60%, vermelho abaixo de 30%.' };
+}
+function bolaParadaDe(j) {
+  let x = null; try { x = csRegistro(j, r => r.cob != null); } catch (e) {}
+  if (!x || x.cob == null) return null;
+  const c = x.cob >= 80 ? 'v' : x.cob >= 65 ? 'a' : null;
+  return { c, cob: x.cob, txt: 'Cobrador de bola parada: índice ' + x.cob + ' na liga' + (x.cob_esc != null ? ' — ' + x.cob_esc + ' escanteios e ' + x.cob_fal + ' faltas cobradas na temporada' : '') + '. ⚑ verde = índice 80 ou mais · amarelo = 65 a 79 (escanteios/90 e faltas/90 pesam 3; faltas diretas, no alvo %, xA/90 e cruzamento certo % pesam 1).' };
+}
+/* o painel do card: um retângulo na cor do farol com quatro quadrados — letra (físico), seta (técnico), minutagem, bola parada */
+function painelCard(j, letraHtml, seloHtml) {
+  let letra = null; try { letra = tipoLetra(j); if (letra === 'A' && tipoMais(j)) letra = 'A+'; } catch (e) {}
+  let selo = 'n'; try { selo = seloClasse(j); } catch (e) {}
+  const mi = minutagemDe(j), bp = bolaParadaDe(j);
+  const c = farolDe(letra, selo, j.p, mi ? mi.c : null);
+  const sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[selo] || '?';
+  const regra = FAROL_EXIGE[j.p] ? 'físico pesa: precisa de A ou A+ e ▲' : 'físico é piso: ▲ e não ser C';
+  const tFarol = c ? 'Farol: ' + FAROL_NOME[c] + ' — letra ' + (letra || 'sem') + ', seta ' + sinal + (mi ? ', minutagem ' + Math.round(mi.pct * 100) + '%' : '') + '. Regra (' + regra + '). Verde = tudo ok · amarelo = falta uma coisa, falta dado ou minutagem baixa · vermelho = seta ▼ ou letra C.' : 'Farol: sem dado';
+  const q = (cls, html, t) => '<span class="jq ' + cls + '" title="' + esc(t || '') + '">' + html + '</span>';
+  return '<span class="jpainel' + (c ? ' farol-' + c : ' farol-n') + '" title="' + esc(tFarol) + '">' +
+    q('jq-letra', letraHtml || '<i class="jq-vaz"></i>', '') +
+    q('jq-seta', seloHtml || '<i class="jq-vaz"></i>', '') +
+    q('jq-min' + (mi ? ' min-' + mi.c : ''), mi ? '<b>' + Math.round(mi.pct * 100) + '</b>' : '<i class="jq-vaz"></i>', mi ? mi.txt : 'Minutagem: sem histórico de minutos') +
+    q('jq-bp' + (bp && bp.c ? ' bp-' + bp.c : ''), bp && bp.c ? '⚑' : '<i class="jq-vaz"></i>', bp ? bp.txt : 'Bola parada: sem índice de cobrador') +
+    '</span>';
 }
 function farolHtml(c, pos, letra, selo, comNome) {
   if (!c) return '';
@@ -7071,7 +7111,8 @@ function farolDoJogador(j) {
   if (!j || j.p === 'GOL') return null;
   let letra = null; try { letra = tipoLetra(j); if (letra === 'A' && tipoMais(j)) letra = 'A+'; } catch (e) {}
   let selo = 'n'; try { selo = seloClasse(j); } catch (e) {}
-  const c = farolDe(letra, selo, j.p);
+  const mi = minutagemDe(j);
+  const c = farolDe(letra, selo, j.p, mi ? mi.c : null);
   return c ? { c, letra, selo, html: farolHtml(c, j.p, letra, selo, false), htmlNome: farolHtml(c, j.p, letra, selo, true) } : null;
 }
 /* letra A/B/C + selo de subida (▲ ↔ ▼, static/subida.js): saem juntos em todo lugar que mostra a letra */
@@ -7312,8 +7353,18 @@ function raioIcone(pk, card, objBase, posCampo) {
     const b = obj || fsJogadorPk(pk);
     if (b && b.p && b.p !== 'GOL' && b.p !== posCampo) obj = Object.assign({}, b, { p: posCampo, _posBase: b.p });
   }
-  /* 18/10/2026 — na visão nova o raio ⚡ sai do card: a letra já diz o físico e o farol dá o veredito */
-  const r = window.VISAO_NOVA ? '' : raioIconeBase(pk, obj);
+  /* 18/10/2026 — na visão nova o card ganha o PAINEL: retângulo na cor do farol com letra, seta, minutagem e bola parada
+     (o raio ⚡ e os selos de bola aérea saem — ficam na ficha) */
+  if (window.VISAO_NOVA) {
+    try {
+      const j = obj || (BASE.length ? fsJogadorPk(pk) : null);
+      if (!j) return '';
+      const js = comPosCampo(j);
+      let selo = ''; try { if (typeof window.subidaSelo === 'function') selo = window.subidaSelo(js); } catch (e) {}
+      return painelCard(js, tipoBadgeLetra(pk, obj), selo);
+    } catch (e) { console.warn('painelCard', e); return ''; }
+  }
+  const r = raioIconeBase(pk, obj);
   try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
 /* ---------------- físico e técnico colados à mão (card.dados) ----------------

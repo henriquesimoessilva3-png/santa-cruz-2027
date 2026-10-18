@@ -3695,3 +3695,13 @@ body.visao-nova .pos .jog-meta{font-size:calc(11.5px * var(--fz))}
 body.visao-nova .campo.denso .pos{width:calc(222px * var(--fz))}
 body.visao-nova .campo.denso .pos .jog-nome{font-size:calc(13px * var(--fz))}
 body.visao-nova .campo.denso .pos .jog-meta{font-size:calc(10.5px * var(--fz))}
+/* 18/10 — PAINEL do card (visão nova): retângulo na cor do farol com quatro quadrados — letra · seta · minutagem · bola parada */
+.jpainel{display:inline-flex;align-items:center;gap:3px;padding:2px 3px;border-radius:6px;margin:0 6px 0 0;vertical-align:middle;border:1.5px solid var(--borda2);background:#00000010;cursor:help}
+.jpainel.farol-v{border-color:#16a34a;background:#16a34a2e} .jpainel.farol-a{border-color:#d9a600;background:#eab3082e} .jpainel.farol-r{border-color:#dc2626;background:#dc26262e}
+.jpainel .jq{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:4px;background:#ffffffd9;flex:none;font:700 10px/1 var(--fonte);color:#1a1a1a}
+.jpainel .jq .tipo-abc,.jpainel .jq .sb-selo{margin:0;width:17px;height:17px;min-width:0;border-radius:4px;font-size:10.5px}
+.jpainel .jq-vaz{display:block;width:9px;height:9px;border:1.5px dashed #9aa3ad;border-radius:3px}
+.jpainel .jq-min.min-v{background:#16a34a;color:#fff} .jpainel .jq-min.min-a{background:#eab308;color:#1a1a1a} .jpainel .jq-min.min-r{background:#dc2626;color:#fff}
+.jpainel .jq-min b{font-size:9px;letter-spacing:-.3px}
+.jpainel .jq-bp.bp-v{background:#16a34a;color:#fff} .jpainel .jq-bp.bp-a{background:#eab308;color:#1a1a1a}
+body.visao-nova .jog-nome .nm{margin-left:1px}

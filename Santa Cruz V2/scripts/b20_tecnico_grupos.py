@@ -57,7 +57,11 @@ PESO_RANKING = {"VOL": {"Defensivo": 9, "Passe": 52, "Ofensivo": 23, "Participa�
                 "ZE": {"Defensivo": 37, "Passe": 24, "Ofensivo": 18, "Participação em gols": 20}, "ED": {"Defensivo": 2, "Passe": 52, "Ofensivo": 26, "Participação em gols": 20},
                 "EE": {"Defensivo": 2, "Passe": 52, "Ofensivo": 26, "Participação em gols": 20}, "CA": {"Defensivo": 3, "Passe": 37, "Ofensivo": 28, "Participação em gols": 32}}
 
-ti = pd.read_csv(os.path.join(RES, "b2", "time_indicadores.csv"))[["ano", "clube", "faixa"]]
+TI = pd.read_csv(os.path.join(RES, "b2", "time_indicadores.csv"))
+TI["xg_j"] = TI.xg / TI.jogos.replace(0, np.nan) if TI.xg.max() > 5 else TI.xg
+for c in ["xg_j", "posse", "passes", "duel_def_pct", "ppda"]:
+    TI["tz_" + c] = TI.groupby("ano")[c].transform(lambda x: (x - x.mean()) / x.std())
+ti = TI[["ano", "clube", "faixa", "tz_xg_j", "tz_posse", "tz_passes", "tz_duel_def_pct", "tz_ppda"]]
 T = tecnico(); T["pos11"] = T.posicao.map(pos11)
 T = T[T.ano.isin(ANOS) & (T.minutos >= MIN)].merge(ti, on=["ano", "clube"], how="left"); T = T[T.faixa.notna() & T.pos11.isin(ORDEM)].reset_index(drop=True)
 IND = [(g, rot, col, menor) for g, L in GRUPOS.items() for rot, col, menor in L if col in T.columns]
@@ -68,6 +72,18 @@ for g, rot, col, menor in IND:
     z = v.groupby([T.ano, T.pos11]).transform(lambda s: (s - s.mean()) / s.std())
     Z[col] = -z if menor else z
 Z["faixa"], Z["pos11"], Z["ano"] = T.faixa, T.pos11, T.ano
+# "A TIME IGUAL" (18/10, dúvida do Henrique: participação em gols é do time?): tira-se de cada indicador a parte que o
+# TIME explica — ataque/passe/participação contra o xG e a posse do time na temporada; defesa contra os duelos
+# defensivos ganhos e o PPDA do time. O que sobra é do jogador. É com ISSO que se escolhe e se pesa.
+TIME = {"Defensivo": ["tz_duel_def_pct", "tz_ppda"], "Passe": ["tz_xg_j", "tz_posse", "tz_passes"], "Ofensivo": ["tz_xg_j", "tz_posse"], "Participação em gols": ["tz_xg_j", "tz_posse"]}
+ZT = Z.copy()
+for g, rot, col, menor in IND:
+    tcols = TIME[g]
+    for p in ORDEM:
+        m = (Z.pos11 == p) & Z[col].notna() & T[tcols].notna().all(axis=1)
+        if m.sum() < 40: continue
+        X = np.c_[np.ones(m.sum()), T.loc[m, tcols].values]; b, *_ = np.linalg.lstsq(X, Z.loc[m, col].values, rcond=None)
+        ZT.loc[m, col] = Z.loc[m, col].values - (X @ b - b[0])
 
 def sep(df, col):
     s, c = df[df.faixa == "Sobe"][col].dropna(), df[df.faixa == "Cai"][col].dropna()
@@ -78,15 +94,16 @@ rows = []
 for p in ORDEM:
     g = Z[Z.pos11 == p]
     for grupo, rot, col, menor in IND:
-        d = sep(g, col)
+        d = sep(g, col); dt = sep(ZT[ZT.pos11 == p], col)
         rows.append({"pos": p, "posicao": NOME[p], "grupo": grupo, "indicador": rot, "menor_melhor": menor, "sep": round(d, 2) if pd.notna(d) else np.nan,
-                     "principal": bool(pd.notna(d) and d >= 0.3 and rot not in SEM_CONTA)})
+                     "sep_time_igual": round(dt, 2) if pd.notna(dt) else np.nan, "do_time": bool(pd.notna(d) and pd.notna(dt) and d >= 0.3 and dt < 0.3),
+                     "principal": bool(pd.notna(dt) and dt >= 0.3 and rot not in SEM_CONTA)})
 I = pd.DataFrame(rows); I.to_csv(os.path.join(OUT, "indicadores.csv"), index=False)
 
 # 2. por grupo: separação média do grupo (média dos indicadores do grupo que separam a favor; 0 se nenhum) e nota do grupo
 GR = []
 for p in ORDEM:
-    g = Z[Z.pos11 == p]; linha = {"pos": p, "posicao": NOME[p]}
+    g = ZT[ZT.pos11 == p]; linha = {"pos": p, "posicao": NOME[p]}
     for grupo in GRUPOS:
         cols = [col for gg, rot, col, m in IND if gg == grupo]
         seps = [sep(g, c) for c in cols]; seps = [s for s in seps if pd.notna(s)]
@@ -99,13 +116,14 @@ G = pd.DataFrame(GR); G.to_csv(os.path.join(OUT, "grupos.csv"), index=False)
 
 # 3. seta: alternativas, um ano de fora por vez (quem sobe × quem cai), regra escolhida no treino e aplicada no teste
 D = Z[Z.faixa.isin(["Sobe", "Cai"])].copy(); D["y"] = (D.faixa == "Sobe").astype(int)
+DT = ZT[ZT.faixa.isin(["Sobe", "Cai"])].copy()
 BLOCO = {"Passe": "pas", "Ofensivo": "atq", "Defensivo": "def", "Participação em gols": "atq"}   # na seta de hoje, participação em gols está no bloco "ataque"
 def escolhe(tr, p, modo):
-    """devolve [(col, minimo_de_quem_sobe_mediana)] da posição, escolhidos só com o treino"""
-    g = tr[tr.pos11 == p]; cand = []
+    """devolve [(col, minimo_de_quem_sobe_mediana)] da posição, escolhidos só com o treino — pela separação A TIME IGUAL"""
+    g = tr[tr.pos11 == p]; gt = DT.loc[g.index]; cand = []
     for grupo, rot, col, menor in IND:
         if rot in SEM_CONTA: continue
-        d = sep(g, col)
+        d = sep(gt, col)
         if pd.isna(d) or d < 0.3: continue
         cand.append((col, d, grupo))
     if modo == "F":      # 3 por bloco (pas/atq/def), como hoje — participação em gols cai no bloco ataque
@@ -155,7 +173,8 @@ md = ["# Indicadores técnicos por posição — quatro grupos, pesos e a seta",
       "## Os quatro grupos (os do ranking do Botafogo)", ""]
 for grupo, L in GRUPOS.items(): md.append(f"- **{grupo}** ({len([1 for g_, r_, c_, m_ in IND if g_ == grupo])}): " + " · ".join(r for r, c, m in L if c in T.columns))
 md += ["", "Separação = média de quem sobe menos a de quem cai, em desvios-padrão da posição (z dentro do ano). **0,30** separa; **0,50** separa muito. Indicador em que quem sobe tem MENOS não conta a favor.", "",
-       "## Quanto cada grupo separa, por posição — e o peso que o ranking do Botafogo dá", "",
+       "**A time igual.** Dúvida do Henrique (18/10): participação em gols não é do time? Para responder, de cada indicador foi tirada a parte que o time explica (ataque, passe e participação contra o xG e a posse do time na temporada; defesa contra os duelos defensivos ganhos e o PPDA do time). O que sobra é do jogador. **Tudo abaixo — grupos, escolha e pesos — usa a separação a time igual.** Indicador que separava só por causa do time aparece marcado como *do time* e fica de fora.", "",
+       "## Quanto cada grupo separa, por posição (a time igual) — e o peso que o ranking do Botafogo dá", "",
        "| Posição | Defensivo | Passe | Ofensivo | Participação em gols | ordem pelo dado | pesos do ranking (Def · Pas · Of · PG) |", "|---|---|---|---|---|---|---|"]
 for _, r in G.iterrows():
     cel = lambda g: f"**{r[g + '_n_separam']}** separam · média {f2(r[g + '_sep_media'])}"
@@ -163,14 +182,15 @@ for _, r in G.iterrows():
     pr = PESO_RANKING[r.pos]
     md.append(f"| {r.posicao} | {cel('Defensivo')} | {cel('Passe')} | {cel('Ofensivo')} | {cel('Participação em gols')} | " + " > ".join(o.replace("Participação em gols", "Part. gols") for o in ordem) +
               f" | {pr['Defensivo']} · {pr['Passe']} · {pr['Ofensivo']} · {pr['Participação em gols']} |")
-md += ["", "## Indicador a indicador — os que separam a favor de quem sobe (≥ 0,30), por posição", ""]
+md += ["", "## Indicador a indicador — os que separam a favor de quem sobe a time igual (≥ 0,30), por posição", "", "Entre parênteses, a separação bruta. *Do time* = separava só pelo time, fica de fora.", ""]
 for p in ORDEM:
-    x = I[(I.pos == p) & I.principal].sort_values("sep", ascending=False)
-    md.append(f"**{NOME[p]}** — {len(x)} indicadores")
+    x = I[(I.pos == p) & I.principal].sort_values("sep_time_igual", ascending=False)
+    dt = I[(I.pos == p) & I.do_time]
+    md.append(f"**{NOME[p]}** — {len(x)} indicadores entram" + (f" · do time (fora): {', '.join(dt.indicador)}" if len(dt) else ""))
     md.append("")
     for grupo in GRUPOS:
         y = x[x.grupo == grupo]
-        md.append(f"- {grupo}: " + (" · ".join(f"{r.indicador} **{f2(r.sep)}**" for r in y.itertuples()) if len(y) else "nenhum"))
+        md.append(f"- {grupo}: " + (" · ".join(f"{r.indicador} **{f2(r.sep_time_igual)}** ({f2(r.sep)})" for r in y.itertuples()) if len(y) else "nenhum"))
     md.append("")
 md += ["## A seta: qual regra prevê melhor quem sobe × quem cai (um ano de fora por vez; AUC — 0,50 é moeda)", "",
        "| Regra | AUC | " + " | ".join(NOME[p] for p in ORDEM) + " |", "|---|---|" + "---|" * len(ORDEM)]
