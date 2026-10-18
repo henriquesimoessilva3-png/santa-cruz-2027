@@ -1,0 +1,491 @@
+pos,posicao,grupo,indicador,menor_melhor,sep,principal
+LD,Lateral direito,Defensivo,Duelos defensivos ganhos %,False,0.1,False
+LD,Lateral direito,Defensivo,Duelos ganhos %,False,-0.11,False
+LD,Lateral direito,Defensivo,Duelos aéreos ganhos %,False,-0.28,False
+LD,Lateral direito,Defensivo,Interceptações (ajust. posse),False,0.11,False
+LD,Lateral direito,Defensivo,Carrinhos (ajust. posse),False,-0.3,False
+LD,Lateral direito,Defensivo,Finalizações bloqueadas/90,False,0.07,False
+LD,Lateral direito,Defensivo,Ações defensivas certas/90,False,-0.29,False
+LD,Lateral direito,Defensivo,Faltas/90,True,0.41,True
+LD,Lateral direito,Defensivo,Cartões amarelos/90,True,0.18,False
+LD,Lateral direito,Passe,Passes/90,False,-0.26,False
+LD,Lateral direito,Passe,Passes certos %,False,-0.34,False
+LD,Lateral direito,Passe,Passes para frente/90,False,-0.44,False
+LD,Lateral direito,Passe,Passes para frente certos %,False,-0.57,False
+LD,Lateral direito,Passe,Passes progressivos/90,False,-0.29,False
+LD,Lateral direito,Passe,Passes progressivos certos %,False,-0.22,False
+LD,Lateral direito,Passe,Passes ao terço final/90,False,-0.08,False
+LD,Lateral direito,Passe,Passes ao terço final certos %,False,-0.53,False
+LD,Lateral direito,Passe,Passes longos/90,False,-0.13,False
+LD,Lateral direito,Passe,Passes longos certos %,False,-0.61,False
+LD,Lateral direito,Passe,Passes-chave/90,False,0.32,True
+LD,Lateral direito,Passe,Passes para a área/90,False,0.24,False
+LD,Lateral direito,Passe,Passes para a área certos %,False,-0.21,False
+LD,Lateral direito,Passe,Passes inteligentes/90,False,0.16,False
+LD,Lateral direito,Passe,Passes em profundidade/90,False,0.09,False
+LD,Lateral direito,Passe,Cruzamentos/90,False,0.29,False
+LD,Lateral direito,Passe,Cruzamentos certos %,False,0.03,False
+LD,Lateral direito,Passe,Assistências para finalização/90,False,-0.2,False
+LD,Lateral direito,Ofensivo,Finalizações/90,False,0.39,True
+LD,Lateral direito,Ofensivo,Finalizações no gol %,False,0.57,True
+LD,Lateral direito,Ofensivo,Toques na área/90,False,0.82,True
+LD,Lateral direito,Ofensivo,Dribles/90,False,0.24,False
+LD,Lateral direito,Ofensivo,Dribles certos %,False,0.15,False
+LD,Lateral direito,Ofensivo,Duelos ofensivos ganhos %,False,0.04,False
+LD,Lateral direito,Ofensivo,Ações ofensivas certas/90,False,0.39,True
+LD,Lateral direito,Ofensivo,Conduções progressivas/90,False,0.11,False
+LD,Lateral direito,Ofensivo,Acelerações/90,False,-0.12,False
+LD,Lateral direito,Ofensivo,Passes recebidos/90,False,-0.13,False
+LD,Lateral direito,Ofensivo,Passes longos recebidos/90,False,-0.14,False
+LD,Lateral direito,Ofensivo,Faltas sofridas/90,False,0.06,False
+LD,Lateral direito,Ofensivo,Recepções em profundidade/90,False,-0.0,False
+LD,Lateral direito,Participação em gols,Gols/90,False,0.78,True
+LD,Lateral direito,Participação em gols,Gols sem pênalti/90,False,0.76,True
+LD,Lateral direito,Participação em gols,xG/90,False,0.41,True
+LD,Lateral direito,Participação em gols,Gols de cabeça/90,False,0.69,True
+LD,Lateral direito,Participação em gols,Conversão de gols %,False,0.94,True
+LD,Lateral direito,Participação em gols,Assistências/90,False,0.34,True
+LD,Lateral direito,Participação em gols,xA/90,False,0.07,False
+LD,Lateral direito,Participação em gols,Segundas assistências/90,False,0.3,False
+LD,Lateral direito,Participação em gols,Terceiras assistências/90,False,0.15,False
+ZD,Zagueiro pela direita,Defensivo,Duelos defensivos ganhos %,False,-0.15,False
+ZD,Zagueiro pela direita,Defensivo,Duelos ganhos %,False,-0.02,False
+ZD,Zagueiro pela direita,Defensivo,Duelos aéreos ganhos %,False,0.28,False
+ZD,Zagueiro pela direita,Defensivo,Interceptações (ajust. posse),False,-0.08,False
+ZD,Zagueiro pela direita,Defensivo,Carrinhos (ajust. posse),False,-0.16,False
+ZD,Zagueiro pela direita,Defensivo,Finalizações bloqueadas/90,False,-0.5,False
+ZD,Zagueiro pela direita,Defensivo,Ações defensivas certas/90,False,-0.78,False
+ZD,Zagueiro pela direita,Defensivo,Faltas/90,True,0.2,False
+ZD,Zagueiro pela direita,Defensivo,Cartões amarelos/90,True,0.32,True
+ZD,Zagueiro pela direita,Passe,Passes/90,False,0.84,True
+ZD,Zagueiro pela direita,Passe,Passes certos %,False,0.54,True
+ZD,Zagueiro pela direita,Passe,Passes para frente/90,False,0.37,True
+ZD,Zagueiro pela direita,Passe,Passes para frente certos %,False,0.43,True
+ZD,Zagueiro pela direita,Passe,Passes progressivos/90,False,0.22,False
+ZD,Zagueiro pela direita,Passe,Passes progressivos certos %,False,0.31,True
+ZD,Zagueiro pela direita,Passe,Passes ao terço final/90,False,0.64,True
+ZD,Zagueiro pela direita,Passe,Passes ao terço final certos %,False,0.39,True
+ZD,Zagueiro pela direita,Passe,Passes longos/90,False,-0.01,False
+ZD,Zagueiro pela direita,Passe,Passes longos certos %,False,-0.04,False
+ZD,Zagueiro pela direita,Passe,Passes-chave/90,False,0.07,False
+ZD,Zagueiro pela direita,Passe,Passes para a área/90,False,0.56,True
+ZD,Zagueiro pela direita,Passe,Passes para a área certos %,False,0.09,False
+ZD,Zagueiro pela direita,Passe,Passes inteligentes/90,False,0.19,False
+ZD,Zagueiro pela direita,Passe,Passes em profundidade/90,False,0.49,True
+ZD,Zagueiro pela direita,Passe,Cruzamentos/90,False,0.68,True
+ZD,Zagueiro pela direita,Passe,Cruzamentos certos %,False,0.03,False
+ZD,Zagueiro pela direita,Passe,Assistências para finalização/90,False,0.26,False
+ZD,Zagueiro pela direita,Ofensivo,Finalizações/90,False,0.27,False
+ZD,Zagueiro pela direita,Ofensivo,Finalizações no gol %,False,0.16,False
+ZD,Zagueiro pela direita,Ofensivo,Toques na área/90,False,0.16,False
+ZD,Zagueiro pela direita,Ofensivo,Dribles/90,False,-0.15,False
+ZD,Zagueiro pela direita,Ofensivo,Dribles certos %,False,-0.09,False
+ZD,Zagueiro pela direita,Ofensivo,Duelos ofensivos ganhos %,False,-0.09,False
+ZD,Zagueiro pela direita,Ofensivo,Ações ofensivas certas/90,False,0.08,False
+ZD,Zagueiro pela direita,Ofensivo,Conduções progressivas/90,False,0.06,False
+ZD,Zagueiro pela direita,Ofensivo,Acelerações/90,False,-0.08,False
+ZD,Zagueiro pela direita,Ofensivo,Passes recebidos/90,False,0.95,True
+ZD,Zagueiro pela direita,Ofensivo,Passes longos recebidos/90,False,0.33,True
+ZD,Zagueiro pela direita,Ofensivo,Faltas sofridas/90,False,0.03,False
+ZD,Zagueiro pela direita,Ofensivo,Recepções em profundidade/90,False,0.33,True
+ZD,Zagueiro pela direita,Participação em gols,Gols/90,False,-0.35,False
+ZD,Zagueiro pela direita,Participação em gols,Gols sem pênalti/90,False,-0.35,False
+ZD,Zagueiro pela direita,Participação em gols,xG/90,False,0.09,False
+ZD,Zagueiro pela direita,Participação em gols,Gols de cabeça/90,False,-0.11,False
+ZD,Zagueiro pela direita,Participação em gols,Conversão de gols %,False,-0.11,False
+ZD,Zagueiro pela direita,Participação em gols,Assistências/90,False,0.55,True
+ZD,Zagueiro pela direita,Participação em gols,xA/90,False,-0.1,False
+ZD,Zagueiro pela direita,Participação em gols,Segundas assistências/90,False,-0.22,False
+ZD,Zagueiro pela direita,Participação em gols,Terceiras assistências/90,False,-0.03,False
+ZE,Zagueiro pela esquerda,Defensivo,Duelos defensivos ganhos %,False,0.22,False
+ZE,Zagueiro pela esquerda,Defensivo,Duelos ganhos %,False,0.3,True
+ZE,Zagueiro pela esquerda,Defensivo,Duelos aéreos ganhos %,False,0.35,True
+ZE,Zagueiro pela esquerda,Defensivo,Interceptações (ajust. posse),False,-0.32,False
+ZE,Zagueiro pela esquerda,Defensivo,Carrinhos (ajust. posse),False,0.19,False
+ZE,Zagueiro pela esquerda,Defensivo,Finalizações bloqueadas/90,False,-0.88,False
+ZE,Zagueiro pela esquerda,Defensivo,Ações defensivas certas/90,False,-0.32,False
+ZE,Zagueiro pela esquerda,Defensivo,Faltas/90,True,-0.08,False
+ZE,Zagueiro pela esquerda,Defensivo,Cartões amarelos/90,True,0.1,False
+ZE,Zagueiro pela esquerda,Passe,Passes/90,False,0.68,True
+ZE,Zagueiro pela esquerda,Passe,Passes certos %,False,-0.1,False
+ZE,Zagueiro pela esquerda,Passe,Passes para frente/90,False,0.6,True
+ZE,Zagueiro pela esquerda,Passe,Passes para frente certos %,False,-0.18,False
+ZE,Zagueiro pela esquerda,Passe,Passes progressivos/90,False,0.59,True
+ZE,Zagueiro pela esquerda,Passe,Passes progressivos certos %,False,0.45,True
+ZE,Zagueiro pela esquerda,Passe,Passes ao terço final/90,False,0.92,True
+ZE,Zagueiro pela esquerda,Passe,Passes ao terço final certos %,False,-0.07,False
+ZE,Zagueiro pela esquerda,Passe,Passes longos/90,False,0.61,True
+ZE,Zagueiro pela esquerda,Passe,Passes longos certos %,False,-0.33,False
+ZE,Zagueiro pela esquerda,Passe,Passes-chave/90,False,-0.06,False
+ZE,Zagueiro pela esquerda,Passe,Passes para a área/90,False,0.94,True
+ZE,Zagueiro pela esquerda,Passe,Passes para a área certos %,False,0.08,False
+ZE,Zagueiro pela esquerda,Passe,Passes inteligentes/90,False,0.1,False
+ZE,Zagueiro pela esquerda,Passe,Passes em profundidade/90,False,0.8,True
+ZE,Zagueiro pela esquerda,Passe,Cruzamentos/90,False,0.47,True
+ZE,Zagueiro pela esquerda,Passe,Cruzamentos certos %,False,0.27,False
+ZE,Zagueiro pela esquerda,Passe,Assistências para finalização/90,False,0.17,False
+ZE,Zagueiro pela esquerda,Ofensivo,Finalizações/90,False,0.19,False
+ZE,Zagueiro pela esquerda,Ofensivo,Finalizações no gol %,False,0.27,False
+ZE,Zagueiro pela esquerda,Ofensivo,Toques na área/90,False,0.33,True
+ZE,Zagueiro pela esquerda,Ofensivo,Dribles/90,False,0.08,False
+ZE,Zagueiro pela esquerda,Ofensivo,Dribles certos %,False,-0.45,False
+ZE,Zagueiro pela esquerda,Ofensivo,Duelos ofensivos ganhos %,False,-0.11,False
+ZE,Zagueiro pela esquerda,Ofensivo,Ações ofensivas certas/90,False,0.2,False
+ZE,Zagueiro pela esquerda,Ofensivo,Conduções progressivas/90,False,0.25,False
+ZE,Zagueiro pela esquerda,Ofensivo,Acelerações/90,False,0.01,False
+ZE,Zagueiro pela esquerda,Ofensivo,Passes recebidos/90,False,0.78,True
+ZE,Zagueiro pela esquerda,Ofensivo,Passes longos recebidos/90,False,0.33,True
+ZE,Zagueiro pela esquerda,Ofensivo,Faltas sofridas/90,False,0.08,False
+ZE,Zagueiro pela esquerda,Ofensivo,Recepções em profundidade/90,False,0.29,False
+ZE,Zagueiro pela esquerda,Participação em gols,Gols/90,False,0.61,True
+ZE,Zagueiro pela esquerda,Participação em gols,Gols sem pênalti/90,False,0.57,True
+ZE,Zagueiro pela esquerda,Participação em gols,xG/90,False,0.71,True
+ZE,Zagueiro pela esquerda,Participação em gols,Gols de cabeça/90,False,0.3,False
+ZE,Zagueiro pela esquerda,Participação em gols,Conversão de gols %,False,0.36,True
+ZE,Zagueiro pela esquerda,Participação em gols,Assistências/90,False,-0.47,False
+ZE,Zagueiro pela esquerda,Participação em gols,xA/90,False,0.32,True
+ZE,Zagueiro pela esquerda,Participação em gols,Segundas assistências/90,False,0.22,False
+ZE,Zagueiro pela esquerda,Participação em gols,Terceiras assistências/90,False,0.3,True
+LE,Lateral esquerdo,Defensivo,Duelos defensivos ganhos %,False,0.11,False
+LE,Lateral esquerdo,Defensivo,Duelos ganhos %,False,0.19,False
+LE,Lateral esquerdo,Defensivo,Duelos aéreos ganhos %,False,0.14,False
+LE,Lateral esquerdo,Defensivo,Interceptações (ajust. posse),False,-0.14,False
+LE,Lateral esquerdo,Defensivo,Carrinhos (ajust. posse),False,-0.66,False
+LE,Lateral esquerdo,Defensivo,Finalizações bloqueadas/90,False,-0.49,False
+LE,Lateral esquerdo,Defensivo,Ações defensivas certas/90,False,-0.3,False
+LE,Lateral esquerdo,Defensivo,Faltas/90,True,0.12,False
+LE,Lateral esquerdo,Defensivo,Cartões amarelos/90,True,0.12,False
+LE,Lateral esquerdo,Passe,Passes/90,False,0.5,True
+LE,Lateral esquerdo,Passe,Passes certos %,False,0.15,False
+LE,Lateral esquerdo,Passe,Passes para frente/90,False,0.27,False
+LE,Lateral esquerdo,Passe,Passes para frente certos %,False,-0.06,False
+LE,Lateral esquerdo,Passe,Passes progressivos/90,False,0.42,True
+LE,Lateral esquerdo,Passe,Passes progressivos certos %,False,0.4,True
+LE,Lateral esquerdo,Passe,Passes ao terço final/90,False,0.58,True
+LE,Lateral esquerdo,Passe,Passes ao terço final certos %,False,0.2,False
+LE,Lateral esquerdo,Passe,Passes longos/90,False,-0.0,False
+LE,Lateral esquerdo,Passe,Passes longos certos %,False,-0.2,False
+LE,Lateral esquerdo,Passe,Passes-chave/90,False,0.5,True
+LE,Lateral esquerdo,Passe,Passes para a área/90,False,0.3,False
+LE,Lateral esquerdo,Passe,Passes para a área certos %,False,0.42,True
+LE,Lateral esquerdo,Passe,Passes inteligentes/90,False,0.63,True
+LE,Lateral esquerdo,Passe,Passes em profundidade/90,False,0.11,False
+LE,Lateral esquerdo,Passe,Cruzamentos/90,False,0.27,False
+LE,Lateral esquerdo,Passe,Cruzamentos certos %,False,0.09,False
+LE,Lateral esquerdo,Passe,Assistências para finalização/90,False,0.28,False
+LE,Lateral esquerdo,Ofensivo,Finalizações/90,False,-0.29,False
+LE,Lateral esquerdo,Ofensivo,Finalizações no gol %,False,0.07,False
+LE,Lateral esquerdo,Ofensivo,Toques na área/90,False,0.15,False
+LE,Lateral esquerdo,Ofensivo,Dribles/90,False,-0.06,False
+LE,Lateral esquerdo,Ofensivo,Dribles certos %,False,0.0,False
+LE,Lateral esquerdo,Ofensivo,Duelos ofensivos ganhos %,False,-0.14,False
+LE,Lateral esquerdo,Ofensivo,Ações ofensivas certas/90,False,0.14,False
+LE,Lateral esquerdo,Ofensivo,Conduções progressivas/90,False,0.05,False
+LE,Lateral esquerdo,Ofensivo,Acelerações/90,False,0.39,True
+LE,Lateral esquerdo,Ofensivo,Passes recebidos/90,False,0.55,True
+LE,Lateral esquerdo,Ofensivo,Passes longos recebidos/90,False,0.44,True
+LE,Lateral esquerdo,Ofensivo,Faltas sofridas/90,False,-0.22,False
+LE,Lateral esquerdo,Ofensivo,Recepções em profundidade/90,False,0.43,True
+LE,Lateral esquerdo,Participação em gols,Gols/90,False,0.18,False
+LE,Lateral esquerdo,Participação em gols,Gols sem pênalti/90,False,0.18,False
+LE,Lateral esquerdo,Participação em gols,xG/90,False,-0.26,False
+LE,Lateral esquerdo,Participação em gols,Gols de cabeça/90,False,0.12,False
+LE,Lateral esquerdo,Participação em gols,Conversão de gols %,False,0.22,False
+LE,Lateral esquerdo,Participação em gols,Assistências/90,False,0.15,False
+LE,Lateral esquerdo,Participação em gols,xA/90,False,0.17,False
+LE,Lateral esquerdo,Participação em gols,Segundas assistências/90,False,0.26,False
+LE,Lateral esquerdo,Participação em gols,Terceiras assistências/90,False,0.19,False
+VOL,Volante,Defensivo,Duelos defensivos ganhos %,False,0.38,True
+VOL,Volante,Defensivo,Duelos ganhos %,False,0.31,True
+VOL,Volante,Defensivo,Duelos aéreos ganhos %,False,0.33,True
+VOL,Volante,Defensivo,Interceptações (ajust. posse),False,0.45,True
+VOL,Volante,Defensivo,Carrinhos (ajust. posse),False,0.36,True
+VOL,Volante,Defensivo,Finalizações bloqueadas/90,False,-0.27,False
+VOL,Volante,Defensivo,Ações defensivas certas/90,False,0.32,True
+VOL,Volante,Defensivo,Faltas/90,True,0.22,False
+VOL,Volante,Defensivo,Cartões amarelos/90,True,0.11,False
+VOL,Volante,Passe,Passes/90,False,0.49,True
+VOL,Volante,Passe,Passes certos %,False,0.48,True
+VOL,Volante,Passe,Passes para frente/90,False,0.46,True
+VOL,Volante,Passe,Passes para frente certos %,False,0.66,True
+VOL,Volante,Passe,Passes progressivos/90,False,0.05,False
+VOL,Volante,Passe,Passes progressivos certos %,False,0.58,True
+VOL,Volante,Passe,Passes ao terço final/90,False,0.44,True
+VOL,Volante,Passe,Passes ao terço final certos %,False,0.48,True
+VOL,Volante,Passe,Passes longos/90,False,-0.64,False
+VOL,Volante,Passe,Passes longos certos %,False,-0.46,False
+VOL,Volante,Passe,Passes-chave/90,False,0.52,True
+VOL,Volante,Passe,Passes para a área/90,False,0.34,True
+VOL,Volante,Passe,Passes para a área certos %,False,0.36,True
+VOL,Volante,Passe,Passes inteligentes/90,False,0.5,True
+VOL,Volante,Passe,Passes em profundidade/90,False,-0.08,False
+VOL,Volante,Passe,Cruzamentos/90,False,0.33,True
+VOL,Volante,Passe,Cruzamentos certos %,False,-0.1,False
+VOL,Volante,Passe,Assistências para finalização/90,False,0.4,True
+VOL,Volante,Ofensivo,Finalizações/90,False,0.02,False
+VOL,Volante,Ofensivo,Finalizações no gol %,False,0.44,True
+VOL,Volante,Ofensivo,Toques na área/90,False,0.5,True
+VOL,Volante,Ofensivo,Dribles/90,False,0.4,True
+VOL,Volante,Ofensivo,Dribles certos %,False,0.12,False
+VOL,Volante,Ofensivo,Duelos ofensivos ganhos %,False,0.16,False
+VOL,Volante,Ofensivo,Ações ofensivas certas/90,False,0.58,True
+VOL,Volante,Ofensivo,Conduções progressivas/90,False,0.57,True
+VOL,Volante,Ofensivo,Acelerações/90,False,0.18,False
+VOL,Volante,Ofensivo,Passes recebidos/90,False,0.53,True
+VOL,Volante,Ofensivo,Passes longos recebidos/90,False,-0.02,False
+VOL,Volante,Ofensivo,Faltas sofridas/90,False,0.2,False
+VOL,Volante,Ofensivo,Recepções em profundidade/90,False,0.47,True
+VOL,Volante,Participação em gols,Gols/90,False,0.68,True
+VOL,Volante,Participação em gols,Gols sem pênalti/90,False,0.74,True
+VOL,Volante,Participação em gols,xG/90,False,0.43,True
+VOL,Volante,Participação em gols,Gols de cabeça/90,False,0.48,True
+VOL,Volante,Participação em gols,Conversão de gols %,False,0.44,True
+VOL,Volante,Participação em gols,Assistências/90,False,0.57,True
+VOL,Volante,Participação em gols,xA/90,False,0.65,True
+VOL,Volante,Participação em gols,Segundas assistências/90,False,0.74,True
+VOL,Volante,Participação em gols,Terceiras assistências/90,False,0.91,True
+MED,Médio,Defensivo,Duelos defensivos ganhos %,False,0.48,True
+MED,Médio,Defensivo,Duelos ganhos %,False,0.15,False
+MED,Médio,Defensivo,Duelos aéreos ganhos %,False,-0.13,False
+MED,Médio,Defensivo,Interceptações (ajust. posse),False,0.69,True
+MED,Médio,Defensivo,Carrinhos (ajust. posse),False,0.48,True
+MED,Médio,Defensivo,Finalizações bloqueadas/90,False,0.14,False
+MED,Médio,Defensivo,Ações defensivas certas/90,False,0.5,True
+MED,Médio,Defensivo,Faltas/90,True,0.49,True
+MED,Médio,Defensivo,Cartões amarelos/90,True,0.53,True
+MED,Médio,Passe,Passes/90,False,-0.2,False
+MED,Médio,Passe,Passes certos %,False,-0.2,False
+MED,Médio,Passe,Passes para frente/90,False,-0.13,False
+MED,Médio,Passe,Passes para frente certos %,False,-0.29,False
+MED,Médio,Passe,Passes progressivos/90,False,-0.17,False
+MED,Médio,Passe,Passes progressivos certos %,False,0.21,False
+MED,Médio,Passe,Passes ao terço final/90,False,-0.04,False
+MED,Médio,Passe,Passes ao terço final certos %,False,-0.13,False
+MED,Médio,Passe,Passes longos/90,False,0.02,False
+MED,Médio,Passe,Passes longos certos %,False,-0.04,False
+MED,Médio,Passe,Passes-chave/90,False,0.38,True
+MED,Médio,Passe,Passes para a área/90,False,0.33,True
+MED,Médio,Passe,Passes para a área certos %,False,-0.02,False
+MED,Médio,Passe,Passes inteligentes/90,False,-0.15,False
+MED,Médio,Passe,Passes em profundidade/90,False,-0.12,False
+MED,Médio,Passe,Cruzamentos/90,False,0.28,False
+MED,Médio,Passe,Cruzamentos certos %,False,-0.16,False
+MED,Médio,Passe,Assistências para finalização/90,False,0.05,False
+MED,Médio,Ofensivo,Finalizações/90,False,-0.3,False
+MED,Médio,Ofensivo,Finalizações no gol %,False,0.33,True
+MED,Médio,Ofensivo,Toques na área/90,False,0.23,False
+MED,Médio,Ofensivo,Dribles/90,False,-0.21,False
+MED,Médio,Ofensivo,Dribles certos %,False,-0.22,False
+MED,Médio,Ofensivo,Duelos ofensivos ganhos %,False,-0.12,False
+MED,Médio,Ofensivo,Ações ofensivas certas/90,False,-0.06,False
+MED,Médio,Ofensivo,Conduções progressivas/90,False,-0.29,False
+MED,Médio,Ofensivo,Acelerações/90,False,-0.02,False
+MED,Médio,Ofensivo,Passes recebidos/90,False,-0.23,False
+MED,Médio,Ofensivo,Passes longos recebidos/90,False,0.19,False
+MED,Médio,Ofensivo,Faltas sofridas/90,False,-0.48,False
+MED,Médio,Ofensivo,Recepções em profundidade/90,False,0.31,True
+MED,Médio,Participação em gols,Gols/90,False,0.42,True
+MED,Médio,Participação em gols,Gols sem pênalti/90,False,0.47,True
+MED,Médio,Participação em gols,xG/90,False,0.22,False
+MED,Médio,Participação em gols,Gols de cabeça/90,False,0.5,True
+MED,Médio,Participação em gols,Conversão de gols %,False,0.46,True
+MED,Médio,Participação em gols,Assistências/90,False,0.49,True
+MED,Médio,Participação em gols,xA/90,False,0.27,False
+MED,Médio,Participação em gols,Segundas assistências/90,False,0.09,False
+MED,Médio,Participação em gols,Terceiras assistências/90,False,0.33,True
+MEI,Meia,Defensivo,Duelos defensivos ganhos %,False,1.24,True
+MEI,Meia,Defensivo,Duelos ganhos %,False,0.66,True
+MEI,Meia,Defensivo,Duelos aéreos ganhos %,False,-0.52,False
+MEI,Meia,Defensivo,Interceptações (ajust. posse),False,-0.19,False
+MEI,Meia,Defensivo,Carrinhos (ajust. posse),False,-0.08,False
+MEI,Meia,Defensivo,Finalizações bloqueadas/90,False,-0.13,False
+MEI,Meia,Defensivo,Ações defensivas certas/90,False,-0.08,False
+MEI,Meia,Defensivo,Faltas/90,True,1.06,True
+MEI,Meia,Defensivo,Cartões amarelos/90,True,0.24,False
+MEI,Meia,Passe,Passes/90,False,0.71,True
+MEI,Meia,Passe,Passes certos %,False,0.31,True
+MEI,Meia,Passe,Passes para frente/90,False,0.6,True
+MEI,Meia,Passe,Passes para frente certos %,False,0.28,False
+MEI,Meia,Passe,Passes progressivos/90,False,0.73,True
+MEI,Meia,Passe,Passes progressivos certos %,False,0.15,False
+MEI,Meia,Passe,Passes ao terço final/90,False,0.5,True
+MEI,Meia,Passe,Passes ao terço final certos %,False,0.38,True
+MEI,Meia,Passe,Passes longos/90,False,0.46,True
+MEI,Meia,Passe,Passes longos certos %,False,0.46,True
+MEI,Meia,Passe,Passes-chave/90,False,0.79,True
+MEI,Meia,Passe,Passes para a área/90,False,0.9,True
+MEI,Meia,Passe,Passes para a área certos %,False,0.03,False
+MEI,Meia,Passe,Passes inteligentes/90,False,-0.0,False
+MEI,Meia,Passe,Passes em profundidade/90,False,0.34,True
+MEI,Meia,Passe,Cruzamentos/90,False,0.81,True
+MEI,Meia,Passe,Cruzamentos certos %,False,0.2,False
+MEI,Meia,Passe,Assistências para finalização/90,False,0.71,True
+MEI,Meia,Ofensivo,Finalizações/90,False,-0.15,False
+MEI,Meia,Ofensivo,Finalizações no gol %,False,0.23,False
+MEI,Meia,Ofensivo,Toques na área/90,False,-0.04,False
+MEI,Meia,Ofensivo,Dribles/90,False,-0.11,False
+MEI,Meia,Ofensivo,Dribles certos %,False,-0.07,False
+MEI,Meia,Ofensivo,Duelos ofensivos ganhos %,False,0.18,False
+MEI,Meia,Ofensivo,Ações ofensivas certas/90,False,0.37,True
+MEI,Meia,Ofensivo,Conduções progressivas/90,False,0.16,False
+MEI,Meia,Ofensivo,Acelerações/90,False,-0.17,False
+MEI,Meia,Ofensivo,Passes recebidos/90,False,0.74,True
+MEI,Meia,Ofensivo,Passes longos recebidos/90,False,-0.13,False
+MEI,Meia,Ofensivo,Faltas sofridas/90,False,0.04,False
+MEI,Meia,Ofensivo,Recepções em profundidade/90,False,0.61,True
+MEI,Meia,Participação em gols,Gols/90,False,0.64,True
+MEI,Meia,Participação em gols,Gols sem pênalti/90,False,0.58,True
+MEI,Meia,Participação em gols,xG/90,False,0.09,False
+MEI,Meia,Participação em gols,Gols de cabeça/90,False,-0.11,False
+MEI,Meia,Participação em gols,Conversão de gols %,False,0.79,True
+MEI,Meia,Participação em gols,Assistências/90,False,0.81,True
+MEI,Meia,Participação em gols,xA/90,False,0.58,True
+MEI,Meia,Participação em gols,Segundas assistências/90,False,0.38,True
+MEI,Meia,Participação em gols,Terceiras assistências/90,False,0.03,False
+ED,Extremo pela direita,Defensivo,Duelos defensivos ganhos %,False,0.55,True
+ED,Extremo pela direita,Defensivo,Duelos ganhos %,False,0.74,True
+ED,Extremo pela direita,Defensivo,Duelos aéreos ganhos %,False,0.24,False
+ED,Extremo pela direita,Defensivo,Interceptações (ajust. posse),False,0.12,False
+ED,Extremo pela direita,Defensivo,Carrinhos (ajust. posse),False,0.31,True
+ED,Extremo pela direita,Defensivo,Finalizações bloqueadas/90,False,-0.19,False
+ED,Extremo pela direita,Defensivo,Ações defensivas certas/90,False,0.21,False
+ED,Extremo pela direita,Defensivo,Faltas/90,True,-0.03,False
+ED,Extremo pela direita,Defensivo,Cartões amarelos/90,True,0.05,False
+ED,Extremo pela direita,Passe,Passes/90,False,0.42,True
+ED,Extremo pela direita,Passe,Passes certos %,False,0.25,False
+ED,Extremo pela direita,Passe,Passes para frente/90,False,0.23,False
+ED,Extremo pela direita,Passe,Passes para frente certos %,False,0.12,False
+ED,Extremo pela direita,Passe,Passes progressivos/90,False,0.2,False
+ED,Extremo pela direita,Passe,Passes progressivos certos %,False,0.76,True
+ED,Extremo pela direita,Passe,Passes ao terço final/90,False,0.17,False
+ED,Extremo pela direita,Passe,Passes ao terço final certos %,False,-0.0,False
+ED,Extremo pela direita,Passe,Passes longos/90,False,0.25,False
+ED,Extremo pela direita,Passe,Passes longos certos %,False,0.08,False
+ED,Extremo pela direita,Passe,Passes-chave/90,False,0.24,False
+ED,Extremo pela direita,Passe,Passes para a área/90,False,0.55,True
+ED,Extremo pela direita,Passe,Passes para a área certos %,False,0.43,True
+ED,Extremo pela direita,Passe,Passes inteligentes/90,False,0.48,True
+ED,Extremo pela direita,Passe,Passes em profundidade/90,False,0.39,True
+ED,Extremo pela direita,Passe,Cruzamentos/90,False,0.15,False
+ED,Extremo pela direita,Passe,Cruzamentos certos %,False,0.02,False
+ED,Extremo pela direita,Passe,Assistências para finalização/90,False,0.39,True
+ED,Extremo pela direita,Ofensivo,Finalizações/90,False,-0.12,False
+ED,Extremo pela direita,Ofensivo,Finalizações no gol %,False,0.36,True
+ED,Extremo pela direita,Ofensivo,Toques na área/90,False,-0.01,False
+ED,Extremo pela direita,Ofensivo,Dribles/90,False,0.11,False
+ED,Extremo pela direita,Ofensivo,Dribles certos %,False,0.57,True
+ED,Extremo pela direita,Ofensivo,Duelos ofensivos ganhos %,False,0.41,True
+ED,Extremo pela direita,Ofensivo,Ações ofensivas certas/90,False,0.42,True
+ED,Extremo pela direita,Ofensivo,Conduções progressivas/90,False,0.36,True
+ED,Extremo pela direita,Ofensivo,Acelerações/90,False,0.29,False
+ED,Extremo pela direita,Ofensivo,Passes recebidos/90,False,0.51,True
+ED,Extremo pela direita,Ofensivo,Passes longos recebidos/90,False,-0.1,False
+ED,Extremo pela direita,Ofensivo,Faltas sofridas/90,False,-0.15,False
+ED,Extremo pela direita,Ofensivo,Recepções em profundidade/90,False,0.78,True
+ED,Extremo pela direita,Participação em gols,Gols/90,False,0.19,False
+ED,Extremo pela direita,Participação em gols,Gols sem pênalti/90,False,0.13,False
+ED,Extremo pela direita,Participação em gols,xG/90,False,-0.15,False
+ED,Extremo pela direita,Participação em gols,Gols de cabeça/90,False,-0.17,False
+ED,Extremo pela direita,Participação em gols,Conversão de gols %,False,0.22,False
+ED,Extremo pela direita,Participação em gols,Assistências/90,False,0.51,True
+ED,Extremo pela direita,Participação em gols,xA/90,False,0.38,True
+ED,Extremo pela direita,Participação em gols,Segundas assistências/90,False,0.58,True
+ED,Extremo pela direita,Participação em gols,Terceiras assistências/90,False,0.22,False
+EE,Extremo pela esquerda,Defensivo,Duelos defensivos ganhos %,False,-0.03,False
+EE,Extremo pela esquerda,Defensivo,Duelos ganhos %,False,-0.4,False
+EE,Extremo pela esquerda,Defensivo,Duelos aéreos ganhos %,False,-0.27,False
+EE,Extremo pela esquerda,Defensivo,Interceptações (ajust. posse),False,0.17,False
+EE,Extremo pela esquerda,Defensivo,Carrinhos (ajust. posse),False,-0.01,False
+EE,Extremo pela esquerda,Defensivo,Finalizações bloqueadas/90,False,-0.17,False
+EE,Extremo pela esquerda,Defensivo,Ações defensivas certas/90,False,-0.0,False
+EE,Extremo pela esquerda,Defensivo,Faltas/90,True,-0.17,False
+EE,Extremo pela esquerda,Defensivo,Cartões amarelos/90,True,0.7,True
+EE,Extremo pela esquerda,Passe,Passes/90,False,-0.16,False
+EE,Extremo pela esquerda,Passe,Passes certos %,False,0.17,False
+EE,Extremo pela esquerda,Passe,Passes para frente/90,False,-0.37,False
+EE,Extremo pela esquerda,Passe,Passes para frente certos %,False,0.01,False
+EE,Extremo pela esquerda,Passe,Passes progressivos/90,False,-0.5,False
+EE,Extremo pela esquerda,Passe,Passes progressivos certos %,False,0.05,False
+EE,Extremo pela esquerda,Passe,Passes ao terço final/90,False,-0.61,False
+EE,Extremo pela esquerda,Passe,Passes ao terço final certos %,False,0.01,False
+EE,Extremo pela esquerda,Passe,Passes longos/90,False,-0.61,False
+EE,Extremo pela esquerda,Passe,Passes longos certos %,False,0.01,False
+EE,Extremo pela esquerda,Passe,Passes-chave/90,False,-0.11,False
+EE,Extremo pela esquerda,Passe,Passes para a área/90,False,-0.14,False
+EE,Extremo pela esquerda,Passe,Passes para a área certos %,False,0.49,True
+EE,Extremo pela esquerda,Passe,Passes inteligentes/90,False,-0.34,False
+EE,Extremo pela esquerda,Passe,Passes em profundidade/90,False,-0.63,False
+EE,Extremo pela esquerda,Passe,Cruzamentos/90,False,0.21,False
+EE,Extremo pela esquerda,Passe,Cruzamentos certos %,False,-0.4,False
+EE,Extremo pela esquerda,Passe,Assistências para finalização/90,False,-0.25,False
+EE,Extremo pela esquerda,Ofensivo,Finalizações/90,False,0.35,True
+EE,Extremo pela esquerda,Ofensivo,Finalizações no gol %,False,0.54,True
+EE,Extremo pela esquerda,Ofensivo,Toques na área/90,False,0.66,True
+EE,Extremo pela esquerda,Ofensivo,Dribles/90,False,0.03,False
+EE,Extremo pela esquerda,Ofensivo,Dribles certos %,False,-0.38,False
+EE,Extremo pela esquerda,Ofensivo,Duelos ofensivos ganhos %,False,-0.46,False
+EE,Extremo pela esquerda,Ofensivo,Ações ofensivas certas/90,False,-0.02,False
+EE,Extremo pela esquerda,Ofensivo,Conduções progressivas/90,False,0.1,False
+EE,Extremo pela esquerda,Ofensivo,Acelerações/90,False,-0.07,False
+EE,Extremo pela esquerda,Ofensivo,Passes recebidos/90,False,-0.06,False
+EE,Extremo pela esquerda,Ofensivo,Passes longos recebidos/90,False,-0.0,False
+EE,Extremo pela esquerda,Ofensivo,Faltas sofridas/90,False,-0.26,False
+EE,Extremo pela esquerda,Ofensivo,Recepções em profundidade/90,False,0.32,True
+EE,Extremo pela esquerda,Participação em gols,Gols/90,False,0.68,True
+EE,Extremo pela esquerda,Participação em gols,Gols sem pênalti/90,False,0.72,True
+EE,Extremo pela esquerda,Participação em gols,xG/90,False,0.54,True
+EE,Extremo pela esquerda,Participação em gols,Gols de cabeça/90,False,0.1,False
+EE,Extremo pela esquerda,Participação em gols,Conversão de gols %,False,0.5,True
+EE,Extremo pela esquerda,Participação em gols,Assistências/90,False,0.19,False
+EE,Extremo pela esquerda,Participação em gols,xA/90,False,-0.14,False
+EE,Extremo pela esquerda,Participação em gols,Segundas assistências/90,False,0.95,True
+EE,Extremo pela esquerda,Participação em gols,Terceiras assistências/90,False,-0.0,False
+CA,Centroavante,Defensivo,Duelos defensivos ganhos %,False,-0.31,False
+CA,Centroavante,Defensivo,Duelos ganhos %,False,-0.23,False
+CA,Centroavante,Defensivo,Duelos aéreos ganhos %,False,0.22,False
+CA,Centroavante,Defensivo,Interceptações (ajust. posse),False,-0.45,False
+CA,Centroavante,Defensivo,Carrinhos (ajust. posse),False,-0.2,False
+CA,Centroavante,Defensivo,Finalizações bloqueadas/90,False,-0.41,False
+CA,Centroavante,Defensivo,Ações defensivas certas/90,False,-0.58,False
+CA,Centroavante,Defensivo,Faltas/90,True,0.06,False
+CA,Centroavante,Defensivo,Cartões amarelos/90,True,-0.06,False
+CA,Centroavante,Passe,Passes/90,False,-0.51,False
+CA,Centroavante,Passe,Passes certos %,False,-0.19,False
+CA,Centroavante,Passe,Passes para frente/90,False,-0.36,False
+CA,Centroavante,Passe,Passes para frente certos %,False,-0.12,False
+CA,Centroavante,Passe,Passes progressivos/90,False,-0.39,False
+CA,Centroavante,Passe,Passes progressivos certos %,False,-0.19,False
+CA,Centroavante,Passe,Passes ao terço final/90,False,-0.61,False
+CA,Centroavante,Passe,Passes ao terço final certos %,False,0.07,False
+CA,Centroavante,Passe,Passes longos/90,False,-0.51,False
+CA,Centroavante,Passe,Passes longos certos %,False,0.02,False
+CA,Centroavante,Passe,Passes-chave/90,False,0.23,False
+CA,Centroavante,Passe,Passes para a área/90,False,-0.21,False
+CA,Centroavante,Passe,Passes para a área certos %,False,0.18,False
+CA,Centroavante,Passe,Passes inteligentes/90,False,-0.23,False
+CA,Centroavante,Passe,Passes em profundidade/90,False,-0.28,False
+CA,Centroavante,Passe,Cruzamentos/90,False,-0.07,False
+CA,Centroavante,Passe,Cruzamentos certos %,False,0.22,False
+CA,Centroavante,Passe,Assistências para finalização/90,False,-0.27,False
+CA,Centroavante,Ofensivo,Finalizações/90,False,0.35,True
+CA,Centroavante,Ofensivo,Finalizações no gol %,False,0.33,True
+CA,Centroavante,Ofensivo,Toques na área/90,False,0.73,True
+CA,Centroavante,Ofensivo,Dribles/90,False,-0.19,False
+CA,Centroavante,Ofensivo,Dribles certos %,False,-0.45,False
+CA,Centroavante,Ofensivo,Duelos ofensivos ganhos %,False,-0.33,False
+CA,Centroavante,Ofensivo,Ações ofensivas certas/90,False,-0.04,False
+CA,Centroavante,Ofensivo,Conduções progressivas/90,False,-0.15,False
+CA,Centroavante,Ofensivo,Acelerações/90,False,0.05,False
+CA,Centroavante,Ofensivo,Passes recebidos/90,False,-0.29,False
+CA,Centroavante,Ofensivo,Passes longos recebidos/90,False,0.17,False
+CA,Centroavante,Ofensivo,Faltas sofridas/90,False,-0.43,False
+CA,Centroavante,Ofensivo,Recepções em profundidade/90,False,0.1,False
+CA,Centroavante,Participação em gols,Gols/90,False,0.82,True
+CA,Centroavante,Participação em gols,Gols sem pênalti/90,False,0.8,True
+CA,Centroavante,Participação em gols,xG/90,False,0.56,True
+CA,Centroavante,Participação em gols,Gols de cabeça/90,False,0.3,False
+CA,Centroavante,Participação em gols,Conversão de gols %,False,0.71,True
+CA,Centroavante,Participação em gols,Assistências/90,False,0.24,False
+CA,Centroavante,Participação em gols,xA/90,False,0.19,False
+CA,Centroavante,Participação em gols,Segundas assistências/90,False,-0.01,False
+CA,Centroavante,Participação em gols,Terceiras assistências/90,False,0.37,True

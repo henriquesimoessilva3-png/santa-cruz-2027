@@ -1,0 +1,5 @@
+regra,auc_medio,anos,LD,ZD,ZE,LE,VOL,MED,MEI,ED,EE,CA
+"F — 3 por bloco (como hoje, só técnico)",0.636,4,0.54,0.44,,0.68,0.48,0.64,,,,0.63
+"P — todos que separam (≥ 0,30)",0.657,4,0.51,0.33,,0.6,0.63,0.63,,,,0.63
+"Os 8 mais fortes, sem bloco",0.643,4,0.58,0.33,,0.6,0.39,0.61,,,,0.65
+"Nota por grupo, pesada pela separação",0.674,4,0.54,0.37,,0.65,0.65,0.56,,,,0.69
