@@ -100,6 +100,7 @@ def aplicar(H=None):
     except Exception as e: print("  cards manuais: arquivo ainda incompleto, fica para depois (" + str(e)[:60] + ")"); dm = None
     if dm is not None:
         m4 = 0
+        dm = dm[~dm.primaryKey.astype(str).str.match(r"^(Kayque|Kayke) - ")]   # identificação a confirmar (18/10)
         for c in ("jogos", "minutos", "gols", "assistencias", "gols_cabeca", "penaltis_cobrados", "penaltis_gol", "gols_falta", "jogos_time"):
             dm[c] = pd.to_numeric(dm.get(c), errors="coerce")
         for (pk, t), g in dm.groupby(["primaryKey", dm.temporada.astype(str)]):

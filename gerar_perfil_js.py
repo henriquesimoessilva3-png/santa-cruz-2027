@@ -30,7 +30,8 @@ def main():
             out["tm"].setdefault(nz(nome), []).append([clube, idade, a, pe, val, ct])
     mp = os.path.join(AQUI, "dados", "manuais_perfil.csv")
     if os.path.exists(mp):
-        for r in pd.read_csv(mp).itertuples():
+        for r in pd.read_csv(mp, sep=None, engine="python").itertuples():
+            if str(r.primaryKey).startswith(("Kayque - ", "Kayke - ")): continue   # identificação a confirmar
             v = lambda c: None if pd.isna(getattr(r, c, None)) else getattr(r, c)
             out["manual"][r.primaryKey] = {"alt": v("altura_cm"), "pe": v("pe"), "valor": v("valor_mercado_eur"), "contrato": v("contrato_ate"), "nasc": v("nascimento"), "fonte": v("fonte")}
     json.dump(out, open(os.path.join(AQUI, "static", "perfil_extra.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"), default=lambda o: o.item() if hasattr(o, "item") else str(o))

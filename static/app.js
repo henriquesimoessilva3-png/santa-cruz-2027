@@ -2949,7 +2949,8 @@ async function perfilExtraDe(j) {
     if (!PERFIL_EXTRA) PERFIL_EXTRA = fetch('static/perfil_extra.json' + (window.__verDados ? '?v=' + window.__verDados : '')).then(r => (r.ok ? r.json() : null)).catch(() => null);
     const P = await PERFIL_EXTRA; if (!P || !j) return null;
     const pk = primaryKey(j);
-    if (P.manual && P.manual[pk]) { const m = P.manual[pk]; return { alt: m.alt, pe: m.pe, valor: m.valor, contrato: m.contrato, fonte: 'levantamento' + (m.fonte ? ' · ' + m.fonte : '') }; }
+    const pkM = (j.n || '') + ' - ' + (j.t || '') + ' - Manual';
+    if (P.manual && (P.manual[pk] || P.manual[pkM])) { const m = P.manual[pk] || P.manual[pkM]; return { alt: m.alt, pe: m.pe, valor: m.valor, contrato: m.contrato, fonte: 'levantamento' + (m.fonte ? ' · ' + m.fonte : '') }; }
     const k = String(j.nc || j.n || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
     let c = (P.tm && (P.tm[k] || (j.nc && P.tm[String(j.n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim()]))) || [];
     const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
