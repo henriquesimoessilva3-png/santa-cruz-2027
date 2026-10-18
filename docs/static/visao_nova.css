@@ -64,3 +64,24 @@ body.visao-nova nav.vn-sub {
 #pgVnFisico .vnf-vaz { color: var(--tinta3); font-size: 11.5px; }
 #pgVnFisico .vnf-tot th, #pgVnFisico .vnf-tot td { border-top: 2px solid var(--borda2); background: var(--fundo2); }
 #pgVnFisico .vnf-nota { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); max-width: 120ch; line-height: 1.5; }
+/* regra + grupos de indicadores lado a lado */
+#pgVnFisico .vnf-duas { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 14px; align-items: start; margin: 0 0 16px; }
+@media (max-width: 1100px) { #pgVnFisico .vnf-duas { grid-template-columns: 1fr; } }
+#pgVnFisico .vnf-duas .vnf-regra { margin: 0; max-width: none; }
+#pgVnFisico .vnf-eixos { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); padding: 12px 16px; font-size: 12.5px; line-height: 1.5; }
+#pgVnFisico .vnf-eixos h4 { margin: 0 0 8px; font-size: 13.5px; }
+#pgVnFisico .vnf-eixos h4 b { font-size: 16px; }
+#pgVnFisico .vnf-eixos table { border-collapse: collapse; width: 100%; }
+#pgVnFisico .vnf-eixos th, #pgVnFisico .vnf-eixos td { text-align: left; vertical-align: top; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--linha1); }
+#pgVnFisico .vnf-eixos thead th { font-size: 10.5px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--borda2); }
+#pgVnFisico .vnf-eixos tbody th { font-weight: 700; color: var(--tinta); white-space: nowrap; }
+#pgVnFisico .vnf-eixos tbody th small { display: block; font-weight: 500; color: var(--tinta3); font-size: 11px; }
+#pgVnFisico .vnf-eixos tbody th small b { font-size: 14px; color: var(--tinta); }
+#pgVnFisico .vnf-eixos ul { margin: 0; padding-left: 16px; }
+#pgVnFisico .vnf-eixos td { color: var(--tinta2); }
+#pgVnFisico .vnf-eixos td b { color: var(--tinta); }
+#pgVnFisico .vnf-eixos p { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); }
+#pgVnFisico .vnf-duas > * { min-width: 0; }
+#pgVnFisico .vnf-eixos table { table-layout: fixed; }
+#pgVnFisico .vnf-eixos col.c1 { width: 24%; } #pgVnFisico .vnf-eixos col.c2 { width: 36%; } #pgVnFisico .vnf-eixos col.c3 { width: 40%; }
+#pgVnFisico .vnf-eixos th, #pgVnFisico .vnf-eixos td { overflow-wrap: anywhere; white-space: normal; }

@@ -127,12 +127,21 @@
       '<h2 class="vnf-tit">Físico — o que importa para subir</h2>' +
       '<p class="vnf-intro">Cada jogador de linha recebe uma <b>letra</b> pelo perfil físico (SkillCorner), comparado com os jogadores da mesma posição na Série B. ' +
       'É a mesma letra dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta.</p>' +
-      '<div class="vnf-regra"><div><span class="tipo-abc tipo-Ap">A+</span><span><b>Explosivo e motor de volume</b> — explosão <i>e</i> volume acima de +0,5 desvio da Série B do setor. Não existe no médio e no meia.</span></div>' +
+      '<div class="vnf-duas"><div class="vnf-regra"><div><span class="tipo-abc tipo-Ap">A+</span><span><b>Explosivo e motor de volume</b> — explosão <i>e</i> volume acima de +0,5 desvio da Série B do setor. Não existe no médio e no meia.</span></div>' +
       '<div><span class="tipo-abc tipo-A">A</span><span><b>O tipo mais forte da posição</b> — explosivo e rápido; no volante, o "mais intenso"; no médio, o <i>motor de volume</i> (volume acima de +0,5).</span></div>' +
       '<div><span class="tipo-abc tipo-B">B</span><span><b>O do meio</b> — motor de volume, médio em tudo ou intermediário. Também o "explosivo, pouco volume": seria C pelo volume, mas tem explosão acima de +0,25.</span></div>' +
       '<div><span class="tipo-abc tipo-C">C</span><span><b>Baixa intensidade</b> (no volante, "menos intenso") — fraco em explosão <i>e</i> em volume.</span></div>' +
       '<p>Como é calculado: seis indicadores (PSV-99, sprints/90, ações de alta intensidade/90, arrancadas explosivas/90, distância/90 e corridas por 30 min com posse) viram desvios em relação à Série B do setor; o jogador recebe o tipo físico mais próximo (centróide do estudo V2) e a letra vem da regra do clube para a posição. ' +
       'Físico colado na ficha vale sobre o do estudo, em todo o app. Em 18/10 foi testada uma letra por duas notas 0–100 (explosão e volume), com peso do físico por posição (b17); separava melhor quem sobe, mas mudava <b>446</b> letras já analisadas — decisão: <b>fica a regra atual</b>.</p></div>' +
+      /* 18/10 — os dois grupos de indicadores, ao lado da regra: quais são, quantos e o que cada um compõe */
+      '<div class="vnf-eixos"><h4>Os <b>6</b> indicadores, em dois grupos</h4>' +
+      '<table><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Grupo</th><th>Indicadores (SkillCorner, por 90 min)</th><th>Compõe</th></tr></thead><tbody>' +
+      '<tr><th>Explosão e rapidez<small><b>4</b> indicadores</small></th><td><ul><li>Velocidade máxima (PSV-99)</li><li>Sprints</li><li>Ações de alta intensidade</li><li>Arrancadas explosivas</li></ul></td>' +
+      '<td>A média dos 4 desvios é a <b>explosão</b>: define o tipo <i>Explosivo e rápido</i> (A); acima de <b>+0,5</b> entra no A+; acima de <b>+0,25</b> tira do C ("explosivo, pouco volume").</td></tr>' +
+      '<tr><th>Volume<small><b>2</b> indicadores</small></th><td><ul><li>Distância percorrida</li><li>Corridas sem bola (por 30 min com posse)</li></ul></td>' +
+      '<td>A média dos 2 desvios é o <b>volume</b>: define o <i>Motor de volume</i>; acima de <b>+0,5</b> dá o A+ (com explosão) e o A do médio.</td></tr>' +
+      '</tbody></table><p>Cada indicador vira um desvio em relação à Série B do setor; o tipo é o centróide mais próximo nos 6. ' +
+      'Os outros 11 indicadores do SkillCorner repetem estes (metros por minuto = distância, distância de sprint = sprints…) e ficaram de fora para não contar duas vezes.</p></div></div>' +
       '<div id="vnfMatriz"></div>' +
       '<div id="vnfPainel"></div>' +
       (b15 ? '<article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div><h2>' + esc(b15.titulo) + '</h2>' + b15.html + '</article>' : '<p class="esv-vazio">O estudo V2 não carregou (static/estudo_v2_dados.js).</p>') +
