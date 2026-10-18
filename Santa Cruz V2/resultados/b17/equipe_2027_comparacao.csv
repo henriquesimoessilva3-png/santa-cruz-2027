@@ -1,0 +1,36 @@
+pos11,nome,v1,ex,vo,v2,peso,situacao
+ZE,Ricardo Graça,B,65.0,29.0,A,piso (não pode ser C),ok
+ZE,Bernardo Schappo,C,28.0,37.0,C,piso (não pode ser C),abaixo do piso
+ZE,Luisão,A,84.0,68.0,A+,piso (não pode ser C),ok
+VOL,Fernandinho Conceição,A,90.0,59.0,A,letra conta,ok
+VOL,Mateus Carvalho,B,51.0,57.0,B,letra conta,abaixo do pedido
+VOL,André Luiz,B,56.0,17.0,B,letra conta,abaixo do pedido
+CA,Carlão,B,55.0,61.0,B,piso (não pode ser C),ok
+CA,Ítalo Carvalho,C,7.0,92.0,B,piso (não pode ser C),ok
+CA,Bruno Rodrigues,A+,73.0,81.0,A+,piso (não pode ser C),ok
+CA,Cadu,A+,95.0,85.0,A+,piso (não pode ser C),ok
+CA,J. Otero,A,93.0,49.0,A,piso (não pode ser C),ok
+CA,Hygor,A,98.0,27.0,A,piso (não pode ser C),ok
+CA,Cristian Renato,A,89.0,57.0,A,piso (não pode ser C),ok
+CA,Lucas Duarte,B,56.0,36.0,B,piso (não pode ser C),ok
+CA,Diego Fernandes,A+,70.0,84.0,A+,piso (não pode ser C),ok
+LE,Guilherme Sityá,C,48.0,20.0,B,letra conta,abaixo do pedido
+LE,Rafael Santos,A,64.0,60.0,A,letra conta,ok
+MEI,Kauan Lindes,A,96.0,65.0,A,piso (não pode ser C),ok
+MEI,Heinz Mörschel,C,35.0,30.0,C,piso (não pode ser C),abaixo do piso
+MEI,D. Valdés,C,3.0,76.0,B,piso (não pode ser C),ok
+LD,Mádson,A,85.0,10.0,A,letra conta,ok
+LD,Anderson,B,51.0,84.0,B,letra conta,abaixo do pedido
+ED,André Luis,B,66.0,5.0,A,piso (não pode ser C),ok
+ED,Dadá Belmonte,C,31.0,26.0,C,piso (não pode ser C),abaixo do piso
+EE,Andre Shinyashiki,B,31.0,63.0,B,letra conta,abaixo do pedido
+EE,Keno,C,65.0,1.0,A,letra conta,ok
+EE,Matheus Serafim,A,96.0,6.0,A,letra conta,ok
+EE,Italo Vargas,A,75.0,32.0,A,letra conta,ok
+MED,Robinho,A,72.0,89.0,A,letra conta,ok
+MED,Kayke,B,60.0,17.0,B,letra conta,abaixo do pedido
+MED,João Vitor,A,35.0,75.0,A,letra conta,ok
+ZD,Gabriel Bahia,A,96.0,47.0,A,piso (não pode ser C),ok
+ZD,Sergio Palacios,A,100.0,38.0,A,piso (não pode ser C),ok
+ZD,César Martins,A+,100.0,96.0,A+,piso (não pode ser C),ok
+ZD,Thiago Martins,A+,95.0,90.0,A+,piso (não pode ser C),ok

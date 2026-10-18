@@ -1,0 +1,7 @@
+grupo,regra,n_sobe,n_cai,A_mais_sobe_pts,C_mais_sobe_pts
+Todas,atual,58,56,11.330049261083744,-11.945812807881772
+Todas,nova,58,56,21.12068965517241,-11.576354679802956
+"Onde o físico separa (LD, LE, EE, VOL, MED)",atual,33,28,20.995670995671,-15.584415584415584
+"Onde o físico separa (LD, LE, EE, VOL, MED)",nova,33,28,31.49350649350649,-18.073593073593074
+"Outras (ZD, ZE, MEI, ED, CA)",atual,25,28,-1.4285714285714262,-6.0
+"Outras (ZD, ZE, MEI, ED, CA)",nova,25,28,9.142857142857148,-4.142857142857142
