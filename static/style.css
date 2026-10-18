@@ -3740,3 +3740,7 @@ body.visao-nova .jpainel{flex:none}
 .fi-leg i.am{width:9px!important;height:9px!important;flex:none;padding:0;margin:0}
 .sf-grid{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
 .fi-linha.sf{grid-template-columns:minmax(120px,1.7fr) 46px minmax(60px,1fr) 38px 38px}
+.fi-leg i.az{background:var(--fi-azul,#3b82f6)}
+.fi-linha.sf.lider .fi-barra i{background:var(--fi-azul,#3b82f6)} .fi-linha.sf.lider .val{color:#60a5fa}
+.fi-linha.sf.acima .fi-barra i{background:var(--fi-verde,#22c55e)}
+.fi-linha.sf.abaixo .fi-barra i{background:var(--fi-vermelho,#ef4444)}

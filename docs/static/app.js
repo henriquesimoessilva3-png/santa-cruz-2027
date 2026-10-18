@@ -3033,12 +3033,12 @@ function botaoFichaComp() {
   if (!b) { b = document.createElement('button'); b.id = 'fiComp'; b.className = 'bt mini'; const ref = $('#fiDados') || base; ref.insertAdjacentElement('afterend', b);
     b.onclick = () => { try { localStorage.setItem('sc_fichaComp', fichaComp() === 'sobe' ? 'liga' : 'sobe'); } catch (e) {} botaoFichaComp(); renderFicha(); }; }
   const sobe = fichaComp() === 'sobe';
-  b.textContent = sobe ? '⇄ comparar com a liga' : '⇄ quem sobe × quem cai';
-  b.title = sobe ? 'Hoje: contra o titular de quem subiu e de quem caiu na Série B. Clique para comparar com a liga (o seletor ao lado)' : 'Hoje: contra a liga. Clique para voltar a quem sobe × quem cai';
+  b.textContent = sobe ? '⇄ comparar com a liga dele' : '⇄ voltar à Série B';
+  b.title = sobe ? 'Hoje: contra a média da Série B. Clique para comparar com a liga dele (o seletor ao lado)' : 'Hoje: contra a liga dele. Clique para voltar à Série B';
   base.style.display = sobe ? 'none' : '';
   let et = $('#fiCompRot');
   if (!et) { et = document.createElement('span'); et.id = 'fiCompRot'; et.className = 'fi-comp-rot'; base.insertAdjacentElement('beforebegin', et); }
-  et.textContent = sobe ? 'vs. quem sobe × quem cai' : ''; et.style.display = sobe ? '' : 'none';
+  et.textContent = sobe ? 'vs. média da Série B' : ''; et.style.display = sobe ? '' : 'none';
 }
 function rotuloFiDados(j) {
   const bt = $('#fiDados'); if (!bt || !j) return;
@@ -3465,7 +3465,7 @@ async function montarFicha(j, modo) {
   const quadroSubida = VN ? '' : (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
   if (compSobe && typeof window.subidaFicha === 'function') { const q = window.subidaFicha(jSub, dados); if (q) corpo = q; }
 
-  const rodape = compSobe ? 'Comparado com o titular mediano dos clubes que subiram e dos que caíram na Série B 2022–2025, na posição (' + sig(jSub.p) + ') — use o botão ao lado de “físico/técnico” para comparar com a liga.' : 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
+  const rodape = compSobe ? 'Comparado com a média e o melhor da Série B na posição (' + sig(jSub.p) + '). Fundamentais (●) = os que separam quem sobe de quem cai na Série B 2022–2025; ◆ = os da letra física. O botão ao lado de “físico/técnico” troca para a liga dele.' : 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posb' ? ' da Série B' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
     ' · período ' + (dados && dados.periodo ? dados.periodo : 'ago26');
 
@@ -3497,8 +3497,8 @@ async function montarFicha(j, modo) {
       resumoF = '<div class="fi-resumo">' +
         '<div class="fi-res"><span class="fi-res-l tipo-' + (Lm ? 'Ap' : (L || 'nd')) + '">' + (L || '?') + '</span><div><b>Tipo físico ' + (L || 'sem letra') + '</b><small>' +
           (tx && tx.tipo ? esc(tx.tipo) + (Lm ? ' — A com volume (o perfil completo)' : L0 === 'A' ? ' — o tipo A da posição' : ' — o A da posição é ' + esc(jl.p === 'MED' ? 'o motor de volume' : pref.join(' / '))) : 'sem rastreio físico suficiente (5 jogos)') + '</small></div></div>' +
-        (s && s.conta ? '<div class="fi-res" title="' + esc(s.html ? (s.html.match(/title="([^"]*)"/) || [])[1] || '' : '') + '"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : '<i>' + s.verde + '</i> de <i>' + s.com + '</i> fundamentais no nível de quem sobe') + '</b><small>' +
-          '<span class="sf-n v">' + s.verde + '</span> no nível · <span class="sf-n a">' + s.amarelo + '</span> até 10% abaixo · <span class="sf-n r">' + s.vermelho + '</span> mais longe' + (s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai', n: '' })[s.c] + '</small></div></div>'
+        (s && s.conta ? '<div class="fi-res" title="' + esc(s.html ? (s.html.match(/title="([^"]*)"/) || [])[1] || '' : '') + '"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : '<i>' + s.verde + '</i> de <i>' + s.com + '</i> fundamentais na média da Série B ou acima') + '</b><small>' +
+          '<span class="sf-n v">' + s.verde + '</span> no nível · <span class="sf-n a">' + s.amarelo + '</span> até 10% abaixo · <span class="sf-n r">' + s.vermelho + '</span> abaixo' + (s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai', n: '' })[s.c] + '</small></div></div>'
         : s && s.nova ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : 'nota <i>' + (s.nota > 0 ? '+' : '') + s.nota.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</i> — ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai' })[s.c]) + '</b><small>' +
           s.grupos.map(g => esc(g.g) + ' ' + (g.z == null ? '—' : (g.z > 0 ? '+' : '') + g.z.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' (' + Math.round(100 * g.w / s.pesoTot) + '%)').join(' · ') +
           (s.com < s.n ? ' · ' + (s.n - s.com) + ' de ' + s.n + ' sem dado' : '') + ' · régua ' + esc(s.regua) + '</small></div></div>'

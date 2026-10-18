@@ -2,9 +2,10 @@
   - "centroavante só ficou com três": mais fundamentais — entra quem separa quem sobe de quem cai em 0,15 desvio ou mais
     (sem o filtro "a time igual"; o zagueiro mantém a defesa à força, decisão do clube de 09/10). Escolhido por ele entre
     0,30+0,20 · 0,20+0,10 · 0,20 · 0,15 depois do teste (b22_teste_cortes.py): a previsão quase não muda (AUC 0,63–0,65).
-  - "contar os indicadores acima ou abaixo é melhor do que essa nota": cada fundamental vira uma cor contra a mediana do
-    titular de quem SOBE na posição (Série B 2022–2025, ≥ 900 min): verde = no nível de quem sobe ou acima · amarelo = até
-    10% abaixo · vermelho = mais de 10% abaixo (em faltas e cartões, "abaixo" = acima). Pontos = (verdes − vermelhos) ÷ medidos.
+  - "contar os indicadores acima ou abaixo é melhor do que essa nota": cada fundamental vira uma cor contra a MÉDIA DA SÉRIE B
+    na posição (2ª versão, 18/10 16h: "quem sobe às vezes é pior que quem cai; vamos pela média da Série B para todos"):
+    verde = na média ou acima · amarelo = até 10% abaixo · vermelho = mais de 10% abaixo (faltas e cartões ao contrário).
+    No histórico, a média é a da Série B do próprio ano, na posição (titulares ≥ 900 min). Pontos = (verdes − vermelhos) ÷ medidos.
     ▲ = pontos a partir da mediana dos titulares de quem sobe · ▼ = até a mediana dos de quem cai · ↔ entre os dois.
   - Grupo único: os grupos ficam só como rótulo. A nota z do b21 continua calculada (só no detalhe).
 Saídas: static/tecnico_grupos_dados.js (o app lê; mesmo formato do b21 + modo "conta") e resultados/b22/{indicadores,auc}.csv, B22.md."""
@@ -17,14 +18,14 @@ RAW = T  # valores crus, mesmas linhas de Z
 FORC = {"ZAG": set(CLUBE_DEF)}
 
 def medianas(anos):
+    """a referência de cada ano: média da Série B daquele ano, na posição — (ano, pos, k) -> (média, média)"""
     m = {}
-    for p in ORDEM:
-        g = RAW[RAW.ano.isin(anos) & (RAW.pos11 == p)]
-        for i in IND:
-            s, c = g[g.faixa == "Sobe"][i["col"]].median(), g[g.faixa == "Cai"][i["col"]].median()
-            if pd.isna(s) or pd.isna(c): continue
-            if REGUA[p] == "ZAG" and i["rot"] in FORC["ZAG"]: s = min(s, c) if i["menor"] else max(s, c)
-            m[(p, i["k"])] = (float(s), float(c))
+    for a in ANOS:
+        for p in ORDEM:
+            g = RAW[(RAW.ano == a) & (RAW.pos11 == p)]
+            for i in IND:
+                v = g[i["col"]].dropna()
+                if len(v) >= 5: m[(a, p, i["k"])] = (float(v.mean()), float(v.mean()))
     return m
 
 def cor(v, s, menor):
@@ -37,7 +38,7 @@ def pontos(df, esc, med):
     for idx, r in df.iterrows():
         ks = esc[REGUA[r.pos11]]["entra"]; vs = []
         for e in ks:
-            i = next(x for x in IND if x["k"] == e["k"]); mm = med.get((r.pos11, e["k"]))
+            i = next(x for x in IND if x["k"] == e["k"]); mm = med.get((r.ano, r.pos11, e["k"]))
             if not mm: continue
             c = cor(r[i["col"]], mm[0], i["menor"])
             if c is not None: vs.append(c)
@@ -72,7 +73,7 @@ for ano in ANOS:
     for rg, _, ps in REGUAS:
         mm = ok & te.pos11.isin(ps)
         if mm.sum() >= 16 and y[mm].nunique() == 2: por[rg].append(roc_auc_score(y[mm], pr[mm]))
-res.append({"regra": "Contagem (a seta nova) — corte 0,15, verde/amarelo 10%/vermelho", "auc": round(float(np.mean(aucs)), 3), **{rg: (round(float(np.mean(v)), 2) if v else None) for rg, v in por.items()}})
+res.append({"regra": "Contagem contra a média da Série B (a seta nova) — corte 0,15, verde/amarelo 10%/vermelho", "auc": round(float(np.mean(aucs)), 3), **{rg: (round(float(np.mean(v)), 2) if v else None) for rg, v in por.items()}})
 try:
     old = pd.read_csv(os.path.join(RES, "b21", "auc.csv")).to_dict("records")
     for r in old: r["regra"] = "b21 · " + r["regra"]; res.append({k: (None if isinstance(v, float) and pd.isna(v) else v) for k, v in r.items()})
@@ -85,7 +86,7 @@ for rg, nome, _ in REGUAS:
     for f in FINAL[rg]["fora"]: rows.append({"regua": rg, "posicao": nome, "entra": 0, "grupo": f["g"], "indicador": f["rot"], "sep": f["sep"], "motivo": f["motivo"]})
 pd.DataFrame(rows).to_csv(os.path.join(OUT2, "indicadores.csv"), index=False)
 
-dados = {"gerado_em": datetime.date.today().isoformat(), "modo": "conta", "perto": PERTO, "anos": list(ANOS), "ref_anos": list(REF_ANOS), "min": MIN, "corte": CORTE, "corte_t": None, "zmax": ZMAX,
+dados = {"gerado_em": datetime.date.today().isoformat(), "modo": "conta", "ref": "media_serie_b", "perto": PERTO, "anos": list(ANOS), "ref_anos": list(REF_ANOS), "min": MIN, "corte": CORTE, "corte_t": None, "zmax": ZMAX,
          "grupos": GRUPOS, "regua_de": REGUA, "ordem": [rg for rg, _, _ in REGUAS], "posicoes_da_regua": {rg: ps for rg, _, ps in REGUAS},
          "reguas": {rg: FINAL[rg] for rg, _, _ in REGUAS}, "auc": res}
 with open(os.path.join(RAIZ, "static", "tecnico_grupos_dados.js"), "w", encoding="utf-8") as fh:
@@ -93,7 +94,7 @@ with open(os.path.join(RAIZ, "static", "tecnico_grupos_dados.js"), "w", encoding
     fh.write("window.TECNICO_GRUPOS = " + json.dumps(dados, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
 md = ["# A seta técnica por contagem (b22)", "", f"*18/10/2026 · titulares da Série B 2022–2025 (≥ 900 min, Wyscout).*", "",
-      "Fundamental = separa quem sobe de quem cai em **0,15** desvio ou mais (zagueiro: defesa à força). Cada um vira cor contra a mediana de quem sobe na posição: verde no nível ou acima · amarelo até **10%** abaixo · vermelho mais que isso. Pontos = (verdes − vermelhos) ÷ medidos; ▲ a partir da mediana de quem sobe, ▼ até a de quem cai.", "",
+      "Fundamental = separa quem sobe de quem cai em **0,15** desvio ou mais (zagueiro: defesa à força). Cada um vira cor contra a média da Série B na posição: verde na média ou acima · amarelo até **10%** abaixo · vermelho mais que isso. Pontos = (verdes − vermelhos) ÷ medidos; ▲ a partir da mediana de quem sobe, ▼ até a de quem cai.", "",
       "| Régua | fundamentais | corte ▲ | corte ▼ | titulares ▲ · ↔ · ▼ |", "|---|---|---|---|---|"]
 for rg, nome, _ in REGUAS:
     F = FINAL[rg]; d = F["dist"]["Todos"]

@@ -29,8 +29,8 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 - **Estudo › Técnico**: dois quadros novos (`montarTecnico` em visao_nova.js): regra das setas e "entra/fica de fora" por régua.
 
 ## Mudanças de 18/10 (tarde)
-- Ficha da visão nova = quadro único contra quem sobe × quem cai (`subidaFicha` em subida.js); botão "⇄ comparar com a liga" (`fichaComp`, localStorage `sc_fichaComp`); a parte de baixo saiu.
-- Seta técnica por CONTAGEM (b22, `b22_seta_contagem.py`): fundamentais = separação ≥ 0,15 (zagueiro com defesa à força); verde ≥ quem sobe · amarelo até 10% abaixo · vermelho; pontos = (verdes − vermelhos) ÷ medidos; ▲/▼ pelas medianas de quem sobe/cai. CA 11 fundamentais. AUC 0,637.
+- Ficha da visão nova = quadro único contra a MÉDIA DA SÉRIE B (gêmeas juntas; `serieB`/`subidaFicha` em subida.js): verde ≥ média · amarelo até 10% abaixo · vermelho · azul = melhor da Série B; ● fundamental técnico, ◆ indicador da letra. Botão "⇄ comparar com a liga dele" (`fichaComp`); a parte de baixo saiu.
+- Seta técnica por CONTAGEM (b22, `b22_seta_contagem.py`): fundamentais = separação ≥ 0,15 (zagueiro com defesa à força); cor contra a média da Série B (no histórico, a do ano); pontos = (verdes − vermelhos) ÷ medidos; ▲/▼ pelas medianas de quem sobe/cai. CA 11 fundamentais. AUC 0,637.
 
 ## Pendências
 - Henrique conferir na tela o card novo (largura, nome, minutagem) — não foi visto em tela cheia.

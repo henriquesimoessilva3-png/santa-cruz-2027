@@ -506,14 +506,36 @@
     if (bx ? v <= s * (1 + p) + 1e-9 : v >= s * (1 - p) - 1e-9) return 'a';
     return 'r';
   }
+  /* 18/10 (16h) — REFERÊNCIA = SÉRIE B: média e melhor dos jogadores da Série B na posição (gêmeas juntas: laterais,
+     zagueiros, extremos), da base da aba (temporada atual, ≥ 900 min). verde ≥ média · amarelo até 10% abaixo · vermelho
+     abaixo · azul = o melhor da Série B (benchmark). Em faltas e cartões, menos é melhor. */
+  const GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
+  const cacheSB = {};
+  function serieB(pos, k) {
+    const ch = pos + '|' + k; if (cacheSB[ch] !== undefined) return cacheSB[ch];
+    const i = D.inds[k]; let sm = 0, n = 0, best = null;
+    (GEMEAS[pos] || [pos]).forEach(p => (D.posicoes[p] ? D.posicoes[p].jog : []).forEach(r => {
+      if (r[3] !== 'Brasil B') return; const v = r[NC + k]; if (typeof v !== 'number' || !isFinite(v)) return;
+      sm += v; n++; if (best == null || (i.menor ? v < best : v > best)) best = v;
+    }));
+    return cacheSB[ch] = n >= 5 ? { med: sm / n, best, n } : null;
+  }
+  function corSB(i, ref, v) {
+    if (v == null || !ref) return '';
+    const m = ref.med, bx = !!i.menor, p = PERTO();
+    if (ref.best != null && (bx ? v <= ref.best : v >= ref.best)) return 'b';
+    if (bx ? v <= m : v >= m) return 'v';
+    if (bx ? v <= m * (1 + p) + 1e-9 : v >= m * (1 - p) - 1e-9) return 'a';
+    return 'r';
+  }
   window.subidaCor10 = (pos, k, v) => { const i = D && D.inds[k]; return i ? cor10(i, ref(pos, k), v) : ''; };
   function contaVals(pos, get, R) {
     const ZM = TG.zmax || 2.5; let nv = 0, na = 0, nr = 0, com = 0; const inds = [], sem_ = [], zs = [];
     R.entra.forEach(e => {
       const i = D.inds[e.k]; if (!i) return;
-      const v = get(i), r = ref(pos, e.k);
-      if (v == null || !r || r[0] == null) { sem_.push(e.rot); inds.push({ rot: e.rot, k: e.k, v: null }); return; }
-      const c = cor10(i, r, v) || 'a'; com++; if (c === 'v') nv++; else if (c === 'a') na++; else nr++;
+      const v = get(i), sb = serieB(pos, e.k);
+      if (v == null || !sb) { sem_.push(e.rot); inds.push({ rot: e.rot, k: e.k, v: null }); return; }
+      let c = corSB(i, sb, v); if (c === 'b') c = 'v'; com++; if (c === 'v') nv++; else if (c === 'a') na++; else nr++;
       let z = (v - e.mu) / (e.sd || 1); if (e.menor) z = -z; zs.push(Math.max(-ZM, Math.min(ZM, z)));
       inds.push({ rot: e.rot, k: e.k, v, c });
     });
@@ -551,8 +573,8 @@
     if (o.conta) {
       const nome = D.posicoes[pos].nome, pc = Math.round(PERTO() * 100);
       if (o.c === 'n') return 'Seta técnica (' + nome + '): faltam dados — só ' + o.com + ' dos ' + o.n + ' fundamentais estão medidos.' + (o.sem.length ? ' Sem dado: ' + o.sem.join(', ') + '.' : '');
-      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais no nível de quem sobe · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' mais longe' +
-        (o.parcial ? ' (PARCIAL: só ' + o.com + ' dos ' + o.n + ' medidos)' : '') + '.\nPontos (verdes − vermelhos) ÷ medidos = ' + NOTA_ARRED(o.pontos) + ' · ▲ a partir de ' + NOTA_ARRED(o.cortes.v) + ' (mediana dos titulares de quem sobe) · ▼ até ' + NOTA_ARRED(o.cortes.r) + ' (mediana de quem cai).' +
+      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais na média da Série B ou acima · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' abaixo' +
+        (o.parcial ? ' (PARCIAL: só ' + o.com + ' dos ' + o.n + ' medidos)' : '') + '.\nPontos (verdes − vermelhos) ÷ medidos = ' + NOTA_ARRED(o.pontos) + ' · ▲ a partir de ' + NOTA_ARRED(o.cortes.v) + ' (onde fica o titular mediano de quem sobe) · ▼ até ' + NOTA_ARRED(o.cortes.r) + ' (o de quem cai). Fundamentais = os que separam quem sobe de quem cai na Série B 2022–25.' +
         (o.falta.length ? '\nVermelho em: ' + o.falta.join(', ') + '.' : '') + (o.sem.length ? '\nSem dado: ' + o.sem.join(', ') + '.' : '') +
         (o.nota != null ? '\nNota z (média dos desvios contra a Série B ' + TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2) + '): ' + NOTA_ARRED(o.nota) + '.' : '');
     }
@@ -723,6 +745,7 @@
     R.entra.forEach(e => { if (KPI[e.rot] != null) out.add(KPI[e.rot]); });
     return out;
   };
+  const FIS_LETRA = { psv: 'velocidade máxima', spr_n: 'sprints', hi_n: 'alta intensidade', expl: 'arrancadas explosivas', dist: 'distância', obr: 'corridas sem bola' };
   window.subidaFicha = function (j, dados) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';
@@ -732,38 +755,39 @@
       if (RN) RN.entra.forEach(e => { fund[e.k] = e; });
       let nf = 0; const linhas = [];
       D.inds.forEach(i => {
-        let v = null;
-        if (i.cat === 'fis') v = j[FIS_ORD[nf++]]; else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
+        let v = null, fk = null;
+        if (i.cat === 'fis') { fk = FIS_ORD[nf++]; v = j[fk]; } else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
-        const r = ref(j.p, i.k); if (!r || r[0] == null || r[1] == null) return;
+        const sb = serieB(j.p, i.k); if (!sb) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
-        linhas.push({ i, r, v, c: fund[i.k] ? (cor10(i, r, v) || corFicha(i, r, v)) : corFicha(i, r, v), f: !!fund[i.k], d: fund[i.k] ? fund[i.k].sep : r[2] });
+        const f = i.cat === 'fis' ? (FIS_LETRA[fk] ? 'L' : '') : (fund[i.k] ? 'F' : '');
+        linhas.push({ i, sb, v, c: corSB(i, sb, v), f, d: fund[i.k] ? fund[i.k].sep : 0 });
       });
       if (!linhas.some(l => l.v != null)) return '';
       const blocos = []; D.inds.forEach(i => { if (!blocos.includes(i.bloco)) blocos.push(i.bloco); });
       const linha = l => {
-        const o = l.r.orig || l.r, s = l.r[0], c = o[1], v = l.v, bx = !!l.i.menor, est = false;
-        const alvo = Math.max(v || 0, s || 0, c || 0, 1e-6) * 1.12, w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
-        const cls = l.c === 'v' ? 'acima' : l.c === 'a' ? 'perto' : l.c === 'r' ? 'abaixo' : 'neutro';
-        const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + ' · titular de quem sobe ' + num(s, l.i.casas) + ' · de quem cai ' + num(c, l.i.casas) +
-          (bx ? ' · aqui MENOS é melhor' : '') + (est ? ' · quem sobe tem MENOS: retrato do estilo do time, sem cor' : '') + (l.i.nm ? ' · o Wyscout mudou o critério' : '') +
-          (l.f ? ' · FUNDAMENTAL: conta na seta do card' : '');
-        return '<div class="fi-linha sf ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">●</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx && !est ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
+        const m = l.sb.med, bst = l.sb.best, v = l.v, bx = !!l.i.menor;
+        const alvo = Math.max(v || 0, m || 0, bst || 0, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
+        const cls = { b: 'lider', v: 'acima', a: 'perto', r: 'abaixo' }[l.c] || 'neutro';
+        const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + ' · média da Série B ' + num(m, l.i.casas) + ' · melhor ' + num(bst, l.i.casas) + ' (' + l.sb.n + ' jogadores)' +
+          (bx ? ' · aqui MENOS é melhor' : '') + (l.i.nm ? ' · o Wyscout mudou o critério' : '') +
+          (l.f === 'F' ? ' · FUNDAMENTAL: separa quem sobe de quem cai na Série B 2022–25 e conta na seta do card' : l.f === 'L' ? ' · entra na LETRA física' : '');
+        return '<div class="fi-linha sf ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
           '<span class="val">' + (v == null ? '—' : num(v, l.i.casas)) + '</span>' +
-          '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(s) + '%"></span></span>' +
-          '<span class="med">' + num(s, l.i.casas) + '</span><span class="mx">' + num(c, l.i.casas) + '</span></div>';
+          '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(m) + '%"></span></span>' +
+          '<span class="med">' + num(m, l.i.casas) + '</span><span class="mx">' + num(bst, l.i.casas) + '</span></div>';
       };
       const bloco = b => {
-        const ls = linhas.filter(l => l.i.bloco === b).sort((a, c) => ((c.f ? 1 : 0) - (a.f ? 1 : 0)) || (Math.abs(c.d || 0) - Math.abs(a.d || 0)));
+        const ls = linhas.filter(l => l.i.bloco === b).sort((a, c) => ((c.f ? 1 : 0) - (a.f ? 1 : 0)) || ((c.d || 0) - (a.d || 0)));
         if (!ls.length) return '';
         const fs = ls.filter(l => l.f && l.v != null);
-        return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont">' + fs.filter(l => l.c === 'v').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-          '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">sobe</span><span class="mx">cai</span></div>' + ls.map(linha).join('') + '</div>';
+        return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont" title="' + (b === 'Físico' ? 'indicadores da letra' : 'fundamentais') + ' na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
+          '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
       };
       return '<div class="fi-grid sf-grid">' + blocos.map(bloco).join('') + '</div>' +
-        '<div class="fi-leg"><span><i class="v"></i>no nível de quem sobe</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>mais longe</span>' +
-        '<span><i class="m"></i>traço = titular de quem sobe</span><span><b class="sf-f">●</b> fundamental — conta na seta do card</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
-        '<span class="num-leg">sobe · cai = titular mediano de quem subiu e de quem caiu na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', ' + esc(P.nome) + '</span></div>';
+        '<div class="fi-leg"><span><i class="v"></i>na média da Série B ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
+        '<span><i class="m"></i>traço = média da Série B</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
+        '<span class="num-leg">média e melhor = jogadores da Série B na posição' + (GEMEAS[j.p] ? ' (os dois lados juntos)' : '') + ', temporada atual, 900 min ou mais</span></div>';
     } catch (e) { return ''; }
   };
   window.subidaQuadro = function (j, dados) {
