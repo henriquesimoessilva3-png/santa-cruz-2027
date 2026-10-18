@@ -3737,3 +3737,6 @@ body.visao-nova .jpainel{flex:none}
 .sf-n{font-weight:800;font-size:13px}
 .sf-n.v{color:#22c55e} .sf-n.a{color:#eab308} .sf-n.r{color:#ef4444}
 .fi-comp-rot{font-size:12px;color:var(--tinta2);padding:4px 10px;border:1px solid var(--borda2);border-radius:6px}
+.fi-leg i.am{width:9px!important;height:9px!important;flex:none;padding:0;margin:0}
+.sf-grid{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.fi-linha.sf{grid-template-columns:minmax(120px,1.7fr) 46px minmax(60px,1fr) 38px 38px}

@@ -498,6 +498,14 @@
     if (bx ? v <= s * (1 + p) + 1e-9 : v >= s * (1 - p) - 1e-9) return 'a';
     return 'r';
   }
+  /* na ficha (18/10, 2ª): TODO indicador ganha cor, inclusive os de "estilo" — mais é melhor, exceto faltas e cartões */
+  function corFicha(i, r, v) {
+    if (v == null || !r || r[0] == null) return '';
+    const s = r[0], bx = !!i.menor, p = PERTO();
+    if (bx ? v <= s : v >= s) return 'v';
+    if (bx ? v <= s * (1 + p) + 1e-9 : v >= s * (1 - p) - 1e-9) return 'a';
+    return 'r';
+  }
   window.subidaCor10 = (pos, k, v) => { const i = D && D.inds[k]; return i ? cor10(i, ref(pos, k), v) : ''; };
   function contaVals(pos, get, R) {
     const ZM = TG.zmax || 2.5; let nv = 0, na = 0, nr = 0, com = 0; const inds = [], sem_ = [], zs = [];
@@ -729,12 +737,12 @@
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
         const r = ref(j.p, i.k); if (!r || r[0] == null || r[1] == null) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
-        linhas.push({ i, r, v, c: cor10(i, r, v), f: !!fund[i.k], d: fund[i.k] ? fund[i.k].sep : r[2] });
+        linhas.push({ i, r, v, c: fund[i.k] ? (cor10(i, r, v) || corFicha(i, r, v)) : corFicha(i, r, v), f: !!fund[i.k], d: fund[i.k] ? fund[i.k].sep : r[2] });
       });
       if (!linhas.some(l => l.v != null)) return '';
       const blocos = []; D.inds.forEach(i => { if (!blocos.includes(i.bloco)) blocos.push(i.bloco); });
       const linha = l => {
-        const o = l.r.orig || l.r, s = o[0], c = o[1], v = l.v, bx = paraBaixo(l.i, l.r), est = estilo(l.i, l.r);
+        const o = l.r.orig || l.r, s = l.r[0], c = o[1], v = l.v, bx = !!l.i.menor, est = false;
         const alvo = Math.max(v || 0, s || 0, c || 0, 1e-6) * 1.12, w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
         const cls = l.c === 'v' ? 'acima' : l.c === 'a' ? 'perto' : l.c === 'r' ? 'abaixo' : 'neutro';
         const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + ' · titular de quem sobe ' + num(s, l.i.casas) + ' · de quem cai ' + num(c, l.i.casas) +
@@ -742,7 +750,7 @@
           (l.f ? ' · FUNDAMENTAL: conta na seta do card' : '');
         return '<div class="fi-linha sf ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">●</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx && !est ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
           '<span class="val">' + (v == null ? '—' : num(v, l.i.casas)) + '</span>' +
-          '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(s) + '%"></span><span class="marca cai" style="left:' + w(c) + '%"></span></span>' +
+          '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(s) + '%"></span></span>' +
           '<span class="med">' + num(s, l.i.casas) + '</span><span class="mx">' + num(c, l.i.casas) + '</span></div>';
       };
       const bloco = b => {
@@ -754,7 +762,7 @@
       };
       return '<div class="fi-grid sf-grid">' + blocos.map(bloco).join('') + '</div>' +
         '<div class="fi-leg"><span><i class="v"></i>no nível de quem sobe</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>mais longe</span>' +
-        '<span><i class="m"></i>quem sobe</span><span><i class="m cai"></i>quem cai</span><span><b class="sf-f">●</b> fundamental — conta na seta do card</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
+        '<span><i class="m"></i>traço = titular de quem sobe</span><span><b class="sf-f">●</b> fundamental — conta na seta do card</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
         '<span class="num-leg">sobe · cai = titular mediano de quem subiu e de quem caiu na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', ' + esc(P.nome) + '</span></div>';
     } catch (e) { return ''; }
   };
