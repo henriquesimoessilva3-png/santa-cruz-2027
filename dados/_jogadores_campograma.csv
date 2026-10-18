@@ -1,0 +1,352 @@
+primaryKey,nome,clube_atual,liga_atual,pos,idade,historico_no_app
+Arthur Rezende - Muharraq - Bahrain,Arthur Rezende,Muharraq,Bahrain,MED,32,2025:Cuiabá:3j | 2026:Muharraq:20j
+Rezende - Qingdao West Coast - China,Rezende,Qingdao West Coast,China,ZE,31,2024:Bahia:18j | 2025:Bahia:11j | 2026:Qingdao West Coast:14j
+Guilherme Madruga - Shandong Taishan - China,Guilherme Madruga,Shandong Taishan,China,MED,25,2024:Cuiabá:6j | 2025:Shandong Taishan:28j | 2026:Shandong Taishan:14j
+Caio Vinícius - Yunnan Yukun - China,Caio Vinícius,Yunnan Yukun,China,VOL,27,2024:Vitória:11j | 2025:Remo:28j | 2026:Yunnan Yukun:11j
+Felipe - Chengdu Rongcheng - China,Felipe Silva,Chengdu Rongcheng,China,CA,34,2024:Chengdu Rongcheng:30j | 2025:Chengdu Rongcheng:30j | 2026:Chengdu Rongcheng:9j
+Mateusão - Shabab Al Ahli Dubai - Emirados,Mateusão,Shabab Al Ahli Dubai,Emirados,CA,22,2024:Shabab Al Ahli Dubai:10j | 2025:Shabab Al Ahli Dubai:18j | 2026:Shabab Al Ahli Dubai:18j
+Gianluca Muniz - Al Bataeh - Emirados,Gian,Al Bataeh,Emirados,LE,25,2024:Ajman:9j | 2025:Al Wahda:4j | 2026:Al Bataeh:16j
+Caio Eduardo - Al Ittihad Kalba - Emirados,Caio Eduardo,Al Ittihad Kalba,Emirados,VOL,23,2024:Al Ittihad Kalba:11j | 2025:Al Ittihad Kalba:21j | 2026:Al Ittihad Kalba:13j
+Igor Silva - Lorient - França A,Igor Silva,Lorient,França A,LD,29,2024:Lorient:5j | 2025:Lorient:25j | 2026:Lorient:17j
+Gustavo Ferrareis - Atlas - Mexico,Gustavo Ferrareis,Atlas,Mexico,LD,30,2024:Puebla:26j | 2025:Puebla:29j | 2026:Atlas:33j
+G. Fernández - Cruz Azul - Mexico,Gabriel Fernández,Cruz Azul,Mexico,CA,32,2024:Cruz Azul:26j | 2025:Cruz Azul:21j | 2026:Cruz Azul:36j
+Bernardo Schappo - Estrela Amadora - Portugal A,Bernardo Schappo,Estrela Amadora,Portugal A,ZE,27,2024:Botafogo SP:31j | 2025:Vila Nova:12j | 2026:Estrela Amadora:26j
+Adriel - AVS - Portugal A,Adriel,AVS,Portugal A,GOL,25,2025:Athletic Club:30j | 2026:AVS:16j
+Paulo Vitor - AVS - Portugal A,Paulo Vitor,AVS,Portugal A,ZE,24,2024:Nacional:22j | 2025:Akron Togliatti:16j | 2026:AVS:18j
+Mateus Pivô - AVS - Portugal A,Mateus Pivô,AVS,Portugal A,LD,28,2024:Brusque:26j | 2025:Brusque:16j | 2026:AVS:14j
+Rony Lopes - Tondela - Portugal A,Rony Lopes,Tondela,Portugal A,CA,30,2024:Sporting Braga:15j | 2025:Farense / Alanyaspor:28j | 2026:Tondela:16j
+Kaly - Casa Pia AC - Portugal A,Kaly,Casa Pia AC,Portugal A,ZD,22,2026:Casa Pia AC:12j
+Robinho - Estrela Amadora - Portugal A,Robinho,Estrela Amadora,Portugal A,VOL,23,2024:Volta Redonda:25j | 2025:Volta Redonda:15j | 2026:Estrela Amadora:23j
+Rhaldney - Göztepe - Turquia,Rhaldney,Göztepe,Turquia,MED,27,2024:Atlético GO:32j | 2025:Atlético GO:13j | 2026:Göztepe:18j
+Lucas Paes - Torreense - Portugal B,Lucas Paes,Torreense,Portugal B,GOL,28,2024:Casa Pia AC:2j | 2025:Torreense:23j | 2026:Torreense:31j
+Felipe Silva - Porto II - Portugal B,Felipe Silva,Porto II,Portugal B,ZE,24,2024:Gil Vicente:3j | 2025:Porto II:30j | 2026:Porto II:32j
+Anilson - Paços de Ferreira - Portugal B,Anilson,Paços de Ferreira,Portugal B,LD,24,2025:Paços de Ferreira:31j | 2026:Paços de Ferreira:30j
+Luccas Paraizo - Leixões - Portugal B,Luccas Paraizo,Leixões,Portugal B,CA,23,2024:Guarani:15j | 2025:Torreense:10j | 2026:Leixões / Maccabi Netanya:19j
+Allan Godói - Göztepe - Turquia,Allan Godói,Göztepe,Turquia,ZD,33,2024:Operário PR:10j | 2025:Operário PR:10j | 2026:Göztepe:27j
+Luccas Claro - Eyüpspor - Turquia,Luccas Claro,Eyüpspor,Turquia,ZE,34,2024:Eyüpspor:33j | 2025:Eyüpspor:34j | 2026:Eyüpspor:17j
+Jordan - Zorya - Ucrania,Jordan,Zorya,Ucrania,ZD,27,2024:Zorya:15j | 2025:Zorya:29j | 2026:Zorya:29j
+G. Ávalos - Independiente - Argentina A,Gabriel Ávalos,Independiente,Argentina A,CA,35,2024:Independiente:9j | 2025:Independiente:30j | 2026:Independiente:21j
+R. Insúa - Barracas Central - Argentina A,Rodrigo Insúa,Barracas Central,Argentina A,LE,28,2024:Barracas Central:9j | 2025:Barracas Central:31j | 2026:Barracas Central:21j
+L. Gil - Huracán - Argentina A,Leonardo Gil,Huracán,Argentina A,MED,35,2024:Colo Colo:25j | 2025:Huracán:33j | 2026:Huracán:23j
+I. Fernández - Gimnasia La Plata - Argentina A,I. Fernández,Gimnasia La Plata,Argentina A,MEI,36,2024:River Plate:9j | 2026:Gimnasia La Plata:21j
+T. Porra - Barracas Central - Argentina A,Tomás Porra,Barracas Central,Argentina A,MED,22,2024:San Lorenzo [Reservas]:8j | 2025:Barracas Central:27j | 2026:Barracas Central:21j
+F. Pereyra - Huracán - Argentina A,Fabio Pereyra,Huracán,Argentina A,ZD,36,2024:Huracán:5j | 2025:Huracán:35j | 2026:Huracán:19j
+L. Souto - Defensa y Justicia - Argentina A,Lucas Souto,Defensa y Justicia,Argentina A,ZD,27,2024:Huracán:4j | 2025:Defensa y Justicia:3j | 2026:Defensa y Justicia:18j
+I. Miramón - Gimnasia La Plata - Argentina A,Ignacio Miramón,Gimnasia La Plata,Argentina A,MED,23,2024:Lille:2j | 2025:Boca Juniors:3j | 2026:Gimnasia La Plata:18j
+J. Canale - Lanús - Argentina A,José Canale,Lanús,Argentina A,ZE,30,2024:Lanús:2j | 2025:Lanús:11j | 2026:Lanús:15j
+F. Nicola - Atlético Tucumán - Argentina A,Franco Nicola,Atlético Tucumán,Argentina A,MED,24,2024:Liverpool:21j | 2025:Atlético Tucumán:23j | 2026:Atlético Tucumán:19j
+S. López - Tigre - Argentina A,Santiago López,Tigre,Argentina A,EE,20,2024:Independiente:16j | 2025:Rosario Central:19j | 2026:Tigre:20j
+A. Osella - Independiente Rivadavia - Argentina A,A. Osella,Independiente Rivadavia,Argentina A,ZE,25,2025:Independiente Rivadavia:18j | 2026:Independiente Rivadavia:17j
+W. Mazzantti - Newell's Old Boys - Argentina A,Walter Mazzantti,Newell's Old Boys,Argentina A,ED,29,2024:Huracán:8j | 2025:Independiente:30j | 2026:Newell's Old Boys:19j
+J. Gauto - Platense - Argentina A,Juan Carlos Gauto,Platense,Argentina A,EE,22,2024:Basel:18j | 2025:Basel:1j | 2026:Platense:18j
+N. Retamar - Platense - Argentina A,Nicolás Retamar,Platense,Argentina A,MEI,27,2024:Ferro Carril Oeste:36j | 2025:Independiente Rivadavia:28j | 2026:Platense:17j
+R. Botta - Defensa y Justicia - Argentina A,Rubén Botta,Defensa y Justicia,Argentina A,CA,36,2024:Talleres Córdoba:8j | 2025:Talleres Córdoba:23j | 2026:Defensa y Justicia:13j
+T. Nasif - Platense - Argentina A,Tomás Nasif,Platense,Argentina A,CA,22,2024:River Plate [Reservas]:23j | 2025:Banfield (E) [River Plate]:9j | 2026:Platense (E) [River Plate]:16j
+F. Fagúndez - Deportivo Morón - Argentina B,F. Fagúndez,Deportivo Morón,Argentina B,CA,27,2024:Estudiantes de Caseros:36j | 2025:Deportivo Riestra Res.:9j | 2026:Deportivo Morón:21j
+L. Silba - Deportivo Madryn - Argentina B,Luis Silba,Deportivo Madryn,Argentina B,CA,36,2024:Gimnasia Mendoza:41j | 2025:Deportivo Madryn:36j | 2026:Deportivo Madryn:19j
+Marllon - Remo - Brasil A,Marllon,Remo,Brasil A,ZD,34,2024:Cuiabá:55j | 2025:Ceará:25j | 2026:Remo:21j
+Alef Manga - Remo - Brasil A,Alef Manga,Remo,Brasil A,EE,31,2024:Coritiba:4j | 2025:Avaí:23j | 2026:Remo:23j
+Reinaldo - Mirassol - Brasil A,Reinaldo,Mirassol,Brasil A,LE,36,2024:Grêmio:46j | 2025:Mirassol:34j | 2026:Mirassol:19j
+Josué - Coritiba - Brasil A,Josué,Coritiba,Brasil A,MEI,35,2024:Coritiba:14j | 2025:Coritiba:34j | 2026:Coritiba:21j
+Willian Machado - Mirassol - Brasil A,Willian Machado,Mirassol,Brasil A,ZE,29,2024:Operário PR:34j | 2025:Ceará:36j | 2026:Mirassol:17j
+Breno Bidon - Corinthians - Brasil A,Breno Bidon,Corinthians,Brasil A,MED,21,2024:Corinthians:29j | 2025:Corinthians:33j | 2026:Corinthians:21j
+Luan Peres - Santos - Brasil A,Luan Peres,Santos,Brasil A,ZE,32,2025:Santos:24j | 2026:Santos:17j
+Kaio Jorge - Cruzeiro - Brasil A,Kaio Jorge,Cruzeiro,Brasil A,CA,24,2024:Cruzeiro:16j | 2025:Cruzeiro:33j | 2026:Cruzeiro:17j
+Victor Gabriel - Internacional - Brasil A,Victor Gabriel,Internacional,Brasil A,ZE,22,2025:Internacional:14j | 2026:Internacional:16j
+Matheus Martins - Botafogo - Brasil A,Matheus Martins,Botafogo,Brasil A,EE,23,2024:Botafogo:14j | 2025:Botafogo:15j | 2026:Botafogo:20j
+Tchê Tchê - Vasco da Gama - Brasil A,Tchê Tchê,Vasco da Gama,Brasil A,MED,33,2024:Botafogo:28j | 2025:Vasco da Gama:29j | 2026:Vasco da Gama:16j
+Bernard - Atlético Mineiro - Brasil A,Bernard,Atlético Mineiro,Brasil A,MEI,33,2024:Atlético Mineiro:16j | 2025:Atlético Mineiro:30j | 2026:Atlético Mineiro:19j
+M. Cassierra - Atlético Mineiro - Brasil A,M. Cassierra,Atlético Mineiro,Brasil A,CA,29,2024:Zenit:16j | 2025:Zenit:30j | 2026:Atlético Mineiro:18j
+Ademir - Bahia - Brasil A,Ademir,Bahia,Brasil A,ED,31,2024:Bahia:31j | 2025:Bahia:30j | 2026:Bahia:22j
+David - Vasco da Gama - Brasil A,David,Vasco da Gama,Brasil A,CA,30,2024:Vasco da Gama:23j | 2025:Vasco da Gama:24j | 2026:Vasco da Gama:19j
+Ignácio - Fluminense - Brasil A,Ignácio,Fluminense,Brasil A,ZD,29,2025:Fluminense:19j | 2026:Fluminense:11j
+João Schmidt - Santos - Brasil A,João Schmidt,Santos,Brasil A,VOL,33,2024:Santos:33j | 2025:Santos:31j | 2026:Santos:12j
+Enio - Chapecoense - Brasil A,Enio,Chapecoense,Brasil A,ED,25,2024:Amazonas:36j | 2025:Juventude:26j | 2026:Chapecoense:13j
+A. Frías - Santos - Brasil A,A. Frías,Santos,Brasil A,ZD,28,2024:León:30j | 2025:Santos:13j | 2026:Santos:9j
+João Pedro Chermont - Coritiba - Brasil A,João Pedro Chermont,Coritiba,Brasil A,LD,20,2024:Santos:31j | 2025:Santos:14j | 2026:Coritiba:13j
+Matheus Fernandes - Red Bull Bragantino - Brasil A,Matheus Fernandes,Red Bull Bragantino,Brasil A,VOL,28,2024:Red Bull Bragantino:16j | 2025:Red Bull Bragantino:20j | 2026:Red Bull Bragantino:14j
+Edson Carioca - Mirassol - Brasil A,Edson Carioca,Mirassol,Brasil A,CA,29,2024:Juventude:15j | 2025:Mirassol:21j | 2026:Mirassol:16j
+C. Spinelli - Vasco da Gama - Brasil A,C. Spinelli,Vasco da Gama,Brasil A,CA,29,2024:Defensor Sporting:15j | 2025:Independiente del Valle:35j | 2026:Vasco da Gama:16j
+Zé Ivaldo - Remo - Brasil A,Zé Ivaldo,Remo,Brasil A,ZE,29,2024:Cruzeiro:29j | 2025:Santos:21j | 2026:Remo:9j
+Dudu Kogitzki - Athletico Paranaense - Brasil A,Dudu Kogitzki,Athletico Paranaense,Brasil A,MEI,20,2025:Athletico Paranaense:19j | 2026:Athletico Paranaense:16j
+Higor Meritão - Chapecoense - Brasil A,Higor Meritão,Chapecoense,Brasil A,MED,32,2024:Criciúma:17j | 2025:CRB:35j | 2026:Chapecoense:11j
+J. Lingard - Corinthians - Brasil A,J. Lingard,Corinthians,Brasil A,EE,33,2024:Seoul:1j | 2025:Seoul:34j | 2026:Corinthians:13j
+Vitão - Flamengo - Brasil A,Vitão,Flamengo,Brasil A,ZE,26,2024:Internacional:30j | 2026:Flamengo:9j
+Lucas Evangelista - Palmeiras - Brasil A,Lucas Evangelista,Palmeiras,Brasil A,VOL,31,
+Gabriel Xavier - Bahia - Brasil A,Gabriel Xavier,Bahia,Brasil A,ZD,25,
+J. Barrera - Botafogo - Brasil A,J. Barrera,Botafogo,Brasil A,ED,20,
+Dudu - Atlético Mineiro - Brasil A,Dudu,Atlético Mineiro,Brasil A,EE,34,
+Maik - São Paulo - Brasil A,Maik,São Paulo,Brasil A,LD,21,
+Yuri Lara - Mirassol - Brasil A,Yuri Lara,Mirassol,Brasil A,VOL,32,
+Marcelinho Braz - Red Bull Bragantino - Brasil A,Marcelinho Braz,Red Bull Bragantino,Brasil A,ED,22,
+Muriel - Náutico - Brasil B,Muriel,Náutico,Brasil B,GOL,39,2025:Náutico:20j | 2026:Náutico:22j
+Felipinho - Sport Recife - Brasil B,Felipinho,Sport Recife,Brasil B,LE,29,2024:Sport Recife:22j | 2025:Criciúma:24j | 2026:Sport Recife:21j
+Perotti - Sport Recife - Brasil B,Perotti,Sport Recife,Brasil B,CA,28,2024:Chapecoense:16j | 2025:Chapecoense:21j | 2026:Sport Recife:21j
+Éder - Ceará - Brasil B,Éder,Ceará,Brasil B,ZD,31,2024:América Mineiro:26j | 2025:Ceará:3j | 2026:Ceará:20j
+Ewerthon - Atlético GO - Brasil B,Ewerthon,Atlético GO,Brasil B,LD,25,2024:Juventude:24j | 2025:Juventude:18j | 2026:Atlético GO:22j
+Patrick Brey - Botafogo SP - Brasil B,Patrick Brey,Botafogo SP,Brasil B,LE,29,2024:Botafogo SP:32j | 2025:Grêmio Novorizontino:14j | 2026:Botafogo SP:20j
+Boschilia - Operário PR - Brasil B,Boschilia,Operário PR,Brasil B,MED,30,2024:Operário PR:16j | 2025:Operário PR:34j | 2026:Operário PR:20j
+Everton Morelli - Botafogo SP - Brasil B,Everton Morelli,Botafogo SP,Brasil B,MED,28,2024:Coritiba:26j | 2025:Maringá:7j | 2026:Botafogo SP:21j
+Wenderson - Náutico - Brasil B,Wenderson,Náutico,Brasil B,VOL,28,2024:América-RN:26j | 2025:Náutico:30j | 2026:Náutico:20j
+João Miguel - Athletic Club - Brasil B,João Miguel,Athletic Club,Brasil B,VOL,22,2026:Athletic Club:22j
+Patrick - Grêmio Novorizontino - Brasil B,Patrick,Grêmio Novorizontino,Brasil B,ZE,27,2024:Grêmio Novorizontino:26j | 2025:Grêmio Novorizontino:30j | 2026:Grêmio Novorizontino:20j
+Jhonatan Silva - Athletic Club - Brasil B,Jhonatan Silva,Athletic Club,Brasil B,ZD,27,2025:Athletic Club:10j | 2026:Athletic Club:19j
+Luiz Henrique - Avaí - Brasil B,Luiz Henrique,Avaí,Brasil B,MED,27,2024:Goiás:39j | 2025:Criciúma:28j | 2026:Avaí:21j
+Chrystian Barletta - Sport Recife - Brasil B,Chrystian Barletta,Sport Recife,Brasil B,ED,25,2024:Sport Recife:32j | 2025:Sport Recife:34j | 2026:Sport Recife:19j
+Mikael - CRB - Brasil B,Mikael,CRB,Brasil B,CA,27,2025:CRB:32j | 2026:CRB:21j
+Lucas Belezi - Athletic Club - Brasil B,Lucas Belezi,Athletic Club,Brasil B,ZD,23,2024:Athletico Paranaense:9j | 2025:Athletico Paranaense:15j | 2026:Athletic Club:19j
+Vinicius Diniz - Operário PR - Brasil B,Vinicius Diniz,Operário PR,Brasil B,MED,27,2024:Operário PR:29j | 2025:Imabari:30j | 2026:Operário PR:19j
+Mikael Doka - Operário PR - Brasil B,Mikael Doka,Operário PR,Brasil B,LD,26,2024:Central Coast:42j | 2025:Ventforet Kofu (E) [Central Coast]:2j | 2026:Operário PR:20j
+Kauan - Athletic Club - Brasil B,Kauan,Athletic Club,Brasil B,MEI,21,2025:Atlético GO:32j | 2026:Athletic Club:20j
+Miraíma - São Bernardo FC - Brasil B,Miraíma,São Bernardo FC,Brasil B,MED,26,2024:CSA:10j | 2025:São Bernardo FC:19j | 2026:São Bernardo FC:21j
+Pedro Castro - CRB - Brasil B,Pedro Castro,CRB,Brasil B,MED,33,2024:Avaí:33j | 2025:Remo:28j | 2026:CRB:21j
+João Vieira - Vila Nova - Brasil B,João Vieira,Vila Nova,Brasil B,VOL,28,2024:Paysandu:57j | 2025:Vila Nova:36j | 2026:Vila Nova:18j
+Higor - Vila Nova - Brasil B,Higor,Vila Nova,Brasil B,LE,21,2024:Vila Nova:1j | 2025:Vila Nova:16j | 2026:Vila Nova:19j
+Soares - Atlético GO - Brasil B,Soares,Atlético GO,Brasil B,EE,26,2026:Atlético GO:21j
+Luciano Castán - Criciúma - Brasil B,Luciano Castán,Criciúma,Brasil B,ZE,36,2024:Sport Recife:23j | 2025:Criciúma:35j | 2026:Criciúma:17j
+Marquinhos Gabriel - Vila Nova - Brasil B,Marquinhos Gabriel,Vila Nova,Brasil B,MEI,36,2024:Criciúma:25j | 2025:Avaí:37j | 2026:Vila Nova:18j
+Marrony - Atlético GO - Brasil B,Marrony,Atlético GO,Brasil B,MEI,27,2025:Remo:17j | 2026:Atlético GO:19j
+Guilherme Lobo - Criciúma - Brasil B,Guilherme Lobo,Criciúma,Brasil B,MED,26,2024:União Suzano:14j | 2025:Criciúma:29j | 2026:Criciúma:18j
+Danielzinho - CRB - Brasil B,Danielzinho,CRB,Brasil B,MED,30,2025:CRB:34j | 2026:CRB:20j
+Benevenuto - Sport Recife - Brasil B,Marcelo Benevenuto,Sport Recife,Brasil B,ZD,30,2024:Coritiba:24j | 2025:Criciúma:15j | 2026:Sport Recife:17j
+DG - Avaí - Brasil B,DG,Avaí,Brasil B,LE,25,2024:Goiás:8j | 2025:Avaí:18j | 2026:Avaí:18j
+Dodô - Náutico - Brasil B,Dodô,Náutico,Brasil B,MEI,25,2024:Ponte Preta:33j | 2025:Vila Nova:33j | 2026:Náutico:16j
+Allyson - Avaí - Brasil B,Allyson,Avaí,Brasil B,ZD,35,2024:Sport:7j | 2025:Guarani:6j | 2026:Avaí:16j
+Felipe Amaral - América Mineiro - Brasil B,Felipe Amaral,América Mineiro,Brasil B,VOL,23,2024:América Mineiro:22j | 2025:América Mineiro:21j | 2026:América Mineiro:21j
+Pablo - Operário PR - Brasil B,Pablo,Operário PR,Brasil B,CA,34,2024:Athletico Paranaense:53j | 2025:Sport:34j | 2026:Operário PR:18j
+Matheus Trindade - Operário PR - Brasil B,Matheus Trindade,Operário PR,Brasil B,VOL,30,2024:Paysandu:12j | 2025:Criciúma:35j | 2026:Operário PR:20j
+Diogo Batista - Athletic Club - Brasil B,Diogo Batista,Athletic Club,Brasil B,LD,22,2026:Athletic Club:18j
+Pepê - Cuiabá - Brasil B,Pepê,Cuiabá,Brasil B,MED,28,2026:Cuiabá:19j
+Thiago Rodrigues - Goiás - Brasil B,Thiago Rodrigues,Goiás,Brasil B,GOL,37,2025:Goiás:2j | 2026:Goiás:14j
+Moraes - Operário PR - Brasil B,Moraes,Operário PR,Brasil B,LE,28,2025:Goiás:21j | 2026:Operário PR:17j
+Filipe Machado - Goiás - Brasil B,Filipe Machado,Goiás,Brasil B,VOL,30,2024:Vitória:24j | 2025:Coritiba:35j | 2026:Goiás:16j
+Marcos Paulo (AMF) - Juventude - Brasil B,Marcos Paulo (AMF),Juventude,Brasil B,MEI,25,
+Matheus Sales - Botafogo SP - Brasil B,Matheus Sales,Botafogo SP,Brasil B,VOL,31,2024:Ulsan Hyundai:20j | 2026:Botafogo SP:18j
+Jordi - Grêmio Novorizontino - Brasil B,Jordi,Grêmio Novorizontino,Brasil B,GOL,32,2024:Grêmio Novorizontino:35j | 2025:Grêmio Novorizontino:5j | 2026:Grêmio Novorizontino:14j
+Rodrigo Rodrigues - Cuiabá - Brasil B,Rodrigo Rodrigues,Cuiabá,Brasil B,CA,26,2024:Operário PR:27j | 2025:Operário PR:32j | 2026:Cuiabá:21j
+João Ricardo - Fortaleza - Brasil B,João Ricardo,Fortaleza,Brasil B,GOL,37,2026:Fortaleza:13j
+Vinícius Paiva - Grêmio Novorizontino - Brasil B,Vinícius Paiva,Grêmio Novorizontino,Brasil B,EE,25,2024:Ituano:34j | 2025:Vila Nova:24j | 2026:Grêmio Novorizontino:19j
+Daniel Penha - Avaí - Brasil B,Daniel Penha,Avaí,Brasil B,MEI,27,2024:Western United (E) [Atlético Mineiro]:23j | 2025:Dalian Yingbo FC (E) [Atlético Mineiro]:12j | 2026:Avaí:16j
+Dudu - Vila Nova - Brasil B,Dudu,Vila Nova,Brasil B,VOL,24,2024:Tirol:1j | 2025:Maranhão:32j | 2026:Vila Nova:19j
+Aylon - Operário PR - Brasil B,Aylon,Operário PR,Brasil B,EE,34,2024:Ceará:36j | 2025:Ceará:23j | 2026:Operário PR:19j
+Henri - CRB - Brasil B,Henri,CRB,Brasil B,ZD,24,2024:Mirassol (E) [Palmeiras]:1j | 2025:CRB:35j | 2026:CRB:14j
+Léo Aragão - Avaí - Brasil B,Léo Aragão,Avaí,Brasil B,GOL,24,2026:Avaí:13j
+J. Cuenú - Operário PR - Brasil B,J. Cuenú,Operário PR,Brasil B,ZD,31,2024:Águilas Doradas:6j | 2025:Junior:17j | 2026:Operário PR:13j
+Adriano Martins - Atlético GO - Brasil B,Adriano Martins,Atlético GO,Brasil B,ZD,29,2024:Atlético GO:34j | 2025:Atlético GO:20j | 2026:Atlético GO:15j
+Willean Lepo - Criciúma - Brasil B,Willean Lepo,Criciúma,Brasil B,LD,29,2024:Vitória:28j | 2025:Goiás:31j | 2026:Criciúma:17j
+Rodrigo - Criciúma - Brasil B,Rodrigo,Criciúma,Brasil B,ZD,39,2024:Criciúma:52j | 2025:Criciúma:36j | 2026:Criciúma:13j
+Lucas Mineiro - Juventude - Brasil B,Lucas Mineiro,Juventude,Brasil B,MED,30,2024:Cuiabá:57j | 2025:Cuiabá:25j | 2026:Juventude:17j
+Ramon Menezes - Goiás - Brasil B,Ramon Menezes,Goiás,Brasil B,ZE,31,2024:Ceará:16j | 2025:Sport Recife:23j | 2026:Goiás:13j
+Echaporã - São Bernardo FC - Brasil B,Echaporã,São Bernardo FC,Brasil B,EE,26,2024:Londrina:12j | 2025:São Bernardo FC:14j | 2026:São Bernardo FC:19j
+Hygor - Botafogo SP - Brasil B,Hygor,Botafogo SP,Brasil B,CA,34,2024:Avaí:23j | 2025:Avaí:26j | 2026:Botafogo SP:15j
+Betão - Náutico - Brasil B,Betão,Náutico,Brasil B,ZE,27,2024:Sampaio Corrêa:14j | 2025:CSA:16j | 2026:Náutico:14j
+Thiaguinho - CRB - Brasil B,Thiaguinho,CRB,Brasil B,ED,25,2024:Treze (E) [Flamengo]:30j | 2025:CRB:37j | 2026:CRB:15j
+Rodrigo Santos - Fortaleza - Brasil B,Rodrigo Santos,Fortaleza,Brasil B,MED,25,2024:Avaí:13j | 2025:Fortaleza:8j | 2026:Fortaleza:20j
+Matheus Bianqui - Grêmio Novorizontino - Brasil B,Matheus Bianqui,Grêmio Novorizontino,Brasil B,MED,28,2024:Coritiba:20j | 2025:Mirassol (E) [Coritiba]:13j | 2026:Grêmio Novorizontino:17j
+Alisson Safira - Juventude - Brasil B,Alisson Safira,Juventude,Brasil B,CA,31,2024:Santa Clara:20j | 2025:Cuiabá (E) [Santa Clara]:22j | 2026:Juventude:21j
+Zé Gabriel - Sport Recife - Brasil B,Zé Gabriel,Sport Recife,Brasil B,MED,27,2024:Coritiba (E) [Vasco]:17j | 2025:Criciúma:10j | 2026:Sport Recife:17j
+Hildeberto Pereira - Operário PR - Brasil B,Hildeberto Pereira,Operário PR,Brasil B,ED,30,2024:Portimonense:7j | 2025:Universitatea Cluj:7j | 2026:Operário PR:19j
+William Pottker - Londrina - Brasil B,William Pottker,Londrina,Brasil B,CA,32,2024:Avaí:23j | 2025:CRB:29j | 2026:Londrina:15j
+Derek - Náutico - Brasil B,Derek,Náutico,Brasil B,CA,28,2024:Atlético GO:25j | 2025:JEF United (E) [Atlético Goianiense]:5j | 2026:Náutico:17j
+Jean Carlos - Goiás - Brasil B,Jean Carlos,Goiás,Brasil B,ED,21,2024:Atlético Goianiense:3j | 2025:Goiás:12j | 2026:Goiás:17j
+Reginaldo - Náutico - Brasil B,Reginaldo,Náutico,Brasil B,LD,33,2024:Ordabasy:19j | 2025:Juventude:24j | 2026:Náutico:16j
+Iago Teles - Londrina - Brasil B,Iago Teles,Londrina,Brasil B,EE,26,2024:Londrina:19j | 2025:Londrina:21j | 2026:Londrina:13j
+Zé Lucas - Sport Recife - Brasil B,Zé Lucas,Sport Recife,Brasil B,VOL,18,2025:Sport Recife:24j | 2026:Sport Recife:14j
+Rómulo Otero - Criciúma - Brasil B,Rómulo Otero,Criciúma,Brasil B,ED,33,2024:Santos:37j | 2025:Nacional:29j | 2026:Criciúma:18j
+Leandro Vilela - Atlético GO - Brasil B,Leandro Vilela,Atlético GO,Brasil B,VOL,31,2024:Paysandu:24j | 2025:Paysandu:19j | 2026:Atlético GO:15j
+Gabriel Pinheiro - Juventude - Brasil B,Gabriel Pinheiro,Juventude,Brasil B,ZD,29,2024:Brusque (E) [Nova Iguaçu]:5j | 2025:Volta Redonda:25j | 2026:Juventude:14j
+N. Castrillón - Grêmio Novorizontino - Brasil B,N. Castrillón,Grêmio Novorizontino,Brasil B,LD,30,2024:América de Cali:1j | 2025:Amazonas:22j | 2026:Grêmio Novorizontino:12j
+Kadu - Goiás - Brasil B,Kadu,Goiás,Brasil B,EE,24,2025:Anápolis:8j | 2026:Goiás:12j
+Nathan - América Mineiro - Brasil B,Nathan Pelae,América Mineiro,Brasil B,ZD,31,2026:América Mineiro:10j
+César Augusto - Grêmio Novorizontino - Brasil B,César Augusto,Grêmio Novorizontino,Brasil B,GOL,31,2024:Avaí:37j | 2025:Avaí:22j | 2026:Grêmio Novorizontino:9j
+Ericson - Botafogo SP - Brasil B,Ericson,Botafogo SP,Brasil B,ZD,27,2024:Botafogo-SP:21j | 2025:Botafogo-SP:34j | 2026:Botafogo SP:9j
+Eduardo - Criciúma - Brasil B,Eduardo,Criciúma,Brasil B,MED,29,2024:Grêmio Novorizontino:30j | 2025:FC Anyang:18j | 2026:Criciúma:12j
+Pablo Dyego - Londrina - Brasil B,Pablo Dyego,Londrina,Brasil B,EE,32,2024:Grêmio Novorizontino:19j | 2025:Grêmio Novorizontino:21j | 2026:Londrina:15j
+Willian Maranhão - Vila Nova - Brasil B,Willian Maranhão,Vila Nova,Brasil B,VOL,30,2024:Avaí:31j | 2025:Atlético GO:14j | 2026:Vila Nova:12j
+Yago Felipe - Sport Recife - Brasil B,Yago Felipe,Sport Recife,Brasil B,MEI,31,2025:Mirassol:19j | 2026:Sport Recife:16j
+M. Castro - Juventude - Brasil B,M. Castro,Juventude,Brasil B,EE,30,2024:Juárez:15j | 2025:Liverpool Montevideo:18j | 2026:Juventude:16j
+Manoel - América Mineiro - Brasil B,Manoel,América Mineiro,Brasil B,ZE,36,2026:América Mineiro:8j
+Neto Paraíba - Operário PR - Brasil B,Neto Paraíba,Operário PR,Brasil B,MED,34,2024:Operário PR:16j | 2025:Operário PR:31j | 2026:Operário PR:20j
+Douglas Baggio - CRB - Brasil B,Douglas Baggio,CRB,Brasil B,ED,31,2024:Botafogo SP:35j | 2025:CRB:32j | 2026:CRB:16j
+D. Vera - Athletic Club - Brasil B,D. Vera,Athletic Club,Brasil B,EE,23,2024:Técnico Universitario:11j | 2025:Técnico Universitario:32j | 2026:Athletic Club:17j
+Lucas Rodrigues - Goiás - Brasil B,Lucas Rodrigues,Goiás,Brasil B,MED,18,2024:Goiás [S23]:1j | 2025:Goiás:4j | 2026:Goiás:9j
+Richardson - Ceará - Brasil B,Richardson,Ceará,Brasil B,MED,35,2026:Ceará:13j
+Caio Marcelo - Vila Nova - Brasil B,Caio Marcelo,Vila Nova,Brasil B,ZE,28,2025:Daegu:32j | 2026:Vila Nova:10j
+Reidiney - Grêmio Novorizontino - Brasil B,Reidiney,Grêmio Novorizontino,Brasil B,ED,19,2024:Grêmio Novorizontino [S20]:27j | 2025:Grêmio Novorizontino [S20]:15j | 2026:Grêmio Novorizontino:9j
+Wallace - Londrina - Brasil B,Wallace,Londrina,Brasil B,ZE,38,2024:Brusque:54j | 2025:Londrina:39j | 2026:Londrina:10j
+Murilo - Ponte Preta - Brasil B,Murilo,Ponte Preta,Brasil B,MED,27,2024:Atlético Piauiense:6j | 2025:GE Brasil (E) [Guarany Bagé]:11j | 2026:Ponte Preta:7j
+Giulio - Ceará - Brasil B,Giulio,Ceará,Brasil B,EE,21,2026:Ceará:12j
+Nicolas - Criciúma - Brasil B,Nicolas,Criciúma,Brasil B,CA,36,2024:Paysandu:50j | 2025:Criciúma:25j | 2026:Criciúma:26j
+Guilherme Parede - América Mineiro - Brasil B,Guilherme Parede,América Mineiro,Brasil B,ED,30,
+Diego Gonçalves - Criciúma - Brasil B,Diego Gonçalves,Criciúma,Brasil B,MEI,31,2024:Juventude (E) [Mirassol]:14j | 2025:Criciúma:40j | 2026:Criciúma:32j
+William - Avaí - Brasil B,William,Avaí,Brasil B,LE,20,2024:Cruzeiro [S20]:6j | 2025:Cruzeiro [S20]:19j | 2026:Avaí:11j
+L. Phellype - CRB - Brasil B,L. Phellype,CRB,Brasil B,CA,32,2024:Shonan Bellmare:4j | 2025:Shonan Bellmare:28j | 2026:CRB:21j
+Léo Tocantins - Atlético GO - Brasil B,Léo Tocantins,Atlético GO,Brasil B,ED,27,
+Luizão - CRB - Brasil B,Luizão,CRB,Brasil B,VOL,28,2024:Radomiak Radom:28j | 2025:Atlético Goianiense:31j | 2026:CRB:22j
+Rodrigo Souza - Ponte Preta - Brasil B,Rodrigo Souza,Ponte Preta,Brasil B,MED,38,2024:São Bernardo:23j | 2025:Ponte Preta:10j | 2026:Ponte Preta:17j
+Weverton - Ponte Preta - Brasil B,Weverton,Ponte Preta,Brasil B,ZD,23,
+Gabriel Mesquita - Paysandu - Brasil C,Gabriel Mesquita,Paysandu,Brasil C,GOL,27,2024:Operário PR:6j | 2025:Paysandu:19j | 2026:Paysandu:15j
+Igor Maduro - Botafogo PB - Brasil C,Igor Maduro,Botafogo PB,Brasil C,MED,25,2024:Uberaba:8j | 2025:Botafogo PB:15j | 2026:Botafogo PB:15j
+Nenê - Botafogo PB - Brasil C,Nenê,Botafogo PB,Brasil C,CA,45,2024:Juventude:36j | 2025:Juventude:32j | 2026:Botafogo PB:13j
+Iago - Confiança - Brasil C,Iago,Confiança,Brasil C,CA,30,2026:Confiança:16j
+Lucas Bonifácio - Maringá - Brasil C,Lucas Bonifácio,Maringá,Brasil C,VOL,25,2024:Maringá (E) [Oeste]:20j | 2025:Maringá:5j | 2026:Maringá:15j
+Jean Mangabeira - Figueirense - Brasil C,Jean Mangabeira,Figueirense,Brasil C,MED,29,2025:Brusque:21j | 2026:Figueirense:12j
+Jeam - Floresta EC - Brasil C,Jeam,Floresta EC,Brasil C,CA,31,2025:Floresta EC:22j | 2026:Floresta EC:11j
+Karl - Itabaiana - Brasil C,Karl,Itabaiana,Brasil C,CA,33,2024:Volta Redonda:9j | 2025:Itabaiana:8j | 2026:Itabaiana:11j
+Giovane Gomes - Maringá - Brasil C,Giovane Gomes,Maringá,Brasil C,CA,31,2026:Maringá:15j
+Valdir Júnior - Confiança - Brasil C,Valdir Júnior,Confiança,Brasil C,LD,26,2024:União de Leiria:14j | 2025:Confiança:11j | 2026:Confiança:12j
+Marcelo Cirino - Amazonas - Brasil C,Marcelo Cirino,Amazonas,Brasil C,CA,34,
+Cássio - Anápolis - Brasil C,Cássio,Anápolis,Brasil C,MEI,33,
+D. Gutiérrez - Unión La Calera - Chile,D. Gutiérrez,Unión La Calera,Chile,LE,23,2024:Colo Colo:12j | 2025:Colo Colo:10j | 2026:Unión La Calera:17j
+D.Salgado Soto - Palestino - Chile,D.Salgado Soto,Palestino,Chile,LD,23,
+M. Casco - Atlético Nacional - Colombia A,Milton Casco,Atlético Nacional,Colombia A,LE,38,2025:River Plate:16j | 2026:Atlético Nacional:20j
+F. Boné - Inter Bogotá - Colombia A,F. Boné,Inter Bogotá,Colombia A,MEI,30,2024:Tolima:8j | 2025:Deportivo Pasto:34j | 2026:Inter Bogotá:24j
+J. Campuzano - Atlético Nacional - Colombia A,J. Campuzano,Atlético Nacional,Colombia A,VOL,30,2024:Boca Juniors:6j | 2025:Atlético Nacional:43j | 2026:Atlético Nacional:22j
+F. Chaverra - Millonarios - Colombia A,Francisco Chaverra,Millonarios,Colombia A,LE,26,2026:Millonarios:21j
+F. Aguilar - Deportivo Cali - Colombia A,Felipe Aguilar,Deportivo Cali,Colombia A,ZD,33,2025:Deportivo Cali:16j | 2026:Deportivo Cali:17j
+L. Chaverra - Deportivo Cali - Colombia A,L. Chaverra,Deportivo Cali,Colombia A,LD,29,2024:Medellín:9j | 2025:Medellín:39j | 2026:Deportivo Cali:19j
+K. Tamayo - Once Caldas - Colombia A,K. Tamayo,Once Caldas,Colombia A,LE,26,2024:Envigado:5j | 2025:Once Caldas:12j | 2026:Once Caldas:16j
+R. Pájaro - Deportivo Cali - Colombia A,R. Pájaro,Deportivo Cali,Colombia A,MED,24,2024:Fortaleza:10j | 2025:Fortaleza:33j | 2026:Deportivo Cali:20j
+J. Mejia - Jaguares de Córdoba - Colombia A,J. Mejia,Jaguares de Córdoba,Colombia A,CA,26,2024:Once Caldas (E) [Bogotá]:10j | 2025:Jaguares de Córdoba:12j | 2026:Jaguares de Córdoba:13j
+J. Tranziska - Pohang Steelers - Coreia A,J. Tranziska,Pohang Steelers,Coreia A,EE,25,2024:České Budějovice:15j | 2025:České Budějovice:8j | 2026:Pohang Steelers:19j
+Joo-Chan Kim - Gimcheon Sangmu - Coreia A,Joo-chan Kim,Gimcheon Sangmu,Coreia A,EE,22,2024:Suwon Bluewings:1j | 2026:Gimcheon Sangmu:14j
+Heo Seung-Chan - Chungbuk Cheongju - Coreia B,Heo Seung-Chan,Chungbuk Cheongju,Coreia B,MED,23,2025:Chungbuk Cheongju:18j | 2026:Chungbuk Cheongju:21j
+Ji-Yong Jeong - Jeonnam Dragons - Coreia B,Ji-Yong Jeong,Jeonnam Dragons,Coreia B,EE,27,2025:Jeonnam Dragons:31j | 2026:Jeonnam Dragons:19j
+R. Donkor - New York RB - EUA,R. Donkor,New York RB,EUA,MED,21,2024:New York RB:21j | 2025:New York RB:20j | 2026:New York RB:18j
+O. Bouda - SJ Earthquakes - EUA,O. Bouda,SJ Earthquakes,EUA,ED,26,2025:SJ Earthquakes:34j | 2026:SJ Earthquakes:19j
+R. Formento - Mushuc Runa - Equador A,Rodrigo Formento,Mushuc Runa,Equador A,GOL,26,2024:Cerro Largo:24j | 2025:Mushuc Runa:28j | 2026:Mushuc Runa:25j
+J. Ayoví - Guayaquil City - Equador A,Junior Ayoví,Guayaquil City,Equador A,LD,24,2024:Guayaquil City:7j | 2025:Guayaquil City:9j | 2026:Guayaquil City:23j
+V. Branda (RW) - Libertad - Equador A,V. Branda (RW),Libertad,Equador A,ED,24,
+J. Quiñónez - Barcelona - Equador A,J. Quiñónez,Barcelona,Equador A,MEI,28,2025:Barcelona:1j | 2026:Barcelona:21j
+C. Tobar - LDU Quito - Equador A,C. Tobar,LDU Quito,Equador A,MED,26,2024:Imbabura:21j | 2025:Deportivo Cuenca:40j | 2026:LDU Quito:21j
+T. Kishimoto - Gamba Osaka - Japao A,Takeru Kishimoto,Gamba Osaka,Japao A,LD,29,2024:Gamba Osaka:2j | 2025:Gamba Osaka:24j | 2026:Gamba Osaka:2j
+G. Viera - Sportivo Trinidense - Paraguai,Gustavo Viera,Sportivo Trinidense,Paraguai,MED,30,2024:Carlos A. Mannucci:30j | 2025:Sportivo Trinidense:40j | 2026:Sportivo Trinidense:21j
+A. Quiñónez - Sportivo San Lorenzo - Paraguai,Aldo Quiñónez,Sportivo San Lorenzo,Paraguai,MED,35,2026:Sportivo San Lorenzo:21j
+R. Ferreira - Rubio Ñú - Paraguai,Rodi Ferreira,Rubio Ñú,Paraguai,LD,28,2024:Sportivo Luqueño:8j | 2025:12 de Junio VH:12j | 2026:Rubio Ñú:20j
+I. Valdez - Nacional Asunción - Paraguai,I. Valdez,Nacional Asunción,Paraguai,EE,31,2024:Sportivo Ameliano:2j | 2025:Nacional Asunción:36j | 2026:Nacional Asunción:23j
+Alan Rodríguez - Olimpia - Paraguai,Alan Rodríguez,Olimpia,Paraguai,LE,26,2025:Remo:14j | 2026:Olimpia:19j
+A. Wlk - Deportivo Recoleta - Paraguai,Allan Wlk,Deportivo Recoleta,Paraguai,CA,23,2026:Deportivo Recoleta:18j
+S. Vargas - Nacional Asunción - Paraguai,Sebastián Vargas,Nacional Asunción,Paraguai,LE,24,2024:Nacional Asunción:3j | 2026:Nacional Asunción:17j
+P. Ríos - Deportivo Recoleta - Paraguai,Pedro Rios,Deportivo Recoleta,Paraguai,LE,22,2026:Deportivo Recoleta:19j
+A. Barbotte - Guaraní - Paraguai,Alcides Barbotte,Guaraní,Paraguai,LE,24,2025:Guaraní:21j | 2026:Guaraní:17j
+F. Carrizo - Club Libertad - Paraguai,Federico Carrizo,Club Libertad,Paraguai,MEI,35,2024:Cerro Porteño:7j | 2025:Cerro Porteño:30j | 2026:Club Libertad:22j
+W. Mendieta - Rubio Ñú - Paraguai,William Mendieta,Rubio Ñú,Paraguai,CA,37,2024:Libertad:2j | 2025:Guaraní:34j | 2026:Rubio Ñú:20j
+Ó. Ruiz - Sportivo Luqueño - Paraguai,Óscar Ruiz,Sportivo Luqueño,Paraguai,EE,35,2024:Tacuary:7j | 2025:Grêmio Novorizontino:18j | 2026:Sportivo Luqueño:26j
+J. Colmán - Nacional Asunción - Paraguai,Josué Colmán,Nacional Asunción,Paraguai,EE,28,2024:Mazatlán:19j | 2025:Querétaro:28j | 2026:Nacional Asunción:20j
+H. Villamayor - Sportivo San Lorenzo - Paraguai,H. Villamayor,Sportivo San Lorenzo,Paraguai,ED,31,2024:Martín Ledesma:23j | 2025:San Lorenzo:21j | 2026:Sportivo San Lorenzo:21j
+R. Santa Cruz - Nacional Asunción - Paraguai,Roque Santa Cruz,Nacional Asunción,Paraguai,CA,45,2026:Nacional Asunción:18j
+A. Molinas - Club Libertad - Paraguai,Amín Molinas,Club Libertad,Paraguai,MED,20,2024:Libertad:2j | 2025:2 de Mayo:22j | 2026:Club Libertad:18j
+D. Melgarejo - Sportivo Trinidense - Paraguai,Diego Melgarejo,Sportivo Trinidense,Paraguai,LE,29,2024:Fernando de la Mora:29j | 2025:Sportivo Trinidense:24j | 2026:Sportivo Trinidense:13j
+F. Benítez - Sportivo Luqueño - Paraguai,Fernando Benitez,Sportivo Luqueño,Paraguai,VOL,27,2024:Sportivo Luqueño:1j | 2025:Sportivo Luqueño:35j | 2026:Sportivo Luqueño:17j
+G. Benítez - Nacional Asunción - Paraguai,G. Benítez,Nacional Asunción,Paraguai,ZE,24,
+J. Vélez - Alianza Lima - Peru,J. Vélez,Alianza Lima,Peru,MED,31,2024:Universidad César Vallejo:37j | 2025:Universitario:37j | 2026:Alianza Lima:21j
+H. Benincasa - ADT - Peru,H. Benincasa,ADT,Peru,ZE,32,2024:Western Mass Pioneers:1j | 2025:Alianza Atlético:35j | 2026:ADT:19j
+A. Quiroz - Universitario - Peru,A. Quiroz,Universitario,Peru,MED,27,2024:Comerciantes:13j | 2025:Los Chankas:32j | 2026:Universitario:21j
+J. Lojas - CD Moquegua - Peru,Juan Diego Lojas,CD Moquegua,Peru,ZD,37,2026:CD Moquegua:18j
+C. Núñez - Cienciano - Peru,C. Núñez,Cienciano,Peru,LD,30,2024:Nacional:51j | 2025:Nacional:40j | 2026:Cienciano:16j
+J. Tévez - Cusco - Peru,Juan Manuel Tévez,Cusco,Peru,CA,38,2024:Cusco FC:34j | 2025:Cusco FC:38j | 2026:Cusco:20j
+Gabriel - Sporting Cristal - Peru,Gabriel,Sporting Cristal,Peru,CA,36,2026:Sporting Cristal:14j
+T. Moschión - Albion - Uruguai,Tomás Moschión,Albion,Uruguai,MED,26,2026:Albion:19j
+S. Marcel - Cerro Largo - Uruguai,Santiago Marcel,Cerro Largo,Uruguai,VOL,24,2024:Colón FC:30j | 2025:Colón FC:29j | 2026:Cerro Largo:16j
+J. Urretaviscaya - Wanderers - Uruguai,Jonathan Urretaviscaya,Wanderers,Uruguai,MED,36,2024:Racing:31j | 2025:Juventud:33j | 2026:Wanderers:19j
+L. Roldán - Juventud - Uruguai,L. Roldán,Juventud,Uruguai,VOL,21,2024:Vélez Sársfield Res.:5j | 2026:Juventud:18j
+J. Ramos - Deportivo Maldonado - Uruguai,Juan Ramos,Deportivo Maldonado,Uruguai,LE,29,2024:Boston River:13j | 2025:Plaza Colonia:34j | 2026:Deportivo Maldonado:15j
+A. Cougo - Progreso - Uruguai,Ayrton Cougo,Progreso,Uruguai,LE,30,2024:Boston River:25j | 2025:Progreso:22j | 2026:Progreso:13j
+F. Barrandeguy - Juventud - Uruguai,Federico Barrandeguy,Juventud,Uruguai,LD,30,2024:Rampla Juniors:35j | 2025:Juventud:35j | 2026:Juventud:10j
+N. Lodeiro - Nacional - Uruguai,N. Lodeiro,Nacional,Uruguai,MEI,37,2024:Orlando City:39j | 2025:Nacional:14j | 2026:Nacional:13j
+L. Femia - Danubio - Uruguai,L. Femia,Danubio,Uruguai,LD,24,2024:Danubio:36j | 2025:Danubio:34j | 2026:Danubio:20j
+I. Gonella - Central Español - Uruguai,I. Gonella,Central Español,Uruguai,ED,21,2024:Montevideo City:1j | 2025:Central Español (E) [Torque]:17j | 2026:Central Español:1j
+Gabriel Carioca - Bahia - Brasil A,Gabriel Carioca,Bahia,Brasil A,ED,19,
+L. Rodríguez - Cruzeiro - Brasil A,L. Rodríguez,Cruzeiro,Brasil A,CA,23,
+Cleber Lucas - Botafogo - Brasil A,Cleber Lucas,Botafogo,Brasil A,GOL,19,
+Gabriel Felipe - Botafogo - Brasil A,Gabriel Felipe,Botafogo,Brasil A,LD,17,
+Victão - Athletico-PR - Brasil A,Victão,Athletico-PR,Brasil A,VOL,18,
+Gui Negão - Corinthians - Brasil A,Gui Negão,Corinthians,Brasil A,CA,19,
+Kauã Rezende - Gremio - Brasil A,Kauã Rezende,Gremio,Brasil A,CA,16,
+Bernardo Jacob - Internacional - Brasil A,Bernardo Jacob,Internacional,Brasil A,VOL,20,
+Ryan - Internacional - Brasil A,Ryan,Internacional,Brasil A,MED,17,
+Niclas Eliasson - Internacional - Brasil A,Niclas Eliasson,Internacional,Brasil A,CA,30,
+Rafael Rech - Juventude - Brasil B,Rafael Rech,Juventude,Brasil B,MEI,23,
+Caique Trindade - Juventude - Brasil B,Caique Trindade,Juventude,Brasil B,CA,21,
+Michel - Palmeiras - Brasil A,Michel,Palmeiras,Brasil A,VOL,20,
+Geovanne - São Paulo - Brasil A,Geovanne,São Paulo,Brasil A,LE,18,
+Diego Minete - Vasco - Brasil A,Diego Minete,Vasco,Brasil A,CA,17,
+Airton Douglas - Vitória - Brasil A,Airton Douglas,Vitória,Brasil A,VOL,18,
+Brayan Marcos - Ceara - Brasil B,Brayan Marcos,Ceara,Brasil B,MED,19,
+Eduardo Lopes Silva Gomes - Chapecoense - Brasil A,Eduardo Lopes Silva Gomes,Chapecoense,Brasil A,ZD,20,
+Perotti - Chapecoense - Brasil A,Perotti,Chapecoense,Brasil A,CA,28,
+Mailson - Chapecoense - Brasil A,Mailson,Chapecoense,Brasil A,CA,23,
+Joao Botelho - Coritiba - Brasil A,Joao Botelho,Coritiba,Brasil A,LD,18,
+Matheus Dias - Coritiba - Brasil A,Matheus Dias,Coritiba,Brasil A,MEI,19,2024:Coritiba:2j | 2025:Coritiba:1j | 2026:Coritiba:2j
+Léo Campos - CRB - Brasil B,Léo Campos,CRB,Brasil B,LE,34,2024:Cianorte (E) [Velo Clube]:12j | 2025:CRB:23j | 2026:CRB:12j
+Alexandre Gabini - CRB - Brasil B,Alexandre Gabini,CRB,Brasil B,GOL,20,
+Igor Cariús - Vila Nova - Brasil B,Igor Cariús,Vila Nova,Brasil B,LE,33,2024:Sport:20j | 2025:Sport:42j | 2026:Vila Nova (E) [Mirassol]:5j
+João Pedro - Londrina - Brasil B,João Pedro,Londrina,Brasil B,CA,23,
+Pedro Santos - FC Arouca - Portugal A,Pedro Santos,FC Arouca,Portugal A,MED,25,
+Kaique Rocha - Casa Pia AC - Portugal A,Kaique Rocha,Casa Pia AC,Portugal A,ZD,25,
+Mohammed Abu Fani - Red Star Belgrade - Servia,Mohammed Abu Fani,Red Star Belgrade,Servia,MED,28,
+Veljko Radosavljevic - FK Cukaricki - Servia,Veljko Radosavljevic,FK Cukaricki,Servia,EE,21,
+Reynaldiño Verley - FC Kudrivka - Ucrania,Reynaldiño Verley,FC Kudrivka,Ucrania,CA,23,
+Taiki Yamada - Kashima Antlers - Japao A,Taiki Yamada,Kashima Antlers,Japao A,GOL,24,
+Yuji Kajikawa - Kashima Antlers - Japao A,Yuji Kajikawa,Kashima Antlers,Japao A,GOL,35,
+Takumi Matsumura - JEF United Chiba - Japao A,Takumi Matsumura,JEF United Chiba,Japao A,CA,22,
+Hayato Hirao - Tokyo Verdy - Japao A,Hayato Hirao,Tokyo Verdy,Japao A,CA,21,
+Cheikne Kébé - LASK - Austria,Cheikne Kébé,LASK,Austria,ZD,20,
+Djordje Skoko - Al-Ain FC - Emirados,Djordje Skoko,Al-Ain FC,Emirados,ZD,23,
+Célio Pompeu - St. Louis CITY SC - EUA,Célio Pompeu,St. Louis CITY SC,EUA,EE,26,
+Mauricio Cardillo - CA San Lorenzo de Almagro - Argentina A,Mauricio Cardillo,CA San Lorenzo de Almagro,Argentina A,MED,23,
+Zhuoyi Lü - Dalian Yingbo - China,Zhuoyi Lü,Dalian Yingbo,China,LD,25,
+Guoming Wang - Henan FC - China,Guoming Wang,Henan FC,China,GOL,36,
+Chenglong Shi - Henan FC - China,Chenglong Shi,Henan FC,China,GOL,27,
+Dalun Zheng - Henan FC - China,Dalun Zheng,Henan FC,China,ED,32,
+Bingyu Qi - Qingdao West Coast - China,Bingyu Qi,Qingdao West Coast,China,GOL,21,
+Barak Braunshtain - Qingdao West Coast - China,Barak Braunshtain,Qingdao West Coast,China,MED,27,
+Yuhan Jiang - Qingdao Hainiu - China,Yuhan Jiang,Qingdao Hainiu,China,GOL,16,
+Qiao Wang - Qingdao Hainiu - China,Qiao Wang,Qingdao Hainiu,China,LD,31,
+Zixian Wei - Qingdao Hainiu - China,Zixian Wei,Qingdao Hainiu,China,MED,21,
+Guobao Liu - Qingdao Hainiu - China,Guobao Liu,Qingdao Hainiu,China,CA,23,
+Jonathan Jesus - Cruzeiro Esporte Clube - Brasil A,Jonathan Jesus,Cruzeiro Esporte Clube,Brasil A,ZD,22,
+Wallace - Grêmio Foot-Ball Porto Alegrense - Brasil A,Wallace,Grêmio Foot-Ball Porto Alegrense,Brasil A,ZD,21,
+Gustavinho - Santos FC - Brasil A,Gustavinho,Santos FC,Brasil A,VOL,21,
+Patrick - Sport Club do Recife - Brasil B,Patrick,Sport Club do Recife,Brasil B,ZD,21,2024:Sport [S23]:3j | 2026:Sport:6j
+Elias Curzel - Operário Ferroviário Esporte Clube (PR) - Brasil B,Elias Curzel,Operário Ferroviário Esporte Clube (PR),Brasil B,GOL,31,2024:América Mineiro (E) [Itabirito FC]:22j | 2025:Operário Ferroviário (E) [Itabirito FC]:54j | 2026:Operário Ferroviário:10j
+Cássio - América Futebol Clube (MG) - Brasil B,Cássio,América Futebol Clube (MG),Brasil B,GOL,24,
+Rafa Barcelos - América Futebol Clube (MG) - Brasil B,Rafa Barcelos,América Futebol Clube (MG),Brasil B,ZD,22,
+Marcelo Maçola - América Futebol Clube (MG) - Brasil B,Marcelo Maçola,América Futebol Clube (MG),Brasil B,CA,23,
+Cadu - AD Confiança - Brasil C,Cadu,AD Confiança,Brasil C,GOL,21,
+Marcos Paulo - AD Confiança - Brasil C,Marcos Paulo,AD Confiança,Brasil C,GOL,23,
+Luan - Livre - Manual,Luan,Livre,Manual,VOL,27,
+Luan 2024 - Livre - Manual,Luan 2024,Livre,Manual,VOL,27,
+Heinz Mörschel - Vizela - Manual,Heinz Mörschel,Vizela,Manual,MEI,29,
+Fernandinho Conceição - Ferroviária - Manual,Fernandinho Conceição,Ferroviária,Manual,VOL,23,
+Juan Christian - Juventude - Manual,Juan Christian,Juventude,Manual,EE,25,
+Devid Richard - Gremio Sao Carlense - Manual,Devid Richard,Gremio Sao Carlense,Manual,LE,20,
+Chrigor - Selangor - Manual,Chrigor,Selangor,Manual,CA,26,
+André Luiz - Viettel - Manual,André Luiz,Viettel,Manual,VOL,31,
+Fernandinho - Ferroviaria - Manual,Fernandinho,Ferroviaria,Manual,VOL,23,
+Sapata - Sheriff - Manual,Sapata,Sheriff,Manual,ED,23,
+Gustavo Pereira - Jacuipense - Manual,Gustavo Pereira,Jacuipense,Manual,MED,21,
+Leandro Matheus - Azurir - Manual,Leandro Matheus,Azurir,Manual,GOL,25,
+Vaná - Aris Limassol - Manual,Vaná,Aris Limassol,Manual,GOL,35,
+Leandro Matheus - Azuriz - Manual,Leandro Matheus,Azuriz,Manual,GOL,25,
+Renzo Saravia - Livre - Manual,Renzo Saravia,Livre,Manual,LD,33,
+Kayque - Livre - Manual,Kayque,Livre,Manual,MED,26,
+Italo - FK Ural - Manual,Italo,FK Ural,Manual,ZE,24,
+Ruan Renato - Zira - Manual,Ruan Renato,Zira,Manual,ZE,32,
+Guilherme Belea - Livre - Manual,Guilherme Belea,Livre,Manual,EE,24,
+Enso Gonzalez - Wolves - Manual,Enso Gonzalez,Wolves,Manual,MEI,21,
+Gonzalo Ríos - Independiente Rivadavia - Manual,Gonzalo Ríos,Independiente Rivadavia,Manual,MEI,27,
+Geovani Soares - Atletico Goianiense - Manual,Geovani Soares,Atletico Goianiense,Manual,MEI,26,
+Carlos Gruezo - Livre - Manual,Carlos Gruezo,Livre,Manual,VOL,31,
+Angel Torres - Operario-PR - Manual,Angel Torres,Operario-PR,Manual,ED,26,
+Renato Kayzer - Vitoria - Manual,Renato Kayzer,Vitoria,Manual,CA,30,
+Luis Martínez - Guarani-PAR - Manual,Luis Martínez,Guarani-PAR,Manual,MED,26,
+Wendell Gabriel - Levadia-Estonia - Manual,Wendell Gabriel,Levadia-Estonia,Manual,CA,22,
+Darwin Lom - The Strongest - BOL - Manual,Darwin Lom,The Strongest - BOL,Manual,CA,29,
+Ricardo Graça - Livre - Manual,Ricardo Graça,Livre,Manual,ZE,29,
+Guilherme Sityá - Livre - Manual,Guilherme Sityá,Livre,Manual,LE,36,
+Kevin Mendez - Union La Calera - Manual,Kevin Mendez,Union La Calera,Manual,ED,30,
+Lucas Kal - Nantong Zhiyun - Manual,Lucas Kal,Nantong Zhiyun,Manual,MED,30,
+Juan Castilla - Llaneros - Manual,Juan Castilla,Llaneros,Manual,MED,22,
+Bernardo - Brusque - Manual,Bernardo,Brusque,Manual,VOL,24,
+Kayke - Livre - Manual,Kayke,Livre,Manual,VOL,26,

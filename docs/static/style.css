@@ -3827,3 +3827,4 @@ body.visao-nova .jpainel{flex:none}
 .sf-painel .sf-tab td small{margin-left:2px}
 .sf-painel .sf-tab tfoot td{font-weight:700}
 .sf-painel .mp{font-size:12.5px}
+.sf-tab tr.pass td{font-size:11px;color:var(--tinta2);padding-top:0}

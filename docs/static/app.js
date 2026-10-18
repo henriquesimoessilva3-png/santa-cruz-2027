@@ -2941,6 +2941,23 @@ const FIS_GRUPOS = [
     ['mmin', 'Metros por minuto', 1], ['run', 'Distância em corrida /90 (15–20 km/h)', 0], ['desa_m', 'Desacelerações médias /90', 1], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
 ];
 const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
+/* 18/10 — perfil que falta no cadastro (static/perfil_extra.json, gerar_perfil_js.py): card manual pelo levantamento;
+   os demais pelo banco do Transfermarkt, casando o nome e conferindo clube ou idade (±1) — nome repetido sem conferência fica de fora */
+let PERFIL_EXTRA = null;
+async function perfilExtraDe(j) {
+  try {
+    if (!PERFIL_EXTRA) PERFIL_EXTRA = fetch('static/perfil_extra.json' + (window.__verDados ? '?v=' + window.__verDados : '')).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    const P = await PERFIL_EXTRA; if (!P || !j) return null;
+    const pk = primaryKey(j);
+    if (P.manual && P.manual[pk]) { const m = P.manual[pk]; return { alt: m.alt, pe: m.pe, valor: m.valor, contrato: m.contrato, fonte: 'levantamento' + (m.fonte ? ' · ' + m.fonte : '') }; }
+    const k = String(j.nc || j.n || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+    let c = (P.tm && (P.tm[k] || (j.nc && P.tm[String(j.n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim()]))) || [];
+    const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
+    const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
+    const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
+    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], fonte: 'Transfermarkt' } : null;
+  } catch (e) { return null; }
+}
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
 function painelMinutagem(j) {
   const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
@@ -2959,7 +2976,10 @@ function painelMinutagem(j) {
     return '<tr' + (ma ? '' : ' class="falta"') + '><td>' + esc(T[i] || x.t) + '</td><td>' + esc(x.tm || '') + '<small>' + (x.l ? ' ' + esc(x.l) : '') + fonte + '</small></td>' +
       '<td class="n">' + f(x.j) + '<small> de ' + (ma ? f(x.tj || Math.round(ma.tot / 90)) : '?') + '</small></td>' +
       '<td class="n">' + (x.min ? f(x.min) : '—') + (ma ? '<small> de ' + f(ma.tot) + '</small>' : '') + '</td>' +
-      '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td></tr>';
+      '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td></tr>' +
+      (x.pass ? x.pass.map(q => '<tr class="pass"><td></td><td>↳ ' + esc(q.tm) + '<small> ' + esc(q.de || '') + (q.ate ? ' a ' + esc(q.ate) : ' em diante') + '</small></td>' +
+        '<td class="n">' + f(q.j) + '<small> de ' + f(q.tj) + '</small></td><td class="n">' + f(q.min) + (q.tj ? '<small> de ' + f(q.tj * 90) + '</small>' : '') + '</td>' +
+        '<td class="n"><small>' + (q.min != null && q.tj ? Math.round(q.min / (q.tj * 90) * 100) + '%' : '') + '</small></td></tr>').join('') : '');
   }).join('');
   const pt = Math.round(mi.pct * 100);
   const resumo = mi.anos.map(a => a.t + ' ' + (a.p == null ? (a.falta ? 'falta o time' : '—') : Math.round(a.p * 100) + '%')).join(' · ');
@@ -2975,22 +2995,22 @@ function painelBolaParada(j) {
   const n = (v, c) => (typeof v === 'number' ? v.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
   const cob = x && x.cob, aer = x && x.aer, adp = x && x.aer_dp;
   const cIdx = v => (v == null ? '' : v >= 80 ? 'v' : v >= 65 ? 'a' : '');
-  const tot = { esc: 0, fal: 0, fd: 0, pen: 0, gc: 0, g: 0 }; let anosBP = 0;
+  const tot = { esc: 0, fal: 0, fd: 0, pen: 0, gc: 0, g: 0, a: 0 }; let anosBP = 0;
   let ls = '';
   if (h && h.some(y => y && y.min)) {
     ls = h.map((y, i) => {
-      if (!y || !y.min || (y.esc == null && y.fal == null && y.g == null)) return '<tr class="vazio"><td>' + esc(T[i] || '') + '</td><td colspan="6">sem dado de bola parada</td></tr>';
+      if (!y || !y.min || (y.esc == null && y.fal == null && y.g == null)) return '<tr class="vazio"><td>' + esc(T[i] || '') + '</td><td colspan="7">sem dado de bola parada</td></tr>';
       const q = k => (y[k] || 0) * y.min / 90; anosBP++;
-      tot.esc += q('esc'); tot.fal += q('fal'); tot.fd += q('fd'); tot.pen += y.pen || 0; tot.gc += y.gc || 0; tot.g += y.g || 0;
-      return '<tr><td>' + esc(T[i] || y.t) + '</td><td class="n">' + n(Math.round(q('esc')), 0) + '</td><td class="n">' + n(Math.round(q('fal')), 0) + '</td><td class="n">' + n(Math.round(q('fd')), 0) + '</td><td class="n">' + n(y.pen, 0) + '</td><td class="n">' + n(y.gc, 0) + '</td><td class="n">' + n(y.g, 0) + '</td></tr>';
+      tot.esc += q('esc'); tot.fal += q('fal'); tot.fd += q('fd'); tot.pen += y.pen || 0; tot.gc += y.gc || 0; tot.g += y.g || 0; tot.a += y.a || 0;
+      return '<tr><td>' + esc(T[i] || y.t) + '</td><td class="n">' + n(Math.round(q('esc')), 0) + '</td><td class="n">' + n(Math.round(q('fal')), 0) + '</td><td class="n">' + n(Math.round(q('fd')), 0) + '</td><td class="n">' + n(y.pen, 0) + '</td><td class="n">' + n(y.gc, 0) + '</td><td class="n">' + n(y.g, 0) + '</td><td class="n">' + n(y.a, 0) + '</td></tr>';
     }).join('');
   }
   const R = v => n(Math.round(v), 0);
-  const dica = 'Percentil na liga dele, temporada atual (0 a 100 — 35 = melhor que 35% dos jogadores; 80+ é destaque). Cobrador: escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1. Jogo aéreo no ataque: duelos aéreos ganhos e gols de cabeça (jogadores com 2,5+ duelos aéreos/90). Duelo aéreo: % de duelos aéreos ganhos.' + (x && x.aer_won != null ? ' Ele ganha ' + x.aer_won + '%.' : '') + ' A tabela é do Wyscout, ano a ano (total do ano, a partir do por 90); o Wyscout não separa o gol de bola parada — o de cabeça é o mais perto disso.';
-  const card = '<div class="fi-res" title="' + esc(dica) + '"><span class="fi-res-l sel-' + (cIdx(cob) || 'n') + ' sf-res-pct">' + (cob == null ? '?' : '⚑' + cob) + '</span><div><b>Bola parada: cobrador ' + (cob == null ? '—' : cob) + ' · jogo aéreo ' + (aer == null ? '—' : aer) + ' · duelo aéreo ' + (adp == null ? '—' : adp) + '</b><small>' +
-    (anosBP ? 'em ' + anosBP + (anosBP === 1 ? ' ano' : ' anos') + ': ' + R(tot.esc) + ' escanteios · ' + R(tot.fal) + ' faltas · ' + R(tot.fd) + ' faltas diretas · ' + n(tot.pen, 0) + ' pênaltis · ' + n(tot.gc, 0) + ' gols de cabeça · ' + n(tot.g, 0) + ' gols' : 'sem histórico de cobranças no Wyscout') + ' · percentil na liga (0–100)</small></div></div>';
-  const tab = ls ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Escanteios</th><th class="n">Faltas</th><th class="n">Faltas diretas</th><th class="n">Pênaltis</th><th class="n">Gols de cabeça</th><th class="n">Gols</th></tr></thead><tbody>' + ls + '</tbody>' +
-    '<tfoot><tr><td>Total</td><td class="n">' + R(tot.esc) + '</td><td class="n">' + R(tot.fal) + '</td><td class="n">' + R(tot.fd) + '</td><td class="n">' + n(tot.pen, 0) + '</td><td class="n">' + n(tot.gc, 0) + '</td><td class="n">' + n(tot.g, 0) + '</td></tr></tfoot></table>' : '';
+  const dica = 'Percentil na liga dele, temporada atual (0 a 100 — 35 = melhor que 35% dos jogadores; 80+ é destaque). Cobrador: escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1. Jogo aéreo no ataque: duelos aéreos ganhos e gols de cabeça (jogadores com 2,5+ duelos aéreos/90). Duelo aéreo: % de duelos aéreos ganhos.' + (x && x.aer_won != null ? ' Ele ganha ' + x.aer_won + '%.' : '') + ' A tabela é do Wyscout, ano a ano (total do ano, a partir do por 90); o Wyscout não separa o gol nem a assistência de bola parada — o gol de cabeça é o mais perto disso.';
+  const card = '<div class="fi-res" title="' + esc(dica) + '"><span class="fi-res-l sel-' + (cIdx(cob) || 'n') + ' sf-res-pct">' + (cob == null ? '?' : '⚑' + cob) + '</span><div><b>Bola parada: cobrador melhor que ' + (cob == null ? '—' : cob + '%') + ' da liga · jogo aéreo ' + (aer == null ? '—' : aer + '%') + ' · duelo aéreo ' + (adp == null ? '—' : adp + '%') + '</b><small>' +
+    (anosBP ? 'em ' + anosBP + (anosBP === 1 ? ' ano' : ' anos') + ': ' + R(tot.esc) + ' escanteios · ' + R(tot.fal) + ' faltas · ' + R(tot.fd) + ' faltas diretas · ' + n(tot.pen, 0) + ' pênaltis · ' + n(tot.gc, 0) + ' gols de cabeça · ' + n(tot.g, 0) + ' gols · ' + n(tot.a, 0) + ' assistências' : 'sem histórico de cobranças no Wyscout') + ' · % = percentil na liga dele (temporada atual)</small></div></div>';
+  const tab = ls ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Escanteios</th><th class="n">Faltas</th><th class="n">Faltas diretas</th><th class="n">Pênaltis</th><th class="n">Gols de cabeça</th><th class="n">Gols</th><th class="n" title="todas as assistências: o Wyscout não separa a de bola parada">Assist.</th></tr></thead><tbody>' + ls + '</tbody>' +
+    '<tfoot><tr><td>Total</td><td class="n">' + R(tot.esc) + '</td><td class="n">' + R(tot.fal) + '</td><td class="n">' + R(tot.fd) + '</td><td class="n">' + n(tot.pen, 0) + '</td><td class="n">' + n(tot.gc, 0) + '</td><td class="n">' + n(tot.g, 0) + '</td><td class="n">' + n(tot.a, 0) + '</td></tr></tfoot></table>' : '';
   return '<div class="sf-painel">' + card + tab + '</div>';
 }
 function fisicoSerieBHtml(j) {
@@ -3455,21 +3475,23 @@ async function montarFicha(j, modo) {
     (j.rk && !j._posBase ? ' · #' + j.rk + ' da liga na posição' : '') +
     (j.rk_ok ? '' : ' · sem indicadores (minutagem baixa)');
 
+  /* 18/10 — altura, pé, valor e contrato que faltam no cadastro: banco do Transfermarkt e levantamento dos cards manuais */
+  const pf = await perfilExtraDe(j);
   const cabeca = [
     ['Idade', j.id_ ? j.id_ + ' anos' : '—', ''],
-    ['Contrato', mesAno(j.ct) || '—', j.ctc ? (CONF[j.ctc] || j.ctc) +
+    ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],
     ['Salário estimado', fx ? brl(fx.min, true) + '–' + brl(fx.max, true) : '—',
       fx ? 'TransferRoom: ' + fx.txt + '/ano' : ''],
-    ['Altura · peso', (j.alt ? j.alt + ' cm' : '—') + (j.peso ? ' · ' + j.peso + ' kg' : ''), ''],
-    ['Pé', j.pe || '—', ''],
+    ['Altura', (j.alt || (pf && pf.alt)) ? (j.alt || pf.alt) + ' cm' : '—', !j.alt && pf && pf.alt ? pf.fonte : ''],
+    ['Pé', j.pe || (pf && pf.pe) || '—', !j.pe && pf && pf.pe ? pf.fonte : ''],
     ['Nacionalidade', j.nac || '—', ''],
     ['Jogos · minutos', (j.jog || 0) + ' · ' + milhar(j.min), ''],
     /* O valor de mercado é em EURO, e esta linha imprimia com brl() — rotulava euro como
        real. Agora mostra o do Transfermarkt quando existe (mais novo e mais coberto) e,
        abaixo, o do Wyscout como segunda fonte, os dois com €. */
     ['Valor de mercado',
-     (vmFicha => vmFicha != null ? eur(vmFicha, true) : (j.mv ? eur(j.mv, true) : '—'))(
+     (vmFicha => vmFicha != null ? eur(vmFicha, true) : (j.mv ? eur(j.mv, true) : (pf && pf.valor ? eur(pf.valor, true) : '—')))(
         valorMercado({ nome: j.n || j.nome, clube: j.t || j.clube })),
      (j.mv ? 'Wyscout ' + eur(j.mv, true) : '') + (j.xtv ? ' · xTV ' + eur(j.xtv, true) : '')],
   ].map(([r, v, obs]) => '<div class="fi-dado"><div class="r">' + r + '</div>' +

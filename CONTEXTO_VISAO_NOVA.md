@@ -38,6 +38,9 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 - Liga fora da base do estudo (Série C, Japão A/B, Dinamarca, Argentina reservas): técnico completo vem de `static/tecnico_extra_dados.js` (`gerar_tecnico_extra_js.py`, Wyscout ago26), usado na ficha e na seta (`extraDe` em subida.js). Rodar de novo quando o período mudar.
 - Ficha: painéis de Minutagem (3 anos) e Bola parada (índices + cobranças ano a ano) embaixo do técnico (`painelMinutagem`/`painelBolaParada` em app.js).
 
+- Minutagem só com número real (sem padrão de 38 jogos). Fontes do total do time, em ordem (`preparar_total_time.py`): levantamento por jogador (`total_time_complemento.csv`) → clube achado no Wyscout (`minutos_time.json`) → tabela dos clubes (`total_time_clubes.csv`) → cards manuais (`manuais_temporadas.csv`) → PASSAGENS com data (`passagens.csv`, ano com troca de clube = soma das passagens).
+- Cabeçalho da ficha: altura (sem peso), pé, valor e contrato com reserva em `static/perfil_extra.json` (`gerar_perfil_js.py`: banco do Portal Transfermarkt + `manuais_perfil.csv`).
+
 ## Pendências
 - Henrique conferir na tela o card novo (largura, nome, minutagem) — não foi visto em tela cheia.
 - Decidir a regra do zagueiro (defesa forçada custa previsão).
