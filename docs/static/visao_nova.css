@@ -96,3 +96,7 @@ body.visao-nova nav.vn-sub {
 #pgVnFisico .vnf-outros th, #pgVnFisico .vnf-outros td { padding: 4px 10px 4px 0; }
 #pgVnFisico .vnf-outros thead th { position: static; }
 #pgVnFisico .vnf-outros td.n { text-align: right; font-weight: 700; color: var(--tinta); font-variant-numeric: tabular-nums; }
+#pgVnFisico .vnf-escopo { border-left: 3px solid var(--coral); background: var(--fundo2); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 0 0 14px; font-size: 12.5px; line-height: 1.55; color: var(--tinta2); max-width: 120ch; }
+#pgVnFisico .vnf-escopo > b { color: var(--tinta); margin-right: 4px; }
+#pgVnFisico .vnf-escopo span { display: block; }
+#pgVnFisico .vnf-escopo span b { color: var(--tinta); }

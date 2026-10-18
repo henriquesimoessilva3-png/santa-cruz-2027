@@ -127,6 +127,12 @@
       '<h2 class="vnf-tit">Físico — o que importa para subir</h2>' +
       '<p class="vnf-intro">Cada jogador de linha recebe uma <b>letra</b> pelo perfil físico (SkillCorner), comparado com os jogadores da mesma posição na Série B. ' +
       'É a mesma letra dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta.</p>' +
+      '<div class="vnf-escopo"><b>De onde vem o estudo.</b> ' +
+      '<span><b>Físico:</b> SkillCorner, rastreio de todos os jogos da Série B de <b>2022 a 2026</b> (goleiro não é rastreado).</span> ' +
+      '<span><b>Técnico:</b> Wyscout, as mesmas temporadas.</span> ' +
+      '<span><b>Régua dos tipos e das letras:</b> os <b>1.327</b> titulares da Série B 2022–2025 com <b>900 minutos</b> ou mais e físico rastreado; cada temporada tem <b>4</b> times que subiram, <b>12</b> que ficaram e <b>4</b> que caíram.</span> ' +
+      '<span><b>Quem recebe letra hoje:</b> qualquer jogador da base do app com <b>5 jogos</b> rastreados ou mais — por isso a Série B 2026 tem, por exemplo, 53 laterais direitos com letra: são todos os que passaram de 5 jogos, titulares ou não.</span> ' +
+      '<span><b>Mercados:</b> Série B 2026, ligas sul-americanas e sul-americanos no exterior (base Wyscout de ago/26); as segundas divisões de Argentina, Colômbia e Equador não têm rastreio.</span></div>' +
       '<div class="vnf-duas"><div class="vnf-regra"><div><span class="tipo-abc tipo-Ap">A+</span><span><b>Explosivo e motor de volume</b> — explosão <i>e</i> volume acima de +0,5 desvio da Série B do setor. Não existe no médio e no meia.</span></div>' +
       '<div><span class="tipo-abc tipo-A">A</span><span><b>O tipo mais forte da posição</b> — explosivo e rápido; no volante, o "mais intenso"; no médio, o <i>motor de volume</i> (volume acima de +0,5).</span></div>' +
       '<div><span class="tipo-abc tipo-B">B</span><span><b>O do meio</b> — motor de volume, médio em tudo ou intermediário. Também o "explosivo, pouco volume": seria C pelo volume, mas tem explosão acima de +0,25.</span></div>' +

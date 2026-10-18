@@ -1,0 +1,24 @@
+indicador,grupo,repete,r_com_os_seis,sep_bruta,sep_alem_dos_seis,melhor_posicao,sep_alem_na_melhor,LD,ZD,ZE,LE,VOL,MED,MEI,ED,EE,CA
+Distância em corrida (15–20 km/h),físico,Distância,0.9,0.1,0.29,Extremo pela esquerda,0.81,0.38,0.03,0.42,0.36,0.31,0.33,0.29,0.32,0.81,0.09
+Distância HSR,físico,Ações de alta intensidade,0.86,0.21,0.29,Meia,0.99,0.17,0.14,0.28,0.17,0.12,0.41,0.99,0.4,0.67,0.16
+Corridas para a área,físico,Corridas sem bola,0.57,0.29,0.28,Lateral direito,0.86,0.86,-0.13,-0.16,0.08,0.03,0.6,0.17,-0.03,0.82,0.5
+Desacelerações fortes,físico,Ações de alta intensidade,0.72,0.02,-0.24,Médio,-0.59,-0.06,-0.14,-0.07,-0.19,-0.23,-0.59,-0.39,0.06,-0.03,-0.51
+Acelerações fortes,físico,Arrancadas explosivas,0.71,0.08,-0.23,Meia,-0.49,-0.16,0.02,-0.06,-0.43,-0.39,-0.17,-0.49,-0.02,-0.4,-0.37
+"PSV-99, média dos 5 melhores",físico,PSV-99,0.89,0.4,0.22,Zagueiro pela esquerda,0.73,0.44,0.44,0.73,0.19,0.02,0.27,0.16,-0.25,-0.15,0.06
+Distância em sprint,físico,Sprints,0.96,0.22,-0.22,Zagueiro pela esquerda,-0.65,0.2,-0.24,-0.65,-0.21,-0.38,-0.2,-0.29,-0.33,-0.01,-0.12
+Corridas perigosas,corridas sem bola,Corridas sem bola,0.65,0.24,0.21,Extremo pela esquerda,0.73,0.71,-0.12,-0.29,0.19,-0.07,0.52,-0.12,0.13,0.73,0.46
+Desacelerações médias,físico,Distância,0.56,-0.1,-0.17,Médio,-0.6,-0.26,0.1,-0.08,-0.05,-0.29,-0.6,0.36,-0.19,-0.25,-0.01
+Corridas perigosas buscadas,corridas sem bola,Corridas sem bola,0.57,0.19,0.14,Lateral direito,0.8,0.8,-0.16,-0.29,-0.08,0.07,0.45,-0.47,0.18,0.51,0.24
+Distância em alta intensidade,físico,Ações de alta intensidade,0.96,0.23,0.14,Meia,0.75,0.23,0.01,-0.04,0.05,-0.06,0.27,0.75,0.11,0.53,0.07
+Corridas com finalização em 10 s,corridas sem bola,Corridas sem bola,0.52,0.19,0.14,Lateral direito,0.49,0.49,-0.01,0.14,0.09,0.05,0.16,0.16,0.11,0.29,-0.06
+Acelerações médias,físico,Ações de alta intensidade,0.56,-0.01,-0.13,Médio,-0.62,-0.09,-0.02,-0.06,-0.16,-0.21,-0.62,0.42,0.04,0.03,-0.07
+"Corridas HSR (20–25 km/h), contagem",físico,Ações de alta intensidade,1.0,0.21,0.13,Extremo pela esquerda,0.59,-0.2,0.03,0.18,0.06,0.21,0.12,0.26,-0.1,0.59,0.37
+Corridas perigosas recebidas,corridas sem bola,Corridas sem bola,0.53,0.16,0.1,Extremo pela esquerda,0.67,0.6,0.01,-0.41,0.1,0.02,0.27,-0.01,0.34,0.67,-0.14
+Velocidade de pico,físico,PSV-99,0.96,0.18,-0.07,Lateral esquerdo,0.98,0.01,-0.34,,0.98,-0.88,-0.72,,,,0.03
+Corridas sem bola acima de HSR,corridas sem bola,Corridas sem bola,0.8,0.2,0.05,Zagueiro pela direita,0.54,0.27,0.54,-0.4,-0.11,0.15,-0.07,0.23,-0.33,-0.08,-0.0
+Arrancadas explosivas até HSR,físico,Arrancadas explosivas,0.8,0.24,-0.05,Meia,-0.45,-0.25,0.37,0.04,0.08,-0.08,0.12,-0.45,-0.0,-0.28,-0.36
+Mudanças de direção,físico,Ações de alta intensidade,0.7,0.14,0.05,Extremo pela esquerda,0.37,-0.06,0.09,-0.18,-0.05,0.14,0.12,0.31,-0.1,0.37,0.08
+Distância média da corrida sem bola,corridas sem bola,Sprints,0.44,0.12,-0.03,Lateral esquerdo,-0.31,-0.02,0.11,-0.13,-0.31,0.27,0.31,0.16,-0.16,-0.2,-0.24
+Corridas sem bola que receberam a bola,corridas sem bola,Corridas sem bola,0.77,0.06,-0.02,Zagueiro pela esquerda,0.55,-0.03,0.39,0.55,0.0,0.22,-0.45,0.2,0.22,-0.26,-0.42
+Metros por minuto,físico,Distância,1.0,0.01,-0.01,Extremo pela direita,-0.45,-0.33,-0.06,0.14,-0.13,0.21,-0.07,0.36,-0.45,0.17,0.19
+Corridas sem bola buscadas pelo passe,corridas sem bola,Corridas sem bola,0.85,0.09,0.0,Zagueiro pela esquerda,0.54,0.12,0.37,0.54,-0.1,0.24,-0.41,-0.19,0.01,-0.43,-0.22
