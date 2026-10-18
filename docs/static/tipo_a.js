@@ -78,7 +78,7 @@
     let h = '<div class="ta-lado ta-' + letra + '"><h5><i>' + letra + '</i> <b>' + linhas.length + '</b></h5>';
     if (!linhas.length) return h + '<p class="ta-vazio">ninguém</p></div>';
     h += '<table class="ta-tab"><thead><tr><th>#</th><th>Jogador</th><th>Clube' + (g === 'b' ? '' : ' · liga') + '</th><th class="n">Id.</th><th class="n">Contr.</th><th class="n">Valor</th>' +
-      '<th class="n" title="PSV-99 (km/h)">PSV</th><th class="n" title="Sprints por 90">Spr</th><th class="n" title="Arrancadas explosivas por 90">Arr</th><th class="n" title="Ações de alta intensidade por 90">AI</th><th title="Selo de subida">Sub</th><th title="levar ao campograma"></th></tr></thead><tbody>';
+      '<th class="n" title="PSV-99 (km/h)">PSV</th><th class="n" title="Sprints por 90">Spr</th><th class="n" title="Arrancadas explosivas por 90">Arr</th><th class="n" title="Ações de alta intensidade por 90">AI</th><th title="Selo de subida">Sub</th>' + (window.VISAO_NOVA ? '<th title="Farol: letra + seta pela regra da posição">Farol</th>' : '') + '<th title="levar ao campograma"></th></tr></thead><tbody>';
     const JB = JBx();
     linhas.forEach((x, i) => {
       const j = x.j, selo = seloDe(x).h;
@@ -87,7 +87,7 @@
       const mais = x.mais ? ' <i class="ta-ap" title="A+: explosivo e motor de volume (' + esc(x.tipo || '') + ')">A+</i>' : '';
       h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + mais + nac + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(j.l) + '</em>') + '</td>' +
         '<td class="n">' + (j.id_ || '—') + '</td><td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
-        '<td class="n f">' + num(j.psv, 1) + '</td><td class="n f">' + num(j.spr_n, 1) + '</td><td class="n f">' + num(j.expl, 2) + '</td><td class="n f">' + num(j.hi_n, 0) + '</td><td>' + selo + '</td>' +
+        '<td class="n f">' + num(j.psv, 1) + '</td><td class="n f">' + num(j.spr_n, 1) + '</td><td class="n f">' + num(j.expl, 2) + '</td><td class="n f">' + num(j.hi_n, 0) + '</td><td>' + selo + '</td>' + (window.VISAO_NOVA ? '<td class="fa">' + (JB ? JB.farolHtml(x.b) : '') + '</td>' : '') +
         '<td class="lv-bt">' + (JB ? JB.levarHtml(x.b) : '') + '</td></tr>';
     });
     return h + '</tbody></table></div>';

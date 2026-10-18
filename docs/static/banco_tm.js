@@ -104,6 +104,14 @@
     if (j.pen) b.push('<span class="pen" title="Bateu 2+ pênaltis">Pênalti</span>');
     return b.length ? '<div class="btm-bp">' + b.join('') + '</div>' : '<span class="btm-vaz">—</span>';
   }
+  const POS11 = { 'Lateral Dir.': 'LD', 'Lateral Esq.': 'LE', 'Zagueiro': 'ZD', 'Volante': 'VOL', 'Meia Central': 'MED', 'Meia Ofensivo': 'MEI', 'Ponta Direita': 'ED', 'Ponta Esquerda': 'EE', 'Centroavante': 'CA', 'Seg. Atacante': 'CA', 'Meia Direita': 'ED', 'Meia Esquerda': 'EE' };
+  function farolLinha(j, sk) {
+    if (typeof farolDe !== 'function') return '';
+    const seta = sk === 'A' ? j.sA : j.sB, selo = seta === '▲' ? 'v' : seta === '↔' ? 'a' : seta === '▼' ? 'r' : 'n';
+    const pos = j.p11 || POS11[j.pos] || null; if (!pos) return '<span class="btm-vaz">—</span>';
+    const c = farolDe(j.letra || null, selo, pos);
+    return c ? farolHtml(c, pos, j.letra, selo, true) : '<span class="btm-vaz">—</span>';
+  }
   const xtH = j => j.xt == null ? '<span class="btm-vaz">—</span>' : '<span class="btm-xt" title="índice de ameaça (aproximação de xT) por 90, da aba Ameaça · P = percentil na posição">' + num(j.xt, 2) + (j.xtp != null ? '<small>P' + j.xtp + '</small>' : '') + '</span>';
   const chips = (k, vals, rot) => vals.map((v, i) => '<button class="btm-chip' + (E.f[k].includes(v) ? ' on' : '') + '" data-k="' + k + '" data-v="' + esc(v) + '">' + esc(rot ? rot[i] : v) + '</button>').join('');
 
@@ -147,7 +155,7 @@
       '<span class="btm-leg">Letra: <b class="l-ap">A+</b> explosivo e motor de volume · <b class="l-a">A</b> o tipo mais forte da posição · <b class="l-b">B</b> o do meio · <b class="l-c">C</b> baixa intensidade &nbsp;|&nbsp; Seta: indicadores principais de quem sobe que ele cumpre</span></div>';
     if (!r.length) return h + '<p class="btm-vazio">Nenhum jogador com esses filtros.</p>';
     const xt = E.xt && temXt();
-    h += '<div class="btm-rol"><table class="btm-tab"><thead><tr><th>#</th><th>Jogador</th><th class="c">Idade</th><th>Nacionalidade</th><th>Clube</th><th class="d">Valor</th><th>Contrato até</th><th class="c">Físico</th><th>Série ' + sk + '</th><th>Bola parada</th>' + (xt ? '<th class="d" title="índice de ameaça (aproximação de xT) por 90 — aba Ameaça">xT</th>' : '') + '<th></th></tr></thead><tbody>';
+    h += '<div class="btm-rol"><table class="btm-tab"><thead><tr><th>#</th><th>Jogador</th><th class="c">Idade</th><th>Nacionalidade</th><th>Clube</th><th class="d">Valor</th><th>Contrato até</th><th class="c">Físico</th><th>Série ' + sk + '</th><th>Bola parada</th>' + (NOVA ? '<th title="Farol: letra + seta pela regra da posição (a seta do Banco ainda inclui físico — vem do Portal)">Farol</th>' : '') + (xt ? '<th class="d" title="índice de ameaça (aproximação de xT) por 90 — aba Ameaça">xT</th>' : '') + '<th></th></tr></thead><tbody>';
     pg.forEach((j, i) => {
       const soW = j.fonte === 'w';
       h += '<tr class="btm-l' + (soW ? ' btm-w' : '') + '" data-id="' + esc(j.id) + '"><td class="btm-i">' + (ini + i + 1) + '</td>' +
@@ -158,7 +166,7 @@
         '<td class="d btm-valor">' + moeda(j.valor) + '</td><td>' + contrato(j) + '</td>' +
         '<td class="c">' + letraH(j.letra, j.letra_t) + '</td>' +
         '<td>' + (sk === 'A' ? setaH(j.sA, j.okA, j.nA, !!j.pw) : setaH(j.sB, j.okB, j.nB, !!j.pw)) + '</td>' +
-        '<td>' + bpH(j) + '</td>' + (xt ? '<td class="d">' + xtH(j) + '</td>' : '') +
+        '<td>' + bpH(j) + '</td>' + (NOVA ? '<td>' + farolLinha(j, sk) + '</td>' : '') + (xt ? '<td class="d">' + xtH(j) + '</td>' : '') +
         '<td><button class="btm-mais"' + (j.pw ? '' : ' disabled title="' + (soW ? 'Linha só do Wyscout: o + Mais (percentis contra o mundo e a Série B) só o Portal Transfermarkt gera' : 'Sem dado do Wyscout/SkillCorner neste período') + '"') + '>+ Mais</button></td></tr>';
     });
     h += '</tbody></table></div><div class="btm-pag"><button class="btm-bt" data-pag="-1"' + (E.pag <= 1 ? ' disabled' : '') + '>←</button><span>página ' + E.pag + ' de ' + pags + '</span><button class="btm-bt" data-pag="1"' + (E.pag >= pags ? ' disabled' : '') + '>→</button></div>';
@@ -216,7 +224,7 @@
     const j = J.find(x => x.id === tr.dataset.id); if (!j || !j.pw) return;
     tr.querySelector('.btm-mais').classList.add('on');
     const det = document.createElement('tr'); det.className = 'btm-det';
-    det.innerHTML = '<td colspan="' + (E.xt && temXt() ? 12 : 11) + '"><p class="btm-vazio">carregando...</p></td>'; tr.after(det);
+    det.innerHTML = '<td colspan="' + (11 + (E.xt && temXt() ? 1 : 0) + (NOVA ? 1 : 0)) + '"><p class="btm-vazio">carregando...</p></td>'; tr.after(det);
     if (!MAIS[j.pw]) MAIS[j.pw] = fetch(MAIS_URL + 'mais_' + j.pw + '.json').then(r => r.json()).catch(() => ({}));
     const d = (await MAIS[j.pw])[j.id];
     det.firstChild.innerHTML = d ? painel(j, d) : '<p class="btm-vazio">Sem dado do Wyscout/SkillCorner para este jogador.</p>';

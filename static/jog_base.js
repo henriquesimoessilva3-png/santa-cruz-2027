@@ -45,6 +45,7 @@ window.JB = (function () {
     } catch (e) { return null; }
   }
   const letraHtml = b => { const x = letra(b); return x ? '<span class="tipo-abc tipo-' + (x.l === 'A+' ? 'Ap' : x.l) + '" title="' + esc(x.t) + '">' + x.l + '</span>' : '<span class="jb-vaz" title="sem físico rastreado">—</span>'; };
+  const farolHtml = b => { if (!b || typeof farolDoJogador !== 'function' || !window.VISAO_NOVA) return ''; let j = b; try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(b) || b; } catch (e) {} const f = farolDoJogador(j); return f ? f.htmlNome : '<span class="jb-vaz" title="sem dado">—</span>'; };
   const nomeHtml = (b, nome) => b ? '<a href="#" class="jb-nome" data-jb-id="' + esc(b.id) + '" title="abrir a ficha dele no campograma">' + esc(nome || b.n) + '</a>' : esc(nome);
   const levarHtml = b => b && typeof primaryKey === 'function' ? '<button class="jb-levar" data-jb-pk="' + esc(primaryKey(b)) + '" title="levar ao campograma (escolhe a posição)">↗</button>' : '';
   function ligar(el) {
@@ -56,5 +57,5 @@ window.JB = (function () {
       if (l) { ev.preventDefault(); if (typeof menuLevar === 'function') menuLevar(ev, l.dataset.jbPk, null, l); }
     });
   }
-  return { achar, letra, letraHtml, nomeHtml, levarHtml, ligar, semAc };
+  return { achar, letra, letraHtml, farolHtml, nomeHtml, levarHtml, ligar, semAc };
 })();

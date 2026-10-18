@@ -83,8 +83,10 @@
       if (!r.forcado && (Math.abs(r[2]) < 0.3 || !(i.menor ? r[0] < r[1] : r[0] > r[1]))) return;
       (por[i.cat] = por[i.cat] || []).push([i.k, r[0], Math.abs(r[2])]);
     });
-    const NN = ZAG(pos) ? (N === N_PRI ? CLUBE.N : { fis: 2, pas: 1, atq: 1, def: 2 }) : N;
-    Object.keys(por).forEach(c => por[c].sort((a, b) => b[2] - a[2]).slice(0, NN[c] || 1).forEach(x => { m[x[0]] = x[1]; }));
+    let NN = ZAG(pos) ? (N === N_PRI ? CLUBE.N : { fis: 2, pas: 1, atq: 1, def: 2 }) : N;
+    /* 18/10/2026 — visão nova: a seta vira SÓ TÉCNICA (o físico já está na letra; os dois se juntam no farol) */
+    if (window.VISAO_NOVA) NN = Object.assign({}, NN, { fis: 0 });
+    Object.keys(por).forEach(c => por[c].sort((a, b) => b[2] - a[2]).slice(0, NN[c] == null ? 1 : NN[c]).forEach(x => { m[x[0]] = x[1]; }));
     return m;
   }
   function padrao(pos, cat) {

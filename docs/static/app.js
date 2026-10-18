@@ -7048,11 +7048,38 @@ function seloClasse(j) {
   if (c !== 'n') seloCache.set(k, c);   /* "sem dado" pode virar seta quando o arquivo de indicadores da posição chega */
   return c;
 }
+/* ---------------- farol (18/10/2026, visão nova) ----------------
+   O veredito que junta a letra (físico) e a seta (técnico) pela regra da posição:
+   onde o físico pesa (LD, LE, EE, VOL, MED) precisa de A ou A+ e ▲; nas outras, ▲ e não ser C.
+   verde = Validado · amarelo = Dúvida (falta uma das duas, ou falta dado) · vermelho = Alerta (▼ ou C). */
+const FAROL_EXIGE = { LD: 1, LE: 1, EE: 1, VOL: 1, MED: 1 };
+const FAROL_NOME = { v: 'Validado', a: 'Dúvida', r: 'Alerta' };
+function farolDe(letra, selo, pos) {
+  if (!letra && (!selo || selo === 'n')) return null;
+  if (selo === 'r' || letra === 'C') return 'r';
+  const fisOk = letra ? (FAROL_EXIGE[pos] ? (letra === 'A' || letra === 'A+') : true) : false;
+  return (selo === 'v' && fisOk) ? 'v' : 'a';
+}
+function farolHtml(c, pos, letra, selo, comNome) {
+  if (!c) return '';
+  const sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[selo] || '?';
+  const regra = FAROL_EXIGE[pos] ? 'nesta posição o físico pesa: precisa de A ou A+ e ▲' : 'nesta posição o físico é só piso: precisa de ▲ e não ser C';
+  const t = 'Farol: ' + FAROL_NOME[c] + ' — letra ' + (letra || 'sem') + ', seta ' + sinal + '. Regra: ' + regra + '. Verde = as duas ok · amarelo = falta uma (ou falta dado) · vermelho = seta ▼ ou letra C.';
+  return '<span class="farol farol-' + c + '" title="' + esc(t) + '">' + (comNome ? '<b>' + FAROL_NOME[c] + '</b>' : '') + '</span>';
+}
+function farolDoJogador(j) {
+  if (!j || j.p === 'GOL') return null;
+  let letra = null; try { letra = tipoLetra(j); if (letra === 'A' && tipoMais(j)) letra = 'A+'; } catch (e) {}
+  let selo = 'n'; try { selo = seloClasse(j); } catch (e) {}
+  const c = farolDe(letra, selo, j.p);
+  return c ? { c, letra, selo, html: farolHtml(c, j.p, letra, selo, false), htmlNome: farolHtml(c, j.p, letra, selo, true) } : null;
+}
 /* letra A/B/C + selo de subida (▲ ↔ ▼, static/subida.js): saem juntos em todo lugar que mostra a letra */
 function tipoBadge(pk, obj) {
-  let selo = '';
-  try { const js = comPosCampo(obj || (BASE.length ? fsJogadorPk(pk) : null)); if (js && typeof window.subidaSelo === 'function') selo = window.subidaSelo(js); } catch (e) {}
-  return tipoBadgeLetra(pk, obj) + selo;
+  let selo = '', farol = '';
+  try { const js = comPosCampo(obj || (BASE.length ? fsJogadorPk(pk) : null)); if (js && typeof window.subidaSelo === 'function') selo = window.subidaSelo(js);
+    if (js && window.VISAO_NOVA) { const f = farolDoJogador(js); if (f) farol = f.html; } } catch (e) {}
+  return tipoBadgeLetra(pk, obj) + selo + farol;
 }
 function tipoBadgeLetra(pk, obj) {
   if (!BASE.length || !window.CONSULTA) return '';

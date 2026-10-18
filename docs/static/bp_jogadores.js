@@ -114,12 +114,12 @@
                ['finalizacoes_bp', 'Finalizações BP', 'finalizações em lances de bola parada'],
                ['xg_bp', 'xG BP', 'o Sofascore só tem xG na Série B desde 2025'], ['gols_penalti', 'Pênaltis', 'gols de pênalti']];
     const JB = window.JB || null;
-    const cab = '<th>Jogador</th><th>Pos</th><th class="c" title="Letra do tipo físico (a mesma dos cards): A+ explosivo e motor de volume · A o tipo mais forte da posição · B o do meio · C baixa intensidade">Físico</th><th>Clube(s)</th>' + C.map(([c, r, t]) =>
+    const cab = '<th>Jogador</th><th>Pos</th><th class="c" title="Letra do tipo físico (a mesma dos cards): A+ explosivo e motor de volume · A o tipo mais forte da posição · B o do meio · C baixa intensidade">Físico</th>' + (window.VISAO_NOVA ? '<th title="Farol: letra + seta pela regra da posição">Farol</th>' : '') + '<th>Clube(s)</th>' + C.map(([c, r, t]) =>
       '<th class="n' + (st.ordP === c ? ' ord' : '') + '" data-op="' + c + '" title="' + esc(t || r) + '">' + esc(r) +
       (st.ordP === c ? (st.dirP < 0 ? ' ▾' : ' ▴') : '') + '</th>').join('') + '<th title="levar ao campograma"></th>';
     const corpo = L.slice(0, 150).map(o => { const b = JB ? JB.achar(o.nome, [...o.clubes], o.pos) : null;
       return '<tr><td class="nome">' + (JB ? JB.nomeHtml(b, o.nome) : esc(o.nome)) + '</td><td>' + esc(o.pos || '—') +
-      '</td><td class="c">' + (JB ? JB.letraHtml(b) : '') + '</td><td class="clu">' + esc([...o.clubes].join(', ')) + '</td>' +
+      '</td><td class="c">' + (JB ? JB.letraHtml(b) : '') + '</td>' + (window.VISAO_NOVA ? '<td>' + (JB ? JB.farolHtml(b) : '') + '</td>' : '') + '<td class="clu">' + esc([...o.clubes].join(', ')) + '</td>' +
       C.map(([c]) => '<td class="n' + (['assist_bp', 'gols_bp', 'part'].includes(c) ? ' forte' : '') + '">' +
         (c === 'xg_bp' ? (o.xgN ? num(o.xg_bp, 1) : '—') : (o[c] ? num(o[c], 0) : '·')) + '</td>').join('') +
       '<td class="lv-bt">' + (JB ? JB.levarHtml(b) : '') + '</td></tr>'; }).join('');
