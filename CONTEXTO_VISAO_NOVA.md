@@ -22,8 +22,8 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 - **Farol** (`farolDe` em app.js): Validado/Dúvida/Alerta = letra + seta pela posição (LD, LE, EE, VOL, MED exigem A/A+);
   minutagem vermelha tira o Validado; bola parada não entra.
 - **Card do campograma** (`painelCard`): retângulo na cor do farol com letra · seta · minutagem · ⚑ bola parada.
-  Minutagem = média por ano de 2024–26 (min ÷ 3.400; 2026 ÷ 2.100; só jogos ÷ 38); número branco em fundo escuro,
-  filete colorido; hover com ano a ano. Card mínimo 300 px (escala do campo); raio e bola aérea fora do card.
+  Minutagem = média por ano de 2024–26 (min ÷ 3.400; 2026 ÷ 2.100; só jogos ÷ 38); fundo vermelho/amarelo/verde em tom
+  escuro com número branco (aprovado 18/10); hover com ano a ano. Card mínimo 300 px (escala do campo); raio e bola aérea fora do card.
 - **Ficha**: blocos do ranking da posição + faixa "Outros indicadores" (os técnicos fora do ranking, base Subida ≥ 900 min).
 - **Estudo › Físico**: regra, 6 indicadores em 2 grupos, os 15 excluídos, escopo, matriz por posição com contagens (só sobe/fica/cai).
 - **Estudo › Técnico**: dois quadros novos (`montarTecnico` em visao_nova.js): regra das setas e "entra/fica de fora" por régua.

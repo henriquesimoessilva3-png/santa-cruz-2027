@@ -3702,7 +3702,7 @@ body.visao-nova .campo.denso .pos .jog-meta{font-size:calc(10.5px * var(--fz))}
 .jpainel .jq .tipo-abc,.jpainel .jq .sb-selo{margin:0;width:17px;height:17px;min-width:0;border-radius:4px;font-size:10.5px}
 .jpainel .jq-vaz{display:block;width:9px;height:9px;border:1.5px dashed #9aa3ad;border-radius:3px}
 .jpainel .jq-min{background:#334155;color:#fff;width:auto;min-width:21px;padding:0 3px}
-.jpainel .jq-min.min-v{box-shadow:inset 0 -3px 0 #22c55e} .jpainel .jq-min.min-a{box-shadow:inset 0 -3px 0 #eab308} .jpainel .jq-min.min-r{box-shadow:inset 0 -3px 0 #ef4444}
+.jpainel .jq-min.min-v{background:#15803d} .jpainel .jq-min.min-a{background:#a16207} .jpainel .jq-min.min-r{background:#b91c1c}
 .jpainel .jq-min b{font-size:10px;letter-spacing:-.2px;color:#fff}
 .jpainel .jq-bp.bp-v{background:#16a34a;color:#fff} .jpainel .jq-bp.bp-a{background:#eab308;color:#1a1a1a}
 body.visao-nova .jog-nome .nm{margin-left:1px}
