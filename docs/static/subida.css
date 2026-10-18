@@ -172,3 +172,6 @@
 
 .sq .sq-est{font-style:normal;font-size:9.5px;letter-spacing:.3px;text-transform:uppercase;color:var(--tinta3);border:1px solid var(--linha1);border-radius:4px;padding:0 4px;margin-left:4px}
 .sq .sq-clube{color:#4a90d9;border-color:#4a90d966}
+/* 18/10 — visão nova: o grupo da nota técnica ao lado do indicador que entra (N) */
+.sq .sq-grp{color:#2563eb;border-color:#2563eb66;text-transform:none;letter-spacing:0}
+.sq-res.sq-selo b.v{color:var(--verde)} .sq-res.sq-selo b.r{color:var(--coral-cl)} .sq-res.sq-selo small{color:var(--tinta3);font-size:10px}

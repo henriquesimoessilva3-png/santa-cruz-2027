@@ -246,10 +246,84 @@
     sync();
   }
 
+  /* ---------- Estudo › Técnico: os dois quadros da seta técnica (18/10, pedido do Henrique: "o quadro das setinhas e o quadro
+     do que entra e do que não entra em cada um, e o porquê"), antes da página "Característica por posição".
+     Dado: static/tecnico_grupos_dados.js (Santa Cruz V2/scripts/b21_seta_tecnica.py). ---------- */
+  const NOME_POS = {}; POS10.forEach(p => { NOME_POS[p[0]] = p[1]; });
+  const sinal = v => v == null ? '—' : (v > 0 ? '+' : '') + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const pct = v => Math.round(100 * v) + '%';
+  let tecnicoFeito = false;
+  function montarTecnico() {
+    const pg = $('#pgCaracteristicas'), rol = pg && pg.querySelector('.emp-rolagem'), corpo = $('#carCorpo');
+    if (!rol || !corpo || tecnicoFeito) return;
+    const TG = window.TECNICO_GRUPOS; if (!TG) return;
+    tecnicoFeito = true;
+    const G = TG.grupos, R = TG.reguas, ordem = TG.ordem;
+    const refAnos = TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2), anos = TG.anos[0] + '–' + TG.anos[TG.anos.length - 1];
+    /* os indicadores de cada grupo (os 40 da ficha; 4 deles fora da conta porque o Wyscout mudou o critério) */
+    const porGrupo = {}; G.forEach(g => { porGrupo[g] = []; });
+    const vol = R.VOL || R[ordem[0]];
+    [].concat(vol.entra, vol.fora).forEach(x => { if (porGrupo[x.g] && !porGrupo[x.g].some(y => y.rot === x.rot)) porGrupo[x.g].push({ rot: x.rot, nm: x.motivo === 'critério mudou' }); });
+    const auc = TG.auc || [], aucDe = n => { const r = auc.find(x => x.regra.indexOf(n) === 0); return r ? r.auc : null; };
+    const fAuc = v => v == null ? '—' : Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const tot = rg => G.reduce((s, g) => s + (R[rg].pesos[g] || 0), 0) || 1;
+    const MOTIVO = { 'do time': 'do time — separa quem sobe de quem cai, mas a time igual não (a diferença vem do time)', 'não separa': 'não separa — abaixo de 0,30 desvio', estilo: 'estilo — quem sobe tem MENOS (retrato do time, não qualidade)', 'critério mudou': 'critério mudou — o Wyscout mudou a conta no período', clube: 'clube — fora por decisão do clube (zagueiro: no ataque só passes para a área, xG e gols)', 'sem dado': 'sem dado suficiente' };
+    const ORD_MOT = ['do time', 'não separa', 'estilo', 'critério mudou', 'clube', 'sem dado'];
+    const linha = rg => {
+      const P = R[rg], t = tot(rg), d = P.dist.Todos, nT = d.v + d.a + d.r;
+      const cel = g => { const e = P.entra.filter(x => x.g === g); const w = P.pesos[g] || 0;
+        return '<td class="vnt-g">' + (e.length ? '<span class="vnf-n"><b>' + e.length + '</b> <em>' + pct(w / t) + '</em></span><ul>' +
+          e.slice().sort((a, b) => b.w - a.w).map(x => '<li>' + esc(x.rot) + ' <i title="separação a time igual (bruta ' + sinal(x.sep) + ')">' + sinal(x.sepT) + '</i>' + (x.clube ? '<em class="clube" title="entra por decisão do clube (09/10)">clube</em>' : '') + '</li>').join('') + '</ul>'
+          : '<span class="vnf-vaz">nenhum entra</span>') + '</td>'; };
+      const por = {}; P.fora.forEach(f => { (por[f.motivo] = por[f.motivo] || []).push(f); });
+      const mots = ORD_MOT.filter(m => por[m]);
+      const fora = '<td class="vnt-fora"><b>' + P.fora.length + '</b> ficam fora — ' + mots.map(m => m + ' <b>' + por[m].length + '</b>').join(' · ') +
+        '<details><summary>ver quais e por quê</summary><dl>' + mots.map(m => '<dt>' + esc(MOTIVO[m] || m) + ' (' + por[m].length + ')</dt><dd>' +
+          por[m].slice().sort((a, b) => (b.sep || 0) - (a.sep || 0)).map(f => esc(f.rot) + (f.sepT != null ? ' (' + sinal(f.sepT) + ' / ' + sinal(f.sep) + ')' : '')).join(' · ') + '</dd>').join('') + '</dl></details></td>';
+      return '<tr><th>' + esc(P.nome) + '<small>' + (TG.posicoes_da_regua[rg] || []).map(p => NOME_POS[p] || p).join(' + ') + '</small><small>' + P.n.Sobe + ' sobem · ' + P.n.Meio + ' meio · ' + P.n.Cai + ' caem</small>' +
+        '<span class="vnt-dist" title="como a nota distribui os ' + nT + ' titulares da Série B ' + anos + ' desta régua">▲ <b class="v">' + d.v + '</b> · ↔ <b class="a">' + d.a + '</b> · ▼ <b class="r">' + d.r + '</b></span></th>' + G.map(cel).join('') + fora + '</tr>';
+    };
+    const el = document.createElement('div'); el.id = 'vntQuadros'; el.className = 'vnf';
+    el.innerHTML =
+      '<h2 class="vnf-tit">Técnico — a seta ▲ ↔ ▼ e o que entra nela</h2>' +
+      '<p class="vnf-intro">Cada jogador de linha recebe uma <b>seta</b> pelo técnico (Wyscout), comparado com os titulares da Série B da sua posição. É a mesma seta dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta; ' +
+      'junto com a letra do físico ela forma o <b>farol</b>. A seta é só técnica — o físico já está na letra.</p>' +
+      '<div class="vnf-duas"><div class="vnf-regra">' +
+      '<div><span class="vnt-seta v">▲</span><span><b>No nível do titular de quem sobe</b> — nota técnica a partir da mediana dos titulares dos times que subiram, na régua da posição.</span></div>' +
+      '<div><span class="vnt-seta a">↔</span><span><b>Entre quem sobe e quem cai</b> — nota entre as duas medianas.</span></div>' +
+      '<div><span class="vnt-seta r">▼</span><span><b>No nível de quem cai</b> — nota até a mediana dos titulares dos times que caíram.</span></div>' +
+      '<div><span class="vnt-seta n">?</span><span><b>Faltam dados</b> — menos de 4 dos indicadores que entram na nota estão medidos.</span></div>' +
+      '<p><b>Como a nota é calculada.</b> Os indicadores da ficha estão em <b>4</b> grupos, os mesmos do ranking do Botafogo: Defensivo, Passe, Ofensivo e Participação em gols. ' +
+      'Em cada régua (posição; as gêmeas juntas: os dois laterais, os dois zagueiros, os dois extremos) entra o indicador que separa o titular de quem sobe do de quem cai em <b>0,30</b> desvio ou mais <i>e</i> que ainda separa <b>a time igual</b> em <b>0,20</b> ou mais. ' +
+      'O valor do jogador vira desvio contra a Série B <b>' + refAnos + '</b> da régua (faltas e cartões com o sinal trocado; limitado a ±2,5). A nota é a média dos desvios de cada grupo, pesada pela separação do grupo a time igual — o peso de cada grupo, posição a posição, está na tabela abaixo. Régua: os <b>' +
+      ordem.reduce((s, rg) => s + R[rg].n.Sobe + R[rg].n.Meio + R[rg].n.Cai, 0).toLocaleString('pt-BR') + '</b> titulares da Série B ' + anos + ' com 900 minutos ou mais.</p>' +
+      '<p><b>A time igual.</b> Dúvida levantada em 18/10: participação em gols não é do time? Para responder, de cada indicador foi tirada a parte que o time explica (ataque, passe e participação contra o xG e a posse do time na temporada; defesa contra os duelos defensivos ganhos e o PPDA do time). O que sobra é do jogador — é com isso que se escolhe e se pesa. ' +
+      'No volante, a participação em gols <b>continua</b> separando a time igual (quem sobe participa mais de gols mesmo em times com o mesmo ataque); o volume de passe caiu — parte era do time. O indicador que separava só por causa do time aparece como <i>do time</i> e fica de fora.</p>' +
+      '<div class="vnt-prova"><b>Prova</b> (um ano de fora por vez, ' + anos + '; AUC — 0,50 é moeda, 1,00 é acerto total): a seta nova <b>não prevê melhor</b> que a seta de hoje — empata. O ganho é de leitura: quatro grupos, pesos vindos do dado, posição a posição, e só o que é do jogador.' +
+      '<table><thead><tr><th>Regra</th><th>AUC</th></tr></thead><tbody>' + auc.map(r => '<tr><td>' + esc(r.regra) + '</td><td class="n">' + fAuc(r.auc) + '</td></tr>').join('') + '</tbody></table>' +
+      'Zagueiro: a defesa entra por decisão do clube (09/10) e custa previsão (' + fAuc(aucDe('Nota por grupo (')) + ' contra ' + fAuc(aucDe('Nota por grupo sem')) + ' sem a regra); o clube prefere o zagueiro julgado pela defesa.</div></div>' +
+      '<div class="vnf-eixos"><h4>Os <b>' + Object.values(porGrupo).reduce((s, a) => s + a.filter(x => !x.nm).length, 0) + '</b> indicadores, em quatro grupos</h4>' +
+      '<div class="vnt-grupos">' + G.map(g => '<div><b>' + esc(g) + '<i>' + porGrupo[g].filter(x => !x.nm).length + (porGrupo[g].some(x => x.nm) ? ' + ' + porGrupo[g].filter(x => x.nm).length + ' fora' : '') + '</i></b>' +
+        porGrupo[g].map(x => esc(x.rot) + (x.nm ? ' <s title="fora da conta: o Wyscout mudou o critério no período">~</s>' : '')).join(' · ') + '</div>').join('') + '</div>' +
+      '<p>Os mesmos grupos do ranking do Botafogo (glossário do Portal Ranking), no que a ficha tem. ~ = volume de duelo e de ação defensiva: o Wyscout mudou o critério no período, fica fora da conta. Em cada posição entra só o que separa quem sobe de quem cai a time igual — a tabela abaixo diz quais, com a separação ao lado (quanto maior, mais pesa).</p></div></div>' +
+      '<div class="vnf-mat"><h3>O que entra na nota e o que fica de fora, posição a posição — e quanto pesa cada grupo</h3>' +
+      '<table class="vnf-tab vnt-tab"><thead><tr><th>Régua</th>' + G.map(g => '<th>' + esc(g) + '</th>').join('') + '<th>Fica de fora</th></tr></thead><tbody>' + ordem.map(linha).join('') + '</tbody></table>' +
+      '<p class="vnf-nota">Em cada grupo: <b>quantos</b> indicadores entram e o <b>peso</b> do grupo na nota (soma das separações a time igual dos que entram, dividida pelo total da régua). Ao lado de cada indicador, a separação a time igual (passe o mouse para ver a bruta). ' +
+      'Na primeira coluna, quantos titulares da Série B ' + anos + ' a nota põe em cada seta: ▲ a partir da mediana de quem sobe, ▼ até a mediana de quem cai. Gerado em ' + esc(TG.gerado_em) + ' (b21). Abaixo, a página de sempre: indicador a indicador, sobe × meio × cai.</p></div>';
+    rol.insertBefore(el, corpo);
+  }
+  function ligarTecnico() {
+    const bt = abaOriginal('caracteristicas');
+    if (!bt) return;
+    const sync = () => { if (bt.classList.contains('on')) montarTecnico(); };
+    new MutationObserver(sync).observe(bt, { attributes: true, attributeFilter: ['class'] });
+    sync();
+  }
+
   function iniciar() {
     montarBarra();
     if (!NOVA) return;
-    ligarFisico();
+    ligarFisico(); ligarTecnico();
     const nav = $('nav.abas');
     if (nav) new MutationObserver(sincronizar).observe(nav, { attributes: true, attributeFilter: ['class'], subtree: true });
     /* abre sempre no campograma, como a barra de hoje (18/10); os capítulos lembrados valem a partir do primeiro clique */

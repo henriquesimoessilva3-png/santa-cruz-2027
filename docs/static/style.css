@@ -3701,7 +3701,23 @@ body.visao-nova .campo.denso .pos .jog-meta{font-size:calc(10.5px * var(--fz))}
 .jpainel .jq{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:4px;background:#ffffffd9;flex:none;font:700 10px/1 var(--fonte);color:#1a1a1a}
 .jpainel .jq .tipo-abc,.jpainel .jq .sb-selo{margin:0;width:17px;height:17px;min-width:0;border-radius:4px;font-size:10.5px}
 .jpainel .jq-vaz{display:block;width:9px;height:9px;border:1.5px dashed #9aa3ad;border-radius:3px}
-.jpainel .jq-min.min-v{background:#16a34a;color:#fff} .jpainel .jq-min.min-a{background:#eab308;color:#1a1a1a} .jpainel .jq-min.min-r{background:#dc2626;color:#fff}
-.jpainel .jq-min b{font-size:9px;letter-spacing:-.3px}
+.jpainel .jq-min{background:#334155;color:#fff;width:auto;min-width:21px;padding:0 3px}
+.jpainel .jq-min.min-v{box-shadow:inset 0 -3px 0 #22c55e} .jpainel .jq-min.min-a{box-shadow:inset 0 -3px 0 #eab308} .jpainel .jq-min.min-r{box-shadow:inset 0 -3px 0 #ef4444}
+.jpainel .jq-min b{font-size:10px;letter-spacing:-.2px;color:#fff}
 .jpainel .jq-bp.bp-v{background:#16a34a;color:#fff} .jpainel .jq-bp.bp-a{background:#eab308;color:#1a1a1a}
 body.visao-nova .jog-nome .nm{margin-left:1px}
+
+/* 18/10 (2) — card da visão nova mais largo e com o nome legível: o painel fica na 1ª linha, o nome ao lado ocupa o resto;
+   largura mínima do card maior que a do planejador (o campo escala por cima, como sempre) */
+body.visao-nova .pos,body.visao-nova .pos.aberto{width:max(var(--pos-max, 240px), calc(300px * var(--fz)))}
+body.visao-nova .campo.denso .pos,body.visao-nova .campo.denso .pos.aberto{width:max(var(--pos-max, 240px), calc(280px * var(--fz)))}
+body.visao-nova .pos .jog-nome,body.visao-nova .campo.denso .pos .jog-nome{font-size:calc(14.5px * var(--fz));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;line-height:1.35}
+body.visao-nova .pos .jog-nome .nm{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.visao-nova .pos .jog-meta,body.visao-nova .campo.denso .pos .jog-meta{font-size:calc(11.5px * var(--fz))}
+body.visao-nova .jpainel{flex:none}
+/* ficha: os indicadores fora do ranking da posição, separados e mais discretos */
+.fi-outros{margin:4px 15px 10px;border-top:1px dashed var(--borda2);padding-top:6px}
+.fi-outros>summary{cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--tinta2);padding:4px 0}
+.fi-outros>summary b{font-size:13px;color:var(--tinta)} .fi-outros>summary small{text-transform:none;letter-spacing:0;font-weight:500;color:var(--tinta3);margin-left:6px}
+.fi-outros-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px 18px;opacity:.82}
+@media (max-width:1200px){.fi-outros-g{grid-template-columns:repeat(2,minmax(0,1fr))}}

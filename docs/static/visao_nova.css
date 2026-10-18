@@ -30,15 +30,15 @@ body.visao-nova nav.vn-sub {
 .vn-aux { margin-left: auto; color: var(--tinta3); font: 500 11.5px var(--fonte); text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; background: none; border: 0; }
 .vn-aux:hover { color: var(--coral); }
 
-/* Estudo › Físico: página composta */
+/* Estudo › Físico: página composta (as classes .vnf-* valem também nos quadros de Estudo › Técnico, #vntQuadros — 18/10) */
 #pgVnFisico .vnf { padding-top: 16px; }
-#pgVnFisico .vnf-tit { font-size: 22px; letter-spacing: -.015em; margin: 0 0 8px; line-height: 1.25; }
-#pgVnFisico .vnf-intro { font-size: 14px; line-height: 1.6; max-width: 100ch; margin: 0 0 12px; color: var(--tinta); }
-#pgVnFisico .vnf-regra { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); padding: 12px 16px; margin: 0 0 16px; max-width: 110ch; font-size: 13px; line-height: 1.55; }
-#pgVnFisico .vnf-regra > div { display: flex; gap: 8px; align-items: baseline; margin: 4px 0; }
-#pgVnFisico .vnf-regra .tipo-abc { flex: none; min-width: 22px; height: 18px; font-size: 11px; cursor: default; }
-#pgVnFisico .vnf-regra b { color: var(--tinta); margin-right: 2px; }
-#pgVnFisico .vnf-regra p { margin: 10px 0 0; color: var(--tinta2); font-size: 12.5px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tit { font-size: 22px; letter-spacing: -.015em; margin: 0 0 8px; line-height: 1.25; }
+:is(#pgVnFisico, #vntQuadros) .vnf-intro { font-size: 14px; line-height: 1.6; max-width: 100ch; margin: 0 0 12px; color: var(--tinta); }
+:is(#pgVnFisico, #vntQuadros) .vnf-regra { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); padding: 12px 16px; margin: 0 0 16px; max-width: 110ch; font-size: 13px; line-height: 1.55; }
+:is(#pgVnFisico, #vntQuadros) .vnf-regra > div { display: flex; gap: 8px; align-items: baseline; margin: 4px 0; }
+:is(#pgVnFisico, #vntQuadros) .vnf-regra .tipo-abc { flex: none; min-width: 22px; height: 18px; font-size: 11px; cursor: default; }
+:is(#pgVnFisico, #vntQuadros) .vnf-regra b { color: var(--tinta); margin-right: 2px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-regra p { margin: 10px 0 0; color: var(--tinta2); font-size: 12.5px; }
 #pgVnFisico #fsPainelEstudo { max-height: none; margin: 0 0 22px; }
 #pgVnFisico .vnf-mais { margin: 26px 0 40px; border-top: 1px solid var(--borda); padding-top: 14px; }
 #pgVnFisico .vnf-mais > summary { cursor: pointer; font: 650 14px var(--fonte); color: var(--tinta); padding: 4px 0; }
@@ -46,57 +46,90 @@ body.visao-nova nav.vn-sub {
 #pgVnFisico .esv-doc .esv-jog { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
 #pgVnFisico .esv-doc .esv-jog:hover { color: var(--coral); }
 /* matriz das letras por posição (Estudo › Físico) */
-#pgVnFisico .vnf-mat { margin: 0 0 22px; }
-#pgVnFisico .vnf-mat h3 { font-size: 16px; margin: 0 0 8px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-mat { margin: 0 0 22px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-mat h3 { font-size: 16px; margin: 0 0 8px; }
 #pgVnFisico .vnf-chips { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 10px; }
 #pgVnFisico .vnf-chips button { background: var(--fundo3); border: 1px solid var(--borda2); color: var(--tinta2); font: 600 12px var(--fonte); padding: 5px 12px; border-radius: 999px; cursor: pointer; }
 #pgVnFisico .vnf-chips button.on { background: var(--coral); border-color: var(--coral); color: #fff; }
-#pgVnFisico .vnf-tab { border-collapse: collapse; width: 100%; max-width: 1200px; font-size: 12.5px; }
-#pgVnFisico .vnf-tab th { text-align: left; font-weight: 650; color: var(--tinta); padding: 8px 10px 8px 0; border-bottom: 1px solid var(--borda2); vertical-align: top; white-space: nowrap; }
-#pgVnFisico .vnf-tab thead th { color: var(--tinta2); font-size: 11px; }
-#pgVnFisico .vnf-tab thead th .tipo-abc { min-width: 22px; height: 18px; font-size: 11px; cursor: default; }
-#pgVnFisico .vnf-tab tbody th small { display: block; font-weight: 500; font-size: 10.5px; color: var(--tinta3); }
-#pgVnFisico .vnf-tab td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--linha1); vertical-align: top; width: 22%; }
-#pgVnFisico .vnf-sig { display: block; color: var(--tinta2); line-height: 1.4; }
-#pgVnFisico .vnf-n { display: block; margin-top: 3px; font-variant-numeric: tabular-nums; }
-#pgVnFisico .vnf-n b { font-size: 16px; color: var(--tinta); }
-#pgVnFisico .vnf-n em { font-style: normal; font-weight: 700; font-size: 13px; color: var(--tinta2); margin-left: 4px; }
-#pgVnFisico .vnf-vaz { color: var(--tinta3); font-size: 11.5px; }
-#pgVnFisico .vnf-tot th, #pgVnFisico .vnf-tot td { border-top: 2px solid var(--borda2); background: var(--fundo2); }
-#pgVnFisico .vnf-nota { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); max-width: 120ch; line-height: 1.5; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tab { border-collapse: collapse; width: 100%; max-width: 1200px; font-size: 12.5px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tab th { text-align: left; font-weight: 650; color: var(--tinta); padding: 8px 10px 8px 0; border-bottom: 1px solid var(--borda2); vertical-align: top; white-space: nowrap; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tab thead th { color: var(--tinta2); font-size: 11px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tab thead th .tipo-abc { min-width: 22px; height: 18px; font-size: 11px; cursor: default; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tab tbody th small { display: block; font-weight: 500; font-size: 10.5px; color: var(--tinta3); }
+:is(#pgVnFisico, #vntQuadros) .vnf-tab td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--linha1); vertical-align: top; width: 22%; }
+:is(#pgVnFisico, #vntQuadros) .vnf-sig { display: block; color: var(--tinta2); line-height: 1.4; }
+:is(#pgVnFisico, #vntQuadros) .vnf-n { display: block; margin-top: 3px; font-variant-numeric: tabular-nums; }
+:is(#pgVnFisico, #vntQuadros) .vnf-n b { font-size: 16px; color: var(--tinta); }
+:is(#pgVnFisico, #vntQuadros) .vnf-n em { font-style: normal; font-weight: 700; font-size: 13px; color: var(--tinta2); margin-left: 4px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-vaz { color: var(--tinta3); font-size: 11.5px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-tot th, :is(#pgVnFisico, #vntQuadros) .vnf-tot td { border-top: 2px solid var(--borda2); background: var(--fundo2); }
+:is(#pgVnFisico, #vntQuadros) .vnf-nota { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); max-width: 120ch; line-height: 1.5; }
 /* regra + grupos de indicadores lado a lado */
-#pgVnFisico .vnf-duas { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 14px; align-items: start; margin: 0 0 16px; }
-@media (max-width: 1100px) { #pgVnFisico .vnf-duas { grid-template-columns: 1fr; } }
-#pgVnFisico .vnf-duas .vnf-regra { margin: 0; max-width: none; }
-#pgVnFisico .vnf-eixos { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); padding: 12px 16px; font-size: 12.5px; line-height: 1.5; }
-#pgVnFisico .vnf-eixos h4 { margin: 0 0 8px; font-size: 13.5px; }
-#pgVnFisico .vnf-eixos h4 b { font-size: 16px; }
-#pgVnFisico .vnf-eixos table { border-collapse: collapse; width: 100%; }
-#pgVnFisico .vnf-eixos th, #pgVnFisico .vnf-eixos td { text-align: left; vertical-align: top; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--linha1); }
-#pgVnFisico .vnf-eixos thead th { font-size: 10.5px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--borda2); }
-#pgVnFisico .vnf-eixos tbody th { font-weight: 700; color: var(--tinta); white-space: nowrap; }
-#pgVnFisico .vnf-eixos tbody th small { display: block; font-weight: 500; color: var(--tinta3); font-size: 11px; }
-#pgVnFisico .vnf-eixos tbody th small b { font-size: 14px; color: var(--tinta); }
-#pgVnFisico .vnf-eixos ul { margin: 0; padding-left: 16px; }
-#pgVnFisico .vnf-eixos td { color: var(--tinta2); }
-#pgVnFisico .vnf-eixos td b { color: var(--tinta); }
-#pgVnFisico .vnf-eixos p { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); }
-#pgVnFisico .vnf-duas > * { min-width: 0; }
-#pgVnFisico .vnf-eixos table { table-layout: fixed; }
-#pgVnFisico .vnf-eixos col.c1 { width: 24%; } #pgVnFisico .vnf-eixos col.c2 { width: 36%; } #pgVnFisico .vnf-eixos col.c3 { width: 40%; }
-#pgVnFisico .vnf-eixos th, #pgVnFisico .vnf-eixos td { overflow-wrap: anywhere; white-space: normal; }
+:is(#pgVnFisico, #vntQuadros) .vnf-duas { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr); gap: 14px; align-items: start; margin: 0 0 16px; }
+@media (max-width: 1100px) { :is(#pgVnFisico, #vntQuadros) .vnf-duas { grid-template-columns: 1fr; } }
+:is(#pgVnFisico, #vntQuadros) .vnf-duas .vnf-regra { margin: 0; max-width: none; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); padding: 12px 16px; font-size: 12.5px; line-height: 1.5; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos h4 { margin: 0 0 8px; font-size: 13.5px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos h4 b { font-size: 16px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos table { border-collapse: collapse; width: 100%; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos th, :is(#pgVnFisico, #vntQuadros) .vnf-eixos td { text-align: left; vertical-align: top; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--linha1); }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos thead th { font-size: 10.5px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--borda2); }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos tbody th { font-weight: 700; color: var(--tinta); white-space: nowrap; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos tbody th small { display: block; font-weight: 500; color: var(--tinta3); font-size: 11px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos tbody th small b { font-size: 14px; color: var(--tinta); }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos ul { margin: 0; padding-left: 16px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos td { color: var(--tinta2); }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos td b { color: var(--tinta); }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos p { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); }
+:is(#pgVnFisico, #vntQuadros) .vnf-duas > * { min-width: 0; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos table { table-layout: fixed; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos col.c1 { width: 24%; } :is(#pgVnFisico, #vntQuadros) .vnf-eixos col.c2 { width: 36%; } :is(#pgVnFisico, #vntQuadros) .vnf-eixos col.c3 { width: 40%; }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos th, :is(#pgVnFisico, #vntQuadros) .vnf-eixos td { overflow-wrap: anywhere; white-space: normal; }
 /* o cabeçalho fixo (thead th é sticky no app) cola na borda da área que rola, não 18px abaixo dela */
 #pgVnFisico thead th { top: -18px; }
-#pgVnFisico .vnf-eixos thead th { position: static; }
-#pgVnFisico .vnf-outros { margin-top: 10px; border-top: 1px solid var(--borda); padding-top: 8px; }
-#pgVnFisico .vnf-outros > summary { cursor: pointer; font: 600 12.5px var(--fonte); color: var(--tinta); }
-#pgVnFisico .vnf-outros > summary b { font-size: 14px; }
-#pgVnFisico .vnf-outros p { margin: 8px 0; font-size: 11.5px; color: var(--tinta3); line-height: 1.5; }
-#pgVnFisico .vnf-outros table { table-layout: auto; font-size: 11.5px; }
-#pgVnFisico .vnf-outros th, #pgVnFisico .vnf-outros td { padding: 4px 10px 4px 0; }
-#pgVnFisico .vnf-outros thead th { position: static; }
-#pgVnFisico .vnf-outros td.n { text-align: right; font-weight: 700; color: var(--tinta); font-variant-numeric: tabular-nums; }
-#pgVnFisico .vnf-escopo { border-left: 3px solid var(--coral); background: var(--fundo2); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 0 0 14px; font-size: 12.5px; line-height: 1.55; color: var(--tinta2); max-width: 120ch; }
-#pgVnFisico .vnf-escopo > b { color: var(--tinta); margin-right: 4px; }
-#pgVnFisico .vnf-escopo span { display: block; }
-#pgVnFisico .vnf-escopo span b { color: var(--tinta); }
+:is(#pgVnFisico, #vntQuadros) .vnf-eixos thead th { position: static; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros { margin-top: 10px; border-top: 1px solid var(--borda); padding-top: 8px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros > summary { cursor: pointer; font: 600 12.5px var(--fonte); color: var(--tinta); }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros > summary b { font-size: 14px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros p { margin: 8px 0; font-size: 11.5px; color: var(--tinta3); line-height: 1.5; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros table { table-layout: auto; font-size: 11.5px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros th, :is(#pgVnFisico, #vntQuadros) .vnf-outros td { padding: 4px 10px 4px 0; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros thead th { position: static; }
+:is(#pgVnFisico, #vntQuadros) .vnf-outros td.n { text-align: right; font-weight: 700; color: var(--tinta); font-variant-numeric: tabular-nums; }
+:is(#pgVnFisico, #vntQuadros) .vnf-escopo { border-left: 3px solid var(--coral); background: var(--fundo2); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 0 0 14px; font-size: 12.5px; line-height: 1.55; color: var(--tinta2); max-width: 120ch; }
+:is(#pgVnFisico, #vntQuadros) .vnf-escopo > b { color: var(--tinta); margin-right: 4px; }
+:is(#pgVnFisico, #vntQuadros) .vnf-escopo span { display: block; }
+:is(#pgVnFisico, #vntQuadros) .vnf-escopo span b { color: var(--tinta); }
+
+/* Estudo › Técnico (visão nova, 18/10): os dois quadros da seta técnica, antes da página "Característica por posição" */
+#vntQuadros { padding: 16px 0 6px; }
+#vntQuadros .vnf-regra .vnt-seta { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 18px; border-radius: 4px; font: 700 12px/1 var(--fonte); color: #fff; }
+#vntQuadros .vnt-seta.v { background: var(--verde); } #vntQuadros .vnt-seta.a { background: var(--ambar); color: #1b1400; } #vntQuadros .vnt-seta.r { background: var(--coral); } #vntQuadros .vnt-seta.n { background: var(--fundo3); color: var(--tinta2); border: 1px solid var(--borda2); }
+#vntQuadros .vnt-prova { margin: 10px 0 0; border-top: 1px solid var(--borda); padding-top: 8px; font-size: 12px; color: var(--tinta2); }
+#vntQuadros .vnt-prova table { border-collapse: collapse; margin: 6px 0 4px; font-size: 12px; }
+#vntQuadros .vnt-prova th, #vntQuadros .vnt-prova td { text-align: left; padding: 3px 14px 3px 0; border-bottom: 1px solid var(--linha1); vertical-align: top; }
+#vntQuadros .vnt-prova thead th { position: static; font-size: 10.5px; color: var(--tinta3); text-transform: uppercase; letter-spacing: .05em; }
+#vntQuadros .vnt-prova td.n { text-align: center; font-weight: 700; color: var(--tinta); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+#vntQuadros .vnt-tab td { width: auto; }
+#vntQuadros .vnt-tab thead th { position: static; }
+#vntQuadros .vnt-tab td.vnt-g { min-width: 150px; }
+#vntQuadros .vnt-tab ul { margin: 4px 0 0; padding-left: 14px; color: var(--tinta2); font-size: 11.5px; line-height: 1.45; }
+#vntQuadros .vnt-tab ul i { font-style: normal; font-weight: 700; color: var(--tinta); margin-left: 3px; font-variant-numeric: tabular-nums; }
+#vntQuadros .vnt-tab ul em.clube { font-style: normal; font-size: 9.5px; text-transform: uppercase; letter-spacing: .3px; color: #4a90d9; border: 1px solid #4a90d966; border-radius: 4px; padding: 0 4px; margin-left: 4px; }
+#vntQuadros .vnt-tab td.vnt-fora { min-width: 210px; font-size: 11.5px; color: var(--tinta2); }
+#vntQuadros .vnt-tab td.vnt-fora b { color: var(--tinta); font-size: 14px; }
+#vntQuadros .vnt-tab td.vnt-fora details { margin-top: 4px; }
+#vntQuadros .vnt-tab td.vnt-fora summary { cursor: pointer; font-weight: 600; color: var(--tinta2); font-size: 11.5px; }
+#vntQuadros .vnt-tab td.vnt-fora summary:hover { color: var(--coral); }
+#vntQuadros .vnt-tab td.vnt-fora dl { margin: 4px 0 0; }
+#vntQuadros .vnt-tab td.vnt-fora dt { font-weight: 700; color: var(--tinta); margin-top: 4px; font-size: 11px; }
+#vntQuadros .vnt-tab td.vnt-fora dd { margin: 0; color: var(--tinta3); line-height: 1.4; }
+#vntQuadros .vnt-tab tbody th .vnt-dist { display: block; margin-top: 4px; font-weight: 600; font-size: 11px; color: var(--tinta2); }
+#vntQuadros .vnt-tab tbody th .vnt-dist b { font-size: 12.5px; }
+#vntQuadros .vnt-tab tbody th .vnt-dist b.v { color: var(--verde); } #vntQuadros .vnt-tab tbody th .vnt-dist b.a { color: var(--ambar); } #vntQuadros .vnt-tab tbody th .vnt-dist b.r { color: var(--coral-cl); }
+#vntQuadros .vnt-tab tbody th { white-space: normal; max-width: 150px; }
+#vntQuadros .vnt-grupos { margin: 0 0 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 1200px; }
+#vntQuadros .vnt-grupos > div { border: 1px solid var(--borda); border-radius: 8px; background: var(--fundo2); padding: 8px 12px; font-size: 11.5px; color: var(--tinta2); line-height: 1.45; }
+#vntQuadros .vnt-grupos b { display: block; color: var(--tinta); font-size: 12.5px; margin-bottom: 2px; }
+#vntQuadros .vnt-grupos b i { font-style: normal; color: var(--tinta3); font-weight: 500; font-size: 11px; margin-left: 4px; }
+@media (max-width: 1100px) { #vntQuadros .vnt-grupos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

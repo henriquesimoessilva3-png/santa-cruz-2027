@@ -1,0 +1,5 @@
+regra,auc,LAT,ZAG,VOL,MED,MEI,EXT,CA
+"Seta de hoje — 3 por bloco, mínimo = mediana de quem sobe",0.65,0.62,0.71,0.63,0.59,,0.6,0.65
+Nota por grupo (a seta nova),0.642,0.61,0.62,0.69,0.65,,0.56,0.7
+"Nota por grupo, pesos iguais",0.64,0.63,0.64,0.68,0.63,,0.54,0.68
+Nota por grupo sem a regra do clube (zagueiro),0.664,0.61,0.71,0.69,0.65,,0.56,0.7

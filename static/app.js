@@ -234,7 +234,8 @@ const NAO_NOME = 137, PX_SELO = 29, PX_CHAR = 5.4;
 function limiteNome(j, cod) {
   const fz = parseFloat(($('#campo') && $('#campo').style.getPropertyValue('--fz')) || 1) || 1;
   const larg = COLUNA_ABERTA.has(cod) ? larguraCardAberto : larguraCardPx;
-  const util = larg - NAO_NOME * fz -
+  /* visão nova (18/10): o painel do farol (4 quadrados) fica antes do nome e come ~75px a mais que o raio */
+  const util = larg - (NAO_NOME + (window.VISAO_NOVA ? 75 : 0)) * fz -
                (j && j.estrangeiro ? PX_SELO : 0);   /* a estrela saiu: o nome ganhou a folga */
   return Math.max(6, Math.floor(util / (PX_CHAR * fz)));
 }
@@ -3376,6 +3377,18 @@ async function montarFicha(j, modo) {
       colunas += '<div class="fi-grupo"><h4>' + g + '</h4>' +
         linhas.map(([rot, v, med, mx]) => linhaInd(rot, v, med, mx, casas)).join('') + '</div>';
     });
+  }
+  /* 18/10 — os indicadores que o ranking não usa nesta posição, à parte (base da aba Subida, Wyscout ≥ 900 min):
+     dá para ver o jogador inteiro, sem misturar com os do ranking da posição */
+  let outrosFicha = '';
+  try {
+    const ou = typeof window.subidaOutros === 'function' ? window.subidaOutros(j, dados, modo) : [];
+    if (ou.length) {
+      outrosFicha = '<details class="fi-outros" open><summary>Outros indicadores <b>' + ou.length + '</b> <small>fora do ranking da posição · Wyscout, temporada da base (≥ 900 min) · mesma coorte da ficha</small></summary><div class="fi-outros-g">' +
+        GRUPOS_FICHA.map(g => { const ls = ou.filter(x => x.grupo === g); return ls.length ? '<div class="fi-grupo"><h4>' + g + '</h4>' + ls.map(x => linhaInd(x.rot + (x.nm ? ' ~' : ''), x.v, x.med, x.mx, x.casas)).join('') + '</div>' : ''; }).join('') + '</div></details>';
+    }
+  } catch (e) { outrosFicha = ''; }
+  if (dados && dados.ok) { /* nada: as colunas já foram montadas acima */
   } else {
     const dcF = j._dadosFicha;
     const msg = dcF && dcF.tec_raw
@@ -3410,7 +3423,7 @@ async function montarFicha(j, modo) {
   /* o radar entra na frente das colunas: e o resumo delas */
   const radar = radarDaFicha(porGrupo, j.n);
 
-  const corpo = '<div class="fi-grid">' + radar + colunas + '</div>' +
+  const corpo = '<div class="fi-grid">' + radar + colunas + '</div>' + outrosFicha +
     '<div class="fi-leg">' +
       '<span><i class="v"></i>acima da média</span>' +
       '<span><i class="r"></i>abaixo</span>' +
@@ -3456,7 +3469,10 @@ async function montarFicha(j, modo) {
       resumoF = '<div class="fi-resumo">' +
         '<div class="fi-res"><span class="fi-res-l tipo-' + (Lm ? 'Ap' : (L || 'nd')) + '">' + (L || '?') + '</span><div><b>Tipo físico ' + (L || 'sem letra') + '</b><small>' +
           (tx && tx.tipo ? esc(tx.tipo) + (Lm ? ' — A com volume (o perfil completo)' : L0 === 'A' ? ' — o tipo A da posição' : ' — o A da posição é ' + esc(jl.p === 'MED' ? 'o motor de volume' : pref.join(' / '))) : 'sem rastreio físico suficiente (5 jogos)') + '</small></div></div>' +
-        (s ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Subida: ' + (s.c === 'n' ? 'faltam dados' : 'atende <i>' + s.ok + '</i> de <i>' + s.com + '</i> fundamentais' + (s.com ? ' (' + Math.round(s.ok / s.com * 100) + '%)' : '')) + '</b><small>' +
+        (s && s.nova ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : 'nota <i>' + (s.nota > 0 ? '+' : '') + s.nota.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</i> — ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai' })[s.c]) + '</b><small>' +
+          s.grupos.map(g => esc(g.g) + ' ' + (g.z == null ? '—' : (g.z > 0 ? '+' : '') + g.z.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' (' + Math.round(100 * g.w / s.pesoTot) + '%)').join(' · ') +
+          (s.com < s.n ? ' · ' + (s.n - s.com) + ' de ' + s.n + ' sem dado' : '') + ' · régua ' + esc(s.regua) + '</small></div></div>'
+        : s ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Subida: ' + (s.c === 'n' ? 'faltam dados' : 'atende <i>' + s.ok + '</i> de <i>' + s.com + '</i> fundamentais' + (s.com ? ' (' + Math.round(s.ok / s.com * 100) + '%)' : '')) + '</b><small>' +
           leit[s.c] + (s.c !== 'n' && s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · régua de ' + esc(s.posNome) + '</small></div></div>' : '') +
         '</div>';
     }
@@ -7062,20 +7078,29 @@ function farolDe(letra, selo, pos, minut) {
   return (selo === 'v' && fisOk && minut !== 'r') ? 'v' : 'a';
 }
 /* ---------------- minutagem e bola parada do card (18/10, visão nova) ----------------
-   Minutagem: a última temporada inteira (min ÷ 3.400) ou a atual (min ÷ 2.100, temporada em andamento), a maior das duas.
-   verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Bola parada: o índice do cobrador na liga (T2) — ⚑ verde ≥ 80, amarelo 65 a 79. */
+   Minutagem (pedido do Henrique, 18/10): MÉDIA POR ANO das últimas três temporadas (2024, 2025 e 2026). Cada ano vale
+   minutos ÷ 3.400 (temporada inteira); a atual, ÷ 2.100 (em andamento); ano só com jogos (oGol) vale jogos ÷ 38 (÷ 23 na atual);
+   ano sem registro vale zero. verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Ao passar o mouse, o detalhe ano a ano.
+   Bola parada: o índice do cobrador na liga (T2) — ⚑ verde ≥ 80, amarelo 65 a 79. */
 const MIN_ATUAL = 2100;
 function minutagemDe(j) {
   const pk = j && (j.pk || (typeof primaryKey === 'function' ? primaryKey(j) : null));
   const h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
-  if (!h || !h.some(x => x && x.fonte !== 'ogol' && x.min)) return null;
-  const n = h.length, ult = h[n - 1], ant = h[n - 2];
-  const pA = ult && ult.fonte !== 'ogol' && ult.min ? ult.min / MIN_ATUAL : 0;
-  const pB = ant && ant.fonte !== 'ogol' && ant.min ? ant.min / MIN_TEMPORADA : 0;
-  const pct = Math.min(1, Math.max(pA, pB));
+  if (!h || !h.some(x => x && (x.min || x.j))) return null;
+  const T = HIST.temporadas || [], n = h.length;
+  const anos = h.map((x, i) => {
+    const atual = i === n - 1, refMin = atual ? MIN_ATUAL : MIN_TEMPORADA, refJ = Math.round(JOGOS_TEMPORADA * refMin / MIN_TEMPORADA);
+    let p = 0, txt = 'sem registro';
+    if (x && x.fonte !== 'ogol' && x.min) { p = x.min / refMin; txt = milhar(x.min) + ' min · ' + (x.j || 0) + ' jogos'; }
+    else if (x && x.j) { p = x.j / refJ; txt = x.j + ' jogos (sem minutos' + (x.fonte === 'ogol' ? ', oGol' : '') + ')'; }
+    p = Math.min(1, p);
+    return { t: T[i] || '?', p, txt, tm: x && x.tm ? x.tm : '' };
+  });
+  const pct = anos.reduce((s, a) => s + a.p, 0) / (n || 1);
   const c = pct >= 0.6 ? 'v' : pct >= 0.3 ? 'a' : 'r';
-  const txt = h.map((x, i) => (HIST.temporadas[i] || '?') + ': ' + (!x ? 'sem dado' : x.fonte === 'ogol' ? (x.j || 0) + ' jogos (oGol)' : milhar(x.min || 0) + ' min em ' + (x.j || 0) + ' jogos')).join(' · ');
-  return { c, pct, txt: 'Minutagem: ' + Math.round(pct * 100) + '% de uma temporada inteira (a maior entre a última temporada ÷ 3.400 e a atual ÷ 2.100) — ' + txt + '. Verde 60%+, amarelo 30% a 60%, vermelho abaixo de 30%.' };
+  const det = anos.map(a => a.t + ': ' + Math.round(a.p * 100) + '% — ' + a.txt + (a.tm ? ' · ' + a.tm : '')).join('\n');
+  return { c, pct, anos, txt: 'Minutagem: média de ' + Math.round(pct * 100) + '% de temporada por ano, nos últimos ' + n + ' anos\n' + det +
+    '\nCada ano = minutos ÷ 3.400 (a temporada atual ÷ 2.100; ano só com jogos: jogos ÷ 38). Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.' };
 }
 function bolaParadaDe(j) {
   let x = null; try { x = csRegistro(j, r => r.cob != null); } catch (e) {}

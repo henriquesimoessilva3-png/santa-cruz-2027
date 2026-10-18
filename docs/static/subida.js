@@ -479,7 +479,48 @@
      dos principais medidos). O titular típico de quem sobe fica perto de 50%, porque cada mínimo é a mediana deles;
      na base inteira, cerca de 1 em 4 jogadores chega ao verde e 4 em 10 ficam no vermelho. */
   const SELO_V = 0.6, SELO_R = 0.35, SELO_DADO = 0.6;
+  /* ============ a seta NOVA (visão nova, 18/10/2026 — b21): nota técnica por grupo ============
+     Dado: static/tecnico_grupos_dados.js (Santa Cruz V2/scripts/b21_seta_tecnica.py). Os indicadores da ficha em quatro grupos
+     (Defensivo · Passe · Ofensivo · Participação em gols); entra o que separa quem sobe de quem cai (0,30) e ainda separa a time
+     igual (0,20); cada valor vira desvio contra a Série B 2025–26 da régua (faltas e cartões com sinal trocado, limitado a ±2,5);
+     a nota é a média dos desvios de cada grupo, pesada pela separação do grupo. ▲ acima da mediana de quem sobe · ▼ abaixo da
+     mediana de quem cai · ↔ entre as duas · ? = menos de 4 indicadores medidos. Posições gêmeas usam a mesma régua. */
+  const TG = window.TECNICO_GRUPOS || null;
+  const regraNova = pos => (window.VISAO_NOVA && TG && TG.reguas[TG.regua_de[pos]] && TG.reguas[TG.regua_de[pos]].entra.length) ? TG.reguas[TG.regua_de[pos]] : null;
+  const NOTA_ARRED = v => (v > 0 ? '+' : '') + num(v, 2);
+  function notaVals(pos, get) {
+    const R = regraNova(pos); if (!R) return null;
+    const ZM = TG.zmax || 2.5, por = {}; let ok = 0, com = 0; const falta = [], sem_ = [], abaixo = [];
+    R.entra.forEach(e => {
+      const i = D.inds[e.k]; if (!i) return;
+      const g = por[e.g] || (por[e.g] = { g: e.g, w: R.pesos[e.g] || 0, zs: [], n: 0, com: 0, inds: [] }); g.n++;
+      const v = get(i);
+      if (v == null) { sem_.push(e.rot); g.inds.push({ rot: e.rot, v: null }); return; }
+      let z = (v - e.mu) / (e.sd || 1); if (e.menor) z = -z; z = Math.max(-ZM, Math.min(ZM, z));
+      com++; g.com++; g.zs.push(z); g.inds.push({ rot: e.rot, v, z });
+      if (z >= 0) ok++; else { falta.push(e.rot); abaixo.push({ rot: e.rot, z }); }
+    });
+    let s = 0, wt = 0;
+    const grupos = TG.grupos.map(gn => por[gn]).filter(Boolean);
+    grupos.forEach(g => { if (!g.zs.length) { g.z = null; return; } g.z = g.zs.reduce((a, b) => a + b, 0) / g.zs.length; s += g.z * g.w; wt += g.w; });
+    const n = R.entra.length, nota = wt ? s / wt : null;
+    const o = { nova: true, ok, com, n, falta, sem: sem_, abaixo, grupos, nota, cortes: R.cortes, pesoTot: TG.grupos.reduce((t, gn) => t + (R.pesos[gn] || 0), 0) || 1, regua: R.nome };
+    o.c = (com < Math.min(4, n) || nota == null) ? 'n' : nota >= R.cortes.v ? 'v' : nota <= R.cortes.r ? 'r' : 'a';
+    o.parcial = o.c !== 'n' && com < SELO_DADO * n;
+    return o;
+  }
+  function notaTexto(pos, o) {
+    const nome = D.posicoes[pos].nome, lado = { v: 'no nível do titular de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai', n: 'faltam dados' }[o.c];
+    const gr = o.grupos.map(g => g.g + ' ' + (g.z == null ? 'sem dado' : NOTA_ARRED(g.z)) + ' (peso ' + Math.round(100 * g.w / o.pesoTot) + '%' + (g.com < g.n ? ', ' + g.com + ' de ' + g.n + ' medidos' : '') + ')').join(' · ');
+    if (o.c === 'n') return 'Seta técnica (' + nome + ', régua ' + o.regua + '): faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores que entram na nota estão medidos. Sem dado: ' + o.sem.join(', ') + '.';
+    return 'Seta técnica (' + nome + ', régua ' + o.regua + '): nota ' + NOTA_ARRED(o.nota) + ' — ' + lado + (o.parcial ? ' (PARCIAL: só ' + o.com + ' dos ' + o.n + ' medidos)' : '') +
+      '. ▲ a partir de ' + NOTA_ARRED(o.cortes.v) + ' (mediana de quem sobe) · ▼ até ' + NOTA_ARRED(o.cortes.r) + ' (mediana de quem cai).\nPor grupo: ' + gr + '.' +
+      (o.abaixo.length ? '\nAbaixo da média da Série B em: ' + o.abaixo.slice().sort((a, b) => a.z - b.z).map(x => x.rot).join(', ') + '.' : '') + (o.sem.length ? '\nSem dado: ' + o.sem.join(', ') + '.' : '') +
+      '\nNota = média dos desvios de cada grupo contra a Série B ' + TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2) + ', pesada pela separação do grupo a time igual (Estudo › Técnico explica).';
+  }
   function seloVals(pos, get) {
+    const nv = regraNova(pos) ? notaVals(pos, get) : null;
+    if (nv) return nv;
     const m = principais(pos, N_PRI), ks = Object.keys(m).map(Number);
     if (!ks.length) return null;
     let ok = 0, com = 0; const falta = [], sem_ = [];
@@ -493,7 +534,7 @@
   function seloHtml(pos, o) {
     if (!o) return '';
     const nome = D.posicoes[pos].nome, sinal = { v: '▲', a: '↔', r: '▼', n: '?' }[o.c];
-    const t = o.c === 'n'
+    const t = o.nova ? notaTexto(pos, o) : o.c === 'n'
       ? 'Selo de subida: faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores fundamentais de ' + nome + ' estão medidos. Sem dado: ' + o.sem.join(', ') + '.'
       : 'Selo de subida (' + nome + ')' + (o.parcial ? ' — PARCIAL, só ' + o.com + ' dos ' + o.n + ' fundamentais medidos' : '') + ': atende ' + o.ok + ' de ' + o.com + ' indicadores fundamentais (' + Math.round(o.ok / o.com * 100) + '%) no nível de quem sobe. ' +
         (o.falta.length ? 'Abaixo em: ' + o.falta.join(', ') + '. ' : '') + (o.sem.length ? 'Sem dado: ' + o.sem.join(', ') + '. ' : '') + '▲ 60% ou mais · ↔ 35% a 60% · ▼ menos de 35%.';
@@ -594,6 +635,39 @@
       return o;
     } catch (e) { return null; }
   };
+  /* ===== os indicadores que o ranking NÃO usa na posição (18/10, pedido do Henrique: "pode mostrar os demais também, separado") =====
+     A ficha mostra, por grupo, os indicadores do ranking da posição (dados/kpis/<POS>.json). Aqui vêm os outros técnicos da
+     base (os 40 da aba Subida, Wyscout ≥ 900 min), com média e melhor da mesma coorte da ficha, para a ficha mostrá-los à parte. */
+  const GRUPO_FICHA = { Defensivo: 'Defesa', Passe: 'Passe', Ofensivo: 'Ataque', 'Participação em gols': 'Decisão (DGP)' };
+  const GRUPO_K = {};
+  if (window.TECNICO_GRUPOS) Object.values(TECNICO_GRUPOS.reguas).forEach(R => [].concat(R.entra, R.fora).forEach(x => { GRUPO_K[x.k] = GRUPO_FICHA[x.g]; }));
+  const cacheOutros = {};
+  window.subidaOutros = function (j, dados, modo) {
+    try {
+      if (!D || !j || !D.posicoes[j.p]) return [];
+      const presentes = new Set();
+      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') presentes.add(nm[1]); });
+      const base = linhaSub(j), col = coladoDe(j);
+      const ok = modo === 'posb' ? (l => l === 'Brasil B') : modo === 'posbr' ? (l => /^Brasil/.test(l)) : (!modo || modo === 'posliga') ? (l => l === j.l) : (() => true);
+      const ch = j.p + '|' + (modo || 'posliga') + '|' + (modo && modo !== 'posliga' ? '' : j.l);
+      let ref = cacheOutros[ch];
+      if (!ref) {
+        ref = {}; const rows = D.posicoes[j.p].jog.filter(r => ok(r[3]));
+        D.inds.forEach(i => { if (i.cat === 'fis') return; let s = 0, n = 0, mx = null; rows.forEach(r => { const v = r[NC + i.k]; if (typeof v !== 'number') return; s += v; n++; if (mx == null || (i.menor ? v < mx : v > mx)) mx = v; }); ref[i.k] = n >= 5 ? [s / n, mx, n] : null; });
+        cacheOutros[ch] = ref;
+      }
+      const out = [];
+      D.inds.forEach(i => {
+        if (i.cat === 'fis' || (KPI[i.rot] && presentes.has(KPI[i.rot]))) return;
+        let v = col ? col(i.rot) : null;
+        if (v == null && base && !j._dadosFicha) v = base[NC + i.k];
+        if (typeof v !== 'number' || !isFinite(v)) return;
+        const r = ref[i.k];
+        out.push({ grupo: GRUPO_K[i.k] || ({ pas: 'Passe', atq: 'Ataque', def: 'Defesa' })[i.cat], rot: i.rot.replace(' por 90', ' /90'), v, med: r ? r[0] : null, mx: r ? r[1] : null, casas: i.casas, nm: !!i.nm });
+      });
+      return out;
+    } catch (e) { return []; }
+  };
   window.subidaQuadro = function (j, dados) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';
@@ -614,7 +688,9 @@
       if (!linhas.some(l => l.v != null)) return '';
       /* os PRINCIPAIS (os do selo ▲ ↔ ▼ do card) são um recorte dos fundamentais: só onde quem sobe tem MAIS, sem os
          raros, os 4 mais fortes do físico e os 3 de passe, ataque e defesa. O quadro mostra os dois números. NOMES (07/10): os do selo se chamam FUNDAMENTAIS (azul) e o conjunto todo, PRINCIPAIS (amarelo). */
-      const mp = principais(j.p, N_PRI), porK = {}; linhas.forEach(l => { porK[l.i.k] = l; l.pri = mp[l.i.k] != null; });
+      const RN = regraNova(j.p), entraK = {}, foraK = {};
+      if (RN) { RN.entra.forEach(e => { entraK[e.k] = e; }); RN.fora.forEach(f => { foraK[f.k] = f; }); }
+      const mp = RN ? {} : principais(j.p, N_PRI), porK = {}; linhas.forEach(l => { porK[l.i.k] = l; l.pri = RN ? !!entraK[l.i.k] : mp[l.i.k] != null; l.nv = entraK[l.i.k] || null; l.fv = foraK[l.i.k] || null; });
       const selo = seloVals(j.p, i => (porK[i.k] ? porK[i.k].v : null));
       const com = linhas.filter(l => l.v != null && l.chave);
       const acima = com.filter(l => l.c === 'v'), abaixo = com.filter(l => l.c === 'r');
@@ -626,8 +702,12 @@
         const cb = ls.filter(l => l.chave && l.v != null);
         return '<div class="sq-bloco"><h5>' + esc(b) + (cb.length ? ' <b>' + cb.filter(l => l.c === 'v').length + '/' + cb.length + '</b>' : '') + '</h5>' +
           '<table><thead><tr><th>Indicador</th><th>Ele</th><th>Sobe</th><th>Cai</th></tr></thead><tbody>' +
-          ls.map(l => '<tr class="' + (l.pri ? 'sq-chave sq-lf' : l.chave ? 'sq-chave sq-lp' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
-            (l.r.forcado ? ' · bloco do clube (zagueiro): régua no melhor dos dois, ' + num(l.r[0], l.i.casas) : '') + (estilo(l.i, l.r) ? ' · quem sobe tem MENOS: retrato do estilo do time, não entra nos principais nem na conta' : paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') + '">' + (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '') + esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (l.r.forcado ? ' <em class="sq-est sq-clube">clube</em>' : '') + (estilo(l.i, l.r) ? ' <em class="sq-est">estilo</em>' : paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
+          ls.map(l => '<tr class="' + (l.pri ? 'sq-chave sq-lf' : (RN ? (l.fv && l.fv.motivo === 'do time') : l.chave) ? 'sq-chave sq-lp' : 'sq-fraco') + '"><td title="' + (l.d != null ? 'separação sobe − cai: ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' desvios' : '') +
+            (l.r.forcado ? ' · bloco do clube (zagueiro): régua no melhor dos dois, ' + num(l.r[0], l.i.casas) : '') + (estilo(l.i, l.r) ? ' · quem sobe tem MENOS: retrato do estilo do time, não entra nos principais nem na conta' : paraBaixo(l.i, l.r) ? ' · aqui quem sobe tem MENOS' : '') +
+            (l.nv ? ' · entra na nota técnica: grupo ' + l.nv.g + ', separação a time igual ' + NOTA_ARRED(l.nv.sepT) + ' (bruta ' + NOTA_ARRED(l.nv.sep) + ')' + (l.nv.clube ? ', incluído por decisão do clube' : '') : l.fv ? ' · fora da nota técnica: ' + l.fv.motivo + (l.fv.sepT != null ? ' (a time igual ' + NOTA_ARRED(l.fv.sepT) + ', bruta ' + NOTA_ARRED(l.fv.sep) + ')' : '') : '') + '">' +
+            (RN ? (l.pri ? '<i class="sq-m sq-fund" title="Entra na nota técnica (a seta do card)">N</i> ' : l.fv && l.fv.motivo === 'do time' ? '<i class="sq-m sq-princ" title="Separa quem sobe de quem cai, mas a time igual não: é do time, fica fora da nota">T</i> ' : '')
+                : (l.pri ? '<i class="sq-m sq-fund" title="Fundamental: entra no selo ▲ ↔ ▼ do card">F</i> ' : l.chave ? '<i class="sq-m sq-princ" title="Principal: separa quem sobe de quem cai, mas fica fora do selo">P</i> ' : '')) +
+            esc(l.i.rot) + (l.i.nm ? ' ~' : '') + (l.nv ? ' <em class="sq-est sq-grp">' + esc(l.nv.g) + '</em>' : '') + (l.r.forcado || (l.nv && l.nv.clube) ? ' <em class="sq-est sq-clube">clube</em>' : '') + (estilo(l.i, l.r) ? ' <em class="sq-est">estilo</em>' : paraBaixo(l.i, l.r) ? ' ↓' : '') + '</td>' +
             '<td class="sq-v ' + (l.c || 'sq-nd') + '">' + (l.v == null ? '—' : num(l.v, l.i.casas)) + '</td><td>' + num((l.r.orig || l.r)[0], l.i.casas) + '</td><td>' + num((l.r.orig || l.r)[1], l.i.casas) + '</td></tr>').join('') +
           '</tbody></table></div>';
       };
@@ -636,13 +716,18 @@
         (j._posBase && D.posicoes[j._posBase] ? '<span class="sq-troca" title="No campograma ele está nesta posição; o quadro, a letra e o selo usam a régua dela">medido como ' + esc(P.nome) + ' (posição no campograma) — no cadastro é ' + esc(D.posicoes[j._posBase].nome) + '</span>' : '') +
         '<span class="sq-res">No nível de quem sobe em <b class="v">' + acima.length + '</b> de <b>' + com.length + '</b> indicadores principais' +
         (abaixo.length ? ' · no nível de quem cai em <b class="r">' + abaixo.length + '</b>' : '') + '</span>' +
-        (selo ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Selo do card: atende <b>' + selo.ok + '</b> de <b>' + selo.com + '</b> fundamentais' + (selo.com < selo.n ? ' (' + (selo.n - selo.com) + ' sem dado)' : '') + '</span>' : '') +
-        '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · <i class="sq-m sq-fund">F</i> fundamental (selo) · <i class="sq-m sq-princ">P</i> principal · ↓ menor é melhor · estilo = quem sobe tem menos, fora da conta</span></div>' +
+        (selo && selo.nova ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Seta do card: nota técnica <b>' + (selo.nota == null ? '?' : NOTA_ARRED(selo.nota)) + '</b> — ' +
+            selo.grupos.map(g => esc(g.g) + ' <b class="' + (g.z == null ? '' : g.z >= 0 ? 'v' : 'r') + '">' + (g.z == null ? '—' : NOTA_ARRED(g.z)) + '</b> <small>' + Math.round(100 * g.w / selo.pesoTot) + '%</small>').join(' · ') +
+            (selo.com < selo.n ? ' <small>(' + (selo.n - selo.com) + ' de ' + selo.n + ' sem dado)</small>' : '') + '</span>'
+          : selo ? '<span class="sq-res sq-selo">' + seloHtml(j.p, selo) + ' Selo do card: atende <b>' + selo.ok + '</b> de <b>' + selo.com + '</b> fundamentais' + (selo.com < selo.n ? ' (' + (selo.n - selo.com) + ' sem dado)' : '') + '</span>' : '') +
+        (RN ? '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · <i class="sq-m sq-fund">N</i> entra na nota técnica (com o grupo ao lado) · <i class="sq-m sq-princ">T</i> do time: separa, mas não a time igual · ↓ menor é melhor · estilo = quem sobe tem menos</span></div>'
+            : '<span class="sq-leg"><i class="v"></i>bate quem sobe <i class="a"></i>entre os dois <i class="r"></i>nível de quem cai · <i class="sq-m sq-fund">F</i> fundamental (selo) · <i class="sq-m sq-princ">P</i> principal · ↓ menor é melhor · estilo = quem sobe tem menos, fora da conta</span></div>') +
         (acima.length ? '<p class="sq-frase"><b class="v">Acima de quem sobe:</b> ' + nomes(acima) + '</p>' : '') +
         (abaixo.length ? '<p class="sq-frase"><b class="r">No nível de quem cai:</b> ' + nomes(abaixo) + '</p>' : '') +
         '<div class="sq-grid">' + blocos.map(tab).join('') + '</div>' +
         '<div class="sq-pe">Régua: mediana do titular dos clubes que subiram e dos que caíram na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', na posição. ' +
-        'Principais (azul e amarelo): os indicadores em que quem sobe tem MAIS e que separam de quem cai (0,30 desvio ou mais); em faltas e cartões vale o menor (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta. “estilo” = indicador em que quem sobe tem menos: mostrado sem cor, fora dos principais e da conta, porque um número pior não conta a favor. Zagueiro: “clube” = defesa incluída por decisão do clube, com a régua no melhor dos dois (sobe ou cai); no ataque só contam passes para a área, xG e gols.</div></div>';
+        (RN ? 'Seta do card (visão nova): nota técnica por grupo — os indicadores marcados com N entram, em quatro grupos (Defensivo · Passe · Ofensivo · Participação em gols); cada valor dele vira desvio contra a Série B ' + TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2) + ' da régua (' + esc(RN.nome) + ', posições gêmeas juntas), a nota é a média de cada grupo pesada pela separação do grupo a time igual. ▲ = nota a partir da mediana de quem sobe (' + NOTA_ARRED(RN.cortes.v) + ') · ▼ = até a mediana de quem cai (' + NOTA_ARRED(RN.cortes.r) + ') · ↔ entre as duas. T = separa quem sobe de quem cai, mas a time igual não: é do time, fica fora. ~ = o Wyscout mudou o critério. “estilo” = quem sobe tem menos. Zagueiro: “clube” = defesa incluída por decisão do clube; no ataque só contam passes para a área, xG e gols. A regra completa está em Estudo › Técnico.'
+            : 'Principais (azul e amarelo): os indicadores em que quem sobe tem MAIS e que separam de quem cai (0,30 desvio ou mais); em faltas e cartões vale o menor (↓). Fundamentais (azul): os que entram no selo ▲ ↔ ▼ do card — só onde quem sobe tem MAIS, sem os raros; os 4 mais fortes do físico e os 3 de passe, ataque e defesa. Os números dele são os da ficha acima. ~ = o Wyscout mudou o critério; fica fora da conta. “estilo” = indicador em que quem sobe tem menos: mostrado sem cor, fora dos principais e da conta, porque um número pior não conta a favor. Zagueiro: “clube” = defesa incluída por decisão do clube, com a régua no melhor dos dois (sobe ou cai); no ataque só contam passes para a área, xG e gols.') + '</div></div>';
     } catch (e) { return ''; }
   };
 })();
