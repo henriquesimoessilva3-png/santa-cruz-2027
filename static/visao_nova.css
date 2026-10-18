@@ -85,3 +85,6 @@ body.visao-nova nav.vn-sub {
 #pgVnFisico .vnf-eixos table { table-layout: fixed; }
 #pgVnFisico .vnf-eixos col.c1 { width: 24%; } #pgVnFisico .vnf-eixos col.c2 { width: 36%; } #pgVnFisico .vnf-eixos col.c3 { width: 40%; }
 #pgVnFisico .vnf-eixos th, #pgVnFisico .vnf-eixos td { overflow-wrap: anywhere; white-space: normal; }
+/* o cabeçalho fixo (thead th é sticky no app) cola na borda da área que rola, não 18px abaixo dela */
+#pgVnFisico thead th { top: -18px; }
+#pgVnFisico .vnf-eixos thead th { position: static; }
