@@ -82,3 +82,8 @@
 .btm-esc .btm-pb em { font-style: normal; font-weight: 800; font-size: 14.5px; width: 28px; text-align: right; }
 .btm-esc .btm-pb small { font-size: 10px; color: var(--tinta3); white-space: nowrap; }
 .btm-esc .btm-nota { white-space: normal; font-size: 11px; color: var(--tinta3); margin: 8px 0 0; max-width: 1150px; line-height: 1.5; }
+/* 18/10/2026 — visão nova: coluna xT (opcional) e linhas "só Wyscout" (gerar_mercado.py) */
+.btm-xt { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--tinta); }
+.btm-xt small { font-weight: 500; color: var(--tinta3); margin-left: 4px; }
+.btm-l.btm-w td { background: var(--veu1); }
+.btm-fonte { font-style: normal; color: #2563eb; font-weight: 600; cursor: help; }

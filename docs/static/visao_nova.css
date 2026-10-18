@@ -1,0 +1,47 @@
+/* Visão nova (18/10/2026) — barra de 4 abas em funil + linha de capítulos; só aparece com body.visao-nova. */
+body.visao-nova nav.abas > .aba { display: none !important; }
+.vn-aba { display: none; }
+body.visao-nova .vn-aba {
+  display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 14px; margin-bottom: -1px;
+  background: none; border: 0; border-bottom: 2px solid transparent; cursor: pointer; transition: .13s;
+  font: 700 12.5px var(--fonte); color: var(--tinta3);
+}
+body.visao-nova .vn-aba b { font-size: 10px; color: var(--coral); font-weight: 800; }
+body.visao-nova .vn-aba small { font-weight: 500; font-size: 10.5px; color: var(--tinta3); }
+body.visao-nova .vn-aba:hover { color: var(--tinta); }
+body.visao-nova .vn-aba.on { color: var(--tinta); border-bottom-color: var(--coral); }
+body.visao-nova .vn-aba.on small { color: var(--tinta2); }
+.vn-troca { margin-left: 10px; font: 600 11px var(--fonte); color: var(--coral); background: none; border: 1px solid var(--coral); border-radius: 999px; padding: 2px 9px; cursor: pointer; white-space: nowrap; }
+.vn-troca:hover { background: var(--coral); color: #fff; }
+nav.vn-sub { display: none; }
+body.visao-nova nav.vn-sub {
+  flex: none; display: flex; align-items: center; gap: 6px; padding: 5px 16px; min-height: 32px; box-sizing: border-box;
+  background: var(--fundo); border-bottom: 1px solid var(--borda); font-size: 12px;
+}
+.vn-sub-item { background: var(--fundo3); border: 1px solid var(--borda2); color: var(--tinta2); font: 600 12px var(--fonte); padding: 4px 11px; border-radius: 999px; cursor: pointer; }
+.vn-sub-item:hover { color: var(--tinta); }
+.vn-sub-item.on { background: var(--coral); border-color: var(--coral); color: #fff; }
+.vn-sub-um { font: 600 12px var(--fonte); color: var(--tinta); padding: 4px 2px; }
+.vn-alt { display: inline-flex; border: 1px solid var(--borda2); border-radius: 999px; overflow: hidden; margin-left: 6px; }
+.vn-alt button { background: none; border: 0; padding: 3px 10px; font: 600 11.5px var(--fonte); color: var(--tinta3); cursor: pointer; }
+.vn-alt button.on { background: var(--fundo3); color: var(--tinta); }
+.vn-dica, .vn-fora { color: var(--tinta3); font-size: 11.5px; margin-left: 8px; }
+.vn-fora b { color: var(--tinta2); }
+.vn-aux { margin-left: auto; color: var(--tinta3); font: 500 11.5px var(--fonte); text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; background: none; border: 0; }
+.vn-aux:hover { color: var(--coral); }
+
+/* Estudo › Físico: página composta */
+#pgVnFisico .vnf { padding-top: 16px; }
+#pgVnFisico .vnf-tit { font-size: 22px; letter-spacing: -.015em; margin: 0 0 8px; line-height: 1.25; }
+#pgVnFisico .vnf-intro { font-size: 14px; line-height: 1.6; max-width: 100ch; margin: 0 0 12px; color: var(--tinta); }
+#pgVnFisico .vnf-regra { border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo2); padding: 12px 16px; margin: 0 0 16px; max-width: 110ch; font-size: 13px; line-height: 1.55; }
+#pgVnFisico .vnf-regra > div { display: flex; gap: 8px; align-items: baseline; margin: 4px 0; }
+#pgVnFisico .vnf-regra .tipo-abc { flex: none; min-width: 22px; height: 18px; font-size: 11px; cursor: default; }
+#pgVnFisico .vnf-regra b { color: var(--tinta); margin-right: 2px; }
+#pgVnFisico .vnf-regra p { margin: 10px 0 0; color: var(--tinta2); font-size: 12.5px; }
+#pgVnFisico #fsPainelEstudo { max-height: none; margin: 0 0 22px; }
+#pgVnFisico .vnf-mais { margin: 26px 0 40px; border-top: 1px solid var(--borda); padding-top: 14px; }
+#pgVnFisico .vnf-mais > summary { cursor: pointer; font: 650 14px var(--fonte); color: var(--tinta); padding: 4px 0; }
+#pgVnFisico .vnf-mais > summary:hover { color: var(--coral); }
+#pgVnFisico .esv-doc .esv-jog { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
+#pgVnFisico .esv-doc .esv-jog:hover { color: var(--coral); }

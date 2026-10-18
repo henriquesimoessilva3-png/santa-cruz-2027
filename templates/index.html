@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/static/tipo_a.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/novorizontino.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/ameaca.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/visao_nova.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
 </head>
 <body>
@@ -167,6 +168,7 @@
   <button class="aba" data-aba="tipoa" title="Jogadores A e B (tipo físico pela regra do clube), por posição: Série B, ligas sul-americanas e sul-americanos no exterior — com PDF">Tipo físico A e B</button>
       <button class="aba aba-auxiliar" data-aba="novoriz" hidden title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
       <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
+  <button class="aba aba-auxiliar" data-aba="vnfisico" hidden>Estudo › Físico</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -582,7 +584,10 @@
     <!-- A aba Estudo Série B V2: o estudo Santa Cruz V2, lido dos .md da pasta por
          gerar_estudo_v2_js.py (static/estudo_v2_dados.js) e desenhado por static/estudo_v2.js,
          que se mostra e se esconde acompanhando o botão, como as de cima. -->
-    <section class="pagina oculta" id="pgEstudoV2"><div id="esV2Corpo"></div></section>
+    <section class="pagina oculta esv-pagina" id="pgEstudoV2"><div id="esV2Corpo"></div></section>
+    <!-- 18/10: visão nova (static/visao_nova.js) — Estudo › Físico é uma página composta: painel do estudo + tipos A, B e C + F2.
+         O botão fica escondido, como os auxiliares: é dele que o irParaAba depende para apagar as outras páginas. -->
+    <section class="pagina oculta esv-pagina" id="pgVnFisico"></section>
 
     <!-- A aba Banco Transfermarkt: static/banco_tm.js com o dado de static/banco_tm/ (gerado no
          Portal Transfermarkt do Analytics, exportar_santacruz.py) — contrato, selos e o + Mais. -->
@@ -908,6 +913,8 @@
 <script src="/static/html2canvas.min.js" onerror="window.__semPng=1"></script>
 <script>window.__verDados = "{{ verDados }}";</script>
 <script src="/static/fs_visoes.js?v={{ ver }}"></script>
+<script src="/static/visao_nova.js?v={{ ver }}"></script>
+<script src="/static/jog_base.js?v={{ ver }}"></script>
 <script src="/static/sb_clubes.js?v={{ ver }}"></script>
 <!-- Protótipo: o dado primeiro (prototipo.js = cópia do dados/prototipo.json), depois a
      casca com os helpers, depois os três arquivos de etapa. A ordem importa: proto_a/b/c

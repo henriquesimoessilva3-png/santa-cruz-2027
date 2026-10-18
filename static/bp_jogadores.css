@@ -47,3 +47,11 @@
 #pgBpJogadores .bpg-svg .bar:hover { fill-opacity: .8; }
 .bpg-tip { position: fixed; z-index: 9999; display: none; pointer-events: none; background: var(--fundo3); color: var(--tinta);
   border: 1px solid var(--borda2); border-radius: 8px; padding: 8px 10px; font: 12px/1.45 var(--fonte); box-shadow: 0 6px 18px #0006; max-width: 320px; }
+/* 18/10/2026 — letra física, nome que abre a ficha e ↗ para o campograma (jog_base.js) */
+#pgBpJogadores td.nome a.jb-nome { color: inherit; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
+#pgBpJogadores td.nome a.jb-nome:hover { color: var(--coral); }
+#pgBpJogadores th.c, #pgBpJogadores td.c { text-align: center; }
+#pgBpJogadores td.lv-bt { width: 22px; padding-left: 4px; padding-right: 0; }
+#pgBpJogadores .jb-levar { width: 20px; height: 20px; border-radius: 5px; border: 1px solid var(--borda2); background: var(--fundo3); color: var(--tinta3); font: 700 12px/1 var(--fonte); cursor: pointer; padding: 0; }
+#pgBpJogadores .jb-levar:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
+#pgBpJogadores .jb-vaz { color: var(--tinta3); }

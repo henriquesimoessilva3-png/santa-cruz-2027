@@ -1,40 +1,40 @@
-/* Aba "Estudo Série B V2" — escopada em #pgEstudoV2; cores das variáveis do tema. */
-#pgEstudoV2 #esV2Corpo { flex: 1; min-height: 0; display: flex; }
-#pgEstudoV2 .esv-menu { width: 236px; flex: none; overflow: auto; padding: 16px 12px 40px 20px; border-right: 1px solid var(--borda); }
-#pgEstudoV2 .esv-cab { display: flex; flex-direction: column; gap: 2px; margin-bottom: 14px; font-size: 11px; color: var(--tinta3); }
-#pgEstudoV2 .esv-cab b { font-size: 14px; color: var(--tinta); }
-#pgEstudoV2 .esv-grupo { margin-bottom: 14px; }
-#pgEstudoV2 .esv-grupo-t { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--tinta3); margin: 0 0 4px 8px; }
-#pgEstudoV2 .esv-item {
+/* Aba "Estudo Série B V2" — escopada em .esv-pagina (a seção #pgEstudoV2 e, na visão nova, a página Estudo › Físico); cores das variáveis do tema. */
+.esv-pagina #esV2Corpo { flex: 1; min-height: 0; display: flex; }
+.esv-pagina .esv-menu { width: 236px; flex: none; overflow: auto; padding: 16px 12px 40px 20px; border-right: 1px solid var(--borda); }
+.esv-pagina .esv-cab { display: flex; flex-direction: column; gap: 2px; margin-bottom: 14px; font-size: 11px; color: var(--tinta3); }
+.esv-pagina .esv-cab b { font-size: 14px; color: var(--tinta); }
+.esv-pagina .esv-grupo { margin-bottom: 14px; }
+.esv-pagina .esv-grupo-t { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--tinta3); margin: 0 0 4px 8px; }
+.esv-pagina .esv-item {
   display: block; width: 100%; text-align: left; background: none; border: 0; border-radius: 6px;
   color: var(--tinta2); font: 500 13px var(--fonte); padding: 6px 8px; cursor: pointer; text-decoration: none; box-sizing: border-box;
 }
-#pgEstudoV2 .esv-item:hover { background: var(--veu2); color: var(--tinta); }
-#pgEstudoV2 .esv-item.on { background: var(--fundo3); color: var(--tinta); box-shadow: inset 3px 0 0 var(--coral); }
-#pgEstudoV2 .esv-aux { color: var(--tinta3); font-size: 12px; }
-#pgEstudoV2 .esv-aux::after { content: ' ↗'; }
+.esv-pagina .esv-item:hover { background: var(--veu2); color: var(--tinta); }
+.esv-pagina .esv-item.on { background: var(--fundo3); color: var(--tinta); box-shadow: inset 3px 0 0 var(--coral); }
+.esv-pagina .esv-aux { color: var(--tinta3); font-size: 12px; }
+.esv-pagina .esv-aux::after { content: ' ↗'; }
 
-#pgEstudoV2 { overflow-x: hidden; max-width: 100%; }
-#pgEstudoV2 .esv-leitura { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; padding: 18px 28px 60px; }
-#pgEstudoV2 .esv-doc { max-width: 100%; font-size: 14px; line-height: 1.62; color: var(--tinta); }
-#pgEstudoV2 .esv-doc-meta { font-size: 11px; color: var(--tinta3); margin-bottom: 6px; }
-#pgEstudoV2 .esv-doc h2 { font-size: 22px; letter-spacing: -.015em; margin: 0 0 14px; line-height: 1.25; }
-#pgEstudoV2 .esv-doc h3 { font-size: 16px; margin: 26px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--borda); }
-#pgEstudoV2 .esv-doc h4 { font-size: 14px; margin: 18px 0 6px; }
-#pgEstudoV2 .esv-doc p { margin: 0 0 10px; }
-#pgEstudoV2 .esv-doc ul, #pgEstudoV2 .esv-doc ol { margin: 0 0 12px; padding-left: 22px; }
-#pgEstudoV2 .esv-doc li { margin: 3px 0; }
-#pgEstudoV2 .esv-doc code { font-size: 12px; background: var(--veu2); padding: 1px 5px; border-radius: 4px; color: var(--tinta2); }
-#pgEstudoV2 .esv-doc pre { background: var(--fundo2); border: 1px solid var(--borda); border-radius: 8px; padding: 10px 12px; overflow: auto; font-size: 12px; }
-#pgEstudoV2 .esv-doc pre code { background: none; padding: 0; }
+.esv-pagina { overflow-x: hidden; max-width: 100%; }
+.esv-pagina .esv-leitura { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; padding: 18px 28px 60px; }
+.esv-pagina .esv-doc { max-width: 100%; font-size: 14px; line-height: 1.62; color: var(--tinta); }
+.esv-pagina .esv-doc-meta { font-size: 11px; color: var(--tinta3); margin-bottom: 6px; }
+.esv-pagina .esv-doc h2 { font-size: 22px; letter-spacing: -.015em; margin: 0 0 14px; line-height: 1.25; }
+.esv-pagina .esv-doc h3 { font-size: 16px; margin: 26px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--borda); }
+.esv-pagina .esv-doc h4 { font-size: 14px; margin: 18px 0 6px; }
+.esv-pagina .esv-doc p { margin: 0 0 10px; }
+.esv-pagina .esv-doc ul, .esv-pagina .esv-doc ol { margin: 0 0 12px; padding-left: 22px; }
+.esv-pagina .esv-doc li { margin: 3px 0; }
+.esv-pagina .esv-doc code { font-size: 12px; background: var(--veu2); padding: 1px 5px; border-radius: 4px; color: var(--tinta2); }
+.esv-pagina .esv-doc pre { background: var(--fundo2); border: 1px solid var(--borda); border-radius: 8px; padding: 10px 12px; overflow: auto; font-size: 12px; }
+.esv-pagina .esv-doc pre code { background: none; padding: 0; }
 /* tabela larga rola dentro dela mesma, nunca a página (26/09) */
-#pgEstudoV2 .esv-doc table { display: table; width: 100%; max-width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 12px; font-variant-numeric: tabular-nums; table-layout: auto; }
-#pgEstudoV2 .esv-doc td { white-space: normal; overflow-wrap: break-word; }
-#pgEstudoV2 .esv-doc th { white-space: nowrap; }
-#pgEstudoV2 .esv-doc td:first-child, #pgEstudoV2 .esv-doc td > strong:only-child { white-space: nowrap; }
+.esv-pagina .esv-doc table { display: table; width: 100%; max-width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 12px; font-variant-numeric: tabular-nums; table-layout: auto; }
+.esv-pagina .esv-doc td { white-space: normal; overflow-wrap: break-word; }
+.esv-pagina .esv-doc th { white-space: nowrap; }
+.esv-pagina .esv-doc td:first-child, .esv-pagina .esv-doc td > strong:only-child { white-space: nowrap; }
 /* texto corrido continua legível em coluna de 90ch; só as tabelas usam a largura toda */
-#pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc ul, #pgEstudoV2 .esv-doc ol { max-width: 100ch; }
-#pgEstudoV2 .esv-doc p, #pgEstudoV2 .esv-doc li { overflow-wrap: anywhere; }
-#pgEstudoV2 .esv-doc th, #pgEstudoV2 .esv-doc td { border-bottom: 1px solid var(--borda); padding: 5px 8px 5px 0; text-align: left; vertical-align: top; }
-#pgEstudoV2 .esv-doc th { color: var(--tinta2); font-weight: 600; }
-#pgEstudoV2 .esv-vazio { padding: 20px; color: var(--tinta3); }
+.esv-pagina .esv-doc p, .esv-pagina .esv-doc ul, .esv-pagina .esv-doc ol { max-width: 100ch; }
+.esv-pagina .esv-doc p, .esv-pagina .esv-doc li { overflow-wrap: anywhere; }
+.esv-pagina .esv-doc th, .esv-pagina .esv-doc td { border-bottom: 1px solid var(--borda); padding: 5px 8px 5px 0; text-align: left; vertical-align: top; }
+.esv-pagina .esv-doc th { color: var(--tinta2); font-weight: 600; }
+.esv-pagina .esv-vazio { padding: 20px; color: var(--tinta3); }

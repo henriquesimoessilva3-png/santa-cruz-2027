@@ -77,3 +77,13 @@ body.ta-claro .ta-vazio{color:#888} body.ta-claro .sb-selo.sb-n{border-color:#99
 .ta-filtros{margin:-6px 0 12px;font-size:12px;color:var(--tinta2)}
 
 .ta-ap{display:inline-block;background:#2563eb;color:#fff;font:700 9px/1 system-ui,sans-serif;font-style:normal;padding:2px 3px;border-radius:3px;vertical-align:middle}
+/* 18/10/2026 — A+ com contagem no cabeçalho da posição, filtro "só A+", nome clicável e ↗ para o campograma (jog_base.js) */
+.ta-pos h3 span i.lap{background:#2563eb}
+.ta-sf-ap{width:auto;padding:0 9px;font-size:11px} .ta-sf-ap.on{background:#2563eb;border-color:#2563eb;color:#fff}
+.ta-tab td.nm .ta-ap{margin-left:4px}
+.ta-tab a.jb-nome{color:inherit;text-decoration:underline dotted var(--tinta3);text-underline-offset:3px} .ta-tab a.jb-nome:hover{color:var(--coral)}
+.ta-tab td.lv-bt{width:22px;padding-left:4px;padding-right:0}
+.jb-levar{width:20px;height:20px;border-radius:5px;border:1px solid var(--borda2);background:var(--fundo3);color:var(--tinta3);font:700 12px/1 var(--fonte);cursor:pointer;padding:0}
+.jb-levar:hover{color:#fff;background:var(--coral);border-color:var(--coral)}
+.jb-vaz{color:var(--tinta3)}
+body.imp-tipoa .jb-levar,body.imp-tipoa .ta-tab td.lv-bt{display:none}

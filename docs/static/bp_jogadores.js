@@ -4,6 +4,8 @@
        (Série B, Série A, ligas sul-americanas, sul-americanos no exterior), índice do Wyscout;
      - PRODUÇÃO: gols e assistências em lances de bola parada na Série B 2022–2026, jogador a
        jogador, pelo Sofascore (1.810 jogos).
+   18/10/2026: cada jogador traz a letra física (a mesma dos cards), o nome abre a ficha no campograma e o ↗
+   leva o jogador para lá (static/jog_base.js).
    Arquivo próprio, sem encostar no app.js: um observador acompanha o botão da aba e mostra ou
    esconde a página, como nas abas Bola parada por treinador e Estudo Série B V2. */
 (function () {
@@ -47,7 +49,8 @@
     if (!bloco) return '<p class="bpj-nota">Sem dado.</p>';
     let cols = bloco.colunas.map((c, i) => ({ c, i })).filter(x => !OCULTAS.has(x.c) || st.merc !== 'Série B');
     if (st.merc === 'Série B') cols = cols.filter(x => x.c !== 'liga');
-    const iPos = bloco.colunas.indexOf('pos11');
+    const iPos = bloco.colunas.indexOf('pos11'), iClu = bloco.colunas.indexOf('clube');
+    const JB = window.JB || null;
     let linhas = bloco.linhas.filter(l => !st.pos || l[iPos] === st.pos);
     if (st.ordE != null && bloco.colunas[st.ordE] != null) {
       const k = st.ordE;
@@ -62,15 +65,15 @@
       const sof = /_2026$|_3t$/.test(c);
       return '<th data-oe="' + i + '" class="' + (typeof bloco.linhas[0]?.[i] === 'number' ? 'n' : '') +
         (sof ? ' sof' : '') + (st.ordE === i ? ' ord' : '') + '" title="' + esc(m[2] || m[0]) + '">' + esc(m[0]) +
-        (st.ordE === i ? (st.dirE < 0 ? ' ▾' : ' ▴') : '') + '</th>';
-    }).join('');
-    const corpo = linhas.map(l => '<tr>' + cols.map(({ c, i }) => {
+        (st.ordE === i ? (st.dirE < 0 ? ' ▾' : ' ▴') : '') + '</th>' + (c === 'jogador' ? '<th class="c" title="Letra do tipo físico (a mesma dos cards)">Físico</th>' : '');
+    }).join('') + '<th title="levar ao campograma"></th>';
+    const corpo = linhas.map(l => { const b = JB ? JB.achar(l[cols.find(x => x.c === 'jogador')?.i], iClu >= 0 ? l[iClu] : null, l[iPos]) : null; return '<tr>' + cols.map(({ c, i }) => {
       const m = COL[c] || [c, 1], v = l[i];
-      if (c === 'jogador') return '<td class="nome">' + esc(v) + '</td>';
+      if (c === 'jogador') return '<td class="nome">' + (JB ? JB.nomeHtml(b, v) : esc(v)) + '</td><td class="c">' + (JB ? JB.letraHtml(b) : '') + '</td>';
       if (c === 'contrato') return '<td>' + (v ? esc(String(v).slice(8, 10) + '/' + String(v).slice(5, 7) + '/' + String(v).slice(2, 4)) : '—') + '</td>';
       if (typeof v === 'number') return '<td class="n' + (/_2026$|_3t$/.test(c) ? ' sof' : '') + (c.startsWith('indice') ? ' idx' : '') + '">' + num(v, m[1] == null ? 1 : m[1]) + '</td>';
       return '<td>' + esc(v == null ? '—' : v) + '</td>';
-    }).join('') + '</tr>').join('');
+    }).join('') + '<td class="lv-bt">' + (JB ? JB.levarHtml(b) : '') + '</td></tr>'; }).join('');
     return '<div class="bpj-tab"><table><thead><tr>' + cab + '</tr></thead><tbody>' + corpo + '</tbody></table></div>' +
       '<p class="bpj-nota">' + linhas.length + ' jogadores · ≥ 900 min, até 33 anos' +
       (st.merc === 'Série B' ? ' · colunas em azul: produção real em bola parada pelo Sofascore (Série B 2024–2026)' :
@@ -110,16 +113,20 @@
                ['part', 'Participações', 'assistências + gols de bola parada'],
                ['finalizacoes_bp', 'Finalizações BP', 'finalizações em lances de bola parada'],
                ['xg_bp', 'xG BP', 'o Sofascore só tem xG na Série B desde 2025'], ['gols_penalti', 'Pênaltis', 'gols de pênalti']];
-    const cab = '<th>Jogador</th><th>Pos</th><th>Clube(s)</th>' + C.map(([c, r, t]) =>
+    const JB = window.JB || null;
+    const cab = '<th>Jogador</th><th>Pos</th><th class="c" title="Letra do tipo físico (a mesma dos cards): A+ explosivo e motor de volume · A o tipo mais forte da posição · B o do meio · C baixa intensidade">Físico</th><th>Clube(s)</th>' + C.map(([c, r, t]) =>
       '<th class="n' + (st.ordP === c ? ' ord' : '') + '" data-op="' + c + '" title="' + esc(t || r) + '">' + esc(r) +
-      (st.ordP === c ? (st.dirP < 0 ? ' ▾' : ' ▴') : '') + '</th>').join('');
-    const corpo = L.slice(0, 150).map(o => '<tr><td class="nome">' + esc(o.nome) + '</td><td>' + esc(o.pos || '—') +
-      '</td><td class="clu">' + esc([...o.clubes].join(', ')) + '</td>' +
+      (st.ordP === c ? (st.dirP < 0 ? ' ▾' : ' ▴') : '') + '</th>').join('') + '<th title="levar ao campograma"></th>';
+    const corpo = L.slice(0, 150).map(o => { const b = JB ? JB.achar(o.nome, [...o.clubes], o.pos) : null;
+      return '<tr><td class="nome">' + (JB ? JB.nomeHtml(b, o.nome) : esc(o.nome)) + '</td><td>' + esc(o.pos || '—') +
+      '</td><td class="c">' + (JB ? JB.letraHtml(b) : '') + '</td><td class="clu">' + esc([...o.clubes].join(', ')) + '</td>' +
       C.map(([c]) => '<td class="n' + (['assist_bp', 'gols_bp', 'part'].includes(c) ? ' forte' : '') + '">' +
-        (c === 'xg_bp' ? (o.xgN ? num(o.xg_bp, 1) : '—') : (o[c] ? num(o[c], 0) : '·')) + '</td>').join('') + '</tr>').join('');
+        (c === 'xg_bp' ? (o.xgN ? num(o.xg_bp, 1) : '—') : (o[c] ? num(o[c], 0) : '·')) + '</td>').join('') +
+      '<td class="lv-bt">' + (JB ? JB.levarHtml(b) : '') + '</td></tr>'; }).join('');
     return '<div class="bpj-tab"><table><thead><tr>' + cab + '</tr></thead><tbody>' + corpo + '</tbody></table></div>' +
       '<p class="bpj-nota">' + L.length + ' jogadores com gol ou assistência de bola parada' + (L.length > 150 ? ' (mostrando 150)' : '') +
-      ' · Série B, Sofascore, 1.810 jogos · somado por pessoa (id do Sofascore), mesmo quando mudou de clube · sem gols contra.</p>';
+      ' · Série B, Sofascore, 1.810 jogos · somado por pessoa (id do Sofascore), mesmo quando mudou de clube · sem gols contra. ' +
+      'Físico = letra do tipo físico pela regra do clube (quem não tem rastreio fica —). Clique no nome para abrir a ficha no campograma; ↗ leva o jogador para lá.</p>';
   }
 
   function chips(nome, ops, atual) {
@@ -171,6 +178,7 @@
     const bt = document.querySelector('.aba[data-aba="bpjogadores"]');
     const pg = document.getElementById('pgBpJogadores');
     if (!bt || !pg) return;
+    if (window.JB) JB.ligar(document.getElementById('bpjCorpo'));
     const sync = () => { const on = bt.classList.contains('on'); pg.classList.toggle('oculta', !on); if (on) render(); };
     new MutationObserver(sync).observe(bt, { attributes: true, attributeFilter: ['class'] });
     sync();
