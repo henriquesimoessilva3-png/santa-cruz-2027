@@ -3669,3 +3669,5 @@ body.claro .emp-st.st-emprestimo,body.claro .emp-chip.st-emprestimo{color:#b4232
 .jog-meta .m-vm.vm-man { box-shadow: inset 0 0 0 1px #f5b942; }
 .jog-meta .m-vm.vm-vazio { opacity: .55; }
 .jog-meta input.vm-edit { width: 70px; font: inherit; font-size: 10px; padding: 0 3px; border-radius: 3px; border: 1px solid #f5b942; background: #111; color: #fff; }
+/* 18/10 — "Disponível p/ salários" editável no cabeçalho */
+.kpi input.kpi-edit{width:92px;font:inherit;font-size:12px;padding:0 4px;border:1px solid var(--coral);border-radius:4px;background:var(--fundo);color:var(--tinta)}

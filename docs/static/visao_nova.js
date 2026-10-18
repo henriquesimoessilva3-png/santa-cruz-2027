@@ -1,9 +1,9 @@
 /* Visão nova do app (18/10/2026) — em PARALELO com a barra de hoje, para o Henrique ver antes de decidir se sobe.
-   Quatro abas em funil:
-     1 Estudo (o que importa para subir: Técnico · Físico · Bola parada)
-     2 Mercado (quem existe: Tipo físico A+, A e B · Banco de consulta)
-     3 Jogador (um nome: Consulta de jogador)
-     4 Elenco 2027 (o time: Campograma · Indicados · Empresários)
+   Quatro abas (o campograma primeiro, pedido de 18/10; as outras três são o funil):
+     1 Elenco 2027 (o time: Campograma · Indicados · Empresários)
+     2 Estudo (o que importa para subir: Físico · Técnico · Bola parada)
+     3 Mercado (quem existe: Tipo físico A+, A e B · Banco de consulta)
+     4 Jogador (um nome: Consulta de jogador)
    Nada é apagado: as abas de hoje continuam no DOM e são elas que mostram as páginas (irParaAba do app.js e os
    observadores de cada módulo); esta barra só decide qual delas fica "on" e esconde as outras da vista.
    Liga/desliga pelo botão "Visão nova" da barra (localStorage sc_visao) ou por ?visao=nova / ?visao=atual na URL.
@@ -22,25 +22,25 @@
   window.VISAO_NOVA = NOVA;
 
   const ABAS = [
-    { id: 'estudo', num: '1', rot: 'Estudo', dica: 'o que importa para subir', sub: [
-      { id: 'tecnico', rot: 'Técnico', aba: 'caracteristicas', dica: 'os indicadores que separam o titular de quem sobe do de quem cai, posição a posição' },
+    { id: 'elenco', num: '1', rot: 'Elenco 2027', dica: 'o time', sub: [
+      { id: 'campo', rot: 'Campograma', aba: 'campo' }, { id: 'indicados', rot: 'Indicados', aba: 'indicados' }, { id: 'empresarios', rot: 'Empresários', aba: 'empresarios' }] },
+    { id: 'estudo', num: '2', rot: 'Estudo', dica: 'o que importa para subir', sub: [
       { id: 'fisico', rot: 'Físico', aba: 'vnfisico', dica: 'a letra A+, A, B e C de cada posição e o que o físico produz em campo' },
+      { id: 'tecnico', rot: 'Técnico', aba: 'caracteristicas', dica: 'os indicadores que separam o titular de quem sobe do de quem cai, posição a posição' },
       { id: 'bp', rot: 'Bola parada', aba: 'bpjogadores', alt: [['bpjogadores', 'Jogadores'], ['bolaparada', 'Treinadores']], dica: 'quem cobra e quem finaliza; e o que cada treinador rende de bola parada' }],
       aux: { aba: 'estudo2', rot: 'estudo completo' } },
-    { id: 'mercado', num: '2', rot: 'Mercado', dica: 'quem existe', sub: [
+    { id: 'mercado', num: '3', rot: 'Mercado', dica: 'quem existe', sub: [
       { id: 'tipoa', rot: 'Tipo físico A+, A e B', aba: 'tipoa', dica: 'já filtrado pelo físico que interessa; o nome abre a ficha, o ↗ leva ao campograma' },
       { id: 'banco', rot: 'Banco de consulta', aba: 'bancotm', dica: 'todos os nomes, com contrato, valor, letra, seta de subida, bola parada e xT' }] },
-    { id: 'jogador', num: '3', rot: 'Jogador', dica: 'um nome', sub: [
+    { id: 'jogador', num: '4', rot: 'Jogador', dica: 'um nome', sub: [
       { id: 'consulta', rot: 'Consulta de jogador', aba: 'consulta', dica: 'digita o nome: adere ao modelo que rende na Série B? e onde ele está nas listas' }] },
-    { id: 'elenco', num: '4', rot: 'Elenco 2027', dica: 'o time', sub: [
-      { id: 'campo', rot: 'Campograma', aba: 'campo' }, { id: 'indicados', rot: 'Indicados', aba: 'indicados' }, { id: 'empresarios', rot: 'Empresários', aba: 'empresarios' }] },
   ];
   /* aba original → [principal, sub] (as alternativas de um sub também apontam para ele) */
   const MAPA = {};
   ABAS.forEach(a => a.sub.forEach(s => { MAPA[s.aba] = [a.id, s.id]; (s.alt || []).forEach(x => { MAPA[x[0]] = [a.id, s.id]; }); }));
   const NOMES = { contrato: 'Fim de contrato', fisico: 'Físico (régua)', subida: 'Subida', analise: 'Análise do elenco', financeiro: 'Financeiro', serieb: 'Análise Série B', prototipo: 'Protótipo', estudo: 'Estudo Série B V1', minutagem: 'Minutagem Série B', estudo2: 'Estudo Série B V2 (completo)', novoriz: 'Modelo Novorizontino', ameaca: 'Ameaça (xT)' };
 
-  let est = { main: 'estudo', sub: 'tecnico', alt: {} };
+  let est = { main: 'elenco', sub: 'campo', alt: {} };
   try { Object.assign(est, JSON.parse(ler(LS_EST) || '{}')); } catch (e) {}
   if (!est.alt) est.alt = {};
   const salvar = () => gravar(LS_EST, JSON.stringify(est));
@@ -162,10 +162,8 @@
     ligarFisico();
     const nav = $('nav.abas');
     if (nav) new MutationObserver(sincronizar).observe(nav, { attributes: true, attributeFilter: ['class'], subtree: true });
-    /* abre onde parou (ou no começo do funil); o app.js nasce no campograma, então a troca vem depois dele carregar */
-    const a = ABAS.find(x => x.id === est.main) || ABAS[0];
-    const s = a.sub.find(x => x.id === est.sub) || a.sub[0];
-    setTimeout(() => irSub(a, s), 0);
+    /* abre sempre no campograma, como a barra de hoje (18/10); os capítulos lembrados valem a partir do primeiro clique */
+    setTimeout(() => irSub(ABAS[0], ABAS[0].sub[0]), 0);
     sincronizar();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();

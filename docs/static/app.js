@@ -2362,6 +2362,7 @@ async function fbIniciar() {
       fbBotao();
       listarCenarios();
       manuaisCarregar();
+      if (u) nuvemConferirAberto();
     });
     return true;
   } catch (e) { FB.erro = String((e && e.message) || e); return false; }
@@ -2423,6 +2424,28 @@ async function cenNuvemLer() {
     fbBotao();
     return [];
   }
+}
+
+/* 18/10/2026 — AO ABRIR O SITE a tela mostrava a copia do navegador (localStorage) do grupo, e a nuvem
+   so' era lida quando a pessoa reabria o grupo no seletor. Quem salvou por ultimo em OUTRO aparelho
+   (ou outro navegador) via aqui uma lista velha sem aviso. Agora, assim que o login volta: se o grupo
+   da tela e' da nuvem e la' existe uma gravacao mais nova que a ultima conhecida por este navegador,
+   a nuvem manda — recarrega o grupo e diz quem gravou e quando. Roda uma vez por abertura. */
+let nuvemConferido = false;
+async function nuvemConferirAberto() {
+  if (nuvemConferido || !FB.pronto || !FB.usuario || !estado.id || !String(estado.id).startsWith('nuv-')) return;
+  nuvemConferido = true;
+  try {
+    const snap = await FB.db.collection(FB_COLECAO).doc(estado.id).get();
+    if (!snap.exists) return;
+    const r = snap.data() || {};
+    const conhecida = [estado.baseNuvem || '', estado.atualizado || ''].sort().pop();
+    if (!r.atualizado || (conhecida && r.atualizado <= conhecida)) return;
+    await abrirCenario(estado.id);
+    if (BASE.length) reancorar();
+    toast('Nuvem mais nova: "' + (estado.nome || 'grupo') + '" recarregado — salvo por ' + (r.porEmail || 'alguém') +
+          ' em ' + new Date(r.atualizado).toLocaleString('pt-BR'), 'bom');
+  } catch (e) {}
 }
 
 /* Confere se o documento na nuvem mudou depois que este grupo foi aberto. Devolve o dado de
@@ -7618,6 +7641,31 @@ function ligar() {
   };
   campoOrc('#inTeto', 'teto', false);
   campoOrc('#inComissao', 'comissao', false);
+  /* 18/10/2026 — o "Disponível p/ salários" do cabecalho vira editavel: clique, digite, Enter. Ele e'
+     uma conta ((teto − comissao) ÷ fator), entao o que muda por baixo e' o custo total maximo (teto),
+     calculado para o disponivel ficar no valor digitado. Esc desiste. */
+  const kDisp = $('#kDisp');
+  if (kDisp) {
+    kDisp.title = 'clique para editar o disponível (o custo total máximo acompanha)';
+    kDisp.style.cursor = 'pointer';
+    kDisp.onclick = () => {
+      if (kDisp.querySelector('input')) return;
+      const atual = dispSalarios();
+      kDisp.innerHTML = '<input class="kpi-edit" inputmode="numeric" value="' + esc(milhar(atual)) + '" aria-label="Disponível para salários">';
+      const inp = kDisp.querySelector('input'); inp.focus(); inp.select();
+      const fecha = () => { renderOrc(); };
+      const grava = () => {
+        const v = paraNumero(inp.value);
+        if (isFinite(v) && v >= 0) {
+          estado.teto = Math.round(v * (estado.fator || 1) + (estado.comissao || 0));
+          salvarLocal(); render();
+          toast('Disponível para salários: ' + brl(dispSalarios()) + ' (custo total máximo ' + brl(estado.teto) + ')');
+        } else fecha();
+      };
+      inp.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); inp.onblur = null; grava(); } if (e.key === 'Escape') { inp.onblur = null; fecha(); } };
+      inp.onblur = grava;
+    };
+  }
   campoOrc('#inFator', 'fator', true);
   campoOrc('#inEuro', 'cotacaoEuro', true);
 
