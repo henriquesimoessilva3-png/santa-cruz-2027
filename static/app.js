@@ -7402,10 +7402,14 @@ function registroEquivalente(j) {
   const k = primaryKey(j); if (EQUIV_CACHE.has(k)) return EQUIV_CACHE.get(k);
   const nomes = [j.n, j.nc].filter(Boolean).map(tipoNorm);
   const mesmoNome = x => { const xs = [x.n, x.nc].filter(Boolean).map(tipoNorm); return nomes.some(a => xs.some(b => a === b || b.startsWith(a + ' ') || a.startsWith(b + ' '))); };
-  const set = TIPO_SET[j.p];
-  const c = BASE.filter(x => x !== j && temDados(x) && mesmoNome(x));
+  /* 18/10 — o goleiro Pedro Rocha (Juventude) virava o Pedro centroavante do Flamengo: "Pedro" casava com "Pedro Rocha" pelo
+     começo do nome e o goleiro não tinha conferência de posição. Agora: posição SEMPRE compatível (goleiro só com goleiro; os
+     outros, mesma posição ou mesmo setor); nome parcial só vale com o clube conferindo; sem o clube, o nome tem de ser IGUAL. */
+  const posOk = x => x.p === j.p || (j.p !== 'GOL' && x.p !== 'GOL' && TIPO_SET[j.p] && TIPO_SET[j.p] === TIPO_SET[x.p]);
+  const igual = x => [x.n, x.nc].filter(Boolean).map(tipoNorm).some(b => nomes.includes(b));
+  const c = BASE.filter(x => x !== j && temDados(x) && mesmoNome(x) && posOk(x));
   let r = c.filter(x => clubeParecido(x.t, j.t));
-  if (r.length !== 1) r = c.filter(x => j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!set || TIPO_SET[x.p] === set) && (!j.nac || !x.nac || x.nac === j.nac));
+  if (r.length !== 1) r = c.filter(x => igual(x) && j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!j.nac || !x.nac || x.nac === j.nac));
   const out = r.length === 1 ? r[0] : null;
   EQUIV_CACHE.set(k, out); return out;
 }
