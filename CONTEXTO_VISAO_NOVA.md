@@ -35,6 +35,9 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 - Físico da ficha: 16 indicadores em 2 grupos empilhados (Velocidade e explosão · Volume), contra a média da Série B (`fisicoSerieBHtml` em app.js); ◆ = os 6 da letra (4 de explosão, 2 de volume).
 - Minutagem: `dados/minutagem_complemento.csv` (levantamento de 18/10, 175 jogadores) preenche anos vazios via `preparar_complemento_minutagem.py` (chamado no fim do preparar_historico.py). Defeito conhecido em `combina()`: idade dos Excels 2024/25 é a de hoje (rejeita casamentos de 2024).
 
+- Liga fora da base do estudo (Série C, Japão A/B, Dinamarca, Argentina reservas): técnico completo vem de `static/tecnico_extra_dados.js` (`gerar_tecnico_extra_js.py`, Wyscout ago26), usado na ficha e na seta (`extraDe` em subida.js). Rodar de novo quando o período mudar.
+- Ficha: painéis de Minutagem (3 anos) e Bola parada (índices + cobranças ano a ano) embaixo do técnico (`painelMinutagem`/`painelBolaParada` em app.js).
+
 ## Pendências
 - Henrique conferir na tela o card novo (largura, nome, minutagem) — não foi visto em tela cheia.
 - Decidir a regra do zagueiro (defesa forçada custa previsão).

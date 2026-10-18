@@ -659,6 +659,13 @@
       return null;
     };
   }
+  /* 18/10 — liga fora da base do estudo (Série C…): o técnico completo vem de static/tecnico_extra_dados.js */
+  function extraDe(j) {
+    const X = window.TEC_EXTRA; if (!X || !j) return null;
+    const v = X.jog[j.n + ' - ' + j.t + ' - ' + j.l] || (j.pk && X.jog[j.pk]); if (!v) return null;
+    const ix = {}; X.rots.forEach((r, i) => { ix[r] = i; });
+    return rot => (ix[rot] != null && typeof v[ix[rot]] === 'number' ? v[ix[rot]] : null);
+  }
   window.subidaSelo = function (j0) {
     try {
       if (!D || !j0 || !D.posicoes[j0.p]) return '';
@@ -673,12 +680,14 @@
         if (ls) ls.forEach(l => { const nm = b.kpis[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); };
       const fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
       const numero = v => { if (typeof v === 'string') v = parseFloat(v.replace(',', '.')); return typeof v === 'number' && isFinite(v) ? v : null; };
+      let ext;
       return seloHtml(j0.p, seloVals(j0.p, i => {
         let v = null;
         if (i.cat === 'fis') v = numero(j[fisK[i.k]]);
         else if (raw) { if (!colS) colS = coladoDe(Object.assign({}, j0, { _dados: dc })); v = colS ? colS(i.rot) : null; }
         if (v == null && r) v = r[NC + i.k];
         if (v == null && i.cat !== 'fis' && KPI[i.rot]) { usaFicha(); v = numero(tec[KPI[i.rot]]); }
+        if (v == null && i.cat !== 'fis') { if (ext === undefined) ext = extraDe(j0); if (ext) v = ext(i.rot); }
         return v == null ? null : v;
       }));
     } catch (e) { return ''; }
@@ -691,11 +700,12 @@
       const tec = {};
       if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
       const base = linhaSub(j), fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
-      const col = coladoDe(j);
+      const col = coladoDe(j), ext = extraDe(j);
       const o = seloVals(j.p, i => {
         let v = i.cat === 'fis' ? j[fisK[i.k]] : (KPI[i.rot] != null ? tec[KPI[i.rot]] : null);
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
+        if (v == null && i.cat !== 'fis' && ext) v = ext(i.rot);
         return v;
       });
       if (!o) return null;
@@ -752,7 +762,7 @@
       if (!D || !j || !D.posicoes[j.p]) return '';
       const P = D.posicoes[j.p], tec = {};
       if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
-      const base = linhaSub(j), col = coladoDe(j), RN = regraNova(j.p), fund = {};
+      const base = linhaSub(j), col = coladoDe(j), RN = regraNova(j.p), fund = {}, ext = extraDe(j);
       if (RN) RN.entra.forEach(e => { fund[e.k] = e; });
       let nf = 0; const linhas = [];
       D.inds.forEach(i => {
@@ -761,6 +771,7 @@
         if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
         const sb = serieB(j.p, i.k); if (!sb) return;
         if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
+        if (v == null && i.cat !== 'fis' && ext) v = ext(i.rot);
         const f = i.cat === 'fis' ? (FIS_LETRA[fk] ? 'L' : '') : (fund[i.k] ? 'F' : '');
         linhas.push({ i, sb, v, c: corSB(i, sb, v), f, d: fund[i.k] ? fund[i.k].sep : 0 });
       });
