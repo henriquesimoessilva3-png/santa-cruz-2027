@@ -96,8 +96,10 @@ def aplicar(H=None):
     # competição. Jogos do time = soma das competições do clube; com mais de um clube no ano vale o maior (as passagens, abaixo,
     # corrigem com a data). Gols, assistências, cabeça, pênaltis e gol de falta entram para a bola parada.
     mt = os.path.join(AQUI, "dados", "manuais_temporadas.csv")
-    if os.path.exists(mt):
-        dm = pd.read_csv(mt); m4 = 0
+    try: dm = pd.read_csv(mt) if os.path.exists(mt) else None
+    except Exception as e: print("  cards manuais: arquivo ainda incompleto, fica para depois (" + str(e)[:60] + ")"); dm = None
+    if dm is not None:
+        m4 = 0
         for c in ("jogos", "minutos", "gols", "assistencias", "gols_cabeca", "penaltis_cobrados", "penaltis_gol", "gols_falta", "jogos_time"):
             dm[c] = pd.to_numeric(dm.get(c), errors="coerce")
         for (pk, t), g in dm.groupby(["primaryKey", dm.temporada.astype(str)]):
@@ -121,6 +123,9 @@ def aplicar(H=None):
     if os.path.exists(pp):
         dp = pd.read_csv(pp); m5 = 0
         for c in ("jogos", "minutos", "jogos_time_no_periodo"): dp[c] = pd.to_numeric(dp.get(c), errors="coerce")
+        # jogador com a identificação "a conferir" fica de fora: errar o jogador é pior que faltar o dado (18/10)
+        duv = set(dp[dp.obs.astype(str).str.contains("a conferir", case=False)].primaryKey); dp = dp[~dp.primaryKey.isin(duv)]
+        dp = dp[(dp.chegada.notna()) | (dp.jogos.notna())]
         for (pk, t), g in dp.groupby(["primaryKey", dp.temporada.astype(str)]):
             if t not in T or not g.jogos.notna().any(): continue
             linha = H["jogadores"].setdefault(pk, [None] * len(T)); i = T.index(t); x = dict(linha[i] or {"t": t})
