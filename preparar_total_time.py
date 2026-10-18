@@ -87,7 +87,7 @@ def aplicar(H=None):
                     if pd.isna(jl) or jl * 90 < x["min"]: continue
                     x["tj"], x["tmin"] = int(jl), int(jl) * 90
                 else:
-                    tj = jt if not pd.isna(jt) else jl
+                    tj = jt   # oGol conta todas as competições: só vale o total do time em todas as competições
                     if pd.isna(tj) or tj < (x.get("j") or 0): continue
                     x["tj"], x["tmin"] = int(tj), int(tj) * 90
                 x["t_src"] = "levantamento " + liga; m3 += 1
