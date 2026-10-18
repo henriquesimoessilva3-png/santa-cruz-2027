@@ -133,10 +133,12 @@
       '<div><span class="tipo-abc tipo-C">C</span><span><b>Baixa intensidade</b> (no volante, "menos intenso") — fraco em explosão <i>e</i> em volume.</span></div>' +
       '<p>Como é calculado: seis indicadores (PSV-99, sprints/90, ações de alta intensidade/90, arrancadas explosivas/90, distância/90 e corridas por 30 min com posse) viram desvios em relação à Série B do setor; o jogador recebe o tipo físico mais próximo (centróide do estudo V2) e a letra vem da regra do clube para a posição. ' +
       'Físico colado na ficha vale sobre o do estudo, em todo o app. Em 18/10 foi testada uma letra por duas notas 0–100 (explosão e volume), com peso do físico por posição (b17); separava melhor quem sobe, mas mudava <b>446</b> letras já analisadas — decisão: <b>fica a regra atual</b>.</p></div>' +
+      '<div id="vnfMatriz"></div>' +
       '<div id="vnfPainel"></div>' +
       (b15 ? '<article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div><h2>' + esc(b15.titulo) + '</h2>' + b15.html + '</article>' : '<p class="esv-vazio">O estudo V2 não carregou (static/estudo_v2_dados.js).</p>') +
       (b8 ? '<details class="vnf-mais"><summary>' + esc(b8.titulo) + ' — o documento completo</summary><article class="esv-doc"><div class="esv-doc-meta">' + esc(b8.grupo) + ' · ' + dataBR(b8.data) + '</div>' + b8.html + '</article></details>' : '') +
       '</div>';
+    vnfMatriz();
     /* o painel "Perfil físico por posição" da aba Físico vem para cá (é o mesmo nó; volta quando a visão atual é religada) */
     const painel = $('#fsPainelEstudo'), alvo = $('#vnfPainel');
     if (painel && alvo) { alvo.appendChild(painel); const d = painel.querySelector('details.fse'); if (d) d.open = true; }
@@ -148,6 +150,72 @@
       el.classList.add('esv-jog'); el.title = 'ver ficha'; el.onclick = () => window.csJanela(nome, prox);
     });
   }
+  /* ---------- matriz por posição: o que é A+, A, B e C em cada uma, e quantos jogadores há em cada letra ---------- */
+  const POS10 = [['LD', 'Lateral direito'], ['ZD', 'Zagueiro direito'], ['ZE', 'Zagueiro esquerdo'], ['LE', 'Lateral esquerdo'], ['VOL', 'Volante'],
+    ['MED', 'Médio'], ['MEI', 'Meia'], ['ED', 'Extremo direito'], ['EE', 'Extremo esquerdo'], ['CA', 'Centroavante']];
+  const SA_LIGAS = ['Argentina A', 'Argentina B', 'Colombia A', 'Colombia B', 'Equador A', 'Equador B', 'Paraguai', 'Uruguai', 'Chile', 'Peru', 'Bolivia', 'Venezuela'];
+  const SA_PAISES = ['Brazil', 'Argentina', 'Uruguay', 'Colombia', 'Paraguay', 'Chile', 'Ecuador', 'Peru', 'Bolivia', 'Venezuela'];
+  const MERCADOS = [['b', 'Série B'], ['sa', 'Ligas sul-americanas'], ['ext', 'Sul-americanos no exterior'], ['tres', 'Os três mercados']];
+  let contagem = null, contagemN = -1, mercado = ler('vnfMercado') || 'b';
+  function grupoDe(j) {
+    if (j.l === 'Brasil B') return 'b';
+    if (SA_LIGAS.includes(j.l)) return 'sa';
+    const sul = SA_PAISES.includes(j.nac) || SA_PAISES.some(p => String(j.psp || '').includes(p));
+    if (sul && !/^Brasil/.test(j.l || '') && j.l !== 'Manual') return 'ext';
+    return null;
+  }
+  function contar() {
+    if (typeof BASE === 'undefined' || !BASE.length || typeof tipoLetra !== 'function' || !window.CONSULTA) return null;
+    if (contagem && contagemN === BASE.length) return contagem;
+    const c = {}; POS10.forEach(p => { c[p[0]] = {}; ['b', 'sa', 'ext'].forEach(g => { c[p[0]][g] = { 'A+': 0, A: 0, B: 0, C: 0 }; }); });
+    BASE.forEach(b => {
+      if (!c[b.p]) return;
+      const g = grupoDe(b); if (!g) return;
+      let j = b; try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(b) || b; } catch (e) {}
+      let l = null; try { l = tipoLetra(j); if (l === 'A' && typeof tipoMais === 'function' && tipoMais(j)) l = 'A+'; } catch (e) {}
+      if (!l) return;
+      try { const r = typeof csRegistro === 'function' ? csRegistro(b) : null; if (r && r.vet) return; } catch (e) {}
+      c[b.p][g][l]++;
+    });
+    contagem = c; contagemN = BASE.length; return c;
+  }
+  /* o que cada letra quer dizer na posição: vem dos tipos do estudo (CONSULTA.pref / cai / cen) e das regras do app.js */
+  function significado(pos) {
+    const C = window.CONSULTA, setor = (typeof TIPO_SET !== 'undefined' ? TIPO_SET[pos] : '');
+    const tipos = Object.keys(((C.cen || {})[setor] || {}).tipos || {});
+    const pref = (C.pref || {})[pos] || [], cai = (C.cai || {})[pos] || [];
+    const meio = tipos.filter(t => !pref.includes(t) && !cai.includes(t));
+    if (pos === 'MED') return { 'A+': '—', A: 'Motor de volume (volume acima de +0,5, seja qual for o tipo)', B: tipos.filter(t => !cai.includes(t)).join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
+    if (pos === 'MEI') return { 'A+': '—', A: pref.join(' · '), B: meio.join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
+    return { 'A+': pref.join(' · ') + ' + volume (explosão e volume acima de +0,5)', A: pref.join(' · '), B: meio.join(' · ') + ' · Explosivo, pouco volume', C: cai.join(' · ') };
+  }
+  function vnfMatriz() {
+    const el = $('#vnfMatriz'); if (!el || !window.CONSULTA) return;
+    const c = contar();
+    const L = ['A+', 'A', 'B', 'C'];
+    const chip = l => '<span class="tipo-abc tipo-' + (l === 'A+' ? 'Ap' : l) + '">' + l + '</span>';
+    const tot = { 'A+': 0, A: 0, B: 0, C: 0 };
+    const linha = p => {
+      const sig = significado(p[0]);
+      const n = {}; L.forEach(l => { n[l] = c ? (mercado === 'tres' ? ['b', 'sa', 'ext'].reduce((s, g) => s + c[p[0]][g][l], 0) : c[p[0]][mercado][l]) : null; tot[l] += n[l] || 0; });
+      const soma = L.reduce((s, l) => s + (n[l] || 0), 0);
+      return '<tr><th>' + esc(p[1]) + '<small>' + (c ? soma + ' com letra' : 'carregando…') + '</small></th>' + L.map(l => '<td class="' + (sig[l] === '—' ? 'vnf-nao' : '') + '">' +
+        (sig[l] === '—' ? '<span class="vnf-vaz">não existe</span>' : '<span class="vnf-sig">' + esc(sig[l]) + '</span>' +
+        (c ? '<span class="vnf-n"><b>' + n[l] + '</b> <em>' + (soma ? Math.round(100 * n[l] / soma) : 0) + '%</em></span>' : '')) + '</td>').join('') + '</tr>';
+    };
+    const corpo = POS10.map(linha).join('');
+    const somaT = L.reduce((s, l) => s + tot[l], 0);
+    el.innerHTML = '<div class="vnf-mat"><h3>O que é cada letra, posição a posição — e quantos jogadores há em cada uma</h3>' +
+      '<div class="vnf-chips">' + MERCADOS.map(m => '<button type="button" data-m="' + m[0] + '"' + (m[0] === mercado ? ' class="on"' : '') + '>' + esc(m[1]) + '</button>').join('') + '</div>' +
+      '<table class="vnf-tab"><thead><tr><th>Posição</th>' + L.map(l => '<th>' + chip(l) + '</th>').join('') + '</tr></thead><tbody>' + corpo +
+      (c ? '<tr class="vnf-tot"><th>Todas as posições<small>' + somaT + ' com letra</small></th>' + L.map(l => '<td><span class="vnf-n"><b>' + tot[l] + '</b> <em>' + (somaT ? Math.round(100 * tot[l] / somaT) : 0) + '%</em></span></td>').join('') + '</tr>' : '') +
+      '</tbody></table>' +
+      '<p class="vnf-nota">Contagem pela letra do app (a mesma dos cards), só quem tem físico rastreado (5 jogos ou mais) e não está vetado; o percentual é dentro da posição, no mercado escolhido. ' +
+      'As segundas divisões de Argentina, Colômbia e Equador não têm dado físico. A lista nominal está em Mercado › Tipo físico A+, A e B.</p></div>';
+    el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { mercado = b.dataset.m; gravar('vnfMercado', mercado); vnfMatriz(); });
+    if (!c) setTimeout(vnfMatriz, 1000);   /* a BASE ainda está chegando: tenta de novo */
+  }
+
   function ligarFisico() {
     const bt = abaOriginal('vnfisico'), pg = $('#pgVnFisico');
     if (!bt || !pg) return;

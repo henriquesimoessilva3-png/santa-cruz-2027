@@ -57,21 +57,25 @@ for p in ORDEM:
     a = "Motor de volume (volume > +0,5)" if p == "MED" else ("Mais intenso" if s == "Volante" else "Explosivo e rápido") + ("" if p == "MEI" else " · **A+** com volume")
     c = "Menos intenso" if s == "Volante" else "Baixa intensidade"
     md.append(f"| {NOME[p]} | {a} | {'o resto' if p == 'MED' else B[s]} · explosivo com pouco volume | {c} |")
-md += ["", "## Como as letras aparecem em quem sobe e em quem cai", "",
-       "De cada 100 titulares de cada faixa, quantos são de cada letra. **n** = titulares na faixa. O dado é descrição, não a regra: a regra é a do clube, acima.", ""]
+md += ["", "## Quantos de cada letra estão em quem sobe, no meio e em quem cai", "",
+       "Titulares de 2022–2025 (≥ 900 min). Em cada letra: **quantos** jogadores no total e **quantos** deles estavam em times que subiram, no meio e em times que caíram. "
+       "Como há menos titulares de quem sobe do que do meio, o número cru engana — por isso a última coluna **pondera**: "
+       "**concentração em quem sobe** = a fatia da letra que está em quem sobe, dividida pela fatia de todos os titulares que está em quem sobe. "
+       "**1,0** = a letra aparece em quem sobe na proporção normal · **1,5** = 50% mais do que o esperado · **0,5** = metade do esperado.", ""]
 for p in ORDEM:
-    g = J[J.pos11 == p]
-    md += [f"**{NOME[p]}**", "", "| Faixa | n | A+ | A | B | C |", "|---|---|---|---|---|---|"]
-    for f, rot in [("Sobe", "Times que subiram"), ("Meio", "Meio da tabela"), ("Cai", "Times que caíram")]:
-        x = g[g.faixa == f]; n = len(x)
-        if not n: continue
-        q = lambda L: pc((x.letra == L).mean())
-        md.append(f"| {rot} | {n} | **{q('A+')}** | **{q('A')}** | {q('B')} | {q('C')} |")
-    s, c = g[g.faixa == "Sobe"], g[g.faixa == "Cai"]
-    if len(s) and len(c):
-        da = ((s.letra.isin(["A", "A+"])).mean() - (c.letra.isin(["A", "A+"])).mean()) * 100
-        dc = ((s.letra == "C").mean() - (c.letra == "C").mean()) * 100
-        md.append(f"\nA ou A+: **{da:+.0f} pontos** em quem sobe · C: **{dc:+.0f} pontos**.\n")
+    g = J[J.pos11 == p]; N = len(g)
+    ns = {f: int((g.faixa == f).sum()) for f in ["Sobe", "Meio", "Cai"]}
+    md += [f"**{NOME[p]}** — {N} titulares: **{ns['Sobe']}** em quem subiu · **{ns['Meio']}** no meio · **{ns['Cai']}** em quem caiu", "",
+           "| Letra | Total | Em quem subiu | No meio | Em quem caiu | Concentração em quem sobe |", "|---|---|---|---|---|---|"]
+    base_s = ns["Sobe"] / N if N else 0
+    for L in ["A+", "A", "B", "C"]:
+        x = g[g.letra == L]; t = len(x)
+        if not t: continue
+        c = {f: int((x.faixa == f).sum()) for f in ["Sobe", "Meio", "Cai"]}
+        conc = (c["Sobe"] / t) / base_s if base_s else float("nan")
+        cs = f"**{conc:.1f}**".replace(".", ",")
+        md.append(f"| {L} | **{t}** ({100*t/N:.0f}%) | **{c['Sobe']}** ({100*c['Sobe']/t:.0f}%) | **{c['Meio']}** ({100*c['Meio']/t:.0f}%) | **{c['Cai']}** ({100*c['Cai']/t:.0f}%) | {cs} |")
+    md.append("")
 md += ["", "Os nomes de cada letra, por posição e mercado, estão na aba **Tipo físico A e B** do app (com PDF) e na letra de cada card do campograma."]
 open(os.path.join(OUT, "B16.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
 print(J.groupby(["pos11", "faixa"]).letra.value_counts(normalize=True).unstack().round(2).head(12))

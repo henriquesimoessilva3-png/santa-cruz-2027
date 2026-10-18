@@ -45,3 +45,22 @@ body.visao-nova nav.vn-sub {
 #pgVnFisico .vnf-mais > summary:hover { color: var(--coral); }
 #pgVnFisico .esv-doc .esv-jog { cursor: pointer; text-decoration: underline dotted var(--tinta3); text-underline-offset: 3px; }
 #pgVnFisico .esv-doc .esv-jog:hover { color: var(--coral); }
+/* matriz das letras por posição (Estudo › Físico) */
+#pgVnFisico .vnf-mat { margin: 0 0 22px; }
+#pgVnFisico .vnf-mat h3 { font-size: 16px; margin: 0 0 8px; }
+#pgVnFisico .vnf-chips { display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 10px; }
+#pgVnFisico .vnf-chips button { background: var(--fundo3); border: 1px solid var(--borda2); color: var(--tinta2); font: 600 12px var(--fonte); padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+#pgVnFisico .vnf-chips button.on { background: var(--coral); border-color: var(--coral); color: #fff; }
+#pgVnFisico .vnf-tab { border-collapse: collapse; width: 100%; max-width: 1200px; font-size: 12.5px; }
+#pgVnFisico .vnf-tab th { text-align: left; font-weight: 650; color: var(--tinta); padding: 8px 10px 8px 0; border-bottom: 1px solid var(--borda2); vertical-align: top; white-space: nowrap; }
+#pgVnFisico .vnf-tab thead th { color: var(--tinta2); font-size: 11px; }
+#pgVnFisico .vnf-tab thead th .tipo-abc { min-width: 22px; height: 18px; font-size: 11px; cursor: default; }
+#pgVnFisico .vnf-tab tbody th small { display: block; font-weight: 500; font-size: 10.5px; color: var(--tinta3); }
+#pgVnFisico .vnf-tab td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--linha1); vertical-align: top; width: 22%; }
+#pgVnFisico .vnf-sig { display: block; color: var(--tinta2); line-height: 1.4; }
+#pgVnFisico .vnf-n { display: block; margin-top: 3px; font-variant-numeric: tabular-nums; }
+#pgVnFisico .vnf-n b { font-size: 16px; color: var(--tinta); }
+#pgVnFisico .vnf-n em { font-style: normal; font-weight: 700; font-size: 13px; color: var(--tinta2); margin-left: 4px; }
+#pgVnFisico .vnf-vaz { color: var(--tinta3); font-size: 11.5px; }
+#pgVnFisico .vnf-tot th, #pgVnFisico .vnf-tot td { border-top: 2px solid var(--borda2); background: var(--fundo2); }
+#pgVnFisico .vnf-nota { margin: 8px 0 0; font-size: 11.5px; color: var(--tinta3); max-width: 120ch; line-height: 1.5; }
