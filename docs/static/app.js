@@ -2998,13 +2998,14 @@ function painelBolaParada(j) {
 function fisicoSerieBHtml(j) {
   const ps = FIS_GEMEAS[j.p] || [j.p], lista = BASE.filter(x => x.l === 'Brasil B' && ps.includes(x.p)).map(x => { try { return comFisicoDoEstudo(x) || x; } catch (e) { return x; } });
   const f = (n, c) => (typeof n === 'number' ? n.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
-  let nL = 0, okL = 0;
+  let nL = 0, okL = 0, totL = 0;
   const grupo = ([nome, inds]) => {
     const ls = inds.map(([campo, rot, casas, letra]) => {
       const vs = lista.map(x => x[campo]).filter(v => typeof v === 'number' && isFinite(v));
       if (vs.length < 5) return '';
       const med = vs.reduce((a, b) => a + b, 0) / vs.length, best = Math.max.apply(null, vs), v = typeof j[campo] === 'number' ? j[campo] : null;
       const c = v == null ? 'neutro' : v >= best ? 'lider' : v >= med ? 'acima' : v >= med * 0.9 ? 'perto' : 'abaixo';
+      if (letra) totL++;
       if (letra && v != null) { nL++; if (c === 'acima' || c === 'lider') okL++; }
       const alvo = Math.max(v || 0, best, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
       return '<div class="fi-linha sf ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + ': ' + (v == null ? 'sem dado' : f(v, casas)) + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
@@ -3013,12 +3014,13 @@ function fisicoSerieBHtml(j) {
         '<span class="med">' + f(med, casas) + '</span><span class="mx">' + f(best, casas) + '</span></div>';
     }).join('');
     if (!ls) return '';
-    const nOk = (ls.match(/fi-linha sf (acima|lider)/g) || []).length, nTot = (ls.match(/fi-linha sf (acima|lider|perto|abaixo)/g) || []).length;
-    return '<div class="sf-sub"><span>' + esc(nome) + '</span><b title="indicadores do grupo na média da Série B ou acima">' + nOk + '/' + nTot + '</b></div>' + ls;
+    /* conta só os da letra (◆): 4 em velocidade e explosão, 2 em volume (18/10) */
+    const nOk = (ls.match(/fi-linha sf (acima|lider) fund/g) || []).length, nMed = (ls.match(/fi-linha sf (acima|lider|perto|abaixo) fund/g) || []).length, nTot = inds.filter(x => x[3]).length;
+    return '<div class="sf-sub"><span>' + esc(nome) + '</span><b title="indicadores da letra (◆) deste grupo na média da Série B ou acima">' + nOk + '/' + nTot + (nMed < nTot ? ' <small>· ' + (nTot - nMed) + ' sem dado</small>' : '') + '</b></div>' + ls;
   };
   const corpo = FIS_GRUPOS.map(grupo).join('');
   if (!corpo) return '';
-  return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (nL ? ' <b class="sf-cont" title="indicadores da letra (◆) na média da Série B ou acima">' + okL + '/' + nL + '</b>' : '') + '</h4>' +
+  return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (totL ? ' <b class="sf-cont" title="os 6 indicadores da letra (◆) na média da Série B ou acima">' + okL + '/' + totL + (nL < totL ? ' <small>· ' + (totL - nL) + ' sem dado</small>' : '') + '</b>' : '') + '</h4>' +
     (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
 }
