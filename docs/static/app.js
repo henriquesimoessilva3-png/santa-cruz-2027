@@ -3011,7 +3011,24 @@ function painelBolaParada(j) {
     (anosBP ? 'em ' + anosBP + (anosBP === 1 ? ' ano' : ' anos') + ': ' + R(tot.esc) + ' escanteios · ' + R(tot.fal) + ' faltas · ' + R(tot.fd) + ' faltas diretas · ' + n(tot.pen, 0) + ' pênaltis · ' + n(tot.gc, 0) + ' gols de cabeça · ' + n(tot.g, 0) + ' gols · ' + n(tot.a, 0) + ' assistências' : 'sem histórico de cobranças no Wyscout') + ' · % = percentil na liga dele (temporada atual)</small></div></div>';
   const tab = ls ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Escanteios</th><th class="n">Faltas</th><th class="n">Faltas diretas</th><th class="n">Pênaltis</th><th class="n">Gols de cabeça</th><th class="n">Gols</th><th class="n" title="todas as assistências: o Wyscout não separa a de bola parada">Assist.</th></tr></thead><tbody>' + ls + '</tbody>' +
     '<tfoot><tr><td>Total</td><td class="n">' + R(tot.esc) + '</td><td class="n">' + R(tot.fal) + '</td><td class="n">' + R(tot.fd) + '</td><td class="n">' + n(tot.pen, 0) + '</td><td class="n">' + n(tot.gc, 0) + '</td><td class="n">' + n(tot.g, 0) + '</td><td class="n">' + n(tot.a, 0) + '</td></tr></tfoot></table>' : '';
-  return '<div class="sf-painel">' + card + tab + '</div>';
+  /* gols e assistências de bola parada jogo a jogo (Sofascore, static/bp_jogo_dados.js — levantamento de 18/10 do grupo) */
+  const BJ = window.BP_JOGO && (window.BP_JOGO[primaryKey(j)] || (j._eqDe && window.BP_JOGO[j._eqDe]));
+  let tabJ = '', resJ = '';
+  if (BJ) {
+    const sm = { gbp: 0, gp: 0, abp: 0, g: 0, a: 0 };
+    const lj = ['2024', '2025', '2026'].map(t => {
+      const y = BJ[t]; if (!y) return '<tr class="vazio"><td>' + t + '</td><td colspan="5">sem dado</td></tr>';
+      const gbp = (y.ge || 0) + (y.gf || 0) + (y.gl || 0), abp = (y.ae || 0) + (y.af || 0) + (y.al || 0);
+      sm.gbp += gbp; sm.gp += y.gp || 0; sm.abp += abp; sm.g += y.g || 0; sm.a += y.a || 0;
+      const det = (a, b, c) => [a ? a + ' esc.' : '', b ? b + ' falta' : '', c ? c + ' lat.' : ''].filter(Boolean).join(' · ');
+      return '<tr title="' + esc(y.obs || '') + '"><td>' + t + '</td><td class="n"><b>' + gbp + '</b>' + (gbp ? '<small> ' + det(y.ge, y.gf, y.gl) + '</small>' : '') + '</td><td class="n">' + (y.gp || 0) + '</td>' +
+        '<td class="n"><b>' + abp + '</b>' + (abp ? '<small> ' + det(y.ae, y.af, y.al) + '</small>' : '') + '</td><td class="n">' + (y.g || 0) + ' / ' + (y.a || 0) + '</td><td class="n">' + (y.j || 0) + '</td></tr>';
+    }).join('');
+    tabJ = '<table class="sf-tab bp-jogo" title="Sofascore, jogo a jogo: origem de cada gol pelo mapa de finalizações; assistência de bola parada = ele deu o passe do gol que saiu de escanteio, falta ou lateral. Passe o mouse no ano para ver as competições."><thead><tr><th>Ano</th><th class="n">Gols de bola parada</th><th class="n">Pênaltis</th><th class="n">Assist. de bola parada</th><th class="n">Gols / assist. (todos)</th><th class="n">Jogos</th></tr></thead><tbody>' + lj + '</tbody>' +
+      '<tfoot><tr><td>Total</td><td class="n">' + sm.gbp + '</td><td class="n">' + sm.gp + '</td><td class="n">' + sm.abp + '</td><td class="n">' + sm.g + ' / ' + sm.a + '</td><td></td></tr></tfoot></table>';
+    resJ = '<small class="bp-res-j">Sofascore, 3 anos: <b>' + sm.gbp + '</b> gols e <b>' + sm.abp + '</b> assistências de bola parada · <b>' + sm.gp + '</b> pênaltis convertidos</small>';
+  }
+  return '<div class="sf-painel">' + card.replace('</small></div></div>', '</small>' + resJ + '</div></div>') + tab + tabJ + '</div>';
 }
 function fisicoSerieBHtml(j) {
   const ps = FIS_GEMEAS[j.p] || [j.p], lista = BASE.filter(x => x.l === 'Brasil B' && ps.includes(x.p)).map(x => { try { return comFisicoDoEstudo(x) || x; } catch (e) { return x; } });

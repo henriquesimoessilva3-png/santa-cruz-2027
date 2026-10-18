@@ -1,0 +1,680 @@
+primaryKey;temporada;data;jogo;tipo;situation;parte_do_corpo;event_id
+Robinho - Estrela Amadora - Portugal A;2026;2026-03-15;Rio Ave 2x1 CF Estrela Amadora (Liga Portugal Betclic);assistencia;assisted;left-foot;14288824
+Robinho - Estrela Amadora - Portugal A;2027;2026-07-15;CF Estrela Amadora 2x0 Associação Naval 1893 (Club Friendly Games);gol;?;?;16512992
+Robinho - Estrela Amadora - Portugal A;2024;2024-05-26;Londrina 1x1 Volta Redonda (Brasileirão Série C);gol;?;?;12146640
+Robinho - Estrela Amadora - Portugal A;2024;2024-07-14;Volta Redonda 1x3 São Bernardo (Brasileirão Série C);gol;?;?;12146712
+Robinho - Estrela Amadora - Portugal A;2024;2024-10-19;Athletic Club 0x2 Volta Redonda (Brasileirão Série C, Playoffs);assistencia;regular;head;12959658
+Robinho - Estrela Amadora - Portugal A;2024;2024-02-01;Volta Redonda 2x0 Audax Rio (Carioca Série A – Taça Guanabara);assistencia;regular;left-foot;11873062
+Robinho - Estrela Amadora - Portugal A;2024;2024-02-04;Sampaio Corrêa-RJ 0x2 Volta Redonda (Carioca Série A – Taça Guanabara);assistencia;regular;left-foot;11873066
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-07-13;América Mineiro 1x1 Londrina (Brasileirão Série B);assistencia;corner;head;15526170
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-07-23;Náutico 2x1 Londrina (Brasileirão Série B);assistencia;set-piece;right-foot;15526195
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-08-14;Sport Recife 2x1 Londrina (Brasileirão Série B);gol;assisted;head;15526225
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-08-22;Ceará 2x1 Londrina (Brasileirão Série B);gol;penalty;right-foot;15526242
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-09-10;São Bernardo 1x2 Londrina (Brasileirão Série B);assistencia;corner;head;15526269
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-09-15;Londrina 6x0 Ponte Preta (Brasileirão Série B);gol;assisted;right-foot;15526281
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-09-20;Londrina 1x2 Fortaleza (Brasileirão Série B);assistencia;set-piece;right-foot;15526291
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-10-07;Avaí 2x1 Londrina (Brasileirão Série B);assistencia;assisted;right-foot;15526328
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-10-13;Athletic Club 2x2 Londrina (Brasileirão Série B);gol;penalty;right-foot;15526334
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-10-13;Athletic Club 2x2 Londrina (Brasileirão Série B);gol;penalty;right-foot;15526334
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-10-15;Athletico 1x1 Avaí (Brasileirão Série B);gol;corner;right-foot;13638643
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-10-25;Paysandu SC 1x2 Avaí (Brasileirão Série B);assistencia;throw-in-set-piece;head;13638690
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-01-25;Chapecoense 6x0 Joinville (Catarinense, Serie A);gol;regular;right-foot;15138091
+João Vitor (LCMF) - Londrina - Brasil B;2026;2026-03-01;Barra FC 3x1 Chapecoense (Catarinense, Serie A, Knockout Stage);gol;corner;right-foot;15601007
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-03-08;Santa Catarina Clube 1x1 Avaí (Catarinense, Serie A, Playoffs);assistencia;corner;head;13570985
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-05-16;Ferroviária 1x1 Avaí (Brasileirão Série B);assistencia;fast-break;left-foot;13525914
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-06-07;Avaí 1x0 CRB (Brasileirão Série B);gol;free-kick;right-foot;13616166
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-08-10;Avaí 2x0 Cuiabá (Brasileirão Série B);gol;assisted;right-foot;13616279
+João Vitor (LCMF) - Londrina - Brasil B;2024;2024-06-10;Vila Nova FC 3x2 Ceará (Brasileirão Série B);gol;assisted;right-foot;12146286
+João Vitor (LCMF) - Londrina - Brasil B;2024;2024-09-04;Vila Nova FC 1x0 CRB (Brasileirão Série B);assistencia;assisted;head;12146421
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-02-13;Avaí 3x1 Concórdia AC (Catarinense, Serie A);gol;regular;right-foot;13213978
+João Vitor (LCMF) - Londrina - Brasil B;2025;2025-02-13;Avaí 3x1 Concórdia AC (Catarinense, Serie A);gol;regular;right-foot;13213978
+João Vitor (LCMF) - Londrina - Brasil B;2024;2024-04-17;Vila Nova FC 2x0 Cuiabá (Copa Verde);gol;?;?;12225775
+João Vitor (LCMF) - Londrina - Brasil B;2024;2024-04-23;Vila Nova FC 2x0 Guarani (Brasileirão Série B);assistencia;assisted;right-foot;12146199
+Eurico - Santa Cruz - Brasil C;2026;2026-01-17;Santa Cruz 1x0 Acadêmica Vitória (Pernambucano, Serie A1);assistencia;regular;head;15204485
+Eurico - Santa Cruz - Brasil C;2026;2026-01-31;Sport Recife 2x1 Santa Cruz (Pernambucano, Serie A1);gol;set-piece;right-foot;15204433
+Eurico - Santa Cruz - Brasil C;2026;2026-05-31;Santa Cruz 1x1 Ferroviária (Brasileirão Série C);gol;corner;head;15617652
+Eurico - Santa Cruz - Brasil C;2026;2026-08-29;Anápolis FC 1x1 Santa Cruz (Brasileirão Série C);gol;set-piece;head;15617748
+Eurico - Santa Cruz - Brasil C;2025;2025-01-22;Betim Futebol 2x0 SC Aymorés (Mineiro Módulo I);gol;corner;head;13241288
+Eurico - Santa Cruz - Brasil C;2025;2025-01-25;Cruzeiro 1x1 Betim Futebol (Mineiro Módulo I);gol;corner;head;13241293
+Eurico - Santa Cruz - Brasil C;2025;2025-01-29;Betim Futebol 1x1 EC Democrata (Mineiro Módulo I);gol;set-piece;left-foot;13241299
+Eurico - Santa Cruz - Brasil C;2025;2025-07-27;Santa Cruz 3x0 Treze (Brasileirão Série D, Group A3);gol;?;?;13557866
+Gabriel Bahia - Grêmio Novorizontino - Brasil B;2024;2024-10-05;São Bernardo 1x2 Volta Redonda (Brasileirão Série C, Group B);gol;set-piece;head;12749482
+Gabriel Bahia - Grêmio Novorizontino - Brasil B;2025;2025-01-23;Botafogo 1x2 Volta Redonda (Carioca Série A – Taça Guanabara);gol;corner;left-foot;13198184
+Gabriel Bahia - Grêmio Novorizontino - Brasil B;2025;2025-05-03;Volta Redonda 1x0 Paysandu SC (Brasileirão Série B);gol;corner;head;13525894
+Gabriel Bahia - Grêmio Novorizontino - Brasil B;2024;2024-06-29;Volta Redonda 2x2 Sampaio Corrêa (Brasileirão Série C);assistencia;set-piece;right-foot;12146692
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-06-14;Grêmio Novorizontino 2x2 Náutico (Brasileirão Série B);assistencia;assisted;left-foot;15526135
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-07-26;Londrina 1x4 Grêmio Novorizontino (Brasileirão Série B);gol;fast-break;head;15526201
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-08-20;Grêmio Novorizontino 3x0 América Mineiro (Brasileirão Série B);gol;fast-break;left-foot;15526229
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-10-12;Grêmio Novorizontino 5x1 Ponte Preta (Brasileirão Série B);gol;assisted;right-foot;15526333
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-09-28;Botafogo-SP 1x2 Ferroviária (Brasileirão Série B);gol;penalty;right-foot;13638724
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-10-14;CRB 2x2 Ferroviária (Brasileirão Série B);gol;corner;right-foot;13638656
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-10-20;Ferroviária 2x2 Paysandu SC (Brasileirão Série B);gol;assisted;head;13638679
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-10-26;Vila Nova FC 2x2 Ferroviária (Brasileirão Série B);gol;penalty;right-foot;13638685
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-11-07;Athletic Club 2x1 Ferroviária (Brasileirão Série B);gol;regular;left-foot;13638739
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-01-15;Botafogo-SP 1x1 EC Noroeste (Paulista Série A1);gol;assisted;right-foot;15176520
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-01-18;São Bernardo 1x1 EC Noroeste (Paulista Série A1);gol;penalty;right-foot;15176512
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-01-24;Ponte Preta 2x2 EC Noroeste (Paulista Série A1);gol;assisted;head;15176537
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-02-01;EC Noroeste 2x0 AE Velo Clube (Paulista Série A1);gol;fast-break;right-foot;15176541
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-03-12;Mixto 0x3 Grêmio Novorizontino (Copa do Brasil);gol;?;?;15677068
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-03-22;Grêmio Novorizontino 1x3 Londrina (Brasileirão Série B);gol;throw-in-set-piece;head;15525985
+Carlão - Grêmio Novorizontino - Brasil B;2026;2026-04-05;Grêmio Novorizontino 1x1 CRB (Brasileirão Série B);gol;corner;head;15526006
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-01-29;EC Noroeste 2x2 Inter de Limeira (Paulista Série A1);gol;set-piece;right-foot;13193914
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-02-12;EC Noroeste 2x3 São Bernardo (Paulista Série A1);gol;assisted;right-foot;13193951
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-02-15;Red Bull Bragantino 2x1 EC Noroeste (Paulista Série A1);gol;fast-break;left-foot;13193960
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-04-06;Ferroviária 1x1 Remo (Brasileirão Série B);gol;set-piece;head;13525845
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-05-03;Ferroviária 2x1 Coritiba (Brasileirão Série B);gol;assisted;head;13525896
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-05-03;Ferroviária 2x1 Coritiba (Brasileirão Série B);gol;assisted;right-foot;13525896
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-05-11;Grêmio Novorizontino 2x2 Ferroviária (Brasileirão Série B);gol;assisted;right-foot;13525902
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-05-16;Ferroviária 1x1 Avaí (Brasileirão Série B);assistencia;corner;head;13525914
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-06-07;América Mineiro 1x2 Ferroviária (Brasileirão Série B);gol;assisted;right-foot;13616169
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-07-06;Ferroviária 1x3 Vila Nova FC (Brasileirão Série B);gol;fast-break;right-foot;13616222
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-07-13;Criciúma 2x1 Ferroviária (Brasileirão Série B);assistencia;assisted;left-foot;13616229
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-08-08;Ferroviária 2x1 Amazonas FC (Brasileirão Série B);gol;assisted;head;13616283
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-08-17;Atlético Goianiense 1x3 Ferroviária (Brasileirão Série B);gol;penalty;right-foot;13616288
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-05-04;Floresta 1x4 Ferroviária (Brasileirão Série C);assistencia;regular;head;12146607
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-05-18;Ferroviária 1x0 Confiança (Brasileirão Série C);gol;regular;right-foot;12146634
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-05-26;Figueirense 0x1 Ferroviária (Brasileirão Série C);gol;regular;right-foot;12146642
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-07-06;Sampaio Corrêa 0x2 Ferroviária (Brasileirão Série C);gol;penalty;right-foot;12146699
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-07-15;Ferroviária 2x1 Remo (Brasileirão Série C);gol;regular;right-foot;12146714
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-08-19;Ferroviária 5x1 Volta Redonda (Brasileirão Série C);gol;regular;right-foot;12146765
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-09-29;Londrina 3x2 Ferroviária (Brasileirão Série C, Group C);gol;regular;head;12749480
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-10-05;Ferroviária 4x2 Ypiranga FC (Brasileirão Série C, Group C);gol;corner;head;12749484
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-10-05;Ferroviária 4x2 Ypiranga FC (Brasileirão Série C, Group C);gol;regular;right-foot;12749484
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-10-05;Ferroviária 4x2 Ypiranga FC (Brasileirão Série C, Group C);gol;corner;head;12749484
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-01-15;AE Velo Clube 0x2 EC Noroeste (Paulista Série A1);gol;corner;left-foot;13193886
+Carlão - Grêmio Novorizontino - Brasil B;2025;2025-01-18;EC Noroeste 1x1 Palmeiras (Paulista Série A1);gol;assisted;right-foot;13193894
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-01-17;São José EC 2x1 EC Noroeste (Paulista, Série A2);gol;regular;left-foot;11888598
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-01-21;EC Noroeste 2x2 Capivariano (Paulista, Série A2);gol;corner;head;11919857
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-01-21;EC Noroeste 2x2 Capivariano (Paulista, Série A2);gol;regular;right-foot;11919857
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-01-24;Rio Claro FC 0x3 EC Noroeste (Paulista, Série A2);gol;regular;head;11919833
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-01-31;EC Noroeste 1x1 Comercial-SP U23 (Paulista, Série A2);gol;regular;right-foot;11919815
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-02-03;EC Primavera 1x2 EC Noroeste (Paulista, Série A2);gol;corner;head;11919805
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-03-06;XV de Piracicaba 5x2 EC Noroeste (Paulista, Série A2);gol;regular;right-foot;11919747
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-03-06;XV de Piracicaba 5x2 EC Noroeste (Paulista, Série A2);gol;throw-in-set-piece;right-foot;11919747
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-03-16;EC Noroeste 5x1 Taubaté (Paulista, Série A2);gol;regular;right-foot;11919733
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-03-16;EC Noroeste 5x1 Taubaté (Paulista, Série A2);gol;regular;right-foot;11919733
+Carlão - Grêmio Novorizontino - Brasil B;2024;2024-03-23;EC Noroeste 1x1 EC São Bento (Paulista, Serie A2, Playoffs, Final);gol;regular;left-foot;12172636
+Sergio Palacios - Ponte Preta - Brasil B;2026;2026-10-12;Grêmio Novorizontino 5x1 Ponte Preta (Brasileirão Série B);assistencia;assisted;left-foot;15526333
+César Martins - Criciúma - Brasil B;2026;2026-06-23;América Mineiro 0x1 Criciúma (Brasileirão Série B);gol;throw-in-set-piece;right-foot;15526140
+César Martins - Criciúma - Brasil B;2026;2026-07-21;Grêmio Novorizontino 0x1 Criciúma (Brasileirão Série B);assistencia;assisted;right-foot;15526189
+César Martins - Criciúma - Brasil B;2026;2026-10-12;Criciúma 1x0 América Mineiro (Brasileirão Série B);gol;corner;head;15526338
+César Martins - Criciúma - Brasil B;2025;2025-07-12;Grêmio Novorizontino 3x1 América Mineiro (Brasileirão Série B);gol;corner;right-foot;13616232
+César Martins - Criciúma - Brasil B;2025;2025-10-12;Grêmio Novorizontino 3x0 Operário-PR (Brasileirão Série B);assistencia;set-piece;right-foot;13638660
+César Martins - Criciúma - Brasil B;2025;2025-11-03;América Mineiro 2x2 Grêmio Novorizontino (Brasileirão Série B);gol;corner;head;13638718
+César Martins - Criciúma - Brasil B;2026;2026-01-11;Criciúma 2x1 Avaí (Catarinense, Serie A);gol;throw-in-set-piece;right-foot;15138069
+César Martins - Criciúma - Brasil B;2026;2026-01-23;Camboriú 1x2 Criciúma (Catarinense, Serie A);gol;regular;head;15138082
+César Martins - Criciúma - Brasil B;2024;2024-04-19;Grêmio Novorizontino 2x1 CRB (Brasileirão Série B);gol;assisted;head;12146203
+César Martins - Criciúma - Brasil B;2024;2024-05-05;Ituano 1x3 Grêmio Novorizontino (Brasileirão Série B);gol;corner;right-foot;12146224
+César Martins - Criciúma - Brasil B;2025;2025-06-15;Grêmio Novorizontino 3x0 Cuiabá (Brasileirão Série B);assistencia;assisted;head;13616180
+Thiago Martins - New York City - EUA;2026;2026-04-29;New York Red Bulls 1x3 New York City FC (US Open Cup);gol;corner;head;16022853
+Thiago Martins - New York City - EUA;2025;2025-09-27;New York Red Bulls 2x3 New York City FC (MLS);gol;set-piece;right-foot;13265531
+Thiago Martins - New York City - EUA;2024;2024-11-02;New York City FC 3x1 FC Cincinnati (MLS, Playoffs);gol;set-piece;head;13010884
+Guilherme Sityá - Livre - Brasil B;2025;2025-05-25;Konyaspor 1x2 Alanyaspor (Trendyol Süper Lig);assistencia;assisted;right-foot;12528083
+Guilherme Sityá - Livre - Brasil B;2026;2025-07-17;Konyaspor 2x1 Çaykur Rizespor (Club Friendly Games);assistencia;?;?;14206158
+Guilherme Sityá - Livre - Brasil B;2026;2025-08-10;Eyüpspor 1x4 Konyaspor (Trendyol Süper Lig);assistencia;corner;head;14109600
+Guilherme Sityá - Livre - Brasil B;2025;2024-11-24;Konyaspor 1x1 Hatayspor (Trendyol Süper Lig);assistencia;corner;head;12530847
+Guilherme Sityá - Livre - Brasil B;2025;2024-11-30;Adana Demirspor 0x1 Konyaspor (Trendyol Süper Lig);assistencia;corner;head;12530843
+Guilherme Sityá - Livre - Brasil B;2025;2024-12-07;Konyaspor 1x1 Antalyaspor (Trendyol Süper Lig);assistencia;set-piece;head;12530832
+Guilherme Sityá - Livre - Brasil B;2025;2025-01-13;Konyaspor 2x3 Fenerbahçe (Trendyol Süper Lig);assistencia;assisted;head;12530796
+Guilherme Sityá - Livre - Brasil B;2025;2025-05-10;Konyaspor 2x1 Çaykur Rizespor (Trendyol Süper Lig);assistencia;corner;head;12528112
+Guilherme Sityá - Livre - Brasil B;2024;2024-02-24;Konyaspor 2x0 Hatayspor (Trendyol Süper Lig);assistencia;corner;head;11450088
+Guilherme Sityá - Livre - Brasil B;2024;2024-04-13;Kasımpaşa 0x2 Konyaspor (Trendyol Süper Lig);gol;penalty;left-foot;11450018
+Guilherme Sityá - Livre - Brasil B;2024;2024-05-12;Konyaspor 3x0 Samsunspor (Trendyol Süper Lig);assistencia;corner;head;11540870
+Guilherme Sityá - Livre - Brasil B;2024;2024-05-12;Konyaspor 3x0 Samsunspor (Trendyol Süper Lig);gol;assisted;left-foot;11540870
+Guilherme Sityá - Livre - Brasil B;2024;2024-05-18;Kayserispor 2x2 Konyaspor (Trendyol Süper Lig);assistencia;corner;right-foot;11540888
+Guilherme Sityá - Livre - Brasil B;2025;2024-08-10;Kasımpaşa 2x3 Konyaspor (Trendyol Süper Lig);assistencia;assisted;head;12528188
+Guilherme Sityá - Livre - Brasil B;2025;2024-10-06;Konyaspor 2x1 Eyüpspor (Trendyol Süper Lig);assistencia;set-piece;right-foot;12528269
+Guilherme Sityá - Livre - Brasil B;2024;2023-08-25;Konyaspor 2x0 Gaziantep FK (Trendyol Süper Lig);gol;assisted;head;11451145
+Guilherme Sityá - Livre - Brasil B;2024;2023-09-02;Başakşehir FK 0x1 Konyaspor (Trendyol Süper Lig);assistencia;assisted;left-foot;11451137
+Guilherme Sityá - Livre - Brasil B;2024;2023-09-16;Konyaspor 1x2 Çaykur Rizespor (Trendyol Süper Lig);assistencia;?;?;11451124
+Guilherme Sityá - Livre - Brasil B;2024;2023-09-24;MKE Ankaragücü 1x1 Konyaspor (Trendyol Süper Lig);assistencia;assisted;right-foot;11451115
+Guilherme Sityá - Livre - Brasil B;2024;2023-10-21;Konyaspor 1x2 Pendikspor (Trendyol Süper Lig);assistencia;assisted;right-foot;11451087
+Guilherme Sityá - Livre - Brasil B;2024;2023-11-25;Konyaspor 2x0 Kasımpaşa (Trendyol Süper Lig);gol;assisted;left-foot;11451047
+Guilherme Sityá - Livre - Brasil B;2024;2024-01-10;Fenerbahçe 7x1 Konyaspor (Trendyol Süper Lig);gol;regular;left-foot;11897410
+Rafael Santos - St. Louis CITY SC - EUA;2026;2026-03-22;St.Louis City 3x1 New England Revolution (MLS);assistencia;corner;right-foot;15137930
+Rafael Santos - St. Louis CITY SC - EUA;2026;2026-05-14;St.Louis City 2x1 Los Angeles FC (MLS);gol;regular;right-foot;15171549
+Rafael Santos - St. Louis CITY SC - EUA;2025;2025-05-07;FC Tampa Bay Rowdies 0x5 Orlando City SC (US Open Cup);assistencia;assisted;right-foot;13789714
+Rafael Santos - St. Louis CITY SC - EUA;2025;2025-08-31;Sporting Kansas City 4x2 Colorado Rapids (MLS);assistencia;assisted;other;13265501
+Rafael Santos - St. Louis CITY SC - EUA;2025;2025-09-14;Colorado Rapids 2x1 Houston Dynamo (MLS);assistencia;free-kick;right-foot;13265511
+Rafael Santos - St. Louis CITY SC - EUA;2025;2025-09-28;Colorado Rapids 1x1 Minnesota United (MLS);gol;free-kick;left-foot;13265529
+Rafael Santos - St. Louis CITY SC - EUA;2026;2026-01-28;St.Louis City 2x2 FC Tampa Bay Rowdies (MLS Pre Season);gol;?;?;15348202
+Rafael Santos - St. Louis CITY SC - EUA;2024;2024-09-14;Orlando City SC 3x0 New England Revolution (MLS);gol;corner;left-foot;12000729
+Rafael Santos - St. Louis CITY SC - EUA;2024;2024-09-29;FC Dallas 1x3 Orlando City SC (MLS);assistencia;assisted;head;12000783
+Rafael Santos - St. Louis CITY SC - EUA;2024;2024-10-19;Orlando City SC 1x2 Atlanta United (MLS);assistencia;assisted;head;12000829
+Rafael Santos - St. Louis CITY SC - EUA;2024;2024-03-10;Orlando City SC 2x3 Minnesota United (MLS);assistencia;assisted;left-foot;11911512
+André Luis - Vila Nova - Brasil B;2026;2026-05-31;Londrina 0x1 Vila Nova FC (Brasileirão Série B);gol;corner;left-foot;15526110
+André Luis - Vila Nova - Brasil B;2026;2026-06-08;Vila Nova FC 1x0 Botafogo-SP (Brasileirão Série B);gol;assisted;right-foot;15526126
+André Luis - Vila Nova - Brasil B;2026;2026-06-20;Vila Nova FC 4x3 Náutico (Brasileirão Série B);assistencia;fast-break;right-foot;15526147
+André Luis - Vila Nova - Brasil B;2026;2026-06-20;Vila Nova FC 4x3 Náutico (Brasileirão Série B);gol;fast-break;right-foot;15526147
+André Luis - Vila Nova - Brasil B;2026;2026-08-19;Vila Nova FC 6x0 Ponte Preta (Brasileirão Série B);gol;assisted;left-foot;15526237
+André Luis - Vila Nova - Brasil B;2026;2026-08-19;Vila Nova FC 6x0 Ponte Preta (Brasileirão Série B);assistencia;throw-in-set-piece;right-foot;15526237
+André Luis - Vila Nova - Brasil B;2026;2026-08-30;Vila Nova FC 2x0 Ceará (Brasileirão Série B);gol;assisted;left-foot;15526257
+André Luis - Vila Nova - Brasil B;2026;2026-09-10;Vila Nova FC 2x0 Goiás (Brasileirão Série B);gol;assisted;left-foot;15526277
+André Luis - Vila Nova - Brasil B;2026;2026-09-15;Avaí 1x1 Vila Nova FC (Brasileirão Série B);gol;assisted;left-foot;15526284
+André Luis - Vila Nova - Brasil B;2026;2026-09-18;Vila Nova FC 1x0 América Mineiro (Brasileirão Série B);gol;throw-in-set-piece;left-foot;15526297
+André Luis - Vila Nova - Brasil B;2025;2025-08-12;Paysandu SC 0x1 Vila Nova FC (Brasileirão Série B);assistencia;assisted;right-foot;13616278
+André Luis - Vila Nova - Brasil B;2025;2025-10-26;Vila Nova FC 2x2 Ferroviária (Brasileirão Série B);gol;fast-break;left-foot;13638685
+André Luis - Vila Nova - Brasil B;2026;2026-01-10;ABECAT Ouvidorense 1x2 Vila Nova FC (Goiano, 1ª Divisão);assistencia;regular;right-foot;15158041
+André Luis - Vila Nova - Brasil B;2026;2026-01-22;Vila Nova FC 3x0 AA Aparecidense (Goiano, 1ª Divisão);gol;regular;head;15372337
+André Luis - Vila Nova - Brasil B;2026;2026-01-29;Centro-Oeste 0x2 Vila Nova FC (Goiano, 1ª Divisão);assistencia;regular;head;15158069
+André Luis - Vila Nova - Brasil B;2026;2026-02-13;Anápolis FC 0x2 Vila Nova FC (Goiano, 1ª Divisão – Mata-mata);assistencia;regular;right-foot;15512159
+André Luis - Vila Nova - Brasil B;2024;2024-07-25;Cuiabá 1x2 Palestino (CONMEBOL Sudamericana, Knockout stage);gol;regular;left-foot;12382933
+André Luis - Vila Nova - Brasil B;2025;2025-02-15;União Rondonópolis 2x2 Cuiabá (Mato-Grossense, 1. Divisao);gol;?;?;13194072
+André Luis - Vila Nova - Brasil B;2024;2024-02-18;Academia 0x2 Cuiabá (Mato-Grossense, 1. Divisao);gol;?;?;12024025
+André Luis - Vila Nova - Brasil B;2024;2024-03-20;Brasiliense 1x4 Cuiabá (Copa Verde);gol;?;?;12178037
+Dadá Belmonte - CRB - Brasil B;2026;2026-05-03;América Mineiro 1x2 CRB (Brasileirão Série B);gol;regular;right-foot;15526049
+Dadá Belmonte - CRB - Brasil B;2026;2026-05-24;CRB 4x2 Ponte Preta (Brasileirão Série B);assistencia;corner;head;15526105
+Dadá Belmonte - CRB - Brasil B;2026;2026-06-07;CRB 2x3 São Bernardo (Brasileirão Série B);gol;assisted;right-foot;15526125
+Dadá Belmonte - CRB - Brasil B;2026;2026-06-12;Atlético Goianiense 3x3 CRB (Brasileirão Série B);assistencia;fast-break;left-foot;15526133
+Dadá Belmonte - CRB - Brasil B;2026;2026-06-21;CRB 1x1 Fortaleza (Brasileirão Série B);assistencia;assisted;right-foot;15526146
+Dadá Belmonte - CRB - Brasil B;2026;2026-06-30;Botafogo-SP 0x1 CRB (Brasileirão Série B);gol;assisted;right-foot;15526148
+Dadá Belmonte - CRB - Brasil B;2026;2026-07-16;CRB 2x1 Náutico (Brasileirão Série B);assistencia;assisted;head;15526186
+Dadá Belmonte - CRB - Brasil B;2026;2026-07-27;CRB 2x0 Vila Nova FC (Brasileirão Série B);assistencia;corner;right-foot;15526206
+Dadá Belmonte - CRB - Brasil B;2026;2026-08-20;Athletic Club 0x2 CRB (Brasileirão Série B);gol;assisted;right-foot;15526230
+Dadá Belmonte - CRB - Brasil B;2026;2026-10-02;São Bernardo 3x1 CRB (Brasileirão Série B);assistencia;assisted;left-foot;15526311
+Dadá Belmonte - CRB - Brasil B;2025;2025-08-12;CRB 1x0 Athletic Club (Brasileirão Série B);gol;regular;right-foot;13616281
+Dadá Belmonte - CRB - Brasil B;2025;2025-08-30;CRB 2x0 Paysandu SC (Brasileirão Série B);assistencia;fast-break;right-foot;13616311
+Dadá Belmonte - CRB - Brasil B;2025;2025-10-08;Goiás 1x2 CRB (Brasileirão Série B);gol;assisted;right-foot;13638623
+Dadá Belmonte - CRB - Brasil B;2025;2025-10-14;CRB 2x2 Ferroviária (Brasileirão Série B);gol;regular;right-foot;13638656
+Dadá Belmonte - CRB - Brasil B;2025;2025-11-09;CRB 2x2 Operário-PR (Brasileirão Série B);assistencia;assisted;right-foot;13638737
+Dadá Belmonte - CRB - Brasil B;2026;2026-04-05;Grêmio Novorizontino 1x1 CRB (Brasileirão Série B);gol;fast-break;right-foot;15526006
+Dadá Belmonte - CRB - Brasil B;2024;2023-09-22;Oleksandria 1x5 Chornomorets Odesa (Premier League);assistencia;regular;right-foot;11408702
+Dadá Belmonte - CRB - Brasil B;2024;2023-09-27;Chornomorets Odesa 2x1 FC Kryvbas Kryvyi Rih (Ukraine Cup);gol;regular;right-foot;11622142
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-05-07;Flamengo U20 1x3 Palmeiras U20 (U20 Brasileiro);gol;regular;right-foot;15593643
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-06-11;Palmeiras U20 2x2 Santos U20 (U20 Brasileiro);gol;regular;right-foot;15593699
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-06-20;Palmeiras U20 7x1 América Mineiro U20 (U20 Brasileiro);gol;regular;right-foot;15593719
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-06-25;Fluminense U20 0x3 Palmeiras U20 (U20 Brasileiro);gol;?;?;15593724
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-06-25;Fluminense U20 0x3 Palmeiras U20 (U20 Brasileiro);gol;?;?;15593724
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-09-12;Palmeiras U20 3x0 Sfera FC U20 (U20 Paulista, Grupo 3);gol;regular;right-foot;16252249
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-09-12;Palmeiras U20 3x0 Sfera FC U20 (U20 Paulista, Grupo 3);gol;set-piece;right-foot;16252249
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-09-16;Palmeiras U20 10x0 Naviraiense U20 (U20 Copa do Brasil);gol;?;?;16897831
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-09-25;Palmeiras U20 2x1 Ituano U20 (U20 Paulista, Playoffs);gol;regular;right-foot;17125349
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2026-10-15;Palmeiras U20 4x1 Botafogo U20 (U20 Copa do Brasil);gol;?;?;17304782
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2025-08-24;HFK Penuel Kryvyi Rih 0x8 Karpaty Lviv (Ukraine Cup);assistencia;regular;right-foot;14446657
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2025-08-24;HFK Penuel Kryvyi Rih 0x8 Karpaty Lviv (Ukraine Cup);assistencia;regular;left-foot;14446657
+Fabiano Rodrigues - Palmeiras - Brasil A;2026;2025-09-14;Karpaty Lviv 1x1 SC Poltava (Premier League);gol;corner;right-foot;14090660
+Andre Shinyashiki - Arda - Bulgaria;2026;2025-08-31;Arda Kardzhali 2x2 Beroe Stara Zagora (Parva Liga);assistencia;regular;head;14012381
+Andre Shinyashiki - Arda - Bulgaria;2026;2025-10-28;FC Fratria Varna 1x2 Arda Kardzhali (Bulgarian Cup);gol;?;?;14877276
+Andre Shinyashiki - Arda - Bulgaria;2026;2025-11-09;Ludogorets 2x3 Arda Kardzhali (Parva Liga);gol;regular;right-foot;14598629
+Andre Shinyashiki - Arda - Bulgaria;2026;2025-11-09;Ludogorets 2x3 Arda Kardzhali (Parva Liga);assistencia;regular;right-foot;14598629
+Andre Shinyashiki - Arda - Bulgaria;2026;2025-11-22;Arda Kardzhali 3x0 FC CSKA 1948 Sofia (Parva Liga);assistencia;throw-in-set-piece;right-foot;14604223
+Andre Shinyashiki - Arda - Bulgaria;2026;2025-12-12;Cherno More Varna 0x3 Arda Kardzhali (Bulgarian Cup);gol;?;?;15010802
+Andre Shinyashiki - Arda - Bulgaria;2026;2026-02-14;Arda Kardzhali 2x1 Slavia Sofia (Parva Liga);gol;regular;right-foot;15221348
+Andre Shinyashiki - Arda - Bulgaria;2026;2026-05-25;Cherno More Varna 2x3 Arda Kardzhali (First Professional League, Qualifying Round);assistencia;throw-in-set-piece;right-foot;16033942
+Andre Shinyashiki - Arda - Bulgaria;2024;2024-05-10;Neftçi PFK 5x1 Kəpəz PFK (Premier League);gol;regular;head;11499447
+Andre Shinyashiki - Arda - Bulgaria;2024;2024-05-10;Neftçi PFK 5x1 Kəpəz PFK (Premier League);gol;regular;head;11499447
+Andre Shinyashiki - Arda - Bulgaria;2024;2024-05-10;Neftçi PFK 5x1 Kəpəz PFK (Premier League);assistencia;regular;head;11499447
+Andre Shinyashiki - Arda - Bulgaria;2024;2024-05-10;Neftçi PFK 5x1 Kəpəz PFK (Premier League);gol;corner;right-foot;11499447
+Andre Shinyashiki - Arda - Bulgaria;2025;2024-10-04;Kəpəz PFK 4x3 Neftçi PFK (Premier League);assistencia;regular;left-foot;12586157
+Andre Shinyashiki - Arda - Bulgaria;2025;2025-05-31;Arda Kardzhali 1x1 CSKA Sofia (First Professional League, Conf. League Playoffs);gol;regular;left-foot;13943224
+Andre Shinyashiki - Arda - Bulgaria;2024;2023-10-20;Səbail FK 2x4 Neftçi PFK (Premier League);assistencia;regular;right-foot;11499403
+Andre Shinyashiki - Arda - Bulgaria;2024;2023-11-26;Neftçi PFK 1x1 Araz Naxçıvan (Premier League);assistencia;corner;right-foot;11499376
+Andre Shinyashiki - Arda - Bulgaria;2024;2023-12-21;Neftçi PFK 4x0 Qaradağ Lökbatan FK (Azerbaijan Cup);gol;?;?;11903879
+Andre Shinyashiki - Arda - Bulgaria;2024;2023-12-24;Neftçi PFK 2x0 Kəpəz PFK (Premier League);gol;set-piece;head;11499372
+Andre Shinyashiki - Arda - Bulgaria;2024;2024-04-13;Neftçi PFK 3x0 Araz Naxçıvan (Premier League);assistencia;regular;right-foot;11499456
+Keno - Coritiba - Brasil A;2025;2025-10-04;Fluminense 3x0 Atlético Mineiro (Campeonato Brasileiro Série A);gol;assisted;head;13472781
+Keno - Coritiba - Brasil A;2025;2025-04-30;Fluminense 1x0 AA Aparecidense (Copa do Brasil);gol;assisted;right-foot;13742583
+Keno - Coritiba - Brasil A;2025;2025-05-14;Fluminense 2x0 Unión Española (CONMEBOL Sudamericana, Group F);gol;assisted;head;13640458
+Keno - Coritiba - Brasil A;2025;2025-06-21;Fluminense 4x2 Ulsan HD (FIFA Club World Cup, Group F);gol;assisted;head;13200261
+Keno - Coritiba - Brasil A;2025;2025-08-10;Bahia 3x3 Fluminense (Campeonato Brasileiro Série A);assistencia;assisted;left-foot;13472893
+Keno - Coritiba - Brasil A;2025;2025-08-10;Bahia 3x3 Fluminense (Campeonato Brasileiro Série A);assistencia;throw-in-set-piece;right-foot;13472893
+Keno - Coritiba - Brasil A;2024;2024-11-23;Fluminense 2x2 Fortaleza (Campeonato Brasileiro Série A);assistencia;assisted;left-foot;12117307
+Keno - Coritiba - Brasil A;2025;2025-01-24;Portuguesa-RJ 1x3 Fluminense (Carioca Série A – Taça Guanabara);gol;regular;right-foot;13198182
+Keno - Coritiba - Brasil A;2025;2025-03-02;Fluminense 4x0 Volta Redonda (Carioca Série A – Mata-mata);assistencia;regular;right-foot;13525559
+Keno - Coritiba - Brasil A;2025;2025-03-13;Fluminense 1x2 Flamengo (Carioca Série A – Mata-mata);gol;regular;head;13586982
+Keno - Coritiba - Brasil A;2025;2025-04-11;Fluminense 5x0 GV San José (CONMEBOL Sudamericana, Group F);assistencia;assisted;right-foot;13640416
+Keno - Coritiba - Brasil A;2024;2024-05-30;Fluminense 3x2 Alianza Lima (CONMEBOL Libertadores, Group A);gol;regular;head;12172424
+Keno - Coritiba - Brasil A;2024;2024-08-08;Fluminense 2x2 Juventude (Copa do Brasil);gol;assisted;right-foot;12572453
+Keno - Coritiba - Brasil A;2024;2024-08-08;Fluminense 2x2 Juventude (Copa do Brasil);assistencia;assisted;right-foot;12572453
+Keno - Coritiba - Brasil A;2024;2024-09-01;Fluminense 2x0 São Paulo (Campeonato Brasileiro Série A);gol;corner;left-foot;12117217
+Keno - Coritiba - Brasil A;2024;2024-09-18;Fluminense 1x0 Atlético Mineiro (CONMEBOL Libertadores, Knockout stage);assistencia;assisted;head;12375373
+Keno - Coritiba - Brasil A;2024;2024-02-02;Fluminense 4x1 Bangu (Carioca Série A – Taça Guanabara);gol;regular;head;11873058
+Matheus Serafim - Daegu - Coreia B;2025;2025-11-23;Suwon Samsung Bluewings 1x1 Gimpo FC (K-League 2);gol;regular;left-foot;13364850
+Matheus Serafim - Daegu - Coreia B;2026;2026-03-07;Daegu FC 4x2 Jeonnam Dragons (K-League 2);assistencia;regular;head;15403789
+Matheus Serafim - Daegu - Coreia B;2026;2026-03-07;Daegu FC 4x2 Jeonnam Dragons (K-League 2);gol;penalty;right-foot;15403789
+Matheus Serafim - Daegu - Coreia B;2026;2026-03-15;Chungnam Asan FC 2x3 Daegu FC (K-League 2);gol;regular;right-foot;15403800
+Matheus Serafim - Daegu - Coreia B;2026;2026-03-15;Chungnam Asan FC 2x3 Daegu FC (K-League 2);assistencia;regular;right-foot;15403800
+Matheus Serafim - Daegu - Coreia B;2026;2026-04-05;Daegu FC 3x3 Gimpo FC (K-League 2);gol;regular;right-foot;15403825
+Matheus Serafim - Daegu - Coreia B;2026;2026-04-11;Suwon FC 2x2 Daegu FC (K-League 2);assistencia;regular;head;15403830
+Matheus Serafim - Daegu - Coreia B;2026;2026-04-18;Daegu FC 1x2 Cheonan City FC (K-League 2);assistencia;corner;left-foot;15403840
+Matheus Serafim - Daegu - Coreia B;2026;2026-05-17;Gimhae City FC 1x4 Daegu FC (K-League 2);gol;corner;right-foot;15403872
+Matheus Serafim - Daegu - Coreia B;2026;2026-05-17;Gimhae City FC 1x4 Daegu FC (K-League 2);assistencia;corner;right-foot;15403872
+Matheus Serafim - Daegu - Coreia B;2026;2026-05-24;Daegu FC 3x0 Ansan Greeners FC (K-League 2);assistencia;regular;right-foot;15403886
+Matheus Serafim - Daegu - Coreia B;2026;2026-06-05;Daegu FC 1x0 Paju Frontier FC (K-League 2);assistencia;regular;right-foot;15403892
+Matheus Serafim - Daegu - Coreia B;2026;2026-07-04;Cheongju FC 1x5 Daegu FC (K-League 2);assistencia;regular;head;15403900
+Matheus Serafim - Daegu - Coreia B;2026;2026-07-18;Gimpo FC 1x1 Daegu FC (K-League 2);assistencia;regular;left-foot;15403916
+Matheus Serafim - Daegu - Coreia B;2026;2026-07-25;Daegu FC 1x2 Suwon FC (K-League 2);gol;penalty;right-foot;15403932
+Matheus Serafim - Daegu - Coreia B;2026;2026-08-16;Daegu FC 2x0 Chungnam Asan FC (K-League 2);gol;regular;right-foot;15403954
+Matheus Serafim - Daegu - Coreia B;2026;2026-08-16;Daegu FC 2x0 Chungnam Asan FC (K-League 2);gol;regular;left-foot;15403954
+Matheus Serafim - Daegu - Coreia B;2026;2026-08-28;Ansan Greeners FC 1x2 Daegu FC (K-League 2);assistencia;throw-in-set-piece;left-foot;15403969
+Matheus Serafim - Daegu - Coreia B;2026;2026-09-12;Daegu FC 3x1 Yongin City FC (K-League 2);gol;regular;right-foot;16299960
+Matheus Serafim - Daegu - Coreia B;2026;2026-09-12;Daegu FC 3x1 Yongin City FC (K-League 2);assistencia;regular;right-foot;16299960
+Matheus Serafim - Daegu - Coreia B;2025;2025-04-12;Bucheon FC 1995 1x1 Suwon Samsung Bluewings (K-League 2);gol;regular;right-foot;13522857
+Matheus Serafim - Daegu - Coreia B;2025;2025-04-19;Suwon Samsung Bluewings 3x1 Hwaseong FC (K-League 2);gol;regular;left-foot;13522864
+Matheus Serafim - Daegu - Coreia B;2025;2025-05-17;Busan I Park 1x4 Suwon Samsung Bluewings (K-League 2);gol;regular;right-foot;13522893
+Matheus Serafim - Daegu - Coreia B;2025;2025-05-25;Suwon Samsung Bluewings 1x1 Gimpo FC (K-League 2);gol;corner;head;13522903
+Matheus Serafim - Daegu - Coreia B;2025;2025-06-01;Suwon Samsung Bluewings 4x1 Bucheon FC 1995 (K-League 2);gol;regular;head;13522909
+Matheus Serafim - Daegu - Coreia B;2025;2025-07-05;Chungnam Asan FC 2x3 Suwon Samsung Bluewings (K-League 2);gol;regular;right-foot;13522939
+Matheus Serafim - Daegu - Coreia B;2025;2025-08-02;Cheonan City FC 1x2 Suwon Samsung Bluewings (K-League 2);gol;regular;right-foot;13522973
+Matheus Serafim - Daegu - Coreia B;2025;2025-08-09;Suwon Samsung Bluewings 3x1 Ansan Greeners FC (K-League 2);assistencia;corner;right-foot;13522976
+Matheus Serafim - Daegu - Coreia B;2025;2025-08-24;Hwaseong FC 1x1 Suwon Samsung Bluewings (K-League 2);gol;penalty;right-foot;13522994
+Matheus Serafim - Daegu - Coreia B;2025;2025-09-13;Seoul E-Land FC 0x1 Suwon Samsung Bluewings (K-League 2);assistencia;regular;right-foot;13523012
+Matheus Serafim - Daegu - Coreia B;2025;2025-09-20;Suwon Samsung Bluewings 1x2 Gyeongnam FC (K-League 2);gol;corner;head;13523017
+Matheus Serafim - Daegu - Coreia B;2025;2025-09-27;Chungnam Asan FC 1x3 Suwon Samsung Bluewings (K-League 2);gol;penalty;right-foot;13523025
+Matheus Serafim - Daegu - Coreia B;2025;2025-10-04;Suwon Samsung Bluewings 2x2 Bucheon FC 1995 (K-League 2);assistencia;regular;left-foot;13523032
+Matheus Serafim - Daegu - Coreia B;2025;2025-10-12;Suwon Samsung Bluewings 5x0 Cheonan City FC (K-League 2);gol;regular;right-foot;13523047
+Matheus Serafim - Daegu - Coreia B;2025;2025-10-19;Hwaseong FC 2x3 Suwon Samsung Bluewings (K-League 2);gol;corner;head;13523058
+Matheus Serafim - Daegu - Coreia B;2024;2024-07-09;Amazonas FC 1x2 Vila Nova FC (Brasileirão Série B);assistencia;assisted;left-foot;12146342
+Matheus Serafim - Daegu - Coreia B;2024;2024-08-21;Amazonas FC 2x1 Ponte Preta (Brasileirão Série B);gol;assisted;left-foot;12146395
+Matheus Serafim - Daegu - Coreia B;2024;2024-09-01;Amazonas FC 1x1 Ceará (Brasileirão Série B);assistencia;assisted;head;12146415
+Matheus Serafim - Daegu - Coreia B;2024;2024-09-06;Paysandu SC 0x1 Amazonas FC (Brasileirão Série B);gol;fast-break;head;12146429
+Matheus Serafim - Daegu - Coreia B;2024;2024-09-19;Amazonas FC 2x1 Operário-PR (Brasileirão Série B);gol;assisted;right-foot;12146451
+Matheus Serafim - Daegu - Coreia B;2024;2024-10-05;Amazonas FC 1x0 Grêmio Novorizontino (Brasileirão Série B);gol;fast-break;right-foot;12146485
+Matheus Serafim - Daegu - Coreia B;2024;2024-11-05;Amazonas FC 1x0 América Mineiro (Brasileirão Série B);gol;regular;right-foot;12146541
+Matheus Serafim - Daegu - Coreia B;2024;2024-01-31;São José EC 1x0 Rio Claro FC (Paulista, Série A2);assistencia;regular;left-foot;11919810
+Matheus Serafim - Daegu - Coreia B;2024;2024-02-07;São José EC 5x0 Juventus-SP (Paulista, Série A2);gol;regular;right-foot;11919796
+Matheus Serafim - Daegu - Coreia B;2024;2024-02-07;São José EC 5x0 Juventus-SP (Paulista, Série A2);assistencia;regular;left-foot;11919796
+Matheus Serafim - Daegu - Coreia B;2024;2024-02-07;São José EC 5x0 Juventus-SP (Paulista, Série A2);gol;regular;head;11919796
+Matheus Serafim - Daegu - Coreia B;2024;2024-02-17;São José EC 4x0 Comercial-SP U23 (Paulista, Série A2);gol;regular;left-foot;11919777
+Matheus Serafim - Daegu - Coreia B;2024;2024-03-02;São José EC 1x1 Portuguesa Santista (Paulista, Série A2);assistencia;regular;left-foot;11919756
+Matheus Serafim - Daegu - Coreia B;2024;2024-05-18;Amazonas FC 1x1 Paysandu SC (Brasileirão Série B);gol;assisted;right-foot;12146262
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-08-19;Jeonbuk Hyundai Motors 2x2 Dangjin Citizen (Korean Cup);gol;?;?;16733072
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-09-09;Gangwon FC 1x1 Jeonbuk Hyundai Motors (K League 1);gol;assisted;right-foot;15373092
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-09-12;Jeonbuk Hyundai Motors 1x2 FC Seoul (K League 1);assistencia;assisted;left-foot;15373094
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-09-16;Jeonbuk Hyundai Motors 2x1 Kashiwa Reysol (AFC Champions League Elite, East Region);gol;assisted;right-foot;16863673
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-10-19;Goiás 1x3 Chapecoense (Brasileirão Série B);gol;fast-break;left-foot;13638666
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-11-15;Volta Redonda 1x1 Chapecoense (Brasileirão Série B);assistencia;corner;left-foot;13638755
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-01-14;Concórdia AC 1x2 Chapecoense (Catarinense, Serie A);gol;regular;right-foot;15138075
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-01-18;Chapecoense 1x0 CN Marcílio Dias (Catarinense, Serie A);assistencia;regular;right-foot;15138079
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-01-25;Chapecoense 6x0 Joinville (Catarinense, Serie A);assistencia;regular;right-foot;15138091
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2026;2026-02-01;Criciúma 1x2 Chapecoense (Catarinense, Serie A, Knockout Stage);assistencia;regular;right-foot;15430824
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-05-16;Chapecoense 2x1 Cuiabá (Brasileirão Série B);gol;assisted;left-foot;13525908
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-05-24;Avaí 2x1 Chapecoense (Brasileirão Série B);gol;assisted;right-foot;13525919
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-06-02;Chapecoense 4x0 Amazonas FC (Brasileirão Série B);gol;assisted;right-foot;13525929
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-07-07;Operário-PR 1x2 Chapecoense (Brasileirão Série B);assistencia;assisted;right-foot;13616219
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-07-20;América Mineiro 0x1 Chapecoense (Brasileirão Série B);gol;regular;right-foot;13616241
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2025;2025-09-17;Chapecoense 2x3 Athletico (Brasileirão Série B);assistencia;assisted;right-foot;13638651
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-05-18;Rio Branco SC 2x1 Paraná Clube (Paranaense, 2ª Divisão);gol;?;?;12159494
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-07-20;Paraná Clube 1x0 Rio Branco SC (Paranaense, 2ª Divisão - Mata-mata);gol;?;?;12547357
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-07-27;Rio Branco SC 2x1 Paraná Clube (Paranaense, 2ª Divisão - Mata-mata);gol;?;?;12547364
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-09-11;Figueirense 2x2 Chapecoense (Copa Santa Catarina);gol;?;?;12685708
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-09-26;Chapecoense 2x0 Amazonas FC (Brasileirão Série B);gol;?;?;12146471
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-10-04;Operário-PR 3x2 Chapecoense (Brasileirão Série B);gol;?;?;12146484
+Italo Vargas - Jeonbuk Hyundai Motors - Coreia A;2024;2024-02-07;Clube Andraus Brasil 1x1 Galo Maringá (Paranaense);gol;throw-in-set-piece;head;11879511
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-03-18;Portuguesa 2x3 Paysandu SC (Copa do Brasil);gol;corner;left-foot;15731207
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-03-24;Paysandu SC 3x1 GAS (Copa Verde, Norte A);gol;?;?;15759538
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-04-12;Paysandu SC 1x1 Brusque (Brasileirão Série C);gol;penalty;left-foot;15617576
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-04-25;AO Itabaiana 1x4 Paysandu SC (Brasileirão Série C);gol;regular;head;15617593
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-05-03;Paysandu SC 4x2 Botafogo-PB (Brasileirão Série C);gol;throw-in-set-piece;left-foot;15617612
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-06-07;Paysandu SC 4x0 Anápolis FC (Copa Verde, Knockout Stage);gol;?;?;16255949
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-06-07;Paysandu SC 4x0 Anápolis FC (Copa Verde, Knockout Stage);gol;?;?;16255949
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-06-21;Maranhão AC 0x1 Paysandu SC (Brasileirão Série C);gol;regular;right-foot;15617668
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-07-12;Paysandu SC 3x2 Guarani (Brasileirão Série C);gol;regular;right-foot;15617701
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-08-10;Paysandu SC 2x1 Confiança (Brasileirão Série C);gol;throw-in-set-piece;head;16503426
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-08-22;Ituano 0x1 Paysandu SC (Brasileirão Série C);gol;regular;left-foot;15617731
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-09-20;Paysandu SC 2x2 Inter de Limeira (Brasileirão Série C, Group C);gol;throw-in-set-piece;left-foot;16969967
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-10-11;Brusque 1x1 Paysandu SC (Brasileirão Série C, Group C);gol;regular;right-foot;16969972
+Ítalo Carvalho - Paysandu SC - Brasil C;2025;2025-07-19;Volta Redonda 3x2 Athletico (Brasileirão Série B);gol;assisted;left-foot;13616243
+Ítalo Carvalho - Paysandu SC - Brasil C;2025;2025-07-27;Volta Redonda 2x1 Vila Nova FC (Brasileirão Série B);assistencia;assisted;right-foot;13616264
+Ítalo Carvalho - Paysandu SC - Brasil C;2025;2025-07-27;Volta Redonda 2x1 Vila Nova FC (Brasileirão Série B);gol;regular;right-foot;13616264
+Ítalo Carvalho - Paysandu SC - Brasil C;2025;2025-09-25;Volta Redonda 2x1 Remo (Brasileirão Série B);assistencia;assisted;left-foot;13638703
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-01-25;Paysandu SC 2x0 São Raimundo-PA (Paraense, Serie A);gol;regular;left-foot;15221129
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-02-08;Paysandu SC 1x1 Remo (Paraense, Serie A);gol;regular;left-foot;15221148
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-02-15;Santa Rosa EC 0x2 Paysandu SC (Paraense, Serie A);gol;regular;left-foot;15221161
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-02-19;Paysandu SC 5x1 Tuna Luso (Campeonato Paraense, Playoffs);gol;regular;left-foot;15560917
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-02-19;Paysandu SC 5x1 Tuna Luso (Campeonato Paraense, Playoffs);gol;penalty;left-foot;15560917
+Ítalo Carvalho - Paysandu SC - Brasil C;2026;2026-02-22;Paysandu SC 1x0 Castanhal EC (Campeonato Paraense, Playoffs);gol;corner;left-foot;15589085
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-03-03;Volta Redonda 1x2 Nova Iguaçu (Carioca Série A – Taça Guanabara);gol;regular;head;11873098
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-04-28;Volta Redonda 2x1 Floresta (Brasileirão Série C);gol;penalty;left-foot;12146596
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-04-28;Volta Redonda 2x1 Floresta (Brasileirão Série C);gol;regular;left-foot;12146596
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-05-12;Volta Redonda 1x3 Botafogo-PB (Brasileirão Série C);gol;corner;left-foot;12146620
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-05-18;Volta Redonda 2x1 Náutico (Brasileirão Série C);gol;throw-in-set-piece;left-foot;12146631
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-05-30;EC São José 1x3 Volta Redonda (Brasileirão Série C);gol;regular;left-foot;12369635
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-05-30;EC São José 1x3 Volta Redonda (Brasileirão Série C);assistencia;regular;right-foot;12369635
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-06-03;Volta Redonda 2x1 CSA (Brasileirão Série C);gol;penalty;left-foot;12146652
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-06-09;Athletic Club 3x2 Volta Redonda (Brasileirão Série C);gol;set-piece;right-foot;12146656
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-06-17;ABC 0x1 Volta Redonda (Brasileirão Série C);gol;regular;left-foot;12146671
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-06-23;Volta Redonda 1x0 Caxias (Brasileirão Série C);assistencia;regular;left-foot;12146682
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-06-29;Volta Redonda 2x2 Sampaio Corrêa (Brasileirão Série C);assistencia;regular;left-foot;12146692
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-08-31;Daegu FC 1x2 Incheon United (K League 1);assistencia;assisted;left-foot;11985042
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-09-14;Jeju SK 0x4 Daegu FC (K League 1);gol;regular;right-foot;11985032
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-10-06;Daegu FC 4x3 Jeonbuk Hyundai Motors (K League 1);gol;assisted;left-foot;11985026
+Ítalo Carvalho - Paysandu SC - Brasil C;2025;2025-03-09;Seoul E-Land FC 4x2 Suwon Samsung Bluewings (K-League 2);assistencia;regular;left-foot;13472662
+Ítalo Carvalho - Paysandu SC - Brasil C;2025;2025-03-09;Seoul E-Land FC 4x2 Suwon Samsung Bluewings (K-League 2);gol;corner;right-foot;13472662
+Ítalo Carvalho - Paysandu SC - Brasil C;2024;2024-01-28;Madureira 3x1 Volta Redonda (Carioca Série A – Taça Guanabara);gol;corner;left-foot;11873055
+Bruno Rodrigues - Cruzeiro - Brasil A;2026;2026-04-22;Goiás 2x2 Cruzeiro (Copa do Brasil);assistencia;assisted;right-foot;15908980
+Bruno Rodrigues - Cruzeiro - Brasil A;2026;2026-04-25;Remo 0x1 Cruzeiro (Campeonato Brasileiro Série A);assistencia;assisted;left-foot;15235536
+Bruno Rodrigues - Cruzeiro - Brasil A;2026;2026-08-09;Cruzeiro 3x1 Mirassol (Campeonato Brasileiro Série A);assistencia;throw-in-set-piece;right-foot;15235463
+Bruno Rodrigues - Cruzeiro - Brasil A;2026;2026-08-16;Corinthians 1x2 Cruzeiro (Campeonato Brasileiro Série A);gol;regular;right-foot;15235425
+Bruno Rodrigues - Cruzeiro - Brasil A;2025;2025-11-02;Juventude 0x2 Palmeiras (Campeonato Brasileiro Série A);gol;assisted;right-foot;13472694
+Bruno Rodrigues - Cruzeiro - Brasil A;2026;2026-02-21;Pouso Alegre FC 1x2 Cruzeiro (Mineiro Módulo I - Playoffs);gol;regular;head;15550396
+Bruno Rodrigues - Cruzeiro - Brasil A;2025;2025-10-11;Palmeiras 4x1 Juventude (Campeonato Brasileiro Série A);gol;assisted;head;14693875
+Cadu - Goiás - Brasil B;2026;2026-03-11;Goiás 3x0 Fluminense-PI (Copa do Brasil);gol;?;?;15677066
+Cadu - Goiás - Brasil B;2026;2026-04-07;Goiás 1x0 Criciúma (Brasileirão Série B);gol;assisted;right-foot;15526010
+Cadu - Goiás - Brasil B;2026;2026-07-12;CRB 2x2 Goiás (Brasileirão Série B);gol;penalty;right-foot;15526176
+Cadu - Goiás - Brasil B;2026;2026-07-18;Ponte Preta 1x2 Goiás (Brasileirão Série B);assistencia;throw-in-set-piece;right-foot;15526178
+Cadu - Goiás - Brasil B;2026;2026-10-06;Goiás 2x1 Athletic Club (Brasileirão Série B);assistencia;assisted;left-foot;15526327
+Cadu - Goiás - Brasil B;2024;2024-09-22;Atlético Mineiro 3x0 Red Bull Bragantino (Campeonato Brasileiro Série A);gol;assisted;head;12117235
+Cadu - Goiás - Brasil B;2026;2026-02-25;Gama 2x2 Goiás (Copa do Brasil);gol;?;?;15581697
+Cadu - Goiás - Brasil B;2024;2024-06-27;Internacional 1x2 Atlético Mineiro (Campeonato Brasileiro Série A);gol;corner;head;12117084
+Cadu - Goiás - Brasil B;2024;2024-08-03;Criciúma 2x1 Atlético Mineiro (Campeonato Brasileiro Série A);gol;assisted;head;12117183
+Cadu - Goiás - Brasil B;2024;2024-03-02;Atlético Mineiro 3x0 Ipatinga (Mineiro Módulo I);assistencia;regular;right-foot;11909237
+Cadu - Goiás - Brasil B;2024;2024-03-02;Atlético Mineiro 3x0 Ipatinga (Mineiro Módulo I);gol;?;?;11909237
+Hygor - Botafogo SP - Brasil B;2026;2026-02-07;Guarani 0x2 Botafogo-SP (Paulista Série A1);gol;throw-in-set-piece;head;15176555
+Hygor - Botafogo SP - Brasil B;2026;2026-03-21;Botafogo-SP 4x0 Fortaleza (Brasileirão Série B);gol;assisted;head;15525984
+Hygor - Botafogo SP - Brasil B;2026;2026-04-05;Botafogo-SP 1x2 São Bernardo (Brasileirão Série B);gol;assisted;right-foot;15526005
+Hygor - Botafogo SP - Brasil B;2026;2026-06-14;Botafogo-SP 2x1 Operário-PR (Brasileirão Série B);gol;assisted;head;15526127
+Hygor - Botafogo SP - Brasil B;2026;2026-06-14;Botafogo-SP 2x1 Operário-PR (Brasileirão Série B);gol;corner;head;15526127
+Hygor - Botafogo SP - Brasil B;2026;2026-07-06;Botafogo-SP 3x1 Avaí (Brasileirão Série B);gol;fast-break;left-foot;15526158
+Hygor - Botafogo SP - Brasil B;2026;2026-09-14;Botafogo-SP 1x3 Goiás (Brasileirão Série B);gol;fast-break;right-foot;15526278
+Hygor - Botafogo SP - Brasil B;2026;2026-09-19;Athletic Club 1x1 Botafogo-SP (Brasileirão Série B);gol;throw-in-set-piece;head;15526290
+Hygor - Botafogo SP - Brasil B;2026;2026-10-13;Botafogo-SP 1x0 Ceará (Brasileirão Série B);gol;fast-break;right-foot;15526332
+Hygor - Botafogo SP - Brasil B;2025;2025-04-06;Avaí 1x1 Grêmio Novorizontino (Brasileirão Série B);gol;regular;other;13525934
+Hygor - Botafogo SP - Brasil B;2025;2025-05-24;Avaí 2x1 Chapecoense (Brasileirão Série B);gol;assisted;right-foot;13525919
+Hygor - Botafogo SP - Brasil B;2024;2024-10-26;Avaí 3x0 Vila Nova FC (Brasileirão Série B);gol;fast-break;right-foot;12146526
+Hygor - Botafogo SP - Brasil B;2024;2024-10-26;Avaí 3x0 Vila Nova FC (Brasileirão Série B);gol;assisted;left-foot;12146526
+Hygor - Botafogo SP - Brasil B;2024;2024-11-19;Botafogo-SP 1x3 Avaí (Brasileirão Série B);assistencia;assisted;right-foot;12146556
+Hygor - Botafogo SP - Brasil B;2025;2025-01-15;Avaí 1x0 Santa Catarina Clube (Catarinense, Serie A);gol;corner;right-foot;13213929
+Hygor - Botafogo SP - Brasil B;2025;2025-02-05;Hercílio Luz FC 0x3 Avaí (Catarinense, Serie A);gol;throw-in-set-piece;left-foot;13213967
+Hygor - Botafogo SP - Brasil B;2025;2025-02-09;Avaí 3x0 CN Marcílio Dias (Catarinense, Serie A);gol;regular;right-foot;13213972
+Hygor - Botafogo SP - Brasil B;2025;2025-02-09;Avaí 3x0 CN Marcílio Dias (Catarinense, Serie A);gol;regular;left-foot;13213972
+Hygor - Botafogo SP - Brasil B;2024;2024-01-28;Avaí 3x2 Chapecoense (Catarinense, Serie A);gol;regular;left-foot;11884441
+Hygor - Botafogo SP - Brasil B;2024;2024-02-03;Avaí 2x2 CN Marcílio Dias (Catarinense, Serie A);gol;throw-in-set-piece;head;11884449
+Hygor - Botafogo SP - Brasil B;2024;2024-02-08;Joinville 2x2 Avaí (Catarinense, Serie A);gol;regular;right-foot;11884459
+Hygor - Botafogo SP - Brasil B;2024;2024-06-15;Avaí 3x2 Guarani (Brasileirão Série B);gol;assisted;right-foot;12146301
+Hygor - Botafogo SP - Brasil B;2024;2024-06-15;Avaí 3x2 Guarani (Brasileirão Série B);gol;assisted;right-foot;12146301
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-12-02;Vasco da Gama 0x2 Mirassol (Campeonato Brasileiro Série A);assistencia;fast-break;left-foot;13472621
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-12-06;Mirassol 3x3 Flamengo (Campeonato Brasileiro Série A);gol;fast-break;right-foot;13472593
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-03-02;Busan I Park 1x1 Seongnam FC (K-League 2);gol;throw-in-set-piece;head;15403796
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-03-08;Ansan Greeners FC 1x3 Busan I Park (K-League 2);gol;regular;right-foot;15403784
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-03-14;Seoul E-Land FC 2x3 Busan I Park (K-League 2);assistencia;corner;head;15403792
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-03-22;Busan I Park 3x1 Daegu FC (K-League 2);assistencia;regular;right-foot;15403819
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-03-22;Busan I Park 3x1 Daegu FC (K-League 2);gol;regular;right-foot;15403819
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-04-04;Gyeongnam FC 1x2 Busan I Park (K-League 2);gol;regular;right-foot;15403824
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-04-11;Busan I Park 2x0 Yongin City FC (K-League 2);assistencia;regular;right-foot;15403829
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-05-17;Hwaseong FC 3x2 Busan I Park (K-League 2);gol;regular;right-foot;15403875
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-07-12;Busan I Park 2x0 Gimpo FC (K-League 2);gol;regular;right-foot;15403919
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-08-02;Busan I Park 1x2 Seoul E-Land FC (K-League 2);gol;regular;right-foot;15403937
+Cristian Renato - Busan I'Park - Coreia B;2026;2026-08-22;Daegu FC 1x1 Busan I Park (K-League 2);gol;regular;left-foot;15403959
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-04-06;Mirassol 1x1 Fortaleza (Campeonato Brasileiro Série A);gol;throw-in-set-piece;left-foot;13473352
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-04-26;Mirassol 2x2 Atlético Mineiro (Campeonato Brasileiro Série A);assistencia;assisted;left-foot;13473392
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-07-19;Mirassol 3x0 Santos (Campeonato Brasileiro Série A);gol;assisted;right-foot;13472848
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-08-31;Mirassol 5x1 Bahia (Campeonato Brasileiro Série A);gol;assisted;right-foot;13472693
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-09-21;Mirassol 2x0 Juventude (Campeonato Brasileiro Série A);gol;assisted;right-foot;13472732
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-10-15;Mirassol 3x1 Internacional (Campeonato Brasileiro Série A);assistencia;corner;left-foot;13472809
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-01-22;Joinville 2x1 Concórdia AC (Catarinense, Serie A);gol;regular;right-foot;13213940
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-01-22;Joinville 2x1 Concórdia AC (Catarinense, Serie A);gol;corner;left-foot;13213940
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-02-06;Joinville 1x1 CN Marcílio Dias (Catarinense, Serie A);gol;throw-in-set-piece;head;13213966
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-02-16;Joinville 4x3 Santa Catarina Clube (Catarinense, Serie A);gol;penalty;right-foot;13213989
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-02-16;Joinville 4x3 Santa Catarina Clube (Catarinense, Serie A);assistencia;regular;right-foot;13213989
+Cristian Renato - Busan I'Park - Coreia B;2025;2025-02-22;Chapecoense 1x1 Joinville (Catarinense, Serie A);gol;regular;right-foot;13213994
+Cristian Renato - Busan I'Park - Coreia B;2024;2024-01-29;Audax Rio 0x1 Boavista (Carioca Série A – Taça Guanabara);gol;regular;left-foot;11873053
+Cristian Renato - Busan I'Park - Coreia B;2024;2024-03-03;Boavista 5x3 Bangu (Carioca Série A – Taça Guanabara);gol;regular;left-foot;11873099
+Cristian Renato - Busan I'Park - Coreia B;2024;2024-03-16;Boavista 3x2 Portuguesa-RJ (Carioca – Taça Rio);assistencia;?;?;12128581
+Cristian Renato - Busan I'Park - Coreia B;2024;2024-05-05;Figueirense 2x0 AA Aparecidense (Brasileirão Série C);gol;regular;left-foot;12146608
+Ricardo Graça - Livre - Brasil B;2025;2025-04-09;Jubilo Iwata 2x1 Shimizu S-Pulse (J. League Cup);gol;set-piece;left-foot;13681284
+Ricardo Graça - Livre - Brasil B;2025;2025-06-15;Jubilo Iwata 4x0 Ehime FC (J.League 2);gol;corner;head;13482216
+Ricardo Graça - Livre - Brasil B;2025;2025-08-16;Mito Hollyhock 1x3 Jubilo Iwata (J.League 2);assistencia;regular;right-foot;13482285
+Ricardo Graça - Livre - Brasil B;2025;2025-11-29;Sagan Tosu 1x2 Jubilo Iwata (J.League 2);gol;regular;left-foot;13394616
+Ricardo Graça - Livre - Brasil B;2024;2024-06-16;FC Tokyo 1x1 Jubilo Iwata (J1 League);gol;corner;head;12004679
+Ricardo Graça - Livre - Brasil B;2024;2024-10-06;Jubilo Iwata 1x2 Sanfrecce Hiroshima (J1 League);assistencia;corner;left-foot;12004413
+Ricardo Graça - Livre - Brasil B;2024;2024-11-09;Jubilo Iwata 3x4 Gamba Osaka (J1 League);assistencia;throw-in-set-piece;right-foot;12004435
+Ricardo Graça - Livre - Brasil B;2025;2025-02-22;Jubilo Iwata 1x0 Sagan Tosu (J.League 2);assistencia;regular;left-foot;13295998
+Luisão - Goiás - Brasil B;2026;2026-01-11;Goiás 4x0 Goiatuba EC (Goiano, 1ª Divisão);gol;corner;head;15158043
+Luisão - Goiás - Brasil B;2026;2026-01-22;Goiás 4x0 Centro-Oeste (Goiano, 1ª Divisão);gol;?;?;15158058
+Luisão - Goiás - Brasil B;2024;2024-08-04;Grêmio Novorizontino 2x1 Goiás (Brasileirão Série B);gol;corner;head;12290211
+Luisão - Goiás - Brasil B;2024;2024-08-31;Grêmio Novorizontino 2x0 Vila Nova FC (Brasileirão Série B);gol;corner;head;12146409
+Luisão - Goiás - Brasil B;2024;2024-05-05;Ituano 1x3 Grêmio Novorizontino (Brasileirão Série B);gol;corner;head;12146224
+Mádson - Grêmio Novorizontino - Brasil B;2026;2026-05-03;Sport Recife 2x0 Ceará (Brasileirão Série B);gol;corner;head;15526072
+Mádson - Grêmio Novorizontino - Brasil B;2026;2026-09-05;Grêmio Novorizontino 3x1 Avaí (Brasileirão Série B);gol;corner;head;15526259
+Mádson - Grêmio Novorizontino - Brasil B;2026;2026-09-09;Botafogo-SP 1x3 Grêmio Novorizontino (Brasileirão Série B);assistencia;assisted;right-foot;15526268
+Mádson - Grêmio Novorizontino - Brasil B;2026;2026-09-18;Ceará 2x1 Grêmio Novorizontino (Brasileirão Série B);assistencia;set-piece;head;15526292
+Mádson - Grêmio Novorizontino - Brasil B;2024;2024-04-24;Danubio 0x1 Athletico (CONMEBOL Sudamericana, Group E);gol;corner;head;12172387
+Mádson - Grêmio Novorizontino - Brasil B;2024;2024-06-13;Athletico 3x1 Criciúma (Campeonato Brasileiro Série A);assistencia;assisted;head;12357104
+Mádson - Grêmio Novorizontino - Brasil B;2024;2024-01-27;Athletico 2x1 Galo Maringá (Paranaense);assistencia;regular;right-foot;11879491
+Kauan Lindes - Athletic Club - Brasil B;2026;2026-09-13;Juventude 0x2 Athletic Club (Brasileirão Série B);gol;assisted;right-foot;15526287
+Kauan Lindes - Athletic Club - Brasil B;2026;2026-09-19;Athletic Club 1x1 Botafogo-SP (Brasileirão Série B);gol;assisted;head;15526290
+Kauan Lindes - Athletic Club - Brasil B;2026;2026-09-27;Fortaleza 2x2 Athletic Club (Brasileirão Série B);gol;assisted;left-foot;15526302
+Kauan Lindes - Athletic Club - Brasil B;2024;2024-01-09;Coimbra FC Porto U20 4x0 Sampaio Corrêa U20 (Copinha - Grupo 3);gol;?;?;11934628
+Kauan Lindes - Athletic Club - Brasil B;2025;2025-01-18;Sampaio Corrêa-RJ 2x1 Botafogo (Carioca Série A – Taça Guanabara);assistencia;corner;right-foot;13198180
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-02-09;Vélez Sarsfield 2x1 Boca Juniors (Liga Profesional de Fútbol, Apertura);assistencia;fast-break;left-foot;15270093
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-02-09;Vélez Sarsfield 2x1 Boca Juniors (Liga Profesional de Fútbol, Apertura);assistencia;assisted;head;15270093
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-04-03;Gimnasia y Esgrima Mendoza 3x2 Vélez Sarsfield (Liga Profesional de Fútbol, Apertura);assistencia;assisted;right-foot;15270052
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-04-27;Vélez Sarsfield 2x2 Club Atlético Unión de Santa Fe (Liga Profesional de Fútbol, Apertura);assistencia;fast-break;right-foot;15269987
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-05-01;Vélez Sarsfield 2x0 Gimnasia y Tiro de Salta (Copa Argentina);gol;regular;right-foot;16031963
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-05-04;Vélez Sarsfield 1x1 Newell's Old Boys (Liga Profesional de Fútbol, Apertura);assistencia;assisted;head;15718656
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-07-30;CA Talleres 1x3 Vélez Sarsfield (Liga Profesional, Clausura);gol;fast-break;right-foot;16431111
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-08-08;Boca Juniors 1x1 Vélez Sarsfield (Liga Profesional, Clausura);gol;free-kick;right-foot;16667380
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-08-23;River Plate 2x2 Vélez Sarsfield (Liga Profesional, Clausura);gol;assisted;left-foot;16667397
+D. Valdés - Vélez Sarsfield - Argentina A;2026;2026-09-21;Vélez Sarsfield 3x2 Tigre (Liga Profesional, Clausura);assistencia;assisted;right-foot;16671623
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2025-03-01;Club América 3x0 CD Toluca (Liga MX, Clausura);assistencia;assisted;left-foot;13295789
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2025-03-13;Club América 4x0 CD Guadalajara (CONCACAF Champions Cup);gol;regular;right-foot;13548078
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2025-03-13;Club América 4x0 CD Guadalajara (CONCACAF Champions Cup);assistencia;assisted;left-foot;13548078
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2025-09-29;Vélez Sarsfield 3x1 Atlético Tucumán (Liga Profesional, Clausura);gol;assisted;right-foot;14663207
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-06-12;Chile 3x0 Paraguay (International Friendly Games);assistencia;?;?;12258888
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2024-08-14;Club América 4x2 St.Louis City (Leagues Cup);gol;regular;head;12665271
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2024-08-14;Club América 4x2 St.Louis City (Leagues Cup);assistencia;regular;right-foot;12665271
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2024-10-20;Club América 3x0 Santos Laguna (Liga MX, Apertura);assistencia;assisted;head;12420594
+D. Valdés - Vélez Sarsfield - Argentina A;2025;2024-11-02;Mazatlán FC 0x5 Club América (Liga MX, Apertura);assistencia;corner;right-foot;12420571
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-12-07;Atlético San Luis 0x5 Club América (Liga MX, Apertura Playoffs);gol;corner;right-foot;11877093
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-12-07;Atlético San Luis 0x5 Club América (Liga MX, Apertura Playoffs);gol;assisted;right-foot;11877093
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-12-22;FC Barcelona 2x3 Club América (Club Friendly Games);assistencia;corner;head;11890660
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-01-25;FC Juárez 0x2 Club América (Liga MX, Clausura);assistencia;assisted;right-foot;11911171
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-01-25;FC Juárez 0x2 Club América (Liga MX, Clausura);gol;assisted;right-foot;11911171
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-02-04;Club América 1x1 CF Monterrey (Liga MX, Clausura);gol;assisted;head;11911154
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-03-03;Atlas FC 1x5 Club América (Liga MX, Clausura);assistencia;corner;left-foot;11911114
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-03-07;CD Guadalajara 0x3 Club América (CONCACAF Champions Cup);gol;assisted;right-foot;12116956
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-03-14;Club América 2x3 CD Guadalajara (CONCACAF Champions Cup);assistencia;assisted;right-foot;12116958
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-03-30;Club América 2x1 Atlético San Luis (Liga MX, Clausura);gol;assisted;right-foot;11911088
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-04-03;New England Revolution 0x4 Club América (CONCACAF Champions Cup);assistencia;assisted;right-foot;12163999
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-04-10;Club América 5x2 New England Revolution (CONCACAF Champions Cup);assistencia;assisted;right-foot;12164005
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-04-10;Club América 5x2 New England Revolution (CONCACAF Champions Cup);gol;assisted;left-foot;12164005
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-04-14;Club América 5x1 CD Toluca (Liga MX, Clausura);gol;assisted;left-foot;11911066
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-04-14;Club América 5x1 CD Toluca (Liga MX, Clausura);assistencia;assisted;right-foot;11911066
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2024-04-14;Club América 5x1 CD Toluca (Liga MX, Clausura);gol;assisted;right-foot;11911066
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-07-16;Club América 3x0 Club Puebla (Liga MX, Apertura);assistencia;assisted;left-foot;11341781
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-08-24;Club América 3x2 Club Necaxa (Liga MX, Apertura);gol;assisted;right-foot;11341795
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-09-03;Cruz Azul 2x3 Club América (Liga MX, Apertura);assistencia;assisted;right-foot;11341819
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-09-17;Club América 4x0 CD Guadalajara (Liga MX, Apertura);gol;corner;right-foot;11341823
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-09-17;Club América 4x0 CD Guadalajara (Liga MX, Apertura);gol;assisted;right-foot;11341823
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-09-21;Querétaro FC 1x2 Club América (Liga MX, Apertura);gol;regular;right-foot;11583848
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-09-24;CD Toluca 1x1 Club América (Liga MX, Apertura);gol;fast-break;right-foot;11341836
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-10-07;Mazatlán FC 1x2 Club América (Liga MX, Apertura);gol;assisted;right-foot;11341853
+Fernandinho Conceição - Ferroviária - Manual;2025;2025-07-12;Nova Iguaçu 1x3 Maricá FC (Brasileirão Série D, Group A6);gol;?;?;13557811
+Fernandinho Conceição - Ferroviária - Manual;2026;2025-10-30;SL Benfica B 2x1 Paços de Ferreira (Liga Portugal 2);gol;regular;right-foot;14132147
+Mateus Carvalho - Clube de Regatas Vasco da Gama - Brasil A;2024;2024-07-03;Vasco da Gama 2x0 Fortaleza (Campeonato Brasileiro Série A);gol;assisted;left-foot;12117108
+Mateus Carvalho - Clube de Regatas Vasco da Gama - Brasil A;2024;2024-08-18;Criciúma 2x2 Vasco da Gama (Campeonato Brasileiro Série A);assistencia;assisted;right-foot;12117203
+Mateus Carvalho - Clube de Regatas Vasco da Gama - Brasil A;2024;2024-12-08;Cuiabá 1x2 Vasco da Gama (Campeonato Brasileiro Série A);assistencia;assisted;right-foot;12117354
+Mateus Carvalho - Clube de Regatas Vasco da Gama - Brasil A;2024;2024-04-14;Vasco da Gama 2x1 Grêmio (Campeonato Brasileiro Série A);gol;corner;right-foot;12116978
+André Luiz - Londrina - Brasil B;2026;2026-02-15;Londrina 2x2 Athletico (Paranaense, 1ª Divisão – Mata-mata);gol;corner;right-foot;15516562
+André Luiz - Londrina - Brasil B;2026;2026-03-22;Grêmio Novorizontino 1x3 Londrina (Brasileirão Série B);gol;regular;right-foot;15525985
+André Luiz - Londrina - Brasil B;2026;2026-06-16;Londrina 3x2 Avaí (Brasileirão Série B);gol;corner;head;15526130
+André Luiz - Londrina - Brasil B;2025;2025-06-01;Volta Redonda 1x0 América Mineiro (Brasileirão Série B);assistencia;throw-in-set-piece;left-foot;13616161
+André Luiz - Londrina - Brasil B;2025;2025-07-19;Volta Redonda 3x2 Athletico (Brasileirão Série B);gol;assisted;head;13616243
+André Luiz - Londrina - Brasil B;2025;2025-07-23;Chapecoense 4x2 Volta Redonda (Brasileirão Série B);gol;corner;right-foot;13616249
+J. Otero - Sporting Gijón - Espanha B;2026;2026-01-04;Sporting Gijón 1x3 Málaga CF (LaLiga 2);gol;penalty;right-foot;14083543
+J. Otero - Sporting Gijón - Espanha B;2026;2026-01-09;Cádiz 3x2 Sporting Gijón (LaLiga 2);assistencia;throw-in-set-piece;left-foot;14083575
+J. Otero - Sporting Gijón - Espanha B;2026;2026-01-17;Cultural Leonesa 2x4 Sporting Gijón (LaLiga 2);gol;assisted;right-foot;14083651
+J. Otero - Sporting Gijón - Espanha B;2026;2026-01-17;Cultural Leonesa 2x4 Sporting Gijón (LaLiga 2);gol;assisted;right-foot;14083651
+J. Otero - Sporting Gijón - Espanha B;2026;2026-01-24;Sporting Gijón 3x0 Mirandés (LaLiga 2);gol;penalty;right-foot;14083726
+J. Otero - Sporting Gijón - Espanha B;2026;2026-02-22;Sporting Gijón 2x2 Real Valladolid (LaLiga 2);assistencia;assisted;head;14083806
+J. Otero - Sporting Gijón - Espanha B;2026;2026-02-22;Sporting Gijón 2x2 Real Valladolid (LaLiga 2);gol;regular;right-foot;14083806
+J. Otero - Sporting Gijón - Espanha B;2026;2026-03-15;Sporting Gijón 4x1 CD Castellón (LaLiga 2);gol;assisted;right-foot;14083414
+J. Otero - Sporting Gijón - Espanha B;2026;2026-03-15;Sporting Gijón 4x1 CD Castellón (LaLiga 2);gol;set-piece;right-foot;14083414
+J. Otero - Sporting Gijón - Espanha B;2026;2026-03-28;Sporting Gijón 1x1 Deportivo de A Coruña (LaLiga 2);gol;free-kick;right-foot;14352514
+J. Otero - Sporting Gijón - Espanha B;2026;2026-04-19;Sporting Gijón 3x0 Cádiz (LaLiga 2);assistencia;fast-break;right-foot;14081722
+J. Otero - Sporting Gijón - Espanha B;2026;2026-04-19;Sporting Gijón 3x0 Cádiz (LaLiga 2);gol;fast-break;right-foot;14081722
+J. Otero - Sporting Gijón - Espanha B;2026;2026-04-19;Sporting Gijón 3x0 Cádiz (LaLiga 2);assistencia;fast-break;right-foot;14081722
+J. Otero - Sporting Gijón - Espanha B;2026;2026-04-26;Córdoba 3x2 Sporting Gijón (LaLiga 2);gol;assisted;right-foot;14081745
+J. Otero - Sporting Gijón - Espanha B;2026;2026-05-24;Sporting Gijón 3x1 Almería (LaLiga 2);gol;assisted;left-foot;14081783
+J. Otero - Sporting Gijón - Espanha B;2026;2026-05-24;Sporting Gijón 3x1 Almería (LaLiga 2);gol;assisted;head;14081783
+J. Otero - Sporting Gijón - Espanha B;2027;2026-08-01;Gimnástica Torrelavega 0x5 Sporting Gijón (Club Friendly Games);gol;?;?;16674152
+J. Otero - Sporting Gijón - Espanha B;2027;2026-08-08;Sporting Gijón 2x4 Real Valladolid (Club Friendly Games);gol;?;?;16739277
+J. Otero - Sporting Gijón - Espanha B;2027;2026-08-08;Sporting Gijón 2x4 Real Valladolid (Club Friendly Games);gol;?;?;16739277
+J. Otero - Sporting Gijón - Espanha B;2027;2026-08-23;Sporting Gijón 1x0 Burgos Club de Fútbol (LaLiga 2);gol;assisted;right-foot;16418280
+J. Otero - Sporting Gijón - Espanha B;2027;2026-09-19;FC Andorra 1x3 Sporting Gijón (LaLiga 2);assistencia;assisted;right-foot;16418298
+J. Otero - Sporting Gijón - Espanha B;2025;2025-04-05;Sporting Gijón 1x3 CD Tenerife (LaLiga 2);gol;penalty;right-foot;12467420
+J. Otero - Sporting Gijón - Espanha B;2025;2025-04-18;Sporting Gijón 3x1 Mirandés (LaLiga 2);assistencia;fast-break;right-foot;12467393
+J. Otero - Sporting Gijón - Espanha B;2025;2025-05-05;CD Castellón 4x3 Sporting Gijón (LaLiga 2);gol;assisted;left-foot;12465950
+J. Otero - Sporting Gijón - Espanha B;2025;2025-05-05;CD Castellón 4x3 Sporting Gijón (LaLiga 2);gol;penalty;right-foot;12465950
+J. Otero - Sporting Gijón - Espanha B;2025;2025-05-05;CD Castellón 4x3 Sporting Gijón (LaLiga 2);gol;regular;right-foot;12465950
+J. Otero - Sporting Gijón - Espanha B;2025;2025-05-17;Málaga CF 2x1 Sporting Gijón (LaLiga 2);gol;assisted;head;12465911
+J. Otero - Sporting Gijón - Espanha B;2026;2025-08-18;Sporting Gijón 2x1 Córdoba (LaLiga 2);assistencia;assisted;right-foot;14082836
+J. Otero - Sporting Gijón - Espanha B;2026;2025-08-18;Sporting Gijón 2x1 Córdoba (LaLiga 2);assistencia;throw-in-set-piece;right-foot;14082836
+J. Otero - Sporting Gijón - Espanha B;2026;2025-08-23;AD Ceuta 0x1 Sporting Gijón (LaLiga 2);assistencia;assisted;right-foot;14082842
+J. Otero - Sporting Gijón - Espanha B;2026;2025-08-29;Sporting Gijón 1x0 Cultural Leonesa (LaLiga 2);assistencia;set-piece;head;14083465
+J. Otero - Sporting Gijón - Espanha B;2026;2025-09-14;Sporting Gijón 2x3 Burgos Club de Fútbol (LaLiga 2);assistencia;assisted;right-foot;14083628
+J. Otero - Sporting Gijón - Espanha B;2026;2025-09-20;Almería 2x1 Sporting Gijón (LaLiga 2);assistencia;assisted;right-foot;14083683
+J. Otero - Sporting Gijón - Espanha B;2026;2025-10-05;CD Castellón 3x1 Sporting Gijón (LaLiga 2);assistencia;assisted;right-foot;14083746
+J. Otero - Sporting Gijón - Espanha B;2026;2025-10-19;Real Valladolid 2x3 Sporting Gijón (LaLiga 2);gol;penalty;right-foot;14083283
+J. Otero - Sporting Gijón - Espanha B;2026;2025-10-19;Real Valladolid 2x3 Sporting Gijón (LaLiga 2);gol;assisted;left-foot;14083283
+J. Otero - Sporting Gijón - Espanha B;2026;2025-10-26;Sporting Gijón 1x0 Real Zaragoza (LaLiga 2);gol;corner;head;14083296
+J. Otero - Sporting Gijón - Espanha B;2026;2025-12-13;Sporting Gijón 1x0 Granada (LaLiga 2);assistencia;assisted;right-foot;14083504
+J. Otero - Sporting Gijón - Espanha B;2025;2024-08-03;Sporting Gijón 2x1 Eibar (Club Friendly Games);gol;?;?;12544901
+J. Otero - Sporting Gijón - Espanha B;2025;2024-09-07;Sporting Gijón 3x1 Real Oviedo (LaLiga 2);gol;penalty;right-foot;12467745
+J. Otero - Sporting Gijón - Espanha B;2025;2024-10-27;Albacete Balompié 3x3 Sporting Gijón (LaLiga 2);gol;free-kick;right-foot;12617262
+J. Otero - Sporting Gijón - Espanha B;2025;2024-11-10;Burgos Club de Fútbol 0x2 Sporting Gijón (LaLiga 2);gol;penalty;right-foot;12467641
+J. Otero - Sporting Gijón - Espanha B;2025;2024-11-16;Sporting Gijón 1x2 Granada (LaLiga 2);gol;assisted;head;12467625
+J. Otero - Sporting Gijón - Espanha B;2025;2024-12-01;Sporting Gijón 2x0 Córdoba (LaLiga 2);gol;penalty;right-foot;12467605
+J. Otero - Sporting Gijón - Espanha B;2025;2025-01-26;Granada 3x1 Sporting Gijón (LaLiga 2);gol;penalty;right-foot;12467531
+J. Otero - Sporting Gijón - Espanha B;2025;2025-03-30;Huesca 3x2 Sporting Gijón (LaLiga 2);gol;penalty;right-foot;12467429
+J. Otero - Sporting Gijón - Espanha B;2024;2023-12-16;Sporting Gijón 1x1 Leganés (LaLiga 2);gol;penalty;right-foot;11390263
+J. Otero - Sporting Gijón - Espanha B;2024;2024-01-20;CD Tenerife 1x2 Sporting Gijón (LaLiga 2);assistencia;assisted;left-foot;11390230
+J. Otero - Sporting Gijón - Espanha B;2024;2024-03-01;Sporting Gijón 2x1 Albacete Balompié (LaLiga 2);gol;assisted;head;11390168
+J. Otero - Sporting Gijón - Espanha B;2024;2024-03-24;SD Amorebieta 3x1 Sporting Gijón (LaLiga 2);gol;assisted;right-foot;11390139
+J. Otero - Sporting Gijón - Espanha B;2024;2024-04-20;Elche 2x1 Sporting Gijón (LaLiga 2);gol;regular;head;11390093
+J. Otero - Sporting Gijón - Espanha B;2024;2024-05-11;Sporting Gijón 5x2 FC Andorra (LaLiga 2);gol;fast-break;right-foot;11390054
+J. Otero - Sporting Gijón - Espanha B;2024;2024-05-11;Sporting Gijón 5x2 FC Andorra (LaLiga 2);gol;set-piece;head;11390054
+J. Otero - Sporting Gijón - Espanha B;2024;2024-05-26;Sporting Gijón 1x0 Eibar (LaLiga 2);assistencia;assisted;left-foot;11390034
+J. Otero - Sporting Gijón - Espanha B;2024;2023-08-20;Sporting Gijón 3x0 Mirandés (LaLiga 2);assistencia;assisted;right-foot;11390469
+J. Otero - Sporting Gijón - Espanha B;2024;2023-08-20;Sporting Gijón 3x0 Mirandés (LaLiga 2);gol;free-kick;right-foot;11390469
+J. Otero - Sporting Gijón - Espanha B;2024;2023-09-02;Sporting Gijón 2x1 Burgos Club de Fútbol (LaLiga 2);gol;corner;head;11390447
+J. Otero - Sporting Gijón - Espanha B;2024;2023-10-28;Sporting Gijón 2x0 Espanyol (LaLiga 2);gol;assisted;right-foot;11390341
+J. Otero - Sporting Gijón - Espanha B;2024;2023-11-04;Villarreal B U23 0x3 Sporting Gijón (LaLiga 2);gol;corner;right-foot;11390330
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-12-21;Felgueiras 2x0 FC Porto B (Liga Portugal 2);gol;assisted;head;14132203
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-12-21;Felgueiras 2x0 FC Porto B (Liga Portugal 2);gol;corner;head;14132203
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2026-01-31;Felgueiras 1x0 Chaves (Liga Portugal 2);gol;corner;left-foot;14336317
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2026-04-25;Felgueiras 2x1 União de Leiria (Liga Portugal 2);gol;assisted;left-foot;14336438
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2026-05-09;Felgueiras 1x1 Portimonense SAD (Liga Portugal 2);gol;assisted;head;14108975
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2026-05-17;UD Oliveirense 1x5 Felgueiras (Liga Portugal 2);gol;set-piece;head;14108963
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-09-22;SC Covilhã 4x0 Sporting Pombal (Taça de Portugal);gol;?;?;12810434
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-10-05;SC Covilhã 1x0 Oliveira Hospital (Liga 3, Group B);gol;?;?;12592343
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-10-20;SC Covilhã 3x2 LGC Moncarapachense (Taça de Portugal);gol;?;?;12901352
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-11-10;SC Covilhã 3x4 Académica Coimbra (Liga 3, Group B);gol;penalty;?;12592324
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-11-10;SC Covilhã 3x4 Académica Coimbra (Liga 3, Group B);gol;?;?;12592324
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-11-10;SC Covilhã 3x4 Académica Coimbra (Liga 3, Group B);gol;?;?;12592324
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-11-24;SC Covilhã 2x3 Rebordosa AC (Taça de Portugal);gol;?;?;13023020
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2024-12-13;C.F. Os Belenenses 2x2 SC Covilhã (Liga 3, Group B);gol;?;?;12592310
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2025-01-25;SC Covilhã 3x1 UD Santarém (Liga 3, Group B);assistencia;?;?;12592287
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2025-02-23;SC Covilhã 1x1 Oliveira Hospital (Liga 3, Relegation Round, Group 2);gol;?;?;13411645
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2025-03-29;UD Santarém 1x2 SC Covilhã (Liga 3, Relegation Round, Group 2);gol;?;?;13411618
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2025-03-29;UD Santarém 1x2 SC Covilhã (Liga 3, Relegation Round, Group 2);gol;?;?;13411618
+Lucas Duarte - Felgueiras 1932 - Portugal B;2025;2025-04-16;SC Covilhã 1x2 SC Lusitânia (Liga 3, Relegation Round, Group 2);gol;?;?;13411630
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-08-30;Felgueiras 3x1 Lusitânia Lourosa (Liga Portugal 2);gol;set-piece;head;14132097
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-08-30;Felgueiras 3x1 Lusitânia Lourosa (Liga Portugal 2);gol;corner;head;14132097
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-09-13;Felgueiras 2x1 SL Benfica B (Liga Portugal 2);assistencia;assisted;left-foot;14132112
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-10-05;Felgueiras 2x0 Feirense (Liga Portugal 2);gol;assisted;right-foot;14132129
+Lucas Duarte - Felgueiras 1932 - Portugal B;2026;2025-10-24;Vizela 2x2 Felgueiras (Liga Portugal 2);gol;assisted;head;14132139
+Diego Fernandes - Paços de Ferreira - Portugal B;2026;2026-01-23;Paços de Ferreira 2x1 Académico Viseu FC (Liga Portugal 2);gol;corner;right-foot;14336307
+Diego Fernandes - Paços de Ferreira - Portugal B;2027;2026-08-09;Leça FC 1x1 SC São João Ver (Liga 3, Group A);gol;corner;head;16560087
+Diego Fernandes - Paços de Ferreira - Portugal B;2027;2026-08-23;USC Paredes 1x2 Leça FC (Liga 3, Group A);gol;regular;right-foot;16560091
+Diego Fernandes - Paços de Ferreira - Portugal B;2027;2026-09-12;CD Trofense 1x4 Leça FC (Liga 3, Group A);gol;regular;left-foot;16560110
+Diego Fernandes - Paços de Ferreira - Portugal B;2024;2024-08-24;Ferroviário 3x3 Tombense (Brasileirão Série C);gol;regular;right-foot;12146769
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-02-09;Rio Branco-ES 1x1 Vitória-ES (Capixaba, Série A);gol;?;?;13214037
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-02-15;Capixaba SC 2x4 Rio Branco-ES (Capixaba, Série A);gol;?;?;13214049
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-03-07;Rio Branco-ES 2x1 Capixaba SC (Capixaba, Série A – Mata-mata);gol;?;?;13535103
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-05-03;Rio Branco-ES 2x0 Porto Vitória (Brasileirão Série D, Group A6);gol;?;?;13557521
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-05-17;Água Santa 1x2 Rio Branco-ES (Brasileirão Série D, Group A6);gol;?;?;13557585
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-06-04;Rio Branco-ES 3x0 Pouso Alegre FC (Brasileirão Série D, Group A6);gol;?;?;13557680
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-06-04;Rio Branco-ES 3x0 Pouso Alegre FC (Brasileirão Série D, Group A6);gol;?;?;13557680
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-06-28;Rio Branco-ES 3x2 Água Santa (Brasileirão Série D, Group A6);gol;?;?;13557746
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-06-28;Rio Branco-ES 3x2 Água Santa (Brasileirão Série D, Group A6);gol;?;?;13557746
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-07-12;Porto Vitória 0x1 Rio Branco-ES (Brasileirão Série D, Group A6);gol;?;?;13557813
+Diego Fernandes - Paços de Ferreira - Portugal B;2025;2025-08-09;Rio Branco-ES 3x0 Luverdense (Brasileirão Série D, Knockout Stage);gol;?;?;14310415
+Diego Fernandes - Paços de Ferreira - Portugal B;2026;2025-09-29;Paços de Ferreira 2x2 FC Porto B (Liga Portugal 2);assistencia;assisted;right-foot;14132116
+Diego Fernandes - Paços de Ferreira - Portugal B;2026;2025-10-25;Paços de Ferreira 4x1 Portimonense SAD (Liga Portugal 2);assistencia;assisted;left-foot;14132135
+Diego Fernandes - Paços de Ferreira - Portugal B;2024;2024-02-20;Nova Venécia 1x2 Botafogo-SP (Copa do Brasil);gol;?;?;12024207
+Bernardo Schappo - Estrela Amadora - Portugal A;2025;2025-05-17;Vila Nova FC 2x1 Athletico (Brasileirão Série B);gol;corner;head;13525905
+Bernardo Schappo - Estrela Amadora - Portugal A;2024;2024-10-20;Sport Recife 3x1 Botafogo-SP (Brasileirão Série B);gol;assisted;left-foot;12146501
+Bernardo Schappo - Estrela Amadora - Portugal A;2025;2025-01-23;Vila Nova FC 1x0 Goianésia (Goiano, 1ª Divisão);gol;corner;head;13193995
+Bernardo Schappo - Estrela Amadora - Portugal A;2025;2025-02-05;Goiânia 3x1 Vila Nova FC (Goiano, 1ª Divisão);gol;corner;head;13194015
+Bernardo Schappo - Estrela Amadora - Portugal A;2025;2025-02-23;Jataiense 1x2 Vila Nova FC (Goiano, 1ª Divisão);gol;set-piece;head;13194041
+Bernardo Schappo - Estrela Amadora - Portugal A;2024;2024-04-19;Botafogo-SP 1x1 América Mineiro (Brasileirão Série B);gol;corner;head;12146202
+Anderson - Grazer AK 1902 - Austria;2025;2025-05-18;FC Blau Weiss Linz 1x2 Red Bull Salzburg (Austrian Bundesliga, Championship Round);assistencia;assisted;right-foot;13629494
+Anderson - Grazer AK 1902 - Austria;2026;2025-07-25;Treibach 0x3 FC Blau Weiss Linz (OFB Cup);gol;corner;head;14045818
+Anderson - Grazer AK 1902 - Austria;2026;2025-08-30;Red Bull Salzburg 2x2 FC Blau Weiss Linz (Austrian Bundesliga);assistencia;assisted;right-foot;14065586
+Anderson - Grazer AK 1902 - Austria;2026;2025-09-13;FC Blau Weiss Linz 3x0 Grazer AK 1902 (Austrian Bundesliga);assistencia;throw-in-set-piece;left-foot;14065599
+Anderson - Grazer AK 1902 - Austria;2027;2026-07-07;Grazer AK 1902 2x4 First Vienna FC (Club Friendly Games);gol;?;?;16454015
+Anderson - Grazer AK 1902 - Austria;2024;2024-04-23;SC Austria Lustenau 1x2 Wolfsberger AC (Austrian Bundesliga, Relegation Round);assistencia;assisted;right-foot;12149648
+Anderson - Grazer AK 1902 - Austria;2025;2024-08-17;Grazer AK 1902 2x2 FC Blau Weiss Linz (Austrian Bundesliga);assistencia;assisted;right-foot;12481153
+Anderson - Grazer AK 1902 - Austria;2025;2024-08-28;FC Hertha Wels 0x1 FC Blau Weiss Linz (OFB Cup);assistencia;throw-in-set-piece;head;12618844
+Anderson - Grazer AK 1902 - Austria;2025;2024-09-14;FC Blau Weiss Linz 1x0 LASK (Austrian Bundesliga);assistencia;assisted;right-foot;12481127
+Anderson - Grazer AK 1902 - Austria;2025;2024-10-26;TSV Hartberg 2x1 FC Blau Weiss Linz (Austrian Bundesliga);assistencia;assisted;head;12481111
+Anderson - Grazer AK 1902 - Austria;2025;2025-02-15;FC Blau Weiss Linz 1x3 SCR Altach (Austrian Bundesliga);gol;corner;head;12481051
+Anderson - Grazer AK 1902 - Austria;2025;2025-03-02;FC Blau Weiss Linz 2x1 WSG Tirol (Austrian Bundesliga);assistencia;assisted;head;12481043
+Anderson - Grazer AK 1902 - Austria;2025;2025-03-09;Wolfsberger AC 1x2 FC Blau Weiss Linz (Austrian Bundesliga);gol;corner;head;12481039
+Anderson - Grazer AK 1902 - Austria;2024;2023-07-09;FC St. Pauli 7x1 SC Austria Lustenau (Club Friendly Games);gol;?;?;11408264
+Anderson - Grazer AK 1902 - Austria;2024;2023-09-17;SC Austria Lustenau 2x3 WSG Tirol (Austrian Bundesliga);assistencia;fast-break;right-foot;11387570
+Anderson - Grazer AK 1902 - Austria;2024;2024-03-10;SC Austria Lustenau 2x0 FC Blau Weiss Linz (Austrian Bundesliga);gol;corner;head;11387481
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-08-09;Club América 2x2 Nashville SC (Leagues Cup);gol;regular;head;11508221
+D. Valdés - Vélez Sarsfield - Argentina A;2024;2023-10-13;Chile 2x0 Peru (World Cup Qualification, CONMEBOL);gol;corner;right-foot;11620316
+Heinz Mörschel - Vizela - Manual;2026;2026-01-15;Vizela 3x0 Paços de Ferreira (Liga Portugal 2);gol;assisted;right-foot;14336297
+Heinz Mörschel - Vizela - Manual;2026;2026-01-15;Vizela 3x0 Paços de Ferreira (Liga Portugal 2);assistencia;assisted;right-foot;14336297
+Heinz Mörschel - Vizela - Manual;2026;2026-02-20;Leixões SC 1x2 Vizela (Liga Portugal 2);gol;assisted;right-foot;14336350
+Heinz Mörschel - Vizela - Manual;2026;2026-02-28;Vizela 3x2 Chaves (Liga Portugal 2);gol;assisted;right-foot;14336355
+Heinz Mörschel - Vizela - Manual;2026;2026-02-28;Vizela 3x2 Chaves (Liga Portugal 2);gol;penalty;right-foot;14336355
+Heinz Mörschel - Vizela - Manual;2026;2026-03-15;Vizela 4x3 Lusitânia Lourosa (Liga Portugal 2);gol;assisted;right-foot;14336383
+Heinz Mörschel - Vizela - Manual;2026;2026-03-15;Vizela 4x3 Lusitânia Lourosa (Liga Portugal 2);gol;assisted;head;14336383
+Heinz Mörschel - Vizela - Manual;2026;2026-04-07;Vizela 1x2 SL Benfica B (Liga Portugal 2);gol;penalty;right-foot;14336408
+Heinz Mörschel - Vizela - Manual;2026;2026-04-26;Vizela 1x0 Sporting CP B (Liga Portugal 2);gol;corner;right-foot;14336436
+Heinz Mörschel - Vizela - Manual;2027;2026-09-20;SCE Bombarralense 0x1 Vizela (Taça de Portugal);gol;penalty;?;16732998
+Heinz Mörschel - Vizela - Manual;2027;2026-09-25;Dominican Republic 3x2 Nicaragua (CONCACAF Nations League, League A, Group A);gol;set-piece;left-foot;16654763
+Heinz Mörschel - Vizela - Manual;2027;2026-09-28;Trinidad and Tobago 1x2 Dominican Republic (CONCACAF Nations League, League A, Group A);gol;assisted;right-foot;16654783
+Heinz Mörschel - Vizela - Manual;2027;2026-10-05;Nicaragua 1x2 Dominican Republic (CONCACAF Nations League, League A, Group A);gol;penalty;right-foot;16654821
+Heinz Mörschel - Vizela - Manual;2025;2025-03-16;Vizela 2x1 Paços de Ferreira (Liga Portugal 2);gol;penalty;right-foot;12514415
+Heinz Mörschel - Vizela - Manual;2025;2025-03-16;Vizela 2x1 Paços de Ferreira (Liga Portugal 2);gol;free-kick;right-foot;12514415
+Heinz Mörschel - Vizela - Manual;2025;2025-04-05;Chaves 1x2 Vizela (Liga Portugal 2);assistencia;assisted;right-foot;12514364
+Heinz Mörschel - Vizela - Manual;2025;2025-04-13;Vizela 1x1 FC Alverca (Liga Portugal 2);gol;assisted;left-foot;12514371
+Heinz Mörschel - Vizela - Manual;2025;2025-05-11;Vizela 1x1 Académico Viseu FC (Liga Portugal 2);gol;fast-break;left-foot;12514476
+Heinz Mörschel - Vizela - Manual;2025;2025-05-16;CS Marítimo 1x2 Vizela (Liga Portugal 2);gol;penalty;right-foot;12514482
+Heinz Mörschel - Vizela - Manual;2025;2025-06-01;Vizela 2x2 AVS - Futebol SAD (Liga Portugal Betclic, Relegation/Promotion);gol;penalty;right-foot;13916324
+Heinz Mörschel - Vizela - Manual;2025;2025-06-07;Guatemala 4x2 Dominican Republic (World Cup Qualification, CONCACAF 2nd round, Group E);gol;regular;right-foot;12026394
+Heinz Mörschel - Vizela - Manual;2025;2025-06-15;Mexico 3x2 Dominican Republic (CONCACAF Gold Cup, Group A);assistencia;assisted;right-foot;13755485
+Heinz Mörschel - Vizela - Manual;2026;2025-08-16;Vizela 4x0 FC Porto B (Liga Portugal 2);gol;assisted;right-foot;14132082
+Heinz Mörschel - Vizela - Manual;2026;2025-08-16;Vizela 4x0 FC Porto B (Liga Portugal 2);gol;assisted;right-foot;14132082
+Heinz Mörschel - Vizela - Manual;2026;2025-09-14;CS Marítimo 1x1 Vizela (Liga Portugal 2);gol;penalty;right-foot;14132107
+Heinz Mörschel - Vizela - Manual;2026;2025-10-29;Lusitânia Lourosa 1x1 Vizela (Liga Portugal 2);gol;regular;right-foot;14132145
+Heinz Mörschel - Vizela - Manual;2026;2025-11-08;SL Benfica B 1x2 Vizela (Liga Portugal 2);assistencia;corner;head;14132166
+Heinz Mörschel - Vizela - Manual;2026;2025-11-08;SL Benfica B 1x2 Vizela (Liga Portugal 2);gol;penalty;right-foot;14132166
+Heinz Mörschel - Vizela - Manual;2026;2025-11-13;Dominican Republic 2x0 Saint Vincent and the Grenadines (International Friendly Games);gol;?;?;15016649
+Heinz Mörschel - Vizela - Manual;2025;2024-08-18;Vizela 1x2 Penafiel (Liga Portugal 2);gol;assisted;right-foot;12518486
+Heinz Mörschel - Vizela - Manual;2025;2024-09-07;Bermuda 2x3 Dominican Republic (CONCACAF Nations League, League B, Group D);gol;regular;right-foot;12441433
+Heinz Mörschel - Vizela - Manual;2025;2024-10-15;Dominican Republic 5x0 Antigua and Barbuda (CONCACAF Nations League, League B, Group D);gol;assisted;right-foot;12441425
+Heinz Mörschel - Vizela - Manual;2025;2024-10-25;Paços de Ferreira 1x1 Vizela (Liga Portugal 2);gol;assisted;right-foot;12518420
+Heinz Mörschel - Vizela - Manual;2025;2024-11-16;Dominica 1x6 Dominican Republic (CONCACAF Nations League, League B, Group D);assistencia;assisted;left-foot;12441534
+Heinz Mörschel - Vizela - Manual;2025;2024-11-16;Dominica 1x6 Dominican Republic (CONCACAF Nations League, League B, Group D);gol;regular;right-foot;12441534
+Heinz Mörschel - Vizela - Manual;2025;2024-11-16;Dominica 1x6 Dominican Republic (CONCACAF Nations League, League B, Group D);gol;assisted;left-foot;12441534
+Heinz Mörschel - Vizela - Manual;2025;2024-11-19;Dominican Republic 6x1 Bermuda (CONCACAF Nations League, League B, Group D);assistencia;assisted;left-foot;12441420
+Heinz Mörschel - Vizela - Manual;2025;2024-11-19;Dominican Republic 6x1 Bermuda (CONCACAF Nations League, League B, Group D);gol;assisted;right-foot;12441420
+Heinz Mörschel - Vizela - Manual;2025;2024-11-19;Dominican Republic 6x1 Bermuda (CONCACAF Nations League, League B, Group D);assistencia;assisted;right-foot;12441420
+Heinz Mörschel - Vizela - Manual;2025;2025-01-05;Vizela 3x2 CS Marítimo (Liga Portugal 2);assistencia;assisted;right-foot;12518344
+Heinz Mörschel - Vizela - Manual;2025;2025-01-05;Vizela 3x2 CS Marítimo (Liga Portugal 2);gol;assisted;head;12518344
+Heinz Mörschel - Vizela - Manual;2025;2025-02-10;Torreense 2x4 Vizela (Liga Portugal 2);gol;assisted;right-foot;12514448
+Heinz Mörschel - Vizela - Manual;2025;2025-02-10;Torreense 2x4 Vizela (Liga Portugal 2);gol;assisted;right-foot;12514448
+Heinz Mörschel - Vizela - Manual;2025;2025-02-10;Torreense 2x4 Vizela (Liga Portugal 2);assistencia;assisted;right-foot;12514448
+Heinz Mörschel - Vizela - Manual;2025;2025-03-02;Vizela 5x0 Feirense (Liga Portugal 2);gol;corner;right-foot;12514397
+Heinz Mörschel - Vizela - Manual;2024;2023-11-04;Videoton FC Fehérvár 2x1 Újpest (OTP Bank Liga);assistencia;assisted;left-foot;11375101
+Heinz Mörschel - Vizela - Manual;2024;2024-02-06;Újpest 1x2 Debreceni VSC (OTP Bank Liga);gol;penalty;right-foot;11375059
+Heinz Mörschel - Vizela - Manual;2024;2024-02-11;Diósgyőri VTK 1x2 Újpest (OTP Bank Liga);gol;corner;head;11375054
+Heinz Mörschel - Vizela - Manual;2024;2024-05-04;Újpest 7x0 Diósgyőri VTK (OTP Bank Liga);assistencia;fast-break;right-foot;11374986
+Heinz Mörschel - Vizela - Manual;2024;2024-05-04;Újpest 7x0 Diósgyőri VTK (OTP Bank Liga);assistencia;assisted;left-foot;11374986
+Heinz Mörschel - Vizela - Manual;2024;2024-05-04;Újpest 7x0 Diósgyőri VTK (OTP Bank Liga);gol;penalty;right-foot;11374986
+Heinz Mörschel - Vizela - Manual;2024;2024-06-12;Dominican Republic 4x0 British Virgin Islands (World Cup Qualification, CONCACAF 2nd round, Group E);assistencia;assisted;right-foot;12201464
+Heinz Mörschel - Vizela - Manual;2024;2024-06-12;Dominican Republic 4x0 British Virgin Islands (World Cup Qualification, CONCACAF 2nd round, Group E);assistencia;assisted;right-foot;12201464
+Heinz Mörschel - Vizela - Manual;2024;2023-07-12;SKN St. Pölten 1x4 Újpest (Club Friendly Games);gol;?;?;11425489
+Heinz Mörschel - Vizela - Manual;2024;2023-08-04;Puskás Akadémia 3x3 Újpest (OTP Bank Liga);assistencia;assisted;left-foot;11375159
+Heinz Mörschel - Vizela - Manual;2024;2023-09-01;Újpest 3x2 Kisvárda FC (OTP Bank Liga);gol;corner;right-foot;11375070
+Heinz Mörschel - Vizela - Manual;2024;2023-09-30;Debreceni VSC 1x2 Újpest (OTP Bank Liga);gol;corner;right-foot;11375125
+Heinz Mörschel - Vizela - Manual;2024;2023-09-30;Debreceni VSC 1x2 Újpest (OTP Bank Liga);gol;corner;head;11375125
+Heinz Mörschel - Vizela - Manual;2024;2023-10-14;Barbados 0x5 Dominican Republic (CONCACAF Nations League, League B, Group B);gol;?;?;11436089
+Heinz Mörschel - Vizela - Manual;2024;2023-10-17;Dominican Republic 5x2 Barbados (CONCACAF Nations League, League B, Group B);gol;regular;right-foot;11622174

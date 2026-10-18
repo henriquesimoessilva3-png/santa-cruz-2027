@@ -96,7 +96,7 @@ def aplicar(H=None):
     # competição. Jogos do time = soma das competições do clube; com mais de um clube no ano vale o maior (as passagens, abaixo,
     # corrigem com a data). Gols, assistências, cabeça, pênaltis e gol de falta entram para a bola parada.
     mt = os.path.join(AQUI, "dados", "manuais_temporadas.csv")
-    try: dm = pd.read_csv(mt) if os.path.exists(mt) else None
+    try: dm = pd.read_csv(mt, sep=None, engine="python") if os.path.exists(mt) else None
     except Exception as e: print("  cards manuais: arquivo ainda incompleto, fica para depois (" + str(e)[:60] + ")"); dm = None
     if dm is not None:
         m4 = 0

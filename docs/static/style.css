@@ -3828,3 +3828,6 @@ body.visao-nova .jpainel{flex:none}
 .sf-painel .sf-tab tfoot td{font-weight:700}
 .sf-painel .mp{font-size:12.5px}
 .sf-tab tr.pass td{font-size:11px;color:var(--tinta2);padding-top:0}
+.sf-painel .sf-tab.bp-jogo{margin-top:10px}
+.bp-res-j{display:block;font-size:11px;color:var(--tinta2);margin-top:1px}
+.bp-res-j b{color:var(--tinta)}
