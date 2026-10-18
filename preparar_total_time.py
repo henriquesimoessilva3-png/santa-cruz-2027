@@ -13,13 +13,24 @@ import pandas as pd
 AQUI = os.path.dirname(os.path.abspath(__file__))
 CSV = os.path.join(AQUI, "dados", "total_time_complemento.csv")
 
+import re, unicodedata
+def _nz(x):
+    x = "".join(c for c in unicodedata.normalize("NFD", str(x).lower()) if unicodedata.category(c) != "Mn")
+    x = re.sub(r"[^a-z0-9 ]", " ", x)
+    x = re.sub(r"\b(fc|cf|ec|sc|ac|club|clube|esporte|futebol|sport|de|do|da|ca|se|cr|ad|af|fk|sk)\b", " ", x)
+    return re.sub(r"\s+", " ", x).strip()
+
+def _real(x):
+    if x.get("min") and x.get("fonte") != "ogol": return bool(x.get("tmin") and x["tmin"] >= x["min"])
+    return bool(x.get("tj") and x["tj"] >= (x.get("j") or 0))
+
 def aplicar(H=None):
     p = os.path.join(AQUI, "dados", "historico.json"); salvar = H is None
     if H is None: H = json.load(open(p, encoding="utf-8"))
-    if not os.path.exists(CSV): return H
-    d = pd.read_csv(CSV); d = d[d.primaryKey.notna()]
-    for c in ("jogos_time", "minutos_time", "jogos", "minutos"): d[c] = pd.to_numeric(d.get(c), errors="coerce")
     T = [str(t) for t in H["temporadas"]]; n = 0
+    d = pd.read_csv(CSV) if os.path.exists(CSV) else pd.DataFrame(columns=["primaryKey", "temporada", "jogos_time", "minutos_time", "jogos", "minutos", "fonte"])
+    d = d; d = d[d.primaryKey.notna()]
+    for c in ("jogos_time", "minutos_time", "jogos", "minutos"): d[c] = pd.to_numeric(d.get(c), errors="coerce")
     for (pk, t), g in d.groupby(["primaryKey", d.temporada.astype(str)]):
         if t not in T or pk not in H["jogadores"]: continue
         x = H["jogadores"][pk][T.index(t)]
@@ -34,6 +45,31 @@ def aplicar(H=None):
         if x.get("min") and x.get("fonte") != "ogol" and tmin < x["min"]: continue   # fontes que não batem: não usa
         x["tmin"], x["tj"] = tmin, tj; n += 1
     print(f"  total do time levantado: {n} temporadas")
+    # 2ª passada (18/10, "fazer de uma vez para a base toda"): o clube do ano achado nos arquivos do Wyscout daquele ano
+    # (dados/minutos_time.json: jogos e minutos do time na liga). Só quando o clube aparece numa liga só (ou todas dão o mesmo
+    # número) e quando os jogos dele cabem nos do time — o oGol conta todas as competições e o Wyscout, a liga: se ele tem mais
+    # jogos que o time, as fontes não batem e o ano fica sem total (falta, não estimativa).
+    cp = os.path.join(AQUI, "dados", "minutos_time.json")
+    if os.path.exists(cp):
+        MT = json.load(open(cp, encoding="utf-8")); idx = {}
+        for t, dd in MT.items():
+            ix = idx.setdefault(t, {})
+            for k, v in dd.items():
+                liga, tm = k.split("|", 1); ix.setdefault(_nz(tm), []).append((liga, v))
+        m2 = 0
+        for linha in H["jogadores"].values():
+            for i, x in enumerate(linha):
+                if not x or not (x.get("min") or x.get("j")) or _real(x): continue
+                cand = idx.get(T[i], {}).get(_nz(x.get("tm", "")), [])
+                if not cand: continue
+                if x.get("l"): cand = [c for c in cand if c[0] == x["l"]] or cand
+                if len({tuple(c[1]) for c in cand}) != 1: continue
+                tmin, tj = cand[0][1]
+                if x.get("min") and x.get("fonte") != "ogol":
+                    if tmin < x["min"]: continue
+                elif not x.get("j") or tj < x["j"]: continue
+                x["tmin"], x["tj"], x["t_src"] = tmin, tj, "wyscout " + cand[0][0]; m2 += 1
+        print(f"  total do time achado no Wyscout pelo clube: {m2} temporadas")
     if salvar: json.dump(H, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     return H
 
