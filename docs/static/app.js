@@ -7108,29 +7108,37 @@ function farolDe(letra, selo, pos, minut) {
   return (selo === 'v' && fisOk && minut !== 'r') ? 'v' : 'a';
 }
 /* ---------------- minutagem e bola parada do card (18/10, visão nova) ----------------
-   Minutagem (pedido do Henrique, 18/10): MÉDIA POR ANO das últimas três temporadas (2024, 2025 e 2026). Cada ano vale
-   minutos ÷ 3.400 (temporada inteira); a atual, ÷ 2.100 (em andamento); ano só com jogos (oGol) vale jogos ÷ 38 (÷ 23 na atual);
-   ano sem registro vale zero. verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Ao passar o mouse, o detalhe ano a ano.
+   Minutagem (Henrique, 18/10, 2ª versão): PERCENTUAL DOS MINUTOS DO TIME nos últimos três anos (2024, 2025 e 2026), somados.
+   Minutos do time em cada ano = os de quem mais jogou por aquele time naquela liga (em geral o goleiro titular), tirados dos
+   mesmos Excels do Wyscout (preparar_minutos_time.py). Ano só com jogos (oGol) vale jogos ÷ 38 jogos de 90 min.
+   Ano SEM REGISTRO não entra na conta (não vale zero): conta só o que se sabe, e o detalhe diz quantos anos entraram.
+   verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Ao passar o mouse, o detalhe ano a ano.
    Bola parada: o índice do cobrador na liga (T2) — ⚑ verde ≥ 80, amarelo 65 a 79. */
-const MIN_ATUAL = 2100;
 function minutagemDe(j) {
   const pk = j && (j.pk || (typeof primaryKey === 'function' ? primaryKey(j) : null));
   const h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
   if (!h || !h.some(x => x && (x.min || x.j))) return null;
-  const T = HIST.temporadas || [], n = h.length;
+  const T = HIST.temporadas || [];
+  let jogou = 0, possivel = 0, nAnos = 0;
   const anos = h.map((x, i) => {
-    const atual = i === n - 1, refMin = atual ? MIN_ATUAL : MIN_TEMPORADA, refJ = Math.round(JOGOS_TEMPORADA * refMin / MIN_TEMPORADA);
-    let p = 0, txt = 'sem registro';
-    if (x && x.fonte !== 'ogol' && x.min) { p = x.min / refMin; txt = milhar(x.min) + ' min · ' + (x.j || 0) + ' jogos'; }
-    else if (x && x.j) { p = x.j / refJ; txt = x.j + ' jogos (sem minutos' + (x.fonte === 'ogol' ? ', oGol' : '') + ')'; }
-    p = Math.min(1, p);
-    return { t: T[i] || '?', p, txt, tm: x && x.tm ? x.tm : '' };
+    const t = T[i] || '?';
+    if (!x || !(x.min || x.j)) return { t, p: null, txt: 'sem registro (fora da conta)' };
+    let m, tot, txt;
+    if (x.fonte !== 'ogol' && x.min) {
+      tot = x.tmin && x.tmin >= x.min ? x.tmin : Math.max(x.min, (x.tj || JOGOS_TEMPORADA) * 90);
+      m = x.min; txt = milhar(x.min) + ' de ' + milhar(tot) + ' min do time · ' + (x.j || 0) + (x.tj ? ' de ' + x.tj : '') + ' jogos';
+    } else {
+      m = x.j * 90; tot = Math.max(m, JOGOS_TEMPORADA * 90); txt = x.j + ' jogos (sem minutos' + (x.fonte === 'ogol' ? ', oGol' : '') + '; conta sobre ' + JOGOS_TEMPORADA + ' jogos)';
+    }
+    jogou += m; possivel += tot; nAnos++;
+    return { t, p: m / tot, txt, tm: x.tm || '' };
   });
-  const pct = anos.reduce((s, a) => s + a.p, 0) / (n || 1);
+  if (!possivel) return null;
+  const pct = jogou / possivel;
   const c = pct >= 0.6 ? 'v' : pct >= 0.3 ? 'a' : 'r';
-  const det = anos.map(a => a.t + ': ' + Math.round(a.p * 100) + '% — ' + a.txt + (a.tm ? ' · ' + a.tm : '')).join('\n');
-  return { c, pct, anos, txt: 'Minutagem: média de ' + Math.round(pct * 100) + '% de temporada por ano, nos últimos ' + n + ' anos\n' + det +
-    '\nCada ano = minutos ÷ 3.400 (a temporada atual ÷ 2.100; ano só com jogos: jogos ÷ 38). Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.' };
+  const det = anos.map(a => a.t + ': ' + (a.p == null ? a.txt : Math.round(a.p * 100) + '% — ' + a.txt + (a.tm ? ' · ' + a.tm : ''))).join('\n');
+  return { c, pct, anos, txt: 'Minutagem: jogou ' + Math.round(pct * 100) + '% dos minutos do time' + (nAnos < anos.length ? ' nos ' + nAnos + ' anos com registro' : ' nos últimos ' + nAnos + ' anos') + '\n' + det +
+    '\nMinutos do time = os de quem mais jogou pelo clube naquela liga (em geral o goleiro titular). Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.' };
 }
 function bolaParadaDe(j) {
   let x = null; try { x = csRegistro(j, r => r.cob != null); } catch (e) {}

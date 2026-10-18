@@ -22,11 +22,15 @@ Bola parada [Jogadores/Treinadores]) · **3 Mercado** (Tipo físico A+, A e B ·
 - **Farol** (`farolDe` em app.js): Validado/Dúvida/Alerta = letra + seta pela posição (LD, LE, EE, VOL, MED exigem A/A+);
   minutagem vermelha tira o Validado; bola parada não entra.
 - **Card do campograma** (`painelCard`): retângulo na cor do farol com letra · seta · minutagem · ⚑ bola parada.
-  Minutagem = média por ano de 2024–26 (min ÷ 3.400; 2026 ÷ 2.100; só jogos ÷ 38); fundo vermelho/amarelo/verde em tom
+  Minutagem = % dos minutos do TIME em 2024–26 somados (minutos do time = quem mais jogou pelo clube na liga, `preparar_minutos_time.py` → `tmin`/`tj` no historico.json; ano sem registro fica fora; só jogos/oGol ÷ 38); fundo vermelho/amarelo/verde em tom
   escuro com número branco (aprovado 18/10); hover com ano a ano. Card mínimo 300 px (escala do campo); raio e bola aérea fora do card.
 - **Ficha**: blocos do ranking da posição + faixa "Outros indicadores" (os técnicos fora do ranking, base Subida ≥ 900 min).
 - **Estudo › Físico**: regra, 6 indicadores em 2 grupos, os 15 excluídos, escopo, matriz por posição com contagens (só sobe/fica/cai).
 - **Estudo › Técnico**: dois quadros novos (`montarTecnico` em visao_nova.js): regra das setas e "entra/fica de fora" por régua.
+
+## Mudanças de 18/10 (tarde)
+- Ficha da visão nova = quadro único contra quem sobe × quem cai (`subidaFicha` em subida.js); botão "⇄ comparar com a liga" (`fichaComp`, localStorage `sc_fichaComp`); a parte de baixo saiu.
+- Seta técnica por CONTAGEM (b22, `b22_seta_contagem.py`): fundamentais = separação ≥ 0,15 (zagueiro com defesa à força); verde ≥ quem sobe · amarelo até 10% abaixo · vermelho; pontos = (verdes − vermelhos) ÷ medidos; ▲/▼ pelas medianas de quem sobe/cai. CA 11 fundamentais. AUC 0,637.
 
 ## Pendências
 - Henrique conferir na tela o card novo (largura, nome, minutagem) — não foi visto em tela cheia.

@@ -412,6 +412,9 @@ def main():
     tres = sum(1 for v in saida["jogadores"].values() if all(v))
     print(f"ok: {len(saida['jogadores'])} jogadores ({tres} com as tres temporadas) "
           f"-> {destino} ({mb:.1f} MB)")
+    # 18/10/2026: minutos e jogos do TIME em cada temporada (a minutagem do card é % dos minutos do time)
+    import preparar_minutos_time as pmt
+    pmt.aplicar(pmt.minutos_time())
 
 
 if __name__ == "__main__":
