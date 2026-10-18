@@ -2953,11 +2953,14 @@ function painelMinutagem(j) {
     const ls = h.map((x, i) => {
       const a = mi.anos[i] || {};
       if (!x || !(x.min || x.j)) return '<tr class="vazio"><td>' + (T[i] || '') + '</td><td colspan="5">sem registro — fica fora da conta</td></tr>';
-      const tj = x.tj || (x.fonte === 'ogol' || !x.min ? JOGOS_TEMPORADA : null), tm = x.tmin || (tj ? tj * 90 : null);
-      sj += x.j || 0; stj += tj || 0; sm += x.min || (x.j || 0) * 90; stm += tm || Math.max(x.min || 0, JOGOS_TEMPORADA * 90);
+      /* a mesma conta do minutagemDe: sem o total do time, vale a temporada padrão de 38 jogos — e a tabela diz isso (18/10) */
+      const real = !!(x.tmin && x.min && x.tmin >= x.min);
+      const padrao = !real;
+      const tj = real ? (x.tj || Math.round(x.tmin / 90)) : JOGOS_TEMPORADA, tm = x.min ? (real ? x.tmin : Math.max(x.min, JOGOS_TEMPORADA * 90)) : Math.max((x.j || 0) * 90, JOGOS_TEMPORADA * 90);
+      sj += x.j || 0; stj += tj; sm += x.min || (x.j || 0) * 90; stm += tm;
       const pc = a.p != null ? Math.round(a.p * 100) : null, c = pc == null ? '' : pc >= 60 ? 'v' : pc >= 30 ? 'a' : 'r';
       return '<tr><td>' + esc(T[i] || x.t) + '</td><td>' + esc(x.tm || '') + (x.l ? ' <small>' + esc(x.l) + '</small>' : '') + (x.fonte === 'ogol' || x.fonte === 'complemento' ? ' <small>(' + (x.fonte === 'ogol' ? 'oGol' : esc(x.src || 'levantamento')) + ')</small>' : '') + '</td>' +
-        '<td class="n">' + f(tj) + '</td><td class="n">' + f(x.j) + '</td><td class="n">' + (x.min ? f(x.min) + ' <small>de ' + f(tm) + '</small>' : '<small>sem minutos</small>') + '</td>' +
+        '<td class="n">' + f(tj) + (padrao ? ' <small title="sem o total do time nessa temporada: conta a temporada padrão de 38 jogos (3.420 min)">padrão*</small>' : '') + '</td><td class="n">' + f(x.j) + '</td><td class="n">' + (x.min ? f(x.min) + ' <small>de ' + f(tm) + (padrao ? '*' : '') + '</small>' : '<small>sem minutos · ' + f(x.j * 90) + ' de ' + f(tm) + '*</small>') + '</td>' +
         '<td class="n"><b class="mp mp-' + c + '">' + (pc == null ? '—' : pc + '%') + '</b></td></tr>';
     }).join('');
     const pt = Math.round(mi.pct * 100), ct = mi.c;   /* total sem destaque extra (18/10) */
@@ -2965,7 +2968,7 @@ function painelMinutagem(j) {
       '<tfoot><tr><td colspan="2"><b>Total</b></td><td class="n">' + f(stj) + '</td><td class="n">' + f(sj) + '</td><td class="n">' + f(sm) + ' <small>de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + ct + ' big">' + pt + '%</b></td></tr></tfoot></table>';
   }
   return '<div class="sf-painel"><h4 class="sf-gh g-min">Minutagem · últimos 3 anos</h4>' + corpo +
-    '<div class="sf-nota">% = minutos dele ÷ minutos do time na temporada (os de quem mais jogou pelo clube na liga). Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%. Ano só com jogos conta sobre 38 jogos.</div></div>';
+    '<div class="sf-nota">% = minutos dele ÷ minutos do time na temporada (os de quem mais jogou pelo clube na liga, no Wyscout). * = sem o total do time naquele ano: conta a temporada padrão de 38 jogos (3.420 min); ano só com jogos vale jogos × 90. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.</div></div>';
 }
 function painelBolaParada(j) {
   const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
@@ -7232,7 +7235,7 @@ function minutagemDe(j) {
     if (!x || !(x.min || x.j)) return { t, p: null, txt: 'sem registro (fora da conta)' };
     let m, tot, txt;
     if (x.fonte !== 'ogol' && x.min) {
-      tot = x.tmin && x.tmin >= x.min ? x.tmin : Math.max(x.min, (x.tj || JOGOS_TEMPORADA) * 90);
+      tot = x.tmin && x.tmin >= x.min ? x.tmin : Math.max(x.min, JOGOS_TEMPORADA * 90);
       m = x.min; txt = milhar(x.min) + ' de ' + milhar(tot) + ' min do time · ' + (x.j || 0) + (x.tj ? ' de ' + x.tj : '') + ' jogos';
     } else {
       m = x.j * 90; tot = Math.max(m, JOGOS_TEMPORADA * 90); txt = x.j + ' jogos (sem minutos' + (x.fonte === 'ogol' ? ', oGol' : '') + '; conta sobre ' + JOGOS_TEMPORADA + ' jogos)';
