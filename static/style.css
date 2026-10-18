@@ -3684,3 +3684,14 @@ body.claro .emp-st.st-emprestimo,body.claro .emp-chip.st-emprestimo{color:#b4232
 /* 18/10 — respiro entre o último chip (letra/seta/selos) e o nome do jogador no card */
 .jog-nome .sb-selo,.jog-nome .tipo-abc{margin-right:4px}
 .jog-nome .sb-selo+.nm,.jog-nome .tipo-abc+.nm,.jog-nome .farol+.nm{margin-left:3px}
+/* 18/10 — visão nova: chips com espaço padrão entre si, nome afastado e um pouco maior; card um pouco mais largo */
+body.visao-nova .jog-nome .farol-barra,body.visao-nova .jog-nome .tipo-abc,body.visao-nova .jog-nome .sb-selo,
+body.visao-nova .jog-nome .aer-badge,body.visao-nova .jog-nome .cob-badge,body.visao-nova .jog-nome .selo-ex{margin:0 5px 0 0}
+body.visao-nova .jog-nome .tipo-abc,body.visao-nova .jog-nome .sb-selo,body.visao-nova .jog-nome .aer-badge,body.visao-nova .jog-nome .cob-badge{min-width:16px;height:16px;font-size:10.5px}
+body.visao-nova .jog-nome .nm{margin-left:3px}
+body.visao-nova .pos{width:calc(248px * var(--fz))}
+body.visao-nova .pos .jog-nome{font-size:calc(14px * var(--fz))}
+body.visao-nova .pos .jog-meta{font-size:calc(11.5px * var(--fz))}
+body.visao-nova .campo.denso .pos{width:calc(222px * var(--fz))}
+body.visao-nova .campo.denso .pos .jog-nome{font-size:calc(13px * var(--fz))}
+body.visao-nova .campo.denso .pos .jog-meta{font-size:calc(10.5px * var(--fz))}
