@@ -3765,3 +3765,38 @@ body.visao-nova .jpainel{flex:none}
 .b16-grid em{color:var(--tinta3);font-style:normal;font-size:11px}
 .b16-grid i{font-style:normal;font-size:10px;padding:0 5px;border-radius:3px;color:#fff}
 .b16-v{background:#15803d} .b16-a{background:#64748b} .b16-r{background:#b91c1c}
+/* 18/10 (16h40) — subgrupos do físico em card; painéis de minutagem e bola parada embaixo do técnico */
+.sf-sub{display:flex;align-items:center;justify-content:space-between;background:#7e22ce;color:#fff;border-radius:5px;padding:5px 10px;margin:10px 0 5px;font-size:11.5px;font-weight:700;letter-spacing:.3px;border:none}
+.sf-sub b{background:#00000040;padding:1px 7px;border-radius:4px;font-size:12px}
+.sf-extra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+@media (max-width:1300px){.sf-extra{grid-template-columns:1fr}}
+.sf-painel{background:#ffffff08;border:1px solid var(--borda2);border-radius:8px;padding:10px 12px}
+.sf-gh.g-min{background:#0f766e} .sf-gh.g-bp{background:#9a3412}
+.sf-tab{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.sf-tab th{font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--tinta3);text-align:left;padding:4px 6px;border-bottom:1px solid var(--borda2);font-weight:600}
+.sf-tab td{padding:5px 6px;border-bottom:1px solid #ffffff0d}
+.sf-tab td.n{text-align:right;font-variant-numeric:tabular-nums}
+.sf-tab tr.vazio td{color:var(--tinta3);font-style:italic}
+.sf-tab tfoot td{border-top:1px solid var(--borda2);border-bottom:none;font-weight:600}
+.sf-tab small{color:var(--tinta3);font-size:10px}
+.mp{padding:1px 7px;border-radius:4px;color:#fff;font-size:12px}
+.mp.big{font-size:15px;padding:2px 9px}
+.mp-v{background:#15803d} .mp-a{background:#a16207} .mp-r{background:#b91c1c}
+.bp-idxs{display:flex;gap:10px;margin:8px 0 4px}
+.bp-idx{flex:1;background:#ffffff0a;border:1px solid var(--borda2);border-radius:6px;padding:6px 8px;text-align:center;cursor:help}
+.bp-idx b{display:block;font-size:20px;line-height:1.1}
+.bp-idx span{font-size:10px;color:var(--tinta2)}
+.bp-idx.v{border-color:#22c55e} .bp-idx.v b{color:#4ade80}
+.bp-idx.a{border-color:#eab308} .bp-idx.a b{color:#facc15}
+.bp-idx.nd b{color:var(--tinta3)}
+.sf-nota{font-size:10.5px;color:var(--tinta3);margin-top:6px;line-height:1.4}
+/* 18/10 (16h40) — média e melhor do mesmo tamanho do número do jogador (sem negrito); legenda maior */
+.fi-linha.sf .med,.fi-linha.sf .mx{font-size:inherit;font-weight:400;color:var(--tinta2)}
+.fi-linha.sf .mx{color:#93c5fd}
+.fi-linha.sf.cab .med,.fi-linha.sf.cab .mx{font-size:9px}
+.fi-linha.sf{grid-template-columns:minmax(120px,1.6fr) 50px minmax(50px,1fr) 50px 50px}
+.sf-tec-grid .fi-linha.sf{grid-template-columns:minmax(110px,1.5fr) 46px minmax(36px,1fr) 46px 46px}
+.sf-layout + .fi-leg,.sf-grid + .fi-leg{font-size:12.5px;gap:18px;padding:10px 14px 14px;color:var(--tinta2)}
+.sf-layout + .fi-leg i,.sf-grid + .fi-leg i{width:13px;height:13px}
+.sf-layout + .fi-leg i.am{width:13px!important;height:13px!important}
+.sf-layout + .fi-leg i.m{width:3px;height:14px}

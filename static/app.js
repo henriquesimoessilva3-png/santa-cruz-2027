@@ -2941,6 +2941,59 @@ const FIS_GRUPOS = [
     ['mmin', 'Metros por minuto', 1], ['run', 'Distância em corrida /90 (15–20 km/h)', 0], ['desa_m', 'Desacelerações médias /90', 1], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
 ];
 const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
+/* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
+function painelMinutagem(j) {
+  const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
+  const mi = minutagemDe(j), T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || [];
+  const f = n => (typeof n === 'number' ? milhar(n) : '—');
+  let corpo;
+  if (!h || !mi) corpo = '<div class="fi-sem">sem histórico de minutos para este jogador</div>';
+  else {
+    let sj = 0, stj = 0, sm = 0, stm = 0;
+    const ls = h.map((x, i) => {
+      const a = mi.anos[i] || {};
+      if (!x || !(x.min || x.j)) return '<tr class="vazio"><td>' + (T[i] || '') + '</td><td colspan="5">sem registro — fica fora da conta</td></tr>';
+      const tj = x.tj || (x.fonte === 'ogol' || !x.min ? JOGOS_TEMPORADA : null), tm = x.tmin || (tj ? tj * 90 : null);
+      sj += x.j || 0; stj += tj || 0; sm += x.min || (x.j || 0) * 90; stm += tm || Math.max(x.min || 0, JOGOS_TEMPORADA * 90);
+      const pc = a.p != null ? Math.round(a.p * 100) : null, c = pc == null ? '' : pc >= 60 ? 'v' : pc >= 30 ? 'a' : 'r';
+      return '<tr><td>' + esc(T[i] || x.t) + '</td><td>' + esc(x.tm || '') + (x.l ? ' <small>' + esc(x.l) + '</small>' : '') + (x.fonte === 'ogol' || x.fonte === 'complemento' ? ' <small>(' + (x.fonte === 'ogol' ? 'oGol' : esc(x.src || 'levantamento')) + ')</small>' : '') + '</td>' +
+        '<td class="n">' + f(tj) + '</td><td class="n">' + f(x.j) + '</td><td class="n">' + (x.min ? f(x.min) + ' <small>de ' + f(tm) + '</small>' : '<small>sem minutos</small>') + '</td>' +
+        '<td class="n"><b class="mp mp-' + c + '">' + (pc == null ? '—' : pc + '%') + '</b></td></tr>';
+    }).join('');
+    const pt = Math.round(mi.pct * 100), ct = mi.c;
+    corpo = '<table class="sf-tab"><thead><tr><th>Ano</th><th>Clube</th><th>Jogos do time</th><th>Jogos dele</th><th>Minutos</th><th>% do time</th></tr></thead><tbody>' + ls + '</tbody>' +
+      '<tfoot><tr><td colspan="2"><b>Total</b></td><td class="n">' + f(stj) + '</td><td class="n">' + f(sj) + '</td><td class="n">' + f(sm) + ' <small>de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + ct + ' big">' + pt + '%</b></td></tr></tfoot></table>';
+  }
+  return '<div class="sf-painel"><h4 class="sf-gh g-min">Minutagem · últimos 3 anos</h4>' + corpo +
+    '<div class="sf-nota">% = minutos dele ÷ minutos do time na temporada (os de quem mais jogou pelo clube na liga). Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%. Ano só com jogos conta sobre 38 jogos.</div></div>';
+}
+function painelBolaParada(j) {
+  const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
+  const T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || [];
+  let x = null; try { x = csRegistro(j); } catch (e) {}
+  const idx = (rot, v, dica) => '<div class="bp-idx' + (v == null ? ' nd' : v >= 80 ? ' v' : v >= 65 ? ' a' : '') + '" title="' + esc(dica) + '"><b>' + (v == null ? '—' : v) + '</b><span>' + rot + '</span></div>';
+  const top = '<div class="bp-idxs">' +
+    idx('cobrador', x && x.cob, 'Índice de cobrador de bola parada na liga (0 a 100): escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1. ⚑ verde = 80 ou mais.' + (x && x.cob_esc != null ? ' Na temporada: ' + x.cob_esc + ' escanteios e ' + x.cob_fal + ' faltas cobradas.' : '')) +
+    idx('bola aérea no ataque', x && x.aer, 'Destaque no jogo aéreo (percentil na liga entre jogadores de linha com 2,5+ duelos aéreos/90): duelos ganhos e gols de cabeça. ▲ = 80 ou mais.') +
+    idx('ganha duelo aéreo', x && x.aer_dp, 'Percentil de % de duelos aéreos ganhos na liga (jogadores com 2,5+ duelos/90). △ = 80 ou mais.' + (x && x.aer_won != null ? ' ' + x.aer_won + '% ganhos.' : '')) + '</div>';
+  const n = (v, c) => (typeof v === 'number' ? v.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
+  let tab = '';
+  if (h && h.some(y => y && y.min)) {
+    const tot = { esc: 0, fal: 0, fd: 0, pen: 0, gc: 0, g: 0, min: 0 };
+    const ls = h.map((y, i) => {
+      if (!y || !y.min || y.esc == null && y.fal == null && y.g == null) return '<tr class="vazio"><td>' + esc(T[i] || '') + '</td><td colspan="6">sem dado de bola parada' + (y && y.j && !y.min ? ' (só jogos)' : '') + '</td></tr>';
+      const q = k => (y[k] || 0) * y.min / 90;   /* por 90 → total do ano */
+      tot.esc += q('esc'); tot.fal += q('fal'); tot.fd += q('fd'); tot.pen += y.pen || 0; tot.gc += y.gc || 0; tot.g += y.g || 0; tot.min += y.min;
+      return '<tr><td>' + esc(T[i] || y.t) + '</td><td class="n">' + n(Math.round(q('esc')), 0) + ' <small>' + n(y.esc, 2) + '/90</small></td><td class="n">' + n(Math.round(q('fal')), 0) + ' <small>' + n(y.fal, 2) + '/90</small></td>' +
+        '<td class="n">' + n(Math.round(q('fd')), 0) + (y['fd%'] ? ' <small>' + y['fd%'] + '% no alvo</small>' : '') + '</td><td class="n">' + n(y.pen, 0) + (y.pen ? ' <small>' + (y['pen%'] || 0) + '% conv.</small>' : '') + '</td>' +
+        '<td class="n"><b>' + n(y.gc, 0) + '</b></td><td class="n">' + n(y.g, 0) + '</td></tr>';
+    }).join('');
+    tab = '<table class="sf-tab"><thead><tr><th>Ano</th><th>Escanteios cobrados</th><th>Faltas cobradas</th><th>Faltas diretas</th><th>Pênaltis</th><th>Gols de cabeça</th><th>Gols</th></tr></thead><tbody>' + ls + '</tbody>' +
+      '<tfoot><tr><td><b>Total</b></td><td class="n"><b>' + n(Math.round(tot.esc), 0) + '</b></td><td class="n"><b>' + n(Math.round(tot.fal), 0) + '</b></td><td class="n"><b>' + n(Math.round(tot.fd), 0) + '</b></td><td class="n"><b>' + n(tot.pen, 0) + '</b></td><td class="n"><b>' + n(tot.gc, 0) + '</b></td><td class="n"><b>' + n(tot.g, 0) + '</b></td></tr></tfoot></table>';
+  } else tab = '<div class="fi-sem">sem histórico de bola parada (Wyscout) para este jogador</div>';
+  return '<div class="sf-painel"><h4 class="sf-gh g-bp">Bola parada · últimos 3 anos</h4>' + top + tab +
+    '<div class="sf-nota">Índices da temporada atual, em percentil na liga dele (0 a 100). A tabela é do Wyscout, ano a ano: cobranças (total do ano, a partir do por 90) e gols — o Wyscout não separa o gol de bola parada; o gol de cabeça é o mais perto disso.</div></div>';
+}
 function fisicoSerieBHtml(j) {
   const ps = FIS_GEMEAS[j.p] || [j.p], lista = BASE.filter(x => x.l === 'Brasil B' && ps.includes(x.p)).map(x => { try { return comFisicoDoEstudo(x) || x; } catch (e) { return x; } });
   const f = (n, c) => (typeof n === 'number' ? n.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
@@ -2958,7 +3011,9 @@ function fisicoSerieBHtml(j) {
         '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(med) + '%"></span></span>' +
         '<span class="med">' + f(med, casas) + '</span><span class="mx">' + f(best, casas) + '</span></div>';
     }).join('');
-    return ls ? '<div class="sf-sub">' + esc(nome) + '</div>' + ls : '';
+    if (!ls) return '';
+    const nOk = (ls.match(/fi-linha sf (acima|lider)/g) || []).length, nTot = (ls.match(/fi-linha sf (acima|lider|perto|abaixo)/g) || []).length;
+    return '<div class="sf-sub"><span>' + esc(nome) + '</span><b title="indicadores do grupo na média da Série B ou acima">' + nOk + '/' + nTot + '</b></div>' + ls;
   };
   const corpo = FIS_GRUPOS.map(grupo).join('');
   if (!corpo) return '';
@@ -3551,7 +3606,8 @@ async function montarFicha(j, modo) {
     if (g && g.cols) {
       const fis = fisicoSerieBHtml(jSub);
       const layout = '<div class="sf-layout"><div class="sf-col-fis">' + resFis + (fis || '<div class="fi-sem">sem tracking para este jogador</div>') + '</div>' +
-        '<div class="sf-col-tec">' + resTec + '<div class="sf-tec-linha"><span>Técnico</span></div><div class="sf-tec-grid">' + g.cols + '</div></div></div>' + g.leg;
+        '<div class="sf-col-tec">' + resTec + '<div class="sf-tec-linha"><span>Técnico</span></div><div class="sf-tec-grid">' + g.cols + '</div>' +
+        '<div class="sf-extra">' + painelMinutagem(jSub) + painelBolaParada(jSub) + '</div></div></div>' + g.leg;
       return { titulo, sub, cabeca, corpo: layout, rodape, aviso };
     }
   }

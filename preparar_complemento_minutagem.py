@@ -34,6 +34,8 @@ def aplicar(H=None):
         linha[i] = {"t": t, "tm": " / ".join(dict.fromkeys(str(c) for c in g.clube_na_temporada if isinstance(c, str))), "l": "",
                     "j": j, "fonte": "complemento", "src": ", ".join(sorted(set(g.fonte.astype(str))))}
         if m: linha[i]["min"] = m
+        for col, ch in (("minutos_time", "tmin"), ("jogos_time", "tj")):   # quando o levantamento trouxe o total do time
+            if col in g.columns and pd.notna(g[col]).any(): linha[i][ch] = int(pd.to_numeric(g[col], errors="coerce").max())
         anos += 1
     print(f"  complemento da minutagem: {anos} anos preenchidos ({novos} jogadores novos no histórico)")
     if salvar: json.dump(H, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
