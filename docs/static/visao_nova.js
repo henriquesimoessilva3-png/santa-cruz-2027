@@ -361,3 +361,23 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 })();
+
+/* 18/10 — Estudo › Físico (B16): clicar num número da tabela de letras mostra quem são os titulares (static/b16_listas.js) */
+(function () {
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const NOME = { LD: 'Lateral direito', ZD: 'Zagueiro pela direita', ZE: 'Zagueiro pela esquerda', LE: 'Lateral esquerdo', VOL: 'Volante', MED: 'Médio', MEI: 'Meia', ED: 'Extremo pela direita', EE: 'Extremo pela esquerda', CA: 'Centroavante' };
+  const FX = { Todos: 'todos', Sobe: 'em quem subiu', Meio: 'no meio', Cai: 'em quem caiu' };
+  document.addEventListener('click', ev => {
+    const el = ev.target.closest && ev.target.closest('.b16c'); if (!el) return;
+    const L = window.B16_LISTAS && window.B16_LISTAS[el.dataset.k]; if (!L) return;
+    ev.preventDefault();
+    const [pos, letra, fx] = el.dataset.k.split('~');
+    const aberto = el.closest('tr').nextElementSibling;
+    if (aberto && aberto.classList.contains('b16-lista')) { const mesmo = aberto.dataset.k === el.dataset.k; aberto.remove(); if (mesmo) return; }
+    const tr = document.createElement('tr'); tr.className = 'b16-lista'; tr.dataset.k = el.dataset.k;
+    const cor = { subiu: 'v', meio: 'a', caiu: 'r' };
+    tr.innerHTML = '<td colspan="6"><div class="b16-box"><b>' + esc(NOME[pos] || pos) + ' · letra ' + esc(letra) + ' · ' + FX[fx] + ' — ' + L.length + ' titulares</b> <small>(clique de novo no número para fechar)</small><div class="b16-grid">' +
+      L.map(r => '<span><i class="b16-' + (cor[r[3]] || 'a') + '">' + esc(r[3]) + '</i> <b>' + esc(r[0]) + '</b> · ' + esc(r[1]) + ' · ' + r[2] + ' <em>' + esc(r[4]) + '</em></span>').join('') + '</div></div></td>';
+    el.closest('tr').after(tr);
+  });
+})();

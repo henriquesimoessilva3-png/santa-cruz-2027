@@ -50,15 +50,20 @@ md = ["# Tipos físicos A, B e C por posição", "",
       "- **11/10 — A+ (azul):** o A que também tem **volume** (distância e corridas sem bola acima de **+0,5 desvio**) e explosão acima de +0,5 — o perfil completo. Vale em zaga, lateral, volante, extremo e atacante.",
       "- **11/10 — Médio (CM):** no médio, o **A é o motor de volume** (volume acima de +0,5 desvio): o médio que sobe é o de volume. **C** continua sendo a baixa intensidade; o resto é B. No meia (AM) não há A+.",
       "- **15/10 — explosivo, pouco volume:** quem cai no tipo C só pelo volume, mas tem **explosão acima de +0,25 desvio**, fica **B** (\"Explosivo, pouco volume\") — o C é de quem é fraco nas duas coisas.",
-      "- **16/10 — físico colado:** quando um físico é colado à mão no app, ele substitui o do estudo e é dele que sai a letra, em todo o app.", "",
-      "| Posição | A | B | C |", "|---|---|---|---|"]
-for p in ORDEM:
-    s = SET[p]
-    a = "Motor de volume (volume > +0,5)" if p == "MED" else ("Mais intenso" if s == "Volante" else "Explosivo e rápido") + ("" if p == "MEI" else " · **A+** com volume")
-    c = "Menos intenso" if s == "Volante" else "Baixa intensidade"
-    md.append(f"| {NOME[p]} | {a} | {'o resto' if p == 'MED' else B[s]} · explosivo com pouco volume | {c} |")
+      "- **16/10 — físico colado:** quando um físico é colado à mão no app, ele substitui o do estudo e é dele que sai a letra, em todo o app.", ""]
+# 18/10: a tabela "Posição | A | B | C" saiu — o que é cada letra agora vem na própria tabela de cada posição, abaixo
+def desc(p, L):
+    s_ = SET[p]
+    if L == "A+": return "A com volume (explosão e volume acima de +0,5)"
+    if L == "A": return "Motor de volume (volume acima de +0,5)" if p == "MED" else ("Mais intenso" if s_ == "Volante" else "Explosivo e rápido")
+    if L == "B": return ("o resto" if p == "MED" else B[s_]) + " ou explosivo com pouco volume"
+    return "Menos intenso" if s_ == "Volante" else "Baixa intensidade"
+LISTAS = {}
+def cel(p, L, f, n, pct):
+    k = f"{p}~{L}~{f}"
+    return f'<span class="b16c" data-k="{k}" title="clique para ver quem são"><b>{n}</b> ({pct})</span>' if n else f"**0** ({pct})"
 md += ["", "## Quantos de cada letra estão em quem sobe, no meio e em quem cai", "",
-       "Titulares de 2022–2025 (≥ 900 min). Em cada letra: **quantos** jogadores no total e **quantos** deles estavam em times que subiram, no meio e em times que caíram. "
+       "Titulares de 2022–2025 (≥ 900 min). **Clique em qualquer número para ver quem são os jogadores.** Em cada letra: **quantos** jogadores no total e **quantos** deles estavam em times que subiram, no meio e em times que caíram. "
        "Como há menos titulares de quem sobe do que do meio, o número cru engana — por isso a última coluna **pondera**: "
        "**concentração em quem sobe** = a fatia da letra que está em quem sobe, dividida pela fatia de todos os titulares que está em quem sobe. "
        "**1,0** = a letra aparece em quem sobe na proporção normal · **1,5** = 50% mais do que o esperado · **0,5** = metade do esperado.", ""]
@@ -74,8 +79,16 @@ for p in ORDEM:
         c = {f: int((x.faixa == f).sum()) for f in ["Sobe", "Meio", "Cai"]}
         conc = (c["Sobe"] / t) / base_s if base_s else float("nan")
         cs = f"**{conc:.1f}**".replace(".", ",")
-        md.append(f"| {L} | **{t}** ({100*t/N:.0f}%) | **{c['Sobe']}** ({100*c['Sobe']/t:.0f}%) | **{c['Meio']}** ({100*c['Meio']/t:.0f}%) | **{c['Cai']}** ({100*c['Cai']/t:.0f}%) | {cs} |")
+        for f in ["Todos", "Sobe", "Meio", "Cai"]:
+            y = x if f == "Todos" else x[x.faixa == f]
+            LISTAS[f"{p}~{L}~{f}"] = [[r.jogador, r.clube, int(r.ano), {"Sobe": "subiu", "Meio": "meio", "Cai": "caiu"}.get(r.faixa, r.faixa), r.tipo] for r in y.sort_values(["ano", "clube"], ascending=[False, True]).itertuples()]
+        pp = {f: f"{100*c[f]/t:.0f}%" for f in c}
+        md.append(f"| **{L}** — {desc(p, L)} | " + cel(p, L, "Todos", t, f"{100*t/N:.0f}%") + " | " + cel(p, L, "Sobe", c["Sobe"], pp["Sobe"]) + " | " + cel(p, L, "Meio", c["Meio"], pp["Meio"]) + " | " + cel(p, L, "Cai", c["Cai"], pp["Cai"]) + f" | {cs} |")
     md.append("")
 md += ["", "Os nomes de cada letra, por posição e mercado, estão na aba **Tipo físico A e B** do app (com PDF) e na letra de cada card do campograma."]
 open(os.path.join(OUT, "B16.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
+# as listas por célula, para o clique na tela (static/b16_listas.js)
+with open(os.path.join(os.path.dirname(RAIZ), "static", "b16_listas.js"), "w", encoding="utf-8") as fh:
+    fh.write("/* GERADO POR Santa Cruz V2/scripts/b16_tipos_abc.py - NAO EDITE A MAO. Quem são os titulares de cada letra (Estudo › Físico). */\n")
+    fh.write("window.B16_LISTAS = " + json.dumps(LISTAS, ensure_ascii=False, separators=(",", ":")) + ";\n")
 print(J.groupby(["pos11", "faixa"]).letra.value_counts(normalize=True).unstack().round(2).head(12))

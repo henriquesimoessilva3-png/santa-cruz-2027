@@ -3758,3 +3758,10 @@ body.visao-nova .jpainel{flex:none}
 .fi-grupo h4.sf-gh .sf-cont{color:#fff;background:#00000033;padding:1px 6px;border-radius:4px}
 .sf-gh.g-def{background:#991b1b} .sf-gh.g-ofe{background:#166534} .sf-gh.g-pas{background:#a16207} .sf-gh.g-dgp{background:#1e40af} .sf-gh.g-fis{background:#6b21a8}
 .sf-tec-grid .fi-linha.sf{grid-template-columns:minmax(110px,1.6fr) 42px minmax(40px,1fr) 34px 34px}
+.b16c{cursor:pointer;border-bottom:1px dashed currentColor;padding:1px 2px;border-radius:3px}
+.b16c:hover{background:#3b82f633}
+.b16-box{padding:8px 10px;background:#0f172a;border:1px solid var(--borda2);border-radius:8px;margin:2px 0 6px;font-size:12px}
+.b16-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:3px 16px;margin-top:6px}
+.b16-grid em{color:var(--tinta3);font-style:normal;font-size:11px}
+.b16-grid i{font-style:normal;font-size:10px;padding:0 5px;border-radius:3px;color:#fff}
+.b16-v{background:#15803d} .b16-a{background:#64748b} .b16-r{background:#b91c1c}
