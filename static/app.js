@@ -2960,7 +2960,7 @@ async function perfilExtraDe(j) {
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
 function painelMinutagem(j) {
-  const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
+  const pk = j && (j.pk || primaryKey(j)), h = histDe(j, pk);
   const mi = minutagemDe(j), T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || [];
   const f = n => (typeof n === 'number' ? milhar(n) : '—');
   const nota = '% = minutos dele ÷ minutos do time na temporada (os de quem mais jogou pelo clube na liga, no Wyscout, ou jogos do time × 90). Ano sem o total do time fica fora da conta. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.';
@@ -2989,7 +2989,7 @@ function painelMinutagem(j) {
     '<tfoot><tr><td colspan="2">Total</td><td class="n">' + f(sj) + '<small> de ' + f(stj) + '</small></td><td class="n">' + f(sm) + '<small> de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + mi.c + '">' + pt + '%</b></td></tr></tfoot></table></div>';
 }
 function painelBolaParada(j) {
-  const pk = j && (j.pk || primaryKey(j)), h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
+  const pk = j && (j.pk || primaryKey(j)), h = histDe(j, pk);
   const T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || [];
   let x = null; try { x = csRegistro(j); } catch (e) {}
   const n = (v, c) => (typeof v === 'number' ? v.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }) : '—');
@@ -7240,6 +7240,11 @@ function farolDe(letra, selo, pos, minut) {
    (jogos do time × 90). Ano sem o total do time NÃO entra na conta (nada de temporada padrão) — a tabela diz "falta o total
    do time". Ano só com jogos (oGol) entra por jogos dele ÷ jogos do time, quando os jogos do time existem.
    verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Bola parada: índice do cobrador na liga (T2) — ⚑ verde ≥ 80, amarelo 65 a 79. */
+/* histórico do jogador: pela chave do card e, para card manual, também pela chave "Nome - Clube - Manual" do levantamento (18/10) */
+function histDe(j, pk) {
+  if (typeof HIST === 'undefined' || !HIST || !HIST.jogadores || !j) return null;
+  return HIST.jogadores[pk] || HIST.jogadores[(j.n || '') + ' - ' + (j.t || '') + ' - Manual'] || (j.nc && HIST.jogadores[j.nc + ' - ' + (j.t || '') + ' - Manual']) || null;
+}
 function minutagemAno(x) {
   /* {m, tot, real} do ano, ou null quando falta o total do time */
   if (!x || !(x.min || x.j)) return null;
@@ -7249,7 +7254,7 @@ function minutagemAno(x) {
 }
 function minutagemDe(j) {
   const pk = j && (j.pk || (typeof primaryKey === 'function' ? primaryKey(j) : null));
-  const h = pk && typeof HIST !== 'undefined' && HIST && HIST.jogadores ? HIST.jogadores[pk] : null;
+  const h = histDe(j, pk);
   if (!h || !h.some(x => x && (x.min || x.j))) return null;
   const T = HIST.temporadas || [];
   let jogou = 0, possivel = 0, nAnos = 0, falta = 0;
