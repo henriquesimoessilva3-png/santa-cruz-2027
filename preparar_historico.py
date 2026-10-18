@@ -433,6 +433,8 @@ def main():
     # 18/10/2026: minutos e jogos do TIME em cada temporada (a minutagem do card é % dos minutos do time)
     import preparar_complemento_minutagem as pcm   # anos que o Wyscout não ligou (levantamento de 18/10)
     pcm.aplicar()
+    import preparar_total_time as ptt               # total do time levantado (18/10): só número real
+    ptt.aplicar()
     import preparar_minutos_time as pmt
     pmt.aplicar(json.load(open(pmt.CACHE, encoding="utf-8")) if os.environ.get("HIST_CACHE") and os.path.exists(pmt.CACHE) else pmt.minutos_time())
 

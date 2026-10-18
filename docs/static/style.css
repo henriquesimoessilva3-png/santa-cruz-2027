@@ -3815,3 +3815,4 @@ body.visao-nova .jpainel{flex:none}
 .sf-painel .sf-nota{font-size:9.5px}
 .sf-sub{background:#7e22ce55;color:#f3e8ff}
 .sf-sub b{background:#00000030} .sf-sub small,.sf-gh small{font-weight:400;opacity:.8;font-size:10px}
+.sf-tab tr.falta td{color:var(--tinta3)}
