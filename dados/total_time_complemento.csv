@@ -1,0 +1,309 @@
+primaryKey,temporada,clube,competicao,jogos_time,minutos_time,jogos,minutos,fonte,url,obs
+A. Benítez - Club Libertad - Paraguai,2024,Cerro Porteño,Paraguai Apertura+Clausura 2024,43,3870,29,2393,sofascore,https://www.sofascore.com/api/v1/player/312824/statistics,
+A. Fretes - Club Libertad - Paraguai,2024,Libertad,Paraguai Clausura 2024,22,1980,11,566,sofascore,https://www.sofascore.com/api/v1/player/1464239/statistics,
+A. González - Deportivo Recoleta - Paraguai,2024,Nacional Asunción,Paraguai Apertura 2024,22,1980,5,161,sofascore,https://www.sofascore.com/api/v1/player/1182277/statistics,
+A. Molinas - Club Libertad - Paraguai,2024,Libertad,Paraguai Apertura+Clausura 2024,44,3960,2,53,sofascore,https://www.sofascore.com/api/v1/player/1485265/statistics,
+A. Quiroz - Universitario - Peru,2024,Comerciantes,,,,,,,https://www.sofascore.com/api/v1/player/989228/statistics,Sofascore não tem o jogador no Comerciantes em 2024 (time fora da Liga 1 na base)
+A. Quiroz - Universitario - Peru,2025,Los Chankas,Peru Liga 1 2025,35,3150,32,1942,sofascore,https://www.sofascore.com/api/v1/player/989228/statistics,
+A. Yovera - Cienciano - Peru,2024,Deportivo Garcilaso,Peru Liga 1 2024,34,3060,6,262,sofascore,https://www.sofascore.com/api/v1/player/1068656/statistics,
+A. Yovera - Cienciano - Peru,2025,Ayacucho FC,Peru Liga 1 2025,34,3060,22,1307,sofascore,https://www.sofascore.com/api/v1/player/1068656/statistics,
+Airton - Criciúma - Brasil B,2024,Grêmio Novorizontino,Série B 2024,38,3420,4,315,sofascore,https://www.sofascore.com/api/v1/player/797866/statistics,ogol 5 = todas as competições
+Airton - Criciúma - Brasil B,2025,Grêmio Novorizontino,Série B 2025,38,3420,33,2970,sofascore,https://www.sofascore.com/api/v1/player/797866/statistics,ogol 42 = todas as competições
+Alef Manga - Remo - Brasil A,2024,Coritiba,Série B 2024,38,3420,4,83,sofascore,https://www.sofascore.com/api/v1/player/954719/statistics,
+Alencar - Ferroviária - Brasil C,2024,Retrô FC,Pernambucano 2024,11,990,9,783,sofascore,https://www.sofascore.com/api/v1/player/1533964/statistics,"Retrô jogou a Série D 2024, sem dados de jogador na Sofascore; ogol 35 = todas as competições"
+Alisson Safira - Juventude - Brasil B,2024,Santa Clara,Liga Portugal 2 (23/24),34,3060,18,1258,sofascore,https://www.sofascore.com/api/v1/player/870927/statistics,temporada europeia 23/24
+Alisson Safira - Juventude - Brasil B,2025,Cuiabá (E) [Santa Clara],Série B 2025,38,3420,22,1583,sofascore,https://www.sofascore.com/api/v1/player/870927/statistics,
+Allyson - Avaí - Brasil B,2024,Sport,Série B 2024,38,3420,7,420,sofascore,https://www.sofascore.com/api/v1/player/809194/statistics,
+Allyson - Avaí - Brasil B,2025,Guarani,Série C 2025,25,2250,6,320,sofascore,https://www.sofascore.com/api/v1/player/809194/statistics,
+Anderson - Chapecoense - Brasil A,2024,Cruzeiro,Série A 2024,38,3420,17,1530,sofascore,https://www.sofascore.com/api/v1/player/942061/statistics,ogol 21 = todas as competições
+Anderson - Chapecoense - Brasil A,2025,Atlético Goianiense,Série B 2025,38,3420,1,90,sofascore,https://www.sofascore.com/api/v1/player/942061/statistics,ogol 12 inclui 10 jogos do Goiano
+Anderson - Grazer AK 1902 - Austria,2026,Blau-Weiß Linz,Áustria Bundesliga (25/26),32,2880,6,442,sofascore,https://www.sofascore.com/api/v1/player/980464/statistics,
+André Luis - Vila Nova - Brasil B,2024,Cuiabá,Série A 2024,38,3420,20,502,sofascore,https://www.sofascore.com/api/v1/player/876286/statistics,
+Anthony - Botafogo de Futebol e Regatas - Brasil A,2024,Goiás,Goiano 2024,13,1170,4,360,sofascore,https://www.sofascore.com/api/v1/player/1809800/statistics,minutos da Sofascore
+B. Palacios - FC Cajamarca - Peru,2024,Sport Boys Callao,Peru Liga 1 2024,34,3060,22,1083,sofascore,https://www.sofascore.com/api/v1/player/933730/statistics,
+B. Palacios - FC Cajamarca - Peru,2025,Univ. Técnica,Peru Liga 1 2025,36,3240,22,770,sofascore,https://www.sofascore.com/api/v1/player/933730/statistics,
+Bernardo - Brusque - Brasil C,2024,Coritiba,Série B 2024,38,3420,6,150,sofascore,https://www.sofascore.com/api/v1/player/1122890/statistics,
+Bernardo - Brusque - Brasil C,2025,Brusque (E) [Coritiba],Série C 2025,25,2250,10,566,sofascore,https://www.sofascore.com/api/v1/player/1122890/statistics,ogol 15 = todas as competições
+Betão - Náutico - Brasil B,2024,Sampaio Corrêa,Série C 2024,19,1710,11,990,sofascore,https://www.sofascore.com/api/v1/player/1148361/statistics,
+Brandão - Ponte Preta - Brasil B,2025,Danubio (E) [Coritiba],Uruguai 2025,37,3330,11,408,sofascore,https://www.sofascore.com/api/v1/player/1464655/statistics,
+C. Núñez - Cienciano - Peru,2024,Nacional,Paraguai Apertura+Clausura 2024,44,3960,37,3142,sofascore,https://www.sofascore.com/api/v1/player/923677/statistics,ogol 51 = todas as competições
+C. Núñez - Cienciano - Peru,2025,Nacional,Paraguai Apertura+Clausura 2025,44,3960,38,3284,sofascore,https://www.sofascore.com/api/v1/player/923677/statistics,ogol 40
+C. Ramos - Deportivo Garcilaso - Peru,2024,GS Ilioupolis,,,,,,,https://www.sofascore.com/api/v1/player/1009256/statistics,"GS Ilioupolis (Grécia, divisão inferior) sem dados na Sofascore"
+C. Sarabia - Millonarios - Colombia A,2024,Millonarios,Colômbia Finalización 2024,25,2250,10,740,sofascore,https://www.sofascore.com/api/v1/player/1888931/statistics,
+C. Sarabia - Millonarios - Colombia A,2025,Millonarios,Colômbia Apertura+Finalización 2025,46,4140,3,210,sofascore,https://www.sofascore.com/api/v1/player/1888931/statistics,Sofascore hoje: 3 jogos/179 min
+Cadu - Goiás - Brasil B,2024,Atlético Mineiro,Série A 2024,38,3420,20,1020,sofascore,https://www.sofascore.com/api/v1/player/1199473/statistics,ogol 32 = todas as competições
+Cadu - Goiás - Brasil B,2025,Atlético Mineiro,Série A 2025,38,3420,1,10,sofascore,https://www.sofascore.com/api/v1/player/1199473/statistics,
+Camilo - Gremio - Brasil A,2026,Chapecoense,Série A 2026,30,2700,23,2179,sofascore (time) / base local (jogador),,jogos do jogador: base local Wyscout
+Carlos Alberto - Kalba FC - Emirados,2026,Al-Ittihad Kalba,Emirados Pro League (25/26),26,2340,3,111,sofascore,https://www.sofascore.com/api/v1/player/1008700/statistics,
+Carlão - Grêmio Novorizontino - Brasil B,2024,Ferroviária (E) [Noroeste],Série C 2024,25,2250,23,1886,sofascore,https://www.sofascore.com/api/v1/player/922564/statistics,
+Carlão - Grêmio Novorizontino - Brasil B,2025,Ferroviária (E) [Noroeste],Série B 2025,38,3420,36,3089,sofascore,https://www.sofascore.com/api/v1/player/922564/statistics,
+Carlão - Grêmio Novorizontino - Brasil B,2026,Grêmio Novorizontino,Série B 2026,33,2970,31,670,sofascore,https://www.sofascore.com/api/v1/player/922564/statistics,
+Cipriano - Brusque - Brasil C,2024,APOEL (E) [Fluminense],Chipre (23/24),36,3240,2,28,sofascore,https://www.sofascore.com/api/v1/player/1111123/statistics,temporada europeia 23/24
+Cipriano - Brusque - Brasil C,2025,Juventude (E) [Fluminense],Série A 2025,38,3420,3,190,sofascore,https://www.sofascore.com/api/v1/player/1111123/statistics,ogol 7 inclui Gaúcho
+D. Melgarejo - Sportivo Trinidense - Paraguai,2024,Fernando de la Mora,,,,,,,https://www.sofascore.com/api/v1/player/871573/statistics,Fernando de la Mora (2ª divisão) sem dados na Sofascore
+Daniel Penha - Avaí - Brasil B,2024,Western United (E) [Atlético Mineiro],A-League (23/24),27,2430,22,1729,sofascore,https://www.sofascore.com/api/v1/player/862256/statistics,
+Daniel Penha - Avaí - Brasil B,2025,Dalian Yingbo FC (E) [Atlético Mineiro],Superliga Chinesa 2025,30,2700,12,998,sofascore,https://www.sofascore.com/api/v1/player/862256/statistics,
+Derek - Náutico - Brasil B,2025,JEF United (E) [Atlético Goianiense],J2 League 2025,40,3600,5,150,sofascore,https://www.sofascore.com/api/v1/player/924423/statistics,
+Derik Lacerda - Kawasaki Frontale - Japao A,2026,Kawasaki Frontale,J. League Cup 2026,2,180,1,91,sofascore,https://www.sofascore.com/api/v1/player/994190/statistics,Sofascore hoje 1/90; obs: Sofascore agora mostra Baltika (Rússia 25/26) 7 jogos/429 min
+Diego Gonçalves - Criciúma - Brasil B,2024,Juventude (E) [Mirassol],Série A 2024,38,3420,10,193,sofascore,https://www.sofascore.com/api/v1/player/344077/statistics,ogol 14 inclui Copa do Brasil
+Diego Gonçalves - Criciúma - Brasil B,2025,Criciúma,Série B 2025,38,3420,37,2948,sofascore,https://www.sofascore.com/api/v1/player/344077/statistics,
+Diego Gonçalves - Criciúma - Brasil B,2026,Criciúma,Série B 2026,33,2970,22,876,sofascore,https://www.sofascore.com/api/v1/player/344077/statistics,
+Diogo Barbosa - Juventude - Brasil B,2024,Fluminense,Série A 2024,38,3420,25,1860,sofascore,https://www.sofascore.com/api/v1/player/243107/statistics,ogol 41 = todas as competições
+Diogo Hereda - CRB - Brasil B,2024,CRB,Série B 2024,38,3420,33,2756,sofascore,https://www.sofascore.com/api/v1/player/981295/statistics,ogol 57 = todas as competições
+Diogo Hereda - CRB - Brasil B,2025,Sport (E) [CRB],Série A 2025,38,3420,11,851,sofascore,https://www.sofascore.com/api/v1/player/981295/statistics,ogol 21 = todas as competições
+Diogo Hereda - CRB - Brasil B,2026,CRB,Série B 2026,33,2970,26,1711,sofascore,https://www.sofascore.com/api/v1/player/981295/statistics,
+Diogo de Oliveira - Daejeon Citizen - Coreia A,2024,Plaza Colonia,Uruguai 2024,3,270,3,270,sofascore,https://www.sofascore.com/api/v1/player/1018176/statistics,DUVIDOSO: Plaza Colonia tem só 3 jogos nessa competição na Sofascore (time estava na 2ª divisão em 2024?) e a Sofascore hoje não mostra 2024 para o jogador; conferir
+Djalma Silva - Goiás - Brasil B,2024,AEL Limassol,Chipre (23/24),39,3510,33,2769,sofascore,https://www.sofascore.com/api/v1/player/973933/statistics,temporada europeia 23/24
+Dudu - Vila Nova - Brasil B,2024,Tirol,,,,,,,https://www.sofascore.com/api/v1/player/1135930/statistics,"Sofascore não tem o jogador no Tirol em 2024 (só Floresta, Cearense)"
+Dudu - Vila Nova - Brasil B,2025,Maranhão,,,,,,,https://www.sofascore.com/api/v1/player/1135930/statistics,Maranhão 2025 (Série D/Maranhense) sem dados de jogador; Sofascore só 1 jogo na Copa do Brasil
+Dudu - Vitória - Brasil A,2024,Grêmio Novorizontino (E) [Vitória],Série B 2024,38,3420,8,212,sofascore,https://www.sofascore.com/api/v1/player/1124220/statistics,
+Dudu - Vitória - Brasil A,2025,Vitória,Série A 2025,38,3420,12,332,sofascore,https://www.sofascore.com/api/v1/player/1124220/statistics,
+Dudu - Vitória - Brasil A,2026,Vitória,Série A 2026,30,2700,3,169,sofascore,https://www.sofascore.com/api/v1/player/1124220/statistics,
+E. Reynoso - Deportivo Cali - Colombia A,2024,Minnesota United,MLS 2024,37,3330,1,30,sofascore,https://www.sofascore.com/api/v1/player/856109/statistics,Sofascore: também Tijuana (Liga MX Apertura 2024) 17 jogos/958 min
+E. Reynoso - Deportivo Cali - Colombia A,2026,Deportivo Cali,Colômbia Primera A 2026 (até hoje),32,2880,21,947,sofascore,https://www.sofascore.com/api/v1/player/856109/statistics,
+Eduardo - Criciúma - Brasil B,2024,Grêmio Novorizontino,Série B 2024,38,3420,30,2168,sofascore,https://www.sofascore.com/api/v1/player/870800/statistics,
+Eduardo - Criciúma - Brasil B,2025,FC Anyang,K League 1 2025,38,3420,18,1022,sofascore,https://www.sofascore.com/api/v1/player/870800/statistics,
+Elias Curzel - Operário Ferroviário Esporte Clube (PR) - Brasil B,2024,América Mineiro (E) [Itabirito FC],Série B 2024,38,3420,22,1980,sofascore,https://www.sofascore.com/api/v1/player/874777/statistics,
+Elias Curzel - Operário Ferroviário Esporte Clube (PR) - Brasil B,2025,Operário Ferroviário (E) [Itabirito FC],Série B 2025,38,3420,33,2970,sofascore,https://www.sofascore.com/api/v1/player/874777/statistics,ogol 54 = todas as competições
+Elias Curzel - Operário Ferroviário Esporte Clube (PR) - Brasil B,2026,Operário Ferroviário,Série B 2026,34,3060,5,437,sofascore,https://www.sofascore.com/api/v1/player/874777/statistics,
+Enzo - Athletic Club - Brasil B,2024,Santo André,Paulista A1 2024,12,1080,5,113,sofascore,https://www.sofascore.com/api/v1/player/1491470/statistics,
+Ericson - Botafogo SP - Brasil B,2024,Botafogo-SP,Série B 2024,38,3420,16,1149,sofascore,https://www.sofascore.com/api/v1/player/914471/statistics,
+Ericson - Botafogo SP - Brasil B,2025,Botafogo-SP,Série B 2025,38,3420,26,2072,sofascore,https://www.sofascore.com/api/v1/player/914471/statistics,
+Everaldo - Bahia - Brasil A,2025,Fluminense,Série A 2025,38,3420,28,1372,sofascore,https://www.sofascore.com/api/v1/player/386212/statistics,ogol 58 = todas as competições
+Everton Morelli - Botafogo SP - Brasil B,2025,Maringá,Série C 2025,19,1710,7,602,sofascore,https://www.sofascore.com/api/v1/player/928137/statistics,
+F. Fagúndez - Deportivo Morón - Argentina B,2024,Estudiantes de Caseros,Primera Nacional 2024,39,3510,37,2384,sofascore,https://www.sofascore.com/api/v1/player/1502092/statistics,
+Fabinho - Coritiba - Brasil A,2024,América Mineiro,Série B 2024,38,3420,34,2036,sofascore,https://www.sofascore.com/api/v1/player/995294/statistics,
+Fabinho - Coritiba - Brasil A,2025,América Mineiro,Série B 2025,38,3420,12,771,sofascore,https://www.sofascore.com/api/v1/player/995294/statistics,
+Fabinho - Coritiba - Brasil A,2026,Coritiba,Série A 2026,31,2790,12,296,sofascore,https://www.sofascore.com/api/v1/player/995294/statistics,
+Fábio Matheus - Sport Recife - Brasil B,2024,Sport,Série B 2024,38,3420,14,453,sofascore,https://www.sofascore.com/api/v1/player/1467723/statistics,
+Fábio Matheus - Sport Recife - Brasil B,2025,Grêmio Novorizontino (E) [Sport],Série B 2025,38,3420,29,2173,sofascore,https://www.sofascore.com/api/v1/player/1467723/statistics,
+Fábio Matheus - Sport Recife - Brasil B,2026,Sport,Série B 2026,34,3060,7,376,sofascore,https://www.sofascore.com/api/v1/player/1467723/statistics,
+G. Sosa - Deportivo Maldonado - Uruguai,2024,Racing Club [Reservas],,,,,,,https://www.sofascore.com/api/v1/player/1485478/statistics,"time de reservas, sem dados"
+G. Sosa - Deportivo Maldonado - Uruguai,2025,Racing Club [Reservas],,,,,,,https://www.sofascore.com/api/v1/player/1485478/statistics,"time de reservas, sem dados"
+G. Sosa - Deportivo Maldonado - Uruguai,2026,Deportivo Maldonado (E) [Racing Club],Uruguai 2026,32,2880,8,233,sofascore,https://www.sofascore.com/api/v1/player/1485478/statistics,
+G. Vargas - Olimpia - Paraguai,2024,Guaraní,Paraguai Clausura 2024,22,1980,14,1194,sofascore,https://www.sofascore.com/api/v1/player/1065595/statistics,
+G. Viera - Sportivo Trinidense - Paraguai,2024,Carlos A. Mannucci,Peru Liga 1 2024,34,3060,30,2110,sofascore,https://www.sofascore.com/api/v1/player/805135/statistics,
+Gabriel Pinheiro - Juventude - Brasil B,2024,Brusque (E) [Nova Iguaçu],Série B 2024,38,3420,5,361,sofascore,https://www.sofascore.com/api/v1/player/975380/statistics,
+Gabriel Pires - Esporte Clube Juventude - Brasil B,2024,Fluminense,Série A 2024,38,3420,5,238,sofascore,https://www.sofascore.com/api/v1/player/178407/statistics,
+Gabriel Pires - Esporte Clube Juventude - Brasil B,2025,Panserraikos,Grécia Super League (24/25),36,3240,11,773,sofascore,https://www.sofascore.com/api/v1/player/178407/statistics,temporada europeia 24/25
+Gabriel Pires - Esporte Clube Juventude - Brasil B,2026,Juventude,Série B 2026,34,3060,14,685,sofascore,https://www.sofascore.com/api/v1/player/178407/statistics,em 2026 também 7 jogos/252 min pelo Mirassol (Série A)
+Gabriel Souza - Santa Cruz - Brasil C,2025,Bahia,Baiano 2025,13,1170,3,270,sofascore,https://www.sofascore.com/api/v1/player/1117033/statistics,sem jogos na Série A 2025
+Gabriel Zeca - AD Confiança - Brasil C,2024,Coimbra-MG,,,,,,,https://www.sofascore.com/api/v1/player/1117034/statistics,Coimbra-MG sem dados na Sofascore
+Gabriel Zeca - AD Confiança - Brasil C,2025,Azuriz Futebol,,,,,,,https://www.sofascore.com/api/v1/player/1117034/statistics,"Azuriz 2025 sem dados (Sofascore mostra Betim, Mineiro 2025: 7 jogos)"
+Gabriel Zeca - AD Confiança - Brasil C,2026,Confiança (E) [Azuriz Futebol],Série C 2026,19,1710,16,1203,sofascore,https://www.sofascore.com/api/v1/player/1117034/statistics,
+Guilherme Lobo - Criciúma - Brasil B,2024,União Suzano,,,,,,,https://www.sofascore.com/api/v1/player/1148301/statistics,União Suzano sem dados na Sofascore
+Guilherme Portuga - Londrina Esporte Clube (PR) - Brasil B,2024,Ponte Preta (E) [Portuguesa],Série B 2024,38,3420,4,66,sofascore,https://www.sofascore.com/api/v1/player/1022300/statistics,
+Guilherme Portuga - Londrina Esporte Clube (PR) - Brasil B,2025,Portuguesa,Paulista A1 2025,12,1080,5,60,sofascore,https://www.sofascore.com/api/v1/player/1022300/statistics,Série D 2025 sem dados de jogador; ogol 21 = todas as competições
+Guilherme Portuga - Londrina Esporte Clube (PR) - Brasil B,2026,Londrina (E) [Portuguesa],Série B 2026,33,2970,11,655,sofascore,https://www.sofascore.com/api/v1/player/1022300/statistics,em 2026 também 6 jogos/504 min pela Portuguesa (Série D)
+H. Benincasa - ADT - Peru,2024,Western Mass Pioneers,,,,,,,https://www.sofascore.com/api/v1/player/338883/statistics,"sem dados; DUVIDOSO: Sofascore mostra o jogador no Alianza Atlético em 2024 (Liga 1, 31 jogos/2714 min)"
+H. Benincasa - ADT - Peru,2025,Alianza Atlético,Peru Liga 1 2025,36,3240,35,2955,sofascore,https://www.sofascore.com/api/v1/player/338883/statistics,
+H. Villamayor - Sportivo San Lorenzo - Paraguai,2024,Martín Ledesma,,,,,,,https://www.sofascore.com/api/v1/player/1015353/statistics,Martín Ledesma sem dados na Sofascore
+H. Villamayor - Sportivo San Lorenzo - Paraguai,2025,San Lorenzo,Paraguai División Intermedia 2025,30,2700,21,1621,sofascore,https://www.sofascore.com/api/v1/player/1015353/statistics,
+Henri - CRB - Brasil B,2024,Mirassol (E) [Palmeiras],Série B 2024,38,3420,1,7,sofascore,https://www.sofascore.com/api/v1/player/1002459/statistics,
+Higor - Vila Nova - Brasil B,2024,Vila Nova,Série B 2024,38,3420,1,90,sofascore,https://www.sofascore.com/api/v1/player/1991456/statistics,
+Higor Meritão - Vila Nova Futebol Clube (GO) - Brasil B,2024,Criciúma (E) [Pumas],Série A 2024,38,3420,17,1073,sofascore,https://www.sofascore.com/api/v1/player/973845/statistics,
+Higor Meritão - Vila Nova Futebol Clube (GO) - Brasil B,2025,CRB,Série B 2025,38,3420,35,2999,sofascore,https://www.sofascore.com/api/v1/player/973845/statistics,
+Higor Meritão - Vila Nova Futebol Clube (GO) - Brasil B,2026,Vila Nova,Série B 2026,33,2970,10,385,sofascore,https://www.sofascore.com/api/v1/player/973845/statistics,em 2026 também 11 jogos/617 min pela Chapecoense (Série A)
+I. Gonella - Central Español - Uruguai,2024,Montevideo City,,,,,,,https://www.sofascore.com/api/v1/player/1112895/statistics,sem dados na Sofascore
+I. Gonella - Central Español - Uruguai,2025,Central Español (E) [Torque],Uruguai Segunda División 2025,,,8,195,sofascore,https://www.sofascore.com/api/v1/player/1112895/statistics,ogol 17; total do time não levantado
+I. Gonella - Central Español - Uruguai,2026,Central Español,Uruguai 2026,32,2880,1,20,sofascore,https://www.sofascore.com/api/v1/player/1112895/statistics,
+I. Miramón - Gimnasia La Plata - Argentina A,2025,Boca Juniors,Argentina Apertura 2025,18,1620,3,101,sofascore,https://www.sofascore.com/api/v1/player/1090319/statistics,
+Igor Cariús - Vila Nova - Brasil B,2024,Sport,Série B 2024,38,3420,20,1405,sofascore,https://www.sofascore.com/api/v1/player/874195/statistics,
+Igor Cariús - Vila Nova - Brasil B,2025,Sport,Série A 2025,38,3420,28,1737,sofascore,https://www.sofascore.com/api/v1/player/874195/statistics,ogol 42 = todas as competições
+Igor Cariús - Vila Nova - Brasil B,2026,Vila Nova (E) [Mirassol],Série B 2026,33,2970,6,299,sofascore,https://www.sofascore.com/api/v1/player/874195/statistics,em 2026 também 1 jogo/35 min pelo Mirassol (Série A)
+Igor Maduro - Botafogo PB - Brasil C,2024,Uberaba,,,,,,,https://www.sofascore.com/api/v1/player/981620/statistics,Uberaba sem dados na Sofascore
+J. Ayoví - Guayaquil City - Equador A,2024,Guayaquil City,,,,,,,https://www.sofascore.com/api/v1/player/1103512/statistics,sem dados de 2024 na Sofascore
+J. Ayoví - Guayaquil City - Equador A,2025,Guayaquil City,Equador Serie B 2025,32,2880,29,2569,sofascore,https://www.sofascore.com/api/v1/player/1103512/statistics,"ATENÇÃO: ogol tinha 9 jogos, Sofascore 29"
+J. Chala - Manta - Equador A,2024,El Nacional,Equador LigaPro 2024,30,2700,4,263,sofascore,https://www.sofascore.com/api/v1/player/1807743/statistics,
+J. Hernández - Botafogo - Brasil A,2024,Millonarios,Colômbia Apertura 2024,25,2250,11,897,sofascore,https://www.sofascore.com/api/v1/player/1482359/statistics,
+J. Hernández - Botafogo - Brasil A,2025,Millonarios,Colômbia Apertura+Finalización 2025,46,4140,2,135,sofascore,https://www.sofascore.com/api/v1/player/1482359/statistics,
+J. Mejia - Jaguares de Córdoba - Colombia A,2024,Once Caldas (E) [Bogotá],Colômbia Apertura 2024,25,2250,6,92,sofascore,https://www.sofascore.com/api/v1/player/972583/statistics,ogol 10
+J. Mejia - Jaguares de Córdoba - Colombia A,2025,Jaguares de Córdoba,Colômbia Primera B 2025,46,4140,11,358,sofascore,https://www.sofascore.com/api/v1/player/972583/statistics,em 2025 também jogou pelo Bogotá FC (8 jogos)
+J. Ramos - Deportivo Maldonado - Uruguai,2024,Boston River,Uruguai 2024,37,3330,11,745,sofascore,https://www.sofascore.com/api/v1/player/587824/statistics,
+J. Ramos - Deportivo Maldonado - Uruguai,2025,Plaza Colonia,Uruguai 2025,37,3330,30,2221,sofascore,https://www.sofascore.com/api/v1/player/587824/statistics,
+J. Tévez - Cusco - Peru,2024,Cusco FC,Peru Liga 1 2024,34,3060,34,1822,sofascore,https://www.sofascore.com/api/v1/player/923196/statistics,
+J. Tévez - Cusco - Peru,2025,Cusco FC,Peru Liga 1 2025,38,3420,38,1277,sofascore,https://www.sofascore.com/api/v1/player/923196/statistics,
+J. Vélez - Alianza Lima - Peru,2024,Universidad César Vallejo,Peru Liga 1 2024,34,3060,31,2729,sofascore,https://www.sofascore.com/api/v1/player/542636/statistics,
+J. Vélez - Alianza Lima - Peru,2025,Universitario,Peru Liga 1 2025,35,3150,29,1182,sofascore,https://www.sofascore.com/api/v1/player/542636/statistics,
+Japa - Mirassol - Brasil A,2024,Cruzeiro,Série A 2024,38,3420,10,301,sofascore,https://www.sofascore.com/api/v1/player/1459623/statistics,
+Japa - Mirassol - Brasil A,2025,Cruzeiro,Série A 2025,38,3420,5,144,sofascore,https://www.sofascore.com/api/v1/player/1459623/statistics,
+Japa - Mirassol - Brasil A,2026,Mirassol (E) [Cruzeiro],Série A 2026,31,2790,6,316,sofascore,https://www.sofascore.com/api/v1/player/1459623/statistics,em 2026 também 3 jogos/78 min pelo Cruzeiro (Série A)
+Jean Carlos - Goiás - Brasil B,2024,Atlético Goianiense,Série A 2024,38,3420,3,42,sofascore,https://www.sofascore.com/api/v1/player/1588737/statistics,
+Jean Carlos - Goiás - Brasil B,2025,Goiás,Série B 2025,38,3420,10,302,sofascore,https://www.sofascore.com/api/v1/player/1588737/statistics,
+Jeh - FK Partizan Belgrade - Servia,2026,Göztepe,Turquia Süper Lig (25/26),34,3060,16,492,sofascore,https://www.sofascore.com/api/v1/player/1464661/statistics,
+Jeh - FK Partizan Belgrade - Servia,2026,Ponte Preta,Paulista A1 2026,8,720,2,162,sofascore,https://www.sofascore.com/api/v1/player/1464661/statistics,
+Jorge Hurtado - Deportes Tolima - Colombia A,2024,Watford,Championship (23/24),46,4140,1,,sofascore (time) / fotmob (jogador),https://www.sofascore.com/api/v1/player/1174900/statistics,"jogador: fotmob (1 jogo, sem minutos)"
+Jorge Hurtado - Deportes Tolima - Colombia A,2024,Gillingham,League Two (23/24),46,4140,3,83,sofascore,https://www.sofascore.com/api/v1/player/1174900/statistics,minutos da Sofascore
+Jorge Hurtado - Deportes Tolima - Colombia A,2025,PAOK B,Super League 2 Grécia (24/25),26,2340,20,,sofascore (time) / fotmob (jogador),https://www.sofascore.com/api/v1/player/1174900/statistics,"jogador: fotmob (20 jogos, sem minutos)"
+Jorge Hurtado - Deportes Tolima - Colombia A,2025,Millonarios,Colômbia Finalización 2025,20,1800,14,810,sofascore,https://www.sofascore.com/api/v1/player/1174900/statistics,Sofascore: 14 jogos/751 min
+Jorge Hurtado - Deportes Tolima - Colombia A,2026,Deportes Tolima,Colômbia Primera A 2026 (até hoje),37,3330,13,608,sofascore,https://www.sofascore.com/api/v1/player/1174900/statistics,Sofascore atualizado (app tinha 5/139); no mesmo torneio fez 5 jogos/149 min pelo Millonarios
+Josué - Coritiba - Brasil A,2024,Coritiba,Série B 2024,38,3420,14,956,sofascore,https://www.sofascore.com/api/v1/player/77726/statistics,
+João Pedro Chermont - Coritiba - Brasil A,2025,Santos,Série A 2025,38,3420,5,247,sofascore,https://www.sofascore.com/api/v1/player/1482361/statistics,ogol 14 inclui Paulista
+João Vieira - Vila Nova - Brasil B,2024,Paysandu,Série B 2024,38,3420,35,3016,sofascore,https://www.sofascore.com/api/v1/player/1046490/statistics,ogol 57 = todas as competições
+Kadu Santos - Botafogo - Brasil A,2026,Botafogo,Carioca 2026,10,900,6,491,sofascore,https://www.sofascore.com/api/v1/player/1843325/statistics,
+Kauan Cristtyan - Cuiabá - Brasil B,2025,América-MG,Série B 2025,38,3420,2,30,sofascore (time) / base local (jogador),,jogador: base local
+Kauan Lindes - Athletic Club - Brasil B,2024,Villa Nova,Mineiro 2024,8,720,2,30,sofascore,https://www.sofascore.com/api/v1/player/1631554/statistics,minutos da Sofascore
+Kauan Lindes - Athletic Club - Brasil B,2025,Athletic,Série B 2025,38,3420,8,328,sofascore,https://www.sofascore.com/api/v1/player/1631554/statistics,Sofascore: 8 jogos/277 min
+Kauan Lindes - Athletic Club - Brasil B,2025,Botafogo,Série A + Copa do Brasil + Carioca 2025,55,4950,7,374,sofascore,https://www.sofascore.com/api/v1/player/1631554/statistics,"Sofascore: Série A 1/29, Copa do Brasil 1/56, Carioca 5/289"
+Kauã Diniz - RB Omiya Ardija - Japao B,2024,América-MG,Série B 2024,38,3420,1,15,sofascore,https://www.sofascore.com/api/v1/player/1485486/statistics,Sofascore: 1 jogo/9 min
+Kauã Diniz - RB Omiya Ardija - Japao B,2026,RB Omiya Ardija,J2 League 2026 (torneio especial fev-jun),20,1800,7,385,sofascore,https://www.sofascore.com/api/v1/player/1485486/statistics,Sofascore: 7/380
+Keiller - Coritiba - Brasil A,2025,Ceará,Cearense + Copa do Nordeste 2025,18,1620,4,360,sofascore,https://www.sofascore.com/api/v1/player/840082/statistics,"Sofascore: Cearense 3/270, Copa do Nordeste 1/90"
+Keno - Coritiba - Brasil A,2024,Fluminense,Série A 2024,38,3420,27,1406,sofascore,https://www.sofascore.com/api/v1/player/787607/statistics,ogol 40 = todas as competições
+Keno - Coritiba - Brasil A,2025,Fluminense,Série A 2025,38,3420,18,520,sofascore,https://www.sofascore.com/api/v1/player/787607/statistics,ogol 40 = todas as competições
+Keno - Coritiba - Brasil A,2026,Coritiba (E) [Fluminense],Série A 2026,31,2790,7,131,sofascore,https://www.sofascore.com/api/v1/player/787607/statistics,
+Kevyson - Ponte Preta - Brasil B,2024,Santos,Paulista A1 2024,16,1440,3,94,sofascore,https://www.sofascore.com/api/v1/player/1389980/statistics,sem jogos na Série B 2024
+Kevyson - Ponte Preta - Brasil B,2025,Sport (E) [Santos],Série A 2025,38,3420,9,272,sofascore,https://www.sofascore.com/api/v1/player/1389980/statistics,
+L. Morales - Sportivo Luqueño - Paraguai,2024,Montevideo Wanderers (E) [Nacional],Uruguai 2024,37,3330,34,3034,sofascore,https://www.sofascore.com/api/v1/player/1123152/statistics,
+L. Morales - Sportivo Luqueño - Paraguai,2025,Olimpia (E) [Nacional],Paraguai Clausura 2025,22,1980,20,1715,sofascore,https://www.sofascore.com/api/v1/player/1123152/statistics,em 2025 também 15 jogos pelo Nacional (Uruguai)
+L. Morales - Sportivo Luqueño - Paraguai,2026,Sportivo Luqueño (E) [Nacional],Paraguai Clausura 2026,14,1260,10,747,sofascore,https://www.sofascore.com/api/v1/player/1123152/statistics,
+L. Phellype - CRB - Brasil B,2024,Shonan Bellmare,J1 League 2024,38,3420,4,49,sofascore,https://www.sofascore.com/api/v1/player/291707/statistics,
+L. Phellype - CRB - Brasil B,2025,Shonan Bellmare,J1 League 2025,38,3420,20,546,sofascore,https://www.sofascore.com/api/v1/player/291707/statistics,
+L. Phellype - CRB - Brasil B,2026,CRB,Série B 2026,33,2970,15,368,sofascore,https://www.sofascore.com/api/v1/player/291707/statistics,
+L. Souto - Defensa y Justicia - Argentina A,2025,Defensa y Justicia,Argentina Clausura 2025,16,1440,3,50,sofascore,https://www.sofascore.com/api/v1/player/1020523/statistics,Sofascore: 3/48
+Leo Jacó - Atlético GO - Brasil B,2024,Vasco da Gama,Carioca 2024,13,1170,1,19,sofascore,https://www.sofascore.com/api/v1/player/1462709/statistics,Sofascore: 2 jogos/19 min
+Leo Jacó - Atlético GO - Brasil B,2026,Atlético-GO,Série B 2026,34,3060,17,564,sofascore,https://www.sofascore.com/api/v1/player/1462709/statistics,Sofascore: 17/506
+Lucas Bonifácio - Maringá - Brasil C,2024,Maringá (E) [Oeste],Paranaense 2024,17,1530,8,128,sofascore,https://www.sofascore.com/api/v1/player/1491634/statistics,Série D 2024 sem dados de jogador; ogol 20 = todas as competições
+Lucas França - CD Santa Clara - Portugal A,2026,Nacional,Liga Portugal (25/26),34,3060,6,540,sofascore,https://www.sofascore.com/api/v1/player/832672/statistics,
+Lucas Mineiro - Juventude - Brasil B,2024,Cuiabá,Série A 2024,38,3420,33,2340,sofascore,https://www.sofascore.com/api/v1/player/840077/statistics,ogol 57 = todas as competições
+Lucas Rian - São Bernardo FC - Brasil B,2025,São Bernardo,Paulista A1 2025,13,1170,11,386,sofascore,https://www.sofascore.com/api/v1/player/1893682/statistics,
+Lucas Ribeiro - Goias - Brasil B,2024,Goiás,Série B 2024,38,3420,30,2532,sofascore,https://www.sofascore.com/api/v1/player/945578/statistics,
+Lucas Ribeiro - Goias - Brasil B,2025,Goiás,Série B 2025,38,3420,25,1918,sofascore,https://www.sofascore.com/api/v1/player/945578/statistics,
+Lucas Ribeiro - Goias - Brasil B,2026,Goiás,Série B 2026,33,2970,24,1771,sofascore,https://www.sofascore.com/api/v1/player/945578/statistics,
+Lucas Rodrigues - Goiás - Brasil B,2024,Goiás [S23],,,,,,,https://www.sofascore.com/api/v1/player/1888138/statistics,"time sub-23, sem dados"
+Lucas Rodrigues - Goiás - Brasil B,2025,Goiás,Série B 2025,38,3420,3,94,sofascore,https://www.sofascore.com/api/v1/player/1888138/statistics,
+Luccas Claro - Eyüpspor - Turquia,2024,Eyüpspor,Turquia 1.Lig (23/24),34,3060,33,2910,sofascore,https://www.sofascore.com/api/v1/player/998209/statistics,
+Luccas Paraizo - Leixões - Portugal B,2026,Leixões,Liga Portugal 2 (25/26),34,3060,10,386,sofascore,https://www.sofascore.com/api/v1/player/1463461/statistics,
+Luccas Paraizo - Leixões - Portugal B,2026,Maccabi Netanya,Israel (25/26),33,2970,9,323,sofascore,https://www.sofascore.com/api/v1/player/1463461/statistics,
+Luiz Felipe - Náutico - Brasil B,2024,Ponte Preta,Série B 2024,38,3420,13,906,sofascore,https://www.sofascore.com/api/v1/player/1111235/statistics,
+Luiz Felipe - Náutico - Brasil B,2025,Ponte Preta,Série C 2025,27,2430,21,1297,sofascore,https://www.sofascore.com/api/v1/player/1111235/statistics,
+Luiz Henrique - Avaí - Brasil B,2024,Goiás,Série B 2024,38,3420,23,1214,sofascore,https://www.sofascore.com/api/v1/player/1015283/statistics,
+Luiz Henrique - Avaí - Brasil B,2025,Criciúma,Série B 2025,38,3420,21,950,sofascore,https://www.sofascore.com/api/v1/player/1015283/statistics,
+Luizão - CRB - Brasil B,2024,Radomiak Radom,Ekstraklasa (23/24),34,3060,27,2042,sofascore,https://www.sofascore.com/api/v1/player/885854/statistics,temporada europeia 23/24
+Luizão - CRB - Brasil B,2025,Atlético Goianiense,Série B 2025,38,3420,28,1924,sofascore,https://www.sofascore.com/api/v1/player/885854/statistics,
+Luizão - CRB - Brasil B,2026,CRB,Série B 2026,33,2970,10,314,sofascore,https://www.sofascore.com/api/v1/player/885854/statistics,
+Léo Campos - CRB - Brasil B,2024,Cianorte (E) [Velo Clube],,,,,,,https://www.sofascore.com/api/v1/player/125034/statistics,Cianorte sem dados; Sofascore mostra Velo Clube (Paulista A2 2024: 20 jogos/1746 min)
+Léo Campos - CRB - Brasil B,2025,CRB,Série B 2025,38,3420,21,1521,sofascore,https://www.sofascore.com/api/v1/player/125034/statistics,
+Léo Campos - CRB - Brasil B,2026,CRB,Série B 2026,33,2970,5,123,sofascore,https://www.sofascore.com/api/v1/player/125034/statistics,
+M. Acosta - Rubio Ñú - Paraguai,2024,Sol de América (E) [Rosario Central],Paraguai Apertura+Clausura 2024,44,3960,27,1107,sofascore,https://www.sofascore.com/api/v1/player/1015338/statistics,
+M. Acosta - Rubio Ñú - Paraguai,2025,2 de Mayo (E) [Rosario Central],Paraguai Clausura 2025,22,1980,18,1063,sofascore,https://www.sofascore.com/api/v1/player/1015338/statistics,em 2025 também 10 jogos pelo Resistencia (Intermedia)
+M. Castro - Juventude - Brasil B,2024,Juárez,Liga MX Clausura+Apertura 2024,34,3060,16,725,sofascore,https://www.sofascore.com/api/v1/player/340143/statistics,
+M. Castro - Juventude - Brasil B,2025,Liverpool Montevideo,Uruguai 2025,38,3420,16,954,sofascore,https://www.sofascore.com/api/v1/player/340143/statistics,
+M. Perea - Mushuc Runa - Equador A,2025,Técnico Univ.,Equador LigaPro 2025,36,3240,15,1005,sofascore,https://www.sofascore.com/api/v1/player/1004138/statistics,
+Marcinho - Chapecoense - Brasil A,2024,Chapecoense,Série B 2024,38,3420,33,2499,sofascore,https://www.sofascore.com/api/v1/player/870329/statistics,
+Marcinho - Chapecoense - Brasil A,2025,Chapecoense,Série B 2025,38,3420,34,2415,sofascore,https://www.sofascore.com/api/v1/player/870329/statistics,
+Marcos Paulo (LCB) - Juventude - Brasil B,2026,Juventude,Série B 2026,34,3060,25,2398,sofascore (time) / base local (jogador),,jogador: base local Wyscout
+Marllon - Remo - Brasil A,2024,Cuiabá,Série A 2024,38,3420,33,2882,sofascore,https://www.sofascore.com/api/v1/player/221206/statistics,
+Marlon - Remo - Brasil A,2024,América Mineiro,Série B 2024,38,3420,29,2516,sofascore,https://www.sofascore.com/api/v1/player/870933/statistics,
+Marlon - Remo - Brasil A,2025,América Mineiro,Série B 2025,38,3420,18,1512,sofascore,https://www.sofascore.com/api/v1/player/870933/statistics,
+Marlon - Remo - Brasil A,2026,Remo,Série A 2026,30,2700,8,682,sofascore,https://www.sofascore.com/api/v1/player/870933/statistics,em 2026 também passou pelo Cuiabá (Série B)
+Mateus Silva - Esporte Clube Vitória - Brasil A,2025,Cuiabá,Série B 2025,38,3420,31,2609,sofascore,https://www.sofascore.com/api/v1/player/1107069/statistics,"Sofascore como ""Mateusinho"""
+Mateus Silva - Esporte Clube Vitória - Brasil A,2026,Vitória,Série A 2026,30,2700,10,607,sofascore,https://www.sofascore.com/api/v1/player/1107069/statistics,"Sofascore como ""Mateusinho"""
+Matheus Bianqui - Grêmio Novorizontino - Brasil B,2025,Mirassol (E) [Coritiba],Série A 2025,38,3420,13,164,sofascore,https://www.sofascore.com/api/v1/player/981746/statistics,
+Matheus Dias - Coritiba - Brasil A,2024,Coritiba,Paranaense 2024,15,1350,2,22,sofascore,https://www.sofascore.com/api/v1/player/1836073/statistics,
+Matheus Dias - Coritiba - Brasil A,2025,Coritiba,Paranaense 2025,13,1170,1,35,sofascore,https://www.sofascore.com/api/v1/player/1836073/statistics,
+Matheus Dias - Coritiba - Brasil A,2026,Coritiba,Paranaense 2026,10,900,2,104,sofascore,https://www.sofascore.com/api/v1/player/1836073/statistics,
+Matheus Sales - Botafogo SP - Brasil B,2024,Ulsan Hyundai,K League 1 2024,38,3420,12,520,sofascore,https://www.sofascore.com/api/v1/player/822935/statistics,ogol 20 = todas as competições
+Maurício Garcez - Chapecoense - Brasil A,2024,Avaí,Série B 2024,38,3420,33,2338,sofascore,https://www.sofascore.com/api/v1/player/1050353/statistics,
+Maurício Garcez - Chapecoense - Brasil A,2025,Paysandu (E) [Avaí],Série B 2025,38,3420,22,1839,sofascore,https://www.sofascore.com/api/v1/player/1050353/statistics,
+Maurício Garcez - Chapecoense - Brasil A,2026,Chapecoense,Série A 2026,30,2700,16,1038,sofascore,https://www.sofascore.com/api/v1/player/1050353/statistics,
+Mikael Doka - Operário PR - Brasil B,2024,Central Coast,A-League (23/24),30,2700,29,1751,sofascore,https://www.sofascore.com/api/v1/player/1067652/statistics,temporada europeia 23/24; ogol 42 = todas as competições
+Mikael Doka - Operário PR - Brasil B,2025,Ventforet Kofu (E) [Central Coast],J2 League 2025,38,3420,2,88,sofascore,https://www.sofascore.com/api/v1/player/1067652/statistics,
+Murilo - Ponte Preta - Brasil B,2024,Atlético Piauiense,,,,,,,https://www.sofascore.com/api/v1/player/2035942/statistics,sem dados na Sofascore
+Murilo - Ponte Preta - Brasil B,2025,GE Brasil (E) [Guarany Bagé],,,,,,,https://www.sofascore.com/api/v1/player/2035942/statistics,sem dados na Sofascore
+Nenê - Botafogo PB - Brasil C,2024,Juventude,Série A 2024,38,3420,28,1515,sofascore,https://www.sofascore.com/api/v1/player/5672/statistics,
+Nenê - Botafogo PB - Brasil C,2025,Juventude,Série A 2025,38,3420,25,1007,sofascore,https://www.sofascore.com/api/v1/player/5672/statistics,
+Nicolas - Criciúma - Brasil B,2024,Paysandu,Série B 2024,38,3420,29,2142,sofascore,https://www.sofascore.com/api/v1/player/866564/statistics,
+Nicolas - Criciúma - Brasil B,2025,Criciúma,Série B 2025,38,3420,25,1831,sofascore,https://www.sofascore.com/api/v1/player/866564/statistics,em 2025 também 8 jogos pelo Paysandu na Série B
+Nicolas - Criciúma - Brasil B,2026,Criciúma,Série B 2026,33,2970,20,977,sofascore,https://www.sofascore.com/api/v1/player/866564/statistics,
+P. Zarza - Olimpia - Paraguai,2024,Olimpia,Paraguai Clausura 2024,22,1980,6,194,sofascore,https://www.sofascore.com/api/v1/player/1885523/statistics,
+PK - AD Confiança - Brasil C,2024,Volta Redonda,Série C 2024,27,2430,21,1406,sofascore,https://www.sofascore.com/api/v1/player/892126/statistics,"Sofascore como ""Patrick"""
+PK - AD Confiança - Brasil C,2025,Volta Redonda,Série B 2025,38,3420,20,725,sofascore,https://www.sofascore.com/api/v1/player/892126/statistics,"Sofascore como ""Patrick"""
+PK - AD Confiança - Brasil C,2026,Confiança,Série C 2026,19,1710,17,1321,sofascore,https://www.sofascore.com/api/v1/player/892126/statistics,"Sofascore como ""Patrick"""
+Pablo - Operário PR - Brasil B,2024,Athletico Paranaense,Série A 2024,38,3420,29,1711,sofascore,https://www.sofascore.com/api/v1/player/374486/statistics,ogol 53 = todas as competições
+Pablo - Operário PR - Brasil B,2025,Sport,Série A 2025,38,3420,21,1076,sofascore,https://www.sofascore.com/api/v1/player/374486/statistics,
+Patrick - Sport Club do Recife - Brasil B,2024,Sport [S23],,,,,,,https://www.sofascore.com/api/v1/player/2033880/statistics,"time sub-23, sem dados"
+Patrick - Sport Club do Recife - Brasil B,2026,Sport,Série B 2026,34,3060,1,23,sofascore,https://www.sofascore.com/api/v1/player/2033880/statistics,ogol 6 inclui Pernambucano e Copa do Nordeste
+Paulinho - América Mineiro - Brasil B,2024,América-MG,Série B 2024,38,3420,2,56,sofascore (time) / base local (jogador),,jogador: base local
+Paulinho - América Mineiro - Brasil B,2026,América-MG,Série B 2026,34,3060,7,458,sofascore (time) / base local (jogador),,jogador: base local
+Paulo Vítor - Atlético GO - Brasil B,2025,Atlético GO,Série B 2025,38,3420,24,2419,sofascore (time) / base local (jogador),,jogador: base local Wyscout
+Paulo Vítor - Atlético GO - Brasil B,2025,Al Akhdoud,Arábia Saudita Pro League (24/25),34,3060,32,3325,sofascore (time) / base local (jogador),,jogador: base local Wyscout; minutos do Wyscout passam de 34x90 (contam acréscimos)
+Pedrinho - Goias - Brasil B,2024,Goiás,Série B 2024,38,3420,7,153,sofascore,https://www.sofascore.com/api/v1/player/1217904/statistics,ogol 19 = todas as competições
+Pedrinho - Goias - Brasil B,2025,Goiás,Série B 2025,38,3420,26,1462,sofascore,https://www.sofascore.com/api/v1/player/1217904/statistics,
+Pedrinho - Goias - Brasil B,2026,Goiás,Série B 2026,33,2970,8,315,sofascore,https://www.sofascore.com/api/v1/player/1217904/statistics,
+Pedro Castro - CRB - Brasil B,2024,Avaí,Série B 2024,38,3420,28,1938,sofascore,https://www.sofascore.com/api/v1/player/243185/statistics,
+Pedro Rocha - Juventude - Brasil B,2024,Ponte Preta,Série B 2024,38,3420,32,2880,sofascore,https://www.sofascore.com/api/v1/player/1491281/statistics,
+Pedro Rocha - Juventude - Brasil B,2025,Ponte Preta,Série C 2025,27,2430,2,180,sofascore,https://www.sofascore.com/api/v1/player/1491281/statistics,
+Pedro Rocha - Juventude - Brasil B,2026,Juventude,Série B 2026,34,3060,3,270,sofascore,https://www.sofascore.com/api/v1/player/1491281/statistics,
+Perotti - Sport Recife - Brasil B,2025,Chapecoense,Série B 2025,38,3420,21,621,sofascore,https://www.sofascore.com/api/v1/player/840076/statistics,
+R. Ferreira - Rubio Ñú - Paraguai,2025,12 de Junio VH,Paraguai División Intermedia 2025,30,2700,12,1066,sofascore,https://www.sofascore.com/api/v1/player/822776/statistics,
+Rafael Barcelos - América Mineiro - Brasil B,2025,América-MG,Série B 2025,38,3420,5,264,sofascore (time) / base local (jogador),,jogador: base local
+Rafael Pontelo - FK Radnik Surdulica - Servia,2024,Sporting CP,Liga Portugal (23/24),34,3060,1,1,sofascore,https://www.sofascore.com/api/v1/player/1459633/statistics,em 23/24 também 12 jogos/956 min pelo Leixões (Liga Portugal 2)
+Rafael Pontelo - FK Radnik Surdulica - Servia,2025,Pafos,Chipre (24/25),36,3240,4,216,sofascore,https://www.sofascore.com/api/v1/player/1459633/statistics,Sofascore: 4/211
+Rafael Pontelo - FK Radnik Surdulica - Servia,2025,FK Auda,Letônia Virsliga 2025,36,3240,15,1350,sofascore,https://www.sofascore.com/api/v1/player/1459633/statistics,Sofascore: 15/1323
+Rafael Pontelo - FK Radnik Surdulica - Servia,2026,Sporting B,Liga Portugal 2 (25/26),34,3060,3,70,sofascore,https://www.sofascore.com/api/v1/player/1459633/statistics,
+Rafael Pontelo - FK Radnik Surdulica - Servia,2026,Farense,Liga Portugal 2 (25/26),34,3060,7,65,sofascore,https://www.sofascore.com/api/v1/player/1459633/statistics,
+Reginaldo - Náutico - Brasil B,2024,Ordabasy,Cazaquistão Premier League 2024,24,2160,13,960,sofascore,https://www.sofascore.com/api/v1/player/555456/statistics,
+Reginaldo - Náutico - Brasil B,2025,Juventude,Série A 2025,38,3420,18,1172,sofascore,https://www.sofascore.com/api/v1/player/555456/statistics,
+Reidiney - Grêmio Novorizontino - Brasil B,2024,Grêmio Novorizontino [S20],,,,,,,https://www.sofascore.com/api/v1/player/1647542/statistics,"time sub-20, sem dados"
+Reidiney - Grêmio Novorizontino - Brasil B,2025,Grêmio Novorizontino [S20],,,,,,,https://www.sofascore.com/api/v1/player/1647542/statistics,"time sub-20, sem dados"
+Reinaldo - Mirassol - Brasil A,2024,Grêmio,Série A 2024,38,3420,29,2526,sofascore,https://www.sofascore.com/api/v1/player/243109/statistics,
+Renan Bernabé - Barra - Brasil C,2024,Figueirense,Série C 2024,19,1710,7,115,sofascore,https://www.sofascore.com/api/v1/player/1843338/statistics,
+Renan Bernabé - Barra - Brasil C,2025,Barra-SC,Catarinense 2025,11,990,3,170,sofascore,https://www.sofascore.com/api/v1/player/1843338/statistics,Série D 2025 sem dados de jogador; ogol 27 = todas as competições
+Renan Henrique - Brusque Futebol Clube (SC) - Brasil C,2024,Santa Catarina,,,,,,,https://www.sofascore.com/api/v1/player/1829877/statistics,sem dados de 2024 na Sofascore
+Renan Henrique - Brusque Futebol Clube (SC) - Brasil C,2025,Figueirense (E) [Santa Catarina],Série C 2025,19,1710,12,474,sofascore,https://www.sofascore.com/api/v1/player/1829877/statistics,
+Renan Henrique - Brusque Futebol Clube (SC) - Brasil C,2026,Brusque (E) [Santa Catarina],Série C 2026,25,2250,5,73,sofascore,https://www.sofascore.com/api/v1/player/1829877/statistics,
+Renato Palm - Grêmio Novorizontino - Brasil B,2024,Grêmio Novorizontino,Série B 2024,38,3420,22,1645,sofascore,https://www.sofascore.com/api/v1/player/872383/statistics,"Sofascore como ""Renato Silveira"""
+Renato Palm - Grêmio Novorizontino - Brasil B,2025,Grêmio Novorizontino,Série B 2025,38,3420,3,53,sofascore,https://www.sofascore.com/api/v1/player/872383/statistics,"Sofascore como ""Renato Silveira"""
+Renato Palm - Grêmio Novorizontino - Brasil B,2026,Grêmio Novorizontino,,,,,,,https://www.sofascore.com/api/v1/player/872383/statistics,Sofascore sem jogos dele em 2026
+Robson - Grêmio Novorizontino - Brasil B,2024,Coritiba,Série B 2024,38,3420,22,1313,sofascore,https://www.sofascore.com/api/v1/player/850987/statistics,
+Rodrigo - Criciúma - Brasil B,2024,Criciúma,Série A 2024,38,3420,32,2880,sofascore,https://www.sofascore.com/api/v1/player/886773/statistics,"Sofascore como ""Rodrigo Fagundes"""
+Rodrigo Rodrigues - Coritiba - Brasil A,2024,Espérance de Tunis,,,,,,,https://www.sofascore.com/api/v1/player/989091/statistics,Sofascore sem a liga tunisiana 23/24 dele (só Champions africana)
+Rodrigo Rodrigues - Coritiba - Brasil A,2025,Coritiba,Série B 2025,38,3420,4,134,sofascore,https://www.sofascore.com/api/v1/player/989091/statistics,
+Rodrigo Rodrigues - Coritiba - Brasil A,2026,Coritiba,Série A 2026,31,2790,3,100,sofascore,https://www.sofascore.com/api/v1/player/989091/statistics,
+Rodrigo Souza - Ponte Preta - Brasil B,2024,São Bernardo,Série C 2024,25,2250,11,467,sofascore,https://www.sofascore.com/api/v1/player/538130/statistics,
+Rodrigo Souza - Ponte Preta - Brasil B,2025,Ponte Preta,Série C 2025,27,2430,10,533,sofascore,https://www.sofascore.com/api/v1/player/538130/statistics,
+Rodrigo Souza - Ponte Preta - Brasil B,2026,Ponte Preta,Série B 2026,34,3060,13,691,sofascore,https://www.sofascore.com/api/v1/player/538130/statistics,
+Rômulo - Grêmio Novorizontino - Brasil B,2024,Palmeiras,Série A 2024,38,3420,9,180,sofascore,https://www.sofascore.com/api/v1/player/1105078/statistics,
+S. Fretes - Rubio Ñú - Paraguai,2025,2 de Mayo,Paraguai Clausura 2025,22,1980,22,879,sofascore,https://www.sofascore.com/api/v1/player/934416/statistics,em 2025 também 6 jogos pelo Ameliano (Apertura)
+S. López - Tigre - Argentina A,2024,Independiente,Argentina LPF 2024,27,2430,16,956,sofascore,https://www.sofascore.com/api/v1/player/1482391/statistics,
+S. Marcel - Cerro Largo - Uruguai,2024,Colón FC,,,,,,,https://www.sofascore.com/api/v1/player/1512465/statistics,sem dados de 2024 na Sofascore
+S. Marcel - Cerro Largo - Uruguai,2025,Colón FC,Uruguai Segunda División 2025,,,10,815,sofascore,https://www.sofascore.com/api/v1/player/1512465/statistics,"ATENÇÃO: ogol tinha 29 jogos, Sofascore 10; total do time não levantado"
+S. Rodríguez - Torque - Uruguai,2024,Godoy Cruz,Argentina LPF 2024,27,2430,23,1660,sofascore,https://www.sofascore.com/api/v1/player/1020191/statistics,
+Sergio Palacios - Ponte Preta - Brasil B,2024,Red Bull Bragantino,Série A 2024,38,3420,1,29,sofascore,https://www.sofascore.com/api/v1/player/1525493/statistics,
+Sergio Palacios - Ponte Preta - Brasil B,2025,Red Bull Bragantino,Série A 2025,38,3420,2,70,sofascore,https://www.sofascore.com/api/v1/player/1525493/statistics,
+T. Nasif - Platense - Argentina A,2024,River Plate [Reservas],,,,,,,https://www.sofascore.com/api/v1/player/1835787/statistics,"time de reservas, sem dados"
+T. Nasif - Platense - Argentina A,2025,Banfield (E) [River Plate],Argentina Apertura+Clausura 2025,32,2880,8,559,sofascore,https://www.sofascore.com/api/v1/player/1835787/statistics,
+T. Nasif - Platense - Argentina A,2026,Platense (E) [River Plate],Argentina LPF 2026 (até hoje),29,2610,12,523,sofascore,https://www.sofascore.com/api/v1/player/1835787/statistics,
+T. Porra - Barracas Central - Argentina A,2024,San Lorenzo [Reservas],,,,,,,https://www.sofascore.com/api/v1/player/1106548/statistics,"time de reservas, sem dados"
+Tavinho - Grêmio Novorizontino - Brasil B,2024,Fortaleza (E) [B] [Grêmio Novorizontino],,,,,,,,Fortaleza B / jogador não encontrado na Sofascore
+Thauan - América Mineiro - Brasil B,2024,América-MG,Série B 2024,38,3420,6,195,sofascore (time) / base local (jogador),,jogador: base local
+Thiago Couto - Sport Recife - Brasil B,2024,Sport,Série B 2024,38,3420,2,162,sofascore,https://www.sofascore.com/api/v1/player/871291/statistics,ogol 7 = todas as competições
+Thiago Rodrigues - Goiás - Brasil B,2025,Goiás,Série B 2025,38,3420,1,90,sofascore,https://www.sofascore.com/api/v1/player/840026/statistics,
+Thiaguinho - CRB - Brasil B,2024,Treze (E) [Flamengo],Copa do Nordeste 2024,8,720,4,340,sofascore,https://www.sofascore.com/api/v1/player/981296/statistics,Série D e Paraibano sem dados de jogador; ogol 30 = todas as competições
+Tiquinho Soares - Mirassol - Brasil A,2026,Santos,,,,,,,https://www.sofascore.com/api/v1/player/789100/statistics,sem jogos pelo Santos na Série A 2026 (Sofascore)
+Tiquinho Soares - Mirassol - Brasil A,2026,Mirassol,Série A 2026,31,2790,7,372,sofascore,https://www.sofascore.com/api/v1/player/789100/statistics,
+Tiquinho Soares - Mirassol - Brasil A,2026,Botafogo,Série A 2026,31,2790,5,119,sofascore,https://www.sofascore.com/api/v1/player/789100/statistics,
+Titi - Juventude - Brasil B,2024,Fortaleza,Série A 2024,38,3420,23,2022,sofascore,https://www.sofascore.com/api/v1/player/243435/statistics,ogol 42 = todas as competições
+Titi - Juventude - Brasil B,2025,Goiás,Série B 2025,38,3420,15,1258,sofascore,https://www.sofascore.com/api/v1/player/243435/statistics,
+Titi - Juventude - Brasil B,2026,Juventude,Série B 2026,34,3060,11,704,sofascore,https://www.sofascore.com/api/v1/player/243435/statistics,
+Tito - Atlético GO - Brasil B,2024,Maringá,Paranaense 2024,17,1530,15,1454,sofascore,https://www.sofascore.com/api/v1/player/1105307/statistics,
+Vitor Caetano - CRB - Brasil B,2024,CRB,Série B 2024,38,3420,2,180,sofascore,https://www.sofascore.com/api/v1/player/931558/statistics,
+Vitor Caetano - CRB - Brasil B,2025,CRB,Série B 2025,38,3420,2,180,sofascore,https://www.sofascore.com/api/v1/player/931558/statistics,
+Vitor Ricardo - Figueirense - Brasil C,2024,São Bernardo,Série C 2024,25,2250,9,472,sofascore,https://www.sofascore.com/api/v1/player/1105995/statistics,
+Vitor Ricardo - Figueirense - Brasil C,2025,Pouso Alegre,,,,,,,https://www.sofascore.com/api/v1/player/1105995/statistics,Pouso Alegre sem dados; Sofascore mostra Boavista (Carioca 2025: 10 jogos)
+Vitor Ricardo - Figueirense - Brasil C,2026,Figueirense,Série C 2026,19,1710,10,463,sofascore,https://www.sofascore.com/api/v1/player/1105995/statistics,
+W. Mendieta - Rubio Ñú - Paraguai,2025,Guaraní,Paraguai Apertura+Clausura 2025,44,3960,25,1077,sofascore,https://www.sofascore.com/api/v1/player/75649/statistics,
+Wallace - Londrina - Brasil B,2024,Brusque,Série B 2024,38,3420,34,2993,sofascore,https://www.sofascore.com/api/v1/player/77244/statistics,
+Wallace - Londrina - Brasil B,2025,Londrina,Série C 2025,27,2430,26,2340,sofascore,https://www.sofascore.com/api/v1/player/77244/statistics,
+Wanderson - Náutico - Brasil B,2024,Paysandu,Série B 2024,38,3420,23,1871,sofascore,https://www.sofascore.com/api/v1/player/871476/statistics,
+Wanderson - Náutico - Brasil B,2025,Ponte Preta,Série C 2025,27,2430,26,2315,sofascore,https://www.sofascore.com/api/v1/player/871476/statistics,
+Wenderson - Náutico - Brasil B,2024,América-RN,Copa do Nordeste 2024,8,720,4,233,sofascore,https://www.sofascore.com/api/v1/player/958676/statistics,Série D 2024 sem dados de jogador; ogol 26 = todas as competições
+Wenderson - Náutico - Brasil B,2025,Náutico,Série C 2025,25,2250,16,686,sofascore,https://www.sofascore.com/api/v1/player/958676/statistics,
+William - Avaí - Brasil B,2024,Cruzeiro [S20],,,,,,,,"time sub-20, sem dados"
+William - Avaí - Brasil B,2025,Cruzeiro [S20],,,,,,,,"time sub-20, sem dados"
+William - Avaí - Brasil B,2026,Avaí,,,,,,,,jogador não encontrado com segurança na Sofascore
+Yarlen - Athletic-MG - Brasil B,2024,Botafogo,Série A 2024,38,3420,4,84,sofascore,https://www.sofascore.com/api/v1/player/1807776/statistics,ogol 9 = todas as competições
+Yarlen - Athletic-MG - Brasil B,2025,Botafogo,Carioca 2025,11,990,9,577,sofascore,https://www.sofascore.com/api/v1/player/1807776/statistics,sem jogos na Série A 2025
+Yarlen - Athletic-MG - Brasil B,2026,Athletic-MG,Série B 2026,33,2970,5,81,sofascore,https://www.sofascore.com/api/v1/player/1807776/statistics,
+Zé Gabriel - Sport Recife - Brasil B,2024,Coritiba (E) [Vasco],Série B 2024,38,3420,17,1187,sofascore,https://www.sofascore.com/api/v1/player/988852/statistics,
+Ó. Ruiz - Sportivo Luqueño - Paraguai,2025,Grêmio Novorizontino,Série B 2025,38,3420,16,384,sofascore,https://www.sofascore.com/api/v1/player/589988/statistics,
