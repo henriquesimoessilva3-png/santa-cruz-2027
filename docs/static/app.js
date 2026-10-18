@@ -3018,11 +3018,28 @@ async function abrirFicha(ref) {
   rotuloFiDados(j);
   bt.title = 'Colar o físico (CSV do SkillCorner) e o técnico (xlsx/csv do Wyscout) deste jogador — vale no campograma e na busca (raio, letra A/B/C, ▲ △ ⚑)';
   bt.onclick = () => abrirDadosBase(j);
+  botaoFichaComp();
   await renderFicha();
   ajustarCampo();
   $('#ficha').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+/* visão nova (18/10): a ficha compara, de saída, com quem sobe × quem cai; o botão troca para a liga (o seletor de coorte) */
+function fichaComp() { try { return localStorage.getItem('sc_fichaComp') === 'liga' ? 'liga' : 'sobe'; } catch (e) { return 'sobe'; } }
+function botaoFichaComp() {
+  const base = $('#fiBase'); if (!base) return;
+  let b = $('#fiComp');
+  if (!window.VISAO_NOVA) { if (b) b.remove(); base.style.display = ''; return; }
+  if (!b) { b = document.createElement('button'); b.id = 'fiComp'; b.className = 'bt mini'; const ref = $('#fiDados') || base; ref.insertAdjacentElement('afterend', b);
+    b.onclick = () => { try { localStorage.setItem('sc_fichaComp', fichaComp() === 'sobe' ? 'liga' : 'sobe'); } catch (e) {} botaoFichaComp(); renderFicha(); }; }
+  const sobe = fichaComp() === 'sobe';
+  b.textContent = sobe ? '⇄ comparar com a liga' : '⇄ quem sobe × quem cai';
+  b.title = sobe ? 'Hoje: contra o titular de quem subiu e de quem caiu na Série B. Clique para comparar com a liga (o seletor ao lado)' : 'Hoje: contra a liga. Clique para voltar a quem sobe × quem cai';
+  base.style.display = sobe ? 'none' : '';
+  let et = $('#fiCompRot');
+  if (!et) { et = document.createElement('span'); et.id = 'fiCompRot'; et.className = 'fi-comp-rot'; base.insertAdjacentElement('beforebegin', et); }
+  et.textContent = sobe ? 'vs. quem sobe × quem cai' : ''; et.style.display = sobe ? '' : 'none';
+}
 function rotuloFiDados(j) {
   const bt = $('#fiDados'); if (!bt || !j) return;
   bt.textContent = dadosColados(primaryKey(j), null) ? '✎ físico/técnico colados' : '+ físico/técnico';
@@ -3207,13 +3224,17 @@ function estat(lista, campo) {
 /* indicadores em que MENOS é melhor (faltas cometidas, cartões): o "melhor" do arquivo é o máximo da coorte, então a
    cor e o radar se invertem — fazer mais falta que a média é vermelho, não verde (07/10) */
 const menorMelhorInd = rot => /^(fouls per 90|faltas \/90|faltas por 90|faltas\/90|amarelos|yellow cards|cartões|red cards|vermelhos)/i.test(String(rot || '').trim());
+/* visão nova (18/10): amarelo = até 10% abaixo da média; ● = fundamental da posição (conta na seta do card) */
+let FUND_FICHA = null;
+const fundMarca = rot => (FUND_FICHA && FUND_FICHA.has(String(rot).replace(/ ↓$/, '')) ? '<i class="sf-f" title="Fundamental: conta na seta do card">●</i>' : '');
 function linhaInd(rot, valor, media, melhor, casas) {
   if (typeof valor !== 'number' || isNaN(valor)) return '';
+  const VN = !!window.VISAO_NOVA;
   if (menorMelhorInd(rot)) {
     const alvo = Math.max(melhor || 0, valor, 0.0001), f = n => (typeof n === 'number' ? n.toFixed(casas).replace('.', ',') : '—');
-    const classe = media == null ? 'acima' : valor <= media ? 'acima' : 'abaixo';
+    const classe = media == null ? 'acima' : valor <= media ? 'acima' : (VN && valor <= media * 1.1) ? 'perto' : 'abaixo';
     return '<div class="fi-linha ' + classe + '" title="' + esc(rot) + ': ' + f(valor) + ' · média ' + f(media) + ' · aqui MENOS é melhor (maior da coorte ' + f(melhor) + ')">' +
-      '<span class="rot">' + esc(rot) + ' ↓</span><span class="val">' + f(valor) + '</span>' +
+      '<span class="rot">' + fundMarca(rot) + esc(rot) + ' ↓</span><span class="val">' + f(valor) + '</span>' +
       '<span class="fi-barra"><i style="width:' + Math.max(0, Math.min(100, valor / alvo * 100)).toFixed(1) + '%"></i>' +
       (media != null ? '<span class="marca" style="left:' + Math.max(0, Math.min(100, media / alvo * 100)).toFixed(1) + '%"></span>' : '') + '</span>' +
       '<span class="med">' + f(media) + '</span><span class="mx">—</span></div>';
@@ -3222,11 +3243,11 @@ function linhaInd(rot, valor, media, melhor, casas) {
   const pct = Math.max(0, Math.min(100, valor / alvo * 100));
   const pctMed = Math.max(0, Math.min(100, (media || 0) / alvo * 100));
   const lider = melhor != null && melhor > 0 && valor >= melhor - 1e-9;
-  const classe = lider ? 'lider' : (media == null || valor >= media) ? 'acima' : 'abaixo';
+  const classe = lider ? 'lider' : (media == null || valor >= media) ? 'acima' : (VN && valor >= media * 0.9) ? 'perto' : 'abaixo';
   const f = n => (typeof n === 'number' ? n.toFixed(casas).replace('.', ',') : '—');
   return '<div class="fi-linha ' + classe + '" title="' + esc(rot) + ': ' + f(valor) +
       ' · média ' + f(media) + ' · melhor ' + f(melhor) + '">' +
-    '<span class="rot">' + esc(rot) + '</span>' +
+    '<span class="rot">' + fundMarca(rot) + esc(rot) + '</span>' +
     '<span class="val">' + f(valor) + '</span>' +
     '<span class="fi-barra"><i style="width:' + pct.toFixed(1) + '%"></i>' +
       (media != null ? '<span class="marca" style="left:' + pctMed.toFixed(1) + '%"></span>' : '') +
@@ -3363,6 +3384,8 @@ async function montarFicha(j, modo) {
     (obs ? '<div class="o">' + esc(obs) + '</div>' : '') + '</div>').join('');
 
   const dados = await kpisDe(j, modo);
+  try { const pc0 = posNoCampograma(primaryKey(j), j.id), p0 = (pc0 && pc0 !== 'GOL' && j.p !== 'GOL') ? pc0 : j.p;
+    FUND_FICHA = (window.VISAO_NOVA && typeof window.subidaFundRots === 'function') ? window.subidaFundRots(p0) : null; } catch (e) { FUND_FICHA = null; }
   let colunas = '';
   const porGrupo = {};
   if (dados && dados.ok) {
@@ -3423,10 +3446,13 @@ async function montarFicha(j, modo) {
   /* o radar entra na frente das colunas: e o resumo delas */
   const radar = radarDaFicha(porGrupo, j.n);
 
-  const corpo = '<div class="fi-grid">' + radar + colunas + '</div>' + outrosFicha +
+  const VN = !!window.VISAO_NOVA;
+  let corpo = '<div class="fi-grid">' + radar + colunas + '</div>' + (VN ? '' : outrosFicha) +
     '<div class="fi-leg">' +
       '<span><i class="v"></i>acima da média</span>' +
+      (VN ? '<span><i class="am"></i>até 10% abaixo</span>' : '') +
       '<span><i class="r"></i>abaixo</span>' +
+      (VN ? '<span><b class="sf-f">●</b> fundamental — conta na seta do card</span>' : '') +
       '<span><i class="a"></i>líder da coorte</span>' +
       '<span><i class="m"></i>média da coorte</span>' +
       '<span class="num-leg">média</span>' +
@@ -3435,9 +3461,11 @@ async function montarFicha(j, modo) {
   /* quadro "Quem sobe × quem cai" (static/subida.js): os indicadores da posição contra a régua do estudo */
   const posCampoF = posNoCampograma(primaryKey(j), j.id);
   const jSub = (posCampoF && posCampoF !== 'GOL' && j.p && j.p !== 'GOL' && posCampoF !== j.p) ? Object.assign({}, j, { p: posCampoF, _posBase: j.p }) : j;
-  const quadroSubida = (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
+  const compSobe = VN && fichaComp() === 'sobe';
+  const quadroSubida = VN ? '' : (typeof window.subidaQuadro === 'function') ? window.subidaQuadro(jSub, dados) : '';
+  if (compSobe && typeof window.subidaFicha === 'function') { const q = window.subidaFicha(jSub, dados); if (q) corpo = q; }
 
-  const rodape = 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
+  const rodape = compSobe ? 'Comparado com o titular mediano dos clubes que subiram e dos que caíram na Série B 2022–2025, na posição (' + sig(jSub.p) + ') — use o botão ao lado de “físico/técnico” para comparar com a liga.' : 'Comparado com ' + milhar(lista.length) + ' jogadores de ' + sig(j.p) +
     (modo === 'posbr' ? ' nas ligas brasileiras' : modo === 'posb' ? ' da Série B' : modo === 'posliga' ? ' da ' + j.l : ' de todas as ligas') +
     ' · período ' + (dados && dados.periodo ? dados.periodo : 'ago26');
 
@@ -3469,7 +3497,9 @@ async function montarFicha(j, modo) {
       resumoF = '<div class="fi-resumo">' +
         '<div class="fi-res"><span class="fi-res-l tipo-' + (Lm ? 'Ap' : (L || 'nd')) + '">' + (L || '?') + '</span><div><b>Tipo físico ' + (L || 'sem letra') + '</b><small>' +
           (tx && tx.tipo ? esc(tx.tipo) + (Lm ? ' — A com volume (o perfil completo)' : L0 === 'A' ? ' — o tipo A da posição' : ' — o A da posição é ' + esc(jl.p === 'MED' ? 'o motor de volume' : pref.join(' / '))) : 'sem rastreio físico suficiente (5 jogos)') + '</small></div></div>' +
-        (s && s.nova ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : 'nota <i>' + (s.nota > 0 ? '+' : '') + s.nota.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</i> — ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai' })[s.c]) + '</b><small>' +
+        (s && s.conta ? '<div class="fi-res" title="' + esc(s.html ? (s.html.match(/title="([^"]*)"/) || [])[1] || '' : '') + '"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : '<i>' + s.verde + '</i> de <i>' + s.com + '</i> fundamentais no nível de quem sobe') + '</b><small>' +
+          '<span class="sf-n v">' + s.verde + '</span> no nível · <span class="sf-n a">' + s.amarelo + '</span> até 10% abaixo · <span class="sf-n r">' + s.vermelho + '</span> mais longe' + (s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai', n: '' })[s.c] + '</small></div></div>'
+        : s && s.nova ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : 'nota <i>' + (s.nota > 0 ? '+' : '') + s.nota.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</i> — ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai' })[s.c]) + '</b><small>' +
           s.grupos.map(g => esc(g.g) + ' ' + (g.z == null ? '—' : (g.z > 0 ? '+' : '') + g.z.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' (' + Math.round(100 * g.w / s.pesoTot) + '%)').join(' · ') +
           (s.com < s.n ? ' · ' + (s.n - s.com) + ' de ' + s.n + ' sem dado' : '') + ' · régua ' + esc(s.regua) + '</small></div></div>'
         : s ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Subida: ' + (s.c === 'n' ? 'faltam dados' : 'atende <i>' + s.ok + '</i> de <i>' + s.com + '</i> fundamentais' + (s.com ? ' (' + Math.round(s.ok / s.com * 100) + '%)' : '')) + '</b><small>' +

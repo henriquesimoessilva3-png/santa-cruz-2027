@@ -284,6 +284,35 @@
         '<span class="vnt-dist" title="como a nota distribui os ' + nT + ' titulares da Série B ' + anos + ' desta régua">▲ <b class="v">' + d.v + '</b> · ↔ <b class="a">' + d.a + '</b> · ▼ <b class="r">' + d.r + '</b></span></th>' + G.map(cel).join('') + fora + '</tr>';
     };
     const el = document.createElement('div'); el.id = 'vntQuadros'; el.className = 'vnf';
+    if (TG.modo === 'conta') {
+      /* 18/10 (b22): seta por CONTAGEM dos fundamentais, grupo único */
+      const pc = Math.round((TG.perto || 0.1) * 100), cf = v => (v > 0 ? '+' : '') + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const linhaC = rg => {
+        const P = R[rg], d = P.dist.Todos;
+        const por = {}; P.fora.forEach(f => { (por[f.motivo] = por[f.motivo] || []).push(f); });
+        return '<tr><th>' + esc(P.nome) + '<small>' + (TG.posicoes_da_regua[rg] || []).map(p => NOME_POS[p] || p).join(' + ') + '</small><small>' + P.n.Sobe + ' sobem · ' + P.n.Meio + ' meio · ' + P.n.Cai + ' caem</small>' +
+          '<span class="vnt-dist">▲ <b class="v">' + d.v + '</b> · ↔ <b class="a">' + d.a + '</b> · ▼ <b class="r">' + d.r + '</b></span></th>' +
+          '<td class="vnt-g"><span class="vnf-n"><b>' + P.entra.length + '</b> fundamentais</span><ul>' + P.entra.slice().sort((a, b) => (b.sep || 0) - (a.sep || 0)).map(x => '<li>' + esc(x.rot) + ' <i title="separação entre o titular de quem sobe e o de quem cai, em desvios">' + sinal(x.sep) + '</i>' + (x.clube ? '<em class="clube" title="entra por decisão do clube (09/10)">clube</em>' : '') + '</li>').join('') + '</ul></td>' +
+          '<td class="vnt-g">▲ a partir de <b>' + cf(P.cortes.v) + '</b><br>▼ até <b>' + cf(P.cortes.r) + '</b></td>' +
+          '<td class="vnt-fora"><b>' + P.fora.length + '</b> ficam fora — ' + Object.keys(por).map(m => m + ' <b>' + por[m].length + '</b>').join(' · ') + '<details><summary>ver quais</summary><dl>' +
+          Object.keys(por).map(m => '<dt>' + esc(m) + '</dt><dd>' + por[m].map(f => esc(f.rot) + (f.sep != null ? ' (' + sinal(f.sep) + ')' : '')).join(' · ') + '</dd>').join('') + '</dl></details></td></tr>';
+      };
+      el.innerHTML = '<h2 class="vnf-tit">Técnico — a seta ▲ ↔ ▼ e o que entra nela</h2>' +
+        '<p class="vnf-intro">Cada jogador de linha recebe uma <b>seta</b> pelo técnico (Wyscout): a mesma dos cards do campograma, da lista Tipo físico e do Banco de consulta. Junto com a letra do físico, ela forma o <b>farol</b>.</p>' +
+        '<div class="vnf-duas"><div class="vnf-regra">' +
+        '<p><b>Fundamentais.</b> Em cada posição, entra o indicador que separa o titular de quem sobe do de quem cai em <b>0,15</b> desvio ou mais (Série B ' + anos + ', 900 minutos ou mais; gêmeas juntas). Zagueiro: a defesa entra por decisão do clube.</p>' +
+        '<p><b>A cor de cada um</b>, contra a mediana do titular de quem sobe na posição: <span class="sf-n v">verde</span> no nível ou acima · <span class="sf-n a">amarelo</span> até <b>' + pc + '%</b> abaixo · <span class="sf-n r">vermelho</span> mais longe. Em faltas e cartões, menos é melhor.</p>' +
+        '<p><b>A seta</b> conta as cores: pontos = (verdes − vermelhos) ÷ medidos.</p>' +
+        '<div><span class="vnt-seta v">▲</span><span>pontos a partir da mediana dos titulares de quem sobe</span></div>' +
+        '<div><span class="vnt-seta a">↔</span><span>entre as duas medianas</span></div>' +
+        '<div><span class="vnt-seta r">▼</span><span>pontos até a mediana dos titulares de quem cai</span></div>' +
+        '<div><span class="vnt-seta n">?</span><span>menos de 4 fundamentais medidos</span></div>' +
+        '<div class="vnt-prova"><b>Prova</b> (um ano de fora por vez; AUC — 0,50 é moeda): a contagem empata com as regras anteriores e põe muito mais indicador na conta (o centroavante foi de 3 para ' + R.CA.entra.length + ').' +
+        '<table><thead><tr><th>Regra</th><th>AUC</th></tr></thead><tbody>' + auc.map(r => '<tr><td>' + esc(r.regra) + '</td><td class="n">' + fAuc(r.auc) + '</td></tr>').join('') + '</tbody></table></div></div></div>' +
+        '<div class="vnf-mat"><h3>Os fundamentais, posição a posição</h3><table class="vnf-tab vnt-tab"><thead><tr><th>Régua</th><th>Fundamentais (separação)</th><th>Cortes da seta</th><th>Fica de fora</th></tr></thead><tbody>' + ordem.map(linhaC).join('') + '</tbody></table>' +
+        '<p class="vnf-nota">Gerado em ' + esc(TG.gerado_em) + ' (b22). Abaixo, a página de sempre: indicador a indicador, sobe × meio × cai.</p></div>';
+      rol.insertBefore(el, corpo); return;
+    }
     el.innerHTML =
       '<h2 class="vnf-tit">Técnico — a seta ▲ ↔ ▼ e o que entra nela</h2>' +
       '<p class="vnf-intro">Cada jogador de linha recebe uma <b>seta</b> pelo técnico (Wyscout), comparado com os titulares da Série B da sua posição. É a mesma seta dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta; ' +

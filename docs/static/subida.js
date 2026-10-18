@@ -488,8 +488,38 @@
   const TG = window.TECNICO_GRUPOS || null;
   const regraNova = pos => (window.VISAO_NOVA && TG && TG.reguas[TG.regua_de[pos]] && TG.reguas[TG.regua_de[pos]].entra.length) ? TG.reguas[TG.regua_de[pos]] : null;
   const NOTA_ARRED = v => (v > 0 ? '+' : '') + num(v, 2);
+  /* 18/10 (b22) — cor de um indicador contra a mediana do titular de quem SOBE: verde no nível ou acima · amarelo até 10% abaixo ·
+     vermelho mais que isso (em faltas e cartões, "abaixo" é ter mais) */
+  const PERTO = () => (TG && TG.perto) || 0.10;
+  function cor10(i, r, v) {
+    if (v == null || !r || r[0] == null || estilo(i, r)) return '';
+    const s = r[0], bx = paraBaixo(i, r), p = PERTO();
+    if (bx ? v <= s : v >= s) return 'v';
+    if (bx ? v <= s * (1 + p) + 1e-9 : v >= s * (1 - p) - 1e-9) return 'a';
+    return 'r';
+  }
+  window.subidaCor10 = (pos, k, v) => { const i = D && D.inds[k]; return i ? cor10(i, ref(pos, k), v) : ''; };
+  function contaVals(pos, get, R) {
+    const ZM = TG.zmax || 2.5; let nv = 0, na = 0, nr = 0, com = 0; const inds = [], sem_ = [], zs = [];
+    R.entra.forEach(e => {
+      const i = D.inds[e.k]; if (!i) return;
+      const v = get(i), r = ref(pos, e.k);
+      if (v == null || !r || r[0] == null) { sem_.push(e.rot); inds.push({ rot: e.rot, k: e.k, v: null }); return; }
+      const c = cor10(i, r, v) || 'a'; com++; if (c === 'v') nv++; else if (c === 'a') na++; else nr++;
+      let z = (v - e.mu) / (e.sd || 1); if (e.menor) z = -z; zs.push(Math.max(-ZM, Math.min(ZM, z)));
+      inds.push({ rot: e.rot, k: e.k, v, c });
+    });
+    const n = R.entra.length, pts = com ? (nv - nr) / com : null;
+    const o = { nova: true, conta: true, verde: nv, amarelo: na, vermelho: nr, ok: nv, com, n, sem: sem_, inds, pontos: pts,
+      nota: zs.length ? zs.reduce((a, b) => a + b, 0) / zs.length : null, cortes: R.cortes, regua: R.nome, grupos: [], pesoTot: 1,
+      falta: inds.filter(x => x.c === 'r').map(x => x.rot), abaixo: [] };
+    o.c = (com < Math.min(4, n) || pts == null) ? 'n' : pts >= R.cortes.v ? 'v' : pts <= R.cortes.r ? 'r' : 'a';
+    o.parcial = o.c !== 'n' && com < SELO_DADO * n;
+    return o;
+  }
   function notaVals(pos, get) {
     const R = regraNova(pos); if (!R) return null;
+    if (TG.modo === 'conta') return contaVals(pos, get, R);
     const ZM = TG.zmax || 2.5, por = {}; let ok = 0, com = 0; const falta = [], sem_ = [], abaixo = [];
     R.entra.forEach(e => {
       const i = D.inds[e.k]; if (!i) return;
@@ -510,6 +540,14 @@
     return o;
   }
   function notaTexto(pos, o) {
+    if (o.conta) {
+      const nome = D.posicoes[pos].nome, pc = Math.round(PERTO() * 100);
+      if (o.c === 'n') return 'Seta técnica (' + nome + '): faltam dados — só ' + o.com + ' dos ' + o.n + ' fundamentais estão medidos.' + (o.sem.length ? ' Sem dado: ' + o.sem.join(', ') + '.' : '');
+      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais no nível de quem sobe · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' mais longe' +
+        (o.parcial ? ' (PARCIAL: só ' + o.com + ' dos ' + o.n + ' medidos)' : '') + '.\nPontos (verdes − vermelhos) ÷ medidos = ' + NOTA_ARRED(o.pontos) + ' · ▲ a partir de ' + NOTA_ARRED(o.cortes.v) + ' (mediana dos titulares de quem sobe) · ▼ até ' + NOTA_ARRED(o.cortes.r) + ' (mediana de quem cai).' +
+        (o.falta.length ? '\nVermelho em: ' + o.falta.join(', ') + '.' : '') + (o.sem.length ? '\nSem dado: ' + o.sem.join(', ') + '.' : '') +
+        (o.nota != null ? '\nNota z (média dos desvios contra a Série B ' + TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2) + '): ' + NOTA_ARRED(o.nota) + '.' : '');
+    }
     const nome = D.posicoes[pos].nome, lado = { v: 'no nível do titular de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai', n: 'faltam dados' }[o.c];
     const gr = o.grupos.map(g => g.g + ' ' + (g.z == null ? 'sem dado' : NOTA_ARRED(g.z)) + ' (peso ' + Math.round(100 * g.w / o.pesoTot) + '%' + (g.com < g.n ? ', ' + g.com + ' de ' + g.n + ' medidos' : '') + ')').join(' · ');
     if (o.c === 'n') return 'Seta técnica (' + nome + ', régua ' + o.regua + '): faltam dados — só ' + o.com + ' dos ' + o.n + ' indicadores que entram na nota estão medidos. Sem dado: ' + o.sem.join(', ') + '.';
@@ -667,6 +705,58 @@
       });
       return out;
     } catch (e) { return []; }
+  };
+  /* ===== 18/10 — visão nova: a ficha inteira contra quem sobe × quem cai, num quadro só (pedido do Henrique: "mata a parte de
+     baixo, sobe tudo, compara só com quem sobe e quem cai"). Todos os indicadores da aba Subida (físico + técnico), por bloco;
+     os fundamentais (os que contam na seta do card) vêm primeiro, com a marca azul. Barra: o valor dele numa escala até o maior
+     de (ele, quem sobe, quem cai); traço claro = quem sobe, traço vermelho = quem cai. */
+  window.subidaFundRots = function (pos) {
+    const R = regraNova(pos), out = new Set(); if (!R) return out;
+    R.entra.forEach(e => { if (KPI[e.rot] != null) out.add(KPI[e.rot]); });
+    return out;
+  };
+  window.subidaFicha = function (j, dados) {
+    try {
+      if (!D || !j || !D.posicoes[j.p]) return '';
+      const P = D.posicoes[j.p], tec = {};
+      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+      const base = linhaSub(j), col = coladoDe(j), RN = regraNova(j.p), fund = {};
+      if (RN) RN.entra.forEach(e => { fund[e.k] = e; });
+      let nf = 0; const linhas = [];
+      D.inds.forEach(i => {
+        let v = null;
+        if (i.cat === 'fis') v = j[FIS_ORD[nf++]]; else if (KPI[i.rot] != null) v = tec[KPI[i.rot]];
+        if (i.cat !== 'fis' && col) { const c = col(i.rot); if (c != null) v = c; }
+        const r = ref(j.p, i.k); if (!r || r[0] == null || r[1] == null) return;
+        if (typeof v !== 'number' || !isFinite(v)) v = (base && !j._dadosFicha && typeof base[NC + i.k] === 'number') ? base[NC + i.k] : null;
+        linhas.push({ i, r, v, c: cor10(i, r, v), f: !!fund[i.k], d: fund[i.k] ? fund[i.k].sep : r[2] });
+      });
+      if (!linhas.some(l => l.v != null)) return '';
+      const blocos = []; D.inds.forEach(i => { if (!blocos.includes(i.bloco)) blocos.push(i.bloco); });
+      const linha = l => {
+        const o = l.r.orig || l.r, s = o[0], c = o[1], v = l.v, bx = paraBaixo(l.i, l.r), est = estilo(l.i, l.r);
+        const alvo = Math.max(v || 0, s || 0, c || 0, 1e-6) * 1.12, w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
+        const cls = l.c === 'v' ? 'acima' : l.c === 'a' ? 'perto' : l.c === 'r' ? 'abaixo' : 'neutro';
+        const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + ' · titular de quem sobe ' + num(s, l.i.casas) + ' · de quem cai ' + num(c, l.i.casas) +
+          (bx ? ' · aqui MENOS é melhor' : '') + (est ? ' · quem sobe tem MENOS: retrato do estilo do time, sem cor' : '') + (l.i.nm ? ' · o Wyscout mudou o critério' : '') +
+          (l.f ? ' · FUNDAMENTAL: conta na seta do card' : '');
+        return '<div class="fi-linha sf ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">●</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx && !est ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
+          '<span class="val">' + (v == null ? '—' : num(v, l.i.casas)) + '</span>' +
+          '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca" style="left:' + w(s) + '%"></span><span class="marca cai" style="left:' + w(c) + '%"></span></span>' +
+          '<span class="med">' + num(s, l.i.casas) + '</span><span class="mx">' + num(c, l.i.casas) + '</span></div>';
+      };
+      const bloco = b => {
+        const ls = linhas.filter(l => l.i.bloco === b).sort((a, c) => ((c.f ? 1 : 0) - (a.f ? 1 : 0)) || (Math.abs(c.d || 0) - Math.abs(a.d || 0)));
+        if (!ls.length) return '';
+        const fs = ls.filter(l => l.f && l.v != null);
+        return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont">' + fs.filter(l => l.c === 'v').length + '/' + fs.length + '</b>' : '') + '</h4>' +
+          '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">sobe</span><span class="mx">cai</span></div>' + ls.map(linha).join('') + '</div>';
+      };
+      return '<div class="fi-grid sf-grid">' + blocos.map(bloco).join('') + '</div>' +
+        '<div class="fi-leg"><span><i class="v"></i>no nível de quem sobe</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>mais longe</span>' +
+        '<span><i class="m"></i>quem sobe</span><span><i class="m cai"></i>quem cai</span><span><b class="sf-f">●</b> fundamental — conta na seta do card</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
+        '<span class="num-leg">sobe · cai = titular mediano de quem subiu e de quem caiu na Série B ' + D.anos[0] + '–' + D.anos[D.anos.length - 1] + ', ' + esc(P.nome) + '</span></div>';
+    } catch (e) { return ''; }
   };
   window.subidaQuadro = function (j, dados) {
     try {

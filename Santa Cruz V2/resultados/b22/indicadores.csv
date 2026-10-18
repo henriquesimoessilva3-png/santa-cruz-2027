@@ -1,0 +1,281 @@
+regua,posicao,entra,grupo,indicador,sep,motivo
+LAT,Laterais,1,Passe,Passes ao terço final por 90,0.19,
+LAT,Laterais,1,Ofensivo,Passes recebidos por 90,0.19,
+LAT,Laterais,1,Participação em gols,Gols por 90,0.47,
+LAT,Laterais,1,Ofensivo,Finalizações no gol %,0.31,
+LAT,Laterais,1,Ofensivo,Toques na área por 90,0.46,
+LAT,Laterais,1,Participação em gols,Gols de cabeça por 90,0.36,
+LAT,Laterais,1,Participação em gols,Assistências por 90,0.21,
+LAT,Laterais,1,Passe,Passes-chave por 90,0.42,
+LAT,Laterais,1,Passe,Passes para a área por 90,0.27,
+LAT,Laterais,1,Passe,Cruzamentos por 90,0.28,
+LAT,Laterais,1,Defensivo,Faltas por 90,0.26,
+LAT,Laterais,1,Defensivo,Cartões amarelos por 90,0.17,
+LAT,Laterais,0,Passe,Passes por 90,0.1,não separa
+LAT,Laterais,0,Passe,Passes certos %,-0.12,não separa
+LAT,Laterais,0,Passe,Passes para frente por 90,-0.11,não separa
+LAT,Laterais,0,Passe,Passes para frente certos %,-0.34,estilo
+LAT,Laterais,0,Passe,Passes progressivos por 90,0.03,não separa
+LAT,Laterais,0,Passe,Passes progressivos certos %,0.08,não separa
+LAT,Laterais,0,Passe,Passes ao terço final certos %,-0.2,estilo
+LAT,Laterais,0,Passe,Passes longos por 90,-0.06,não separa
+LAT,Laterais,0,Passe,Passes longos certos %,-0.38,estilo
+LAT,Laterais,0,Ofensivo,Conduções progressivas por 90,0.09,não separa
+LAT,Laterais,0,Participação em gols,xG por 90,0.09,não separa
+LAT,Laterais,0,Ofensivo,Finalizações por 90,0.05,não separa
+LAT,Laterais,0,Participação em gols,xA por 90,0.12,não separa
+LAT,Laterais,0,Passe,Cruzamentos certos %,0.07,não separa
+LAT,Laterais,0,Ofensivo,Dribles por 90,0.09,não separa
+LAT,Laterais,0,Ofensivo,Dribles certos %,0.07,não separa
+LAT,Laterais,0,Ofensivo,Duelos ofensivos ganhos %,-0.07,não separa
+LAT,Laterais,0,Ofensivo,Faltas sofridas por 90,-0.07,não separa
+LAT,Laterais,0,Defensivo,Duelos por 90,-0.21,critério mudou
+LAT,Laterais,0,Defensivo,Duelos ganhos %,0.0,não separa
+LAT,Laterais,0,Defensivo,Duelos defensivos por 90,-0.16,critério mudou
+LAT,Laterais,0,Defensivo,Duelos defensivos ganhos %,0.1,não separa
+LAT,Laterais,0,Defensivo,Duelos aéreos por 90,-0.31,critério mudou
+LAT,Laterais,0,Defensivo,Duelos aéreos ganhos %,-0.09,não separa
+LAT,Laterais,0,Defensivo,Ações defensivas certas por 90,-0.3,critério mudou
+LAT,Laterais,0,Defensivo,Interceptações (ajustadas à posse),-0.01,não separa
+LAT,Laterais,0,Defensivo,Carrinhos (ajustados à posse),-0.46,estilo
+LAT,Laterais,0,Defensivo,Finalizações bloqueadas por 90,-0.2,estilo
+ZAG,Zagueiros,1,Passe,Passes por 90,0.74,
+ZAG,Zagueiros,1,Passe,Passes certos %,0.23,
+ZAG,Zagueiros,1,Passe,Passes para frente por 90,0.46,
+ZAG,Zagueiros,1,Passe,Passes progressivos por 90,0.38,
+ZAG,Zagueiros,1,Passe,Passes progressivos certos %,0.42,
+ZAG,Zagueiros,1,Passe,Passes ao terço final por 90,0.72,
+ZAG,Zagueiros,1,Passe,Passes ao terço final certos %,0.2,
+ZAG,Zagueiros,1,Passe,Passes longos por 90,0.29,
+ZAG,Zagueiros,1,Ofensivo,Passes recebidos por 90,0.85,
+ZAG,Zagueiros,1,Participação em gols,xG por 90,0.36,
+ZAG,Zagueiros,1,Passe,Passes para a área por 90,0.67,
+ZAG,Zagueiros,1,Defensivo,Duelos defensivos ganhos %,-0.01,clube
+ZAG,Zagueiros,1,Defensivo,Duelos aéreos ganhos %,0.26,clube
+ZAG,Zagueiros,1,Defensivo,Interceptações (ajustadas à posse),-0.15,clube
+ZAG,Zagueiros,1,Defensivo,Finalizações bloqueadas por 90,-0.67,clube
+ZAG,Zagueiros,1,Defensivo,Cartões amarelos por 90,0.16,
+ZAG,Zagueiros,0,Passe,Passes para frente certos %,0.13,não separa
+ZAG,Zagueiros,0,Passe,Passes longos certos %,-0.14,não separa
+ZAG,Zagueiros,0,Ofensivo,Conduções progressivas por 90,0.13,não separa
+ZAG,Zagueiros,0,Participação em gols,Gols por 90,0.11,não separa
+ZAG,Zagueiros,0,Ofensivo,Finalizações por 90,0.2,clube
+ZAG,Zagueiros,0,Ofensivo,Finalizações no gol %,0.22,clube
+ZAG,Zagueiros,0,Ofensivo,Toques na área por 90,0.22,clube
+ZAG,Zagueiros,0,Participação em gols,Gols de cabeça por 90,0.12,clube
+ZAG,Zagueiros,0,Participação em gols,Assistências por 90,0.08,clube
+ZAG,Zagueiros,0,Participação em gols,xA por 90,0.12,clube
+ZAG,Zagueiros,0,Passe,Passes-chave por 90,0.02,clube
+ZAG,Zagueiros,0,Passe,Cruzamentos por 90,0.4,clube
+ZAG,Zagueiros,0,Passe,Cruzamentos certos %,0.19,clube
+ZAG,Zagueiros,0,Ofensivo,Dribles por 90,-0.09,clube
+ZAG,Zagueiros,0,Ofensivo,Dribles certos %,-0.26,clube
+ZAG,Zagueiros,0,Ofensivo,Duelos ofensivos ganhos %,-0.1,clube
+ZAG,Zagueiros,0,Ofensivo,Faltas sofridas por 90,0.03,clube
+ZAG,Zagueiros,0,Defensivo,Duelos por 90,-0.14,critério mudou
+ZAG,Zagueiros,0,Defensivo,Duelos ganhos %,0.09,não separa
+ZAG,Zagueiros,0,Defensivo,Duelos defensivos por 90,-0.25,critério mudou
+ZAG,Zagueiros,0,Defensivo,Duelos aéreos por 90,0.04,critério mudou
+ZAG,Zagueiros,0,Defensivo,Ações defensivas certas por 90,-0.52,critério mudou
+ZAG,Zagueiros,0,Defensivo,Carrinhos (ajustados à posse),0.02,não separa
+ZAG,Zagueiros,0,Defensivo,Faltas por 90,0.05,não separa
+VOL,Volante,1,Passe,Passes por 90,0.49,
+VOL,Volante,1,Passe,Passes certos %,0.48,
+VOL,Volante,1,Passe,Passes para frente por 90,0.46,
+VOL,Volante,1,Passe,Passes para frente certos %,0.66,
+VOL,Volante,1,Passe,Passes progressivos certos %,0.58,
+VOL,Volante,1,Passe,Passes ao terço final por 90,0.43,
+VOL,Volante,1,Passe,Passes ao terço final certos %,0.48,
+VOL,Volante,1,Ofensivo,Passes recebidos por 90,0.53,
+VOL,Volante,1,Ofensivo,Conduções progressivas por 90,0.57,
+VOL,Volante,1,Participação em gols,Gols por 90,0.63,
+VOL,Volante,1,Participação em gols,xG por 90,0.4,
+VOL,Volante,1,Ofensivo,Finalizações no gol %,0.44,
+VOL,Volante,1,Ofensivo,Toques na área por 90,0.46,
+VOL,Volante,1,Participação em gols,Gols de cabeça por 90,0.43,
+VOL,Volante,1,Participação em gols,Assistências por 90,0.53,
+VOL,Volante,1,Participação em gols,xA por 90,0.62,
+VOL,Volante,1,Passe,Passes-chave por 90,0.51,
+VOL,Volante,1,Passe,Passes para a área por 90,0.31,
+VOL,Volante,1,Passe,Cruzamentos por 90,0.26,
+VOL,Volante,1,Ofensivo,Dribles por 90,0.39,
+VOL,Volante,1,Ofensivo,Duelos ofensivos ganhos %,0.16,
+VOL,Volante,1,Ofensivo,Faltas sofridas por 90,0.23,
+VOL,Volante,1,Defensivo,Duelos ganhos %,0.31,
+VOL,Volante,1,Defensivo,Duelos defensivos ganhos %,0.38,
+VOL,Volante,1,Defensivo,Duelos aéreos ganhos %,0.33,
+VOL,Volante,1,Defensivo,Interceptações (ajustadas à posse),0.45,
+VOL,Volante,1,Defensivo,Carrinhos (ajustados à posse),0.31,
+VOL,Volante,1,Defensivo,Faltas por 90,0.21,
+VOL,Volante,0,Passe,Passes progressivos por 90,0.05,não separa
+VOL,Volante,0,Passe,Passes longos por 90,-0.56,estilo
+VOL,Volante,0,Passe,Passes longos certos %,-0.46,estilo
+VOL,Volante,0,Ofensivo,Finalizações por 90,-0.02,não separa
+VOL,Volante,0,Passe,Cruzamentos certos %,-0.07,não separa
+VOL,Volante,0,Ofensivo,Dribles certos %,0.12,não separa
+VOL,Volante,0,Defensivo,Duelos por 90,0.29,critério mudou
+VOL,Volante,0,Defensivo,Duelos defensivos por 90,0.19,critério mudou
+VOL,Volante,0,Defensivo,Duelos aéreos por 90,-0.08,critério mudou
+VOL,Volante,0,Defensivo,Ações defensivas certas por 90,0.32,critério mudou
+VOL,Volante,0,Defensivo,Finalizações bloqueadas por 90,-0.27,estilo
+VOL,Volante,0,Defensivo,Cartões amarelos por 90,0.09,não separa
+MED,Médio,1,Passe,Passes progressivos certos %,0.21,
+MED,Médio,1,Participação em gols,Gols por 90,0.38,
+MED,Médio,1,Participação em gols,xG por 90,0.21,
+MED,Médio,1,Ofensivo,Finalizações no gol %,0.28,
+MED,Médio,1,Ofensivo,Toques na área por 90,0.24,
+MED,Médio,1,Participação em gols,Gols de cabeça por 90,0.47,
+MED,Médio,1,Participação em gols,Assistências por 90,0.46,
+MED,Médio,1,Participação em gols,xA por 90,0.21,
+MED,Médio,1,Passe,Passes-chave por 90,0.34,
+MED,Médio,1,Passe,Passes para a área por 90,0.27,
+MED,Médio,1,Defensivo,Duelos defensivos ganhos %,0.48,
+MED,Médio,1,Defensivo,Interceptações (ajustadas à posse),0.65,
+MED,Médio,1,Defensivo,Carrinhos (ajustados à posse),0.47,
+MED,Médio,1,Defensivo,Faltas por 90,0.49,
+MED,Médio,1,Defensivo,Cartões amarelos por 90,0.52,
+MED,Médio,0,Passe,Passes por 90,-0.2,estilo
+MED,Médio,0,Passe,Passes certos %,-0.19,estilo
+MED,Médio,0,Passe,Passes para frente por 90,-0.12,não separa
+MED,Médio,0,Passe,Passes para frente certos %,-0.28,estilo
+MED,Médio,0,Passe,Passes progressivos por 90,-0.15,estilo
+MED,Médio,0,Passe,Passes ao terço final por 90,-0.03,não separa
+MED,Médio,0,Passe,Passes ao terço final certos %,-0.11,não separa
+MED,Médio,0,Passe,Passes longos por 90,0.02,não separa
+MED,Médio,0,Passe,Passes longos certos %,-0.04,não separa
+MED,Médio,0,Ofensivo,Passes recebidos por 90,-0.23,estilo
+MED,Médio,0,Ofensivo,Conduções progressivas por 90,-0.3,estilo
+MED,Médio,0,Ofensivo,Finalizações por 90,-0.3,estilo
+MED,Médio,0,Passe,Cruzamentos por 90,0.14,não separa
+MED,Médio,0,Passe,Cruzamentos certos %,-0.16,estilo
+MED,Médio,0,Ofensivo,Dribles por 90,-0.18,estilo
+MED,Médio,0,Ofensivo,Dribles certos %,-0.22,estilo
+MED,Médio,0,Ofensivo,Duelos ofensivos ganhos %,-0.1,não separa
+MED,Médio,0,Ofensivo,Faltas sofridas por 90,-0.48,estilo
+MED,Médio,0,Defensivo,Duelos por 90,-0.1,critério mudou
+MED,Médio,0,Defensivo,Duelos ganhos %,0.13,não separa
+MED,Médio,0,Defensivo,Duelos defensivos por 90,0.05,critério mudou
+MED,Médio,0,Defensivo,Duelos aéreos por 90,0.1,critério mudou
+MED,Médio,0,Defensivo,Duelos aéreos ganhos %,-0.13,não separa
+MED,Médio,0,Defensivo,Ações defensivas certas por 90,0.5,critério mudou
+MED,Médio,0,Defensivo,Finalizações bloqueadas por 90,0.13,não separa
+MEI,Meia,1,Passe,Passes por 90,0.65,
+MEI,Meia,1,Passe,Passes certos %,0.33,
+MEI,Meia,1,Passe,Passes para frente por 90,0.55,
+MEI,Meia,1,Passe,Passes para frente certos %,0.28,
+MEI,Meia,1,Passe,Passes progressivos por 90,0.7,
+MEI,Meia,1,Passe,Passes ao terço final por 90,0.48,
+MEI,Meia,1,Passe,Passes ao terço final certos %,0.38,
+MEI,Meia,1,Passe,Passes longos por 90,0.46,
+MEI,Meia,1,Passe,Passes longos certos %,0.45,
+MEI,Meia,1,Ofensivo,Passes recebidos por 90,0.68,
+MEI,Meia,1,Ofensivo,Conduções progressivas por 90,0.16,
+MEI,Meia,1,Participação em gols,Gols por 90,0.64,
+MEI,Meia,1,Ofensivo,Finalizações no gol %,0.23,
+MEI,Meia,1,Participação em gols,Assistências por 90,0.78,
+MEI,Meia,1,Participação em gols,xA por 90,0.58,
+MEI,Meia,1,Passe,Passes-chave por 90,0.79,
+MEI,Meia,1,Passe,Passes para a área por 90,0.9,
+MEI,Meia,1,Passe,Cruzamentos por 90,0.81,
+MEI,Meia,1,Passe,Cruzamentos certos %,0.2,
+MEI,Meia,1,Ofensivo,Duelos ofensivos ganhos %,0.18,
+MEI,Meia,1,Defensivo,Duelos ganhos %,0.66,
+MEI,Meia,1,Defensivo,Duelos defensivos ganhos %,1.24,
+MEI,Meia,1,Defensivo,Faltas por 90,1.06,
+MEI,Meia,1,Defensivo,Cartões amarelos por 90,0.19,
+MEI,Meia,0,Passe,Passes progressivos certos %,0.14,não separa
+MEI,Meia,0,Participação em gols,xG por 90,0.09,não separa
+MEI,Meia,0,Ofensivo,Finalizações por 90,-0.15,não separa
+MEI,Meia,0,Ofensivo,Toques na área por 90,-0.03,não separa
+MEI,Meia,0,Participação em gols,Gols de cabeça por 90,-0.09,não separa
+MEI,Meia,0,Ofensivo,Dribles por 90,-0.11,não separa
+MEI,Meia,0,Ofensivo,Dribles certos %,-0.04,não separa
+MEI,Meia,0,Ofensivo,Faltas sofridas por 90,0.05,não separa
+MEI,Meia,0,Defensivo,Duelos por 90,-0.28,critério mudou
+MEI,Meia,0,Defensivo,Duelos defensivos por 90,-0.44,critério mudou
+MEI,Meia,0,Defensivo,Duelos aéreos por 90,-0.39,critério mudou
+MEI,Meia,0,Defensivo,Duelos aéreos ganhos %,-0.52,estilo
+MEI,Meia,0,Defensivo,Ações defensivas certas por 90,-0.08,critério mudou
+MEI,Meia,0,Defensivo,Interceptações (ajustadas à posse),-0.19,estilo
+MEI,Meia,0,Defensivo,Carrinhos (ajustados à posse),-0.08,não separa
+MEI,Meia,0,Defensivo,Finalizações bloqueadas por 90,-0.09,não separa
+EXT,Extremos,1,Passe,Passes certos %,0.18,
+EXT,Extremos,1,Passe,Passes progressivos certos %,0.35,
+EXT,Extremos,1,Ofensivo,Passes recebidos por 90,0.16,
+EXT,Extremos,1,Ofensivo,Conduções progressivas por 90,0.25,
+EXT,Extremos,1,Participação em gols,Gols por 90,0.46,
+EXT,Extremos,1,Participação em gols,xG por 90,0.21,
+EXT,Extremos,1,Ofensivo,Finalizações no gol %,0.43,
+EXT,Extremos,1,Ofensivo,Toques na área por 90,0.32,
+EXT,Extremos,1,Participação em gols,Assistências por 90,0.38,
+EXT,Extremos,1,Participação em gols,xA por 90,0.17,
+EXT,Extremos,1,Passe,Passes para a área por 90,0.22,
+EXT,Extremos,1,Passe,Cruzamentos por 90,0.19,
+EXT,Extremos,1,Defensivo,Duelos ganhos %,0.19,
+EXT,Extremos,1,Defensivo,Duelos defensivos ganhos %,0.29,
+EXT,Extremos,1,Defensivo,Cartões amarelos por 90,0.36,
+EXT,Extremos,0,Passe,Passes por 90,0.04,não separa
+EXT,Extremos,0,Passe,Passes para frente por 90,-0.17,estilo
+EXT,Extremos,0,Passe,Passes para frente certos %,0.05,não separa
+EXT,Extremos,0,Passe,Passes progressivos por 90,-0.26,estilo
+EXT,Extremos,0,Passe,Passes ao terço final por 90,-0.27,estilo
+EXT,Extremos,0,Passe,Passes ao terço final certos %,-0.03,não separa
+EXT,Extremos,0,Passe,Passes longos por 90,-0.24,estilo
+EXT,Extremos,0,Passe,Passes longos certos %,0.06,não separa
+EXT,Extremos,0,Ofensivo,Finalizações por 90,0.11,não separa
+EXT,Extremos,0,Participação em gols,Gols de cabeça por 90,0.1,não separa
+EXT,Extremos,0,Passe,Passes-chave por 90,0.05,não separa
+EXT,Extremos,0,Passe,Cruzamentos certos %,-0.13,não separa
+EXT,Extremos,0,Ofensivo,Dribles por 90,0.12,não separa
+EXT,Extremos,0,Ofensivo,Dribles certos %,0.06,não separa
+EXT,Extremos,0,Ofensivo,Duelos ofensivos ganhos %,0.0,não separa
+EXT,Extremos,0,Ofensivo,Faltas sofridas por 90,-0.17,estilo
+EXT,Extremos,0,Defensivo,Duelos por 90,0.01,critério mudou
+EXT,Extremos,0,Defensivo,Duelos defensivos por 90,0.17,critério mudou
+EXT,Extremos,0,Defensivo,Duelos aéreos por 90,-0.07,critério mudou
+EXT,Extremos,0,Defensivo,Duelos aéreos ganhos %,0.02,não separa
+EXT,Extremos,0,Defensivo,Ações defensivas certas por 90,0.08,critério mudou
+EXT,Extremos,0,Defensivo,Interceptações (ajustadas à posse),0.12,não separa
+EXT,Extremos,0,Defensivo,Carrinhos (ajustados à posse),0.03,não separa
+EXT,Extremos,0,Defensivo,Finalizações bloqueadas por 90,-0.2,estilo
+EXT,Extremos,0,Defensivo,Faltas por 90,-0.09,não separa
+CA,Centroavante,1,Participação em gols,Gols por 90,0.82,
+CA,Centroavante,1,Participação em gols,xG por 90,0.54,
+CA,Centroavante,1,Ofensivo,Finalizações por 90,0.35,
+CA,Centroavante,1,Ofensivo,Finalizações no gol %,0.32,
+CA,Centroavante,1,Ofensivo,Toques na área por 90,0.72,
+CA,Centroavante,1,Participação em gols,Gols de cabeça por 90,0.3,
+CA,Centroavante,1,Participação em gols,Assistências por 90,0.25,
+CA,Centroavante,1,Participação em gols,xA por 90,0.19,
+CA,Centroavante,1,Passe,Passes-chave por 90,0.23,
+CA,Centroavante,1,Passe,Cruzamentos certos %,0.22,
+CA,Centroavante,1,Defensivo,Duelos aéreos ganhos %,0.24,
+CA,Centroavante,0,Passe,Passes por 90,-0.47,estilo
+CA,Centroavante,0,Passe,Passes certos %,-0.19,estilo
+CA,Centroavante,0,Passe,Passes para frente por 90,-0.29,estilo
+CA,Centroavante,0,Passe,Passes para frente certos %,-0.12,não separa
+CA,Centroavante,0,Passe,Passes progressivos por 90,-0.33,estilo
+CA,Centroavante,0,Passe,Passes progressivos certos %,-0.19,estilo
+CA,Centroavante,0,Passe,Passes ao terço final por 90,-0.51,estilo
+CA,Centroavante,0,Passe,Passes ao terço final certos %,0.07,não separa
+CA,Centroavante,0,Passe,Passes longos por 90,-0.37,estilo
+CA,Centroavante,0,Passe,Passes longos certos %,0.02,não separa
+CA,Centroavante,0,Ofensivo,Passes recebidos por 90,-0.26,estilo
+CA,Centroavante,0,Ofensivo,Conduções progressivas por 90,-0.16,estilo
+CA,Centroavante,0,Passe,Passes para a área por 90,-0.19,estilo
+CA,Centroavante,0,Passe,Cruzamentos por 90,-0.09,não separa
+CA,Centroavante,0,Ofensivo,Dribles por 90,-0.19,estilo
+CA,Centroavante,0,Ofensivo,Dribles certos %,-0.45,estilo
+CA,Centroavante,0,Ofensivo,Duelos ofensivos ganhos %,-0.33,estilo
+CA,Centroavante,0,Ofensivo,Faltas sofridas por 90,-0.44,estilo
+CA,Centroavante,0,Defensivo,Duelos por 90,-0.3,critério mudou
+CA,Centroavante,0,Defensivo,Duelos ganhos %,-0.23,estilo
+CA,Centroavante,0,Defensivo,Duelos defensivos por 90,-0.37,critério mudou
+CA,Centroavante,0,Defensivo,Duelos defensivos ganhos %,-0.26,estilo
+CA,Centroavante,0,Defensivo,Duelos aéreos por 90,0.1,critério mudou
+CA,Centroavante,0,Defensivo,Ações defensivas certas por 90,-0.57,critério mudou
+CA,Centroavante,0,Defensivo,Interceptações (ajustadas à posse),-0.44,estilo
+CA,Centroavante,0,Defensivo,Carrinhos (ajustados à posse),-0.21,estilo
+CA,Centroavante,0,Defensivo,Finalizações bloqueadas por 90,-0.37,estilo
+CA,Centroavante,0,Defensivo,Faltas por 90,0.05,não separa
+CA,Centroavante,0,Defensivo,Cartões amarelos por 90,-0.06,não separa

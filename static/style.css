@@ -3721,3 +3721,19 @@ body.visao-nova .jpainel{flex:none}
 .fi-outros>summary b{font-size:13px;color:var(--tinta)} .fi-outros>summary small{text-transform:none;letter-spacing:0;font-weight:500;color:var(--tinta3);margin-left:6px}
 .fi-outros-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px 18px;opacity:.82}
 @media (max-width:1200px){.fi-outros-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 18/10 — visão nova: ficha num quadro só contra quem sobe × quem cai; amarelo = até 10% abaixo; ● = fundamental */
+.fi-linha.perto .val{color:#eab308}
+.fi-linha.perto .fi-barra i{background:#d9a600}
+.fi-leg i.am{background:#d9a600}
+.fi-leg i.m.cai{background:#ef4444}
+.fi-linha.sf.neutro .fi-barra i{background:#64748b}
+.fi-linha.sf.neutro .val{color:var(--tinta2)}
+.fi-linha.sf .marca.cai{background:#ef4444;opacity:.9}
+.fi-linha.sf.cab{font-size:8.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta3);margin-bottom:2px}
+.fi-linha.sf.cab .val,.fi-linha.sf.cab .med,.fi-linha.sf.cab .mx{font-weight:600;color:var(--tinta3)}
+.fi-linha.sf.fund .rot{color:var(--tinta);font-weight:600}
+.sf-f{color:#3b82f6;font-style:normal;font-size:9px;margin-right:4px}
+.sf-cont{margin-left:6px;font-size:11px;color:var(--tinta);letter-spacing:0}
+.sf-n{font-weight:800;font-size:13px}
+.sf-n.v{color:#22c55e} .sf-n.a{color:#eab308} .sf-n.r{color:#ef4444}
+.fi-comp-rot{font-size:12px;color:var(--tinta2);padding:4px 10px;border:1px solid var(--borda2);border-radius:6px}
