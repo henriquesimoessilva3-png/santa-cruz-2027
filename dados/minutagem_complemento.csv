@@ -1,382 +1,383 @@
 nome,clube_atual,primaryKey,temporada,clube_na_temporada,jogos,minutos,fonte,url,competicao,obs
-A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2024,Cerro Porteño,11,930,sofascore,https://www.sofascore.com/api/v1/player/312824/unique-tournament/11540/season/57264/statistics/overall,Paraguai Apertura 2024,
-A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2024,Cerro Porteño,18,1463,sofascore,https://www.sofascore.com/api/v1/player/312824/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
-A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2025,Internacional,11,615,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2025,Cerro Porteño,18,1607,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-A. Fretes,Club Libertad,A. Fretes - Club Libertad - Paraguai,2024,Libertad,11,566,sofascore,https://www.sofascore.com/api/v1/player/1464239/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
-A. González,Deportivo Recoleta,A. González - Deportivo Recoleta - Paraguai,2024,Nacional Asunción,5,161,sofascore,https://www.sofascore.com/api/v1/player/1182277/unique-tournament/11540/season/57264/statistics/overall,Paraguai Apertura 2024,Aldo González
-A. Hernández,Peñarol,A. Hernández - Peñarol - Uruguai,2024,Liverpool,5,199,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
-A. Hernández,Peñarol,A. Hernández - Peñarol - Uruguai,2025,Liverpool,37,3206,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Uruguai,
-A. Molinas,Club Libertad,A. Molinas - Club Libertad - Paraguai,2024,Libertad,1,8,sofascore,https://www.sofascore.com/api/v1/player/1485265/unique-tournament/11540/season/57264/statistics/overall,Paraguai Apertura 2024,
-A. Molinas,Club Libertad,A. Molinas - Club Libertad - Paraguai,2024,Libertad,1,45,sofascore,https://www.sofascore.com/api/v1/player/1485265/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
-A. Molinas,Club Libertad,A. Molinas - Club Libertad - Paraguai,2025,2 de Mayo,22,1276,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-A. Osella,Independiente Rivadavia,A. Osella - Independiente Rivadavia - Argentina A,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1187522/statistics/seasons,-,sem 1a divisão em 2024
-Abner,Juventude,Abner - Juventude - Brasil B,2025,Juventude,19,1470,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Adriano Martins,Atlético GO,Adriano Martins - Atlético GO - Brasil B,2024,Atlético GO,34,3370,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Airton,Anyang,Airton - Anyang - Coreia A,2024,Guarani,20,1498,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Airton,Anyang,Airton - Anyang - Coreia A,2025,Grêmio Novorizontino,16,647,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Allan Godói,Göztepe,Allan Godói - Göztepe - Turquia,2024,Operário PR,10,855,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Anderson,Grazer AK 1902,Anderson - Grazer AK 1902 - Austria,2024,Austria Lustenau,27,2171,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Austria,
-Anderson,Grazer AK 1902,Anderson - Grazer AK 1902 - Austria,2025,Blau-Weiß Linz,31,2661,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Austria,
-Anderson,Grazer AK 1902,Anderson - Grazer AK 1902 - Austria,2026,Blau-Weiß Linz,6,442,sofascore,https://www.sofascore.com/api/v1/player/980464/unique-tournament/45/season/77382/statistics/overall,Áustria (25/26),
-André Luiz,Viettel,André Luiz - Viettel - Manual,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1016673/statistics/seasons,-,sem liga em 2024
-André Luiz,Viettel,André Luiz - Viettel - Manual,2025,Volta Redonda,29,1910,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-André Luiz,Viettel,André Luiz - Viettel - Manual,2026,Londrina,16,1438,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Angel Torres,Operario-PR,Angel Torres - Operario-PR - Manual,2026,Operário-PR,6,406,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Anthoni,Internacional,Anthoni - Internacional - Brasil A,2024,Internacional,2,180,sofascore,https://www.sofascore.com/api/v1/player/1106134/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2024,Cerro Porteño,11,930.0,sofascore,https://www.sofascore.com/api/v1/player/312824/unique-tournament/11540/season/57264/statistics/overall,Paraguai Apertura 2024,
+A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2024,Cerro Porteño,18,1463.0,sofascore,https://www.sofascore.com/api/v1/player/312824/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
+A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2025,Internacional,11,615.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+A. Benítez,Club Libertad,A. Benítez - Club Libertad - Paraguai,2025,Cerro Porteño,18,1607.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+A. Fretes,Club Libertad,A. Fretes - Club Libertad - Paraguai,2024,Libertad,11,566.0,sofascore,https://www.sofascore.com/api/v1/player/1464239/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
+A. González,Deportivo Recoleta,A. González - Deportivo Recoleta - Paraguai,2024,Nacional Asunción,5,161.0,sofascore,https://www.sofascore.com/api/v1/player/1182277/unique-tournament/11540/season/57264/statistics/overall,Paraguai Apertura 2024,Aldo González
+A. Hernández,Peñarol,A. Hernández - Peñarol - Uruguai,2024,Liverpool,5,199.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
+A. Hernández,Peñarol,A. Hernández - Peñarol - Uruguai,2025,Liverpool,37,3206.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Uruguai,
+A. Molinas,Club Libertad,A. Molinas - Club Libertad - Paraguai,2024,Libertad,1,8.0,sofascore,https://www.sofascore.com/api/v1/player/1485265/unique-tournament/11540/season/57264/statistics/overall,Paraguai Apertura 2024,
+A. Molinas,Club Libertad,A. Molinas - Club Libertad - Paraguai,2024,Libertad,1,45.0,sofascore,https://www.sofascore.com/api/v1/player/1485265/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
+A. Molinas,Club Libertad,A. Molinas - Club Libertad - Paraguai,2025,2 de Mayo,22,1276.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+A. Osella,Independiente Rivadavia,A. Osella - Independiente Rivadavia - Argentina A,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1187522/statistics/seasons,-,sem 1a divisão em 2024
+Abner,Juventude,Abner - Juventude - Brasil B,2025,Juventude,19,1470.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Adriano Martins,Atlético GO,Adriano Martins - Atlético GO - Brasil B,2024,Atlético GO,34,3370.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Airton,Anyang,Airton - Anyang - Coreia A,2024,Guarani,20,1498.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Airton,Anyang,Airton - Anyang - Coreia A,2025,Grêmio Novorizontino,16,647.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Allan Godói,Göztepe,Allan Godói - Göztepe - Turquia,2024,Operário PR,10,855.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Anderson,Grazer AK 1902,Anderson - Grazer AK 1902 - Austria,2024,Austria Lustenau,27,2171.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Austria,
+Anderson,Grazer AK 1902,Anderson - Grazer AK 1902 - Austria,2025,Blau-Weiß Linz,31,2661.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Austria,
+Anderson,Grazer AK 1902,Anderson - Grazer AK 1902 - Austria,2026,Blau-Weiß Linz,6,442.0,sofascore,https://www.sofascore.com/api/v1/player/980464/unique-tournament/45/season/77382/statistics/overall,Áustria (25/26),
+André Luiz,Viettel,André Luiz - Viettel - Manual,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1016673/statistics/seasons,-,sem liga em 2024
+André Luiz,Viettel,André Luiz - Viettel - Manual,2025,Volta Redonda,29,1910.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+André Luiz,Viettel,André Luiz - Viettel - Manual,2026,Londrina,16,1438.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Angel Torres,Operario-PR,Angel Torres - Operario-PR - Manual,2026,Operário-PR,6,406.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Anthoni,Internacional,Anthoni - Internacional - Brasil A,2024,Internacional,2,180.0,sofascore,https://www.sofascore.com/api/v1/player/1106134/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
 Anthony,Botafogo de Futebol e Regatas,Anthony - Botafogo de Futebol e Regatas - Brasil A,2024,Goiás,4,,wikipedia,https://en.wikipedia.org/wiki/Anthony_(footballer),Goiano 2024,só estadual; sem minutos
-Anthony,Botafogo de Futebol e Regatas,Anthony - Botafogo de Futebol e Regatas - Brasil A,2025,Goiás,7,275,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Anthony,Botafogo de Futebol e Regatas,Anthony - Botafogo de Futebol e Regatas - Brasil A,2026,Botafogo,0,0,wikipedia,https://en.wikipedia.org/wiki/Anthony_(footballer),Série A 2026,chegou em mar/2026 lesionado; sem jogos
-Arthur Rezende,Muharraq,Arthur Rezende - Muharraq - Bahrain,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/795290/statistics/seasons,-,sem liga em 2024
-Arthur Rezende,Muharraq,Arthur Rezende - Muharraq - Bahrain,2025,Cuiabá,3,86,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Arthur Wenderroscky,Livre,Arthur Wenderroscky - Livre - Manual,2024,Fluminense,5,292,sofascore,https://www.sofascore.com/api/v1/player/1382913/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
-Arthur Wenderroscky,Livre,Arthur Wenderroscky - Livre - Manual,2025,Wydad Casablanca,14,569,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Marrocos,
-Arthur Wenderroscky,Livre,Arthur Wenderroscky - Livre - Manual,2026,Wydad Casablanca,1,34,sofascore,https://www.sofascore.com/api/v1/player/1382913/unique-tournament/937/season/78750/statistics/overall,Marrocos (25/26),
-Bernardo Schappo,Estrela Amadora,Bernardo Schappo - Estrela Amadora - Portugal A,2024,Botafogo SP,31,2563,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Betão,Náutico,Betão - Náutico - Brasil B,2025,CSA,16,1520,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
-C. Sarabia,Millonarios,C. Sarabia - Millonarios - Colombia A,2024,Millonarios,10,740,sofascore,https://www.sofascore.com/api/v1/player/1888931/unique-tournament/11536/season/63819/statistics/overall,Colombia A 2024 (Finalización),
-C. Sarabia,Millonarios,C. Sarabia - Millonarios - Colombia A,2025,Millonarios,1,45,sofascore,https://www.sofascore.com/api/v1/player/1888931/unique-tournament/11539/season/70681/statistics/overall,Colombia A 2025 (Apertura),
-C. Sarabia,Millonarios,C. Sarabia - Millonarios - Colombia A,2025,Millonarios,2,165,sofascore,https://www.sofascore.com/api/v1/player/1888931/unique-tournament/11536/season/77825/statistics/overall,Colombia A 2025 (Finalización),
-C. Terán,Athletico Paranaense,C. Terán - Athletico Paranaense - Brasil A,2024,Chicago Fire,18,1355,wyscout,local: Portal Ranking/dados/2024 (aba BASE),EUA,
-Caio Vinícius,Yunnan Yukun,Caio Vinícius - Yunnan Yukun - China,2024,Vitória,11,663,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Camilo,Gremio,Camilo - Gremio - Brasil A,2024,Akhmat Grozny,15,1179,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Russia,idade no Wyscout 25 (hoje 27)
-Camilo,Gremio,Camilo - Gremio - Brasil A,2025,Akhmat Grozny,16,1483,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Russia,
-Camilo,Gremio,Camilo - Gremio - Brasil A,2025,Grêmio,16,839,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Camilo,Gremio,Camilo - Gremio - Brasil A,2026,Chapecoense,23,2179,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil A,
-Carlinhos,Athletic Club,Carlinhos - Athletic Club - Brasil B,2024,Flamengo,13,512,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Carlinhos,Athletic Club,Carlinhos - Athletic Club - Brasil B,2025,Vitória,6,163,sofascore,https://www.sofascore.com/api/v1/player/852534/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Carlinhos,Athletic Club,Carlinhos - Athletic Club - Brasil B,2026,Athletic,7,459,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2024,Botafogo,7,234,sofascore,https://www.sofascore.com/api/v1/player/1008700/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2024,RWDM Brussels,16,1063,sofascore,https://www.sofascore.com/api/v1/player/1008700/unique-tournament/38/season/52383/statistics/overall,Bélgica (23/24),
-Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2025,Cuiabá,23,1492,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2026,Al-Ittihad Kalba,3,111,sofascore,https://www.sofascore.com/api/v1/player/1008700/unique-tournament/971/season/78315/statistics/overall,Emirados (25/26),
-Carlos Eduardo,Mirassol,Carlos Eduardo - Mirassol - Brasil A,2024,Vitória,17,986,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Carlos Eduardo,Mirassol,Carlos Eduardo - Mirassol - Brasil A,2025,Mirassol,26,927,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Carlos Gruezo,Livre,Carlos Gruezo - Livre - Manual,2024,SJ Earthquakes,24,2144,wyscout,local: Portal Ranking/dados/2024 (aba BASE),EUA,
-Carlos Gruezo,Livre,Carlos Gruezo - Livre - Manual,2025,LDU Quito,36,2970,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Equador A,
-Carlos Gruezo,Livre,Carlos Gruezo - Livre - Manual,2026,Santos Laguna,12,812,sofascore,https://www.sofascore.com/api/v1/player/155802/unique-tournament/11620/season/87699/statistics/overall,Liga MX Clausura 2026,
-Chrigor,Selangor,Chrigor - Selangor - Manual,2024,Portuguesa,8,447,sofascore,https://www.sofascore.com/api/v1/player/925238/unique-tournament/372/season/57170/statistics/overall,Paulista A1,
-Chrigor,Selangor,Chrigor - Selangor - Manual,2025,Buriram United / Prachuap,27,1485,sofascore,https://www.sofascore.com/api/v1/player/925238/unique-tournament/1032/season/63500/statistics/overall,Tailândia T1 (24/25),soma dos dois clubes na temporada 24/25
-Chrigor,Selangor,Chrigor - Selangor - Manual,2026,Selangor,23,2070,sofascore,https://www.sofascore.com/api/v1/player/925238/unique-tournament/1000/season/78325/statistics/overall,Malásia Super League (25/26),
-Cristiano,Sporting Cristal,Cristiano - Sporting Cristal - Peru,2024,Goiás,10,386,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Cristiano,Sporting Cristal,Cristiano - Sporting Cristal - Peru,2025,Operário PR,22,1935,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Crystopher,CRB,Crystopher - CRB - Brasil B,2024,Paysandu,4,122,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-D. Camacho,UTC Cajamarca,D. Camacho - UTC Cajamarca - Peru,2025,Deportivo Pasto,31,1776,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Colombia A,
-D. Vera,Athletic Club,D. Vera - Athletic Club - Brasil B,2024,Técnico Universitario,11,490,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Equador A,
-David,Cuiabá,David - Ferroviária - Brasil C,2025,Cuiabá,25,1664,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-David,Cuiabá,David - Ferroviária - Brasil C,2026,Cuiabá,24,1679,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2024,Cuiabá,27,1580,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2025,Sport Recife,17,1593,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2025,Cuiabá,15,1369,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2026,Kawasaki Frontale,1,91,sofascore,https://www.sofascore.com/api/v1/player/994190/unique-tournament/101/season/97720/statistics/overall,J. League Cup 2026,jan-jun/2026 no Cuiabá e no Baltika (Rússia) sem números; liga japonesa 26/27 não entra
-Devid Richard,Gremio Sao Carlense,Devid Richard - Gremio Sao Carlense - Manual,2024,Botafogo,2,154,sofascore,https://www.sofascore.com/api/v1/player/1819301/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
-Devid Richard,Gremio Sao Carlense,Devid Richard - Gremio Sao Carlense - Manual,2025,Avaí,1,24,sofascore,https://www.sofascore.com/api/v1/player/1819301/unique-tournament/376/season/69737/statistics/overall,Catarinense 2025,
-Devid Richard,Gremio Sao Carlense,Devid Richard - Gremio Sao Carlense - Manual,2026,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1819301/statistics/seasons,-,sem jogos registrados
-Deyverson,LDU Quito,Deyverson - LDU Quito - Equador A,2024,Atlético Mineiro,21,1331,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Dieguinho,Shimizu S-Pulse,Dieguinho - Shimizu S-Pulse - Japao A,2024,Goiás,32,2886,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Dieguinho,Shimizu S-Pulse,Dieguinho - Shimizu S-Pulse - Japao A,2025,Ceará,32,2667,sofascore,https://www.sofascore.com/api/v1/player/1016930/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Diogo de Oliveira,Daejeon Citizen,Diogo de Oliveira - Daejeon Citizen - Coreia A,2024,Plaza Colonia,3,270,sofascore,https://www.sofascore.com/api/v1/player/1018176/unique-tournament/278/season/58264/statistics/overall,Uruguai 2024,
-Diogo de Oliveira,Daejeon Citizen,Diogo de Oliveira - Daejeon Citizen - Coreia A,2025,Plaza Colonia,16,1413,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Uruguai,
-Diogo de Oliveira,Daejeon Citizen,Diogo de Oliveira - Daejeon Citizen - Coreia A,2025,Paysandu,17,1391,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Dodô,Náutico,Dodô - Náutico - Brasil B,2024,Ponte Preta,33,2029,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Dodô,Náutico,Dodô - Náutico - Brasil B,2025,Vila Nova,33,2092,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2024,Minnesota United,1,30,sofascore,https://www.sofascore.com/api/v1/player/856109/unique-tournament/242/season/57317/statistics/overall,MLS 2024,
-E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2025,Talleres Córdoba,21,933,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
-E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2025,Club Tijuana,19,1297,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Mexico,
-E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2026,Deportivo Cali,21,947,sofascore,https://www.sofascore.com/api/v1/player/856109/unique-tournament/11539/season/88503/statistics/overall,Colombia A 2026,
-Echaporã,São Bernardo FC,Echaporã - São Bernardo FC - Brasil B,2024,Londrina,12,289,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Edenílson,Botafogo,Edenílson - Botafogo - Brasil A,2024,Grêmio,30,1511,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Edu Ribeiro,Esporte Clube Vitória,Edu Ribeiro - Esporte Clube Vitória - Brasil A,2024,Vitória,12,861,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,"Wyscout ""Edu"""
-Edu Ribeiro,Esporte Clube Vitória,Edu Ribeiro - Esporte Clube Vitória - Brasil A,2025,Vitória,20,1223,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,"Wyscout ""Edu"""
-Edu Ribeiro,Esporte Clube Vitória,Edu Ribeiro - Esporte Clube Vitória - Brasil A,2026,Vitória,1,71,sofascore,https://www.sofascore.com/api/v1/player/989715/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
-Eduardo,Mirassol,Eduardo - Mirassol - Brasil A,2024,Botafogo,17,934,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Eduardo,Mirassol,Eduardo - Mirassol - Brasil A,2025,Cruzeiro,29,1079,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Anthony,Botafogo de Futebol e Regatas,Anthony - Botafogo de Futebol e Regatas - Brasil A,2025,Goiás,7,275.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Anthony,Botafogo de Futebol e Regatas,Anthony - Botafogo de Futebol e Regatas - Brasil A,2026,Botafogo,0,0.0,wikipedia,https://en.wikipedia.org/wiki/Anthony_(footballer),Série A 2026,chegou em mar/2026 lesionado; sem jogos
+Arthur Rezende,Muharraq,Arthur Rezende - Muharraq - Bahrain,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/795290/statistics/seasons,-,sem liga em 2024
+Arthur Rezende,Muharraq,Arthur Rezende - Muharraq - Bahrain,2025,Cuiabá,3,86.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Arthur Wenderroscky,Livre,Arthur Wenderroscky - Livre - Manual,2024,Fluminense,5,292.0,sofascore,https://www.sofascore.com/api/v1/player/1382913/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
+Arthur Wenderroscky,Livre,Arthur Wenderroscky - Livre - Manual,2025,Wydad Casablanca,14,569.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Marrocos,
+Arthur Wenderroscky,Livre,Arthur Wenderroscky - Livre - Manual,2026,Wydad Casablanca,1,34.0,sofascore,https://www.sofascore.com/api/v1/player/1382913/unique-tournament/937/season/78750/statistics/overall,Marrocos (25/26),
+Bernardo Schappo,Estrela Amadora,Bernardo Schappo - Estrela Amadora - Portugal A,2024,Botafogo SP,31,2563.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Betão,Náutico,Betão - Náutico - Brasil B,2025,CSA,16,1520.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
+C. Sarabia,Millonarios,C. Sarabia - Millonarios - Colombia A,2024,Millonarios,10,740.0,sofascore,https://www.sofascore.com/api/v1/player/1888931/unique-tournament/11536/season/63819/statistics/overall,Colombia A 2024 (Finalización),
+C. Sarabia,Millonarios,C. Sarabia - Millonarios - Colombia A,2025,Millonarios,1,45.0,sofascore,https://www.sofascore.com/api/v1/player/1888931/unique-tournament/11539/season/70681/statistics/overall,Colombia A 2025 (Apertura),
+C. Sarabia,Millonarios,C. Sarabia - Millonarios - Colombia A,2025,Millonarios,2,165.0,sofascore,https://www.sofascore.com/api/v1/player/1888931/unique-tournament/11536/season/77825/statistics/overall,Colombia A 2025 (Finalización),
+C. Terán,Athletico Paranaense,C. Terán - Athletico Paranaense - Brasil A,2024,Chicago Fire,18,1355.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),EUA,
+Caio Vinícius,Yunnan Yukun,Caio Vinícius - Yunnan Yukun - China,2024,Vitória,11,663.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Camilo,Gremio,Camilo - Gremio - Brasil A,2024,Akhmat Grozny,15,1179.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Russia,idade no Wyscout 25 (hoje 27)
+Camilo,Gremio,Camilo - Gremio - Brasil A,2025,Akhmat Grozny,16,1483.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Russia,
+Camilo,Gremio,Camilo - Gremio - Brasil A,2025,Grêmio,16,839.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Camilo,Gremio,Camilo - Gremio - Brasil A,2026,Chapecoense,23,2179.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil A,
+Carlinhos,Athletic Club,Carlinhos - Athletic Club - Brasil B,2024,Flamengo,13,512.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Carlinhos,Athletic Club,Carlinhos - Athletic Club - Brasil B,2025,Vitória,6,163.0,sofascore,https://www.sofascore.com/api/v1/player/852534/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Carlinhos,Athletic Club,Carlinhos - Athletic Club - Brasil B,2026,Athletic,7,459.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2024,Botafogo,7,234.0,sofascore,https://www.sofascore.com/api/v1/player/1008700/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2024,RWDM Brussels,16,1063.0,sofascore,https://www.sofascore.com/api/v1/player/1008700/unique-tournament/38/season/52383/statistics/overall,Bélgica (23/24),
+Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2025,Cuiabá,23,1492.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Carlos Alberto,Kalba FC,Carlos Alberto - Kalba FC - Emirados,2026,Al-Ittihad Kalba,3,111.0,sofascore,https://www.sofascore.com/api/v1/player/1008700/unique-tournament/971/season/78315/statistics/overall,Emirados (25/26),
+Carlos Eduardo,Mirassol,Carlos Eduardo - Mirassol - Brasil A,2024,Vitória,17,986.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Carlos Eduardo,Mirassol,Carlos Eduardo - Mirassol - Brasil A,2025,Mirassol,26,927.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Carlos Gruezo,Livre,Carlos Gruezo - Livre - Manual,2024,SJ Earthquakes,24,2144.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),EUA,
+Carlos Gruezo,Livre,Carlos Gruezo - Livre - Manual,2025,LDU Quito,36,2970.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Equador A,
+Carlos Gruezo,Livre,Carlos Gruezo - Livre - Manual,2026,Santos Laguna,12,812.0,sofascore,https://www.sofascore.com/api/v1/player/155802/unique-tournament/11620/season/87699/statistics/overall,Liga MX Clausura 2026,
+Chrigor,Selangor,Chrigor - Selangor - Manual,2024,Portuguesa,8,447.0,sofascore,https://www.sofascore.com/api/v1/player/925238/unique-tournament/372/season/57170/statistics/overall,Paulista A1,
+Chrigor,Selangor,Chrigor - Selangor - Manual,2025,Buriram United / Prachuap,27,1485.0,sofascore,https://www.sofascore.com/api/v1/player/925238/unique-tournament/1032/season/63500/statistics/overall,Tailândia T1 (24/25),soma dos dois clubes na temporada 24/25
+Chrigor,Selangor,Chrigor - Selangor - Manual,2026,Selangor,23,2070.0,sofascore,https://www.sofascore.com/api/v1/player/925238/unique-tournament/1000/season/78325/statistics/overall,Malásia Super League (25/26),
+Cristiano,Sporting Cristal,Cristiano - Sporting Cristal - Peru,2024,Goiás,10,386.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Cristiano,Sporting Cristal,Cristiano - Sporting Cristal - Peru,2025,Operário PR,22,1935.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Crystopher,CRB,Crystopher - CRB - Brasil B,2024,Paysandu,4,122.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+D. Camacho,UTC Cajamarca,D. Camacho - UTC Cajamarca - Peru,2025,Deportivo Pasto,31,1776.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Colombia A,
+D. Vera,Athletic Club,D. Vera - Athletic Club - Brasil B,2024,Técnico Universitario,11,490.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Equador A,
+David,Cuiabá,David - Ferroviária - Brasil C,2025,Cuiabá,25,1664.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+David,Cuiabá,David - Ferroviária - Brasil C,2026,Cuiabá,24,1679.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2024,Cuiabá,27,1580.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2025,Sport Recife,17,1593.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2025,Cuiabá,15,1369.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Derik Lacerda,Kawasaki Frontale,Derik Lacerda - Kawasaki Frontale - Japao A,2026,Kawasaki Frontale,1,91.0,sofascore,https://www.sofascore.com/api/v1/player/994190/unique-tournament/101/season/97720/statistics/overall,J. League Cup 2026,jan-jun/2026 no Cuiabá e no Baltika (Rússia) sem números; liga japonesa 26/27 não entra
+Devid Richard,Gremio Sao Carlense,Devid Richard - Gremio Sao Carlense - Manual,2024,Botafogo,2,154.0,sofascore,https://www.sofascore.com/api/v1/player/1819301/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
+Devid Richard,Gremio Sao Carlense,Devid Richard - Gremio Sao Carlense - Manual,2025,Avaí,1,24.0,sofascore,https://www.sofascore.com/api/v1/player/1819301/unique-tournament/376/season/69737/statistics/overall,Catarinense 2025,
+Devid Richard,Gremio Sao Carlense,Devid Richard - Gremio Sao Carlense - Manual,2026,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1819301/statistics/seasons,-,sem jogos registrados
+Deyverson,LDU Quito,Deyverson - LDU Quito - Equador A,2024,Atlético Mineiro,21,1331.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Dieguinho,Shimizu S-Pulse,Dieguinho - Shimizu S-Pulse - Japao A,2024,Goiás,32,2886.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Dieguinho,Shimizu S-Pulse,Dieguinho - Shimizu S-Pulse - Japao A,2025,Ceará,32,2667.0,sofascore,https://www.sofascore.com/api/v1/player/1016930/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Diogo de Oliveira,Daejeon Citizen,Diogo de Oliveira - Daejeon Citizen - Coreia A,2024,Plaza Colonia,3,270.0,sofascore,https://www.sofascore.com/api/v1/player/1018176/unique-tournament/278/season/58264/statistics/overall,Uruguai 2024,
+Diogo de Oliveira,Daejeon Citizen,Diogo de Oliveira - Daejeon Citizen - Coreia A,2025,Plaza Colonia,16,1413.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Uruguai,
+Diogo de Oliveira,Daejeon Citizen,Diogo de Oliveira - Daejeon Citizen - Coreia A,2025,Paysandu,17,1391.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Dodô,Náutico,Dodô - Náutico - Brasil B,2024,Ponte Preta,33,2029.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Dodô,Náutico,Dodô - Náutico - Brasil B,2025,Vila Nova,33,2092.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2024,Minnesota United,1,30.0,sofascore,https://www.sofascore.com/api/v1/player/856109/unique-tournament/242/season/57317/statistics/overall,MLS 2024,
+E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2025,Talleres Córdoba,21,933.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
+E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2025,Club Tijuana,19,1297.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Mexico,
+E. Reynoso,Deportivo Cali,E. Reynoso - Deportivo Cali - Colombia A,2026,Deportivo Cali,21,947.0,sofascore,https://www.sofascore.com/api/v1/player/856109/unique-tournament/11539/season/88503/statistics/overall,Colombia A 2026,
+Echaporã,São Bernardo FC,Echaporã - São Bernardo FC - Brasil B,2024,Londrina,12,289.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Edenílson,Botafogo,Edenílson - Botafogo - Brasil A,2024,Grêmio,30,1511.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Edu Ribeiro,Esporte Clube Vitória,Edu Ribeiro - Esporte Clube Vitória - Brasil A,2024,Vitória,12,861.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,"Wyscout ""Edu"""
+Edu Ribeiro,Esporte Clube Vitória,Edu Ribeiro - Esporte Clube Vitória - Brasil A,2025,Vitória,20,1223.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,"Wyscout ""Edu"""
+Edu Ribeiro,Esporte Clube Vitória,Edu Ribeiro - Esporte Clube Vitória - Brasil A,2026,Vitória,1,71.0,sofascore,https://www.sofascore.com/api/v1/player/989715/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
+Eduardo,Mirassol,Eduardo - Mirassol - Brasil A,2024,Botafogo,17,934.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Eduardo,Mirassol,Eduardo - Mirassol - Brasil A,2025,Cruzeiro,29,1079.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
 Enso Gonzalez,Wolves,Enso Gonzalez - Wolves - Manual,2024,Wolverhampton,1,,wikipedia/fotmob,https://www.fotmob.com/es/players/1458595,Premier League (23/24),resto no sub-21
-Enso Gonzalez,Wolves,Enso Gonzalez - Wolves - Manual,2025,Wolverhampton,0,0,wikipedia/fotmob,https://www.fotmob.com/es/players/1458595,Premier League (24/25),só sub-21
-Enso Gonzalez,Wolves,Enso Gonzalez - Wolves - Manual,2026,Wolverhampton,0,0,wikipedia/fotmob,https://www.fotmob.com/es/players/1458595,Premier League (25/26),só sub-21
-Enzo,Athletic Club,Enzo - Athletic Club - Brasil B,2024,Santo André,5,113,sofascore,https://www.sofascore.com/api/v1/player/1491470/unique-tournament/372/season/57170/statistics/overall,Paulista A1 2024,
-F. Carrizo,Club Libertad,F. Carrizo - Club Libertad - Paraguai,2025,Cerro Porteño,30,1918,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-F. Fydriszewski,Junior,F. Fydriszewski - Junior - Colombia A,2024,Barcelona,11,817,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Equador A,
-F. Nicola,Atlético Tucumán,F. Nicola - Atlético Tucumán - Argentina A,2024,Liverpool,21,1182,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
-Fabrício Daniel,São Bernardo FC,Fabrício Daniel - São Bernardo FC - Brasil B,2024,Grêmio Novorizontino,23,1235,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Fabrício Daniel,São Bernardo FC,Fabrício Daniel - São Bernardo FC - Brasil B,2025,Ferroviária,17,1105,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Fabrício Daniel,São Bernardo FC,Fabrício Daniel - São Bernardo FC - Brasil B,2026,São Bernardo,11,309,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Felipinho,Athletico-PR,Felipinho - Athletico-PR - Brasil A,2024,Athletico Paranaense,18,947,sofascore,https://www.sofascore.com/api/v1/player/1107060/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Felipinho,Athletico-PR,Felipinho - Athletico-PR - Brasil A,2025,Athletico Paranaense,31,2140,sofascore,https://www.sofascore.com/api/v1/player/1107060/unique-tournament/390/season/72603/statistics/overall,Série B 2025,
-Felipinho,Athletico-PR,Felipinho - Athletico-PR - Brasil A,2026,Athletico Paranaense,11,507,sofascore,https://www.sofascore.com/api/v1/player/1107060/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
-Fernandinho Conceição,Ferroviária,Fernandinho Conceição - Ferroviária - Manual,2024,Nova Iguaçu,10,375,sofascore,https://www.sofascore.com/api/v1/player/1474923/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
-Fernandinho Conceição,Ferroviária,Fernandinho Conceição - Ferroviária - Manual,2025,Nova Iguaçu,9,533,sofascore,https://www.sofascore.com/api/v1/player/1474923/unique-tournament/92/season/69574/statistics/overall,Carioca 2025,também jogou a Série D 2025 (sem números na Sofascore)
-Fernandinho Conceição,Ferroviária,Fernandinho Conceição - Ferroviária - Manual,2026,Ferroviária,9,180,sofascore,https://www.sofascore.com/api/v1/player/1474923/unique-tournament/1281/season/90642/statistics/overall,Série C 2026,
-Fernandinho,Ceará,Fernandinho - Ceará - Brasil B,2024,Mirassol,34,2638,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Fernandinho,Ceará,Fernandinho - Ceará - Brasil B,2025,Ceará,22,1123,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Foguinho,São Bernardo FC,Foguinho - São Bernardo FC - Brasil B,2024,Chapecoense,30,2423,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-G. Vargas,Olimpia,G. Vargas - Olimpia - Paraguai,2024,Guaraní,14,1194,sofascore,https://www.sofascore.com/api/v1/player/1065595/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,Apertura 2024 sem número
-Gabriel Souza,Santa Cruz,Gabriel Souza - Santa Cruz - Brasil C,2024,Portimonense (emprestado pelo Bahia),0,0,ogol,https://www.ogol.com.br/jogador/gabriel-souza/790207,-,oGol: 0 jogos em 2024
-Gabriel,Red Bull Bragantino,Gabriel - Red Bull Bragantino - Brasil A,2024,Athletico Paranaense,20,1589,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Gabriel,Vitória,Gabriel - Vitória - Brasil A,2024,Juventude,34,3417,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Gabriel,Vitória,Gabriel - Vitória - Brasil A,2025,Sport Recife,24,2411,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Enso Gonzalez,Wolves,Enso Gonzalez - Wolves - Manual,2025,Wolverhampton,0,0.0,wikipedia/fotmob,https://www.fotmob.com/es/players/1458595,Premier League (24/25),só sub-21
+Enso Gonzalez,Wolves,Enso Gonzalez - Wolves - Manual,2026,Wolverhampton,0,0.0,wikipedia/fotmob,https://www.fotmob.com/es/players/1458595,Premier League (25/26),só sub-21
+Enzo,Athletic Club,Enzo - Athletic Club - Brasil B,2024,Santo André,5,113.0,sofascore,https://www.sofascore.com/api/v1/player/1491470/unique-tournament/372/season/57170/statistics/overall,Paulista A1 2024,
+F. Carrizo,Club Libertad,F. Carrizo - Club Libertad - Paraguai,2025,Cerro Porteño,30,1918.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+F. Fydriszewski,Junior,F. Fydriszewski - Junior - Colombia A,2024,Barcelona,11,817.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Equador A,
+F. Nicola,Atlético Tucumán,F. Nicola - Atlético Tucumán - Argentina A,2024,Liverpool,21,1182.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
+Fabrício Daniel,São Bernardo FC,Fabrício Daniel - São Bernardo FC - Brasil B,2024,Grêmio Novorizontino,23,1235.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Fabrício Daniel,São Bernardo FC,Fabrício Daniel - São Bernardo FC - Brasil B,2025,Ferroviária,17,1105.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Fabrício Daniel,São Bernardo FC,Fabrício Daniel - São Bernardo FC - Brasil B,2026,São Bernardo,11,309.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Felipinho,Athletico-PR,Felipinho - Athletico-PR - Brasil A,2024,Athletico Paranaense,18,947.0,sofascore,https://www.sofascore.com/api/v1/player/1107060/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Felipinho,Athletico-PR,Felipinho - Athletico-PR - Brasil A,2025,Athletico Paranaense,31,2140.0,sofascore,https://www.sofascore.com/api/v1/player/1107060/unique-tournament/390/season/72603/statistics/overall,Série B 2025,
+Felipinho,Athletico-PR,Felipinho - Athletico-PR - Brasil A,2026,Athletico Paranaense,11,507.0,sofascore,https://www.sofascore.com/api/v1/player/1107060/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
+Fernandinho Conceição,Ferroviária,Fernandinho Conceição - Ferroviária - Manual,2024,Nova Iguaçu,10,375.0,sofascore,https://www.sofascore.com/api/v1/player/1474923/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
+Fernandinho Conceição,Ferroviária,Fernandinho Conceição - Ferroviária - Manual,2025,Nova Iguaçu,9,533.0,sofascore,https://www.sofascore.com/api/v1/player/1474923/unique-tournament/92/season/69574/statistics/overall,Carioca 2025,também jogou a Série D 2025 (sem números na Sofascore)
+Fernandinho Conceição,Ferroviária,Fernandinho Conceição - Ferroviária - Manual,2026,Ferroviária,9,180.0,sofascore,https://www.sofascore.com/api/v1/player/1474923/unique-tournament/1281/season/90642/statistics/overall,Série C 2026,
+Fernandinho,Ceará,Fernandinho - Ceará - Brasil B,2024,Mirassol,34,2638.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Fernandinho,Ceará,Fernandinho - Ceará - Brasil B,2025,Ceará,22,1123.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Foguinho,São Bernardo FC,Foguinho - São Bernardo FC - Brasil B,2024,Chapecoense,30,2423.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+G. Vargas,Olimpia,G. Vargas - Olimpia - Paraguai,2024,Guaraní,14,1194.0,sofascore,https://www.sofascore.com/api/v1/player/1065595/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,Apertura 2024 sem número
+Gabriel Souza,Santa Cruz,Gabriel Souza - Santa Cruz - Brasil C,2024,Portimonense (emprestado pelo Bahia),0,0.0,ogol,https://www.ogol.com.br/jogador/gabriel-souza/790207,-,oGol: 0 jogos em 2024
+Gabriel,Red Bull Bragantino,Gabriel - Red Bull Bragantino - Brasil A,2024,Athletico Paranaense,20,1589.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Gabriel,Vitória,Gabriel - Vitória - Brasil A,2024,Juventude,34,3417.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Gabriel,Vitória,Gabriel - Vitória - Brasil A,2025,Sport Recife,24,2411.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
 Geovani Soares,Atletico Goianiense,Geovani Soares - Atletico Goianiense - Manual,2024,Rio Claro / Atlético Tubarão,26,,wikipedia,https://en.wikipedia.org/wiki/Geovany_Soares,todas as competições,Rio Claro 15 + Atlético Tubarão 11; sem minutos
 Geovani Soares,Atletico Goianiense,Geovani Soares - Atletico Goianiense - Manual,2025,Santa Cruz / Marcílio Dias,45,,wikipedia,https://en.wikipedia.org/wiki/Geovany_Soares,todas as competições,Santa Cruz 23 (Série D) + Marcílio Dias 22 (2024-25); sem minutos
-Geovani Soares,Atletico Goianiense,Geovani Soares - Atletico Goianiense - Manual,2026,Atlético GO,27,2117,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,"Wyscout set26 ""Soares"""
+Geovani Soares,Atletico Goianiense,Geovani Soares - Atletico Goianiense - Manual,2026,Atlético GO,27,2117.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,"Wyscout set26 ""Soares"""
 Geovani Soares,Atletico Goianiense,Geovani Soares - Atletico Goianiense - Manual,2026,Barra-SC,14,,wikipedia,https://en.wikipedia.org/wiki/Geovany_Soares,Catarinense 2026,antes do Atlético GO; sem minutos
-Gonzalo Ríos,Independiente Rivadavia,Gonzalo Ríos - Independiente Rivadavia - Manual,2024,Audax Italiano,15,1265,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Chile,
-Gonzalo Ríos,Independiente Rivadavia,Gonzalo Ríos - Independiente Rivadavia - Manual,2025,Banfield,30,2240,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
-Gonzalo Ríos,Independiente Rivadavia,Gonzalo Ríos - Independiente Rivadavia - Manual,2026,Independiente Rivadavia,25,1388,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Argentina A,
-Guilherme Belea,Livre,Guilherme Belea - Livre - Manual,2024,Ponte Preta,4,67,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Guilherme Belea,Livre,Guilherme Belea - Livre - Manual,2025,Cianorte,12,959,sofascore,https://www.sofascore.com/api/v1/player/1395643/unique-tournament/382/season/69576/statistics/overall,Paranaense 2025,
+Gonzalo Ríos,Independiente Rivadavia,Gonzalo Ríos - Independiente Rivadavia - Manual,2024,Audax Italiano,15,1265.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Chile,
+Gonzalo Ríos,Independiente Rivadavia,Gonzalo Ríos - Independiente Rivadavia - Manual,2025,Banfield,30,2240.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
+Gonzalo Ríos,Independiente Rivadavia,Gonzalo Ríos - Independiente Rivadavia - Manual,2026,Independiente Rivadavia,25,1388.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Argentina A,
+Guilherme Belea,Livre,Guilherme Belea - Livre - Manual,2024,Ponte Preta,4,67.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Guilherme Belea,Livre,Guilherme Belea - Livre - Manual,2025,Cianorte,12,959.0,sofascore,https://www.sofascore.com/api/v1/player/1395643/unique-tournament/382/season/69576/statistics/overall,Paranaense 2025,
 Guilherme Belea,Livre,Guilherme Belea - Livre - Manual,2026,Piauí EC,1,,sofascore,https://www.sofascore.com/api/v1/player/1395643/unique-tournament/10326/season/92447/statistics/overall,Série D 2026,Sofascore sem minutos
-Guilherme Madruga,Shandong Taishan,Guilherme Madruga - Shandong Taishan - China,2024,Cuiabá,6,105,sofascore,https://www.sofascore.com/api/v1/player/1463460/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Guilherme,Atlético Clube Goianiense,Guilherme - Atlético Clube Goianiense - Brasil B,2024,Changchun Yatai,12,958,wyscout,local: Portal Ranking/dados/2024 (aba BASE),China,"Wyscout ""Guilherme Marques"" (nascido 1991)"
-Guilherme,Atlético Clube Goianiense,Guilherme - Atlético Clube Goianiense - Brasil B,2025,Mirassol,12,608,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,"Wyscout ""Guilherme Marques"" (nascido 1991)"
-Guilherme,Atlético Clube Goianiense,Guilherme - Atlético Clube Goianiense - Brasil B,2026,Atlético GO,17,996,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,"Wyscout ""Guilherme Marques"" (nascido 1991)"
-Gustavo Coutinho,Atlético GO,Gustavo Coutinho - Atlético GO - Brasil B,2024,Sport Recife,34,2327,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Gustavo Pereira,Jacuipense,Gustavo Pereira - Jacuipense - Manual,2024,Jacuipense,0,0,sofascore,https://www.sofascore.com/api/v1/player/1647404/statistics/seasons,profissional,sem jogos profissionais
-Gustavo Pereira,Jacuipense,Gustavo Pereira - Jacuipense - Manual,2026,Jacuipense,3,4,sofascore,https://www.sofascore.com/api/v1/player/1647404/unique-tournament/10326/season/92447/statistics/overall,Série D 2026,
-Gustavo Prado,Internacional,Gustavo Prado - Internacional - Brasil A,2024,Internacional,28,840,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Gustavo Prado,Internacional,Gustavo Prado - Internacional - Brasil A,2025,Internacional,18,668,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Gustavo Prado,Internacional,Gustavo Prado - Internacional - Brasil A,2026,Ceará,3,140,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-H. Toledo,Albion,H. Toledo - Albion - Uruguai,2024,Deportivo Maldonado,14,1109,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
-H. Toledo,Albion,H. Toledo - Albion - Uruguai,2025,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/814280/statistics/seasons,-,sem liga em 2025
-Heinz Mörschel,Vizela,Heinz Mörschel - Vizela - Manual,2024,Újpest,31,1983,fbref,https://aws.fbref.com/en/players/eded73ad/Heinz-Morschel,Hungria NB I (23/24),liga; 32 jogos em todas as competições (Wikipedia)
-Heinz Mörschel,Vizela,Heinz Mörschel - Vizela - Manual,2025,Vizela,31,2383,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal B,
-Heinz Mörschel,Vizela,Heinz Mörschel - Vizela - Manual,2026,Vizela,31,2926,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Portugal B,
-Heitor Guerra,Palmeiras,Heitor Guerra - Palmeiras - Manual,2024,Palmeiras,0,0,soccerway,https://us.soccerway.com/player/heitor-guerra/lf6ZhXIs,profissional,só sub-20 (nascido em 2008)
-Heitor Guerra,Palmeiras,Heitor Guerra - Palmeiras - Manual,2025,Palmeiras,0,0,soccerway,https://us.soccerway.com/player/heitor-guerra/lf6ZhXIs,profissional,só sub-20 (nascido em 2008)
-Heitor Guerra,Palmeiras,Heitor Guerra - Palmeiras - Manual,2026,Palmeiras,0,0,soccerway,https://us.soccerway.com/player/heitor-guerra/lf6ZhXIs,profissional,só sub-20 (nascido em 2008)
-Hernandes,Cuiabá,Hernandes - Cuiabá - Brasil B,2025,Daejeon Citizen,18,1116,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Coreia A,
-Hernandes,Cuiabá,Hernandes - Cuiabá - Brasil B,2026,Cuiabá,5,390,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Hyoran,São Bernardo FC,Hyoran - São Bernardo FC - Brasil B,2024,Internacional,10,358,sofascore,https://www.sofascore.com/api/v1/player/551348/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-I. Miramón,Gimnasia La Plata,I. Miramón - Gimnasia La Plata - Argentina A,2025,Boca Juniors,3,101,sofascore,https://www.sofascore.com/api/v1/player/1090319/unique-tournament/155/season/70268/statistics/overall,Argentina Apertura 2025,
-I. Ramírez,Cerro Porteño,I. Ramírez - Cerro Porteño - Paraguai,2024,Libertad,7,712,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Paraguai,
-I. Ramírez,Cerro Porteño,I. Ramírez - Cerro Porteño - Paraguai,2025,Club Libertad,27,2357,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-Iago Teles,Londrina,Iago Teles - Londrina - Brasil B,2024,Londrina,19,1664,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Iago Teles,Londrina,Iago Teles - Londrina - Brasil B,2025,Londrina,21,2005,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
-Igor Silva,Lorient,Igor Silva - Lorient - França A,2025,Lorient,25,2032,wyscout,local: Portal Ranking/dados/2025 (aba BASE),França B,
-Italo,FK Ural,Italo - FK Ural - Manual,2024,Chapecoense,13,784,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Italo,FK Ural,Italo - FK Ural - Manual,2025,Chapecoense,37,1494,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Italo,FK Ural,Italo - FK Ural - Manual,2026,Vizela,23,1529,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Portugal B,
-J. Contreras,Barcelona,J. Contreras - Barcelona - Equador A,2024,Águilas Doradas,9,887,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Colombia A,idade no Wyscout 29 (hoje 31); conferir
-J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2024,Millonarios,11,897,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/11539/season/57374/statistics/overall,Colombia A 2024 (Apertura),Jhoan Hernández
-J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2025,Millonarios,1,45,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/11539/season/70681/statistics/overall,Colombia A 2025 (Apertura),
-J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2025,Millonarios,1,90,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/11536/season/77825/statistics/overall,Colombia A 2025 (Finalización),
-J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2026,Botafogo,1,49,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
-J. Ramos Benitez,Sportivo Luqueño,J. Ramos Benitez - Sportivo Luqueño - Paraguai,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/2049722/statistics/seasons,-,sem liga em 2024
-J. Ramos Benitez,Sportivo Luqueño,J. Ramos Benitez - Sportivo Luqueño - Paraguai,2025,Sportivo Luqueño,29,1384,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-J. Rengifo,Atlético Nacional,J. Rengifo - Atlético Nacional - Colombia A,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1388937/statistics/seasons,-,sem liga em 2024
-JP,Casa Pia AC,JP - Casa Pia AC - Portugal A,2024,Vasco da Gama,10,499,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-JP,Casa Pia AC,JP - Casa Pia AC - Portugal A,2025,Avaí,28,1856,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-JP,Casa Pia AC,JP - Casa Pia AC - Portugal A,2026,Vasco da Gama,2,45,sofascore,https://www.sofascore.com/api/v1/player/1641124/unique-tournament/325/season/87678/statistics/overall,Série A 2026,antes de ir ao Casa Pia
-Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2024,Ponte Preta,18,1638,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2025,Ponte Preta,17,1322,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
-Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2026,Göztepe,16,492,sofascore,https://www.sofascore.com/api/v1/player/1464661/unique-tournament/52/season/77805/statistics/overall,Turquia (25/26),
-Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2026,Ponte Preta,2,162,sofascore,https://www.sofascore.com/api/v1/player/1464661/unique-tournament/372/season/86993/statistics/overall,Paulista A1 2026,
-Jemerson,São Bernardo FC,Jemerson - São Bernardo FC - Brasil B,2024,Grêmio,16,1524,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Jermein Peña,Junior,Jermein Peña - Junior - Colombia A,2024,Junior,4,369,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Colombia A,idade no Wyscout 24 (hoje 26)
-Jhonny,América Mineiro,Jhonny - América Mineiro - Brasil B,2024,Coritiba,8,318,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Jonathan Costa,Guarani,Jonathan Costa - Guarani - Brasil C,2024,Avaí,13,1090,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Guilherme Madruga,Shandong Taishan,Guilherme Madruga - Shandong Taishan - China,2024,Cuiabá,6,105.0,sofascore,https://www.sofascore.com/api/v1/player/1463460/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Guilherme,Atlético Clube Goianiense,Guilherme - Atlético Clube Goianiense - Brasil B,2024,Changchun Yatai,12,958.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),China,"Wyscout ""Guilherme Marques"" (nascido 1991)"
+Guilherme,Atlético Clube Goianiense,Guilherme - Atlético Clube Goianiense - Brasil B,2025,Mirassol,12,608.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,"Wyscout ""Guilherme Marques"" (nascido 1991)"
+Guilherme,Atlético Clube Goianiense,Guilherme - Atlético Clube Goianiense - Brasil B,2026,Atlético GO,17,996.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,"Wyscout ""Guilherme Marques"" (nascido 1991)"
+Gustavo Coutinho,Atlético GO,Gustavo Coutinho - Atlético GO - Brasil B,2024,Sport Recife,34,2327.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Gustavo Pereira,Jacuipense,Gustavo Pereira - Jacuipense - Manual,2024,Jacuipense,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1647404/statistics/seasons,profissional,sem jogos profissionais
+Gustavo Pereira,Jacuipense,Gustavo Pereira - Jacuipense - Manual,2026,Jacuipense,3,4.0,sofascore,https://www.sofascore.com/api/v1/player/1647404/unique-tournament/10326/season/92447/statistics/overall,Série D 2026,
+Gustavo Prado,Internacional,Gustavo Prado - Internacional - Brasil A,2024,Internacional,28,840.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Gustavo Prado,Internacional,Gustavo Prado - Internacional - Brasil A,2025,Internacional,18,668.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Gustavo Prado,Internacional,Gustavo Prado - Internacional - Brasil A,2026,Ceará,3,140.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+H. Toledo,Albion,H. Toledo - Albion - Uruguai,2024,Deportivo Maldonado,14,1109.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
+H. Toledo,Albion,H. Toledo - Albion - Uruguai,2025,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/814280/statistics/seasons,-,sem liga em 2025
+Heinz Mörschel,Vizela,Heinz Mörschel - Vizela - Manual,2024,Újpest,31,1983.0,fbref,https://aws.fbref.com/en/players/eded73ad/Heinz-Morschel,Hungria NB I (23/24),liga; 32 jogos em todas as competições (Wikipedia)
+Heinz Mörschel,Vizela,Heinz Mörschel - Vizela - Manual,2025,Vizela,31,2383.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal B,
+Heinz Mörschel,Vizela,Heinz Mörschel - Vizela - Manual,2026,Vizela,31,2926.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Portugal B,
+Heitor Guerra,Palmeiras,Heitor Guerra - Palmeiras - Manual,2024,Palmeiras,0,0.0,soccerway,https://us.soccerway.com/player/heitor-guerra/lf6ZhXIs,profissional,só sub-20 (nascido em 2008)
+Heitor Guerra,Palmeiras,Heitor Guerra - Palmeiras - Manual,2025,Palmeiras,0,0.0,soccerway,https://us.soccerway.com/player/heitor-guerra/lf6ZhXIs,profissional,só sub-20 (nascido em 2008)
+Heitor Guerra,Palmeiras,Heitor Guerra - Palmeiras - Manual,2026,Palmeiras,0,0.0,soccerway,https://us.soccerway.com/player/heitor-guerra/lf6ZhXIs,profissional,só sub-20 (nascido em 2008)
+Hernandes,Cuiabá,Hernandes - Cuiabá - Brasil B,2025,Daejeon Citizen,18,1116.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Coreia A,
+Hernandes,Cuiabá,Hernandes - Cuiabá - Brasil B,2026,Cuiabá,5,390.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Hyoran,São Bernardo FC,Hyoran - São Bernardo FC - Brasil B,2024,Internacional,10,358.0,sofascore,https://www.sofascore.com/api/v1/player/551348/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+I. Miramón,Gimnasia La Plata,I. Miramón - Gimnasia La Plata - Argentina A,2025,Boca Juniors,3,101.0,sofascore,https://www.sofascore.com/api/v1/player/1090319/unique-tournament/155/season/70268/statistics/overall,Argentina Apertura 2025,
+I. Ramírez,Cerro Porteño,I. Ramírez - Cerro Porteño - Paraguai,2024,Libertad,7,712.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Paraguai,
+I. Ramírez,Cerro Porteño,I. Ramírez - Cerro Porteño - Paraguai,2025,Club Libertad,27,2357.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+Iago Teles,Londrina,Iago Teles - Londrina - Brasil B,2024,Londrina,19,1664.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Iago Teles,Londrina,Iago Teles - Londrina - Brasil B,2025,Londrina,21,2005.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
+Igor Silva,Lorient,Igor Silva - Lorient - França A,2025,Lorient,25,2032.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),França B,
+Italo,FK Ural,Italo - FK Ural - Manual,2024,Chapecoense,13,784.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Italo,FK Ural,Italo - FK Ural - Manual,2025,Chapecoense,37,1494.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Italo,FK Ural,Italo - FK Ural - Manual,2026,Vizela,23,1529.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Portugal B,
+J. Contreras,Barcelona,J. Contreras - Barcelona - Equador A,2024,Águilas Doradas,9,887.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Colombia A,idade no Wyscout 29 (hoje 31); conferir
+J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2024,Millonarios,11,897.0,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/11539/season/57374/statistics/overall,Colombia A 2024 (Apertura),Jhoan Hernández
+J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2025,Millonarios,1,45.0,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/11539/season/70681/statistics/overall,Colombia A 2025 (Apertura),
+J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2025,Millonarios,1,90.0,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/11536/season/77825/statistics/overall,Colombia A 2025 (Finalización),
+J. Hernández,Botafogo,J. Hernández - Botafogo - Brasil A,2026,Botafogo,1,49.0,sofascore,https://www.sofascore.com/api/v1/player/1482359/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
+J. Ramos Benitez,Sportivo Luqueño,J. Ramos Benitez - Sportivo Luqueño - Paraguai,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/2049722/statistics/seasons,-,sem liga em 2024
+J. Ramos Benitez,Sportivo Luqueño,J. Ramos Benitez - Sportivo Luqueño - Paraguai,2025,Sportivo Luqueño,29,1384.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+J. Rengifo,Atlético Nacional,J. Rengifo - Atlético Nacional - Colombia A,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1388937/statistics/seasons,-,sem liga em 2024
+JP,Casa Pia AC,JP - Casa Pia AC - Portugal A,2024,Vasco da Gama,10,499.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+JP,Casa Pia AC,JP - Casa Pia AC - Portugal A,2025,Avaí,28,1856.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+JP,Casa Pia AC,JP - Casa Pia AC - Portugal A,2026,Vasco da Gama,2,45.0,sofascore,https://www.sofascore.com/api/v1/player/1641124/unique-tournament/325/season/87678/statistics/overall,Série A 2026,antes de ir ao Casa Pia
+Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2024,Ponte Preta,18,1638.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2025,Ponte Preta,17,1322.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
+Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2026,Göztepe,16,492.0,sofascore,https://www.sofascore.com/api/v1/player/1464661/unique-tournament/52/season/77805/statistics/overall,Turquia (25/26),
+Jeh,FK Partizan Belgrade,Jeh - FK Partizan Belgrade - Servia,2026,Ponte Preta,2,162.0,sofascore,https://www.sofascore.com/api/v1/player/1464661/unique-tournament/372/season/86993/statistics/overall,Paulista A1 2026,
+Jemerson,São Bernardo FC,Jemerson - São Bernardo FC - Brasil B,2024,Grêmio,16,1524.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Jermein Peña,Junior,Jermein Peña - Junior - Colombia A,2024,Junior,4,369.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Colombia A,idade no Wyscout 24 (hoje 26)
+Jhonny,América Mineiro,Jhonny - América Mineiro - Brasil B,2024,Coritiba,8,318.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Jonathan Costa,Guarani,Jonathan Costa - Guarani - Brasil C,2024,Avaí,13,1090.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
 Jorge Hurtado,Deportes Tolima,Jorge Hurtado - Deportes Tolima - Colombia A,2024,Watford / Gillingham,4,,fotmob,https://www.fotmob.com/es/players/1341010,Inglaterra (23/24),Watford 1 + Gillingham 3; sem minutos
 Jorge Hurtado,Deportes Tolima,Jorge Hurtado - Deportes Tolima - Colombia A,2025,PAOK B,20,,fotmob,https://www.fotmob.com/es/players/1341010,Grécia 2a div (24/25),sem minutos
-Jorge Hurtado,Deportes Tolima,Jorge Hurtado - Deportes Tolima - Colombia A,2025,Millonarios,14,810,wyscout,,Colombia A 2025,"Wyscout como ""J. Cabezas"" (Jorge Cabezas Hurtado)"
-Jorge Hurtado,Deportes Tolima,Jorge Hurtado - Deportes Tolima - Colombia A,2026,Deportes Tolima,5,139,fotmob,https://www.fotmob.com/es/players/1341010,Colombia A 2026 (2o semestre),liga; 1o semestre no Millonarios sem número separado
-João Vitor (RCMF),Londrina,João Vitor (RCMF) - Londrina - Brasil B,2025,Londrina,13,520,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
-João Vitor (RCMF),Londrina,João Vitor (RCMF) - Londrina - Brasil B,2026,Londrina,22,1283,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Juan Christian,Juventude,Juan Christian - Juventude - Manual,2024,Vila Nova,18,1273,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Juan Christian,Juventude,Juan Christian - Juventude - Manual,2025,Cuiabá,32,1693,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Juan Christian,Juventude,Juan Christian - Juventude - Manual,2025,Alanyaspor,5,119,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Turquia,temporada 2024/25
-Juan Christian,Juventude,Juan Christian - Juventude - Manual,2026,Juventude,4,73,sofascore,https://www.sofascore.com/api/v1/player/1412631/unique-tournament/390/season/89840/statistics/overall,Série B 2026,
-Juan Christian,Juventude,Juan Christian - Juventude - Manual,2026,Riga FC,17,392,sofascore,https://www.sofascore.com/api/v1/player/1412631/unique-tournament/197/season/89428/statistics/overall,Letônia Virsliga 2026,
-Juan Fernando Alfaro,Olimpia,Juan Fernando Alfaro - Olimpia - Paraguai,2025,Nacional Asunción,33,2805,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2024,Atlético Tucumán,13,248,sofascore,https://www.sofascore.com/api/v1/player/932866/unique-tournament/155/season/57478/statistics/overall,Argentina LPF 2024,
-Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2024,Atlético Tucumán,13,747,sofascore,https://www.sofascore.com/api/v1/player/932866/unique-tournament/13475/season/57487/statistics/overall,Copa de la Liga 2024,
-Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2025,Aldosivi,28,2141,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
-Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2026,Universidad Católica,23,2056,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Chile,
-Jádson,Athletico Paranaense,Jádson - Athletico Paranaense - Brasil A,2024,Juventude,33,3200,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Jádson,Athletico Paranaense,Jádson - Athletico Paranaense - Brasil A,2025,Juventude,35,3162,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Kadu Santos,Botafogo,Kadu Santos - Botafogo - Brasil A,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1843325/statistics/seasons,profissional,sem jogos em 2024
-Kadu Santos,Botafogo,Kadu Santos - Botafogo - Brasil A,2025,Remo,7,265,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Kadu Santos,Botafogo,Kadu Santos - Botafogo - Brasil A,2026,Botafogo,6,491,sofascore,https://www.sofascore.com/api/v1/player/1843325/unique-tournament/92/season/86674/statistics/overall,Carioca 2026,sem jogos na Série A 2026
-Kauan Cristtyan,Cuiabá,Kauan Cristtyan - Cuiabá - Brasil B,2024,Cuiabá,1,12,sofascore,https://www.sofascore.com/api/v1/player/1631777/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Kauan Cristtyan,Cuiabá,Kauan Cristtyan - Cuiabá - Brasil B,2025,América-MG,2,30,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Jorge Hurtado,Deportes Tolima,Jorge Hurtado - Deportes Tolima - Colombia A,2025,Millonarios,14,810.0,wyscout,,Colombia A 2025,"Wyscout como ""J. Cabezas"" (Jorge Cabezas Hurtado)"
+Jorge Hurtado,Deportes Tolima,Jorge Hurtado - Deportes Tolima - Colombia A,2026,Deportes Tolima,5,139.0,fotmob,https://www.fotmob.com/es/players/1341010,Colombia A 2026 (2o semestre),liga; 1o semestre no Millonarios sem número separado
+João Vitor (RCMF),Londrina,João Vitor (RCMF) - Londrina - Brasil B,2025,Londrina,13,520.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
+João Vitor (RCMF),Londrina,João Vitor (RCMF) - Londrina - Brasil B,2026,Londrina,22,1283.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Juan Christian,Juventude,Juan Christian - Juventude - Manual,2024,Vila Nova,18,1273.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Juan Christian,Juventude,Juan Christian - Juventude - Manual,2025,Cuiabá,32,1693.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Juan Christian,Juventude,Juan Christian - Juventude - Manual,2025,Alanyaspor,5,119.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Turquia,temporada 2024/25
+Juan Christian,Juventude,Juan Christian - Juventude - Manual,2026,Juventude,4,73.0,sofascore,https://www.sofascore.com/api/v1/player/1412631/unique-tournament/390/season/89840/statistics/overall,Série B 2026,
+Juan Christian,Juventude,Juan Christian - Juventude - Manual,2026,Riga FC,17,392.0,sofascore,https://www.sofascore.com/api/v1/player/1412631/unique-tournament/197/season/89428/statistics/overall,Letônia Virsliga 2026,
+Juan Fernando Alfaro,Olimpia,Juan Fernando Alfaro - Olimpia - Paraguai,2025,Nacional Asunción,33,2805.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2024,Atlético Tucumán,13,248.0,sofascore,https://www.sofascore.com/api/v1/player/932866/unique-tournament/155/season/57478/statistics/overall,Argentina LPF 2024,
+Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2024,Atlético Tucumán,13,747.0,sofascore,https://www.sofascore.com/api/v1/player/932866/unique-tournament/13475/season/57487/statistics/overall,Copa de la Liga 2024,
+Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2025,Aldosivi,28,2141.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
+Justo Giani,Univesidad Catolica,Justo Giani - Univesidad Catolica - Manual,2026,Universidad Católica,23,2056.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Chile,
+Jádson,Athletico Paranaense,Jádson - Athletico Paranaense - Brasil A,2024,Juventude,33,3200.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Jádson,Athletico Paranaense,Jádson - Athletico Paranaense - Brasil A,2025,Juventude,35,3162.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Kadu Santos,Botafogo,Kadu Santos - Botafogo - Brasil A,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1843325/statistics/seasons,profissional,sem jogos em 2024
+Kadu Santos,Botafogo,Kadu Santos - Botafogo - Brasil A,2025,Remo,7,265.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Kadu Santos,Botafogo,Kadu Santos - Botafogo - Brasil A,2026,Botafogo,6,491.0,sofascore,https://www.sofascore.com/api/v1/player/1843325/unique-tournament/92/season/86674/statistics/overall,Carioca 2026,sem jogos na Série A 2026
+Kauan Cristtyan,Cuiabá,Kauan Cristtyan - Cuiabá - Brasil B,2024,Cuiabá,1,12.0,sofascore,https://www.sofascore.com/api/v1/player/1631777/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Kauan Cristtyan,Cuiabá,Kauan Cristtyan - Cuiabá - Brasil B,2025,América-MG,2,30.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
 Kauan Lindes,Athletic Club,Kauan Lindes - Athletic Club - Brasil B,2024,Villa Nova,2,,fotmob/wikipedia,https://www.fotmob.com/players/1732667/kauan-lindes,Mineiro (emprestado),só estadual; no Botafogo 2024 sem jogos
-Kauan Lindes,Athletic Club,Kauan Lindes - Athletic Club - Brasil B,2025,Athletic,8,328,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Kauan Lindes,Athletic Club,Kauan Lindes - Athletic Club - Brasil B,2025,Athletic,8,328.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
 Kauan Lindes,Athletic Club,Kauan Lindes - Athletic Club - Brasil B,2025,Botafogo,7,,fotmob,https://www.fotmob.com/players/1732667/kauan-lindes,todas as competições,"jan-set/2025, 1 jogo na Série A; sem minutos"
-Kauan Lindes,Athletic Club,Kauan Lindes - Athletic Club - Brasil B,2026,Athletic,4,193,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Kauan,Athletic Club,Kauan - Athletic Club - Brasil B,2025,Atlético GO,32,1782,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Kauã Diniz,RB Omiya Ardija,Kauã Diniz - RB Omiya Ardija - Japao B,2024,América-MG,1,15,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Kauã Diniz,RB Omiya Ardija,Kauã Diniz - RB Omiya Ardija - Japao B,2025,América Mineiro,27,1927,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Kauã Diniz,RB Omiya Ardija,Kauã Diniz - RB Omiya Ardija - Japao B,2026,RB Omiya Ardija,7,385,sofascore,https://www.sofascore.com/api/v1/player/1485486/unique-tournament/402/season/87932/statistics/overall,J2 League 2026,
-Kayke Queiroz,Kawasaki Frontale,Kayke Queiroz - Kawasaki Frontale - Japao A,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1631272/statistics/seasons,profissional,só Copinha
-Kayke Queiroz,Kawasaki Frontale,Kayke Queiroz - Kawasaki Frontale - Japao A,2025,Fortaleza,2,29,sofascore,https://www.sofascore.com/api/v1/player/1631272/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Kayke Queiroz,Kawasaki Frontale,Kayke Queiroz - Kawasaki Frontale - Japao A,2026,Fortaleza,3,72,sofascore,https://www.sofascore.com/api/v1/player/1631272/unique-tournament/390/season/89840/statistics/overall,Série B 2026,antes de ir ao Kawasaki
-Keiller,Coritiba,Keiller - Coritiba - Brasil A,2024,Vasco da Gama,0,0,wikipedia/fotmob,https://en.wikipedia.org/wiki/Keiller_(footballer),-,"emprestado, sem jogos"
+Kauan Lindes,Athletic Club,Kauan Lindes - Athletic Club - Brasil B,2026,Athletic,4,193.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Kauan,Athletic Club,Kauan - Athletic Club - Brasil B,2025,Atlético GO,32,1782.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Kauã Diniz,RB Omiya Ardija,Kauã Diniz - RB Omiya Ardija - Japao B,2024,América-MG,1,15.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Kauã Diniz,RB Omiya Ardija,Kauã Diniz - RB Omiya Ardija - Japao B,2025,América Mineiro,27,1927.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Kauã Diniz,RB Omiya Ardija,Kauã Diniz - RB Omiya Ardija - Japao B,2026,RB Omiya Ardija,7,385.0,sofascore,https://www.sofascore.com/api/v1/player/1485486/unique-tournament/402/season/87932/statistics/overall,J2 League 2026,
+Kayke Queiroz,Kawasaki Frontale,Kayke Queiroz - Kawasaki Frontale - Japao A,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1631272/statistics/seasons,profissional,só Copinha
+Kayke Queiroz,Kawasaki Frontale,Kayke Queiroz - Kawasaki Frontale - Japao A,2025,Fortaleza,2,29.0,sofascore,https://www.sofascore.com/api/v1/player/1631272/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Kayke Queiroz,Kawasaki Frontale,Kayke Queiroz - Kawasaki Frontale - Japao A,2026,Fortaleza,3,72.0,sofascore,https://www.sofascore.com/api/v1/player/1631272/unique-tournament/390/season/89840/statistics/overall,Série B 2026,antes de ir ao Kawasaki
+Keiller,Coritiba,Keiller - Coritiba - Brasil A,2024,Vasco da Gama,0,0.0,wikipedia/fotmob,https://en.wikipedia.org/wiki/Keiller_(footballer),-,"emprestado, sem jogos"
 Keiller,Coritiba,Keiller - Coritiba - Brasil A,2025,Ceará,4,,fotmob/soccerway,https://www.fotmob.com/players/750108/keiller,Cearense + Copa do Nordeste,sem jogos na Série A; sem minutos
-Keiller,Coritiba,Keiller - Coritiba - Brasil A,2026,Coritiba,0,0,fotmob,https://www.fotmob.com/players/750108/keiller,Série A,reserva não utilizado nos jogos listados
-Kleiton Pego,Paysandu SC,Kleiton Pego - Paysandu SC - Brasil C,2024,CRB,20,1123,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,"Wyscout ""Kleiton"""
-Kleiton Pego,Paysandu SC,Kleiton Pego - Paysandu SC - Brasil C,2025,Operário PR,15,609,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"Wyscout ""Kleiton"""
-Kleiton Pego,Paysandu SC,Kleiton Pego - Paysandu SC - Brasil C,2026,Paysandu,19,1415,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil C,"Wyscout set26 ""Kleiton"""
-L. Femia,Danubio,L. Femia - Danubio - Uruguai,2024,Danubio,36,2535,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
-L. Gil,Huracán,L. Gil - Huracán - Argentina A,2024,Colo Colo,25,1932,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Chile,
-L. Souto,Defensa y Justicia,L. Souto - Defensa y Justicia - Argentina A,2025,Defensa y Justicia,3,50,sofascore,https://www.sofascore.com/api/v1/player/1020523/unique-tournament/155/season/77826/statistics/overall,Argentina Clausura 2025,
-Leandro Matheus,Azuriz,Leandro Matheus - Azuriz - Manual,2024,Sampaio Corrêa-RJ,11,1050,sofascore,https://www.sofascore.com/api/v1/player/1090722/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
-Leandro Matheus,Azuriz,Leandro Matheus - Azuriz - Manual,2025,Torreense,6,607,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal B,
-Leo Aragao,Cruzeiro,Leo Aragao - Cruzeiro - Brasil A,2024,Cruzeiro,0,0,sofascore,https://www.sofascore.com/api/v1/player/1488035/statistics/seasons,-,sem jogos em 2024
-Leo Aragao,Cruzeiro,Leo Aragao - Cruzeiro - Brasil A,2025,Cruzeiro,4,333,sofascore,https://www.sofascore.com/api/v1/player/1488035/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Leo Aragao,Cruzeiro,Leo Aragao - Cruzeiro - Brasil A,2026,Avaí,13,1285,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Leo Jacó,Atlético GO,Leo Jacó - Atlético GO - Brasil B,2024,Vasco da Gama,1,19,sofascore,https://www.sofascore.com/api/v1/player/1462709/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
-Leo Jacó,Atlético GO,Leo Jacó - Atlético GO - Brasil B,2025,Vasco da Gama,2,19,sofascore,https://www.sofascore.com/api/v1/player/1462709/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Leo Jacó,Atlético GO,Leo Jacó - Atlético GO - Brasil B,2026,Atlético-GO,17,564,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Luan,São Paulo,Luan - São Paulo - Brasil A,2024,Vitória,25,1747,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,"Wyscout ""Luan Silva"" (time atual São Paulo), emprestado ao Vitória"
-Lucas Belezi,Athletic Club,Lucas Belezi - Athletic Club - Brasil B,2024,Athletico Paranaense,9,890,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Lucas França,CD Santa Clara,Lucas França - CD Santa Clara - Portugal A,2024,Nacional,24,2428,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Portugal B,idade no Wyscout 28 (hoje 30)
-Lucas França,CD Santa Clara,Lucas França - CD Santa Clara - Portugal A,2025,Nacional,32,3153,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal A,
-Lucas França,CD Santa Clara,Lucas França - CD Santa Clara - Portugal A,2026,Nacional,6,540,sofascore,https://www.sofascore.com/api/v1/player/832672/unique-tournament/238/season/77806/statistics/overall,Liga Portugal (25/26),
-Lucas Lima,São Bernardo FC,Lucas Lima - São Bernardo FC - Brasil B,2024,São Bernardo FC,15,1225,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Lucas Lima,São Bernardo FC,Lucas Lima - São Bernardo FC - Brasil B,2025,Ceará,11,168,sofascore,https://www.sofascore.com/api/v1/player/1048254/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Lucas Rian,São Bernardo FC,Lucas Rian - São Bernardo FC - Brasil B,2024,Ceará,18,667,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Lucas Rian,São Bernardo FC,Lucas Rian - São Bernardo FC - Brasil B,2024,Confiança,9,787,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Lucas Rian,São Bernardo FC,Lucas Rian - São Bernardo FC - Brasil B,2025,São Bernardo,11,386,sofascore,https://www.sofascore.com/api/v1/player/1893682/unique-tournament/372/season/69522/statistics/overall,Paulista A1 2025,
-Luccas Claro,Eyüpspor,Luccas Claro - Eyüpspor - Turquia,2024,Eyüpspor,33,2910,sofascore,https://www.sofascore.com/api/v1/player/998209/unique-tournament/98/season/53276/statistics/overall,Turquia 1.Lig (23/24),
-Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2024,Guarani,15,692,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2025,Torreense,10,324,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal B,
-Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2026,Leixões,10,386,sofascore,https://www.sofascore.com/api/v1/player/1463461/unique-tournament/239/season/77801/statistics/overall,Liga Portugal 2 (25/26),
-Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2026,Maccabi Netanya,9,323,sofascore,https://www.sofascore.com/api/v1/player/1463461/unique-tournament/266/season/77635/statistics/overall,Israel (25/26),
-Lucão,Gyeongnam,Lucão - Gyeongnam - Coreia B,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1134716/statistics/seasons,-,sem liga em 2024
-Lucão,Gyeongnam,Lucão - Gyeongnam - Coreia B,2025,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1134716/statistics/seasons,-,só Copa do Brasil
-Luiz Otávio,Ceará,Luiz Otávio - Ceará - Brasil B,2024,Mirassol,32,3047,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Luiz Otávio,Ceará,Luiz Otávio - Ceará - Brasil B,2025,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/871204/statistics/seasons,-,sem liga em 2025
-M. Gamarra,Olimpia,M. Gamarra - Olimpia - Paraguai,2024,Athletico Paranaense,19,1671,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-M. Gamarra,Olimpia,M. Gamarra - Olimpia - Paraguai,2025,Cruzeiro,2,153,sofascore,https://www.sofascore.com/api/v1/player/1085451/unique-tournament/325/season/72034/statistics/overall,Série A 2025,Mateo Gamarra
-M. Jiménez Salinas,Audax Italiano,M. Jiménez Salinas - Audax Italiano - Chile,2025,Audax Italiano,10,366,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Chile,
-Marcos Paulo (LCB),Juventude,Marcos Paulo (LCB) - Juventude - Brasil B,2025,Juventude,19,1524,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Marcos Paulo (LCB),Juventude,Marcos Paulo (LCB) - Juventude - Brasil B,2026,Juventude,25,2398,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Mateo Caballero,Defensor Sporting,Mateo Caballero - Defensor Sporting - Uruguai,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1899890/statistics/seasons,-,estreou só em 2026
-Mateo Caballero,Defensor Sporting,Mateo Caballero - Defensor Sporting - Uruguai,2025,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1899890/statistics/seasons,-,estreou só em 2026
-Mateus Pivô,AVS ,Mateus Pivô - AVS - Portugal A,2024,Brusque,26,2291,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Matheus Serafim,Daegu,Matheus Serafim - Daegu - Coreia B,2024,Amazonas,33,2934,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Matheusinho,Vitória,Matheusinho - Vitória - Brasil A,2024,Vitória,33,2755,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,"Wyscout ""Matheuzinho"" do Vitória (28 anos, atacante); o card diz LD 27 anos - conferir se é este ou o lateral do Corinthians"
-Matheusinho,Vitória,Matheusinho - Vitória - Brasil A,2025,Vitória,29,1951,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,"Wyscout ""Matheuzinho"" do Vitória (28 anos, atacante); o card diz LD 27 anos - conferir se é este ou o lateral do Corinthians"
-Matheusinho,Vitória,Matheusinho - Vitória - Brasil A,2026,Vitória,25,1706,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil A,"Wyscout ""Matheuzinho"" do Vitória (28 anos, atacante); o card diz LD 27 anos - conferir se é este ou o lateral do Corinthians"
-Maurício,Fortaleza,Maurício - Fortaleza - Manual,2024,Londrina,19,1869,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Maurício,Fortaleza,Maurício - Fortaleza - Manual,2025,Londrina,21,2039,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
-Maurício,Fortaleza,Maurício - Fortaleza - Manual,2026,Fortaleza,24,1753,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Max,Associação Chapecoense de Futebol,Max - Associação Chapecoense de Futebol - Brasil A,2024,Cuiabá,23,1340,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Max,Associação Chapecoense de Futebol,Max - Associação Chapecoense de Futebol - Brasil A,2025,Cuiabá,32,2680,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Max,Associação Chapecoense de Futebol,Max - Associação Chapecoense de Futebol - Brasil A,2026,Sport,2,17,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,Wyscout Série B; time de hoje Chapecoense
-Max,Athletic Club,Max - Athletic Club - Brasil B,2024,Atlético GO,14,297,sofascore,https://www.sofascore.com/api/v1/player/1642625/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Max,Athletic Club,Max - Athletic Club - Brasil B,2024,Sampaio Corrêa-RJ,12,999,sofascore,https://www.sofascore.com/api/v1/player/1642625/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
-Mayke,Santos,Mayke - Santos - Brasil A,2024,Palmeiras,22,1185,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Mayke,Santos,Mayke - Santos - Brasil A,2025,Santos,15,1125,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Mayke,Santos,Mayke - Santos - Brasil A,2026,Santos,3,220,sofascore,https://www.sofascore.com/api/v1/player/273329/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
-Maykon,Grêmio Novorizontino,Maykon - Grêmio Novorizontino - Manual,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1836781/statistics/seasons,-,só Copinha
-Maykon,Grêmio Novorizontino,Maykon - Grêmio Novorizontino - Manual,2025,Vitória,9,859,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Maykon,Grêmio Novorizontino,Maykon - Grêmio Novorizontino - Manual,2026,Grêmio Novorizontino,22,2086,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Maílton,Fortaleza,Maílton - Fortaleza - Brasil B,2024,Chapecoense,23,1386,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Maílton,Fortaleza,Maílton - Fortaleza - Brasil B,2025,São Paulo,8,454,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Maílton,Fortaleza,Maílton - Fortaleza - Brasil B,2025,Chapecoense,20,1759,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Melk,Ceará,Melk - Ceará - Brasil B,2024,Ceará,0,0,sofascore,https://www.sofascore.com/api/v1/player/2440251/statistics/seasons,profissional,só sub-20
-Melk,Ceará,Melk - Ceará - Brasil B,2025,Ceará,0,0,sofascore,https://www.sofascore.com/api/v1/player/2440251/statistics/seasons,profissional,só sub-20
-Moisés,Santos,Moisés - Santos - Brasil A,2024,Fortaleza,26,1328,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Moisés,Santos,Moisés - Santos - Brasil A,2025,Fortaleza,12,450,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Moraes,Operário PR,Moraes - Operário PR - Brasil B,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/877139/statistics/seasons,-,sem liga em 2024
-Murilo Rhikman,Cruzeiro,Murilo Rhikman - Cruzeiro - Brasil A,2024,Cruzeiro,0,0,sofascore,https://www.sofascore.com/api/v1/player/1589354/statistics/seasons,profissional,só base em 2024
-Murilo Rhikman,Cruzeiro,Murilo Rhikman - Cruzeiro - Brasil A,2025,Cruzeiro,2,10,sofascore,https://www.sofascore.com/api/v1/player/1589354/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Murilo Rhikman,Cruzeiro,Murilo Rhikman - Cruzeiro - Brasil A,2026,Cruzeiro,1,10,sofascore,https://www.sofascore.com/api/v1/player/1589354/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
-P. Zarza,Olimpia,P. Zarza - Olimpia - Paraguai,2024,Olimpia,6,194,sofascore,https://www.sofascore.com/api/v1/player/1885523/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
-P. Zarza,Olimpia,P. Zarza - Olimpia - Paraguai,2025,Sportivo Trinidense,19,970,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
-Paulinho Paula,Internacional,Paulinho Paula - Internacional - Brasil A,2024,Vasco da Gama,2,25,sofascore,https://www.sofascore.com/api/v1/player/879902/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Paulinho Paula,Internacional,Paulinho Paula - Internacional - Brasil A,2025,Vasco da Gama,11,331,sofascore,https://www.sofascore.com/api/v1/player/879902/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Paulinho Paula,Internacional,Paulinho Paula - Internacional - Brasil A,2026,Internacional,21,1208,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil A,"Wyscout set26 ""Paulinho"""
-Paulinho,América Mineiro,Paulinho - América Mineiro - Brasil B,2024,América-MG,2,56,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Paulinho,América Mineiro,Paulinho - América Mineiro - Brasil B,2025,América Mineiro,22,2020,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Paulinho,América Mineiro,Paulinho - América Mineiro - Brasil B,2026,América-MG,7,458,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Paulo Vitor,AVS,Paulo Vitor - AVS - Portugal A,2024,Nacional,22,2133,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Portugal B,idade no Wyscout 22 (hoje 24)
-Paulo Vitor,AVS,Paulo Vitor - AVS - Portugal A,2025,Akron Togliatti,16,1419,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Russia,
-Paulo Vítor,Atlético GO,Paulo Vítor - Atlético GO - Brasil B,2024,Al Akhdoud,21,2177,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Arabia Saudita A,temporada 2023/24; Wyscout com idade 35
-Paulo Vítor,Atlético GO,Paulo Vítor - Atlético GO - Brasil B,2025,Atlético GO,24,2419,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Paulo Vítor,Atlético GO,Paulo Vítor - Atlético GO - Brasil B,2025,Al Akhdoud,32,3325,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Arabia Saudita A,temporada 2024/25 (antes de ir ao Atlético GO)
-Pedro Peçanha,Barra,Pedro Peçanha - Barra - Brasil C,2026,Cascavel,6,166,sofascore,https://www.sofascore.com/api/v1/player/1515293/unique-tournament/10326/season/92447/statistics/overall,Série D 2026,
-Pedro Peçanha,Barra,Pedro Peçanha - Barra - Brasil C,2026,Barra,5,401,sofascore,https://www.sofascore.com/api/v1/player/1515293/unique-tournament/1281/season/90642/statistics/overall,Série C 2026,
-Pedro Romano,Kawasaki Frontale,Pedro Romano - Kawasaki Frontale - Japao A,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1417920/statistics/seasons,-,sem liga nacional em 2024
-Pedro Romano,Kawasaki Frontale,Pedro Romano - Kawasaki Frontale - Japao A,2025,Vila Nova,12,903,sofascore,https://www.sofascore.com/api/v1/player/1417920/unique-tournament/390/season/72603/statistics/overall,Série B 2025,
-Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2024,Guarani,12,490,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2024,Tombense,14,1172,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2025,Fortaleza,13,911,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2025,Volta Redonda,19,1809,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Rafael Barcelos,América Mineiro,Rafael Barcelos - América Mineiro - Brasil B,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1485499/statistics/seasons,-,só Copinha
-Rafael Barcelos,América Mineiro,Rafael Barcelos - América Mineiro - Brasil B,2025,América-MG,5,264,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Rafael Coutinho,Palmeiras,Rafael Coutinho - Palmeiras - Brasil A,2024,Palmeiras,0,0,fotmob,https://www.fotmob.com/ro/players/1789749,profissional,só sub-20; banco sem entrar na Série A 2026
-Rafael Coutinho,Palmeiras,Rafael Coutinho - Palmeiras - Brasil A,2025,Palmeiras,0,0,fotmob,https://www.fotmob.com/ro/players/1789749,profissional,só sub-20; banco sem entrar na Série A 2026
-Rafael Coutinho,Palmeiras,Rafael Coutinho - Palmeiras - Brasil A,2026,Palmeiras,0,0,fotmob,https://www.fotmob.com/ro/players/1789749,profissional,só sub-20; banco sem entrar na Série A 2026
-Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2024,Sporting CP,1,1,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/238/season/52769/statistics/overall,Liga Portugal (23/24),
-Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2025,Pafos,4,216,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/171/season/63498/statistics/overall,Chipre (24/25),emprestado
-Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2025,FK Auda,15,1350,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/197/season/72074/statistics/overall,Letônia Virsliga 2025,emprestado fev-jun/2025
-Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2026,Sporting B / Farense,10,135,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/239/season/77801/statistics/overall,Liga Portugal 2 (25/26),
-Railan,Cuiabá,Railan - Cuiabá - Brasil B,2024,Cuiabá,23,1379,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Raí,Juventude,Raí - Juventude - Brasil B,2024,CRB,7,375,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Raí,Juventude,Raí - Juventude - Brasil B,2025,Volta Redonda,31,2480,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Renzo Saravia,Livre,Renzo Saravia - Livre - Manual,2024,Atlético Mineiro,31,2588,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Renzo Saravia,Livre,Renzo Saravia - Livre - Manual,2025,Atlético Mineiro,19,1197,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Renzo Saravia,Livre,Renzo Saravia - Livre - Manual,2026,Valencia,5,353,sofascore,https://www.sofascore.com/api/v1/player/315916/unique-tournament/8/season/77559/statistics/overall,LaLiga (25/26),
-Rezende,Qingdao West Coast,Rezende - Qingdao West Coast - China,2024,Bahia,18,701,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Rhaldney,Göztepe,Rhaldney - Göztepe - Turquia,2024,Atlético GO,32,2355,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Rhaldney,Göztepe,Rhaldney - Göztepe - Turquia,2025,Atlético GO,13,1193,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Robinho,Estrela Amadora,Robinho - Estrela Amadora - Portugal A,2024,Volta Redonda,25,2282,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Robinho,Estrela Amadora,Robinho - Estrela Amadora - Portugal A,2025,Volta Redonda,15,1163,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Rodrigo Fernández Cedrés,CA Huracán,Rodrigo Fernández Cedrés - CA Huracán - Argentina A,2024,Newell's Old Boys,7,619,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Argentina A,idade no Wyscout 28 (hoje 30)
-Rodrigo Fernández Cedrés,CA Huracán,Rodrigo Fernández Cedrés - CA Huracán - Argentina A,2025,Independiente,21,1294,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
-Rodrigo Fernández Cedrés,CA Huracán,Rodrigo Fernández Cedrés - CA Huracán - Argentina A,2026,Huracán,17,1211,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Argentina A,
-Rodrigo Gelado,Athletic Club,Rodrigo Gelado - Athletic Club - Brasil B,2024,Coritiba,23,1697,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Rodrigo Gelado,Athletic Club,Rodrigo Gelado - Athletic Club - Brasil B,2025,Athletic Club,27,2386,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Rodrigo Gelado,Athletic Club,Rodrigo Gelado - Athletic Club - Brasil B,2026,Coritiba,3,67,sofascore,https://www.sofascore.com/api/v1/player/1465499/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
-Rodrigo Guetti,Palmeiras,Rodrigo Guetti - Palmeiras - Brasil A,2024,Botafogo sub-20,0,0,soccerway,https://ca.soccerway.com/player/rodrigo-guet/fD8imnvf,profissional,só sub-20
-Rodrigo Guetti,Palmeiras,Rodrigo Guetti - Palmeiras - Brasil A,2025,Palmeiras sub-20,0,0,soccerway,https://ca.soccerway.com/player/rodrigo-guet/fD8imnvf,profissional,só sub-20
-Rodrigo Guetti,Palmeiras,Rodrigo Guetti - Palmeiras - Brasil A,2026,Palmeiras,0,0,soccerway,https://ca.soccerway.com/player/rodrigo-guet/fD8imnvf,profissional,sem jogos registrados
-Rodrigo Santos,Fortaleza,Rodrigo Santos - Fortaleza - Brasil B,2024,Avaí,13,1048,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Rodrigo Santos,Fortaleza,Rodrigo Santos - Fortaleza - Brasil B,2025,Fortaleza,8,222,sofascore,https://www.sofascore.com/api/v1/player/1173040/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Romisson,São Bernardo FC,Romisson - São Bernardo FC - Brasil B,2024,São Bernardo FC,21,1987,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
-Ronald,Criciuma,Ronald - Criciuma - Brasil B,2024,Criciúma,30,1709,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Ronald,Criciuma,Ronald - Criciuma - Brasil B,2025,Vitória,29,2067,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Ronald,Criciuma,Ronald - Criciuma - Brasil B,2026,Criciúma,8,415,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Ronald,Fortaleza,Ronald - Fortaleza - Brasil B,2024,Grêmio,11,100,sofascore,https://www.sofascore.com/api/v1/player/1587711/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
-Ronald,Fortaleza,Ronald - Fortaleza - Brasil B,2025,Atlético GO,14,1350,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Ronald,Fortaleza,Ronald - Fortaleza - Brasil B,2026,Fortaleza,8,513,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Rony Lopes,Tondela,Rony Lopes - Tondela - Portugal A,2025,Farense,13,1137,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal A,
-Rony Lopes,Tondela,Rony Lopes - Tondela - Portugal A,2025,Alanyaspor,15,420,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Turquia,
+Keiller,Coritiba,Keiller - Coritiba - Brasil A,2026,Coritiba,0,0.0,fotmob,https://www.fotmob.com/players/750108/keiller,Série A,reserva não utilizado nos jogos listados
+Kleiton Pego,Paysandu SC,Kleiton Pego - Paysandu SC - Brasil C,2024,CRB,20,1123.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,"Wyscout ""Kleiton"""
+Kleiton Pego,Paysandu SC,Kleiton Pego - Paysandu SC - Brasil C,2025,Operário PR,15,609.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"Wyscout ""Kleiton"""
+Kleiton Pego,Paysandu SC,Kleiton Pego - Paysandu SC - Brasil C,2026,Paysandu,19,1415.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil C,"Wyscout set26 ""Kleiton"""
+L. Femia,Danubio,L. Femia - Danubio - Uruguai,2024,Danubio,36,2535.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Uruguai,
+L. Gil,Huracán,L. Gil - Huracán - Argentina A,2024,Colo Colo,25,1932.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Chile,
+L. Souto,Defensa y Justicia,L. Souto - Defensa y Justicia - Argentina A,2025,Defensa y Justicia,3,50.0,sofascore,https://www.sofascore.com/api/v1/player/1020523/unique-tournament/155/season/77826/statistics/overall,Argentina Clausura 2025,
+Leandro Matheus,Azuriz,Leandro Matheus - Azuriz - Manual,2024,Sampaio Corrêa-RJ,11,1050.0,sofascore,https://www.sofascore.com/api/v1/player/1090722/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
+Leandro Matheus,Azuriz,Leandro Matheus - Azuriz - Manual,2025,Torreense,6,607.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal B,
+Leo Aragao,Cruzeiro,Leo Aragao - Cruzeiro - Brasil A,2024,Cruzeiro,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1488035/statistics/seasons,-,sem jogos em 2024
+Leo Aragao,Cruzeiro,Leo Aragao - Cruzeiro - Brasil A,2025,Cruzeiro,4,333.0,sofascore,https://www.sofascore.com/api/v1/player/1488035/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Leo Aragao,Cruzeiro,Leo Aragao - Cruzeiro - Brasil A,2026,Avaí,13,1285.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Leo Jacó,Atlético GO,Leo Jacó - Atlético GO - Brasil B,2024,Vasco da Gama,1,19.0,sofascore,https://www.sofascore.com/api/v1/player/1462709/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
+Leo Jacó,Atlético GO,Leo Jacó - Atlético GO - Brasil B,2025,Vasco da Gama,2,19.0,sofascore,https://www.sofascore.com/api/v1/player/1462709/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Leo Jacó,Atlético GO,Leo Jacó - Atlético GO - Brasil B,2026,Atlético-GO,17,564.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Luan,São Paulo,Luan - São Paulo - Brasil A,2024,Vitória,25,1747.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,"Wyscout ""Luan Silva"" (time atual São Paulo), emprestado ao Vitória"
+Lucas Belezi,Athletic Club,Lucas Belezi - Athletic Club - Brasil B,2024,Athletico Paranaense,9,890.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Lucas França,CD Santa Clara,Lucas França - CD Santa Clara - Portugal A,2024,Nacional,24,2428.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Portugal B,idade no Wyscout 28 (hoje 30)
+Lucas França,CD Santa Clara,Lucas França - CD Santa Clara - Portugal A,2025,Nacional,32,3153.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal A,
+Lucas França,CD Santa Clara,Lucas França - CD Santa Clara - Portugal A,2026,Nacional,6,540.0,sofascore,https://www.sofascore.com/api/v1/player/832672/unique-tournament/238/season/77806/statistics/overall,Liga Portugal (25/26),
+Lucas Lima,São Bernardo FC,Lucas Lima - São Bernardo FC - Brasil B,2024,São Bernardo FC,15,1225.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Lucas Lima,São Bernardo FC,Lucas Lima - São Bernardo FC - Brasil B,2025,Ceará,11,168.0,sofascore,https://www.sofascore.com/api/v1/player/1048254/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Lucas Rian,São Bernardo FC,Lucas Rian - São Bernardo FC - Brasil B,2024,Ceará,18,667.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Lucas Rian,São Bernardo FC,Lucas Rian - São Bernardo FC - Brasil B,2024,Confiança,9,787.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Lucas Rian,São Bernardo FC,Lucas Rian - São Bernardo FC - Brasil B,2025,São Bernardo,11,386.0,sofascore,https://www.sofascore.com/api/v1/player/1893682/unique-tournament/372/season/69522/statistics/overall,Paulista A1 2025,
+Luccas Claro,Eyüpspor,Luccas Claro - Eyüpspor - Turquia,2024,Eyüpspor,33,2910.0,sofascore,https://www.sofascore.com/api/v1/player/998209/unique-tournament/98/season/53276/statistics/overall,Turquia 1.Lig (23/24),
+Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2024,Guarani,15,692.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2025,Torreense,10,324.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal B,
+Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2026,Leixões,10,386.0,sofascore,https://www.sofascore.com/api/v1/player/1463461/unique-tournament/239/season/77801/statistics/overall,Liga Portugal 2 (25/26),
+Luccas Paraizo,Leixões,Luccas Paraizo - Leixões - Portugal B,2026,Maccabi Netanya,9,323.0,sofascore,https://www.sofascore.com/api/v1/player/1463461/unique-tournament/266/season/77635/statistics/overall,Israel (25/26),
+Lucão,Gyeongnam,Lucão - Gyeongnam - Coreia B,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1134716/statistics/seasons,-,sem liga em 2024
+Lucão,Gyeongnam,Lucão - Gyeongnam - Coreia B,2025,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1134716/statistics/seasons,-,só Copa do Brasil
+Luiz Otávio,Ceará,Luiz Otávio - Ceará - Brasil B,2024,Mirassol,32,3047.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Luiz Otávio,Ceará,Luiz Otávio - Ceará - Brasil B,2025,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/871204/statistics/seasons,-,sem liga em 2025
+M. Gamarra,Olimpia,M. Gamarra - Olimpia - Paraguai,2024,Athletico Paranaense,19,1671.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+M. Gamarra,Olimpia,M. Gamarra - Olimpia - Paraguai,2025,Cruzeiro,2,153.0,sofascore,https://www.sofascore.com/api/v1/player/1085451/unique-tournament/325/season/72034/statistics/overall,Série A 2025,Mateo Gamarra
+M. Jiménez Salinas,Audax Italiano,M. Jiménez Salinas - Audax Italiano - Chile,2025,Audax Italiano,10,366.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Chile,
+Marcos Paulo (LCB),Juventude,Marcos Paulo (LCB) - Juventude - Brasil B,2025,Juventude,19,1524.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Marcos Paulo (LCB),Juventude,Marcos Paulo (LCB) - Juventude - Brasil B,2026,Juventude,25,2398.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Mateo Caballero,Defensor Sporting,Mateo Caballero - Defensor Sporting - Uruguai,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1899890/statistics/seasons,-,estreou só em 2026
+Mateo Caballero,Defensor Sporting,Mateo Caballero - Defensor Sporting - Uruguai,2025,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1899890/statistics/seasons,-,estreou só em 2026
+Mateus Pivô,AVS ,Mateus Pivô - AVS - Portugal A,2024,Brusque,26,2291.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Matheus Serafim,Daegu,Matheus Serafim - Daegu - Coreia B,2024,Amazonas,33,2934.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Maurício,Fortaleza,Maurício - Fortaleza - Manual,2024,Londrina,19,1869.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Maurício,Fortaleza,Maurício - Fortaleza - Manual,2025,Londrina,21,2039.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
+Maurício,Fortaleza,Maurício - Fortaleza - Manual,2026,Fortaleza,24,1753.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Max,Associação Chapecoense de Futebol,Max - Associação Chapecoense de Futebol - Brasil A,2024,Cuiabá,23,1340.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Max,Associação Chapecoense de Futebol,Max - Associação Chapecoense de Futebol - Brasil A,2025,Cuiabá,32,2680.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Max,Associação Chapecoense de Futebol,Max - Associação Chapecoense de Futebol - Brasil A,2026,Sport,2,17.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,Wyscout Série B; time de hoje Chapecoense
+Max,Athletic Club,Max - Athletic Club - Brasil B,2024,Atlético GO,14,297.0,sofascore,https://www.sofascore.com/api/v1/player/1642625/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Max,Athletic Club,Max - Athletic Club - Brasil B,2024,Sampaio Corrêa-RJ,12,999.0,sofascore,https://www.sofascore.com/api/v1/player/1642625/unique-tournament/92/season/56974/statistics/overall,Carioca 2024,
+Mayke,Santos,Mayke - Santos - Brasil A,2024,Palmeiras,22,1185.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Mayke,Santos,Mayke - Santos - Brasil A,2025,Santos,15,1125.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Mayke,Santos,Mayke - Santos - Brasil A,2026,Santos,3,220.0,sofascore,https://www.sofascore.com/api/v1/player/273329/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
+Maykon,Grêmio Novorizontino,Maykon - Grêmio Novorizontino - Manual,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1836781/statistics/seasons,-,só Copinha
+Maykon,Grêmio Novorizontino,Maykon - Grêmio Novorizontino - Manual,2025,Vitória,9,859.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Maykon,Grêmio Novorizontino,Maykon - Grêmio Novorizontino - Manual,2026,Grêmio Novorizontino,22,2086.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Maílton,Fortaleza,Maílton - Fortaleza - Brasil B,2024,Chapecoense,23,1386.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Maílton,Fortaleza,Maílton - Fortaleza - Brasil B,2025,São Paulo,8,454.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Maílton,Fortaleza,Maílton - Fortaleza - Brasil B,2025,Chapecoense,20,1759.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Melk,Ceará,Melk - Ceará - Brasil B,2024,Ceará,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/2440251/statistics/seasons,profissional,só sub-20
+Melk,Ceará,Melk - Ceará - Brasil B,2025,Ceará,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/2440251/statistics/seasons,profissional,só sub-20
+Moisés,Santos,Moisés - Santos - Brasil A,2024,Fortaleza,26,1328.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Moisés,Santos,Moisés - Santos - Brasil A,2025,Fortaleza,12,450.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Moraes,Operário PR,Moraes - Operário PR - Brasil B,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/877139/statistics/seasons,-,sem liga em 2024
+Murilo Rhikman,Cruzeiro,Murilo Rhikman - Cruzeiro - Brasil A,2024,Cruzeiro,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1589354/statistics/seasons,profissional,só base em 2024
+Murilo Rhikman,Cruzeiro,Murilo Rhikman - Cruzeiro - Brasil A,2025,Cruzeiro,2,10.0,sofascore,https://www.sofascore.com/api/v1/player/1589354/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Murilo Rhikman,Cruzeiro,Murilo Rhikman - Cruzeiro - Brasil A,2026,Cruzeiro,1,10.0,sofascore,https://www.sofascore.com/api/v1/player/1589354/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
+P. Zarza,Olimpia,P. Zarza - Olimpia - Paraguai,2024,Olimpia,6,194.0,sofascore,https://www.sofascore.com/api/v1/player/1885523/unique-tournament/11541/season/63769/statistics/overall,Paraguai Clausura 2024,
+P. Zarza,Olimpia,P. Zarza - Olimpia - Paraguai,2025,Sportivo Trinidense,19,970.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Paraguai,
+Paulinho Paula,Internacional,Paulinho Paula - Internacional - Brasil A,2024,Vasco da Gama,2,25.0,sofascore,https://www.sofascore.com/api/v1/player/879902/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Paulinho Paula,Internacional,Paulinho Paula - Internacional - Brasil A,2025,Vasco da Gama,11,331.0,sofascore,https://www.sofascore.com/api/v1/player/879902/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Paulinho Paula,Internacional,Paulinho Paula - Internacional - Brasil A,2026,Internacional,21,1208.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil A,"Wyscout set26 ""Paulinho"""
+Paulinho,América Mineiro,Paulinho - América Mineiro - Brasil B,2024,América-MG,2,56.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Paulinho,América Mineiro,Paulinho - América Mineiro - Brasil B,2025,América Mineiro,22,2020.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Paulinho,América Mineiro,Paulinho - América Mineiro - Brasil B,2026,América-MG,7,458.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Paulo Vitor,AVS,Paulo Vitor - AVS - Portugal A,2024,Nacional,22,2133.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Portugal B,idade no Wyscout 22 (hoje 24)
+Paulo Vitor,AVS,Paulo Vitor - AVS - Portugal A,2025,Akron Togliatti,16,1419.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Russia,
+Paulo Vítor,Atlético GO,Paulo Vítor - Atlético GO - Brasil B,2024,Al Akhdoud,21,2177.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Arabia Saudita A,temporada 2023/24; Wyscout com idade 35
+Paulo Vítor,Atlético GO,Paulo Vítor - Atlético GO - Brasil B,2025,Atlético GO,24,2419.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Paulo Vítor,Atlético GO,Paulo Vítor - Atlético GO - Brasil B,2025,Al Akhdoud,32,3325.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Arabia Saudita A,temporada 2024/25 (antes de ir ao Atlético GO)
+Pedro Peçanha,Barra,Pedro Peçanha - Barra - Brasil C,2026,Cascavel,6,166.0,sofascore,https://www.sofascore.com/api/v1/player/1515293/unique-tournament/10326/season/92447/statistics/overall,Série D 2026,
+Pedro Peçanha,Barra,Pedro Peçanha - Barra - Brasil C,2026,Barra,5,401.0,sofascore,https://www.sofascore.com/api/v1/player/1515293/unique-tournament/1281/season/90642/statistics/overall,Série C 2026,
+Pedro Romano,Kawasaki Frontale,Pedro Romano - Kawasaki Frontale - Japao A,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1417920/statistics/seasons,-,sem liga nacional em 2024
+Pedro Romano,Kawasaki Frontale,Pedro Romano - Kawasaki Frontale - Japao A,2025,Vila Nova,12,903.0,sofascore,https://www.sofascore.com/api/v1/player/1417920/unique-tournament/390/season/72603/statistics/overall,Série B 2025,
+Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2024,Guarani,12,490.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2024,Tombense,14,1172.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2025,Fortaleza,13,911.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Pierre,Fortaleza,Pierre - Fortaleza - Brasil B,2025,Volta Redonda,19,1809.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Rafael Barcelos,América Mineiro,Rafael Barcelos - América Mineiro - Brasil B,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1485499/statistics/seasons,-,só Copinha
+Rafael Barcelos,América Mineiro,Rafael Barcelos - América Mineiro - Brasil B,2025,América-MG,5,264.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Rafael Coutinho,Palmeiras,Rafael Coutinho - Palmeiras - Brasil A,2024,Palmeiras,0,0.0,fotmob,https://www.fotmob.com/ro/players/1789749,profissional,só sub-20; banco sem entrar na Série A 2026
+Rafael Coutinho,Palmeiras,Rafael Coutinho - Palmeiras - Brasil A,2025,Palmeiras,0,0.0,fotmob,https://www.fotmob.com/ro/players/1789749,profissional,só sub-20; banco sem entrar na Série A 2026
+Rafael Coutinho,Palmeiras,Rafael Coutinho - Palmeiras - Brasil A,2026,Palmeiras,0,0.0,fotmob,https://www.fotmob.com/ro/players/1789749,profissional,só sub-20; banco sem entrar na Série A 2026
+Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2024,Sporting CP,1,1.0,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/238/season/52769/statistics/overall,Liga Portugal (23/24),
+Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2025,Pafos,4,216.0,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/171/season/63498/statistics/overall,Chipre (24/25),emprestado
+Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2025,FK Auda,15,1350.0,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/197/season/72074/statistics/overall,Letônia Virsliga 2025,emprestado fev-jun/2025
+Rafael Pontelo,FK Radnik Surdulica,Rafael Pontelo - FK Radnik Surdulica - Servia,2026,Sporting B / Farense,10,135.0,sofascore,https://www.sofascore.com/api/v1/player/1459633/unique-tournament/239/season/77801/statistics/overall,Liga Portugal 2 (25/26),
+Railan,Cuiabá,Railan - Cuiabá - Brasil B,2024,Cuiabá,23,1379.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Raí,Juventude,Raí - Juventude - Brasil B,2024,CRB,7,375.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Raí,Juventude,Raí - Juventude - Brasil B,2025,Volta Redonda,31,2480.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Renzo Saravia,Livre,Renzo Saravia - Livre - Manual,2024,Atlético Mineiro,31,2588.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Renzo Saravia,Livre,Renzo Saravia - Livre - Manual,2025,Atlético Mineiro,19,1197.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Renzo Saravia,Livre,Renzo Saravia - Livre - Manual,2026,Valencia,5,353.0,sofascore,https://www.sofascore.com/api/v1/player/315916/unique-tournament/8/season/77559/statistics/overall,LaLiga (25/26),
+Rezende,Qingdao West Coast,Rezende - Qingdao West Coast - China,2024,Bahia,18,701.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Rhaldney,Göztepe,Rhaldney - Göztepe - Turquia,2024,Atlético GO,32,2355.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Rhaldney,Göztepe,Rhaldney - Göztepe - Turquia,2025,Atlético GO,13,1193.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Robinho,Estrela Amadora,Robinho - Estrela Amadora - Portugal A,2024,Volta Redonda,25,2282.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Robinho,Estrela Amadora,Robinho - Estrela Amadora - Portugal A,2025,Volta Redonda,15,1163.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Rodrigo Fernández Cedrés,CA Huracán,Rodrigo Fernández Cedrés - CA Huracán - Argentina A,2024,Newell's Old Boys,7,619.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Argentina A,idade no Wyscout 28 (hoje 30)
+Rodrigo Fernández Cedrés,CA Huracán,Rodrigo Fernández Cedrés - CA Huracán - Argentina A,2025,Independiente,21,1294.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,
+Rodrigo Fernández Cedrés,CA Huracán,Rodrigo Fernández Cedrés - CA Huracán - Argentina A,2026,Huracán,17,1211.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Argentina A,
+Rodrigo Gelado,Athletic Club,Rodrigo Gelado - Athletic Club - Brasil B,2024,Coritiba,23,1697.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Rodrigo Gelado,Athletic Club,Rodrigo Gelado - Athletic Club - Brasil B,2025,Athletic Club,27,2386.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Rodrigo Gelado,Athletic Club,Rodrigo Gelado - Athletic Club - Brasil B,2026,Coritiba,3,67.0,sofascore,https://www.sofascore.com/api/v1/player/1465499/unique-tournament/325/season/87678/statistics/overall,Série A 2026,
+Rodrigo Guetti,Palmeiras,Rodrigo Guetti - Palmeiras - Brasil A,2024,Botafogo sub-20,0,0.0,soccerway,https://ca.soccerway.com/player/rodrigo-guet/fD8imnvf,profissional,só sub-20
+Rodrigo Guetti,Palmeiras,Rodrigo Guetti - Palmeiras - Brasil A,2025,Palmeiras sub-20,0,0.0,soccerway,https://ca.soccerway.com/player/rodrigo-guet/fD8imnvf,profissional,só sub-20
+Rodrigo Guetti,Palmeiras,Rodrigo Guetti - Palmeiras - Brasil A,2026,Palmeiras,0,0.0,soccerway,https://ca.soccerway.com/player/rodrigo-guet/fD8imnvf,profissional,sem jogos registrados
+Rodrigo Santos,Fortaleza,Rodrigo Santos - Fortaleza - Brasil B,2024,Avaí,13,1048.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Rodrigo Santos,Fortaleza,Rodrigo Santos - Fortaleza - Brasil B,2025,Fortaleza,8,222.0,sofascore,https://www.sofascore.com/api/v1/player/1173040/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Romisson,São Bernardo FC,Romisson - São Bernardo FC - Brasil B,2024,São Bernardo FC,21,1987.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,
+Ronald,Criciuma,Ronald - Criciuma - Brasil B,2024,Criciúma,30,1709.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Ronald,Criciuma,Ronald - Criciuma - Brasil B,2025,Vitória,29,2067.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Ronald,Criciuma,Ronald - Criciuma - Brasil B,2026,Criciúma,8,415.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Ronald,Fortaleza,Ronald - Fortaleza - Brasil B,2024,Grêmio,11,100.0,sofascore,https://www.sofascore.com/api/v1/player/1587711/unique-tournament/325/season/58766/statistics/overall,Série A 2024,
+Ronald,Fortaleza,Ronald - Fortaleza - Brasil B,2025,Atlético GO,14,1350.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Ronald,Fortaleza,Ronald - Fortaleza - Brasil B,2026,Fortaleza,8,513.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Rony Lopes,Tondela,Rony Lopes - Tondela - Portugal A,2025,Farense,13,1137.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Portugal A,
+Rony Lopes,Tondela,Rony Lopes - Tondela - Portugal A,2025,Alanyaspor,15,420.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Turquia,
 Ruan Renato,Zira,Ruan Renato - Zira - Manual,2024,Zira,40,,wikipedia,https://en.wikipedia.org/wiki/Ruan_Renato,Azerbaijão (23/24),todas as competições (34 na liga); sem minutos
 Ruan Renato,Zira,Ruan Renato - Zira - Manual,2025,Zira,44,,wikipedia,https://en.wikipedia.org/wiki/Ruan_Renato,Azerbaijão (24/25),todas as competições (33 na liga); sem minutos
 Ruan Renato,Zira,Ruan Renato - Zira - Manual,2026,Zira,39,,wikipedia,https://en.wikipedia.org/wiki/Ruan_Renato,Azerbaijão (25/26),todas as competições (31 na liga); sem minutos
-Ryan Lima,Vila Nova,Ryan Lima - Vila Nova - Brasil B,2024,Real Tomayapo,19,1147,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Bolivia,
-Ryan Lima,Vila Nova,Ryan Lima - Vila Nova - Brasil B,2025,Real Tomayapo,24,1883,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Bolivia,
-S. López,Tigre,S. López - Tigre - Argentina A,2024,Independiente,16,956,sofascore,https://www.sofascore.com/api/v1/player/1482391/unique-tournament/155/season/57478/statistics/overall,Argentina LPF 2024,Santiago López
-S. López,Tigre,S. López - Tigre - Argentina A,2025,Rosario Central,19,1037,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,Wyscout (time atual Tigre)
-S. Rodríguez,Torque,S. Rodríguez - Torque - Uruguai,2024,Godoy Cruz,23,1660,sofascore,https://www.sofascore.com/api/v1/player/1020191/unique-tournament/155/season/57478/statistics/overall,Argentina LPF 2024,Salomón Rodríguez
-Thalisson,Ceará Sporting Club,Thalisson - Ceará Sporting Club - Brasil B,2024,Coritiba,13,1033,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Thalisson,Ceará Sporting Club,Thalisson - Ceará Sporting Club - Brasil B,2025,Paysandu,21,2039,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Thalisson,Ceará Sporting Club,Thalisson - Ceará Sporting Club - Brasil B,2026,Ceará,2,102,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Thauan,América Mineiro,Thauan - América Mineiro - Brasil B,2024,América-MG,6,195,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Thayllon Roberth,Avaí,Thayllon Roberth - Avaí - Manual,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/1633708/statistics/seasons,-,só sub-20
-Thayllon Roberth,Avaí,Thayllon Roberth - Avaí - Manual,2025,Avaí,22,799,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Thayllon Roberth,Avaí,Thayllon Roberth - Avaí - Manual,2026,Avaí,24,1916,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
-Tiquinho Soares,Mirassol,Tiquinho Soares - Mirassol - Brasil A,2024,Botafogo,28,1528,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
-Tiquinho Soares,Mirassol,Tiquinho Soares - Mirassol - Brasil A,2025,Santos,27,1416,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
-Tiquinho Soares,Mirassol,Tiquinho Soares - Mirassol - Brasil A,2026,(Sofascore: Botafogo),12,491,sofascore,https://www.sofascore.com/api/v1/player/789100/unique-tournament/325/season/87678/statistics/overall,Série A 2026,conferir clube
-Tito,Atlético GO,Tito - Atlético GO - Brasil B,2024,Maringá,15,1454,sofascore,https://www.sofascore.com/api/v1/player/1105307/unique-tournament/382/season/57047/statistics/overall,Paranaense 2024,
-Vaná,Aris Limassol,Vaná - Aris Limassol - Manual,2024,Aris Limassol,35,3150,sofascore,https://www.sofascore.com/api/v1/player/248245/unique-tournament/171/season/53242/statistics/overall,Chipre 1a div (23/24),
-Vaná,Aris Limassol,Vaná - Aris Limassol - Manual,2025,Aris Limassol,34,3060,sofascore,https://www.sofascore.com/api/v1/player/248245/unique-tournament/171/season/63498/statistics/overall,Chipre 1a div (24/25),
-Vaná,Aris Limassol,Vaná - Aris Limassol - Manual,2026,Aris Limassol,23,2070,sofascore,https://www.sofascore.com/api/v1/player/248245/unique-tournament/171/season/78640/statistics/overall,Chipre 1a div (25/26),
-Victor Hugo,Londrina,Victor Hugo - Londrina - Brasil B,2025,Londrina,21,1041,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
-Victor Hugo,Londrina,Victor Hugo - Londrina - Brasil B,2025,Amazonas,5,223,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
-Vitor Mendes,Cuiabá,Vitor Mendes - Cuiabá - Brasil B,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/988873/statistics/seasons,-,sem liga em 2024
-Vitor Mendes,Cuiabá,Vitor Mendes - Cuiabá - Brasil B,2025,Ferroviária,3,151,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Welliton,Fortaleza Esporte Clube,Welliton - Fortaleza Esporte Clube - Brasil B,2024,Goiás,35,2595,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,"Wyscout ""Welliton Matheus"""
-Welliton,Fortaleza Esporte Clube,Welliton - Fortaleza Esporte Clube - Brasil B,2025,Goiás,36,2111,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"Wyscout ""Welliton Matheus"""
-Welliton,Fortaleza Esporte Clube,Welliton - Fortaleza Esporte Clube - Brasil B,2026,Fortaleza,16,655,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,"Wyscout ago26 ""Welliton Matheus"""
-Y. Zapata,CD Moquegua,Y. Zapata - CD Moquegua - Peru,2024,O'Higgins,9,445,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Chile,
-Yago Lincoln,Londrina,Yago Lincoln - Londrina - Brasil B,2024,Ceará,3,44,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
-Ygor Catatau,Volta Redonda,Ygor Catatau - Volta Redonda - Brasil C,2024,-,0,0,sofascore,https://www.sofascore.com/api/v1/player/924424/statistics/seasons,-,sem liga em 2024
-Éder,Ceará,Éder - Ceará - Brasil B,2024,América Mineiro,26,2507,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
-Éder,Ceará,Éder - Ceará - Brasil B,2025,Ceará,3,270,sofascore,https://www.sofascore.com/api/v1/player/842072/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
-Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2024,Volta Redonda,11,1061,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,"Wyscout ""Ítalo"" (time atual Paysandu)"
-Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2025,Volta Redonda,18,1274,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"Wyscout ""Ítalo"" (time atual Paysandu)"
-Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2025,Seoul E-Land,5,177,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Coreia B,"Wyscout ""Ítalo"" (time atual Paysandu)"
-Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2026,Paysandu,19,1359,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil C,"Wyscout set26 ""Ítalo"""
+Ryan Lima,Vila Nova,Ryan Lima - Vila Nova - Brasil B,2024,Real Tomayapo,19,1147.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Bolivia,
+Ryan Lima,Vila Nova,Ryan Lima - Vila Nova - Brasil B,2025,Real Tomayapo,24,1883.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Bolivia,
+S. López,Tigre,S. López - Tigre - Argentina A,2024,Independiente,16,956.0,sofascore,https://www.sofascore.com/api/v1/player/1482391/unique-tournament/155/season/57478/statistics/overall,Argentina LPF 2024,Santiago López
+S. López,Tigre,S. López - Tigre - Argentina A,2025,Rosario Central,19,1037.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Argentina A,Wyscout (time atual Tigre)
+S. Rodríguez,Torque,S. Rodríguez - Torque - Uruguai,2024,Godoy Cruz,23,1660.0,sofascore,https://www.sofascore.com/api/v1/player/1020191/unique-tournament/155/season/57478/statistics/overall,Argentina LPF 2024,Salomón Rodríguez
+Thalisson,Ceará Sporting Club,Thalisson - Ceará Sporting Club - Brasil B,2024,Coritiba,13,1033.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Thalisson,Ceará Sporting Club,Thalisson - Ceará Sporting Club - Brasil B,2025,Paysandu,21,2039.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Thalisson,Ceará Sporting Club,Thalisson - Ceará Sporting Club - Brasil B,2026,Ceará,2,102.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Thauan,América Mineiro,Thauan - América Mineiro - Brasil B,2024,América-MG,6,195.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Thayllon Roberth,Avaí,Thayllon Roberth - Avaí - Manual,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/1633708/statistics/seasons,-,só sub-20
+Thayllon Roberth,Avaí,Thayllon Roberth - Avaí - Manual,2025,Avaí,22,799.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Thayllon Roberth,Avaí,Thayllon Roberth - Avaí - Manual,2026,Avaí,24,1916.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,
+Tiquinho Soares,Mirassol,Tiquinho Soares - Mirassol - Brasil A,2024,Botafogo,28,1528.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil A,
+Tiquinho Soares,Mirassol,Tiquinho Soares - Mirassol - Brasil A,2025,Santos,27,1416.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil A,
+Tiquinho Soares,Mirassol,Tiquinho Soares - Mirassol - Brasil A,2026,Santos / Mirassol / Botafogo,12,491.0,sofascore,https://www.sofascore.com/api/v1/player/789100/unique-tournament/325/season/87678/statistics/overall,Série A 2026,Série A 2026 somando os três clubes (Sofascore conta o torneio inteiro); Wyscout não tem — abaixo do corte de minutos
+Tito,Atlético GO,Tito - Atlético GO - Brasil B,2024,Maringá,15,1454.0,sofascore,https://www.sofascore.com/api/v1/player/1105307/unique-tournament/382/season/57047/statistics/overall,Paranaense 2024,
+Vaná,Aris Limassol,Vaná - Aris Limassol - Manual,2024,Aris Limassol,35,3150.0,sofascore,https://www.sofascore.com/api/v1/player/248245/unique-tournament/171/season/53242/statistics/overall,Chipre 1a div (23/24),
+Vaná,Aris Limassol,Vaná - Aris Limassol - Manual,2025,Aris Limassol,34,3060.0,sofascore,https://www.sofascore.com/api/v1/player/248245/unique-tournament/171/season/63498/statistics/overall,Chipre 1a div (24/25),
+Vaná,Aris Limassol,Vaná - Aris Limassol - Manual,2026,Aris Limassol,23,2070.0,sofascore,https://www.sofascore.com/api/v1/player/248245/unique-tournament/171/season/78640/statistics/overall,Chipre 1a div (25/26),
+Victor Hugo,Londrina,Victor Hugo - Londrina - Brasil B,2025,Londrina,21,1041.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil C,
+Victor Hugo,Londrina,Victor Hugo - Londrina - Brasil B,2025,Amazonas,5,223.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,
+Vitor Mendes,Cuiabá,Vitor Mendes - Cuiabá - Brasil B,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/988873/statistics/seasons,-,sem liga em 2024
+Vitor Mendes,Cuiabá,Vitor Mendes - Cuiabá - Brasil B,2025,Ferroviária,3,151.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Welliton,Fortaleza Esporte Clube,Welliton - Fortaleza Esporte Clube - Brasil B,2024,Goiás,35,2595.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,"Wyscout ""Welliton Matheus"""
+Welliton,Fortaleza Esporte Clube,Welliton - Fortaleza Esporte Clube - Brasil B,2025,Goiás,36,2111.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"Wyscout ""Welliton Matheus"""
+Welliton,Fortaleza Esporte Clube,Welliton - Fortaleza Esporte Clube - Brasil B,2026,Fortaleza,16,655.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil B,"Wyscout ago26 ""Welliton Matheus"""
+Y. Zapata,CD Moquegua,Y. Zapata - CD Moquegua - Peru,2024,O'Higgins,9,445.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Chile,
+Yago Lincoln,Londrina,Yago Lincoln - Londrina - Brasil B,2024,Ceará,3,44.0,wyscout_serieb,local: dados/minutagem_serieb.json,Brasil B,
+Ygor Catatau,Volta Redonda,Ygor Catatau - Volta Redonda - Brasil C,2024,-,0,0.0,sofascore,https://www.sofascore.com/api/v1/player/924424/statistics/seasons,-,sem liga em 2024
+Éder,Ceará,Éder - Ceará - Brasil B,2024,América Mineiro,26,2507.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil B,
+Éder,Ceará,Éder - Ceará - Brasil B,2025,Ceará,3,270.0,sofascore,https://www.sofascore.com/api/v1/player/842072/unique-tournament/325/season/72034/statistics/overall,Série A 2025,
+Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2024,Volta Redonda,11,1061.0,wyscout,local: Portal Ranking/dados/2024 (aba BASE),Brasil C,"Wyscout ""Ítalo"" (time atual Paysandu)"
+Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2025,Volta Redonda,18,1274.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"Wyscout ""Ítalo"" (time atual Paysandu)"
+Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2025,Seoul E-Land,5,177.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Coreia B,"Wyscout ""Ítalo"" (time atual Paysandu)"
+Ítalo Carvalho,Paysandu SC,Ítalo Carvalho - Paysandu SC - Brasil C,2026,Paysandu,19,1359.0,wyscout,local: Portal Ranking/dados/set26/ago26 (aba BASE),Brasil C,"Wyscout set26 ""Ítalo"""
+Matheusinho,Vitória,Matheusinho - Vitória - Brasil A,2025,Cuiabá,31,2859.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"lateral direito; no Wyscout ""Mateusinho"" (Cuiabá), não o Matheuzinho atacante do Vitória (correção do Henrique 18/10)"
+Matheusinho,Vitória,Matheusinho - Vitória - Brasil A,2026,Vitória,10,607.0,sofascore,https://www.sofascore.com/api/v1/player/1107069/unique-tournament/325/season/87678/statistics/overall,Série A 2026,lateral direito Mateusinho (Sofascore 1107069); 2024 sem liga nacional
+Mateus Silva,Esporte Clube Vitória,Mateus Silva - Esporte Clube Vitória - Brasil A,2025,Cuiabá,31,2859.0,wyscout,local: Portal Ranking/dados/2025 (aba BASE),Brasil B,"lateral direito; no Wyscout ""Mateusinho"" (Cuiabá), não o Matheuzinho atacante do Vitória (correção do Henrique 18/10)"
+Mateus Silva,Esporte Clube Vitória,Mateus Silva - Esporte Clube Vitória - Brasil A,2026,Vitória,10,607.0,sofascore,https://www.sofascore.com/api/v1/player/1107069/unique-tournament/325/season/87678/statistics/overall,Série A 2026,lateral direito Mateusinho (Sofascore 1107069); 2024 sem liga nacional

@@ -49,8 +49,12 @@ import pandas as pd
 AQUI = os.path.dirname(os.path.abspath(__file__))
 BASE_RANKING = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/"
                 "fut/BOTA/Analytics/Portal Ranking")
+if not os.path.isdir(BASE_RANKING):   # rodando pela ponte do Claude (pasta montada)
+    BASE_RANKING = os.path.expanduser("~/mnt/Analytics/Portal Ranking")
 PARQUET = ("/Users/henriquesimoessilva/Meu Drive/6. arquivos pessoais Henrique/fut/BOTA/"
            "Analytics/Portal Base Unificada/dados/multiseason_candidates.parquet")
+if not os.path.exists(PARQUET):
+    PARQUET = os.path.expanduser("~/mnt/Analytics/Portal Base Unificada/dados/multiseason_candidates.parquet")
 
 sys.path.insert(0, BASE_RANKING)
 from ranking_engine import normalizar_schema_wyscout   # noqa: E402
@@ -132,8 +136,10 @@ def combina(atual, cand, temporada, unico):
         custo += 1.5              # um dos lados sem altura: casa, mas perde para quem tem
 
     if atual["_idade"] is not None and cand["_idade"] is not None:
+        # 18/10/2026: os Excels de 2024 e 2025 foram extraídos de novo e trazem a idade de HOJE (o Matheuzinho do Vitória
+        # tem 28 nos três anos) — o casamento rejeitava quase todo 2024. Vale a idade daquele ano OU a de hoje.
         esperada = atual["_idade"] - (ANO_ATUAL - int(temporada))
-        d = abs(cand["_idade"] - esperada)
+        d = min(abs(cand["_idade"] - esperada), abs(cand["_idade"] - atual["_idade"]))
         if d > 1:
             return None
         custo += d * 2            # idade pesa mais que altura
@@ -173,7 +179,19 @@ def liga_do_arquivo(nome):
 
 
 def ler_temporada(pasta):
-    """Uma linha por jogador da temporada, ja com liga e chave normalizada."""
+    """Uma linha por jogador da temporada, ja com liga e chave normalizada.
+    Com HIST_CACHE=1 guarda/reaproveita a leitura em ~/.cache (rodar em etapas pela ponte do Claude, que corta em 3 min)."""
+    if os.environ.get("HIST_CACHE"):
+        import pickle
+        cp = os.path.expanduser(f"~/.cache/hist_{pasta}.pkl")
+        if os.path.exists(cp):
+            return pickle.load(open(cp, "rb"))
+        os.makedirs(os.path.dirname(cp), exist_ok=True)
+        r = _ler_temporada(pasta); pickle.dump(r, open(cp, "wb")); return r
+    return _ler_temporada(pasta)
+
+
+def _ler_temporada(pasta):
     dirp = os.path.join(BASE_RANKING, "dados", pasta)
     linhas, tortos = [], []
     for arq in sorted(os.listdir(dirp)):
@@ -416,7 +434,7 @@ def main():
     import preparar_complemento_minutagem as pcm   # anos que o Wyscout não ligou (levantamento de 18/10)
     pcm.aplicar()
     import preparar_minutos_time as pmt
-    pmt.aplicar(pmt.minutos_time())
+    pmt.aplicar(json.load(open(pmt.CACHE, encoding="utf-8")) if os.environ.get("HIST_CACHE") and os.path.exists(pmt.CACHE) else pmt.minutos_time())
 
 
 if __name__ == "__main__":

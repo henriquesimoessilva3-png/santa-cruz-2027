@@ -20,6 +20,9 @@ def aplicar(H=None):
     d = pd.read_csv(CSV); d = d[d.primaryKey.notna()]
     d["jogos"] = pd.to_numeric(d.jogos, errors="coerce").fillna(0); d["minutos"] = pd.to_numeric(d.minutos, errors="coerce").fillna(0)
     T = [str(t) for t in H["temporadas"]]; novos = anos = 0
+    for linha in H["jogadores"].values():          # refaz: tira o complemento antigo antes de aplicar o CSV de novo
+        for i, x in enumerate(linha):
+            if x and x.get("fonte") == "complemento": linha[i] = None
     for (pk, t), g in d.groupby(["primaryKey", d.temporada.astype(str)]):
         if t not in T: continue
         i = T.index(t); linha = H["jogadores"].get(pk)

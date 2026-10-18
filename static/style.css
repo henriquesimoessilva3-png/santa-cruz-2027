@@ -3745,3 +3745,16 @@ body.visao-nova .jpainel{flex:none}
 .fi-linha.sf.acima .fi-barra i{background:var(--fi-verde,#22c55e)}
 .fi-linha.sf.abaixo .fi-barra i{background:var(--fi-vermelho,#ef4444)}
 .sf-sub{font-size:10px;font-weight:700;color:var(--tinta2);margin:8px 0 3px;padding-left:2px;border-left:2px solid var(--borda2);padding-left:6px}
+/* 18/10 (16h30) — ficha em 5 colunas: físico | técnico (4 grupos sob uma linha) */
+.sf-layout{display:grid;grid-template-columns:minmax(290px,1fr) minmax(0,4fr);gap:22px;padding:10px 14px;align-items:start}
+.sf-col-fis .fi-res,.sf-col-tec .fi-res{margin-bottom:10px}
+.sf-tec-linha{position:relative;border-top:2px solid var(--borda2);margin:4px 0 10px;height:8px;border-left:2px solid var(--borda2);border-right:2px solid var(--borda2)}
+.sf-tec-linha span{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--fundo,#151a22);padding:0 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--tinta2);font-weight:700}
+.sf-tec-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:1500px){.sf-tec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.sf-layout{grid-template-columns:1fr}.sf-tec-grid{grid-template-columns:1fr}}
+.fi-grupo h4.sf-gh{display:inline-flex;align-items:center;gap:8px;color:#fff;padding:4px 10px;border-radius:5px;font-size:10.5px;letter-spacing:.8px}
+.fi-grupo h4.sf-gh::after{display:none}
+.fi-grupo h4.sf-gh .sf-cont{color:#fff;background:#00000033;padding:1px 6px;border-radius:4px}
+.sf-gh.g-def{background:#991b1b} .sf-gh.g-ofe{background:#166534} .sf-gh.g-pas{background:#a16207} .sf-gh.g-dgp{background:#1e40af} .sf-gh.g-fis{background:#6b21a8}
+.sf-tec-grid .fi-linha.sf{grid-template-columns:minmax(110px,1.6fr) 42px minmax(40px,1fr) 34px 34px}

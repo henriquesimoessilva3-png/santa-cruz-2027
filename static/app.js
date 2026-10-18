@@ -2934,9 +2934,11 @@ let fichaAtual = null;
    volume = distância e corridas sem bola. */
 const FIS_GRUPOS = [
   ['Velocidade e explosão', [['psv', 'PSV-99 (km/h)', 1, 1], ['spr_n', 'Sprints /90', 1, 1], ['hi_n', 'Ações de alta intensidade /90', 0, 1], ['expl', 'Arrancadas explosivas /90', 2, 1],
-    ['vmax', 'Velocidade máxima', 1], ['vmax3', 'Vel. máx. TOP3', 1], ['spr_km', 'KM +20 (sprint) /90', 0], ['acel', 'Acelerações fortes /90', 1], ['desa', 'Desacelerações fortes /90', 1], ['cod', 'Mudanças de direção /90', 1]]],
+    ['psv5', 'PSV-99, média dos 5 melhores', 1], ['vmax', 'Velocidade de pico', 1], ['spr_km', 'Distância em sprint /90 (>25 km/h)', 0], ['hsr_n', 'Corridas HSR /90 (20–25 km/h)', 1],
+    ['hsr', 'Distância HSR /90', 0], ['hi', 'Distância em alta intensidade /90', 0], ['acel', 'Acelerações fortes /90', 1], ['acel_m', 'Acelerações médias /90', 1],
+    ['desa', 'Desacelerações fortes /90', 1], ['cod', 'Mudanças de direção /90', 1]]],
   ['Volume', [['dist', 'Distância /90 (m)', 0, 1], ['obr', 'Corridas sem bola /30 min de posse', 1, 1],
-    ['mmin', 'Metros por minuto', 1], ['hi', 'Alta intensidade /90 (m)', 0], ['hsr', 'KM 15–20 /90', 0], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
+    ['mmin', 'Metros por minuto', 1], ['run', 'Distância em corrida /90 (15–20 km/h)', 0], ['desa_m', 'Desacelerações médias /90', 1], ['obr_area', 'Corridas para a área /30 min de posse', 2]]]
 ];
 const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
 function fisicoSerieBHtml(j) {
@@ -2960,7 +2962,7 @@ function fisicoSerieBHtml(j) {
   };
   const corpo = FIS_GRUPOS.map(grupo).join('');
   if (!corpo) return '';
-  return '<div class="fi-grupo"><h4>Físico' + (nL ? ' <b class="sf-cont" title="indicadores da letra (◆) na média da Série B ou acima">' + okL + '/' + nL + '</b>' : '') + '</h4>' +
+  return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (nL ? ' <b class="sf-cont" title="indicadores da letra (◆) na média da Série B ou acima">' + okL + '/' + nL + '</b>' : '') + '</h4>' +
     (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
 }
@@ -3521,7 +3523,7 @@ async function montarFicha(j, modo) {
     (nCo < 12 ? '⚠ amostra de ' + nCo : 'amostra curta · ' + nCo) + '</span>';
 
   /* faixa de resumo no topo da ficha: letra do tipo físico (A/B/C) e selo de subida com a contagem */
-  let resumoF = '';
+  let resumoF = '', resFis = '', resTec = '';
   try {
     const jl = jSub.p !== 'GOL' ? jSub : null;
     if (jl) {
@@ -3529,19 +3531,30 @@ async function montarFicha(j, modo) {
       const pref = (window.CONSULTA && CONSULTA.pref && CONSULTA.pref[jl.p]) || [];
       const s = (typeof window.subidaSeloInfo === 'function') ? window.subidaSeloInfo(jl, dados) : null;
       const leit = { v: 'acima — atende 60% ou mais', a: 'médio — atende de 35% a 60%', r: 'abaixo — atende menos de 35%', n: 'faltam dados' };
-      resumoF = '<div class="fi-resumo">' +
+      resFis =
         '<div class="fi-res"><span class="fi-res-l tipo-' + (Lm ? 'Ap' : (L || 'nd')) + '">' + (L || '?') + '</span><div><b>Tipo físico ' + (L || 'sem letra') + '</b><small>' +
-          (tx && tx.tipo ? esc(tx.tipo) + (Lm ? ' — A com volume (o perfil completo)' : L0 === 'A' ? ' — o tipo A da posição' : ' — o A da posição é ' + esc(jl.p === 'MED' ? 'o motor de volume' : pref.join(' / '))) : 'sem rastreio físico suficiente (5 jogos)') + '</small></div></div>' +
-        (s && s.conta ? '<div class="fi-res" title="' + esc(s.html ? (s.html.match(/title="([^"]*)"/) || [])[1] || '' : '') + '"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : '<i>' + s.verde + '</i> de <i>' + s.com + '</i> fundamentais na média da Série B ou acima') + '</b><small>' +
+          (tx && tx.tipo ? esc(tx.tipo) + (Lm ? ' — A com volume (o perfil completo)' : L0 === 'A' ? ' — o tipo A da posição' : ' — o A da posição é ' + esc(jl.p === 'MED' ? 'o motor de volume' : pref.join(' / '))) : 'sem rastreio físico suficiente (5 jogos)') + '</small></div></div>';
+        resTec = (s && s.conta ? '<div class="fi-res" title="' + esc(s.html ? (s.html.match(/title="([^"]*)"/) || [])[1] || '' : '') + '"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : '<i>' + s.verde + '</i> de <i>' + s.com + '</i> fundamentais na média da Série B ou acima') + '</b><small>' +
           '<span class="sf-n v">' + s.verde + '</span> no nível · <span class="sf-n a">' + s.amarelo + '</span> até 10% abaixo · <span class="sf-n r">' + s.vermelho + '</span> abaixo' + (s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai', n: '' })[s.c] + '</small></div></div>'
         : s && s.nova ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Técnico: ' + (s.c === 'n' ? 'faltam dados' : 'nota <i>' + (s.nota > 0 ? '+' : '') + s.nota.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</i> — ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai', r: 'no nível de quem cai' })[s.c]) + '</b><small>' +
           s.grupos.map(g => esc(g.g) + ' ' + (g.z == null ? '—' : (g.z > 0 ? '+' : '') + g.z.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' (' + Math.round(100 * g.w / s.pesoTot) + '%)').join(' · ') +
           (s.com < s.n ? ' · ' + (s.n - s.com) + ' de ' + s.n + ' sem dado' : '') + ' · régua ' + esc(s.regua) + '</small></div></div>'
         : s ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Subida: ' + (s.c === 'n' ? 'faltam dados' : 'atende <i>' + s.ok + '</i> de <i>' + s.com + '</i> fundamentais' + (s.com ? ' (' + Math.round(s.ok / s.com * 100) + '%)' : '')) + '</b><small>' +
-          leit[s.c] + (s.c !== 'n' && s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · régua de ' + esc(s.posNome) + '</small></div></div>' : '') +
-        '</div>';
+          leit[s.c] + (s.c !== 'n' && s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · régua de ' + esc(s.posNome) + '</small></div></div>' : '');
+      resumoF = '<div class="fi-resumo">' + resFis + resTec + '</div>';
     }
   } catch (e) { resumoF = ''; }
+  /* 18/10 (16h30) — visão nova, Série B: 5 colunas — Físico (com o tipo físico em cima) e, sob uma linha só, as 4 do técnico
+     (Defensivo · Ofensivo · Passe · Participação em gols) com a seta técnica em cima */
+  if (compSobe && typeof window.subidaFicha === 'function') {
+    const g = window.subidaFicha(jSub, dados, { porGrupo: true });
+    if (g && g.cols) {
+      const fis = fisicoSerieBHtml(jSub);
+      const layout = '<div class="sf-layout"><div class="sf-col-fis">' + resFis + (fis || '<div class="fi-sem">sem tracking para este jogador</div>') + '</div>' +
+        '<div class="sf-col-tec">' + resTec + '<div class="sf-tec-linha"><span>Técnico</span></div><div class="sf-tec-grid">' + g.cols + '</div></div></div>' + g.leg;
+      return { titulo, sub, cabeca, corpo: layout, rodape, aviso };
+    }
+  }
   return { titulo, sub, cabeca, corpo: resumoF + corpo + quadroSubida, rodape, aviso };
 }
 

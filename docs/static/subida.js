@@ -764,7 +764,7 @@
         const f = i.cat === 'fis' ? (FIS_LETRA[fk] ? 'L' : '') : (fund[i.k] ? 'F' : '');
         linhas.push({ i, sb, v, c: corSB(i, sb, v), f, d: fund[i.k] ? fund[i.k].sep : 0 });
       });
-      if (!linhas.some(l => l.v != null)) return '';
+      if (!linhas.some(l => l.v != null)) return op.porGrupo ? null : '';
       const blocos = []; D.inds.forEach(i => { if (!blocos.includes(i.bloco)) blocos.push(i.bloco); });
       const linha = l => {
         const m = l.sb.med, bst = l.sb.best, v = l.v, bx = !!l.i.menor;
@@ -785,6 +785,23 @@
         return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont" title="' + (b === 'Físico' ? 'indicadores da letra' : 'fundamentais') + ' na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
           '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
       };
+      if (op.porGrupo) {
+        /* as 4 colunas do técnico pelos grupos do b21 (não os blocos da aba Subida) */
+        const GK = {}; if (TG) Object.values(TG.reguas).forEach(R => [].concat(R.entra, R.fora).forEach(x => { GK[x.k] = x.g; }));
+        const COR = { Defensivo: 'g-def', Ofensivo: 'g-ofe', Passe: 'g-pas', 'Participação em gols': 'g-dgp' };
+        const tecs = linhas.filter(l => l.i.cat !== 'fis');
+        const cols = ['Defensivo', 'Ofensivo', 'Passe', 'Participação em gols'].map(g => {
+          const ls = tecs.filter(l => (GK[l.i.k] || ({ pas: 'Passe', atq: 'Ofensivo', def: 'Defensivo' })[l.i.cat]) === g).sort((a, c) => ((c.f ? 1 : 0) - (a.f ? 1 : 0)) || ((c.d || 0) - (a.d || 0)));
+          if (!ls.length) return '';
+          const fs = ls.filter(l => l.f && l.v != null);
+          return '<div class="fi-grupo"><h4 class="sf-gh ' + COR[g] + '">' + esc(g) + (fs.length ? ' <b class="sf-cont" title="fundamentais na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
+            '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+        }).join('');
+        const leg = '<div class="fi-leg"><span><i class="v"></i>na média da Série B ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
+          '<span><i class="m"></i>traço = média da Série B</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
+          '<span class="num-leg">média e melhor = jogadores da Série B na posição' + (GEMEAS[j.p] ? ' (os dois lados juntos)' : '') + ', temporada atual</span></div>';
+        return { cols, leg };
+      }
       return '<div class="fi-grid sf-grid">' + (op.fisico != null ? op.fisico + blocos.filter(b => b !== 'Físico').map(bloco).join('') : blocos.map(bloco).join('')) + '</div>' +
         '<div class="fi-leg"><span><i class="v"></i>na média da Série B ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
         '<span><i class="m"></i>traço = média da Série B</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
