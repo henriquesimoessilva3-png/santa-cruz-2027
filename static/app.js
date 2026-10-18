@@ -7311,7 +7311,8 @@ function raioIcone(pk, card, objBase, posCampo) {
     const b = obj || fsJogadorPk(pk);
     if (b && b.p && b.p !== 'GOL' && b.p !== posCampo) obj = Object.assign({}, b, { p: posCampo, _posBase: b.p });
   }
-  const r = raioIconeBase(pk, obj);
+  /* 18/10/2026 — na visão nova o raio ⚡ sai do card: a letra já diz o físico e o farol dá o veredito */
+  const r = window.VISAO_NOVA ? '' : raioIconeBase(pk, obj);
   try { const j = obj || (BASE.length ? fsJogadorPk(pk) : null); return r + tipoBadge(pk, obj) + (j ? aereoBadge(j) + aereoDefBadge(j) + cobradorBadge(j) : ''); } catch (e) { console.warn('tipoBadge', e); return r; }
 }
 /* ---------------- físico e técnico colados à mão (card.dados) ----------------
