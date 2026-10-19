@@ -32,10 +32,10 @@
     { id: 'mercado', num: '3', rot: 'Mercado', dica: 'quem existe', sub: [
       { id: 'tipoa', rot: 'Tipo físico A+, A e B', aba: 'tipoa', dica: 'já filtrado pelo físico que interessa; o nome abre a ficha, o ↗ leva ao campograma' },
       { id: 'banco', rot: 'Banco de consulta', aba: 'bancotm', dica: 'todos os nomes, com contrato, valor, letra, seta de subida, bola parada e xT' }] },
-    { id: 'jogador', num: '4', rot: 'Jogador', dica: 'um nome', sub: [
+    { id: 'jogador', num: '', oculta: true /* 19/10: oculta a pedido do Henrique */, rot: 'Jogador', dica: 'um nome', sub: [
       { id: 'consulta', rot: 'Consulta de jogador', aba: 'consulta', dica: 'digita o nome: adere ao modelo que rende na Série B? e onde ele está nas listas' }] },
     /* 19/10: o estudo dos treinadores (Santa Cruz V2/treinadores_triagem) como aba */
-    { id: 'treinador', num: '5', rot: 'Treinador', dica: 'os 18 nomes', sub: [
+    { id: 'treinador', num: '4', rot: 'Treinador', dica: 'os 18 nomes', sub: [
       { id: 'trein', rot: 'Triagem de treinadores', aba: 'treinador', dica: 'os 18 técnicos por tema — só dados, sem veredito; PDF e Excel com as fontes' }] },
   ];
   /* aba original → [principal, sub] (as alternativas de um sub também apontam para ele) */
@@ -73,6 +73,7 @@
     document.body.classList.add('visao-nova');
     const frag = document.createDocumentFragment();
     ABAS.forEach(a => {
+      if (a.oculta) return;
       const b = document.createElement('button');
       b.className = 'vn-aba'; b.type = 'button'; b.dataset.vn = a.id;
       b.innerHTML = '<b>' + a.num + '</b>' + esc(a.rot) + '<small>' + esc(a.dica) + '</small>';
