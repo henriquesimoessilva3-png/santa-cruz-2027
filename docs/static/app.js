@@ -2965,7 +2965,7 @@ async function perfilExtraDe(j) {
     const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
     const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
-    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], fonte: 'Transfermarkt' } : null;
+    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], fonte: 'Transfermarkt' } : null;
   } catch (e) { return null; }
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
@@ -3518,7 +3518,7 @@ async function montarFicha(j, modo) {
   const perfil = '<div class="fi-perfil">' +
     (pf && pf.foto ? '<img class="fi-foto" src="' + esc(pf.foto) + '" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<span class=&quot;fi-foto vazia&quot;>' + esc(ini) + '</span>\'">' : '<span class="fi-foto vazia">' + esc(ini) + '</span>') +
     '<div class="fi-pdados"><div class="fi-pnome">' + titulo + '</div><div class="fi-pinfo">' +
-    [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + esc(j.t || '—'), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' : ''].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
+    [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + (pf && pf.clube && pf.clubeId ? esc(pf.clube) + (tipoNorm(pf.clube) !== tipoNorm(j.t || '') && j.t ? ' <small class="fi-antes" title="clube no cadastro do app">(no cadastro: ' + esc(j.t) + ')</small>' : '') : esc(j.t || '—')), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' : ''].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
   const cabeca = [
     ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],
@@ -7490,6 +7490,10 @@ function registroComDados(j) {
 function dadosCorrigir(d) {
   if (d && d.fis && d.fis.vmax3 != null && !d.fis._v3) { if (d.fis.psv5 == null) d.fis.psv5 = d.fis.vmax3; delete d.fis.vmax3; }
   if (d && d.fis) d.fis._v3 = 1;
+  if (d && d.fis && d.fis_raw) {   /* 19/10: completa do CSV guardado o que o mapa antigo não lia */
+    const guarda = mdFisRaw, cab = Object.keys(d.fis_raw), m = mdMapear(cab, cab.map(c => d.fis_raw[c]), MD_FIS) || {}; mdFisRaw = guarda;
+    ['hsr_n', 'acel_m', 'desa_m', 'cod', 'run'].forEach(k => { if (d.fis[k] == null && m[k] != null) d.fis[k] = m[k]; });
+  }
   return d;
 }
 function dadosColados(pk, card) { return dadosCorrigir(dadosColados0(pk, card)); }
@@ -8309,13 +8313,14 @@ function mdLinhas(texto, sep) {
   return out;
 }
 function mdSep(texto) { const l = texto.split(/\r?\n/)[0] || ''; return (l.match(/;/g) || []).length >= (l.match(/,/g) || []).length ? ';' : ','; }
-let mdTecRaw = null;
+let mdTecRaw = null, mdFisRaw = null;
 function mdBruto(cab, linha) {
   /* todas as colunas numéricas do export (nome original → valor): a ficha usa para os indicadores do ranking */
   const o = {}; cab.forEach((c, i) => { const v = mdNum(linha[i]); if (v != null && c) o[String(c).trim()] = v; }); return o;
 }
 function mdMapear(cab, linha, MAPA) {
   if (MAPA === MD_TEC) mdTecRaw = mdBruto(cab, linha);
+  if (MAPA === MD_FIS) mdFisRaw = mdBruto(cab, linha);   /* 19/10: a linha inteira fica guardada — coluna nova no mapa passa a valer sem colar de novo */
   /* coluna repetida no export (o Wyscout traz "Duelos aérios/90" duas vezes, a 2ª é a do goleiro e vem vazia): fica a que tem número */
   const idx = {}; cab.forEach((c, i) => { const k = tipoNorm(c); if (idx[k] == null || mdNum(linha[idx[k]]) == null) idx[k] = i; });
   const o = {}; let n = 0;
@@ -8369,7 +8374,7 @@ function abrirDadosBase(j) {
 function abrirDados(cod, uid) {
   if (cod) dadosEditando = { cod, uid };
   const j = alvoDados(); if (!j) return;
-  mdFis = null; mdTec = null; mdTecRaw = null;
+  mdFis = null; mdTec = null; mdTecRaw = null; mdFisRaw = null;
   const t = $('#mdTitulo'); t.textContent = 'Físico e técnico · ' + j.nome; t.dataset.nome = j.nome;
   const Q = (window.CONSULTA && window.CONSULTA.q) || {};
   const ligas = Object.keys(Q).sort((a, b) => a === 'Série B' ? -1 : b === 'Série B' ? 1 : a.localeCompare(b));
@@ -8406,6 +8411,7 @@ function ligarDados() {
     if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(1, Math.round(d.fis.min / 90));
     if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
     if (mdTec && mdTecRaw) d.tec_raw = mdTecRaw;
+    if (mdFis && mdFisRaw) d.fis_raw = mdFisRaw;
     j.dados = d;
     if (j.pk && !String(j.jid || '').startsWith('m:') && !j.manual) djGuardar(j.pk, d);   /* vale em todos os grupos */
     if (j.manual) manuaisRegistrar(j, dadosEditando.cod || null);
