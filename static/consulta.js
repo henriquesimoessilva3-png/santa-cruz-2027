@@ -122,8 +122,8 @@
   }
 
   function ficha(j) {
-    if (j.extra) return '<div class="cs-cab"><div><h3>' + esc(j.n) + ' <span class="cs-sel semnota">Sem nota</span></h3><p>' + esc(j.c) + ' · ' + esc(j.l) + ' · ' + esc(POS[j.p] || j.p) + (j.i != null ? ' · ' + j.i + ' anos' : '') + ' · <b class="cs-min">' + minTxt(j.min) + '</b> · contrato ' + dt(j.ct) + '</p></div></div>' +
-      '<p class="cs-nota">Fora do estudo: ' + (j.min == null ? 'sem minutos no Wyscout (ago/26)' : '<b>' + num(j.min, 0) + ' min</b> no Wyscout, ' + (j.min < 900 ? 'abaixo do corte de 900' : 'em liga ou recorte fora do estudo')) + '. Sem nota de aderência nem similares; abaixo vai a ficha completa do app com o que existir (físico, contrato, indicadores, quem sobe × quem cai).</p>';
+    /* 19/10: jogador fora do estudo (Sem nota) — o cartão do estudo saía vazio e confundia; fica oculto, vale só a ficha completa */
+    if (j.extra) return '';
     const v = veredito(j), pref = D.pref[j.p] || [];
     let h = '<div class="cs-cab"><div><h3>' + esc(j.n) + ' <span class="cs-sel ' + v.cls + '">' + v.nivel + '</span></h3>' +
       '<p>' + esc(j.c) + ' · ' + esc(j.l) + ' · ' + esc(POS[j.p] || j.p) + ' · ' + (j.i != null ? j.i + ' anos' : '') + ' · ' + num(j.min, 0) + ' min · contrato ' + dt(j.ct) +
@@ -200,7 +200,7 @@
     /* mesmo "+ físico/técnico" da ficha do campograma: cola o CSV do SkillCorner e o export do Wyscout; ao fechar, a ficha é refeita */
     const podeDados = typeof abrirDadosBase === 'function' && typeof primaryKey === 'function';
     const temDados = podeDados && typeof dadosColados === 'function' && dadosColados(primaryKey(j), null);
-    el.innerHTML = '<div class="cs-det-tit"><h3>Ficha completa</h3><span>' + esc(f.sub) + '</span>' + f.aviso +
+    el.innerHTML = '<div class="cs-det-tit">' + (f.perfil ? f.perfil + (f.sub ? '<span>' + esc(f.sub) + '</span>' : '') : '<h3>Ficha completa</h3><span>' + esc(f.sub) + '</span>') + f.aviso +
       (podeDados ? '<button class="bt mini cs-dados" title="Colar o físico (CSV do SkillCorner) e o técnico (xlsx/csv do Wyscout) deste jogador">' + (temDados ? '✎ físico/técnico colados' : '+ físico/técnico') + '</button>' : '') + '</div>' +
       '<div class="det"><div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo + '<div class="det-pe">' + esc(f.rodape) + '</div></div>';
     const bd = el.querySelector('.cs-dados');
