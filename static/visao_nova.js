@@ -132,8 +132,13 @@
     const dataBR = iso => iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '';
     pg.innerHTML = '<div class="esv-leitura vnf">' +
       '<h2 class="vnf-tit">Físico — o que importa para subir</h2>' +
-      '<p class="vnf-intro">Cada jogador de linha recebe uma <b>letra</b> pelo perfil físico (SkillCorner), comparado com os jogadores da mesma posição na Série B. ' +
-      'É a mesma letra dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta.</p>' +
+      /* 19/10 (Henrique): explicação rápida antes da tabela — o que foi feito e por que gerou as letras */
+      '<div class="vnf-explica"><p><b>O que foi feito.</b> Analisamos os <b>1.327</b> titulares (900 minutos ou mais) da Série B de 2022 a 2025 — <b>259</b> deles em times que subiram — ' +
+      'com os dados físicos do SkillCorner. Comparando, posição a posição, quem estava nos times que subiram com quem estava nos que caíram, ficaram os indicadores que mais separam um do outro: ' +
+      '<b>explosão e rapidez</b> (velocidade máxima, sprints, ações de alta intensidade e arrancadas) e <b>volume</b> (distância percorrida).</p>' +
+      '<p><b>Por que as letras.</b> Com esses <b>5</b> indicadores, os jogadores de cada setor foram agrupados em tipos físicos. O tipo mais forte do setor (explosivo e rápido; no médio, o motor de volume) virou o <b>A</b> ' +
+      '(com volume também alto, <b>A+</b>), o do meio virou <b>B</b> e o de menor intensidade virou <b>C</b>. Cada jogador recebe a letra do tipo de que está mais perto. ' +
+      'É a mesma letra dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta.</p></div>' +
       '<div id="vnfMatriz"></div>' +
       '<div class="vnf-escopo"><b>De onde vem o estudo.</b> ' +
       '<span><b>Físico:</b> SkillCorner, rastreio de todos os jogos da Série B de <b>2022 a 2026</b> (goleiro não é rastreado).</span> ' +
