@@ -145,6 +145,8 @@
     if (!cache.nacs) { const st = new Set(); POS.forEach(p => ['A', 'B'].forEach(L => GRUPOS.forEach(g => D[p[0]][L][g[0]].forEach(x => { const n = nacDe(x.j); if (n) st.add(n); })))); cache.nacs = [...st].sort((a, b) => (PAIS_SA.includes(a) ? 0 : 1) - (PAIS_SA.includes(b) ? 0 : 1) || (PAIS_PT[a] || a).localeCompare(PAIS_PT[b] || b)); }
     const nacs = cache.nacs;
     const TEC = E.vista === 'tec';
+    /* 19/10: no técnico a seta de cada jogador custa caro (milhares de jogadores) — uma posição por vez, sem contar todas nos botões */
+    if (TEC && !E.pos) E.pos = 'LD';
     const contaT = (p, c) => GRUPOS.reduce((s, g) => s + filtra(D[p].T[g[0]]).filter(x => seloDe(x).c === c).length, 0);
     let h = '<div class="ta-vistas"><button class="ta-vista' + (!TEC ? ' on' : '') + '" data-vista="fis"><b>Físico</b><span>A+, A e B por posição</span></button>' +
       '<button class="ta-vista' + (TEC ? ' on' : '') + '" data-vista="tec"><b>Técnico</b><span>▲ quem sobe × ↔ o meio, por posição</span></button></div>' +
@@ -155,8 +157,8 @@
       '<p>Letra pela regra do clube: <b class="ta-ap">A+</b> = explosivo que também é motor de volume (fora médio e meia) · <b>A</b> = o tipo mais forte fisicamente da posição (explosivo e rápido; no volante, mais intenso; <b>no médio, o motor de volume</b> — revisão 11/10) · <b>B</b> = o tipo do meio (motor de volume, médio em tudo ou intermediário). O C (baixa intensidade) fica de fora. ' +
       'Só a parte física (SkillCorner, 5 jogos rastreados ou mais). Quatro grupos por posição: Série B, Série A, ligas sul-americanas e sul-americanos (com brasileiros) jogando fora da América do Sul. Vetados ficam de fora. ' +
       'Clique no nome para abrir a ficha dele no campograma; o ↗ leva o jogador para o campograma.</p></div>') +
-      '<div class="ta-ctrl"><div class="ta-chips"><button class="ta-chip' + (!E.pos ? ' on' : '') + '" data-pos="">Todas</button>' +
-      POS.map(p => '<button class="ta-chip' + (E.pos === p[0] ? ' on' : '') + '" data-pos="' + p[0] + '">' + esc(p[1]) + ' <b>' + (TEC ? contaT(p[0], 'v') : conta(p[0], 'A')) + '</b>+' + (TEC ? contaT(p[0], 'a') : conta(p[0], 'B')) + '</button>').join('') + '</div>' +
+      '<div class="ta-ctrl"><div class="ta-chips">' + (TEC ? '' : '<button class="ta-chip' + (!E.pos ? ' on' : '') + '" data-pos="">Todas</button>') +
+      POS.map(p => '<button class="ta-chip' + (E.pos === p[0] ? ' on' : '') + '" data-pos="' + p[0] + '">' + esc(p[1]) + (TEC ? '' : ' <b>' + conta(p[0], 'A') + '</b>+' + conta(p[0], 'B')) + '</button>').join('') + '</div>' +
       '<label class="ta-chk">contrato <select id="taCtr">' + CTR.map(o => '<option value="' + o[0] + '"' + (E.ctr === o[0] ? ' selected' : '') + '>' + o[1] + '</option>').join('') + '</select></label>' +
       (TEC ? '<span class="ta-chk ta-letras">físico ' + LETRAS.map(o => '<button class="ta-sf ta-lf-' + LCLS[o[0]] + (E.letras.includes(o[0]) ? ' on' : '') + '" data-letra="' + o[0] + '" title="Mostrar só quem tem a letra ' + o[1] + '; pode marcar mais de uma">' + o[1] + '</button>').join('') + '</span>' +
         '<label class="ta-chk">ordenar por <select id="taOrdT">' + [['verde', 'Fundamentais no nível'], ['min', 'Minutagem'], ['idade', 'Idade'], ['ct', 'Contrato (termina antes)'], ['nome', 'Nome']].map(o => '<option value="' + o[0] + '"' + (E.ordT === o[0] ? ' selected' : '') + '>' + o[1] + '</option>').join('') + '</select></label>'
