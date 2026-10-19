@@ -126,6 +126,9 @@
     const docs = (window.ESTUDO_V2 && ESTUDO_V2.docs) || [];
     const doc = id => docs.find(d => d.id === id);
     const b15 = doc('b15'), b8 = doc('b8');
+    const b15Corte = b15 ? b15.html.indexOf('<h2>Quantos de cada letra') : -1;
+    const b15Regra = b15 ? (b15Corte >= 0 ? b15.html.slice(0, b15Corte) : b15.html) : '';
+    const b15Tab = b15 && b15Corte >= 0 ? b15.html.slice(b15Corte) : '';
     const dataBR = iso => iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '';
     pg.innerHTML = '<div class="esv-leitura vnf">' +
       '<h2 class="vnf-tit">Físico — o que importa para subir</h2>' +
@@ -161,8 +164,10 @@
        ['Acelerações médias (1,5 a 3 m/s²)', 'Ações de alta intensidade', '0,56'], ['Corridas para a área (por 30 min com posse)', 'Corridas sem bola', '0,54'], ['Desacelerações médias', 'Distância', '0,52']].map(x => '<tr><td>' + x[0] + '</td><td>' + x[1] + '</td><td class="n">' + x[2] + '</td></tr>').join('') +
       '</tbody></table></details></div></div>' +
       /* 18/10 (23h55): o estudo vai para o fim, fechado — a página começa pelas tabelas dos jogadores */
+      /* 19/10: a tabela "Quantos de cada letra…" sai da regra completa e fica aberta, logo depois das letras e dos indicadores */
+      (b15Tab ? '<article class="esv-doc vnf-quantos">' + b15Tab + '</article>' : '') +
       '<div id="vnfPainel"></div>' +
-      (b15 ? '<details class="vnf-mais"><summary>' + esc(b15.titulo) + ' — a regra completa</summary><article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div>' + b15.html + '</article></details>' : '') +
+      (b15 ? '<details class="vnf-mais"><summary>' + esc(b15.titulo) + ' — a regra completa</summary><article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div>' + b15Regra + '</article></details>' : '') +
       (b8 ? '<details class="vnf-mais"><summary>' + esc(b8.titulo) + ' — o documento completo</summary><article class="esv-doc"><div class="esv-doc-meta">' + esc(b8.grupo) + ' · ' + dataBR(b8.data) + '</div>' + b8.html + '</article></details>' : '') +
       '</div>';
     vnfMatriz();

@@ -133,3 +133,7 @@ body.visao-nova nav.vn-sub {
 #vntQuadros .vnt-grupos b { display: block; color: var(--tinta); font-size: 12.5px; margin-bottom: 2px; }
 #vntQuadros .vnt-grupos b i { font-style: normal; color: var(--tinta3); font-weight: 500; font-size: 11px; margin-left: 4px; }
 @media (max-width: 1100px) { #vntQuadros .vnt-grupos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 19/10 — tabela de letras em quem sobe/meio/cai, aberta antes do Perfil físico por posição */
+#pgVnFisico .vnf-quantos { margin: 18px 0 26px; }
+#pgVnFisico .vnf-quantos > h2:first-child { margin-top: 0; }
