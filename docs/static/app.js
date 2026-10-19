@@ -2998,14 +2998,16 @@ function painelBolaParada(j) {
   const BJ = window.BP_JOGO && (window.BP_JOGO[pk] || window.BP_JOGO[primaryKey(j)] || (j._eqDe && window.BP_JOGO[j._eqDe])) || null;
   const R = v => (typeof v === 'number' ? Math.round(v).toLocaleString('pt-BR') : '—');
   const det = (a, b, c) => [a ? a + ' de escanteio' : '', b ? b + ' de falta' : '', c ? c + ' de lateral' : ''].filter(Boolean).join(', ');
-  const tot = { esc: 0, fal: 0, abp: 0, gbp: 0 }, tem = { wy: false, sf: false };
+  const tot = { esc: 0, fal: 0, abp: 0, gbp: 0, gcab: 0, gfd: 0, gout: 0 }, tem = { wy: false, sf: false };
   const anos = T.map((t, i) => {
     const y = h[i] && h[i].min && (h[i].esc != null || h[i].fal != null) ? h[i] : null, z = BJ && BJ[t];
     const o = { t, esc: y ? (y.esc || 0) * y.min / 90 : null, fal: y ? (y.fal || 0) * y.min / 90 : null,
       abp: z ? (z.ae || 0) + (z.af || 0) + (z.al || 0) : null, gbp: z ? (z.ge || 0) + (z.gf || 0) + (z.gl || 0) : null,
-      dA: z ? det(z.ae, z.af, z.al) : '', dG: z ? det(z.ge, z.gf, z.gl) : '' };
+      dA: z ? det(z.ae, z.af, z.al) : '', dG: z ? det(z.ge, z.gf, z.gl) : '',
+      gcab: z ? (z.gc || 0) : null, gfd: z ? (z.gf || 0) : null };
+    if (z) { o.gout = Math.max(0, o.gbp - o.gcab - o.gfd); }
     if (y) { tem.wy = true; tot.esc += o.esc; tot.fal += o.fal; }
-    if (z) { tem.sf = true; tot.abp += o.abp; tot.gbp += o.gbp; }
+    if (z) { tem.sf = true; tot.abp += o.abp; tot.gbp += o.gbp; tot.gcab += o.gcab; tot.gfd += o.gfd; tot.gout += o.gout; }
     return o;
   });
   const td = (v, d, forte) => '<td class="n"' + (d ? ' title="' + esc(d) + '"' : '') + '>' + (forte ? '<b>' + R(v) + '</b>' : R(v)) + '</td>';
@@ -3022,9 +3024,12 @@ function painelBolaParada(j) {
   const aer = x && x.aer;
   const cardF = '<div class="fi-res" title="' + esc('Gols de bola parada = gols que saíram de escanteio, falta ou lateral (Sofascore jogo a jogo, pelo mapa de finalizações; pênalti fora). Jogo aéreo no ataque = percentil na liga (duelos aéreos ganhos e gols de cabeça).' + (x && x.aer_dp != null ? ' Duelo aéreo: ' + x.aer_dp + '.' : '')) + '">' +
     '<span class="fi-res-l sel-' + (tem.sf && tot.gbp >= 3 ? 'v' : tem.sf && tot.gbp >= 1 ? 'a' : 'n') + ' sf-res-pct">' + (tem.sf ? R(tot.gbp) : '—') + '</span><div><b>Finalizador: ' + (tem.sf ? R(tot.gbp) + (tot.gbp === 1 ? ' gol' : ' gols') + ' de bola parada em 3 anos' : 'sem dado de gols de bola parada') + '</b><small>' +
+    (tem.sf && tot.gbp ? [tot.gcab ? R(tot.gcab) + ' de cabeça' : '', tot.gfd ? R(tot.gfd) + ' de falta direta' : '', tot.gout ? R(tot.gout) + ' de pé (outros)' : ''].filter(Boolean).join(' · ') + ' · ' : '') +
     (aer != null ? 'jogo aéreo no ataque: melhor que ' + aer + '% da liga' : 'sem índice de jogo aéreo') + '</small></div></div>';
-  const tabF = tem.sf ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Gols de bola parada</th></tr></thead><tbody>' +
-    anos.map(o => '<tr><td>' + o.t + '</td>' + td(o.gbp, o.dG, true) + '</tr>').join('') + '</tbody><tfoot><tr><td>Total</td><td class="n">' + R(tot.gbp) + '</td></tr></tfoot></table>' : '';
+  /* 18/10 (23h55): de que foi o gol — de cabeça, falta direta ou outro chute de pé (rebote de escanteio, lateral) */
+  const tabF = tem.sf ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">De cabeça</th><th class="n">Falta direta</th><th class="n" title="de pé, após escanteio, falta lateral ou lateral (rebote, segunda bola)">Outros de pé</th><th class="n">Total</th></tr></thead><tbody>' +
+    anos.map(o => o.gbp == null ? '<tr class="vazio"><td>' + o.t + '</td><td colspan="4">sem dado</td></tr>' : '<tr><td>' + o.t + '</td>' + td(o.gcab) + td(o.gfd) + td(o.gout) + td(o.gbp, o.dG, true) + '</tr>').join('') + '</tbody>' +
+    '<tfoot><tr><td>Total</td><td class="n">' + R(tot.gcab) + '</td><td class="n">' + R(tot.gfd) + '</td><td class="n">' + R(tot.gout) + '</td><td class="n">' + R(tot.gbp) + '</td></tr></tfoot></table>' : '';
   return '<div class="sf-painel bp-2"><div class="bp-g">' + cardC + tabC + '</div><div class="bp-g">' + cardF + tabF + '</div></div>';
 }
 function fisicoSerieBHtml(j) {
@@ -3154,13 +3159,16 @@ async function abrirFicha(ref) {
 }
 
 /* visão nova (18/10): a ficha compara, de saída, com quem sobe × quem cai; o botão troca para a liga (o seletor de coorte) */
-function fichaComp() { try { return localStorage.getItem('sc_fichaComp') === 'liga' ? 'liga' : 'sobe'; } catch (e) { return 'sobe'; } }
+/* 18/10 (23h55): o estado fica numa variável — o localStorage do app costuma estar cheio (cadastros salvos) e o setItem falhava
+   calado, então o botão "comparar com a liga dele" não mudava nada */
+let FICHA_COMP = null;
+function fichaComp() { if (FICHA_COMP) return FICHA_COMP; try { return localStorage.getItem('sc_fichaComp') === 'liga' ? 'liga' : 'sobe'; } catch (e) { return 'sobe'; } }
 function botaoFichaComp() {
   const base = $('#fiBase'); if (!base) return;
   let b = $('#fiComp');
   if (!window.VISAO_NOVA) { if (b) b.remove(); base.style.display = ''; return; }
   if (!b) { b = document.createElement('button'); b.id = 'fiComp'; b.className = 'bt mini'; const ref = $('#fiDados') || base; ref.insertAdjacentElement('afterend', b);
-    b.onclick = () => { try { localStorage.setItem('sc_fichaComp', fichaComp() === 'sobe' ? 'liga' : 'sobe'); } catch (e) {} botaoFichaComp(); renderFicha(); }; }
+    b.onclick = () => { FICHA_COMP = fichaComp() === 'sobe' ? 'liga' : 'sobe'; try { localStorage.setItem('sc_fichaComp', FICHA_COMP); } catch (e) {} botaoFichaComp(); renderFicha(); }; }
   const sobe = fichaComp() === 'sobe';
   b.textContent = sobe ? '⇄ comparar com a liga dele' : '⇄ voltar à Série B';
   b.title = sobe ? 'Hoje: contra a média da Série B. Clique para comparar com a liga dele (o seletor ao lado)' : 'Hoje: contra a liga dele. Clique para voltar à Série B';
