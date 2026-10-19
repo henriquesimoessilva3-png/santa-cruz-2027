@@ -2990,41 +2990,42 @@ function painelMinutagem(j) {
     '<tfoot><tr><td colspan="2">Total</td><td class="n">' + f(sj) + '<small> de ' + f(stj) + '</small></td><td class="n">' + f(sm) + '<small> de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + mi.c + '">' + pt + '%</b></td></tr></tfoot></table></div>';
 }
 function painelBolaParada(j) {
-  /* 18/10 (22h, "muito confuso"): UM card com o resultado e UMA tabela por ano — cobranças (Wyscout) e gols/assistências de
-     bola parada (Sofascore, jogo a jogo). O detalhe de origem (escanteio, falta, lateral) fica no passe o mouse. */
+  /* 18/10 (23h) — dois grupos lado a lado: COBRADOR (escanteios e faltas cobrados, assistências de bola parada) e
+     FINALIZADOR (gols de bola parada). Cobranças = Wyscout; gols e assistências de bola parada = Sofascore jogo a jogo. */
   const pk = j && (j.pk || primaryKey(j)), h = histDe(j, pk) || [];
   const T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || ['2024', '2025', '2026'];
   let x = null; try { x = csRegistro(j); } catch (e) {}
   const BJ = window.BP_JOGO && (window.BP_JOGO[pk] || window.BP_JOGO[primaryKey(j)] || (j._eqDe && window.BP_JOGO[j._eqDe])) || null;
   const R = v => (typeof v === 'number' ? Math.round(v).toLocaleString('pt-BR') : '—');
-  const tot = { esc: 0, fal: 0, gbp: 0, abp: 0, pen: 0 }; const tem = { wy: false, sf: false };
-  const linhas = T.map((t, i) => {
+  const det = (a, b, c) => [a ? a + ' de escanteio' : '', b ? b + ' de falta' : '', c ? c + ' de lateral' : ''].filter(Boolean).join(', ');
+  const tot = { esc: 0, fal: 0, abp: 0, gbp: 0 }, tem = { wy: false, sf: false };
+  const anos = T.map((t, i) => {
     const y = h[i] && h[i].min && (h[i].esc != null || h[i].fal != null) ? h[i] : null, z = BJ && BJ[t];
-    const esc = y ? (y.esc || 0) * y.min / 90 : null, fal = y ? (y.fal || 0) * y.min / 90 : null;
-    const gbp = z ? (z.ge || 0) + (z.gf || 0) + (z.gl || 0) : null, abp = z ? (z.ae || 0) + (z.af || 0) + (z.al || 0) : null;
-    const pen = z ? (z.gp || 0) : (y && y.pen != null ? y.pen : null);
-    if (y) { tem.wy = true; tot.esc += esc; tot.fal += fal; }
-    if (z) { tem.sf = true; tot.gbp += gbp; tot.abp += abp; }
-    if (pen != null) tot.pen += pen;
-    const det = (a, b, c) => [a ? a + ' de escanteio' : '', b ? b + ' de falta' : '', c ? c + ' de lateral' : ''].filter(Boolean).join(', ');
-    if (!y && !z) return '<tr class="vazio"><td>' + t + '</td><td colspan="5">sem dado</td></tr>';
-    return '<tr><td>' + t + '</td><td class="n">' + R(esc) + '</td><td class="n">' + R(fal) + '</td>' +
-      '<td class="n"' + (gbp ? ' title="' + esc_(det(z.ge, z.gf, z.gl)) + '"' : '') + '><b>' + R(gbp) + '</b></td>' +
-      '<td class="n"' + (abp ? ' title="' + esc_(det(z.ae, z.af, z.al)) + '"' : '') + '><b>' + R(abp) + '</b></td><td class="n">' + R(pen) + '</td></tr>';
-  }).join('');
-  function esc_(t) { return esc(t); }
+    const o = { t, esc: y ? (y.esc || 0) * y.min / 90 : null, fal: y ? (y.fal || 0) * y.min / 90 : null,
+      abp: z ? (z.ae || 0) + (z.af || 0) + (z.al || 0) : null, gbp: z ? (z.ge || 0) + (z.gf || 0) + (z.gl || 0) : null,
+      dA: z ? det(z.ae, z.af, z.al) : '', dG: z ? det(z.ge, z.gf, z.gl) : '' };
+    if (y) { tem.wy = true; tot.esc += o.esc; tot.fal += o.fal; }
+    if (z) { tem.sf = true; tot.abp += o.abp; tot.gbp += o.gbp; }
+    return o;
+  });
+  const td = (v, d, forte) => '<td class="n"' + (d ? ' title="' + esc(d) + '"' : '') + '>' + (forte ? '<b>' + R(v) + '</b>' : R(v)) + '</td>';
+  const corP = v => (v == null ? 'n' : v >= 80 ? 'v' : v >= 65 ? 'a' : 'n');
+  /* cobrador */
   const cob = x && x.cob;
-  const cor = cob == null ? 'n' : cob >= 80 ? 'v' : cob >= 65 ? 'a' : 'n';
-  const partes = [];
-  if (tem.sf) partes.push(R(tot.gbp) + ' gols e ' + R(tot.abp) + ' assistências de bola parada');
-  if (tem.wy) partes.push(R(tot.esc) + ' escanteios e ' + R(tot.fal) + ' faltas cobrados');
-  const dica = 'Cobrador: percentil na liga dele, temporada atual (escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1). Cobranças = Wyscout; gols e assistências de bola parada = Sofascore jogo a jogo (origem do gol pelo mapa de finalizações). Passe o mouse num gol ou numa assistência para ver a origem.' +
-    (x && x.aer != null ? ' Jogo aéreo no ataque: ' + x.aer + '. ' : '') + (x && x.aer_dp != null ? ' Duelo aéreo: ' + x.aer_dp + '.' : '');
-  const card = '<div class="fi-res" title="' + esc(dica) + '"><span class="fi-res-l sel-' + cor + ' sf-res-pct">' + (cob == null ? '⚑' : '⚑' + cob) + '</span><div><b>' +
-    (cob == null ? 'Bola parada' : 'Cobrador de bola parada: melhor que ' + cob + '% da liga') + '</b><small>' + (partes.length ? 'Em 3 anos: ' + partes.join(' · ') : 'sem histórico de bola parada') + '</small></div></div>';
-  const tab = (tem.wy || tem.sf) ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Escanteios cobrados</th><th class="n">Faltas cobradas</th><th class="n">Gols de bola parada</th><th class="n">Assist. de bola parada</th><th class="n">Pênaltis (gol)</th></tr></thead><tbody>' + linhas + '</tbody>' +
-    '<tfoot><tr><td>Total</td><td class="n">' + (tem.wy ? R(tot.esc) : '—') + '</td><td class="n">' + (tem.wy ? R(tot.fal) : '—') + '</td><td class="n">' + (tem.sf ? R(tot.gbp) : '—') + '</td><td class="n">' + (tem.sf ? R(tot.abp) : '—') + '</td><td class="n">' + R(tot.pen) + '</td></tr></tfoot></table>' : '';
-  return '<div class="sf-painel">' + card + tab + '</div>';
+  const cardC = '<div class="fi-res" title="' + esc('Percentil de cobrador na liga dele, temporada atual (escanteios e faltas cobrados por 90 pesam 3; faltas diretas, no alvo %, xA e cruzamento certo pesam 1). Cobranças = Wyscout; assistências de bola parada = Sofascore jogo a jogo.') + '">' +
+    '<span class="fi-res-l sel-' + corP(cob) + ' sf-res-pct">' + (cob == null ? '⚑' : '⚑' + cob) + '</span><div><b>Cobrador' + (cob == null ? '' : ': melhor que ' + cob + '% da liga') + '</b><small>' +
+    (tem.wy || tem.sf ? '3 anos: ' + (tem.wy ? R(tot.esc) + ' escanteios · ' + R(tot.fal) + ' faltas' : '') + (tem.wy && tem.sf ? ' · ' : '') + (tem.sf ? R(tot.abp) + ' assistências de bola parada' : '') : 'sem histórico') + '</small></div></div>';
+  const tabC = (tem.wy || tem.sf) ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Escanteios</th><th class="n">Faltas</th><th class="n">Assist. de bola parada</th></tr></thead><tbody>' +
+    anos.map(o => '<tr><td>' + o.t + '</td>' + td(o.esc) + td(o.fal) + td(o.abp, o.dA, true) + '</tr>').join('') + '</tbody>' +
+    '<tfoot><tr><td>Total</td><td class="n">' + (tem.wy ? R(tot.esc) : '—') + '</td><td class="n">' + (tem.wy ? R(tot.fal) : '—') + '</td><td class="n">' + (tem.sf ? R(tot.abp) : '—') + '</td></tr></tfoot></table>' : '';
+  /* finalizador */
+  const aer = x && x.aer;
+  const cardF = '<div class="fi-res" title="' + esc('Gols de bola parada = gols que saíram de escanteio, falta ou lateral (Sofascore jogo a jogo, pelo mapa de finalizações; pênalti fora). Jogo aéreo no ataque = percentil na liga (duelos aéreos ganhos e gols de cabeça).' + (x && x.aer_dp != null ? ' Duelo aéreo: ' + x.aer_dp + '.' : '')) + '">' +
+    '<span class="fi-res-l sel-' + (tem.sf && tot.gbp >= 3 ? 'v' : tem.sf && tot.gbp >= 1 ? 'a' : 'n') + ' sf-res-pct">' + (tem.sf ? R(tot.gbp) : '—') + '</span><div><b>Finalizador: ' + (tem.sf ? R(tot.gbp) + (tot.gbp === 1 ? ' gol' : ' gols') + ' de bola parada em 3 anos' : 'sem dado de gols de bola parada') + '</b><small>' +
+    (aer != null ? 'jogo aéreo no ataque: melhor que ' + aer + '% da liga' : 'sem índice de jogo aéreo') + '</small></div></div>';
+  const tabF = tem.sf ? '<table class="sf-tab"><thead><tr><th>Ano</th><th class="n">Gols de bola parada</th></tr></thead><tbody>' +
+    anos.map(o => '<tr><td>' + o.t + '</td>' + td(o.gbp, o.dG, true) + '</tr>').join('') + '</tbody><tfoot><tr><td>Total</td><td class="n">' + R(tot.gbp) + '</td></tr></tfoot></table>' : '';
+  return '<div class="sf-painel bp-2"><div class="bp-g">' + cardC + tabC + '</div><div class="bp-g">' + cardF + tabF + '</div></div>';
 }
 function fisicoSerieBHtml(j) {
   const ps = FIS_GEMEAS[j.p] || [j.p], lista = BASE.filter(x => x.l === 'Brasil B' && ps.includes(x.p)).map(x => { try { return comFisicoDoEstudo(x) || x; } catch (e) { return x; } });

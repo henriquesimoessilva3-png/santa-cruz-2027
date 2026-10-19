@@ -3831,3 +3831,15 @@ body.visao-nova .jpainel{flex:none}
 .sf-painel .sf-tab.bp-jogo{margin-top:10px}
 .bp-res-j{display:block;font-size:11px;color:var(--tinta2);margin-top:1px}
 .bp-res-j b{color:var(--tinta)}
+
+/* 18/10 (23h) bola parada: cobrador | finalizador lado a lado */
+.sf-painel.bp-2{display:grid;grid-template-columns:3fr 2fr;gap:14px;align-items:start}
+.sf-painel.bp-2 .bp-g{min-width:0}
+.sf-painel.bp-2 .sf-tab{width:100%}
+@media (max-width:900px){.sf-painel.bp-2{grid-template-columns:1fr}}
+
+/* 18/10 (23h) régua de quem sobe nos fundamentais: coluna "sobe" */
+.fi-linha.sf:has(>.sb){grid-template-columns:minmax(120px,1.7fr) 46px minmax(60px,1fr) 38px 38px 38px}
+.fi-linha.sf .sb{text-align:right;font-variant-numeric:tabular-nums;color:#c4b5fd;font-weight:700}
+.fi-linha.sf.cab .sb{color:#c4b5fd;font-weight:600}
+.fi-linha.sf .marca.sobe{background:#c4b5fd}
