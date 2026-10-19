@@ -127,6 +127,7 @@
       '<h2 class="vnf-tit">Físico — o que importa para subir</h2>' +
       '<p class="vnf-intro">Cada jogador de linha recebe uma <b>letra</b> pelo perfil físico (SkillCorner), comparado com os jogadores da mesma posição na Série B. ' +
       'É a mesma letra dos cards do campograma, da lista Tipo físico A+, A e B e do Banco de consulta.</p>' +
+      '<div id="vnfMatriz"></div>' +
       '<div class="vnf-escopo"><b>De onde vem o estudo.</b> ' +
       '<span><b>Físico:</b> SkillCorner, rastreio de todos os jogos da Série B de <b>2022 a 2026</b> (goleiro não é rastreado).</span> ' +
       '<span><b>Técnico:</b> Wyscout, as mesmas temporadas.</span> ' +
@@ -155,15 +156,15 @@
        ['Arrancadas explosivas até HSR', 'Arrancadas explosivas', '0,78'], ['Mudanças de direção', 'Ações de alta intensidade', '0,69'], ['Desacelerações fortes (< −3 m/s²)', 'Ações de alta intensidade', '0,69'], ['Acelerações fortes (> +3 m/s²)', 'Arrancadas explosivas', '0,68'],
        ['Acelerações médias (1,5 a 3 m/s²)', 'Ações de alta intensidade', '0,56'], ['Corridas para a área (por 30 min com posse)', 'Corridas sem bola', '0,54'], ['Desacelerações médias', 'Distância', '0,52']].map(x => '<tr><td>' + x[0] + '</td><td>' + x[1] + '</td><td class="n">' + x[2] + '</td></tr>').join('') +
       '</tbody></table></details></div></div>' +
-      '<div id="vnfMatriz"></div>' +
+      /* 18/10 (23h55): o estudo vai para o fim, fechado — a página começa pelas tabelas dos jogadores */
       '<div id="vnfPainel"></div>' +
-      (b15 ? '<article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div><h2>' + esc(b15.titulo) + '</h2>' + b15.html + '</article>' : '<p class="esv-vazio">O estudo V2 não carregou (static/estudo_v2_dados.js).</p>') +
+      (b15 ? '<details class="vnf-mais"><summary>' + esc(b15.titulo) + ' — a regra completa</summary><article class="esv-doc"><div class="esv-doc-meta">' + esc(b15.grupo) + ' · ' + dataBR(b15.data) + '</div>' + b15.html + '</article></details>' : '') +
       (b8 ? '<details class="vnf-mais"><summary>' + esc(b8.titulo) + ' — o documento completo</summary><article class="esv-doc"><div class="esv-doc-meta">' + esc(b8.grupo) + ' · ' + dataBR(b8.data) + '</div>' + b8.html + '</article></details>' : '') +
       '</div>';
     vnfMatriz();
     /* o painel "Perfil físico por posição" da aba Físico vem para cá (é o mesmo nó; volta quando a visão atual é religada) */
     const painel = $('#fsPainelEstudo'), alvo = $('#vnfPainel');
-    if (painel && alvo) { alvo.appendChild(painel); const d = painel.querySelector('details.fse'); if (d) d.open = true; }
+    if (painel && alvo) { alvo.appendChild(painel); const d = painel.querySelector('details.fse'); if (d) d.open = false; }
     /* nome em negrito dentro de tabela = jogador: clique abre a ficha da Consulta (mesmo caminho do estudo_v2.js) */
     if (window.csJanela) pg.querySelectorAll('.esv-doc table td > strong, .esv-doc table td > b').forEach(el => {
       const td = el.parentElement; const nome = el.textContent.trim(); if (nome.length < 3 || /^\d/.test(nome)) return;
