@@ -2065,11 +2065,26 @@ function renderTabela() {
   const linhas = resultado.slice(0, LIM);
 
   renderCabecalho();
-  $('#tbody').innerHTML = linhas.map(j =>
-    '<tr data-id="' + j.id + '"' + (jaNaPos.has(j.id) ? ' class="ja"' : '') + '>' +
+  /* 19/10 ("tá demorando demais"): o ícone de raio de cada linha calcula a letra e a seta do jogador (~2 ms cada na
+     primeira vez) — 400 linhas davam 1 a 4 s com a janela travada. Agora as 60 primeiras saem na hora e o resto entra
+     em lotes, sem travar; os cliques vão por delegação no tbody (vale para as linhas que chegam depois). */
+  const linhaHtml = j => '<tr data-id="' + j.id + '"' + (jaNaPos.has(j.id) ? ' class="ja"' : '') + '>' +
     COLUNAS.map(col => '<td' + (col.num ? ' class="num-c"' : '') +
-      (col.tit ? ' title="' + esc(col.tit(j)) + '"' : '') + '>' + col.cel(j) + '</td>').join('') +
-    '</tr>').join('');
+      (col.tit ? ' title="' + esc(col.tit(j)) + '"' : '') + '>' + col.cel(j) + '</td>').join('') + '</tr>';
+  const tb = $('#tbody'), lote = ++renderTabela.lote, PRIM = 60, PASSO = 60;
+  tb.innerHTML = linhas.slice(0, PRIM).map(linhaHtml).join('');
+  for (let i = PRIM; i < linhas.length; i += PASSO) {
+    setTimeout(() => { if (lote !== renderTabela.lote) return; tb.insertAdjacentHTML('beforeend', linhas.slice(i, i + PASSO).map(linhaHtml).join('')); }, 16 * ((i - PRIM) / PASSO + 1));
+  }
+  if (!tb.dataset.deleg) {
+    tb.dataset.deleg = '1';
+    tb.addEventListener('click', e => {
+      const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+      if (e.target.closest('.ver-ficha')) { e.stopPropagation(); alternarDetalhe(tr, idDeLinha(tr.dataset.id)); return; }
+      if (e.target.closest('tr.detalhe')) return;
+      adicionarDaBase(idDeLinha(tr.dataset.id));
+    });
+  }
 
   $('#semResultado').style.display = linhas.length ? 'none' : 'block';
   const nEx = resultado.filter(ehEstrangeiroBase).length;
@@ -2078,14 +2093,8 @@ function renderTabela() {
     (resultado.length > LIM ? ' · exibindo os ' + LIM + ' primeiros' : '') +
     ' · clique para adicionar em <b>' + sig(posAtual) + '</b>';
 
-  $$('#tbody tr[data-id]').forEach(tr => {
-    tr.onclick = () => adicionarDaBase(idDeLinha(tr.dataset.id));
-    tr.querySelector('.ver-ficha').onclick = e => {
-      e.stopPropagation();
-      alternarDetalhe(tr, idDeLinha(tr.dataset.id));
-    };
-  });
 }
+renderTabela.lote = 0;
 
 /* ---------------- duplicatas conferidas na base ----------------
    A Série B de dados/jogadores.json tem 12 pares de mesmo nome e mesma idade. Conferidos um a um
