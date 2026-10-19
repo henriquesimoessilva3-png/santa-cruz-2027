@@ -3909,3 +3909,8 @@ body.visao-nova .jpainel{flex:none}
 .sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(70px,2.4fr) 34px minmax(10px,.5fr) 30px 30px 30px!important}
 .sf-layout{min-width:0} .sf-col-tec,.sf-col-fis{min-width:0}
 .ficha-rolagem{overflow-x:hidden}
+
+/* 19/10 (00h40) — números colados ao nome do indicador; a sobra de largura fica entre os grupos, não dentro da linha */
+.fi-linha.sf.sf6,.fi-grid .fi-linha.sf.sf6{grid-template-columns:minmax(80px,158px) 44px 46px 32px 32px 34px!important;justify-content:start;column-gap:5px}
+.sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(70px,150px) 42px 40px 30px 30px 30px!important;justify-content:start;column-gap:4px}
+.fi-linha.sf.sf6.cab .val{font-size:.85em;letter-spacing:.2px}

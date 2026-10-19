@@ -3070,7 +3070,7 @@ function fisicoSerieBHtml(j) {
   if (!corpo) return '';
   return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (totL ? ' <b class="sf-cont" title="os indicadores da letra (◆) no nível de quem sobe (média dos titulares dos times que subiram) ou acima">' + okL + '/' + totL + (nL < totL ? ' <small>· ' + (totL - nL) + ' sem dado</small>' : '') + '</b>' : '') + '</h4>' +
     (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
-    '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
+    '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
 }
 
 function primaryKey(j) { return j.n + ' - ' + j.t + ' - ' + j.l; }

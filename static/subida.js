@@ -812,7 +812,7 @@ window.abrevInd = function (r) {
         if (!ls.length) return '';
         const fs = ls.filter(l => l.f && l.v != null);
         return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont" title="' + (b === 'Físico' ? 'indicadores da letra' : 'fundamentais') + ' na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-          '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+          '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
       };
       if (op.porGrupo) {
         /* as 4 colunas do técnico pelos grupos do b21 (não os blocos da aba Subida) */
@@ -824,7 +824,7 @@ window.abrevInd = function (r) {
           if (!ls.length) return '';
           const fs = ls.filter(l => l.f && l.v != null);
           return '<div class="fi-grupo"><h4 class="sf-gh ' + COR[g] + '">' + esc(g) + (fs.length ? ' <b class="sf-cont" title="fundamentais no nível de quem sobe ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-            '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+            '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
         }).join('');
         const leg = '<div class="fi-leg"><span><i class="v"></i>no nível da régua ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
           '<span><b>Régua:</b> fundamental (●) = <b>sobe</b>, a média dos titulares dos times que subiram (Série B 2022–25) · os demais = média da Série B</span><span><i class="m"></i>traço = a régua</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
