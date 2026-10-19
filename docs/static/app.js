@@ -2965,7 +2965,7 @@ async function perfilExtraDe(j) {
     const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
     const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
-    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], fonte: 'Transfermarkt' } : null;
+    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], fonte: 'Transfermarkt' } : null;
   } catch (e) { return null; }
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
@@ -3518,7 +3518,7 @@ async function montarFicha(j, modo) {
   const perfil = '<div class="fi-perfil">' +
     (pf && pf.foto ? '<img class="fi-foto" src="' + esc(pf.foto) + '" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<span class=&quot;fi-foto vazia&quot;>' + esc(ini) + '</span>\'">' : '<span class="fi-foto vazia">' + esc(ini) + '</span>') +
     '<div class="fi-pdados"><div class="fi-pnome">' + titulo + '</div><div class="fi-pinfo">' +
-    [esc(j.t || '—'), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' : ''].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
+    [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + esc(j.t || '—'), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' : ''].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
   const cabeca = [
     ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],
