@@ -573,7 +573,7 @@
     if (o.conta) {
       const nome = D.posicoes[pos].nome, pc = Math.round(PERTO() * 100);
       if (o.c === 'n') return 'Seta técnica (' + nome + '): faltam dados — só ' + o.com + ' dos ' + o.n + ' fundamentais estão medidos.' + (o.sem.length ? ' Sem dado: ' + o.sem.join(', ') + '.' : '');
-      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais na média da Série B ou acima · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' abaixo' +
+      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais no nível de quem sobe (mediana dos titulares dos times que subiram) ou acima · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' abaixo' +
         (o.parcial ? ' (PARCIAL: só ' + o.com + ' dos ' + o.n + ' medidos)' : '') + '.\nPontos (verdes − vermelhos) ÷ medidos = ' + NOTA_ARRED(o.pontos) + ' · ▲ a partir de ' + NOTA_ARRED(o.cortes.v) + ' (onde fica o titular mediano de quem sobe) · ▼ até ' + NOTA_ARRED(o.cortes.r) + ' (o de quem cai). Fundamentais = os que separam quem sobe de quem cai na Série B 2022–25.' +
         (o.falta.length ? '\nVermelho em: ' + o.falta.join(', ') + '.' : '') + (o.sem.length ? '\nSem dado: ' + o.sem.join(', ') + '.' : '') +
         (o.nota != null ? '\nNota z (média dos desvios contra a Série B ' + TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2) + '): ' + NOTA_ARRED(o.nota) + '.' : '');
@@ -785,7 +785,7 @@
         const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + (l.rs != null ? ' · RÉGUA: titulares dos times que subiram (Série B 2022–25, mediana) ' + num(l.rs, l.i.casas) : '') + ' · média da Série B ' + num(m, l.i.casas) + ' · melhor ' + num(bst, l.i.casas) + ' (' + l.sb.n + ' jogadores)' +
           (bx ? ' · aqui MENOS é melhor' : '') + (l.i.nm ? ' · o Wyscout mudou o critério' : '') +
           (l.f === 'F' ? ' · FUNDAMENTAL: separa quem sobe de quem cai na Série B 2022–25; a cor e a seta do card saem da comparação com quem sobe' : l.f === 'L' ? ' · entra na LETRA física' : '');
-        return '<div class="fi-linha sf ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
+        return '<div class="fi-linha sf sf6 ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
           '<span class="val">' + (v == null ? '—' : num(v, l.i.casas)) + '</span>' +
           '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca' + (l.rs != null ? ' sobe' : '') + '" style="left:' + w(rg) + '%"></span></span>' +
           '<span class="sb">' + (l.rs != null ? num(l.rs, l.i.casas) : '') + '</span><span class="med">' + num(m, l.i.casas) + '</span><span class="mx">' + num(bst, l.i.casas) + '</span></div>';
@@ -795,7 +795,7 @@
         if (!ls.length) return '';
         const fs = ls.filter(l => l.f && l.v != null);
         return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont" title="' + (b === 'Físico' ? 'indicadores da letra' : 'fundamentais') + ' na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-          '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sb">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+          '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sb">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
       };
       if (op.porGrupo) {
         /* as 4 colunas do técnico pelos grupos do b21 (não os blocos da aba Subida) */
@@ -807,7 +807,7 @@
           if (!ls.length) return '';
           const fs = ls.filter(l => l.f && l.v != null);
           return '<div class="fi-grupo"><h4 class="sf-gh ' + COR[g] + '">' + esc(g) + (fs.length ? ' <b class="sf-cont" title="fundamentais no nível de quem sobe ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-            '<div class="fi-linha sf cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sb">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+            '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sb">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
         }).join('');
         const leg = '<div class="fi-leg"><span><i class="v"></i>no nível da régua ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
           '<span><b>Régua:</b> fundamental (●) = <b>sobe</b>, a mediana dos titulares dos times que subiram (Série B 2022–25) · os demais = média da Série B</span><span><i class="m"></i>traço = a régua</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
