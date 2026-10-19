@@ -3841,6 +3841,6 @@ body.visao-nova .jpainel{flex:none}
 /* 18/10 (23h) régua de quem sobe nos fundamentais: coluna "sobe" */
 .fi-linha.sf.sf6,.fi-grid .fi-linha.sf.sf6{grid-template-columns:minmax(120px,1.6fr) 46px minmax(40px,1fr) 42px 42px 42px}
 .sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(100px,1.5fr) 42px minmax(28px,1fr) 40px 40px 40px}
-.fi-linha.sf .sb{text-align:right;font-variant-numeric:tabular-nums;color:#c4b5fd;font-weight:700}
-.fi-linha.sf.cab .sb{color:#c4b5fd;font-weight:600}
+.fi-linha.sf .sf-sobe{text-align:right;font-variant-numeric:tabular-nums;color:#c4b5fd;font-weight:700}
+.fi-linha.sf.cab .sf-sobe{color:#c4b5fd;font-weight:600}
 .fi-linha.sf .marca.sobe{background:#c4b5fd}

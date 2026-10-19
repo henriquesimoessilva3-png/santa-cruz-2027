@@ -788,14 +788,14 @@
         return '<div class="fi-linha sf sf6 ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
           '<span class="val">' + (v == null ? '—' : num(v, l.i.casas)) + '</span>' +
           '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca' + (l.rs != null ? ' sobe' : '') + '" style="left:' + w(rg) + '%"></span></span>' +
-          '<span class="sb">' + (l.rs != null ? num(l.rs, l.i.casas) : '') + '</span><span class="med">' + num(m, l.i.casas) + '</span><span class="mx">' + num(bst, l.i.casas) + '</span></div>';
+          '<span class="sf-sobe">' + (l.rs != null ? num(l.rs, l.i.casas) : '') + '</span><span class="med">' + num(m, l.i.casas) + '</span><span class="mx">' + num(bst, l.i.casas) + '</span></div>';
       };
       const bloco = b => {
         const ls = linhas.filter(l => l.i.bloco === b).sort((a, c) => ((c.f ? 1 : 0) - (a.f ? 1 : 0)) || ((c.d || 0) - (a.d || 0)));
         if (!ls.length) return '';
         const fs = ls.filter(l => l.f && l.v != null);
         return '<div class="fi-grupo"><h4>' + esc(b) + (fs.length ? ' <b class="sf-cont" title="' + (b === 'Físico' ? 'indicadores da letra' : 'fundamentais') + ' na média da Série B ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-          '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sb">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+          '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
       };
       if (op.porGrupo) {
         /* as 4 colunas do técnico pelos grupos do b21 (não os blocos da aba Subida) */
@@ -807,7 +807,7 @@
           if (!ls.length) return '';
           const fs = ls.filter(l => l.f && l.v != null);
           return '<div class="fi-grupo"><h4 class="sf-gh ' + COR[g] + '">' + esc(g) + (fs.length ? ' <b class="sf-cont" title="fundamentais no nível de quem sobe ou acima">' + fs.filter(l => l.c === 'v' || l.c === 'b').length + '/' + fs.length + '</b>' : '') + '</h4>' +
-            '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sb">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
+            '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
         }).join('');
         const leg = '<div class="fi-leg"><span><i class="v"></i>no nível da régua ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
           '<span><b>Régua:</b> fundamental (●) = <b>sobe</b>, a mediana dos titulares dos times que subiram (Série B 2022–25) · os demais = média da Série B</span><span><i class="m"></i>traço = a régua</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
