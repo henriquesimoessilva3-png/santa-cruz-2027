@@ -3896,3 +3896,16 @@ body.visao-nova .jpainel{flex:none}
 .imp-caixa{background:var(--fundo2,#1b1f27);color:var(--tinta);border:1px solid var(--borda2,#ffffff22);border-radius:12px;padding:18px 22px;max-width:760px;max-height:80vh;overflow:auto;position:relative;font-size:13px}
 .imp-caixa h3{margin:0 0 8px}.imp-caixa h4{margin:12px 0 4px}.imp-caixa ul{margin:4px 0 8px 18px;padding:0;line-height:1.5}.imp-caixa small{color:var(--tinta3)}
 .imp-x{position:absolute;top:8px;right:12px;font-size:20px;background:none;border:0;color:var(--tinta3);cursor:pointer}
+
+/* 19/10 (00h30) — toda linha de indicador numa linha só: nome curto, sem quebra; números um pouco menores */
+.fi-linha.sf.sf6 .rot{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25;padding:0;font-size:.95em}
+.fi-linha.sf.sf6 .val{white-space:nowrap;font-size:.95em}
+.fi-linha.sf.sf6 .sf-sobe,.fi-linha.sf.sf6 .med,.fi-linha.sf.sf6 .mx{white-space:nowrap;font-size:.78em}
+.fi-linha.sf.sf6.cab .sf-sobe,.fi-linha.sf.sf6.cab .med,.fi-linha.sf.sf6.cab .mx{font-size:1em}
+.fi-linha.sf.sf6,.fi-grid .fi-linha.sf.sf6{grid-template-columns:minmax(118px,2.4fr) 40px minmax(22px,.6fr) 32px 32px 34px;column-gap:4px}
+.sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(112px,2.4fr) 38px minmax(18px,.55fr) 32px 32px 32px;column-gap:4px}
+
+/* 19/10 — ficha sem rolagem para o lado: as 4 colunas do técnico encolhem juntas */
+.sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(70px,2.4fr) 34px minmax(10px,.5fr) 30px 30px 30px!important}
+.sf-layout{min-width:0} .sf-col-tec,.sf-col-fis{min-width:0}
+.ficha-rolagem{overflow-x:hidden}

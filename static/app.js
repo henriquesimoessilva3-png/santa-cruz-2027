@@ -174,7 +174,7 @@ function novoEstado() {
   POSICOES.forEach(p => { el[p.c] = []; });
   return {
     id: null, nome: 'Grupo 1',
-    teto: TETO_PADRAO,  // custo total mensal maximo (ja com encargos e comissao)
+    teto: (() => { try { const d = parseFloat(localStorage.getItem('sc_dispPadrao')); if (d > 0) return Math.round(d * FATOR_PADRAO + COMISSAO_PADRAO); } catch (e) {} return TETO_PADRAO; })(),  // custo total mensal maximo (19/10: o disponível digitado vira o padrão)
     comissao: COMISSAO_PADRAO, // custo mensal da comissao tecnica (fora dos 31,9 MM)
     fator: FATOR_PADRAO, // custo do clube = salario do jogador x fator
     limiteEstrangeiros: 9,
@@ -3057,7 +3057,7 @@ function fisicoSerieBHtml(j) {
       if (letra && v != null) { nL++; if (c === 'acima' || c === 'lider') okL++; }
       const alvo = Math.max(v || 0, best, rs || 0, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
       return '<div class="fi-linha sf sf6 ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + ': ' + (v == null ? 'sem dado' : f(v, casas)) + (rs != null ? ' · RÉGUA: média dos titulares dos times que subiram (Série B 2022–25) ' + f(rs, casas) : '') + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
-        '<span class="rot">' + (letra ? '<i class="sf-f">◆</i>' : '') + esc(rot) + '</span><span class="val">' + f(v, casas) + '</span>' +
+        '<span class="rot">' + (letra ? '<i class="sf-f">◆</i>' : '') + esc(window.abrevInd ? window.abrevInd(rot) : rot) + '</span><span class="val">' + f(v, casas) + '</span>' +
         '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca' + (rs != null ? ' sobe' : '') + '" style="left:' + w(rg) + '%"></span></span>' +
         '<span class="sf-sobe">' + (rs != null ? f(rs, casas) : '') + '</span><span class="med">' + f(med, casas) + '</span><span class="mx">' + f(best, casas) + '</span></div>';
     }).join('');
@@ -7982,7 +7982,10 @@ function ligar() {
         const v = paraNumero(inp.value);
         if (isFinite(v) && v >= 0) {
           estado.teto = Math.round(v * (estado.fator || 1) + (estado.comissao || 0));
+          /* 19/10: o valor digitado passa a valer — grava no grupo (nuvem) na hora e vira o padrão dos grupos novos */
+          try { localStorage.setItem('sc_dispPadrao', String(v)); } catch (e) {}
           salvarLocal(); render();
+          if (estado.id && typeof gravarCenario === 'function') gravarCenario();
           toast('Disponível para salários: ' + brl(dispSalarios()) + ' (custo total máximo ' + brl(estado.teto) + ')');
         } else fecha();
       };

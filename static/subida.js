@@ -2,6 +2,17 @@
    com físico (SkillCorner) e técnico (Wyscout) na mesma matriz: quem sobe, quem cai e os jogadores escolhidos.
    Também desenha, dentro da ficha do jogador (app.js → montarFicha), o quadro "Quem sobe × quem cai".
    Dado: static/subida_dados.js (gerar_subida_js.py). Arquivo próprio; um observador acompanha o botão da aba. */
+/* 19/10 — nome curto do indicador nas fichas (uma linha só; o nome inteiro fica no passe o mouse da linha) */
+window.abrevInd = function (r) {
+  return String(r || '').replace(/ por 90/g, ' /90').replace(/\s*\((>|\d)[^)]*km\/h\)/g, '')
+    .replace(/\(ajustad[ao]s à posse\)/g, '(aj. posse)').replace(/ \/30 min de posse/g, ' /30').replace(/ por 30 min de posse/g, ' /30')
+    .replace('PSV-99, média dos 5 melhores', 'PSV-99 (top 5)').replace('Ações de alta intensidade', 'Ações alta intens.').replace('Arrancadas explosivas', 'Arranc. explosivas')
+    .replace('Distância em alta intensidade', 'Dist. alta intens.').replace('Distância em sprint', 'Dist. sprint').replace('Distância em corrida', 'Dist. corrida').replace('Distância HSR', 'Dist. HSR')
+    .replace('Corridas sem bola', 'Corridas s/ bola').replace('Corridas para a área', 'Corridas p/ área').replace('Acelerações', 'Acel.').replace('Desacelerações', 'Desacel.').replace('Mudanças de direção', 'Mud. de direção')
+    .replace('Passes progressivos', 'Passes progr.').replace('Conduções progressivas', 'Conduções progr.').replace('Duelos defensivos', 'Duelos def.').replace('Duelos ofensivos', 'Duelos of.')
+    .replace('Ações defensivas certas', 'Ações def. certas').replace('Finalizações bloqueadas', 'Final. bloqueadas').replace('Finalizações no gol', 'Final. no gol')
+    .replace('Passes ao terço final', 'Passes terço final').replace('Passes para frente', 'Passes p/ frente').replace('Passes para a área', 'Passes p/ área').replace('Velocidade de pico', 'Veloc. de pico');
+};
 (function () {
   'use strict';
   const D = window.SUBIDA;
@@ -791,7 +802,7 @@
         const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + (l.rs != null ? ' · RÉGUA: média dos titulares dos times que subiram (Série B 2022–25) ' + num(l.rs, l.i.casas) : '') + ' · média da Série B ' + num(m, l.i.casas) + ' · melhor ' + num(bst, l.i.casas) + ' (' + l.sb.n + ' jogadores)' +
           (bx ? ' · aqui MENOS é melhor' : '') + (l.i.nm ? ' · o Wyscout mudou o critério' : '') +
           (l.f === 'F' ? ' · FUNDAMENTAL: separa quem sobe de quem cai na Série B 2022–25; a cor e a seta do card saem da comparação com quem sobe' : l.f === 'L' ? ' · entra na LETRA física' : '');
-        return '<div class="fi-linha sf sf6 ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
+        return '<div class="fi-linha sf sf6 ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(window.abrevInd(l.i.rot)) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
           '<span class="val">' + (v == null ? '—' : num(v, l.i.casas)) + '</span>' +
           '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca' + (l.rs != null ? ' sobe' : '') + '" style="left:' + w(rg) + '%"></span></span>' +
           '<span class="sf-sobe">' + (l.rs != null ? num(l.rs, l.i.casas) : '') + '</span><span class="med">' + num(m, l.i.casas) + '</span><span class="mx">' + num(bst, l.i.casas) + '</span></div>';

@@ -32,7 +32,15 @@
     const n0 = nz(nome.replace(/\(.*?\)|\?/g, ''));
     if (!n0) return { b: null, motivo: 'sem nome' };
     const ct = tok(time + ' ' + dica);
-    const cands = BASE.filter(b => { const a = nz(b.n), c = nz(b.nc); return a === n0 || c === n0 || (n0.includes(' ') && (c.includes(n0) || a.includes(n0))); });
+    let cands = BASE.filter(b => { const a = nz(b.n), c = nz(b.nc); return a === n0 || c === n0 || (n0.includes(' ') && (c.includes(n0) || a.includes(n0))); });
+    /* nome solto (só passa se bater o CLUBE): "Schappo" ↔ "Bernardo Schappo", "Diego Valdes" ↔ "D. Valdés", "Anderson Gomes" ↔ "Anderson" */
+    if (!cands.some(b => tok(b.t).some(t => ct.includes(t)))) {
+      const w = n0.split(' '), ult = w[w.length - 1], ini = w[0][0];
+      const soltos = BASE.filter(b => { const a = nz(b.n), c = nz(b.nc), aw = a.split(' '), cw = c.split(' ');
+        const casa = cw.includes(n0) || aw.includes(n0) || (w.length > 1 && (a === w[0] || (aw.length === 2 && aw[0].length === 1 && aw[0] === ini && aw[1] === ult) || (cw[0] === w[0] && cw[cw.length - 1] === ult)));
+        return casa && tok(b.t).some(t => ct.includes(t)); });
+      cands = cands.concat(soltos.filter(b => !cands.includes(b)));
+    }
     if (!cands.length) return { b: null, motivo: 'nome não está na base' };
     const pts = cands.map(b => {
       const clube = tok(b.t).some(t => ct.includes(t));
