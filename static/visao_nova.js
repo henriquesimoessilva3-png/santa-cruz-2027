@@ -315,13 +315,24 @@
         '<div class="vnt-prova"><b>Prova</b> (um ano de fora por vez; AUC — 0,50 é moeda): a contagem empata com as regras anteriores e põe muito mais indicador na conta (o centroavante foi de 3 para ' + R.CA.entra.length + ').' +
         '<table><thead><tr><th>Regra</th><th>AUC</th></tr></thead><tbody>' + auc.map(r => '<tr><td>' + esc(r.regra) + '</td><td class="n">' + fAuc(r.auc) + '</td></tr>').join('') + '</tbody></table></div></div></div>' +
         '';
-      rol.insertBefore(el, corpo);
-      /* 18/10 (23h58): a lista dos fundamentais vai para depois da análise, fechada (abre na setinha) */
-      const mat = document.createElement('details'); mat.className = 'vnf vnf-mais vnt-fund';
-      mat.innerHTML = '<summary><b>Os fundamentais, posição a posição</b> — quais entram na seta de cada posição, os cortes e o que fica de fora</summary>' +
-        '<div class="vnf-mat"><table class="vnf-tab vnt-tab"><thead><tr><th>Régua</th><th>Fundamentais (separação)</th><th>Cortes da seta</th><th>Fica de fora</th></tr></thead><tbody>' + ordem.map(linhaC).join('') + '</tbody></table>' +
+      /* 19/10 (00h): os fundamentais voltam para cima, em três faixas — Defesa (zagueiro, lateral), Meio-campo (volante,
+         médio, meia) e Ataque (extremo, centroavante), as posições lado a lado */
+      const cardC = rg => {
+        const P = R[rg]; if (!P) return '';
+        const por = {}; P.fora.forEach(f => { (por[f.motivo] = por[f.motivo] || []).push(f); });
+        const nT = P.n.Sobe + P.n.Meio + P.n.Cai, S = P.dist.Sobe, C = P.dist.Cai, pc_ = (x, n) => n ? Math.round(100 * x / n) : 0;
+        return '<div class="vnt-card"><h4>' + esc(P.nome) + ' <span class="vnf-n"><b>' + P.entra.length + '</b> fundamentais</span></h4>' +
+          '<small class="vnt-base">' + (TG.posicoes_da_regua[rg] || []).map(p => NOME_POS[p] || p).join(' + ') + ' · base: <b>' + nT + '</b> titulares da Série B 2022–25 (<b>' + P.n.Sobe + '</b> subiram, <b>' + P.n.Meio + '</b> ficaram, <b>' + P.n.Cai + '</b> caíram)</small>' +
+          '<ol class="vnt-lista">' + P.entra.slice().sort((a, b) => (b.sep || 0) - (a.sep || 0)).map(x => '<li>' + esc(x.rot.replace(' por 90', ' /90')) + (x.menor ? ' <i title="aqui menos é melhor">↓</i>' : '') + (x.clube ? ' <em class="clube" title="entra por decisão do clube (09/10)">clube</em>' : '') + '</li>').join('') + '</ol>' +
+          '<span class="vnt-prova">Dos <b>' + P.n.Sobe + '</b> que subiram, <b class="v">' + S.v + '</b> (' + pc_(S.v, P.n.Sobe) + '%) ganham ▲ · dos <b>' + P.n.Cai + '</b> que caíram, <b class="r">' + C.r + '</b> (' + pc_(C.r, P.n.Cai) + '%) ganham ▼</span>' +
+          '<details class="vnt-fora-d"><summary><b>' + P.fora.length + '</b> indicadores ficam fora</summary><dl>' +
+          Object.keys(por).map(m => '<dt>' + esc(m) + '</dt><dd>' + por[m].map(f => esc(f.rot)).join(' · ') + '</dd>').join('') + '</dl></details></div>';
+      };
+      const FAIXAS = [['Defesa', ['ZAG', 'LAT']], ['Meio-campo', ['VOL', 'MED', 'MEI']], ['Ataque', ['EXT', 'CA']]];
+      el.innerHTML += '<div class="vnf-mat vnt-faixas"><h3>Os fundamentais, posição a posição</h3><p class="vnf-nota">Em ordem de quanto separam quem sobe de quem cai (o primeiro separa mais). ↓ = aqui menos é melhor.</p>' +
+        FAIXAS.map(([nome, rgs]) => '<section class="vnt-faixa"><h5>' + nome + '</h5><div class="vnt-cards n' + rgs.length + '">' + rgs.map(cardC).join('') + '</div></section>').join('') +
         '<p class="vnf-nota">Gerado em ' + esc(TG.gerado_em) + ' (b23).</p></div>';
-      if (corpo.nextSibling) rol.insertBefore(mat, corpo.nextSibling); else rol.appendChild(mat);
+      rol.insertBefore(el, corpo);
       return;
     }
     el.innerHTML =

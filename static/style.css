@@ -3868,3 +3868,16 @@ body.visao-nova .jpainel{flex:none}
 .vnt-base b{color:var(--tinta2)}
 .vnt-prova{display:block;font-size:11.5px;font-weight:400;color:var(--tinta2);line-height:1.45;margin-top:6px}
 .vnt-prova b{font-size:13px;color:var(--tinta)} .vnt-prova b.v{color:#4ade80} .vnt-prova b.r{color:#f87171}
+
+/* 19/10 (00h) Estudo › Técnico: fundamentais em três faixas */
+.vnt-faixa{margin:14px 0 4px}
+.vnt-faixa h5{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--tinta2);border-bottom:2px solid var(--borda2,#ffffff22);padding-bottom:4px}
+.vnt-cards{display:grid;gap:12px}.vnt-cards.n2{grid-template-columns:repeat(2,minmax(0,1fr))}.vnt-cards.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.vnt-cards.n2,.vnt-cards.n3{grid-template-columns:1fr}}
+.vnt-card{background:#ffffff08;border:1px solid var(--borda2,#ffffff1a);border-radius:10px;padding:12px 14px}
+.vnt-card h4{margin:0 0 4px;font-size:15px;display:flex;justify-content:space-between;align-items:baseline}
+.vnt-card h4 .vnf-n{font-size:12px;font-weight:400;color:var(--tinta2)} .vnt-card h4 .vnf-n b{font-size:15px;color:var(--tinta)}
+.vnt-lista{margin:8px 0 8px 18px;padding:0;font-size:12.5px;line-height:1.55}
+.vnt-lista em.clube{font-size:10px;color:#fbbf24;font-style:normal;border:1px solid #fbbf2466;border-radius:4px;padding:0 4px}
+.vnt-card .vnt-prova{font-size:11.5px}
+.vnt-fora-d{margin-top:6px;font-size:11.5px;color:var(--tinta3)} .vnt-fora-d summary{cursor:pointer}
