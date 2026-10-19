@@ -163,10 +163,36 @@ def aplicar(H=None):
             x["tj"] = max(tj, x.get("j") or 0)
             x["tmin"] = max(tmin, x.get("min") or 0)
             n_tot += 1
-    H["minutagem"] = {"versao": 4, "data": "2026-10-19", "recorte_2026": PASTAS["2026"]}
+    n_wy = aplicar_wyscout(H)
+    H["minutagem"] = {"versao": 4, "wyscout_todas": n_wy, "data": "2026-10-19", "recorte_2026": PASTAS["2026"]}
     print(f"  minutagem v4: 2026 do {PASTAS['2026']} em {n_set} · homônimos ligados pelo clube do oGol: {n_hom} · total do time refeito: {n_tot}")
     if salvar: json.dump(H, open(p, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     return H
+
+
+def aplicar_wyscout(H):
+    """19/10 (Henrique): "buscar lá do Wyscout" — jogos e minutos do jogador em TODAS as competições oficiais (sem
+    amistosos, seleção e base) e o total do time no mesmo período (jogos do clube na temporada × duração real de cada
+    jogo), por temporada do clube (europeia 25/26 = 2026), igual ao Posições e Sistemas. Coletado no Chrome com o Wyscout
+    logado, para os alvos do campograma: dados/minutagem_wyscout.json. Vale sobre a liga; o por-90 de bola parada segue
+    da liga (min_l)."""
+    p = os.path.join(AQUI, "dados", "minutagem_wyscout.json")
+    if not os.path.exists(p): return 0
+    W = json.load(open(p, encoding="utf-8"))["jogadores"]; T = [str(t) for t in H["temporadas"]]; n = 0
+    for pk, r in W.items():
+        linha = H["jogadores"].get(pk)
+        if linha is None: linha = H["jogadores"][pk] = [None] * len(T)
+        for t, cls in (r.get("anos") or {}).items():
+            if t not in T or not cls: continue
+            i = T.index(t); velho = linha[i] or {}
+            x = {k: v for k, v in velho.items() if k in ("g", "a", "gc", "pen", "pen%", "esc", "fal", "fd", "fd%", "xg")}
+            if velho.get("min") and velho.get("fonte") not in ("ogol",): x["min_l"] = velho["min"]
+            x.update({"t": t, "tm": " / ".join(c[0] for c in cls), "l": "", "j": sum(c[1] for c in cls), "min": sum(c[2] for c in cls),
+                      "tj": sum(c[3] for c in cls), "tmin": max(sum(c[4] for c in cls), sum(c[2] for c in cls)), "fonte": "wyscout", "wy": r.get("wy")})
+            if len(cls) > 1: x["pass"] = [{"tm": c[0], "j": c[1], "min": c[2], "tj": c[3], "tmin": c[4]} for c in cls]
+            linha[i] = x; n += 1
+    print(f"  minutagem Wyscout (todas as competições): {len(W)} jogadores, {n} temporadas")
+    return n
 
 
 if __name__ == "__main__":

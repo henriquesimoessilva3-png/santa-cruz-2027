@@ -2982,14 +2982,14 @@ function painelMinutagem(j) {
     if (!x || !(x.min || x.j)) return '<tr class="vazio"><td>' + (T[i] || '') + '</td><td colspan="4">sem registro</td></tr>';
     if (ma) { sj += x.j || 0; stj += x.tj || Math.round(ma.tot / 90); sm += ma.m; stm += ma.tot; }
     const pc = a.p != null ? Math.round(a.p * 100) : null, c = pc == null ? '' : pc >= 60 ? 'v' : pc >= 30 ? 'a' : 'r';
-    const fonte = x.fonte === 'ogol' ? ' · oGol' : x.fonte === 'complemento' || x.fonte === 'levantamento' ? ' · ' + esc(x.src || 'levantamento') : '';
+    const fonte = x.fonte === 'wyscout' ? ' · Wyscout, todas as competições' : x.fonte === 'ogol' ? ' · oGol' : x.fonte === 'complemento' || x.fonte === 'levantamento' ? ' · ' + esc(x.src || 'levantamento') : '';
     return '<tr' + (ma ? '' : ' class="falta"') + '><td>' + esc(T[i] || x.t) + '</td><td>' + esc(x.tm || '') + '<small>' + (x.l ? ' ' + esc(x.l) : '') + fonte + '</small></td>' +
       '<td class="n">' + f(x.j) + '<small> de ' + (ma ? f(x.tj || Math.round(ma.tot / 90)) : '?') + '</small></td>' +
       '<td class="n">' + (x.min ? f(x.min) : '—') + (ma ? '<small> de ' + f(ma.tot) + '</small>' : '') + '</td>' +
       '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td></tr>' +
-      (x.pass ? x.pass.map(q => '<tr class="pass"><td></td><td>↳ ' + esc(q.tm) + '<small> ' + esc(q.de || '') + (q.ate ? ' a ' + esc(q.ate) : ' em diante') + '</small></td>' +
-        '<td class="n">' + f(q.j) + '<small> de ' + f(q.tj) + '</small></td><td class="n">' + f(q.min) + (q.tj ? '<small> de ' + f(q.tj * 90) + '</small>' : '') + '</td>' +
-        '<td class="n"><small>' + (q.min != null && q.tj ? Math.round(q.min / (q.tj * 90) * 100) + '%' : '') + '</small></td></tr>').join('') : '');
+      (x.pass ? x.pass.map(q => '<tr class="pass"><td></td><td>↳ ' + esc(q.tm) + (q.de || q.ate ? '<small> ' + esc(q.de || '') + (q.ate ? ' a ' + esc(q.ate) : ' em diante') + '</small>' : '') + '</td>' +
+        '<td class="n">' + f(q.j) + '<small> de ' + f(q.tj) + '</small></td><td class="n">' + f(q.min) + (q.tj ? '<small> de ' + f(q.tmin || q.tj * 90) + '</small>' : '') + '</td>' +
+        '<td class="n"><small>' + (q.min != null && q.tj ? Math.round(q.min / (q.tmin || q.tj * 90) * 100) + '%' : '') + '</small></td></tr>').join('') : '');
   }).join('');
   const pt = Math.round(mi.pct * 100);
   const resumo = mi.anos.map(a => a.t + ' ' + (a.p == null ? (a.falta ? 'falta o time' : '—') : Math.round(a.p * 100) + '%')).join(' · ');
@@ -3010,7 +3010,7 @@ function painelBolaParada(j) {
   const tot = { esc: 0, fal: 0, abp: 0, gbp: 0, gcab: 0, gfd: 0, gout: 0 }, tem = { wy: false, sf: false };
   const anos = T.map((t, i) => {
     const y = h[i] && h[i].min && (h[i].esc != null || h[i].fal != null) ? h[i] : null, z = BJ && BJ[t];
-    const o = { t, esc: y ? (y.esc || 0) * y.min / 90 : null, fal: y ? (y.fal || 0) * y.min / 90 : null,
+    const o = { t, esc: y ? (y.esc || 0) * (y.min_l || y.min) / 90 : null, fal: y ? (y.fal || 0) * (y.min_l || y.min) / 90 : null,   /* min_l: minutos da liga (o por-90 é da liga) quando a minutagem é de todas as competições */
       abp: z ? (z.ae || 0) + (z.af || 0) + (z.al || 0) : null, gbp: z ? (z.ge || 0) + (z.gf || 0) + (z.gl || 0) : null,
       dA: z ? det(z.ae, z.af, z.al) : '', dG: z ? det(z.ge, z.gf, z.gl) : '',
       gcab: z ? (z.gc || 0) : null, gfd: z ? (z.gf || 0) : null };
