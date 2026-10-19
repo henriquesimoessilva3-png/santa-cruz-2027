@@ -2973,7 +2973,7 @@ function painelMinutagem(j) {
   const pk = j && (j.pk || primaryKey(j)), h = histDe(j, pk);
   const mi = minutagemDe(j), T = (typeof HIST !== 'undefined' && HIST && HIST.temporadas) || [];
   const f = n => (typeof n === 'number' ? milhar(n) : '—');
-  const nota = '% = minutos dele ÷ minutos do time na temporada (os de quem mais jogou pelo clube na liga, no Wyscout, ou jogos do time × 90). Ano sem o total do time fica fora da conta. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.';
+  const nota = '% = minutos dele ÷ minutos do time na temporada (jogos do time na liga × um jogo inteiro no Wyscout, ~100 min com acréscimos; 2026 até o recorte de set/26). Ano sem o total do time fica fora da conta. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.';
   if (!h || !mi) return '<div class="sf-painel"><div class="fi-res" title="' + esc(nota) + '"><span class="fi-res-l sel-n">?</span><div><b>Minutagem: sem histórico</b><small>' +
     (h ? 'falta o total do time nos anos registrados' : 'sem minutos nas bases para este jogador') + '</small></div></div></div>';
   let sj = 0, stj = 0, sm = 0, stm = 0;
@@ -7330,7 +7330,7 @@ function minutagemDe(j) {
   const c = pct >= 0.6 ? 'v' : pct >= 0.3 ? 'a' : 'r';
   const det = anos.map(a => a.t + ': ' + (a.p == null ? a.txt : Math.round(a.p * 100) + '% — ' + a.txt + (a.tm ? ' · ' + a.tm : ''))).join('\n');
   return { c, pct, anos, falta, txt: 'Minutagem: jogou ' + Math.round(pct * 100) + '% dos minutos do time' + (nAnos < anos.length ? ' nos ' + nAnos + ' anos com o total do time' : ' nos últimos ' + nAnos + ' anos') + '\n' + det +
-    '\nMinutos do time = os de quem mais jogou pelo clube naquela liga (Wyscout) ou jogos do time × 90. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.' };
+    '\nMinutos do time = jogos do time na liga × um jogo inteiro no Wyscout (~100 min, com acréscimos); 2026 até o recorte de set/26 do Wyscout. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.' };
 }
 function bolaParadaDe(j) {
   let x = null; try { x = csRegistro(j, r => r.cob != null); } catch (e) {}

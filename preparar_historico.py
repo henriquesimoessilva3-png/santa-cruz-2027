@@ -437,6 +437,10 @@ def main():
     ptt.aplicar()
     import preparar_minutos_time as pmt
     pmt.aplicar(json.load(open(pmt.CACHE, encoding="utf-8")) if os.environ.get("HIST_CACHE") and os.path.exists(pmt.CACHE) else pmt.minutos_time())
+    # 19/10/2026: minutagem v4 — total do time = jogos do time × jogo inteiro, 2026 do recorte mais novo (set26) e
+    # homônimos ligados pelo clube do oGol. Precisa dos caches dados/_wy_<pasta>.json (python3 _wy_cache.py <pasta>).
+    import preparar_minutagem_v4 as pm4
+    pm4.aplicar()
 
 
 if __name__ == "__main__":
