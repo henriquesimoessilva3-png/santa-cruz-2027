@@ -756,6 +756,12 @@
     return out;
   };
   const FIS_LETRA = { psv: 'velocidade máxima', spr_n: 'sprints', hi_n: 'alta intensidade', expl: 'arrancadas explosivas', dist: 'distância' };
+  /* 18/10 (23h40) — físico: mediana dos titulares de quem SOBE (Série B 2022–25) por campo do app, na posição */
+  window.subidaSobeFis = function (pos) {
+    try { if (!D || !D.posicoes[pos]) return {}; const o = {}; let nf = 0;
+      D.inds.forEach(i => { if (i.cat !== 'fis') return; const fk = FIS_ORD[nf++]; const r = ref(pos, i.k); if (fk && r && r[0] != null) o[fk] = r[0]; });
+      return o; } catch (e) { return {}; }
+  };
   window.subidaFicha = function (j, dados, op) {
     op = op || {};
     try {
