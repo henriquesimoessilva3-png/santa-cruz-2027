@@ -291,8 +291,12 @@
       const linhaC = rg => {
         const P = R[rg], d = P.dist.Todos;
         const por = {}; P.fora.forEach(f => { (por[f.motivo] = por[f.motivo] || []).push(f); });
-        return '<tr><th>' + esc(P.nome) + '<small>' + (TG.posicoes_da_regua[rg] || []).map(p => NOME_POS[p] || p).join(' + ') + '</small><small>' + P.n.Sobe + ' sobem · ' + P.n.Meio + ' meio · ' + P.n.Cai + ' caem</small>' +
-          '<span class="vnt-dist">▲ <b class="v">' + d.v + '</b> · ↔ <b class="a">' + d.a + '</b> · ▼ <b class="r">' + d.r + '</b></span></th>' +
+        /* 18/10 (23h58, "entendi nada"): em vez de números soltos, a base em uma frase e a prova da seta (quantos de quem subiu
+           ganham ▲, quantos de quem caiu ganham ▼) */
+        const nT = P.n.Sobe + P.n.Meio + P.n.Cai, S = P.dist.Sobe, C = P.dist.Cai, pc_ = (x, n) => n ? Math.round(100 * x / n) : 0;
+        return '<tr><th>' + esc(P.nome) + '<small>' + (TG.posicoes_da_regua[rg] || []).map(p => NOME_POS[p] || p).join(' + ') + '</small>' +
+          '<small class="vnt-base">Base: <b>' + nT + '</b> titulares da Série B 2022–25 — <b>' + P.n.Sobe + '</b> de times que subiram, <b>' + P.n.Meio + '</b> que ficaram, <b>' + P.n.Cai + '</b> que caíram.</small>' +
+          '<span class="vnt-prova">Dos <b>' + P.n.Sobe + '</b> que subiram, <b class="v">' + S.v + '</b> (' + pc_(S.v, P.n.Sobe) + '%) ganham ▲<br>Dos <b>' + P.n.Cai + '</b> que caíram, <b class="r">' + C.r + '</b> (' + pc_(C.r, P.n.Cai) + '%) ganham ▼</span></th>' +
           '<td class="vnt-g"><span class="vnf-n"><b>' + P.entra.length + '</b> fundamentais</span><ul>' + P.entra.slice().sort((a, b) => (b.sep || 0) - (a.sep || 0)).map(x => '<li>' + esc(x.rot) + ' <i title="separação entre o titular de quem sobe e o de quem cai, em desvios">' + sinal(x.sep) + '</i>' + (x.clube ? '<em class="clube" title="entra por decisão do clube (09/10)">clube</em>' : '') + '</li>').join('') + '</ul></td>' +
           '<td class="vnt-g">▲ a partir de <b>' + cf(P.cortes.v) + '</b><br>▼ até <b>' + cf(P.cortes.r) + '</b></td>' +
           '<td class="vnt-fora"><b>' + P.fora.length + '</b> ficam fora — ' + Object.keys(por).map(m => m + ' <b>' + por[m].length + '</b>').join(' · ') + '<details><summary>ver quais</summary><dl>' +
