@@ -3844,3 +3844,11 @@ body.visao-nova .jpainel{flex:none}
 .fi-linha.sf .sf-sobe{text-align:right;font-variant-numeric:tabular-nums;color:#c4b5fd;font-weight:700}
 .fi-linha.sf.cab .sf-sobe{color:#c4b5fd;font-weight:600}
 .fi-linha.sf .marca.sobe{background:#c4b5fd}
+
+/* 18/10 (23h50) — nome do indicador inteiro (quebra a linha em vez de cortar); números de sobe/média/melhor menores */
+.fi-linha.sf.sf6 .rot{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.2;padding:1px 0}
+.fi-linha.sf.sf6{align-items:center;row-gap:0}
+.fi-linha.sf.sf6 .sf-sobe,.fi-linha.sf.sf6 .med,.fi-linha.sf.sf6 .mx{font-size:.82em}
+.fi-linha.sf.sf6.cab .sf-sobe,.fi-linha.sf.sf6.cab .med,.fi-linha.sf.sf6.cab .mx{font-size:1em}
+.fi-linha.sf.sf6,.fi-grid .fi-linha.sf.sf6{grid-template-columns:minmax(130px,2.2fr) 44px minmax(28px,.8fr) 36px 36px 36px;column-gap:5px}
+.sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(118px,2.2fr) 40px minmax(22px,.7fr) 34px 34px 34px;column-gap:5px}
