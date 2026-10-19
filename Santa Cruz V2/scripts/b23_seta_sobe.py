@@ -20,14 +20,25 @@ CORTE, CORTE_T, PERTO = 0.15, -99, 0.10
 OUT2 = os.path.join(RES, "b23"); os.makedirs(OUT2, exist_ok=True)
 RAW = T  # valores crus, mesmas linhas de Z
 FORC = {"ZAG": set(CLUBE_DEF)}
-TETO = None  # 19/10 (Henrique): sem teto, é a regra oficial — era 20; no máximo 20 fundamentais por posição (volante tinha 28, meia 24) — ficam os que mais separam; teste b24: AUC 0,641 → 0,638
+TETO = None  # 19/10: teste de teto 20 desfeito (b24)
+# 19/10 (Henrique): nos meios (volante 28, meia 24, médio 15) havia indicador parecido com outro. Regra (teste b27):
+# do que mais separa para o que menos, sai quem tem correlação |r| >= 0,5 com um que já ficou; no máximo 15. AUC geral 0,641 igual.
+ENXUTO = {"VOL", "MED", "MEI"}; CORR_MAX, TETO_MEIO = 0.5, 15
 _escolher0 = escolher
+_COLK = {i["k"]: i["col"] for i in IND}
 def escolher(anos):
     E = _escolher0(anos)
-    for rg in (E if TETO else []):
-        en = sorted(E[rg]["entra"], key=lambda e: -(e["sep"] or 0))
-        E[rg]["fora"] += [dict({k: e[k] for k in ("k", "rot", "g", "sep", "sepT")}, motivo="além dos 20") for e in en[TETO:]]
-        E[rg]["entra"] = sorted(en[:TETO], key=lambda e: e["k"])
+    for rg, _, ps in REGUAS:
+        if rg not in ENXUTO: continue
+        d = RAW[RAW.ano.isin(anos) & RAW.pos11.isin(ps)]
+        fica, sai = [], []
+        for e in sorted(E[rg]["entra"], key=lambda e: -(e["sep"] or 0)):
+            par = next(((g["rot"], float(d[[_COLK[e["k"]], _COLK[g["k"]]]].corr().iloc[0, 1])) for g in fica
+                        if abs(d[[_COLK[e["k"]], _COLK[g["k"]]]].corr().iloc[0, 1]) >= CORR_MAX), None)
+            if par or len(fica) >= TETO_MEIO:
+                sai.append(dict({k: e[k] for k in ("k", "rot", "g", "sep", "sepT")}, motivo=("parecido com " + par[0] + " (r " + f"{par[1]:.2f}".replace(".", ",") + ")") if par else "além dos 15"))
+            else: fica.append(e)
+        E[rg]["entra"] = sorted(fica, key=lambda e: e["k"]); E[rg]["fora"] += sai
     return E
 
 def medianas(anos):
@@ -86,7 +97,7 @@ for ano in ANOS:
     for rg, _, ps in REGUAS:
         mm = ok & te.pos11.isin(ps)
         if mm.sum() >= 16 and y[mm].nunique() == 2: por[rg].append(roc_auc_score(y[mm], pr[mm]))
-res.append({"regra": "Contagem contra a média de quem sobe (b23) — corte 0,15, verde/amarelo 10%/vermelho", "auc": round(float(np.mean(aucs)), 3), **{rg: (round(float(np.mean(v)), 2) if v else None) for rg, v in por.items()}})
+res.append({"regra": "Contagem contra a média de quem sobe (b23) — corte 0,15, meios sem indicadores parecidos (máx. 15), verde/amarelo 10%/vermelho", "auc": round(float(np.mean(aucs)), 3), **{rg: (round(float(np.mean(v)), 2) if v else None) for rg, v in por.items()}})
 try:
     old = pd.read_csv(os.path.join(RES, "b22", "auc.csv")).to_dict("records")
     for r in old: r["regra"] = "b22 · " + r["regra"]; res.append({k: (None if isinstance(v, float) and pd.isna(v) else v) for k, v in r.items()})
