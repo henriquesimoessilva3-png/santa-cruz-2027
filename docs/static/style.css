@@ -3852,3 +3852,13 @@ body.visao-nova .jpainel{flex:none}
 .fi-linha.sf.sf6.cab .sf-sobe,.fi-linha.sf.sf6.cab .med,.fi-linha.sf.sf6.cab .mx{font-size:1em}
 .fi-linha.sf.sf6,.fi-grid .fi-linha.sf.sf6{grid-template-columns:minmax(130px,2.2fr) 44px minmax(28px,.8fr) 36px 36px 36px;column-gap:5px}
 .sf-tec-grid .fi-linha.sf.sf6{grid-template-columns:minmax(118px,2.2fr) 40px minmax(22px,.7fr) 34px 34px 34px;column-gap:5px}
+
+/* 18/10 (23h55) — perfil no topo da ficha: foto + nome + time · liga · posição · idade */
+.ficha-topo h2#fiNome{font-size:inherit;font-weight:inherit}
+.fi-perfil{display:flex;align-items:center;gap:12px}
+.fi-foto{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top;background:#ffffff10;border:2px solid var(--borda2,#ffffff22);flex:none}
+.fi-foto.vazia{display:inline-flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:var(--tinta3)}
+.fi-pnome{font-size:19px;font-weight:800;line-height:1.15}
+.fi-pinfo{font-size:13px;color:var(--tinta2);margin-top:3px}
+.fi-pinfo b{color:var(--tinta);font-size:14px}
+.fi-pinfo i{font-style:normal;color:var(--tinta3);margin:0 2px}

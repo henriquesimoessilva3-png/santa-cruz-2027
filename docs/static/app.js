@@ -2956,7 +2956,7 @@ async function perfilExtraDe(j) {
     const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
     const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
-    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], fonte: 'Transfermarkt' } : null;
+    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], fonte: 'Transfermarkt' } : null;
   } catch (e) { return null; }
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
@@ -3487,20 +3487,26 @@ async function montarFicha(j, modo) {
     (j.nc && j.nc !== j.n ? ' <span class="apelido">' + esc(j.n) + '</span>' : '') +
     (ex ? ' <span class="selo-ex">' + esc(sigla(j.nac)) + '</span>' : '') +
     (j.emp ? ' <span class="selo-emp" title="emprestado">emprestado</span>' : '');
-  const sub = (j._eqDe ? 'dados do cadastro ' + j._eqNome + ' (mesmo jogador) · ' : '') + j.t + ' · ' + j.l + ' · ' + sig(j.p) + (j._posBase ? ' — comparado como ' + sig(j.p) + ', a posição no campograma (cadastro: ' + sig(j._posBase) + ')' : '') + (j.pw ? ' (' + j.pw + ')' : '') +
-    (j.rk && !j._posBase ? ' · #' + j.rk + ' da liga na posição' : '') +
-    (j.rk_ok ? '' : ' · sem indicadores (minutagem baixa)');
+  /* 18/10 (23h55): time, liga, posição e idade vão para o perfil (junto do nome); aqui ficam só as observações */
+  const sub = [(j._eqDe ? 'dados do cadastro ' + j._eqNome + ' (mesmo jogador)' : ''), (j._posBase ? 'comparado como ' + sig(j.p) + ', a posição no campograma (cadastro: ' + sig(j._posBase) + ')' : ''),
+    (j.pw ? j.pw : ''), (j.rk && !j._posBase ? '#' + j.rk + ' da liga na posição' : ''), (j.rk_ok ? '' : 'sem indicadores (minutagem baixa)')].filter(Boolean).join(' · ');
 
   /* 18/10 — altura, pé, valor e contrato que faltam no cadastro: banco do Transfermarkt e levantamento dos cards manuais */
   const pf = await perfilExtraDe(j);
+  /* 18/10 (23h55) — perfil no topo: foto (Transfermarkt), nome e, colado embaixo, time · liga · posição · idade */
+  const POS_NOME = { GOL: 'Goleiro', LD: 'Lateral-direito', LE: 'Lateral-esquerdo', ZD: 'Zagueiro (dir.)', ZE: 'Zagueiro (esq.)', VOL: 'Volante', MED: 'Meio-campista', MEI: 'Meia', ED: 'Ponta-direita', EE: 'Ponta-esquerda', CA: 'Centroavante' };
+  const ini = String(j.nc || j.n || '?').split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  const perfil = '<div class="fi-perfil">' +
+    (pf && pf.foto ? '<img class="fi-foto" src="' + esc(pf.foto) + '" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<span class=&quot;fi-foto vazia&quot;>' + esc(ini) + '</span>\'">' : '<span class="fi-foto vazia">' + esc(ini) + '</span>') +
+    '<div class="fi-pdados"><div class="fi-pnome">' + titulo + '</div><div class="fi-pinfo">' +
+    [esc(j.t || '—'), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' : ''].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
   const cabeca = [
-    ['Idade', j.id_ ? j.id_ + ' anos' : '—', ''],
     ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],
     /* 18/10 (23h50): saem salário estimado e jogos · minutos (pedido do Henrique) */
     ['Altura', (j.alt || (pf && pf.alt)) ? (j.alt || pf.alt) + ' cm' : '—', !j.alt && pf && pf.alt ? pf.fonte : ''],
     ['Pé', j.pe || (pf && pf.pe) || '—', !j.pe && pf && pf.pe ? pf.fonte : ''],
-    ['Nacionalidade', j.nac || '—', ''],
+    ['Nacionalidade', (pf && pf.nac) || j.nac || '—', ''],
     /* O valor de mercado é em EURO, e esta linha imprimia com brl() — rotulava euro como
        real. Agora mostra o do Transfermarkt quando existe (mais novo e mais coberto) e,
        abaixo, o do Wyscout como segunda fonte, os dois com €. */
@@ -3645,10 +3651,10 @@ async function montarFicha(j, modo) {
       const layout = '<div class="sf-layout"><div class="sf-col-fis">' + resFis + (fis || '<div class="fi-sem">sem tracking para este jogador</div>') + '</div>' +
         '<div class="sf-col-tec">' + resTec + '<div class="sf-tec-linha"><span>Técnico</span></div><div class="sf-tec-grid">' + g.cols + '</div>' +
         '<div class="sf-extra">' + painelMinutagem(jSub) + painelBolaParada(jSub) + '</div></div></div>' + g.leg;
-      return { titulo, sub, cabeca, corpo: layout, rodape, aviso };
+      return { titulo, perfil, sub, cabeca, corpo: layout, rodape, aviso };
     }
   }
-  return { titulo, sub, cabeca, corpo: resumoF + corpo + quadroSubida, rodape, aviso };
+  return { titulo, perfil, sub, cabeca, corpo: resumoF + corpo + quadroSubida, rodape, aviso };
 }
 
 async function renderFicha() {
@@ -3656,7 +3662,7 @@ async function renderFicha() {
   if (!j) return;
   const modo = $('#fiBase').value || 'posliga';
   const f = await montarFicha(j, modo);
-  $('#fiNome').innerHTML = f.titulo;
+  $('#fiNome').innerHTML = f.perfil || f.titulo;
   $('#fiSub').textContent = f.sub;
   $('#fiCabeca').innerHTML = f.cabeca;
   $('#fiCorpo').innerHTML = f.corpo;
@@ -3682,7 +3688,7 @@ async function alternarDetalhe(tr, jid) {
 
   const f = await montarFicha(j, ($('#fiBase') && $('#fiBase').value) || 'posliga');
   linha.querySelector('td').innerHTML =
-    '<div class="det"><div class="det-topo"><b>' + f.titulo + '</b>' +
+    '<div class="det"><div class="det-topo">' + (f.perfil || '<b>' + f.titulo + '</b>') +
       '<span class="sub">' + esc(f.sub) + '</span>' + f.aviso +
       '<button class="bt mini det-add">+ adicionar em ' + sig(posAtual) + '</button></div>' +
       '<div class="det-cabeca">' + f.cabeca + '</div>' + f.corpo +
