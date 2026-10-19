@@ -22,14 +22,14 @@ RAW = T  # valores crus, mesmas linhas de Z
 FORC = {"ZAG": set(CLUBE_DEF)}
 
 def medianas(anos):
-    """régua de cada fundamental: mediana dos titulares de quem SOBE nos anos dados, na régua (gêmeas juntas) — (pos11, k) -> valor"""
+    """régua de cada fundamental: MÉDIA dos titulares (18/10 23h45, era a mediana) de quem SOBE nos anos dados, na régua (gêmeas juntas) — (pos11, k) -> valor"""
     m = {}
     for rg, _, ps in REGUAS:
         g = RAW[RAW.ano.isin(anos) & RAW.pos11.isin(ps) & (RAW.faixa == "Sobe")]
         for i in IND:
             v = g[i["col"]].dropna()
             if len(v) >= 5:
-                for p in ps: m[(p, i["k"])] = float(v.median())
+                for p in ps: m[(p, i["k"])] = float(v.mean())
     return m
 
 def cor(v, s, menor):
@@ -77,7 +77,7 @@ for ano in ANOS:
     for rg, _, ps in REGUAS:
         mm = ok & te.pos11.isin(ps)
         if mm.sum() >= 16 and y[mm].nunique() == 2: por[rg].append(roc_auc_score(y[mm], pr[mm]))
-res.append({"regra": "Contagem contra a mediana de quem sobe (b23) — corte 0,15, verde/amarelo 10%/vermelho", "auc": round(float(np.mean(aucs)), 3), **{rg: (round(float(np.mean(v)), 2) if v else None) for rg, v in por.items()}})
+res.append({"regra": "Contagem contra a média de quem sobe (b23) — corte 0,15, verde/amarelo 10%/vermelho", "auc": round(float(np.mean(aucs)), 3), **{rg: (round(float(np.mean(v)), 2) if v else None) for rg, v in por.items()}})
 try:
     old = pd.read_csv(os.path.join(RES, "b22", "auc.csv")).to_dict("records")
     for r in old: r["regra"] = "b22 · " + r["regra"]; res.append({k: (None if isinstance(v, float) and pd.isna(v) else v) for k, v in r.items()})
@@ -90,7 +90,7 @@ for rg, nome, _ in REGUAS:
     for f in FINAL[rg]["fora"]: rows.append({"regua": rg, "posicao": nome, "entra": 0, "grupo": f["g"], "indicador": f["rot"], "sep": f["sep"], "motivo": f["motivo"]})
 pd.DataFrame(rows).to_csv(os.path.join(OUT2, "indicadores.csv"), index=False)
 
-dados = {"gerado_em": datetime.date.today().isoformat(), "modo": "conta", "ref": "mediana_sobe", "perto": PERTO, "anos": list(ANOS), "ref_anos": list(REF_ANOS), "min": MIN, "corte": CORTE, "corte_t": None, "zmax": ZMAX,
+dados = {"gerado_em": datetime.date.today().isoformat(), "modo": "conta", "ref": "media_sobe", "perto": PERTO, "anos": list(ANOS), "ref_anos": list(REF_ANOS), "min": MIN, "corte": CORTE, "corte_t": None, "zmax": ZMAX,
          "grupos": GRUPOS, "regua_de": REGUA, "ordem": [rg for rg, _, _ in REGUAS], "posicoes_da_regua": {rg: ps for rg, _, ps in REGUAS},
          "reguas": {rg: FINAL[rg] for rg, _, _ in REGUAS}, "auc": res}
 with open(os.path.join(RAIZ, "static", "tecnico_grupos_dados.js"), "w", encoding="utf-8") as fh:
@@ -98,7 +98,7 @@ with open(os.path.join(RAIZ, "static", "tecnico_grupos_dados.js"), "w", encoding
     fh.write("window.TECNICO_GRUPOS = " + json.dumps(dados, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
 md = ["# A seta técnica contra quem sobe (b23)", "", f"*18/10/2026 · titulares da Série B 2022–2025 (≥ 900 min, Wyscout).*", "",
-      "Fundamental = separa quem sobe de quem cai em **0,15** desvio ou mais (zagueiro: defesa à força). Cada um vira cor contra a mediana dos titulares de quem sobe (Série B 2022–25, gêmeas juntas): verde na média ou acima · amarelo até **10%** abaixo · vermelho mais que isso. Pontos = (verdes − vermelhos) ÷ medidos; ▲ a partir da mediana de quem sobe, ▼ até a de quem cai.", "",
+      "Fundamental = separa quem sobe de quem cai em **0,15** desvio ou mais (zagueiro: defesa à força). Cada um vira cor contra a média dos titulares de quem sobe (Série B 2022–25, gêmeas juntas): verde na média ou acima · amarelo até **10%** abaixo · vermelho mais que isso. Pontos = (verdes − vermelhos) ÷ medidos; ▲ a partir da mediana de quem sobe, ▼ até a de quem cai.", "",
       "| Régua | fundamentais | corte ▲ | corte ▼ | titulares ▲ · ↔ · ▼ |", "|---|---|---|---|---|"]
 for rg, nome, _ in REGUAS:
     F = FINAL[rg]; d = F["dist"]["Todos"]

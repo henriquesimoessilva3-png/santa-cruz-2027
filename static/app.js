@@ -3042,7 +3042,7 @@ function fisicoSerieBHtml(j) {
       if (letra) totL++;
       if (letra && v != null) { nL++; if (c === 'acima' || c === 'lider') okL++; }
       const alvo = Math.max(v || 0, best, rs || 0, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
-      return '<div class="fi-linha sf sf6 ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + ': ' + (v == null ? 'sem dado' : f(v, casas)) + (rs != null ? ' · RÉGUA: titulares dos times que subiram (Série B 2022–25, mediana) ' + f(rs, casas) : '') + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
+      return '<div class="fi-linha sf sf6 ' + c + (letra ? ' fund' : '') + '" title="' + esc(rot + ': ' + (v == null ? 'sem dado' : f(v, casas)) + (rs != null ? ' · RÉGUA: média dos titulares dos times que subiram (Série B 2022–25) ' + f(rs, casas) : '') + ' · média da Série B ' + f(med, casas) + ' · melhor ' + f(best, casas) + ' (' + vs.length + ' jogadores)' + (letra ? ' · entra na LETRA física' : '')) + '">' +
         '<span class="rot">' + (letra ? '<i class="sf-f">◆</i>' : '') + esc(rot) + '</span><span class="val">' + f(v, casas) + '</span>' +
         '<span class="fi-barra">' + (v == null ? '' : '<i style="width:' + w(v) + '%"></i>') + '<span class="marca' + (rs != null ? ' sobe' : '') + '" style="left:' + w(rg) + '%"></span></span>' +
         '<span class="sf-sobe">' + (rs != null ? f(rs, casas) : '') + '</span><span class="med">' + f(med, casas) + '</span><span class="mx">' + f(best, casas) + '</span></div>';
@@ -3054,7 +3054,7 @@ function fisicoSerieBHtml(j) {
   };
   const corpo = FIS_GRUPOS.map(grupo).join('');
   if (!corpo) return '';
-  return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (totL ? ' <b class="sf-cont" title="os indicadores da letra (◆) no nível de quem sobe (mediana dos titulares dos times que subiram) ou acima">' + okL + '/' + totL + (nL < totL ? ' <small>· ' + (totL - nL) + ' sem dado</small>' : '') + '</b>' : '') + '</h4>' +
+  return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (totL ? ' <b class="sf-cont" title="os indicadores da letra (◆) no nível de quem sobe (média dos titulares dos times que subiram) ou acima">' + okL + '/' + totL + (nL < totL ? ' <small>· ' + (totL - nL) + ' sem dado</small>' : '') + '</b>' : '') + '</h4>' +
     (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
     '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
 }

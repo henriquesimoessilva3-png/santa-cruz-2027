@@ -92,7 +92,7 @@ def main():
         refs = []
         for i in inds:
             l = ref.get((i["bloco"], i["rot"]))
-            refs.append([l["sobe"], l["cai"], l["d"], 1 if l.get("media") else 0] if l else None)
+            refs.append([l["sobe"], l["cai"], l["d"], 1 if l.get("media") else 0, l.get("sobe_m")] if l else None)  # [4] = média de quem sobe (18/10)
         jog, visto = [], set()
         for D in (sb, lg):
             for _, r in D[D.pos11 == cod].iterrows():

@@ -115,7 +115,7 @@ def linhas(df, defs):
         if not {"Sobe", "Cai"} <= set(mz.index): continue
         out.append({"rot": rot, "casas": casas, "menor": menor,
                     "sobe": num(med.get("Sobe"), casas + 1), "meio": num(med.get("Meio"), casas + 1), "cai": num(med.get("Cai"), casas + 1),
-                    "d": num(mz["Sobe"] - mz["Cai"]), "dm": num(mz["Sobe"] - mz.get("Meio", np.nan)), **({"media": True} if raro else {})})
+                    "sobe_m": num(v[df.faixa == "Sobe"].mean(), casas + 1), "d": num(mz["Sobe"] - mz["Cai"]), "dm": num(mz["Sobe"] - mz.get("Meio", np.nan)), **({"media": True} if raro else {})})
     return out
 
 

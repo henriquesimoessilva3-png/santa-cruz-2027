@@ -1,5 +1,5 @@
 regra,auc,LAT,ZAG,VOL,MED,MEI,EXT,CA
-"Contagem contra a mediana de quem sobe (b23) — corte 0,15, verde/amarelo 10%/vermelho",0.639,0.61,0.67,0.72,0.66,,0.6,0.63
+"Contagem contra a média de quem sobe (b23) — corte 0,15, verde/amarelo 10%/vermelho",0.641,0.63,0.67,0.7,0.69,,0.59,0.62
 "b22 · Contagem contra a média da Série B (a seta nova) — corte 0,15, verde/amarelo 10%/vermelho",0.636,0.61,0.65,0.73,0.61,,0.61,0.64
 "b22 · b21 · Seta de hoje — 3 por bloco, mínimo = mediana de quem sobe",0.65,0.62,0.71,0.63,0.59,,0.6,0.65
 b22 · b21 · Nota por grupo (a seta nova),0.642,0.61,0.62,0.69,0.65,,0.56,0.7

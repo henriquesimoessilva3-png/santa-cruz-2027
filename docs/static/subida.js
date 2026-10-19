@@ -573,7 +573,7 @@
     if (o.conta) {
       const nome = D.posicoes[pos].nome, pc = Math.round(PERTO() * 100);
       if (o.c === 'n') return 'Seta técnica (' + nome + '): faltam dados — só ' + o.com + ' dos ' + o.n + ' fundamentais estão medidos.' + (o.sem.length ? ' Sem dado: ' + o.sem.join(', ') + '.' : '');
-      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais no nível de quem sobe (mediana dos titulares dos times que subiram) ou acima · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' abaixo' +
+      return 'Seta técnica (' + nome + '): ' + o.verde + ' de ' + o.com + ' fundamentais no nível de quem sobe (média dos titulares dos times que subiram) ou acima · ' + o.amarelo + ' até ' + pc + '% abaixo · ' + o.vermelho + ' abaixo' +
         (o.parcial ? ' (PARCIAL: só ' + o.com + ' dos ' + o.n + ' medidos)' : '') + '.\nPontos (verdes − vermelhos) ÷ medidos = ' + NOTA_ARRED(o.pontos) + ' · ▲ a partir de ' + NOTA_ARRED(o.cortes.v) + ' (onde fica o titular mediano de quem sobe) · ▼ até ' + NOTA_ARRED(o.cortes.r) + ' (o de quem cai). Fundamentais = os que separam quem sobe de quem cai na Série B 2022–25.' +
         (o.falta.length ? '\nVermelho em: ' + o.falta.join(', ') + '.' : '') + (o.sem.length ? '\nSem dado: ' + o.sem.join(', ') + '.' : '') +
         (o.nota != null ? '\nNota z (média dos desvios contra a Série B ' + TG.ref_anos[0] + '–' + String(TG.ref_anos[1]).slice(2) + '): ' + NOTA_ARRED(o.nota) + '.' : '');
@@ -756,10 +756,10 @@
     return out;
   };
   const FIS_LETRA = { psv: 'velocidade máxima', spr_n: 'sprints', hi_n: 'alta intensidade', expl: 'arrancadas explosivas', dist: 'distância' };
-  /* 18/10 (23h40) — físico: mediana dos titulares de quem SOBE (Série B 2022–25) por campo do app, na posição */
+  /* 18/10 (23h45) — físico: MÉDIA dos titulares de quem SOBE (era a mediana; pedido do Henrique: média é mais fácil de explicar) (Série B 2022–25) por campo do app, na posição */
   window.subidaSobeFis = function (pos) {
     try { if (!D || !D.posicoes[pos]) return {}; const o = {}; let nf = 0;
-      D.inds.forEach(i => { if (i.cat !== 'fis') return; const fk = FIS_ORD[nf++]; const r = ref(pos, i.k); if (fk && r && r[0] != null) o[fk] = r[0]; });
+      D.inds.forEach(i => { if (i.cat !== 'fis') return; const fk = FIS_ORD[nf++]; const r = D.posicoes[pos].ref[i.k]; const v = r ? (r[4] != null ? r[4] : r[0]) : null; if (fk && v != null) o[fk] = v; });
       return o; } catch (e) { return {}; }
   };
   window.subidaFicha = function (j, dados, op) {
@@ -788,7 +788,7 @@
         const m = l.sb.med, bst = l.sb.best, v = l.v, bx = !!l.i.menor, rg = l.rs != null ? l.rs : m;
         const alvo = Math.max(v || 0, m || 0, bst || 0, l.rs || 0, 1e-6), w = x => Math.max(0, Math.min(100, x / alvo * 100)).toFixed(1);
         const cls = { b: 'lider', v: 'acima', a: 'perto', r: 'abaixo' }[l.c] || 'neutro';
-        const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + (l.rs != null ? ' · RÉGUA: titulares dos times que subiram (Série B 2022–25, mediana) ' + num(l.rs, l.i.casas) : '') + ' · média da Série B ' + num(m, l.i.casas) + ' · melhor ' + num(bst, l.i.casas) + ' (' + l.sb.n + ' jogadores)' +
+        const t = l.i.rot + ': ' + (v == null ? 'sem dado' : num(v, l.i.casas)) + (l.rs != null ? ' · RÉGUA: média dos titulares dos times que subiram (Série B 2022–25) ' + num(l.rs, l.i.casas) : '') + ' · média da Série B ' + num(m, l.i.casas) + ' · melhor ' + num(bst, l.i.casas) + ' (' + l.sb.n + ' jogadores)' +
           (bx ? ' · aqui MENOS é melhor' : '') + (l.i.nm ? ' · o Wyscout mudou o critério' : '') +
           (l.f === 'F' ? ' · FUNDAMENTAL: separa quem sobe de quem cai na Série B 2022–25; a cor e a seta do card saem da comparação com quem sobe' : l.f === 'L' ? ' · entra na LETRA física' : '');
         return '<div class="fi-linha sf sf6 ' + cls + (l.f ? ' fund' : '') + '" title="' + esc(t) + '"><span class="rot">' + (l.f ? '<i class="sf-f">' + (l.f === 'L' ? '◆' : '●') + '</i>' : '') + esc(l.i.rot.replace(' por 90', ' /90')) + (bx ? ' ↓' : '') + (l.i.nm ? ' ~' : '') + '</span>' +
@@ -816,7 +816,7 @@
             '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">ele</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + ls.map(linha).join('') + '</div>';
         }).join('');
         const leg = '<div class="fi-leg"><span><i class="v"></i>no nível da régua ou acima</span><span><i class="am"></i>até ' + Math.round(PERTO() * 100) + '% abaixo</span><span><i class="r"></i>abaixo</span><span><i class="az"></i>o melhor da Série B</span>' +
-          '<span><b>Régua:</b> fundamental (●) = <b>sobe</b>, a mediana dos titulares dos times que subiram (Série B 2022–25) · os demais = média da Série B</span><span><i class="m"></i>traço = a régua</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
+          '<span><b>Régua:</b> fundamental (●) = <b>sobe</b>, a média dos titulares dos times que subiram (Série B 2022–25) · os demais = média da Série B</span><span><i class="m"></i>traço = a régua</span><span><b class="sf-f">●</b> fundamental — separa quem sobe de quem cai e conta na seta</span><span><b class="sf-f">◆</b> entra na letra física</span><span>↓ menor é melhor · ~ critério do Wyscout mudou</span>' +
           '<span class="num-leg">média e melhor = jogadores da Série B na posição' + (GEMEAS[j.p] ? ' (os dois lados juntos)' : '') + ', temporada atual</span></div>';
         return { cols, leg };
       }
