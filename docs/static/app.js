@@ -3687,7 +3687,22 @@ async function renderFicha() {
   $('#fiCorpo').innerHTML = f.corpo;
   $('#fiRodape').textContent = f.rodape;
   const av = $('#fiAviso'); if (av) av.innerHTML = f.aviso;
+  caberFicha();
 }
+/* 19/10 ("não quero barra de rolagem"): a ficha encolhe para caber inteira na área dela — sem rolar para o lado nem
+   para baixo. Só abaixo de 55% volta a rolar (letra pequena demais para ler). */
+function caberFicha() {
+  const box = document.querySelector('#ficha .ficha-rolagem'), el = $('#fiCorpo'); if (!box || !el) return;
+  el.style.zoom = 1; box.style.overflow = 'hidden';
+  requestAnimationFrame(() => {
+    const ch = box.clientHeight, cw = box.clientWidth, sh = el.scrollHeight, sw = el.scrollWidth;
+    if (!ch || !cw) return;
+    let z = Math.min(1, ch / sh, cw / sw);
+    if (z < 0.55) { z = Math.max(0.55, Math.min(1, cw / sw)); box.style.overflow = 'auto'; }
+    el.style.zoom = z.toFixed(3);
+  });
+}
+window.addEventListener('resize', () => { if (fichaAtual && !$('#ficha').classList.contains('oculta')) caberFicha(); });
 
 /* ---- detalhe aberto dentro da lista de busca, na própria linha ---- */
 async function alternarDetalhe(tr, jid) {
