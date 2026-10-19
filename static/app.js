@@ -3497,12 +3497,10 @@ async function montarFicha(j, modo) {
     ['Idade', j.id_ ? j.id_ + ' anos' : '—', ''],
     ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],
-    ['Salário estimado', fx ? brl(fx.min, true) + '–' + brl(fx.max, true) : '—',
-      fx ? 'TransferRoom: ' + fx.txt + '/ano' : ''],
+    /* 18/10 (23h50): saem salário estimado e jogos · minutos (pedido do Henrique) */
     ['Altura', (j.alt || (pf && pf.alt)) ? (j.alt || pf.alt) + ' cm' : '—', !j.alt && pf && pf.alt ? pf.fonte : ''],
     ['Pé', j.pe || (pf && pf.pe) || '—', !j.pe && pf && pf.pe ? pf.fonte : ''],
     ['Nacionalidade', j.nac || '—', ''],
-    ['Jogos · minutos', (j.jog || 0) + ' · ' + milhar(j.min), ''],
     /* O valor de mercado é em EURO, e esta linha imprimia com brl() — rotulava euro como
        real. Agora mostra o do Transfermarkt quando existe (mais novo e mais coberto) e,
        abaixo, o do Wyscout como segunda fonte, os dois com €. */
