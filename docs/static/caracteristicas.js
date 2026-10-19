@@ -37,22 +37,19 @@
     const item = l => '<li><span>' + esc(l.rot) + '</span> <em>' + esc(l.bloco) + '</em><b>' + val(l, 'sobe') + '</b> contra <b>' + val(l, 'cai') +
       '</b> <i class="car-d ' + forca(l.d) + '" title="' + esc('Diferença real entre o titular de quem sobe e o de quem cai. Força da separação (em desvios da posição): ' + (l.d > 0 ? '+' : '') + num(l.d, 2) + ' — 0,50 ou mais separa muito; 0,30 a 0,50 separa; abaixo de 0,30 é ruído') + '">' + difReal(l) + ' <small>' + grau(l.d) + '</small></i></li>';
     /* 18/10 (23h59, "o que realmente tem de diferente"): em vez do +0,94 em desvios, a diferença de verdade —
-       % a mais (ou a menos) nos indicadores por 90; pontos percentuais nos de %; cm e anos na altura e na idade */
+       % a mais (ou a menos) sobre o valor de quem cai, em todos */
     function difReal(l) {
       const s_ = Number(l.sobe), c_ = Number(l.cai); if (!isFinite(s_) || !isFinite(c_)) return '—';
       const d = s_ - c_, sg = d > 0 ? '+' : d < 0 ? '−' : '', ab = Math.abs(d);
-      if (/%/.test(l.rot)) return sg + num(ab, 1) + ' pontos';
-      if (/altura/i.test(l.rot)) return sg + num(ab, 0) + ' cm';
-      if (/idade/i.test(l.rot)) return sg + num(ab, 1) + ' anos';
       if (!c_) return sg + num(ab, 2);
       const pc = Math.round(100 * ab / Math.abs(c_));
-      return pc >= 100 && d > 0 ? num(s_ / c_, 1) + '×' : sg + pc + '%';
+      return sg + pc + '%';   /* 18/10: só percentual, sempre em cima do valor de quem cai */
     }
     const mais = todas.filter(l => l.d >= 0.3).sort((a, b) => b.d - a.d).slice(0, 7);
     const menos = todas.filter(l => l.d <= -0.3).sort((a, b) => a.d - b.d).slice(0, 5);
     const nada = todas.filter(l => Math.abs(l.d) < 0.1).slice(0, 6);
     let h = '<p class="car-leia">Em cada linha: o titular típico de quem <b>sobe</b> contra o de quem <b>cai</b>, e <b>quanto a mais</b> (ou a menos) quem sobe tem — ' +
-      'ex.: 0,75 contra 0,36 = <b>2,1×</b> (mais que o dobro). A palavra ao lado diz se a diferença é firme (“separa muito”, “separa”) ou pode ser acaso (“ruído”, são ~25 jogadores por faixa).</p>' +
+      'em % sobre o valor de quem cai — ex.: 0,75 contra 0,36 = <b>+108%</b>. A palavra ao lado diz se a diferença é firme (“separa muito”, “separa”) ou pode ser acaso (“ruído”, são ~25 jogadores por faixa).</p>' +
       '<div class="car-res"><div class="car-col"><h4>Quem sobe tem mais</h4>' +
       (mais.length ? '<ul>' + mais.map(item).join('') + '</ul>' : '<p class="car-vazio">Nenhum indicador separa com clareza (≥ 0,30).</p>') + '</div>' +
       '<div class="car-col"><h4>Quem sobe tem menos</h4>' +
