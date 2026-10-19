@@ -87,3 +87,18 @@ body.ta-claro .ta-vazio{color:#888} body.ta-claro .sb-selo.sb-n{border-color:#99
 .jb-levar:hover{color:#fff;background:var(--coral);border-color:var(--coral)}
 .jb-vaz{color:var(--tinta3)}
 body.imp-tipoa .jb-levar,body.imp-tipoa .ta-tab td.lv-bt{display:none}
+
+/* 19/10/2026 — cards Físico | Técnico e a visão técnica */
+.ta-vistas{display:flex;gap:10px;margin:4px 0 12px}
+.ta-vista{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 16px;border-radius:10px;border:1px solid var(--borda2,#ffffff22);background:#ffffff08;color:var(--tinta2);cursor:pointer;min-width:220px;text-align:left}
+.ta-vista b{font-size:15px;color:var(--tinta)} .ta-vista span{font-size:11.5px}
+.ta-vista.on{border-color:#c8102e;background:#c8102e22} .ta-vista.on b{color:#fff}
+.ta-Tv h5 i{background:#16a34a!important} .ta-Ta h5 i{background:#d99a06!important}
+.ta-pos h3 span i.ls-v,.ta-pos h3 span i.ls-a{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;color:#fff;font:700 11px var(--fonte);font-style:normal}
+.ta-pos h3 span i.ls-v{background:#16a34a} .ta-pos h3 span i.ls-a{background:#d99a06}
+.ta-lt{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:17px;border-radius:4px;font-style:normal;font-weight:700;font-size:10.5px;color:#fff;background:#64748b}
+.ta-lt.ap{background:#2563eb}.ta-lt.a{background:#16a34a}.ta-lt.b{background:#d99a06}.ta-lt.c{background:#dc2626}.ta-lt.n{background:transparent;color:var(--tinta3)}
+.ta-mp{font-weight:700}.ta-mp.v{color:#4ade80}.ta-mp.a{color:#facc15}.ta-mp.r{color:#f87171}
+.ta-tab td.bp-v{color:#4ade80;font-weight:700}.ta-tab td.bp-a{color:#facc15;font-weight:700}
+.ta-sf.ta-lf-ap.on{background:#2563eb;color:#fff}.ta-sf.ta-lf-a.on{background:#16a34a;color:#fff}.ta-sf.ta-lf-b.on{background:#d99a06;color:#fff}.ta-sf.ta-lf-c.on{background:#dc2626;color:#fff}.ta-sf.ta-lf-n.on{background:#64748b;color:#fff}
+body.imp-tipoa .ta-vistas{display:none}
