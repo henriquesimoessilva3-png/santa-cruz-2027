@@ -3189,6 +3189,8 @@ function fecharFicha() {
   fichaAtual = null;
   marcarFichaAberta(null);
   ajustarCampo();
+  /* 19/10: ficha aberta a partir de uma lista (Mercado, Estudo…) volta para a lista ao fechar */
+  if (window.__fichaVolta) { const v = window.__fichaVolta; window.__fichaVolta = null; irParaAba(v); }
 }
 
 function marcarFichaAberta(jid) {

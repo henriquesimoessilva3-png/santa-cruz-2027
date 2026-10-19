@@ -52,7 +52,10 @@ window.JB = (function () {
     if (!el || el.dataset.jb) return; el.dataset.jb = '1';
     el.addEventListener('click', ev => {
       const n = ev.target.closest('.jb-nome');
-      if (n) { ev.preventDefault(); const id = n.dataset.jbId; if (typeof abrirFicha === 'function') { abrirFicha(/^\d+$/.test(id) ? +id : id); irParaAba('campo'); } return; }
+      if (n) { ev.preventDefault(); const id = n.dataset.jbId; if (typeof abrirFicha === 'function') {
+        /* 19/10: lembra de onde veio — ao fechar a ficha volta para esta aba, não fica no campograma */
+        const on = document.querySelector('nav.abas .aba.on'); window.__fichaVolta = on && on.dataset.aba !== 'campo' ? on.dataset.aba : null;
+        abrirFicha(/^\d+$/.test(id) ? +id : id); irParaAba('campo'); } return; }
       const l = ev.target.closest('.jb-levar');
       if (l) { ev.preventDefault(); if (typeof menuLevar === 'function') menuLevar(ev, l.dataset.jbPk, null, l); }
     });
