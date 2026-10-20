@@ -607,5 +607,47 @@
 "de": "CA River Plate",
 "cta": "-",
 "desde": "14/01/2026"
+},
+"360412": {
+"cl": "CA Huracán",
+"ct": "31/12/2026",
+"de": "Atlas Guadalajara",
+"cta": "-",
+"desde": "14/01/2026"
+},
+"468256": {
+"cl": "Avaí FC",
+"ct": "31/12/2026",
+"de": "Atlético Mineiro B",
+"cta": "31/12/2026",
+"desde": "09/01/2026"
+},
+"741034": {
+"cl": "Club Rubio Ñú (Asuncion)",
+"ct": "31/12/2026",
+"de": "CA Rosario Central",
+"cta": "-",
+"desde": "01/07/2026"
+},
+"1090830": {
+"cl": "AA Ponte Preta",
+"ct": "30/11/2026",
+"de": "Coritiba FC",
+"cta": "31/12/2026",
+"desde": "02/03/2026"
+},
+"1219248": {
+"cl": "Kawasaki Frontale",
+"ct": "30/06/2027",
+"de": "Botafogo FR",
+"cta": "31/12/2028",
+"desde": "01/07/2026"
+},
+"1225290": {
+"cl": "CA Sarmiento (Junín)",
+"ct": "31/12/2026",
+"de": "AA Argentinos Juniors",
+"cta": "31/12/2027",
+"desde": "18/01/2026"
 }
 }
