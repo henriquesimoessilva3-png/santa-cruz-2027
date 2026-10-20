@@ -37,7 +37,8 @@
         }
       }
     } catch (e) {}
-    memo.set(j, o); return o;
+    if (!/sb-n\b/.test(o)) memo.set(j, o);   /* 20/10: o '?' não fica guardado — o arquivo de indicadores da posição pode chegar depois */
+    return o;
   }
   function filtrados() {
     const q = sem(E.busca);

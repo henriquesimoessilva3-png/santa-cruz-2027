@@ -124,7 +124,7 @@
     if (!o) { o = {}; try { const s = window.subidaSeloInfo ? window.subidaSeloInfo(x.j, null) : null; if (s) { o.v = s.verde; o.com = s.com; } } catch (e) {}
       try { const m = typeof minutagemDe === 'function' ? minutagemDe(x.j) : null; if (m) { o.mp = Math.round(m.pct * 100); o.mc = m.c; } } catch (e) {}
       try { const bp = typeof bolaParadaDe === 'function' ? bolaParadaDe(x.j) : null; if (bp) { o.cob = bp.cob; o.bc = bp.c; } } catch (e) {}
-      infoT.set(x.b, o); }
+      if (o.com) infoT.set(x.b, o); }   /* 20/10: sem técnico medido ainda (arquivo da posição chegando) não fica guardado */
     return o;
   }
   const ordenaT = linhas => { const k = E.ordT; return linhas.slice().sort((a, b) => k === 'nome' ? String(a.j.n).localeCompare(b.j.n) : k === 'idade' ? (a.j.id_ || 99) - (b.j.id_ || 99)
