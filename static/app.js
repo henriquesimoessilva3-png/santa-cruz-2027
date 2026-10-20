@@ -2019,7 +2019,7 @@ const COLUNAS = [
   { c: 'def', r: 'Def.',     w: 5,   num: 1, cel: j => '<span class="fraco">' + (j.def ?? '—') + '</span>' },
   { c: 'fis', r: 'Fís.',     w: 5,   num: 1, cel: j => '<span class="fraco">' + (j.fis ?? '—') + '</span>' },
   { c: 'min', r: 'Min.',     w: 5.5, num: 1, cel: j => '<span class="fraco">' + (j.min ? milhar(j.min) : '—') + '</span>' },
-  { c: 'ct',  r: 'Contrato', w: 10,  cel: j => mesAno(j.ct) || '<span class="fraco">—</span>',
+  { c: 'ct',  r: 'Contrato', w: 10,  cel: j => (j.ct ? (j.ct.slice(0, 7) <= FS_LIVRE_ATE ? '<span class="ct-livre-t">' + mesAno(j.ct) + '</span>' : mesAno(j.ct)) : '<span class="fraco">—</span>'),
     tit: j => j.ct ? 'até ' + j.ct + (j.ctc ? ' · ' + j.ctc : '') : 'contrato não informado' },
 ];
 
@@ -3532,8 +3532,10 @@ async function montarFicha(j, modo) {
     '<div class="fi-pdados"><div class="fi-pnome">' + titulo + '</div><div class="fi-pinfo">' +
     [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + (pf && pf.clube && pf.clubeId ? esc(pf.clube) + (tipoNorm(pf.clube) !== tipoNorm(j.t || '') && j.t ? ' <small class="fi-antes" title="clube no cadastro do app">(no cadastro: ' + esc(j.t) + ')</small>' : '') : esc(j.t || '—')), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' + (dataNascBR(pf && pf.nasc) ? ' <small class="fi-nasc" title="data de nascimento (' + esc(pf.fonte || '') + ')">· nasc. ' + dataNascBR(pf.nasc) + '</small>' : '') : (dataNascBR(pf && pf.nasc) ? 'nasc. ' + dataNascBR(pf.nasc) : '')].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
   const cabeca = [
-    ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
-      (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],
+    ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), ((j.ct || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? pf.contrato : '') || '').slice(0, 7) <= FS_LIVRE_ATE && (j.ct || (pf && pf.contrato)) ? 'termina até jan/2027 · pode vir livre · ' : '') + (j.ctc ? (CONF[j.ctc] || j.ctc) +
+      (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''),
+     /* 20/10/2026 — contrato que termina até jan/2027 ganha destaque verde (pedido do Henrique) */
+     (((j.ct || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? pf.contrato : '') || '').slice(0, 7)) || 'z') <= FS_LIVRE_ATE || /^(livre|sem clube)/i.test(j.t || '') ? ' ct-livre' : ''],
     /* 18/10 (23h50): saem salário estimado e jogos · minutos (pedido do Henrique) */
     ['Altura', (j.alt || (pf && pf.alt)) ? (j.alt || pf.alt) + ' cm' : '—', !j.alt && pf && pf.alt ? pf.fonte : ''],
     ['Pé', j.pe || (pf && pf.pe) || '—', !j.pe && pf && pf.pe ? pf.fonte : ''],
@@ -3545,7 +3547,7 @@ async function montarFicha(j, modo) {
      (vmFicha => vmFicha != null ? eur(vmFicha, true) : (j.mv ? eur(j.mv, true) : (pf && pf.valor ? eur(pf.valor, true) : '—')))(
         valorMercado({ nome: j.n || j.nome, clube: j.t || j.clube })),
      (j.mv ? 'Wyscout ' + eur(j.mv, true) : '') + (j.xtv ? ' · xTV ' + eur(j.xtv, true) : '')],
-  ].map(([r, v, obs]) => '<div class="fi-dado"><div class="r">' + r + '</div>' +
+  ].map(([r, v, obs, cls]) => '<div class="fi-dado' + (cls || '') + '"><div class="r">' + r + '</div>' +
     '<div class="v' + (String(v).length > 9 ? ' pq' : '') + '">' + esc(v) + '</div>' +
     (obs ? '<div class="o">' + esc(obs) + '</div>' : '') + '</div>').join('');
 

@@ -1465,7 +1465,7 @@ body:not(.claro){
    tempo de 2027 — que e o unico que precisa saltar */
 .fsp-ct{flex:none;width:44px;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:.2px;
   padding:2px 0;border-radius:4px;border:1px solid var(--borda2);background:var(--veu2);color:var(--tinta3)}
-.fsp-ct.livre{border-color:#e2a51f;background:#e2a51f26;color:#e2a51f}
+.fsp-ct.livre{border-color:#1f9d55;background:#1f9d5526;color:#2ecc71}
 .fsp-ct.sem{border-style:dashed;color:var(--tinta3);opacity:.5}
 .fs-legenda i.fs-leg-ct{font-style:normal;font-size:8.5px;font-weight:800;padding:1px 4px;
   width:auto;height:auto;border-radius:3px;border:1px solid #1f9d55;background:#1f9d55;
@@ -1869,7 +1869,7 @@ body.claro{ --fs-cel:#e9f0fb; --fs-cel-alt:#e2ebf8; --fs-trilho:#c9daf0; }
 .fs-ct{font-size:8px;color:var(--tinta3);margin-top:2px;letter-spacing:.2px;
   display:flex;align-items:center;gap:3px;white-space:nowrap}
 .fs-ct.sem{font-style:italic;opacity:.7}
-.fs-ct.livre{color:var(--txt-ambar);font-weight:700}
+.fs-ct.livre{color:#2ecc71;font-weight:700}
 .fs-ct i{width:6px;height:6px;border-radius:50%;background:var(--ambar);flex:none;
   box-shadow:0 0 0 2px #f5a52433}
 #fsElenco option:disabled{color:var(--tinta3);font-style:italic}
@@ -3925,3 +3925,8 @@ body.visao-nova .jpainel{flex:none}
 @container (max-width:1250px){.sf-tec-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @container (max-width:640px){.sf-tec-grid{grid-template-columns:1fr!important}}
 .fi-antes{color:var(--mut,#8a93a6);font-size:.78em;margin-left:4px}
+
+/* 20/10/2026 — contrato que termina até jan/2027: destaque verde */
+.fi-dado.ct-livre .v{display:inline-block;background:#1f9d55;color:#fff;border-radius:5px;padding:1px 8px;margin-top:1px}
+.fi-dado.ct-livre .o{color:#2ecc71}
+.ct-livre-t{color:#2ecc71;font-weight:700}
