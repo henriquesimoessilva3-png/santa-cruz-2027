@@ -3833,10 +3833,13 @@ body.visao-nova .jpainel{flex:none}
 .bp-res-j b{color:var(--tinta)}
 
 /* 18/10 (23h) bola parada: cobrador | finalizador lado a lado */
-.sf-painel.bp-2{display:grid;grid-template-columns:3fr 2fr;gap:14px;align-items:start}
-.sf-painel.bp-2 .bp-g{min-width:0}
-.sf-painel.bp-2 .sf-tab{width:100%}
-@media (max-width:900px){.sf-painel.bp-2{grid-template-columns:1fr}}
+/* 20/10/2026 — cobrador em cima, finalizador embaixo: lado a lado as tabelas se encavalavam na coluna estreita */
+.sf-painel.bp-2{display:flex;flex-direction:column;gap:16px}
+.sf-painel.bp-2 .bp-g{min-width:0;overflow-x:auto}
+.sf-painel.bp-2 .sf-tab{width:100%;table-layout:auto}
+.sf-painel.bp-2 .sf-tab th{white-space:nowrap;padding:3px 8px 3px 0}
+.sf-painel.bp-2 .sf-tab th.n,.sf-painel.bp-2 .sf-tab td.n{text-align:right;padding:3px 0 3px 10px}
+.sf-painel.bp-2 .sf-tab td:first-child,.sf-painel.bp-2 .sf-tab th:first-child{text-align:left;padding-left:0}
 
 /* 18/10 (23h) régua de quem sobe nos fundamentais: coluna "sobe" */
 .fi-linha.sf.sf6,.fi-grid .fi-linha.sf.sf6{grid-template-columns:minmax(120px,1.6fr) 46px minmax(40px,1fr) 42px 42px 42px}
