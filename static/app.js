@@ -2952,6 +2952,14 @@ const FIS_GRUPOS = [
 const FIS_GEMEAS = { LD: ['LD', 'LE'], LE: ['LD', 'LE'], ZD: ['ZD', 'ZE'], ZE: ['ZD', 'ZE'], ED: ['ED', 'EE'], EE: ['ED', 'EE'] };
 /* 18/10 — perfil que falta no cadastro (static/perfil_extra.json, gerar_perfil_js.py): card manual pelo levantamento;
    os demais pelo banco do Transfermarkt, casando o nome e conferindo clube ou idade (±1) — nome repetido sem conferência fica de fora */
+/* 20/10 (Henrique): data de nascimento sempre ao lado da idade — "aaaa-mm-dd", "dd/mm/aaaa" ou "Mon d, aaaa" → dd/mm/aaaa */
+function dataNascBR(v) {
+  if (!v) return '';
+  const s = String(v).trim(); let m;
+  if ((m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s))) return m[3] + '/' + m[2] + '/' + m[1];
+  if ((m = /^(\d{1,2})[./](\d{1,2})[./](\d{4})/.exec(s))) return m[1].padStart(2, '0') + '/' + m[2].padStart(2, '0') + '/' + m[3];
+  const d = new Date(s); return isNaN(d) ? '' : String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
+}
 let PERFIL_EXTRA = null;
 async function perfilExtraDe(j) {
   try {
@@ -2959,13 +2967,13 @@ async function perfilExtraDe(j) {
     const P = await PERFIL_EXTRA; if (!P || !j) return null;
     const pk = primaryKey(j);
     const pkM = (j.n || '') + ' - ' + (j.t || '') + ' - Manual';
-    if (P.manual && (P.manual[pk] || P.manual[pkM])) { const m = P.manual[pk] || P.manual[pkM]; return { alt: m.alt, pe: m.pe, valor: m.valor, contrato: m.contrato, fonte: 'levantamento' + (m.fonte ? ' · ' + m.fonte : '') }; }
+    if (P.manual && (P.manual[pk] || P.manual[pkM])) { const m = P.manual[pk] || P.manual[pkM]; return { alt: m.alt, pe: m.pe, valor: m.valor, contrato: m.contrato, nasc: m.nasc, fonte: 'levantamento' + (m.fonte ? ' · ' + m.fonte : '') }; }
     const k = String(j.nc || j.n || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
     let c = (P.tm && (P.tm[k] || (j.nc && P.tm[String(j.n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim()]))) || [];
     const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
     const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
-    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], fonte: 'Transfermarkt' } : null;
+    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], nasc: x[10], fonte: 'Transfermarkt' } : null;
   } catch (e) { return null; }
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
@@ -2976,27 +2984,31 @@ function painelMinutagem(j) {
   const nota = '% = minutos dele ÷ minutos do time na temporada (jogos do time na liga × um jogo inteiro no Wyscout, ~100 min com acréscimos; 2026 até o recorte de set/26). Ano sem o total do time fica fora da conta. Verde 60%+ · amarelo 30% a 60% · vermelho abaixo de 30%.';
   if (!h || !mi) return '<div class="sf-painel"><div class="fi-res" title="' + esc(nota) + '"><span class="fi-res-l sel-n">?</span><div><b>Minutagem: sem histórico</b><small>' +
     (h ? 'falta o total do time nos anos registrados' : 'sem minutos nas bases para este jogador') + '</small></div></div></div>';
-  let sj = 0, stj = 0, sm = 0, stm = 0;
+  let sj = 0, stj = 0, sm = 0, stm = 0, sg = 0, sa = 0, temGA = false;
+  /* 20/10 (Henrique): gols e assistências do ano (Wyscout, todas as competições oficiais), depois do % do time */
+  const GA = (() => { try { return window.bpWyRegistro ? window.bpWyRegistro(j) : null; } catch (e) { return null; } })();
+  const ga = t => (GA && GA.a && GA.a[t]) || null;
   const ls = h.map((x, i) => {
     const a = mi.anos[i] || {}, ma = minutagemAno(x);
-    if (!x || !(x.min || x.j)) return '<tr class="vazio"><td>' + (T[i] || '') + '</td><td colspan="4">sem registro</td></tr>';
+    if (!x || !(x.min || x.j)) return '<tr class="vazio"><td>' + (T[i] || '') + '</td><td colspan="6">sem registro</td></tr>';
     if (ma) { sj += x.j || 0; stj += x.tj || Math.round(ma.tot / 90); sm += ma.m; stm += ma.tot; }
     const pc = a.p != null ? Math.round(a.p * 100) : null, c = pc == null ? '' : pc >= 60 ? 'v' : pc >= 30 ? 'a' : 'r';
     const fonte = x.fonte === 'wyscout' ? ' · Wyscout, todas as competições' : x.fonte === 'ogol' ? ' · oGol' : x.fonte === 'complemento' || x.fonte === 'levantamento' ? ' · ' + esc(x.src || 'levantamento') : '';
     return '<tr' + (ma ? '' : ' class="falta"') + '><td>' + esc(T[i] || x.t) + '</td><td>' + esc(x.tm || '') + '<small>' + (x.l ? ' ' + esc(x.l) : '') + fonte + '</small></td>' +
       '<td class="n">' + f(x.j) + '<small> de ' + (ma ? f(x.tj || Math.round(ma.tot / 90)) : '?') + '</small></td>' +
       '<td class="n">' + (x.min ? f(x.min) : '—') + (ma ? '<small> de ' + f(ma.tot) + '</small>' : '') + '</td>' +
-      '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td></tr>' +
+      '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td>' +
+      (() => { const g = ga(T[i] || x.t); if (!g) return '<td class="n">—</td><td class="n">—</td>'; temGA = true; sg += g.g || 0; sa += g.a || 0; return '<td class="n"><b>' + (g.g || 0) + '</b></td><td class="n"><b>' + (g.a || 0) + '</b></td>'; })() + '</tr>' +
       (x.pass ? x.pass.map(q => '<tr class="pass"><td></td><td>↳ ' + esc(q.tm) + (q.de || q.ate ? '<small> ' + esc(q.de || '') + (q.ate ? ' a ' + esc(q.ate) : ' em diante') + '</small>' : '') + '</td>' +
         '<td class="n">' + f(q.j) + '<small> de ' + f(q.tj) + '</small></td><td class="n">' + f(q.min) + (q.tj ? '<small> de ' + f(q.tmin || q.tj * 90) + '</small>' : '') + '</td>' +
-        '<td class="n"><small>' + (q.min != null && q.tj ? Math.round(q.min / (q.tmin || q.tj * 90) * 100) + '%' : '') + '</small></td></tr>').join('') : '');
+        '<td class="n"><small>' + (q.min != null && q.tj ? Math.round(q.min / (q.tmin || q.tj * 90) * 100) + '%' : '') + '</small></td><td></td><td></td></tr>').join('') : '');
   }).join('');
   const pt = Math.round(mi.pct * 100);
   const resumo = mi.anos.map(a => a.t + ' ' + (a.p == null ? (a.falta ? 'falta o time' : '—') : Math.round(a.p * 100) + '%')).join(' · ');
   return '<div class="sf-painel"><div class="fi-res" title="' + esc(mi.txt + '\n' + nota) + '"><span class="fi-res-l sel-' + mi.c + ' sf-res-pct">' + pt + '%</span><div><b>Minutagem: ' + pt + '% dos minutos do time</b><small>' +
     esc(resumo) + ' · ' + f(sm) + ' de ' + f(stm) + ' min</small></div></div>' +
-    '<table class="sf-tab"><thead><tr><th>Ano</th><th>Clube</th><th class="n">Jogos</th><th class="n">Minutos</th><th class="n">% do time</th></tr></thead><tbody>' + ls + '</tbody>' +
-    '<tfoot><tr><td colspan="2">Total</td><td class="n">' + f(sj) + '<small> de ' + f(stj) + '</small></td><td class="n">' + f(sm) + '<small> de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + mi.c + '">' + pt + '%</b></td></tr></tfoot></table></div>';
+    '<table class="sf-tab"><thead><tr><th>Ano</th><th>Clube</th><th class="n">Jogos</th><th class="n">Minutos</th><th class="n">% do time</th><th class="n" title="gols no ano (Wyscout, todas as competições oficiais)">Gols</th><th class="n" title="assistências no ano (Wyscout, todas as competições oficiais)">Assist.</th></tr></thead><tbody>' + ls + '</tbody>' +
+    '<tfoot><tr><td colspan="2">Total</td><td class="n">' + f(sj) + '<small> de ' + f(stj) + '</small></td><td class="n">' + f(sm) + '<small> de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + mi.c + '">' + pt + '%</b></td><td class="n"><b>' + (temGA ? sg : '—') + '</b></td><td class="n"><b>' + (temGA ? sa : '—') + '</b></td></tr></tfoot></table></div>';
 }
 function painelBolaParada(j) {
   /* 18/10 (23h) — dois grupos lado a lado: COBRADOR (escanteios e faltas cobrados, assistências de bola parada) e
@@ -3518,7 +3530,7 @@ async function montarFicha(j, modo) {
   const perfil = '<div class="fi-perfil">' +
     (pf && pf.foto ? '<img class="fi-foto" src="' + esc(pf.foto) + '" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<span class=&quot;fi-foto vazia&quot;>' + esc(ini) + '</span>\'">' : '<span class="fi-foto vazia">' + esc(ini) + '</span>') +
     '<div class="fi-pdados"><div class="fi-pnome">' + titulo + '</div><div class="fi-pinfo">' +
-    [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + (pf && pf.clube && pf.clubeId ? esc(pf.clube) + (tipoNorm(pf.clube) !== tipoNorm(j.t || '') && j.t ? ' <small class="fi-antes" title="clube no cadastro do app">(no cadastro: ' + esc(j.t) + ')</small>' : '') : esc(j.t || '—')), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' : ''].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
+    [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + (pf && pf.clube && pf.clubeId ? esc(pf.clube) + (tipoNorm(pf.clube) !== tipoNorm(j.t || '') && j.t ? ' <small class="fi-antes" title="clube no cadastro do app">(no cadastro: ' + esc(j.t) + ')</small>' : '') : esc(j.t || '—')), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' + (dataNascBR(pf && pf.nasc) ? ' <small class="fi-nasc" title="data de nascimento (' + esc(pf.fonte || '') + ')">· nasc. ' + dataNascBR(pf.nasc) + '</small>' : '') : (dataNascBR(pf && pf.nasc) ? 'nasc. ' + dataNascBR(pf.nasc) : '')].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
   const cabeca = [
     ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''],

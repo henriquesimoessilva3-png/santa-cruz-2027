@@ -22,14 +22,14 @@ def main():
     if db:
         tmp = os.path.join(tempfile.gettempdir(), "tm_perfil.db"); shutil.copy(db, tmp)   # SQLite não abre direto no Drive
         con = sqlite3.connect(tmp)
-        for nome, clube, idade, alt, pe, val, ct, tmid, foto, nac, idc in con.execute(
-                "select jogador, clube, idade, altura, pe, valor_mercado_eur, contrato_ate, id_jogador, foto, nacionalidade_1, id_clube from jogadores "
+        for nome, clube, idade, alt, pe, val, ct, tmid, foto, nac, idc, nasc in con.execute(
+                "select jogador, clube, idade, altura, pe, valor_mercado_eur, contrato_ate, id_jogador, foto, nacionalidade_1, id_clube, nascimento from jogadores "
                 "where altura is not null or pe is not null or foto is not null"):
             a = None
             try: a = int(round(float(str(alt).replace(",", ".").replace("m", "").strip()) * (100 if float(str(alt).replace(",", ".").replace("m", "").strip()) < 3 else 1)))
             except Exception: pass
             f = str(foto).replace("/portrait/small/", "/portrait/header/") if foto and "default" not in str(foto) else None
-            out["tm"].setdefault(nz(nome), []).append([clube, idade, a, pe, val, ct, tmid, f, nac, idc])   # 18/10: + id, foto, nacionalidade; 19/10: + id do clube (escudo)
+            out["tm"].setdefault(nz(nome), []).append([clube, idade, a, pe, val, ct, tmid, f, nac, idc, nasc])   # 20/10: + data de nascimento   # 18/10: + id, foto, nacionalidade; 19/10: + id do clube (escudo)
     mp = os.path.join(AQUI, "dados", "manuais_perfil.csv")
     if os.path.exists(mp):
         for r in pd.read_csv(mp, sep=None, engine="python").itertuples():
