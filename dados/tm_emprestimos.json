@@ -1,1 +1,611 @@
-{"238448":{"cl":"Club de Gimnasia y Esgrima La Plata","ct":"30/06/2027","de":"CA Boca Juniors","cta":"31/12/2027","desde":"28/07/2026"},"355471":{"cl":"Vila Nova FC","ct":"30/11/2026","de":"Guarani FC","cta":"31/12/2027","desde":"02/09/2026"},"417084":{"cl":"Coritiba FC","ct":"30/12/2026","de":"SC Internacional","cta":"31/12/2026","desde":"03/03/2026"},"458047":{"cl":"CA Huracán","ct":"31/12/2027","de":"CA Independiente","cta":"31/12/2030","desde":"01/08/2026"},"476362":{"cl":"Chapecoense","ct":"31/12/2026","de":"Guarani FC","cta":"31/03/2027","desde":"16/09/2026"},"484848":{"cl":"Clube do Remo","ct":"31/12/2026","de":"Santos FC","cta":"31/12/2028","desde":"20/07/2026"},"529646":{"cl":"AD Confiança","ct":"30/10/2026","de":"Volta Redonda FC","cta":"15/03/2029","desde":"15/03/2026"},"544464":{"cl":"Criciúma EC","ct":"31/12/2026","de":"EC Vitória","cta":"31/12/2027","desde":"06/01/2026"},"592375":{"cl":"EC Juventude","ct":"31/12/2026","de":"Fortaleza EC","cta":"31/12/2028","desde":"16/01/2026"},"634737":{"cl":"Grêmio Novorizontino","ct":"31/12/2026","de":"Coritiba FC","cta":"31/12/2026","desde":"01/01/2026"},"658665":{"cl":"Paysandu SC","ct":"-","de":"Tombense FC","cta":"-","desde":"01/01/2026"},"688684":{"cl":"Criciúma EC","ct":"30/11/2026","de":"EC Vitória","cta":"30/06/2028","desde":"01/07/2026"},"697848":{"cl":"Fortaleza EC","ct":"30/11/2026","de":"EC Primavera","cta":"31/12/2028","desde":"23/02/2026"},"719251":{"cl":"Náutico","ct":"31/12/2026","de":"Atlético Goianiense","cta":"31/12/2027","desde":"23/03/2026"},"727747":{"cl":"Kalba FC","ct":"31/12/2026","de":"Sport Recife","cta":"31/12/2029","desde":"08/02/2026"},"752562":{"cl":"Londrina EC","ct":"30/11/2026","de":"Portuguesa","cta":"31/12/2027","desde":"30/07/2026"},"867461":{"cl":"Grêmio Novorizontino","ct":"31/12/2026","de":"SE Palmeiras","cta":"31/12/2028","desde":"01/08/2025"},"874307":{"cl":"Ceará SC","ct":"30/11/2026","de":"Coritiba FC","cta":"31/12/2027","desde":"24/07/2026"},"874699":{"cl":"Fortaleza EC","ct":"31/12/2026","de":"Londrina EC","cta":"30/11/2028","desde":"24/03/2026"},"875328":{"cl":"Pafos FC","ct":"31/05/2027","de":"Sporting CP","cta":"30/06/2029","desde":"02/07/2026"},"876343":{"cl":"Chapecoense","ct":"31/12/2026","de":"Cuiabá EC","cta":"31/12/2028","desde":"01/07/2026"},"911946":{"cl":"Deportes Tolima","ct":"30/06/2027","de":"FC Watford","cta":"30/06/2029","desde":"01/07/2026"},"984088":{"cl":"Brusque FC","ct":"-","de":"Santa Catarina Clube","cta":"-","desde":"09/07/2026"},"994622":{"cl":"Brusque FC","ct":"31/10/2026","de":"APOEL Nicósia","cta":"31/05/2028","desde":"02/03/2026"},"1082603":{"cl":"Londrina EC","ct":"31/12/2026","de":"RB Bragantino","cta":"31/12/2028","desde":"01/01/2026"},"1083075":{"cl":"AD Confiança","ct":"31/12/2026","de":"Azuriz FC","cta":"30/03/2028","desde":"26/03/2026"},"1083245":{"cl":"Sport Recife","ct":"30/11/2026","de":"Cruzeiro EC","cta":"31/01/2029","desde":"25/07/2026"},"1083974":{"cl":"EC Juventude","ct":"31/12/2026","de":"CR Vasco da Gama","cta":"31/12/2028","desde":"01/01/2026"},"1086632":{"cl":"Riga FC","ct":"30/06/2027","de":"EC Juventude","cta":"31/12/2028","desde":"12/03/2026"},"1090856":{"cl":"Londrina EC","ct":"31/12/2026","de":"RB Bragantino","cta":"31/12/2029","desde":"08/04/2025"},"1093922":{"cl":"Goiás EC","ct":"31/12/2026","de":"Santos FC","cta":"31/12/2028","desde":"01/01/2026"},"1095624":{"cl":"Botafogo FR","ct":"31/12/2026","de":"Clube do Remo","cta":"31/12/2027","desde":"16/07/2025"},"1108966":{"cl":"FK Partizan Belgrado","ct":"30/06/2027","de":"Göztepe","cta":"30/06/2028","desde":"06/07/2026"},"1116366":{"cl":"Avaí FC","ct":"31/12/2026","de":"Atlético Mineiro","cta":"31/12/2027","desde":"23/01/2026"},"1174214":{"cl":"AA Ponte Preta","ct":"30/11/2026","de":"RB Bragantino","cta":"31/08/2029","desde":"19/02/2026"},"1220181":{"cl":"Grêmio Novorizontino","ct":"31/12/2026","de":"Atlético Mineiro","cta":"31/12/2027","desde":"15/01/2026"},"1222625":{"cl":"Athletic Club","ct":"30/11/2026","de":"Botafogo FR","cta":"31/12/2030","desde":"02/09/2025"},"678502":{"cl":"Atlético Goianiense","ct":"31/12/2026","de":"RB Bragantino","cta":"31/12/2027","desde":"01/01/2026"}}
+{
+"238448": {
+"cl": "Club de Gimnasia y Esgrima La Plata",
+"ct": "30/06/2027",
+"de": "CA Boca Juniors",
+"cta": "31/12/2027",
+"desde": "28/07/2026"
+},
+"355471": {
+"cl": "Vila Nova FC",
+"ct": "30/11/2026",
+"de": "Guarani FC",
+"cta": "31/12/2027",
+"desde": "02/09/2026"
+},
+"417084": {
+"cl": "Coritiba FC",
+"ct": "30/12/2026",
+"de": "SC Internacional",
+"cta": "31/12/2026",
+"desde": "03/03/2026"
+},
+"458047": {
+"cl": "CA Huracán",
+"ct": "31/12/2027",
+"de": "CA Independiente",
+"cta": "31/12/2030",
+"desde": "01/08/2026"
+},
+"476362": {
+"cl": "Chapecoense",
+"ct": "31/12/2026",
+"de": "Guarani FC",
+"cta": "31/03/2027",
+"desde": "16/09/2026"
+},
+"484848": {
+"cl": "Clube do Remo",
+"ct": "31/12/2026",
+"de": "Santos FC",
+"cta": "31/12/2028",
+"desde": "20/07/2026"
+},
+"529646": {
+"cl": "AD Confiança",
+"ct": "30/10/2026",
+"de": "Volta Redonda FC",
+"cta": "15/03/2029",
+"desde": "15/03/2026"
+},
+"544464": {
+"cl": "Criciúma EC",
+"ct": "31/12/2026",
+"de": "EC Vitória",
+"cta": "31/12/2027",
+"desde": "06/01/2026"
+},
+"592375": {
+"cl": "EC Juventude",
+"ct": "31/12/2026",
+"de": "Fortaleza EC",
+"cta": "31/12/2028",
+"desde": "16/01/2026"
+},
+"634737": {
+"cl": "Grêmio Novorizontino",
+"ct": "31/12/2026",
+"de": "Coritiba FC",
+"cta": "31/12/2026",
+"desde": "01/01/2026"
+},
+"658665": {
+"cl": "Paysandu SC",
+"ct": "-",
+"de": "Tombense FC",
+"cta": "-",
+"desde": "01/01/2026"
+},
+"688684": {
+"cl": "Criciúma EC",
+"ct": "30/11/2026",
+"de": "EC Vitória",
+"cta": "30/06/2028",
+"desde": "01/07/2026"
+},
+"697848": {
+"cl": "Fortaleza EC",
+"ct": "30/11/2026",
+"de": "EC Primavera",
+"cta": "31/12/2028",
+"desde": "23/02/2026"
+},
+"719251": {
+"cl": "Náutico",
+"ct": "31/12/2026",
+"de": "Atlético Goianiense",
+"cta": "31/12/2027",
+"desde": "23/03/2026"
+},
+"727747": {
+"cl": "Kalba FC",
+"ct": "31/12/2026",
+"de": "Sport Recife",
+"cta": "31/12/2029",
+"desde": "08/02/2026"
+},
+"752562": {
+"cl": "Londrina EC",
+"ct": "30/11/2026",
+"de": "Portuguesa",
+"cta": "31/12/2027",
+"desde": "30/07/2026"
+},
+"867461": {
+"cl": "Grêmio Novorizontino",
+"ct": "31/12/2026",
+"de": "SE Palmeiras",
+"cta": "31/12/2028",
+"desde": "01/08/2025"
+},
+"874307": {
+"cl": "Ceará SC",
+"ct": "30/11/2026",
+"de": "Coritiba FC",
+"cta": "31/12/2027",
+"desde": "24/07/2026"
+},
+"874699": {
+"cl": "Fortaleza EC",
+"ct": "31/12/2026",
+"de": "Londrina EC",
+"cta": "30/11/2028",
+"desde": "24/03/2026"
+},
+"875328": {
+"cl": "Pafos FC",
+"ct": "31/05/2027",
+"de": "Sporting CP",
+"cta": "30/06/2029",
+"desde": "02/07/2026"
+},
+"876343": {
+"cl": "Chapecoense",
+"ct": "31/12/2026",
+"de": "Cuiabá EC",
+"cta": "31/12/2028",
+"desde": "01/07/2026"
+},
+"911946": {
+"cl": "Deportes Tolima",
+"ct": "30/06/2027",
+"de": "FC Watford",
+"cta": "30/06/2029",
+"desde": "01/07/2026"
+},
+"984088": {
+"cl": "Brusque FC",
+"ct": "-",
+"de": "Santa Catarina Clube",
+"cta": "-",
+"desde": "09/07/2026"
+},
+"994622": {
+"cl": "Brusque FC",
+"ct": "31/10/2026",
+"de": "APOEL Nicósia",
+"cta": "31/05/2028",
+"desde": "02/03/2026"
+},
+"1082603": {
+"cl": "Londrina EC",
+"ct": "31/12/2026",
+"de": "RB Bragantino",
+"cta": "31/12/2028",
+"desde": "01/01/2026"
+},
+"1083075": {
+"cl": "AD Confiança",
+"ct": "31/12/2026",
+"de": "Azuriz FC",
+"cta": "30/03/2028",
+"desde": "26/03/2026"
+},
+"1083245": {
+"cl": "Sport Recife",
+"ct": "30/11/2026",
+"de": "Cruzeiro EC",
+"cta": "31/01/2029",
+"desde": "25/07/2026"
+},
+"1083974": {
+"cl": "EC Juventude",
+"ct": "31/12/2026",
+"de": "CR Vasco da Gama",
+"cta": "31/12/2028",
+"desde": "01/01/2026"
+},
+"1086632": {
+"cl": "Riga FC",
+"ct": "30/06/2027",
+"de": "EC Juventude",
+"cta": "31/12/2028",
+"desde": "12/03/2026"
+},
+"1090856": {
+"cl": "Londrina EC",
+"ct": "31/12/2026",
+"de": "RB Bragantino",
+"cta": "31/12/2029",
+"desde": "08/04/2025"
+},
+"1093922": {
+"cl": "Goiás EC",
+"ct": "31/12/2026",
+"de": "Santos FC",
+"cta": "31/12/2028",
+"desde": "01/01/2026"
+},
+"1095624": {
+"cl": "Botafogo FR",
+"ct": "31/12/2026",
+"de": "Clube do Remo",
+"cta": "31/12/2027",
+"desde": "16/07/2025"
+},
+"1108966": {
+"cl": "FK Partizan Belgrado",
+"ct": "30/06/2027",
+"de": "Göztepe",
+"cta": "30/06/2028",
+"desde": "06/07/2026"
+},
+"1116366": {
+"cl": "Avaí FC",
+"ct": "31/12/2026",
+"de": "Atlético Mineiro",
+"cta": "31/12/2027",
+"desde": "23/01/2026"
+},
+"1174214": {
+"cl": "AA Ponte Preta",
+"ct": "30/11/2026",
+"de": "RB Bragantino",
+"cta": "31/08/2029",
+"desde": "19/02/2026"
+},
+"1220181": {
+"cl": "Grêmio Novorizontino",
+"ct": "31/12/2026",
+"de": "Atlético Mineiro",
+"cta": "31/12/2027",
+"desde": "15/01/2026"
+},
+"1222625": {
+"cl": "Athletic Club",
+"ct": "30/11/2026",
+"de": "Botafogo FR",
+"cta": "31/12/2030",
+"desde": "02/09/2025"
+},
+"678502": {
+"cl": "Atlético Goianiense",
+"ct": "31/12/2026",
+"de": "RB Bragantino",
+"cta": "31/12/2027",
+"desde": "01/01/2026"
+},
+"205041": {
+"cl": "EC Bahia",
+"ct": "31/12/2026",
+"de": "Fluminense FC",
+"cta": "31/12/2026",
+"desde": "06/02/2026"
+},
+"363173": {
+"cl": "Athletic Club",
+"ct": "30/11/2026",
+"de": "CR Flamengo",
+"cta": "31/12/2026",
+"desde": "15/07/2026"
+},
+"389942": {
+"cl": "Vila Nova FC",
+"ct": "31/12/2026",
+"de": "Santos FC",
+"cta": "31/12/2026",
+"desde": "13/01/2026"
+},
+"432157": {
+"cl": "Mirassol FC",
+"ct": "31/12/2026",
+"de": "Cruzeiro EC",
+"cta": "31/12/2030",
+"desde": "09/07/2026"
+},
+"432958": {
+"cl": "EC Juventude",
+"ct": "31/12/2026",
+"de": "Cuiabá EC",
+"cta": "31/12/2026",
+"desde": "06/01/2026"
+},
+"465816": {
+"cl": "CS Emelec",
+"ct": "31/12/2026",
+"de": "Club León",
+"cta": "-",
+"desde": "05/02/2026"
+},
+"477458": {
+"cl": "CA Newell's Old Boys",
+"ct": "31/12/2026",
+"de": "CA Independiente",
+"cta": "31/12/2028",
+"desde": "09/03/2026"
+},
+"503342": {
+"cl": "Club Atlético Platense",
+"ct": "31/12/2026",
+"de": "Defensa y Justicia",
+"cta": "-",
+"desde": "05/08/2026"
+},
+"512344": {
+"cl": "EC Juventude",
+"ct": "31/12/2026",
+"de": "São Paulo FC",
+"cta": "31/12/2026",
+"desde": "13/08/2025"
+},
+"519879": {
+"cl": "CD Santa Clara",
+"ct": "30/06/2027",
+"de": "Atlético Goianiense",
+"cta": "31/12/2028",
+"desde": "31/01/2026"
+},
+"591650": {
+"cl": "CRB",
+"ct": "30/11/2026",
+"de": "Volta Redonda FC",
+"cta": "31/12/2028",
+"desde": "30/08/2026"
+},
+"596586": {
+"cl": "Operário FEC",
+"ct": "30/11/2026",
+"de": "Goiás EC",
+"cta": "30/11/2026",
+"desde": "01/01/2026"
+},
+"599879": {
+"cl": "Atlético Goianiense",
+"ct": "31/12/2026",
+"de": "Clube do Remo",
+"cta": "31/12/2026",
+"desde": "01/03/2026"
+},
+"607210": {
+"cl": "Fortaleza EC",
+"ct": "31/12/2026",
+"de": "São Paulo FC",
+"cta": "31/12/2027",
+"desde": "01/01/2026"
+},
+"612340": {
+"cl": "Atlético Goianiense",
+"ct": "31/12/2026",
+"de": "Sport Recife",
+"cta": "31/12/2027",
+"desde": "25/03/2026"
+},
+"672202": {
+"cl": "Chapecoense",
+"ct": "31/12/2026",
+"de": "Grêmio FBPA",
+"cta": "31/12/2027",
+"desde": "09/01/2026"
+},
+"730982": {
+"cl": "CRB",
+"ct": "30/11/2026",
+"de": "Boavista SC",
+"cta": "31/12/2026",
+"desde": "01/07/2025"
+},
+"732442": {
+"cl": "Club de Gimnasia y Esgrima La Plata",
+"ct": "31/12/2026",
+"de": "CD Godoy Cruz Antonio Tomba",
+"cta": "-",
+"desde": "15/01/2026"
+},
+"816665": {
+"cl": "Recoleta FC",
+"ct": "31/12/2026",
+"de": "CD Godoy Cruz Antonio Tomba",
+"cta": "-",
+"desde": "01/01/2026"
+},
+"836518": {
+"cl": "Club de Gimnasia y Esgrima La Plata",
+"ct": "31/12/2026",
+"de": "LOSC Lille",
+"cta": "30/06/2028",
+"desde": "14/01/2026"
+},
+"847283": {
+"cl": "Club Atlético Platense",
+"ct": "31/12/2026",
+"de": "FC Basel",
+"cta": "30/06/2028",
+"desde": "14/01/2026"
+},
+"853529": {
+"cl": "Fortaleza EC",
+"ct": "31/12/2026",
+"de": "EC Primavera",
+"cta": "31/12/2028",
+"desde": "04/03/2026"
+},
+"859135": {
+"cl": "Grêmio Novorizontino",
+"ct": "31/12/2026",
+"de": "EC Vitória",
+"cta": "31/12/2027",
+"desde": "02/01/2026"
+},
+"900196": {
+"cl": "Júbilo Iwata",
+"ct": "30/06/2027",
+"de": "Londrina EC",
+"cta": "-",
+"desde": "09/07/2026"
+},
+"902135": {
+"cl": "Atlético Goianiense",
+"ct": "31/12/2026",
+"de": "EC Noroeste",
+"cta": "23/12/2028",
+"desde": "04/03/2026"
+},
+"906774": {
+"cl": "Sabah FK",
+"ct": "30/06/2027",
+"de": "Zenit São Petersburgo",
+"cta": "30/06/2028",
+"desde": "01/09/2026"
+},
+"908236": {
+"cl": "Casa Pia AC",
+"ct": "30/06/2027",
+"de": "FC Porto B",
+"cta": "30/06/2029",
+"desde": "04/09/2026"
+},
+"911120": {
+"cl": "Alianza FC",
+"ct": "31/12/2026",
+"de": "AC Bellinzona",
+"cta": "30/06/2027",
+"desde": "20/01/2026"
+},
+"940479": {
+"cl": "Botafogo FC",
+"ct": "30/11/2026",
+"de": "Azuriz FC",
+"cta": "31/12/2027",
+"desde": "04/03/2026"
+},
+"959092": {
+"cl": "Fortaleza EC",
+"ct": "31/12/2026",
+"de": "Grêmio FBPA",
+"cta": "31/12/2027",
+"desde": "12/01/2026"
+},
+"977463": {
+"cl": "Fortaleza EC",
+"ct": "31/12/2026",
+"de": "Cruzeiro EC",
+"cta": "31/12/2027",
+"desde": "10/02/2026"
+},
+"978615": {
+"cl": "Avs Futebol",
+"ct": "30/06/2027",
+"de": "Brusque FC",
+"cta": "31/12/2027",
+"desde": "02/02/2026"
+},
+"979931": {
+"cl": "Maringá FC",
+"ct": "-",
+"de": "Cianorte FC",
+"cta": "-",
+"desde": "06/01/2026"
+},
+"991849": {
+"cl": "Club Atlético Platense",
+"ct": "31/12/2026",
+"de": "Club Ferro Carril Oeste",
+"cta": "31/12/2027",
+"desde": "29/01/2026"
+},
+"995883": {
+"cl": "Mirassol FC",
+"ct": "30/06/2027",
+"de": "Cuiabá EC",
+"cta": "31/12/2027",
+"desde": "10/07/2026"
+},
+"1000687": {
+"cl": "Club Atlético Tigre",
+"ct": "31/12/2026",
+"de": "CA Independiente",
+"cta": "31/12/2027",
+"desde": "14/01/2026"
+},
+"1015626": {
+"cl": "Club Atlético Tucumán",
+"ct": "31/12/2026",
+"de": "Liverpool FC Montevideo",
+"cta": "31/12/2026",
+"desde": "21/08/2024"
+},
+"1032891": {
+"cl": "AA Ponte Preta",
+"ct": "31/12/2026",
+"de": "Santos FC",
+"cta": "31/12/2027",
+"desde": "29/01/2026"
+},
+"1065380": {
+"cl": "Club Rubio Ñú (Asuncion)",
+"ct": "31/12/2026",
+"de": "Club Cerro Porteño",
+"cta": "-",
+"desde": "01/01/2026"
+},
+"1067822": {
+"cl": "CD Macará",
+"ct": "31/12/2026",
+"de": "Independiente del Valle",
+"cta": "-",
+"desde": "22/01/2026"
+},
+"1082701": {
+"cl": "Náutico",
+"ct": "30/11/2026",
+"de": "RB Bragantino U20",
+"cta": "31/03/2028",
+"desde": "19/02/2026"
+},
+"1083073": {
+"cl": "Goiás EC",
+"ct": "31/12/2026",
+"de": "Atlético Mineiro",
+"cta": "31/12/2027",
+"desde": "10/02/2026"
+},
+"1091615": {
+"cl": "Paysandu SC",
+"ct": "31/10/2026",
+"de": "Osasco Sporting",
+"cta": "31/05/2029",
+"desde": "18/03/2026"
+},
+"1093843": {
+"cl": "SE Palmeiras U20",
+"ct": "31/01/2027",
+"de": "Karpaty Lviv",
+"cta": "30/08/2027",
+"desde": "03/03/2026"
+},
+"1095552": {
+"cl": "Dinamo de Kiev",
+"ct": "30/06/2027",
+"de": "SC Internacional",
+"cta": "31/12/2028",
+"desde": "04/09/2026"
+},
+"1128780": {
+"cl": "Grêmio Novorizontino",
+"ct": "31/12/2026",
+"de": "Volta Redonda FC",
+"cta": "31/03/2027",
+"desde": "01/01/2026"
+},
+"1139255": {
+"cl": "Athletic Club",
+"ct": "31/12/2026",
+"de": "CSA",
+"cta": "31/12/2027",
+"desde": "09/01/2026"
+},
+"1227001": {
+"cl": "Athletic Club",
+"ct": "30/11/2026",
+"de": "Barra FC",
+"cta": "-",
+"desde": "25/07/2025"
+},
+"1291055": {
+"cl": "Club Atlético Platense",
+"ct": "31/12/2026",
+"de": "CA River Plate",
+"cta": "-",
+"desde": "14/01/2026"
+}
+}
