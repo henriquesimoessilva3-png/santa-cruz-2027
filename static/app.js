@@ -2973,7 +2973,7 @@ async function perfilExtraDe(j) {
     const porClube = c.filter(x => typeof clubeParecido === 'function' && clubeParecido(x[0], j.t));
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
     const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
-    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], nasc: x[10], fonte: 'Transfermarkt' } : null;
+    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], nasc: x[10], emp: (P.emp && P.emp[x[6]]) || null, fonte: 'Transfermarkt' } : null;
   } catch (e) { return null; }
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */
@@ -3531,11 +3531,21 @@ async function montarFicha(j, modo) {
     (pf && pf.foto ? '<img class="fi-foto" src="' + esc(pf.foto) + '" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML=\'<span class=&quot;fi-foto vazia&quot;>' + esc(ini) + '</span>\'">' : '<span class="fi-foto vazia">' + esc(ini) + '</span>') +
     '<div class="fi-pdados"><div class="fi-pnome">' + titulo + '</div><div class="fi-pinfo">' +
     [(pf && pf.clubeId ? '<img class="fi-escudo" src="https://tmssl.akamaized.net/images/wappen/normquad/' + esc(pf.clubeId) + '.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + (pf && pf.clube && pf.clubeId ? esc(pf.clube) + (tipoNorm(pf.clube) !== tipoNorm(j.t || '') && j.t ? ' <small class="fi-antes" title="clube no cadastro do app">(no cadastro: ' + esc(j.t) + ')</small>' : '') : esc(j.t || '—')), esc(j.l || ''), esc(POS_NOME[j.p] || sig(j.p)), j.id_ ? '<b>' + j.id_ + '</b> anos' + (dataNascBR(pf && pf.nasc) ? ' <small class="fi-nasc" title="data de nascimento (' + esc(pf.fonte || '') + ')">· nasc. ' + dataNascBR(pf.nasc) + '</small>' : '') : (dataNascBR(pf && pf.nasc) ? 'nasc. ' + dataNascBR(pf.nasc) : '')].filter(Boolean).join(' <i>·</i> ') + '</div></div></div>';
+  /* 20/10/2026 — emprestado (Transfermarkt): dois contratos, o do empréstimo e o vínculo com o clube dono (pedido do Henrique) */
+  const brIso = t => { const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(t || '').trim()); return m ? m[3] + '-' + m[2] + '-' + m[1] : ''; };
+  const EMP = pf && pf.emp && pf.emp.de ? pf.emp : null;
+  const empIni = EMP ? brIso(EMP.ct) : '', empDono = EMP ? brIso(EMP.cta) : '';
   const cabeca = [
+    ...(EMP ? [
+      ['Empréstimo até', mesAno(empIni) || '—', 'no ' + (EMP.cl || j.t || '') + ' · depois volta ao ' + EMP.de + ' · Transfermarkt', ''],
+      ['Contrato com o ' + EMP.de, mesAno(empDono) || '—', (empDono && empDono.slice(0, 7) <= FS_LIVRE_ATE ? 'termina até jan/2027 · pode vir livre · ' : '') + 'clube dono do vínculo · Transfermarkt', empDono && empDono.slice(0, 7) <= FS_LIVRE_ATE ? ' ct-livre' : ''],
+    ] : []),
+  ].concat(EMP ? [] : [
     ['Contrato', mesAno(j.ct) || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? mesAno(pf.contrato) : '') || (/^(livre|sem clube)/i.test(j.t || '') ? 'livre' : '—'), ((j.ct || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? pf.contrato : '') || '').slice(0, 7) <= FS_LIVRE_ATE && (j.ct || (pf && pf.contrato)) ? 'termina até jan/2027 · pode vir livre · ' : '') + (j.ctc ? (CONF[j.ctc] || j.ctc) +
       (j.ctf && j.ctf.length ? ' · ' + j.ctf.join(', ') : '') : ''),
      /* 20/10/2026 — contrato que termina até jan/2027 ganha destaque verde (pedido do Henrique) */
      (((j.ct || (pf && pf.contrato && !/^(livre|sem clube)/i.test(j.t || '') ? pf.contrato : '') || '').slice(0, 7)) || 'z') <= FS_LIVRE_ATE || /^(livre|sem clube)/i.test(j.t || '') ? ' ct-livre' : ''],
+  ]).concat([
     /* 18/10 (23h50): saem salário estimado e jogos · minutos (pedido do Henrique) */
     ['Altura', (j.alt || (pf && pf.alt)) ? (j.alt || pf.alt) + ' cm' : '—', !j.alt && pf && pf.alt ? pf.fonte : ''],
     ['Pé', j.pe || (pf && pf.pe) || '—', !j.pe && pf && pf.pe ? pf.fonte : ''],
@@ -3547,7 +3557,7 @@ async function montarFicha(j, modo) {
      (vmFicha => vmFicha != null ? eur(vmFicha, true) : (j.mv ? eur(j.mv, true) : (pf && pf.valor ? eur(pf.valor, true) : '—')))(
         valorMercado({ nome: j.n || j.nome, clube: j.t || j.clube })),
      (j.mv ? 'Wyscout ' + eur(j.mv, true) : '') + (j.xtv ? ' · xTV ' + eur(j.xtv, true) : '')],
-  ].map(([r, v, obs, cls]) => '<div class="fi-dado' + (cls || '') + '"><div class="r">' + r + '</div>' +
+  ]).map(([r, v, obs, cls]) => '<div class="fi-dado' + (cls || '') + '"><div class="r">' + r + '</div>' +
     '<div class="v' + (String(v).length > 9 ? ' pq' : '') + '">' + esc(v) + '</div>' +
     (obs ? '<div class="o">' + esc(obs) + '</div>' : '') + '</div>').join('');
 

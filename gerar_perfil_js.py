@@ -30,6 +30,10 @@ def main():
             except Exception: pass
             f = str(foto).replace("/portrait/small/", "/portrait/header/") if foto and "default" not in str(foto) else None
             out["tm"].setdefault(nz(nome), []).append([clube, idade, a, pe, val, ct, tmid, f, nac, idc, nasc])   # 20/10: + data de nascimento   # 18/10: + id, foto, nacionalidade; 19/10: + id do clube (escudo)
+    # 20/10/2026 — empréstimos (perfil do Transfermarkt, coletado no Chrome): id TM → {cl, ct (fim do empréstimo), de (clube dono), cta (contrato com o dono)}
+    ep = os.path.join(AQUI, "dados", "tm_emprestimos.json")
+    if os.path.exists(ep):
+        out["emp"] = {k: v for k, v in json.load(open(ep, encoding="utf-8")).items() if v.get("de")}
     mp = os.path.join(AQUI, "dados", "manuais_perfil.csv")
     if os.path.exists(mp):
         for r in pd.read_csv(mp, sep=None, engine="python").itertuples():
