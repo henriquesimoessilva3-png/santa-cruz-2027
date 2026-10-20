@@ -147,6 +147,13 @@
     const TEC = E.vista === 'tec';
     /* 19/10: no técnico a seta de cada jogador custa caro (milhares de jogadores) — uma posição por vez, sem contar todas nos botões */
     if (TEC && !E.pos) E.pos = 'LD';
+    /* 20/10 (Henrique: "qualquer posição demora muito"): a seta usa o arquivo de indicadores da posição (dados/kpis/<POS>.json),
+       buscado só na 1ª vez que a posição aparece. Cada chegada redesenhava o campograma e zerava a seta de TODAS as posições aqui.
+       Pede os 10 de uma vez, na primeira abertura do técnico: um redesenho só, e trocar de posição fica instantâneo. */
+    if (TEC && !window.__taKpisPedidos && typeof window.subidaSelo === 'function') {
+      window.__taKpisPedidos = true;
+      POS.forEach(p => { const b = BASE.find(x => x.p === p[0]); if (b) { try { window.subidaSelo(b); } catch (e) {} } });
+    }
     const contaT = (p, c) => GRUPOS.reduce((s, g) => s + filtra(D[p].T[g[0]]).filter(x => seloDe(x).c === c).length, 0);
     let h = '<div class="ta-vistas"><button class="ta-vista' + (!TEC ? ' on' : '') + '" data-vista="fis"><b>Físico</b><span>A+, A e B por posição</span></button>' +
       '<button class="ta-vista' + (TEC ? ' on' : '') + '" data-vista="tec"><b>Técnico</b><span>▲ quem sobe × ↔ o meio, por posição</span></button></div>' +
