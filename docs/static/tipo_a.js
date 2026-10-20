@@ -11,7 +11,7 @@
   const POS = [['LD', 'Lateral direito'], ['ZD', 'Zagueiro direito'], ['ZE', 'Zagueiro esquerdo'], ['LE', 'Lateral esquerdo'], ['VOL', 'Volante'],
     ['MED', 'Médio'], ['MEI', 'Meia'], ['ED', 'Extremo direito'], ['EE', 'Extremo esquerdo'], ['CA', 'Centroavante']];
   const SA = ['Argentina A', 'Argentina B', 'Colombia A', 'Colombia B', 'Equador A', 'Equador B', 'Paraguai', 'Uruguai', 'Chile', 'Peru', 'Bolivia', 'Venezuela'];
-  const GRUPOS = [['b', 'Série B'], ['a', 'Série A'], ['sa', 'Ligas sul-americanas'], ['ext', 'Sul-americanos no exterior']];   /* 19/10: + Série A */
+  const GRUPOS = [['b', 'Série B'], ['a', 'Série A'], ['sa', 'Ligas sul-americanas'], ['ext', 'Sul-americanos no exterior'], ['man', 'Cadastrados à mão (fora da Série B)']];   /* 19/10: + Série A */
   const PAIS_SA = ['Brazil', 'Argentina', 'Uruguay', 'Colombia', 'Paraguay', 'Chile', 'Ecuador', 'Peru', 'Bolivia', 'Venezuela'];
   const SIGLA = { Brazil: 'BRA', Argentina: 'ARG', Uruguay: 'URU', Colombia: 'COL', Paraguay: 'PAR', Chile: 'CHI', Ecuador: 'EQU', Peru: 'PER', Bolivia: 'BOL', Venezuela: 'VEN' };
   const LS = 'sc2027_tipoa';
@@ -39,7 +39,23 @@
 
   const ok = () => typeof BASE !== 'undefined' && BASE.length && typeof tipoLetra === 'function' && window.CONSULTA;
   const sulAmericano = j => PAIS_SA.includes(j.nac) || PAIS_SA.some(p => String(j.psp || '').includes(p));
+  /* 20/10 (caso Kevin Mendez, Unión La Calera "na Série B"): o card cadastrado à mão recebe como liga a liga de REFERÊNCIA
+     escolhida ao colar os dados (quase sempre a Série B), não a liga dele. Aqui: se ele já existe na base do Wyscout (mesmo
+     nome e clube), o card à mão sai da lista (é repetido); se o clube não é da Série B, vai para o grupo "Cadastrados à mão". */
+  const nz = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  let REF = null;
+  function ref() {
+    if (REF && REF.n === BASE.length) return REF;
+    const clB = new Set(), nomes = new Set();
+    BASE.forEach(b => { if (b.manual) return; if (b.l === 'Brasil B') clB.add(nz(b.t)); nomes.add(nz(b.n) + '|' + nz(b.t)); });
+    return (REF = { n: BASE.length, clB: [...clB], nomes });
+  }
+  const clubeB = t => { const c = nz(t); return !!c && ref().clB.some(x => x === c || (c.length >= 4 && x.includes(c)) || (x.length >= 4 && c.includes(x))); };
   function grupo(j) {
+    if (j.manual) {
+      if (ref().nomes.has(nz(j.n) + '|' + nz(j.t))) return null;
+      if (j.l === 'Brasil B' && !clubeB(j.t)) return 'man';
+    }
     if (j.l === 'Brasil B') return 'b';
     if (j.l === 'Brasil A') return 'a';
     if (SA.includes(j.l)) return 'sa';
@@ -47,7 +63,7 @@
     return null;
   }
   function calcula() {
-    const out = {}; POS.forEach(p => { out[p[0]] = { A: { b: [], a: [], sa: [], ext: [] }, B: { b: [], a: [], sa: [], ext: [] }, T: { b: [], a: [], sa: [], ext: [] } }; });
+    const out = {}; POS.forEach(p => { out[p[0]] = { A: { b: [], a: [], sa: [], ext: [], man: [] }, B: { b: [], a: [], sa: [], ext: [], man: [] }, T: { b: [], a: [], sa: [], ext: [], man: [] } }; });
     BASE.forEach(b => {
       if (!out[b.p]) return;
       const g = grupo(b); if (!g) return;
@@ -91,7 +107,7 @@
       const nac = g !== 'b' && j.nac ? ' <small>' + esc(SIGLA[j.nac] || (PAIS_SA.find(p => String(j.psp || '').includes(p)) ? SIGLA[PAIS_SA.find(p => String(j.psp || '').includes(p))] : '')) + '</small>' : '';
       const nome = JB ? JB.nomeHtml(x.b, j.n) : esc(j.n);
       const mais = x.mais ? ' <i class="ta-ap" title="A+: explosivo e motor de volume (' + esc(x.tipo || '') + ')">A+</i>' : '';
-      h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + mais + nac + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(j.l) + '</em>') + '</td>' +
+      h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + mais + nac + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(g === 'man' ? 'cadastrado à mão' : j.l) + '</em>') + '</td>' +
         '<td class="n">' + (j.id_ || '—') + '</td><td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
         '<td class="n f">' + num(j.psv, 1) + '</td><td class="n f">' + num(j.spr_n, 1) + '</td><td class="n f">' + num(j.expl, 2) + '</td><td class="n f">' + num(j.hi_n, 0) + '</td><td>' + selo + '</td>' + (window.VISAO_NOVA ? '<td class="fa">' + (JB ? JB.farolHtml(x.b) : '') + '</td>' : '') +
         '<td class="lv-bt">' + (JB ? JB.levarHtml(x.b) : '') + '</td></tr>';
@@ -123,7 +139,7 @@
     linhas.forEach((x, i) => {
       const j = x.j, o = infoDe(x);
       const nome = JB ? JB.nomeHtml(x.b, j.n) : esc(j.n);
-      h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(j.l) + '</em>') + '</td>' +
+      h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(g === 'man' ? 'cadastrado à mão' : j.l) + '</em>') + '</td>' +
         '<td class="n">' + (j.id_ || '—') + '</td><td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
         '<td class="n"><i class="ta-lt ' + LCLS[x.L] + '">' + (x.L === '-' ? '—' : x.L) + '</i></td>' +
         '<td class="n f">' + (o.com ? '<b>' + o.v + '</b>/' + o.com : '—') + '</td>' +

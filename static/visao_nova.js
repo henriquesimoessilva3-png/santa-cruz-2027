@@ -195,6 +195,7 @@
   const MERCADOS = [['b', 'Série B'], ['sa', 'Ligas sul-americanas'], ['ext', 'Sul-americanos no exterior'], ['tres', 'Os três mercados']];
   let contagem = null, contagemN = -1, mercado = ler('vnfMercado') || 'b';
   function grupoDe(j) {
+    if (j.manual) return null;   /* 20/10: card à mão leva a liga de referência (Série B) como liga — não entra na contagem por mercado */
     if (j.l === 'Brasil B') return 'b';
     if (SA_LIGAS.includes(j.l)) return 'sa';
     const sul = SA_PAISES.includes(j.nac) || SA_PAISES.some(p => String(j.psp || '').includes(p));
