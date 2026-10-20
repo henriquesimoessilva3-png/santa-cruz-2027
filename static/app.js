@@ -2993,8 +2993,8 @@ function painelMinutagem(j) {
     if (!x || !(x.min || x.j)) return '<tr class="vazio"><td>' + (T[i] || '') + '</td><td colspan="6">sem registro</td></tr>';
     if (ma) { sj += x.j || 0; stj += x.tj || Math.round(ma.tot / 90); sm += ma.m; stm += ma.tot; }
     const pc = a.p != null ? Math.round(a.p * 100) : null, c = pc == null ? '' : pc >= 60 ? 'v' : pc >= 30 ? 'a' : 'r';
-    const fonte = x.fonte === 'wyscout' ? ' · Wyscout, todas as competições' : x.fonte === 'ogol' ? ' · oGol' : x.fonte === 'complemento' || x.fonte === 'levantamento' ? ' · ' + esc(x.src || 'levantamento') : '';
-    return '<tr' + (ma ? '' : ' class="falta"') + '><td>' + esc(T[i] || x.t) + '</td><td>' + esc(x.tm || '') + '<small>' + (x.l ? ' ' + esc(x.l) : '') + fonte + '</small></td>' +
+    const fonte = x.fonte === 'wyscout' ? '' : x.fonte === 'ogol' ? ' · oGol' : x.fonte === 'complemento' || x.fonte === 'levantamento' ? ' · ' + esc(x.src || 'levantamento') : '';
+    return '<tr' + (ma ? '' : ' class="falta"') + '><td>' + esc(T[i] || x.t) + '</td><td class="mt-clube" title="' + esc((x.tm || '') + (x.fonte === 'wyscout' ? ' · Wyscout, todas as competições oficiais' : '')) + '">' + esc(x.tm || '') + '<small>' + (x.l ? ' ' + esc(x.l) : '') + fonte + '</small></td>' +
       '<td class="n">' + f(x.j) + '<small> de ' + (ma ? f(x.tj || Math.round(ma.tot / 90)) : '?') + '</small></td>' +
       '<td class="n">' + (x.min ? f(x.min) : '—') + (ma ? '<small> de ' + f(ma.tot) + '</small>' : '') + '</td>' +
       '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td>' +
@@ -3007,7 +3007,7 @@ function painelMinutagem(j) {
   const resumo = mi.anos.map(a => a.t + ' ' + (a.p == null ? (a.falta ? 'falta o time' : '—') : Math.round(a.p * 100) + '%')).join(' · ');
   return '<div class="sf-painel"><div class="fi-res" title="' + esc(mi.txt + '\n' + nota) + '"><span class="fi-res-l sel-' + mi.c + ' sf-res-pct">' + pt + '%</span><div><b>Minutagem: ' + pt + '% dos minutos do time</b><small>' +
     esc(resumo) + ' · ' + f(sm) + ' de ' + f(stm) + ' min</small></div></div>' +
-    '<table class="sf-tab"><thead><tr><th>Ano</th><th>Clube</th><th class="n">Jogos</th><th class="n">Minutos</th><th class="n">% do time</th><th class="n" title="gols no ano (Wyscout, todas as competições oficiais)">Gols</th><th class="n" title="assistências no ano (Wyscout, todas as competições oficiais)">Assist.</th></tr></thead><tbody>' + ls + '</tbody>' +
+    '<table class="sf-tab"><thead><tr><th>Ano</th><th>Clube</th><th class="n">Jogos</th><th class="n">Minutos</th><th class="n" title="% dos minutos do time">%</th><th class="n" title="gols no ano (Wyscout, todas as competições oficiais)">Gols</th><th class="n" title="assistências no ano (Wyscout, todas as competições oficiais)">Ast.</th></tr></thead><tbody>' + ls + '</tbody>' +
     '<tfoot><tr><td colspan="2">Total</td><td class="n">' + f(sj) + '<small> de ' + f(stj) + '</small></td><td class="n">' + f(sm) + '<small> de ' + f(stm) + '</small></td><td class="n"><b class="mp mp-' + mi.c + '">' + pt + '%</b></td><td class="n"><b>' + (temGA ? sg : '—') + '</b></td><td class="n"><b>' + (temGA ? sa : '—') + '</b></td></tr></tfoot></table></div>';
 }
 function painelBolaParada(j) {
