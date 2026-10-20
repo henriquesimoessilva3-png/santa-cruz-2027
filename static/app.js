@@ -7419,7 +7419,16 @@ const DJ_DOC = '_dadosjog', DJ_LOCAL = 'sc_dadosjog_v1';
 let DADOSJOG = {};
 function djLocalLer() { try { const o = JSON.parse(localStorage.getItem(DJ_LOCAL)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
 function djLocalGravar() { try { localStorage.setItem(DJ_LOCAL, JSON.stringify(DADOSJOG)); } catch (e) {} }
-function djMaisNovo(a, b) { return !a ? b : !b ? a : String(b.em || '') >= String(a.em || '') ? b : a; }
+/* 20/10/2026 — físico e técnico são partes independentes: atualizar só um NÃO apaga o outro (caso do Japa). djCompletar
+   mantém o registro principal e só preenche a parte que falta nele com a do outro. */
+const DJ_PARTES = [['fis', 'fis_raw', 'fis_comp', 'fis_em'], ['tec', 'tec_raw', 'tec_em']];
+function djCompletar(p, o) {
+  if (!p) return o || null; if (!o || o === p) return p;
+  let r = p;
+  DJ_PARTES.forEach(ks => { if (p[ks[0]] == null && ks.some(k => p[k] != null) === false && ks.some(k => o[k] != null)) { if (r === p) r = Object.assign({}, p); ks.forEach(k => { if (o[k] != null) r[k] = o[k]; }); } });
+  return r;
+}
+function djMaisNovo(a, b) { if (!a) return b; if (!b) return a; return String(b.em || '') >= String(a.em || '') ? djCompletar(b, a) : djCompletar(a, b); }
 function djPor(pk) { return (pk && DADOSJOG[pk]) || null; }
 async function djGravar() {
   djLocalGravar(); EQUIV_CACHE.clear();
@@ -7510,9 +7519,8 @@ function dadosCorrigir(d) {
 }
 function dadosColados(pk, card) { return dadosCorrigir(dadosColados0(pk, card)); }
 function dadosColados0(pk, card) {
-  if (card && card.dados) return card.dados;
-  if (pk && estado && estado.dadosJog && estado.dadosJog[pk]) return estado.dadosJog[pk];
-  if (djPor(pk)) return djPor(pk);
+  const r = djCompletar(djCompletar((card && card.dados) || null, (pk && estado && estado.dadosJog && estado.dadosJog[pk]) || null), djPor(pk));
+  if (r) return r;
   /* colado no card do campograma: a ficha e a busca chegam aqui só com o pk — sem isto a
      ficha aberta do card ignorava o que acabou de ser colado (01/10, L. Morales) */
   if (pk && estado && estado.elenco) {
@@ -8414,14 +8422,15 @@ function ligarDados() {
     const j = alvoDados(); if (!j) return;
     const obr = mdNum($('#mdObr').value), obrA = mdNum($('#mdObrArea').value);
     if (!mdFis && !mdTec && obr == null && obrA == null) { toast('Cole o físico ou envie o técnico', 'ruim'); return; }
-    const d = Object.assign({}, j.dados || {});
+    const d = Object.assign({}, djMaisNovo(j.dados || null, j.pk ? djPor(j.pk) : null) || {});   /* a parte que não foi trocada fica como estava */
     d.liga = $('#mdLiga').value; d.em = new Date().toISOString().slice(0, 10);
     if (d.fis && !d.fis._v3) dadosCorrigir(d);   /* colado antigo: acerta antes de juntar com o novo */
     if (mdFis) d.fis = Object.assign({}, d.fis || {}, mdFis, { _v3: 1 });
     if (obr != null || obrA != null) d.fis = Object.assign({}, d.fis || {}, obr != null ? { obr } : {}, obrA != null ? { obr_area: obrA } : {});
     if (mdFis && mdFis.min != null && mdFis.sc_n != null && mdFis.min <= 130) { d.fis.min_jogo = mdFis.min; d.fis.min = Math.round(mdFis.min * mdFis.sc_n); }   /* o CSV do SkillCorner traz minutos POR JOGO */
     if (d.fis && d.fis.sc_n == null && d.fis.min != null) d.fis.sc_n = Math.max(1, Math.round(d.fis.min / 90));
-    if (mdTec) d.tec = Object.assign({}, d.tec || {}, mdTec);
+    if (mdFis || obr != null || obrA != null) d.fis_em = d.em;
+    if (mdTec) { d.tec = Object.assign({}, d.tec || {}, mdTec); d.tec_em = d.em; }
     if (mdTec && mdTecRaw) d.tec_raw = mdTecRaw;
     if (mdFis && mdFisRaw) d.fis_raw = mdFisRaw;
     j.dados = d;
