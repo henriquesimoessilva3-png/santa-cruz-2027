@@ -99,7 +99,7 @@
     linhas = ordena(filtra(linhas));
     let h = '<div class="ta-lado ta-' + letra + '"><h5><i>' + letra + '</i> <b>' + linhas.length + '</b></h5>';
     if (!linhas.length) return h + '<p class="ta-vazio">ninguém</p></div>';
-    h += '<table class="ta-tab"><thead><tr><th>#</th><th>Jogador</th><th>Clube' + (g === 'b' ? '' : ' · liga') + '</th><th class="n">Id.</th><th class="n">Contr.</th><th class="n">Valor</th>' +
+    h += '<table class="ta-tab"><thead><tr><th>#</th><th>Jogador</th><th>Clube' + (g === 'b' ? '' : ' · liga') + '</th><th class="n">Id.</th><th class="n" title="Altura (cm)">Alt.</th><th class="n" title="% dos minutos do time nos últimos 3 anos (todas as competições quando veio do Wyscout)">Min.</th><th class="n">Contr.</th><th class="n">Valor</th>' +
       '<th class="n" title="PSV-99 (km/h)">PSV</th><th class="n" title="Sprints por 90">Spr</th><th class="n" title="Arrancadas explosivas por 90">Arr</th><th class="n" title="Ações de alta intensidade por 90">AI</th><th title="Selo de subida">Sub</th>' + (window.VISAO_NOVA ? '<th title="Farol: letra + seta pela regra da posição">Farol</th>' : '') + '<th title="levar ao campograma"></th></tr></thead><tbody>';
     const JB = JBx();
     linhas.forEach((x, i) => {
@@ -108,7 +108,9 @@
       const nome = JB ? JB.nomeHtml(x.b, j.n) : esc(j.n);
       const mais = x.mais ? ' <i class="ta-ap" title="A+: explosivo e motor de volume (' + esc(x.tipo || '') + ')">A+</i>' : '';
       h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + mais + nac + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(g === 'man' ? 'cadastrado à mão' : j.l) + '</em>') + '</td>' +
-        '<td class="n">' + (j.id_ || '—') + '</td><td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
+        '<td class="n">' + (j.id_ || '—') + '</td><td class="n">' + (j.alt || x.b.alt || '—') + '</td>' +
+        (() => { const o = infoDe(x); return '<td class="n"><span class="ta-mp ' + (o.mc || '') + '">' + (o.mp != null ? o.mp + '%' : '—') + '</span></td>'; })() +
+        '<td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
         '<td class="n f">' + num(j.psv, 1) + '</td><td class="n f">' + num(j.spr_n, 1) + '</td><td class="n f">' + num(j.expl, 2) + '</td><td class="n f">' + num(j.hi_n, 0) + '</td><td>' + selo + '</td>' + (window.VISAO_NOVA ? '<td class="fa">' + (JB ? JB.farolHtml(x.b) : '') + '</td>' : '') +
         '<td class="lv-bt">' + (JB ? JB.levarHtml(x.b) : '') + '</td></tr>';
     });
@@ -133,14 +135,14 @@
     linhas = ordenaT(filtra(linhas).filter(x => seloDe(x).c === c));
     let h = '<div class="ta-lado ta-T' + c + '"><h5><i>' + ({ v: '▲', a: '↔' })[c] + '</i> <b>' + linhas.length + '</b> ' + ({ v: 'no nível de quem sobe', a: 'entre quem sobe e quem cai' })[c] + '</h5>';
     if (!linhas.length) return h + '<p class="ta-vazio">ninguém</p></div>';
-    h += '<table class="ta-tab"><thead><tr><th>#</th><th>Jogador</th><th>Clube' + (g === 'b' ? '' : ' · liga') + '</th><th class="n">Id.</th><th class="n">Contr.</th><th class="n">Valor</th>' +
+    h += '<table class="ta-tab"><thead><tr><th>#</th><th>Jogador</th><th>Clube' + (g === 'b' ? '' : ' · liga') + '</th><th class="n">Id.</th><th class="n" title="Altura (cm)">Alt.</th><th class="n">Contr.</th><th class="n">Valor</th>' +
       '<th class="n" title="Tipo físico">Fís.</th><th class="n" title="Fundamentais no nível da média dos titulares dos times que subiram">Fund.</th><th class="n" title="% dos minutos do time nos últimos 3 anos">Min.</th><th class="n" title="Cobrador de bola parada: percentil na liga">⚑</th>' + (window.VISAO_NOVA ? '<th>Farol</th>' : '') + '<th></th></tr></thead><tbody>';
     const JB = JBx();
     linhas.forEach((x, i) => {
       const j = x.j, o = infoDe(x);
       const nome = JB ? JB.nomeHtml(x.b, j.n) : esc(j.n);
       h += '<tr><td class="n i">' + (i + 1) + '</td><td class="nm">' + nome + '</td><td class="cl">' + esc(j.t) + (g === 'b' ? '' : ' <em>· ' + esc(g === 'man' ? 'cadastrado à mão' : j.l) + '</em>') + '</td>' +
-        '<td class="n">' + (j.id_ || '—') + '</td><td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
+        '<td class="n">' + (j.id_ || '—') + '</td><td class="n">' + (j.alt || x.b.alt || '—') + '</td><td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
         '<td class="n"><i class="ta-lt ' + LCLS[x.L] + '">' + (x.L === '-' ? '—' : x.L) + '</i></td>' +
         '<td class="n f">' + (o.com ? '<b>' + o.v + '</b>/' + o.com : '—') + '</td>' +
         '<td class="n"><span class="ta-mp ' + (o.mc || '') + '">' + (o.mp != null ? o.mp + '%' : '—') + '</span></td>' +
@@ -190,9 +192,9 @@
       (TEC ? '' : '<span class="ta-chk ta-selos">subida ' + SELOS.map(o => '<button class="ta-sf ta-sf-' + o[0] + (E.selo.includes(o[0]) ? ' on' : '') + '" data-selo="' + o[0] + '" title="Mostrar só quem tem o selo ' + o[1] + ' (' + o[2] + '); pode marcar mais de um">' + o[1] + '</button>').join('') + '</span>') +
       '<label class="ta-chk">idade <input type="number" id="taImin" min="15" max="45" placeholder="de" value="' + esc(E.imin) + '"> a <input type="number" id="taImax" min="15" max="45" placeholder="até" value="' + esc(E.imax) + '"></label>' +
       '<label class="ta-chk">nacionalidade <select id="taNac"><option value="">todas</option>' + nacs.map(n => '<option value="' + esc(n) + '"' + (E.nac === n ? ' selected' : '') + '>' + esc(PAIS_PT[n] || n) + '</option>').join('') + '</select></label>' +
-      (temFiltro() ? '<button class="ta-bt ta-limpa" id="taLimpa">limpar filtros</button>' : '') +
+      '<button class="ta-bt ta-limpa' + (temFiltro() ? '' : ' ta-off') + '" id="taLimpa">limpar filtros</button>' +   /* 20/10: sempre no lugar, para a tela não pular */
       '<button class="ta-bt" id="taPdf">Gerar PDF</button></div>' +
-      (temFiltro() ? '<p class="ta-filtros">Filtros: ' + [TEC && E.letras.length ? 'físico ' + E.letras.map(l => l === '-' ? 'sem físico' : l).join(', ') : '', !TEC && E.mais ? 'só A+' : '', E.selo.length ? 'subida ' + SELOS.filter(o => E.selo.includes(o[0])).map(o => o[1] + ' ' + o[2]).join(', ') : '', (E.imin !== '' || E.imax !== '') ? 'idade ' + (E.imin !== '' ? 'de ' + esc(E.imin) : '') + (E.imax !== '' ? ' até ' + esc(E.imax) : '') : '', E.nac ? 'nacionalidade ' + esc(PAIS_PT[E.nac] || E.nac) : '', E.ctr ? (CTR.find(o => o[0] === E.ctr) || ['', ''])[1].toLowerCase() : ''].filter(Boolean).join(' · ') + '</p>' : '');
+      ('<p class="ta-filtros">' + (temFiltro() ? 'Filtros: ' + [TEC && E.letras.length ? 'físico ' + E.letras.map(l => l === '-' ? 'sem físico' : l).join(', ') : '', !TEC && E.mais ? 'só A+' : '', E.selo.length ? 'subida ' + SELOS.filter(o => E.selo.includes(o[0])).map(o => o[1] + ' ' + o[2]).join(', ') : '', (E.imin !== '' || E.imax !== '') ? 'idade ' + (E.imin !== '' ? 'de ' + esc(E.imin) : '') + (E.imax !== '' ? ' até ' + esc(E.imax) : '') : '', E.nac ? 'nacionalidade ' + esc(PAIS_PT[E.nac] || E.nac) : '', E.ctr ? (CTR.find(o => o[0] === E.ctr) || ['', ''])[1].toLowerCase() : ''].filter(Boolean).join(' · ') + '' : '&nbsp;') + '</p>');
     if (TEC) lista.forEach(p => {
       h += '<section class="ta-pos" data-p="' + p[0] + '"><h3>' + esc(p[1]) + ' <span><i class="ls-v">▲</i> <b>' + contaT(p[0], 'v') + '</b> &nbsp; <i class="ls-a">↔</i> <b>' + contaT(p[0], 'a') + '</b></span></h3>';
       GRUPOS.forEach(g => { h += '<div class="ta-grupo"><h4>' + esc(g[1]) + '</h4><div class="ta-par">' + tabelaT('v', D[p[0]].T[g[0]], g[0]) + tabelaT('a', D[p[0]].T[g[0]], g[0]) + '</div></div>'; });

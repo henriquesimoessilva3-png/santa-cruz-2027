@@ -102,3 +102,7 @@ body.imp-tipoa .jb-levar,body.imp-tipoa .ta-tab td.lv-bt{display:none}
 .ta-tab td.bp-v{color:#4ade80;font-weight:700}.ta-tab td.bp-a{color:#facc15;font-weight:700}
 .ta-sf.ta-lf-ap.on{background:#2563eb;color:#fff}.ta-sf.ta-lf-a.on{background:#16a34a;color:#fff}.ta-sf.ta-lf-b.on{background:#d99a06;color:#fff}.ta-sf.ta-lf-c.on{background:#dc2626;color:#fff}.ta-sf.ta-lf-n.on{background:#64748b;color:#fff}
 body.imp-tipoa .ta-vistas{display:none}
+/* 20/10 — layout fixo: botões das posições numa linha própria (o filtro não empurra os outros controles), 'limpar filtros' sempre no lugar */
+.ta-chips{flex-basis:100%}
+.ta-limpa.ta-off{visibility:hidden}
+.ta-filtros{min-height:16px}

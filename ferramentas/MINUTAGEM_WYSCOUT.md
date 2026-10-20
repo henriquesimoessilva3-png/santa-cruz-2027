@@ -19,3 +19,11 @@ Como foi feito (108 alvos do campograma "Alvos Santa Cruz 2027", nuvem nuv-mvep2
 
 Fora (não achados com certeza): Ítalo Carvalho, Rodrigo Guetti, Max (Athletic), Luan (livre), Max Alves, Guilherme
 Sityá, Maykon Jesus, DG, Kayke (livre), Kauê, Gustavo Pereira — ficam com a minutagem da liga.
+
+## 20/10/2026 — todos os campogramas
+520 nomes únicos dos 8 grupos da nuvem (lista tirada do Firestore pela aba do site e passada à aba do Wyscout por
+postMessage — a aba do Wyscout foi aberta por um botão na página do site, para ter `window.opener`). 484 achados com
+segurança, 36 fora (não achados ou ambíguos). Bruto em dados/_minutagem_wyscout_bruto_520.txt
+(pk|wy|c=clube+idade, j=jogos no clube, i=só idade/livre|aa:clube,jogos,min,jogos_time,min_time+...#...).
+A regra da passagem: começa no 1º jogo pelo clube se o último jogo antes foi por outro clube; termina no último jogo
+se depois ele jogou por outro clube.
