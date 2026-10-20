@@ -28,7 +28,7 @@
   let selos = new Map();
   function seloDe(x) {
     let o = selos.get(x.b);
-    if (!o) { let h = ''; try { h = window.subidaSelo ? window.subidaSelo(x.j) : ''; } catch (e) {} const m = /sb-selo sb-([varn])/.exec(h || ''); o = { h: h || '', c: m ? m[1] : 'n' }; selos.set(x.b, o); }
+    if (!o) { let h = ''; try { h = window.subidaSelo ? window.subidaSelo(x.j) : ''; } catch (e) {} const m = /sb-selo sb-([varn])/.exec(h || ''); o = { h: h || '', c: m ? m[1] : 'n' }; if (o.c !== 'n') selos.set(x.b, o); }   /* 20/10 (caso Eduardo Brock): '?' não fica guardado — pode ser só o arquivo de indicadores da posição que ainda não chegou */
     return o;
   }
   const SELOS = [['v', '▲', 'atende'], ['a', '↔', 'médio'], ['r', '▼', 'não atende'], ['n', '?', 'sem dado']];
