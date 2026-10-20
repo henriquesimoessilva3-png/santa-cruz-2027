@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/static/caracteristicas.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/subida.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/tipo_a.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/destaques.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/novorizontino.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/ameaca.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/visao_nova.css?v={{ ver }}">
@@ -166,6 +167,7 @@
   <button class="aba" data-aba="consulta">Consulta de jogador</button>
   <button class="aba" data-aba="bancotm" title="Banco no formato do Transfermarkt (CONMEBOL): contrato, valor, letra física, selo de subida, bola parada e o + Mais com técnico e físico comparados com o mundo e a Série B/A">Banco Transfermarkt</button>
   <button class="aba" data-aba="treinador" title="Triagem de treinadores — Santa Cruz Série B 2027 (18 nomes, por tema)">Treinadores</button>
+  <button class="aba" data-aba="destaques" title="Listas de destaque dos campeonatos — shortlists do TransferRoom Scout">Destaques</button>
   <button class="aba" data-aba="tipoa" title="Jogadores A e B (tipo físico pela regra do clube), por posição: Série B, ligas sul-americanas e sul-americanos no exterior — com PDF">Tipo físico A e B</button>
       <button class="aba aba-auxiliar" data-aba="novoriz" hidden title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
       <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
@@ -626,6 +628,10 @@
       <iframe class="tr-pdf" data-src="static/treinadores/treinadores_por_tema.pdf#view=FitH" title="Treinadores por tema"></iframe>
     </section>
 
+    <section class="pagina oculta" id="pgDestaques">
+      <div class="emp-rolagem"><div class="dt" id="dtCorpo"></div></div>
+    </section>
+
     <section class="pagina oculta" id="pgTipoA">
       <div class="emp-rolagem"><div class="ta" id="taCorpo"></div></div>
     </section>
@@ -962,6 +968,8 @@
 <script src="/static/subida.js?v={{ ver }}"></script>
 <script src="/static/tipo_a.js?v={{ ver }}"></script>
 <script src="/static/treinadores.js?v={{ ver }}"></script>
+<script src="/static/destaques_dados.js?v={{ ver }}"></script>
+<script src="/static/destaques.js?v={{ ver }}"></script>
 <script src="/static/importar_lista.js?v={{ ver }}"></script>
 <script src="/static/novorizontino_dados.js?v={{ ver }}"></script>
 <script src="/static/novorizontino.js?v={{ ver }}"></script>

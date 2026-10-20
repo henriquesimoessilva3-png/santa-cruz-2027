@@ -1,0 +1,37 @@
+/* Aba Destaques (static/destaques.js) — listas do TransferRoom Scout */
+.dt{padding:14px 16px 40px;color:var(--tinta)}
+.dt-topo h2{margin:0 0 3px;font-size:18px}
+.dt-topo p{margin:0 0 12px;font-size:12.5px;color:var(--tinta2);line-height:1.5;max-width:130ch}
+.dt-grupos{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.dt-grupo{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+.dt-grupo>span{width:118px;flex:none;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta3);font-weight:700}
+.dt-chip{padding:5px 10px;border-radius:7px;background:var(--fundo3);border:1px solid var(--borda2);color:var(--tinta2);font:12px var(--fonte);cursor:pointer}
+.dt-chip b{color:var(--tinta);margin-left:3px;font-size:13px}
+.dt-chip.vazia{opacity:.5}
+.dt-chip.on{background:var(--coral);border-color:var(--coral);color:#fff} .dt-chip.on b{color:#fff}
+.dt-ctrl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:4px 0 14px;font-size:12.5px;color:var(--tinta2)}
+.dt-ctrl input,.dt-ctrl select{background:var(--input-bg);border:1px solid var(--input-borda);color:var(--tinta);border-radius:6px;padding:5px 8px;font:12.5px var(--fonte)}
+.dt-ctrl input{width:220px}
+.dt-cont b{font-size:16px;color:var(--tinta)}
+.dt-vazio{font-size:12.5px;color:var(--tinta3)}
+.dt-setor{margin-bottom:20px}
+.dt-setor h3{margin:0 0 8px;font-size:15px;border-bottom:2px solid var(--coral);padding-bottom:5px}
+.dt-setor h3 b{font-size:18px;margin-left:6px}
+.dt-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px}
+.dt-card{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:start;padding:9px 10px;border-radius:var(--r);background:var(--fundo2);border:1px solid var(--borda)}
+.dt-card.livre{border-color:var(--verde)}
+.dt-foto{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top;background:var(--fundo3);display:flex;align-items:center;justify-content:center;font:700 15px var(--fonte);color:var(--tinta3)}
+.dt-meio{min-width:0}
+.dt-nome{font-weight:700;font-size:14px;line-height:1.2}
+.dt-clube{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tinta2);margin-top:3px}
+.dt-clube span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dt-esc{width:18px;height:18px;object-fit:contain;flex:none}
+.dt-esc0{display:inline-block}
+.dt-livre{color:var(--txt-verde)}
+.dt-pos{font-size:11.5px;color:var(--tinta3);margin-top:2px;font-weight:600}
+.dt-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.dt-tag{font-size:10px;padding:1px 6px;border-radius:999px;background:var(--fundo3);border:1px solid var(--borda2);color:var(--tinta2)}
+.dt-tag.cl{border-color:var(--coral);color:var(--txt-vermelho)}
+.dt-nota{font-size:20px;font-weight:800;color:var(--tinta);font-variant-numeric:tabular-nums;padding:2px 8px;border-radius:8px;background:var(--fundo3)}
+.dt-nota.sem{color:var(--tinta3);font-size:15px}
+@media (max-width:600px){.dt-grupo>span{width:100%}.dt-ctrl input{width:100%}}

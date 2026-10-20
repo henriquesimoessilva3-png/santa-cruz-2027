@@ -1,0 +1,410 @@
+C|New York City FC|logo_2109_New_York_City_FC.png
+C|Club Leon FC|15424_Club_Le%C3%B3n_FC.png
+C|Montevideo City Torque|23497_Montevideo_City_Torque.png
+C|Club Atletico Tigre|12098_Club_Atl%C3%A9tico_Tigre.png
+C|Athletic Bilbao|678_Athletic_Bilbao.png
+C|Akhmat Grozny|logo_13311_Akhmat_Grozny.png
+C|Liverpool FC Montevideo|15632_Liverpool_FC_Montevideo.png
+C|CF Estrela Amadora|9622_CF_Estrela_Amadora.png
+C|AC Monza|3236_AC_Monza.png
+C|Dinamo Makhachkala|logo_43204_Dinamo_Makhachkala.png
+C|Portland Timbers|8113_Portland_Timbers.png
+C|FC Arouca|logo_1690_FC_Arouca.png
+C|Atlas Guadalajara|15407_Atlas.png
+C|FC Rostov|logo_2156_FK_Rostov.png
+C|Real Sociedad|22724_Real_Sociedad.png
+C|Gremio Novorizontino|21922_Gr%C3%AAmio_Novorizontino.png
+C|FC Tokyo|12806_FC_Tokyo.png
+C|Southampton FC|1619_Southampton_FC.png
+C|SC Uniao Torreense|-99410_SC_Uni%C3%A3o_Torreense.png
+C|Racing Club de Montevideo|15659_Racing_Club_de_Montevideo.png
+C|Audax Italiano|12292_Audax_Italiano.png
+C|Junior FC|12393_Junior_FC.png
+C|Coquimbo Unido|12287_Coquimbo_Unido.png
+C|Akron Tolyatti|logo_43208_Akron_Togliatti.png
+C|CD Macara|logo_2715_CD_Macara.png
+C|Al-Jazira Club|logo_3058_Al-Jazira_(Abu_Dhabi).png
+C|CSKA Moscow|13886_CSKA_Moskva.png
+C|Girona FC|756_Girona_FC.png
+C|Guayaquil City FC|15793_Guayaquil_City_FC.png
+C|Ural Yekaterinburg|logo_2157_Ural_Yekaterinburg.png
+C|Gamba Osaka|12803_Gamba_Osaka.png
+C|Olympiacos Piraeus|12509_Olympiacos_Piraeus.png
+C|Crystal Palace|logo_1128_Crystal_Palace.png
+C|CD Tondela|logo_1688_CD_Tondela.png
+C|Shakhtar Donetsk|logo_2135_Shakhtar_Donetsk.png
+C|AC Sparta Praha|11241_AC_Sparta_Prague.png
+C|Instituto ACC|12087_Instituto_ACC.png
+C|Al-Ahli SFC|logo_32332_Al-Ahli_Saudi_FC.png
+C|SL Benfica B|logo_31589_SL_Benfica_B.png
+C|Club de Gimnasia y Esgrima La Plata|logo_19265_Club_de_Gimnasia_y_Esgrima_La_Plata.png
+C|Botafogo de Futebol e Regatas|logo_7400_Botafogo_de_Futebol_e_Regatas.png
+C|Club Necaxa|15412_Club_Necaxa.png
+C|Esporte Clube Juventude|5650_Esporte_Clube_Juventude.png
+C|Botafogo FC|5686_Botafogo_FC.png
+C|Club Atletico Tucuman|logo_11121_Club_Atletico_Tucuman.png
+C|Sevilla FC|680_Sevilla_FC.png
+C|Gimnasia y Esgrima de Mendoza|logo_6827_Gimnasia_y_Esgrima_de_Mendoza.png
+C|Club Deportivo Maldonado|15647_Club_Deportivo_Maldonado.png
+C|Vila Nova Futebol Clube (GO)|logo_8880_Vila_Nova_Futebol_Clube_(GO).png
+C|Once Caldas|12392_Once_Caldas.png
+C|Moreirense FC|logo_Moreirense_FC.png
+C|Philadelphia Union|8061_Philadelphia_Union.png
+C|Parma Calcio 1913|3160_Parma_Calcio_1913.png
+C|Queretaro FC|15421_Quer%C3%A9taro_FC.png
+C|CA Cerro|logo_34534_Club_Atletico_Cerro.png
+C|Independiente Santa Fe|12404_Indep._Santa_Fe.png
+C|Royal Antwerp FC|logo_1583_Royal_Antwerp_FC.png
+C|Brentford FC|logo_1153_Brentford_FC.png
+C|Gil Vicente FC|9700_Gil_Vicente_FC.png
+C|Ceara Sporting Club|2029_Cear%C3%A1_Sporting_Club.png
+C|Union La Calera|12314_Uni%C3%B3n_La_Calera.png
+C|Londrina Esporte Clube (PR)|logo_26800_Londrina_Esporte_Clube_(PR).png
+C|Goias EC|5643_Goi%C3%A1s_EC.png
+C|FC Zbrojovka Brno|11252_FC_Zbrojovka_Brno.png
+C|Red Bull New York|logo_2112_New_York_Red_Bulls.png
+C|Galatasaray|logo_2003_Galatasaray_SK.png
+C|Defensor Sporting Club|15642_Defensor_Sporting_Club.png
+C|Central Espanol FC|logo_23868_Central_Espanol.png
+C|Union Saint-Gilloise|logo_1590_Royale_Union_Saint_Gilloise.png
+C|Defensa y Justicia|12079_Defensa_y_Justicia.png
+C|Cucuta Deportivo|12410_C%C3%BAcuta_Deportivo.png
+C|RC Strasbourg Alsace|logo_1981_RC_Strasbourg_Alsace.png
+C|KRC Genk|logo_1573_KRC_Genk.png
+C|Inter U23|41119_Inter_U23.png
+C|Club Estudiantes de La Plata II|logo_28910_Club_Estudiantes_de_La_Plata.png
+C|CR Flamengo U20|23498_CR_Flamengo_Under_20.png
+C|CA River Plate II|logo_2577_Club_Atletico_River_Plate.png
+C|Danubio FC|15630_Danubio_FC.png
+C|Shandong Taishan|logo_1645_Shandong_Luneng_Taishan.png
+C|Sportivo Luqueno|logo_39990_Sportivo_Luqueno.png
+C|Eintracht Frankfurt|logo_1268_Eintracht_Frankfurt.png
+C|FC Kharkiv|logo_27077_Metalist_1925_Kharkiv.png
+C|Hull City|1672_Hull_City.png
+C|Caracas FC|15680_Caracas_FC.png
+C|Club Tijuana|15459_Club_Tijuana.png
+C|CA Lanus II|12063_Club_Atl%C3%A9tico_Lan%C3%BAs.png
+C|CA Los Andes|logo_29689_Club_Atletico_Los_Andes.png
+C|Burgos CF|logo_1781_Burgos_CF.png
+C|CA Acassuso|logo_222026_Acassuso_CF.png
+C|CA Independiente II|12062_Club_Atl%C3%A9tico_Independiente.png
+C|Bologna FC 1909|logo_1845_Bologna_FC_1909.png
+C|Borussia Dortmund|logo_1259_Borussia_Dortmund.png
+C|Toronto FC II|33175_Toronto_FC_II.png
+C|Cercle Brugge|5070_Cercle_Brugge.png
+C|FC Lugano|logo_1938_FC_Lugano.png
+C|CA Progreso|15653_CA_Progreso.png
+C|CR Vasco da Gama U20|5657_Club_de_Regatas_Vasco_da_Gama.png
+C|SE Palmeiras Sao Paulo U20|5646_Sociedade_Esportiva_Palmeiras.png
+C|CA Boca Juniors II|12057_Boca_Juniors.png
+C|CA Juventud|15648_CA_Juventud.png
+C|Cruzeiro EC U20|23507_Cruzeiro_U20.png
+C|Merida AD|31582_M%C3%A9rida_AD.png
+C|Barranquilla FC|12419_Barranquilla_FC.png
+C|Al-Khaleej FC|16480_Al-Khaleej_FC.png
+C|Atletico Tembetary|64483_Atl%C3%A9tico_Tembetary.png
+C|Atletico Levante UD|803_Atl%C3%A9tico_Levante_UD.png
+C|Athletico Paranaense U20|logo_38989_Club_Athletico_Paranaense_U20.png
+C|CA Velez Sarsfield II|logo_28983_CA_Velez_Sarsfield_Reserve.png
+C|Sporting Kansas City II|37893_Swope_Park_Rangers_KC.png
+C|CA Aldosivi|logo_2946_Club_Atletico_Aldosivi_(MdP).png
+C|AA Argentinos Juniors II|27819_AA_Argentinos_Juniors_II.png
+C|Cuiaba Esporte Clube (MT)|logo_6188_Cuiaba_Esporte_Clube_(MT).png
+C|Al-Shamal SC|logo_19403_Al-Shamal_SC.png
+C|CD Castellon|757_CD_Castell%C3%B3n.png
+C|Criciuma EC|5641_Crici%C3%BAma_EC.png
+C|SC Corinthians U20|logo_697_Sport_Club_Corinthians_Paulista.png
+C|Gremio FBPA U20|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+C|Club Ferro Carril Oeste|12081_Ferro_Carril_Oeste.png
+C|Racing Club II|27822_Racing_Club_Res..png
+C|Club Nacional B|-17020_Club_Nacional_B.png
+C|Club Libertad Asuncion U20|-24816_Club_Libertad_Asunci%C3%B3n_U20.png
+C|Envigado FC|12405_Envigado_FC.png
+C|Atletico Nacional U20|12391_Atl%C3%A9tico_Nacional.png
+C|Sportivo Ameliano|64473_Sportivo_Ameliano.png
+C|Olimpia Asuncion U20|15486_Olimpia.png
+C|Ventura County FC|28729_Ventura_County_FC.png
+C|CS Emelec|15766_CS_Emelec.png
+C|CA Penarol B|15633_Pe%C3%B1arol.png
+C|CD Universidad Catolica U20|24677_CD_Universidad_Cat%C3%B3lica_U20.jpg
+C|Audax Italiano U19|25143_Audax_Italiano_U19.png
+C|Independiente Medellin U20|12399_Independiente_Medell%C3%ADn.png
+C|CA Nueva Chicago|12065_Nueva_Chicago.png
+C|Club Nacional Asuncion|logo_31647_Club_Nacional_Asuncion.png
+483787|Nicolas Fernandez Mercau|New York City FC|W, F|77.8|1
+484554|Isidro Pitta|Red Bull Bragantino|F, W|75.2|1
+485529|Bamidele Yusuf|Ferencvarosi TC|F, W|77|1
+485693|Alvaro Campuzano|Club Libertad Asuncion|CM, DM|73.3|1
+485710|Roberto Fernandez|Dynamo Moscow|CB, LB|82|1
+485716|Jhohan Romana|Club Leon FC|CB, RB|76.2|1
+485733|Ivan Franco|Club Libertad Asuncion|W, AM|70.7|1
+485736|Lucas Sanabria|Club Libertad Asuncion|CM, DM|70.5|1
+485776|Jose Canale|CA Lanus|CB, LB|74.9|1
+485784|Rodrigo Ruiz Diaz|Club Rubio Nu (Asuncion)|F, W|65.2|0
+486014|Salomon Rodriguez|Montevideo City Torque|F|73|1
+486025|Adrian Sanchez|Club Atletico Belgrano|CM, DM|77.4|1
+486048|Lucas Ferreira|CA Penarol|CB, RB|74.1|1
+486067|Joaquin Sosa|CSD Colo-Colo|CB, LB|74.2|1
+486098|Gaston Martirena|Club Nacional|RB, W|75.9|1
+486108|Mauro Mendez|Club Atletico Tigre|F, AM|73.8|1
+486296|Kevin Castaneda|Deportivo Guadalajara|F, AM|77.9|1
+486322|Luciano Juba|Esporte Clube Bahia|LB, W|79.6|1
+486556|Neto Moura|Mirassol Futebol Clube (SP)|DM, CM|76.6|1
+486604|Nico Serrano|Athletic Bilbao|W, AM|71.7|1
+486703|Juan Jose Caceres|Dynamo Moscow|RB, W|83.1|1
+486794|Rodrigo Auzmendi|CA San Lorenzo de Almagro|F|74.2|1
+486844|Derik Lacerda|Kawasaki Frontale|F, W|73.1|1
+486876|Israel Reyes|CF America|CB, RB|81.6|1
+490111|Chiquinho|FC Alverca|W|75|1
+490246|Brian Aguirre|Club Estudiantes de La Plata|W, F|73.4|1
+490266|Julio Romao|Akhmat Grozny|DM, CM|75.4|1
+490555|Raul Rangel|Deportivo Guadalajara|GK|76|1
+495317|Gabriel Taliari|Clube do Remo (PA)|F, W|72.8|1
+495459|Jose Contreras|Barcelona SC Guayaquil|GK|72.5|1
+497204|Matias Mansilla|Club Atletico Union|GK|70.1|1
+497416|Nathan Gassama|Baltika Kaliningrad|CB, LB|78.3|1
+497768|Kevin Lomonaco|CA Independiente|CB|79.1|1
+498606|Ian Luccas|FC Alverca|CM, W|71.1|1
+499286|Wikelman Carmona|CF Montreal|W, AM|70.3|1
+499690|Marco Di Cesare|Racing Club|CB, DM|77.1|1
+500159|Facundo Farias|CA San Lorenzo de Almagro|W, F|75.8|1
+500318|Diego Romero|Liverpool FC Montevideo|LB, W|68.8|1
+500372|Dudu Miraima|Sao Bernardo FC|CM, DM|71.1|1
+500576|Abraham Marcus|CF Estrela Amadora|W, AM|77.8|1
+501164|Exequiel Zeballos|AC Monza|W, F|76.6|1
+501165|Alan Varela|FC Porto|DM, CM|79.7|1
+501716|Andre Silva|Sao Paulo Futebol Clube|F|72|1
+501951|Kevin Castano|Clube Atletico Mineiro|CM, DM|76.8|1
+502054|Nicolas Marichal|Dynamo Moscow|CB, LB|79.7|1
+502179|Lucas Fasson|Lokomotiv Moscow|LB, CB|80|1
+503073|Aymane Mourid|Baltika Kaliningrad|CM, DM|76.5|0
+503799|Santiago Solari|CA Newell's Old Boys|W, F|75.1|1
+504105|Luiz Henrique|Zenit St. Petersburg|W, F|81.9|1
+504107|Martinelli|Fluminense Football Club|DM, CM|77.9|1
+504883|Nahuel Losada|CA Lanus|GK|76.1|1
+504885|Juan Barinaga|Racing Club|RB, W|74.2|1
+504887|Santiago Longo|Club Atletico Belgrano|CM, DM|72.4|1
+505261|Alan Barrionuevo|Club Atletico Tigre|CB|75.1|1
+505759|Houssem Mrezigue|Dinamo Makhachkala|CM, DM|75.4|0
+506015|Francisco Alvarez|AA Argentinos Juniors|CB, DM|80|1
+507798|Rodrigo Insua|CA Barracas Central|LB, W|72|1
+508043|Derek|Clube Nautico Capibaribe|F, W|68.9|1
+508211|Vinicius Lopes|CD Santa Clara|W, F|74.5|1
+508649|Martin Satriano|Getafe CF|F, W|76.8|1
+509318|Maksim Samorodov|Akhmat Grozny|W, F|76.6|1
+509632|Ignacio Russo|Club Atletico Tigre|F, W|73.7|1
+509633|Lautaro Blanco|CA Boca Juniors|LB, W|76.1|1
+509663|Samu|Vitoria SC|AM, F|77.8|1
+509868|Brayan Gil|Baltika Kaliningrad|F, W|77.7|1
+510984|Erik Lira|CF Cruz Azul|CB, DM|78.6|1
+511507|Jimer Fory|Portland Timbers|LB, W|73.4|1
+511764|Robert Morales|UNAM Pumas|F, AM|75.1|1
+511923|Dylan Nandin|FC Arouca|F, W|74.6|1
+512963|Facundo Zabala|CA Independiente|LB, W|76.9|1
+513583|Kevin Zenon|Atlas Guadalajara|W, CM|75.4|1
+513584|Federico Vera|CA Huracan|RB, W|72.2|1
+514305|Matheus Trindade|Operario Ferroviario Esporte Clube (PR)|CM, DM|66.6|1
+514504|Matheus Mendes|FC Alverca|GK|71.9|1
+514753|Cristian Toro|Huachipato FC|CB, RB|65.7|0
+515267|Kevin Pina|FC Krasnodar|DM|80.1|1
+515409|Lenny Joseph|Ferencvarosi TC|F, W|79.3|1
+520333|Andrey Langovich|FC Rostov|RB, LB|78.4|1
+520934|Leny Meyer|FC Famalicao|LB, W|68.6|1
+524328|Tamas Nikitscher|Rio Ave FC|DM, CM|73.1|1
+527476|Arsen Zakharyan|Real Sociedad|CM, W|77|1
+530377|Sasha Marcich|CA Lanus|LB, CB|75.3|0
+531132|Daniil Kuznetsov|Rubin Kazan|W, F|69.8|1
+531453|Sidny Lopes Cabral|Trabzonspor|RB, LB|73.7|0
+531527|Henri|Clube de Regatas Brasil (AL)|CB|72.4|0
+531529|Gabriel Silva|SC Braga|W, F|75.9|1
+531661|Pedro Vite|UNAM Pumas|CM, AM|77.7|1
+531670|Julian Aude|Los Angeles Galaxy|LB, CM|70.3|1
+531683|Renan|Shabab Al-Ahli Club|CB, LB|74.8|1
+531918|Galymzhan Kenzhebek|Akhmat Grozny|W, F|75.6|1
+532089|Adriano Martins|Atletico Clube Goianiense|CB|71.9|1
+532096|David Sousa|Casa Pia AC|CB|77.3|1
+532101|Matheus Bahia|Sport Club Internacional|LB, W|73.7|1
+532358|Mikael Doka|Operario Ferroviario Esporte Clube (PR)|RB, W|69.1|1
+532537|Ayrton Costa|CA Boca Juniors|CB, LB|78.1|1
+532695|Romulo|Gremio Novorizontino|AM, F|74.3|1
+532720|Tito|Atletico Clube Goianiense|CB|70.9|1
+532732|Sorriso|FC Famalicao|W, F|79|1
+533533|Ozziel Herrera|Tigres UANL|W, CM|74.9|1
+533537|Omar Campos|CF Cruz Azul|LB, W|76.3|1
+534327|Garcia|FC Famalicao|RB|74.8|1
+534688|Marcelo Ryan|FC Tokyo|F|71.7|1
+534700|Welington|Southampton FC|LB, W|73.9|1
+534746|Tiago Palacios|Club Estudiantes de La Plata|W, AM|77.4|1
+534824|Adriel|SC Uniao Torreense|GK|70.7|1
+534917|Eric Meza|Club Estudiantes de La Plata|RB, W|73.3|1
+534920|Federico Varese|Racing Club de Montevideo|GK|71.1|0
+534943|Jose Manuel Lopez|Sociedade Esportiva Palmeiras|F, AM|81.5|1
+534981|Joaquim|Tigres UANL|CB, RB|78.8|1
+535116|Paolo Guajardo|Audax Italiano|W, RB|64.5|1
+536045|Marquinhos|Cruzeiro Esporte Clube|W, RB|71.8|1
+536046|Lucas Barbosa|Red Bull Bragantino|W, AM|78.1|1
+536356|Luan Patrick|CF Estrela Amadora|CB|76.4|1
+536359|Mycael|Club Athletico Paranaense|GK|65.1|1
+544561|Anderson|Associacao Chapecoense de Futebol|GK|69.2|1
+545087|Fernando Alvarez|Deportivo Cali|CB, LB|71|1
+545657|Jermein Pena|Junior FC|CB, RB|74.4|1
+545829|Rubens|Dynamo Moscow|LB, DM|79.3|1
+546020|Beni Mukendi|Vitoria SC|DM, CM|78|1
+546022|Nelson da Luz|Qingdao West Coast|W, AM|67.5|1
+546026|Egas Cacintura|Akhmat Grozny|AM, W|77.2|0
+546040|Felipe Pena Biafore|CA Lanus|DM, CM|74.5|1
+546120|Esteban Obregon|Montevideo City Torque|W, AM|72.1|1
+546137|Florian Monzon|Atlas Guadalajara|F|77.7|1
+546161|Joaquin Garcia|CA Velez Sarsfield|RB|74.5|1
+546166|Lautaro Rios|CA Banfield|CM, AM|70|1
+546225|Facundo Caseres|Santos Laguna|DM, CM|75.8|1
+547114|Diogenes|Santos FC|GK|70.3|1
+547678|Francisco Salinas|Coquimbo Unido|RB, AM|74.7|1
+547791|Adrian Parra|Deportes Tolima|F, W|72.6|1
+553603|Agustin Sandez|CA Rosario Central|LB, CB|75.1|1
+554360|Gilson Benchimol|Akron Tolyatti|F, W|74.6|1
+554378|Maga|Vitoria SC|RB, W|74.9|1
+556068|Ignacio Pais|CA Banfield|CM, DM|73.1|1
+558120|Franco Posse|CD Macara|F, W|71.6|0
+558307|Telasco Segovia|Inter Miami CF|W, CM|73.9|1
+558474|Vinicius Mello|Al-Jazira Club|F, W|71.3|1
+561563|Andres Gomez|Clube de Regatas Vasco da Gama|W|78.7|1
+561747|Diogo Bezerra|Rio Ave FC|W, AM|74.5|1
+562362|Julian Malatini|FC Cincinnati|CB, RB|76.9|1
+562561|Luciano Gondou|CSKA Moscow|F, W|79.5|1
+563647|Yaser Asprilla|Girona FC|W, AM|76.3|1
+566323|Alex Rangel|Barcelona SC Guayaquil|CB, RB|71.2|0
+566726|Daykol Romero|Independiente del Valle|RB, LB|73.7|1
+567087|Gilmar Napa|Guayaquil City FC|GK|58.5|1
+567097|Giovani|Al-Sadd SC|W, F|72.3|1
+567237|Italo|Ural Yekaterinburg|CB, LB|65.1|1
+567665|Lucas Soto|Everton de Vina del Mar|RB, CM|68|1
+567812|Matheus Dias|CD Nacional|DM, CB|78.2|0
+568175|Pierre|Fortaleza Esporte Clube|CM, DM|72.3|1
+568533|Tomas Galvan|CA River Plate|W, AM|78.3|1
+568624|Welton|Gamba Osaka|W|67.9|1
+569119|Chrystian Barletta|Sport Club do Recife|W, F|71.6|1
+569166|Gabriel Delfim|Clube Atletico Mineiro|GK|69.8|1
+571683|Armando Gonzalez|Olympiacos Piraeus|F, W|80.3|1
+571815|Jhonny|Fluminense Football Club|RB, W|66.3|1
+571823|Daniel Jr|CD Nacional|W, AM|71.6|1
+571841|Franco Zapiola|Club Atletico Platense|W, AM|71.1|1
+571908|Pedro Bicalho|Qarabag FK|DM, CM|74.8|1
+571916|Lucas Pires|Burnley FC|LB, W|75.4|1
+571939|Dario Osorio|Crystal Palace|W, RB|79|0
+572582|Nicolas Marotta|Recoleta FC|CB|66.9|1
+572611|Diego Gonzalez|Santos Laguna|W, F|75.5|1
+572893|Bryan Ramirez|FC Cincinnati|W, LB|74.6|1
+573282|Layan Loor|Independiente del Valle|LB, W|73.1|1
+573669|Gaston Benedetti|Club Estudiantes de La Plata|LB, W|73.5|1
+573882|Alex Arce|CS Independiente Rivadavia|F|76.9|0
+574083|Ignacio Abraham|CA Banfield|LB|74.6|0
+574686|Elias Alfonso|Club Rubio Nu (Asuncion)|W, F|67.6|1
+574749|Bitello|Dynamo Moscow|CM, AM|81.4|1
+575638|Brayan Medina|CD Tondela|CB, LB|74.2|1
+575681|Matias Galarza|CA Talleres|DM, CM|77|1
+575892|Johan Rojas|Clube de Regatas Vasco da Gama|W, F|77.8|0
+575899|Henry Mosquera|Red Bull Bragantino|W, AM|75.8|1
+575902|Oscar Cortes|CA Huracan|W, F|73.5|1
+575955|Leandro Brey|CA Boca Juniors|GK|72.6|1
+575981|Kevin Mantilla|Independiente Medellin|CB|72.1|1
+583067|Alan Matturro|Shakhtar Donetsk|CB, LB|75.6|1
+583068|Nicolas Siri|CA Boston River|F, W|67.6|1
+583071|Matias Abaldo|CA Independiente|W, F|73.2|1
+583232|Josimar Alcocer|AC Sparta Praha|W, CM|73.4|0
+583499|Diogo Travassos|SC Braga|RB, W|74.6|0
+584070|Alex Luna|Instituto ACC|W, F|74.9|1
+584372|Romeo Beney|FC Famalicao|W, F|73.3|1
+584932|Matheus Goncalves|Al-Ahli SFC|W, AM|76.3|0
+585283|Gustavo Varela|AC Monza|F|79.6|0
+585898|David Martinez|FC Midtjylland|W, AM|75.9|1
+586303|Ender Echenique|FC Cincinnati|W, RB|72.5|1
+587186|Jorge Hurtado|Deportes Tolima|F, AM|74|1
+587427|Hugo Felix|CD Tondela|W, CM|64.3|0
+587450|Olivio Tome|SL Benfica B|W, AM|66.9|0
+587491|Mateo Seoane|Club de Gimnasia y Esgrima La Plata|CM, DM|73|1
+587663|Arthur Chaves|Botafogo de Futebol e Regatas|CB|77.7|1
+587667|Hercules|Fluminense Football Club|DM, CM|74.8|1
+587673|Igor Formiga|Mirassol Futebol Clube (SP)|RB, W|79.3|1
+587868|Felix Charrupi|Atletico Bucaramanga|DM, CM|71.8|1
+588584|Brian Mansilla|FC Arouca|W, AM|71.1|1
+588849|Pedro Lima|Sporting CP|CM, AM|73.5|1
+588857|Kaique Pereira|Sporting CP|GK|73.7|1
+588858|Naves|Club Necaxa|CB, DM|75.4|1
+589930|Ronaldo|FC Rostov|W, RB|77.5|1
+589978|Junior Ayovi|Guayaquil City FC|RB, W||1
+589980|Jean Arroyo|Independiente del Valle|W, CM|71.3|0
+589984|Dixon Vera|Athletic Club|W|65.9|1
+590611|Alvaro Djalo|Athletic Bilbao|W, AM|69.3|1
+590993|Mandaca|Esporte Clube Juventude|CM, AM|72.1|1
+591274|Gustavo Martins|Gremio Foot-Ball Porto Alegrense|CB, RB|74.9|1
+591304|Gustavo Vargas|Club Olimpia|CB, RB|73.8|1
+591516|Vilar|Botafogo FC|CB|69.5|1
+592385|Sebastian Valencia|Millonarios FC|LB, W|72.1|0
+592396|Kevin Ortiz|Club Atletico Tucuman|CM, DM|74.2|1
+592716|Nicolas Rodriguez|Atletico Nacional|W|71.9|1
+592724|Ze Hugo|Botafogo FC|W|66.4|1
+592788|Juan Cordoba|Independiente Medellin|W, F|71.5|1
+592900|Markus Jensen|CD Nacional|W, LB|68.4|0
+593088|Alejo Veliz|Esporte Clube Bahia|F|76.1|1
+593106|Leandro Antonetti|CF Estrela Amadora|F, W|76|1
+593271|Andres Castrin|Sevilla FC|CB|75|0
+593600|Tomas O'Connor|Gimnasia y Esgrima de Mendoza|CM, AM|72.6|1
+593881|Anthony Valencia|CR Flamengo|W, RB|77.2|1
+594154|Lautaro Di Lollo|CA Boca Juniors|CB, RB|78.9|1
+594528|Diego Segovia|Club Deportivo Maldonado|GK|61.7|1
+594662|Dudu|Vila Nova Futebol Clube (GO)|DM, CM|68.2|1
+594707|Erick Pulga|Esporte Clube Bahia|W, F|75.7|1
+594804|Santiago Nunez|Club Estudiantes de La Plata|CB|76.6|1
+594823|Ezequiel Herrera|CA San Lorenzo de Almagro|RB, CB|73.7|1
+595167|Crystopher|Clube de Regatas Brasil (AL)|CM, DM|70.8|1
+595194|Gabriel Pereira|Clube de Regatas Vasco da Gama|CB, CM|78.4|1
+596798|Joao Cruz|Club Athletico Paranaense|AM, W|75.7|1
+596853|Lucas Esquivel|Club Athletico Paranaense|LB, CB|79.1|1
+598798|Vadim Rakov|Lokomotiv Moscow|W, F|72.4|1
+599018|Julian Fernandez|CA Rosario Central|W, AM|74.5|1
+599089|Jefry Zapata|Once Caldas|W, F|73|0
+599569|Roman Vega|Zenit St. Petersburg|LB, CB|78.2|1
+600275|Julian Angulo|Millonarios FC|W, AM|72.4|1
+600287|Diego Hernandez|Al-Shorta SC|CB, DM|71.9|0
+601792|Rodrigo Morinigo|Club Libertad Asuncion|GK|71.1|1
+601816|Rafael Fernandes|CS Maritimo|CB|71.7|1
+601825|Angel Gonzalez|Club Libertad Asuncion|GK|62.1|0
+601892|Egor Smelov|Dinamo Makhachkala|CM, DM|74.1|1
+602464|Dinis Pinto|Moreirense FC|RB, CB|74.7|1
+602475|Cuiabano|Clube de Regatas Vasco da Gama|LB, W|79.3|1
+602691|Alexei Dominguez|CF Pachuca|W, AM|72.4|1
+602738|Cavan Sullivan|Philadelphia Union|W, AM|78.9|0
+603045|Tomas Palacios|Club Estudiantes de La Plata|CB, LB|75.6|1
+603047|David Romero|Parma Calcio 1913|F, W|75.8|1
+613018|Gustavo Sa|Olympiacos Piraeus|AM, F|78.5|1
+613220|Santiago Homenchenko|Queretaro FC|CM, DM|76|1
+613222|Emiliano Rodriguez|CA Cerro|F, W|68.1|1
+616270|Juan Cruz Guasone|CA Cerro|CB, CM|67.1|1
+616408|Jan Angulo|Deportes Tolima|CB, RB|72.6|0
+616756|Gustavo Silva|Vitoria SC|W, F|79.7|1
+616920|Elias Cabrera|Atletico Nacional|W, AM|73|1
+617529|Jhojan Torres|Independiente Santa Fe|CM, DM|69.1|1
+617853|Johan Martinez|Deportivo Cali|CM|73.5|0
+617898|Mauricio Benitez|Royal Antwerp FC|CM, DM|73.3|1
+618411|Mathias de Amorim|FC Famalicao|CM, AM|75.8|0
+619163|Emiliano Ramos|Everton de Vina del Mar|W|66.7|1
+619175|Kevin Parra|Atletico Nacional|W, AM|70.2|1
+619186|Gabriel Villamil|LDU Quito|CM, DM|69.5|1
+619210|Yeicar Perlaza|Atletico Nacional|W, RB|68.1|0
+619218|Samuel Velasquez|Atletico Nacional|LB|69.7|1
+620064|Juan Ignacio Saborido|Club Atletico Platense|RB, W|71.4|0
+620961|David Ricardo|Dynamo Moscow|CB, LB|80.7|1
+621044|Rai|Esporte Clube Juventude|W, CM|70.6|1
+621250|Gustavo Nunes|Brentford FC|W|71.8|1
+621316|Breno Bidon|Sport Club Corinthians Paulista|CM, AM|75.6|1
+621338|Walace Franca|Gil Vicente FC|F, AM|63.7|1
+621348|Lucca Prior|Fortaleza Esporte Clube|W, AM|59.1|1
+621429|Facundo Echeguren|Recoleta FC|RB, AM||1
+621440|Matheus Araujo|Ceara Sporting Club|AM, W|68.4|1
+621449|Facundo Lencioni|Gimnasia y Esgrima de Mendoza|W, LB|74.3|0
+621465|Matias Gallardo|Instituto ACC|W, AM|73.4|0
+621469|Ulises Gimenez|CA Sarmiento (Junin)|CB, RB|64.7|0
+621472|Marco Pellegrino|CA Boca Juniors|CB, DM|75|1
+621488|Joaquin Soto|Union La Calera|CM, DM|64.1|0
+621497|Oscar Perea|CF America|W|74.3|1

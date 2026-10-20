@@ -37,6 +37,9 @@
     /* 19/10: o estudo dos treinadores (Santa Cruz V2/treinadores_triagem) como aba */
     { id: 'treinador', num: '4', rot: 'Treinador', dica: 'os 18 nomes', sub: [
       { id: 'trein', rot: 'Triagem de treinadores', aba: 'treinador', dica: 'os 18 técnicos por tema — só dados, sem veredito; PDF e Excel com as fontes' }] },
+    /* 20/10: as listas do TransferRoom Scout, campeonato a campeonato (static/destaques.js) */
+    { id: 'destaques', num: '5', rot: 'Destaques', dica: 'listas dos campeonatos', sub: [
+      { id: 'dtlistas', rot: 'Destaques dos campeonatos', aba: 'destaques', dica: 'as shortlists do TransferRoom Scout por campeonato: Série B, América do Sul, copas e outros mercados' }] },
   ];
   /* aba original → [principal, sub] (as alternativas de um sub também apontam para ele) */
   const MAPA = {};

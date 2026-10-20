@@ -1,0 +1,345 @@
+P|1724|Juan Jesus|Venezia FC|CB, LB|81.1|1|3191_Venezia_FC.svg
+P|1969|Erick Pulgar|CR Flamengo|DM, CM|81|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|2855|Jadson|Club Athletico Paranaense|CM, DM|72.7|1|5651_Club_Athletico_Paranaense.png
+P|3872|Matheus Fernandes|Red Bull Bragantino|DM, CM|74.7|1|5685_Red_Bull_Bragantino.png
+P|12196|Alan Patrick|Sport Club Internacional|AM, F|79.5|1|logo_2611_Sport_Club_Internacional.png
+P|12669|Andre Clovis|Academico Viseu FC|F, W|71.1|1|9665_Acad%C3%A9mico_Viseu_FC.png
+P|12875|Igor Julio|Burnley FC|CB, LB|78.4|1|1646_Burnley_FC.png
+P|14581|Javier Altamirano|Club Universidad de Chile|CM, AM|72.4|1|12289_Club_Universidad_de_Chile.png
+P|14858|Carlos Rodriguez|CF Cruz Azul|CM, AM|81.1|1|15408_CD_Cruz_Azul.png
+P|17002|Alvaro Angulo|UNAM Pumas|LB, W|74.1|1|15420_UNAM_Pumas.png
+P|17283|Nicolas Freire|Club Libertad Asuncion|CB, LB|71.8|1|15483_Club_Libertad_Asunci%C3%B3n.png
+P|18524|Miguel Merentiel|CA Boca Juniors|F|79.1|1|12057_Boca_Juniors.png
+P|21433|Gabriel|Red Bull Bragantino|DM, CM|75.6|1|5685_Red_Bull_Bragantino.png
+P|21749|Vitor Tormena|FC Krasnodar|CB, LB|85.7|1|logo_2149_FK_Krasnodar.png
+P|22833|Ademir|Esporte Clube Bahia|W, F|76.2|1|5677_Esporte_Clube_Bahia.png
+P|24096|Hugo Souza|Sport Club Corinthians Paulista|GK|78.7|1|5656_Sport_Club_Corinthians_Paulista.png
+P|24212|Tomas Alarcon|CSD Colo-Colo|CM, DM|72.9|1|12288_CSD_Colo-Colo.png
+P|25039|Gonzalo Montiel|CA River Plate|RB, W|79.3|1|logo_2577_Club_Atletico_River_Plate.png
+P|27205|Luciano Boggio|Club Nacional|CM, DM|72|1|15634_Club_Nacional.png
+P|29435|Facundo Colidio|Clube de Regatas Vasco da Gama|W, F|79.6|1|5657_Club_de_Regatas_Vasco_da_Gama.png
+P|29886|Omar Carabali|CD O'Higgins|GK|71.9|1|12302_CD_O'Higgins.png
+P|29937|Gaston Alvarez|Al-Qadsiah FC|CB, LB|76.9|1|39818_AlQadsiah.png
+P|32955|Hee-chan Hwang|FC Schalke 04|F, W|75.9|1|logo_FC_Schalke_04.png
+P|34062|Mariano Gomez|Ferencvarosi TC|CB, RB|75.3|1|logo_1628_Ferencvarosi_TC.png
+P|35077|Ivan Jaime|UD Las Palmas|W, AM|73.7|1|714_UD_Las_Palmas.png
+P|35472|Oussama Idrissi|CF Pachuca|W|78.3|1|15413_CF_Pachuca.png
+P|36900|Ivan Angulo|Orlando City SC|W|73.4|1|8068_Orlando_City_SC.png
+P|37690|Adrian Butzke|CS Maritimo|F, AM|71|1|9612_CS_Mar%C3%ADtimo.png
+P|37753|Lincoln|Bursaspor|W, CM|72.2|1|logo_2009_Bursaspor.png
+P|38062|Alesson|Mirassol Futebol Clube (SP)|W, F|75.7|1|logo_9475_Mirassol_Futebol_Clube_(SP).png
+P|39173|Rodrigo Rey|CA Independiente|GK|77.6|1|12062_CA_Independiente.png
+P|41118|Axel Werner|CA Rosario Central|GK|69.1|1|-1418_CA_Rosario_Central.png
+P|43115|Agustin Canobbio|Fluminense Football Club|W, AM|77.6|1|5648_Fluminense_Football_Club.png
+P|44136|Carlos Miguel|Sociedade Esportiva Palmeiras|GK|82.8|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|45458|Baralhas|Esporte Clube Vitoria|CM, DM|75.1|1|5642_Esporte_Clube_Vit%C3%B3ria.png
+P|46093|Jean|CD America de Cali|GK|72.8|1|logo_2664_CD_America_de_Cali.png
+P|48800|Hugo Magallanes|Everton de Vina del Mar|CB, RB|66.9|1|12293_Everton_de_Vi%C3%B1a_del_Mar.png
+P|48985|Emmanuel Ojeda|CA Huracan|DM, CM|72.7|1|logo_19020_CA_Huracan.png
+P|49643|Willian Jose|Esporte Clube Bahia|F, AM|78.3|1|5677_Esporte_Clube_Bahia.png
+P|51806|Jesus Gallardo|Deportivo Toluca|LB, W|79.1|1|15418_Deportivo_Toluca.png
+P|52384|Juan Manuel Sanabria|Real Salt Lake City|LB, W|76.9|1|7871_Real_Salt_Lake_City.png
+P|53133|Juan Moreno|La Luz FC|GK|62.1|1|15662_La_Luz_FC.png
+P|56129|Jan Bednarek|FC Porto|CB, DM|84.2|1|logo_1672_FC_Porto.png
+P|56193|Fred|Clube Atletico Mineiro|CM, DM|81.2|1|-330_Clube_Atl%C3%A9tico_Mineiro.png
+P|56208|Fabinho|Trabzonspor|DM, CM|76.7|1|logo_2006_Trabzonspor.png
+P|56268|Jorginho|CR Flamengo|DM, CM|81.4|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|56321|Roberto Alvarado|Deportivo Guadalajara|W, AM|80.1|1|15409_Deportivo_Guadalajara.png
+P|56328|Diego Lainez|Tigres UANL|W, LB|77.5|1|15417_Tigres_UANL.png
+P|56353|Marcos Acuna|CA River Plate|LB, W|81.5|1|logo_2577_Club_Atletico_River_Plate.png
+P|56356|Cristian Pavon|Gremio Foot-Ball Porto Alegrense|W, RB|76.2|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|56363|Thiago Silva|Fluminense Football Club|CB|80.2|1|5648_Fluminense_Football_Club.png
+P|56384|Johan Mojica|Getafe CF|LB, W|78.3|1|logo_1728_Getafe_CF.png
+P|56385|Wilmar Barrios|Zenit St. Petersburg|DM, CM|81.3|1|13885_Zenit_St._Petersburg.png
+P|56418|Giorgian de Arrascaeta|CR Flamengo|AM, F|82.3|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|56420|Maxi Gomez|Club Nacional|F|72.7|1|15634_Club_Nacional.png
+P|56438|Kenedy|CF Pachuca|W, LB|75.7|1|15413_CF_Pachuca.png
+P|57217|Guido Herrera|Esporte Clube Bahia|GK|74.5|1|5677_Esporte_Clube_Bahia.png
+P|57224|Diego Valoyes|CA Talleres|W, F|72.6|1|logo_2588_Club_Atletico_Talleres.png
+P|57228|Fernando Juarez|CA Central Cordoba (SdE)|CM, DM|70.3|1|logo_3256_CA_Central_Cordoba_(SdE).png
+P|58202|Marlon Freitas|Sociedade Esportiva Palmeiras|DM, CM|79|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|58212|Jacy|Coritiba Foot Ball Club|CB, DM|74.4|1|5660_Coritiba_Foot_Ball_Club.png
+P|60047|Marllon|Clube do Remo (PA)|CB, RB|72.8|1|logo_5215_Clube_do_Remo_(PA).png
+P|60061|Pedro Henrique|Al-Ettifaq FC|CB|77.1|1|logo_26719_Ettifaq_FC.png
+P|60064|Douglas Augusto|FC Krasnodar|DM, CM|81.4|1|logo_2149_FK_Krasnodar.png
+P|61093|Matias Sepulveda|CA Lanus|W, LB|73.1|1|12063_Club_Atl%C3%A9tico_Lan%C3%BAs.png
+P|62330|Denis Bouanga|Los Angeles FC|W, F|79.8|1|62148_Los_Angeles_FC.png
+P|62342|Paulinho|Deportivo Toluca|F, W|82.2|1|15418_Deportivo_Toluca.png
+P|62347|Matheus|Red Star Belgrade|GK|80.4|1|17090_Red_Star_Belgrade.png
+P|64315|Everton|Santos FC|W|76.9|1|5655_Santos_FC.png
+P|64318|Pepe|FC Porto|W, AM|81.1|1|logo_1672_FC_Porto.png
+P|64640|Jhon Arias|Sociedade Esportiva Palmeiras|W, CM|81.9|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|65294|Laros Duarte|Puskas Akademia FC|CM, DM|68.8|1|logo_1630_Puskas_Akademia_FC.png
+P|65973|Anders Dreyer|San Diego FC|W, AM|79.2|1|114977_San_Diego_FC.png
+P|69100|Luis Sandoval|Deportes Tolima|F, W|72.8|1|12396_Deportes_Tolima.png
+P|69108|Hayen Palacios|Independiente Medellin|RB, W|71|1|12399_Independiente_Medell%C3%ADn.png
+P|70186|Gaizka Larrazabal|Bolton Wanderers|RB, W|75.1|1|logo_1156_Bolton_Wanderers.png
+P|70804|Francis Amuzu|Gremio Foot-Ball Porto Alegrense|W|72.9|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|72212|Janner Corozo|LDU Quito|W, F|70.7|1|15764_LDU_Quito.png
+P|75915|Nemanja Gudelj|Getafe CF|CB, DM|77.8|1|logo_1728_Getafe_CF.png
+P|75937|Jovane Cabral|Gremio Foot-Ball Porto Alegrense|W, CM|73.1|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|76158|Carlos Airala|Albion FC|W, CM|68.1|1|logo_15326_Albion_FC.png
+P|80885|Lucas Ventura|Hapoel Beer Sheva|CM|74.3|1|13271_Hapoel_Beer_Sheva.png
+P|81947|Francisco Gonzalez Metilli|Club Atletico Belgrano|CM, W|73.7|1|12076_Club_Atl%C3%A9tico_Belgrano.png
+P|82381|Cristian Casseres Jr.|Toulouse FC|CM, DM|82.2|1|3780_FC_Toulouse.png
+P|82957|Dante Sealy|CF Montreal|W|71.8|1|14969_CF_Montr%C3%A9al.png
+P|84794|Tom van de Looi|FC Famalicao|DM, CM|78.1|1|logo_FC_Famalicao.png
+P|87087|Jhonny Quinonez|Barcelona SC Guayaquil|CM, DM|70.7|1|logo_27392_Barcelona_SC_Guayaquil.png
+P|89643|Guido Carrillo|Club Estudiantes de La Plata|F|74.1|1|logo_28910_Club_Estudiantes_de_La_Plata.png
+P|91653|Zelimkhan Bakaev|Lokomotiv Moscow|W, AM|76.8|1|13887_Lokomotiv_Moscow.png
+P|91994|Lucas Soares|CD Santa Clara|RB, W|74.2|1|9634_CD_Santa_Clara.png
+P|93747|Batista Mendy|Trabzonspor|DM, CM|74.9|1|logo_2006_Trabzonspor.png
+P|94323|Fernando Costanza|Krylya Sovetov Samara|CM, RB|76.1|1|13891_Krylya_Sovetov_Samara.png
+P|94600|Mateusz Bogusz|Houston Dynamo FC|W, F|74.4|1|7944_Houston_Dynamo_FC.png
+P|95054|Rodrigo Contreras|Millonarios FC|F, W|74.9|1|12400_Millonarios.png
+P|96648|Gonzalo Valle|LDU Quito|GK|70.1|1|15764_LDU_Quito.png
+P|96773|Marcelino Moreno|CA Lanus|AM, F|76.8|1|12063_Club_Atl%C3%A9tico_Lan%C3%BAs.png
+P|96778|Gaston Lodico|Racing Club|CM, DM|77.7|1|36882_Racing_Club.png
+P|96782|Tomas Belmonte|CA Boca Juniors|CM, DM|73.1|1|12057_Boca_Juniors.png
+P|99103|Jesus Castillo|Esperance Tunis|CM|71.7|1|logo_10846_Esperance_Tunis.png
+P|101645|Bruno Sepulveda|Club Atletico Platense|F|73.8|1|15658_Club_Atl%C3%A9tico_Platense.png
+P|103806|Jesus Medina|Atletico de San Luis|W, CM|73.2|1|25866_Atl%C3%A9tico_de_San_Luis.png
+P|104272|Mateo Carabajal|Independiente del Valle|CB|74.6|1|15788_Independiente_del_Valle.png
+P|104292|Brayan Cortes|AA Argentinos Juniors|GK|77.6|1|12075_AA_Argentinos_Juniors.png
+P|105728|Paulo Otavio|Al-Sadd SC|LB|72.4|1|logo_28084_Al-Sadd_SC.png
+P|107885|Andres Llinas|Millonarios FC|CB, DM|72.1|1|12400_Millonarios.png
+P|108831|Diego Rossi|CF Monterrey|W, F|76|1|15444_CF_Monterrey.png
+P|108834|Eduard Atuesta|Orlando City SC|CM, DM|73.4|1|8068_Orlando_City_SC.png
+P|110607|Guido Mainero|Club Atletico Platense|W, CM|73|1|15658_Club_Atl%C3%A9tico_Platense.png
+P|110614|Francisco Ortega|CA River Plate|LB, AM|77.8|1|logo_2577_Club_Atletico_River_Plate.png
+P|110622|Alvaro Barreal|Santos FC|W, CM|75.9|1|5655_Santos_FC.png
+P|113040|Miranda|Operario Ferroviario Esporte Clube (PR)|CB, RB|68.9|1|6213_Oper%C3%A1rio-PR.png
+P|115863|German Berterame|Inter Miami CF|F, W|79.7|1|-69261_Inter_Miami_CF.png
+P|115868|Gabriel Rojas|Cruzeiro Esporte Clube|LB, W|75.9|1|5640_Cruzeiro_Esporte_Clube.png
+P|116617|Angel Torres|Operario Ferroviario Esporte Clube (PR)|W, AM|69.8|1|6213_Oper%C3%A1rio-PR.png
+P|117661|Robert Rojas|Club Libertad Asuncion|RB, CB|70.7|1|15483_Club_Libertad_Asunci%C3%B3n.png
+P|121263|Mihajlo Banjac|Krylya Sovetov Samara|CM, W|73.2|1|13891_Krylya_Sovetov_Samara.png
+P|121845|Ignacio Vazquez|Club Atletico Platense|CB|75.3|1|15658_Club_Atl%C3%A9tico_Platense.png
+P|122184|Leo Ceara|Kashima Antlers|F, AM|74.8|1|logo_2411_Kashima_Antlers.png
+P|122200|Erick|Esporte Clube Vitoria|W, AM|76|1|5642_Esporte_Clube_Vit%C3%B3ria.png
+P|122597|Wenderson|Clube Nautico Capibaribe|DM, CM|71.6|1|logo_20477_Clube_Nautico_Capibaribe.png
+P|124069|William|Cruzeiro Esporte Clube|RB|77.2|1|5640_Cruzeiro_Esporte_Clube.png
+P|124860|Santiago Ascacibar|CA Boca Juniors|CM, DM|75.5|1|12057_Boca_Juniors.png
+P|125827|Angel Correa|CA River Plate|F, W|80.4|1|logo_2577_Club_Atletico_River_Plate.png
+P|128057|Leo Vieira|Esporte Clube Bahia|GK|73.3|1|5677_Esporte_Clube_Bahia.png
+P|128082|Rafael Navarro|St. Louis CITY SC|F, AM|77.1|1|-82686_St._Louis_CITY_SC.png
+P|128342|Kaique Rocha|Casa Pia AC|CB|75.4|1|9708_Casa_Pia_AC.png
+P|129625|Lucas Olaza|FC Krasnodar|LB, W|84.6|1|logo_2149_FK_Krasnodar.png
+P|129626|Cristian Espinoza|Nashville SC|W, RB|77.6|1|30149_Nashville.png
+P|129628|Sebastian Villa|CA Boca Juniors|F, W|79.3|1|12057_Boca_Juniors.png
+P|131807|Matias Arezo|CA Penarol|F|73.4|1|15633_Pe%C3%B1arol.png
+P|132944|Gustavo|Henan FC|F|70.5|1|logo_1652_Henan_Jianye.png
+P|132947|Marcinho|Kawasaki Frontale|W|71.3|1|12812_Kawasaki_Frontale.png
+P|134575|Kevin Mier|CF Cruz Azul|GK|80|1|15408_CD_Cruz_Azul.png
+P|135271|Patrick Sequeira|Casa Pia AC|GK|70.1|1|9708_Casa_Pia_AC.png
+P|137411|Justin de Haas|Valencia CF|CB, LB|81.5|1|674_Valencia_CF.png
+P|137720|Cristopher Fiermarin|Atletico Bucaramanga|GK|74|1|12401_Atl%C3%A9tico_Bucaramanga.png
+P|138094|Djordje Mihailovic|Toronto FC|AM, F|75|1|14995_Toronto_FC.png
+P|144207|Willer Ditta|CF Cruz Azul|CB|81.6|1|15408_CD_Cruz_Azul.png
+P|145452|Marcel Ruiz|Deportivo Toluca|CM, DM|81.5|1|15418_Deportivo_Toluca.png
+P|146542|Fabio Pereyra|CA Huracan|CB|75.5|1|logo_19020_CA_Huracan.png
+P|148970|Leonardo Gil|CA Huracan|DM, CM|76.5|1|logo_19020_CA_Huracan.png
+P|149064|Marcelo Mino|CA Barracas Central|GK|64|1|logo_24267_CA_Barracas_Central.png
+P|151933|Kaio Jorge|Cruzeiro Esporte Clube|F, W|77.9|1|5640_Cruzeiro_Esporte_Clube.png
+P|152328|Mirlind Daku|Spartak Moscow|F, AM|78.2|1|logo_2148_Spartak_Moscow.png
+P|153061|Santiago Sosa|Clube de Regatas Vasco da Gama|DM, CB|81.8|1|5657_Club_de_Regatas_Vasco_da_Gama.png
+P|155618|Williams Alarcon|CA Boca Juniors|CM, DM|73.3|1|12057_Boca_Juniors.png
+P|156377|Facundo Waller|CA Huracan|CM, DM|76.8|1|logo_19020_CA_Huracan.png
+P|156515|Adrian Dela|Levante UD|CB, RB|79.3|1|695_Levante_UD.png
+P|156748|Claudinho|Al-Sadd SC|CM, DM|76.9|1|logo_28084_Al-Sadd_SC.png
+P|159555|Petar Musa|FC Dallas|F|80.8|1|7869_FC_Dallas.png
+P|160294|Juan Brunetta|Tigres UANL|AM, CM|81.2|1|15417_Tigres_UANL.png
+P|160307|Tomas Guidara|CA Lanus|RB, CB|73.4|1|12063_Club_Atl%C3%A9tico_Lan%C3%BAs.png
+P|163801|Artem Maksimenko|Rodina Moscow|W, F|73.6|1|logo_43157_Rodina-M_Moscow.png
+P|164877|Jordy Caicedo|CA Huracan|F|73.2|1|logo_19020_CA_Huracan.png
+P|164933|Emiliano Clavijo|CD Universidad Catolica|CM, DM|72|1|logo_2712_CD_Universidad_Catolica.png
+P|165254|Matheus Jussa|Chengdu Rongcheng|DM, CM|71.2|1|logo_5692_Chengdu_Rongcheng.png
+P|165345|Samuel Lino|CR Flamengo|W, LB|82.8|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|166755|Miguel Almiron|Atlanta United FC|W, F|74.6|1|logo_2103_Atlanta_United_FC.png
+P|166794|Esequiel Barco|Spartak Moscow|CM, AM|85.8|1|logo_2148_Spartak_Moscow.png
+P|167289|Simon Banza|PAOK Thessaloniki|F, W|72.9|1|logo_2021_PAOK_Thessaloniki.png
+P|168484|Aldair Quintana|Independiente del Valle|GK|75.1|1|15788_Independiente_del_Valle.png
+P|169725|Weverton|Gremio Foot-Ball Porto Alegrense|GK|78.1|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|169846|Gustavo Gomez|Sociedade Esportiva Palmeiras|CB, RB|80|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|169945|Yan Matheus|Kashima Antlers|W, F|71.1|1|logo_2411_Kashima_Antlers.png
+P|172096|Jaminton Campaz|CA Rosario Central|W, AM|77.1|1|-1418_CA_Rosario_Central.png
+P|173327|Nathan Silva|UNAM Pumas|CB|77.3|1|15420_UNAM_Pumas.png
+P|175600|William Tesillo|Atletico Nacional|CB, LB|77.7|1|12391_Atl%C3%A9tico_Nacional.png
+P|175749|Jorge Diaz Price|Deportivo Toluca|W, F|77.9|1|15418_Deportivo_Toluca.png
+P|176254|Bertrand Traore|Wolverhampton Wanderers|W, F|78.2|1|logo_Wolverhampton_Wanderers.png
+P|178530|Lorenzo Melgarejo|Club Libertad Asuncion|F, W|74.2|1|15483_Club_Libertad_Asunci%C3%B3n.png
+P|178596|Lucas Zelarayan|Club Atletico Belgrano|AM, F|78|1|12076_Club_Atl%C3%A9tico_Belgrano.png
+P|178849|Yanis Begraoui|GD Estoril Praia|F, W|76|1|logo_1680_GD_Estoril_Praia.png
+P|181370|Maximiliano Rodriguez|Huachipato FC|F, AM|68.6|0|12286_Huachipato_FC.png
+P|181860|Martin Barrios|Club Atletico Platense|CM, DM|74.4|1|15658_Club_Atl%C3%A9tico_Platense.png
+P|182065|Marcinho|Associacao Chapecoense de Futebol|W, F|69.6|1|5819_Chapecoense.png
+P|182112|Leo Pereira|CR Flamengo|CB|83.6|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|182199|Raphael Veiga|CF America|AM, F|77.7|1|15405_Am%C3%A9rica.png
+P|182214|Vitinho|Sport Club Internacional|W, RB|75.8|1|logo_2611_Sport_Club_Internacional.png
+P|182966|Jonathan Calleri|Sao Paulo Futebol Clube|F|75.3|1|5638_S%C3%A3o_Paulo.png
+P|184893|Juan Manuel Boselli|FC Krasnodar|F, W|78.9|1|logo_2149_FK_Krasnodar.png
+P|184922|Brian Rodriguez|CF America|W, AM|80|1|15405_Am%C3%A9rica.png
+P|184936|Sebastian Caceres|Celta de Vigo|CB|78.6|1|logo_1718_Celta_de_Vigo.png
+P|184953|Emiliano Gomez|Tigres UANL|W, F|71.4|1|15417_Tigres_UANL.png
+P|186251|Tomas Molina|AA Argentinos Juniors|F|75.9|1|12075_AA_Argentinos_Juniors.png
+P|188231|Alex Zendejas|CF America|W, CM|80.7|1|15405_Am%C3%A9rica.png
+P|190695|Guilherme|Houston Dynamo FC|W, AM|78.3|1|7944_Houston_Dynamo_FC.png
+P|190744|Vitor Carvalho|SC Braga|CB, CM|80|1|logo_Sporting_Braga.png
+P|192058|Stephen Eustaquio|Swansea City|CM, DM|75.6|1|logo_1131_Swansea_City.png
+P|196916|Jeison Quinones|Yokohama F. Marinos|CB|71.4|1|logo_2415_Yokohama_F._Marinos.png
+P|198069|Dejan Joveljic|Seattle Sounders FC|F|75.1|1|8067_Seattle_Sounders_FC.png
+P|198081|Nicolas Vouilloz|FC Basel 1893|CB, RB|73.3|1|logo_1932_FC_Basel_1893.png
+P|200764|Federico Fattori|CA Talleres|DM, CM|79.4|1|logo_2588_Club_Atletico_Talleres.png
+P|201888|Fabricio Bruno|Cruzeiro Esporte Clube|CB|79.9|1|5640_Cruzeiro_Esporte_Clube.png
+P|202193|Ronaldo Tavares|Athletic Club|F, W|69.5|1|-64918_Athletic_Club.png
+P|202700|Anibal Moreno|CA River Plate|DM, CM|80.8|1|logo_2577_Club_Atletico_River_Plate.png
+P|203461|Matheus Pereira|Cruzeiro Esporte Clube|AM, F|81.3|1|5640_Cruzeiro_Esporte_Clube.png
+P|203535|Lucas Romero|Cruzeiro Esporte Clube|DM, CM|77.7|1|5640_Cruzeiro_Esporte_Clube.png
+P|204470|Carlos Vinicius|Gremio Foot-Ball Porto Alegrense|F|74.4|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|206560|Dany Rosero|CD America de Cali|CB, RB|71.7|1|logo_2664_CD_America_de_Cali.png
+P|206630|Nicolas Benedetti|Deportivo Cali|W, F|75.2|1|logo_2667_Deportivo_Cali.png
+P|207161|Sebastian Guzman|Deportes Tolima|DM, CM|75.4|1|12396_Deportes_Tolima.png
+P|207298|Sam Surridge|Nashville SC|F, W|79.5|1|30149_Nashville.png
+P|209484|Chimy Avila|CA Independiente|F, W|75.6|1|12062_CA_Independiente.png
+P|209921|Jean Lucas|Esporte Clube Bahia|CM, DM|74.2|1|5677_Esporte_Clube_Bahia.png
+P|210527|Eduardo Bauermann|CF Pachuca|CB|77.8|1|15413_CF_Pachuca.png
+P|210568|Juninho|UNAM Pumas|F, W|74.9|1|15420_UNAM_Pumas.png
+P|210952|Alvaro Montero|CA Boca Juniors|GK|78.2|1|12057_Boca_Juniors.png
+P|211348|Franco Israel|Torino FC|GK|70.1|1|logo_1839_Torino_FC.png
+P|211716|Matheus Albino|Clube de Regatas Brasil (AL)|GK|61.1|1|5680_Clube_de_Regatas_Brasil_(AL).png
+P|214009|Zaidu Sanusi|FC Porto|LB, CB|76.6|1|logo_1672_FC_Porto.png
+P|214696|Joaquin Piquerez|Sociedade Esportiva Palmeiras|LB, W|78.9|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|214801|Marrony|Atletico Clube Goianiense|AM, W|69.3|1|5812_Atl%C3%A9tico_Clube_Goianiense.png
+P|215507|Victor Mendez|CSD Colo-Colo|CM, W|75.3|1|12288_CSD_Colo-Colo.png
+P|218125|Lucas Piton|Clube de Regatas Vasco da Gama|LB, W|75.3|1|5657_Club_de_Regatas_Vasco_da_Gama.png
+P|224713|Igor Gomes|Clube Atletico Mineiro|CM, AM|73.6|1|-330_Clube_Atl%C3%A9tico_Mineiro.png
+P|227610|Jubal|FC Krasnodar|CB|80|1|logo_2149_FK_Krasnodar.png
+P|227797|Matheus Jesus|V-Varen Nagasaki|CM, AM|69.3|1|logo_2424_V-Varen_Nagasaki.png
+P|227828|Paulinho Boia|Widzew Lodz|W, F|74.4|1|13515_Widzew_Lodz.png
+P|228121|Romulo|Tigres UANL|CB, DM|78.5|1|15417_Tigres_UANL.png
+P|229753|Eddie Salcedo|Rubin Kazan|F, W|73.6|1|13895_Rubin_Kazan.png
+P|230267|Cristian Borja|CF America|LB, CB|76.7|1|15405_Am%C3%A9rica.png
+P|230276|Alexis Vega|Deportivo Toluca|W, AM|83.7|1|15418_Deportivo_Toluca.png
+P|230809|Jhon Cordoba|FC Krasnodar|F|84.5|1|logo_2149_FK_Krasnodar.png
+P|231933|Joao Batxi|FC Krasnodar|W|81.7|1|logo_2149_FK_Krasnodar.png
+P|233595|Andres Felipe Roman|Atletico Nacional|RB|72|1|12391_Atl%C3%A9tico_Nacional.png
+P|237565|Ian Poveda|Atletico Nacional|W, AM|75.8|1|12391_Atl%C3%A9tico_Nacional.png
+P|240369|Robert Arboleda|Sao Paulo Futebol Clube|CB|77.2|1|5638_S%C3%A3o_Paulo.png
+P|240404|Liziero|CD Nacional|CM, DM|76.9|1|logo_1692_CD_Nacional.png
+P|243884|Mailton|Fortaleza Esporte Clube|RB, W|72.5|1|5663_Fortaleza_Esporte_Clube.png
+P|244725|Matias Catalan|CA Talleres|CB, RB|75.6|1|logo_2588_Club_Atletico_Talleres.png
+P|246179|Mateo Klimowicz|Club Cerro Porteno|W, F|70.3|1|15482_Club_Cerro_Porte%C3%B1o.png
+P|246181|Malcom Braida|CA Boca Juniors|W, LB|76.1|1|12057_Boca_Juniors.png
+P|246188|Rodrigo Garro|Sport Club Corinthians Paulista|AM|79.9|1|5656_Sport_Club_Corinthians_Paulista.png
+P|247366|Stanislav Agkatsev|FC Krasnodar|GK|85.2|1|logo_2149_FK_Krasnodar.png
+P|249653|Martin Ojeda|Orlando City SC|F, AM|78.7|1|8068_Orlando_City_SC.png
+P|249674|Fabricio Dominguez|Club Cerro Porteno|RB, CM|73.7|1|15482_Club_Cerro_Porte%C3%B1o.png
+P|253115|Leandro Paredes|CA Boca Juniors|CM, DM|82.6|1|12057_Boca_Juniors.png
+P|253298|Emanuel Mammana|CA Velez Sarsfield|CB|76.1|1|12073_CA_V%C3%A9lez_Sarsfield.png
+P|253882|Facundo Cambeses|Racing Club|GK|77.7|1|36882_Racing_Club.png
+P|253911|Emanuel Coronel|CA Rosario Central|RB|75.4|1|-1418_CA_Rosario_Central.png
+P|256354|Alan Medina|Everton de Vina del Mar|W, AM|71.6|1|12293_Everton_de_Vi%C3%B1a_del_Mar.png
+P|256915|Cristian Zabala|CA Sarmiento (Junin)|CM, DM|75.5|1|12095_CA_Sarmiento_(Junin).png
+P|261198|Gregore|Al-Rayyan SC|DM, CM|75.8|1|logo_27816_Al-Rayyan_SC.png
+P|261294|Ignacio|Fluminense Football Club|CB|78.1|1|5648_Fluminense_Football_Club.png
+P|261535|Deiver Machado|Rodina Moscow|LB, W|74.8|1|logo_43157_Rodina-M_Moscow.png
+P|261557|Jorman Campuzano|Atletico Nacional|DM, CM|74.9|1|12391_Atl%C3%A9tico_Nacional.png
+P|262258|Otavio|Al-Rayyan SC|CM, DM|77.9|1|logo_27816_Al-Rayyan_SC.png
+P|262288|Diogo Leite|SS Lazio|CB, LB|81.9|1|3162_SS_Lazio.png
+P|263800|Lucas Merolla|Club Cerro Porteno|CB|71|1|15482_Club_Cerro_Porte%C3%B1o.png
+P|263932|Evander|FC Cincinnati|CM|78.7|1|37892_Cincinnati.png
+P|264363|Romisson|Sao Bernardo FC|CM, DM|65.9|1|16439_S%C3%A3o_Bernardo_FC.png
+P|264408|Gabriel Avalos|Club Olimpia|F|70.7|1|15486_Olimpia.png
+P|265527|Charles|Sport Club Corinthians Paulista|CM, DM|70|1|5656_Sport_Club_Corinthians_Paulista.png
+P|266970|Helinho|Deportivo Toluca|W, AM|82.2|1|15418_Deportivo_Toluca.png
+P|267617|Leandro Lozano|CA Boca Juniors|RB, LB|79.5|1|12057_Boca_Juniors.png
+P|269191|John Victor|Nottingham Forest|GK|73.4|1|logo_1152_Nottingham_Forest.png
+P|269241|Arthur Gomes|Dynamo Moscow|W|77.9|1|13889_Dinamo_Moscow.png
+P|269259|Yuri Alberto|Sport Club Corinthians Paulista|F|76.6|1|5656_Sport_Club_Corinthians_Paulista.png
+P|270276|Luciano|Sao Paulo Futebol Clube|F, AM|77.8|1|5638_S%C3%A3o_Paulo.png
+P|270446|Ayrton Lucas|CR Flamengo|LB, AM|77.6|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|270491|Marlon|Gremio Foot-Ball Porto Alegrense|LB|76.1|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|270520|Pedro|CR Flamengo|F|86.1|1|5654_Clube_de_Regatas_do_Flamengo.png
+P|270743|Gonzalo Piovi|CF Cruz Azul|CB, LB|82.3|1|15408_CD_Cruz_Azul.png
+P|270779|Matias Rojas|Free Agent|W, AM|70.8|1|
+P|270796|Alexander Barboza|Sociedade Esportiva Palmeiras|CB|80.7|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|275988|Joao Klauss|Los Angeles Galaxy|F|78.4|1|7847_Los_Angeles_Galaxy.png
+P|282521|Agustin Palavecino|CF Cruz Azul|CM, AM|82.4|1|15408_CD_Cruz_Azul.png
+P|285003|Tiago Volpi|Red Bull Bragantino|GK|78.7|1|5685_Red_Bull_Bragantino.png
+P|287558|Nicolas Acevedo|Esporte Clube Bahia|DM, RB|80|1|5677_Esporte_Clube_Bahia.png
+P|289634|Carlos Teran|Club Athletico Paranaense|CB, RB|74.4|1|5651_Club_Athletico_Paranaense.png
+P|289653|Federico Pereira|Deportivo Toluca|CB, RB|82.9|1|15418_Deportivo_Toluca.png
+P|289670|Figueiredo|FC Alverca|W, AM|72.7|1|2521_FC_Alverca.png
+P|296237|Alexis Cuello|CA San Lorenzo de Almagro|F, W|73.6|0|12071_Club_Atl%C3%A9tico_San_Lorenzo_de_Almagro.png
+P|299291|Rodrigo Villagra|Sport Club Internacional|DM, CM|77.3|1|logo_2611_Sport_Club_Internacional.png
+P|299317|Matko Miljevic|Racing Club|CM, W|77.2|1|36882_Racing_Club.png
+P|299408|Chinonso Offor|Baltika Kaliningrad|F, W|72.9|1|logo_25640_Baltika_Kaliningrad.png
+P|301513|Jesus Ramirez|Corum FK|F|76.5|1|
+P|302783|Rodrigo Pinheiro|FC Famalicao|RB, LB|77.8|1|logo_FC_Famalicao.png
+P|308825|Gabri Veiga|FC Porto|CM, AM|77.8|1|logo_1672_FC_Porto.png
+P|312126|Nicolas Capaldo|Hamburger SV|CB, CM|78.1|1|logo_Hamburger_SV.png
+P|312241|Alan Sonora|CA Newell's Old Boys|CM, W|68.7|1|12064_Newell's_Old_Boys.png
+P|315872|Victor Aznar|Lion City Sailors|GK|66.1|0|14869_Lion_City_Sailors.png
+P|315992|Matias Fernandez|CS Independiente Rivadavia|W, CM|75.1|1|12132_CS_Independiente_Rivadavia.png
+P|318045|Santiago Lopez Garcia|CA Banfield|RB, W|73.5|1|12056_Banfield.png
+P|318073|Martin Ortega|CA Newell's Old Boys|RB, W|74|1|12064_Newell's_Old_Boys.png
+P|319101|Yesid Diaz|Fortaleza CEIF|CB, CM|73.2|1|12427_Fortaleza_CEIF_FC.png
+P|319128|Leo Realpe|FC Famalicao|CB, DM|77.9|1|logo_FC_Famalicao.png
+P|322056|Sergey Babkin|Lokomotiv Moscow|CM, DM|76.5|1|13887_Lokomotiv_Moscow.png
+P|322181|Jose Raul Rangel Aguilar|Deportivo Guadalajara U19|GK|76.7|1|27852_CD_Guadalajara_Under_20.png
+P|433433|Nelson Abbey|Rio Ave FC|CB, LB|73.6|1|logo_Rio_Ave_FC.png
+P|433484|Bruno Gomes|Sport Club Internacional|RB, CB|80.1|1|logo_2611_Sport_Club_Internacional.png
+P|433596|Christian Marques|Wolverhampton Wanderers U21|CB|73.2|1|logo_Wolverhampton_Wanderers.png
+P|433791|Jack McGlynn|Stoke City|W, CM|76.8|1|1639_Stoke_City.png
+P|435647|Mathias Villasanti|Gremio Foot-Ball Porto Alegrense|DM, CM|74.8|1|logo_2605_Gremio_Foot-Ball_Porto_Alegrense.png
+P|437488|Igor Gomes|Shabab Al-Ahli Club|CB, RB|72.1|1|logo_8935_FC_Shabab_Al-Ahli_Dubai.png
+P|440095|Konstantin Nizhegorodov|Rubin Kazan|CB, LB|75.7|1|13895_Rubin_Kazan.png
+P|448099|Raniele|Sport Club Corinthians Paulista|DM|76.9|1|5656_Sport_Club_Corinthians_Paulista.png
+P|454392|Daniel Mosquera|Hellas Verona|F|77.9|1|3194_Hellas_Verona.png
+P|455774|Orlando Gill|LOSC Lille|GK|76|0|logo_1974_LOSC_Lille.png
+P|456102|Rodrigo Saravia|CA Boston River|CM, DM|71.4|1|15664_CA_Boston_River.png
+P|456180|Junior Noguera|Rionegro Aguilas|W, F|67.9|1|logo_15328_Rionegro_Aguilas.png
+P|456183|Wilder Viera|Free Agent|CM, DM|69.6|1|
+P|467821|Finn van Breemen|FC Famalicao|CB, DM|78.8|1|logo_FC_Famalicao.png
+P|475480|Nikita Krivtsov|FC Krasnodar|CM, DM|82.1|1|logo_2149_FK_Krasnodar.png
+P|477703|Enzo Barrenechea|SL Benfica|DM, CM|81.1|1|logo_1673_SL_Benfica.png
+P|477854|Leonardo Lelo|UD Almeria|LB, W|76.3|1|708_UD_Almer%C3%ADa.png
+P|478097|Pedro Bravo|FC Midtjylland|CM, DM|73.6|1|logo_FC_Midtjylland.png
+P|478098|Emerson Batalla|Atletico Bucaramanga|W|69.6|1|12401_Atl%C3%A9tico_Bucaramanga.png
+P|479484|Renny Jaramillo|Orense SC|CM, DM|69.4|1|63704_Orense_SC.png
+P|479688|Alan|Vitoria SC|F, AM|76.5|1|9617_Vit%C3%B3ria_SC.png
+P|479772|Edwuin Cetre|Club Estudiantes de La Plata|W, F|72.8|1|logo_28910_Club_Estudiantes_de_La_Plata.png
+P|479882|Marquinhos|Spartak Moscow|W, F|83.2|1|logo_2148_Spartak_Moscow.png
+P|479961|Breno Lopes|Coritiba Foot Ball Club|W, F|75.2|1|5660_Coritiba_Foot_Ball_Club.png
+P|479976|Georgios Vagiannidis|Sporting CP|RB, W|76.7|1|9608_Sporting_CP.png
+P|479978|Thiago Couto|Sport Club do Recife|GK|71.4|1|5674_Sport_Club_do_Recife.png
+P|479999|Carlos Rotondi|CF Cruz Azul|LB, W|79.9|1|15408_CD_Cruz_Azul.png
+P|480029|Nicolas Castro|Deportivo Toluca|CM, W|78.7|1|15418_Deportivo_Toluca.png
+P|480119|Jordy Alcivar|Independiente del Valle|DM, CM|73.7|1|15788_Independiente_del_Valle.png
+P|480166|Ezequiel Bullaude|Santos Laguna|CM, F|75.4|1|15415_Santos_Laguna.png
+P|480291|Luis Sanchez|Deportes Tolima|CM, AM|73.9|1|12396_Deportes_Tolima.png
+P|480350|Christian|FC Krasnodar|W, AM|79.4|1|logo_2149_FK_Krasnodar.png
+P|480386|Leonel Picco|Clube do Remo (PA)|DM, CM|71.1|1|logo_5215_Clube_do_Remo_(PA).png
+P|480421|Augusto Schott|CA Talleres|RB, LB|75|1|logo_2588_Club_Atletico_Talleres.png
+P|480436|Cesar Ibanez|CA Huracan|LB, CB|75.2|0|logo_19020_CA_Huracan.png
+P|480459|Mauricio|Sociedade Esportiva Palmeiras|CM, W|77.3|1|5646_Sociedade_Esportiva_Palmeiras.png
+P|480492|Nazareno Colombo|Racing Club|CB, RB|77.6|1|36882_Racing_Club.png
+P|480501|Ferreirinha|Sao Paulo Futebol Clube|W, F|75.8|1|5638_S%C3%A3o_Paulo.png
+P|480537|Agustin Lagos|Club Atletico Platense|RB|76.2|1|15658_Club_Atl%C3%A9tico_Platense.png
+P|480556|Gabriel Pec|Cruzeiro Esporte Clube|W, AM|77.7|1|5640_Cruzeiro_Esporte_Clube.png
+P|480614|Alexandro Bernabei|Sport Club Internacional|LB, W|79.1|1|logo_2611_Sport_Club_Internacional.png
+P|480635|Brian Gutierrez|Deportivo Guadalajara|CM, W|75.2|1|15409_Deportivo_Guadalajara.png
+P|480656|Julian Palacios|Club Atletico Union|W, F|76.1|1|12093_Club_Atl%C3%A9tico_Uni%C3%B3n.png
+P|480779|Alfred Canales|CD Universidad Catolica|CM, DM|67.7|1|12295_CD_Universidad_Cat%C3%B3lica.png
+P|480809|Franco Ibarra|CA Rosario Central|DM, CM|79.3|1|-1418_CA_Rosario_Central.png
+P|480876|Jonathan Villagra|CSD Colo-Colo|CB|73.6|1|12288_CSD_Colo-Colo.png
+P|480896|Jeyson Rojas|CSD Colo-Colo|RB, W|70.9|1|12288_CSD_Colo-Colo.png
+P|480949|Mikael|Clube de Regatas Brasil (AL)|F|70.1|1|5680_Clube_de_Regatas_Brasil_(AL).png
+P|480998|Negueba|Mirassol Futebol Clube (SP)|W, F|75.3|1|logo_9475_Mirassol_Futebol_Clube_(SP).png
+P|481017|Jaja|Clube do Remo (PA)|W, AM|72.6|1|logo_5215_Clube_do_Remo_(PA).png
+P|483471|Jesus Garza|Tigres UANL|RB, LB|76.7|1|15417_Tigres_UANL.png
+P|483536|Richard Rios|Al-Ittihad Club|CM, DM|79.5|1|logo_15121_Al-Ittihad_Club_(Jeddah).png
+P|483541|Matheuzinho|Sport Club Corinthians Paulista|RB|79.6|1|5656_Sport_Club_Corinthians_Paulista.png
+P|483586|Bernardo|SC Braga|GK|78.4|0|logo_Sporting_Braga.png
+P|483589|Mateusao|Shabab Al-Ahli Club|F, AM|68.8|1|logo_8935_FC_Shabab_Al-Ahli_Dubai.png
+P|483609|Nuno Moreira|Clube de Regatas Vasco da Gama|W, AM|74.9|1|5657_Club_de_Regatas_Vasco_da_Gama.png

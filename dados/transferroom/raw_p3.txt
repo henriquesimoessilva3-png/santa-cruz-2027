@@ -1,0 +1,409 @@
+621498|Juan Torres|Club Necaxa|AM, F|75.4|1
+621545|Santi Garcia|Gil Vicente FC|AM, CM|76.8|1
+621753|Eduardo Anderson|Baltika Kaliningrad|CB, RB|77|0
+621803|Patrick|Gremio Novorizontino|CB, LB|69.6|0
+622261|Japa|Mirassol Futebol Clube (SP)|CM, AM|72.1|1
+622264|Otavio|Cruzeiro Esporte Clube|GK|76.3|1
+622557|Vitinho Mota|Londrina Esporte Clube (PR)|W, F|65.4|1
+622578|Leo Aragao|Cruzeiro Esporte Clube|GK|68.4|1
+622883|Renzo Machado|Liverpool FC Montevideo|F, AM|65.8|1
+623115|Mateja Stjepanovic|Moreirense FC|CM, DM|71.4|0
+623236|Julio Fidelis|Fluminense Football Club|RB|72.3|0
+623312|Marcos Paulo|Esporte Clube Juventude|CB, LB|74.2|1
+623557|Luisao|Goias EC|CB, RB|71.4|1
+623880|Warren Madrigal|Nashville SC|W, F|70.1|1
+623908|Kaka|FC Zbrojovka Brno|CB, LB|69.1|1
+624107|Biel Fonseca|Sport Club do Recife|CM, DM|70.9|1
+624407|Alan Nunez|AA Argentinos Juniors|RB, CM|76.6|1
+624694|Ignacio Miramon|Club de Gimnasia y Esgrima La Plata|CM, DM|75.8|1
+624896|Francisco Petrasso|Rio Ave FC|CB, RB|72.6|0
+624919|Keimer Sandoval|Deportivo Cali|RB, CB|64.9|1
+625083|Juan Bisanz|CA Huracan|W, F|71.8|1
+625129|Felipe Vieira|Athletic Club|CB, LB|57.2|0
+625571|Eduar Arizalas|Rionegro Aguilas|W, AM|69.7|0
+625936|Santiago Montiel|CA Independiente|W, AM|76.4|0
+626034|Ray Breno|Esporte Clube Juventude|AM, W|58.9|0
+626078|Juan Fedorco|CA Independiente|CB|73.1|0
+626569|Enso Gonzalez|Wolverhampton Wanderers|W, AM|60|1
+626599|Franco Saavedra|Gimnasia y Esgrima de Mendoza|LB, AM|73.9|1
+626723|Pablo Ferreira|Club Atletico Platense|DM, CM|74|0
+626991|Lucas Quintana|Club Cerro Porteno|CB|73.1|1
+627470|Damian Pizarro|Audax Italiano|F|61.7|1
+627634|Patrik Mercado|Independiente del Valle|CM, W|70.9|1
+627644|Augusto Cambon|CA Cerro|F|64.9|0
+627680|Julian Bazan|Red Bull New York|CB, DM|74.5|1
+627720|Victor Froholdt|FC Porto|CM, DM|78.5|0
+627871|Alexis Farina|Club Sportivo 2 de Mayo|CM, W|68.7|1
+628019|Jhoiner Salas|Fortaleza CEIF|W, F|68.3|1
+629787|Facundo Munoa|CA Boston River|AM, W|67.9|0
+629802|Alan Lescano|Clube de Regatas Vasco da Gama|CM, W|77.5|1
+630001|Breno Lemos|Shabab Al-Ahli Club|CM, DM|71.1|1
+630032|Denilson|Mirassol Futebol Clube (SP)|CM, DM|73.9|1
+630131|Aleksey Batrakov|Galatasaray|AM, F|83.4|1
+630435|Valentin Vidal|Everton de Vina del Mar|CB|66|1
+630601|Cauan Barros|Clube de Regatas Vasco da Gama|DM, CM|78|1
+630718|Zavier Gozo|Crystal Palace|W, RB|75.6|0
+630724|Lucas Agazzi|Defensor Sporting Club|RB, W|68.6|0
+630753|Matias Perello|Independiente del Valle|W, F|76.6|1
+631222|Alexis Steimbach|Club de Gimnasia y Esgrima La Plata|RB, W|71.2|1
+631281|Marcelo Fernandez|Club Libertad Asuncion|W, F|69.2|1
+631301|Jalen Blesa|Rio Ave FC|F, AM|74.7|0
+631461|Antony|Portland Timbers|W, RB|73.3|1
+631499|Elias Montiel|Atlas Guadalajara|CM, DM|75.3|1
+631685|Gabriel Aguayo|Club Cerro Porteno|W, F|69.2|0
+631686|Rodrigo Gomez|Club Cerro Porteno|RB, W|68.8|0
+632144|Robinho|CF Estrela Amadora|CM, AM|59.3|0
+632390|Pedro Morisco|Coritiba Foot Ball Club|GK|70.9|1
+632792|Gonzalo Sosa|Club Deportivo Maldonado|CM|64.1|0
+632796|Agustin Ojeda|New York City FC|W, CM|73.1|1
+632799|Gonzalo Escudero|Racing Club|CB, LB|71.1|0
+632851|Dani Borges|CD Santa Clara|CM, DM|70.8|1
+633450|Lucas Belezi|Athletic Club|CB|69.6|1
+633941|Mateo Castillo|CD America de Cali|RB, LB|71|1
+633947|Fernando Camarda|Central Espanol FC|W, F|64|0
+634096|Dylan Aquino|Union Saint-Gilloise|W, F|76.8|0
+634882|Jabes Saralegui|Club Atletico Tigre|W, CM|71.7|0
+634883|Dylan Gorosito|CA Boca Juniors|RB, AM|72.3|1
+634884|Camilo Rey Domenech|CA Boca Juniors|DM, CM|69.9|0
+638901|Roman Riquelme|CA Talleres|CB, CM|74.6|1
+638907|Luciano Romero|CA Lanus|CB, LB|60|1
+639309|Juan Pablo Luduena|Club Atletico Union|CB|74.3|0
+639585|Ezequiel Burdin|Defensa y Justicia|CB, LB|69.5|1
+641023|Valentin Fascendini|CA Talleres|CB|73.3|0
+641133|Santiago Beltran|CA River Plate|GK|79|0
+641375|Gustavo Aguilar|Club Libertad Asuncion|F, AM|69.7|1
+641682|Artur Gharibyan|Rodina Moscow|F|72|0
+642286|Tomas Porra|CA Barracas Central|CM, W|72|0
+643263|Sergio Vasquez|Los Angeles FC|CM, DM|71.3|0
+643267|Jaime Peralta|Cucuta Deportivo|F|69.4|0
+643855|Miguel Nogueira|Vitoria SC|W, AM|71.3|0
+644693|Luka Andrade|Montevideo City Torque|W, AM|67.3|0
+645522|Joel Canchimbo|Junior FC|W, F|70.8|0
+645885|Tamble|Rio Ave FC|F|72.3|1
+646232|Gabriel Bontempo|Santos FC|W, CM|75.2|1
+648222|Maicol Leon|Huachipato FC|RB, CM|65.6|0
+648349|Diogo Sousa|RC Strasbourg Alsace|DM, CM|76.2|0
+648497|Joaquin Mosqueira|Club Atletico Union|DM, CM|71.5|1
+649239|Manuel Panaro|Club de Gimnasia y Esgrima La Plata|W, F|69.1|0
+649251|Benjamin Acosta|CA Lanus|W, F|63.2|0
+649566|Gustavo Mancha|Rio Ave FC|CB, LB|77.8|0
+649639|Santiago Salle|CA Sarmiento (Junin)|W, RB|71.6|0
+650132|Jeronimo Domina|Club Atletico Tigre|F, W|73.1|1
+650443|Sebastian Jaume|Albion FC|GK|69.1|1
+650687|Azarias Londono|CD Universidad Catolica|W, F|72.1|0
+650951|Ezequiel Cannavo|Racing Club|RB, W|74.4|1
+651070|Simon Garcia|Rio Ave FC|CB|72.9|0
+651130|Agustin Modica|Gimnasia y Esgrima de Mendoza|F|75.1|0
+651823|Josen Escobar|CD America de Cali|CM, DM|72.1|1
+651836|Marcelo Ajul|Sport Club do Recife|CB, RB|71.1|1
+653427|Kevin Amaro|KRC Genk|RB, W|70.3|1
+653584|Tobias Ramirez|CA River Plate|CB|71.1|1
+653588|Charlys|Inter U23|CM, DM|68|1
+653875|Sheyko Studer|CS Independiente Rivadavia|CB|75.1|1
+653895|Watts|Free Agent|W, W|58.9|1
+653909|Diego Barrera|CA Central Cordoba (SdE)|W, LB|70.6|1
+653911|Santiago Fernandez|CA Talleres|CB, RB|73.4|1
+653942|John Montano|Independiente Medellin|W, LB|70|1
+654204|Sorriso|CD Santa Clara|F, W|69.6|1
+655413|Ian Subiabre|Club Atletico Tigre|W, F|68.8|0
+655414|Santiago Lopez|Club Atletico Tigre|W, F|74.3|0
+655424|Tiago Serrago|Club Atletico Tigre|W, CM|70.4|0
+655429|Thiago Santamaria|CA Sarmiento (Junin)|RB|71.4|0
+656195|Bruno Santos|Mirassol Futebol Clube (SP)|F, W|71.9|1
+656388|Ryoga Kida|AA Argentinos Juniors|F, AM|61.3|1
+656735|Mathias De Ritis|CA San Lorenzo de Almagro|LB, W|73.5|0
+656773|Mateo Del Blanco|RC Strasbourg Alsace|LB, W|78.9|0
+656919|William Gomes|FC Porto|W|80.1|0
+657036|Kevin Jappert|CA Barracas Central|CB|73.1|1
+657136|Tiziano Correa|Club Nacional|F|67.5|0
+657273|Maizon Rodriguez|FC Krasnodar|CB, RB|73.3|0
+657540|Jonathan Jesus|Cruzeiro Esporte Clube|CB|78.1|1
+657613|Diego Caito|Gremio Foot-Ball Porto Alegrense|RB|72.1|0
+657869|Nahuel Herrera|CA Penarol|CB|71.5|1
+658034|Juan Ignacio Figueroa|Huachipato FC|W|63.1|0
+658079|Axel Atum|Club Estudiantes de La Plata II|CM, AM|66.2|0
+658508|Erick Zambrano|Orense SC|W|66.5|0
+658577|Leandro Hernandez|CSD Colo-Colo|AM, W|70.3|0
+659051|Joao Souza|CR Flamengo U20|CB|74.6|0
+659528|Javier Carcamo|Huachipato FC|CM, AM|61.3|0
+659632|Agustin Obregon|CA River Plate II|RB, AM||1
+659808|Mateus Xavier|Santos FC|W|60|0
+659814|Maykon Jesus|Gremio Novorizontino|LB, W|69.7|0
+660072|Osmar Gimenez|CA Sarmiento (Junin)|CM, W|64.3|0
+660217|Josue Reinatti|CA Newell's Old Boys|GK|72.8|0
+660534|Milton Delgado|CA Boca Juniors|CM, DM|76.7|0
+660536|Santiago Dalmasso|Club Atletico Platense|CM, W|61.5|0
+661376|Mateo Peralta|Danubio FC|CM, W|68.9|0
+661412|Guilherme Madruga|Shandong Taishan|CM, DM|69.5|0
+661497|Lautaro Millan|CA Independiente|CM, W|71.6|0
+661542|Steeven Quinonez|Orense SC|RB, CB|65.2|0
+661620|Lucas Sanabria|Los Angeles Galaxy|CM, DM|69.9|1
+661770|Mauricio Amaro|Atlanta United FC|CM, DM|73.4|0
+661930|Rene|Esporte Clube Vitoria|F, W|76.7|0
+662145|Miguel Barreto|Sportivo Luqueno|CB, RB|60.5|0
+662163|Maximiliano Gutierrez|Dynamo Moscow|W, RB|74.1|0
+662176|Tchoca|Sport Club Corinthians Paulista|CB|75.6|1
+662679|Mateo Rivero|CA Boston River|CB|69|0
+662690|Gabriel Mec|FC Porto|AM, W|72.2|0
+663798|Ze Vitor|Esporte Clube Vitoria|CM, DM|74.6|0
+663802|Arthur Dias|Club Athletico Paranaense|CB, LB|77.7|0
+664370|Lautaro Rivero|CA River Plate|CB, LB|80.1|0
+664817|Juan Villalba|Club Atletico Tigre|CB, LB|75.5|0
+664820|Alex Veron|CA Velez Sarsfield|W|68.3|0
+664826|Lucas Velasquez|Huachipato FC|LB, AM|62.6|0
+664827|Benjamin Ampuero|Huachipato FC U20|CM, DM|56.4|0
+664829|Sebastian Mella|Huachipato FC|GK|56.5|0
+665085|Otavio|Eintracht Frankfurt|CB, LB|73.1|0
+665100|Pedro Rios|Recoleta FC|LB, W||0
+665522|Lisandro Pinero|CA Banfield|W, CM|69.3|0
+665546|Valentino Acuna|CA Newell's Old Boys|CM, DM|68.6|1
+665611|Bruno Antunez|CA Boston River|GK|67.4|1
+665788|Thiago Silvero|CA Velez Sarsfield|CB, RB|75.5|0
+666396|Juan Gimenez|CA Rosario Central|CB, DM|65.5|0
+666980|Israel Isaac Ayuma|CS Maritimo|CM, DM|66.1|0
+667013|Alan Forneris|Racing Club|CM, DM|73.9|0
+667332|Pablo Ruan|CD Nacional|F, W|72.4|0
+667350|Santiago Sosa|Defensa y Justicia|CM, DM|70.8|0
+667627|Juan Velazquez|Club Atletico Belgrano|W, LB|65.1|0
+667629|Tobias Medina|Rio Ave FC|W, CM|58.9|1
+667845|Nicolas Wunsch|Defensor Sporting Club|AM, W|71.1|1
+668199|Juan Francisco Rossel|CD Universidad Catolica|F, AM|68.7|1
+669626|Claudio Torres|Huachipato FC|W, AM|65.4|0
+670028|Rafael Profini|FC Kharkiv|CM, DM|73.8|1
+670029|Lautaro Vargas|Club Atletico Union|RB, W|74.2|1
+670237|Lucas Herrington|Hull City|CB, RB|75.3|1
+671004|Alejandro Villarreal|Caracas FC|F|60.7|0
+671008|Vinicius Lira|Santos FC|LB|73.5|0
+671229|Gustavo Charrupi|Everton de Vina del Mar|DM, CM|68.5|0
+671271|Jhon Renteria|CA Sarmiento (Junin)|W, F|71.7|0
+672106|Santiago Gonzalez|Club Atletico Tigre|CM, AM|73.8|0
+672574|Gilberto Mora|Club Tijuana|CM, W|75|1
+673188|Luis Benedetti|Sociedade Esportiva Palmeiras|CB|73.3|0
+673196|Kaua Moraes|Cruzeiro Esporte Clube|RB, W|72.2|0
+673246|Facundo Herrera|CA Boca Juniors|CB|74.2|0
+673251|Thiago Balbuena|CA Lanus II|W, CM|61.1|0
+673252|Thiago Laplace|CA Lanus II|CM, DM|59.8|0
+673256|Alexis Gonzalez|CA Los Andes|W, LB|57.6|0
+673288|Santiago Lencina|Burgos CF|W, CM|70.2|1
+673293|Tomas Nasif|Club Atletico Platense|F|69.5|0
+673526|Leonel Flores|CA Boca Juniors|W, F|76|0
+673527|Fabricio Sena|CA Acassuso|W, F|56.5|0
+673532|Tomas Aranda|CA Boca Juniors|W, CM|74.4|1
+673549|Thomas De Martis|Parma Calcio 1913|F, W|60|0
+673551|Agustin Medina|CA Lanus|CM|72.7|0
+673609|Tomas Parmo|CA Independiente II|AM, W|57.4|0
+673911|Joaquin Pereyra|Club Estudiantes de La Plata|LB|68.7|0
+673912|Mikel Amondarain|Bologna FC 1909|DM, CM|73.5|0
+673913|Joaquin Tobio Burgos|Club Estudiantes de La Plata|W, AM|74.8|0
+673915|Fabricio Perez|Club Estudiantes de La Plata|W, AM|71.2|0
+674750|Justin Lerma|Borussia Dortmund|CM, W|71.2|0
+674847|Maximiliano Amarfil|Club Atletico Platense|CM, DM|73.1|0
+675059|Javier Mena|Rionegro Aguilas|LB, RB|57.5|0
+676430|Gabriel Feliciano|Operario Ferroviario Esporte Clube (PR)|LB, W|68.6|0
+677250|Nicolas Barros Schelotto|Club de Gimnasia y Esgrima La Plata|DM, CM|72.9|0
+678569|Umar Abubakar|FC Famalicao|F|75.9|0
+680056|Emerson Pata|Independiente del Valle|W, AM|72.1|0
+680191|Ryan|Vila Nova Futebol Clube (GO)|W, AM|67.7|0
+680444|Jahmarie Nolan|Toronto FC II|F, AM|63.7|0
+681110|Angel Martinez|Club Cerro Porteno|GK|60.4|0
+681962|Dje|CD Santa Clara|CM, DM|73|0
+682192|Facundo Gulli|CA San Lorenzo de Almagro|CM, AM|73.3|0
+682194|Ignacio Perruzzi|CA San Lorenzo de Almagro|DM||0
+682246|Santiago Zampieri|Montevideo City Torque|LB, AM|68.8|0
+682370|Iker Fimbres|CF Monterrey|CM, W|72.4|1
+682584|Joao Andrade|Londrina Esporte Clube (PR)|W, F|65.1|0
+682607|Yago Lincoln|Cercle Brugge|CB|67.4|0
+682906|Neider Parra|Atletico Nacional|CB|73.4|0
+683274|Juan Cruz Meza|CA River Plate|W, AM|72.7|0
+683651|Dereck Moncada|FC Lugano|W, F|74.2|0
+684153|Benjamin Sagues Barreiro|Club Estudiantes de La Plata II|F|61.8|0
+684174|Franco Basualdo|Club Estudiantes de La Plata II|W, AM|64.9|0
+684347|Alexis Fretes|Club Libertad Asuncion|W, LB|69.6|0
+684376|Dominik Chong Qui|Atlanta United FC|LB, W|64.5|0
+684419|Yoshan Valois|CA Lanus|F, W|70|0
+684797|Pedro Cobra|Clube Atletico Mineiro|GK||0
+684978|Chissumba|FC Alverca|LB, W|74.4|0
+685533|Felipe Morais|Cruzeiro Esporte Clube|W, CM|74.5|0
+685964|Nahuel Lopez|CA Progreso|AM, W|62.3|0
+686054|Enzo Taborda|CA Barracas Central|W, F|67.5|0
+686058|Mateo Perez Curci|CA Independiente|DM, CM|69.9|0
+686169|Johnny Goes|CR Flamengo U20|LB, CB|60|0
+686791|Andrey Fernandes|CR Vasco da Gama U20|F, AM|60|0
+687175|Erick Bele|SE Palmeiras Sao Paulo U20|F, AM|60|0
+687302|Jairo Amaro|CA Cerro|CM, DM|66.9|0
+687478|Luca Regiardo|CA Newell's Old Boys|DM, CM|72.7|1
+687597|German Barrios|Defensor Sporting Club|CM, DM|69|1
+687935|Leonel Jaime|CA Penarol|W, AM|69.1|0
+688154|Mario Sandoval|Audax Italiano|CM|62.8|1
+688425|Kevin Prieto|Casa Pia AC|RB, W|69.2|0
+688519|Joaquin Freitas|CR Flamengo|F, W|70|0
+689885|Matias Satas|CA Boca Juniors II|CB||0
+690423|Felix Trinanes|Club Sportivo 2 de Mayo|AM, W|64.4|0
+690752|Santiago Londono|Club Leon FC|F|63.2|0
+690960|Dilan Villarreal|Junior FC U20|CM||0
+691333|Matias Arias|CA Velez Sarsfield|CM, W|67.8|0
+691334|Dilan Godoy|CA Velez Sarsfield|F, W|71.4|0
+691340|Tobias Andrada|CA River Plate|CM, W|75.4|0
+691455|Nicolas|Sao Paulo Futebol Clube|LB, F|60|0
+691871|Jeremias Merlo|Club de Gimnasia y Esgrima La Plata|W, F|67.5|0
+691896|Timoteo Chamorro|CA Talleres|RB, W|69.6|0
+691897|Valentin Davila|CA Talleres|F, W|71.2|0
+691961|Adri Mehmeti|Red Bull New York|DM, CM|75.7|0
+692180|Joao Ananias|Santos FC|CB, LB|72.5|1
+692339|Jeronimo Gomez Mattar|CA Newell's Old Boys|CM, DM|69.2|0
+692562|Ze Lucas|Cruzeiro Esporte Clube|DM, CM|71.3|1
+692856|Ignacio Mujica|CA Juventud|RB|68|0
+693009|Carlos Franco|Club Cerro Porteno|CM, W|65.3|0
+693024|Cesar Bobadilla|Club Cerro Porteno|CM, DM|67.5|0
+693395|Eduardo Pape|Cruzeiro EC U20|DM, CM||1
+693463|Darwin Guagua|Merida AD|W, CM|67.4|0
+693772|Miguel Agamez|Barranquilla FC|CM, DM|63.7|0
+693780|Mateo Benegas|Al-Khaleej FC|F|66.4|0
+693802|Alexandro Maidana|CA Talleres|LB, W|73.4|0
+693972|Lucca|Sao Paulo Futebol Clube|W, AM|73.8|0
+693977|Santiago Delvalle|Atletico Tembetary|CB||0
+694065|Jorge de Asis|Atletico Levante UD|F, AM|60.1|1
+694079|Baldoria|Goias EC|DM, CB|64.9|0
+694340|Mamady Cisse|Clube Atletico Mineiro|CM, DM|70.9|0
+694775|Pedro Villalba|Club Libertad Asuncion|W, AM||0
+694785|Emiliano Chiavassa|CA Talleres|W, F|62.7|0
+694909|Juan Riquelme Angulo|Independiente del Valle|F, W|71.5|0
+694966|Timofey Marinkin|Dynamo Moscow|CM, DM|74|0
+695057|Nicolas Bolcato|CS Independiente Rivadavia|GK|75.9|0
+695080|Nicolas Azambuja|Athletico Paranaense U20|F, W|67.2|1
+695183|Francisco Marchant|CSD Colo-Colo|W|68.9|1
+695831|Juan Cruz Policella|CA Velez Sarsfield|W|63.8|0
+695833|Simon Prima|CA Velez Sarsfield II|W|64.8|0
+695881|Lautaro Piola|CA Velez Sarsfield II|F|67.6|0
+698598|Martin Jimenez|Audax Italiano|RB, W|62.5|0
+699748|Joaquin Bogarin|Club Libertad Asuncion|AM, W|65.8|0
+699821|Halam Loboa|Independiente Medellin|CM, DM|69.4|0
+700548|Erald Maksuti|Akhmat Grozny|F, W|69|0
+701241|Tiziano Perrotta|Defensa y Justicia|F, W|69.2|0
+701251|Facundo Guch|CA Newell's Old Boys|AM, W|70|0
+701259|Gonzalo Reyna|Club Universidad de Chile|W, AM|67.5|0
+702267|Yandri Vasquez|Independiente del Valle|F|70.6|0
+703744|Kashan Hines|Sporting Kansas City II|F|61|0
+705323|Joao Miguel|Athletic Club|DM, CM|68.2|1
+706881|Santiago Cisneros|Club Leon U18|F||0
+707246|Lautaro Navarro|Defensor Sporting Club|F|62.5|0
+707274|Alan Torterolo|Defensor Sporting Club|W|66.6|1
+708277|Giovanni Cantizano|CA Rosario Central|W|74|0
+708278|Andre|Sport Club Corinthians Paulista|CM, DM|73.6|1
+708293|Ederson Castillo|LDU Quito|DM|67.4|0
+708390|Brian Gutierrez|Montevideo City Torque|CB|57.5|0
+721068|Martin Garcia|CA Aldosivi|CM, AM|62.7|0
+721119|Agustin Dos Santos|Club Nacional|CM, W|64.7|0
+721124|Yuri Oyarzo|Racing Club de Montevideo|LB, W|67.9|0
+721201|Juan Rengifo|Atletico Nacional|AM, CM|74.6|1
+785558|Facundo Jainikoski|AA Argentinos Juniors|W, F|73.5|0
+785577|Gaston Bouhier|AA Argentinos Juniors II|W, CM|60.7|0
+786624|Thayllon|Los Angeles FC|W|65.8|0
+786863|Charly Vegas|Caracas FC|W, AM|62.6|1
+787147|Ignacio Ovando|CA Rosario Central|CB|76.4|0
+787227|Amin Molinas|Club Libertad Asuncion|CM, AM|68.5|0
+787310|Henry Riquelme|Club Sportivo 2 de Mayo|W, CM||0
+813208|Franco Dominguez|Club Estudiantes de La Plata II|F||0
+838822|Thaiel Peralta|CA Huracan|W, AM|67.6|0
+938362|Tiago Augusto|Gremio Foot-Ball Porto Alegrense|CM, AM|71.2|0
+938371|Jean Carlos|Goias EC|W, F|67.2|0
+938372|David Miguel|Cuiaba Esporte Clube (MT)|AM|64.6|0
+938378|Lucas Rodrigues|Goias EC|CM, DM|67.9|0
+938735|Tomas Viera|Club Nacional|CB, LB|70.9|0
+939272|Luis Pacheco|Sociedade Esportiva Palmeiras|CM, DM|67.4|0
+952798|Luciano Gonzalez|Club Nacional|CM, DM|57.9|0
+952799|Rodrigo Martinez|Club Nacional|W|68.2|0
+952800|Federico Bais|Al-Shamal SC|LB, AM|71.7|0
+953025|Facundo Balatti|Danubio FC|RB, W|67.1|0
+953446|Francisco Acosta|Club Estudiantes de La Plata II|RB||0
+953447|Lautaro Pereyra|CA River Plate|CM, AM|71.9|0
+953518|Ramiro Lecchini|Montevideo City Torque|W, AM|68.2|1
+953590|Lucas Silva|CA River Plate|DM, CM|60|0
+953868|Josmar|CR Flamengo U20|F|63.6|1
+953883|Giovanni Baroni|CA Talleres|AM, W|69.8|0
+954019|Matias Orozco|CD Castellon|CM, DM|74.6|0
+957955|Ignacio Campo|CA Huracan|RB, AM|69.4|0
+958835|Mateo Caballero|Defensor Sporting Club|CB|55.4|0
+958838|Pablo Lago|CA Juventud|W, AM|68.1|0
+959022|Pedro Santos|Criciuma EC|GK|64|1
+959330|Leandro Cordoba|Racing Club|W, F|68.5|0
+959343|Luca Feler|CA Velez Sarsfield|CM, DM|64.4|0
+960641|Gui Amorim|SC Corinthians U20|CM, W||1
+960702|Vitor Ramon|Gremio FBPA U20|RB||0
+960723|Luis Guedes|Gremio FBPA U20|CB||0
+960791|Geronimo Mancilla|Independiente Medellin|W|68|0
+960833|Miguel Peralta|Free Agent|GK|65.2|0
+960952|Felipe Obradovich|Club Ferro Carril Oeste|DM, CM|70.1|0
+961361|Samuel Alves|Rio Ave FC|F|60|0
+961487|Celias Ingenthron|Club Atletico Platense|LB|58.9|0
+961741|Simon Escobar|CA Velez Sarsfield|LB, W|70|0
+961851|Rodrigo Granillo|Club Atletico Tucuman II|W, F|62.5|0
+962126|Alejandro Tello|Racing Club|DM, CM|68.7|0
+962129|Gonzalo Leiva|Racing Club II|CM, W||0
+962274|Pablo Alcoba|Albion FC|DM, CM|63.8|0
+962275|Mateo Alcoba|Albion FC|W, CM||0
+962278|Jonathan Spiff|CA River Plate II|F|69.1|0
+962289|Luciano Rodriguez|Club Nacional B|CB||0
+962798|Cayetano Bolzan|Club Deportivo Maldonado|F|59.9|0
+962926|Ramiro Tulian|Club Atletico Belgrano|AM|58.9|0
+963545|Brandon Alvarez|CA Penarol|W|58.9|1
+963546|Julio Daguer|CA Penarol U19|DM, AM||0
+963703|Estiven Villalba|Club Libertad Asuncion|RB, AM|66.9|0
+963706|Elias Diaz|Club Libertad Asuncion U20|CB||0
+963708|Thiago Fernandez|Club Libertad Asuncion|CB, RB|69.2|0
+963709|Oscar Acuna|Club Libertad Asuncion|F|64.8|0
+964007|Miguel Marulanda|Envigado FC|F, AM|59.7|0
+964348|Juan Rosa|Atletico Nacional U20|W|68.1|0
+964354|Matias Lozano|Atletico Nacional U20|AM||1
+964382|Edgar Paez|Sportivo Ameliano|W, AM|61|0
+964642|Kevin Amarilla|Olimpia Asuncion U20|LB||0
+964790|Misael Aguirre|Club Atletico Union|W, F|68.6|0
+965033|Agustin Fernandez|Club Atletico Boston River U19|F||0
+965451|Mateo Ovalle|AA Argentinos Juniors II|DM||0
+969025|Aiyran|CR Flamengo U20|F, W||0
+969317|Eric Izoita|Portland Timbers|CM, DM|65.4|0
+969464|Eduardo Conceicao|SE Palmeiras Sao Paulo U20|W, CM||0
+969739|Melk|Ceara Sporting Club|W, AM|71.3|0
+969899|Eric Preston|Ventura County FC|W, F|67.2|0
+969948|Thiago Aguirre|CA Velez Sarsfield|F|68.5|0
+970144|Marcelo Chaparro|Club Cerro Porteno|LB, W|72.5|0
+970174|Lorenzo|Cuiaba Esporte Clube (MT)|LB|64.1|0
+970583|Joao Gabriel|Ceara Sporting Club|CM, DM|69.7|0
+970740|Lautaro Mora|CA Huracan|CM, DM|62.3|0
+970766|Luis Fragozo|CS Emelec|W, F|66.8|0
+971056|Bruno Torres|CSD Colo-Colo|CB||0
+971057|Alonso Olguin|CSD Colo-Colo|CB, LB|58.9|0
+971152|German Barbas|CA Penarol B|CM, AM||0
+971374|Reixon Saya|CS Emelec|W, AM|59.9|0
+971398|Facundo Valdez|CA Boston River|W, F|63.3|0
+971496|Santino Gianini|AA Argentinos Juniors II|CB|60|0
+971671|Wallace|Gremio Foot-Ball Porto Alegrense|CM, CB|73.6|0
+972319|Iago Machado|Sport Club Corinthians Paulista|CB|68.7|0
+973976|Joao Bezerra|Sport Club Internacional|F|60|0
+974113|Simon Rojas|Atletico Nacional U20|DM||0
+974192|Aldahir Gomez|CD Universidad Catolica U20|CM||0
+975412|Martin Valdes|Audax Italiano U19|W||0
+975413|Tomas Leyton|Audax Italiano U19|DM, CM||0
+975423|Jefferson Wila|Barcelona SC Guayaquil|W|69|0
+975558|Juan Bernal|Club Libertad Asuncion U20|RB, CB||0
+975666|Joaquin Munoz|CD O'Higgins II|CM, DM|57.5|0
+975667|Alan Soares de Lima|Defensor Sporting Club|W||0
+975668|Jordan Arboleda|Atletico Nacional U20|CM||0
+975669|Cristian Arboleda|Atletico Nacional U20|W||0
+975670|Brian Barboza|CA Penarol|RB, CB|69.9|0
+975671|Ryan Augusto|Red Bull Bragantino|RB|74.1|0
+975672|Luis Maturana|Independiente Medellin U20|AM||0
+975673|Roman Gonzalez|Racing Club Jugend|W, F||0
+976558|Nicolas Scotti|Defensor Sporting Club|W|56.8|0
+976631|Mateo Martinez|Racing Club II|CB|74.3|0
+976818|Thiago Ocampo|CA Nueva Chicago|W|60|0
+976911|Alejandro Delgadillo|Club Sportivo 2 de Mayo|CM||0
+976935|Alan Fernandez|Club Sportivo 2 de Mayo|W, AM||0
+976941|Alberto Campo|Racing Club II|W||0
+977154|Mauro Coronel|Club Nacional Asuncion|CB|61|0
+991210|Thiago Brizuela|Liverpool FC Montevideo|AM, CM|66.3|0
+993394|Facundo Aristegui|CA Boston River|W||0
+994244|Felipe Marin|Atletico Nacional|CM|69.6|0
+995565|Juan Miguel Arrayago|CA Independiente|CB|72.2|0
+997216|Anderson Murillo|Independiente Medellin U20|LB||0
+999215|Jaidinson Cordoba|Independiente Medellin U20|CM||0
