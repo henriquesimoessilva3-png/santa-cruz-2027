@@ -2974,7 +2974,11 @@ async function perfilExtraDe(j) {
     const porClube = c.filter(x => typeof clubeParecido === 'function' && (clubeParecido(x[0], j.t) || (P.emp && P.emp[x[6]] && clubeParecido(P.emp[x[6]].de, j.t))));   /* 21/10: emprestado — o cadastro pode estar no clube dono (caso Raul, Athletico → Cuiabá) */
     const porIdade = c.filter(x => j.id_ && x[1] && Math.abs(x[1] - j.id_) <= 1);
     const x = porClube.length === 1 ? porClube[0] : porIdade.length === 1 ? porIdade[0] : null;
-    return x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], nasc: x[10], emp: (P.emp && P.emp[x[6]]) || null, fonte: 'Transfermarkt' } : null;
+    let r = x ? { alt: x[2], pe: x[3], valor: x[4], contrato: x[5], tm: x[6], foto: x[7], nac: x[8], clubeId: x[9], clube: x[0], nasc: x[10], emp: (P.emp && P.emp[x[6]]) || null, fonte: 'Transfermarkt' } : null;
+    /* 22/10: altura informada pelo Henrique (dados/alturas_manuais.csv) vale por cima do Transfermarkt */
+    const ax = P.altx && (P.altx[pk] || P.altx[pkM]);
+    if (ax) r = Object.assign(r || { fonte: 'levantamento' }, { alt: ax });
+    return r;
   } catch (e) { return null; }
 }
 /* 18/10 — embaixo do técnico: minutagem dos três anos e bola parada */

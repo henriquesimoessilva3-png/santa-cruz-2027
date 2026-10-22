@@ -34,6 +34,10 @@ def main():
     ep = os.path.join(AQUI, "dados", "tm_emprestimos.json")
     if os.path.exists(ep):
         out["emp"] = {k: v for k, v in json.load(open(ep, encoding="utf-8")).items() if v.get("de")}
+    # 22/10/2026 — alturas informadas pelo Henrique (pk;altura_cm;fonte), valem por cima do Transfermarkt
+    ap = os.path.join(AQUI, "dados", "alturas_manuais.csv")
+    if os.path.exists(ap):
+        out["altx"] = {r.pk: int(r.altura_cm) for r in pd.read_csv(ap, sep=";").itertuples() if not pd.isna(r.altura_cm)}
     mp = os.path.join(AQUI, "dados", "manuais_perfil.csv")
     if os.path.exists(mp):
         for r in pd.read_csv(mp, sep=None, engine="python").itertuples():
