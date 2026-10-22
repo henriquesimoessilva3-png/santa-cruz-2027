@@ -7509,8 +7509,8 @@ let EQUIV_IDX = null;
 function equivIndice() {   /* 1ª palavra do nome (normalizado) → registros da BASE; refeito quando a BASE muda */
   if (EQUIV_IDX && EQUIV_IDX.base === BASE && EQUIV_IDX.n === BASE.length) return EQUIV_IDX.m;
   const m = new Map();
-  BASE.forEach(x => { const ws = new Set([x.n, x.nc].filter(Boolean).map(t => tipoNorm(t).split(' ')[0]).filter(Boolean));
-    ws.forEach(w => { let l = m.get(w); if (!l) m.set(w, l = []); l.push(x); }); });
+  BASE.forEach(x => { const ns = [x.n, x.nc].filter(Boolean).map(tipoNorm), e = { x, ns };
+    new Set(ns.map(t => t.split(' ')[0]).filter(Boolean)).forEach(w => { let l = m.get(w); if (!l) m.set(w, l = []); l.push(e); }); });
   EQUIV_IDX = { base: BASE, n: BASE.length, m };
   return m;
 }
@@ -7528,9 +7528,14 @@ function registroEquivalente(j) {
   /* 22/10 (Henrique: "o app está demorando muito nas consultas"): varria a BASE inteira (~20 mil, com tipoNorm de cada nome)
      a cada jogador sem dado — 14 ms por jogador, 4,6 s no filtro de seta da busca. Agora só os de mesma 1ª palavra do nome
      (mesmoNome exige isso: igual, ou um nome começando pelo outro + espaço). Mesmo resultado. */
-  const cand = new Set(); const ix = equivIndice();
-  nomes.forEach(a => (ix.get(a.split(' ')[0]) || []).forEach(x => cand.add(x)));
-  const c = BASE.filter(x => cand.has(x) && x !== j && temDados(x) && mesmoNome(x) && posOk(x));
+  /* (os nomes normalizados ficam no índice; temDados por último, é o teste mais caro) */
+  const ix = equivIndice(), vistos = new Set(), c = [];
+  nomes.forEach(a0 => (ix.get(a0.split(' ')[0]) || []).forEach(e => {
+    const x = e.x; if (vistos.has(x)) return; vistos.add(x);
+    if (x === j || !posOk(x)) return;
+    if (!e.ns.some(b => nomes.some(a => a === b || b.startsWith(a + ' ') || a.startsWith(b + ' ')))) return;
+    if (temDados(x)) c.push(x);
+  }));
   let r = c.filter(x => clubeParecido(x.t, j.t));
   if (r.length !== 1) r = c.filter(x => igual(x) && j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!j.nac || !x.nac || x.nac === j.nac));
   const out = r.length === 1 ? r[0] : null;
