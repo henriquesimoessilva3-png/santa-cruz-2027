@@ -26,9 +26,14 @@
   let cache = null;
   /* selo de subida de cada jogador (▲ v · ↔ a · ▼ r · ? n), guardado para os filtros e as contagens não recalcularem a cada tela */
   let selos = new Map();
+  let memoVer = -1;
+  const farois = new Map();
+  /* 22/10: tudo o que é calculado por jogador vale enquanto a versão dos dados (window.DADOS_VER, app.js) não muda */
+  function confereVer() { const v = window.DADOS_VER || 0; if (v !== memoVer) { memoVer = v; selos = new Map(); infoT.clear(); farois.clear(); } }
+  function farolDe(b, JB) { if (!JB) return ''; let h = farois.get(b); if (h == null) { h = JB.farolHtml(b); farois.set(b, h); } return h; }
   function seloDe(x) {
     let o = selos.get(x.b);
-    if (!o) { let h = ''; try { h = window.subidaSelo ? window.subidaSelo(x.j) : ''; } catch (e) {} const m = /sb-selo sb-([varn])/.exec(h || ''); o = { h: h || '', c: m ? m[1] : 'n' }; if (o.c !== 'n') selos.set(x.b, o); }   /* 20/10 (caso Eduardo Brock): '?' não fica guardado — pode ser só o arquivo de indicadores da posição que ainda não chegou */
+    if (!o) { let h = ''; try { h = window.subidaSelo ? window.subidaSelo(x.j) : ''; } catch (e) {} const m = /sb-selo sb-([varn])/.exec(h || ''); o = { h: h || '', c: m ? m[1] : 'n' }; selos.set(x.b, o); }   /* 20/10 (caso Eduardo Brock): '?' não fica guardado — pode ser só o arquivo de indicadores da posição que ainda não chegou */
     return o;
   }
   const SELOS = [['v', '▲', 'atende'], ['a', '↔', 'médio'], ['r', '▼', 'não atende'], ['n', '?', 'sem dado']];
@@ -111,7 +116,7 @@
         '<td class="n">' + (j.id_ || '—') + '</td><td class="n">' + (j.alt || x.b.alt || '—') + '</td>' +
         (() => { const o = infoDe(x); return '<td class="n"><span class="ta-mp ' + (o.mc || '') + '">' + (o.mp != null ? o.mp + '%' : '—') + '</span></td>'; })() +
         '<td class="n' + (livre(j) ? ' lv' : '') + '">' + ct(j) + '</td><td class="n">' + (j.mv ? (j.mv >= 1e6 ? num(j.mv / 1e6, 1) + ' mi' : num(j.mv / 1e3, 0) + ' mil') : '—') + '</td>' +
-        '<td class="n f">' + num(j.psv, 1) + '</td><td class="n f">' + num(j.spr_n, 1) + '</td><td class="n f">' + num(j.expl, 2) + '</td><td class="n f">' + num(j.hi_n, 0) + '</td><td>' + selo + '</td>' + (window.VISAO_NOVA ? '<td class="fa">' + (JB ? JB.farolHtml(x.b) : '') + '</td>' : '') +
+        '<td class="n f">' + num(j.psv, 1) + '</td><td class="n f">' + num(j.spr_n, 1) + '</td><td class="n f">' + num(j.expl, 2) + '</td><td class="n f">' + num(j.hi_n, 0) + '</td><td>' + selo + '</td>' + (window.VISAO_NOVA ? '<td class="fa">' + farolDe(x.b, JB) + '</td>' : '') +
         '<td class="lv-bt">' + (JB ? JB.levarHtml(x.b) : '') + '</td></tr>';
     });
     return h + '</tbody></table></div>';
@@ -124,7 +129,7 @@
     if (!o) { o = {}; try { const s = window.subidaSeloInfo ? window.subidaSeloInfo(x.j, null) : null; if (s) { o.v = s.verde; o.com = s.com; } } catch (e) {}
       try { const m = typeof minutagemDe === 'function' ? minutagemDe(x.j) : null; if (m) { o.mp = Math.round(m.pct * 100); o.mc = m.c; } } catch (e) {}
       try { const bp = typeof bolaParadaDe === 'function' ? bolaParadaDe(x.j) : null; if (bp) { o.cob = bp.cob; o.bc = bp.c; } } catch (e) {}
-      if (o.com) infoT.set(x.b, o); }   /* 20/10: sem técnico medido ainda (arquivo da posição chegando) não fica guardado */
+      infoT.set(x.b, o); }   /* 20/10: sem técnico medido ainda (arquivo da posição chegando) não fica guardado */
     return o;
   }
   const ordenaT = linhas => { const k = E.ordT; return linhas.slice().sort((a, b) => k === 'nome' ? String(a.j.n).localeCompare(b.j.n) : k === 'idade' ? (a.j.id_ || 99) - (b.j.id_ || 99)
@@ -147,14 +152,18 @@
         '<td class="n f">' + (o.com ? '<b>' + o.v + '</b>/' + o.com : '—') + '</td>' +
         '<td class="n"><span class="ta-mp ' + (o.mc || '') + '">' + (o.mp != null ? o.mp + '%' : '—') + '</span></td>' +
         '<td class="n' + (o.bc ? ' bp-' + o.bc : '') + '">' + (o.cob != null ? o.cob : '—') + '</td>' +
-        (window.VISAO_NOVA ? '<td class="fa">' + (JB ? JB.farolHtml(x.b) : '') + '</td>' : '') + '<td class="lv-bt">' + (JB ? JB.levarHtml(x.b) : '') + '</td></tr>';
+        (window.VISAO_NOVA ? '<td class="fa">' + farolDe(x.b, JB) + '</td>' : '') + '<td class="lv-bt">' + (JB ? JB.levarHtml(x.b) : '') + '</td></tr>';
     });
     return h + '</tbody></table></div>';
   }
   function render() {
     const R = document.getElementById('taCorpo'); if (!R) return;
     if (!ok()) { R.innerHTML = '<p class="ta-vazio">carregando a base…</p>'; setTimeout(render, 800); return; }
-    if (!cache || cache.n !== BASE.length) { cache = { n: BASE.length, d: calcula() }; selos = new Map(); }
+    confereVer();
+    if (!cache || cache.n !== BASE.length || cache.v !== memoVer) { cache = { n: BASE.length, v: memoVer, d: calcula() }; }
+    /* mesma tela de antes (mesmos filtros, mesmos dados): não redesenha — voltar à aba fica instantâneo */
+    const chave = JSON.stringify(E) + '|' + memoVer + '|' + BASE.length + '|' + !!window.VISAO_NOVA;
+    if (R.dataset.chave === chave && R.firstChild) return;
     const D = cache.d, C = window.CONSULTA, pref = C.pref || {};
     const meio = p => { const doSetor = Object.keys(((C.cen || {})[typeof TIPO_SET !== 'undefined' ? TIPO_SET[p] : ''] || {}).tipos || {}); return doSetor.filter(tp => !(pref[p] || []).includes(tp) && !((C.cai || {})[p] || []).includes(tp)); };
     const conta = (p, L) => GRUPOS.reduce((s, g) => s + filtra(D[p][L][g[0]]).length, 0);
@@ -209,7 +218,7 @@
     });
     if (!TEC) h += '<div class="ta-nota">A letra é a mesma dos cards do campograma (regra do clube de 06/10/2026 sobre os tipos físicos do Estudo V2). PSV = velocidade máxima (km/h) · Spr = sprints por 90 · Arr = arrancadas explosivas por 90 · AI = ações de alta intensidade por 90. ' +
       'Sub: ▲ atende 60% ou mais dos indicadores fundamentais da posição · ↔ 35% a 60% · ▼ menos de 35% · ? falta dado técnico. Contrato em verde = vence até jan/2027. As segundas divisões de Argentina, Colômbia e Equador não têm dado físico.</div>';
-    R.innerHTML = h;
+    R.innerHTML = h; R.dataset.chave = chave;
     try { localStorage.setItem(LS, JSON.stringify(E)); } catch (e) {}
   }
   function ligar() {

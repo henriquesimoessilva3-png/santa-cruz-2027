@@ -640,6 +640,7 @@ window.abrevInd = function (r) {
     Promise.resolve(cachePosKpis[pos]).then(b => { kpiPronto[pos] = b || false; }, () => { kpiPronto[pos] = false; }).then(() => {
       if (--kpiPend > 0) return;
       try { if (typeof render === 'function') render(); else if (typeof renderCampo === 'function') renderCampo(); } catch (e) {}
+      try { if (typeof dadosMudaram === 'function') dadosMudaram(); } catch (e) {}
       try { window.dispatchEvent(new Event('subida-kpis')); } catch (e) {}
     });
     return null;

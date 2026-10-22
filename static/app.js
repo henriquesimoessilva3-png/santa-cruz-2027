@@ -204,6 +204,11 @@ function brl(n, curto) {
   }
   return 'R$ ' + n.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
 }
+/* 22/10/2026 — versão dos dados: sobe quando dados são colados, quando chegam os indicadores
+   de uma posição ou muda a base de cadastrados à mão. As abas pesadas (Tipo físico) guardam o que calcularam por versão e
+   só refazem quando ela muda — antes recalculavam ~2.400 linhas a cada abertura (1 a 4 s). */
+window.DADOS_VER = 1;
+function dadosMudaram() { window.DADOS_VER = (window.DADOS_VER || 0) + 1; }
 function milhar(n) { return (Number(n) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 0 }); }
 /* o fator e 31,9/26: sem o corte, a tela escreveria 1,226923076923077 */
 function fmtFator(f) { return (Number(f) || 0).toLocaleString('pt-BR', { maximumFractionDigits: 4 }); }
@@ -7153,15 +7158,16 @@ function csApelido(j) {
   const D = window.CONSULTA; if (!D || !j || !j.n || !j.t) return null;
   const ch = j.n + '|' + j.t + '|' + j.p;
   if (CS_APELIDO.has(ch)) return CS_APELIDO.get(ch);
-  if (!CS_POS) { CS_POS = {}; D.jogadores.forEach(x => (CS_POS[x.p] = CS_POS[x.p] || []).push(x)); }
+  /* 22/10: as palavras do nome de cada registro da Consulta saem uma vez só (antes, tipoNorm de milhares de nomes a cada
+     jogador novo: 12 milhões de chamadas na 1ª abertura do Tipo físico) */
+  if (!CS_POS) { CS_POS = {}; D.jogadores.forEach(x => (CS_POS[x.p] = CS_POS[x.p] || []).push([x, tipoNorm(x.n).split(' ')])); }
   const tj = new Set(tipoNorm(j.n).split(' '));
-  const c = (CS_POS[j.p] || []).filter(x => {
-    const tx = tipoNorm(x.n).split(' ');
+  const c = (CS_POS[j.p] || []).filter(([x, tx]) => {
     if (!tx.length || !(tx.every(w => tj.has(w)) || [...tj].every(w => tx.includes(w)))) return false;
     if (j.id_ && x.i && Math.abs(x.i - j.id_) > 1) return false;
     return clubeParecido(j.t, x.c);
   });
-  const r = c.length === 1 ? c[0] : null;
+  const r = c.length === 1 ? c[0][0] : null;
   CS_APELIDO.set(ch, r); return r;
 }
 /* quem está no estudo mas não tem físico na base do app (registro só de cadastro): o raio e a ficha usam o físico do estudo */
@@ -7478,6 +7484,7 @@ async function djCarregar(grupos) {
    abas Consulta de jogador, Tipo físico, listas e similares) passa a ter o físico e o tipo do colado. O original fica
    em x._estudo para voltar se o colado for apagado. */
 function coladosNaConsulta() {
+  dadosMudaram();
   const D = window.CONSULTA; if (!D || !BASE.length) return;
   D.jogadores.forEach(x => { if (x._estudo) { Object.assign(x, x._estudo); delete x._estudo; } });
   Object.keys(DADOSJOG || {}).forEach(pk => {
@@ -7498,6 +7505,15 @@ function coladosNaConsulta() {
    mesmo nome (ou um contido no outro: "Fernandinho" × "Fernandinho Conceição") e mesmo clube, ou mesmo nome com
    idade a ±1 e mesmo setor (o manual "André Luiz · Viettel" × o "André Luiz · Londrina" da base). Só quando há UM candidato. */
 const EQUIV_CACHE = new Map();
+let EQUIV_IDX = null;
+function equivIndice() {   /* 1ª palavra do nome (normalizado) → registros da BASE; refeito quando a BASE muda */
+  if (EQUIV_IDX && EQUIV_IDX.base === BASE && EQUIV_IDX.n === BASE.length) return EQUIV_IDX.m;
+  const m = new Map();
+  BASE.forEach(x => { const ws = new Set([x.n, x.nc].filter(Boolean).map(t => tipoNorm(t).split(' ')[0]).filter(Boolean));
+    ws.forEach(w => { let l = m.get(w); if (!l) m.set(w, l = []); l.push(x); }); });
+  EQUIV_IDX = { base: BASE, n: BASE.length, m };
+  return m;
+}
 function temDados(j) { return !!j && (!!(j.dados && (j.dados.fis || j.dados.tec)) || typeof j.psv === 'number' || !!j.rk_ok || !!djPor(primaryKey(j))); }
 function registroEquivalente(j) {
   if (!j || temDados(j) || !BASE.length) return null;
@@ -7509,7 +7525,12 @@ function registroEquivalente(j) {
      outros, mesma posição ou mesmo setor); nome parcial só vale com o clube conferindo; sem o clube, o nome tem de ser IGUAL. */
   const posOk = x => x.p === j.p || (j.p !== 'GOL' && x.p !== 'GOL' && TIPO_SET[j.p] && TIPO_SET[j.p] === TIPO_SET[x.p]);
   const igual = x => [x.n, x.nc].filter(Boolean).map(tipoNorm).some(b => nomes.includes(b));
-  const c = BASE.filter(x => x !== j && temDados(x) && mesmoNome(x) && posOk(x));
+  /* 22/10 (Henrique: "o app está demorando muito nas consultas"): varria a BASE inteira (~20 mil, com tipoNorm de cada nome)
+     a cada jogador sem dado — 14 ms por jogador, 4,6 s no filtro de seta da busca. Agora só os de mesma 1ª palavra do nome
+     (mesmoNome exige isso: igual, ou um nome começando pelo outro + espaço). Mesmo resultado. */
+  const cand = new Set(); const ix = equivIndice();
+  nomes.forEach(a => (ix.get(a.split(' ')[0]) || []).forEach(x => cand.add(x)));
+  const c = BASE.filter(x => cand.has(x) && x !== j && temDados(x) && mesmoNome(x) && posOk(x));
   let r = c.filter(x => clubeParecido(x.t, j.t));
   if (r.length !== 1) r = c.filter(x => igual(x) && j.id_ != null && x.id_ != null && Math.abs(x.id_ - j.id_) <= 1 && (!j.nac || !x.nac || x.nac === j.nac));
   const out = r.length === 1 ? r[0] : null;
@@ -7569,6 +7590,7 @@ function manualRegistro(m) {
 function manuaisAplicar() {
   BASE = BASE.filter(x => !x.manual).concat(MANUAIS.map(manualRegistro));
   FS_PK_TUDO = null; if (typeof EQUIV_CACHE !== 'undefined') EQUIV_CACHE.clear();
+  dadosMudaram();
 }
 async function manuaisCarregar() {
   let lista = manuaisLocalLer();
