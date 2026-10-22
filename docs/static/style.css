@@ -2642,7 +2642,7 @@ body.claro .fb-on.bloq{color:var(--coral)}
 .amostra{border-left-width:7px}
 /* sem status definido o fio cinza continua fino: faixa larga e apagada chama atenção
    para o que ainda não foi decidido, que é o contrário do que se quer */
-.jog:not(.st-alvo):not(.st-negociando):not(.st-fechado):not(.st-elenco){border-left-width:3px}
+.jog:not(.st-alvo):not(.st-negociando):not(.st-fechado):not(.st-elenco):not(.st-encerrada){border-left-width:3px}
 
 /* O `.jog.titular` usa o atalho `border-color`, que pinta os QUATRO lados — inclusive o
    esquerdo, onde mora a faixa de status. Resultado: um titular marcado como Alvo exibia
@@ -3942,3 +3942,10 @@ body.visao-nova .jpainel{flex:none}
 .fi-dado.ct-livre .v{display:inline-block;background:#1f9d55;color:#fff;border-radius:5px;padding:1px 8px;margin-top:1px}
 .fi-dado.ct-livre .o{color:#2ecc71}
 .ct-livre-t{color:#2ecc71;font-weight:700}
+
+/* 21/10/2026 — status de negociação "Negociação encerrada": faixa vermelha e card apagado */
+.jog.st-encerrada{border-left-color:#e5484d}
+.jog.st-encerrada{opacity:.72}
+.jog.st-encerrada .jog-nome, .jog.st-encerrada .nome{text-decoration:line-through;text-decoration-color:#e5484d99}
+.amostra.st-encerrada{border-left-color:#e5484d}
+.jog-bts button.st.st-encerrada{color:#e5484d}

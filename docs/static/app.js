@@ -59,8 +59,8 @@ const SETORES = [
   { c:'meio',   nome:'Meio',     cor:'#a855f7' },
   { c:'ataque', nome:'Ataque',   cor:'#22c55e' },
 ];
-const STATUS = ['alvo','negociando','fechado','elenco'];
-const STATUS_ROT = { alvo:'Alvo', negociando:'Negociando', fechado:'Fechado', elenco:'Elenco atual' };
+const STATUS = ['alvo','negociando','fechado','elenco','encerrada'];   /* 21/10/2026: + negociação encerrada (vermelho) */
+const STATUS_ROT = { alvo:'Alvo', negociando:'Negociando', fechado:'Fechado', elenco:'Elenco atual', encerrada:'Negociação encerrada', sem:'Sem status de negociação' };
 
 const GRUPOS_LIGA = {
   brasil:    ['Brasil A','Brasil B','Brasil C'],
@@ -1546,6 +1546,7 @@ function abrirMenuJogador(botao, cod, j) {
     '<div class="menu-sep">Status negociação</div>' +
     STATUS.map(st => '<button data-a="st:' + st + '"' +
       ((j.status || 'alvo') === st ? ' class="atual"' : '') + '>' + STATUS_ROT[st] + '</button>').join('') +
+    ((j.status || 'alvo') !== 'sem' ? '<button data-a="st:sem" class="apagar">tirar o status</button>' : '') +
     '<button data-a="clonar">Copiar para outro campograma <i class="menu-nota">escolhe o grupo e a posição</i></button>' +
     '<div class="menu-sep">Mover para</div>' +
     '<div class="menu-pos">' + POSICOES.filter(p => p.c !== cod).map(p =>
