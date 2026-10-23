@@ -73,3 +73,18 @@
 /* coluna do físico mais larga na comparação (os nomes não cortam) */
 #fiCorpo.cmp-on .sf-layout{grid-template-columns:minmax(430px,1.25fr) minmax(0,4fr)}
 #fiCorpo.cmp-on .sf-col-fis .fi-linha.sf.sf6{grid-template-columns:minmax(120px,1fr) 42px 38px 42px 38px 30px 30px 32px!important}
+/* 5ª versão: sem faixa no topo — o outro jogador no título da ficha, o resumo embaixo da coluna do técnico */
+.fi-cmp-b{display:flex;align-items:center;gap:8px;margin-left:14px}
+.fi-cmp-vs{font-size:22px;font-weight:800;color:var(--tinta3);margin-right:4px}
+.fi-cmp-b .fi-perfil{margin:0}
+#fiNome .cmp-tag{align-self:center}
+.cmp-baixo{margin-top:12px}
+.cmp-qbox{border:1px solid var(--borda);border-radius:var(--r);background:var(--fundo2);padding:8px 10px;display:inline-block;min-width:520px}
+.cmp-q-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px;font-size:12px}
+.cmp-q{width:100%}
+.cmp-q tr.dd td:first-child{text-transform:none}
+.cmp-q tr.dd td{color:var(--tinta);font-weight:600}
+.cmp-q tr.fis td{border-top:1px solid var(--borda2)}
+.cmp-q .lv{color:var(--txt-verde);font-weight:800}
+.cmp-q .min-v{color:var(--txt-verde)} .cmp-q .min-a{color:#e8a33d} .cmp-q .min-r{color:var(--txt-vermelho)}
+.cmp-q-leg{max-width:none}
