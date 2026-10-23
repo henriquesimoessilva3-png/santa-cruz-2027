@@ -177,23 +177,31 @@
       const ct = j => j.ct ? j.ct.slice(5, 7) + '/' + j.ct.slice(0, 4) : '—', lv = j => j.ct && j.ct.slice(0, 7) <= '2027-01' ? ' class="lv"' : '';
       const mi = r => r.mp != null ? '<span class="' + (r.mc ? 'min-' + r.mc : '') + '">' + r.mp + '%</span>' : '—';
       const dado = (rot, a, b) => '<tr class="dd"><td>' + rot + '</td><td>' + a + '</td><td>' + b + '</td><td></td></tr>';
-      let linhas = dado('Contrato', '<span' + lv(A) + '>' + ct(A) + '</span>', '<span' + lv(B) + '>' + ct(B) + '</span>') +
+      let dados = dado('Contrato', '<span' + lv(A) + '>' + ct(A) + '</span>', '<span' + lv(B) + '>' + ct(B) + '</span>') +
         dado('Altura', A.alt ? A.alt + ' cm' : '—', B.alt ? B.alt + ' cm' : '—') + dado('Minutagem', mi(ra), mi(rb)) +
         ((ra.bp != null || rb.bp != null) ? dado('Cobrador', ra.bp != null ? ra.bp : '—', rb.bp != null ? rb.bp : '—') : '') +
         dado('Farol', ra.farolH || '—', rb.farolH || '—');
-      linhas += fis.map(G => linha1('Físico', G.a, G.b, G.la, G.lb, 'fis')).join('');
+      let linhas = fis.map(G => linha1('Físico', G.a, G.b, G.la, G.lb, 'fis')).join('');
       linhas += tec.map(G => { const x = nivel(G.a), y = nivel(G.b); if (x) { ta1 += x[0]; tn += x[1]; } if (y) tb1 += y[0]; tl += G.la; tr += G.lb;
         const ca = x && y && x[0] > y[0] ? ' class="ld"' : '', cb = x && y && y[0] > x[0] ? ' class="ld"' : '';
         return '<tr><td>' + esc(G.nome.toLowerCase()) + '</td><td' + ca + '>' + esc(G.a) + '</td><td' + cb + '>' + esc(G.b) + '</td><td class="dl">' + (G.la + G.lb ? G.la + ' × ' + G.lb : '—') + '</td></tr>'; }).join('');
       if (tec.length) linhas += linha1('Técnico (seta)', ta1 + '/' + tn, tb1 + '/' + tn, tl, tr, 'tot');
-      return '<div class="cmp-qbox"><div class="cmp-q-top"><b>Resumo do comparativo</b><button type="button" class="bt mini cmp-todos">' + (CMP.so ? 'ver todos os indicadores' : 'só os principais (● ◆)') + '</button></div><table class="cmp-q"><thead><tr><th title="Fundamentais (● e ◆) de cada tipo">tipo</th><th>' + tagA + '</th><th>' + tagB + '</th><th title="Entre os fundamentais com dado dos dois: em quantos cada um tem o número melhor">melhor no duelo</th></tr></thead><tbody>' + linhas +
-        '</tbody></table>' +
-        '<div class="cmp-q-leg"><b>x/y</b> = fundamentais no nível de quem sobe (o mesmo número da ficha) · <b>melhor no duelo</b> = entre esses fundamentais, em quantos cada um tem o número melhor que o outro</div></div>';
+      /* 23/10 (Henrique: "na mesma linha do resumo, não precisa de uma faixa só para ela"): duas tabelas compactas ao lado do resumo da seta */
+      const cab = '<thead><tr><th></th><th>' + tagA + '</th><th>' + tagB + '</th>';
+      return '<div class="cmp-qs"><table class="cmp-q" title="x/y = fundamentais no nível de quem sobe (o mesmo número da ficha) · melhor no duelo = entre esses fundamentais, em quantos cada um tem o número melhor que o outro">' + cab +
+        '<th title="Entre os fundamentais com dado dos dois: em quantos cada um tem o número melhor">melhor no duelo</th></tr></thead><tbody>' + linhas + '</tbody></table>' +
+        '<table class="cmp-q cmp-q-d">' + cab + '<th></th></tr></thead><tbody>' + dados + '</tbody></table>' +
+        '<button type="button" class="bt mini cmp-todos">' + (CMP.so ? 'ver todos os indicadores' : 'só os principais (● ◆)') + '</button></div>';
     };
     /* 23/10 (Henrique: "a faixa de cima pode ir para baixo, junto com o comparativo; foto e nome do outro lá em cima"):
        o título da ficha mostra os dois (foto e nome); o resumo vai para o fim da coluna do técnico */
-    const caixa = document.createElement('div'); caixa.className = 'cmp-baixo'; caixa.innerHTML = quadro();
-    const colTec = corpo.querySelector('.sf-col-tec'); (colTec || corpo).appendChild(caixa);
+    const caixa = document.createElement('div'); caixa.className = 'cmp-lado-q'; caixa.innerHTML = quadro();
+    const colTec = corpo.querySelector('.sf-col-tec'), res = colTec ? [...colTec.querySelectorAll(':scope > .fi-res')] : [];
+    if (res.length) {
+      const linha = document.createElement('div'); linha.className = 'cmp-res-linha';
+      const esq = document.createElement('div'); esq.className = 'cmp-res-esq';
+      res[0].before(linha); res.forEach(x => esq.appendChild(x)); linha.appendChild(esq); linha.appendChild(caixa);
+    } else (colTec || corpo).appendChild(caixa);
     caixa.querySelector('.cmp-todos').onclick = () => { CMP.so = !CMP.so; window.renderFicha(); };
     const nomeA = document.getElementById('fiNome');
     if (nomeA) {

@@ -88,3 +88,10 @@
 .cmp-q .lv{color:var(--txt-verde);font-weight:800}
 .cmp-q .min-v{color:var(--txt-verde)} .cmp-q .min-a{color:#e8a33d} .cmp-q .min-r{color:var(--txt-vermelho)}
 .cmp-q-leg{max-width:none}
+/* 6ª versão: as tabelas do resumo na mesma linha do resumo da seta */
+.cmp-res-linha{display:flex;align-items:flex-start;gap:18px;justify-content:space-between}
+.cmp-res-esq{flex:1 1 auto;min-width:0}
+.cmp-qs{display:flex;align-items:flex-start;gap:14px;flex:0 0 auto}
+.cmp-qs .cmp-q{width:auto}
+.cmp-qs .cmp-todos{align-self:flex-start}
+.cmp-q-d td{font-weight:600}
