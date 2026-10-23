@@ -34,7 +34,7 @@
       w.querySelector('#fiCmpRes').addEventListener('click', e => {
         const op = e.target.closest('.fi-cmp-op'); if (!op) return;
         const b = (BASE || []).find(x => String(x.id) === op.dataset.id); if (!b) return;
-        CMP = { a: pkDe(fichaAtual), b };
+        CMP = { a: pkDe(fichaAtual), b, so: CMP && CMP.a === pkDe(fichaAtual) ? CMP.so : false };
         w.querySelector('.fi-cmp-busca').classList.add('oculta');
         botao(); window.renderFicha();
       });
@@ -110,7 +110,9 @@
       b.innerHTML = '<span class="cmp-c a">' + esc(ini(A.n)) + '</span> ' + esc(b.textContent) + (vb != null ? ' <span class="cmp-c b">' + esc(ini(B.n)) + '</span> ' + esc(vb) : ''); });
     /* linhas */
     const mapB = {}; tmp.querySelectorAll('.fi-linha:not(.cab)').forEach(r => { const k = nkRot((r.querySelector('.rot') || {}).textContent); if (k && !mapB[k]) mapB[k] = r; });
-    let la = 0, lb = 0;
+    /* 23/10 (Henrique: "mostra todos; foco nos principais e depois nos outros"): todos aparecem; os principais (● ◆) vêm
+       primeiro em cada grupo, como na ficha, e os demais depois de um separador, em tom mais leve. "só os principais" esconde. */
+    let la = 0, lb = 0, ta = 0, tb = 0;
     corpo.querySelectorAll('.fi-linha:not(.cab)').forEach(r => {
       const rot = r.querySelector('.rot'); if (!rot) return;
       const k = nkRot(rot.textContent), rbx = mapB[k];
@@ -128,10 +130,16 @@
         const menor = /↓/.test(rot.textContent) || (typeof menorMelhorInd === 'function' && menorMelhorInd(rot.textContent.replace(/[↓~◆●]/g, '').trim()));
         const ganhaA = menor ? va < vb : va > vb;
         (ganhaA ? r : c).classList.add('cmp-leva');
-        if (CMP.todos || r.classList.contains('fund')) { if (ganhaA) la++; else lb++; }   /* o placar conta o que está na tela */
+        if (ganhaA) ta++; else tb++;
+        if (r.classList.contains('fund')) { if (ganhaA) la++; else lb++; }
       }
       const principal = r.classList.contains('fund');
-      if (!principal && !CMP.todos) { r.classList.add('cmp-oculta'); c.classList.add('cmp-oculta'); }
+      if (!principal) {
+        r.classList.add('cmp-sec'); c.classList.add('cmp-sec');
+        const ant = r.previousElementSibling;
+        if (ant && ant.classList.contains('cmp-b') && ant.classList.contains('fund')) r.insertAdjacentHTML('beforebegin', '<div class="cmp-sep"><span>demais indicadores</span></div>');
+        if (CMP.so) { r.classList.add('cmp-oculta'); c.classList.add('cmp-oculta'); }
+      }
     });
     /* minutagem / bola parada embaixo: a do jogador da ficha; na comparação saem (o resumo do topo traz a minutagem dos dois) */
     corpo.querySelectorAll('.sf-extra').forEach(x => x.classList.add('cmp-oculta'));
@@ -140,10 +148,11 @@
       chip('Contrato', j.ct ? j.ct.slice(5, 7) + '/' + j.ct.slice(0, 4) : '—', j.ct && j.ct.slice(0, 7) <= '2027-01' ? 'livre' : '') + chip('Alt.', j.alt ? j.alt + ' cm' : '—') +
       chip('Min.', r.mp != null ? r.mp + '%' : '—', r.mc ? 'min-' + r.mc : '') + (r.bp != null ? chip('Cobrador', r.bp) : '') + (r.farolH ? '<span class="cc">' + r.farolH + '</span>' : '') + '</div>';
     const faixa = document.createElement('div'); faixa.className = 'cmp-faixa';
-    faixa.innerHTML = lado(A, ra, tagA, 'a') + '<div class="cmp-pl"><b class="' + (la > lb ? 'lider' : '') + '">' + la + '</b><span>' + (CMP.todos ? 'indicadores' : 'principais') + '<br>em que leva</span><b class="' + (lb > la ? 'lider' : '') + '">' + lb + '</b></div>' + lado(B, rb, tagB, 'b') +
-      '<button type="button" class="bt mini cmp-todos">' + (CMP.todos ? 'só os principais (● ◆)' : 'ver todos os indicadores') + '</button>';
+    faixa.innerHTML = lado(A, ra, tagA, 'a') + '<div class="cmp-pls"><div class="cmp-pl"><b class="' + (la > lb ? 'lider' : '') + '">' + la + '</b><span>principais<br>em que leva</span><b class="' + (lb > la ? 'lider' : '') + '">' + lb + '</b></div>' +
+      '<div class="cmp-pl cmp-pl2"><b class="' + (ta > tb ? 'lider' : '') + '">' + ta + '</b><span>todos os<br>indicadores</span><b class="' + (tb > ta ? 'lider' : '') + '">' + tb + '</b></div></div>' + lado(B, rb, tagB, 'b') +
+      '<button type="button" class="bt mini cmp-todos">' + (CMP.so ? 'ver todos os indicadores' : 'só os principais (● ◆)') + '</button>';
     corpo.prepend(faixa);
-    faixa.querySelector('.cmp-todos').onclick = () => { CMP.todos = !CMP.todos; window.renderFicha(); };
+    faixa.querySelector('.cmp-todos').onclick = () => { CMP.so = !CMP.so; window.renderFicha(); };
     corpo.classList.add('cmp-on');
     if (typeof caberFicha === 'function') caberFicha();
   }

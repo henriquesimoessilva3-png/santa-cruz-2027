@@ -42,3 +42,9 @@
 .cmp-pl b{font-size:22px;font-weight:800;color:var(--tinta3);font-variant-numeric:tabular-nums}
 .cmp-pl b.lider{color:var(--tinta)}
 .cmp-todos{white-space:nowrap}
+.cmp-sep{display:flex;align-items:center;gap:6px;margin:6px 0 2px;font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--tinta3)}
+.cmp-sep::before,.cmp-sep::after{content:"";flex:1;border-top:1px dashed var(--borda2)}
+.fi-linha.cmp-sec{opacity:.78}
+.fi-linha.cmp-sec.cmp-leva{opacity:.9}
+.cmp-pls{display:flex;flex-direction:column;gap:2px}
+.cmp-pl2 b{font-size:15px}
