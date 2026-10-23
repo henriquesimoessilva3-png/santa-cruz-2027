@@ -3007,8 +3007,11 @@ function painelMinutagem(j) {
     return '<tr' + (ma ? '' : ' class="falta"') + '><td>' + esc(T[i] || x.t) + '</td><td class="mt-clube" title="' + esc((x.tm || '') + (x.fonte === 'wyscout' ? ' · Wyscout, todas as competições oficiais' : '')) + '">' + esc(x.tm || '') + '<small>' + (x.l ? ' ' + esc(x.l) : '') + fonte + '</small></td>' +
       '<td class="n">' + f(x.j) + '<small> de ' + (ma ? f(x.tj || Math.round(ma.tot / 90)) : '?') + '</small></td>' +
       '<td class="n">' + (x.min ? f(x.min) : '—') + (ma ? '<small> de ' + f(ma.tot) + '</small>' : '') + '</td>' +
-      '<td class="n">' + (pc == null ? '<small>falta o time</small>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td>' +
-      (() => { const g = ga(T[i] || x.t); if (!g) return '<td class="n">—</td><td class="n">—</td>'; temGA = true; sg += g.g || 0; sa += g.a || 0; return '<td class="n"><b>' + (g.g || 0) + '</b></td><td class="n"><b>' + (g.a || 0) + '</b></td>'; })() + '</tr>' +
+      /* time com menos de 8 jogos no Wyscout no ano (cobertura curta, ex.: Coreia B 2024 com 1 jogo): o % sai cinza e avisado */
+      '<td class="n">' + (pc == null ? '<small>falta o time</small>' : (x.tj && x.tj < 8 && x.fonte !== 'ogol') ? '<b class="mp mp-curto" title="só ' + x.tj + ' jogo(s) do time no Wyscout neste ano — amostra curta, o % não diz muito">' + pc + '%*</b>' : '<b class="mp mp-' + c + '">' + pc + '%</b>') + '</td>' +
+      /* 23/10 (Juninho Rocha sem gols e assistências): o registro de bola parada do Wyscout (_bpwy) só existe para parte dos
+         jogadores — sem ele, os gols e as assistências vêm do próprio histórico (match_stats do Wyscout, mesmo ano) */
+      (() => { const g = ga(T[i] || x.t) || (x.g != null || x.a != null ? { g: x.g || 0, a: x.a || 0 } : null); if (!g) return '<td class="n">—</td><td class="n">—</td>'; temGA = true; sg += g.g || 0; sa += g.a || 0; return '<td class="n"><b>' + (g.g || 0) + '</b></td><td class="n"><b>' + (g.a || 0) + '</b></td>'; })() + '</tr>' +
       (x.pass ? x.pass.map(q => '<tr class="pass"><td></td><td>↳ ' + esc(q.tm) + (q.de || q.ate ? '<small> ' + esc(q.de || '') + (q.ate ? ' a ' + esc(q.ate) : ' em diante') + '</small>' : '') + '</td>' +
         '<td class="n">' + f(q.j) + '<small> de ' + f(q.tj) + '</small></td><td class="n">' + f(q.min) + (q.tj ? '<small> de ' + f(q.tmin || q.tj * 90) + '</small>' : '') + '</td>' +
         '<td class="n"><small>' + (q.min != null && q.tj ? Math.round(q.min / (q.tmin || q.tj * 90) * 100) + '%' : '') + '</small></td><td></td><td></td></tr>').join('') : '');

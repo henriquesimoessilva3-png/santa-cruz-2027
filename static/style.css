@@ -3949,3 +3949,6 @@ body.visao-nova .jpainel{flex:none}
 .jog.st-encerrada .jog-nome, .jog.st-encerrada .nome{text-decoration:line-through;text-decoration-color:#e5484d99}
 .amostra.st-encerrada{border-left-color:#e5484d}
 .jog-bts button.st.st-encerrada{color:#e5484d}
+
+/* 23/10: % de minutagem com poucos jogos do time no Wyscout */
+.mp.mp-curto{color:var(--tinta3)!important;background:transparent!important;font-weight:600}
