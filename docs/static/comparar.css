@@ -103,3 +103,10 @@
 .cmp-qs .cmp-q th{padding:0 9px 4px}
 .cmp-qs .cmp-q tr.tot td{padding-top:5px}
 #fiCorpo.cmp-on .sf-tec-linha{margin-top:4px}
+/* 23/10 (Meritão: barra vermelha com número verde): a cor do número do outro jogador vinha da linha do jogador da ficha
+   (.fi-linha.acima .val) — agora é sempre a dele contra a régua */
+#fiCorpo.cmp-on .fi-linha .val.cmp-vb.st-acima{color:var(--txt-verde,#4ade80)!important}
+#fiCorpo.cmp-on .fi-linha .val.cmp-vb.st-perto{color:#eab308!important}
+#fiCorpo.cmp-on .fi-linha .val.cmp-vb.st-abaixo{color:#f87171!important}
+#fiCorpo.cmp-on .fi-linha .val.cmp-vb.st-lider{color:#60a5fa!important}
+#fiCorpo.cmp-on .fi-linha .val.cmp-vb.st-neutro,#fiCorpo.cmp-on .fi-linha .val.cmp-vb:not([class*="st-"]){color:var(--tinta2)!important}
