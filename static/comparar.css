@@ -95,3 +95,11 @@
 .cmp-qs .cmp-q{width:auto}
 .cmp-qs .cmp-todos{align-self:flex-start}
 .cmp-q-d td{font-weight:600}
+/* 7ª versão: a faixa do meio (resumo da seta + tabelas) mais solta e separada do detalhamento, que desce */
+.cmp-res-linha{margin:0 0 22px;padding:10px 12px;border:1px solid var(--borda);border-radius:var(--r);background:var(--fundo2);gap:28px}
+.cmp-res-esq .fi-res + .fi-res{margin-top:10px}
+.cmp-qs{gap:24px}
+.cmp-qs .cmp-q td{padding:3px 9px}
+.cmp-qs .cmp-q th{padding:0 9px 4px}
+.cmp-qs .cmp-q tr.tot td{padding-top:5px}
+#fiCorpo.cmp-on .sf-tec-linha{margin-top:4px}
