@@ -3697,6 +3697,22 @@ async function montarFicha(j, modo) {
           (s.com < s.n ? ' · ' + (s.n - s.com) + ' de ' + s.n + ' sem dado' : '') + ' · régua ' + esc(s.regua) + '</small></div></div>'
         : s ? '<div class="fi-res"><span class="fi-res-l sel-' + s.c + '">' + ({ v: '▲', a: '↔', r: '▼', n: '?' })[s.c] + '</span><div><b>Subida: ' + (s.c === 'n' ? 'faltam dados' : 'atende <i>' + s.ok + '</i> de <i>' + s.com + '</i> fundamentais' + (s.com ? ' (' + Math.round(s.ok / s.com * 100) + '%)' : '')) + '</b><small>' +
           leit[s.c] + (s.c !== 'n' && s.com < s.n ? ' · ' + (s.n - s.com) + ' sem dado' : '') + ' · régua de ' + esc(s.posNome) + '</small></div></div>' : '');
+      /* 24/10 (Henrique: "deixar claro de onde vêm o físico e o técnico e qual é o período, sempre"): uma linha embaixo do
+         tipo físico e outra embaixo da seta técnica, com a fonte e o recorte */
+      const br = iso => iso ? String(iso).slice(8, 10) + '/' + String(iso).slice(5, 7) + '/' + String(iso).slice(0, 4) : '';
+      const mil = v => (Number(v) || 0).toLocaleString('pt-BR');
+      const au = (dc && dc.auto) || null;
+      let pFis = '', pTec = '';
+      if (dc && dc.fis && au && au.sc_desde) pFis = 'SkillCorner · desde ' + br(au.sc_desde) + (au.sc_jogos ? ' · ' + au.sc_jogos + ' jogos com 60+ min' : '') + ' · buscado em ' + br(au.em);
+      else if (dc && dc.fis) pFis = 'SkillCorner · colado à mão' + (dc.fis_em || dc.em ? ' em ' + br(dc.fis_em || dc.em) : '') + (dc.fis.sc_n ? ' · ' + dc.fis.sc_n + ' jogos' : '');
+      else if (j.fis_src) pFis = 'SkillCorner · ' + j.fis_src + ' (outra temporada)' + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '');
+      else if (j._estudo) pFis = 'SkillCorner · estudo Série B 2022–25 (' + j._estudo + ')';
+      else if (typeof j.psv === 'number') pFis = 'SkillCorner · base do ranking (recorte de jun/26)' + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + (j.sc_min ? ' · ' + mil(j.sc_min) + ' min por jogo' : '');
+      if (dc && dc.tec_raw && au && au.wy_periodo) pTec = 'Wyscout · ' + au.wy_periodo + (au.wy_jogos ? ' · ' + au.wy_jogos + ' jogos' : '') + (au.wy_min ? ' · ' + mil(au.wy_min) + ' min' : '') + ' · buscado em ' + br(au.em);
+      else if (dc && dc.tec_raw) pTec = 'Wyscout · export colado à mão' + (dc.tec_em || dc.em ? ' em ' + br(dc.tec_em || dc.em) : '') + (dc.tec && dc.tec.min ? ' · ' + mil(dc.tec.min) + ' min' : '');
+      else if (dados && dados.ok) pTec = 'Wyscout · base do ranking ' + esc(String(dados.periodo || '').replace(/^([a-z]{3})(\d{2})$/, '$1/$2')) + ' (temporada atual da liga)' + (j.min ? ' · ' + mil(j.min) + ' min' : '');
+      const comPer = (h, t) => !h || !t ? h : h.replace(/<\/div><\/div>$/, '<small class="fi-per" title="de onde vem e qual é o recorte">' + esc(t) + '</small></div></div>');
+      resFis = comPer(resFis, pFis); resTec = comPer(resTec, pTec);
       resumoF = '<div class="fi-resumo">' + resFis + resTec + '</div>';
     }
   } catch (e) { resumoF = ''; }

@@ -137,11 +137,26 @@
       const va0 = r.querySelector('.val'), barA = r.querySelector('.fi-barra') || r.children[2];
       const vB = document.createElement('span'), bB = document.createElement('span');
       vB.className = 'val cmp-vb'; bB.className = 'fi-barra cmp-bb';
+      /* 23/10 (Anderson Oliveira × Segovia: "número diferente da barra, tudo invertido"): a cor e a barra do outro jogador
+         vinham da ficha DELE, medidas na régua da posição dele (Segovia: cadastro LW) — ao lado da régua do jogador da
+         ficha, pareciam trocadas. Agora o outro é medido na MESMA régua da linha (SOBE do fundamental, senão a MÉDIA, e o
+         MELHOR para o tamanho da barra), com a mesma regra da ficha: no nível ou acima = verde, até 10% abaixo = amarelo,
+         abaixo = vermelho, o melhor = azul; nos "menos é melhor" (↓) a régua vale ao contrário. */
       if (rbx) {
-        const st = ST.find(c => rbx.classList.contains(c)) || '';
-        const vx = rbx.querySelector('.val'), bx = rbx.querySelector('.fi-barra');
-        vB.innerHTML = vx ? vx.innerHTML : '—'; if (bx) bB.innerHTML = bx.innerHTML;
-        if (st) { vB.classList.add('st-' + st); bB.classList.add('st-' + st); }
+        const vx = rbx.querySelector('.val'); vB.innerHTML = vx ? vx.innerHTML : '—';
+        const v = numPt(vB.textContent), sobe = numPt((r.querySelector('.sf-sobe') || {}).textContent), med = numPt((r.querySelector('.med') || {}).textContent), mx = numPt((r.querySelector('.mx') || {}).textContent);
+        const regua = sobe != null ? sobe : med;
+        const menorR = /↓/.test(rot.textContent) || (typeof menorMelhorInd === 'function' && menorMelhorInd(rot.textContent.replace(/[↓~◆●]/g, '').trim()));
+        let st = 'neutro';
+        if (v != null && regua != null) {
+          if (menorR) st = v <= regua ? 'acima' : v <= regua * 1.1 ? 'perto' : 'abaixo';
+          else { st = v >= regua ? 'acima' : v >= regua * 0.9 ? 'perto' : 'abaixo'; if (mx != null && v >= mx && mx > 0) st = 'lider'; }
+        }
+        vB.classList.add('st-' + st); bB.classList.add('st-' + st); vB.dataset.st = st;
+        if (v != null && mx) {
+          const w = Math.max(0, Math.min(100, 100 * v / mx)), m = regua != null ? Math.max(0, Math.min(100, 100 * regua / mx)) : null;
+          bB.innerHTML = '<i style="width:' + w.toFixed(1) + '%"></i>' + (m != null ? '<span class="marca sobe" style="left:' + m.toFixed(1) + '%"></span>' : '');
+        } else { const bx = rbx.querySelector('.fi-barra'); if (bx) bB.innerHTML = bx.innerHTML; }
       } else { vB.textContent = '—'; vB.classList.add('st-neutro'); }
       (barA || va0).after(vB); vB.after(bB);
       const va = numPt((va0 || {}).textContent), vb = rbx ? numPt(vB.textContent) : null;
@@ -158,6 +173,24 @@
         const ant = r.previousElementSibling;
         if (ant && ant.classList.contains('fi-linha') && ant.classList.contains('fund')) r.insertAdjacentHTML('beforebegin', '<div class="cmp-sep"><span>demais indicadores</span></div>');
         if (CMP.so) r.classList.add('cmp-oculta');
+      }
+    });
+    /* as contagens do outro jogador (grupo e subgrupo do físico, e o quadro do resumo) passam a sair das MESMAS linhas,
+       na régua da ficha — assim batem com as cores que aparecem */
+    corpo.querySelectorAll('.fi-grupo').forEach(g => {
+      const h = g.querySelector('h4.sf-gh'); let tot = 0, ok = 0, sTot = 0, sOk = 0, sub = null;
+      const fechaSub = () => { if (sub) { const b = sub.querySelector('b'); const sp = b && b.querySelectorAll('.cmp-c.b')[0]; if (sp && sp.nextSibling) sp.nextSibling.textContent = ' ' + sOk + '/' + sTot; } sTot = 0; sOk = 0; };
+      [...g.children].forEach(el => {
+        if (el.classList.contains('sf-sub')) { fechaSub(); sub = el; return; }
+        if (!el.classList.contains('fi-linha') || el.classList.contains('cab') || !el.classList.contains('fund')) return;
+        const vb = el.querySelector('.cmp-vb'); const st = vb && vb.dataset.st; tot++; sTot++;
+        if (st === 'acima' || st === 'lider') { ok++; sOk++; }
+      });
+      fechaSub();
+      if (h && tot) {
+        const cb = h.parentElement.querySelector('.cmp-cont-b') || h.querySelector('.cmp-cont-b');
+        if (cb) cb.innerHTML = '<span class="cmp-c b">' + esc(ini(B.n)) + '</span> ' + ok + '/' + tot;
+        const G = GR.find(x => x.h === h); if (G) G.b = ok + '/' + tot;
       }
     });
     /* minutagem / bola parada embaixo: a do jogador da ficha; na comparação saem (o resumo do topo traz a minutagem dos dois) */
@@ -185,7 +218,7 @@
       linhas += tec.map(G => { const x = nivel(G.a), y = nivel(G.b); if (x) { ta1 += x[0]; tn += x[1]; } if (y) tb1 += y[0]; tl += G.la; tr += G.lb;
         const ca = x && y && x[0] > y[0] ? ' class="ld"' : '', cb = x && y && y[0] > x[0] ? ' class="ld"' : '';
         return '<tr><td>' + esc(G.nome.toLowerCase()) + '</td><td' + ca + '>' + esc(G.a) + '</td><td' + cb + '>' + esc(G.b) + '</td><td class="dl">' + (G.la + G.lb ? G.la + ' × ' + G.lb : '—') + '</td></tr>'; }).join('');
-      if (tec.length) linhas += linha1('Técnico (seta)', ta1 + '/' + tn, tb1 + '/' + tn, tl, tr, 'tot');
+      if (tec.length) linhas += linha1('Técnico (total)', ta1 + '/' + tn, tb1 + '/' + tn, tl, tr, 'tot');
       /* 23/10 (Henrique: "na mesma linha do resumo, não precisa de uma faixa só para ela"): duas tabelas compactas ao lado do resumo da seta */
       const cab = '<thead><tr><th></th><th>' + tagA + '</th><th>' + tagB + '</th>';
       return '<div class="cmp-qs"><table class="cmp-q" title="x/y = fundamentais no nível de quem sobe (o mesmo número da ficha) · melhor no duelo = entre esses fundamentais, em quantos cada um tem o número melhor que o outro">' + cab +
