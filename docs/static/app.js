@@ -1101,6 +1101,7 @@ function abrirManual(j) {
   $('#mnTitulo').textContent = j ? 'Editar ' + j.nome : 'Jogador fora da base';
   $('#btManualOk').textContent = j ? 'Salvar' : 'Adicionar';
   if ($('#btManualDados')) $('#btManualDados').style.display = j ? 'none' : '';
+  if ($('#btManualBusca')) $('#btManualBusca').style.display = j ? 'none' : '';
   $('#mnNome').value = j ? j.nome : '';
   $('#mnClube').value = j ? (j.clube === 'sem clube' ? '' : j.clube) : '';
   $('#mnIdade').value = j && j.idade ? j.idade : '';
@@ -3186,6 +3187,7 @@ async function abrirFicha(ref) {
   rotuloFiDados(j);
   bt.title = 'Colar o físico (CSV do SkillCorner) e o técnico (xlsx/csv do Wyscout) deste jogador — vale no campograma e na busca (raio, letra A/B/C, ▲ △ ⚑)';
   bt.onclick = () => abrirDadosBase(j);
+  if (window.buscaAutoFicha) buscaAutoFicha(j);   /* 24/10: ↻ Wyscout + SkillCorner */
   botaoFichaComp();
   await renderFicha();
   ajustarCampo();
@@ -8443,6 +8445,7 @@ function abrirDados(cod, uid) {
   const j = alvoDados(); if (!j) return;
   mdFis = null; mdTec = null; mdTecRaw = null; mdFisRaw = null;
   const t = $('#mdTitulo'); t.textContent = 'Físico e técnico · ' + j.nome; t.dataset.nome = j.nome;
+  if (window.buscaAutoReset) buscaAutoReset(j);   /* 24/10: busca automática Wyscout + SkillCorner (static/busca_auto.js) */
   const Q = (window.CONSULTA && window.CONSULTA.q) || {};
   const ligas = Object.keys(Q).sort((a, b) => a === 'Série B' ? -1 : b === 'Série B' ? 1 : a.localeCompare(b));
   const atual = (j.dados && j.dados.liga) || j.liga || 'Série B';
@@ -8471,6 +8474,7 @@ function ligarDados() {
     if (!mdFis && !mdTec && obr == null && obrA == null) { toast('Cole o físico ou envie o técnico', 'ruim'); return; }
     const d = Object.assign({}, djMaisNovo(j.dados || null, j.pk ? djPor(j.pk) : null) || {});   /* a parte que não foi trocada fica como estava */
     d.liga = $('#mdLiga').value; d.em = new Date().toISOString().slice(0, 10);
+    if (window.MD_AUTO) d.auto = window.MD_AUTO; else delete d.auto;   /* 24/10: de onde veio (período do Wyscout, data do SkillCorner) */
     if (d.fis && !d.fis._v3) dadosCorrigir(d);   /* colado antigo: acerta antes de juntar com o novo */
     if (mdFis) d.fis = Object.assign({}, d.fis || {}, mdFis, { _v3: 1 });
     if (obr != null || obrA != null) d.fis = Object.assign({}, d.fis || {}, obr != null ? { obr } : {}, obrA != null ? { obr_area: obrA } : {});
