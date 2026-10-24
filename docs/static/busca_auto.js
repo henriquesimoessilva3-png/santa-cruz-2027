@@ -43,13 +43,14 @@
     if ($q('#baPainel')) return;
     const alvo = $q('#modalDados .filtros'); if (!alvo) return;
     const d = document.createElement('div'); d.id = 'baPainel';
-    d.style.cssText = 'border:1px solid #2f6f4f;border-radius:8px;padding:9px;background:rgba(46,160,90,.06)';
+    d.style.cssText = 'border:1px solid #2f6f4f;border-radius:8px;padding:9px;background:rgba(46,160,90,.06);box-sizing:border-box;max-width:100%;min-width:0;overflow:hidden';
     d.innerHTML = '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>🔎 Buscar no Wyscout e no SkillCorner</b>' +
-      '<input type="text" id="baNome" style="flex:1;min-width:160px" placeholder="nome do jogador">' +
+      '<input type="text" id="baNome" style="flex:1;min-width:120px;width:auto" placeholder="nome do jogador">' +
       '<button class="bt primario mini" id="baBuscar">Buscar</button></div>' +
       '<div class="fraco" style="font-size:11px;margin-top:4px">Wyscout (ALL): últimos 12 meses → época atual → época anterior. SkillCorner (Player, por 90, 60+ min por jogo): desde 01/06/2025 → desde 01/01/2025. Os números entram nos campos abaixo — confira e clique em Salvar.</div>' +
-      '<div id="baRes" style="margin-top:6px;font-size:12px;max-height:300px;overflow:auto"></div>';
+      '<div id="baRes" style="margin-top:6px;font-size:12px;max-height:340px;overflow:auto"></div>';
     alvo.insertBefore(d, alvo.firstChild);
+    const cx = $q('#modalDados .modal-cx'); if (cx) { cx.style.width = 'min(1000px, 96vw)'; cx.style.maxHeight = '94vh'; cx.style.overflowY = 'auto'; }   /* 24/10: janela larga — a lista cortava a direita */
     $q('#baBuscar').onclick = () => buscar();
     $q('#baNome').onkeydown = e => { if (e.key === 'Enter') buscar(); };
   }
@@ -79,18 +80,18 @@
     const sug = C[0].nota >= 2 && (C.length === 1 || C[1].nota < C[0].nota) ? C[0] : null;
     const linhas = C.slice(0, 15).map(c => {
       const per = TFS.filter(t => c.periodos[t]).map(t => CURTO[t] + ': <b>' + c.periodos[t].jogos + '</b> j · ' + mil(c.periodos[t].min) + ' min').join('<br>');
-      return '<tr style="' + (c === sug ? 'background:rgba(46,160,90,.2)' : '') + '">' +
-        '<td>' + (c.foto ? '<img src="' + esc(c.foto) + '" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + '</td>' +
+      return '<tr data-wy="' + esc(String(c.id)) + '" title="clique para usar este jogador" style="cursor:pointer;border-top:1px solid #2a2a2a;' + (c === sug ? 'background:rgba(46,160,90,.2)' : '') + '">' +
+        '<td style="width:74px"><button class="bt mini' + (c === sug ? ' primario' : '') + '">usar este</button></td>' +
+        '<td style="width:34px">' + (c.foto ? '<img src="' + esc(c.foto) + '" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover" referrerpolicy="no-referrer" onerror="this.remove()">' : '') + '</td>' +
         '<td><b>' + esc(c.nome) + '</b>' + (c === sug ? ' <small style="color:#7fd19b">sugerido</small>' : '') + '<br><small class="fraco">' + esc(c.completo) + '</small></td>' +
         '<td>' + esc(c.clube) + '<br><small class="fraco">' + esc(c.liga) + '</small></td>' +
         '<td>' + esc(c.pos) + '</td>' +
         '<td>' + (c.idade || '—') + ' anos<br><small class="fraco">nasc. ' + br(c.nasc) + '</small></td>' +
-        '<td style="font-size:11px">' + per + '</td>' +
-        '<td><button class="bt mini' + (c === sug ? ' primario' : '') + '" data-wy="' + esc(String(c.id)) + '">usar este</button></td></tr>';
+        '<td style="font-size:11px">' + per + '</td></tr>';
     }).join('');
     res.innerHTML = '<div style="margin-bottom:4px">' + (sug ? 'Sugestão em verde (mesmo clube do cadastro). Confira posição e nascimento antes de usar.' : 'Escolha o jogador certo — confira clube, posição e nascimento.') +
       (C.length > 15 ? ' <span class="fraco">(' + C.length + ' achados, mostrando 15 — refine o nome)</span>' : '') + '</div>' +
-      '<table style="width:100%;border-collapse:collapse;font-size:12px">' + linhas + '</table>';
+      '<table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;word-break:break-word">' + linhas + '</table>';
     res.querySelectorAll('[data-wy]').forEach(b => { b.onclick = () => escolher(CANDS.find(c => String(c.id) === b.dataset.wy)); });
   }
 
