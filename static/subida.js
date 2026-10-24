@@ -185,7 +185,7 @@ window.abrevInd = function (r) {
     try { if (typeof comFisicoDoEstudo === 'function') j = comFisicoDoEstudo(j) || j; } catch (e) {}
     let dados = null; try { if (typeof kpisDe === 'function') dados = await kpisDe(j, 'posliga'); } catch (e) {}
     const tec = {};
-    if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+    if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); aerDeriva(tec);
     let nf = 0;
     const vals = D.inds.map(i => { const v = i.cat === 'fis' ? j[FIS_ORD[nf++]] : tec[KPI[i.rot]]; return typeof v === 'number' && isFinite(v) ? v : null; });
     const nac = j.nac === 'Brazil' ? 'BR' : '';
@@ -483,7 +483,15 @@ window.abrevInd = function (r) {
     'Dribles por 90': 'Dribbles per 90', 'Dribles certos %': 'Dribles %', 'Duelos ofensivos ganhos %': 'Offensive duels won, %', 'Faltas sofridas por 90': 'Faltas sofridas /90',
     'Duelos por 90': 'Duelos /90', 'Duelos ganhos %': 'Duelos %', 'Duelos defensivos por 90': 'Defensive duels per 90', 'Duelos defensivos ganhos %': 'Duelos def. %',
     'Duelos aéreos ganhos %': 'Aéreos %', 'Ações defensivas certas por 90': 'Successful defensive actions per 90', 'Interceptações (ajustadas à posse)': 'Interceptações (PAdj)',
+    'Duelos aéreos por 90': 'Aerial duels per 90',
     'Carrinhos (ajustados à posse)': 'PAdj Sliding tackles', 'Finalizações bloqueadas por 90': 'Shots blocked per 90', 'Faltas por 90': 'Fouls per 90', 'Cartões amarelos por 90': 'Amarelos /90' };
+  /* 24/10 (Ronaldo sem "Duelos aéreos /90"): o arquivo da posição traz só "Aéreos ganhos /90" e "Aéreos %" — o volume sai da conta
+     ganhos /90 ÷ % ganhos (é o que o Wyscout faz ao contrário); no export colado vem a coluna "Aerial duels per 90" direto */
+  function aerDeriva(t) {
+    if (t['Aerial duels per 90'] != null) return;
+    const g = t['Aéreos ganhos /90'], pc = t['Aéreos %'];
+    if (typeof g === 'number' && typeof pc === 'number' && pc > 0) t['Aerial duels per 90'] = Math.round(g / pc * 10000) / 100;
+  }
   /* ============ selo de subida (▲ ↔ ▼): quanto o jogador atende dos indicadores PRINCIPAIS da posição ============
      Principais = os que mais separam quem sobe de quem cai (o mesmo perfil "Principais" da aba). Régua do selo:
      ▲ verde = atende 60% ou mais · ↔ amarelo = de 35% a 60% · ▼ vermelho = menos de 35% · ? = falta dado (menos de 60%
@@ -689,7 +697,7 @@ window.abrevInd = function (r) {
       /* técnico da ficha: o arquivo é o da posição do CADASTRO (é lá que o jogador está), mesmo medido em outra */
       const tec = {}; let comFicha = false, colS = null;
       const usaFicha = () => { if (comFicha) return; comFicha = true; const b = kpisDaPosicao(j0._posBase || j0.p), ls = b && typeof primaryKey === 'function' ? b.jogadores[primaryKey(j0)] : null;
-        if (ls) ls.forEach(l => { const nm = b.kpis[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); };
+        if (ls) ls.forEach(l => { const nm = b.kpis[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); aerDeriva(tec); };
       const fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
       const numero = v => { if (typeof v === 'string') v = parseFloat(v.replace(',', '.')); return typeof v === 'number' && isFinite(v) ? v : null; };
       let ext;
@@ -710,7 +718,7 @@ window.abrevInd = function (r) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return null;
       const tec = {};
-      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); aerDeriva(tec);
       const base = linhaSub(j), fisK = {}; let nf = 0; D.inds.forEach(i => { if (i.cat === 'fis') fisK[i.k] = FIS_ORD[nf++]; });
       const col = coladoDe(j), ext = extraDe(j);
       const o = seloVals(j.p, i => {
@@ -779,7 +787,7 @@ window.abrevInd = function (r) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';
       const P = D.posicoes[j.p], tec = {};
-      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); aerDeriva(tec);
       const base = linhaSub(j), col = coladoDe(j), RN = regraNova(j.p), fund = {}, ext = extraDe(j);
       if (RN) RN.entra.forEach(e => { fund[e.k] = e; });
       let nf = 0; const linhas = [];
@@ -842,7 +850,7 @@ window.abrevInd = function (r) {
     try {
       if (!D || !j || !D.posicoes[j.p]) return '';
       const P = D.posicoes[j.p], tec = {};
-      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; });
+      if (dados && dados.ok) dados.linhas.forEach(l => { const nm = dados.nomes[l[0]]; if (nm && typeof l[1] === 'number') tec[nm[1]] = l[1]; }); aerDeriva(tec);
       /* o que a ficha não traz para a posição (o kpis muda de posição para posição) vem da base da aba Subida */
       const base = linhaSub(j), col = coladoDe(j);
       let nf = 0;
