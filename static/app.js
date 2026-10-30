@@ -7476,18 +7476,38 @@ function djCompletar(p, o) {
 }
 function djMaisNovo(a, b) { if (!a) return b; if (!b) return a; return String(b.em || '') >= String(a.em || '') ? djCompletar(b, a) : djCompletar(a, b); }
 function djPor(pk) { return (pk && DADOSJOG[pk]) || null; }
+/* 30/10/2026 — o cadastro geral passou do limite de entradas de índice do Firestore ("too many index entries for
+   entity"): desde 27/10 a nuvem recusava a gravação e só aparecia um aviso no console. Agora vai como TEXTO (um campo
+   string não gera uma entrada de índice por campo), em pedaços de até 900 mil caracteres: cenarios/_dadosjog guarda
+   { v: 2, partes, atualizado } e cenarios/_dadosjog_1 … _n guardam { s }. A leitura ainda aceita o formato antigo ({ jog }). */
+const DJ_PEDACO = 900000;
+async function djNuvemGravar() {
+  const s = JSON.stringify(DADOSJOG), partes = Math.max(1, Math.ceil(s.length / DJ_PEDACO)), agora = new Date().toISOString();
+  for (let i = 0; i < partes; i++) await FB.db.collection(FB_COLECAO).doc(DJ_DOC + '_' + (i + 1)).set({ s: s.slice(i * DJ_PEDACO, (i + 1) * DJ_PEDACO), atualizado: agora });
+  await FB.db.collection(FB_COLECAO).doc(DJ_DOC).set({ v: 2, partes, atualizado: agora, porEmail: FB.usuario.email || '' });
+}
+async function djNuvemLer() {
+  const snap = await FB.db.collection(FB_COLECAO).doc(DJ_DOC).get(); if (!snap.exists) return null;
+  const d = snap.data() || {};
+  if (d.v === 2 && d.partes) {
+    let s = '';
+    for (let i = 0; i < d.partes; i++) { const p = await FB.db.collection(FB_COLECAO).doc(DJ_DOC + '_' + (i + 1)).get(); s += (p.exists && p.data().s) || ''; }
+    try { return JSON.parse(s); } catch (e) { console.warn('dadosjog: pedaços incompletos na nuvem', e); return null; }
+  }
+  return d.jog || null;
+}
 async function djGravar() {
   djLocalGravar(); EQUIV_CACHE.clear();
   if (typeof FB !== 'undefined' && FB.pronto && FB.usuario && !FB.erro) {
-    try { await FB.db.collection(FB_COLECAO).doc(DJ_DOC).set({ jog: JSON.parse(JSON.stringify(DADOSJOG)), atualizado: new Date().toISOString(), porEmail: FB.usuario.email || '' }); }
-    catch (e) { console.warn('dadosjog: nuvem indisponível', e); }
+    try { await djNuvemGravar(); }
+    catch (e) { console.warn('dadosjog: nuvem indisponível', e); toast('Dados colados salvos só neste navegador (a nuvem recusou): ' + ((e && e.message) || e), 'ruim'); }
   }
 }
 function djGuardar(pk, d) { if (!pk) return; if (d) DADOSJOG[pk] = d; else delete DADOSJOG[pk]; djGravar(); try { coladosNaConsulta(); } catch (e) {} }
 async function djCarregar(grupos) {
   let o = djLocalLer();
   if (typeof FB !== 'undefined' && FB.pronto && FB.usuario) {
-    try { const snap = await FB.db.collection(FB_COLECAO).doc(DJ_DOC).get(); if (snap.exists && snap.data().jog) { const n = snap.data().jog; Object.keys(n).forEach(k => { o[k] = djMaisNovo(o[k], n[k]); }); } }
+    try { const n = await djNuvemLer(); if (n) Object.keys(n).forEach(k => { o[k] = djMaisNovo(o[k], n[k]); }); }
     catch (e) { console.warn('dadosjog: nuvem indisponível', e); }
   }
   DADOSJOG = o;
