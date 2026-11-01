@@ -180,12 +180,29 @@ def chaves_extra(j, ids, df):
     for _, r in df.iterrows():
         if r.pid not in j.index: continue
         times[r.pid] |= tok(r.tn); nomes[_norm(r.nm)].add(r.pid); nomes[_norm(r.pn)].add(r.pid)
+    # times do jogador no app: o atual + os de 2025/2026 do histórico (quem trocou de clube casa pelo time antigo)
+    hist = json.load(open(os.path.join(APP, "dados", "historico.json")))["jogadores"]
+    # por time do SkillCorner: jogadores e as palavras do nome completo (para "Paulo Baya" achar "Paulo ... Baya")
+    porTime = defaultdict(set)
+    for p_, ts in times.items():
+        for t_ in ts: porTime[t_].add(p_)
+    palavras = {}
+    for _, r in df.iterrows():
+        if r.pid in j.index: palavras.setdefault(r.pid, set()).update(w for w in (_norm(r.nm).split() + _norm(r.pn).split()) if len(w) >= 3)
     extra = {}
     for b in base:
         k = f"{b['n']} - {b['t']} - {b['l']}"
         if k in ids or b.get("p") == "GOL": continue
+        tt = tok(b.get("t"))
+        for h in (hist.get(k) or []):
+            if isinstance(h, dict) and str(h.get("t")) in ("2025", "2026"): tt |= tok(h.get("tm"))
         c = nomes.get(_norm(b.get("nc")), set()) | nomes.get(_norm(b.get("n")), set())
-        c = {p for p in c if tok(b.get("t")) & times[p]}
+        c = {p for p in c if tt & times[p]}
+        if not c:
+            # 2ª tentativa: no mesmo time, alguém cujo nome contém TODAS as palavras do nome do app (3+ letras)
+            ws = {w for w in _norm(b.get("nc") or b.get("n")).split() if len(w) >= 3} or {w for w in _norm(b.get("n")).split() if len(w) >= 3}
+            cand = set().union(*[porTime[t_] for t_ in tt]) if tt else set()
+            c = {p for p in cand if ws and ws <= palavras.get(p, set())}
         if len(c) == 1:
             extra[k] = int(next(iter(c)))
     return extra
