@@ -3096,7 +3096,8 @@ function fisicoSerieBHtml(j) {
   if (!corpo) return '';
   return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (totL ? ' <b class="sf-cont" title="os indicadores da letra (◆) no nível de quem sobe (média dos titulares dos times que subiram) ou acima">' + okL + '/' + totL + (nL < totL ? ' <small>· ' + (totL - nL) + ' sem dado</small>' : '') + '</b>' : '') + '</h4>' +
     (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
-    '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
+    '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>' +
+    (typeof window.segTempoHtml === 'function' ? window.segTempoHtml(j) : '');   /* 30/10: 2º tempo, logo abaixo do físico */
 }
 
 function primaryKey(j) { return j.n + ' - ' + j.t + ' - ' + j.l; }
@@ -3708,6 +3709,8 @@ async function montarFicha(j, modo) {
       else if (j.fis_src) pFis = 'SkillCorner · ' + j.fis_src + ' (outra temporada)' + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '');
       else if (j._estudo) pFis = 'SkillCorner · estudo Série B 2022–25 (' + j._estudo + ')';
       else if (typeof j.psv === 'number') pFis = 'SkillCorner · base do ranking (recorte de jun/26)' + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + (j.sc_min ? ' · ' + mil(j.sc_min) + ' min por jogo' : '');
+      if (pFis && j.obr_gi && j.obr_gi.ed) pFis += ' · corridas sem bola: ' + j.obr_gi.ed + (j.obr_gi.j ? ' (' + j.obr_gi.j + ' jogos)' : '');  /* 24/10: static/obr_sc.js */
+      else if (pFis && dc && au && au.obr_ed) pFis += ' · corridas sem bola: ' + au.obr_ed + (au.obr_jogos ? ' (' + au.obr_jogos + ' jogos)' : '');
       if (dc && dc.tec_raw && au && au.wy_periodo) pTec = 'Wyscout · ' + au.wy_periodo + (au.wy_jogos ? ' · ' + au.wy_jogos + ' jogos' : '') + (au.wy_min ? ' · ' + mil(au.wy_min) + ' min' : '') + ' · buscado em ' + br(au.em);
       else if (dc && dc.tec_raw) pTec = 'Wyscout · export colado à mão' + (dc.tec_em || dc.em ? ' em ' + br(dc.tec_em || dc.em) : '') + (dc.tec && dc.tec.min ? ' · ' + mil(dc.tec.min) + ' min' : '');
       else if (dados && dados.ok) pTec = 'Wyscout · base do ranking ' + esc(String(dados.periodo || '').replace(/^([a-z]{3})(\d{2})$/, '$1/$2')) + ' (temporada atual da liga)' + (j.min ? ' · ' + mil(j.min) + ' min' : '');
@@ -7409,6 +7412,7 @@ function painelCard(j, letraHtml, seloHtml) {
     q('jq-seta', seloHtml || '<i class="jq-vaz"></i>', '') +
     q('jq-min' + (mi ? ' min-' + mi.c : ''), mi ? '<b>' + Math.round(mi.pct * 100) + '</b>' : '<i class="jq-vaz"></i>', mi ? mi.txt : 'Minutagem: sem histórico de minutos') +
     q('jq-bp' + (bp && bp.c ? ' bp-' + bp.c : ''), bp && bp.c ? '⚑' : '<i class="jq-vaz"></i>', bp ? bp.txt : 'Bola parada: sem índice de cobrador') +
+    (typeof window.segTempoQuadrado === 'function' ? window.segTempoQuadrado(j) : '') +   /* 30/10: nota do 2º tempo (static/segundo_tempo.js) */
     '</span>';
 }
 function farolHtml(c, pos, letra, selo, comNome) {

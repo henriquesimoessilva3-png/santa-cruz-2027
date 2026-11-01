@@ -3096,7 +3096,8 @@ function fisicoSerieBHtml(j) {
   if (!corpo) return '';
   return '<div class="fi-grupo"><h4 class="sf-gh g-fis">Físico' + (totL ? ' <b class="sf-cont" title="os indicadores da letra (◆) no nível de quem sobe (média dos titulares dos times que subiram) ou acima">' + okL + '/' + totL + (nL < totL ? ' <small>· ' + (totL - nL) + ' sem dado</small>' : '') + '</b>' : '') + '</h4>' +
     (j._estudo ? '<div class="fi-src">físico do estudo: ' + esc(j._estudo) + '</div>' : '') + (j.fis_src ? '<div class="fi-src">físico de ' + esc(j.fis_src) + (j.sc_n ? ' · ' + j.sc_n + ' jogos' : '') + '</div>' : '') +
-    '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>';
+    '<div class="fi-linha sf sf6 cab"><span class="rot">indicador</span><span class="val">jogador</span><span></span><span class="sf-sobe">sobe</span><span class="med">média</span><span class="mx">melhor</span></div>' + corpo + '</div>' +
+    (typeof window.segTempoHtml === 'function' ? window.segTempoHtml(j) : '');   /* 30/10: 2º tempo, logo abaixo do físico */
 }
 
 function primaryKey(j) { return j.n + ' - ' + j.t + ' - ' + j.l; }
@@ -7411,6 +7412,7 @@ function painelCard(j, letraHtml, seloHtml) {
     q('jq-seta', seloHtml || '<i class="jq-vaz"></i>', '') +
     q('jq-min' + (mi ? ' min-' + mi.c : ''), mi ? '<b>' + Math.round(mi.pct * 100) + '</b>' : '<i class="jq-vaz"></i>', mi ? mi.txt : 'Minutagem: sem histórico de minutos') +
     q('jq-bp' + (bp && bp.c ? ' bp-' + bp.c : ''), bp && bp.c ? '⚑' : '<i class="jq-vaz"></i>', bp ? bp.txt : 'Bola parada: sem índice de cobrador') +
+    (typeof window.segTempoQuadrado === 'function' ? window.segTempoQuadrado(j) : '') +   /* 30/10: nota do 2º tempo (static/segundo_tempo.js) */
     '</span>';
 }
 function farolHtml(c, pos, letra, selo, comNome) {

@@ -1,0 +1,25 @@
+/* 30/10/2026 — Estudo › 2º tempo e a nota 2T (static/segundo_tempo.js) */
+.t2-chip{display:inline-block;padding:2px 8px;border-radius:5px;font:700 11px/1.4 var(--fonte);color:#fff;white-space:nowrap}
+.t2-azul{background:#1d4ed8}.t2-verde{background:#15803d}.t2-amarelo{background:#ca8a04;color:#1a1a1a}.t2-vermelho{background:#b91c1c}
+.jpainel .jq-2t{font-size:8.5px;letter-spacing:-.3px;color:#fff;background:#64748b}
+.jpainel .jq-2t.t2-azul{background:#1d4ed8}.jpainel .jq-2t.t2-verde{background:#15803d}
+.jpainel .jq-2t.t2-amarelo{background:#eab308;color:#1a1a1a}.jpainel .jq-2t.t2-vermelho{background:#b91c1c}
+.jpainel .jq-2t .jq-vaz{width:9px;height:9px}
+.t2-ficha .t2-l{display:grid;grid-template-columns:120px 52px 1fr;align-items:center;gap:8px;padding:3px 0;font-size:12.5px}
+.t2-ficha .t2-l b{font-size:14px}
+.t2-ficha .t2-l small{color:var(--txt2,#667);font-size:11px}
+.t2-barra{position:relative;height:8px;border-radius:4px;background:#e5e7eb}
+.t2-barra i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:#1d4ed8}
+.t2-barra .t2-marca{position:absolute;top:-3px;width:2px;height:14px;background:#111}
+.t2 h3{margin:22px 0 8px;font-size:16px}
+.t2-tab{width:100%;border-collapse:collapse;font-size:12.5px;margin:4px 0 6px}
+.t2-tab th,.t2-tab td{padding:5px 8px;border-bottom:1px solid var(--borda2,#e2e8f0);text-align:left}
+.t2-tab td.n{text-align:right;white-space:nowrap}.t2-tab td.n b{font-size:14px}
+.t2-tab thead th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--txt2,#667)}
+.t2-fx,.t2-lig{max-width:720px}
+.t2-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.t2-bloco{border:1px solid var(--borda2,#e2e8f0);border-radius:8px;padding:8px 10px}
+.t2-bloco h4{margin:2px 0 6px;font-size:14px}
+.t2-bloco table{width:100%;border-collapse:collapse;font-size:12px}
+.t2-bloco td,.t2-bloco th{padding:3px 4px;border-bottom:1px solid #f1f5f9;text-align:left}
+.t2-bloco td.n{text-align:right}

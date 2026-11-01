@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/static/novorizontino.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/ameaca.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/visao_nova.css?v={{ ver }}">
+<link rel="stylesheet" href="/static/segundo_tempo.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/comparar.css?v={{ ver }}">
 <link rel="stylesheet" href="/static/busca_ind.css?v={{ ver }}">
 <link rel="icon" href="/escudo">
@@ -174,6 +175,7 @@
       <button class="aba aba-auxiliar" data-aba="novoriz" hidden title="Novorizontino 2026 (2º da Série B) como modelo: coletivo técnico e físico, cada jogador e os parecidos nos três mercados — com PDF">Modelo Novorizontino</button>
       <button class="aba" data-aba="ameaca" title="Índice de ameaça (aproximação de xT) de todos os jogadores da base, por posição e mercado — com PDF">Ameaça (xT)</button>
   <button class="aba aba-auxiliar" data-aba="vnfisico" hidden>Estudo › Físico</button>
+  <button class="aba aba-auxiliar" data-aba="vnsegundo" hidden>Estudo › 2º tempo</button>
   <span class="abas-info" id="abasInfo"></span>
 </nav>
 
@@ -593,6 +595,8 @@
     <!-- 18/10: visão nova (static/visao_nova.js) — Estudo › Físico é uma página composta: painel do estudo + tipos A, B e C + F2.
          O botão fica escondido, como os auxiliares: é dele que o irParaAba depende para apagar as outras páginas. -->
     <section class="pagina oculta esv-pagina" id="pgVnFisico"></section>
+    <!-- 30/10: Estudo › 2º tempo (static/segundo_tempo.js, dado de Santa Cruz V2/scripts/b28_segundo_tempo.py) -->
+    <section class="pagina oculta esv-pagina" id="pgVnSegundo"></section>
 
     <!-- A aba Banco Transfermarkt: static/banco_tm.js com o dado de static/banco_tm/ (gerado no
          Portal Transfermarkt do Analytics, exportar_santacruz.py) — contrato, selos e o + Mais. -->
@@ -982,6 +986,8 @@
 <script src="/static/busca_ind.js?v={{ ver }}"></script>  <!-- 23/10: busca → filtro por indicador (réguas) -->  <!-- 23/10: ficha → comparar com jogador -->
 <script src="/static/bp_wy.js?v={{ ver }}"></script>
 <script src="/static/ogol_hist.js?v={{ ver }}"></script>
+<script src="/static/segundo_tempo_dados.js?v={{ ver }}"></script>
+<script src="/static/segundo_tempo.js?v={{ ver }}"></script>  <!-- 30/10: quem mantém o físico no 2º tempo (SkillCorner 1º × 2º tempo) -->
 <script src="/static/obr_sc.js?v={{ ver }}"></script>  <!-- 24/10: corridas sem bola do SkillCorner GI onde a base veio vazia (cenarios/_obr + static/sc_ids.json) -->  <!-- 23/10: carreira do oGol onde o Wyscout não cobre (cenarios/_ogol) -->  <!-- 20/10: bola parada do card pelo Wyscout (cenarios/_bpwy) -->
 </body>
 </html>

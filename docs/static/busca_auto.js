@@ -130,6 +130,7 @@
     const f = await ext({ tipo: 'sc_fisico', id: x.id, datas: SC_DATAS });
     if (f.erro) { el.innerHTML = erro(esc(f.erro)); return fim(info); }
     info.sc_id = x.id;
+    corridas(x, info);
     if (f.vazio) {
       el.innerHTML = aviso('SkillCorner: ' + esc(x.completo || x.nome) + ' (nasc. ' + br(x.nasc) + ') não tem jogo com 60+ min desde 01/06/2025 nem desde 01/01/2025. Cole à mão abaixo — ou vemos outra forma de puxar.');
       return fim(info);
@@ -141,6 +142,20 @@
     const t = 'SkillCorner: ' + esc(x.completo || x.nome) + ' · desde <b>' + br(f.de) + '</b> · ' + f.jogos + ' jogos';
     el.innerHTML = f.de === SC_DATAS[0] ? ok(t) : aviso(t + ' — desde 01/06/2025 não havia jogo');
     fim(info);
+  }
+
+  /* 24/10: corridas sem bola /30 e para a área /30 (Game Intelligence do SkillCorner) — vão nos campos do formulário */
+  async function corridas(x, info) {
+    const res = $q('#baRes'); if (!res) return;
+    res.insertAdjacentHTML('beforeend', '<div id="baObr">⏳ corridas sem bola no SkillCorner…</div>');
+    const el = $q('#baObr');
+    const o = await ext({ tipo: 'sc_obr', id: x.id, desde: SC_DATAS[SC_DATAS.length - 1] });
+    if (!o || o.erro) { el.innerHTML = aviso('Corridas sem bola: ' + esc((o && o.erro) || 'a extensão não respondeu — recarregue a extensão (versão 1.1.0) em chrome://extensions')); return; }
+    if (o.vazio) { el.innerHTML = aviso('Corridas sem bola: o SkillCorner não tem essa métrica para ' + esc(x.completo || x.nome) + (o.eds && o.eds.length ? ' em ' + esc(o.eds.join(', ')) : '') + ' (nem toda liga tem).'); return; }
+    const a = $q('#mdObr'), b = $q('#mdObrArea');
+    if (a) a.value = String(o.obr).replace('.', ','); if (b && o.obr_area != null) b.value = String(o.obr_area).replace('.', ',');
+    Object.assign(info, { obr_ed: o.ed_nome, obr_jogos: o.jogos, obr_extra: { obr_hsr: o.obr_hsr, obr_per: o.obr_per, obr_rec: o.obr_rec, obr_rem: o.obr_rem } });
+    el.innerHTML = ok('Corridas sem bola: <b>' + o.obr + '</b> /30 · para a área <b>' + o.obr_area + '</b> /30 · ' + esc(o.ed_nome) + ' · ' + o.jogos + ' jogos');
   }
 
   function fim(info) {

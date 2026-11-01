@@ -26,6 +26,7 @@
       { id: 'campo', rot: 'Campograma', aba: 'campo' }, { id: 'indicados', rot: 'Indicados', aba: 'indicados' }, { id: 'empresarios', rot: 'Empresários', aba: 'empresarios' }] },
     { id: 'estudo', num: '2', rot: 'Estudo', dica: 'o que importa para subir', sub: [
       { id: 'fisico', rot: 'Físico', aba: 'vnfisico', dica: 'a letra A+, A, B e C de cada posição e o que o físico produz em campo' },
+      { id: 'segtempo', rot: '2º tempo', aba: 'vnsegundo', dica: 'quem mantém no 2º tempo a intensidade do 1º — a nota 2T (azul elite, verde, amarelo, vermelho)' },
       { id: 'tecnico', rot: 'Técnico', aba: 'caracteristicas', dica: 'os indicadores que separam o titular de quem sobe do de quem cai, posição a posição' },
       { id: 'bp', rot: 'Bola parada', aba: 'bpjogadores', alt: [['bpjogadores', 'Jogadores'], ['bolaparada', 'Treinadores']], dica: 'quem cobra e quem finaliza; e o que cada treinador rende de bola parada' }],
       aux: { aba: 'estudo2', rot: 'estudo completo' } },
