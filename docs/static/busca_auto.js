@@ -99,7 +99,7 @@
     if (!c) return;
     const res = $q('#baRes');
     const tf = TFS.find(t => c.periodos[t] && c.periodos[t].min > 0);
-    const info = { fonte: 'busca automática', wy_id: c.id, wy_nome: c.nome, wy_clube: c.clube, nasc: c.nasc };
+    const info = { fonte: 'busca automática', wy_id: c.id, wy_nome: c.nome, wy_clube: c.clube, nasc: c.nasc, foto: c.foto && !/not-found/.test(c.foto) ? c.foto : null };
     let html = '<div style="margin-bottom:3px"><b>' + esc(c.nome) + '</b> · ' + esc(c.clube) + ' · ' + esc(c.pos) + ' · nasc. ' + br(c.nasc) + '</div>';
     if (!tf) html += aviso('Wyscout: sem minutos nos últimos 12 meses, na época atual nem na época anterior — o técnico ficou de fora.');
     else {
@@ -110,7 +110,8 @@
       const t = 'Wyscout: <b>' + esc(P.rotulo) + '</b> · ' + P.jogos + ' jogos · ' + mil(P.min) + ' min' + (P.clube && !mesmoClube(P.clube, c.clube) ? ' (por ' + esc(P.clube) + ')' : '');
       html += tf === 'default' ? ok(t) : aviso(t + ' — sem minutos ' + (tf === 'current_season' ? 'nos últimos 12 meses' : 'nos últimos 12 meses nem na época atual'));
     }
-    res.innerHTML = html + '<div id="baSc">⏳ procurando no SkillCorner…</div>';
+    res.innerHTML = html + '<div id="baCar">⏳ minutagem e bola parada no Wyscout, jogo a jogo (leva uns 30 s)…</div><div id="baSc">⏳ procurando no SkillCorner…</div>';
+    carreira(c, info);
     const s = await ext({ tipo: 'sc_buscar', nomes: [c.completo, c.nome].filter(Boolean) });
     const el = $q('#baSc');
     if (s.erro) { el.innerHTML = erro(esc(s.erro)); return fim(info); }
@@ -144,13 +145,31 @@
     fim(info);
   }
 
+  /* 25/10: minutagem (3 anos) e bola parada pelo Wyscout jogo a jogo — os quadros de baixo da ficha (Minutagem, Cobrador,
+     Finalizador). Vão no MD_AUTO e são salvos junto com o resto (d.auto.hist e d.auto.bp). */
+  async function carreira(c, info) {
+    const el = () => $q('#baCar');
+    const o = await ext({ tipo: 'wy_carreira', id: c.id });
+    if (!el()) return;
+    if (!o || o.erro) { const velha = !o || /desconhecido|semext/.test(o.erro || ''); el().innerHTML = aviso('Minutagem e bola parada: ' + (velha ? 'recarregue a extensão BFR Busca Jogador (versão 1.3.0) em chrome://extensions e busque de novo' : esc(o.erro))); return; }
+    info.hist = o.hist || {}; info.bp = o.bp || {};
+    const anos = Object.keys(info.hist).sort();
+    if (!anos.length) { el().innerHTML = aviso('Minutagem: o Wyscout não tem jogo de liga dele em 2024–2026.'); return; }
+    const pc = x => (x.tmin ? Math.round(100 * x.min / x.tmin) + '%' : '—');
+    const cob = Object.values(info.bp).reduce((s, b) => s + (b.c || 0) + (b.fc || 0) + (b.fd || 0) + (b.pe || 0), 0);
+    const gbp = Object.values(info.bp).reduce((s, b) => s + (b.ge || 0) + (b.gf || 0) + (b.gd || 0) + (b.gl || 0), 0);
+    el().innerHTML = ok('Minutagem (Wyscout, liga): ' + anos.map(a => a + ' <b>' + pc(info.hist[a]) + '</b> (' + esc(info.hist[a].tm) + ')').join(' · ') +
+      ' — bola parada em 3 anos: <b>' + cob + '</b> cobranças, <b>' + gbp + '</b> gols');
+    if (window.MD_AUTO === info) window.MD_AUTO = info;
+  }
+
   /* 24/10: corridas sem bola /30 e para a área /30 (Game Intelligence do SkillCorner) — vão nos campos do formulário */
   async function corridas(x, info) {
     const res = $q('#baRes'); if (!res) return;
     res.insertAdjacentHTML('beforeend', '<div id="baObr">⏳ corridas sem bola no SkillCorner…</div>');
     const el = $q('#baObr');
     const o = await ext({ tipo: 'sc_obr', id: x.id, desde: SC_DATAS[SC_DATAS.length - 1] });
-    if (!o || o.erro) { el.innerHTML = aviso('Corridas sem bola: ' + esc((o && o.erro) || 'a extensão não respondeu — recarregue a extensão (versão 1.1.0) em chrome://extensions')); return; }
+    if (!o || o.erro) { el.innerHTML = aviso('Corridas sem bola: ' + (!o || /desconhecido|semext/.test(o.erro || '') ? 'recarregue a extensão BFR Busca Jogador (versão 1.3.0) em chrome://extensions' : esc(o.erro))); return; }
     if (o.vazio) { el.innerHTML = aviso('Corridas sem bola: o SkillCorner não tem essa métrica para ' + esc(x.completo || x.nome) + (o.eds && o.eds.length ? ' em ' + esc(o.eds.join(', ')) : '') + ' (nem toda liga tem).'); return; }
     const a = $q('#mdObr'), b = $q('#mdObrArea');
     if (a) a.value = String(o.obr).replace('.', ','); if (b && o.obr_area != null) b.value = String(o.obr_area).replace('.', ',');

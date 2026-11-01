@@ -1300,6 +1300,30 @@ function postoDeValor(eurTot) {
            maior: VM.por_clube[0], menor: VM.por_clube[VM.por_clube.length - 1] };
 }
 
+/* 24/10 (Ricardo Ryller: card "sem clube", ficha "Al-Zulfi SFC"): o card guarda o clube de quando entrou no elenco.
+   Se ali está "sem clube"/"livre" e a busca automática (Wyscout) ou o banco do Transfermarkt (o mesmo da ficha: nome + idade)
+   acham clube, o card mostra esse — a ficha e o card dizem a mesma coisa. O cadastro (e a chave do jogador) não muda. */
+let PERFIL_P = null, PERFIL_PEDIDO = false;
+const SEM_CLUBE_RE = /^(sem clube|livre|sem time|without club|free agent)$/i;
+function clubeCard(j) {
+  const t = j.clube || '';
+  if (t && !SEM_CLUBE_RE.test(t.trim())) return t;
+  try {
+    const b = j.pk && typeof fsJogadorPk === 'function' ? fsJogadorPk(j.pk) : null;
+    const au = (b && b.dados && b.dados.auto) || (j.dados && j.dados.auto);
+    if (au && au.wy_clube && !SEM_CLUBE_RE.test(au.wy_clube)) return au.wy_clube;
+    if (!PERFIL_P) {
+      if (!PERFIL_PEDIDO) { PERFIL_PEDIDO = true; perfilExtraDe({ n: '' }).then(() => PERFIL_EXTRA).then(P => { PERFIL_P = P || {}; try { if (typeof render === 'function') render(); } catch (e) {} }); }
+      return t;
+    }
+    const nk = x => String(x || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+    const c = (PERFIL_P.tm && PERFIL_P.tm[nk(j.nome || (b && (b.nc || b.n)))]) || [];
+    const id = j.idade || (b && b.id_);
+    const ok = c.filter(x => id && x[1] && Math.abs(x[1] - id) <= 1 && x[0] && !SEM_CLUBE_RE.test(x[0]) && !/retired|aposentad|unknown|desconhecid/i.test(x[0]));
+    if (ok.length === 1) return ok[0][0];
+  } catch (e) {}
+  return t;
+}
 function cardJog(cod, j) {
   const el = document.createElement('div');
   /* O NÍVEL pinta o card: verde o Main, amarelo o Squad, azul claro o Youth. Era a
@@ -1325,7 +1349,7 @@ function cardJog(cod, j) {
   const ct = (j.contrato || '').slice(0, 7);
   const meta =
     (j.idade ? '<span class="m-idade" title="idade">' + j.idade + 'a</span>' : '') +
-    (j.clube ? '<span class="m-clube">' + esc(j.clube) + '</span>' : '') +
+    (clubeCard(j) ? '<span class="m-clube">' + esc(clubeCard(j)) + '</span>' : '') +
     (ct ? '<span class="m-ct' + (ct <= FS_LIVRE_ATE ? ' livre' : '') + '" title="contrato até ' +
             esc(j.contrato) + (ct <= FS_LIVRE_ATE ? ' — vence a tempo da temporada 2027' : '') +
             '">' + esc(mesAnoCurto(j.contrato)) + '</span>'
@@ -1961,7 +1985,8 @@ function filtrar() {
       if (!j.ct || j.ct.slice(0, 7) > ctAte) return false;
     }
     if (comSinal) {
-      const jr = registroComDados(j), s = sinaisDe(jr);
+      let jr = j; try { const od = objDoRaio(primaryKey(j), null, j); jr = comPosCampo(od.obj || fsJogadorPk(od.pk) || j) || j; } catch (e) { jr = registroComDados(j); }
+      const s = sinaisDe(jr);
       if (fTipo === 'Ap') { if (!s.mais) return false; }
       else if (fTipo && s.letra !== fTipo) return false;
       if (fSelo) { const c = seloClasse(jr); if (fSelo === 'va' ? !(c === 'v' || c === 'a') : c !== fSelo) return false; }
@@ -3714,6 +3739,11 @@ async function montarFicha(j, modo) {
       if (dc && dc.tec_raw && au && au.wy_periodo) pTec = 'Wyscout · ' + au.wy_periodo + (au.wy_jogos ? ' · ' + au.wy_jogos + ' jogos' : '') + (au.wy_min ? ' · ' + mil(au.wy_min) + ' min' : '') + ' · buscado em ' + br(au.em);
       else if (dc && dc.tec_raw) pTec = 'Wyscout · export colado à mão' + (dc.tec_em || dc.em ? ' em ' + br(dc.tec_em || dc.em) : '') + (dc.tec && dc.tec.min ? ' · ' + mil(dc.tec.min) + ' min' : '');
       else if (dados && dados.ok) pTec = 'Wyscout · base do ranking ' + esc(String(dados.periodo || '').replace(/^([a-z]{3})(\d{2})$/, '$1/$2')) + ' (temporada atual da liga)' + (j.min ? ' · ' + mil(j.min) + ' min' : '');
+      if (dc && dc._de) {   /* 30/10: levantado no cadastro de outra lista (mesmo jogador) */
+        const de = ' · levantado em ' + String(dc._de).split(' - ').slice(1).join(' · ');
+        if (pFis && dc.fis && !(j.fis_src || j._estudo)) pFis += de;
+        if (pTec && dc.tec_raw) pTec += de;
+      }
       const comPer = (h, t) => !h || !t ? h : h.replace(/<\/div><\/div>$/, '<small class="fi-per" title="de onde vem e qual é o recorte">' + esc(t) + '</small></div></div>');
       resFis = comPer(resFis, pFis); resTec = comPer(resTec, pTec);
       resumoF = '<div class="fi-resumo">' + resFis + resTec + '</div>';
@@ -7360,8 +7390,14 @@ function farolDe(letra, selo, pos, minut) {
    verde ≥ 60% · amarelo 30% a 60% · vermelho < 30%. Bola parada: índice do cobrador na liga (T2) — ⚑ verde ≥ 80, amarelo 65 a 79. */
 /* histórico do jogador: pela chave do card e, para card manual, também pela chave "Nome - Clube - Manual" do levantamento (18/10) */
 function histDe(j, pk) {
-  if (typeof HIST === 'undefined' || !HIST || !HIST.jogadores || !j) return null;
-  return HIST.jogadores[pk] || HIST.jogadores[(j.n || '') + ' - ' + (j.t || '') + ' - Manual'] || (j.nc && HIST.jogadores[j.nc + ' - ' + (j.t || '') + ' - Manual']) || null;
+  if (!j) return null;
+  const temH = typeof HIST !== 'undefined' && HIST && HIST.jogadores;
+  const h0 = temH ? (HIST.jogadores[pk] || HIST.jogadores[(j.n || '') + ' - ' + (j.t || '') + ' - Manual'] || (j.nc && HIST.jogadores[j.nc + ' - ' + (j.t || '') + ' - Manual']) || null) : null;
+  /* 25/10: busca automática (Wyscout jogo a jogo) — o ano que ela trouxe vale por cima da base (é mais novo e tem o total do time) */
+  let au = null; try { const dc = (j.dados && j.dados.auto) ? j.dados : (typeof dadosColados === 'function' ? dadosColados(pk, null) : null); au = dc && dc.auto && dc.auto.hist; } catch (e) {}
+  if (!au || !Object.keys(au).length) return h0;
+  const T = (temH && HIST.temporadas) || ['2024', '2025', '2026'];
+  return T.map((t, i) => { const x = au[t]; return x ? { t, tm: x.tm, l: x.l, j: x.j, min: x.min, tj: x.tj, tmin: x.tmin, g: x.g, a: x.a, fonte: 'wyscout', src: 'Wyscout (busca automática)' } : (h0 ? h0[i] : null); });
 }
 function minutagemAno(x) {
   /* {m, tot, real} do ano, ou null quando falta o total do time */
@@ -7505,7 +7541,8 @@ async function djGravar() {
     catch (e) { console.warn('dadosjog: nuvem indisponível', e); toast('Dados colados salvos só neste navegador (a nuvem recusou): ' + ((e && e.message) || e), 'ruim'); }
   }
 }
-function djGuardar(pk, d) { if (!pk) return; if (d) DADOSJOG[pk] = d; else delete DADOSJOG[pk]; djGravar(); try { coladosNaConsulta(); } catch (e) {} }
+function djGuardar(pk, d) { if (!pk) return;
+  if (d) { const b = fsJogadorPk(pk); if (b) d._id = { n: b.n || '', nc: b.nc || '', id_: b.id_ != null ? b.id_ : null, p: b.p || '', nac: b.nac || '', t: b.t || '' }; DADOSJOG[pk] = d; } else delete DADOSJOG[pk]; djGravar(); try { coladosNaConsulta(); } catch (e) {} }
 async function djCarregar(grupos) {
   let o = djLocalLer();
   if (typeof FB !== 'undefined' && FB.pronto && FB.usuario) {
@@ -7532,7 +7569,12 @@ function coladosNaConsulta() {
   dadosMudaram();
   const D = window.CONSULTA; if (!D || !BASE.length) return;
   D.jogadores.forEach(x => { if (x._estudo) { Object.assign(x, x._estudo); delete x._estudo; } });
-  Object.keys(DADOSJOG || {}).forEach(pk => {
+  const pks = new Set(Object.keys(DADOSJOG || {}));
+  try {   /* 30/10: e todos os outros cadastros do MESMO jogador (outro clube, outra liga, manual) */
+    const I = djIndice(), ix = equivIndice();
+    I.fontes.forEach(f => f.id.ns.forEach(n => (ix.get(n.split(' ')[0]) || []).forEach(e => { const k = primaryKey(e.x); if (!pks.has(k) && djMesmo(djIdent(k, null), f.id)) pks.add(k); })));
+  } catch (e) { console.warn('mesmo jogador → consulta', e); }
+  pks.forEach(pk => {
     try {
       const d = dadosColados(pk, null); if (!d || !d.fis || typeof d.fis.psv !== 'number') return;
       const b = fsJogadorPk(pk); if (!b || b.p === 'GOL') return;
@@ -7606,7 +7648,72 @@ function dadosCorrigir(d) {
   return d;
 }
 function dadosColados(pk, card) { return dadosCorrigir(dadosColados0(pk, card)); }
+/* 30/10/2026 — físico (e técnico) achado numa lista vale para o MESMO jogador em todas as listas e na busca (Henrique: "toda
+   vez que eu achar os dados físicos de um jogador em alguma lista, ele tem que sensibilizar o material todo... quando pesquisar
+   também"). Antes o colado valia só para a mesma chave (nome - clube - liga) e, nas outras chaves, só quando o cadastro estava
+   vazio: o jogador que aparece com outro clube ou outra liga (Transfermarkt, temporada anterior, cadastro manual) ficava com o
+   número antigo. Agora vale o colado MAIS NOVO de qualquer cadastro do mesmo jogador. Mesmo jogador = nome igual, idade a ±1,
+   mesma nacionalidade e posição compatível (goleiro só com goleiro; zagueiro nunca com atacante); nome de uma palavra só
+   (Max, Robinho) ou cadastro sem idade exige também o clube parecido. */
+let DJ_ID = null;
+const DJ_GRUPO = { Zaga: 'D', Lateral: 'L', Volante: 'M', Meia: 'M', Extremo: 'A', Atacante: 'A' };
+const djNac = s => { const t = tipoNorm(s); return t === 'brasil' ? 'brazil' : t; };
+function djIdent(pk, d) {
+  const b = pk && BASE.length ? fsJogadorPk(pk) : null, i = (d && d._id) || {}, ps = String(pk || '').split(' - ');
+  const ns = [...new Set([b && b.n, b && b.nc, i.n, i.nc, b ? null : ps[0]].filter(Boolean).map(tipoNorm))].filter(Boolean);
+  return { pk, ns, id_: b && b.id_ != null ? b.id_ : (i.id_ != null ? i.id_ : null), p: (b && b.p) || i.p || '', nac: (b && b.nac) || i.nac || '', t: (b && b.t) || i.t || ps[1] || '' };
+}
+function djPosOk(a, b) {
+  if (!a || !b || a === b) return true;
+  if (a === 'GOL' || b === 'GOL') return false;
+  const ga = DJ_GRUPO[TIPO_SET[a]], gb = DJ_GRUPO[TIPO_SET[b]];
+  return !((ga === 'D' && gb === 'A') || (ga === 'A' && gb === 'D'));
+}
+function djMesmo(a, b) {
+  const comum = a.ns.filter(x => b.ns.includes(x)); if (!comum.length) return false;
+  if (!djPosOk(a.p, b.p)) return false;
+  if (a.nac && b.nac && djNac(a.nac) !== djNac(b.nac)) return false;
+  const clube = clubeParecido(a.t, b.t);
+  if (a.id_ != null && b.id_ != null) { if (Math.abs(a.id_ - b.id_) > 1) return false; }
+  else if (!clube) return false;
+  if (!clube && comum.every(x => !x.includes(' '))) return false;
+  return true;
+}
+function djIndice() {   /* refeito quando os dados colados ou a base mudam */
+  const ver = (window.DADOS_VER || 0) + '|' + BASE.length + '|' + Object.keys(DADOSJOG || {}).length;
+  if (DJ_ID && DJ_ID.ver === ver) return DJ_ID;
+  const m = new Map(), fontes = [];
+  const add = (pk, d) => {
+    if (!pk || !d || !(d.fis || d.tec || d.tec_raw)) return;
+    const id = djIdent(pk, d); if (!id.ns.length) return;
+    const f = { id, d }; fontes.push(f);
+    new Set(id.ns.map(x => x.split(' ')[0])).forEach(w => { let l = m.get(w); if (!l) m.set(w, l = []); l.push(f); });
+  };
+  Object.keys(DADOSJOG || {}).forEach(pk => add(pk, DADOSJOG[pk]));
+  (typeof MANUAIS !== 'undefined' ? MANUAIS : []).forEach(x => { if (x && x.dados) { try { add(primaryKey(manualRegistro(x)), x.dados); } catch (e) {} } });
+  DJ_ID = { ver, m, fontes, cache: new Map() };
+  return DJ_ID;
+}
+function djMesmoJogador(pk) {
+  if (!pk) return null;
+  const I = djIndice(); if (I.cache.has(pk)) return I.cache.get(pk);
+  const alvo = djIdent(pk, null), vistos = new Set(); let r = null;
+  alvo.ns.forEach(n => (I.m.get(n.split(' ')[0]) || []).forEach(f => {
+    if (vistos.has(f) || f.id.pk === pk) return; vistos.add(f);
+    if (!djMesmo(alvo, f.id)) return;
+    if (!r || String(f.d.em || '') > String(r.d.em || '')) r = f;
+  }));
+  const out = r ? Object.assign({}, r.d, { _de: r.id.pk }) : null;
+  I.cache.set(pk, out); return out;
+}
 function dadosColados0(pk, card) {
+  const r = dadosColados00(pk, card);
+  let m = null; try { m = djMesmoJogador(pk); } catch (e) { console.warn('mesmo jogador', pk, e); }
+  if (!m) return r;
+  if (!r) return m;
+  return String(m.em || '') > String(r.em || '') ? djCompletar(m, r) : djCompletar(r, m);
+}
+function dadosColados00(pk, card) {
   const r = djCompletar(djCompletar((card && card.dados) || null, (pk && estado && estado.dadosJog && estado.dadosJog[pk]) || null), djPor(pk));
   if (r) return r;
   /* colado no card do campograma: a ficha e a busca chegam aqui só com o pk — sem isto a
@@ -7711,14 +7818,22 @@ function comPosCampo(j) {
   const pc = posNoCampograma(j._eqDe || primaryKey(j), j._eqDe ? j._eqId : j.id);
   return (pc && pc !== 'GOL' && pc !== j.p) ? Object.assign({}, j, { p: pc, _posBase: j.p }) : j;
 }
-function raioIcone(pk, card, objBase, posCampo) {
-  /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
-     Quando há dados colados à mão (no card ou em estado.dadosJog[pk]), o objeto montado por dadosDoCard
-     substitui o da base no raio, na letra e nos sinais */
+/* 27/10 (Henrique: filtro "A+" trazia Léo Naldi e Robinho, que aparecem B e A): a letra da linha vinha deste objeto
+   (equivalente de outro clube, dados colados, físico do estudo e a posição do campograma) e o filtro usava só o registro
+   da base. Agora os dois usam o mesmo objeto. */
+function objDoRaio(pk, card, objBase) {
   if (!(card && card.dados) && BASE.length) { const b0 = objBase || fsJogadorPk(pk); const eq = b0 && registroEquivalente(b0); if (eq) { objBase = registroComDados(b0); pk = primaryKey(eq); } }
   const d = dadosColados(pk, card);
   let obj = d ? dadosDoCard(card || { pk, dados: d }, objBase) : (objBase || null);
   if (!d && BASE.length) { const b = obj || fsJogadorPk(pk); const e = comFisicoDoEstudo(b); if (e && e !== b) obj = e; }
+  return { obj, pk };
+}
+function raioIcone(pk, card, objBase, posCampo) {
+  /* `card` = o jogador do elenco (estado.elenco); `objBase` = o próprio registro da base (a busca passa a linha).
+     Quando há dados colados à mão (no card ou em estado.dadosJog[pk]), o objeto montado por dadosDoCard
+     substitui o da base no raio, na letra e nos sinais */
+  const od = objDoRaio(pk, card, objBase); pk = od.pk;
+  let obj = od.obj;
   /* trocou de posição no campograma: raio, letra A/B/C e selo de subida são refeitos pela régua da posição NOVA
      (o tipo físico é recalculado pelo centróide do setor novo; o selo usa os indicadores principais dela) */
   if (posCampo && posCampo !== 'GOL' && BASE.length) {

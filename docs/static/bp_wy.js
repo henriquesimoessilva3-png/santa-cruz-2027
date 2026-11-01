@@ -29,8 +29,13 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const R = v => (typeof v === 'number' ? Math.round(v).toLocaleString('pt-BR') : '—');
   function registro(j) {
-    const B = window.BP_WY && window.BP_WY.jog; if (!B || !j) return null;
+    if (!j) return null;
+    const B = window.BP_WY && window.BP_WY.jog;
     let pk = j.pk; try { pk = pk || primaryKey(j); } catch (e) {}
+    /* 25/10: a busca automática (Wyscout jogo a jogo) traz o mesmo dado, ano a ano — vale por cima do levantamento */
+    try { const dc = (j.dados && j.dados.auto) ? j.dados : (typeof dadosColados === 'function' ? dadosColados(pk, null) : null);
+      const bp = dc && dc.auto && dc.auto.bp; if (bp && Object.keys(bp).length) return { a: bp, fonte: 'busca automática' }; } catch (e) {}
+    if (!B) return null;
     return B[pk] || (j.nc && B[j.nc + ' - ' + (j.t || '') + ' - Manual']) || B[(j.n || '') + ' - ' + (j.t || '') + ' - Manual'] || null;
   }
   window.bpWyRegistro = registro;
