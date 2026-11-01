@@ -256,6 +256,8 @@
     window.botaoFichaComp = function () { const r = bf.apply(this, arguments); botao(); return r; };
     /* ficha de outro jogador: a comparação é da ficha em que foi aberta; troca de jogador volta ao normal */
     const fe = window.fecharFicha; if (typeof fe === 'function') window.fecharFicha = function () { CMP = null; return fe.apply(this, arguments); };
+    /* 27/10: "jogadores similares" (static/similares.js) abre a comparação direto com o escolhido */
+    window.compararCom = b => { if (!b || typeof fichaAtual === 'undefined' || !fichaAtual) return; CMP = { a: pkDe(fichaAtual), b, so: false }; botao(); window.renderFicha(); };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
 })();

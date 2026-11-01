@@ -2,7 +2,7 @@
 // Ponte entre o app e os dois sites JÁ LOGADOS neste Chrome: faz, dentro de uma aba de cada site,
 // as mesmas consultas que as telas fazem (busca avançada do Wyscout e Physical do SkillCorner).
 // Não guarda senha nem dado. Não baixa PDF nem Excel. Fonte: Santa Cruz/extensao_busca_jogador/.
-const VERSAO = '1.1.0';  // 24/10: corridas sem bola (Game Intelligence)
+const VERSAO = '1.3.1';  // 24/10: corridas sem bola (Game Intelligence) · 25/10: minutagem e bola parada (Wyscout jogo a jogo)
 const WY = 'https://wyscout.hudl.com/app/';
 const SC = 'https://skillcorner.com/app/physical';
 const dorme = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -101,14 +101,31 @@ async function roda(tabId, func, args = []) {
   return r ? r.result : undefined;
 }
 async function aba(padrao, abrir, pronto) {
-  let [tab] = await chrome.tabs.query({ url: padrao });
-  if (!tab) tab = await chrome.tabs.create({ url: abrir, active: false });
+  /* 26/10 (Henrique: "o Wyscout pediu login", com o Wyscout logado e duas abas abertas): pegava a 1ª aba do site, que podia
+     ser uma aba antiga com a sessão vencida. Agora tenta as abas do site da mais recente para a mais antiga e usa a primeira
+     que estiver logada; se nenhuma estiver, recarrega a mais recente (a sessão do site renova) e espera. */
+  const tabs = (await chrome.tabs.query({ url: padrao })).sort((a, b) => (b.lastAccessed || 0) - (a.lastAccessed || 0));
+  for (const t of tabs) { try { if (await roda(t.id, pronto)) return t; } catch (e) { /* carregando */ } }
+  let tab = tabs[0];
+  if (tab) { try { await chrome.tabs.reload(tab.id); } catch (e) {} await dorme(1500); }
+  else tab = await chrome.tabs.create({ url: abrir, active: false });
   const t0 = Date.now();
   while (Date.now() - t0 < 40000) {
     try { if (await roda(tab.id, pronto)) return tab; } catch (e) { /* carregando */ }
     await dorme(1000);
   }
   return null;
+}
+/* a chave de acesso da página pode vencer com a aba aberta (401): recarrega a aba e tenta mais uma vez */
+async function rodaWy(tab, func, args) {
+  let r = await roda(tab.id, func, args);
+  if (r && r.__erro === 'login') {
+    try { await chrome.tabs.reload(tab.id); } catch (e) {}
+    await dorme(1500);
+    const t0 = Date.now(); while (Date.now() - t0 < 40000) { try { if (await roda(tab.id, pgWyLogado)) break; } catch (e) {} await dorme(1000); }
+    r = await roda(tab.id, func, args);
+  }
+  return r;
 }
 const abaWy = () => aba('https://wyscout.hudl.com/*', WY, pgWyLogado);
 const abaSc = () => aba('https://skillcorner.com/*', SC, pgScPronto);
@@ -128,7 +145,7 @@ async function wyBuscar(nome) {
   const tab = await abaWy(); if (!tab) return { erro: 'Não consegui abrir o Wyscout logado. Entre no Wyscout neste Chrome e tente de novo.' };
   const por = {};
   for (const [tf, rot] of TFS) {
-    const r = await roda(tab.id, pgWyBusca, [nome, tf, WY_COLS]);
+    const r = await rodaWy(tab, pgWyBusca, [nome, tf, WY_COLS]);
     if (r && r.__erro) return { erro: r.__erro === 'login' ? 'O Wyscout pediu login de novo. Entre no Wyscout e tente outra vez.' : 'O Wyscout não respondeu (' + r.__erro + ').' };
     (r.players || []).forEach((p) => {
       const c = por[p.id] || (por[p.id] = { id: p.id, nome: p.name, completo: p.full_name || '', clube: p.current_team_name || '', nasc: p.birth_date || '',
@@ -193,11 +210,89 @@ async function scObr(id, desde) {
   return { ok: true, vazio: true, eds: eds.map((e) => ult[e].nome) };
 }
 
+/* 25/10 — carreira do jogador no Wyscout, jogo a jogo, ano a ano (2024–2026): a MINUTAGEM (minutos dele na liga ÷ minutos
+   do time na liga, como o resto do app) e a BOLA PARADA (cobranças, assistência e gols de bola parada, todas as competições
+   oficiais — sem amistoso, seleção e base). match_stats/players dá os jogos em que ele entrou; team_stats/teams dá os jogos do
+   time. O time dele em cada jogo = o lado que mais se repete no ano. Se trocou de clube no ano, o total do time conta só do
+   primeiro ao último jogo dele por aquele clube. */
+async function pgWyCarreira(id, anos) {
+  const tok = window.uidirectives && window.uidirectives.access_key;
+  if (!tok) return { __erro: 'login' };
+  const get = async (u) => { for (let t = 0; t < 3; t++) { try { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'access_token=' + tok); if (r.ok) return await r.json(); if (r.status === 401 || r.status === 403) return { __erro: 'login' }; } catch (e) {} await new Promise((ok) => setTimeout(ok, 800 * (t + 1))); } return { __erro: 'rede' }; };
+  const fora = (m) => /friendly|national/i.test(m.competitionFormat || '') || /\bU-?1\d\b|\bU-?2[0-3]\b|youth|junior|sub-?\d\d|reserve|amistos|friendl/i.test(m.competition || '');
+  const BP = { c: 'corner', fc: 'free_kick_cross', fd: 'direct_free_kick', ti: 'throw_in', pe: 'penalty', abp: 'assist_from_set_piece', ge: 'goal_after_corner', gf: 'goal_after_free_kick', gl: 'goal_after_throw_in', gd: 'free_kick_goal', cs: 'corner_with_shot', fs: 'free_kick_with_shot', gp: 'penalty_goal', gh: 'head_goal', sc: 'shot_after_corner', sf: 'shot_after_free_kick', st: 'shot_after_throw_in' };
+  const out = { hist: {}, bp: {} };
+  for (const ano of anos) {
+    const ms = await get('https://searchapi.wyscout.com/api/v1/match_stats/players/' + id + '?from=' + ano + '-01-01&to=' + ano + '-12-31');
+    if (ms && ms.__erro) return ms;
+    const jogos = (Array.isArray(ms) ? ms : []).filter((x) => x && x.match && !fora(x.match) && x.playerStats && x.playerStats.minutes_on_field > 0);
+    if (!jogos.length) continue;
+    const conta = {}; jogos.forEach((x) => { [x.match.teamAId, x.match.teamBId].forEach((t) => { conta[t] = (conta[t] || 0) + 1; }); });
+    const por = {};   /* time → { nome, jogos[] } */
+    jogos.forEach((x) => { const m = x.match; const meu = (conta[m.teamAId] || 0) >= (conta[m.teamBId] || 0) ? m.teamAId : m.teamBId; const nm = meu === m.teamAId ? m.teamA : m.teamB; (por[meu] || (por[meu] = { nome: nm, jogos: [] })).jogos.push(x); });
+    const bp = { j: 0 }; Object.keys(BP).forEach((k) => { bp[k] = 0; });
+    let min = 0, j = 0, g = 0, a = 0, tj = 0, tmin = 0, ligas = new Set(), times = [];
+    const varios = Object.keys(por).length > 1;
+    for (const [tid, T] of Object.entries(por)) {
+      T.jogos.forEach((x) => { bp.j++; bp.g = (bp.g || 0) + (x.playerStats.goal || 0); bp.a = (bp.a || 0) + (x.playerStats.assist || 0); Object.entries(BP).forEach(([k, n]) => { bp[k] += x.playerStats[n] || 0; }); });
+      const liga = T.jogos.filter((x) => x.match.competitionFormat === 'domestic_league');
+      if (!liga.length) continue;
+      const comps = new Set(liga.map((x) => x.match.competitionId));
+      liga.forEach((x) => { min += x.playerStats.minutes_on_field || 0; j++; g += x.playerStats.goal || 0; a += x.playerStats.assist || 0; ligas.add(x.match.competition); });
+      const ds = liga.map((x) => x.match.date).sort(); const de = varios ? ds[0] : ano + '-01-01', ate = varios ? ds[ds.length - 1] : ano + '-12-31';
+      const ts = await get('https://searchapi.wyscout.com/api/v1/team_stats/teams/' + tid + '/stats?from=' + de + '&to=' + ate + '&columns=name,team,minutesOnField');
+      const tm = ((ts && ts.matches) || []).filter((x) => x.match && comps.has(x.match.competitionId));
+      tj += tm.length; tmin += tm.reduce((s, x) => s + ((x.teamStats && x.teamStats.minutesOnField) || x.match.duration || 0), 0);
+      times.push(T.nome);
+      await new Promise((ok) => setTimeout(ok, 400));
+    }
+    out.bp[ano] = bp;
+    if (j) out.hist[ano] = { tm: times.join(' / '), l: [...ligas].join(' / '), j, min, tj, tmin, g, a };
+    await new Promise((ok) => setTimeout(ok, 400));
+  }
+  return out;
+}
+async function wyCarreira(id, anos) {
+  const tab = await abaWy(); if (!tab) return { erro: 'Não consegui abrir o Wyscout logado.' };
+  const r = await rodaWy(tab, pgWyCarreira, [id, anos && anos.length ? anos : ['2024', '2025', '2026']]);
+  if (r && r.__erro) return { erro: r.__erro === 'login' ? 'O Wyscout pediu login de novo.' : 'O Wyscout não respondeu (' + r.__erro + ').' };
+  return Object.assign({ ok: true }, r || {});
+}
+
+/* 25/10 — foto do jogador pelo Wyscout (quando o Transfermarkt não tem: 8 mil fichas do banco vêm sem foto).
+   Busca pelo nome e só aceita o mesmo nascimento; sem nascimento, só se houver um único do mesmo clube. */
+async function pgWyFoto(nome, nasc, clube, idade) {
+  const tok = window.uidirectives && window.uidirectives.access_key;
+  if (!tok) return { __erro: 'login' };
+  const p = { 'search[women_mode]': 'false', 'search[time_frame]': 'default', 'search[name]': nome, 'search[youth_stats]': 'true',
+    count: 40, page: 0, sort: 'minutes_on_field desc', language: 'pt', columns: 'name,id,image,birth_date,current_team_name,full_name', token: tok, groupId: 396, subgroupId: 1752 };
+  const qs = Object.entries(p).map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
+  try {
+    const r = await fetch('https://searchapi.wyscout.com/api/v1/search/results.json?' + qs); if (!r.ok) return { __erro: 'rede' };
+    const ps = ((await r.json()).players || []).filter((x) => x.image && !/not-found/.test(x.image));
+    const nk = (t) => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\b(fc|sc|ec|cf|cd|ac|club|clube|esporte|futebol)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+    let ok = nasc ? ps.filter((x) => x.birth_date === nasc) : [];
+    if (!ok.length && !nasc && clube) { const c = nk(clube); ok = ps.filter((x) => { const t = nk(x.current_team_name); return t && c && (t.includes(c) || c.includes(t)); });
+      /* sem nascimento: o clube sozinho erra (João Vitor do Londrina 28a × João Vitor 2004 do mesmo clube) — confere a idade */
+      ok = idade ? ok.filter((x) => x.birth_date && Math.abs((Date.now() - Date.parse(x.birth_date)) / 31557600000 - idade) <= 1.5) : []; }
+    if (ok.length !== 1) return { vazio: true, n: ok.length };
+    return { foto: ok[0].image, wy_id: ok[0].id };
+  } catch (e) { return { __erro: 'rede' }; }
+}
+async function wyFoto(m) {
+  const tab = await abaWy(); if (!tab) return { erro: 'Wyscout fora' };
+  const r = await rodaWy(tab, pgWyFoto, [String(m.nome || ''), m.nasc || '', m.clube || '', m.idade || 0]);
+  if (r && r.__erro) return { erro: r.__erro };
+  return Object.assign({ ok: true }, r || {});
+}
+
 const PEDIDOS = {
   ping: async () => ({ ok: true, versao: VERSAO }),
   wy_buscar: (m) => wyBuscar(String(m.nome || '').trim()),
   sc_buscar: (m) => scBuscar(Array.isArray(m.nomes) ? m.nomes : [m.nome]),
   sc_obr: (m) => scObr(m.id, m.desde),
+  wy_carreira: (m) => wyCarreira(m.id, m.anos),
+  wy_foto: (m) => wyFoto(m),
   sc_fisico: (m) => scFisico(m.id, Array.isArray(m.datas) && m.datas.length ? m.datas : ['2025-06-01', '2025-01-01']),
 };
 chrome.runtime.onMessageExternal.addListener((msg, _s, responde) => {

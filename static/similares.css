@@ -1,0 +1,30 @@
+/* 27/10/2026 — jogadores similares (static/similares.js) */
+#fiSimBt{border-color:#3aa0a0;color:#7fd6d6}
+.sim-painel{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.55);display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+.sim-painel.oculta{display:none}
+.sim-caixa{width:min(1180px,100%);background:var(--fundo2);border:1px solid var(--borda2);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.45);padding:14px 16px}
+.sim-topo{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:15px}
+.sim-filtros{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12px;color:var(--tinta2);margin-bottom:10px}
+.sim-filtros select,.sim-filtros input[type=number]{background:var(--input-bg);border:1px solid var(--input-borda);color:var(--tinta);border-radius:6px;padding:4px 6px;font:12px var(--fonte)}
+.sim-filtros input[type=number]{width:62px}
+.sim-alvo{font-size:12.5px;color:var(--tinta2);border:1px solid var(--borda);border-radius:8px;padding:8px 10px;margin-bottom:10px;background:var(--fundo)}
+.sim-alvo b{color:var(--tinta);font-size:14px}
+.sim-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.sim-chip{font-size:10.5px;padding:2px 6px;border-radius:10px;border:1px solid var(--borda2);color:var(--tinta)}
+.sim-chip.fis{border-color:#7c4dcc;background:rgba(124,77,204,.15)}
+.sim-chip.tec{border-color:#2f7fe0;background:rgba(47,127,224,.12)}
+.sim-mais{font-size:10.5px;color:var(--tinta3);align-self:center}
+.sim-tab{width:100%;border-collapse:collapse;font-size:12.5px}
+.sim-tab th{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--tinta3);text-align:left;padding:4px 8px;border-bottom:1px solid var(--borda2)}
+.sim-tab td{padding:5px 8px;border-bottom:1px solid var(--borda);color:var(--tinta)}
+.sim-tab .n{text-align:right;font-variant-numeric:tabular-nums}
+.sim-tab td.n b{font-size:14px}
+.sim-tab a{color:var(--tinta);text-decoration:none}
+.sim-tab a:hover{text-decoration:underline}
+.sim-liga{color:var(--tinta3);font-size:11.5px}
+.sim-pct{display:inline-block;min-width:44px;text-align:center;font-weight:800;font-size:14px;padding:1px 6px;border-radius:5px}
+.sim-pct.sim-v{background:rgba(34,197,94,.18);color:var(--txt-verde,#4ade80)}
+.sim-pct.sim-a{background:rgba(234,179,8,.16);color:#eab308}
+.sim-pct.sim-n{background:var(--fundo3);color:var(--tinta2)}
+.sim-dica,.sim-nota{font-size:12px;color:var(--tinta3);padding:8px 2px}
+.sim-vaz{color:var(--tinta3)}
