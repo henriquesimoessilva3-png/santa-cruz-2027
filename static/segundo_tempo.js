@@ -30,7 +30,7 @@
     const c = NOTAS[r[0]];
     return { c, nome: NOME[c], manut: r[1], hi: r[2], dist: r[3], n: r[4], vol: r[5], grupo: D.grupos[r[6]], h2: r[7],
       txt: '2º tempo: ' + NOME[c] + ' — mantém ' + pc(r[1]) + ' da intensidade do 1º tempo (alta intensidade ' + pc(r[2]) + ', distância ' + pc(r[3]) + ') em ' + r[4] + ' jogos completos. ' +
-        'Nota dentro de ' + D.grupos[r[6]] + ': ' + DESC[c] + '. Fonte: SkillCorner 1º × 2º tempo, desde 01/01/2025.' };
+        'Nota dentro de ' + D.grupos[r[6]] + ': ' + DESC[c] + '. Fonte: SkillCorner 1º × 2º tempo, últimos 24 meses (desde 01/11/2024).' };
   }
   window.segTempoDe = segTempoDe;
   window.segTempoQuadrado = function (j) {
@@ -69,12 +69,12 @@
       '<h2 class="vnf-tit">2º tempo — quem mantém o físico</h2>' +
       '<div class="vnf-explica"><p><b>A pergunta.</b> Na Europa trabalham com atletas de VO2 70 ou mais. O SkillCorner não mede VO2 — isso só vem da fisiologia —, mas mede o que o jogador faz em campo no <b>1º</b> e no <b>2º tempo</b>. ' +
       'Quem consegue repetir no 2º tempo a intensidade do 1º é o sinal de campo que acompanha a capacidade aeróbica alta.</p>' +
-      '<p><b>Como medimos.</b> Só entram os jogos em que o jogador fez <b>os dois tempos inteiros</b> (40 minutos ou mais em cada um) — quem entra ou sai no meio deixa a conta torta. ' +
+      '<p><b>Como medimos.</b> Só entram os jogos em que o jogador fez o <b>1º tempo inteiro</b> (40 minutos ou mais) e ficou pelo menos <b>30 minutos no 2º</b> — quem entra no meio do jogo deixa a conta torta; quem sai depois dos 75 minutos entra (decisão do clube, 01/11). ' +
       'Para cada tempo, o ritmo por minuto de <b>alta intensidade</b> (acima de 20 km/h) e de <b>distância</b>. A <b>manutenção</b> é o ritmo do 2º tempo dividido pelo do 1º (100% = manteve igual), média dos dois indicadores, somando todos os jogos completos. ' +
       'Mínimo de <b>' + D.min_jogos + '</b> jogos completos. A nota é dada dentro da posição, contra todos os jogadores da base.</p></div>' +
       '<div class="vnf-duas"><div class="vnf-regra">' + NOTAS.map(c => '<div>' + chip(c) + '<span>' + DESC[c][0].toUpperCase() + DESC[c].slice(1) + '.</span></div>').join('') +
       '<p>Dica: o jogo influencia (quem está ganhando recua e corre menos no 2º tempo); por isso a nota usa a soma de todos os jogos completos e pede o mínimo de jogos.</p></div>' +
-      '<div class="vnf-escopo"><b>De onde vem.</b> <span>SkillCorner, 1º × 2º tempo (o mesmo corte da ferramenta), <b>' + E.eds + '</b> competições liberadas no nosso acesso, jogos desde <b>01/01/2025</b>' + (E.serieb_anos ? ' (Série B também de ' + esc(E.serieb_anos) + ')' : '') + '.</span> ' +
+      '<div class="vnf-escopo"><b>De onde vem.</b> <span>SkillCorner, 1º × 2º tempo (o mesmo corte da ferramenta), <b>' + E.eds + '</b> competições liberadas no nosso acesso, <b>últimos 24 meses</b> (jogos desde <b>01/11/2024</b>)' + (E.serieb_anos ? ' (Série B também de ' + esc(E.serieb_anos) + ')' : '') + '.</span> ' +
       '<span><b>' + E.jogos.toLocaleString('pt-BR') + '</b> jogos completos (jogador × jogo) de <b>' + E.jogadores.toLocaleString('pt-BR') + '</b> jogadores com nota.</span> ' +
       '<span>A API não divide de 15 em 15 minutos — só em 1º e 2º tempo.</span> <span>Gerado em ' + esc(E.gerado) + '.</span></div></div>' +
       '<h3>Quanto cada posição cai do 1º para o 2º tempo</h3>' + tPos +

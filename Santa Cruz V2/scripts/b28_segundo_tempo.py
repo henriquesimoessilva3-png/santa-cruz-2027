@@ -4,8 +4,8 @@ Pergunta: na Europa trabalham com atletas de VO2 70+. O SkillCorner não mede VO
 faz no 1º e no 2º tempo. Quem consegue manter a intensidade do 1º tempo no 2º?
 
 Fonte: SkillCorner, /api/physical/ com period=h1 e period=h2, group_by=player,match, average_per=match,
-todas as edições liberadas para o Botafogo com jogos desde 01/01/2025 (levantamento de 30/10/2026, Chrome logado).
-Entram SÓ os jogos em que o jogador fez os dois tempos inteiros (40 min ou mais em cada um) — quem entra ou sai
+todas as edições liberadas para o Botafogo, últimos 24 meses (jogos desde 01/11/2024; a janela nov–dez/2024 vem com o id da edição em negativo) (levantamento de 30/10/2026, Chrome logado).
+Entram SÓ os jogos em que o jogador fez o 1º tempo inteiro (40+ min) e 30+ min no 2º (decisão do Henrique, 01/11/2026) — quem entra ou sai
 no meio de um tempo deixaria a conta torta. O agregado chega pronto por jogador × edição × time × posição
 (bases/skillcorner/segundo_tempo_agg.json.gz).
 
@@ -50,7 +50,8 @@ def ler():
         linhas.append(r)
     df = pd.DataFrame(linhas)
     df["grupo"] = df["pos"].map(POS)
-    df["edn"] = df["ed"].map({int(k): v for k, v in d["eds"].items()})
+    nomes = {int(k): v for k, v in d["eds"].items()}
+    df["edn"] = df["ed"].map(lambda e: nomes.get(e) if e > 0 else (nomes.get(-e, "?") + " (nov–dez/24)"))
     return df[df.grupo.notna()].copy(), d
 
 
